@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F3C48EBEF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A3448F83D
 	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780617; cv=none; b=OGgmNFfWafL3qJGZnGDnagPjM3/T2KGGd+aPX7blijKT5nDbWPZKwLyhjc7aGT9B1ICtGECmaDAEzoNZVWl5Sz+TbGraZkotYpV/EDTRX+P294o7c6/d/7Nwu+k6NbkDivn/KgKzTMN+WJAXoy0rm01ID7ac7LQkQGVOkByzKVI=
+	t=1788780619; cv=none; b=SChzjg1coqyhdhJ/FxZ5Q8Gdm7nKwxYz+W+Bb9pe+BbHgYd5kPDgzW7CcEayvju5iYgOKE6aCWil9Aj19cD+19uOBRnulmZv6oRzZSPSgz/czijDfg1ZkmHFVfUwfQ7DfWo0Rf+NoNQLNIUbBiMdGtLe88QGdeZ0Vny28icYSpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780617; c=relaxed/simple;
-	bh=/EMLS2zFevcCwFEvtoz98fSG4eeWNaJYyrF2b2A/MVQ=;
+	s=arc-20240116; t=1788780619; c=relaxed/simple;
+	bh=STH9KYCzALrzP+QUVCTYZQJLGE37MedOUdFO5hUy3Mo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sr0wJnPv5qLlok8oJVNcVWNYtncz3RQYxX+3t4sghu1+rvkacPxN4WTZZ+IFVB0Lyk98rduYJvYS80RdMNb6wTEkiRk/J4YuHkswBFhsfeDBM+MPriiqVpNa2jkHT17BTpG7wbnE/92W4oN2FcAez3BB9SSDz3JgFQWpummOEAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U+EFNyuu; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=d+pRCGH8LRZ2Qput5EJlaRn3gCSOGlnyecBauFrcasZ9B2Brl8Hd5JWyPEMOWXYRb0i8W/cnulrCT5y2mYHpvsz+5kcagDiDj079Oqb87oWxCZtH3NyUgvrX2+oUUqj1ldx+IwtdkPMlN1okmTpxWWaH+9+Me622ss5+GYawDCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nwSGTjKs; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U+EFNyuu"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nwSGTjKs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780615; x=1820316615;
+  t=1788780616; x=1820316616;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/EMLS2zFevcCwFEvtoz98fSG4eeWNaJYyrF2b2A/MVQ=;
-  b=U+EFNyuuGI43fnrEuBZGD7NLnnkfwKRBpaBLEtDAkJI7efgBDUZrYMSJ
-   7VKgO3W764axVX9Eevl87+aY3xc8E8jFVttZIiHpZK0ccTAxssV6RPDLr
-   fQerN9gkbuTCguiHXRj3F8zM5BGKV/1gc3udyJRm9KM+wilN/y/OQtIPf
-   g3+i73p70Cnwgb2AgjYnxYpFRLeUbXe83Y/zv965I2eG6gAbc3xEXmRPi
-   L9pgLU0h+BvYDpiqfLwzsKFlbXpybK1VNOJPVcXsllc8EbGxknpbcLRpv
-   mNDsZlCIvgFoXgly26zyT4oyrWoVSTnN+5GpInEorK3+Kk6ebIV78y2BE
+  bh=STH9KYCzALrzP+QUVCTYZQJLGE37MedOUdFO5hUy3Mo=;
+  b=nwSGTjKs/iZx9xU7vd2Q/N6IYm7wahmnst1ikYJhizeKnzDCIWMC1JCs
+   KnmYtXPqf5BkVKHeznQPIeuWw7J00ZJRk8bSvz2dt2w+X9NOcAafzc6v9
+   8X4aQXmQtrP0gj5oHP55lj5Nk2QADn4HtuN2MQfbKUnie3BO2e+8NRbrc
+   17ZVortecaLy9mwGXPq73trrsBmN7m4LBBVg1W5r3FObQvu86XozH9c1Q
+   P9rRhD4SyQsCk1rsQlXi5qzc0jGM5hVdkHpR0BbiI3HnsMzVbcs7wvvm5
+   KuxSo+OUFv8zu/osuzFAJQZHkSuSbEF4w6/nEh+N+b4HScjXfZA+FIUMO
    A==;
-X-CSE-ConnectionGUID: 7RrIGxlFRU6BVwH8qkwzPA==
-X-CSE-MsgGUID: MXr+CoN3RUaLRJRxeTgYZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538611"
+X-CSE-ConnectionGUID: B3LonPavTpS32uliLuwHAg==
+X-CSE-MsgGUID: goVTc1hTTaK9Gfyfp6WImw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538612"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538611"
+   d="scan'208";a="100538612"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:10 -0700
-X-CSE-ConnectionGUID: KevMFIrdSi2TR5rOWhHF5w==
-X-CSE-MsgGUID: SD5mSlF0RjKcNqo1RMjpcw==
+X-CSE-ConnectionGUID: jc/dFtlOTiitM5xBm/xOIQ==
+X-CSE-MsgGUID: GEaoln91T9CDsmaonfObGA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569162"
+   d="scan'208";a="300569166"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:08 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id ABFB2121D4D;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B965E121DF6;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARnT-0kh5;
+	id 1x3XY5-0000000ARns-11WW;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 09/45] media: ipu6: Prepare buttress for ipu7 support
-Date: Mon,  7 Sep 2026 14:29:28 +0300
-Message-ID: <20260907113004.2489993-10-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 14/45] media: ipu6: Add ipu7 mmu support
+Date: Mon,  7 Sep 2026 14:29:33 +0300
+Message-ID: <20260907113004.2489993-15-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,412 +73,878 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Introduce a struct to hold buttress registers and bitmasks that vary
-across hardware versions beyond ipu6 to simplify support for future
-hardware versions.
+The ipu7 mmu have similar page tables as ipu6, but e.g. register interface
+is different. Add own driver handling ipu7 mmu specifics.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 96 ++++++++++---------
- drivers/media/pci/intel/ipu6/ipu6-buttress.h  | 25 +++++
- .../intel/ipu6/ipu6-platform-buttress-regs.h  |  2 +-
- drivers/media/pci/intel/ipu6/ipu6.c           | 26 +++++
- 4 files changed, 101 insertions(+), 48 deletions(-)
+ drivers/media/pci/intel/ipu6/Makefile      |   1 +
+ drivers/media/pci/intel/ipu6/ipu6-mmu.c    |  14 +-
+ drivers/media/pci/intel/ipu6/ipu6-mmu.h    |   8 +-
+ drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c | 599 +++++++++++++++++++++
+ drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h | 155 ++++++
+ 5 files changed, 773 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-index cbe356589a9d..3c5f4e407b7c 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-@@ -55,11 +55,6 @@
+diff --git a/drivers/media/pci/intel/ipu6/Makefile b/drivers/media/pci/intel/ipu6/Makefile
+index 2106ab84acde..c0daf0995b22 100644
+--- a/drivers/media/pci/intel/ipu6/Makefile
++++ b/drivers/media/pci/intel/ipu6/Makefile
+@@ -5,6 +5,7 @@ intel-ipu6-y			:= ipu6.o \
+ 				ipu6-dma.o \
+ 				ipu6-mmu.o \
+ 				ipu6-mmu-hw.o \
++				ipu7-mmu-hw.o \
+ 				ipu6-buttress.o \
+ 				ipu6-cpd.o \
+ 				ipu6-fw-com.o
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
+index 98ac59d00b78..243d438786ba 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
+@@ -473,7 +473,12 @@ static struct ipu6_mmu_info *ipu6_mmu_alloc(struct ipu6_device *isp)
+ 	if (!mmu_info)
+ 		return NULL;
  
- #define BUTTRESS_MAX_CONSECUTIVE_IRQS	100
- 
--static const u32 ipu6_adev_irq_mask[2] = {
--	BUTTRESS_ISR_IS_IRQ,
--	BUTTRESS_ISR_PS_IRQ
--};
--
- int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 			    struct ipu6_buttress_ipc *ipc)
- {
-@@ -337,7 +332,8 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 	struct ipu6_device *isp = isp_ptr;
- 	struct ipu6_bus_device *adev[] = { isp->isys, isp->psys };
- 	struct ipu6_buttress *b = &isp->buttress;
--	u32 reg_irq_sts = BUTTRESS_REG_ISR_STATUS;
-+	const struct ipu6_buttress_registers *regs = b->regs;
-+	const u32 adev_irq_mask[] = { regs->irq_is, regs->irq_ps };
- 	irqreturn_t ret = IRQ_NONE;
- 	u32 disable_irqs = 0;
- 	u32 irq_status;
-@@ -348,7 +344,7 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 	if (!active)
- 		return IRQ_NONE;
- 
--	irq_status = readl(isp->base + reg_irq_sts);
-+	irq_status = readl(isp->base + regs->irq_status);
- 	if (irq_status == 0 || WARN_ON_ONCE(irq_status == 0xffffffffu)) {
- 		if (active > 0)
- 			pm_runtime_put_noidle(&isp->pdev->dev);
-@@ -356,26 +352,26 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 	}
- 
- 	do {
--		writel(irq_status, isp->base + BUTTRESS_REG_ISR_CLEAR);
-+		writel(irq_status, isp->base + regs->irq_clear);
- 
--		for (i = 0; i < ARRAY_SIZE(ipu6_adev_irq_mask); i++) {
-+		for (i = 0; i < ARRAY_SIZE(adev_irq_mask); i++) {
- 			irqreturn_t r = ipu6_buttress_call_isr(adev[i]);
- 
--			if (!(irq_status & ipu6_adev_irq_mask[i]))
-+			if (!(irq_status & adev_irq_mask[i]))
- 				continue;
- 
- 			if (r == IRQ_WAKE_THREAD) {
- 				ret = IRQ_WAKE_THREAD;
--				disable_irqs |= ipu6_adev_irq_mask[i];
-+				disable_irqs |= adev_irq_mask[i];
- 			} else if (ret == IRQ_NONE && r == IRQ_HANDLED) {
- 				ret = IRQ_HANDLED;
- 			}
- 		}
- 
--		if ((irq_status & BUTTRESS_EVENT) && ret == IRQ_NONE)
-+		if ((irq_status & regs->irq_events) && ret == IRQ_NONE)
- 			ret = IRQ_HANDLED;
- 
--		if (irq_status & BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING) {
-+		if (irq_status & regs->irq_cse_ipc) {
- 			dev_dbg(&isp->pdev->dev,
- 				"BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING\n");
- 
-@@ -383,13 +379,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 			complete(&b->ipc.recv_complete);
- 		}
- 
--		if (irq_status & BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE) {
-+		if (irq_status & regs->irq_exec_done) {
- 			dev_dbg(&isp->pdev->dev,
- 				"BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE\n");
- 			complete(&b->ipc.send_complete);
- 		}
- 
--		if (irq_status & BUTTRESS_ISR_SAI_VIOLATION &&
-+		if (irq_status & regs->irq_sai &&
- 		    ipu6_buttress_get_secure_mode(isp))
- 			dev_err(&isp->pdev->dev,
- 				"BUTTRESS_ISR_SAI_VIOLATION\n");
-@@ -408,12 +404,12 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 			break;
- 		}
- 
--		irq_status = readl(isp->base + reg_irq_sts);
-+		irq_status = readl(isp->base + regs->irq_status);
- 	} while (irq_status);
- 
- 	if (disable_irqs)
--		writel(BUTTRESS_IRQS & ~disable_irqs,
--		       isp->base + BUTTRESS_REG_ISR_ENABLE);
-+		writel(regs->irq_all & ~disable_irqs,
-+		       isp->base + regs->irq_enable);
- 
- 	if (active > 0)
- 		pm_runtime_put(&isp->pdev->dev);
-@@ -424,12 +420,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
- {
- 	struct ipu6_device *isp = isp_ptr;
-+	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
- 	struct ipu6_bus_device *adev[] = { isp->isys, isp->psys };
- 	const struct ipu6_auxdrv_data *drv_data = NULL;
- 	irqreturn_t ret = IRQ_NONE;
- 	unsigned int i;
- 
--	for (i = 0; i < ARRAY_SIZE(ipu6_adev_irq_mask) && adev[i]; i++) {
-+	for (i = 0; i < ARRAY_SIZE(adev) && adev[i]; i++) {
- 		drv_data = adev[i]->auxdrv_data;
- 		if (!drv_data)
- 			continue;
-@@ -439,7 +436,7 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
- 			ret = IRQ_HANDLED;
- 	}
- 
--	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_ENABLE);
-+	writel(regs->irq_all, isp->base + regs->irq_enable);
- 
- 	return ret;
- }
-@@ -472,7 +469,7 @@ int ipu6_buttress_power(struct device *dev,
- 
- 	writel(val, isp->base + ctrl->freq_ctl);
- 
--	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_PWR_STATE,
-+	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
- 				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
- 				 100, BUTTRESS_POWER_TIMEOUT_US);
- 	if (ret)
-@@ -488,7 +485,7 @@ bool ipu6_buttress_get_secure_mode(struct ipu6_device *isp)
- {
- 	u32 val;
- 
--	val = readl(isp->base + BUTTRESS_REG_SECURITY_CTL);
-+	val = readl(isp->base + isp->buttress.regs->security_ctl);
- 
- 	return val & BUTTRESS_SECURITY_CTL_FW_SECURE_MODE;
- }
-@@ -500,7 +497,7 @@ bool ipu6_buttress_auth_done(struct ipu6_device *isp)
- 	if (!isp->secure_mode)
- 		return true;
- 
--	val = readl(isp->base + BUTTRESS_REG_SECURITY_CTL);
-+	val = readl(isp->base + isp->buttress.regs->security_ctl);
- 	val = FIELD_GET(BUTTRESS_SECURITY_CTL_FW_SETUP_MASK, val);
- 
- 	return val == BUTTRESS_SECURITY_CTL_AUTH_DONE;
-@@ -518,10 +515,10 @@ int ipu6_buttress_reset_authentication(struct ipu6_device *isp)
- 	}
- 
- 	writel(BUTTRESS_FW_RESET_CTL_START, isp->base +
--	       BUTTRESS_REG_FW_RESET_CTL);
-+	       isp->buttress.regs->fw_reset_ctl);
- 
--	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_FW_RESET_CTL, val,
--				 val & BUTTRESS_FW_RESET_CTL_DONE, 500,
-+	ret = readl_poll_timeout(isp->base + isp->buttress.regs->fw_reset_ctl,
-+				 val, val & BUTTRESS_FW_RESET_CTL_DONE, 500,
- 				 BUTTRESS_CSE_FWRESET_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(&isp->pdev->dev,
-@@ -530,7 +527,8 @@ int ipu6_buttress_reset_authentication(struct ipu6_device *isp)
- 	}
- 
- 	dev_dbg(&isp->pdev->dev, "FW reset for authentication done\n");
--	writel(0, isp->base + BUTTRESS_REG_FW_RESET_CTL);
-+	writel(0, isp->base + isp->buttress.regs->fw_reset_ctl);
+-	mmu_info->aperture_start = 0;
++	if (IS_IPU7(isp))
++		mmu_info->aperture_start = isp->secure_mode ?
++			IPU7_FW_CODE_REGION_END : IPU7_FW_CODE_REGION_START;
++	else
++		mmu_info->aperture_start = 0;
 +
- 	/* leave some time for HW restore */
- 	usleep_range(800, 1000);
- 
-@@ -660,7 +658,7 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
- 	mask = BUTTRESS_SECURITY_CTL_FW_SETUP_MASK;
- 	done = BUTTRESS_SECURITY_CTL_FW_SETUP_DONE;
- 	fail = BUTTRESS_SECURITY_CTL_AUTH_FAILED;
--	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_SECURITY_CTL, data,
-+	ret = readl_poll_timeout(isp->base + b->regs->security_ctl, data,
- 				 ((data & mask) == done ||
- 				  (data & mask) == fail), 500,
- 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
-@@ -700,7 +698,7 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
- 	}
- 
- 	done = BUTTRESS_SECURITY_CTL_AUTH_DONE;
--	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_SECURITY_CTL, data,
-+	ret = readl_poll_timeout(isp->base + b->regs->security_ctl, data,
- 				 ((data & mask) == done ||
- 				  (data & mask) == fail), 500,
- 				 BUTTRESS_CSE_AUTHENTICATE_TIMEOUT_US);
-@@ -725,15 +723,16 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
- 
- static int ipu6_buttress_send_tsc_request(struct ipu6_device *isp)
+ 	mmu_info->aperture_end =
+ 		(dma_addr_t)DMA_BIT_MASK(isp->secure_mode ?
+ 					 IPU6_MMU_ADDR_BITS :
+@@ -532,6 +537,7 @@ EXPORT_SYMBOL_NS_GPL(ipu6_mmu_hw_cleanup, "INTEL_IPU6");
+ static struct ipu6_dma_mapping *alloc_dma_mapping(struct ipu6_device *isp)
  {
-+	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
- 	u32 val, mask, done;
- 	int ret;
+ 	struct ipu6_dma_mapping *dmap;
++	unsigned long base_pfn;
  
- 	mask = BUTTRESS_PWR_STATE_HH_STATUS_MASK;
- 
- 	writel(BUTTRESS_FABRIC_CMD_START_TSC_SYNC,
--	       isp->base + BUTTRESS_REG_FABRIC_CMD);
-+	       isp->base + regs->fabric_cmd);
- 
--	val = readl(isp->base + BUTTRESS_REG_PWR_STATE);
-+	val = readl(isp->base + regs->pwr_status);
- 	val = FIELD_GET(mask, val);
- 	if (val == BUTTRESS_PWR_STATE_HH_STATE_ERR) {
- 		dev_err(&isp->pdev->dev, "Start tsc sync failed\n");
-@@ -741,8 +740,8 @@ static int ipu6_buttress_send_tsc_request(struct ipu6_device *isp)
+ 	dmap = kzalloc_obj(*dmap);
+ 	if (!dmap)
+@@ -543,7 +549,9 @@ static struct ipu6_dma_mapping *alloc_dma_mapping(struct ipu6_device *isp)
+ 		return NULL;
  	}
  
- 	done = BUTTRESS_PWR_STATE_HH_STATE_DONE;
--	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_PWR_STATE, val,
--				 FIELD_GET(mask, val) == done, 500,
-+	ret = readl_poll_timeout(isp->base + regs->pwr_status,
-+				 val, FIELD_GET(mask, val) == done, 500,
- 				 BUTTRESS_TSC_SYNC_TIMEOUT_US);
- 	if (ret)
- 		dev_err(&isp->pdev->dev, "Start tsc sync timeout\n");
-@@ -762,11 +761,13 @@ int ipu6_buttress_start_tsc_sync(struct ipu6_device *isp)
- 		if (ret != -ETIMEDOUT)
- 			return ret;
+-	init_iova_domain(&dmap->iovad, SZ_4K, 1);
++	base_pfn = max_t(unsigned long, 1,
++			 PFN_DOWN(dmap->mmu_info->aperture_start));
++	init_iova_domain(&dmap->iovad, SZ_4K, base_pfn);
+ 	dmap->mmu_info->dmap = dmap;
  
--		val = readl(isp->base + BUTTRESS_REG_TSW_CTL);
-+		u32 tsw_ctl = isp->buttress.regs->tsw_ctl;
+ 	dev_dbg(&isp->pdev->dev, "alloc mapping\n");
+@@ -676,7 +684,7 @@ struct ipu6_mmu *ipu6_mmu_init(struct device *dev,
+ 	if (!mmu)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	mmu->ops = &ipu6_mmu_ops;
++	mmu->ops = IS_IPU7(isp) ? &ipu7_mmu_ops : &ipu6_mmu_ops;
+ 	mmu->mmid = mmid;
+ 	mmu->ready = false;
+ 	INIT_LIST_HEAD(&mmu->vma_list);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.h b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
+index a741f1c0e284..44880478d242 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-mmu.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
+@@ -8,6 +8,8 @@
+ #include <linux/spinlock_types.h>
+ #include <linux/types.h>
+ 
++#include "ipu7-mmu-hw.h"
 +
-+		val = readl(isp->base + tsw_ctl);
- 		val = val | BUTTRESS_TSW_CTL_SOFT_RESET;
--		writel(val, isp->base + BUTTRESS_REG_TSW_CTL);
-+		writel(val, isp->base + tsw_ctl);
- 		val = val & ~BUTTRESS_TSW_CTL_SOFT_RESET;
--		writel(val, isp->base + BUTTRESS_REG_TSW_CTL);
-+		writel(val, isp->base + tsw_ctl);
- 	}
+ struct device;
+ struct page;
  
- 	dev_err(&isp->pdev->dev, "TSC sync failed (timeout)\n");
-@@ -777,13 +778,14 @@ EXPORT_SYMBOL_NS_GPL(ipu6_buttress_start_tsc_sync, "INTEL_IPU6");
+@@ -171,7 +173,10 @@ struct ipu6_mmu_hw_ops {
+ struct ipu6_mmu {
+ 	struct list_head node;
  
- void ipu6_buttress_tsc_read(struct ipu6_device *isp, u64 *val)
- {
-+	void __iomem *tsc = isp->base + isp->buttress.regs->tsc_lo;
- 	u32 tsc_hi_1, tsc_hi_2, tsc_lo;
- 	unsigned long flags;
+-	struct ipu6_mmu_hw *ipu6_mmu_hw;
++	union {
++		struct ipu6_mmu_hw *ipu6_mmu_hw;
++		struct ipu7_mmu_hw *ipu7_mmu_hw;
++	};
+ 	unsigned int nr_mmus;
+ 	unsigned int mmid;
  
- 	local_irq_save(flags);
--	tsc_hi_1 = readl(isp->base + BUTTRESS_REG_TSC_HI);
--	tsc_lo = readl(isp->base + BUTTRESS_REG_TSC_LO);
--	tsc_hi_2 = readl(isp->base + BUTTRESS_REG_TSC_HI);
-+	tsc_hi_1 = readl(tsc + BUTTRESS_TSC_HI_OFFSET);
-+	tsc_lo = readl(tsc);
-+	tsc_hi_2 = readl(tsc + BUTTRESS_TSC_HI_OFFSET);
- 	if (tsc_hi_1 == tsc_hi_2) {
- 		*val = (u64)tsc_hi_1 << 32 | tsc_lo;
- 	} else {
-@@ -816,9 +818,9 @@ void ipu6_buttress_restore(struct ipu6_device *isp)
- {
- 	struct ipu6_buttress *b = &isp->buttress;
- 
--	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_CLEAR);
--	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_ENABLE);
--	writel(b->wdt_cached_value, isp->base + BUTTRESS_REG_WDT);
-+	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
-+	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
-+	writel(b->wdt_cached_value, isp->base + b->regs->wdt);
- }
- 
- int ipu6_buttress_init(struct ipu6_device *isp)
-@@ -851,12 +853,12 @@ int ipu6_buttress_init(struct ipu6_device *isp)
- 		readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
- 		readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
- 
--	b->wdt_cached_value = readl(isp->base + BUTTRESS_REG_WDT);
--	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_CLEAR);
--	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_ENABLE);
-+	b->wdt_cached_value = readl(isp->base + b->regs->wdt);
-+	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
-+	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
- 
- 	/* get ref_clk frequency by reading the indication in btrs control */
--	val = readl(isp->base + BUTTRESS_REG_BTRS_CTRL);
-+	val = readl(isp->base + b->regs->btrs_ctrl);
- 	val = FIELD_GET(BUTTRESS_REG_BTRS_CTRL_REF_CLK_IND, val);
- 
- 	switch (val) {
-@@ -902,7 +904,7 @@ void ipu6_buttress_exit(struct ipu6_device *isp)
- {
- 	struct ipu6_buttress *b = &isp->buttress;
- 
--	writel(0, isp->base + BUTTRESS_REG_ISR_ENABLE);
-+	writel(0, isp->base + b->regs->irq_enable);
- 
- 	mutex_destroy(&b->power_mutex);
- 	mutex_destroy(&b->auth_mutex);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-index b1c1a10e3e6d..68586a32fda3 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-@@ -42,9 +42,34 @@ struct ipu6_buttress_ipc {
- 	u32 data0_in;
+@@ -192,6 +197,7 @@ struct ipu6_mmu {
  };
  
-+struct ipu6_buttress_registers {
-+	/* Registers */
-+	u32 irq_status;
-+	u32 irq_clear;
-+	u32 irq_enable;
-+	u32 pwr_status;
-+	u32 security_ctl;
-+	u32 fw_reset_ctl;
-+	u32 fabric_cmd;
-+	u32 tsw_ctl;
-+	u32 tsc_lo;
-+	u32 wdt;
-+	u32 btrs_ctrl;
+ extern const struct ipu6_mmu_hw_ops ipu6_mmu_ops;
++extern const struct ipu6_mmu_hw_ops ipu7_mmu_ops;
+ 
+ struct ipu6_mmu *ipu6_mmu_init(struct device *dev,
+ 			       void __iomem *base, int mmid);
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
+new file mode 100644
+index 000000000000..3cd9a818733c
+--- /dev/null
++++ b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
+@@ -0,0 +1,599 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Intel Corporation
++ */
 +
-+	/* Bitmasks */
-+	u32 irq_is;
-+	u32 irq_ps;
-+	u32 irq_all;
-+	u32 irq_events;
-+	u32 irq_cse_ipc;
-+	u32 irq_exec_done;
-+	u32 irq_sai;
++#include <linux/types.h>
++#include <linux/iopoll.h>
++
++#include "ipu6.h"
++#include "ipu6-dma.h"
++#include "ipu6-mmu.h"
++
++static struct ipu7_mmu_hw ipu7_isys_mmu_hwdata[] = {
++	{
++		.offset = IPU7_IS_MMU_FW_RD_OFFSET,
++		.zlx_offset = IPU7_IS_ZLX_UC_RD_OFFSET,
++		.uao_offset = IPU7_IS_UAO_UC_RD_OFFSET,
++		.info_bits = 0x20006701,
++		.refill = 0x00002726,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_IS_MMU_FW_RD_L1_BLOCKNR_REG,
++		.l2_block = IPU7_IS_MMU_FW_RD_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_IS_MMU_FW_RD_STREAM_NUM,
++		.nr_l2streams = IPU7_IS_MMU_FW_RD_STREAM_NUM,
++		.l1_block_sz = { 0x0, 0x8, 0xa },
++		.l2_block_sz = { 0x0, 0x2, 0x4 },
++		.zlx_nr = IPU7_IS_ZLX_UC_RD_NUM,
++		.zlx_axi_pool = { 0x00000f30 },
++		.zlx_en = { 0, 0, 0, 0 },
++		.zlx_conf = { 0x0, 0x0, 0x0, 0x0 },
++		.uao_p_num = IPU7_IS_UAO_UC_RD_PLANENUM,
++		.uao_p2tlb = { 0x61, 0x64, 0x65 },
++	},
++	{
++		.offset = IPU7_IS_MMU_FW_WR_OFFSET,
++		.zlx_offset = IPU7_IS_ZLX_UC_WR_OFFSET,
++		.uao_offset = IPU7_IS_UAO_UC_WR_OFFSET,
++		.info_bits = 0x20006801,
++		.refill = 0x00002524,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_IS_MMU_FW_WR_L1_BLOCKNR_REG,
++		.l2_block = IPU7_IS_MMU_FW_WR_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_IS_MMU_FW_WR_STREAM_NUM,
++		.nr_l2streams = IPU7_IS_MMU_FW_WR_STREAM_NUM,
++		.l1_block_sz = { 0x0, 0x8, 0xa },
++		.l2_block_sz = { 0x0, 0x2, 0x4	},
++		.zlx_nr = IPU7_IS_ZLX_UC_WR_NUM,
++		.zlx_axi_pool = { 0x00000f20 },
++		.zlx_en = { 0, 1, 1, 0 },
++		.zlx_conf = { 0x0, 0x00010101, 0x00010101 },
++		.uao_p_num = IPU7_IS_UAO_UC_WR_PLANENUM,
++		.uao_p2tlb = { 0x61, 0x62, 0x63 },
++	},
++	{
++		.offset = IPU7_IS_MMU_M0_OFFSET,
++		.zlx_offset = IPU7_IS_ZLX_M0_OFFSET,
++		.uao_offset = IPU7_IS_UAO_M0_WR_OFFSET,
++		.info_bits = 0x20006601,
++		.refill = 0x00002120,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_IS_MMU_M0_L1_BLOCKNR_REG,
++		.l2_block = IPU7_IS_MMU_M0_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_IS_MMU_M0_STREAM_NUM,
++		.nr_l2streams = IPU7_IS_MMU_M0_STREAM_NUM,
++		.l1_block_sz = { 0x0, 0x3, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10 },
++		.l2_block_sz = { 0x0, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe },
++		.zlx_nr = IPU7_IS_ZLX_M0_NUM,
++		.zlx_axi_pool = { 0x00000f10 },
++		.zlx_en = { 1, 1, 1, 1, 1, 1, 1, 1 },
++		.zlx_conf = {
++			0x00010103,
++			0x00010103,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++		},
++		.uao_p_num = IPU7_IS_UAO_M0_WR_PLANENUM,
++		.uao_p2tlb = {
++			0x00000049,
++			0x0000004a,
++			0x0000004b,
++			0x0000004c,
++			0x0000004d,
++			0x0000004e,
++			0x0000004f,
++			0x00000050,
++		},
++	},
++	{
++		.offset = IPU7_IS_MMU_M1_OFFSET,
++		.zlx_offset = IPU7_IS_ZLX_M1_OFFSET,
++		.uao_offset = IPU7_IS_UAO_M1_WR_OFFSET,
++		.info_bits = 0x20006901,
++		.refill = 0x00002322,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_IS_MMU_M1_L1_BLOCKNR_REG,
++		.l2_block = IPU7_IS_MMU_M1_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_IS_MMU_M1_STREAM_NUM,
++		.nr_l2streams = IPU7_IS_MMU_M1_STREAM_NUM,
++		.l1_block_sz = {
++			0x0, 0x3, 0x6, 0x9, 0xc,
++			0xe, 0x10, 0x12, 0x14, 0x16,
++			0x18, 0x1a, 0x1c, 0x1e, 0x20, 0x22,
++		},
++		.l2_block_sz = {
++			0x0, 0x2, 0x4, 0x6, 0x8,
++			0xa, 0xc, 0xe, 0x10, 0x12,
++			0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e,
++		},
++		.zlx_nr = IPU7_IS_ZLX_M1_NUM,
++		.zlx_axi_pool = { 0x00000f20 },
++		.zlx_en = { 1, 1, 1, 1, 1, 1, 1, 1,
++			    1, 1, 1, 1, 1, 1, 1, 1,
++		},
++		.zlx_conf = {
++			0x00010103,
++			0x00010103,
++			0x00010103,
++			0x00010103,
++			0x00010103,
++			0x00010103,
++			0x00010103,
++			0x00010103,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++		},
++		.uao_p_num = IPU7_IS_UAO_M1_WR_PLANENUM,
++		.uao_p2tlb = {
++			0x00000051,
++			0x00000052,
++			0x00000053,
++			0x00000054,
++			0x00000055,
++			0x00000056,
++			0x00000057,
++			0x00000058,
++			0x00000059,
++			0x0000005a,
++			0x0000005b,
++			0x0000005c,
++			0x0000005d,
++			0x0000005e,
++			0x0000005f,
++			0x00000060,
++		},
++	},
 +};
 +
- struct ipu6_buttress {
- 	struct mutex power_mutex, auth_mutex, cons_mutex, ipc_mutex;
- 	struct ipu6_buttress_ipc ipc;
-+	const struct ipu6_buttress_registers *regs;
- 	struct list_head constraints;
- 	u32 wdt_cached_value;
- 	bool force_suspend;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
-index efd65e494c16..5006cce74b23 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
-@@ -212,7 +212,7 @@ enum {
- #define BUTTRESS_TSW_CTL_SOFT_RESET	BIT(8)
- 
- #define BUTTRESS_REG_TSC_LO	0x164
--#define BUTTRESS_REG_TSC_HI	0x168
-+#define BUTTRESS_TSC_HI_OFFSET	4
- 
- #define BUTTRESS_IRQS		(BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING | \
- 				 BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE |    \
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index efb58bc4d127..55e660fda421 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -228,6 +228,30 @@ static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
- 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
- };
- 
-+static const struct ipu6_buttress_registers ipu6_buttress_regs = {
-+	/* Registers */
-+	.irq_status	= BUTTRESS_REG_ISR_STATUS,
-+	.irq_clear	= BUTTRESS_REG_ISR_CLEAR,
-+	.irq_enable	= BUTTRESS_REG_ISR_ENABLE,
-+	.pwr_status	= BUTTRESS_REG_PWR_STATE,
-+	.security_ctl	= BUTTRESS_REG_SECURITY_CTL,
-+	.fw_reset_ctl	= BUTTRESS_REG_FW_RESET_CTL,
-+	.fabric_cmd	= BUTTRESS_REG_FABRIC_CMD,
-+	.tsw_ctl	= BUTTRESS_REG_TSW_CTL,
-+	.tsc_lo		= BUTTRESS_REG_TSC_LO,
-+	.wdt		= BUTTRESS_REG_WDT,
-+	.btrs_ctrl	= BUTTRESS_REG_BTRS_CTRL,
-+
-+	/* Bitmasks */
-+	.irq_is		= BUTTRESS_ISR_IS_IRQ,
-+	.irq_ps		= BUTTRESS_ISR_PS_IRQ,
-+	.irq_all	= BUTTRESS_IRQS,
-+	.irq_events	= BUTTRESS_EVENT,
-+	.irq_cse_ipc	= BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING,
-+	.irq_exec_done	= BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE,
-+	.irq_sai	= BUTTRESS_ISR_SAI_VIOLATION,
++static struct ipu7_mmu_hw ipu7_psys_mmu_hwdata[] = {
++	{
++		.name = "PS_FW_RD",
++		.offset = IPU7_PS_MMU_FW_RD_OFFSET,
++		.zlx_offset = IPU7_PS_ZLX_FW_RD_OFFSET,
++		.uao_offset = IPU7_PS_UAO_FW_RD_OFFSET,
++		.info_bits = 0x20004801,
++		.refill = 0x00002726,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_PS_MMU_FW_RD_L1_BLOCKNR_REG,
++		.l2_block = IPU7_PS_MMU_FW_RD_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_PS_MMU_FW_RD_STREAM_NUM,
++		.nr_l2streams = IPU7_PS_MMU_FW_RD_STREAM_NUM,
++		.l1_block_sz = {
++			0, 0x8, 0xa, 0xc, 0xd,
++			0xf, 0x11, 0x12, 0x13, 0x14,
++			0x16, 0x18, 0x19, 0x1a, 0x1a,
++			0x1a, 0x1a, 0x1a, 0x1a, 0x1a,
++		},
++		.l2_block_sz = {
++			0x0, 0x2, 0x4, 0x6, 0x8,
++			0xa, 0xc, 0xe, 0x10, 0x12,
++			0x14, 0x16, 0x18, 0x1a, 0x1c,
++			0x1e, 0x20, 0x22, 0x24, 0x26,
++		},
++		.zlx_nr = IPU7_PS_ZLX_FW_RD_NUM,
++		.zlx_axi_pool = { 0x00000f30 },
++		.zlx_en = {
++			0, 0, 0, 0, 0, 0, 0, 0,
++			0, 0, 0, 0, 0, 0, 0, 0,
++		},
++		.zlx_conf = { 0x0 },
++		.uao_p_num = IPU7_PS_UAO_FW_RD_PLANENUM,
++		.uao_p2tlb = {
++			0x00000036,
++			0x0000003d,
++			0x0000003e,
++			0x00000039,
++			0x0000003f,
++			0x00000040,
++			0x00000041,
++			0x0000003a,
++			0x0000003b,
++			0x00000042,
++			0x00000043,
++			0x00000044,
++			0x0000003c,
++		},
++	},
++	{
++		.offset = IPU7_PS_MMU_FW_WR_OFFSET,
++		.zlx_offset = IPU7_PS_ZLX_FW_WR_OFFSET,
++		.uao_offset = IPU7_PS_UAO_FW_WR_OFFSET,
++		.info_bits = 0x20004601,
++		.refill = 0x00002322,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_PS_MMU_FW_WR_L1_BLOCKNR_REG,
++		.l2_block = IPU7_PS_MMU_FW_WR_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_PS_MMU_FW_WR_STREAM_NUM,
++		.nr_l2streams = IPU7_PS_MMU_FW_WR_STREAM_NUM,
++		.l1_block_sz = {
++			0, 0x8, 0xa, 0xc, 0xd,
++			0xe, 0xf, 0x10, 0x10, 0x10,
++		},
++		.l2_block_sz = {
++			0x0, 0x2, 0x4, 0x6, 0x8,
++			0xa, 0xc, 0xe, 0x10, 0x12,
++		},
++		.zlx_nr = IPU7_PS_ZLX_FW_WR_NUM,
++		.zlx_axi_pool = { 0x00000f20 },
++		.zlx_en = { 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
++		.zlx_conf = { 0x0, 0x00010101, 0x00010101 },
++		.uao_p_num = IPU7_PS_UAO_FW_WR_PLANENUM,
++		.uao_p2tlb = { 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c },
++	},
++	{
++		.offset = IPU7_PS_MMU_SRT_RD_OFFSET,
++		.zlx_offset = IPU7_PS_ZLX_DATA_RD_OFFSET,
++		.uao_offset = IPU7_PS_UAO_SRT_RD_OFFSET,
++		.info_bits = 0x20004701,
++		.refill = 0x00002120,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_PS_MMU_SRT_RD_L1_BLOCKNR_REG,
++		.l2_block = IPU7_PS_MMU_SRT_RD_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_PS_MMU_SRT_RD_STREAM_NUM,
++		.nr_l2streams = IPU7_PS_MMU_SRT_RD_STREAM_NUM,
++		.l1_block_sz = {
++			0x0, 0x4, 0x6, 0x8, 0xb,
++			0xd, 0xf, 0x11, 0x13, 0x15,
++			0x17, 0x23, 0x2b, 0x37, 0x3f,
++			0x41, 0x43, 0x44, 0x45, 0x46,
++			0x47, 0x48, 0x49, 0x4a, 0x4b,
++			0x4c, 0x4d, 0x4e, 0x4f, 0x50,
++			0x51, 0x52, 0x53, 0x55, 0x57,
++			0x59, 0x5b, 0x5d, 0x5f, 0x61,
++		},
++		.l2_block_sz = {
++			0x0, 0x2, 0x4, 0x6, 0x8,
++			0xa, 0xc, 0xe, 0x10, 0x12,
++			0x14, 0x16, 0x18, 0x1a, 0x1c,
++			0x1e, 0x20, 0x22, 0x24, 0x26,
++			0x28, 0x2a, 0x2c, 0x2e, 0x30,
++			0x32, 0x34, 0x36, 0x38, 0x3a,
++			0x3c, 0x3e, 0x40, 0x42, 0x44,
++			0x46, 0x48, 0x4a, 0x4c, 0x4e,
++		},
++		.zlx_nr = IPU7_PS_ZLX_DATA_RD_NUM,
++		.zlx_axi_pool = { 0x00000f30 },
++		.zlx_en = {
++			1, 1, 1, 1, 1, 1, 1, 1,
++			1, 1, 1, 1, 1, 1, 1, 1,
++			0, 0, 0, 0, 0, 0, 0, 0,
++			0, 0, 0, 0, 0, 0, 0, 0,
++		},
++		.zlx_conf = {
++			0x00030303,
++			0x00010101,
++			0x00010101,
++			0x00030202,
++			0x00010101,
++			0x00010101,
++			0x00010101,
++			0x00030800,
++			0x00030500,
++			0x00020101,
++			0x00042000,
++			0x00031000,
++			0x00042000,
++			0x00031000,
++			0x00020400,
++			0x00010101,
++		},
++		.uao_p_num = IPU7_PS_UAO_SRT_RD_PLANENUM,
++		.uao_p2tlb = {
++			0x00000022,
++			0x00000023,
++			0x00000024,
++			0x00000025,
++			0x00000026,
++			0x00000027,
++			0x00000028,
++			0x00000029,
++			0x0000002a,
++			0x0000002b,
++			0x0000002c,
++			0x0000002d,
++			0x0000002e,
++			0x0000002f,
++			0x00000030,
++			0x00000031,
++			0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
++			0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
++			0x0000001e,
++			0x0000001f,
++			0x00000020,
++			0x00000021,
++			0x00000032,
++			0x00000033,
++			0x00000034,
++			0x00000035,
++		},
++	},
++	{
++		.offset = IPU7_PS_MMU_SRT_WR_OFFSET,
++		.zlx_offset = IPU7_PS_ZLX_DATA_WR_OFFSET,
++		.uao_offset = IPU7_PS_UAO_SRT_WR_OFFSET,
++		.info_bits = 0x20004501,
++		.refill = 0x00002120,
++		.collapse_en_bitmap = 0x0,
++		.l1_block = IPU7_PS_MMU_SRT_WR_L1_BLOCKNR_REG,
++		.l2_block = IPU7_PS_MMU_SRT_WR_L2_BLOCKNR_REG,
++		.nr_l1streams = IPU7_PS_MMU_SRT_WR_STREAM_NUM,
++		.nr_l2streams = IPU7_PS_MMU_SRT_WR_STREAM_NUM,
++		.l1_block_sz = {
++			0x0, 0x2, 0x6, 0xa, 0xc,
++			0xe, 0x10, 0x12, 0x14, 0x16,
++			0x18, 0x1a, 0x1c, 0x1e, 0x20,
++			0x22, 0x24, 0x26, 0x32, 0x3a,
++			0x3c, 0x3e, 0x4a, 0x52, 0x58,
++			0x64, 0x6c, 0x72, 0x7e, 0x86,
++			0x8c, 0x8d, 0x8e, 0x8f, 0x90,
++			0x91, 0x92, 0x94, 0x96, 0x98,
++		},
++		.l2_block_sz = {
++			0x0, 0x2, 0x4, 0x6, 0x8,
++			0xa, 0xc, 0xe, 0x10, 0x12,
++			0x14, 0x16, 0x18, 0x1a, 0x1c,
++			0x1e, 0x20, 0x22, 0x24, 0x26,
++			0x28, 0x2a, 0x2c, 0x2e, 0x30,
++			0x32, 0x34, 0x36, 0x38, 0x3a,
++			0x3c, 0x3e, 0x40, 0x42, 0x44,
++			0x46, 0x48, 0x4a, 0x4c, 0x4e,
++		},
++		.zlx_nr = IPU7_PS_ZLX_DATA_WR_NUM,
++		.zlx_axi_pool = { 0x00000f50 },
++		.zlx_en = {
++			1, 1, 1, 1, 1, 1, 1, 1,
++			0, 0, 1, 1, 1, 1, 1, 1,
++			1, 1, 1, 1, 1, 1, 1, 1,
++			1, 1, 1, 1, 1, 1, 0, 0,
++		},
++		.zlx_conf = {
++			0x00010102,
++			0x00030103,
++			0x00030103,
++			0x00010101,
++			0x00010101,
++			0x00030101,
++			0x00010101,
++			0x38010101,
++			0x0,
++			0x0,
++			0x38010101,
++			0x38010101,
++			0x38010101,
++			0x38010101,
++			0x38010101,
++			0x38010101,
++			0x00010101,
++			0x00042000,
++			0x00031000,
++			0x00010101,
++			0x00010101,
++			0x00042000,
++			0x00031000,
++			0x00031000,
++			0x00042000,
++			0x00031000,
++			0x00031000,
++			0x00042000,
++			0x00031000,
++			0x00031000,
++			0x0,
++			0x0,
++		},
++		.uao_p_num = IPU7_PS_UAO_SRT_WR_PLANENUM,
++		.uao_p2tlb = {
++			0x00000000,
++			0x00000001,
++			0x00000002,
++			0x00000003,
++			0x00000004,
++			0x00000005,
++			0x00000006,
++			0x00000007,
++			0x00000008,
++			0x00000009,
++			0x0000000a,
++			0x0000000b,
++			0x0000000c,
++			0x0000000d,
++			0x0000000e,
++			0x0000000f,
++			0x00000010,
++			0x00000011,
++			0x00000012,
++			0x00000013,
++			0x00000014,
++			0x00000015,
++			0x00000016,
++			0x00000017,
++			0x00000018,
++			0x00000019,
++			0x0000001a,
++			0x0000001b,
++			0x0000001c,
++			0x0000001d,
++			0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
++			0x0000001e,
++			0x0000001f,
++			0x00000020,
++			0x00000021,
++		},
++	},
 +};
 +
- static void
- ipu6_pkg_dir_configure_spc(struct ipu6_device *isp,
- 			   const struct ipu6_hw_variants *hw_variant,
-@@ -522,6 +546,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	pci_set_master(pdev);
- 
- 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
-+	isp->buttress.regs = &ipu6_buttress_regs;
++static const struct ipu7_mmu_hwdata ipu7_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
++	[IPU_PSYS] = {
++		.hwdata = ipu7_psys_mmu_hwdata,
++		.nr_mmus = ARRAY_SIZE(ipu7_psys_mmu_hwdata),
++	},
++	[IPU_ISYS] = {
++		.hwdata = ipu7_isys_mmu_hwdata,
++		.nr_mmus = ARRAY_SIZE(ipu7_isys_mmu_hwdata),
++	},
++};
 +
- 	switch (id->device) {
- 	case PCI_DEVICE_ID_INTEL_IPU6:
- 		isp->hw_ver = IPU_VERSION_6;
++static void __ipu7_tlb_invalidate(struct ipu6_mmu *mmu)
++{
++	struct ipu7_mmu_hw *mmu_hw = mmu->ipu7_mmu_hw;
++	unsigned long flags;
++	unsigned int i;
++	int ret;
++	u32 val;
++
++	spin_lock_irqsave(&mmu->ready_lock, flags);
++	if (!mmu->ready) {
++		spin_unlock_irqrestore(&mmu->ready_lock, flags);
++		return;
++	}
++
++	for (i = 0; i < mmu->nr_mmus; i++) {
++		writel(0xffffffffU, mmu_hw[i].base +
++		       IPU7_MMU_REG_INVALIDATE_0);
++
++		/* Need check with HW, use l1streams or l2streams */
++		if (mmu_hw[i].nr_l2streams > 32)
++			writel(0xffffffffU, mmu_hw[i].base +
++			       IPU7_MMU_REG_INVALIDATE_1);
++
++		/*
++		 * The TLB invalidation is a "single cycle" (IOMMU clock cycles)
++		 * When the actual MMIO write reaches the IPU TLB Invalidate
++		 * register, wmb() will force the TLB invalidate out if the CPU
++		 * attempts to update the IOMMU page table (or sooner).
++		 */
++		wmb();
++
++		/* wait invalidation done */
++		ret = readl_poll_timeout_atomic(mmu_hw[i].base +
++						IPU7_MMU_REG_INVALIDATION_STATUS,
++						val, !(val & 0x1U), 500,
++						IPU7_MMU_TLB_INVALIDATE_TIMEOUT);
++		if (ret)
++			dev_err(mmu->dev, "MMU[%u] TLB invalidate failed\n", i);
++	}
++
++	spin_unlock_irqrestore(&mmu->ready_lock, flags);
++}
++
++static int __ipu7_mmu_hw_init(struct ipu6_mmu *mmu)
++{
++	struct ipu6_mmu_info *mmu_info;
++	struct ipu7_mmu_hw *mmu_hw = mmu->ipu7_mmu_hw;
++	unsigned int i, j;
++
++	mmu_info = mmu->dmap->mmu_info;
++	for (i = 0; i < mmu->nr_mmus; i++) {
++		/* Write page table address per MMU */
++		writel((phys_addr_t)mmu_info->l1_pt_dma,
++		       mmu_hw[i].base + IPU7_MMU_REG_PAGE_TABLE_BASE_ADDR);
++
++		/* Set info bits and axi_refill per MMU */
++		writel(mmu_hw[i].info_bits,
++		       mmu_hw[i].base + IPU7_MMU_REG_USER_INFO_BITS);
++		writel(mmu_hw[i].refill, mmu_hw[i].base + IPU7_MMU_REG_AXI_REFILL_IF_ID);
++		writel(mmu_hw[i].collapse_en_bitmap,
++		       mmu_hw[i].base + IPU7_MMU_REG_COLLAPSE_ENABLE_BITMAP);
++
++		if (mmu_hw[i].at_sp_arb_cfg)
++			writel(mmu_hw[i].at_sp_arb_cfg,
++			       mmu_hw[i].base + IPU7_MMU_REG_AT_SP_ARB_CFG);
++
++		/* Default irq configuration */
++		writel(0x3ff, mmu_hw[i].base + IPU7_MMU_REG_IRQ_MASK);
++		writel(0x3ff, mmu_hw[i].base + IPU7_MMU_REG_IRQ_ENABLE);
++
++		/* Configure MMU TLB stream configuration for L1/L2 */
++		for (j = 0; j < mmu_hw[i].nr_l1streams; j++) {
++			writel(mmu_hw[i].l1_block_sz[j], mmu_hw[i].base +
++			       mmu_hw[i].l1_block + 4U * j);
++		}
++
++		for (j = 0; j < mmu_hw[i].nr_l2streams; j++) {
++			writel(mmu_hw[i].l2_block_sz[j], mmu_hw[i].base +
++			       mmu_hw[i].l2_block + 4U * j);
++		}
++
++		for (j = 0; j < mmu_hw[i].uao_p_num; j++) {
++			if (!mmu_hw[i].uao_p2tlb[j])
++				continue;
++			writel(mmu_hw[i].uao_p2tlb[j], mmu_hw[i].uao_base + 4U * j);
++		}
++	}
++
++	for (i = 0; i < mmu->nr_mmus; i++) {
++		for (j = 0; j < IPU7_ZLX_POOL_NUM; j++) {
++			if (!mmu_hw[i].zlx_axi_pool[j])
++				continue;
++			writel(mmu_hw[i].zlx_axi_pool[j],
++			       mmu_hw[i].zlx_base + IPU7_ZLX_REG_AXI_POOL + j * 0x4U);
++		}
++
++		for (j = 0; j < mmu_hw[i].zlx_nr; j++) {
++			if (!mmu_hw[i].zlx_conf[j])
++				continue;
++
++			writel(mmu_hw[i].zlx_conf[j],
++			       mmu_hw[i].zlx_base + IPU7_ZLX_REG_CONF + j * 0x8U);
++		}
++
++		for (j = 0; j < mmu_hw[i].zlx_nr; j++) {
++			if (!mmu_hw[i].zlx_en[j])
++				continue;
++
++			writel(mmu_hw[i].zlx_en[j],
++			       mmu_hw[i].zlx_base + IPU7_ZLX_REG_EN + j * 0x8U);
++		}
++	}
++
++	return 0;
++}
++
++static int __ipu7_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
++				   void __iomem *base)
++{
++	const struct ipu7_mmu_hwdata *lookup = ipu7_mmu_hwdata_lookup;
++	struct ipu7_mmu_hw *mmu_hw, *src;
++	unsigned int i, nr_mmus;
++
++	if (mmu->mmid >= IPU_SUBSYS_NUM)
++		return -EINVAL;
++
++	src = lookup[mmu->mmid].hwdata;
++	nr_mmus = lookup[mmu->mmid].nr_mmus;
++
++	mmu_hw = devm_kcalloc(dev, nr_mmus, sizeof(*mmu_hw), GFP_KERNEL);
++	if (!mmu_hw)
++		return -ENOMEM;
++
++	for (i = 0; i < nr_mmus; i++) {
++		if (src[i].nr_l1streams > IPU7_MMU_MAX_TLB_L1_STREAMS ||
++		    src[i].nr_l2streams > IPU7_MMU_MAX_TLB_L2_STREAMS)
++			return -EINVAL;
++
++		mmu_hw[i] = src[i];
++		mmu_hw[i].base = base + src[i].offset;
++		mmu_hw[i].zlx_base = base + src[i].zlx_offset;
++		mmu_hw[i].uao_base = base + src[i].uao_offset;
++	}
++
++	mmu->nr_mmus = nr_mmus;
++	mmu->ipu7_mmu_hw = mmu_hw;
++
++	return 0;
++}
++
++const struct ipu6_mmu_hw_ops ipu7_mmu_ops = {
++	.init_hw_data = __ipu7_mmu_init_hw_data,
++	.hw_init = __ipu7_mmu_hw_init,
++	.tlb_invalidate = __ipu7_tlb_invalidate,
++};
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
+new file mode 100644
+index 000000000000..68663057138a
+--- /dev/null
++++ b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
+@@ -0,0 +1,155 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright (C) 2026 Intel Corporation */
++
++#ifndef IPU7_MMU_HW_H
++#define IPU7_MMU_HW_H
++
++#define IPU7_MMU_REG_IRQ_MASK			0x2c
++#define IPU7_MMU_REG_IRQ_ENABLE			0x30
++#define IPU7_MMU_REG_PAGE_TABLE_BASE_ADDR	0x08
++#define IPU7_MMU_REG_USER_INFO_BITS		0x0c
++#define IPU7_MMU_REG_AXI_REFILL_IF_ID		0x10
++#define IPU7_MMU_REG_COLLAPSE_ENABLE_BITMAP	0x18
++#define IPU7_MMU_REG_AT_SP_ARB_CFG		0x20
++
++#define IPU7_ZLX_REG_AXI_POOL			0x0
++#define IPU7_ZLX_REG_EN				0x20
++#define IPU7_ZLX_REG_CONF			0x24
++#define IPU7_ZLX_POOL_NUM			8U
++
++#define IPU7_MMU_MAX_TLB_L1_STREAMS		40U
++#define IPU7_MMU_MAX_TLB_L2_STREAMS		40U
++#define IPU7_UAO_PLANE_MAX_NUM			64U
++#define IPU7_ZLX_MAX_NUM			32U
++
++#define IPU7_MMU_REG_INVALIDATE_0		0x00
++#define IPU7_MMU_REG_INVALIDATE_1		0x04
++#define IPU7_MMU_REG_INVALIDATION_STATUS	0x24
++#define IPU7_MMU_TLB_INVALIDATE_TIMEOUT		2000
++
++#define IPU7_FW_CODE_REGION_SIZE	0x1000000 /* 16MB */
++#define IPU7_FW_CODE_REGION_START	0x4000000 /* 64MB */
++#define IPU7_FW_CODE_REGION_END		(IPU7_FW_CODE_REGION_START +	\
++					 IPU7_FW_CODE_REGION_SIZE) /* 80MB */
++
++#define IPU7_IS_MMU_FW_RD_OFFSET		0x274000
++#define IPU7_IS_MMU_FW_RD_STREAM_NUM		3
++#define IPU7_IS_MMU_FW_RD_L1_BLOCKNR_REG	0x54
++#define IPU7_IS_MMU_FW_RD_L2_BLOCKNR_REG	0x60
++
++#define IPU7_IS_MMU_FW_WR_OFFSET		0x275000
++#define IPU7_IS_MMU_FW_WR_STREAM_NUM		3
++#define IPU7_IS_MMU_FW_WR_L1_BLOCKNR_REG	0x54
++#define IPU7_IS_MMU_FW_WR_L2_BLOCKNR_REG	0x60
++
++#define IPU7_IS_MMU_M0_OFFSET			0x276000
++#define IPU7_IS_MMU_M0_STREAM_NUM		8
++#define IPU7_IS_MMU_M0_L1_BLOCKNR_REG		0x54
++#define IPU7_IS_MMU_M0_L2_BLOCKNR_REG		0x74
++
++#define IPU7_IS_MMU_M1_OFFSET			0x277000
++#define IPU7_IS_MMU_M1_STREAM_NUM		16
++#define IPU7_IS_MMU_M1_L1_BLOCKNR_REG		0x54
++#define IPU7_IS_MMU_M1_L2_BLOCKNR_REG		0x94
++
++#define IPU7_PS_MMU_FW_RD_OFFSET		0x148000
++#define IPU7_PS_MMU_FW_RD_STREAM_NUM		20
++#define IPU7_PS_MMU_FW_RD_L1_BLOCKNR_REG	0x54
++#define IPU7_PS_MMU_FW_RD_L2_BLOCKNR_REG	0xa4
++
++#define IPU7_PS_MMU_FW_WR_OFFSET		0x149000
++#define IPU7_PS_MMU_FW_WR_STREAM_NUM		10
++#define IPU7_PS_MMU_FW_WR_L1_BLOCKNR_REG	0x54
++#define IPU7_PS_MMU_FW_WR_L2_BLOCKNR_REG	0x7c
++
++#define IPU7_PS_MMU_SRT_RD_OFFSET		0x14a000
++#define IPU7_PS_MMU_SRT_RD_STREAM_NUM		40
++#define IPU7_PS_MMU_SRT_RD_L1_BLOCKNR_REG	0x54
++#define IPU7_PS_MMU_SRT_RD_L2_BLOCKNR_REG	0xf4
++
++#define IPU7_PS_MMU_SRT_WR_OFFSET		0x14b000
++#define IPU7_PS_MMU_SRT_WR_STREAM_NUM		40
++#define IPU7_PS_MMU_SRT_WR_L1_BLOCKNR_REG	0x54
++#define IPU7_PS_MMU_SRT_WR_L2_BLOCKNR_REG	0xf4
++
++#define IPU7_IS_UAO_UC_RD_OFFSET		0x27c000
++#define IPU7_IS_UAO_UC_RD_PLANENUM		4
++
++#define IPU7_IS_UAO_UC_WR_OFFSET		0x27d000
++#define IPU7_IS_UAO_UC_WR_PLANENUM		4
++
++#define IPU7_IS_UAO_M0_WR_OFFSET		0x27e000
++#define IPU7_IS_UAO_M0_WR_PLANENUM		8
++
++#define IPU7_IS_UAO_M1_WR_OFFSET		0x27f000
++#define IPU7_IS_UAO_M1_WR_PLANENUM		16
++
++#define IPU7_PS_UAO_FW_RD_OFFSET		0x156000
++#define IPU7_PS_UAO_FW_RD_PLANENUM		20
++
++#define IPU7_PS_UAO_FW_WR_OFFSET		0x157000
++#define IPU7_PS_UAO_FW_WR_PLANENUM		16
++
++#define IPU7_PS_UAO_SRT_RD_OFFSET		0x154000
++#define IPU7_PS_UAO_SRT_RD_PLANENUM		40
++
++#define IPU7_PS_UAO_SRT_WR_OFFSET		0x155000
++#define IPU7_PS_UAO_SRT_WR_PLANENUM		40
++
++#define IPU7_IS_ZLX_UC_RD_OFFSET		0x278000
++#define IPU7_IS_ZLX_UC_WR_OFFSET		0x279000
++#define IPU7_IS_ZLX_M0_OFFSET			0x27a000
++#define IPU7_IS_ZLX_M1_OFFSET			0x27b000
++#define IPU7_IS_ZLX_UC_RD_NUM			4
++#define IPU7_IS_ZLX_UC_WR_NUM			4
++#define IPU7_IS_ZLX_M0_NUM			8
++#define IPU7_IS_ZLX_M1_NUM			16
++
++#define IPU7_PS_ZLX_DATA_RD_OFFSET		0x14e000
++#define IPU7_PS_ZLX_DATA_WR_OFFSET		0x14f000
++#define IPU7_PS_ZLX_FW_RD_OFFSET		0x150000
++#define IPU7_PS_ZLX_FW_WR_OFFSET		0x151000
++#define IPU7_PS_ZLX_DATA_RD_NUM			32
++#define IPU7_PS_ZLX_DATA_WR_NUM			32
++#define IPU7_PS_ZLX_FW_RD_NUM			16
++#define IPU7_PS_ZLX_FW_WR_NUM			10
++
++struct ipu7_mmu_hw {
++	char name[32];
++
++	void __iomem *base;
++	void __iomem *zlx_base;
++	void __iomem *uao_base;
++
++	u32 offset;
++	u32 zlx_offset;
++	u32 uao_offset;
++
++	u32 info_bits;
++	u32 refill;
++	u32 collapse_en_bitmap;
++	u32 at_sp_arb_cfg;
++
++	u32 l1_block;
++	u32 l2_block;
++
++	u8 nr_l1streams;
++	u8 nr_l2streams;
++	u32 l1_block_sz[IPU7_MMU_MAX_TLB_L1_STREAMS];
++	u32 l2_block_sz[IPU7_MMU_MAX_TLB_L2_STREAMS];
++
++	u8 zlx_nr;
++	u32 zlx_axi_pool[IPU7_ZLX_POOL_NUM];
++	u32 zlx_en[IPU7_ZLX_MAX_NUM];
++	u32 zlx_conf[IPU7_ZLX_MAX_NUM];
++
++	u32 uao_p_num;
++	u32 uao_p2tlb[IPU7_UAO_PLANE_MAX_NUM];
++};
++
++struct ipu7_mmu_hwdata {
++	struct ipu7_mmu_hw *hwdata;
++	unsigned int nr_mmus;
++};
++
++#endif
 -- 
 2.47.3
 
