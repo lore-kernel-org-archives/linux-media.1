@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02BE484247
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652ED483BF8
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780623; cv=none; b=QnlJnr5bzbB8aSAbnrvFocfMGljp9lKRNKi2EeAEtPUreYsrYFXPyKD/6h/uGtLKrzkIFAbk9CtdMCXrUI2DOkJdgpLS5v01tH7nmuFO12GztOW6oX/imTnq1Z0R6ubidio0PrIKZyQzYtCbfeoyLeFxylVU8wdpO+nFzfsPxKY=
+	t=1788780624; cv=none; b=KQAz003uquunMz+7vB/5SoZa+Ts1WrA1CF6XtmPYLzLuIe8xiGFpfAA8Hn9Tn8CX359tiPejqETL8tOHvFneIdV9nYtJBKWiZIu6A/ajEl/kTeGFupwPc+VvZa5Rqjj8WxpwJsyGMTOJi86IwJQvXt4PWSL4E2uxdZHxUxl73Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780623; c=relaxed/simple;
-	bh=gvvJ4jaqKaK6UFT8lNT6jeA6TwQEuaSsOIfp07WAK9o=;
+	s=arc-20240116; t=1788780624; c=relaxed/simple;
+	bh=2nPYR0yjhXy3M2bMOk9iRESkWRmIq9NbXI1PZlXIAyo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=immvlaCaDSjcTd2MTo4+Kqm59NhCuiL3Pshu61qNlJRorAt3b1CUj3y/7TV3x/icSbHlR6ZhYLB6mjIkz86Qv50S6IAFmt4N11IryP/45hsXZ0CY5L+BwLaM9dMn7w7p5hkv2eAa6tYyS77VvEUGu3rQpFux+CNPyV7zhDd2lA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N7iMsDcS; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=O2JFLIehPUzg5R+2i4EGaelgJ0+shNOsaXoxglklMn26GDTB07XmPr8mkazsXzp3n5XbMLFow6I8K2xMB5rFBG6XIaZf3RnAfYnlIXAovEEQv+B5An1XfVUQwu6yRzr33l6oGXZCqF38hWr4iOxMgK3vI8pnu9QBJ2cwIuoha7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vne+bGd1; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N7iMsDcS"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vne+bGd1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780620; x=1820316620;
+  t=1788780621; x=1820316621;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=gvvJ4jaqKaK6UFT8lNT6jeA6TwQEuaSsOIfp07WAK9o=;
-  b=N7iMsDcSDLWrTiiHBMAMaopxDnV5BcABmrB4/GDjbPop9JGKWDykRsrl
-   orDi1dWKKtu06rRqROx2Cto7RBhnjSrhMnDBYp3mkoN0wqNb1fBLQ2dLY
-   fIDI1foiXVTvRfXW4DNI//jx9xzKtG7HNHPQ4mUhgKHWMjDgqGh/3KeRr
-   U2EdyFFoW74ViyExXaHUASG8UhLcnmFyGw7eetyNRVqsKSPd7IbN3FJCx
-   S5qaCE7tMjdsNmCG4Lk6DBwsdYVu2O2Pl9EtDhPU4GhA+7v2Z2eWvww8N
-   l7DsdNFNqwCe9tc1TC0sb7CQxYTcc3w7Dar3QroskfZBMFg5BMvroxleY
-   Q==;
-X-CSE-ConnectionGUID: ctwkboIKTKe7X6K1QIpwIw==
-X-CSE-MsgGUID: 5GAd0ingQkCZG+lXRy1v7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538616"
+  bh=2nPYR0yjhXy3M2bMOk9iRESkWRmIq9NbXI1PZlXIAyo=;
+  b=Vne+bGd10ydVqfOL17gh1haRIfo4SEFCRYO9JFHrDer4J4WfUoaSzKXC
+   EAIvd8Kuw7pqX4iDUzbrAbTaWEu6OT2+V+dsCVTg6gHj+kIFGa0vPef3i
+   pNY9WObYQpSREJmHpOOeHiKOqKoc3Rh4rnCfI6PPaCVKPpFJaCLox63IM
+   SRJcOtKiWMBVy/CoajgdqmaObSHb3dgMnoIwyK0B9rSKNMfFX1S1GNE2p
+   bbdyLMqQQnhmCd58vtX2qVqQXMwNaBSi9BSwjheNTDFWI8DYA3f4rN52J
+   EERo4jI8VzLhGZMquqkHSq1E4nCCK/aGYJ9VC/deg3oQ7pgI51dy6Y9Bv
+   w==;
+X-CSE-ConnectionGUID: 6s5MXWHCS+yekMLpQ9Y7XA==
+X-CSE-MsgGUID: 6Iyd5DrwTlyLJrFfRY6gyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538619"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538616"
+   d="scan'208";a="100538619"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:13 -0700
-X-CSE-ConnectionGUID: NWQpnMcORO2EQevIgbr8kg==
-X-CSE-MsgGUID: E/okGRvVRwmQOq6R6pAXlw==
+X-CSE-ConnectionGUID: whWpszQPS3yifc6QBWjSTg==
+X-CSE-MsgGUID: 6Hi0dSxHTeeSMu9MKtbgZA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569212"
+   d="scan'208";a="300569216"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:12 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id C43F3121E39;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id BDC34121E00;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARo7-1B2H;
+	id 1x3XY5-0000000ARnw-14iY;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 17/45] media: ipu6: Rename isys fw msg union
-Date: Mon,  7 Sep 2026 14:29:36 +0300
-Message-ID: <20260907113004.2489993-18-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 15/45] media: ipu6: Add ipu7 cpd handling
+Date: Mon,  7 Sep 2026 14:29:34 +0300
+Message-ID: <20260907113004.2489993-16-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,98 +73,285 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Later we need to abstract ipu7 firmware abi structs same way
-we have it now for ipu6. Renaming union per ipu helps to make
-the split more clear.
+The firmware format differs slightly between ipu6 and ipu7.
+Add support for ipu7 firmware validation and handling.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+[Sakari Ailus: Use ipu6_ prefix for ipu7 related global symbols.]
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 4 ++--
- drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 4 ++--
- drivers/media/pci/intel/ipu6/ipu6-isys.c       | 4 ++--
- drivers/media/pci/intel/ipu6/ipu6-isys.h       | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-cpd.c | 169 +++++++++++++++++++++---
+ drivers/media/pci/intel/ipu6/ipu6-cpd.h |  43 ++++++
+ 2 files changed, 197 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index fabaed63df0c..529973860e9e 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -316,7 +316,7 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
- 		if (!msg)
- 			return -ENOMEM;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-cpd.c b/drivers/media/pci/intel/ipu6/ipu6-cpd.c
+index 966a16a300f8..c4b2d954a9d4 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-cpd.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-cpd.c
+@@ -16,6 +16,7 @@
+ #include "ipu6-bus.h"
+ #include "ipu6-cpd.h"
+ #include "ipu6-dma.h"
++#include "ipu7-mmu-hw.h"
  
--		buf = &msg->fw_msg.frame;
-+		buf = &msg->ipu6.frame;
- 		ipu6_isys_buf_to_fw_frame_buf(buf, stream, bl);
- 		ipu6_fw_isys_dump_frame_buff_set(dev, buf,
- 						 stream->nr_output_pins);
-@@ -396,7 +396,7 @@ static void buf_queue(struct vb2_buffer *vb)
- 		goto out;
+ /* 15 entries + header*/
+ #define MAX_PKG_DIR_ENT_CNT		16
+@@ -62,6 +63,20 @@ static inline const struct ipu6_cpd_ent *ipu6_cpd_get_entry(const void *cpd,
+ #define ipu6_cpd_get_metadata(cpd) ipu6_cpd_get_entry(cpd, METADATA_IDX)
+ #define ipu6_cpd_get_moduledata(cpd) ipu6_cpd_get_entry(cpd, MODULEDATA_IDX)
+ 
++#define IPU7_CPD_BINARY_START_IDX	1U
++#define IPU7_CPD_METADATA_START_IDX	2U
++#define IPU7_CPD_BINARY_NUM		2U /* ISYS + PSYS */
++#define IPU7_CPD_METADATA_ATTR		0xa
++#define IPU7_CPD_METADATA_IPL		0x1c
++/*
++ * Entries include:
++ * 1 manifest entry.
++ * 1 metadata entry for each sub system(ISYS and PSYS).
++ * 1 binary entry for each sub system(ISYS and PSYS).
++ */
++#define IPU7_CPD_ENTRY_NUM	(IPU7_CPD_BINARY_NUM * 2U + 1U)
++#define IPU7_MAX_MANIFEST_SIZE	(SZ_4K * sizeof(u32))
++
+ static const struct ipu6_cpd_metadata_cmpnt_hdr *
+ ipu6_cpd_metadata_get_cmpnt(struct ipu6_device *isp, const void *metadata,
+ 			    unsigned int metadata_size, u8 idx)
+@@ -309,39 +324,163 @@ static int ipu6_cpd_validate_metadata(struct ipu6_device *isp,
+ 	return 0;
+ }
+ 
+-int ipu6_cpd_validate_cpd_file(struct ipu6_device *isp, const void *cpd_file,
+-			       unsigned long cpd_file_size)
++static struct ipu7_cpd_metadata *ipu7_cpd_get_metadata(const void *cpd, int idx)
+ {
+-	const struct ipu6_cpd_hdr *hdr = cpd_file;
+-	const struct ipu6_cpd_ent *ent;
+-	int ret;
++	const struct ipu6_cpd_ent *cpd_ent =
++		ipu6_cpd_get_entry(cpd, IPU7_CPD_METADATA_START_IDX + idx * 2);
+ 
+-	ret = ipu6_cpd_validate_cpd(isp, cpd_file, cpd_file_size,
+-				    cpd_file_size);
+-	if (ret)
+-		return ret;
++	return (struct ipu7_cpd_metadata *)((u8 *)cpd + cpd_ent->offset);
++}
+ 
+-	/* Check for CPD file marker */
+-	if (hdr->hdr_mark != CPD_HDR_MARK) {
+-		dev_err(&isp->pdev->dev, "Invalid CPD header\n");
++static int ipu7_cpd_validate_metadata(struct ipu6_device *isp,
++				      const void *cpd, int idx)
++{
++	const struct ipu6_cpd_ent *cpd_ent =
++		ipu6_cpd_get_entry(cpd, IPU7_CPD_METADATA_START_IDX + idx * 2);
++	const struct ipu6_cpd_ent *bin_ent =
++		ipu6_cpd_get_entry(cpd, IPU7_CPD_BINARY_START_IDX + idx * 2);
++	const struct ipu7_cpd_metadata *metadata =
++		ipu7_cpd_get_metadata(cpd, idx);
++	struct device *dev = &isp->pdev->dev;
++	u32 offset;
++
++	/* Sanity check for metadata size */
++	if (cpd_ent->len != sizeof(struct ipu7_cpd_metadata)) {
++		dev_err(dev, "Invalid metadata size\n");
++		return -EINVAL;
++	}
++
++	/* Validate type and length of metadata sections */
++	if (metadata->attr.hdr.type != IPU7_CPD_METADATA_ATTR) {
++		dev_err(dev, "Invalid metadata attr type (%d)\n",
++			metadata->attr.hdr.type);
+ 		return -EINVAL;
  	}
++	if (metadata->attr.hdr.len != sizeof(struct ipu7_cpd_metadata_attr)) {
++		dev_err(dev, "Invalid metadata attr size (%d)\n",
++			metadata->attr.hdr.len);
++		return -EINVAL;
++	}
++	if (metadata->ipl.hdr.type != IPU7_CPD_METADATA_IPL) {
++		dev_err(dev, "Invalid metadata ipl type (%d)\n",
++			metadata->ipl.hdr.type);
++		return -EINVAL;
++	}
++	if (metadata->ipl.hdr.len != sizeof(struct ipu7_cpd_metadata_ipl)) {
++		dev_err(dev, "Invalid metadata ipl size (%d)\n",
++			metadata->ipl.hdr.len);
++		return -EINVAL;
++	}
++
++	offset = metadata->ipl.param[0];
++	if (offset > IPU7_FW_CODE_REGION_SIZE ||
++	    bin_ent->len > IPU7_FW_CODE_REGION_SIZE - offset) {
++		dev_err(dev, "Incorrect binary size %u and offset %u\n",
++			bin_ent->len, offset);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int __ipu7_validate_cpd_file(struct ipu6_device *isp, const void *cpd_file,
++				    unsigned long cpd_file_size)
++{
++	const struct ipu6_cpd_ent *ent;
++	const struct ipu7_cpd_hdr *hdr = cpd_file;
++	unsigned int i;
  
--	buf = &msg->fw_msg.frame;
-+	buf = &msg->ipu6.frame;
- 	ipu6_isys_buf_to_fw_frame_buf(buf, stream, &bl);
- 	ipu6_fw_isys_dump_frame_buff_set(dev, buf, stream->nr_output_pins);
+-	/* Sanity check for manifest size */
+ 	ent = ipu6_cpd_get_manifest(cpd_file);
+-	if (ent->len > MAX_MANIFEST_SIZE) {
++	if (ent->len > IPU7_MAX_MANIFEST_SIZE) {
+ 		dev_err(&isp->pdev->dev, "Invalid CPD manifest size\n");
+ 		return -EINVAL;
+ 	}
++	/* Sanity check for CPD entry header */
++	if (hdr->ent_cnt != IPU7_CPD_ENTRY_NUM) {
++		dev_err(&isp->pdev->dev, "Invalid CPD entry number %d\n",
++			hdr->ent_cnt);
++		return -EINVAL;
++	}
  
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index 89eb265737d7..c925386a1e98 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -533,7 +533,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
- 	if (!msg)
- 		return -ENOMEM;
+ 	/* Validate metadata */
++	for (i = 0; i < IPU7_CPD_BINARY_NUM; i++) {
++		int ret = ipu7_cpd_validate_metadata(isp, cpd_file, i);
++
++		if (ret) {
++			dev_err(&isp->pdev->dev, "Invalid metadata(%d)\n", i);
++			return ret;
++		}
++	}
++	return 0;
++}
++
++static int __ipu6_validate_cpd_file(struct ipu6_device *isp, const void *cpd_file,
++				    unsigned long cpd_file_size)
++{
++	const struct ipu6_cpd_ent *ent;
++	int ret;
++
++	ent = ipu6_cpd_get_manifest(cpd_file);
++	if (ent->len > MAX_MANIFEST_SIZE) {
++		dev_err(&isp->pdev->dev, "Invalid CPD manifest size\n");
++		return -EINVAL;
++	}
++
+ 	ent = ipu6_cpd_get_metadata(cpd_file);
+ 	ret = ipu6_cpd_validate_metadata(isp, cpd_file + ent->offset, ent->len);
+ 	if (ret)
+ 		return ret;
  
--	stream_cfg = &msg->fw_msg.stream;
-+	stream_cfg = &msg->ipu6.stream;
- 	stream_cfg->src = stream->stream_source;
- 	stream_cfg->vc = stream->vc;
- 	stream_cfg->isl_use = 0;
-@@ -590,7 +590,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
- 			ret = -ENOMEM;
- 			goto out_put_stream_opened;
- 		}
--		buf = &msg->fw_msg.frame;
-+		buf = &msg->ipu6.frame;
- 		ipu6_isys_buf_to_fw_frame_buf(buf, stream, bl);
- 		ipu6_isys_buffer_list_queue(bl,
- 					    IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 8af891081bd3..8f2d361b89f6 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -1003,7 +1003,7 @@ struct isys_fw_msgs *ipu6_get_fw_msg_buf(struct ipu6_isys_stream *stream)
- 	msg = list_last_entry(&isys->framebuflist, struct isys_fw_msgs, head);
- 	list_move(&msg->head, &isys->framebuflist_fw);
- 	spin_unlock_irqrestore(&isys->listlock, flags);
--	memset(&msg->fw_msg, 0, sizeof(msg->fw_msg));
-+	memset(&msg->ipu6, 0, sizeof(msg->ipu6));
- 
- 	return msg;
+-	/* Validate moduledata */
+ 	ent = ipu6_cpd_get_moduledata(cpd_file);
+ 	return ipu6_cpd_validate_moduledata(isp, cpd_file + ent->offset,
+ 					    ent->len);
  }
-@@ -1029,7 +1029,7 @@ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, uintptr_t data)
- 		return;
++
++int ipu6_cpd_validate_cpd_file(struct ipu6_device *isp, const void *cpd_file,
++			       unsigned long cpd_file_size)
++{
++	const struct ipu6_cpd_hdr *hdr = cpd_file;
++	int ret;
++
++	ret = ipu6_cpd_validate_cpd(isp, cpd_file, cpd_file_size,
++				    cpd_file_size);
++	if (ret)
++		return ret;
++
++	/* Check for CPD file marker */
++	if (hdr->hdr_mark != CPD_HDR_MARK) {
++		dev_err(&isp->pdev->dev, "Invalid CPD header\n");
++		return -EINVAL;
++	}
++
++	if (IS_IPU7(isp))
++		return __ipu7_validate_cpd_file(isp, cpd_file, cpd_file_size);
++
++	return __ipu6_validate_cpd_file(isp, cpd_file, cpd_file_size);
++}
++
++int ipu6_ipu7_cpd_copy_binary(const void *cpd, const char *name, void *dst,
++			      u32 *entry)
++{
++	unsigned int i;
++
++	for (i = 0; i < IPU7_CPD_BINARY_NUM; i++) {
++		const struct ipu7_cpd_metadata *metadata;
++		u8 idx = IPU7_CPD_BINARY_START_IDX + i * 2U;
++		const struct ipu6_cpd_ent *ent =
++			ipu6_cpd_get_entry(cpd, idx);
++
++		if (strncmp(ent->name, name, sizeof(ent->name)))
++			continue;
++
++		metadata = ipu7_cpd_get_metadata(cpd, i);
++		memcpy(dst + metadata->ipl.param[0], cpd + ent->offset,
++		       ent->len);
++		*entry = metadata->ipl.param[2];
++
++		return 0;
++	}
++
++	return -ENOENT;
++}
++EXPORT_SYMBOL_NS_GPL(ipu6_ipu7_cpd_copy_binary, "INTEL_IPU6");
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-cpd.h b/drivers/media/pci/intel/ipu6/ipu6-cpd.h
+index e0e4fdeca902..c3a4859d8e79 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-cpd.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-cpd.h
+@@ -98,8 +98,51 @@ struct ipu6_cpd_client_pkg_hdr {
+ 	u32 prog_bin_size;
+ } __packed;
  
- 	spin_lock_irqsave(&isys->listlock, flags);
--	msg = container_of(ptr, struct isys_fw_msgs, fw_msg.dummy);
-+	msg = container_of(ptr, struct isys_fw_msgs, ipu6.dummy);
- 	list_move(&msg->head, &isys->framebuflist);
- 	spin_unlock_irqrestore(&isys->listlock, flags);
- }
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
-index 0b139ab24431..abcd5e1cbc2c 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
-@@ -169,7 +169,7 @@ struct isys_fw_msgs {
- 		u64 dummy;
- 		struct ipu6_fw_isys_frame_buff_set_abi frame;
- 		struct ipu6_fw_isys_stream_cfg_data_abi stream;
--	} fw_msg;
-+	} ipu6;
- 	struct list_head head;
- 	dma_addr_t dma_addr;
- };
++/* IPU7 */
++
++struct ipu7_cpd_hdr {
++	u32 hdr_mark;
++	u32 ent_cnt;
++	u8 hdr_ver;
++	u8 ent_ver;
++	u8 hdr_len;
++	u8 rsvd;
++	u8 partition_name[4];
++	u32 crc32;
++} __packed;
++
++struct ipu7_cpd_metadata_hdr {
++	u32 type;
++	u32 len;
++} __packed;
++
++struct ipu7_cpd_metadata_attr {
++	struct ipu7_cpd_metadata_hdr hdr;
++	u8 compression_type;
++	u8 encryption_type;
++	u8 rsvd[2];
++	u32 uncompressed_size;
++	u32 compressed_size;
++	u32 module_id;
++	u8 hash[48];
++} __packed;
++
++struct ipu7_cpd_metadata_ipl {
++	struct ipu7_cpd_metadata_hdr hdr;
++	u32 param[4];
++	u8 rsvd[8];
++} __packed;
++
++struct ipu7_cpd_metadata {
++	struct ipu7_cpd_metadata_attr attr;
++	struct ipu7_cpd_metadata_ipl ipl;
++} __packed;
++
+ int ipu6_cpd_create_pkg_dir(struct ipu6_bus_device *adev, const void *src);
+ void ipu6_cpd_free_pkg_dir(struct ipu6_bus_device *adev);
+ int ipu6_cpd_validate_cpd_file(struct ipu6_device *isp, const void *cpd_file,
+ 			       unsigned long cpd_file_size);
++int ipu6_ipu7_cpd_copy_binary(const void *cpd, const char *name, void *dst,
++			      u32 *entry);
++
+ #endif /* IPU6_CPD_H */
 -- 
 2.47.3
 
