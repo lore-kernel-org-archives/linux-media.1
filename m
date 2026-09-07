@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA8E495036
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F8449552C
 	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780628; cv=none; b=qSJTZM1i64gWTiQAHCzkvamdPMBbRguZlqZgdNWvjPTN6+/p91g9Ly8Gt19Ku/0+auDpbqoFD+CtO858dDBwukfmPePnjp9ENdN+bfzQ/bKMUMPyZfDtka7YG300YvMn/Kou+T6xSJdYYQ8qs0f/K68oVgSDRHHpcvpcvLFE+w4=
+	t=1788780628; cv=none; b=PdISHAyemkH3zSYhI+0JzZWvNczpA3Y8PsJlmoJg7coaFGqR1HKcf5MgefPEjOg953kUszmI0mAHo5igvjbksrAsMB/Tr8cNdjiRoYFROU5LWmoicZLuBPQvzZfePjCJ5TJH/C/3QlFim4nJcbOg3Xzx2GJ4iYqQGpErfQjoDsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780628; c=relaxed/simple;
-	bh=pt6gCV+ElyVPqe26kg0ywnarCvynUSCxWJCHlFj0eTA=;
+	bh=dNFEr7qNEFLSnqQEpkPOmtMvmkR4OAvTPFGQyktzBjU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tTn9Ei51bEEXK1cCwfH0wIdHsvs429wjYDAxORoxquZqHAf6WahWV1U/zBgm8brZix01NTsvyQgFGKM92wYjYX8RjBfIMUl70Jt5lgg1d7Nhi4BPIZ+GvCCEwb/7fknChS8h6M3rehFJxofc019xT2kkQyBgaDTBwK9AJX7Pfug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ShXxv8WS; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=nmZDqOW2oFFmTsCYWIe38b3ObfcpuX0/qID3VEom1cvgT8tfffTHZsBb01bh2SpuR7WWbqjaVT1TFj9Lm4/EKu9Om9ZgwVwUm2dkTJPg7jqvCiKUcQnoaTDUkgksNpFQJdIm3XTWJJBLGQSomoHoB9LKeLkBbryh9CzHWua9I/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YAn17P4q; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ShXxv8WS"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YAn17P4q"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780626; x=1820316626;
+  t=1788780627; x=1820316627;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=pt6gCV+ElyVPqe26kg0ywnarCvynUSCxWJCHlFj0eTA=;
-  b=ShXxv8WSEuyTQC5ifvyqN7n+jLquAph4bKZ7DMRznce1c70tG/kA9bve
-   pqmY8DHvU5g7OxUR/zP6aAgnCfizDZyErBs1Ksf4g4QqagdnVOC+bijQp
-   mX7Bd1QFDXBVjOw0bhjHSFMI7Dp7jpMOtXbUqq0wkuqKp2DsHGudb/cPS
-   SQxrS1Bdt3Q/roUt9+mDyDvoPMBCeUXWom0ov0c13lXaE4gIzzyXEWNDE
-   cGYsJUT1Zo2x0xVmlDM3DlKoHrg0zfCXe8cRJN7qbZbdhk0FoPy5Z9bcD
-   Tg7FcvihW3wMSNd+0icZc1RCmGtvJDHz2Ie2YCN4f/NzQS3thEQbdA6Cd
-   g==;
-X-CSE-ConnectionGUID: sh6My1kkR/+0zGSvz6UVcg==
-X-CSE-MsgGUID: xSalTAJ2Tzueb+zty+3Wag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538626"
+  bh=dNFEr7qNEFLSnqQEpkPOmtMvmkR4OAvTPFGQyktzBjU=;
+  b=YAn17P4q9pA4hG1hTKY+5cSZVPT+5ZUoZ7uHB5oJzAwmUy55o1qofxvb
+   Hg7zHtWHEyQxov2qs9NGi5pUXK1z9Jlp7Q5eRXOW1TAji+dytxvwIUhAq
+   mA4wyNtDxCldiltgCz9nfP9zK9zJ2GgdZDkDbsEwoZ3PG3EgBFl2AHXQ7
+   i2hUIxDp4Cdquju85IeaguoM7rr46SZKQ20ygB8E5sR6YfXhVGkKYAP5t
+   Qssk5ZnoNkjXZZmoSjsa+QnpkEJOxzHmhSGmnt7Q9tOFUQKp339X/5eEv
+   MapnSPJCeTjCGew58qdOh2IADMykaurxkNBVAotPe8esx7vNsLuIA/+tK
+   Q==;
+X-CSE-ConnectionGUID: b5PQzyDJSoCqERPSmeKD5Q==
+X-CSE-MsgGUID: 60j4Z8pKTv2+/gK6VE/uUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538629"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538626"
+   d="scan'208";a="100538629"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:14 -0700
-X-CSE-ConnectionGUID: 0558kp3WRGGPxxrcEdkxvw==
-X-CSE-MsgGUID: UU/1SWoQQxaB+cqQnnYV9Q==
+X-CSE-ConnectionGUID: R9PMStEETfmInCWvEivvRQ==
+X-CSE-MsgGUID: 4MQNdzPlSDqOzuZpQ39rgg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569231"
+   d="scan'208";a="300569235"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:12 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id F3B59122609;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id F28F31225CC;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARpE-1zMs;
+	id 1x3XY5-0000000ARp9-1vYk;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 31/45] media: ipu6: Enable ipu7 isys interrupts
-Date: Mon,  7 Sep 2026 14:29:50 +0300
-Message-ID: <20260907113004.2489993-32-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 30/45] media: ipu6: Parse bus type for ipu7
+Date: Mon,  7 Sep 2026 14:29:49 +0300
+Message-ID: <20260907113004.2489993-31-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,98 +73,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Add ipu7 specific isys initialization of clocks and
-enabling interrupts.
+For ipu7 bus type can be CPHY or DPHY.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys.c | 56 +++++++++++++++++++++---
- 1 file changed, 49 insertions(+), 7 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys.c | 8 ++++++++
+ drivers/media/pci/intel/ipu6/ipu6-isys.h | 2 ++
+ 2 files changed, 10 insertions(+)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 976ed064f262..622f74021f6d 100644
+index 5de5fd16ca30..976ed064f262 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -180,13 +180,23 @@ static int isys_csi2_register_subdevices(struct ipu6_isys *isys)
- 	int ret;
- 
- 	for (i = 0; i < csi2_pdata->nports; i++) {
--		ret = ipu6_isys_csi2_init(&isys->csi2[i], isys,
--					  isys->pdata->base +
--					  CSI_REG_PORT_BASE(i), i);
-+		void __iomem *base = isys->pdata->base;
-+
-+		if (IS_IPU7(isys->adev->isp)) {
-+			u32 mask = IS_IPU7_MTL(isys->adev->isp) ?
-+					IPU7_CSI_LEGACY_IRQ_MASK(i) :
-+					IPU7P5_CSI_LEGACY_IRQ_MASK(i);
-+
-+			isys->isr_csi2_bits |= mask;
-+			isys->csi2[i].legacy_irq_mask = mask;
-+		} else {
-+			base += CSI_REG_PORT_BASE(i);
-+			isys->isr_csi2_bits |= IPU6_ISYS_UNISPART_IRQ_CSI2(i);
-+		}
-+
-+		ret = ipu6_isys_csi2_init(&isys->csi2[i], isys, base, i);
- 		if (ret)
- 			goto fail;
--
--		isys->isr_csi2_bits |= IPU6_ISYS_UNISPART_IRQ_CSI2(i);
+@@ -133,6 +133,9 @@ isys_complete_ext_device_registration(struct ipu6_isys *isys,
  	}
  
+ 	isys->csi2[csi2->port].nlanes = csi2->nlanes;
++	isys->csi2[csi2->port].phy_mode =
++		csi2->bus_type == V4L2_MBUS_CSI2_DPHY ?
++		PHY_MODE_DPHY : PHY_MODE_CPHY;
+ 
  	return 0;
-@@ -273,7 +283,36 @@ static int isys_register_video_devices(struct ipu6_isys *isys)
- 	return ret;
- }
  
--static void isys_setup_hw(struct ipu6_isys *isys)
-+static void ipu7_isys_setup_hw(struct ipu6_isys *isys)
-+{
-+	u32 offset, mask;
-+	void __iomem *base = isys->pdata->base;
-+
-+	offset = IPU7_IS_IO_GPREGS_BASE;
-+
-+	writel(0x0, base + offset + IPU7_CLK_EN_TXCLKESC);
-+	/* Update if ISYS freq updated (0: 400/1, 1:400/2, 63:400/64) */
-+	writel(0x0, base + offset + IPU7_CLK_DIV_FACTOR_IS_CLK);
-+	/* correct the initial printf configuration */
-+	writel(0x200, base + IPU7_IS_UC_CTRL_BASE + IPU7_REG_PRINTF_AXI_CNTL);
-+
-+	offset = IPU7_IS_UC_CTRL_BASE;
-+	mask = IPU7_IS_UC_TO_SW_IRQ_MASK;
-+
-+	writel(mask, base + offset + IPU7_TO_SW_IRQ_CNTL_CLEAR);
-+	writel(mask, base + offset + IPU7_TO_SW_IRQ_CNTL_MASK_N);
-+	writel(mask, base + offset + IPU7_TO_SW_IRQ_CNTL_ENABLE);
-+
-+	offset = IPU7_IS_IO_CSI2_LEGACY_IRQ_CTRL_BASE;
-+	mask = IPU7_CSI_RX_LEGACY_IRQ_MASK;
-+
-+	writel(mask, base + offset + IPU7_IRQ_CTL_EDGE);
-+	writel(mask, base + offset + IPU7_IRQ_CTL_CLEAR);
-+	writel(mask, base + offset + IPU7_IRQ_CTL_MASK);
-+	writel(mask, base + offset + IPU7_IRQ_CTL_ENABLE);
-+}
-+
-+static void ipu6_isys_setup_hw(struct ipu6_isys *isys)
- {
- 	void __iomem *base = isys->pdata->base;
- 	const u8 *thd = isys->pdata->ipdata->hw_variant.cdc_fifo_threshold;
-@@ -783,7 +822,10 @@ static int isys_runtime_pm_resume(struct device *dev)
- 	isys->power = 1;
- 	spin_unlock_irqrestore(&isys->power_lock, flags);
+@@ -639,6 +642,10 @@ static int isys_notifier_init(struct ipu6_isys *isys)
+ 			continue;
  
--	isys_setup_hw(isys);
-+	if (IS_IPU7(isp))
-+		ipu7_isys_setup_hw(isys);
-+	else
-+		ipu6_isys_setup_hw(isys);
+ 		ret = v4l2_fwnode_endpoint_parse(ep, &vep);
++		if (ret && IS_IPU7(isp)) {
++			vep.bus_type = V4L2_MBUS_CSI2_CPHY;
++			ret = v4l2_fwnode_endpoint_parse(ep, &vep);
++		}
+ 		if (ret) {
+ 			dev_err(dev, "fwnode endpoint parse failed: %d\n", ret);
+ 			goto err_parse;
+@@ -654,6 +661,7 @@ static int isys_notifier_init(struct ipu6_isys *isys)
  
- 	set_iwake_ltrdid(isys, 0, 0, LTR_ISYS_ON);
+ 		s_asd->csi2.port = vep.base.port;
+ 		s_asd->csi2.nlanes = vep.bus.mipi_csi2.num_data_lanes;
++		s_asd->csi2.bus_type = vep.bus_type;
  
+ 		dev_dbg(dev, "remote endpoint port %d with %d lanes added\n",
+ 			s_asd->csi2.port, s_asd->csi2.nlanes);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+index 30539ea5f826..8674c041b994 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -14,6 +14,7 @@
+ #include <media/media-device.h>
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-device.h>
++#include <media/v4l2-mediabus.h>
+ 
+ #include "ipu6.h"
+ #include "ipu6-fw-isys.h"
+@@ -96,6 +97,7 @@ struct isys_iwake_watermark {
+ struct ipu6_isys_csi2_config {
+ 	u32 nlanes;
+ 	u32 port;
++	enum v4l2_mbus_type bus_type;
+ };
+ 
+ struct sensor_async_sd {
 -- 
 2.47.3
 
