@@ -1,120 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F42041A926
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 07:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E836F43B6CB
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 08:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767728; cv=none; b=B/ZQyWIhBqnbpTK7s+bNvgImEMTf2UOLNrwMN/Z2YaGiQImoLbJOjxjZWt+K2r06r+S5TrjfSXQ09v/qauxPX2VPTOrK6eFk5eQ5XFiQsUg6m35FXvF8Vjg4/sjKJ6wahsbLXzed2Hicsc94Voj86DdjRru0KmxPy0wl3mNXadQ=
+	t=1788768753; cv=none; b=BLmepgGOLcr04odpI1kja376ymuo2DKus3CCKiTRD/SOtN/N/zwdCQpvGCcNgDcFYVhhLN6P13FGpA9aySssN04ucJID6Lql5SKX/Vlm8DEn44vRPYr+Cg0UUD8YGFs9yJ33wfU16uzlKOh+7azLWh5lE43z0MC/G1TC86hFuWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767728; c=relaxed/simple;
-	bh=CSqW7OYGCvrjBmigcPdElo+8RyqAKnS0E38v46iR45o=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=S8ThuRFemChf4bbVUItgPG+L8HJPku75tSJaKtVmc8SOIVLyNhpLJTIaOSOrF0kO452CJHmuJtsqkzrXKC1QsEtMZEZfZb72LX4ue63Ovavt+kc2y+yPLMYEouYaeCdU1heIG/GwHHghBZAUKrboER2Nyef0lqIEQ2p3vDtWMa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pde7KcWj; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788768753; c=relaxed/simple;
+	bh=3DpXbIfal60znQihoTzW2Tp3q9D9M0PZ3qy0geTQM0w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uxkVKDQo+GC1NAneA64lTBvKsbgEePh4rQ4bAare4OxRXOZMaIlupSPyZN9HPT1SkoMaoeOjIEdUYo59Ki3HYdo6gCESYoyQ2XdubRcGFgK7Xp058UbBlM5rkPgatgl0tEu69LM0DKCwpgS3BbV38yaiyujB/GSWbBNEC/oHLU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnQZUClD; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pde7KcWj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788767726; x=1820303726;
-  h=date:from:to:cc:subject:message-id;
-  bh=CSqW7OYGCvrjBmigcPdElo+8RyqAKnS0E38v46iR45o=;
-  b=Pde7KcWjKJvVoCnuYaV0xCO4XaYnSaBbq5LZXSusOJKXUHQv2J01GmfG
-   FKM3RLGGM/+gvk9eM8EoPpCfFoS0I3cxId8oMIwmo/G0O7xZ3llU677Tp
-   J38hyzBWPX/NTC/XhR4yFGVN9rHWTJs/qWbWRwZx60overUw8F/S/IMUX
-   i6g8BI4oTFj44K77ZA6CT5FPdXyEP0qfXoKO3UiVYOYEe13vaGDhVNTy4
-   oMA8IM1jacwt0ASpZKgyTnOHsmqU2HJEfHEd7qNQ2j1TXEvefkNBwTnyP
-   YWOPdNlVPKaerwwCu8On1se58lEhQtW9gLqMvAL+z+WFhzHmWjIQml2Kk
-   Q==;
-X-CSE-ConnectionGUID: MGOZiNWMRKGm2FCq/zy9Sw==
-X-CSE-MsgGUID: z4n8gsiXQTGIiWZpWUraLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="99825564"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="99825564"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 00:55:25 -0700
-X-CSE-ConnectionGUID: FeRmRTjRSxehkB7ZdkimJg==
-X-CSE-MsgGUID: mudbXluGQKaLysgxoyATxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="266289602"
-Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 07 Sep 2026 00:55:24 -0700
-Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x3UCH-000000000HY-2gjW;
-	Mon, 07 Sep 2026 07:55:21 +0000
-Date: Mon, 07 Sep 2026 14:42:56 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:ipu6] BUILD SUCCESS
- 6f6d9729301fbf8fadff3c1822cdd730ef6cd213
-Message-ID: <202609071453.Wr61Aa3p-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnQZUClD"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso2453195a12.1
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 01:12:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788768751; x=1789373551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=971x3L1jLFO50aCCes3jvxmvwdkEiKwHi793ZZpvAwA=;
+        b=DnQZUClDG+STAKi2HTSLrDEXSMtoZjFRetEAcCyXgKgIgAJQP0J/xE0re155nXd9XV
+         7CFpmyqtOBHHtSIB+zCTPxzrgqPLQV+4ziGrlje+73VfQarvb1m2KJMeaeEx4+KSrJJs
+         o0yhQOR0tiW8gVef+uCwa0VrdzZHAnzQgChMbF9cAc/sDQlKpg0K4e/qZrpqFn8hG/5A
+         2rf6RI0szykyjTw0iWW1S6WOvKbszG1OmXQERezXuf5dFlFt/SHv/pZLvOyp7jdOpPuh
+         BraBWPqceHYoOqQDhuZZ3p1J6a2e/HAjCFhOW+zR679uVZxBTxNq24d/1357kOUBua83
+         a53g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788768751; x=1789373551;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=971x3L1jLFO50aCCes3jvxmvwdkEiKwHi793ZZpvAwA=;
+        b=PIhA9g750Fg3XqGYPgrKMWdR95B0EaiCnZIwplBdC7RGjhLo12EyRu9c6pwEDKwcPA
+         Ehi5jYJL2SNkfITkVYHcRY8vK+F9qVoViT61+lVMkgx80dAGKv1FQ5/4nromt5hXLgZw
+         o7+yKEMTG2ovaAPt194DidGcSenWD7Gl88bd0hviuAyiCL2EUOQr4/SZzDkt1gRdg/Xl
+         zAyl/WqQL4CXKwCK+qjcL7bCTyHlyjZjlLn+S03GstP1ZZChA0q6BUr04wA07NVKwTs+
+         hsEqolCS2RUdbFDQwENC+qJ5/EHoHRxol+z2HiFqMDUo8GBvz6WzZYcjMu7eKoBcsizR
+         sbPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdY1UqRAe2ebFMRF4aZANi3bYpUvkFYhP6hz0Bi+kueHJLTRILfTokBJg9u4g042ss/vqugKme1/9f9w==@vger.kernel.org
+X-Gm-Message-State: AFuF++lHP6G6xCfDJw98J/Zxu3lqzNKz8U4/o1gMV6f2mMFeeBCgPlHP
+	nhb0UYKfWWw1ZOah2wnkVXGYEcvqxapLR2CnBVQMXrkxF/1Pio/VVIRD
+X-Gm-Gg: AYBFou3xQcFJk7BjDMBm1ReoaXqM/m2par2ijgagQjUo/2ahFA0Xrq2jYKDaVOzWXp3
+	Ye7DaISAJ90yH5nAG/rjoeu3PgJHPGtMgQ9Uwtt3iQX48Ixxv2yga/ib2UjLc9OPaf9ix0SvG/k
+	mX4Jt3g0aJiQPXLYZLKgbD0n5Zk+sfqbfHTdVm9eKml/w4CS681GXsaBdQB5VP71Uzj3SZm/Fi3
+	bzwKdGkfgSAghXpb0CxlyncsYK7wUHhJia5ZUx7kHObY6KRyi76UpubJM2U5YWs2MkEf1XAEiHb
+	2kUXJ9hZtxPIfP3REATaLcvhPmFjI18k5XJsBxkYciwiHQ2592+EkVkELzSty/cbQYtgRwXg52T
+	yJuFZNtkqONd/hsYyHgZr4uQNsQnDPxrIwXbityToxn5o5FjGr9Uav102i9NkDW6PkyL7jgXe5l
+	D0AUQ58iG4YJZZ12QIEXounIYby/CQSeB1B8ZnZnn1Xlu3HGAt05TLuh6cIIJCNaWsyFzBMwY3s
+	xhPg+7rf7g8S2xHQ9EGxdpkabbhZ7Qx7DXtg1pvHosri7eL9ofl6HTla2DJ9RIVKeigYe7d9Ckm
+	ziIk37E=
+X-Received: by 2002:a05:6a20:e607:b0:3d3:adbf:777f with SMTP id adf61e73a8af0-3da3a16a54cmr35721717637.20.1788768750876;
+        Mon, 07 Sep 2026 01:12:30 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45a6abb12sm3535544a12.16.2026.09.07.01.12.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:12:30 -0700 (PDT)
+From: Wei Jie LAW <98lawweijie@gmail.com>
+To: ribalda@chromium.org
+Cc: 98lawweijie@gmail.com,
+	guennadi.liakhovetski@linux.intel.com,
+	hansg@kernel.org,
+	laurent.pinchart@ideasonboard.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: uvcvideo: Fix NULL deref on events for uninitialized controls
+Date: Mon,  7 Sep 2026 16:12:22 +0800
+Message-ID: <20260907081222.2541314-1-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANiDSCtypCfEoZbRvdT7EoJdd2G8yOVcvxBoS5LcE60UjFQx2g@mail.gmail.com>
+References: <CANiDSCtypCfEoZbRvdT7EoJdd2G8yOVcvxBoS5LcE60UjFQx2g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git ipu6
-branch HEAD: 6f6d9729301fbf8fadff3c1822cdd730ef6cd213  media: ipu6: Enable support for IPU 7 and IPU 7.5
+On Mon, 7 Sept 2026 at 09:00:35, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> 
+> Could you provide more info on how you reproduced the error?
 
-elapsed time: 4351m
+The device I used is a Facedancer UVC gadget in a QEMU VM running
+v6.12.105 + KASAN. It has:
 
-configs tested: 43
-configs skipped: 0
+  - a Video Control interface with an Extension Unit: id 3, one control
+    declared in bmControls, GUID not matching any known mapping,
+  - a status interrupt IN endpoint.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+The crash is fully device-driven; from the host side the only
+thing needed is a process that keeps the video device open -- any
+camera application will do (no ioctl, and no privileges beyond normal
+camera access: the opener can be any active desktop user).
 
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arm           allnoconfig    gcc-16.1.0
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    clang-20
-openrisc      allnoconfig    clang-24
-parisc        allnoconfig    clang-24
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-s390          allnoconfig    clang-24
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    clang-20
+Userspace never sends UVCIOC_CTRL_MAP / UVCIOC_CTRL_QUERY for that GUID,
+so the XU control stays exactly as uvc_ctrl_init_chain() kzalloc'ed it
+(XUs are initialized lazily by uvc_ctrl_init_ctrl(), which skips them).
+Something then opens /dev/videoN, which arms the status URB, and the
+device sends this 16-byte control change event:
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+  bStatusType  = 1 (control)
+  bOriginator  = 3 (the XU)
+  bEvent       = 0
+  bSelector    = 0
+  bAttribute   = 0 (VALUE_CHANGE)
+  bValue[11]
+
+The worker dies before it can resubmit the status URB, so one open()
+gives one oops and the endpoint goes quiet; closing and reopening the
+node repeats it. The oops does not depend on KASAN -- it is a plain NULL
+walk on any kernel.
+
+> nit: I would not add the comment.
+
+Sure! Will remove the comments in a V2 patch, which I will submit later
+along with the [2/2] patch request since it's a duplicate of yours.
+
+Regards,
+Wei Jie
