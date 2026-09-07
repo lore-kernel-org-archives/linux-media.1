@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BE94772B9
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D584908D6
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780625; cv=none; b=Po8ZZL+GMq8lsDB/9WSvdYrGi3+X2DBMpMC5eR2h+SCtc30dmbAzVmQvZRaBdZ5UEqrC1M+E4qvRv64nInsquvRrDFg9O0cnRl0tItssbIxdFPmd9KF5g7WJSd3OhdcxUFi1tFxtk8SjESHbqisI58l4bBo9CfxC3wff+rzctWc=
+	t=1788780625; cv=none; b=Pu1YnbxpxoULMMRkX2Yy5T7J+eWOLPNOu86GrsHB99k2lcH9Wj3xc0Aum0Bxx9dbDX1zOc+hGiFcbLep80jIBRQNK9dddOWDaSH7okqJylrdXR4pipNt7m7qeoS8YnLc8IHiWv8p8LAoDOFAlN5IwjWHDZ2mqUYvwvVR3e/TXr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780625; c=relaxed/simple;
-	bh=LUde18zL5WADmSC8CDpFPEg+as1Tc/WWljFIgX7c2Nw=;
+	bh=lLUAfVmtN8JLmbIB7hFwa40JptoV91iJGf95KB+vPV8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LFuZblfdS46+wUMlzrNgcRnR/sjKLcGu8aHG7t3aIJX6q8h1lbpKpRfxBK5abBEDaCANzQ1A1OpkxzhhiHe8VT8ypn/OY96VlXvhRubiw8bVR63nI46+DMEtdEc9gwit/bBbCrpj4PYBDUVF6rAfqKtn/JzoIiqYwatOBMfo3sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hJh8vzmy; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=FiRh7DdQP4n6SyBauAy1HD10d7NWrwkIsxRzEoW2b/UC8PcgIhlUAmPGbHuLzvm6qeua+dYedmbuyRHN/XtaEODU+bYZ/O9jLYcDILpaR6of7V6oXXbzikhNhvzandjZqQw0QBXPANwhWyajhhP9hgyaVaISQqWl3VXE1mEBSwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MkUz75Eo; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hJh8vzmy"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MkUz75Eo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780622; x=1820316622;
+  t=1788780623; x=1820316623;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=LUde18zL5WADmSC8CDpFPEg+as1Tc/WWljFIgX7c2Nw=;
-  b=hJh8vzmy96zzOVjklNQFA6os11RV4dCoYKD/ogk5uH4qV3VqmVCZEjGT
-   PzeO6DIkWNJYLQrLk5KQSEZgOR6JAssT/H41pU0fcGqEYm3sDCZf9heRa
-   X9dgzppFQrueUWS73mZeOIxl/eBO4/4nP9CZk1KAQRG20PI5TBDnFW+lS
-   /5eXU5b+LUuYOyb+x78UzJKD+1GckH6pXeIM9EL4CW8JKvpXd2z0A6bEP
-   sWI9oE5Ht2WyMfCfdBp2+GIWInCtmgRJitTiNBh77LM2dTtWzELfvFEu2
-   JiXNP/+W88nCjWGCjAvmZMctVMV3Cha2k+VldBjeNOfUDnaHUG/cUFNt3
-   w==;
-X-CSE-ConnectionGUID: drr/0Rb4QyKu8oEoEpqlYw==
-X-CSE-MsgGUID: 5t26+nqZTmOfflxeLf+lhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538620"
+  bh=lLUAfVmtN8JLmbIB7hFwa40JptoV91iJGf95KB+vPV8=;
+  b=MkUz75EofD7YVc/ii1QW+xrQh1kJL4C8Pfhu7rm9tErtGkoXBrUKcqeU
+   b4k//17sH5v9nUX4e6+bTQtMgcLJQc9rCNDHePHhifES0dTQFR3s/SA/K
+   EBPbqVeWw5AGnmkCaujdE9iC3/Yp6jR9chEXglMcD+9NsWdN+bd5eAUGb
+   Ivowh4WfKkT0sVkgSuxkv6dIhPoJfMyj+g26UK5LeJGNoRptL2YhDRaQ/
+   cw+rXnMMyV1Ovn6o5jEe5lGjHIrZu2B63/G8OTPyCJbi1ENJ5hxzsnDqA
+   jP/SeJCc93P4qRpKXJZD/rfZwF1MgGD0+pJhorSKMOMOznukntP0VZ/n5
+   Q==;
+X-CSE-ConnectionGUID: m9nvx2yOSH6qk5xsXXeslg==
+X-CSE-MsgGUID: BkdrVPt8QnaX2+o6JuEkHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538621"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538620"
+   d="scan'208";a="100538621"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:13 -0700
-X-CSE-ConnectionGUID: /yod55qWTVOe8jFhV8bnJw==
-X-CSE-MsgGUID: V0cL7rAyRZSOuZR3qkmBYQ==
+X-CSE-ConnectionGUID: 6iVgJ7bPTkWptwwBlCX/eg==
+X-CSE-MsgGUID: cn9HNCFMQB+JGnsYRiXZyQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569218"
+   d="scan'208";a="300569221"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:12 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id C6E15121E55;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id D15C3121F4A;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARoC-1EVF;
+	id 1x3XY5-0000000ARoR-1QTH;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 18/45] media: ipu6: Move isys isr handlers to fw file
-Date: Mon,  7 Sep 2026 14:29:37 +0300
-Message-ID: <20260907113004.2489993-19-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 21/45] media: ipu6: Add isys firmware ops
+Date: Mon,  7 Sep 2026 14:29:40 +0300
+Message-ID: <20260907113004.2489993-22-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,585 +73,514 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-The ipu7 will have its own isr handlers. Move ipu6 isr
-code to hardware specific file.
+Add struct for ipu6 firmware ops. This is a preparation to
+add support for ipu7 firmware communication.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 259 +++++++++++++++++++
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.h |   3 +
- drivers/media/pci/intel/ipu6/ipu6-isys.c    | 263 +-------------------
- 3 files changed, 263 insertions(+), 262 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-bus.h       |  3 +
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   | 71 +++++++++++--------
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.h   | 38 +---------
+ .../media/pci/intel/ipu6/ipu6-isys-queue.c    | 24 ++++---
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    | 35 +++++----
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      |  1 +
+ drivers/media/pci/intel/ipu6/ipu6-isys.h      | 32 +++++++++
+ 7 files changed, 116 insertions(+), 88 deletions(-)
 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-bus.h b/drivers/media/pci/intel/ipu6/ipu6-bus.h
+index a08c5468d536..62aa2b090699 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-bus.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-bus.h
+@@ -37,6 +37,7 @@ struct ipu6_auxdrv_data {
+ 	irqreturn_t (*isr)(struct ipu6_bus_device *adev);
+ 	irqreturn_t (*isr_threaded)(struct ipu6_bus_device *adev);
+ 	bool wake_isr_thread;
++	const struct ipu6_fw_isys_ops *fw_ops;
+ };
+ 
+ #define to_ipu6_bus_device(_dev) \
+@@ -45,6 +46,8 @@ struct ipu6_auxdrv_data {
+ 	container_of(_auxdev, struct ipu6_bus_device, auxdev)
+ #define ipu6_bus_get_drvdata(adev) dev_get_drvdata(&(adev)->auxdev.dev)
+ 
++extern const struct ipu6_fw_isys_ops ipu6_fw_isys_ops;
++
+ struct ipu6_bus_device *
+ ipu6_bus_initialize_device(struct pci_dev *pdev, struct device *parent,
+ 			   void *pdata, const struct ipu6_buttress_ctrl *ctrl,
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index fc2f24c05de7..7f7125202ffd 100644
+index 9256ea3b68c1..4ee5137f310e 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -487,3 +487,262 @@ ipu6_fw_isys_dump_frame_buff_set(struct device *dev,
+@@ -126,7 +126,7 @@ static int ipu6_fw_isys_complex_cmd(struct ipu6_isys *isys,
+ 	return 0;
+ }
  
+-int ipu6_fw_isys_close(struct ipu6_isys *isys)
++static int ipu6_fw_isys_close(struct ipu6_isys *isys)
+ {
+ 	struct device *dev = &isys->adev->auxdev.dev;
+ 	int retry = IPU6_ISYS_CLOSE_RETRY;
+@@ -165,7 +165,7 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
+ 	return ret;
+ }
+ 
+-void ipu6_fw_isys_cleanup(struct ipu6_isys *isys)
++static void ipu6_fw_isys_cleanup(struct ipu6_isys *isys)
+ {
+ 	int ret;
+ 
+@@ -316,7 +316,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	return 0;
+ }
+ 
+-int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
++static int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ {
+ 	struct device *dev = &isys->adev->auxdev.dev;
+ 	int retry = IPU6_ISYS_OPEN_RETRY;
+@@ -358,18 +358,19 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ 	return ret;
+ }
+ 
+-struct ipu6_fw_isys_resp_info_abi *
++static struct ipu6_fw_isys_resp_info_abi *
+ ipu6_fw_isys_get_resp(struct ipu6_isys *isys)
+ {
+ 	return ipu6_recv_get_token(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
+ }
+ 
+-void ipu6_fw_isys_put_resp(struct ipu6_isys *isys)
++static void ipu6_fw_isys_put_resp(struct ipu6_isys *isys)
+ {
+ 	ipu6_recv_put_token(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
+ }
+ 
+-void ipu6_fw_isys_dump_stream_cfg(struct device *dev, struct isys_fw_msgs *msg)
++static void ipu6_fw_isys_dump_stream_cfg(struct device *dev,
++					 struct isys_fw_msgs *msg)
+ {
+ 	struct ipu6_fw_isys_stream_cfg_data_abi *cfg = &msg->ipu6.stream;
+ 	unsigned int i;
+@@ -446,9 +447,9 @@ void ipu6_fw_isys_dump_stream_cfg(struct device *dev, struct isys_fw_msgs *msg)
  	dev_dbg(dev, "-----------------------------------------------------\n");
  }
+ 
+-void
+-ipu6_fw_isys_dump_frame_buff_set(struct device *dev, struct isys_fw_msgs *msg,
+-				 unsigned int outputs)
++static void
++ipu6_fw_isys_dump_frame_buf_set(struct device *dev, struct isys_fw_msgs *msg,
++				unsigned int outputs)
+ {
+ 	struct ipu6_fw_isys_frame_buff_set_abi *buf;
+ 	unsigned int i;
+@@ -820,8 +821,8 @@ static int ipu6_isys_fw_pin_cfg(struct ipu6_isys_video *av,
+ 	return 0;
+ }
+ 
+-int ipu6_fw_isys_prepare_stream_cfg(struct ipu6_isys_video *av,
+-				    struct isys_fw_msgs *msg)
++static int ipu6_fw_isys_prepare_stream_cfg(struct ipu6_isys_video *av,
++					   struct isys_fw_msgs *msg)
+ {
+ 	struct ipu6_fw_isys_stream_cfg_data_abi *stream_cfg;
+ 	struct device *dev = &av->isys->adev->auxdev.dev;
+@@ -850,9 +851,9 @@ int ipu6_fw_isys_prepare_stream_cfg(struct ipu6_isys_video *av,
+ 	return 0;
+ }
+ 
+-int ipu6_fw_isys_stream_open(struct ipu6_isys *isys,
+-			     const unsigned int stream_handle,
+-			     struct isys_fw_msgs *msg)
++static int ipu6_fw_isys_stream_open(struct ipu6_isys *isys,
++				    const unsigned int stream_handle,
++				    struct isys_fw_msgs *msg)
+ {
+ 	return ipu6_fw_isys_complex_cmd(isys, stream_handle,
+ 				       &msg->ipu6.stream, msg->dma_addr,
+@@ -860,23 +861,23 @@ int ipu6_fw_isys_stream_open(struct ipu6_isys *isys,
+ 				       IPU6_FW_ISYS_SEND_TYPE_STREAM_OPEN);
+ }
+ 
+-int ipu6_fw_isys_stream_close(struct ipu6_isys *isys,
+-			      const unsigned int stream_handle)
++static int ipu6_fw_isys_stream_close(struct ipu6_isys *isys,
++				     const unsigned int stream_handle)
+ {
+ 	return ipu6_fw_isys_complex_cmd(isys, stream_handle, NULL, 0, 0,
+ 					IPU6_FW_ISYS_SEND_TYPE_STREAM_CLOSE);
+ }
+ 
+-int ipu6_fw_isys_stream_flush(struct ipu6_isys *isys,
+-			      const unsigned int stream_handle)
++static int ipu6_fw_isys_stream_flush(struct ipu6_isys *isys,
++				     const unsigned int stream_handle)
+ {
+ 	return ipu6_fw_isys_complex_cmd(isys, stream_handle, NULL, 0, 0,
+ 					IPU6_FW_ISYS_SEND_TYPE_STREAM_FLUSH);
+ }
+ 
+-int ipu6_fw_isys_stream_start(struct ipu6_isys *isys,
+-			      const unsigned int stream_handle,
+-			      struct isys_fw_msgs *msg, bool capture)
++static int ipu6_fw_isys_stream_start(struct ipu6_isys *isys,
++				     const unsigned int stream_handle,
++				     struct isys_fw_msgs *msg, bool capture)
+ {
+ 	u16 cmd_type;
+ 
+@@ -890,9 +891,9 @@ int ipu6_fw_isys_stream_start(struct ipu6_isys *isys,
+ 					sizeof(msg->ipu6.stream), cmd_type);
+ }
+ 
+-int ipu6_fw_isys_stream_capture(struct ipu6_isys *isys,
+-				const unsigned int stream_handle,
+-				struct isys_fw_msgs *msg)
++static int ipu6_fw_isys_stream_capture(struct ipu6_isys *isys,
++				       const unsigned int stream_handle,
++				       struct isys_fw_msgs *msg)
+ {
+ 	return ipu6_fw_isys_complex_cmd(isys, stream_handle,
+ 					&msg->ipu6.stream, msg->dma_addr,
+@@ -918,10 +919,9 @@ ipu6_isys_buf_to_fw_frame_buf_pin(struct vb2_buffer *vb,
+  * buffer list is not modified.
+  */
+ #define IPU6_ISYS_FRAME_NUM_THRESHOLD  (30)
+-void
+-ipu6_fw_isys_prepare_buf_set(struct isys_fw_msgs *msg,
+-			     struct ipu6_isys_stream *stream,
+-			     struct ipu6_isys_buffer_list *bl)
++static void ipu6_fw_isys_prepare_buf_set(struct isys_fw_msgs *msg,
++					 struct ipu6_isys_stream *stream,
++					 struct ipu6_isys_buffer_list *bl)
+ {
+ 	struct ipu6_fw_isys_frame_buff_set_abi *set = &msg->ipu6.frame;
+ 	struct ipu6_isys_buffer *ib;
+@@ -952,3 +952,18 @@ ipu6_fw_isys_prepare_buf_set(struct isys_fw_msgs *msg,
+ 		ipu6_isys_buf_to_fw_frame_buf_pin(vb, set);
+ 	}
+ }
 +
-+struct fwmsg {
-+	int type;
-+	char *msg;
-+	bool valid_ts;
++const struct ipu6_fw_isys_ops ipu6_fw_isys_ops = {
++	.init = ipu6_fw_isys_init,
++	.close = ipu6_fw_isys_close,
++	.cleanup = ipu6_fw_isys_cleanup,
++	.prepare_stream_cfg = ipu6_fw_isys_prepare_stream_cfg,
++	.prepare_buf_set = ipu6_fw_isys_prepare_buf_set,
++	.stream_open = ipu6_fw_isys_stream_open,
++	.stream_start = ipu6_fw_isys_stream_start,
++	.stream_capture = ipu6_fw_isys_stream_capture,
++	.stream_flush = ipu6_fw_isys_stream_flush,
++	.stream_close = ipu6_fw_isys_stream_close,
++	.dump_stream_cfg = ipu6_fw_isys_dump_stream_cfg,
++	.dump_frame_buf_set = ipu6_fw_isys_dump_frame_buf_set,
 +};
-+
-+static const struct fwmsg fw_msg[] = {
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE, "STREAM_OPEN_DONE", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK, "STREAM_CLOSE_ACK", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_START_ACK, "STREAM_START_ACK", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK,
-+	 "STREAM_START_AND_CAPTURE_ACK", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK, "STREAM_STOP_ACK", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK, "STREAM_FLUSH_ACK", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY, "PIN_DATA_READY", 1},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK, "STREAM_CAPTURE_ACK", 0},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE,
-+	 "STREAM_START_AND_CAPTURE_DONE", 1},
-+	{IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE, "STREAM_CAPTURE_DONE", 1},
-+	{IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF, "FRAME_SOF", 1},
-+	{IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF, "FRAME_EOF", 1},
-+	{IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY, "STATS_READY", 1},
-+	{-1, "UNKNOWN MESSAGE", 0}
-+};
-+
-+static u32 resp_type_to_index(int type)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(fw_msg); i++)
-+		if (fw_msg[i].type == type)
-+			return i;
-+
-+	return  ARRAY_SIZE(fw_msg) - 1;
-+}
-+
-+int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
-+{
-+	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
-+	struct ipu6_fw_isys_resp_info_abi *resp;
-+	struct ipu6_isys_stream *stream;
-+	struct ipu6_isys_csi2 *csi2 = NULL;
-+	u32 index;
-+	u64 ts;
-+
-+	if (!isys->fwctx)
-+		return 1;
-+
-+	resp = ipu6_fw_isys_get_resp(isys);
-+	if (!resp)
-+		return 1;
-+
-+	ts = (u64)resp->timestamp[1] << 32 | resp->timestamp[0];
-+
-+	index = resp_type_to_index(resp->type);
-+	dev_dbg(&adev->auxdev.dev,
-+		"FW resp %02d %s, stream %u, ts 0x%16.16llx, pin %d\n",
-+		resp->type, fw_msg[index].msg, resp->stream_handle,
-+		fw_msg[index].valid_ts ? ts : 0, resp->pin_id);
-+
-+	if (resp->error_info.error == IPU6_FW_ISYS_ERROR_STREAM_IN_SUSPENSION)
-+		/* Suspension is kind of special case: not enough buffers */
-+		dev_dbg(&adev->auxdev.dev,
-+			"FW error resp SUSPENSION, details %d\n",
-+			resp->error_info.error_details);
-+	else if (resp->error_info.error)
-+		dev_dbg(&adev->auxdev.dev,
-+			"FW error resp error %d, details %d\n",
-+			resp->error_info.error, resp->error_info.error_details);
-+
-+	if (resp->stream_handle >= IPU6_ISYS_MAX_STREAMS) {
-+		dev_err(&adev->auxdev.dev, "bad stream handle %u\n",
-+			resp->stream_handle);
-+		goto leave;
-+	}
-+
-+	stream = ipu6_isys_query_stream_by_handle(isys, resp->stream_handle);
-+	if (!stream) {
-+		dev_err(&adev->auxdev.dev, "stream of stream_handle %u is unused\n",
-+			resp->stream_handle);
-+		goto leave;
-+	}
-+	stream->error = resp->error_info.error;
-+
-+	csi2 = ipu6_isys_subdev_to_csi2(stream->asd);
-+
-+	switch (resp->type) {
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
-+		complete(&stream->stream_open_completion);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK:
-+		complete(&stream->stream_close_completion);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_START_ACK:
-+		complete(&stream->stream_start_completion);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK:
-+		complete(&stream->stream_start_completion);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK:
-+		complete(&stream->stream_stop_completion);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK:
-+		complete(&stream->stream_stop_completion);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY:
-+		/*
-+		 * firmware only release the capture msg until software
-+		 * get pin_data_ready event
-+		 */
-+		ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), resp->buf_id);
-+		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
-+		    stream->output_pins_queue[resp->pin_id])
-+			ipu6_isys_queue_buf_ready(stream, resp);
-+		else
-+			dev_warn(&adev->auxdev.dev,
-+				 "%d:No queue for pin id %d\n",
-+				 resp->stream_handle, resp->pin_id);
-+		if (csi2)
-+			ipu6_isys_csi2_error(csi2);
-+
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK:
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE:
-+	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF:
-+
-+		ipu6_isys_csi2_sof_event_by_stream(stream);
-+		stream->seq[stream->seq_index].sequence =
-+			atomic_read(&stream->sequence) - 1;
-+		stream->seq[stream->seq_index].timestamp = ts;
-+		dev_dbg(&adev->auxdev.dev,
-+			"sof: handle %d: (index %u), timestamp 0x%16.16llx\n",
-+			resp->stream_handle,
-+			stream->seq[stream->seq_index].sequence, ts);
-+		stream->seq_index = (stream->seq_index + 1)
-+			% IPU6_ISYS_MAX_PARALLEL_SOF;
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
-+		ipu6_isys_csi2_eof_event_by_stream(stream);
-+		dev_dbg(&adev->auxdev.dev,
-+			"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
-+			resp->stream_handle,
-+			stream->seq[stream->seq_index].sequence, ts);
-+		break;
-+	case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
-+		break;
-+	default:
-+		dev_err(&adev->auxdev.dev, "%d:unknown response type %u\n",
-+			resp->stream_handle, resp->type);
-+		break;
-+	}
-+
-+	ipu6_isys_put_stream(stream);
-+leave:
-+	ipu6_fw_isys_put_resp(isys);
-+	return 0;
-+}
-+
-+static void ipu6_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
-+{
-+	struct ipu6_isys_stream *stream;
-+	unsigned int i;
-+	u32 status;
-+	int source;
-+
-+	ipu6_isys_register_errors(csi2);
-+
-+	status = readl(csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
-+		       CSI_PORT_REG_BASE_IRQ_STATUS_OFFSET);
-+
-+	writel(status, csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
-+	       CSI_PORT_REG_BASE_IRQ_CLEAR_OFFSET);
-+
-+	source = csi2->asd.source;
-+	for (i = 0; i < NR_OF_CSI2_VC; i++) {
-+		if (status & IPU_CSI_RX_IRQ_FS_VC(i)) {
-+			stream = ipu6_isys_query_stream_by_source(csi2->isys,
-+								  source, i);
-+			if (stream) {
-+				ipu6_isys_csi2_sof_event_by_stream(stream);
-+				ipu6_isys_put_stream(stream);
-+			}
-+		}
-+
-+		if (status & IPU_CSI_RX_IRQ_FE_VC(i)) {
-+			stream = ipu6_isys_query_stream_by_source(csi2->isys,
-+								  source, i);
-+			if (stream) {
-+				ipu6_isys_csi2_eof_event_by_stream(stream);
-+				ipu6_isys_put_stream(stream);
-+			}
-+		}
-+	}
-+}
-+
-+irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev)
-+{
-+	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
-+	void __iomem *base = isys->pdata->base;
-+	u32 status_sw, status_csi;
-+	u32 ctrl0_status, ctrl0_clear;
-+
-+	spin_lock(&isys->power_lock);
-+	if (!isys->power) {
-+		spin_unlock(&isys->power_lock);
-+		return IRQ_NONE;
-+	}
-+
-+	ctrl0_status = isys->pdata->ipdata->csi2.ctrl0_irq_status;
-+	ctrl0_clear = isys->pdata->ipdata->csi2.ctrl0_irq_clear;
-+
-+	status_csi = readl(isys->pdata->base + ctrl0_status);
-+	status_sw = readl(isys->pdata->base +
-+			  IPU6_REG_ISYS_UNISPART_IRQ_STATUS);
-+
-+	writel(ISYS_UNISPART_IRQS & ~IPU6_ISYS_UNISPART_IRQ_SW,
-+	       base + IPU6_REG_ISYS_UNISPART_IRQ_MASK);
-+
-+	do {
-+		writel(status_csi, isys->pdata->base + ctrl0_clear);
-+
-+		writel(status_sw, isys->pdata->base +
-+		       IPU6_REG_ISYS_UNISPART_IRQ_CLEAR);
-+
-+		if (isys->isr_csi2_bits & status_csi) {
-+			unsigned int i;
-+
-+			for (i = 0; i < isys->pdata->ipdata->csi2.nports; i++) {
-+				/* irq from not enabled port */
-+				if (!isys->csi2[i].base)
-+					continue;
-+				if (status_csi & IPU6_ISYS_UNISPART_IRQ_CSI2(i))
-+					ipu6_isys_csi2_isr(&isys->csi2[i]);
-+			}
-+		}
-+
-+		writel(0, base + IPU6_REG_ISYS_UNISPART_SW_IRQ_REG);
-+
-+		if (!ipu6_isys_isr_one(adev))
-+			status_sw = IPU6_ISYS_UNISPART_IRQ_SW;
-+		else
-+			status_sw = 0;
-+
-+		status_csi = readl(isys->pdata->base + ctrl0_status);
-+		status_sw |= readl(isys->pdata->base +
-+				   IPU6_REG_ISYS_UNISPART_IRQ_STATUS);
-+	} while ((status_csi & isys->isr_csi2_bits) ||
-+		 (status_sw & IPU6_ISYS_UNISPART_IRQ_SW));
-+
-+	writel(ISYS_UNISPART_IRQS, base + IPU6_REG_ISYS_UNISPART_IRQ_MASK);
-+
-+	spin_unlock(&isys->power_lock);
-+
-+	return IRQ_HANDLED;
-+}
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-index 15d4ae355f28..f65461a4c907 100644
+index b589ae7fbd4e..2a679d995961 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
 +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-@@ -578,4 +578,7 @@ void ipu6_fw_isys_cleanup(struct ipu6_isys *isys);
- struct ipu6_fw_isys_resp_info_abi *
- ipu6_fw_isys_get_resp(struct ipu6_isys *isys);
- void ipu6_fw_isys_put_resp(struct ipu6_isys *isys);
-+int ipu6_isys_isr_one(struct ipu6_bus_device *adev);
-+irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev);
-+
+@@ -559,42 +559,10 @@ struct ipu6_fw_proxy_send_queue_token {
+ 	u32 value;
+ };
+ 
+-int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams);
+-int ipu6_fw_isys_close(struct ipu6_isys *isys);
+-int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys,
+-				  unsigned int req_id,
+-				  unsigned int index,
+-				  unsigned int offset, u32 value);
+-void ipu6_fw_isys_cleanup(struct ipu6_isys *isys);
+-struct ipu6_fw_isys_resp_info_abi *
+-ipu6_fw_isys_get_resp(struct ipu6_isys *isys);
+-void ipu6_fw_isys_put_resp(struct ipu6_isys *isys);
++int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys, unsigned int req_id,
++				  unsigned int index, unsigned int offset,
++				  u32 value);
+ int ipu6_isys_isr_one(struct ipu6_bus_device *adev);
+ irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev);
+ 
+-int ipu6_fw_isys_stream_open(struct ipu6_isys *isys,
+-			     const unsigned int stream_handle,
+-			     struct isys_fw_msgs *msg);
+-int ipu6_fw_isys_stream_close(struct ipu6_isys *isys,
+-			      const unsigned int stream_handle);
+-int ipu6_fw_isys_stream_flush(struct ipu6_isys *isys,
+-			      const unsigned int stream_handle);
+-int ipu6_fw_isys_stream_start(struct ipu6_isys *isys,
+-			      const unsigned int stream_handle,
+-			      struct isys_fw_msgs *msg, bool capture);
+-int ipu6_fw_isys_stream_capture(struct ipu6_isys *isys,
+-				const unsigned int stream_handle,
+-				struct isys_fw_msgs *msg);
+-int ipu6_fw_isys_prepare_stream_cfg(struct ipu6_isys_video *av,
+-				    struct isys_fw_msgs *msg);
+-void
+-ipu6_fw_isys_prepare_buf_set(struct isys_fw_msgs *msg,
+-			     struct ipu6_isys_stream *stream,
+-			     struct ipu6_isys_buffer_list *bl);
+-void
+-ipu6_fw_isys_dump_stream_cfg(struct device *dev, struct isys_fw_msgs *set);
+-void
+-ipu6_fw_isys_dump_frame_buff_set(struct device *dev, struct isys_fw_msgs *set,
+-				 unsigned int outputs);
+-
  #endif
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+index 9f6f283600c8..4cb1741445c6 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+@@ -237,8 +237,10 @@ static int buffer_list_get(struct ipu6_isys_stream *stream,
+ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
+ 				  struct ipu6_isys_buffer_list *bl)
+ {
++	struct ipu6_bus_device *adev = av->isys->adev;
++	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+ 	struct ipu6_isys_stream *stream = av->stream;
+-	struct device *dev = &stream->isys->adev->auxdev.dev;
++	struct device *dev = &adev->auxdev.dev;
+ 	struct ipu6_isys_buffer_list __bl;
+ 	int ret;
+ 
+@@ -262,14 +264,13 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
+ 		if (!msg)
+ 			return -ENOMEM;
+ 
+-		ipu6_fw_isys_prepare_buf_set(msg, stream, bl);
+-		ipu6_fw_isys_dump_frame_buff_set(dev, msg,
+-						 stream->nr_output_pins);
++		fw_ops->prepare_buf_set(msg, stream, bl);
++		fw_ops->dump_frame_buf_set(dev, msg, stream->nr_output_pins);
+ 		ipu6_isys_buffer_list_queue(bl, IPU6_ISYS_BUFFER_LIST_FL_ACTIVE,
+ 					    0);
+ 
+-		ret = ipu6_fw_isys_stream_capture(stream->isys,
+-						  stream->stream_handle, msg);
++		ret = fw_ops->stream_capture(stream->isys,
++					     stream->stream_handle, msg);
+ 	} while (!WARN_ON(ret));
+ 
+ 	return 0;
+@@ -288,11 +289,13 @@ static void buf_queue(struct vb2_buffer *vb)
+ {
+ 	struct ipu6_isys_queue *aq = vb2_queue_to_isys_queue(vb->vb2_queue);
+ 	struct ipu6_isys_video *av = ipu6_isys_queue_to_video(aq);
++	struct ipu6_bus_device *adev = av->isys->adev;
++	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+ 	struct vb2_v4l2_buffer *vvb = to_vb2_v4l2_buffer(vb);
+ 	struct ipu6_isys_video_buffer *ivb =
+ 		vb2_buffer_to_ipu6_isys_video_buffer(vvb);
+ 	struct ipu6_isys_buffer *ib = &ivb->ib;
+-	struct device *dev = &av->isys->adev->auxdev.dev;
++	struct device *dev = &adev->auxdev.dev;
+ 	struct ipu6_isys_stream *stream = av->stream;
+ 	struct ipu6_isys_buffer_list bl;
+ 	struct isys_fw_msgs *msg;
+@@ -339,8 +342,8 @@ static void buf_queue(struct vb2_buffer *vb)
+ 		goto out;
+ 	}
+ 
+-	ipu6_fw_isys_prepare_buf_set(msg, stream, &bl);
+-	ipu6_fw_isys_dump_frame_buff_set(dev, msg, stream->nr_output_pins);
++	fw_ops->prepare_buf_set(msg, stream, &bl);
++	fw_ops->dump_frame_buf_set(dev, msg, stream->nr_output_pins);
+ 
+ 	/*
+ 	 * We must queue the buffers in the buffer list to the
+@@ -350,8 +353,7 @@ static void buf_queue(struct vb2_buffer *vb)
+ 	 */
+ 	ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
+ 
+-	ret = ipu6_fw_isys_stream_capture(stream->isys, stream->stream_handle,
+-					  msg);
++	ret = fw_ops->stream_capture(stream->isys, stream->stream_handle, msg);
+ 	if (ret < 0)
+ 		dev_err(dev, "send stream capture failed\n");
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index a6e50263f8da..803450b0156e 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -453,8 +453,10 @@ static void put_stream_opened(struct ipu6_isys_video *av)
+ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 				 struct ipu6_isys_buffer_list *bl)
+ {
++	struct ipu6_bus_device *adev = av->isys->adev;
++	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+ 	struct ipu6_isys_stream *stream = av->stream;
+-	struct device *dev = &av->isys->adev->auxdev.dev;
++	struct device *dev = &adev->auxdev.dev;
+ 	struct isys_fw_msgs *msg = NULL;
+ 	int ret, retout, tout;
+ 	bool capture = bl ? true : false;
+@@ -463,7 +465,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 	if (!msg)
+ 		return -ENOMEM;
+ 
+-	ret = ipu6_fw_isys_prepare_stream_cfg(av, msg);
++	ret = fw_ops->prepare_stream_cfg(av, msg);
+ 	if (ret < 0) {
+ 		ipu6_put_fw_msg_buf(av->isys, msg);
+ 		return ret;
+@@ -471,7 +473,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 
+ 	reinit_completion(&stream->stream_open_completion);
+ 
+-	ret = ipu6_fw_isys_stream_open(av->isys, stream->stream_handle, msg);
++	ret = fw_ops->stream_open(av->isys, stream->stream_handle, msg);
+ 	if (ret < 0) {
+ 		dev_err(dev, "can't open stream (%d)\n", ret);
+ 		ipu6_put_fw_msg_buf(av->isys, msg);
+@@ -504,15 +506,15 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 			goto out_put_stream_opened;
+ 		}
+ 
+-		ipu6_fw_isys_prepare_buf_set(msg, stream, bl);
++		fw_ops->prepare_buf_set(msg, stream, bl);
+ 		ipu6_isys_buffer_list_queue(bl,
+ 					    IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
+ 	}
+ 
+ 	reinit_completion(&stream->stream_start_completion);
+ 
+-	ret = ipu6_fw_isys_stream_start(av->isys, stream->stream_handle, msg,
+-					capture);
++	ret = fw_ops->stream_start(av->isys, stream->stream_handle, msg,
++				   capture);
+ 
+ 	if (ret < 0) {
+ 		dev_err(dev, "can't start streaming (%d)\n", ret);
+@@ -538,7 +540,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ out_stream_close:
+ 	reinit_completion(&stream->stream_close_completion);
+ 
+-	retout = ipu6_fw_isys_stream_close(av->isys, stream->stream_handle);
++	retout = fw_ops->stream_close(av->isys, stream->stream_handle);
+ 	if (retout < 0) {
+ 		dev_dbg(dev, "can't close stream (%d)\n", retout);
+ 		goto out_put_stream_opened;
+@@ -561,13 +563,15 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 
+ static void stop_streaming_firmware(struct ipu6_isys_video *av)
+ {
+-	struct device *dev = &av->isys->adev->auxdev.dev;
++	struct ipu6_bus_device *adev = av->isys->adev;
++	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
++	struct device *dev = &adev->auxdev.dev;
+ 	struct ipu6_isys_stream *stream = av->stream;
+ 	int ret, tout;
+ 
+ 	reinit_completion(&stream->stream_stop_completion);
+ 
+-	ret = ipu6_fw_isys_stream_flush(av->isys, stream->stream_handle);
++	ret = fw_ops->stream_flush(av->isys, stream->stream_handle);
+ 	if (ret < 0) {
+ 		dev_err(dev, "can't stop stream (%d)\n", ret);
+ 		return;
+@@ -585,13 +589,15 @@ static void stop_streaming_firmware(struct ipu6_isys_video *av)
+ 
+ static void close_streaming_firmware(struct ipu6_isys_video *av)
+ {
++	struct ipu6_bus_device *adev = av->isys->adev;
++	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+ 	struct ipu6_isys_stream *stream = av->stream;
+-	struct device *dev = &av->isys->adev->auxdev.dev;
++	struct device *dev = &adev->auxdev.dev;
+ 	int ret, tout;
+ 
+ 	reinit_completion(&stream->stream_close_completion);
+ 
+-	ret = ipu6_fw_isys_stream_close(av->isys, stream->stream_handle);
++	ret = fw_ops->stream_close(av->isys, stream->stream_handle);
+ 	if (ret < 0) {
+ 		dev_err(dev, "can't close stream (%d)\n", ret);
+ 		return;
+@@ -990,6 +996,7 @@ static const struct v4l2_file_operations isys_fops = {
+ int ipu6_isys_fw_open(struct ipu6_isys *isys)
+ {
+ 	struct ipu6_bus_device *adev = isys->adev;
++	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+ 	const struct ipu6_isys_internal_pdata *ipdata = isys->pdata->ipdata;
+ 	int ret;
+ 
+@@ -1018,10 +1025,10 @@ int ipu6_isys_fw_open(struct ipu6_isys *isys)
+ 		 * restarting isys we can safely delete old context.
+ 		 */
+ 		dev_warn(&adev->auxdev.dev, "clearing old context\n");
+-		ipu6_fw_isys_cleanup(isys);
++		fw_ops->cleanup(isys);
+ 	}
+ 
+-	ret = ipu6_fw_isys_init(isys, ipdata->num_parallel_streams);
++	ret = fw_ops->init(isys, ipdata->num_parallel_streams);
+ 	if (ret < 0)
+ 		goto out;
+ 
+@@ -1044,7 +1051,7 @@ void ipu6_isys_fw_close(struct ipu6_isys *isys)
+ 
+ 	isys->ref_count--;
+ 	if (!isys->ref_count) {
+-		ipu6_fw_isys_close(isys);
++		isys->adev->auxdrv_data->fw_ops->close(isys);
+ 		if (isys->fwctx) {
+ 			isys->need_reset = true;
+ 			dev_warn(&isys->adev->auxdev.dev,
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 8f2d361b89f6..a58a35112ebd 100644
+index bb3c0d6bc6c9..159e769931b7 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -100,8 +100,6 @@ enum ltr_did_type {
- 
- #define ISYS_PM_QOS_VALUE	300
- 
--static int isys_isr_one(struct ipu6_bus_device *adev);
--
- static int
- isys_complete_ext_device_registration(struct ipu6_isys *isys,
- 				      struct v4l2_subdev *sd,
-@@ -304,104 +302,6 @@ static void isys_setup_hw(struct ipu6_isys *isys)
- 		writel(thd[i], base + IPU6_REG_ISYS_CDC_THRESHOLD(i));
- }
- 
--static void ipu6_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
--{
--	struct ipu6_isys_stream *stream;
--	unsigned int i;
--	u32 status;
--	int source;
--
--	ipu6_isys_register_errors(csi2);
--
--	status = readl(csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
--		       CSI_PORT_REG_BASE_IRQ_STATUS_OFFSET);
--
--	writel(status, csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
--	       CSI_PORT_REG_BASE_IRQ_CLEAR_OFFSET);
--
--	source = csi2->asd.source;
--	for (i = 0; i < NR_OF_CSI2_VC; i++) {
--		if (status & IPU_CSI_RX_IRQ_FS_VC(i)) {
--			stream = ipu6_isys_query_stream_by_source(csi2->isys,
--								  source, i);
--			if (stream) {
--				ipu6_isys_csi2_sof_event_by_stream(stream);
--				ipu6_isys_put_stream(stream);
--			}
--		}
--
--		if (status & IPU_CSI_RX_IRQ_FE_VC(i)) {
--			stream = ipu6_isys_query_stream_by_source(csi2->isys,
--								  source, i);
--			if (stream) {
--				ipu6_isys_csi2_eof_event_by_stream(stream);
--				ipu6_isys_put_stream(stream);
--			}
--		}
--	}
--}
--
--static irqreturn_t isys_isr(struct ipu6_bus_device *adev)
--{
--	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
--	void __iomem *base = isys->pdata->base;
--	u32 status_sw, status_csi;
--	u32 ctrl0_status, ctrl0_clear;
--
--	spin_lock(&isys->power_lock);
--	if (!isys->power) {
--		spin_unlock(&isys->power_lock);
--		return IRQ_NONE;
--	}
--
--	ctrl0_status = isys->pdata->ipdata->csi2.ctrl0_irq_status;
--	ctrl0_clear = isys->pdata->ipdata->csi2.ctrl0_irq_clear;
--
--	status_csi = readl(isys->pdata->base + ctrl0_status);
--	status_sw = readl(isys->pdata->base +
--			  IPU6_REG_ISYS_UNISPART_IRQ_STATUS);
--
--	writel(ISYS_UNISPART_IRQS & ~IPU6_ISYS_UNISPART_IRQ_SW,
--	       base + IPU6_REG_ISYS_UNISPART_IRQ_MASK);
--
--	do {
--		writel(status_csi, isys->pdata->base + ctrl0_clear);
--
--		writel(status_sw, isys->pdata->base +
--		       IPU6_REG_ISYS_UNISPART_IRQ_CLEAR);
--
--		if (isys->isr_csi2_bits & status_csi) {
--			unsigned int i;
--
--			for (i = 0; i < isys->pdata->ipdata->csi2.nports; i++) {
--				/* irq from not enabled port */
--				if (!isys->csi2[i].base)
--					continue;
--				if (status_csi & IPU6_ISYS_UNISPART_IRQ_CSI2(i))
--					ipu6_isys_csi2_isr(&isys->csi2[i]);
--			}
--		}
--
--		writel(0, base + IPU6_REG_ISYS_UNISPART_SW_IRQ_REG);
--
--		if (!isys_isr_one(adev))
--			status_sw = IPU6_ISYS_UNISPART_IRQ_SW;
--		else
--			status_sw = 0;
--
--		status_csi = readl(isys->pdata->base + ctrl0_status);
--		status_sw |= readl(isys->pdata->base +
--				   IPU6_REG_ISYS_UNISPART_IRQ_STATUS);
--	} while ((status_csi & isys->isr_csi2_bits) ||
--		 (status_sw & IPU6_ISYS_UNISPART_IRQ_SW));
--
--	writel(ISYS_UNISPART_IRQS, base + IPU6_REG_ISYS_UNISPART_IRQ_MASK);
--
--	spin_unlock(&isys->power_lock);
--
--	return IRQ_HANDLED;
--}
--
- static void get_lut_ltrdid(struct ipu6_isys *isys, struct ltr_did *pltr_did)
- {
- 	struct isys_iwake_watermark *iwake_watermark = &isys->iwake_watermark;
-@@ -1167,169 +1067,8 @@ static void isys_remove(struct auxiliary_device *auxdev)
- 	mutex_destroy(&isys->mutex);
- }
- 
--struct fwmsg {
--	int type;
--	char *msg;
--	bool valid_ts;
--};
--
--static const struct fwmsg fw_msg[] = {
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE, "STREAM_OPEN_DONE", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK, "STREAM_CLOSE_ACK", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_START_ACK, "STREAM_START_ACK", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK,
--	 "STREAM_START_AND_CAPTURE_ACK", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK, "STREAM_STOP_ACK", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK, "STREAM_FLUSH_ACK", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY, "PIN_DATA_READY", 1},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK, "STREAM_CAPTURE_ACK", 0},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE,
--	 "STREAM_START_AND_CAPTURE_DONE", 1},
--	{IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE, "STREAM_CAPTURE_DONE", 1},
--	{IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF, "FRAME_SOF", 1},
--	{IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF, "FRAME_EOF", 1},
--	{IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY, "STATS_READY", 1},
--	{-1, "UNKNOWN MESSAGE", 0}
--};
--
--static u32 resp_type_to_index(int type)
--{
--	unsigned int i;
--
--	for (i = 0; i < ARRAY_SIZE(fw_msg); i++)
--		if (fw_msg[i].type == type)
--			return i;
--
--	return  ARRAY_SIZE(fw_msg) - 1;
--}
--
--static int isys_isr_one(struct ipu6_bus_device *adev)
--{
--	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
--	struct ipu6_fw_isys_resp_info_abi *resp;
--	struct ipu6_isys_stream *stream;
--	struct ipu6_isys_csi2 *csi2 = NULL;
--	u32 index;
--	u64 ts;
--
--	if (!isys->fwctx)
--		return 1;
--
--	resp = ipu6_fw_isys_get_resp(isys);
--	if (!resp)
--		return 1;
--
--	ts = (u64)resp->timestamp[1] << 32 | resp->timestamp[0];
--
--	index = resp_type_to_index(resp->type);
--	dev_dbg(&adev->auxdev.dev,
--		"FW resp %02d %s, stream %u, ts 0x%16.16llx, pin %d\n",
--		resp->type, fw_msg[index].msg, resp->stream_handle,
--		fw_msg[index].valid_ts ? ts : 0, resp->pin_id);
--
--	if (resp->error_info.error == IPU6_FW_ISYS_ERROR_STREAM_IN_SUSPENSION)
--		/* Suspension is kind of special case: not enough buffers */
--		dev_dbg(&adev->auxdev.dev,
--			"FW error resp SUSPENSION, details %d\n",
--			resp->error_info.error_details);
--	else if (resp->error_info.error)
--		dev_dbg(&adev->auxdev.dev,
--			"FW error resp error %d, details %d\n",
--			resp->error_info.error, resp->error_info.error_details);
--
--	if (resp->stream_handle >= IPU6_ISYS_MAX_STREAMS) {
--		dev_err(&adev->auxdev.dev, "bad stream handle %u\n",
--			resp->stream_handle);
--		goto leave;
--	}
--
--	stream = ipu6_isys_query_stream_by_handle(isys, resp->stream_handle);
--	if (!stream) {
--		dev_err(&adev->auxdev.dev, "stream of stream_handle %u is unused\n",
--			resp->stream_handle);
--		goto leave;
--	}
--	stream->error = resp->error_info.error;
--
--	csi2 = ipu6_isys_subdev_to_csi2(stream->asd);
--
--	switch (resp->type) {
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
--		complete(&stream->stream_open_completion);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK:
--		complete(&stream->stream_close_completion);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_START_ACK:
--		complete(&stream->stream_start_completion);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK:
--		complete(&stream->stream_start_completion);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK:
--		complete(&stream->stream_stop_completion);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK:
--		complete(&stream->stream_stop_completion);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY:
--		/*
--		 * firmware only release the capture msg until software
--		 * get pin_data_ready event
--		 */
--		ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), resp->buf_id);
--		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
--		    stream->output_pins_queue[resp->pin_id])
--			ipu6_isys_queue_buf_ready(stream, resp);
--		else
--			dev_warn(&adev->auxdev.dev,
--				 "%d:No queue for pin id %d\n",
--				 resp->stream_handle, resp->pin_id);
--		if (csi2)
--			ipu6_isys_csi2_error(csi2);
--
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK:
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE:
--	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF:
--
--		ipu6_isys_csi2_sof_event_by_stream(stream);
--		stream->seq[stream->seq_index].sequence =
--			atomic_read(&stream->sequence) - 1;
--		stream->seq[stream->seq_index].timestamp = ts;
--		dev_dbg(&adev->auxdev.dev,
--			"sof: handle %d: (index %u), timestamp 0x%16.16llx\n",
--			resp->stream_handle,
--			stream->seq[stream->seq_index].sequence, ts);
--		stream->seq_index = (stream->seq_index + 1)
--			% IPU6_ISYS_MAX_PARALLEL_SOF;
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
--		ipu6_isys_csi2_eof_event_by_stream(stream);
--		dev_dbg(&adev->auxdev.dev,
--			"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
--			resp->stream_handle,
--			stream->seq[stream->seq_index].sequence, ts);
--		break;
--	case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
--		break;
--	default:
--		dev_err(&adev->auxdev.dev, "%d:unknown response type %u\n",
--			resp->stream_handle, resp->type);
--		break;
--	}
--
--	ipu6_isys_put_stream(stream);
--leave:
--	ipu6_fw_isys_put_resp(isys);
--	return 0;
--}
--
- static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
--	.isr = isys_isr,
-+	.isr = ipu6_isys_isr,
+@@ -1068,6 +1068,7 @@ static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
+ 	.isr = ipu6_isys_isr,
  	.isr_threaded = NULL,
  	.wake_isr_thread = false,
++	.fw_ops = &ipu6_fw_isys_ops,
  };
+ 
+ static const struct auxiliary_device_id ipu6_isys_id_table[] = {
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+index f39566513a87..fa9bc2730d64 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -174,6 +174,38 @@ struct isys_fw_msgs {
+ 	dma_addr_t dma_addr;
+ };
+ 
++struct ipu6_fw_isys_ops {
++	int (*init)(struct ipu6_isys *isys, unsigned int num_streams);
++	int (*close)(struct ipu6_isys *isys);
++	int (*send_cmd)(struct ipu6_isys *isys,
++			const unsigned int stream_handle,
++			void *cpu_mapped_buf,
++			dma_addr_t dma_mapped_buf,
++			size_t size, u16 send_type);
++	void (*cleanup)(struct ipu6_isys *isys);
++	int (*prepare_stream_cfg)(struct ipu6_isys_video *av,
++				  struct isys_fw_msgs *msg);
++	void (*prepare_buf_set)(struct isys_fw_msgs *msg,
++				struct ipu6_isys_stream *stream,
++				struct ipu6_isys_buffer_list *bl);
++	int (*stream_open)(struct ipu6_isys *isys,
++			   const unsigned int stream_handle,
++			   struct isys_fw_msgs *msg);
++	int (*stream_start)(struct ipu6_isys *isys,
++			    const unsigned int stream_handle,
++			    struct isys_fw_msgs *msg, bool capture);
++	int (*stream_capture)(struct ipu6_isys *isys,
++			      const unsigned int stream_handle,
++			      struct isys_fw_msgs *msg);
++	int (*stream_flush)(struct ipu6_isys *isys,
++			    const unsigned int stream_handle);
++	int (*stream_close)(struct ipu6_isys *isys,
++			    const unsigned int stream_handle);
++	void (*dump_stream_cfg)(struct device *dev, struct isys_fw_msgs *msg);
++	void (*dump_frame_buf_set)(struct device *dev, struct isys_fw_msgs *msg,
++				   unsigned int outputs);
++};
++
+ struct isys_fw_msgs *ipu6_get_fw_msg_buf(struct ipu6_isys_stream *stream);
+ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, struct isys_fw_msgs *msg);
+ void ipu6_cleanup_fw_msg_bufs(struct ipu6_isys *isys);
 -- 
 2.47.3
 
