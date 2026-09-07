@@ -1,75 +1,78 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3120151D506
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 16:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4EB517BC5
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 17:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799848; cv=none; b=AGFfx2rCGiZCdjR4TUWR61wMdYDqnJLygkYuvZcr7j/7wpEnnXijIibAS2x/9X5hFOOuW5tjfeqTvKeMZQIrIGauEkzp/7khTRN7//Yei8mj2fMCUNs3kSBsOy5rPgS6C4Mf6nIu+MPKP8XVvTY8OaPvVL+OLGZV3w/ixrVaXhI=
+	t=1788800461; cv=none; b=l8HyOWOcihJc6OH8ZGNLNTeuzWUe+KSpPIMScaxl8klg6OqflV1iOOQq14Bq4AZx8HgM022sBy5vFXejPuV76pQLas1YN5R99nOTPJcRSqmS2iPUNlYXj8bt8VVIag1wM46+DHo8xsV/5pqfsZKG/MctzMOsLMaXZhrprJdaYl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799848; c=relaxed/simple;
-	bh=MKgoXYTXSjlrtYrBtVpRepPWqUSRXg6w982y1Pay3bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jMg/3so5mYuPqM8XJE2pGltW6m7PjAc7qEfU7q3ZomF2kpzGcENotEppLbJled7pat7FXvTkuQyvXkokedkL6xB6OGqNbqm8A47S/qOGdzuJCRwhplrxyXugJFAVcc7+KT7DOzD/x+58ETw1xjZObaTGJCQAqJSITp65EV3gPNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gZnCAQPe; arc=none smtp.client-ip=209.85.216.43
+	s=arc-20240116; t=1788800461; c=relaxed/simple;
+	bh=b9wNFsVYc4DD9fP/QpAUbtXDUtyBSUYWk5c82ne4oBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BbTW5jz0KzGQwkCubqlKJq/h24Yjb1wDyPkkpsxPE5o1UShbVU2BH3YIu9gaTqx5USqNNKJuwy8dn6AMd2JhbPVwUIzfqFFX46ikE+AoCE4IylpVrbMbQ61QPHam8Ig9ZUYtdYlV8zeOj3traU20YMa7Y2dOvVTsepd9O0oOqhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UwvlIAt2; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gZnCAQPe"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398a5aad413so2754584a91.3
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 09:50:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UwvlIAt2"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484399babcaso275093f8f.0
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 10:00:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788799846; x=1789404646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mJA+EFreX2+ndoSjltuac97HgB0U6+rcf3y9yIV00LQ=;
-        b=gZnCAQPeiUYSFHFvjs8skhyim7vGzXH7RCg81FDIxyY5FuHilgjcBaYIYbRaZBiRwc
-         C7xBulPYySP7pLi/MEK0rY3XHEmtX0x+/7GPBVepqwFWzKAX2j0aShKfxrl1R8ZduTf+
-         q1njhB85xzciBgoB6FTMy1VBDVsiacPR1aREMN/IiCV4GlAQVtpYux07CtDXJAlaQlL9
-         1tSCO9K6gnd3uCAhjlk8q9g59Fs++FXf8rj68XA73c354L7SXYqOlVvF59b9J9j+EmJi
-         T1xkXlLmZV0iKIIQPDgGTPoSedN3y5hxaYpRbI7qPVxDj2xQBz7VyqJwAmiLH7lHP82A
-         NkmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788799846; x=1789404646;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788800458; x=1789405258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mJA+EFreX2+ndoSjltuac97HgB0U6+rcf3y9yIV00LQ=;
-        b=Vr1sZ3JGXODy9AF6Vtn6nbrHcXrSz5Qgo/jmDugVIJ63Oo5nA6P5jU9sSqgLSSA1bi
-         g5DDlCOuniXQlfOkWrH+IhAm9j5zuu8iPxLPrGY+x1H1FW7hC8zoPVmZ92l9Q2B+N62a
-         G1oVW+ET3WycyGnJViVJp1moUYsYyzsbiRf7BznrNLaK6KAe98YPu6E5zcjatsJJuLTz
-         SuoTxzdgHIDhFPUeGIBtsnZsZgW77W4zLRTbbmBvZAaVOtERunswq5wBObzuLqev05g3
-         penRKDUDCTGx1baBEI5/uVmSy6ssSUMA9dNBesKQGZf1LHG5NCOzyfusvAlWSZ1rMbK5
-         F5/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwcKa3Cv/ZbUjJHBfJWbuQQE5IgIUA/jMlCfiV3J36u7lrc4LJzYzzBCUIHrH0YR0x52VRTNQmUDmXfrA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lztfzL9fYTUPG8zaS10IJ99/N9eTZiIzgxoJP0ys72qXj59dt2
-	+EpxaaioLQIrBkMIe4BXux2iD8OI0ALhrDU10IaRbnxf5TMFjz6dk797
-X-Gm-Gg: AYBFou0ufXXz4v9/o3TKd9jqh1RtPhnKeNstpK4RepQVULbS9sW75n3WsOGizKTZ6E2
-	k7Fbtl14wVKFCNqwOr/jLwGcZo2WZ/i689Sqb4+TsNf95ITT9OF9hMR/ddV26tcXH/dAt3ZRY8e
-	56n49W//14lyvJEkvhYsFQ3rMTg1pN82zyVnuMxKEGJkyflhRHa4W/Td/4EGQ+tVWSu6nU07gBp
-	FN5KJW1tL+jfpUm7YlT4gnZfNOd5iVs3fxWCMBddR74PaeIHz6ZQnZUP2/QJvGztt5Jr9ixtfIU
-	1x059Q/dVb2rnBikbnun41xOPAlB/+crX0t0BhGazFa3uAAGkHrE96q9zxyRtbqGr7OssISjn97
-	cMJkFwEBkKKwJiDxCj+dZCQmBmiJOXbSEvdCb9ix/x8yccfiLwTPw+tiRPC29JBoRDLyWJPI8Zs
-	nOvRkzRSOYRqrb9+MZRxVN5lcRhwVfQecRIHJGPzFyQQCJ3Zc4a9LplwhtG00e4mJl
-X-Received: by 2002:a17:90b:4d06:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39b2614df74mr34283307a91.1.1788799846338;
-        Mon, 07 Sep 2026 09:50:46 -0700 (PDT)
-Received: from G15-5520 ([103.246.195.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-338f7bad290sm808934eec.14.2026.09.07.09.50.42
+        bh=b9wNFsVYc4DD9fP/QpAUbtXDUtyBSUYWk5c82ne4oBY=;
+        b=UwvlIAt2raJo0Oizqa3H8KpKv67cL1qNwF5y68FJowcTB80uZLn58emObQqjvuwUNt
+         7sfUxhozDleG8Io7RLvN0CEYFeTBpblx0ll4EiNlFkGRYy9Z6vZE7Lrt+Dj+INo5U3cx
+         zSyPFcGqeFH+FNTau8cdoTR79UsG/LIBZ68w9XcYhV9fGLRO/LSOJ1NaCBcN8Sj/zVq7
+         6vu0V2SWL0coQoshhQGZ6qSWs28ePlvEEBbbpGcLK7nHg80H+sdHAtcF5kXHIO+sJDKy
+         QDX5I+2nKufXphd94RwLdUDTT+ChrEQIqYoNJUSKBAm3nc1jbdySYlYKm+QC+DuuQjpT
+         4Hcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788800458; x=1789405258;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b9wNFsVYc4DD9fP/QpAUbtXDUtyBSUYWk5c82ne4oBY=;
+        b=UwQ5qP/BDZNat3oYuRdnM+sl7SPZ6z8epAx25lUfRjE5x/yWdmi5M4FUdJ3asKs5GS
+         CCvoky6oqp5Jcq2l+AiAYEmsh6iZ1wSGuUwyKDqz6hTjRaUnLk7uhEthNe05Fiz9EqaY
+         5Hmr8Oal33GXXhMb4EaT9+B65QiER9TnzOCmUtTo+Ug99QjBkJ3it1RSTGfAluGzyEE5
+         oaKCJMaYCfgE7G7e7uNyJ6OZAUHmEQrW0B3TJjOsl70exjPH6W5hrzyFiiI+xA550hiS
+         IDwUVHFeOu1B0wlWSRYmzPG/OkFx3IFshCo1HAKSo6Gin/lpSRDHYyIYRj2/yz20NBCt
+         3Cjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxVJwrcRCsuYq3yFv1via6jUTddt9utnlj+0zXb3Yj3QboEhAF5QTOxrsR4/ifHpVq+aegxum18aPYYLQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nMoIq6eLdwRs0Ebk7rbMr1UOULY6jY8IR8xViUKlAXQJAgYWYg
+	hyiDs4N6t+IfSqkPBF2N7rJuDV7O5tRC4/UIKitsY+ipPxgZY0XCzucWHKfP/A==
+X-Gm-Gg: AYBFou0Tnwe+SCnaoaTl9+Lfq4mfo587CW/b0rWVYwpdURch8sc+Sy9OQWuoq0XXVf+
+	QlfnTbTLcmvMkf+qy7c749ahxVoyT9/yClOIwtA8+hhQtdu0Xu2YoPzkT3/d39mUF2SrsJTMoYI
+	oYVuwAxiwq5LginDZm8g0RLw8NyeSMeHj4vKCU50+UXsJbUtxW7D/75DFhAvw3qTegcil2sgjWO
+	jy2ZQeB08BKcWxYafw1n8jC+l84NwvEA0q5UY+sipfeISAEbQ4NnXIrU43k3cb36sX5pF2NSoN+
+	l86hNQz6hfvZ80XQ200trAnNMBcqAtvN7QZJWivbAEH6CGYPXHfXY3meenOJJY3/LJs84Is18Wn
+	kYqxwShG/QeY1kXG9dYnpX1irghafv+qp65szNRmlfyN2vsQ2br39cL5U64DuXRH75UTbaJMDrt
+	WmRtGekoSoAtdtUMxB/uPaH2M4qDdOYDwsBxtC6ts2Dlmqndyigt4wGiXMj61IXNmB/zzfcmcsZ
+	dcxQCAlbhF6W36dMekeSE5LTUKgx1VW1Y99Su/3e1nsn97yjRWS2pNSK2sMEnIimidSdA==
+X-Received: by 2002:a05:6000:144e:b0:485:8ad5:dbbb with SMTP id ffacd0b85a97d-485907f1861mr15214169f8f.4.1788800458183;
+        Mon, 07 Sep 2026 10:00:58 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8822007B3AD9A87B9E27CB.dsl.pool.telekom.hu. [2001:4c4e:1b88:2200:7b3a:d9a8:7b9e:27cb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm28566070f8f.8.2026.09.07.10.00.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:50:46 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
+        Mon, 07 Sep 2026 10:00:57 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Amin Gattout <amin.gattout@gmail.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org (open list:STAGING - ATOMISP DRIVER),
-	linux-kernel@vger.kernel.org (open list:INTEL MID (Mobile Internet Device) PLATFORM),
-	linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH v2] staging: media: atomisp: Use C99 initializers for ACPI IDs
-Date: Mon,  7 Sep 2026 16:50:33 +0000
-Message-ID: <20260907165033.8460-1-lalitshankarch@gmail.com>
+	linux-media@vger.kernel.org,
+	kernel@collabora.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: synopsys: hdmirx: Remove redundant dev_err_probe()
+Date: Mon,  7 Sep 2026 19:00:26 +0200
+Message-ID: <20260907160000.hdmirx-amin-rb-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
+References: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -78,44 +81,19 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use designated initializers for the ACPI ID tables.
+Hi Amin,
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
----
- drivers/staging/media/atomisp/i2c/atomisp-gc2235.c | 4 ++--
- drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+Checked against 7.2-rc7: devm_request_threaded_irq() goes through
+devm_request_result(), which already does
+dev_err_probe(dev, rc, "request_irq(%u) ...") on failure, so the message
+in the driver was a duplicate.
 
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-index f9cc5f45fe00..5e4bdbc4a127 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-@@ -857,8 +857,8 @@ static int gc2235_probe(struct i2c_client *client)
- }
- 
- static const struct acpi_device_id gc2235_acpi_match[] = {
--	{ "INT33F8" },
--	{},
-+	{ .id = "INT33F8" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, gc2235_acpi_match);
- 
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-index 2c41c496daa6..2d95ad91db69 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-@@ -995,8 +995,8 @@ static int ov2722_probe(struct i2c_client *client)
- }
- 
- static const struct acpi_device_id ov2722_acpi_match[] = {
--	{ "INT33FB" },
--	{},
-+	{ .id = "INT33FB" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, ov2722_acpi_match);
- 
--- 
-2.53.0
+Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
 
+For Dmitry: this does not overlap with my pending hdmirx audio series
+(v4, [1]); the hunks are far enough apart that either can go in first.
+
+[1] https://lore.kernel.org/all/20260721064115.64809-1-royalnet026@gmail.com/
+
+Thanks,
+Igor
