@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DFD49EC5E
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED4949EC65
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780633; cv=none; b=FQIDkmOOH+U+TaT3W3f9aPCIsUw4PqgcBUXJgWNCUJSmT17r1+kpVmnlwPbCacrckSJfpWLlYA5X4/ZIXdbSMhdlI7Go9MiEJJkWViaet2KJ+cJBx+ZTbaXIhEHxENRicu+riUxwlW2PQzeNEPro6kxbKIGpqE8w+i1kBA/e9iA=
+	t=1788780633; cv=none; b=AxzNASq1II429x8Mm/uw+SPTFIXlQObqPIuX2klJrBpIpq0WZp212DAiWOgai8fNeKtK9N718mLOiomOJZ5ur+JH4YNiHawwoi9W3S4hFzkRyqFWRjSZKdFIiYGUeD49Ue0dTGYc5OqoXfQeB8rlrBqnPa2/UVRLLPGv/WYYXyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780633; c=relaxed/simple;
-	bh=LVvhB6zROwVpT25HEYGDK+nOYhvGnX69qq/VqGDxeAA=;
+	bh=58d5xcI7TXiI3SzLBrxGu+uvs7tYAajrASWRWeywyIg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JKq/SSTTDue2uBmFUbC/dlebOOjEUeu4DGKDRWAJIDuqKePGNEeG9iYt3GaB8w0zG7NyDm5h8fgW3F+ALopk1yPXb8WTnxYQSLq0k4xEENypAtqv3Vud+PF2QIt1fWsT3OkgB+RdRLIr48kenWLDP29413BJNUtrTFc4/2lYnqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bxmk4nzd; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=eoHpHWtEBIjomqlcqdzgUSHt5Uy+WC6XF2TuXpPT0C53QGW5uukvfp/9Uv8LM4GVFdFfQ/UNRp6eTaIiiwBQmyUEg00gQ9OhWHkl/p7afoSz7JBDEVE3C7E77eHuwsSuzfSMhWsJ/PDucNpXvjrQHtAIu11WMrbilXWrYfNx8vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DxPIek0P; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bxmk4nzd"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DxPIek0P"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1788780632; x=1820316632;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=LVvhB6zROwVpT25HEYGDK+nOYhvGnX69qq/VqGDxeAA=;
-  b=bxmk4nzdLWoHt++IjtlNNlG/4zpnOdbY3CPlr5OOEbeyDi6JCdyDcAES
-   4irbcUV8EnrXhJbVX+jeuQzbcF1KCEC6WGQfgeLSsuoWjug8ys3t7upRu
-   Q6wU54SYMwHYymDOFU9/8IWW+n7rMv3nSCKfDHcli8X8dEQEgjPfU/DQT
-   aLsAsDsUjGx3lR9Trz7IGGkiiJpLPDILFmBszDBNPRBNoVoqFR0VNdUO0
-   M0YGarfTxqGA6ZotVmNpFRfjeUnPA7U69xbpRTT97kMIGpbjJ/tCeXTl8
-   4sbna5xSO/eGlhudpUwQInoZkADxSfXO8Pce+/NWtaVS9NFChfZ85sQtV
-   g==;
-X-CSE-ConnectionGUID: 0hdnhWNDRTuguo9Z5nx47g==
-X-CSE-MsgGUID: 6mmI+vd+TvOFz7H0MuPlKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538643"
+  bh=58d5xcI7TXiI3SzLBrxGu+uvs7tYAajrASWRWeywyIg=;
+  b=DxPIek0PlyBLBJ+0gb9e3L9uBeHoA0FcRxwZfcf1mpviXU7O4s/JY/Am
+   T55oDJAJ82Vxw/rfTJ5bKPJDMKvAX7grXkttiu6lMSXEBdqW642EiwfPS
+   KHzhmUFJqY/loa2Bk4eOaq6FlErwcDmfgv6bjuEN3KwFa1PqkRY4D9IBW
+   4MYVxIYoEdNpldU5bTAIH1pWdyJ7dIbJSZH4pgl93IFwzoPza9mMqaaHJ
+   LOgGJljS4+kXRoWSS7Djc+Q24y82j70trR+LUMMY3vRCIj1XL4YmMK6gH
+   cQxAhFriHcdC3+YJ4fJNAvF65hvW0NPkKQSBJiEk1b/OJG4wBLHRU/CUA
+   Q==;
+X-CSE-ConnectionGUID: YBKhkmWmTkCASWhOjd/s+w==
+X-CSE-MsgGUID: nuLVHCiERNWbuWW0WPrOyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538645"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538643"
+   d="scan'208";a="100538645"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:17 -0700
-X-CSE-ConnectionGUID: YT6MSSvIQP6sFsQVxLUniQ==
-X-CSE-MsgGUID: Ly+2grbHR9eutGykNctAcA==
+X-CSE-ConnectionGUID: 0NP3PIaITzya0A4iykYA3g==
+X-CSE-MsgGUID: Zm5z1nTLSOCze5+VIGmujw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569275"
+   d="scan'208";a="300569277"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:15 -0700
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:16 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0C8CA1229CD;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 1263A1229F3;
 	Mon, 07 Sep 2026 14:30:06 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARpY-2Ddy;
+	id 1x3XY5-0000000ARpi-2Knc;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 35/45] media: ipu6: Move buttress mem alloc out from probe
-Date: Mon,  7 Sep 2026 14:29:54 +0300
-Message-ID: <20260907113004.2489993-36-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 37/45] media: ipu6: Add support for fixed iova region
+Date: Mon,  7 Sep 2026 14:29:56 +0300
+Message-ID: <20260907113004.2489993-38-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,157 +73,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Buttress registers are stored in separate buffer, which is passed
-down to bus driver. Move allocation of this buffer to subsystem init
-to cleanup pci probe function a bit.
+The ipu7 need specific region for firmware in non-secure mode,
+add support for it.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6.c | 43 +++++++++++++++--------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-dma.c | 20 +++++++++++++++++---
+ drivers/media/pci/intel/ipu6/ipu6-dma.h |  2 ++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index 7d1c3713a69b..4e4f32723904 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -90,7 +90,7 @@ static struct ipu6_psys_internal_pdata psys_ipdata = {
- 	},
- };
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+index 6e8295d9c3a3..90f530a93779 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+@@ -371,6 +371,17 @@ void ipu6_dma_unmap_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
+ }
+ EXPORT_SYMBOL_NS_GPL(ipu6_dma_unmap_sg, "INTEL_IPU6");
  
--static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
-+static const struct ipu6_buttress_ctrl ipu6_isys_buttress_ctrl = {
- 	.subsys_id = IPU_ISYS,
- 	.ratio = IPU6_IS_FREQ_CTL_DEFAULT_RATIO,
- 	.qos_floor = IPU6_IS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
-@@ -101,7 +101,7 @@ static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
- 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
- };
- 
--static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
-+static const struct ipu6_buttress_ctrl ipu6_psys_buttress_ctrl = {
- 	.subsys_id = IPU_PSYS,
- 	.ratio = IPU6_PS_FREQ_CTL_DEFAULT_RATIO,
- 	.qos_floor = IPU6_PS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
-@@ -341,11 +341,12 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
- 
- static struct ipu6_bus_device *
- ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
--	       struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
-+	       const struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
- 	       const struct ipu6_isys_internal_pdata *ipdata)
- {
- 	struct device *dev = &pdev->dev;
- 	struct ipu6_bus_device *isys_adev;
-+	struct ipu6_buttress_ctrl *devm_ctrl;
- 	struct ipu6_isys_pdata *pdata;
- 	int ret;
- 
-@@ -355,6 +356,10 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
- 		return ERR_PTR(ret);
- 	}
- 
-+	devm_ctrl = devm_kmemdup(dev, ctrl, sizeof(*ctrl), GFP_KERNEL);
-+	if (!devm_ctrl)
-+		return ERR_PTR(-ENOMEM);
++static struct iova *ipu7_get_fw_code_region(struct ipu6_bus_device *sys)
++{
++	struct ipu6_mmu *mmu = sys->mmu;
++	unsigned long lo, hi;
 +
- 	pdata = kzalloc_obj(*pdata);
- 	if (!pdata)
- 		return ERR_PTR(-ENOMEM);
-@@ -362,7 +367,7 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
- 	pdata->base = base;
- 	pdata->ipdata = ipdata;
- 
--	isys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, ctrl,
-+	isys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, devm_ctrl,
- 					       IPU6_ISYS_NAME);
- 	if (IS_ERR(isys_adev)) {
- 		kfree(pdata);
-@@ -388,13 +393,19 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
- 
- static struct ipu6_bus_device *
- ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
--	       struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
-+	       const struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
- 	       const struct ipu6_psys_internal_pdata *ipdata)
- {
-+	struct device *dev = &pdev->dev;
- 	struct ipu6_bus_device *psys_adev;
-+	struct ipu6_buttress_ctrl *devm_ctrl;
- 	struct ipu6_psys_pdata *pdata;
- 	int ret;
- 
-+	devm_ctrl = devm_kmemdup(dev, ctrl, sizeof(*ctrl), GFP_KERNEL);
-+	if (!devm_ctrl)
-+		return ERR_PTR(-ENOMEM);
++	lo = iova_pfn(&mmu->dmap->iovad, IPU7_FW_CODE_REGION_START);
++	hi = iova_pfn(&mmu->dmap->iovad, IPU7_FW_CODE_REGION_END) - 1U;
 +
- 	pdata = kzalloc_obj(*pdata);
- 	if (!pdata)
- 		return ERR_PTR(-ENOMEM);
-@@ -402,7 +413,7 @@ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
- 	pdata->base = base;
- 	pdata->ipdata = ipdata;
++	return reserve_iova(&mmu->dmap->iovad, lo, hi);
++}
++
+ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
+ 		    int nents, enum dma_data_direction dir,
+ 		    unsigned long attrs)
+@@ -397,10 +408,13 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
+ 	dev_dbg(dev, "dmamap trying to map %d ents %zu pages\n",
+ 		nents, npages);
  
--	psys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, ctrl,
-+	psys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, devm_ctrl,
- 					       IPU6_PSYS_NAME);
- 	if (IS_ERR(psys_adev)) {
- 		kfree(pdata);
-@@ -469,7 +480,7 @@ static void ipu6_configure_vc_mechanism(struct ipu6_device *isp)
+-	iova = alloc_iova(&mmu->dmap->iovad, npages,
+-			  PHYS_PFN(mmu->dmap->mmu_info->aperture_end), 0);
++	if (attrs & DMA_ATTR_RESERVE_REGION)
++		iova = ipu7_get_fw_code_region(sys);
++	else
++		iova = alloc_iova(&mmu->dmap->iovad, npages,
++				  PHYS_PFN(mmu->dmap->mmu_info->aperture_end), 0);
+ 	if (!iova)
+-		return 0;
++		return -ENOMEM;
  
- static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
--	struct ipu6_buttress_ctrl *isys_ctrl = NULL, *psys_ctrl = NULL;
-+	const struct ipu6_buttress_ctrl *isys_ctrl, *psys_ctrl;
- 	struct device *dev = &pdev->dev;
- 	void __iomem *isys_base = NULL;
- 	void __iomem *psys_base = NULL;
-@@ -484,6 +495,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	dev_dbg(dev, "dmamap: iova low pfn %lu, high pfn %lu\n", iova->pfn_lo,
+ 		iova->pfn_hi);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.h b/drivers/media/pci/intel/ipu6/ipu6-dma.h
+index ae9b9a5df57f..e5e0e7860423 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-dma.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-dma.h
+@@ -10,6 +10,8 @@
  
- 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
- 	isp->buttress.regs = &ipu6_buttress_regs;
-+	isys_ctrl = &ipu6_isys_buttress_ctrl;
-+	psys_ctrl = &ipu6_psys_buttress_ctrl;
+ #include "ipu6-bus.h"
  
- 	switch (id->device) {
- 	case PCI_DEVICE_ID_INTEL_IPU6:
-@@ -513,6 +526,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		isp->hw_ver = IPU_VERSION_7;
- 		isp->cpd_fw_name = IPU7_FIRMWARE_NAME;
- 		isp->buttress.regs = &ipu7_buttress_regs;
-+		isys_ctrl = &ipu7_isys_buttress_ctrl;
-+		psys_ctrl = &ipu7_psys_buttress_ctrl;
- 		break;
- 	default:
- 		return dev_err_probe(dev, -ENODEV,
-@@ -582,13 +597,6 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto out_ipu6_bus_del_devices;
- 	}
++#define DMA_ATTR_RESERVE_REGION		BIT(31)
++
+ struct ipu6_mmu_info;
  
--	isys_ctrl = devm_kmemdup(dev, &isys_buttress_ctrl,
--				 sizeof(isys_buttress_ctrl), GFP_KERNEL);
--	if (!isys_ctrl) {
--		ret = -ENOMEM;
--		goto out_ipu6_bus_del_devices;
--	}
--
- 	isp->isys = ipu6_isys_init(pdev, dev, isys_ctrl, isys_base,
- 				   &isys_ipdata);
- 	if (IS_ERR(isp->isys)) {
-@@ -596,13 +604,6 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto out_ipu6_bus_del_devices;
- 	}
- 
--	psys_ctrl = devm_kmemdup(dev, &psys_buttress_ctrl,
--				 sizeof(psys_buttress_ctrl), GFP_KERNEL);
--	if (!psys_ctrl) {
--		ret = -ENOMEM;
--		goto out_ipu6_bus_del_devices;
--	}
--
- 	isp->psys = ipu6_psys_init(pdev, &isp->isys->auxdev.dev, psys_ctrl,
- 				   psys_base, &psys_ipdata);
- 	if (IS_ERR(isp->psys)) {
+ struct ipu6_dma_mapping {
 -- 
 2.47.3
 
