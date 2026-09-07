@@ -1,205 +1,423 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1BB34E744;
-	Mon,  7 Sep 2026 11:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F19483BF8
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780615; cv=none; b=J1NmC5fdF0Xn0FZJsOEz2G7exxPFvNS2lis+tkiaNfx06p2aN/Nv4PnJBvqFpW8XUoSRB3jjqFx4gBGr9GEI4InO77TCRmcdzascjQhMdDwxQnls7C0oYIgUdub5T7bi/AfJs/wPB1jEfXSRcaLauB8dKPzF5/ArHaDk9T3jib4=
+	t=1788780616; cv=none; b=uSGzoTbKWfdrPJEpwR1+IUCCC3fizT70r+VG+KHeYqh24FAljTmz0mAXVr7Yoxhc0O1ARpVBsDj7LoUgsNvPQicFogr9KJ4zmgGWJgVCntCL1fQM2f7iJvq5qWJuGA4FltD2wTDZ3/dS0NpUy9e7azVtsaqFaB0vuNVO42HXQZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780615; c=relaxed/simple;
-	bh=eZhUhfWsLbDnY56BWBTI6cap4zWRVMDBou881Te2ewg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oxDSqr7cUrEQdFc6Ow/5F4edBeA1esY0+UQvYciG47E2ZBWxUSpM6mVUDtByRvJGVnQ4cFUwyPwKHjQlW/tG6HwoT+jwGXAZ6PVoNUTeg4CVj7gDZWW++5ylHtV0PBgpan3x95eHuhML0cxeRqxm6dI9owk44LykZ+vtDD6PdNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=Yu6lWQCe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ImmUyU1m; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1788780616; c=relaxed/simple;
+	bh=IbU3MdVBNZI8MK5b4ka1QPD+tzMRk3Vz3nHhVWNjeOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DRUXf9vK1TGcTK3n5+wiUnQLOANH9SF4KzOEgf/s/yeBVYOit9wsfbCauWXGzBcfxmVJF50vGazB3KiHKsMq6+hgKxvp0ebHLcQD6X8L/T9ukg54RwUV9e5HlYHTeae7Vc9s8pJpuKHHGXW88CwAafDVXn5vv1NB8NnqIhGEw8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fk7ZF9mP; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="Yu6lWQCe";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ImmUyU1m"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 9E66E7A0132;
-	Mon,  7 Sep 2026 07:30:12 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 07 Sep 2026 07:30:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788780612;
-	 x=1788867012; bh=122b8Ry6Jct1LCshXnI+vK/p+wciTiScOcvQV/dej6M=; b=
-	Yu6lWQCeGB9FKOBQ3NjDn99BKWnq+8Q0TOsRqd3csJzU1TXw/zIobSjstKp35Q43
-	KavB6+u5HdzCoT+7iJFHMO2XUrR9yq3fbhTHfz8/lPyHJ3OPxWVUxdeaJPnQxddt
-	qoU9HdRxmZumCcFU51CUjdYh4RpzXkkAScX2/8Y+yEaULhxsbrn/eogqm9JM82+J
-	jYlkhD3W0Hc8d0nigGmDnQyQC6fImcmbrLMAdCzqmJSAKRlJIxynunaX1igudgId
-	8Npv4WGXqvu0/Xicc7OB3aJQy26Aiz3dj/KlwkbjJLJFxN350Bb/U0xLxpRXIHID
-	thASxw66+yNO3T/vMn3YRg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788780612; x=
-	1788867012; bh=122b8Ry6Jct1LCshXnI+vK/p+wciTiScOcvQV/dej6M=; b=I
-	mmUyU1mjomytnZuH5tXu+drRUhKflQMhoPEqru/85wZZwIJKamZLLNsikLgMaqAs
-	Y42JCfDftzjKZ1TozyO4zpEA3ZgSI55crP+Baf1qz+7yK2NGcSLN6dBUyvfhrHl+
-	X0dNQSwxucIIFuvlCOV/wMIXMfTD8fCenSlQI1aK2iY5lB4mfO+l681sxFjjpmZG
-	z4QqP3cet52u0yCu4VurdQOpYG2CznmYExNNun3n5Sp+O5LeRgCo0GJvQ9QCFdB0
-	nfhf4Z/dUxbNan/pd/cc6eSIoVAqs5y8MnqHrNe+fK2Pg1jfrRFJoQeAJgctbmJ9
-	Yp9sRVN2MYtU0R4NhpRVg==
-X-ME-Sender: <xms:RKCeahfPG4frMnd9Atz3UkPgGg1reiddBByrKx2BiiVMTb5J3c_vZQ>
-    <xme:RKCeanbniyA3l4mAgijwDodVurdD3rCDQPMMCUmjTlfWHjdnQwxNsbHEMjS5si5Iy
-    Mn9GdWB62YR7ScYsqFjuReOTwf6cGdFEzzrW77KqmenY1qnARrYxIA>
-X-ME-Received: <xmr:RKCeamFTyMtXHOlNS0SSZVg_BgokIReduTlxp7C9dAZM5M4Uxu8Ednv_YcLasvvA33aeTBuzx0s0E2QPO-uxwzY5dP_0484>
-X-ME-Proxy-Cause: dmFkZTFC6ZM7BkdgkWJWwmXUbjmbNtOUSSeupSlKC0IMBgCfrkd8S3qw7oECQ3Yw1rwuAP
-    EBKvOiGQuQ8kcxOIA+gthJ/wzgl72tlnr9zwUyLPOIS8tAAObYMGb63A/XfDcksSksNeeD
-    bin1S5XzEbjUG3LV3X8a8NwQaGim1LbsI5KWYc6gagZIfRugRgpxnGtPaHW+NvDbr+AQ3a
-    qRNU3M7UyCIH7wj2/pmAkMM3RG8TUlxaZT8dfkQczZHFsE0DXRlkt6TOnhxZx5OpWmEW4U
-    gK+Pm2kN1gCdbE8bIbntmXrtmzuX8ZpnLv/ypINSboskKoyVKxspjputoqLk56+rE36RoP
-    XmvmL4cWUbPcVw9cYLq7WzmxfyYR3mgln9f1wn9GHuav4frERcGhyoitlRdL47R9T31hXK
-    3ZH8XFR99PNLZ8ZZyXnMs8WI3ShwvfYdbwsr9XaZ+eYq8Gve4E1xk+6um7+bDNhI71LXfA
-    +03mHwnvwVaKZiXDufJb1ss3vCyfrOA/z87+KIjfb5I9rZiC2gahDOL/E3HabgcZYoxK8W
-    heIbfQAFYFnx9+4oCmowyjjZosCWHW5YzxIg3lGJLMth/eFxttLW02cKtO9MebnG5T3yHA
-    K2Ht9X68I9kPulrW88TadL/UlgWChmJDOjrLQFjzpeyTh+MRt+MCR7js2G3g
-X-ME-Proxy: <xmx:RKCealksGR1BuVG-J6f9MDQ1NOh3CAntG63n9a0yHNwhKqY9fzQQ3g>
-    <xmx:RKCeapcb6gjsyaQAK_e6R7oxDQtV6IR3YePTlIjLuYnyBmP4NeFJrQ>
-    <xmx:RKCeajE8kHgEv9Z6l6wBaH-YkPO0c9YE915sGqBsLFcLjoGXafHwXA>
-    <xmx:RKCeavjBdLbuXkF5H8T8wpOqchsuxBB2D5ivx5n1kVCXInt2QcaN_w>
-    <xmx:RKCeajQ_aKM4v_KFzwkONQbyO5KLKpus5pXnaXIqJKzfSTPmXRpqCjwR>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Sep 2026 07:30:11 -0400 (EDT)
-Date: Mon, 7 Sep 2026 13:30:09 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: Re: [PATCH v6 03/11] media: rcar-isp: Move
- {enable|disable}_streams() calls
-Message-ID: <20260907113009.GD3497753@ragnatech.se>
-References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
- <20260617-rcar-streams-v6-3-1260eb72dff7@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fk7ZF9mP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788780615; x=1820316615;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=IbU3MdVBNZI8MK5b4ka1QPD+tzMRk3Vz3nHhVWNjeOw=;
+  b=Fk7ZF9mPFJ+rgFrn9XrXPWaY1W7xWFF5wDO6tj7q+qeEoJqY5LBurBOG
+   ZBgyZanPHV/J9JIDQcekCmCexN0PlcztXlyVHQMtNSel59qTp3owqd7Oa
+   L3AfpOgQpSWfToEtj0lDYJd45hfth+rlNR/Jf5OSq4xfjlYjgBTEbrnHu
+   gXg82lEDAW8Vp4q32L0oZvvBI2H9soOHx2DwoAZId8hO4e1O7fv9tqmNU
+   JTUtCk+oK+8mQOquwyLQPfw/KKw40zFmrIkvCCqfamIJDpWgZtmILDouN
+   djGXX8iVFGyN8JY/J5qUUcyIWIMCMpjkP6K/UtD2AQRYgEXPkzVB/7CYu
+   g==;
+X-CSE-ConnectionGUID: pz6+/PGnQ8mkYtcWhDEUMg==
+X-CSE-MsgGUID: o3dcfBCrQY2Kz8P1zPy7XA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538610"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="100538610"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:10 -0700
+X-CSE-ConnectionGUID: vskIZtsrQrOsRhJT9a9sCQ==
+X-CSE-MsgGUID: jmgDo0rAQkeHbA7Z357mvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="300569161"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:08 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AE279121D55;
+	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1x3XY5-0000000ARnX-0o4F;
+	Mon, 07 Sep 2026 14:30:05 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	sarang.sapre@intel.com,
+	daxing.li@intel.com,
+	ong.hock.yu@intel.com
+Subject: [PATCH v4 10/45] media: ipu6: Use single struct for registers
+Date: Mon,  7 Sep 2026 14:29:29 +0300
+Message-ID: <20260907113004.2489993-11-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
+References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260617-rcar-streams-v6-3-1260eb72dff7@ideasonboard.com>
 
-Hi Tomi,
+From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Thanks for your patch.
+Move register values from ipu6_buttress_ipc struct to
+ipu6_buttress_registers as these are different in future
+hardware versions as well.
 
-On 2026-06-17 14:54:56 +0300, Tomi Valkeinen wrote:
-> With multiple streams the operation to enable the ISP hardware and to
-> call {enable|disable}_streams() on upstream subdev will need to be
-> handled separately.
-> 
-> Prepare for that by moving {enable|disable}_streams() calls out from
-> risp_start() and risp_stop().
-> 
-> On Gen4, a side effect of this change is that if the sink side devices
-> call .enable_streams() on rcar-isp multiple times, the second call will
-> fail. This is because we always use stream ID 0, so the second call
-> would attempt to enable the same stream again, leading to an error. In
-> other words, a normal single-stream setup continues to work, but trying
-> to use the current driver's custom VC based routing will fail.
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c | 86 +++++++++-----------
+ drivers/media/pci/intel/ipu6/ipu6-buttress.h | 17 ++--
+ drivers/media/pci/intel/ipu6/ipu6.c          | 13 +--
+ 3 files changed, 54 insertions(+), 62 deletions(-)
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-
-> ---
->  drivers/media/platform/renesas/rcar-isp/csisp.c | 27 ++++++++++++++++---------
->  1 file changed, 17 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
-> index 8fb2cc3b5650..58a9a3bd9f75 100644
-> --- a/drivers/media/platform/renesas/rcar-isp/csisp.c
-> +++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
-> @@ -268,18 +268,11 @@ static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
->  	/* Start ISP. */
->  	risp_write_cs(isp, ISPSTART_REG, ISPSTART_START);
->  
-> -	ret = v4l2_subdev_enable_streams(isp->remote, isp->remote_pad,
-> -					 BIT_ULL(0));
-> -	if (ret)
-> -		risp_power_off(isp);
-> -
-> -	return ret;
-> +	return 0;
->  }
->  
->  static void risp_stop(struct rcar_isp *isp)
->  {
-> -	v4l2_subdev_disable_streams(isp->remote, isp->remote_pad, BIT_ULL(0));
-> -
->  	/* Stop ISP. */
->  	risp_write_cs(isp, ISPSTART_REG, ISPSTART_STOP);
->  
-> @@ -291,7 +284,7 @@ static int risp_enable_streams(struct v4l2_subdev *sd,
->  			       u64 source_streams_mask)
->  {
->  	struct rcar_isp *isp = sd_to_isp(sd);
-> -	int ret = 0;
-> +	int ret;
->  
->  	if (source_streams_mask != 1)
->  		return -EINVAL;
-> @@ -305,9 +298,17 @@ static int risp_enable_streams(struct v4l2_subdev *sd,
->  			return ret;
->  	}
->  
-> +	ret = v4l2_subdev_enable_streams(isp->remote, isp->remote_pad,
-> +					 BIT_ULL(0));
-> +	if (ret) {
-> +		if (isp->stream_count == 0)
-> +			risp_stop(isp);
-> +		return ret;
-> +	}
-> +
->  	isp->stream_count += 1;
->  
-> -	return ret;
-> +	return 0;
->  }
->  
->  static int risp_disable_streams(struct v4l2_subdev *sd,
-> @@ -315,6 +316,7 @@ static int risp_disable_streams(struct v4l2_subdev *sd,
->  				u64 source_streams_mask)
->  {
->  	struct rcar_isp *isp = sd_to_isp(sd);
-> +	int ret;
->  
->  	if (source_streams_mask != 1)
->  		return -EINVAL;
-> @@ -322,6 +324,11 @@ static int risp_disable_streams(struct v4l2_subdev *sd,
->  	if (!isp->remote)
->  		return -ENODEV;
->  
-> +	ret = v4l2_subdev_disable_streams(isp->remote, isp->remote_pad,
-> +					  BIT_ULL(0));
-> +	if (ret)
-> +		return ret;
-> +
->  	if (isp->stream_count == 1)
->  		risp_stop(isp);
->  
-> 
-> -- 
-> 2.43.0
-> 
-
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+index 3c5f4e407b7c..e77a569bb97e 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+@@ -55,11 +55,11 @@
+ 
+ #define BUTTRESS_MAX_CONSECUTIVE_IRQS	100
+ 
+-int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+-			    struct ipu6_buttress_ipc *ipc)
++int ipu6_buttress_ipc_reset(struct ipu6_device *isp)
+ {
+ 	unsigned int retries = BUTTRESS_IPC_RESET_RETRY;
+ 	struct ipu6_buttress *b = &isp->buttress;
++	const struct ipu6_buttress_registers *regs = b->regs;
+ 	u32 val = 0, csr_in_clr;
+ 
+ 	if (!isp->secure_mode) {
+@@ -70,11 +70,11 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 	mutex_lock(&b->ipc_mutex);
+ 
+ 	/* Clear-by-1 CSR (all bits), corresponding internal states. */
+-	val = readl(isp->base + ipc->csr_in);
+-	writel(val, isp->base + ipc->csr_in);
++	val = readl(isp->base + regs->csr_in);
++	writel(val, isp->base + regs->csr_in);
+ 
+ 	/* Set peer CSR bit IPC_PEER_COMP_ACTIONS_RST_PHASE1 */
+-	writel(ENTRY, isp->base + ipc->csr_out);
++	writel(ENTRY, isp->base + regs->csr_out);
+ 	/*
+ 	 * Clear-by-1 all CSR bits EXCEPT following
+ 	 * bits:
+@@ -89,7 +89,7 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 
+ 	do {
+ 		usleep_range(400, 500);
+-		val = readl(isp->base + ipc->csr_in);
++		val = readl(isp->base + regs->csr_in);
+ 		switch (val) {
+ 		case ENTRY | EXIT:
+ 		case ENTRY | EXIT | QUERY:
+@@ -100,8 +100,8 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 			 * 2) Set peer CSR bit
+ 			 * IPC_PEER_QUERIED_IP_COMP_ACTIONS_RST_PHASE.
+ 			 */
+-			writel(ENTRY | EXIT, isp->base + ipc->csr_in);
+-			writel(QUERY, isp->base + ipc->csr_out);
++			writel(ENTRY | EXIT, isp->base + regs->csr_in);
++			writel(QUERY, isp->base + regs->csr_out);
+ 			break;
+ 		case ENTRY:
+ 		case ENTRY | QUERY:
+@@ -112,8 +112,8 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 			 * 2) Set peer CSR bit
+ 			 * IPC_PEER_COMP_ACTIONS_RST_PHASE1.
+ 			 */
+-			writel(ENTRY | QUERY, isp->base + ipc->csr_in);
+-			writel(ENTRY, isp->base + ipc->csr_out);
++			writel(ENTRY | QUERY, isp->base + regs->csr_in);
++			writel(ENTRY, isp->base + regs->csr_out);
+ 			break;
+ 		case EXIT:
+ 		case EXIT | QUERY:
+@@ -130,17 +130,17 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 			 * 3) Set peer CSR bit
+ 			 * IPC_PEER_COMP_ACTIONS_RST_PHASE2.
+ 			 */
+-			writel(EXIT, isp->base + ipc->csr_in);
+-			writel(0, isp->base + ipc->db0_in);
+-			writel(csr_in_clr, isp->base + ipc->csr_in);
+-			writel(EXIT, isp->base + ipc->csr_out);
++			writel(EXIT, isp->base + regs->csr_in);
++			writel(0, isp->base + regs->db0_in);
++			writel(csr_in_clr, isp->base + regs->csr_in);
++			writel(EXIT, isp->base + regs->csr_out);
+ 
+ 			/*
+ 			 * Read csr_in again to make sure if RST_PHASE2 is done.
+ 			 * If csr_in is QUERY, it should be handled again.
+ 			 */
+ 			usleep_range(200, 300);
+-			val = readl(isp->base + ipc->csr_in);
++			val = readl(isp->base + regs->csr_in);
+ 			if (val & QUERY) {
+ 				dev_dbg(&isp->pdev->dev,
+ 					"RST_PHASE2 retry csr_in = %x\n", val);
+@@ -155,8 +155,8 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 			 * 2) Set peer CSR bit
+ 			 * IPC_PEER_COMP_ACTIONS_RST_PHASE1
+ 			 */
+-			writel(QUERY, isp->base + ipc->csr_in);
+-			writel(ENTRY, isp->base + ipc->csr_out);
++			writel(QUERY, isp->base + regs->csr_in);
++			writel(ENTRY, isp->base + regs->csr_out);
+ 			break;
+ 		default:
+ 			dev_dbg_ratelimited(&isp->pdev->dev,
+@@ -171,42 +171,42 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 	return -ETIMEDOUT;
+ }
+ 
+-static void ipu6_buttress_ipc_validity_close(struct ipu6_device *isp,
+-					     struct ipu6_buttress_ipc *ipc)
++static void ipu6_buttress_ipc_validity_close(struct ipu6_device *isp)
+ {
+ 	writel(BUTTRESS_IU2CSECSR_IPC_PEER_DEASSERTED_REG_VALID_REQ,
+-	       isp->base + ipc->csr_out);
++	       isp->base + isp->buttress.regs->csr_out);
+ }
+ 
+ static int
+-ipu6_buttress_ipc_validity_open(struct ipu6_device *isp,
+-				struct ipu6_buttress_ipc *ipc)
++ipu6_buttress_ipc_validity_open(struct ipu6_device *isp)
+ {
+ 	unsigned int mask = BUTTRESS_IU2CSECSR_IPC_PEER_ACKED_REG_VALID;
++	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
+ 	void __iomem *addr;
+ 	int ret;
+ 	u32 val;
+ 
+ 	writel(BUTTRESS_IU2CSECSR_IPC_PEER_ASSERTED_REG_VALID_REQ,
+-	       isp->base + ipc->csr_out);
++	       isp->base + regs->csr_out);
+ 
+-	addr = isp->base + ipc->csr_in;
++	addr = isp->base + regs->csr_in;
+ 	ret = readl_poll_timeout(addr, val, val & mask, 200,
+ 				 BUTTRESS_IPC_VALIDITY_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(&isp->pdev->dev, "CSE validity timeout 0x%x\n", val);
+-		ipu6_buttress_ipc_validity_close(isp, ipc);
++		ipu6_buttress_ipc_validity_close(isp);
+ 	}
+ 
+ 	return ret;
+ }
+ 
+-static void ipu6_buttress_ipc_recv(struct ipu6_device *isp,
+-				   struct ipu6_buttress_ipc *ipc, u32 *ipc_msg)
++static void ipu6_buttress_ipc_recv(struct ipu6_device *isp, u32 *ipc_msg)
+ {
++	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
++
+ 	if (ipc_msg)
+-		*ipc_msg = readl(isp->base + ipc->data0_in);
+-	writel(0, isp->base + ipc->db0_in);
++		*ipc_msg = readl(isp->base + regs->data0_in);
++	writel(0, isp->base + regs->db0_in);
+ }
+ 
+ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+@@ -217,13 +217,14 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+ 	unsigned int i, retry = BUTTRESS_IPC_CMD_SEND_RETRY;
+ 	struct ipu6_buttress *b = &isp->buttress;
+ 	struct ipu6_buttress_ipc *ipc = &b->ipc;
++	const struct ipu6_buttress_registers *regs = b->regs;
+ 	u32 val;
+ 	int ret;
+ 	int tout;
+ 
+ 	mutex_lock(&b->ipc_mutex);
+ 
+-	ret = ipu6_buttress_ipc_validity_open(isp, ipc);
++	ret = ipu6_buttress_ipc_validity_open(isp);
+ 	if (ret) {
+ 		dev_err(&isp->pdev->dev, "IPC validity open failed\n");
+ 		goto out;
+@@ -239,9 +240,9 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+ 
+ 		dev_dbg(&isp->pdev->dev, "bulk IPC command: 0x%x\n",
+ 			msgs[i].cmd);
+-		writel(msgs[i].cmd, isp->base + ipc->data0_out);
++		writel(msgs[i].cmd, isp->base + regs->data0_out);
+ 		val = BUTTRESS_IU2CSEDB0_BUSY | msgs[i].cmd_size;
+-		writel(val, isp->base + ipc->db0_out);
++		writel(val, isp->base + regs->db0_out);
+ 
+ 		tout = wait_for_completion_timeout(&ipc->send_complete,
+ 						   tx_timeout_jiffies);
+@@ -253,7 +254,7 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+ 			}
+ 
+ 			/* Try again if CSE is not responding on first try */
+-			writel(0, isp->base + ipc->db0_out);
++			writel(0, isp->base + regs->db0_out);
+ 			i--;
+ 			continue;
+ 		}
+@@ -271,8 +272,8 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+ 			goto out;
+ 		}
+ 
+-		if (ipc->nack_mask &&
+-		    (ipc->recv_data & ipc->nack_mask) == ipc->nack) {
++		if ((ipc->recv_data & BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK) ==
++		     BUTTRESS_CSE2IUDATA0_IPC_NACK) {
+ 			dev_err(&isp->pdev->dev,
+ 				"IPC NACK for cmd 0x%x\n", msgs[i].cmd);
+ 			ret = -EIO;
+@@ -291,7 +292,7 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+ 	dev_dbg(&isp->pdev->dev, "bulk IPC commands done\n");
+ 
+ out:
+-	ipu6_buttress_ipc_validity_close(isp, ipc);
++	ipu6_buttress_ipc_validity_close(isp);
+ 	mutex_unlock(&b->ipc_mutex);
+ 	return ret;
+ }
+@@ -375,7 +376,7 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ 			dev_dbg(&isp->pdev->dev,
+ 				"BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING\n");
+ 
+-			ipu6_buttress_ipc_recv(isp, &b->ipc, &b->ipc.recv_data);
++			ipu6_buttress_ipc_recv(isp, &b->ipc.recv_data);
+ 			complete(&b->ipc.recv_complete);
+ 		}
+ 
+@@ -836,15 +837,6 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+ 	init_completion(&b->ipc.send_complete);
+ 	init_completion(&b->ipc.recv_complete);
+ 
+-	b->ipc.nack = BUTTRESS_CSE2IUDATA0_IPC_NACK;
+-	b->ipc.nack_mask = BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK;
+-	b->ipc.csr_in = BUTTRESS_REG_CSE2IUCSR;
+-	b->ipc.csr_out = BUTTRESS_REG_IU2CSECSR;
+-	b->ipc.db0_in = BUTTRESS_REG_CSE2IUDB0;
+-	b->ipc.db0_out = BUTTRESS_REG_IU2CSEDB0;
+-	b->ipc.data0_in = BUTTRESS_REG_CSE2IUDATA0;
+-	b->ipc.data0_out = BUTTRESS_REG_IU2CSEDATA0;
+-
+ 	INIT_LIST_HEAD(&b->constraints);
+ 
+ 	isp->secure_mode = ipu6_buttress_get_secure_mode(isp);
+@@ -880,7 +872,7 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+ 
+ 	/* Retry couple of times in case of CSE initialization is delayed */
+ 	do {
+-		ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
++		ret = ipu6_buttress_ipc_reset(isp);
+ 		if (ret) {
+ 			dev_warn(&isp->pdev->dev,
+ 				 "IPC reset protocol failed, retrying\n");
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
+index 68586a32fda3..a3c23adede7b 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
+@@ -31,15 +31,7 @@ struct ipu6_buttress_ctrl {
+ struct ipu6_buttress_ipc {
+ 	struct completion send_complete;
+ 	struct completion recv_complete;
+-	u32 nack;
+-	u32 nack_mask;
+ 	u32 recv_data;
+-	u32 csr_out;
+-	u32 csr_in;
+-	u32 db0_in;
+-	u32 db0_out;
+-	u32 data0_out;
+-	u32 data0_in;
+ };
+ 
+ struct ipu6_buttress_registers {
+@@ -55,6 +47,12 @@ struct ipu6_buttress_registers {
+ 	u32 tsc_lo;
+ 	u32 wdt;
+ 	u32 btrs_ctrl;
++	u32 csr_in;
++	u32 csr_out;
++	u32 db0_in;
++	u32 db0_out;
++	u32 data0_in;
++	u32 data0_out;
+ 
+ 	/* Bitmasks */
+ 	u32 irq_is;
+@@ -83,8 +81,7 @@ struct ipu6_ipc_buttress_bulk_msg {
+ 	u8 cmd_size;
+ };
+ 
+-int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+-			    struct ipu6_buttress_ipc *ipc);
++int ipu6_buttress_ipc_reset(struct ipu6_device *isp);
+ int ipu6_buttress_map_fw_image(struct ipu6_bus_device *sys,
+ 			       const struct firmware *fw,
+ 			       struct sg_table *sgt);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+index 55e660fda421..7ac9c92744c0 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -241,6 +241,12 @@ static const struct ipu6_buttress_registers ipu6_buttress_regs = {
+ 	.tsc_lo		= BUTTRESS_REG_TSC_LO,
+ 	.wdt		= BUTTRESS_REG_WDT,
+ 	.btrs_ctrl	= BUTTRESS_REG_BTRS_CTRL,
++	.csr_in		= BUTTRESS_REG_CSE2IUCSR,
++	.csr_out	= BUTTRESS_REG_IU2CSECSR,
++	.db0_in		= BUTTRESS_REG_CSE2IUDB0,
++	.db0_out	= BUTTRESS_REG_IU2CSEDB0,
++	.data0_in	= BUTTRESS_REG_CSE2IUDATA0,
++	.data0_out	= BUTTRESS_REG_IU2CSEDATA0,
+ 
+ 	/* Bitmasks */
+ 	.irq_is		= BUTTRESS_ISR_IS_IRQ,
+@@ -779,7 +785,6 @@ static int ipu6_resume(struct device *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev);
+ 	struct ipu6_device *isp = pci_get_drvdata(pdev);
+-	struct ipu6_buttress *b = &isp->buttress;
+ 	int ret;
+ 
+ 	/* Configure the arbitration mechanisms for VC requests */
+@@ -791,7 +796,7 @@ static int ipu6_resume(struct device *dev)
+ 
+ 	ipu6_buttress_restore(isp);
+ 
+-	ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
++	ret = ipu6_buttress_ipc_reset(isp);
+ 	if (ret)
+ 		dev_err(&isp->pdev->dev, "IPC reset protocol failed!\n");
+ 
+@@ -820,10 +825,8 @@ static int ipu6_runtime_resume(struct device *dev)
+ 	ipu6_buttress_restore(isp);
+ 
+ 	if (isp->need_ipc_reset) {
+-		struct ipu6_buttress *b = &isp->buttress;
+-
+ 		isp->need_ipc_reset = false;
+-		ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
++		ret = ipu6_buttress_ipc_reset(isp);
+ 		if (ret)
+ 			dev_err(&isp->pdev->dev, "IPC reset protocol failed\n");
+ 	}
 -- 
-Kind Regards,
-Niklas Söderlund
+2.47.3
+
