@@ -1,287 +1,232 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462D335DA47
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 18:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F593ED5B9;
+	Mon,  7 Sep 2026 19:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788806168; cv=none; b=T58qLwrfzvSyRwLVr8Eejzl16Suf9LmAMA8b4y+56by+KCkJk2Efsd5bf4condxczKFCRR3+cw452MS/4EO7UORdhJ225JEJUCWVmj79xjd4QYKdnMgy8hc6F4OOeU1gtSFI8fmaqCftROHAEzZGVP/Bl1F5tJcHRcgrhoCA8wM=
+	t=1788808441; cv=none; b=mQh2YZhWFdJShWFu6YbaCfaMxlygO/owagfywFvSDuA92+AXLpOb/uINRjAgfobCcBE9EJiMycqg28VkiYEpTmK1Y2UahK/p7EBIv3cGUwm6H5EBxAOUqHhBbEIoHIq4LheoIrwd3z00nL7EvaKhOqQN6atdwQyfJZsNvwe7IUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788806168; c=relaxed/simple;
-	bh=+fbOcqBMU1tr+fEDBDY4Bw/6wH0TBlH5lTA9zGwJ+Ys=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b1enj/maQPqOIMahLhyoUCda70RZdOTLLnutVzeZFXvxZrYlDO+pT7BhpUNtcFFm2K42PxJ3Y5kMXCOyWvW4UwIlUkfJB4iGjfl5//h07HsTpb197oTuflxg7WhQoDTX9j9W6kx+d6x4XXFz2W/bQ6xWLTK/5+bNzRnYynHtAyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=EUqZ3oyt; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788808441; c=relaxed/simple;
+	bh=VFPW8oU/qQ6NR5NdxRiQ/DQWigGtH7XbMQnShuzReJ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tBh3s2FwBJFf+P8/+Vk5XQD4/h7SeKlJjDUo2XXuAdpPANY0E/54x1eUOFIi/70BRkeIbhghYpBVCWKN+DXi4QyUcqV/RR62EpWv3GlWxVlbL30s8kssoaMGgZ1B4hqH0fqeMrl6rs/DJro7Op+a0Ihbey19N5+IlrrYPLcpdeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OTQXZ1MT; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="EUqZ3oyt"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-382ef647e20so3807179a91.1
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 11:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788806165; x=1789410965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gpyDrro9I02UGlwEdETP97qHnDQOWP7PTa4MSWZDpzo=;
-        b=EUqZ3oytUot5js31bK6DhB/xuAstaSMKayWutR6zz37F+AFknC79OVjIoRavLJnIvh
-         SYrpVA1lWaySXW/QhJWeDGxcuRIdxCtwNPzKpVdGA/0r/7CWx1oyQwtqni2g5qo/87d4
-         lfPjrIpF5OTKa2oxdFkL6SLWw689U2/i9QN5Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788806165; x=1789410965;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gpyDrro9I02UGlwEdETP97qHnDQOWP7PTa4MSWZDpzo=;
-        b=Nzbzy81deRiVIzJP1uRxcyMuyPfnBd7OrvH4++457Y/+9PxbHMtiarGF2gBB5cJcWB
-         rA5m27+vUWLViDWE42BU8ZSdt3iHEHefKQpXbTxpEp5axC/+h1LshH+9lPZ+QpFsSdOm
-         NdSeCY33auLKRqE87nJlR63Hk8uYiIwiRCXka7naKZ+VIG4zCrjr3IZgW4tuWIC46J53
-         pyye4kHHLthOfLy90rzdTfGUR4YvH5ohPnOYNyy+PhRjkq8xBBPA4vULM6mDzQW8iubm
-         QonK2Rp+kOvI9NiGjM38jjhjYVzOKnf1+30VpJl8xMCF8J3gblKtQZufAWAwtke5JuCB
-         IPzw==
-X-Gm-Message-State: AFuF++n0e6qU/rTl7c7xIL3qLncYEVWZYarxLWmQ2obJ75fNVb6QeSHX
-	lyJMYdYW0t4ZjkT27lw7un6tbyeX0kB56Y30mbBnTQ06pK+IxpoSHPPCXM1bbdHnAjhsHSyRoo8
-	Nwpo=
-X-Gm-Gg: AYBFou0+CPKeNfMdQ3DFSKHZyGBwUvk7UWrfZArkbjqmaPo+KEUU3bBb1A5Xkea+Fwv
-	CszC/fge/rA5pShdfQ+ipXFJENf7k5vTOR8jDoRW4iI8GFHkDzzqDhfXPxhLaFRZG4ccj03K6t+
-	a/hJcFiFkI/BzE3n7fNDFL2IgnLqPQQAPx5Ixq9gU6muvfDM2QZ7GYHWK/SN2rcJPRfEXgjbmZh
-	aD84BA6wnqe3Up0K3w3FrZWCqLJUyt2AmHch0gNz5ySO5MSaFe/Z+Px1wuErhxl8b6P3H1YJHt7
-	lO8PGS7DkrZD1ZB3Du6srboqKp0ErOF60GR2x1nHRMi1mVUfZQ8SDqB7Mbz3iRWqIMw3CaBYTiV
-	rQ+FcT3v1BykqVAJB+zx5YR5jTJMuSUwFMY1cfhzWnS+bhfnEGw/O47LG2H4lLAfmFbl2JCOR6/
-	0n64HTSpm3ct0RUHF5uHZGM5Hb4Fn3Nt27VwGjC17hTnUYANQR5UQmvTtvRO13DZbVT9x0Qcoyr
-	xohmEmXbTNR5qX5i3J3PBofzb2/Fw==
-X-Received: by 2002:a17:90b:538b:b0:392:e5b1:d833 with SMTP id 98e67ed59e1d1-39b261d5148mr35744904a91.13.1788806165375;
-        Mon, 07 Sep 2026 11:36:05 -0700 (PDT)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com. [209.85.214.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c397b1sm27806245a91.8.2026.09.07.11.36.04
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 11:36:04 -0700 (PDT)
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d58efc7356so46650815ad.1
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 11:36:04 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6e04:b0:3c6:61b9:917c with SMTP id
- adf61e73a8af0-3da39cfee0dmr39470962637.11.1788806163604; Mon, 07 Sep 2026
- 11:36:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OTQXZ1MT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788808439; x=1820344439;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VFPW8oU/qQ6NR5NdxRiQ/DQWigGtH7XbMQnShuzReJ0=;
+  b=OTQXZ1MTzWX69wvuexhIkSRq4PiOTvd825Y+EEuYjJQQAVOlB+QKVJBV
+   gyfAeJe5Za13ZhiA9odspQoVhZhj4srVrHS8625jRlEFIIEea7GyNO8f8
+   mwrsPp7hMbwSWEVB+29Ethp0CYHqnSJ3kPFP8FrCf8jMZslj2FArrz6uV
+   CyrYp5bspzp2m4wpaqq4WayO5Gub5VSinSvVtFKkWUkk3ZSmgihOvEwwY
+   W+8bnlsH6iRDFVgFCvomxrqPk6AfY/H8x+IGtGg2SQcyog9Amdw0DS1PO
+   ft8u945ovZRpiiD/I3oW9A+9tzGVF7+fgnKM1p6CHeXPn5GocSLsRm3U7
+   g==;
+X-CSE-ConnectionGUID: ahkudvLTSxuMkcX8U533uQ==
+X-CSE-MsgGUID: 4mYU3U4BShmhW9i5G4xYNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89244558"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="89244558"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 12:13:58 -0700
+X-CSE-ConnectionGUID: o3+lIQxbQYWqH/2/Z77CYA==
+X-CSE-MsgGUID: 9pFAzUJPQLePJ+LCBmiexw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="266450197"
+Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 07 Sep 2026 12:13:56 -0700
+Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3emv-000000001Gl-3HDL;
+	Mon, 07 Sep 2026 19:13:53 +0000
+Date: Tue, 8 Sep 2026 03:13:22 +0800
+From: kernel test robot <lkp@intel.com>
+To: Breno Rodrigues Alves <breno3011alves@gmail.com>,
+	gregkh@linuxfoundation.org
+Cc: oe-kbuild-all@lists.linux.dev, torvalds@linux-foundation.org,
+	linux-media@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: Re: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE
+ debug block
+Message-ID: <202609080307.AVMbAAz0-lkp@intel.com>
+References: <20260905142222.22818-1-breno3011alves@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
- <CANiDSCu2=p_o8qNZeEOQB_um0YH_+3jefB=4xsC6k6Z349xtaQ@mail.gmail.com>
- <28dJLjsoYQxYnUJloPFduvPFDUb6r-YQrLRK0aT_UZ1GJAMGt9892Ltc6-1Uppe3UiQILaOwlEqsj5W6IUKFUvYDs8osrNPH1Z9MnvE0ed0=@protonmail.com>
- <CANiDSCsQL_AWPz+spNwFkD=iSuDp5YKuk_0KROvmLNx0rG4tfQ@mail.gmail.com> <RvTaL2E-hrP99NfDt6Vd551foC2i6P87ygj8B2zEZZgo0YH9VPLG0HUHZpSvhPKH74wOK_jV8QFiZhKjYIs852vA4OTy-hTp_BwVdTj2Bu0=@protonmail.com>
-In-Reply-To: <RvTaL2E-hrP99NfDt6Vd551foC2i6P87ygj8B2zEZZgo0YH9VPLG0HUHZpSvhPKH74wOK_jV8QFiZhKjYIs852vA4OTy-hTp_BwVdTj2Bu0=@protonmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 7 Sep 2026 20:35:48 +0200
-X-Gmail-Original-Message-ID: <CANiDSCvyDHJKNAnLZFxz8SjWg3Y4-LoFC3KqotMa5i1fP8aZ0g@mail.gmail.com>
-X-Gm-Features: AcwNN1WejcwQPEW3a1TSmja9xFLELmsP9qBSIiEH15eHV9OBoI4OXKTaTcaVarM
-Message-ID: <CANiDSCvyDHJKNAnLZFxz8SjWg3Y4-LoFC3KqotMa5i1fP8aZ0g@mail.gmail.com>
-Subject: Re: Re : Re: Re : Re: Avermedia GC515 implementation
-To: Edwin Gatier <edwin.gatier@protonmail.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905142222.22818-1-breno3011alves@gmail.com>
 
-Hi Edwin
+Hi Breno,
 
+kernel test robot noticed the following build errors:
 
+[auto build test ERROR on staging/staging-testing]
+[also build test ERROR on staging/staging-next staging/staging-linus linuxtv-media-pending/master media-tree/master sailus-media-tree/master linus/master linux/master sailus-media-tree/streams v7.3-rc2 next-20260907]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-On Mon, 7 Sept 2026 at 17:01, Edwin Gatier <edwin.gatier@protonmail.com> wr=
-ote:
->
-> Hello,
->
-> I saw that the audio is surprisingly working fine with whatever uvcvideo =
-driver I use (the fact that the uvcvideo driver has no effect on audio is e=
-xpected after all), confirming the USB HUB aspect, I suspect the requiremen=
-t for usb 3.X by avermedia is to run audio and video in parallel with multi=
-ple USB 2 virtual devices over a single physical cable.
->
-> I didn't know that wireshark could look at USB packets, that's nice. I ha=
-ve to say the card does communicate quite well and gives information onto w=
-hat video format to expect (H264 and HVEC specifications) and audio expecta=
-tions as well, it's on line 136 of the usb capture file.
->
-> Because the usb is physically pluged on a usb card you have a bit of "noi=
-se" in the recording, I used the 'usb.src =3D=3D "3.4.0" OR usb.dst =3D=3D =
-"3.4.0"' and 'usb.src =3D=3D "3.5.0" OR usb.dst =3D=3D "3.5.0"' filters to =
-follow the pc <-> capture card dialogue.
->
-> I suspect the card resets when I force a new multimedia signal to be emit=
-ted by powering on the plugged video source (a switch2 in that case) which =
-explains the multiple dialogues.
->
-> Attached are the 2 requested logs.
+url:    https://github.com/intel-lab-lkp/linux/commits/Breno-Rodrigues-Alves/media-dvb-core-extirpate-defective-and-unsafe-ULE-debug-block/20260905-112222
+base:   staging/staging-testing
+patch link:    https://lore.kernel.org/r/20260905142222.22818-1-breno3011alves%40gmail.com
+patch subject: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE debug block
+config: x86_64-randconfig-r071-20260907 (https://download.01.org/0day-ci/archive/20260908/202609080307.AVMbAAz0-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+smatch: v0.5.0-9187-g5189e3fb
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609080307.AVMbAAz0-lkp@intel.com/reproduce)
 
-I have not looked into the pcap file yet. Before looking into it...
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609080307.AVMbAAz0-lkp@intel.com/
 
-Are you sure that you applied the uvc_version patch when you run the test?
+All errors (new ones prefixed by >>):
 
-[  125.095549] uvcvideo 3-2:1.0: Found a valid video chain (1 -> 32770)
-[  125.096613] uvcvideo 3-2:1.0: UVC non compliance - GET_DEF(PROBE)
-not supported. Enabling workaround.
-[  125.097110] uvcvideo 3-2:1.1: Failed to query (GET_CUR) UVC probe
-control : 34 (exp. 48).
-[  125.097114] uvcvideo 3-2:1.1: Failed to initialize the device (-5).
-[  125.097152] uvcvideo 3-2:1.0: probe with driver uvcvideo failed with err=
-or -5
-
-Regards!
->
-> Good day
->
-> Edwin
->
->
->
-> Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
->
-> Le lundi 7 septembre 2026 =C3=A0 13:14, Ricardo Ribalda <ribalda@chromium=
-.org> a =C3=A9crit :
->
-> > Hi Edwin
-> >
-> > Thanks a lot for the logs.
-> > This is a new one:
-> > Failed to query (GET_CUR) UVC probe control : -75 (exp. 26).
-> >
-> > (we had before  Failed to query (GET_CUR) UVC probe control : 34 (exp. =
-48).)
-> >
-> > Progress??? who knows :P
-> >
-> > It would help to have a usb trace...  Have you used usbmon before?
-> >
-> > If you get a trace, add also the dmesg output. You can use something li=
-ke this
-> >
-> > # disconnect the camera
-> > dmesg -c > /dev/null
-> > rmmod uvcvideo
-> > modprobe uvcvideo trace=3D0xffffffff
-> > modprobe usbmon
-> > # Start wireshark and start capturing on the correct port
-> > # connect the camera and give it a couple of secs
-> > # Stop capturing
-> > dmesg > dmesg.log
-> >
-> > Hopefully the logs will give us something to work with... But bear in
-> > mind that we are only looking at it from "uvc" perspective. The
-> > high-speed vs super-speed problem will not be solved.
-> >
-> > Regards!
-> > --
-> > Ricardo Ribalda
-> >
-> > On Sun, 6 Sept 2026 at 18:23, Edwin Gatier <edwin.gatier@protonmail.com=
-> wrote:
-> > >
-> > > Hello,
-> > >
-> > > Sorry for the delay, I had other matter to attend to and also it's my=
- first time making drivers so i had some issues making it work.
-> > > Thank you for the quick response.
-> > > I added the quirk but it still does not work, the quirk is taken into=
- account (forcing v 1.0a) but the probe still returns a mismatch length err=
-or.
-> > > A "very usefull" comment on a reddit thread I openned indicates that =
-the card is suppose to behave like a usb hub with a uvc device as one of th=
-e device of the hub, but the list of usb devices connected to the pc does o=
-nly show one device and dmesg shows it is recognised (falsly) as a 1.5 uvc =
-device.
-> > >
-> > > How do you recon we/I could go on from this point on ?
-> > >
-> > > Regards
-> > >
-> > > Edwin
-> > >
-> > >
-> > > Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
-> > >
-> > > Le mardi 1 septembre 2026 =C3=A0 08:45, Ricardo Ribalda <ribalda@chro=
-mium.org> a =C3=A9crit :
-> > >
-> > > > Hi Edwin
-> > > >
-> > > > Looks like your camera is not following the spec. It says that it i=
-s
-> > > > uvc 1.5 but behaves like 1.1
-> > > >
-> > > >
-> > > > Could you try if this patch fixes it for you?
-> > > >
-> > > > Regards!
-> > > >
-> > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c
-> > > > b/drivers/media/usb/uvc/uvc_driver.c
-> > > > index e289cc71ba98..615cebb67508 100644
-> > > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > > @@ -2851,6 +2851,17 @@ static const struct usb_device_id uvc_ids[] =
-=3D {
-> > > >           .bInterfaceSubClass   =3D 1,
-> > > >           .bInterfaceProtocol   =3D 0,
-> > > >           .driver_info          =3D (kernel_ulong_t)&uvc_quirk_fix_=
-bandwidth },
-> > > > +       /* Avermedia GC515 */
-> > > > +       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> > > > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> > > > +         .idVendor             =3D 0x07ca,
-> > > > +         .idProduct            =3D 0x1515,
-> > > > +         .bInterfaceClass      =3D USB_CLASS_VIDEO,
-> > > > +         .bInterfaceSubClass   =3D 1,
-> > > > +         .bInterfaceProtocol   =3D UVC_PC_PROTOCOL_15,
-> > > > +         .driver_info          =3D (kernel_ulong_t)&(const struct
-> > > > uvc_device_info){
-> > > > +               .uvc_version =3D 0x010a,
-> > > > +         } },
-> > > >         /* ViMicro Vega */
-> > > >         { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> > > >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
-> > > >
-> > > > On Tue, 1 Sept 2026 at 02:45, Edwin Gatier <edwin.gatier@protonmail=
-.com> wrote:
-> > > > >
-> > > > > Hello,
-> > > > >
-> > > > > I'm trying to use the usb capture card x'tra go from avermedia bu=
-t the uvc implementation is not very good from the vendor. The card falls b=
-ack at usb 2 speed (high speed detected) while it works fine on windows wit=
-h usb3 speed (super speed) which it as been designed for. Video stream shou=
-ld be 1080p120 and h265 compressed by the card.
-> > > > >
-> > > > > Plugging the card does nothing, the card is not recognized at all=
- as seen in the dmesg log, and subsequently is not mounted in /dev/videoX.
-> > > > > I tried some quirks but didn't manage to pass the probe.
-> > > > >
-> > > > > You of course can contact me for more information.
-> > > > >
-> > > > > I'm on linux 7.2.2-1-cachyos with Wayland and have a dualboot wit=
-h windows 11 on separate drive to update and test the capture card.
-> > > > >
-> > > > > Best Regards
-> > > > >
-> > > > > Edwin GATIER
-> > > > >
-> > > > > Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
-> > > >
-> > > >
-> > > >
-> > > > --
-> > > > Ricardo Ribalda
-> > > >
-> >
-> >
-> >
-> > --
-> > Ricardo Ribalda
-> >
+>> drivers/media/dvb-core/dvb_net.c:806:51: error: too few arguments to function call, expected 4, have 3
+     806 |                         dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
+         |                         ~~~~~~~~~~~~~~~~~~~~~                          ^
+   drivers/media/dvb-core/dvb_net.c:625:13: note: 'dvb_net_ule_check_crc' declared here
+     625 | static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
+         |             ^                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     626 |                                   struct kvec iov[3],
+         |                                   ~~~~~~~~~~~~~~~~~~~
+     627 |                                   u32 ule_crc, u32 expected_crc)
+         |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1 error generated.
 
 
+vim +806 drivers/media/dvb-core/dvb_net.c
 
---=20
-Ricardo Ribalda
+   721	
+   722	static void dvb_net_ule(struct net_device *dev, const u8 *buf, size_t buf_len)
+   723	{
+   724		int ret;
+   725		struct dvb_net_ule_handle h = {
+   726			.dev = dev,
+   727			.priv = netdev_priv(dev),
+   728			.ethh = NULL,
+   729			.buf = buf,
+   730			.buf_len = buf_len,
+   731			.skipped = 0L,
+   732			.ts = NULL,
+   733			.ts_end = NULL,
+   734			.from_where = NULL,
+   735			.ts_remain = 0,
+   736			.how_much = 0,
+   737			.new_ts = 1,
+   738			.error = false,
+   739		};
+   740	
+   741		/*
+   742		 * For all TS cells in current buffer.
+   743		 * Appearently, we are called for every single TS cell.
+   744		 */
+   745		for (h.ts = h.buf, h.ts_end = h.buf + h.buf_len;
+   746		     h.ts < h.ts_end; /* no incr. */) {
+   747			if (h.new_ts) {
+   748				/* We are about to process a new TS cell. */
+   749				if (dvb_net_ule_new_ts_cell(&h))
+   750					continue;
+   751			}
+   752	
+   753			/* Synchronize on PUSI, if required. */
+   754			if (h.priv->need_pusi) {
+   755				if (dvb_net_ule_ts_pusi(&h))
+   756					continue;
+   757			}
+   758	
+   759			if (h.new_ts) {
+   760				if (dvb_net_ule_new_ts(&h))
+   761					continue;
+   762			}
+   763	
+   764			/* Check if new payload needs to be started. */
+   765			if (h.priv->ule_skb == NULL) {
+   766				ret = dvb_net_ule_new_payload(&h);
+   767				if (ret < 0)
+   768					return;
+   769				if (ret)
+   770					continue;
+   771			}
+   772	
+   773			/* Copy data into our current skb. */
+   774			h.how_much = min(h.priv->ule_sndu_remain, (int)h.ts_remain);
+   775			skb_put_data(h.priv->ule_skb, h.from_where, h.how_much);
+   776			h.priv->ule_sndu_remain -= h.how_much;
+   777			h.ts_remain -= h.how_much;
+   778			h.from_where += h.how_much;
+   779	
+   780			/* Check for complete payload. */
+   781			if (h.priv->ule_sndu_remain <= 0) {
+   782				/* Check CRC32, we've got it in our skb already. */
+   783				__be16 ulen = htons(h.priv->ule_sndu_len);
+   784				__be16 utype = htons(h.priv->ule_sndu_type);
+   785				const u8 *tail;
+   786				struct kvec iov[3] = {
+   787					{ &ulen, sizeof ulen },
+   788					{ &utype, sizeof utype },
+   789					{ h.priv->ule_skb->data,
+   790					  h.priv->ule_skb->len - 4 }
+   791				};
+   792				u32 ule_crc = ~0L, expected_crc;
+   793				if (h.priv->ule_dbit) {
+   794					/* Set D-bit for CRC32 verification,
+   795					 * if it was set originally. */
+   796					ulen |= htons(0x8000);
+   797				}
+   798	
+   799				ule_crc = iov_crc32(ule_crc, iov, 3);
+   800				tail = skb_tail_pointer(h.priv->ule_skb);
+   801				expected_crc = *(tail - 4) << 24 |
+   802					       *(tail - 3) << 16 |
+   803					       *(tail - 2) << 8 |
+   804					       *(tail - 1);
+   805	
+ > 806				dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
+   807	
+   808				/* Prepare for next SNDU. */
+   809				reset_ule(h.priv);
+   810			}
+   811	
+   812			/* More data in current TS (look at the bytes following the CRC32)? */
+   813			if (h.ts_remain >= 2 && *((unsigned short *)h.from_where) != 0xFFFF) {
+   814				/* Next ULE SNDU starts right there. */
+   815				h.new_ts = 0;
+   816				h.priv->ule_skb = NULL;
+   817				h.priv->ule_sndu_type_1 = 0;
+   818				h.priv->ule_sndu_len = 0;
+   819				// pr_warn("More data in current TS: [%#x %#x %#x %#x]\n",
+   820				//	*(h.from_where + 0), *(h.from_where + 1),
+   821				//	*(h.from_where + 2), *(h.from_where + 3));
+   822				// pr_warn("h.ts @ %p, stopped @ %p:\n", h.ts, h.from_where + 0);
+   823				// hexdump(h.ts, 188);
+   824			} else {
+   825				h.new_ts = 1;
+   826				h.ts += TS_SZ;
+   827				h.priv->ts_count++;
+   828				if (h.priv->ule_skb == NULL) {
+   829					h.priv->need_pusi = 1;
+   830					h.priv->ule_sndu_type_1 = 0;
+   831					h.priv->ule_sndu_len = 0;
+   832				}
+   833			}
+   834		}	/* for all available TS cells */
+   835	}
+   836	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
