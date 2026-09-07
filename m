@@ -1,436 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010062.outbound.protection.outlook.com [52.101.56.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB00844AB9D;
-	Mon,  7 Sep 2026 09:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788773394; cv=none; b=GR6rrjIoIt/Mfnle/YkcmnTn4avlJOebV+otuG2w5HdiDN+z6KaUkiRChenp0sy9JMzwbydiexop4SwgrZBfDVAAkL/ldfzwlFgolpgzDX7NzU9SldixxFrjcdZdxxzVMD+FqpOgQ4IlOt31ZXDIgxz9BcFmla2AuvI71+1DT7s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788773394; c=relaxed/simple;
-	bh=5281dcRb8zZBtkO1oJ2CF7fGdlascRV7BzcJZfe5OMY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gG1fh0Ib+/FPbl13m4DTTnono+DP4Ga0giY1YIXVYC3cxvDQtbj4rzkFD7uxUTTv4ss57M0S4EhUzniSoaHfHjJUWeJ3QVhABzi1jXXsupXUqBN0eGgz/D4xkcAR0BQJ8rY5sYCuPurqout75ZUlw6D+oaF2eAqStlwjaXEE1fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WG07sVej; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674A244E659;
+	Mon,  7 Sep 2026 09:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788774667; cv=fail; b=VoYakVMfV1PKplJE8xKCwc9iIZsliLewrDTOWJhCgSbWUafU2+Aw1mjTytS0HBaNlw17A8G9krJyfQSgody1ynTPVVPGlHI/XuKETnNz++m3Giz4HWgDiGGEpFFVbdkvYK5u7E74vvleqDQH6yiBqiJwulblttU4YRiVFNZv7fs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788774667; c=relaxed/simple;
+	bh=nWsghlbFfV+MNM5ifX1XfRz2KwmJXalPK0y6BDCGB78=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ApP81kXauaRI+kE5H/+kiySauZvmXpLDRBMgD8QuCAWonWB7yO1GvbBKmuLxsvF7dp7DztuC6OAfde1jBPK9j2qtThlGmMac25BjGI0O285InxsObkGee0urbW+RFGaxKxeimaSIc7wU7ioheZjjlV4xgIwMeK4jCE8ckPYkG1U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=an3RenQZ; arc=fail smtp.client-ip=52.101.56.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WG07sVej"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EA71F00A3A;
-	Mon,  7 Sep 2026 09:29:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788773383;
-	bh=VtCPek+5saPOvgRgewn8SWkbjVqNPiUS7tnHPudCp4k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WG07sVejUwJBWxiPp6B0tTO6fiAH3aigLFdHESjaqBD9fprnpQcls8Cv8a40AXQQq
-	 m0x4DjMVboYHhrA0Ipot+Tiv9/YUtur3mC2LmWZ+wf7ERZSD2b70teFoaDkSYP7RJf
-	 XGX1+5BtouWCDLv2f1pjMYSITTYBzE2VGcGnSchmsVtO9/TzLdpTNOPygLoQEeH0QC
-	 rj8Ws6zxjLGJ1QG+5p6JF3lwkjCrgz+s5t8IYqO3F0h3UwO7sMhJbrYr1NNtrPCT3p
-	 RI5d0hnje7C705jblZjzG8L7X2HC0NQNHC3GkWT4QM5llNWdQEdlQTr/Zd6Ys3bNYk
-	 TcPehRvRpC0Nw==
-Message-ID: <3e619085-3311-4acd-9493-e849875563d7@kernel.org>
-Date: Mon, 7 Sep 2026 10:29:36 +0100
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="an3RenQZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eYrmqPq+bHFk3EQ+j/2Vj0+IVYDy3nwlwYvUx1J4u/8vNqSh7Xb+RRlNQq/kA0xEEYYE8NWzNENU2YEBKY+xCDa/b0X0KrZxW9vzgpY5qN0AZ1BXedzjskohTplhZYdbIM6X9cJmkWBC0ax/ODoGBKzjT4B9lD9AIThsF5rWKsF+lDSI/PXCaY27fSJ7DdBjIYVwW3wm5kk5hFXwMO/Tw2qy48sbvogPy+mOHpLTFm3DjVWQpsCRWo3DwPmHDJxc2DpY3wdGBoKgDgRkhuFmLL0UBTZKrxn9rw2QFXLzqxyKokRDOEyw5TStpuktotpFwzApwoHqhFQHJod2ncWabQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nWsghlbFfV+MNM5ifX1XfRz2KwmJXalPK0y6BDCGB78=;
+ b=KMP2/qCnVJ1rKhRUw4mKRHvmrrL1EeHCNSyZBDMcxhH6tfva2cQWrGGqewqGN2BuHuY9YYEGStVFHoj2DL1owmC2nU1Q/KPJhxs3JyFQPBpuzaUvw4ULgueU8Mv8+mdl6kiHQQG68qCgug99FpBqvIiRg0ImPTtB/6/xxsNYWb4L9lzhzAhFmGW/fnKPcWwTDGnTWjJK/b8popASuRiYvIMIaYPaY1YpfTrl9lVujnJjpYy05cGZJbDTi0/regWD/Df4v+aUbsii2dzFVLtGHZYc5RN119ceaGkj+SXCatb2lLJ01YXgU16HG5NzCGJfXzugBotZ8lP4XDAzf3pbyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nWsghlbFfV+MNM5ifX1XfRz2KwmJXalPK0y6BDCGB78=;
+ b=an3RenQZ/ZrJqayLdQzIWYycjIyRlJzJ0B1kDAWDwp8U9A7L4LYq07MABLgFAGlG0176bzHpOhxQ6Sob6JCp8Pr12AycCANxKjWjCEtXEG+6hRVz4c2zcxWbnVxFh3LdDPyii7OxVeLPYV97UL/h8jF6L1jctExremj1gUw0N3U=
+Received: from CYYPR12MB9014.namprd12.prod.outlook.com (2603:10b6:930:bf::16)
+ by DS0PR12MB8816.namprd12.prod.outlook.com (2603:10b6:8:14f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Mon, 7 Sep
+ 2026 09:50:54 +0000
+Received: from CYYPR12MB9014.namprd12.prod.outlook.com
+ ([fe80::159b:340e:ebac:8599]) by CYYPR12MB9014.namprd12.prod.outlook.com
+ ([fe80::159b:340e:ebac:8599%4]) with mapi id 15.21.0360.008; Mon, 7 Sep 2026
+ 09:50:54 +0000
+From: "Gugulothu, Rajesh" <rajesh.gugulothu@amd.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>, "Simek, Michal" <michal.simek@amd.com>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: RE: [PATCH] media: xilinx: vtc: Dynamically calculate pixel clock
+Thread-Topic: [PATCH] media: xilinx: vtc: Dynamically calculate pixel clock
+Thread-Index: AQHdH0OSFrXTBNFhrkCuWmeIWyiRC7a82ZmAgAZDDlA=
+Date: Mon, 7 Sep 2026 09:50:54 +0000
+Message-ID:
+ <CYYPR12MB9014FF79595C722B3482EDED9EB22@CYYPR12MB9014.namprd12.prod.outlook.com>
+References: <20260729101808.3904212-1-rajesh.gugulothu@amd.com>
+ <bfdf98d4-e3f3-42ff-a0b4-55c67790e4d0@ideasonboard.com>
+In-Reply-To: <bfdf98d4-e3f3-42ff-a0b4-55c67790e4d0@ideasonboard.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-07T09:45:17.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General
+ v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR12MB9014:EE_|DS0PR12MB8816:EE_
+x-ms-office365-filtering-correlation-id: b6fd25cd-c94d-4138-783f-08df0cc58261
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|38070700021|6133799003|3023799007|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ quLwk5ZnDFDj8O6909NKAyRAMvAD1NW8P2okKJxwzd+sfdVOtSaMbYlvJxZA4SbHncd6UwOjvs8uftsYu/P6gnH0E9BKLIODnncVG6EpTK5a6AMl1tFL8yahEPAuiCqdQU9M5RGCA+C4V7fBnoGgwsBEX/WMnQogJ9PRGixlTmKcax4Ql4WaE/beGuMPXtwgH//Djz4F6O/nkat713UlzMF0q6yFO8Ue2PmiNfjWl1dX95PfTlyYU2KFaC82U7Z2I0lD7e/pzqARbkBEfqTr36W+cvRHPGdkkVIf6uuqECP460m9vCNV5IzU65Nx3VRTeWcIeG8RhKq0/4Z3h4ks3hlMimZ21lPI1cbXgY5Yn9K+ELy+JmtXYOlwVyxfMG8A7EGBarlAboczFWc/f+byOiL1waWfNnTsaINknyjuPgma8WerlTTUG5d6LskjDmgaeXj1KXbMm2ZjmLd9Y3Y5ZhgsrMamrizGQk7Nl7giZ20Nxuf2cLu9M66oQkvBwtTjT+UWjTzYWF/sepghFMbf1oUoo73BOlG7IPzZUz5J3IbkTaCAQg6HCF2edQD1CBt8BXx9B0p/qKHOn88svkU6Jy74izO/VkEPMFUb1x4zUyQn0fXi/eBkCDHW4SQJic0igN6HHr7Q4xzntd8IymL1Tn1vBE4PNTb0lHU3iv7MMYiovVAnXa+9d0/JSXtkvEFJxKVFDjMpVQVG/Rm7taTbtaM7VYRInxGA8XNN2VYIkVI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR12MB9014.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(38070700021)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dmZFT1R6cU5GdzltRG9XLzRHTGUveTNsMWZwamM1UUE2UnFzMm5LUjY0RHJm?=
+ =?utf-8?B?eU5nV0FHRjZtSnVCWS9pLzE0RFJQMVBoZWxXcmZLcEJGSFF6MllGMTZ4Z09G?=
+ =?utf-8?B?K0NXUDVWL3dyZWVQTUFqSWVkYlFNOE5WS3p3MEFUT2tQUEMyL3JrV1NueVBY?=
+ =?utf-8?B?UUhHZ1crSFZ5M1FJa3lKTVRXOUdIWDcyNTYyT0E3NFlCVE5rT3RoVGFlemc0?=
+ =?utf-8?B?TmlPYklGUDJ1WUxvb1RGUElManB5ZHY4MWZZNHRIdFhLc1lrZU9MbjhOZ2c1?=
+ =?utf-8?B?N1NkU3padWxxRHZWQ2txNnhnRnJlUFlFaEl5SW8xbHdEVHdLSFRVK0IwWnFZ?=
+ =?utf-8?B?dlZsQkdSMndiMVE0Vnh2SXNRNDJpZWtHYzJlQWZwYWlsOUJSWXJ0NjNnSnhz?=
+ =?utf-8?B?RTJPU1Y3NTU2bG54SXUrQkFXVkM1WEtXWnJwOUxzNzdTbUJXNVlpR0hNL3VS?=
+ =?utf-8?B?c2J0SWZkbmYvNVRVbGVQWS8yS3Q2K0l1TnlibWNMVDVCOXFnaE9HaHpRdlhD?=
+ =?utf-8?B?b0gxWVRNNjFpZWFVQ1VMUEZ3RlVwblhzMFBuSzZvMllEYUV0OVh6NDhOM05E?=
+ =?utf-8?B?Wi9MYlRNcEhUQ0o1R3BWMjdpVXRBaE9MNW5ZbVhTYStpdXhWSWV2SHpYRkkz?=
+ =?utf-8?B?T0pja2FTUEtKM0Z3UTY3TTYyZ2U1RzRPeXpBWnpHVllPQU1HVDd2R2VVWEJq?=
+ =?utf-8?B?OCt2T1VHc0dRM29obmdnanlwZVJLbExqNXhWK3l6TXBPQ1ovUk9Tckl3SURo?=
+ =?utf-8?B?UkhlcWk1N1VBb0tXVllVYnZ5ZSs2RnRJT3d1NlNJQUptWlB6dGhtRUIxY21C?=
+ =?utf-8?B?Qkk3Q0cveHR4RUxzRWxVQkJpSkErSmtTS1lrZGNEaHROalY2NitWbUkxekZJ?=
+ =?utf-8?B?cGxFcVVjNFI5b3pJZTJMVURGNlROMVBCbSs4aXdGQkQxTzVKbEY1VWFRaWVk?=
+ =?utf-8?B?aVk1RnE4UWg4NEpUaXNYT0JyRzJsUm9TQjgxSTFjaUxsUXBOcS8wVzI1NkNC?=
+ =?utf-8?B?R0Q3VW5yLzFieU5UMWlGVTJPcWVOREZlckV6YVhCbXNBWnk3ZFVmMGJQYnJx?=
+ =?utf-8?B?Y2dSYjV5VnQ0cVZKVjhpYm9LeGFIM1BZdnJ1amphQUpCTnEzbERiSzVobEpF?=
+ =?utf-8?B?Q0M0UDA2OGgzUytFZkFmTmltMUdRbml3M0I5Q3hWNm8zNk1kOVJXeHgvcjBm?=
+ =?utf-8?B?OUMrNys4R2RHRExBVlZUWEtIU1VDSUJnanZ3ek1yZlhEcWtOQ04rU1pBRlZs?=
+ =?utf-8?B?NDNoVGM0dERvY1NjdVdjTTcxaFJua3NpMmlRc1BWZkRuRGY0VXJmS2JXWVJk?=
+ =?utf-8?B?RlMwMkhaZFdLTnFHdDVOOXlscUJQSXlmMk9weGJuamFScyt4RmxLY1BlS2Er?=
+ =?utf-8?B?RFV5VVk3VGhXakdMOUcwUjBpUUlzcEs4VlJMN01GRDFsaTQ5TzZ6ZkZRSHBU?=
+ =?utf-8?B?ZVFKempwa2VOZlRTNTZoUUNDU2hRYzNhS1lDa0ZHZkdGY2RDMk9nRm5iVDBP?=
+ =?utf-8?B?NmRxaGxwL09XTlQzd2UwdnFRMnhLdUx4WVArZUJNYTBUcXp3aUdETXZNZC8r?=
+ =?utf-8?B?aCtUT2pZZ1cyYVFqOE1wU29zRFEvQmRwZDE2MXhKeWRhNlFTZnZXbEsyUzdo?=
+ =?utf-8?B?QjRmVlFkUFQ5MWFzNkg2UzNwQ29EOXdaV3BvdzVuWVJzb3AwZHlZQ2Z1QzMv?=
+ =?utf-8?B?N290b3NQb0VWOGFXV29QMHYyTXN2bVVMSTR0elZMSnFFK0szSGpKWkgwMzJh?=
+ =?utf-8?B?Rk14YTZkWUFrcEVzTXd1RnJjeW1JZEs3VlJiZHlTMnMyc1NqM2VmcTZ4V1Mx?=
+ =?utf-8?B?d2hjZnYwdXh1NURCbmZERXNNMnppWTBNZ3daeW5jNFEvdUZ3MGhJWGdlQjJP?=
+ =?utf-8?B?dzEwcjVRbitDNGVjVWxSV1BqTlRjUGpkbkwyUmFkbnlGQlgreXJDYVArSTRS?=
+ =?utf-8?B?WHdGNVY0MmV4SFJ6WDlWVnRjekNjMGNsNlpMalZXL3BoSkpnc3J2UWFYVjg3?=
+ =?utf-8?B?Nkg3azlzbTdUeWRmYTU3NG9kQ3lCL0pBTTErNW9qaGhRTW1uUFhhWXB1Z1ZC?=
+ =?utf-8?B?ekNBK01nWDQ5a2hDMjIyZ3dwM1U3S0RmdjZuUDJzMUhQUlpraFBFM3dYR3Bv?=
+ =?utf-8?B?WnZDYmFOK2tXdWwvbjhuM0ZoVExRR1V6aExCejFINi9GekFWR25hQXMrSlFk?=
+ =?utf-8?B?My8zUldOTXlkWU5xWDFOeVduQmZjRVZIeGtLbVVaWFhKLzRtMVROcGUvcmxL?=
+ =?utf-8?B?R3lBa0RzNElhY2RRMHZXV2d3VzUwU2dIa3A4NEpEbHFWYVJLYUJVeEJoK2dw?=
+ =?utf-8?Q?Mai2psVTKeYdAmBV0i?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
- CAMSS
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
- Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <iIEI9RqdlqSAwrBGxsv48s_r9QoTRP_IPoifu8PCol261xGqyCULXGQaaMYndhNAFA7YAzraXTr-UzZhguWz3g==@protonmail.internalid>
- <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB9014.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6fd25cd-c94d-4138-783f-08df0cc58261
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 09:50:54.4816
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fH252axBHsc6XPPb+VaM+HZ03x+iTMbHL93giOXspiK0DC7ePfm+4EUdMMlUtG33
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8816
 
-On 07/09/2026 09:13, Nihal Kumar Gupta wrote:
-> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
-> Glymur uses only the new PHY API via standalone phy@ child nodes,
-> so per-CSIPHY clocks, interrupts and supplies are absent here.
-
-What's up with the commit log here ? There is no legacy CSIPHY in this.. ?
-
-> 
-> X1E80100 has four CSIPHY instances while Glymur has three
-> (CSIPHY0, CSIPHY1, CSIPHY4), expressed entirely in DT.
-> 
-> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   .../bindings/media/qcom,glymur-camss.yaml          | 300 +++++++++++++++++++++
->   1 file changed, 300 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..a0b77edc212319fad69113f3d55ca24f184d4b23
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> @@ -0,0 +1,300 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,glymur-camss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Glymur Camera Subsystem (CAMSS)
-> +
-> +maintainers:
-> +  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> +
-> +description:
-> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,glymur-camss
-> +
-> +  reg:
-> +    maxItems: 13
-> +
-> +  reg-names:
-> +    items:
-> +      - const: csid_wrapper
-> +      - const: csid0
-> +      - const: csid1
-> +      - const: csid2
-> +      - const: csid_lite0
-> +      - const: csid_lite1
-> +      - const: csitpg0
-> +      - const: csitpg1
-> +      - const: csitpg2
-> +      - const: vfe0
-> +      - const: vfe1
-> +      - const: vfe_lite0
-> +      - const: vfe_lite1
-> +
-> +  clocks:
-> +    maxItems: 20
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camnoc_nrt_axi
-> +      - const: camnoc_rt_axi
-> +      - const: core_ahb
-> +      - const: cpas_ahb
-> +      - const: cpas_fast_ahb
-> +      - const: cpas_vfe0
-> +      - const: cpas_vfe1
-> +      - const: cpas_vfe_lite
-> +      - const: csid
-> +      - const: csid_csiphy_rx
-> +      - const: gcc_axi_hf
-> +      - const: gcc_axi_sf
-> +      - const: vfe0
-> +      - const: vfe0_fast_ahb
-> +      - const: vfe1
-> +      - const: vfe1_fast_ahb
-> +      - const: vfe_lite
-> +      - const: vfe_lite_ahb
-> +      - const: vfe_lite_cphy_rx
-> +      - const: vfe_lite_csid
-> +
-> +  interrupts:
-> +    maxItems: 9
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: csid0
-> +      - const: csid1
-> +      - const: csid2
-> +      - const: csid_lite0
-> +      - const: csid_lite1
-> +      - const: vfe0
-> +      - const: vfe1
-> +      - const: vfe_lite0
-> +      - const: vfe_lite1
-> +
-> +  interconnects:
-> +    maxItems: 4
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: ahb
-> +      - const: hf_mnoc
-> +      - const: sf_mnoc
-> +      - const: sf_icp_mnoc
-> +
-> +  iommus:
-> +    items:
-> +      - description: S1 HLOS IFE and IFE_LITE non-protected
-> +
-> +  power-domains:
-> +    items:
-> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
-> +      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
-> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: ife0
-> +      - const: ife1
-> +      - const: top
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    description:
-> +      CSI input ports.
-> +
-> +    patternProperties:
-> +      "^port@[0-3]$":
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +
-> +        description:
-> +          Input port for receiving CSI data.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - interconnects
-> +  - interconnect-names
-> +  - iommus
-> +  - power-domains
-> +  - power-domain-names
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,glymur-gcc.h>
-> +    #include <dt-bindings/clock/qcom,glymur-camcc.h>
-> +    #include <dt-bindings/interconnect/qcom,glymur-rpmh.h>
-> +    #include <dt-bindings/interconnect/qcom,icc.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        camss: isp@acb6000 {
-> +            compatible = "qcom,glymur-camss";
-> +
-> +            reg = <0x0 0x0acb6000 0x0 0x1000>,
-> +                  <0x0 0x0acb7000 0x0 0x2000>,
-> +                  <0x0 0x0acb9000 0x0 0x2000>,
-> +                  <0x0 0x0acbb000 0x0 0x2000>,
-> +                  <0x0 0x0acc6000 0x0 0x1000>,
-> +                  <0x0 0x0acca000 0x0 0x1000>,
-> +                  <0x0 0x0acf6000 0x0 0x1000>,
-> +                  <0x0 0x0acf7000 0x0 0x1000>,
-> +                  <0x0 0x0acf8000 0x0 0x1000>,
-> +                  <0x0 0x0ac62000 0x0 0xf000>,
-> +                  <0x0 0x0ac71000 0x0 0xf000>,
-> +                  <0x0 0x0acc7000 0x0 0x2000>,
-> +                  <0x0 0x0accb000 0x0 0x2000>;
-> +            reg-names = "csid_wrapper",
-> +                        "csid0",
-> +                        "csid1",
-> +                        "csid2",
-> +                        "csid_lite0",
-> +                        "csid_lite1",
-> +                        "csitpg0",
-> +                        "csitpg1",
-> +                        "csitpg2",
-> +                        "vfe0",
-> +                        "vfe1",
-> +                        "vfe_lite0",
-> +                        "vfe_lite1";
-> +
-> +            clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
-> +                     <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
-> +                     <&camcc CAM_CC_CORE_AHB_CLK>,
-> +                     <&camcc CAM_CC_CPAS_AHB_CLK>,
-> +                     <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
-> +                     <&camcc CAM_CC_CPAS_IFE_0_CLK>,
-> +                     <&camcc CAM_CC_CPAS_IFE_1_CLK>,
-> +                     <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
-> +                     <&camcc CAM_CC_CSID_CLK>,
-> +                     <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
-> +                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
-> +                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
-> +                     <&camcc CAM_CC_IFE_0_CLK>,
-> +                     <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
-> +                     <&camcc CAM_CC_IFE_1_CLK>,
-> +                     <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
-> +            clock-names = "camnoc_nrt_axi",
-> +                          "camnoc_rt_axi",
-> +                          "core_ahb",
-> +                          "cpas_ahb",
-> +                          "cpas_fast_ahb",
-> +                          "cpas_vfe0",
-> +                          "cpas_vfe1",
-> +                          "cpas_vfe_lite",
-> +                          "csid",
-> +                          "csid_csiphy_rx",
-> +                          "gcc_axi_hf",
-> +                          "gcc_axi_sf",
-> +                          "vfe0",
-> +                          "vfe0_fast_ahb",
-> +                          "vfe1",
-> +                          "vfe1_fast_ahb",
-> +                          "vfe_lite",
-> +                          "vfe_lite_ahb",
-> +                          "vfe_lite_cphy_rx",
-> +                          "vfe_lite_csid";
-> +
-> +            interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 270 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 271 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 458 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 860 IRQ_TYPE_EDGE_RISING>;
-> +            interrupt-names = "csid0",
-> +                              "csid1",
-> +                              "csid2",
-> +                              "csid_lite0",
-> +                              "csid_lite1",
-> +                              "vfe0",
-> +                              "vfe1",
-> +                              "vfe_lite0",
-> +                              "vfe_lite1";
-> +
-> +            interconnects = <&hsc_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +                             &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +                            <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
-> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-> +                            <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
-> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-> +                            <&mmss_noc MASTER_CAMNOC_ICP QCOM_ICC_TAG_ALWAYS
-> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-> +            interconnect-names = "ahb",
-> +                                 "hf_mnoc",
-> +                                 "sf_mnoc",
-> +                                 "sf_icp_mnoc";
-> +
-> +            iommus = <&apps_smmu 0x800 0x20>;
-> +
-> +            power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
-> +                            <&camcc CAM_CC_IFE_1_GDSC>,
-> +                            <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +            power-domain-names = "ife0",
-> +                                 "ife1",
-> +                                 "top";
-> +
-> +            ports {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +
-> +                port@0 {
-> +                    reg = <0>;
-> +                    camss_csiphy0_ep: endpoint {
-> +                        data-lanes = <1 2 3 4>;
-> +                        remote-endpoint = <&csiphy0_out>;
-> +                    };
-> +                };
-> +
-> +                port@1 {
-> +                    reg = <1>;
-> +                    camss_csiphy1_ep: endpoint {
-> +                        data-lanes = <1 2 3 4>;
-> +                        remote-endpoint = <&csiphy1_out>;
-> +                    };
-> +                };
-> +
-> +                port@3 {
-> +                    reg = <3>;
-> +                    camss_csiphy4_ep: endpoint {
-> +                        data-lanes = <1 2 3 4>;
-> +                        remote-endpoint = <&csiphy4_out>;
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> 
-> --
-> 2.34.1
-> 
-> 
-
+QU1EIEdlbmVyYWwNCg0KSGkgVG9taSwNCg0KVGhhbmtzIGZvciB0aGUgcmV2aWV3LCBhbmQgTGF1
+cmVudCBmb3IgbG9vcGluZyB5b3UgaW4uDQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
+PkZyb206IFRvbWkgVmFsa2VpbmVuIDx0b21pLnZhbGtlaW5lbkBpZGVhc29uYm9hcmQuY29tPg0K
+PlNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMywgMjAyNiAzOjM4IFBNDQo+VG86IEd1Z3Vsb3Ro
+dSwgUmFqZXNoIDxyYWplc2guZ3VndWxvdGh1QGFtZC5jb20+OyBMYXVyZW50IFBpbmNoYXJ0DQo+
+PGxhdXJlbnQucGluY2hhcnRAaWRlYXNvbmJvYXJkLmNvbT47IFNpbWVrLCBNaWNoYWwgPG1pY2hh
+bC5zaW1la0BhbWQuY29tPg0KPkNjOiBsaW51eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4
+LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgtDQo+a2VybmVsQHZnZXIua2Vy
+bmVsLm9yZzsgTWF1cm8gQ2FydmFsaG8gQ2hlaGFiIDxtY2hlaGFiQGtlcm5lbC5vcmc+DQo+U3Vi
+amVjdDogUmU6IFtQQVRDSF0gbWVkaWE6IHhpbGlueDogdnRjOiBEeW5hbWljYWxseSBjYWxjdWxh
+dGUgcGl4ZWwgY2xvY2sNCj4NCj5IaSwNCj4NCj5PbiAyOS8wNy8yMDI2IDEzOjE4LCBSYWplc2gg
+R3VndWxvdGh1IHdyb3RlOg0KPj4gVGhpcyB1cGRhdGUgZW5hYmxlcyB0aGUgdnRjIHRvIHNldCB0
+aGUgcGl4ZWwgY2xvY2sgYmFzZWQgb24gdGhlDQo+PiBzcGVjaWZpZWQgdGltaW5nIHBhcmFtZXRl
+cnMuIEEgbmV3IGZwcyBmaWVsZCBpcyBhZGRlZCB0byBzdHJ1Y3QNCj4+IHh2dGNfY29uZmlnIGFu
+ZCB0aGUgcGl4ZWwgcmF0ZSBpcyBjb21wdXRlZCBhcyBmcHMgKiBoc2l6ZSAqIHZzaXplLg0KPj4g
+QWZ0ZXIgc2V0dGluZyB0aGUgcmF0ZSwgdGhlIGFjdHVhbCBjbG9jayByYXRlIGlzIHJlYWQgYmFj
+ayBhbmQgYQ0KPj4gd2FybmluZyBpcyBlbWl0dGVkIGlmIGl0IGRldmlhdGVzIGJleW9uZCBhIHNt
+YWxsIHRvbGVyYW5jZS4NCj4+DQo+PiBUaGUgcGl4ZWwgcmF0ZSBpcyBjb21wdXRlZCBpbiB1bnNp
+Z25lZCBsb25nIGFyaXRobWV0aWMgdG8gYXZvaWQgYQ0KPj4gMzItYml0IG92ZXJmbG93IGluIHRo
+ZSBmcHMgKiBoc2l6ZSAqIHZzaXplIHByb2R1Y3QuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogUmFq
+ZXNoIEd1Z3Vsb3RodSA8cmFqZXNoLmd1Z3Vsb3RodUBhbWQuY29tPg0KPj4gLS0tDQo+PiAgIGRy
+aXZlcnMvbWVkaWEvcGxhdGZvcm0veGlsaW54L3hpbGlueC12dGMuYyB8IDE5ICsrKysrKysrKysr
+KysrKysrKysNCj4+ICAgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS94aWxpbngveGlsaW54LXZ0Yy5o
+IHwgIDEgKw0KPj4gICAyIGZpbGVzIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKykNCj4+DQo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS94aWxpbngveGlsaW54LXZ0Yy5jDQo+
+PiBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0veGlsaW54L3hpbGlueC12dGMuYw0KPj4gaW5kZXgg
+OTJmZWM3YmI0Li42OTVlYjJhNDYgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRm
+b3JtL3hpbGlueC94aWxpbngtdnRjLmMNCj4+ICsrKyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0v
+eGlsaW54L3hpbGlueC12dGMuYw0KPj4gQEAgLTE0MSw2ICsxNDEsOSBAQA0KPj4NCj4+ICAgI2Rl
+ZmluZSBYVlRDX0dFTkVSQVRPUl9HTE9CQUxfREVMQVkgICAgICAgICAgICAgICAgMHgwMTA0DQo+
+Pg0KPj4gKy8qIFZhbHVlIG9mIDEgPSAuMDElICovDQo+PiArI2RlZmluZSBYVlRDX0NMS19NQVhf
+UENUX0VSUiAgICAgICAgICAgICAgICAgICAgICAgIDENCj4+ICsNCj4+ICAgLyoqDQo+PiAgICAq
+IHN0cnVjdCB4dnRjX2RldmljZSAtIFhpbGlueCBWaWRlbyBUaW1pbmcgQ29udHJvbGxlciBkZXZp
+Y2Ugc3RydWN0dXJlDQo+PiAgICAqIEB4dmlwOiBYaWxpbnggVmlkZW8gSVAgZGV2aWNlDQo+PiBA
+QCAtMTc1LDEwICsxNzgsMjYgQEAgaW50IHh2dGNfZ2VuZXJhdG9yX3N0YXJ0KHN0cnVjdCB4dnRj
+X2RldmljZSAqeHZ0YywNCj4+ICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBzdHJ1Y3QgeHZ0
+Y19jb25maWcgKmNvbmZpZykNCj4+ICAgew0KPj4gICAgICBpbnQgcmV0Ow0KPj4gKyAgICB1bnNp
+Z25lZCBsb25nIHNfcmF0ZTsNCj4+ICsgICAgdW5zaWduZWQgbG9uZyBnX3JhdGU7DQo+PiArICAg
+IHVuc2lnbmVkIGxvbmcgY2xrX2VycjsNCj4+DQo+PiAgICAgIGlmICgheHZ0Yy0+aGFzX2dlbmVy
+YXRvcikNCj4+ICAgICAgICAgICAgICByZXR1cm4gLUVOWElPOw0KPj4NCj4+ICsgICAgc19yYXRl
+ID0gKHVuc2lnbmVkIGxvbmcpY29uZmlnLT5mcHMgKiBjb25maWctPmhzaXplICogY29uZmlnLT52
+c2l6ZTsNCj4+ICsgICAgcmV0ID0gY2xrX3NldF9yYXRlKHh2dGMtPnh2aXAuY2xrLCBzX3JhdGUp
+Ow0KPj4gKyAgICBpZiAocmV0IDwgMCkNCj4+ICsgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPj4g
+Kw0KPj4gKyAgICAvKiBWZXJpZnkgdGhhdCB0aGUgY2xvY2sgaXMgd2l0aGluIGEgcmVhc29uYWJs
+ZSB0b2xlcmFuY2UuICovDQo+PiArICAgIGdfcmF0ZSA9IGNsa19nZXRfcmF0ZSh4dnRjLT54dmlw
+LmNsayk7DQo+PiArICAgIGNsa19lcnIgPSAoYWJzKGdfcmF0ZSAtIHNfcmF0ZSkgKiAxMDAwMCkg
+LyAoc19yYXRlKTsNCj4+ICsgICAgaWYgKGNsa19lcnIgPiBYVlRDX0NMS19NQVhfUENUX0VSUikN
+Cj4+ICsgICAgICAgICAgICBkZXZfd2Fybih4dnRjLT54dmlwLmRldiwNCj4+ICsgICAgICAgICAg
+ICAgICAgICAgICAiRmFpbGVkIHRvIHNldCBjbGsgcmF0ZTogJWx1LCBhY3R1YWwgcmF0ZTogJWx1
+XG4iLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgIHNfcmF0ZSwgZ19yYXRlKTsNCj4+ICsNCj4+
+ICAgICAgcmV0ID0gY2xrX3ByZXBhcmVfZW5hYmxlKHh2dGMtPnh2aXAuY2xrKTsNCj4+ICAgICAg
+aWYgKHJldCA8IDApDQo+PiAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3hpbGlueC94aWxpbngtdnRjLmgNCj4+IGIvZHJpdmVy
+cy9tZWRpYS9wbGF0Zm9ybS94aWxpbngveGlsaW54LXZ0Yy5oDQo+PiBpbmRleCA4NTU4NDU5MTEu
+LjBmMzYwZWQ1NSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0veGlsaW54
+L3hpbGlueC12dGMuaA0KPj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS94aWxpbngveGls
+aW54LXZ0Yy5oDQo+PiBAQCAtMjcsNiArMjcsNyBAQCBzdHJ1Y3QgeHZ0Y19jb25maWcgew0KPj4g
+ICAgICB1bnNpZ25lZCBpbnQgdnN5bmNfc3RhcnQ7DQo+PiAgICAgIHVuc2lnbmVkIGludCB2c3lu
+Y19lbmQ7DQo+PiAgICAgIHVuc2lnbmVkIGludCB2c2l6ZTsNCj4+ICsgICAgdW5zaWduZWQgaW50
+IGZwczsNCj4+ICAgfTsNCj4+DQo+PiAgIHN0cnVjdCB4dnRjX2RldmljZSAqeHZ0Y19vZl9nZXQo
+c3RydWN0IGRldmljZV9ub2RlICpucCk7DQo+DQo+SW4gdXBzdHJlYW0gdGhlcmUncyBhIHNpbmds
+ZSB1c2VyIGZvciB0aGUgVlRDOiB0aGUgVFBHIGRyaXZlci4gSXQgZG9lc24ndCBzZXQgdGhlIGZw
+cw0KPmZpZWxkLCBzbyB0aGUgYWJvdmUgY29kZSB3b3VsZCBhbHdheXMgdHJ5IHRvIHNldCB0aGUg
+cmF0ZSB0byAwLCB3b3VsZG4ndCBpdD8NCj4NCllvdSdyZSByaWdodC4gVGhlIFZUQyBjaGFuZ2Ug
+d2FzIHBvc3RlZCB3aXRob3V0IHRoZSBUUEcgaHVuayB0aGF0IHNldHMNCmZwcyAoeHRwZ19jb25m
+aWdfdnRjKCk6IC5mcHMgPSB4dHBnLT5maV9kIC8geHRwZy0+ZmlfbiksIHNvIHVwc3RyZWFtIGZw
+cw0Kc3RheXMgMCBhbmQgd2UgZW5kIHVwIGNhbGxpbmcgY2xrX3NldF9yYXRlKGNsaywgMCkgYW5k
+IGRpdmlkaW5nIGJ5IHplcm8uDQpJIHdpbGwgaW5jbHVkZSB0aGUgVFBHIGNoYW5nZSBpbiB0aGUg
+c2VyaWVzIHNvIHRoZSBWVEMgY29kZSBoYXMgYSByZWFsDQp1c2VyLg0KDQo+V2hhdCBpcyAicmVh
+c29uYWJsZSB0b2xlcmFuY2UiLCB3aHkgZGlkIHlvdSBhcnJpdmUgdG8gLjAxJT8gQWxzbywgdGhl
+IGFjdHVhbCByZXN1bHQgaXMNCj5ub3QgdmlzaWJsZSB0byB0aGUgdXNlci4NCj4NCkFncmVlZCwg
+dGhlIDAuMDElIHRocmVzaG9sZCB3YXMgYXJiaXRyYXJ5LiBJIHdpbGwgZHJvcCBib3RoIHRoZSB0
+b2xlcmFuY2UNCmFuZCB0aGUgZGV2X3dhcm4oKSAtIGEgbG9nIG1lc3NhZ2UgaXMgbm90IHNvbWV0
+aGluZyB1c2Vyc3BhY2UgY2FuIGFjdCBvbi4NCkluc3RlYWQgdGhlIGRyaXZlciBjYW4gdXNlIGNs
+a19yb3VuZF9yYXRlKCkgdG8gZ2V0IHRoZSBhY2hpZXZhYmxlIHJhdGUNCmFuZCByZXBvcnQgdGhl
+IGFjdHVhbCB2YWx1ZSB0aHJvdWdoIHRoZSBBUEkgcmF0aGVyIHRoYW4gZG1lc2cuIERvZXMgdGhp
+cw0KYXBwcm9hY2ggc291bmQgZmluZSB0byB5b3U/DQoNCj5JIHRoaW5rIHRoaXMgaXMgYSBzbGln
+aHRseSBiaWdnZXIgdG9waWMgdGhhbiBhIHNpbmdsZSBWVEMgcGF0Y2guIFRoZXJlIHNob3VsZCBi
+ZSBhDQo+dXNlcnNwYWNlIEFQSSB0byBzZXQgdGhlIEZQUywgYW5kIHRoZSB1c2VyIHNob3VsZCBz
+ZWUgd2hhdCB3YXMgdGhlIGFjdHVhbCByYXRlIGhlDQo+Z290IHZpYSB0aGUgQVBJIChpbnN0ZWFk
+IG9mIGEgZGV2X3dhcm4gd2hlbiB0aGUgcmF0ZSBpcyBvZmYgbW9yZSB0aGFuIGFuIGFyYml0cmFy
+eQ0KPnRvbGVyYW5jZSkuDQoNCkFncmVlZC4gRm9yIHYyIEkgd2lsbCBtYWtlIHRoZSBmcmFtZSBy
+YXRlIGEgdXNlcnNwYWNlIHBhcmFtZXRlciBhbmQNCnJlcG9ydCB0aGUgYWNoaWV2ZWQgcmF0ZSBi
+YWNrIHRocm91Z2ggdGhlIHNhbWUgQVBJLCBkcm9wcGluZyB0aGUNCnRvbGVyYW5jZS9kZXZfd2Fy
+biBoZXVyaXN0aWMgZW50aXJlbHkuDQoNCkkgcGxhbiB0byB1c2UgdGhlIFY0TDIgZnJhbWUtaW50
+ZXJ2YWwgaW50ZXJmYWNlIChWSURJT0NfUy9HX1BBUk0gb24gdGhlDQpUUEcgc291cmNlIHBhZCk6
+IGNvbXB1dGUgdGhlIHBpeGVsIGNsb2NrIGZyb20gdGhlIHJlcXVlc3RlZCBpbnRlcnZhbCwNCnBy
+b2dyYW0gaXQgdmlhIHRoZSBWVEMsIGFuZCB3cml0ZSB0aGUgZ3JhbnRlZCBpbnRlcnZhbCBiYWNr
+IHNvIHVzZXJzcGFjZQ0Kc2VlcyB3aGF0IGl0IGdvdC4gTGV0IG1lIGtub3cgaWYgeW91IHdvdWxk
+IHByZWZlciBhIGRpZmZlcmVudCBpbnRlcmZhY2UNCihlLmcuIERWIHRpbWluZ3Mgb3IgYSBkZWRp
+Y2F0ZWQgY29udHJvbCk7IEkgd291bGQgbGlrZSB0byBzZXR0bGUgdGhlIEFQSQ0KYmVmb3JlIEkg
+cmVzcGluLg0KPg0KPiAgVG9taQ0KDQo=
