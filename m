@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75EB4854F5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF04E2E11C7
 	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780630; cv=none; b=RRpp9WRuQ+9uMWzpvTXlvBy34rlVNRCavH0p16mk4f9a/Zd5Z8KoR1U2dftS/y8ruPhZkdE39JklxWntG0xQXfinAwm7kJlRcM2gt/u9ki+Kxh68gy6XQEla2dNDUmNsPqmKDGkQ6lu0+n/TKdHTmHoKj3j1yU8xlLIw0ngj17E=
+	t=1788780630; cv=none; b=CLD3tXahep8eWAa0h634CfLGsQjPfbvaicalHnrVOFouc8PxuEfzGJQHyidWiT/m8XCUueE19lLlnlLxOuHVPLvZhb2/UXKMURdAPEwK2k7BUuYpBw9ovbNfU/AEEsqyzlcsalFdjtwPuyntsEMiEBDSd6Jzkuob3xcnV4C7uGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780630; c=relaxed/simple;
-	bh=iCJWfNwVBFUnyxR7AJLypD4/Q/L9KP8E390Ct7ABsys=;
+	bh=OqEvfgW3bNjpl5/R7aHPpvXthN9SMYCY5fJ4vDmLVLE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NpUj5TdGb2NfrwFnCNSmOq7EfzshMQ2d2QgRnUxRxpnXcByeBRdIHu+dyPdsRWeEzDUuc2MgphP4UEwlVSXh7l3vt9Ll+LCqPhQQB2dq1KVxHhFp/Zpdlq5D+07UXWDwKmPD9E5WO51VH3vjoRm8TRqz9RZV6UJE8s1YT7a55QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZhZUS4Lx; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=YVft4FRu0E/CpnyGGrEjxgFpyLdJuvfbN8EFxekpZ9OXBQtUx99o8HylLs+k/IkKrOOa3atN00aMui9H94/PNmuF0qL/6IP7aw84HTnY3DG0PviUXRbouJMcYLjFtQp07tlKm3wcu1UPGUxOLSLDhNk74cZpmF7tiKzuqMOPoJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S/FciIXZ; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZhZUS4Lx"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S/FciIXZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1788780629; x=1820316629;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=iCJWfNwVBFUnyxR7AJLypD4/Q/L9KP8E390Ct7ABsys=;
-  b=ZhZUS4LxBNq8DCTBoAVIO5snyQBcu80nukR+AbyRiQlOTnUvGo3S0gCi
-   XNLpG1mnzs+FBeQ5DWz2fPLb9w0qi1TD8LIvnojeUWk/R5BXm2J1R9bsQ
-   y8pmgT5OeC7AyMRmyQQcs8E+FX4ocp0o69uklRxBRiK0xY2aA1VBGsjx6
-   8y3Imas1RfBjnk7rUip07mzEd2wJ6mwfRjtY9edoSw2+gglU6CBa9s0hh
-   HFEUjJkFgUvNt92wBSLnpC2oSC+noNOVz01xqaLL5NdqbM/RzeLgrvMce
-   /7Dzx95qwYiT4OQI+DDI3Bti/qZosOm+inh8vV88uACh2O1dgRnf07bjW
-   Q==;
-X-CSE-ConnectionGUID: CXPaJNThRiuU/x7mA1t4qg==
-X-CSE-MsgGUID: hMULEtpbQfCpg84f390+sQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538632"
+  bh=OqEvfgW3bNjpl5/R7aHPpvXthN9SMYCY5fJ4vDmLVLE=;
+  b=S/FciIXZ5fdGsqQhCI621Y33x6vgLmOg0JLMx2kKdh9eEkosHY9urbpq
+   8Bv4FlaWNc0RyUecYcUpyNv9SBRaOsjA0eH1W9K+MnC7M8uMtThRRAOkv
+   oXml9S0o3tOSK2sD7vPGpD89NcH0RRFtmgOWRryiKREbgoYSmo4LFk6Sh
+   Sv59C/iOjViljorCtrPRUchtD0rrFoTfSZxJ+KHIDvfTCGa5hRG7TwZDS
+   6fKX7dOWj3aTwPGrdjLCflpGxiT2aHy3/POtF6/mpJWDvY+kGcxrU64Nf
+   yvh4rZ505kNaYMW+SM8AHYtCYEhBU5ZdfkT2XfybNruJai6ji6FktfJ4v
+   w==;
+X-CSE-ConnectionGUID: PaCxtDV2Tuiq4luk864Bzw==
+X-CSE-MsgGUID: JT4YULOlRQqItApQzZLl3A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538631"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538632"
+   d="scan'208";a="100538631"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:14 -0700
-X-CSE-ConnectionGUID: e8EH4cKXS9OOd33CTZGNSA==
-X-CSE-MsgGUID: CEBKkOI7T6mnX4X5s7nD1w==
+X-CSE-ConnectionGUID: UIjZnDDhSNWz9z7nCkUzOg==
+X-CSE-MsgGUID: GGnVrq5KSh6nNdPy65higA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569241"
+   d="scan'208";a="300569239"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:12 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0957D122954;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0672A122759;
 	Mon, 07 Sep 2026 14:30:06 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARpT-29oN;
+	id 1x3XY5-0000000ARpO-26YL;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 34/45] media: ipu6: The VC arbitration mechanism is ipu6 only
-Date: Mon,  7 Sep 2026 14:29:53 +0300
-Message-ID: <20260907113004.2489993-35-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 33/45] media: ipu6: The SPC init is valid only for ipu6
+Date: Mon,  7 Sep 2026 14:29:52 +0300
+Message-ID: <20260907113004.2489993-34-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,33 +73,37 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-The ipu7 doesn't support the VC arbitration mechanism that exist in
-ipu6.
+The ipu7 don't have SPC.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu6/ipu6.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index cb1145080460..7d1c3713a69b 100644
+index fd7888a011a5..cb1145080460 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -447,7 +447,12 @@ static int ipu6_pci_config_setup(struct pci_dev *dev)
- 
- static void ipu6_configure_vc_mechanism(struct ipu6_device *isp)
+@@ -232,10 +232,16 @@ void ipu6_configure_spc(struct ipu6_device *isp,
+ 			int pkg_dir_idx, void __iomem *base, u64 *pkg_dir,
+ 			dma_addr_t pkg_dir_dma_addr)
  {
--	u32 val = readl(isp->base + BUTTRESS_REG_BTRS_CTRL);
-+	u32 val;
-+
+-	void __iomem *dmem_base = base + hw_variant->dmem_offset;
+-	void __iomem *spc_regs_base = base + hw_variant->spc_offset;
++	void __iomem *dmem_base;
++	void __iomem *spc_regs_base;
+ 	u32 val;
+ 
 +	if (IS_IPU7(isp))
 +		return;
 +
-+	val = readl(isp->base + BUTTRESS_REG_BTRS_CTRL);
- 
- 	if (IPU6_BTRS_ARB_STALL_MODE_VC0 == IPU6_BTRS_ARB_MODE_TYPE_STALL)
- 		val |= BUTTRESS_REG_BTRS_CTRL_STALL_MODE_VC0;
++	dmem_base = base + hw_variant->dmem_offset;
++	spc_regs_base = base + hw_variant->spc_offset;
++
+ 	val = readl(spc_regs_base + IPU6_PSYS_REG_SPC_STATUS_CTRL);
+ 	val |= IPU6_PSYS_SPC_STATUS_CTRL_ICACHE_INVALIDATE;
+ 	writel(val, spc_regs_base + IPU6_PSYS_REG_SPC_STATUS_CTRL);
 -- 
 2.47.3
 
