@@ -1,179 +1,210 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020092.outbound.protection.outlook.com [52.101.227.92])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44102503BDE;
-	Tue,  8 Sep 2026 09:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586163A254B
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 09:26:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859520; cv=fail; b=th6od9fBulLVYVZ+dTDaxfE9iB0XnR+uB/V0CXaIRDtah0e3gKzQwm+kSr/AECvpo1DJov/ODj8C9aoy7OmfkIHYStVtJ8dwehuP+NmWn7yda7d93YNiaunP632zEipNdLolrPeaj2oSyiIqudkAJjhijT1HnIPJVTChQbL6bBY=
+	t=1788859577; cv=pass; b=J8Rbj7DwtYDxlk8yptRFNxndSoNeCU58I00jwYd8+bAcxh24GKC99SONO2QwipD5H9XLmHLc39fFiyxa4aWf7FmdvWbOUTUtVboOLOFpckMYw+QkucDLY1BABebd2NzanxdIVQIfiAD57uhgh3Tu73rpQrb5H18w5E4MtScbU48=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859520; c=relaxed/simple;
-	bh=jqU4ZzxXpT6lOZIo0OC0V+Bkg+XRToiJlHOG5/2NRfI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=i7M+h2tpQJ5lpZUPuJHOEPItg24J9FxSb/xlgtcBW2D29CvKG2sE3h3LsXXc2ORg+2ze1rffqJcTd28zO+rM5zSkQ4xBfi+Id84/Wp5FdyvsfWQ6HxbrN5UieWNjtfVX13wT+LuAV1ijO98R3mRHudkW+vMoMtW/9+iwcH9lmjI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=UOms2XM5 reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.227.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	s=arc-20240116; t=1788859577; c=relaxed/simple;
+	bh=WTKWD3m/ofQrn2mdzKEMgcB+HsCn/djytq4O85Ygfn0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CUw4Hn4QEz2QmhIqkB1rbMNW/HYJev6H/SyryTV2wZRCgE+QATEkMdIMtCanmGbKDmMxCnknE7k2xnNeoSE9K23mAQrFkRHopTm0W3yEmHGkw2tIa4igjmOUsAIe/RV8LQXxllwlBzUifFWl/YG5gK4JPHiZmgv/3YMQ0StRXM4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gdNse7+U; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NuANI/qQ; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="UOms2XM5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=whPKuw91kd23CPgdw5Jy9DnPSv4kQOYHHMOmV4bY3bKS7uJtFf+XVIpV2U0E65NxUwFC1q8G378GakvzZJ08z8rYCmKAO8/UZwvZjHWX8UkMQPKEbEvsEUHAgv8X8oJHD4pbf27QhhxmD9zEytyetWGhmAI5NN0UpR5dwNqy1b4N+f2tqiBxtNKGYx9euQ8olGCdds9s5iQmPgeLjI2WY59iu9Ioig16EOGYKLQOkY7Qt9ZLcSVGYer1/LazFm/wyO5G/Ul3YVrBgmNgbMg2rfW3t2A0fgkifnjFEGtQrGwvL6c4Y36uP17nuVaRHiGJpCxcm5SvRhjfd7bS7d8U6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jqU4ZzxXpT6lOZIo0OC0V+Bkg+XRToiJlHOG5/2NRfI=;
- b=AzohFCKfwT57NyiOmzTwkEeJKaeKDCyarhjTJq1jxmeLVqLV0vzGKRdXnAil3eXOlqYs0DwFPHYvIbuFyrqsIX8FK8kwq8KYsoT9HyhDj18NxIoPJf7CX7HyWH3jZyXuDuwJG16N+z2+NpompXt9ElTD5nGuIVF4iEt/1jclsyQ5HFtSJgiX1+Df1/vZnW9PsPuWHuL0NQzAw6+9jkahAmfUkD3Bq/9qvE6YavGx0/LQ6sfVZbYqRYZdn2ARv7UypzZScocb4QN0BTBApqno7F92H78Zgczj5AbbrAIJ1BkSR2lNz+XaEzklpCDf8iClOxzt8N7Wyh9fdPirP4fqsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jqU4ZzxXpT6lOZIo0OC0V+Bkg+XRToiJlHOG5/2NRfI=;
- b=UOms2XM5g4zWvLxnytBWbfqsD/Zp9urh7KepoCUqKoG63VwmiPxCOntNQcFnmaBvQ+CYDIf04XbaOOSzVvKyMSAiqlUz6IcsL2HB6Cwzt/cxM6I2hRQh7fVXMQ6LL/W8E8hw0J8NvGkXwTME+MtElk24ns3bplHKuywNLDDbXmkxde/69aRjLKL96cKSsJmkVQ0ZgtDAK8nxTbZ1xEvhLjBInarN04xGW0vklov29Y9PFCoTb6aqIaClKd/iZk5LShypNA0QKRecTnzLpw7jSqkuq9emGL+MTrdR3rJRuqWy+VWQpazHYLwr46EoAE9DdUmC2ONn8Bduv1ZvdMcX2Q==
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
- by MA5P287MB4835.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:181::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
- 09:25:13 +0000
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167%7]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 09:25:13 +0000
-From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-To: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
-	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Walter Werner
- Schneider <contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Yemike
- Abhilash Chandra <y-abhilashchandra@ti.com>, Svyatoslav Ryhel
-	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
-Thread-Topic: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
-Thread-Index: AQHdDspl9ppXmum65ESzuXKgK/RNX7aCoL++gAtqjtqANrh+B4AAA8EAgAACpsY=
-Date: Tue, 8 Sep 2026 09:25:13 +0000
-Message-ID:
- <MA0P287MB21786E4E69F536048D02F69B88B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-References: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
- <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
- <MA0P287MB2178DE6EB4C9E675B9F967DD88D42@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
- <MA0P287MB2178A6EBE37DEB29AEF632C388B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
- <ap_SJs-vXJu4tClB@kekkonen.localdomain>
-In-Reply-To: <ap_SJs-vXJu4tClB@kekkonen.localdomain>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MA0P287MB2178:EE_|MA5P287MB4835:EE_
-x-ms-office365-filtering-correlation-id: a907202e-a40b-470b-ce4b-08df0d8b160c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|38070700021|10067099003|4143699003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- JlwY2CfBMEAKXlSbBe8I187l4JBkmBKL/cVksbK1foJ2Pp34O1j7vlAHiYqryD1SISNaDD2h2imwsJluVg06fEWrCb2BonRHEEaz3cwWGlfEHQCSY12E1ooVZNbBOZ1G4f1d+4LZVRdhOfdENqWywPldei84a+f3I0CmX3zlZ/qorIfTlenf6ey2wFe8zh7BXvK/MKn46UzU8DZBF7jkdYkSdlekGoJUZRIqPyjsePr+sf1ChB0zQia1r0onbwsYYWsjEZz3pPBWBJaRStD+Ak8qg3mh61KXUi+2KPu7yUUXewdrmk/uHQmIwMlD/Z1drFy0g6/qRmIYnDlBoq0HQFqKq7hJlZmXgyPfJHUSrOQYUFjjjPkfb8HqNPVCSE6LegyBtashMu4yI0JoVo9TzEjEDxJmyivZjaoh+h/lnBTROs8yzq1TLIjEJCOiC4rdxo7/NNgAYAyzbpA30zEiSgMD+fRNOvfiyGsRqT2DmdGUbaqDUFoft6IKEy2M6O6do4i/5RLuwGJzyWcKfE3ObIgfjNpRS5bOIPgz+D3j4RUAvhAM8U22aZ8iLCanDW/Cwp+0CRrlQKRmX0V+4RLfVyYWH77mCqT5QqNI+Gftis+qxxja1juBhZ6m04YPZzS8Ql5g5RHrjT9WVlxFdealq8h3qlz08kF6CYuF+RgEgHqe02gTRUNxQREt0/LAaNTTkQmE3VtWngOl4Okx5u6MSrNpio2V2Qsdtc32z9HnxcM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(38070700021)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?/2NHlPy9/aGdE0Yad7rSwCfkXOzzTZSYQlINKTWfQjBI3tBcCRwVZHDB?=
- =?Windows-1252?Q?fTiO349aSID+DHEYh5VCLjO6FYfGbMB5tt4/jyX5pisiVKRNhNDjZtrN?=
- =?Windows-1252?Q?y1t/H0pGNwfTjhtK10zip9zeBW+zJ4Bb8adkZCW6krYJyOV2oyzZ1cYb?=
- =?Windows-1252?Q?wFMuUsVzi60HSIArdI+gwjW4HcXDZlu6u8t7s80A79He0yvzN76yuGl3?=
- =?Windows-1252?Q?nRrLu1rw6/sofW56/8sorsIqjVz5JhkxlWBB9bQyclulg9RNdroDTsdw?=
- =?Windows-1252?Q?VegjilEUO5hNNJ0i7mgGdMufH/hJh7b1jQY4hkG2nk11RT9YWNVd23rS?=
- =?Windows-1252?Q?2jZuPTmUC1r/VSAjxktFO8LIgZS2Zc1O1ZpOdOyqSYZN9wM24oBQ0L8G?=
- =?Windows-1252?Q?P9HJMcdAOaq0nH8UajfZemeuYlv2SI/QtOpq2K7aeFlrfqoZ1Fifd2uM?=
- =?Windows-1252?Q?h0fwTbwr4Rfxu6PrSe5uhyt9NLcz8nPnYyFij8e2m8eP0tYTMza92v+9?=
- =?Windows-1252?Q?+VFIm04zJnr6aRw9/tbQwbk/BmfW1Jjnp5Me9bCa9k/ylabpD/IKoZWH?=
- =?Windows-1252?Q?vKSSEXt2Wd1sYrWIbgPes+ssEFhFdCDqDdb4A54eagOAShsIwkz01CKf?=
- =?Windows-1252?Q?bd9jxlBQZIRFTuXlJ8B1cmGmBTGksW8i4q9Zdjt2VSkxj4ice/Dbc/e/?=
- =?Windows-1252?Q?ChdSEc/BCx3e00kJsIg9WteGP6XnKfsHj0oEFJ9J+7gfR+ZaQ71eGANY?=
- =?Windows-1252?Q?twENQsPh0iEBPgBQQENfrBh4YY7Le5lZKQ7rn7JLFHi81npqh+w+BzFO?=
- =?Windows-1252?Q?QiVHo/VkFFlxVzTYEg/rOs2UmZ6WJqZzgMWBCCX3MyEWnfj57jVKX5xg?=
- =?Windows-1252?Q?A7pg4aBivNjAprPpkIhwrlw7ay1L2D/Pl0nYu2DtAvRiGtTwyfoLaWpv?=
- =?Windows-1252?Q?be4wfn+53jkHXJi7w36A5VsaFZEBnmT6gAurfFq4Fyz9SiEe6HWMdqMU?=
- =?Windows-1252?Q?UM/hPLbUNdUp7fdVj5grktz15oZkJLlxYhR0NgN6QvhsHXg7xReYKGN6?=
- =?Windows-1252?Q?yGQGm9pBinGXvpAn3LDAcgmOw/SIaFcJZ4RE5Wp/y8NhIEcToEraLhHV?=
- =?Windows-1252?Q?eKE6NR+aRPEEmXWDQpIhBeZRgOVv79Ow3w/J+FUolgOq/T3sQ+wyngxt?=
- =?Windows-1252?Q?N0njeMVlSYhT62182kjYBznL65LJRj8oXBE81tI+ZxJqAjtLfFqfeRwU?=
- =?Windows-1252?Q?vEVsOLkkEZ58zC389AAj+PIlJidwKVZo/2ODVoRBi28GnDQMLOrvTTVI?=
- =?Windows-1252?Q?vXYOrK9ZpFkVyR7FlNkoImJTrWrJKAUJMBUMoCuxzzQw0XolhUcFXmab?=
- =?Windows-1252?Q?KVN4NO8SD0WskR7syqxH7JSwYwlWAiXuePUsnKTfIFrSHmVsXRa93EDD?=
- =?Windows-1252?Q?tbPcnVJzlZ3vHkn/NPNfD0EqTF2SBCIDkqDwkIFTwzYfCBFEDLEyAeWh?=
- =?Windows-1252?Q?WVPGg5kQIanX7G7hZv+q/DiZRuuR0zeYi/lTPp2qxkle7u650ODDQHaE?=
- =?Windows-1252?Q?/uK0KGN/oDAS+ndX4vKmYWUYdnPwPGdjEJAI5OeKXj1I8+GQJh4M1CHd?=
- =?Windows-1252?Q?fjqXqB5IiC5L8BH44HbIBLjSYBMqDVi5zGBzAjrkap/DBVoRnlDpNGgM?=
- =?Windows-1252?Q?KaCcl3aD03hR63Y4u/hOjG5Uvz8qP9m4waCn5HafuPWjOjlEcJCTKQvW?=
- =?Windows-1252?Q?6hV+cPweJNQ9BXIeCIiIAsb3DWn58JT43bb9fgxzcYlbuTzd7JZ3M1Ad?=
- =?Windows-1252?Q?8Wv3CUNW7dMMfL1b83HSFlA/zNrZBgEZA5EV0/NNDmWsk5tBU1i8J5TN?=
- =?Windows-1252?Q?9M5/rdfKajphFyBbZfCi9bptBTCdj9p+UBc=3D?=
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gdNse7+U";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NuANI/qQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788859575;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WTKWD3m/ofQrn2mdzKEMgcB+HsCn/djytq4O85Ygfn0=;
+	b=gdNse7+UziCq64UqFK+tgdLk2KgH0dfJOKWBqOSUSzFLTAjciW3DshZyIiZi+CGmncINr0
+	Q9B3HEjxJxGMKq791MuvBbcOwubNRxd8dl/9n9sijXMYJ8mbuwv2U6P0bhmIPTNwl/hlzv
+	O6KXYzMUWTFwvGKqV9zTw2aXQk79YEk=
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-418-4s-ndnpqPDCM-rp9EmL48g-1; Tue, 08 Sep 2026 05:26:14 -0400
+X-MC-Unique: 4s-ndnpqPDCM-rp9EmL48g-1
+X-Mimecast-MFC-AGG-ID: 4s-ndnpqPDCM-rp9EmL48g_1788859573
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-44aeefa1c36so2622618fac.3
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 02:26:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788859573; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SrhfzI5oTLamHsXkRMPYTX2VmA+ziXWvs9cnTA4hquZoj+T53n2UPY7ijVIXp781Wo
+         D3ODcqU/YQThwbWSk8xjpVxzd6kPJiLSPQGBhylC35fj8Pi8L73mAeLeqhhgKuJQmzgL
+         ANYTaE6++UrXiKRODQiRstqTc8DRUxLmNgEPaJl3PLeLqhlHqpE9DvCd+Lui04cyD9lc
+         yZTLmk22kDSlBlJdJMhEjfz4LaMVe6mgL/6/iYk5tvlHFkxnk2JttkLaLzssaS6vqVKE
+         aGgPlKSFRsDCRLQPfL1nhD5rJE+vGjnjS7zXyOIC2VVIG3zpJ+bXOxjdpQq8uYZCzm2m
+         qzrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WTKWD3m/ofQrn2mdzKEMgcB+HsCn/djytq4O85Ygfn0=;
+        fh=UQf7vV6xGf+8NgtUdUI/a2z5MH0gozeZPUHSQ95trtk=;
+        b=M2DVizxXWpAgRqFtxdCw2s6IpdrT3qDTCAQL5z61WD1dTm3X+PEYLGgq4bZA+BoJq+
+         WUpnE47nKqZi5cQ2xOtPP4CZ3QrBjhecaiQx4vtnOGVnHN5ekBa1U1IvEeBA2z43Gnei
+         51r/7NhsM6hlopM0gUuYD9/+VFvVGDljF48Ej2F+Tfmn9EjtyC1G92sPnzdhHsgfkPsZ
+         O2/IrJh3XozSiaL5RixsrNy4LQOjkRmNSlKa7RYeSplAoFfzNR+qmL9BE82ZKLgJ2FBX
+         M4jSiOs2wDa8B6f33zXPGI0JXnhtpsgClS8wCJFntgAojzaepBBm5IduMFoHb3nA2GSl
+         Il9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788859573; x=1789464373; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WTKWD3m/ofQrn2mdzKEMgcB+HsCn/djytq4O85Ygfn0=;
+        b=NuANI/qQzqR76JMTkS0Yym5hsVgftiY1q2c7YwBHWcRV+AOxwm9cQgoVe+BbGrO5pI
+         uU7LRhy3Kw0+X2nKY3nZ+F9/PE7dF6+5K29TQOrHmYw6L6/vJfgOjAzhWzweCQKs4Hiw
+         Y5u7Bs0bd0ljoJdIITCgaY2/7F40Aar6ASKebTeNNidb/uCcvJ6oIBqbRqlmW0AYM3PP
+         t+Ts+eD4ZSD3WWoK7H+Zr1PyDZgyFm0/mPbeFbvhTqATUo5EMOVO4wopa24EHxR/0Pv5
+         Y9eYO/Y3ldVYFaDf9tdLZWmwnv1u2ymJ6aIrbf1AYJs9HNIMMySYKiezmAGcP30M8FKE
+         Iv1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788859573; x=1789464373;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WTKWD3m/ofQrn2mdzKEMgcB+HsCn/djytq4O85Ygfn0=;
+        b=YFqVXAPyq7uALKpS79E+n6z/kMSLuEwnwDwsIqqkEA4HurkvmhUVgugxulMGV5EhjM
+         QFac5tyJ7/9PKtsaymeWwKes1FD5F4R0M6zIJdf0Mp76aWWXs+J+uWsLWHVAOBlB7xX3
+         P8UYQwfHNGShnbWVa4ilM27dKYni/1Kli59Kt/CxzvbQywYXAcPopjWXBCi9cmkaWoSJ
+         34yvBwcDPUkkszTxRru5lmgJAtkERnp+LHwk8mjL4agJnJ6lV9/QARHBv+y2EG6CkFXs
+         iUZ0jG6VZfe0eHxjgORk0Pqo6cBvsymBofrKdAj38MK3//XMGcERTOxHV12YFESyVRy3
+         nqDg==
+X-Gm-Message-State: AFuF++kQMcdDAq5ct7EyOF+nAO9fILfyWqddLdj03qokjS2DvjEtTtAB
+	uEk1Zjipz294vQ0Fli/wD8zy5iYXYwsPqUfkPnsoY59ejGg9hKaXuwT+MocQbKaUz1SAVVf4ihn
+	SIecuIY29yelOxeTb4PqHjQbHJ0q4p+hlD6/VX8hlJhfksBth4Zmbr2jE+NhbJl86JaMdJOSaTf
+	yHoZZpFUX0fKb883VwVfKPNfcBZP+DKFRXiAepjPRnqbZkyH6ZnQ==
+X-Gm-Gg: AYBFou37Z5qoqcyonNkD7ORKQC1U3nj5jTvdFAAlnbWQhjdeg95JfCrpRbijW2eK4Kq
+	t9b75VkziZULXNK+jVimcCmgcxWZhET+XleEiYIX/n57N67i95sTLdQlLwEz9s0YAzWKaxhLDhu
+	B2J5r0b1yxKd/XN3/VegUbr0qwvkYBq0+gZCUPDQUeoE8ZD/Up6wxL11Wy
+X-Received: by 2002:a05:6870:21ce:b0:475:a112:1279 with SMTP id 586e51a60fabf-475a1124c2emr15051753fac.38.1788859573172;
+        Tue, 08 Sep 2026 02:26:13 -0700 (PDT)
+X-Received: by 2002:a05:6870:21ce:b0:475:a112:1279 with SMTP id
+ 586e51a60fabf-475a1124c2emr15051740fac.38.1788859572713; Tue, 08 Sep 2026
+ 02:26:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: a907202e-a40b-470b-ce4b-08df0d8b160c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 09:25:13.0863
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nth5VR+pMI8yAN09liPtonackHHgx+5xpu7RAiGRIRaBHLKcy8U+HfGQ3PZP+cDQ872vwREfBjwvzRI4mMb88WMqik4IVo1o3DXbNIpkIHczyzWdEwdgRn8UpmvmF9dT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB4835
+References: <ede568ada4304d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu>
+ <CAEth8oF0__WNz9_gsSnrycP2SYcs_-G06r6TCPCFK2g1N=jbJA@mail.gmail.com> <20260905171140.81619-1-christian@themurphys.eu>
+In-Reply-To: <20260905171140.81619-1-christian@themurphys.eu>
+From: Kate Hsuan <hpa@redhat.com>
+Date: Tue, 8 Sep 2026 17:26:01 +0800
+X-Gm-Features: AcwNN1VMJe3-AENuKA1Yc7GEDYl-Du0WnXCYbS-fow5ZbUKvz_0gtAhw9etlGbw
+Message-ID: <CAEth8oHj1Jon9m_4aFzRGoKcdopUMym+MyV0JxTo6F+AUFOLoQ@mail.gmail.com>
+Subject: Re: [PATCH v2] media: i2c: imx471: Fix pixel rate and line length
+To: Christian Murphy <christian@themurphys.eu>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	mchehab@kernel.org, tarang.raval@siliconsignals.io, 
+	jai.luthra@ideasonboard.com, linux-kernel@vger.kernel.org, 
+	antti.laakso@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,=0A=
-=0A=
->Hi Elgin,=0A=
->=0A=
->On Tue, Sep 08, 2026 at 09:03:10AM +0000, Elgin Perumbilly wrote:=0A=
->> >>Could you please have a look at this patch series and let me know your=
- thoughts ?=0A=
->> >>=0A=
->> >>Best Regards,=0A=
->> >>Elgin=0A=
->> >=0A=
->> >Just following up on the os02g10 patch series.=0A=
->> >Is there any blocker preventing it from being merged, or anything I nee=
-d to address?=0A=
->> >=0A=
->> >Best Regards,=0A=
->> >Elgin=0A=
->>=0A=
->> Just following up once again on the OS02G10 patch series. Could you=0A=
->> please let me know if you had a chance to review it?=0A=
->=0A=
->Thanks for the ping. I'd merge this, but the patches are malformed somehow=
-.=0A=
->D=0A=
->=0A=
->Can you try resending them, please?=0A=
->=0A=
->And my apologies for the delay -- during the summer holidays not much=0A=
->happens here and the e-mail backlog can take a long time to clean.=0A=
->=0A=
->--=0A=
->Kind regards,=0A=
->=0A=
->Sakari Ailus=0A=
-=0A=
-Thanks for letting me know. No problem at all. I=92ll resend the patch seri=
-es shortly.=0A=
-=0A=
-Best Regards,=0A=
-Elgin=0A=
+Hi Christian,
+
+Thank you for your patches.
+
+On Sun, Sep 6, 2026 at 1:12=E2=80=AFAM Christian Murphy <christian@themurph=
+ys.eu> wrote:
+>
+> Hi Kate,
+>
+> Thanks for the series.
+>
+> On Fri, Sep 4, 2026 at 04:59:58PM +0800, Kate Hsuan wrote:
+> > According to the datasheet, since this sensor runs in PLL dual mode so
+> > the PLL configurations in the op domain are used to calculate the data
+> > rate and pixel rate.
+>
+> The OP PLL clocks the CSI-2 output. PIXEL_RATE is the pixel array rate
+> (ext-ctrls-image-process.rst), set by the VT PLL. Your 159.36 MHz is
+> close to the output-derived 160 MHz the driver has.
+>
+> LINE_LENGTH_PCK reads back 5120 and a frame at FLL 1308 takes
+> 17.296 ms, so 387.2 MHz. At 159.36 MHz it would take 42 ms.
+
+I went to the VT domain at the beginning, but after reading the
+datasheet, it mentioned, "IOPSYCK determines the pixel rate". I
+switched to the OP domain. Perhpas, the datasheet and MIPI datasheet
+confused me.
+
+>
+> I tried writing 2560 while streaming: at FLL 1308, 6.61 us lines,
+> 115.6 fps, frames intact, no drops or ISYS errors during the test.
+> With .llp still 2328 and your pixel rate, libcamera would calculate
+> 14.6 us lines and 52 fps. The measured stream carries 2.4 Gbps of
+
+That is why I try to set it to the original value 2560 for line length PCK.
+Idealy, the sensor supports 2328x1304 @150fps (binning mode)
+based on the new value 0x0a00 (2560) (ipu6-drivers), libcamera reports
+115.63 fps on my X9-15.
+
+> RAW10, above the 1.6 Gbps a 200 MHz link carries on four lanes, so the
+> 200 MHz in the driver and ipu-bridge is understated, a separate fix.
+>
+> Writing 2328 gives 6.01 us lines, but the IPU gets 474 rows of
+> black and flags every frame BAD_FRAME_DIM. Stepping down from 2560,
+> 2544 still gives an image, 2536 down does not, and 2416 down arrives
+> truncated, so 2560 sits just above the working limit here. The
+> 12.05 us bound I gave Sakari was wrong, but 2328 does not work either.
+
+
+>
+> Using 2560 to raise the frame rate makes sense. With your planned
+> HBLANK write, .llp needs to be 2560 too, with PIXEL_RATE at 387.2 MHz.
+> My patch uses 5120 because that is what the sensor currently runs at.
+> Could we combine the pixel-rate correction with your HBLANK change
+> and use .llp =3D 2560 consistently? Happy to test.
+It's ok. sure
+
+for the line length PCK part, I try to propose a variable setting like
+what mt9m114 did.
+Line length PCK can be changed along with HBLANK control. This may
+allow hblank to be configured and fps to be changed.
+
+Compare to your pixel rate equation with the equation mentioned in the
+MIPI datasheet + PLL tree in the imx471 datasheet.
+
+imx471 signal processing rate is determined by ext freq,
+VT_PREPLLCK_DIV, VT_PLL_MPY, and VT_SYCK_DIV * VT_PXCK_DIV.
+so it may look like
+signal processing rate =3D (ext freq * VT_PLL_MPY) / (VT_PREPLLCK_DIV *
+VT_SYCK_DIV * VT_PXCK_DIV).
+(I think this is per lane)
+
+and
+MIPI spec mentions the pixel speed is:
+ext_vt_pixel_clk_freq_MHz =3D (ext_clk_freq_MHz * vt_pll_multiplier *
+num_of_vt_lanes) / (vt_pre_pll_clk_div * vt_sys_clk_div *
+vt_pixel_clk_div)
+(19200000 * 121 * 4) / (2 * 2 * 6) =3D 387200000
+
+The result is the same as your pixel rate 387.2Mhz. Could you consider
+this approach?
+
+>
+> Kind regards,
+>
+> Christian
+>
+
+
+--
+BR,
+Kate
+
