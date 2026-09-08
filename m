@@ -1,152 +1,192 @@
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF3748F02C
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 22:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40BC56B87D;
+	Tue,  8 Sep 2026 22:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905329; cv=none; b=HvTHOS/z/OPHvKh5Ne/jxK9qlGgjLkGShKj87DyTQSiiRucKB6sFYRQHM3N78Fs7UK6Hz091cLI0GLegJ17RJYvBATlnBAWfdxXR2+dVrTpc0arjnq3hp325nKywyS7Cn73sJ3zv4lwJACMg4eJSDWxfXw7m4zV6jkD+PBD0XTc=
+	t=1788907463; cv=none; b=jjLMi1uWb+ITMnyFg9UQUsJycSBaiCUWrfm/8Z8n/sxvm0iMmAddEcvAwP6Uz/qiXby5JiBTiCqk8XFZgZo4RrDuSdkg4dZyRKOyGDGRjZ0QKkjWFgEOBwcpqytvDpmKPIhdY7gDjrEI0Qo8P+ijVIWxEDRKHiuRjzMq4amysBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905329; c=relaxed/simple;
-	bh=XSRx6sqC0TDMNBjUuKLKvlMtQo5rWcuXDhuCg7sGRzk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rllIWW1fZK7JL1Da5/fHO0nyEqVHoMCdEn5F8W99SaZ9XcjlA1FXgP5tGxEYwHoXHvZJ826w9FxI1XRXuEDoAWf9q6K9MWwEM/KnxcJnLwf5zP26GJij6tUCK3Dgb6DPf2+pl8Th36wrGv1/hxndGcW7835ZBpJwvKdj2pGZVQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4b388697b03so599057b6e.0
-        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 15:08:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788905326; x=1789510126;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mRJT814FQHWjUha258QV+njUSFINacRXd/TWJLq0+bk=;
-        b=Hw10wvMHqs6jQLaK63jOCxPnpLzD6+T+i1+LH07GVSP3yaisKNlilgkIZ8kNl8iJcZ
-         psGOx3FxEAmmDXTSPfrCN01HB4oZQKMxOzBtbXXlrhDIUvAxbVFRF+C9Z7CtvdluRQOu
-         MFIwFlEFHZXV+Kc4T2mC/Scecnf0BH0bs84VIW1tZzUI+s5u5lFstASo+OdEQJxPlwGA
-         zFDhngfH06M8A8l+HRNiteJeJN9klj9FVqGDKNtDx75PkIYEgs2xEILC0+whrP6u+EpL
-         NvG1tBB8U/07KMurnC3OVFTeR5+XS546RrYfpv6bQotfgqe98ulr7fbj2tRcDEMfdV2V
-         CPrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxaFiPhe2uAvF4NmrkSx+3PdwWglvGBSJAY8BGp9E9GNPzFAKUQv/vNnaBcsJMUDvKr+gHLbHTKi20VqQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++ngdc1fqLdpQk3ihRM0F2J2hDGfRfvSCi7JF/DaCw9PlcvlzYFy
-	J+Kvr5f2tWWfAHcxoEv+5pmCGOKDOjVjEq/SWQsRyhwWjBnE4NrWWRTvMz+4uQGPMMPMc3JcvD8
-	WAZy7KMpkdWVew2HK4WvhaN6wsFlDl6xFVwREZk1a15N1rWo+UGpMNv6v3Nw=
+	s=arc-20240116; t=1788907463; c=relaxed/simple;
+	bh=JOEDJP2DW+ls2ZC/0vA+O8vm2ntANqCPaKHWS5/MXzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y1h2+yN28INookQpg1EARSBKMOCN/Szr7zrztX/ALooM/5oRifrnLId1HUkCpQl9SRo062vYsczTCoqkBbBoTckJEayIKQHT8tQJ8GrwRl4hVHl9gPXmijS7hHVujVo6hDXUBhw76HvskvIWa2AFsniD8vFBhW8quVINMJdyCKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAh3jSaG; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAh3jSaG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318A01F00A3A;
+	Tue,  8 Sep 2026 22:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788907454;
+	bh=1ZnYa73NqlHvx0NBeklkPLHckc4CqlArTF1KYVVsrjI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QAh3jSaGlsGc3Fayn5XHnyXj4mBXkPfEEtBja09rGhxffJ28vDMcMuS4JLz5xE0di
+	 yPWz64mObi0YhHANOZ0uZGGmyNYvnLv/YG4QiXX0h8IRkaktrgSZiK+pACQt4/rSHR
+	 OqIjN7Ij5ZYkA2VLYTd/wkpqKt2pt+MVJjrrOrJbLaVvMK3RRQhtS13Yc+fpvN7stJ
+	 4oWbgpvB3lfi7YbjpsX0TbgdMRkiUomrr07LJgsP2Knx6PCXMHSMswat18fbg6/o+h
+	 SCSmpTcc9BkN8QVIbZqxthpFyBqMT+elACJHuS3a6XSuO+9S+361SMrCH3FNRuqH3Q
+	 PDrH30/JDB/aQ==
+Date: Tue, 8 Sep 2026 17:44:10 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: rob.clark@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Bharath Kumar <quic_bkumar@quicinc.com>, Chenna Kesava Raju <quic_chennak@quicinc.com>, 
+	srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+Message-ID: <aqCKgM1yCbWjFdgO@baldur>
+References: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
+ <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
+ <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
+ <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
+ <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
+ <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
+ <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
+ <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
+ <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
+ <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3405:10b0:6b7:8396:f3e0 with SMTP id
- 006d021491bc7-6b78396f8e7mr10596247eaf.66.1788905326132; Tue, 08 Sep 2026
- 15:08:46 -0700 (PDT)
-Date: Tue, 08 Sep 2026 15:08:46 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa0876e.f81106d8.285f0a.0004.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] WARNING in v4l2_ctrl_auto_cluster
-From: syzbot <syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
 
-Hello,
+On Wed, Aug 26, 2026 at 06:37:00PM +0530, Ekansh Gupta wrote:
+> On 20-08-2026 20:17, Rob Clark wrote:
+> > On Wed, Aug 19, 2026 at 11:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >>
+> >> On 19/08/2026 17:48, Rob Clark wrote:
+> >>> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >>>> The rule of usptream development is that we do not accept duplicated
+> >>>> code, just because a vendor wants to write something new. This is
+> >>>> basically the concept applied all over the drivers tree, where we pushed
+> >>>> back against all sorts of duplications all over the vendors.
+> >>>>
+> >>>> What I miss in this thread is why would there be any exception here. We
+> >>>> do not grant exceptions from standard practices on "I want" reasons.
+> >>>
+> >>> I agree that we should not have duplicated drivers just for vendor
+> >>> lolz.  But when it comes to adopting common frameworks and integrating
+> >>> better into the ecosystem, this doesn't seem like something we should
+> >>> actively discourage.  I don't think this is a case of vendor lolz, but
+> >>
+> >> No one discourages it. Following standard Linux kernel practices and
+> >> requirements is not discouraging, do not twist the narrative here.
+> >> Again, it is standard upstream review telling that we do not duplicate
+> >> drivers. Ever, unless there is serious exception needed.
+> > 
+> > I wasn't trying to twist the narrative, just trying to come up with a
+> > path forward that isn't "no" or "improve existing driver", since
+> > neither of those gets us towards a future using common frameworks.
+> > 
+> >> I asked why there should be an exception granted? Is the reason for
+> >> exception following:
+> >> "We want to adopt common framework"
+> >> ?
+> > 
+> > Possibly?  But I don't think we want two drivers to be any sort of
+> > long term solution.  (Ie. as long as venus/iris have co-exist.)
+> > 
+> >>
+> >>> rather reacting to drm/accel emerging as the standard framework for
+> >>> this sort of driver.
+> >>>
+> >>> So how do we get from here to there?
+> >>
+> >> What is wrong with my proposal?
+> > 
+> > Maybe I missed something, my understanding was your proposal was
+> > "Grow/replace/improve existing driver instead of coming with a
+> > duplicate"..  grow or improve doesn't move us toward common
+> > frameworks.  Maybe "replace" is a valid option.  If there is something
+> > I missed, then I apologize.
+> > 
+> > Options I can think of are:
+> > 
+> > 1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
+> >    driver
+> > 2. Backwards compat chardev registered by new driver, providing existing
+> >    UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
+> >    AFAIU the fastrpc folks where planning a backwards compat layer in
+> >    userspace, so maybe it is possible.
+> > 3. exception?
+> > 
+> > I'd like to know what the feasibility of #2 is, since at a high level
+> > that sounds like the best option.  Possibly limit exposure of legacy
+> > UABI to existing hw so we don't get into a place of needing to extend
+> > the legacy UABI for new hw?
+> > 
+> > But #1 sounds like a non-controversial place to start regardless.
+> > Possibly with #2 coming as followup and necessary step before eventual
+> > migration to new driver for existing hw?
+> > 
+> > Even if we start with #2, how do we handle first-merge-window
+> > bugs/regressions without reverting addition of new driver and removal
+> > of old?  It seems like we'd need a window of a couple release cycles
+> > where both drivers exist?
+> > 
+> > Maybe others have other/better options in mind?
+> To all, I'm seeking on the approach I should follow to go ahead here. I
+> can work on implementing #1(as per Rob's list) with hw specific
+> compatible for v4 if it's acceptable.
+> 
 
-syzbot found the following issue on:
+I don't see any reason for you to define a "hw specific compatible",
+because as you have shown in this series (and as Rob point out), there's
+no difference in the "hardware".
 
-HEAD commit:    28924df2a08f Merge tag 'perf-tools-fixes-for-v7.3-2026-09-..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13901af9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
-dashboard link: https://syzkaller.appspot.com/bug?extid=cf896de36144391bcde1
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13982af9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15651749580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-28924df2.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/309bf243aefc/vmlinux-28924df2.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5baa1c49144e/bzImage-28924df2.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
-
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
-R13: 00007f81ee626038 R14: 00007f81ee625fa0 R15: 00007ffd680b1ea8
- </TASK>
-------------[ cut here ]------------
-ncontrols == 0 || controls[0] == NULL
-WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at v4l2_ctrl_cluster drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 [inline], CPU#0: syz.2.26/5734
-WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at v4l2_ctrl_auto_cluster+0x1c1/0x610 drivers/media/v4l2-core/v4l2-ctrls-core.c:2547, CPU#0: syz.2.26/5734
-Modules linked in:
-CPU: 0 UID: 0 PID: 5734 Comm: syz.2.26 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:v4l2_ctrl_cluster drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 [inline]
-RIP: 0010:v4l2_ctrl_auto_cluster+0x1c1/0x610 drivers/media/v4l2-core/v4l2-ctrls-core.c:2547
-Code: ff c7 e9 e8 fe ff ff 89 e9 80 e1 07 80 c1 03 38 c1 0f 8c 73 ff ff ff 48 89 ef e8 da b1 22 fa e9 66 ff ff ff e8 a0 12 b1 f9 90 <0f> 0b 90 eb 65 e8 95 12 b1 f9 48 8b 44 24 28 80 3c 18 00 74 08 4c
-RSP: 0018:ffffc9000760f7d8 EFLAGS: 00010293
-RAX: ffffffff8816c3c0 RBX: dffffc0000000000 RCX: ffff888033ce8000
-RDX: 0000000000000000 RSI: 0000000000000002 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff8ce09500 R09: 0000000000000001
-R10: 0000000000000009 R11: 0000000000000000 R12: 0000000000000000
-R13: 0000000000000000 R14: ffff888051a45628 R15: 0000000000000002
-FS:  00007f81ef2da6c0(0000) GS:ffff88808c2ca000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007faf8e1eb840 CR3: 0000000043b66000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- hackrf_probe+0x80a/0x1360 drivers/media/usb/hackrf/hackrf.c:1430
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- proc_ioctl+0x409/0x660 drivers/usb/core/devio.c:2370
- proc_ioctl_default+0xc4/0x110 drivers/usb/core/devio.c:2405
- usbdev_do_ioctl drivers/usb/core/devio.c:2769 [inline]
- usbdev_ioctl+0x1386/0x2120 drivers/usb/core/devio.c:2829
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f81ee39e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f81ef2da028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f81ee625fa0 RCX: 00007f81ee39e159
-RDX: 0000200000000200 RSI: 00000000c0105512 RDI: 0000000000000004
-RBP: 00007f81ef2da090 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
-R13: 00007f81ee626038 R14: 00007f81ee625fa0 R15: 00007ffd680b1ea8
- </TASK>
+The only reason for your "hw specific compatible" is to make a software
+selection in Linux - and that's not what DeviceTree is for.
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+As such, I don't see that you have a DeviceTree problem at all, because
+this is a Linux-internal problem.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> #2(compat driver) is something that we are still exploring as we
+> couldn't find any standard way to achieve it. We might start a separate
+> discussion for that once we have few possible designs with us.
+> 
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+This is the actual problem!
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+We have existing user space that depends on the ioctl interface exposed
+by the current misc driver. You must not break these.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Hardware cutoff is not a viable solution, because that's just a
+declaration that we'll let the old platforms rotten - or alternatively
+you commit to maintain two drivers to the very same feature and quality
+level.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+So the only reasonable solution is #2; from there it's a valid question
+if you reach that point my stepwise migrating the current misc driver
+that solution, or if you present a new driver with the fully backwards
+compatible interface, alongside the new ABI.
 
-If you want to undo deduplication, reply with:
-#syz undup
+
+But this does bring to a question which the cover letter should explain
+- but doesn't: what problem does this patch series actually solve?
+
+Regards,
+Bjorn
+
+> Happy to take any other suggestion also.>
+> > BR,
+> > -R
+> 
+> 
