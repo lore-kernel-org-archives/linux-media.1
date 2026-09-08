@@ -1,101 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A23356511C;
-	Tue,  8 Sep 2026 15:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3393156260E;
+	Tue,  8 Sep 2026 15:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882214; cv=none; b=IVr8vevbWb6R/GyPMK/XjedT1/kBsOmLGCpQ5LFFdfWOQ8oJzbB4AbQU83FR8pgaKa+kETf33crKCMiiZgThWc9TR+6CBbv+9hYSXpa2tJTpIGWrXj0bgKHWxmz0j+8oUskK17I+EBwG3f1loFpH6m/T9pmq2NjSUnPEnRB4Zg8=
+	t=1788882856; cv=none; b=kW6Y38ZWyzr5T89jnWH8ZoaJBzyJYcysiHBo1ecjBqtXqDEPTI1M52eXeOdQew+C15c38A9YxUZX9S2M+m9dOR8TIuHqBDJuzwu0JoyXTWU4U4SIPcN4fKJXY00wwA0Gml/0dAAcy5jArSPKI/eBjGD6TaOSp2Zl+a+4y1uBExs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882214; c=relaxed/simple;
-	bh=vIEGeOZUzsykkPDscIatc5dhymUawWaQUcyRFICynD8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VirN1uojMJT+XMl6yHbm0yudVKc3KEdgDqDLGP33xPxJ5mW45GndtIP5pagiZdd8VwKisqz5IvjgZUsPT9n9Yw9XHdKNRJZXkN7kkOECPg3i/47U7zLDn/9AdpyzgLDElVzOkQ+bR/QwPrQL58so/xCMa7DSWdNPhddMBT2353U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jJTAzR1x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788882856; c=relaxed/simple;
+	bh=03q6FZQlIyLzpD7o+e9mgehH6a7CrXSppjnQrHjnWds=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VYhhvsFC6nB/jwGq9vQO/OoUrpyYsPOIPkEdYj3nSPS1j+EKILXLBo6+tjxXCBueps5U08RTmdVYbxvwCf2NA9XZOKeikD18LsdwuyyNMLZuSrMk8wXsrOMCjZGhWwXT7r+sFTJvrcz/gmkKtWSScAap5mvstMC+M2XQhfMQQt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=qLBzoKrB; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=KMiwVTKJ; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jJTAzR1x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733DD1F00A3D;
-	Tue,  8 Sep 2026 15:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788882213;
-	bh=ODv2oVQ+zj8LzCCwIIMj4+ozkkVjMeRgl5H0fCblGLM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jJTAzR1xLe2+tbJ9A7apNobRbYhUzmETYEpovrhxNgPp+VwM/urv5SsSEij/GPo8X
-	 hYhcyYJ5ROxyn/GqkyRygWjc1d4NxKbY69fxN9GcF3EPiL1Uu0cIZRYxJdsTaKD//A
-	 Ypl0uKD3xFFpYr5e3PIliXszCvPgyTdrFw7/BDlDjnws5K3/J5A6RYcMT3SvqyY9j7
-	 C0qlrVBnQPbeU016NyiBKn5bP8Fa++AskBwjoRSJ5LIRmvfcMW9aq9x4esrYT+SR5G
-	 qHxNOmulL0F6+3BE/AyWcE6A5B7iCT9vuaBfKrkcm0a2hYDE/+/bg4Oa378kjOffIS
-	 RXgdTpr2cjzeg==
-Date: Tue, 8 Sep 2026 16:43:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Lee Jones <lee@kernel.org>, Guru Das Srinagesh <linux@gurudas.dev>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, Suresh Vankadara <svankada@qti.qualcomm.com>,
-	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/6] Add CAMSS support for Qualcomm Glymur
-Message-ID: <8103069c-d774-4303-8366-11059e462d84@sirena.org.uk>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="qLBzoKrB";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="KMiwVTKJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1788882846; bh=03q6FZQlIyLzpD7o+e9mgehH6a7CrXSppjnQrHjnWds=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qLBzoKrBYbJnnDNycp5TxfOFCWGfQEX5uf2laMJuaNOPmytvNsgZYbJmUdPt7as/2
+	 fbMem5q8Xg0znMNEgeXowvBEw9OaBtODOz1BAOcQEN+tMacbifsTzS4LPt8/6w1KPc
+	 KP9pGbElkCKO4XWLndFXmXKR02olBjzVuj7OM7vZgELkYUur2Sfl/GFuT80B03JcBv
+	 2MsZs86p8lSzaPrsu4jTZn8JJRCPVkWkbkDufyxsd268koyWFTsHbj2dcaRh+ytH52
+	 QwYLXy2eEi3osXdrYhzCpuczNXBYbBpgkydQvcz/qZP5/vPIn5bp/ZL+OLCiatxvbp
+	 8UYFWhbSn+tdQ==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id 44F9541445; Tue, 08 Sep 2026 16:54:06 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1788882845; bh=03q6FZQlIyLzpD7o+e9mgehH6a7CrXSppjnQrHjnWds=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KMiwVTKJnrwX/yqpusZbpe727N61NOWJcbAkNU4QpMH+fkQ+qsDuXbrvRBaiGCJ+R
+	 DBBHs2Dpp8EZt5jcVlGyjgfkN9VYCVzZ+5Ou8OUO46qq3KbiDfb/lL6wYKewPH/IqY
+	 XOY1r6WwnEnivgnEHQPv5jSQVTRXlNtvE/gFENfZ+JFFqrpGSZjENdRK3oRlYhCRdZ
+	 9xlFPFss9CKF4DKHJ4or1VUjAoVHHA96UyBaYyraWp4lLezqjoNBNT19XKi/5cp/M5
+	 Q4oSFLzDvOWLlzVOVfgMBdP05XwHNBd4dNOyBodXRalrHLJomtNfBUzIAUbaS0zT0s
+	 Q3c8Ham0vZzZg==
+Received: from maru.home (host86-150-50-53.range86-150.btcentralplus.com [86.150.50.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 64D234018A;
+	Tue, 08 Sep 2026 16:54:05 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org
+Cc: Rik van Riel <riel@surriel.com>,
+	Sean Young <sean@mess.org>,
+	bpf@vger.kernel.org
+Subject: [PATCH v4 00/19] media: Fix locking issues in rc core
+Date: Tue,  8 Sep 2026 16:51:48 +0100
+Message-ID: <cover.1788882189.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yPw+0TGEn0HbTJ9A"
-Content-Disposition: inline
-In-Reply-To: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
-X-Cookie: The world is not octal despite DEC.
+Content-Transfer-Encoding: 8bit
+
+Fix issues found by Sashiko and claude, and other cleanups.
+
+Changes since v3:
+ - serial_ir: Fix race condition where timer can be re-armed
+   This introduced a new race condition; reworked
+ - rc: After rc_unregister_device() timers can be re-armed
+   Sashiko suggested a simpler implementation with
+   timer_shutdown_sync()
+ - Add meson-ir-tx: Validate carrier and duty_cycle
+ - Add ir_toy: Validate the maximum tx carrier
+
+Changes since v2:
+ - Cosmetic changes in:  Add missing locking for keymap
+ - Patch 7 to 17 are new issues found
+
+Changes since v1:
+ - Fix issue where input device was still leaked
+ - Add: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
+ - Add: Fix inconsistent locking of keylock
 
 
---yPw+0TGEn0HbTJ9A
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sean Young (19):
+  media: rc: Ensure registered is cleared in error path
+  media: rc: Ensure that rc_unregister_device() does not free input
+    device
+  media: rc: Fix ABBA deadlock by making locks more fine grained
+  media: rc: Add missing locking for keymap
+  media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
+  media: rc: mce_kbd: Fix inconsistent locking of keylock
+  media: ene_ir: Ensure teardown is done in the correct order
+  media: rc: Use binary search for adding or updating a scancode
+  media: rc: imon: Bind both interfaces via usb_driver_claim_interface()
+  media: ir_toy: Remove unused struct field
+  media: nuvoton-cir: Remove unused struct field
+  media: ite-cir: Removed unused struct field
+  media: fintek-cir: Remove unused fields
+  media: mceusb: Remove unused field
+  media: serial_ir: Fix race condition where timer can be re-armed
+  media: rc: After rc_unregister_device() timers can be re-armed
+  media: rc: Validate carrier range in LIRC_SET_REC_CARRIER ioctl
+  media: ir_toy: Validate the maximum tx carrier
+  media: meson-ir-tx: Validate carrier and duty_cycle
 
-On Mon, Sep 07, 2026 at 01:43:36PM +0530, Nihal Kumar Gupta wrote:
+ drivers/media/rc/ene_ir.c             |   4 +-
+ drivers/media/rc/fintek-cir.c         |  13 --
+ drivers/media/rc/fintek-cir.h         |  22 ----
+ drivers/media/rc/imon.c               | 166 +++++++++++--------------
+ drivers/media/rc/ir-mce_kbd-decoder.c |   5 +-
+ drivers/media/rc/ir_toy.c             |   4 +-
+ drivers/media/rc/ite-cir.c            |   1 -
+ drivers/media/rc/ite-cir.h            |   1 -
+ drivers/media/rc/lirc_dev.c           |   2 +
+ drivers/media/rc/mceusb.c             |   1 -
+ drivers/media/rc/meson-ir-tx.c        |  54 ++++++--
+ drivers/media/rc/nuvoton-cir.h        |   3 -
+ drivers/media/rc/rc-ir-raw.c          |  39 +++---
+ drivers/media/rc/rc-loopback.c        |   5 -
+ drivers/media/rc/rc-main.c            | 169 ++++++++++++++++----------
+ drivers/media/rc/serial_ir.c          |   2 +-
+ include/media/rc-map.h                |   2 -
+ 17 files changed, 251 insertions(+), 242 deletions(-)
 
-> Patch 1 depends on the following dt-bindings series:
-> [1] https://lore.kernel.org/all/20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org
+-- 
+2.55.0
 
-Qualcomm people, could you *please* stop sending me serieses that can't
-be applied.  As previously indicated I am getting far too much of this,
-it makes everything unmanagable.  Nihal, this isn't you or this series
-specifically, it's been a general problem with how Qualcomm is working
-that I've raised before.
-
-Resend this once enough of the dependencies are in that it can at least
-be applied.  Reworking the series so that it can be applied without
-other in flight serieses would be fine, even if it needs everything to
-land in order to actually fully work.
-
---yPw+0TGEn0HbTJ9A
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgLR0ACgkQJNaLcl1U
-h9AZAgf+LfTfUWipFC+MxrZIf/omzw5XlxIpLtxDgJRAtx16M+Z1GI7gwQJfJOM7
-il61Fwq5Kk1MhBLaaK643iz0rUo/780ML2AxG/kUCElqYqkefzQc73hNPz+aNwyE
-ch4qnMU75bdlVFykQ2ZW7zltNG597wHo4PJTQv/2iYQWgwx3BUYKquDn/tEhnTF/
-+HCJvCov4TwITSLj0u34BxghM6Tjrp2uFdAVFKpsDboT3s1CGhIGS8l37NTiBvR+
-8WP9W/NZ8ngjwl4ctH4V5YjVtplJiOP2nZcDsnrnItZqq0Xs+MxFMBTZBNHr6MT3
-DOPZSwbyrcfF5hKDPdvHRIW/Rftk3w==
-=Y05L
------END PGP SIGNATURE-----
-
---yPw+0TGEn0HbTJ9A--
