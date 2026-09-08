@@ -1,116 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AC0580387;
-	Tue,  8 Sep 2026 16:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266E733DEFE
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 16:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884609; cv=none; b=cGsm2qnikbAePFjvCyu+7Da2pi12R13ilrUt9WhFS1LJwM04871ylxPIXp6XZf5wjTdnu5QsV1m0cGUmddxFv5cTCCIwGjQlS1wcFnt2GJzt1ceCNuLaKErRG+Jq890PWGM/hzsg2gHNWhpP+HxDDqUV4ziYf3MxBTu0/tMh9+Y=
+	t=1788885387; cv=none; b=bWsfn5vXZaFlfDnKcGoZ44ihGKLTppB1av2rhO8vKsrzSrUvKqtZnKHe8qhi0AoE/jLcFgKofA5KpLyn1/1Cn3TQlE8eEJ7rHNxGIfFhaWM1i197xkDoiO7RyssSD+mAXgzxYDAJeZm8gGApg+C7K7eAgkFH4XEFxBkZqFN+cJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884609; c=relaxed/simple;
-	bh=hub5blECutfizzP3hRGexeRhZ5of1o9nSPjFK5WWoKU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VcRTQSlkMeixWk6IOFye04/0BNFO3dxnEjq+2HQyQjhcZ0ExV9/rMCsuYMLdEX6iHF8fBiRQUhw54aA2nQPLeEjCOyjDZT2vtSfxW+OQOWI/h0TQJ0c1caQpe5pk8qURYyDOJ6zYUmyQTc/5AG1MSqg1G747hkzGpBd0Hxb44RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YG4Y+Wt3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788885387; c=relaxed/simple;
+	bh=GSanIQkhMhfYHYPmz20wXCEiCRxl4iSy0izpZfWkBjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oyOV2ThdXlC/95fn2o3SvFr01Ioagj+kheSlsJAzLroR10rpnHWzNYPrUJgBidhituPV69vooSWJp+A/uBVP1DvdQlSlSe9Up3NzYrWAp+IWGRwl6zC88pbqHEHaq3o9W4d2suzf1PCwHswll2Kq1hx0yC29dulUWJGyElgOfjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NH+t6Fyg; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YG4Y+Wt3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7139C1F00A3E;
-	Tue,  8 Sep 2026 16:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788884607;
-	bh=/HXYrbgclYu58RuX0QSm6jSDZFolOyDdWjKM7pSOK80=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YG4Y+Wt3V5bhywm4t3ehe2TVwNWw8ZKVGEMXVpEq7x9UhJmXsHXEm7cZP9mO2b6N1
-	 SGN2Ep555PkW8ZNGjU83f9gLxMbcGYPboa+pTcIH0ip1UliNWbOFMHxOf6HOfrRya/
-	 6gImKNIxC525JNsQEFp15RhmAdaIIodt2yCkUwY1GiUFP1wbVBWy8n0RikTBzhaPxq
-	 +WgAQDCEUqyDC8XlOWaR8Y8uBQiI2lPb2xcbzC9qjPWLnGUY3HenmwB3mE74Ay5Wjm
-	 dlCh5DUmR1hvN0M9j7fSk2kg1McJLVWoTEqvMqt6MDEoc5JT3ZkkYGwt9tGPNr9GLD
-	 1cwQoaHVn0EQw==
-Message-ID: <331c0f09-5d81-4cb8-9728-5b13c252540e@kernel.org>
-Date: Tue, 8 Sep 2026 18:23:23 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NH+t6Fyg"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so120779a91.0
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 09:36:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788885384; x=1789490184; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yEPp5Hc57z+d7DVbHI6jNM7LWqltOprg/+UL6BC6Uzs=;
+        b=NH+t6Fyg6/dfyRuNug/6cuqo91juoSKTV2egDXs6I5UmUMBDjFTeGcvyW4E8UOEVOO
+         ec6+QnMLNVIU743JYorn8okfATmczzVe1+U4cwV7QEZJ68PPnrvlTHyaCMhcWCTe9ri6
+         TYQtQJjLz25pksMNp7NyTGbivbpLBZ/f1URHfh6QQiTtqMwteoOlj9tLgmD+N4WneIXi
+         z84KkIefZKsHy7rhUPdH7ktjejaOrP+v63Do1xNnnhzUMMIvu5oZWJjZSLRwgeWD/we8
+         Dd3vy/iElRRZJAqIbj0lTGAumJz8ZvWfbvzaEhrU/ix6cU5ssj3dqI+Mh8d1C2db4Fbl
+         KwWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788885384; x=1789490184;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yEPp5Hc57z+d7DVbHI6jNM7LWqltOprg/+UL6BC6Uzs=;
+        b=owcNXDmQVIIZK5bxJEUBsPQQQGhxE+KM9C7dsjow6fyTMRQPY0Tx8WdKB2GUfrszau
+         s2cPsYLC4TPHn1ElrjbPwDaLJINS2STgoHcoiDCzHt43vWh1cuUz1aIu9/6FAy/OBrRa
+         k/WoMZzRINoyvuv5O1MylM6B+hFIgQa0qLXKG8MAfvkXiqESg5R6EtwRBQ6igmxdTQRK
+         F5TB5wKz572GYGKHKxrhNyNYA7ZCdbav7eilNxBd1om5q0hH+cpQ7HvW7XuMUSFWpz9p
+         ol+fkKaKqwC6NHeOWCmIhTUkZ7wOuESMYu27NQLAHHNx6fFv5wFirJsa7jIOJXPvVses
+         h4Gg==
+X-Gm-Message-State: AFuF++nxPn9LMJyhVTFagxA4l1lP4P0V/eQ2Ko5dcMRIFQ5KfHrJcOHC
+	kbW59wfhX/Uo4gzGaxTCZzHKCYJIPzQMv61F6G2yohHdNEckKr8gnPW1jfXDGd1J
+X-Gm-Gg: AYBFou046UfneaqY8SgvXYHeg+8R4YxHcYG/tAU6klVC1/UmFLUy31IA19D43CrIgjZ
+	xouMy24NcvJL8qXbc1aqX3nREhcDw7jBw599oPgFguUuKUCmJ0w17EsqSyNk/7E2ff8gWxQ4qXC
+	UUxY8RUZbtd5RgmSQSOjcvMVYKWK+r8TB9VW5EDU+UyqAlv74GnfFtKCR8UE3Ep/kOsLYw3RrPK
+	EyUSgBoaQpjAz6dNA3UgN34cbYZzP0URIe7arAdhRRWXNQ4PK/nluUa+uvGDIqQV/tJuyH9Rfj3
+	IOMiyZroC8pzq9ypY1423peAjzcUCrdzAoa/JEcYWiE55VKP+gYk6BdNjnMRUwQw9+D8ZI6sPSN
+	TvdcuK8v+O7JgrLKKoA5GUQ6OWB4gV3E4G2aX4HxEItk1EJkp1a5E3YNsdX12ZJnq2wh/vmXWF3
+	1osPniZUEyDPsxG+/VW19WgDiTu9M3BrBrFZGQcjMm2EILxqy0yxYJp2Z9WHkXAEfcOxrF5qLnO
+	hhi/qW8iFPI3g==
+X-Received: by 2002:a17:90a:d00b:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-39bac471324mr930430a91.25.1788885384242;
+        Tue, 08 Sep 2026 09:36:24 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.135.143])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcd243sm34338089a91.5.2026.09.08.09.36.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:36:23 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Florian Mickler <florian@mickler.org>,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+477f9c41b0a7d90fb9cc@syzkaller.appspotmail.com
+Subject: [PATCH] media: vp702x: set up the state buffer before the adapter
+Date: Tue,  8 Sep 2026 22:05:52 +0530
+Message-ID: <20260908163552.1831-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource
- conflict quirk
-To: "D. Manresa" <dmanresa@gmail.com>, Lee Jones <lee@kernel.org>
-Cc: Thierry Chatard <tchatard@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Daniel Scally <dan.scally@ideasonboard.com>, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260831160754.9857-2-tchatard@gmail.com>
- <20260908161629.335223-1-dmanresa@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260908161629.335223-1-dmanresa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+vp702x_usb_probe() allocates st->buf and initializes st->buf_mutex only
+after dvb_usb_device_init() has returned.
+dvb_usb_device_init() calls dvb_usb_adapter_init() ->
+dvb_usb_adapter_dvb_init(), which invokes the props.read_mac_address
+callback. vp702x_read_mac_addr() therefore runs while the device state
+is still all zeroes from the kzalloc() in dvb_usb_init(), and locks a
+mutex that has never been initialized:
 
-On 8-Sep-26 18:16, D. Manresa wrote:
-> The Dell Latitude 7275 2-in-1 has the same BIOS bug as the Latitude 5285:
-> the ACPI GEXP device declares an OperationRegion (BAR0) on the GNVS
-> variable SB04 and the I2C4 controller (INT3446) builds its _CRS from that
-> same variable, so intel_lpss_acpi fails to bind the controller with
-> -EBUSY and the front camera sensor (OV5670, INT3479) is never registered
-> unless acpi_enforce_resources=lax is passed.
-> 
-> Add the machine to the DMI table so QUIRK_IGNORE_RESOURCE_CONFLICTS is
-> applied to INT3446 on it as well.
-> 
-> Assisted-by: Claude Code:claude-fable-5-1
-> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+	DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+	WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x947/0x1bd0 kernel/locking/mutex.c:821
+	Call Trace:
+	 <TASK>
+	 vp702x_read_mac_addr+0x51/0x130 drivers/media/usb/dvb-usb/vp702x.c:297
+	 dvb_usb_adapter_dvb_init+0x2dd/0x860 drivers/media/usb/dvb-usb/dvb-usb-dvb.c:165
+	 dvb_usb_adapter_init drivers/media/usb/dvb-usb/dvb-usb-init.c:86 [inline]
+	 dvb_usb_init drivers/media/usb/dvb-usb/dvb-usb-init.c:186 [inline]
+	 dvb_usb_device_init.cold+0xbd5/0x14bb drivers/media/usb/dvb-usb/dvb-usb-init.c:310
+	 vp702x_usb_probe+0x8d/0x210 drivers/media/usb/dvb-usb/vp702x.c:342
+	 usb_probe_interface+0x303/0x8f0 drivers/usb/core/driver.c:396
+	 </TASK>
 
-Thanks, patch looks good to me:
+Besides taking an uninitialized mutex, vp702x_read_mac_addr() also
+hands &buf[i - 6] to vp702x_usb_in_op() with st->buf still NULL.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+The dvb-usb core already has a hook for this: props.priv_init is called
+right after d->priv has been allocated and before any adapter is
+brought up, with props.priv_destroy as its counterpart. Move the buffer
+setup and teardown there, which reduces ->probe() and ->disconnect() to
+the plain core calls.
 
+priv_destroy() runs after dvb_usb_adapter_exit(), so no adapter can be
+using the buffer by then and the buf_mutex that used to be held across
+the kfree() in ->disconnect() is no longer needed.
 
-Regards,
+Fixes: 8ea793aa7361 ("[media] vp702x: use preallocated buffer")
+Reported-by: syzbot+477f9c41b0a7d90fb9cc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=477f9c41b0a7d90fb9cc
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+ drivers/media/usb/dvb-usb/vp702x.c | 50 +++++++++++++-----------------
+ 1 file changed, 22 insertions(+), 28 deletions(-)
 
-Hans
-
-
-
-> ---
-> Applies on top of "mfd: intel-lpss: add resource conflict quirk for Dell
-> Latitude 5285" from Thierry Chatard's v10 series [1]. Thierry, feel free
-> to fold this into v11 instead if you prefer.
-> 
-> The conflict was verified in the 7275 DSDT (BIOS 1.18.0): GEXP has
-> OperationRegion (BAR0, SystemMemory, SB04, 0x0208) and INT3446._CRS
-> returns LCRS (SMD4, SB04, SIR4). With acpi_enforce_resources=lax, which
-> has the same effect as the quirk, the controller binds and the camera
-> works with the board data from "platform/x86: int3472: Add TPS68470 board
-> data for Dell Latitude 7275" [2]. The distribution kernel here builds
-> intel-lpss-acpi in, so this exact patch has not been run yet.
-> 
-> [1] https://lore.kernel.org/linux-media/20260831160754.9857-2-tchatard@gmail.com/
-> [2] https://lore.kernel.org/platform-driver-x86/20260908161445.334910-1-dmanresa@gmail.com/
-> 
->  drivers/mfd/intel-lpss-acpi.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> --- a/drivers/mfd/intel-lpss-acpi.c
-> +++ b/drivers/mfd/intel-lpss-acpi.c
-> @@ -191,6 +191,12 @@ static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
->  			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
->  		},
->  	},
-> +	{
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 7275"),
-> +		},
-> +	},
->  	{ }
->  };
->  
+diff --git a/drivers/media/usb/dvb-usb/vp702x.c b/drivers/media/usb/dvb-usb/vp702x.c
+index 034b0652b9a1..5a7ca0b77a77 100644
+--- a/drivers/media/usb/dvb-usb/vp702x.c
++++ b/drivers/media/usb/dvb-usb/vp702x.c
+@@ -330,43 +330,35 @@ static int vp702x_frontend_attach(struct dvb_usb_adapter *adap)
+ 	return 0;
+ }
+ 
+-static struct dvb_usb_device_properties vp702x_properties;
+-
+-static int vp702x_usb_probe(struct usb_interface *intf,
+-		const struct usb_device_id *id)
++static int vp702x_priv_init(struct dvb_usb_device *d)
+ {
+-	struct dvb_usb_device *d;
+-	struct vp702x_device_state *st;
+-	int ret;
+-
+-	ret = dvb_usb_device_init(intf, &vp702x_properties,
+-				   THIS_MODULE, &d, adapter_nr);
+-	if (ret)
+-		goto out;
++	struct vp702x_device_state *st = d->priv;
+ 
+-	st = d->priv;
++	mutex_init(&st->buf_mutex);
+ 	st->buf_len = 16;
+ 	st->buf = kmalloc(st->buf_len, GFP_KERNEL);
+-	if (!st->buf) {
+-		ret = -ENOMEM;
+-		dvb_usb_device_exit(intf);
+-		goto out;
+-	}
+-	mutex_init(&st->buf_mutex);
+-
+-out:
+-	return ret;
++	if (!st->buf)
++		return -ENOMEM;
+ 
++	return 0;
+ }
+ 
+-static void vp702x_usb_disconnect(struct usb_interface *intf)
++static void vp702x_priv_destroy(struct dvb_usb_device *d)
+ {
+-	struct dvb_usb_device *d = usb_get_intfdata(intf);
+ 	struct vp702x_device_state *st = d->priv;
+-	mutex_lock(&st->buf_mutex);
++
+ 	kfree(st->buf);
+-	mutex_unlock(&st->buf_mutex);
+-	dvb_usb_device_exit(intf);
++	st->buf = NULL;
++	mutex_destroy(&st->buf_mutex);
++}
++
++static struct dvb_usb_device_properties vp702x_properties;
++
++static int vp702x_usb_probe(struct usb_interface *intf,
++			    const struct usb_device_id *id)
++{
++	return dvb_usb_device_init(intf, &vp702x_properties,
++				   THIS_MODULE, NULL, adapter_nr);
+ }
+ 
+ enum {
+@@ -390,6 +382,8 @@ static struct dvb_usb_device_properties vp702x_properties = {
+ 	.no_reconnect        = 1,
+ 
+ 	.size_of_priv     = sizeof(struct vp702x_device_state),
++	.priv_init        = vp702x_priv_init,
++	.priv_destroy     = vp702x_priv_destroy,
+ 
+ 	.num_adapters = 1,
+ 	.adapter = {
+@@ -443,7 +437,7 @@ static struct dvb_usb_device_properties vp702x_properties = {
+ static struct usb_driver vp702x_usb_driver = {
+ 	.name		= "dvb_usb_vp702x",
+ 	.probe		= vp702x_usb_probe,
+-	.disconnect	= vp702x_usb_disconnect,
++	.disconnect	= dvb_usb_device_exit,
+ 	.id_table	= vp702x_usb_table,
+ };
+ 
+-- 
+2.55.0.windows.5
 
