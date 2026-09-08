@@ -1,132 +1,157 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632D14028F2
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 08:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5DB3B42CC;
+	Tue,  8 Sep 2026 08:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788855810; cv=none; b=hihc5UWj3SuCQuYuB5o8SHgiLGW5kMX1aW1rVQccL6MKToNGngfZgDTiZAbv6aELClojsaPx6JGU+kYFvFMlfFfLY/Vp+BzbNLtkq0zL7R1DG5FqiSaVO47k3en53ffGafqY6PQYyP3eeC02WMkv3OZaUA/LHX1DD9oytQqt+P0=
+	t=1788856765; cv=none; b=e8mSOJuou3519BpfD6wgfXVxz+b6Mn3LHJslpTDXSS4oTTXMrQLxLCTQ0ioZ9karwwf9YGFqd+D+mcGst9alG2av93N8YDzRj/L/WF+KmfI/CjlKNkfPsiuUBhtWLVefFud/ZMW8HVkPN2ybrRLpz4Xz+wv3CsUqydJUFUEfmDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788855810; c=relaxed/simple;
-	bh=mlA0vIGGg7fbX+HVpBE8Wg4DzovyOe2aAyZcDsioO9M=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=JPhNk+ZZ8a/dkN8O9gLW5JnrA0G716mWefk8OMB5nmGR1/TXuMdFTrzCG1/Nbv90FKn0zOodC2l1Kej4gbpH3kBBQMFSJzlBQ2A9qEH6kld8DWGHPefxtu9dDSH+Jfv1nEGbnzqTDfUcPhHQj2NNFNMMH/oQFnHGAKRkoKbSLeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mzh70w3a; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788856765; c=relaxed/simple;
+	bh=slUWdnwq0XGj7f4s3OzgJoorkVnZmUKvVcYJXpe/QEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nQCNQFFwgMRxEOnGdDJ2xljv0a4UDsNamXzWK1f1/GoPRUVh0uEXw4xnsKYvMqi0DJxk1Y0u0wxeNF15D8ugkY2d/xE9oI7eFticlItkRWTFcJ852Pc1VFHogavWSEfQYczL1XROMpGPb4zsbEhmp6vgZlUSXDOubmzSk+3pBdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f31djqHM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mzh70w3a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788855808; x=1820391808;
-  h=date:from:to:cc:subject:message-id;
-  bh=mlA0vIGGg7fbX+HVpBE8Wg4DzovyOe2aAyZcDsioO9M=;
-  b=mzh70w3aAkyYCvQlwAS5Oj3tKhQLfm+pyQ8WrG3N+pUtjnTWagDL02Rr
-   5HUevTXVSUtCfbdQ4w4Mmtif8ieKKxxbunqK/ppqSMAxSZnoU+wczn03j
-   iX45x6PbiYYgJHPY76SrJWLHTUTenUglrujPRgib+WVaVkSVIqcckJ6gz
-   Tz4fmdBd3syPAdB8DAQTDJIPqavmCE4PlvLZQQkp8OdRQh8JUDc/auNsa
-   E2IVhkZv8HzslEXpg4S8uaQDYT73zACcSzLGdiitg70S3liQ/ixVI+Jsm
-   XFcW32n5J/Kskl1dhAhKo2n7w06kjZqNnXqwN+jaUTEfE79fs8Ui1n1G/
-   A==;
-X-CSE-ConnectionGUID: Bw2e3GGJQriFYsLTGTfAUg==
-X-CSE-MsgGUID: ImrBQtEiTquCn8T3Q3FTuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="106765521"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="106765521"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:23:27 -0700
-X-CSE-ConnectionGUID: /0OIy8PST5SFTVzCq2ftpg==
-X-CSE-MsgGUID: Zye/MMxDTcidmNfFjRYeRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="274450120"
-Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 08 Sep 2026 01:23:26 -0700
-Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x3r6y-000000001tB-2O4j;
-	Tue, 08 Sep 2026 08:23:24 +0000
-Date: Tue, 08 Sep 2026 16:22:42 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org
-Subject: [linuxtv-media-pending:fixes] BUILD SUCCESS
- 37bef2170d4c88fc3d708eecf3ef0f4032bc1372
-Message-ID: <202609081639.yuHdT0kG-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f31djqHM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C23A1F00A3A;
+	Tue,  8 Sep 2026 08:39:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788856760;
+	bh=slUWdnwq0XGj7f4s3OzgJoorkVnZmUKvVcYJXpe/QEA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f31djqHMq1zm0NH10E6jABNFN/XEtBtVUywkW/jJEx2y3vkNmMXh/1kd/Sjj72P04
+	 T6L92RsSr9CQrX66jc0wrPwHh6ZjVD5aSMaTpkb+Cxjgp9ZU6YrbkkYXhDrOYryDaO
+	 ZTgU5gp6BdSkoU54QhSCWPpRXJjEqeQ7gFPhqonFR9QaQp7K9wC3t0y6YPinAZxwQV
+	 h+w9nS9hTC4LwZO/38s9ryPJzCgNR+G1JO/Mul0cHse249ia1+soSZnoBYdeQ4kY0m
+	 HeH3O938M7uXInW4K+dnzPNL73PzwIIfEEPV3T8JCftA19ij/TKmEUEYsg1ScglZFI
+	 YJglKg/Ofvcpw==
+Date: Tue, 8 Sep 2026 10:39:17 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, vdonnefort@google.com
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <ap_HzwVp-6aOKEbJ@orome>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <apquUWgrD9C2jWQ0@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="a5apqptzjdcu2eq7"
+Content-Disposition: inline
+In-Reply-To: <apquUWgrD9C2jWQ0@willie-the-truck>
 
-tree/branch: https://git.linuxtv.org/media-ci/media-pending.git fixes
-branch HEAD: 37bef2170d4c88fc3d708eecf3ef0f4032bc1372  media: mediatek: vcodec: bound AV1 tile-start copy to the array capacity
 
-elapsed time: 1406m
+--a5apqptzjdcu2eq7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
 
-configs tested: 55
-configs skipped: 0
+On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
+> Hi Thierry,
+>=20
+> On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
+> > This series adds support for the video protection region (VPR) used on
+> > Tegra SoC devices. It's a special region of memory that is protected
+> > from accesses by the CPU and used to store DRM protected content (both
+> > decrypted stream data as well as decoded video frames).
+> >=20
+> > Patches 1 through 3 add DT binding documentation for the VPR and add the
+> > VPR to the list of memory-region items for display, host1x and NVDEC.
+> >=20
+> > The set_direct_map_*_noflush() functions that will be used later in this
+> > series are exported in patch 4 so that the drivers that use them can be
+> > built as a module.
+> >=20
+> > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
+> > but works on sizes that are not a power of two.
+> >=20
+> > The of_node_to_nid() function is exported in patch 6 because it is used
+> > in a later patch adding a driver that can be built as a module.
+> >=20
+> > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
+> > allow memory to be allocated at a fixed offset within a CMA area. Tegra
+> > VPR needs this in order to implement its own allocator on top of CMA to
+> > meet the strict hardware requirements. This replaces the dynamic CMA
+> > area creation patch from earlier versions.
+>=20
+> Did you get a chance to see how this could work with Vincent's series:
+>=20
+> https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
+>=20
+> ? I think that should remove your reliance on can_set_direct_map() and
+> mean that you can retain block mappings for most of the linear mapping.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+I'm not sure if it would help all that much. Yes, if we mark the VPR
+region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
+the checks for can_set_direct_map() redundant. However, from what I can
+tell, Vincent's series still forces page-granularity on these regions,
+so it won't retain block mappings at all for them.
 
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc          allmodconfig    clang-24
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arm           allnoconfig    gcc-16.1.0
-arm          allyesconfig    clang-24
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-m68k         allyesconfig    clang-24
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips         allmodconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    clang-20
-openrisc      allnoconfig    clang-24
-parisc       allmodconfig    gcc-16.1.0
-parisc        allnoconfig    clang-24
-parisc       allyesconfig    clang-17
-powerpc      allmodconfig    gcc-16.1.0
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-riscv        allyesconfig    clang-24
-s390         allmodconfig    clang-17
-s390          allnoconfig    clang-24
-s390         allyesconfig    gcc-16.1.0
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sh           allyesconfig    clang-17
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um           allmodconfig    clang-17
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    clang-20
+The block mappings can be retained for the non-VPR memory, so that's
+nice. It also reduces the amount of external prerequisites, but I had
+kind of hoped that we could go one step further and keep block mappings
+even for the VPR memory if the region happened to be a multiple of the
+block size.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The recent addition of page count to the set_direct_map_*() functions
+helps reduce the amount of checks that need to be run, so maybe there's
+not too much to be gained from removing whole block mappings at once
+=66rom the linear map.
+
+Thierry
+
+--a5apqptzjdcu2eq7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqfybIACgkQ3SOs138+
+s6HeMBAAuLF8s85+tHae/nBOh6j4pUVcjE5KyexYHpAnHyj8HIuDuERbHercMMPe
+CyLnvqYhkNgu1LmEjo9O0OVzGEe65BJoHkdgmXMTyFLQ/9NGtdvaaTCabe99iBCm
+1BGL8d0KtegUlzTJLntnV+ubRKhLjZthpMxxjuThV2TJaFTQXtS4kcaldKUTw73o
+k9bbvnuX2PsQCVZTL+aAKsRtvXHT011GzCwlfufuRnkX1kJ7vXidndwdsMOFoIJm
+lThSDnPii6F/bJc74o9ztJlObQ8gjs/6hzMjrFu9FVFoMa0sucCfM6d+q6wOw/QF
+nS7Gtk7mV9RgQ2PkT6o+Umw0l1Nnwd5R5XGKo+vuVb8hCy6hmTe1jPkIy0PyFyan
+k54nErXH09l91YA06FpSI4HmeoCYUk4cUU/hKlKYVbE+7DrP7GLNBgEl//Xm5zfB
+do1TCokmrQMoFu3UniXLhSmKJMZOuvW23cj5FVP81q3t3cJxvONGp7hvXMyAz5Yy
+tx3HYQn+1z1GuPrmlI/PQ7bCz2ZHhepUHPcP6fx3qQoEcECZr23Ud1xVA1xrxNKS
+AfvLgsWqAZnG0bTq0hOp2xW38FlPOEB/Gn0A3ux9viOHbMyVuOHqET3wahXk3XgN
+OkCpZ+OS8PyANuhW2WySDdpC1HnKIgfn0ghFX2BlmOZ86qZ1LTg=
+=5HqX
+-----END PGP SIGNATURE-----
+
+--a5apqptzjdcu2eq7--
