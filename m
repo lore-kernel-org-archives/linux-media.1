@@ -1,58 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5DF576EA8;
-	Tue,  8 Sep 2026 15:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A29572684;
+	Tue,  8 Sep 2026 15:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882863; cv=none; b=ImWkv1/5raEuDQgl7QK8VIC+wgqdyAlrVSHAzdrw9R86/Hnj532r4NWWSyB9zoWQAdsWakQnTIC3WuhD8kUWezEEsqJ3HxGqT9pGB9a7yTmHF0i7K1IBWnUt+uHZWXhYn4EaAqqk30J3Y7GyStCNuxgjZS7NRGkCh1X++0ii/x4=
+	t=1788882865; cv=none; b=QVVT7fd77gYPARbWcNf/7y1ENg7z2s3NBeANf3awwFF4Bj/NYO8U+8MRcs6zvQ2RTjOzSQ9jwVv7+7xXbL3qlVGnAsMPOojT7oo7sMTaohQY3CV7p/EO5Vr7vYVnw6M6MhIE5keJpMwyS1gbyTzIb41K9S/fRj+f0fMgFW/7HMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882863; c=relaxed/simple;
-	bh=dgS6qoOZxZot5S+8F5Q1R8+ZsKap0Nd0zhfEpH0rzDE=;
+	s=arc-20240116; t=1788882865; c=relaxed/simple;
+	bh=SxaPL4XstZMEZjVU7YnvoXUJ4ineiUUF0ILSxILu2I8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eBYDpK0ila+TdplchRKBhjtP3Z4FeGg3xmxNoFZLrp91Hf3+Lx7P9HWwVMsAEsbZJ1g+MgQw7pQNPYdHW/l7RtjjyxQ64xHpxtH49rdcn1/glknBmg5m+imb3Dd7X+bVq7H6OXIMbYifsC35dHb8hmahwjtg38QbwcIgIxPeQ4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=iqKtwDZM; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=hXk+AOFD; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=J2brNdnqWt6HNIamA0tYFMc8dVetKRCQXD0sRMb+oscN4wbCm7aPgIdo1Nwrl+9PTjvKCWYDQHwSy0TTWPVVYMYZH4GrlOi1bQ/vcN714IdWYIMu+xe2ElG2nxmMn0DOqay2ElmUCraLoLti3rfIl9DudBur8Cg074xbc+B/8Ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=jK4p1H4s; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Ta2C+skR; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="iqKtwDZM";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="hXk+AOFD"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="jK4p1H4s";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Ta2C+skR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788882855; bh=dgS6qoOZxZot5S+8F5Q1R8+ZsKap0Nd0zhfEpH0rzDE=;
+	t=1788882858; bh=SxaPL4XstZMEZjVU7YnvoXUJ4ineiUUF0ILSxILu2I8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iqKtwDZMb5nueZePcDRgUezxNArwv+Nodq0xI3YoETFQqsUDifkKkYUb5+McnO1vD
-	 APN8yiybYX+cBhBbKmKR8Ut6PJhW90++sUEolN9s2LGL9pNUl1DsTAgfyydJRZZrqu
-	 DCdw01jP7yGB1QisOqJnrWVEoI6hQEFtqNgvhEBjOearkZEDNvL2nXTY1H3Wumf8dy
-	 /88g2Cdyn1nM5Es1WLpdgohnq9VBcPAtqI6pnO3qNJu7dVHvDa4zfeB8ZMVsYffQg4
-	 Y5rNUnbKEIi+cPPaSHHV3PZvGDcJwiUq8Dyn76nRaAO0r1sbGM1xgPz02qjkp4W1vL
-	 mphGj3Oi4Jo0w==
+	b=jK4p1H4spIlPZQjjo9gD9eYAnH7vNJAHpBa7D3YIiP9e5dSs7NNj0D0b+flPQJ1mB
+	 bqYQWmSiKZltMNpEKkuYjoH+TDv6Z2W9DyPMMNvVFIHvviWVoyTe103DPud01hwQUt
+	 phAqq/WpWnGp5OROj8IhaL2W26JMrNtiV7QRB890P7YgHVfMikjMykjV42Yo/2Al/Y
+	 yIrC5ydYzGMmEemdXCTxHLNpljwykNqG0lW+eAD6a8hVqI0qA7m/77UDuNrGTqLbji
+	 flTRygYTEzRzM5q4MNWH6Odkl77Gd5BYrt8EGEkeMY0SzUZaq/B1ByNGWqCfrQi2x2
+	 Skl8P+iKPgYQA==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 2BB6441470; Tue, 08 Sep 2026 16:54:15 +0100 (BST)
+	id 597D94144B; Tue, 08 Sep 2026 16:54:18 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788882854; bh=dgS6qoOZxZot5S+8F5Q1R8+ZsKap0Nd0zhfEpH0rzDE=;
+	t=1788882857; bh=SxaPL4XstZMEZjVU7YnvoXUJ4ineiUUF0ILSxILu2I8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hXk+AOFDbwiBIQRfbgRyyBj3sDrpZw/LwtoEBbKvIF3/jpUll6XKUIrNzmIWWUxbt
-	 JV3vUzR9WX8/ExKv0/y6nSWnIYxmodkDEsrggu20CRoYsGz1JTiJtDh5P2l6cvtvfl
-	 xsQLfHYU6iTV6uaUOAMpriC3l3wLVNcYyUVYNAWuSPIlWomPRx/dthrl8aET2BKP57
-	 y6imFEqLMCb9CwywtGJTC9jHf0Mpky0WXqYnpF2gAlM8n7jQNaIs4ppdIkhZWKzxv8
-	 DlkaFlzLDZZ0QHvPlwEZ6KLPVqKOchWjeeXKIYQ0HNKRh7dkteB5p8hlVUAfdD8WXK
-	 08rktmXm9xmJw==
+	b=Ta2C+skRIFtswO1WofKQ7hNp48VCLI4of10KIimfIlFdhDjsFbi4IcHtSWMr3Uqwv
+	 Q0e0uWx9KVGZ6BKV+U/2kGhtwdN7DWAuqzmAJcR0Y8K9zVwHTbsn7132wVm8J98usq
+	 AaN70QXoe53JbUMR+QkNM+oCRYFTpI9EYdTxazViRv7ypx89THfj2MCvP7Ojkubheq
+	 7xMFPTSFb+CWSpVfndOPDhrKkj25IQFgGOItQzH6Dk1tp6rdUVDgkpMzL9REG6BWiF
+	 qRV4v09wwmybHxyfwxwd6MAZk4R5SJGi42Js5/RkokWSXjvJ+oCHUqj90/XhAv1VPq
+	 cLTGgRDrEiCBw==
 Received: from maru.home (host86-150-50-53.range86-150.btcentralplus.com [86.150.50.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 757574146D;
-	Tue, 08 Sep 2026 16:54:14 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id C1F1441448;
+	Tue, 08 Sep 2026 16:54:17 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 12/19] media: ite-cir: Removed unused struct field
-Date: Tue,  8 Sep 2026 16:52:00 +0100
-Message-ID: <2aae6ba38e123c8a4c55184530d00aca22e578f8.1788882189.git.sean@mess.org>
+Subject: [PATCH v4 17/19] media: rc: Validate carrier range in LIRC_SET_REC_CARRIER ioctl
+Date: Tue,  8 Sep 2026 16:52:05 +0100
+Message-ID: <ad2b4f1d16820bd6229232bfc9260556e7d18054.1788882189.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788882189.git.sean@mess.org>
 References: <cover.1788882189.git.sean@mess.org>
@@ -64,38 +64,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Never assigned or read.
+Ensure that the low value of the carrier range is smaller than the
+high value. This fixes an underflow in ite_set_rx_carrier_range().
 
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/ite-cir.c | 1 -
- drivers/media/rc/ite-cir.h | 1 -
- 2 files changed, 2 deletions(-)
+ drivers/media/rc/lirc_dev.c    | 2 ++
+ drivers/media/rc/rc-loopback.c | 5 -----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/rc/ite-cir.c b/drivers/media/rc/ite-cir.c
-index 1fbafcd8219e..d0e98095d1b6 100644
---- a/drivers/media/rc/ite-cir.c
-+++ b/drivers/media/rc/ite-cir.c
-@@ -1359,7 +1359,6 @@ static int ite_probe(struct pnp_dev *pdev, const struct pnp_device_id
+diff --git a/drivers/media/rc/lirc_dev.c b/drivers/media/rc/lirc_dev.c
+index 183f1939b941..d9b6ecca563f 100644
+--- a/drivers/media/rc/lirc_dev.c
++++ b/drivers/media/rc/lirc_dev.c
+@@ -492,6 +492,8 @@ static long lirc_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 			ret = -ENOTTY;
+ 		else if (val <= 0)
+ 			ret = -EINVAL;
++		else if (fh->carrier_low && fh->carrier_low > val)
++			ret = -EINVAL;
+ 		else
+ 			ret = dev->s_rx_carrier_range(dev, fh->carrier_low,
+ 						      val);
+diff --git a/drivers/media/rc/rc-loopback.c b/drivers/media/rc/rc-loopback.c
+index 53d0540717b3..9d56e77c9351 100644
+--- a/drivers/media/rc/rc-loopback.c
++++ b/drivers/media/rc/rc-loopback.c
+@@ -74,11 +74,6 @@ static int loop_set_rx_carrier_range(struct rc_dev *dev, u32 min, u32 max)
+ {
+ 	struct loopback_dev *lodev = dev->priv;
  
- 	/* set driver data into the pnp device */
- 	pnp_set_drvdata(pdev, itdev);
--	itdev->pdev = pdev;
- 
- 	/* initialize waitqueues for transmission */
- 	init_waitqueue_head(&itdev->tx_queue);
-diff --git a/drivers/media/rc/ite-cir.h b/drivers/media/rc/ite-cir.h
-index 4b4294d77555..a8382aa9dc35 100644
---- a/drivers/media/rc/ite-cir.h
-+++ b/drivers/media/rc/ite-cir.h
-@@ -76,7 +76,6 @@ struct ite_dev_params {
- 
- /* ITE CIR device structure */
- struct ite_dev {
--	struct pnp_dev *pdev;
- 	struct rc_dev *rdev;
- 
- 	/* sync data */
+-	if (min < 1 || min > max) {
+-		dev_dbg(&dev->dev, "invalid rx carrier range %u to %u\n", min, max);
+-		return -EINVAL;
+-	}
+-
+ 	dev_dbg(&dev->dev, "setting rx carrier range %u to %u\n", min, max);
+ 	lodev->rxcarriermin = min;
+ 	lodev->rxcarriermax = max;
 -- 
 2.55.0
 
