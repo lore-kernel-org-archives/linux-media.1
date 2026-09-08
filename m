@@ -1,73 +1,65 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052DF4F7991;
-	Tue,  8 Sep 2026 10:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F57B4A0149;
+	Tue,  8 Sep 2026 10:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862258; cv=none; b=X+HYkNiIUehxnGclUqrj6LgLlA9+j90a1Yyj9Hxk87scSLs5pBb3VwsYFYStSbitBaDVGm111qzB68UAkMRdOj6mOG49PceTz8k6mnuAh74Kr423drGV7cvMuUUuz36T4ZFvgsZ3GL69KqfSeFsatgHMJ1JBQfNCqGqgyBaDkuI=
+	t=1788862476; cv=none; b=OTkxl5XAUAWGORWffPcwxKUwMH2+Blxst3WaQexzyANCwAqe5zvdauwh0b0A0L6wVL9+c2Fjgv0Ck5KJ0g9h/FMqjsybL+x9K7gpXS6uI8z1FnAet2zCTs9wYuHkJSLeIjxqp5DTwG8GIE2HWH/8Ji4IvqcTQBuZhR4I5OJYPeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862258; c=relaxed/simple;
-	bh=qKnx0D28Jj6C3klzzYcvkc/kMUsORdfaOz83p13SD10=;
+	s=arc-20240116; t=1788862476; c=relaxed/simple;
+	bh=VYi2TCEjycmy2/DrEcEyOVcfD2V+FfYWuaXq56bSXmw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P8RrBjwfHpZL194sRsy4n0YCDREK4WAp6hBEMbHnYE8zcF4/6cMCCP+o0DKH03K+7y0CJq9oC1E+5gDdWdvOdOuatO5hLUoRcVcax07CnQ9aY3Oe3RgOm+cCgvOm0vc0nyPcIH4nFk9dYxg0aXbl1pg/ijk9EcC+DqG7kxRoGps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lBdlO5jd; arc=none smtp.client-ip=192.198.163.11
+	 Content-Type:Content-Disposition:In-Reply-To; b=mktFQ/kRT1fM9u3XzZRwOS+PLov2EugfcGZLDCSzwa95UeE9G5mcclTKE+kRXOz9SOy0+1qcu783X3n9pKc9AihqhPjMJiJG52ib3nNIZj3ps36QnKzm5nGyrLJhYzeYG3xFn6U2LRALEfv54iz5FS02xVOUjx3C0Nc/rRq3ET4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J9ZX/YRw; arc=none smtp.client-ip=192.198.163.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lBdlO5jd"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J9ZX/YRw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788862256; x=1820398256;
+  t=1788862474; x=1820398474;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=qKnx0D28Jj6C3klzzYcvkc/kMUsORdfaOz83p13SD10=;
-  b=lBdlO5jdAlQrj+HtBDl6V5T2+L7Z1jSP+/zJNngCahJIwgxjq+lW9cLW
-   wcCtFOchDynUQhLGEairBBZ/21AQrA4Aedkdle1WfAmjYWJ750CxYIopt
-   lz/xjV8PaCK55EPqmmZ2eI0vY1pKIN0D1gloKe8M2h4R8UWktam9sPkjD
-   0q7MvGsyoVY22HOzwPUctl0mu0iEaXsy9iUaLU1AcTwQ6WjO9kH7g0ETo
-   SGCfE4uz5qcYxmKqGeMvMHc/fJTlNfvcolJ/OmgC5ed71BTEoKHQfiKox
-   D4GXKZl8iVJzuHxLTivGEb7+QvsaIl2PdL/3Wk85rexKPIvrXgyK6Nfps
-   g==;
-X-CSE-ConnectionGUID: DUsx6htURR2ibdz84vpz7A==
-X-CSE-MsgGUID: s0uqgzISRM+L0+4AmMFKhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99853768"
+  bh=VYi2TCEjycmy2/DrEcEyOVcfD2V+FfYWuaXq56bSXmw=;
+  b=J9ZX/YRw79GQTR7i6rBRSxlLxSKklSyofmscz8/f11Vk4wOFZ9ypu/c5
+   s9SDl0CMe1RH/4cMb1Gg+8rXWH2n9Rs/1moF0QnWRhMEJyTuC8O4bL6I2
+   ldEpEpEySXY6pmOQt21UAABpYAJiOBoYpa4LFyE/O6Zr6eih/o/YJVE/w
+   HgU++R2NvTIj0+CiB1S66Lu/Wec6fC3PNTM4zXQmRfqgfgyI4zA+Ow7Eo
+   l7X1gUgI3NSMVhouuM/zSiLn4WJC5MqhbBqKk22YAZQRV+IREOvNnio3j
+   fFOwKpFPPwxtnVSytvOoiRAIAkXt50vqglYkysiZ2UFEVrk26VnOv67k3
+   Q==;
+X-CSE-ConnectionGUID: lxfX4UlmT6WuYWeGgwcOuw==
+X-CSE-MsgGUID: i2K76ZxqSG2xxjlNhFS9xA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89277957"
 X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="99853768"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:10:53 -0700
-X-CSE-ConnectionGUID: es+f+PFKRCytO+bPMOawrA==
-X-CSE-MsgGUID: MJYa/lB2Rpese1QSksVqvw==
+   d="scan'208";a="89277957"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:14:33 -0700
+X-CSE-ConnectionGUID: 4VZ6Rsk9TcOBvPakOF5K1A==
+X-CSE-MsgGUID: rW04QBUTRmu+82MkdiYQKA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="274472907"
+   d="scan'208";a="269627931"
 Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:10:51 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:14:31 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 8CB4411F7F5;
-	Tue, 08 Sep 2026 13:10:52 +0300 (EEST)
-Date: Tue, 8 Sep 2026 13:10:52 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B769311F7F5;
+	Tue, 08 Sep 2026 13:14:32 +0300 (EEST)
+Date: Tue, 8 Sep 2026 13:14:32 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+To: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+Cc: hverkuil+cisco@kernel.org, mehdi.djait@linux.intel.com,
+	u.kleine-koenig@baylibre.com, laurent.pinchart@ideasonboard.com,
+	jacopo@jmondi.org, p.zabel@pengutronix.de,
+	ezequiel@vanguardiasur.com.ar, mchehab+samsung@kernel.org,
+	festevam@gmail.com, linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ap_fLLHSEmw0J8yN@kekkonen.localdomain>
-References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
- <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
- <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
- <ap5n7OyZrI0KzzN-@zed>
- <ap-1tDtGCWGc9Hvs@zed>
- <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
- <ap_TUa3D0-ZGnrXy@zed>
+Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
+ init sequence
+Message-ID: <ap_gCH1AnciFIEoa@kekkonen.localdomain>
+References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -76,93 +68,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ap_TUa3D0-ZGnrXy@zed>
+In-Reply-To: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
 
-Hi Jacopo,
+Hi Xiaolei,
 
-On Tue, Sep 08, 2026 at 11:21:51AM +0200, Jacopo Mondi wrote:
-> Hi Sakari
+On Wed, Aug 26, 2026 at 08:54:32AM +0000, Xiaolei Wang wrote:
+> On the RK3576 platform, after ov5645_global_init_setting completes and
+> before stream on, the CSI host reports a high rate of CRC errors:
 > 
-> On Tue, Sep 08, 2026 at 11:12:45AM +0300, Sakari Ailus wrote:
-> > On Tue, Sep 08, 2026 at 09:17:15AM +0200, Jacopo Mondi wrote:
-> > > Hi Sakari
-> > >
-> > > On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
-> > > > Hi Sakari, thanks for the review
-> > > >
-> > >
-> > > [snip]
-> > >
-> > > > > > +
-> > > > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
-> > > > > > +{
-> > > > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> > > > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
-> > > > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> > > > > > +	};
-> > > > > > +
-> > > > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > > > > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
-> > > > > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
-> > > > >
-> > > > > Don't mask error codes! Just return the error code returned by
-> > > > > v4l2_fwnode_endpoint_alloc_parse().
-> > > > >
-> > > >
-> > > > With PTR_ERR() I presume
-> > > >
-> > > > > > +
-> > > > > > +	/*
-> > > > > > +	 * Link frequencies: the driver supports a single link frequency,
-> > > > > > +	 * no need to check bitmap after this call.
-> > > > > > +	 */
-> > > > > > +	if (v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
-> > > > > > +				     ep_cfg.nr_of_link_frequencies,
-> > > > > > +				     mira016_link_freqs,
-> > > > > > +				     ARRAY_SIZE(mira016_link_freqs),
-> > > > > > +				     &mira016->link_freq_bitmap)) {
-> > > > >
-> > > > > Ditto.
-> > > > >
-> > > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > > > > > +		return -EINVAL;
-> > > > > > +	}
-> > > > > > +
-> > > > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
-> > > > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
-> > > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > > > >
-> > > > > Instead of callind v4l2_fwnode_endpoint_free() here and above, I'd add a
-> > > > > label for error handling.
-> > > > >
-> > > >
-> > > > ack
-> > >
-> > > I'll actually backtrack on this.
-> > >
-> > > Sashiko pointed out that mixing gotos and cleanups is probably not a good idea
-> > > and this time, the bot is right.
-> >
-> > I'm not quite sure what you mean. The general practice is that if error
-> > handling is trivial and there's only a single location to unwind something,
-> > you should do it on the site. In more complex cases use labels and gotos.
-> > That's what we have here. (There are of course more complicated cases where
-> > it's not that simple, but this isn't what we're discussing here.)
+>   MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
 > 
-> include/linux/cleanup.h
+> These errors occur exclusively in the window between init completion and
+> stream on. Once preview starts and the sensor outputs valid HS data, no
+> further CRC errors are observed.
 > 
->  * Lastly, given that the benefit of cleanup helpers is removal of
->  * "goto", and that the "goto" statement can jump between scopes, the
->  * expectation is that usage of "goto" and cleanup helpers is never
->  * mixed in the same function. I.e. for a given routine, convert all
->  * resources that need a "goto" cleanup to scope-based cleanup, or
->  * convert none of them.
+> Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
+> the power sequence to properly enter LP-11 during power-up. As part of
+> this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
+> with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
+> 0x02) from init through to s_stream. Reverting this commit resolves the
+> CRC errors, confirming it as the triggering change.
 > 
-> I take it as "do not mix gotos and cleanups"
+> Restore the power-down state after init by appending { 0x3008, 0x42 } to
+> the end of ov5645_global_init_setting[]. This powers down the sensor core
+> after MIPI configuration is complete, while keeping the MIPI PHY active in
+> LP-11. The sensor is then woken up only at s_stream time.
 > 
-> As the 2 cleanup paths are trivial, I would rather do not mix the two.
+> This preserves all LP-11 compliance improvements from
+> commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
+> eliminating the CRC errors on RK3576.
+> 
+> Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
+> Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+> ---
+>  drivers/media/i2c/ov5645.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
+> index c772ef6e51d2..be85e0155b81 100644
+> --- a/drivers/media/i2c/ov5645.c
+> +++ b/drivers/media/i2c/ov5645.c
+> @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
+>  	{ 0x3008, 0x02 },
+>  	{ OV5645_IO_MIPI_CTRL00, 0x40 },
+>  	{ OV5645_MIPI_CTRL00, 0x24 },
+> -	{ OV5645_PAD_OUTPUT00, 0x70 }
+> +	{ OV5645_PAD_OUTPUT00, 0x70 },
+> +	{ 0x3008, 0x42 }
 
-I don't recall asking for that.
+Is the earlier write of 0x3008 still appropriate?
+
+>  };
+>  
+>  static const struct reg_value ov5645_setting_sxga[] = {
 
 -- 
 Sakari Ailus
