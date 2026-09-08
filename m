@@ -1,376 +1,296 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021094.outbound.protection.outlook.com [40.107.51.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800F352B1F3;
-	Tue,  8 Sep 2026 11:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866565; cv=none; b=PKjlC19AX3qtNXOOzty0VagTfOxHi+mhQ8Aocd+pZJn9xbO1NzHE//3nYuThyYR85gEuyjbnwbb3lf/J4ApthODbjkKm95l2vyCpiakJXbZsx9XldJ2hoEn3I4aWFlkn9zs4AgeGCLop64b6Hu3kjYaTLRX0RDwEmwA24RUsFxk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866565; c=relaxed/simple;
-	bh=BcdxrgY//V/WdeUxNv6cA5tw/mDVQ/h7jimPEduMHOQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ciLuydIMBo+UnV5vWJFxXNWFyCIzMlBH9bXJA8eHBC2QV+Ot8c93m/4h7Tazl6Y9SINOGv756vVnoC5gqPYOchRgEUVfXDiVKIQLyeN7XVkoDSSA+rvgUeZdhQQwDlcFhZwuT+D1bYJooU6+ZqwXZUmz+D/+QVtvXfXKCiXIqxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HopNdFno; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7ED02749DA;
+	Tue,  8 Sep 2026 11:43:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788867793; cv=fail; b=ErDVG6kI+FzgTaEsR3EDPy1CuS7LpSFxbE5vZEKRNkBIgpa+ketT+7V+fcfMcelawNr4N74rzC6hAi1q6KlhSEuYPPFhoI1PIhJhrpgA2eMnONJIhwjTLsx0DWRlQT7WVXP/sEEwkcfr/w6LkuCgauMF2l6KU77G+9ZGFeu4kKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788867793; c=relaxed/simple;
+	bh=12ghz8MxSkAY5RRKjNNI3sY7o20q/Br2/jTo4VBbcvo=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=YefrJT2IXOj/9+rKFJcSvJSi2IEhj/krgsuUXWYZo2cgqynWZj79q7Nfp1UHv50G7hHYjbG84SdMJc1erjPE/NPrsmEeqmc/V0rL+/aTrv9K4zOZNZhJj6UHguQRxb1J4txnEsZ2nsVzfh6FIqF2N6AD5h4tb6hB3+QdjAOkNyk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=bLhlguS5 reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HopNdFno"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788866558; x=1820402558;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BcdxrgY//V/WdeUxNv6cA5tw/mDVQ/h7jimPEduMHOQ=;
-  b=HopNdFnocCGYkGYDSl9jYGX6QIeQM/Unqrf27QiDIOf3OPY4GKr1PScF
-   G25WZ1yuMMJUfou4UhVzAA0Yp3Rf8ysLgexJm5fcdFdz9OI9mzzDB+cl0
-   qBd4VIZnFKJgQrwasYwoezk+GZPSDbbvBbchPDl1OAFBddDZELCF3KQBN
-   lM9z8dMtNBhESdpuHe8TqmGF0VW2gEVx0Xe7HRuatiNzH9tYkJjR/jJDi
-   i8pDvah+P7C7QX/cpFS4VMlJS/vIcsQ/iy2CJEoBroxrudsrHx+VYII8E
-   Ry3rJDlwNZ80Na/6SWLVZCsV41PQKqTO2zYdXT/3l3VF3gXjp+ZNfdnrF
-   Q==;
-X-CSE-ConnectionGUID: U1Fw++FzTOqQONOvCtzCOw==
-X-CSE-MsgGUID: WZxXzazrSm6oqr6V5Vd5Sw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="88415373"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="88415373"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:22:32 -0700
-X-CSE-ConnectionGUID: +vo7IbCHR0iK5ixqVGPeiA==
-X-CSE-MsgGUID: DAm55W9zRPm5JBvJ7IrZug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="267718984"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:22:29 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 08FCE11F7F5;
-	Tue, 08 Sep 2026 14:22:32 +0300 (EEST)
-Date: Tue, 8 Sep 2026 14:22:31 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="bLhlguS5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p/8Ms3kPwkxHicyAqip0TXe2wqmEAeOv89p9WQOT18BDY2Yi4pam3tutfcA3AW/UQFp8xbq3j97jB+loKlQq9bSGj8io9R8Nn3iEC0rnAu3ZjIGG3dDznbI7EulwjMz0PGZ1SQ5fN+wlGOzMznHIoDUCvVltrB+08Y54RFSUNkdtD+iuscgvme2bXEnTDqJl5rzwZskeSQwx5R/iK4HqA5XECjneRWq+pdpUKDBYIUGp9mC7gqOa2zHtbi82QSeg3Zb+qrww5H2w82Zja448UF72ggh9MIFIB+lCRi1FbZwW9VAJhFQJ+6ufFihAODkylPLbDbKbkG3kJM7RJ9fS/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wB56dF9QPr1X9hdvHbkvgKcP4sdl1ivb+A7vRBr+Wes=;
+ b=OmQEFhF7cEaR5JhEC8aiYczIO3+zrT19igpD1GBa6c/cpAhrscCiuK9Abr3+j9fcV8a0lxtSbC/j1w7qwhHySTKpBRyqsrPtdorKvvZcsJq+TTZQ/LgoFnAGNmH8h8F06ZDKjdOD33etn5vAj+jXCaqMm1GtVYH8q3iCILDZuPC3VT3/R718QhpSTmLRYV0Uv62vPKY5LUToH1Wyjfp2Ed5nSl/V+YsDvkmkDOqrXWEaKkod78rKDzMGvnrhriKRfefmSfGrIHt2JqWz3yLnZXZywkVhqhA2WDcYsL8cyVethRs19xFzLUS+UQE5vADK4Lo6Ss2+tQhF7vvI+I/eCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wB56dF9QPr1X9hdvHbkvgKcP4sdl1ivb+A7vRBr+Wes=;
+ b=bLhlguS5ndA0dx69HCugusD6MQYN5xoaGY6QiYMPB0aymFvBuzteuF/FvLrL3iuBrPetHcwFn2Ro3BByimD/GPMiBMK+23pcc5cCBeK75xNKz2LyuaHN6zoXwgdaJWdmfEeeJvIUkr5WHYK0Ff5vUeS41b6Qu1+otgvInlh+9iOtK2NExk+jp2IGNiChZaAjcsEfveIZMNUuPyaEYkw9cSFiRosJsRmQGuK63JYdb29A5rMjkZKOcvoHsmrcYNTUfbOYuBqvE3lYZnyf1b6JR7mMTiMGLlEzlgYJ/FVhS5TQYEryolTwpRPpx6gr3blZm63bUymOrA/kkfNjQI99Rw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
+ by PN2PPFBA0397B73.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::147) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
+ 11:43:00 +0000
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167%7]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 11:43:00 +0000
+From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+To: sakari.ailus@linux.intel.com
+Cc: tarang.raval@siliconsignals.io,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/4] media: i2c: og0ve1b: Introduce per-sensor data
- structure
-Message-ID: <ap_v94pUrTo1C1Go@kekkonen.localdomain>
-References: <20260901-og0va1b-v6-0-a05b2d04c892@oss.qualcomm.com>
- <20260901-og0va1b-v6-3-a05b2d04c892@oss.qualcomm.com>
+Subject: [RESEND PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Date: Tue,  8 Sep 2026 17:12:26 +0530
+Message-Id: <20260908114235.86568-1-elgin.perumbilly@siliconsignals.io>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN5PR01CA0023.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25e::10) To MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:11e::14)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-og0va1b-v6-3-a05b2d04c892@oss.qualcomm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MA0P287MB2178:EE_|PN2PPFBA0397B73:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94e8b8b2-207a-4a8b-044b-08df0d9e55c9
+X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|52116014|376014|23010399003|366016|1800799024|38350700014|6133799003|3023799007|10067099003|56012099006|5023799004|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ Y4Hk7/H9HpKpCY3MVnliVwl+vYxpokM41mNa8qH2RVGSQJC0J+xzjICB3NyQTcLo/0UXYgIL1pGrYyGByrdk0Ee8p4Ytr+Wq/Fuy9pyKBEyDsSq1imytopsxr9GjSxdaAGwfSKdmuVRhFfMP3bAN4A8S5wTck9FHEvyZVLdOUo+jOW5iBmdflilMUcDp9wDuW6ZbaWcqbHmprSEHv5W4cTCr8djf1Ybv9Lsl4S5WjQgP5m6leSDEHWxk307MZyOyVWQhhr73poEYgtSJSMUNEhQ9si8fSz+vF7c/wpUogIAm6xNjg6oBOAyB66Ze4XoP59bSK2umzRaj9SPN/6+ZZdDIHd9OAyU+pL7oajcc4qMFewlZUOQwySvZsdqW2isHj809/p46XSC6gqKl4Q99j4WpMEKMvoPBHFSW/TwrOI6aK9CcTV67rhHUP4yUvOnOe4sIe82t3v0lwq2neSPEJzeTXdK9rOv+7dNBBKp1CAxHLDr6ZR8VnA6sqM6rlDkfClkMiD3JGOhIHp4uvIJBlUiqkdKNguSE12sFNm3HmDkWQA4aN05EKhe24EoI25fYtK4akHh+CIzCz9QxfkH4e+lPr3ZOwbiYlS51Z4uLvh2Sn5fRRKqU2zyWNMEqJu2D9qdLBOoCCKiUnGGUeEgNJOf+IvNxgbajmhoy5nsbZZzgAy0CeBYa7V2kBGdpi+C/capDSbuW7VwObuUTk627GIy+iNoQPZLIK0Q8D/PyakE=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(23010399003)(366016)(1800799024)(38350700014)(6133799003)(3023799007)(10067099003)(56012099006)(5023799004)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?4BPnAk8yAcov8v6zULZGnAvg62T0q8AHvR7dowfg12GUL2Y6cA471itSKA+s?=
+ =?us-ascii?Q?KVsliWEBGMDMzsxnmGpjIAL2MkjTuBFrT7VxqO3/pzPahgX84LDjLEh6Tr16?=
+ =?us-ascii?Q?v92Ck6EPAGpmcOLnDU5MLXSSBOoYNxP1COReT9HUUb/oxApsWkcwAbP/SAPS?=
+ =?us-ascii?Q?/l/8k0AvyZRfHoICjedhAObYFu7hnCY77o1JxDGqzzXBReOnSXQ2p5cUKjDU?=
+ =?us-ascii?Q?t9s3btzRgaDBuA29Y03WwwdyhtiFaUAKhBZwuSDciS3vin0ByTPXAXpNApNG?=
+ =?us-ascii?Q?JOn7csaMRP4VjXTFoDCsNHHquFYocX25kzXhD1tzTQJvxHIWJLRloe4UoO5V?=
+ =?us-ascii?Q?NpVn2p13nmVzD+zuxwn5B7hqGL8/ayRZwNTiwr/wYBcm6qpGg2eA09nk1wRb?=
+ =?us-ascii?Q?p8qxS947Y7RbC1sjDCf+DvsYec9Hx3sZFElMfv/dDmITq/h7QZo3JD60M4O4?=
+ =?us-ascii?Q?g0HooPxoGZUeshKh82xbItMaKGc57p3YhYNDRJzEg/ryICgXMfM7X2riXPEy?=
+ =?us-ascii?Q?pDOFWolIzGfVPvElV1DYT2ehI5WjZRnWB1enMTUBHVaF6G0abvUuYI9ibnna?=
+ =?us-ascii?Q?W2F3/R9SV7NaakrCMLnaPEPsjv9cxXm0ya10N3IcAfVlqgqRUpVQipYlyYR+?=
+ =?us-ascii?Q?KHphRCxhcPDw2GuAfhMBIMu9B1fuZR6DrO5ZhzrltFZpzMhpJtwMc0nGdDlc?=
+ =?us-ascii?Q?qOjJaIwZLW4ib/pBCRYK8TdcWf9T+mXMnSQuEjyLKb8bVG7wZ3+KvycLWpVm?=
+ =?us-ascii?Q?MLxxB36M2CDas8byFFi0YVcv+qcTNo9Mac3rWeQOYxsZODL/p1biNVL3Xpkh?=
+ =?us-ascii?Q?hrcmK4I7FCYEVBguoU1Lo2lWinkLaJL5YW0/maL/P/NjAWujQ3WFm7sdVd1i?=
+ =?us-ascii?Q?efgIE1swqzEH880u22ws4pn8DRQKCVB89vkAzcQbRwGcQ5i0jdA7pkXJDgh0?=
+ =?us-ascii?Q?ZUfJFCcNl+ZqWA3cDQ4bVOJ6wSM5NNaUZkcmzzTv7Im5SJh6HoLSUNd+mZYx?=
+ =?us-ascii?Q?OUYtO+EvGkW+pbunb3YxSim4jxUUv0fv8z0M2YxpHUQfAElN6fsWwwHE23JI?=
+ =?us-ascii?Q?xBRW0rmgdKgOxeuSciNjkQnVghLk7tm9gA4uduVFsagK39fImYf6iGJsZ9He?=
+ =?us-ascii?Q?L6k2rcxi7wIthUqytEKyYqPiQc7/6tc4YLoNGHnanYdnwIEUjt7hO2IF9XQX?=
+ =?us-ascii?Q?etqpSM1ZqbBVV7yTf7pFB2GEa4aNva3TOfUw6nCPOAe1EdHEBRNxQfkx+M/t?=
+ =?us-ascii?Q?d6HIg2CzRcpOqLy7K7FgbSIC5MyrJXJ75jt1MXigaFWSlvJwO0JoTGkaASxU?=
+ =?us-ascii?Q?cV8RSpwdKeSABgjgHeeocdPAJ8LSmy5NInD4F8SqzrQ+zISzn4oQwVd3iDMa?=
+ =?us-ascii?Q?p3EhJWgmk+CRXVHreCMU/th71ngNoTt5/hdG6cJNh9k8w3rnvFFZnN/LVd8D?=
+ =?us-ascii?Q?zBYSOSz2JZDU1D46Zl+ZtsYHVo2rwlZGzSRD9TlBxtCdTkFaADNQ+dgJoaRB?=
+ =?us-ascii?Q?lmiZac/qd6XQjt9QVuA/lN7zDtUI3iX8Qm2P6Ubkr+OW3Dxjt9eWe6Ixut9S?=
+ =?us-ascii?Q?L9K3tQYo7IwiRMTWmKdpsPdriB92Qx08/znjwgL8xkQOwc4wk0M12JB9EqNP?=
+ =?us-ascii?Q?g+sIzPrAcqQM7B6pn+ftwSCHCSxREH905FaPbd0eSueUBXNhPGHocM1ndPbV?=
+ =?us-ascii?Q?NML+Q37WJCzuBeHLX+y4kwz/A4xPjxHitZQMUYyTVr+tQbLGVRQr7NobQ+2+?=
+ =?us-ascii?Q?gAc5+T+SCaXccQwzNsYk9y2pd/ziMb23MWvPZFxC+3SX9tE3CBHy?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94e8b8b2-207a-4a8b-044b-08df0d9e55c9
+X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:43:00.6519
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UIE8sfBIFx/nqufxoOBC+nYRVpDYTuT8hQ2ElE1irqE/rlK4nmph3Y3mwcM9WWtV3ZtnCWHHI13IfOfGn1WHBD8yuyKjOs7bCqEOK0JZslMIaxPlck8uXpePy/GlYDaP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2PPFBA0397B73
 
-Hi Wenmeng,
+The following features are supported:
+- Manual exposure an gain control support.
+- vblank/hblank control support.
+- vflip/hflip control support
+- Test pattern control support.
+- mode support 1920 x 1080 @ 30 fps, SBGGR10
 
-On Tue, Sep 01, 2026 at 03:40:06PM +0800, Wenmeng Liu wrote:
-> Refactor the driver to separate sensor-specific data from the common
-> driver code. Introduce a sensor_data structure, populated through
-> i2c_get_match_data(), to hold the chip ID, MCLK frequency, link
-> frequencies and supported modes.
-> 
-> Test pattern programming is described by a per-sensor callback, and each
-> mode stores its media bus format code (rather than a bits-per-pixel
-> value) so that sensors with a different output format can be supported.
-> 
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->  drivers/media/i2c/og0ve1b.c | 100 +++++++++++++++++++++++++++++++-------------
->  1 file changed, 72 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-> index da5c8e49d4a811f55736bd89c6922856f2e7391c..f560d5d90fda94abf4bc622c5e4f861b078b811f 100644
-> --- a/drivers/media/i2c/og0ve1b.c
-> +++ b/drivers/media/i2c/og0ve1b.c
-> @@ -5,6 +5,7 @@
->  #include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
-> +#include <linux/math64.h>
->  #include <linux/module.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
-> @@ -65,11 +66,23 @@ struct og0ve1b_mode {
->  	u32 height;	/* Frame height in pixels */
->  	u32 hts;	/* Horizontal timing size */
->  	u32 vts;	/* Default vertical timing size */
-> -	u32 bpp;	/* Bits per pixel */
-> +	u32 code;	/* MEDIA_BUS_FMT code */
->  
->  	const struct og0ve1b_reg_list reg_list;	/* Sensor register setting */
->  };
->  
-> +struct og0ve1b;
-> +
-> +struct og0ve1b_sensor_data {
-> +	u64 chip_id;
+The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a.
 
-This one seems to be unused.
+v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22
 
-> +	unsigned long mclk_freq;
-> +	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
-> +	const s64 *link_freq_menu;
-> +	int num_link_freqs;
-> +	const struct og0ve1b_mode *modes;
-> +	int num_modes;
-> +};
-> +
->  static const char * const og0ve1b_test_pattern_menu[] = {
->  	"Disabled",
->  	"Standard Test Bar",
-> @@ -99,6 +112,8 @@ struct og0ve1b {
->  
->  	/* Saved register value */
->  	u64 pre_isp;
-> +
-> +	const struct og0ve1b_sensor_data *data;
->  };
->  
->  static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
-> @@ -247,13 +262,13 @@ static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
->  	{ CCI_REG8(0x3f47), 0x35 },
->  };
->  
-> -static const struct og0ve1b_mode supported_modes[] = {
-> +static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
->  	{
->  		.width = 640,
->  		.height = 480,
->  		.hts = 792,
->  		.vts = 568,
-> -		.bpp = 8,
-> +		.code = MEDIA_BUS_FMT_Y8_1X8,
->  		.reg_list = {
->  			.regs = og0ve1b_640x480_120fps_mode,
->  			.num_regs = ARRAY_SIZE(og0ve1b_640x480_120fps_mode),
-> @@ -273,11 +288,21 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
->  	return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
->  }
->  
-> +static const struct og0ve1b_sensor_data og0ve1b_data = {
-> +	.chip_id = OG0VE1B_CHIP_ID,
-> +	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
-> +	.enable_test_pattern = og0ve1b_enable_test_pattern,
-> +	.link_freq_menu = og0ve1b_link_freq_menu,
-> +	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
-> +	.modes = og0ve1b_supported_modes,
-> +	.num_modes = ARRAY_SIZE(og0ve1b_supported_modes),
-> +};
-> +
->  static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
->  {
->  	struct og0ve1b *og0ve1b = container_of(ctrl->handler, struct og0ve1b,
->  					       ctrl_handler);
-> -	const struct og0ve1b_mode *mode = &supported_modes[0];
-> +	const struct og0ve1b_mode *mode = &og0ve1b->data->modes[0];
->  	s64 exposure_max;
->  	int ret;
->  
-> @@ -314,7 +339,7 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
->  				ctrl->val + mode->height, NULL);
->  		break;
->  	case V4L2_CID_TEST_PATTERN:
-> -		ret = og0ve1b_enable_test_pattern(og0ve1b, ctrl->val);
-> +		ret = og0ve1b->data->enable_test_pattern(og0ve1b, ctrl->val);
->  		break;
->  	default:
->  		ret = -EINVAL;
-> @@ -330,10 +355,19 @@ static const struct v4l2_ctrl_ops og0ve1b_ctrl_ops = {
->  	.s_ctrl = og0ve1b_set_ctrl,
->  };
->  
-> +static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
-> +{
-> +	const struct og0ve1b_mode *mode = &data->modes[0];
-> +	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
-> +
-> +	return div_u64(data->link_freq_menu[0], bpp);
-> +}
-> +
->  static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
->  {
->  	struct v4l2_ctrl_handler *ctrl_hdlr = &og0ve1b->ctrl_handler;
-> -	const struct og0ve1b_mode *mode = &supported_modes[0];
-> +	const struct og0ve1b_mode *mode = &og0ve1b->data->modes[0];
-> +	const struct og0ve1b_sensor_data *data = og0ve1b->data;
->  	s64 exposure_max, pixel_rate, h_blank, v_blank;
->  	struct v4l2_fwnode_device_properties props;
->  	struct v4l2_ctrl *ctrl;
-> @@ -343,12 +377,12 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
->  
->  	ctrl = v4l2_ctrl_new_int_menu(ctrl_hdlr, &og0ve1b_ctrl_ops,
->  				      V4L2_CID_LINK_FREQ,
-> -				      ARRAY_SIZE(og0ve1b_link_freq_menu) - 1,
-> -				      0, og0ve1b_link_freq_menu);
-> +				      data->num_link_freqs - 1,
-> +				      0, data->link_freq_menu);
->  	if (ctrl)
->  		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
->  
-> -	pixel_rate = og0ve1b_link_freq_menu[0] / mode->bpp;
-> +	pixel_rate = og0ve1b_pixel_rate(data);
->  	v4l2_ctrl_new_std(ctrl_hdlr, &og0ve1b_ctrl_ops, V4L2_CID_PIXEL_RATE,
->  			  0, pixel_rate, 1, pixel_rate);
->  
-> @@ -407,7 +441,7 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
->  static void og0ve1b_update_pad_format(const struct og0ve1b_mode *mode,
->  				      struct v4l2_mbus_framefmt *fmt)
->  {
-> -	fmt->code = MEDIA_BUS_FMT_Y8_1X8;
-> +	fmt->code = mode->code;
->  	fmt->width = mode->width;
->  	fmt->height = mode->height;
->  	fmt->field = V4L2_FIELD_NONE;
-> @@ -421,8 +455,8 @@ static int og0ve1b_enable_streams(struct v4l2_subdev *sd,
->  				  struct v4l2_subdev_state *state, u32 pad,
->  				  u64 streams_mask)
->  {
-> -	const struct og0ve1b_reg_list *reg_list = &supported_modes[0].reg_list;
->  	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
-> +	const struct og0ve1b_reg_list *reg_list = &og0ve1b->data->modes[0].reg_list;
->  	int ret;
->  
->  	ret = pm_runtime_resume_and_get(og0ve1b->dev);
-> @@ -484,13 +518,14 @@ static int og0ve1b_set_pad_format(struct v4l2_subdev *sd,
->  				  struct v4l2_subdev_state *state,
->  				  struct v4l2_subdev_format *fmt)
->  {
-> +	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
->  	struct v4l2_mbus_framefmt *format;
->  	const struct og0ve1b_mode *mode;
->  
->  	format = v4l2_subdev_state_get_format(state, 0);
->  
-> -	mode = v4l2_find_nearest_size(supported_modes,
-> -				      ARRAY_SIZE(supported_modes),
-> +	mode = v4l2_find_nearest_size(og0ve1b->data->modes,
-> +				      og0ve1b->data->num_modes,
->  				      width, height,
->  				      fmt->format.width,
->  				      fmt->format.height);
-> @@ -505,10 +540,12 @@ static int og0ve1b_enum_mbus_code(struct v4l2_subdev *sd,
->  				  struct v4l2_subdev_state *sd_state,
->  				  struct v4l2_subdev_mbus_code_enum *code)
->  {
-> +	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
-> +
->  	if (code->index > 0)
->  		return -EINVAL;
->  
-> -	code->code = MEDIA_BUS_FMT_Y8_1X8;
-> +	code->code = og0ve1b->data->modes[0].code;
->  
->  	return 0;
->  }
-> @@ -517,15 +554,18 @@ static int og0ve1b_enum_frame_size(struct v4l2_subdev *sd,
->  				   struct v4l2_subdev_state *sd_state,
->  				   struct v4l2_subdev_frame_size_enum *fse)
->  {
-> -	if (fse->index >= ARRAY_SIZE(supported_modes))
-> +	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
-> +	const struct og0ve1b_sensor_data *data = og0ve1b->data;
-> +
-> +	if (fse->index >= data->num_modes)
->  		return -EINVAL;
->  
-> -	if (fse->code != MEDIA_BUS_FMT_Y8_1X8)
-> +	if (fse->code != data->modes[fse->index].code)
->  		return -EINVAL;
->  
-> -	fse->min_width = supported_modes[fse->index].width;
-> +	fse->min_width = data->modes[fse->index].width;
->  	fse->max_width = fse->min_width;
-> -	fse->min_height = supported_modes[fse->index].height;
-> +	fse->min_height = data->modes[fse->index].height;
->  	fse->max_height = fse->min_height;
->  
->  	return 0;
-> @@ -534,13 +574,14 @@ static int og0ve1b_enum_frame_size(struct v4l2_subdev *sd,
->  static int og0ve1b_init_state(struct v4l2_subdev *sd,
->  			      struct v4l2_subdev_state *state)
->  {
-> +	const struct og0ve1b_mode *mode = &to_og0ve1b(sd)->data->modes[0];
->  	struct v4l2_subdev_format fmt = {
->  		.which = V4L2_SUBDEV_FORMAT_TRY,
->  		.pad = 0,
->  		.format = {
-> -			.code = MEDIA_BUS_FMT_Y8_1X8,
-> -			.width = supported_modes[0].width,
-> -			.height = supported_modes[0].height,
-> +			.code = mode->code,
-> +			.width = mode->width,
-> +			.height = mode->height,
->  		},
->  	};
->  
-> @@ -586,9 +627,9 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
->  		return ret;
->  	}
->  
-> -	if (val != OG0VE1B_CHIP_ID) {
-> -		dev_err(og0ve1b->dev, "chip id mismatch: %x!=%llx\n",
-> -			OG0VE1B_CHIP_ID, val);
-> +	if (val != og0ve1b->data->chip_id) {
-> +		dev_err(og0ve1b->dev, "chip id mismatch: %llx!=%llx\n",
-> +			og0ve1b->data->chip_id, val);
->  		return -ENODEV;
->  	}
->  
-> @@ -624,8 +665,8 @@ static int og0ve1b_check_hwcfg(struct og0ve1b *og0ve1b)
->  	ret = v4l2_link_freq_to_bitmap(og0ve1b->dev,
->  				       bus_cfg.link_frequencies,
->  				       bus_cfg.nr_of_link_frequencies,
-> -				       og0ve1b_link_freq_menu,
-> -				       ARRAY_SIZE(og0ve1b_link_freq_menu),
-> +				       og0ve1b->data->link_freq_menu,
-> +				       og0ve1b->data->num_link_freqs,
->  				       &freq_bitmap);
->  
->  	v4l2_fwnode_endpoint_free(&bus_cfg);
-> @@ -686,6 +727,9 @@ static int og0ve1b_probe(struct i2c_client *client)
->  		return -ENOMEM;
->  
->  	og0ve1b->dev = &client->dev;
-> +	og0ve1b->data = i2c_get_match_data(client);
-> +	if (!og0ve1b->data)
-> +		return -ENODEV;
->  
->  	v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
->  
-> @@ -700,7 +744,7 @@ static int og0ve1b_probe(struct i2c_client *client)
->  				     "failed to get XVCLK clock\n");
->  
->  	freq = clk_get_rate(og0ve1b->xvclk);
-> -	if (freq && freq != OG0VE1B_MCLK_FREQ_24MHZ)
-> +	if (freq && freq != og0ve1b->data->mclk_freq)
->  		return dev_err_probe(og0ve1b->dev, -EINVAL,
->  				     "XVCLK clock frequency %lu is not supported\n",
->  				     freq);
-> @@ -819,7 +863,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
->  };
->  
->  static const struct of_device_id og0ve1b_of_match[] = {
-> -	{ .compatible = "ovti,og0ve1b" },
-> +	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
->  	{ /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, og0ve1b_of_match);
-> 
+Compliance test for device /dev/v4l-subdev3:
 
--- 
-Regards,
+Driver Info:
+        Driver version   : 7.0.0
+        Capabilities     : 0x00000000
+        Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
 
-Sakari Ailus
+Allow for multiple opens:
+        test second /dev/v4l-subdev3 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 12 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+        test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warnings: 0
+
+V4 -> V5
+
+Patch 1/2:
+- Correct typos.
+
+Patch 2/2
+- Remove the data lane check, as the sensor only supports two lanes.
+- Fix the error path in os02g10_parse_endpoint().
+- Remove the error message from the clk_prepare_enable path.
+
+V3 -> V4
+
+Patch 1/2:
+- Add the required endpoint.
+- Carry Vladimir's Reviewed-by tag.
+
+Patch 2/2:
+- Address small review comments from Vladimir and Sakari.
+- Drop Patch 3/3 as suggested by Sakari.
+
+
+V2 -> V3
+
+Patch 1/3:
+- Drop the fixed data-lanes property, as the sensor supports only a 2-lane MIPI interface.
+
+Patch 2/3:
+- Use regmap paging features for page selection.
+- Use sd instead of _sd.
+- Remove an extra blank line.
+- Remove hblank control, as it is not used to set hblank on this sensor.
+- Remove an unnecessary error check.
+- Reduce the scope of the ret variable in os02g10_set_pad_format().
+- Rely on the control value for link_freq_index.
+- Call os02g10_parse_endpoint() before initializing regulators, GPIOs, and the clock in probe().
+
+Add new Patch 3/3:
+- Add dynamic mode configuration instead of using a hardcoded specific mode, as suggested by Laurent.
+
+V1 -> V2
+
+patch 1/2:
+- Corrected $id to ovti,os02g10.yaml
+- Fixed data-lanes property structure to use proper items format
+
+patch 2/2:
+- Mode-specific register writes handled dynamically.
+- Moved page 2 registers into a dedicated page 2 block.
+- Used pm_runtime_get_if_active() in set_ctrls.
+- Resolved negative hblank issue.
+- Improved error messages in disable_stream.
+- Updated V4L2_SEL_TGT_CROP and V4L2_SEL_TGT_CROP_BOUNDS.
+- Added my name to the author list.
+
+Elgin Perumbilly (2):
+  dt-bindings: media: i2c: Add os02g10 sensor
+  media: i2c: add os02g10 image sensor driver
+
+ .../bindings/media/i2c/ovti,os02g10.yaml      |  94 ++
+ MAINTAINERS                                   |   8 +
+ drivers/media/i2c/Kconfig                     |  10 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/os02g10.c                   | 932 ++++++++++++++++++
+ 5 files changed, 1045 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
+ create mode 100644 drivers/media/i2c/os02g10.c
+
+--
+2.34.1
+
