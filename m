@@ -1,140 +1,125 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9483223C8AE
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 02:01:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F81D2F5A36
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 04:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788832910; cv=none; b=DDvbKSNnJYMjw/9r+a4N8hTKeAa0iG5egAb4Ohh+fvcnMq/UCLuyZ9pMZN8Xj2ME4IumMj/nfBjUGTQTMt6zX1FDELUiler52BnmuAuuZYEEaFMq4//QlK+p0ob6Mg0fb/NGr4bQYWbkY5cOgauVBG0hWhHvkXQag5/XGdIKQ0w=
+	t=1788840502; cv=none; b=vGVAGulX9THspzegrKDeRT1snzAQ+Y2srkcjZhtzdg5Yk9kixu1T1auw8jhi0DFSd6kvfi5BiMsMuKij+QMAdvRy4fzwi35/Oq7HXbf8V1ZemeCXtlN+3B6ZOiByr+AxmW7hkYjwuEmOAEh/gUqCpHW7io67BSKA1ID9kONgSo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788832910; c=relaxed/simple;
-	bh=pTwMML0rgJe6+QkcJd/cTu44v9vw01mO7xfgtNsP9Ko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n+eFtt5WgVA9KIVOM4zXzOhlK+T+Y9WUGMqAYdPmvyvSq2gU27VMkSDRx4jRtLD1HDA5JX28rs2iwtSD5yL9iAL9htw1BUQy8ZyX82GYvcSd8suA/I8Rnuj4z6szx5DDH8S+UfQLrCMenZF/QANscd39mZoPJ56inTQL4hM1gHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gIYXkrHY; arc=none smtp.client-ip=209.85.215.181
+	s=arc-20240116; t=1788840502; c=relaxed/simple;
+	bh=nuNxXV9IiXZmNVfBWYtPD7tRbYcEpSpQ5MUnS2wUNDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=adAF8GAzmBJQ+ZASOca7AB490T/yah00bi4kpyaqw6WEDaHZvT0hjNiEDS/SnpMQutMKuz03X5sckx0eOWKe5PsMQinGXnk0gp7hJ8ydSNftFL4R8WYTkfiq3P8fmKHgA0E0Fr2XZDsFEdi1BDGCgnoWyO3wbv1dbxBS/cNexK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwRR6IWu; arc=none smtp.client-ip=209.85.219.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gIYXkrHY"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso2177626a12.2
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 19:01:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwRR6IWu"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90f9f8553e0so51236526d6.1
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 21:08:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788832909; x=1789437709; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lQtJgjCSof81+IM6z9nQ97DYMO5DHbxfkW0pYQM3/KU=;
-        b=gIYXkrHYfiki1Ec4bwm+BRx5k9SwAb19CbkSonXZVGGROl3bhgmB/Tub2PNpJmOVkM
-         yfiElqFKbzhLXsQUws5O9NUpelv4HcTd+j0akcHfMpaFRiRc75BgA00ELdOhFNOF7R33
-         AGcbkWJInX8lf0juswb+7BP+mqsrpcAXzAht3B+8CiWWMVkNPcQYAEyNjtp0cWdJaqt8
-         zX4Ga28kjFL0yLKTSMXId89/TQQGJO9v7PsvhqetZxST0IxzST6QdL8TQZmjUuWfb7u5
-         1eockqKkoVu1Kqx6+PR0sv5WJcZ3YP4RpsRwq9/EWL7b/gdLHCocrN26SelGZy8hF0x3
-         9oCA==
+        d=gmail.com; s=20251104; t=1788840500; x=1789445300; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pxUbMbA1DbE2G64rQIDQk+y7x2nUAdqEFheE61ifZbo=;
+        b=WwRR6IWu7yLmHDFoRCU0zQByOtv36iHLPKIfpRyG5mYhuOpF/JS7Ck2MfdW5w7fEcF
+         LIS+TnOvbUfe1g1/EefZUlQc3m2ocKDVhxkeqmmmDlxeq+23nbq/XyDM/sWNnqgPZLlx
+         x5PAa+AELvlBvccPjpwE2B1kLUdvkZg7pTm3gfib2Tk5YNQGvvwsSHe+GT0HmzJpcR+w
+         Z7EXDxuJbSBrApfn3UEVvbzhbDbbjURMIQohOc9MSMxyuJgAVeGW6IQirFcUp9HTtJzD
+         V4/zP8rggnzqvfHxWvPn5verfSHjC5n6Lkzf7yBXhfe2+cmEduHSQb+Y2j7la0fMu67j
+         /f1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788832909; x=1789437709;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lQtJgjCSof81+IM6z9nQ97DYMO5DHbxfkW0pYQM3/KU=;
-        b=LMG5wP5KAi97H2SxT7kacTahYCuRTJV3rUnaPRufGRZUKir2kOhKQUXKYXRd9mwtdy
-         UIYwkcD+xPP72JECjRs97fqp8ryY6wIt7rwU0M5PaAzlrwjlHFoRf3+yiLkON6G2QZCQ
-         Z1Sd0k/sTyPjkOqZJoa+NPv8txQ4f7GRWyhNBxLTHVRm79nCcpuFvk0N8b7Dh9Aub1En
-         fFskfreEIUYSoBMMrqrQ4TKOH9yoFWTGSAJv310tUdw39sL6mk/s22kfy4DgZT9phkLW
-         TUnhsYJhQTBW9FztS9LjrTPEW9fmsv2MPuapDm/qASOkZaNEdfA5mNPk838tM+uo+e3m
-         oucg==
-X-Gm-Message-State: AFuF++kfdiAMQ3q53SIMSSe/1xGDIwZzm6gcHpMJSIX7EO+rnPtX2cqT
-	6IbpNc5Z589Od2n91Hazacrb8v5fhpoQS+VEXSvoNGgnIHQKeLN6/SRT
-X-Gm-Gg: AYBFou2Cdr1Kpp8P5m5rShFqGCoyGpGXigxsNuSKttx19BRfTjskY64nO824xcrwRas
-	o+TLzpeqakqohSvbliVhq/oEz/8dYLFqKbxplhTH8dTaM10T6OL+L9C+ZYx3wXpynmw8518gUP2
-	+G9IROtVEV+aTaS9XrntQ8GZqjbw/RAYSLv/gSM9RYr+AEl6PiUTg8vqWWPPDZ7rAheZrTEZgf4
-	AOITagAIhQYXqJMChdap+Ryp4WwJ1qdu+lUVMxt+7SCS6E5um0SjiU7se9Wqr15RtmX+lN6uIaj
-	yfbNMEedzDob+cCBo4XNueIRqBef3kcOZ70ZSNokICnaSH7zf85FNT5r6xbO9Pna3wIgh6dzhhm
-	lXk2rF+Gy53q9hhOm0/4QaGN/io7GeaarXrcvku9lU8JMSSBnSWWyjavQRn1u4yt/J3E0O4gkhW
-	fwZ3yjbKgVh3GUjJYbVBY4mh0RTsFH9bXnPRkhFQwIEO+0t/rAshasjGACefzLGpLsHEIxYwzaN
-	yDfH7+xsfoTE7uEYQ==
-X-Received: by 2002:a17:90b:4cce:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-39b260dd4e9mr42617218a91.2.1788832908836;
-        Mon, 07 Sep 2026 19:01:48 -0700 (PDT)
-Received: from [192.168.1.13] ([106.37.146.213])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db2d91341dsm36247545ad.39.2026.09.07.19.01.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 19:01:48 -0700 (PDT)
-Message-ID: <7611bbd8-6241-46cb-b0bc-a4257277d98a@gmail.com>
-Date: Tue, 8 Sep 2026 10:01:44 +0800
+        d=1e100.net; s=20251104; t=1788840500; x=1789445300;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pxUbMbA1DbE2G64rQIDQk+y7x2nUAdqEFheE61ifZbo=;
+        b=UH41RBBGllsXcuOIYzMPZByoUi6rcLEO5Yfy77qTmRzvyIRNpRgnPkYYf7s+AQLtyH
+         /w1UUzCUWEu0SH8HL5bzxrVdJNVkP6IKrvH3isbNXwEz1P/2kPZoM7yUAKu7XZBd3Wrz
+         zRZnTY4gtIJorPyJwRj1TjaxMVWJVrewVzJE821fS7okdD60N9cr/hCbQNlYOfF4O0Do
+         Lt/6uJ9khGKt/GybLuPbx+zm0ZxSPa6AoWHEbJDiHO1xx6U938dhjxqaRczKCv7zPoEw
+         rGWn/+gS4FIFpmJDrsI5EP9foVUnm4nUSdR2sVwFDUzAm7T7oIW5cG0PKBLjgJOpwvjO
+         bOUA==
+X-Gm-Message-State: AFuF++kGf0wGoKwhlnCUxpvDTEpp3lhc0rLeFK6sgUDbBi+iQWlCOdPj
+	6Jcb6Lr6lonNQ8Mw4dI8XJKK7Fh/gUJIR6IVWaM0P9qSJo6lgWEaTeoA
+X-Gm-Gg: AYBFou0d37pdav/Sx+6b29e5VjFIl01yM9ZJOLeW8KkbTmcb6yudTpNaPyYtFE/ybA3
+	6hrj+7jgdw4I1szD4SK+zfKUZA6j16q4cXDDU4pLkl/R4XQmUNjqeaHI+vZ6hXswzn6fVpD76wS
+	9lso7YwSmgw7DbYxp5LlhlJ/day3zoRe0efKwk2Io/3uNChPjaRTHWrmGvZIRF96W2aa3Z0qeuu
+	O3b1JqsS9vvlngQV8t8mbT5LxikwIlSyCLBaglVpPvqcmI9B5NQI/dsQXDR/KxoX+rT3lkGvXCU
+	mbi/o0pqotktBDo4E8ZD6wNLyYd0QZHb5RChTeqExeyPpUHmgX8HYbLsoTXXUN1boYh3ltTqKc1
+	OeEEGnTTFUHeRRpb8k/ENKW/IZrDYvEsg+yYRSrXDAlCab4xbmsLihUOvvFlWITSqIbLaM67HwG
+	g2ysjVbR1pML4InwejDf/vS5HfzAW/9hw0oqOWUZsHtpjeSZuC7+rO3Un7TBeqsLmuTW5sHqQkB
+	Zklk4qjPjmz8ZbkKuRidu64fSKOa4lyvzF38d3BO+VSPpF9+3nQhKJQZTGRZQrw4i2gXJwMoV4r
+	PsvKNcMipux0OuohI6pfYcSb4g9dtmgmLQFioPUPtDyxBT2VS6W7fkG+jSFmznrYZig4sKGBYlX
+	ziFpcn++zU4pQU+JmCB+GZWfwsLbKNk0=
+X-Received: by 2002:ae9:ee06:0:b0:936:e938:b07a with SMTP id af79cd13be357-9398032898bmr2266288085a.8.1788840499956;
+        Mon, 07 Sep 2026 21:08:19 -0700 (PDT)
+Received: from MacBook-Pro.wireless-1x.unc.edu ([152.23.158.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb566a8sm1055026785a.25.2026.09.07.21.08.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 07 Sep 2026 21:08:19 -0700 (PDT)
+From: Juan Perdomo <jcperdomo100@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
+Subject: [PATCH] media: cx231xx: preserve I2C transfer length
+Date: Tue,  8 Sep 2026 00:07:34 -0400
+Message-ID: <20260908040734.1175-1-jcperdomo100@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
- init sequence
-To: hverkuil+cisco@kernel.org, sakari.ailus@linux.intel.com,
- mehdi.djait@linux.intel.com, u.kleine-koenig@baylibre.com,
- laurent.pinchart@ideasonboard.com, jacopo@jmondi.org,
- p.zabel@pengutronix.de, ezequiel@vanguardiasur.com.ar,
- mchehab+samsung@kernel.org, festevam@gmail.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@kernel.org
-References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
-From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
-In-Reply-To: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Humble ping ...
+The I2C core stores message lengths in u16, but cx231xx truncates them to
+u8 when populating cx231xx_i2c_xfer_data. A 0x700-byte read therefore
+becomes a zero-length request. USB treats zero-length control transfers as
+OUT regardless of bRequestType, so the IN control pipe trips the
+usb_submit_urb() direction warning.
 
-Add linux-stable in Cc list
+Use u16 for buf_size, matching both i2c_msg.len and
+VENDOR_REQUEST_IN.wLength. Oversized transfers then reach the existing
+URB_MAX_CTRL_SIZE check and return -EINVAL.
 
+Fixes: e0d3bafd0258 ("V4L/DVB (10954): Add cx231xx USB driver")
+Reported-by: syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ddccc0c0dbc0a38ffccb
+Tested-by: syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
+Signed-off-by: Juan Perdomo <jcperdomo100@gmail.com>
+---
+Testing:
+- Syzbot reproduced the original USB direction warning on unpatched
+  df290809 (Linux 7.3-rc2).
+  https://syzkaller.appspot.com/x/report.txt?x=1107e749580000
+- Built the complete cx231xx linked object on ARM64 with GCC 11.4.0,
+  CONFIG_VIDEO_CX231XX=m and W=1.
+- Syzbot tested the patch on df290809 (Linux 7.3-rc2) with Clang 22.1.8;
+  the supplied reproducer did not trigger an issue.
+  https://syzkaller.appspot.com/x/log.txt?x=1123f105580000
 
-thanks
+No physical-device testing was performed.
 
-xiaolei
+ drivers/media/usb/cx231xx/cx231xx.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-在 2026/8/26 16:54, Xiaolei Wang 写道:
-> On the RK3576 platform, after ov5645_global_init_setting completes and
-> before stream on, the CSI host reports a high rate of CRC errors:
->
->    MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
->
-> These errors occur exclusively in the window between init completion and
-> stream on. Once preview starts and the sensor outputs valid HS data, no
-> further CRC errors are observed.
->
-> Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
-> the power sequence to properly enter LP-11 during power-up. As part of
-> this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
-> with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
-> 0x02) from init through to s_stream. Reverting this commit resolves the
-> CRC errors, confirming it as the triggering change.
->
-> Restore the power-down state after init by appending { 0x3008, 0x42 } to
-> the end of ov5645_global_init_setting[]. This powers down the sensor core
-> after MIPI configuration is complete, while keeping the MIPI PHY active in
-> LP-11. The sensor is then woken up only at s_stream time.
->
-> This preserves all LP-11 compliance improvements from
-> commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
-> eliminating the CRC errors on RK3576.
->
-> Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
-> Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
-> ---
->   drivers/media/i2c/ov5645.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-> index c772ef6e51d2..be85e0155b81 100644
-> --- a/drivers/media/i2c/ov5645.c
-> +++ b/drivers/media/i2c/ov5645.c
-> @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
->   	{ 0x3008, 0x02 },
->   	{ OV5645_IO_MIPI_CTRL00, 0x40 },
->   	{ OV5645_MIPI_CTRL00, 0x24 },
-> -	{ OV5645_PAD_OUTPUT00, 0x70 }
-> +	{ OV5645_PAD_OUTPUT00, 0x70 },
-> +	{ 0x3008, 0x42 }
->   };
->   
->   static const struct reg_value ov5645_setting_sxga[] = {
+diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
+index 19f5036a7..f85d054fb 100644
+--- a/drivers/media/usb/cx231xx/cx231xx.h
++++ b/drivers/media/usb/cx231xx/cx231xx.h
+@@ -463,7 +463,7 @@ struct cx231xx_i2c_xfer_data {
+ 	u8 direction;		/* 1 - IN, 0 - OUT */
+ 	u8 saddr_len;		/* sub address len */
+ 	u16 saddr_dat;		/* sub addr data */
+-	u8 buf_size;		/* buffer size */
++	u16 buf_size;		/* buffer size */
+ 	u8 *p_buffer;		/* pointer to the buffer */
+ };
+ 
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.50.1 (Apple Git-155)
