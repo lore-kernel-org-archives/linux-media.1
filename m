@@ -1,157 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5DB3B42CC;
-	Tue,  8 Sep 2026 08:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7AA39C631
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 08:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856765; cv=none; b=e8mSOJuou3519BpfD6wgfXVxz+b6Mn3LHJslpTDXSS4oTTXMrQLxLCTQ0ioZ9karwwf9YGFqd+D+mcGst9alG2av93N8YDzRj/L/WF+KmfI/CjlKNkfPsiuUBhtWLVefFud/ZMW8HVkPN2ybrRLpz4Xz+wv3CsUqydJUFUEfmDc=
+	t=1788857109; cv=none; b=vDf5QrQz4IzQjnFHa9k3u/p5SCgFyqs+6LKEpMgCF3ZmWGCEmNkjOl1OLHNqzNPHKkTFfmLXYXEFNGc8bZ+ktA/OQK0Nr+pRFfwY9UL/fW8devWgRE1wyWGToU/NdMjYLeJrVMXpnXhd/iPLj8G4H1BL5DKJf4wdWWpl9/FNyKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856765; c=relaxed/simple;
-	bh=slUWdnwq0XGj7f4s3OzgJoorkVnZmUKvVcYJXpe/QEA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nQCNQFFwgMRxEOnGdDJ2xljv0a4UDsNamXzWK1f1/GoPRUVh0uEXw4xnsKYvMqi0DJxk1Y0u0wxeNF15D8ugkY2d/xE9oI7eFticlItkRWTFcJ852Pc1VFHogavWSEfQYczL1XROMpGPb4zsbEhmp6vgZlUSXDOubmzSk+3pBdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f31djqHM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788857109; c=relaxed/simple;
+	bh=rqQzBkXLE1s3C9fDauqcJQsG/1ffI62DmHui3HpO/0Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tePONtW0cbaHEQ2zzbu14+7OFxeNjieTyalTmyxqc/V8oXgjoBbV3hILlzuW+TiozYswcP18RIXhZeFNplkSvwVk/2jz37g5+mjBxGeoKH4scZiNh1wvjuS72iFApmmQBFePR2wikk5dmI6nWc1xCgpGm/GFD0Ye9SlXV2d2KAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kqLGz+Tw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KB3V2MNv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f31djqHM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C23A1F00A3A;
-	Tue,  8 Sep 2026 08:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856760;
-	bh=slUWdnwq0XGj7f4s3OzgJoorkVnZmUKvVcYJXpe/QEA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f31djqHMq1zm0NH10E6jABNFN/XEtBtVUywkW/jJEx2y3vkNmMXh/1kd/Sjj72P04
-	 T6L92RsSr9CQrX66jc0wrPwHh6ZjVD5aSMaTpkb+Cxjgp9ZU6YrbkkYXhDrOYryDaO
-	 ZTgU5gp6BdSkoU54QhSCWPpRXJjEqeQ7gFPhqonFR9QaQp7K9wC3t0y6YPinAZxwQV
-	 h+w9nS9hTC4LwZO/38s9ryPJzCgNR+G1JO/Mul0cHse249ia1+soSZnoBYdeQ4kY0m
-	 HeH3O938M7uXInW4K+dnzPNL73PzwIIfEEPV3T8JCftA19ij/TKmEUEYsg1ScglZFI
-	 YJglKg/Ofvcpw==
-Date: Tue, 8 Sep 2026 10:39:17 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, vdonnefort@google.com
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <ap_HzwVp-6aOKEbJ@orome>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <apquUWgrD9C2jWQ0@willie-the-truck>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kqLGz+Tw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KB3V2MNv"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M17H2979294
+	for <linux-media@vger.kernel.org>; Tue, 8 Sep 2026 08:45:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ub4569bRPlpOHYa78WABwl6Ou9bAMihTjUsTBS73P6w=; b=kqLGz+TwQMzOjLKa
+	ulg1wd0+6WRqw9I2yLN8Cx/GeMqcY/unL0U6eYe2ge1X6HySWplgTgqYlJen88Cj
+	5Qpyf1T/b05cs+mFFPAJleKMR7/U5DJ3j4onKe1y6Xq5FNgcpUljlSUY8m+afler
+	MUu3mqv7IbG9nD8mC3OtFBOs7LAGkXStthIwcqMpGr1WIq4+LSv/onKlo4HAyqlV
+	nw6LLt1FLilemW3Jaggw5+lvdqaMEMFCcymOtXbBUMvJF8FBaHEOwGfKHBBlbDaU
+	+DCZJ6LVztiGZtho6HCkVvLnFESIMwik/5+ZFcGcQ2gCyBuugY3z7hVV6bds3MEL
+	wCmL2Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykbyuu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 08:45:07 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fc0097865so114798781cf.2
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 01:45:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788857107; x=1789461907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ub4569bRPlpOHYa78WABwl6Ou9bAMihTjUsTBS73P6w=;
+        b=KB3V2MNvPVeQ+8HxKqYuERyoAT9jO2DRxgTvhNiDMsEwMqQEQ+dqgUx4dDdhV3mHKq
+         cyeSRnbls0Tt8ZuCsRgj03spm8vJjdDdvHtFR4sm3vwEp2fngo0tmwLE2D0gZMb8Ao+c
+         2EOLEq1vJubGAyzj5IedtszJUlaftNLoO5xqb7//jm7joXjMKYYEUEWgkHcRAPxvxTKa
+         1vSFvkttJ1WlmuWqfX8sZhgnPG1JY9Tukthfvxt/U/h9UAi3qCYtBtxfiVeZe/lP3Oua
+         F891VUYc9L1pEs2L/J2IZfxoLYHmu5bUcBruDS3gkmK5ALnZJ3XAPMWwec9R0KPVopdz
+         IWqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788857107; x=1789461907;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ub4569bRPlpOHYa78WABwl6Ou9bAMihTjUsTBS73P6w=;
+        b=YWWGdcM6yOzFrSaFQkF/sRy1n1muERFt0yKxi7vJlCHO9UrJISSF8tfIx3ijpeIBGP
+         agYKGanB69G7B4ZvvPujUQEiLwkS2D/mYD8Sw3d79MPU+1+RkP/LrDqosQXfL4bTlVMg
+         CzjTGo3SwqPIFHJKeuqaZ3nm1ocRinwzd2mWocsr5ujiU5bhkVj6bl7jEZuuKW4C7M5g
+         00LeheI0hRlJRoAVfiTUbtMO/dCCFlLiuZoF1AoudWkEoR+4uv5MLn36rXedw40cz41f
+         lgtiLFwIAK3sa5YCEf9cbEQzLz6XtBg/PxBLFjVbuS/DpwEAqoWTUePYmKq0CKwVxWQg
+         EFqg==
+X-Forwarded-Encrypted: i=1; AKwUvBybacsw6FKAdcgwAvS1SGb+BhZHASLaXoxsw95DaTQi0AQuV5Q+DfjHbvIW8MnHvwDZg8xHEM1sAsjgHg==@vger.kernel.org
+X-Gm-Message-State: AFuF++mZnD2uYqxCeDi9e48dZxM6gD7VTxdaUrCXMoJSWdYeM1xKbKRG
+	j2J8NgYXl9AMk3o3G/StAovxEoMVjui9eOpIjOjhCnGo5N+zFhsmUF1+o5s4UW3NxXlDrifLmjf
+	JXv3++Jccrc00/SMJBnZDjmYnziRWSm+gwKiPddPg+xZetpgJoH3zsS8rSVF5tQaWdw==
+X-Gm-Gg: AYBFou3VWYlUNOYzi7vwy98ca2HzzZ9mKg/BinS9imLufdwmpV0WG7tzjxDTr6ALp6p
+	1HfofvKcoRikXSuiD7ZP1YRfb/wJux1joKk2kpFt04wi9fsEUHyXbxWnC5P2LRmgTHCNvGRfPnK
+	NU2DgP60HAWOfKOgJChGg2The+TC1r326gVmQrU6masyRYyu+a+BJfW81oRVUvGkUKrBz/GHGvo
+	FZ+wvXPo+E+ul8b3EXDy4S00wqGfNqwhoNMYywVHlwtTnnL/SkioIKVd1ymbI9Nue59LqYEpzsn
+	ob9fyMsKnrkwk+tuKs2MSsYPYIIc4A4I0vCZTJsOsXPQLNMMItIjGKvY6Jd/SacCrINIuDHaJEn
+	Bf/Qacjn4MJH2iDc7MpLXfoQFa6yx+KuCKesjmGDj95sbb83Cd1PsYzrNB/uVUvo=
+X-Received: by 2002:a05:622a:1f0d:b0:51c:1a46:9148 with SMTP id d75a77b69052e-530549ce605mr345338061cf.34.1788857106780;
+        Tue, 08 Sep 2026 01:45:06 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f0d:b0:51c:1a46:9148 with SMTP id d75a77b69052e-530549ce605mr345336831cf.34.1788857105476;
+        Tue, 08 Sep 2026 01:45:05 -0700 (PDT)
+Received: from [10.38.244.120] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305413ce9dsm107174381cf.11.2026.09.08.01.44.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 01:45:04 -0700 (PDT)
+Message-ID: <82b7c6f2-a45a-44b5-919e-ea448a3387f6@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 16:44:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a5apqptzjdcu2eq7"
-Content-Disposition: inline
-In-Reply-To: <apquUWgrD9C2jWQ0@willie-the-truck>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/13] arm64: dts: qcom: x1e80100: Add CAMCC block
+ definition
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-3-067f2ecc4630@linaro.org>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <20260906-x1e-camss-csi2-phy-dtsi-v6-3-067f2ecc4630@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MSBTYWx0ZWRfX13OP5lBi3Cic
+ d3Wo/HaOc8SmoTMl7Vxz5RQeIeV+LmH6LeOcMD8ydwMwu0ILNhmqHU2pbLHLlltd4jk2+tKPrAX
+ tiN2QC3h6nN1TdvXlAmIRTjx7u3gS64=
+X-Proofpoint-GUID: _h1ltdUaFbAolqjqNCOHS4i9X8KUSH13
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fcb13 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=72T5t8mROkFztkF13RwA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: _h1ltdUaFbAolqjqNCOHS4i9X8KUSH13
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MSBTYWx0ZWRfXx7F6z6Yuul0O
+ xDODu+c9mBzUJ0wJIG6mZK6JJM6JWGpHJWutM7uDIn3yXeevpDGTp/uFdMXVMJutym+iZ//1oRr
+ F9tfBaEOZCLcq2DqTICECdOQfJaKR/XtTBOA4wSyiLlA7ZKM4lR5CD1SwpdiuvfV/Rt6JcHYJMU
+ G2kRax2wjZ8VCe7dhD1abv4EIEZpNoNIqNpXVj7mv4vlruOe5c5QQzjgStMciKUmHFrmHldU35R
+ 0OgEbdrNUOMPVEelOh5Arfu5dsp+g0PJolIIyh0uH7MZHHwnwzstz4zBjEEYLuW/5MHRrrJckSq
+ 1nSCEcXAWHIQmv5daiNQY09koT0x0cdptQhgPNwiZJH1xNGc/JFK1mRgeu5jMAdicrAMrN9Tiss
+ IqkLE9fjX01lepPHGiw2KuxoFKcNWIgmZlRff4v8hv/shFLhO1gWhkQCPIfEo4g4xfC1gXTthUP
+ 3ta4aiyUttIhHJ+8jCw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080091
 
 
---a5apqptzjdcu2eq7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-MIME-Version: 1.0
 
-On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
-> Hi Thierry,
->=20
-> On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
-> > This series adds support for the video protection region (VPR) used on
-> > Tegra SoC devices. It's a special region of memory that is protected
-> > from accesses by the CPU and used to store DRM protected content (both
-> > decrypted stream data as well as decoded video frames).
-> >=20
-> > Patches 1 through 3 add DT binding documentation for the VPR and add the
-> > VPR to the list of memory-region items for display, host1x and NVDEC.
-> >=20
-> > The set_direct_map_*_noflush() functions that will be used later in this
-> > series are exported in patch 4 so that the drivers that use them can be
-> > built as a module.
-> >=20
-> > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
-> > but works on sizes that are not a power of two.
-> >=20
-> > The of_node_to_nid() function is exported in patch 6 because it is used
-> > in a later patch adding a driver that can be built as a module.
-> >=20
-> > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
-> > allow memory to be allocated at a fixed offset within a CMA area. Tegra
-> > VPR needs this in order to implement its own allocator on top of CMA to
-> > meet the strict hardware requirements. This replaces the dynamic CMA
-> > area creation patch from earlier versions.
->=20
-> Did you get a chance to see how this could work with Vincent's series:
->=20
-> https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
->=20
-> ? I think that should remove your reliance on can_set_direct_map() and
-> mean that you can retain block mappings for most of the linear mapping.
+On 9/6/2026 10:20 PM, Bryan O'Donoghue wrote:
+> Add the CAMCC block for x1e80100. The x1e80100 CAMCC block is an iteration
+> of previous CAMCC blocks with the exception of having two required
+> power-domains not just one.
+> 
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   arch/arm64/boot/dts/qcom/hamoa.dtsi | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> index 4ba751a65142b..9a8d6f020a391 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> @@ -6,6 +6,7 @@
+>   #include <dt-bindings/clock/qcom,rpmh.h>
+>   #include <dt-bindings/clock/qcom,sc8280xp-lpasscc.h>
+>   #include <dt-bindings/clock/qcom,sm8450-videocc.h>
+> +#include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+>   #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
+>   #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+>   #include <dt-bindings/clock/qcom,x1e80100-gpucc.h>
+> @@ -5550,6 +5551,22 @@ videocc: clock-controller@aaf0000 {
+>   			#power-domain-cells = <1>;
+>   		};
+>   
+> +		camcc: clock-controller@ade0000 {
+> +			compatible = "qcom,x1e80100-camcc";
+> +			reg = <0 0x0ade0000 0 0x20000>;
+> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
+> +				 <&bi_tcxo_div2>,
+> +				 <&bi_tcxo_ao_div2>,
+> +				 <&sleep_clk>;
+> +			power-domains = <&rpmhpd RPMHPD_MXC>,
+> +					<&rpmhpd RPMHPD_MMCX>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +			#power-domain-cells = <1>;
+> +		};
+> +
+>   		mdss: display-subsystem@ae00000 {
+>   			compatible = "qcom,x1e80100-mdss";
+>   			reg = <0 0x0ae00000 0 0x1000>;
+> 
 
-I'm not sure if it would help all that much. Yes, if we mark the VPR
-region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
-the checks for can_set_direct_map() redundant. However, from what I can
-tell, Vincent's series still forces page-granularity on these regions,
-so it won't retain block mappings at all for them.
+Hi Bryan,
 
-The block mappings can be retained for the non-VPR memory, so that's
-nice. It also reduces the amount of external prerequisites, but I had
-kind of hoped that we could go one step further and keep block mappings
-even for the VPR memory if the region happened to be a multiple of the
-block size.
+The latest code already includes this change, so please drop it in the 
+next version.
 
-The recent addition of page count to the set_direct_map_*() functions
-helps reduce the amount of checks that need to be run, so maybe there's
-not too much to be gained from removing whole block mappings at once
-=66rom the linear map.
-
-Thierry
-
---a5apqptzjdcu2eq7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqfybIACgkQ3SOs138+
-s6HeMBAAuLF8s85+tHae/nBOh6j4pUVcjE5KyexYHpAnHyj8HIuDuERbHercMMPe
-CyLnvqYhkNgu1LmEjo9O0OVzGEe65BJoHkdgmXMTyFLQ/9NGtdvaaTCabe99iBCm
-1BGL8d0KtegUlzTJLntnV+ubRKhLjZthpMxxjuThV2TJaFTQXtS4kcaldKUTw73o
-k9bbvnuX2PsQCVZTL+aAKsRtvXHT011GzCwlfufuRnkX1kJ7vXidndwdsMOFoIJm
-lThSDnPii6F/bJc74o9ztJlObQ8gjs/6hzMjrFu9FVFoMa0sucCfM6d+q6wOw/QF
-nS7Gtk7mV9RgQ2PkT6o+Umw0l1Nnwd5R5XGKo+vuVb8hCy6hmTe1jPkIy0PyFyan
-k54nErXH09l91YA06FpSI4HmeoCYUk4cUU/hKlKYVbE+7DrP7GLNBgEl//Xm5zfB
-do1TCokmrQMoFu3UniXLhSmKJMZOuvW23cj5FVP81q3t3cJxvONGp7hvXMyAz5Yy
-tx3HYQn+1z1GuPrmlI/PQ7bCz2ZHhepUHPcP6fx3qQoEcECZr23Ud1xVA1xrxNKS
-AfvLgsWqAZnG0bTq0hOp2xW38FlPOEB/Gn0A3ux9viOHbMyVuOHqET3wahXk3XgN
-OkCpZ+OS8PyANuhW2WySDdpC1HnKIgfn0ghFX2BlmOZ86qZ1LTg=
-=5HqX
------END PGP SIGNATURE-----
-
---a5apqptzjdcu2eq7--
+Thanks,
+Wenmeng
