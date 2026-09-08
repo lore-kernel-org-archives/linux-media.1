@@ -1,176 +1,134 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98E13A1E81;
-	Tue,  8 Sep 2026 19:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA03659C977;
+	Tue,  8 Sep 2026 20:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788896596; cv=none; b=OnbT0QZyqisRL/eXFwFbuRfn7Kp0rXmbEMazOPRQAx2DR+yhWb9He6cYOR/+cqUwKHyvBlUSy10x+j8X3X1DH2ve0ectMVqz0ytyb7AwvnHwkrZ0G9XBEA9H/Wj/g24+CrL0ZI5M0DOb7+s6aD4tg7Jiy9s+TX6ReMfY93Zorbk=
+	t=1788897838; cv=none; b=hC/lrmXww/96qxF+52jtAYN7cM/nfH00ubayGtAHTAv+PmnliAUCR1bhGHxQKsM48ihlv4UPus6pkUuj/PmJ6Z2+EdkCnyyqudkAMKOVan+DRzcnySiDOs8ikQUArmjm53SG4xj/YHnEIcl1f73UtaLkP1LlyfbbEER72xOt+Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788896596; c=relaxed/simple;
-	bh=xlqEswEziPGf0ZRlGaptPva6ELMXLnrVfl8OWXiHUlg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=SgNgdp+JyHMbp8mMrYuRIx4owfugb8n5SWGxTV8KfB/2pXi9wnNGwMnP7USaeiyy+LnDpte0W0UDk1jhwXGc3nIP5/tJeTepR0hvyPZ68hm8GnCXgzHzQTRpTBxn3sjRYa/9vEQX+rDO24UPyKu6Rt3H6iiyqxfstuvecxiZqM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=U6mPFVk9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=S2Cld9ng; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1788897838; c=relaxed/simple;
+	bh=cx581AfwcbQLzd9ujjVVIBrRWNt1WDRo5RwXBP997PI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D1rDsY7IVKKe+3kvsLGLvDaI5sjgm50S1vQ3Fk21SSip5ic927VEblAxmrwhKCHWqpIs0bzdCfDUaKNK8ZWXv/TwaZdwp3Z6osgWIM7qLSSZgzYRaEntWykVez7055JxzxVmPjwTTRGidyr+OrCX77urSfLriLytYQyjAFXBdZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=LTgBpVYO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NTYUN7+L; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="U6mPFVk9";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="S2Cld9ng"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 24BAA7A00F4;
-	Tue,  8 Sep 2026 15:43:12 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 15:43:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788896591;
-	 x=1788982991; bh=4IJjsl35hy6uWhJvFuqE8L4yxSGKu+5lpZymIsb8Msc=; b=
-	U6mPFVk9YL16LJWdXa/424N8Q9tnaQEfkXaFZfC05Rv7g4jpETeO3ajN2fq495Fh
-	WrMWE0DREKl8e+FiZIiwVBqHCNQxkGRS9lPOKYYAWBJE1fupx5qElQI0jQ530txI
-	g3X5DeD2h8/VRfWue8/KhfhKl1JROC2/WzNBrYwJIF4sNlclS3yqaVAEDE3v6ak2
-	7ERTKh65f/H0qH1V8JJl3KCQyVVkUiiUM6IbZARWbZYq5VmWPMicnoqBENNth38I
-	cwUAoGf8GVvYgj42lLzAoVmQVfkALFAtU+9JW7ssDaQsghuNEj184yNFsP3Fk+wH
-	db58YqvVf1CgsbAr6b3r6Q==
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="LTgBpVYO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NTYUN7+L"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 93025EC018B;
+	Tue,  8 Sep 2026 16:03:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 08 Sep 2026 16:03:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1788897835; x=1788984235; bh=SB
+	kCXwakpo1BWnUC/wmQDDWTeuf9BiXVQDl8v5mZQ0A=; b=LTgBpVYOrzr6mvevJ9
+	FD97g3qptU2dF85owB+cxZrxQS3mVothvQB0lfMnDV1dsUlvBCqfoIh7shU0ldyr
+	xfrCvaQD+hlS3JktaNfOMTMUoAlNvITr4vy1pgwVFuRg6D/TBF0XSdLNtk6d3117
+	WQEzC64XF7TIC7qJFPhRSx47efRrjlKmG8I1oR9LsT0AjqXHkV1MjS/s0RaUNJT2
+	GvLTWgM28PYaKNB59Y1uED/2NRtd14d/NeqyZ/rV2llqa7lulhaQ2TNor24yLSTM
+	4v4wAlr1wPi7RW5YrCaF2qh2WuQJTIDOjEMD2OG1DKWc6V5QiOYMPxMmUOVItWZQ
+	gygQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788896591; x=
-	1788982991; bh=4IJjsl35hy6uWhJvFuqE8L4yxSGKu+5lpZymIsb8Msc=; b=S
-	2Cld9ngfwmUHarBMQc/LHSHeHWD0xtCBeynQUwY/nM+jxDIY8h9wQU0SijPCvIEI
-	1UeKVQxK0LSWtuTvDfHOWngQW+JKivd59xMRq6nr1wGJ+RGQT0pCL9Kds9X2runx
-	Id4R0A1GnYrDNERfPiYJP1Q8vLXjKG/UfcF0jMSKzYfwb5BpMZE9GabqI2IXZXni
-	kKq4xIYCl4XCv9v4dqy+32BQo3yWlSuBZ1XB4rhrzQXSSilmjSvRk+tdOvw+Q62m
-	tEv7nKUYq9BDQjn6duHrF7DdeRu1YwZC1RRUCSdXPpldghkrE/Y2Cmi6zC1McD0x
-	SLUVnqFm1WUDD7+EKjE2Q==
-X-ME-Sender: <xms:TGWgajM7wSAGALfvOn0tYKDarPFdSWSYTFcyb7sKqGRwOaa-2zryUQ>
-    <xme:TGWgaozaCDYxyc6ffkMyogw7qY-sR8oaeaSB_DHd5mYdn1O5vI2LHIwT9Y3CPOVsW
-    q-fPOeJgxWDBvFvRRObAkHu6rlIgBNykdQrvQlbUysBtUpUMctkb2A>
-X-ME-Proxy-Cause: dmFkZTEWysj5ngFE1nM4ud5BEPnvNaVbfYlRDfiGwB68r8EDMkiU5dzpKRL9NlWCptfdbK
-    gfYqSYN+zM2p2G/Yb36sHfe9I/KOu0qw/QkNoT2IKpQDasimiA7FGdoW6yMeisRcU7Ho+s
-    BCTOjGzEhfUj3P4ZL+t9f53KwQHAUqftFGmSnQ9rLouWbRnDbVR9a1+b+C+MvXP4Muec/V
-    Pnuh871vbx1/3VKO6k5vpaVJLH98Mku+zk4Zc7wG/4cDobBB0jqTgHteoMd27vRHO/nxiS
-    0jjysIFfqmCGHzCtN1VTOia6Ta1mDR+gs6c2FHBGR/mzzcwxxWOVowCsEHHjW9br5Wasfb
-    s48PSXmTpU6kXUvvenJcDEcEuqj5qljSKEZpS9kJHmeDmAEeLZeZ+KZ6847/LJEySgqP2o
-    bZWhPCGN5NrPyltp+oBJBs2Dz0+uBeOh41cZdIztRcs88YNCunjoRMiMcjQ51f2zrZH23A
-    WgAZg8velj0kko8cn/rU8NOleKEaOpEO9ZRV5APtuQylj7KorLjPWnTvlJUr1wLNsa52nd
-    1zfrX5XpW52RTnm3HHcOk7CsE63TkpT0eGNz+xdN7EHW+XcPFE5ojIAOf1j5ADEPfgIvhH
-    cMceBWJ/nNjX9ZlH7XRe1MrrpxcJbGiUISI0/dsIUh2MU0KelaKeAo7v6QEg
-X-ME-Proxy: <xmx:TWWgau76hFCfszuDLebCtu_Obicnoz1oY4QV544NImgpBVmbrFLXdA>
-    <xmx:TWWgamIx8dtaC3Y5Qz36XcUAjyWFju7iSwPqzOgORSdUH-_DrSitXA>
-    <xmx:TWWgamxWttHdozSgKKMVHp7vYnUvEue8cpp_Yr84jmKvYJwinmGPtw>
-    <xmx:TWWgauKmvGYTP7PhPkc5fWcT22JbHI87VUCq43eLfcarGYdLADfcSg>
-    <xmx:T2WgamK7BjD-KSv4eKe3JVkV1RWLIt4kYji1aOSvJ72E0WheE6FecdYn>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 25BF232A0078; Tue,  8 Sep 2026 15:43:08 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1788897835; x=1788984235; bh=SBkCXwakpo1BWnUC/wmQDDWTeuf9
+	BiXVQDl8v5mZQ0A=; b=NTYUN7+Ln1Ti+21LpJkBkqILLE7Lsy5H3SygyDUGqvuv
+	5lDhdka4Z0SRcNpFAUUnXTERKUAEbndS2+qF0oVYkktLLUqZzDqVRY4VGUyyRABc
+	GF433hfGcOaZchP4J0QcXVo0CmW5Qnu45Nw2CMby1/NFfW++GB+fv/A8staGwuMu
+	cziiizqTmjgs+eqSkRjPBWfpX0lwAPQtuRnl9wmw0eSsIVG49iHwIJb9SWloF8Ni
+	fAIxU9zp9r8sbvf3RfTtzkHSJL/MGpm1lh0mWfvoSldTEavlCShiOMGoez2tfmhK
+	xwFX03Y9ssabBy7OaURV5zAtJvyE6SQwJFnYsnuv5Q==
+X-ME-Sender: <xms:K2qgaljkl0Zhf1XAns6kHne1Dt3TEJnK1uAHtlyUgLJlIAUtWlZvIQ>
+    <xme:K2qgai-j71p2T_-OK9cTzFH-31XK97T62vnUznu3tCjZsb-FZALD9bGCGdskJklwa
+    i6Mh14rAcdsTxSe7LLkRyvZtBAtOhSdeh9jEaHW24rF5s3nbKpO9_tFOg>
+X-ME-Received: <xmr:K2qgagr9MYyDIbndgVlLat_7jSBNGQ0kFdHuRqP1YTTuV7t3k7U_4CHpn1aZO_-anyrVf4ySAQWPwVLxmih14JuuqcdQf0Q>
+X-ME-Proxy-Cause: dmFkZTF5Ll7v9xSwyy2z4RsnmCY/GuO2svcAqBvuhdMGbW59pNMGJvUm2WfEdgj8Zp05Ci
+    2FdrNvVyJH9MGtbn7vP2cvq0KrcAKhtYHN62qnDweOeGl8Erl3Cye7cKxdDRcBfV7AMdlY
+    ZwKobc2TSLxim9gI/7cAmIS8AI8Bd316v6srQPVJpmRrGoaUhac+M6RaPLBe+ohi6U6fAL
+    0Bl2dBkqQ+BVMRXbWuwJ5yDxtgEuzTop8j7gujLMzopBjNRyWqF4SyHLdDTWJaEy2t41y1
+    oJNvrvsNmyolt1O2g+bdKUs6mXWqabFAE3OwsxwgGOwBO5TowicyRO/pON0uVZH6q7TWVT
+    vI1qzqzrLUOSZ+jv+fIGXvWbRrTdrexSB9lXe4hjixrsBWbSvo3RbKhP83nvov0oYgX7WO
+    13B0Ahj9Ys1J823rX1pd9uKsq5dlMUfBnMV0VdFButZ9n/YFOgclZf+1xJGVDiAx6597gc
+    V8+AelsZgcltsQUTBfeeLgOdBc/NwtP71kz7yTD634LKLH5LODF9ioMzp76wHr3ym0CfG7
+    3sBUPA9QFdizQdLV02hVuDS8GK+duXT7pfl4iAHgeI+ZzoZwyTWjJtDSwh25LLiMx7Dou/
+    IUKM/ZMOSW26Pgf2D7rWo+kupFO7JeC/VSvQToI5q/EmiBz9mx607UP2mr5A
+X-ME-Proxy: <xmx:K2qgaqX6SINFZ8u04CEJfPbm95wyL-AR_1VF6H4XApFmiE3wz8lhxA>
+    <xmx:K2qgavBQIuYWj40UsbYVaZMhDdbm6NMisnHNkPvB2yCCK_i3fW_g7w>
+    <xmx:K2qgau2FgXJiTpYCxKlPsXrWVj7nUr56XTL1maxaE6enrGkBBLovVA>
+    <xmx:K2qgah3DaoJ1B_PfF9IH5j7C4k39Ch7t7GlwXM0dGLxfqEBsziQ0cw>
+    <xmx:K2qgag8s7Hs4bzLsoy_N9LnuOqXZZ1UwHOBkWEVrWPZ-Wn1RV9Ho3Cfn>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 16:03:54 -0400 (EDT)
+From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH 0/3] media: uapi: Add 24- and 28-bit bayer media bus
+ formats
+Date: Tue, 08 Sep 2026 22:02:55 +0200
+Message-Id: <20260908-v4l2-add-raw-mbus-v1-0-6973bffa5b80@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ABtt46vjHSU-
-Date: Tue, 08 Sep 2026 21:42:42 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>,
- "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Linus Walleij" <linusw@kernel.org>,
- "Russell King" <linux@armlinux.org.uk>,
- "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Liviu Dudau" <liviu.dudau@arm.com>,
- "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>,
- "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
- "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
- "Andrew Lunn" <andrew@lunn.ch>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
- "Gregory Clement" <gregory.clement@bootlin.com>,
- "Robert Jarzmik" <robert.jarzmik@free.fr>,
- "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
- "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- "Shawn Guo" <shawnguo@kernel.org>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux-OMAP <linux-omap@vger.kernel.org>,
- "Paul Walmsley" <paul@pwsan.com>,
- "Herbert Xu" <herbert@gondor.apana.org.au>,
- "David S . Miller" <davem@davemloft.net>,
- "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- "Kyungmin Park" <kyungmin.park@samsung.com>,
- "Helge Deller" <deller@gmx.de>, "Tero Kristo" <kristo@kernel.org>,
- "Stephen Boyd" <sboyd@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, linux-media@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org
-Message-Id: <5c7ef711-0e5b-4006-831f-c1129acc65be@app.fastmail.com>
-In-Reply-To: <aqBXOemS4boakDGt@gmail.com>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-7-arnd@kernel.org> <aqBXOemS4boakDGt@gmail.com>
-Subject: Re: [PATCH 06/13] ARM: omap2: remove omap24xx support
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1gamqcjYqxQXoxM1orZM6g+Id
+ 3esy2/x3g7KQVjhlewQeBGVzxTxSBOoOze1jOKjgQzlpjAWl2wgdN5jcCuO1awXyJqndbYgiN0
+ 3cCPb//kub+tc9Vz/rhEcxwm+hOMrdQAAAA==
+X-Change-ID: 20260908-v4l2-add-raw-mbus-add28038a892
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1007; i=niklas.soderlund+renesas@ragnatech.se;
+ h=from:subject:message-id;
+ bh=cx581AfwcbQLzd9ujjVVIBrRWNt1WDRo5RwXBP997PI=;
+ b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBqoGoiIPR6xQbFD088SfmdkYuf97OgBMupZ+mLP
+ GZ9KlxTrLmJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCaqBqIgAKCRAJtP95BPlN
+ JIK/EACC8Jw6/WSoQOBxK134PalA3bLIQSHxJau/qhs4z18dGsNXIvTqUnpYkcy1q/Kf5ZqvFtD
+ Fec8OcblNC3ZgltX+xAxPxpXWcFMqgNPvPOnroZC+22S/IeS9AwjGE8GQyDWeKcGhuqvuj4rGR1
+ ckjogjSGEctmTSjqKoiB2z+Tr77O5uZ6Bc1QU7tk4G4ZSRvEriaF0inHeVMP5yX9BKG2z4roC7O
+ QyF18f+tVlpY3yeR1mNqHlIn8WSMQTCuATNn62DYOvAxzN1UdBveGi7cfOaWevJGnQSlVAWwAQW
+ Ut6tMUiuqOwo1bH1b3NhxYytrnBCYR9cLhDVZnfLcbPwl7J6BNIVRxlCAp3zPKME0j7hf1gvJA7
+ OtDKR7kgEtBzSUDkq2J8OU2oMGC8UN4EWFcuqdecOc1IepzWWkljkU+GjXN7/18DO12IY6pgxD/
+ FPKhOKzS/IULRFNZLQ10TqKWSjYo+j/cd46OpTywkXx5l4AIsGWhU6pixVQI8EyPqe2KtXII416
+ IESyQt6psKruwvxvBU3OXvsRycK/eek7a6lhVfj96wdjdNaEdI4EoFWqLzBmTuws2+miMAWwRJv
+ ZC5X37VFMsq8U9zEO78/G07g/dF6gEJn03rMvVccyxqa54buSSqjzJJpSMktCwO3CBjz4u1Si8T
+ FSxoKzqGdNPkNrw==
+X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
+ fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-On Tue, Sep 8, 2026, at 21:21, Karl Mehltretter wrote:
-> On Tue, Sep 08, 2026 at 05:27:56PM +0100, Arnd Bergmann wrote:
->>  86 files changed, 60 insertions(+), 10696 deletions(-)
->
->> -CONFIG_ARCH_MULTI_V6=y
->>  CONFIG_OMAP_RESET_CLOCKS=y
->> -CONFIG_ARCH_OMAP2=y
->
-> With CONFIG_ARCH_MULTI_V6 gone, CONFIG_ARM_ERRATA_411920=y a few lines
-> down can be deleted (savedefconfig drops it)
+Hello,
 
-fixed now
+This small series adds the media bus formats and documentation for the 
+24- and 28-bit Bayer formats. This is done in preparation of work on the 
+Renesas R-Car video capture pipeline which will support these bus 
+formats in multiple drivers. For this reason it is posted as a separate 
+series before the driver work.
 
->> diff --git a/arch/arm/mach-omap2/gpmc.h b/arch/arm/mach-omap2/gpmc.h
->> deleted file mode 100644
->
-> perl scripts/get_maintainer.pl --self-test=patterns now warns:
->   ./MAINTAINERS:19896: warning: no file matches	F:	arch/arm/mach-omap2/*gpmc*
+Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+---
+Niklas Söderlund (3):
+      media: uapi: Extend bayer media bus formats table to 28 bits
+      media: uapi: Add 24-bit bayer media bus formats
+      media: uapi: Add 28-bit bayer media bus formats
 
-Ah perfect, I was looking for that command, and will check
-the rest of my series now.
+ .../userspace-api/media/v4l/subdev-formats.rst     | 596 ++++++++++++++++++++-
+ include/uapi/linux/media-bus-format.h              |  10 +-
+ 2 files changed, 603 insertions(+), 3 deletions(-)
+---
+base-commit: f9536a8065d9eed0d9114878c56ffc4e5a18bdfc
+change-id: 20260908-v4l2-add-raw-mbus-add28038a892
 
->> @@ -560,13 +533,11 @@ void __init pdata_quirks_init(const struct of_device_id *omap_dt_match_table)
->>  	 * We still need this for omap2420 and omap3 PM to work, others are
->
-> Stale comment about omap2420
+Best regards,
+--  
+Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-fixed.
-
->> diff --git a/arch/arm/mach-omap2/voltagedomains2xxx_data.c b/arch/arm/mach-omap2/voltagedomains2xxx_data.c
->> deleted file mode 100644
->> [...]
->> -void __init omap2xxx_voltagedomains_init(void)
->
-> The declaration for this is still in voltage.h.
-
-fixed.
-
-Thanks a lot for taking a look here.
-
-       Arnd
