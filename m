@@ -1,101 +1,248 @@
-Received: from forward500b.mail.yandex.net (forward500b.mail.yandex.net [178.154.239.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E7E4ADD81
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 12:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D1F54A7FA
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870380; cv=none; b=GeJ26UqUFeZsXz2v17XInibWis9+AyuBF0mhXhM1FYDW0Nygi3ILdiYVL2Yoa57ylUvHs76+ABHAEtDK43rGgMuCyxXeCb7ohN7CZFibQ2XYoI3IiNB3ncAEGt/OIoe0KrI91qFhsPdqVUo5vIaNgWNj5dUfzLB8GnSB0UDEUTs=
+	t=1788872900; cv=none; b=G1OgX8bCdIW4zFxdlBGoCGQ7wRdgYPBqV36RV51epdhOLTZIOz178VUYirsbwkBaHgYefuYKa8B35gXFML2v13HpU24m56GNkCd8hB+oOReEw+8jLfVQj1eQuBXwtSBk/PbTMwkRJ9MM/KggNStc6bxLF0e+xVwUgLKizYsi/aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870380; c=relaxed/simple;
-	bh=4Z891fvHQq9dz7L4UNArVokdeiSiz6/q5nOGMXR9IKE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fV3kYbf5FCgwLkAN/LMd8UOQ0T13RevDWQdY+whVoxvwd6qeNKQQzMWkS7TxfqLXuIjenherAj/o8aRAbRz+gTdVGC0EPyeUiKmCTUou4ZViVdgInL6eA0ZTQMTLUHdWM4Q7Z0ExYG/xHG2ygb34lJkgI/H1LbkFNFti0qAjmp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=AXc28WlH; arc=none smtp.client-ip=178.154.239.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	s=arc-20240116; t=1788872900; c=relaxed/simple;
+	bh=gS76ZUxJGII/IfQJPP3cQBrBvwEJIEfz3eGV0ojgosc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QVycEEKyfJLanGjEafb+0D4tKiyGPjVFOdX7w2f8tauy5vl5Hcdgeb4kq1u2rZkSMoEhxUx6NLES47FdaeAys0OpTjC7UR9KxYASZtRHqIP7KxWmKPECaj0VcEXjLbn3+JUshUp0HJ8I5QXY5c6ndhwsOuerqFh/t7C7xbYH/do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dshc00bz; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="AXc28WlH"
-Received: from mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:25c9:0:640:b4bd:0])
-	by forward500b.mail.yandex.net (postfix) with ESMTPS id D0BE2C1C27;
-	Tue, 08 Sep 2026 15:26:07 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net (smtp) with ESMTPSA id 5QMlFlSfX8c0-pzSe6Gqt;
-	Tue, 08 Sep 2026 15:26:07 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1788870367; bh=cU8vGvj+UWVSqjzPrI892QLl9nl4vRd/ml5E2VBUVk4=;
-	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
-	b=AXc28WlHLhMVS3o1UhGIZBwPSXNbddFff58IPs97555SFMjrJOxHDCACTgKVmFlTW
-	 jyKsEz3VdN5I/NUupmAio9mNJRNMmGdIgQq4VPthZWysO9WJw7Ku5Fe3d1Aau0WhZT
-	 PoJSr3oT9v0hgTmP5B/BIDyG/b2ghOA/lrFXrANE=
-Authentication-Results: mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-Message-ID: <fb450eee-7b63-4b85-b480-ce8759ba7c67@yandex.ru>
-Date: Tue, 8 Sep 2026 15:26:05 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dshc00bz"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so4045115e9.0
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 06:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788872897; x=1789477697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W+P6yu5LK3ZN7OT5GNukgXFTes6g5Rd5+fxFP67JMrY=;
+        b=Dshc00bzt06Pz3AjqDH+fu968X+35BI07RWQaADIOVWv4JiWnaUqyx5LFVm7u8uYlJ
+         NUi8hWltlkoK112sZM3SfFNJXMmIeedNjM1mhfAAOdfaeMX1rryOL/8wUJNsOmQ4X/Rf
+         TWG41qEmoTLIzO89yiaWNZ+IoTlqNtqBGE5iz40qhVJ3Iaq0/VRWlrXsn/17l0G+uquE
+         2pmPSOlUXS9Hu+VMHPGmXpwE0GZ1tD9I26cvv1mo+65LYADykLenMqnD092BI6sEGUTB
+         5VjYYW59kl7n4u4Mo9986gqQFnc8g8lOzuUIm5x4pUWqLyumpGB8FJVe0qXjbjEspV6X
+         cPPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788872897; x=1789477697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W+P6yu5LK3ZN7OT5GNukgXFTes6g5Rd5+fxFP67JMrY=;
+        b=Vn49/QGGDvL3NhkP/WCJKrArlOp4ib5XNubd6fQBLxjdg4mwPav85gGD+9LctWZLTY
+         zLjDFkEuHwAvXqP/V+ZP/I0FErWoTJDSsYIahF47Gdvz0Fkp9cV/CnAs/c4twBU8Cq63
+         hKUB8qo4LHGBoiFR1Ry6kwR1xFTZVQeq7Jd68XJ3xKRImCK1ACA1PBSkHz+0qo97mjSs
+         Kj6OujLizfKz2Nx8BmMPvB+xrSBM1RA9ERLgXaM9zGKYeiF1QiCN3CEfwT6XrNCLrrrm
+         IjlVkWgmbbSoh0ndT0ZvUvlZj8R7TWr/y+v9In5bWOg9gwwDLaSran7NrP4Vwr4rjBYr
+         /LzA==
+X-Gm-Message-State: AFuF++m+4+s474H6p5jS9orRpgd3qVFZM3P/SHzLGTs3+2cMgOOUHDWj
+	qoM+Mvbd2udDUQsarHyVsv0vJgZBx0L3O4JH9WJlegm8dnBRdvVCf75t
+X-Gm-Gg: AYBFou2m21lhnTrbbW2dyf3veHr8nKpg2j03qv3Ji+2ZEeSmZRo4n7LS4uuxYc5lRpY
+	quRX+5WPl8tDsvlQOAKTWCdwVyMTlN77FcklZdY343RacNK1gv6MUGe2k6u4KFJtjGceHfeFegr
+	AzjaF5XIhgELMgWPTt1oQi+Ahfj3tc+sEUMHbz5XYKWwE3CThWQGKMh+dD+/i1kLeJCqRIQmA4w
+	8GjVGgx5VyV0i2AEepZH/BwHANOCrcV42FVs2oA7+SnsT+y4SYQhMi5lgv+GvWxdibrOntZEJc1
+	B3X32UR7e/HzeNzH58O8d2IdUQGZzLtQ8pmTvY3t6733phFwfTNsqJr4icxaRa7B1+7qQYk1Hrb
+	/9nej2TbMNqVEfYlPso9KCdL+bbatSs/IIV8/6+xciREMhuwsKmvTmlAP0w67Kq8p7cgCzX9NUZ
+	n4t76vjsMXZ0UBSuUNOVNc7+y0ZV8bfFFn1crHjeSPNnUtvutMR1mQHDqkGBP3ttFxp/27S5aZS
+	aT8IMEJPIH405p54IQ2BzN7jm9Ex69s
+X-Received: by 2002:a05:600c:3513:b0:49c:ee3b:723d with SMTP id 5b1f17b1804b1-49d1e07e622mr12635625e9.0.1788872897012;
+        Tue, 08 Sep 2026 06:08:17 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm523660125e9.1.2026.09.08.06.08.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:08:14 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jimmy Su <jimmy.su@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: ov08x40: implement get_selection
+Date: Tue,  8 Sep 2026 15:08:03 +0200
+Message-ID: <20260908130803.2632-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH 1/2] media: em28xx: adjust initialization order in
- em28xx_v4l2_init()
-To: Hans Verkuil <hverkuil+cisco@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, lvc-project@linuxtesting.org,
- syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
-References: <20260907102824.95222-1-dmantipov@yandex.ru>
- <7f58710e-d235-446d-9c69-cf286eae8700@kernel.org>
-Content-Language: en-US
-From: Dmitry Antipov <dmantipov@yandex.ru>
-In-Reply-To: <7f58710e-d235-446d-9c69-cf286eae8700@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 12:23 PM, Hans Verkuil wrote:
+The driver does not implement any pad selection op, so userspace gets
+-ENOTTY when asking for the pixel array geometry. libcamera then has to
+guess: it defaults PixelArraySize to the output size and
+PixelArrayActiveAreas to a zero-sized rectangle, and warns that the driver
+needs fixing.
 
-> I prefer this simpler patch:
-> 
-> https://patchwork.linuxtv.org/project/linux-media/patch/3e01154b-ab4d-4cb3-90d7-a5dce4e5b2c4@kernel.org/
+Report the full pixel array and the per-mode analogue crop. The values are
+those the register lists already program: X_ADDR_START/END give a 3872
+pixel wide array and Y_ADDR_START/END give 2432 lines, with each mode
+cropping that window vertically.
 
-Not sure whether it fixes https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00.
-Running one of syzlang reproducers from the above, I'm seeing:
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/media/i2c/ov08x40.c | 87 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
 
-[   77.259135][  T194] KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-[   77.259761][  T194] CPU: 4 UID: 0 PID: 194 Comm: kworker/4:1 Tainted: G        W           7.3.0-rc2+ #17 PREEMPT(full)
-[   77.260740][  T194] Tainted: [W]=WARN
-[   77.261092][  T194] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-10.fc44 06/10/2025
-[   77.262034][  T194] Workqueue: events request_module_async
-[   77.262636][  T194] RIP: 0010:__wake_up_common_lock+0xd6/0x1f0
-[   77.263839][  T194] Code: 0f 84 d4 00 00 00 44 8b 64 24 04 eb 13 48 ba 00 00 00 00 00 fc ff df 4c 39 fd 0f 84 ba 00 00 00 49 89 ee 48 89 e8 48 c1 e8 03 <80> 3c 10 00 74 12 4c 89 f7 e8 8c f4 8d 00 48 ba 00 00 00 00 00 fc
-[   77.265115][  T194] RSP: 0018:ffffc90003ef79a0 EFLAGS: 00010046
-[   77.265447][  T194] RAX: 0000000000000000 RBX: ffff8880267b9740 RCX: 0000000000000001
-[   77.265770][  T194] RDX: dffffc0000000000 RSI: 0000000000000004 RDI: ffffc90003ef7944
-[   77.266088][  T194] RBP: 0000000000000000 R08: ffffc90003ef7947 R09: 1ffff920007def28
-[   77.266425][  T194] R10: dffffc0000000000 R11: fffff520007def29 R12: 0000000000000000
-[   77.266781][  T194] R13: dffffc0000000000 R14: 0000000000000000 R15: ffff8880267b97d0
-[   77.267694][  T194] FS:  0000000000000000(0000) GS:ffff8881254a7000(0000) knlGS:0000000000000000
-[   77.268111][  T194] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   77.268437][  T194] CR2: 00007f37cbd2ceb8 CR3: 000000002e931000 CR4: 0000000000f52ef0
-[   77.268804][  T194] PKRU: 55555554
-[   77.268979][  T194] Call Trace:
-[   77.269144][  T194]  <TASK>
-[   77.269292][  T194]  __vb2_queue_cancel+0x2de/0xde0
-[   77.269542][  T194]  ? __vb2_cleanup_fileio+0x134/0x1f0
-[   77.269831][  T194]  vb2_core_queue_release+0x2f/0x150
-[   77.270109][  T194]  vb2_video_unregister_device+0x15b/0x200
-[   77.270437][  T194]  em28xx_v4l2_init+0x1c89/0x3150
-[   77.270695][  T194]  em28xx_init_extension+0x120/0x1d0
-[   77.270955][  T194]  ? process_scheduled_works+0x89d/0x14d0
-[   77.271237][  T194]  process_scheduled_works+0xb60/0x14d0
-[   77.271788][  T194]  worker_thread+0xa47/0xfb0
-[   77.274246][  T194]  ? __kthread_parkme+0x71/0x1f0
-[   77.275290][  T194]  kthread+0x38b/0x480
-[   77.276165][  T194]  ? __pfx_worker_thread+0x10/0x10
-[   77.277716][  T194]  ? __pfx_kthread+0x10/0x10
-[   77.279999][  T194]  ret_from_fork+0x48c/0xab0
-[   77.282292][  T194]  ? __pfx_kthread+0x10/0x10
-[   77.284802][  T194]  ret_from_fork_asm+0x1a/0x30
+diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
+index 5eaf454f4763..0299d50222ad 100644
+--- a/drivers/media/i2c/ov08x40.c
++++ b/drivers/media/i2c/ov08x40.c
+@@ -151,6 +151,9 @@ struct ov08x40_mode {
+ 	/* Exposure calculation */
+ 	u16 exposure_margin;
+ 	u16 exposure_shift;
++
++	/* Analogue crop programmed by reg_list */
++	struct v4l2_rect crop;
+ };
+ 
+ static const struct ov08x40_reg ov08x40_global_regs[] = {
+@@ -1183,6 +1186,10 @@ static const char * const ov08x40_test_pattern_menu[] = {
+ #define OV08X40_LINK_FREQ_749MHZ	749000000ULL
+ #define OV08X40_SCLK_96MHZ		96000000ULL
+ #define OV08X40_XVCLK			19200000
++
++/* Full pixel array, from X/Y_ADDR_START..END in the register lists */
++#define OV08X40_NATIVE_WIDTH		3872
++#define OV08X40_NATIVE_HEIGHT		2432
+ #define OV08X40_DATA_LANES		4
+ 
+ /*
+@@ -1235,6 +1242,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 3872,
++			.height = 2432,
++		},
+ 	},
+ 	{
+ 		.width = 3856,
+@@ -1250,6 +1263,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 112,
++			.width = 3872,
++			.height = 2208,
++		},
+ 	},
+ 
+ 	{
+@@ -1266,6 +1285,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 0,
+ 		.exposure_margin = OV08X40_EXPOSURE_BIN_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 3872,
++			.height = 2432,
++		},
+ 	},
+ 	{
+ 		.width = 3856,
+@@ -1281,6 +1306,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 112,
++			.width = 3872,
++			.height = 2208,
++		},
+ 	},
+ 	{
+ 		.width = 1928,
+@@ -1296,6 +1327,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
+ 		.exposure_shift = 0,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 120,
++			.width = 3872,
++			.height = 2192,
++		},
+ 	},
+ };
+ 
+@@ -2055,10 +2092,60 @@ static const struct v4l2_subdev_video_ops ov08x40_video_ops = {
+ 	.s_stream = ov08x40_set_stream,
+ };
+ 
++static const struct v4l2_rect *
++__ov08x40_get_pad_crop(struct ov08x40 *ov08x,
++		       struct v4l2_subdev_state *sd_state, unsigned int pad,
++		       enum v4l2_subdev_format_whence which)
++{
++	const struct v4l2_mbus_framefmt *fmt;
++	const struct ov08x40_mode *mode;
++
++	if (which == V4L2_SUBDEV_FORMAT_ACTIVE)
++		return &ov08x->cur_mode->crop;
++
++	fmt = v4l2_subdev_state_get_format(sd_state, pad);
++	mode = v4l2_find_nearest_size_conditional(supported_modes,
++						  ARRAY_SIZE(supported_modes),
++						  width, height,
++						  fmt->width, fmt->height,
++						  filter_by_mipi_lanes, ov08x);
++
++	return &mode->crop;
++}
++
++static int ov08x40_get_selection(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	struct ov08x40 *ov08x = to_ov08x40(sd);
++
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		mutex_lock(&ov08x->mutex);
++		sel->r = *__ov08x40_get_pad_crop(ov08x, sd_state, sel->pad,
++						 sel->which);
++		mutex_unlock(&ov08x->mutex);
++
++		return 0;
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = OV08X40_NATIVE_WIDTH;
++		sel->r.height = OV08X40_NATIVE_HEIGHT;
++
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct v4l2_subdev_pad_ops ov08x40_pad_ops = {
+ 	.enum_mbus_code = ov08x40_enum_mbus_code,
+ 	.get_fmt = ov08x40_get_pad_format,
+ 	.set_fmt = ov08x40_set_pad_format,
++	.get_selection = ov08x40_get_selection,
+ 	.enum_frame_size = ov08x40_enum_frame_size,
+ };
+ 
+-- 
+2.55.0
 
-Dmitry
 
+base-commit: df2908090cda368b01ff43709f51890076c56157
