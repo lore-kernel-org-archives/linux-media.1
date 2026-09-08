@@ -1,98 +1,139 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91542534449
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 12:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869592; cv=pass; b=egYCVie+ENwl5TJC0+X4/ltt3pyKyXkgQc0m/7ovbnPxcHKSxzUNcpSkUHXOf09n0LtQemAd7vRfrLBiQz0zzL/BYpZherLgpfj+4aziMqfB6/1Da5U7wI8OYvjNsv3ci1Fv5PXBAKYkhSPcIQt2CQgl3ykvmwj3OvU++GBntyk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869592; c=relaxed/simple;
-	bh=t1pqubOKg46YMx27dxbs9Dzacr4ABPXV3Ceh5qC8XJs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BetVk9r/96WpsQgEOyAUEbBDlOyFCF0vW2r3aFQmgL8PKbOZn3BfiGJ/6pgV8Yem+d+VgQnyByO+TqV/qJmgz/ZU1pDAl3O5hUAU4iE1/hNwtiAXyyUf307GOr3zvBhNpuCAeY4ZAqsznksa/MX6XfAeeYHjSi81tZuAUriLrFQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=MiM0AXPL; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9792553A88D;
+	Tue,  8 Sep 2026 12:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788869643; cv=none; b=QqMRlATq93zaV/NYLalSE9nxDIMrmdIbxgcNs4U2N5GiyEm0PgOueB9wAQ9U3bjPa/HkOle05PNX8jp7dM32mNJG8qGF2p1/o8OVociSoNsa4c1hEGE3Jhh73qtPv/CMySCgNZwad6ODJF8Kl7WSsOL+yy38ZkDGGRKDfy0ONb4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788869643; c=relaxed/simple;
+	bh=iQwe+29YDoknEaFxd6AzGS0RHPiNwtK21Yn6SRenzgg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Ss7bn6H8g/NtVab6m4JYne+TFD8oI3QA/dt7uMD9PZBH9rQFqx5AUYJXd1xYizU8Eg4360rYWFgAI65XnaNLzeJkT+KnSyGBxGpsHMXsjjoicUNt9OwHoRCvpBWpPuPoXiQvL6l2OtGcIrZ0a4dKE6g5ZzVSHOpXWGdtErkd4Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNr6x3ia; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="MiM0AXPL"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hfN9l5Xz6z49Q5S;
-	Tue, 08 Sep 2026 15:12:43 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1788869563;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=89jBr99qRE0q7H1nc4DTqayX4VkgoDHOD0QzrKCQa78=;
-	b=MiM0AXPLslTBX4PitCn4/qslb/OfC/wnNyXfJKpV07/eLXGoML7SgL573EIEki981JWPG9
-	9CztigTE4Zvyrs3/eKVGrddaJltx6rY/skTJkJ1t2tueKtjMsSuH7BNrdD9dHUEWtbjM2H
-	PbSMVucSZQkUsICnc5SkdUuRgiH+2fZ/rCQfQeM6YZBl9Qs943zTNjNv7Q5HhihJAm/ZbH
-	wOXDZY2WuSHuQN33RzhC14+aLCjllVLn9adRkpO3dz6EHkIKh2vBRaY1NLFElzZG3Jw63C
-	q6Jo+dNojTx7MpXJG19ohZwVmrKN5wbRrktM9XND5B7AFPlzxkel747UBpYWZw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788869563;
-	b=HY3TqM0kKGiWETysdfaPp3UOa2D1lgjN5CfRA2+XWnSfHtMQws7243wT+T2Ylqq4MuONVn
-	X5vLRjbLqlQsUOpsbnuJJYW5sIKvDUvkiEk5i1C0RqszFbDCzXYkw8fGdZClqNaNk0ZYap
-	d8PnVFbtjEu9TqbEs0NpJ6ff09uaWJ2JqjvwAZxpaqfvvoNs2TGqINYz+UK/qdqK1jSadT
-	FyEWP9tOSFfhKx94FbnDGLpGscfafGHkhkQomafkz1eF/dArys1WGDdf9isbNuUQccgSfm
-	Hif/llB4b2ia3/7HqrY8LMl5u+IfQOcv0eKKJOm9Kacgdg7id6jmpA+QlTpf6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1788869563;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=89jBr99qRE0q7H1nc4DTqayX4VkgoDHOD0QzrKCQa78=;
-	b=u2RraCf8KDSNdFnbJJ6TSgP0W8hTzbM0l+Mzing5ygU8rz9x2u4IPoPwX8jz+jsNb3CM8Y
-	mv/h3SGd8LFSVg9uLYhpk6+zipeDRx0eAprwnxVmDL/L8rVb5M3SO6fdGbE8sC/zAh36Tn
-	tb4qbh4RgIwClRqs4NGSJnyXVuH1whEOY09i+o0BX5T3uN5vrCJMXgCuaIjViMB29D5NQO
-	iEZXGq1Fengsszr70Qt/NHuAu0A/qofrySxKCcxEPeR/nm4IMPvs7VIQe6yEgrZmlCUDAt
-	xpJSdftx4XqcfiPHnc2Ghwhb78cPpWDhB/hWsqyLUv5Gho7FJxCCdGzN7+KWZQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 2171F634C57;
-	Tue, 08 Sep 2026 15:12:42 +0300 (EEST)
-Date: Tue, 8 Sep 2026 15:12:42 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Lars Ljung <lars@matholka.se>
-Subject: Re: [PATCH] media: usb: em28xx: check if vbi is supported before
- calling, vb2_queue_init
-Message-ID: <ap_7uv05fa4fTk92@valkosipuli.retiisi.eu>
-References: <3e01154b-ab4d-4cb3-90d7-a5dce4e5b2c4@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNr6x3ia"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923121F00A3A;
+	Tue,  8 Sep 2026 12:13:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788869621;
+	bh=oqwyWCvNJ6P6oUdMwoUCml51kC1+AGWjzeei46hOJno=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=oNr6x3iacKiFtLiwJwmLue48h6YUOIJxRCZTjQfGuyuPDh87bTWJm0hUcjqljr3CW
+	 sO8phBVFz1yASYM+JcqRucToMBb+KuzkPHTDyFkhRvkvKKbBBacnjIrmxHkDGslEvU
+	 f7EsGu9zSmxpJ8O5v2u5aKUl+BQrv9m2+aLyqZ0ZtR5Al+30t67nN3q5ohqNAp6Co4
+	 Qj7suD4rOEI++QdfDzIsXax8kA95q1Msi4ttkPassrPYYtFTIjqIRn5njeuyFHAA8+
+	 wVsJcwhCbLppCwk9qAtoeERFwkK3iFr0UhsxbA+1ah+UoyiMr5o+8+o/Is+chk2yg/
+	 yNIVcmbDgP7ww==
+Message-ID: <891a848f-96df-40eb-9daa-f0812915d603@kernel.org>
+Date: Tue, 8 Sep 2026 14:13:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3e01154b-ab4d-4cb3-90d7-a5dce4e5b2c4@kernel.org>
+User-Agent: Mozilla Thunderbird
+From: hverkuil+cisco@kernel.org
+Subject: Re: [PATCH] media: usb: pvrusb2: fix slab-use-after-free in
+ pvr2_v4l2_dev_init
+To: xiaopeitux@foxmail.com, shuangpeng.kernel@gmail.com,
+ mchehab+huawei@kernel.org
+Cc: isely@pobox.com, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, mchehab@kernel.org,
+ Pei Xiao <xiaopei01@kylinos.cn>
+References: <6C2D160B-37DD-40F0-B8A2-089B8CAACB58@gmail.com>
+ <tencent_B85DFB2210B877A85021C1BC064E70E61C09@qq.com>
+Content-Language: en-US, nl
+In-Reply-To: <tencent_B85DFB2210B877A85021C1BC064E70E61C09@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 31, 2026 at 12:36:52PM +0200, Hans Verkuil wrote:
-> If the device does not support vbi, then the vbi queue is still
-> initialized with vb2_queue_init(), which fails with a WARNing because
-> the q->lock pointer is never set.
+On 04/06/2026 03:47, xiaopeitux@foxmail.com wrote:
+> From: Pei Xiao <xiaopei01@kylinos.cn>
 > 
-> Only call vb2_queue_init for the vbi queue if vbi is actually
-> supported.
+> The driver attempts to register the same video_device twice if the first
+> registration with a specific minor number fails. However, when the first
+> video_register_device() call fails, the underlying device structure is
+> released via put_device(), which frees the video_device object. The second
+> call then uses the already freed pointer, causing a KASAN
+> slab-use-after-free error.
 > 
-> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Tested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Reported-by: Lars Ljung <lars@matholka.se>
-> Closes: https://lore.kernel.org/linux-media/8ede91cc-b505-458a-94ef-fb02270f9701@matholka.se/T/#u
+> Moreover, the second call always uses -1 (automatic minor allocation),
+> which is redundant because mindevnum already can be -1 when no fixed
+> minor is requested. Keeping both calls does not provide any benefit but
+> introduces a use-after-free vulnerability.
+> 
+> Fix this by removing the second registration attempt and using only
+> the first call with mindevnum. This preserves the ability to request
+> a specific minor number (when mindevnum >= 0) while falling back to
+> automatic allocation (when mindevnum == -1) without double-registering
+> the same device.
 
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+The video_register_device change that called put_device was reverted (it
+was a bad idea), so this patch is no longer needed.
 
--- 
-Sakari Ailus
+Regards,
+
+	Hans
+
+> 
+> Logs:
+> BUG: KASAN: slab-use-after-free in pvr2_v4l2_dev_init
+> (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1221)
+> Read of size 4 at addr ffff88810a2aa4b4 by task pvrusb2-context/2009
+> 
+> Call Trace:
+>  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+>  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+>  kasan_report (mm/kasan/report.c:595)
+>  pvr2_v4l2_dev_init (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1221)
+>  pvr2_v4l2_create (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1249)
+>  pvr_setup_attach (drivers/media/usb/pvrusb2/pvrusb2-main.c:40)
+>  ...
+> 
+> Freed by task 2009 on cpu 1 at 594.064509s:
+>  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
+>  kasan_save_free_info (mm/kasan/generic.c:584)
+>  __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
+>  kfree
+>  v4l2_device_release (drivers/media/v4l2-core/v4l2-dev.c:225)
+>  device_release (drivers/gpu/drm/vkms/vkms_configfs.c:690)
+>  kobject_put
+>  __video_register_device (drivers/media/v4l2-core/v4l2-dev.c:1080)
+>  pvr2_v4l2_dev_init (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1218)
+>  pvr2_v4l2_create (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1249)
+>  pvr_setup_attach (drivers/media/usb/pvrusb2/pvrusb2-main.c:40)
+>  ...
+> 
+> Fixes: 0c0d06cac63e ("[media] rename most media/video usb drivers to media/usb")
+> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> Closes: https://lore.kernel.org/lkml/6C2D160B-37DD-40F0-B8A2-089B8CAACB58@gmail.com/
+> stable@vger.kernel.org
+> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+> ---
+>  drivers/media/usb/pvrusb2/pvrusb2-v4l2.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+> index 101b2e9fbaab..f9df813ca09b 100644
+> --- a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+> +++ b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+> @@ -1215,13 +1215,10 @@ static void pvr2_v4l2_dev_init(struct pvr2_v4l2_dev *dip,
+>  		mindevnum = nr_ptr[unit_number];
+>  	}
+>  	pvr2_hdw_set_v4l2_dev(hdw, &dip->devbase);
+> -	if ((video_register_device(&dip->devbase,
+> -				   dip->v4l_type, mindevnum) < 0) &&
+> -	    (video_register_device(&dip->devbase,
+> -				   dip->v4l_type, -1) < 0)) {
+> +	if (video_register_device(&dip->devbase,
+> +				   dip->v4l_type, mindevnum) < 0)
+>  		pr_err(KBUILD_MODNAME
+>  			": Failed to register pvrusb2 v4l device\n");
+> -	}
+>  
+>  	pr_info("pvrusb2: registered device %s [%s]\n",
+>  	       video_device_node_name(&dip->devbase),
+
