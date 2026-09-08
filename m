@@ -1,143 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DD04FB9A7;
-	Tue,  8 Sep 2026 10:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A81526A84;
+	Tue,  8 Sep 2026 11:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865061; cv=none; b=L2c9bESma5oqGCmSlZabExjE6FQMbs2Ne1A7Q5uT0QMjcNZmkTUnP36fbx31dJgFi+LT6vy3h5FqsviMcNa/PhFBMVBSzzxSfRlag6EL97I7U1rdcktTr0/blcCwYmjsCTyqFOCg02SA5Xzr5w10vTl7WGuz5aogpEfn7s4hKGA=
+	t=1788866057; cv=none; b=DpUBXiPCg81cMHDuSZBXCLrwdhO1lbp9d2a9QVd9/hj+slU2jrtSL+5b9pa+D9CSKGb8a/CcOsBPz+aCP9aSUeTn9eg0MgFpVh/IUe9wMFDHJalAYg6iQSq3anUk3vOSatKuPzGGc/BshYSSzxplRIjzYnl62Rc4tDE3Rp2evkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865061; c=relaxed/simple;
-	bh=HdpRzNsi01Gm+Oi4cNsVzLyBU6oVTR4tJm4QKMDatp4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MZQyC1kJeGVnjB+3hS81lF2vEekmGV44YgrSNcjXiqaSTMmLZImRqIjhn/wprXh2ABKP/UQiexG3zqTHPuO3lkCxuob0hRjQBuv8lTmgcPN1eedlgo9Y0p+ZbhwG65n/FsW8tIrQIFcIUSj950o+EnRf3oGXXWeQQfMxRYCOW/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b0qn8lLa; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788866057; c=relaxed/simple;
+	bh=xGoIe/NeHzhwCF7D/ZgE5eeSfjdWOuYshvLObJf5hfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hsEkKaeUqJWqKUafAUN6jsnxlxvdeJD/YUPhllvQtuMSv5UfZ3yUx849uP/tr1dIFBnVTHHwAqjrecrkZCLyZL7sBrBCOp/j3YUtLZwz6nToxsUXHpix8gxpiOnWeDsWXzu7NvHFtQOpeSk2u2bbBF0SLCgmpj2119pe5pHlthA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jh4bkDw+; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b0qn8lLa"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jh4bkDw+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788865057; x=1820401057;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=HdpRzNsi01Gm+Oi4cNsVzLyBU6oVTR4tJm4QKMDatp4=;
-  b=b0qn8lLaA/OwF+MzZOPUoiXLjrKNhMwNjj+GA/aayY+tGDnVw5ABT6jO
-   VVFnZKgHeF06JO8J4FirkXkZHHe01qxhkQ34teeakJelx99bHT9f+Db5j
-   /4Pgyi0s7IqbzeFENQwkmY62+qhYy/RQ6UBvz2v0XosRQqP4iS4hokPsv
-   x0VVZgoZsXOM1KEPWVcYT3H7Z2B5evKbxsx7QWgXfG6TNpHDSZTd3B4Nb
-   TC8n+vmnj6XSAP0rYrmHnYqTu2Pfk91jstfiFp16r6JUw6KPU+9T3grws
-   RJl0h7jbK6QWa+L3Jj/YsQxddlqJrYAuQqWmlVgQ7OXphACQIsSyF8CMr
-   A==;
-X-CSE-ConnectionGUID: qQ2HKuc0SeaHjhAp4+tO2A==
-X-CSE-MsgGUID: CnXEyIXaRZeHpVciUDjP3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="114802841"
+  t=1788866052; x=1820402052;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xGoIe/NeHzhwCF7D/ZgE5eeSfjdWOuYshvLObJf5hfo=;
+  b=jh4bkDw+iyJfQzC5xsMZrrd0EjqIhK3vopJGXnsyde2pzLDT5iKUm2E9
+   rVoz5MwoJygpC0A9SWkwgOI1qNQ383e0tirjy+cQGi37h3hpbsJQADCbo
+   9NTawEyEkNJJeFUUcaoTpDVK/I/PEPgVYWy+NzACPjppdkuxY2IiojNVY
+   lF5BXZctTjeOVBIlo4UzEPJYp5NBk2rFEXYIdbvcERuwmYtjOfKKeTnNJ
+   HbKvaps193v+VwnEDciEgMz0mJYVwXY455cf2nIQshJU56vhHgZp2qGDE
+   0498DaiKN8CnaU7oqzeBcxJqc38H11LfV2tk/CsqKzfA5+IQlPaNG+Tc8
+   g==;
+X-CSE-ConnectionGUID: 3CF0vkzjT62FOTb/UuUqdQ==
+X-CSE-MsgGUID: mRMPnTdZS86ZhgFZF2fEpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="76825101"
 X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="114802841"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:57:31 -0700
-X-CSE-ConnectionGUID: HRfUyJl6RXmslmpNjKhwdg==
-X-CSE-MsgGUID: 8xZ5VKOnSW24TGwiFS/J1w==
+   d="scan'208";a="76825101"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:14:07 -0700
+X-CSE-ConnectionGUID: JzJho5jyTJuDqqQ/GjRhPg==
+X-CSE-MsgGUID: ZK37vcV7TUGTEz4txHIBfQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="270924516"
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:57:29 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Kate Hsuan <hpa@redhat.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
-Date: Tue,  8 Sep 2026 18:57:17 +0800
-Message-ID: <20260908105717.496232-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
+   d="scan'208";a="294444862"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:14:05 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id F133811F7F5;
+	Tue, 08 Sep 2026 14:14:07 +0300 (EEST)
+Date: Tue, 8 Sep 2026 14:14:07 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/4] media: i2c: og0ve1b: Use monochrome-appropriate
+ test pattern name
+Message-ID: <ap_t_x0D5moBWJz5@kekkonen.localdomain>
+References: <20260901-og0va1b-v6-0-a05b2d04c892@oss.qualcomm.com>
+ <20260901-og0va1b-v6-2-a05b2d04c892@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-og0va1b-v6-2-a05b2d04c892@oss.qualcomm.com>
 
-The wake line is only used as an IRQ source, yet the driver requests
-it with devm_gpiod_get() before the I2C handshake. Where ipu-bridge
-does not expose the CSI endpoints, CSI init returns -EPROBE_DEFER and
-every retry claims the line again for the length of the handshake.
+Hi Wenmeng,
 
-On the Dell XPS 14 DA14260 (Panther Lake) the four CS35L57 amplifiers
-read their speaker ID from one GpioIo (DSDT decoded in the second
-link):
+On Tue, Sep 01, 2026 at 03:40:05PM +0800, Wenmeng Liu wrote:
+> OG0VE1B is a monochrome sensor and cannot produce coloured test
+> patterns, so the "Vertical Colour Bars" test pattern name is misleading.
+> Rename it to "Standard Test Bar" to match the OG0VA1B naming.
 
-  GpioIo (Shared, PullNone, 0, 0, IoRestrictionInputOnly,
-          "\_SB.GPI1", 0, ResourceConsumer,,) {20}
+I guess the test pattern generator is still the same (or similar) even if
+the colour filter on the sensor isn't what you'd expect of e.g. a Bayer
+sensor. You you call it standard, however, I think you should define what
+that standard is. We're not limited to datasheet naming here.
 
-A request that lands while another consumer holds the line fails, and
-cs35l56 does not retry:
+> 
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>  drivers/media/i2c/og0ve1b.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+> index 84a28cdcade10f8fbcf945999e88f84641b9bc0d..da5c8e49d4a811f55736bd89c6922856f2e7391c 100644
+> --- a/drivers/media/i2c/og0ve1b.c
+> +++ b/drivers/media/i2c/og0ve1b.c
+> @@ -72,7 +72,7 @@ struct og0ve1b_mode {
+>  
+>  static const char * const og0ve1b_test_pattern_menu[] = {
+>  	"Disabled",
+> -	"Vertical Colour Bars",
+> +	"Standard Test Bar",
+>  };
+>  
+>  static const char * const og0ve1b_supply_names[] = {
+> 
 
-  cs35l56 sdw:0:2:01fa:3557:01:2: error -EBUSY: Failed to get spk-id-gpios
-
-All four fail on Fedora 7.1.13, the first Fedora 7.1 kernel with the
-driver enabled; the same board on 7.1.12 without it creates the card.
-The second link shows the same failure on openSUSE 7.2.2, whose
-config also enables the driver.
-
-The INTC10E1 _CRS of this machine has not been decoded. The vendor
-driver in intel/vision-drivers requests req, resp and rst the same
-way but maps wake to an IRQ with acpi_dev_gpio_irq_get_by() without
-requesting it, and on another DA14260 (board 0VRKYR, BIOS 1.8.2) a
-build of it is bound while the amplifiers probe. The wake entry is
-the line that differs.
-
-Take the IRQ from the GpioInt entry the same way, as the I2C core
-does for client->irq; this also applies the trigger type from _CRS.
-The driver binds as a platform device too, hence the explicit lookup.
-
-Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
-Cc: stable@vger.kernel.org
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2529031
-Link: https://github.com/thesofproject/sof/issues/11152
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
----
- drivers/media/i2c/cvs/core.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
-index d4a3b9c3bab1e..8d857bbd8ab51 100644
---- a/drivers/media/i2c/cvs/core.c
-+++ b/drivers/media/i2c/cvs/core.c
-@@ -725,8 +725,6 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
- 	}
- 
- 	if (ctx->res == ICVS_FULLCAP) {
--		struct gpio_desc *wake;
--
- 		ctx->rst = devm_gpiod_get(dev, "rst", GPIOD_OUT_HIGH);
- 		if (IS_ERR(ctx->rst)) {
- 			ret = dev_err_probe(dev, PTR_ERR(ctx->rst),
-@@ -734,14 +732,12 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
- 			goto err_put_ipu;
- 		}
- 
--		wake = devm_gpiod_get(dev, "wake", GPIOD_IN);
--		if (IS_ERR(wake)) {
--			ret = dev_err_probe(dev, PTR_ERR(wake),
--					    "failed to get wake GPIO\n");
--			goto err_put_ipu;
--		}
--
--		ctx->irq = gpiod_to_irq(wake);
-+		/*
-+		 * Do not request the line: another device's _CRS may list
-+		 * the same pin, and its driver would then fail with -EBUSY.
-+		 */
-+		ctx->irq = acpi_dev_gpio_irq_get_by(ACPI_COMPANION(dev),
-+						    "wake", 0);
- 		if (ctx->irq < 0) {
- 			ret = dev_err_probe(dev, ctx->irq,
- 					    "failed to get wake IRQ\n");
 -- 
-2.43.0
+Regards,
 
+Sakari Ailus
