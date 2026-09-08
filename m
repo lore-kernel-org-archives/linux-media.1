@@ -1,179 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE01B4F55BE;
-	Tue,  8 Sep 2026 10:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4024ADDBF
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 10:08:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861786; cv=none; b=uhxE183xL7d74AnN7xnOaXJ/HHLY4GS/uFfjNULDiH0VYk4qM7RFF8NbhUtiWHNchfrAf7baP3DYPXGk5W3zERlgndlvivCMCjO1X8oJ6dtCVXBfD2wbtK4iNroTbNFYpvhVSlRUOPXha/8MJN6wRr1nNat1zjJ1O/IHiqSweJQ=
+	t=1788862096; cv=none; b=qQ87mFw6JcrvDV81mWiz0hYTH7ARDzZWK/NAigS+5MND3JHcGSZ0lcBbjKqyqVkiyDTs4LbNBGJ2UvhZ1LsjK7s4zWmUGjUYfDMuEF3BrhOh+Gl+QhLHNf2AG49yYSkjouDVKPhxg9hzX00zM2Xt/kq+LEXXgbU3R6akjEjfcyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861786; c=relaxed/simple;
-	bh=SXyKFCdIQt8kaqPN6SJqTdYQ4FAdZmPdgnKh7go/7rM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fnpzkmCz76iqzZL3yHiNaovCJUglT2A5jr2d4dPHCoi88BF11RRsQSPK3HG/vpkWn8H9ijHH4vzOHY5gDPO4AMZl07m0tzw0RZQgHNI3OiukrN1BnXuiNT+epcxpsMtmGxCrXQdH8mjVUfHj+bnL3XIKXVzIwriZDs2T9CvHaos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB691F00A3A;
-	Tue,  8 Sep 2026 10:03:02 +0000 (UTC)
-Message-ID: <a2b33cbd-f16e-4e42-ad5d-053ad94f7a46@kernel.org>
-Date: Tue, 8 Sep 2026 12:02:52 +0200
+	s=arc-20240116; t=1788862096; c=relaxed/simple;
+	bh=ArU19skjGemn5Kt0JsnHE6iIpOM7oK7+eJHAy/cUnL0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XL12fZP4w0NeL/IiGsRJlf/xbomaoLV1RkiLOu7AFRnFNlUp2eVdjYwsxgSPw/pPy+je9h7+579uq5HOxE4oFxAVkUs09s3H4M7AKQnLpxDndUqanEsvWyjUPP90ts6Zivca7pJpgG7ySJb6MeRsGwwXkHwGoGjp7jD/wdh16TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ZhoqJHt2; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ZhoqJHt2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788862084; x=1789121284;
+	bh=eu7PU/jv5+AF5sCTeIdS1tfupIVaFgFC0UhqmUgTDFA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ZhoqJHt25OPTGUIL5pgbZM7F9YEpde9MjJ8aTwgSnx8BCTf2+OxGvj0IO0Xu5ZQcf
+	 kHk56/hEPgvo2623yHMm6ywL+adWwboeQO9qduPTABTWDJ9dQ3QLzi9ubU2I4Iw5v7
+	 ubamSI+Iu2nvIO70DvwsLGi//yIxZ1U2R1fBBxeaD2q8MV45KHlnd9o/Pa9Txcnq6I
+	 HiJq7i0D2EKGcqBGu2fvM3uIWhGFpzISyVbAExe9roUvC27unxrgoRo02Ps72Hr9VO
+	 JIEvSkLuk/SL8RY9WrFv/Bznn7TF6f0dP0Y2GHnaej4NDj3uV1g+wYQPdMaYsupy1z
+	 baiGBiGn2M3OQ==
+Date: Tue, 08 Sep 2026 10:07:57 +0000
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Peter Marshall <pm@petermarshall.ca>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
+Message-ID: <20260908100751.48357-1-lsa.uz@pm.me>
+In-Reply-To: <f164cbf4-04a6-449f-bec1-ea6bc40c4306@foss.st.com>
+References: <20260907205908.21303-1-lsa.uz@pm.me> <f164cbf4-04a6-449f-bec1-ea6bc40c4306@foss.st.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 2a79c0329f56cf5abcfb5177660a017280036592
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: hverkuil+cisco@kernel.org
-Subject: Re: [PATCH] media: vim2m: keep transaction buffer count stable while
- streaming
-To: Nicolas Dufresne <nicolas@ndufresne.ca>, Younho Choi <gdool88@mju.ac.kr>,
- linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, laurent.pinchart@ideasonboard.com,
- sakari.ailus@linux.intel.com, benjamin.gaignard@collabora.com,
- ysk@kzalloc.com, kees@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260526122205.1019913-1-gdool88@mju.ac.kr>
- <71a3fa9710cf1afbb80ebe850878557c3e95a1b2.camel@ndufresne.ca>
-Content-Language: en-US, nl
-In-Reply-To: <71a3fa9710cf1afbb80ebe850878557c3e95a1b2.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 16/07/2026 00:14, Nicolas Dufresne wrote:
-> Hi,
-> 
-> Le mardi 26 mai 2026 à 21:22 +0900, Younho Choi a écrit :
->> V4L2_CID_TRANS_NUM_BUFS controls how many buffer pairs a vim2m
->> mem2mem job processes before the job is completed. The driver stores
->> the value in ctx->translen and device_work() uses it later to decide
->> whether the current transaction should continue.
->>
->> Letting userspace change this control while streaming is active can
->> make a queued job observe a different transaction length than the one
->> it started with. That leaves the transaction state inconsistent with
->> the buffers currently queued for the job.
->>
->> Grab the transaction buffer count control while either queue is
->> streaming, and release it only after both queues have stopped
->> streaming. The V4L2 control framework then rejects changes with
->> -EBUSY while the value is in use, while still allowing userspace to
->> configure the value before streaming starts.
->>
->> Keep the control handler alive until after v4l2_m2m_ctx_release(),
->> since releasing the mem2mem context can call stop_streaming(), which
->> now ungrabs the control.
->>
->> Fixes: 96d8eab5d0a1 ("V4L/DVB: [v5,2/2] v4l: Add a mem-to-mem videobuf
->> framework test device")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Younho Choi <gdool88@mju.ac.kr>
-> 
-> I think this patch make sense, though I was pretty surprise of the private
-> control offset, which I've tracked down to an undocumented change made by Hans
-> in 2017. I've delegated this patch to him so we can sort this out first.
+Benjamin,
 
-Actually, that was 2012.
+Yes =E2=80=94 it is a fork of yours, and Andr=C3=A9 says so himself in the =
+header he
+kept:
 
-I suspect that at that time we didn't yet reserve control ranges in v4l2-controls.h.
+  https://github.com/AndreGilerson/linux-surface-kernel
+  branch v7.0-surface-devel, drivers/media/i2c/vd55g0.c
 
-In any case, we're in a bit of luck in that the 0x1000-0x100f range is reserved in
-v4l2-controls.h for the removed meye driver. Best solution is to just add a new
-#define V4L2_CID_USER_VIM2M_BASE there. No control IDs have to change, so this is
-safe.
+  // SPDX-License-Identifier: GPL-2.0
+  /*
+   * Driver for VD55G0 global shutter sensor family driver
+   *
+   * Copyright (C) 2024 STMicroelectronics SA
+   *
+   * Adapter with small changes by Andr=C3=A9 Gilerson
+   */
 
-I'll post a patch for that.
+Against your master it is 127 changed lines out of 2114, and all 59
+vd55g0_* function names are the same set =E2=80=94 nothing added, nothing r=
+emoved.
+vd55g0_patches.h differs in four places: his attribution line, uint ->
+unsigned int, and two structs made static. The firmware arrays are
+byte-identical, cut1_patch 6868 bytes and cut2_patch 260.
 
-Regards,
+That last point matters for this series. The blob I wrote to
+/lib/firmware/vd55g0-cut1.bin to get past the missing-firmware failure was
+taken from his header, so it is your firmware, published by you under
+GPL-2.0 in your own repository. Peter's driver needs those bytes and
+cannot get them from anywhere in-tree; you are the one who can say how
+they should reach linux-firmware, or whether VD55G0 should keep a built-in
+array the way VD55G1 does.
 
-	Hans
+What the 127 lines actually change, since it is a fair summary of what a
+laptop needed that your driver did not have:
 
-> 
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> 
->> ---
->>  drivers/media/test-drivers/vim2m.c | 29 ++++++++++++++++++++++++++---
->>  1 file changed, 26 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/media/test-drivers/vim2m.c b/drivers/media/test-
->> drivers/vim2m.c
->> index bb2dd11eef0e..f4a2c4083829 100644
->> --- a/drivers/media/test-drivers/vim2m.c
->> +++ b/drivers/media/test-drivers/vim2m.c
->> @@ -205,6 +205,7 @@ struct vim2m_ctx {
->>  	struct vim2m_dev	*dev;
->>  
->>  	struct v4l2_ctrl_handler hdl;
->> +	struct v4l2_ctrl	*trans_num_bufs_ctrl;
->>  
->>  	/* Processed buffers in this transaction */
->>  	u8			num_processed;
->> @@ -1258,9 +1259,27 @@ static int vim2m_start_streaming(struct vb2_queue *q,
->> unsigned int count)
->>  		ctx->aborting = 0;
->>  
->>  	q_data->sequence = 0;
->> +	v4l2_ctrl_grab(ctx->trans_num_bufs_ctrl, true);
->> +
->>  	return 0;
->>  }
->>  
->> +static bool vim2m_other_queue_is_streaming(struct vim2m_ctx *ctx,
->> +					   struct vb2_queue *q)
->> +{
->> +	struct vb2_queue *other_vq;
->> +
->> +	if (!ctx->fh.m2m_ctx)
->> +		return false;
->> +
->> +	if (V4L2_TYPE_IS_OUTPUT(q->type))
->> +		other_vq = v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx);
->> +	else
->> +		other_vq = v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx);
->> +
->> +	return vb2_is_streaming(other_vq);
->> +}
->> +
->>  static void vim2m_stop_streaming(struct vb2_queue *q)
->>  {
->>  	struct vim2m_ctx *ctx = vb2_get_drv_priv(q);
->> @@ -1274,11 +1293,14 @@ static void vim2m_stop_streaming(struct vb2_queue *q)
->>  		else
->>  			vbuf = v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
->>  		if (!vbuf)
->> -			return;
->> +			break;
->>  		v4l2_ctrl_request_complete(vbuf->vb2_buf.req_obj.req,
->>  					   &ctx->hdl);
->>  		v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_ERROR);
->>  	}
->> +
->> +	if (!vim2m_other_queue_is_streaming(ctx, q))
->> +		v4l2_ctrl_grab(ctx->trans_num_bufs_ctrl, false);
->>  }
->>  
->>  static void vim2m_buf_request_complete(struct vb2_buffer *vb)
->> @@ -1380,7 +1402,8 @@ static int vim2m_open(struct file *file)
->>  
->>  	vim2m_ctrl_trans_time_msec.def = default_transtime;
->>  	v4l2_ctrl_new_custom(hdl, &vim2m_ctrl_trans_time_msec, NULL);
->> -	v4l2_ctrl_new_custom(hdl, &vim2m_ctrl_trans_num_bufs, NULL);
->> +	ctx->trans_num_bufs_ctrl =
->> +		v4l2_ctrl_new_custom(hdl, &vim2m_ctrl_trans_num_bufs, NULL);
->>  	if (hdl->error) {
->>  		rc = hdl->error;
->>  		v4l2_ctrl_handler_free(hdl);
->> @@ -1435,10 +1458,10 @@ static int vim2m_release(struct file *file)
->>  
->>  	v4l2_fh_del(&ctx->fh, file);
->>  	v4l2_fh_exit(&ctx->fh);
->> -	v4l2_ctrl_handler_free(&ctx->hdl);
->>  	mutex_lock(&dev->dev_mutex);
->>  	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
->>  	mutex_unlock(&dev->dev_mutex);
->> +	v4l2_ctrl_handler_free(&ctx->hdl);
->>  	kfree(ctx);
->>  
->>  	atomic_dec(&dev->num_inst);
->>
->> base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+  - ACPI. Yours is DT-only; his adds acpi.h and an ACPI match on SMO55F0.
+  - Supply names. Yours asks for VCORE, VDDIO and VANA. His asks for avdd
+    and dovdd, two rather than three, with the comment that INT3472 on the
+    Surface Pro 11 provides GPIO type 0x0B as avdd and 0x10 as dovdd.
+  - SGRBG aliases beside the mono formats, commented "allows IPU7 Bayer
+    pipeline".
+  - illuminator GPIO handling.
+  - an unknown revision warns and continues instead of returning -EINVAL.
+
+The second of those explains something I reported yesterday and had not
+chased: on this machine Peter's 4/7 leaves `supply vcore not found, using
+dummy regulator`. His mapping gives the SMO55F0 GPIOs the names your
+driver wants, while the machine's INT3472 appears to describe what Andr=
+=C3=A9
+named avdd and dovdd. One of the two mappings does not match this
+hardware, and I have not established which =E2=80=94 I can measure it here =
+if that
+is useful.
+
+Two things I should retire from my own report, having now seen the
+off-list exchange you added back. Peter had already withdrawn the rename
+on 4 September, so the libcamera breakage I raised - the sensor-properties
+and helper lookups keying on the entity name, which vd55g1 machines have
+today - does not arise in a v2 that keeps the name. And the metadata point
+you make to him is the same one from the other side: unknown to libcamera,
+the sensor streams but on defaults.
+
+What is not retired is the firmware. Nothing in the exchange touches it,
+and it is the one thing that stops anyone but Peter using VD55G0 at all.
+
+For contrast rather than contradiction: he reports the sensor is not quite
+usable on his Surface Pro 9 because of IPU6 stream problems, short lines
+and frames cut off when the CPU idles. I saw none of that on IPU7 - it
+probed, bound and registered, and streamed 60 frames at 30 fps. Different
+bridge, different result, which may be worth knowing when the two are
+compared.
+
+I should be clear that I am not speaking for Andr=C3=A9. I have written to =
+him
+separately about upstreaming his IMX681 driver, he answered that mainline
+is his goal, and he is away until 28 September. If you want to reach him
+directly his address is in the MODULE_AUTHOR line of that file.
+
+Sergey
 
