@@ -1,33 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDE1377A93;
-	Tue,  8 Sep 2026 07:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6357639EF24
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 07:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852781; cv=none; b=b6ZaKc5ZCuW/QeWU/nIfUI6nNfsmTdrFBW8MXbLPE5T5oCOEEVtTAYb0A7Bx2diz6oZcICy9GF1CXhEsNCp0vKcB3ka5fKpbE1j89FnWftmbj4Nzk31VJma8e10+MNtj2aT7c11hbgqAGMT26scPlPkdaksvOwSY0RFh52J/AAc=
+	t=1788853548; cv=none; b=ccx0mTme/J+hIKRFZKLMNyOAw09fOGa/n8KLrjcPNfoIkN6qg0w/I95E+5DFHl1VtrhdyqKIK3/YYSZhky40X+U4tniRZ+Lid0tuSlYLiteWQNuTix6qw59KGykZPcZJ7Te+IfDaG5cBqND5jUiVYta+CXgjcsB4ZYtFJPLdaZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852781; c=relaxed/simple;
-	bh=EUr49/12uVuV1s6pYXONDxWHEJWQHrvEOdVQbiBHC+U=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=pxLZ2iO24TpImWojhWvtC5TBakKB+qifhMTDpBiUAKlfXafeXoptAxcAft3kcsriIbFqh74fNb2XC8vRR26Y5+XCkuja79zhQ9iptGOKKOewtzHaL4Ve7PLU2rY2DVHNSHf6J+mh7xfZINJ0XlxK/INQsPlQZ50x4lqsmsU/u0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqG8vVCd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788853548; c=relaxed/simple;
+	bh=MYJ8QuS9dJHlh3zGd4Jjmjuv7oAWC7r/tOj6ovNMei0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LwxekN6n14EDvZ8Gak998jmvP2jfiAGyZFe5x7z7GfZZpKmQ64XWPcoFj0JfQsPOheOEHTFiQFjO8t5vvCr8KYF1FhK9R7IDUBM5whFZHAgvsUhgDGeOxf6o2KS+hR+Axu8P2gn4TBO6Yu2rmsvHGts53xCyF052AFn0Ybw/HyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=meyDObDd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YEHGqRBc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqG8vVCd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D6F1F00A3A;
-	Tue,  8 Sep 2026 07:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788852779;
-	bh=P1+OQfTjBuZViNqiMRbvO+9lpHOj0dGHikPt5kebLzM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=oqG8vVCdvGfxaNVJOtKW8ZQAiw8dEH86GYSYfQWrS2iWohaznYr63sCOfgD/di+/5
-	 nzfj8OzvnjY/TLl2nmDLt7jlRJok0KaXycOjw8U0ZoGKxsS0pvT4xj4cMWJeiNckxT
-	 Qn6YQlzC6KG1RCxok8ErfsUFYHwF2hwBHeF1QMv66zJYzNrozH4t+H/ETmI7M3gL/g
-	 iUI0MoUZzWp6li762LrOHL8GRXklUdYVw9IdkHezl7HrE7oOjD3jzE30U8GDkeheEE
-	 tnAxfhrH3Enb3+QeDqzwIY0lADtQXnqqEsAlBEIC6LE8nwIHkDbWfp05B1OQOabUrH
-	 wIOUajwOoLztw==
-Message-ID: <517753c5-53ba-43c1-bad5-a55aa92e939f@kernel.org>
-Date: Tue, 8 Sep 2026 09:32:57 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="meyDObDd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YEHGqRBc"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M2Uh2072723
+	for <linux-media@vger.kernel.org>; Tue, 8 Sep 2026 07:45:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=; b=meyDObDdxg1onozh
+	BTIfrgJw9Bf20bmpFLWeHyZoqdWL8TX8jZKczZ2pE6krABotoKHevESc6wzTBOzl
+	OAwYrON/e3Pl7RsZxRn/C14fZyu4VRBSt3xnJLQHdwXsh88S9DC5l9GiZmPVa8hA
+	eT3Vm7Xv/6RxHAs66hv7XBakFwk2uRVloSq8Bl9hzR6PEnOgqphhTOHN2EUHNvJq
+	MqXXrISTRFOLQnXj5HCjf2dsYwA1yuMoVHaaoTwJGFlGxGn9AsLUQL4zxmYGCj/X
+	DkfS9JacTTbaF9b8B28tcXEN5zSj37ztLWzdNQWA+CbGZVik/3TZUBGHipETto+C
+	bV2gbQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfymdmb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 07:45:44 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b90cc0d5cso999572a91.0
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 00:45:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788853543; x=1789458343; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=;
+        b=YEHGqRBcBcdowYeghmqS0KR/PddShzQCfUrDW9T8rNvAOVSypnoSj6A83LxedMtrYh
+         YKIs4i6/TBkEJE26KrW4Odj3JpXn40cHjHqr9V7SfhLIEOrDwyMGYhMdIn2naMqlFpDe
+         +pLjsN4rnGs+4L818Ng6FkuCQhwRGZ86WkYk1EBFMM0zV422XwqUDOIkNaLHzwMNb3Lf
+         WRtgMfc4slq+oMi6YALGCIAVJEnxbJJ6FvWjML/lUMCELSi7zg1FrML/doltA1N8VO19
+         fSHk9ULQhm7tRk4xcqbf4Xs8RE1aaWRXQrAKgc4LGfNRyuKtlrj5HWsAJTh6kALWv+QP
+         ujXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788853543; x=1789458343;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=;
+        b=lk+xLHQjuciv/n8lEHFHP9oxtjAVAbL8MeMVuX/PDoCFOpwH7pfq92dhVLgzahuH6Z
+         ooAeicW2pXlkTO4Bs1pF7pUhbLrw8jeYlsB7ge1vuO5AJ/skr8eF81E4X5V3ttKSMcQr
+         CXqDmsZY5tTBYPV8OsOrJHfi9y8uSS93RAh3Ges9ts2ytjAatdRbgEtYIW9rsgwGOtrd
+         yWJygjb/22KpsMgpycRiiHnaCjrDRDJsrI1VA7ufjW6VxBY7J9ZZgQhK39+DmmCzpCzQ
+         nB/2bz1pFE5u7IDT24CBvwPcs2p8ChYemY0YZo6DfQNvixmBRggfIXbaHKy0GSakmaT+
+         KUsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZUz/KMkjF8+ISB0fGBo/j5oboWiJlYs66vh8b4WHueCU0PyeM0vXcCZJF+z0lNETgaaLbzWJy1hrOIA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mLDKHcAskq1c8O01XposQmQdR9nBcfdac1ix2NFluJh6/pVMkL
+	O9LfwF+mWwNZQGx+YeD7TsnP+xbmudHfdqgfieY31Eu49NBtAsDinqC8GLKw0Jy8QN1S4EL90YO
+	+cBp1kjOZOkPO5vXmhARctzSZydimOEWydHsYTi8mvY/qJDDzrXHk6k/NXb96dYRpZA==
+X-Gm-Gg: AYBFou3cXIraofiW1zR8zFIZ7T4FFzlcDTItlfi40Cu5QxCPyGJJ+/k6PhuAyuPkWUP
+	IlMrzyt7tv15Z7ISQSgNbylUK9kZPDQqZhDPmpoSXoMxm6E4OI1xXYyRlbNxJdAwtalmcCUGeYE
+	6ojcpaB27cqwkYdsZbPRTF4hYWQ4kHvYlkLl7Q0pkWAP8gmTLmB6cHDejL4UciL/d797hlXj0z3
+	9jabXJNV/uUjkyzwelY+Jjnj1z6zeyGA7OYvbhK/zztocPtISxpp45IyOv7rCMu/uzOVTj55g+G
+	vidWa0+/BWGpQ28j9ZY+J/7HJiW1BnMMp5vGkuQPo2iCPnYikDEBzPQkZSvYAhbkaoStKqiDS3T
+	OBmdxvl8s1kCr7T/JH2zXS8rBBerVRg==
+X-Received: by 2002:a17:90b:1e03:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39b260dda6emr38832013a91.4.1788853543400;
+        Tue, 08 Sep 2026 00:45:43 -0700 (PDT)
+X-Received: by 2002:a17:90b:1e03:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39b260dda6emr38831975a91.4.1788853542891;
+        Tue, 08 Sep 2026 00:45:42 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-336c2571039sm14719241eec.25.2026.09.08.00.45.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 00:45:42 -0700 (PDT)
+Message-ID: <a3b73723-9522-40da-806a-643093b1b227@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 13:15:32 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,504 +88,194 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v3 2/5] media: hws: add shared scratch DMA arena
-To: Ben Hoff <hoff.benjamin.k@gmail.com>
-Cc: mchehab@kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20260629182649.247879-1-hoff.benjamin.k@gmail.com>
- <20260629182649.247879-3-hoff.benjamin.k@gmail.com>
- <30e9aed1-d2ae-4e41-abf1-7b3aba7664be@kernel.org>
- <CAMSzxxQh94hz4h8jd2_qSFw849dTRO-EK8TjL6f=5aEqyOPB1Q@mail.gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <CAMSzxxQh94hz4h8jd2_qSFw849dTRO-EK8TjL6f=5aEqyOPB1Q@mail.gmail.com>
+Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
+ driver
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
+ <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
+ <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
+ <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
+ <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
+ <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
+ <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
+ <59aa182d-1b4c-4bdc-a1d5-e76cc9c88ed9@kernel.org>
+ <c806d7c5-98f8-4b0b-9d00-969e1917a8e4@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <c806d7c5-98f8-4b0b-9d00-969e1917a8e4@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: NIqdIkGsa6fB8mDUBIbTYE3Nu5VMyGZx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3OCBTYWx0ZWRfXwK+TrEflK99D
+ g9tkqm/LJX4yxDfBw27yB3a7LgLQd3V3ag4kLzE7UqrVjlhWBzPFC6wFZUnrtPDh4YrLSLG0BW3
+ gQSsmbjtIlnp+AFPgxtpcv9aZwQBnGdOI5NJRhMuCGyNs4LSst/faW1J6I/uWdwzyTh//9oCCVv
+ 6qURo2xGwi/5ql2pOmqpSS1ZWGjAftw7J3aHm98Oruj/dldGIzhBt4cglHNAC8LN+OUcbalV0Lh
+ k95bXqDTVbW35JFvFowCmE++UgZ6OUZQJ29fG970P5IKfitdTAVpP3RrjdKOEAxvqWpDmrWUbwS
+ 9DcqujnUWcOyDxBknkt+134JqsPDfr74DgkJcEB30TOZQG00rdnQZkMfksjPe4tG0PujbypzWlb
+ rn0DjrG6aSqwBRF8hxWaNfS8M4F82T0x+7rL1ZrtUX27j9bIbLYRBsHjYc34vyEplzs+3UPerYW
+ 9UxdYFZMdU7clmcy0bA==
+X-Proofpoint-GUID: NIqdIkGsa6fB8mDUBIbTYE3Nu5VMyGZx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3OCBTYWx0ZWRfXypC1BbkU2EQw
+ vvmj5wA9odJu3ccqhCuCZVv33YCX30n8TFi8+ByDToYPedB2pvc1rwp/ytDrG8OV/1I/TN88ppr
+ 0Cb+sUuSgODT7opYevo1CVmer3rEyHc=
+X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9fbd28 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=wP88gyHQT0P6k6tIFBAA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080078
 
-Hi Ben,
-
-On 27/07/2026 21:42, Ben Hoff wrote:
-> Hi Hans,
+On 31-08-2026 20:28, Ekansh Gupta wrote:
+> On 20-08-2026 19:01, Krzysztof Kozlowski wrote:
+>> On 20/08/2026 12:07, Dmitry Baryshkov wrote:
+>>> On Thu, Aug 20, 2026 at 11:07:45AM +0200, Krzysztof Kozlowski wrote:
+>>>>>>>>
+>>>>>>>> Device node with this compatible is already populated, so this looks
+>>>>>>>> simply wrong or you are adding a duplicated driver.
+>>>>>>>>
+>>>>>>>> That's a no-go, you are supposed to work with existing drivers and grow
+>>>>>>>> them.
+>>>>>>> I'll bring the discussion again here, there was a discussion to move the
+>>>>>>> driver to accel subsystem if we want to support new features/uAPI
+>>>>>>> changes. Please read [1],[2] threads. The intention is to replace
+>>>>>>> fastrpc driver with QDA eventually.
+>>>>>>
+>>>>>> None of them address the problem. You want to grow fastrpc into user of
+>>>>>> dmabuf? So you move it from misc to here.
+>>>>>
+>>>>> It's not as easy and nice, so I think in this case it's better to repeat
+>>>>
+>>>> I disagree. The existing fastrpc driver is not that complicated. It's
+>>>> actually moderate amount of code, much less than Venus was (~7 times less).
+>>>>
+>>>> It easily can grow to support two interfaces and the only difficulty is
+>>>> how to manage these two interfaces simultaneously or exclusively, e.g.
+>>>> opening first one disables the second.
+>>>
+>>> I see the point here.
+>>>
+>>> Would it be acceptable if we add QDA support only on the new platforms
+>>> (e.g. via the SoC-specific compat), provide QDA for those platforms,
+>>> and, once it reaches complete API and feature parity, we remove the old
+>>> fastrpc driver, migrati old platforms.
+>>
+>> The problem with this approach is that we have no guarantees that it
+>> will reach feature parity in respect of old interface, thus old driver
+>> might stay forever. If we agree for duplicated driver, contributors have
+>> no incentives to support old approach.
+> That's a fair concern. Let me lay out the sequence we have in mind and
+> then the concrete reasons parity is not optional for us.
 > 
-> The “Changes Requested” state is correct. I interpreted your July 15
-> feedback as requiring a new version of the series, and I have
-> additional changes coming across the patchset.
+> The plan is staged. QDA is enabled first on new platforms, where there
+> is no existing userspace to migrate and the new UAPI can be exercised
+> properly. In parallel we close the remaining feature gaps against
+> fastrpc. Once parity is reached we migrate the older platforms onto QDA
+> and remove drivers/misc/fastrpc.c. The end state is one driver, not two.
 > 
-> I have a new revision drafted locally, but I want to test it more
-> thoroughly before sending it.
-
-I didn't see a v4, this is still being worked on?
-
-In the meantime I'll mark this series as 'Changes Requested' and wait for
-that v4. That way it is out of our queue :-)
-
-Regards,
-
-	Hans
-
+> On why parity will actually happen: the DSP firmware is not changing.
+> Both drivers implement the same base protocol against the same firmware
+> image, so the feature set is defined by that firmware interface, not by
+> what we feel like implementing. For QDA to support a feature at all it
+> has to implement the same protocol operations fastrpc already does.
+> Parity is a property of the interface rather than of contributor enthusiasm.
 > 
-> Happy to get feedback on any component of this patchset as well and I
-> can fold that in as well.
+> Other than the base protocol, there are some features(daemons,
+> capability, session sharing) that exist in fastrpc for performance etc.
+> but are not yet part of QDA. We want to implement them properly rather
+> than port them across as they stand.
 > 
-> Best,
-> Ben
+> The remaining question is how fastrpc can actually be removed once
+> parity exists, without breaking existing userspace. That needs a
+> compatibility path, and it is a deliverable we are committed to rather
+> than an afterthought. For that, we need to settle is whether that path
+> is a userspace shim in the library, an in-kernel translation layer
+> exposing the legacy device nodes, or a hybrid. We evaluated an in-kernel
+> shim during v1 and hit constraints around constructing per-client
+> drm_file contexts from outside the DRM core, so the approach is still
+> open. I'll come back with a concrete proposal, and it will land before
+> fastrpc is removed rather than after.
 > 
+>>
+>> Much better is to refine the old driver, gradually adding new features
+>> while maintaining old stuff. This is the only way we can force
+>> contributors to actively work on minimizing duplicate parts.
+>>
+> I believe you are suggesting we bring the new features we are developing
+> with DRM core utilities into the fastrpc driver. I don't think the two
+> interfaces can share one driver, though, and it isn't a question of code
+> size.
 > 
-> On Mon, Jul 27, 2026 at 11:07 AM <hverkuil+cisco@kernel.org> wrote:
->>
->> Hi Ben,
->>
->> On 29/06/2026 20:26, hoff.benjamin.k@gmail.com wrote:
->>> From: Ben Hoff <hoff.benjamin.k@gmail.com>
->>>
->>> Replace the probe-time seed buffer allocation with a per-channel coherent
->>> scratch arena that is acquired by stream users and released by refcount.
->>> The arena reserves video bounce space first and an audio capture window
->>> after it, and validates that the full allocation fits within the single
->>> 512 MiB BAR remap page shared by the channel.
->>>
->>> Reset cached video DMA window state when freeing a channel arena so the
->>> next stream reprograms the hardware from a clean state.
->>
->> This patch is marked as 'Changes Requested' in patchwork:
->>
->> https://patchwork.linuxtv.org/project/linux-media/patch/20260629182649.247879-3-hoff.benjamin.k@gmail.com/
->>
->> I suspect that's a mistake. Can you confirm that the patchwork state should really
->> be 'New'? Or are there really more changes coming and I just missed something?
->>
->> Regards,
->>
->>         Hans
->>
->>>
->>> Signed-off-by: Ben Hoff <hoff.benjamin.k@gmail.com>
->>> ---
->>>  drivers/media/pci/hws/hws.h       |  28 +++++
->>>  drivers/media/pci/hws/hws_pci.c   | 192 ++++++++++++++++++++++++------
->>>  drivers/media/pci/hws/hws_reg.h   |   7 ++
->>>  drivers/media/pci/hws/hws_video.c |  17 +--
->>>  4 files changed, 198 insertions(+), 46 deletions(-)
->>>
->>> diff --git a/drivers/media/pci/hws/hws.h b/drivers/media/pci/hws/hws.h
->>> index 8fbe1fe27844..c0541190c047 100644
->>> --- a/drivers/media/pci/hws/hws.h
->>> +++ b/drivers/media/pci/hws/hws.h
->>> @@ -8,6 +8,7 @@
->>>  #include <linux/kthread.h>
->>>  #include <linux/pci.h>
->>>  #include <linux/list.h>
->>> +#include <linux/mutex.h>
->>>  #include <linux/spinlock.h>
->>>  #include <linux/sizes.h>
->>>  #include <linux/atomic.h>
->>> @@ -52,6 +53,8 @@ struct hwsvideo_buffer {
->>>       int slot;
->>>  };
->>>
->>> +#define HWS_VIDEO_BOUNCE_SLOTS 2
->>> +
->>>  struct hws_video {
->>>       /* Linkage */
->>>       struct hws_pcie_dev *parent;
->>> @@ -104,6 +107,7 @@ struct hws_video {
->>>       u32 last_dma_page;
->>>       u32 last_pci_addr;
->>>       u32 last_half16;
->>> +     u8 next_bounce_slot;
->>>
->>>       /* Misc counters */
->>>       int signal_loss_cnt;
->>> @@ -130,6 +134,7 @@ struct hws_scratch_dma {
->>>       void *cpu;
->>>       dma_addr_t dma;
->>>       size_t size;
->>> +     bool owned;
->>>  };
->>>
->>>  struct hws_pcie_dev {
->>> @@ -152,6 +157,7 @@ struct hws_pcie_dev {
->>>       u32 max_hw_video_buf_sz;
->>>       u8 max_channels;
->>>       u8 cur_max_video_ch;
->>> +     u8 cur_max_audio_ch;
->>>       bool start_run;
->>>
->>>       bool buf_allocated;
->>> @@ -161,7 +167,10 @@ struct hws_pcie_dev {
->>>
->>>       /* Kernel thread */
->>>       struct task_struct *main_task;
->>> +     struct mutex scratch_lock; /* protects scratch DMA arenas and user refs */
->>> +     unsigned int scratch_users[MAX_VID_CHANNELS];
->>>       struct hws_scratch_dma scratch_vid[MAX_VID_CHANNELS];
->>> +     struct hws_scratch_dma scratch_aud[MAX_VID_CHANNELS];
->>>
->>>       bool suspended;
->>>       int irq;
->>> @@ -170,4 +179,23 @@ struct hws_pcie_dev {
->>>       int pci_lost;
->>>  };
->>>
->>> +static inline bool hws_dma_fits_remap_window(dma_addr_t dma, size_t size)
->>> +{
->>> +     dma_addr_t end;
->>> +
->>> +     if (!size)
->>> +             return false;
->>> +
->>> +     end = dma + size - 1;
->>> +     if (end < dma)
->>> +             return false;
->>> +
->>> +     return upper_32_bits(dma) == upper_32_bits(end) &&
->>> +            (lower_32_bits(dma) & PCI_E_BAR_ADD_MASK) ==
->>> +            (lower_32_bits(end) & PCI_E_BAR_ADD_MASK);
->>> +}
->>> +
->>> +int hws_alloc_channel_scratch(struct hws_pcie_dev *hws, unsigned int ch);
->>> +void hws_release_channel_scratch(struct hws_pcie_dev *hws, unsigned int ch);
->>> +
->>>  #endif
->>> diff --git a/drivers/media/pci/hws/hws_pci.c b/drivers/media/pci/hws/hws_pci.c
->>> index 10af6c30566a..589d4840e116 100644
->>> --- a/drivers/media/pci/hws/hws_pci.c
->>> +++ b/drivers/media/pci/hws/hws_pci.c
->>> @@ -11,6 +11,7 @@
->>>  #include <linux/err.h>
->>>  #include <linux/ktime.h>
->>>  #include <linux/math64.h>
->>> +#include <linux/minmax.h>
->>>  #include <linux/pm.h>
->>>  #include <linux/freezer.h>
->>>  #include <linux/pci_regs.h>
->>> @@ -101,22 +102,30 @@ static void hws_configure_hardware_capabilities(struct hws_pcie_dev *hdev)
->>>       case 0x8504:
->>>       case 0x6504:
->>>               hdev->cur_max_video_ch = 4;
->>> +             hdev->cur_max_audio_ch = 4;
->>>               break;
->>>       case 0x8532:
->>>               hdev->cur_max_video_ch = 2;
->>> +             hdev->cur_max_audio_ch = 2;
->>>               break;
->>>       case 0x8512:
->>>       case 0x6502:
->>>               hdev->cur_max_video_ch = 2;
->>> +             hdev->cur_max_audio_ch = 0;
->>>               break;
->>>       case 0x8501:
->>>               hdev->cur_max_video_ch = 1;
->>> +             hdev->cur_max_audio_ch = 0;
->>>               break;
->>>       default:
->>>               hdev->cur_max_video_ch = 4;
->>> +             hdev->cur_max_audio_ch = 0;
->>>               break;
->>>       }
->>>
->>> +     if (hdev->cur_max_audio_ch > hdev->cur_max_video_ch)
->>> +             hdev->cur_max_audio_ch = hdev->cur_max_video_ch;
->>> +
->>>       /* universal buffer capacity */
->>>       hdev->max_hw_video_buf_sz = MAX_MM_VIDEO_SIZE;
->>>
->>> @@ -255,55 +264,164 @@ static void hws_stop_kthread_action(void *data)
->>>       }
->>>  }
->>>
->>> -static int hws_alloc_seed_buffers(struct hws_pcie_dev *hws)
->>> +static size_t hws_video_scratch_bytes(void)
->>>  {
->>> -     int ch;
->>> -     /* 64 KiB is plenty for a safe dummy; hardware needs 64-byte alignment. */
->>> -     const size_t need = ALIGN(64 * 1024, 64);
->>> +     return HWS_VIDEO_BOUNCE_SLOTS * ALIGN((size_t)MAX_VIDEO_SCALER_SIZE, 64);
->>> +}
->>>
->>> -     for (ch = 0; ch < hws->cur_max_video_ch; ch++) {
->>> +static size_t hws_audio_scratch_bytes(void)
->>> +{
->>> +     return ALIGN((size_t)MAX_AUDIO_CAP_SIZE, 64);
->>> +}
->>> +
->>> +static void hws_clear_scratch(struct hws_scratch_dma *scratch)
->>> +{
->>> +     scratch->cpu = NULL;
->>> +     scratch->dma = 0;
->>> +     scratch->size = 0;
->>> +     scratch->owned = false;
->>> +}
->>> +
->>> +static void hws_free_channel_scratch_locked(struct hws_pcie_dev *hws,
->>> +                                         unsigned int ch)
->>> +{
->>> +     struct hws_scratch_dma *vid;
->>> +     struct hws_scratch_dma *aud;
->>> +
->>> +     if (!hws || ch >= MAX_VID_CHANNELS)
->>> +             return;
->>> +
->>> +     vid = &hws->scratch_vid[ch];
->>> +     aud = &hws->scratch_aud[ch];
->>> +
->>> +     if (ch < hws->cur_max_video_ch) {
->>> +             hws->video[ch].window_valid = false;
->>> +             hws->video[ch].last_dma_hi = 0;
->>> +             hws->video[ch].last_dma_page = 0;
->>> +             hws->video[ch].last_pci_addr = 0;
->>> +             hws->video[ch].last_half16 = 0;
->>> +             hws->video[ch].next_bounce_slot = 0;
->>> +     }
->>> +     hws->scratch_users[ch] = 0;
->>> +
->>> +     if (aud->cpu && aud->owned)
->>> +             dma_free_coherent(&hws->pdev->dev, aud->size, aud->cpu,
->>> +                               aud->dma);
->>> +     hws_clear_scratch(aud);
->>> +
->>> +     if (vid->cpu && vid->owned)
->>> +             dma_free_coherent(&hws->pdev->dev, vid->size, vid->cpu,
->>> +                               vid->dma);
->>> +     hws_clear_scratch(vid);
->>> +}
->>> +
->>> +int hws_alloc_channel_scratch(struct hws_pcie_dev *hws, unsigned int ch)
->>> +{
->>> +     size_t aud_off = hws_video_scratch_bytes();
->>> +     size_t arena_need = aud_off;
->>> +     bool has_audio;
->>> +
->>> +     if (!hws || ch >= max_t(unsigned int, hws->cur_max_video_ch,
->>> +                             hws->cur_max_audio_ch))
->>> +             return -EINVAL;
->>> +
->>> +     has_audio = ch < hws->cur_max_audio_ch;
->>> +     if (has_audio)
->>> +             arena_need = ALIGN(aud_off + hws_audio_scratch_bytes(), 64);
->>> +
->>> +     /*
->>> +      * One coherent per-channel arena backs both fallback video DMA and audio
->>> +      * DMA. The video bounce slots live first; the audio capture window starts
->>> +      * at aud_off. The whole arena must fit inside a single 512 MiB remap page
->>> +      * because video and audio share the channel remap slot.
->>> +      */
->>> +     mutex_lock(&hws->scratch_lock);
->>> +     if (hws->scratch_vid[ch].cpu) {
->>> +             hws->scratch_users[ch]++;
->>> +             mutex_unlock(&hws->scratch_lock);
->>> +             return 0;
->>> +     }
->>> +
->>> +     {
->>>  #if defined(CONFIG_HAS_DMA) /* normal on PCIe platforms */
->>> -             void *cpu = dma_alloc_coherent(&hws->pdev->dev, need,
->>> -                                            &hws->scratch_vid[ch].dma,
->>> -                                            GFP_KERNEL);
->>> +             dma_addr_t dma = 0;
->>> +             void *cpu = NULL;
->>> +             int attempt;
->>> +
->>> +             for (attempt = 0; attempt < 8; attempt++) {
->>> +                     cpu = dma_alloc_coherent(&hws->pdev->dev, arena_need,
->>> +                                              &dma, GFP_KERNEL);
->>> +                     if (!cpu)
->>> +                             break;
->>> +                     if (!hws_dma_fits_remap_window(dma, arena_need)) {
->>> +                             dev_dbg(&hws->pdev->dev,
->>> +                                     "scratch arena: retry ch=%u dma=%pad size=%zu crosses remap window\n",
->>> +                                     ch, &dma, arena_need);
->>> +                             dma_free_coherent(&hws->pdev->dev, arena_need,
->>> +                                               cpu, dma);
->>> +                             cpu = NULL;
->>> +                             continue;
->>> +                     }
->>> +                     break;
->>> +             }
->>>  #else
->>>               void *cpu = NULL;
->>> +             dma_addr_t dma = 0;
->>>  #endif
->>>               if (!cpu) {
->>>                       dev_warn(&hws->pdev->dev,
->>> -                              "scratch: dma_alloc_coherent failed ch=%d\n", ch);
->>> -                     /* not fatal: free earlier ones and continue without seeding */
->>> -                     while (--ch >= 0) {
->>> -                             if (hws->scratch_vid[ch].cpu)
->>> -                                     dma_free_coherent(&hws->pdev->dev,
->>> -                                                       hws->scratch_vid[ch].size,
->>> -                                                       hws->scratch_vid[ch].cpu,
->>> -                                                       hws->scratch_vid[ch].dma);
->>> -                             hws->scratch_vid[ch].cpu = NULL;
->>> -                             hws->scratch_vid[ch].size = 0;
->>> -                     }
->>> +                              "scratch arena: dma_alloc_coherent failed ch=%u\n",
->>> +                              ch);
->>> +                     mutex_unlock(&hws->scratch_lock);
->>>                       return -ENOMEM;
->>>               }
->>> -             hws->scratch_vid[ch].cpu  = cpu;
->>> -             hws->scratch_vid[ch].size = need;
->>> +
->>> +             hws->scratch_vid[ch].dma = dma;
->>> +             hws->scratch_vid[ch].cpu = cpu;
->>> +             hws->scratch_vid[ch].size = arena_need;
->>> +             hws->scratch_vid[ch].owned = true;
->>> +
->>> +             if (has_audio) {
->>> +                     hws->scratch_aud[ch].dma = dma + aud_off;
->>> +                     hws->scratch_aud[ch].cpu = (u8 *)cpu + aud_off;
->>> +                     hws->scratch_aud[ch].size = hws_audio_scratch_bytes();
->>> +                     hws->scratch_aud[ch].owned = false;
->>> +             }
->>>       }
->>> +     hws->scratch_users[ch] = 1;
->>> +
->>> +     dev_dbg(&hws->pdev->dev,
->>> +             "scratch arena: allocated ch=%u size=%zu audio=%d\n",
->>> +             ch, arena_need, has_audio);
->>> +     mutex_unlock(&hws->scratch_lock);
->>>       return 0;
->>>  }
->>>
->>> +void hws_release_channel_scratch(struct hws_pcie_dev *hws, unsigned int ch)
->>> +{
->>> +     if (!hws || ch >= MAX_VID_CHANNELS)
->>> +             return;
->>> +
->>> +     mutex_lock(&hws->scratch_lock);
->>> +     if (hws->scratch_users[ch] > 0)
->>> +             hws->scratch_users[ch]--;
->>> +     if (!hws->scratch_users[ch])
->>> +             hws_free_channel_scratch_locked(hws, ch);
->>> +     mutex_unlock(&hws->scratch_lock);
->>> +}
->>> +
->>>  static void hws_free_seed_buffers(struct hws_pcie_dev *hws)
->>>  {
->>>       int ch;
->>>
->>> -     for (ch = 0; ch < hws->cur_max_video_ch; ch++) {
->>> -             if (hws->scratch_vid[ch].cpu) {
->>> -                     dma_free_coherent(&hws->pdev->dev,
->>> -                                       hws->scratch_vid[ch].size,
->>> -                                       hws->scratch_vid[ch].cpu,
->>> -                                       hws->scratch_vid[ch].dma);
->>> -                     hws->scratch_vid[ch].cpu = NULL;
->>> -                     hws->scratch_vid[ch].size = 0;
->>> -             }
->>> -     }
->>> +     if (!hws)
->>> +             return;
->>> +
->>> +     /* Teardown-only force-free path; normal streams use release refcounts. */
->>> +     mutex_lock(&hws->scratch_lock);
->>> +     for (ch = 0; ch < MAX_VID_CHANNELS; ch++)
->>> +             hws_free_channel_scratch_locked(hws, ch);
->>> +     mutex_unlock(&hws->scratch_lock);
->>>  }
->>>
->>>  static void hws_seed_channel(struct hws_pcie_dev *hws, int ch)
->>> @@ -326,11 +444,11 @@ static void hws_seed_channel(struct hws_pcie_dev *hws, int ch)
->>>                      hws->bar0_base + CVBS_IN_BUF_BASE +
->>>                      ch * PCIE_BARADDROFSIZE);
->>>
->>> -     /* Half size: use either the current format's half or half of scratch. */
->>> +     /* Half size: use either the current format or the video arena. */
->>>       {
->>>               u32 half = hws->video[ch].pix.half_size ?
->>>                       hws->video[ch].pix.half_size :
->>> -                     (u32)(hws->scratch_vid[ch].size / 2);
->>> +                     (u32)(MAX_VIDEO_SCALER_SIZE / 2);
->>>
->>>               writel_relaxed(half / 16,
->>>                              hws->bar0_base + CVBS_IN_BUF_BASE2 +
->>> @@ -400,6 +518,7 @@ static int hws_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
->>>       hws->pdev = pdev;
->>>       hws->irq = -1;
->>>       hws->suspended = false;
->>> +     mutex_init(&hws->scratch_lock);
->>>       pci_set_drvdata(pdev, hws);
->>>
->>>       /* 1) Enable device + bus mastering (managed) */
->>> @@ -448,12 +567,7 @@ static int hws_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
->>>               }
->>>       }
->>>
->>> -     /* 6) Allocate scratch DMA and seed BAR table + channel base/half (legacy SetDMAAddress) */
->>> -     ret = hws_alloc_seed_buffers(hws);
->>> -     if (!ret)
->>> -             hws_seed_all_channels(hws);
->>> -
->>> -     /* 7) Start-run sequence. */
->>> +     /* 6) Start-run sequence. Scratch DMA is allocated on stream start. */
->>>       hws_init_video_sys(hws, false);
->>>
->>>       /* A) Force legacy INTx; legacy used request_irq(pdev->irq, ..., IRQF_SHARED) */
->>> diff --git a/drivers/media/pci/hws/hws_reg.h b/drivers/media/pci/hws/hws_reg.h
->>> index 344cb8d011a9..c8d6715fe0c2 100644
->>> --- a/drivers/media/pci/hws/hws_reg.h
->>> +++ b/drivers/media/pci/hws/hws_reg.h
->>> @@ -33,6 +33,13 @@
->>>  #define PCI_E_BAR_ADD_MASK 0xE0000000
->>>  #define PCI_E_BAR_ADD_LOWMASK 0x1FFFFFFF
->>>
->>> +/*
->>> + * The legacy driver reserved a 10 KiB hardware capture window per audio
->>> + * channel even though the delivered packet size is smaller. Keep that headroom
->>> + * for the split-buffer DMA engine.
->>> + */
->>> +#define MAX_AUDIO_CAP_SIZE         (10U * 1024U)
->>> +
->>>  #define MAX_VID_CHANNELS            4
->>>
->>>  #define MAX_MM_VIDEO_SIZE            SZ_4M
->>> diff --git a/drivers/media/pci/hws/hws_video.c b/drivers/media/pci/hws/hws_video.c
->>> index b1af81d1368a..1531d703f6d8 100644
->>> --- a/drivers/media/pci/hws/hws_video.c
->>> +++ b/drivers/media/pci/hws/hws_video.c
->>> @@ -306,6 +306,7 @@ int hws_video_init_channel(struct hws_pcie_dev *pdev, int ch)
->>>
->>>       vid->queued_count = 0;
->>>       vid->window_valid = false;
->>> +     vid->next_bounce_slot = 0;
->>>
->>>       /* Default format. */
->>>       vid->pix.width = 1920;
->>> @@ -556,17 +557,18 @@ static void hws_seed_dma_windows(struct hws_pcie_dev *hws)
->>>                                      hws->bar0_base + CVBS_IN_BUF_BASE +
->>>                                      ch * PCIE_BARADDROFSIZE);
->>>
->>> -                     /* Half-frame length in /16 units.
->>> -                      * Prefer the current channel's computed half_size if available.
->>> -                      * Fall back to half of the probe-owned scratch buffer.
->>> +                     /*
->>> +                      * Half-frame length in /16 units. Prefer the current
->>> +                      * format and fall back to the video bounce window,
->>> +                      * not the full per-channel arena that also contains audio.
->>>                        */
->>>                       {
->>>                               u32 half_bytes = hws->video[ch].pix.half_size ?
->>> -                                 hws->video[ch].pix.half_size :
->>> -                                 (u32)(hws->scratch_vid[ch].size / 2);
->>> +                                     hws->video[ch].pix.half_size :
->>> +                                     (u32)(MAX_VIDEO_SCALER_SIZE / 2);
->>> +
->>>                               writel_relaxed(half_bytes / 16,
->>> -                                            hws->bar0_base +
->>> -                                            CVBS_IN_BUF_BASE2 +
->>> +                                            hws->bar0_base + CVBS_IN_BUF_BASE2 +
->>>                                              ch * PCIE_BARADDROFSIZE);
->>>                       }
->>>               }
->>> @@ -1166,6 +1168,7 @@ static int hws_start_streaming(struct vb2_queue *q, unsigned int count)
->>>               }
->>>               return ret;
->>>       }
->>> +
->>>       (void)hws_read_active_state(hws, v->channel_index,
->>>                                      &v->pix.interlaced);
->>>
->>
+> fastrpc is a miscdevice: it accepts raw DMA-BUF fds as arguments and
+> tracks buffers in its own per-file lists, with the fd itself being the
+> buffer identity visible to the DSP. QDA is a drm_driver whose buffers
+> are GEM objects in a per-drm_file handle namespace, with PRIME used for
+> import and the GEM handle being the identity. These are two different
+> buffer ownership models, and neither can be expressed on the other's
+> file type.
+> 
+> Supporting both from one driver therefore means carrying both models
+> simultaneously: two IOCTL surfaces, two buffer lifetimes, two teardown
+> paths, and a memory manager that has to serve both. That is two drivers
+> sharing a directory rather than one driver with two interfaces, and I
+> think it would be harder to review, and harder to eventually untangle,
+> than a separate driver with a stated removal plan.
+> 
+> There is also a positive reason for being in the accel subsystem rather
+> than misc. We can build on existing DRM infrastructure instead of
+> reimplementing it: GEM for buffer management, the device and file
+> lifecycle, and the debug infrastructure. It also positions us for work
+> we have planned around scheduling, drm_gpuvm, etc. Over time this should
+> mean less driver-specific code, not more.
+> 
+> I'll restructure the cover letter so the staged rollout, the
+> compatibility path and the eventual removal of drivers/misc/fastrpc.c
+> are stated properly.
+> 
+> If after this you still want to add or change anything, please let me know.
+> 
+> Thanks,
+> Ekansh> Best regards,
+
+Gentle ping on this thread. Wanted to check if there's any update on the
+compatible string and coexistence question above, since it's currently
+blocking respin.
+
+Thanks,
+Ekansh
+
+>> Krzysztof
 > 
 
