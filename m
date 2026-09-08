@@ -1,143 +1,113 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E0B374A1B
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 10:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944A3347BD9;
+	Tue,  8 Sep 2026 10:36:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863713; cv=none; b=r/uEiz6BcfOIzuDOtnJtQWxlGJ/zQNoW8seeoXqjC5AAjGMiHXQvLVlnzCsMfwVSdj0PfFTLJllDXekucEjQEmKOZjHzZ6dOERiMLgV1uRJOl8Z48C0ck2g+HtzpobVjRYStZ2O+dn0FMYZht/uJCD0oIwY779e3Wd5BYE/Fy/4=
+	t=1788863766; cv=none; b=rZ1YJGyVBSimBa5IxvYnm7kfRUKgZn5+ApbSb0yGVcwmm+Rcot+S8vLQJs4oMwm83F+IXqd0a3QV0/Jwd7Z9eZkpwFa1pEFoC/vdMdZ1TIeE9X+UOHv1rYNTqPjoyraSwhndjzcEtRBTvnKCFVTyDQhONrhlcc25ejFAeb5ZICw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863713; c=relaxed/simple;
-	bh=7Cog2nkDO+lKZqVVRGnvxVjru8LcS09xNUgvu87wQA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AyYX2z5bjV/OoQ/dpx7R4IDMV4E1EVNbrz8qFoUnKVMCYR/uBcylVN4dfaVdpQqU2u3nFye3qa/txAYqRCTp6fdPt99AhAkZfkzcTuWKIuUK+BHMuj2bqtFsjEJ5qYeehQ+9vjK0uKMWHfVpQR3zEhSYgczon7JFHvCv+ktYLvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xw0JsCwG; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788863766; c=relaxed/simple;
+	bh=gIqJ+r0/JTqKMlIxO4T7rjLwha3sIS4wwumLA9Fjz0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J4FYfS7QjrWfkKKp7cDaaeJ0Fqc1HKsWVKBnvLZ6SC+pBAjYMksinCsfyPR94u3X0r8YMWDvAw0p1Op/Mk/BG5yEmU5H+BPRsrIRhDQU5jm8iRzKkqCjjrt7wF6/4xStdwKFiGOtfE0pCAwGZv+HEH3cv5I3iznTns2yVJnGAIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dFYdSanN; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xw0JsCwG"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso23450725e9.3
-        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 03:35:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788863710; x=1789468510; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UPBRY5QywHVL60y+J3dACmXSkYJynfKQaq7TX1tS5GU=;
-        b=Xw0JsCwGgTJBJUOdgJQ0/PV5QtezEwGc0jNutB1Gw1zv8reNebQGdiefiaHa8KRr7U
-         1hMyJ3apnPINs0U3xivR0HvBeRSGdr4veM9pY9lS2KYFV2jS1Oh96h8RfW/hvmKqmW4t
-         0ZT+THY/QnLX+luO1Bw7BwROOdexDWheEZguw2Akhrhz4CylHupCIPu1I3iOowkRZ275
-         fD+wAN+sjY3BCTr1l60LconWYoTD1M5bqD3KpLk2cZU42HqFhsfscDxaXEq3TbRxR4kD
-         p+/D4o+k5TOHI+AyPknq9gcaaWMNWMcKYlfoH1ZcR1Xsn/rzTcZgyP7HHU6qebFfva2r
-         sjrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788863710; x=1789468510;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UPBRY5QywHVL60y+J3dACmXSkYJynfKQaq7TX1tS5GU=;
-        b=NjgnF2e9O+yuUt/bgejFSDwRloVxdSkOzYPkAjN5dZ7RaWOlWA0DqE657VHlAVhkuD
-         7hiqu+zEkO3LmA/iJceiiQ+GfdYPwHV4Q83HYIjc9LaeMLxGhA0MpnQT30pQp7eio+O5
-         uAdjWcjOxTcCgRKeS6nyE3kKg5imNo0WRZVI2mePtoGqSxKnOXSz63aZlX39ej8SAh21
-         pUqjZl9UHEinMcWUt5redYVFp7epNB8PFT5bxEkJ13r2z2qNH8Y08veWuuEjKw3BlqPh
-         BOPNhW4k2xBq2sTANbwFDoDuxuHqE/gSAwlJOkSl2eEH0r4qZnIpFZtLZNq3b8DWh9ZW
-         YIRw==
-X-Forwarded-Encrypted: i=1; AKwUvByasqZ8Td0shRaSsxWMJCNIoqiwLI03YNCACXtkkaQG8bYumaXrd49wYmXooMgRd/Jwa5WgL6mJx2wTVA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mPvKPpGq64OP297Asyhl48Op+Pkps5jSlzGCzLX4MvAd/CwXV6
-	ddWcx9jKT4dxXR4sbc8M9WyClTQo+y95OV12OFPRsNuBeUu46CVoJLE+
-X-Gm-Gg: AYBFou2CXnl1wfiBIlnq7WM9TkmGcP0P0elr7vjDGNnWXjX6wjMnDhWu0a4QGEAsOV8
-	N5lVCnpjk3BYw0qAr/89SgAJT8Qb5XJXJfTc36gFA0Qy5uUxuJnFpBwAYpDdiZK+3Ja8g1sncop
-	i7+KCCm8kFRFnR+9Fk9GsKU+CnyONgKhlrWlCMFZ6dcspzloLfF32O1QCy1IjdDopGnQfE4tIVN
-	i/3hp9Qcg7Dr3a+lr9QJMT2Utm4KJg7WD1PAXO5xG5+j0Bs2Ngt4knd9CnAJ/oRgeFFJULKEE1P
-	w4BcqklUdcWZ7WKBP2EUoiiYpdyavSS0qMuot5Bg7R6UQy2YxsgOy7UebejyOz3Q0zGwFKAQuqc
-	SKbFS9KaGiz6jslS5WfndDH/+x64tRUGLR+7BYRh4+4Bxc/89B3jqjU1kbnrehAfxCOOPwl8xw+
-	Mzww27INFwZ2Fl8CKseOS1Vjv/rFw2kEiAsZ/0SlHIn8eWYw5bSE7fSyjKdNRNh81fIGWZviSj
-X-Received: by 2002:a05:600c:8b05:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49cf824e751mr303216285e9.9.1788863709661;
-        Tue, 08 Sep 2026 03:35:09 -0700 (PDT)
-Received: from [172.31.2.29] ([188.24.0.23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cffdb2c40sm236442825e9.1.2026.09.08.03.35.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 03:35:08 -0700 (PDT)
-Message-ID: <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
-Date: Tue, 8 Sep 2026 13:35:05 +0300
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dFYdSanN"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 14C83C13;
+	Tue,  8 Sep 2026 12:34:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788863667;
+	bh=gIqJ+r0/JTqKMlIxO4T7rjLwha3sIS4wwumLA9Fjz0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dFYdSanNszm4WP3+cZc5f5+demQxtvyYYtDs623mv2WRLZduMim31Tvm4aCJ0htIm
+	 QJJtnhXo4tUwcGzy3ahx+E7SdFh6Jwpu2odowiYqhg611TmE+OnqtQnwICWwv9aSm5
+	 xl7eCrdupQs5VhWsx/NOC9fPJGEFc8yNlWLr/7jo=
+Date: Tue, 8 Sep 2026 13:36:00 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>, hverkuil+cisco@kernel.org,
+	mehdi.djait@linux.intel.com, u.kleine-koenig@baylibre.com,
+	jacopo@jmondi.org, p.zabel@pengutronix.de,
+	ezequiel@vanguardiasur.com.ar, mchehab+samsung@kernel.org,
+	festevam@gmail.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
+ init sequence
+Message-ID: <20260908103600.GF1672293@killaraus.ideasonboard.com>
+References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
+ <ap_gCH1AnciFIEoa@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, dumitru.ceclan@analog.com
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-gpio@vger.kernel.org,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
- <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
- Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <apqGlTiybdvQX3Ao@kekkonen.localdomain>
-Content-Language: en-US
-From: Ceclan Dumitru <mitrutzceclan@gmail.com>
-In-Reply-To: <apqGlTiybdvQX3Ao@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ap_gCH1AnciFIEoa@kekkonen.localdomain>
 
+On Tue, Sep 08, 2026 at 01:14:32PM +0300, Sakari Ailus wrote:
+> On Wed, Aug 26, 2026 at 08:54:32AM +0000, Xiaolei Wang wrote:
+> > On the RK3576 platform, after ov5645_global_init_setting completes and
+> > before stream on, the CSI host reports a high rate of CRC errors:
+> > 
+> >   MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
+> > 
+> > These errors occur exclusively in the window between init completion and
+> > stream on. Once preview starts and the sensor outputs valid HS data, no
+> > further CRC errors are observed.
+> > 
+> > Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
+> > the power sequence to properly enter LP-11 during power-up. As part of
+> > this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
+> > with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
+> > 0x02) from init through to s_stream. Reverting this commit resolves the
+> > CRC errors, confirming it as the triggering change.
+> > 
+> > Restore the power-down state after init by appending { 0x3008, 0x42 } to
+> > the end of ov5645_global_init_setting[]. This powers down the sensor core
+> > after MIPI configuration is complete, while keeping the MIPI PHY active in
+> > LP-11. The sensor is then woken up only at s_stream time.
+> > 
+> > This preserves all LP-11 compliance improvements from
+> > commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
+> > eliminating the CRC errors on RK3576.
+> > 
+> > Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
+> > Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+> > ---
+> >  drivers/media/i2c/ov5645.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
+> > index c772ef6e51d2..be85e0155b81 100644
+> > --- a/drivers/media/i2c/ov5645.c
+> > +++ b/drivers/media/i2c/ov5645.c
+> > @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
+> >  	{ 0x3008, 0x02 },
+> >  	{ OV5645_IO_MIPI_CTRL00, 0x40 },
+> >  	{ OV5645_MIPI_CTRL00, 0x24 },
+> > -	{ OV5645_PAD_OUTPUT00, 0x70 }
+> > +	{ OV5645_PAD_OUTPUT00, 0x70 },
+> > +	{ 0x3008, 0x42 }
 
+While at it, please use the register macro.
 
-On 9/4/26 11:51 AM, Sakari Ailus wrote:
-> Hi Dumitru,
-> 
-> On Mon, Aug 31, 2026 at 04:21:19PM +0300, Dumitru Ceclan via B4 Relay wrote:
->> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
->> replacing the few GMSL2 drivers already in upstream, and introducing a
->> common framework that can be used to implement such GMSL chips, which
->> avoids code duplication while also adding support for previously
->> unsupported features.
->>
->> While the normally acceptable and polite way would be to extend the
->> current mainline drivers, the choice was made here to add a totally new
->> set of drivers. The current drivers support only a small subset of the
->> possible features, and only a few devices, so the end result after
->> extending them would in any case be essentially fully rewritten, new
->> drivers.
->>
->> This series depends on support for internal pads, for which a patch has
->> been added.
->>
->> The previous version is at:
->> v15: https://lore.kernel.org/r/20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com
->>
->> Since the previous series, Cosmin has left Analog Devices.
->> Because included changes from previous version are trivial, his sign-off
->> and tags were retained.
-> 
-> Can you check this
-> <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
-> please? If there's a single patch that needs to be modified, I can squash a
-> patch into that, otherwise v17 it is.
-> 
+> Is the earlier write of 0x3008 still appropriate?
 
-These are the same warns reported by Niklas in V13. Dan fixed them in
-smatch in devel branch but fix is not in master. Testing with smatch on
-that branch yields no warnings.
+There are four earlier writes of register 0x3008. The whole
+initialization sequence likely needs a cleanup. It's not clear why
+software suspend needs to be disabled briefly during initialization.
 
-https://lore.kernel.org/all/ai_txjwLPHsSKsJI@stanley.mountain
-https://repo.or.cz/smatch.git/commit/d12183645a31b737d7fb39cbefa589e34615e8f7
+> >  };
+> >  
+> >  static const struct reg_value ov5645_setting_sxga[] = {
 
-v17 is still needed to revert one breaking change introduced in v16 and
-fix more findings from Sashiko.
+-- 
+Regards,
 
-Thanks,
-  Dumitru
+Laurent Pinchart
