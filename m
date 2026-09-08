@@ -1,256 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010008.outbound.protection.outlook.com [52.101.69.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7DA4F30FD;
-	Tue,  8 Sep 2026 11:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868146; cv=none; b=k4pCi62l+ghqVM2ikD9rgWzNHy9fmovb8+XASiqKU0wjLSzVlpYaUwbNeDEmPN+V7bO5rIOozPPaK0AVmsV7Y42Y3DvV9biwN5ZFHkU9NP1uWWWc3YOvFvuApGnuwXd7ywjJlZejtujfkcH4NeYoItH1HN8pqV7RDKj1bfqRfz8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868146; c=relaxed/simple;
-	bh=2SywWWUWZ0zxEBMBioYOeu7N5r0WbZQ4/x9T5tu39lI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KDRQcQYLL9w6CgnRflU+VA5GkL88+7Pv2o5+ugikpUKaDCrsy6geUnPHH4n9MK2FVzv3WPHUoLC8GLsKMfkAHfqjRGtf3lLlDBLkw+YyAIuOrqUDjJ6AAi7lt6U+GJHpjwkwTyAYuZmOKF76qEJIdBMK96EIqTc+xPct5b1kaUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OX1stNXT; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF335328CD;
+	Tue,  8 Sep 2026 11:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788868213; cv=fail; b=Xmt7NZrtn2fJrkweZ1iCzY6HAyyrC8uyqFalAivM7MGcuTf3PbLodJARxeqMDRGabNKOQYwDP8Sdfxbqvbckx07RT9hcBJLDWDqd1BO+/X2PpoydSOSlD09/9XVbxM7CxOg8330YTTO0TqhPaExGlMsTfWeXrYeRjpEztH4b8Wo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788868213; c=relaxed/simple;
+	bh=QKo81AGn+LsqmiShANTHzqSEx95eJLuWbUQ3H4mHvPY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=I8UpwAf0QDsf6+MafYRywrHlotBOplyiIPpT1PiD5s1Z3qMAE2DFnH8OMsHu6OuIxbVgOZs92K3SSFb6fzsyhSHtFrrfg1H2hWI764rtgHEKugPojkG2eFtW8MZji+wmOhYFBySdxtpQ5OqwfiK+uDLeYwxHpow8XEiujET5cnI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=O4sTpMU6; arc=fail smtp.client-ip=52.101.69.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OX1stNXT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788868141; x=1820404141;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2SywWWUWZ0zxEBMBioYOeu7N5r0WbZQ4/x9T5tu39lI=;
-  b=OX1stNXTXjpBjarhsrLkPGCyMCSKXPoo3fsOXmKNt1QE/kCsZY/r4Dmb
-   Kx0wG6q+Elb+hP3tt++niVhUmFUr9TsHbhrYeBgjdgOfDv0Z/RyHNrzb4
-   DxV5u+4dq92YbY3qQE0wkzh3R8FK/jWlPY8RqEH1LpXb1lptCbfAs6V0Z
-   FagoJMctZMIMOAzHY78VHQej00RSYZ7hPZoq3n6MtX1LY7rrC2cwV+lnA
-   pOD5AUaddbkQ5ny5Um51w/eQoBD+JOQj34a54BfUdQBUO74RhKOAoMpeB
-   pn3z9wRdkL2qzAoVkfryOBtQhhixAPItj3o8uf196Y4Fb9VXVgOVU97Mj
-   A==;
-X-CSE-ConnectionGUID: kHjJyZriTd6uJmYQ0L1L2Q==
-X-CSE-MsgGUID: vkWABwqOR7e7mhxC+3UOTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99598381"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="99598381"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:48:55 -0700
-X-CSE-ConnectionGUID: f+2LBPCvSXaUBzbbRjTpaQ==
-X-CSE-MsgGUID: cRDhT3mGQH26CU4gOYWnZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="295865860"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:48:52 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 86DCF11F7F5;
-	Tue, 08 Sep 2026 14:48:54 +0300 (EEST)
-Date: Tue, 8 Sep 2026 14:48:54 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
-Message-ID: <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
- <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
- <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
- <ap_0yL-JatdVDaXG@zed>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="O4sTpMU6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jXijyaNYV+6lSSGwvn6V3jLXHD6my76PksUyH9HtzZbO6s2lgZLGimaxk97qV/en7TV8PCelMTU6q/T18as8SnfXZKJmRUKtsZy89SKsGqfmGPcPr0cZeApSd1sK8Bkbqw9SnJ5X9gd6TWjw7wW25Qu4UYTybLHgqViQuHzgCnFvYy5LAmZMVkloDleX5o9lsnxJJ3BYn5adgS7DHkSf0yrfIWo4ipEd/QAQsHjD9KuRPEr5ODaROKGuBGT+ZmoHaaHHWJCWCInrbc5UAT4CVYIHAEWPCwKld+VQM6o52E3gYJ1azUrzJGf9ETfpzrUTZ5wcB5givSVYzgrjaGqlNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AEhvgkajVU4szt7a9y8FcAhvhnBSoQRA0Isc2c0LOhc=;
+ b=SFE5VU306KV19iqtxdHjUmlHWxqBG9WKQrjwbkFPeELW/MM2vCWPx+AXRFJZFwtlSwgr2INIOe5uDdrePDXHyLgUhgoh0RY+tr6id+NsPqObMXeHcgvhYKDhfv6+xUlarAX5snKprRZWt7UKxhaynjdUjqkkXT/PuZSGPcsZHwVgdp6hacykfINBXTYrpHbdEVX2s5x36oztSZ5yDJ3MpgmWxO00Lqqb2DcrvNoQJV2/lpxWNxbMA08Z2ZBCZA0CEQaBfPdmiDdJr5SymrwlqCa8fIyM0dUqcfzlRErvHJFiuw+StUbGIim85cp+x3ptI/wz9MFA40Ep6CDkEa1uSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AEhvgkajVU4szt7a9y8FcAhvhnBSoQRA0Isc2c0LOhc=;
+ b=O4sTpMU6wWCaUJnndGO5RCXLhmbPLsVO+IVyroQPwP54zplb8IPrjyErN/gcdfkBcfcMd8FnX5LO/S/2o6gpC85zkWcc5Dyt42zmEV6cgBDoVIW2wz7qhEprrEwjWeGFax3ORRq4EeG0F7FzX+nfYP+Mz9heOgAbfY2okZwyZMeKcj85j64+gsk10VwUNNnA1brqWcMtAkj50uQr24v6vsbXwowsAMI4nOMfAebcSgtdQBWLl5aYBSDbankBhddpdT/rLyXWEOatHxsqzijFclrzoSrIxJOz6j/0heePLt/dH6/oR5hy7TNFuuTQy5KEeiBmBF3FpY5/Q27nhvcJBA==
+Received: from AS9PR04CA0095.eurprd04.prod.outlook.com (2603:10a6:20b:50e::7)
+ by AS8PR10MB6699.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:563::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Tue, 8 Sep
+ 2026 11:49:55 +0000
+Received: from DB5PEPF00014B98.eurprd02.prod.outlook.com
+ (2603:10a6:20b:50e:cafe::7e) by AS9PR04CA0095.outlook.office365.com
+ (2603:10a6:20b:50e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
+ Sep 2026 11:49:55 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB5PEPF00014B98.mail.protection.outlook.com (10.167.8.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:49:55 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
+ 2026 13:55:55 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
+ 2026 13:49:54 +0200
+Message-ID: <4f525802-a776-4bff-88ad-b45a69c85f1c@foss.st.com>
+Date: Tue, 8 Sep 2026 13:49:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap_0yL-JatdVDaXG@zed>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] media: i2c: vd56g3: Clean up subdev state on init
+ failure
+To: Myeonghun Pak <mhun512@gmail.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260622121429.47765-1-mhun512@gmail.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260622121429.47765-1-mhun512@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B98:EE_|AS8PR10MB6699:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbc528ac-38c5-48b8-8cf3-08df0d9f4d33
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	75tMw5cEmJzBhFAfyfmIxZcrHXtYCmfixXdCAHdjJkoEKS1CpPZtl/6VlEKBVw6aA8gy3l39dy7OAfaCkgM1joQpg5VG7Nkk88XJVPr9WiuJGVljDSQErEmNO58SijcYaAIy0c5rx+8Ok7SsaG8EYmvGI1EQBh9uTA2o430eh0n2c/at11zUg75xKG8mDuIdYtYAjHH2BKyCiUwrKnX2ra80srrieLaseTDodFbjVZ4uG5omYMULVy6DvstSv9e1a0KiReAsk8SsOYA5si6PI3mwiqyYb6hg2u40GonNYXkHOSZBuLd5W126lhrf4vi4eTC5Juh/kCVI0cBGsy/QGr7hLDxwqPij3f/UiB2V9kf+BdSTP6H0btwjgNWXrrixfKUmLVYS78N2bF6KzUfYK22vyqYar468NlwcF5fXZFoa4Hk2etmLT0MYcn1U+FPzVziAeqHhSddcrXXMuBqaF/MKFvDamRQruLJA6/Imwva/lZoM+oPNsrlMtpnith96FdVZkN5s9imb459C6XLKjwzNuHx2uhoB2q2C6eXOSLk4PIJwrsdEwPEZLTBf8znsFQCiZPhyxh8gcvitQyPvxdhEcOqF6recT7+oXl/g3SwISeTKamxFuZAx4s8yTtlYZe0rSGt6V5l3PkJtfnWm8fd1WmXjPUcfm2rkkIidUFWH/Ori7dey+5jfFFYQKvt5mFPll1I8j1fGoj/+BGBVxQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	aIOZlABZOPyWmfEPSmxca5QsZOv2A4UMJSBtsuPkVoZxJZHKvw1FWq1nambBCQ03lHriMqWeZvgRy3nLHjGNnTTSt5eFrlf5mhZvgzPXUfqMDuw2sAdFf5Hy7u3i2CucWoUOG4xt4EXAqGPnRDS133cTvISOFyMAxjs9FmLGYXnrW94DevSsv+ev6m78LG+lg74+fvejjYWfzoLuMfxYjE5gnxMmY79ISSUeoyjBiaFzSJn0pHiRVBwcXU9cRpdbJ2ncCXM3wT0+LwB+5vF/GBJggpebCkrk+6qcYIDVMervCJjoL9qEkLll4S/K74s866FwJPcYZYq0F/SVbbJZBADmRzxSJGrGYYbbMBVcRC4SC/kEYcqp4TKg4P/fWn83q40ScgahYVD9qKOczNRhCxw81yrP1uQsrEcSA2ggMQLBMovmvoprZ4mqYr/12opc
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:49:55.4944
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbc528ac-38c5-48b8-8cf3-08df0d9f4d33
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5PEPF00014B98.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6699
 
-Hi Jacopo,
+Hi Myeonghun,
 
-On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
-> Hi Sakari
-> 
-> On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
-> > Hi Jacopo,
-> >
-> > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
-> > > Add bindings for the ams OSRAM Mira016 image sensor.
-> > >
-> > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > ---
-> > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
-> > >  MAINTAINERS                                        |  7 ++
-> > >  2 files changed, 104 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > new file mode 100644
-> > > index 000000000000..49a606fca6cb
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > @@ -0,0 +1,97 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
-> > > +
-> > > +maintainers:
-> > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > +  - Philippe Baetens <philippebaetens@gmail.com>
-> > > +
-> > > +description:
-> > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-> > > +  and 3D consumer and industrial machine vision applications. The sensor is
-> > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-> > > +  physical layer specifications to transmit the image data to the host
-> > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-> > > +
-> > > +allOf:
-> > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: ams,mira016
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1
-> > > +
-> > > +  vdd28-supply:
-> > > +    description:
-> > > +      I/O voltage supply, 2.8 volts
-> > > +
-> > > +  vdd11-supply:
-> > > +    description:
-> > > +      I/O voltage supply, 1.1 volts
-> > > +
-> > > +  reset-gpios:
-> > > +    description: Sensor reset (RST_N) GPIO
-> > > +    maxItems: 1
-> > > +
-> > > +  port:
-> > > +    $ref: /schemas/graph.yaml#/$defs/port-base
-> > > +    additionalProperties: false
-> > > +    description:
-> > > +      Video output port
-> > > +
-> > > +    properties:
-> > > +      endpoint:
-> > > +        $ref: /schemas/media/video-interfaces.yaml#
-> > > +        unevaluatedProperties: false
-> > > +
-> > > +        properties:
-> > > +          data-lanes:
-> > > +            items:
-> > > +              - const: 1
-> >
-> > The device obviously supports non-continuous clock mode (and that's what
-> > the driver also only does right now) but as the continous clock mode is
-> > required by CSI-2, I presume the device can do both.
-> >
-> > So I think you should have
-> >
-> >              clock-noncontinuous: true
-> >
-> > here.
-> >
-> 
-> Maybe I'm confused (again, after 10 or so years of doing this) by the
-> usage of unevaluatedProperties/additionalProperties, but if I read
-> Documentation/devicetree/bindings/writing-schema.rst right
-> 
->   * unevaluatedProperties: false
->       Used when this binding references other schema whose all properties
->       should be allowed.
-> 
-> Means all properties from video-interfaces.yaml are accepted (which is
-> imho very wrong, but it's a battle with dt maintainers I don't want to
-> start again).
+Sorry for the delay.
 
-I guess you should have
-
-		additionalProperties: false
-
-too?
-
+Le 22/06/2026 à 14:14, Myeonghun Pak a écrit :
+> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
+> the subdev active state and requires v4l2_subdev_cleanup() to release it.
 > 
+> If vd56g3_update_controls() fails after finalize succeeds, the probe error
+> path currently skips v4l2_subdev_cleanup() and returns an error. The driver
+> .remove() callback is not called after a failed probe, so the active state
+> is leaked.
 > 
-> > > +
-> > > +        required:
-> > > +          - data-lanes
-> > > +          - link-frequencies
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - clocks
-> > > +  - vdd28-supply
-> > > +  - vdd11-supply
-> > > +  - port
-> > > +
-> > > +unevaluatedProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    i2c {
-> > > +        #address-cells = <1>;
-> > > +        #size-cells = <0>;
-> > > +
-> > > +        camera@36 {
-> > > +            compatible = "ams,mira016";
-> > > +            reg = <0x36>;
-> > > +            clocks = <&cam1_clk>;
-> > > +
-> > > +            vdd28-supply = <&cam1_reg>;
-> > > +            vdd11-supply = <&cam_dummy_reg>;
-> > > +
-> > > +            port {
-> > > +                endpoint {
-> > > +                    data-lanes = <1>;
-> > > +                    link-frequencies = /bits/ 64 <750000000>;
-> > > +                };
-> > > +            };
-> > > +        };
-> > > +    };
-> > > +...
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index e12dc3ca57ab..1c24b05b378b 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -1454,6 +1454,13 @@ S:	Maintained
-> > >  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
-> > >  F:	drivers/iio/light/as73211.c
-> > >
-> > > +AMS MIRA016 DRIVER
-> > > +M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > +M:	Philippe Baetens <philippebaetens@gmail.com>
-> > > +L:	linux-media@vger.kernel.org
-> > > +S:	Maintained
-> > > +F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > +
-> > >  AMT (Automatic Multicast Tunneling)
-> > >  M:	Taehee Yoo <ap420073@gmail.com>
-> > >  L:	netdev@vger.kernel.org
-> > >
-> >
+> Move the control update to vd56g3_probe() after vd56g3_subdev_init()
+> succeeds, and route failures through the existing err_subdev path. This
+> keeps v4l2_subdev_cleanup() in the common vd56g3_subdev_cleanup() helper.
+> 
+> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
+> Cc: stable@vger.kernel.org
+> Assisted-by: OpenAI:GPT-5.4
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+
+One more nitpick but otherwise :
+
+Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+
+> ---
+> Changes in v3:
+> - Restore the capitalized subject summary.
+> - Route vd56g3_update_controls() failures through the probe-side subdev
+>   cleanup path instead of adding a second v4l2_subdev_cleanup() call.
+> - Add the Assisted-by trailer.
+> 
+> Changes in v2:
+> - Use a lowercase subject summary.
+> 
+>  drivers/media/i2c/vd56g3.c | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+> index 157acea9e2..39fb14bab5 100644
+> --- a/drivers/media/i2c/vd56g3.c
+> +++ b/drivers/media/i2c/vd56g3.c
+> @@ -1388,7 +1388,6 @@ static int vd56g3_detect(struct vd56g3 *sensor)
+>  
+>  static int vd56g3_subdev_init(struct vd56g3 *sensor)
+>  {
+> -	struct v4l2_subdev_state *state;
+>  	int ret;
+>  
+>  	/* Init remaining sub device ops */
+> @@ -1421,15 +1420,6 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+>  		goto err_ctrls;
+>  	}
+>  
+> -	/* Update controls according to the resolution set */
+> -	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
+> -	ret = vd56g3_update_controls(sensor);
+> -	v4l2_subdev_unlock_state(state);
+> -	if (ret) {
+> -		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+> -		goto err_ctrls;
+
+The err_ctrls label could be renamed to something more relevant now.
+
+> -	}
+> -
+>  	return 0;
+>  
+>  err_ctrls:
+> @@ -1452,6 +1442,7 @@ static void vd56g3_subdev_cleanup(struct vd56g3 *sensor)
+>  static int vd56g3_probe(struct i2c_client *client)
+>  {
+>  	struct device *dev = &client->dev;
+> +	struct v4l2_subdev_state *state;
+>  	struct vd56g3 *sensor;
+>  	int ret;
+>  
+> @@ -1517,6 +1508,15 @@ static int vd56g3_probe(struct i2c_client *client)
+>  		goto err_power_off;
+>  	}
+>  
+> +	/* Update controls according to the resolution set */
+> +	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
+> +	ret = vd56g3_update_controls(sensor);
+> +	v4l2_subdev_unlock_state(state);
+> +	if (ret) {
+> +		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+> +		goto err_subdev;
+> +	}
+> +
+>  	ret = v4l2_async_register_subdev(&sensor->sd);
+>  	if (ret) {
+>  		dev_err(dev, "Async subdev register failed: %d\n", ret);
 
 -- 
 Regards,
+Benjamin
 
-Sakari Ailus
