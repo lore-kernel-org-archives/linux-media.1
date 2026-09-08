@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from forward500b.mail.yandex.net (forward500b.mail.yandex.net [178.154.239.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9792553A88D;
-	Tue,  8 Sep 2026 12:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E7E4ADD81
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 12:26:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869643; cv=none; b=QqMRlATq93zaV/NYLalSE9nxDIMrmdIbxgcNs4U2N5GiyEm0PgOueB9wAQ9U3bjPa/HkOle05PNX8jp7dM32mNJG8qGF2p1/o8OVociSoNsa4c1hEGE3Jhh73qtPv/CMySCgNZwad6ODJF8Kl7WSsOL+yy38ZkDGGRKDfy0ONb4=
+	t=1788870380; cv=none; b=GeJ26UqUFeZsXz2v17XInibWis9+AyuBF0mhXhM1FYDW0Nygi3ILdiYVL2Yoa57ylUvHs76+ABHAEtDK43rGgMuCyxXeCb7ohN7CZFibQ2XYoI3IiNB3ncAEGt/OIoe0KrI91qFhsPdqVUo5vIaNgWNj5dUfzLB8GnSB0UDEUTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869643; c=relaxed/simple;
-	bh=iQwe+29YDoknEaFxd6AzGS0RHPiNwtK21Yn6SRenzgg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Ss7bn6H8g/NtVab6m4JYne+TFD8oI3QA/dt7uMD9PZBH9rQFqx5AUYJXd1xYizU8Eg4360rYWFgAI65XnaNLzeJkT+KnSyGBxGpsHMXsjjoicUNt9OwHoRCvpBWpPuPoXiQvL6l2OtGcIrZ0a4dKE6g5ZzVSHOpXWGdtErkd4Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNr6x3ia; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788870380; c=relaxed/simple;
+	bh=4Z891fvHQq9dz7L4UNArVokdeiSiz6/q5nOGMXR9IKE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fV3kYbf5FCgwLkAN/LMd8UOQ0T13RevDWQdY+whVoxvwd6qeNKQQzMWkS7TxfqLXuIjenherAj/o8aRAbRz+gTdVGC0EPyeUiKmCTUou4ZViVdgInL6eA0ZTQMTLUHdWM4Q7Z0ExYG/xHG2ygb34lJkgI/H1LbkFNFti0qAjmp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=AXc28WlH; arc=none smtp.client-ip=178.154.239.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNr6x3ia"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923121F00A3A;
-	Tue,  8 Sep 2026 12:13:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788869621;
-	bh=oqwyWCvNJ6P6oUdMwoUCml51kC1+AGWjzeei46hOJno=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=oNr6x3iacKiFtLiwJwmLue48h6YUOIJxRCZTjQfGuyuPDh87bTWJm0hUcjqljr3CW
-	 sO8phBVFz1yASYM+JcqRucToMBb+KuzkPHTDyFkhRvkvKKbBBacnjIrmxHkDGslEvU
-	 f7EsGu9zSmxpJ8O5v2u5aKUl+BQrv9m2+aLyqZ0ZtR5Al+30t67nN3q5ohqNAp6Co4
-	 Qj7suD4rOEI++QdfDzIsXax8kA95q1Msi4ttkPassrPYYtFTIjqIRn5njeuyFHAA8+
-	 wVsJcwhCbLppCwk9qAtoeERFwkK3iFr0UhsxbA+1ah+UoyiMr5o+8+o/Is+chk2yg/
-	 yNIVcmbDgP7ww==
-Message-ID: <891a848f-96df-40eb-9daa-f0812915d603@kernel.org>
-Date: Tue, 8 Sep 2026 14:13:37 +0200
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="AXc28WlH"
+Received: from mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:25c9:0:640:b4bd:0])
+	by forward500b.mail.yandex.net (postfix) with ESMTPS id D0BE2C1C27;
+	Tue, 08 Sep 2026 15:26:07 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net (smtp) with ESMTPSA id 5QMlFlSfX8c0-pzSe6Gqt;
+	Tue, 08 Sep 2026 15:26:07 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1788870367; bh=cU8vGvj+UWVSqjzPrI892QLl9nl4vRd/ml5E2VBUVk4=;
+	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
+	b=AXc28WlHLhMVS3o1UhGIZBwPSXNbddFff58IPs97555SFMjrJOxHDCACTgKVmFlTW
+	 jyKsEz3VdN5I/NUupmAio9mNJRNMmGdIgQq4VPthZWysO9WJw7Ku5Fe3d1Aau0WhZT
+	 PoJSr3oT9v0hgTmP5B/BIDyG/b2ghOA/lrFXrANE=
+Authentication-Results: mail-nwsmtp-smtp-production-main-60.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Message-ID: <fb450eee-7b63-4b85-b480-ce8759ba7c67@yandex.ru>
+Date: Tue, 8 Sep 2026 15:26:05 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,105 +38,64 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: hverkuil+cisco@kernel.org
-Subject: Re: [PATCH] media: usb: pvrusb2: fix slab-use-after-free in
- pvr2_v4l2_dev_init
-To: xiaopeitux@foxmail.com, shuangpeng.kernel@gmail.com,
- mchehab+huawei@kernel.org
-Cc: isely@pobox.com, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, mchehab@kernel.org,
- Pei Xiao <xiaopei01@kylinos.cn>
-References: <6C2D160B-37DD-40F0-B8A2-089B8CAACB58@gmail.com>
- <tencent_B85DFB2210B877A85021C1BC064E70E61C09@qq.com>
-Content-Language: en-US, nl
-In-Reply-To: <tencent_B85DFB2210B877A85021C1BC064E70E61C09@qq.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RESEND PATCH 1/2] media: em28xx: adjust initialization order in
+ em28xx_v4l2_init()
+To: Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, lvc-project@linuxtesting.org,
+ syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
+References: <20260907102824.95222-1-dmantipov@yandex.ru>
+ <7f58710e-d235-446d-9c69-cf286eae8700@kernel.org>
+Content-Language: en-US
+From: Dmitry Antipov <dmantipov@yandex.ru>
+In-Reply-To: <7f58710e-d235-446d-9c69-cf286eae8700@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/06/2026 03:47, xiaopeitux@foxmail.com wrote:
-> From: Pei Xiao <xiaopei01@kylinos.cn>
-> 
-> The driver attempts to register the same video_device twice if the first
-> registration with a specific minor number fails. However, when the first
-> video_register_device() call fails, the underlying device structure is
-> released via put_device(), which frees the video_device object. The second
-> call then uses the already freed pointer, causing a KASAN
-> slab-use-after-free error.
-> 
-> Moreover, the second call always uses -1 (automatic minor allocation),
-> which is redundant because mindevnum already can be -1 when no fixed
-> minor is requested. Keeping both calls does not provide any benefit but
-> introduces a use-after-free vulnerability.
-> 
-> Fix this by removing the second registration attempt and using only
-> the first call with mindevnum. This preserves the ability to request
-> a specific minor number (when mindevnum >= 0) while falling back to
-> automatic allocation (when mindevnum == -1) without double-registering
-> the same device.
+On 9/8/26 12:23 PM, Hans Verkuil wrote:
 
-The video_register_device change that called put_device was reverted (it
-was a bad idea), so this patch is no longer needed.
+> I prefer this simpler patch:
+> 
+> https://patchwork.linuxtv.org/project/linux-media/patch/3e01154b-ab4d-4cb3-90d7-a5dce4e5b2c4@kernel.org/
 
-Regards,
+Not sure whether it fixes https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00.
+Running one of syzlang reproducers from the above, I'm seeing:
 
-	Hans
+[   77.259135][  T194] KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+[   77.259761][  T194] CPU: 4 UID: 0 PID: 194 Comm: kworker/4:1 Tainted: G        W           7.3.0-rc2+ #17 PREEMPT(full)
+[   77.260740][  T194] Tainted: [W]=WARN
+[   77.261092][  T194] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-10.fc44 06/10/2025
+[   77.262034][  T194] Workqueue: events request_module_async
+[   77.262636][  T194] RIP: 0010:__wake_up_common_lock+0xd6/0x1f0
+[   77.263839][  T194] Code: 0f 84 d4 00 00 00 44 8b 64 24 04 eb 13 48 ba 00 00 00 00 00 fc ff df 4c 39 fd 0f 84 ba 00 00 00 49 89 ee 48 89 e8 48 c1 e8 03 <80> 3c 10 00 74 12 4c 89 f7 e8 8c f4 8d 00 48 ba 00 00 00 00 00 fc
+[   77.265115][  T194] RSP: 0018:ffffc90003ef79a0 EFLAGS: 00010046
+[   77.265447][  T194] RAX: 0000000000000000 RBX: ffff8880267b9740 RCX: 0000000000000001
+[   77.265770][  T194] RDX: dffffc0000000000 RSI: 0000000000000004 RDI: ffffc90003ef7944
+[   77.266088][  T194] RBP: 0000000000000000 R08: ffffc90003ef7947 R09: 1ffff920007def28
+[   77.266425][  T194] R10: dffffc0000000000 R11: fffff520007def29 R12: 0000000000000000
+[   77.266781][  T194] R13: dffffc0000000000 R14: 0000000000000000 R15: ffff8880267b97d0
+[   77.267694][  T194] FS:  0000000000000000(0000) GS:ffff8881254a7000(0000) knlGS:0000000000000000
+[   77.268111][  T194] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   77.268437][  T194] CR2: 00007f37cbd2ceb8 CR3: 000000002e931000 CR4: 0000000000f52ef0
+[   77.268804][  T194] PKRU: 55555554
+[   77.268979][  T194] Call Trace:
+[   77.269144][  T194]  <TASK>
+[   77.269292][  T194]  __vb2_queue_cancel+0x2de/0xde0
+[   77.269542][  T194]  ? __vb2_cleanup_fileio+0x134/0x1f0
+[   77.269831][  T194]  vb2_core_queue_release+0x2f/0x150
+[   77.270109][  T194]  vb2_video_unregister_device+0x15b/0x200
+[   77.270437][  T194]  em28xx_v4l2_init+0x1c89/0x3150
+[   77.270695][  T194]  em28xx_init_extension+0x120/0x1d0
+[   77.270955][  T194]  ? process_scheduled_works+0x89d/0x14d0
+[   77.271237][  T194]  process_scheduled_works+0xb60/0x14d0
+[   77.271788][  T194]  worker_thread+0xa47/0xfb0
+[   77.274246][  T194]  ? __kthread_parkme+0x71/0x1f0
+[   77.275290][  T194]  kthread+0x38b/0x480
+[   77.276165][  T194]  ? __pfx_worker_thread+0x10/0x10
+[   77.277716][  T194]  ? __pfx_kthread+0x10/0x10
+[   77.279999][  T194]  ret_from_fork+0x48c/0xab0
+[   77.282292][  T194]  ? __pfx_kthread+0x10/0x10
+[   77.284802][  T194]  ret_from_fork_asm+0x1a/0x30
 
-> 
-> Logs:
-> BUG: KASAN: slab-use-after-free in pvr2_v4l2_dev_init
-> (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1221)
-> Read of size 4 at addr ffff88810a2aa4b4 by task pvrusb2-context/2009
-> 
-> Call Trace:
->  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
->  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
->  kasan_report (mm/kasan/report.c:595)
->  pvr2_v4l2_dev_init (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1221)
->  pvr2_v4l2_create (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1249)
->  pvr_setup_attach (drivers/media/usb/pvrusb2/pvrusb2-main.c:40)
->  ...
-> 
-> Freed by task 2009 on cpu 1 at 594.064509s:
->  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
->  kasan_save_free_info (mm/kasan/generic.c:584)
->  __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
->  kfree
->  v4l2_device_release (drivers/media/v4l2-core/v4l2-dev.c:225)
->  device_release (drivers/gpu/drm/vkms/vkms_configfs.c:690)
->  kobject_put
->  __video_register_device (drivers/media/v4l2-core/v4l2-dev.c:1080)
->  pvr2_v4l2_dev_init (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1218)
->  pvr2_v4l2_create (drivers/media/usb/pvrusb2/pvrusb2-v4l2.c:1249)
->  pvr_setup_attach (drivers/media/usb/pvrusb2/pvrusb2-main.c:40)
->  ...
-> 
-> Fixes: 0c0d06cac63e ("[media] rename most media/video usb drivers to media/usb")
-> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> Closes: https://lore.kernel.org/lkml/6C2D160B-37DD-40F0-B8A2-089B8CAACB58@gmail.com/
-> stable@vger.kernel.org
-> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-> ---
->  drivers/media/usb/pvrusb2/pvrusb2-v4l2.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
-> index 101b2e9fbaab..f9df813ca09b 100644
-> --- a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
-> +++ b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
-> @@ -1215,13 +1215,10 @@ static void pvr2_v4l2_dev_init(struct pvr2_v4l2_dev *dip,
->  		mindevnum = nr_ptr[unit_number];
->  	}
->  	pvr2_hdw_set_v4l2_dev(hdw, &dip->devbase);
-> -	if ((video_register_device(&dip->devbase,
-> -				   dip->v4l_type, mindevnum) < 0) &&
-> -	    (video_register_device(&dip->devbase,
-> -				   dip->v4l_type, -1) < 0)) {
-> +	if (video_register_device(&dip->devbase,
-> +				   dip->v4l_type, mindevnum) < 0)
->  		pr_err(KBUILD_MODNAME
->  			": Failed to register pvrusb2 v4l device\n");
-> -	}
->  
->  	pr_info("pvrusb2: registered device %s [%s]\n",
->  	       video_device_node_name(&dip->devbase),
+Dmitry
 
