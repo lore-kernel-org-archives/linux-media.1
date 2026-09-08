@@ -1,281 +1,226 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6357639EF24
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 07:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A243A3E7A;
+	Tue,  8 Sep 2026 07:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853548; cv=none; b=ccx0mTme/J+hIKRFZKLMNyOAw09fOGa/n8KLrjcPNfoIkN6qg0w/I95E+5DFHl1VtrhdyqKIK3/YYSZhky40X+U4tniRZ+Lid0tuSlYLiteWQNuTix6qw59KGykZPcZJ7Te+IfDaG5cBqND5jUiVYta+CXgjcsB4ZYtFJPLdaZk=
+	t=1788854269; cv=none; b=Bgnhty3LOpUm3TYo0SdJ65EpwyjIlkyTIavgG1rO6tGpDIB1yBeY5He+vsyuJcY6DazcQIXAJBptQ4Q5PaxIy0dnRPUnGjNd7ESFc+NrGAgJsLPSmCumnOBVqBo7qtjL6U74UQ4b/MOOwqpYt7f+HD89QPPvB83QZfHO4FLQxRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853548; c=relaxed/simple;
-	bh=MYJ8QuS9dJHlh3zGd4Jjmjuv7oAWC7r/tOj6ovNMei0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LwxekN6n14EDvZ8Gak998jmvP2jfiAGyZFe5x7z7GfZZpKmQ64XWPcoFj0JfQsPOheOEHTFiQFjO8t5vvCr8KYF1FhK9R7IDUBM5whFZHAgvsUhgDGeOxf6o2KS+hR+Axu8P2gn4TBO6Yu2rmsvHGts53xCyF052AFn0Ybw/HyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=meyDObDd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YEHGqRBc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788854269; c=relaxed/simple;
+	bh=y2obgup7ylnH+aBsvulZrhVrx2jUl1kd66jjvDv+f0E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=INQz4zaMALLsdIfuq1jhuFOFDISh6EtL9pDeeccFcta/7/H92d6pCHt+dkEJrjOY/2qNoJboI6+iBuIvdj6IKhF0YXjMrooVqVOvEG377cJVXbdOPvKRWo42yXX6g7buBpR/Gsmo0kNgQkkn+ABcoDtXG9H9FJxNP7LcERYMWDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XxObssNf; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="meyDObDd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YEHGqRBc"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M2Uh2072723
-	for <linux-media@vger.kernel.org>; Tue, 8 Sep 2026 07:45:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=; b=meyDObDdxg1onozh
-	BTIfrgJw9Bf20bmpFLWeHyZoqdWL8TX8jZKczZ2pE6krABotoKHevESc6wzTBOzl
-	OAwYrON/e3Pl7RsZxRn/C14fZyu4VRBSt3xnJLQHdwXsh88S9DC5l9GiZmPVa8hA
-	eT3Vm7Xv/6RxHAs66hv7XBakFwk2uRVloSq8Bl9hzR6PEnOgqphhTOHN2EUHNvJq
-	MqXXrISTRFOLQnXj5HCjf2dsYwA1yuMoVHaaoTwJGFlGxGn9AsLUQL4zxmYGCj/X
-	DkfS9JacTTbaF9b8B28tcXEN5zSj37ztLWzdNQWA+CbGZVik/3TZUBGHipETto+C
-	bV2gbQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfymdmb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 07:45:44 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b90cc0d5cso999572a91.0
-        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 00:45:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788853543; x=1789458343; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=;
-        b=YEHGqRBcBcdowYeghmqS0KR/PddShzQCfUrDW9T8rNvAOVSypnoSj6A83LxedMtrYh
-         YKIs4i6/TBkEJE26KrW4Odj3JpXn40cHjHqr9V7SfhLIEOrDwyMGYhMdIn2naMqlFpDe
-         +pLjsN4rnGs+4L818Ng6FkuCQhwRGZ86WkYk1EBFMM0zV422XwqUDOIkNaLHzwMNb3Lf
-         WRtgMfc4slq+oMi6YALGCIAVJEnxbJJ6FvWjML/lUMCELSi7zg1FrML/doltA1N8VO19
-         fSHk9ULQhm7tRk4xcqbf4Xs8RE1aaWRXQrAKgc4LGfNRyuKtlrj5HWsAJTh6kALWv+QP
-         ujXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788853543; x=1789458343;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=;
-        b=lk+xLHQjuciv/n8lEHFHP9oxtjAVAbL8MeMVuX/PDoCFOpwH7pfq92dhVLgzahuH6Z
-         ooAeicW2pXlkTO4Bs1pF7pUhbLrw8jeYlsB7ge1vuO5AJ/skr8eF81E4X5V3ttKSMcQr
-         CXqDmsZY5tTBYPV8OsOrJHfi9y8uSS93RAh3Ges9ts2ytjAatdRbgEtYIW9rsgwGOtrd
-         yWJygjb/22KpsMgpycRiiHnaCjrDRDJsrI1VA7ufjW6VxBY7J9ZZgQhK39+DmmCzpCzQ
-         nB/2bz1pFE5u7IDT24CBvwPcs2p8ChYemY0YZo6DfQNvixmBRggfIXbaHKy0GSakmaT+
-         KUsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZUz/KMkjF8+ISB0fGBo/j5oboWiJlYs66vh8b4WHueCU0PyeM0vXcCZJF+z0lNETgaaLbzWJy1hrOIA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mLDKHcAskq1c8O01XposQmQdR9nBcfdac1ix2NFluJh6/pVMkL
-	O9LfwF+mWwNZQGx+YeD7TsnP+xbmudHfdqgfieY31Eu49NBtAsDinqC8GLKw0Jy8QN1S4EL90YO
-	+cBp1kjOZOkPO5vXmhARctzSZydimOEWydHsYTi8mvY/qJDDzrXHk6k/NXb96dYRpZA==
-X-Gm-Gg: AYBFou3cXIraofiW1zR8zFIZ7T4FFzlcDTItlfi40Cu5QxCPyGJJ+/k6PhuAyuPkWUP
-	IlMrzyt7tv15Z7ISQSgNbylUK9kZPDQqZhDPmpoSXoMxm6E4OI1xXYyRlbNxJdAwtalmcCUGeYE
-	6ojcpaB27cqwkYdsZbPRTF4hYWQ4kHvYlkLl7Q0pkWAP8gmTLmB6cHDejL4UciL/d797hlXj0z3
-	9jabXJNV/uUjkyzwelY+Jjnj1z6zeyGA7OYvbhK/zztocPtISxpp45IyOv7rCMu/uzOVTj55g+G
-	vidWa0+/BWGpQ28j9ZY+J/7HJiW1BnMMp5vGkuQPo2iCPnYikDEBzPQkZSvYAhbkaoStKqiDS3T
-	OBmdxvl8s1kCr7T/JH2zXS8rBBerVRg==
-X-Received: by 2002:a17:90b:1e03:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39b260dda6emr38832013a91.4.1788853543400;
-        Tue, 08 Sep 2026 00:45:43 -0700 (PDT)
-X-Received: by 2002:a17:90b:1e03:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39b260dda6emr38831975a91.4.1788853542891;
-        Tue, 08 Sep 2026 00:45:42 -0700 (PDT)
-Received: from [10.219.57.226] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-336c2571039sm14719241eec.25.2026.09.08.00.45.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 00:45:42 -0700 (PDT)
-Message-ID: <a3b73723-9522-40da-806a-643093b1b227@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 13:15:32 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XxObssNf"
+Received: from [192.168.125.177] (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 791B64B0;
+	Tue,  8 Sep 2026 09:55:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788854162;
+	bh=y2obgup7ylnH+aBsvulZrhVrx2jUl1kd66jjvDv+f0E=;
+	h=From:Subject:Date:To:Cc:From;
+	b=XxObssNfY4BgD+6tVLhFEVmkI+6Yh/q50m8nbCKPWRhyQEigcixhJxr78p/tyTqIZ
+	 jnKAMpDErnMv85GQin+D8uQSYZjGg+bGyuXA0eD8fWF0zxpQLZ1wZYcLSUdOG2jCBC
+	 wQiK4xScHSBKURcoL1cYmBXNB032iWTknJnfBXs0=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v4 0/2] media: i2c: Add driver for Mira016
+Date: Tue, 08 Sep 2026 09:57:22 +0200
+Message-Id: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
- driver
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling
- <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
-        iommu@lists.linux.dev, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
- <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
- <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
- <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
- <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
- <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
- <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
- <59aa182d-1b4c-4bdc-a1d5-e76cc9c88ed9@kernel.org>
- <c806d7c5-98f8-4b0b-9d00-969e1917a8e4@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <c806d7c5-98f8-4b0b-9d00-969e1917a8e4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: NIqdIkGsa6fB8mDUBIbTYE3Nu5VMyGZx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3OCBTYWx0ZWRfXwK+TrEflK99D
- g9tkqm/LJX4yxDfBw27yB3a7LgLQd3V3ag4kLzE7UqrVjlhWBzPFC6wFZUnrtPDh4YrLSLG0BW3
- gQSsmbjtIlnp+AFPgxtpcv9aZwQBnGdOI5NJRhMuCGyNs4LSst/faW1J6I/uWdwzyTh//9oCCVv
- 6qURo2xGwi/5ql2pOmqpSS1ZWGjAftw7J3aHm98Oruj/dldGIzhBt4cglHNAC8LN+OUcbalV0Lh
- k95bXqDTVbW35JFvFowCmE++UgZ6OUZQJ29fG970P5IKfitdTAVpP3RrjdKOEAxvqWpDmrWUbwS
- 9DcqujnUWcOyDxBknkt+134JqsPDfr74DgkJcEB30TOZQG00rdnQZkMfksjPe4tG0PujbypzWlb
- rn0DjrG6aSqwBRF8hxWaNfS8M4F82T0x+7rL1ZrtUX27j9bIbLYRBsHjYc34vyEplzs+3UPerYW
- 9UxdYFZMdU7clmcy0bA==
-X-Proofpoint-GUID: NIqdIkGsa6fB8mDUBIbTYE3Nu5VMyGZx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3OCBTYWx0ZWRfXypC1BbkU2EQw
- vvmj5wA9odJu3ccqhCuCZVv33YCX30n8TFi8+ByDToYPedB2pvc1rwp/ytDrG8OV/1I/TN88ppr
- 0Cb+sUuSgODT7opYevo1CVmer3rEyHc=
-X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9fbd28 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=wP88gyHQT0P6k6tIFBAA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
- phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080078
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQ7CIBQE0KsY1mI+0IK68h7GBZRfi4nFQCWap
+ neX1mi70OUk82Z6EjE4jGS/6knA5KLzbQ7FekWqRrdnpM7mTDhwCTvg9OqCBiapUmikkbwUtiC
+ 5fQtYu8e0dDy9c7ybC1bdyMdG42Lnw3O6SmzsfVbFdzUxClTXAExgDQrswVnU0bfG62A3lb+Sc
+ TzxJS9mzjNntqqVEXoLCv9wseRq5iJzA2qrpdoJK8sffBiGFztsdxE1AQAA
+X-Change-ID: 20260902-mira016-77eb6b6253d4
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5663;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=y2obgup7ylnH+aBsvulZrhVrx2jUl1kd66jjvDv+f0E=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqn7/sddhyu6X864FiPJ6BwQuoHX/i0XkqbZSN7
+ kq2IH5mh9CJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCap+/7AAKCRByNAaPFqFW
+ PKzwD/9ZtgKgvAiTIoyjfXcCWLNM2UV4xZ89WS1GtMWkfZ+Vteu/N7GkVCgW3sh+f8YDhqlA6rg
+ feNUP03YezWi3DTReIZXETU0moR2wQPMUnFBZzPWdtXruA364Z8fmDa7CvcuzXVGFAJCgUwAxEN
+ liqtsqk955RkegwHwRko4JuzO74hVBS9Fstgoi26W3rx3sUI/xLWSGauVfqvm1WODW6KXql/AJp
+ hsBy65q+LeT4yRLBqastY3ZCFdkZNLy8sJQzEYUhomdyyTOpg20kXp5UYuzJtlGWHoJZ3fRWQHP
+ UNLGX29i/nPy/kTA6f+XZjVc93+VUjaQYPzALQzM7PXkTbuJV+pDHH1I0mNpYQ/8GUv+73kagCS
+ W3bSPug/DQqXpQqG22ASAggspTUgCSNNhr7StlDs3SDLyfaoCYlkrFpP3c4UW/lXbzYawk7++bt
+ /Li9k1Q+0LM7DRUmnPcZJQbHwsq3umAYx8UmU0dUlXBD2M852o5mbjRYJ+ml6h5X9gthlvHoX+H
+ DAI/TQM7YtCLb1e6mEVtP7W0eJQ6D1S8ItSYZ5VqkN3tlmSb2BJkgHSwDO6I7Mn/ej2g7tb5tJT
+ tVOai+jvxPFMh6mmMUemLhskgC2uYcDkZmcebcKAvwSk+NzykHe5771Lk34dcg2jzEWHLvHilyA
+ Kv889gpJa6RQoHQ==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-On 31-08-2026 20:28, Ekansh Gupta wrote:
-> On 20-08-2026 19:01, Krzysztof Kozlowski wrote:
->> On 20/08/2026 12:07, Dmitry Baryshkov wrote:
->>> On Thu, Aug 20, 2026 at 11:07:45AM +0200, Krzysztof Kozlowski wrote:
->>>>>>>>
->>>>>>>> Device node with this compatible is already populated, so this looks
->>>>>>>> simply wrong or you are adding a duplicated driver.
->>>>>>>>
->>>>>>>> That's a no-go, you are supposed to work with existing drivers and grow
->>>>>>>> them.
->>>>>>> I'll bring the discussion again here, there was a discussion to move the
->>>>>>> driver to accel subsystem if we want to support new features/uAPI
->>>>>>> changes. Please read [1],[2] threads. The intention is to replace
->>>>>>> fastrpc driver with QDA eventually.
->>>>>>
->>>>>> None of them address the problem. You want to grow fastrpc into user of
->>>>>> dmabuf? So you move it from misc to here.
->>>>>
->>>>> It's not as easy and nice, so I think in this case it's better to repeat
->>>>
->>>> I disagree. The existing fastrpc driver is not that complicated. It's
->>>> actually moderate amount of code, much less than Venus was (~7 times less).
->>>>
->>>> It easily can grow to support two interfaces and the only difficulty is
->>>> how to manage these two interfaces simultaneously or exclusively, e.g.
->>>> opening first one disables the second.
->>>
->>> I see the point here.
->>>
->>> Would it be acceptable if we add QDA support only on the new platforms
->>> (e.g. via the SoC-specific compat), provide QDA for those platforms,
->>> and, once it reaches complete API and feature parity, we remove the old
->>> fastrpc driver, migrati old platforms.
->>
->> The problem with this approach is that we have no guarantees that it
->> will reach feature parity in respect of old interface, thus old driver
->> might stay forever. If we agree for duplicated driver, contributors have
->> no incentives to support old approach.
-> That's a fair concern. Let me lay out the sequence we have in mind and
-> then the concrete reasons parity is not optional for us.
-> 
-> The plan is staged. QDA is enabled first on new platforms, where there
-> is no existing userspace to migrate and the new UAPI can be exercised
-> properly. In parallel we close the remaining feature gaps against
-> fastrpc. Once parity is reached we migrate the older platforms onto QDA
-> and remove drivers/misc/fastrpc.c. The end state is one driver, not two.
-> 
-> On why parity will actually happen: the DSP firmware is not changing.
-> Both drivers implement the same base protocol against the same firmware
-> image, so the feature set is defined by that firmware interface, not by
-> what we feel like implementing. For QDA to support a feature at all it
-> has to implement the same protocol operations fastrpc already does.
-> Parity is a property of the interface rather than of contributor enthusiasm.
-> 
-> Other than the base protocol, there are some features(daemons,
-> capability, session sharing) that exist in fastrpc for performance etc.
-> but are not yet part of QDA. We want to implement them properly rather
-> than port them across as they stand.
-> 
-> The remaining question is how fastrpc can actually be removed once
-> parity exists, without breaking existing userspace. That needs a
-> compatibility path, and it is a deliverable we are committed to rather
-> than an afterthought. For that, we need to settle is whether that path
-> is a userspace shim in the library, an in-kernel translation layer
-> exposing the legacy device nodes, or a hybrid. We evaluated an in-kernel
-> shim during v1 and hit constraints around constructing per-client
-> drm_file contexts from outside the DRM core, so the approach is still
-> open. I'll come back with a concrete proposal, and it will land before
-> fastrpc is removed rather than after.
-> 
->>
->> Much better is to refine the old driver, gradually adding new features
->> while maintaining old stuff. This is the only way we can force
->> contributors to actively work on minimizing duplicate parts.
->>
-> I believe you are suggesting we bring the new features we are developing
-> with DRM core utilities into the fastrpc driver. I don't think the two
-> interfaces can share one driver, though, and it isn't a question of code
-> size.
-> 
-> fastrpc is a miscdevice: it accepts raw DMA-BUF fds as arguments and
-> tracks buffers in its own per-file lists, with the fd itself being the
-> buffer identity visible to the DSP. QDA is a drm_driver whose buffers
-> are GEM objects in a per-drm_file handle namespace, with PRIME used for
-> import and the GEM handle being the identity. These are two different
-> buffer ownership models, and neither can be expressed on the other's
-> file type.
-> 
-> Supporting both from one driver therefore means carrying both models
-> simultaneously: two IOCTL surfaces, two buffer lifetimes, two teardown
-> paths, and a memory manager that has to serve both. That is two drivers
-> sharing a directory rather than one driver with two interfaces, and I
-> think it would be harder to review, and harder to eventually untangle,
-> than a separate driver with a stated removal plan.
-> 
-> There is also a positive reason for being in the accel subsystem rather
-> than misc. We can build on existing DRM infrastructure instead of
-> reimplementing it: GEM for buffer management, the device and file
-> lifecycle, and the debug infrastructure. It also positions us for work
-> we have planned around scheduling, drm_gpuvm, etc. Over time this should
-> mean less driver-specific code, not more.
-> 
-> I'll restructure the cover letter so the staged rollout, the
-> compatibility path and the eventual removal of drivers/misc/fastrpc.c
-> are stated properly.
-> 
-> If after this you still want to add or change anything, please let me know.
-> 
-> Thanks,
-> Ekansh> Best regards,
+ams OSRAM Mira016 is a 0.16MP NIR enhanced global shutter image sensor.
+It supports 8, 10 and 12 bits luma-only image formats with configurable
+gains (only in 8 and 10 bit modes, with the 12 bit gains fixed at 1x).
 
-Gentle ping on this thread. Wanted to check if there's any update on the
-compatible string and coexistence question above, since it's currently
-blocking respin.
+Add a Video4Linux2 subdevice driver for it.
 
-Thanks,
-Ekansh
+The Mira016 supports binning, skipping and embedded data. It would be
+an ideal candidate for the new common RAW sensor model.
 
->> Krzysztof
-> 
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
+
+These features will be implemented on top of the new RAW sensor model
+once available.
+
+CI pipeline:
+https://gitlab.freedesktop.org/linux-media/users/jmondi/-/pipelines/1742376
+
+$ ./v4l2-compliance -d /dev/v4l-subdev2
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev2:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev2 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 11 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 46, Succeeded: 46, Failed: 0, Warnings: 0
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Changes in v4:
+- Address Sashiko comments:
+  - Correct XWIN and XRIGHT registers sizes
+  - Correct pll esc_period calculation
+  - Do not mix gotos and cleanup in endpoint parsing
+- Link to v3: https://patch.msgid.link/20260907-mira016-v3-0-b078a6793d65@ideasonboard.com
+
+Changes in v3:
+- dts: remove labels from example
+- Address Sakari's comments
+  - Parse endpoint early
+  - Do not overwrite firmware parsing errors
+  - use div_u64()
+- Link to v2: https://patch.msgid.link/20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com
+
+Changes in v2:
+- Address Sashiko comments:
+    - Do not overwrite cci_write() return error codes
+    - Don't call mira016_calc_row_length() in init_state()
+      - This would re-calculate row length at each open() call and modify
+        the sensor configuration even for TRY states.
+      - The call is also unecessary as:
+        - row_length is initialized in probe()
+        - mira016_calc_row_length() is called by set_pad_format() for ACTIVE
+          states already
+    - Offset the gain codes by 1. The gain LUT tables are 0-indexed while
+      V4L2 controls are indexed by 1. Adjust the gain index before accessing
+      the LUT to avoid and out-of-bounds error
+    - Free the control handler before the subdev state during remove, as the
+      s_ctrl handler uses the subdev active state
+- Link to v1: https://patch.msgid.link/20260903-mira016-v1-0-af0013ef070d@ideasonboard.com
+
+---
+Jacopo Mondi (2):
+      dt-bindings: media: i2c: Add Mira016 image sensor
+      media: i2c: mira016: Add driver for Mira016
+
+ .../devicetree/bindings/media/i2c/ams,mira016.yaml |   97 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira016.c                        | 2300 ++++++++++++++++++++
+ 5 files changed, 2418 insertions(+)
+---
+base-commit: 9d6b3fa3f5bdaba65bce21e2e94afce1059b8cf8
+change-id: 20260902-mira016-77eb6b6253d4
+
+Best regards,
+--  
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
