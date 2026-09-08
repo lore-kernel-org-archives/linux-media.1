@@ -1,130 +1,98 @@
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4024ADDBF
-	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 10:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993CC4ACC8B
+	for <linux-media@vger.kernel.org>; Tue,  8 Sep 2026 10:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862096; cv=none; b=qQ87mFw6JcrvDV81mWiz0hYTH7ARDzZWK/NAigS+5MND3JHcGSZ0lcBbjKqyqVkiyDTs4LbNBGJ2UvhZ1LsjK7s4zWmUGjUYfDMuEF3BrhOh+Gl+QhLHNf2AG49yYSkjouDVKPhxg9hzX00zM2Xt/kq+LEXXgbU3R6akjEjfcyI=
+	t=1788862242; cv=none; b=ucLDrQezUF7g54uZB9RFrkpwkRR7GXxmnX4og9ZMokbjzA8ToNnZLO1nNpYWXapiw9QqMLCezQoUivvEyIQi9LNtD8ywq8YiOixBqd/7lvEz3HKBoR0kt88CMOv199kjoiRq3Uy2Up8Bli0pB/fu7Vy+i7giBSfiOzmxw9Z0H4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862096; c=relaxed/simple;
-	bh=ArU19skjGemn5Kt0JsnHE6iIpOM7oK7+eJHAy/cUnL0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XL12fZP4w0NeL/IiGsRJlf/xbomaoLV1RkiLOu7AFRnFNlUp2eVdjYwsxgSPw/pPy+je9h7+579uq5HOxE4oFxAVkUs09s3H4M7AKQnLpxDndUqanEsvWyjUPP90ts6Zivca7pJpgG7ySJb6MeRsGwwXkHwGoGjp7jD/wdh16TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ZhoqJHt2; arc=none smtp.client-ip=109.224.244.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788862242; c=relaxed/simple;
+	bh=+ujdfW8YxHVPRr77DGmnHeLhpLDIDjGR/+8B+WNt41Y=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=QsbS2/RPfWZyQAFCzC59y3nFCZQ/fwwjaI2uQSKQQdeuU5z4CP7eiPU/7zlU5SR67mutw9q/VbhxtuOFsQ/MTBHRzhj+0xpuYf4MRokbyXTpHfnyDx3IW2IdUZn431+LTy77PVsUCtZnU1lC0gFpTDOmfgNfTqjT1j3aBP/L7kU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c8Lp0jqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ZhoqJHt2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788862084; x=1789121284;
-	bh=eu7PU/jv5+AF5sCTeIdS1tfupIVaFgFC0UhqmUgTDFA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ZhoqJHt25OPTGUIL5pgbZM7F9YEpde9MjJ8aTwgSnx8BCTf2+OxGvj0IO0Xu5ZQcf
-	 kHk56/hEPgvo2623yHMm6ywL+adWwboeQO9qduPTABTWDJ9dQ3QLzi9ubU2I4Iw5v7
-	 ubamSI+Iu2nvIO70DvwsLGi//yIxZ1U2R1fBBxeaD2q8MV45KHlnd9o/Pa9Txcnq6I
-	 HiJq7i0D2EKGcqBGu2fvM3uIWhGFpzISyVbAExe9roUvC27unxrgoRo02Ps72Hr9VO
-	 JIEvSkLuk/SL8RY9WrFv/Bznn7TF6f0dP0Y2GHnaej4NDj3uV1g+wYQPdMaYsupy1z
-	 baiGBiGn2M3OQ==
-Date: Tue, 08 Sep 2026 10:07:57 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Peter Marshall <pm@petermarshall.ca>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
-Message-ID: <20260908100751.48357-1-lsa.uz@pm.me>
-In-Reply-To: <f164cbf4-04a6-449f-bec1-ea6bc40c4306@foss.st.com>
-References: <20260907205908.21303-1-lsa.uz@pm.me> <f164cbf4-04a6-449f-bec1-ea6bc40c4306@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 2a79c0329f56cf5abcfb5177660a017280036592
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c8Lp0jqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA5E1F00A3A;
+	Tue,  8 Sep 2026 10:10:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788862241;
+	bh=rA1/W9Y36q+86qNcgQb2p+pv6ZIAHvM45gs/2wcmLrU=;
+	h=Date:From:Subject:To:Cc;
+	b=c8Lp0jqulB6VMjvjBGiYJS5mt9CnJfQdxjDGAd+uHBrKZpr/dG2QRxoY9rQq/vpjI
+	 MV7+4ykr3UEaPzMxFcXkfHhhI1WJ6BIcWFRbReshnSP5m/M1dKUcodsXE8l4V8j+ap
+	 6c6OU5SpddEqrr0OXC8YeaL3Ot3TYXko6nqPPt2A2x0Kn9g4EWn+Y53wsixapyQ3d/
+	 eROwBm5iM7Iz+iy61qqZaHWUKzmawgwpAknc73MqGi/n0MopQQDcZDU3STqslj4q4H
+	 3POPtT+C+vOOKcC3elPHj8MffNr88GXxqc1Hb85oo3UkA7Crq9Wc+XExCa51pD+QZM
+	 cehK7Bom+Peog==
+Message-ID: <4485e8c1-d59d-4f01-9612-35b5cf734816@kernel.org>
+Date: Tue, 8 Sep 2026 12:10:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Language: en-US, nl
+Subject: [PATCH] media: vim2m: give vim2m a proper control ID range
+To: Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Benjamin,
+The vim2m driver has two driver-specific controls, but the
+control IDs were never reserved in v4l2-control.h.
 
-Yes =E2=80=94 it is a fork of yours, and Andr=C3=A9 says so himself in the =
-header he
-kept:
+While these control IDs clashes with the range reserved for
+the old meye driver, since that meye driver has been removed
+from the kernel quite a long time ago we just officially claim
+that range for the vim2m driver.
 
-  https://github.com/AndreGilerson/linux-surface-kernel
-  branch v7.0-surface-devel, drivers/media/i2c/vd55g0.c
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Reported-by: Nicolas Dufresne <nicolas@ndufresne.ca>
+Closes: https://lore.kernel.org/linux-media/71a3fa9710cf1afbb80ebe850878557c3e95a1b2.camel@ndufresne.ca/
+---
+ drivers/media/test-drivers/vim2m.c | 4 ++--
+ include/uapi/linux/v4l2-controls.h | 9 +++++++++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * Driver for VD55G0 global shutter sensor family driver
-   *
-   * Copyright (C) 2024 STMicroelectronics SA
-   *
-   * Adapter with small changes by Andr=C3=A9 Gilerson
-   */
+diff --git a/drivers/media/test-drivers/vim2m.c b/drivers/media/test-drivers/vim2m.c
+index bb2dd11eef0e..b16111067f68 100644
+--- a/drivers/media/test-drivers/vim2m.c
++++ b/drivers/media/test-drivers/vim2m.c
+@@ -150,8 +150,8 @@ enum {
+ 	V4L2_M2M_DST = 1,
+ };
 
-Against your master it is 127 changed lines out of 2114, and all 59
-vd55g0_* function names are the same set =E2=80=94 nothing added, nothing r=
-emoved.
-vd55g0_patches.h differs in four places: his attribution line, uint ->
-unsigned int, and two structs made static. The firmware arrays are
-byte-identical, cut1_patch 6868 bytes and cut2_patch 260.
+-#define V4L2_CID_TRANS_TIME_MSEC	(V4L2_CID_USER_BASE + 0x1000)
+-#define V4L2_CID_TRANS_NUM_BUFS		(V4L2_CID_USER_BASE + 0x1001)
++#define V4L2_CID_TRANS_TIME_MSEC	(V4L2_CID_USER_VIM2M_BASE + 0)
++#define V4L2_CID_TRANS_NUM_BUFS		(V4L2_CID_USER_VIM2M_BASE + 1)
 
-That last point matters for this series. The blob I wrote to
-/lib/firmware/vd55g0-cut1.bin to get past the missing-firmware failure was
-taken from his header, so it is your firmware, published by you under
-GPL-2.0 in your own repository. Peter's driver needs those bytes and
-cannot get them from anywhere in-tree; you are the one who can say how
-they should reach linux-firmware, or whether VD55G0 should keep a built-in
-array the way VD55G1 does.
+ static struct vim2m_fmt *find_format(u32 fourcc)
+ {
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index affec0ab4781..9e3a59638287 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -123,6 +123,15 @@ enum v4l2_colorfx {
+ #define V4L2_CID_USER_MEYE_BASE			(V4L2_CID_USER_BASE + 0x1000)
+ #endif
 
-What the 127 lines actually change, since it is a fair summary of what a
-laptop needed that your driver did not have:
-
-  - ACPI. Yours is DT-only; his adds acpi.h and an ACPI match on SMO55F0.
-  - Supply names. Yours asks for VCORE, VDDIO and VANA. His asks for avdd
-    and dovdd, two rather than three, with the comment that INT3472 on the
-    Surface Pro 11 provides GPIO type 0x0B as avdd and 0x10 as dovdd.
-  - SGRBG aliases beside the mono formats, commented "allows IPU7 Bayer
-    pipeline".
-  - illuminator GPIO handling.
-  - an unknown revision warns and continues instead of returning -EINVAL.
-
-The second of those explains something I reported yesterday and had not
-chased: on this machine Peter's 4/7 leaves `supply vcore not found, using
-dummy regulator`. His mapping gives the SMO55F0 GPIOs the names your
-driver wants, while the machine's INT3472 appears to describe what Andr=
-=C3=A9
-named avdd and dovdd. One of the two mappings does not match this
-hardware, and I have not established which =E2=80=94 I can measure it here =
-if that
-is useful.
-
-Two things I should retire from my own report, having now seen the
-off-list exchange you added back. Peter had already withdrawn the rename
-on 4 September, so the libcamera breakage I raised - the sensor-properties
-and helper lookups keying on the entity name, which vd55g1 machines have
-today - does not arise in a v2 that keeps the name. And the metadata point
-you make to him is the same one from the other side: unknown to libcamera,
-the sensor streams but on defaults.
-
-What is not retired is the firmware. Nothing in the exchange touches it,
-and it is the one thing that stops anyone but Peter using VD55G0 at all.
-
-For contrast rather than contradiction: he reports the sensor is not quite
-usable on his Surface Pro 9 because of IPU6 stream problems, short lines
-and frames cut off when the CPU idles. I saw none of that on IPU7 - it
-probed, bound and registered, and streamed 60 frames at 30 fps. Different
-bridge, different result, which may be worth knowing when the two are
-compared.
-
-I should be clear that I am not speaking for Andr=C3=A9. I have written to =
-him
-separately about upstreaming his IMX681 driver, he answered that mainline
-is his goal, and he is away until 28 September. If you want to reach him
-directly his address is in the MODULE_AUTHOR line of that file.
-
-Sergey
++/*
++ * The base for the vim2m driver controls.
++ * We reserve 16 controls for this driver.
++ * The vim2m control range clashed with the meye control range, which was not
++ * intended, but since the meye driver has been removed, we can just keep the
++ * vim2m control range.
++ */
++#define V4L2_CID_USER_VIM2M_BASE		(V4L2_CID_USER_BASE + 0x1000)
++
+ /* The base for the bttv driver controls.
+  * We reserve 32 controls for this driver. */
+ #define V4L2_CID_USER_BTTV_BASE			(V4L2_CID_USER_BASE + 0x1010)
+-- 
+2.53.0
 
