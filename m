@@ -1,1232 +1,1493 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB1B53ED13;
-	Tue,  8 Sep 2026 13:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CF3556B92;
+	Tue,  8 Sep 2026 14:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873402; cv=none; b=KmtM3nAGQdmjHjkb9T6LkYV0LiLtRDWIjlhiop5SjBCVZCgfxpzLYqfRCLvkYDexmnPgGbEmhtDmCiQBiEhOkVAvCDWBwyYdsF6IhW6YdU7FJN75z3PINjtIBFalGUZ/Z5McAGq5bor19t4tMDDMplbqgZFFa+947Kgp6ZBZxBo=
+	t=1788879439; cv=none; b=nRSRphkLrzbXlIJDG+pzLiq8j0egdIbcgWvY34S7QxlOGSl6Lk5YrEsqfyXxJml6yHZc23xfw1QANP9EuL99lYmuvxdrBY7Uqtv4DaybMPawXolRlFrQUOE0/XW6Eh9YToFPnNSCaogbNbem52O5kqCPTHg2HRRC3DFyRz8BOhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873402; c=relaxed/simple;
-	bh=YHY53JRFtnOScVjm7g0rB33FmG1+JnBDX3SSn1zr9+8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=CJ9ijn+xQDP2FQiv7Or8qRfcxFuaSJ3PM5CnJN38P/9CAw071+t0X1K5+tO/p9Z/L6XW0OM6kZetfxcS49KCiJ04Uv0hmsYFbcsSBZHV13MdBP4eKIf3cDS/wLX0p66SqQTkaHuebV9NFyYYdgeYDWzJVvl9Nlw3Q6vOz9PKesk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7e85835cab8711f19a56ed5b684f684d-20260908
-X-CTIC-Tags:
-	HR_CC_CHARSET, HR_CC_CHARSET_NUM, HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME
-	HR_CC_NO_NAME, HR_CHARSET, HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_TXT
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
-	HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
-	HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_TRUSTED
-	SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, UD_TRUSTED
-	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_C_CI
-	GTI_FG_IT, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-CACHE: Type:Local,Time:202609082105+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d8118267-8f5c-436b-a985-fb4c17c1b47c,IP:10,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:-50,FILE:0,BULK:0,RULE:Release_Ham,AC
-	TION:release,TS:-65
-X-CID-INFO: VERSION:1.3.19,REQID:d8118267-8f5c-436b-a985-fb4c17c1b47c,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:-50,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-65
-X-CID-META: VersionHash:7db8b62,CLOUDID:fda857cdc681943c2123736841360ae2,BulkI
-	D:260908210518QG24D8FE,BulkQuantity:0,SF:13|17|19|66|78|102|127|307|313|31
-	6|324|332|342|344|347|350|351|660|865|898|1209|10055|15055|20036|25000|260
-	10,TC:nil,Content:0|15|50|99|100|102|156,EDM:-3,IP:-2|1,URL:99|1,File:nil,
-	RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,D
-	KP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_IBB,TF_CID_SPAM_ULS,TF_CID_SPAM_RUA,TF_CID_SPAM_SUA,
-	TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7e85835cab8711f19a56ed5b684f684d-20260908
-X-User: liwang@kylinos.cn
-Received: from computer.. [(116.128.244.169)] by mailgw.kylinos.cn
-	(envelope-from <liwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 980457190; Tue, 08 Sep 2026 21:16:25 +0800
-From: Li Wang <liwang@kylinos.cn>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Mengmeng Zhao <zhaomengmeng@kylinos.cn>,
-	Li Wang <liwang@kylinos.cn>
-Subject: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and io_uring
-Date: Tue,  8 Sep 2026 21:15:45 +0800
-Message-Id: <20260908131545.105987-1-liwang@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788879439; c=relaxed/simple;
+	bh=vKMKCEDdAYarTrmrgK3jqlmNYdYYBvHrf5nqWrqEcNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sccafudA/pPqoXDG/wU5Yzcn8/iNFGH5nnDziTZxAN/w7/LKcGkQ0iBxkyaPa+cuwYffFaufXIDqFi3tPOBKItC/b9dVnBK7fO1JCVyBkapV5plVKNLQ6NkJUg58prNkjN8iRH0NJnxL47jriZ0wX9dJZMzmOktz9N82qcUkLTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVgvf/WS; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVgvf/WS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A774B1F00A3A;
+	Tue,  8 Sep 2026 14:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788879413;
+	bh=fAe5fvsbqD2XkxTpdhGDvAqOH3I9qvvIECQlzlHp6NI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XVgvf/WSz0wIlsN9W5llcoLv7Jeou2aHZT0r1kYKpBXBTKvfT7+GyVezxSJZLdk8y
+	 QS2ctOaWFllrEmYCvTBauiVfCj4crehWZnZXnpvh73fAi8sr20YlKpMkZ1vzQf0RqK
+	 KJk2MvpCuOM1GFPa9mjVQsbbkU49bQXOPjopHkSX8yP+dl1Awtv5zXzoyjiqbezTTb
+	 FcxyLhHYlN3h3fuBGAYQ6WomzqQzbZMgkLJmmAtrWao1Ksrbbt9XAUtl4o0O/u7YQD
+	 dGOjpmNo2IvAZGLgB9pPKA0F6cPOM9wWeMfMOqxjciApeDK8y9UcWj7oxsGm7pWJRe
+	 4WEkdIpuGz63A==
+Date: Tue, 8 Sep 2026 09:56:47 -0500
+From: Rob Herring <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v6 09/12] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <20260908145647.GA3123582-robh@kernel.org>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <20260904-tegra-vpr-v6-9-79042cfa8de5@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-tegra-vpr-v6-9-79042cfa8de5@nvidia.com>
 
-From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+On Fri, Sep 04, 2026 at 12:45:00PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which is a
+> region of memory dedicated to content-protected video decode and
+> playback. This memory cannot be accessed by the CPU and only certain
+> hardware devices have access to it.
+> 
+> Expose the VPR as a DMA heap so that applications and drivers can
+> allocate buffers from this region for use-cases that require this kind
+> of protected memory.
+> 
+> VPR has a few very critical peculiarities. First, it must be a single
+> contiguous region of memory (there is a single pair of registers that
+> set the base address and size of the region), which is configured by
+> calling back into the secure monitor. The memory region also needs to
+> quite large for some use-cases because it needs to fit multiple video
+> frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> expected. However, some devices cannot afford to reserve this amount
+> of memory for a particular use-case, and therefore the VPR must be
+> resizable.
+> 
+> Unfortunately, resizing the VPR is slightly tricky because the GPU found
+> on Tegra SoCs must be in reset during the VPR resize operation. This is
+> currently implemented by freezing all userspace processes and calling
+> invoking the GPU's freeze() implementation, resizing and the thawing the
+> GPU and userspace processes. This is quite heavy-handed, so eventually
+> it might be better to implement thawing/freezing in the GPU driver in
+> such a way that they block accesses to the GPU so that the VPR resize
+> operation can happen without suspending all userspace.
+> 
+> In order to balance the memory usage versus the amount of resizing that
+> needs to happen, the VPR is divided into multiple chunks. Each chunk is
+> implemented as a section of the CMA area that is completely allocated on
+> first use to guarantee the contiguity of the VPR. Once all buffers from
+> a chunk have been freed, the subsection is freed and the memory returned
+> to the system.
+> 
+> The Tegra VPR driver is split into two pieces: one tiny part of the
+> driver is always built-in and sets up the CMA area during early boot,
+> whereas the second, larger, part provides the DMA heap implementation
+> and can be built as a module. Note that tearing down VPR is tricky and
+> usually not necessary, so it can currently not be unloaded.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+> Changes in v6:
+> - split code into a small core and the main chunk so the latter can be
+>   built as a module
+> 
+> Changes in v5:
+> - use newly introduced cma_alloc_at() and work with a single CMA area
+> - setup CMA early and initialize VPR later during boot
+> - remove some unused variables
+> - use kalloc_objs()
+> 
+> Changes in v4:
+> - address Sashiko and checkpatch comments
+> - fully remove from linear map while chunks are allocated
+> - improve error handling
+> - remove freezer support
+> 
+> Changes in v3:
+> - use set_memory_device() and set_memory_normal() helpers
+> - use kzalloc_obj() instead of kzalloc() with sizeof()
+> 
+> Changes in v2:
+> - cluster allocations to reduce the number of resize operations
+> - support cross-chunk allocation
+> ---
+>  drivers/dma-buf/heaps/Kconfig          |   12 +
+>  drivers/dma-buf/heaps/Makefile         |   10 +
+>  drivers/dma-buf/heaps/tegra-vpr-init.c |  133 ++++
+>  drivers/dma-buf/heaps/tegra-vpr.c      | 1210 ++++++++++++++++++++++++++++++++
+>  drivers/dma-buf/heaps/tegra-vpr.h      |   73 ++
+>  include/trace/events/tegra_vpr.h       |   57 ++
+>  6 files changed, 1495 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/heaps/Kconfig b/drivers/dma-buf/heaps/Kconfig
+> index bb729e91545c..28d2c0800fb5 100644
+> --- a/drivers/dma-buf/heaps/Kconfig
+> +++ b/drivers/dma-buf/heaps/Kconfig
+> @@ -20,3 +20,15 @@ config DMABUF_HEAPS_CMA
+>  	  Choose this option to enable dma-buf CMA heap. This heap is backed
+>  	  by the Contiguous Memory Allocator (CMA). If your system has these
+>  	  regions, you should say Y here.
+> +
+> +config DMABUF_HEAPS_TEGRA_VPR
+> +	tristate "NVIDIA Tegra Video-Protected-Region DMA-BUF Heap"
+> +	depends on DMABUF_HEAPS && DMA_CMA
+> +	help
+> +	  Choose this option to enable Video-Protected-Region (VPR) support on
+> +	  a range of NVIDIA Tegra devices. Access to VPR memory is limited to
+> +	  a subset of hardware engines and specifically disallowed from the
+> +	  CPU. The region can be fixed, in which case no linear mapping exists
+> +	  for the memory, or it can be resizable on systems that want to reuse
+> +	  the memory for other uses when content-protected video is not played
+> +	  back.
+> diff --git a/drivers/dma-buf/heaps/Makefile b/drivers/dma-buf/heaps/Makefile
+> index 974467791032..481fcb78f757 100644
+> --- a/drivers/dma-buf/heaps/Makefile
+> +++ b/drivers/dma-buf/heaps/Makefile
+> @@ -1,3 +1,13 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  obj-$(CONFIG_DMABUF_HEAPS_SYSTEM)	+= system_heap.o
+>  obj-$(CONFIG_DMABUF_HEAPS_CMA)		+= cma_heap.o
+> +
+> +#
+> +# The reserved-memory bits always need to be built-in so that the CMA
+> +# initialization runs during early boot. The VPR driver itself can be
+> +# built as a module.
+> +#
+> +ifneq ($(CONFIG_DMABUF_HEAPS_TEGRA_VPR),)
+> +obj-y					+= tegra-vpr-init.o
+> +obj-$(CONFIG_DMABUF_HEAPS_TEGRA_VPR)	+= tegra-vpr.o
+> +endif
+> diff --git a/drivers/dma-buf/heaps/tegra-vpr-init.c b/drivers/dma-buf/heaps/tegra-vpr-init.c
+> new file mode 100644
+> index 000000000000..65e917713c6d
+> --- /dev/null
+> +++ b/drivers/dma-buf/heaps/tegra-vpr-init.c
+> @@ -0,0 +1,133 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * DMA-BUF restricted heap exporter for NVIDIA Video-Protection-Region (VPR)
+> + *
+> + * Copyright (C) 2024-2026 NVIDIA Corporation
+> + */
+> +
+> +#define pr_fmt(fmt) "tegra-vpr: " fmt
+> +
+> +#include "tegra-vpr.h"
+> +
+> +#include <linux/cma.h>
+> +#include <linux/of_reserved_mem.h>
+> +
+> +static DEFINE_MUTEX(vpr_lock);
+> +static LIST_HEAD_GUARDED(vpr_list, vpr_lock);
+> +
+> +static int __init tegra_vpr_node_init(unsigned long offset,
+> +				      struct reserved_mem *rmem)
+> +{
+> +	struct cma *cma;
+> +	int err;
+> +
+> +	if (!IS_ALIGNED(rmem->base, SZ_1M)) {
+> +		pr_err("%s: base is not aligned to 1 MiB\n", rmem->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (!IS_ALIGNED(rmem->size, SZ_1M)) {
+> +		pr_err("%s: size is not aligned to 1 MiB\n", rmem->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	err = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name,
+> +				    &cma);
+> +	if (err < 0) {
+> +		pr_err("%s: failed to initialize CMA: %d\n", __func__, err);
+> +		return err;
+> +	}
+> +
+> +	rmem->priv = cma;
+> +
+> +	return 0;
+> +}
+> +
+> +static struct tegra_vpr *tegra_vpr_lookup(struct cma *cma)
+> +{
+> +	struct tegra_vpr *vpr;
+> +
+> +	mutex_lock(&vpr_lock);
+> +
+> +	list_for_each_entry(vpr, &vpr_list, list) {
+> +		if (vpr->cma == cma) {
+> +			mutex_unlock(&vpr_lock);
+> +			return vpr;
+> +		}
+> +	}
+> +
+> +	mutex_unlock(&vpr_lock);
+> +
+> +	return ERR_PTR(-EPROBE_DEFER);
+> +}
+> +
+> +static int tegra_vpr_device_init(struct reserved_mem *rmem, struct device *dev)
+> +{
+> +	const struct dev_pm_ops *pm = dev->driver->pm;
+> +	struct tegra_vpr_device *node;
+> +	struct cma *cma = rmem->priv;
+> +	struct tegra_vpr *vpr;
+> +
+> +	vpr = tegra_vpr_lookup(cma);
+> +	if (IS_ERR(vpr))
+> +		return PTR_ERR(vpr);
+> +
+> +	if (!pm || !pm->freeze || !pm->thaw)
+> +		return -EINVAL;
+> +
+> +	node = kzalloc_obj(*node, GFP_KERNEL);
+> +	if (!node)
+> +		return -ENOMEM;
+> +
+> +	INIT_LIST_HEAD(&node->node);
+> +	node->dev = dev;
+> +
+> +	mutex_lock(&vpr->lock);
+> +	list_add_tail(&node->node, &vpr->devices);
+> +	mutex_unlock(&vpr->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static void tegra_vpr_device_release(struct reserved_mem *rmem,
+> +				     struct device *dev)
+> +{
+> +	struct tegra_vpr_device *node, *tmp;
+> +	struct cma *cma = rmem->priv;
+> +	struct tegra_vpr *vpr;
+> +
+> +	vpr = tegra_vpr_lookup(cma);
+> +	if (IS_ERR(vpr)) {
+> +		dev_WARN(dev, "failed to find VPR for CMA '%s'\n",
+> +			 cma_get_name(cma));
+> +		return;
+> +	}
+> +
+> +	mutex_lock(&vpr->lock);
+> +
+> +	list_for_each_entry_safe(node, tmp, &vpr->devices, node) {
+> +		if (node->dev == dev) {
+> +			list_del(&node->node);
+> +			kfree(node);
+> +		}
+> +	}
+> +
+> +	mutex_unlock(&vpr->lock);
+> +}
+> +
+> +static const struct reserved_mem_ops tegra_vpr_rmem_ops = {
+> +	.node_init = tegra_vpr_node_init,
+> +	.device_init = tegra_vpr_device_init,
+> +	.device_release = tegra_vpr_device_release,
+> +};
+> +
+> +RESERVEDMEM_OF_DECLARE(tegra_vpr, "nvidia,tegra-video-protection-region",
+> +		       &tegra_vpr_rmem_ops);
+> +
+> +void tegra_vpr_add(struct tegra_vpr *vpr)
+> +{
+> +	mutex_lock(&vpr_lock);
+> +	list_add_tail(&vpr->list, &vpr_list);
+> +	mutex_unlock(&vpr_lock);
+> +}
+> +EXPORT_SYMBOL(tegra_vpr_add);
+> diff --git a/drivers/dma-buf/heaps/tegra-vpr.c b/drivers/dma-buf/heaps/tegra-vpr.c
+> new file mode 100644
+> index 000000000000..d8cff7e07ea0
+> --- /dev/null
+> +++ b/drivers/dma-buf/heaps/tegra-vpr.c
+> @@ -0,0 +1,1210 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * DMA-BUF restricted heap exporter for NVIDIA Video-Protection-Region (VPR)
+> + *
+> + * Copyright (C) 2024-2026 NVIDIA Corporation
+> + */
+> +
+> +#define pr_fmt(fmt) "tegra-vpr: " fmt
+> +
+> +#include <linux/arm-smccc.h>
+> +#include <linux/cma.h>
+> +#include <linux/debugfs.h>
+> +#include <linux/dma-buf.h>
+> +#include <linux/dma-heap.h>
+> +#include <linux/find.h>
+> +#include <linux/memory.h>
+> +#include <linux/of_reserved_mem.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/reset.h>
+> +#include <linux/set_memory.h>
+> +
+> +#include "tegra-vpr.h"
+> +
+> +MODULE_IMPORT_NS("DMA_BUF_HEAP");
+> +MODULE_IMPORT_NS("DMA_BUF");
+> +
+> +#define CREATE_TRACE_POINTS
+> +#include <trace/events/tegra_vpr.h>
+> +
+> +#define TEGRA_VPR_MAX_CHUNKS 64
+> +
+> +struct tegra_vpr_buffer {
+> +	struct list_head attachments;
+> +	struct tegra_vpr *vpr;
+> +	struct list_head list;
+> +
+> +	/**
+> +	 * @lock: Protects concurrent access to the list of attachments.
+> +	 */
+> +	struct mutex lock;
+> +
+> +	struct page **pages;
+> +	pgoff_t num_pages;
+> +	phys_addr_t start;
+> +	phys_addr_t limit;
+> +	size_t size;
+> +	int pageno;
+> +	int order;
+> +
+> +	DECLARE_BITMAP(chunks, TEGRA_VPR_MAX_CHUNKS);
+> +};
+> +
+> +struct tegra_vpr_attachment {
+> +	struct device *dev;
+> +	struct sg_table sgt;
+> +	struct list_head list;
+> +};
+> +
+> +#define ARM_SMCCC_TE_FUNC_PROGRAM_VPR 0x3
+> +
+> +#define ARM_SMCCC_VENDOR_SIP_TE_PROGRAM_VPR_FUNC_ID		\
+> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,			\
+> +			   ARM_SMCCC_SMC_32,			\
+> +			   ARM_SMCCC_OWNER_SIP,			\
+> +			   ARM_SMCCC_TE_FUNC_PROGRAM_VPR)
+> +
+> +static int tegra_vpr_set(phys_addr_t base, phys_addr_t size)
+> +{
+> +	struct arm_smccc_res res;
+> +
+> +	arm_smccc_smc(ARM_SMCCC_VENDOR_SIP_TE_PROGRAM_VPR_FUNC_ID, base, size,
+> +		      0, 0, 0, 0, 0, &res);
+> +
+> +	return res.a0;
+> +}
+> +
+> +static int tegra_vpr_get_extents(struct tegra_vpr *vpr, phys_addr_t *base,
+> +				 phys_addr_t *size)
+> +{
+> +	phys_addr_t start = ~0, limit = 0;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < vpr->num_chunks; i++) {
+> +		struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +		if (chunk->active) {
+> +			if (chunk->start < start)
+> +				start = chunk->start;
+> +
+> +			if (chunk->limit > limit)
+> +				limit = chunk->limit;
+> +		}
+> +	}
+> +
+> +	if (limit > start) {
+> +		*size = limit - start;
+> +		*base = start;
+> +	} else {
+> +		*base = *size = 0;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int tegra_vpr_resize(struct tegra_vpr *vpr)
+> +{
+> +	struct tegra_vpr_device *node;
+> +	phys_addr_t base, size;
+> +	int err, status = 0;
+> +
+> +	err = tegra_vpr_get_extents(vpr, &base, &size);
+> +	if (err < 0) {
+> +		pr_err("%s(): failed to get VPR extents: %d\n", __func__, err);
+> +		return err;
+> +	}
+> +
+> +	list_for_each_entry(node, &vpr->devices, node) {
+> +		err = pm_generic_freeze(node->dev);
+> +		if (err < 0) {
+> +			pr_err("failed to freeze %s: %d\n",
+> +			       dev_name(node->dev), err);
+> +			status = err;
+> +			goto thaw;
+> +		}
+> +	}
+> +
+> +	trace_tegra_vpr_set(base, size);
+> +
+> +	err = tegra_vpr_set(base, size);
+> +	if (err < 0) {
+> +		pr_err("failed to secure VPR: %d\n", err);
+> +		status = err;
+> +	}
+> +
+> +thaw:
+> +	list_for_each_entry_continue_reverse(node, &vpr->devices, node) {
+> +		err = pm_generic_thaw(node->dev);
+> +		if (err < 0) {
+> +			pr_err("failed to thaw %s: %d\n",
+> +			       dev_name(node->dev), err);
+> +			continue;
+> +		}
+> +	}
+> +
+> +	return status;
+> +}
+> +
+> +static int tegra_vpr_chunk_init(struct tegra_vpr *vpr,
+> +				struct tegra_vpr_chunk *chunk,
+> +				phys_addr_t start, size_t size,
+> +				unsigned int order, const char *name)
+> +{
+> +	chunk->start = start;
+> +	chunk->limit = start + size;
+> +	chunk->size = size;
+> +	chunk->vpr = vpr;
+> +
+> +	chunk->offset = (start - vpr->base) >> PAGE_SHIFT;
+> +	chunk->num_pages = size >> PAGE_SHIFT;
+> +	chunk->num_buffers = 0;
+> +
+> +	/* CMA area is not reserved yet */
+> +	chunk->start_page = NULL;
+> +	chunk->virt = 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static void tegra_vpr_chunk_free(struct tegra_vpr_chunk *chunk)
+> +{
+> +}
+> +
+> +static inline bool tegra_vpr_chunk_is_last(const struct tegra_vpr_chunk *chunk)
+> +{
+> +	phys_addr_t limit = chunk->vpr->base + chunk->vpr->size;
+> +
+> +	return chunk->limit == limit;
+> +}
+> +
+> +static inline bool tegra_vpr_chunk_is_leaf(const struct tegra_vpr_chunk *chunk)
+> +{
+> +	const struct tegra_vpr_chunk *next = chunk + 1;
+> +
+> +	if (tegra_vpr_chunk_is_last(chunk))
+> +		return true;
+> +
+> +	return !next->active;
+> +}
+> +
+> +static int tegra_vpr_chunk_alloc(struct tegra_vpr_chunk *chunk)
+> +{
+> +	chunk->start_page = cma_alloc_at(chunk->vpr->cma, chunk->offset,
+> +					 chunk->num_pages, false);
+> +	if (!chunk->start_page)
+> +		return -ENOMEM;
+> +
+> +	chunk->virt = (unsigned long)page_to_virt(chunk->start_page);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tegra_vpr_chunk_activate(struct tegra_vpr_chunk *chunk)
+> +{
+> +	int err;
+> +
+> +	trace_tegra_vpr_chunk_activate(chunk->start, chunk->limit);
+> +
+> +	err = set_direct_map_invalid_noflush(chunk->start_page,
+> +					     chunk->num_pages);
+> +	if (err)
+> +		return err;
+> +
+> +	flush_tlb_kernel_range(chunk->virt, chunk->virt + chunk->size);
+> +	chunk->invalid = false;
+> +	chunk->active = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int tegra_vpr_chunk_deactivate(struct tegra_vpr_chunk *chunk)
+> +{
+> +	int err;
+> +
+> +	if (!chunk->active)
+> +		return 0;
+> +
+> +	/* do not deactivate if there are buffers left in this chunk */
+> +	if (WARN_ON(chunk->num_buffers > 0))
+> +		return -EBUSY;
+> +
+> +	trace_tegra_vpr_chunk_deactivate(chunk->start, chunk->limit);
+> +
+> +	err = set_direct_map_default_noflush(chunk->start_page,
+> +					     chunk->num_pages);
+> +	if (err)
+> +		return err;
+> +
+> +	flush_tlb_kernel_range(chunk->virt, chunk->virt + chunk->size);
+> +	chunk->invalid = false;
+> +	chunk->active = false;
+> +
+> +	return 0;
+> +}
+> +
+> +static void tegra_vpr_chunk_release(struct tegra_vpr_chunk *chunk)
+> +{
+> +	if (!WARN_ON(chunk->active || chunk->invalid)) {
+> +		cma_release(chunk->vpr->cma, chunk->start_page,
+> +			    chunk->num_pages);
+> +		chunk->start_page = NULL;
+> +		chunk->virt = 0;
+> +	}
+> +}
+> +
+> +static bool tegra_vpr_chunk_overlaps(struct tegra_vpr_chunk *chunk,
+> +				     unsigned int start, unsigned int limit)
+> +{
+> +	unsigned int first = chunk->offset;
+> +	unsigned int last = chunk->offset + chunk->num_pages - 1;
+> +
+> +	if (last < start || first >= limit)
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+> +static int tegra_vpr_activate_chunks(struct tegra_vpr *vpr,
+> +				     struct tegra_vpr_buffer *buffer)
+> +{
+> +	DECLARE_BITMAP(dirty, vpr->num_chunks);
+> +	unsigned int i, bottom, top;
+> +	int err = 0, ret;
+> +
+> +	bitmap_zero(dirty, vpr->num_chunks);
+> +
+> +	/* activate any inactive chunks that overlap this buffer */
+> +	for_each_set_bit(i, buffer->chunks, vpr->num_chunks) {
+> +		struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +		if (chunk->active)
+> +			continue;
+> +
+> +		err = tegra_vpr_chunk_alloc(chunk);
+> +		if (err < 0)
+> +			goto deactivate;
+> +
+> +		err = tegra_vpr_chunk_activate(chunk);
+> +		if (err < 0) {
+> +			tegra_vpr_chunk_release(chunk);
+> +			goto deactivate;
+> +		}
+> +
+> +		set_bit(i, vpr->active);
+> +		set_bit(i, dirty);
+> +	}
+> +
+> +	/*
+> +	 * Activating chunks above may have created holes, but since the VPR
+> +	 * can only ever be a single contiguous region, make sure to activate
+> +	 * any missing chunks.
+> +	 */
+> +	for_each_clear_bitrange(bottom, top, vpr->active, vpr->num_chunks) {
+> +		/* inactive chunks at the bottom or the top are harmless */
+> +		if (bottom == 0 || top == vpr->num_chunks)
+> +			continue;
+> +
+> +		for (i = bottom; i < top; i++) {
+> +			struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +			err = tegra_vpr_chunk_alloc(chunk);
+> +			if (err < 0)
+> +				goto deactivate;
+> +
+> +			err = tegra_vpr_chunk_activate(chunk);
+> +			if (err < 0) {
+> +				tegra_vpr_chunk_release(chunk);
+> +				goto deactivate;
+> +			}
+> +
+> +			set_bit(i, vpr->active);
+> +			set_bit(i, dirty);
+> +		}
+> +	}
+> +
+> +	/* if any chunks have been activated, VPR needs to be resized */
+> +	if (!bitmap_empty(dirty, vpr->num_chunks)) {
+> +		err = tegra_vpr_resize(vpr);
+> +		if (err < 0) {
+> +			pr_err("failed to grow VPR: %d\n", err);
+> +			goto deactivate;
+> +		}
+> +	}
+> +
+> +	/* increment buffer count for each chunk */
+> +	for_each_set_bit(i, buffer->chunks, vpr->num_chunks)
+> +		vpr->chunks[i].num_buffers++;
+> +
+> +	return 0;
+> +
+> +deactivate:
+> +	/* deactivate any of the previously inactive chunks on failure */
+> +	for_each_set_bit(i, dirty, vpr->num_chunks) {
+> +		struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +		ret = tegra_vpr_chunk_deactivate(chunk);
+> +		if (WARN_ON(ret < 0)) {
+> +			pr_err("failed to deactivate chunk #%u: %d\n", i, ret);
+> +		} else {
+> +			tegra_vpr_chunk_release(chunk);
+> +			clear_bit(i, vpr->active);
+> +		}
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +/*
+> + * Retrieve the range of pages within the activate region of the VPR.
+> + */
+> +static bool tegra_vpr_get_active_range(struct tegra_vpr *vpr,
+> +				       unsigned int *first,
+> +				       unsigned int *last)
+> +{
+> +	unsigned long i, j;
+> +
+> +	i = find_first_bit(vpr->active, vpr->num_chunks);
+> +	if (i >= vpr->num_chunks)
+> +		return false;
+> +
+> +	j = find_last_bit(vpr->active, vpr->num_chunks);
+> +	if (j >= vpr->num_chunks)
+> +		return false;
+> +
+> +	*first = vpr->chunks[i].offset;
+> +	*last = vpr->chunks[j].offset + vpr->chunks[j].num_pages;
+> +
+> +	return true;
+> +}
+> +
+> +/*
+> + * Try to find and allocate a free region within a specific page range.
+> + * Returns the page number if successful, -ENOSPC otherwise.
+> + *
+> + * This function mimics bitmap_find_free_region() but restricts the search
+> + * to a specific range to enable allocation within individual chunks.
+> + */
+> +static int tegra_vpr_find_free_region_in_range(struct tegra_vpr *vpr,
+> +					       unsigned int start_page,
+> +					       unsigned int end_page,
+> +					       unsigned int num_pages,
+> +					       unsigned int align)
+> +{
+> +	unsigned int pos, next = ALIGN(start_page, align);
+> +
+> +	/* Scan through aligned positions, trying to allocate at each one */
+> +	for (pos = next; pos + num_pages <= end_page; pos = next) {
+> +		next = find_next_bit(vpr->bitmap, pos + num_pages, pos);
+> +
+> +		if (next >= pos + num_pages) {
+> +			bitmap_set(vpr->bitmap, pos, num_pages);
+> +			return pos;
+> +		}
+> +
+> +		next = find_next_zero_bit(vpr->bitmap, vpr->num_pages, next);
+> +		next = ALIGN(next, align);
+> +	}
+> +
+> +	return -ENOSPC;
+> +}
+> +
+> +static int tegra_vpr_find_free_region(struct tegra_vpr *vpr,
+> +				      unsigned int num_pages,
+> +				      unsigned long align)
+> +{
+> +	return tegra_vpr_find_free_region_in_range(vpr, 0, vpr->num_pages - 1,
+> +						   num_pages, align);
+> +}
+> +
+> +static int tegra_vpr_find_free_region_clustered(struct tegra_vpr *vpr,
+> +						unsigned int num_pages,
+> +						unsigned int align)
+> +{
+> +	unsigned int target, first, last;
+> +	int pageno;
+> +
+> +	/*
+> +	 * If there are no allocations, abort the clustered allocation scheme
+> +	 * and use the generic allocation scheme instead.
+> +	 */
+> +	if (vpr->first > vpr->last)
+> +		return -ENOSPC;
+> +
+> +	/*
+> +	 * First, try to allocate within the currently allocated region. This
+> +	 * keeps allocations tightly packed and minimizes the VPR size needed.
+> +	 */
+> +	pageno = tegra_vpr_find_free_region_in_range(vpr, vpr->first,
+> +						     vpr->last + 1, num_pages,
+> +						     align);
+> +	if (pageno >= 0)
+> +		return pageno;
+> +
+> +	/*
+> +	 * If not enough free space exists within the currently allocated
+> +	 * region, check to see if the allocation fits anywhere within the
+> +	 * active region, avoiding the need to resize the VPR.
+> +	 */
+> +	if (tegra_vpr_get_active_range(vpr, &first, &last)) {
+> +		pageno = tegra_vpr_find_free_region_in_range(vpr, first, last,
+> +							     num_pages, align);
+> +		if (pageno >= 0)
+> +			return pageno;
+> +	}
+> +
+> +	/*
+> +	 * If not enough free space exists within the currently active region,
+> +	 * try to allocate adjacent to it to grow it contiguously and ensure
+> +	 * optimal packing.
+> +	 */
+> +
+> +	/*
+> +	 * Calculate where the allocation should start to end right at the
+> +	 * first allocated page, with proper alignment.
+> +	 */
+> +	if (vpr->first >= num_pages) {
+> +		target = ALIGN_DOWN(vpr->first - num_pages, align);
+> +
+> +		if (!bitmap_allocate(vpr->bitmap, target, num_pages))
+> +			return target;
+> +	}
+> +
+> +	/* Try after the last allocation */
+> +	target = ALIGN(vpr->last + 1, align);
+> +
+> +	if (target + num_pages <= vpr->num_pages &&
+> +	    !bitmap_allocate(vpr->bitmap, target, num_pages))
+> +		return target;
+> +
+> +	/*
+> +	 * Couldn't allocate at the ideal adjacent position, search for any
+> +	 * available space before the first allocated page.
+> +	 */
+> +	pageno = tegra_vpr_find_free_region_in_range(vpr, 0, vpr->first,
+> +						     num_pages, align);
+> +	if (pageno >= 0)
+> +		return pageno;
+> +
+> +	/*
+> +	 * Couldn't allocate at the ideal adjacent position, search
+> +	 * for any available space after the last allocated page.
+> +	 */
+> +	pageno = tegra_vpr_find_free_region_in_range(vpr, vpr->last + 1,
+> +						     vpr->num_pages, num_pages,
+> +						     align);
+> +	if (pageno >= 0)
+> +		return pageno;
+> +
+> +	return -ENOSPC;
+> +}
+> +
+> +/*
+> + * Find a free region, preferring locations near existing allocations to
+> + * minimize VPR fragmentation. The allocation strategy is to first allocate
+> + * within or adjacent to the existing region to keep allocations clustered.
+> + * Otherwise fall back to a generic allocation using the first available
+> + * space.
+> + *
+> + * This approach focuses on page-level allocation first, then the chunk
+> + * system determines which chunks need to be activated based on where the
+> + * pages ended up.
+> + */
+> +static int tegra_vpr_allocate_region(struct tegra_vpr *vpr,
+> +				     unsigned int num_pages,
+> +				     unsigned int align)
+> +{
+> +	int pageno;
+> +
+> +	/*
+> +	 * For non-resizable VPR (no chunks), use simple first-fit allocation.
+> +	 * Clustering optimization is only beneficial for resizable VPR where
+> +	 * keeping allocations together minimizes the active VPR size.
+> +	 */
+> +	if (!vpr->resizable)
+> +		return tegra_vpr_find_free_region(vpr, num_pages, align);
+> +
+> +	/*
+> +	 * Check if there are any existing allocations in the bitmap. If so,
+> +	 * try to allocate near them to minimize fragmentation.
+> +	 */
+> +	pageno = tegra_vpr_find_free_region_clustered(vpr, num_pages, align);
+> +	if (pageno >= 0)
+> +		return pageno;
+> +
+> +	/*
+> +	 * If there are no existing allocations, or no space adjacent to them,
+> +	 * fall back to the first available space anywhere in the VPR.
+> +	 */
+> +	pageno = tegra_vpr_find_free_region(vpr, num_pages, align);
+> +	if (pageno >= 0)
+> +		return pageno;
+> +
+> +	return -ENOSPC;
+> +}
+> +
+> +static struct tegra_vpr_buffer *
+> +tegra_vpr_buffer_allocate(struct tegra_vpr *vpr, size_t size)
+> +{
+> +	unsigned int num_pages = size >> PAGE_SHIFT;
+> +	unsigned int order = get_order(size);
+> +	struct tegra_vpr_buffer *buffer;
+> +	unsigned long first, last;
+> +	int pageno, err;
+> +
+> +	/*
+> +	 * Quick sanity check that we're not trying to allocate a buffer that
+> +	 * has no chance of fitting into the VPR.
+> +	 */
+> +	if (size > vpr->size)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	/*
+> +	 * "order" defines the alignment and size, so this may result in
+> +	 * fragmented memory depending on the allocation patterns. However,
+> +	 * since this is used primarily for video frames, it is expected that
+> +	 * a number of buffers of the same size will be allocated, so
+> +	 * fragmentation should be negligible.
+> +	 */
+> +	pageno = tegra_vpr_allocate_region(vpr, num_pages, 1);
+> +	if (pageno < 0)
+> +		return ERR_PTR(pageno);
+> +
+> +	first = find_first_bit(vpr->bitmap, vpr->num_pages);
+> +	last = find_last_bit(vpr->bitmap, vpr->num_pages);
+> +
+> +	buffer = kzalloc_obj(*buffer, GFP_KERNEL);
+> +	if (!buffer) {
+> +		err = -ENOMEM;
+> +		goto release;
+> +	}
+> +
+> +	INIT_LIST_HEAD(&buffer->attachments);
+> +	INIT_LIST_HEAD(&buffer->list);
+> +	mutex_init(&buffer->lock);
+> +	buffer->start = vpr->base + (pageno << PAGE_SHIFT);
+> +	buffer->limit = buffer->start + size;
+> +	buffer->size = size;
+> +	buffer->num_pages = num_pages;
+> +	buffer->pageno = pageno;
+> +	buffer->order = order;
+> +
+> +	/* track which chunks this buffer overlaps */
+> +	if (vpr->resizable) {
+> +		unsigned int limit = buffer->pageno + buffer->num_pages;
+> +		pgoff_t i;
+> +
+> +		/*
+> +		 * Memory is backed by struct page, so track which ones we
+> +		 * use.
+> +		 */
+> +		buffer->pages = kvmalloc_array(buffer->num_pages,
+> +					       sizeof(*buffer->pages),
+> +					       GFP_KERNEL);
+> +		if (!buffer->pages) {
+> +			err = -ENOMEM;
+> +			goto free;
+> +		}
+> +
+> +		for (i = 0; i < buffer->num_pages; i++)
+> +			buffer->pages[i] = &vpr->start_page[pageno + i];
+> +
+> +		for (i = 0; i < vpr->num_chunks; i++) {
+> +			struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +			if (tegra_vpr_chunk_overlaps(chunk, pageno, limit))
+> +				set_bit(i, buffer->chunks);
+> +		}
+> +
+> +		/* activate chunks if necessary */
+> +		err = tegra_vpr_activate_chunks(vpr, buffer);
+> +		if (err < 0) {
+> +			kfree(buffer->pages);
+> +			goto free;
+> +		}
+> +
+> +		/* track first and last allocated pages */
+> +		if (buffer->pageno < vpr->first)
+> +			vpr->first = buffer->pageno;
+> +
+> +		if (limit - 1 > vpr->last)
+> +			vpr->last = limit - 1;
+> +	}
+> +
+> +	return buffer;
+> +
+> +free:
+> +	kfree(buffer);
+> +release:
+> +	bitmap_clear(vpr->bitmap, pageno, num_pages);
+> +	return ERR_PTR(err);
+> +}
+> +
+> +static void tegra_vpr_buffer_release(struct tegra_vpr_buffer *buffer)
+> +{
+> +	struct tegra_vpr *vpr = buffer->vpr;
+> +	struct tegra_vpr_buffer *entry;
+> +	unsigned int i;
+> +
+> +	/*
+> +	 * Decrement buffer count for each overlapping chunk. Note that chunks
+> +	 * are not deactivated here yet, that's done in tegra_vpr_recycle()
+> +	 * instead.
+> +	 */
+> +	for_each_set_bit(i, buffer->chunks, vpr->num_chunks) {
+> +		if (!WARN_ON(vpr->chunks[i].num_buffers == 0))
+> +			vpr->chunks[i].num_buffers--;
+> +	}
+> +
+> +	/* track first and last allocated pages */
+> +	if (list_is_first(&buffer->list, &vpr->buffers) &&
+> +	    list_is_last(&buffer->list, &vpr->buffers)) {
+> +		/* if there are no remaining buffers after this, reset */
+> +		vpr->first = ~0U;
+> +		vpr->last = 0U;
+> +	} else if (list_is_first(&buffer->list, &vpr->buffers)) {
+> +		entry = list_next_entry(buffer, list);
+> +		vpr->first = entry->pageno;
+> +	} else if (list_is_last(&buffer->list, &vpr->buffers)) {
+> +		entry = list_prev_entry(buffer, list);
+> +		vpr->last = entry->pageno + entry->num_pages - 1;
+> +	}
+> +
+> +	bitmap_clear(vpr->bitmap, buffer->pageno, buffer->num_pages);
+> +	list_del(&buffer->list);
+> +	kfree(buffer->pages);
+> +	kfree(buffer);
+> +}
+> +
+> +static int tegra_vpr_attach(struct dma_buf *buf,
+> +			    struct dma_buf_attachment *attachment)
+> +{
+> +	struct tegra_vpr_buffer *buffer = buf->priv;
+> +	struct tegra_vpr_attachment *attach;
+> +	int err;
+> +
+> +	attach = kzalloc_obj(*attach, GFP_KERNEL);
+> +	if (!attach)
+> +		return -ENOMEM;
+> +
+> +	/*
+> +	 * For resizable VPR, the memory is backed by struct page, so we can
+> +	 * use the convenient helper to create the SG table.
+> +	 */
+> +	if (buffer->pages) {
+> +		err = sg_alloc_table_from_pages(&attach->sgt, buffer->pages,
+> +						buffer->num_pages, 0,
+> +						buffer->size, GFP_KERNEL);
+> +		if (err < 0)
+> +			goto free;
+> +	} else {
+> +		if (sg_alloc_table(&attach->sgt, 1, GFP_KERNEL)) {
+> +			err = -ENOMEM;
+> +			goto free;
+> +		}
+> +
+> +		sg_set_page(attach->sgt.sgl, NULL, buffer->size, 0);
+> +		sg_dma_address(attach->sgt.sgl) = buffer->start;
+> +		sg_dma_len(attach->sgt.sgl) = buffer->size;
+> +	}
+> +
+> +	attach->dev = attachment->dev;
+> +	INIT_LIST_HEAD(&attach->list);
+> +	attachment->priv = attach;
+> +
+> +	mutex_lock(&buffer->lock);
+> +	list_add(&attach->list, &buffer->attachments);
+> +	mutex_unlock(&buffer->lock);
+> +
+> +	return 0;
+> +
+> +free:
+> +	kfree(attach);
+> +	return err;
+> +}
+> +
+> +static void tegra_vpr_detach(struct dma_buf *buf,
+> +			     struct dma_buf_attachment *attachment)
+> +{
+> +	struct tegra_vpr_buffer *buffer = buf->priv;
+> +	struct tegra_vpr_attachment *attach = attachment->priv;
+> +
+> +	mutex_lock(&buffer->lock);
+> +	list_del(&attach->list);
+> +	mutex_unlock(&buffer->lock);
+> +
+> +	sg_free_table(&attach->sgt);
+> +	kfree(attach);
+> +}
+> +
+> +static struct sg_table *
+> +tegra_vpr_map_dma_buf(struct dma_buf_attachment *attachment,
+> +		      enum dma_data_direction direction)
+> +{
+> +	struct tegra_vpr_attachment *attach = attachment->priv;
+> +	struct sg_table *sgt = &attach->sgt;
+> +	int err;
+> +
+> +	err = dma_map_sgtable(attachment->dev, sgt, direction,
+> +			      DMA_ATTR_SKIP_CPU_SYNC);
+> +	if (err < 0)
+> +		return ERR_PTR(err);
+> +
+> +	return sgt;
+> +}
+> +
+> +static void tegra_vpr_unmap_dma_buf(struct dma_buf_attachment *attachment,
+> +				    struct sg_table *sgt,
+> +				    enum dma_data_direction direction)
+> +{
+> +	dma_unmap_sgtable(attachment->dev, sgt, direction,
+> +			  DMA_ATTR_SKIP_CPU_SYNC);
+> +}
+> +
+> +static void tegra_vpr_recycle(struct tegra_vpr *vpr)
+> +{
+> +	DECLARE_BITMAP(dirty, vpr->num_chunks);
+> +	unsigned int i;
+> +	int err;
+> +
+> +	if (!vpr->resizable)
+> +		return;
+> +
+> +	bitmap_zero(dirty, vpr->num_chunks);
+> +
+> +	/*
+> +	 * Deactivate any unused chunks from the bottom...
+> +	 */
+> +	for (i = 0; i < vpr->num_chunks; i++) {
+> +		struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +		if (!chunk->active)
+> +			continue;
+> +
+> +		if (chunk->num_buffers > 0)
+> +			break;
+> +
+> +		err = tegra_vpr_chunk_deactivate(chunk);
+> +		if (err < 0) {
+> +			pr_err("failed to deactivate chunk #%u: %d\n", i, err);
+> +			goto activate;
+> +		} else {
+> +			clear_bit(i, vpr->active);
+> +			set_bit(i, dirty);
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * ... and the top.
+> +	 */
+> +	for (i = 0; i < vpr->num_chunks; i++) {
+> +		unsigned int index = vpr->num_chunks - i - 1;
+> +		struct tegra_vpr_chunk *chunk = &vpr->chunks[index];
+> +
+> +		if (!chunk->active)
+> +			continue;
+> +
+> +		if (chunk->num_buffers > 0)
+> +			break;
+> +
+> +		err = tegra_vpr_chunk_deactivate(chunk);
+> +		if (err < 0) {
+> +			pr_err("failed to deactivate chunk #%u: %d\n", index,
+> +			       err);
+> +			goto activate;
+> +		} else {
+> +			clear_bit(index, vpr->active);
+> +			set_bit(index, dirty);
+> +		}
+> +	}
+> +
+> +	if (!bitmap_empty(dirty, vpr->num_chunks)) {
+> +		err = tegra_vpr_resize(vpr);
+> +		if (err < 0) {
+> +			pr_err("failed to shrink VPR: %d\n", err);
+> +			goto activate;
+> +		}
+> +	}
+> +
+> +	/* release the CMA memory associated with deactivated chunks */
+> +	for_each_set_bit(i, dirty, vpr->num_chunks)
+> +		tegra_vpr_chunk_release(&vpr->chunks[i]);
+> +
+> +	return;
+> +
+> +activate:
+> +	for_each_set_bit(i, dirty, vpr->num_chunks) {
+> +		err = tegra_vpr_chunk_activate(&vpr->chunks[i]);
+> +		if (WARN_ON(err < 0))
+> +			pr_err("failed to activate chunk #%u: %d\n", i, err);
+> +
+> +		/*
+> +		 * This may not be fully activated at this point, but we need
+> +		 * to keep track of it anyway to make sure the CMA region can
+> +		 * eventually be released. The WARN_ON above tells us when it
+> +		 * happens: here be dragons.
+> +		 */
+> +		set_bit(i, vpr->active);
+> +	}
+> +}
+> +
+> +static void tegra_vpr_release(struct dma_buf *buf)
+> +{
+> +	struct tegra_vpr_buffer *buffer = buf->priv;
+> +	struct tegra_vpr *vpr = buffer->vpr;
+> +
+> +	mutex_lock(&vpr->lock);
+> +
+> +	tegra_vpr_buffer_release(buffer);
+> +	tegra_vpr_recycle(vpr);
+> +
+> +	mutex_unlock(&vpr->lock);
+> +}
+> +
+> +/*
+> + * Prohibit userspace mapping because the CPU cannot access this memory
+> + * anyway.
+> + */
+> +static int tegra_vpr_begin_cpu_access(struct dma_buf *buf,
+> +				      enum dma_data_direction direction)
+> +{
+> +	return -EPERM;
+> +}
+> +
+> +static int tegra_vpr_end_cpu_access(struct dma_buf *buf,
+> +				    enum dma_data_direction direction)
+> +{
+> +	return -EPERM;
+> +}
+> +
+> +static int tegra_vpr_mmap(struct dma_buf *buf, struct vm_area_struct *vma)
+> +{
+> +	return -EPERM;
+> +}
+> +
+> +static const struct dma_buf_ops tegra_vpr_buf_ops = {
+> +	.attach = tegra_vpr_attach,
+> +	.detach = tegra_vpr_detach,
+> +	.map_dma_buf = tegra_vpr_map_dma_buf,
+> +	.unmap_dma_buf = tegra_vpr_unmap_dma_buf,
+> +	.release = tegra_vpr_release,
+> +	.begin_cpu_access = tegra_vpr_begin_cpu_access,
+> +	.end_cpu_access = tegra_vpr_end_cpu_access,
+> +	.mmap = tegra_vpr_mmap,
+> +};
+> +
+> +static struct dma_buf *tegra_vpr_allocate(struct dma_heap *heap,
+> +					  unsigned long len, u32 fd_flags,
+> +					  u64 heap_flags)
+> +{
+> +	struct tegra_vpr *vpr = dma_heap_get_drvdata(heap);
+> +	struct tegra_vpr_buffer *buffer, *entry;
+> +	size_t size = ALIGN(len, vpr->align);
+> +	DEFINE_DMA_BUF_EXPORT_INFO(export);
+> +	struct dma_buf *buf;
+> +
+> +	mutex_lock(&vpr->lock);
+> +
+> +	buffer = tegra_vpr_buffer_allocate(vpr, size);
+> +	if (IS_ERR(buffer)) {
+> +		mutex_unlock(&vpr->lock);
+> +		return ERR_CAST(buffer);
+> +	}
+> +
+> +	/* insert in the correct order */
+> +	if (!list_empty(&vpr->buffers)) {
+> +		list_for_each_entry(entry, &vpr->buffers, list) {
+> +			if (buffer->pageno < entry->pageno) {
+> +				list_add_tail(&buffer->list, &entry->list);
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	if (list_empty(&buffer->list))
+> +		list_add_tail(&buffer->list, &vpr->buffers);
+> +
+> +	buffer->vpr = vpr;
+> +
+> +	/*
+> +	 * If a valid buffer was allocated, wrap it in a dma_buf
+> +	 * and return it.
+> +	 */
+> +	export.exp_name = dma_heap_get_name(heap);
+> +	export.ops = &tegra_vpr_buf_ops;
+> +	export.size = buffer->size;
+> +	export.flags = fd_flags;
+> +	export.priv = buffer;
+> +
+> +	buf = dma_buf_export(&export);
+> +	if (IS_ERR(buf)) {
+> +		tegra_vpr_buffer_release(buffer);
+> +		tegra_vpr_recycle(vpr);
+> +	}
+> +
+> +	mutex_unlock(&vpr->lock);
+> +	return buf;
+> +}
+> +
+> +static void tegra_vpr_debugfs_show_buffers(struct tegra_vpr *vpr,
+> +					   struct seq_file *s)
+> +{
+> +	struct tegra_vpr_buffer *buffer;
+> +	char buf[16];
+> +
+> +	mutex_lock(&vpr->lock);
+> +
+> +	list_for_each_entry(buffer, &vpr->buffers, list) {
+> +		string_get_size(buffer->size, 1, STRING_UNITS_2, buf,
+> +				sizeof(buf));
+> +		seq_printf(s, "  %pap-%pap (%s)\n", &buffer->start,
+> +			   &buffer->limit, buf);
+> +	}
+> +
+> +	mutex_unlock(&vpr->lock);
+> +}
+> +
+> +static void tegra_vpr_debugfs_show_chunks(struct tegra_vpr *vpr,
+> +					  struct seq_file *s)
+> +{
+> +	struct tegra_vpr_buffer *buffer;
+> +	unsigned int i;
+> +	char buf[16];
+> +
+> +	for (i = 0; i < vpr->num_chunks; i++) {
+> +		const struct tegra_vpr_chunk *chunk = &vpr->chunks[i];
+> +
+> +		string_get_size(chunk->size, 1, STRING_UNITS_2, buf,
+> +				sizeof(buf));
+> +		seq_printf(s, "  %pap-%pap (%s) (%s, %u buffers)\n",
+> +			   &chunk->start, &chunk->limit, buf,
+> +			   chunk->active ? "active" : "inactive",
+> +			   chunk->num_buffers);
+> +	}
+> +
+> +	list_for_each_entry(buffer, &vpr->buffers, list) {
+> +		string_get_size(buffer->size, 1, STRING_UNITS_2, buf,
+> +				sizeof(buf));
+> +		seq_printf(s, "%pap-%pap (%s, chunks: %*pbl)\n",
+> +			   &buffer->start, &buffer->limit, buf,
+> +			   vpr->num_chunks, buffer->chunks);
+> +	}
+> +}
+> +
+> +static int tegra_vpr_debugfs_show(struct seq_file *s, struct dma_heap *heap)
+> +{
+> +	struct tegra_vpr *vpr = dma_heap_get_drvdata(heap);
+> +	phys_addr_t limit = vpr->base + vpr->size;
+> +	char buf[16];
+> +
+> +	string_get_size(vpr->size, 1, STRING_UNITS_2, buf, sizeof(buf));
+> +	seq_printf(s, "%pap-%pap (%s)\n", &vpr->base, &limit, buf);
+> +
+> +	if (!vpr->resizable)
+> +		tegra_vpr_debugfs_show_buffers(vpr, s);
+> +	else
+> +		tegra_vpr_debugfs_show_chunks(vpr, s);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dma_heap_ops tegra_vpr_heap_ops = {
+> +	.allocate = tegra_vpr_allocate,
+> +	.show = tegra_vpr_debugfs_show,
+> +};
+> +
+> +static int tegra_vpr_setup_chunks(struct tegra_vpr *vpr, const char *name)
+> +{
+> +	phys_addr_t start, limit;
+> +	unsigned int order, i = 0;
+> +	size_t max_size;
+> +	int err;
+> +
+> +	/* Memory is backed by struct page, so track the first one. */
+> +	vpr->start_page = phys_to_page(vpr->base);
+> +
+> +	/* This seems a reasonable value, so hard-code it for now. */
+> +	vpr->num_chunks = 4;
+> +
+> +	vpr->chunks = kzalloc_objs(*vpr->chunks, vpr->num_chunks);
+> +	if (!vpr->chunks)
+> +		return -ENOMEM;
+> +
+> +	vpr->active = bitmap_zalloc(vpr->num_chunks, GFP_KERNEL);
+> +	if (!vpr->active) {
+> +		err = -ENOMEM;
+> +		goto free;
+> +	}
+> +
+> +	max_size = PAGE_SIZE << (get_order(vpr->size) - ilog2(vpr->num_chunks));
+> +	order = get_order(vpr->align);
+> +
+> +	/*
+> +	 * Allocate CMA areas for VPR. All areas will be roughtly the same
+> +	 * size, with the last area taking up the rest.
+> +	 */
+> +	start = vpr->base;
+> +	limit = vpr->base + vpr->size;
+> +
+> +	pr_debug("VPR: %pap-%pap (%lu pages, %u chunks, %lu MiB)\n", &start,
+> +		 &limit, vpr->num_pages, vpr->num_chunks,
+> +		 (unsigned long)vpr->size / 1024 / 1024);
+> +
+> +	for (i = 0; i < vpr->num_chunks; i++) {
+> +		size_t size = limit - start;
+> +		phys_addr_t end;
+> +
+> +		size = min_t(size_t, size, max_size);
+> +		end = start + size - 1;
+> +
+> +		err = tegra_vpr_chunk_init(vpr, &vpr->chunks[i], start, size,
+> +					   order, name);
+> +		if (err < 0) {
+> +			pr_err("failed to create VPR chunk: %d\n", err);
+> +			goto free;
+> +		}
+> +
+> +		pr_debug("  %2u: %pap-%pap (%lu MiB)\n", i, &start, &end,
+> +			 size / 1024 / 1024);
+> +		start += size;
+> +	}
+> +
+> +	vpr->first = ~0U;
+> +	vpr->last = 0U;
+> +
+> +	return 0;
+> +
+> +free:
+> +	while (i--)
+> +		tegra_vpr_chunk_free(&vpr->chunks[i]);
+> +
+> +	kfree(vpr->active);
+> +	kfree(vpr->chunks);
+> +	return err;
+> +}
+> +
+> +static void tegra_vpr_free_chunks(struct tegra_vpr *vpr)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < vpr->num_chunks; i++)
+> +		tegra_vpr_chunk_free(&vpr->chunks[i]);
+> +
+> +	kfree(vpr->chunks);
+> +}
+> +
+> +static int tegra_vpr_setup_static(struct tegra_vpr *vpr)
+> +{
+> +	phys_addr_t start, limit;
+> +
+> +	start = vpr->base;
+> +	limit = vpr->base + vpr->size;
+> +
+> +	pr_debug("VPR: %pap-%pap (%lu pages, %lu MiB)\n", &start, &limit,
+> +		 vpr->num_pages, (unsigned long)vpr->size / 1024 / 1024);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tegra_vpr_add_heap(struct reserved_mem *rmem,
+> +			      struct device_node *np)
+> +{
+> +	struct dma_heap_export_info info = {};
+> +	unsigned long first, last;
+> +	struct dma_heap *heap;
+> +	struct tegra_vpr *vpr;
+> +	int err;
+> +
+> +	vpr = kzalloc_obj(*vpr, GFP_KERNEL);
+> +	if (!vpr)
+> +		return -ENOMEM;
+> +
+> +	INIT_LIST_HEAD(&vpr->list);
+> +	INIT_LIST_HEAD(&vpr->buffers);
+> +	INIT_LIST_HEAD(&vpr->devices);
+> +	mutex_init(&vpr->lock);
+> +
+> +	vpr->resizable = !of_property_read_bool(np, "no-map");
+> +	vpr->dev_node = of_node_get(np);
+> +	vpr->align = PAGE_SIZE;
+> +	vpr->base = rmem->base;
+> +	vpr->size = rmem->size;
+> +	vpr->num_pages = vpr->size >> PAGE_SHIFT;
+> +	vpr->nid = of_node_to_nid(np);
 
-Inspired by the paper published in SC'25 [1], we implemented a character
-device named fgds that provides two ioctl interfaces:
-`REG_BUFFER/UNREG_BUFFER`. It enables applications to perform direct I/O
-between GPU memory and NVMe via POSIX and io_uring APIs. This is
-particularly useful for LLM workloads, such as model loading, KV cache
-offloading, and checkpointing. The fgds device corresponds one-to-one with
-the PCIe GPU on the machine. The usage is straightforward: an application
-simply opens the corresponding fgds device, calls ioctl on the returned fd
-with REG_BUFFER, taking the target GPU memory buffer address (represented
-as a dma-buf fd), and the buffer length as inputs, and then invokes mmap on
-the fgds device fd, using the return value of ioctl as the input. The mmap
-call returns a CPU virtual address (call it cpu_vaddr). Afterward,
-cpu_vaddr can be passed directly to pread/pwrite, or
-io_uring_prep_read/io_uring_prep_write to perform direct I/O between files
-on NVMe and GPU memory. A minimal working example can be found in [2].
-The underlying mechanism is that, with the support of fgds device,
-cpu_vaddr is made to point directly to the GPU memory buffer corresponding
-to the dma-buf fd. This solution is loosely coupled with the GPU vendor's
-driver; the GPU vendor only needs to support exporting the allocated GPU
-memory buffer through the standard Linux kernel dma-buf framework, which
-the vast majority of mainstream GPUs already support. This allows both
-applications and the fgds device to work seamlessly with GPUs from
-different vendors without any modifications. Furthermore, applications no
-longer need to call vendor-specific proprietary APIs (such as NVIDIA's
-cuFile API) or install vendor-specific kernel modules (such as NVIDIA's
-nvidia-fs.ko) for different GPU vendors. We have tested fgds on GPU cards
-from NVIDIA, AMD, and several other vendors, and it works well.
+If this gets used, I can't find it.
 
-Besides the benefits in ease of use and compatibility, another key
-advantage of this solution is higher performance. [2] presents the
-performance comparison results between fgds and NVIDIA GDS. Because fgds
-eliminates the overhead of phony buffers incurred by NVIDIA GDS, it
-achieves significantly higher performance. For example, for reads, fgds
-outperforms GDS by 11% to 109%; for writes, fgds outperforms GDS by 10%
-to 71%.
-
-To further accelerate the read and write operations of large files or
-massive data volumes—which are very common in LLM scenarios—we have
-implemented library functions `fgds_read` and `fgds_write`. Under the hood,
-these interfaces split large data into chunks and submit them
-asynchronously and in parallel via io_uring, thereby further boosting I/O
-performance, with read performance improved by up to 115% and write
-performance by up to 40%. In addition, we also provide the `fgds_register`
-library interface to encapsulate the `open`, `ioctl' and `mmap` operations.
-Readers who are interested can refer to [2].
-
-In addition, we have added the LMCache backend, enabling vLLM to offload KV
-cache via LMCache using fgds, which accelerates inference performance. We
-also added PyTorch APIs, compatible with the PyTorch GDS API, to improve
-the performance of reading and writing checkpoints during LLM training.
-
-We look forward to community feedback and are fully committed to iterating
-on this series to work towards upstreaming.
-
-[1] https://dl.acm.org/doi/10.1145/3712285.3759862
-[2] https://github.com/Storage-and-OS-for-AI/fgds
-
-Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Signed-off-by: Li Wang <liwang@kylinos.cn>
----
- drivers/misc/Kconfig      |   9 +
- drivers/misc/Makefile     |   1 +
- drivers/misc/fgds.c       | 989 ++++++++++++++++++++++++++++++++++++++
- include/uapi/linux/fgds.h |  54 +++
- 4 files changed, 1053 insertions(+)
- create mode 100644 drivers/misc/fgds.c
- create mode 100644 include/uapi/linux/fgds.h
-
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 7364931dad3a..2f3a5a5fd0bf 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -568,6 +568,15 @@ config MCHP_LAN966X_PCI
- 	    - lan966x-miim (MDIO_MSCC_MIIM)
- 	    - lan966x-switch (LAN966X_SWITCH)
- 
-+config FGDS
-+	tristate "GPU-NVMe direct I/O control driver"
-+	depends on PCI && DMA_SHARED_BUFFER && ZONE_DEVICE
-+	help
-+	  Say Y here if you want to support GPU-NVME direct I/O
-+	  via POSIX/io_uring interfaces.
-+
-+	  If unsure, say N.
-+
- source "drivers/misc/c2port/Kconfig"
- source "drivers/misc/eeprom/Kconfig"
- source "drivers/misc/cb710/Kconfig"
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index e8d8d5d88c0d..04985abe1678 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -71,3 +71,4 @@ obj-y				+= keba/
- obj-y				+= amd-sbi/
- obj-$(CONFIG_MISC_RP1)		+= rp1/
- obj-$(CONFIG_INTEL_SSEI)	+= issei/
-+obj-$(CONFIG_FGDS)		+= fgds.o
-diff --git a/drivers/misc/fgds.c b/drivers/misc/fgds.c
-new file mode 100644
-index 000000000000..3aa4945f701b
---- /dev/null
-+++ b/drivers/misc/fgds.c
-@@ -0,0 +1,989 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Fast GPU Direct Storage via dma-buf.
-+ *
-+ * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
-+ *
-+ * Maps GPU memory into user space to enable direct NVME-to-GPU DMA
-+ * pread/pwrite syscalls. BAR pages are remapped into ZONE_DEVICE via
-+ * devm_memremap_pages() and populated using dma-buf backing pages.
-+ */
-+#define pr_fmt(fmt) "fgds: " fmt
-+
-+#include <linux/cdev.h>
-+#include <linux/device.h>
-+#include <linux/dma-buf.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/file.h>
-+#include <linux/fs.h>
-+#include <linux/idr.h>
-+#include <linux/iommu.h>
-+#include <linux/kernel.h>
-+#include <linux/kref.h>
-+#include <linux/list.h>
-+#include <linux/memremap.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/overflow.h>
-+#include <linux/pci.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/uaccess.h>
-+#include <linux/xarray.h>
-+
-+#include <linux/fgds.h>
-+
-+/*
-+ * Upper bound for chrdev minor allocation and IDA range
-+ */
-+#define FGDS_MAX_MINORS		512
-+#define FGDS_MIN_GPU_BAR_SIZE	(64UL * 1024 * 1024)
-+
-+struct fgds_dev {
-+	struct list_head node;		/* Entry in fgds_dev_list */
-+	struct pci_dev *pdev;		/* Underlying GPU PCI device */
-+	int idx;			/* Minor number from fgds_ida */
-+	phys_addr_t bar_paddr;		/* GPU PCIe BAR physical base address */
-+	resource_size_t bar_size;	/* GPU PCIe BAR size */
-+	void __iomem *pci_mem_va;	/* Remapped kernel virtual address */
-+	struct dev_pagemap *pgmap;	/* ZONE_DEVICE page map for the BAR */
-+	struct device device;
-+	struct cdev cdev;
-+};
-+
-+/*
-+ * Contiguous GPU memory extent mapped from dma-buf scatterlist
-+ */
-+struct fgds_extent {
-+	u64 vma_offset;		/* Start offset within VMA (bytes) */
-+	dma_addr_t dma_addr;	/* Bus address within BAR window */
-+	u64 len;		/* Extent length(bytes) */
-+};
-+
-+/*
-+ * Registered dma-buf range. Reference counted by per-file registry and
-+ * each active VMA mapped from it.
-+ */
-+struct fgds_buffer {
-+	struct kref ref;
-+	struct fgds_dev *fdev;
-+	u64 idx;			/* Token passed to mmap(2) */
-+	u64 size;			/* Range size(page aligned) */
-+	u64 dmabuf_offset;		/* Offset inside the dma-buf */
-+	struct dma_buf *dbuf;
-+	struct dma_buf_attachment *attach;
-+	struct sg_table *sgt;
-+	struct fgds_extent *extents;	/* Merged physical extents */
-+	u32 nr_extents;
-+	bool invalidated;		/* Buffer moved by exporter */
-+};
-+
-+/* Per-open session state. */
-+struct fgds_file_ctx {
-+	struct fgds_dev *fdev;
-+	struct mutex lock;		/* Protects @buffers */
-+	struct xarray buffers;		/* idx -> struct fgds_buffer */
-+};
-+
-+static dev_t fgds_chr_devt;
-+static struct class *fgds_chr_class;
-+
-+static DEFINE_IDA(fgds_ida);
-+static LIST_HEAD(fgds_dev_list);
-+static u32 fgds_dev_count;
-+
-+struct fgds_bdf_entry {
-+	u16 domain;
-+	u8  bus;
-+	u8  slot;
-+	u8  func;
-+	struct list_head list;
-+};
-+
-+static LIST_HEAD(fgds_whitelist);
-+static char *devices = "all";
-+
-+module_param(devices, charp, 0444);
-+MODULE_PARM_DESC(devices, "all | comma-separated BDF whitelist (e.g. 0000:1e:00.0,0000:1f:00.0)");
-+
-+static int __init fgds_parse_bdf_list(const char *str, struct list_head *head)
-+{
-+	char *dup, *token, *cur;
-+
-+	if (!str || !strcmp(str, "all") || !strlen(str))
-+		return 0;
-+
-+	dup = kstrdup(str, GFP_KERNEL);
-+	if (!dup)
-+		return -ENOMEM;
-+
-+	cur = dup;
-+	while ((token = strsep(&cur, ",")) != NULL) {
-+		unsigned int dom, b, s, f;
-+		struct fgds_bdf_entry *entry;
-+
-+		if (sscanf(token, "%x:%x:%x.%x", &dom, &b, &s, &f) != 4)
-+			continue;
-+
-+		entry = kzalloc_obj(*entry, GFP_KERNEL);
-+		if (!entry) {
-+			kfree(dup);
-+			return -ENOMEM;
-+		}
-+		entry->domain = dom;
-+		entry->bus    = b;
-+		entry->slot   = s;
-+		entry->func   = f;
-+		list_add_tail(&entry->list, head);
-+	}
-+	kfree(dup);
-+	return 0;
-+}
-+
-+static bool fgds_match_bdf(struct pci_dev *pdev, struct list_head *head)
-+{
-+	struct fgds_bdf_entry *entry;
-+	u16 dom = pci_domain_nr(pdev->bus);
-+	u8  b   = pdev->bus->number;
-+	u8  s   = PCI_SLOT(pdev->devfn);
-+	u8  f   = PCI_FUNC(pdev->devfn);
-+
-+	list_for_each_entry(entry, head, list) {
-+		if (entry->domain == dom && entry->bus == b &&
-+		    entry->slot == s && entry->func == f)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+static bool fgds_should_bind(struct pci_dev *pdev)
-+{
-+	if (!devices || !strcmp(devices, "all"))
-+		return true;
-+	return fgds_match_bdf(pdev, &fgds_whitelist);
-+}
-+
-+/*
-+ * BAR-based mapping requires device physical addresses. When using
-+ * IOMMU, DMA addresses are IOVAs, which cannot be mapped directly.
-+ */
-+static int fgds_check_gpu_iommu(struct pci_dev *pdev)
-+{
-+	struct iommu_domain *domain;
-+
-+	domain = iommu_get_domain_for_dev(&pdev->dev);
-+	if (domain && domain->type != IOMMU_DOMAIN_IDENTITY) {
-+		pr_warn("%s: reject attaching a translating IOMMU domain (requires iommu=pt or off\n",
-+			dev_name(&pdev->dev));
-+		return -EPERM;
-+	}
-+	return 0;
-+}
-+
-+/* Prefetchable memory BARs are the only ones that can back GPU memory. */
-+static bool fgds_bar_is_prefetch_mem(struct pci_dev *pdev, int bar)
-+{
-+	unsigned long flags = pci_resource_flags(pdev, bar);
-+
-+	return (flags & (IORESOURCE_MEM | IORESOURCE_PREFETCH)) ==
-+	       (IORESOURCE_MEM | IORESOURCE_PREFETCH);
-+}
-+
-+/*
-+ * Check if the device exposes a large prefetchable memory BAR
-+ */
-+static bool fgds_has_large_memory_bar(struct pci_dev *pdev)
-+{
-+	int i;
-+
-+	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+		if (!fgds_bar_is_prefetch_mem(pdev, i))
-+			continue;
-+		if (pci_resource_len(pdev, i) >= FGDS_MIN_GPU_BAR_SIZE)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* Map the GPU PCIe BAR into ZONE_DEVICE kernel virtual memory. */
-+static int fgds_devm_memremap(struct fgds_dev *gdev)
-+{
-+	struct dev_pagemap *pgmap;
-+	int ret;
-+	void *addr;
-+
-+	gdev->pgmap = devm_kzalloc(&gdev->pdev->dev, sizeof(struct dev_pagemap),
-+				   GFP_KERNEL);
-+	if (!gdev->pgmap)
-+		return -ENOMEM;
-+
-+	pgmap = gdev->pgmap;
-+	pgmap->range.start = gdev->bar_paddr;
-+	pgmap->range.end = gdev->bar_paddr + gdev->bar_size - 1;
-+	pgmap->nr_range = 1;
-+	pgmap->type = MEMORY_DEVICE_GENERIC;
-+
-+	addr = devm_memremap_pages(&gdev->pdev->dev, pgmap);
-+	if (IS_ERR(addr)) {
-+		ret = PTR_ERR(addr);
-+		pr_err("%s: cannot map BAR [%#llx, +0x%llx] as device memory (%d)\n",
-+		       dev_name(&gdev->pdev->dev),
-+		       (u64)gdev->bar_paddr, (u64)gdev->bar_size, ret);
-+		devm_kfree(&gdev->pdev->dev, gdev->pgmap);
-+		gdev->pgmap = NULL;
-+		return ret;
-+	}
-+
-+	gdev->pci_mem_va = addr;
-+
-+	pr_info("%s: BAR [%#llx, %#llx] remapped to kernel VA %#lx\n",
-+		dev_name(&gdev->pdev->dev), (u64)gdev->bar_paddr,
-+			     (u64)(gdev->bar_paddr + gdev->bar_size - 1),
-+		(uintptr_t)gdev->pci_mem_va);
-+	return 0;
-+}
-+
-+/*
-+ * Dynamic dma-buf attachment callbacks. Peer2peer ability hints exporters
-+ * to retain buffers in device VRAM. Buffer movement invalidates existing
-+ * VMA mappings and requires user-space re-registration.
-+ */
-+static void fgds_invalidate_mappings(struct dma_buf_attachment *attach)
-+{
-+	struct fgds_buffer *buf = attach->importer_priv;
-+
-+	pr_warn_ratelimited("dma-buf moved while mapped; re-register required\n");
-+	if (buf)
-+		WRITE_ONCE(buf->invalidated, true);
-+}
-+
-+static const struct dma_buf_attach_ops fgds_attach_ops = {
-+	.allow_peer2peer = true,
-+	.invalidate_mappings = fgds_invalidate_mappings,
-+};
-+
-+static void fgds_buffer_free(struct kref *kref)
-+{
-+	struct fgds_buffer *buf = container_of(kref, struct fgds_buffer, ref);
-+
-+	if (buf->sgt)
-+		dma_buf_unmap_attachment(buf->attach, buf->sgt,
-+					 DMA_BIDIRECTIONAL);
-+	if (buf->attach)
-+		dma_buf_detach(buf->dbuf, buf->attach);
-+	if (buf->dbuf)
-+		dma_buf_put(buf->dbuf);
-+
-+	kvfree(buf->extents);
-+	kfree(buf);
-+	module_put(THIS_MODULE);
-+}
-+
-+static inline void fgds_buffer_get(struct fgds_buffer *buf)
-+{
-+	kref_get(&buf->ref);
-+}
-+
-+static inline void fgds_buffer_put(struct fgds_buffer *buf)
-+{
-+	kref_put(&buf->ref, fgds_buffer_free);
-+}
-+
-+/*
-+ * Collect scatterlist segments into a coalesced extent array within the
-+ * BAR
-+ */
-+static int fgds_fill_extents(struct fgds_buffer *buf)
-+{
-+	struct fgds_dev *gdev = buf->fdev;
-+	struct scatterlist *sg;
-+	dma_addr_t addr, seg_end;
-+	unsigned int len;
-+	u64 cur_vma_offset = 0;
-+	u64 skip = buf->dmabuf_offset;
-+	int i, idx = 0;
-+
-+	buf->extents = kvmalloc_array(buf->sgt->nents, sizeof(*buf->extents),
-+				      GFP_KERNEL | __GFP_NOWARN);
-+	if (!buf->extents)
-+		return -ENOMEM;
-+
-+	pr_info_ratelimited("exporter %s attached to %s, dbuf size 0x%zx, offset 0x%llx, nents %u\n",
-+			    buf->dbuf->exp_name, dev_name(buf->attach->dev),
-+			    buf->dbuf->size, buf->dmabuf_offset, buf->sgt->nents);
-+
-+	for_each_sgtable_dma_sg(buf->sgt, sg, i) {
-+		addr = sg_dma_address(sg);
-+		len = sg_dma_len(sg);
-+		if (!len)
-+			len = sg->length;
-+
-+		if (!addr) {
-+			pr_err("invalid dma address at sg[%d]\n", i);
-+			goto err_free;
-+		}
-+
-+		/* Verify the segment falls within the BAR window
-+		 */
-+		if (check_add_overflow(addr, (dma_addr_t)len, &seg_end) ||
-+		    addr < gdev->bar_paddr ||
-+		    seg_end > gdev->bar_paddr + gdev->bar_size) {
-+			pr_err("segment sg[%d] [0x%llx, +0x%x] outside %s BAR window [0x%llx, 0x%llx]\n",
-+			       i, (u64)addr, len,
-+			       dev_name(&gdev->pdev->dev),
-+			       (u64)gdev->bar_paddr,
-+			       (u64)(gdev->bar_paddr + gdev->bar_size - 1));
-+			goto err_free;
-+		}
-+
-+		if ((addr & (PAGE_SIZE - 1)) || (len & (PAGE_SIZE - 1))) {
-+			pr_err("unaligned sg[%d] addr 0x%llx len %u\n",
-+			       i, (u64)addr, len);
-+			goto err_free;
-+		}
-+		if (skip) {
-+			if (skip >= len) {
-+				skip -= len;
-+				continue;
-+			}
-+			addr += skip;
-+			len -= (unsigned int)skip;
-+			skip = 0;
-+		}
-+		if (cur_vma_offset + len > buf->size)
-+			len = (unsigned int)(buf->size - cur_vma_offset);
-+
-+		/*
-+		 * Merge segments which is contiguous in both bus address and
-+		 * VMA offset
-+		 */
-+		if (idx > 0 &&
-+		    (buf->extents[idx - 1].dma_addr + buf->extents[idx - 1].len == addr) &&
-+		    (buf->extents[idx - 1].vma_offset + buf->extents[idx - 1].len ==
-+		     cur_vma_offset)) {
-+			buf->extents[idx - 1].len += len;
-+			cur_vma_offset += len;
-+			if (cur_vma_offset >= buf->size)
-+				break;
-+			continue;
-+		}
-+
-+		buf->extents[idx].vma_offset = cur_vma_offset;
-+		buf->extents[idx].dma_addr   = addr;
-+		buf->extents[idx].len        = len;
-+		cur_vma_offset += len;
-+		idx++;
-+		if (cur_vma_offset >= buf->size)
-+			break;
-+	}
-+
-+	if (skip || cur_vma_offset < buf->size) {
-+		pr_err("coverage mismatch (actual=0x%llx, req=0x%llx)\n",
-+		       cur_vma_offset, buf->size);
-+		goto err_free;
-+	}
-+
-+	pr_info_ratelimited("%u extents, BAR window [0x%llx, 0x%llx], first 0x%llx last 0x%llx\n",
-+			    idx, (u64)gdev->bar_paddr,
-+			    (u64)(gdev->bar_paddr + gdev->bar_size - 1),
-+			    (u64)buf->extents[0].dma_addr,
-+			    (u64)(buf->extents[idx - 1].dma_addr +
-+				  buf->extents[idx - 1].len - 1));
-+
-+	/* Shrink extent array to the actual merged count */
-+	if (idx > 0 && idx < buf->sgt->nents) {
-+		struct fgds_extent *e;
-+
-+		e = kvmalloc_array(idx, sizeof(*e), GFP_KERNEL | __GFP_NOWARN);
-+		if (e) {
-+			memcpy(e, buf->extents, idx * sizeof(*e));
-+			kvfree(buf->extents);
-+			buf->extents = e;
-+		}
-+	}
-+
-+	buf->nr_extents = idx;
-+	return 0;
-+
-+err_free:
-+	kvfree(buf->extents);
-+	buf->extents = NULL;
-+	return -EIO;
-+}
-+
-+static int fgds_buffer_import_dmabuf(struct fgds_buffer *buf, s32 dmabuf_fd)
-+{
-+	struct dma_buf *dbuf;
-+	int ret;
-+	u64 end;
-+
-+	dbuf = dma_buf_get(dmabuf_fd);
-+	if (IS_ERR(dbuf))
-+		return PTR_ERR(dbuf);
-+
-+	if (check_add_overflow(buf->dmabuf_offset, buf->size, &end) ||
-+	    end > dbuf->size) {
-+		pr_err("request [0x%llx, +0x%llx) exceeds buffer size 0x%zx\n",
-+		       buf->dmabuf_offset, buf->size, dbuf->size);
-+		dma_buf_put(dbuf);
-+		return -EINVAL;
-+	}
-+	buf->dbuf = dbuf;
-+
-+	/* Attach using GPU PCI device to satisfy dma_mask requirements */
-+	buf->attach = dma_buf_dynamic_attach(dbuf, &buf->fdev->pdev->dev,
-+					     &fgds_attach_ops, buf);
-+	if (IS_ERR(buf->attach)) {
-+		ret = PTR_ERR(buf->attach);
-+		buf->attach = NULL;
-+		goto err_put_dbuf;
-+	}
-+
-+	buf->sgt = dma_buf_map_attachment(buf->attach, DMA_BIDIRECTIONAL);
-+	if (IS_ERR(buf->sgt)) {
-+		ret = PTR_ERR(buf->sgt);
-+		buf->sgt = NULL;
-+		goto err_detach;
-+	}
-+
-+	ret = fgds_fill_extents(buf);
-+	if (ret)
-+		goto err_unmap;
-+
-+	return 0;
-+
-+err_unmap:
-+	dma_buf_unmap_attachment(buf->attach, buf->sgt, DMA_BIDIRECTIONAL);
-+	buf->sgt = NULL;
-+err_detach:
-+	dma_buf_detach(buf->dbuf, buf->attach);
-+	buf->attach = NULL;
-+err_put_dbuf:
-+	dma_buf_put(buf->dbuf);
-+	buf->dbuf = NULL;
-+	return ret;
-+}
-+
-+static void fgds_vma_open(struct vm_area_struct *vma)
-+{
-+	struct fgds_buffer *buf = vma->vm_private_data;
-+
-+	if (buf)
-+		fgds_buffer_get(buf);
-+}
-+
-+static void fgds_vma_close(struct vm_area_struct *vma)
-+{
-+	struct fgds_buffer *buf = vma->vm_private_data;
-+
-+	if (buf)
-+		fgds_buffer_put(buf);
-+}
-+
-+/* Binary search extents by VMA byte offset */
-+static struct fgds_extent *fgds_lookup_extent(struct fgds_buffer *buf,
-+					      u64 offset)
-+{
-+	struct fgds_extent *ext;
-+	int low, high;
-+
-+	if (unlikely(!buf->nr_extents))
-+		return NULL;
-+
-+	if (likely(buf->nr_extents == 1)) {
-+		ext = &buf->extents[0];
-+		if (offset < ext->vma_offset + ext->len)
-+			return ext;
-+		return NULL;
-+	}
-+
-+	low = 0;
-+	high = buf->nr_extents - 1;
-+	while (low <= high) {
-+		int mid = low + (high - low) / 2;
-+
-+		ext = &buf->extents[mid];
-+
-+		if (offset < ext->vma_offset)
-+			high = mid - 1;
-+		else if (offset >= ext->vma_offset + ext->len)
-+			low = mid + 1;
-+		else
-+			return ext;
-+	}
-+	return NULL;
-+}
-+
-+static vm_fault_t fgds_vma_fault(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct fgds_buffer *buf = vma->vm_private_data;
-+	u64 offset;
-+	struct fgds_extent *ext;
-+	phys_addr_t phys;
-+	unsigned long pfn;
-+	struct page *page;
-+
-+	if (!buf || unlikely(READ_ONCE(buf->invalidated)))
-+		return VM_FAULT_SIGBUS;
-+
-+	offset = vmf->address - vma->vm_start;
-+	if (offset >= buf->size)
-+		return VM_FAULT_SIGBUS;
-+
-+	ext = fgds_lookup_extent(buf, offset);
-+	if (!ext)
-+		return VM_FAULT_SIGBUS;
-+
-+	phys = ext->dma_addr + (offset - ext->vma_offset);
-+	pfn = phys >> PAGE_SHIFT;
-+
-+	if (unlikely(!pfn_valid(pfn)))
-+		return VM_FAULT_SIGBUS;
-+	page = pfn_to_page(pfn);
-+	if (unlikely(!is_zone_device_page(page)))
-+		return VM_FAULT_SIGBUS;
-+
-+	return vmf_insert_page(vma, vmf->address, page);
-+}
-+
-+/*
-+ * .page_mkwrite is omitted: vmf_insert_page() sets writable PTEs directly
-+ * from vma->vm_page_prot for MAP_SHARED mappings, avoiding do_wp_page().
-+ */
-+static const struct vm_operations_struct fgds_vm_ops = {
-+	.open	= fgds_vma_open,
-+	.close	= fgds_vma_close,
-+	.fault	= fgds_vma_fault,
-+};
-+
-+static int fgds_mmap(struct file *filp, struct vm_area_struct *vma)
-+{
-+	struct fgds_file_ctx *ctx = filp->private_data;
-+	struct fgds_buffer *buf;
-+	int ret;
-+
-+	mutex_lock(&ctx->lock);
-+	buf = xa_load(&ctx->buffers, vma->vm_pgoff);
-+	if (buf)
-+		fgds_buffer_get(buf);
-+	mutex_unlock(&ctx->lock);
-+
-+	if (!buf)
-+		return -EINVAL;
-+
-+	if (READ_ONCE(buf->invalidated)) {
-+		pr_err("mmap failed: buffer invalidated by GPU driver\n");
-+		ret = -EIO;
-+		goto err_put;
-+	}
-+	if (vma->vm_end - vma->vm_start != buf->size) {
-+		ret = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	vm_flags_clear(vma, VM_PFNMAP | VM_IO);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP |
-+			   current->mm->def_flags);
-+	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-+	vma->vm_ops = &fgds_vm_ops;
-+	vma->vm_private_data = buf;
-+
-+	return 0;
-+err_put:
-+	fgds_buffer_put(buf);
-+	return ret;
-+}
-+
-+static int fgds_ioctl_reg_buffer(struct fgds_file_ctx *ctx,
-+				 struct fgds_ioctl_reg_buffer __user *argp)
-+{
-+	struct fgds_ioctl_reg_buffer arg;
-+	struct fgds_buffer *buf = NULL;
-+	u32 id;
-+	int ret;
-+	u64 end;
-+
-+	if (copy_from_user(&arg, argp, sizeof(arg))) {
-+		ret = -EFAULT;
-+		goto err;
-+	}
-+
-+	if (arg.flags || arg.dmabuf_fd < 0 ||
-+	    (arg.dmabuf_offset & (PAGE_SIZE - 1)) ||
-+	    !arg.size || (arg.size & (PAGE_SIZE - 1))) {
-+		ret = -EINVAL;
-+		goto err;
-+	}
-+
-+	if (check_add_overflow(arg.dmabuf_offset, arg.size, &end)) {
-+		ret = -EOVERFLOW;
-+		goto err;
-+	}
-+
-+	if (arg.size > ctx->fdev->bar_size) {
-+		pr_debug("%s: size 0x%llx exceeds BAR window 0x%llx\n",
-+			 dev_name(&ctx->fdev->pdev->dev), (u64)arg.size,
-+			 (u64)ctx->fdev->bar_size);
-+		ret = -EINVAL;
-+		goto err;
-+	}
-+
-+	buf = kzalloc(sizeof(*buf), GFP_KERNEL);
-+	if (!buf) {
-+		ret = -ENOMEM;
-+		goto err;
-+	}
-+
-+	kref_init(&buf->ref);
-+	/*
-+	 * Pin the module for as long as the buffer exists: a VMA outlives
-+	 * the file descriptor it was mapped from, so after close(2) nothing
-+	 * keeps the module alive while .fault and .close still run from it,
-+	 * and module exit would free the fgds_dev backing those pages.
-+	 *
-+	 * __module_get() rather than try_module_get() because the get
-+	 * cannot fail here: the caller's open file already holds a module
-+	 * reference, so this ioctl cannot overlap module removal.
-+	 */
-+	__module_get(THIS_MODULE);
-+	buf->fdev = ctx->fdev;
-+	buf->size = arg.size;
-+	buf->dmabuf_offset = arg.dmabuf_offset;
-+
-+	ret = fgds_buffer_import_dmabuf(buf, arg.dmabuf_fd);
-+	if (ret)
-+		goto err_put;
-+
-+	mutex_lock(&ctx->lock);
-+	ret = xa_alloc(&ctx->buffers, &id, buf, xa_limit_32b, GFP_KERNEL);
-+	if (!ret)
-+		buf->idx = (u64)id << PAGE_SHIFT;
-+	mutex_unlock(&ctx->lock);
-+	if (ret)
-+		goto err_put;
-+
-+	arg.idx = buf->idx;
-+	if (copy_to_user(argp, &arg, sizeof(arg))) {
-+		struct fgds_buffer *erased;
-+		u32 id = buf->idx >> PAGE_SHIFT;
-+
-+		/*
-+		 * Drops reference only if this thread successfully erases
-+		 * the entry.
-+		 */
-+		mutex_lock(&ctx->lock);
-+		erased = xa_erase(&ctx->buffers, id);
-+		mutex_unlock(&ctx->lock);
-+		if (erased)
-+			fgds_buffer_put(buf);
-+		ret = -EFAULT;
-+		goto err;
-+	}
-+
-+	pr_debug("reg: %s dmabuf %d offset 0x%llx size 0x%llx -> token 0x%llx\n",
-+		 dev_name(&buf->fdev->pdev->dev), arg.dmabuf_fd,
-+		 buf->dmabuf_offset, buf->size, buf->idx);
-+	ret = 0;
-+
-+err:
-+	return ret;
-+
-+err_put:
-+	fgds_buffer_put(buf);
-+	return ret;
-+}
-+
-+static int fgds_ioctl_unreg_buffer(struct fgds_file_ctx *ctx,
-+				   struct fgds_ioctl_unreg_buffer __user *argp)
-+{
-+	struct fgds_ioctl_unreg_buffer arg;
-+	struct fgds_buffer *buf;
-+	u32 id;
-+
-+	if (copy_from_user(&arg, argp, sizeof(arg)))
-+		return -EFAULT;
-+
-+	if (arg.idx & (PAGE_SIZE - 1))
-+		return -EINVAL;
-+
-+	id = arg.idx >> PAGE_SHIFT;
-+
-+	mutex_lock(&ctx->lock);
-+	buf = xa_erase(&ctx->buffers, id);
-+	mutex_unlock(&ctx->lock);
-+
-+	if (!buf)
-+		return -ENOENT;
-+
-+	fgds_buffer_put(buf);
-+	return 0;
-+}
-+
-+static long fgds_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
-+{
-+	struct fgds_file_ctx *ctx = filp->private_data;
-+	void __user *argp = (void __user *)arg;
-+
-+	switch (cmd) {
-+	case FGDS_IOCTL_REG_BUFFER:
-+		return fgds_ioctl_reg_buffer(ctx, argp);
-+	case FGDS_IOCTL_UNREG_BUFFER:
-+		return fgds_ioctl_unreg_buffer(ctx, argp);
-+	default:
-+		return -ENOTTY;
-+	}
-+}
-+
-+static int fgds_open(struct inode *inode, struct file *filp)
-+{
-+	struct fgds_dev *gdev = container_of(inode->i_cdev,
-+					     struct fgds_dev, cdev);
-+	struct fgds_file_ctx *ctx;
-+
-+	ctx = kzalloc_obj(*ctx, GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->fdev = gdev;
-+	mutex_init(&ctx->lock);
-+	xa_init_flags(&ctx->buffers, XA_FLAGS_ALLOC);
-+	filp->private_data = ctx;
-+
-+	pr_debug("open: %s\n", dev_name(&gdev->pdev->dev));
-+	return 0;
-+}
-+
-+static int fgds_release(struct inode *inode, struct file *filp)
-+{
-+	struct fgds_file_ctx *ctx = filp->private_data;
-+	struct fgds_buffer *buf;
-+	unsigned long index;
-+
-+	xa_for_each(&ctx->buffers, index, buf) {
-+		xa_erase(&ctx->buffers, index);
-+		fgds_buffer_put(buf);
-+	}
-+	xa_destroy(&ctx->buffers);
-+	mutex_destroy(&ctx->lock);
-+	kfree(ctx);
-+	return 0;
-+}
-+
-+static const struct file_operations fgds_fops = {
-+	.owner		= THIS_MODULE,
-+	.open		= fgds_open,
-+	.release	= fgds_release,
-+	.unlocked_ioctl	= fgds_ioctl,
-+	.mmap		= fgds_mmap,
-+};
-+
-+static void fgds_dev_release(struct device *dev)
-+{
-+	struct fgds_dev *gdev = container_of(dev, struct fgds_dev, device);
-+
-+	if (gdev->pgmap) {
-+		devm_memunmap_pages(&gdev->pdev->dev, gdev->pgmap);
-+		devm_kfree(&gdev->pdev->dev, gdev->pgmap);
-+		gdev->pgmap = NULL;
-+	}
-+	if (gdev->idx >= 0)
-+		ida_free(&fgds_ida, gdev->idx);
-+	if (gdev->pdev) {
-+		pci_dev_put(gdev->pdev);
-+		gdev->pdev = NULL;
-+	}
-+	kfree(gdev);
-+}
-+
-+/* Device naming: /dev/fgds_<domain>_<bus>_<dev>_<func> */
-+#define FGDS_DEV_NAME_FMT	"fgds_%04x_%02x_%02x_%01x"
-+
-+/* Format char device name */
-+static int fgds_dev_name(struct fgds_dev *gdev)
-+{
-+	struct pci_dev *pdev = gdev->pdev;
-+
-+	return dev_set_name(&gdev->device, FGDS_DEV_NAME_FMT,
-+			    pci_domain_nr(pdev->bus), pdev->bus->number,
-+			    PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
-+}
-+
-+static int fgds_cdev_add(struct fgds_dev *gdev)
-+{
-+	struct device *dev = &gdev->device;
-+	int ret;
-+
-+	dev->devt = MKDEV(MAJOR(fgds_chr_devt), gdev->idx);
-+	dev->class = fgds_chr_class;
-+	dev->parent = &gdev->pdev->dev;
-+
-+	ret = fgds_dev_name(gdev);
-+	if (ret)
-+		return ret;
-+
-+	cdev_init(&gdev->cdev, &fgds_fops);
-+	gdev->cdev.owner = THIS_MODULE;
-+
-+	ret = cdev_device_add(&gdev->cdev, dev);
-+	if (ret)
-+		return ret;
-+
-+	pr_info("registered PCI %s -> /dev/%s (minor=%d)\n",
-+		dev_name(&gdev->pdev->dev), dev_name(dev), gdev->idx);
-+	return 0;
-+}
-+
-+/* Build and register an fgds device for a GPU */
-+static int fgds_create_device(struct pci_dev *pdev)
-+{
-+	struct fgds_dev *gdev;
-+	int id, ret, j;
-+
-+	list_for_each_entry(gdev, &fgds_dev_list, node) {
-+		if (gdev->pdev == pdev)
-+			return -EEXIST;
-+	}
-+
-+	if (fgds_check_gpu_iommu(pdev))
-+		return -EPERM;
-+
-+	id = ida_alloc_range(&fgds_ida, 0, FGDS_MAX_MINORS - 1, GFP_KERNEL);
-+	if (id < 0)
-+		return id;
-+
-+	gdev = kzalloc_obj(*gdev, GFP_KERNEL);
-+	if (!gdev) {
-+		ida_free(&fgds_ida, id);
-+		return -ENOMEM;
-+	}
-+	gdev->idx = id;
-+	gdev->pdev = pci_dev_get(pdev);
-+
-+	device_initialize(&gdev->device);
-+	gdev->device.release = fgds_dev_release;
-+
-+	/*
-+	 * Same predicate as fgds_has_large_memory_bar(): without the MEM
-+	 * and PREFETCH test the largest BAR could be a different one than
-+	 * the BAR that was vetted, and the dma-buf extents would then be
-+	 * checked against the wrong window.
-+	 */
-+	for (j = 0; j < PCI_STD_NUM_BARS; j++) {
-+		resource_size_t sz = pci_resource_len(pdev, j);
-+
-+		if (!fgds_bar_is_prefetch_mem(pdev, j))
-+			continue;
-+		if (sz > gdev->bar_size) {
-+			gdev->bar_paddr = pci_resource_start(pdev, j);
-+			gdev->bar_size = sz;
-+		}
-+	}
-+	pr_info("GPU %s: bus %#x, BAR size 0x%llx, BAR phys %#llx, remapping BAR to kernel VA\n",
-+		dev_name(&pdev->dev), pdev->bus->number,
-+		(u64)gdev->bar_size, (u64)gdev->bar_paddr);
-+
-+	ret = fgds_devm_memremap(gdev);
-+	if (ret)
-+		goto err_put_dev;
-+
-+	ret = fgds_cdev_add(gdev);
-+	if (ret)
-+		goto err_put_dev;
-+
-+	list_add_tail(&gdev->node, &fgds_dev_list);
-+	fgds_dev_count++;
-+	return 0;
-+
-+err_put_dev:
-+	put_device(&gdev->device);
-+	return ret;
-+}
-+
-+static void fgds_destroy_device(struct fgds_dev *gdev)
-+{
-+	list_del(&gdev->node);
-+	fgds_dev_count--;
-+	cdev_device_del(&gdev->cdev, &gdev->device);
-+	put_device(&gdev->device);
-+}
-+
-+static void fgds_remove_devices(void)
-+{
-+	struct fgds_dev *gdev, *tmp;
-+
-+	list_for_each_entry_safe(gdev, tmp, &fgds_dev_list, node)
-+		fgds_destroy_device(gdev);
-+}
-+
-+static int __init fgds_init(void)
-+{
-+	struct pci_dev *pdev = NULL;
-+	int ret;
-+
-+	ret = alloc_chrdev_region(&fgds_chr_devt, 0, FGDS_MAX_MINORS, "fgds");
-+	if (ret)
-+		return ret;
-+
-+	fgds_chr_class = class_create("fgds");
-+	if (IS_ERR(fgds_chr_class)) {
-+		ret = PTR_ERR(fgds_chr_class);
-+		goto err_unreg_chrdev;
-+	}
-+
-+	fgds_parse_bdf_list(devices, &fgds_whitelist);
-+
-+	/* Scan PCI for GPUs: 3D controllers first, then VGA adapters. */
-+	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_3D << 8, pdev)) != NULL) {
-+		if (fgds_has_large_memory_bar(pdev) && fgds_should_bind(pdev))
-+			fgds_create_device(pdev);
-+	}
-+
-+	pdev = NULL;
-+	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
-+		if (fgds_has_large_memory_bar(pdev) && fgds_should_bind(pdev))
-+			fgds_create_device(pdev);
-+	}
-+
-+	if (list_empty(&fgds_dev_list)) {
-+		pr_err("no GPU devices registered\n");
-+		ret = -ENODEV;
-+		goto err_destroy_class;
-+	}
-+
-+	pr_info("loaded successfully: %u GPU(s) active\n", fgds_dev_count);
-+	return 0;
-+
-+err_destroy_class:
-+	fgds_remove_devices();
-+	class_destroy(fgds_chr_class);
-+err_unreg_chrdev:
-+	unregister_chrdev_region(fgds_chr_devt, FGDS_MAX_MINORS);
-+	return ret;
-+}
-+
-+static void __exit fgds_exit(void)
-+{
-+	struct fgds_bdf_entry *entry, *tmp;
-+
-+	fgds_remove_devices();
-+	ida_destroy(&fgds_ida);
-+	class_destroy(fgds_chr_class);
-+	unregister_chrdev_region(fgds_chr_devt, FGDS_MAX_MINORS);
-+
-+	list_for_each_entry_safe(entry, tmp, &fgds_whitelist, list) {
-+		list_del(&entry->list);
-+		kfree(entry);
-+	}
-+
-+	pr_info("exit, Good bye!\n");
-+}
-+
-+module_init(fgds_init);
-+module_exit(fgds_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("DMA_BUF");
-+MODULE_AUTHOR("Mengmeng Zhao <zhaomengmeng@kylinos.cn>, Li Wang <liwang@kylinos.cn>");
-+MODULE_DESCRIPTION("Fast GPU Direct Storage");
-+MODULE_VERSION("1.0.0");
-diff --git a/include/uapi/linux/fgds.h b/include/uapi/linux/fgds.h
-new file mode 100644
-index 000000000000..4626b8497474
---- /dev/null
-+++ b/include/uapi/linux/fgds.h
-@@ -0,0 +1,54 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/*
-+ * Fast GPU Direct Storage user-kernel ABI definitions.
-+ *
-+ * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
-+ */
-+#ifndef _FGDS_H
-+#define _FGDS_H
-+
-+#include <linux/types.h>
-+#include <linux/ioctl.h>
-+
-+/*
-+ * Register a GPU dma-buf range.
-+ *
-+ * @dmabuf_fd: File descriptor exported by the GPU runtime.
-+ * @flags: Reserved for future extentions, must be 0.
-+ * @dmabuf_offset: Byte offset inside dma-buf (PAGE_SIZE aligned).
-+ * @size: Range size in bytes (PAGE_SIZE aligned, non-zero).
-+ * @idx: Output token to pass as mmap(2) offset.
-+ *
-+ * Return mmap token by @idx on success. Caller may close @dmabuf_fd after
-+ * registration. Higher platform alignment (e.g., 64KB) must be handled
-+ * in user space.
-+ */
-+struct fgds_ioctl_reg_buffer {
-+	/* Input */
-+	__s32 dmabuf_fd;
-+	__u32 flags;		/* Reserved, must be 0 */
-+	__u64 dmabuf_offset;
-+	__u64 size;
-+
-+	/* Output */
-+	__u64 idx;
-+};
-+
-+/*
-+ * Unregister a GPU dma-buf range
-+ *
-+ * @idx: Token returned by %FGDS_IOCTL_REG_BUFFER.
-+ *
-+ */
-+struct fgds_ioctl_unreg_buffer {
-+	__u64 idx;
-+};
-+
-+#define FGDS_IOCTL_MAGIC	0x88
-+
-+#define FGDS_IOCTL_REG_BUFFER	_IOWR(FGDS_IOCTL_MAGIC, 0x01, \
-+				      struct fgds_ioctl_reg_buffer)
-+#define FGDS_IOCTL_UNREG_BUFFER	_IOW(FGDS_IOCTL_MAGIC, 0x02, \
-+				     struct fgds_ioctl_unreg_buffer)
-+
-+#endif /* _FGDS_H */
--- 
-2.34.1
-
+Rob
