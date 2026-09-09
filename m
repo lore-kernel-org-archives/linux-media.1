@@ -1,165 +1,153 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD772BD587
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 02:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195402BD587
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 03:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922531; cv=none; b=vF84uEhY5dufjGgx+o1G/1TrJL37UHaimt+rX3KqTJAPv5weaSE40b8+TBXTaK1Tq5ESddBFXLeiBoFD0ngnMJDyzJ1pmUhm+JSIOghw/rGUpNJ2lxrqjsROyXI0On0mGI6/qBe9KyC+JgsBlnbqIuXguOt8NIsOZytRQTe26i8=
+	t=1788924250; cv=none; b=Fnrj7zBsbbrkPPlbkH1TwdcIfgj2wbRO0RSVwaA/a9rmdAufDXQdMBSKmVBDk69F2N0E4/PEY3oz5A4Y0AicMJ3RT3siFMbYRv9jLOIgZA0Ygvwb5Pa7/PVRL/orvObmsXxHcTGtm0iBPgfYgxD855mmQNzJWy4weSuncpqCyqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922531; c=relaxed/simple;
-	bh=VF46/oKDHMnQWvthVk2+fNcf+7QGwMi5TBQgSB7cn8k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kYX2TPeIGXdUeqvb07WWv504v9AoGmcP994LdrBRxoqqlaXeMmpJOHHnLpAQDwu9gwGFX71KZe+oQxlegR63O8qkf09Kwv+FocNWLtFUkkXWBijV6Lpt5NAAAue7n0ejxL3ATizZcKLK2axH92l36VgBhr3aHl85fedPwSEc7YA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dJjM4FBc; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1788924250; c=relaxed/simple;
+	bh=ghefzVK9zElCxcqLApLBVE4Y6uMlXOc8juyeNHYwYhw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sYv8XXB2G0S7qJIZ/As3Qm0Mo3A8fvHUtIfmS/M0CeK8o1cvqVPF6gFpt3TGAYT9q8AHpkwgVQO23nbppMj789247/GbCMf1gTc090BAUecZ0FH7gBsLDKOe1a98V0SIJq4Qxziumh5Gd9schtCNgzzpzQrFFt9orUtQjUVBhLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=llNQrKF4; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJjM4FBc"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-862815e2683so3718352b3a.2
-        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 19:55:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="llNQrKF4"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso3755537b3a.1
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 20:24:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788922528; x=1789527328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y5J7IAyeZaoyL8wmgHnVCp/5efuF05FkuEwo9R241gs=;
-        b=dJjM4FBce/kISJBA6U8g4eathx0dI3tgFcOd+XO4hgAZRm6u5vqzUu6fnqMNv/2MrL
-         mPvxmQrqLdoWJzqYXKZqUQCq7kG1OSB/v1ChK/FUqaEGHgjcQxi6U1KACy0QGSwX9IVw
-         aRMm7pfpgXjb320WFEoRTdynbNvEJ+2CDSD35R9Bb9UjOP1fzPhpzziP9zFWnomnJVBc
-         AxolKktuhVPv3y0mNIhkHxtIWougth+GDO7REdWC84S0MBS3P/QVZR6yVqda5GGpIU0A
-         n8Mue7z9+n636Tt4x0G0MB6NPkteg1RNXr1rzjXygoYiR3C3lJUEfOd7APFpNc/d7ncF
-         4CdQ==
+        d=gmail.com; s=20251104; t=1788924247; x=1789529047; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=p1FUeGkvQagUdN35q+3jlHISdBp4xaWpmc1Bwfe0TEA=;
+        b=llNQrKF4p9NkyYRvX3xdMhKTvvWqU4ldjnkEB05s5ZBvijIt8TXuu1hzfmVgho36jg
+         LUMgqKIXBgKav7v84X+8XeLwW1wzmYthnun9RfoSU1QVIcFCanIqbibxwi86SIHKb05V
+         FOleQ6YsKte/f0I56XYorBd2puR7Y2HpOeVEBAmb1/y/0kZOOb1vP3vIb/upAa3881YU
+         Q+WON2a1ShxzZUQrhOgwIK9QkLht2rgZ8LBWOGVIV5LoXdVooOTg2/bjtdO9Pe9L5j9s
+         60dlgOSEEFW4aeRioU7MEuZ113sIPpFDszVThhll8ZkJJgwrY9l/qiFoLo6XVCUCiIc+
+         GG1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788922528; x=1789527328;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y5J7IAyeZaoyL8wmgHnVCp/5efuF05FkuEwo9R241gs=;
-        b=Qzl4BBAS7zUrSfo1IqbukqQ/YcSNFIKVOjHHgxoixnZWqtp6AWGo8uiPPZfYfIrlNK
-         ABEY8dDKe/ShrkdnUoJItP9imH0TniP6KFqvyzvwQeG5JGZfNrLha3dOh7MxsOU8Rj0a
-         KEIhPoMzcseaAUTRwvUyj/VPT15COBw58JrOl8Orc8rLFEl1iGuAtOhGqLKmNYoG5+hV
-         TkkrByOR4yUfI/a1fQndKeDJrsBoqsjKmEraqO5wzwSIb0qJszBQqB8vpQKkiDaWdSLW
-         BxlLR9lnYfsgazHOmhPX8+fsROjiuvRIeYBjTcrzE+9hOVFdWMWoSCbiBSPsmLi3reF1
-         QH3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzeM6nLhmUTtKDQzcNOrg85rQCFUeioJAWYmDTlQx8utvXM1wc2EHZKyfg5oIO+rpaYwXnnGj7/vb/Ycg==@vger.kernel.org
-X-Gm-Message-State: AFuF++ngWYzXbG2dwkPw34zpjClyBbtXuAowIOvjD7TjfiztPkQNK33M
-	JUDNtabgyvVftaZvtisYhyBomZtvXOrnU2v5qKI7Ylrh2N7ZA2+RrlKxAqO9oZpAlwk=
-X-Gm-Gg: AYBFou3O95QD0CjjWojbi0Y526cq9fn5p8m2gQBIAWsLfPK7DSojqbHHNE7zf6s86UP
-	sgugMcV0pTNSQepAN5u23jpznT0Dz+Sb6nsaK3QnWQCF8/g5DVMWSFt4K+eXXgO2xcypcwj+drF
-	TjaIs5D+/hImDp92y9b8VJQPNI98FiBSO4kVIXspza/ZWXRQK3KUnVDV0RnF4LdFvCAzrQPHbHm
-	3ij/pm+PqrG59Zh9MEV7LgLiFRUyzvJ4aqgJW8OxSJ1nYG7AX8X1kdxV84aopjozjymgTQZ71GK
-	wd+dmfFqrQ+LcjAm5UXi8NzH4mFIHlHVaj4GQPm80MTodu9hy1DDRl9vrCFq6VGQQaHPmYCUMip
-	POUjK5CzE57ZAzJ//0iccybxxzr6eacBMMdhR4CR5MyBdQx3YN045evgWugN4xizKlkWFMVRkdw
-	t8j5SCba97F81tk2pQwC+e1GAhlE4Rjv805xylBSwke+DsEjPDulu8Eu24rFPP4CG1yoc9ssx/p
-	p3H/PXuzXOSpCkC01yl7GQlNRnMB+ZwbbjR
-X-Received: by 2002:a05:6a20:9630:b0:3cd:9f0b:f7a2 with SMTP id adf61e73a8af0-3da39ee15d0mr52148985637.11.1788922527839;
-        Tue, 08 Sep 2026 19:55:27 -0700 (PDT)
-Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324410092sm37176647c88.14.2026.09.08.19.55.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 19:55:26 -0700 (PDT)
-From: Felipe Calliari <calliarifelipe@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: bod@kernel.org,
-	calliarifelipe@gmail.com,
-	hansg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org
-Subject: Re: [PATCH 3/3] media: ov02c10: Accept a 26 MHz external clock
-Date: Tue,  8 Sep 2026 23:55:05 -0300
-Message-ID: <20260909025505.89752-1-calliarifelipe@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ap_CGQTdNFysTLot@kekkonen.localdomain>
-References: <ap_CGQTdNFysTLot@kekkonen.localdomain>
+        d=1e100.net; s=20251104; t=1788924247; x=1789529047;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p1FUeGkvQagUdN35q+3jlHISdBp4xaWpmc1Bwfe0TEA=;
+        b=DFiQTP9yb5x/YCtluQ9Sm1g6ymgKWqb+A6TxnRM5KZQvqhJocUB92LcK6Q9gbP3PES
+         4KWuccO2y1+PDYFdmhVTQXdmZjJMqQvuIZu2fnsPpGkJ9/42iwKsF7IW1T89ZR26zTDF
+         S72ai2Sm+P/sXTy8mEDqU/cPoMUatXFU1T8BUPWOECxa9gaRPpkC3rxFLJZqyn0UBjz+
+         LS/YpwBgl88mwKIrPFJYxGevbqmhC12w8DeKQN/7ckAtMSzq9VzSfr9ldD9qspQe/SYq
+         9c960C5swA2ZTNZyGm9joOb2Wp9eSucntOO7J8fyAjzin3HnxdHZIdSMoL7fgERPRWgD
+         lz6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByZe90f/Y8etIIQGBozIGIIcy2ciNW0me76LMVi2XubaGMdZ5AvPiyt7HtL7tI0EV8Z/ALyvDGNe4NTmA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kpMvAJD/J+ckVDtigbSlADaHnK/eKkXKt2ezUtul2oes2RqM6y
+	BZIJ0CVO51oIcWwRT0W60Jsr03it10JJSJTXqfp1pEfw5+4vq8E9Cbku
+X-Gm-Gg: AYBFou1XGbgDhEJZZ1XarnI19ePXj8VC2tO88D5p1MDSWZO0nkw9QT1Rsi+DM9079Pu
+	dH2d+KTwHq0Q0B++D3yUlpyCYTDDW7/9rxjDr2UtYHKUgjJ9BzWlAc6xLqTy1BfJ6kNDkWCAd8V
+	A5OcBn923yJ5Js96FINy6gGFKyLhtDmw7MP/OHWBDvMzS6El+vtM7CwveOLQg9aQLdyqJh7KLdd
+	ddyj/UKgnmRTbqC9s2o7z3TJ/3dRQalZcMaxG2di3Eo1fBY3TVCVpFgsAs7gAdHbd3EPMhd+unG
+	ESNuIFixzPksvnnp/r61a6Jooa2UuqS9EVSfJhaK3xqURUHFPfCjtpmHDARhJmT853lh3rbfx1+
+	9+1Ufku7vHkK//uKIaOMl5K1KdOWgJ61U1vz1Guci05Sah3HPINs8UEOMsEEycZ5P+W5qrp+LRc
+	s1GcJar+PP5zrA5ms/qD52v33jFW9v0KFk3rrz3cfHWZC+Dys1p0AI7lDA/1OvFbFvneVojOMlJ
+	SHD5/GaBm+9R26lyDj2IgcZbeWu
+X-Received: by 2002:a05:6a00:338f:b0:857:4dea:e1dd with SMTP id d2e1a72fcca58-8616987667emr45679188b3a.14.1788924247208;
+        Tue, 08 Sep 2026 20:24:07 -0700 (PDT)
+Received: from [192.168.1.13] ([106.37.146.213])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045f8bsm6492826b3a.15.2026.09.08.20.24.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 20:24:06 -0700 (PDT)
+Message-ID: <323da6bf-1e7b-476b-8369-a64f1a707778@gmail.com>
+Date: Wed, 9 Sep 2026 11:24:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
+ init sequence
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: hverkuil+cisco@kernel.org, mehdi.djait@linux.intel.com,
+ u.kleine-koenig@baylibre.com, laurent.pinchart@ideasonboard.com,
+ jacopo@jmondi.org, p.zabel@pengutronix.de, ezequiel@vanguardiasur.com.ar,
+ mchehab+samsung@kernel.org, festevam@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
+ <ap_gCH1AnciFIEoa@kekkonen.localdomain>
+From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+In-Reply-To: <ap_gCH1AnciFIEoa@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 Hi Sakari,
 
-On Tue, Sep 08, 2026 at 11:06:49AM +0300, Sakari Ailus wrote:
-> Please don't use a hard-coded value here. Instead, calculate the pixel
-> rate.
+Thank you so much for your review.
+
+在 2026/9/8 18:14, Sakari Ailus 写道:
+> Hi Xiaolei,
 >
-> Registers 0x0304 and 0x0315 (both 16-bit) control the PLL multipliers for
-> OP and VT PLLs, respectively. You could also change the multipliers to
-> arrive in a frequency close to the previous configuration. The values would
-> be 0x28a and 0x1b1, respectively. I don't have the sensor so I can't test
-> this. The pixel rate would be a bit off, 400,307929 MHz, assuming the
-> previous value was exactly 400 MHz. This would also require adding the
-> frequency to the IPU bridge.
+> On Wed, Aug 26, 2026 at 08:54:32AM +0000, Xiaolei Wang wrote:
+>> On the RK3576 platform, after ov5645_global_init_setting completes and
+>> before stream on, the CSI host reports a high rate of CRC errors:
+>>
+>>    MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
+>>
+>> These errors occur exclusively in the window between init completion and
+>> stream on. Once preview starts and the sensor outputs valid HS data, no
+>> further CRC errors are observed.
+>>
+>> Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
+>> the power sequence to properly enter LP-11 during power-up. As part of
+>> this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
+>> with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
+>> 0x02) from init through to s_stream. Reverting this commit resolves the
+>> CRC errors, confirming it as the triggering change.
+>>
+>> Restore the power-down state after init by appending { 0x3008, 0x42 } to
+>> the end of ov5645_global_init_setting[]. This powers down the sensor core
+>> after MIPI configuration is complete, while keeping the MIPI PHY active in
+>> LP-11. The sensor is then woken up only at s_stream time.
+>>
+>> This preserves all LP-11 compliance improvements from
+>> commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
+>> eliminating the CRC errors on RK3576.
+>>
+>> Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
+>> Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+>> ---
+>>   drivers/media/i2c/ov5645.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
+>> index c772ef6e51d2..be85e0155b81 100644
+>> --- a/drivers/media/i2c/ov5645.c
+>> +++ b/drivers/media/i2c/ov5645.c
+>> @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
+>>   	{ 0x3008, 0x02 },
+>>   	{ OV5645_IO_MIPI_CTRL00, 0x40 },
+>>   	{ OV5645_MIPI_CTRL00, 0x24 },
+>> -	{ OV5645_PAD_OUTPUT00, 0x70 }
+>> +	{ OV5645_PAD_OUTPUT00, 0x70 },
+>> +	{ 0x3008, 0x42 }
+> Is the earlier write of 0x3008 still appropriate?
+You're right,  I tested removing the { 0x3008, 0x02 } write
+and the MIPI PHY still enters LP-11 correctly without it. The CRC errors
+are also gone.
 
-Thanks -- re-programming the multipliers is the right approach and it
-does work, just not with those particular values. I tested both on the
-affected hardware (Samsung Galaxy Book3, OV02C10 on a confirmed 26 MHz
-external clock, verified via /sys/kernel/debug/clk/clk_summary:
-INT3472:01-clk = 26000000).
+The 0x02 was a leftover introduced by commit 092e8eb90a7d when it moved
+the 0x42 stop out of s_power() — the sensor doesn't need to be explicitly
 
-With 0x0304/0x0305 = 0x028a and 0x0315/0x0316 = 0x01b1 (each pair
-big-endian, low address = high byte, as elsewhere in this driver) the
-sensor produces no output at all: a 3-frame v4l2-ctl --stream-mmap
-capture hangs with 0 bytes written, no I2C errors are logged, and
-intel_ipu6_isys logs "stream stop time out" / "stream close time out"
-on teardown. Recovering the sensor needed an i2c unbind/rebind.
+woken in the init table since s_stream handles that later.
 
-What does work is scaling the multipliers the driver already programs.
-The mode tables set the OP multiplier to 0x0190 = 400 for a 19.2 MHz
-clock: the common table writes 0x0304 = 0x01, and the per-lane tables
-then override 0x0305 = 0x90. Scaling that by 19.2/26 gives
-400 * 19.2 / 26 = 295.4, i.e. 0x0127, applied to both multipliers when
-the external clock is 26 MHz -- written after the per-lane table in
-enable_streams():
+thanks
 
-    {0x0304, 0x01},
-    {0x0305, 0x27},
-    {0x0315, 0x01},
-    {0x0316, 0x27},
+xiaolei
 
-Measured on the Galaxy Book3, which runs the sensor on two CSI-2 data
-lanes (0x3016 reads back 0x32):
-
- - Reading the registers back over i2c while streaming gives 0x0127 for
-   both the OP and the VT multiplier.
- - The frame rate is 29.94 fps, timing a 400-frame capture against a
-   100-frame one so that pipeline startup cancels out (13.71 s vs
-   3.69 s). The same hardware ran at ~40 fps with the unmodified tables.
- - The exported controls agree with that: hblank 352 and vblank 1236
-   make a 2280 x 2328 frame, which at pixel_rate 160000000 works out to
-   30.14 fps against the 29.94 measured. link_frequency reads 400000000.
- - No stream stop/close timeouts.
-
-295 * 26 / 19.2 = 399.5 MHz, i.e. within 0.13% of the nominal 400 MHz,
-so the 400 MHz entry the IPU bridge already advertises stays accurate.
-That means v2 can drop the second, hard-coded link-frequency entry
-altogether: there is a single 400 MHz entry again,
-v4l2_link_freq_to_bitmap() matches it directly with no index fixup, and
-no IPU bridge change is needed. pixel_rate stays derived from the link
-frequency as before.
-
-I can't account for 0x28a from here: 650 * 26 / 19.2 = 880 MHz, which is
-far outside the D-PHY range the receiver is configured for and would
-explain the missing signal. 650 would only line up if the starting
-multiplier were ~880, whereas the tables program 400 once the per-lane
-0x0305 = 0x90 override is applied. If you meant a different baseline, or
-a different register pairing, I'm happy to test that too.
-
-Two things worth flagging. The mode tables never write 0x0315 (only
-0x0316 = 0x90), so I can't say what the VT multiplier's high byte was
-beforehand -- the driver now writes both bytes explicitly, and the
-readback above is after that write. And the single CSI-2 "frame sync
-error" logged at stream start is still there with the link back at
-~400 MHz, so it isn't caused by the faster clock, as the v1 commit
-message speculated.
-
-Unless you'd rather have it done differently, I'll send a v2 of this
-patch with the PLL re-programming above and the 541.667 MHz entry
-dropped.
-
-Thanks,
-Felipe
+>>   };
+>>   
+>>   static const struct reg_value ov5645_setting_sxga[] = {
