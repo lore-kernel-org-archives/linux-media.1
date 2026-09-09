@@ -1,72 +1,57 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E02F4C6803;
-	Wed,  9 Sep 2026 13:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7894FDE6C;
+	Wed,  9 Sep 2026 14:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961995; cv=none; b=myOiuyz9cm0K+/qYFhzYihP55gR5K1H/m+wvGh6kILVraqfQdgdoky4F9J/2y7feuQCR+HeT5zE8U2f1tZGwfxVPkpqiuGVlsoPjuk7M4wH417mOeDTCnnTwsl/4zR90F2v0PPtCIwNseFaB6WXwK7C9XQxRYySE+5Y0bWJnXTM=
+	t=1788962447; cv=none; b=ShMpnLBko9ZulnqNl/avv4R7TJd55qXDidT4h5wc/t4X6I8S4uc8R/cNVyShtB4n83W5A77dJd1/M14eeuP0xx/P7yBDR6Pednsq9lYk3yh0CJKhaT4VQkAh4Rgk5+4SlvG1mv0Rm+6QiP2N9hwxGXh3+fxMxFfRDz5uxjsEHYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961995; c=relaxed/simple;
-	bh=6AoUbS90Cz+O96DFJFkvxoQrUSNwwRtPy1soc2vXfgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YSMn8nWaAoP2yX1cd4aI9cFuYV9TF4pXnTrzuj3i9wVTRd2z92YcwdLlm70ndg/LJs5PTGOzUxb16TxxW+f1iVQsMuUY8C+LF4ojEjWjwJs1OEdL1v+O+o1KcPH66qUllWuMNSt1mja7RSnbxiTsghU/vqDPcvY+dAZJdyw2JgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sXawcu+9; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=b9Q4YJ6B; arc=none smtp.client-ip=80.241.56.172
+	s=arc-20240116; t=1788962447; c=relaxed/simple;
+	bh=yCeWIIed9NUQt2wO2puHP/5fFt1rUsZBQDhgGEAVpmY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZ/DfGJOVjhh7tIrpI7wjRSN+1VDTwjP4faa0JW3Frp+Krl9BLZg24xcu+d6/1+akqaEqHkLXhOIsF/i32jH0e+I4q6itlrsO/dBkwx/OcaJpHE6dpuBkiVz97pr/HD7bYt+mR7TzuLFrz0tMzyMkNM+nEiWDdiH4WZHvu3RJ8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bCr1yvYu; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=X44VOQm1; arc=none smtp.client-ip=80.241.56.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sXawcu+9";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="b9Q4YJ6B"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bCr1yvYu";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="X44VOQm1"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hg2MB5r8GzMlJr;
-	Wed, 09 Sep 2026 15:53:10 +0200 (CEST)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg2Wv55qlzMlHC;
+	Wed, 09 Sep 2026 16:00:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788961990;
+	t=1788962443;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=iuJQiHvs9iP3PQ03RHys/Ar1s5GNOF4lhn09HnTAQd0=;
-	b=sXawcu+9waCVaP7TSgWjwW3DjhbtBP7mpZzo0sV2ex6EmOrgco4n9ZyPmQ9lHmz4hX1Grk
-	fcunJ7aP3ef+NsMDl+r/HSVnSsSaRVcyq5u2EOLTzLEO4aGXk2w2oG16BWK146WEjzSTVQ
-	H4swSmhlqwQrNURfcNnQbOo6alrCw2uJLQFBj5Kq34gnmICk3cHZVnNwNU+RTvK/RUwI2P
-	m/Fxl3IVB8hJDkgeqqlyvlr/mVKokszggNpFnxQOAQkgJVN644h/k2q5rNURgVtGGshDG3
-	G85ESssSnzmvsiI/F7dlUvusoh4W+JkjJnX3hw4OltTfoc6VMd7/k2EOFuACtA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=b9Q4YJ6B;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+	bh=T+vnc0fChBu8a1hJq5iRP0kdyV0RgFeG8COTLf4lByI=;
+	b=bCr1yvYuAKF58ACbupCnLa4DXuGcitYVKvWQBmwYhFz9PPzPpqfd6aQk2vsmqCln8DZWIx
+	CaJ5lA23i3xrVH/fipl82Oa4GTTMXCK+kY4RnKolDOmuLTNxu5CRIcLwNWaUSNNW0nIPE3
+	IUgL4BO7Bg3YQ5FqynhzYmnSy4USzK+ZO+VUrf/rsiFXWAmeuwBlrsX2TTnWSsLKuH9kW1
+	xzITXU+i3S1z+GoPIgF+DIFrxO/3i/5CXtxYLRcJtXk9h3ZgsNttlex2lIQgy2A0sU3w/4
+	d9n/vAKfl75Pi1Fe9Zli9U622iPYrzHRO/7r7T3vDaI5ettZHmwgHEKiiyBmPw==
 From: Manuel Ebner <manuelebnerli@mailbox.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788961989;
+	t=1788962442;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=iuJQiHvs9iP3PQ03RHys/Ar1s5GNOF4lhn09HnTAQd0=;
-	b=b9Q4YJ6BDbbrtZBPJ74ddbSs3qEZOz2jk2O5p0FXFpij3T2tUFq0LazqWNMVLDNy1/VZAY
-	Vn1FhIP3Xr2jMv3k6qMv5csuADVvseL+sdb+IkKOlh/23uLnp9yWHQ8D6UPpMrrvVE7FRJ
-	LM+EZKXMACwfwG5mNWqCb+bpEOTiYfttW8zShtcwOAs2V/lztonrOpS4nxFQVriYwT/6hX
-	fKa3qHnYap88y4KwoUOaLdgMkgXcq1pSL0su1zDbIzTppy0uoUIJ0xjqxqdPiPXbpb+Ybg
-	PhJbXrdanVjN2DHpLtEyZ6V9y7mhsTHu5w3RosPbi5T6Srro1f7bqwcQ02NyNw==
-To: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+	bh=T+vnc0fChBu8a1hJq5iRP0kdyV0RgFeG8COTLf4lByI=;
+	b=X44VOQm1U5b0kN7PGmKk9CYf7bbsJ++NoY3Uuein6dyLCm+yvXMIb1+dxf1/6fZP7GIMiA
+	jPoEvUWs0awEw0gkdUq6ReuxwmHdL1sDzTgvIdAhqprEeapuzW20SXMGV4lDPvYZ5mZuCT
+	QjU9r3CZm/XBD9cJk3Ry39qfgc2TYzkxlyvvXRj4v5Qj8EK8LIdMQRT68DRPVF4qVqSaSb
+	IzgoHjKnRTQceKUkvUzftmnW+iCQybSfS+yjxBZX++9RY177OYqzniInEke+io2nzw8FKJ
+	uARqBsF55+WaZmAorvgsq8nNNSVxqja56v1UB7nmG+rYt1Dy3Oe/QDkKdZIKdQ==
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH] Documentation/gpu: Fix bracket
-Date: Wed,  9 Sep 2026 15:52:33 +0200
-Message-ID: <20260909135233.1364650-2-manuelebnerli@mailbox.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: docs: Fix bracket
+Date: Wed,  9 Sep 2026 15:59:34 +0200
+Message-ID: <20260909135934.1365544-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,31 +59,29 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: mhwupi7m53zinn4efqm6apnsbpajmcsm
-X-MBO-RS-ID: 454f5675d07381df421
-X-Rspamd-Queue-Id: 4hg2MB5r8GzMlJr
+X-MBO-RS-META: tr8o5r868sk6rkj9mrsp1wys6zzn77xf
+X-MBO-RS-ID: 49179fa391afa16be6d
 
 Remove needless '('.
 
 Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
 ---
- Documentation/gpu/drm-vm-bind-locking.rst | 2 +-
+ Documentation/userspace-api/media/dvb/fe-set-voltage.rst | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/drm-vm-bind-locking.rst b/Documentation/gpu/drm-vm-bind-locking.rst
-index a345aa513..df6cf0132 100644
---- a/Documentation/gpu/drm-vm-bind-locking.rst
-+++ b/Documentation/gpu/drm-vm-bind-locking.rst
-@@ -170,7 +170,7 @@ submission is therefore preceded with a re-validation section:
-            validate_gem_bo(&gpu_vm_bo->gem_bo);
- 
-            // The following list iteration needs the Gem object's
--           // dma_resv to be held (it protects the gpu_vm_bo's list of
-+           // dma_resv to be held. It protects the gpu_vm_bo's list of
-            // gpu_vmas, but since local gem objects share the gpu_vm's
-            // dma_resv, it is already held at this point.
-            for_each_gpu_vma_of_gpu_vm_bo(&gpu_vm_bo, &gpu_vma)
+diff --git a/Documentation/userspace-api/media/dvb/fe-set-voltage.rst b/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
+index 4d09ca587..d780e67d7 100644
+--- a/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
++++ b/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
+@@ -37,7 +37,7 @@ cable to 13V, 18V or off.
+ Usually, a satellite antenna subsystems require that the digital TV
+ device to send a DC voltage to feed power to the LNBf. Depending on the
+ LNBf type, the polarization or the intermediate frequency (IF) of the
+-LNBf can controlled by the voltage level. Other devices (for example,
++LNBf can controlled by the voltage level. Other devices for example,
+ the ones that implement DISEqC and multipoint LNBf's don't need to
+ control the voltage level, provided that either 13V or 18V is sent to
+ power up the LNBf.
 -- 
 2.54.0
 
