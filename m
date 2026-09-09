@@ -1,338 +1,305 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010063.outbound.protection.outlook.com [52.101.84.63])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F303C9890;
-	Wed,  9 Sep 2026 16:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE033C9890;
+	Wed,  9 Sep 2026 16:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971647; cv=fail; b=qux/An2pvgRT0Yes4VfdSboVN0hBWDIk9q7WzCC/AwgDQ+vey1wbTC7KEU9lPngZBLPM2gzntI2x2PZk84H05Los4Gob9eums4Ig5JULE66N2DJxBFwhpsm/718Z9j0GTyd0UrPgxe7lm2IUzpLZIzWrSjnqL+KR7sZdh+7YQME=
+	t=1788971905; cv=fail; b=UYYgGEheynJVPdwNhNzLzPW4mEtbrWUAlYnRtgZFvPYLNLYtsGTLSSRpJo8Nvr1qXNnaljJyOWwJ+7j3bvTIcwY5wXdptBUqr5AyHbvWnH3UJq3SS+Xxv1kOxpUXiB9AjX1nL/2cU3LjsUrDjoaclZ8EBJNiECBPjcJLawOnQz0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971647; c=relaxed/simple;
-	bh=dZMuQQHdsbuQRHzY4cxmcpgvl5bpkGKHwVKHtFExzLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=FDljBmTTkleSMYLvGce4PubgeWu6qoQ0pDGliU8ycNObcLnVQEE9RBDsfFGUkuoPHX2fPf89v5zTOH9KRYv5gBqN/d4hU1jR4qNsO8BV+D6ZeUq7k0ePcmMG/oaM0lfnya6xlV1SrpUqQrZK4L7DnpUAW6vONi9mH1g+UKmIpYs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=si5wlXYu; arc=fail smtp.client-ip=52.101.84.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788971905; c=relaxed/simple;
+	bh=baNkjlTtDwUoPhI9+3o1Zm7lUpodDSGEu76dNmKUgWw=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NVzUGLcSbUU4XV3RQL/KdZoJKRkeMutGJiSvzrxN5vmTUY8PROJkEWQO6LOSy4Cfqugu2S5x80sOaDIuxLj4xRWMZQhJPfsI+LQqhkcXftmG0NZn3MCIbFH4ANayMV27Vn8jmH5rycz/1IPWwZA8tnf/NrKQAgdoj4VgNrSpoTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=i9YaJqOX; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=nVwJbmTK; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="si5wlXYu"
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="i9YaJqOX";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="nVwJbmTK"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6895QtGF748719;
+	Wed, 9 Sep 2026 11:37:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=n9GyTQL0+IrAbJYv8pubv8U1o5Fg4+YOKCFhpvyCky0=; b=
+	i9YaJqOXCo8Uv3k5vFvaf5REsQDMYosaPksuvzxfS0gp87i8lke2X78DEdC0EJVT
+	oxT6CcNaOvYG3laI8JWr0CWABtfvwkinPHPMeEa59TnOuBnQdDkHwwp/W5/Iwf66
+	NYpmdp110LRUNCBBKBEkYhvlQsrz2dO2/1Uj5YNPr3JFeplOVW2nXSPFgZEioflE
+	gSnksp+j3CNAJtKOSKrm88QsTkQwIUX9HsE7eYcy61S4T58QAVOdiFFqxFJDgPh1
+	3CAn06qFWOlc0ZM5I8jn8ttm22v3kjIydrmxTc8gq7D+0H4dfZNg2qD6MgaQKrM+
+	CspDgv6vkmC3ZeLaK7OLDA==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11023104.outbound.protection.outlook.com [40.93.196.104])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4ggfgjwc54-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 11:37:57 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=idgNsJeECaXyhBrBYdgKO0LGRRAOskHWfDIx05Vpr729c5xhGhROHPSy+UPohgZU7UKGqiWnEsOnht7JCmugaNGvEVacFgYK9iJ3hN59dlgZeeCK+n/wdAawNuoRo9EWi3NQ+XBol8rznaMAx2rtIDa0YV2BJuVxrtIKBoRnYA5BZfypmAZs4sVUYrJCeQfZzODqjXHpqc0E/P115Ew3LjVVCMnMzb8QlDyy2EGO1w+e9PxfdZNi6JHlyPugClgphXd+wJ1szYL70l0e2cwOYQDcF9uBtULOpXiADILwHJqeT1GhftwyjcL/qGIHbTKe6/D+BhZiv1WqYc0XzeFCrA==
+ b=SWIifnmwIORxgHobNm2g1vlAJQUFP5tJbuanjx/r5IZ8Tp9ZiWJXuGsQScheGMf4XonDkgzm9uLQiGhuP6uUCmcdlfnzhjKVl7W/lPkkRGahsW5V/yqK/giK3dqCPnDpBERpd9xKKf3g4azxNx1F52qBkNAirUOa9L4AJp/PLof/Q/RCqVXGtE3MQQWc+C1QLsiRpCPUEOfY8BpWGRMOarW1Ut7iCwUlpIZeCJWh6gyUxMj0VEB1CJ/K9+vRTovgHOkWXGZvlF1Tmb5pOa8WGIn3R+KjJqudVj55jTnyBPiQKAiu9wouZuN6RviP4U7Q/4kTfn/PRvAxiAVnJbXuNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uDFpvjlAG5dI9H78MjOXlCjw83BoXamG8H0r6ZNkxMg=;
- b=J24BHFkkC9IaDt28AeJ5CCExKJMTaExWsGNd8CAO89C76H2oD8ePXRPdgDdb96tLuv///mYpNq0PcIn33hthDtohxjBsLOnTXkvYe5+Sc3L4NyjDVnQCiI5o0aa7W2+GnQ8PdcUR1tePrQcDmCdm0GJq9G0DiEwVR8965J8Ihb3NkbIGSlrKmfCZAlxM4kZTSo6kcTXzowmLKSYIlLy6nZiGyV3YYoWjEjgZNoAa+ir06uYwo5lRdA6IAaqI/NBpQQSOu5lRfcEn0kKDjuO0bBR3tLpnd63rbQxeLtxusIe4hbdzG2eydeMRJkfmqiqoYi29aO2BTelN6t7qn57SZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=n9GyTQL0+IrAbJYv8pubv8U1o5Fg4+YOKCFhpvyCky0=;
+ b=n6K83NfXr62ACfPhPg0TYl+s1MZ7ZqIK8Gka/HC66XD5Giy9+jV5MvKosHhCQwhFEfEHdzyH/JeDDIyhQHKOWp4pOsqYWLiOPtXtHP1UkdcS91lpJ5+TQSzh2LBhS6Ed0Hh60tEYDztg+XOT78VN046dqb9XkjmvWUXOXa+nBYxPmCmNvufaQgaVnTaOrswOvk8RL/ah7JJfEt4nyjRTops8nmNBW55a4gw5eRFeNKktztSZSlST9xRdUBB67k1bQ7/YriWs1riGAwB40YAAzUNy5vxexnqno8fc5URCuCp8p0ox2G0Vdtj90ady7NSNQ/K3giSF7zZqcTuBU6KhvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=alsa-project.org
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uDFpvjlAG5dI9H78MjOXlCjw83BoXamG8H0r6ZNkxMg=;
- b=si5wlXYu6bRn0Oh2Ij/cBo8I9luZnLl23Z2rZxC+8sjEOYhfeQ6YiN/ROZIMJfSyvQ45rR7JqFsBFzf7WPbpxy7Ms95Nv3oAqU9XrLz9iSKL59x3jBBIwO2aln8mI8LnJh6khnQO3qZ8LWJu7msPOF3xPcJ8rULUq3AIwSHb4KKipJLws9oIvqDuTNkHd/v+3Kg4XYunhAV0A7zOz/s9Ap7miKOfqqM0b2qWx/W7r0m9nElsqDmTxcJCXHReho87CSxQ0LvcNyykPo/UznwnnHwwy4bVmTn3Lm3+QUfIGn/vdP0gSyWFcZWNNhmutHisghm/WLJ6liAUFm/GdReT9A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by BESPR04MB12586.eurprd04.prod.outlook.com (2603:10a6:b10:fd::13) with
+ bh=n9GyTQL0+IrAbJYv8pubv8U1o5Fg4+YOKCFhpvyCky0=;
+ b=nVwJbmTKtllxhRu2I0xSJQl5DmHvxugr/lgfRF0FGcbgDiMvvW/8vxpMg7Ew6D9vv7cn/u/fFET076tkTwPZ+S6B0HheQxOUPubF+qLK5WJw7wu62LRQMqHD32SfpFfGBD0DQ7PuUfoGyzuNTZnvj2tBod8t0d2y0oDlD++BYiw=
+Received: from BL1PR13CA0450.namprd13.prod.outlook.com (2603:10b6:208:2c3::35)
+ by BLAPR19MB4563.namprd19.prod.outlook.com (2603:10b6:208:293::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 16:34:02 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 16:34:01 +0000
-Date: Wed, 9 Sep 2026 12:33:52 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>
-Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, shawnguo@kernel.org,
-	s.hauer@pengutronix.de, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-imx@nxp.com, linux-arm-kernel@lists.infradead.org,
-	jackson.lee@chipsnmedia.com, lafley.kim@chipsnmedia.com,
-	marek.vasut@mailbox.org
-Subject: Re: [PATCH v7 2/9] dt-bindings: media: nxp: Add Wave6 video codec
- device
-Message-ID: <aqGKcKS8wJ5K6Pwr@lizhi-Precision-Tower-5810>
-References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <d362714624fa5025db50293b1b737d3fa3ce2c49.1788496816.git.nas.chung@chipsnmedia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d362714624fa5025db50293b1b737d3fa3ce2c49.1788496816.git.nas.chung@chipsnmedia.com>
-X-ClientProxiedBy: PH8P221CA0005.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
+ 2026 16:37:54 +0000
+Received: from BN1PEPF00004682.namprd03.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::86) by BL1PR13CA0450.outlook.office365.com
+ (2603:10b6:208:2c3::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.4 via Frontend Transport; Wed, 9
+ Sep 2026 16:37:54 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ BN1PEPF00004682.mail.protection.outlook.com (10.167.243.88) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Wed, 9 Sep 2026 16:37:53 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 15757406559;
+	Wed,  9 Sep 2026 16:37:52 +0000 (UTC)
+Received: from EDIN6ZZ2FY3 (unknown [198.90.190.231])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 6E06B82024B;
+	Wed,  9 Sep 2026 16:37:51 +0000 (UTC)
+From: "Simon Trimmer" <simont@opensource.cirrus.com>
+To: "'Syed Saba Kareem'" <syed.sabakareem@amd.com>, <vkoul@kernel.org>
+Cc: <broonie@kernel.org>, <Sunil-kumar.Dommati@amd.com>,
+        <Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>,
+        <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+        "'Vijendar Mukunda'" <Vijendar.Mukunda@amd.com>,
+        "'Liam Girdwood'" <lgirdwood@gmail.com>,
+        "'Jaroslav Kysela'" <perex@perex.cz>,
+        "'Takashi Iwai'" <tiwai@suse.com>,
+        "'Peter Ujfalusi'" <peter.ujfalusi@linux.intel.com>,
+        "'Daniel Baluta'" <daniel.baluta@nxp.com>,
+        "'Kai Vehmanen'" <kai.vehmanen@linux.intel.com>,
+        "'Sumit Semwal'" <sumit.semwal@linaro.org>,
+        =?utf-8?Q?'Christian_K=C3=B6nig'?= <christian.koenig@amd.com>,
+        "'Mario Limonciello \(AMD\)'" <superm1@kernel.org>,
+        "'Mario Limonciello'" <mario.limonciello@amd.com>,
+        "'open list:SOUNDWIRE SUBSYSTEM'" <linux-sound@vger.kernel.org>,
+        "'open list'" <linux-kernel@vger.kernel.org>,
+        "'moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS'" <sound-open-firmware@alsa-project.org>,
+        "'open list:BPF [MISC]:Keyword:\(?:\\b|_\)bpf\(?:\\b|_\)'" <bpf@vger.kernel.org>,
+        "'open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_\(?:buf|fence|resv\)\\b'" <linux-media@vger.kernel.org>,
+        "'open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_\(?:buf|fence|resv\)\\b'" <dri-devel@lists.freedesktop.org>,
+        "'moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_\(?:buf|fence|resv\)\\b'" <linaro-mm-sig@lists.linaro.org>
+References: <20260909125605.280973-1-syed.sabakareem@amd.com> <20260909125605.280973-5-syed.sabakareem@amd.com>
+In-Reply-To: <20260909125605.280973-5-syed.sabakareem@amd.com>
+Subject: RE: [PATCH 4/4] soundwire: amd: Add BRA/BPT firmware download support
+Date: Wed, 9 Sep 2026 17:37:50 +0100
+Message-ID: <005f01dd4079$8eb797c0$ac26c740$@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGdoSuyUuC41DOMlgdKIIwgCB8tlAJEMkfutzN4owA=
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|BESPR04MB12586:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa0eb137-67f1-42c8-78cb-08df0e902767
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004682:EE_|BLAPR19MB4563:EE_
+X-MS-Office365-Filtering-Correlation-Id: d019e31f-b53c-48b5-a4d2-08df0e90b205
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|19092799006|366016|23010399003|1800799024|6133799003|3023799007|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|82310400026|61400799027|376014|10067099003|6133799003|3023799007|16102099003|18002099003|22082099003|5023799004|56012099006|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	/ipROqXvdNtWOBj7gpuGx7KE6xuZK6J9M3ZlEsqWvqZfyMCi7KdcMpHjP/xQ7ABV6x74oQ+6N4yuxpDlLh/6vFGENqRuCMOJ0Xvap+kLNJR5wB9MaNAg9BoZr7amlCvGpZCjhs9xoSbpVyRaXOZ8skPfzLtUy2HPabhu52i+4j4b0A7U6jO88Lw42f9iNvTZoBluln6/m8nNyRNU/xsNtdb1aTuqO2AMzqLb7P1QFiFDRGYYT4Le8EFTG/lZVLa80R0hsh0Kv52LPSfJEupWbNVKnrSr1Jl7Dth3fwx0j9mx9f00RmRuNwGTCfOlaH2Zu2Kc/KaLH4IbM7kFTWZGFDSNpSwhMbsMrQvA9ABON+iuifH2TMS+2AJ8XA4ndlyWvKpfY6qi+HwfHznEJBXyCoCfIEew6qaNA6vWq1mDvCRnPI4WuoqAaite5I5Ksc1gzJJjasYoY5MO532Zq9/vohFT5vQqFvMwVK11SN0gtGfxAoeUWTvkjaVMHUXN5DMxUaaO3my6MRBhoJM+RCRK4iBPOw/XpkvkwhGSsrzVNQ+4TCnmc0sl1Z6gH7lxQlN+uSw5h/byA6TgCppUCF06n3HcTvF0rcWPeWrFlJR8DQQ=
+	4qzrKvR3rI7tI/3n0Py8yLcpUSReu/y4Xd7EPy9wDe/zwL/moxcfYoTHpDfi46VWv0VgV40uKUSrbyRO6j53eC/6LvPRFeajTankjoAtj2cq5MQ6Gs9IVfGdodZpIZFIpg725k3AphhVdwVUSONMm3E0EHfuHOfMf5p4ZMFEsVsA1nEARZuSFuw+vEdTnGfCwA6QqxjBJsgheizajc5FpHAWPUWuI8P3a9ouxZF1NoO5AY9XuCElctu0+ikX7nmC0OiaBV0hAHMRo523ujJI0vhalq8/1pjWbOvbGZ5gd2X1g6oplqvde1cUnPgJk8Fo49LbBc2ymKyc86OrCThj8n+MQMgm+Qs2O5Rv0GGfw+aJIHtqcWFiZ/Zm1rJDXgGa+cXimgJu1L3WVS7BUJJaE0riHuOek0lyD6wgmosYHAJaKIgXpzEVXvrOe5ISEfD+tORsKyFM+L+GHTx7jibZw5zGXMsnzkXcsjs0R3lNnpBBUCGeamtIrR4EOvnM+POnYHZ/BRSEgdChjZW/c+eKSJwJc5ClE68Gd9moJXsDC2LN/tnc51ehHuSQyscVaBD9Gil3AOSlO7xBnDhkZOQVIe91G9HIeUg8rO6D9gGz3WjBJQyGSaxCOOs6vDxno/y/WdjaHrVOKYpVvrD/6pwShg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(366016)(23010399003)(1800799024)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(61400799027)(376014)(10067099003)(6133799003)(3023799007)(16102099003)(18002099003)(22082099003)(5023799004)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AUODxs/+LCYfalZO6tjTH62GoNy/XC9Ys3pvW0wcywCYvPluulNRPhgOS8Va?=
- =?us-ascii?Q?y7jXwuTlKkmv7kepneW5jyXfacsDNh5KUOdIeQElbxokeEtRSDLRs3NamWmP?=
- =?us-ascii?Q?A61dQTVSWe76BFiDFY6I6nzoJmb48vR5HmaA5sowOFT9rBdCLM5siqkNK+Av?=
- =?us-ascii?Q?0w1JOFxywA5PkKFOewRRd5y6Jj1on7lsnAbtYYHne/vum5m8LkbdMUd4Tg4o?=
- =?us-ascii?Q?4+TbxUMghgXF1ZYbG/pUIEz5nOISUZsK7gGVUNrs6NFqwCX649Ox9oDYKhLO?=
- =?us-ascii?Q?bZ4sd+ytTbI6HqA0zPB1r74BUBlzbTJHzMdRsVNf/SuFZnZ53kgRIubZ8VLL?=
- =?us-ascii?Q?UnSqJYsHDYc+tLxJybZBZDDKnJ6OheST9gEO49a4sub1uQ3CYw3E9iAUFE8X?=
- =?us-ascii?Q?VYR4CvyapfV3dopk5zsXYsFGp9Ng7Q2xEispgfZQfRFSix7S3PrvE0QmERwa?=
- =?us-ascii?Q?uYTUMtNN4A+Vcb4q8hwDuktqhkY97S1MHA7roBnQfddM5ss4AFdNK3b8Y7aH?=
- =?us-ascii?Q?oouJACceJqDpBcpg2MpiBqvFTmNc6jswzwGHUZAXTHEcdHKworqRYdjWmiS2?=
- =?us-ascii?Q?+26H2M5VtsSIgGZ4dxsZc6/dt+e7oaD7xX9JCENpUhV/36Vf8OVY5Gh9DN1t?=
- =?us-ascii?Q?dmhI9DP7RsrmCAjEg2E2ih4T4c++mUea3Bng1JeYsGf0cg440MJei25KnsJg?=
- =?us-ascii?Q?bHg8/99flMEZCdJPjYmiMeVbfaMFjB3OFaljIX3XMQqPEnaD8jPkc0bKZ+9t?=
- =?us-ascii?Q?bhOmG0lAoew8JRI1CzG8YSefmX8JHWX3EE8WzakVWUXVEryFUSmwj1VIA/JY?=
- =?us-ascii?Q?ii+eDjBqxdc18ZaHRYaeENeeFHMEj6dFfQtVW5sk7DfPtnM64YaxM/+UryCw?=
- =?us-ascii?Q?jv6fDYeHwkzLxZyvSFNpAgqLnRYbqW2GHtP7meuxopiXJ1hxm/RrnscE0NV/?=
- =?us-ascii?Q?W53yRonVw2C8z10PzrlBeFoHZF7crFKjkgU10NWDbriFBYzy6maqbmapIDIP?=
- =?us-ascii?Q?R5LXVo/NWI1Qb5ZAmVKno5SXPEeVl5XrwGNu6E1NvQrfzZ9oHqN2cQ47BJQZ?=
- =?us-ascii?Q?VxVs0bQjyz2uHZ3+V6zY6E4jU8bhTPjFkCb0AJse1npozsd9EZg1aSM4vUWI?=
- =?us-ascii?Q?dQK65wkHN8xGxzbseIoREjKaafkhoCCqVhU8DuOvedrf+DVwPwNT8zt8yda+?=
- =?us-ascii?Q?PwX4QOPH6WZLAvlJEkVHRdIj2kkLG1BRrq/XIO+j+Gi3s/18YWiEKIXmBY+o?=
- =?us-ascii?Q?aYlo9Ja8mVpSefIxetSQ4v1ZAaJpsfdmcRLeoDmWHW6Ln0d4XxGgL9wmddFd?=
- =?us-ascii?Q?wH0B99N3EqMCiI11Nll564qSJ/2yHBwkNXx4lHgQOnreLpocoK0W4D8Qr3TT?=
- =?us-ascii?Q?UIC5XtXMTyN14j1b+DYSNtsrL9GfYj1zpeldJcRKyY6CMmx6dWN8vy4zIh3A?=
- =?us-ascii?Q?Kk4Ip/JE71jZZpdvksG0po2XIONenfa/p7Zh9qCrVdOydoIsRKao9rFRYfj9?=
- =?us-ascii?Q?GhJ13teQICXIEpv2rzLbpo0kWJhI5BN85tiXA4WHKz5B2feJgrDWMy4lIUlO?=
- =?us-ascii?Q?VNRfenKGJcGoOADXAVq6lyIh1nbAVqktPLFBZhQw1jKfdOhyFtYBbUIy3Jkq?=
- =?us-ascii?Q?XWEvRT2+X43GeToVMh9lRj+ZEIHamS7fd3xucP1Se/CwY6WR/rIAxDgMgku6?=
- =?us-ascii?Q?N/IcANoaNsNWsOUMyx/EF0mlxbcL8lFGxaTvsgLqEX2ydMvXxr8uEit7z7Ed?=
- =?us-ascii?Q?6O1avEASCpeNfaw7W8CX53WEOwkMkz2BpzPdSwQkOfnm39yLntfa?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa0eb137-67f1-42c8-78cb-08df0e902767
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:34:01.6224
+	jt2Y9DSRQu/SkIwY4rNtdPWs0c9Q7xm82mL9+VxsIiOnPxaQNasKMNh6LG3goYqKLak854jHtwTmVyv3uFD7SexTgSVDMxugb/8FlhMkeaDPQkdMz2HErvX9Tc5f+3hKzOxBDv8BrBgl9sLAhSAya8yF/kFz1Apa1o8DZWxJRc87x8V6ylgGfqy/dgDKzU9FIK0NI04aOFH0xCqAWyXwDNE0GooHN1xpRpFGCqqMclaDx4G0w1wPWwydeR18ViJ63ivMSM8CFdNzctUjA273P4VgvQYNU/WTxrQXuVn2ImeKJ2REQMUX3onyN8IElSGVmu3LP8/iKJyWyUg++EDpdE0boZTAslmy4lrOIk1Y6gUdDcxsA+l0PcaKDtMA88qm7sVE3KtBlfIsm3r7e2IryI9RNkcifDuMaBNk+9rM/PwEUflYf4omQRQUjOZ0wvJX
+X-Exchange-RoutingPolicyChecked:
+	Vc4x3ucK0y3Ktl2qzmtubtLAXcC5yJn4J1TZHymLpaSDDlbSGso6EKR8DCvRKJU06NAOzPrjzsIp/lWz0eUcNcuFLnIxM/GcBo+1EL1cYvKb9ib6qcUWxtHwGzhDnC9zhCnBuNmjt80xxwke8xdGbmfGZMKFaPfi/H+6LotuuahYF3ZRre3RBPv9NAd6XFQ6xqlyRYjj4uS1VXBbcfSqy9Uc/pXwce+UZbaNB69EFtUY37wZWCmtdfrrcfVFdOnLlUQ5hwk/Uq8tO7qAIdPPEfNJk242uUEYzSt5+9m2AwqF68L5OSIxCctJNgsSvihzAoNSm5hwB8wKsUKwfmlDoQ==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:37:53.2472
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xIKi/6FRY9235vz78kQqQDANyu6c45X5fdYQCgg2bHciJ2IzbXQcpqD+Bcv/fCAEjI/MgP19fMGhikuz899xKnOeVLWbr9Na/ntzc5/Bo1qY2CvrOFHQ9jbiIMmRaY87
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB12586
+X-MS-Exchange-CrossTenant-Network-Message-Id: d019e31f-b53c-48b5-a4d2-08df0e90b205
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN1PEPF00004682.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR19MB4563
+X-Authority-Analysis: v=2.4 cv=bpd8wkai c=1 sm=1 tr=0 ts=6aa18b65 cx=c_pps
+ a=EVpx2ZihuBqvmejMdARm+g==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=bC-a23v3AAAA:8 a=w1d2syhTAAAA:8
+ a=uZzwGd-9-BIvK6WoOsIA:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE4NiBTYWx0ZWRfX1tAdsbXZ9x6u
+ stDJksiT97yWSp3qwjK0bv0I4SOXEwYcssoP2ziCfGqOut0WYuxbVxP7VOXYdP+1jQLDJ+56FL1
+ miGfgGoKjmQ/JAaRiFbA3ryArJjRuId5GLitYDpFyY448pAxVSvx2SL4VpfbWglfKSAgP2SnAv4
+ vBFcGx3io2FVjpRzcQCuqJyDGBYoaP6i/Y2lmMPOBRijM1ci5U+LmX8YOIPNLyU7HMIAYjxeA0K
+ TQzZnYLgvDThE9n68Si9QFLWXVlixMFWVYgda/8AaaPArWztxbSR2k0trMjrGo/xQI4L3/tCYe/
+ +xJDldpHurIEfS2S/Dyba5yjAriaRAp38LHrVjxcuo/e5+5w3eeS+WGgL6BCWeqNzgqyPdFXcrE
+ fzz4LGapRwro9G+D7xR/ukQ2EopAjacGuEXyJOgksQXps8MnO5Ds2aIJhbL7lASLev7koh6hMZq
+ eSz+akj9gDbmzY8f5ig==
+X-Proofpoint-ORIG-GUID: vT3VdxSoPFjIf6A2ueIhIDFM1cypMhPz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE4NiBTYWx0ZWRfXyLHthvaQBywx
+ J9xw3x6jSHug6iColQMATSgFd2h+wtI8aAXDxMG4FLqwW9j5aZiBsm56F0CIBp3885JMbprinTx
+ 9Gdr4I2n8OnmF1wRu1JoNriYmVgYcwY=
+X-Proofpoint-GUID: vT3VdxSoPFjIf6A2ueIhIDFM1cypMhPz
+X-Proofpoint-Spam-Reason: safe
 
-On Fri, Sep 04, 2026 at 03:46:28PM +0900, Nas Chung wrote:
-> Add documentation for the Chips&Media Wave6 video codec on NXP i.MX SoCs.
->
-> The hardware contains one control register region and four interface
-> register regions for a shared video processing engine. The control region
-> manages shared resources such as firmware memory, while each interface
-> region has its own MMIO range and interrupt.
->
-> The control region and each interface region are distinct DMA requesters
-> and can be associated with separate IOMMU stream IDs. Represent the
-> control region as the parent node and the interface register regions as
-> child nodes to describe these resources.
->
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-> ---
+Hi Syed,
+I'll look to try this out this week!
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+The code has changed a bit since I last looked at it properly, I had a =
+query in amd_sdw_bpt_wait() and I think this may be missing =
+bra_block_alignment support that recently entered the tree in  =
+https://lore.kernel.org/all/20260728124639.1484973-3-yung-chuan.liao@linu=
+x.intel.com/
 
->  .../bindings/media/nxp,imx95-vpu.yaml         | 162 ++++++++++++++++++
->  MAINTAINERS                                   |   7 +
->  2 files changed, 169 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
->
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml b/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
-> new file mode 100644
-> index 000000000000..aa7dd8838af0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
-> @@ -0,0 +1,162 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/nxp,imx95-vpu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+commit c0840f8be5d59071096b8e6b42693a0d912b7cba
+Author: Richard Fitzgerald <rf@opensource.cirrus.com>
+Date:   Tue Jul 28 20:46:36 2026 +0800
+
+    soundwire: Add bra_block_alignment property support
+
+    Add a property to struct sdw_slave_prop equivalent to the Disco
+    property "mipi-sdw-bra-mode-block-alignment".
+
+    The SoundWire Disco specification defines this as:
+
+    "The data payload size for this BRA Mode shall be an integer
+    multiple of the value of this Property."
+
+    Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+    Co-developed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+    Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+    Reviewed-by: P=C3=A9ter Ujfalusi <peter.ujfalusi@linux.intel.com>
+    Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+    Link: =
+https://patch.msgid.link/20260728124639.1484973-3-yung-chuan.liao@linux.i=
+ntel.com
+    Signed-off-by: Vinod Koul <vkoul@kernel.org>
+
+Thanks,
+-Simon
+
+On 9/9/26 13:56, Syed Saba Kareem wrote:
+> ...
+> - Non-contiguous firmware sections are handled by iterating
+>   per-section: large sections use BRA DMA, small sections
+>   (< one BRA frame) fall back to sdw_nwrite/sdw_nread.
+
+Query about handling of contiguous small sections
+
+> ...
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> .....
+> +static int amd_sdw_bpt_wait(struct sdw_bus *bus,
+> +			    struct sdw_slave *slave,
+> +			    struct sdw_bpt_msg *msg)
+> +{
+> ...
+> +	 * Prepare DP0 via SoundWire framework so the core programs the
+> +	 * peripheral DP0 transport/port registers and issues PREPARECTRL.
+> +	 * This is invoked from the BPT transfer context (firmware callback)
+> +	 * and not from update_status(), so it is safe w.r.t. sdw_dev_lock.
+> +	 */
+> +	ret =3D sdw_prepare_stream(bus->bpt_stream);
+> +	if (ret < 0) {
+> +		dev_err(amd_manager->dev,
+> +			"BPT: sdw_prepare_stream failed: %d\n", ret);
+> +		goto deconfigure_pte;
+> +	}
+> +	dev_dbg(amd_manager->dev,
+> +		"BPT: stream prepared, curr_bank=3D%u next_bank=3D%u
+> state=3D%d\n",
+> +		bus->params.curr_bank, bus->params.next_bank,
+> +		bus->bpt_stream->state);
 > +
-> +title: Chips&Media Wave6 Series multi-standard codec IP on NXP i.MX SoCs
-> +
-> +maintainers:
-> +  - Nas Chung <nas.chung@chipsnmedia.com>
-> +  - Jackson Lee <jackson.lee@chipsnmedia.com>
-> +
-> +description:
-> +  The Chips&Media Wave6 codec IP is a multi-standard video encoder/decoder.
-> +  On NXP i.MX SoCs, the Wave6 codec IP exposes one control register region and
-> +  four interface register regions for a shared video processing engine.
-> +  The parent node describes the control region, which has its own MMIO range and
-> +  manages shared resources such as firmware memory. The child nodes describe the
-> +  interface register regions. Each interface region has its own MMIO range and
-> +  interrupt.
-> +  The control region and the interface regions are distinct DMA requesters.
-> +  The control region and each interface region can be associated with separate
-> +  IOMMU stream IDs, allowing DMA isolation between them.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nxp,imx95-vpu
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: VPU core clock
-> +      - description: VPU associated block clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core
-> +      - const: vpublk
-> +
-> +  power-domains:
-> +    items:
-> +      - description: Main VPU power domain
-> +      - description: Performance power domain
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: vpu
-> +      - const: perf
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +
-> +  sram:
-> +    maxItems: 1
-> +    description:
-> +      Used to store reference data, reducing DMA memory bandwidth.
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  "#cooling-cells":
-> +    const: 2
-> +
-> +  "#address-cells":
-> +    const: 2
-> +
-> +  "#size-cells":
-> +    const: 2
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^interface@[0-9a-f]+$":
-> +    type: object
-> +    description:
-> +      An interface register region within the Chips&Media Wave6 codec IP.
-> +      Each region has its own MMIO range and interrupt and can be associated
-> +      with a separate IOMMU stream ID for DMA isolation.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +
-> +      iommus:
-> +        maxItems: 1
-> +
-> +    required:
-> +      - reg
-> +      - interrupts
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - memory-region
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - ranges
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
-> +
-> +    soc {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      video-codec@4c4c0000 {
-> +        compatible = "nxp,imx95-vpu";
-> +        reg = <0x0 0x4c4c0000 0x0 0x10000>;
-> +        clocks = <&scmi_clk 115>,
-> +                 <&vpu_blk_ctrl IMX95_CLK_VPUBLK_WAVE>;
-> +        clock-names = "core", "vpublk";
-> +        power-domains = <&scmi_devpd 21>,
-> +                        <&scmi_perf 10>;
-> +        power-domain-names = "vpu", "perf";
-> +        memory-region = <&vpu_boot>;
-> +        sram = <&sram1>;
-> +        iommus = <&smmu 0x32>;
-> +        #cooling-cells = <2>;
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        ranges;
-> +
-> +        interface@4c480000 {
-> +          reg = <0x0 0x4c480000 0x0 0x10000>;
-> +          interrupts = <GIC_SPI 299 IRQ_TYPE_LEVEL_HIGH>;
-> +          iommus = <&smmu 0x33>;
-> +        };
-> +
-> +        interface@4c490000 {
-> +          reg = <0x0 0x4c490000 0x0 0x10000>;
-> +          interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +          iommus = <&smmu 0x34>;
-> +        };
-> +
-> +        interface@4c4a0000 {
-> +          reg = <0x0 0x4c4a0000 0x0 0x10000>;
-> +          interrupts = <GIC_SPI 301 IRQ_TYPE_LEVEL_HIGH>;
-> +          iommus = <&smmu 0x35>;
-> +        };
-> +
-> +        interface@4c4b0000 {
-> +          reg = <0x0 0x4c4b0000 0x0 0x10000>;
-> +          interrupts = <GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>;
-> +          iommus = <&smmu 0x36>;
-> +        };
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8d9648737e92..7387a11facbe 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29233,6 +29233,13 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/media/cnm,wave521c.yaml
->  F:	drivers/media/platform/chips-media/wave5/
->
-> +WAVE6 VPU CODEC DRIVER
-> +M:	Nas Chung <nas.chung@chipsnmedia.com>
-> +M:	Jackson Lee <jackson.lee@chipsnmedia.com>
-> +L:	linux-media@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
-> +
->  WHISKEYCOVE PMIC GPIO DRIVER
->  M:	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
->  L:	linux-gpio@vger.kernel.org
-> --
-> 2.31.1
->
+> +	if (amd_sdw_sections_are_contiguous(msg)) {
+
+Have we dropped handling of when a contiguous transfer is less than =
+bytes_per_frame like in the non-contiguous case?
+
+> +		/*
+> +		 * All sections are contiguous in peripheral address space.
+> +		 * A single BRA call covers the entire firmware image.
+> +		 */
+> +		ret =3D amd_sdw_bra_transfer(amd_manager, slave,
+> +					   msg->sec[0].addr,
+> +					   acp_sys_addr,
+> +					   total_len, is_write,
+> +					   &dma_unsafe);
+> +		if (ret < 0) {
+> +			dev_err(amd_manager->dev,
+> +				"BPT contiguous transfer failed: addr=3D0x%x
+> len=3D%zu ret=3D%d\n",
+> +				msg->sec[0].addr, total_len, ret);
+> +			/*
+> +			 * Skip the read-back copy below so a failed read
+> +			 * cannot return stale DMA buffer contents to the
+> +			 * caller as if the transfer had succeeded.
+> +			 */
+> +			goto deconfigure_pte;
+> +		}
+> +	} else {
+> +		/*
+> +		 * Non-contiguous sections: each section targets a different
+> +		 * peripheral address range.  The ACP BRA DMA engine is
+> +		 * triggered by sdw_enable_stream() (bank switch +
+> CHANNELEN), so
+> +		 * each section needs its own full config -> activate ->
+> +		 * run_dma -> deactivate -> deconfig cycle.
+> +		 *
+> +		 * Sections smaller than one BRA frame (bytes_per_frame)
+> +		 * cannot be transferred via DMA because the engine never
+> +		 * starts for sub-frame payloads.  Use regular SDW register
+> +		 * read/write commands for those tiny sections instead.
+> +		 */
+> +		offset =3D 0;
+> +		for (i =3D 0; i < msg->sections; i++) {
+> +			if (i < 3 || i =3D=3D msg->sections - 1)
+> +				dev_dbg(amd_manager->dev,
+> +					"BPT nc sec[%d/%d]: periph=3D0x%08x
+> len=3D%u acp=3D0x%08x\n",
+> +					i, msg->sections, msg->sec[i].addr,
+> +					msg->sec[i].len,
+> +					acp_sys_addr + (u32)offset);
+> +			if (msg->sec[i].len < prep_params.bytes_per_frame) {
+> +				/*
+> +				 * Section too small for BRA DMA -- use
+> +				 * regular SDW byte-level commands instead.
+> +				 */
+> +				if (is_write)
+> +					ret =3D sdw_nwrite_no_pm(slave,
+> +							       msg->sec[i].addr,
+> +							       msg->sec[i].len,
+> +							       dma_buf +
+> offset);
+> +				else
+> +					ret =3D sdw_nread_no_pm(slave,
+> +							      msg->sec[i].addr,
+> +							      msg->sec[i].len,
+> +							      dma_buf + offset);
+> +				if (ret < 0)
+> ...
+
