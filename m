@@ -1,107 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D7D57981C;
-	Wed,  9 Sep 2026 13:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5680B5650F4;
+	Wed,  9 Sep 2026 13:36:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960491; cv=none; b=sbGJtJKUzITG8HQiD37BmuI0YcvgNJdtB8BEHEdH8YtdMxAxGU+yrLLzSVGZhcybL+ds8VxF4vzziUUw7aagUolz5ztOduTngKV24b6LJYRG76Kp51O42YoIGGQUBPqySOrnwvRHdJKGC/stcSWXXMQwIWVq+cDjjUwfw7JPgsI=
+	t=1788960968; cv=none; b=jotLBf59vhj7ruvWKObv3y5s4QMc53ZhbpLK1DiV9OuswVDr5+mGdOaQlaagy7rT+W+qiDeE8I/F0Kcfq2/oGsBEHqVsm6yOd5Od+UMs0+eM+QDtgkEZsjy7zH9pcv6x83ARzjIMNpQ9feDhblNkifAvNZYQq+Cx1NaaXmez5oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960491; c=relaxed/simple;
-	bh=/hlzJNzei2knOn1RYcaTNkb4UoqZbwgVsH5KNit1MHs=;
+	s=arc-20240116; t=1788960968; c=relaxed/simple;
+	bh=UKFB77CAlNqkAbTNPoe0QFjLaAHPO6A4bFJtevGcw50=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z9oVulXpzlgva3wYektP1omFy5KrfwNhigc0FV54Q53VOzqWgsd0r3jGIGX3PaycuLNCZR0eWMlwUqeR3UhveKhUZuZB2i/NWzGD4kJFGI5eHRcWAROQ6sZOuT9jw9i/cCeQTeJtLiM/iQvC/NR8n+U/vsoU9KhNk+REVdkfZ4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eR5D3nm1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DmlN2ECEi9xJiGiAPY+H39F1eDPeu/g434rCLrdokQysRjo1f1Dogtl2f6UIzNOFCBHdQ8Inc1cl1m8VyQ5aL2LM9CipLFyDsGWd+/I/AgtM9x6s3awvbJ6xmjaliZww3IlLwkSv0Xd3/8QERVCZpLSY4wx0MxP8O3aDGKMxnEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2PJImAPi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eR5D3nm1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C301F00A3A;
-	Wed,  9 Sep 2026 13:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960486;
-	bh=/hlzJNzei2knOn1RYcaTNkb4UoqZbwgVsH5KNit1MHs=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2PJImAPi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B87A1F00A3A;
+	Wed,  9 Sep 2026 13:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788960966;
+	bh=WnpS2yGxKI44jYHhvDpX+wa+5acQMRQRU+9l/6MzidY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eR5D3nm1CPgbjmHPZ0Vv7T4vdNRF/43OgybS94gl2A9fsyrl4gGmKe6vwaT3jfTzX
-	 +jD4I9IGrYtGuGXb5/A7jnHJvsDKGHllhymRTLq9kCq/SQi87n+n9y8sD4xk8HYc4W
-	 1FMZTsqHXMX6M3yTH47nD27tyCXLTKlR5oFEGKYxbRLJ27lUqEnoIOljlrumgyldGk
-	 vQ0EiMkovKU1SvLxEK2ji2FQp/hgc7rRh1M5u3fknsEg1fK7g7esz94rpEqvklnBCa
-	 BYmZFTXxMbawW0CHZITqBgDveaise1uxWGeZVkrhXq8mgPMzdHFvBAlr06emaY0HNc
-	 eC2FsYwPx3u3A==
-Date: Wed, 9 Sep 2026 14:27:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 04/14] mfd: remove unused wm8400 driver
-Message-ID: <76d70b0a-a3c1-4051-84c9-77afb715c4a8@sirena.org.uk>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-5-arnd@kernel.org>
+	b=2PJImAPiXTNHRQ7hP2x3oYT0BLtP1K511PRmOlIgApf57TwmUNurL976ZqzkF7JMQ
+	 zy4BCLjinkulIlTgqoBJgyVxudGDsCtY59l8Qa1OWHGGCsPRBhZgpNIXk6vmFDs6Rg
+	 YxtEK2boO7fMsSbWTfcTPazN2t+BJk3gev9PCSB0=
+Date: Wed, 9 Sep 2026 15:35:59 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Li Wang <liwang@kylinos.cn>
+Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
+ io_uring
+Message-ID: <2026090924-corsage-shout-833d@gregkh>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <2026090913-landline-encroach-c544@gregkh>
+ <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="E7vTznbJl/k8Ppdd"
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-5-arnd@kernel.org>
-X-Cookie: Postage will be paid by addressee.
-
-
---E7vTznbJl/k8Ppdd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
 
-On Wed, Sep 09, 2026 at 03:21:41PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> This driver requires a platform_data definition, which does not exist
-> in the kernel.
->=20
-> According to Mark Brown, the hardware supported by this driver was never
-> shipped in production.
+On Wed, Sep 09, 2026 at 06:42:03PM +0800, Li Wang wrote:
+> Hi Greg,
+>   Thanks for the review!
+> 
+> > 
+> > That's not really needed in a changelog text, it could be in the 0/X
+> > patch :)
+> > 
+> Sorry for the clutter. I will move most of them into the 0/X patch in v2.
+> 
+> > Anyway, you didn't cc: the io_uring list, why?
+> > 
+> `scripts/get_maintainer.pl` didn't output the io_uring mailing list, likely 
+> because this patch doesn't directly touch the io_uring codebase itself. It only 
+> enables remapping GPU memory buffers to CPU virtual addresses, which can then be 
+> consumed via standard io_uring APIs.
+> 
+> I've added io-uring@vger.kernel.org to CC for this reply and will keep it in v2.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Great, as you are using that as the api, there might be some parts that
+will need to be reviewed by them.
 
---E7vTznbJl/k8Ppdd
-Content-Type: application/pgp-signature; name="signature.asc"
+> > Nor why "fgds" is the name, that's going to be hard to remember, does it
+> > stand for something?
+> > 
+> "FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
+> technology enabling direct I/O between GPU memory and files on NVMe, 
+> widely used in LLM workloads to bypass CPU overhead.
 
------BEGIN PGP SIGNATURE-----
+That's nvidia's specific solution, but this works on other devices,
+right?  Or just for that one platform?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqhXtwACgkQJNaLcl1U
-h9DKkgf/RLbTE5UB6RL3Q66U8VBY9ivEji//LxLXmZDVRMWW85M/tZkuimYXhr1H
-qRZzWzsDpkIZhMa5DFLZxJGgVhSyRq9lmv40QYt8TboWu0+dKRy4nuB95+RSTNWh
-fjmkSjHkD/A3ELOP2Q/9B/cCFXsbGXHwS8eXeJVkuaDa1BSP3E7o1l338kofZy5F
-KyFWqJgxYKL/U82xSTvj04+NKj++SorlCIGShW9hgF11hhNTRHMwW8uF2pksnopN
-W8URlMgbSAEsELUabpsbzCFqwtnOJZU2y2vWAICyNt491Nctuj5oUx6D3c0HFsnZ
-z8z8A5SciRK3sUB/+Uh4thfPneAMHA==
-=lTKT
------END PGP SIGNATURE-----
+And you are using this as a "bypass" for the normal accel subsystem,
+shouldn't this be part of that subsystem instead of a custom user/kernel
+api like you are creating here?
 
---E7vTznbJl/k8Ppdd--
+thanks,
+
+greg k-h
