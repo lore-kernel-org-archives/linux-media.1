@@ -1,76 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD493AC0C2;
-	Wed,  9 Sep 2026 08:21:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A73243F8D4;
+	Wed,  9 Sep 2026 08:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942091; cv=none; b=MAvJnQKWa/ns6xRt/chWgbU4g1KN/kDXy64h4hRKL3UAN5N559uETgQ0l4t2Ipx9xyc8QSCiBIooxlzrePJ7t/ogP6tthcasFMZ9aNy3Kh8aDjVF/yk2v6rseXBxk4enhjKa/r7+n+3S774GOW0dTcvL8JPuY0KZgmvo7lbaZME=
+	t=1788942389; cv=none; b=QAgHZ5seKzhEc3W216lBeLIF/7H5s4/8R/5Q0h9DRrwfzxs75QGALOrmrRB4hlg2HVBaBbfIsVqY3n35ouDSqPFTwKyZv/vLTx/4NGajWpZFNbeQE7krB+fBLCTluD/zSqRaphRAaF5o/wmmoAH0CjtqPFpdXUaQeUmIa8GqPC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942091; c=relaxed/simple;
-	bh=xfb0Wzew+R7zeB/yi0ZYgBmPemtk8sPpgjFzx6ncOs4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JHfa2URIlu9+72qzEXzRCPcPA0qPoTkJ0Qij8iU2ALMowk4OsoEro4O1OrIsPqh0ggHCpvjwAsbWEV0j7IpObBkEORzWtOiR6cbZ8PqrOQaZbso5iOWdKUMW6SaN7WFuq3XJt4odHJ4a0hTuuCDoLyJexVzhr4NGp1eft5o+JNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8CpD/eD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788942389; c=relaxed/simple;
+	bh=3HL2xlzweF3ntRDobRFAjcOI9mzIS+oicd6CAejua20=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d1VW+d/ro28+eh40j0MVn8rxXfY/ErgVwtqLitGE6pqz0yQTt6cZxv+0GBQoe0nozSjoJcDnG0GPgJC/qR6Z64jhCyDiVDJPvu4BNJy4ecoQWS3xgD411RYYhGZ2aawcJew41LaCS+IAdbVYsilASey3U3lRi9YyVenbZODmbOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmOQijkz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8CpD/eD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05BA1F00A3D;
-	Wed,  9 Sep 2026 08:21:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmOQijkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A70B1F00A3A;
+	Wed,  9 Sep 2026 08:26:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788942089;
-	bh=htpSjkXY6vojAXd63F4/3HumHgDzCLRSNWNnl4AdJTU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I8CpD/eDkyw/BDcPDKAI1JvO7dgdGy5Ppv93Y3ztOmnDDZCDHuJUwG9rUt8GQXcpb
-	 zRQUeQtP9KbJzSPn10+nbVswAd+2HpNBifrqcSQq2DAwNxgk2ppa2Q+16fshh/o+46
-	 HmNckY56VujToRUjYe4/8xTB9GIUqlSHk2mEkBF36FFb/ysPWoAcupDCoezp+XfCCV
-	 qicDsPVocMvmz3K6kjcWl0KYq36IOMnnZJsuKJ1Dqq8FIBFg9/KwQR2DqeNVwCoSLF
-	 0AlgnfLocb2SCHtK9UfER6zuoo6y6dAGVpAkffQQcIZX0sCvE/omy8+oiWBTAsWb59
-	 gRaEH+vi0SbiA==
+	s=k20260515; t=1788942386;
+	bh=QIGfvCfOQJAE4icgenOha77EcH8CayIs5qvqBgou88A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lmOQijkzsS43CgNsuhr1NodI2f94LyoS5ZUF/Bbf3EDX4VBK3xK9zPp8xDv+ENd0O
+	 01F+pUt/inTAFYA26A/C+htkBXDnZHeZGPqc/pW9SrZo+sm1i0kY/c0JlVBpVhKi3M
+	 9Uf4UdMDqI8yYukCElCliPsDrg6AmQf1YVmKUjJmX0zPsT3rQBOs6P1bzrBt7x0t1h
+	 TOWogpCVNC7UHvFnPefO/Mu/LAJbcjmTXtsWTtmPoYFpZ1BwklfRq3EmjxY3JJEpXh
+	 sqIBl7XWqTivIVlOJkUkTAR5GT/FILAl6vLfmvK9wSthIWXPQxQfSShrtKrdrWzCH6
+	 1m8ejAFPBL+rg==
+Date: Wed, 9 Sep 2026 10:26:21 +0200
 From: Thorsten Blum <blum@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thorsten Blum <blum@kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Subject: [PATCH RESEND 2/2] i2c: Change return type to bool for i2c_check_functionality()
-Date: Wed,  9 Sep 2026 10:20:56 +0200
-Message-ID: <20260909082053.410739-5-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909082053.410739-4-blum@kernel.org>
-References: <20260909082053.410739-4-blum@kernel.org>
+To: Michael Tretter <m.tretter@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND] media: i2c: isl7998x: Inline
+ i2c_check_functionality() check
+Message-ID: <aqEYLaBDiXIqU9pl@kernel.org>
+References: <20260909075032.409159-2-blum@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=981; i=blum@kernel.org; h=from:subject; bh=xfb0Wzew+R7zeB/yi0ZYgBmPemtk8sPpgjFzx6ncOs4=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkLxZ7dDStyiWFrm5zrbq8wpSGDOaU8sm9WY8SLuf/ei c58pFzVUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABNZwMbw38nU9+bGH2ppd5az M2xkSZ7xWbyk49Vxzvm7rOfPm/z+4jNGhkbXBw/fK11+6F0gv8NTxkMiYkm7bNOjq5fel8/UNOZ S4gAA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909075032.409159-2-blum@kernel.org>
 
-i2c_check_functionality() returns a bool - change the return type from
-int to bool and update the comment accordingly.
+On Wed, Sep 09, 2026 at 09:50:33AM +0200, Thorsten Blum wrote:
+> Inline the i2c_check_functionality() check, since the function returns a
+> boolean status rather than an error code.
+> 
+> Reviewed-by: Michael Tretter <m.tretter@pengutronix.de>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/media/i2c/isl7998x.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Acked-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
----
- include/linux/i2c.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I just sent this to Wolfram directly as part of a small series [1] for
+him to apply. Please ignore this earlier resend from today.
 
-diff --git a/include/linux/i2c.h b/include/linux/i2c.h
-index 14ab4d3055af..4af2df969a05 100644
---- a/include/linux/i2c.h
-+++ b/include/linux/i2c.h
-@@ -919,8 +919,8 @@ static inline u32 i2c_get_functionality(struct i2c_adapter *adap)
- 	return adap->algo->functionality(adap);
- }
- 
--/* Return 1 if adapter supports everything we need, 0 if not. */
--static inline int i2c_check_functionality(struct i2c_adapter *adap, u32 func)
-+/* Return true if adapter supports everything we need, false if not. */
-+static inline bool i2c_check_functionality(struct i2c_adapter *adap, u32 func)
- {
- 	return (func & i2c_get_functionality(adap)) == func;
- }
+[1] https://lore.kernel.org/r/20260909082053.410739-4-blum@kernel.org/
