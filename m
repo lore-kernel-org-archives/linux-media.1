@@ -1,130 +1,200 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBEC379EC1
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 17:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5018336A37B
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 17:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974823; cv=none; b=IAXOGLISeLtFyp36ATXE8sS4B9b1xW0WouGczvhVYPeG2Zd9EzWI3KZdhzmWP/23VJNz1Nm8huCI2ueRTHLnWWW3YfnCtLSbiIpYu5SuVd3V1DltEhMl0PsTNuFyqSl5hDRk7RbeEBsizAewZjCjgPc/mAlkoJ8f31TKBG4vVzc=
+	t=1788975778; cv=none; b=RbDUDbC0R8PlS3qgTgbQN7Fm3M6fmTxsra5nQbYsYlc3/4R3jo6ngBPXFHzJ5+nItfSd9NyivE8oT2AGrT9JnJZ5bHhWdVdWCRoiwtUb/BhFx2HUp2xUs4pNKS1hcxCBPQ+fn31+5lmaI4hTNJ7bvUiBHobCw/RDNjT8Wz8cMQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974823; c=relaxed/simple;
-	bh=SUxP5gT1ZaOy4mmgP6chw0Cr8VRY83cgnbGtN/GeIrM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Juba0PEXZLUnv5bkxUONe2kx0MkAELpdJM4IJ6oA4Ev5GeJdzMl39vhC5tJ7Qktne4uw8wdBnNE+rZObQrIfWrZFZW+kMl9M27PAV8HW66VIDTA4EGjuCpuEssc4D2Wb+anS8tHuazrpTkfGsKMWUSd+azwpmLFh2ynnACbgodo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jI6Ly9NO; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788975778; c=relaxed/simple;
+	bh=fFT/O0T1JxApXw60wkG0sWmGhdB+/4tt7YtR9kLb3E4=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=R4sXXbmRMMIuchlIqlK621yblvWbWxM0gS4+qgMHf5TdlrmkN6oOl/Z8Fix/Jkf+WCCfRESM7nR5RHCYYfktkot0eQHMctnLkpfuxBoXHnjJbfviUFLqoRkHX6yJ7L5F+RQv1Tld/87DJ349Y4Elzes/8RypoeX+a2JGgeilfE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=mP9ST8Ua; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jI6Ly9NO"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-86959a6f7f6so411003b3a.2
-        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 10:27:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788974821; x=1789579621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
-        b=jI6Ly9NOhS1CJVDcDoKjwgjST/iQVlVpolh/hifxBJGV2nz6t+8GlFWLZ4bzANtEHt
-         /Gubm7aHSBwsXnEHDwS28/J38FGObVki5RAT4+MKtWxDxCzdeulLhOlDre6S80gl/1TC
-         7EygHVvY8rB9EzbY4vuEGBvLIXgnThM7ofFVrmOOyUnxK3+Cw8/lUB1Qrw2zcQyD28sq
-         aOwfF4Jak4nLrwlBRcrBmxMV3zq77fRSSDlQwIxXNAn/g3MvLudGjEbIzxRGELLjSs75
-         zSMaaTiP34sWBjEuq0+gSjLhjHao2DyO1AI08J/NXT1fTMGf7TSzj1Dp3m+TJmQDgi3k
-         TF6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974821; x=1789579621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
-        b=KsmfPzoS7N0XdSUocCtjNki4ZLy/gcWXfEMqPtirMWRr7seMYzggQVWZyX74d9vErA
-         WoE/FjXXym+nAmfpyh9uNLSOnVDtHCltG/x5xNHF/v7eFFs1kOZieItqluGzi6DccvTJ
-         jzrTdE1jRV3orNFnLqeKJHyYWUs+dpambLJmQ7bP1Qxh5O4W1wf6rq7a53GxNNCa2XRV
-         yLatInUcgHuWvWsRDRwb4OydWir+BzaGlol3+FzTgPXcGs+02Ii8XTR5rWROaLKwVBZD
-         D1VdbyrhCsGQneXMi/f57l2FEgNnb+mX16pm0QC4ROZ0O7Hqwfeos6Z/9QZKrGGQ92yL
-         5G7w==
-X-Forwarded-Encrypted: i=1; AKwUvBz9ZccU+00n8BH0R+P59sv8AfrIx0MWgb8DqFl6/tvKEVu9hFIlsX4/+zhWA5WqC4uiYPID9abzcHlSLA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lQhr99d2uh1uSVDWi6PshAYj+OYqLGQ2JsYXIEnu+B8SI5OPcP
-	UGwBOv+C4CPv9Uk/97RaLGkKkcOhYJZuiqoY0jS1Y+OtNaxlDwexEVM7
-X-Gm-Gg: AYBFou233LDlWgIUYmaXOr4x+feTFsCsJw73DiKC5ch2frxrJMOZ41tXA0OGo75m54y
-	D9hhbN7ZxnnKFspxWM14pkT4HSjaKWKflyUenLmZsdcaoWPj094o2MwkiOb3e9fRCs8UMHNdMXy
-	15jdcXUyPR4kbJsw5kWQdocyxkYemG8ogLEWGKjTjeoYTkZmO47I1GmDXisxwze7vHDjAIP/mye
-	+LiXLdb+rh14K5yVZuBfqkLTzgrhTv91/Ehu/bX3nfcYrXxtvPMekg9jnne+BXYdQ2neKDPjHXz
-	e98erryTTFG1RLGt7UzGXvzSL3fghseXxDOGEP/IQ9TiEEEB90aLf93WW0KzxaHTkaUBf1O0jkD
-	J6MJcu3uvVHxqOygt9OvHTWOTzkDPbsExy7gergBzyvlIV/uIO8+6pyBs6nJgZKol96AdqKoJUQ
-	UGd0TZ+j6ArJqZfdR8/31DvX9YOJzJaKtse7IkyJ5S9rU4ToDI0VM/J3sHNeaybV/3wW3ultZxD
-	o10BYUwpl5v2mfSrYKWmNJRh/JVHgAf4oUYqA+gZhgm6EZvQ5Hx
-X-Received: by 2002:a05:6a21:9d84:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3da3a16a579mr57975715637.26.1788974820346;
-        Wed, 09 Sep 2026 10:27:00 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:2d43:5153:5c50:643e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm52422943eec.7.2026.09.09.10.26.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:26:59 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:26:55 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 00/14] mfd: unused driver purge
-Message-ID: <aqGWjAuGXq_JHvxk@google.com>
-References: <20260909132153.1596191-1-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="mP9ST8Ua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788975772; x=1789234972;
+	bh=EdUUZ4T4dOpJ+h6sWCjYXYysUiQE8gNL1TQqutWVrH0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=mP9ST8UaYjotFjQR4VCmgaxTs7qpAySj/4sGQ0QiGVb7nVNFipptoYKJlyXylm0nC
+	 1Dr7or7iAzBQiwTiMPk+QZ1eo5uBojPKdJ4O46xhuVIKqUddtYV1m7c4brio5Wk9RB
+	 FxBsa4n77pQfGZwDGTAEMNDSQSn5Ypp3vOklxRUSyoT9mfdFT8cPYmvJKxHalGVe+U
+	 faCw0rSdVgCSOwdI/5+/SoTwY3FgYYUsZqeiQ3q7QRJXHJvBFkWULO2Sn3Md0hY0pH
+	 Wt6kEy+DWB4zScp20QehD6XrAW06qAZDXhM1P8/XrKZ/KDdLWgWMvH6/7YSNzGtM/j
+	 atap1iGHvtxIw==
+Date: Wed, 09 Sep 2026 17:42:46 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] media: Add support for the Sony IMX681
+Message-ID: <20260909174240.80023-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: c97c4f885912dfa030e08134eb65ae63147cb574
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 03:21:37PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> As part of my cleanup of old platforms, I had a look at all drivers that
-> may have become unused because the last platform_data or DT definition
-> was removed, or because of unmet Kconfig dependencies.
-> 
-> These are all the mfd drivers I found. The first ten in the list
-> actually turned out to have been unusable long before my series, and
-> I have added explanations on how I determined this in each patch. The
-> last four patches are still in use in linux-7.3 but become unused after
-> my series [1] that I hope to get merged for 7.4.
-> 
-> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
-> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
-> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
-> to simplify the interdependencies: removing just the mfd driver would
-> leave unselectable or broken drivers in other subsystems.  I also have
-> additional patches for each of the other subsystems, currently a total
-> of 300 patches, many of which still need better testing or proper
-> changelog texts.
-> 
-> Please let me know if you all think this approach is ok, or if I should
-> explode this further and turn these 14 patches into 70 individual ones
-> by splitting them per subsystem.
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
+or
+Business (Intel Lunar Lake, IPU7), enumerated as ACPI device SONY0681. With=
+out
+a driver the camera does not appear at all.
 
-Sounds good to me, especially if Lee makes an immutable branch from this
-pull so we can all pull it in...
+  1/3  dt-bindings: media: Add Sony IMX681            (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre Gilerson's)
+  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
+The driver is Andre's work, reverse-engineered from I2C traces taken under
+Windows. I am carrying the submission, not the code: his Signed-off-by is o=
+n
+2/3 with mine beneath it as the person passing it on. He is away until 28
+September, so replies to review in the next few weeks will come from me. I =
+have
+the hardware and the instrumentation is scripted, so anything you want meas=
+ured
+I can measure.
 
-Thanks.
+Where the numbers come from
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
 
--- 
-Dmitry
+The parts taken from traces are labelled as such and not dressed up.
+imx681_init_regs[] is 21 register writes whose individual meaning is not kn=
+own.
+
+What is derived is written down. The link frequency comes from the PLL
+configuration visible in the same traces - 19.2 MHz EXCK, PLL2_MUL 303,
+PLL2_PRE_DIV 3, giving 1939.2 MHz on the bus and therefore 969.6 MHz per la=
+ne -
+and the pixel rate follows from that, the lane count and the bit depth. The
+gain law and the black level were measured against the sensor rather than r=
+ead
+off a datasheet, because there is no public datasheet for this part.
+
+Three things we know are arguable, raised here rather than left for review
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+V4L2_CID_ANALOGUE_GAIN advertises 0..1020, which under the 1024/(1024-code)
+law reads as up to 256x, while the analogue stage stops at code 960. Above =
+that
+the driver makes up the difference digitally, so the total gain still follo=
+ws
+the formula and an AGC's arithmetic is correct - it is buying noise instead=
+ of
+exposure at the top of the range. Splitting it between ANALOGUE_GAIN and
+DIGITAL_GAIN is the obvious alternative. Andre has not given a view on that=
+ one,
+so if you want it, I will prepare it and put it to him rather than answer f=
+or
+him - which may mean it waits for his return at the end of September.
+
+The chip-ID read is a single cci_read with no retry. This machine has faile=
+d it
+twice, once as 0x0081 and once as 0x0000 against 0x0681 - a sensor answerin=
+g
+before it is ready. A retry absorbs that without inventing a longer reset d=
+elay.
+Andre would rather land the driver as written and add this afterwards, and =
+I
+have kept it that way rather than editing his patch.
+
+It may not be this sensor's fault: the ov13858 on the same board has now
+returned a wrong chip id once too, 0x1000 against 0xd855, reading it the sa=
+me
+unretried way. Two events are not a conclusion, but a retry is cheap.
+
+The input clock rate is read and logged but never checked against the 19.2 =
+MHz
+the register sequence assumes. Same disposition: a follow-up, not a silent =
+edit.
+
+Testing
+=3D=3D=3D=3D=3D=3D=3D
+
+On a Surface Pro 11, front camera, with all three patches applied - and on =
+a
+kernel built from this base, not backported into a distro one:
+
+  # uname -r
+  7.3.0-rc1-imx681-medianext+
+  # dmesg
+  intel-ipu7 0000:00:05.0: Found supported sensor SONY0681:00 (\_SB.PC00.I2=
+C5.CAMF)
+  imx681 i2c-SONY0681:00: IMX681 probed successfully: 3844x2640 @ 969600000=
+ Hz link freq
+  intel_ipu7_isys.isys intel_ipu7.isys.40: bind imx681 3-0010 nlanes is 2 p=
+ort is 2
+
+The first of those lines is 3/3 doing its job: without the ipu-bridge entry=
+ the
+IPU does not recognise SONY0681 and nothing binds. No errors or warnings fr=
+om
+the driver at all.
+
+  streams                  3844x2640 SGRBG10, 30.01 fps
+  brightness vs gain       10.4 / 13.1 / 20.0 / 47.0 for codes 0 / 300 / 70=
+0 / 960
+
+The second line is there because a mean brightness on its own cannot tell a
+dark room from a dead pipeline. Driving the gain and watching the frames fo=
+llow
+it settles that; the captured frames are a recognisable room, right way up.=
+ The
+same sweep on a 7.0.0 kernel with the same driver source gives 11.8 / 14.7 =
+/
+22.7 / 52.8 - the difference is the room, an hour later.
+
+  checkpatch --strict      clean on 2/3 and 3/3; on 1/3 only "does MAINTAIN=
+ERS
+                           need updating?", which 2/3 answers
+  make dt_binding_check    passes, example extracted and compiled
+  build, W=3D1               imx681.o and ipu-bridge.o, no warnings
+
+Based on media/next at f9536a8065 ("media: ipu-bridge: Add support addition=
+al
+link frequency").
+
+German reported this HID as a bug on this list on 3 September and has had n=
+o
+reply since; he is on Cc here. He reaches IPU7 through the staging driver r=
+ather
+than ipu-bridge, so if this goes anywhere there is a second machine on a se=
+cond
+path ready to try it.
+
+  https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulind=
+ez@gmail.com/
+
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       | 107 +++
+ MAINTAINERS                                   |   8 +
+ drivers/media/i2c/Kconfig                     |  10 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/imx681.c                    | 900 ++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |   2 +
+ 6 files changed, 1028 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
+
+--=20
+2.53.0
+
+
