@@ -1,101 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEC533F58D;
-	Wed,  9 Sep 2026 15:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967169; cv=none; b=pki4ZO9l5BuB6bhF9/dkIfZdCtEPy+V0id7D2bUNdlQb3Efkkd9fzG6tloeiiGVPMO3x4+gJftnlraBMwZlErvBBzop60jHAzuC1BK0uQd5TwZPHTUY04+Qp+Dq2B5Ou79doPnOckebfRX5LT9yvKb94sDUwhjpG08ffwD3ZcGo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967169; c=relaxed/simple;
-	bh=0mgrh78PgG7TwlNmjLhHCstIhvbN8+glVlBQXojHU5E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TK72jecPBUqk/97UEro4NJK62ccEuCEDClpGibQWg0/+tHALCUCOGliR3/QNpdLL6oK1JPo4Ex8sIbsRDid34ZwrhtBeXO8AZUh/q3yT6Mp8UF+a7sHsv1LYFBwLWg0nWcsh/mcr8pD5vrdNOygNbhbczoVhIgvYnQ1Kfcc/WnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KTrtVNkx; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C387A55D893;
+	Wed,  9 Sep 2026 15:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788967437; cv=pass; b=uTkNkUDaaIhWkEqPEPgZNQoAdD6OHbLHTzjKWIYlv8iYmwfbDPywakyBS1x/etGxCnbZk9UJyf1LprNxzlthGYpSCNTmp5AK6/d4Gk+pmeArHMNFIp1A9on9ZXEdJOncyAsnUlrBBOqyPa4/85+CFmDktpWR2co3J+nj92bv1v4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788967437; c=relaxed/simple;
+	bh=EG49WdudFwmpOA/1PPqzc6htFSSubInZyJTKoSmHGxw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tUjW15pEB+F28+U5Vqqf2FfZ3254tVg2DvI1XukmKPHEJSFWMJKGR05xthBzHs3wy9HS9nkM2JAz08eeKmwAu/PD4plbPpF4s9qGT6X814K5fO7EXRoPC3clwa3phtZTRTNBuOdLPVhCBiS0ERm3b7o6fmxO5e6RXS4NoOo62Vs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=VdERhikv; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KTrtVNkx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788967168; x=1820503168;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0mgrh78PgG7TwlNmjLhHCstIhvbN8+glVlBQXojHU5E=;
-  b=KTrtVNkx5QzaoZJH6F3of74f91NdY94FvnkBvi43sFidzkv4wrirtmlf
-   KdD0h0lcrVyCMSkFiUIdACMZiw7IC0CGbwREx1t5zFCcU0ju22DED4H3G
-   h3iu13qvLej72sQEmTQqfZemQtH02Cp8Z0APQ5V23SO9Zbc1ty10rAYeK
-   hDSY3VpZTy5b68TBfnkkRGarq6XBkddvwC4a4UYkBmWrnNggq7TM8QTgz
-   x3F4X2D/2SSPNO/Ayw62zpQ+h318hnZou2mizgJMIlDupw4vZ2Bn4A//p
-   1/FKKwpbtCXmoeNXhE/Abyc/BkhZEbGFbKLsVAzeeZlhuArlaliuj/np5
-   g==;
-X-CSE-ConnectionGUID: SPZSu7tSTj6s/+rAKvWe5g==
-X-CSE-MsgGUID: peK9s1jyTD+Syu5SQWeReA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93089175"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="93089175"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 08:19:27 -0700
-X-CSE-ConnectionGUID: g73Yf+ncQSeV+JkYCy8oxw==
-X-CSE-MsgGUID: xXSRtAjCRySPPrNcTock2g==
-X-ExtLoop1: 1
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.132])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 08:19:24 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 601F4121BE3;
-	Wed, 09 Sep 2026 18:19:26 +0300 (EEST)
-Date: Wed, 9 Sep 2026 18:19:26 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: "D. Manresa" <dmanresa@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Thierry Chatard <tchatard@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource
- conflict quirk
-Message-ID: <aqF4_jwcqT2UFsNc@kekkonen.localdomain>
-References: <20260831160754.9857-2-tchatard@gmail.com>
- <20260908161629.335223-1-dmanresa@gmail.com>
- <aqDkwTkAsvs8Escx@ashevche-desk.local>
- <20260909065104.15817-1-dmanresa@gmail.com>
- <20260909151027.GA2133376@google.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="VdERhikv"
+ARC-Seal: i=1; a=rsa-sha256; t=1788967427; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=c7HGlgi3ujRGXXajMaJKA0RdLdSoux5xt6CPVmSFmLgNeLzvQjQaX8sYlvTjJfBuRXuNpurHvDrFHioPonQO6xyk9x1V1VnFO27bN2XHk08MY4jdxawv3qDRlbAOo9yntDXhHaiAPri5C6YokeA10kPRQe3HwdcFTMttyUkA7Wk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788967427; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nWrgc8gHrQkCA2bPdP3SIzbWpdOOKEh0O7h1BjDXP4U=; 
+	b=MSGAYQ3JuEtbXr6LnIyvP4tNSySkBb50v1UPWyE0WWc224ggrJkr/f2Pl1WgO2trWEq1Tfcfe2Eda/mGHjB86oeDmo5eDu1KtgSOD/OGgfBqufXgKXt0PFLxI0/C3dP62q8IPJY85oIbO0Ro7I+VqXMGMXdRmT3F02mILDOoxZI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788967427;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=nWrgc8gHrQkCA2bPdP3SIzbWpdOOKEh0O7h1BjDXP4U=;
+	b=VdERhikv2kux6AsmdINu28jLUW9B5jh74AiRUCCII+0xaJH8k8adgkqlvKGRRpV6
+	ayhr6tQYAbLNRTPfcJ6DtVrRBtl39hXhSvMvCyAviULvWDzSjMah/iK/ICZXmHRS0q/
+	OfT/qGSNzQQSNFb10l1RKYGFZ6oo+l37tX3W3j9k=
+Received: by mx.zohomail.com with SMTPS id 178896742505251.677709043366576;
+	Wed, 9 Sep 2026 08:23:45 -0700 (PDT)
+Message-ID: <4ba91b0d-7da1-4322-8a2a-0816fe43f9f4@collabora.com>
+Date: Wed, 9 Sep 2026 18:23:41 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909151027.GA2133376@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: synopsys: hdmirx: Remove redundant dev_err_probe()
+To: Amin Gattout <amin.gattout@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org
+References: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi Lee,
-
-On Wed, Sep 09, 2026 at 04:10:27PM +0100, Lee Jones wrote:
-> On Wed, 09 Sep 2026, D. Manresa wrote:
+On 9/7/26 10:52, Amin Gattout wrote:
+> The devm_request_threaded_irq() function now automatically logs detailed
+> error messages on failure. This eliminates the need for driver-specific
+> dev_err_probe() calls that print generic messages.
 > 
-> > On Wed, 9 Sep 2026, Andy Shevchenko wrote:
-> > > Do not fold, just add into the series this one as patch 2, for example.
-> > 
-> > Fine by me. Thierry, please carry it as patch 2 of v11 with Hans'
-> > Reviewed-by; no need to change anything else.
+> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+> ---
+>  drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> Why can't I just apply it?
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 25f8ca0d6d94..b456138c381a 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -2595,10 +2595,8 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
+>  	ret = devm_request_threaded_irq(dev, irq, NULL, hdmirx_dma_irq_handler,
+>  					IRQF_ONESHOT, "rk_hdmirx-dma",
+>  					hdmirx_dev);
+> -	if (ret) {
+> -		dev_err_probe(dev, ret, "failed to request dma irq\n");
+> +	if (ret)
+>  		return ret;
+> -	}
+>  
+>  	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
+>  	if (irq < 0) {
+> 
+> ---
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> change-id: 20260907-snps_hdmirx-7a30ccc56a49
+> 
+> Best regards,
+> --  
+> Amin Gattout <amin.gattout@gmail.com>
+> 
 
-There are no direct dependencies to the rest. For the functionality, it
-might be nice to merge it via one tree and the rest of the set would go in
-via the media tree.
-
-In case you prefer to merge the patch,
-
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
 -- 
-Regards,
-
-Sakari Ailus
+Best regards,
+Dmitry
