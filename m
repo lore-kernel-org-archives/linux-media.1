@@ -1,67 +1,67 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75847531AF8
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 10:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63AA531AF5
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 11:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950754; cv=none; b=U2XCtG6ZaUSrDNYgMuMN4883CttoPqUV8RUryxOeyqx/Gfq8KB49N6FZ0+CTJ/AoEdtreduXd3hWeLtsvmAUAxgq14/zsGkunhArvL6wO3iBS7RwWwHKn7zL4PtCMqWfWSnAebk/hkGHH4mF3Saf0V9Gajqe4MKG6EYlwTleml0=
+	t=1788951861; cv=none; b=nD9C6UeahXpYpfwDs8O+EaRZHfrXDgCGosRU09QYOrAGf94HyzPr1UZuLb1fo4tXrNpC2odWCH1+ibJ+BHG1+d+Z1Qdg1g4J4NfvwbReAtMs2qxqaFGa/M9S7ntOTNEdx7NPJ2teztkO/JEmTOWfxCFqymh3BW15LCykeHG6QIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950754; c=relaxed/simple;
-	bh=tfrLqcGsEUuzNpqwHNUq3Kj0poSsyq9DZH41qa+NCYI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H1rI1GGkA8tWkl8IJMelYhZ4+302LqRgGtL4XFWGjY3MHpI2Q4aMEElOJA38zxFtycJzZuvSnSocVI9kWuhgxKvEsH0jXFOewivpD48UlsE8fK3P8RP3m0eC1PvGpFJyXfcaAU92B1N2d+QNrn15Xe1gahgnkxvvQxbzCY1NPi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FuC7/YxM; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788951861; c=relaxed/simple;
+	bh=Rzpqksp/qKE1bDH6y39VH8pIARppCQb7o4bmXV4eju8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ttmZUNlSPa4F+hRdKkkQJGtphMIDiFgeKeWEr9ZH6G2PKT5n6yAK8o6CS2YbySRvf7hj5iQegW4nwuG3r1/batX/uQHQTzSBULfhBDAeKl5ROK4M95EwMzqAlbjiM4tRSTsK/oF10yyl+zdG7w5W9dfXuV/+AST9ekTcOOp97w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j89WfArA; arc=none smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FuC7/YxM"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so18415a12.3
-        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 03:45:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j89WfArA"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66fb8a78ad2so6999509d50.2
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 04:04:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788950751; x=1789555551; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788951852; x=1789556652; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5MH6BpfVCqGiCGTmNR3nzVfS3qVLZltUsj1CqM88T+M=;
-        b=FuC7/YxM0IWorvVEMRW88CTSyc+nScDh3Dod5/LuIjNq1SGR48ljmYMu4IQQxA6W50
-         uIDo/0GyYLzcigr28UyTrLwqVlJgs2LxCQoTEdlsPmsF/tFcKQ/Zo9tP2iqhL6GxYqf3
-         EH5REa3ORVqW7JsRYgPZ5O0TFNr5bJE+oi3RdMWG2tahoc4LAhDAm52p5PRNKvmt04Jv
-         9pp8oNAWQTGyd1DSRw8gc3y6Htf0bMryLokUr24Fm2IV9Le7I32Ii0PX+tEHcESPTIRG
-         9w2V7LYYEIHcD7DqhMmFmDPFOpKgGhEiZCL0YVeLZ+pVdJa5Y6o/QC9rjBqsaZyYBsu3
-         Ah8g==
+        bh=yu6XBq0/lXnZ7cWMkDYqnoMO3CTujhBWMHDaaEEIfu8=;
+        b=j89WfArAb4HAae1r9gERB9vbyd4lujvT4QzylaHONNA6Q2Wf4knbMbObz5i525Ut4t
+         XkSo5AaI0HUxT0uGfAvI+gBT3QVVAT4z7Z6X1rYzRyP6/km7YtvxqHnX65Mn7Ml5+NP3
+         FLXjoFY5SSOpi+0C6jJBGg5LkrrudZX7/Zf17BUfr1UBkyIOoHrFH0XGMbs1s6uMTjkr
+         3bRpufNCdRYjhLc0hcJzyc26NKMfFU/GknUIo1ib4IvIuFNBWZSUtSqWIt6BgZjcESeL
+         Gh26103u4O1yeaieTZtSACBZgpuK5tNWMK16x0Bs1FCT2UIk2Tms0ScjaMQ+CmRCv2hG
+         DtdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788950751; x=1789555551;
+        d=1e100.net; s=20251104; t=1788951852; x=1789556652;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5MH6BpfVCqGiCGTmNR3nzVfS3qVLZltUsj1CqM88T+M=;
-        b=qLFc/BK3x/2BgX8nkkjl5y/IxReYJi48qEEN2iFLSVHHFYBSGhhQn336duvlyPESec
-         udCiNPwfHMfJM05tkwcbmWRRsvrwhy1P68p2ZAhGTH4N5QSH7cLuu9vaGsBmNExdV6be
-         VxpXK4f0zQn2wUzaDxK2GVGywOSOjN+MqOIFk1XPlMDjc8OK7HOwyTLyEeqjpFgLCA4B
-         jbxebhy8GEda6RpNeEByBCyO892gkrcZUH17DKuWILWIKuouKyo3q/6qXIDxGKnn3Nda
-         Soiqlkg0jbTKCV8+s/56bLs4V7lDoZSFdpXeRjwAJV+4tLCc6Yyk2SyBP++vKIIeBqJm
-         hO2g==
-X-Forwarded-Encrypted: i=1; AKwUvByajmGCnJ5TFHa/h3j5ojryXDfcwuYAoAomiK9tdTz36hpxaIQkrsO9EJrbiGYhEPNFCw+PJs2qGfD6zA==@vger.kernel.org
-X-Gm-Message-State: AFuF++n4byxxmemOO0ubWL7PAJk6ut8Xq69mx/C3hEGafA2NYbnEDwrR
-	thqtQpwVe1T3iih0yYDREGK2DD7ST8K/wGuAVrrtg1AMVrk2URFvZLLsg71eF5PEXL0=
-X-Gm-Gg: AYBFou2ZbI5iqItJhxasb89ZP50LXyLAvCG1X+CYB+MY5UzTQUrsxMZbmz4EknWKpUO
-	2UnzPdpOn0b0l8D2V+3z9sVAfvKsQdauJWLSXxqIyMeVhGF8Q8ZNIyAQQL0Gu/rq6SppxbUpft/
-	evnVRC0gAaFcRY8zDELtY7s6XH2MPp+IOwKVIrBT1bKGE9+kpa7YaqydalVq4DvTBkQ+3pNbfT3
-	+nZaewvuZH2E93jpesYjMNhEUaTJ8xdJJ/Hkmo7NH77rB5RRz93e3KHst+SysoYa9dpmXxqyOD0
-	AVhubOXsNAq5AaX3q35ulPU2yjhu77LTBdkguSWIStJzIeRU9CfOVy+pmnrM0ecdDOvJdztNzrq
-	T+62p9+K2l/IA6xL7ORS7tnWCDkiKmOemHtOjL4wuPNOqLX81BUEFM4E7kcgM+SlNRYQspGnQKK
-	PvMCHiyo/751onrXI0jhbxlKrAoNmnYAp6RU9S3CS+orvazVKm612ebVAj7C5fukzUnCl7J2ZHf
-	ELkmUgf
-X-Received: by 2002:a05:6402:3253:b0:6a7:f5b1:2726 with SMTP id 4fb4d7f45d1cf-6a99ccc2f32mr65130a12.8.1788950750705;
-        Wed, 09 Sep 2026 03:45:50 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.32.60])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm6886762a12.30.2026.09.09.03.45.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 03:45:49 -0700 (PDT)
-Message-ID: <eab4c6be-e3dc-458d-8011-304a98f2354b@linaro.org>
-Date: Wed, 9 Sep 2026 11:45:47 +0100
+        bh=yu6XBq0/lXnZ7cWMkDYqnoMO3CTujhBWMHDaaEEIfu8=;
+        b=dBTUtbRwGBSw3q4JB0i8JeibaSjUjsD6ASbghJkDzCBpjd61hFbsUdcD6WLmTVwfeR
+         c/JGhr6b8QBF8utA4rHg+4KAvUHrHQMo1bvFTrAi9eByaK2JT6hRE3Du57vzUCQeEKu+
+         1EJFFcZHyd8iZudSCru9aebaCb16TQRuMcShwSg/yvdL/PBGEC0jGCP8pFvVmRuRCFun
+         +517e7M9NyRQ9shrPZ5SQsMqppuHNrkVJ+FADgz/fF9JgSJqIkvqUmPRLimZgXEcrnXD
+         IaNQokuWSKUotjC8/TTw/UMRPpZklIxkJAvL0kh2qKZqlw6cJzlRdtFtkmQfFHmoZlQs
+         8bZw==
+X-Forwarded-Encrypted: i=1; AKwUvBw3jmuvl38xp727kb2JCjSOj5FpF4yDh6+pZ1Hgr1CobjOGsy4gVk5BcOifgBSvF7tc3j3IXR58KMDAeA==@vger.kernel.org
+X-Gm-Message-State: AFuF++nolxQy6xhRn3Zn9e+0ccXyT8wGwS4E9o4uLhgV3EumTtkCpZBY
+	y1hwG+CBwP3hgpJLdjt40nRIJgR5CZu9Xb959eb1ExTPbWFbkyUq0/xM
+X-Gm-Gg: AYBFou0JS/e5y1WM777xz+1H6pRGmj/r5PmDLa2F+RjWRN9f+4Zq8x+NBD4ec8FOilP
+	d4q/Fa0QdLXgY/bwGPvPofOtFXNAhw2hilA9B0yeouzxbMI4tD0Z2onF2pw1z+xmCTPfF8cGhcB
+	9FWpzgwSdQHQWYEx0/qrx0C93L8tMxI9vyOvhthkVsESOfuLaqYlPhJ+AG0YBYzrNOJ7QGzTvC9
+	O8N1BvBTaI0STTT8MyjFB4344tq4Pc4+1rKQz5X1G9KaO49VTHVTiO3AhTiuO2JiM2rNA3uqNlE
+	M9/Y6qgK2o3BWtobQKJG5kbh5pTUwLKtd8YX7LjYhmp4Efs9JO9XQwe5IICshqlksLahEB4+CGE
+	uV3qlvfQsupLlrXBwMpT2zfHdEzMWJDnhaTVN9saDIlgfRVCTY4dFW4uB4Qea3COnD0XEESrgLx
+	35OvRBNoqJ7feOS+BBBZ0QK9m1wMmxe5BCJzniDSNI3dXhCNyWPj0QeFPn4HMhx9uPT8D93XBF9
+	8wz5HcIAQ3ai24O3ho1OeL+v3iF
+X-Received: by 2002:a05:690e:34f:b0:66d:2469:2518 with SMTP id 956f58d0204a3-66fb593f3e0mr8590219d50.13.1788951852153;
+        Wed, 09 Sep 2026 04:04:12 -0700 (PDT)
+Received: from [10.254.153.217] (munvpn.amd.com. [165.204.72.6])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040694c35sm140718096d6.36.2026.09.09.04.04.04
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 09 Sep 2026 04:04:11 -0700 (PDT)
+Message-ID: <2fd989b4-06ea-42e6-b18a-bc3ef2e069f5@gmail.com>
+Date: Wed, 9 Sep 2026 13:04:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,41 +69,192 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
- CAMSS
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
- Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <0wqEOKsKQUG-cPJyVkrWjcUUrp4POMvOxwKLbIaM_HQ9goiCr0D4llW4AHLrRfqjnLWyFVvpWNGbwqu6DNBM7w==@protonmail.internalid>
- <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [PATCH v6 08/12] dma-buf: heaps: Add debugfs support
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
+ Saravana Kannan <saravanak@kernel.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <20260904-tegra-vpr-v6-8-79042cfa8de5@nvidia.com>
+ <a77730b2-b5d6-49f9-a8ab-72eac4e241b6@amd.com>
 Content-Language: en-US
-In-Reply-To: <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <a77730b2-b5d6-49f9-a8ab-72eac4e241b6@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 07/09/2026 09:13, Nihal Kumar Gupta wrote:
-> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
-> Glymur uses only the new PHY API via standalone phy@ child nodes,
-> so per-CSIPHY clocks, interrupts and supplies are absent here.
+Since AMDs mail servers blocked me from sending this out, here once more from my gmail account.
+
+Regards,
+Christian.
+
+On 9/4/26 15:00, Christian König wrote:
+> On 9/4/26 12:44, Thierry Reding wrote:
+>> From: Thierry Reding <treding@nvidia.com>
+>>
+>> Add a callback to struct dma_heap_ops that heap providers can implement
+>> to show information about the state of the heap in debugfs. A top-level
+>> directory named "dma_heap" is created in debugfs and individual files
+>> will be named after the heaps.
+>>
+>> Reviewed-by: Maxime Ripard <mripard@kernel.org>
+>> Signed-off-by: Thierry Reding <treding@nvidia.com>
 > 
-> X1E80100 has four CSIPHY instances while Glymur has three
-> (CSIPHY0, CSIPHY1, CSIPHY4), expressed entirely in DT.
+> One minimal nit pick below, with that taken care of Reviewed-by: Christian König <christian.koenig@amd.com>.
 > 
-> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>> ---
+>> Changes in v5:
+>> - fix failure handling during debugfs root directory creation
+>> - add more cleanup to the newly introduced dma_heap_exit()
+>> ---
+>>  drivers/dma-buf/dma-heap.c | 52 ++++++++++++++++++++++++++++++++++++++++++++++
+>>  include/linux/dma-heap.h   |  2 ++
+>>  2 files changed, 54 insertions(+)
+>>
+>> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+>> index 8a6c2b6e0cc6..65c80dac6500 100644
+>> --- a/drivers/dma-buf/dma-heap.c
+>> +++ b/drivers/dma-buf/dma-heap.c
+>> @@ -7,6 +7,7 @@
+>>   */
+>>  
+>>  #include <linux/cdev.h>
+>> +#include <linux/debugfs.h>
+>>  #include <linux/device.h>
+>>  #include <linux/dma-buf.h>
+>>  #include <linux/dma-heap.h>
+>> @@ -225,6 +226,40 @@ const char *dma_heap_get_name(struct dma_heap *heap)
+>>  }
+>>  EXPORT_SYMBOL_NS_GPL(dma_heap_get_name, "DMA_BUF_HEAP");
+>>  
+>> +#ifdef CONFIG_DEBUG_FS
+>> +static int dma_heap_debug_show(struct seq_file *s, void *unused)
+>> +{
+>> +	struct dma_heap *heap = s->private;
+>> +	int err = 0;
+>> +
+>> +	if (heap->ops && heap->ops->show)
+>> +		err = heap->ops->show(s, heap);
+>> +
+>> +	return err;
+>> +}
+>> +DEFINE_SHOW_ATTRIBUTE(dma_heap_debug);
+>> +
+>> +static struct dentry *dma_heap_debugfs_dir;
+>> +
+>> +static void dma_heap_init_debugfs(void)
+>> +{
+>> +	dma_heap_debugfs_dir = debugfs_create_dir("dma_heap", NULL);
+>> +}
+>> +
+>> +static void dma_heap_exit_debugfs(void)
+>> +{
+>> +	debugfs_remove_recursive(dma_heap_debugfs_dir);
+>> +}
+>> +#else
+>> +static void dma_heap_init_debugfs(void)
+>> +{
+>> +}
+>> +
+>> +static void dma_heap_exit_debugfs(void)
+>> +{
+>> +}
+>> +#endif
+>> +
+>>  /**
+>>   * dma_heap_add - adds a heap to dmabuf heaps
+>>   * @exp_info: information needed to register this heap
+>> @@ -299,6 +334,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+>>  
+>>  	/* Add heap to the list */
+>>  	list_add(&heap->list, &heap_list);
+>> +
+>> +#ifdef CONFIG_DEBUG_FS
+>> +	if (heap->ops && heap->ops->show)
+>> +		debugfs_create_file(heap->name, 0444, dma_heap_debugfs_dir,
+>> +				    heap, &dma_heap_debug_fops);
+>> +#endif
+>> +
+>>  	mutex_unlock(&heap_list_lock);
+>>  
+>>  	return heap;
+>> @@ -335,6 +377,16 @@ static int dma_heap_init(void)
+>>  	}
+>>  	dma_heap_class->devnode = dma_heap_devnode;
+>>  
+>> +	dma_heap_init_debugfs();
+>> +
+>>  	return 0;
+>>  }
+>>  subsys_initcall(dma_heap_init);
+>> +
+>> +static void __exit dma_heap_exit(void)
+>> +{
+>> +	dma_heap_exit_debugfs();
+>> +	class_destroy(dma_heap_class);
+>> +	unregister_chrdev_region(dma_heap_devt, NUM_HEAP_MINORS);
+>> +}
+>> +__exitcall(dma_heap_exit);
+>> diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
+>> index 648328a64b27..1c9bed1f4dde 100644
+>> --- a/include/linux/dma-heap.h
+>> +++ b/include/linux/dma-heap.h
+>> @@ -12,6 +12,7 @@
+>>  #include <linux/types.h>
+>>  
+>>  struct dma_heap;
+>> +struct seq_file;
+>>  
+>>  /**
+>>   * struct dma_heap_ops - ops to operate on a given heap
+>> @@ -24,6 +25,7 @@ struct dma_heap_ops {
+>>  				    unsigned long len,
+>>  				    u32 fd_flags,
+>>  				    u64 heap_flags);
+>> +	int (*show)(struct seq_file *s, struct dma_heap *heap);
+> 
+> I found it good coding practice for objects ops pointer tables to have the object the function works with as first parameter.
+> 
+> Absolutely not a must have, but just looks a little bit more consistent.
+> 
+> Regards,
+> Christian.
+> 
+>>  };
+>>  
+>>  /**
+>>
+> 
+
