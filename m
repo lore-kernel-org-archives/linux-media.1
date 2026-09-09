@@ -1,135 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D0230F92E
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 08:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3BC48E0C1;
+	Wed,  9 Sep 2026 08:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943149; cv=none; b=AX6wB13S2kpfBL5DQ/cmYYVD+FDHBVpFTMkA6ABt4YC+JMHB8MQ7PoZWPDYAyTj/US4Sa72Xe+V+PbISZtiwRw5gSo9K08GiZ/nkx7XqDVhIM5qD6YnFZ5xC+AghAr1XuRt9rpOvZ1ur0f1wfYNt5zvgudtgtB7+ZqaUlLTUe9c=
+	t=1788944218; cv=none; b=Rvxa5oAIF1NGIMqjjoxNzbdhTPUkiUzDqxnAP1/FBHFlGSuY7AIjAJiomEGDbSgsYkt7VE9p+OKvbhVAfZQqN0HnCQzOtfRhrpnOOLzd4cCsFCULo32oIZN5MNgeM9P+jiCerjAbcaxeQEuihjX0C9BN5OYcVpY8alVY0Mkuoyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943149; c=relaxed/simple;
-	bh=n4C9Lz9RgX/HVlVXZpkegKMSFUQdxtXmEjcrp7kwOzE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gBuO7iYy6EUx0QRKNP0HGX2Y7wgkCcSTHRpXCu0a3Cd4oiDDZPFqXjkvT/gq18VkAKNFambF40odURQPDNaBd5NTOiL606B8soRO2zKbAYEmbDlmQGHDscf/61YDD0Oq4xpD7V78OdXKA168M62Po676yX/IqFn8RkWm9VatLm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dhd54a9X; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788944218; c=relaxed/simple;
+	bh=d90VN6Sgs+IL1Mw69zS9BhRCoZnWZ+pucEcqe3us92s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:To:From:
+	 References:In-Reply-To; b=RqtHRFiDWhnRW79Ni4n+gwotBl0efXP1qqH7P7SfiozlhlDW8Nruj0LAooVx/AurX+sMIgFa5KnYrjcolzCTBye/sMBOmxGbpxefD7dfObFB9OxsQVatfYH/5JL1IaOKFeXXMX3ZmApja7yrrYOIzYfaWrnD5iNjpjiYT/2EdLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CBX9jFPK; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dhd54a9X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788943146; x=1820479146;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=n4C9Lz9RgX/HVlVXZpkegKMSFUQdxtXmEjcrp7kwOzE=;
-  b=dhd54a9Xr5dcMYnYUV9MWEoNMnYFhRCIBq+PWPDaXcLcqUkJGr16y3WY
-   CW2o9IQsUNk0nfift3fGEGeW29KlOB99BKCDahi50liDMWYZYf7QLD+eS
-   +fjivyuIaLzi86rwIUPlxzFG2IbCKc9PILfNotwqvNsYShstUWESloYLx
-   eqAtmsk4nUm6rEUnsEI487jvmVxbuAMXKfy8jmFBJe/90jSBSKZOZW3X5
-   u3522d3xZgDPG5T5tbHvXFQ4SjueCquwNaKuYaTIMV0cny1LRa/ZCORwk
-   hKgDKhJMGKg8oqPAVjC6S46N0qcIHKCunSDQIIxV2CTnbhplIX5odTVMA
-   g==;
-X-CSE-ConnectionGUID: pFYuRJ+UQbCEvpCAFuX2Ow==
-X-CSE-MsgGUID: tRXidHnUTye9AhgrvghDHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89391824"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89391824"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 01:39:06 -0700
-X-CSE-ConnectionGUID: QidlcA0/Qj+It6vRgQIBSg==
-X-CSE-MsgGUID: sHjb6tc8T/G5Zz4db96yHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="296187857"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 01:39:03 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 39BEA121BD2;
-	Wed, 09 Sep 2026 11:39:06 +0300 (EEST)
-Date: Wed, 9 Sep 2026 11:39:06 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 13/29] media: cdn-csi2rc: media: Use
- v4l2_subdev_get_frame_desc_passthrough_csi2()
-Message-ID: <aqEbKrGY2vCK3iB8@kekkonen.localdomain>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-14-sakari.ailus@linux.intel.com>
- <CAD++jLksx58CCswrGMOerNzKcF_uYgrH2Ykvi3YY8wqV5S6J5Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CBX9jFPK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id EB21F4E415A9;
+	Wed,  9 Sep 2026 08:56:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BE4BD60448;
+	Wed,  9 Sep 2026 08:56:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 445B711C7AF59;
+	Wed,  9 Sep 2026 10:56:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788944214; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BbanUwdlh/0efY1NZ4m20ixL+A4hAWes9KjfDG53tuM=;
+	b=CBX9jFPKO+68YL1rGGQ6LVLZklYs0sihO6+x4uoIqIZOc++n8DMFBoaMoI6iFR2mULRHXG
+	0QwZZXD8csSJEWLGP1fTCrQAn9pKZFbvcLSu+e05EWjdE6bSrVgzW3D5Jzd2/cMGHIcdrF
+	9BhbuupMcw9I57z0w3/tCbQf7ClLq+e84IhBfeIDfJO5x95V4nv75rZArs9OXzM76qx7B8
+	4dDV/KD7ri1tp3Lqog4uHfmuuHOyntHRhW3YUa9+VoVVIM4eYCzBpbtEX21kHRgVn6q2t6
+	1ZcijlcbpXl/XA36/IPIBPHz41+DWfk3rbigJf6WGtY86LOkZGKBZ+nPKJ/6qw==
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLksx58CCswrGMOerNzKcF_uYgrH2Ykvi3YY8wqV5S6J5Q@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 10:56:50 +0200
+Message-Id: <DLANSP0CTANH.6BZRA42J57EC@bootlin.com>
+Subject: Re: [PATCH] staging: media: tegra-video: use BIT() macro instead of
+ bitwise shift
+To: "Lalit Shankar Chowdhury" <lalitshankarch@gmail.com>, "Thierry Reding"
+ <thierry.reding@kernel.org>, "Jonathan Hunter" <jonathanh@nvidia.com>,
+ "Sowjanya Komatineni" <skomatineni@nvidia.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "open list:TEGRA VIDEO
+ DRIVER" <linux-media@vger.kernel.org>, "open list:TEGRA VIDEO DRIVER"
+ <linux-tegra@vger.kernel.org>, "open list:STAGING SUBSYSTEM"
+ <linux-staging@lists.linux.dev>, "open list" <linux-kernel@vger.kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260907173302.23053-1-lalitshankarch@gmail.com>
+In-Reply-To: <20260907173302.23053-1-lalitshankarch@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hej Linus,
+Hello,
 
-On Tue, Sep 01, 2026 at 11:43:38PM +0200, Linus Walleij wrote:
-> Hi Sakari,
-> 
-> thanks for your patch!
-> 
-> Subject has media twice, is that intentional?
+On Mon Sep 7, 2026 at 7:33 PM CEST, Lalit Shankar Chowdhury wrote:
+> Replace the remaining instances of (1 << X) with BIT(X) to follow the
+> kernel coding style guidelines.
+>
+> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+> ---
+>  drivers/staging/media/tegra-video/tegra20.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/staging/media/tegra-video/tegra20.c b/drivers/stagin=
+g/media/tegra-video/tegra20.c
+> index eb1fc5b7e2cd..2586a137d9da 100644
+> --- a/drivers/staging/media/tegra-video/tegra20.c
+> +++ b/drivers/staging/media/tegra-video/tegra20.c
+> @@ -177,15 +177,15 @@ enum tegra_vi_out {
+>  #define       CSI_SKIP_PACKET_THRESHOLD(n)		(((n) & 0xff) << 16)
+>  #define TEGRA_CSI_PIXEL_STREAM_CONTROL0(n)		(0x0018 + (n) * 0x2c)
+>  #define       CSI_PP_PAD_FRAME_PAD0S			(0 << 28)
+> -#define       CSI_PP_PAD_FRAME_PAD1S			(1 << 28)
+> +#define       CSI_PP_PAD_FRAME_PAD1S			BIT(28)
+>  #define       CSI_PP_PAD_FRAME_NOPAD			(2 << 28)
+>  #define       CSI_PP_HEADER_EC_ENABLE			BIT(27)
+>  #define       CSI_PP_PAD_SHORT_LINE_PAD0S		(0 << 24)
+> -#define       CSI_PP_PAD_SHORT_LINE_PAD1S		(1 << 24)
+> +#define       CSI_PP_PAD_SHORT_LINE_PAD1S		BIT(24)
+>  #define       CSI_PP_PAD_SHORT_LINE_NOPAD		(2 << 24)
+>  #define       CSI_PP_EMBEDDED_DATA_EMBEDDED		BIT(20)
+>  #define       CSI_PP_OUTPUT_FORMAT_ARBITRARY		(0 << 16)
+> -#define       CSI_PP_OUTPUT_FORMAT_PIXEL		(1 << 16)
+> +#define       CSI_PP_OUTPUT_FORMAT_PIXEL		BIT(16)
+>  #define       CSI_PP_OUTPUT_FORMAT_PIXEL_REP		(2 << 16)
+>  #define       CSI_PP_OUTPUT_FORMAT_STORE		(3 << 16)
+>  #define       CSI_PP_VIRTUAL_CHANNEL_ID(n)		(((n) - 1) << 14)
+> @@ -214,7 +214,7 @@ enum tegra_vi_out {
+>  #define       CSI_A_PHY_CIL_DISABLE			0x2
+>  #define       CSI_A_PHY_CIL_ENABLE_MASK			0x3
+>  #define       CSI_B_PHY_CIL_NOP				(0x0 << 16)
+> -#define       CSI_B_PHY_CIL_ENABLE			(0x1 << 16)
+> +#define       CSI_B_PHY_CIL_ENABLE			BIT(16)
+>  #define       CSI_B_PHY_CIL_DISABLE			(0x2 << 16)
+>  #define       CSI_B_PHY_CIL_ENABLE_MASK			(0x3 << 16)
+>  #define TEGRA_CSI_PHY_CIL_CONTROL0(n)			(0x006c + (n) * 4)
 
-No, it isn't. I'll drop it.
+The same change has been rejected multiple times. See the previous
+discussions for the rationale:
+https://lore.kernel.org/all/?q=3Ds%3ABIT+dfb%3ABIT+dfn%3Adrivers%2Fstaging%=
+2Fmedia%2Ftegra-video
 
-> 
-> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> 
-> > Switch to v4l2_subdev_get_frame_desc_passthrough_csi2() in order to allow
-> > compatibility with drivers that do not implement get_frame_desc() pad op.
-> >
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> (...)
-> > -       .get_frame_desc         = v4l2_subdev_get_frame_desc_passthrough,
-> > +       .get_frame_desc         = v4l2_subdev_get_frame_desc_passthrough_csi2,
-> 
-> This looks right, but elsewhere in this driver we have this:
-> 
-> static int csi2rx_get_frame_desc_from_source(struct csi2rx_priv *csi2rx,
->                                              struct v4l2_mbus_frame_desc *fd)
-> {
->         struct media_pad *remote_pad;
-> 
->         remote_pad =
-> media_entity_remote_source_pad_unique(&csi2rx->subdev.entity);
->         if (IS_ERR(remote_pad)) {
->                 dev_err(csi2rx->dev, "No remote pad found for sink\n");
->                 return PTR_ERR(remote_pad);
->         }
-> 
->         return v4l2_subdev_call(csi2rx->source_subdev, pad, get_frame_desc,
->                                 remote_pad->index, fd);
-> }
-> 
-> Is it really all right for this helper to still call get_frame_desc() through
-> v4l2_subdev_call() like this, or should it rather call
-> v4l2_subdev_get_frame_desc() in some way?
+If you want to improve this code, use GENMASK() or FIELD_PREP_CONST().
 
-There's a patch later on in the series changing that. I guess I could
-squash driver specific patches into one, right now they're separate.
+Luca
 
-> 
-> (maybe this is fixed elsewhere in the series, I'm admittedly
-> a bit unfamiliar with the code...)
-> 
-> Yours,
-> Linus Walleij
-
--- 
-Med trevliga hälsningar,
-
-Sakari Ailus
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
