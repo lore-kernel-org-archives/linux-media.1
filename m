@@ -1,87 +1,146 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7894FDE6C;
-	Wed,  9 Sep 2026 14:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C623C5650E0
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 14:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962447; cv=none; b=ShMpnLBko9ZulnqNl/avv4R7TJd55qXDidT4h5wc/t4X6I8S4uc8R/cNVyShtB4n83W5A77dJd1/M14eeuP0xx/P7yBDR6Pednsq9lYk3yh0CJKhaT4VQkAh4Rgk5+4SlvG1mv0Rm+6QiP2N9hwxGXh3+fxMxFfRDz5uxjsEHYo=
+	t=1788962648; cv=none; b=LJf4Y+pUH1a/ZLxYR4k60OCSYKPsWc/+4Lq1vYEiZO3k4xomPrRrO2tHHTrcpoTNkn/YQkx0okBgP7976B1Hj7hBaEtaqf8dVdBgU9rrGOO4qvZPZlmrRDNOdNbWUrR8geV/Yb37QqS0ZzVkdOha9fyqKLcaxLRoXa9uMlrOD5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962447; c=relaxed/simple;
-	bh=yCeWIIed9NUQt2wO2puHP/5fFt1rUsZBQDhgGEAVpmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZ/DfGJOVjhh7tIrpI7wjRSN+1VDTwjP4faa0JW3Frp+Krl9BLZg24xcu+d6/1+akqaEqHkLXhOIsF/i32jH0e+I4q6itlrsO/dBkwx/OcaJpHE6dpuBkiVz97pr/HD7bYt+mR7TzuLFrz0tMzyMkNM+nEiWDdiH4WZHvu3RJ8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bCr1yvYu; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=X44VOQm1; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788962648; c=relaxed/simple;
+	bh=flAfYKpZIwatzm6YSBJWn1WpTr7IwC7yAuIdmnA9T7Q=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sbQH9sTM4fWETiawoS3OP8sKGXmpijj22gOveMV/R7JmqNvYC4rNYvnZor9el3x7DgbC/qm5EuuX5FdKfaESa9iLHk/yK3DdJeYzCM2lWOh+jPRsKqVji53u4Ab5/No+fuYal9gq1G7XKpP9VQAPv73nebwAh+2JjN3R/7j8bCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7DiDcNg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bCr1yvYu";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="X44VOQm1"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg2Wv55qlzMlHC;
-	Wed, 09 Sep 2026 16:00:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788962443;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T+vnc0fChBu8a1hJq5iRP0kdyV0RgFeG8COTLf4lByI=;
-	b=bCr1yvYuAKF58ACbupCnLa4DXuGcitYVKvWQBmwYhFz9PPzPpqfd6aQk2vsmqCln8DZWIx
-	CaJ5lA23i3xrVH/fipl82Oa4GTTMXCK+kY4RnKolDOmuLTNxu5CRIcLwNWaUSNNW0nIPE3
-	IUgL4BO7Bg3YQ5FqynhzYmnSy4USzK+ZO+VUrf/rsiFXWAmeuwBlrsX2TTnWSsLKuH9kW1
-	xzITXU+i3S1z+GoPIgF+DIFrxO/3i/5CXtxYLRcJtXk9h3ZgsNttlex2lIQgy2A0sU3w/4
-	d9n/vAKfl75Pi1Fe9Zli9U622iPYrzHRO/7r7T3vDaI5ettZHmwgHEKiiyBmPw==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788962442;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T+vnc0fChBu8a1hJq5iRP0kdyV0RgFeG8COTLf4lByI=;
-	b=X44VOQm1U5b0kN7PGmKk9CYf7bbsJ++NoY3Uuein6dyLCm+yvXMIb1+dxf1/6fZP7GIMiA
-	jPoEvUWs0awEw0gkdUq6ReuxwmHdL1sDzTgvIdAhqprEeapuzW20SXMGV4lDPvYZ5mZuCT
-	QjU9r3CZm/XBD9cJk3Ry39qfgc2TYzkxlyvvXRj4v5Qj8EK8LIdMQRT68DRPVF4qVqSaSb
-	IzgoHjKnRTQceKUkvUzftmnW+iCQybSfS+yjxBZX++9RY177OYqzniInEke+io2nzw8FKJ
-	uARqBsF55+WaZmAorvgsq8nNNSVxqja56v1UB7nmG+rYt1Dy3Oe/QDkKdZIKdQ==
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: docs: Fix bracket
-Date: Wed,  9 Sep 2026 15:59:34 +0200
-Message-ID: <20260909135934.1365544-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7DiDcNg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD0C1F01560
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788962643;
+	bh=0qvI3Ij6pHot4GWpLZbVGJuwCMn3p13tzKFz475rd7w=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=f7DiDcNgtX0V7nhexZdovTM5uwfD8FIy1VWToiVrwFCMZWT4ep6JgIAU9A08oRbCo
+	 AN5nLWLvXgYJ0tGr6wFrfzd3rKYIkdLPqiBR0VzeQED0wp7YlqC4jeS1GMXkHG4/9n
+	 rSRsC4A/6gdv9Gv8AQI600Wb6YYCblzz9DRARCproumk9co1hoW2WRhNGkDft6Tzax
+	 PlG1ifpPiYVwdpSR8gZdxMUAGkHqzxn1Z4gwkjoqczWwZ1lp/WEsPxvp3bMaLysJ7f
+	 oDPtMmEa6U0c/+EmoOFo4is5xc/9+yX8aTqSrj5Pdxa0aAdw1d0RPb3GcrSi18mgHW
+	 RbsjrhA44gWCQ==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a2e985245eso41893821fa.0
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 07:04:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwUm06QL/RvhjQY9WJ6tXiFnRXkylWN6evuuYcDJnrBYu5wpJtAA0U6FuOgkNpOcZVl2gfbKzeQukONkQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++m3nXXH05h/ta2slABPQbHL0cdvbv9fcENwH3kwQZ1DOn4ueJE3
+	M6w8dbujxTryRPR158xGV8NmOlLXZQMs6OETkBTdnUZmxxJs4fHzMmVOPaaWg1//RWvy9gMTBHC
+	bpIcqW7R2aRl+ckm/4OCMfaHGedaI2jkN6Z2uzKIQ3g==
+X-Received: by 2002:a05:651c:a103:10b0:3a4:973c:9387 with SMTP id
+ 38308e7fff4ca-3a4973c96fdmr5064251fa.26.1788962641476; Wed, 09 Sep 2026
+ 07:04:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:03:58 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:03:57 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: tr8o5r868sk6rkj9mrsp1wys6zzn77xf
-X-MBO-RS-ID: 49179fa391afa16be6d
+References: <20260909132153.1596191-1-arnd@kernel.org>
+Date: Wed, 9 Sep 2026 07:03:57 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
+X-Gm-Features: AcwNN1US7FJNeFLdpa5M-NPN5cGI7wXmVw6SZ5lmp-9zPkwIPUzMBGaaTvwumLk
+Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
+Subject: Re: [PATCH 00/14] mfd: unused driver purge
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+	Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Remove needless '('.
+On Wed, 9 Sep 2026 15:21:37 +0200, Arnd Bergmann <arnd@kernel.org> said:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> As part of my cleanup of old platforms, I had a look at all drivers that
+> may have become unused because the last platform_data or DT definition
+> was removed, or because of unmet Kconfig dependencies.
+>
+> These are all the mfd drivers I found. The first ten in the list
+> actually turned out to have been unusable long before my series, and
+> I have added explanations on how I determined this in each patch. The
+> last four patches are still in use in linux-7.3 but become unused after
+> my series [1] that I hope to get merged for 7.4.
+>
+> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
+> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
+> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
+> to simplify the interdependencies: removing just the mfd driver would
+> leave unselectable or broken drivers in other subsystems.  I also have
+> additional patches for each of the other subsystems, currently a total
+> of 300 patches, many of which still need better testing or proper
+> changelog texts.
+>
+> Please let me know if you all think this approach is ok, or if I should
+> explode this further and turn these 14 patches into 70 individual ones
+> by splitting them per subsystem.
+>
+> See [2] for the current state of the overall series.
+>
+>      Arnd
+>
+> [1] https://lore.kernel.org/lkml/20260908152808.3928630-1-arnd@kernel.org/
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+>
+> Arnd Bergmann (14):
+>   mfd: remove unused 88pm80x driver
+>   mfd: remove unused rdc321x southbridge support
+>   mfd: remove unused si476x driver
+>   mfd: remove unused wm8400 driver
+>   mfd: remove unused adp5520 driver
+>   mfd: remove unused da903x driver
+>   mfd: remove unused lp8788 driver
+>   mfd: remove unused aat2870 driver
+>   mfd: remove unused lm3533 driver
+>   mfd: remove unused rc5t583 driver
+>   mfd: remove unused wm8350 driver
+>   mfd: remove unused mcp-sa11x0/ucb1x00 driver
+>   mfd: remove unused menelaus driver
+>   mfd: remove unused iPaq micro driver
+>
+>  .../ABI/testing/sysfs-class-backlight         |   11 -
+>  Documentation/admin-guide/devices.txt         |    1 -
+>  .../admin-guide/media/radio-cardlist.rst      |    1 -
+>  Documentation/admin-guide/media/si476x.rst    |  160 --
+>  .../admin-guide/media/v4l-drivers.rst         |    1 -
+>  .../devicetree/bindings/regulator/88pm800.txt |   38 -
+>  Documentation/hwmon/index.rst                 |    1 -
+>  Documentation/hwmon/wm8350.rst                |   30 -
+>  .../watchdog/watchdog-parameters.rst          |    7 -
+>  MAINTAINERS                                   |   14 -
+>  drivers/gpio/Kconfig                          |   22 -
+>  drivers/gpio/Makefile                         |    3 -
+>  drivers/gpio/gpio-adp5520.c                   |  169 --
+>  drivers/gpio/gpio-rdc321x.c                   |  199 --
+>  drivers/gpio/gpio-wm8350.c                    |  144 --
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- Documentation/userspace-api/media/dvb/fe-set-voltage.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+For GPIO:
 
-diff --git a/Documentation/userspace-api/media/dvb/fe-set-voltage.rst b/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
-index 4d09ca587..d780e67d7 100644
---- a/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
-+++ b/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
-@@ -37,7 +37,7 @@ cable to 13V, 18V or off.
- Usually, a satellite antenna subsystems require that the digital TV
- device to send a DC voltage to feed power to the LNBf. Depending on the
- LNBf type, the polarization or the intermediate frequency (IF) of the
--LNBf can controlled by the voltage level. Other devices (for example,
-+LNBf can controlled by the voltage level. Other devices for example,
- the ones that implement DISEqC and multipoint LNBf's don't need to
- control the voltage level, provided that either 13V or 18V is sent to
- power up the LNBf.
--- 
-2.54.0
-
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
