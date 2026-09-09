@@ -1,109 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCF2145A1F;
-	Wed,  9 Sep 2026 04:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6113BAD9F;
+	Wed,  9 Sep 2026 06:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788929226; cv=none; b=WbhsSNqNyLFWph2J28bazIOSgrmYF/1nJLEx0A7Ffl1QsQdU26Ml1wIqjxu8SLtV/CG7Le4hi3oT9MOvGJuKI2VkaXygdoYnFOZje8VZcV0i3Z0VAzhF8ugUGuawZSnuMVlg7GC/CbELoj4E8r6mDn+/8JYjwJR2WHgINKTa0T4=
+	t=1788936425; cv=none; b=AcTyIqOhKBwA7b+I5o3dUSlo56AiUMrlJHiksS9QPHBsGebz2V3hyHosCP6JcIDxLZjukll42Ti08E7gGyEqNxmrBsrQOJZ772nXJPoj0O8paVmmfpAzvK0kWMptjsslWTYut8FIBzcSygZdKdFiCDtRciTU+7wxnRCpS6vg2P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788929226; c=relaxed/simple;
-	bh=Ok2z4j2NFg0vlwTJJagifJjwcY0TQPyf7bEygM3L1Ls=;
+	s=arc-20240116; t=1788936425; c=relaxed/simple;
+	bh=XWkU8XPPKe/0TqMzxvCNDn1DVNv83lNQ1GY10EINgXs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FSWlUIB57MIU4ruGoLHzl/emy9wkoHB6zzvLb8kcYeWeuRVRmKUax4Whx8y12WrjmNVC80B23V6KTl3MLVIdem9fJfBPRnsLXolzd3NdI+i8QQ7oO7Z2Q3pULxbFKoEvOWbpSKf+Itbz7HFJop5Wgk55NV1v9po8DA/bhYb6A4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KZIWAq3Y; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jjmleSW54N1yY5e/bWMarqjMRs9QUOMxo5V9zgK2QvbY2OBdNR9pSzkHbFV9y35SwIL8rd8VKkJ0JykM4HJaX+IwbZaB6ZTgpHtTQe3MeXtLjClqBO6+oFSL/ql9Nz/D7JqRKuG2gzYw2vzNI9gD34H5K4WyJ1w5P8orCbD0cqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=syhmPmyh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KZIWAq3Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788929224; x=1820465224;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ok2z4j2NFg0vlwTJJagifJjwcY0TQPyf7bEygM3L1Ls=;
-  b=KZIWAq3Yq+p7utBaro0CTd78U+ijFHr4OHRKKhGhXLfxxS9Yym4bvKVC
-   POzcQiHCVQpA3KnO4F+QCJX1TmnojY1ObpM2xvyaVQh9GL0Kr5FjumM+U
-   ahMmPuHrMJPJ/SndyncIcyNGVN1nE9P4WHuS4aSQOQryr8G9E5DDps35f
-   B3pFVP7mrs1eXqW+IRd+20iGfUjAUG9oW3HsfQWYKJx1k2f5RJkVKs80c
-   NqhZNSFeh35EXC8QPJdF1mGyrUxr16JWGn/Q8ZC/NF3cofzo3G0KtphWX
-   Gy809viCNY+IkxeRsKnvwOI0A2LehS32eypt0NteDFqSlPLBFtgIRgE32
-   w==;
-X-CSE-ConnectionGUID: 2COCznRqTtuYv7zgue93xA==
-X-CSE-MsgGUID: fy6o/bkmS/2JENLMArP94Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="114886663"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="114886663"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 21:47:02 -0700
-X-CSE-ConnectionGUID: j49rDR/9TsW2DNZymZN0nQ==
-X-CSE-MsgGUID: ZlAIBf4XTsuMZw6XcZtflQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="270718305"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.249])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 21:46:59 -0700
-Date: Wed, 9 Sep 2026 07:46:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Thierry Chatard <tchatard@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource
- conflict quirk
-Message-ID: <aqDkwTkAsvs8Escx@ashevche-desk.local>
-References: <20260831160754.9857-2-tchatard@gmail.com>
- <20260908161629.335223-1-dmanresa@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="syhmPmyh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC7F1F00A3A;
+	Wed,  9 Sep 2026 06:47:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788936423;
+	bh=Z3KVIaddpfCo8To//cbSyOpxz2vaMHff+bwmPbywxBo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=syhmPmyhhf6g0BZmvYqPKfBPAWpZeyZ2icgrI0NTcachxc/q/dX2I5xqq1YV6g729
+	 q9hpXb4MuU//e8dS2YK7JSzX3ZMx7xoN3KGYXyqu1v5685rLmbw3MI9Ido0s4jME1Z
+	 zd/MLkIOUwhBhNCmBnbJq8afPK8pekdg/v8FEdxk=
+Date: Wed, 9 Sep 2026 08:10:51 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Li Wang <liwang@kylinos.cn>
+Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
+ io_uring
+Message-ID: <2026090913-landline-encroach-c544@gregkh>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260908161629.335223-1-dmanresa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908131545.105987-1-liwang@kylinos.cn>
 
-On Tue, Sep 08, 2026 at 06:16:29PM +0200, D. Manresa wrote:
-> The Dell Latitude 7275 2-in-1 has the same BIOS bug as the Latitude 5285:
-> the ACPI GEXP device declares an OperationRegion (BAR0) on the GNVS
-> variable SB04 and the I2C4 controller (INT3446) builds its _CRS from that
-> same variable, so intel_lpss_acpi fails to bind the controller with
-> -EBUSY and the front camera sensor (OV5670, INT3479) is never registered
-> unless acpi_enforce_resources=lax is passed.
+On Tue, Sep 08, 2026 at 09:15:45PM +0800, Li Wang wrote:
+> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 > 
-> Add the machine to the DMI table so QUIRK_IGNORE_RESOURCE_CONFLICTS is
-> applied to INT3446 on it as well.
+> Inspired by the paper published in SC'25 [1], we implemented a character
+> device named fgds that provides two ioctl interfaces:
+> `REG_BUFFER/UNREG_BUFFER`. It enables applications to perform direct I/O
+> between GPU memory and NVMe via POSIX and io_uring APIs. This is
+> particularly useful for LLM workloads, such as model loading, KV cache
+> offloading, and checkpointing. The fgds device corresponds one-to-one with
+> the PCIe GPU on the machine. The usage is straightforward: an application
+> simply opens the corresponding fgds device, calls ioctl on the returned fd
+> with REG_BUFFER, taking the target GPU memory buffer address (represented
+> as a dma-buf fd), and the buffer length as inputs, and then invokes mmap on
+> the fgds device fd, using the return value of ioctl as the input. The mmap
+> call returns a CPU virtual address (call it cpu_vaddr). Afterward,
+> cpu_vaddr can be passed directly to pread/pwrite, or
+> io_uring_prep_read/io_uring_prep_write to perform direct I/O between files
+> on NVMe and GPU memory. A minimal working example can be found in [2].
+> The underlying mechanism is that, with the support of fgds device,
+> cpu_vaddr is made to point directly to the GPU memory buffer corresponding
+> to the dma-buf fd. This solution is loosely coupled with the GPU vendor's
+> driver; the GPU vendor only needs to support exporting the allocated GPU
+> memory buffer through the standard Linux kernel dma-buf framework, which
+> the vast majority of mainstream GPUs already support. This allows both
+> applications and the fgds device to work seamlessly with GPUs from
+> different vendors without any modifications. Furthermore, applications no
+> longer need to call vendor-specific proprietary APIs (such as NVIDIA's
+> cuFile API) or install vendor-specific kernel modules (such as NVIDIA's
+> nvidia-fs.ko) for different GPU vendors. We have tested fgds on GPU cards
+> from NVIDIA, AMD, and several other vendors, and it works well.
 > 
-> Assisted-by: Claude Code:claude-fable-5-1
-> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+> Besides the benefits in ease of use and compatibility, another key
+> advantage of this solution is higher performance. [2] presents the
+> performance comparison results between fgds and NVIDIA GDS. Because fgds
+> eliminates the overhead of phony buffers incurred by NVIDIA GDS, it
+> achieves significantly higher performance. For example, for reads, fgds
+> outperforms GDS by 11% to 109%; for writes, fgds outperforms GDS by 10%
+> to 71%.
+> 
+> To further accelerate the read and write operations of large files or
+> massive data volumes—which are very common in LLM scenarios—we have
+> implemented library functions `fgds_read` and `fgds_write`. Under the hood,
+> these interfaces split large data into chunks and submit them
+> asynchronously and in parallel via io_uring, thereby further boosting I/O
+> performance, with read performance improved by up to 115% and write
+> performance by up to 40%. In addition, we also provide the `fgds_register`
+> library interface to encapsulate the `open`, `ioctl' and `mmap` operations.
+> Readers who are interested can refer to [2].
+> 
+> In addition, we have added the LMCache backend, enabling vLLM to offload KV
+> cache via LMCache using fgds, which accelerates inference performance. We
+> also added PyTorch APIs, compatible with the PyTorch GDS API, to improve
+> the performance of reading and writing checkpoints during LLM training.
+> 
+> We look forward to community feedback and are fully committed to iterating
+> on this series to work towards upstreaming.
+
+That's not really needed in a changelog text, it could be in the 0/X
+patch :)
+
+Anyway, you didn't cc: the io_uring list, why?
+
+Also, as a first cut, please see the sashiko comments on this patch:
+	https://sashiko.dev/#/patchset/20260908131545.105987-1-liwang@kylinos.cn
+
+
+
+> 
+> [1] https://dl.acm.org/doi/10.1145/3712285.3759862
+> [2] https://github.com/Storage-and-OS-for-AI/fgds
+> 
+> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> Signed-off-by: Li Wang <liwang@kylinos.cn>
 > ---
-> Applies on top of "mfd: intel-lpss: add resource conflict quirk for Dell
-> Latitude 5285" from Thierry Chatard's v10 series [1]. Thierry, feel free
-> to fold this into v11 instead if you prefer.
+>  drivers/misc/Kconfig      |   9 +
+>  drivers/misc/Makefile     |   1 +
+>  drivers/misc/fgds.c       | 989 ++++++++++++++++++++++++++++++++++++++
+>  include/uapi/linux/fgds.h |  54 +++
+>  4 files changed, 1053 insertions(+)
+>  create mode 100644 drivers/misc/fgds.c
+>  create mode 100644 include/uapi/linux/fgds.h
+> 
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> index 7364931dad3a..2f3a5a5fd0bf 100644
+> --- a/drivers/misc/Kconfig
+> +++ b/drivers/misc/Kconfig
+> @@ -568,6 +568,15 @@ config MCHP_LAN966X_PCI
+>  	    - lan966x-miim (MDIO_MSCC_MIIM)
+>  	    - lan966x-switch (LAN966X_SWITCH)
+>  
+> +config FGDS
+> +	tristate "GPU-NVMe direct I/O control driver"
+> +	depends on PCI && DMA_SHARED_BUFFER && ZONE_DEVICE
+> +	help
+> +	  Say Y here if you want to support GPU-NVME direct I/O
+> +	  via POSIX/io_uring interfaces.
+> +
+> +	  If unsure, say N.
 
-Do not fold, just add into the series this one as patch 2, for example.
+Module name is not listed here.
 
-> The conflict was verified in the 7275 DSDT (BIOS 1.18.0): GEXP has
-> OperationRegion (BAR0, SystemMemory, SB04, 0x0208) and INT3446._CRS
-> returns LCRS (SMD4, SB04, SIR4). With acpi_enforce_resources=lax, which
-> has the same effect as the quirk, the controller binds and the camera
-> works with the board data from "platform/x86: int3472: Add TPS68470 board
-> data for Dell Latitude 7275" [2]. The distribution kernel here builds
-> intel-lpss-acpi in, so this exact patch has not been run yet.
-
-The patches still need an Ack from Lee.
-
-> [1] https://lore.kernel.org/linux-media/20260831160754.9857-2-tchatard@gmail.com/
-> [2] https://lore.kernel.org/platform-driver-x86/20260908161445.334910-1-dmanresa@gmail.com/
--- 
-With Best Regards,
-Andy Shevchenko
+Nor why "fgds" is the name, that's going to be hard to remember, does it
+stand for something?
 
 
+> +
+>  source "drivers/misc/c2port/Kconfig"
+>  source "drivers/misc/eeprom/Kconfig"
+>  source "drivers/misc/cb710/Kconfig"
+> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+> index e8d8d5d88c0d..04985abe1678 100644
+> --- a/drivers/misc/Makefile
+> +++ b/drivers/misc/Makefile
+> @@ -71,3 +71,4 @@ obj-y				+= keba/
+>  obj-y				+= amd-sbi/
+>  obj-$(CONFIG_MISC_RP1)		+= rp1/
+>  obj-$(CONFIG_INTEL_SSEI)	+= issei/
+> +obj-$(CONFIG_FGDS)		+= fgds.o
+> diff --git a/drivers/misc/fgds.c b/drivers/misc/fgds.c
+> new file mode 100644
+> index 000000000000..3aa4945f701b
+> --- /dev/null
+> +++ b/drivers/misc/fgds.c
+> @@ -0,0 +1,989 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Fast GPU Direct Storage via dma-buf.
+> + *
+> + * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
+> + *
+> + * Maps GPU memory into user space to enable direct NVME-to-GPU DMA
+> + * pread/pwrite syscalls. BAR pages are remapped into ZONE_DEVICE via
+> + * devm_memremap_pages() and populated using dma-buf backing pages.
+> + */
+> +#define pr_fmt(fmt) "fgds: " fmt
+
+You are a driver, always use dev_*() print functions, not pr_()
+functions, as you will loose the device information.  For example:
+
+> +/*
+> + * BAR-based mapping requires device physical addresses. When using
+> + * IOMMU, DMA addresses are IOVAs, which cannot be mapped directly.
+> + */
+> +static int fgds_check_gpu_iommu(struct pci_dev *pdev)
+> +{
+> +	struct iommu_domain *domain;
+> +
+> +	domain = iommu_get_domain_for_dev(&pdev->dev);
+> +	if (domain && domain->type != IOMMU_DOMAIN_IDENTITY) {
+> +		pr_warn("%s: reject attaching a translating IOMMU domain (requires iommu=pt or off\n",
+> +			dev_name(&pdev->dev));
+
+Should be dev_warn(), right?
+
+But what can userspace do with that warning, did something just break?
+
+> +	pr_info("loaded successfully: %u GPU(s) active\n", fgds_dev_count);
+
+When drivers work, they are quiet, please remove this, and the other
+pr_info() lines, as they seem to be left over from your debugging.
+
+thanks,
+
+greg k-h
