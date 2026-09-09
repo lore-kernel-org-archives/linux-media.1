@@ -1,212 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6113BAD9F;
-	Wed,  9 Sep 2026 06:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039E22D060D
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 06:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936425; cv=none; b=AcTyIqOhKBwA7b+I5o3dUSlo56AiUMrlJHiksS9QPHBsGebz2V3hyHosCP6JcIDxLZjukll42Ti08E7gGyEqNxmrBsrQOJZ772nXJPoj0O8paVmmfpAzvK0kWMptjsslWTYut8FIBzcSygZdKdFiCDtRciTU+7wxnRCpS6vg2P4=
+	t=1788936660; cv=none; b=XOPkbDR8tHgqKAG1iwffT+0sh0dp9ChtZPQXIEn7rVX0iHIKCqaFnsIx4e4lCAe5qU/aZO4uZG6wYIjYCys6SjnZcDvSt7kMaxbqqb9HHv57m9MYQBvlhO8VSFyJkdrBvBFL2fT5FDLIrepabf9QjU2otA66ux8uO5mxQ/UUW24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936425; c=relaxed/simple;
-	bh=XWkU8XPPKe/0TqMzxvCNDn1DVNv83lNQ1GY10EINgXs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jjmleSW54N1yY5e/bWMarqjMRs9QUOMxo5V9zgK2QvbY2OBdNR9pSzkHbFV9y35SwIL8rd8VKkJ0JykM4HJaX+IwbZaB6ZTgpHtTQe3MeXtLjClqBO6+oFSL/ql9Nz/D7JqRKuG2gzYw2vzNI9gD34H5K4WyJ1w5P8orCbD0cqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=syhmPmyh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788936660; c=relaxed/simple;
+	bh=wLDEXefuJ6ysr65joIrk+CDBT5nG781r89dk8ZxIZWg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s8Xfia1uXaRtma55tzCfwlY0WT1eX/FccqhA6QNPiIU1+O7BvChBPvU4f/0Rx4kYDBl+NbRgIffJhYYbtoMvYSHtXwCwb9lbLjsqRFGCPYwNYn2GCYcgzcvW90MEG/1PWMKcXE62oc9sT9eHWQD6ZRhmZdAhs5r9WbD7lsu4pfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DhG8vY9d; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="syhmPmyh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC7F1F00A3A;
-	Wed,  9 Sep 2026 06:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788936423;
-	bh=Z3KVIaddpfCo8To//cbSyOpxz2vaMHff+bwmPbywxBo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=syhmPmyhhf6g0BZmvYqPKfBPAWpZeyZ2icgrI0NTcachxc/q/dX2I5xqq1YV6g729
-	 q9hpXb4MuU//e8dS2YK7JSzX3ZMx7xoN3KGYXyqu1v5685rLmbw3MI9Ido0s4jME1Z
-	 zd/MLkIOUwhBhNCmBnbJq8afPK8pekdg/v8FEdxk=
-Date: Wed, 9 Sep 2026 08:10:51 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Li Wang <liwang@kylinos.cn>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
- io_uring
-Message-ID: <2026090913-landline-encroach-c544@gregkh>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DhG8vY9d"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49557167508so64397375e9.1
+        for <linux-media@vger.kernel.org>; Tue, 08 Sep 2026 23:50:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788936654; x=1789541454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wLDEXefuJ6ysr65joIrk+CDBT5nG781r89dk8ZxIZWg=;
+        b=DhG8vY9d+eTinmFNQm775o8Q7jFYyvD1+u3MTW/5lSvEBux2eigyr1PhU5mahAEzcP
+         dM/Nt2OYBu262Q5l5hHK86R8Bez+xHclP6auZyDq+STfLywu1/OK0TseoQL1ElVYfvtK
+         lSHQbb2s9eCEc/lxd6nzx+mWaQjtyayA3DDq7M80BCSvcebflez85PaMXHgMl9DyOsPg
+         ZGv1qBv52krNvgf3OtBtjcn4t9ebevLKaQmNEHoo/hRvmET+0Q5seEqqd9MTev5qjDXv
+         BWAorjpAKi5RUnst19QEjks8lkl6QpIHUkDxsN55Rg/dnmq+QP+eUVjf+p7WIYbEMxVk
+         8abg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788936654; x=1789541454;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wLDEXefuJ6ysr65joIrk+CDBT5nG781r89dk8ZxIZWg=;
+        b=EqOilPPVRGTQnLvquEEnp8y3Q3EvpZLL1fFmNENBKqklikCLJSxaj8yn1YsKjfyChh
+         0XdRGoFujkie2ZrT4tGXU2biikTuhDDOoEf/ZSkOLOAQ7AFlVqJYiobVPJ8yusy09UX8
+         H3S4mBy0Xy8oVJ1cCfMTeHieBuX8rtdcPRvIIYI2/lhN/HCtc2dOWBedKxQhPPR3wfL7
+         7M653q/ffMH5xTInGAPGZkWvltpDfVuikQCQtnyCfaDyqv8V7rCzM6gqK6HNR9DUYTbE
+         Ry2TuOUReKj3q1ZMQtqdgWjmodAnnexYecbmRNIkDkKAjMw34A+goF2aI80bwRwxtjfo
+         1PdA==
+X-Forwarded-Encrypted: i=1; AKwUvBxgSYAYcHq5VI+PSUFWH1QqoxFR5ezT6zwsNB5QLxORS33vTAEAGYDxp/PuO1FQkzHX9yBj2HdrjD1/Zw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kU444Cxu5z2jzb8Ypn7QDCz69itACkfH0E7eFQp7Vtd4xZ4irK
+	n5PemdCgLe93UbdNZZMaJwlgdZxdOLYCPCdB+q3NCJLdK28wr3pK9cAKk1ew6z/+Hg==
+X-Gm-Gg: AYBFou3Rwgf/B7uzk58by0B98higVXVZ6SVJMSO9z/WgIjh6qJT5+bYR8VR+gKadbHx
+	ELyZfx3bkaYekk4HQgbQS+Q98jticCE8me0CmbVqGOsPkbLvottK+xpQgjTxztVsS+NZobkU0Yx
+	Ayuulvj4AiCfgv0D+ljLOPH7P0+qEAjh8npLxgXyqbojCP0OOArFt1jHdVXNRaGggRFSpveeZ/3
+	z9N+PKaAd4Ffu1pH/jvTK94wxEI5aWxEEEiYfK5pAUfqyG8/Bh1ZL4XBu2WT3lBT509SRCmRAO1
+	FpXNti4Hj7cdYxkhAWAtBmD9wQYPZLwmFMiQ7UoyeHmI2qy2oMurnK4UK0Qhyb0YbDWBKlx8Eir
+	Yv6i4GCgkLlncZgKbEp8+3XWarXpVsSilqPkbAaKxaMH4C0g36CWV4zbvAQch8VQrws1zxBlREK
+	zd5vDZKCJZEidnvY97x0c1T+v/wD+epigSOdjTjiflawX0EYOi7tvorbb3E/dF1bZIj7mPuFLvj
+	5SyBw+1EGzWE5X6S5JZy4Yi2Q54Eu9xbVX43++CMVSm9jY/fukHMzhM6QM=
+X-Received: by 2002:a05:600c:8715:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-49d17d4b01dmr219717855e9.1.1788936653490;
+        Tue, 08 Sep 2026 23:50:53 -0700 (PDT)
+Received: from latitude7275 (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm443215855e9.12.2026.09.08.23.50.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 23:50:52 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Thierry Chatard <tchatard@gmail.com>
+Cc: Lee Jones <lee@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
+Date: Wed,  9 Sep 2026 08:51:04 +0200
+Message-ID: <20260909065104.15817-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aqDkwTkAsvs8Escx@ashevche-desk.local>
+References: <20260831160754.9857-2-tchatard@gmail.com> <20260908161629.335223-1-dmanresa@gmail.com> <aqDkwTkAsvs8Escx@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908131545.105987-1-liwang@kylinos.cn>
 
-On Tue, Sep 08, 2026 at 09:15:45PM +0800, Li Wang wrote:
-> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-> 
-> Inspired by the paper published in SC'25 [1], we implemented a character
-> device named fgds that provides two ioctl interfaces:
-> `REG_BUFFER/UNREG_BUFFER`. It enables applications to perform direct I/O
-> between GPU memory and NVMe via POSIX and io_uring APIs. This is
-> particularly useful for LLM workloads, such as model loading, KV cache
-> offloading, and checkpointing. The fgds device corresponds one-to-one with
-> the PCIe GPU on the machine. The usage is straightforward: an application
-> simply opens the corresponding fgds device, calls ioctl on the returned fd
-> with REG_BUFFER, taking the target GPU memory buffer address (represented
-> as a dma-buf fd), and the buffer length as inputs, and then invokes mmap on
-> the fgds device fd, using the return value of ioctl as the input. The mmap
-> call returns a CPU virtual address (call it cpu_vaddr). Afterward,
-> cpu_vaddr can be passed directly to pread/pwrite, or
-> io_uring_prep_read/io_uring_prep_write to perform direct I/O between files
-> on NVMe and GPU memory. A minimal working example can be found in [2].
-> The underlying mechanism is that, with the support of fgds device,
-> cpu_vaddr is made to point directly to the GPU memory buffer corresponding
-> to the dma-buf fd. This solution is loosely coupled with the GPU vendor's
-> driver; the GPU vendor only needs to support exporting the allocated GPU
-> memory buffer through the standard Linux kernel dma-buf framework, which
-> the vast majority of mainstream GPUs already support. This allows both
-> applications and the fgds device to work seamlessly with GPUs from
-> different vendors without any modifications. Furthermore, applications no
-> longer need to call vendor-specific proprietary APIs (such as NVIDIA's
-> cuFile API) or install vendor-specific kernel modules (such as NVIDIA's
-> nvidia-fs.ko) for different GPU vendors. We have tested fgds on GPU cards
-> from NVIDIA, AMD, and several other vendors, and it works well.
-> 
-> Besides the benefits in ease of use and compatibility, another key
-> advantage of this solution is higher performance. [2] presents the
-> performance comparison results between fgds and NVIDIA GDS. Because fgds
-> eliminates the overhead of phony buffers incurred by NVIDIA GDS, it
-> achieves significantly higher performance. For example, for reads, fgds
-> outperforms GDS by 11% to 109%; for writes, fgds outperforms GDS by 10%
-> to 71%.
-> 
-> To further accelerate the read and write operations of large files or
-> massive data volumes—which are very common in LLM scenarios—we have
-> implemented library functions `fgds_read` and `fgds_write`. Under the hood,
-> these interfaces split large data into chunks and submit them
-> asynchronously and in parallel via io_uring, thereby further boosting I/O
-> performance, with read performance improved by up to 115% and write
-> performance by up to 40%. In addition, we also provide the `fgds_register`
-> library interface to encapsulate the `open`, `ioctl' and `mmap` operations.
-> Readers who are interested can refer to [2].
-> 
-> In addition, we have added the LMCache backend, enabling vLLM to offload KV
-> cache via LMCache using fgds, which accelerates inference performance. We
-> also added PyTorch APIs, compatible with the PyTorch GDS API, to improve
-> the performance of reading and writing checkpoints during LLM training.
-> 
-> We look forward to community feedback and are fully committed to iterating
-> on this series to work towards upstreaming.
+On Wed, 9 Sep 2026, Andy Shevchenko wrote:
+> Do not fold, just add into the series this one as patch 2, for example.
 
-That's not really needed in a changelog text, it could be in the 0/X
-patch :)
+Fine by me. Thierry, please carry it as patch 2 of v11 with Hans'
+Reviewed-by; no need to change anything else.
 
-Anyway, you didn't cc: the io_uring list, why?
+Thanks Hans and Andy for the quick review.
 
-Also, as a first cut, please see the sashiko comments on this patch:
-	https://sashiko.dev/#/patchset/20260908131545.105987-1-liwang@kylinos.cn
-
-
-
-> 
-> [1] https://dl.acm.org/doi/10.1145/3712285.3759862
-> [2] https://github.com/Storage-and-OS-for-AI/fgds
-> 
-> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-> Signed-off-by: Li Wang <liwang@kylinos.cn>
-> ---
->  drivers/misc/Kconfig      |   9 +
->  drivers/misc/Makefile     |   1 +
->  drivers/misc/fgds.c       | 989 ++++++++++++++++++++++++++++++++++++++
->  include/uapi/linux/fgds.h |  54 +++
->  4 files changed, 1053 insertions(+)
->  create mode 100644 drivers/misc/fgds.c
->  create mode 100644 include/uapi/linux/fgds.h
-> 
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index 7364931dad3a..2f3a5a5fd0bf 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -568,6 +568,15 @@ config MCHP_LAN966X_PCI
->  	    - lan966x-miim (MDIO_MSCC_MIIM)
->  	    - lan966x-switch (LAN966X_SWITCH)
->  
-> +config FGDS
-> +	tristate "GPU-NVMe direct I/O control driver"
-> +	depends on PCI && DMA_SHARED_BUFFER && ZONE_DEVICE
-> +	help
-> +	  Say Y here if you want to support GPU-NVME direct I/O
-> +	  via POSIX/io_uring interfaces.
-> +
-> +	  If unsure, say N.
-
-Module name is not listed here.
-
-Nor why "fgds" is the name, that's going to be hard to remember, does it
-stand for something?
-
-
-> +
->  source "drivers/misc/c2port/Kconfig"
->  source "drivers/misc/eeprom/Kconfig"
->  source "drivers/misc/cb710/Kconfig"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index e8d8d5d88c0d..04985abe1678 100644
-> --- a/drivers/misc/Makefile
-> +++ b/drivers/misc/Makefile
-> @@ -71,3 +71,4 @@ obj-y				+= keba/
->  obj-y				+= amd-sbi/
->  obj-$(CONFIG_MISC_RP1)		+= rp1/
->  obj-$(CONFIG_INTEL_SSEI)	+= issei/
-> +obj-$(CONFIG_FGDS)		+= fgds.o
-> diff --git a/drivers/misc/fgds.c b/drivers/misc/fgds.c
-> new file mode 100644
-> index 000000000000..3aa4945f701b
-> --- /dev/null
-> +++ b/drivers/misc/fgds.c
-> @@ -0,0 +1,989 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Fast GPU Direct Storage via dma-buf.
-> + *
-> + * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
-> + *
-> + * Maps GPU memory into user space to enable direct NVME-to-GPU DMA
-> + * pread/pwrite syscalls. BAR pages are remapped into ZONE_DEVICE via
-> + * devm_memremap_pages() and populated using dma-buf backing pages.
-> + */
-> +#define pr_fmt(fmt) "fgds: " fmt
-
-You are a driver, always use dev_*() print functions, not pr_()
-functions, as you will loose the device information.  For example:
-
-> +/*
-> + * BAR-based mapping requires device physical addresses. When using
-> + * IOMMU, DMA addresses are IOVAs, which cannot be mapped directly.
-> + */
-> +static int fgds_check_gpu_iommu(struct pci_dev *pdev)
-> +{
-> +	struct iommu_domain *domain;
-> +
-> +	domain = iommu_get_domain_for_dev(&pdev->dev);
-> +	if (domain && domain->type != IOMMU_DOMAIN_IDENTITY) {
-> +		pr_warn("%s: reject attaching a translating IOMMU domain (requires iommu=pt or off\n",
-> +			dev_name(&pdev->dev));
-
-Should be dev_warn(), right?
-
-But what can userspace do with that warning, did something just break?
-
-> +	pr_info("loaded successfully: %u GPU(s) active\n", fgds_dev_count);
-
-When drivers work, they are quiet, please remove this, and the other
-pr_info() lines, as they seem to be left over from your debugging.
-
-thanks,
-
-greg k-h
+D.
