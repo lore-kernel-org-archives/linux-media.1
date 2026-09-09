@@ -1,67 +1,33 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63AA531AF5
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 11:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896C54B5CD4;
+	Wed,  9 Sep 2026 11:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951861; cv=none; b=nD9C6UeahXpYpfwDs8O+EaRZHfrXDgCGosRU09QYOrAGf94HyzPr1UZuLb1fo4tXrNpC2odWCH1+ibJ+BHG1+d+Z1Qdg1g4J4NfvwbReAtMs2qxqaFGa/M9S7ntOTNEdx7NPJ2teztkO/JEmTOWfxCFqymh3BW15LCykeHG6QIs=
+	t=1788953315; cv=none; b=N9zV186rTVZaFw/gpKZn6BS3tZV+AelB6LYqenp574u95nr9/fFgeLmfYZt98+CySaHw6tCcycZICdgst3Hp8qL4soyN6ohLezfJn2lZXB9gwbrzVZH8Ph7qBP2+H99mKxhxOldy3ALPxHcABJHs+7UlgcWkJafiVyXsYcRLzMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951861; c=relaxed/simple;
-	bh=Rzpqksp/qKE1bDH6y39VH8pIARppCQb7o4bmXV4eju8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ttmZUNlSPa4F+hRdKkkQJGtphMIDiFgeKeWEr9ZH6G2PKT5n6yAK8o6CS2YbySRvf7hj5iQegW4nwuG3r1/batX/uQHQTzSBULfhBDAeKl5ROK4M95EwMzqAlbjiM4tRSTsK/oF10yyl+zdG7w5W9dfXuV/+AST9ekTcOOp97w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j89WfArA; arc=none smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788953315; c=relaxed/simple;
+	bh=YB87it622ts0toxfTmNSOhFVdA1wmPUd38htUOzhqS0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=tuizTS2MkwiiOG9pL0SI+ZfoBg49YtEEzMwgbvv/olbZwwWJPji+rVqCOu/buIpNElp7sePkTwXvzSIn0k1RbY9o/XsvlWIUS5qK1Y3gJyA9lK0NwjPWgrwzM0ZUNisVwWxJJZvgdh4UTeNrIuYAFtMyzsCrqzwb31botW4k6bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hu/Q0a2c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j89WfArA"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66fb8a78ad2so6999509d50.2
-        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 04:04:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788951852; x=1789556652; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yu6XBq0/lXnZ7cWMkDYqnoMO3CTujhBWMHDaaEEIfu8=;
-        b=j89WfArAb4HAae1r9gERB9vbyd4lujvT4QzylaHONNA6Q2Wf4knbMbObz5i525Ut4t
-         XkSo5AaI0HUxT0uGfAvI+gBT3QVVAT4z7Z6X1rYzRyP6/km7YtvxqHnX65Mn7Ml5+NP3
-         FLXjoFY5SSOpi+0C6jJBGg5LkrrudZX7/Zf17BUfr1UBkyIOoHrFH0XGMbs1s6uMTjkr
-         3bRpufNCdRYjhLc0hcJzyc26NKMfFU/GknUIo1ib4IvIuFNBWZSUtSqWIt6BgZjcESeL
-         Gh26103u4O1yeaieTZtSACBZgpuK5tNWMK16x0Bs1FCT2UIk2Tms0ScjaMQ+CmRCv2hG
-         DtdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788951852; x=1789556652;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yu6XBq0/lXnZ7cWMkDYqnoMO3CTujhBWMHDaaEEIfu8=;
-        b=dBTUtbRwGBSw3q4JB0i8JeibaSjUjsD6ASbghJkDzCBpjd61hFbsUdcD6WLmTVwfeR
-         c/JGhr6b8QBF8utA4rHg+4KAvUHrHQMo1bvFTrAi9eByaK2JT6hRE3Du57vzUCQeEKu+
-         1EJFFcZHyd8iZudSCru9aebaCb16TQRuMcShwSg/yvdL/PBGEC0jGCP8pFvVmRuRCFun
-         +517e7M9NyRQ9shrPZ5SQsMqppuHNrkVJ+FADgz/fF9JgSJqIkvqUmPRLimZgXEcrnXD
-         IaNQokuWSKUotjC8/TTw/UMRPpZklIxkJAvL0kh2qKZqlw6cJzlRdtFtkmQfFHmoZlQs
-         8bZw==
-X-Forwarded-Encrypted: i=1; AKwUvBw3jmuvl38xp727kb2JCjSOj5FpF4yDh6+pZ1Hgr1CobjOGsy4gVk5BcOifgBSvF7tc3j3IXR58KMDAeA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nolxQy6xhRn3Zn9e+0ccXyT8wGwS4E9o4uLhgV3EumTtkCpZBY
-	y1hwG+CBwP3hgpJLdjt40nRIJgR5CZu9Xb959eb1ExTPbWFbkyUq0/xM
-X-Gm-Gg: AYBFou0JS/e5y1WM777xz+1H6pRGmj/r5PmDLa2F+RjWRN9f+4Zq8x+NBD4ec8FOilP
-	d4q/Fa0QdLXgY/bwGPvPofOtFXNAhw2hilA9B0yeouzxbMI4tD0Z2onF2pw1z+xmCTPfF8cGhcB
-	9FWpzgwSdQHQWYEx0/qrx0C93L8tMxI9vyOvhthkVsESOfuLaqYlPhJ+AG0YBYzrNOJ7QGzTvC9
-	O8N1BvBTaI0STTT8MyjFB4344tq4Pc4+1rKQz5X1G9KaO49VTHVTiO3AhTiuO2JiM2rNA3uqNlE
-	M9/Y6qgK2o3BWtobQKJG5kbh5pTUwLKtd8YX7LjYhmp4Efs9JO9XQwe5IICshqlksLahEB4+CGE
-	uV3qlvfQsupLlrXBwMpT2zfHdEzMWJDnhaTVN9saDIlgfRVCTY4dFW4uB4Qea3COnD0XEESrgLx
-	35OvRBNoqJ7feOS+BBBZ0QK9m1wMmxe5BCJzniDSNI3dXhCNyWPj0QeFPn4HMhx9uPT8D93XBF9
-	8wz5HcIAQ3ai24O3ho1OeL+v3iF
-X-Received: by 2002:a05:690e:34f:b0:66d:2469:2518 with SMTP id 956f58d0204a3-66fb593f3e0mr8590219d50.13.1788951852153;
-        Wed, 09 Sep 2026 04:04:12 -0700 (PDT)
-Received: from [10.254.153.217] (munvpn.amd.com. [165.204.72.6])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040694c35sm140718096d6.36.2026.09.09.04.04.04
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 09 Sep 2026 04:04:11 -0700 (PDT)
-Message-ID: <2fd989b4-06ea-42e6-b18a-bc3ef2e069f5@gmail.com>
-Date: Wed, 9 Sep 2026 13:04:03 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hu/Q0a2c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7BAD1F00A3E;
+	Wed,  9 Sep 2026 11:28:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788953314;
+	bh=dLkrsZhSPD5byjJojvFEbgMv/u3HdJBRsDXxbO13uuU=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=hu/Q0a2c/94vSoN3eubujXsH+Ha9fKuOy0oCLxT1ZRPz45hC1zUSlyb3lBjUyisB2
+	 5yBsVvwi4FxZ3N7fZmVYpc/iTz4QzpJOx812TEuKmOeEXHvAjA5CCQVD/f1cM51jna
+	 bwKSFIKIKqWO7lYiiKW1dxAiTrZQMZUjKdPEmSqA7cY5yV4nwak41CQDN880KhycsG
+	 elpBloiUKHpA0ZI0DpfP5nMbjRZAgod79uxff+W/PKsuGn7zlmZq1aDDIVpoMVYYth
+	 f9XXTMOgDoKywv1Fi8Ny45JTDeaSqNlZftT1pAZKUrrIP5jQbQHrBmlOLs76DDdCBX
+	 rmxcfD5ccPT1g==
+Message-ID: <6530a61b-5a41-4375-9bcb-a50558d7c75d@kernel.org>
+Date: Wed, 9 Sep 2026 12:28:31 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,192 +35,140 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/12] dma-buf: heaps: Add debugfs support
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-8-79042cfa8de5@nvidia.com>
- <a77730b2-b5d6-49f9-a8ab-72eac4e241b6@amd.com>
-Content-Language: en-US
-In-Reply-To: <a77730b2-b5d6-49f9-a8ab-72eac4e241b6@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: Acer Swift SFG14-01 Camera Support not working on Linux
+To: AHMAD YASEEN <ahmadrandhawa01@gmail.com>, loic.poulain@oss.qualcomm.com,
+ rfoss@kernel.org, vladimir.zapolskiy@linaro.org,
+ linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <CAFJ6yro2PRQAsNwDMRmU8sve6nrXXWVruStgyYVRMcYeksdufQ@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFJ6yro2PRQAsNwDMRmU8sve6nrXXWVruStgyYVRMcYeksdufQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Since AMDs mail servers blocked me from sending this out, here once more from my gmail account.
+On 09/09/2026 08:41, AHMAD YASEEN wrote:
+> We can provide the kernel boot logs, kernel configuration, baseline
+> and live device trees, minimal CCI1 patch, and Windows hardware IDs
+> and driver-profile details. Serial number/SNID information can be
+> provided privately to Acer.
+> 
+> Our immediate objective is to bring up the correct CCI controller and
+> obtain a repeatable RGB sensor chip-ID before proceeding to capture
+> and libcamera integration.
 
-Regards,
-Christian.
+The RGB sensor and _should_ be on the same CCI and CSIPHY as the other 
+x1e platforms.
 
-On 9/4/26 15:00, Christian König wrote:
-> On 9/4/26 12:44, Thierry Reding wrote:
->> From: Thierry Reding <treding@nvidia.com>
->>
->> Add a callback to struct dma_heap_ops that heap providers can implement
->> to show information about the state of the heap in debugfs. A top-level
->> directory named "dma_heap" is created in debugfs and individual files
->> will be named after the heaps.
->>
->> Reviewed-by: Maxime Ripard <mripard@kernel.org>
->> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> 
-> One minimal nit pick below, with that taken care of Reviewed-by: Christian König <christian.koenig@amd.com>.
-> 
->> ---
->> Changes in v5:
->> - fix failure handling during debugfs root directory creation
->> - add more cleanup to the newly introduced dma_heap_exit()
->> ---
->>  drivers/dma-buf/dma-heap.c | 52 ++++++++++++++++++++++++++++++++++++++++++++++
->>  include/linux/dma-heap.h   |  2 ++
->>  2 files changed, 54 insertions(+)
->>
->> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
->> index 8a6c2b6e0cc6..65c80dac6500 100644
->> --- a/drivers/dma-buf/dma-heap.c
->> +++ b/drivers/dma-buf/dma-heap.c
->> @@ -7,6 +7,7 @@
->>   */
->>  
->>  #include <linux/cdev.h>
->> +#include <linux/debugfs.h>
->>  #include <linux/device.h>
->>  #include <linux/dma-buf.h>
->>  #include <linux/dma-heap.h>
->> @@ -225,6 +226,40 @@ const char *dma_heap_get_name(struct dma_heap *heap)
->>  }
->>  EXPORT_SYMBOL_NS_GPL(dma_heap_get_name, "DMA_BUF_HEAP");
->>  
->> +#ifdef CONFIG_DEBUG_FS
->> +static int dma_heap_debug_show(struct seq_file *s, void *unused)
->> +{
->> +	struct dma_heap *heap = s->private;
->> +	int err = 0;
->> +
->> +	if (heap->ops && heap->ops->show)
->> +		err = heap->ops->show(s, heap);
->> +
->> +	return err;
->> +}
->> +DEFINE_SHOW_ATTRIBUTE(dma_heap_debug);
->> +
->> +static struct dentry *dma_heap_debugfs_dir;
->> +
->> +static void dma_heap_init_debugfs(void)
->> +{
->> +	dma_heap_debugfs_dir = debugfs_create_dir("dma_heap", NULL);
->> +}
->> +
->> +static void dma_heap_exit_debugfs(void)
->> +{
->> +	debugfs_remove_recursive(dma_heap_debugfs_dir);
->> +}
->> +#else
->> +static void dma_heap_init_debugfs(void)
->> +{
->> +}
->> +
->> +static void dma_heap_exit_debugfs(void)
->> +{
->> +}
->> +#endif
->> +
->>  /**
->>   * dma_heap_add - adds a heap to dmabuf heaps
->>   * @exp_info: information needed to register this heap
->> @@ -299,6 +334,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
->>  
->>  	/* Add heap to the list */
->>  	list_add(&heap->list, &heap_list);
->> +
->> +#ifdef CONFIG_DEBUG_FS
->> +	if (heap->ops && heap->ops->show)
->> +		debugfs_create_file(heap->name, 0444, dma_heap_debugfs_dir,
->> +				    heap, &dma_heap_debug_fops);
->> +#endif
->> +
->>  	mutex_unlock(&heap_list_lock);
->>  
->>  	return heap;
->> @@ -335,6 +377,16 @@ static int dma_heap_init(void)
->>  	}
->>  	dma_heap_class->devnode = dma_heap_devnode;
->>  
->> +	dma_heap_init_debugfs();
->> +
->>  	return 0;
->>  }
->>  subsys_initcall(dma_heap_init);
->> +
->> +static void __exit dma_heap_exit(void)
->> +{
->> +	dma_heap_exit_debugfs();
->> +	class_destroy(dma_heap_class);
->> +	unregister_chrdev_region(dma_heap_devt, NUM_HEAP_MINORS);
->> +}
->> +__exitcall(dma_heap_exit);
->> diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
->> index 648328a64b27..1c9bed1f4dde 100644
->> --- a/include/linux/dma-heap.h
->> +++ b/include/linux/dma-heap.h
->> @@ -12,6 +12,7 @@
->>  #include <linux/types.h>
->>  
->>  struct dma_heap;
->> +struct seq_file;
->>  
->>  /**
->>   * struct dma_heap_ops - ops to operate on a given heap
->> @@ -24,6 +25,7 @@ struct dma_heap_ops {
->>  				    unsigned long len,
->>  				    u32 fd_flags,
->>  				    u64 heap_flags);
->> +	int (*show)(struct seq_file *s, struct dma_heap *heap);
-> 
-> I found it good coding practice for objects ops pointer tables to have the object the function works with as first parameter.
-> 
-> Absolutely not a must have, but just looks a little bit more consistent.
-> 
-> Regards,
-> Christian.
-> 
->>  };
->>  
->>  /**
->>
-> 
+Windows actually discloses alot of the information you need.
 
+cd /mnt/windows; find . -name "*sensor*.bin" -print
+
+For me on the Dell Inspiron that show ov02e10.bin and hm1092.bin for the 
+RGB and Greyscale sensors respectively.
+
+So you don't necessarily need Acer to provide information though, it'd 
+be nice.
+
+You should add a dump of your DSDT here:
+
+https://github.com/aarch64-laptops/build/tree/master/misc
+
+Same one ?
+
+https://github.com/aarch64-laptops/build/tree/master/misc/acer-sfa14-11
+
+...
+
+You have a USB camera no ?
+
+DSDT Device(WCAM)
+
+https://github.com/aarch64-laptops/build/blob/57a8b779e1ad1f08fb5c05b74c6d2d5975706a92/misc/acer-sfa14-11/dsdt.dsl#L50015
+
+Device (WCAM)
+                     {
+                         Name (_ADR, One)  // _ADR: Address
+                         Name (_PLD, Package (0x01)  // _PLD: Physical 
+Location of Device
+                         {
+                             ToPLD (
+                                 PLD_Revision           = 0x2,
+                                 PLD_IgnoreColor        = 0x1,
+                                 PLD_Red                = 0x0,
+                                 PLD_Green              = 0x0,
+                                 PLD_Blue               = 0x0,
+                                 PLD_Width              = 0x0,
+                                 PLD_Height             = 0x0,
+                                 PLD_UserVisible        = 0x1,
+                                 PLD_Dock               = 0x0,
+                                 PLD_Lid                = 0x1,
+                                 PLD_Panel              = "FRONT",
+                                 PLD_VerticalPosition   = "UPPER",
+                                 PLD_HorizontalPosition = "CENTER",
+                                 PLD_Shape              = "UNKNOWN",
+                                 PLD_GroupOrientation   = 0x0,
+                                 PLD_GroupToken         = 0x0,
+                                 PLD_GroupPosition      = 0x0,
+                                 PLD_Bay                = 0x0,
+                                 PLD_Ejectable          = 0x0,
+                                 PLD_EjectRequired      = 0x0,
+                                 PLD_CabinetNumber      = 0x0,
+                                 PLD_CardCageNumber     = 0x0,
+                                 PLD_Reference          = 0x0,
+                                 PLD_Rotation           = 0x0,
+                                 PLD_Order              = 0x0,
+                                 PLD_VerticalOffset     = 0xFFFF,
+                                 PLD_HorizontalOffset   = 0xFFFF)
+
+                         })
+                     }
+
+Switch on host controller for usb_2 and the USB should should power it. 
+At a guess its probably a UVC video device.
+
+---
+bod
