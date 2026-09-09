@@ -1,49 +1,67 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D3A380FF8;
-	Wed,  9 Sep 2026 09:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9604A9D4F
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 10:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947795; cv=none; b=Gg0BQWU/LAPI+Qo6Evezwf8HeQCPQKhdg9K7oxRjAEFZGQRCODQSZUJjazA3POz0GNN2Pw8ZlwFNkMamAJkUusJ7JgoZ2hCL6l0sA9oBHhZcY65sqoUO73M/grhhV/8gNUiKjKbPKu4bdixFTK0uH742hasidlb9p9rMqdi9JbI=
+	t=1788948401; cv=none; b=ZYRB3pvjxx2U8Zoe0eevbVv3rRVJDA9h8p6GMT9M41rwCV4GtpnKiGngOskPxxZFdlIgsKyGmUNVhsaZwOQ4iJAFRFj8rlpV9P38ZM27UHY2zS+FZYact/RncQrT8SjWDCYRGKENhid0K8OZDPa+WLTOXZ5ru8kr5AlkHmDO+N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947795; c=relaxed/simple;
-	bh=q+2CzjmdlxkgedUdRnCmW10aP6x7ZEPy60jhejBPhtY=;
+	s=arc-20240116; t=1788948401; c=relaxed/simple;
+	bh=4v6cl+3tt+t1rDxLx90fkt87gVsvwinmTNQ3wPikn1Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ckyqabgyg8qKGSjkdk9c0bKK+vCnvKji7HR+CncnYVmGzdRKpn9DOvzmcL4KYot2uab9PBVuMgoAXO3miPsWNBycSIB1giAz3+9dhavPSIdVLZSaKw2zs1FiGnAKkPRjKQbzxCzES9zK2eQ0tCJaNfFToLua2/Z3FH3vu7Eal/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IG+iF8NG; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=RjHrIFzE/iinJ6PT1TnQan9YwaTTnFOOQHCGlZwY6/BE1LGAHaa0RzI8UNPKcsWGmjIiamqgGhthjmcNsP9OwbbDwIqYiZgaAf4XD9mzRo77EpFRUQhVM/WAtOwy6Ov4s6OSm/+e+baKAkl5BTKqQ1hdIpIHif24Fpv1H7SAxUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EtNf9AiF; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IG+iF8NG"
-Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6E9724B0;
-	Wed,  9 Sep 2026 11:54:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788947694;
-	bh=q+2CzjmdlxkgedUdRnCmW10aP6x7ZEPy60jhejBPhtY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IG+iF8NGh6xaR57ik48qKoAuKp3zz6+BLueT0R4xuVXF46morqpkxSTqke0fyAnrn
-	 TBkLg5pXJAmvqLM6NKlTABKJuDjyY2e3jbnX9Ee1M6HrSFLxtOoeDRy932Mrjuz/V3
-	 P35o09YUiOBUNgWFLHm8GjljFQcPN9E6EWTzzLs4=
-Date: Wed, 9 Sep 2026 11:56:27 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
-Message-ID: <aqEsceb73f5ysKmK@zed>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
- <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
- <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
- <ap_0yL-JatdVDaXG@zed>
- <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
- <aqEJk6dKWuyMLLRt@zed>
- <aqEUTAAhwI09JOuR@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EtNf9AiF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788948399; x=1820484399;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=4v6cl+3tt+t1rDxLx90fkt87gVsvwinmTNQ3wPikn1Y=;
+  b=EtNf9AiFSJCBOnjoBE1vbGKJolJSCTA5z8ULjqYy7qUneKqEWUlTVc+h
+   oUIOkPSa81C2BvmUMqycxa3o4bSUf/VfNtzjB1br3MnTo0LlljgawWjpv
+   F+N/M+5ck29pZDruSEq4ZiRuE9BjqG05FGlvC8h3X8n4dK1QBaofhUTQy
+   lJ+hSaGxuMpzKS29Rz9mFVbbJAX5igWv9GF7/1wU9Js49Gc9feeT+M/1g
+   MUTWJ4v+gJRvKnr04jta2nLynlaMpfuf/g1x6RGNqJL9ImVfGVxNmhrSL
+   vIoLaDKHDpjU3VtyE+96iLQc9XgyKv6LgMSiEWb3JuTWo5p5aHHccM8nG
+   w==;
+X-CSE-ConnectionGUID: yDoXvxSBR2u/P2B0X28sNA==
+X-CSE-MsgGUID: E2Rp5LVAQR2/g99NIQyegw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91882397"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="91882397"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:06:39 -0700
+X-CSE-ConnectionGUID: 8MYb2L1vQQ6X3i+urIZkww==
+X-CSE-MsgGUID: i+WUPWI5RWuGXoZrznJSoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="275048649"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:06:33 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 22361121BCE;
+	Wed, 09 Sep 2026 13:06:35 +0300 (EEST)
+Date: Wed, 9 Sep 2026 13:06:35 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: Re: [PATCH v3 22/29] media: rkisp1: Use v4l2_subdev_get_frame_desc()
+Message-ID: <aqEvq1oGKmOBPpe9@kekkonen.localdomain>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-23-sakari.ailus@linux.intel.com>
+ <CAD++jLm33oaLUmtKp4ZEYa9CvaKwvQ0rF1wWDU1QWLr2gYKsPA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -52,196 +70,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aqEUTAAhwI09JOuR@kekkonen.localdomain>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLm33oaLUmtKp4ZEYa9CvaKwvQ0rF1wWDU1QWLr2gYKsPA@mail.gmail.com>
 
-Hi Sakari
+Hej Linus,
 
-On Wed, Sep 09, 2026 at 11:09:48AM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
->
-> On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
-> > Sakari,
+On Fri, Sep 04, 2026 at 03:12:20PM +0200, Linus Walleij wrote:
+> Hi Sakari,
+> 
+> thanks for your patch!
+> 
+> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> 
+> > Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+> > preferred over calling the get_frame_desc() pad operation directly.
 > >
-> > On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
-> > > Hi Jacopo,
-> > >
-> > > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
-> > > > Hi Sakari
-> > > >
-> > > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
-> > > > > Hi Jacopo,
-> > > > >
-> > > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
-> > > > > > Add bindings for the ams OSRAM Mira016 image sensor.
-> > > > > >
-> > > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > > > > ---
-> > > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
-> > > > > >  MAINTAINERS                                        |  7 ++
-> > > > > >  2 files changed, 104 insertions(+)
-> > > > > >
-> > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > > > new file mode 100644
-> > > > > > index 000000000000..49a606fca6cb
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > > > @@ -0,0 +1,97 @@
-> > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > > > +%YAML 1.2
-> > > > > > +---
-> > > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > +
-> > > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
-> > > > > > +
-> > > > > > +maintainers:
-> > > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
-> > > > > > +
-> > > > > > +description:
-> > > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-> > > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
-> > > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-> > > > > > +  physical layer specifications to transmit the image data to the host
-> > > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-> > > > > > +
-> > > > > > +allOf:
-> > > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > > > > +
-> > > > > > +properties:
-> > > > > > +  compatible:
-> > > > > > +    const: ams,mira016
-> > > > > > +
-> > > > > > +  reg:
-> > > > > > +    maxItems: 1
-> > > > > > +
-> > > > > > +  clocks:
-> > > > > > +    maxItems: 1
-> > > > > > +
-> > > > > > +  vdd28-supply:
-> > > > > > +    description:
-> > > > > > +      I/O voltage supply, 2.8 volts
-> > > > > > +
-> > > > > > +  vdd11-supply:
-> > > > > > +    description:
-> > > > > > +      I/O voltage supply, 1.1 volts
-> > > > > > +
-> > > > > > +  reset-gpios:
-> > > > > > +    description: Sensor reset (RST_N) GPIO
-> > > > > > +    maxItems: 1
-> > > > > > +
-> > > > > > +  port:
-> > > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
-> > > > > > +    additionalProperties: false
-> > > > > > +    description:
-> > > > > > +      Video output port
-> > > > > > +
-> > > > > > +    properties:
-> > > > > > +      endpoint:
-> > > > > > +        $ref: /schemas/media/video-interfaces.yaml#
-> > > > > > +        unevaluatedProperties: false
-> > > > > > +
-> > > > > > +        properties:
-> > > > > > +          data-lanes:
-> > > > > > +            items:
-> > > > > > +              - const: 1
-> > > > >
-> > > > > The device obviously supports non-continuous clock mode (and that's what
-> > > > > the driver also only does right now) but as the continous clock mode is
-> > > > > required by CSI-2, I presume the device can do both.
-> > > > >
-> > > > > So I think you should have
-> > > > >
-> > > > >              clock-noncontinuous: true
-> > > > >
-> > > > > here.
-> > > > >
-> > > >
-> > > > Maybe I'm confused (again, after 10 or so years of doing this) by the
-> > > > usage of unevaluatedProperties/additionalProperties, but if I read
-> > > > Documentation/devicetree/bindings/writing-schema.rst right
-> > > >
-> > > >   * unevaluatedProperties: false
-> > > >       Used when this binding references other schema whose all properties
-> > > >       should be allowed.
-> > > >
-> > > > Means all properties from video-interfaces.yaml are accepted (which is
-> > > > imho very wrong, but it's a battle with dt maintainers I don't want to
-> > > > start again).
-> > >
-> > > I guess you should have
-> > >
-> > > 		additionalProperties: false
-> > >
-> > > too?
-> > >
-> >
-> > Where exactly do you mean ?
-> >
-> > I don't think I can have additionalProperties: and
-> > unevaluatedProperties: in the same node, do I ?
->
-> Yes, these are mutually exclusive.
->
-> >
-> > It's been a long time ago when we discussed with dt-maintainers what
-> > the policy should have been for endpoints that reference
-> > video-interfaces.yaml.
-> >
-> > To me, the most sensible thing was to use "additionalProperties: false"
-> > and explicitly allow the supported properties, instead of allowing all
-> > of them. However dt maintainers had a different opinion (for reasons I
-> > honestly can't remember) and I think we have stabilized on the
-> > following pattern
-> >
-> >         port:
-> >           $ref: /schemas/graph.yaml#/$defs/port-base
-> >           additionalProperties: false
-> >
-> >           properties:
-> >             endpoint:
-> >               $ref: /schemas/media/video-interfaces.yaml#
-> >               unevaluatedProperties: false
-> >
-> >               properties:
-> >                 ...
-> >
-> > All the most recently merged bindings in media/i2c have this pattern
-> >
-> > 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
-> > 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
-> > 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
-> >
-> > I feel like I'm missing something obvious, otherwise I don't see why
-> > this binding should be different ?
->
-> Good question. Perhaps there was no specific thought given on
-> non-contiguous clock support? I guess most of the above should probably
-> specify it, even if the driver doesn't support it.
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> (...)
+> >         source_sd = media_entity_to_v4l2_subdev(source->entity);
+> > -       ret = v4l2_subdev_call(source_sd, pad, get_frame_desc,
+> > -                              source->index, &fd);
+> > -       if (ret) {
+> > +
+> > +       struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
+> > +               v4l2_subdev_get_frame_desc(source_sd, source->index,
+> > +                                          V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
+> 
+> 
+> This is one of those cases where this should be
+> TYPE_PARALLEL rather than TYPE_CSI2,
+> and I think you said you would look into that so it will
+> be fixed in the next iteration.
+> 
+> i.MX8MP uses the VeriSilicon ISP which is wrongly named
+> "rockchip" but actually used in i.MX8MP ... it's a big confusion
+> for the head...
+> 
+> Check for example this device tree overlay:
+> arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso:
 
-Maybe I'm still missing something, but using
-'unevaluatedProperties: false' and referencing video-interfaces.yaml
-means you can include all properties from there (which, again, I think
-it's wrong, but allows you to specify continous/non-continuous clock
-support).
+It seems both DVP and CSI-2 are possible. I'll address this for v4.
 
->
-> There's a good example of doing this in
-> Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
-> as the maintainer there. :-)
+> 
+> &isp_0 {
+>         status = "okay";
+> 
+>         ports {
+>                 port@1 {
+>                         isp0_in: endpoint {
+>                                 bus-type = <MEDIA_BUS_TYPE_PARALLEL>;
+>                                 remote-endpoint = <&mipi_csi_0_out>;
+>                         };
+>                 };
+>         };
+> };
+> 
+> Whoa!
+> 
 
-eheh, that binding has 'additionalProperties: false' which means you
-have to list properties you accept.
-
-This would be my preferred approach, but if my recollection is
-correct, we stabilized on using 'unevaluatedProperties: false' after
-discussing it with dt maintainers.
-
-Does anyone have a different recollection ?
-
->
-> --
-> Regards,
->
-> Sakari Ailus
+-- 
+Sakari Ailus
