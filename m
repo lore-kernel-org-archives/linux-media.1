@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB48569F17;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC4C569F18;
 	Wed,  9 Sep 2026 13:28:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960482; cv=none; b=Jp48nyP/jH2ydbagwqxJykXyiDrSiJGz98SP3cDbs4KlixJMxhCOBvjLFhlCz5qHabXU4G6XnayB68JeKB2PxJVNLySC7eWZplLAu/b2N9LFwRd9ETnHU6Zmn0MPAMzHt8bz73jR50sFQtrxUvhTBqObT2oBqQYxaMoaRpszRuU=
+	t=1788960482; cv=none; b=aUNPM2+EzuitJemQtXlt5T3g7yTmEEnh/97Vxi+262oJnoZnALOQS1NfIeGqrpsctZfi88gHCAJpPmj03pTgSKul5Qt+K8pqV36OapuNx91Apca78QyTTBMB73gAfuijTlthGkjKjBcMojGjDl+Igp6qk0o4+BHrtddRgXsU/fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788960482; c=relaxed/simple;
-	bh=oRQbdno+uMhuHFTbdmanYF8cim3BHh4wpJplXog8vQk=;
+	bh=uqnWPcYuomOdK+CZnQbIn/W5p1Thhpmu4YbDCuYmLeQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YvHdFC2c3buvd9qnmcrgbPhERkgKefjXwAdwIWNEFX36KZnbS2gBtLKXqLL6eyGvlJqjxO2ra81Jeu4yceknLkcPxBDvcSBfEwdiJxr72GtxTEe6H93NTJ16NhZJAEKk6DIwCSxXXoW0TDJJuu40DwMzmM2Qpoq2Y89WJwfRf6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9y408eu; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=e/PVG3DsM5bdh0ZV3/cWSUYWDxpAl7/ic1EqsP6nuKlYNx0JKlO9SuQ7ui8NE7Z+k9P9qFKieVKHKrFGN1TxAJ4yVVMqlC9vlSs5TPdlkNZNrT+drZvZ2cIvAaHZ3WVGGMC05/sjY8GzJsWrEks00bqt4TU0xZLCcpCiHeOMsAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqg86zK6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9y408eu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EA7DEC2BCFD;
-	Wed,  9 Sep 2026 13:28:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqg86zK6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 16EF9C2BCF4;
+	Wed,  9 Sep 2026 13:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788960482;
-	bh=oRQbdno+uMhuHFTbdmanYF8cim3BHh4wpJplXog8vQk=;
+	bh=uqnWPcYuomOdK+CZnQbIn/W5p1Thhpmu4YbDCuYmLeQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=F9y408euW2P3aXRkf3lMbMLL2Vblwi8IwVMpO0MXRcCVWZT4H+CWBRJqH9j6yZt0s
-	 zNsTBwmSz2dbQQtl37Uy/nBIthFl77tsqf/EZotAtemsNiCAF2KH9NZDKDywqG+N/r
-	 jQtY9BtTLgt0HZbc/cPrTJIGLwreZhVuFFRaACtrK43OtxcO5EmuvU+HMkDlnYx3Mn
-	 jMJPdu3uEW0Y04EFHdw0YgllxTTGQjqAojKbsuA1U31tMiW1GFsyOSC1ZYqIObwruS
-	 35M4HVRNcVqDODtRT96sVSY8ex7p1wcg/OjDHOm+ndU5WYulRYM0l2shs1jDQZ3fUH
-	 Om+eMhI5R/xnQ==
+	b=dqg86zK671DkYfdVZozB/4oDbOQhYrgFR4DYBoaYCy+2HR7v2AN9roV3YP0+a1L4I
+	 z/FruoG/rFKXr0RYOiVz5XYlQLXBX8BCo1SfCiea16Q7TodXho3IUIZmaKlhPQQZWF
+	 22UHoO5oiGeNlpt2CDyi/buJY5Q0X6K65SOassyzY1eHGRY6KMVG7aGE3ptS6lYou5
+	 YCbJtqTdVngWkTJ4K2HXUj59BL+87gkfPaZpGIGX51PZmallQ/LQgNU5SAp8qcvgsb
+	 ZPwONLhwlfuPdDHy1MEcJL8M/TNQozcMlbU43m+t8/iWSA29UCvoMaIsud0qQRdkYW
+	 lzspdyEtjvQbA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D635CC79FB7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F31ACC79FB6;
 	Wed,  9 Sep 2026 13:28:01 +0000 (UTC)
 From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
-Date: Wed, 09 Sep 2026 16:27:44 +0300
-Subject: [PATCH v17 07/22] dt-bindings: media: i2c: max96712: add support
- for I2C ATR
+Date: Wed, 09 Sep 2026 16:27:45 +0300
+Subject: [PATCH v17 08/22] dt-bindings: media: i2c: max96712: add support
+ for POC supplies
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-gmsl2-3_serdes-v17-7-002499e534e8@analog.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260909-gmsl2-3_serdes-v17-8-002499e534e8@analog.com>
 References: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
 In-Reply-To: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
 To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
@@ -61,11 +61,11 @@ Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Andrian Suciu <Adrian.Suciu@analog.com>, 
  Cosmin Tanislav <demonsingur@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788960478; l=1871;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788960478; l=998;
  i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
- bh=Wtq87WP6HuN2ExCP/a1ucfnQWkLmzlzMjUynofXhUVc=;
- b=WkDTs23A71Bcxg02E2nm4DKg/qtFkfdbXaZhgbB1zjovb1UWx0JSi6nTcoEkkddsluWVuFOVQ
- cWvPFRrMF0RDW9G6WyHaLs4R8NjFkcIMvdkZg/uK94gp3zDWkmpMhKJ
+ bh=4ZvMQ1EkeJ2w8dRWwF+03VM9oahvM+Q5lLU48mndSLo=;
+ b=D4RO/O7KJ2Zdr5Sgy/COoJCjWXg/I1ZRM9H1KGRWFBmicwmEj0Zp9CnTKCXt101XIRxFAgwwb
+ sS77QwPsmmKDWK5RZ+4KKVL7fkskQVHjPH6kL7qvSC8/iBVYcXio3xa
 X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
  pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
 X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
@@ -75,72 +75,33 @@ Reply-To: dumitru.ceclan@analog.com
 
 From: Cosmin Tanislav <demonsingur@gmail.com>
 
-MAX96712 and MAX96724 have more than one GMSL2 link, and each link is
-capable of connecting to a separate serializer. If these serializers
-have the same CFG pins configuration, they will also have the same I2C
-address, causing conflicts unless the deserializer changes the address
-of the connected serializers.
-
-The MAX96712 and MAX96724 support changing the I2C address of the
-connected serializers.
+The GMSL links can carry power to the serializer when using coaxial
+cables.
 
 Document this capability.
 
 Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 ---
- .../bindings/media/i2c/maxim,max96712.yaml         | 31 ++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-index 583bbd60157c..abacc3c874a9 100644
+index abacc3c874a9..d2dd72f2e924 100644
 --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
 +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-@@ -36,6 +36,30 @@ properties:
+@@ -95,6 +95,10 @@ properties:
+       - required: [port@6]
+       - required: [port@7]
  
-   enable-gpios: true
- 
-+  i2c-alias-pool:
-+    maxItems: 4
++patternProperties:
++  '^port[0-3]-poc-supply$':
++    description: Regulator providing Power over Coax for GMSL ports
 +
-+  i2c-atr:
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      '#address-cells':
-+        const: 1
-+
-+      '#size-cells':
-+        const: 0
-+
-+    patternProperties:
-+      '^i2c@[0-3]$':
-+        $ref: /schemas/i2c/i2c-controller.yaml#
-+        unevaluatedProperties: false
-+        properties:
-+          reg:
-+            items:
-+              minimum: 0
-+              maximum: 3
-+
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
- 
-@@ -78,6 +102,13 @@ required:
- 
- additionalProperties: false
- 
-+allOf:
-+  - $ref: /schemas/i2c/i2c-atr.yaml#
-+
-+dependentRequired:
-+  i2c-atr: [i2c-alias-pool]
-+  i2c-alias-pool: [i2c-atr]
-+
- examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
+ required:
+   - compatible
+   - reg
 
 -- 
 2.53.0
