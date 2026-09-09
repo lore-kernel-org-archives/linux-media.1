@@ -1,239 +1,138 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7176F58E2AF
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 14:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06BC56C657
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 15:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965959; cv=none; b=EWHSgng5xgyq2wCmvlz133nTl6QbLv6BWfMTX04yFZ57+Z+hV/5LXYor80Yz/zP9aS/7A+PtqJUoSWUBC23PSrGrHQXrZyqWFvydStU0kUwecVYyBVsrWwggZ4utpUtAS1oEzoDb8+thqHt2tIdsKQPww/OF0T5el77Mx83XSqg=
+	t=1788966439; cv=none; b=lJZ0J0nBUYm0AIuMuoHexoz8G8zliVwhjATRLN94tXKX1hDqrrycs77FCq3SWpOABNQzLzRfHxeXcRbE2q7/ppMbFsyHniFveJijR1upRHrB5P/TkWu1XIKkU69WileAaG35WY6T8TVR+dXW859FiBH/h2pBuLiEt9YkIznhLf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965959; c=relaxed/simple;
-	bh=h2XojM5tefCf9ICzxKvMGK1x/tP3acL7PRQ2mqf0kt0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GHBsPbrQ6Tt8UjSbkyS4mFdQ5MkVe45XrUb8cvWdW4dds9ycTuv6QJR2RT0NdIiTGQUU8ZP1JX/XZR4kOWKfsTnebZcJa1mjpOKpxKAj5OhKrzr9iXJ7jc/Vnu1zCz8ZiFY4Gz/9JmUPK5V/x4QWRsGwsW3dwKrtAmS4aDL+nXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cG76sAtg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q/GtJnjT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788966439; c=relaxed/simple;
+	bh=Z2au/zKMsNaHmguNeaqh+iFtHuoMEhLideBKGSi0+Y0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KROS8M4DMXl6iOR0EcBUWsJOX3ml7g8QPD960mEGp3ctXZfalxZO+dcUGsfQJ7WebsFM5obOO9cweY+20UdcvZcSTgE5JPJ35HFwvfR9EDhmds/U3rTszZwyUjY3hETO/b/aE3Fda/ZphGjwP5vei8nWnu/w/mDnYSKSkYVl9d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jzSlAHYQ; arc=none smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cG76sAtg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q/GtJnjT"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU3hF1183629
-	for <linux-media@vger.kernel.org>; Wed, 9 Sep 2026 14:59:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	W9fTRtJ5G9UzjN4GJu0Gi6NH567IxpYmlV8JOuz/pKA=; b=cG76sAtg904gnYo7
-	8h/mIbiYmC5fPv3UpMdgj89vPmE+bUwtIZiML2rkSVfGPjPmpTnJbc22GtI2QxiA
-	82AKxv0f9EbwNeUE7YfoeEI0oNGO0VvD/nc5393QzREtHt+oPnG3MyGMVEqOtQIv
-	HnteATK2u8jVJwIZCy3Co6jtXZjzNG7JHC+kIeA4Y5FvGzMK5bI12GPMErLqm/yU
-	fAAlsCzOyjCy9TaozQlXxFlD/mv7gbjN8Wsnmw10co5VW4gHtUfaQWFMn9r385kZ
-	hA9SQ1lxFii7Gx1J0dUyqLmZnN/ex8lPm8UptFEE/OhSYkVO6riNojURfHA/wH/4
-	uJ622g==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk559s8nq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 14:59:16 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38ec0f510a9so10700651a91.2
-        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 07:59:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jzSlAHYQ"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-86d43cdee51so75100387b3.2
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 08:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788965955; x=1789570755; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W9fTRtJ5G9UzjN4GJu0Gi6NH567IxpYmlV8JOuz/pKA=;
-        b=Q/GtJnjTrm+Sy4N/hDrrtn5tcSpdYtl4sMIcDMOaveaqSuKcRty9nUXFN+/uzFvcJx
-         1j1/sDJ2niSI2TpjurYkmGTRd9cdq3kohYYvzcX8UrG3uDAp/M6xnqQYhRDochHBmUQR
-         1OrGRDKmm6yeRFjMefDMgn8HCT3GGpc5VU41NUyLX1epbBiPF1PSHncq+yXS8nV/lfJt
-         yc2FpFUFH9bajk5Y029iaPZntQi9wQ63aW5rZw+boynHSmzkRA225jWa4U5MhijQtmLc
-         ajT8PUrQ+B4l95IVv9DWt4PhCtSsLPVLbHfDC2RRAmx3m1WSJp7oB6fOfvI/9Uq/+ozU
-         cPMg==
+        d=gmail.com; s=20251104; t=1788966436; x=1789571236; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0bL+hQaKHbTQh2MApIdEHF5AP7KIOzy8y9uYEIbPJE4=;
+        b=jzSlAHYQsAO3FzixCIznkLMn8WmxFxUTjkS5QMDd/F5yhRosHYzF4ZqzLq5hxKtJy+
+         L8cAXzmWDUARYZSTxZmAaWcoBIt9KEzLKcR1EaPR1jsqW5ogRBYqRQBptonvd12NbErX
+         a2B1DuEjHiM03cJFn2SuXLLGjwZtk2m+5IbhhVRp32yFKeGh6js4SiN9UhJ7DwKLU117
+         WMGypGGsc1by28870T++rdt5Ja23Sr/VtH56R4LfVUe/A8XRSp2X7Aj6UWmt9HrmEe2m
+         EzKePvrTgzRLvODkL9WXopRD5hGMjZ000D6p87MogJTJ+seatKzzBRJtet6723GbQ9iF
+         QPDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788965955; x=1789570755;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W9fTRtJ5G9UzjN4GJu0Gi6NH567IxpYmlV8JOuz/pKA=;
-        b=Y1IruEtBtXk3PplbfonTK3F5MrEl/Z/0FiB3qbi3GqPqAzvjjVbCp0lUw05VTsJ3BG
-         UmnHYYFLauFdvZSUWW8chNOJmuCjrUOp1Tt5UhKcOPJBHHtCWaNwE9sdZSTwGQ8VDeBB
-         eP8C4gNUQsXthPWSI3iQE3FRrItqNWREBrBMW1HpVzQSSliE5zX+2XvGyQyNY9oijl7W
-         DknZd9Bs3Ug8g6fwF/2RyTEh9LARZ6IkrJLQ+HHS5nKToDj1vpBDTOx0gMyA+COotGDq
-         tCuN2EaWkgjSPBXitsEEi4qOKWd60lJCpVL/LKpdVhN4AVn46A55h7RJuRbCYYLkqvWt
-         Zq/A==
-X-Gm-Message-State: AFuF++mE/j3Kxim91/MSSGIPYhpKIyzPiK+8gXgNn9U/fUJewHwiXcft
-	nzTmRKF0Oe4DDt4tVTG6Hk+ROVtBc0MKBkaUTSWqGFaIHLQlMAwVx4nG4iXVh3HsUOboRSVUPFj
-	jHiW9fUN7F8QAr8abR3yeKQmdqWFeMnpLBRuTEHMK+7b6NGRd6u2hePw30Z+bLE9snDB5fuHlBg
-	==
-X-Gm-Gg: AYBFou1b+CMTPZgVmMd4/8d5tR+5wF4ARfxO1x4vRNr0YZUs+lmWZaMArrrB0Gvb7K2
-	acbw2eKYJmL8GI8KqnQixoQs5oScA//KUCLahyA/61qvNVMIiztCRyHXGsuCxZqu/Q9LQ62WZg0
-	TbVo5Q9Pzu2JwUl907GZ24v0ehtrhRh/074CvNjU1m5t6LB68WO/8wmQqIJ6uh6jm9BrM+qwibn
-	lngwkNuuTqcmIBTpEj/KnXu06oSlXcPIQ1GdhjscckNlTKsrA4UVWhMQ7FP+WL8K81CqVFQ/Uxq
-	w0/FW4X4fUWdCiNuOZttbnY/X2ZrKP/is1ZiureUGuHih3u7L+TJQd9Uyq+U7Hvoj7kuhFadp+o
-	7cfYjCJqt4dEx5DyZ9C2/7nB9DUn6X3OmAO4=
-X-Received: by 2002:a17:90a:d647:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-39b261074camr51452932a91.6.1788965955150;
-        Wed, 09 Sep 2026 07:59:15 -0700 (PDT)
-X-Received: by 2002:a17:90a:d647:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-39b261074camr51452855a91.6.1788965954599;
-        Wed, 09 Sep 2026 07:59:14 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm51270766eec.21.2026.09.09.07.59.07
+        d=1e100.net; s=20251104; t=1788966436; x=1789571236;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0bL+hQaKHbTQh2MApIdEHF5AP7KIOzy8y9uYEIbPJE4=;
+        b=eeQmTaDQzjZpMzgq73nmVC1odBWB6CLcYAezNex9ATyYhtWFVKo2G3K0td5cAwLz/B
+         gUViKAG3Aqxatd6xM7R67t00PvuXj6R/9eBXgbA6Wx/gk7kMpwdxOwzI0w5GJI7UVFiN
+         vnKKwgrBubqsxcQNu9GXg1fwZPxG3/2u/JlzrfCgm8Z3NOfJ+eb8pRgMCQOG5eMuw78i
+         xfTBEgvTTBvOh7ApxsdAKWyrLZzog+yEIbjGg0BcMBGIKGMs8EmNeULlsFaIwDdaUIkV
+         RmrHnU3kcwPeLWhvce+qZ2QW6SmkaQSn38SCda5KAmlrXWwpxlPoU3jv8DqzYYbyX24G
+         i8nA==
+X-Forwarded-Encrypted: i=1; AKwUvBzyyBi+5yOy0nbgD8IsiP973nOND4JqbXGjULGGD0YPG97qWR1u4/r1cgp/foWwOwujDjfcukTJ+lnGAA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kW8rZ65bvB8awvup+syTPttPCxjuNJstpQaAnagnmRgTtH2TIF
+	NnH5bgJkn0RqwqG4l10wYzhNlMA4U105S+W54/h75R25mhSYeQh+h9DI
+X-Gm-Gg: AYBFou3e20B0/7vbl2he8SuEc6jzZWzXzWgSYyLDiNscsJY4OwfwpASQIV5F1p5FOvT
+	hMCAc3Yx4Ma1IPBgsuwh8he9pxxdWPrRaILiUxrQwARCh+FESwenLX8A3Qy9tGLytbcG8FT/fgT
+	XQQg677Ai69ZIGBngheAtXGB+GFvdutCeLhUcFfHY10UzWVtEk3AegmFVso5PrZtwwVx9y86Y6a
+	DRn5KoUXgQQx6+Xyl9g0aXBIIlhkUxaes1F+PBi/fF6Q8ax6EFk/cppKUoGjzKq3utXCeFzqHsU
+	61XLV9uX1N5aInMiI/LA7rE4P0Aypl5M4vZKvr+cqnzy0IC+QTI81C45ok+kZ6LNGIh4phU/3lc
+	bfHw/Vk2eU6UBk6910IQfUntrpOZt7hi2df5hEKUwsNMmZd0Kj9+VvQOG53v0cOyGLi93Fuqo/+
+	jhSda6achXQs2aV7/a8nvIt+M0yc7qG21qWdVbS82NIJstOmknhuWyo7xZ2AGSd9+W8046KaAj
+X-Received: by 2002:a05:690c:c00f:b0:833:f9bd:b289 with SMTP id 00721157ae682-8712c90aaf9mr108547867b3.31.1788966431841;
+        Wed, 09 Sep 2026 08:07:11 -0700 (PDT)
+Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054207c16sm141409421cf.28.2026.09.09.08.07.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 07:59:14 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Wed, 09 Sep 2026 20:27:20 +0530
-Subject: [PATCH v3 13/13] arm64: dts: qcom: sm8750: Add Iris context bank
- subnodes
+        Wed, 09 Sep 2026 08:07:11 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] media: as102: initialize mutexes before registering frontend
+Date: Wed,  9 Sep 2026 12:06:44 -0300
+Message-ID: <20260909150644.232424-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-vpu_iommu_iova_handling-v3-13-2fe43ae45495@oss.qualcomm.com>
-References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
-In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788965841; l=3606;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=h2XojM5tefCf9ICzxKvMGK1x/tP3acL7PRQ2mqf0kt0=;
- b=Kizq253lj7QjfHJcnZ7zy9OA4yO8Dh9a8KxZYx/V9gYA4sy2zQ1areBnDS5fsCu8+pwV2uVEA
- PJpTNoIXdMQAujK3uD8kMmy+UpOgKipk6Oe/Z7QuEv3nHDcQBS/VIZK
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Authority-Analysis: v=2.4 cv=KP1qylFo c=1 sm=1 tr=0 ts=6aa17444 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=w7pRem5UOBajBC5HA0sA:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: Be6vISG8zOS1JacDdGpFcxirFNaAUOpI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2NyBTYWx0ZWRfX8Xx8CvGQ0oip
- ese7w9Y7RMqVHasdGW+uKGGP6mpm2vRNtBTDqIUAE0aigDbrLWqcpsIqyqczeF6H5Gj8XpExthh
- Lqbpitiacun5TGwoIMN4GMof+PgGcFo=
-X-Proofpoint-GUID: Be6vISG8zOS1JacDdGpFcxirFNaAUOpI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2NyBTYWx0ZWRfXwR3h1WdUVhgC
- kL4pkyOsZp/R45ceYpaBt/jpp3ZbVK1dqez49XXwylFY/WFoUte7YGi6VtSqJh9Gu1y42kt3/Ig
- YCpz/PHYai1hDbrgeJpqg1VMoWTJINjFmrDKhYn9BT+ilVbg38im67/F7fz16JRLsYm0aUFIz3S
- qBKDLBF9tn4zkNtGCh3WAlhAGArMl45lS2QxnjZ8W+cyAIpSi28n1R2YfsIvzCKmtvpPGEzYCry
- Di994mXEeTYOlZIgM4+imrkEo80rPRygxucEDZp1Co0nBXmRXs2hdmV2hvrmSYX+A+eWmxkE2TB
- dTeib/bJ6iG+wJtxIkGR42fKp0CbengaY7VU6iZCI5bx2fr1JZ1YRy3r9yGiJ+ErqRxwds1S0VT
- uhqOINsav1uREkUMcB1QhcQi/ePTxOgUE00prPBKHTMebtczsTbAltLT7Bap/TGFNRijneHWouW
- YIPVgrl1H/Tz/p4FTBA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0
- suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090167
+Content-Transfer-Encoding: 8bit
 
-The VPU issues DMA through several SMMU streams, and the hardware does
-not give every stream the same addressable range. The non-pixel stream
-cannot address the low 600MB of IOVA space, while the pixel stream can
-address the full range:
-    +-----------------------------------------------------------+
-    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
-    | 0x25800000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-    | pixel stream addressable range (0 - 3.5 GB)               |
-    | 0x00000000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-A single "iommus" property on the video-codec node puts every stream in
-one IOMMU domain sharing one IOVA allocator, so nothing restricts a
-non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
-that boundary the hardware faults, which shows up as unhandled SMMU page
-faults and spontaneous reboots:
-https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+The bus adapter mutex and the stream mutex are initialized after the
+frontend has been registered, but the frontend's stream control
+callback as102_stream_ctrl() takes the bus adapter mutex, which can be
+used before it is initialized:
 
-Given that the address range restriction is for specific VPU stream, it
-should be ideally be moved to that stream. To achieve the same, a subset
-of streams is now represented as subnodes, so that each can be
-associated with its respective addressable range. The design was discussed
-and agreed by mainatiners here
-https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+	INFO: trying to register non-static key.
+	...
+	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
+	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
 
-In the past, this limitation was addressed with an iommu-map approach,
-with the iris driver dynamically creating the devices. That approach
-was later concluded to be a hack to avoid having subnodes, and was NAKed
-by the iommu maintainers. It was discussed in detail here:
-https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+Initialize the mutexes before registering the adapter and frontend.
 
-The video-codec node includes address-cells, size-cells and dma-ranges
-to declare 1:1 mapping for DMA translation to the parent.
-
-Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
+Tested-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Changes since v1:
+		- Succesfully passed available repo. Added Tested-by tag.
+Changes since v2:
+		- Reorder commit tags to fix warning.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index eb3a6990ec30ba3ca1c3fe468ffdb4e9df00174d..206ac22cab2c0dfabc1ca5f619f598e4823776de 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -3026,8 +3026,6 @@ iris: video-codec@aa00000 {
- 				      "vcodec0_core_freerun";
- 
- 			dma-coherent;
--			iommus = <&apps_smmu 0x1940 0>,
--				 <&apps_smmu 0x1947 0>;
- 
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-@@ -3060,6 +3058,10 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
- 				      "core",
- 				      "vcodec0_core";
- 
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			dma-ranges = <0x0 0x0 0x0 0xe0000000>;
-+
- 			/*
- 			 * IRIS firmware is signed by vendors, only
- 			 * enable in boards where the proper signed firmware
-@@ -3067,6 +3069,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
- 			 */
- 			status = "disabled";
- 
-+			non-pixel {
-+				iommus = <&apps_smmu 0x1940 0x0>;
-+				iommu-ranges = <0x25800000 0xba800000>;
-+			};
-+
-+			pixel {
-+				iommus = <&apps_smmu 0x1947 0x0>;
-+			};
-+
- 			iris_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
+ drivers/media/usb/as102/as102_drv.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a0a7..a6dd675689f5 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
+ 
++	/* init bus mutex for token locking */
++	mutex_init(&as102_dev->bus_adap.lock);
++
++	/* init start / stop stream mutex */
++	mutex_init(&as102_dev->sem);
++
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
+ 	}
+ 
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
+-
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
 -- 
-2.34.1
+2.51.0
 
