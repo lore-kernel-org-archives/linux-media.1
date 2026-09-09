@@ -1,100 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7094C37F006
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 09:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086FF395D8E
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 09:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945122; cv=none; b=Hnhd7W4gJSvUGY0T2pGMBLukvAw4RKaBLt8XJ+NxZBrvOFUaPPevVcImgr9goIKvySrY/2OJ5iSX3mUBkm1H37AY6ye1NT00+rBgUVjTAOy8Lj67NRoId522gp/YOP7n7M7e1aiSPx5Ajk45s4Yeot6VPyLHbYhdoNDQeE1Wns8=
+	t=1788945500; cv=none; b=PQMsCLJD/g457yyRvhdQjV1q1c7lbg2Ohm6JY6NJWnyDaEDo5TPTpKlarnv6FK19y34beUMRzoskSNXjq5xZlZLkzevMUccWkwGbQGKZ3Nv4qsPxJn7ml0EJwNHb6dVhEtlJL75HH/a51MttlCOm6ncGWDHaJbfOwp8eEr3mmx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945122; c=relaxed/simple;
-	bh=k5uHIQrSOso3XXwHK58dxSIL6RlIKFzUzVQTGvlj/Vg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n7d2zUEnIS4nGgMJqW0XOuAccxpqywhtpIlXrNkYOmA/knZZkLYwxxRIbCUO4G4XOn64sz0Y8ysSwk2jTHPvBdIvZzSIphgv79pNbgu1ZcuXwQ5vxQ8VK3j+xJ67xSZyUfxnBPw0xs01ZSi2AEeKwRlmtKF5SoZ3ErhnuOBTAbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YgVZ61ah; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788945500; c=relaxed/simple;
+	bh=dc7W0gBpTJ4eZqqWi5yakWI/dCMPPB3RO2sNt+7oBV8=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=AiAxXZO6Hjewb3+ghyb5XnR1T0j68ZOxS+IDIw/TBcNA8xOlPnN8LOw57NdQCl7+IwrtJFDFVg9KUfbjxjTNaVVYqN1WmYs73ag6HfkHFSc1NI0jGmPOL2430eNS2hlRE7/hdw4G0TqB6Yc2SqUaJAKwkZ+oCP0ayLKlXUL10ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oxSdPJ42 reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YgVZ61ah"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788945121; x=1820481121;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=k5uHIQrSOso3XXwHK58dxSIL6RlIKFzUzVQTGvlj/Vg=;
-  b=YgVZ61ahkebef7+6Avj/cd6vd+ZmlMXP7T6I014icuqa2LPAO8CIS92a
-   rJUdYRzzCjuuVtO9ND8Qi71Tp6avkB7CxBsEdhhaRBAw71MiUlAtkLfXc
-   wG8mFjEhAtuaNo7T4i+g05f9JmoBcZXltyDDu31UIaLxa0YKyLARVwhvM
-   oT5GiMW5F2i7xDga0oIH5RX5mijMmc0vCoiPPjY7AGr7JTxcgoKOTtftm
-   hSzYPOincDouG1DAIz/GEkabTOlLN8jxCTAFe0KMZwXzwvNn0cuWlIK2z
-   24h35blhVaVZOoDEnCQXPf/gitrvk4/P8iCLX+yX++x/97GTvnpyb4uSM
-   A==;
-X-CSE-ConnectionGUID: G67RKlTgSkuSZy1Fy7Bp5A==
-X-CSE-MsgGUID: hdViOO9rRCu99POTaXEWWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89201087"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89201087"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:12:01 -0700
-X-CSE-ConnectionGUID: neqcAZH9Q0i+I2epGA1rtQ==
-X-CSE-MsgGUID: f5bMYb1RToSJZ7LzKAwtzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="266975314"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:11:58 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 313F5121BD2;
-	Wed, 09 Sep 2026 12:12:01 +0300 (EEST)
-Date: Wed, 9 Sep 2026 12:12:01 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically
- allocated pass-through routes
-Message-ID: <aqEi4X52QSb15xnP@kekkonen.localdomain>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
- <CAD++jLnQzEoo46orVAHtoTDxXmQqsVkD1B55GUuua6drePZUbQ@mail.gmail.com>
- <CAD++jLkaN01pneNKjhd5mxCqBJ3n8fYM7oYBwt_Ci94kM=3P4A@mail.gmail.com>
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oxSdPJ42"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:42c8:e78d:2576:d7c8:5aa9])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 67FA84B0;
+	Wed,  9 Sep 2026 11:16:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788945399;
+	bh=dc7W0gBpTJ4eZqqWi5yakWI/dCMPPB3RO2sNt+7oBV8=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=oxSdPJ42qBfq34jE5iplfQkTs3rpZKr482sG4ZLHslH17pMACHbTsVoGp5chuIQfg
+	 VfO4EEDX0GJPkBpdZoidB5jtH7fj/SEtLVO0xj5s2gcwiyN5xM8F7LxaI3dEm6TooL
+	 w1Vd3vm0yLmORX29lHm1ygJVOlUUV/Yv4Ui1pKAo=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLkaN01pneNKjhd5mxCqBJ3n8fYM7oYBwt_Ci94kM=3P4A@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <177929435413.2341049.9256551425193410552@selene>
+References: <20260409201501.975242-1-sakari.ailus@linux.intel.com> <20260409201501.975242-31-sakari.ailus@linux.intel.com> <177929435413.2341049.9256551425193410552@selene>
+Subject: Re: [PATCH v12 30/86] media: Documentation: Add binning and sub-sampling controls
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: hans@jjverkuil.nl, Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Tommaso Merciai <tomm.merciai@gmail.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, =?utf-8?q?Andr=C3=A9?= Apitzsch <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, " Ng, Khai Wen" <khai.wen.ng@intel.c
+ om>, Rishikesh Donadkar <r-donadkar@ti.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org
+Date: Wed, 09 Sep 2026 14:48:09 +0530
+Message-ID: <178894548965.11722.1572509771464197490@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On Wed, Sep 02, 2026 at 11:34:19AM +0200, Linus Walleij wrote:
-> Hi Sakari,
-> 
-> one more thing!
-> 
-> On Wed, Sep 2, 2026 at 7:44 AM Linus Walleij <linusw@kernel.org> wrote:
-> 
-> > > +       if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-> > > +               fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
+Hi Sakari,
+
++ Laurent
+
+Quoting Jai Luthra (2026-05-20 21:55:54)
+> Quoting Sakari Ailus (2026-04-09 22:14:05)
+> > Document the binning and scaling controls (V4L2_CID_BINNING and
+>=20
+> nit: s/scaling/sub-sampling
+>=20
+> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+>=20
+
+Sorry for bringing this up again, after providing my ack months ago.
+
+> > V4L2_CID_SUBSAMPLING_{HORIZONTAL,VERTICAL}) in the common raw sensor
+> > model.
+> >=20
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > ---
+> >  .../media/v4l/subdev-config-model.rst         | 20 ++++++++++++++-----
+> >  1 file changed, 15 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.=
+rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+> > index 0fb01bf6c825..fb6d8a1bcac7 100644
+> > --- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+> > +++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+> > @@ -144,8 +144,12 @@ separately horizontally and vertically.
+> > =20
+> >  The combined effect of binning and sub-sampling is configured using the
+> >  ``V4L2_SEL_TGT_COMPOSE`` rectangle, relative to the analogue crop rect=
+angle, on
+> > -(pad, stream) pair 1/0. The driver implementation determines how to co=
+nfigure
+> > -binning and sub-sampling to achieve the desired size.
+> > +(pad, stream) pair 1/0. It depends on the driver which of these operat=
+ions are
+> > +being used to achieve the resulting size. Binning and sub-sampling are=
+ also
+> > +directly configured using :ref:`V4L2_CID_BINNING_FACTORS
+> > +<image_source_control_binning_factors>` and
+> > +:ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and V4L2_CID_SUBSAMPLING_VERTICAL
+> > +<image_source_control_subsampling>` controls on drivers that support t=
+hem.
+> > =20
+> >  The digital crop operation takes place after binning and sub-sampling.=
+ It is
+> >  configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, str=
+eam) pair
+> > @@ -216,9 +220,15 @@ Also refer to :ref:`Selection targets <v4l2-select=
+ion-targets-table>`.
+> >        - \-
+> >        - X
+> >        - Binning and sub-sampling. This rectangle is relative to the
+> > -        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). The
+> > -        combination of binning and sub-sampling is configured using th=
+is
+> > -        selection target.
+> > +        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). Bin=
+ning is
+> > +        configured using the :ref:`V4L2_CID_BINNING_FACTORS
+> > +        <image_source_control_binning_factors>` control and sub-sampli=
+ng is configured
+> > +        using the :ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and
+> > +        V4L2_CID_SUBSAMPLING_VERTICAL <image_source_control_subsamplin=
+g>`
+> > +        controls on drivers that support these controls. To configure =
+binning
+> > +        and sub-sampling on drivers that do not support these controls=
+, the
+> > +        selection rectangle may be changed directly to configure the c=
+ombined
+> > +        effect on the image size.
+
+While discussing the libcamera design to support binning and sub-sampling
+using the new model, I realized that drivers have two different ways to
+configure binning and subsampling, listed below:
+
+    1. Use the CID_BINNING_FACTORS and CID_SUBSAMPLING_HORIZONTAL/VERTICAL
+       controls, and reflect the final resolution through the compose
+       rectangle as read-only
+    2. Allow writes to the compose rectangle directly, without a clear
+       split between binning and sub-sampling
+
+Pre-ADC there is usually only binning and skipping possible from what I've
+seen. And arbitrary Post-ADC scaling can be handled by the compose
+rectangle on the the source pad.
+
+So do we really need to allow the second way of userspace configuring the
+image pad's compose rectangle directly?
+
+Thanks,
+    Jai
+
+> >      * - 2/0
+> >        - Format
+> >        - X
+> > --=20
+> > 2.47.3
 > >
-> > So if it's more entries than the preallocated ones we kzalloc_ new ones.
-> 
-> If we do allocate some more dynamic descriptors here, and do not
-> free them at err_free, where are they actually kfree():ed?
-> 
-> I just can't follow that part, maybe I'm just missing details in the
-> other parts of the patch series.
-
-The caller is responsible for releasing them, as documented for
-v4l2_subdev_get_frame_desc().
-
--- 
-Sakari Ailus
+>
