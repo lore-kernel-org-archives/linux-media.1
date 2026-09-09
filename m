@@ -1,182 +1,211 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B598B59480C;
-	Wed,  9 Sep 2026 21:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C378D59E333
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 21:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988511; cv=none; b=D5oNVVQmurRpI6zkb7N1jh3P5yGwdpHtZlc032JxfdOAd3lisUBDJq/52KdU2ohM5nVcaZ+ypOdyrlHp4oX5DVSZxGpwrsHSCy8VbRNJ3p+mgKB6XyCyiF+De8R7L/XhBNI5IklnBhal9+zrtrmaLBRVcasMEHLme2i4am03EdU=
+	t=1788989572; cv=none; b=FbpRGQoRk2kaJ0jIJ2ghah09fwJ/C/W36ShSehZZZU5oUXKAhyCFVr6RvJyl1y0xPc1pLiborH0q4jpzIbk1AgtDxwzNZoG11K7N1Hp4gy+anfJS+VQLgqHC5RluyWWocsJxKRouHoqCY2n+xXiSZJQbaTFbS+J817qI+bGLrU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988511; c=relaxed/simple;
-	bh=6BHYSZ/vSpVXfN+krSmJXI5sAt4MP3aQfrInqS7RuSU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PulRiu6MRSj9xK+5FCCzwSADrqi+BS7wW1cYia55uBv3OQGgpqdgh6GS/zQjBpAuliFIMO3qYJvwm04lH6nZxhpgFeCu3xkYCqMdj3ezKs9udTC1tM8b47OtEwHREepzjra6+59oQQuFz3ekO3OaDn+dbWAl7u0IrH8PoVfaAyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ogWRGucZ; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788989572; c=relaxed/simple;
+	bh=P9Q/Sk2LRR5jiHqUFrMFj46jAeGuhH3O/yPbygJswb8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A5lALsss3SlDZHKa7jllpZQPT846ACdicba2nA6vmgKAaMIGYSYqNNLcv1n84eN2Eot2ifyLp/bsVALE7KiLhHKUz6cmm73GLSs7Y/sPlFU1IxwZUrKfDSPTSU9JO1DZ34etLIbhJImkiM25VF0JSRM1y/MBtMJ5IIDU0ccKzDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mtzgKzxU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P9Kz673o; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ogWRGucZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788988499; x=1789247699;
-	bh=XWZHtj2cy+oO0ZWudyDjpaOu1/ir6iW8TXuarFLcsnU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ogWRGucZr6Csig/5pEjcQOOHsPPYLlJp4gQBnV4jAuwptGa4mrFfaKUEvAFc7WxpR
-	 meF4K4Utidi92j0cZtYQMp4+FDyU9wO3Lq5jUfRoSkIS5+jxqbHTICL75Afq6fX6Si
-	 ePqvJMYEUvE3nwrkTx0pGLz0lrZD2h9jP8pQpsjptPgIFh72uHm0pBrrWehM4lhaFY
-	 vu/jpF91OU4qYQ8K7ij4tVdXJ1XyryE9x7yPn7efh8J/1/97H3FuY+kdrLUUeHHidM
-	 c+lgzbXbfpqpV5JCDeFA88PHJxMviJ6DY8NtfyKecvGBkNfiuFcov2mStqcx6NqVIE
-	 kaL+RbNTL+w6Q==
-Date: Wed, 09 Sep 2026 21:14:56 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] media: i2c: Add Sony IMX681 sensor driver
-Message-ID: <20260909211450.92744-1-lsa.uz@pm.me>
-In-Reply-To: <20260909203717.90605-3-lsa.uz@pm.me>
-References: <20260909203717.90605-1-lsa.uz@pm.me> <20260909203717.90605-3-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 28b136d96057b524737ed2165d3774b8bb1c5b4d
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mtzgKzxU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P9Kz673o"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689JIEl62195987
+	for <linux-media@vger.kernel.org>; Wed, 9 Sep 2026 21:32:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=u30C1GcZOHikC8CRum1iTKpX
+	ibaQx/p5h+oGQUzFnVk=; b=mtzgKzxUbr58vw0U/M8FqZn1YrWMIGm4nRC+D+FN
+	mPo1CDV+N3zEUP2NEw6cpOynIvqpghXChijVC+7KsmszZtM/6l16hWJqKGFOg+kH
+	udYs9D9C/SqnZfYWirU0Cd/vj92qeYt9vYNH2TDajdU7C4Zhb/L5wNapQ/q0toPY
+	mlNbr7YBF67ZKhEGdSXyEVHF8h10sB26a2qDu8ZYVON1Y2iQ+pZcUBNsFRGgyL2S
+	mZ6pUt6Twhw9fAxWoJPM+w7lZIvn3JyQZNKQCYhW/85DkCup1DlMqLZ37QPpwRoT
+	4ho3gCtzEi1wkLQ8ZcLsRQkvgtttGkkZgPjDg5lvw3ZK5w==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyegnke-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 21:32:36 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78fb21aaad9so280849137.0
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 14:32:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788989555; x=1789594355; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u30C1GcZOHikC8CRum1iTKpXibaQx/p5h+oGQUzFnVk=;
+        b=P9Kz673omglBncte1UK3SHdDUS5OA7ZjfT+U758RAAxa0PVPr+kBhrA/r+mdUaQTr9
+         pzp3LuTMmF3KiApH+G/IWxYUXpsEn/3jegCH/grcsmd49SUdhokvGtVWQp2d3HoWrrYY
+         EOFX64ze7qB8IdErnPjF/SFj17E0OkQm5yBqMkF/yZ2RZtaRx2RsXINMZtLI5jMkozWd
+         rW4X5rUvxuiFf/y8CkMfTf597y5nrOkio2S2pCg5D8GwEUkag8hIm3iNreoYerObVfPf
+         1YeZMyOsSopD3Hbdi2rvNjgmaDhDK3dHKLc/xME3R+xH665O313ZBUnlFy0V3v5FBjbA
+         ToUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788989555; x=1789594355;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u30C1GcZOHikC8CRum1iTKpXibaQx/p5h+oGQUzFnVk=;
+        b=Dad/NnnDG8CBXr1fcJ+ryyUN6E32dd0pK5MnT5VD88Tbj8lU+4zmKLtEtA4fZb3H2R
+         gpxOxT/MTzLVz8A/hZO0PHdwXjVDDCEWMBuNexE9qy+GX5dVW313XEuEw+fSsRTpITNJ
+         ctQg0d4lUA6L9FEcYK+L5RyVUpSGrPyHgN1+fflfhrCC1PIj8fecvSK9F8T9gSSaCSRa
+         Dhmr+jV5xmjA9RqHRjVkbMw5N99ArwwqO//nT0phtwgaHSJMDCtJ4+wmSr2FNkNwHnJr
+         xhJ9+ttfreNpZcaR1lqeik2Wy6PQ8cRLQMpd386qaG3n7+IB/4Tqx+Wb7Dt2UbFEI3Mt
+         nbJg==
+X-Forwarded-Encrypted: i=1; AKwUvByHbzugnzsPs9C/z9KE8fndkM72lBFlCX24TZsJf5G7d4ZCoalyWN5dSIL+A/d6NRxrN2qjHRc3j2RuzQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mvxmK80L6kjfitSkz0ZToFoHaGItMv+W35SUrfu3+twCjSVMVa
+	qkbVknzxvyX378mrOGDN1Q7N83IZ0ALPmxKfmhSCFBG3+oOwvNqx7TyMo8XSNDntQL+jd4BfR5T
+	jLiqF7srM7Th9Uw2K8EX6QHs0lhZIgxZD8ydGc1TwNy5f4WSeV4kBmH6MAcHbLoY86Q==
+X-Gm-Gg: AYBFou12Dguli/6LOLwzEPnnVlAnREKTHTiyfEDGWT7OTVUrOUqMK/JtJIyFUwVFmVa
+	cNup4LVPyWeAa+5MhneDPuc7bMpqrwmC4LjyRbNWZeHxCyBfDYnAsKIShqmyxzPbAXwejSm5a09
+	5b1i7EnO1FjOvGg9gKgVVr/NHrW7r54qf3AoD8LZFd+OFhJX+6spFA4f4Fk/4lSGIgNOR6jicsQ
+	RSbXFsgjM2HvQmvfNhGl3g/9S8SSV9eXRRh3wXcSn0XW0TClW3bKPbRfsJ+gDdo/o1EMyXNPtxH
+	mEJGM0lIjfRLfWfbFJGpfHnjeU9jbEbNn8wo2VMEZ09YXikypEFlsnD7EyY6s7yl91V1E9LYCRZ
+	uob1y/iGWiZho+KxgEcR931da7OY7FrpMfWIElR097mv1XEa3hP7GrDqyydR7B4VpB4woIvRD3R
+	P08HqW6OaLuM8K
+X-Received: by 2002:a05:6102:838a:10b0:736:f95c:4bd4 with SMTP id ada2fe7eead31-790d8a0f189mr416301137.6.1788989554967;
+        Wed, 09 Sep 2026 14:32:34 -0700 (PDT)
+X-Received: by 2002:a05:6102:838a:10b0:736:f95c:4bd4 with SMTP id ada2fe7eead31-790d8a0f189mr416280137.6.1788989554514;
+        Wed, 09 Sep 2026 14:32:34 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b75a0ef296sm2122050e87.38.2026.09.09.14.32.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 14:32:33 -0700 (PDT)
+Date: Thu, 10 Sep 2026 00:32:31 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v3 03/13] dt-bindings: media: qcom,sm8750-iris: Add
+ context bank subnodes
+Message-ID: <p2rjkda4jecjd7lfaskz3s4e53a2p4zgqvnlm77kb3haqglrbk@qq47tbxlnuck>
+References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
+ <20260909-vpu_iommu_iova_handling-v3-3-2fe43ae45495@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-3-2fe43ae45495@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDI0MiBTYWx0ZWRfX6M1veT0tIa8E
+ EKs28QgCH3QAeZiqf6uOoaSYXOZgnGeDZLX9GE6nd1m+ZojLhFB+kto+0HIhnqSVxgr0LXVLQA9
+ AgP4Hk8vFLTRKF83YYyO90ow18X7NbE=
+X-Proofpoint-GUID: U-tDwbO8hJK19ZZI44nCp5yUQe5at1a4
+X-Proofpoint-ORIG-GUID: U-tDwbO8hJK19ZZI44nCp5yUQe5at1a4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDI0MiBTYWx0ZWRfXzmAkzWVwNOaZ
+ PgGx9AYuDrabsYKnnea77fmI4bLtmbuV95F5iLxAZU0+C+OZqHr5MIRSl8UdSHD5P9caKlPCaO+
+ 0LmpR9SfyvvPdVydQS7ZHNkvEXJEA0QeHR2MFT0FC38cBr2YGXW3L0bGmY2YbaAJ3RmTI11WjqF
+ NJva7DQsdr8TzARGzmNlRek81xM/nUqywzkPPIVy/BSsxprb/n3+n9EYraOeZD8aLFuGuysl6+s
+ ATnf01roHp9KJTGUQlJgr1WkjpzxQ121mnW5RoDXqd5Bg5XauzR/pONef6O3oc9Ybvt7HL/U/Qd
+ suZGJVOKrUjBx+XeiQH6xKPZXX/R2oI9kxzjhd+cWCoRXwnLpifzGzp6S2zQWy0E1WChye8qmrj
+ 01oM6jBoBmFGHAuyouc2jnxbnFCGVTA2gB0yc0drB39ZnsJ3a8MMLzR9H7PqQpEW3Ypt6FjrymD
+ VjADm5RDbel3unKzIfQ==
+X-Authority-Analysis: v=2.4 cv=Go/XaU1C c=1 sm=1 tr=0 ts=6aa1d074 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=G2U8quZLHxfXJRKprjwA:9
+ a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-09_01,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609090242
 
-What this is answering, since most of you cannot see it
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
+On Wed, Sep 09, 2026 at 08:27:10PM +0530, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>     +-----------------------------------------------------------+
+>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>     | 0x25800000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+>     | pixel stream addressable range (0 - 3.5 GB)               |
+>     | 0x00000000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+> that boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> Given that the address range restriction is for specific VPU stream, it
+> should be ideally be moved to that stream. To achieve the same, a subset
+> of streams is now represented as subnodes, so that each can be
+> associated with its respective addressable range. The design was discussed
+> and agreed by mainatiners here
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+> 
+> In the past, this limitation was addressed with an iommu-map approach,
+> with the iris driver dynamically creating the devices. That approach
+> was later concluded to be a hack to avoid having subnodes, and was NAKed
+> by the iommu maintainers. It was discussed in detail here:
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> 
+> Update example to the subnode form. Doing so, it picks up the supporting
+> properties needed on the video-codec node, address-cells, size-cells and
+> dma-ranges to declare 1:1 DMA translation into the parent. Given a soc
+> with address-cells and size-cells as 2, update the video-codec "reg"
+> accordingly.
+> 
+> This patch depends-on:
+> https://github.com/devicetree-org/dt-schema/pull/207
+> 
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  .../bindings/media/qcom,sm8750-iris.yaml           | 187 +++++++++++----------
+>  1 file changed, 101 insertions(+), 86 deletions(-)
+> 
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
 
-These replies answer sashiko-bot, an automated reviewer at sashiko.dev. Whe=
-re
-its mail goes is worth stating, because it is not here: devicetree, robh,
-conor+dt and media-ci, and not linux-media at all. So the findings I am
-quoting have not reached most people reading this, and the review of the
-btintel series that Luiz pointed me at earlier tonight reached no list at a=
-ll
-and exists only on the site. I am quoting rather than linking for that reas=
-on.
+Again, drop the soc node and adapt the _example_ to use 32-bit
+addresses.
 
-Credit before I start disagreeing with it, because it has earned some. This
-series is at v3 because of that reviewer. Its pass on v1 raised five things
-and four were real: devm_regulator_bulk_get() ignored, which on a partial
-failure leaves freed regulators in supplies[] rather than NULLs; a
-pm_runtime_get_if_active() tested so that -EINVAL read as success and a
-reference never taken was put; ANALOGUE_GAIN and DIGITAL_GAIN fighting over
-one register, which I then measured at 0x020E and which is real; and a miss=
-ing
-pm_runtime_put_noidle(). All four are fixed. Its pass on v2 caught a
-regression I introduced while fixing the second of those, and that is the
-whole reason a v3 exists. None of those would have been found by the testin=
-g I
-had listed in the v1 cover letter.
+> +
+> +        video-codec@aa00000 {
+> +            compatible = "qcom,sm8750-iris";
+> +            reg = <0x0 0x0aa00000 0x0 0xf0000>;
+> +
 
-The three things below are where I cannot follow it, or where I can and it =
-is
-not this series' to change. Set out at length so the reasoning can be check=
-ed
-rather than taken on trust. If I have any of it wrong I would rather hear i=
-t.
-
-Correcting myself on ipu-bridge
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
-
-In my answer to the v2 review I wrote that the dangling secondary fwnodes a=
-re
-reached on "the ordinary unbind path rather than an error path". That is
-wrong. ipu_bridge_unregister_sensors() has exactly two callers and both are
-inside ipu_bridge_init()'s error unwind; there is no module_exit, no remove
-callback and no devm_add_action in the file, and on success struct ipu_brid=
-ge
-is deliberately left alive, as its own comment says. I described the reach
-without grepping for the callers.
-
-So both halves of that finding are error-path only, and the one I called
-narrow and the one I called wider are the same width. The pointers are stil=
-l
-real - nothing clears primary->secondary or the csi_dev's secondary anywher=
-e,
-and software_node_unregister_node_group() frees what they point at - but
-reaching them needs ipu_bridge_init() to fail after sensors are connected.
-Smaller than what I claimed, and the correct claim.
-
-The VBLANK/exposure finding: I do not think it holds
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-
-The review asks whether clamping the exposure range on a VBLANK change leav=
-es
-the hardware register out of sync, because the two controls are not cluster=
-ed.
-
-__v4l2_ctrl_modify_range() writes it itself. From v4l2-ctrls-api.c:
-
-    cur_to_new(ctrl);
-    if (validate_new(ctrl, ctrl->p_new)) { ... =3D def; }
-    ...
-    value_changed =3D *ctrl->p_new.p_s32 !=3D *ctrl->p_cur.p_s32;
-    if (value_changed)
-            ret =3D set_ctrl(NULL, ctrl, V4L2_EVENT_CTRL_CH_RANGE);
-
-validate_new() reaches std_validate, which clamps an integer control with
-ROUND_TO_RANGE - clamp_t(val, minimum, maximum) - rather than rejecting it.=
- So
-a clamped exposure is a changed value, set_ctrl() runs the driver's own
-s_ctrl for V4L2_CID_EXPOSURE, and the register is written. It also happens =
-in
-the right order: exposure shrinks before the frame length that forced it to=
-.
-
-If I have misread the core I would rather be told than leave it, but as far=
- as
-I can follow it there is nothing to fix here.
-
-The group hold finding: fair, and not a bug
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Correct as an observation. Each control's handler opens and closes group ho=
-ld
-around its own write, so setting exposure, gain and VBLANK together through
-VIDIOC_S_EXT_CTRLS gives three separate groups that the sensor may apply on
-different frames.
-
-Two reasons it is not in this version. V4L2 calls s_ctrl once per control
-unless they are clustered, so nothing is being lost that the current shape
-could have kept - clustering is what would add the guarantee, not what woul=
-d
-restore it. And ov5675, the nearest driver in-tree that uses a group-hold
-register at all, uses it the other way: to make one logical value spread ov=
-er
-several registers atomic, not to group controls.
-
-It is a real improvement and it is the author's design to change. Andre is
-back on 28 September; I would rather put it to him than reshape his control
-handling on his behalf for a second time in one night. If a maintainer want=
-s
-it sooner, say so and it goes in the next version.
-
-One last thing about the reviewer, since it will reach your patches too
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-It has now reviewed this series' 3/3 twice, on v2 and on v3, and that patch=
- is
-byte-identical between the two - I diffed the files. The v2 run raised an A=
-CPI
-reference leak and the fwnode pointers; the v3 run raised only the fwnode
-pointers. Same input, so that is run-to-run variance rather than anything
-having changed. Read the other way round, two independent runs agreeing on =
-the
-fwnode half is the stronger signal in it.
-
-Sergey
-
+-- 
+With best wishes
+Dmitry
