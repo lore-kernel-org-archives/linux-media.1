@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D2C48E0D0
-	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 09:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7094C37F006
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 09:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945007; cv=none; b=sfCq27KL2p3rP5xcdX8PtCOuzsEQvrGTUAV8OfFFF1JssAJNC5nhi3FnQVOJ5S0fQTy9QOCMjGcr/ckP/bfgTjI5aQzzwqk1OVBLB0WU2E4x68ExwRVJPlpGCYfp+1FHuStpUxQfUr/H4AhkJvgHyO3ffc2xWCtVcSHZc9Ws4PU=
+	t=1788945122; cv=none; b=Hnhd7W4gJSvUGY0T2pGMBLukvAw4RKaBLt8XJ+NxZBrvOFUaPPevVcImgr9goIKvySrY/2OJ5iSX3mUBkm1H37AY6ye1NT00+rBgUVjTAOy8Lj67NRoId522gp/YOP7n7M7e1aiSPx5Ajk45s4Yeot6VPyLHbYhdoNDQeE1Wns8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945007; c=relaxed/simple;
-	bh=u8IG4pq1mx9iBZOFfHBM0X5LhpZxYOw5bLHEX6g7zWQ=;
+	s=arc-20240116; t=1788945122; c=relaxed/simple;
+	bh=k5uHIQrSOso3XXwHK58dxSIL6RlIKFzUzVQTGvlj/Vg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WDABmLtQf3CNN2W2M2itD0cIZqCZip+B6+CJfabBjG35+m7ph7+XN1Rkp23OSD/5VTG8IiLmIhwkeaV2r5EPOpwoi65p+Wh8rnMGTIIiRE2y56LMkIbQsUk/00syOhCFf+69gw5Q61uR1TDmvb03nGB9MLxaXle/LE4N/lgmO/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i2X4AeqT; arc=none smtp.client-ip=198.175.65.17
+	 Content-Type:Content-Disposition:In-Reply-To; b=n7d2zUEnIS4nGgMJqW0XOuAccxpqywhtpIlXrNkYOmA/knZZkLYwxxRIbCUO4G4XOn64sz0Y8ysSwk2jTHPvBdIvZzSIphgv79pNbgu1ZcuXwQ5vxQ8VK3j+xJ67xSZyUfxnBPw0xs01ZSi2AEeKwRlmtKF5SoZ3ErhnuOBTAbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YgVZ61ah; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i2X4AeqT"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YgVZ61ah"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788945006; x=1820481006;
+  t=1788945121; x=1820481121;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:content-transfer-encoding:in-reply-to;
-  bh=u8IG4pq1mx9iBZOFfHBM0X5LhpZxYOw5bLHEX6g7zWQ=;
-  b=i2X4AeqTz9zfk71RODnQqy7Vm1nXQjgnKFC+F6M9TcISx+Uob+VTd5Ei
-   1PdkpFL45Iol08xVeqH1Om5polCfnq/DpHzaJWoGd4ImBzVCFxR3i6RDd
-   X0C1mqd/yERHIR8xBTvpxtIF4uPyUHSJKJryq2mdWYvyUhx9PnwrY3IVM
-   4pq0hFd5nKOVgSBNwHuqmsgUQh+Sk1l9JFo088Xpeabj/3mO16R/B6K6D
-   d0d3hgUNMsqeSs0ZfzsYzwByUlr7qKva/j8uqXRyrA5cWoywv8oFE9wF8
-   QPx2/Ho5QjYe17Q5TPwrQ2G9CLQ+YFPO7N7+bNtA2BjSADLNwQo7MbRGp
-   g==;
-X-CSE-ConnectionGUID: UbTFiEKiS7K92jf61QXouQ==
-X-CSE-MsgGUID: mKwDRwb1Quig5j8Eu/JwTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89394314"
+  bh=k5uHIQrSOso3XXwHK58dxSIL6RlIKFzUzVQTGvlj/Vg=;
+  b=YgVZ61ahkebef7+6Avj/cd6vd+ZmlMXP7T6I014icuqa2LPAO8CIS92a
+   rJUdYRzzCjuuVtO9ND8Qi71Tp6avkB7CxBsEdhhaRBAw71MiUlAtkLfXc
+   wG8mFjEhAtuaNo7T4i+g05f9JmoBcZXltyDDu31UIaLxa0YKyLARVwhvM
+   oT5GiMW5F2i7xDga0oIH5RX5mijMmc0vCoiPPjY7AGr7JTxcgoKOTtftm
+   hSzYPOincDouG1DAIz/GEkabTOlLN8jxCTAFe0KMZwXzwvNn0cuWlIK2z
+   24h35blhVaVZOoDEnCQXPf/gitrvk4/P8iCLX+yX++x/97GTvnpyb4uSM
+   A==;
+X-CSE-ConnectionGUID: G67RKlTgSkuSZy1Fy7Bp5A==
+X-CSE-MsgGUID: hdViOO9rRCu99POTaXEWWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89201087"
 X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89394314"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:10:05 -0700
-X-CSE-ConnectionGUID: cTfdIgyCS6uzrpZ75XmwIA==
-X-CSE-MsgGUID: UlQ8kwj7QpifzAlkQFUFcg==
+   d="scan'208";a="89201087"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:12:01 -0700
+X-CSE-ConnectionGUID: neqcAZH9Q0i+I2epGA1rtQ==
+X-CSE-MsgGUID: f5bMYb1RToSJZ7LzKAwtzQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="271754350"
+   d="scan'208";a="266975314"
 Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:10:03 -0700
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:11:58 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id D7B38121BD2;
-	Wed, 09 Sep 2026 12:10:04 +0300 (EEST)
-Date: Wed, 9 Sep 2026 12:10:04 +0300
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 313F5121BD2;
+	Wed, 09 Sep 2026 12:12:01 +0300 (EEST)
+Date: Wed, 9 Sep 2026 12:12:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Linus Walleij <linusw@kernel.org>
@@ -59,10 +59,11 @@ Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
 Subject: Re: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically
  allocated pass-through routes
-Message-ID: <aqEibCCTjtQuSpMo@kekkonen.localdomain>
+Message-ID: <aqEi4X52QSb15xnP@kekkonen.localdomain>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
  <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
  <CAD++jLnQzEoo46orVAHtoTDxXmQqsVkD1B55GUuua6drePZUbQ@mail.gmail.com>
+ <CAD++jLkaN01pneNKjhd5mxCqBJ3n8fYM7oYBwt_Ci94kM=3P4A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,43 +73,28 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLnQzEoo46orVAHtoTDxXmQqsVkD1B55GUuua6drePZUbQ@mail.gmail.com>
+In-Reply-To: <CAD++jLkaN01pneNKjhd5mxCqBJ3n8fYM7oYBwt_Ci94kM=3P4A@mail.gmail.com>
 
-Hej Linus,
-
-On Wed, Sep 02, 2026 at 07:44:32AM +0200, Linus Walleij wrote:
+On Wed, Sep 02, 2026 at 11:34:19AM +0200, Linus Walleij wrote:
 > Hi Sakari,
 > 
-> thanks for your patch!
+> one more thing!
 > 
-> On Mon, Aug 24, 2026 at 2:15 PM Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
+> On Wed, Sep 2, 2026 at 7:44 AM Linus Walleij <linusw@kernel.org> wrote:
 > 
-> > Count the number of pass-through routes, allocate memory and then return
-> > the full table to the caller.
+> > > +       if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
+> > > +               fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
 > >
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> (...)
-> > +       if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-> > +               fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
+> > So if it's more entries than the preallocated ones we kzalloc_ new ones.
 > 
-> So if it's more entries than the preallocated ones we kzalloc_ new ones.
+> If we do allocate some more dynamic descriptors here, and do not
+> free them at err_free, where are they actually kfree():ed?
 > 
-> And from this point in the code we want to clean up:
-> 
-> > +                                       goto err_free;
-> (...)
-> > +err_free:
-> > +       kfree(fd->entry);
-> 
-> But what happens if the preallocated descs are enough?
-> 
-> Then you just kfree():ed the preallocated entries, which are
-> stored in the same pointer.
+> I just can't follow that part, maybe I'm just missing details in the
+> other parts of the patch series.
 
-Oops. I'll fix that for v4.
+The caller is responsible for releasing them, as documented for
+v4l2_subdev_get_frame_desc().
 
 -- 
-Med trevliga hälsningar,
-
 Sakari Ailus
