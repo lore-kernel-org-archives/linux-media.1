@@ -1,667 +1,236 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013011.outbound.protection.outlook.com [52.101.83.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFED5867D4;
-	Wed,  9 Sep 2026 20:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986480; cv=fail; b=VEA7CSoxdFCQEHzZteRKaq+Ikiq6dimZOGsIFAsjB0C1z5wQ64Obvaan3Yq9UYWXRbBuizUO3/7rQ8VJ1OyhRLoP2Vy3rW/lOwMbta8M3Idjc8eNk23JlwmZHxaykCkY17HMTrP8M6DwwGEuHhe1WkvBYJr3KJ+OgnIuyObVH3k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986480; c=relaxed/simple;
-	bh=VijtzH1jx5uUE4ySxYpLRpiPiw6KdfG7CRtjFOif8dY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=hFm6RcHkqWAk1a/akPwoSg42xFiBnjMMDCwLnJ6hFvFLy62wNrfba10ILjfui6kmgVtPJLz+Zp0mw1Kn7mv1pc0RjkrJjBtZddAF7xjKICdvl4/OaRHNG7T/U5dK8DXJSmf+0lXWMKU2itnNUmaqiC7V7Dqn0bcdiyBXsdJTCmw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XjopDnve; arc=fail smtp.client-ip=52.101.83.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3061A3B1013
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 20:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788987483; cv=none; b=WtIocqEnK9meGIGUfM+ledPpR/jWZjki15gFcM0AM6LWPvJpz6F0UEtN0bO0lMnyLRHoCKeUr4OYcKfXCu0EEojBkfYFW2pJ39w7X4XX3muoNs2dVjFiiH9W8nzLYfHB657VWaZ7OrLZCW6DJ4ZX7u07YYKcL4eYorm+FHmDc/w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788987483; c=relaxed/simple;
+	bh=BDmAOXk/J0il5WGjLq49F7s//UAnHfnxlMZpGTigT3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gZcsx8M8aNfwpXgbdHc1G/nmWp4sPWLPke1v96cuJ0eMS2zpC07hMcYv/BoBfyBhlZOKyRb4U62I3YFamuCSVYmJUzuiCEvU8trzo5h7/ow+iSvojGpvOE0M6oteK7LtupKpUriWNNseau98/p9L3yZMYH+R2bSDqMyuM5Q7tIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XBQnBnW+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W42BUMmb; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XjopDnve"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Leas1w4FecAyCcf97vO77E3+AMBLiBAXTFcGk9kdI4A6DkhQNikcdx0NpmTkf6V17hS3OEGPN12dwNPJ7/zCIiPmagq4i/XTlgxfvdpKOgeiFG3lkzMNFI0n9XmXJOeu5jGulVUzEfvA6c/vW/z5aiGdb+/REvrpg9ddpkw20y0M8vgxOR27owZ7QeMc/KVu4ZX9Tq1kMavr3Mmv7+whybUXUQpCJ3M5yQMC6TejrK0eCz2F9weaaz5XpPMiKV2tXG1OiCtfm0hSQsadKzflkzpYyI6C34OgmLdpT3ppGiviZe5y2k654qs7Nkv8ztHZJCg+VFvpsqlb+J6SqlF/eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AG56WIDe/eRHAEMLeWn0eW0yzhB/VO2sZVuRMvktSHY=;
- b=qcCBmXrGEIznX2zf0zdVcbkkqCJ/I/+q2I9n/BfHkAz9HpwrwrpJvnu9tzx9j3MRtLTbYIt5q5mPUbdH7YTBx/Ri6QZK3OSK0VFLS95xz50kqkTIqJiM3sqYZFacg8HZ7ayoDfTj1eUJxD+Dl5h20OViPAl6617MzME/4VYAn7obcoaDD8Mug7vF/WCE3cFfoRDsvTy04MQPY3lYbp/gGE2sWiL5N5bXxgXwe27st/6XZNqzKxODAtfAgr+yGnNYiIMSA9LAj3drUNZY1dEHRWCIqe8CMtriSFl9zCB60hgCvkSs1VjO2zNtxpXD8WER/v9QRr+0C2PUaGVFKPYSUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AG56WIDe/eRHAEMLeWn0eW0yzhB/VO2sZVuRMvktSHY=;
- b=XjopDnve9KVWQGaD/yRRk2tHCioLmESa/PxoAwrkgLw18FDm2YZZ8wT7SbWZg75Nh//wbd947KVcRefyxgPXIladdfIzDprrvS/nFERIK2BTfiNdurV8EUIKKUHE6nIRtMG6HNDxBm3l8TB9YZJIxiPCiKjttWZpbQHPSBeCFrMSKgYcSZZoWbkp9mj+F7EkxFzYtfWsBJt2NS6rPFi4ABj2dIat4DCByzX/W5adbhTU2f0VXGee9gYwP5Lf3WfwFCzjHWQDOncNRhkwAzgspE8I9E6mycSto0rPFBDCPf7jMUU4f2RX/99LfLSIbsHBEvjy/hF+szcrMSIPVvrOhw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS5PR04MB9893.eurprd04.prod.outlook.com (2603:10a6:20b:653::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Wed, 9 Sep 2026
- 20:40:53 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 20:40:53 +0000
-Date: Wed, 9 Sep 2026 16:40:43 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>
-Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, shawnguo@kernel.org,
-	s.hauer@pengutronix.de, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-imx@nxp.com, linux-arm-kernel@lists.infradead.org,
-	jackson.lee@chipsnmedia.com, lafley.kim@chipsnmedia.com,
-	marek.vasut@mailbox.org, Ming Qian <ming.qian@oss.nxp.com>
-Subject: Re: [PATCH v7 6/9] media: chips-media: wave6: Improve debugging
- capabilities
-Message-ID: <aqHES02SJkIGZWDc@lizhi-Precision-Tower-5810>
-References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <e7f599a5bd65900eb45daa3b637597fce464c383.1788496816.git.nas.chung@chipsnmedia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7f599a5bd65900eb45daa3b637597fce464c383.1788496816.git.nas.chung@chipsnmedia.com>
-X-ClientProxiedBy: PH8P221CA0023.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XBQnBnW+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W42BUMmb"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689JIb3w3219932
+	for <linux-media@vger.kernel.org>; Wed, 9 Sep 2026 20:57:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=aD1svCqhonHuEhBxqeD/lMr7
+	ELQWc/Ex9Uh61jsKr0I=; b=XBQnBnW+o0JuCdB1nHL7fsroyLQyb4ry0bYaN3EI
+	ZTdLoK43rd2Apyj64z62cFGax6reUMgTQH3xkaLqf+WbKbwP1yQ4xRrEE/SQR//f
+	7ZRSfPC9SPLkHGrP329/P3RkqLBSt5QUQ7GWMUA0GIy4Ev0ITk26HGULM79d4/LQ
+	Zj53VfleseFH/KN1lBauIOMoObdOCgLv3IX8uLGODFfd61SyfxOPoNKFLfIWZcmt
+	42wwSamxdxHFrLYmw7OHxa8LLYw5ts/5aKJJmTwmOC0AwGfI7gpYXLpAh1vRcqjp
+	hfo7U4cE+5iiJB8uhDkC4gP9MxtlfQU/aDRoUB5DRV8/ww==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg0j8a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 20:57:42 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97e9909eeeaso588347241.3
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 13:57:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788987461; x=1789592261; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aD1svCqhonHuEhBxqeD/lMr7ELQWc/Ex9Uh61jsKr0I=;
+        b=W42BUMmbttSeyr/3svmpL1DuZbA7+Ky1G0LiZGe8NbedZBiMpPSS56rGYHi3SMIszY
+         p3K7220AzJ5VD+kpxhaYLEvQ+PKQvU++rz9XX+nFkYNCEFhzH/GgJRrWU1h5PBB6jy3a
+         N3B6tEFciGMnWO1c4piJpwjFKQr/Tc9hTWRJZQOnjWKHILbEKEBoyiXC3hV12ivvMNP5
+         0erGZCusyVdJHYuox9FIj4Lpa4scUcJaAsD50KWqLIyZJEqe3ueFBMGWYQ2xR8Y+riga
+         4VG/Qpi4EVDhkD7vHy/PL1Edj5ZGOAcfm7z51J4titeF2BGaIOzqVWSPiWJYf7UW0bfj
+         voHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788987461; x=1789592261;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aD1svCqhonHuEhBxqeD/lMr7ELQWc/Ex9Uh61jsKr0I=;
+        b=VZPovjSjnKRBT+VbMuvveP35XIWxNCfGBHiX3d+WiTdg+Vz6b9uXe6ksANMsvHZF8w
+         g2tlMh5HngfkOyq78jxQ7/y7u/Dqpyhb6Rpc02abPrX7S+CqwObBWIYZjYSlm+tUyBuY
+         Pzf5elWEV0Nt3QwdNPFOjeeZ3jX2M7qioQyavkA2OkxSYzTNg+dPUZ4G1FGzZHgKA6Ku
+         Nimv1y40gRxFLz3HuKl/m2fafFMeQ36rbJs+8jWRXtXwbpA28l0nYXSqHgQj04HCvJOr
+         /N8gAFeed62UuBOaZWE2PQC7qS8KJ6mMGa6+3sj90+NYj029SuunPOepDzWFkzlUSNFL
+         7wgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPIwQOeH1dY0zyvWuKms77th1ucLvHCLJdotf6jOgzZuBB3PTwjh+9jba8MMw4+JBGTAYYmdfhb7XtIw==@vger.kernel.org
+X-Gm-Message-State: AFuF++ltszV5rqlNyA+yni4ICW4JO0UHABsQjAHr7b1fCkBhIOKUlpN3
+	dm6GZ/6ef8E6kGam36XweL7rNsgkWkaEZMQ4y57svHqgtYndWdKTW4taNY91mOzm0JEJ0ekGG9L
+	Kkb3ZykFP6xwDpb31wDoFKBacKRqjcc0Gc5oQJJZy2Zo1/59NFyE+J2nZfYJfXM/2Yw==
+X-Gm-Gg: AYBFou1I40cicXdaYaou7OOzg14Dh8U9L6D/DVjb9vEJ2h9JYuEAIflVji6Kh++e6Wd
+	EY44Yb9tXqrZKeLg4CKsu3tZ8jXm9UvRaygEYIngqKRx3NKlF/g3AQxA1xTpfDungJkliK3SRC0
+	6y2Q2Z29XsbknTrLSpjXJbTJlluGmo0IddSPDAyJXfOykF6NCqrfgibDyvJekqopVDOl5coxcfr
+	mj6gy8ewIYIb3hmHLSW1pOOOdZ0RR9X4qdoAYqWHghE+3bMb3qJPgpZfzk+nAh2ipixJYT9hyCN
+	arsDziXzZ717Tm1un0fiP4nQeab9eQqA6sGGNIZVdDqaTC8eFZM3tr/8KpdO3Gsh2phV3HO4Yc2
+	b0UqHZxkg6WrylqDnmUtvP+W8ydnSrD1fHxqBAJCfU5E0YBLvyISuEFQSTEswUYhwdBZMhmdGSi
+	m855OD6ATvW4oj
+X-Received: by 2002:a05:6102:160f:b0:781:210d:28aa with SMTP id ada2fe7eead31-78a4a8be7c5mr16080297137.2.1788987461346;
+        Wed, 09 Sep 2026 13:57:41 -0700 (PDT)
+X-Received: by 2002:a05:6102:160f:b0:781:210d:28aa with SMTP id ada2fe7eead31-78a4a8be7c5mr16080274137.2.1788987460865;
+        Wed, 09 Sep 2026 13:57:40 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b765bfc42bsm728249e87.18.2026.09.09.13.57.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 13:57:39 -0700 (PDT)
+Date: Wed, 9 Sep 2026 23:57:37 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
+        Daniel J Blueman <daniel@quora.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v3 02/13] dt-bindings: media: qcom,sm8550-iris: Add
+ context bank subnodes
+Message-ID: <dulfxazlrtqc4swjeuxmriudzzm23z3wea5n7tfflaeb5644kg@6buydclxzmab>
+References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
+ <20260909-vpu_iommu_iova_handling-v3-2-2fe43ae45495@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS5PR04MB9893:EE_
-X-MS-Office365-Filtering-Correlation-Id: 107ca959-5bb7-48d3-2072-08df0eb2a414
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|23010399003|366016|376014|1800799024|3023799007|10067099003|56012099006|6133799003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Mscq1XR4ZGkkatzU4+wjVJPTTtmS/fE/KZV3H5cDciVl0HH6SvgjOokxufm1wPmt7z0J+nrmrzd+/DA+dbtM0fGKo1uaZWxmDaGm4Rf5x/2YQMShQndsIGEwFmTUFRRBDaQvpL+gyFqWUvhWWlGyf9AtR5rUQa2jKZacl7Mkhl/itBXl4q7wvr/9daSP4TmkcD1u9jfLMQMzf+uEpkXjEosYeVdixxFbes+/RUQiYFZdrwZvG3owLcdXOTKXD4+i6YAANDj/tlBHOSAAqdrvJtNXI/FJ03eIbfUdc4A4mj/HNsoCFUPW01aVVr/A/TedlcWOImXUTuK19CVDMO64YvOko8ooQdU2/THPODWwjcvjKOR8uChzaVgJDNRB5fONElIRm53HtR9MzVqC9OwjL6IfCbbXpTPsdoxbWuxs5AlVQPQNICBQJl/DcdlchIAoFYXnYATuBv+O/sY56fCVZ/zbk43QnrmzVAlQYW9S8W2HItfct1OdnQCrvR53oAa4vzyS2MF2yTAN5Z50+Frs4y5S60gBJhHnKPWyZiZVnSBazpOfaqxdsXcZCCndTlQ7kkUj2sj6YAiu+Y5gVVa7p2k3Xb3foTM07Zfz1C4L39yKQaigt6/CWsoHWUgBA4KaczqhlMEMfEE0rppWzaoXlBjn87KIueBeNlNufR0NfRs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(23010399003)(366016)(376014)(1800799024)(3023799007)(10067099003)(56012099006)(6133799003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GIONeSsyJgKt3zIvcykyEfZ4FWOXEoqU8fQfBpcWsYLZhy72i6jZDDqJDC3M?=
- =?us-ascii?Q?95GTMriixUi7oH9p/cjazkzfz5bGN6e+UFnzUcfBaB9jJP7PvREl+v9IsX/v?=
- =?us-ascii?Q?IBUSffQrzOJJLaKfnbAzIso+kkmzq/GBzYbXMewqDK0vRkcyxU8VlZiFu+AH?=
- =?us-ascii?Q?QeHSC0ySQ7ODO+yyzdygYnV0MJZ8LpIQAu7sHUK4qJLWNHORdWuSRQb2IWaE?=
- =?us-ascii?Q?MB4zjco+VwUnc1pzDZiT8diSJZNBeeeueZJXNlge6iuudrW2ktdUihUW4w5i?=
- =?us-ascii?Q?wdSMC/MBki6BFozqoPYEOYq8OJRRxgWGeNE4lO6KgRJC42mlzAlsKzijQMds?=
- =?us-ascii?Q?0bfq7+RrwVgdm2DXcb09TQSpLxr5v9oExGZdC8zwa5myrfNWC/lEaBVxpBET?=
- =?us-ascii?Q?paixEAq05BsCWFGDuSTHf218HD2AgGAbYaYM/Ve/GVD0GMouAiEGpl7ukZSO?=
- =?us-ascii?Q?Q2UJHWt1WLKVKx6UJyjtHtzki30m7h5mU1WzvuqFdzkYAfWolnf2Dxa5KO7w?=
- =?us-ascii?Q?NUXd+H4aD7AHCl27N4mWoVibJFZ/gvUNdsVEUds0piBV0VUKZs8MEzGbAylX?=
- =?us-ascii?Q?Y7SUHV9iaTPgD6eENZ/eU/YDPhyOMv2cJ0PAkIXHGJN0DFT0wLfilKi2HBCm?=
- =?us-ascii?Q?I2/TIghW5WPad9YtefVftf+GFGYkfmfFZOiPxod875btFm6lMMqujqNyMCt1?=
- =?us-ascii?Q?JX+Ahs8xpqLE1Xw1lzlRA8iyy9V7ikmcDpH8YPMbdInJokoDgqgw/r0JBuV6?=
- =?us-ascii?Q?kjmZl5mLctfYQ2l/ClFwutfVzfeJaw94eohRJZ73MhQDNO7Def2FjXSsTr3m?=
- =?us-ascii?Q?dMMagy/dkvE2UbGN3LtCg9b6LPABtTecfwZ1b3frjB7Ymo9v1voIKneOGmy7?=
- =?us-ascii?Q?jSBsCP+l2Vtgq1iNUqvjD7RkUjdeHaFeZ+MvUGV/kvRRGfB3bBhU93oGswBf?=
- =?us-ascii?Q?SlfAastIJJYs844Sp7B9g+oFY1q0XzIks1CpPttScBCuGhvP/imcyrsUVs3H?=
- =?us-ascii?Q?o5LmA7n3OFvJId2dgHDzsLziGf4GoA2lXT3QN1CmpD6Un7sXug4X9uLDF+RV?=
- =?us-ascii?Q?qGfHBsKtG1XK3TTwm59l1IYeeLICi7e+Wd5x9/oOEUUxj1NeUbLrjJDVSMCF?=
- =?us-ascii?Q?5elKmYjHkajg0c6UXm5or1Q+b64D5achnD01wJamGWwmsVgbLPo49LpTGlad?=
- =?us-ascii?Q?j44kVHb/V9mZ3EEKBnBvzaIEO1f6DeQx6uwlHXfA5MBMva5XNEJtMu3nMsn0?=
- =?us-ascii?Q?9DbegBjVO93DxtauLPSGvF32iy4FhZYMp9lSWeBQKlQypfe108XtSvsQ+Yms?=
- =?us-ascii?Q?iYAhbV9s6g6t+PD5iizIOsxc8q23BRlSzPngu96h8JimqDI5czwFdlt1ONgD?=
- =?us-ascii?Q?3jGvzLBgo072kv5aWN8STx4Lj6GJKmwatl+aMJekyEgPHSif57F7jZaDSVEt?=
- =?us-ascii?Q?3g/Tp9rna8VkaODnqCJ700Wam4Wq/9+7fvMTvVw96+2J2yvRgy0Ssput1o8A?=
- =?us-ascii?Q?HC47XaAsWcYQxUq2jmazAbP6lovyjNvIlqOpSQtHHNPWiNsBBKZsu3OGXhcb?=
- =?us-ascii?Q?VDTqfJoAR08w9n9xyPmH64Re9qKmi9LCHPRd/vi3J4BTRAaujorsnkgkZf7/?=
- =?us-ascii?Q?AHQFapjVenhVrKlZFBEvY1KMcsk+34jQcQxign9rX4dDMk3qGEfmrAUd7tg1?=
- =?us-ascii?Q?oc1CsXO4HZ3J39oxjY/KgSKctMjuj8Ql5aJZ5funE/hMHE70A0Za2PmGuJW3?=
- =?us-ascii?Q?k6wayjBuSbuJAKUnpI7BFqppXXYakZZWoNpUq6WQsxDnNUWzVCVS?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 107ca959-5bb7-48d3-2072-08df0eb2a414
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 20:40:53.5485
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TA8AXzGFepsAuY0ZSuTDwDiuKpem7kYWfmwVQGfv4G75VFNCoeyEFWSNJwmoAuULMMEMALgwneNlkUOSnHdceO3FEW9iytiKWH8zoovQQwMhNZxZyyLm9TD+6OFSCLHT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9893
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-2-2fe43ae45495@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=YZYodARf c=1 sm=1 tr=0 ts=6aa1c846 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=t9ty7G3lAAAA:8 a=EUspDBNiAAAA:8
+ a=JqCuCV_VPJ6-B_cMBtcA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIzNSBTYWx0ZWRfX5QF2/b0kXM/J
+ UHilVira6zjQ4vX+ZbsyqO10UHYQUL6wlvWKo3eC5Qah09FxfCzSDwrT5ox0w6pCmXjBEQ+S0aN
+ rPuRQGEr4NUfKn2dTe7ib1p/e2UAc3w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIzNSBTYWx0ZWRfX8uoHYxm/IUZz
+ WHMBcDl1+AyIVx5jeg9jdzymtk5oDl2i6E6FcppxOkdVzKde2l11qkD15wLCpubAdxAY7dwyrfv
+ 2lth1gGnKjuVxbCufVUctY9pFSv0LJjxH5I4RuWf+MtfFRO//KeDIHpZq6mta8/mttAPrrZQwFd
+ GupZYY/lp1NndZfU1HVlWxxv6rDrCjLVUyQP5QdPI14fMCYt2QfDZvc5Oh3vYSY/9QVa9sPx3y3
+ aAjxLDq2a9qFPACg3CspY7cFkwNZnATsgICFrE/JbPqzDw1M9TtvnXXiTMczW0/loXi6Mi8NNRN
+ v+IrwaNgCFLD+Dzx8v6UpK1/Nm8GzoMcejZCleARplo2jHhONTlQfdB7Ko7K4UExcXz9D9YlCWg
+ fl0fXYAmX1xyjws+ff4WcCceViDXXEX2rCOBeIirwJ7iCV2Ro2SPdnmkEA7tLkXRp/qtn7R307Y
+ 5ns5Z+mhzAJjVKzXyQA==
+X-Proofpoint-GUID: RiqIpyqcmQP6qBkhfoR0YZXULQwBBMS6
+X-Proofpoint-ORIG-GUID: RiqIpyqcmQP6qBkhfoR0YZXULQwBBMS6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-09_01,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609090235
 
-On Fri, Sep 04, 2026 at 03:46:32PM +0900, Nas Chung wrote:
-
-media: chips-media: wave6: Add trace and debugfs
-
-> Add debugfs entries and trace events to provide detailed
-> debugging information.
-
-Nit: need extra space line here.
-
-> These enhancements help diagnose issues and improve debugging
-
-Remove "These enhancements".
-
-> capabilities for the Wave6 core driver.
->
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
-> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
+On Wed, Sep 09, 2026 at 08:27:09PM +0530, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>     +-----------------------------------------------------------+
+>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>     | 0x25800000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+>     | pixel stream addressable range (0 - 3.5 GB)               |
+>     | 0x00000000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+> that boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> Given that the address range restriction is for specific VPU stream, it
+> should be ideally be moved to that stream. To achieve the same, a subset
+> of streams is now represented as subnodes, so that each can be
+> associated with its respective addressable range. The design was
+> discussed and agreed by mainatiners here
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+> 
+> In the past, this limitation was addressed with an iommu-map approach,
+> with the iris driver dynamically creating the devices. That approach was
+> later concluded to be a hack to avoid having subnodes, and was NAKed by
+> the iommu maintainers. It was discussed in detail here:
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> 
+> Update example to the subnode form. Doing so, it picks up the supporting
+> properties needed on the video-codec node, address-cells, size-cells and
+> dma-ranges to declare 1:1 DMA translation into the parent. Given a soc
+> with address-cells and size-cells as 2, update the video-codec "reg"
+> accordingly.
+> 
+> This patch depends-on:
+> https://github.com/devicetree-org/dt-schema/pull/207
+> 
+> Tested-by: Daniel J Blueman <daniel@quora.org>
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > ---
->  .../platform/chips-media/wave6/wave6-trace.h  | 289 ++++++++++++++++++
->  .../chips-media/wave6/wave6-vpu-dbg.c         | 183 +++++++++++
->  .../chips-media/wave6/wave6-vpu-dbg.h         |  14 +
->  3 files changed, 486 insertions(+)
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-trace.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.h
->
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-trace.h b/drivers/media/platform/chips-media/wave6/wave6-trace.h
-> new file mode 100644
-> index 000000000000..e9589b2f9918
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-trace.h
-> @@ -0,0 +1,289 @@
-> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
-> +/*
-> + * Wave6 series multi-standard codec IP - wave6 driver tracer
-> + *
-> + * Copyright (C) 2025 CHIPS&MEDIA INC
-> + */
-> +
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM wave6
-> +
-> +#if !defined(__WAVE6_TRACE_H__) || defined(TRACE_HEADER_MULTI_READ)
-> +#define __WAVE6_TRACE_H__
-> +
-> +#include <linux/tracepoint.h>
-> +#include <media/videobuf2-v4l2.h>
-> +
-> +DECLARE_EVENT_CLASS(wave6_vpu_register_access,
-> +		    TP_PROTO(struct device *dev, u32 addr, u32 value),
-> +		    TP_ARGS(dev, addr, value),
-> +		    TP_STRUCT__entry(__string(name, dev_name(dev))
-> +				     __field(u32, addr)
-> +				     __field(u32, value)),
-> +		    TP_fast_assign(__assign_str(name);
-> +				   __entry->addr = addr;
-> +				   __entry->value = value;),
-> +		    TP_printk("%s:0x%03x 0x%08x",
-> +			      __get_str(name), __entry->addr, __entry->value));
-> +
-> +DEFINE_EVENT(wave6_vpu_register_access, wave6_vpu_writel,
-> +	     TP_PROTO(struct device *dev, u32 addr, u32 value),
-> +	     TP_ARGS(dev, addr, value));
-> +DEFINE_EVENT(wave6_vpu_register_access, wave6_vpu_readl,
-> +	     TP_PROTO(struct device *dev, u32 addr, u32 value),
-> +	     TP_ARGS(dev, addr, value));
-> +
-> +TRACE_EVENT(wave6_vpu_send_command,
-> +	    TP_PROTO(struct vpu_core_device *core, u32 id, u32 std, u32 cmd),
-> +	    TP_ARGS(core, id, std, cmd),
-> +	    TP_STRUCT__entry(__string(name, dev_name(core->dev))
-> +			     __field(u32, id)
-> +			     __field(u32, std)
-> +			     __field(u32, cmd)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = id;
-> +			   __entry->std = std;
-> +			   __entry->cmd = cmd;),
-> +	    TP_printk("%s: inst id %d, std 0x%x, cmd 0x%x",
-> +		      __get_str(name), __entry->id,
-> +		      __entry->std, __entry->cmd));
-> +
-> +TRACE_EVENT(wave6_vpu_irq,
-> +	    TP_PROTO(struct vpu_core_device *core, u32 irq, u32 idc),
-> +	    TP_ARGS(core, irq, idc),
-> +	    TP_STRUCT__entry(__string(name, dev_name(core->dev))
-> +			     __field(u32, irq)
-> +			     __field(u32, idc)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->irq = irq;
-> +			   __entry->idc = idc;),
-> +	    TP_printk("%s: irq 0x%x, idc 0x%x",
-> +		      __get_str(name), __entry->irq, __entry->idc));
-> +
-> +TRACE_EVENT(wave6_vpu_set_state,
-> +	    TP_PROTO(struct vpu_instance *inst, u32 state),
-> +	    TP_ARGS(inst, state),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __string(cur_state, wave6_vpu_instance_state_name(inst->state))
-> +			     __string(nxt_state, wave6_vpu_instance_state_name(state))),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __assign_str(cur_state);
-> +			   __assign_str(nxt_state);),
-> +	    TP_printk("%s: inst[%d] set state %s -> %s",
-> +		      __get_str(name), __entry->id,
-> +		      __get_str(cur_state), __get_str(nxt_state)));
-> +
-> +DECLARE_EVENT_CLASS(wave6_vpu_inst_internal,
-> +		    TP_PROTO(struct vpu_instance *inst, bool is_out),
-> +		    TP_ARGS(inst, is_out),
-> +		    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +				     __field(u32, id)
-> +				     __string(type, is_out ? "output" : "capture")
-> +				     __field(u32, pixelformat)
-> +				     __field(u32, width)
-> +				     __field(u32, height)
-> +				     __field(u32, buf_cnt_src)
-> +				     __field(u32, buf_cnt_dst)
-> +				     __field(u32, processed_cnt)
-> +				     __field(u32, error_cnt)),
-> +		    TP_fast_assign(__assign_str(name);
-> +				   __entry->id = inst->id;
-> +				   __assign_str(type);
-> +				   __entry->pixelformat = is_out ? inst->src_fmt.pixelformat :
-> +								   inst->dst_fmt.pixelformat;
-> +				   __entry->width = is_out ? inst->src_fmt.width :
-> +							     inst->dst_fmt.width;
-> +				   __entry->height = is_out ? inst->src_fmt.height :
-> +							      inst->dst_fmt.height;
-> +				   __entry->buf_cnt_src = inst->queued_src_buf_num;
-> +				   __entry->buf_cnt_dst = inst->queued_dst_buf_num;
-> +				   __entry->processed_cnt = inst->processed_buf_num;
-> +				   __entry->error_cnt = inst->error_buf_num;),
-> +		    TP_printk("%s: inst[%d] %s %c%c%c%c %dx%d, input %d, %d, process %d, error %d",
-> +			      __get_str(name), __entry->id, __get_str(type),
-> +			      __entry->pixelformat,
-> +			      __entry->pixelformat >> 8,
-> +			      __entry->pixelformat >> 16,
-> +			      __entry->pixelformat >> 24,
-> +			      __entry->width, __entry->height,
-> +			      __entry->buf_cnt_src, __entry->buf_cnt_dst,
-> +			      __entry->processed_cnt, __entry->error_cnt));
-> +
-> +DEFINE_EVENT(wave6_vpu_inst_internal, wave6_vpu_start_streaming,
-> +	     TP_PROTO(struct vpu_instance *inst, bool is_out),
-> +	     TP_ARGS(inst, is_out));
-> +
-> +DEFINE_EVENT(wave6_vpu_inst_internal, wave6_vpu_stop_streaming,
-> +	     TP_PROTO(struct vpu_instance *inst, bool is_out),
-> +	     TP_ARGS(inst, is_out));
-> +
-> +TRACE_EVENT(wave6_vpu_dec_pic,
-> +	    TP_PROTO(struct vpu_instance *inst, u32 srcidx, u32 size),
-> +	    TP_ARGS(inst, srcidx, size),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __field(u32, srcidx)
-> +			     __field(u32, start)
-> +			     __field(u32, size)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __entry->srcidx = srcidx;
-> +			   __entry->start = inst->codec_info->dec_info.stream_rd_ptr;
-> +			   __entry->size = size;),
-> +	    TP_printk("%s: inst[%d] src[%2d] %8x, %d",
-> +		      __get_str(name), __entry->id,
-> +		      __entry->srcidx, __entry->start, __entry->size));
-> +
-> +TRACE_EVENT(wave6_vpu_source_change,
-> +	    TP_PROTO(struct vpu_instance *inst, struct dec_seq_info *info),
-> +	    TP_ARGS(inst, info),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __field(u32, width)
-> +			     __field(u32, height)
-> +			     __field(u32, profile)
-> +			     __field(u32, level)
-> +			     __field(u32, tier)
-> +			     __field(u32, min_fb_cnt)
-> +			     __field(u32, disp_delay)
-> +			     __field(u32, quantization)
-> +			     __field(u32, colorspace)
-> +			     __field(u32, xfer_func)
-> +			     __field(u32, ycbcr_enc)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __entry->width = info->pic_width;
-> +			   __entry->height = info->pic_height;
-> +			   __entry->profile = info->profile;
-> +			   __entry->level = info->level;
-> +			   __entry->tier = info->tier;
-> +			   __entry->min_fb_cnt = info->min_frame_buffer_count;
-> +			   __entry->disp_delay = info->frame_buf_delay;
-> +			   __entry->quantization = inst->quantization;
-> +			   __entry->colorspace = inst->colorspace;
-> +			   __entry->xfer_func = inst->xfer_func;
-> +			   __entry->ycbcr_enc = inst->ycbcr_enc;),
-> +	    TP_printk("%s: inst[%d] %dx%d profile %d %d %d min_fb %d delay %d color %d %d %d %d",
-> +		      __get_str(name), __entry->id,
-> +		      __entry->width, __entry->height,
-> +		      __entry->profile, __entry->level, __entry->tier,
-> +		      __entry->min_fb_cnt, __entry->disp_delay,
-> +		      __entry->quantization, __entry->colorspace,
-> +		      __entry->xfer_func, __entry->ycbcr_enc));
-> +
-> +TRACE_EVENT(wave6_vpu_dec_done,
-> +	    TP_PROTO(struct vpu_instance *inst, struct dec_output_info *info),
-> +	    TP_ARGS(inst, info),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __field(u32, dec_flag)
-> +			     __field(u32, dec_poc)
-> +			     __field(u32, disp_flag)
-> +			     __field(u32, disp_cnt)
-> +			     __field(u32, rel_cnt)
-> +			     __field(u32, src_ch)
-> +			     __field(u32, eos)
-> +			     __field(u32, error)
-> +			     __field(u32, warn)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __entry->dec_flag = info->frame_decoded;
-> +			   __entry->dec_poc = info->decoded_poc;
-> +			   __entry->disp_flag = info->frame_display;
-> +			   __entry->disp_cnt = info->disp_frame_num;
-> +			   __entry->rel_cnt = info->release_disp_frame_num;
-> +			   __entry->src_ch = info->notification_flags & DEC_NOTI_FLAG_SEQ_CHANGE;
-> +			   __entry->eos = info->stream_end;
-> +			   __entry->error = info->error_reason;
-> +			   __entry->warn = info->warn_info;),
-> +	    TP_printk("%s: inst[%d] dec %d %d disp %d(%d) rel %d src_ch %d eos %d error 0x%x 0x%x",
-> +		      __get_str(name), __entry->id,
-> +		      __entry->dec_flag, __entry->dec_poc,
-> +		      __entry->disp_flag, __entry->disp_cnt,
-> +		      __entry->rel_cnt,
-> +		      __entry->src_ch, __entry->eos,
-> +		      __entry->error, __entry->warn));
-> +
-> +TRACE_EVENT(wave6_vpu_enc_pic,
-> +	    TP_PROTO(struct vpu_instance *inst, struct enc_param *param),
-> +	    TP_ARGS(inst, param),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __field(u32, srcidx)
-> +			     __field(u64, buf_y)
-> +			     __field(u64, buf_cb)
-> +			     __field(u64, buf_cr)
-> +			     __field(u32, stride)
-> +			     __field(u64, buf_strm)
-> +			     __field(u32, size_strm)
-> +			     __field(u32, force_type_enable)
-> +			     __field(u32, force_type)
-> +			     __field(u32, end_flag)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __entry->srcidx = param->src_idx;
-> +			   __entry->buf_y = param->source_frame->buf_y;
-> +			   __entry->buf_cb = param->source_frame->buf_cb;
-> +			   __entry->buf_cr = param->source_frame->buf_cr;
-> +			   __entry->stride = param->source_frame->stride;
-> +			   __entry->buf_strm = param->pic_stream_buffer_addr;
-> +			   __entry->size_strm = param->pic_stream_buffer_size;
-> +			   __entry->force_type_enable = param->force_pic;
-> +			   __entry->force_type = param->force_pic_type;
-> +			   __entry->end_flag = param->src_end;),
-> +	    TP_printk("%s: inst[%d] src[%2d] %8llx %8llx %8llx(%d) dst %8llx(%d) force type %d(%d) end %d",
-> +		      __get_str(name), __entry->id, __entry->srcidx,
-> +		      __entry->buf_y, __entry->buf_cb, __entry->buf_cr,
-> +		      __entry->stride, __entry->buf_strm, __entry->size_strm,
-> +		      __entry->force_type_enable, __entry->force_type,
-> +		      __entry->end_flag));
-> +
-> +TRACE_EVENT(wave6_vpu_enc_done,
-> +	    TP_PROTO(struct vpu_instance *inst, struct enc_output_info *info),
-> +	    TP_ARGS(inst, info),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __field(u32, srcidx)
-> +			     __field(u32, frmidx)
-> +			     __field(u32, size)
-> +			     __field(u32, type)
-> +			     __field(u32, avg_qp)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __entry->srcidx = info->enc_src_idx;
-> +			   __entry->frmidx = info->recon_frame_index;
-> +			   __entry->size = info->bitstream_size;
-> +			   __entry->type = info->pic_type;
-> +			   __entry->avg_qp = info->avg_ctu_qp;),
-> +	    TP_printk("%s: inst[%d] src %d, frame %d, size %d, type %d, qp %d, eos %d",
-> +		      __get_str(name), __entry->id,
-> +		      __entry->srcidx, __entry->frmidx,
-> +		      __entry->size, __entry->type, __entry->avg_qp,
-> +		      __entry->frmidx == RECON_IDX_FLAG_ENC_END));
-> +
-> +TRACE_EVENT(wave6_vpu_s_ctrl,
-> +	    TP_PROTO(struct vpu_instance *inst, struct v4l2_ctrl *ctrl),
-> +	    TP_ARGS(inst, ctrl),
-> +	    TP_STRUCT__entry(__string(name, dev_name(inst->dev->dev))
-> +			     __field(u32, id)
-> +			     __string(ctrl_name, ctrl->name)
-> +			     __field(u32, val)),
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->id = inst->id;
-> +			   __assign_str(ctrl_name);
-> +			   __entry->val = ctrl->val;),
-> +	    TP_printk("%s: inst[%d] %s = %d",
-> +		      __get_str(name), __entry->id,
-> +		      __get_str(ctrl_name), __entry->val));
-> +
-> +#endif /* __WAVE6_TRACE_H__ */
-> +
-> +#undef TRACE_INCLUDE_PATH
-> +#define TRACE_INCLUDE_PATH .
-> +#undef TRACE_INCLUDE_FILE
-> +#define TRACE_INCLUDE_FILE wave6-trace
-> +
-> +/* This part must be outside protection */
-> +#include <trace/define_trace.h>
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c b/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
-> new file mode 100644
-> index 000000000000..ae71edeae088
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
-> @@ -0,0 +1,183 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-> +/*
-> + * Wave6 series multi-standard codec IP - debug interface
-> + *
-> + * Copyright (C) 2025 CHIPS&MEDIA INC
-> + */
-> +
-> +#include <linux/types.h>
-> +#include <linux/debugfs.h>
-> +#include "wave6-vpu-core.h"
-> +#include "wave6-vpu-dbg.h"
-> +
-> +static int wave6_vpu_dbg_instance(struct seq_file *s, void *data)
-> +{
-> +	struct vpu_instance *inst = s->private;
-> +	struct vpu_performance_info *perf = &inst->performance;
-> +	struct vb2_queue *vq;
-> +	s64 tmp;
-> +	s64 fps;
-> +	s64 duration;
-> +
-> +	if (!inst->v4l2_fh.m2m_ctx)
-> +		return 0;
-> +
-> +	seq_printf(s, "[%s]\n",
-> +		   inst->type == VPU_INST_TYPE_DEC ? "Decoder" : "Encoder");
-> +
-> +	seq_printf(s, "%s : product 0x%x, fw_ver %d.%d.%d(r%d), hw_ver 0x%x\n",
-> +		   dev_name(inst->dev->dev),
-> +		   inst->dev->attr.product_code,
-> +		   FW_VERSION_MAJOR(inst->dev->attr.fw_version),
-> +		   FW_VERSION_MINOR(inst->dev->attr.fw_version),
-> +		   FW_VERSION_REL(inst->dev->attr.fw_version),
-> +		   inst->dev->attr.fw_revision,
-> +		   inst->dev->attr.hw_version);
-> +
-> +	seq_printf(s, "state = %s\n",
-> +		   wave6_vpu_instance_state_name(inst->state));
-> +
-> +	vq = v4l2_m2m_get_src_vq(inst->v4l2_fh.m2m_ctx);
-> +	seq_printf(s, "output (%2d, %2d): fmt = %c%c%c%c %d x %d, %d;\n",
-> +		   vb2_is_streaming(vq),
-> +		   vb2_get_num_buffers(vq),
-> +		   inst->src_fmt.pixelformat,
-> +		   inst->src_fmt.pixelformat >> 8,
-> +		   inst->src_fmt.pixelformat >> 16,
-> +		   inst->src_fmt.pixelformat >> 24,
-> +		   inst->src_fmt.width,
-> +		   inst->src_fmt.height,
-> +		   vq->last_buffer_dequeued);
-> +
-> +	vq = v4l2_m2m_get_dst_vq(inst->v4l2_fh.m2m_ctx);
-> +	seq_printf(s, "capture(%2d, %2d): fmt = %c%c%c%c %d x %d, %d;\n",
-> +		   vb2_is_streaming(vq),
-> +		   vb2_get_num_buffers(vq),
-> +		   inst->dst_fmt.pixelformat,
-> +		   inst->dst_fmt.pixelformat >> 8,
-> +		   inst->dst_fmt.pixelformat >> 16,
-> +		   inst->dst_fmt.pixelformat >> 24,
-> +		   inst->dst_fmt.width,
-> +		   inst->dst_fmt.height,
-> +		   vq->last_buffer_dequeued);
-> +
-> +	seq_printf(s, "crop: (%d, %d) %d x %d\n",
-> +		   inst->crop.left,
-> +		   inst->crop.top,
-> +		   inst->crop.width,
-> +		   inst->crop.height);
-> +
-> +	if (inst->scaler_info.enable)
-> +		seq_printf(s, "scale: %d x %d\n",
-> +			   inst->scaler_info.width, inst->scaler_info.height);
-> +
-> +	seq_printf(s, "queued src %d, dst %d, process %d, sequence %d, error %d, drain %d:%d\n",
-> +		   inst->queued_src_buf_num,
-> +		   inst->queued_dst_buf_num,
-> +		   inst->processed_buf_num,
-> +		   inst->sequence,
-> +		   inst->error_buf_num,
-> +		   inst->v4l2_fh.m2m_ctx->out_q_ctx.buffered,
-> +		   inst->eos);
-> +
-> +	seq_puts(s, "fps");
-> +	tmp = MSEC_PER_SEC * inst->processed_buf_num;
-> +	if (perf->ts_last > perf->ts_first + NSEC_PER_MSEC) {
-> +		fps = DIV_ROUND_CLOSEST(tmp, (perf->ts_last - perf->ts_first) / NSEC_PER_MSEC);
-> +		seq_printf(s, " actual: %lld;", fps);
-> +	}
-> +	duration = perf->total_sw_time / NSEC_PER_MSEC;
-> +	if (duration > 0) {
-> +		fps = DIV_ROUND_CLOSEST(tmp, duration);
-> +		seq_printf(s, " sw: %lld;", fps);
-> +	}
-> +	duration = perf->total_hw_time / NSEC_PER_MSEC;
-> +	if (duration > 0) {
-> +		fps = DIV_ROUND_CLOSEST(tmp, duration);
-> +		seq_printf(s, " hw: %lld", fps);
-> +	}
-> +	seq_putc(s, '\n');
-> +
-> +	seq_printf(s, "latency(ms) first: %llu.%06llu, max %llu.%06llu, setup %llu.%06llu\n",
-> +		   perf->latency_first / NSEC_PER_MSEC,
-> +		   perf->latency_first % NSEC_PER_MSEC,
-> +		   perf->latency_max / NSEC_PER_MSEC,
-> +		   perf->latency_max % NSEC_PER_MSEC,
-> +		   (perf->ts_first - perf->ts_start) / NSEC_PER_MSEC,
-> +		   (perf->ts_first - perf->ts_start) % NSEC_PER_MSEC);
-> +
-> +	seq_printf(s, "process frame time(ms) min: %llu.%06llu, max %llu.%06llu\n",
-> +		   perf->min_process_time / NSEC_PER_MSEC,
-> +		   perf->min_process_time % NSEC_PER_MSEC,
-> +		   perf->max_process_time / NSEC_PER_MSEC,
-> +		   perf->max_process_time % NSEC_PER_MSEC);
-> +
-> +	if (inst->type == VPU_INST_TYPE_DEC) {
-> +		seq_printf(s, "%s order\n",
-> +			   inst->disp_mode == DISP_MODE_DISP_ORDER ? "display" : "decode");
-> +	} else {
-> +		struct enc_info *p_enc_info = &inst->codec_info->enc_info;
-> +		struct enc_codec_param *param = &p_enc_info->open_param.codec_param;
-> +
-> +		seq_printf(s, "profile %d, level %d, tier %d\n",
-> +			   param->profile, param->level, param->tier);
-> +
-> +		seq_printf(s, "frame_rate %d, idr_period %d, intra_period %d\n",
-> +			   param->frame_rate, param->idr_period, param->intra_period);
-> +
-> +		seq_printf(s, "rc %d, mode %d, bitrate %d\n",
-> +			   param->en_rate_control,
-> +			   param->rc_mode,
-> +			   param->bitrate);
-> +
-> +		seq_printf(s, "qp %d, i_qp [%d, %d], p_qp [%d, %d], b_qp [%d, %d]\n",
-> +			   param->qp,
-> +			   param->min_qp_i, param->max_qp_i,
-> +			   param->min_qp_p, param->max_qp_p,
-> +			   param->min_qp_b, param->max_qp_b);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int wave6_vpu_dbg_open(struct inode *inode, struct file *filp)
-> +{
-> +	return single_open(filp, wave6_vpu_dbg_instance, inode->i_private);
-> +}
-> +
-> +static const struct file_operations wave6_vpu_dbg_fops = {
-> +	.owner = THIS_MODULE,
-> +	.open = wave6_vpu_dbg_open,
-> +	.release = single_release,
-> +	.read = seq_read,
-> +	.llseek = seq_lseek,
-> +};
-> +
-> +int wave6_vpu_create_dbgfs_file(struct vpu_instance *inst)
-> +{
-> +	char name[64];
-> +
-> +	if (WARN_ON(!inst || !inst->dev))
-> +		return -EINVAL;
-> +
-> +	if (IS_ERR_OR_NULL(inst->dev->debugfs))
-> +		return 0;
-> +
-> +	scnprintf(name, sizeof(name), "instance.%d", inst->id);
-> +	inst->debugfs = debugfs_create_file((const char *)name,
-> +					    0444,
-> +					    inst->dev->debugfs,
-> +					    inst,
-> +					    &wave6_vpu_dbg_fops);
-> +
-> +	return 0;
-> +}
-> +
-> +void wave6_vpu_remove_dbgfs_file(struct vpu_instance *inst)
-> +{
-> +	if (!inst || !inst->debugfs)
-> +		return;
-> +
-> +	debugfs_remove(inst->debugfs);
-> +	inst->debugfs = NULL;
-> +}
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.h b/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.h
-> new file mode 100644
-> index 000000000000..6453eb2de76f
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.h
-> @@ -0,0 +1,14 @@
-> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
-> +/*
-> + * Wave6 series multi-standard codec IP - debug interface
-> + *
-> + * Copyright (C) 2025 CHIPS&MEDIA INC
-> + */
-> +
-> +#ifndef __WAVE6_VPU_DBG_H__
-> +#define __WAVE6_VPU_DBG_H__
-> +
-> +int wave6_vpu_create_dbgfs_file(struct vpu_instance *inst);
-> +void wave6_vpu_remove_dbgfs_file(struct vpu_instance *inst);
+>  .../bindings/media/qcom,sm8550-iris.yaml           | 118 ++++++++++++---------
+>  1 file changed, 67 insertions(+), 51 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> index 0400ca1bff05dcef6b742c3fbf77e38adca9f280..dd80526838f1193f4c9105793ae4bf4fe0755ec2 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> @@ -98,10 +98,10 @@ required:
+>    - interconnect-names
+>    - resets
+>    - reset-names
+> -  - iommus
+>    - dma-coherent
+>  
+>  allOf:
+> +  - $ref: qcom,venus-common.yaml#
+>    - if:
+>        properties:
+>          compatible:
+> @@ -150,70 +150,86 @@ examples:
+>      #include <dt-bindings/power/qcom-rpmpd.h>
+>      #include <dt-bindings/power/qcom,rpmhpd.h>
+>  
+> -    video-codec@aa00000 {
+> -        compatible = "qcom,sm8550-iris";
+> -        reg = <0x0aa00000 0xf0000>;
+> -        interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
 
-You add this patch 6. but call this funcation at patch 4.
+No. The SoC node must go away. None of the schema examples have it.
 
-You need make sure each patch can build without break bisect.
+>  
+> -        power-domains = <&videocc VIDEO_CC_MVS0C_GDSC>,
+> -                        <&videocc VIDEO_CC_MVS0_GDSC>,
+> -                        <&rpmhpd RPMHPD_MXC>,
+> -                        <&rpmhpd RPMHPD_MMCX>;
 
-Frank
-
-> +
-> +#endif /* __WAVE6_VPU_DBG_H__ */
-> --
-> 2.31.1
->
+-- 
+With best wishes
+Dmitry
