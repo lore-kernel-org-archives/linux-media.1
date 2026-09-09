@@ -1,40 +1,67 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D730D525A73;
-	Wed,  9 Sep 2026 10:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75847531AF8
+	for <linux-media@vger.kernel.org>; Wed,  9 Sep 2026 10:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950534; cv=none; b=or6hW3V5zGC/syhGotVlgR2WljrFLjc+f0NS3g+87TPfcT9qAJQAeVSF40ZWLvb/K51wULc6eAUC5bJ9ZaL5kbGcJ+MpRHlc5pOoY2n7kjyaaYjFAgbi/vbV+TvMmya4q92k4bJ5veP2ZS7P4qHMiYFsnVnTapG4dA5e/Z16aDA=
+	t=1788950754; cv=none; b=U2XCtG6ZaUSrDNYgMuMN4883CttoPqUV8RUryxOeyqx/Gfq8KB49N6FZ0+CTJ/AoEdtreduXd3hWeLtsvmAUAxgq14/zsGkunhArvL6wO3iBS7RwWwHKn7zL4PtCMqWfWSnAebk/hkGHH4mF3Saf0V9Gajqe4MKG6EYlwTleml0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950534; c=relaxed/simple;
-	bh=5iEeWKRYyo6JZkZ1jkGVssH+/FqxevdetEgt2YPW2R4=;
+	s=arc-20240116; t=1788950754; c=relaxed/simple;
+	bh=tfrLqcGsEUuzNpqwHNUq3Kj0poSsyq9DZH41qa+NCYI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P8sdcsNRjVJZVhtm3CAwczudzPHhLUxUTD1zBG2uIra920qp9XXuvROMmal7D9UAEx3MCg0EN8JzF8QtbPZbXlO8ubmzIvU0pdyPQYjAkqIld6GnhpXM2syi1Tr49I1gx0tgtROgzTgvMyJj9+eQiw+manug/3iqraTfMx+bg2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 198dd5c6ac3b11f19a56ed5b684f684d-20260909
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:96be5b24-559b-471a-a709-41308b3f524f,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:7fbbb0f849b9254f6c5f92ebe1516e05,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 198dd5c6ac3b11f19a56ed5b684f684d-20260909
-X-User: liwang@kylinos.cn
-Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1215083401; Wed, 09 Sep 2026 18:42:05 +0800
-Message-ID: <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
-Date: Wed, 9 Sep 2026 18:42:03 +0800
+	 In-Reply-To:Content-Type; b=H1rI1GGkA8tWkl8IJMelYhZ4+302LqRgGtL4XFWGjY3MHpI2Q4aMEElOJA38zxFtycJzZuvSnSocVI9kWuhgxKvEsH0jXFOewivpD48UlsE8fK3P8RP3m0eC1PvGpFJyXfcaAU92B1N2d+QNrn15Xe1gahgnkxvvQxbzCY1NPi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FuC7/YxM; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FuC7/YxM"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so18415a12.3
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 03:45:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788950751; x=1789555551; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5MH6BpfVCqGiCGTmNR3nzVfS3qVLZltUsj1CqM88T+M=;
+        b=FuC7/YxM0IWorvVEMRW88CTSyc+nScDh3Dod5/LuIjNq1SGR48ljmYMu4IQQxA6W50
+         uIDo/0GyYLzcigr28UyTrLwqVlJgs2LxCQoTEdlsPmsF/tFcKQ/Zo9tP2iqhL6GxYqf3
+         EH5REa3ORVqW7JsRYgPZ5O0TFNr5bJE+oi3RdMWG2tahoc4LAhDAm52p5PRNKvmt04Jv
+         9pp8oNAWQTGyd1DSRw8gc3y6Htf0bMryLokUr24Fm2IV9Le7I32Ii0PX+tEHcESPTIRG
+         9w2V7LYYEIHcD7DqhMmFmDPFOpKgGhEiZCL0YVeLZ+pVdJa5Y6o/QC9rjBqsaZyYBsu3
+         Ah8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788950751; x=1789555551;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5MH6BpfVCqGiCGTmNR3nzVfS3qVLZltUsj1CqM88T+M=;
+        b=qLFc/BK3x/2BgX8nkkjl5y/IxReYJi48qEEN2iFLSVHHFYBSGhhQn336duvlyPESec
+         udCiNPwfHMfJM05tkwcbmWRRsvrwhy1P68p2ZAhGTH4N5QSH7cLuu9vaGsBmNExdV6be
+         VxpXK4f0zQn2wUzaDxK2GVGywOSOjN+MqOIFk1XPlMDjc8OK7HOwyTLyEeqjpFgLCA4B
+         jbxebhy8GEda6RpNeEByBCyO892gkrcZUH17DKuWILWIKuouKyo3q/6qXIDxGKnn3Nda
+         Soiqlkg0jbTKCV8+s/56bLs4V7lDoZSFdpXeRjwAJV+4tLCc6Yyk2SyBP++vKIIeBqJm
+         hO2g==
+X-Forwarded-Encrypted: i=1; AKwUvByajmGCnJ5TFHa/h3j5ojryXDfcwuYAoAomiK9tdTz36hpxaIQkrsO9EJrbiGYhEPNFCw+PJs2qGfD6zA==@vger.kernel.org
+X-Gm-Message-State: AFuF++n4byxxmemOO0ubWL7PAJk6ut8Xq69mx/C3hEGafA2NYbnEDwrR
+	thqtQpwVe1T3iih0yYDREGK2DD7ST8K/wGuAVrrtg1AMVrk2URFvZLLsg71eF5PEXL0=
+X-Gm-Gg: AYBFou2ZbI5iqItJhxasb89ZP50LXyLAvCG1X+CYB+MY5UzTQUrsxMZbmz4EknWKpUO
+	2UnzPdpOn0b0l8D2V+3z9sVAfvKsQdauJWLSXxqIyMeVhGF8Q8ZNIyAQQL0Gu/rq6SppxbUpft/
+	evnVRC0gAaFcRY8zDELtY7s6XH2MPp+IOwKVIrBT1bKGE9+kpa7YaqydalVq4DvTBkQ+3pNbfT3
+	+nZaewvuZH2E93jpesYjMNhEUaTJ8xdJJ/Hkmo7NH77rB5RRz93e3KHst+SysoYa9dpmXxqyOD0
+	AVhubOXsNAq5AaX3q35ulPU2yjhu77LTBdkguSWIStJzIeRU9CfOVy+pmnrM0ecdDOvJdztNzrq
+	T+62p9+K2l/IA6xL7ORS7tnWCDkiKmOemHtOjL4wuPNOqLX81BUEFM4E7kcgM+SlNRYQspGnQKK
+	PvMCHiyo/751onrXI0jhbxlKrAoNmnYAp6RU9S3CS+orvazVKm612ebVAj7C5fukzUnCl7J2ZHf
+	ELkmUgf
+X-Received: by 2002:a05:6402:3253:b0:6a7:f5b1:2726 with SMTP id 4fb4d7f45d1cf-6a99ccc2f32mr65130a12.8.1788950750705;
+        Wed, 09 Sep 2026 03:45:50 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.32.60])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm6886762a12.30.2026.09.09.03.45.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 03:45:49 -0700 (PDT)
+Message-ID: <eab4c6be-e3dc-458d-8011-304a98f2354b@linaro.org>
+Date: Wed, 9 Sep 2026 11:45:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,51 +69,41 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
- io_uring
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
- <2026090913-landline-encroach-c544@gregkh>
-Content-Language: en-GB
-From: Li Wang <liwang@kylinos.cn>
-In-Reply-To: <2026090913-landline-encroach-c544@gregkh>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
+ CAMSS
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
+ Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
+ <0wqEOKsKQUG-cPJyVkrWjcUUrp4POMvOxwKLbIaM_HQ9goiCr0D4llW4AHLrRfqjnLWyFVvpWNGbwqu6DNBM7w==@protonmail.internalid>
+ <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Greg,
-  Thanks for the review!
-
+On 07/09/2026 09:13, Nihal Kumar Gupta wrote:
+> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
+> Glymur uses only the new PHY API via standalone phy@ child nodes,
+> so per-CSIPHY clocks, interrupts and supplies are absent here.
 > 
-> That's not really needed in a changelog text, it could be in the 0/X
-> patch :)
+> X1E80100 has four CSIPHY instances while Glymur has three
+> (CSIPHY0, CSIPHY1, CSIPHY4), expressed entirely in DT.
 > 
-Sorry for the clutter. I will move most of them into the 0/X patch in v2.
-
-> Anyway, you didn't cc: the io_uring list, why?
-> 
-`scripts/get_maintainer.pl` didn't output the io_uring mailing list, likely 
-because this patch doesn't directly touch the io_uring codebase itself. It only 
-enables remapping GPU memory buffers to CPU virtual addresses, which can then be 
-consumed via standard io_uring APIs.
-
-I've added io-uring@vger.kernel.org to CC for this reply and will keep it in v2.
-
-> 
-> Nor why "fgds" is the name, that's going to be hard to remember, does it
-> stand for something?
-> 
-"FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
-technology enabling direct I/O between GPU memory and files on NVMe, 
-widely used in LLM workloads to bypass CPU overhead.
-
-If "FGDS" feels unintuitive, please let us know if you have a better alternative.
-
-We will address the rest of the code comments in the v2 patch series soon.
-
-Thanks,
-Li Wang
+> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
