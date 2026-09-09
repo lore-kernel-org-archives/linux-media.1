@@ -1,94 +1,104 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A8D4DF4DC;
-	Wed,  9 Sep 2026 13:52:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E02F4C6803;
+	Wed,  9 Sep 2026 13:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961923; cv=none; b=Z8TueXaLjICMKjKK1TAr4mjg3r7LHwVTtgWFEjb14O1Zae2zIdZcNwlg7cZ+Ky5n+X/PmFsjQhvwKGgUHJN2921tSupxSQQhV52wTxeb1vx4ATFYz7qiQAbAOvCmLmU3iGVig770SwBy/slyDI2Gd1FFXNYPtfJ1UP+UYsR9v9w=
+	t=1788961995; cv=none; b=myOiuyz9cm0K+/qYFhzYihP55gR5K1H/m+wvGh6kILVraqfQdgdoky4F9J/2y7feuQCR+HeT5zE8U2f1tZGwfxVPkpqiuGVlsoPjuk7M4wH417mOeDTCnnTwsl/4zR90F2v0PPtCIwNseFaB6WXwK7C9XQxRYySE+5Y0bWJnXTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961923; c=relaxed/simple;
-	bh=pAVIrS3A7Rvp0U6cdijMHeBv+L6o6e+82vw+zmkqi7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nXTtbzZVIvylX3JjIJ2NZGuiVH2KMHfI1PRXKCMil1wkhn7/Lme27yf8Wu4WzS4Vc8SjBKBy+EBinWwh7LXf5r+GF2FaM4Zj95zy0XmwpXDklqRkW75u2J48dDIkvoHRl2OxJ6Vd6Mu7gX9VlDRD4AnFqMg1JViLeKwzhy5zcV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ioCAXYPV; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788961995; c=relaxed/simple;
+	bh=6AoUbS90Cz+O96DFJFkvxoQrUSNwwRtPy1soc2vXfgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YSMn8nWaAoP2yX1cd4aI9cFuYV9TF4pXnTrzuj3i9wVTRd2z92YcwdLlm70ndg/LJs5PTGOzUxb16TxxW+f1iVQsMuUY8C+LF4ojEjWjwJs1OEdL1v+O+o1KcPH66qUllWuMNSt1mja7RSnbxiTsghU/vqDPcvY+dAZJdyw2JgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sXawcu+9; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=b9Q4YJ6B; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ioCAXYPV"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0E6A21A1A75;
-	Wed,  9 Sep 2026 13:51:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CD57B60448;
-	Wed,  9 Sep 2026 13:51:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A566B11C7AF8E;
-	Wed,  9 Sep 2026 15:51:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788961916; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=X3TXa8ZqMQb4DnauQKRwN/9Bqzakf4XtPXYK7Pd7tsY=;
-	b=ioCAXYPVeyyJMca8ak7CEqrnzMHTUnvRr+T9Em1q2K55JSPptr9oF0sf8wq+LQEdMpFEKD
-	00Vkzm8CTC+NdwdC1gZZ9VtovHy1m5ebKW8EgpOtx8a6YUjVa/AU6YAMdmkFMBXUnNt/NX
-	09GgLdWETkP2R+00Kf9hLVtcVDO20S1blQ18HThNPki10EisBVPE0hTs6dtgpE5pofHJc8
-	YP07DdcaByF7h4IU4ii4lOqWfFZiccMDPuveULOScrip6ulVUSm+uyjN8NNdXeHizLT7vS
-	HqNPdXLA9lk7kniz17hGVcOlsGTDe8/Z24UFy3FJqS9SaDzfZNGprIAeNTOJ8A==
-Date: Wed, 9 Sep 2026 15:51:49 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Sebastian Reichel <sre@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
-	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 13/14] mfd: remove unused menelaus driver
-Message-ID: <20260909135149e7d73952@mail.local>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-14-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sXawcu+9";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="b9Q4YJ6B"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hg2MB5r8GzMlJr;
+	Wed, 09 Sep 2026 15:53:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788961990;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=iuJQiHvs9iP3PQ03RHys/Ar1s5GNOF4lhn09HnTAQd0=;
+	b=sXawcu+9waCVaP7TSgWjwW3DjhbtBP7mpZzo0sV2ex6EmOrgco4n9ZyPmQ9lHmz4hX1Grk
+	fcunJ7aP3ef+NsMDl+r/HSVnSsSaRVcyq5u2EOLTzLEO4aGXk2w2oG16BWK146WEjzSTVQ
+	H4swSmhlqwQrNURfcNnQbOo6alrCw2uJLQFBj5Kq34gnmICk3cHZVnNwNU+RTvK/RUwI2P
+	m/Fxl3IVB8hJDkgeqqlyvlr/mVKokszggNpFnxQOAQkgJVN644h/k2q5rNURgVtGGshDG3
+	G85ESssSnzmvsiI/F7dlUvusoh4W+JkjJnX3hw4OltTfoc6VMd7/k2EOFuACtA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=b9Q4YJ6B;
+	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788961989;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=iuJQiHvs9iP3PQ03RHys/Ar1s5GNOF4lhn09HnTAQd0=;
+	b=b9Q4YJ6BDbbrtZBPJ74ddbSs3qEZOz2jk2O5p0FXFpij3T2tUFq0LazqWNMVLDNy1/VZAY
+	Vn1FhIP3Xr2jMv3k6qMv5csuADVvseL+sdb+IkKOlh/23uLnp9yWHQ8D6UPpMrrvVE7FRJ
+	LM+EZKXMACwfwG5mNWqCb+bpEOTiYfttW8zShtcwOAs2V/lztonrOpS4nxFQVriYwT/6hX
+	fKa3qHnYap88y4KwoUOaLdgMkgXcq1pSL0su1zDbIzTppy0uoUIJ0xjqxqdPiPXbpb+Ybg
+	PhJbXrdanVjN2DHpLtEyZ6V9y7mhsTHu5w3RosPbi5T6Srro1f7bqwcQ02NyNw==
+To: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] Documentation/gpu: Fix bracket
+Date: Wed,  9 Sep 2026 15:52:33 +0200
+Message-ID: <20260909135233.1364650-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-14-arnd@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: mhwupi7m53zinn4efqm6apnsbpajmcsm
+X-MBO-RS-ID: 454f5675d07381df421
+X-Rspamd-Queue-Id: 4hg2MB5r8GzMlJr
 
-On 09/09/2026 15:21:50+0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Menelaus was a companion chip for the omap24xx platform, which has
-> been remvoed from the kernel, so now the menelaus driver is unused
-> and can be removed.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Remove needless '('.
 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+---
+ Documentation/gpu/drm-vm-bind-locking.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/Documentation/gpu/drm-vm-bind-locking.rst b/Documentation/gpu/drm-vm-bind-locking.rst
+index a345aa513..df6cf0132 100644
+--- a/Documentation/gpu/drm-vm-bind-locking.rst
++++ b/Documentation/gpu/drm-vm-bind-locking.rst
+@@ -170,7 +170,7 @@ submission is therefore preceded with a re-validation section:
+            validate_gem_bo(&gpu_vm_bo->gem_bo);
+ 
+            // The following list iteration needs the Gem object's
+-           // dma_resv to be held (it protects the gpu_vm_bo's list of
++           // dma_resv to be held. It protects the gpu_vm_bo's list of
+            // gpu_vmas, but since local gem objects share the gpu_vm's
+            // dma_resv, it is already held at this point.
+            for_each_gpu_vma_of_gpu_vm_bo(&gpu_vm_bo, &gpu_vma)
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.54.0
+
