@@ -1,181 +1,124 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4A2341068;
-	Thu, 10 Sep 2026 14:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051122; cv=pass; b=WXRlLWdhKZsrep8lNH1t/x4HV8xDKWcvUFCOs/pGKu9IIR1ksIAyS8nJ8zewj1i1Ksey+1GlddaxePVImI924co9D0P+8jobOsliSk5xsBpANQcMQiYkDXNcNq3vu3WTy6WJci+9iXSO0kwqIT9hqdz+DWGmGO0cdWZHQC+OWaY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051122; c=relaxed/simple;
-	bh=UgKwUNhzHqVr7UIwpqTKMZRrNOM7QxsgGzLaCc715hU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pFCmitvZXn8+6H3KVpoLZuhu7t7hVmNMDOd4J2ZRPafCuX6HFiknhSgUDUpWfWADGcrpMNKogsZr94sC1AAU+BBpMKxKyWPCmbegsEUDECv6PraBW4dr7MLx9KXpswQQYr/KC+xWptMyV62+gq8RUJhLpiI8w6pa+FhAu70E9fU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=P/rruDHS; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72DB4AB1AB
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 14:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789052063; cv=none; b=gFqlNyJmzrk9ymvsGvSqB8GreFY8aa7vEG3dqG1CmZzVoPJ/BuO29rOjI7HjCKEq+jPnVbpzNnrczhlyFYXiPum19u6+Jk+vlBvuKnHb1i/cFrWyMfoN1rQ8JaU1cuV9Uz7wF4gGUYrqAsDfpc/IJxmnv1PmKAoYZmxLXZD/1cY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789052063; c=relaxed/simple;
+	bh=+bkPUwN2hMVE3y7Yolp6psCq4hieuh/DtkDZpQvEXUY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jV2yPnlBljx4pUwSlc+EUcFdnxQTuNLl2w/Z5BmfSmPu7mtG/iYrvnVJKe8a3ScoW2ZWTI9R8ysJJLYAUHFTLwyfnzBP+keMGHlpiKGyEj5R7eEyj8/QpHlkQ4V27oocAhKaJ82bM4Fwa32c3SlFBJ6jdw29li8wE6yFPCs8zQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=aqqTnoj3; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="P/rruDHS"
-ARC-Seal: i=1; a=rsa-sha256; t=1789051100; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Qnf8yRtyLC1CPTVHqwV+O9vsI9sHTAhEly69ol4cCicYUhwKeHbcwwtTkyth7AI7dlS9REoXDNcqG2mE2wfLn6J+FbEiKtYpe81xAZfTCRoUuHcQB+qqwRVUKi1aK+MU4cndw8wdd3FX+fegVnn1vhOXXCjn4MVP1gDz3qTDuQg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789051100; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=DWUtcKBPNVdQnOWaiojxu58DcR5uB4/S6pjUi9rDujw=; 
-	b=XTq6tIYGcrIKXqel+PrtmNfisk0SnqeuPi9yY5XIR5a5ngjISPlaVBYmBgYPjIsCHFIh6sXHs2KYpo29HvvUGgoqGKq6bYsJKmyorU5SS9mansGWN4Nv/XdRJelO4iR0VVo8R86tx5Q2atgSmRpSbbgaQ1uDFBGqyziIjESrnmQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
-	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789051100;
-	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=DWUtcKBPNVdQnOWaiojxu58DcR5uB4/S6pjUi9rDujw=;
-	b=P/rruDHS/3M0kGTk8lsEn92lzuZJYLczyhVrA9gS+eEafEjgy8NKkCt/sdLgPyRh
-	kcqbjiW8ZURoi4nuogVHxx2r6oCTOwcEPrum1B2RcYiHP4Tg9VsZgPMZ8ls6OqyRUKA
-	bVqTmXog1nsNSRcceJ1/EHh/HpyYLRtPemJtsvVY=
-Received: by mx.zohomail.com with SMTPS id 1789051098268291.1074430247711;
-	Thu, 10 Sep 2026 07:38:18 -0700 (PDT)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, Christopher Healy <healych@amazon.com>,
- Detlev Casanova <detlev.casanova@collabora.com>
-Subject: Re: [PATCH v3 0/5] media: Add fdinfo support for v4l2 drivers
-Date: Thu, 10 Sep 2026 10:38:15 -0400
-Message-ID: <xIs2E_YWS3GdsCX4z2DR3Q@collabora.com>
-In-Reply-To: <20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com>
-References: <20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="aqqTnoj3"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a68279dd86so8996662a12.3
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 07:54:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1789052059; x=1789656859; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LX8jitlbpM5cd8REaraZghKiqPQkzzWMZOq8r/lMnsA=;
+        b=aqqTnoj3oK0EKm/ywIaHXnWGg+2XtRRn8Q2Fyt4tTIpKl1/dCTVuIoTAAqfPHAo1FK
+         m+MzoYiaMQqPQiw+EqYKz2QLFkvDbUanV8PSaI1gqDJxTtCUSbnRAbEt6+Zm6L9OGqh6
+         1cMt8xDBXVfr3ynnLBqo5Cxnq6qNRl5KdH0YnoLgzqKVIuGEF1oVuUgeS9Vyq8dyhyHn
+         QzBArwhYXecfHuYGWO7hnnEC5szxsYpc70ZDAgALZU7MPkoLl0Iri6m9kh4TuHxecyvv
+         U/+bY69BfEGmHVDq1d3Mae+QqDYcTfgFdkeO2nvtrqeXrdeHZDa/US3gAyNhJ3Li3OXJ
+         tvNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789052059; x=1789656859;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LX8jitlbpM5cd8REaraZghKiqPQkzzWMZOq8r/lMnsA=;
+        b=WhnawtrXoBxnFHa8XnVHD1I6N6Q9c53gCR8cTSUpQLEtgCDtgkhyGDk06vRd+U18PR
+         Dkrl9lajyZQXyOrOUp5y6Mg7oOQ13uY8+LHsiqJjGl+CC0I/fb58o1wbFzXWHXbkshn+
+         jjsgQ10xoLSfpxpQX8IxuTAAbf2ojgtbkwPOi2xzj8HIWfV0tKVTtdQY+IdagYoQuYaJ
+         TKhhrKPEmnjcKHFB2ymf3Nn5OoRpIXnoND5bwEvwHafxAt/8nmtRgpkzBOl6jew1GCHY
+         eminDFkr/MITxYKwxWMFS9kihH+RooOBoPgo63FGD5YS0kMxEXlEOFRyWQFMSXvdi9aN
+         nUwA==
+X-Gm-Message-State: AFuF++nEMYnkvK8Pff/bmED98gKUTenguj2U9lxk/sKB9WJeJjoV0RP4
+	ki5QRVL6BjPpeQ7kUIaYJ7MIfELYBPvzoEaWGoJBNMAxpbHWn86jfcBX4ARUxljW73E=
+X-Gm-Gg: AYBFou2rfFk3MZ4dWyrv9Y67gmZBFBHiAJSbl40cRV0cVtEYy3YLkfgX6/AA/LVmAD6
+	lpGZZyMoE7w2D59PeSSSZddd9S5hPu2579wn61tXOzAJFG2NNykbqiZ0MRDz3pji0O2e8dd+5dR
+	dYQUlOMXtFrqhqtyQpk0ir7BTatji8BqZDpyCW5ZnOFkM/5TVntQ/JrCbn3yYszYW+uRw/PHQDB
+	6N2xFQTX5wlTa0etz1/y1ONrOQ+Syv/HmHD150X5p418Jg5CpXLBEKSIs/cABGLdkJb8hgiN5jD
+	PmKumQM09i8kbWbjxRYYGqCWi5t2tGsNW264UXTDLSZd3+tPqDuiIlR3N80ikXhihbufmK9MWpT
+	eP0Crc11az7Hg4IcH7cpTjZ9X2zbkYoTyAdMu960YovvCzps0k5TeO5+5WoUPxvMNiJFEC9TiN8
+	lI7Zlh02BzQ3oWrWLjP6/dDFhOX+s2jJUPulHUHC/5OKTm12K9Ha+Bx9TPz6++8GyRczOmCR6T1
+	Yv7MG7C3GWDMHj7O4fIsFw/5Zv9iITMhFYEMd6Uu5cITdbZswBGyIri
+X-Received: by 2002:a05:6402:1ed3:b0:6a9:984b:4c71 with SMTP id 4fb4d7f45d1cf-6a9984b4d29mr4002866a12.33.1789052059015;
+        Thu, 10 Sep 2026 07:54:19 -0700 (PDT)
+Received: from [172.16.240.55] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm8849715a12.30.2026.09.10.07.54.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:54:18 -0700 (PDT)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Subject: [PATCH 0/3] Dongwoon DW9800K update patchset
+Date: Thu, 10 Sep 2026 16:54:15 +0200
+Message-Id: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrA1MRFvjVURKEqd1VKIkWgXx7
+ sZ2+Rb/HxDIMwWokgM8fTnw5CJkmoDttPuQ4DYaMsweqCQKk4t2UyXi8LIjabfOAo3ST11Ikrm
+ CGM6e3rz/pnXzd1hNT3a5T3CeF4qEuex2AAAA
+X-Change-ID: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789052058; l=1198;
+ i=griffin.kroah@fairphone.com; s=20260910; h=from:subject:message-id;
+ bh=+bkPUwN2hMVE3y7Yolp6psCq4hieuh/DtkDZpQvEXUY=;
+ b=h/64XD5qztm48Ht/9zBI1inq2ZW3FDmtZYfN1L8lRUe4d0uepqpvhwda/UUVfl5l9krOHofuc
+ 6Q4DmXNqNA2AMKk6Iblgv4+KJMxBGkhN7/QUHa2Rc1EU24PyymgEcX4
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-Hello !
+This patchset edits the dw9800k driver and related files, to properly
+match previously mismatched register writes, variables, and logic now
+that we have the datasheet for the dongwoon dw98900k.
 
-Do you have any comment on this ?
+This is a breaking change, but is necessary to ensure proper bindings
+and driver behavior. The previous naive approach did not ensure proper
+functionality with different device tree properties.
 
-Regards,
-Detlev
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+Griffin Kroah-Hartman (3):
+      dt-bindings: media: i2c: dw9800: Redocument DW9800K
+      media: i2c: dw9719: Update DW9800K driver
+      arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K support
 
-On Monday, 6 July 2026 09:42:17 EDT Detlev Casanova wrote:
-> fdinfo is useful to poll information from the driver.
-> Unlike the ftrace interface, it lets userspace tools get a snapshot of
-> the state of the driver at their own pace, instead of getting events for
-> each driver status change.
-> 
-> This works better to get information like HW usage time or clock
-> frequencies, as well as memory usage.
-> This patch set focuses on mem2mem drivers that are per-frame based and
-> an implementation is proposed for the Verisilicon Hantro and Rockchip
-> rkvdec drivers, limited to main clock frequency and HW usage time, as
-> well as HW cycles counting in Hantro.
-> 
-> Even though it is not used yet, per core fields are appended with
-> `-<core_id>` to support multi-core drivers.
-> 
-> To ease support in drivers, a v4l2_metrics struct is added.
-> It stores metrics information and provides helper functions to write
-> the fdinfo file in a standard way.
-> 
-> An example of usage of this from userspace is implemented in v4l2top:
-> 
-> https://github.com/cazou/v4l2top (Check the upstream branch)
-> 
-> checkpatch.pl warning: The 2 arguments in the show_fdinfo callback
-> definition are kept unnamed to match with the rest of the struct
-> definition.
-> 
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> ---
-> Changes in v3:
-> - Rename the fdinfo key prefix from "media-" to "v4l2-", and "stats" to
->   "metrics"
-> - Restructure the documentation to have mandatory and optional keys
-> - Add core ID to fields
-> - Add HW cycles count support
-> - Add ABI documentation
-> - Link to v2:
-> https://patch.msgid.link/20260617-v4l2-add-fdinfo-v2-0-d298e98ce06a@collabo
-> ra.com
-> 
-> Changes in v2:
-> - Simplify key/value pairs by removing repeated <eng> suffix
-> - Add media type support
-> - Add v4l2_stats helpers
-> - Add support in rkvdec too
-> - Link to v1:
-> https://patch.msgid.link/20260612-v4l2-add-fdinfo-v1-0-723211abc861@collabo
-> ra.com
-> 
-> To: Mauro Carvalho Chehab <mchehab@kernel.org>
-> To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> To: Philipp Zabel <p.zabel@pengutronix.de>
-> To: Detlev Casanova <detlev.casanova@collabora.com>
-> To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-> To: Heiko Stuebner <heiko@sntech.de>
-> Cc: kernel@collabora.com
-> Cc: linux-media@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> 
-> ---
-> Christopher Healy (2):
->       docs: media: add documentation for V4L2 driver usage metrics
->       media: hantro: Add per-context fdinfo usage metrics
-> 
-> Detlev Casanova (3):
->       media: v4l2: Add callback for show_fdinfo
->       media: v4l2-core: Add v4l2-metrics interface
->       media: rkvdec: Add per-context fdinfo usage metrics
-> 
->  Documentation/ABI/testing/procfs-fdinfo-v4l2       | 129
-> +++++++++++++++++++ .../userspace-api/media/drivers/index.rst          |  
-> 1 +
->  .../media/drivers/v4l2-usage-metrics.rst           | 137
-> +++++++++++++++++++++ drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 
-> 19 +++
->  drivers/media/platform/rockchip/rkvdec/rkvdec.h    |   1 +
->  drivers/media/platform/verisilicon/hantro.h        |   3 +
->  drivers/media/platform/verisilicon/hantro_drv.c    |  19 +++
->  drivers/media/platform/verisilicon/hantro_hw.h     |   1 +
->  .../platform/verisilicon/rockchip_vpu981_regs.h    |   1 +
->  .../media/platform/verisilicon/rockchip_vpu_hw.c   |   6 +
->  drivers/media/v4l2-core/Makefile                   |   2 +-
->  drivers/media/v4l2-core/v4l2-dev.c                 |  12 ++
->  drivers/media/v4l2-core/v4l2-fh.c                  |   3 +
->  drivers/media/v4l2-core/v4l2-metrics.c             |  78 ++++++++++++
->  include/media/v4l2-dev.h                           |   1 +
->  include/media/v4l2-fh.h                            |   2 +
->  include/media/v4l2-metrics.h                       |  47 +++++++
->  17 files changed, 461 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 3c587e0b08bd3c4853a22792b9166b7457870165
-> change-id: 20260610-v4l2-add-fdinfo-a790fceab329
-> 
-> Best regards,
-> --
-> Detlev Casanova <detlev.casanova@collabora.com>
-> 
-> 
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+ .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+ .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts |  5 +-
+ drivers/media/i2c/dw9719.c                         | 71 ++++++++++++++---
+ 4 files changed, 156 insertions(+), 12 deletions(-)
+---
+base-commit: 6970ecbc1f96154fb68107b467e6294c43947447
+change-id: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
 
-
-
+Best regards,
+--  
+Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
