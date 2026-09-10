@@ -1,195 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219FB3DDDDE
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 09:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DDD3C2B95
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 09:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032375; cv=none; b=AyFeuqig2N6+7mkLPDn9bVxsvik8LymWB8Oeb71r57tYUYM10QqZTbdSg97/WYWwH7ybV6LsitRuny8btQCDLo++BFPxRfQ5r8869NqYfh/reG6I5W5/iBlrOI9NGYDBXj6W/45v8n1nVjIKm+j0hZ1cNlft/RT+CeqEKRwkE3s=
+	t=1789033290; cv=none; b=ke6fI2peeqGOCjQXgLRhGBoRY4A8xiYokUUwVxWzKSq6bv96aGYUFhFLYg5yGdz/aL9M9ZlNISoEdMDqI7gaaOtYemoNrbWL3D1XLVt3DGpa1bKFFaetX8e24vs440DYARar7X76nwTiebIObrXII2Q3cvarvhilj+/cPsqLBMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032375; c=relaxed/simple;
-	bh=lwOiub16b1We2UpOBJ4acgLfMZlgJ8NoANgbycpNG1M=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=HaPvJvdYkZ2jcMNrvP8Il/Uyibvs+jcECk4E0VkbXlnVzXhB/jrr1fHv3HAYh1jbEmZsCNlktNxLbpm8jk+bogao0Ljx137iHMqBmCp3EP2rYobNSpvGDGIqnKNU+2h9n4aN5yW85a7B/AwpYEBrIY4dFTSBmqFIGgwh8aWWp9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yr/V75d6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789033290; c=relaxed/simple;
+	bh=AtB30fOLmd9xwlz6s0ctJOk/nEgmq4K3+nf0Vx4MVUs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RFB0Gc954c4JxFT+LYvCmDcr6phswfquC55OxqlWROuStDQCOn35FqjYCQmx3QS8gq1Aq55A3eGjAHKD494MyPwZj4OIHe50tv2mgfBl59mw3RQKJKFEq56ZJszvZmWgCsyDgFY0DRGTPv5AHqq90hqFaLylMt4melvNFR64jZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pyPZZkr6; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yr/V75d6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA0A1F000FF;
-	Thu, 10 Sep 2026 09:26:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789032369;
-	bh=una7e9ulC1alHeWrv+SYRIE8wUzZyKcy4h79n4QCYZ8=;
-	h=Date:From:Subject:To:Cc;
-	b=Yr/V75d67Dt43lKX9nJWFJ0g2quJrUNriVCLebJPGX0HLm1+rRrszmQzoEpLXSvhe
-	 +G29wFfTUbTWMHbn4D5LRLSMWT5bCZFGeZ3Y5L+HFoF7R+ozpUJGuIHOTU1Q+hNSME
-	 xgWKBYk/AiDMA9n6OXKTiEqgyfo5OKKh3fpLBozKY2CwK+WNvDlz5UvMI8XrbbWUT+
-	 SypDellw7Six+09JHxxIwtYG/iiwqqBMIGDDwKaVjvuP5OW+UY8GQZVzW6DAb3sfuD
-	 2uZ+eqTX7pppwsMMKZzcpTnWGZfsIqX189NEzX4X+PbkmbvdcQ1mTnNnQDeuh8B8bs
-	 waOdWxZyahlLg==
-Message-ID: <41b79883-680c-4975-aa44-c38a5f49de24@kernel.org>
-Date: Thu, 10 Sep 2026 11:26:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pyPZZkr6"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f9bso21560935ad.3
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 02:41:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789033288; x=1789638088; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fquBE/d9+HqRv4rij8w/7PsKGJjDt7mpnvyWxy9ryZI=;
+        b=pyPZZkr6lBZfjvC8biQrHE2YeNckaxKDXeye51mnAX3xxwcFrbn1T+nMt+SPJugr6g
+         ZCOBv6LqVXxFIwXMC/ccbW/iBAUvectL3DN7KjNINEty02Lu0d8cQ1HQnrF3GyGLwkNJ
+         GYfTU+fsygXgrn5Isp4UfQ05asitPU/8IZpyKTGXlkvtgqs+oahteTMq4eJGieAENLNz
+         iGECnnRzHDkS7hPjrGsi4h5mcRpMyh8Rbp+O6/8xJP7gEPf2cNRFzZ6WHEU9OEAwFTnr
+         bea3Bv9IpFM6buj6WQ80zTLjqXsqvBTHUIcJdlTO23hLatbrb3L3BU2uCfw7aP1TouDX
+         9McQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789033288; x=1789638088;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fquBE/d9+HqRv4rij8w/7PsKGJjDt7mpnvyWxy9ryZI=;
+        b=d8KxqD6aNrx92Ze9+T+Gbb1MP1UfZZ8YNCw29Z8OQtIGLdYHiZJ/T9e7u1klA9GAIw
+         dA/fFOFDxMj+mZVqyOQU8lnbmrDswGg9QmeoZ8rT5zUZSVnV/qjnOjGxQLnkGR3PvBfM
+         HR26bvvuJvPiY1Rk+Bp4+wRLDCjPxE84d8Gk2ncp4q/tm9QRZ02nvU5WtJhP1HM8fQWv
+         6gFGqjkvPfzXDpd1MMKuA+HxH/JpTGmvqEBDGLZXa+gilu4DzOvdYUIGoW6aj875x3/Z
+         MvTyH70sQD4faztvXuPZgf72SYHHxFwPiISC93QpQ8+ujDEGwVzoJPmGZ3f5HQKCz9eu
+         luLA==
+X-Forwarded-Encrypted: i=1; AKwUvByuf5JsyhCYGUMoOkuMNtk+xYblzSfg/i+i4Ms3lUbUodJC5BA3AW+MvGT2i1vLI8B8dzpJFGqLD2ZClw==@vger.kernel.org
+X-Gm-Message-State: AFuF++mMHFJncyAi3AWxP0rm8OPkJe5DloQV12jXCta5+UzLC31L/JF8
+	mqPPmeOPvvrX5sRarcPnbTQc/qzb4th/KBenTJhzWjYh61fgE/cBYsn3
+X-Gm-Gg: AYBFou0Gh5XkrbcF6Wa3nhaalZBQ/Ntp4q3AeXzx61ztW7rP7qFy0GnfCzlU1NLkP7W
+	aZrbtIFU3u7HA7xkvd2y9aP1wRWKweghf56e9WJATsqYWcb/S1obfTOo6HSUoWZ2w4uhclJ9e1H
+	jcNsOcppLsyvkc+ULrpvdhXJK8BSX0tH+QNPgXEaHoNcMMdCnBwSZ+czOOJj4QzyPFiB77DzsgU
+	Td1So20Ee67HyHGsePIQYLwS/W1P0wdLQCe0TW0vK6bgVXaXAFZn0JTe9+Mw0qrvRxqTkKUEobj
+	0CyZZVxeNJ1pZHt1iK9f5M2L9czvpMv9A6aYqShf7IDafGhX3ocBp4Y2+aT2YE9nzPJWjstZQN7
+	8RnHneDJiXzXGoIUAyIraVsnQd8GsIV5u13Z2g0sOpxh+9A5eBRGIC8MWvSWLPdCTJicJoRmj2R
+	BuQz68Hzls2qhOVGCCJ9oDgrEbwPNhn07RthBV958r044ipUmmAFM3XyCHLn5/wDFJvwmE232el
+	p/ixzBa+rD0WJ4MPFsetyrKqb/izL1ebg==
+X-Received: by 2002:a17:903:2301:b0:2d6:fd55:3a9d with SMTP id d9443c01a7336-2db8d8179b5mr148221695ad.3.1789033287530;
+        Thu, 10 Sep 2026 02:41:27 -0700 (PDT)
+Received: from niharika-QEMU-Virtual-Machine ([223.181.118.171])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397d6d1becsm13201260eec.22.2026.09.10.02.41.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 02:41:26 -0700 (PDT)
+Date: Thu, 10 Sep 2026 15:11:23 +0530
+From: Niharika Khare <niharikakhare2101@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: sakari.ailus@linux.intel.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] media: mc: Remove spurious WARN_ON in
+ __media_pipeline_start
+Message-ID: <aqJ7QxGa9s70LXwp@niharika-QEMU-Virtual-Machine>
+References: <20260821165833.10042-1-niharikakhare2101@gmail.com>
+ <20260821193326.GI59206@killaraus.ideasonboard.com>
+ <aokkTcorNSJOnJFj@niharika-QEMU-Virtual-Machine>
+ <apU5O6ahkYlvioju@niharika-QEMU-Virtual-Machine>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US, nl
-Subject: [PATCH] media: i2c/platform: add V4L2_SET_EDID_HPD_LOW_JIFFIES define
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Cc: Tim Harvey <tharvey@gateworks.com>, Hermes Wu <Hermes.Wu@ite.com.tw>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- "kernel@collabora.com" <kernel@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apU5O6ahkYlvioju@niharika-QEMU-Virtual-Machine>
 
-HDMI receivers need to pull the HPD pin low for at least 100 ms to
-indicate that a new EDID is available. In practice, HZ / 7 is a good
-value for that as this gives enough slack for video sources to detect
-this situation. Due to clock frequency differences and imprecise
-video source implementations using exactly 100 ms (or even a bit more)
-may still cause this to be missed by the video source.
+On Mon, Aug 31, 2026 at 01:50:22PM +0530, Niharika Khare wrote:
+> On Sat, Aug 22, 2026 at 09:53:46AM +0530, Niharika Khare wrote:
+> > On Fri, Aug 21, 2026 at 09:33:26PM +0200, Laurent Pinchart wrote:
+> > > On Fri, Aug 21, 2026 at 10:28:07PM +0530, Niharika Khare wrote:
+> > > > Vimc driver's entity topology has three capture nodes and two of
+> > > > those (Raw Capture 0 and RGB/YUV Capture) are reachable from each
+> > > > other via enabled links. The crash report and the C repro show that
+> > > > the two capture nodes attempt to invoke a STREAMON session one after
+> > > > the other, which resulted in the WARNING getting triggered by the
+> > > > media controller.
+> > > > 
+> > > >   vimc link validate: Sensor A:src:640x480 (0x42474752, 0, 0, 0, 0) Raw Capture 0:snk:640x480 (0x42474752, 8, 0, 0, 0)
+> > > >   vimc link validate: Scaler:src:640x480 (0x33424752, 8, 0, 0, 0) RGB/YUV Capture:snk:640x480 (0x33424752, 8, 0, 0, 0)
+> > > >   origin->pipe && origin->pipe != pipe
+> > > >   WARNING: drivers/media/mc/mc-entity.c:785 at __media_pipeline_start+0x1add/0x22b0, CPU#1: syz.0.17/5912
+> > > > 
+> > > > The graph walk originating from Raw Capture 0 (first STREAMON in C
+> > > > repro on /dev/video0) reaches RGB/YUV Capture and marks its origin
+> > > > pad's pipe with its own pipe. When RGB/YUV Capture's graph walk starts
+> > > > (second STREAMON in C repro on /dev/video4), the pad is already
+> > > > claimed. This is a legitimate userspace request but not something that
+> > > 
+> > > No, that's not supposed to be a legitimate use case. The WARN_ON
+> > > indicates a driver bug.
+> > 
+> > Thanks for the direction Laurent, I'll look into vimc's architecture to
+> > check on how the two capture nodes ended up starting the pipeline back
+> > to back.
+> 
+> Hi Laurent,
+> 
+> The WARN reproduces without the syzkaller reproducer by configuring
+> formats with media-ctl, then concurrently running VIDIOC_STREAMON on
+> /dev/video0 and /dev/video2. Both sit in the same connected component
+> via Sensor A.
+> 
+> I tried checking the pad in vimc before video_device_pipeline_start()
+> and returning -EBUSY, and this removes the WARN.
+> 
+> However, a couple of other drivers are structured differently:
+> 
+> 1. rkisp1 embeds a single media_pipeline in struct rkisp1_device; both
+>    capture nodes pass it to video_device_pipeline_start(), serialized
+>    by stream_lock. vimc embeds one per vimc_capture_device, so the
+>    second STREAMON sees a different pipe pointer.
+> 
+> 2. imx8-isi acquires the pipeline with media_entity_pipeline(), falling
+>    back to the node's own pipe, under graph_mutex.
+> 
+> I also tried the imx8-isi approach in vimc. Both nodes stream, but
+> teardown NULL-derefs in kthread_stop() as the core refcounts one
+> pipeline while vimc keeps a kthread per capture node.
+> 
+> Before working on the teardown: should vimc share a pipeline across a
+> connected component like these drivers, or refuse the second STREAMON?
+> 
+> Regards,
+> 
+> Niharika
 
-Over many years HZ / 7 (143 ms) has proven to be a good safe value
-for this.
+Adding the vimc maintainers as well, since the open question is about
+vimc's design rather than the core.
 
-Add a new #define to v4l2-dv-timings.h and modify the various drivers
-that do this to use this define. Most already used HZ / 7, but some
-were a bit longer.
+Short restatement: should vimc share a single media_pipeline across a
+connected component (as rkisp1 does at rkisp1-capture.c:1152), or
+refuse the second STREAMON with -EBUSY?
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
----
- drivers/media/i2c/adv7604.c                        |  2 +-
- drivers/media/i2c/adv7842.c                        | 10 ++++++----
- drivers/media/i2c/it6625.c                         |  2 +-
- drivers/media/i2c/tc358743.c                       |  2 +-
- drivers/media/i2c/tda1997x.c                       |  2 +-
- .../media/platform/synopsys/hdmirx/snps_hdmirx.c   |  4 ++--
- include/media/v4l2-dv-timings.h                    | 14 ++++++++++++++
- 7 files changed, 26 insertions(+), 10 deletions(-)
+Details and the rkisp1/imx8-isi comparison are upstream in this thread.
+  
 
-diff --git a/drivers/media/i2c/adv7604.c b/drivers/media/i2c/adv7604.c
-index 231edd3797ab..2a169d379ee4 100644
---- a/drivers/media/i2c/adv7604.c
-+++ b/drivers/media/i2c/adv7604.c
-@@ -2449,7 +2449,7 @@ static int adv76xx_set_edid(struct v4l2_subdev *sd, struct v4l2_edid *edid)
- 	cec_s_phys_addr(state->cec_adap, parent_pa, false);
+Best Regards,
 
- 	/* enable hotplug after 143 ms */
--	schedule_delayed_work(&state->delayed_work_enable_hotplug, HZ / 7);
-+	schedule_delayed_work(&state->delayed_work_enable_hotplug, V4L2_SET_EDID_HPD_LOW_JIFFIES);
- 	return 0;
- }
-
-diff --git a/drivers/media/i2c/adv7842.c b/drivers/media/i2c/adv7842.c
-index 3cfae89ce944..5e5bb78a85bc 100644
---- a/drivers/media/i2c/adv7842.c
-+++ b/drivers/media/i2c/adv7842.c
-@@ -747,8 +747,9 @@ static int edid_write_vga_segment(struct v4l2_subdev *sd)
- 		return -EIO;
- 	}
-
--	/* enable hotplug after 200 ms */
--	schedule_delayed_work(&state->delayed_work_enable_hotplug, HZ / 5);
-+	/* enable hotplug after 143 ms */
-+	schedule_delayed_work(&state->delayed_work_enable_hotplug,
-+			      V4L2_SET_EDID_HPD_LOW_JIFFIES);
-
- 	return 0;
- }
-@@ -830,8 +831,9 @@ static int edid_write_hdmi_segment(struct v4l2_subdev *sd, u8 port)
- 	}
- 	cec_s_phys_addr(state->cec_adap, parent_pa, false);
-
--	/* enable hotplug after 200 ms */
--	schedule_delayed_work(&state->delayed_work_enable_hotplug, HZ / 5);
-+	/* enable hotplug after 143 ms */
-+	schedule_delayed_work(&state->delayed_work_enable_hotplug,
-+			      V4L2_SET_EDID_HPD_LOW_JIFFIES);
-
- 	return 0;
- }
-diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index da17e5d5ce9e..0565fe900bc9 100644
---- a/drivers/media/i2c/it6625.c
-+++ b/drivers/media/i2c/it6625.c
-@@ -760,7 +760,7 @@ static void it6625_disable_hpd(struct it6625 *it6625)
-
- static void it6625_enable_hpd(struct it6625 *it6625)
- {
--	schedule_delayed_work(&it6625->hpd_delayed_work, HZ / 7);
-+	schedule_delayed_work(&it6625->hpd_delayed_work, V4L2_SET_EDID_HPD_LOW_JIFFIES);
- }
-
- static void it6625_hpd_delayed_work(struct work_struct *work)
-diff --git a/drivers/media/i2c/tc358743.c b/drivers/media/i2c/tc358743.c
-index ce75812cbf72..6a29bab24bd8 100644
---- a/drivers/media/i2c/tc358743.c
-+++ b/drivers/media/i2c/tc358743.c
-@@ -453,7 +453,7 @@ static void tc358743_enable_edid(struct v4l2_subdev *sd)
-
- 	/* Enable hotplug after 143 ms. DDC access to EDID is also enabled when
- 	 * hotplug is enabled. See register DDC_CTL */
--	schedule_delayed_work(&state->delayed_work_enable_hotplug, HZ / 7);
-+	schedule_delayed_work(&state->delayed_work_enable_hotplug, V4L2_SET_EDID_HPD_LOW_JIFFIES);
-
- 	tc358743_enable_interrupts(sd, true);
- 	tc358743_s_ctrl_detect_tx_5v(sd);
-diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
-index afa1d6f34c9c..e8176b29fae4 100644
---- a/drivers/media/i2c/tda1997x.c
-+++ b/drivers/media/i2c/tda1997x.c
-@@ -590,7 +590,7 @@ static void tda1997x_enable_edid(struct v4l2_subdev *sd)
- 	v4l2_dbg(1, debug, sd, "%s\n", __func__);
-
- 	/* Enable hotplug after 143ms */
--	schedule_delayed_work(&state->delayed_work_enable_hpd, HZ / 7);
-+	schedule_delayed_work(&state->delayed_work_enable_hpd, V4L2_SET_EDID_HPD_LOW_JIFFIES);
- }
-
- /* -----------------------------------------------------------------------------
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 978bc91d3257..66191ddfbe78 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -515,9 +515,9 @@ static void hdmirx_hpd_ctrl(struct snps_hdmirx_dev *hdmirx_dev, bool en)
- 	hdmirx_writel(hdmirx_dev, CORE_CONFIG,
- 		      hdmirx_dev->hpd_trigger_level_high ? en : !en);
-
--	/* 100ms delay as per HDMI spec + extra 50ms to cover internal delay */
-+	/* 100ms delay as per HDMI spec + extra 43ms to cover internal delay */
- 	if (!en)
--		msleep(100 + 50);
-+		msleep(jiffies_to_msecs(V4L2_SET_EDID_HPD_LOW_JIFFIES));
- }
-
- static void hdmirx_write_edid_data(struct snps_hdmirx_dev *hdmirx_dev,
-diff --git a/include/media/v4l2-dv-timings.h b/include/media/v4l2-dv-timings.h
-index 2b42e5d81f9e..de5ef825a6c6 100644
---- a/include/media/v4l2-dv-timings.h
-+++ b/include/media/v4l2-dv-timings.h
-@@ -252,6 +252,20 @@ v4l2_hdmi_rx_colorimetry(const struct hdmi_avi_infoframe *avi,
- 			 const struct hdmi_vendor_infoframe *hdmi,
- 			 unsigned int height);
-
-+/*
-+ * The time in milliseconds that the HPD should be pulled low when writing
-+ * a new EDID. This will tell the HDMI source that the EDID was changed and
-+ * that it has to be re-read.
-+ *
-+ * The source is supposed to re-read the EDID if the HPD is low for more than
-+ * 100 ms, but in practice the sink should pull it low for a bit longer due
-+ * to clock differences and imprecise video source implementations.
-+ *
-+ * Practice has shown that setting the delay to HZ / 7 (approx 143 ms) works
-+ * well.
-+ */
-+#define V4L2_SET_EDID_HPD_LOW_JIFFIES (HZ / 7)
-+
- unsigned int v4l2_num_edid_blocks(const u8 *edid, unsigned int max_blocks);
- u16 v4l2_get_edid_phys_addr(const u8 *edid, unsigned int size,
- 			    unsigned int *offset);
--- 
-2.53.0
-
+Niharika Khare
