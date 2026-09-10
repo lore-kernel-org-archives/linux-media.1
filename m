@@ -1,100 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60E73546F1
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 10:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C109F44C67C
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 10:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035132; cv=none; b=X8QvodWNYmZSr4F5Hnz4m9e5Tnsuk8VPCbPk3bL3sg3kfuA4wWRpK1so/eXvXTbyJWn9S1ktBstJpvoVWPmYbzltnhVg726GNUgbJ557u8LL6JHfEwczPVA4xtUeKLjAwg6jkCj10se+bGMwAsJWgvlyOSAOPxmZKiVeGnVN1iw=
+	t=1789036587; cv=none; b=oLAbXCP/uGOpQ7PRF9hkUtpOO08/xbDIWYZSnYa6gWUQ6qF0dupfCs6RL/8kw+wgataLXYUtJp4NECdXex6z9JKq+FPdgBDL9s7SaQDMfjsx05ZBcHS/NPXXzA1Lc4OUmdgRRAvl4zKMEAgALCsNSc7UTEIjjtGRWJQPNUpXSVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035132; c=relaxed/simple;
-	bh=IuMIYh9X9IVY6CJl/CwrShnkg2Zwau+nmNyWvs0XPPI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=DoV2IVFphFOSKvMcXyZcmdDln+vGvdl+0/LrDU5h9qVZNlL5T9oewfUmz4RffKtx5gn3re5HLOKEEwlD9KvZwK5mxLf0jZSanbXn5FeAQ+IuRZVcHNUGHCXuegYwICm1dPDinKtm7vYRI6ZqHFA1Zh5qitWUKUbaVL+qR/WILm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0Tpm+Ce; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789036587; c=relaxed/simple;
+	bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UolhoM0bMY8A7llvva0d0JeTOkDvU2g2qTwxz3wZAoITUjZabS+Pt7rD7RlTegZsKBtc95ev8mzLuT6GCnWCIXZmqou4HGVE47crgrToIYzYALsphZqaNsp6k8VKHLTvg/RQji6N/h6tHHM6iMtz2+svTKrGT9n2/1XeBZM/1U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5Ztca64; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0Tpm+Ce"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E9F1F000FF;
-	Thu, 10 Sep 2026 10:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789035130;
-	bh=3pIjrAdTUxcrmKqoSrP6GWQlrDFixjrn05dFRma7Y+U=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=o0Tpm+CeKTsCCDCnRzuWMUFPnbj3MNKQl9AqFDxK6pOfp0vfF3Hl4yNuZWgFrTCw+
-	 NSEGOoDnFpjuAyLcdPJd9qfqjN5mk/UGds1sDShxlfc+QwJJtGKO0fsISj/Ag541tB
-	 GHXc9SNw89GdkVyXpyXK1ogdcjd2wOG4QAw7fbn1996dBdnb4XOnUjKXtMEr8zrgVX
-	 LJE6va3wW5WrXa4QgYS9yfSSrOVMEDekyoR2is36LeC2W6eHyyigA33szoGWhjWrSM
-	 xT3Luq5ea1jSkQ3uoeT5KTbCPrOWfHnLqZGrbT6ZpYVP4noWC7hftye2jNdprXIy/r
-	 gpr9gJFbVjqOA==
-Message-ID: <87c86455-31de-49a6-8621-224bb43150f9@kernel.org>
-Date: Thu, 10 Sep 2026 12:12:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5Ztca64"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso15384515e9.2
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 03:36:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789036584; x=1789641384; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
+        b=h5Ztca64mSFji+xzYHGuILjsU+vsuZBcidj4JpnnKbeWjStzrlpWIvcsH8KtFJPyug
+         nFfw/KPsXNnjrGBsT9bbHvESO5EeFU7qlIzfZQZImA8gTQJI8B5GL/iXCIBU5UY6AzPG
+         wzSypiTAWJuo95phyampBpj/0e8EADBbrAtXOqRglSdEZFqFzMQjQ766Mg2vqe0vE3p4
+         7uksG4+XcoV1N8oR0ubxYGkut1BhSoYt8occbpJ5KZqE5RihERFOCz2MrXalgn/Kv6k/
+         axqgDu/QSWsl7uCwB/eJtaBV4z4NFBKzy9V4zpuimOMYDfcUCRrPtGiMGc9hh9jEKpUQ
+         d/fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789036584; x=1789641384;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
+        b=GHa1tEDc4Ug5nShWuRvKJ2MR5DZKLwcHzE/IkFxkl7tBbaYQCEHXHEUZUvOdkawB6P
+         g/M/2clu0e1jjXaT7cnc23KtCPl8XrjsZ5qrPwRO0H3hfdRFmlLMYZxwC1A3e9CZ9Gc6
+         lJWLQN7AGjq8VZmT/YHj06/PBr3oLeuy9zbN4Dknlbp4fqmp8VzKisOzIrwZulCPyrAe
+         ZcBmo2Eh4pXXqWeSqCukYE2Cjil/NCAd21DYqytBaNZZG2EhWMn5rHKI6Scp0QLZe1bh
+         cOK214/gr4wxm5GP2R/j1CB9ivthHA3MnFZlRiFyszfL+rfmUnlB1EaSb9Re/6hvA+NG
+         FV6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxuQc2usw3fDKtbOcr7wakihrRVxWWZrd1TE6SpXqlN2vRp8fODbidGBhFtYl8KkCz061XcW76kclV4oQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nJ8vmeqGtBiETPVIWWJWXRmMEVhPVq/9us1Wlvi/4Ar7eikYIh
+	dIAnhJUcBDXwZQCqikVobiSj8q/1kzD3x4BMZKj7Moj6GeqiNFA2YfR0
+X-Gm-Gg: AYBFou2g7KoHGG8M/2p+ZCdm3jZw9kQ6rOqbYR1L51LW98Z+M/XJ980w2V0EBQlJJA4
+	qApQ+AGLb08s1r7nUo8QA/3etFKupkKuVULHF5ThQRIsx1chgipoSe9HjPNHfBFaUE4yDT5qa3D
+	Q/CSdnMbR56Tv+sL85Hfls6zAaCJ6D6TJZm0YJs9l+lI8qnhaKh2gVtIEzLIa2ssax33tlxNF/G
+	59pgolRiZSwFjSZx/3RO4ko5OX0Taqv+rn4Qt6mq6UczkOnP3aKHrFEX00PjwmdXpuu7k/w6EUo
+	wqm0ITmubAiWJfN5aOy9t54Bpik2LKUezSq9eJ1ukMI+5zRDehMbF/8/idMo+u09RGOv9zF1Otb
+	k2BYqo+GIh69T+tAdYUfpmZjMe/2J51Ilvx8SVcW25ILk6WmFaxcVj54Hl+1q11yX/jGckJnOH7
+	XT9r0J8EvS5XwbulfSONm/ICLjcAwXiY1w+SPp4B8w6VNig0UcLLG/kHLyFn/VgmdmOdvIB0Jbq
+	jN8pkQZm3If06Yyik/Ud9+HBtNIDImvagzgBYPqsap5jtiKaTYKtFSAqQ8oHrmB
+X-Received: by 2002:a05:600c:638d:b0:49d:2450:68ac with SMTP id 5b1f17b1804b1-49d258dfc8bmr142550555e9.5.1789036582306;
+        Thu, 10 Sep 2026 03:36:22 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb04f1esm103415165e9.0.2026.09.10.03.36.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 03:36:21 -0700 (PDT)
+From: German <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: Test for [PATCH v3 0/3] media: Add support for the Sony IMX681
+Date: Thu, 10 Sep 2026 12:36:02 +0200
+Message-ID: <20260910103602.19228-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [RESEND PATCH 2/2] media: em28xx: fix race between
- em28xx_free_v4l2() and em28xx_v4l2_fini()
-To: Dmitry Antipov <dmantipov@yandex.ru>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, lvc-project@linuxtesting.org,
- syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com,
- linux-media@vger.kernel.org, Fedor Pchelkin <pchelkin@ispras.ru>
-References: <20260907102824.95222-1-dmantipov@yandex.ru>
- <20260907102824.95222-2-dmantipov@yandex.ru>
- <20260907141901-c37057428f7d37dcdb29b1e5-pchelkin@ispras>
-Content-Language: en-US, nl
-In-Reply-To: <20260907141901-c37057428f7d37dcdb29b1e5-pchelkin@ispras>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Dmitry,
+I have tested the three patches mentioned in this email in the linux version 7.3.0-rc2 in order to test if they solve the IMX681 problem
 
-On 07/09/2026 13:30, Fedor Pchelkin wrote:
-> Hi,
-> 
-> On Mon, 07. Sep 13:28, Dmitry Antipov wrote:
->> Take device (an instance of 'struct em28xx') lock in em28xx_free_v4l2()
->> and do the same early in em28xx_v4l2_fini() to avoid UaF-triggering
->> racy access to 'v4l2' member.
->>
->> Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
->> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
->> Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
->> ---
-> 
-> It would be nice to know what is the race and what is the root cause.
-> Since if em28xx_v4l2_fini() and em28xx_free_v4l2() can _actually_ have a
-> race, it's not clear what happens in the following scenario:
-> 
->   Thread A                               Thread B
-> 
->                                       em28xx_v4l2_fini()
-> em28xx_free_v4l2()
->   mutex_lock(&dev->lock) 
->   dev->v4l2 = NULL
->   mutex_unlock(&dev->lock) 
->                                         mutex_lock(%dev->lock)
->                                         if (!dev->v4l2)
->                                           return
->                                         mutex_unlock(%dev->lock)
-> 
-> What about the resources which em28xx_v4l2_fini() should deallocate /
-> disconnect / put ref / etc. when it doesn't return early?  Are they
-> released eventually and who is supposed to do that?
-> 
+##DEVICE USED
+Microsoft surface pro 11
+Cachy OS
 
-I agree with Fedor, this doesn't feel like the correct fix. em28xx_free_v4l2() shouldn't
-be called until the very last user went away.
+##WORKING:
+The camera is totally functional in apps like qcam and firefox after aplying the apropiate configuration and installing the IPU7 Hal and bin of intel
 
-At the least there has to be more detailed information how this happens.
+##NOT WORKING:
+For some reason, when i tested the camera on gnome snapshot (version 50, istalled with pacman) the colors where completelly wrong (the whole image had a magenta tint to it in addition with some horizontal magenta and yellow lines and a diagonal line that went from the bottom left cornet to the top rigth corner) and the image was inverted
 
-I'm not saying the patch is wrong, but I am not certain whether it fixes the
-actual bug, or whether it just fixes the symptom.
-
-Regards,
-
-	Hans
+##MINOR ISSUES
+all things reported here are little details barely noticable and dont influence on the usability of the device
+- When exposed to a really bright ligth the image starts to gain a green color and blue if the room is almost devoided of ligth
+- The cammera has some kind of "Snow" on the image captured
+- The image captured tends to be brighter than a normal camera, this error increases the more ligth there is in the room
