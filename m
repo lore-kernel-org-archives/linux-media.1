@@ -1,106 +1,120 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C109F44C67C
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 10:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3D818DB35;
+	Thu, 10 Sep 2026 10:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036587; cv=none; b=oLAbXCP/uGOpQ7PRF9hkUtpOO08/xbDIWYZSnYa6gWUQ6qF0dupfCs6RL/8kw+wgataLXYUtJp4NECdXex6z9JKq+FPdgBDL9s7SaQDMfjsx05ZBcHS/NPXXzA1Lc4OUmdgRRAvl4zKMEAgALCsNSc7UTEIjjtGRWJQPNUpXSVI=
+	t=1789037527; cv=none; b=TGfNgZ4T0c6cVhcapzVtlDfE1tDyQ7osukiyrrJJa//7T9yL4zF5AqSUvWGpPkDlGjqHkR4NyBQTDi/BPFdKlaSZwyCHQ9TVfAwgos55H2TKKBt6TaK3vS6zorP9XuEHO2Z+Vy+AVk+55cymIfA9UhmLfJZNf5dvfDEXk4w9dyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036587; c=relaxed/simple;
-	bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UolhoM0bMY8A7llvva0d0JeTOkDvU2g2qTwxz3wZAoITUjZabS+Pt7rD7RlTegZsKBtc95ev8mzLuT6GCnWCIXZmqou4HGVE47crgrToIYzYALsphZqaNsp6k8VKHLTvg/RQji6N/h6tHHM6iMtz2+svTKrGT9n2/1XeBZM/1U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5Ztca64; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789037527; c=relaxed/simple;
+	bh=N7tjoMh0VJ0JjF10mqJOPD7b1ih9SO6rgWyfI3+RTmM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RhWIJOJaaV4obJosx6iNVAsGP28PPfDgNMAZVwvQ/bJHSKZ8qrpJ///IMXPJ4UTWNhE83tuVX5zmNtRW0AmozAywd1O/ra8AIfYwok1szrE6Zy7JUbw918KZqVxzFXrp2Y3IbqWeU1mCPaJ+b2pjunpwRdjbXbsj6xdfZvh5T9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkBWkbqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5Ztca64"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso15384515e9.2
-        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 03:36:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789036584; x=1789641384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
-        b=h5Ztca64mSFji+xzYHGuILjsU+vsuZBcidj4JpnnKbeWjStzrlpWIvcsH8KtFJPyug
-         nFfw/KPsXNnjrGBsT9bbHvESO5EeFU7qlIzfZQZImA8gTQJI8B5GL/iXCIBU5UY6AzPG
-         wzSypiTAWJuo95phyampBpj/0e8EADBbrAtXOqRglSdEZFqFzMQjQ766Mg2vqe0vE3p4
-         7uksG4+XcoV1N8oR0ubxYGkut1BhSoYt8occbpJ5KZqE5RihERFOCz2MrXalgn/Kv6k/
-         axqgDu/QSWsl7uCwB/eJtaBV4z4NFBKzy9V4zpuimOMYDfcUCRrPtGiMGc9hh9jEKpUQ
-         d/fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789036584; x=1789641384;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
-        b=GHa1tEDc4Ug5nShWuRvKJ2MR5DZKLwcHzE/IkFxkl7tBbaYQCEHXHEUZUvOdkawB6P
-         g/M/2clu0e1jjXaT7cnc23KtCPl8XrjsZ5qrPwRO0H3hfdRFmlLMYZxwC1A3e9CZ9Gc6
-         lJWLQN7AGjq8VZmT/YHj06/PBr3oLeuy9zbN4Dknlbp4fqmp8VzKisOzIrwZulCPyrAe
-         ZcBmo2Eh4pXXqWeSqCukYE2Cjil/NCAd21DYqytBaNZZG2EhWMn5rHKI6Scp0QLZe1bh
-         cOK214/gr4wxm5GP2R/j1CB9ivthHA3MnFZlRiFyszfL+rfmUnlB1EaSb9Re/6hvA+NG
-         FV6w==
-X-Forwarded-Encrypted: i=1; AKwUvBxuQc2usw3fDKtbOcr7wakihrRVxWWZrd1TE6SpXqlN2vRp8fODbidGBhFtYl8KkCz061XcW76kclV4oQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nJ8vmeqGtBiETPVIWWJWXRmMEVhPVq/9us1Wlvi/4Ar7eikYIh
-	dIAnhJUcBDXwZQCqikVobiSj8q/1kzD3x4BMZKj7Moj6GeqiNFA2YfR0
-X-Gm-Gg: AYBFou2g7KoHGG8M/2p+ZCdm3jZw9kQ6rOqbYR1L51LW98Z+M/XJ980w2V0EBQlJJA4
-	qApQ+AGLb08s1r7nUo8QA/3etFKupkKuVULHF5ThQRIsx1chgipoSe9HjPNHfBFaUE4yDT5qa3D
-	Q/CSdnMbR56Tv+sL85Hfls6zAaCJ6D6TJZm0YJs9l+lI8qnhaKh2gVtIEzLIa2ssax33tlxNF/G
-	59pgolRiZSwFjSZx/3RO4ko5OX0Taqv+rn4Qt6mq6UczkOnP3aKHrFEX00PjwmdXpuu7k/w6EUo
-	wqm0ITmubAiWJfN5aOy9t54Bpik2LKUezSq9eJ1ukMI+5zRDehMbF/8/idMo+u09RGOv9zF1Otb
-	k2BYqo+GIh69T+tAdYUfpmZjMe/2J51Ilvx8SVcW25ILk6WmFaxcVj54Hl+1q11yX/jGckJnOH7
-	XT9r0J8EvS5XwbulfSONm/ICLjcAwXiY1w+SPp4B8w6VNig0UcLLG/kHLyFn/VgmdmOdvIB0Jbq
-	jN8pkQZm3If06Yyik/Ud9+HBtNIDImvagzgBYPqsap5jtiKaTYKtFSAqQ8oHrmB
-X-Received: by 2002:a05:600c:638d:b0:49d:2450:68ac with SMTP id 5b1f17b1804b1-49d258dfc8bmr142550555e9.5.1789036582306;
-        Thu, 10 Sep 2026 03:36:22 -0700 (PDT)
-Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb04f1esm103415165e9.0.2026.09.10.03.36.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 03:36:21 -0700 (PDT)
-From: German <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: andre.gilerson@gmail.com,
-	conor+dt@kernel.org,
-	dan.scally@ideasonboard.com,
-	devicetree@vger.kernel.org,
-	germanpapulindez@gmail.com,
-	hansg@kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Test for [PATCH v3 0/3] media: Add support for the Sony IMX681
-Date: Thu, 10 Sep 2026 12:36:02 +0200
-Message-ID: <20260910103602.19228-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
-References: <20260909203717.90605-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkBWkbqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB61D1F000FF;
+	Thu, 10 Sep 2026 10:52:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789037526;
+	bh=N7tjoMh0VJ0JjF10mqJOPD7b1ih9SO6rgWyfI3+RTmM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jkBWkbqsUtrXGjvzs9ejgfK4XpAo0fpqaDkZEwyYUh3nsky2zY+18Vn27mS7241TL
+	 MvCu5S/EUOKRuRIWcemqgqVR0X7r6k4w/oYOXZqhYTVtmn5cDR0ZWuVJ+EoGIOf31K
+	 si2Vs3AQL0JW0JfVnduAaNtpDg+K6Gjxl/jEwtzpEcPUiZ4rezgSm0nh5PAkQQUFO1
+	 GwPIbbmKXcJaxgmpF9ohj/yHw0Jk801NrDXApGybMo/hVriULWRHefHhXwmI/BEyuR
+	 x75hp2NlH3/kPyBXNr+tNycCgJ1d5N0BstAe2eFHBEpUaMX8cbJ1kv4UK65a/OEoEn
+	 o+nS3JzDYdGyw==
+Date: Thu, 10 Sep 2026 12:52:03 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Sowjanya Komatineni <skomatineni@nvidia.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Russell King <linux@armlinux.org.uk>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v6 06/12] of: Export of_node_to_nid()
+Message-ID: <aqKLkeg0iRBqa3bo@orome>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <20260904-tegra-vpr-v6-6-79042cfa8de5@nvidia.com>
+ <20260908145929.GB3123582-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pochtu3uujjsdg7m"
+Content-Disposition: inline
+In-Reply-To: <20260908145929.GB3123582-robh@kernel.org>
 
-I have tested the three patches mentioned in this email in the linux version 7.3.0-rc2 in order to test if they solve the IMX681 problem
 
-##DEVICE USED
-Microsoft surface pro 11
-Cachy OS
+--pochtu3uujjsdg7m
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 06/12] of: Export of_node_to_nid()
+MIME-Version: 1.0
 
-##WORKING:
-The camera is totally functional in apps like qcam and firefox after aplying the apropiate configuration and installing the IPU7 Hal and bin of intel
+On Tue, Sep 08, 2026 at 09:59:29AM -0500, Rob Herring wrote:
+> On Fri, Sep 04, 2026 at 12:44:57PM +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > Drivers buildable as a module may want to use this, so export it.
+>=20
+> We need a specific reason/driver. Otherwise, that's every API function.=
+=20
+>=20
+> It doesn't look to me like the VPR driver ever actually uses the NID.
 
-##NOT WORKING:
-For some reason, when i tested the camera on gnome snapshot (version 50, istalled with pacman) the colors where completelly wrong (the whole image had a magenta tint to it in addition with some horizontal magenta and yellow lines and a diagonal line that went from the bottom left cornet to the top rigth corner) and the image was inverted
+You're right, we currently don't need this. The plan is to use this to
+differentiate between VPR instances on NUMA systems, but we don't have
+any such system yet. I'll drop this patch for now.
 
-##MINOR ISSUES
-all things reported here are little details barely noticable and dont influence on the usability of the device
-- When exposed to a really bright ligth the image starts to gain a green color and blue if the room is almost devoided of ligth
-- The cammera has some kind of "Snow" on the image captured
-- The image captured tends to be brighter than a normal camera, this error increases the more ligth there is in the room
+Thierry
+
+--pochtu3uujjsdg7m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqii9MACgkQ3SOs138+
+s6G+LA/7BGayHietSWcjHsnMEamaB/I04lj2qpSvcwlZK/2E94CCzDouik55LAg2
+7yFNbMU0VYi2oxec0RMMlAfo/OEN8iG+3X3tcTwQ6Hv7fPxlsffyKDIAb0SxAalQ
+3gXrYnaeeUS8oWlfyapzTnArDHz1wkolZluRr9R3cj73ED8jdi0XuHkTjlbGKVko
+KaZTIYUo9uB5G1wLUs0TOP3pAfJJa97LpAtMPIdytlgwy8wLXa5ti4A79opsZzIa
+5kTsTXx5D9Xg+/kJuuvpr/5lanW+hYPWVbL8w37xwjKV5EoQW5kSdUnXXuZiE5p6
+zM5tKM16OssvhPhZkYaYwdR4QwrJz2wpGE1R8NV9W0IMpW4HtsIRJPbTQhQOqn0L
+DdKwKKwPYYEAshOJ/vel7xA5/rnfbFAtxOI8CvPpjM6mv0y8AFM8fApzzcfjlJvW
+D+mJVr7IHD3+E4MZeA44MUvJpuK9a6tZg80Z0ixPnnbtl7th8/3nrj6vpW2ANmjk
+aeh2Rud7YKP1TJThucNGvzzl9zmePpUiapF47cWCkR13ooM8opgzSHkeGBkU4Oaa
+HsXVrm8Ie+po6BAMLKsduZrB2KFkFyJ68bMGbHwuwqmVSux9BnT+Mc65Yc7fWEF7
+9+pu4BoTZZ32aJXzpyx8RcxV9jADGugXNEA88fHQpAxDbtyg5lc=
+=XC4p
+-----END PGP SIGNATURE-----
+
+--pochtu3uujjsdg7m--
