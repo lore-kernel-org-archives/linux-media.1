@@ -1,48 +1,48 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013014.outbound.protection.outlook.com [40.107.159.14])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011012.outbound.protection.outlook.com [52.101.70.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D98388E72;
-	Thu, 10 Sep 2026 20:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA355474F;
+	Thu, 10 Sep 2026 20:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070461; cv=fail; b=n62KEOQ7iNFYXeaxdW7aSl2CayGb79S/TfS6KZycpCWJ50Nq6fraL03rYNc3mqnMCrTB8VeOTciGQdqze9ilzXSQM7J8CPnz3vftRv8ra9seGCkxBOf4SFIg/SW7ZHOYmufUlrpZtqS/d+UL8pXFR+dp8uljaPAfgq5eTgkd8ZM=
+	t=1789072658; cv=fail; b=Sun+UUpoTXgeUU8WaEgaDdiSC0uoyAly1CfwISX0yvjD7i9QrZJ7VwI7vyfqNLxt+cd3gGN5F54G3uMiz5O6BQKLg7Jqn8ycpISG5+zUvKaBuSU4A9knW0qRmAYYZ3xTm5gd1+i60PGU8y/npaUisbGxzyxWK83YvrcN90+9Bfk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070461; c=relaxed/simple;
-	bh=YoDAxxmRKDVuXgQxPJ0/0P4cVR4tz9BvxoLLFoqvN8A=;
+	s=arc-20240116; t=1789072658; c=relaxed/simple;
+	bh=BwkhcFyLliPVPZoV5FZXmnhrZe46+83E870KVQqpYqw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=gkzsgjCMZPQ2kF326d/fA5Asb38fknqYMobIPqrtvTgutnRYKF4qUfwQJqdW1vv8ihF6GID6S3nKjqbGO+wChWLhwYvTeMAzybW5NEuXQdP/6VvppRJChPrjVZtHm/Hiu8uLR065xPST+U4JXYLANCZFV09KBoi4PyZFIcLe8jI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dLiJFZWW; arc=fail smtp.client-ip=40.107.159.14
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dRLCs8qGac6hPODQlimwZ09LJnd7/Jha3Z16/H6ZHA1pjs0497vkXAM8nl3DmmV/A8TXS8hFcWe2q4bIx/iWjXYfGt1RrMYKnQtgFucFbae4X/eyWXlmTOaDHfOmEPup30FTkHHb0aHJJ0LQ5PH3vk/S5iuhhCIeDgKJrigYL+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fVa2YKVR; arc=fail smtp.client-ip=52.101.70.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dLiJFZWW"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fVa2YKVR"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e5DAa4eatw0ZujFPE2zNAAbfmJQ2slY6X0Hd/4DKk0tVjO16wHXpL3Hg1kAW2E3L68FJkJVP9OmVBOEzSp/2svVRpSwC69qq3ne/9JccQhLEVk2pkVHNqu2gu8pI5phXBPbreSrKtXnhIKcjgOklswgRZKZRLfLMX6foHtXmp1SCdzk+gjLtfWwHTxsB8ColWLiVSn0VcmpKYFebWCQiwRpukmQ2if3gn0GDUTejn5MkVZhVszyutL5AEQcVEpBsSfqIPyqXefhXfZ5h4OPDyjWgm/UcBg4NH5fJIgj+u2pfs9JffzXuTbWF/GPjOQkzxsKxZoSIsTtLu9BVcNIIDQ==
+ b=h7VSFgFuMGFB7hD8XQ0cb41Qacnd/sD4Nq+UQ2BxdJlMKLtma8xwrUO6F1+884d7BdNI9ezvvj3ku++Srl8qhexIqmtHEB7Ntt4i6yezTcIHfPuiPWd4nGVFaomlvh2s4fdBRWjgLeT3kKj7WIqRN+PitmfSjg03jDisfWyqRbDrxozbP4jPcONK1ukfQL+D5AqXX4Rlk9gFYYiVB9d/U24xeavctfFNXWqU1lU7eBpaO+JHmVZkDu6IiXwgkG2+TZhK+Lfxha7O8R+K5zMMlOSc09c1oShD8JPSx5R5eDI8gWSfcGqtyqGV14vzrlcpKZQn1kr+9wNYFfo/WI4ksg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GXk0qLzumkeWHKGn2E4m00nTu6We02N0NBhHR8mYOJQ=;
- b=Aj6TG4U2M+BFftjNAa0vFU22d0reYqnyH1kLlEpNST9q4fkNZkf0x8973/t8TEN6WF+hjtirLEa2xHuVhcFEYrIorihUyrYfXnVwamrDHLYKLwPE85LgrCmWpKSuFzS4Oe6jpNdZSveuU9b6wXtylt/MPipAVhrzBzFgnator1rjVgW6f4VfgZcF7lIBtXlbS4GJ6cIcGBm4mNLjvLjoxLr5pjCYGgqSLMhI1e7BP5PQaEvfB1WTHBeOVIkzrswNDAErKlyA/EGwb0aVtLJ1pdEnUv489UuSR+OuKDQjtI6yhuNIiCJ8uQi5Qmmzittvg7Hf9H4S1gPzgjlhh5BzJQ==
+ bh=eZ7ZXsnCUAQTYC3E96kxY/lFhI1O8FPk1ZGcdlaqnBI=;
+ b=OVGBjPKR7zlQcCWgg0EWf002Q8sb78u6U9wa381QwFa6Ec7uc5lQLPMb/od50UZSConc+m1C4nObZdtkBQyKNjDSRTWrmQr9uhsHmestKDvxuATdzx5LxuyDCdK8980zLFK+h2INqioEzlCi3VsSEtHCtHxtjpSeSYwZzgkomoJkdNZPIlPwF17XLneFoEnIKPhzwHBhgMScSCQIBkDwA+qiEAha7Auh13GylBCdRp0Jtj9q2xp2A/SzCVURQky3QCI5gpDlrB3LjY1KoUuxzNgS5x1ndmY08/1axfuKJgeF/+zpdHnmyNongsR+IDKZ1FH+Jvz6A+rbXRavbchFcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GXk0qLzumkeWHKGn2E4m00nTu6We02N0NBhHR8mYOJQ=;
- b=dLiJFZWWTuZVqJPgMguw64gsmMnQG+YJ/jg/vJ7CdsnCznckXUP0cFJeD0+8wtsNK8oQUVHWHORcdJtckbGys8pDzlUYLzXc7G1wlBIOww8peGrm63rZu7WbmOqvbltGxStLcRIGDY34W/P6S8Q8kW2/C1VprQhLv/mVO7HrKU2Zr5QwHkt45v8GbSdv6SBlidARt4PjtU0wWZ0wh9UQltmVwSntiPzgiuQvtraS+TSxFLsSylM6wUzza/TEjBqwOp4uX3kUReJy5GjPRXUHT6apgfntImcjtojNYEcLkpcmpie1W0uAPDN/HF+SM/EIGsl9C/vVIdAqG2Emy6lAvg==
+ bh=eZ7ZXsnCUAQTYC3E96kxY/lFhI1O8FPk1ZGcdlaqnBI=;
+ b=fVa2YKVRFjaf8VcV5e9xSWWHg3Fv8pr/q+eS3o78qe6w29az/C7y6F66Y5VE5LDeiM+ubs+yEYLqgjpN45UO7qwWpBxCbyawMdwRhbJK2VNyREd+sT5u5la55P42JXXNyavr6KwORfOjqvUdskZ5rtTb1rKTRFLb+hvpQ9UYIK9DVyxGzIgLR+pbaGnOIN4xTt284a2oLkBGiZKDR+Qy9CQDZ+EHVHkrstt6X6F1LxJHbhmyY3Z/Z5k18slKj1GDjdT257x8npFXD+zlGA563kPrVEs8vK8ALr5xdwkYRwpWGj/gCBXJlGYyB2LU6SNn9owoL5qDe3lLuKJ1h5le0A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB9091.eurprd04.prod.outlook.com (2603:10a6:102:229::14) with
+ by AM9PR04MB8745.eurprd04.prod.outlook.com (2603:10a6:20b:43e::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 20:00:51 +0000
+ 2026 20:37:34 +0000
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 20:00:51 +0000
-Date: Thu, 10 Sep 2026 16:00:42 -0400
+ 20:37:34 +0000
+Date: Thu, 10 Sep 2026 16:37:25 -0400
 From: Frank Li <Frank.li@oss.nxp.com>
 To: Nas Chung <nas.chung@chipsnmedia.com>
 Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org,
@@ -51,15 +51,17 @@ Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-imx@nxp.com, linux-arm-kernel@lists.infradead.org,
 	jackson.lee@chipsnmedia.com, lafley.kim@chipsnmedia.com,
-	marek.vasut@mailbox.org
-Subject: Re: [PATCH v7 0/9] Add support for Wave6 video codec driver
-Message-ID: <aqMMap6NHllxh1st@lizhi-Precision-Tower-5810>
+	marek.vasut@mailbox.org, Ming Qian <ming.qian@oss.nxp.com>
+Subject: Re: [PATCH v7 4/9] media: chips-media: wave6: Add v4l2 m2m driver
+ support
+Message-ID: <aqMVBbzCnEsxx54Y@lizhi-Precision-Tower-5810>
 References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+ <235b2de7057182d619a361dffc247f1c1f438a3c.1788496816.git.nas.chung@chipsnmedia.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1788496816.git.nas.chung@chipsnmedia.com>
-X-ClientProxiedBy: PH7P222CA0014.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+In-Reply-To: <235b2de7057182d619a361dffc247f1c1f438a3c.1788496816.git.nas.chung@chipsnmedia.com>
+X-ClientProxiedBy: PH7PR17CA0072.namprd17.prod.outlook.com
+ (2603:10b6:510:325::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
  (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -68,267 +70,130 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB9091:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1d7ec78-fc33-4b62-a8f7-08df0f7636c6
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8745:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97a80ddb-eb4e-4d54-dcfe-08df0f7b57e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|7416014|376014|366016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|19092799006|22082099003|56012099006|4143699003|3023799007|11063799006|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	5BhybztGiAbriC4ZkbQc4hshTAuhmCYm1VjHnEmaXKNaiWSpZ0wvsoDxbHbXDwfKBg27a7K0IlNhqBiNcsuRhKBGW6BioBlebiCNSQdFynQpgWWVZPsj2FAHFCUBwnag0QTxRhARr1MF99ZlKLjCDLhvRxDP8bSD9zZe+eGlYFsVlRYqXmCwDLzlWAjwqHkxu6nYlsn9/BEJv4Dc7ZJUPIApiRKnlXyt/t+bIzFEDh2HTm/F6UuHKA1uFsLwUOFG42reQ1s53i1ca1hS6+ZRKpgGe/K4yPvLny5apUfsgKZJxHn+noQewVMAQAKv+fPu5RTBqWgxVXQC6bK8FdPYZcHHNw5hjH+0548Y8QSV8PyqZ8ltLfEL7wv/4ztUzFnk4XEOAWtabDELQo2dggSjnOoVDs5QBBflmmUYAO87VOcCvQVK2/SvKegV6iFoAv9KikB7B5An6bu2gwfZz26Mort55oX9goX/T8BSKb7w+NvG1Chwpev7B87QrGKdsH1U6X8py60hh0u4qjK4ANFbEf4wLJqnEAWue94mc+C7tqaEcszZgorBGJH25BZh89AjlZpELHLzLgfgvMbmMMV1VOQS9yLZGFez5D/ole4TAkEoaX3VfzQ121DvyrFm43b21NLLq59nrGuD4bk0ALTsBE1R3KXBtXJMqbzYE+ExcLE=
+	X8jR5XTVS3DR+uzV3a5i7/Gb5AZQAElB7F7G0Cxaup3CgLuKN5KtNheS+sv/FNF2jo58WMG1D0F4HgL3d+WhorOtFF9kYaHUb4+xOrO4eIiPz63dnmQIVqSR6RKZCKz4GTRpdBrCeCrYoaTnAFpI2hb/Hq7kyvKlO9+gheYE6eCGjC0tJVWhPJw0pYHf/ZKnKEHBPvE448cdPOL84YlN25m61QYvI1JQY2iFoWGxLNX6/S9OdFqNF4ZA7VEijdcV3RvznG0Bd+NxlO7BUGlPEBBtXCNYtj+TFZyZ96eLEEkzfDMcpS275l3qIf+VSeLLRyi/jVDGT3g9Kipdur0WJjSYoZrPqpHRxqG2PICTse26tso1BlqJBkKenNyiCO3aqIMssJpQ5eBHLcDfdpZ3ViJK86/q/6qp55OnvBy4BxiN5Lf0a1qKEunf2tIjMjidM3SdhiI3Uo+xgYFQgvECM/e2+ostarF0p8kjN/BtOlNJ7y3AaRk39C51W1BZIUzMWnOfKRebSB7FiHNvjlv0BJJjLMOvWw2StaX6VQh3h09Qwur+gDaAtbh5jRlj6x+sUOXR2YPfkt6+H48GzXjgJlmiv434/3/gF/Ix0+R7YLxDOnVzm2fFoWrKna6IrD0RZfruF3QZq6zB69MxN8DQM8beB+f5q0A/EJPg3AodUAU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(7416014)(376014)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(19092799006)(22082099003)(56012099006)(4143699003)(3023799007)(11063799006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?c+8mEBPKfCVF/KotcP9Lmo0jGXjz4tflH8LRcL2wa6w1kskMwID+lDpkrp5i?=
- =?us-ascii?Q?7Bdr3NrlMfnhbN319YS14tRpNmp5e5WXdpYNrJS6Q0vn+6E+TFJ16iiEBzy+?=
- =?us-ascii?Q?7/DKr1Z18mucfhqO2pFUyPb0vjDvwc3yD6AlzKUoo33EsJtIiaUUMaQLnqWn?=
- =?us-ascii?Q?fNX14eN8l4GBueSYM2sAtEhFEsrpY8wFUVs2T41wsAISovma7QsOf7OIIvcu?=
- =?us-ascii?Q?4Ho/0y6ik+3mmcULHKzeKipN62l75X16Z7jcitv90m5Czm2eolhSMbbNAFU8?=
- =?us-ascii?Q?DSExowNQyGH8bO5Wix6p2JnEH8qrKYHGAUpdNRmkbgorhViwjwwB17XM9hW0?=
- =?us-ascii?Q?pGlvBKbGYkEbSiwHZEUaAYXdeiWmYy/EbwH+WbVZaG7ikYgpKcaMPKR6Fe3p?=
- =?us-ascii?Q?64OrtDm44XTLziOdc/ZhTKRU9Bl0V+2jzdneBcquo2Psg+j+2PpJlPkdIoGy?=
- =?us-ascii?Q?w8PVUuAsEwTRJZveYGn6PpxG4gQ8Xlu7MceamIdG89qnHd0DKg6LdN4ujyzI?=
- =?us-ascii?Q?lkqwKWZ3Nyn8T+Eg6M/8Bro1GP30Sw9kYzpQ+T8f8pOxC3VhiIvO/dHgZNxi?=
- =?us-ascii?Q?lmPaThKqVPvxjtROFFMZqDwA/oalX+dZ7GxJQr516I/jLy6VV22I0iwDn+ah?=
- =?us-ascii?Q?L5HAm//pnG1/TANmw8r8NLbtydXJUOoCr6dIUZ5nPmeYyjAK4RtrQM6Y+Qlb?=
- =?us-ascii?Q?VKqQFe33Nnvh9c/7lL0LL2fJozmkNkFBAaTYT321po+w/9neXBqCG70Enp6d?=
- =?us-ascii?Q?8plcHn3SztfqYJ6HcUUz6s3fVbcT6BwS4xfoG1pICbGMUfl8GYDRtub2ApsZ?=
- =?us-ascii?Q?UeL1FkKUlURUjg5tABl7SzqhvQZJ6EfKxp4li3pTtFK8MAG1zFlc1+JHbOeY?=
- =?us-ascii?Q?fYIIePnDJWGRLgDg8D870fy5DFN3umCm5yctbSXnwywWxJWzSPOiYpE2JOpz?=
- =?us-ascii?Q?0Aqt2vJkrE9jwoVxZp83rjMCjhhA62vvHR4gjKLmrPtYgI4ElTSl2XsFIB4X?=
- =?us-ascii?Q?/7YXBRJaDC8SeInPkYaJ606XDxVgv2iDE6MhWIKjPCmLCTFTHzwb0wOhsME4?=
- =?us-ascii?Q?WaXqk5gTzv1/aD9e65+LqX3oIqshuiThwS9slMG+t+D7TgDrJTBCXxeuNCpa?=
- =?us-ascii?Q?+cg/D2AVs/WWdb4t2bnEJsX4QCgLHxUdWbzR2U6RrbJ2dU7fH993k95t5buQ?=
- =?us-ascii?Q?+7AXefr1SKtsbWWv8FcbfzQA0AIZ/ZhNfM4ir/YLwXwRFhq79vye3Jj78puT?=
- =?us-ascii?Q?PqFETnayWMCgmfrUgnrvx5b5tsoQ1Bq8pTbXAZGdnsTTnxVsSzPJ86b4fW9G?=
- =?us-ascii?Q?7yZbdJMdO1ughJZShfPP6ZRvFXvn0FhmUX9gGURGvn7Va1/+ZCXAvZgnAyqT?=
- =?us-ascii?Q?fxdNzrEVBjoDNLoxJAEgTYMUzeGo+P7JItvNPnG9jgRUdE+NHAKtvao0hvc8?=
- =?us-ascii?Q?sn7+3LcMyd1OCYC7Okcl+m527sLA1eXyQjJstOylih1P4+AMiKqsX/u52c5B?=
- =?us-ascii?Q?jd9ArjeaDUEV3sjOlW9rts5+vN6yNh+6QfiRMgaEwX5YIpanI0phLie8zWto?=
- =?us-ascii?Q?Vccfhu3sAwjZo4gJ55/b+SojLuy8SBIkBdmXygIbjqdLUNIB+tYqBaF5s3M7?=
- =?us-ascii?Q?GV3DoUtdR3+0+OWfAPtcxSz++AZe8NiGlw73DWTI9WbOXVvE1cKpOcVy9vmK?=
- =?us-ascii?Q?L+eqdrGj+HOeBAHS+lC4c4eyUetbD3Cn3v3RZwwN66OI3dGX4Kjyb8Te2zVu?=
- =?us-ascii?Q?pLbtVBhmSMWLN4zJunDOpKFQEwq/ZhqkwiU12QU5E8QOAJxQD6aY?=
+	=?us-ascii?Q?p/CBQxa7ZXstuOMr1AJr0alGjeHmqTUInpyOt0SKn10BSlqvGhv6NubqRABU?=
+ =?us-ascii?Q?2LNpdra1jqSr00PqA8DMf0+q0BUz8Z0aPWBlDOKf0u7+rQYCN0pc3EeR9agG?=
+ =?us-ascii?Q?zaZ3AIyO4ArzzH1SmRRxSL84TiKfdAfkO8xR9soJCmFakoZHswNVv0dqXeyT?=
+ =?us-ascii?Q?Cj8Slg4LZ0KLnTxB0/neAuXTdhCS3lNH7yZWY94VZyUILnNs5CFPN6/gmGWN?=
+ =?us-ascii?Q?pcAnT9fnmxg+ywqWB+TO+NNaUtKr8TlsYhz/m8OZlYZrzIItroinQs9mDFoU?=
+ =?us-ascii?Q?okCdVu2hZmwzxbDbn0jAO8Re6yFyA2Z1ERr+zXNB1f0ZwfsmdOrYaC8rhyKi?=
+ =?us-ascii?Q?qKsS3DK090Kj8pCrT20zA9CuCBtZDZbbj9ZT7uaYdrkt3sjqr9inP7UZD/0c?=
+ =?us-ascii?Q?yW/J7f2LB0a6VDyKRb0Lum+GLROuxJ2XEMLnh0wh2wJ3yU7WF6QGslzEdIt8?=
+ =?us-ascii?Q?ArJNtrUiwmNK0omnsQ+sBTa6OmC9yxnwlQ69xLyGj5eaUwRNr3GSyLMEtvX7?=
+ =?us-ascii?Q?gwJ1m8IPhdnHQeB1c48gcn/VCb+LqC0NeFFxrGghLG5bBidxGb0QK3w1JEuj?=
+ =?us-ascii?Q?kk2uUQa0t95OxwPjTOL3bD9usrb0XWG0Xa58jcQdUJBxaPsIIGSe3eYplLoU?=
+ =?us-ascii?Q?zMYxxkpzpjHA5nnxwqK4WLZCQQvhveD18sWGvYyZ2Y3tp//8aX6VyFgMJ0J1?=
+ =?us-ascii?Q?/vmZiAQL457q3HseHV/Cgd2ZKNLMlOob6W2yHJMMpj0pf9fFri+Pvs39RF0j?=
+ =?us-ascii?Q?6aI8TDahoLnQXl7/u7uBwC+kpRbTzUJS4hoBcAy45JS3lhrP2h3Q8RFOlI0P?=
+ =?us-ascii?Q?gtQZ094R0eLuewiuv6XNpdmR51pIHSLNtJ10O73av3dBdhXzzaV03Q2PnXfR?=
+ =?us-ascii?Q?VG2bzHdzJbTM5AE+CGSr9ddu2zuwgfp046SxjtF7yKefyWsUoqbs9bSdYvb9?=
+ =?us-ascii?Q?SPUbdw3dW6+OPP0SxZuZiCO4738e6XZ1C3IQK2eTEnECzc6e7fRIH24ePsPl?=
+ =?us-ascii?Q?MrO4xa2frlu2aX/cFnLNn5n81cuamdj8/Mdb/wa2Zw3yLw3tuiT9EhoTunbA?=
+ =?us-ascii?Q?x4dUKmNN0lnP6VcxRtoPmOAb5gx+VO5Wg5cv4JQ+g7f6Tlb4JIou450buHt8?=
+ =?us-ascii?Q?kubIJ+5c6gCBlqqHGFfdfCmTVuOrQvEdjxSHX0XYXsCpiZJL5/kNtG+tneCt?=
+ =?us-ascii?Q?y8HX+TD/R5+q1H/bQ2bWY6+jF5Lqb7z7SoqW8RAXJVpUDn7kkeGGGC1drTO9?=
+ =?us-ascii?Q?KkBhJkQrUi/K9HiLgvDNk46LrHpThVPCC3yKuj31TUQyr0jAveajOjuckM9X?=
+ =?us-ascii?Q?rOAAQqJSz8NuPnRqb6WfjNuqGxR62Ug4QvWFDm1HY74gybSrJ5fzFGrGdj/S?=
+ =?us-ascii?Q?Oga/m7148nhA1dtsQ8PF/GjF6rh1BDym5Ga994O7/mW2TKG2sWC1TwbKlW+H?=
+ =?us-ascii?Q?j6vL3pJJk5IoXl4TRTSBCW3AGFHD06buwgWn7iKXMNlHDz6ZP+//TP96ADsm?=
+ =?us-ascii?Q?CuS30bqMxC0NR8+kTyuTB/5uv6MEI9VNlIODOpyUIJwwhV+Xpm8hYbSVDzNt?=
+ =?us-ascii?Q?ymcJUYa5ywI2zoZcV+uPxU4SeJK6YfWPdAB9moMBiHyD8ojAb/WCWWP3Wl0u?=
+ =?us-ascii?Q?tZDfeIC1k5hEhqTHO7d8E9EvrVbHDT+bBnMtRZ/Ko5MDAV1Kx38e+eGieWWy?=
+ =?us-ascii?Q?iGhJ8Xz/X1m12xp63BR/S2Igzcw06X3Fu0ZVd1r322ThM98j2sbtKR9blPw7?=
+ =?us-ascii?Q?l2bsTFgG/6HX6RffzHsPn0m2bC65EOMhxgpopB/GlBcK7DM8D54R?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1d7ec78-fc33-4b62-a8f7-08df0f7636c6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97a80ddb-eb4e-4d54-dcfe-08df0f7b57e8
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 20:00:51.2923
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 20:37:34.2164
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GmkIjnTMADovvo5ebAfimGDUrI5BygY70DtHWvWu4DB7uwMDtxX9AnsjJ/jcSEV7x91fluMu5l66xtHKpBks4I5aETJJKChHMEw/GXpKuUEIPSNynZywIFCHmFpynsFx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9091
+X-MS-Exchange-CrossTenant-UserPrincipalName: xqtb5wOAUb9pTCsNZt32Sj0/v1HmFXKeqfxHcx56B1iZBtXBmnzbi8TXetCtvp5cEoHKhkZtWFhEg8iX8jwwCcx9n0Q7K7Vg09+/WV1d95GMiOqIroVX2nbCNGWpH4Eo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8745
 
-On Fri, Sep 04, 2026 at 03:46:26PM +0900, Nas Chung wrote:
-> This patch series introduces support for the Chips&Media Wave6 video
-> codec IP, a completely different hardware architecture compared to Wave5.
+On Fri, Sep 04, 2026 at 03:46:30PM +0900, Nas Chung wrote:
+> Add v4l2 m2m stateful driver support for the
+> Chips&Media Wave6 video codec IP, including both encoder and decoder.
 >
-> The wave6 driver is a M2M stateful encoder/decoder driver.
-> It supports various video formats, including H.264 and H.265, for both encoding
-> and decoding.
-> While other versions of the Wave6 IP may support VP9 decoding and AV1 decoding
-> and encoding those formats are not implemented or validated in this driver at
-> this time.
+> The following features and formats are supported:
+> Encoder (8bit only):
+> - Supported codecs: AVC, HEVC
+> - Supported input formats:
+>   * V4L2_PIX_FMT_YUV420/NV12/NV21
+>   * V4L2_PIX_FMT_YUV422P/NV16/NV61
+>   * V4L2_PIX_FMT_YUYV
+>   * V4L2_PIX_FMT_YUV24/NV24/NV42
+>   * V4L2_PIX_FMT_RGB24
+>   * V4L2_PIX_FMT_P010
+>   * V4L2_PIX_FMT_ARGB32
+>   * V4L2_PIX_FMT_RGBA32
+>   * V4L2_PIX_FMT_XRGB32
+>   * V4L2_PIX_FMT_ARGB2101010
+> - Supports multiplanar format
+> - Although 10-bit input formats are supported (e.g., P010, ARGB2101010),
+>   encoded output is limited to 8-bit streams
+> - Supports crop
+> - Supports extensive v4l2 encoder control
 >
-> On NXP i.MX SoCs, the Wave6 hardware exposes one control register region and
-> four interface register regions for one shared video processing engine.
-> VPU Control region, Manages shared resources such as firmware memory.
-> VPU Core region, Provides encoding and decoding capabilities.
-> The control and interface regions are distinct DMA requesters and can be
-> associated with separate IOMMU stream IDs, allowing DMA isolation between them.
+> Decoder (8bit only):
+> - Supported codecs: AVC, HEVC (8bit only)
+> - Supported output formats: V4L2_PIX_FMT_YUV420/NV12/NV21
+> - Supports multiplanar format
+> - Supports scale down
+> - Supports dynamic resolution change
 >
-> The interface regions are described as child nodes of the VPU node rather
-> than folded into the parent with reg-names/interrupt-names, because each
-> one is a separate DMA requester. This follows the same structure already
-> accepted for the Qualcomm video codec bindings, and was mentioned on the v6
-> thread.
+> Note: While other versions of the Wave6 IP may support VP9 decoding and
+> AV1 decoding and encoding those formats are not implemented or validated
+> in this driver at this time.
 >
-> The firmware tested by this driver has been upstreamed in linux-firmware:
-> - Path: cnm/wave633c_imx9_codec_fw.bin
->
-> This driver has been tested with GStreamer on:
-> - NXP i.MX95 board
-> - pre-silicon FPGA environment
->
-> Test results for decoder fluster with -j2 option:
-> - JVT-AVC_V1, Ran 77/135 tests successfully              in 24.180 secs
-> - JVT-FR-EXT, Ran 25/69 tests successfully               in 11.157 secs
-> - JCT-VC-HEVC_V1, Ran 132/147 tests successfully         in 45.534 secs
-> - All failures are due to unsupported hardware features:
-> -- 10bit, Resolutions higher than 4K, FMO, MBAFF
-> -- Extended profile, Field encoding and High422 sreams.
->
-> Test results for v4l2-compliance:
-> v4l2-compliance 1.31.0-5386, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 48316b8a20aa 2025-08-12 12:44:56
->
-> Compliance test for wave6-dec device /dev/video0:
->                 fail: v4l2-test-controls.cpp(1204): !have_source_change || !have_eos
->         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
-> Total for wave6-dec device /dev/video0: 48, Succeeded: 47, Failed: 1, Warnings: 0
->
-> Compliance test for wave6-enc device /dev/video1:
->                 fail: v4l2-test-controls.cpp(1193): node->codec_mask & STATEFUL_ENCODER
->         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
-> Total for wave6-enc device /dev/video1: 48, Succeeded: 47, Failed: 1, Warnings: 0
->
-> Note: the failures are all related with the eos event.
->
-> Changelog:
->
-> v7:
-> - Moved the sram property from imx95-19x19-evk.dts to imx95.dtsi
-> - Simplified the sram binding property to maxItems: 1
-> - Fixed the issues reported by the sashiko-bot review of v6:
->   - Bounded frame buffer and aux buffer counts before indexing
->   - Added vb2_is_busy() checks to the decoder S_FMT handlers
->   - Fixed video_device lifetime and driver teardown ordering
->   - Propagated hardware init, runtime PM and thermal failures upward
->   - Fixed tracepoint field widths and debugfs handling
-> - Balanced the VPU reference on the core activation error path
->
-> v6:
-> - Fixed the existing P010 format_info entry
-> - Moved all encoder parameter validation from the HW layer into the V4L2 layer
-> - Removed redundant HW-abstraction wrappers from the VPU API layer
-> - Computed frame stride and sizeimage in the V4L2 layer
-> - Added explicit instance lifecycle helpers to the core driver
-> - Enabled the VPU only on the tested imx95-19x19-evk board
->
-> RFC v5:
-> - Move all shared resources to the parent node
-> - Drop child compatible and use data-only interface child nodes
-> - Update the VPU driver to create child devices and load the core driver
->
-> v4:
-> - Fixed build issues reported by CI tools
-> - Updated commit messages to use imperative mood
-> - Avoided using the same name for both nodes and labels in devicetree
-> - Removed unused labels from YAML examples
-> - Added description for child(vpu-core) node
-> - Added iommus property to both parent(vpu) and child(vpu-core) nodes
-> - Updated probe() functions to use dev_err_probe() when returning -EPROBE_DEFER
-> - Added wave6_vpu prefix to trace functions
-> - Updated HEVC decoder profile control to report MAIN_STILL profile
-> - Fixed bug in multiple instance creation by pre-allocating work buffer
-> - Fixed interrupt handling by checking INSTANCE_INFO register and instance list
->
-> v3:
-> - Removed ambiguous SUPPORT_FOLLOWER feature
-> - Used WARN_ON() for unexpected programming errors
-> - Split thermal device code into wave6-vpu-thermal.c/h
-> - Dropped wave6_cooling_disable module parameter
-> - Replaced mutex_lock() with guard()
-> - Added lockdep_assert_held() to clarify locking regions
-> - Removed exported function due to dual-license and used function pointer
-> - Added documentation and validation for state transitions
-> - Added documentation for device structures
-> - Added patch to enable VPU device in imx95 DTS
-> - Updated DT bindings and driver to align with parent(vpu) and child(vpu-core)
-> - Replaced magic numbers with mask and offset macros when accessing registers
-> - Placed goto statements after an empty line
-> - Printed HW info (e.g. product_code) via dev_dbg() for debugging
-> - Replaced wave6_vpu_dec_give_command() with dedicated functions
->
-> v2:
-> - Refined DT bindings to better represent the hardware
-> - Reworked driver to align with the parent(VPU) and child(CTRL, CORE)
-> - Fixed build issues reported by CI tools (Smatch, Sparse, TRACE)
-> - Improved commit messages with clearer descriptions
-> - Added kernel-doc for exported functions
-> - Removed redundant print statements and unused code
-> - Reordered patches to prevent build failures
->
-> Nas Chung (9):
->   media: v4l2-common: Fix P010 format info
->   dt-bindings: media: nxp: Add Wave6 video codec device
->   media: chips-media: wave6: Add Wave6 VPU interface
->   media: chips-media: wave6: Add v4l2 m2m driver support
->   media: chips-media: wave6: Add Wave6 core driver
->   media: chips-media: wave6: Improve debugging capabilities
->   media: chips-media: wave6: Add Wave6 thermal cooling device
->   media: chips-media: wave6: Add Wave6 control driver
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
+> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
+> ---
+...
+> +
+> +u64 wave6_vpu_cycle_to_ns(struct vpu_core_device *core, u64 cycle)
+> +{
+> +	unsigned long rate;
+> +
+> +	if (!core->num_clks || !core->clks)
+> +		return 0;
+> +
+> +	rate = clk_get_rate(core->clks[0].clk);
+> +	if (!rate)
+> +		return 0;
+> +
+> +	return (cycle * NSEC_PER_SEC) / rate;
 
-This is quite big drivers. You enable build at finial patches, it is not
-good. Each patch expect built-able.
-
-I suggest split
-
-1. core part with simplest decode driver. "You use git add -p to choose
-which trunk to add"
-2. Add encode part
-3. Add m2m part
-4. add debug and tracing
-5. add performance profile
-6. add thermal cooling device
-
-Maintainer may pick subset.
-
-binding + simplest decode + dts can be merged firstly.
-
-Then gradulately add encode, m2m and other advance features.
+div_u64, otherwise 32bit compiler build failure.
 
 Frank
-
->   arm64: dts: freescale: imx95: Add video codec node
->
->  .../bindings/media/nxp,imx95-vpu.yaml         |  162 +
->  MAINTAINERS                                   |    8 +
->  .../boot/dts/freescale/imx95-19x19-evk.dts    |   10 +
->  arch/arm64/boot/dts/freescale/imx95.dtsi      |   37 +
->  drivers/media/platform/chips-media/Kconfig    |    1 +
->  drivers/media/platform/chips-media/Makefile   |    1 +
->  .../media/platform/chips-media/wave6/Kconfig  |   17 +
->  .../media/platform/chips-media/wave6/Makefile |   17 +
->  .../platform/chips-media/wave6/wave6-hw.c     | 2030 ++++++++++++
->  .../platform/chips-media/wave6/wave6-hw.h     |   56 +
->  .../chips-media/wave6/wave6-regdefine.h       |  649 ++++
->  .../platform/chips-media/wave6/wave6-trace.h  |  289 ++
->  .../platform/chips-media/wave6/wave6-vdi.h    |   92 +
->  .../chips-media/wave6/wave6-vpu-core.c        |  448 +++
->  .../chips-media/wave6/wave6-vpu-core.h        |  126 +
->  .../chips-media/wave6/wave6-vpu-dbg.c         |  183 ++
->  .../chips-media/wave6/wave6-vpu-dbg.h         |   14 +
->  .../chips-media/wave6/wave6-vpu-dec.c         | 1843 +++++++++++
->  .../chips-media/wave6/wave6-vpu-enc.c         | 2764 +++++++++++++++++
->  .../chips-media/wave6/wave6-vpu-thermal.c     |  143 +
->  .../chips-media/wave6/wave6-vpu-thermal.h     |   24 +
->  .../chips-media/wave6/wave6-vpu-v4l2.c        |  516 +++
->  .../platform/chips-media/wave6/wave6-vpu.c    |  826 +++++
->  .../platform/chips-media/wave6/wave6-vpu.h    |  143 +
->  .../platform/chips-media/wave6/wave6-vpuapi.c |  336 ++
->  .../platform/chips-media/wave6/wave6-vpuapi.h | 1007 ++++++
->  .../chips-media/wave6/wave6-vpuconfig.h       |   72 +
->  .../chips-media/wave6/wave6-vpuerror.h        |  262 ++
->  drivers/media/v4l2-core/v4l2-common.c         |    2 +-
->  29 files changed, 12077 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
->  create mode 100644 drivers/media/platform/chips-media/wave6/Kconfig
->  create mode 100644 drivers/media/platform/chips-media/wave6/Makefile
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-hw.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-hw.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-regdefine.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-trace.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vdi.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-core.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-thermal.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-thermal.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuapi.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuapi.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuerror.h
->
-> --
-> 2.31.1
->
+> +}
+> +
+> +int wave6_vpu_wait_interrupt(struct vpu_instance *inst, unsigned int timeout)
+> +{
+> +	int ret;
+> +
+> +	ret = wait_for_completion_timeout(&inst->irq_done,
+> +					  msecs_to_jiffies(timeout));
+> +	if (!ret)
+> +		return -ETIMEDOUT;
+> +
+> +	reinit_completion(&inst->irq_done);
+> +
+> +	return 0;
+> +}
+> +
