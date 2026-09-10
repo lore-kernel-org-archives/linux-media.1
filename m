@@ -1,125 +1,89 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414FB47C10C;
-	Thu, 10 Sep 2026 11:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432C347C11A
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 11:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040757; cv=none; b=AHX78wkD5N4odkgm2BjTCRR/1sZa0Xl+MDtgD7B1Xu+vtW59BKdwsTQ/IlnRBytN92HIvAtavF78nyoOiQwQ3JgZHAHU1P8buJ9IEhtokxYpwsa0cXIC4gauQy+rhnR0WrIaBljpx0J/J3tLgyq3VeXWXiq7wp+oYPPAQqME3u0=
+	t=1789040975; cv=none; b=F8Ots0F3y6wl3fZtvii6HAkBzAFV8YCbL4LR0l6yxqQe75C7MFm43n4ICL7BUVo3hqKkRsW2OsTCOxU/pGIbAYZrP5o6jspV2XrRCK5sV4ynin3AXFmHPjtHkBdtATXoMabBi0pfH9RjpsnE1jRhy9alRI5nUKZ75jJZS0Yrhus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040757; c=relaxed/simple;
-	bh=mZ3uQbEFoWguoSsIsjnlZSCOX/afMQA9qaSy3SfszTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ps8haO/KegRUfjL+hkUEiMrnyGBmwGrtnJ2502nxPDmnriHYs7qpVhPLoRyQLm3dMCqLZRc06dyxM2UDwYxIcOYTsPa9owgLOUPk0IW1G5WnJMotwK/njrIqx4oTSmqfEsi+1nq9adrdiEqh3WMHusgupoeErgkzapYiyyc5H78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hnzBI4Q+; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789040975; c=relaxed/simple;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eJ96MVvT/P7KivyKlVbNfLTzjZxAAxFJ2Fz5+9Nf5v3SgTKyZnh9ZfvODOw2dBume22ZK/mTVXrwB/02Vq81JNwyc++BSkL9yiOmmIjlzakuDQtQDNNR3htC81iBwU92YJjegUgVSH5oCQBHSt3lA6PWhes2XBKZeETmQp7tz0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TMpqcJka; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hnzBI4Q+"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8675BC48;
-	Thu, 10 Sep 2026 13:44:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789040654;
-	bh=mZ3uQbEFoWguoSsIsjnlZSCOX/afMQA9qaSy3SfszTA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hnzBI4Q+uHTmWx+2n7fgZCpLNaFX0QB6iearzZlJ54NmKocLMU5XjkpHLugNj4Ywk
-	 MeTVSlfM9t6Y8+ePtFPk/qqycjKeMiRoih60vSxd/IB6nDT7KNFeG6niURfRXINmvS
-	 1cw9kwNTco55R6LW5igjVHP/TCRObBYUE8vedywg=
-Date: Thu, 10 Sep 2026 14:45:50 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Hemanth Selam <hemanth.selam@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 2/3] media: fix repeated words in comments
-Message-ID: <20260910114550.GJ1892234@killaraus.ideasonboard.com>
-References: <20260904113450.15838-1-hemanth.selam@gmail.com>
- <20260904113450.15838-3-hemanth.selam@gmail.com>
- <20260904133645.GA795906@killaraus.ideasonboard.com>
- <3f13417b-cca2-4403-8fb4-ac9c65f1311d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TMpqcJka"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso66771315e9.1
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 04:49:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789040971; x=1789645771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+        b=TMpqcJka2KQuxG0qAKpWZfFv6ebd8fY5pG3h1BfeZxsqpWA09BOTuZ9QqLWHJtB9ar
+         Ofig8B2TD+K261SrOlYCOxrvNakZ/CAdtHnvDxasg5dLDK8SpbW14k5zLNvBg2VnG2aE
+         on/ChJwLTJWY6b2vQTV6Dcovrs12jQrvpING+6JJui29QgRVLsLxxzoqtDCwDEHhlifo
+         Q1MEIj5BEi2U4rD2jm6THKkk/J/1I2ATerBYPi32GcenhymmCXp3ufjCdRiENxsU7eP0
+         ELaqtaIOV55+s07GeHRMxvHTBmFAQHqXXsDsgZG53ZoF/p/mTycqhGsdC8DvIF3Et0Iv
+         X4fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789040971; x=1789645771;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+        b=dKMhs4Y86CViZIGmgRePgkc1yf8iPuq9stMtGeEmrZ9jbFtRqQCEopIYbgivzyZTPU
+         CE53CvZu55RnlGz/csEpdF/UvYsa0qpGQaDnV2EJu7QDqgQ8Gm1Bc5pgQruzaWGAupJZ
+         z7Zsr9sYMcNkqYdbndrddnIvTuk0CHevFuO7r6MyneESy6iUuvcFbBuRMkUV9VI2Ccda
+         lXPG3OPYcblRZIutu1Z2rj84XccRb7wkaLQT+60dbKHQel+KOCv62gdTX6Q4Qnn7sWxc
+         Q8jV7njpJjrIBbcs5KBT/g8Q7ld5xDURDZDgZ8PnxK+CxsGSeX8Sw95sRwIOT5UG8vjK
+         uNhw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUuSugsWV9mnKrwU8pBV6XxghCBXK3WFxCbfstGuGrtv3Qtrtop0lTVVXPZzooIbLZd3Wk4UB74kanRg==@vger.kernel.org
+X-Gm-Message-State: AFuF++lDlOzyiWkbZg3nvvLimrHRhVywSDq188HwmQKx8APsBCE7uJQD
+	PwF7ndgQKP9D8xOWqc5x2xTICPReUC0dUuisvYjCwt062cwARIkkitLX
+X-Gm-Gg: AYBFou3ZRqfX8l8X8JBDalYJIpksYq4CoaLAbH8yXpl7rvUhRgLVyeyCbRxpvToHpnP
+	zgACBnP3Kdeu6T9um60qUjeVRqMeAynAnzCkGwx22dVMMNs+6ZXegrmL96529wPqybN6lRb38i4
+	zQVxr54fHpwFoQ5h923MfJ2x3IiyMpCB2qzRGtkhFT8RcK7LG3e1V8G32UP4iaulo3P5iJFdbFY
+	EwsOlha3P1LLVqml88SQim+o92PS6QHFA+HhPHKFAehXIyHa8gvG9jKuD0GpRGBlgX38Y7oVWgn
+	ucYFiRzd4qNmYaJLWfwBasZ+8pVOewMdL7aujL588lWsPRNQcW2TkHKAM56HW9Yj2Leu4Rsz8Do
+	bT6G/Dg5/PV0i1W0SM/r/5sHENnfF6s1miUMwqI2S8kzkgtrX140fllgQL8IQ+0JzDEbPRcnLZE
+	tifSEN9+HwoT0MyvS9ZWXfpe2tcHZnl0Mt2nxm5D1gLhwk2gfoDiD/ZRuW6DHD4Uq5yXFss3/eg
+	Ibv0SMrZrfxutTMtceQCw8Bd+nscbKxusDbG5RN1Sdz7oCcm2SIBA==
+X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr438196315e9.6.1789040971053;
+        Thu, 10 Sep 2026 04:49:31 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb058c8sm62353075e9.0.2026.09.10.04.49.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:49:30 -0700 (PDT)
+From: German <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: Test on another machine and userspace for [PATCH v3 0/3] media: Add support for the Sony IMX681 Thanks for clarifying the origin of the errors I am more than happy to provide the tag Tested-by: German <germanpapulindez@gmail.com>
+Date: Thu, 10 Sep 2026 13:48:33 +0200
+Message-ID: <20260910114833.4801-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910112210.44432-1-lsa.uz@pm.me>
+References: <20260910112210.44432-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <3f13417b-cca2-4403-8fb4-ac9c65f1311d@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 01:30:11PM +0200, Hans Verkuil wrote:
-> On 04/09/2026 15:36, Laurent Pinchart wrote:
-> > On Fri, Sep 04, 2026 at 05:04:43PM +0530, Hemanth Selam wrote:
-> >> Drop words accidentally written twice, reported by checkpatch.pl as a
-> >> possible repeated word.  Only touches comments, no code changes.
-> >>
-> >> Assisted-by: Cursor:claude-opus-5
-> > 
-> > This is not a good use of reviewer time. NAK.
-> 
-> Actually, I'll take this patch.
-> 
-> Laurent, feel free to delegate patches fixing typos/grammar to me. I hate
-> typos etc. in code, they actually make the code harder to read. Patches
-> fixing that take very little time to review, so I'm fine doing that.
-
-I don't welcome people who use LLMs to generate noise with barely any
-value, just for the sake of having their name in the kernel git log. We
-have enough important patches to review. This kind of submission should
-be discouraged. It would be different if the typo fixes were part of a
-human-written series that adds real value.
-
-> >> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> >> ---
-> >>  drivers/media/i2c/adv7175.c                   | 2 +-
-> >>  drivers/media/platform/renesas/vsp1/vsp1_dl.c | 2 +-
-> >>  drivers/media/usb/gspca/ov519.c               | 2 +-
-> >>  3 files changed, 3 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/drivers/media/i2c/adv7175.c b/drivers/media/i2c/adv7175.c
-> >> index f1caab8e2abd..b6f0e1b24383 100644
-> >> --- a/drivers/media/i2c/adv7175.c
-> >> +++ b/drivers/media/i2c/adv7175.c
-> >> @@ -209,7 +209,7 @@ static int adv7175_s_std_output(struct v4l2_subdev *sd, v4l2_std_id std)
-> >>  		/* This is an attempt to convert
-> >>  		 * SECAM->PAL (typically it does not work
-> >>  		 * due to genlock: when decoder is in SECAM
-> >> -		 * and encoder in in PAL the subcarrier can
-> >> +		 * and encoder in PAL the subcarrier can
-> >>  		 * not be synchronized with horizontal
-> >>  		 * quency) */
-> >>  		adv7175_write_block(sd, init_pal, sizeof(init_pal));
-> >> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_dl.c b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
-> >> index 6430f2ec8b32..8257759421f3 100644
-> >> --- a/drivers/media/platform/renesas/vsp1/vsp1_dl.c
-> >> +++ b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
-> >> @@ -649,7 +649,7 @@ static void __vsp1_dl_list_put(struct vsp1_dl_list *dl)
-> >>  	dl->post_cmd = NULL;
-> >>  
-> >>  	/*
-> >> -	 * body0 is reused as as an optimisation as presently every display list
-> >> +	 * body0 is reused as an optimisation as presently every display list
-> >>  	 * has at least one body, thus we reinitialise the entries list.
-> >>  	 */
-> >>  	dl->body0->num_entries = 0;
-> >> diff --git a/drivers/media/usb/gspca/ov519.c b/drivers/media/usb/gspca/ov519.c
-> >> index bffa94e76da5..57219a738c73 100644
-> >> --- a/drivers/media/usb/gspca/ov519.c
-> >> +++ b/drivers/media/usb/gspca/ov519.c
-> >> @@ -13,7 +13,7 @@
-> >>   * Copyright (c) 1999-2006 Mark W. McClelland
-> >>   * Support for OV519, OV8610 Copyright (c) 2003 Joerg Heckenbach
-> >>   * Many improvements by Bret Wallach <bwallac1@san.rr.com>
-> >> - * Color fixes by by Orion Sky Lawlor <olawlor@acm.org> (2/26/2000)
-> >> + * Color fixes by Orion Sky Lawlor <olawlor@acm.org> (2/26/2000)
-> >>   * OV7620 fixes by Charl P. Botha <cpbotha@ieee.org>
-> >>   * Changes by Claudio Matsuoka <claudio@conectiva.com>
-> >>   *
-
--- 
-Regards,
-
-Laurent Pinchart
