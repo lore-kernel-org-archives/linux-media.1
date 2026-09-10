@@ -1,200 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E953484238;
-	Thu, 10 Sep 2026 11:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414FB47C10C;
+	Thu, 10 Sep 2026 11:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040006; cv=none; b=N4nLdz3cvJ1p9Wy/s2kbsOxfFvyVd1MxUDPGqsfiYYd9mXMJdhjD0kOJgg7fELRnnQ6+tO40cx/CBXydYk8JJX9eN+VApE8tOzRRo5GHeBZMAa2wUafwtiXvgHrpwQHM31MDTwecyQnT3eMPp96/lcb1OzWmvQJsK7IjgeYyiXo=
+	t=1789040757; cv=none; b=AHX78wkD5N4odkgm2BjTCRR/1sZa0Xl+MDtgD7B1Xu+vtW59BKdwsTQ/IlnRBytN92HIvAtavF78nyoOiQwQ3JgZHAHU1P8buJ9IEhtokxYpwsa0cXIC4gauQy+rhnR0WrIaBljpx0J/J3tLgyq3VeXWXiq7wp+oYPPAQqME3u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040006; c=relaxed/simple;
-	bh=hvVwt6ohh/ZS5jfoRHiM6qKZdBfoz9Vd2295Ug5sbr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pS45pnZauaRlbg63kpUX9C4UwPUHz5rFBtY21XXDKdvsVKTPDr50VwRTprki8cOMYgZKMGA7aQjBO3gBRK010+iKs0sX7gDDwZ9wGkT8MCQU+r2i8ellAarU02KyHgC6U0fnBC1SLaSe3vQ9BASy4qHYumpx5oolJhYoTqvv4yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VJQVGUTL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789040757; c=relaxed/simple;
+	bh=mZ3uQbEFoWguoSsIsjnlZSCOX/afMQA9qaSy3SfszTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ps8haO/KegRUfjL+hkUEiMrnyGBmwGrtnJ2502nxPDmnriHYs7qpVhPLoRyQLm3dMCqLZRc06dyxM2UDwYxIcOYTsPa9owgLOUPk0IW1G5WnJMotwK/njrIqx4oTSmqfEsi+1nq9adrdiEqh3WMHusgupoeErgkzapYiyyc5H78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hnzBI4Q+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VJQVGUTL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69031F000FF;
-	Thu, 10 Sep 2026 11:33:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789040002;
-	bh=YtIACyToojkPPw7wMDUQ/Ckhd+O2kfDRIKTR1tO2oXk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VJQVGUTLv8gM7bjQGnsZH2u0qxwm3dviTA391P/zKAGLCSCpght/oHVmkHaPsQoyG
-	 ZRgX9lWQUZXGOSCkFdEocP+IO5b88+kg7x/1mBmDwqMol3y9jajpqGzofXy7V6yt+Y
-	 OA9F4YNfuNGZqPIM7bK4r81u1Hw6sUMA/ZABwup4ghE4BLmJHT7nq8unPWL1TAuofO
-	 ja9w9yv7/7z0GOqAJi4MmGzhF3qhczbIuo5n5ETv7Qvi4FHkdKuWXx1+0/bXnCiNrT
-	 4Vnp7cfAt20DE1FyPVfN3+muefwGix6mQCiO5ZJrCmA7ffCTn+gnm9cg4ZW5sDF816
-	 7Zw+TC6+jPI9A==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [PATCH v5 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a direct peer-to-peer route
-Date: Thu, 10 Sep 2026 14:32:13 +0300
-Message-ID: <20260910-fix-p2p-acs-v4-0-v5-18-856087f63c0d@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com>
-References: <20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hnzBI4Q+"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8675BC48;
+	Thu, 10 Sep 2026 13:44:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789040654;
+	bh=mZ3uQbEFoWguoSsIsjnlZSCOX/afMQA9qaSy3SfszTA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hnzBI4Q+uHTmWx+2n7fgZCpLNaFX0QB6iearzZlJ54NmKocLMU5XjkpHLugNj4Ywk
+	 MeTVSlfM9t6Y8+ePtFPk/qqycjKeMiRoih60vSxd/IB6nDT7KNFeG6niURfRXINmvS
+	 1cw9kwNTco55R6LW5igjVHP/TCRObBYUE8vedywg=
+Date: Thu, 10 Sep 2026 14:45:50 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Hemanth Selam <hemanth.selam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: fix repeated words in comments
+Message-ID: <20260910114550.GJ1892234@killaraus.ideasonboard.com>
+References: <20260904113450.15838-1-hemanth.selam@gmail.com>
+ <20260904113450.15838-3-hemanth.selam@gmail.com>
+ <20260904133645.GA795906@killaraus.ideasonboard.com>
+ <3f13417b-cca2-4403-8fb4-ac9c65f1311d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3f13417b-cca2-4403-8fb4-ac9c65f1311d@kernel.org>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Thu, Sep 10, 2026 at 01:30:11PM +0200, Hans Verkuil wrote:
+> On 04/09/2026 15:36, Laurent Pinchart wrote:
+> > On Fri, Sep 04, 2026 at 05:04:43PM +0530, Hemanth Selam wrote:
+> >> Drop words accidentally written twice, reported by checkpatch.pl as a
+> >> possible repeated word.  Only touches comments, no code changes.
+> >>
+> >> Assisted-by: Cursor:claude-opus-5
+> > 
+> > This is not a good use of reviewer time. NAK.
+> 
+> Actually, I'll take this patch.
+> 
+> Laurent, feel free to delegate patches fixing typos/grammar to me. I hate
+> typos etc. in code, they actually make the code harder to read. Patches
+> fixing that take very little time to review, so I'm fine doing that.
 
-mlx5_umem_needs_ats() enables ATS for any dma-buf whose caller asked for
-Relaxed Ordering, on the assumption that a switch in the path has CR, RR
-and DT all set. It also enables it for a buffer already mapped with the
-peer's bus addresses, which are not translatable at all.
+I don't welcome people who use LLMs to generate noise with barely any
+value, just for the sake of having their name in the kernel git log. We
+have enough important patches to review. This kind of submission should
+be discouraged. It would be different if the typo fixes were part of a
+human-written series that adds real value.
 
-P2PDMA has read the ACS controls, so ask it through
-dma_buf_p2pdma_map_type(): enable ATS only where the path is not routed
-directly as it stands, but would be for a Translated Request whose
-Completions carry Relaxed Ordering. Exporters that name no provider keep
-the old assumption, since their ACS settings remain hidden.
-
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/infiniband/hw/mlx5/mlx5_ib.h | 36 ++------------------------------
- drivers/infiniband/hw/mlx5/mr.c      | 40 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 42 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-index e9ddf2e97a76..ab32742b2180 100644
---- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
-+++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-@@ -1646,40 +1646,8 @@ static inline bool rt_supported(int ts_cap)
- 	       ts_cap == MLX5_TIMESTAMP_FORMAT_CAP_FREE_RUNNING_AND_REAL_TIME;
- }
- 
--/*
-- * PCI Peer to Peer is a trainwreck. If no switch is present then things
-- * sometimes work, depending on the pci_distance_p2p logic for excluding broken
-- * root complexes. However if a switch is present in the path, then things get
-- * really ugly depending on how the switch is setup. This table assumes that the
-- * root complex is strict and is validating that all req/reps are matches
-- * perfectly - so any scenario where it sees only half the transaction is a
-- * failure.
-- *
-- * CR/RR/DT  ATS RO P2P
-- * 00X       X   X  OK
-- * 010       X   X  fails (request is routed to root but root never sees comp)
-- * 011       0   X  fails (request is routed to root but root never sees comp)
-- * 011       1   X  OK
-- * 10X       X   1  OK
-- * 101       X   0  fails (completion is routed to root but root didn't see req)
-- * 110       X   0  SLOW
-- * 111       0   0  SLOW
-- * 111       1   0  fails (completion is routed to root but root didn't see req)
-- * 111       1   1  OK
-- *
-- * Unfortunately we cannot reliably know if a switch is present or what the
-- * CR/RR/DT ACS settings are, as in a VM that is all hidden. Assume that
-- * CR/RR/DT is 111 if the ATS cap is enabled and follow the last three rows.
-- *
-- * For now assume if the umem is a dma_buf then it is P2P.
-- */
--static inline bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev,
--				       struct ib_umem *umem, int access_flags)
--{
--	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
--		return false;
--	return access_flags & IB_ACCESS_RELAXED_ORDERING;
--}
-+bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem *umem,
-+			 int access_flags);
- 
- int set_roce_addr(struct mlx5_ib_dev *dev, u32 port_num,
- 		  unsigned int index, const union ib_gid *gid,
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-index 00e13028762a..286f372e5b0c 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -38,6 +38,7 @@
- #include <linux/export.h>
- #include <linux/delay.h>
- #include <linux/dma-buf.h>
-+#include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
- #include <rdma/frmr_pools.h>
- #include <rdma/ib_umem_odp.h>
-@@ -47,6 +48,45 @@
- #include "data_direct.h"
- #include "dmah.h"
- 
-+MODULE_IMPORT_NS("DMA_BUF");
-+
-+bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem *umem,
-+			 int access_flags)
-+{
-+	struct dma_buf_attachment *attach;
-+
-+	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
-+		return false;
-+
-+	/*
-+	 * The Completer decides whether its Completions carry Relaxed
-+	 * Ordering, and only a Request that asked for it can expect them to.
-+	 */
-+	if (!(access_flags & IB_ACCESS_RELAXED_ORDERING))
-+		return false;
-+
-+	attach = to_ib_umem_dmabuf(umem)->attach;
-+	switch (dma_buf_p2pdma_map_type(attach, 0)) {
-+	case PCI_P2PDMA_MAP_NONE:
-+		/* Nothing is known about the route, so fall back to the bet. */
-+		return true;
-+	case PCI_P2PDMA_MAP_BUS_ADDR:
-+		/*
-+		 * The path is routed directly already and is programmed with
-+		 * the peer's bus addresses. Those are not translatable, so
-+		 * ATS would be wrong as well as pointless.
-+		 */
-+		return false;
-+	default:
-+		break;
-+	}
-+
-+	return dma_buf_p2pdma_map_type(attach,
-+				       PCI_P2PDMA_TLP_TRANSLATED |
-+					       PCI_P2PDMA_TLP_RELAXED_CPL) ==
-+	       PCI_P2PDMA_MAP_BUS_ADDR;
-+}
-+
- static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
- {
- 	if (MLX5_CAP_GEN(dev->mdev, umr_extended_translation_offset))
+> >> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> >> ---
+> >>  drivers/media/i2c/adv7175.c                   | 2 +-
+> >>  drivers/media/platform/renesas/vsp1/vsp1_dl.c | 2 +-
+> >>  drivers/media/usb/gspca/ov519.c               | 2 +-
+> >>  3 files changed, 3 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/drivers/media/i2c/adv7175.c b/drivers/media/i2c/adv7175.c
+> >> index f1caab8e2abd..b6f0e1b24383 100644
+> >> --- a/drivers/media/i2c/adv7175.c
+> >> +++ b/drivers/media/i2c/adv7175.c
+> >> @@ -209,7 +209,7 @@ static int adv7175_s_std_output(struct v4l2_subdev *sd, v4l2_std_id std)
+> >>  		/* This is an attempt to convert
+> >>  		 * SECAM->PAL (typically it does not work
+> >>  		 * due to genlock: when decoder is in SECAM
+> >> -		 * and encoder in in PAL the subcarrier can
+> >> +		 * and encoder in PAL the subcarrier can
+> >>  		 * not be synchronized with horizontal
+> >>  		 * quency) */
+> >>  		adv7175_write_block(sd, init_pal, sizeof(init_pal));
+> >> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_dl.c b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+> >> index 6430f2ec8b32..8257759421f3 100644
+> >> --- a/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+> >> +++ b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+> >> @@ -649,7 +649,7 @@ static void __vsp1_dl_list_put(struct vsp1_dl_list *dl)
+> >>  	dl->post_cmd = NULL;
+> >>  
+> >>  	/*
+> >> -	 * body0 is reused as as an optimisation as presently every display list
+> >> +	 * body0 is reused as an optimisation as presently every display list
+> >>  	 * has at least one body, thus we reinitialise the entries list.
+> >>  	 */
+> >>  	dl->body0->num_entries = 0;
+> >> diff --git a/drivers/media/usb/gspca/ov519.c b/drivers/media/usb/gspca/ov519.c
+> >> index bffa94e76da5..57219a738c73 100644
+> >> --- a/drivers/media/usb/gspca/ov519.c
+> >> +++ b/drivers/media/usb/gspca/ov519.c
+> >> @@ -13,7 +13,7 @@
+> >>   * Copyright (c) 1999-2006 Mark W. McClelland
+> >>   * Support for OV519, OV8610 Copyright (c) 2003 Joerg Heckenbach
+> >>   * Many improvements by Bret Wallach <bwallac1@san.rr.com>
+> >> - * Color fixes by by Orion Sky Lawlor <olawlor@acm.org> (2/26/2000)
+> >> + * Color fixes by Orion Sky Lawlor <olawlor@acm.org> (2/26/2000)
+> >>   * OV7620 fixes by Charl P. Botha <cpbotha@ieee.org>
+> >>   * Changes by Claudio Matsuoka <claudio@conectiva.com>
+> >>   *
 
 -- 
-2.55.0
+Regards,
 
+Laurent Pinchart
