@@ -1,189 +1,121 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2F7470EB4;
-	Thu, 10 Sep 2026 11:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089C3AA1BF;
+	Thu, 10 Sep 2026 11:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039357; cv=none; b=GlL5UENVl1izNC1GZ+EgC0FDqYWcYkNqIafBSH+h2v01eby/1Kfsb58yvHMN+deI7Tav1UeJr3eNZsVmdU+p43vYRB+v3jK12z4aZ7m49hodDslyjYG0FrHgFMly4fRE179D3rIdnCujfBuv5U/ag0AuQOi4glqJo1H+NmEb8Fw=
+	t=1789039817; cv=none; b=Q1x3gC9HJjlQpJxvM5smscDsQMV0dymsD7kIzvz7S+yKuX7QQBg/AuOaYlzzmSjX72n4eb1Tx2ydRTy0oJDGbnDBLyCrsdMYJS4gFHoqw+cKoo0CTs66zp2jOwLeT8rEXWlQOmAreQbpMJNNrHr+xmrCGW/lLwpYx8AKbAmn5Ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039357; c=relaxed/simple;
-	bh=/fo+Wd06qlM0ZRL7ejhTQPHu760TTFRfH9wAUDB7IA4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m232EdzfMFp3+MBakZMgguv9NNL59GHcqspyqGLHKvGE0DIXjJf/bBJQTNTWZt63lbQ3xf1Ayvu5gSfkt1ofHhklw/KbJ+pEb7dvmBDhWC6TBJney8Z+PjgKoGF4SjvQ+LrnEjnzaLw+uycxBQPVGGDkzKH906NIC5JzI+KFA4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oKr1ObZp; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789039817; c=relaxed/simple;
+	bh=6AiFJPXOBz0NsZB4YLIZxgmmFuo86Cn8YBhTsfKPLrM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=R+3l+lTaGIVWc2Nl8HjYBR9pY3Dq2L8GQd2WiWhy8qwVRizkPagom1YqmcmN6AvJYwm7Cbw7U/nFP3CmNcEWc6PWqx27/huxTsLk6uZDFshMWwe2/gebBODBOtPZ7iU65Ujxt13//rB5tvciHyJ0u++LTut8VMe0vsbOg4Nrttc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dHuroU/m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oKr1ObZp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789039346; x=1789298546;
-	bh=elyyujR8NU4dubtSqN09N9ikRtSIoMKtmYEF8nT4AyY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=oKr1ObZpuxpsjpxmryPu/oNxn1EUpn/NQLwuyJP2xJOseJ9sxuLNu5AyEiDrFO55Z
-	 QM02S14ac8hDwIzpRc1ga4wMWjdJ67oqTxhI+yp1O0hhkqpOYtIkO9lbbsr3D3T6Fp
-	 xqQLxrnQ+kPY/UYjXPIsIn5TDvS1NTDwEQBeIc2w272bXv2PQwwSe4875E8BvQmW3O
-	 w5DATN4lOrpJtAhbjBHPNlnu1IhXGg9RaDnep1+p/81PhN2yGlRc0xgZH7jo3hjjq9
-	 5CUAquaRRWGfQLXZMYgdSFIsYA8xKPnG2oi4+f2gVoqdVwakrKpA26l7++AjBzgrp2
-	 CXD9954++G+/w==
-Date: Thu, 10 Sep 2026 11:22:21 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] media: Add support for the Sony IMX681
-Message-ID: <20260910112210.44432-1-lsa.uz@pm.me>
-In-Reply-To: <20260910103602.19228-1-germanpapulindez@gmail.com>
-References: <20260909203717.90605-1-lsa.uz@pm.me> <20260910103602.19228-1-germanpapulindez@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 7f384f455bd00032599f61360a1dcaaf3abdb9ac
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dHuroU/m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2501F000FF;
+	Thu, 10 Sep 2026 11:30:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789039815;
+	bh=Xb2rExb+py0EDDTrB/q7BpPBPl14qSCSUcPK02llU7w=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=dHuroU/mq88+wp1QyBMi7DZDwi4h8cA0uB0bFBQA71WWj92EvZ4h+etd6OD4LzucN
+	 XDkEJYUCCxkFxRTxf106YzxEGUZuNDiO0aMXYXk/iablTcrhFABpD3LKMuOamA+wKp
+	 aWuI4/2DoiXI62ZtuRViG8J5x5XRcRKzUea2tN4RPlyM14aYR/fknGlfZeOqjYFLOH
+	 bf+qIRyxZSdxnGraaTk9Xj2KTEjlNfcp9MuR/1dy8fiWEpTXN8XD79kOgUnjBl3xBP
+	 8V+qGX3Pj8yh57PTha2SmovB8fi6HFjnZo6kirdMmAvjCnTHueRxBrIWygjGCpI8CI
+	 1IwDNYkBZOf4g==
+Message-ID: <3f13417b-cca2-4403-8fb4-ac9c65f1311d@kernel.org>
+Date: Thu, 10 Sep 2026 13:30:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH 2/3] media: fix repeated words in comments
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260904113450.15838-1-hemanth.selam@gmail.com>
+ <20260904113450.15838-3-hemanth.selam@gmail.com>
+ <20260904133645.GA795906@killaraus.ideasonboard.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260904133645.GA795906@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-German,
+On 04/09/2026 15:36, Laurent Pinchart wrote:
+> On Fri, Sep 04, 2026 at 05:04:43PM +0530, Hemanth Selam wrote:
+>> Drop words accidentally written twice, reported by checkpatch.pl as a
+>> possible repeated word.  Only touches comments, no code changes.
+>>
+>> Assisted-by: Cursor:claude-opus-5
+> 
+> This is not a good use of reviewer time. NAK.
 
-Thank you - a second machine, which the v3 cover letter named as the
-limitation it most wanted lifted. Your report also found something real.
+Actually, I'll take this patch.
 
-Your inverted image is the driver
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
+Laurent, feel free to delegate patches fixing typos/grammar to me. I hate
+typos etc. in code, they actually make the code harder to read. Patches
+fixing that take very little time to review, so I'm fine doing that.
 
-Prompted by it I held a sheet of printed text in front of the camera and
-captured one raw frame: /dev/video16, SGRBG10, a crude 2x2 debayer, nothing
-clever. The text came out reversed, and flipping the frame horizontally mak=
-es
-it read correctly. So the sensor output is horizontally mirrored, always -
-not rotated, not flipped vertically.
+Regards,
 
-The other half of that result is worth saying: apart from the mirror the fr=
-ame
-is an ordinary photograph. No tearing, no skew, no diagonals, no wrong
-geometry.
+	Hans
 
-The cause is in the init sequence, with the author's comment:
-
-    /* Image orientation: H-flip to match Windows AIQB (RGGB native -> GRBG=
-) */
-    { CCI_REG8(0x0101),  0x01 },
-
-The flip makes the Bayer order GRBG, which is what the driver advertises an=
-d
-what Intel's tuning expects, so the format declaration is honest. The geome=
-try
-is not declared at all: there is no V4L2_CID_HFLIP, and camera_orientation
-says only that the camera faces front, not that frames arrive mirrored.
-
-Which is why one of your applications is right and the other is not. A fron=
-t
-camera is conventionally mirrored by the application. An app that does that
-applies a second flip and gets the true scene - qcam, Firefox. An app that
-does not shows our output backwards - Snapshot. Both are behaving sensibly;
-the driver put them in that position by transforming the image invisibly.
-
-It is fixable above the driver, so nobody is stuck - but only if userspace
-knows, and today it cannot find out.
-
-Bug, or acceptable? I would like the list's view
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-There is a case for acceptable: the flip is part of the mode, the advertise=
-d
-Bayer code matches what is really on the bus, and a front camera ends up
-mirrored anyway. I lean the other way: your two applications are what it lo=
-oks
-like when a consumer cannot learn about the transform. But that is one mach=
-ine
-and one opinion, and the code is Andre's, who is back on 28 September.
-
-If it is a bug, two shapes:
-
-  1. RECOMMENDED. Keep the flip, expose V4L2_CID_HFLIP defaulting to 1, and
-     swap the advertised code with it - SGRBG when set, SRGGB when clear.
-     Nothing changes for anyone who does nothing, and the transform becomes
-     visible and controllable. imx415 exposes both flips but does not vary =
-its
-     code, so the tree is not a clean precedent.
-
-  2. Drop the flip and advertise SRGGB10, leaving mirroring to userspace.
-     Cleaner as a driver, but it changes the advertised format - the very
-     thing the flip exists to control - and would likely break the setup yo=
-u
-     have working.
-
-1 costs no existing user anything, which is why I recommend it; 2 is the
-better driver if the AIQB turns out not to require GRBG, and that is Andre'=
-s
-to say. Sakari, Dan, Hans - a view either way settles it and I will do the
-work.
-
-Two notes alongside that. Nothing here blocks anyone - the camera is usable=
- as
-it stands, as your own report shows. This is about making the driver honest=
-,
-not about making it work.
-
-And I have an open thread on libcamera-devel about this sensor's delays, st=
-ill
-waiting on a reply:
-
-  https://lists.libcamera.org/pipermail/libcamera-devel/2026-September/0619=
-28.html
-
-libcamera consumes precisely what is in question here - sensor orientation =
-and
-the flip controls - so a view from that side bears directly on which option=
- is
-right. I have not cross-posted this, because it is a kernel-side decision
-first, but I will carry the answer across once there is one.
-
-Your other notes
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-The colour cast with light level, the brightness drift and the snow all loo=
-k
-like AE, AWB and tuning, none of which this driver has: it exposes exposure=
-,
-blanking, two gains, link frequency, pixel rate and a test pattern, and tha=
-t
-is all.
-
-Two guesses of mine were wrong, so skip them: the capture node's padded lin=
-e
-(7744 bytes for a 3844-pixel row) would draw about nineteen diagonals, not
-your one; and imx681_MSHW0520, MSHW0580 and MSHW0580Second are byte-identic=
-al
-.aiqb files here, so the variant cannot change colour.
-
-One question that is ours
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-v3 changed the gain ABI and you tested v3. Up to v2, V4L2_CID_ANALOGUE_GAIN
-advertised 0..1020 and quietly drove the digital gain register above code 9=
-60,
-so one control could reach 256x; in v3 it stops at 960, the 16x the analogu=
-e
-stage actually does. If your HAL drives only ANALOGUE_GAIN it now has sixte=
-en
-times less range - so did brightness behave differently on v1 or v2? If you
-only ran v3, saying so is just as useful.
-
-If you are comfortable with it, a
-
-  Tested-by: German <germanpapulindez@gmail.com>
-
-would carry weight: a second machine and a second userspace stack. It would
-not be claiming Snapshot works or that the tuning is right.
-
-Thanks again.
-
-Sergey
+> 
+>> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+>> ---
+>>  drivers/media/i2c/adv7175.c                   | 2 +-
+>>  drivers/media/platform/renesas/vsp1/vsp1_dl.c | 2 +-
+>>  drivers/media/usb/gspca/ov519.c               | 2 +-
+>>  3 files changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/adv7175.c b/drivers/media/i2c/adv7175.c
+>> index f1caab8e2abd..b6f0e1b24383 100644
+>> --- a/drivers/media/i2c/adv7175.c
+>> +++ b/drivers/media/i2c/adv7175.c
+>> @@ -209,7 +209,7 @@ static int adv7175_s_std_output(struct v4l2_subdev *sd, v4l2_std_id std)
+>>  		/* This is an attempt to convert
+>>  		 * SECAM->PAL (typically it does not work
+>>  		 * due to genlock: when decoder is in SECAM
+>> -		 * and encoder in in PAL the subcarrier can
+>> +		 * and encoder in PAL the subcarrier can
+>>  		 * not be synchronized with horizontal
+>>  		 * quency) */
+>>  		adv7175_write_block(sd, init_pal, sizeof(init_pal));
+>> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_dl.c b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+>> index 6430f2ec8b32..8257759421f3 100644
+>> --- a/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+>> +++ b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+>> @@ -649,7 +649,7 @@ static void __vsp1_dl_list_put(struct vsp1_dl_list *dl)
+>>  	dl->post_cmd = NULL;
+>>  
+>>  	/*
+>> -	 * body0 is reused as as an optimisation as presently every display list
+>> +	 * body0 is reused as an optimisation as presently every display list
+>>  	 * has at least one body, thus we reinitialise the entries list.
+>>  	 */
+>>  	dl->body0->num_entries = 0;
+>> diff --git a/drivers/media/usb/gspca/ov519.c b/drivers/media/usb/gspca/ov519.c
+>> index bffa94e76da5..57219a738c73 100644
+>> --- a/drivers/media/usb/gspca/ov519.c
+>> +++ b/drivers/media/usb/gspca/ov519.c
+>> @@ -13,7 +13,7 @@
+>>   * Copyright (c) 1999-2006 Mark W. McClelland
+>>   * Support for OV519, OV8610 Copyright (c) 2003 Joerg Heckenbach
+>>   * Many improvements by Bret Wallach <bwallac1@san.rr.com>
+>> - * Color fixes by by Orion Sky Lawlor <olawlor@acm.org> (2/26/2000)
+>> + * Color fixes by Orion Sky Lawlor <olawlor@acm.org> (2/26/2000)
+>>   * OV7620 fixes by Charl P. Botha <cpbotha@ieee.org>
+>>   * Changes by Claudio Matsuoka <claudio@conectiva.com>
+>>   *
+> 
 
