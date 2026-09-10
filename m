@@ -1,104 +1,181 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9098328B7F;
-	Thu, 10 Sep 2026 07:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E4C336EDA
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 07:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024017; cv=none; b=Su+ICR9EicmL62Ow6kUFGGFSBkoln1xOWzmfQ56BPE87GeXMoS4UxquXszuFvzUfzYlGVD+3C+aa7xn1X1Wk8bRJS9WopIsmpJTIljE77UsxAGCWJeK/4s493j7O6ewrhYSwSsYiOuwDwA4gN3bh1FOyqk5ZJ1WI1INQxMd00zI=
+	t=1789024465; cv=none; b=K9GLUGgvPvyuginOt7JA31Ro18IgJPFPa/T4+yY9PrvNMMsS5cYAJWKJNo3K6RMVplU+TJzDEJ6FAfDCHkyb5ePwkMpzCSPU+ZQSxr5c37AgEsz8jP2ABhgqbqPyuUTF0bPnsubaQKpc0VSSeY/3JTvWulcmhLFBxXqXPabt2s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024017; c=relaxed/simple;
-	bh=4s4UqO1fBxQv9AyWmVnt50A582KPLonm1IFwa5Ve7Cg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/fiKx/k9inYnm5Rz7GOhBF2l5CvAm+V7CJwzHtPso7IdG4JIqYs5A8SmdAe6xln3NCXVUIfysi0fgWr8PWIai9uKnUiAU1NZyoknTjheXRUtq5Bm7wTcLK8vOjp3Qtv1ZR5Na4DUOZBsFj6RevDS7YYS5MeUSX+NL739G/giLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FOJSsZwj; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789024465; c=relaxed/simple;
+	bh=cfnlVmyhYPZkZGxRJVcWZ3KuHUGPHu6/QM/rF0grmUc=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=OVXuU8k/JRlU/1C0ju3agT221y8P0YVuAOdSvyG4d1vKlTrj0ndpetSjahcrKE9hzliauBiHli1kzXxbWZ7NEEyzqKL9zW541xycko21kOT/KTNhhjwl4OI1jkdRI4KjN5a4q0uEyqUJKKzuN4KTkVR6Q6XvStVO5wX3mB/N66o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wLN0wYuC; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FOJSsZwj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789024015; x=1820560015;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4s4UqO1fBxQv9AyWmVnt50A582KPLonm1IFwa5Ve7Cg=;
-  b=FOJSsZwjPdeX5OI+58r4VrcV+Axu5cM/KvLiWGgpnvqw45DYaZEXRm1C
-   BWkoRSgOR9YP6l5II/IFFTjvTueC8l41SELwGfNdKGBK1JVJAesbvqZvE
-   v61c+8x1smhLM9spqhS/Atwr8+9WnQmwJidyid6g2ye6TpQ3worQL/wVI
-   VJ9+qDMflA4dVErPkHtCrYm/TuVXts4RFraNmQX2BLugWs2OSIOJ+T96W
-   tWWjw2PAyE8umOOVoMit1tH+S9jbsXk83KGwV8rSodwTr51BiMezUC82T
-   ZiEdfdXwCyaj6xs2XHCWejAjPh1r0ItmPgP35wL8sxDBZj9iU3lL3ijx1
-   Q==;
-X-CSE-ConnectionGUID: UV60inUkT9C8ODJ+G5gemQ==
-X-CSE-MsgGUID: 4uTC2wNQRBucRt4/gl6+pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91981881"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="91981881"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:06:52 -0700
-X-CSE-ConnectionGUID: eIP53DZdRTiOObWLcz/VUQ==
-X-CSE-MsgGUID: sOokH2uqSU2NMn7ZwSLm5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="301444430"
-Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.189])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:06:48 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 43D83121BCD;
-	Thu, 10 Sep 2026 10:06:51 +0300 (EEST)
-Date: Thu, 10 Sep 2026 10:06:51 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "Su, Jimmy" <jimmy.su@intel.com>
-Cc: "Zhang, Qingwu" <qingwu.zhang@intel.com>,
-	Pierre Pinon <pierre@pinon1.fr>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Vadillo, Miguel" <miguel.vadillo@intel.com>,
-	"Yeh, Serin" <serin.yeh@intel.com>
-Subject: Re: [PATCH 2/2] media: i2c: ov08x40: Do not expose the broken
- 1928x1088 binned mode
-Message-ID: <aqJXC9SbhJCz2KFJ@kekkonen.localdomain>
-References: <20260904134604.595685-1-pierre@pinon1.fr>
- <ap_YYNDTG7Va4MD8@kekkonen.localdomain>
- <PH3PPF7708D4D9D95D62B6929DEB21637B888B02@PH3PPF7708D4D9D.namprd11.prod.outlook.com>
- <DM4SPRMB0091FCB6C62990275CABC68F9DBF2@DM4SPRMB0091.namprd11.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wLN0wYuC"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-485888b3c3dso6741372f8f.2
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 00:14:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789024462; x=1789629262; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JcyMbgDgyo89MWk1toywy6KeNj1X5yjPwiq8FggZGfQ=;
+        b=wLN0wYuCqSBXJpo0m39jsQnlyu6HlquOn6eW7oE5BJYi9R7eVA1Xk7NTTZbZ48bjhX
+         rgFV4ljSLLKS3r/A8mcS2EpD9pYDxSp9qiqCJxivnBsjyfbNylWRBQtRL+15JEkKkPtF
+         BbYn1ICvRZpXtzigJ+D2Py76UcrkayTaRXEQaAE8VpSNUfgu57K4oILKDWvb5lM9fsoN
+         a2yU+4tDvuqjqyx10+0E1tGRYVDXRMtIZ9v9W6KorGBzdEMmy1mJoUcY9YndqCYwI544
+         UQjlN1sRrrBs/0mmaeCZ0rjicc4KMPncMRoZnBPGHfjO+xWounhD8phlSUdKhAtMHiMn
+         b5wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789024462; x=1789629262;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JcyMbgDgyo89MWk1toywy6KeNj1X5yjPwiq8FggZGfQ=;
+        b=JFAbAYSYEj0nZL2BpqsyHjAF2UFHORCtuKQ7DdpNviTPd/a5NcU+fDvs/IziOP7Ku4
+         7V2q5XsJuGaiLLY29qFkQ5O2iXKYcskxb/MbtEvMRi1MRLyJcv3n3fXsjVnCrcmaFXtF
+         ca/IEpNesLvLjxDeFKTG1tJVILFNSLhAet0mo3HSoH3u2pbSBj4wwbQR8PXRg/ckPwlB
+         w+qNOlDj50jh6+pCW8iJYWlogdpdu3LJZY7gUcSWoZNKCX7IKLJWnhcrQHEfjCcIcdoI
+         SwCZ7+3ew0S3JbKzHSOYe1koTC7sNdD7NVcf0WtiByhRVtMetCbKileDdT5Dm69WPpP2
+         7iYQ==
+X-Gm-Message-State: AFuF++mgiFq7quArYb4LfyJINd9tUNn5FZQ95P57v8PIIRNR6o17qPrn
+	Zj0obcI8ku63tk79AxEZPS48eRsgACzFUI7vwVgYegy+vCNPmULn7B74ajbIjV1u2Ew=
+X-Gm-Gg: AYBFou3iEoixG9lF8qYkZ2wwWQcSvOLZ1MvVIC3ga3QYQpN0fH+WD/obJ+y2t0IecdG
+	GmNF8EZeBtiJXKSndazMXoK0UfYEvyZOlBwDujFPGow9955/yhm531niCtK/4MS4Ltkod7p4JlN
+	CuU59O/pmnBuzHN42k4ebM+cfzsIN00UHWhyYhZ0V7BhNMao6EQvc5Ue1NUenbXgu4NU3mBVw0L
+	sZmZlM10ucifgF5IzoEr6dT+jbtcrQPAJ/eN3xgLPAi5+G1e/EwqnE54p+MoLeZi5Pg6qfgcycl
+	vdAAiQq5NgZgluMngWrqz37bB8mTBY0f073GO+XwyRrBg2uRK7kbA4JaLNMe6IewJXono0x+2hi
+	/FEP7KS/UirhOZM2yV+JSilnMSF3KOC5M/r5eFdc5Q1sNWIAOmblwpw+1BA/d6fkTQM7uekIlz4
+	/2J1abCKmI6avFSFkF87Pxj/2lTNmnxRp0zwWrR4xuqjE2GHVEe2aSLuTp8ruFZJnf1pJFY4BCD
+	FWskbvs1TZyP5wjIptxCRyLCVptfk5FGatkEhklubFe9fCXhIxwNQ==
+X-Received: by 2002:a05:6000:25c9:b0:485:ac96:7264 with SMTP id ffacd0b85a97d-485ac967432mr8582029f8f.5.1789024462022;
+        Thu, 10 Sep 2026 00:14:22 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3caf:d840:c911:29a9? ([2a01:e0a:106d:1080:3caf:d840:c911:29a9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9b49sm41176221f8f.17.2026.09.10.00.14.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 00:14:21 -0700 (PDT)
+Message-ID: <e51d62c0-7d02-4516-8f03-9d1be8c5c64b@linaro.org>
+Date: Thu, 10 Sep 2026 09:14:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM4SPRMB0091FCB6C62990275CABC68F9DBF2@DM4SPRMB0091.namprd11.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 2/2] arm64: dts: amlogic: a9: Add IR controller support
+To: xianwei.zhao@amlogic.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
+ <20260903-a9-ir-v3-2-cd471c667c15@amlogic.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260903-a9-ir-v3-2-cd471c667c15@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jimmy,
-
-On Thu, Sep 10, 2026 at 06:28:59AM +0000, Su, Jimmy wrote:
-> Hi Sakari, 
-> As I know, one of Chrome MTL project is using ov08x40 sensor. 
-> It supports "3856x2416@4 lanes linear mode" & "1928x1208@ 4 lanes linear mode".
+On 9/3/26 07:22, Xianwei Zhao via B4 Relay wrote:
+> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 > 
-> Then Linux projects support 3856x2176@ 4 lanes & 2 lanes linear mode.   
-> BTW, Some Linux projects have CV solution. 
-> From one CV vendor's feedback, 1928x1088 resolution only supports sHDR mode. 
+> Add the IR controller node for the Amlogic A9 SoC and describe the
+> corresponding remote input pin configuration.
+> 
+> Enable the IR controller on the Amlogic A9 A311Y3 BY401 board with the
+> proper pinctrl setting.
+> 
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+> ---
+>   arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts |  6 ++++++
+>   arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi             | 14 ++++++++++++++
+>   2 files changed, 20 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+> index a6b380ca47a5..389c9de3dc3c 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+> @@ -38,3 +38,9 @@ secmon_reserved: secmon@5000000 {
+>   &uart_b {
+>   	status = "okay";
+>   };
+> +
+> +&ir {
+> +	status = "okay";
+> +	pinctrl-0 = <&remote_input_ao_pins>;
+> +	pinctrl-names = "default";
+> +};
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+> index b0e0fadeed82..790109aa7c9c 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+> @@ -241,6 +241,13 @@ test_n: gpio@c0 {
+>   					#gpio-cells = <2>;
+>   					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_TEST_N<<8) 1>;
+>   				};
+> +
+> +				func-ir-in {
+> +					remote_input_ao_pins: group-remote-input-ao-pins {
+> +						pinmux = <AML_PINMUX(AMLOGIC_GPIO_D, 5, 1)>;
+> +						bias-disable;
+> +					};
+> +				};
+>   			};
+>   
+>   			gpio_ao_intc: interrupt-controller@4080 {
+> @@ -254,6 +261,13 @@ gpio_ao_intc: interrupt-controller@4080 {
+>   					394 395 396 397 398 399 400 401 402 403>;
+>   			};
+>   
+> +			ir: ir@14080 {
+> +				compatible = "amlogic,a9-ir", "amlogic,meson-s4-ir";
+> +				reg = <0x0 0x14080 0x0 0x30>;
+> +				interrupts = <GIC_SPI 413 IRQ_TYPE_EDGE_RISING>;
+> +				status = "disabled";
+> +			};
+> +
+>   			uart_b: serial@1e000 {
+>   				compatible = "amlogic,a9-uart",
+>   					     "amlogic,meson-s4-uart";
+> 
 
-But this CVS device still works in non-binned mode. Are the exact
-limitations known? Is this CVS device used in other systems?
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Staggered HDR isn't supported in upstream in any case.
-
-> But our sensor driver only supports 1928x1088@linear mode. 
-> It could have unexpected issue while this device has CVS board. 
-
-One way to address this would be to set the minimum image size to some
-larger, known to work size, for that CVS device in the CVS driver. This may
-require changes on libcamera side, too, but that's a separate issue.
-
--- 
-Kind regards,
-
-Sakari Ailus
+Thanks,
+Neil
