@@ -1,188 +1,120 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D943793BF;
-	Thu, 10 Sep 2026 03:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED95239C632
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 04:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012696; cv=none; b=BKkS30FalgQjBEQm86JbHf8Ikfb36JHdZq4cEjy5HTGpmZAv1TnO0Rqdt4256F4JSd5kVLw0Cadm7aCvGhLuZm/EkJo3QT1jb2rbZwzi/+ZP6JNUH9tZnKs5tx02mloU76ePni4paR5KhOR3QnL3e+bdS3OPPU7NHsFgVveUoAs=
+	t=1789013195; cv=none; b=mMnYfvnW8x5tUstF0QLrj3dnSvNn1QJ2zRXssKtdTZ3FNtxuOgWqhgfYEN8xo3207Gu5jknspCtHNyEPvTkAMuKPOG9RBUVZJNWlSjOeIhbaNBz/A2xCe1fI/D639CEqG8cOlNElVzA6AfTxl1H6vATEjZ9d4+0+mUd09UPdew0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012696; c=relaxed/simple;
-	bh=9ZCrTUPQ/2kHb244eHAehIrJdOn/ra7tdhDBjDzk8Y0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IpLsInFTKPrr261TGhCc+jibMKCRAhQzK+MMB4WJb1/mm3Jc0BcGiQO6j4lr6gVjCekFToVAWKq5ULEQlC45CYTqujET0kUuTlNvPHTpAiGKOPo1fiirQXegPXNHl+MAvRO4qoX0dmQBzKg1oU4+k3e0HvKsBCjTiC0nlLWdxPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:783a6890-3efb-439e-bcd4-658632ac3b45,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:d8f48e63ea9b832664a29e31d998231e,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
-X-User: liwang@kylinos.cn
-Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1146476214; Thu, 10 Sep 2026 11:58:06 +0800
-Message-ID: <9447bb67-96e9-43b3-87c8-db231051fa2d@kylinos.cn>
-Date: Thu, 10 Sep 2026 11:57:58 +0800
+	s=arc-20240116; t=1789013195; c=relaxed/simple;
+	bh=gRm8k0lA6+IZmwfDi7QHofPJ1tCqLQVpoNOipJBhfV8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IAvlpIUc7xH2CCQ+kP4spRApiW8h1dG3l28d1BXBGnJErANs5xV2+MbuUuHxDtwjQPu22bc4pyfdXFOLSZyBouz084YNFz9wqwyb0CCqjFJswnR0flPGFTw6ZMeduwT1x+grJXdjFfhdLbV8eUMx29jbf6P1VHHl7j+YB9DyQZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HLhIpnvY; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HLhIpnvY"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39b9a99469fso2566757a91.3
+        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 21:06:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789013192; x=1789617992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4T51EgZly4ibicIo5lw/2SC/Zwq/woe+QZug39a3X1M=;
+        b=HLhIpnvYzb71n28WQCBucRJ88u/CTHCRMbct+bbXyAGOplZJdIIed4sFStTIGN9wwg
+         N+XLzkhfwbnuSwYFyH3h+QQlH1cyAxv6Us2PGrydzJwFWwzvmSQbpHU+0vfEvrlriRJv
+         2w1E8VJHkDB/vuIvPtL5gkREx2n771DRev4DoWlZcdcdzG8sBeLXTmXG9zTmP1lrrbkB
+         py0GdHsyPNzWCMP4+3FIcHgNpJ85KusJ9HcGjqToca1R9ORxHP6imELNFqhe9rUQjUlV
+         ia7JRNHB6e3m4sUNolnrqw32KJ/SmS510dEeqf/RlDYY8VeMBxAnW8//JIplHuwPoBjk
+         BNig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789013192; x=1789617992;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4T51EgZly4ibicIo5lw/2SC/Zwq/woe+QZug39a3X1M=;
+        b=oBUUCv/GLNC8eXTG5QFKq6MCRMPimZDBr9F+U7Z5/kpX/6RtxLJWdbXg8qtPwxYWX2
+         jFaC1X7R7nvJyYmVGOoDvzW3NaFeMNrIPTRBDoPhctlzmvz5VOdAmYfCYiibvrG0OLtK
+         +ze/vmXuppaH5kouh+5HzYEo3NmTmj3JZnTUAZsiHYFzYQ53oCA4zf/pVHMFm+Ham31v
+         MrtdpnnlI+F0sPICQdBHEq4UZ6ZUffVDBlVkLrZGvPVkvnSEpxmAQwv2ddbc8QA7K1jq
+         1dSWVj0T9DkdrrMiXmLHQATN8d+maR2ZtNADPAcbdplzgHMzEooaXGrNmmOBr9WvgxuM
+         SMSA==
+X-Gm-Message-State: AFuF++mp+JfmuBAkD/g/HwS7JTutyj4B2qgDuns9Z3vdFvrs70pZnhUa
+	lvJ4XVenbfl2O5yQS5olnP08UlemVTMRXCujRDnxZw4WzoCCnHDeu0cH2NEdj6nxgts=
+X-Gm-Gg: AYBFou3hRyhzIMRdcR/A3tbGrtBH/bddx0N7I5eaALDgMh+MGronz6WAUFB6GPo2YZH
+	BeGWrhOacV8jTuYwKZ2pQFj8pf89Vc/hyLCyxknCOtW9C7LxQOyqxXkN+HpCXcoHVcgLglOFax5
+	neSisJk+2A3zCoTohSqaPoW+AfgQQ/Evhp/ab2llwFeKGk7mq8pVVtTZevPVM1LbVK/vJFC+MBG
+	EUYBGF+03KwFtzUVcjgk9UhI0Bln8Smjxx6BZXXocvxO9QQiSx4R7Zqs4C0Scz6qsft0NtVu1yy
+	U5ta5orTF+uzragkdMr35+ZYNez4H5ZNhs+ZbZOgdnmUfbUm7UH8Ix+x2o6ZNZH9LeHVIuhkUSg
+	JbLtPoy2PIQbZA6UkOcwhcI+PM/HkA1Gsvi9mVMH4DgOft3B7azeoNdkpv3UAmGsl9O01b7Wcl8
+	BLLeqVQ/Qb3k+O9YmqO6uNkHgBNZGhdUYgV6v6TpWIV7HPXCpLtEqooC25aDBId/LAzAqAu6SEU
+	WI=
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr59834307a91.17.1789013192044;
+        Wed, 09 Sep 2026 21:06:32 -0700 (PDT)
+Received: from ali-laptop ([128.106.179.207])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d776184fesm2902396a91.17.2026.09.09.21.06.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 21:06:30 -0700 (PDT)
+From: Syed Ali <ali.2012.asghar.cool@gmail.com>
+X-Google-Original-From: Syed Ali <syedalia1000@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	vebohr@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Syed Ali <syedalia1000@gmail.com>
+Subject: [PATCH] media: airspy: Replace deprecated V4L2_TUNER_ADC
+Date: Thu, 10 Sep 2026 12:06:12 +0800
+Message-ID: <20260910040612.23253-1-syedalia1000@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
- io_uring
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
- <2026090913-landline-encroach-c544@gregkh>
- <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
- <2026090924-corsage-shout-833d@gregkh>
- <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
-Content-Language: en-GB
-From: Li Wang <liwang@kylinos.cn>
-In-Reply-To: <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+V4L2_TUNER_ADC is the deprecated alias of V4L2_TUNER_SDR.
+Use V4L2_TUNER_SDR directly throughout the driver.
+no change of function.
+Signed-off-by: Syed Ali <syedalia1000@gmail.com>
+---
+ drivers/media/usb/airspy/airspy.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
->>>> Nor why "fgds" is the name, that's going to be hard to remember, does it
->>>> stand for something?
->>>>
->>> "FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
->>> technology enabling direct I/O between GPU memory and files on NVMe, 
->>> widely used in LLM workloads to bypass CPU overhead.
->>
->> That's nvidia's specific solution, but this works on other devices,
->> right?  Or just for that one platform?
-> 
-> That was nvidia's specific and very hacky out of tree solution 
-Exactly, I completely agree with your viewpoint. In fact, we previously conducted 
-a deep analysis of NVIDIA's GDS implementation code, which was also one of the 
-motivations for us to develop fgds.
-
-Please allow me to introduce NVIDIA's GDS implementation briefly:
-NVIDIA introduced two kernel modules: one module called nvidia-fs, and the other module 
-is a customized NVMe driver replacing the Linux kernel's default NVMe driver. 
-nvidia-fs creates a device file for every NVIDIA GPU on the machine: /dev/nvidia-fs<gpu-id>.
-
-Applications call cuFileBufRegister to register the GPU memory buffer to perform I/O. 
-cuFileBufRegister executes the following operations: calls nvidia-fs via ioctl. The 
-implementation of this ioctl allocates a corresponding phony buffer of the same size 
-in the host memory, and establishes a mapping between the CPU memory phony buffer 
-and the GPU memory buffer.
-
-Then, the application calls cuFileRead/cuFileWrite to perform file I/O operations. 
-Its implementation calls ioctl on nvidia-fs with NVFS_IOCTL_READ/NVFS_IOCTL_WRITE 
-as parameters. Inside the ioctl implementation, it calls the common kernel interface 
-filp->f_op->read_iter/write_iter() on the file on NVME. These interfaces can only take 
-the CPU memory phony buffer address as a input, constructing read/write requests sent 
-through the block layer to the customized NVMe driver.
-
-The customized NVMe driver intercepts the I/O operations, calls the nvidia-fs interface to 
-query, replaces the phony buffer address with the GPU memory dma address, and performs 
-DMA transfer between GPU memory and NVMe.
-
-As we can see, this implementation is indeed very hacky and non-elegant. Furthermore, 
-as evaluated in this paper published in SC'25 [1], the phony buffer brings a considerable 
-performance overhead.
-
-> which as far as I know is pretty much abandoned everywhere.
-However, despite the overhead of phony buffers, GDS performance is still significantly higher 
-than transferring through CPU host memory (as shown in our performance benchmark tests [2]). 
-Therefore, GDS is actually still widely used in the LLM ecosystem. For instance, model loading 
-plugins used in inference engines like vLLM and SGLang—such as fastsafetensors and InstantTensor—
-both support acceleration via GDS [3,4], with fastsafetensors enabling GDS by default for model loading. 
-Furthermore, LMCache, a plugin used for KV cache offloading in vLLM and SGLang, also supports 
-GDS acceleration [5]. PyTorch itself also provides file access APIs based on GDS [6].
-
-> 
-> AMD came up with something similar, but all those approaches are so fundamentally broken that we didn't even considered upstreaming it.
->> And you are using this as a "bypass" for the normal accel subsystem,
->> shouldn't this be part of that subsystem instead of a custom user/kernel
->> api like you are creating here?
-> 
-> As far as I know there is a patch set under review and even already partially merged which enables exactly that functionality as general feature for DMA-buf which is vendor independent and should at least in theory work with all drivers.
-> 
-> I'm really surprised that somebody is still working on the vendor specific stuff.
-As you pointed out, every vendor has been inventing their own way and interfaces to support GDS, 
-introducing custom kernel modules and proprietary UAPI interfaces, with varying performance that 
-leaves developers heavily frustrated. Apologies for not making this clear enough in our commit 
-messages, which understandably caused some confusion. We merely borrowed the name "GDS" to describe 
-the functional purpose of fgds.
-
-In fact, we believe fgds offers four key advantages: 
-(1) GPU platform independence; 
-(2) POSIX/io_uring interface compatibility;
-(3) Higher performance than GDS;
-(4) Minimal kernel footprint and UAPI footprint
-
-Regarding (1), (2), and (3), please allow me to briefly explain the design mechanism of fgds:
-fgds turns a GPU memory buffer into a POSIX/io_uring-compatible user-space virtual address via 
-three main steps:
-
-Step 1: Utilizing ZONE_DEVICE support, we remap the GPU memory exposed via PCIe BAR into struct pages 
-using devm_memremap_pages();
-
-Step 2: Utilizing dma-buf support, the GPU memory buffer is exported as a dma-buf file descriptor (fd). 
-Using this fd as a bridge, we look up the corresponding DMA addresses for the GPU memory buffer inside 
-the kernel;
-
-Step 3: Through mmap, we insert the struct pages corresponding to the GPU memory buffer into the userspace 
-VMA, mapping their physical/DMA addresses directly. The virtual address returned by mmap can then be directly 
-passed into standard POSIX or io_uring interfaces.
-
-As you can see, since almost all major GPU vendors support exporting GPU memory buffers via dma-buf, 
-all remaining technical dependencies of fgds rely on standard Linux kernel infrastructure. Therefore, 
-fgds is completely vendor-agnostic and natively compatible with POSIX/io_uring without introducing any proprietary 
-vendor interfaces, which greatly simplifies development, deployment, operations and unifies standard usage. 
-Furthermore, because this technique completely eliminates the phony buffer, its performance is significantly 
-better than NVIDIA's GDS (as shown in our benchmarks [2]).
-
-In addition, since fgds uses only the most fundamental dma-buf mechanisms, it relies on baseline dma-buf features 
-that have been supported in the upstream kernel for a long time, rather than any new dma-buf features currently 
-under active development. In fact, before we recently ported fgds to the latest kernel tree, it was developed 
-and ran on our internal 6.6 kernel. It has been running stably in our production clusters for over half a year 
-across various hardware platforms (including NVIDIA, AMD, and several other vendors) without requiring a single 
-line of GPU-platform-specific fgds code modification.
-
-Regarding (4): We believe that implementing GDS-like functionality inherently requires kernel assistance to map 
-the GPU memory buffer to a valid userspace virtual address. This inevitably requires userspace-kernel interaction. 
-To the best of our knowledge, the mainline kernel currently lacks a dedicated, unified path for this specific interaction, 
-which is why various vendors ended up writing their own out-of-tree interfaces. In contrast, fgds introduces 
-only one single new ioctl parameter (REG_BUFFER, excluding UNREG_BUFFER), and confines its scope strictly to a 
-standalone device driver. We believe this achieves a minimal kernel footprint and minimal UAPI addition.
-
-[1] https://dl.acm.org/doi/10.1145/3712285.3759862
-[2] https://github.com/Storage-and-OS-for-AI/fgds
-[3] https://github.com/foundation-model-stack/fastsafetensors/blob/main/docs/configuration.md
-[4] https://github.com/scitix/InstantTensor/blob/main/csrc/loader_io_cufile.cpp
-[5] https://github.com/LMCache/LMCache/blob/dev/lmcache/v1/storage_backend/gds_backend.py
-[6] https://docs.pytorch.org/docs/2.14/generated/torch.cuda.gds.GdsFile.html
-
-Thanks,
-Li Wang> Regards,
-> Christian.
-> 
->>
->> thanks,
->>
->> greg k-h
+diff --git a/drivers/media/usb/airspy/airspy.c b/drivers/media/usb/airspy/airspy.c
+index 358a66ab8e48..85587c0fbadf 100644
+--- a/drivers/media/usb/airspy/airspy.c
++++ b/drivers/media/usb/airspy/airspy.c
+@@ -50,7 +50,7 @@ enum {
+ static const struct v4l2_frequency_band bands[] = {
+ 	{
+ 		.tuner = 0,
+-		.type = V4L2_TUNER_ADC,
++		.type = V4L2_TUNER_SDR,
+ 		.index = 0,
+ 		.capability = V4L2_TUNER_CAP_1HZ | V4L2_TUNER_CAP_FREQ_BANDS,
+ 		.rangelow   = 20000000,
+@@ -713,7 +713,7 @@ static int airspy_g_tuner(struct file *file, void *priv, struct v4l2_tuner *v)
+ 
+ 	if (v->index == 0) {
+ 		strscpy(v->name, "AirSpy ADC", sizeof(v->name));
+-		v->type = V4L2_TUNER_ADC;
++		v->type = V4L2_TUNER_SDR;
+ 		v->capability = V4L2_TUNER_CAP_1HZ | V4L2_TUNER_CAP_FREQ_BANDS;
+ 		v->rangelow  = bands[0].rangelow;
+ 		v->rangehigh = bands[0].rangehigh;
+@@ -739,7 +739,7 @@ static int airspy_g_frequency(struct file *file, void *priv,
+ 	int ret;
+ 
+ 	if (f->tuner == 0) {
+-		f->type = V4L2_TUNER_ADC;
++		f->type = V4L2_TUNER_SDR;
+ 		f->frequency = s->f_adc;
+ 		dev_dbg(s->dev, "ADC frequency=%u Hz\n", s->f_adc);
+ 		ret = 0;
+-- 
+2.55.0
 
