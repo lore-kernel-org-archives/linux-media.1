@@ -1,120 +1,114 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234703ACA60;
-	Thu, 10 Sep 2026 07:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB283C945A;
+	Thu, 10 Sep 2026 07:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024689; cv=none; b=oRRAa5Y9+TBvgsshATahwdzEswJ/qxigCUsuZDGkdJnBcfTsG57wO2CWIBjYxCfH27yRzrzOurbMazimWdaErFc1ngJ+U5YEgP6bg+aJjpLYwsZy7oQ2Cwk5Uomwm59PdtExLLOk2+NLxeaAIfr9J+jcAHFsLCKg3xSG4Lqhf6M=
+	t=1789024923; cv=none; b=r32IaPshRVTDt235PWy5nAtzemoTVwqMckWYR2G/mgJk9eTGM73mta81bTYisO/XyZgAfvflLNlzvCSh1D/WNy0YySt2Tp9Vx77jEOIP/9oBjVVQeAVex+FO783AonBsrKnz0sMJ5J9AFAzEBnXX5X7LPkNjqHMHpWY0cn8hG3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024689; c=relaxed/simple;
-	bh=+1zmxJeDmDJwzvkVkV4IGrkUV2Tvu3F2l7ySW6LsSfM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=loDQGTodX4+26xLFotYJgbP6KdgxmUtuftYAYaLHcosjU059MsM9+enTXY6Evt5g64GNwnWplY5/34Fe4vA1uOegfeVFI3DpnQJYJ4OmXzypNfccuu+aGPOgCFIde+C30SPJA+s+RYIpNXbAiWmpdrk1vuPD0d1LjgM/sK9vehI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=eP4juDlS; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789024923; c=relaxed/simple;
+	bh=rRmLKo9/YgoHQSBeZM/OKHlc7x2H88moFKuFpc1Bqwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oiZWZmdeMqIZOxDZNiiU8uRxYwk56d9L2HxtMKvMy46TAwudJZr7RbZ0FPRaiUB94p5a6MzX0UpufENlgBYvV2P8i/sBBdDImWjxsgzDbZGBSkUnUPg5sY+IYO5fX+Xh6Gs4ozj5Bh9UaHnN2QUQXshGQXTG2iBZxcOeVWcrMes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ntfdPzs9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="eP4juDlS"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hgTXq43H6zKmTw;
-	Thu, 10 Sep 2026 09:18:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789024683; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+1zmxJeDmDJwzvkVkV4IGrkUV2Tvu3F2l7ySW6LsSfM=;
-	b=eP4juDlSsvCuXMaXLGytbVmZ6JcVeKrubgNxhlKyr5reEV21lnav3VSPMXhaKzgUcnCUcC
-	SrgeWXlRbg6WNAFMFLlb9otubfpC+ObHIZ0RccuhZGfnXGAbWn4uds8E2XxtFpBcbFIUFW
-	niKa7LuWo5K3vYN2mgtjJcqhJIfJJjfwQWzgkB4jqTJXqg2dwWsYozwopCib5HnhYV/K1X
-	gQaadJVqcRNUCrTC59OtScxG/DaVG18elmEz9PO2LVdA9DR/RgZD5wRGqILDstjJ4VbHgF
-	gCNsYVXTmYrr3SWm/lF0lkNWXjHLgdCsNzA3yPSdmLqiOV+AXxG1hfX9vrThjQ==
-Message-ID: <514c6865ede98be45b4a628049ae950b519e0b23.camel@mailbox.org>
-Subject: Re: [PATCH drm-rust-next] rust: dma_fence: gate abstractions on
- CONFIG_DMA_SHARED_BUFFER
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Edwin Peer <epeer@nvidia.com>, dakr@kernel.org, aliceryhl@google.com, 
-	phasta@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: jhubbard@nvidia.com, rust-for-linux@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 09:17:59 +0200
-In-Reply-To: <20260909202327.33285-1-epeer@nvidia.com>
-References: <20260909202327.33285-1-epeer@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ntfdPzs9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE35E1F000FF;
+	Thu, 10 Sep 2026 07:21:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789024921;
+	bh=DnBf1HbHap733x3IxD/CH2nO9ibXQfvh68wZr7MEKEk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ntfdPzs92az/FrLSRYER+tJYZDlutnj9QoDzY9V2qeYvL2ELW/vV1dxE0r7LEwK5h
+	 kJ5s6/ImHs4zEb+CQWb909C5ho1vb1Zf9Tj6eSJyASwjXBgQ4vYKeX1tAja7nA3DtG
+	 7N+VsJ///2QkQIzPUaJ++4beVOH49qsHCIOiq0bRjWwrHgMSaboYXHRQVxsZ//Ua4U
+	 zGecndOkvpscBFJ8oRUvNfSy1J6N8CtQL5xBM+yDfzZaQE6ejx6uvy2MCOPKfShe2m
+	 j2WYpl4/s7YfrkFsywIBz68FUcC1SLiNnINIquxng+mopALmxcrrJNZxNz78kYNWcV
+	 Tp72FsNJSwKGA==
+Date: Thu, 10 Sep 2026 09:21:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v17 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+Message-ID: <20260910-enlightened-charming-antelope-a812da@quoll>
+References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
+ <20260903-x1e-csi2-phy-v17-1-26606fa9a039@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: faztazzf75br86cbck75geih8jrxjyxi
-X-MBO-RS-ID: 5cd1705c7d2ed4d554d
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-x1e-csi2-phy-v17-1-26606fa9a039@linaro.org>
 
-On Wed, 2026-09-09 at 13:23 -0700, Edwin Peer wrote:
-> The dma_fence abstractions added by commit 3282d5916019 ("rust: Add
-> dma_fence abstractions") are compiled unconditionally, but the C
-> `dma_fence_*` symbols they reference live in
-> drivers/dma-buf/dma-fence.c, which is only built when
-> CONFIG_DMA_SHARED_BUFFER=3Dy. Kernels with CONFIG_RUST=3Dy and
-> CONFIG_RUST_KERNEL_DOCTESTS=3Dy but CONFIG_DMA_SHARED_BUFFER=3Dn fail
-> to link:
->=20
-> =C2=A0 ld.lld: error: undefined symbol: dma_fence_release
-> =C2=A0 >>> referenced by usercopy_64.c
-> =C2=A0 >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 vmlinux.o:(rust_helper_dma_fence_put)
-> =C2=A0 ... dma_fence_signal{,_locked}, dma_fence_context_alloc,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_fence_init, dma_fence_{add,remove}_cal=
-lback ...
->=20
-> Wrap the dma_fence.c helper include in the same
-> `pub mod dma_buf;` in rust/kernel/lib.rs with a matching #[cfg].
+On Thu, Sep 03, 2026 at 09:44:33PM +0100, Bryan O'Donoghue wrote:
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  minimum: 1
+> +                  maximum: 4
+> +                description:
+> +                  Data lane positions following this endpoint's clock
+> +                  lane. Positions are a per-port logical numbering, not
+> +                  package pad or ball positions.
+> +
+> +            required:
+> +              - data-lanes
+> +              - remote-endpoint
+> +
+> +        allOf:
+> +          - if:
+> +              required:
+> +                - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
+> +                    data-lanes:
+> +                      maxItems: 2
+> +                endpoint@1:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 3
+> +                    data-lanes:
+> +                      items:
+> +                        - const: 4
+> +              required:
+> +                - endpoint@0
+> +            else:
+> +              patternProperties:
+> +                "^endpoint(@0)?$":
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
 
-Oh dear, yes. Sorry about that, thx for fixing!
+So endpoint@0 has a fixed clock-lanes? Then the property is redundant
+and you can completely drop it.
 
->=20
-> Fixes: 3282d5916019 ("rust: Add dma_fence abstractions")
-> Signed-off-by: Edwin Peer <epeer@nvidia.com>
-> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Output to the CAMSS CSID controller.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
 
-Reviewed-by: Philipp Stanner <phasta@kernel.org>
+Best regards,
+Krzysztof
 
-> ---
-> =C2=A0rust/helpers/helpers.c | 2 +-
-> =C2=A0rust/kernel/lib.rs=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
-> =C2=A02 files changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-> index 609689fba3dd..2c5eecc091c4 100644
-> --- a/rust/helpers/helpers.c
-> +++ b/rust/helpers/helpers.c
-> @@ -57,8 +57,8 @@
-> =C2=A0#include "cred.c"
-> =C2=A0#include "device.c"
-> =C2=A0#include "dma.c"
-> -#include "dma_fence.c"
-> =C2=A0#ifdef CONFIG_DMA_SHARED_BUFFER
-> +#include "dma_fence.c"
-> =C2=A0#include "dma-resv.c"
-> =C2=A0#endif
-> =C2=A0#include "drm.c"
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 72f5527ba66c..f9ef36217bb5 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -67,6 +67,7 @@
-> =C2=A0pub mod device_id;
-> =C2=A0pub mod devres;
-> =C2=A0pub mod dma;
-> +#[cfg(CONFIG_DMA_SHARED_BUFFER)]
-> =C2=A0pub mod dma_buf;
-> =C2=A0pub mod driver;
-> =C2=A0#[cfg(CONFIG_DRM =3D "y")]
