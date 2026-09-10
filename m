@@ -1,137 +1,92 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.166])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FD83E1D11
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 08:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B36041DE1B
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 09:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030602; cv=none; b=dD3Iw0c59bknQqJr5NFnZC8UtPeLDY4+Y0WkNCvturixHFhqxTKaBOFWo903UUejNfKy82XfwFiAZwLNBxDP/98aLixEL5BATNAMKkbmkTX3nZWCwsjh84IlVOXaHvcz3gkgvmBL/OeTzXPYhrNks2G8E9zBYPm/I4NB5dYZn+g=
+	t=1789030932; cv=none; b=OtFdT3AUmd3PnuOnGkOEqIOi6/LDKqYm7DRkzG3VdgSerrdm6p7oYQqmvij5jOTUONF5vz++6gbqciyqNNC6t/1SKjlNdXnhLRfXm9+CcorMQHmeQ+hkMOTmMjdF9Rs68u5zr8yCf4Km1FF/JxVhDXqOEyRCdXfoZj2tDaUL/L4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030602; c=relaxed/simple;
-	bh=sOnA8vUhUeCMkhdFGl1DJZLapTonfReeGFP2qElydcQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gu6cqGOooUq5pRqzxaUZoYfFnh+DInnxB3ol1bi/OCW91Ndwb87BEqSD2Y1cwB9WLjGlEUKeyIL7A7yqK8FPyu2ciZLYr0ACVEiqcnr7N2+9FrQsDzWKYstDqZZ2BqtE3F7SmEGt2xBDnAsOjloFYDk1R/d0HngJcA1lFcOJpLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=SjpW5xzi; arc=none smtp.client-ip=188.68.63.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789030932; c=relaxed/simple;
+	bh=UVty33KuRDaqvIDIdynCC+zw/6vUWvYun/F63e7Btqs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hmx9BNksmCC2hGG1K/g3h7GKyLAXFGJOwn9f7lHlGxSzEQ3vwu41Zt99bvfVcEgznFDRgaHq7S6ATcaUskNc9GTfgcMbj777AyqBshHHFWYvRTLvk/lQupp8kYaQq/tBF3uTthXh7nBbXi0zu13c7afU6SFtNh6+MQDjipPvFBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e+K+yF9I; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="SjpW5xzi"
-Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hgWkR69f6z4F2q;
-	Thu, 10 Sep 2026 10:56:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789030591;
-	bh=sOnA8vUhUeCMkhdFGl1DJZLapTonfReeGFP2qElydcQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SjpW5xziWoe97Q/2HYy0AFApDvcLXQUpAYaTyaVkFfnyvmmZDDOr5ytxZj/QSGhQ+
-	 xu5RDDjnk1P+SqdbtrFLH9egeyxhV2orbvbsm3+0WHf3k2tqrc4guvawFDVIhS2STe
-	 9IAsWoLFfMSxIdbOf7RF0ZSObV2uuRibbh8SXGURQOZESZ5z42s86dc0WWaMZBS3tU
-	 TtzqW0xrzlg5oPk4q0e8oTyhplxHjsm2WUjFS6NnPSWy+fi34zpb1W1gaHPXRSrbIt
-	 M1ffB2DrGLM4Zqg1pJcbguX9GnG1WGbmyGbPpBlMwzBvvX1gz9GB4dvqIfOJCn/F5N
-	 pK8z4UC5gZUig==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hgWkR5SQnz4F2j;
-	Thu, 10 Sep 2026 10:56:31 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hgWkQ0MWNz8tcG;
-	Thu, 10 Sep 2026 10:56:29 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 37AE3604A4;
-	Thu, 10 Sep 2026 10:56:29 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <e8fd955b-fadc-497a-899b-a13502f0d7f0@leemhuis.info>
-Date: Thu, 10 Sep 2026 10:56:27 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e+K+yF9I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789030930; x=1820566930;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UVty33KuRDaqvIDIdynCC+zw/6vUWvYun/F63e7Btqs=;
+  b=e+K+yF9ItLK9dcuh2ymufK2VCJzUA64szZmT5lqRwwB1wbemi9GyLno5
+   d69fhYyc07E3qKTC8idW9WPFdIAk6YWUDvpbFdtMLKayiZb+xPMCuplwR
+   8Sel2jPboHuFG0unCZ9QI0J+bNnx69cZNwGQM6I5i3tPmUCVkvnbdpBH5
+   uT4SFm2jTJhw5LBmHKsBNxPqg7nHxzBnn0LZVm30AlXK1hPp5oDNgDebv
+   OvP5YKwCwdFsTBcfjBqm92vaWy7Ms8WsqLOJQ19XCZi7m66IW0qb6XRvb
+   Pff7D0ytOuwm7sw8Ml6trnhNBV3DM7MjSrXMzi5BxvE3JfHffUE94cyg1
+   w==;
+X-CSE-ConnectionGUID: bujvNQ69SxSMmiFcACN7WQ==
+X-CSE-MsgGUID: PzCf0ulfSQGJay9lAVj9Ug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100640553"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="100640553"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:02:09 -0700
+X-CSE-ConnectionGUID: KwU74YopThmAZzFMZkLAQA==
+X-CSE-MsgGUID: HytUO8GxTVmiRgHZJ6NUqQ==
+X-ExtLoop1: 1
+Received: from akmishra-mobl2.amr.corp.intel.com (HELO alaakso-desk) ([10.125.111.195])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:02:06 -0700
+Date: Thu, 10 Sep 2026 12:02:02 +0300
+From: Antti Laakso <antti.laakso@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Sapre, Sarang" <sarang.sapre@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, Matthew Wilcox <willy@infradead.org>
+Subject: Re: [PATCH] media: ipu6: Fix up missing IWYU issue
+Message-ID: <aqJyCjpgmIzKDEw4@alaakso-desk>
+References: <20260908204956.864759-1-broonie@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] media: ipu-bridge: IVSC camera no longer probes
- since v7.2 (CVS fallback returns the IVSC platform device)
-To: Martin Jeanne <martin@badakan.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>, Lixu Zhang <lixu.zhang@intel.com>
-References: <2f8b67fc-ec2a-46f6-9ee0-06279e612bde@badakan.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <2f8b67fc-ec2a-46f6-9ee0-06279e612bde@badakan.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178903058958.1248381.874113805323937067@mxe9fb.netcup.net>
-X-NC-CID: /mRrwx+uvQBMiAclwn9H/0XOoBNOYPcPqDDaD6Mm99k42HfPMy0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908204956.864759-1-broonie@kernel.org>
 
-On 9/10/26 10:41, Martin Jeanne wrote:
+On Tue, Sep 08, 2026 at 09:49:56PM +0100, Mark Brown wrote:
+> In -next:
 > 
-> Since v7.2 the built-in camera of my Dell XPS 14 9440 (Meteor Lake, IPU6
-> [8086:7d19], ov02c10 sensor behind an IVSC, ACPI INTC10CF) is no longer
-> detected. v7.1.9 works, 7.2.3 (Arch Linux distro kernel) does not, on
-> every boot.
+> /tmp/next/build/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c:229:3: error: call to undeclared function 'clflush_cache_range'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+>   229 |                 clflush_cache_range(cpu_mapped_buf, size);
+>       |                 ^
 > 
-> The only change to this path between v7.1 and v7.2 is
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu7-fw-isys.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
-
-Thanks for the report. Have you seen or maybe even tried applying
-"media: ipu-bridge: do not use the CVS device lookup for IVSC", which
-fixes a problem with the commit you mentioned and sounds somewhat
-related to my (but I only looked briefly):
-https://lore.kernel.org/all/20260902211524.5572-1-gvozdoder@gmail.com/
-
-Ciao, Thorsten
-> Before it, ipu_bridge_get_ivsc_csi_dev() returned NULL when the IVSC
-> platform device existed but its MEI CSI child had not been enumerated yet,
-> so ipu_bridge_init() failed with -ENODEV and the IPU6 driver deferred probe
-> and retried later. v7.1.9 log:
+> diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> index f821ec5f55b26..aee9227fd66c3 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> @@ -4,6 +4,7 @@
+>   */
+>  
+>  #include <linux/cleanup.h>
+> +#include <linux/cacheflush.h>
+>  
+>  #include "ipu6-bus.h"
+>  #include "ipu6-dma.h"
+> -- 
+> 2.47.3
 > 
-> intel_vsc intel_vsc: silicon stepping version is 0:2
-> pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init 
-> failed
-> pci 0000:00:05.0: Found supported sensor OVTI02C1:00
-> ov02c10 i2c-OVTI02C1:00: supply dovdd not found, using dummy regulator
-> 
-> With the commit, that case now falls through to the CVS fallback:
-> 
-> /* Fallback to platform bus for CVS device */
-> return bus_find_device_by_acpi_dev(&platform_bus_type, adev);
-> 
-> Here the IVSC ACPI device is itself on the platform bus
-> (/sys/bus/platform/devices/INTC10CF:00), so the fallback returns it, the
-> bridge takes it for the CSI device and succeeds immediately, and the
-> software nodes end up on the wrong device. When mei_csi probes ten seconds
-> later it has no fwnode and fails hard. 7.2.3 log:
-> 
-> intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-> intel-ipu6 0000:00:05.0: Connected 1 cameras
-> intel_vsc intel_vsc: silicon stepping version is 0:2
-> ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed 
-> without device fwnode!
-> mei intel_vsc-5db76cf6-0a68-4ed6-9b78-0361635e2447: deferred probe 
-> pending: (reason unknown)
-> 
-> No i2c-OVTI02C1:00 device is created and libcamera reports "No sensor found
-> for /dev/media0". The function is unchanged in linux-7.2.y and in master.
-> 
-> I think the CVS fallback should only be taken when no IVSC platform device
-> exists at all: when one is found but its MEI CSI child is missing, keep
-> returning NULL so the IPU driver defers as before.
-> 
-> Happy to test patches.
-> 
-> #regzbot introduced: c6b1b34b5090
-> 
-> Martin Jeanne
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 
