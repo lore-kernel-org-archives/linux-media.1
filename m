@@ -1,220 +1,172 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD4D475342
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 15:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA294A2070;
+	Thu, 10 Sep 2026 15:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052559; cv=none; b=Ef7A1ruQ6z2CIqdQhnRd5NxmjIWxVd6r7MDmyVHcwiUCG9P15Jm37wtTQWOZ6foZaMor3D+mWNxFstcZPTGVgiyGPvg079N9MUjopdg+1mBuR0xjspXgBc7WbLneZRlqSu3pGe4VpP03J4OxKQKcpyoazNomv0JraXG/hCBcbHs=
+	t=1789052703; cv=none; b=RaiVSW8GOueflogUAtC3KWpNKZzfMvdDZqOdUQ8sjuacAXUPJLLg3XMU04NF4zWBkM8kCZbb9Yr09yCQbMOhV9w5KD2mmjEBO/GFceAxnD6GuXJnbu64CbpDA/dRUlYsjBwOMtt/aOD/Lbnfzz8SXXEo9x3h/ZSsxXBULDPa4Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052559; c=relaxed/simple;
-	bh=hoSswXVWLVu8GkcK34DAUODiccHHAek8ONdPjlGXrBw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QsedLTmPVTUARZFBu1CbVwPB13AByv3b0HiS8xPaHdlOpE9BFX+uHfk1bZ8pE3M7PBf0QiiM4ChzvGiCT1YC0l48FQbD77mtpKGljSiY0Rs5r8Eg1KkO/gFfvDn/7b81z02xeQSSAVGMLFaYAlky3ZWrxx2tOpQJgH46fRhop9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=4psBFswk; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789052703; c=relaxed/simple;
+	bh=dNV3aSQcFt34AeVZJe+EqTeTysO5AcNaMzAJeC3+ev0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f0yGAq2Wlv+buljottuF2C5HE4tmjM9bbZtssYJZ0yMTj1bR3k+RUC2/As+P74Dz6KyrP/re2+7zJ/I+FHuunNmLSGa7+nuvyMmomDZMW/HwtW4GRc6eHPij6HHb5GUr1PE2vgrqmHeMKdwdUedPMniLq4GsQujacE1NZ0OPGLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=PRpm+L73; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="4psBFswk"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6249b76a8so2599786a12.2
-        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 08:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789052555; x=1789657355; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k/FP+/J1r8J6TVzr3mtFdJoEGOGhci033fWlcw7cdVw=;
-        b=4psBFswk02XhtP/PYlzmRgAQF8EzZBose+n2ouRt+AUcwIndzz/zgCj12PBoJpWGHq
-         Iu8PfmQfdzQOwA1jWLjpGeXy3WGJX0XZf1C1PZQ0/C0T9HctcEF7FYCj5y2dSMJE4xyb
-         Y+zogHYtmLvyzYif+CtHafFQMdDLzPQABuOijQNLOtQZdVAGnXzz/6rL+yDnHpUgc9xG
-         N/Av5/E+0+wrGhqJpCwR7mnmMqpFi3iCBoH0YiAjtBtWLzo+Ovo7hoSWKSJHnaERNVMH
-         6YHn1atNFVpXk66KS2VSkpTpoUz6e89TBp35nlxbgwsOwoC1C1UqP1P1Z1b7/g7gfWL/
-         Dsfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789052555; x=1789657355;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k/FP+/J1r8J6TVzr3mtFdJoEGOGhci033fWlcw7cdVw=;
-        b=R11IbxFra4txFgah1pYwFvyFnJkD9QicIGrdYeHLDZ7qTZa0IjvJ5Rupd+Zpa6pKu0
-         Cd3ACbnkbbWUBKrYCAOj0nmxa2vLrgeWMhYFz8yHC+LUroInQKwrm+/bqMsVsoTL9MTJ
-         t9BO3/4prejNYnGOh0gCiD+sKenWsrgygyMQ+h7V9k4NYlzXFnuAU/8BUupg9cRvJjw4
-         cUVE58e/nUHBkcltJPJhC+oGygN6Vcok4QKQuzHEVoK67ZQdvU/O0+uoETWfXXdOOUeS
-         mFZaG6t795pv7IP5YhpELrXwVIs+i50d4Sesm6/wVzVAJOs0hT3/TCqGGNLmeRfrHA2L
-         BcGw==
-X-Gm-Message-State: AFuF++ms2oYXkvWnc4H3Nmuk4+1VKT66+LYVitt4UsDMF7opwC1Jwd+/
-	pz5FIK/GZpjzR04c4MTG4/ymhsAOoA4NNQ2OckuTMv3KzdrGnnfIMNgG6secFIW4JVtJHWKKMmq
-	Wm08k/JM=
-X-Gm-Gg: AYBFou3mNTgHDpi/VgR5tfzFWJZ1fgLn6zPR+S7h4sGpAuMrgsHVt0stEOoOPXIX2Ld
-	R+p+NExLR9wMOzJMA7P4/tKC1E6ojxze++MYA3cqnWqrwPuTDfWojMuUlFgtipuKBhZhNavCEoS
-	z7xLe16OYmLGvMX16EaIL4d9vmj4/pncOPqORU3+qKP83R/NnvUKGNOEyw9+XbQwRTmQWWGSYJj
-	VbQsDYDE2kVHK9cNE0a+3TRkisPWxNoUzJQW7OvNfM8oAVTzWz4kw1TU/YWBmU7sjbe+kH0cJLK
-	IbeXTj7h/P30M4a5UF9uevGa06UBdPkNBVDWUTAIUGUhVccTEDNIG12NHZh7G5NE/9FfktmKaRw
-	Bj2tPNe8mMQy8Wv4dBIIRI+V3CKYpOSSqcGRIWeA7Q/oZgX3o6MJVN5okY6anYuFr2mkeQmx4lE
-	9pffzsLWctf4bqpIWguDMK0Yab5NtbGbDBBkBvn6MPBJbEnzWF332wqZsJ2IL14suaAhdajQ4FP
-	lu/z453WG7Egkmf+Oa20VuLf/ItrD/ikS8HySbPyfTpGC9QIJoxlF5CRS5ec8tRBxo=
-X-Received: by 2002:a05:6402:4496:b0:6a6:c4b:c92f with SMTP id 4fb4d7f45d1cf-6a99caa4ab3mr3245892a12.9.1789052059555;
-        Thu, 10 Sep 2026 07:54:19 -0700 (PDT)
-Received: from [172.16.240.55] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm8849715a12.30.2026.09.10.07.54.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:54:19 -0700 (PDT)
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Date: Thu, 10 Sep 2026 16:54:16 +0200
-Subject: [PATCH 1/3] dt-bindings: media: i2c: dw9800: Redocument DW9800K
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PRpm+L73"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9CD5022B;
+	Thu, 10 Sep 2026 17:03:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789052598;
+	bh=dNV3aSQcFt34AeVZJe+EqTeTysO5AcNaMzAJeC3+ev0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PRpm+L73T/S67lGfoKdH6zmIGw0sDpPp1iLwaLlCa5MOB6fPetg9MemEooFevTVUA
+	 PDhSicpfYG0pnpyL9cClurfEJf9wqN92a+atfq/xoWnb/r4U6ltAbjf5GuSZxuw5CS
+	 dJZ4sum1gklyuK/vBr+0XQEin6CwgM2HKz+DrucU=
+Date: Thu, 10 Sep 2026 18:04:54 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Dave Stevenson <dave.stevenson@raspberrypi.org>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [PATCH v3 6/9] media: videobuf2: Allow exporting of a struct
+ dmabuf
+Message-ID: <20260910150454.GP1892234@killaraus.ideasonboard.com>
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
+ <20260717-b4-vchiq-isp-v3-6-fb8235e15c68@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-b4-dw9800k_cleanup-v1-1-608255ea61ab@fairphone.com>
-References: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
-In-Reply-To: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789052058; l=4019;
- i=griffin.kroah@fairphone.com; s=20260910; h=from:subject:message-id;
- bh=hoSswXVWLVu8GkcK34DAUODiccHHAek8ONdPjlGXrBw=;
- b=mK9NBTDF9vNQff5ArJEJnZs0qmDIcE1+GHUJCkp4/mfoWcQARvlLym2h7RHwXkoU/KN+/hI0Q
- E+U5wCvToxDBDd8BKydh9zjhrjYkWkbWhsx77cn7VwX68fvfo8vz1PZ
-X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260717-b4-vchiq-isp-v3-6-fb8235e15c68@ideasonboard.com>
 
-The DW9800K's properties are too different to justify sharing the same
-bindings file as the dw9719, Create a separate bindings documentation
-for the Dongwoon Anatech DW9800K with it's updated properties.
+(CC'ing Hans)
 
-Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
----
- .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
- .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
- 2 files changed, 91 insertions(+), 1 deletion(-)
+Tomasz, Hans, could you review this patch ? It is the only one in the
+series that touches the V4L2 core.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-index 8e8d62436e0d..38db0764c0f7 100644
---- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-@@ -21,7 +21,6 @@ properties:
-       - dongwoon,dw9718s
-       - dongwoon,dw9719
-       - dongwoon,dw9761
--      - dongwoon,dw9800k
- 
-   reg:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-new file mode 100644
-index 000000000000..046c0a88bcef
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-@@ -0,0 +1,91 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
-+
-+maintainers:
-+  - Luca Weiss <luca.weiss@fairphone.com>
-+  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-+
-+description:
-+  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
-+  +-130 mA output current sink capability, designed for linear control of
-+  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
-+  provides a Smart Actuator Control (SAC) mode intended for minimizing
-+  mechanical vibration.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - dongwoon,dw9800k
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: VDD power supply, can range from 2.3V to 4.8V
-+
-+  dongwoon,sac-mode:
-+    description: >
-+      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
-+      SAC2-SAC5 (Smart Actuator Control).
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # Direct mode
-+      - 1 # LSC mode
-+      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
-+      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
-+      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
-+      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
-+    default: 3
-+
-+  dongwoon,clock-presc:
-+    description:
-+      Indication of VCM internal clock dividing rate select, as one multiple
-+      factor to calculate VCM ring periodic time Tvib.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 #  Dividing Rate -  2
-+      - 1 #  Dividing Rate -  1
-+      - 2 #  Dividing Rate -  1/2
-+      - 3 #  Dividing Rate -  1/4
-+      - 4 #  Dividing Rate -  8
-+      - 5 #  Dividing Rate -  4
-+    default: 1
-+
-+  dongwoon,timing-control:
-+    description:
-+      In LSC mode (252 + value * 4) * divider value in microseconds
-+      In SAC mode (6.3 + value * 0.1) * divider value in milliseconds
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0x00
-+    maximum: 0x3f
-+    default: 0x20
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        actuator@c {
-+            compatible = "dongwoon,dw9800k";
-+            reg = <0x0c>;
-+
-+            vdd-supply = <&pm8937_l17>;
-+
-+            dongwoon,sac-mode = <4>;
-+            dongwoon,clock-presc = <0>;
-+            dongwoon,timing-control = <16>;
-+        };
-+    };
+On Fri, Jul 17, 2026 at 04:34:21PM +0530, Jai Luthra wrote:
+> From: Dave Stevenson <dave.stevenson@raspberrypi.org>
+> 
+> videobuf2 only allowed exporting a dmabuf as a file descriptor,
+> but there are instances where having the struct dma_buf is
+> useful within the kernel.
+> 
+> Split the current implementation into two, one step which
+> exports a struct dma_buf, and the second which converts that
+> into an fd.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.org>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 21 ++++++++++++++++++---
+>  include/media/videobuf2-core.h                  | 15 +++++++++++++++
+>  2 files changed, 33 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..0e62f3d97194 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -2419,11 +2419,11 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
+>  	return 0;
+>  }
+>  
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
+> +int vb2_core_expbuf_dmabuf(struct vb2_queue *q, unsigned int type,
+> +			   struct vb2_buffer *vb, unsigned int plane,
+> +			   unsigned int flags, struct dma_buf **dmabuf)
+>  {
+>  	struct vb2_plane *vb_plane;
+> -	int ret;
+>  	struct dma_buf *dbuf;
+>  
+>  	if (q->memory != VB2_MEMORY_MMAP) {
+> @@ -2468,6 +2468,21 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+>  		return -EINVAL;
+>  	}
+>  
+> +	*dmabuf = dbuf;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
+> +
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> +		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
+> +{
+> +	struct dma_buf *dbuf;
+> +	int ret;
+> +
+> +	ret = vb2_core_expbuf_dmabuf(q, type, vb, plane, flags, &dbuf);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
+>  	if (ret < 0) {
+>  		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..15aeaaeaf8ad 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -954,6 +954,21 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
+>   */
+>  int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
+>  
+> +/**
+> + * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
+> + * @q:         videobuf2 queue
+> + * @type:      buffer type
+
+The type must be identical to the queue type. I would remove the
+argument from the function, and move the type check to
+vb2_core_expbuf().
+
+A separate patch could then push the check out of vb2_core_expbuf() as
+well, as in most cases the type received from userspace in the
+v4l2_exportbuffer structure is used to get the corresponding queue.
+
+> + * @index:     id number of the buffer
+
+This isn't correct, the function takes a pointer to a vb2_buffer.
+
+> + * @plane:     index of the plane to be exported, 0 for single plane queues
+> + * @flags:     flags for newly created file, currently only O_CLOEXEC is
+> + *             supported, refer to manual of open syscall for more details
+> + * @dmabuf:    Returns the dmabuf pointer
+
+Is there a reason not to return the dmabuf directly from the function,
+with an error pointer for errors ?
+
+> + *
+> + */
+> +int vb2_core_expbuf_dmabuf(struct vb2_queue *q, unsigned int type,
+> +			   struct vb2_buffer *vb, unsigned int plane,
+> +			   unsigned int flags, struct dma_buf **dmabuf);
+> +
+>  /**
+>   * vb2_core_expbuf() - Export a buffer as a file descriptor.
+>   * @q:		pointer to &struct vb2_queue with videobuf2 queue.
 
 -- 
-2.55.0
+Regards,
 
+Laurent Pinchart
