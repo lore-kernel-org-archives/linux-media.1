@@ -1,78 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A820F36E466;
-	Thu, 10 Sep 2026 09:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003ED3BB67B
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 10:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033675; cv=none; b=aCnqF5+TitwQ7oVO96Xxrj1tEJMpPd39Y5NrKhbW8XYjsC+xEjtEYhkP9/hutSW7dBmwcD2w1kftbOrZaA0MxjM2wgp6EzysCDTcIu/j7wQNkF6YUQPjj9Np3VMG9YRSsROncqluEbcFEIeVfrrmO2qcttKMKOniomeZxwbZPm4=
+	t=1789034843; cv=none; b=W9gcF6zD0g23FRPLJ3WWB01G9lZUlQ7lAaD5oTxhgEE8dnWlXkzAXNgsTL1yjEnpG9KFCAPcRcvIl6wnphOg6hUd/lEDy2dC2fomSRB2LwtkpsBEZ+VYXzqbRj7WiE4/TVdCgsRSS2U6r5Buk+AQsegBE68fSsHD9fZA1Z3upQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033675; c=relaxed/simple;
-	bh=FgRa9MbekD4pnSjio7Oe86VRKpqZTlJhArf1vNnpPaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dbDru/EW6sNQGifVHuK15a2BCPq5MmdH2b9EZ4jw3mqPIyraRS/cAUFx8v9kUwIYdkMSO2qyqhG9HXXD3lgq75KmNy/7d5ULE+K1kFMwV7jo0cZnu2zEYZ+LulmywXv1TAXNAjWPOVqpjvO+MH3w3hZOQMLCWg5t+DobwZq3M2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGSzJXTQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789034843; c=relaxed/simple;
+	bh=U2oe3hVTq0qbVZ71h5xzm622BIjXk6fAitQw3V+ttao=;
+	h=Message-ID:Date:MIME-Version:Subject:Cc:References:From:To:
+	 In-Reply-To:Content-Type; b=Aa9dppvCjlgV2l+cEUDy+xgylgNyTAza3fRGeXUOknXWFYbya3nnGF9nTbCMLwLYTtLJJT3dCHwfZHBShnRv3IVz8IcHJXKVRQ7EAvlBuOmA/7fsbY1yJn3gH7KvgwOhWJbxYXAV41L+1uisfcoE+ZNLmJsd60OzHZMdUV4mvK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=LdLW4Xoo; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGSzJXTQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517051F000FF;
-	Thu, 10 Sep 2026 09:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789033670;
-	bh=RWl089K04JkRps4gbZ6ATSdqNPJV+rcA2HgmVS3d9+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kGSzJXTQaPj3mJgbiFu8XOpRyuhBGJVyVMjZ0Y4uT26UDkqpyosH5l5NdFYL6UV1P
-	 VhAb/T16Dx1Glt9yTj6h08HYDMToyKwEMytXVom7MXQra4JX00tsoRGJHAiQhIyzjm
-	 wsWKZ7DpsnqvIRYrgoCJXFGtxzxJH/j2wFuhLXVsilu4t+j622SJ+OlU8DZ+PyVS3L
-	 5ds/Mhr3HgUOteN/ny7GWEuM0RgIlg9kbRnd0KqKsCl5CBD++pLlEzRrNGHgCuRpy6
-	 EYVlVGwAZEINcp1A8W5piITuSbPdGpaZPI0nrTMuZU6BheHwOKKrEfSZigLFXkD2O0
-	 4plhxvLJ66mZw==
-Date: Thu, 10 Sep 2026 10:47:44 +0100
-From: Lee Jones <lee@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: "D. Manresa" <dmanresa@gmail.com>, Thierry Chatard <tchatard@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource
- conflict quirk
-Message-ID: <20260910094744.GQ2133376@google.com>
-References: <20260831160754.9857-2-tchatard@gmail.com>
- <20260908161629.335223-1-dmanresa@gmail.com>
- <aqDkwTkAsvs8Escx@ashevche-desk.local>
- <20260909065104.15817-1-dmanresa@gmail.com>
- <20260909151027.GA2133376@google.com>
- <aqGEuTVpGolbznxN@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="LdLW4Xoo"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hgYHm0tlFz6HRc;
+	Thu, 10 Sep 2026 12:07:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789034820;
+	bh=U2oe3hVTq0qbVZ71h5xzm622BIjXk6fAitQw3V+ttao=;
+	h=Date:Subject:Cc:References:From:To:In-Reply-To:From;
+	b=LdLW4XooslJFoz/sa2h3IYoP4pGQohYUSDxl/jMt6+2szwvjxT4NeclZCfLTzvscX
+	 VMpNxBEy3qDOciph7eCh+vl0tKQlvvk7EG0Rk+1JXDj+bH1UrSD5NamcL/+DZ/Q6uZ
+	 mA0XgzLApmOJSCWfyGbrrXfK6CRoLMt5dvA/88n1UfWKLNf3R3d7d5HPtKUPeB2iZ0
+	 5V9ScH7Fw0gS7dilfeHNkTTh9eYjj/hHZokIeOzg8TXNCOtd4IOqbcRhdsiPPmEqu/
+	 EBYdBqj3BxXz7XLH/LGtp5X/ApLdZQL6gblnJt9gpqVAqbbbMuJojKWQgafat0oG1l
+	 ASysU9RInMQfw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hgYHm08xtz4xNG;
+	Thu, 10 Sep 2026 12:07:00 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hgYHl04ZYz8sch;
+	Thu, 10 Sep 2026 12:06:58 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 1B9E3604A5;
+	Thu, 10 Sep 2026 12:06:58 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <27c82eb4-4f8e-41b5-b983-dff7a0a27951@leemhuis.info>
+Date: Thu, 10 Sep 2026 12:06:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqGEuTVpGolbznxN@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] media: ipu-bridge: IVSC camera no longer probes
+ since v7.2 (CVS fallback returns the IVSC platform device)
+Cc: Martin Jeanne <martin@badakan.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Miguel Vadillo <miguel.vadillo@intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>, Lixu Zhang
+ <lixu.zhang@intel.com>, Sergey Zagursky <gvozdoder@gmail.com>
+References: <2f8b67fc-ec2a-46f6-9ee0-06279e612bde@badakan.com>
+ <e8fd955b-fadc-497a-899b-a13502f0d7f0@leemhuis.info>
+ <7646b50e-391e-49cb-a82c-3f82be7c2273@badakan.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+In-Reply-To: <7646b50e-391e-49cb-a82c-3f82be7c2273@badakan.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178903481857.1400903.6097560789328086809@mxe9fb.netcup.net>
+X-NC-CID: X6oLH8qUumbIGo/YLfz4cnLw5wnH2eFZ/hZujGJ8ruT1YiTgd2k=
 
-On Wed, 09 Sep 2026, Andy Shevchenko wrote:
-
-> On Wed, Sep 09, 2026 at 04:10:27PM +0100, Lee Jones wrote:
-> > On Wed, 09 Sep 2026, D. Manresa wrote:
-> > 
-> > > On Wed, 9 Sep 2026, Andy Shevchenko wrote:
-> > > > Do not fold, just add into the series this one as patch 2, for example.
-> > > 
-> > > Fine by me. Thierry, please carry it as patch 2 of v11 with Hans'
-> > > Reviewed-by; no need to change anything else.
-> > 
-> > Why can't I just apply it?
+On 9/10/26 11:42, Martin Jeanne wrote:
+> On 9/10/26 10:56 AM, Thorsten Leemhuis wrote:
+>> Thanks for the report. Have you seen or maybe even tried applying
+>> "media: ipu-bridge: do not use the CVS device lookup for IVSC", which
+>> fixes a problem with the commit you mentioned and sounds somewhat
+>> related to my (but I only looked briefly):
+>> https://lore.kernel.org/all/20260902211524.5572-1-gvozdoder@gmail.com/
 > 
-> This patch on its own can't be applied as it relies on the one
-> in the other series. You can apply both patches, from that series
-> and this one. No objections from my side.
+> No, I had missed it, thanks. Sergey's analysis matches mine and his
+> machine has the same IVSC (INTC10CF) and sensor (ov02c10), so my report
+> is a duplicate of his.
 
-What is the hard / build dep.  I can't see it.
+Good to know, thx!
 
--- 
-Lee Jones
+#regzbot dup:
+https://lore.kernel.org/lkml/20260901194526.6369-1-gvozdoder@gmail.com/
+
+> If a Tested-by on a second machine helps, I can try v3 on my XPS 14 9440.
+Not sure, might help a tiny bit: the commit is in -next already, but not
+yet in a -fixes branch from what I see, so it might still be possible to
+add this to the change.
+
+Which leads to the bigger question:
+
+Mauro, what's the status of ce92674d8d8b29 ("media: ipu-bridge: do not
+use the CVS device lookup for IVSC")? Given that we have two reports
+about this, it afaics would be good to get this mainlined this week for
+-rc3.
+
+FWIW, there might be two more reports about this, not sure yet:
+https://bugzilla.kernel.org/show_bug.cgi?id=221988
+https://bugzilla.kernel.org/show_bug.cgi?id=221983
+
+Ciao, Thorsten
