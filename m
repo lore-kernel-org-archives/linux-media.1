@@ -1,217 +1,238 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013057.outbound.protection.outlook.com [52.101.83.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3634BE457;
-	Thu, 10 Sep 2026 16:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030733B8D48
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 16:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057000; cv=fail; b=dB8zU46+VEMeiFsTuyxUVAYtwpBHXgFRIo2xJb9B6UWJMmBBK5Uymk14gXcJqGsvJO4LeLEurQOrhoyWs37JwIWZ8EWlmQGLiKEosDVgt+L8/vYP/IYw8T4UWRQgB5r7qwy+EhQcLxKkiYZBKPyaX1kYIqY5aGuWGmJm5SttBbE=
+	t=1789058794; cv=pass; b=k5a/rQAVfqZTK4+BhtfE8pt+C2gkMsDsD7mr53F5NgcW11zDKdc3+mFnBxWW4PtqnVyLsfvKbkL802FlrcJeAO8p1GN2zEW3ZPZUSlNRiWAdPLDuXZaq1mAtkQJRy4aE/UAQ0HXFtorqxgqz7hkvqbG1Q9uA0Vo5c7+MZYitXhY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057000; c=relaxed/simple;
-	bh=SQAdWzYS5OVb9CY/KCfdYr8ky77O4mtQIdOHeQCWSdw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PeEQbbE7uJtq0KX7VgrQHVxT7EwkvhfPa6r6CB1oogHi6l5ZAJDoqLf3h/IELl35eDceHTCEPyKVWoSRP+uDDMJtUVcVUI2XMmgDBte/Qk+GJHyB6tObgzppW95PV48l9ERg6qYEdhPwmCf1fOKaxIvQg/yZDBn0guZzLrDcDdU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HTVvvHKo; arc=fail smtp.client-ip=52.101.83.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789058794; c=relaxed/simple;
+	bh=L3NFksDD7QUSPd3S/z0I+3+EX9IvKIW4aGMytpkFHq8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HRzkVtyhNJN1aX/7N3Fw8EEflQMUiX08Hd6B0L3KCypfZlsE9nIKfrQBQqH5gD5EstdlGyO+4URysnRxG400u+Zq4mxFuFgDwhowiLkRrXfanWPvr5U/8I+SRYCZSn9vKhTjgoHcNNCiAz+eGcbJ66sQJBppK4lHc8hQGB/Ruo0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=OlGNyYPQ; arc=pass smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HTVvvHKo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fPKM9u8efmayRk7M/2ONBqRAuftPgai61JiripcVmYIxD5hqDJOaM+hebbTJYeutGp0+FMN8tRTYwHHXvBHZJVWi+Q2B4HNMAS9BeQW8RCYsOjYoGrmGcHrWNRrpKS2mqtH5dKIA4KfClJ6JxM167L3hKrn62xVKNbgWw/KWP6CqY+BMW+nAESPOHKmfOYyC48HSgWi8e5RSLoPH/2ZB4RT87AyduZKR6j0plmO79DHIl72Q5luv90UL7ol8u+0ATjDaVvdug+RjpFlvzx5vvQXMDbHT3sVI2+GYVwYQ3c4bdztdIjGf0ZVmomHn5jhhranvPO0go9sOUmrHMNIvvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SQAdWzYS5OVb9CY/KCfdYr8ky77O4mtQIdOHeQCWSdw=;
- b=YV3uvErBandP+VVazjD7MuIq8z/BUdnct06bWlDsbGs+yQErtv4pJJ3DTCTBhvuy64/INqxeo0f08xvUHLnz8UgxKG2YD4Wi2q4nu4swiFtLgZHGt1vkv+RcfOYc09+XJqTu1A0sym9tRKdVG/vC7AS1SgvNkyaufNQuQR0Yd+tdR7YnbnD7aWN6K9ndVt/iD7gL/wJWaGdoLIhnvfx92pEln/YYyo1YsYdkOCholdnD927Grf7IBX3L/O0xpGeqhNp4ayzFRozouPn+rDHucrFMZJtRGVw87Ie2ZeX5Hzj0fD+x+ivWLops1tKzcaxgt7n5CdyJaLDT9hzkQiIRzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SQAdWzYS5OVb9CY/KCfdYr8ky77O4mtQIdOHeQCWSdw=;
- b=HTVvvHKoO7oe9SP98m1etnpyGwmlXrVQsWVTUn2nSB6ssbmM3uo1RKxDau+cL4Pt8ql66yD0F5q94wxvuI18dDMz/2YPMlzXFa0Dnss9zQZyadjesFkNFU+x3qzCOLnnfzQUKi4ciSl1s1VT7TlRWmk1wLgblLAPrBIYTNJLpKpKxg7Qpi98Gf4XO8Vzsa2AlgQ9/uWRR86prBE0uEwoJ+gozR832uHa6/REX+TZnizPKz+VZRNXw+DcrIQ4417g9Yjugl8pxw7sGgH9zJctJR5NSIfOfEdiJc0MHvJuHTQ9aHnXWZT/SktGVllcpzSvtRaZ5wWFHt3/0iB/pmH/pQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AMBPR04MB451729.eurprd04.prod.outlook.com (2603:10a6:20b:798::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 16:16:35 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 16:16:34 +0000
-Date: Thu, 10 Sep 2026 12:16:24 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>
-Cc: "mchehab@kernel.org" <mchehab@kernel.org>,
-	"hverkuil@xs4all.nl" <hverkuil@xs4all.nl>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"shawnguo@kernel.org" <shawnguo@kernel.org>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-imx@nxp.com" <linux-imx@nxp.com>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"jackson.lee" <jackson.lee@chipsnmedia.com>,
-	"lafley.kim" <lafley.kim@chipsnmedia.com>,
-	"marek.vasut@mailbox.org" <marek.vasut@mailbox.org>,
-	Ming Qian <ming.qian@oss.nxp.com>
-Subject: Re: [PATCH v7 6/9] media: chips-media: wave6: Improve debugging
- capabilities
-Message-ID: <aqLX2DhQFnY3FAFz@lizhi-Precision-Tower-5810>
-References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <e7f599a5bd65900eb45daa3b637597fce464c383.1788496816.git.nas.chung@chipsnmedia.com>
- <aqHES02SJkIGZWDc@lizhi-Precision-Tower-5810>
- <SL2P216MB24417ACC2BD099E4A5EE1399FBBF2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SL2P216MB24417ACC2BD099E4A5EE1399FBBF2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-X-ClientProxiedBy: CY5PR13CA0004.namprd13.prod.outlook.com (2603:10b6:930::27)
- To GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="OlGNyYPQ"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90e9e042ee1so73001436d6.1
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 09:46:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789058789; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BQNf93oPj9eFaleHNu89utm1cjCEHOcVqFszpwJW0hcXDoss3cE+c6eWZjnrLy4QE1
+         jjdR5SMwN8daoSeuGnTqmd25rl/Esv2tTqFvn9sftTOEWrqznNUlMnDqO/PvEIvJGsqE
+         ZjLnNbarXun8PeDSO254lJPuYvl7+23bcjwOz7jW93AmcF6CYEsQlXyvcid/bHzVvVz1
+         CA6f+TWmGuHsBwEniHKgq548h75+Hh2Yiu6xIVC9nktYX3FbVf2yNjT1UocD6BJIJChM
+         WBXP/LcCfvFvJncYIUaBbdfcn4S2PZLLkOpYvGRoYhOPLcF54Dor79/SoNJsjM/h3LLD
+         QyvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=dW3a3eYBFlUL8UXrgQaev8bdrBqkG2D9k/Qll/Jwu24=;
+        fh=acXm/HWG9yYUEqiRgOikVw+HZhdC62s3yZnriEW0sJM=;
+        b=LgU5QFdOM9xac0iGUdst1cC9w3xOAoqKtZSsQG6+oflHD1wvg+L85vqL/O/raAcp1o
+         KYzQzROq7PSLmNhEHXlEuDlwqoA2Ye6GrX+nKlRy3snUJ2XCToZtiDXpfCzrx1Ckxnea
+         uGO2sHBg/WLagkJqYpbQYZ/DM5bI7Xyy5FlpI2Orvna4f3XykekA32ckj34C1gJNUZt+
+         KTWcPR6kaGrU5dTYRzNBkfdIAjUe+L3MxiZMhr9jvynxqF10uenZBcoGWZVXFyI9ij/J
+         I1OPr1fkCnPlp7pJ/QHC0aKOMbMpS+O8wuKU+iN3ltNi5rm8+S+GIT9JRisNODbPrX9E
+         NK8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1789058789; x=1789663589; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dW3a3eYBFlUL8UXrgQaev8bdrBqkG2D9k/Qll/Jwu24=;
+        b=OlGNyYPQ4eMJ7yIWgauFspPeJNtvd+O9q3CvD+M8HdPEs95+nT5as1tgqlPCw1w7Ih
+         SB2u+WkHes9LZBVlDVMGaqhUNFV+7J++JsUHGzoUTkFYnV8vo42kG+EeoKWTlusfDpLk
+         vQKKQTiEEOhMWKHUjVRHYxoL+iraiDUKh00X3FmugMDiHHesCg0KKOzWCPj8h9utzZ0c
+         fGocNtwO82vTJn9h+eIrbikv3dyZLa2q+DbfXUqk+y+EAMH2kx9bNixVL60PO381GByt
+         YPirzT28h0VzSoMhjm4xqDNwgRFltLfhgXlUDQgcqxlg3EYv7tL+UAjz5y5CLsMIflUK
+         1U0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789058789; x=1789663589;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dW3a3eYBFlUL8UXrgQaev8bdrBqkG2D9k/Qll/Jwu24=;
+        b=LlKJDHmIWh/EvRUuKsr4OzbdLXXiPC6VkOwepFxNnuy9eAO0xfpT123byen40becb3
+         h7xECfd9teEXEvuZlG/Yi5NvDIfzxyVWAUdpTPEoL0JnjHWJNV3r+3LfxC3A4FQyuwYj
+         Nr+ptwSTUtDLKFBf2yhYH56DceKkE2jtK9dzlrBk+wueuxg5ntkOb3qtci4MkM/uHK63
+         Locq+tXZ3ZA6HAzc3GlMoBmO6j/SDI2wfHNkpAm2QVakK20OzKU5HaAs7n4iNr1NL93i
+         a5TN3CrIAPepLlqCXchkrMIiYhyagKHyqnL8FS/Jv5MRNndcPCeNc/eWgYuRHdZ7dyqB
+         q2mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxa0gjPgPBCoDRybBKAA5BmapNfbVJNMWwyMwcTyyiqZbz3EgtnqJMQSoZt2pzvlWFSXA3Iq8OAv8KUWQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++k+Eu60SqcGrWizT0pmc8BqeL7lXs/LShEjFJS6BDypeLrm4hrK
+	3/WKzfZ7pkIRdsdB6IrBL1BOau81fEeXTdUg/kl2k/qM9wTZCNWx8PaMapzt9yZOr0gzM1RGyPb
+	jJRrFmzR1ToA0CjhOYq0f2N3n59mb8F1Ii2aN52UQGw==
+X-Gm-Gg: AYBFou2VcLqxXBRWuPG+SBFUhgStKo4gKI9J5j+2fg0DaDBiqSN/m1SFlvBuF4x0C8U
+	++1VaAOo9PKbJ4oyRy9voKRjivOP63jdgZ+XGC3ZgB07UwaDa0MO5PaPiH8SJZ+qUxEiHylKeJI
+	Torh5+BZv5H4VBWCiih7jfIMTk9O9wmltQ4e50v82Uqsm5nfaWhnPnIeDXx6qmqEJd2iK4ZBVvq
+	KKyNhbmCRii0pXyCY55oXFufy3e+592Fo3ThIm8V0x7LF/qjBk+pbm613/7dWaqc5G2JifYb96m
+	ryrzj8c9sBe3qLRLmkTSKSoNy7t/pUIGi8rF4K/pZU52DzldlRn/0xHqE6gMt1qIvApTJ4nH49L
+	jxMiNixK4h1AizBniWg4K6lK3XXq+xGo4hmryvNLVguK9u8lFtLfa1jscop93HaK2a0RJh+dO
+X-Received: by 2002:a05:6214:5195:b0:907:c025:e4 with SMTP id
+ 6a1803df08f44-9103ef2dd58mr532150606d6.13.1789058788659; Thu, 10 Sep 2026
+ 09:46:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMBPR04MB451729:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08718576-b375-40fd-2b59-08df0f56e225
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|376014|7416014|366016|6133799003|10067099003|5023799004|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3yrbk1g8Ac/lKM3d3aN8n2IpsgLuRLgVCD9mJo22eP/II471uhguawDteLFnsilx73sfHrVPSIa8a9HwyNQZGHWWIt/GIxoHa4ycI05WQ+dqUUKyjTzNLQSVHPNWpMcKjvKK9QzqewlGI4K2Bbfl1UYU62ZgRu0DftSSwf6gxuMf4Gydm1M4vhjNmUGPljvtUxrXQFR/5dIUs5Rr4ae4CAvT8Z8N3/wxo1g4Dcz6UiW9nj4J0xCSnW6zmz3OP9Pv3JyeVslHw0y0k6ZoaxIea7cE8sLIrlq+14IYyj/PbvnlYviqj5BZk6E9nLIjTPbH4OSx6izVbT5Kdmufb3wvBIEUUbgosDrzCveE7cfl+KNeD+Xrz/0fmdRAzGRd1wfvcVYoFNfbhl6Xyr+d3jNwfZMocmeNjmp0xW0GJh0T2p8T90Rs8YjESexOlNJPxDFM3wlkgEeNz2+R4TQvLFKc0LPdesPKbAqj0ci6jeEV7I1ZMCncF7T3BeX588dzvN4wAXwisU9HAbOuoCX81N2wmLrBysLNfRd7xJ0Ts3NOQSYdJ/kZK5odIXtACojpl+fWPMYDzk2V6c475qPPaSYFSvzdqWqflrM4tx9YG6I54I9oTSCtVmEHJnUmBA0zDYOsILeZjqUn13t/Vh7JonYlD4XF3VmNFzpsOJsmAD1Y8bo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(7416014)(366016)(6133799003)(10067099003)(5023799004)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4aSeeU5NSjpp7XVEflA/LhSKN+9f39Gmx7hpKZULBGh61weASZLEkslBhRNF?=
- =?us-ascii?Q?exXWBz7SoAtbxpuSIjxDQP/Jbv6Z9kyOlSHoE3HCAK9PDcu9fFaQkOqqIzm5?=
- =?us-ascii?Q?i1t68XZo6on2HkL8e7qCSaKsjpO9aCIsn2s1bjaMLEIm0XWFp1PZ/X0N14QU?=
- =?us-ascii?Q?jSFId3X8VaJ8BFrgJgedBSzorYVJa6RnQVbOSju8HKf3+Jxb20ty24DfLS4q?=
- =?us-ascii?Q?kV2gwbbgpHN01fKQKVvOi0Wo5JdLEqbkwn5rU2tmPaaZh8tB2RH47IfxEwKJ?=
- =?us-ascii?Q?1rjNUcyLOH0QKH7zFGWkKA+f2ofAMuXkOBxZGkg6O9abIGjFMDkZGkdlzXgb?=
- =?us-ascii?Q?QQmir+5X+jZ+S7uz7ozRQOW3YyrgUuG/hhYxia+ELo8MiUMh2fOKP6IukWII?=
- =?us-ascii?Q?pWSh9hAZd8OBCCOB0k6LPLjmiLFQgWpTgyk+mO+BF5fzrPuiJe9Ui96qSge6?=
- =?us-ascii?Q?lXvQt4KuPzgmH8Dye80hhSCtBeQt4wdgLlClq/GpbUElkx/TCHXMXcbDRuqY?=
- =?us-ascii?Q?BMvluW9tyhT7LKK219aVKb1RoRq9hAE7bqyKVQXJ1ntSIpYVZvOPAbG6wSPU?=
- =?us-ascii?Q?C3aJH2qLZEgGslIWRV3PJIbMvsw30Fd5WWiC73rKjTz52Tm5ggoF61O+IFv8?=
- =?us-ascii?Q?llMRKxPecBWGn+r0Ed5pt33H+zoX4Lapn1pI+xMrfowUx5PUGsU9k/BS3cEk?=
- =?us-ascii?Q?owaJF4YR/H5uWnXsAUTHo8ytnLRd1s788vKVcSTDmEWkzh5/7UbnkPss9QRV?=
- =?us-ascii?Q?A6TaDo1hRpZMhxYNC7Lt4+TrdgZ7tdjSi+DnIpz0zIJ99XPqbVz1PbqaLRaU?=
- =?us-ascii?Q?C6F0BH+E6r9a2+P9404tP5LyNoQT75/2X/oVKOgm4XCsU2UvMQ+17xYGgppz?=
- =?us-ascii?Q?zWqk/ofIArXXXulEeXkAwLeldYXQBnBsa6Tc3PoSLowMCYSGu80jM9tA5w0p?=
- =?us-ascii?Q?YV2x0JDyhjOQ0qQZAed8kTAjNeYrf4QhuJj94/5VRedOLBQhU/CD+sS/C11g?=
- =?us-ascii?Q?vrY6MZS1/hx+HktXNlj0NjN1E4+xl72VE8tQ+YwWV6onF1EiYiYGbtzPszax?=
- =?us-ascii?Q?vYgPIrmFwGu8frumHhxt/aMgaEdnYUq5t4AVoiZdnVEd+3IKHNKa++9kVPc4?=
- =?us-ascii?Q?X2k0QOgErqStG7+gnG9us/MHLHiky0TlCa7KZb6VohrrU4gKMMnBCaqlF0+d?=
- =?us-ascii?Q?QgRBgrQ6BlLDETJLPBMa7Og/3g7zG7ihYK6FiQoqoH6OaeJu91x82HfKGQp1?=
- =?us-ascii?Q?G1JVuOEAfH2qXDWbF7EO518M7B/DqHl2QOQqpAExlLNpcUJn26sux42tgCgL?=
- =?us-ascii?Q?rOR4Cp88Nbcs5StO9RAWC0v/q7L+nX0nZM+qkHBdOtkmOCNdhSn9IZiT+IPH?=
- =?us-ascii?Q?0oybtf2zRoSoOaYXhb4RnEA1Ckam8kjNRgUF9W4udf9MQUAO9DssK1ppsI8j?=
- =?us-ascii?Q?insoglAuQi7jWT5uTCdfyQJS4TFqO4hJIIqLw1YY3pN71PCELQkshKA9Z57M?=
- =?us-ascii?Q?cEVqA27xzeoGRR40JZSgqoDGIUgNpb0QN5a4ajTbAcDH1f7zwiQAhtP3UdYK?=
- =?us-ascii?Q?quHoQ4XWa9jbWM0onOi/5xH816KuuMtrywpofGGsJxUS3ajCan8LzvBSieAN?=
- =?us-ascii?Q?F6sMwLtjyfof/GeszfZmxUw1oarOM6viDbKe8A8iQPOYoKy/c0fbg4Mlo9eB?=
- =?us-ascii?Q?I99HCE+FQZv/+8krHsDqYGzF0+SMTo+315aLZkbjq0ea2JWZ1HuvKn96Xckz?=
- =?us-ascii?Q?Uka+jtDJazW/Kj0Gl0R26k1U5BnENNPqSNx0iK10o951EUpmbYc3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08718576-b375-40fd-2b59-08df0f56e225
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:16:34.8288
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XnI2hjQDu3NeafvrR06y2w3EkV/0VKsCQt7YCJ8SGANMGvGeg73Oeqq0qKkyGSU2L5tXEaf+10gQnb5f5SgJ7ATdF6vYvJdg7XmFQRohD6ygZMqHtg9zMaHRb5Ba5AIj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB451729
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
+ <20260717-b4-vchiq-isp-v3-4-fb8235e15c68@ideasonboard.com>
+ <178815780973.1005982.10544870677125118283@neptunite.rasen.tech> <178904987755.11722.4550283822602391871@freya>
+In-Reply-To: <178904987755.11722.4550283822602391871@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 10 Sep 2026 17:46:11 +0100
+X-Gm-Features: AcwNN1UtOoh3OaA0_SgLtxNriYeBdNNXPUKlpJI3A-U73eH3dRlhkhbW05S55Wc
+Message-ID: <CAPY8ntDJKggr3cKhE=mfrAhhSwt5h+KbH=saXPiPj-JKngKGNA@mail.gmail.com>
+Subject: Re: [PATCH v3 4/9] platform/raspberrypi: vchiq-mmal: Support bayer
+ and gray formats
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Paul Elder <paul.elder@ideasonboard.com>, 
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Naushir Patuck <naush@raspberrypi.com>, 
+	Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 10, 2026 at 04:38:27AM +0000, Nas Chung wrote:
-> Hi, Frank.
->
-> >-----Original Message-----
-> >From: Frank Li <Frank.li@oss.nxp.com>
-> >Sent: Thursday, September 10, 2026 5:41 AM
-> >To: Nas Chung <nas.chung@chipsnmedia.com>
-> >Cc: mchehab@kernel.org; hverkuil@xs4all.nl; robh@kernel.org;
-> >krzk+dt@kernel.org; conor+dt@kernel.org; shawnguo@kernel.org;
-> >s.hauer@pengutronix.de; linux-media@vger.kernel.org;
-> >devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-imx@nxp.com;
-> >linux-arm-kernel@lists.infradead.org; jackson.lee
-> ><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>;
-> >marek.vasut@mailbox.org; Ming Qian <ming.qian@oss.nxp.com>
-> >Subject: Re: [PATCH v7 6/9] media: chips-media: wave6: Improve debugging
-> >capabilities
-> >
-> >On Fri, Sep 04, 2026 at 03:46:32PM +0900, Nas Chung wrote:
-> >
-> >media: chips-media: wave6: Add trace and debugfs
->
-> I'll address this in v8.
->
-> >
-> >> Add debugfs entries and trace events to provide detailed
-> >> debugging information.
-> >
-> >Nit: need extra space line here.
->
-> OK.
->
-> >
-> >> These enhancements help diagnose issues and improve debugging
-> >
-> >Remove "These enhancements".
->
-> I'll remove it.
->
-> ...
->
-> >
-> >> +
-> >> +#ifndef __WAVE6_VPU_DBG_H__
-> >> +#define __WAVE6_VPU_DBG_H__
-> >> +
-> >> +int wave6_vpu_create_dbgfs_file(struct vpu_instance *inst);
-> >> +void wave6_vpu_remove_dbgfs_file(struct vpu_instance *inst);
-> >
-> >You add this patch 6. but call this funcation at patch 4.
-> >
-> >You need make sure each patch can build without break bisect.
->
-> You are right that patch 4 calls what patch 6 declares.
->
-> But the build does not break: wave6/Kconfig and wave6/Makefile are added in
-> patch 8, so nothing under wave6/ is compiled in patches 3-7. I built every
-> commit individually.
+Hi Paul and Jai
 
-Still not good yet, you can add call wave6_vpu_create_dbgfs_file() at
-patch 6, instead of patch4.
-
-You need make sure your code is built and passed at every patch. You
-can add library/makefile firstly, then enable it gradulately. But need make
-sure pass build test, some kernel CI tools build each patch and easy to
-locate the problem, if build failure at last patch, which cause some
-difficult to locate the real patch, which cause problem.
-
-Frank
-
+On Thu, 10 Sept 2026 at 15:18, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
 >
-> Thanks.
-> Nas.
+> Hi Paul,
+>
+> Thank you for your review.
+>
+> Quoting Paul Elder (2026-08-31 12:00:09)
+> > Quoting Jai Luthra (2026-07-17 20:04:19)
+> > > Raw camera sensors often send data as packed or unpacked bayer and gray
+> > > formats, which needs to be processed by the ISP.
+> > >
+> > > Add macros to support bayer and gray format FOURCCs in the MMAL layer.
+> > >
+> > > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> > > ---
+> > >  include/linux/raspberrypi/mmal-encodings.h | 64 ++++++++++++++++++++++++++++++
+> > >  1 file changed, 64 insertions(+)
+> > >
+> > > diff --git a/include/linux/raspberrypi/mmal-encodings.h b/include/linux/raspberrypi/mmal-encodings.h
+> > > index eadf2e981408..1e13ebbaebf6 100644
+> > > --- a/include/linux/raspberrypi/mmal-encodings.h
+> > > +++ b/include/linux/raspberrypi/mmal-encodings.h
+> > > @@ -69,6 +69,70 @@
+> > >   */
+> > >  #define MMAL_ENCODING_OPAQUE           MMAL_FOURCC('O', 'P', 'Q', 'V')
+> > >
+> > > +/**
+> > > + * Bayer formats
+> > > + * FourCC values copied from V4L2 where defined.
+> >
+> > Is this matching a requirement? I've noticed that 12-bit packed and SBGGR16
+> > don't match the v4l2 fourcc, but the ones that you defined are nicer.
+
+No requirement.
+That comment comes from 2015 / 2017 when the firmware support was
+being added/extended, and V4L2 was handy to copy where applicable.
+https://github.com/raspberrypi/userland/blame/master/interface/mmal/mmal_encodings.h#L110
+(10 years ago! I've been doing this job too long!)
+
+> I believe these are what the VC4 firmware expects as the fourcc values. I
+> don't know the historic reason why these were chosen, but we do use
+> standard v4l2 fourcc here when dealing with userspace applications.
+>
+> I don't know if it's worth it to change these to match V4L2 fourcc,
+> especially because we want to avoid breaking changes to the firmware.
+
+I'm not intending to make any changes to the firmware for ISP support
+as it would create a breaking change and a world of pain.
+
+Drop the comment.
+These defines are for the MMAL API, and that is to all intents and
+purposes fixed now. Similarities to V4L2 are just similarities.
+
+  Dave
+
+> Thanks,
+> Jai
 >
 > >
-> >Frank
+> > Paul
 > >
-> >> +
-> >> +#endif /* __WAVE6_VPU_DBG_H__ */
-> >> --
-> >> 2.31.1
-> >>
+> > > + */
+> > > +/* 8 bit per pixel Bayer formats. */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR8     MMAL_FOURCC('B', 'A', '8', '1')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG8     MMAL_FOURCC('G', 'B', 'R', 'G')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG8     MMAL_FOURCC('G', 'R', 'B', 'G')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB8     MMAL_FOURCC('R', 'G', 'G', 'B')
+> > > +
+> > > +/* 10 bit per pixel packed Bayer formats. */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR10P   MMAL_FOURCC('p', 'B', 'A', 'A')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG10P   MMAL_FOURCC('p', 'g', 'A', 'A')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG10P   MMAL_FOURCC('p', 'G', 'A', 'A')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB10P   MMAL_FOURCC('p', 'R', 'A', 'A')
+> > > +
+> > > +/* 12 bit per pixel packed Bayer formats. */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR12P   MMAL_FOURCC('p', 'B', '1', '2')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG12P   MMAL_FOURCC('p', 'g', '1', '2')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG12P   MMAL_FOURCC('p', 'G', '1', '2')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB12P   MMAL_FOURCC('p', 'R', '1', '2')
+> > > +
+> > > +/* 14 bit per pixel packed Bayer formats. */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR14P   MMAL_FOURCC('p', 'B', 'E', 'E')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG14P   MMAL_FOURCC('p', 'G', 'E', 'E')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG14P   MMAL_FOURCC('p', 'g', 'E', 'E')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB14P   MMAL_FOURCC('p', 'R', 'E', 'E')
+> > > +
+> > > +/* 16 bit per pixel Bayer formats. */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR16    MMAL_FOURCC('B', 'G', '1', '6')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG16    MMAL_FOURCC('G', 'B', '1', '6')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG16    MMAL_FOURCC('G', 'R', '1', '6')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB16    MMAL_FOURCC('R', 'G', '1', '6')
+> > > +
+> > > +/* 10 bit per pixel unpacked (16bit) Bayer formats. */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR10    MMAL_FOURCC('B', 'G', '1', '0')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG10    MMAL_FOURCC('B', 'A', '1', '0')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG10    MMAL_FOURCC('G', 'B', '1', '0')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB10    MMAL_FOURCC('R', 'G', '1', '0')
+> > > +
+> > > +/* 12 bit per pixel unpacked (16bit) Bayer formats */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR12    MMAL_FOURCC('B', 'G', '1', '2')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG12    MMAL_FOURCC('B', 'A', '1', '2')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG12    MMAL_FOURCC('G', 'B', '1', '2')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB12    MMAL_FOURCC('R', 'G', '1', '2')
+> > > +
+> > > +/* 14 bit per pixel unpacked (16bit) Bayer formats */
+> > > +#define MMAL_ENCODING_BAYER_SBGGR14    MMAL_FOURCC('B', 'G', '1', '4')
+> > > +#define MMAL_ENCODING_BAYER_SGBRG14    MMAL_FOURCC('G', 'B', '1', '4')
+> > > +#define MMAL_ENCODING_BAYER_SGRBG14    MMAL_FOURCC('G', 'R', '1', '4')
+> > > +#define MMAL_ENCODING_BAYER_SRGGB14    MMAL_FOURCC('R', 'G', '1', '4')
+> > > +
+> > > +/* MIPI packed monochrome images */
+> > > +#define MMAL_ENCODING_GREY    MMAL_FOURCC('G', 'R', 'E', 'Y')
+> > > +#define MMAL_ENCODING_Y10P    MMAL_FOURCC('Y', '1', '0', 'P')
+> > > +#define MMAL_ENCODING_Y12P    MMAL_FOURCC('Y', '1', '2', 'P')
+> > > +#define MMAL_ENCODING_Y14P    MMAL_FOURCC('Y', '1', '4', 'P')
+> > > +#define MMAL_ENCODING_Y16     MMAL_FOURCC('Y', '1', '6', ' ')
+> > > +
+> > > +/* Unpacked monochrome formats (16bit per sample, but only N LSBs used) */
+> > > +#define MMAL_ENCODING_Y10     MMAL_FOURCC('Y', '1', '0', ' ')
+> > > +#define MMAL_ENCODING_Y12     MMAL_FOURCC('Y', '1', '2', ' ')
+> > > +#define MMAL_ENCODING_Y14     MMAL_FOURCC('Y', '1', '4', ' ')
+> > > +
+> > >  /** An EGL image handle
+> > >   */
+> > >  #define MMAL_ENCODING_EGL_IMAGE        MMAL_FOURCC('E', 'G', 'L', 'I')
+> > >
+> > > --
+> > > 2.54.0
+> > >
+> > >
