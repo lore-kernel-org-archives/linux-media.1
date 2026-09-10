@@ -1,121 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAC946D56B;
-	Thu, 10 Sep 2026 11:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABE147A87E
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 11:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041267; cv=none; b=OW9wpqKeUZ6uU5+d9vqbga+Pfr4tUyFhaMjtFEoQPN8M0VgTWTKLN8JVUnwWJrkZ8GrsdUJhHN33gOOJSx+TX3fhLdxazXEiAz4oIWFkDpilbBl3IQPBv0je27Zeva2AlbKvH37ZoKTzr5yVksWCz0H99V0DjCFs8ICqTgcqRvk=
+	t=1789041575; cv=none; b=fUAyjG/vTef5xZeFs1dzpQJHrWyHTL7x52Ae5Q2z9GfvEboWMHuySwpju2taROfs4qCfVSItz/UjEpmibtxS1XOY9+RnJW33ipmocVNy8qtHqDxjo2PAct0wJMQUHIWQ0a+oh991HWBp8/RePfvEqLKzGydGGFcXHXKyuUT6Nk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789041267; c=relaxed/simple;
-	bh=Y+uakgmLTw/Dr6l7dxl0NA2ApiRxgkY7tsxnZpgnLH4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JeJh5pMY267+uBkFDutto/gxhgeZYgLMUPHCn5UHHnjz+LunthS2bQqtrHJ5ZFHnjm6sjHIQHju3iveb+80anvllAFjOzQH6gEgzKokZJ4oPazOvl82yQY1hBZOyvuJkoUlkG3PIBtL7VTwauZ2uLdB7cQwWSfEaqE2SgUAs1T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rb3RoQMQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789041575; c=relaxed/simple;
+	bh=7Rl98cv+LU4A31+k1gC11LyxFISl3eA1zrLO7U7Ti6g=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Pnp2mLrWnLFqftDRtfDvQvrZMTc+dsQ1mRGkJW0cPbFUxDM/MbjsKH2gGbSJDRlp0VozGR2ZJz1cTIh5VMzYm7zDhzzeWqAqb86X3V+GF1jJLvA9dPWXryqfTDYwVGfUNrODqlyoPqw+JAfYDgUqlqBzIQm8cL6bV0ptz0IJGsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lZHsHbCs; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rb3RoQMQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00AF1F000FF;
-	Thu, 10 Sep 2026 11:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789041266;
-	bh=242XIWZSUu69mtRg9ItrK23A7w0eKQWAiDhlvEiRp9A=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=Rb3RoQMQ/1hurXRmrj/1KGTRO1KGl1qo/db6tk5xmRdoL9iuVfRpkvP6MnEtyMa3n
-	 FytlXmK6RHJfZ79xt4CdAcxQDYKTjg9ACGW9kSULGb7WtXpkNlT0yEsEFvemS45GYO
-	 FcWRbwNyRpjOGCIHZyozY4f1BFGnZvJhFXGk5vGlIE+8/yaYCF1EvtiYobB+7Lnalu
-	 8Ki/FDS7d+VF8wyNk/AjkEsSp9g/Mz0c3gHLz7voeahdhHjmRW/P6F0zFTYjmP+vdC
-	 /AnxWMCEs/r5Ld3RB5WuBlO0U0MkGYYJ+bMbsPnDP9ES4enW6HIqF3aOlOJcKzyV2d
-	 Qb2AT0Dh55kSA==
-Message-ID: <77440bae-7381-451f-861d-1399bac4d925@kernel.org>
-Date: Thu, 10 Sep 2026 13:54:22 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lZHsHbCs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789041574; x=1820577574;
+  h=date:from:to:cc:subject:message-id;
+  bh=7Rl98cv+LU4A31+k1gC11LyxFISl3eA1zrLO7U7Ti6g=;
+  b=lZHsHbCsYGn22y/wAPj6DMv2raeyRtSoMYI6Rn8yM+6MgTofThEQr5vk
+   RoJXvnGjT18tkvVmtwFRL1vFdzAiwaNRGyHTdJm0u/CGI8Er7j52MNgGX
+   s5FcYGiVmysBji8L7udK5DNyELbudmUwXx6acIV0IesVBm7HC/yp4hRXU
+   KsDFtvJ5Qy1itGZ2bFN+4uUEaLzLjk6+58jE76vNJPImiHpFI62k8J1An
+   JKyfxGvNUd8qK5h1uCgD0CyyGLaP0oNsn2cYYECDWfuJTBAucb+ocDs/P
+   PFlCQAZQGIQgElg2Ku72aSFqlHuZgDZPfy54/QsIEcrxkEf3Jiwhjt0Ha
+   w==;
+X-CSE-ConnectionGUID: uVOG4ozHQFa+Ofdvrpodhg==
+X-CSE-MsgGUID: ulhJGF5NSEqiPq4c6cv6yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="9276"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="9276"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 04:59:33 -0700
+X-CSE-ConnectionGUID: AWWtgWCHTJmXiCpiL7Z6hA==
+X-CSE-MsgGUID: AIrOS5nzR0u3UC1PeTrm+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="275135632"
+Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 10 Sep 2026 04:59:32 -0700
+Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4dRC-000000001mF-0dDP;
+	Thu, 10 Sep 2026 11:59:30 +0000
+Date: Thu, 10 Sep 2026 19:58:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org
+Subject: [linuxtv-media-pending:next] BUILD SUCCESS
+ df9e11101656fa6accbd85a9d6bb056aa78c3c18
+Message-ID: <202609101929.pm8gSmp6-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: microchip: isc: Initialize DMA lock before
- requesting IRQ
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, ehristev@kernel.org
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
-References: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 30/08/2026 04:32, Runyu Xiao wrote:
-> The ISC interrupt can run before asynchronous subdevice completion, but the DMA queue lock was initialized from isc_async_complete().  Initialize it in each SoC probe before requesting the auto-enabled IRQ and remove the late initialization from the asynchronous completion path.
+tree/branch: https://git.linuxtv.org/media-ci/media-pending.git next
+branch HEAD: df9e11101656fa6accbd85a9d6bb056aa78c3c18  media: cec: meson: ao-cec-g12a: Make sure clk_init_data is fully initialized
 
-Line is much too long.
+elapsed time: 1306m
 
-> 
-> Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
-> 
+configs tested: 55
+configs skipped: 4
 
-Spurious empty lines.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-> Cc: stable@vger.kernel.org
-> 
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/media/platform/microchip/microchip-isc-base.c    | 1 -
->  drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 ++
->  drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 ++
->  3 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-> index a7cdc743f..a2534d8eb 100644
-> --- a/drivers/media/platform/microchip/microchip-isc-base.c
-> +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-> @@ -1792,7 +1792,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
->  
->  	/* Init video dma queues */
->  	INIT_LIST_HEAD(&isc->dma_queue);
-> -	spin_lock_init(&isc->dma_queue_lock);
->  	spin_lock_init(&isc->awb_lock);
->  
->  	ret = isc_set_default_fmt(isc);
-> diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-> index 66d3d7891..f0f7ca47f 100644
-> --- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-> +++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-> @@ -432,6 +432,8 @@ static int microchip_isc_probe(struct platform_device *pdev)
->  	if (irq < 0)
->  		return irq;
->  
-> +	spin_lock_init(&isc->dma_queue_lock);
+tested configs:
+alpha         allnoconfig    gcc-16.1.0
+alpha        allyesconfig    gcc-16.1.0
+arc          allmodconfig    clang-24
+arc           allnoconfig    gcc-16.1.0
+arc          allyesconfig    clang-24
+arm           allnoconfig    gcc-16.1.0
+arm          allyesconfig    clang-24
+arm64        allmodconfig    clang-24
+arm64         allnoconfig    gcc-16.1.0
+csky         allmodconfig    gcc-16.1.0
+csky          allnoconfig    gcc-16.1.0
+hexagon      allmodconfig    gcc-16.1.0
+hexagon       allnoconfig    gcc-16.1.0
+i386         allmodconfig    clang-22
+i386          allnoconfig    gcc-16.1.0
+i386         allyesconfig    clang-22
+loongarch    allmodconfig    clang-24
+loongarch     allnoconfig    gcc-16.1.0
+m68k         allmodconfig    gcc-16.1.0
+m68k          allnoconfig    gcc-16.1.0
+m68k         allyesconfig    clang-24
+microblaze    allnoconfig    gcc-16.1.0
+microblaze   allyesconfig    gcc-16.1.0
+mips         allmodconfig    gcc-16.1.0
+mips          allnoconfig    gcc-16.1.0
+mips         allyesconfig    gcc-16.1.0
+nios2        allmodconfig    clang-20
+nios2         allnoconfig    clang-24
+openrisc     allmodconfig    clang-20
+openrisc      allnoconfig    clang-24
+parisc       allmodconfig    gcc-16.1.0
+parisc        allnoconfig    clang-24
+parisc       allyesconfig    clang-17
+powerpc      allmodconfig    gcc-16.1.0
+powerpc       allnoconfig    clang-24
+riscv        allmodconfig    clang-24
+riscv         allnoconfig    clang-24
+riscv        allyesconfig    clang-24
+s390         allmodconfig    clang-17
+s390          allnoconfig    clang-24
+s390         allyesconfig    gcc-16.1.0
+sh           allmodconfig    gcc-16.1.0
+sh            allnoconfig    clang-24
+sh           allyesconfig    clang-17
+sparc         allnoconfig    clang-24
+sparc64      allmodconfig    clang-20
+um           allmodconfig    clang-17
+um            allnoconfig    clang-24
+um           allyesconfig    gcc-16.1.0
+x86_64       allmodconfig    clang-22
+x86_64        allnoconfig    clang-24
+x86_64       allyesconfig    clang-22
+x86_64      rhel-9.4-rust    clang-22
+xtensa        allnoconfig    clang-24
+xtensa       allyesconfig    clang-20
 
-It's dubious to just init dma_queue_lock here but not INIT_LIST_HEAD(&isc->dma_queue);
-
-I think Eugen needs to look at this as well to see if this is actually a valid
-issue at all.
-
-In any case, this patch doesn't look right to me.
-
-Regards,
-
-	Hans
-
-> +
->  	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
->  			       "microchip-sama5d2-isc", isc);
->  	if (ret < 0) {
-> diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> index 7383341ec..b1aa3fe55 100644
-> --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> @@ -421,6 +421,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
->  	if (irq < 0)
->  		return irq;
->  
-> +	spin_lock_init(&isc->dma_queue_lock);
-> +
->  	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
->  			       "microchip-sama7g5-xisc", isc);
->  	if (ret < 0) {
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
