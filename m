@@ -1,106 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EE4383305;
-	Thu, 10 Sep 2026 07:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9098328B7F;
+	Thu, 10 Sep 2026 07:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789023810; cv=none; b=FRewVBPYhNi6vkEsxphlLOWeUtJGkh2yYIEg1yIrB2wtiqoOg0Ov3Odr3K0D3ul2mzQE9RgUC1whLygF10J5nNzo8tMFlgEDeH2nkvADkl9A65Wgod6NFoNOisLno4t9WbpO+Ry1xF3Z30Q5NX2d4fqk6VN+aQVScsj8I08pR4U=
+	t=1789024017; cv=none; b=Su+ICR9EicmL62Ow6kUFGGFSBkoln1xOWzmfQ56BPE87GeXMoS4UxquXszuFvzUfzYlGVD+3C+aa7xn1X1Wk8bRJS9WopIsmpJTIljE77UsxAGCWJeK/4s493j7O6ewrhYSwSsYiOuwDwA4gN3bh1FOyqk5ZJ1WI1INQxMd00zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789023810; c=relaxed/simple;
-	bh=W3v6xZysrxc2bN3HWAjqRmQjpmdsb4LphXRpqWMxeMA=;
+	s=arc-20240116; t=1789024017; c=relaxed/simple;
+	bh=4s4UqO1fBxQv9AyWmVnt50A582KPLonm1IFwa5Ve7Cg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iyDXvc6n4yafrV7tVQJZdm8lEWUok7J5Dmx1ePCEzOmSx0zaOw8bKtMVJXxVa37NDT0OF1+vpLu6gGmMJ0phlZjWAZZHUWOYk3FcbmPPxTKGZ/sOUEmWbVCCv9G+okweQnUBkUoq3H3setRKzL1OntAEm7EklwYcSq9SBAm/xaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfOPrmaO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=m/fiKx/k9inYnm5Rz7GOhBF2l5CvAm+V7CJwzHtPso7IdG4JIqYs5A8SmdAe6xln3NCXVUIfysi0fgWr8PWIai9uKnUiAU1NZyoknTjheXRUtq5Bm7wTcLK8vOjp3Qtv1ZR5Na4DUOZBsFj6RevDS7YYS5MeUSX+NL739G/giLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FOJSsZwj; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfOPrmaO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1514F1F000FF;
-	Thu, 10 Sep 2026 07:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789023799;
-	bh=XM0UlgGO0XgNwGptR9TOyoxTciLoiBWrgmoo1eHINsg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XfOPrmaOjJ2sHsy7dNOplojbTOmSbyI+nncqBjzftN17kI8RkDKh5pWm+HMZdf0Ya
-	 ALglcYS5GD41PStraiJC+/xWOyT8tUZ3y60D5jtdSHLKTBTWAmUrDjQVVTvE3LoLj2
-	 l+oJqM9mkc0W5Jywk4kGwAKL75HbCX2sL4kTA1tadp/BHa3/qwQQYAm9GocJ+FHg/q
-	 KoYoqLhTXnptr/oPFMLNyHlsZYeAeDNiag/JHRho2O2bgP4MN5MsxlDqFgZy/cm7lP
-	 uiqvfDvLzk4avMI0dvyndL/M8brfD7jUmIeoBKPEGHQXUCE687cqVz3sDReuTbeIm4
-	 HVSkKmN/0LDMQ==
-Date: Thu, 10 Sep 2026 09:03:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, iommu@lists.linux.dev, Daniel J Blueman <daniel@quora.org>, 
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v3 11/13] arm64: dts: qcom: monaco: Add Iris context bank
- subnodes
-Message-ID: <20260910-mottled-tody-of-discussion-2ed66c@quoll>
-References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
- <20260909-vpu_iommu_iova_handling-v3-11-2fe43ae45495@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FOJSsZwj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789024015; x=1820560015;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4s4UqO1fBxQv9AyWmVnt50A582KPLonm1IFwa5Ve7Cg=;
+  b=FOJSsZwjPdeX5OI+58r4VrcV+Axu5cM/KvLiWGgpnvqw45DYaZEXRm1C
+   BWkoRSgOR9YP6l5II/IFFTjvTueC8l41SELwGfNdKGBK1JVJAesbvqZvE
+   v61c+8x1smhLM9spqhS/Atwr8+9WnQmwJidyid6g2ye6TpQ3worQL/wVI
+   VJ9+qDMflA4dVErPkHtCrYm/TuVXts4RFraNmQX2BLugWs2OSIOJ+T96W
+   tWWjw2PAyE8umOOVoMit1tH+S9jbsXk83KGwV8rSodwTr51BiMezUC82T
+   ZiEdfdXwCyaj6xs2XHCWejAjPh1r0ItmPgP35wL8sxDBZj9iU3lL3ijx1
+   Q==;
+X-CSE-ConnectionGUID: UV60inUkT9C8ODJ+G5gemQ==
+X-CSE-MsgGUID: 4uTC2wNQRBucRt4/gl6+pw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91981881"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="91981881"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:06:52 -0700
+X-CSE-ConnectionGUID: eIP53DZdRTiOObWLcz/VUQ==
+X-CSE-MsgGUID: sOokH2uqSU2NMn7ZwSLm5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="301444430"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.189])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:06:48 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 43D83121BCD;
+	Thu, 10 Sep 2026 10:06:51 +0300 (EEST)
+Date: Thu, 10 Sep 2026 10:06:51 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: "Su, Jimmy" <jimmy.su@intel.com>
+Cc: "Zhang, Qingwu" <qingwu.zhang@intel.com>,
+	Pierre Pinon <pierre@pinon1.fr>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Vadillo, Miguel" <miguel.vadillo@intel.com>,
+	"Yeh, Serin" <serin.yeh@intel.com>
+Subject: Re: [PATCH 2/2] media: i2c: ov08x40: Do not expose the broken
+ 1928x1088 binned mode
+Message-ID: <aqJXC9SbhJCz2KFJ@kekkonen.localdomain>
+References: <20260904134604.595685-1-pierre@pinon1.fr>
+ <ap_YYNDTG7Va4MD8@kekkonen.localdomain>
+ <PH3PPF7708D4D9D95D62B6929DEB21637B888B02@PH3PPF7708D4D9D.namprd11.prod.outlook.com>
+ <DM4SPRMB0091FCB6C62990275CABC68F9DBF2@DM4SPRMB0091.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-11-2fe43ae45495@oss.qualcomm.com>
+In-Reply-To: <DM4SPRMB0091FCB6C62990275CABC68F9DBF2@DM4SPRMB0091.namprd11.prod.outlook.com>
 
-On Wed, Sep 09, 2026 at 08:27:18PM +0530, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream in
-> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
-> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
-> that boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+Hi Jimmy,
+
+On Thu, Sep 10, 2026 at 06:28:59AM +0000, Su, Jimmy wrote:
+> Hi Sakari, 
+> As I know, one of Chrome MTL project is using ov08x40 sensor. 
+> It supports "3856x2416@4 lanes linear mode" & "1928x1208@ 4 lanes linear mode".
 > 
-> Given that the address range restriction is for specific VPU stream, it
-> should be ideally be moved to that stream. To achieve the same, a subset
-> of streams is now represented as subnodes, so that each can be
-> associated with its respective addressable range. The design was discussed
-> and agreed by mainatiners here
-> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
-> 
-> In the past, this limitation was addressed with an iommu-map approach,
-> with the iris driver dynamically creating the devices. That approach
-> was later concluded to be a hack to avoid having subnodes, and was NAKed
-> by the iommu maintainers. It was discussed in detail here:
-> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
-> 
-> The video-codec node includes address-cells, size-cells and dma-ranges
-> to declare 1:1 mapping for DMA translation to the parent.
-> 
-> Tested-by: Daniel J Blueman <daniel@quora.org>
+> Then Linux projects support 3856x2176@ 4 lanes & 2 lanes linear mode.   
+> BTW, Some Linux projects have CV solution. 
+> From one CV vendor's feedback, 1928x1088 resolution only supports sHDR mode. 
 
-I do not believe the testing actually occured, except some case, so
-please apply it ONLY to the commits where applicable.
+But this CVS device still works in non-binned mode. Are the exact
+limitations known? Is this CVS device used in other systems?
 
-I already asked this at v2.
+Staggered HDR isn't supported in upstream in any case.
 
-If Daniel did not confirm where this was tested, then the tag DOES NOT
-apply to any of the DTS patches.
+> But our sensor driver only supports 1928x1088@linear mode. 
+> It could have unexpected issue while this device has CVS board. 
 
-Best regards,
-Krzysztof
+One way to address this would be to set the minimum image size to some
+larger, known to work size, for that CVS device in the CVS driver. This may
+require changes on libcamera side, too, but that's a separate issue.
 
+-- 
+Kind regards,
+
+Sakari Ailus
