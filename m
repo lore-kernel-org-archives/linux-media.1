@@ -1,51 +1,33 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003ED3BB67B
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 10:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60E73546F1
+	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 10:12:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034843; cv=none; b=W9gcF6zD0g23FRPLJ3WWB01G9lZUlQ7lAaD5oTxhgEE8dnWlXkzAXNgsTL1yjEnpG9KFCAPcRcvIl6wnphOg6hUd/lEDy2dC2fomSRB2LwtkpsBEZ+VYXzqbRj7WiE4/TVdCgsRSS2U6r5Buk+AQsegBE68fSsHD9fZA1Z3upQM=
+	t=1789035132; cv=none; b=X8QvodWNYmZSr4F5Hnz4m9e5Tnsuk8VPCbPk3bL3sg3kfuA4wWRpK1so/eXvXTbyJWn9S1ktBstJpvoVWPmYbzltnhVg726GNUgbJ557u8LL6JHfEwczPVA4xtUeKLjAwg6jkCj10se+bGMwAsJWgvlyOSAOPxmZKiVeGnVN1iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034843; c=relaxed/simple;
-	bh=U2oe3hVTq0qbVZ71h5xzm622BIjXk6fAitQw3V+ttao=;
-	h=Message-ID:Date:MIME-Version:Subject:Cc:References:From:To:
-	 In-Reply-To:Content-Type; b=Aa9dppvCjlgV2l+cEUDy+xgylgNyTAza3fRGeXUOknXWFYbya3nnGF9nTbCMLwLYTtLJJT3dCHwfZHBShnRv3IVz8IcHJXKVRQ7EAvlBuOmA/7fsbY1yJn3gH7KvgwOhWJbxYXAV41L+1uisfcoE+ZNLmJsd60OzHZMdUV4mvK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=LdLW4Xoo; arc=none smtp.client-ip=188.68.63.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789035132; c=relaxed/simple;
+	bh=IuMIYh9X9IVY6CJl/CwrShnkg2Zwau+nmNyWvs0XPPI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DoV2IVFphFOSKvMcXyZcmdDln+vGvdl+0/LrDU5h9qVZNlL5T9oewfUmz4RffKtx5gn3re5HLOKEEwlD9KvZwK5mxLf0jZSanbXn5FeAQ+IuRZVcHNUGHCXuegYwICm1dPDinKtm7vYRI6ZqHFA1Zh5qitWUKUbaVL+qR/WILm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0Tpm+Ce; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="LdLW4Xoo"
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hgYHm0tlFz6HRc;
-	Thu, 10 Sep 2026 12:07:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789034820;
-	bh=U2oe3hVTq0qbVZ71h5xzm622BIjXk6fAitQw3V+ttao=;
-	h=Date:Subject:Cc:References:From:To:In-Reply-To:From;
-	b=LdLW4XooslJFoz/sa2h3IYoP4pGQohYUSDxl/jMt6+2szwvjxT4NeclZCfLTzvscX
-	 VMpNxBEy3qDOciph7eCh+vl0tKQlvvk7EG0Rk+1JXDj+bH1UrSD5NamcL/+DZ/Q6uZ
-	 mA0XgzLApmOJSCWfyGbrrXfK6CRoLMt5dvA/88n1UfWKLNf3R3d7d5HPtKUPeB2iZ0
-	 5V9ScH7Fw0gS7dilfeHNkTTh9eYjj/hHZokIeOzg8TXNCOtd4IOqbcRhdsiPPmEqu/
-	 EBYdBqj3BxXz7XLH/LGtp5X/ApLdZQL6gblnJt9gpqVAqbbbMuJojKWQgafat0oG1l
-	 ASysU9RInMQfw==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hgYHm08xtz4xNG;
-	Thu, 10 Sep 2026 12:07:00 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hgYHl04ZYz8sch;
-	Thu, 10 Sep 2026 12:06:58 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 1B9E3604A5;
-	Thu, 10 Sep 2026 12:06:58 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <27c82eb4-4f8e-41b5-b983-dff7a0a27951@leemhuis.info>
-Date: Thu, 10 Sep 2026 12:06:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0Tpm+Ce"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E9F1F000FF;
+	Thu, 10 Sep 2026 10:12:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789035130;
+	bh=3pIjrAdTUxcrmKqoSrP6GWQlrDFixjrn05dFRma7Y+U=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=o0Tpm+CeKTsCCDCnRzuWMUFPnbj3MNKQl9AqFDxK6pOfp0vfF3Hl4yNuZWgFrTCw+
+	 NSEGOoDnFpjuAyLcdPJd9qfqjN5mk/UGds1sDShxlfc+QwJJtGKO0fsISj/Ag541tB
+	 GHXc9SNw89GdkVyXpyXK1ogdcjd2wOG4QAw7fbn1996dBdnb4XOnUjKXtMEr8zrgVX
+	 LJE6va3wW5WrXa4QgYS9yfSSrOVMEDekyoR2is36LeC2W6eHyyigA33szoGWhjWrSM
+	 xT3Luq5ea1jSkQ3uoeT5KTbCPrOWfHnLqZGrbT6ZpYVP4noWC7hftye2jNdprXIy/r
+	 gpr9gJFbVjqOA==
+Message-ID: <87c86455-31de-49a6-8621-224bb43150f9@kernel.org>
+Date: Thu, 10 Sep 2026 12:12:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -53,58 +35,66 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] media: ipu-bridge: IVSC camera no longer probes
- since v7.2 (CVS fallback returns the IVSC platform device)
-Cc: Martin Jeanne <martin@badakan.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Miguel Vadillo <miguel.vadillo@intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>, Lixu Zhang
- <lixu.zhang@intel.com>, Sergey Zagursky <gvozdoder@gmail.com>
-References: <2f8b67fc-ec2a-46f6-9ee0-06279e612bde@badakan.com>
- <e8fd955b-fadc-497a-899b-a13502f0d7f0@leemhuis.info>
- <7646b50e-391e-49cb-a82c-3f82be7c2273@badakan.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-In-Reply-To: <7646b50e-391e-49cb-a82c-3f82be7c2273@badakan.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [RESEND PATCH 2/2] media: em28xx: fix race between
+ em28xx_free_v4l2() and em28xx_v4l2_fini()
+To: Dmitry Antipov <dmantipov@yandex.ru>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, lvc-project@linuxtesting.org,
+ syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com,
+ linux-media@vger.kernel.org, Fedor Pchelkin <pchelkin@ispras.ru>
+References: <20260907102824.95222-1-dmantipov@yandex.ru>
+ <20260907102824.95222-2-dmantipov@yandex.ru>
+ <20260907141901-c37057428f7d37dcdb29b1e5-pchelkin@ispras>
+Content-Language: en-US, nl
+In-Reply-To: <20260907141901-c37057428f7d37dcdb29b1e5-pchelkin@ispras>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178903481857.1400903.6097560789328086809@mxe9fb.netcup.net>
-X-NC-CID: X6oLH8qUumbIGo/YLfz4cnLw5wnH2eFZ/hZujGJ8ruT1YiTgd2k=
 
-On 9/10/26 11:42, Martin Jeanne wrote:
-> On 9/10/26 10:56 AM, Thorsten Leemhuis wrote:
->> Thanks for the report. Have you seen or maybe even tried applying
->> "media: ipu-bridge: do not use the CVS device lookup for IVSC", which
->> fixes a problem with the commit you mentioned and sounds somewhat
->> related to my (but I only looked briefly):
->> https://lore.kernel.org/all/20260902211524.5572-1-gvozdoder@gmail.com/
+Hi Dmitry,
+
+On 07/09/2026 13:30, Fedor Pchelkin wrote:
+> Hi,
 > 
-> No, I had missed it, thanks. Sergey's analysis matches mine and his
-> machine has the same IVSC (INTC10CF) and sensor (ov02c10), so my report
-> is a duplicate of his.
+> On Mon, 07. Sep 13:28, Dmitry Antipov wrote:
+>> Take device (an instance of 'struct em28xx') lock in em28xx_free_v4l2()
+>> and do the same early in em28xx_v4l2_fini() to avoid UaF-triggering
+>> racy access to 'v4l2' member.
+>>
+>> Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
+>> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+>> Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+>> ---
+> 
+> It would be nice to know what is the race and what is the root cause.
+> Since if em28xx_v4l2_fini() and em28xx_free_v4l2() can _actually_ have a
+> race, it's not clear what happens in the following scenario:
+> 
+>   Thread A                               Thread B
+> 
+>                                       em28xx_v4l2_fini()
+> em28xx_free_v4l2()
+>   mutex_lock(&dev->lock) 
+>   dev->v4l2 = NULL
+>   mutex_unlock(&dev->lock) 
+>                                         mutex_lock(%dev->lock)
+>                                         if (!dev->v4l2)
+>                                           return
+>                                         mutex_unlock(%dev->lock)
+> 
+> What about the resources which em28xx_v4l2_fini() should deallocate /
+> disconnect / put ref / etc. when it doesn't return early?  Are they
+> released eventually and who is supposed to do that?
+> 
 
-Good to know, thx!
+I agree with Fedor, this doesn't feel like the correct fix. em28xx_free_v4l2() shouldn't
+be called until the very last user went away.
 
-#regzbot dup:
-https://lore.kernel.org/lkml/20260901194526.6369-1-gvozdoder@gmail.com/
+At the least there has to be more detailed information how this happens.
 
-> If a Tested-by on a second machine helps, I can try v3 on my XPS 14 9440.
-Not sure, might help a tiny bit: the commit is in -next already, but not
-yet in a -fixes branch from what I see, so it might still be possible to
-add this to the change.
+I'm not saying the patch is wrong, but I am not certain whether it fixes the
+actual bug, or whether it just fixes the symptom.
 
-Which leads to the bigger question:
+Regards,
 
-Mauro, what's the status of ce92674d8d8b29 ("media: ipu-bridge: do not
-use the CVS device lookup for IVSC")? Given that we have two reports
-about this, it afaics would be good to get this mainlined this week for
--rc3.
-
-FWIW, there might be two more reports about this, not sure yet:
-https://bugzilla.kernel.org/show_bug.cgi?id=221988
-https://bugzilla.kernel.org/show_bug.cgi?id=221983
-
-Ciao, Thorsten
+	Hans
