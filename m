@@ -1,183 +1,188 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B28311C15;
-	Thu, 10 Sep 2026 03:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D943793BF;
+	Thu, 10 Sep 2026 03:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011311; cv=none; b=qaVXHPVwWtkDs3CHY1T89yXUhhEKQ2WaGRa61c/tvNLQccakyUchgy87+TiCFpJPPui6dkLHbzWvkPaHntK4+iPdFu0aqz4w6y8WLL/FN1tZ6B/J34CJ3lk82NXiZ04WZw3snEZtCV/oS+P9yzpNc7R0TzAMvKXniHiWcSzlmgQ=
+	t=1789012696; cv=none; b=BKkS30FalgQjBEQm86JbHf8Ikfb36JHdZq4cEjy5HTGpmZAv1TnO0Rqdt4256F4JSd5kVLw0Cadm7aCvGhLuZm/EkJo3QT1jb2rbZwzi/+ZP6JNUH9tZnKs5tx02mloU76ePni4paR5KhOR3QnL3e+bdS3OPPU7NHsFgVveUoAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011311; c=relaxed/simple;
-	bh=uwbLdH4JlMUhHwB9Ehu4aTO25qAW+UrPjFrmpWTCWMM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kELMnwW+IFfxB/yqt/78b6orWuAV6gz+wWtVDY9lYbRjxJ8RFaVLMBWdzmW42icP+pML7wfToMs3C0gV9p0kx3Q8WxRpCsstnFE1TAOCkjXlwD/U1R42dpbsQJViGHqCpoJp/Lh75ZS6xGQs17Xn0XQ/iaseloTR0geEKqI8Op8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1789011270ta45063a6
-X-QQ-Originating-IP: mzJpXuLuvAHubzsSSmDTo7/IgQ5p7XcdOadsdYhpsIM=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 11:34:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6148723628812340598
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 10 Sep 2026 11:34:24 +0800
-Subject: [PATCH] media: iris: Add SC8280XP platform data
+	s=arc-20240116; t=1789012696; c=relaxed/simple;
+	bh=9ZCrTUPQ/2kHb244eHAehIrJdOn/ra7tdhDBjDzk8Y0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IpLsInFTKPrr261TGhCc+jibMKCRAhQzK+MMB4WJb1/mm3Jc0BcGiQO6j4lr6gVjCekFToVAWKq5ULEQlC45CYTqujET0kUuTlNvPHTpAiGKOPo1fiirQXegPXNHl+MAvRO4qoX0dmQBzKg1oU4+k3e0HvKsBCjTiC0nlLWdxPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:783a6890-3efb-439e-bcd4-658632ac3b45,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d8f48e63ea9b832664a29e31d998231e,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
+X-User: liwang@kylinos.cn
+Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1146476214; Thu, 10 Sep 2026 11:58:06 +0800
+Message-ID: <9447bb67-96e9-43b3-87c8-db231051fa2d@kylinos.cn>
+Date: Thu, 10 Sep 2026 11:57:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBCF4VeRWZukGprWq4gFvYOxKOkgEvHue
- ll+Jzn/BUKRSaDOLoh0sPASEoo8Az91YSTkXzJopY1yhULxVlt1rjgNjCMFjc5U3pRlWq2D9Fs
- jDXy+zab9LHs/k9/+IbjvB+19/t11AAAA
-X-Change-ID: 20260910-sc8280xp-hfi-gen2-965c64428089
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4474; i=sophon@radxa.com;
- h=from:subject:message-id; bh=uwbLdH4JlMUhHwB9Ehu4aTO25qAW+UrPjFrmpWTCWMM=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmLVB37N4s//3Y6dV7H97iVdpNbnd87HbxoY7L8xOs0F
- qtlF547d5SyMIhxMciKKbIoxDPMZa/MvfZUrFQPZg4rE8gQBi5OAZjIt1sM/8za/qaY3uc4r8nd
- x+Z1wLK5ZJ9mz+xoxY9Zxzl/uk6ceY+RoatJ7fwP7sT+i7kr+hyrZ3+79FXHkidwvaT+F95N29f
- dYwcA
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: M9t1NOw+1P4Gxc7+Av82q/rWjdR0s8eOgMQ8d3wCBYQvXefDu0daImds
-	U63W/4ynV96W3Qh6gu5vz3WW0Cyoc35cHxqtoRi6jrYrmbTAtlE0sJ2yRVHRxZlFRcTudCe
-	szApwQQThCGTjzAP3IQg7Z9+rKS4UdPFT1kLWKIgezBlVSI8a82BLQ1mkSspz1fDZBpjHz3
-	H5png+fx1oOXY2/xgkJoS4GzJ2OxigRMpEQrIodPn/dSlGfgSZqv2OASHMDaOevRzhG7PAw
-	Sz9lFG8ZTdxQ4NXPFeA+X794yO8Os5MTzTgzqs32XTLjk51YFPbX+cYi+0ItCya8jha8HBC
-	jvrhUvcC8Wkj0iQhGKL6Cl8Zht9BwCz86GAmwaRBYFo/dwntnIADIEqcbcDmv1DLW4+Fbab
-	Bb64HRsEFkilyoN0EuvhBI8ADyd6UPYmTBB1F4emraIdFpRzs5Q9re3PA0/E17WyjSZy0pd
-	Ci5h5dRqHphREzQgXLfSi20gvn8mH42oE9VwE5HGNndCP9iZuM1MU1d2to2ySi0k9I9s5op
-	BWbH3SUvZFQCJhwEDRUWc+Z0ZeQF+7Ni0wcIZAz/jm+H23bI+nJJ8MozapJOMmnVarUyG7J
-	XctVKegCg94ifeb01C7GBiKjB3KOTYZ9id3gtvyAS+WdmiaZw1cjV+o+TGFJX/KLL6ngrg4
-	pJtrjT+cMJE5Q9vbYNGoTTyQGLQJiPeFB7lmNlZjK0PmfjmPW40ukBUzPFU7gd2fYVKb8k1
-	xYHwdg6MKUnHdiHy0rFzPaj6JGgsycLvyuZoCm6VmWwClPfWqMmJhg2Xd9OzYtT/Xqxk89n
-	h6ARzzVucXababCr/NUNYk02Nfd4n/G4cxP/FYvG/QHx0vwUayE/HuBcmW304NLisUFwVz+
-	FtUXZqwNUhgzQEV05mkraZoh55uTeUjgLj9s6XsnjoRpH8APFTnE4DFt/bY0aKAdP1ZHAHi
-	caQNFcGVpuqNS5ztQOSNlmkQMKb7T8gKcuE+hk5Tzq9HhWq3o3SrwW3r1VvuSd70jzefydO
-	fvU8w39fvtLID5ACsJsCkYBlD/wS9rtv1oE9KzDw==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
+ io_uring
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <2026090913-landline-encroach-c544@gregkh>
+ <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
+ <2026090924-corsage-shout-833d@gregkh>
+ <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
+Content-Language: en-GB
+From: Li Wang <liwang@kylinos.cn>
+In-Reply-To: <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add platform data for the Iris VPU on SC8280XP and hook up the
-qcom,sc8280xp-iris compatible.
+Hi Christian,
 
-SC8280XP uses the VPU2 programming model, but can run the newer HFI Gen2
-firmware.  Describe both the legacy Gen1 firmware and the Gen2 firmware
-so the driver can select the available firmware at runtime.
+>>>> Nor why "fgds" is the name, that's going to be hard to remember, does it
+>>>> stand for something?
+>>>>
+>>> "FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
+>>> technology enabling direct I/O between GPU memory and files on NVMe, 
+>>> widely used in LLM workloads to bypass CPU overhead.
+>>
+>> That's nvidia's specific solution, but this works on other devices,
+>> right?  Or just for that one platform?
+> 
+> That was nvidia's specific and very hacky out of tree solution 
+Exactly, I completely agree with your viewpoint. In fact, we previously conducted 
+a deep analysis of NVIDIA's GDS implementation code, which was also one of the 
+motivations for us to develop fgds.
 
-Set up the SC8280XP clocks, resets, power domains, bandwidth tables,
-format list, capabilities and DMA address limit needed by the Iris driver.
+Please allow me to introduce NVIDIA's GDS implementation briefly:
+NVIDIA introduced two kernel modules: one module called nvidia-fs, and the other module 
+is a customized NVMe driver replacing the Linux kernel's default NVMe driver. 
+nvidia-fs creates a device file for every NVIDIA GPU on the machine: /dev/nvidia-fs<gpu-id>.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- .../platform/qcom/iris/iris_platform_common.h      |  1 +
- .../media/platform/qcom/iris/iris_platform_vpu2.c  | 36 ++++++++++++++++++++++
- drivers/media/platform/qcom/iris/iris_probe.c      |  4 +++
- 3 files changed, 41 insertions(+)
+Applications call cuFileBufRegister to register the GPU memory buffer to perform I/O. 
+cuFileBufRegister executes the following operations: calls nvidia-fs via ioctl. The 
+implementation of this ioctl allocates a corresponding phony buffer of the same size 
+in the host memory, and establishes a mapping between the CPU memory phony buffer 
+and the GPU memory buffer.
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 974809509146..5b5306dcd69f 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -57,6 +57,7 @@ extern const struct iris_firmware_data iris_hfi_milos_data;
- extern const struct iris_platform_data milos_data;
- extern const struct iris_platform_data qcs8300_data;
- extern const struct iris_platform_data sc7280_data;
-+extern const struct iris_platform_data sc8280xp_data;
- extern const struct iris_platform_data sm8250_data;
- extern const struct iris_platform_data sm8550_data;
- extern const struct iris_platform_data sm8650_data;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-index bbdbf21961d7..e0cca55c0873 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-@@ -41,6 +41,12 @@ static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
- 	.fwname = "qcom/vpu/vpu20_p4.mbn",
- };
- 
-+static const struct iris_firmware_desc iris_vpu20_p4_gen2_s6_desc = {
-+	.firmware_data = &iris_hfi_gen2_data,
-+	.get_vpu_buffer_size = iris_vpu33_buf_size,
-+	.fwname = "qcom/vpu/vpu20_p4_gen2_s6.mbn",
-+};
-+
- static const u32 iris_fmts_vpu2_dec[] = {
- 	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
- 	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
-@@ -135,6 +141,36 @@ const struct iris_platform_data sc7280_data = {
- 	.max_core_mbps = 4096 * 2176 / 256 * 60,
- };
- 
-+const struct iris_platform_data sc8280xp_data = {
-+	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
-+	.firmware_desc_gen2 = &iris_vpu20_p4_gen2_s6_desc,
-+	.vpu_ops = &iris_vpu2_ops,
-+	.icc_tbl = iris_icc_info_vpu2,
-+	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
-+	.clk_rst_tbl = iris_clk_reset_table_vpu2,
-+	.clk_rst_tbl_size = ARRAY_SIZE(iris_clk_reset_table_vpu2),
-+	.bw_tbl_dec = sm8250_bw_table_dec,
-+	.bw_tbl_dec_size = ARRAY_SIZE(sm8250_bw_table_dec),
-+	.pmdomain_tbl = iris_pmdomain_table_vpu2,
-+	.pmdomain_tbl_size = ARRAY_SIZE(iris_pmdomain_table_vpu2),
-+	.opp_pd_tbl = sm8250_opp_pd_table,
-+	.opp_pd_tbl_size = ARRAY_SIZE(sm8250_opp_pd_table),
-+	.clk_tbl = sm8250_clk_table,
-+	.clk_tbl_size = ARRAY_SIZE(sm8250_clk_table),
-+	.opp_clk_tbl = sm8250_opp_clk_table,
-+	/* Upper bound of DMA address range */
-+	.dma_mask = 0xe0000000 - 1,
-+	.inst_iris_fmts = iris_fmts_vpu2_dec,
-+	.inst_iris_fmts_size = ARRAY_SIZE(iris_fmts_vpu2_dec),
-+	.inst_caps = &platform_inst_cap_vpu2,
-+	.tz_cp_config_data = tz_cp_config_vpu2,
-+	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu2),
-+	.num_vpp_pipe = 4,
-+	.max_session_count = 16,
-+	.max_core_mbpf = NUM_MBS_8K,
-+	.max_core_mbps = ((7680 * 4320) / 256) * 60,
-+};
-+
- const struct iris_platform_data sm8250_data = {
- 	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
- 	.vpu_ops = &iris_vpu2_ops,
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index e4acf4a74f94..5986a5e77986 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -368,6 +368,10 @@ static const struct of_device_id iris_dt_match[] = {
- 		.compatible = "qcom,sc7280-venus",
- 		.data = &sc7280_data,
- 	},
-+	{
-+		.compatible = "qcom,sc8280xp-iris",
-+		.data = &sc8280xp_data,
-+	},
- 	{
- 		.compatible = "qcom,sm8250-venus",
- 		.data = &sm8250_data,
+Then, the application calls cuFileRead/cuFileWrite to perform file I/O operations. 
+Its implementation calls ioctl on nvidia-fs with NVFS_IOCTL_READ/NVFS_IOCTL_WRITE 
+as parameters. Inside the ioctl implementation, it calls the common kernel interface 
+filp->f_op->read_iter/write_iter() on the file on NVME. These interfaces can only take 
+the CPU memory phony buffer address as a input, constructing read/write requests sent 
+through the block layer to the customized NVMe driver.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260910-sc8280xp-hfi-gen2-965c64428089
+The customized NVMe driver intercepts the I/O operations, calls the nvidia-fs interface to 
+query, replaces the phony buffer address with the GPU memory dma address, and performs 
+DMA transfer between GPU memory and NVMe.
 
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+As we can see, this implementation is indeed very hacky and non-elegant. Furthermore, 
+as evaluated in this paper published in SC'25 [1], the phony buffer brings a considerable 
+performance overhead.
+
+> which as far as I know is pretty much abandoned everywhere.
+However, despite the overhead of phony buffers, GDS performance is still significantly higher 
+than transferring through CPU host memory (as shown in our performance benchmark tests [2]). 
+Therefore, GDS is actually still widely used in the LLM ecosystem. For instance, model loading 
+plugins used in inference engines like vLLM and SGLang—such as fastsafetensors and InstantTensor—
+both support acceleration via GDS [3,4], with fastsafetensors enabling GDS by default for model loading. 
+Furthermore, LMCache, a plugin used for KV cache offloading in vLLM and SGLang, also supports 
+GDS acceleration [5]. PyTorch itself also provides file access APIs based on GDS [6].
+
+> 
+> AMD came up with something similar, but all those approaches are so fundamentally broken that we didn't even considered upstreaming it.
+>> And you are using this as a "bypass" for the normal accel subsystem,
+>> shouldn't this be part of that subsystem instead of a custom user/kernel
+>> api like you are creating here?
+> 
+> As far as I know there is a patch set under review and even already partially merged which enables exactly that functionality as general feature for DMA-buf which is vendor independent and should at least in theory work with all drivers.
+> 
+> I'm really surprised that somebody is still working on the vendor specific stuff.
+As you pointed out, every vendor has been inventing their own way and interfaces to support GDS, 
+introducing custom kernel modules and proprietary UAPI interfaces, with varying performance that 
+leaves developers heavily frustrated. Apologies for not making this clear enough in our commit 
+messages, which understandably caused some confusion. We merely borrowed the name "GDS" to describe 
+the functional purpose of fgds.
+
+In fact, we believe fgds offers four key advantages: 
+(1) GPU platform independence; 
+(2) POSIX/io_uring interface compatibility;
+(3) Higher performance than GDS;
+(4) Minimal kernel footprint and UAPI footprint
+
+Regarding (1), (2), and (3), please allow me to briefly explain the design mechanism of fgds:
+fgds turns a GPU memory buffer into a POSIX/io_uring-compatible user-space virtual address via 
+three main steps:
+
+Step 1: Utilizing ZONE_DEVICE support, we remap the GPU memory exposed via PCIe BAR into struct pages 
+using devm_memremap_pages();
+
+Step 2: Utilizing dma-buf support, the GPU memory buffer is exported as a dma-buf file descriptor (fd). 
+Using this fd as a bridge, we look up the corresponding DMA addresses for the GPU memory buffer inside 
+the kernel;
+
+Step 3: Through mmap, we insert the struct pages corresponding to the GPU memory buffer into the userspace 
+VMA, mapping their physical/DMA addresses directly. The virtual address returned by mmap can then be directly 
+passed into standard POSIX or io_uring interfaces.
+
+As you can see, since almost all major GPU vendors support exporting GPU memory buffers via dma-buf, 
+all remaining technical dependencies of fgds rely on standard Linux kernel infrastructure. Therefore, 
+fgds is completely vendor-agnostic and natively compatible with POSIX/io_uring without introducing any proprietary 
+vendor interfaces, which greatly simplifies development, deployment, operations and unifies standard usage. 
+Furthermore, because this technique completely eliminates the phony buffer, its performance is significantly 
+better than NVIDIA's GDS (as shown in our benchmarks [2]).
+
+In addition, since fgds uses only the most fundamental dma-buf mechanisms, it relies on baseline dma-buf features 
+that have been supported in the upstream kernel for a long time, rather than any new dma-buf features currently 
+under active development. In fact, before we recently ported fgds to the latest kernel tree, it was developed 
+and ran on our internal 6.6 kernel. It has been running stably in our production clusters for over half a year 
+across various hardware platforms (including NVIDIA, AMD, and several other vendors) without requiring a single 
+line of GPU-platform-specific fgds code modification.
+
+Regarding (4): We believe that implementing GDS-like functionality inherently requires kernel assistance to map 
+the GPU memory buffer to a valid userspace virtual address. This inevitably requires userspace-kernel interaction. 
+To the best of our knowledge, the mainline kernel currently lacks a dedicated, unified path for this specific interaction, 
+which is why various vendors ended up writing their own out-of-tree interfaces. In contrast, fgds introduces 
+only one single new ioctl parameter (REG_BUFFER, excluding UNREG_BUFFER), and confines its scope strictly to a 
+standalone device driver. We believe this achieves a minimal kernel footprint and minimal UAPI addition.
+
+[1] https://dl.acm.org/doi/10.1145/3712285.3759862
+[2] https://github.com/Storage-and-OS-for-AI/fgds
+[3] https://github.com/foundation-model-stack/fastsafetensors/blob/main/docs/configuration.md
+[4] https://github.com/scitix/InstantTensor/blob/main/csrc/loader_io_cufile.cpp
+[5] https://github.com/LMCache/LMCache/blob/dev/lmcache/v1/storage_backend/gds_backend.py
+[6] https://docs.pytorch.org/docs/2.14/generated/torch.cuda.gds.GdsFile.html
+
+Thanks,
+Li Wang> Regards,
+> Christian.
+> 
+>>
+>> thanks,
+>>
+>> greg k-h
 
