@@ -1,249 +1,125 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B693E397331
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 06:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E69379980;
+	Thu, 10 Sep 2026 06:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022326; cv=none; b=aUxi73niVRi5j0xUN04ElZ2Cmm9uGLIU+nzpciu0GedcL1ifDswlG6IAVqXgoHWgsYNeqfKlGw6Dv6tjyB2d8fQcO8whmZS2ERD3nRM+Yjg89AFZKJNnV6j/UWdP6IsjA8B4Tg2YnHYw2wmaEgg5k83jM+wfqFcR9FI6fzb2pp0=
+	t=1789023576; cv=none; b=Aplnk+7SA0VCkMBspOOYk68wvf3ECpCKfL/BT5Cr1lP3dLaijNi6+O9vuTRM6Etnkrgq/qSEPxSwAsuMbj3q/2+rCM9bFVc0htzzy1PqVjR+THFXJBcaBC+gHb9/tpt09+1L0MXXezc9i16Bzy9bPcKGPaOUvQ3Sv/pwMjw555Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022326; c=relaxed/simple;
-	bh=+uVNsC8PLQ5cZxPlsCOIdSwLRtbWGb6Q4b/gIrk0V2U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qRGpm7DcIYT375a5tHGM5t5tYv6jMlTx9oLq/zPVeioMdBPm1AXVnJmLWBrrDofL5LOXb0adN/Ol2SatCE0WnOfvwQ2Aj/tyMU0Bpcsp6lrUvC/DZ407Nf03E4AEkh5iCMDWUll0AflwmHpfDeJYvwl0iXPLnC+cr3Ngz3JxHl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr; spf=pass smtp.mailfrom=korea.ac.kr; dkim=pass (2048-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b=TsGebiqr; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
+	s=arc-20240116; t=1789023576; c=relaxed/simple;
+	bh=LrjsJpRIxtlsE0g/6n4aq0UCVyY9zTwGOd0s4+L37ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NEQ5Fn73drILRyLpLCJMkc/WXoQeSgBVlY1wA4F+rh96esw4sXUurkEqSJu7jumDY9eNvMmZR+uDvv+wA9Yw2PCrW3OLM7BSN+G7J9+tHPgnb1hN4EA309E/zvf5CriivrG5eC2V9RCZOU88LTF/p3/G6WiIiiL2cVXjJf+N4z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkleIUXx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b="TsGebiqr"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39b9a99469fso2650278a91.3
-        for <linux-media@vger.kernel.org>; Wed, 09 Sep 2026 23:38:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=korea.ac.kr; s=google; t=1789022324; x=1789627124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=04LZdWbbV4h34Pdf4Ddo0m60ir31MT0deNLvhJP7A6A=;
-        b=TsGebiqrDtTO+F6yjW6HW/ddBPtwfC4N8PjJr+BLke/TyRTViW68k5O8urzhmkT5AC
-         k/KLbbezZX+qgdb3ByUkx0Q453NVSXl4+3i2S63QWQMhJEkPlImOiOUOi3bRitrkZ9xs
-         Gc/vMBQ/3tJyfa64Arcj9xq8Ct3p1SVwlx7AdaIrJl3p3wOGSdqYKHuhqqAKiXXfyRlz
-         bU3YyDD9Jm5hyi36sl6P0V+p6SjItN6ySsXBhY6F4rt76QrNK6smBNWhoIR45Qnk2TXQ
-         tXbqcTD9Ip6EUvsUTOF7HBmITYIaizydCf4tRftFMZ/l0L/16I/NcmReWUArXbXu1HRY
-         1FBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022324; x=1789627124;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=04LZdWbbV4h34Pdf4Ddo0m60ir31MT0deNLvhJP7A6A=;
-        b=TTVDna+HsmCE3VcHOmqEZkQNfa5HMaw0jpk4U9Ek/vA3dqwUhnX6vhkma1Z80IWdyn
-         omBZV6ykup2ZbyksWcWIEx882WkbFoyPqBCdUzDauEl/GvX9LPPYInLyTF2Xmvefd7ap
-         oWLAQk14pWPAjEtHox/6HijzbmGJ9vl3E3KWTRyu66vDvXn8Km2lHV0l+O7CkmogkBM8
-         WZWLZGLcZGqfVrbMqQckRLC1IXGwHFi1jZmPhl7X0tiutzz5u9mC9PXVFkPk+oMovILW
-         Gox6W8qIzYwcYnKwd53iU/i51ULHjz7ZclUo9AFaxM3SUa+V3q20DD2kX4YqKUFyH5eu
-         kkGg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6Gz3B5j8BZZOz7aR8ZYZXxIAFy4VMxGgesruZ3bruZcbzSQPM/NcUGKxh5Uwuy0GHRiARyPHrZ1UCRw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lfg2xXTRKgUDhUUgEi4zJa7SH3RVWf1HqKpYdUjskHyW6AO9Ls
-	lVHbi76gQRFk9zahIiVgrW1cctNNQXEfFX2s7GG2KDZYPQsLEsHJoxTCopVJTIQLQLk=
-X-Gm-Gg: AYBFou2G9V7cTb6AIutAiOCS1hV7B0PZtjWWzvjHv8s+g7TYoyyT/z/pVLhpluyIqWj
-	lwX69jepraC1B/ZA5MYy2ffvwKOGo3KnnrkgHm0hIGBzCr9dU6j1S652VfsqrI+QKrnXxgj8/8J
-	5AMRlOn50UGlNvyQdeVn9Cgn/kKUC/yC20BIJmAHsUMRImMZRPAAgxWUo1guEp6G3g1S42BDpMw
-	qS/+A3dy/ZqPCZiQs2n62POlhrQ3n+9kgM+VBGqw/DXIInSppYj0EGwEVTzNm0vTGtL7QkYkKSx
-	ClnP5JYyR+t9piydqtflOzZZLODeUQYz9qM1bxH8YHLJuc9inksasr7/Evh1VUxRE8S2yoUW0An
-	MhOUbeeD1GaRaSq8wWalWX+w4le4h1u2RXehiemI20z6yipxnb5KGF5d/vs9xoJ+Nndl/dQAyWX
-	BZuMDStN9hxS+88bbgJQ3Jr1cww3Wmug04nKLveBHDHwilhrtW13bzj1d1Q+jlE+8ETuxF5lzVN
-	b5MV4a7cWpJd7k=
-X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr60877151a91.17.1789022323758;
-        Wed, 09 Sep 2026 23:38:43 -0700 (PDT)
-Received: from icps5-ESC8000-E11.. ([163.152.219.23])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d76aba5d6sm4027882a91.0.2026.09.09.23.38.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:38:43 -0700 (PDT)
-From: Hohyun Sim <tlaghgus0425@korea.ac.kr>
-To: Abylay Ospan <aospan@amazon.com>,
-	linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Hohyun Sim <tlaghgus0425@korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: netup_unidvb: set the vb2 queue lock
-Date: Thu, 10 Sep 2026 15:38:26 +0900
-Message-Id: <20260910063826.112147-1-tlaghgus0425@korea.ac.kr>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkleIUXx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0701F000FF;
+	Thu, 10 Sep 2026 06:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789023574;
+	bh=tskACuagwOaxkuwzFhldeuCVdSOEtOA0YgcoFIIkLQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dkleIUXxhDKYdAVIQBqWxvkaBIKjKyNnWIKzd9qbaYsvTItAG6XCdkXF2nTqguwDY
+	 GhKR7mV4Bfq972b8+MA4pfByXEbpAiOrBb3wPcw7S5Ac6mHIKni5MNQB/dgsAK6dVl
+	 LkHF/Q73JwDzBWLVdwT7srUyZ4TQJ7pKLorXYIIIxy8tP8zYz2pt8w7M1kTh0aeNVj
+	 A6hTP2xtkJOT+xo2D2gGIwbW87MhDeyZHPIX79aZdC4YwhS9zK8g7MM6x6rkdDZ0LZ
+	 3z7kVbyL+jB1DzZje/TDALhliK3dn0sRU2ICmEELL1k+uGz5/POyqACgHBsrc5TZnA
+	 TlDr9VE/akbKA==
+Date: Thu, 10 Sep 2026 08:59:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, iommu@lists.linux.dev, Daniel J Blueman <daniel@quora.org>
+Subject: Re: [PATCH v3 01/13] dt-bindings: media: qcom,venus: Add context
+ bank subnodes to common schema
+Message-ID: <20260910-careful-finch-of-fame-eeeac7@quoll>
+References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
+ <20260909-vpu_iommu_iova_handling-v3-1-2fe43ae45495@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-1-2fe43ae45495@oss.qualcomm.com>
 
-netup_unidvb_queue_init() fills in a struct vb2_queue but never sets
-vb_queue->lock, and the driver never implemented the old optional
-wait_prepare/wait_finish vb2 ops either. Since commit c780d01cf1a6
-("media: vb2: vb2_core_queue_init(): sanity check lock and
-wait_prepare/finish"), first released in v6.13, vb2_core_queue_init()
-rejects exactly that combination:
+On Wed, Sep 09, 2026 at 08:27:08PM +0530, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>     +-----------------------------------------------------------+
+>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>     | 0x25800000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+>     | pixel stream addressable range (0 - 3.5 GB)               |
+>     | 0x00000000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+> that boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> Given that the address range restriction is for specific VPU stream, it
+> should be ideally be moved to that stream. To achieve the same, a subset
+> of streams is now represented as subnodes, so that each can be
+> associated with its respective addressable range. The design was
+> discussed and agreed by mainatiners here
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+> 
+> In the past, this limitation was addressed with an iommu-map approach,
+> with the iris driver dynamically creating the devices. That approach was
+> later concluded to be a hack to avoid having subnodes, and was NAKed by
+> the iommu maintainers. It was discussed in detail here:
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> 
+> "iommu-ranges" on the subnode describes the *allowed* IOVA range that
+> stream is allowed to use, so the IOVA is allocated from the specified
+> range only. Define all the possible subnodes so as to describe all the
+> VPU hardware iommu interfaces, both secure as well as non secure.
+> 
+> address-cells, size-cells and dma-ranges declares the 1:1 DMA
+> translation into the parent.
+> 
+> The parent "iommus" is kept as an alternative via "oneOf", so platforms
+> that have not been converted to subnodes still validate. New platforms
+> should use the subnode form.
+> 
+> This patch depends-on:
+> https://github.com/devicetree-org/dt-schema/pull/207
 
-  WARNING: drivers/media/common/videobuf2/videobuf2-core.c:2645 at vb2_core_queue_init+0x524/0x540 [videobuf2_common], CPU#0: modprobe/271
-  Call Trace:
-   vb2_queue_init_name+0x1a7/0x240 [videobuf2_v4l2]
-   netup_unidvb_dvb_init+0x294/0xe80 [netup_unidvb]
-   netup_unidvb_initdev+0x90c/0x1100 [netup_unidvb]
-   pci_device_probe+0x46e/0x900
+Please drop, not suitable for commit, keep it in the changelog
 
-vb2_queue_init() therefore returns -EINVAL for the first frontend, and
-the driver has not probed successfully on any kernel since v6.13.
+> 
+>  Tested-by: Daniel J Blueman <daniel@quora.org>
 
-The failure then oopses rather than being handled. vb2_queue_init()
-returns -EINVAL, and netup_unidvb_queue_init() logs that through
-dev_err(&dma->ndev->pci_dev->dev, ...) - but dma->ndev is only assigned
-in netup_unidvb_dma_init(), and netup_unidvb_initdev() calls
-netup_unidvb_dvb_setup() before netup_unidvb_dma_setup(), so it is still
-NULL:
+Plese drop, not true here
 
-  BUG: KASAN: null-ptr-deref in netup_unidvb_dvb_init+0x683/0xe80 [netup_unidvb]
-  Read of size 8 at addr 0000000000000000 by task modprobe/271
-  Call Trace:
-   kasan_report+0xed/0x140
-   netup_unidvb_dvb_init+0x683/0xe80 [netup_unidvb]
-   netup_unidvb_initdev+0x90c/0x1100 [netup_unidvb]
-   pci_device_probe+0x46e/0x900
 
-netup_unidvb_queue_init() is static and was inlined into
-netup_unidvb_dvb_init(), which is why the reports name the caller.
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  .../bindings/media/qcom,sc7180-venus.yaml          | 15 ----
+>  .../bindings/media/qcom,venus-common.yaml          | 97 ++++++++++++++++++++++
+>  2 files changed, 97 insertions(+), 15 deletions(-)
+> 
 
-The series that added the check also fixed the drivers it then found
-with no queue lock and no wait ops (atomisp, pwc, msi2500, hackrf,
-airspy, rcar_drif, video-i2c); netup_unidvb was not among them.
+I see this causes DT checks failures but I don't see the report, so
+probably it was because of schema dependency.
 
-Setting q->lock is not optional any more: since commit b70886ff5833
-("media: vb2: drop wait_prepare/finish callbacks") vb2_thread() and
-__vb2_wait_for_done_vb() call mutex_lock(q->lock) unconditionally.
-
-Add a dedicated mutex to struct netup_unidvb_dev, initialize it before
-any queue is set up, and point each queue's lock at it before
-netup_unidvb_queue_init() runs. Neither mutex that already exists can be
-reused. vb2_dvb_stop_feed() calls vb2_thread_stop() while holding
-vb2_dvb::lock, and vb2_thread_stop() waits in kthread_stop() for a
-vb2_thread() that itself takes q->lock, so vb2_dvb::lock cannot be the
-queue lock. vb2_dvb_frontends::lock is the frontend-list lock, held
-across vb2_dvb_register_bus() and vb2_dvb_dealloc_frontends(), and none
-of the existing vb2-dvb users make it the queue lock either. cx23885,
-cx88 and saa7134 are the only other vb2-dvb users, and all three point
-q->lock at their device-wide mutex rather than at either vb2-dvb lock.
-
-With the lock set, vb2_queue_init() succeeds and the error path that
-dereferenced dma->ndev is no longer entered. That path is still wrong -
-dma->ndev is only assigned later - and netup_unidvb_dvb_init() still
-ignores the helper's return value; both are left for a separate change
-so that this fix stays minimal.
-
-Fixes: c780d01cf1a6 ("media: vb2: vb2_core_queue_init(): sanity check lock and wait_prepare/finish")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM KASAN
-Signed-off-by: Hohyun Sim <tlaghgus0425@korea.ac.kr>
----
-Found by automated driver testing (differential replay of the driver against
-an emulated device), on a KASAN-enabled 7.0.0 kernel running under QEMU with
-an emulated NetUP Universal DVB card (PCI 1b55:18f6, revision 0x2) at
-0000:01:00.0.
-
-Reproducer -- with the card present (emulated or real), on any kernel v6.13
-or later:
-
-  modprobe netup_unidvb
-
-That is the whole reproducer. Both splats are hit on the probe path, before
-any DVB node is opened, so no userspace interaction is needed. Real hardware
-is not required either: an emulated device that reports PCI revision 0x2 and
-lets probe reach netup_unidvb_dvb_setup() is enough. On systems that have the
-card, udev autoloads the module at boot, so the oops happens without anyone
-running modprobe by hand.
-
-Impact: the driver has not probed successfully since v6.13. vb2_queue_init()
-fails, and the error path then oopses in probe. This is not a security issue:
-there is no unprivileged trigger -- the oops happens once, in probe, when the
-module is loaded.
-
-Tested: the patched driver builds without new warnings with the toolchain
-this tree is configured for (version 15.0.7), and the patch applies to v7.0
-with git apply and to a drifted tree with git am -3. Booted under the same
-KASAN kernel against the emulated card: without the patch, loading the module
-trips the WARN and the NULL dereference above; with it, probe passes
-vb2_queue_init() for both frontends and goes on to the demodulator attach
-(which fails on the emulated card, as expected, so probe returns -EIO), and
-the module unloads cleanly. The runtime path that takes q->lock -- vb2_thread(),
-reached only once a demodulator is attached and DMX_START is issued -- is not
-exercised by that setup; the choice of lock rests on the reasoning above.
-
-Deliberately left out of this patch, so that the stable backport stays
-minimal:
-
- - netup_unidvb_queue_init()'s error path still dereferences dma->ndev, and
-   netup_unidvb_dvb_init() still ignores its return value. With q->lock set
-   the error path is no longer reached, so this is now latent, but it should
-   be cleaned up.
-
- - netup_unidvb_initdev() calls netup_unidvb_dvb_setup() (line 920) before
-   netup_unidvb_dma_setup() (line 928), and vb2_dvb_register_bus() already
-   publishes demux0/dvr0 via dvb_register_device() (dvb-core/dmxdev.c:1427,
-   1432). Between vb2_dvb_register_bus() for a bus and netup_unidvb_dma_init()
-   for that bus -- for bus 0 the second bus's dvb_init and CI setup, for bus 1
-   additionally the msleep(1000) inside netup_unidvb_dma_init(0) -- a userspace
-   open plus DMX_START reaches the driver's vb2 ops before
-   netup_unidvb_dma_init() has run for that bus, so dma->ndev and dma->regs are
-   still NULL and dma->lock, dma->free_buffers and dma->timeout are
-   uninitialized. Same bug class as above; it needs a probe-order change rather
-   than a lock.
-
-I am happy to send either as a follow-up (or as 2/2 here) if you would
-prefer them together.
-
- drivers/media/pci/netup_unidvb/netup_unidvb.h      | 3 +++
- drivers/media/pci/netup_unidvb/netup_unidvb_core.c | 3 +++
- 2 files changed, 6 insertions(+)
-
-diff --git a/drivers/media/pci/netup_unidvb/netup_unidvb.h b/drivers/media/pci/netup_unidvb/netup_unidvb.h
-index 2a98202..59f2f62 100644
---- a/drivers/media/pci/netup_unidvb/netup_unidvb.h
-+++ b/drivers/media/pci/netup_unidvb/netup_unidvb.h
-@@ -11,6 +11,7 @@
- 
- #include <linux/pci.h>
- #include <linux/i2c.h>
-+#include <linux/mutex.h>
- #include <linux/workqueue.h>
- #include <media/v4l2-common.h>
- #include <media/v4l2-device.h>
-@@ -113,6 +114,8 @@ struct netup_unidvb_dev {
- 	u8				*dma_virt;
- 	dma_addr_t			dma_phys;
- 	u32				dma_size;
-+	/* protects the vb2 queues, used as vb2_queue::lock */
-+	struct mutex			vb2_lock;
- 	struct vb2_dvb_frontends	frontends[2];
- 	struct netup_i2c		i2c[2];
- 	struct workqueue_struct		*wq;
-diff --git a/drivers/media/pci/netup_unidvb/netup_unidvb_core.c b/drivers/media/pci/netup_unidvb/netup_unidvb_core.c
-index ec08023..f205d5b 100644
---- a/drivers/media/pci/netup_unidvb/netup_unidvb_core.c
-+++ b/drivers/media/pci/netup_unidvb/netup_unidvb_core.c
-@@ -422,6 +422,7 @@ static int netup_unidvb_dvb_init(struct netup_unidvb_dev *ndev,
- 	}
- 
- 	for (i = 0; i < fe_count; i++) {
-+		fes[i]->dvb.dvbq.lock = &ndev->vb2_lock;
- 		netup_unidvb_queue_init(&ndev->dma[num], &fes[i]->dvb.dvbq);
- 		snprintf(fe_name, sizeof(fe_name), "netup_fe%d", i);
- 		fes[i]->dvb.name = fe_name;
-@@ -803,6 +804,8 @@ static int netup_unidvb_initdev(struct pci_dev *pci_dev,
- 	if (!ndev)
- 		goto dev_alloc_err;
- 
-+	mutex_init(&ndev->vb2_lock);
-+
- 	/* detect hardware revision */
- 	if (pci_dev->device == NETUP_HW_REV_1_3)
- 		ndev->rev = NETUP_HW_REV_1_3;
--- 
-2.34.1
+Best regards,
+Krzysztof
 
