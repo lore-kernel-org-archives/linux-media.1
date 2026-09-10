@@ -1,358 +1,138 @@
-Received: from smtpout4.mo538.mail-out.ovh.net (smtpout4.mo538.mail-out.ovh.net [51.210.91.33])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB6654B1A7
-	for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 17:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB1E559CA4;
+	Thu, 10 Sep 2026 17:23:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789060116; cv=none; b=CXS4BnvrLkItCuA/lkqpMhDOo8ghRYt4sgZ9LyjkNBm4dlidf3b6HDj4EwZ8mR/8dCkXc++uT5PTXn/FtQ4Nf572ru5cyAJ9nkpaGOipc/NTaFw1QSU04L8htLm+ImYTSeeaGNUr7pVAejRacnDBO4tpL+42d0HvGxklyx+zS4k=
+	t=1789061003; cv=none; b=rltAX1rcDJHCRZqoE6c+mNSiD6S6vk+L+AKIhDSNbh0gf7CqHs+qQliagLpKqBShl0ljcn6WV0h5HHtMBFvJE5cfGjIYgZ+BxpdwHqiIPhAaDnLEIasRA6oGcRjGerUth2eplKDMV9QpCbv6f7iJg39Tmi+Y8+7Yo5Xk+zQp1vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789060116; c=relaxed/simple;
-	bh=2dMOQ1vx6rLMO4qsV1MwGfT3wfsbDmnSKHx/gffVTps=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NF35dXnVaCfTWpYL7aA9gsRfnq0H5qr/FRyocVawYPH69Woxcu7UWb+briE+p46WPI9g00iw8M5hC8s+jOGdi9cA8akwZfn3E4tJWmdAV/7Gkv14XuvgQggj1bqyUymAr+IkfxB07GhgAnYJQaz6TctoAhiPMboFW37aUIgj2Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=QSPT4AZy; arc=none smtp.client-ip=51.210.91.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
+	s=arc-20240116; t=1789061003; c=relaxed/simple;
+	bh=0i1ZuDWJZaz5MMWRd0GrPaXINLwVHS77wKNYd8g3Dto=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oBb+1mDUu3GsVuCost9j3fwYBTB63oTdN91k5sUhR2B48pID+wXk0qYgl7TSkDPHcCK29dHz9jfpYn9L55WsoL0uQ1lTs1hpyXrhCic0dHjL7mll4zcY9WFXlnIkJR76SLW/UQ9BpxCze7DZjR1rPP65vB2fGmHISj7+lccR1kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=dnVl03/P; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=yMCD8L5I; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="QSPT4AZy"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo538.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHY2HKVz6DM8;
-	Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.188.184])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHY116qz6GrV;
-	Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
-Received: from sicoop.com (unknown [10.1.6.2])
-	(Authenticated sender: michaltoma@sicoop.com)
-	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 76158941C3B;
-	Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-100R00350eeada4-356d-4531-b89e-ad671e8ca1bc,
-                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
-X-OVh-ClientIp:89.91.4.113
-From: Michal TOMA <michaltoma@sicoop.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Michal TOMA <michaltoma@sicoop.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	ian.forbes@broadcom.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] drm/vmwgfx: Don't map or free the exporter's sg_table for imported BOs
-Date: Thu, 10 Sep 2026 18:52:19 +0200
-Message-ID: <20260910165221.7558-2-michaltoma@sicoop.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
-References: <20260910165221.7558-1-michaltoma@sicoop.com>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="dnVl03/P";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="yMCD8L5I"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 488C314000F8;
+	Thu, 10 Sep 2026 13:23:05 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Thu, 10 Sep 2026 13:23:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1789060985; x=1789147385; bh=fK
+	VIzIdjZnaRUC9oo2/LyAVtsUAGpzKJcQxaMm2EPFE=; b=dnVl03/P2dKa89dpsm
+	+wOKzwWBp3B4GCUpoJ0KCtMGLhxvj8MRPXAjcKvB5UCq5E7LNjdoYDxsxM74Al20
+	oWdh3nIkkPfQrISgsz6DC8GZ5MagC+kz5PXllktCr8DU1jGBDyLr4a5HaCx5TTyW
+	t0VaNW+qweqEoIlUZuLdMFL+zU7ugLPz3hM+bDlYSpix0vkU9oH3Rq89wUdAbmKt
+	RaUMy1ewjeBtDaao8GO2P7a4twxjN0ByW6cbzNrVnoGoVcCdtXZaHNWxNINzkgvI
+	BammCZwY28lYfYQWabBwJsm/VGq2UAHU8YTp39ofaBYVjE8xgp3XWeMd2xQMwZO3
+	2eBA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1789060985; x=1789147385; bh=fKVIzIdjZnaRUC9oo2/LyAVtsUAG
+	pzKJcQxaMm2EPFE=; b=yMCD8L5IeKZ2DKHev83staF52SN14NtnTXrRPwXOPhOE
+	NOpiu4dsZ0Nl03b+sobGI0uwAtwQ7y9LGL09SRkS8MomLJY/oxoCZ3kZlfFkN+Xi
+	3A7ge9TDxATRniv14MkTciMEgSg/Hbc5dVY8UpWfbj9mTI5DCOY5byDN5MO2pGmI
+	4rtpm0e4U86KQyYhQGDSrAQQJdUiBf2XdW1ne8d9xemJRqeU/F1NK6LM4xPU1S7k
+	LadzuQxX4qdPd+3fyrdNKadvA7RhL20+ywfxn9BnOD5MwRQwFyoRD9o0nLMN9b8X
+	TqRykdWOVnesc68xidnGfglS9R8min+5g+unBozjFw==
+X-ME-Sender: <xms:eeeiakgXggaQoNEFizinmpf9jeWo-BItccZSUpYgDgzU_Sejb5hNiA>
+    <xme:eeeial_zqpDkRddz-tZ9PYA7N_haCb_ewg3lqe0dWS6R-tODPudUa66HnBGIwWQas
+    5_0DjjtQUCu1UvTydlgwmX_5srMLPjrAwb8UQ0r3ftlLsDJ_qjlxWLu>
+X-ME-Received: <xmr:eeeianpBPkPQVWHgMOOLZY4ys0GAZBoF4aPWXdVh4z5s80cT3MV2hIuqff618Auiyq89ANsmSGSBgqq29OfsDHNpvBUpaNI>
+X-ME-Proxy-Cause: dmFkZTErJRNFLhxqftw1ZIVWVZkByeCy/0yNO5hvVsGMUdpjpf5UJS5JIcIJ9jP0jMUnVx
+    Qt5LTiPk05v4iY5Cd8FXFMu9t2LULoqyWK1noL/b1L/nUVSAiNxHF/NsZeEB+PqxZa5xiW
+    loSB9WUmkXO2DGc/YvYZxrduvb6MGSVcEEoLLCcfnZcTsxj3dFhtZE2nPB+KE390h8RXID
+    ecrHkoPP1nXxcd/MzD59dl8vgPv4l6prVE91pKSdi6qtX1ZeK5bL08jh0LCHFEoU4Urp9g
+    K6HPghD5VbrspfZu/Z637t1qvRjN0SERFN/HSt4d7+KvPx8z58fUhs4ks9igLwXmZftkO3
+    7tAQt6KVtsW3o8DOlWK8kVk8p/uPH4zrcMkixGSAmfawG2nOH50/lMboyxgImRDd1BACLe
+    5TtYZq3oD9V12X702rQ4FAPsS87Uac/lN7VmfTy/Jh6gxKKLHsL3wvbL8AfwAAJvqc6c2N
+    vnHKBmI4OXxCU1ntla9qbOpgjVXKWm3PIutgfoU7IzvvTMDs1mdiyCkjSyPRg9FnTbZG53
+    inapWOkGuHdC0ovYLzAG8t3Rmvxe5slutL8cL/H+27rttNpLfW8++YGg+vFHqUZQQ/t38i
+    IJbYzyDBgnv+1heqIwm6Uu6uH2PWzxTve/TI3GEyvQRA2DBghQZ6Mr8KSfJQ
+X-ME-Proxy: <xmx:eeeialW-PrATDfRKPk42H5Dz1CBLLc3NoJcw-IilCjAW0pklydxPAA>
+    <xmx:eeeiauDC1t4WwZ-Bo95eW9ImMAcnOnMvHAGIUlROqxax5Qf4zGUuow>
+    <xmx:eeeiah2p8577JqwmPHFP-59MIBVrrg7JwAV45DbWu3kNIkeTKucWBg>
+    <xmx:eeeiao3e4ArYt4p8aKHBgR7BwiPXbHAYS20b0_AwxsVBf9C_R1Lijg>
+    <xmx:eeeiaj_TNGWJFAhuKvVKopnAOhd2exSRIxMal6SxTFAVwPr8pD4jorlo>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Sep 2026 13:23:04 -0400 (EDT)
+From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH 0/3] media: uapi: videodev2: Add 20-, 24- and 28-bit bayer
+ pixel formats
+Date: Thu, 10 Sep 2026 19:22:30 +0200
+Message-Id: <20260910-v4l2-add-raw-pix-v1-0-80a8e855b41b@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16161448740256764187
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/aJ55Rvp0OwdgfYjyIyVOA4GjkJ3AUayJQ12PN/0LdjhCHM4nNrCbH5WIwuv5d0SLWxwsrSrMMM1TsxIx/S9bmyurSJBaj0ipwTfXjT4MgVdCci/mSA5AK17ODDLAp8ctX+dW1jSkTqtet7YwqciO+N+zY39IV/eTOQ0yJ97HiI82ce/TMW91sbwrdodVWl+uciPPF31rzaUdgK4zWmMiC7Thp4/aySHkgHnnv5stVPaFHXqBnUSaIM9dhOl/rkK0kweNEx7ge1GnDzxwlpO6Iy53UPFOIcN08lp8FRhUbgu2xKFED0RJgItP1zFi8vyMqePNyvpmxg0Kl0aCYDZSY7A
-DKIM-Signature: a=rsa-sha256; bh=+q8drlTkuKqRhIVJc6wlGkRTMV5udQFSe+F1A2psgEE=;
- c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789059145; v=1;
- b=QSPT4AZymfn5UJcS5IAbzMaOT8wzseb0NpFwAoqjuwsIL631VhML0a18W6O/HCO1RvzhAzoe
- xuAuYtFWZi7zoYbSQ1k0pd2bpRRcg9qxXn5lT4yPJMOrW2RWs+6Z9jpU4neFz8I0ysn7MWS8KcE
- cpNnb+PDWS0saf9rOpiqi8rx7mM6/5K9EiCKtTCsJd957IWRjJgyAZi0d4tk5krAvitfsMBa6SG
- BtWMDzgJxf0rkciscxSY+y1Ec809b/jRT8rd0T+cKtIfCwxPLAv06REyXFya3Eo8IYLDhWGlwdd
- wXIeRBWz7YlaeXyOZo3mNjpYr8qs52BisrzF1QCnknc5Q==
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQDFbUq0gXcTLqiKgkrQri3
+ U3b5Vv8f0KUoBKhzk4IsmnUZU6wjwx4cHMvqD4ZyFBhKlPilk+EznsMbsdVD3wadtaWxOwJUrY
+ G6fT4LZvX3/HTjsLv7weu6warR1UddAAAAA==
+X-Change-ID: 20260908-v4l2-add-raw-pix-50ca1182ccd2
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1262; i=niklas.soderlund+renesas@ragnatech.se;
+ h=from:subject:message-id;
+ bh=0i1ZuDWJZaz5MMWRd0GrPaXINLwVHS77wKNYd8g3Dto=;
+ b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBqoudxV9f0EinnjeqXPA53I9Dlx/o3yCa5b2VsU
+ TCfh4o8DXaJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCaqLncQAKCRAJtP95BPlN
+ JHEGD/0UHTFzYt2a1Q58EKCS4ycYFNoSLLMsetFF7EnB9LMOdRLReFkvhRYGUj1kUMOOSPruuWd
+ INsW8+46lJvYPqH4SWWOhOLcngJD3fjwNjnZjjvCb0gqUAudv45Flr9f7vzbGklvDQyZl2d3quR
+ 3N7JmZ2I88JJ89RSGKY0P+yAHl0Uq/n8cJJVR+pZmod+mfs8JQswvxB9vRj6Bo5bImmHrU0+uqh
+ sShfyQK3k4q/hJB5JHFco0ZbkHXWkFE1Wd5HRzywV5MgB4/eCILUIoknBdfQJJVDpGKmdeR6/3M
+ 5sFzminSZCJ0OBLlWEYkNS3duI+kSEq5WyDNZQQ0+s0ONcGTgLK/7Pi25XjzV8c5hKbDyOx6Lrl
+ EodS05O/bAGxnrm0RP+FxCzaYGTCq+ldkBqZb3HcT2QsZVWAQhLS/2rNhT5TX2ysXQaJQO1FpA7
+ g48Y20jk1Ibb+LoUPLwlf8ozqpZ+vmhzWT0bmwDxL1nmKvQhyeQ4yPYmayp//YTNfUUAmsXUdra
+ l5IrYT19Md8OKJOIFyUwlqdMAuI97Sm0Yu/bDG5uLo2OMkQzSFCgmaJ00E6cO3XIXVN4ekiDDEP
+ DdXhw+smOFEY81l7nVUXOOTAIVs5eO6DY/OW2r9VyjF5xJMVog88X2rL1846tIVRbKhQmh9vVYs
+ ObEU6j1o2oBSbIw==
+X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
+ fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-For a TTM tt with TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points
-vsgt->sgt at the exporter's sg_table and then calls
-vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt: the inline table, not
-the one vsgt->sgt points to. For an imported buffer object that inline
-table is never populated, since vmw_ttm_tt_create() allocates the
-vmw_ttm_tt with kzalloc() and only the non-external branch fills it in.
-dma_map_sgtable() is therefore called with orig_nents == 0, which trips
-the WARN_ON_ONCE() in __dma_map_sg_attrs() and returns -EIO.
+Hello,
 
-The error path then calls sg_free_table() on vsgt->sgt, which for an
-imported object is the exporter's table. Its scatterlist is freed while
-the attachment is still live, leaving sgl == NULL and orig_nents
-unchanged. vmw_ttm_unmap_dma() would free that table too, if a mapping
-ever succeeded.
+This series adds the pixel formats and documentation for the 20-, 24- 
+and 28-bit Bayer formats. This is done in preparation of work on the 
+Renesas R-Car video capture pipeline which will support these pixel
+formats in multiple drivers. For this reason it is posted as a separate
+series before the driver work.
 
-Any process that can open the render node reaches this with three
-DRM_RENDER_ALLOW ioctls: import a dma-buf with
-DRM_IOCTL_PRIME_FD_TO_HANDLE, create a guest-backed surface on it with
-DRM_VMW_GB_SURFACE_CREATE_EXT, and submit SVGA_3D_CMD_UPDATE_GB_SURFACE
-for that surface with DRM_VMW_EXECBUF. Validation moves the buffer to
-VMW_BO_DOMAIN_MOB, and binding the tt takes the path above:
-
-  WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
-   dma_map_sgtable+0x1d/0x30
-   vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
-   vmw_move+0x1cd/0x2c0 [vmwgfx]
-   ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
-   ttm_bo_validate+0xd2/0x1d0 [ttm]
-   vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
-   vmw_execbuf_process+0x852/0x1330 [vmwgfx]
-   vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
-   drm_ioctl_kernel+0xa6/0x100
-   drm_ioctl+0x2ad/0x590
-   __x64_sys_ioctl+0xb9/0x100
-
-  vmwgfx 0000:00:02.0: [drm] VSG table map failed!
-
-Today the damage stops there, because vmwgfx never releases a PRIME
-import: nothing unmaps the attachment afterwards, so the freed table is
-only leaked. Adding the missing drm_prime_gem_destroy() call to
-vmw_bo_free(), which is the next patch in this series, makes the
-exporter unmap that table on release, and dma_unmap_sgtable() then
-walks a NULL scatterlist:
-
-  BUG: kernel NULL pointer dereference, address: 000000000000001c
-  Workqueue: ttm ttm_bo_delayed_delete [ttm]
-  RIP: 0010:dma_direct_unmap_sg+0x62/0x200
-   unmap_udmabuf+0x24/0x40
-   dma_buf_unmap_attachment_unlocked+0x46/0x70
-   drm_prime_gem_destroy+0x28/0x50
-   vmw_bo_free+0x15b/0x1f0 [vmwgfx]
-
-The exporter has already mapped the table for this device in
-dma_buf_map_attachment(), so there is nothing for vmwgfx to do here:
-use the table as it is, and leave mapping, unmapping and freeing to its
-owner.
-
-Build tested on drm-misc-fixes (4600b4d1a9ee) with W=1 (no warnings in
-drivers/gpu/drm/vmwgfx/) and checkpatch.pl --strict. Runtime tested on
-a VirtualBox 7.2 VMSVGA guest running kernel 7.2.3, whose vmwgfx
-sources for the files involved are identical to drm-misc-fixes, using a
-module built from them.
-
-Without this patch the reproducer above logs the WARN_ON_ONCE() and
-"VSG table map failed!", and DRM_VMW_EXECBUF returns -EIO; releasing the
-buffer afterwards, with the next patch of this series applied, oopsed in
-the TTM delete worker and hung the machine.
-
-With this patch the same reproducer logs nothing: the execbuf is
-accepted, so an imported buffer object can now be bound at all, and
-releasing it afterwards leaves no entry behind in
-/sys/kernel/debug/dma_buf/bufinfo.
-
-Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-Cc: stable@vger.kernel.org # v6.9+
-Assisted-by: LLM
-Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
+Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 ---
-Reproducer (results and environment are in the cover letter). Run as an
-ordinary user with access to the render node and /dev/udmabuf; it needs
-no root. Without this patch it logs the WARN and "VSG table map
-failed!"; with it, the execbuf is accepted and nothing is logged.
+Niklas Söderlund (3):
+      media: uapi: videodev2: Add 20-bit Bayer formats
+      media: uapi: videodev2: Add 24-bit Bayer formats
+      media: uapi: videodev2: Add 28-bit Bayer formats
 
-// Can userspace get an imported (external) dma-buf BO bound for the device?
-//
-// Chain under test:
-//   udmabuf -> PRIME_FD_TO_HANDLE            (external BO, sits in SYSTEM)
-//   GB_SURFACE_CREATE_EXT buffer_handle=...  (surface backed by the import)
-//   execbuf SVGA_3D_CMD_UPDATE_GB_SURFACE    (validation forces the BO to MOB)
-//     -> vmw_ttm_bind() -> vmw_ttm_map_dma()
-//        external branch maps the wrong (empty, inline) sg_table, fails, and
-//        the out_map_fail path calls sg_free_table() on the EXPORTER's table.
-//
-// Proof of reachability is the kernel message "VSG table map failed!".
-//
-//   vmw-import-execbuf-bind-test            hold the buffer, never release it
-//   vmw-import-execbuf-bind-test --release  also close everything at the end
-//
-// WARNING: --release is the dangerous half. With "drm/vmwgfx: Release PRIME
-// import in the BO destroy path" applied, releasing a buffer whose exporter
-// sg_table was freed in step 3 makes udmabuf run dma_unmap_sgtable() on a
-// table with sgl == NULL and orig_nents != 0 -> NULL pointer dereference.
-// Without that patch the release path never touches the table (it leaks).
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <sys/mman.h>
-#include <linux/udmabuf.h>
-#include <drm/drm.h>
-#include <drm/vmwgfx_drm.h>
+ .../userspace-api/media/v4l/pixfmt-bayer.rst       |   3 +
+ .../userspace-api/media/v4l/pixfmt-srggb20.rst     | 102 +++++++++++++++++++++
+ .../userspace-api/media/v4l/pixfmt-srggb24.rst     | 102 +++++++++++++++++++++
+ .../userspace-api/media/v4l/pixfmt-srggb28.rst     | 102 +++++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ioctl.c               |  12 +++
+ include/uapi/linux/videodev2.h                     |  12 +++
+ 6 files changed, 333 insertions(+)
+---
+base-commit: f9536a8065d9eed0d9114878c56ffc4e5a18bdfc
+change-id: 20260908-v4l2-add-raw-pix-50ca1182ccd2
 
-#define DRM_IOCTL_VMW_GB_SURFACE_CREATE_EXT \
-	DRM_IOWR(DRM_COMMAND_BASE + DRM_VMW_GB_SURFACE_CREATE_EXT, \
-		 union drm_vmw_gb_surface_create_ext_arg)
-#define DRM_IOCTL_VMW_UNREF_SURFACE \
-	DRM_IOW(DRM_COMMAND_BASE + DRM_VMW_UNREF_SURFACE, struct drm_vmw_surface_arg)
-#define DRM_IOCTL_VMW_EXECBUF \
-	DRM_IOW(DRM_COMMAND_BASE + DRM_VMW_EXECBUF, struct drm_vmw_execbuf_arg)
-
-#define SVGA_3D_CMD_UPDATE_GB_SURFACE 1102
-#define SVGA3D_INVALID_ID 0xffffffff
-#define SIZE (6UL << 20)
-
-struct update_gb_surface_cmd {
-	uint32_t id;		/* SVGA3dCmdHeader.id */
-	uint32_t size;		/* SVGA3dCmdHeader.size: bytes that follow */
-	uint32_t sid;		/* SVGA3dCmdUpdateGBSurface.sid */
-};
-
-int main(int argc, char **argv)
-{
-	int release = (argc > 1 && !strcmp(argv[1], "--release"));
-	int render = open("/dev/dri/renderD128", O_RDWR | O_CLOEXEC);
-	int udm = open("/dev/udmabuf", O_RDWR | O_CLOEXEC);
-	int mfd, dfd;
-
-	if (render < 0 || udm < 0) {
-		perror("open");
-		return 1;
-	}
-	mfd = memfd_create("import-execbuf", MFD_ALLOW_SEALING | MFD_CLOEXEC);
-	if (mfd < 0 || ftruncate(mfd, SIZE) ||
-	    fcntl(mfd, F_ADD_SEALS, F_SEAL_SHRINK)) {
-		perror("memfd");
-		return 1;
-	}
-	struct udmabuf_create c = {
-		.memfd = mfd, .flags = UDMABUF_FLAGS_CLOEXEC, .size = SIZE,
-	};
-	dfd = ioctl(udm, UDMABUF_CREATE, &c);
-	if (dfd < 0) {
-		perror("UDMABUF_CREATE");
-		return 1;
-	}
-
-	struct drm_prime_handle ph = { .fd = dfd };
-	if (ioctl(render, DRM_IOCTL_PRIME_FD_TO_HANDLE, &ph)) {
-		perror("PRIME_FD_TO_HANDLE");
-		return 1;
-	}
-	printf("1. imported udmabuf as GEM handle %u\n", ph.handle);
-
-	union drm_vmw_gb_surface_create_ext_arg a;
-	memset(&a, 0, sizeof(a));
-	a.req.version = drm_vmw_gb_surface_v1;
-	/* HINT_TEXTURE | HINT_RENDERTARGET | BIND_SHADER_RESOURCE | BIND_RENDER_TARGET */
-	a.req.base.svga3d_flags = (1U << 5) | (1U << 6) | (1U << 23) | (1U << 24);
-	a.req.base.format = 142;			/* SVGA3D_B8G8R8X8_UNORM */
-	a.req.base.mip_levels = 1;
-	a.req.base.drm_surface_flags = drm_vmw_surface_flag_shareable;
-	a.req.base.buffer_handle = ph.handle;
-	a.req.base.base_size.width = 1536;
-	a.req.base.base_size.height = 1024;
-	a.req.base.base_size.depth = 1;
-	if (ioctl(render, DRM_IOCTL_VMW_GB_SURFACE_CREATE_EXT, &a)) {
-		printf("2. GB_SURFACE_CREATE_EXT on the imported buffer: FAILED, errno %d (%s)\n",
-		       errno, strerror(errno));
-		return 1;
-	}
-	printf("2. surface backed by the imported buffer: sid %u\n", a.rep.handle);
-
-	struct update_gb_surface_cmd cmd = {
-		.id = SVGA_3D_CMD_UPDATE_GB_SURFACE,
-		.size = sizeof(uint32_t),
-		.sid = a.rep.handle,
-	};
-	struct drm_vmw_execbuf_arg e;
-	memset(&e, 0, sizeof(e));
-	e.commands = (uint64_t)(uintptr_t)&cmd;
-	e.command_size = sizeof(cmd);
-	e.version = DRM_VMW_EXECBUF_VERSION;
-	e.context_handle = SVGA3D_INVALID_ID;
-	errno = 0;
-	if (ioctl(render, DRM_IOCTL_VMW_EXECBUF, &e))
-		printf("3. execbuf UPDATE_GB_SURFACE: returned errno %d (%s)\n",
-		       errno, strerror(errno));
-	else
-		printf("3. execbuf UPDATE_GB_SURFACE: accepted\n");
-	printf("   -> now check the kernel log for \"VSG table map failed!\"\n");
-
-	if (!release) {
-		printf("4. holding the buffer open (no release). Ctrl-C or kill to end;\n"
-		       "   note that ending this process frees the BO, which is the\n"
-		       "   step that can oops with the BO-destroy fix applied.\n");
-		fflush(stdout);
-		pause();
-		return 0;
-	}
-
-	printf("4. --release: dropping the surface, the handle and every fd\n");
-	fflush(stdout);
-	struct drm_vmw_surface_arg u = { .sid = a.rep.handle, .handle_type = DRM_VMW_HANDLE_LEGACY };
-	ioctl(render, DRM_IOCTL_VMW_UNREF_SURFACE, &u);
-	struct drm_gem_close gc = { .handle = ph.handle };
-	ioctl(render, DRM_IOCTL_GEM_CLOSE, &gc);
-	close(dfd);
-	close(mfd);
-	close(udm);
-	close(render);
-	sleep(1);
-	printf("5. released, still alive\n");
-	return 0;
-}
-
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-index dfd08ee19..3e8bdf246 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-@@ -189,6 +189,11 @@ static int vmw_ttm_map_dma(struct vmw_ttm_tt *vmw_tt)
- 	case vmw_dma_map_bind:
- 	case vmw_dma_map_populate:
- 		if (vmw_tt->dma_ttm.page_flags  & TTM_TT_FLAG_EXTERNAL) {
-+			/*
-+			 * The exporter has already mapped its sg_table for
-+			 * this device in dma_buf_map_attachment(). Use it as
-+			 * it is: it is not ours to map, unmap or free.
-+			 */
- 			vsgt->sgt = vmw_tt->dma_ttm.sg;
- 		} else {
- 			vsgt->sgt = &vmw_tt->sgt;
-@@ -199,11 +204,11 @@ static int vmw_ttm_map_dma(struct vmw_ttm_tt *vmw_tt)
- 				GFP_KERNEL);
- 			if (ret)
- 				goto out_sg_alloc_fail;
--		}
- 
--		ret = vmw_ttm_map_for_dma(vmw_tt);
--		if (unlikely(ret != 0))
--			goto out_map_fail;
-+			ret = vmw_ttm_map_for_dma(vmw_tt);
-+			if (unlikely(ret != 0))
-+				goto out_map_fail;
-+		}
- 
- 		break;
- 	default:
-@@ -237,6 +242,13 @@ static void vmw_ttm_unmap_dma(struct vmw_ttm_tt *vmw_tt)
- 	if (!vmw_tt->vsgt.sgt)
- 		return;
- 
-+	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
-+		/* The mapping and the table belong to the exporter. */
-+		vmw_tt->vsgt.sgt = NULL;
-+		vmw_tt->mapped = false;
-+		return;
-+	}
-+
- 	switch (dev_priv->map_mode) {
- 	case vmw_dma_map_bind:
- 	case vmw_dma_map_populate:
--- 
-2.55.0
+Best regards,
+--  
+Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
