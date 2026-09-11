@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26AB2E7F39;
-	Fri, 11 Sep 2026 08:53:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E31343C05E;
+	Fri, 11 Sep 2026 08:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116827; cv=none; b=sz9vb11xATi/Pl/HnIQZCgW6dyoii4XXKGSX1Mg8FxphkH6Hrc359BFRVY2Bcd9ORd1ZvjpspBIm4WJ4XGwYRtYbVNWrcDaizEZBf4VYcajDMsl75URx7YZpY84qCff4UqP5EyUkio90Zafvg+n0AI2z6wxqIb34RgmX3oi+XdY=
+	t=1789116877; cv=none; b=qIEEOhP3O9h8RF2KwEcDJBI+D3AX0pEg7Jz/s3yMX4/+LMZ39XUvqOmNRopj5Z8UClg2UGLgHabDj/3A0It4no2nOYhiHIcRNzW0u2tnzjYfc2mMrrSKuV0800d4n5uyYb/u5ibewoE6qXQa12dGT7XM+9g7zJKnAXzWflzTIBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116827; c=relaxed/simple;
-	bh=hKG5P0tTq4RzoNZpCTbQPdMBJ2cV3b+axlhcsqqp73o=;
+	s=arc-20240116; t=1789116877; c=relaxed/simple;
+	bh=S+IOnRAzn0HEhRezQcZaqdQv+DKo9ccT7Vm1TjxraZE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cZCAOPcniOBVYvfCEDSvvYNTvF/1apyKG6J87Cja4Uq7dpEfcuBjoWDQGLY2VLFK3UcV8A+7xoGu16Bs110Kdg1djV9LVD14OxDnzsrXmx22bCoZcEutEs0gHikhztMhXizxpnBV0tXxr1ZO3GRDOoGgItfcOle1atkbsMai5Rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8jmrs9P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RemwSHB6PGEoynE81atKnTNEkdbPz9xkYmb8r5Q7Om0f3C/F15E0ui1tEHMoioFzvWsOgk+uROKm0JgBzJr1U+i6qvqdYaUA8NDDlWkLtPzUjqi/m/JiPYeDQHGohdBP1SYpku6WieLoO8dt1sDuAacKHr8SDom3Sn5Kh2BMe8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M17fYOsI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8jmrs9P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D671F000FF;
-	Fri, 11 Sep 2026 08:53:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M17fYOsI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB7D1F000FF;
+	Fri, 11 Sep 2026 08:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789116825;
-	bh=kgSConEeaNKwRfeQHsprcVAJQzgQ9r9vYuhm0YayU6U=;
+	s=k20260515; t=1789116876;
+	bh=axI769Vv5BFmqCI3h4IulKwS2TumJtNo7qBVNkXuts0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h8jmrs9PBevDtTd4sRaOokYoR/qPc8H6BRrhVczX7pKyCqtn8SCIwEFXZ0Q1zROcq
-	 qP1eN9mIcpaxU8sFS5UPNg+ypt/CSSErUM5W8u8ynQnrvTC2TwRxRoLpJ3lfYhKejC
-	 /VcFj+a+7i/MFJb9v9GCwfgi2uMuxbplTdWG9G85NIvMpWhrwLuPxyfVb47en2fKXQ
-	 QoCra8sH/NOy3fhvCNQ9QNxc+RxTR1ANnn4LLHNP1p5rUwXYTdP1z/0K3+f/j5cI/F
-	 /NTOvtaMmYwVqK7nLDR9qI5TF/9FhOy+ayL5cw8W03+eXzHvh2i2XGMKtkiCoLTEB6
-	 OkDjkiv3boAaA==
-Date: Fri, 11 Sep 2026 10:53:41 +0200
+	b=M17fYOsIiy4NHsMz2YWAngONoxDaCpU3rH6sufpQlRu7EcsTzEsVM3Vk/kq4JT9JU
+	 w63xH64phVR+pdJxPBVKHmzOuXmlOyfZ4UWJE78otws0r85kr34WZiN4oHQ9VDYVJL
+	 4nFNwNyZb4tPbhT2rLM+Vslqy2gcb9qPoWdEoZVB//YQ+L2EgALwy9s/EpKir2nYqW
+	 dz0vY7SNfW+WKP/T8KhhmgaYaTOpOnEWLCfcx0PigSlcTZZiOHR++h2BUjCMxtl/mm
+	 4zcVc1oB+5b8YZJi7pPAisey3mBjsbqajLtcuMkj8aSyNfRY2OXiaYnmKlMZrpvvMe
+	 2//5U3s8MeIyg==
+Date: Fri, 11 Sep 2026 10:54:32 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -36,10 +36,11 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Daniel Scally <dan.scally@ideasonboard.com>, Bjorn Andersson <andersson@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: media: i2c: dw9800: Redocument DW9800K
-Message-ID: <20260911-savvy-gazelle-from-tartarus-4ebddd@quoll>
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K
+ support
+Message-ID: <20260911-hippogriff-of-amusing-atheism-ff8cec@quoll>
 References: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
- <20260910-b4-dw9800k_cleanup-v1-1-608255ea61ab@fairphone.com>
+ <20260910-b4-dw9800k_cleanup-v1-3-608255ea61ab@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -48,107 +49,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910-b4-dw9800k_cleanup-v1-1-608255ea61ab@fairphone.com>
+In-Reply-To: <20260910-b4-dw9800k_cleanup-v1-3-608255ea61ab@fairphone.com>
 
-On Thu, Sep 10, 2026 at 04:54:16PM +0200, Griffin Kroah-Hartman wrote:
-> The DW9800K's properties are too different to justify sharing the same
-> bindings file as the dw9719, Create a separate bindings documentation
-
-Say here something useful which not immediately visible from the diff -
-which properties are different?
-
-> for the Dongwoon Anatech DW9800K with it's updated properties.
+On Thu, Sep 10, 2026 at 04:54:18PM +0200, Griffin Kroah-Hartman wrote:
+> Update the node for the DW9800K to have the correct attributes.
+> 
+> Now we correctly select SAC3 mode and other attributes with the newly
+> updated device tree bindings.
 > 
 > Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 > ---
->  .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
->  .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
->  2 files changed, 91 insertions(+), 1 deletion(-)
+>  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-> index 8e8d62436e0d..38db0764c0f7 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-> @@ -21,7 +21,6 @@ properties:
->        - dongwoon,dw9718s
->        - dongwoon,dw9719
->        - dongwoon,dw9761
-> -      - dongwoon,dw9800k
+> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> index fa4566df0a71..cc99590afe3a 100644
+> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> @@ -744,8 +744,9 @@ camera_imx858_dw9800k: actuator@e {
+>  		reg = <0x0e>;
+>  		vdd-supply = <&vreg_afvdd_2p8>;
 >  
->    reg:
->      maxItems: 1
-> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-> new file mode 100644
-> index 000000000000..046c0a88bcef
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-> @@ -0,0 +1,91 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
-> +
-> +maintainers:
-> +  - Luca Weiss <luca.weiss@fairphone.com>
-> +  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> +
-> +description:
-> +  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
-> +  +-130 mA output current sink capability, designed for linear control of
-> +  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
-> +  provides a Smart Actuator Control (SAC) mode intended for minimizing
-> +  mechanical vibration.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - dongwoon,dw9800k
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply:
-> +    description: VDD power supply, can range from 2.3V to 4.8V
-> +
-> +  dongwoon,sac-mode:
-> +    description: >
-> +      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
-> +      SAC2-SAC5 (Smart Actuator Control).
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum:
-> +      - 0 # Direct mode
-> +      - 1 # LSC mode
-> +      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
-> +      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
-> +      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
-> +      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
-> +    default: 3
-> +
-> +  dongwoon,clock-presc:
+> -		dongwoon,sac-mode = <1>;
+> -		dongwoon,vcm-prescale = <16>;
+> +		dongwoon,sac-mode = <3>;
+> +		dongwoon,clock-presc = <0>;
+> +		dongwoon,timing-control = <16>;
 
-Why this cannot be named the same? Commit msg should answer such
-questions.
-
-> +    description:
-> +      Indication of VCM internal clock dividing rate select, as one multiple
-> +      factor to calculate VCM ring periodic time Tvib.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum:
-> +      - 0 #  Dividing Rate -  2
-> +      - 1 #  Dividing Rate -  1
-> +      - 2 #  Dividing Rate -  1/2
-> +      - 3 #  Dividing Rate -  1/4
-> +      - 4 #  Dividing Rate -  8
-> +      - 5 #  Dividing Rate -  4
-> +    default: 1
-> +
-> +  dongwoon,timing-control:
-
-So it seems you have only one different property, quite a difference
-comparing to bold statement in commit msg?
+This breaks users of DTS without explanation why (impact). Was it
+working or not? If yes, then why breaking users?
 
 Best regards,
 Krzysztof
