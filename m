@@ -1,177 +1,453 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013051.outbound.protection.outlook.com [52.101.72.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC8058F062;
-	Fri, 11 Sep 2026 20:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3CB415B8D
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 20:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789157015; cv=fail; b=jeJnRkswE1/+NRiFCfZBE7CW1xQanfzc/0LvZl5ceoVOWxN65RSPd+RRbGtqmCbr9b/J+bGG9oPR3+yeltvk4tKvVe/YuJl0kTyDAXHDr17NSYEp3qX0PAXM4t1+6mBfvLjrheMjAtoAWvd2WIYKNDRPuIHr843XipNlYvx2kWQ=
+	t=1789157650; cv=pass; b=qXkkbkBKM7ws4wsLSVSyLmnNXAUYBvhNeuAOgocWxdUg3kjn8v7onHoYSjYFULQgMq+MYssUZ8ToKPPpXpYYciRCXaKfxitNlQTM7Mao6U2lwHuVPSyjfxI9u1/JOP3D1q/g3wvIFDwa8GfdOo51VE9igfRUH23i3JsQGq4Jfbg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789157015; c=relaxed/simple;
-	bh=SGMYPamSjCUYgHWPmPztuYatXn6M9mGDIagcu7CX/TA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rcT6pHSo95mzr0fmjSP7L8MpPylDlfwFugNtADn8Ep+4+kwvtH+bNDRdRTdHYl6lq2LXR0VIFpLxXBdTyL+CzHBPTqqiorG/JZKtTc6pEikQaWY+oTcJB6X4PoKiRWkdwaY4PWnGaH3ylrp7cbzhZ2QM5oncZRrF3FRwbl8jous=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=w9WqiTon; arc=fail smtp.client-ip=52.101.72.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789157650; c=relaxed/simple;
+	bh=fhebCn6/msxu92JDNxfb8pH+KGYDDQvvoKVZMgmAsqQ=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=VEhccSDSuzNzoTryHZzFbsoJTcXFNlAIqPw0qVM6cFpwQoGBG7HygcpE1zE4KeT4hgbOs3Drs6inC6HeTAzIKPR4xzkOwflK75XYHENHkziNObpb0RUH+QAI4U3SBxKn+1FWFm3EJkKpRoNCKdnilSBWaQAN3YTiIHSWpwIoAZA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=nBDZMW10; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="w9WqiTon"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cTQUTRImxcAcu3jX1qanMl6+l6kH3pwvbP16tyXKKgB7d7WD6cv0axrdQ6n1/wmm6SyvT9Sjj404ImyKH54aLObwjfd/KGs0T3H6GKWyomPLsQeBfKDzAXHBcNgWfTRFgKhJqe8bPtMtxSIoFY/UNNbJdTMjZPhYdXO2+HYFLRvRz6vIgL4FPsQsD9Jy8zOCVLodDuadefKXJCQOBhwBHJGXKdEuD79o5iNNWlLcfEGaBf0fIbTsLi2tTlDtBgtAFDIEAfQvlVeiCgC/MCuOhvRE82CAvES+pdnjluvBnxbU58BMbDNZFCR/Tvr4N6NYnaK3EBAK3rZwohEJpe34Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TtGBQqpRntdO8H4ypur8vEc1nfY7av+Cu4lImMdhL60=;
- b=CPuBvKGyQfBxAO94biya8SbgcaYzN8F4yj2oZxpg9nzsmvWkfuymiwet8NOcfZ6hQrbnyljzDO1a1sjlFD6DaXPJqWz27llPAM8qMLaRdhFccGGhGlNPaL851Iq0PsyCQ1jUl3xUvG/Nip1kh4zUUlFnwp0uAdF+uaN0LGcaXEdxaMPsb0sB1kYoTs5GfW0c2iCnk5EUw4Lj/gSfz2D8hIZ/8Ffz536ohcLml/WpyU6W6MK862a+rDqeFOVJSttv/frhV4jn6Q9BdYdz9Dz2gOMAvqbRZsKhqVhaXFMPX+UK5x1yFi+UajenoHbVFkKth250eL4I5PpEmw+wzl/dPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TtGBQqpRntdO8H4ypur8vEc1nfY7av+Cu4lImMdhL60=;
- b=w9WqiTonIm4lMMZH7F1Aus4teA7p8/HSHsimKAIDEz1dwJozvtl9TMPml0CSeWctidpJe0+LW/avVr3xIv42VKq5ndmcl5qQv6VG+NYvlXArboAThZxVGI4HXKcSNo/DH+JvLUKV+5RBHe934HtII4aTw8cmXYtdqCFPC0hk2AMw+OICvJtMGpX8dx8q0h+NuU5IsLdaQhzkitvunKuCVG5JIslsF2xw9UgjgWsMNqSELxkKcVvnKdGn2c3EbZ6LgkDu23jqCQkj9b8JzGSvkfRVtusRQV0lccHgKrBoH9QLTeeuA38EmHSm7AaUWrPqlnPuxW/3OaD498mo3AyAwQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB9PR04MB11577.eurprd04.prod.outlook.com (2603:10a6:10:607::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 20:03:15 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 20:03:15 +0000
-Date: Fri, 11 Sep 2026 16:03:07 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Steve Longerbeam <slongerbeam@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] media: ov5640: Initialize mutex before probe cleanup
-Message-ID: <aqRee2mzDJKru2J1@lizhi-Precision-Tower-5810>
-References: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
-X-ClientProxiedBy: PH8PR07CA0003.namprd07.prod.outlook.com
- (2603:10b6:510:2cd::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="nBDZMW10"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so190760a91.1
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 13:14:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789157648; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K/iBX99MzopdEfk7OHMbyGiy3tppmEmhsxPxzjqjQlQ1xgvWaUfa7OTCQFm/77zlDq
+         +rz3tNlaH0yWKzWsuHb4Sltivs0uBhAl3lEJBivvw/rpMngMhHMSzJQnCQCT1V47ZRQ/
+         LUCVx1+4g/2Jv9Hr8g5SB5VsQQjwBru0ko3PCY9HWP2ek/jvcsmfqyiq09k2JtlAFHmw
+         RgZPM1HzFLR8doYsPpg/8aBORRtSFthu8AJsptY4KD4hP+AtOJYp1vEjJY09DuBAInwF
+         s414TfseH95fEHlKP+rz49cfYGjEXPCOhTDHqhib8t9l5n6tR/Kz0PtQwLgQ5ovOA+7X
+         3dZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=wSdIJUer+N8ZqCUrXaXBAMjqM0wHRinQ473Hy1FtMNA=;
+        fh=iAOvIWyT9HEOYlpGJois8OT7of2IIg9UF04+7Q16B/8=;
+        b=dIn9/U5ha/+lVi84SNXSkl1K1Rsvws1KuOM2iBlCbOgQ+OG7NkaMlfcvrdgkS1swEY
+         dpLVyv52lG+q8siFaPJLapfzN67uBCQOGCUHoHtE7ElLEdkaYWpCa/eAYXnkVdNeHItY
+         67lIG0lHp1NDD34zV8qSsYDE5Kvsxwo01XUzZj1U0JXixEWxXN4X3gVGo4HDihgAL/Du
+         QbZb7d3ctVqg1+xh0RmHD+D/2ST+meahZtRDcv9zQzZumI7ISk64ghl87THAY7yh3ZXR
+         vyU3mPjF2qa6On3NNuk2IyxyeRu94Y9GcPpuy+MZwxUMfCCv4DzOf3une+3Ur13RewVt
+         qyng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1789157648; x=1789762448; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wSdIJUer+N8ZqCUrXaXBAMjqM0wHRinQ473Hy1FtMNA=;
+        b=nBDZMW10OspHHQNFk157vCQm/enMBbYpZxGf605sJepyN/jXvwsYrGhGyPGm7glN+L
+         51+15NIPtgxrvsDg65+glO/Njr3h2UKnAOBBnNHK5VGmEN5suIYDourJfxDVp1TayRzp
+         nMebncSZRoazJVWlVIXg1Zt7O077gzb3XGC3VI5p3HahiJ0gYc2Y979/9xmhuLvt4J74
+         yJdmcDAgi/8fb+3pvqsmnVd84gl31VBJOwmlv/r0wsSB9JryqzgI0Fp4JjWpwsq3z/Mt
+         yfAoIVsxN4D9dADhBmvbzhVATf/rcMcpbmWScGl1WM0boYMoEexBYto9M1lQKHLlO1p7
+         jyvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789157648; x=1789762448;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wSdIJUer+N8ZqCUrXaXBAMjqM0wHRinQ473Hy1FtMNA=;
+        b=Ci1TSMpjA9sIldcqnHPJ2ZHqi7GN96TyNb/8niYT3iP6q43RT3gqVoV3gbFMulwC4l
+         sRhODB2T4nrmImbcNwCyf9c53a/JxYjRFK0PqdaYXtqXgxvDmRH3CBMxi05Ngy6hvTUn
+         Svq68Nn59kOZXTQIOfxikxBrYGcKHlfqh+8MnSDCf9/3qivjimFFx3f/CNeA0L/n8gjI
+         r2OZnz3kK0r5tESh37zx4zxnp/2yJyRCxIcyjCAIp9atzQzSgV9xaQhdH3ZlisX468Ck
+         PtkkC54+IDVdQUGIwnTjw2F0vwC7cW2FSMSGboQhbvnyJ6VyOQW+djEgvuD1rRVsXGpF
+         ZbSw==
+X-Gm-Message-State: AFuF++keZzpAhLpQzU/j1zKSaiwpciGB2Tt0XM+SbBl7JpfYZDn7hFIA
+	0rPBQq86wUZVXKgcnzzC3gDnTF/XgTLzlqWy7XSAkxEnup75t0Yyz6b7cGBRcxa3jpFsOGgQA4R
+	RCKq4eljAtEzUfMGW1a6Um2OTMo1wbzBzmlADPrOID/bu9a3a1EgGJciXKHIo3w==
+X-Gm-Gg: AYBFou01XhT1DF/evNpCC+0ZhZ6i6v5XQobxZ/BQRreM4WcVN3XMPcq2g4/YyE+hUSY
+	dzh2Op09OIWEpHnAs28RNgsolQDtu6OwYUijo/QV3wQIpbh0OsrdltbxLsrvfRSzmZwahdqj9Uf
+	oCURtEJDUVDjbllBLWF0tmZ2/XBrcaQwoN5697XKjMU0844dz5U6IQG8dZ/sYrGK3efmlsSBbjr
+	I2U9JgtItIsR8dZf4jwSMpJdxtPCavK8eQDcgUzIhcHtkp/G+OKUamxJYRCHhnvuWx1YgNnYLk4
+	iGs2q+UDV9uBQuuFQ0QGDPXvGoirycqdi3TddkE6i8flcIohvK9dAsPw8jJJtL29hdt9fSAp5aR
+	73eZbSWctxrQBG8v8by+EISOjiqkl32xXNUWeef8t5sMC2fWy7IeHM9TssjitwJtqQc5a4oi5g8
+	cPM9r2oenL4Q==
+X-Received: by 2002:a17:90b:3844:b0:398:e969:87ef with SMTP id
+ 98e67ed59e1d1-39d9c3f8c2dmr9326907a91.24.1789157646819; Fri, 11 Sep 2026
+ 13:14:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB11577:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93621f3d-6015-4e96-c4d0-08df103fb6f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|376014|366016|56012099006|11063799006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	/psOoehTbwBIjTCT9usur5sweidj2KIUxqR1BZSroA3sJONcKAOoa455I/Z+98UXMed/uEvOhkF11zc2+DL/egTSBTsbpbIfdbe5JOXUrXvxIonkF2NHPOnY8gDMGcXiRQw9zHHYkgxIFOs2uuukMu12Y1subJ60Iq/MtQLQQhDUOtGKSVnUUjvCjvw12EC7GlQseo9ZQc+aUIofzw5ZM4qVAdtTSaoxxYJgnZ+V5AJv4ODNgTjLss8OVpp8ysYyQbIN6b1W1OIkWX2U4T6S9hbmwaw6dDb29oOsXUcoeb9oxb8B1Q6lzsGpcjrX+UVtSYuv/u+pqrX24xsRlRxzQ+hfmvwOcbmf1ce7tCA4Vg5dDaulHp/rL6rKwmnBY2hqw4cgVqWICHHPQqPYtDBMX8ESwKRV+qmTAEpY2gPHj9evCSBfz9J1S21Gn8oSSogJ54WMyqRsEZduyoMIU8GyoSQKxkEM/5jmQ/7Ia5GrIF0eSMBVvXgzVQEBJa85Md0CI+LFBfIBg6A+VC7MWANqeEnHh63QF06fllLtiPmr3Ny0QQYchvrsnhZnYTAp3Jq+FdShFluOeyuCe128dZYYEioi7OhW3M9USrKa5aH+laelqX4wT+h+p6aGJrwJpWmV48jIQosR2rOybCXiKEjm1Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(376014)(366016)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?pwucBenhv8Mh6FntBJo+go/acIi43W8MJcK1tz6EXf/B+06JMK6XK4FPCF0O?=
- =?us-ascii?Q?H8rf0YXSYcl2nTz2xHbXlQeRCCOXtyEy70AURMAonEkDQWVzh8XZCW0gqNMk?=
- =?us-ascii?Q?66nHa+Qj+2qURuuXiAf0qYzBkx5PGneE2AvQftSH6Pgb6PnHkotyI39kaDaA?=
- =?us-ascii?Q?2GDr4VP0zIL9hwHhteFiSKP0kIY9Ofi1suAjS+YxlbmjHtxU0R3zIPRZc5B4?=
- =?us-ascii?Q?v7BgppspyYF6Hls2VZwoGmx0svHV+zOeSjttIULM9v0WTacgSO4QjNEnqoyV?=
- =?us-ascii?Q?ynjD3dgyW8qjBfeyZN/2BrwOYLvTo9V08Fk2vDxux8FTSIzdl8NmYrLL3yCi?=
- =?us-ascii?Q?8UAutbW0yzxx41K6F/VIZtF6ENaz2UU9aD4dwdpywUtIeUYdbL5h1jhGhTQC?=
- =?us-ascii?Q?wjQ9cNDW8i/cu5KoeeeC59mfvZQQorcFw3R3eG7bQAPOSC+Kyw8pxaXLhrek?=
- =?us-ascii?Q?UJUEfwsrtJTc/TmNfruwPlrZimTc1TLctq52KSqJF9HisQ081rbiXkX3n+Ih?=
- =?us-ascii?Q?923Gs2ozi2TxXnK+343ouxpFfJbsPcDnPecYTMr5Uiv96nooxooli7fKRnOJ?=
- =?us-ascii?Q?1vsBNKu6TuF4eUNU4IlsMjdPZmJGxaTA9/EmcRBf6J0qnvM8darTxeD3qj3D?=
- =?us-ascii?Q?WBawmc71jpqJvNY3m8XBkjx8nncctLpTH/+znyFZn57ViliwKp/tiltwB0AB?=
- =?us-ascii?Q?0ej+WHjJTHMcdzc7OH54lz2Zg+glbWoaR5ptXweVuZHwPK8drr+z1GHVA/lW?=
- =?us-ascii?Q?e00pvkHtxbQ7pezzBdD2FPiBUv2DMpIFjWHHHPlld6c2wGrcnZZKZnyNrFyB?=
- =?us-ascii?Q?DsoelKbUoQyMfPHECpFchxPyV8GNYs85DQSXKmbzH2rd56XEZHx9sKLGSWeY?=
- =?us-ascii?Q?+YGkjFATPSFm3N4/N7CeJvHK1b4fLduz4XpqV3asXNWeG9X7qPoRIdf+I4Vg?=
- =?us-ascii?Q?dGoHfF78aBQouYGyZv/01gM3H9U3bM22eyRWK0cYRfdpcWPiAeIcxat3y7XL?=
- =?us-ascii?Q?LRb4d9gwYQBskG3gDHruKZMdzVOxTSNmCk6VChaoXCRK0bT+hsBWp5nkGCvf?=
- =?us-ascii?Q?KoyScCxjmrWeTTnGoaVXaGwNuAa0ncupkdYpIRkmdeevEFqW1VwhtWqtWIln?=
- =?us-ascii?Q?ha/EuEfBT8CK81WLmqIuPtO6aWdPV8GLyn+wiG8rraD7PsDDCnmiWwrcTtij?=
- =?us-ascii?Q?2Ys5hTjXAb9GmUXtJYcfDz91a+25k5M4R6P4A5JgQzBixzSTylBo2fvffvto?=
- =?us-ascii?Q?krReIFVL71w2dgHRn2TY4UjmdupcWeDJPiJujGxytp6qEXvQPm4aslhhALdq?=
- =?us-ascii?Q?R4mVl26/xU9wTTKC2IVB8oFlTrHD4RPoje8J3/G8mcfBp6pR6yNP+sS1AewG?=
- =?us-ascii?Q?UbtESANMWn81Ms8LYSw90rPf9QOu1jBxpE2i6MmqN8c+Ixk/xgwiDTduqZwu?=
- =?us-ascii?Q?kGMyzru9VCBWtu4LKVwynIod1IMHXp8Zf4I3JGEdx4Zc/iG+Yd6jyea9W4vf?=
- =?us-ascii?Q?hwcVEvKtEBkIO3ljPaXuTm2ZPWSG9fbsCnJWr+amn34FVV67INOasGwcchfF?=
- =?us-ascii?Q?xfS00OQki2WJK5ipY+xeU7xXMMKRsBiTaaqepYvGrJlkybT1LP7F6z8VudkN?=
- =?us-ascii?Q?HLhvvUmbAYsycc3dSUswVet5cCvwMx62hB/WfRpY2EAP+d0gOcwq+SbTi1fn?=
- =?us-ascii?Q?7yIwOYMaeTnRpT7pO2pWANtbd3oePhV60RU42G0WbI0YCrxJheiq8tCJparH?=
- =?us-ascii?Q?ag6wLFu8ZI027wTDBsDYwrTZG32jx29ZJJKuGrbf3khSXw3+qneJ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93621f3d-6015-4e96-c4d0-08df103fb6f8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:03:15.2417
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4h/UVu6cdIKnQ1V4rGEoUoDXMo/zNjObYus+c7ri2DXtRZiMyD6bZblwHQlb1Tt5PLXVhfsTRKK3GnRuNvzqrH76gVGJzK5dgUgAxcP/4rnkaokENtzYrqRP5zVcNf/q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11577
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+Date: Fri, 11 Sep 2026 13:13:55 -0700
+X-Gm-Features: AcwNN1Vao5cnuQGYX9jcWh8-2l9gV1Z5fsxfBfuzrFuKXG3ZK9gEsXYK95FCk8k
+Message-ID: <CA+0ovCgtHp-xadKFjptEwPQJECbks0oSv3TTOUn9q3uptKkcdg@mail.gmail.com>
+Subject: [BUG] WARNING: refcount bug in em28xx_uninit_usb_xfer
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000fd8421065b3ab910"
 
-On Thu, Sep 10, 2026 at 04:16:08PM +0800, Runyu Xiao wrote:
-> ov5640_probe() can jump to entity_cleanup when regulator setup fails,
-> before sensor->lock is initialized. The cleanup path unconditionally
-> destroys the mutex, so this error path passes an uninitialized mutex to
-> mutex_destroy().
->
-> Initialize the mutex after media_entity_pads_init() succeeds and before
-> ov5640_get_regulators(). This keeps earlier direct-return paths outside the
-> mutex lifetime while ensuring that every path reaching mutex_destroy() has
-> initialized the mutex.
->
-> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-> Cc: stable@vger.kernel.org
->
-> Found by PatchProof Module 4 candidates
-> PILOT-4c6b03072e508260 and PILOT-4f9a36d855eb7c54.
->
-> No runtime reproducer was available; the failure path was verified by
-> inspection and the affected object was built successfully.
->
-> Tested-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> Assisted-by: LLM Codex
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/media/i2c/ov5640.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 8deb5f550..36c8bb345 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
-> @@ -3930,12 +3930,12 @@ static int ov5640_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
->
-> +	mutex_init(&sensor->lock);
-> +
+--000000000000fd8421065b3ab910
+Content-Type: text/plain; charset="UTF-8"
 
-Please use devm_mutex_init(); mutex need do tear down work if enable lock
-debug.
+Hello,
 
-Frank
+We are reporting the following crash (reproducer attached):
+Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
+Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
 
->  	ret = ov5640_get_regulators(sensor);
->  	if (ret)
->  		goto entity_cleanup;
->
-> -	mutex_init(&sensor->lock);
-> -
->  	ret = ov5640_init_controls(sensor);
->  	if (ret)
->  		goto entity_cleanup;
-> --
-> 2.34.1
->
+[   47.694214][ T9838] refcount_t: underflow; use-after-free.
+[   47.694228][ T9838] WARNING: lib/refcount.c:28 at
+refcount_warn_saturate+0xb2/0x110, CPU#1: repro/9838
+[   47.698307][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.704251][ T9838] Modules linked in:
+[   47.704265][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.706171][ T9838] CPU: 1 UID: 0 PID: 9838 Comm: repro Not tainted
+7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
+[   47.707259][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.708241][ T9838] Hardware name: QEMU Standard PC (Q35 + ICH9,
+2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+[   47.709292][ T9838] RIP: 0010:refcount_warn_saturate+0xb2/0x110
+[   47.709877][ T9838] Code: 44 00 9b 0b 67 48 0f b9 3a eb 4a e8 a8 75
+01 fd 48 8d 3d 41 00 9b 0b 67 48 0f b9 3a eb 37 e8 95 75 01 fd 48 8d
+3d 3e 00 9b 0b <67> 48 0f b9 3a eb 24 e8 82 75 01 fd 48 8d 3d 3b 00 9b
+0b 67 48 0f
+[   47.711239][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.712631][ T9838] RSP: 0018:ffffc90006747878 EFLAGS: 00010293
+[   47.713221][ T9838] RAX: ffffffff84c626eb RBX: 0000000000000003
+RCX: ffff88802758a640
+[   47.713978][ T9838] RDX: 0000000000000000 RSI: ffffffff8f347580
+RDI: ffffffff90612730
+[   47.714691][ T9838] RBP: 0000000000000002 R08: ffff88802758a640
+R09: 0000000000000005
+[   47.715400][ T9838] R10: 0000000000000004 R11: 0000000000000000
+R12: ffff888109299e88
+[   47.716228][ T9838] R13: ffff88802933d000 R14: ffff88802933d000
+R15: 0000000000000008
+[   47.716848][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.717851][ T9838] FS:  00007fdfcd7da6c0(0000)
+GS:ffff8881da588000(0000) knlGS:0000000000000000
+[   47.718670][ T9838] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   47.719280][ T9838] CR2: 00007fdfcdfdafe0 CR3: 000000001f3b6000
+CR4: 0000000000752ef0
+[   47.721985][ T9838] PKRU: 55555554
+[   47.722334][ T9838] Call Trace:
+[   47.723521][ T9838]  <TASK>
+[   47.723823][ T9838]  em28xx_uninit_usb_xfer+0x157/0x320
+[   47.725229][ T9838]  em28xx_init_usb_xfer+0x454/0x4a0
+[   47.725357][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.726698][ T9838]  em28xx_start_analog_streaming+0xf19/0x1960
+[   47.727285][ T9838]  ? __pfx_em28xx_urb_data_copy+0x10/0x10
+[   47.727840][ T9838]  ? __pfx_em28xx_start_analog_streaming+0x10/0x10
+[   47.728457][ T9838]  ? __lock_acquire+0x74c/0x2db0
+[   47.728939][ T9838]  ? __video_do_ioctl+0x473/0xca0
+[   47.730362][ T9838]  ? __pfx___mutex_lock+0x10/0x10
+[   47.730852][ T9838]  ? __pfx_em28xx_start_analog_streaming+0x10/0x10
+[   47.731444][ T9838]  vb2_start_streaming+0x128/0x460
+[   47.731920][ T9838]  vb2_core_streamon+0x2e0/0x4f0
+[   47.732376][ T9838]  __video_do_ioctl+0xadb/0xca0
+[   47.732855][ T9838]  ? __pfx___video_do_ioctl+0x10/0x10
+[   47.733374][ T9838]  video_usercopy+0x876/0x1450
+[   47.733843][ T9838]  ? __pfx___video_do_ioctl+0x10/0x10
+[   47.734350][ T9838]  ? __pfx_video_usercopy+0x10/0x10
+[   47.734831][ T9838]  ? __fget_files+0x2a/0x420
+[   47.735260][ T9838]  ? __fget_files+0x2a/0x420
+[   47.735806][ T9838]  ? __fget_files+0x3a0/0x420
+[   47.736261][ T9838]  v4l2_ioctl+0x18d/0x1e0
+[   47.736682][ T9838]  ? __pfx_v4l2_ioctl+0x10/0x10
+[   47.737149][ T9838]  __se_sys_ioctl+0xfc/0x170
+[   47.737597][ T9838]  do_syscall_64+0x155/0x510
+[   47.738053][ T9838]  ? trace_irq_disable+0x3b/0x140
+[   47.738523][ T9838]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   47.739079][ T9838]  ? clear_bhb_loop+0x30/0x80
+[   47.739549][ T9838]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   47.740095][ T9838] RIP: 0033:0x42d07d
+[   47.740463][ T9838] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d
+45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10
+00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25
+28 00 00 00
+[   47.742283][ T9838] RSP: 002b:00007fdfcd7da0c0 EFLAGS: 00000246
+ORIG_RAX: 0000000000000010
+[   47.743037][ T9838] RAX: ffffffffffffffda RBX: 00007fdfcd7da6c0
+RCX: 000000000042d07d
+[   47.743086][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.744673][ T9838] RDX: 00007fdfcd7da13c RSI: 0000000040045612
+RDI: 0000000000000005
+[   47.745423][ T9838] RBP: 00007fdfcd7da110 R08: 0000000000000000
+R09: 0000000000000001
+[   47.746234][ T9838] R10: 0000000000000008 R11: 0000000000000246
+R12: 00007fdfcd7da6c0
+[   47.746982][ T9838] R13: 00007ffc73885280 R14: 00007fdfcd7dace4
+R15: 00007ffc73885377
+[   47.747257][ T9837] em28xx 3-1:1.0: failed to clear USB bulk
+endpoint stall/halt condition (error=-32)
+[   47.748529][ T9838]  </TASK>
+[   47.748851][ T9838] Kernel panic - not syncing: kernel: panic_on_warn set ...
+[   47.749555][ T9838] CPU: 1 UID: 0 PID: 9838 Comm: repro Not tainted
+7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
+[   47.750531][ T9838] Hardware name: QEMU Standard PC (Q35 + ICH9,
+2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+[   47.751514][ T9838] Call Trace:
+[   47.751841][ T9838]  <TASK>
+[   47.752128][ T9838]  vpanic+0x56d/0xa60
+[   47.752518][ T9838]  ? __pfx__printk+0x10/0x10
+[   47.752968][ T9838]  ? __pfx_vpanic+0x10/0x10
+[   47.753405][ T9838]  ? is_bpf_text_address+0x292/0x2b0
+[   47.753927][ T9838]  ? is_bpf_text_address+0x26/0x2b0
+[   47.754405][ T9838]  panic+0xc5/0xd0
+[   47.754755][ T9838]  ? __pfx_panic+0x10/0x10
+[   47.755169][ T9838]  __warn+0x315/0x4c0
+[   47.755624][ T9838]  ? refcount_warn_saturate+0xb2/0x110
+[   47.756151][ T9838]  ? refcount_warn_saturate+0xb2/0x110
+[   47.756693][ T9838]  __report_bug+0x273/0x580
+[   47.757147][ T9838]  ? refcount_warn_saturate+0xb2/0x110
+[   47.757673][ T9838]  ? __pfx___report_bug+0x10/0x10
+[   47.758165][ T9838]  report_bug_entry+0x19b/0x290
+[   47.758613][ T9838]  ? refcount_warn_saturate+0xb2/0x110
+[   47.759111][ T9838]  ? refcount_warn_saturate+0xb7/0x110
+[   47.759621][ T9838]  handle_bug+0xce/0x200
+[   47.760049][ T9838]  exc_invalid_op+0x1a/0x50
+[   47.760488][ T9838]  asm_exc_invalid_op+0x1a/0x20
+[   47.760957][ T9838] RIP: 0010:refcount_warn_saturate+0xb2/0x110
+[   47.761537][ T9838] Code: 44 00 9b 0b 67 48 0f b9 3a eb 4a e8 a8 75
+01 fd 48 8d 3d 41 00 9b 0b 67 48 0f b9 3a eb 37 e8 95 75 01 fd 48 8d
+3d 3e 00 9b 0b <67> 48 0f b9 3a eb 24 e8 82 75 01 fd 48 8d 3d 3b 00 9b
+0b 67 48 0f
+[   47.763279][ T9838] RSP: 0018:ffffc90006747878 EFLAGS: 00010293
+[   47.763830][ T9838] RAX: ffffffff84c626eb RBX: 0000000000000003
+RCX: ffff88802758a640
+[   47.764542][ T9838] RDX: 0000000000000000 RSI: ffffffff8f347580
+RDI: ffffffff90612730
+[   47.765302][ T9838] RBP: 0000000000000002 R08: ffff88802758a640
+R09: 0000000000000005
+[   47.766110][ T9838] R10: 0000000000000004 R11: 0000000000000000
+R12: ffff888109299e88
+[   47.766862][ T9838] R13: ffff88802933d000 R14: ffff88802933d000
+R15: 0000000000000008
+[   47.767572][ T9838]  ? refcount_warn_saturate+0xab/0x110
+[   47.768111][ T9838]  ? refcount_warn_saturate+0xab/0x110
+[   47.768636][ T9838]  em28xx_uninit_usb_xfer+0x157/0x320
+[   47.769173][ T9838]  em28xx_init_usb_xfer+0x454/0x4a0
+[   47.769677][ T9838]  em28xx_start_analog_streaming+0xf19/0x1960
+[   47.770248][ T9838]  ? __pfx_em28xx_urb_data_copy+0x10/0x10
+[   47.770772][ T9838]  ? __pfx_em28xx_start_analog_streaming+0x10/0x10
+[   47.771364][ T9838]  ? __lock_acquire+0x74c/0x2db0
+[   47.771820][ T9838]  ? __video_do_ioctl+0x473/0xca0
+[   47.772278][ T9838]  ? __pfx___mutex_lock+0x10/0x10
+[   47.772760][ T9838]  ? __pfx_em28xx_start_analog_streaming+0x10/0x10
+[   47.773384][ T9838]  vb2_start_streaming+0x128/0x460
+[   47.773880][ T9838]  vb2_core_streamon+0x2e0/0x4f0
+[   47.774347][ T9838]  __video_do_ioctl+0xadb/0xca0
+[   47.774797][ T9838]  ? __pfx___video_do_ioctl+0x10/0x10
+[   47.775287][ T9838]  video_usercopy+0x876/0x1450
+[   47.775822][ T9838]  ? __pfx___video_do_ioctl+0x10/0x10
+[   47.776334][ T9838]  ? __pfx_video_usercopy+0x10/0x10
+[   47.776838][ T9838]  ? __fget_files+0x2a/0x420
+[   47.777284][ T9838]  ? __fget_files+0x2a/0x420
+[   47.777731][ T9838]  ? __fget_files+0x3a0/0x420
+[   47.778184][ T9838]  v4l2_ioctl+0x18d/0x1e0
+[   47.778611][ T9838]  ? __pfx_v4l2_ioctl+0x10/0x10
+[   47.779095][ T9838]  __se_sys_ioctl+0xfc/0x170
+[   47.779559][ T9838]  do_syscall_64+0x155/0x510
+[   47.780009][ T9838]  ? trace_irq_disable+0x3b/0x140
+[   47.780495][ T9838]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   47.781076][ T9838]  ? clear_bhb_loop+0x30/0x80
+[   47.781531][ T9838]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   47.782101][ T9838] RIP: 0033:0x42d07d
+[   47.782459][ T9838] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d
+45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10
+00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25
+28 00 00 00
+[   47.784211][ T9838] RSP: 002b:00007fdfcd7da0c0 EFLAGS: 00000246
+ORIG_RAX: 0000000000000010
+[   47.785003][ T9838] RAX: ffffffffffffffda RBX: 00007fdfcd7da6c0
+RCX: 000000000042d07d
+[   47.785810][ T9838] RDX: 00007fdfcd7da13c RSI: 0000000040045612
+RDI: 0000000000000005
+[   47.786553][ T9838] RBP: 00007fdfcd7da110 R08: 0000000000000000
+R09: 0000000000000001
+[   47.787283][ T9838] R10: 0000000000000008 R11: 0000000000000246
+R12: 00007fdfcd7da6c0
+[   47.787991][ T9838] R13: 00007ffc73885280 R14: 00007fdfcd7dace4
+R15: 00007ffc73885377
+[   47.788725][ T9838]  </TASK>
+[   47.789338][ T9838] Kernel Offset: disabled
+[   47.789890][ T9838] Rebooting in 86400 seconds..
+
+Regards,
+
+--000000000000fd8421065b3ab910
+Content-Type: application/octet-stream; name="reproducer.c"
+Content-Disposition: attachment; filename="reproducer.c"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mtxe9bpe0>
+X-Attachment-Id: f_mtxe9bpe0
+
+LyoKICogMjc4LXdhcm5pbmctcmVmY291bnQtYnVnLWluLWVtMjh4eC11bmluaXQtdXNiLXhmZXIK
+ICovCiNkZWZpbmUgX0dOVV9TT1VSQ0UKI2luY2x1ZGUgPGRpcmVudC5oPgojaW5jbHVkZSA8ZXJy
+bm8uaD4KI2luY2x1ZGUgPGZjbnRsLmg+CiNpbmNsdWRlIDxwdGhyZWFkLmg+CiNpbmNsdWRlIDxz
+Y2hlZC5oPgojaW5jbHVkZSA8c3RkaW50Lmg+CiNpbmNsdWRlIDxzdGRpby5oPgojaW5jbHVkZSA8
+c3RkbGliLmg+CiNpbmNsdWRlIDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9pb2N0bC5oPgojaW5j
+bHVkZSA8dW5pc3RkLmg+CgojaW5jbHVkZSA8bGludXgvdXNiL2NoOS5oPgojaW5jbHVkZSA8bGlu
+dXgvdXNiL3Jhd19nYWRnZXQuaD4KI2luY2x1ZGUgPGxpbnV4L3ZpZGVvZGV2Mi5oPgoKI2RlZmlu
+ZSBFUDBfTUFYX1BBQ0tFVAkJMTAyNAojZGVmaW5lIERFVklDRV9OT0RFX1BBVEhfTUFYCTY0CiNk
+ZWZpbmUgUkFDRV9TRUNPTkRTCQk2MAoKc3RhdGljIGludCByYXdfZ2FkZ2V0X2ZkID0gLTE7Cgpz
+dGF0aWMgc3RydWN0IHVzYl9kZXZpY2VfZGVzY3JpcHRvciBkZXZpY2VfZGVzY3JpcHRvciA9IHsK
+CS5iTGVuZ3RoICAgICAgICAgICAgPSBVU0JfRFRfREVWSUNFX1NJWkUsCgkuYkRlc2NyaXB0b3JU
+eXBlICAgID0gVVNCX0RUX0RFVklDRSwKCS5iY2RVU0IgICAgICAgICAgICAgPSAweDAyMDAsCgku
+YkRldmljZUNsYXNzICAgICAgID0gMHhmZiwKCS5iTWF4UGFja2V0U2l6ZTAgICAgPSA2NCwKCS5p
+ZFZlbmRvciAgICAgICAgICAgPSAweGViMWEsCgkuaWRQcm9kdWN0ICAgICAgICAgID0gMHg4Mjg2
+LAoJLmJjZERldmljZSAgICAgICAgICA9IDB4MDEwMCwKCS5iTnVtQ29uZmlndXJhdGlvbnMgPSAx
+LAp9OwoKc3RhdGljIGNvbnN0IHVpbnQ4X3QgY29uZmlndXJhdGlvbl9kZXNjcmlwdG9yW10gPSB7
+Cgk5LCBVU0JfRFRfQ09ORklHLCAyNSwgMCwgMSwgMSwgMCwgMHg4MCwgMHgzMiwKCTksIFVTQl9E
+VF9JTlRFUkZBQ0UsIDAsIDAsIDEsIDB4ZmYsIDB4MDAsIDB4MDAsIDAsCgk3LCBVU0JfRFRfRU5E
+UE9JTlQsIDB4ODIsIFVTQl9FTkRQT0lOVF9YRkVSX0JVTEssIDB4MDAsIDB4MDIsIDAsCn07Cgpz
+dGF0aWMgdm9pZCBlcDBfdHJhbnNmZXIodW5zaWduZWQgbG9uZyBlcDBfcmVhZF9vcl93cml0ZV9p
+b2N0bCwKCQkJIGNvbnN0IHZvaWQgKnBheWxvYWQsIHVpbnQzMl90IG5ieXRlcykKewoJdWludDhf
+dCByYXdfaW9fYnVmZmVyW3NpemVvZihzdHJ1Y3QgdXNiX3Jhd19lcF9pbykgKyBFUDBfTUFYX1BB
+Q0tFVF07CglzdHJ1Y3QgdXNiX3Jhd19lcF9pbyAqZXAwX2lvID0gKHZvaWQgKilyYXdfaW9fYnVm
+ZmVyOwoKCWlmIChuYnl0ZXMgPiBFUDBfTUFYX1BBQ0tFVCkKCQluYnl0ZXMgPSBFUDBfTUFYX1BB
+Q0tFVDsKCWVwMF9pby0+ZXAgPSAwOwoJZXAwX2lvLT5mbGFncyA9IDA7CgllcDBfaW8tPmxlbmd0
+aCA9IG5ieXRlczsKCWlmIChwYXlsb2FkICYmIG5ieXRlcykKCQltZW1jcHkoZXAwX2lvLT5kYXRh
+LCBwYXlsb2FkLCBuYnl0ZXMpOwoJaW9jdGwocmF3X2dhZGdldF9mZCwgZXAwX3JlYWRfb3Jfd3Jp
+dGVfaW9jdGwsIGVwMF9pbyk7Cn0KCnN0YXRpYyB2b2lkIGFuc3dlcl9jb250cm9sX3JlcXVlc3Qo
+Y29uc3Qgc3RydWN0IHVzYl9jdHJscmVxdWVzdCAqY3RybCkKewoJdWludDhfdCByZXBseVtFUDBf
+TUFYX1BBQ0tFVF07Cgl1aW50MTZfdCB3TGVuZ3RoID0gY3RybC0+d0xlbmd0aDsKCWludCByZXBs
+eV9sZW4gPSAwOwoKCW1lbXNldChyZXBseSwgMCwgc2l6ZW9mKHJlcGx5KSk7CgoJaWYgKChjdHJs
+LT5iUmVxdWVzdFR5cGUgJiBVU0JfVFlQRV9NQVNLKSA9PSBVU0JfVFlQRV9TVEFOREFSRCkgewoJ
+CWlmIChjdHJsLT5iUmVxdWVzdCA9PSBVU0JfUkVRX0dFVF9ERVNDUklQVE9SKSB7CgkJCXN3aXRj
+aCAoY3RybC0+d1ZhbHVlID4+IDgpIHsKCQkJY2FzZSBVU0JfRFRfREVWSUNFOgoJCQkJcmVwbHlf
+bGVuID0gc2l6ZW9mKGRldmljZV9kZXNjcmlwdG9yKTsKCQkJCW1lbWNweShyZXBseSwgJmRldmlj
+ZV9kZXNjcmlwdG9yLCByZXBseV9sZW4pOwoJCQkJYnJlYWs7CgkJCWNhc2UgVVNCX0RUX0NPTkZJ
+RzoKCQkJCXJlcGx5X2xlbiA9IHNpemVvZihjb25maWd1cmF0aW9uX2Rlc2NyaXB0b3IpOwoJCQkJ
+bWVtY3B5KHJlcGx5LCBjb25maWd1cmF0aW9uX2Rlc2NyaXB0b3IsIHJlcGx5X2xlbik7CgkJCQli
+cmVhazsKCQkJZGVmYXVsdDoKCQkJCWlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9SQVdfSU9DVExf
+RVAwX1NUQUxMLCAwKTsKCQkJCXJldHVybjsKCQkJfQoJCX0gZWxzZSBpZiAoY3RybC0+YlJlcXVl
+c3QgPT0gVVNCX1JFUV9TRVRfQ09ORklHVVJBVElPTikgewoJCQlpb2N0bChyYXdfZ2FkZ2V0X2Zk
+LCBVU0JfUkFXX0lPQ1RMX0NPTkZJR1VSRSwgMCk7CgkJfQoKCX0gZWxzZSBpZiAoY3RybC0+YlJl
+cXVlc3RUeXBlICYgVVNCX0RJUl9JTikgewoKCQlyZXBseV9sZW4gPSB3TGVuZ3RoID4gc2l6ZW9m
+KHJlcGx5KSA/IChpbnQpc2l6ZW9mKHJlcGx5KSA6IHdMZW5ndGg7CgkJaWYgKChjdHJsLT53SW5k
+ZXggJiAweGZmKSA9PSAweDBhICYmIHJlcGx5X2xlbiA+PSAxKQoJCQlyZXBseVswXSA9IDE0NTsK
+CX0KCglpZiAoKGN0cmwtPmJSZXF1ZXN0VHlwZSAmIFVTQl9ESVJfSU4pICYmIHdMZW5ndGgpIHsK
+CQlpZiAocmVwbHlfbGVuID4gd0xlbmd0aCkKCQkJcmVwbHlfbGVuID0gd0xlbmd0aDsKCQllcDBf
+dHJhbnNmZXIoVVNCX1JBV19JT0NUTF9FUDBfV1JJVEUsIHJlcGx5LCByZXBseV9sZW4pOwoJfSBl
+bHNlIHsKCQllcDBfdHJhbnNmZXIoVVNCX1JBV19JT0NUTF9FUDBfUkVBRCwgTlVMTCwgd0xlbmd0
+aCk7Cgl9Cn0KCnN0YXRpYyB2b2lkICp1c2JfZ2FkZ2V0X2V2ZW50X2xvb3Aodm9pZCAqdW51c2Vk
+KQp7Cgl1aW50OF90IHJhd19ldmVudF9idWZmZXJbc2l6ZW9mKHN0cnVjdCB1c2JfcmF3X2V2ZW50
+KSArIEVQMF9NQVhfUEFDS0VUXTsKCXN0cnVjdCB1c2JfcmF3X2V2ZW50ICpldmVudCA9ICh2b2lk
+ICopcmF3X2V2ZW50X2J1ZmZlcjsKCglmb3IgKDs7KSB7CgkJZXZlbnQtPnR5cGUgPSAwOwoJCWV2
+ZW50LT5sZW5ndGggPSBFUDBfTUFYX1BBQ0tFVDsKCQlpZiAoaW9jdGwocmF3X2dhZGdldF9mZCwg
+VVNCX1JBV19JT0NUTF9FVkVOVF9GRVRDSCwgZXZlbnQpIDwgMCkgewoJCQlpZiAoZXJybm8gIT0g
+RUlOVFIpCgkJCQl1c2xlZXAoMTAwMCk7CgkJCWNvbnRpbnVlOwoJCX0KCQlpZiAoZXZlbnQtPnR5
+cGUgPT0gVVNCX1JBV19FVkVOVF9DT05UUk9MKQoJCQlhbnN3ZXJfY29udHJvbF9yZXF1ZXN0KChz
+dHJ1Y3QgdXNiX2N0cmxyZXF1ZXN0ICopZXZlbnQtPmRhdGEpOwoJfQoJcmV0dXJuIE5VTEw7Cn0K
+CnN0YXRpYyBpbnQgZmluZF9maXJzdF91ZGMoY2hhciAqdWRjX2RyaXZlcl9uYW1lLCBjaGFyICp1
+ZGNfZGV2aWNlX25hbWUpCnsKCURJUiAqdWRjX2NsYXNzX2RpciA9IG9wZW5kaXIoIi9zeXMvY2xh
+c3MvdWRjIik7CglzdHJ1Y3QgZGlyZW50ICp1ZGNfZW50cnk7CgljaGFyICppbnN0YW5jZV9zdWZm
+aXg7CgoJaWYgKCF1ZGNfY2xhc3NfZGlyKQoJCXJldHVybiAtMTsKCXdoaWxlICgodWRjX2VudHJ5
+ID0gcmVhZGRpcih1ZGNfY2xhc3NfZGlyKSkpIHsKCQlpZiAodWRjX2VudHJ5LT5kX25hbWVbMF0g
+PT0gJy4nKQoJCQljb250aW51ZTsKCgkJc25wcmludGYodWRjX2RldmljZV9uYW1lLCBVRENfTkFN
+RV9MRU5HVEhfTUFYLCAiJXMiLCB1ZGNfZW50cnktPmRfbmFtZSk7CgkJc25wcmludGYodWRjX2Ry
+aXZlcl9uYW1lLCBVRENfTkFNRV9MRU5HVEhfTUFYLCAiJXMiLCB1ZGNfZW50cnktPmRfbmFtZSk7
+CgkJaW5zdGFuY2Vfc3VmZml4ID0gc3RycmNocih1ZGNfZHJpdmVyX25hbWUsICcuJyk7CgkJaWYg
+KGluc3RhbmNlX3N1ZmZpeCkKCQkJKmluc3RhbmNlX3N1ZmZpeCA9IDA7CgkJY2xvc2VkaXIodWRj
+X2NsYXNzX2Rpcik7CgkJcmV0dXJuIDA7Cgl9CgljbG9zZWRpcih1ZGNfY2xhc3NfZGlyKTsKCXJl
+dHVybiAtMTsKfQoKc3RhdGljIHZvaWQgdW5iaW5kX3ZpdmlkX3RvX2ZyZWVfdjRsMl9taW5vcnMo
+dm9pZCkKewoJRElSICp2aXZpZF9kcml2ZXJfZGlyID0gb3BlbmRpcigiL3N5cy9idXMvcGxhdGZv
+cm0vZHJpdmVycy92aXZpZCIpOwoJc3RydWN0IGRpcmVudCAqdml2aWRfaW5zdGFuY2U7CgoJaWYg
+KCF2aXZpZF9kcml2ZXJfZGlyKQoJCXJldHVybjsKCXdoaWxlICgodml2aWRfaW5zdGFuY2UgPSBy
+ZWFkZGlyKHZpdmlkX2RyaXZlcl9kaXIpKSkgewoJCWludCB1bmJpbmRfZmQ7CgoJCWlmIChzdHJu
+Y21wKHZpdmlkX2luc3RhbmNlLT5kX25hbWUsICJ2aXZpZCIsIDUpKQoJCQljb250aW51ZTsKCQl1
+bmJpbmRfZmQgPSBvcGVuKCIvc3lzL2J1cy9wbGF0Zm9ybS9kcml2ZXJzL3ZpdmlkL3VuYmluZCIs
+IE9fV1JPTkxZKTsKCQlpZiAodW5iaW5kX2ZkIDwgMCkKCQkJYnJlYWs7CgkJd3JpdGUodW5iaW5k
+X2ZkLCB2aXZpZF9pbnN0YW5jZS0+ZF9uYW1lLCBzdHJsZW4odml2aWRfaW5zdGFuY2UtPmRfbmFt
+ZSkpOwoJCWNsb3NlKHVuYmluZF9mZCk7Cgl9CgljbG9zZWRpcih2aXZpZF9kcml2ZXJfZGlyKTsK
+fQoKc3RhdGljIGludCBmaW5kX2VtMjh4eF9ub2RlcyhjaGFyICp2aWRlb19ub2RlX3BhdGgsIGNo
+YXIgKnZiaV9ub2RlX3BhdGgpCnsKCURJUiAqdjRsX2NsYXNzX2RpciA9IG9wZW5kaXIoIi9zeXMv
+Y2xhc3MvdmlkZW80bGludXgiKTsKCXN0cnVjdCBkaXJlbnQgKm5vZGVfZW50cnk7CglpbnQgbm9k
+ZXNfZm91bmQgPSAwOwoKCWlmICghdjRsX2NsYXNzX2RpcikKCQlyZXR1cm4gMDsKCXZpZGVvX25v
+ZGVfcGF0aFswXSA9IHZiaV9ub2RlX3BhdGhbMF0gPSAwOwoJd2hpbGUgKChub2RlX2VudHJ5ID0g
+cmVhZGRpcih2NGxfY2xhc3NfZGlyKSkpIHsKCQljaGFyIGRyaXZlcl9saW5rX3BhdGhbMjU2XSwg
+ZHJpdmVyX2xpbmtfdGFyZ2V0WzI1Nl07CgkJaW50IGxpbmtfbGVuOwoKCQlzbnByaW50Zihkcml2
+ZXJfbGlua19wYXRoLCBzaXplb2YoZHJpdmVyX2xpbmtfcGF0aCksCgkJCSAiL3N5cy9jbGFzcy92
+aWRlbzRsaW51eC8lcy9kZXZpY2UvZHJpdmVyIiwgbm9kZV9lbnRyeS0+ZF9uYW1lKTsKCQlsaW5r
+X2xlbiA9IHJlYWRsaW5rKGRyaXZlcl9saW5rX3BhdGgsIGRyaXZlcl9saW5rX3RhcmdldCwKCQkJ
+CSAgICBzaXplb2YoZHJpdmVyX2xpbmtfdGFyZ2V0KSAtIDEpOwoJCWlmIChsaW5rX2xlbiA8PSAw
+KQoJCQljb250aW51ZTsKCQlkcml2ZXJfbGlua190YXJnZXRbbGlua19sZW5dID0gMDsKCQlpZiAo
+IXN0cnN0cihkcml2ZXJfbGlua190YXJnZXQsICJlbTI4eHgiKSkKCQkJY29udGludWU7CgkJaWYg
+KCFzdHJuY21wKG5vZGVfZW50cnktPmRfbmFtZSwgInZpZGVvIiwgNSkgJiYgIXZpZGVvX25vZGVf
+cGF0aFswXSkgewoJCQlzbnByaW50Zih2aWRlb19ub2RlX3BhdGgsIERFVklDRV9OT0RFX1BBVEhf
+TUFYLCAiL2Rldi8lcyIsCgkJCQkgbm9kZV9lbnRyeS0+ZF9uYW1lKTsKCQkJbm9kZXNfZm91bmQr
+KzsKCQl9IGVsc2UgaWYgKCFzdHJuY21wKG5vZGVfZW50cnktPmRfbmFtZSwgInZiaSIsIDMpICYm
+ICF2Ymlfbm9kZV9wYXRoWzBdKSB7CgkJCXNucHJpbnRmKHZiaV9ub2RlX3BhdGgsIERFVklDRV9O
+T0RFX1BBVEhfTUFYLCAiL2Rldi8lcyIsCgkJCQkgbm9kZV9lbnRyeS0+ZF9uYW1lKTsKCQkJbm9k
+ZXNfZm91bmQrKzsKCQl9Cgl9CgljbG9zZWRpcih2NGxfY2xhc3NfZGlyKTsKCXJldHVybiBub2Rl
+c19mb3VuZDsKfQoKc3RhdGljIHZvaWQgcmVxdWVzdF9idWZmZXJzKGludCBub2RlX2ZkLCBpbnQg
+YnVmZmVyX3R5cGUpCnsKCXN0cnVjdCB2NGwyX3JlcXVlc3RidWZmZXJzIHJlcXVlc3RfYnVmZmVy
+c19hcmc7CgoJbWVtc2V0KCZyZXF1ZXN0X2J1ZmZlcnNfYXJnLCAwLCBzaXplb2YocmVxdWVzdF9i
+dWZmZXJzX2FyZykpOwoJcmVxdWVzdF9idWZmZXJzX2FyZy5jb3VudCA9IDI7CglyZXF1ZXN0X2J1
+ZmZlcnNfYXJnLnR5cGUgPSBidWZmZXJfdHlwZTsKCXJlcXVlc3RfYnVmZmVyc19hcmcubWVtb3J5
+ID0gVjRMMl9NRU1PUllfTU1BUDsKCWlvY3RsKG5vZGVfZmQsIFZJRElPQ19SRVFCVUZTLCAmcmVx
+dWVzdF9idWZmZXJzX2FyZyk7Cn0KCnN0cnVjdCBzdHJlYW1fcmFjZXIgewoJaW50IG5vZGVfZmQ7
+CglpbnQgYnVmZmVyX3R5cGU7CglpbnQgY3B1X3RvX3Bpbl90bzsKfTsKCnN0YXRpYyB2b2lkICpz
+dHJlYW1vbl9zdHJlYW1vZmZfbG9vcCh2b2lkICpyYWNlcl9hcmcpCnsKCXN0cnVjdCBzdHJlYW1f
+cmFjZXIgKnJhY2VyID0gcmFjZXJfYXJnOwoJaW50IGJ1ZmZlcl90eXBlID0gcmFjZXItPmJ1ZmZl
+cl90eXBlOwoJY3B1X3NldF90IGNwdV9tYXNrOwoKCUNQVV9aRVJPKCZjcHVfbWFzayk7CglDUFVf
+U0VUKHJhY2VyLT5jcHVfdG9fcGluX3RvLCAmY3B1X21hc2spOwoJc2NoZWRfc2V0YWZmaW5pdHko
+MCwgc2l6ZW9mKGNwdV9tYXNrKSwgJmNwdV9tYXNrKTsKCglmb3IgKDs7KSB7CgkJaW9jdGwocmFj
+ZXItPm5vZGVfZmQsIFZJRElPQ19TVFJFQU1PTiwgJmJ1ZmZlcl90eXBlKTsKCQlpb2N0bChyYWNl
+ci0+bm9kZV9mZCwgVklESU9DX1NUUkVBTU9GRiwgJmJ1ZmZlcl90eXBlKTsKCX0KCXJldHVybiBO
+VUxMOwp9CgppbnQgbWFpbih2b2lkKQp7CglzdHJ1Y3QgdXNiX3Jhd19pbml0IHJhd19nYWRnZXRf
+aW5pdDsKCWNoYXIgdWRjX2RyaXZlcl9uYW1lW1VEQ19OQU1FX0xFTkdUSF9NQVhdLCB1ZGNfZGV2
+aWNlX25hbWVbVURDX05BTUVfTEVOR1RIX01BWF07CgljaGFyIHZpZGVvX25vZGVfcGF0aFtERVZJ
+Q0VfTk9ERV9QQVRIX01BWF0sIHZiaV9ub2RlX3BhdGhbREVWSUNFX05PREVfUEFUSF9NQVhdOwoJ
+c3RydWN0IHN0cmVhbV9yYWNlciB2aWRlb19yYWNlciwgdmJpX3JhY2VyOwoJcHRocmVhZF90IGdh
+ZGdldF90aHJlYWQsIHZpZGVvX3JhY2VyX3RocmVhZCwgdmJpX3JhY2VyX3RocmVhZDsKCWludCB3
+YWl0X3RlbnRoczsKCglzeXN0ZW0oInN5c3RlbWN0bCBzdG9wIHN5c3RlbWQtdWRldmQuc29ja2V0
+IHN5c3RlbWQtdWRldmQta2VybmVsLnNvY2tldCAiCgkgICAgICAgInN5c3RlbWQtdWRldmQtY29u
+dHJvbC5zb2NrZXQgc3lzdGVtZC11ZGV2ZC5zZXJ2aWNlIDI+L2Rldi9udWxsIik7CglzeXN0ZW0o
+InBraWxsIC05IC1mIHVkZXZkIDI+L2Rldi9udWxsIik7CgoJdW5iaW5kX3ZpdmlkX3RvX2ZyZWVf
+djRsMl9taW5vcnMoKTsKCglzeXN0ZW0oIm1vZHByb2JlIGR1bW15X2hjZCAyPi9kZXYvbnVsbCIp
+OwoJc3lzdGVtKCJtb2Rwcm9iZSByYXdfZ2FkZ2V0IDI+L2Rldi9udWxsIik7CgoJaWYgKGZpbmRf
+Zmlyc3RfdWRjKHVkY19kcml2ZXJfbmFtZSwgdWRjX2RldmljZV9uYW1lKSA8IDApIHsKCQlmcHJp
+bnRmKHN0ZGVyciwgIm5vIFVEQyBpbiAvc3lzL2NsYXNzL3VkY1xuIik7CgkJcmV0dXJuIDE7Cgl9
+CglyYXdfZ2FkZ2V0X2ZkID0gb3BlbigiL2Rldi9yYXctZ2FkZ2V0IiwgT19SRFdSKTsKCWlmIChy
+YXdfZ2FkZ2V0X2ZkIDwgMCkgewoJCWZwcmludGYoc3RkZXJyLCAib3BlbigvZGV2L3Jhdy1nYWRn
+ZXQpOiAlc1xuIiwgc3RyZXJyb3IoZXJybm8pKTsKCQlyZXR1cm4gMTsKCX0KCW1lbXNldCgmcmF3
+X2dhZGdldF9pbml0LCAwLCBzaXplb2YocmF3X2dhZGdldF9pbml0KSk7CglzbnByaW50ZigoY2hh
+ciAqKXJhd19nYWRnZXRfaW5pdC5kcml2ZXJfbmFtZSwKCQkgc2l6ZW9mKHJhd19nYWRnZXRfaW5p
+dC5kcml2ZXJfbmFtZSksICIlcyIsIHVkY19kcml2ZXJfbmFtZSk7CglzbnByaW50ZigoY2hhciAq
+KXJhd19nYWRnZXRfaW5pdC5kZXZpY2VfbmFtZSwKCQkgc2l6ZW9mKHJhd19nYWRnZXRfaW5pdC5k
+ZXZpY2VfbmFtZSksICIlcyIsIHVkY19kZXZpY2VfbmFtZSk7CglyYXdfZ2FkZ2V0X2luaXQuc3Bl
+ZWQgPSBVU0JfU1BFRURfSElHSDsKCWlmIChpb2N0bChyYXdfZ2FkZ2V0X2ZkLCBVU0JfUkFXX0lP
+Q1RMX0lOSVQsICZyYXdfZ2FkZ2V0X2luaXQpIDwgMCkgewoJCWZwcmludGYoc3RkZXJyLCAiVVNC
+X1JBV19JT0NUTF9JTklUOiAlc1xuIiwgc3RyZXJyb3IoZXJybm8pKTsKCQlyZXR1cm4gMTsKCX0K
+CglpZiAoaW9jdGwocmF3X2dhZGdldF9mZCwgVVNCX1JBV19JT0NUTF9SVU4sIDApIDwgMCkgewoJ
+CWZwcmludGYoc3RkZXJyLCAiVVNCX1JBV19JT0NUTF9SVU46ICVzXG4iLCBzdHJlcnJvcihlcnJu
+bykpOwoJCXJldHVybiAxOwoJfQoJcHRocmVhZF9jcmVhdGUoJmdhZGdldF90aHJlYWQsIE5VTEws
+IHVzYl9nYWRnZXRfZXZlbnRfbG9vcCwgTlVMTCk7CgoJZm9yICh3YWl0X3RlbnRocyA9IDA7IHdh
+aXRfdGVudGhzIDwgMjAwOyB3YWl0X3RlbnRocysrKSB7CgkJaWYgKGZpbmRfZW0yOHh4X25vZGVz
+KHZpZGVvX25vZGVfcGF0aCwgdmJpX25vZGVfcGF0aCkgPT0gMikKCQkJYnJlYWs7CgkJdXNsZWVw
+KDEwMDAwMCk7Cgl9CglpZiAod2FpdF90ZW50aHMgPT0gMjAwKSB7CgkJZnByaW50ZihzdGRlcnIs
+ICJlbTI4eHggdmlkZW8rdmJpIG5vZGVzIGRpZCBub3QgYm90aCBhcHBlYXJcbiIpOwoJCXJldHVy
+biAxOwoJfQoKCXZpZGVvX3JhY2VyLm5vZGVfZmQgPSBvcGVuKHZpZGVvX25vZGVfcGF0aCwgT19S
+RFdSKTsKCXZiaV9yYWNlci5ub2RlX2ZkID0gb3Blbih2Ymlfbm9kZV9wYXRoLCBPX1JEV1IpOwoJ
+aWYgKHZpZGVvX3JhY2VyLm5vZGVfZmQgPCAwIHx8IHZiaV9yYWNlci5ub2RlX2ZkIDwgMCkKCQly
+ZXR1cm4gMTsKCXZpZGVvX3JhY2VyLmJ1ZmZlcl90eXBlID0gVjRMMl9CVUZfVFlQRV9WSURFT19D
+QVBUVVJFOwoJdmJpX3JhY2VyLmJ1ZmZlcl90eXBlID0gVjRMMl9CVUZfVFlQRV9WQklfQ0FQVFVS
+RTsKCXZpZGVvX3JhY2VyLmNwdV90b19waW5fdG8gPSAwOwoJdmJpX3JhY2VyLmNwdV90b19waW5f
+dG8gPSAxOwoJcmVxdWVzdF9idWZmZXJzKHZpZGVvX3JhY2VyLm5vZGVfZmQsIHZpZGVvX3JhY2Vy
+LmJ1ZmZlcl90eXBlKTsKCXJlcXVlc3RfYnVmZmVycyh2YmlfcmFjZXIubm9kZV9mZCwgdmJpX3Jh
+Y2VyLmJ1ZmZlcl90eXBlKTsKCglwdGhyZWFkX2NyZWF0ZSgmdmlkZW9fcmFjZXJfdGhyZWFkLCBO
+VUxMLCBzdHJlYW1vbl9zdHJlYW1vZmZfbG9vcCwgJnZpZGVvX3JhY2VyKTsKCXB0aHJlYWRfY3Jl
+YXRlKCZ2YmlfcmFjZXJfdGhyZWFkLCBOVUxMLCBzdHJlYW1vbl9zdHJlYW1vZmZfbG9vcCwgJnZi
+aV9yYWNlcik7CgoJc2xlZXAoUkFDRV9TRUNPTkRTKTsKCXJldHVybiAwOwp9Cg==
+--000000000000fd8421065b3ab910--
