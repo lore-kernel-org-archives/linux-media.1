@@ -1,87 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D2E43A80A
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C7A43DEB3
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122749; cv=none; b=IZ9FAZeeGJ8D9k9UqYj+Y22XqGMj1PMCuu8wJApauZw4ZmN5HfDPGgnwUsrtSenb9sTT8LBwi/eFWgS02GkFmfBKLJSeUfTf0zV2Uhw4t8TFx9FzL2E4HD52Q4WCS/lz7pbz6Z8brcEmx7YTFoMiGyn0SfhXjL5TvtjuecjFXIc=
+	t=1789123089; cv=none; b=MYLZXWDjpcG14YNN2xd9cTj1+BBeh9oQYsUxnj5Vs5RDaQ1UVncXLxzARODenNZFZf/e6KZKa7qF9OWTAe1FcFFPUlKfkTiB25uel/RXSLMaP7b+gNxtnPWsFO3N9s4K3A9e+6kuzPrCJOULpurAzEOrhoxY2pcpcgXf3QpjPr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122749; c=relaxed/simple;
-	bh=s1kwKfNWdOwKIVHRxyXH+/0Wwl++ZJB8huriAF1FUm4=;
+	s=arc-20240116; t=1789123089; c=relaxed/simple;
+	bh=lAZG4y2mL9d17hDDHJXI6XUdj88Z5na1fIorQWa9zy4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O4OebwioXjifdBf/UJjQRW2AH1GDcsQIrQJabZSO9yFWPvvrnxvRV84JO0ePzf4z4owYJkNfe4mwgw61g5Wi+B3xALFZ10ZwoKwXsK10TpL/KJw6LARtRjZQJJbZ28rGV0bwtWjMiFi7dlS0aW7XO5NbosgLdQ1u+beD4TjvaVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CGiKxwS3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SOh19Mue; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=k9QTvWK6M35rU8veyrx8jp3BCKykY2hT0IVqr0b9XnHVE/Rl9Wj9ZsZ+e4cATjnfz6y/A+qLLZEQQvXSkL3EGsY69IEjyxsfK+TaYEmcM3828pB+kjRBcTNAJMun1cLJXdUQvVzEkJw4B0mUCxWJ1zvcIEeatWBnnBRsq0Bds9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qkmwoowO; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CGiKxwS3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SOh19Mue"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7kn6G143878
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:32:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZMSPcX6SEWInooLZbCmLaOZJRUfm8sfjnK+8IHF2YyE=; b=CGiKxwS3c2iakXdR
-	YVX0BoRscMKYnmvuEL3lx6W8pNzabSEVh0CvAmtM34SBpd48CvgvxAWDc+9tdMsH
-	hR2Gn7WCItDbUOFShJfa1HLFDqJpk8xGvETNOorCuPd6F45KmEDOBahjoNkYWf7P
-	LdlOzvDP9VKhI0fxPYOddMg1ryEOTgSE/lrfsXeJatd9wMt6q6tfuzSOYqskSHze
-	dAMyPPmZa0WiV43mmi4l63UThuRGqbGGhRVrPG+zPI1yt7tpmj5eCPAxTpiSB4D2
-	7nyOJRNHxCnATh1zmR4JqBjJt4xKmQAJSnP5+ozyEs34A7ntBgoJt0OOJPM2tHN/
-	y/Wghg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd3974a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:32:23 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b8088203so918275a12.3
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:32:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qkmwoowO"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso11536755e9.2
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:38:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789122743; x=1789727543; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZMSPcX6SEWInooLZbCmLaOZJRUfm8sfjnK+8IHF2YyE=;
-        b=SOh19MuenmwYZ2aL6q4cFj+kDAgJpPVwhDXkP5pkr/tb/4pG6t5Q/6oWl+GNb+5kdL
-         7vBAVoebg+gvudHfcYKsJPDg4qjebuwLjLpW7YvkY1xyN9k4tpbdcK4eDwDvEvxvTmn4
-         cqTxz7z4/VDSgqbQlEcUjwM9HKJ0eJJdVg2E7Ks8pPPb2ay9aToAyLLiQWRN8du6pWQE
-         OEqC8vjy6m7G7VqPzNQCm9xC0NMtMJgGVAMeaAx2c2a+1JfCtx4xb3+NwtCFtOFBnxmE
-         lUlfgfwSb/wKfCTRmOz7K7r4lBiBXEQRvL4Eucu4+qsGBq/QbwEIk2zeBeX2Y4kQpkc/
-         mMSA==
+        d=linaro.org; s=google; t=1789123079; x=1789727879; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WgVuAAeQV5KtAVY4dXSOX4gumGqjSEbaGz0Dq4tFu6o=;
+        b=qkmwoowOUoSIclNvL/Vtok2Be+1OFzQW3/YHr/1msowclhxCvudepf21XwTLGfDFVT
+         xaJkpMBZnzAzX37FS4cRx+vFiV0RphbLla8QqKo6VbUXIx1VeeaIjnM3vd8ohA8++tvg
+         z3vtBf9ksLhAHvRw7oD7kGEb+iVouBmH+e4v4n78PclXzg/1c0uDvmDyKWKpZ0nQ6qb+
+         4FI1Nf5GFbUmrkWW6uLvIYOT+MZC19T9BCGQzhKOSbcsoIXUmpzBF8dr+y/1387uVOd1
+         P3KJ081LEhs5F666P5t20Ut3nhkJM4IAzOWPauwMM76ZoAskTRBIB5pXWLZD9oSvWO8H
+         7szA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789122743; x=1789727543;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789123079; x=1789727879;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZMSPcX6SEWInooLZbCmLaOZJRUfm8sfjnK+8IHF2YyE=;
-        b=gXtKVWAov6U0fSG8EVlkOlJjiuywom9lWQs3dqHcpwOazlKQJOS5dB5UOeJ/+jeZHV
-         zW0M5okwQZZPU3Vq+gPgcg0UvTt97yVSqhxi17/EnhfeIokuDG7CIarU6QCJhKQxscpJ
-         r7NiBoiq9U9F7mtAmX6UdPzn0KLNzAOaPAV4PHshSA3wxJevXfN/l3qLPmm2fMlV7wVc
-         v1Ovyt/ydz2ZHB9J9bbZsLTW9OiFnvLunJZLmZTyim22Mw45888i2JR77bky0VDCnxS3
-         DCx7sI5RsQ0XLXfhPZJcaXGvc3OgfKvjpZJh5b6wqPGQRTpc2lMCnjIBHcrPfWpnWf9C
-         PV7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwf7HlKFQCofrLO03nNjGjnQcnHfon+MZRW26RYmAeZio5vuWTtWuG6dF+bHmf2IHWcdEbTX4GVyk9qCg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kGMNgaUp9yub1Bjpn7SP+zKVXIxAjjzX7eVjhXmtMx8SDJgeTB
-	u/w/CmZJBOKImgPMejHmqUElL8GHdMiS6d1No0e/PcoHjABRglSKIrW9wmd4L4MNmQq73YF7ndV
-	xWUlWFzNyY4nh9gncQLVl2EVvDdHrAp4VyhvwFiV822NWcz1yOJwKRE/zVSJBPgGWCQ==
-X-Gm-Gg: AYBFou0rHqep4d/BoJJF/QBa5IZoPyTRiAOzMTk17mUti4wD2S/DPy89IFKqJyf42qs
-	aFEdlAQiJ/VpPR66BR0A6cQc3+c6XHCcal+hjQLR1Uznhe6IUAl9tmBvyDcHHLdDFwi7xx4YwVR
-	QNOpR/xxRk73mMmfUt+9toaKbiq6IHAPq6YqaB1XDJY/rna240IHYA0bZMP/EWTbP/vfyCU8+wL
-	lSRkcRqdOmI1I1a8T5Mp+6uTGAidKL8BiwpT3xEo/7hzO3A9IXrO03uU9MDQEgjAcLcc1a85bx1
-	1J3CZgNyFBXwMwKg4FAjabjiB6pZc3qZWbAFmRGXgaP9W5FmqzOyELjn196xMCujIptljAOn3QD
-	YSh6PjZGaIOIJSKoZ0IUA1a2o/gsx
-X-Received: by 2002:a17:90b:6cc:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-39d9bd8fb3bmr5841484a91.9.1789122742684;
-        Fri, 11 Sep 2026 03:32:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:6cc:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-39d9bd8fb3bmr5841416a91.9.1789122742125;
-        Fri, 11 Sep 2026 03:32:22 -0700 (PDT)
-Received: from [10.218.24.45] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95713602sm4520593a91.11.2026.09.11.03.32.12
+        bh=WgVuAAeQV5KtAVY4dXSOX4gumGqjSEbaGz0Dq4tFu6o=;
+        b=GAt2PW7HZqMjH7G1ero3JpG1A8KkCoxQUkdi1IERGtfZSLl/7LHWoWNpl96Lj0Gh9O
+         X5J/OSWHGn/z+WrnheaZv2KwYEMUeu/dNAFwFHCevwBrxLc6l7WEf53lwGoIKPqSBEEy
+         dyYCr4pxYbuntta3qh/3lb/yWuiSpWvVGHXVd85PJcalmi1dwrOkJs3R4Mt7gyQvjkjI
+         Q+MLKSUx5RmSxZNItTJBv7P8N1/cPuZcxM1PWe5O7LImtxmAOuMvJ6t9r6jeSEU0kUwS
+         dqtuZnybU2YKCNNSLsfFMf9GzX7w/iD0XSOR80yRrhVbniQsDUkHWoClHQwQ7V3LfEPU
+         L0zA==
+X-Forwarded-Encrypted: i=1; AKwUvByBUvS+MBAI/d3M3KCgARoYgDGE0+j1rtTCyJttPZGsmLsLlsUzoTymf4eJ+R0sLc95JWGYoFoQ3iSIyA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mwQI1kv/L6r0749/8r7/6ei9hDkoMJZcAQg+yfg++MR+uvZcH0
+	c27SR1oDeQaUjEzX4LN9YLDQcA3FGNvq0rsEvy65kDbrblqyBpUCZkxaEemBtfW68CQ=
+X-Gm-Gg: AYBFou0fNcckoEC+KqF+ZHyUBXciffbrVDEl+2abM8IRdZNFh+mu/iUwjMDCuwUx9aH
+	k2GHygNHzrONyNQNIg4c4NA5M5GbLGCpGHQyY9qSNKMOfDviIh4/crQlitkaDvxIodfLABaMbfk
+	0+9b43fx0A/Y4mYc70nFrBIITavc0ZahQnZw1MRVdR5ybBojoIRti29qW4I/Yg9eJFjMOH+ho6c
+	hkzUE1Li/+6dsPNvfEhB+SslFtz1I/IsDpMvTfuVYsEF6Y7B29I54/0q4vuPB+t0JHSXmp+niiJ
+	YQvzjkJNTPokdC515F6o357WXcJJ4SG2EDFlQXi0MKQtZZFJroyJJus6PuC3w9KUrGqYqRx2JeP
+	59Pnjjx88m4oCTGrqLtqNrSw0XOyoEplfDvJ439Uxq25dAB8+Elr2wPqBueApn5MsP1JuSSZQbB
+	cJarMi+DiKH6ft3BVsvi383X3uk7MUL8zP7DI+6DR5U9S5WxEQd5i5psRB0iK0enI7E55D3Wnxf
+	JoVUMmRgN/F
+X-Received: by 2002:a05:600c:3acb:b0:49c:fa21:1c8c with SMTP id 5b1f17b1804b1-49e619e0e6amr37449245e9.33.1789123079205;
+        Fri, 11 Sep 2026 03:37:59 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.225.241])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a33e34sm43706995e9.0.2026.09.11.03.37.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 03:32:21 -0700 (PDT)
-Message-ID: <68a5c18c-1b88-4ac5-bff6-22396dde5e2b@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 16:02:10 +0530
+        Fri, 11 Sep 2026 03:37:58 -0700 (PDT)
+Message-ID: <d08ec8a9-4970-4d5c-b9e0-a5f84000186d@linaro.org>
+Date: Fri, 11 Sep 2026 11:37:57 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,257 +69,379 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: rob.clark@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>,
-        Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling
- <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
-        iommu@lists.linux.dev, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org,
-        Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-References: <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
- <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
- <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
- <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
- <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
- <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
- <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
- <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
- <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
- <aqCKgM1yCbWjFdgO@baldur>
- <rh5ufacfap4x63rjmgd76wlwgn3n2wuelpe4sqwy4yda27nsiq@lg4ltoqwz7ba>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <rh5ufacfap4x63rjmgd76wlwgn3n2wuelpe4sqwy4yda27nsiq@lg4ltoqwz7ba>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Bv8IUoX5 c=1 sm=1 tr=0 ts=6aa3d8b7 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=ALIpgHWzX8X-H7dRLqcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: OLWQfXi3RrejGFL67sbnTD3libOjCC3I
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE0NyBTYWx0ZWRfXwmFE9BjyCy0F
- mGifkKtQ8JBP0jFP7zfoux6hWYLintF5+QDGdO6KVZpDMFoxvm8s5xKydYIogyfq5eQbik7C3B1
- 3gqtwlIPXjp4vGmupKGcfImlaQuFUP0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE0NyBTYWx0ZWRfX+hV0dCPLGom6
- vPG1g13Gq6go2Mo2muYkYzuQZEfhD7asDWyFXzAM1I9vp98pZ23ZbBjZaJTj2izTqNJuh7biC7q
- lm3eLI/reRuJtOEKZbBlT+6+vDdStqIImyHzWzLX9l6ieeNy9ieb6RsSd53kBk6R7Z8FqeITqa6
- Cta6nmfM5Iy543UxZqqbsfbkeRfdtfbAxGfkkMLYvNHy/Z1onCtucgUykNtqvDpqujb52l8w6Q5
- U1pN8Z8YC3SY8206H0kmJZJq/oKY8PjysEJm59teZOVE/3aWKCAt6abq5BxRT+BuihEkVbvWUzU
- tmfP8KOlhX0f3JwLjT2KtG3ibOpyFZvdZXRwjWSL9pz9Cw4ODk04LLd06DXZaV7EALfcAQvVe84
- fRtaZEJgTDWRAMD1bRfiYygiQnOWwWkBY53rXRwCVXQ/C54uxKvkZxfEHc4ZbYs6QBlfd7aNOvK
- nU8XGo53wk0ZB+tOd6A==
-X-Proofpoint-ORIG-GUID: OLWQfXi3RrejGFL67sbnTD3libOjCC3I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- adultscore=0 clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110147
+Subject: Re: [PATCH 1/8] media: qcom: camss: Add streams API support for
+ CSIPHY
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 09-09-2026 17:18, Dmitry Baryshkov wrote:
-> On Tue, Sep 08, 2026 at 05:44:10PM -0500, Bjorn Andersson wrote:
->> On Wed, Aug 26, 2026 at 06:37:00PM +0530, Ekansh Gupta wrote:
->>> On 20-08-2026 20:17, Rob Clark wrote:
->>>> On Wed, Aug 19, 2026 at 11:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>>
->>>>> On 19/08/2026 17:48, Rob Clark wrote:
->>>>>> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>>>> The rule of usptream development is that we do not accept duplicated
->>>>>>> code, just because a vendor wants to write something new. This is
->>>>>>> basically the concept applied all over the drivers tree, where we pushed
->>>>>>> back against all sorts of duplications all over the vendors.
->>>>>>>
->>>>>>> What I miss in this thread is why would there be any exception here. We
->>>>>>> do not grant exceptions from standard practices on "I want" reasons.
->>>>>>
->>>>>> I agree that we should not have duplicated drivers just for vendor
->>>>>> lolz.  But when it comes to adopting common frameworks and integrating
->>>>>> better into the ecosystem, this doesn't seem like something we should
->>>>>> actively discourage.  I don't think this is a case of vendor lolz, but
->>>>>
->>>>> No one discourages it. Following standard Linux kernel practices and
->>>>> requirements is not discouraging, do not twist the narrative here.
->>>>> Again, it is standard upstream review telling that we do not duplicate
->>>>> drivers. Ever, unless there is serious exception needed.
->>>>
->>>> I wasn't trying to twist the narrative, just trying to come up with a
->>>> path forward that isn't "no" or "improve existing driver", since
->>>> neither of those gets us towards a future using common frameworks.
->>>>
->>>>> I asked why there should be an exception granted? Is the reason for
->>>>> exception following:
->>>>> "We want to adopt common framework"
->>>>> ?
->>>>
->>>> Possibly?  But I don't think we want two drivers to be any sort of
->>>> long term solution.  (Ie. as long as venus/iris have co-exist.)
->>>>
->>>>>
->>>>>> rather reacting to drm/accel emerging as the standard framework for
->>>>>> this sort of driver.
->>>>>>
->>>>>> So how do we get from here to there?
->>>>>
->>>>> What is wrong with my proposal?
->>>>
->>>> Maybe I missed something, my understanding was your proposal was
->>>> "Grow/replace/improve existing driver instead of coming with a
->>>> duplicate"..  grow or improve doesn't move us toward common
->>>> frameworks.  Maybe "replace" is a valid option.  If there is something
->>>> I missed, then I apologize.
->>>>
->>>> Options I can think of are:
->>>>
->>>> 1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
->>>>    driver
->>>> 2. Backwards compat chardev registered by new driver, providing existing
->>>>    UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
->>>>    AFAIU the fastrpc folks where planning a backwards compat layer in
->>>>    userspace, so maybe it is possible.
->>>> 3. exception?
->>>>
->>>> I'd like to know what the feasibility of #2 is, since at a high level
->>>> that sounds like the best option.  Possibly limit exposure of legacy
->>>> UABI to existing hw so we don't get into a place of needing to extend
->>>> the legacy UABI for new hw?
->>>>
->>>> But #1 sounds like a non-controversial place to start regardless.
->>>> Possibly with #2 coming as followup and necessary step before eventual
->>>> migration to new driver for existing hw?
->>>>
->>>> Even if we start with #2, how do we handle first-merge-window
->>>> bugs/regressions without reverting addition of new driver and removal
->>>> of old?  It seems like we'd need a window of a couple release cycles
->>>> where both drivers exist?
->>>>
->>>> Maybe others have other/better options in mind?
->>> To all, I'm seeking on the approach I should follow to go ahead here. I
->>> can work on implementing #1(as per Rob's list) with hw specific
->>> compatible for v4 if it's acceptable.
->>>
->>
->> I don't see any reason for you to define a "hw specific compatible",
->> because as you have shown in this series (and as Rob point out), there's
->> no difference in the "hardware".
->>
->> The only reason for your "hw specific compatible" is to make a software
->> selection in Linux - and that's not what DeviceTree is for.
+On 11/09/2026 07:22, 
+Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 > 
-> That's not exactly true. There are protocol differences. For example,
-> polling mode is supported only since a certain timeline in the history.
-> Likewise other interface features are not supported on all the FastRPC
-> devices. For the polling mode support we were already beaten by the lack
-> of SoC-specific compats.
+> Add the V4L2 subdev streams API to the CSIPHY driver: a passthrough
+> routing table (one VC per stream) and NO_STREAM_MIX routing validation.
 > 
->> As such, I don't see that you have a DeviceTree problem at all, because
->> this is a Linux-internal problem.
->>
->>> #2(compat driver) is something that we are still exploring as we
->>> couldn't find any standard way to achieve it. We might start a separate
->>> discussion for that once we have few possible designs with us.
->>>
->>
->> This is the actual problem!
->>
->> We have existing user space that depends on the ioctl interface exposed
->> by the current misc driver. You must not break these.
+> enable/disable_streams pad ops track active streams per pad via a
+> per-pad enabled_streams[] bitmask, so that multiple source-pad
+> consumers can share a single propagated sink stream without redundant
+> or colliding propagation to the sensor. The shared D-PHY lanes are
+> enabled once, on the transition from no active streams to at least
+> one, and disabled once all streams have gone idle.
 > 
-> This is clear.
+> This is opt-in per CSIPHY instance via the new streams_enable resource
+> flag; no platform sets it yet, so CSIPHYs continue to use the legacy
+> non-streams subdev ops unchanged.
 > 
->> Hardware cutoff is not a viable solution, because that's just a
->> declaration that we'll let the old platforms rotten - or alternatively
->> you commit to maintain two drivers to the very same feature and quality
->> level.
->>
->> So the only reasonable solution is #2; from there it's a valid question
->> if you reach that point my stepwise migrating the current misc driver
->> that solution, or if you present a new driver with the fully backwards
->> compatible interface, alongside the new ABI.
+> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+> ---
+>   .../media/platform/qcom/camss/camss-csiphy.c  | 223 +++++++++++++++++-
+>   .../media/platform/qcom/camss/camss-csiphy.h  |   2 +
+>   2 files changed, 222 insertions(+), 3 deletions(-)
 > 
-> I think the general direction was #3 (or #2.1): implement a shim layer
-> on top of the QDA driver as a separate module. Put all the historical
-> over-complicated solutions into that shim module and let it die at some
-> point. Current fastrpc driver lets userspace specify buffers in several
-> different ways, forcing the kernel driver to perform a lot of work
-> with buffer addresses. I don't think that this legacy code should be a
-> part of the QDA. It can go to qda-fastrpc-shim, keeping it out of the
-> kernel memory if it's not necessary.
-> 
->> But this does bring to a question which the cover letter should explain
->> - but doesn't: what problem does this patch series actually solve?
-> 
-> I agree that it should be a part of the cover letter.
-> 
-> As a person who triggered this work, I can propose my reasons:
-> 
-> - Current driver has over-complicated memory manager (both on the
->   userspace and on the kernel side). Correspondng uAPI is not really
->   suitable for virtualization. Using GEM simplifies both the kernel
->   driver and uAPI. Also using handle-offset-length to specify the
->   buffers makes it easy to support virtual QDA devices.
-> 
-> - Current driver predates the accel subsystem. Using common subsystem
->   simplifies reviews. The QDA driver has gotten several comments about
->   the usage of the DMA-BUFs. It'not unlikely that the same issues are
->   present in the current FastRPC driver, just being unnoticed.
-> 
-> - The ideas present in the current FastRPC driver also predate the
->   current design practices. The uAPI was created in the ad-hoc way, just
->   following the momentary needs. Driver code also shows the result of
->   that, having enough of the spaghetti code.
-> 
-> Given all of that, yes, it is possible to provide an evolution of the
-> FastRPC driver into the accel+shim, improve the code quality meanwhile
-> and end up with the good enough split. However I think that the path
-> taken would be longer and the net result might be worse.
-> 
-> With all of that in mind, my suggestion is to continue working on the
-> QDA driver, get the core of it to integrate nicely with the accel and
-> DMA-BUF usage requirements and implement the (minimal?) fastrpc shim on
-> top of it.
-> 
-Agreed on all the above points. We discussed this internally and are
-exploring a shim module(something like qda_fastrpc_shim.ko) along these
-lines, sitting on top of the QDA driver rather than growing fastrpc.c in
-place. Still working through some of the details (e.g. who owns the
-rpmsg binding, and what "minimal" means precisely given feature parity
-is expected for the compat layer's behaviour). Will follow up with a
-design doc here once that's settled.
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+> index 539ac4888b60..7e9748e92ab8 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+> @@ -332,6 +332,112 @@ static int csiphy_set_stream(struct v4l2_subdev *sd, int enable)
+>   	return ret;
+>   }
+>   
+> +/*
+> + * csiphy_pad_enable_streams - Enable one or more streams on the source pad
+> + * @sd: CSIPHY V4L2 subdevice
+> + * @state: V4L2 subdevice state
+> + * @pad: Pad number
+> + * @streams_mask: Bitmask of streams to enable
+> + *
+> + * The shared D-PHY lanes are enabled once, on the transition from no active
+> + * sink streams to at least one. 
+on the transition to an active state.
 
-To all, one separate question on daemon-attach security for feature
-parity: would running the daemon with CAP_SYS_ADMIN, and having the
-driver reject attach requests from any process without that capability,
-be an acceptable approach? The concern is preventing a
-malicious/unprivileged application from attaching to a privileged DSP PD
-and disrupting it.
+The sink stream(s) are propagated upstream to
+> + * the sensor only for the subset that isn't already active,
+only for streams which are inactive
 
-Thanks for the detailed feedback.
+  so a stream
+> + * that's already running is never redundantly re-propagated.
+> + *
+> + * CSIPHY is only ever linked to a single entity on its source pad, and that
+> + * entity is responsible for only enabling a stream on this pad while it
+> + * itself still needs it, so no cross-consumer refcounting is needed here.
+> + *
+> + * Return 0 on success or a negative error code otherwise
+> + */
+> +static int csiphy_pad_enable_streams(struct v4l2_subdev *sd,
+> +				     struct v4l2_subdev_state *state,
+> +				     u32 pad, u64 streams_mask)
+> +{
+> +	struct csiphy_device *csiphy = v4l2_get_subdevdata(sd);
+> +	struct media_pad *remote_pad =
+> +		media_pad_remote_pad_first(&csiphy->pads[MSM_CSIPHY_PAD_SINK]);
+> +	bool first_arrival = !csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK];
+> +	u64 sink_streams, propagate_mask;
+> +	int ret;
+> +
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, MSM_CSIPHY_PAD_SINK,
+> +						       &streams_mask);
+> +
+> +	propagate_mask = sink_streams & ~csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK];
+> +
+> +	if (first_arrival) {
+> +		ret = csiphy_set_stream(sd, 1);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK] |= sink_streams;
+> +	csiphy->enabled_streams[pad] |= streams_mask;
+> +
+> +	if (propagate_mask && remote_pad) {
 
-//Ekansh
+When is remote pad false ?
+
+> +		ret = v4l2_subdev_enable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
+> +						 remote_pad->index, propagate_mask);
+> +		if (ret) {
+> +			csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK] &= ~propagate_mask;
+> +			csiphy->enabled_streams[pad] &= ~streams_mask;
+> +
+> +			if (first_arrival)
+> +				csiphy_set_stream(sd, 0);
+> +
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * csiphy_pad_disable_streams - Disable one or more streams on the source pad
+> + * @sd: CSIPHY V4L2 subdevice
+> + * @state: V4L2 subdevice state
+> + * @pad: Pad number
+> + * @streams_mask: Bitmask of streams to disable
+> + *
+> + * The shared D-PHY lanes, and the propagation to the sensor, are only torn
+> + * down once no sink stream is referenced by any source pad any more.
+> + *
+> + * CSIPHY is only ever linked to a single entity on its source pad, and that
+> + * entity is responsible for only disabling a stream on this pad once it no
+> + * longer needs it, so no cross-consumer refcounting is needed here.
+> + *
+> + * Return 0 on success or a negative error code otherwise
+> + */
+> +static int csiphy_pad_disable_streams(struct v4l2_subdev *sd,
+> +				      struct v4l2_subdev_state *state,
+> +				      u32 pad, u64 streams_mask)
+> +{
+> +	struct csiphy_device *csiphy = v4l2_get_subdevdata(sd);
+> +	struct media_pad *remote_pad =
+> +		media_pad_remote_pad_first(&csiphy->pads[MSM_CSIPHY_PAD_SINK]);
+> +	u64 sink_streams;
+> +	int ret = 0;
+> +
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, MSM_CSIPHY_PAD_SINK,
+> +						       &streams_mask);
+> +
+> +	csiphy->enabled_streams[pad] &= ~streams_mask;
+> +	csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK] &= ~sink_streams;
+> +
+> +	if (sink_streams && remote_pad)
+> +		ret = v4l2_subdev_disable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
+> +						  remote_pad->index, sink_streams);
+
+I'm again questioning when the remote_pad is false i.e. can a PHY have a 
+sink_stream without a remote ?
+> +
+> +	if (!csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK]) {
+> +		int stream_ret = csiphy_set_stream(sd, 0);
+> +
+> +		if (!ret)
+> +			ret = stream_ret;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   /*
+>    * __csiphy_get_format - Get pointer to format structure
+>    * @csiphy: CSIPHY device
+> @@ -743,6 +849,71 @@ static int csiphy_link_setup(struct media_entity *entity,
+>   	return 0;
+>   }
+>   
+> +static int csiphy_init_state(struct v4l2_subdev *sd,
+> +			     struct v4l2_subdev_state *state)
+> +{
+> +	struct v4l2_subdev_route routes[] = {
+> +		{
+> +			.sink_pad = MSM_CSIPHY_PAD_SINK,
+> +			.sink_stream = 0,
+> +			.source_pad = MSM_CSIPHY_PAD_SRC,
+> +			.source_stream = 0,
+> +			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
+> +		},
+> +	};
+> +	struct v4l2_subdev_krouting routing = {
+> +		.num_routes = ARRAY_SIZE(routes),
+> +		.routes = routes,
+> +	};
+> +
+> +	/*
+> +	 * CSIPHY is a transparent D-PHY with no per-VC demux, so every sink
+> +	 * stream (VC) a multi-stream sensor may drive must pass straight
+> +	 * through as the same source stream, or downstream link validation
+> +	 * (e.g. against CSID's multi-pad sink) will flag it as dangling. A
+> +	 * multi-VC sensor is supported by userspace adding further routes via
+> +	 * .set_routing; this default covers the common single-VC case.
+> +	 */
+
+Drop the references to DPHY - people are actively working on CPHY support.
+
+> +	return v4l2_subdev_set_routing(sd, state, &routing);
+> +}
+> +
+> +/*
+> + * csiphy_set_routing - Set routing for the CSIPHY subdev
+> + * @sd: CSIPHY V4L2 subdevice
+> + * @state: V4L2 subdevice state
+> + * @which: Type of format state (V4L2_SUBDEV_FORMAT_ACTIVE or TRY)
+> + * @routing: Routing table to set
+> + *
+> + * CSIPHY is a transparent D-PHY with no per-VC demux, so every route must
+> + * pass a sink stream straight through as the same source stream.
+> + *
+> + * Return 0 on success or a negative error code otherwise
+> + */
+> +static int csiphy_set_routing(struct v4l2_subdev *sd,
+> +			      struct v4l2_subdev_state *state,
+> +			      enum v4l2_subdev_format_whence which,
+> +			      struct v4l2_subdev_krouting *routing)
+> +{
+> +	struct csiphy_device *csiphy = v4l2_get_subdevdata(sd);
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	if (which == V4L2_SUBDEV_FORMAT_ACTIVE && csiphy->enabled_streams[MSM_CSIPHY_PAD_SINK])
+> +		return -EBUSY;
+
+Can this happen ?
+
+dev_err() ?
+
+> +
+> +	for (i = 0; i < routing->num_routes; i++)
+> +		if (routing->routes[i].sink_stream != routing->routes[i].source_stream)
+> +			return -EINVAL;
+> +
+> +	ret = v4l2_subdev_routing_validate(sd, routing,
+> +					   V4L2_SUBDEV_ROUTING_NO_STREAM_MIX |
+> +					   V4L2_SUBDEV_ROUTING_NO_N_TO_1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return v4l2_subdev_set_routing(sd, state, routing);
+> +}
+> +
+>   static const struct v4l2_subdev_core_ops csiphy_core_ops = {
+>   	.s_power = csiphy_set_power,
+>   };
+> @@ -764,10 +935,35 @@ static const struct v4l2_subdev_ops csiphy_v4l2_ops = {
+>   	.pad = &csiphy_pad_ops,
+>   };
+>   
+> +static const struct v4l2_subdev_pad_ops csiphy_streams_pad_ops = {
+> +	.enum_mbus_code = csiphy_enum_mbus_code,
+> +	.enum_frame_size = csiphy_enum_frame_size,
+> +	.get_fmt = csiphy_get_format,
+> +	.set_fmt = csiphy_set_format,
+> +	.get_frame_desc = v4l2_subdev_get_frame_desc_passthrough,
+> +	.set_routing = csiphy_set_routing,
+> +	.enable_streams = csiphy_pad_enable_streams,
+> +	.disable_streams = csiphy_pad_disable_streams,
+> +};
+> +
+> +static const struct v4l2_subdev_video_ops csiphy_streams_video_ops = {
+> +	.s_stream = v4l2_subdev_s_stream_helper,
+> +};
+> +
+> +static const struct v4l2_subdev_ops csiphy_streams_v4l2_ops = {
+> +	.core = &csiphy_core_ops,
+> +	.pad = &csiphy_streams_pad_ops,
+> +	.video = &csiphy_streams_video_ops,
+> +};
+> +
+>   static const struct v4l2_subdev_internal_ops csiphy_v4l2_internal_ops = {
+>   	.open = csiphy_init_formats,
+>   };
+>   
+> +static const struct v4l2_subdev_internal_ops csiphy_streams_internal_ops = {
+> +	.init_state = csiphy_init_state,
+> +};
+> +
+>   static const struct media_entity_operations csiphy_media_ops = {
+>   	.link_setup = csiphy_link_setup,
+>   	.link_validate = v4l2_subdev_link_validate,
+> @@ -786,11 +982,16 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
+>   	struct v4l2_subdev *sd = &csiphy->subdev;
+>   	struct media_pad *pads = csiphy->pads;
+>   	struct device *dev = csiphy->camss->dev;
+> +	bool streams_api = csiphy->res->streams_enable;
+
+Is this really a feature of the CSIPHY though ?
+
+Its the CSI decoder that has to program registers in itself to trap the 
+appropriate VC and route it.
+
+Its a supported feature for a particular SoC.
+
+This flag should live in struct camss_resources and you have a pointer o 
+that structure in this routine anyway so..
+
+>   	int ret;
+>   
+> -	v4l2_subdev_init(sd, &csiphy_v4l2_ops);
+> -	sd->internal_ops = &csiphy_v4l2_internal_ops;
+> +	v4l2_subdev_init(sd, streams_api ? &csiphy_streams_v4l2_ops
+> +					      : &csiphy_v4l2_ops);
+> +	sd->internal_ops = streams_api ? &csiphy_streams_internal_ops
+> +					: &csiphy_v4l2_internal_ops;
+>   	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	if (streams_api)
+> +		sd->flags |= V4L2_SUBDEV_FL_STREAMS;
+>   	snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
+>   		 MSM_CSIPHY_NAME, csiphy->id);
+>   	sd->grp_id = CSIPHY_GRP_ID;
+> @@ -813,12 +1014,27 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
+>   		return ret;
+>   	}
+>   
+> +	if (streams_api) {
+> +		ret = v4l2_subdev_init_finalize(sd);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to finalize subdev: %d\n", ret);
+> +			goto err_media_entity_cleanup;
+> +		}
+> +	}
+> +
+>   	ret = v4l2_device_register_subdev(v4l2_dev, sd);
+>   	if (ret < 0) {
+>   		dev_err(dev, "Failed to register subdev: %d\n", ret);
+> -		media_entity_cleanup(&sd->entity);
+> +		goto err_v4l2_subdev_cleanup;
+>   	}
+>   
+> +	return 0;
+> +
+> +err_v4l2_subdev_cleanup:
+> +	v4l2_subdev_cleanup(sd);
+> +err_media_entity_cleanup:
+> +	media_entity_cleanup(&sd->entity);
+> +
+>   	return ret;
+>   }
+>   
+> @@ -829,5 +1045,6 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
+>   void msm_csiphy_unregister_entity(struct csiphy_device *csiphy)
+>   {
+>   	v4l2_device_unregister_subdev(&csiphy->subdev);
+> +	v4l2_subdev_cleanup(&csiphy->subdev);
+>   	media_entity_cleanup(&csiphy->subdev.entity);
+>   }
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/media/platform/qcom/camss/camss-csiphy.h
+> index 9d9657b82f74..e55c098dbe67 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
+> @@ -84,6 +84,7 @@ struct csiphy_hw_ops {
+>   
+>   struct csiphy_subdev_resources {
+>   	u8 id;
+> +	bool streams_enable;
+>   	const struct csiphy_hw_ops *hw_ops;
+>   	const struct csiphy_formats *formats;
+>   };
+> @@ -114,6 +115,7 @@ struct csiphy_device {
+>   	struct v4l2_mbus_framefmt fmt[MSM_CSIPHY_PADS_NUM];
+>   	const struct csiphy_subdev_resources *res;
+>   	struct csiphy_device_regs *regs;
+> +	u64 enabled_streams[MSM_CSIPHY_PADS_NUM];
+>   };
+>   
+>   struct camss_subdev_resources;
 
