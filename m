@@ -1,436 +1,141 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507354AB1BF
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 17:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D8C4A68B5;
+	Fri, 11 Sep 2026 17:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789147900; cv=none; b=PYBB1FfK7gDhqplDqtCuJHsy5Xk/lw+k1yiBFDpmZGTAyBCC/oJFxTqnrxIfZdqnCdnY5eKJnsuW8QurRUQGgoS8MoxEypnXQ68DOlQ80wsqqN4ObgYA70Bd0qyNgkYmALPtDtS388vIgkXa3QfshvK2zxtYalQYo5wzb7QA+KI=
+	t=1789148118; cv=none; b=D51P1GM72uIENa8GEMSu/VspnkLfDL2QWjIJ09/DMc6uKyndArP0KlxqiZi7JRHlsQ8gN431JLFWuSgq45eLhcJ0v231RBVQPBMhw8rbnZoYc67FcnE7VECkMPvTQ/JlpegVULQLemCaz5LhEl8mJES8jNCcPeOXst8ZkrlrF9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789147900; c=relaxed/simple;
-	bh=2ESWAHE5hsFSpIaCbYHVnDSH1nMykm/FS2ZX7QiUB2M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZQB0HV4DpYZLRIOdWcByhAB0tfRYKASk6sop6WCzlL8oFtvfKTTKj5uZKi78Zkpq5r9tEmaUpN7x3TmQVDmljwd1xkNduv1Z3hnLN8Z7aFtbkj6WacBUstL/ueiuigZBTm7a4ZfG20bd9moUlBXdTUd9htPNzjwZKnVcW3GSob0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SDYeL/ft; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HzVTTj0E; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789148118; c=relaxed/simple;
+	bh=kN+PV2iOq3JJVRTjxSU6DGs6/edFIKhfuQcDCarufaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IiE67DQIY7wrid7YCt+Gm5Sy6hMqvGEu7MbbTAe7Gl6u9UK5nyS+J4ICllLwmKXyl1dFyTBiXJe66G2bzzYJk88pBz2FuVV0LaxQNVRbA+yebWIUpmLbaICl8Q9ETlANE3+aqOUO3tXOph32MkcAyQEkcoao4A0oZDTaXrWDXGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oLgUx8i+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SDYeL/ft";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HzVTTj0E"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEmEPK3780629
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 17:31:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VV0AZ4NNvbaMXYg3fNasls2c1vDhwoKWDHh+Op4tw88=; b=SDYeL/ftlF9reOMz
-	z4aKfBsbPauKnCtX/v0Uu86kJQuIZV3uZR3mqXtC/G4AE+noga+qwjZI1i7zqHl5
-	9Wf3h4cGjeVRVB0xrQgD3JkagWu6wFGsO1z/6oZpPOi2VDRl2ON1dw7eNgxfGJ+W
-	yzue40QPKqNoYPayWEq0VOuekHDyP5G6nKuuO9T3qFDhH/A8V8Wf7zvSBry3NCUj
-	Uj/5JF+BLnkkkyJQtTSNRND8r0yKP71nDy/1JdnUlvOUdgGKqcSYE460rBi6z67+
-	5TQsaaK6g7ln+X04wcOAuT1+bb63IvDXmDX6GydRX49oZkqNA4jMwk442zKLDXic
-	372ifg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmcgfjpk0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 17:31:33 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86a63cca6ffso1453429b3a.3
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:31:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789147893; x=1789752693; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VV0AZ4NNvbaMXYg3fNasls2c1vDhwoKWDHh+Op4tw88=;
-        b=HzVTTj0E0XwKmUDqG3qnWV3AoM3P2I8XMVHIeEGlSsZnCuPBCV7w0z6Hvur1lcxyQq
-         w3KTDqoFYkbjgS9g7MA3MMy52VYkiw/eYKbhnYxc2BT+yfppyNXzMsj+ebKyC9SXomSr
-         m/K7Z5fdRzRbkQJH7F8CmvDxe/LWjsfma1SPbbug2HT0t5qTIKLtARmL8gLCrZsKZpts
-         +SP7ogcDsqzgG1CwCiX4j+DBPODQS8d5bOYdScgHDDhm/h8CPw51rCcgFMF3hNOGquUC
-         LsBK4EFLF5Q7pMsr3yd6mrcWq9bT5Waq5UIAZi5Jl0PCD0QNBz2B5o6lQdza64go9COG
-         GUZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789147893; x=1789752693;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VV0AZ4NNvbaMXYg3fNasls2c1vDhwoKWDHh+Op4tw88=;
-        b=B/JLwzaUDAwRnea8Fitnh6vcexPWvQUHZZLc1HcaRNmISxDBnAUGNyiZ6OYKXAi5Ic
-         PAJlnV4DeWGgNC2v8eEYRbwL10yc74kCucKk5eNFt2zNGXp/VM7kN1Te61Yc3g4E8OHe
-         IJDTD1J4gcPI6hp+VFjyqTbJ2hekgJc98KnWqmwoAJ7w1F488AdPxiXsiBuzxo0JjqkC
-         O9I7GyH8mqAX6MVcEyzUS/Tctil4W4N68nYKn79gHP43GaVDxhtid4/hgIXs/X6Hr9Up
-         iMac03NnMz3lqzHji5zNqw0620AxKPjI9TVEuHwz3YVE8UuRnCfl4au3kKvp5yoLPFwy
-         CQXg==
-X-Gm-Message-State: AFuF++lzayR9A5EouKC9N3/yQTM0D8MmN0Vk8OixjvdS8DInZ+NPNezW
-	aY8wjcMs8z/dOUdRTZoqf5LNEhwXhcO5Ylnt1lZAC1DUsc4TY/h4wgoyhluxuqqPx7RuhsSaxLN
-	f82iWUmLjnP61z2G2yaauHb8y1wuCxhbCXuf5qM10aoSYBd7f/5m+thJ6ACttZ2Z/XA==
-X-Gm-Gg: AYBFou333e9Z4k/uciCzbC9sxuJ3i/WsmBruz5hsZ6ZRvqLAU5quidj31y5F2eJuey9
-	Ws5e5BcrN4+WaG+9H5qrQlI5w/G1KgZ0jt6n8a0ePYaXztFmrZJ6fyPRcn31UOcxknlAeUiWzrM
-	YXdTd+rPaS+yoP7LV+/jbXPeTvoTze624RqG0clLjBGZe+YLk6KhZlUcTWNCbLqD19NnYEAvTXz
-	6PMbxvU+84i6HEjSDuEg+2XOdeePWqDquiIoJdEudl5fp1I7EuP8+v+8DhWM6/y2ddzK8Pt/cHu
-	yexOH+89Do9DSxtU2h1cSixiTHJl8VWVEbLEYtX9aYBRKecDMpGu0ToXoUD9IfpfnmD7P7b02XS
-	a4KckQeOEX6UQC4vF0IPcRfSmwCKYDT1aj3o=
-X-Received: by 2002:a05:6a20:939e:b0:3d3:adbf:7784 with SMTP id adf61e73a8af0-3daed4ec53emr9965533637.25.1789147892643;
-        Fri, 11 Sep 2026 10:31:32 -0700 (PDT)
-X-Received: by 2002:a05:6a20:939e:b0:3d3:adbf:7784 with SMTP id adf61e73a8af0-3daed4ec53emr9965481637.25.1789147892179;
-        Fri, 11 Sep 2026 10:31:32 -0700 (PDT)
-Received: from [192.168.0.172] ([183.83.137.104])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4b1f409sm9220531eec.0.2026.09.11.10.31.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 10:31:31 -0700 (PDT)
-Message-ID: <37bf9788-923a-4cf6-b27d-86ab9da0a36d@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 23:01:26 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oLgUx8i+"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5A6B756F;
+	Fri, 11 Sep 2026 19:33:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789148012;
+	bh=kN+PV2iOq3JJVRTjxSU6DGs6/edFIKhfuQcDCarufaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oLgUx8i+zFrsl3PNAFYR+UY96C8AxETKgkFa43f5G2dsiQlRtt3jNbUoZ7ZljlSEV
+	 QpbLQ765WCKzy/jPiKBccIXmyLy5PuTGKOo5pgYtV+zHDYwP/YMApCB0kTnTrIzNpD
+	 /5wyKnc+qpx+Wes0SQJ0CZrf0+PwjFTV9WNpqn+w=
+Date: Fri, 11 Sep 2026 20:35:08 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Paul Elder <paul.elder@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
+Message-ID: <20260911173508.GW1892234@killaraus.ideasonboard.com>
+References: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
+ <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
+ <aqQTTtJf9qcdSz2z@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: iris: add new rate control type MBR for encoder
-To: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260720-b4-add_sc7280_mbr-v2-1-a2a86f630f57@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260720-b4-add_sc7280_mbr-v2-1-a2a86f630f57@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI0NCBTYWx0ZWRfXzXu/z+U7Umqp
- xn4x3DbCmJV7p0AxcG7LdJm8dz1v5DG/D5p9fs3WxQVJNam1JQ+Q0Objebb9LnYM0tsAB08tlu1
- cgep7XIxpN7ngaZFEXgDVnCm8D+0WO6FiLGbY6rViipqaxEgr1fRpDGGef4WFF0Y18kFIpe5oL/
- hwLd0xw9wGq9kFsp5bhRDQqKXu/bKZb8wM8jNNGvo3lk/qrw3Ckp6SCY7Q+kWs+6m95vCygAh8f
- DekIdvXO4j/gaCktCA1xmfuygTfZDmfppBr3DEAvFRbPQdJSnaoCK8O6fXZYcOiZ3XCP6/ugaJQ
- bbY0vK2XNOCiT1GUMvp4xK4k1C6rm4Hkb8Qiz4XbYFQv5X4MQeOY8elXAD/K6WzMik2MXFZIiX9
- 5YH1c1XbIbHSZIv/bAJ6eSPkFkGoMTcHq2EIHGT6s/jWYY7srSPsJhnlqF1Xzmq+thgH4i/oNij
- ioDXPxI0UpaEdMjdg/Q==
-X-Proofpoint-GUID: z6fjAN0Eo2Twl-Q5QHAR9hUL0ezAwTca
-X-Proofpoint-ORIG-GUID: z6fjAN0Eo2Twl-Q5QHAR9hUL0ezAwTca
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI0NCBTYWx0ZWRfX7s2D9HFKV6Bm
- vjGf5qtFL/Z6oeFVRzAgG2S47RSZmmanjhtvOlmCt8burpOJe//z77E/IiNeT8kCi3//0ZS6nZj
- Mf3vNgeLcpWFr0J2kneUM5f8V6C1/+4=
-X-Authority-Analysis: v=2.4 cv=ULtIjyfy c=1 sm=1 tr=0 ts=6aa43af5 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=TwCXObd+TJU0JWB7kQOUgw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MG_CwHWzulrpBViiCCcA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 phishscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110244
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqQTTtJf9qcdSz2z@zed>
 
-
-
-On 7/20/2026 10:44 PM, Sachin Kumar Garg wrote:
-> Add support for the MBR rate-control mode on the encoder.
-> MBR has no corresponding V4L2-spec definition, it is exposed as a
-> Qualcomm IRIS vendor-specific control rather than a generic
-> bitrate-mode value.
+On Fri, Sep 11, 2026 at 04:43:32PM +0200, Jacopo Mondi wrote:
+> On Fri, Sep 11, 2026 at 03:27:50PM +0100, Kieran Bingham wrote:
+> > Quoting Jacopo Mondi (2026-09-11 14:56:19)
+> > > The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
+> > > demosaicing block on the RkISP1 ISP.
+> > >
+> > > The current implementation however clears the bit when demosaicing
+> > > have to be bypassed and sets it when demosaicing has to be enabled,
+> > > effectively inverting the bypass bit handling logic.
+> >
+> > Ouch.
+> >
+> > > Fix this by setting the bypass bit when disabling the demosaicing block,
+> > > and by clearing it instead when demosaicing has to be performed.
+> > >
+> > > The issue never manifested itself as libcamera hasn't an algorithm
+> > > to control Bayer demosaicing bypass yet.
+> > >
+> > > Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > ---
+> > > media: rkisp1: Fix demosaicing bypass
+> > > ---
+> > >  drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
+> > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > > index 042b759eba62..496381962f1b 100644
+> > > --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > > +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > > @@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> > >         const struct rkisp1_ext_params_bdm_config *bdm = &block->bdm;
+> > >
+> > >         if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
+> > > -               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > -                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > > +               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > +                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > >                 return;
+> > >         }
+> > >
+> > > @@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> > >
+> > >         if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
+> > >             !(params->enabled_blocks & BIT(bdm->header.type)))
+> > > -               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > -                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > > +               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > +                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> >
+> > I think this also opens us up to add mono formats as explicitly
+> > supported by the ISP and potentially set the demosaic defaulting to off
+> > in that instance?
 > 
-> Reserve V4L2_CID_USER_QCOM_IRIS_BASE for Qualcomm IRIS driver
-> specific controls and add a new boolean control,
-> V4L2_CID_QCOM_MBR_RATE_CONTROL, to enable it. When set, the driver
-> programs the firmware with HFI_RATE_CONTROL_MBR, taking priority
-> over V4L2_CID_MPEG_VIDEO_BITRATE_MODE when both are client-set.
+> mmm, I think userspace is in a better position to decide when to
+> bypass debayer instead of relying on auto-configuration of the ISP ?
 > 
-> MBR is currently supported only on sc7280. Rather than duplicating
-> the encoder capability table per platform, add a mbr_rc_supported
-> flag to struct iris_platform_data, and merge in a small
-> platform-specific capability table containing only the MBR cap for
-> platforms that support it.
-> 
-> Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-> ---
-> This patch adds support for the MBR rate-control mode in the Iris driver.
-> 
-> Changes in v2:
-> - Per upstream review feedback, convert MBR enablement from the
->    generic V4L2_MPEG_VIDEO_BITRATE_MODE_MBR menu value to a new
->    Qualcomm IRIS vendor-specific boolean control,
->    V4L2_CID_QCOM_MBR_RATE_CONTROL.
-> - Drop the now-unneeded generic V4L2_MPEG_VIDEO_BITRATE_MODE_MBR
->    enum, its "Maximum Bitrate" menu string, and its documentation
->    (previously sent as a separate patch 1/2).
-> - Drop the separate inst_fw_cap_sc7280_enc[] table (a near-complete
->    duplicate of inst_fw_cap_sm8250_enc[]); sc7280 now reuses the
->    shared encoder cap table and layers in only the MBR-specific cap
->    entry via the new mbr_rc_supported flag.
-> - Link to v1: https://lore.kernel.org/linux-media/20260213-b4-add_sc7280_mbr-v1-0-e8d95b4e4809@oss.qualcomm.com/
-> ---
->   drivers/media/platform/qcom/iris/iris_ctrls.c      | 101 +++++++++++++++++----
->   drivers/media/platform/qcom/iris/iris_ctrls.h      |   4 +
->   .../platform/qcom/iris/iris_hfi_gen1_defines.h     |   1 +
->   .../platform/qcom/iris/iris_platform_common.h      |   2 +
->   .../media/platform/qcom/iris/iris_platform_vpu2.c  |   1 +
->   include/uapi/linux/v4l2-controls.h                 |   6 ++
->   6 files changed, 98 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> index 10e33b8a73f6..0a979649663b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> @@ -154,6 +154,8 @@ static enum platform_inst_fw_cap_type iris_get_cap_id(u32 id)
->   		return LAYER4_BITRATE_HEVC;
->   	case V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR:
->   		return LAYER5_BITRATE_HEVC;
-> +	case V4L2_CID_QCOM_MBR_RATE_CONTROL:
-> +		return MBR_RATE_CONTROL;
->   	default:
->   		return INST_FW_CAP_MAX;
->   	}
-> @@ -297,6 +299,8 @@ static u32 iris_get_v4l2_id(enum platform_inst_fw_cap_type cap_id)
->   		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L4_BR;
->   	case LAYER5_BITRATE_HEVC:
->   		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR;
-> +	case MBR_RATE_CONTROL:
-> +		return V4L2_CID_QCOM_MBR_RATE_CONTROL;
->   	default:
->   		return 0;
->   	}
-> @@ -335,6 +339,17 @@ static const struct v4l2_ctrl_ops iris_ctrl_ops = {
->   	.s_ctrl = iris_op_s_ctrl,
->   };
->   
-> +static const struct v4l2_ctrl_config iris_mbr_rate_control_ctrl_config = {
-> +	.ops = &iris_ctrl_ops,
-> +	.id = V4L2_CID_QCOM_MBR_RATE_CONTROL,
-> +	.name = "MBR Rate Control",
-> +	.type = V4L2_CTRL_TYPE_BOOLEAN,
-> +	.min = 0,
-> +	.max = 1,
-> +	.step = 1,
-> +	.def = 0,
-> +};
-> +
->   int iris_ctrls_init(struct iris_inst *inst)
->   {
->   	struct platform_inst_fw_cap *cap = &inst->fw_caps[0];
-> @@ -368,7 +383,11 @@ int iris_ctrls_init(struct iris_inst *inst)
->   			goto error;
->   		}
->   
-> -		if (cap[idx].flags & CAP_FLAG_MENU) {
-> +		if (v4l2_id == V4L2_CID_QCOM_MBR_RATE_CONTROL) {
-> +			ctrl = v4l2_ctrl_new_custom(&inst->ctrl_handler,
-> +						    &iris_mbr_rate_control_ctrl_config,
-> +						    NULL);
-> +		} else if (cap[idx].flags & CAP_FLAG_MENU) {
->   			ctrl = v4l2_ctrl_new_std_menu(&inst->ctrl_handler,
->   						      &iris_ctrl_ops,
->   						      v4l2_id,
-> @@ -411,6 +430,39 @@ int iris_ctrls_init(struct iris_inst *inst)
->   	return ret;
->   }
->   
-> +static const struct platform_inst_fw_cap inst_fw_cap_sc7280_only_enc[] = {
-> +	{
-> +		.cap_id = MBR_RATE_CONTROL,
-> +		.min = 0,
-> +		.max = 1,
-> +		.step_or_mask = 1,
-> +		.value = 0,
-> +		.flags = CAP_FLAG_OUTPUT_PORT,
-> +		.set = iris_set_mbr_rate_control,
-> +	},
-> +};
-> +
-> +static void iris_copy_enc_caps(struct iris_core *core, const struct platform_inst_fw_cap *caps,
-> +			       u32 num_cap)
-> +{
-> +	u32 i, cap_id;
-> +
-> +	for (i = 0; i < num_cap; i++) {
-> +		cap_id = caps[i].cap_id;
-> +		if (!iris_valid_cap_id(cap_id))
-> +			continue;
-> +
-> +		core->inst_fw_caps_enc[cap_id].cap_id = caps[i].cap_id;
-> +		core->inst_fw_caps_enc[cap_id].min = caps[i].min;
-> +		core->inst_fw_caps_enc[cap_id].max = caps[i].max;
-> +		core->inst_fw_caps_enc[cap_id].step_or_mask = caps[i].step_or_mask;
-> +		core->inst_fw_caps_enc[cap_id].value = caps[i].value;
-> +		core->inst_fw_caps_enc[cap_id].flags = caps[i].flags;
-> +		core->inst_fw_caps_enc[cap_id].hfi_id = caps[i].hfi_id;
-> +		core->inst_fw_caps_enc[cap_id].set = caps[i].set;
-> +	}
-> +}
-> +
->   void iris_session_init_caps(struct iris_core *core)
->   {
->   	const struct platform_inst_fw_cap *caps;
-> @@ -444,23 +496,12 @@ void iris_session_init_caps(struct iris_core *core)
->   		}
->   	}
->   
-> -	caps = core->iris_firmware_data->inst_fw_caps_enc;
-> -	num_cap = core->iris_firmware_data->inst_fw_caps_enc_size;
-> -
-> -	for (i = 0; i < num_cap; i++) {
-> -		cap_id = caps[i].cap_id;
-> -		if (!iris_valid_cap_id(cap_id))
-> -			continue;
-> +	iris_copy_enc_caps(core, core->iris_firmware_data->inst_fw_caps_enc,
-> +			   core->iris_firmware_data->inst_fw_caps_enc_size);
->   
-> -		core->inst_fw_caps_enc[cap_id].cap_id = caps[i].cap_id;
-> -		core->inst_fw_caps_enc[cap_id].min = caps[i].min;
-> -		core->inst_fw_caps_enc[cap_id].max = caps[i].max;
-> -		core->inst_fw_caps_enc[cap_id].step_or_mask = caps[i].step_or_mask;
-> -		core->inst_fw_caps_enc[cap_id].value = caps[i].value;
-> -		core->inst_fw_caps_enc[cap_id].flags = caps[i].flags;
-> -		core->inst_fw_caps_enc[cap_id].hfi_id = caps[i].hfi_id;
-> -		core->inst_fw_caps_enc[cap_id].set = caps[i].set;
-> -	}
-> +	if (core->iris_platform_data->mbr_rc_supported)
-> +		iris_copy_enc_caps(core, inst_fw_cap_sc7280_only_enc,
-> +				   ARRAY_SIZE(inst_fw_cap_sc7280_only_enc));
->   }
->   
->   static u32 iris_get_port_info(struct iris_inst *inst,
-> @@ -761,6 +802,11 @@ int iris_set_bitrate_mode_gen1(struct iris_inst *inst, enum platform_inst_fw_cap
->   	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
->   	u32 rc_mode = 0;
->   
-> +	/* MBR_RATE_CONTROL takes priority over BITRATE_MODE when both are client-set */
-> +	if ((inst->fw_caps[MBR_RATE_CONTROL].flags & CAP_FLAG_CLIENT_SET) &&
-> +	    inst->fw_caps[MBR_RATE_CONTROL].value)
-> +		return iris_set_mbr_rate_control(inst, MBR_RATE_CONTROL);
-> +
->   	if (!frame_rc)
->   		rc_mode = HFI_RATE_CONTROL_OFF;
->   	else if (bitrate_mode == V4L2_MPEG_VIDEO_BITRATE_MODE_VBR)
-> @@ -779,6 +825,27 @@ int iris_set_bitrate_mode_gen1(struct iris_inst *inst, enum platform_inst_fw_cap
->   				     &rc_mode, sizeof(u32));
->   }
->   
-> +int iris_set_mbr_rate_control(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
-> +{
-> +	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-> +	u32 mbr_enable = inst->fw_caps[cap_id].value;
-> +	u32 hfi_id = inst->fw_caps[BITRATE_MODE].hfi_id;
-> +	u32 rc_mode;
-> +
-> +	if (mbr_enable)
-> +		rc_mode = HFI_RATE_CONTROL_MBR;
-> +	else
-> +		return iris_set_bitrate_mode_gen1(inst, BITRATE_MODE);
-> +
-> +	inst->hfi_rc_type = rc_mode;
-> +
-> +	return hfi_ops->session_set_property(inst, hfi_id,
-> +					 HFI_HOST_FLAGS_NONE,
-> +				     iris_get_port_info(inst, BITRATE_MODE),
-> +				     HFI_PAYLOAD_U32_ENUM,
-> +				     &rc_mode, sizeof(u32));
-> +}
-> +
->   int iris_set_bitrate_mode_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
->   {
->   	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-> index 3c462ec9190b..730d2d66ae2c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-> @@ -7,6 +7,9 @@
->   #define __IRIS_CTRLS_H__
->   
->   #include "iris_platform_common.h"
-> +#include <linux/videodev2.h>
-> +
-> +#define V4L2_CID_QCOM_MBR_RATE_CONTROL (V4L2_CID_USER_QCOM_IRIS_BASE + 0)
->   
->   struct iris_core;
->   struct iris_inst;
-> @@ -27,6 +30,7 @@ int iris_set_bitrate_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type
->   int iris_set_peak_bitrate(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_bitrate_mode_gen1(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_bitrate_mode_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
-> +int iris_set_mbr_rate_control(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_entropy_mode_gen1(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_entropy_mode_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_min_qp(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h
-> index 0e4dee192384..d737d3aba0aa 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h
-> @@ -130,6 +130,7 @@
->   #define HFI_RATE_CONTROL_VBR_CFR		0x1000003
->   #define HFI_RATE_CONTROL_CBR_VFR		0x1000004
->   #define HFI_RATE_CONTROL_CBR_CFR		0x1000005
-> +#define HFI_RATE_CONTROL_MBR			0x1000006
->   #define HFI_RATE_CONTROL_CQ				0x1000008
->   
->   #define HFI_H264_ENTROPY_CAVLC			0x1
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index c9256f2323dc..08b660d3285c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -183,6 +183,7 @@ enum platform_inst_fw_cap_type {
->   	LAYER3_BITRATE_HEVC,
->   	LAYER4_BITRATE_HEVC,
->   	LAYER5_BITRATE_HEVC,
-> +	MBR_RATE_CONTROL,
->   	INST_FW_CAP_MAX,
->   };
->   
-> @@ -319,6 +320,7 @@ struct iris_platform_data {
->   	u32 tz_cp_config_data_size;
->   	u32 num_vpp_pipe;
->   	bool no_aon;
-> +	bool mbr_rc_supported;
->   	u32 max_session_count;
->   	/* max number of macroblocks per frame supported */
->   	u32 max_core_mbpf;
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> index 6e06a32822bb..2e160710d6af 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> @@ -87,6 +87,7 @@ const struct iris_platform_data sc7280_data = {
->   	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu2),
->   	.num_vpp_pipe = 1,
->   	.no_aon = true,
-> +	.mbr_rc_supported = true,
->   	.max_session_count = 16,
->   	.max_core_mbpf = 4096 * 2176 / 256 * 2 + 1920 * 1088 / 256,
->   	/* max spec for SC7280 is 4096x2176@60fps */
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> I guess we'll discuss this when support for luma-only formats will be
+> added to the driver
 
-separate patch
+While I understand why auto-configuration is tempting, I've found that
+more often than not it makes the life of both the driver and userspace
+more difficult. Look for instance at the colourspace handling code in
+rkisp1.
 
-> index affec0ab4781..04ac1c6532f7 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -234,6 +234,12 @@ enum v4l2_colorfx {
->    */
->   #define V4L2_CID_USER_MALI_C55_BASE		(V4L2_CID_USER_BASE + 0x1230)
->   
-> +/*
-> + * The base for the Qualcomm iris driver controls.
-> + * We reserve 16 controls for this driver.
+> > Anyway, Looks sane to me in this order.
+> >
+> > Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-please keep reserve for 64 controls
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-> + */
-> +#define V4L2_CID_USER_QCOM_IRIS_BASE		(V4L2_CID_USER_BASE + 0x1240)
-> +
->   /* MPEG-class control IDs */
->   /* The MPEG controls are applicable to all codec controls
->    * and the 'MPEG' part of the define is historical */
+> thanks
 > 
-> ---
-> base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
-> change-id: 20260212-b4-add_sc7280_mbr-597ac615b931
-> 
-> Best regards,
+> > >  }
+> > >
+> > >  static void
+> > >
+> > > ---
+> > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
 
+-- 
+Regards,
+
+Laurent Pinchart
