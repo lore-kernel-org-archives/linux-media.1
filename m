@@ -1,67 +1,67 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB09043E48A
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B26D43DECF
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:46:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123399; cv=none; b=XEdQb8zav1G3CSr/serBhDGt2Y6V68wPuj/HSWqCNa9Xek7D+Lc/1NkSvdQbf3LD/gK4u2kJhwaZnT7fKllcDL6RiMOkWV4yIf2K86+gdrbFV5ntiQHsy7kaW+zIGgXV8P1hhO4Et/TBeDP3BDq6Hj1nw4a03WUFhd3bQLCDMDs=
+	t=1789123581; cv=none; b=Mk9oweqf2rVPj+E2F8GCubAdQEqSrORxh8UWp7fPrMdA98Eq2FXraFZBNGQbhE361Z8aGYViqkdpZVCD9xT27BEiOkOvXGCRe1qAQEJNE7NLDHWLRTnZGsMQ7WxG/r0iBl7QNH7NT3PyxXrZiLc8RpDtJ/LWgU/Dnq9Ebi4pV2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123399; c=relaxed/simple;
-	bh=L/lGKMfp42hBWo7w5pZxZLyTlsE3A7O8TBaqBICRHSg=;
+	s=arc-20240116; t=1789123581; c=relaxed/simple;
+	bh=Mx75fdpeRTNkw4KeBmIEIoCRVqgcZv366RWHlIgv71c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nN3CKZ1W4XGJB+rEWmJwBVoxcmuL5CIYfKrCaQmS7wnIGF0WA5UBzLTyTse1YvDhyBaNb9GX/8VxXhNeJLEMy6zFqkG704ya6ViGM6oMf7U5BjtXJo3QS7Qm/8wWRHAKc14rARbfaZ1XA8Eg6VNKSkKijMIENb2L0v+DaMf+UIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gt1aVH0Q; arc=none smtp.client-ip=209.85.218.42
+	 In-Reply-To:Content-Type; b=dWGRe3FfR0C20gqIfG3WbhKizkWTDF+rsIP6jz4dazCGYDFLz8SwS8NFxWTgkXdRVgDOXSSTw1MSk+UFTh3lUJ+oo9UFI+wjMOpzPW7NMo7N9yd91EaYt8Z+8/UzMJKn+lZL2Fg7Iz/Z0Noql/9f+QqqWQT1wrzlB1vijjMAgiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YbwyzVwg; arc=none smtp.client-ip=209.85.208.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gt1aVH0Q"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c255c58156bso178611366b.3
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:43:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YbwyzVwg"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so1139447a12.2
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:46:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789123396; x=1789728196; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1789123574; x=1789728374; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0OBJZFY4WEPdfeqZOIs4m4qo0tGRehs4CamLBjm99hQ=;
-        b=Gt1aVH0QPyM6P/zjdhKJZLjqHlX29/xTEwcuAeGv6gQC/I8qEzIvN/ijdXhCcJOJkL
-         feB5eHJNKPBMcewpPyGbPoHh/h2y6FtFTyKc6xNrY4+EFj+g1/jjDzkMXHDR9hL6fxrY
-         dcWqoUvnBPnDkrv4eKJrhYVrmcrqJXQ/uEaoEu6Bm5S3+7OsxMK8omO7EW3QAc7vCbtp
-         33ct1WP1FMzD/uRPOSDEXh5fGU4NuOXFhLFcBi6eRRwg5B8COhm0X2wM4bfvdUP/cUz/
-         tcpkhQOos4AETgmBoPKJqrM7drFB0FDJcTFJR8vCbKJk185Jsc5kQmzqmNHUNr4gcmjE
-         8bUg==
+        bh=e/ldHHyjiJV51ygJEvRBrhwY3OPqIXDkE1OeDssrcjg=;
+        b=YbwyzVwg6/ESgqjzZWcr7+oHKzlb5iTBbKz4tgzo9UEMlLePuW4oTmPQDL+UK7663b
+         pKSTqMnlmCcPA90oApEV0v1478muFH62nolWKgC7vmoXGD68hmpA7qUOlgAQm0eSnYQu
+         3PJjmQcg7PusS6DM3AunEBOeJvgBnB4nc1CP8DoixxzLuKSXSdBaIt72lmbPgUlOIcIv
+         MnM2NFJLUqtPCOksA6fYeqT7Fj1S68p0xthi7Cjr7KCRx9Gn7J22AajlJUrjxZAWp/eR
+         ShEQ+uV1q8BvDJ6zKal07ccUYz6x+R0mxYbxr/sns0CZswo2YkgjUzwXPKIzxq/0UG8X
+         32xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789123396; x=1789728196;
+        d=1e100.net; s=20251104; t=1789123574; x=1789728374;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0OBJZFY4WEPdfeqZOIs4m4qo0tGRehs4CamLBjm99hQ=;
-        b=qYM0xqBbE/lG0pHQFx3L+NF41A5QJTameIbpzR8EyCdZg55VnyF+PsWhTPePz6zF4P
-         WwYqiENssniU1FiUdFgOk2oyzvXXLJ/3I8dUAxtNRq+Spy7lkVsBisIY68/fb9yvrYsS
-         /RIOvJQi5NSpy/ccGZD9ow9462oVGIk+T+b0yV1j6Txj3023TlBFcBRrriqT1dxSj97Q
-         BJs/0YNpnwMTaeQinYkrogK44dC4/ndImcSXcdUMPgg4AYGTNKvgnLE2vVDMyuPhCG7r
-         JagkMw7GPPLhx5hNqnN22Vvmo5rtzSQkCbySUVQXwnNLNZueNwwE69aIdFl1rfTmnC18
-         ZVmw==
-X-Forwarded-Encrypted: i=1; AKwUvByNjGuTlQlR3sOUks2ztOFCbCT6cqylVXS53dXxZEQf85FFHP9u5c1F6TR4cLHs980mrrUgLxH9JtaszA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mqz3hh6PNmQdx+VV8AIkStoEzXPf7JB1pNF67Mb4FGrTZIh9BJ
-	54K04T444K9StvadpAQkoHaD9xhuHK9ICvev9oLhhys+EXvp3X1m6lEY5s/Z0FwZPno=
-X-Gm-Gg: AYBFou2XOBMLvvQCNL6dC9hRrw+eqnmEC13LVgRPkx1DP8qEaso64Rwv5WxQBhKadRi
-	WDhX/Rj+qCCOvEROnxyAVuuay/mkau5W43JFYkGCZCiClEIRAJ6iQTmMfqLe9joERFMV79W4uhf
-	iaNKUM5Z5ty5uVImCQwriLQ4+rGls8vo05ovwAMbkTJWfmBbCZWUxHQyKu4hxnWdIY7ak4Qwkly
-	rMcL/eLfCwgeb0ODcDzz1f88Ti2MAtHnYZhAnDXZX/qwvesBqbT8hMKg/KnjGaBFVGQfGQNv6Q4
-	8YQlmdi1fDlynv62vdOks8RzbYQ3zwolThvlL27cKe8Pn+zwDh8gVVCEgm3ROe7AZYl4xiAvGAu
-	r1cvH5hDOYM/JwvalUoCAV1yIi2jtYjp8LtdnnYxR4Sxu1tTj6+OqsrU/yg4Pg5tghLkugzyRmF
-	Pn9IYi6gB0aFgCX/9GhrE9ZtVt6Dml5BYHbP1u3+Cwdx2OAFwhumcAELsY68Hb7CH8GvSW97+oR
-	doDc+gb86h9
-X-Received: by 2002:a17:907:da6:b0:c26:19de:9ac3 with SMTP id a640c23a62f3a-c296668e2a7mr154495166b.27.1789123395825;
-        Fri, 11 Sep 2026 03:43:15 -0700 (PDT)
+        bh=e/ldHHyjiJV51ygJEvRBrhwY3OPqIXDkE1OeDssrcjg=;
+        b=qJlU05mseqpeokcBaGEoL11HoxhDQ9bpMjgDQyLqdpgrpGC4/D666FgKRw0dw3555E
+         qJ2/ogcJjD3dBdfhkdJvvQgbWKFR57v1dRO6PTS5mTSGIoEJ1vZN2QLGlIcLu2KISLtR
+         79+/iVBU+afcFnqqF6VRn6U6SJxm1IMnviJCCiZqbHySxrdP80t2yUZjQTTndkV1Ag2/
+         MsfERbOne8KEkQX1+WHrhJZnIuzXdiUZVSB7FCXA6vjiTvb0BujNl9EJnVyHnxqGBtLk
+         3GJVBYw2Y9ZRMmpy42TIZO9VQuccdngtMbbihFqoAteHX2zQPjFKKLcvkYW1xHsa9Duy
+         AYYg==
+X-Forwarded-Encrypted: i=1; AKwUvByNOgyczxRDdOpwTv16rP4Fd6H/wsSuvYp3moMUyEKmq2hu0WycOI1XtGq81202AuIgjuDTdNnvuT0Nyw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kbbl9oBO3PEW5Cv44w6BGC/yK/HwqvQCgjsSy3i9nHvU4PN/pc
+	Q4Q98BPe11wlafBePnQZ2Qj7s824EzfosqtHuVgeHSXHnB3oBuh7OBhknSOnpJ1/4Do=
+X-Gm-Gg: AYBFou0u5tOJ0uyVgaHqUJ+3kkDgmbp8D4E6UDeMfnYfBLfljID0EG/PGDIkKsORiQD
+	sMpyCqG3l+VYFtxbpiR1bX7S+JWVCMuwNllpM/TJcKc1rGHRDI+jAL7Wa52tpD+1ipQ2Lz82HDj
+	JTCEymWQmg60TOUTdSwvss62z53D3ul4JPk7gIe1j+EubjNeTnwyTPRNS340oyiZjnRe36KVVEO
+	OKYf074XrJAv1NFS+tN34ALiDt7bIH4oT8t/G16aiFEWWvoy8VsxmW/Ihu2dHQt7I4tWic1XGkZ
+	qUjwbKj8CTZFOpJTXdh252O41CRmxR7EevnbIeF+6iUGd9W60yC/yKm4x4UZaJ2AkEcTYm36CsY
+	7bFdiIdl94nFdDFq6vXDdw9SG4Rt4VF8f/XwLUxTLg9Vy9NcwrPfQlqOuCLW+9dCHjM8w1DJucP
+	bAANiRfTEvGTNoFaPt38n439EtCjxjFLLCXqCMeg1jMcjgJNfdsmuitAObbYtkQK0jM/Z+trzLR
+	F1iCD79447O
+X-Received: by 2002:a05:6402:538e:b0:6a9:aff5:c6e0 with SMTP id 4fb4d7f45d1cf-6a9b5641e60mr1236425a12.17.1789123574443;
+        Fri, 11 Sep 2026 03:46:14 -0700 (PDT)
 Received: from [192.168.0.167] ([109.76.225.241])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966103984sm67215966b.52.2026.09.11.03.43.14
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9c17a18bdsm188715a12.18.2026.09.11.03.46.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 03:43:14 -0700 (PDT)
-Message-ID: <87e34805-e56c-45b8-a3d8-458ef17b92cc@linaro.org>
-Date: Fri, 11 Sep 2026 11:43:13 +0100
+        Fri, 11 Sep 2026 03:46:14 -0700 (PDT)
+Message-ID: <e3000a66-3fa9-48d6-a82b-b4ff52558e5a@linaro.org>
+Date: Fri, 11 Sep 2026 11:46:12 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,8 +69,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID
- interface
+Subject: Re: [PATCH 3/8] media: qcom: camss: Implement CSID streams API hw_ops
+ for gen2
 To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
@@ -82,10 +82,10 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  linux-kernel@vger.kernel.org,
  Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260911062213.195007-4-gjorgji.rosikopulos@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20260911062213.195007-4-gjorgji.rosikopulos@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -93,89 +93,121 @@ On 11/09/2026 07:22,
 Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
 > From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 > 
-> Add configure_rx/enable_stream/disable_stream to struct csid_hw_ops:
-> per-stream hardware operations needed to support the V4L2 subdev
-> streams API, where the CSID Rx front-end is configured once
-> independently of the per-stream RDI programming.
+> Implement the configure_rx/enable_stream/disable_stream hw_ops added to
+> struct csid_hw_ops, for the gen2 CSID hardware backend used by SM8250.
 > 
-> No functional change: these are new optional hw_ops entries, not yet
-> implemented by any backend or called by any code path.
+> __csid_configure_rdi_stream() now takes an explicit data type parameter
+> instead of deriving it from the CSID source pad's format, since the
+> streams API keys each stream by stream_id rather than by pad. The
+> existing configure_stream() path is updated to pass its per-port format
+> lookup through to this parameter, preserving current behavior.
 > 
 > Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 > ---
->   .../media/platform/qcom/camss/camss-csid.h    | 43 +++++++++++++++++++
->   1 file changed, 43 insertions(+)
+>   .../platform/qcom/camss/camss-csid-gen2.c     | 59 ++++++++++++++++---
+>   1 file changed, 51 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-> index 5296b10f6bac..90ee611b9092 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.h
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
-> @@ -74,6 +74,25 @@ struct csid_phy_config {
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+> index eadcb2f7e3aa..2512cdb16d94 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+> @@ -253,13 +253,8 @@ static void __csid_configure_testgen(struct csid_device *csid, u8 enable, u8 por
+>   	writel_relaxed(val, csid->base + CSID_TPG_CTRL);
+>   }
 >   
->   struct csid_device;
+> -static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
+> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc, u8 dt)
+>   {
+> -	/* Source pads matching RDI channels on hardware. Pad 1 -> RDI0, Pad 2 -> RDI1, etc. */
+> -	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
+> -	const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
+> -								   csid->res->formats->nformats,
+> -								   input_format->code);
+>   	u32 val;
+>   
+>   	/*
+> @@ -281,7 +276,7 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+>   	val |= 1 << RDI_CFG0_TIMESTAMP_EN;
+>   	/* note: for non-RDI path, this should be format->decode_format */
+>   	val |= DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
+> -	val |= format->data_type << RDI_CFG0_DATA_TYPE;
+> +	val |= dt << RDI_CFG0_DATA_TYPE;
+>   	val |= vc << RDI_CFG0_VIRTUAL_CHANNEL;
+>   	val |= dt_id << RDI_CFG0_DT_ID;
+>   	writel_relaxed(val, csid->base + CSID_RDI_CFG0(port));
+> @@ -330,15 +325,60 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+>   	/* Loop through all enabled ports and configure a stream for each */
+>   	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
+>   		if (csid->phy.en_vc & BIT(i)) {
+> +			/* Source pads match RDI channels: pad 1 -> RDI0, pad 2 -> RDI1, etc. */
+> +			struct v4l2_mbus_framefmt *input_format =
+> +				&csid->fmt[MSM_CSID_PAD_FIRST_SRC + i];
+> +			const struct csid_format_info *format =
+> +				csid_get_fmt_entry(csid->res->formats->formats,
+> +						   csid->res->formats->nformats,
+> +						   input_format->code);
+> +			u8 vc = 0;
+> +
+>   			if (tg->enabled)
+>   				__csid_configure_testgen(csid, enable, i, 0);
+>   
+> -			__csid_configure_rdi_stream(csid, enable, i, 0);
+> +			__csid_configure_rdi_stream(csid, enable, i, vc, format->data_type);
+>   			__csid_configure_rx(csid, &csid->phy, 0);
+>   			__csid_ctrl_rdi(csid, enable, i);
+>   		}
+>   }
 >   
 > +/*
-> + * struct csid_hw_ops - CSID hardware version specific operations
-> + *
-> + * configure_stream() is the legacy (non-streams-API) path and is mutually
-> + * exclusive with enable_stream()/disable_stream() - a given CSID instance
-> + * uses one family or the other, chosen by streams_enable.
-> + *
-> + * stream_id, as passed to enable_stream()/disable_stream(), is a hardware
-> + * RDI/PIX port index in [0, MSM_CSID_MAX_SRC_STREAMS). It is currently
-> + * always equal to pad - MSM_CSID_PAD_FIRST_SRC (multi-pad, 1:1
-> + * pad-to-port mapping).
-
-Lets not mix and match names. There has historically been a huge amount 
-of sin and liberty taken, not the good kind unfortunately - with port_id 
-and write-master.
-
-port I believe is the misnomer we are currently stuck with - so lets 
-continue to use it until a more crisp naming convention happens.
-
-> + *
-> + * configure_rx() is called once, on the transition from zero to non-zero
-> + * active sink streams, strictly before the first enable_stream() call.
-> + * enable_stream()/disable_stream() calls are always made under the
-> + * subdev's active-state lock (core-enforced via
-> + * v4l2_subdev_enable_streams()/disable_streams()), so hw_ops
-> + * implementations don't need their own serialization.
+> + * configure_rx - Configure the CSID Rx front-end
 > + */
->   struct csid_hw_ops {
->   	/*
->   	 * configure_stream - Configures and starts CSID input stream
-> @@ -81,6 +100,30 @@ struct csid_hw_ops {
->   	 */
->   	void (*configure_stream)(struct csid_device *csid, u8 enable);
->   
-> +	/*
-> +	 * configure_rx - Configure the CSID Rx front-end
-> +	 * @csid: CSID device
-> +	 *
-> +	 * Called once, when the first stream is enabled.
-> +	 */
-> +	void (*configure_rx)(struct csid_device *csid);
+> +static void csid_configure_rx(struct csid_device *csid)
+> +{
+> +	__csid_configure_rx(csid, &csid->phy, 0);
+> +}
 > +
-> +	/*
-> +	 * enable_stream - Enable a single CSID output stream
-> +	 * @csid: CSID device
-> +	 * @stream_id: stream id to enable
-> +	 * @vc: virtual channel to program
-> +	 * @dt: data type to program
-> +	 */
-> +	void (*enable_stream)(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt);
+> +/*
+> + * stream_id is used directly as the hardware RDI port index below. This
+> + * assumes a 1:1 stream-to-port mapping and should be revisited once
+> + * per-platform src_streams data (stream id -> hw pipe) is added.
+> + */
+> +static void csid_enable_stream(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt)
+> +{
+> +	struct csid_testgen_config *tg = &csid->testgen;
 > +
-> +	/*
-> +	 * disable_stream - Disable a single CSID output stream
-> +	 * @csid: CSID device
-> +	 * @stream_id: stream id to disable
-> +	 */
-> +	void (*disable_stream)(struct csid_device *csid, u32 stream_id);
+> +	if (tg->enabled)
+> +		__csid_configure_testgen(csid, 1, stream_id, vc);
 > +
+> +	__csid_configure_rdi_stream(csid, 1, stream_id, vc, dt);
+> +	__csid_ctrl_rdi(csid, 1, stream_id);
+> +}
+> +
+> +static void csid_disable_stream(struct csid_device *csid, u32 stream_id)
+> +{
+> +	struct csid_testgen_config *tg = &csid->testgen;
+> +
+> +	__csid_ctrl_rdi(csid, 0, stream_id);
+> +
+> +	if (tg->enabled)
+> +		__csid_configure_testgen(csid, 0, stream_id, 0);
+> +
+> +	__csid_configure_rdi_stream(csid, 0, stream_id, 0, 0);
+> +}
+> +
+>   static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
+>   {
+>   	if (val > 0 && val <= csid->testgen.nmodes)
+> @@ -425,6 +465,9 @@ static void csid_subdev_init(struct csid_device *csid)
+>   const struct csid_hw_ops csid_ops_gen2 = {
+>   	.configure_stream = csid_configure_stream,
+>   	.configure_testgen_pattern = csid_configure_testgen_pattern,
+> +	.configure_rx = csid_configure_rx,
 
-Seems odd that none of these have integer return types to propagate errors.
+Keep the namespace consistent and include _stream somewhere in this name
 
->   	/*
->   	 * configure_testgen_pattern - Validates and configures output pattern mode
->   	 * of test pattern generator
+> +	.enable_stream = csid_enable_stream,
+> +	.disable_stream = csid_disable_stream,
+>   	.hw_version = csid_hw_version,
+>   	.isr = csid_isr,
+>   	.reset = csid_reset,
 
