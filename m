@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6481E476CFE;
-	Fri, 11 Sep 2026 12:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E839838CFE1;
+	Fri, 11 Sep 2026 12:39:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789130356; cv=none; b=avEenxGEU6NCp0x21Isl0x7da7qImM5sYNAf3pgkogGpCKLDBSoE5JMy+JV9IGpiKNRx8sQjgb1mx0bsuY5+wxoSEQNiK+MK70xYrGBes7pSwiAZJRLDGVm8I8NkO8tNXRpNz06zOyFPYHqmrNSVeyRZwZludfb8IQg7EYsuKek=
+	t=1789130359; cv=none; b=c2Ci938JrEDI3Elwzo1DC/QTcnxH4UvutazXxMlcn9X64OU2L60iyQA8yW+Yw23GFqG/hZ1FCpIGLIj6utw7rNKsCdFxJHFKR4+roTy/EkqigZPb8rB0jcQgVRPwduT8om6KiPKnCiAl3DIUkIRGaOYFc7myKPAAVMg6CyfajnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789130356; c=relaxed/simple;
-	bh=421bqo3Zz+edTk7XRyQ9NRm2fUkqs9POzrFkYzd5Zi8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OLhXGsaL13VkXpFylxsbAq70WS4EBCjqdrbVInJfmgmjgwiA4XkVz76G/tkX5UOQdXbftJZ2IgxRe9q2igOcQDvlXqmZ7EipYnc49r+v0r1WYfF77bKyCyZWfuNwUzFSxW1QC4CKXhWMuy5UxnGyvtj259iaZ2cw1m+Gd0KTsQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KiuBKHrd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789130359; c=relaxed/simple;
+	bh=owpyveLHT0E2gZ6qfHvuYVlsGGwb7yQYbmIDzyIRqiE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UcVml2gvAMS8uyX4pnjt5ZYHhW/WJQI2IrRsiUTEVnzGziH+dKzxRqte8z05q1Y+YRxkKE1RO7SawFxJgPHdfSKnJg+Og1gFNzFo2reTifLtTmb+56Y1zOkb5xBROG7jMRIRbiyFOoaWP7ebdtql+a2b0bJOuOoCgh5xuaILjoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWgxCm6f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KiuBKHrd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CBEE1F000FF;
-	Fri, 11 Sep 2026 12:39:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWgxCm6f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20FB1F0089C;
+	Fri, 11 Sep 2026 12:39:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789130345;
-	bh=2imA1bYF1kAmjEc2GRQkHWBwCc3ifJ+pBFnGthYt64g=;
-	h=From:Subject:Date:To:Cc;
-	b=KiuBKHrdByWCccEpc5ZHwn5LiiAWPY3fDNjD6CL9OmY60b3fYxdd7sBuG7/RMhOr2
-	 TVP2Q1POuaChlkGidarqZkjiAIV+ArvnG8jdPHS6fiZhvUIU60zB0zoh/aKa7QrceR
-	 T2151h/n4TddhdOHJPWT/TO/7Yn6WYt3cAk0I33INcYuWg89jn8RzMAYOrVquAlEyX
-	 XFSWENtKh6/DNkj0y2Gv3V5i8nKQ4wmAirn+t+MjnFfxztKb29KSmqBVOzqdtSGFcI
-	 FyFLOquJpS6dN9ZBSp6s1PPNrO+YoQFJBFOj/46MJB+EDtHvOj/Y1A3qYd0QoBdAK7
-	 Hml1L+ifvocKw==
+	s=k20260515; t=1789130354;
+	bh=gAxYXCi3F1z9vDbU8UKdtio2EkghuEvjVX57djuNuiw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=QWgxCm6fmoZn4vyt/x4gzeUzH8KVrhKV/JUeleAPPZbe1m05tS3CD6mCZeTouNP9q
+	 xoufNAeq0TPHZ3skqNETmw4xiCGZ7E9tsrN9xAt72oipKsFhJYsEvv8nA+DcklBIhC
+	 wQib1ZLsQbwC66NV+A9FppXwSEhjZLRT1cnL1odGXCR5EkLUUY6xUrA9oretMOFCoN
+	 rhi0wT11/zV47zkL5fV860cncFOnAfF1KdIt3n76epEwP5itNr4YsVxtx2mayd/XOZ
+	 XLUHvl1LCsaqIcVaX2ulb+KU/S39uesw/t3k5CXXJ7z6adFn56/TtDBlbZVnAbiXo5
+	 UbXiKM28EXVmA==
 From: Sumit Garg <sumit.garg@kernel.org>
-Subject: [PATCH 0/3] media: qcom: Skip SCM secure memory protection with
- OP-TEE PAS backend
-Date: Fri, 11 Sep 2026 18:08:54 +0530
-Message-Id: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
+Date: Fri, 11 Sep 2026 18:08:56 +0530
+Subject: [PATCH 2/3] media: iris: Skip SCM call for non-SCM PAS backend
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,10 +37,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBG4avErBtQiciuEi3E/mo2KRoShHdPW
- n6L917KSIJMc/dSQpEs4WrQfUf+dNcBlq2ZjDKjslpzkQ2BQ7wBji5z0exHa+yEaVDeUQtjwi7
- PP13WWj8+E7A/ZAAAAA==
-X-Change-ID: 20260911-video-optee-pas-v1-c69298e840ca
+Message-Id: <20260911-video-optee-pas-v1-v1-2-7bbddaaac5ba@kernel.org>
+References: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
+In-Reply-To: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, 
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
@@ -54,46 +52,57 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
 X-Mailer: b4 0.14.3
 
-The Qualcomm peripheral authentication service (PAS) can be serviced by
-either the SCM (TrustZone) backend or, on OP-TEE based platforms, by the
-OP-TEE backend. qcom_scm_mem_protect_video_var() is only implemented by
-the SCM backend; with OP-TEE the TEE itself owns secure memory
-protection and does not service this call. Issuing it unconditionally on
-an OP-TEE backend fails firmware bring-up for the venus and iris video
-codecs.
+From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
 
-To let consumers make this distinction, patch 1 exposes the name of the
-active PAS backend via a new qcom_pas_get_backend() helper and adds
-QCOM_PAS_BACKEND_SCM/QCOM_PAS_BACKEND_TEE identifiers for them to match
-against.
+qcom_scm_mem_protect_video_var() is only serviced by the SCM backend;
+with OP-TEE the TEE owns secure memory protection. Use
+qcom_pas_get_backend() to issue the SCM call only for the SCM backend.
 
-Patches 2 and 3 use this helper in the iris and venus drivers to skip
-the SCM-only qcom_scm_mem_protect_video_var() call when a non-SCM
-backend (e.g. OP-TEE) is active, leaving the SCM path unchanged.
-
-No functional change is intended for the SCM backend.
-
+Assisted-by: Copilot:claude-opus-4.8
+Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
+Co-developed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
-Jorge Ramirez-Ortiz (2):
-      firmware: qcom: pas: Expose the active PAS backend name
-      media: iris: Skip SCM call for non-SCM PAS backend
-
-Sumit Garg (1):
-      media: venus: Skip SCM call for non-SCM PAS backend
-
- drivers/firmware/qcom/qcom_pas.c                 |  8 ++++++++
- drivers/firmware/qcom/qcom_pas_tee.c             |  2 +-
- drivers/firmware/qcom/qcom_scm.c                 |  2 +-
  drivers/media/platform/qcom/iris/iris_firmware.c | 11 +++++++++++
- drivers/media/platform/qcom/venus/firmware.c     | 10 ++++++++++
- include/linux/firmware/qcom/qcom_pas.h           |  5 +++++
- 6 files changed, 36 insertions(+), 2 deletions(-)
----
-base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-change-id: 20260911-video-optee-pas-v1-c69298e840ca
+ 1 file changed, 11 insertions(+)
 
-Best regards,
+diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+index 21cdf1c39835..7fbe71e21bcb 100644
+--- a/drivers/media/platform/qcom/iris/iris_firmware.c
++++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+@@ -9,6 +9,7 @@
+ #include <linux/of_address.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/soc/qcom/mdt_loader.h>
++#include <linux/string.h>
+ 
+ #include "iris_core.h"
+ #include "iris_firmware.h"
+@@ -158,6 +159,7 @@ static int iris_load_fw_to_memory(struct iris_core *core)
+ int iris_fw_load(struct iris_core *core)
+ {
+ 	const struct tz_cp_config *cp_config;
++	const char *pas_backend;
+ 	int i, ret;
+ 
+ 	ret = iris_load_fw_to_memory(core);
+@@ -172,6 +174,15 @@ int iris_fw_load(struct iris_core *core)
+ 		return ret;
+ 	}
+ 
++	/*
++	 * qcom_scm_mem_protect_video_var() only applies to the SCM backend;
++	 * other backends (e.g. OP-TEE) own secure memory protection and do
++	 * not service this call.
++	 */
++	pas_backend = qcom_pas_get_backend();
++	if (!pas_backend || strcmp(pas_backend, QCOM_PAS_BACKEND_SCM))
++		return 0;
++
+ 	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
+ 		cp_config = &core->iris_platform_data->tz_cp_config_data[i];
+ 		ret = qcom_scm_mem_protect_video_var(cp_config->cp_start,
+
 -- 
-Sumit Garg <sumit.garg@kernel.org>
+2.53.0
 
