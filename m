@@ -1,88 +1,84 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B0C3E4508
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 02:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8433E63A3
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 02:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789094414; cv=none; b=O/ZCngzNjbr/iUl0reGV7v7KaXTSoWV+1Rx6wKUKWD0lpLbW78nlymyO/l7uZwq7ifDxpeX9acAuCcNQT0arZmLjtbdkoKuMCaws5wId5ozuqQR/Yb29Iygx/EqLXgLhNqNMErqKP8roIqwKLH0i8vxfsD/dSUizJ9fumkqGaWA=
+	t=1789094860; cv=none; b=l0HuN7EP4EgzKihr9IwrB6uteFKlBolCvV7aenuZDwhzqKCmfZWtrUrlSaKUhE8nmLQdRrPXx20jGH3uhQWM6G1Su8IoazylW5ouRk2AwC1c/CZhBW4olhwsBpXcHjnn/mOaJx0x/QydKP/2iJi9gSbTolm7sgDh3N7tvPjquB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789094414; c=relaxed/simple;
-	bh=uqp6ZtJNtEOACAhMiQpETB3wFwgJx7c5vXDtw6I5O54=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BBsDyCZBaWh/BFDoM9cDIS4RGXJquTjhlRhkN703boxJrn3lKmRVYB2Zdsdou1z4jLKKo3+LTBQTcF9zKG8nek6ttaaaiPxkfZUfdDsRc1FHYTbSdKdO4w8YA9Vevg37+h7JKTrsnIxwtPf39NWpilHTdoT48plu6nU5n8Vyusg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LxRivtnf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d6YvFFa9; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1789094860; c=relaxed/simple;
+	bh=wIpdI0LplJtNd4qCCGfH2+goMSQTWqf6VKf09p+8CJU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iD/1VjAtKIplOhEwTJx/7av3Hlx9xQhMtpyPpZ366bZtji6tFXO7Hi6qADDz2wqTSNOnpTRvD5BlPTM7LOFJwnhDwnJWs67R5sCJ+xN5DaVUDNTb+4rH9Su0QQftNInUl0wXmOXNmBIjJbKAvlyPlsS3Csz5h9sTMbH2VSDKyWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SQ1HSvqw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZnfK8SK7; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LxRivtnf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d6YvFFa9"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B12X1c2480087
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 02:40:12 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SQ1HSvqw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZnfK8SK7"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B12Ljr1916300
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 02:47:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w0y67KYvhCbzczBgu73AvNRM6XCtxPMllebNVw/tpXM=; b=LxRivtnf8eiul9TF
-	Sepx0+l0T7F5jjiGwHhLZck85sSWENorICIa8F17udMjnWRRX5ZT+M5gecZLwNms
-	2XK97pwT5xs2U+P3r5GMoRlkfFkomEs3DR/KhCf18VB7J1Ax1CR9k58VBVJZC0mW
-	wJWzmn3fdXJMVVy4kRD5rdYBJrARsaLgjGOGPRpyYK8MiWzXbickG/9p7jisdYV0
-	4BhQqQjZlzwuRiTHZ2IJOcey2mrjnB9iVNriI/ZvHJqcMVWw8jat/vRTB0iygu5w
-	60Xqz7s/eMWgizNtG6bhxmFWm9YgLREzW+BAB5mb1OBRgLsKQiJ0OLs3JMIDu+l0
-	1t4ffQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm1k29mta-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=/jT2QclORhv5dXCzi1KrXX
+	vOQ7zvag9cAwts1fvjBDQ=; b=SQ1HSvqw648FhQcKft2w8QXlR37r/2UU+jSJUN
+	6vMKLX7xZy+cKo4QwWuV/uzF7CAeh7QB6Wvr2YGEInPjgYRuK9Rc28bb5mpTXu57
+	JXlgU5xa4cifzaPwrCarziXDRtq3CuKE8j08Ak1GcJxiVPddo/t5lGVdfyZMDsLm
+	68/wgWSKJkzV+7Ysi5MQtuGAA2sf050b+rM9IBRX2JeIIAgcL2qXwrVbnymFmpzp
+	bMkliUBLgGZ2da8X8cq+h1+/3WGQWz79B5mHqU/sloUbRAiDa6H5Jhx+27eNwFf8
+	HWQHJK5nMGGy46/OrvB0S38kZqLCiDPn1MrohP98Q1qhss3A==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm729gexb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 02:40:11 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d9336581a2so7497195ad.3
-        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 19:40:11 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 02:47:37 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-855315ccb64so388383b3a.3
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 19:47:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789094411; x=1789699211; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w0y67KYvhCbzczBgu73AvNRM6XCtxPMllebNVw/tpXM=;
-        b=d6YvFFa9lX6DG653ZgU8sOIFIiWO97hQF5GSuCQEGul9xEUQwrTxa+g9REYDciSoDi
-         /az68BxD2njVZ20jg/kckayQxJS+VsG/f0zatydDz64kiQxp8DxLtGpMcSUgZNi3UcrK
-         5DWdhcn5zfDhPrqjVwZLzJsUrpDVTzl2hx7EZicRPjh6jnLilexVyWlJXpC0+IsTi9LC
-         JRpXZgT166c4mR5U7PNEkEujl1XUK6O+VtkQiEkNHTXq9ix9TcAervI2O8/p4wbU9dJL
-         zIw5bPAo2qDvrqkUQvbuiamJvhz3cIEUGTHpzQGozYmLoFHAULF1Qg5JWf4PXqEF91f6
-         GqDQ==
+        d=oss.qualcomm.com; s=google; t=1789094857; x=1789699657; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/jT2QclORhv5dXCzi1KrXXvOQ7zvag9cAwts1fvjBDQ=;
+        b=ZnfK8SK7bE0Hfjg868ewkm3nGngi6PjP56hJWUaVGgr0Vm3I8VcMgt5pAqRiO2ArdW
+         89x0hC7z0cI/lbL1DYS7AIUIu7VHoOquhnQyrhC6z+MlUsqIo9AN/3haSlUHy/82j+iv
+         mnWMofUXWr2WUl7cGxQxG+XTVxTjbqD0NBoEmKGpRCiDlewibNajDSfmYT1Dvp/M42jW
+         mJbhkkqZQJrU4QZZVBv35LeoqWJA9lBGYN/Aafh8SNggEcweodTmg9aW8ziYnMRZf1vy
+         XQXkpnHHqwTFOUfAZ9hhyNsnTeNdyn7CQDb8R96k5ePz/Mj4i5zjDfyUgBxeQN7uZ4D5
+         0PPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789094411; x=1789699211;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w0y67KYvhCbzczBgu73AvNRM6XCtxPMllebNVw/tpXM=;
-        b=aKGD6JYU0HCM/AD4skgSEmZjPOR/4SiyFrBSCi6bLBcD+AYHtLcuk4gNL2cxz55EbT
-         ojdjoeNVEoZq38EwN4QTUxUXDva7ZOAt8+WjGhGC9iwAAt1N6QXNXgoFFafX8ZF3GXQs
-         FSCbbXDftlXzemc4q1nAyueWCJCGVBJFY98uXC/EYHWk3MuzNvmzeswPMd3yhgtXDFKv
-         Y5zBwciFjPUXPclBgUlQKmOTZ2vZZ2FhddfIO+wMrpeCIHEGNRzbuNPERDxVKjchHHwz
-         zbpG08L5chTqOTCNQQ2XMx0p+i5liFmS0ZNyKbuH1q1lOTq6OW7rR7She4UM60B+poeo
-         Rbzg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0I5kVSQoxzKTy3JRsoMMjBMOBfHhUAY6WPJ+4YoD4Ar/FJcRCop8NYnr6MieoM87a4iYmWh7lm5ihbQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mEsUv5es15S3FdcQhSxrrqSdStt5mlDEm9g22ZnQF/2aKsTg+N
-	bdN9UXg/uJc3Hz1YoiBDcn1eBV2G+1qvfhQXzfaFpICcbY3JCcDXAMD08i6awMmQPxV1+Ku+0Ba
-	GMg0dLkJdWGt157F4XICUfPTW0QbIdcej04gFPSe2ifCbfsCBS8K4LTVf57cZly39Fg==
-X-Gm-Gg: AYBFou0W8FQEScOQjs/sNkCpHRz00IbUeBoWBXVVcILeMUVmV61VRhZ0kRpC7C65o/h
-	JPP4JmIvJgUyLb7FdQXRFJrLXQG+4YSONvF7IwntWN4OPOyINRHYd+17Svv1fWOzMGPPlrFRr04
-	tsWRB0885opdWMktJ3bfyn4/BKsGMmQIWPx9wlwHFv8DdN4OgXQ2dB/BBHq1v7RHbpYVX+ON/V2
-	7ihUj2fu2mI5CWAPuu5OcBYXGdC+WeDrEzHJyP8FobXlJG39vSDUQjZrtAi3wz0lutoETcHU6S5
-	h60CqDnFTFsI7dlOBeUc89F7WabPjwfvRQ9QrW7v6XlDABbvveweltQfRt0l13ll6+xtysHwrRD
-	CVd/Alg53NoZhmDFiyBB4+5qDiAqOhXc=
-X-Received: by 2002:a17:902:c945:b0:2d9:484:861d with SMTP id d9443c01a7336-2dd2a33fdddmr41167745ad.10.1789094410577;
-        Thu, 10 Sep 2026 19:40:10 -0700 (PDT)
-X-Received: by 2002:a17:902:c945:b0:2d9:484:861d with SMTP id d9443c01a7336-2dd2a33fdddmr41167285ad.10.1789094410129;
-        Thu, 10 Sep 2026 19:40:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789094857; x=1789699657;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/jT2QclORhv5dXCzi1KrXXvOQ7zvag9cAwts1fvjBDQ=;
+        b=be2gUayKd30NhlhDBjkso3TKE9MmbafjEI1NyMA8fHH9UzgZYv8ogIjz3kW0JXC98N
+         irCdsTDI+a8VTgaDSAgQNacxKXilyl1KhA/92g9/LBS6BPSmSFJw9uiE1zitciZkwhyp
+         wGzBKVXmgEp2T7tMEmvPAGBwapTYnBNzLj7V83kYDXnffQZYXpO0MG78FbLknh3P+50V
+         xt1icxG7S5aFl3XACUoXsUtOxdHWM9dbJkB+TxIQxMxNwdNVP0N+ZJx061kn3H8xNER6
+         keLFIsxcx1qVuN9Hoa1rY2PhvgIM5yZlaDUW3e0uXRNuZLI9TYbSL7ef/qZDk8r9+38x
+         ZI+w==
+X-Gm-Message-State: AFuF++mh/t8ruS1o5iMfV/uQzbfKpyYchhSjpLbPb1/1TOliW2DwRB7q
+	YazD9wQsj/jP5cu0eZ5nLyEkNbkNdgOXvZ6VyUEHufideJ5tf0KmkdXfFHLX0tDNdIJbUKPvOy7
+	iC322qOZNyqYshTWM358OiD0hMecZHW7sU72SnBUWNcnOVtdQ0sYxLAwpT4/nSJKsGA==
+X-Gm-Gg: AYBFou3wuqxTOil+DIUBSG/jz/XxWT7iwZYEyRgDebmtrjADzV/PzmLrf1r06kvL6Tv
+	NNznJj6vBa+4oyAycyHJSZa/Onx3Fz3qP0RLehlwQCiiTgRdIsNSdhrx7Yk+kymFqy0nIYTdqOC
+	gx12RPP4MPUpsJaQ8ynXd/L47nfT1+t+TNU/y94EVKgPKVbsfYNwd5RmS5L81ROnqHfOOJ4psol
+	23L3xJvui+LGpFT7fahh6Q94hpXSLivExN6OmLzvyVGA5H3CVRGLclbeOdBShtPqfADBQBJUZy9
+	/DPPe0Ypma8E2lWdyDtooT06otcMTfIPmK4QJLMpvDXFumE1w8p/CTiZTfAZi+mVt0Tavci04YQ
+	Rgd5lgn80vIFNeUMcqBd/C6aeFPNQMyE=
+X-Received: by 2002:a05:6a21:3391:b0:3cc:b26a:7686 with SMTP id adf61e73a8af0-3daed1515f5mr4204134637.6.1789094857018;
+        Thu, 10 Sep 2026 19:47:37 -0700 (PDT)
+X-Received: by 2002:a05:6a21:3391:b0:3cc:b26a:7686 with SMTP id adf61e73a8af0-3daed1515f5mr4204063637.6.1789094856505;
+        Thu, 10 Sep 2026 19:47:36 -0700 (PDT)
 Received: from hu-renjiang-sha.qualcomm.com ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e95075sm2094481eec.11.2026.09.10.19.40.06
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b97994sm4000177c88.12.2026.09.10.19.47.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 19:40:09 -0700 (PDT)
+        Thu, 10 Sep 2026 19:47:35 -0700 (PDT)
 From: Renjiang Han <renjiang.han@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 08:09:50 +0530
-Subject: [PATCH v2 2/2] media: qcom: iris: reduce impact of verbose
- firmware logging
+Date: Fri, 11 Sep 2026 08:17:29 +0530
+Subject: [PATCH] media: qcom: venus: reduce impact of verbose firmware
+ logging
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -91,304 +87,492 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-media-qcom-iris-fw-log-v2-2-6c46288f3ffb@oss.qualcomm.com>
-References: <20260911-media-qcom-iris-fw-log-v2-0-6c46288f3ffb@oss.qualcomm.com>
-In-Reply-To: <20260911-media-qcom-iris-fw-log-v2-0-6c46288f3ffb@oss.qualcomm.com>
+Message-Id: <20260911-media-qcom-venus-fw-log-perf-v1-1-b8fcc69f1055@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMBro2oC/yWNSQ6DMBAEv4LmnJG8sThfiTjYeEwshc0GEgnx9
+ zjh1tWHqgMSxUAJ7sUBkfaQwjRm4LcCuqcZe8LgMoNgomKacxzIBYNLNw2407gl9G98TT3OFD1
+ yo10tWeOkKyEr5kg+fP76R3txpGXLlfU6wZpEmGVDWO+FF9bbTpal6kyluVaNYpLVQiuhrHZEv
+ +WEgvY8vy+JOpK6AAAA
+X-Change-ID: 20260911-media-qcom-venus-fw-log-perf-1a9d7308d3d5
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
         Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
         Bryan O'Donoghue <bod@kernel.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
         Renjiang Han <renjiang.han@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789094397; l=10583;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789094853; l=15400;
  i=renjiang.han@oss.qualcomm.com; s=20241001; h=from:subject:message-id;
- bh=uqp6ZtJNtEOACAhMiQpETB3wFwgJx7c5vXDtw6I5O54=;
- b=nWXw93A89mYzNPDhr3w2CwxKIudOCKfcdmasVpNbbR96SBMCjIwspk68rNmOerrZ2wuUm2qRy
- DPqcsTAVyP8Ax+Z2nxWtwh+CHZQ/7CydB69FA2r4W/wv1WDZwdY43IR
+ bh=wIpdI0LplJtNd4qCCGfH2+goMSQTWqf6VKf09p+8CJU=;
+ b=Iz/qKHm420UoGtvygSbHSytVM/OGsQEBdXifgtB3IybjeJtgJa1foYeIC+dyuEi8Iib88xQ7t
+ DrV9jV0aklADP+xF5O/sbdKAhgqY48QHuETOgHYJVqdPEVCkSjDRZCf
 X-Developer-Key: i=renjiang.han@oss.qualcomm.com; a=ed25519;
  pk=8N59kMJUiVH++5QxJzTyHB/wh/kG5LxQ44j9zhUvZmw=
-X-Authority-Analysis: v=2.4 cv=cM11IVeN c=1 sm=1 tr=0 ts=6aa36a0b cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDAzMyBTYWx0ZWRfXz4y+Be3sOBSq
+ qeAhwHiHfK7lJcx3v+gVUNFcxGliOwGThTODZvCCqQg9Io8G5Q8g+aJxtAr0eMntZLaAMcW1rCq
+ GQ4Lv5mS9NIbPhGit4CVBPsvGPBydBY=
+X-Proofpoint-GUID: Twu_70j9faQHqnB1yyZ81wwZZGiGYnji
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDAzMyBTYWx0ZWRfX86IlodKupAw7
+ iquFCrY2llYmmTup3xHKkY2cJC8KGKob+wYYuQRByHgc0Yw3jfecvJkIgLe7N3DY23kG6GwiDJP
+ h/oWwh+PH7Zux1eYV2EB9zjfgkpvaEAHMZ9b8lXaBCi0lcYX2zB16fIStI+BgCc3uqB7Pi1NC3X
+ 4eAmRA1PFY/LN0ZelQ32/UCLIac+9vY/cCMAuJEV3+ZRT1xity6ZPE0zZ3FDIITjTe0+/Zwot/q
+ DDsshh9PCca5loU5pItqBhRCOdpqO6ZCJ5nyuyd2btZtPfLyZcfR9I2MuR+2R8RzHL6UDT/+DB7
+ IdUSS/vX+bPX+1Lwu5svquxQpk3VdQIpUfmY8r3sj5KM7a0GmhooavuG3j00ujZJ3aGuWKpMI+q
+ 3X0IMmQk0nAzN602ulhJWrDcxZpEyDkyf8rheIeYAikpQXtRz0vqqMe8BQDh0eRByax/fqAd7rl
+ XxqNJKapgSF2YVTqcYA==
+X-Proofpoint-ORIG-GUID: Twu_70j9faQHqnB1yyZ81wwZZGiGYnji
+X-Authority-Analysis: v=2.4 cv=AfwkjHXG c=1 sm=1 tr=0 ts=6aa36bc9 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=PhOa2E4d2e6p5IsZR2MA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: -ZOYhzMAFLecU0s2vOtp8m7jGW5yZW02
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDAzMyBTYWx0ZWRfX/CRV3o8vo6d/
- s2hBnSLG3aIi46HZyzbl39wEqcgQktvzp8rQQkbEMHNj/zrokBUFiT9UKm3EfDw38NFsCqjaJgK
- Ev/GOzaci4BNQREdXwekE3KjJhB8jvg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDAzMyBTYWx0ZWRfX1yMj0e1h6yeV
- +jBuLYKrtXZxoIvKXIcdyEAUBbr5C57gE3tbhUtmIPYcSn7HotEpSxOWSNhMp0ZdSZNpU7sCYwu
- WfH2F4eHmV0wqSeqaUTMV9Z/YxUD3YPDZGYhpRUuyjfsx0vlpBgLk9NbXsvWKMEgdosYllNKh2E
- lAjrgG/bON/DhbuOrCIuiwaxdCsQ0U+RT2BdlOWiXYzYhl5JbBBVSWF7gFgAXZjErspOatIN68J
- Aun7+CBX5azrfV9wFqtGSUpoecPY4zejkAR2EsFBsqZtW8j/KFb+bHKd7PQeZESornryetTQKRB
- +FsKSpuV6aD+subNJgwzjMbxZhL34+NH9AJrQsZ5dFWEUHPeeeIlCAx2rrnRaor5MuzlZ79lMZ8
- 5rrTnglgE/N0tWUFncQA8l69W1DcFJgaPYOiCcZe16tvmrPZOtgWSDAhL2xJXpLK4UZU+qdA9ru
- uj3hkI1GLnccuUawP3g==
-X-Proofpoint-ORIG-GUID: -ZOYhzMAFLecU0s2vOtp8m7jGW5yZW02
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=gJ9IjCNN_hMKb9KTEusA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-11_01,2026-09-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110033
 
-Verbose firmware logging can produce a large number of debug queue
-packets. The Iris interrupt thread used to drain the message queue once
-and then drain the debug queue. With heavy firmware logging, response
-packets that arrive while debug packets are being drained can remain
-pending until a later interrupt.
+Firmware debug logging can generate a large amount of traffic. When
+verbose firmware logging is enabled, debug queue packets can delay
+normal HFI responses enough to hit the existing response timeout.
 
-Increase the HFI response timeout and runtime PM autosuspend delay when
-firmware logging is enabled beyond the default error and fatal levels.
-Restore the default values when the firmware log level is reduced again.
+Increase the HFI response timeout, power collapse delay timeout, and
+runtime PM autosuspend delay when fw_level enables log classes beyond
+error and fatal. Restore the default values when fw_level is changed
+back to error and fatal only.
+
+Print firmware error and fatal messages with dev_err_ratelimited().
+Other firmware debug messages continue to use dev_dbg(). Bound firmware
+log printing by the packet size so messages do not need to be NUL
+terminated by firmware.
 
 Signed-off-by: Renjiang Han <renjiang.han@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_core.c       |  2 +-
- drivers/media/platform/qcom/iris/iris_core.h       |  2 ++
- drivers/media/platform/qcom/iris/iris_debugfs.c    | 16 ++++++++++++++-
- drivers/media/platform/qcom/iris/iris_hfi_common.h |  1 +
- .../platform/qcom/iris/iris_hfi_gen1_response.c    | 24 ++++++++++++++++------
- .../platform/qcom/iris/iris_hfi_gen2_response.c    | 24 ++++++++++++++++------
- drivers/media/platform/qcom/iris/iris_probe.c      |  3 ++-
- drivers/media/platform/qcom/iris/iris_utils.c      |  4 +++-
- 8 files changed, 60 insertions(+), 16 deletions(-)
+Verbose firmware logging can generate a large amount of debug queue
+traffic. When many firmware log classes are enabled, normal HFI response
+messages may be delayed behind debug packets and synchronous HFI
+commands may hit their response timeout.
 
-diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-index 8c335dbfce166848892c2b323cdcafe43af4a2d9..bbbb7191c4778d842d4fef32fa95a0a9aeeecf7a 100644
---- a/drivers/media/platform/qcom/iris/iris_core.c
-+++ b/drivers/media/platform/qcom/iris/iris_core.c
-@@ -40,7 +40,7 @@ static int iris_wait_for_system_response(struct iris_core *core)
- 		return -EIO;
+Reduce that impact by increasing the HFI response timeout, power
+collapse delay timeout, and runtime PM autosuspend delay when fw_level
+enables verbose firmware logs beyond the default error and fatal levels.
+Restore the default values when fw_level is changed back to error and
+fatal only.
+
+Firmware error and fatal messages are printed with
+dev_err_ratelimited(), so important firmware errors remain visible
+without enabling dynamic debug. Other firmware debug messages continue
+to use dev_dbg(). Firmware log printing is bounded by the packet size
+and no longer depends on firmware providing a NUL-terminated string.
+---
+ drivers/media/platform/qcom/venus/core.c      |  5 +-
+ drivers/media/platform/qcom/venus/core.h      |  8 +++
+ drivers/media/platform/qcom/venus/dbgfs.c     | 51 +++++++++++++-
+ drivers/media/platform/qcom/venus/hfi.c       | 10 +--
+ drivers/media/platform/qcom/venus/hfi_venus.c | 95 ++++++++++++++++++---------
+ drivers/media/platform/qcom/venus/vdec.c      |  2 +-
+ drivers/media/platform/qcom/venus/venc.c      |  2 +-
+ 7 files changed, 133 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
+index 243e342b0ae75336af17bf630712417e34caa96b..2282926369d1e04b9a4bd990acacdf3aa344f614 100644
+--- a/drivers/media/platform/qcom/venus/core.c
++++ b/drivers/media/platform/qcom/venus/core.c
+@@ -429,6 +429,8 @@ static int venus_probe(struct platform_device *pdev)
  
- 	ret = wait_for_completion_timeout(&core->core_init_done,
--					  msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
-+					  msecs_to_jiffies(READ_ONCE(core->hw_response_timeout)));
- 	if (!ret) {
- 		core->state = IRIS_CORE_ERROR;
- 		return -ETIMEDOUT;
-diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-index a8e34c456ce3f3f178ca66a278d06d1ab50dafc4..5449e6b0e11c3122d1f57aedb6dd374ffa816497 100644
---- a/drivers/media/platform/qcom/iris/iris_core.h
-+++ b/drivers/media/platform/qcom/iris/iris_core.h
-@@ -68,6 +68,7 @@ struct dentry;
-  * @debug_queue: shared interface queue to receive debug info from firmware
-  * @root: debugfs root directory
-  * @fw_debug: firmware debug log mask
-+ * @hw_response_timeout: hardware response timeout
-  * @lock: a lock for this structure
-  * @response_packet: a pointer to response packet from fw to driver
-  * @header_id: id of packet header
-@@ -115,6 +116,7 @@ struct iris_core {
- 	struct iris_iface_q_info		debug_queue;
- 	struct dentry				*root;
- 	u32					fw_debug;
-+	u32					hw_response_timeout;
- 	struct mutex				lock; /* lock for core related operations */
- 	u8					*response_packet;
- 	u32					header_id;
-diff --git a/drivers/media/platform/qcom/iris/iris_debugfs.c b/drivers/media/platform/qcom/iris/iris_debugfs.c
-index 6122b994ad0aa70c0c4f26ea4ce076f1b025f810..77726270b11777acb5ea85203223c6943365a5ce 100644
---- a/drivers/media/platform/qcom/iris/iris_debugfs.c
-+++ b/drivers/media/platform/qcom/iris/iris_debugfs.c
-@@ -4,6 +4,7 @@
-  */
+ 	INIT_LIST_HEAD(&core->instances);
+ 	mutex_init(&core->lock);
++	core->hw_rsp_timeout = VENUS_HW_RSP_TIMEOUT_MS;
++	core->pc_delay_timeout = VENUS_PC_DELAY_TIMEOUT_US;
+ 	INIT_DELAYED_WORK(&core->work, venus_sys_error_handler);
+ 	init_waitqueue_head(&core->sys_err_done);
+ 
+@@ -545,6 +547,8 @@ static void venus_remove(struct platform_device *pdev)
+ 	ret = hfi_core_deinit(core, true);
+ 	WARN_ON(ret);
+ 
++	venus_dbgfs_deinit(core);
++
+ 	venus_shutdown(core);
+ 	of_platform_depopulate(dev);
+ 
+@@ -564,7 +568,6 @@ static void venus_remove(struct platform_device *pdev)
+ 
+ 	mutex_destroy(&core->pm_lock);
+ 	mutex_destroy(&core->lock);
+-	venus_dbgfs_deinit(core);
+ }
+ 
+ static void venus_core_shutdown(struct platform_device *pdev)
+diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
+index 46705a6667762e8975e32947b4cb3355e20754d0..8a9649745fa18bcba69baf29c3ed6242fd68bd87 100644
+--- a/drivers/media/platform/qcom/venus/core.h
++++ b/drivers/media/platform/qcom/venus/core.h
+@@ -23,6 +23,10 @@
+ #define VDBGH	"VenusHigh: "
+ #define VDBGFW	"VenusFW  : "
+ 
++#define VENUS_HW_RSP_TIMEOUT_MS		1000
++#define VENUS_AUTOSUSPEND_DELAY_MS	2000
++#define VENUS_PC_DELAY_TIMEOUT_US	(100 * 1500)
++
+ #define VIDC_CLKS_NUM_MAX		4
+ #define VIDC_VCODEC_CLKS_NUM_MAX	2
+ #define VIDC_RESETS_NUM_MAX		2
+@@ -169,6 +173,8 @@ struct venus_format {
+  * @state:	the state of the venus core
+  * @done:	a completion for sync HFI operations
+  * @error:	an error returned during last HFI sync operations
++ * @hw_rsp_timeout: hardware response timeout
++ * @pc_delay_timeout: power collapse delay timeout
+  * @sys_error:	an error flag that signal system error event
+  * @sys_err_done: a waitqueue to wait for system error recovery end
+  * @core_ops:	the core operations
+@@ -230,6 +236,8 @@ struct venus_core {
+ 	unsigned int state;
+ 	struct completion done;
+ 	unsigned int error;
++	unsigned int hw_rsp_timeout;
++	unsigned int pc_delay_timeout;
+ 	unsigned long sys_error;
+ 	wait_queue_head_t sys_err_done;
+ 	const struct hfi_core_ops *core_ops;
+diff --git a/drivers/media/platform/qcom/venus/dbgfs.c b/drivers/media/platform/qcom/venus/dbgfs.c
+index 726f4b730e69bc07fa925c747bfe9d7cf434b54a..4fd44b4a7e054503632e1d6f01f90e151532967b 100644
+--- a/drivers/media/platform/qcom/venus/dbgfs.c
++++ b/drivers/media/platform/qcom/venus/dbgfs.c
+@@ -5,6 +5,7 @@
  
  #include <linux/debugfs.h>
+ #include <linux/fault-inject.h>
 +#include <linux/pm_runtime.h>
  
- #include "iris_core.h"
- #include "iris_debugfs.h"
-@@ -20,8 +21,21 @@ static int iris_fw_level_get(void *data, u64 *val)
- static int iris_fw_level_set(void *data, u64 val)
- {
- 	struct iris_core *core = data;
-+	bool debug_enabled;
+ #include "core.h"
+ 
+@@ -12,10 +13,58 @@
+ DECLARE_FAULT_ATTR(venus_ssr_attr);
+ #endif
+ 
++static int venus_fw_level_get(void *data, u64 *val)
++{
++	*val = READ_ONCE(venus_fw_debug);
++
++	return 0;
++}
++
++static int venus_fw_level_set(void *data, u64 val)
++{
++	struct venus_core *core = data;
++	bool verbose;
 +	u32 fw_debug;
- 
--	WRITE_ONCE(core->fw_debug, (u32)val & IRIS_FW_DEBUG_LOGMASK);
-+	fw_debug = (u32)val & IRIS_FW_DEBUG_LOGMASK;
-+	debug_enabled = fw_debug & ~IRIS_FW_DEBUG_DEFAULT;
 +
-+	WRITE_ONCE(core->fw_debug, fw_debug);
++	fw_debug = (u32)val;
++	verbose = fw_debug & ~(HFI_DEBUG_MSG_ERROR | HFI_DEBUG_MSG_FATAL);
++	WRITE_ONCE(venus_fw_debug, fw_debug);
 +
-+	if (debug_enabled) {
-+		WRITE_ONCE(core->hw_response_timeout, 4 * HW_RESPONSE_TIMEOUT_VALUE);
-+		pm_runtime_set_autosuspend_delay(core->dev, 4 * AUTOSUSPEND_DELAY_VALUE);
++	if (verbose) {
++		WRITE_ONCE(core->hw_rsp_timeout, 4 * VENUS_HW_RSP_TIMEOUT_MS);
++		WRITE_ONCE(core->pc_delay_timeout, 4 * VENUS_PC_DELAY_TIMEOUT_US);
++
++		if (core->dev_dec)
++			pm_runtime_set_autosuspend_delay(core->dev_dec,
++							 4 * VENUS_AUTOSUSPEND_DELAY_MS);
++
++		if (core->dev_enc)
++			pm_runtime_set_autosuspend_delay(core->dev_enc,
++							 4 * VENUS_AUTOSUSPEND_DELAY_MS);
 +	} else {
-+		WRITE_ONCE(core->hw_response_timeout, HW_RESPONSE_TIMEOUT_VALUE);
-+		pm_runtime_set_autosuspend_delay(core->dev, AUTOSUSPEND_DELAY_VALUE);
++		WRITE_ONCE(core->hw_rsp_timeout, VENUS_HW_RSP_TIMEOUT_MS);
++		WRITE_ONCE(core->pc_delay_timeout, VENUS_PC_DELAY_TIMEOUT_US);
++
++		if (core->dev_dec)
++			pm_runtime_set_autosuspend_delay(core->dev_dec,
++							 VENUS_AUTOSUSPEND_DELAY_MS);
++
++		if (core->dev_enc)
++			pm_runtime_set_autosuspend_delay(core->dev_enc,
++							 VENUS_AUTOSUSPEND_DELAY_MS);
 +	}
- 
- 	return 0;
- }
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.h b/drivers/media/platform/qcom/iris/iris_hfi_common.h
-index d8bc0862c54bd229d575113752526d51e863e303..18c852d8b818f41bf5e1b0afd35082eeaf5240b4 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_common.h
-@@ -112,6 +112,7 @@ struct iris_hfi_prop_type_handle {
- #define IRIS_FW_DEBUG_FATAL	0x00000010
- #define IRIS_FW_DEBUG_PERF	0x00000020
- #define IRIS_FW_DEBUG_LOGMASK	0x0fffffff
-+#define IRIS_FW_DEBUG_DEFAULT	(IRIS_FW_DEBUG_ERROR | IRIS_FW_DEBUG_FATAL)
- 
- struct iris_hfi_sys_ops {
- 	int (*sys_init)(struct iris_core *core);
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-index 903b60a7380559f4711b0907fb1de405fe1707f3..6b8f952d0d4b54f37596728f1823c9265c637bbe 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-@@ -672,15 +672,17 @@ static void iris_hfi_gen1_handle_response(struct iris_core *core, void *response
- 	}
- }
- 
--static void iris_hfi_gen1_flush_debug_queue(struct iris_core *core, u8 *packet)
-+static int iris_hfi_gen1_flush_debug_queue(struct iris_core *core, u8 *packet)
++
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(venus_fw_level_fops,
++			 venus_fw_level_get, venus_fw_level_set, "0x%08llx\n");
++
+ void venus_dbgfs_init(struct venus_core *core)
  {
- 	struct hfi_msg_sys_debug_pkt *pkt;
- 	struct hfi_pkt_hdr *hdr;
+ 	core->root = debugfs_create_dir("venus", NULL);
+-	debugfs_create_x32("fw_level", 0644, core->root, &venus_fw_debug);
++	debugfs_create_file("fw_level", 0644, core->root, core,
++			    &venus_fw_level_fops);
+ 
+ #ifdef CONFIG_FAULT_INJECTION
+ 	fault_create_debugfs_attr("fail_ssr", core->root, &venus_ssr_attr);
+diff --git a/drivers/media/platform/qcom/venus/hfi.c b/drivers/media/platform/qcom/venus/hfi.c
+index 675e6fd1e9fae40177349c0bc68f38c326b9aa25..615f30d86c7bd86087ef274d2cfdbc5dd74baee9 100644
+--- a/drivers/media/platform/qcom/venus/hfi.c
++++ b/drivers/media/platform/qcom/venus/hfi.c
+@@ -15,8 +15,6 @@
+ #include "hfi_cmds.h"
+ #include "hfi_venus.h"
+ 
+-#define TIMEOUT		msecs_to_jiffies(1000)
+-
+ static u32 to_codec_type(u32 pixfmt)
+ {
+ 	switch (pixfmt) {
+@@ -49,6 +47,7 @@ static u32 to_codec_type(u32 pixfmt)
+ 
+ int hfi_core_init(struct venus_core *core)
+ {
++	unsigned int timeout;
+ 	int ret = 0;
+ 
+ 	mutex_lock(&core->lock);
+@@ -62,7 +61,8 @@ int hfi_core_init(struct venus_core *core)
+ 	if (ret)
+ 		goto unlock;
+ 
+-	ret = wait_for_completion_timeout(&core->done, TIMEOUT);
++	timeout = READ_ONCE(core->hw_rsp_timeout);
++	ret = wait_for_completion_timeout(&core->done, msecs_to_jiffies(timeout));
+ 	if (!ret) {
+ 		ret = -ETIMEDOUT;
+ 		goto unlock;
+@@ -140,9 +140,11 @@ int hfi_core_trigger_ssr(struct venus_core *core, u32 type)
+ 
+ static int wait_session_msg(struct venus_inst *inst)
+ {
++	unsigned int timeout;
+ 	int ret;
+ 
+-	ret = wait_for_completion_timeout(&inst->done, TIMEOUT);
++	timeout = READ_ONCE(inst->core->hw_rsp_timeout);
++	ret = wait_for_completion_timeout(&inst->done, msecs_to_jiffies(timeout));
+ 	if (!ret)
+ 		return -ETIMEDOUT;
+ 
+diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
+index bd82066bb6e77f68ac3fe1440a8b5429ad62a192..10cf9a775d8bf3781150c830583db4b190146be2 100644
+--- a/drivers/media/platform/qcom/venus/hfi_venus.c
++++ b/drivers/media/platform/qcom/venus/hfi_venus.c
+@@ -132,7 +132,6 @@ struct venus_hfi_device {
+ static bool venus_pkt_debug;
+ int venus_fw_debug = HFI_DEBUG_MSG_ERROR | HFI_DEBUG_MSG_FATAL;
+ static bool venus_fw_low_power_mode = true;
+-static int venus_hw_rsp_timeout = 1000;
+ static bool venus_fw_coverage;
+ 
+ static void venus_set_state(struct venus_hfi_device *hdev,
+@@ -949,7 +948,7 @@ static int venus_sys_set_default_properties(struct venus_hfi_device *hdev)
+ 	const struct venus_resources *res = hdev->core->res;
+ 	int ret;
+ 
+-	ret = venus_sys_set_debug(hdev, venus_fw_debug);
++	ret = venus_sys_set_debug(hdev, READ_ONCE(venus_fw_debug));
+ 	if (ret)
+ 		dev_warn(dev, "setting fw debug msg ON failed (%d)\n", ret);
+ 
+@@ -985,29 +984,52 @@ static int venus_session_cmd(struct venus_inst *inst, u32 pkt_type, bool sync)
+ 	return venus_iface_cmdq_write(hdev, &pkt, sync);
+ }
+ 
+-static void venus_flush_debug_queue(struct venus_hfi_device *hdev)
++static int venus_flush_debug_queue(struct venus_hfi_device *hdev)
+ {
+ 	struct device *dev = hdev->core->dev;
+ 	void *packet = hdev->dbg_buf;
 +	int num_pkts = 0;
- 	u32 log_size;
- 	u8 *log;
  
- 	while (!iris_hfi_queue_dbg_read(core, packet)) {
- 		hdr = (struct hfi_pkt_hdr *)packet;
+ 	while (!venus_iface_dbgq_read(hdev, packet)) {
+ 		struct hfi_msg_sys_coverage_pkt *pkt = packet;
+ 
 +		num_pkts++;
++
++		if (pkt->hdr.size <= sizeof(pkt->hdr))
++			continue;
++
++		if (pkt->hdr.size > IFACEQ_VAR_HUGE_PKT_SIZE)
++			continue;
++
+ 		if (pkt->hdr.pkt_type != HFI_MSG_SYS_COV) {
+-			struct hfi_msg_sys_debug_pkt *pkt = packet;
++			struct hfi_msg_sys_debug_pkt *dbg_pkt = packet;
++			u32 msg_size;
++
++			if (pkt->hdr.size <= sizeof(*dbg_pkt))
++				continue;
  
- 		if (hdr->size <= sizeof(*hdr))
- 			continue;
-@@ -705,15 +707,25 @@ static void iris_hfi_gen1_flush_debug_queue(struct iris_core *core, u8 *packet)
- 				dev_dbg(core->dev, "%.*s", (int)log_size, log);
+-			dev_dbg(dev, VDBGFW "%s", pkt->msg_data);
++			msg_size = min_t(u32, pkt->hdr.size - sizeof(*dbg_pkt), dbg_pkt->msg_size);
++
++			if (dbg_pkt->msg_type & (HFI_DEBUG_MSG_ERROR | HFI_DEBUG_MSG_FATAL))
++				dev_err_ratelimited(dev, VDBGFW "%.*s",
++						    (int)msg_size, dbg_pkt->msg_data);
++			else
++				dev_dbg(dev, VDBGFW "%.*s", (int)msg_size, dbg_pkt->msg_data);
  		}
  	}
 +
 +	return num_pkts;
  }
  
- void iris_hfi_gen1_response_handler(struct iris_core *core)
+ static int venus_prepare_power_collapse(struct venus_hfi_device *hdev,
+ 					bool wait)
  {
--	memset(core->response_packet, 0, sizeof(struct hfi_pkt_hdr));
--	while (!iris_hfi_queue_msg_read(core, core->response_packet)) {
--		iris_hfi_gen1_handle_response(core, core->response_packet);
-+	int num_debug_pkts;
-+	int num_msg_pkts;
-+
-+	do {
-+		num_msg_pkts = 0;
- 		memset(core->response_packet, 0, sizeof(struct hfi_pkt_hdr));
--	}
-+		while (!iris_hfi_queue_msg_read(core, core->response_packet)) {
-+			iris_hfi_gen1_handle_response(core, core->response_packet);
-+			num_msg_pkts++;
-+			memset(core->response_packet, 0, sizeof(struct hfi_pkt_hdr));
-+		}
- 
--	iris_hfi_gen1_flush_debug_queue(core, core->response_packet);
-+		num_debug_pkts =
-+			iris_hfi_gen1_flush_debug_queue(core, core->response_packet);
-+	} while (num_msg_pkts || num_debug_pkts);
- }
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-index e8dc8751ea939bd544699f464a831736fcc10b7f..1bd4ec0c5ada1ef17de4f07fe19d1fac611db04f 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-@@ -988,14 +988,16 @@ static int iris_hfi_gen2_handle_response(struct iris_core *core, void *response)
- 		return iris_hfi_gen2_handle_session_response(core, hdr);
- }
- 
--static void iris_hfi_gen2_flush_debug_queue(struct iris_core *core, u8 *packet)
-+static int iris_hfi_gen2_flush_debug_queue(struct iris_core *core, u8 *packet)
- {
- 	struct hfi_debug_header *pkt;
-+	int num_pkts = 0;
- 	u32 log_size;
- 	u8 *log;
- 
- 	while (!iris_hfi_queue_dbg_read(core, packet)) {
- 		pkt = (struct hfi_debug_header *)packet;
-+		num_pkts++;
- 
- 		if (pkt->size <= sizeof(*pkt) + 1)
- 			continue;
-@@ -1010,10 +1012,15 @@ static void iris_hfi_gen2_flush_debug_queue(struct iris_core *core, u8 *packet)
- 		else
- 			dev_dbg(core->dev, "%.*s", (int)log_size, log);
- 	}
-+
-+	return num_pkts;
- }
- 
- void iris_hfi_gen2_response_handler(struct iris_core *core)
- {
-+	int num_debug_pkts;
-+	int num_msg_pkts;
-+
- 	if (iris_vpu_watchdog(core, core->intr_status)) {
- 		struct iris_hfi_packet pkt = {.type = HFI_SYS_ERROR_WD_TIMEOUT};
- 
-@@ -1024,11 +1031,16 @@ void iris_hfi_gen2_response_handler(struct iris_core *core)
- 		return;
- 	}
- 
--	memset(core->response_packet, 0, sizeof(struct iris_hfi_header));
--	while (!iris_hfi_queue_msg_read(core, core->response_packet)) {
--		iris_hfi_gen2_handle_response(core, core->response_packet);
-+	do {
-+		num_msg_pkts = 0;
- 		memset(core->response_packet, 0, sizeof(struct iris_hfi_header));
--	}
-+		while (!iris_hfi_queue_msg_read(core, core->response_packet)) {
-+			iris_hfi_gen2_handle_response(core, core->response_packet);
-+			num_msg_pkts++;
-+			memset(core->response_packet, 0, sizeof(struct iris_hfi_header));
-+		}
- 
--	iris_hfi_gen2_flush_debug_queue(core, core->response_packet);
-+		num_debug_pkts =
-+			iris_hfi_gen2_flush_debug_queue(core, core->response_packet);
-+	} while (num_msg_pkts || num_debug_pkts);
- }
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index 8bc94acc4f58ce7792ddaeaad036475c476d5c36..318a548a7ac606594a41d9dae25e73205de1fd0d 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -233,7 +233,8 @@ static int iris_probe(struct platform_device *pdev)
- 	if (!core)
- 		return -ENOMEM;
- 	core->dev = dev;
--	core->fw_debug = IRIS_FW_DEBUG_ERROR | IRIS_FW_DEBUG_FATAL;
-+	core->fw_debug = IRIS_FW_DEBUG_DEFAULT;
-+	core->hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE;
- 
- 	core->state = IRIS_CORE_DEINIT;
- 	mutex_init(&core->lock);
-diff --git a/drivers/media/platform/qcom/iris/iris_utils.c b/drivers/media/platform/qcom/iris/iris_utils.c
-index ba5c8dc1280c2e147cd33498b69a815cf7c75683..dbddfd770edce22fba58eff15cb6d45eae5ed638 100644
---- a/drivers/media/platform/qcom/iris/iris_utils.c
-+++ b/drivers/media/platform/qcom/iris/iris_utils.c
-@@ -70,12 +70,14 @@ void iris_helper_buffers_done(struct iris_inst *inst, unsigned int type,
- int iris_wait_for_session_response(struct iris_inst *inst, bool is_flush)
- {
- 	struct completion *done;
-+	unsigned int timeout;
+-	unsigned long timeout = msecs_to_jiffies(venus_hw_rsp_timeout);
+ 	struct hfi_sys_pc_prep_pkt pkt;
++	unsigned long timeout;
  	int ret;
  
- 	done = is_flush ? &inst->flush_completion : &inst->completion;
-+	timeout = READ_ONCE(inst->core->hw_response_timeout);
++	timeout = msecs_to_jiffies(READ_ONCE(hdev->core->hw_rsp_timeout));
++
+ 	init_completion(&hdev->pwr_collapse_prep);
  
- 	mutex_unlock(&inst->lock);
--	ret = wait_for_completion_timeout(done, msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
-+	ret = wait_for_completion_timeout(done, msecs_to_jiffies(timeout));
- 	mutex_lock(&inst->lock);
- 	if (!ret) {
- 		iris_inst_change_state(inst, IRIS_INST_ERROR);
+ 	pkt_sys_pc_prep(&pkt);
+@@ -1091,6 +1113,8 @@ static irqreturn_t venus_isr_thread(struct venus_core *core)
+ {
+ 	struct venus_hfi_device *hdev = to_hfi_priv(core);
+ 	const struct venus_resources *res;
++	int num_debug_pkts;
++	int num_msg_pkts;
+ 	void *pkt;
+ 	u32 msg_ret;
+ 
+@@ -1100,31 +1124,35 @@ static irqreturn_t venus_isr_thread(struct venus_core *core)
+ 	res = hdev->core->res;
+ 	pkt = hdev->pkt_buf;
+ 
+-
+-	while (!venus_iface_msgq_read(hdev, pkt)) {
+-		msg_ret = hfi_process_msg_packet(core, pkt);
+-		switch (msg_ret) {
+-		case HFI_MSG_EVENT_NOTIFY:
+-			venus_process_msg_sys_error(hdev, pkt);
+-			break;
+-		case HFI_MSG_SYS_INIT:
+-			venus_hfi_core_set_resource(core, res->vmem_id,
+-						    res->vmem_size,
+-						    res->vmem_addr,
+-						    hdev);
+-			break;
+-		case HFI_MSG_SYS_RELEASE_RESOURCE:
+-			complete(&hdev->release_resource);
+-			break;
+-		case HFI_MSG_SYS_PC_PREP:
+-			complete(&hdev->pwr_collapse_prep);
+-			break;
+-		default:
+-			break;
++	do {
++		num_msg_pkts = 0;
++
++		while (!venus_iface_msgq_read(hdev, pkt)) {
++			msg_ret = hfi_process_msg_packet(core, pkt);
++			num_msg_pkts++;
++			switch (msg_ret) {
++			case HFI_MSG_EVENT_NOTIFY:
++				venus_process_msg_sys_error(hdev, pkt);
++				break;
++			case HFI_MSG_SYS_INIT:
++				venus_hfi_core_set_resource(core, res->vmem_id,
++							    res->vmem_size,
++							    res->vmem_addr,
++							    hdev);
++				break;
++			case HFI_MSG_SYS_RELEASE_RESOURCE:
++				complete(&hdev->release_resource);
++				break;
++			case HFI_MSG_SYS_PC_PREP:
++				complete(&hdev->pwr_collapse_prep);
++				break;
++			default:
++				break;
++			}
+ 		}
+-	}
+ 
+-	venus_flush_debug_queue(hdev);
++		num_debug_pkts = venus_flush_debug_queue(hdev);
++	} while (num_msg_pkts || num_debug_pkts);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -1227,7 +1255,7 @@ static int venus_session_init(struct venus_inst *inst, u32 session_type,
+ 	struct hfi_session_init_pkt pkt;
+ 	int ret;
+ 
+-	ret = venus_sys_set_debug(hdev, venus_fw_debug);
++	ret = venus_sys_set_debug(hdev, READ_ONCE(venus_fw_debug));
+ 	if (ret)
+ 		goto err;
+ 
+@@ -1584,6 +1612,7 @@ static int venus_suspend_3xx(struct venus_core *core)
+ 	struct venus_hfi_device *hdev = to_hfi_priv(core);
+ 	struct device *dev = core->dev;
+ 	void __iomem *cpu_cs_base = hdev->core->cpu_cs_base;
++	unsigned int pc_delay_timeout;
+ 	u32 ctrl_status;
+ 	bool val;
+ 	int ret;
+@@ -1612,8 +1641,10 @@ static int venus_suspend_3xx(struct venus_core *core)
+ 	 * 2. Send a command to prepare for power collapse.
+ 	 * 3. Check for WFI and PC_READY bits.
+ 	 */
++	pc_delay_timeout = READ_ONCE(core->pc_delay_timeout);
++
+ 	ret = readx_poll_timeout(venus_cpu_and_video_core_idle, hdev, val, val,
+-				 1500, 100 * 1500);
++				 1500, pc_delay_timeout);
+ 	if (ret) {
+ 		dev_err(dev, "wait for cpu and video core idle fail (%d)\n", ret);
+ 		return ret;
+@@ -1626,7 +1657,7 @@ static int venus_suspend_3xx(struct venus_core *core)
+ 	}
+ 
+ 	ret = readx_poll_timeout(venus_cpu_idle_and_pc_ready, hdev, val, val,
+-				 1500, 100 * 1500);
++				 1500, pc_delay_timeout);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
+index 6a43ea191da15fdfdbbf0a136b11ef85bcc7a73d..cb74318c6408f49354a75b768008e2edf2a347c3 100644
+--- a/drivers/media/platform/qcom/venus/vdec.c
++++ b/drivers/media/platform/qcom/venus/vdec.c
+@@ -1817,7 +1817,7 @@ static int vdec_probe(struct platform_device *pdev)
+ 	core->dev_dec = dev;
+ 
+ 	video_set_drvdata(vdev, core);
+-	pm_runtime_set_autosuspend_delay(dev, 2000);
++	pm_runtime_set_autosuspend_delay(dev, VENUS_AUTOSUSPEND_DELAY_MS);
+ 	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_enable(dev);
+ 
+diff --git a/drivers/media/platform/qcom/venus/venc.c b/drivers/media/platform/qcom/venus/venc.c
+index 79acf7c1ec9a3a1b36f1a5e83af1f6c330802f08..e0350e6db45e72d47536b7539deca2f728393bea 100644
+--- a/drivers/media/platform/qcom/venus/venc.c
++++ b/drivers/media/platform/qcom/venus/venc.c
+@@ -1593,7 +1593,7 @@ static int venc_probe(struct platform_device *pdev)
+ 	core->dev_enc = dev;
+ 
+ 	video_set_drvdata(vdev, core);
+-	pm_runtime_set_autosuspend_delay(dev, 2000);
++	pm_runtime_set_autosuspend_delay(dev, VENUS_AUTOSUSPEND_DELAY_MS);
+ 	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_enable(dev);
+ 
 
+---
+base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
+change-id: 20260911-media-qcom-venus-fw-log-perf-1a9d7308d3d5
+
+Best regards,
 -- 
-2.34.1
+Renjiang Han <renjiang.han@oss.qualcomm.com>
 
