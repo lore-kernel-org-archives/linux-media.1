@@ -1,68 +1,87 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D74448D00
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 11:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34B73932C0
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 11:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789126837; cv=none; b=qyF3FQNeGb8DwLbU3KOO66ql3la9272Pb9QU82YKGOoxFuXTxK3yG/WBys5aYakWq5j0bspUpsURbxXpgsXvk5ODctdQO0ESbjuV+5w4IbccGr1bUmCrD/aWNvakuBZW/vhz0L1j/PHTs2VUCA+YkUWvRLPNtZHX/5AOl5+IsxU=
+	t=1789126923; cv=none; b=H1aBOtPcIp83WXkzSE3KGmvxNKR22yikdbkKTCgYsag/l/fhws6YiyBn8hq4ep6j0oEGwvNnWN7Goaf3hlOlgH2jOuGM///fM37YcKilaZld1mLn1AhS5NyzX24sQzcMYh7VhYTz2BaIqpcKzaZFbJ0sZM9bE6vSPLPuhr3lpUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789126837; c=relaxed/simple;
-	bh=+yy7zkyplAsXUOfAB5SEcudaNXZlKAffdf+ehBYvb9g=;
+	s=arc-20240116; t=1789126923; c=relaxed/simple;
+	bh=8OZ4a2edIVVK/vZtCjjrjBg+MAj0UxhKV2NnMjhk53M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dHsEEag+ikNQRLGPwZkW8S/UYf14KjanXAvEZXkaYtnR/DJNK7qP1CM3F64soDwKQIpMA8hJ5Aqe7KoF2uoLMG4Qjj4CaaEdKgMDsfIJH7oRhvqG1jgoj+apyZ1XRP/sE7d/RfhMkWYZM7Pq98yDlRdVSydOqTmf/KQKwCWEKQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uFjEQ0RM; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=XEquaLXqEGQSOlT8KADHAgyN7TMLV1/bvOtU1sbxfpkoYsaCJ2DNlMiwUfHu5PECkPIQpFoqaotJ36OupCCIPLnqYKiqTP3OaaQqlmnxL1j2Hhn9ejyw20TAjhPW2eppUDDo4owH1a5MqcngJB5u3Mkn7R6f8WJKySBGx2/A9dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CVcAvFv6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cvDs70WT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uFjEQ0RM"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b20so134929766b.3
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 04:40:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CVcAvFv6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cvDs70WT"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BAqGN14105376
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 11:41:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Kh1ZaKFFAWBr4fjzHz54y8tVqiq5bHMizSTx+63Udl0=; b=CVcAvFv6AJ9cWXzm
+	9wSO7Jy4nFq8pQV22eZndKTO97I1SYEvCM002m5VCFCuKqacQhHixMZL2j/Z6+Vz
+	wVSS35wldyuErUXhI3TudRGdiV50E84Rbta/pKngtw1Db5+P53+RM+CaHgesmHmK
+	Q0rRNN0Kk5oNUX73qmppvHL8Dycev+VCiv4kF9W6GBNJlsBXkyjJJWsH9wu2Eyw4
+	xOe1yLBCNQmuqlxQ4HLRaeCvnALwuJVI1ZRAKhm4Ee3S6vrLUtCQkuM75cYu1cVP
+	4fxOniVDSvxaxbyBkjIku+0qk7NF0U2HFUrduSG/8v/hHFc3Nmaq/EAGZq7F230a
+	FgJTtQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmapg1pnn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 11:41:59 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39533bb224cso1022675a91.3
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 04:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789126832; x=1789731632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ym4xpArbzkJOXp9qnGSR8FW0V7EguEQKezXI/VRiW1k=;
-        b=uFjEQ0RMmN26zVQVWcA9uRyoRnOZBuXd2tvLBAUIth/o51Ytu6y7Zyeg5RAJJ8v1wI
-         K39hPH+YvS8kBNdqyefJunp01lAh5W4T4h023pSLzBAt5q2Y60JC90g/9bIKBhMaX1WF
-         +/FpSf3V5/6fRsaLVC6iDPu4F7EZvcl+1dA+zn2AaIVvn48g0ue9cgnGIUevG3MbFbzU
-         nVQh38RVd2bS7r5CiEA1O56ztvB7Yp88rG98xf19lm9Ghhb1KN9czxz4mpWZIlsDtR+A
-         NDYjS7uKLAIetZL5/nMZYvHFzXcO+WfSf2sA/uJmP8if1KIDYn+1+3g2tWnFJG4Fqo7V
-         56hg==
+        d=oss.qualcomm.com; s=google; t=1789126918; x=1789731718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kh1ZaKFFAWBr4fjzHz54y8tVqiq5bHMizSTx+63Udl0=;
+        b=cvDs70WTiizAtJWch/CGUyu8P284Gvc7llJPUR6V2FZ7AJED7mlmCGOl0mlYtJLgF7
+         k1QN9RZ+COtMUNuu9CmZ3MW4bKKhxI9tGfXvc8wdkTfRjHeiNnzVGNii3YePmBKgYZ7X
+         qrzGF04CCTGGrAk8GsmlSk2BKaSiWcTAUi0WuUOCFtjcGnFCmrTXgMFP/2v8ImEI6Cyp
+         E9mBjq5yTwQuJtudi1hCgKGIleEuOQaUkE2xOWtYx/J71BLMNE2KR+El0bm7cmaH4HSv
+         07J9KrsjEPesOnLP0hbbiyp3WFJHf0QqcaiAo2BnnajOwekpVtB2AfeABmOZODSrA+3D
+         66Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789126832; x=1789731632;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789126918; x=1789731718;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ym4xpArbzkJOXp9qnGSR8FW0V7EguEQKezXI/VRiW1k=;
-        b=cCOhkC+WQzjDmsP+Z/cC6pU/gpBOiddMdQNhY/lctiQ6LQbWb7XAaZGhczFniCxfgS
-         EgiuAIVmEIs3pqaag6lnkON/lnygkxluqbI3yklEvrbrrg4Ay50j/DLUDqW2J7zrzdW6
-         FbjPieH7Dn/t/blkHDo/2SlLiCDhtIW6TWv6LUWYxn0zdLoNr47zz/+AZ32QiKWvK8u/
-         ESl4DULcHlPjl4/yo08n9b7s0TfhDhoDRq0gTkYK/pArcg/lLXFoXt0ETIMOVYnlIqNo
-         XSLlYmtDqFnmGTuMvbtSsZICE0jolnEPHYc0oYLrclvL54zqr0GoixOq3YxhisfX00xX
-         i4wA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9Ja/BYCCMQszugaILj9c8i87xFtBjq62q3zZDhkH7kzHftxBKoO2ZFljcQo5p+woOcBswHzEvDE4/Bg==@vger.kernel.org
-X-Gm-Message-State: AFuF++lV95y9LwiX2Ovuf5Cr2P2SQauBos1+OCI9IQlBQWInHCbGbhjl
-	54IMpXSQY1JJQ1cUxQ4J53HJ6nH+ES80QT/ptKKYdVaUPwsYNUlyjZR0jxKtbx5QQn+/Ipp8mva
-	dvZC4
-X-Gm-Gg: AYBFou3f3m+bx5zAtxzPuMcZk0/G9oeA+8yqO5/lRzYz/KFFzjye/tkdKqxUAdxxT+E
-	KIRTByNE5GZWKtNEguBWZNTolIOVsQTfs5KMapE47U4KuA6jfMRGqdH+exxw++oF5OMfLn2+zBv
-	dSE5Cguxj0Ai9CCkSQjBqM8Vz3HNwVNTbyiLpseMa1fEjptkVfoC6g4qZsiCFHm9xKfHCfkG/N3
-	7fDMZKZpzXuIjYfWEX9UmN8KC8RaAQDqDU0SmyZyb/p3hE7QEtcBGnUqZ2A8vzSGkfSKC7wqR9s
-	qyGwMpl7TQetwYmqUkzJBPBQzo+ba/qHFvsRsh4cHUUmxRi3tUr2pQ0jqAs9tfbp5tf2HzHUpjx
-	b5vTfxpEfsLEquJwFd5H7Bgfr5tomtxhTrZWJ7f620VqomUDPLMOTDrlIHeBhadKGs+uAWqdicU
-	I0BZT0ltLwQz6ulzFBEIVbESsibM9WOuvMrVo7vqbzcuk2uVUUGS1KExH6QfI6pMGnChEqxICdq
-	relbf4ihWjYAQ==
-X-Received: by 2002:a17:907:9619:b0:c25:8e53:45ca with SMTP id a640c23a62f3a-c29667578e3mr304602466b.21.1789126502728;
-        Fri, 11 Sep 2026 04:35:02 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.225.241])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296613ae93sm68275066b.58.2026.09.11.04.35.01
+        bh=Kh1ZaKFFAWBr4fjzHz54y8tVqiq5bHMizSTx+63Udl0=;
+        b=bPX7NFrj1r/xGUdoMK0sHniXW8iO/Hz2dqJAmwtSh8huepb3nHpsl/V/McUdZouzjn
+         ZcB2tQfueRGY1fYxIUYnjE58GdlFmY7KrvGUAZR6ZG+2sP3viIUUr9kJl50GzfbhjrMU
+         ZssmFAQeVsoGltWwLaa/fBVdizciDKU2yA32VEXEOM8gW69eNYNOBpFxjjt8L5nuM5Mw
+         8cGfKBR37j1KTUz9cm2nl+puyaMs5MLKe4HWF2MF5jGghsZumaeGO77gxRo15sLoPG3J
+         01+yiaCobky53q5SrK8GYj+noqbQoUYopZjbf0Pp0qjCPyHD9IqGSSsfo37hSwzbY6vD
+         Sj7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzy73oMMd41CTn9a4hQa5fQzswg8QyRkfAivSy9Ddc+8ykU4T2Ej6RFMSUNKm6zz7Dt8M6dcJ/ccelECQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++lHN2VOfOVNelLmvt4YxFeR0AGS7vJXUr3235xJIfBN4Qea6EWy
+	ecz6t8Ff0yRRDsacAkokGjhFyBEyxxtHH7FJH4p9jNVcMk9sgw+aSFHKxFAxgYxDBT7CYAK+cXh
+	8OiIXK7LlT6K3xzqek9yL7yfgeHuE19MTMru4YscCHhhHIWaeWBYGK/yLO6t8/sSptA==
+X-Gm-Gg: AYBFou3uGhTTrONWtFkioYZc2YzcnezO4s038WixiBwBY+1c1XZVlxWbXL/p8oUl6wz
+	rDa5MXxaARrnMs7FO57Dul60I6yX4HXkFgqMpAijN/4F1Sb8cZ5Jerd7Gow9KoEKiVahIg9P6/e
+	F9+UzSur9b3ZgXXAhRvgFNxB+eKjwJlDWREKWenEYIPtOj47at7mW1imqg2BmrMoMBVBhQpsNK3
+	FRn3woFDT1nRXdf6P+k7tvYpTk44ZRb8+GXJ28G34PL61HSnAej/sVPpDd25tWyfycSjI2Mebj5
+	O3pxSYJEymcrb5GYPXJO6K/C9Ho5++ZMpcW/q8BLNP/YRNJM+Jcv8B1I+CQhODvFeCTV3Z6cayU
+	60FTmMx4UwNJGspc6vd3gbHjwhbNX
+X-Received: by 2002:a17:90b:2b44:b0:398:bd37:6a49 with SMTP id 98e67ed59e1d1-39d9c1bf032mr6519800a91.12.1789126918274;
+        Fri, 11 Sep 2026 04:41:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:2b44:b0:398:bd37:6a49 with SMTP id 98e67ed59e1d1-39d9c1bf032mr6519719a91.12.1789126917768;
+        Fri, 11 Sep 2026 04:41:57 -0700 (PDT)
+Received: from [10.218.24.45] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e5182fsm6041150eec.9.2026.09.11.04.41.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 04:35:02 -0700 (PDT)
-Message-ID: <f1570f7e-c895-433e-996d-973a96a9afef@linaro.org>
-Date: Fri, 11 Sep 2026 12:35:01 +0100
+        Fri, 11 Sep 2026 04:41:57 -0700 (PDT)
+Message-ID: <b10cb8de-638f-48bc-9880-edecf35e4659@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 17:11:51 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -70,719 +89,263 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] media: qcom: camss: Add streams API support in CSID
- subdevice
-To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260911062213.195007-5-gjorgji.rosikopulos@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260911062213.195007-5-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Ling Xu <quic_lxu5@quicinc.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com,
+        stable@kernel.org
+References: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: S2353fW4SGRVQAifpKmK5vQN1cE51sxq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE2NCBTYWx0ZWRfXyJgPlI6nWeir
+ CJPk8la2mqHh9bimJiun6dhgfRfLkMvX+neDFNEgw3jz7w4O8nPwOjO1r6zo3gZxGQdj0IDalXL
+ aWPR/Yab7W8bvRksWf3Jh5SyT6qSiPA=
+X-Proofpoint-GUID: S2353fW4SGRVQAifpKmK5vQN1cE51sxq
+X-Authority-Analysis: v=2.4 cv=DLoacCNb c=1 sm=1 tr=0 ts=6aa3e907 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pdARdrlki2Vdj_-LtegA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE2NCBTYWx0ZWRfX8OoK3ut2f0gY
+ uwPi4oPs+pgMJ1qTef6hw3WdYQ3/04pYbbjPZSMjNikYZDiJUEsEtGtSX5Qaorj0TZg8VkyWB5O
+ 4PTKWqU7EVvEiFhCrjkvE8j+rlNr+JZql0V+HQ3cXlOwQR7uyUztOwfwVbVMNxwHQ1KRoB6GZyr
+ EhB8ymNCzFMnngkzLfJD7u/9yDz7kYNyvfPYtNLywq18k6jytl+nYJ1X94zDEBnV3wR4YEbu0Ep
+ W4c4eSbZQCPYhJg9ftFDc4W9o/zcqqZRW8Ce/M9sv5kn0VbbDi65LMlcYVPjkQg0FIurg/k1Qhv
+ HPZ34n29ZRvWe1AqI3wsidon8thO67GJVQbhyaun21VwyaZ7bxqZ3OZlgeF2m6f6X2f/Ra6LlS6
+ qYZI9+1IfsaJ58GFtoHdZZYTNCiyK62DJw/hYgfkvhru8rCp+ntC8p9CBMP1njV5usX3GW12aZ8
+ /gZYfR2zEmxckfBxtNw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110164
 
-On 11/09/2026 07:22, 
-Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+On 05-08-2026 11:39, Jianping Li wrote:
+> DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
+> to the same dma_buf fd as an input/output buffer argument. Taking an
+> extra reference for such DMA handle maps leads to duplicate mappings and
+> an unbalanced reference count, since DMA handle maps are released
+> separately when the DSP returns the fd through the fdlist.
 > 
-> Add the V4L2 subdev streams API to the CSID driver: per-source-pad
-> enable/disable_streams pad ops, VC/DT discovery via get_frame_desc on
-> the remote sink pad, and a routing table that routes a single incoming
-> sink stream to every source pad by default (remappable via
-> set_routing for multi-VC sensors).
+> Fix this by not taking an extra reference for DMA handle arguments
+> (take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
+> these maps are borrowed references, fastrpc_get_args() re-validates the
+> map via fastrpc_map_lookup() before dereferencing it, so it is not used
+> after being freed. fastrpc_put_args() only releases maps flagged as
+> FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
+> exactly once.
 > 
-> Active streams are tracked per pad via a per-pad enabled_streams[]
-> bitmask, so that enable/disable_streams correctly propagates to the
-> CSIPHY only on first arrival/last departure of a sink stream, and
-> multiple source-pad consumers can share a single propagated sink
-> stream without redundant or colliding propagation.
+> Also reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since such
+> handles are already mapped implicitly during the remote invoke call and
+> must not be mapped again through the explicit MEM_MAP path.
 > 
-> csid_init_state() caps the number of default routes to
-> MSM_CSID_MAX_SRC_STREAMS - 1 for non-lite CSIDs, matching the 3 usable
-> RDI pads on full-IFE CSIDs (the 4th/pix pad is non-functional).
-
-That makes sense.
-
-> msm_csid_register_entity() mirrors the same is_lite check for the pad
-> count itself, so non-lite CSIDs no longer register a pix source pad
-> that no route ever targets.
-
-Nope. I'll send a different solution. Fixing the non-functional and 
-incorrectly mapped pix is a Fixes: level thing not a workaround it 
-inline thing.
-
-Just drop the workaround and assume any CSID you are working with 
-actually works and is valid.
-
-> csid_pad_enable_streams() rejects enabling with -ENOLINK when there is
-> no remote sink link and the test generator is disabled, matching the
-> equivalent check the legacy csid_set_stream() already performs.
-> 
-> msm_csid_register_entity() assigns the ctrl handler's lock as the
-> subdev's state_lock before v4l2_subdev_init_finalize(), when the test
-> pattern control is present. Without this, the test-pattern S_CTRL
-> handler and the streams API's active-state accessors serialize on two
-> independent locks despite both touching csid->testgen.enabled,
-> allowing a concurrent S_CTRL(TEST_PATTERN) and stream enable/disable to
-> race.
-
-Actually this reminds me of the first go at VCs in CAMSS which ended up 
-getting rolled back.
-
-How will this be tested ? Is the TPG capable of generating different VCs ?
-
-_That_ would be very useful.
-
-> 
-> This is opt-in per CSID instance via the new streams_enable resource
-> flag; no platform sets it yet, so CSIDs continue to use the legacy
-> non-streams subdev ops unchanged.
-> 
-> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+> Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 > ---
->   .../media/platform/qcom/camss/camss-csid.c    | 494 +++++++++++++++++-
->   .../media/platform/qcom/camss/camss-csid.h    |   2 +
->   2 files changed, 491 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-> index 48459b46a981..ce4b07c0c1c2 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
-> @@ -842,7 +842,7 @@ static void csid_try_format(struct csid_device *csid,
->   
->   		break;
->   
-> -	case MSM_CSID_PAD_SRC:
-> +	default:
-
-Why subtract the case ?
-Just add the default:
-
-Also I don't think that code change is anything todo with adding streams 
-support to CSID.
-
-Separate patches for separate things.
-
->   		if (csid->testgen.nmodes == CSID_PAYLOAD_MODE_DISABLED ||
->   		    csid->testgen_mode->cur.val == 0) {
->   			/* Test generator is disabled, */
-> @@ -1338,10 +1338,476 @@ static const struct v4l2_subdev_ops csid_v4l2_ops = {
->   	.pad = &csid_pad_ops,
->   };
->   
-> +/*
-> + * csid_get_stream_csi2_desc - Discover the virtual channel and data type
-> + *			       used by a given sink stream, from an
-> + *			       already-fetched frame descriptor
-> + * @frame_desc: Frame descriptor fetched via .get_frame_desc from the remote
-> + *		subdev linked on the sink pad
-> + * @sink_stream: Sink-side stream number to look up
-> + * @desc_csi2: Returns the discovered virtual channel/data type on success
-> + *
-> + * A frame descriptor with a single entry means the remote only exposes one
-> + * stream (e.g. a single-VC sensor), which feeds every CSID source pad, so
-> + * that entry is used regardless of @sink_stream.
-> + *
-> + * Return true if a matching entry was found, false otherwise
-> + */
-> +static bool csid_get_stream_csi2_desc(struct v4l2_mbus_frame_desc *frame_desc,
-> +				      u32 sink_stream,
-> +				      struct v4l2_mbus_frame_desc_entry_csi2 *desc_csi2)
-> +{
-> +	unsigned int i;
+> Patch [v2]: https://lore.kernel.org/all/20260716113254.570-1-jianping.li@oss.qualcomm.com/
+> 
+> Changes in v3:
+> - No functional changes.
+> - fastrpc_put_args(): document that clearing map->flags without a lock
+>   is safe because the DSP reports a given fd in the fdlist only once,
+>   so no concurrent fastrpc_put_args() can race on the same map's flags.
+> 
+> Changes in v2:
+> - Rework the commit message to describe the DMA handle reference and
+>   lifetime problem more precisely.
+> - Introduce a new FASTRPC_MAP_DMA_HANDLE uapi flag and a 'flags' field
+>   in struct fastrpc_map to explicitly tag DMA handle maps, instead of
+>   relying only on the nbufs boundary / take_ref.
+> - Plumb an mflags argument through fastrpc_map_create() and
+>   fastrpc_map_attach() so DMA handle maps are tagged at creation time.
+> - Re-validate the borrowed map in fastrpc_get_args() via
+>   fastrpc_map_lookup() before dereferencing it, to avoid a
+>   use-after-free when the map was created with take_ref = false.
+> - In fastrpc_put_args(), only release maps tagged FASTRPC_MAP_DMA_HANDLE
+>   and clear the flag afterwards, so such maps are freed exactly once.
+> - Reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since these
+>   handles are already mapped implicitly during the remote invoke and
+>   must not be mapped again through the explicit MEM_MAP path.
+> 
+> ---
+>  drivers/misc/fastrpc.c      | 60 +++++++++++++++++++++++++++----------
+>  include/uapi/misc/fastrpc.h |  2 ++
+>  2 files changed, 46 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 90fd669636ec..8c98c8af6084 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -253,6 +253,7 @@ struct fastrpc_map {
+>  	u64 len;
+>  	u64 raddr;
+>  	u32 attr;
+> +	u32 flags;
+>  	struct kref refcount;
+>  };
+>  
+> @@ -879,7 +880,7 @@ static dma_addr_t fastrpc_compute_dma_addr(struct fastrpc_user *fl, dma_addr_t s
+>  }
+>  
+>  static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+> -			      u64 len, u32 attr, struct fastrpc_map **ppmap)
+> +			      u64 len, u32 attr, struct fastrpc_map **ppmap, int mflags)
+>  {
+>  	struct fastrpc_session_ctx *sess = fl->sctx;
+>  	struct fastrpc_map *map = NULL;
+> @@ -896,6 +897,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+>  
+>  	map->fl = fl;
+>  	map->fd = fd;
+> +	map->flags = mflags;
+>  	map->buf = dma_buf_get(fd);
+>  	if (IS_ERR(map->buf)) {
+>  		err = PTR_ERR(map->buf);
+> @@ -970,13 +972,13 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+>  	return err;
+>  }
+>  
+> -static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+> -			      u64 len, u32 attr, struct fastrpc_map **ppmap)
+> +static int fastrpc_map_create(struct fastrpc_user *fl, int fd, u64 len, u32 attr,
+> +			      struct fastrpc_map **ppmap, bool take_ref, int mflags)
+>  {
+> -	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
+> +	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
+>  		return 0;
+>  
+> -	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
+> +	return fastrpc_map_attach(fl, fd, len, attr, ppmap, mflags);
+>  }
+>  
+>  /*
+> @@ -1047,23 +1049,25 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
+>  	int i, err;
+>  
+>  	for (i = 0; i < ctx->nscalars; ++i) {
+> +		bool take_ref = i < ctx->nbufs;
+> +		int mflags = 0;
+>  
+>  		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
+>  		    ctx->args[i].length == 0)
+>  			continue;
+>  
+> -		if (i < ctx->nbufs)
+> -			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
+> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+> -		else
+> -			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
+> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+> +		/* Set the DMA handle mapping flag for DMA handles */
+> +		if (i >= ctx->nbufs)
+> +			mflags = FASTRPC_MAP_DMA_HANDLE;
 > +
-> +	if (frame_desc->type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2 || !frame_desc->num_entries)
-> +		return false;
+> +		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
+> +					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
+>  		if (err) {
+>  			dev_err(dev, "Error Creating map %d\n", err);
+>  			return -EINVAL;
+>  		}
+> -
+>  	}
 > +
-> +	if (frame_desc->num_entries == 1) {
-> +		*desc_csi2 = frame_desc->entry[0].bus.csi2;
-> +		return true;
-> +	}
-
-You can drop that check entirely, the below loop will do exactly the 
-same thing for num_entires == 1..
-
-> +
-> +	for (i = 0; i < frame_desc->num_entries; i++) {
-> +		if (frame_desc->entry[i].stream == sink_stream) {
-> +			*desc_csi2 = frame_desc->entry[i].bus.csi2;
-> +			return true;
-> +		}
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/*
-> + * csid_get_stream_vc_dt - Discover the virtual channel and data type to
-> + *			   program for a given sink pad/stream, falling back
-> + *			   to @format_dt when no frame descriptor is available
-> + * @csid: CSID device
-> + * @state: V4L2 subdevice state
-> + * @remote_pad: Remote pad linked on the CSID sink pad, or NULL if unlinked
-> + * @pad: Source pad number the caller is enabling a stream on
-> + * @format_dt: Data type derived from the sink format, used as a fallback
-> + *	       and sanity-checked against the discovered data type
-> + *
-> + * Return the discovered virtual channel/data type, or {0, @format_dt} if
-> + * not discovered
-> + */
-> +static struct v4l2_mbus_frame_desc_entry_csi2
-> +csid_get_stream_vc_dt(struct csid_device *csid, struct v4l2_subdev_state *state,
-> +		      struct media_pad *remote_pad, u32 pad, u8 format_dt)
-> +{
-> +	struct v4l2_mbus_frame_desc_entry_csi2 desc_csi2 = { .dt = format_dt };
-> +	struct v4l2_mbus_frame_desc fd = { };
-> +	u32 sink_stream;
-> +
-> +	if (!remote_pad ||
-> +	    v4l2_subdev_call(media_entity_to_v4l2_subdev(remote_pad->entity),
-> +			     pad, get_frame_desc, remote_pad->index, &fd))
-> +		return desc_csi2;
-> +
-
-if (thing ||
-     some_other_thing) {
-	return desc_csi2;
-}
-
-> +	if (v4l2_subdev_routing_find_opposite_end(&state->routing, pad, 0, NULL, &sink_stream))
-> +		return desc_csi2;
-> +
-> +	if (!csid_get_stream_csi2_desc(&fd, sink_stream, &desc_csi2)) {
-> +		dev_warn(csid->camss->dev,
-> +			 "Failed to find CSI2 descriptor for sink stream %u, using vc=%u dt=%u\n",
-> +			 sink_stream, desc_csi2.vc, desc_csi2.dt);
-> +		return desc_csi2;
-
-Is this an error it seems like it should be ?
-
-> +	}
-> +
-> +	if (desc_csi2.dt != format_dt)
-> +		dev_warn(csid->camss->dev,
-> +			 "Sink stream %u frame desc dt=%u differs from format dt=%u, using dt=%u\n",
-> +			 sink_stream, desc_csi2.dt, format_dt, desc_csi2.dt);
-> +
-> +	return desc_csi2;
-
-I'd return a pointer here.
-
-> +}
-> +
-> +/*
-> + * csid_pad_enable_streams - Enable one or more streams on a source pad
-> + * @sd: CSID V4L2 subdevice
-> + * @state: V4L2 subdevice state
-> + * @pad: Pad number
-> + * @streams_mask: Bitmask of v4l2 streams to enable
-> + *
-> + * The v4l2 core only calls this on a source pad (v4l2_subdev_enable_streams()
-> + * rejects sink pads with -EOPNOTSUPP before reaching the driver), so @pad is
-> + * not checked here. Each source pad only ever carries stream 0.
-> + *
-> + * The shared sink stream(s) are propagated upstream only once, on the
-> + * transition from no active sink streams to at least one, so that a second
-> + * consumer of the same shared sink stream never triggers a second, redundant
-> + * propagation to the sensor. The Rx front-end is likewise only configured
-> + * once, on that same transition.
-> + *
-> + * Return 0 on success, -ENOLINK if there is no remote sink link and the test
-> + * generator is disabled, or another negative error code otherwise
-> + */
-> +static int csid_pad_enable_streams(struct v4l2_subdev *sd,
-> +				   struct v4l2_subdev_state *state,
-> +				   u32 pad, u64 streams_mask)
-> +{
-> +	struct csid_device *csid = v4l2_get_subdevdata(sd);
-> +	const struct csid_hw_ops *hw_ops = csid->res->hw_ops;
-> +	struct media_pad *remote_pad = media_pad_remote_pad_first(&csid->pads[MSM_CSID_PAD_SINK]);
-> +	unsigned int hw_port = pad - MSM_CSID_PAD_FIRST_SRC;
-> +	const struct csid_format_info *format;
-> +	struct v4l2_mbus_frame_desc_entry_csi2 desc_csi2;
-> +	u64 sink_streams, propagate_mask;
-> +	int ret;
-> +
-> +	if (!csid->testgen.enabled && !remote_pad)
-> +		return -ENOLINK;
-> +
-> +	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, MSM_CSID_PAD_SINK,
-> +						       &streams_mask);
-> +
-> +	if (!csid->enabled_streams[MSM_CSID_PAD_SINK]) {
-> +		if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED) {
-> +			/*
-> +			 * sd->state_lock is aliased to csid->ctrls.lock, and is
-> +			 * already held here by the v4l2_subdev_enable_streams()
-> +			 * caller, so use the lock-free variant to avoid
-> +			 * self-deadlocking on the same mutex.
+>  	return 0;
+>  }
+>  
+> @@ -1195,6 +1199,16 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+>  		list[i].num = ctx->args[i].length ? 1 : 0;
+>  		list[i].pgidx = i;
+>  		if (ctx->maps[i]) {
+> +			/* It is possible that map is created with
+> +			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
+> +			 * is false. Check if map still exists or is
+> +			 * being freed as take_ref is false
 > +			 */
-> +			ret = __v4l2_ctrl_handler_setup(&csid->ctrls);
-> +			if (ret < 0) {
-> +				dev_err(csid->camss->dev,
-> +					"could not sync v4l2 controls: %d\n", ret);
-> +				return ret;
+> +			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
+> +					       &ctx->maps[i], false)) {
+> +				ctx->maps[i] = NULL;
+> +				return -EINVAL;
 > +			}
+>  			pages[i].addr = ctx->maps[i]->dma_addr;
+>  			pages[i].size = ctx->maps[i]->size;
+>  		}
+> @@ -1244,8 +1258,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
+>  	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
+>  		if (!fdlist[i])
+>  			break;
+> -		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
+> +		/*
+> +		 * DMA handle maps are released when the DSP returns the corresponding fd in
+> +		 * fdlist. The DSP is expected to return a specific fd only once in fdlist,
+> +		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag for
+> +		 * the same map concurrently.
+> +		 */
+> +		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
+> +		    mmap->flags == FASTRPC_MAP_DMA_HANDLE) {
+> +			mmap->flags = 0;
+>  			fastrpc_map_put(mmap);
 > +		}
-> +
-> +		hw_ops->configure_rx(csid);
-> +	}
-> +
-> +	/* Sink streams already active elsewhere don't need re-propagating. */
-> +	propagate_mask = sink_streams & ~csid->enabled_streams[MSM_CSID_PAD_SINK];
-> +	csid->enabled_streams[MSM_CSID_PAD_SINK] |= sink_streams;
-> +	csid->enabled_streams[pad] |= streams_mask;
-> +
-> +	format = csid_get_fmt_entry(csid->res->formats->formats,
-> +				    csid->res->formats->nformats,
-> +				    csid->fmt[pad].code);
-> +	desc_csi2 = csid_get_stream_vc_dt(csid, state, remote_pad, pad, format->data_type);
-
-You're doing an implict memcpy() here - just return a pointer.
-
-And I really wonder based on the activity within the method why 
-returning an error isn't part of this ?
-
-> +
-> +	hw_ops->enable_stream(csid, hw_port, desc_csi2.vc, desc_csi2.dt);
-
-I commented elsewhere should this be void or int ?
-
-I'm not suggesting either more asking rhetorically.
-
-> +
-> +	if (propagate_mask && remote_pad) {
-> +		ret = v4l2_subdev_enable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
-> +						 remote_pad->index, propagate_mask);
-> +		if (ret) {
-> +			csid->enabled_streams[MSM_CSID_PAD_SINK] &= ~propagate_mask;
-> +			csid->enabled_streams[pad] &= ~streams_mask;
-> +
-> +			hw_ops->disable_stream(csid, hw_port);
-> +
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * csid_sink_streams_in_use - Compute the subset of sink streams still
-> + *			      referenced by a source pad other than @pad
-> + * @csid: CSID device
-> + * @state: V4L2 subdevice state
-> + * @pad: Source pad to exclude from the check
-> + * @sink_streams: Candidate sink streams to check
-> + *
-> + * Return the subset of @sink_streams still referenced by some other source
-> + * pad
-> + */
-> +static u64 csid_sink_streams_in_use(struct csid_device *csid, struct v4l2_subdev_state *state,
-> +				    u32 pad, u64 sink_streams)
-> +{
-> +	u64 in_use = 0;
-> +	unsigned int i;
-> +
-> +	for (i = MSM_CSID_PAD_FIRST_SRC; i < MSM_CSID_PADS_NUM; i++) {
-> +		u64 other_streams = csid->enabled_streams[i];
-> +		u64 other_sink_streams;
-> +
-> +		if (i == pad)
-> +			continue;
-> +
-> +		other_sink_streams = v4l2_subdev_state_xlate_streams(state, i, MSM_CSID_PAD_SINK,
-> +								     &other_streams);
-> +		in_use |= sink_streams & other_sink_streams;
-> +	}
-> +
-> +	return in_use;
-> +}
-> +
-> +/*
-> + * csid_pad_disable_streams - Disable one or more streams on a source pad
-> + * @sd: CSID V4L2 subdevice
-> + * @state: V4L2 subdevice state
-> + * @pad: Pad number
-> + * @streams_mask: Bitmask of v4l2 streams to disable
-> + *
-> + * The v4l2 core only calls this on a source pad (v4l2_subdev_disable_streams()
-> + * rejects sink pads with -EOPNOTSUPP before reaching the driver), so @pad is
-> + * not checked here. Each source pad only ever carries stream 0.
-> + *
-> + * A sink stream is only disabled, and propagated upstream to disable it there
-> + * too, once no source pad references it any more.
-> + *
-> + * Return 0 on success or a negative error code otherwise
-> + */
-> +static int csid_pad_disable_streams(struct v4l2_subdev *sd,
-> +				    struct v4l2_subdev_state *state,
-> +				    u32 pad, u64 streams_mask)
-> +{
-> +	struct csid_device *csid = v4l2_get_subdevdata(sd);
-> +	const struct csid_hw_ops *hw_ops = csid->res->hw_ops;
-> +	struct media_pad *remote_pad = media_pad_remote_pad_first(&csid->pads[MSM_CSID_PAD_SINK]);
-> +	unsigned int hw_port = pad - MSM_CSID_PAD_FIRST_SRC;
-> +	u64 sink_streams, disable_sink_streams;
-> +	int ret = 0;
-> +
-> +	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, MSM_CSID_PAD_SINK,
-> +						       &streams_mask);
-> +
-> +	/* Keep a sink stream active as long as any other source pad still uses it. */
-> +	disable_sink_streams = sink_streams &
-> +				~csid_sink_streams_in_use(csid, state, pad, sink_streams);
-> +
-> +	if (disable_sink_streams && remote_pad) {
-> +		ret = v4l2_subdev_disable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
-> +						  remote_pad->index, disable_sink_streams);
-> +		if (ret)
-> +			dev_err(csid->camss->dev,
-> +				"Failed to disable stream on remote pad: %d\n", ret);
-> +	}
-> +
-> +	hw_ops->disable_stream(csid, hw_port);
-> +
-> +	csid->enabled_streams[pad] &= ~streams_mask;
-> +	csid->enabled_streams[MSM_CSID_PAD_SINK] &= ~disable_sink_streams;
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct v4l2_mbus_framefmt csid_default_format = {
-> +	.code = MEDIA_BUS_FMT_UYVY8_1X16,
-> +	.width = 1920,
-> +	.height = 1080,
-> +	.field = V4L2_FIELD_NONE,
-> +	.colorspace = V4L2_COLORSPACE_SRGB,
-> +};
-> +
-> +/*
-> + * csid_set_routing - Handle setting of routing table
-> + * @sd: CSID V4L2 subdevice
-> + * @state: V4L2 subdevice state
-> + * @which: TRY or ACTIVE routing
-> + * @routing: Routing table to set
-> + *
-> + * Return 0 on success or a negative error code otherwise
-> + */
-> +static int csid_set_routing(struct v4l2_subdev *sd,
-> +			    struct v4l2_subdev_state *state,
-> +			    enum v4l2_subdev_format_whence which,
-> +			    struct v4l2_subdev_krouting *routing)
-> +{
-> +	struct csid_device *csid = v4l2_get_subdevdata(sd);
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (which == V4L2_SUBDEV_FORMAT_ACTIVE && csid->enabled_streams[MSM_CSID_PAD_SINK])
-> +		return -EBUSY;
-> +
-> +	for (i = 0; i < routing->num_routes; i++)
-> +		if (routing->routes[i].source_stream != 0)
-> +			return -EINVAL;
-> +
-> +	ret = v4l2_subdev_routing_validate(sd, routing,
-> +					   V4L2_SUBDEV_ROUTING_NO_SOURCE_STREAM_MIX |
-> +					   V4L2_SUBDEV_ROUTING_NO_SOURCE_MULTIPLEXING |
-> +					   V4L2_SUBDEV_ROUTING_NO_N_TO_1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return v4l2_subdev_set_routing_with_fmt(sd, state, routing, &csid_default_format);
-> +}
-> +
-> +/*
-> + * __csid_get_stream_format - Get pointer to per-stream format structure
-> + * @csid: CSID device
-> + * @sd_state: V4L2 subdev state
-> + * @pad: pad from which format is requested
-> + * @stream: stream from which format is requested
-> + * @which: TRY or ACTIVE format
-> + *
-> + * Same as __csid_get_format(), but honors @stream for TRY-state lookups.
-> + * For ACTIVE state, csid->fmt[] is indexed by pad + stream. @stream is
-> + * always 0 and @pad selects the RDI channel (0-3).
-> + *
-> + * Return pointer to TRY or ACTIVE format structure
-> + */
-> +static struct v4l2_mbus_framefmt *
-> +__csid_get_stream_format(struct csid_device *csid,
-> +			 struct v4l2_subdev_state *sd_state,
-> +			 unsigned int pad, u32 stream,
-> +			 enum v4l2_subdev_format_whence which)
-> +{
-> +	if (which == V4L2_SUBDEV_FORMAT_TRY)
-> +		return v4l2_subdev_state_get_format(sd_state, pad, stream);
-> +
-> +	if (pad == MSM_CSID_PAD_SINK)
-> +		return &csid->fmt[MSM_CSID_PAD_SINK];
-> +
-> +	return &csid->fmt[pad + stream];
-> +}
-> +
-> +/*
-> + * csid_streams_get_format - Handle get format by pads subdev method
-> + * @sd: CSID V4L2 subdevice
-> + * @sd_state: V4L2 subdev state
-> + * @fmt: pointer to v4l2 subdev format structure
-> + *
-> + * Return -EINVAL or zero on success
-> + */
-> +static int csid_streams_get_format(struct v4l2_subdev *sd,
-> +				   struct v4l2_subdev_state *sd_state,
-> +				   struct v4l2_subdev_format *fmt)
-> +{
-> +	struct csid_device *csid = v4l2_get_subdevdata(sd);
-> +	struct v4l2_mbus_framefmt *format;
-> +
-> +	format = __csid_get_stream_format(csid, sd_state, fmt->pad, fmt->stream, fmt->which);
-> +	if (!format)
+>  	}
+>  
+>  	return ret;
+> @@ -1621,7 +1644,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
+>  	fl->pd = USER_PD;
+>  
+>  	if (init.filelen && init.filefd) {
+> -		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
+> +		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true, 0);
+>  		if (err)
+>  			goto err;
+>  	}
+> @@ -2246,9 +2269,14 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
+>  
+>  	if (copy_from_user(&req, argp, sizeof(req)))
+>  		return -EFAULT;
+> -
+> +	/*
+> +	 * Prevent mapping backward compatible DMA handles here, as they are
+> +	 * already mapped in the remote call.
+> +	 */
+> +	if (req.flags == FASTRPC_MAP_DMA_HANDLE)
 > +		return -EINVAL;
-> +
-> +	fmt->format = *format;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * csid_streams_set_format - Handle set format by pads subdev method
-> + * @sd: CSID V4L2 subdevice
-> + * @sd_state: V4L2 subdev state
-> + * @fmt: pointer to v4l2 subdev format structure
-> + *
-> + * Return -EINVAL or zero on success
-> + */
-> +static int csid_streams_set_format(struct v4l2_subdev *sd,
-> +				   struct v4l2_subdev_state *sd_state,
-> +				   struct v4l2_subdev_format *fmt)
-> +{
-> +	struct csid_device *csid = v4l2_get_subdevdata(sd);
-> +	struct v4l2_mbus_framefmt *format;
-> +	struct v4l2_subdev_route *route;
-> +
-> +	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE && csid->enabled_streams[MSM_CSID_PAD_SINK])
-> +		return -EBUSY;
-> +
-> +	format = __csid_get_stream_format(csid, sd_state, fmt->pad, fmt->stream, fmt->which);
-> +	if (!format)
-> +		return -EINVAL;
-> +
-> +	csid_try_format(csid, sd_state, fmt->pad, &fmt->format, fmt->which);
-> +	*format = fmt->format;
-> +
-> +	/* Propagate the format from the sink stream to every source stream it feeds */
-> +	for_each_active_route(&sd_state->routing, route) {
-> +		struct v4l2_mbus_framefmt *src_format;
-> +
-> +		if (route->sink_pad != fmt->pad || route->sink_stream != fmt->stream)
-> +			continue;
-> +
-> +		src_format = __csid_get_stream_format(csid, sd_state, route->source_pad,
-> +						      route->source_stream, fmt->which);
-> +		if (!src_format)
-> +			continue;
-> +
-> +		*src_format = fmt->format;
-> +		csid_try_format(csid, sd_state, route->source_pad, src_format, fmt->which);
-> +	}
-> +
-> +	return 0;
-> +}
-
-Why do we need a full new set of get-format and set-format ?
-
-"Feels" like this could wrapper the existing code.
-
-> +
-> +static const struct v4l2_subdev_pad_ops csid_streams_pad_ops = {
-> +	.enum_mbus_code = csid_enum_mbus_code,
-> +	.enum_frame_size = csid_enum_frame_size,
-> +	.get_fmt = csid_streams_get_format,
-> +	.set_fmt = csid_streams_set_format,
-> +	.set_routing = csid_set_routing,
-> +	.enable_streams = csid_pad_enable_streams,
-> +	.disable_streams = csid_pad_disable_streams,
-> +};
-> +
-> +static const struct v4l2_subdev_video_ops csid_streams_video_ops = {
-> +	.s_stream = v4l2_subdev_s_stream_helper,
-> +};
-> +
-> +static const struct v4l2_subdev_ops csid_streams_v4l2_ops = {
-> +	.core = &csid_core_ops,
-> +	.pad = &csid_streams_pad_ops,
-> +	.video = &csid_streams_video_ops,
-> +};
-> +
-> +/*
-> + * csid_init_state - Initialize the routing table for the streams API subdev
-> + * @sd: CSID V4L2 subdevice
-> + * @state: V4L2 subdev state
-> + *
-> + * source_stream is always 0: each source pad MSM_CSID_PAD_FIRST_SRC + i
-> + * links to its own independent downstream subdev, and a link's sink side is
-> + * validated against the implicit stream 0 exposed by any subdev without
-> + * V4L2_SUBDEV_FL_STREAMS (see v4l2_link_validate_get_streams()) — every
-> + * downstream VFE line is such a subdev.
-> + *
-> + * All source pads route from sink_stream 0 by default, fanning the single
-> + * incoming stream out to every port; a multi-VC source is supported by
-> + * remapping each route's sink_stream via .set_routing, leaving
-> + * source_pad/source_stream untouched.
-> + *
-> + * Return 0 on success or a negative error code otherwise
-> + */
-> +static int csid_init_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state)
-> +{
-> +	struct csid_device *csid = v4l2_get_subdevdata(sd);
-> +	struct v4l2_subdev_route routes[MSM_CSID_MAX_SRC_STREAMS];
-> +	struct v4l2_subdev_krouting routing = { };
-> +	unsigned int num_routes;
-> +	int i, ret;
-> +
-> +	/* The full IFE has only 3 rdi's and pix output is not functional */
-> +	if (csid_is_lite(csid))
-> +		num_routes = MSM_CSID_MAX_SRC_STREAMS;
-> +	else
-> +		num_routes = MSM_CSID_MAX_SRC_STREAMS - 1;
-
-No. Don't code around this here.
-
-I'll make a Fixes: patch for the pix stuff - I have it in tree. I don't 
-want to add work-arounds in code.
-
-> +
-> +	for (i = 0; i < num_routes; i++) {
-> +		routes[i].sink_pad = MSM_CSID_PAD_SINK;
-> +		routes[i].sink_stream = 0;
-> +		routes[i].source_pad = MSM_CSID_PAD_FIRST_SRC + i;
-> +		routes[i].source_stream = 0;
-> +		routes[i].flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE;
-> +	}
-> +
-> +	routing.num_routes = num_routes;
-> +	routing.routes = routes;
-> +	ret = v4l2_subdev_set_routing_with_fmt(sd, state, &routing, &csid_default_format);
-> +	if (ret)
-> +		dev_err(csid->camss->dev, "Failed to set routing: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
->   static const struct v4l2_subdev_internal_ops csid_v4l2_internal_ops = {
->   	.open = csid_init_formats,
->   };
->   
-> +static const struct v4l2_subdev_internal_ops csid_streams_internal_ops = {
-> +	.init_state = csid_init_state,
-> +};
-> +
->   static const struct media_entity_operations csid_media_ops = {
->   	.link_setup = csid_link_setup,
->   	.link_validate = v4l2_subdev_link_validate,
-> @@ -1360,13 +1826,18 @@ int msm_csid_register_entity(struct csid_device *csid,
->   	struct v4l2_subdev *sd = &csid->subdev;
->   	struct media_pad *pads = csid->pads;
->   	struct device *dev = csid->camss->dev;
-> +	bool streams_api = csid->res->streams_enable;
-
-As I stated elsewhere there's no need to have this flag copy/pasted.
-
-Just move it one level up does this SoC support streams, in 
-camss->supports_streams;
-
-
-> +	unsigned int num_pads = csid_is_lite(csid) ? MSM_CSID_PADS_NUM : MSM_CSID_PADS_NUM - 1;
->   	int i;
->   	int ret;
->   
-> -	v4l2_subdev_init(sd, &csid_v4l2_ops);
-> -	sd->internal_ops = &csid_v4l2_internal_ops;
-> +	v4l2_subdev_init(sd, streams_api ? &csid_streams_v4l2_ops : &csid_v4l2_ops);
-> +	sd->internal_ops = streams_api ? &csid_streams_internal_ops
-> +					: &csid_v4l2_internal_ops;
->   	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
->   		     V4L2_SUBDEV_FL_HAS_EVENTS;
-> +	if (streams_api)
-> +		sd->flags |= V4L2_SUBDEV_FL_STREAMS;
->   	snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
->   		 MSM_CSID_NAME, csid->id);
->   	v4l2_set_subdevdata(sd, csid);
-> @@ -1400,17 +1871,28 @@ int msm_csid_register_entity(struct csid_device *csid,
->   	}
->   
->   	pads[MSM_CSID_PAD_SINK].flags = MEDIA_PAD_FL_SINK;
-> -	for (i = MSM_CSID_PAD_FIRST_SRC; i < MSM_CSID_PADS_NUM; ++i)
-> +	for (i = MSM_CSID_PAD_FIRST_SRC; i < num_pads; ++i)
->   		pads[i].flags = MEDIA_PAD_FL_SOURCE;
->   
->   	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
->   	sd->entity.ops = &csid_media_ops;
-> -	ret = media_entity_pads_init(&sd->entity, MSM_CSID_PADS_NUM, pads);
-> +	ret = media_entity_pads_init(&sd->entity, num_pads, pads);
->   	if (ret < 0) {
->   		dev_err(dev, "Failed to init media entity: %d\n", ret);
->   		goto free_ctrl;
->   	}
->   
-> +	if (streams_api) {
-> +		if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED)
-> +			sd->state_lock = csid->ctrls.lock;
-> +
-> +		ret = v4l2_subdev_init_finalize(sd);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to finalize subdev: %d\n", ret);
-> +			goto media_cleanup;
-> +		}
-> +	}
-> +
->   	ret = v4l2_device_register_subdev(v4l2_dev, sd);
->   	if (ret < 0) {
->   		dev_err(dev, "Failed to register subdev: %d\n", ret);
-> @@ -1420,6 +1902,7 @@ int msm_csid_register_entity(struct csid_device *csid,
->   	return 0;
->   
->   media_cleanup:
-> +	v4l2_subdev_cleanup(sd);
->   	media_entity_cleanup(&sd->entity);
->   free_ctrl:
->   	if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED)
-> @@ -1435,6 +1918,7 @@ int msm_csid_register_entity(struct csid_device *csid,
->   void msm_csid_unregister_entity(struct csid_device *csid)
->   {
->   	v4l2_device_unregister_subdev(&csid->subdev);
-> +	v4l2_subdev_cleanup(&csid->subdev);
->   	media_entity_cleanup(&csid->subdev.entity);
->   	if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED)
->   		v4l2_ctrl_handler_free(&csid->ctrls);
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-> index 90ee611b9092..a312103cf86d 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.h
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
-> @@ -184,6 +184,7 @@ struct csid_hw_ops {
->   
->   struct csid_subdev_resources {
->   	bool is_lite;
-> +	bool streams_enable;
->   	const struct csid_hw_ops *hw_ops;
->   	const struct parent_dev_ops *parent_dev_ops;
->   	const struct csid_formats *formats;
-> @@ -209,6 +210,7 @@ struct csid_device {
->   	struct v4l2_mbus_framefmt fmt[MSM_CSID_PADS_NUM];
->   	struct v4l2_ctrl_handler ctrls;
->   	struct v4l2_ctrl *testgen_mode;
-> +	u64 enabled_streams[MSM_CSID_PADS_NUM];
->   	const struct csid_subdev_resources *res;
->   };
->   
+>  	/* create SMMU mapping */
+> -	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
+> +	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true, 0);
+>  	if (err) {
+>  		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
+>  		return err;
+> diff --git a/include/uapi/misc/fastrpc.h b/include/uapi/misc/fastrpc.h
+> index ba1ea5ed426c..c04749bf4f96 100644
+> --- a/include/uapi/misc/fastrpc.h
+> +++ b/include/uapi/misc/fastrpc.h
+> @@ -45,6 +45,8 @@ enum fastrpc_map_flags {
+>  	FASTRPC_MAP_FD = 2,
+>  	FASTRPC_MAP_FD_DELAYED,
+>  	FASTRPC_MAP_FD_NOMAP = 16,
+> +	/* Map the DMA handle in the invoke call for backward compatibility */
+> +	FASTRPC_MAP_DMA_HANDLE = 0x20000,
+was having a looks again at this, user is never passing this flag,
+should we have this in uapi? I think you can move this in kernel as it
+is set and used by kernel.>  	FASTRPC_MAP_MAX,
+>  };
+>  
 
