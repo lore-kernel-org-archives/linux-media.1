@@ -1,128 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83786455623;
-	Fri, 11 Sep 2026 16:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C763438A0
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 16:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143865; cv=none; b=fzJLzy2LH/D6/fleIv4ltvYs2wFBXP+zFtzKubThiClhnIjjecTE32+DIOGBk5vMRBRN4vXIaZiCv6vG/Uoi6XJV7fs4wFpG0rsEmk+rvSIkFtRMeWNDHrDAHys4gQ9zzpN+7tZDLGRKE2ALQHNDB4d0Bpj/pgjOueLJFSt6oYo=
+	t=1789145798; cv=none; b=XYokqjerMMUZsky3dsAS8RN1vHs6WXlKiUiDB6IpGIMdUW3YL1KeZ8EnugwVMDScR0upi5dqo/V3jk559CisCO8WEnojnFRfWhSJViuFCP1G5i6buJzJUlJRhULxm9s5LpRbb9M1aG5vWxYYvWaeSHRzNVz5mbvryZNJpZXyFi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143865; c=relaxed/simple;
-	bh=lQoyE24wkikaS7D/5zG7Nvy3qw7xryzYAjVBQ2/y2V0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WjoHrs4K3J1OEiBYjAn72gMFR/SeEo5iYDbp09x7Wi3Z9WXqrcf/e8Nn3DyvdttCaJK8CIV77sZEsmkUpyVB8HCKE7nAtzrArSQYgzFUSrqMKIdgtFJBWUH/pt5blJGAfPCAcvMTZ8UFxQJJdw4KRP7esSp8ouhzqAQb34CGq1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lN22sOny; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789145798; c=relaxed/simple;
+	bh=K6uKwxCqsJUgJksWYso7qHsjK5lXDAeKCW7NuDXQn5s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sHoTWpnUQ4ip+9SBG+XdN+XBUOYVtXanpAE0XY38S0IGj+87MStRzSY2Ztg4LOaUEZnp0nDQx3Tmao060f54m/SQMBNge6vzsa0wfep6HMzP8CR7yA9/NWIWoeZ8u2iE7jsL8JZ48ao7iMrT56rvU55Ew6luc1qWMBdRxBq45Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KtwlYSgl; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lN22sOny"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789143863; x=1820679863;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lQoyE24wkikaS7D/5zG7Nvy3qw7xryzYAjVBQ2/y2V0=;
-  b=lN22sOny4rxmGKK0kqmEsRc3C20kAsK5nE1OnIFuA2NzYoX5FjJpqB1j
-   jUvkJiLfe2wu3ul+lemZ+lncNbwaHJXkMEqbxqzz38rrYfaOPxaiXw/gw
-   B5+1TVr7nsLI3ZkjtmtozHl0HY7PyjsDlXTg51qg5bxtFzw62FZYEt2Y7
-   KdemV6pgditfV7Is8/W3fFqihEpfP7+pnsJueAVRLZfetdI8fSZBW0MqV
-   4Oks5cFl43tNAJ6v6CTxigLzyhYtspCBbAQaNQXKCZp+1IcGMMOVtMR8z
-   4CVyPDzqA/hrynVc+p59efsduZRpWqVzDYwSfAhSVeuqqojsJcaGmifzo
-   w==;
-X-CSE-ConnectionGUID: tvWMdh1UQBuYUIUnZfaqIA==
-X-CSE-MsgGUID: tyzuE3KgSfqjtTziF1wxrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89741725"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="89741725"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:24:23 -0700
-X-CSE-ConnectionGUID: 6LKV0QSpSM+cPWNOoL2p2A==
-X-CSE-MsgGUID: 8+dZhKKESHKxVLx2cNDnsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="277220906"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.203])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:24:21 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 049BC121089;
-	Fri, 11 Sep 2026 19:24:25 +0300 (EEST)
-Date: Fri, 11 Sep 2026 19:24:24 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Steve Longerbeam <slongerbeam@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] media: ov5640: Initialize mutex before probe cleanup
-Message-ID: <aqQrOJ2qcu1d3RBh@kekkonen.localdomain>
-References: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KtwlYSgl"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a9a2f16ed4so1428258a12.0
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 09:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1789145791; x=1789750591; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cPeZSQUTfz20wSkb3gqNeqHVB/Cjwdp6OU88/IJVki0=;
+        b=KtwlYSgl437v66vqiOSdZ2escmfEtrszqpTnqVT62vOqWi+/xLiLnNmgEpqZEA9B7Z
+         t4dcpebnHBiZARyaLMzFfSblHQsYMmS0n22HlEQFiNIft4YTPIFE0xenLiUv37fOaTG+
+         fNd0aezWKJ/ZucvoR/30CR+Fdp/KT87hqWNj8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789145791; x=1789750591;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cPeZSQUTfz20wSkb3gqNeqHVB/Cjwdp6OU88/IJVki0=;
+        b=PXLFYRfQ6yGadiaY1L4WtjTfJjhl+m/ua/hUt/3+ZSwjCz8f0hE6A+kn84h4gxiMV7
+         8sT623X9PT8xehg7tPhSbE5GpIZkJMXMTgviThEtSus857Kkcq/ch6hJnZtyeeNpviQP
+         LNrjV4R8Q2RLFEEJwhsqarZoxF0gOVxs/k0fiIJD/p+Hzd43Rd4x8Yz0627NlRcS5LvO
+         2jFW/OisC0mhzePRGCRaEmcPXhxLA/BTfqMC2QkPWBLnMoOYI6jMVrSDAjFz31LNtSIU
+         FQGWT0tXOMIlwARGx9xjZ93uwcpGvzswQQYIFXwrJHAfWTQ1dVJzGKIoi6LxdNS+SavZ
+         g5Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBwc9qEtSB8maJbttET07Od4fUDEKBFu7oHYsKraJeaBVUquluPyfHOcPTpCAPwKXh6PtVL3gNn9aXpJPA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kRg/Nvkd2tnyjRilNxvGhOzTPGN6FMar54kWiDvlWSMJNctluh
+	CWBvpCIIFCJA5tusYZhcT0LsWGl75ycRKvvfeS2+SqRFJxCPjrn7a36xg3jAEv2rOSz87OUbug8
+	nPdKGz38=
+X-Gm-Gg: AYBFou1aHxqo5acpZMtvtB+n0DNmKvCRuq0b2+Jv11O7JVVyOcwhwQKdmjWayTgIFIm
+	2dsHOHJu7Dq1ildJ3EAMUijA+bIK4bE3pLQJXb45aRzSRv1MPT9x1rE9k9uBROX3RAc0/exPPGq
+	s3Cmdu+ilx+z7hHL8Oa9sVR3uMm3jpUAYML6qafmPCMPjnnK7iLhkEqFwftYcxJyZ1yQwhd1OTo
+	/65s3AQ5i/uAsX7vLBQP1Zs4gsfxEPgM0Au5SzcYKdnA63kt0FwujRYxOUPTgFbPv8VH49cdeND
+	OrlChbi8MJTLUYgJdVPPhj5FNwPgT367gdJsTt/2MbWBDiti9OQ9WRQo9hZ3T1RNnmHyN/3Vu+2
+	BL4w+MZUXFLQMKVXyWtUj2WPhZe2FgCGmWNKF1E26Gr353ZwxdnnT1ryR95uXgt5uzoDzbHUv5s
+	UWw7B18GDG+t6Z717yMPArcQJRBDuMIl6WFBqht6Jx3kSAf9GeWD1lBkO4HdDdB1u8G8zSRHEkS
+	rqRCNrqtsu+yUFDb75Sfpv6v2265LqDbV2CaQOPn1MDlbOzGjuuJHwpBUY=
+X-Received: by 2002:a05:6402:4246:20b0:6a6:b2b9:7667 with SMTP id 4fb4d7f45d1cf-6a9a326d0f8mr1968372a12.20.1789145791206;
+        Fri, 11 Sep 2026 09:56:31 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5951c89sm1012563a12.26.2026.09.11.09.56.30
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 09:56:30 -0700 (PDT)
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so2572770a12.0
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 09:56:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy8qLBKe5/Lm8JFckZXKHakqCA9a8sSCHGMfI1KfLXdTqwlfs9FRF9J11SPAKaYUOn4d6nZjLghE4cTVw==@vger.kernel.org
+X-Received: by 2002:a17:907:d0b:b0:c28:fdcc:901a with SMTP id
+ a640c23a62f3a-c2945ece84emr569757966b.16.1789145790391; Fri, 11 Sep 2026
+ 09:56:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+References: <20260911101757.286dbea9@foz.lan>
+In-Reply-To: <20260911101757.286dbea9@foz.lan>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 11 Sep 2026 09:56:12 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgxFsT-aBLvaaWY=rzXKAnsETMGGBYeXnidPMoaEP29wA@mail.gmail.com>
+X-Gm-Features: AcwNN1XMz7nZgWf_yAotYnqXcdS3AjXLSYrStUysBHfg_4lM5kL497I75V2wctM
+Message-ID: <CAHk-=wgxFsT-aBLvaaWY=rzXKAnsETMGGBYeXnidPMoaEP29wA@mail.gmail.com>
+Subject: Re: [GIT PULL for v7.3-rc3] media fixes
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Runyu,
+On Fri, 11 Sept 2026 at 01:18, Mauro Carvalho Chehab
+<mchehab+huawei@kernel.org> wrote:
+>
+> - v4l2-core: add bounded tile-count helpers for HEVC stateless decoders
+> - v4l2-core: validate AV1 tile counts fits in array size
+[...]
 
-On Thu, Sep 10, 2026 at 04:16:08PM +0800, Runyu Xiao wrote:
-> ov5640_probe() can jump to entity_cleanup when regulator setup fails,
-> before sensor->lock is initialized. The cleanup path unconditionally
-> destroys the mutex, so this error path passes an uninitialized mutex to
-> mutex_destroy().
-> 
-> Initialize the mutex after media_entity_pads_init() succeeds and before
-> ov5640_get_regulators(). This keeps earlier direct-return paths outside the
-> mutex lifetime while ensuring that every path reaching mutex_destroy() has
-> initialized the mutex.
+Please don't just do the shortlog. That's not information - that's
+purely mechanical repetition of what "git pull" will give me in the
+summary anyway.
 
-A single sentence should be enough to describe what this patch does.
+I did some minimal grouping to at least make it sensible for human
+consumption. That's basically the *minimal* effort you should put into
+a pull request. It's not great, but it's better - "human consumption"
+is what that part of the merge message is supposed to be about, not
+"mechanical information that isn't adding anything new or useful"
 
-> 
-> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-> Cc: stable@vger.kernel.org
-> 
-> Found by PatchProof Module 4 candidates
-> PILOT-4c6b03072e508260 and PILOT-4f9a36d855eb7c54.
-> 
-> No runtime reproducer was available; the failure path was verified by
-> inspection and the affected object was built successfully.
-
-This paragraph I'd drop, too. Please keep the tags together.
-
-> 
-> Tested-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> Assisted-by: LLM Codex
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/media/i2c/ov5640.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 8deb5f550..36c8bb345 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
-> @@ -3930,12 +3930,12 @@ static int ov5640_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
->  
-> +	mutex_init(&sensor->lock);
-> +
->  	ret = ov5640_get_regulators(sensor);
->  	if (ret)
->  		goto entity_cleanup;
->  
-> -	mutex_init(&sensor->lock);
-> -
->  	ret = ov5640_init_controls(sensor);
->  	if (ret)
->  		goto entity_cleanup;
-
--- 
-Regards,
-
-Sakari Ailus
+                Linus
