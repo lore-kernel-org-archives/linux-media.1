@@ -1,332 +1,345 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DDD443308;
-	Fri, 11 Sep 2026 10:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D2E43A80A
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122294; cv=none; b=U8KguMmm3ufLMWl7yG6mUd3v6M3LNONCkS4O7nbwaHsqqM1uIRFnR2ohjd6cesh3299Q11w9iDvmlyQYe8iuPSK8C03UBJ/DcStY/oZYjoAj3Mpgcq6xmuEM4lR95wHbpPixB8wWq9EIJ6i3pbloR71g9LbnybturFJiKINlnjQ=
+	t=1789122749; cv=none; b=IZ9FAZeeGJ8D9k9UqYj+Y22XqGMj1PMCuu8wJApauZw4ZmN5HfDPGgnwUsrtSenb9sTT8LBwi/eFWgS02GkFmfBKLJSeUfTf0zV2Uhw4t8TFx9FzL2E4HD52Q4WCS/lz7pbz6Z8brcEmx7YTFoMiGyn0SfhXjL5TvtjuecjFXIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122294; c=relaxed/simple;
-	bh=XCPLThBu3P2SukJrMurkLKsZkLi40Q5qkARJ8FMq1vI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tv3do6EsamAbcHXr98OAng5FmPXg3ypwMRasGqY5sKIzL0nTHxK/Z24NdXq4N1Fvrrg1dukW0gS4dY2XBz4CIpVi4z3atcWwePUsxXrewzfitKoVJaqFBpzR01g+SFcvktPnwdwTUTlDtQmKRDsItLgldyUkJOU9FIASts35Feg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEvyQLuu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789122749; c=relaxed/simple;
+	bh=s1kwKfNWdOwKIVHRxyXH+/0Wwl++ZJB8huriAF1FUm4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O4OebwioXjifdBf/UJjQRW2AH1GDcsQIrQJabZSO9yFWPvvrnxvRV84JO0ePzf4z4owYJkNfe4mwgw61g5Wi+B3xALFZ10ZwoKwXsK10TpL/KJw6LARtRjZQJJbZ28rGV0bwtWjMiFi7dlS0aW7XO5NbosgLdQ1u+beD4TjvaVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CGiKxwS3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SOh19Mue; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEvyQLuu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343251F000FF;
-	Fri, 11 Sep 2026 10:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789122290;
-	bh=FsDQkX5qVD1HL2Qoye/f9xNhSTkp7Bvx/JXzS/JYNzk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PEvyQLuumFBeOUp0cGBCw8w+vJVhMcWC2mQyQ3rVvjjfjHKhZKhty6lG09J4CRP8B
-	 P/tk4a/Vl3IGahLUYuudsQ7W77/9yESis9SErkTkb0/55ZoMwW/nGZaLcb0JiJ52fA
-	 OKOBsV8thXmIeURnWnvn0cbDstmHIxH5cSVPxWwfmADZps0FOkkFGdbNz2bzLyv+mj
-	 z2wu7BCCB0WVjH0yLjYjxJeFc4o29majX+vaJk3eE8FKwnS8EeAZp7p/VPezVpESNJ
-	 sNpEBLddzx5nOrKNyp08kivpxwh7zkPhqc6gGFbAJNKIvAcFx7E+LpFkB2jLZF4STr
-	 7E5u9/D+YAmdw==
-Date: Fri, 11 Sep 2026 13:24:46 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH v5 17/18] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20260911102446.GV13683@unreal>
-References: <20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com>
- <20260910-fix-p2p-acs-v4-0-v5-17-856087f63c0d@nvidia.com>
- <7805bb89-2c46-46f6-9f15-8dce842d5ae5@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CGiKxwS3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SOh19Mue"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7kn6G143878
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:32:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZMSPcX6SEWInooLZbCmLaOZJRUfm8sfjnK+8IHF2YyE=; b=CGiKxwS3c2iakXdR
+	YVX0BoRscMKYnmvuEL3lx6W8pNzabSEVh0CvAmtM34SBpd48CvgvxAWDc+9tdMsH
+	hR2Gn7WCItDbUOFShJfa1HLFDqJpk8xGvETNOorCuPd6F45KmEDOBahjoNkYWf7P
+	LdlOzvDP9VKhI0fxPYOddMg1ryEOTgSE/lrfsXeJatd9wMt6q6tfuzSOYqskSHze
+	dAMyPPmZa0WiV43mmi4l63UThuRGqbGGhRVrPG+zPI1yt7tpmj5eCPAxTpiSB4D2
+	7nyOJRNHxCnATh1zmR4JqBjJt4xKmQAJSnP5+ozyEs34A7ntBgoJt0OOJPM2tHN/
+	y/Wghg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd3974a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:32:23 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b8088203so918275a12.3
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:32:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789122743; x=1789727543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZMSPcX6SEWInooLZbCmLaOZJRUfm8sfjnK+8IHF2YyE=;
+        b=SOh19MuenmwYZ2aL6q4cFj+kDAgJpPVwhDXkP5pkr/tb/4pG6t5Q/6oWl+GNb+5kdL
+         7vBAVoebg+gvudHfcYKsJPDg4qjebuwLjLpW7YvkY1xyN9k4tpbdcK4eDwDvEvxvTmn4
+         cqTxz7z4/VDSgqbQlEcUjwM9HKJ0eJJdVg2E7Ks8pPPb2ay9aToAyLLiQWRN8du6pWQE
+         OEqC8vjy6m7G7VqPzNQCm9xC0NMtMJgGVAMeaAx2c2a+1JfCtx4xb3+NwtCFtOFBnxmE
+         lUlfgfwSb/wKfCTRmOz7K7r4lBiBXEQRvL4Eucu4+qsGBq/QbwEIk2zeBeX2Y4kQpkc/
+         mMSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789122743; x=1789727543;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZMSPcX6SEWInooLZbCmLaOZJRUfm8sfjnK+8IHF2YyE=;
+        b=gXtKVWAov6U0fSG8EVlkOlJjiuywom9lWQs3dqHcpwOazlKQJOS5dB5UOeJ/+jeZHV
+         zW0M5okwQZZPU3Vq+gPgcg0UvTt97yVSqhxi17/EnhfeIokuDG7CIarU6QCJhKQxscpJ
+         r7NiBoiq9U9F7mtAmX6UdPzn0KLNzAOaPAV4PHshSA3wxJevXfN/l3qLPmm2fMlV7wVc
+         v1Ovyt/ydz2ZHB9J9bbZsLTW9OiFnvLunJZLmZTyim22Mw45888i2JR77bky0VDCnxS3
+         DCx7sI5RsQ0XLXfhPZJcaXGvc3OgfKvjpZJh5b6wqPGQRTpc2lMCnjIBHcrPfWpnWf9C
+         PV7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwf7HlKFQCofrLO03nNjGjnQcnHfon+MZRW26RYmAeZio5vuWTtWuG6dF+bHmf2IHWcdEbTX4GVyk9qCg==@vger.kernel.org
+X-Gm-Message-State: AFuF++kGMNgaUp9yub1Bjpn7SP+zKVXIxAjjzX7eVjhXmtMx8SDJgeTB
+	u/w/CmZJBOKImgPMejHmqUElL8GHdMiS6d1No0e/PcoHjABRglSKIrW9wmd4L4MNmQq73YF7ndV
+	xWUlWFzNyY4nh9gncQLVl2EVvDdHrAp4VyhvwFiV822NWcz1yOJwKRE/zVSJBPgGWCQ==
+X-Gm-Gg: AYBFou0rHqep4d/BoJJF/QBa5IZoPyTRiAOzMTk17mUti4wD2S/DPy89IFKqJyf42qs
+	aFEdlAQiJ/VpPR66BR0A6cQc3+c6XHCcal+hjQLR1Uznhe6IUAl9tmBvyDcHHLdDFwi7xx4YwVR
+	QNOpR/xxRk73mMmfUt+9toaKbiq6IHAPq6YqaB1XDJY/rna240IHYA0bZMP/EWTbP/vfyCU8+wL
+	lSRkcRqdOmI1I1a8T5Mp+6uTGAidKL8BiwpT3xEo/7hzO3A9IXrO03uU9MDQEgjAcLcc1a85bx1
+	1J3CZgNyFBXwMwKg4FAjabjiB6pZc3qZWbAFmRGXgaP9W5FmqzOyELjn196xMCujIptljAOn3QD
+	YSh6PjZGaIOIJSKoZ0IUA1a2o/gsx
+X-Received: by 2002:a17:90b:6cc:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-39d9bd8fb3bmr5841484a91.9.1789122742684;
+        Fri, 11 Sep 2026 03:32:22 -0700 (PDT)
+X-Received: by 2002:a17:90b:6cc:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-39d9bd8fb3bmr5841416a91.9.1789122742125;
+        Fri, 11 Sep 2026 03:32:22 -0700 (PDT)
+Received: from [10.218.24.45] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95713602sm4520593a91.11.2026.09.11.03.32.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 03:32:21 -0700 (PDT)
+Message-ID: <68a5c18c-1b88-4ac5-bff6-22396dde5e2b@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 16:02:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: rob.clark@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>,
+        Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+References: <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
+ <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
+ <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
+ <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
+ <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
+ <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
+ <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
+ <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
+ <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
+ <aqCKgM1yCbWjFdgO@baldur>
+ <rh5ufacfap4x63rjmgd76wlwgn3n2wuelpe4sqwy4yda27nsiq@lg4ltoqwz7ba>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <rh5ufacfap4x63rjmgd76wlwgn3n2wuelpe4sqwy4yda27nsiq@lg4ltoqwz7ba>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7805bb89-2c46-46f6-9f15-8dce842d5ae5@amd.com>
+X-Authority-Analysis: v=2.4 cv=Bv8IUoX5 c=1 sm=1 tr=0 ts=6aa3d8b7 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=ALIpgHWzX8X-H7dRLqcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: OLWQfXi3RrejGFL67sbnTD3libOjCC3I
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE0NyBTYWx0ZWRfXwmFE9BjyCy0F
+ mGifkKtQ8JBP0jFP7zfoux6hWYLintF5+QDGdO6KVZpDMFoxvm8s5xKydYIogyfq5eQbik7C3B1
+ 3gqtwlIPXjp4vGmupKGcfImlaQuFUP0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE0NyBTYWx0ZWRfX+hV0dCPLGom6
+ vPG1g13Gq6go2Mo2muYkYzuQZEfhD7asDWyFXzAM1I9vp98pZ23ZbBjZaJTj2izTqNJuh7biC7q
+ lm3eLI/reRuJtOEKZbBlT+6+vDdStqIImyHzWzLX9l6ieeNy9ieb6RsSd53kBk6R7Z8FqeITqa6
+ Cta6nmfM5Iy543UxZqqbsfbkeRfdtfbAxGfkkMLYvNHy/Z1onCtucgUykNtqvDpqujb52l8w6Q5
+ U1pN8Z8YC3SY8206H0kmJZJq/oKY8PjysEJm59teZOVE/3aWKCAt6abq5BxRT+BuihEkVbvWUzU
+ tmfP8KOlhX0f3JwLjT2KtG3ibOpyFZvdZXRwjWSL9pz9Cw4ODk04LLd06DXZaV7EALfcAQvVe84
+ fRtaZEJgTDWRAMD1bRfiYygiQnOWwWkBY53rXRwCVXQ/C54uxKvkZxfEHc4ZbYs6QBlfd7aNOvK
+ nU8XGo53wk0ZB+tOd6A==
+X-Proofpoint-ORIG-GUID: OLWQfXi3RrejGFL67sbnTD3libOjCC3I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ adultscore=0 clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110147
 
-On Fri, Sep 11, 2026 at 09:51:48AM +0200, Christian K�nig wrote:
-> On 9/10/26 13:32, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Exporters keep the &struct p2pdma_provider in their own private data and
-> > hand it to dma_buf_phys_vec_to_sgt() on every map. An importer cannot reach
-> > it, so it has no way to learn how its own peer-to-peer traffic would be
-> > routed before it programs its hardware.
+On 09-09-2026 17:18, Dmitry Baryshkov wrote:
+> On Tue, Sep 08, 2026 at 05:44:10PM -0500, Bjorn Andersson wrote:
+>> On Wed, Aug 26, 2026 at 06:37:00PM +0530, Ekansh Gupta wrote:
+>>> On 20-08-2026 20:17, Rob Clark wrote:
+>>>> On Wed, Aug 19, 2026 at 11:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>>
+>>>>> On 19/08/2026 17:48, Rob Clark wrote:
+>>>>>> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>>>> The rule of usptream development is that we do not accept duplicated
+>>>>>>> code, just because a vendor wants to write something new. This is
+>>>>>>> basically the concept applied all over the drivers tree, where we pushed
+>>>>>>> back against all sorts of duplications all over the vendors.
+>>>>>>>
+>>>>>>> What I miss in this thread is why would there be any exception here. We
+>>>>>>> do not grant exceptions from standard practices on "I want" reasons.
+>>>>>>
+>>>>>> I agree that we should not have duplicated drivers just for vendor
+>>>>>> lolz.  But when it comes to adopting common frameworks and integrating
+>>>>>> better into the ecosystem, this doesn't seem like something we should
+>>>>>> actively discourage.  I don't think this is a case of vendor lolz, but
+>>>>>
+>>>>> No one discourages it. Following standard Linux kernel practices and
+>>>>> requirements is not discouraging, do not twist the narrative here.
+>>>>> Again, it is standard upstream review telling that we do not duplicate
+>>>>> drivers. Ever, unless there is serious exception needed.
+>>>>
+>>>> I wasn't trying to twist the narrative, just trying to come up with a
+>>>> path forward that isn't "no" or "improve existing driver", since
+>>>> neither of those gets us towards a future using common frameworks.
+>>>>
+>>>>> I asked why there should be an exception granted? Is the reason for
+>>>>> exception following:
+>>>>> "We want to adopt common framework"
+>>>>> ?
+>>>>
+>>>> Possibly?  But I don't think we want two drivers to be any sort of
+>>>> long term solution.  (Ie. as long as venus/iris have co-exist.)
+>>>>
+>>>>>
+>>>>>> rather reacting to drm/accel emerging as the standard framework for
+>>>>>> this sort of driver.
+>>>>>>
+>>>>>> So how do we get from here to there?
+>>>>>
+>>>>> What is wrong with my proposal?
+>>>>
+>>>> Maybe I missed something, my understanding was your proposal was
+>>>> "Grow/replace/improve existing driver instead of coming with a
+>>>> duplicate"..  grow or improve doesn't move us toward common
+>>>> frameworks.  Maybe "replace" is a valid option.  If there is something
+>>>> I missed, then I apologize.
+>>>>
+>>>> Options I can think of are:
+>>>>
+>>>> 1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
+>>>>    driver
+>>>> 2. Backwards compat chardev registered by new driver, providing existing
+>>>>    UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
+>>>>    AFAIU the fastrpc folks where planning a backwards compat layer in
+>>>>    userspace, so maybe it is possible.
+>>>> 3. exception?
+>>>>
+>>>> I'd like to know what the feasibility of #2 is, since at a high level
+>>>> that sounds like the best option.  Possibly limit exposure of legacy
+>>>> UABI to existing hw so we don't get into a place of needing to extend
+>>>> the legacy UABI for new hw?
+>>>>
+>>>> But #1 sounds like a non-controversial place to start regardless.
+>>>> Possibly with #2 coming as followup and necessary step before eventual
+>>>> migration to new driver for existing hw?
+>>>>
+>>>> Even if we start with #2, how do we handle first-merge-window
+>>>> bugs/regressions without reverting addition of new driver and removal
+>>>> of old?  It seems like we'd need a window of a couple release cycles
+>>>> where both drivers exist?
+>>>>
+>>>> Maybe others have other/better options in mind?
+>>> To all, I'm seeking on the approach I should follow to go ahead here. I
+>>> can work on implementing #1(as per Rob's list) with hw specific
+>>> compatible for v4 if it's acceptable.
+>>>
+>>
+>> I don't see any reason for you to define a "hw specific compatible",
+>> because as you have shown in this series (and as Rob point out), there's
+>> no difference in the "hardware".
+>>
+>> The only reason for your "hw specific compatible" is to make a software
+>> selection in Linux - and that's not what DeviceTree is for.
 > 
-> Why should that be interesting to importers?
+> That's not exactly true. There are protocol differences. For example,
+> polling mode is supported only since a certain timeline in the history.
+> Likewise other interface features are not supported on all the FastRPC
+> devices. For the polling mode support we were already beaten by the lack
+> of SoC-specific compats.
 > 
-> In general importers should just consome the data provided by a DMA-buf and don't participate in any way in the decision how that data is made available.
-
-The importer does not control how traffic flows, but it needs to know how
-to configure itself for optimal performance. In the mlx5 case, it needs to
-enable or disable ATS depending on the location of the exporter's device.
-
-Think of this as a hint propagated from the exporter to the importer.
-
-Take a look at patch #18 and the old comment above mlx5_umem_needs_ats().
-It explains when enabling ATS is beneficial and when it may hurt
-performance.
-
->  
-> > Publish the provider through &struct dma_buf_export_info instead,
+>> As such, I don't see that you have a DeviceTree problem at all, because
+>> this is a Linux-internal problem.
+>>
+>>> #2(compat driver) is something that we are still exploring as we
+>>> couldn't find any standard way to achieve it. We might start a separate
+>>> discussion for that once we have few possible designs with us.
+>>>
+>>
+>> This is the actual problem!
+>>
+>> We have existing user space that depends on the ioctl interface exposed
+>> by the current misc driver. You must not break these.
 > 
-> That is a very bad idea and not even remotely acceptable.
+> This is clear.
 > 
-> This needs to be a callback instead if that should really fly.
+>> Hardware cutoff is not a viable solution, because that's just a
+>> declaration that we'll let the old platforms rotten - or alternatively
+>> you commit to maintain two drivers to the very same feature and quality
+>> level.
+>>
+>> So the only reasonable solution is #2; from there it's a valid question
+>> if you reach that point my stepwise migrating the current misc driver
+>> that solution, or if you present a new driver with the fully backwards
+>> compatible interface, alongside the new ABI.
+> 
+> I think the general direction was #3 (or #2.1): implement a shim layer
+> on top of the QDA driver as a separate module. Put all the historical
+> over-complicated solutions into that shim module and let it die at some
+> point. Current fastrpc driver lets userspace specify buffers in several
+> different ways, forcing the kernel driver to perform a lot of work
+> with buffer addresses. I don't think that this legacy code should be a
+> part of the QDA. It can go to qda-fastrpc-shim, keeping it out of the
+> kernel memory if it's not necessary.
+> 
+>> But this does bring to a question which the cover letter should explain
+>> - but doesn't: what problem does this patch series actually solve?
+> 
+> I agree that it should be a part of the cover letter.
+> 
+> As a person who triggered this work, I can propose my reasons:
+> 
+> - Current driver has over-complicated memory manager (both on the
+>   userspace and on the kernel side). Correspondng uAPI is not really
+>   suitable for virtualization. Using GEM simplifies both the kernel
+>   driver and uAPI. Also using handle-offset-length to specify the
+>   buffers makes it easy to support virtual QDA devices.
+> 
+> - Current driver predates the accel subsystem. Using common subsystem
+>   simplifies reviews. The QDA driver has gotten several comments about
+>   the usage of the DMA-BUFs. It'not unlikely that the same issues are
+>   present in the current FastRPC driver, just being unnoticed.
+> 
+> - The ideas present in the current FastRPC driver also predate the
+>   current design practices. The uAPI was created in the ad-hoc way, just
+>   following the momentary needs. Driver code also shows the result of
+>   that, having enough of the spaghetti code.
+> 
+> Given all of that, yes, it is possible to provide an evolution of the
+> FastRPC driver into the accel+shim, improve the code quality meanwhile
+> and end up with the good enough split. However I think that the path
+> taken would be longer and the net result might be worse.
+> 
+> With all of that in mind, my suggestion is to continue working on the
+> QDA driver, get the core of it to integrate nicely with the accel and
+> DMA-BUF usage requirements and implement the (minimal?) fastrpc shim on
+> top of it.
+> 
+Agreed on all the above points. We discussed this internally and are
+exploring a shim module(something like qda_fastrpc_shim.ko) along these
+lines, sitting on top of the QDA driver rather than growing fastrpc.c in
+place. Still working through some of the details (e.g. who owns the
+rpmsg binding, and what "minimal" means precisely given feature parity
+is expected for the compat layer's behaviour). Will follow up with a
+design doc here once that's settled.
 
-The provider is a stable pointer that never changes during the dma-buf
-lifetime, so it seemed natural to store it as-is. However, I can certainly
-change this to use a callback instead.
+To all, one separate question on daemon-attach security for feature
+parity: would running the daemon with CAP_SYS_ADMIN, and having the
+driver reject attach requests from any process without that capability,
+be an acceptable approach? The concern is preventing a
+malicious/unprivileged application from attaching to a privileged DSP PD
+and disrupting it.
 
-Thanks
+Thanks for the detailed feedback.
 
-> 
-> Regards,
-> Christian.
-> 
-> > and add
-> > dma_buf_p2pdma_map_type() for importers to query it by TLP class. It is
-> > fixed at export time, so dma_buf_phys_vec_to_sgt() no longer needs it as an
-> > argument and the two exporters no longer need a copy of it.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/dma-buf/dma-buf-mapping.c                 | 41 +++++++++++++++++++----
-> >  drivers/dma-buf/dma-buf.c                         |  1 +
-> >  drivers/infiniband/core/uverbs.h                  |  1 -
-> >  drivers/infiniband/core/uverbs_std_types_dmabuf.c |  7 ++--
-> >  drivers/vfio/pci/vfio_pci_dmabuf.c                |  8 ++---
-> >  include/linux/dma-buf-mapping.h                   |  4 ++-
-> >  include/linux/dma-buf.h                           |  5 +++
-> >  7 files changed, 49 insertions(+), 18 deletions(-)
-> > 
-> > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> > index 794acff2546a..8b431000e906 100644
-> > --- a/drivers/dma-buf/dma-buf-mapping.c
-> > +++ b/drivers/dma-buf/dma-buf-mapping.c
-> > @@ -6,6 +6,32 @@
-> >  #include <linux/dma-buf-mapping.h>
-> >  #include <linux/dma-resv.h>
-> >  
-> > +/**
-> > + * dma_buf_p2pdma_map_type - How peer-to-peer traffic to a buffer is routed
-> > + * @attach:	attachment of the importer that will issue the traffic
-> > + * @tlp_flags:	&enum pci_p2pdma_tlp_flags describing the TLPs it will issue
-> > + *
-> > + * Reports how the PCIe fabric routes @tlp_flags traffic between the buffer
-> > + * behind @attach and the importer attached to it, so that an importer can
-> > + * choose the TLP attributes that earn it a direct route before it programs
-> > + * its hardware.
-> > + *
-> > + * Return: the mapping type for @tlp_flags traffic, or PCI_P2PDMA_MAP_NONE
-> > + * when the exporter named no &struct p2pdma_provider and nothing is known
-> > + * about the route.
-> > + */
-> > +enum pci_p2pdma_map_type
-> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> > +			unsigned int tlp_flags)
-> > +{
-> > +	if (!attach->dmabuf->provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
-> > +	return pci_p2pdma_map_type_tlp(attach->dmabuf->provider, attach->dev,
-> > +				       tlp_flags);
-> > +}
-> > +EXPORT_SYMBOL_NS_GPL(dma_buf_p2pdma_map_type, "DMA_BUF");
-> > +
-> >  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
-> >  					 dma_addr_t addr)
-> >  {
-> > @@ -71,7 +97,6 @@ struct dma_buf_dma {
-> >   * from arrays of physical vectors. This funciton is intended for MMIO memory
-> >   * only.
-> >   * @attach:	[in]	attachment whose scatterlist is to be returned
-> > - * @provider:	[in]	p2pdma provider
-> >   * @phys_vec:	[in]	array of physical vectors
-> >   * @nr_ranges:	[in]	number of entries in phys_vec array
-> >   * @size:	[in]	total size of phys_vec
-> > @@ -85,16 +110,17 @@ struct dma_buf_dma {
-> >   *
-> >   * A mapping must be unmapped by using dma_buf_free_sgt().
-> >   *
-> > - * NOTE: This function is intended for exporters. If direct traffic routing is
-> > - * mandatory exporter should call routing pci_p2pdma_map_type() before calling
-> > - * this function.
-> > + * NOTE: This function is intended for exporters, and works on MMIO memory
-> > + * only, so &dma_buf.provider must have been set at export time. If direct
-> > + * traffic routing is mandatory the exporter should call
-> > + * pci_p2pdma_map_type() before calling this function.
-> >   */
-> >  struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
-> > -					 struct p2pdma_provider *provider,
-> >  					 struct phys_vec *phys_vec,
-> >  					 size_t nr_ranges, size_t size,
-> >  					 enum dma_data_direction dir)
-> >  {
-> > +	struct p2pdma_provider *provider;
-> >  	unsigned int nents, mapped_len = 0;
-> >  	struct dma_buf_dma *dma;
-> >  	struct scatterlist *sgl;
-> > @@ -104,10 +130,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
-> >  
-> >  	dma_resv_assert_held(attach->dmabuf->resv);
-> >  
-> > -	if (WARN_ON(!attach || !attach->dmabuf || !provider))
-> > -		/* This function is supposed to work on MMIO memory only */
-> > +	if (WARN_ON(!attach || !attach->dmabuf || !attach->dmabuf->provider))
-> >  		return ERR_PTR(-EINVAL);
-> >  
-> > +	provider = attach->dmabuf->provider;
-> > +
-> >  	dma = kzalloc_obj(*dma);
-> >  	if (!dma)
-> >  		return ERR_PTR(-ENOMEM);
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index d504c636dc29..c2b9944e9659 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -747,6 +747,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
-> >  	dmabuf->size = exp_info->size;
-> >  	dmabuf->exp_name = exp_info->exp_name;
-> >  	dmabuf->owner = exp_info->owner;
-> > +	dmabuf->provider = exp_info->provider;
-> >  	spin_lock_init(&dmabuf->name_lock);
-> >  	init_waitqueue_head(&dmabuf->poll);
-> >  	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
-> > diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
-> > index c64dd6b94e10..fbdac18b69ca 100644
-> > --- a/drivers/infiniband/core/uverbs.h
-> > +++ b/drivers/infiniband/core/uverbs.h
-> > @@ -139,7 +139,6 @@ struct ib_uverbs_dmabuf_file {
-> >  	struct list_head dmabufs_elm;
-> >  	struct rdma_user_mmap_entry *mmap_entry;
-> >  	struct phys_vec phys_vec;
-> > -	struct p2pdma_provider *provider;
-> >  	struct kref kref;
-> >  	struct completion comp;
-> >  	u8 revoked :1;
-> > diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-> > index 2411ebee69e2..94d3719a34da 100644
-> > --- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-> > +++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-> > @@ -33,9 +33,8 @@ uverbs_dmabuf_map(struct dma_buf_attachment *attachment,
-> >  	if (priv->revoked)
-> >  		return ERR_PTR(-ENODEV);
-> >  
-> > -	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
-> > -				      &priv->phys_vec, 1, priv->phys_vec.len,
-> > -				      dir);
-> > +	ret = dma_buf_phys_vec_to_sgt(attachment, &priv->phys_vec, 1,
-> > +				      priv->phys_vec.len, dir);
-> >  	if (IS_ERR(ret))
-> >  		return ret;
-> >  
-> > @@ -108,7 +107,7 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
-> >  		return -EINVAL;
-> >  
-> >  	ret = ib_dev->ops.mmap_get_pfns(mmap_entry, &uverbs_dmabuf->phys_vec,
-> > -					&uverbs_dmabuf->provider);
-> > +					&exp_info.provider);
-> >  	if (ret)
-> >  		goto err;
-> >  
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > index c16f460c01d6..10f47992e7f5 100644
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -15,7 +15,6 @@ struct vfio_pci_dma_buf {
-> >  	struct list_head dmabufs_elm;
-> >  	size_t size;
-> >  	struct phys_vec *phys_vec;
-> > -	struct p2pdma_provider *provider;
-> >  	u32 nr_ranges;
-> >  	struct kref kref;
-> >  	struct completion comp;
-> > @@ -59,9 +58,8 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
-> >  	if (priv->revoked)
-> >  		return ERR_PTR(-ENODEV);
-> >  
-> > -	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
-> > -				      priv->phys_vec, priv->nr_ranges,
-> > -				      priv->size, dir);
-> > +	ret = dma_buf_phys_vec_to_sgt(attachment, priv->phys_vec,
-> > +				      priv->nr_ranges, priv->size, dir);
-> >  	if (IS_ERR(ret))
-> >  		return ret;
-> >  
-> > @@ -274,7 +272,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-> >  	priv->vdev = vdev;
-> >  	priv->nr_ranges = get_dma_buf.nr_ranges;
-> >  	priv->size = length;
-> > -	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
-> > +	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &exp_info.provider,
-> >  					     get_dma_buf.region_index,
-> >  					     priv->phys_vec, dma_ranges,
-> >  					     priv->nr_ranges);
-> > diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-> > index 09bde3f748e4..d63ac4d52aa5 100644
-> > --- a/include/linux/dma-buf-mapping.h
-> > +++ b/include/linux/dma-buf-mapping.h
-> > @@ -7,8 +7,10 @@
-> >  #define __DMA_BUF_MAPPING_H__
-> >  #include <linux/dma-buf.h>
-> >  
-> > +enum pci_p2pdma_map_type
-> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> > +			unsigned int tlp_flags);
-> >  struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
-> > -					 struct p2pdma_provider *provider,
-> >  					 struct phys_vec *phys_vec,
-> >  					 size_t nr_ranges, size_t size,
-> >  					 enum dma_data_direction dir);
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > index d1203da56fc5..81c136fcee6e 100644
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -368,6 +368,9 @@ struct dma_buf {
-> >  	/** @priv: exporter specific private data for this buffer object. */
-> >  	void *priv;
-> >  
-> > +	/** @provider: The peer-to-peer provider backing this buffer. */
-> > +	struct p2pdma_provider *provider;
-> > +
-> >  	/**
-> >  	 * @resv:
-> >  	 *
-> > @@ -501,6 +504,7 @@ struct dma_buf_attachment {
-> >   * @flags:	mode flags for the file
-> >   * @resv:	reservation-object, NULL to allocate default one
-> >   * @priv:	Attach private data of allocator to this buffer
-> > + * @provider:	Peer-to-peer provider backing the buffer
-> >   *
-> >   * This structure holds the information required to export the buffer. Used
-> >   * with dma_buf_export() only.
-> > @@ -512,6 +516,7 @@ struct dma_buf_export_info {
-> >  	size_t size;
-> >  	int flags;
-> >  	struct dma_resv *resv;
-> > +	struct p2pdma_provider *provider;
-> >  	void *priv;
-> >  };
-> >  
-> > 
-> 
+//Ekansh
+
