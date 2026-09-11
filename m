@@ -1,163 +1,121 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98422299943
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 05:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789103188; cv=none; b=OuatYssrQLgz3e6dsD9uRs07QfvCnbEJMpPp+V0gaD8rI5DqiTz1zxboF73p4gcoc8IH5Z3BgBP4GBAezZIOghw76iiLulKFgwXSJoz2mhBFsfGVgH/CKCR0x/3BVzWPCQvcQy7iJq04zPBOU6/xlO1gri8131BSBf3YKskVuwo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789103188; c=relaxed/simple;
-	bh=Zkrk8H561//bKn1zq+L7f8BS2bF7z74ybObzphkesK0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mCe7J7uwh1q/wluNSPcziBA/3i8Ipdp8wIaszpyyLUDhf2V/KlTVWHEuLbZsVTzQ0NHz4C0OlwpuCzTNisb4tXK6LePMGu3F6Yez38qFuiyBlyjT28Kcppp7MA19mzuBChPU2N0ta0lqO+ZRzhrfdLS92PKQpIoplVEG4Y3E7H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOrtOsX7; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8473149E14F
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 05:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789105715; cv=pass; b=dAjlh7fMIg9KYwfPH0zCBJNWPkL8kgJRHc/w/NbTpy0w9t3CpxY578LEKE9Bnl77f4bKtTLjHM5mNksw0675IzBZCd+/3buLgQ7MCllgZAoV9ynYy9ER+jwGfGmmqm82teCFwtgpW9aTYvZZeN5VRGNFoISwAZ3iMeZpiX/h5cI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789105715; c=relaxed/simple;
+	bh=TJnrL6d0hKJDGb4rqpDMjSoPYzhglbMdJOCHJvyEPCE=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=P/moOb3WlewMol8s46CrIt7TEj0f9980kaL86OXQKbJjRfGe+Em64d286GON6EUIgYK3U52BzyfXHYzegY+m+SxpKS2DPZweFFkDHRXiDIPLofVMlUMQ4QHkKWXzVyGM04NzOhwePvKFTayMNLQJmGAVrWcEpBRIEA/6MzbQ2iw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=hM+Pbo4U; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOrtOsX7"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-398b3d66515so651271a91.0
-        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 22:06:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="hM+Pbo4U"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e2254dso53378b3a.1
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 22:48:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789105713; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AXr3+MKatw4wTJ49HlE6sTFDF5TTVodQ8XMJeYnPl1Si008TcQd7x6ZhkT9eQ2f89G
+         pPxEpr/euBoHPPQ4RqXfaRbOhZgkyo6tDuk/V4zy56qIGenQgKjMyescDkYhl4eHpzh/
+         BC8OH+QZtE5y65Jialb0cd3tY/FacL0asyVMDjO6R+tgKCtBWnL91WeI4cjkTA81I9Jy
+         SQGdrbCdo1AZheIw9dZRM3dmSKZXexk7EHeigyxopOIHHhiwCtq5kDQcR1SNXpgOyqFg
+         rvWYaxG7yXoDkO7pOFN1vBgoil9+0BLCzv6uiQ6ecMei4OUJl1I+Pqp1iHByeHgtXFZG
+         kE/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
+        fh=bPTIG+zzijUNzL6j2CdzCH4CXjQZ4LFyJI1EotGqgiw=;
+        b=jwhN94KUO9Na2UbFEWGLmkgQ5PKhbhRdXaf7ITc5/YFfaVu+RpwWYRZzlimdSgwXnM
+         Z6elwAQW65N88MmfrJlpfu6vVzJeshQM2DwM9jlKe+37FAGt2tf4dF0sIHJwg0jmP7GU
+         PBbbKz3WzmEp+ATohsilHXYIJ+PC2SxMn8W0cVEpZ5v4zY1OSCkCCRgSKX7/eXADgk9r
+         Vlle6EPWlc3H8BT+xIz7Cs5figRuSZDU2Z6MzbjOw2IVs8WucLIN1nsPESU0CkYp4fvT
+         En9dKvviBT6BblegcxULMWWOk3Ki5b4uhzoiOnJ3ZTkKlwDNfVMt4u4crs11ro5+md5Z
+         VQCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789103187; x=1789707987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hdLdPpFYXUzWjeezh3fUTQMRth3r97UKUcvijO9o1bI=;
-        b=KOrtOsX7LddM521CkfZbSUsYGjm3SXUUMxEWvKEgmKzWQjtTSrtfY2XwY845MBlMME
-         QNF4XAW6DGGyY4//mUyDnGyVZDUvuXT0DCS6K6H4CdloKmv/xIamFesf6ei6iN0UAuXD
-         PFGoVKVNZlALWbPmLdgT1R4QmA1DKtV0zvXQvQWNFgro2eE9pRDqDXd87VtsdB0c1NwG
-         zRArKfsSpeDuQnXNR1GV9CIjQn0+RPk4tpuWskQ8xG3t+1LWk3pmwf9Ol7EgK+u0eOLV
-         BsUEDPre3kwZf5VBzCqgJfP8oZaTGIxVdrlwGFuYqB2A/e+lkdTGBKJWbI2e0QlrABf+
-         1GLw==
+        d=berkeley.edu; s=google; t=1789105713; x=1789710513; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
+        b=hM+Pbo4UeVdShI3H9ZiszxRDnVrmasPPmJTe/z0kizDS2nAvqIPHr3C7tIEbGYCF1h
+         55+J/PJZ664p0+ZPK7W/RQYsjoz+tVK/tnnW7fuXayn5+yQ9UZ6vVYmdlBH/iqRaLBGY
+         IYfkkE7fIX0HFvhmtrfLElcfFGJZJwJHJCU/WPLsbdHz+jzdmY2YHkLIyEEtbQEv80aj
+         GdoPk9HURZNjeKQqY6Pns6u2eIgOqWAK5fdIu1yL0Qtjj+QvECICkS8q2OvXvzYnJYiH
+         ws2v+5lcZv19brELxjTxg/+U+RJaI0IBNg3KyU7QS6w8if4OHT6x6WC7qpofDIaN5nQt
+         wRSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789103187; x=1789707987;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hdLdPpFYXUzWjeezh3fUTQMRth3r97UKUcvijO9o1bI=;
-        b=FpDPUn/JAoVx2HbXdAZbC0jhCqz2bP2RtuEySKjDVbm6POuQr7Rurl1Fo0EvQbvZNH
-         cqfG/06kRasAbSUzUsQl5sKsAEE87kl1U+HdDnlJhdC4wREvGCdKvZEpv5PBJypNy8OH
-         P+NsWibez8jhQj1oYmp0pVvIb2rIgglAtrpQu9P09DyXkRDD9MRBKn5OLs77XEMa9qkE
-         aTJt+4qexCa+v7vGstccaNSqwhj5B8Vy5ViozjKSMxFz9Btu0jFVJlPjrBMRfpZ0obJW
-         5txmYwg23bfWA7Az34IpQMF1BW0dZKVdfaIiGH93I+6Qqux3+iXyOFTEWL05Hw8JXpRa
-         vBhw==
-X-Gm-Message-State: AFuF++nEMrFtqhOTKNu+tnl0XmU4krXbGa9DEDfQQ27bH4tPhCjtxl7f
-	RAQ9HOcvjAr1wX+wZGvzg1kNQCMG3ArYnkaxUQ/pRjJ/0+HAYnyDF32JguXa7435NtA=
-X-Gm-Gg: AYBFou0KuapoWrO/zR11ma08TJ8umANu3GA17zjHXpSiRjm+DESV2JE1TGvFpB5Lnmm
-	fbEsgiMbdzAlSoP8Vueu38y3ndhWh8bWx5zPdqSqvDO5A1Mt5TM1poadUyKjuXwmqCBDWTp40iJ
-	56gmUOnZQdVIecB0xchnj38bBrYCAk2CwPavoWp3dlfZTlD2LNuMkAkDa4x6bltGhTWXvYIyCKZ
-	gLUTqwX2gsvzEcF2azNlcR8irquttSOAcfZ81l1kNIdbewlk4W86mjxfi8EVd/x4vAeADvzm+bh
-	WZdTYh64VNpDZvWeDbVl2XMyIkDecX7gUv5eIMWFq6YwYFUj3WkyGYZ/A45raHQ1Cp4bcanlSQS
-	sRPMsZGAHjUwurgCGsVvD1QOa7zAbqNTHLyLiunWNeMZMaNaubCKA1OEcKOcIp5qReTdYYcVedp
-	ypOaz+RYTr3b+KlPTAZmpPXlJScTnfX6/XI6Ji6he7iyPrAP2hjx9V+oHW6AMfVfj4RHUiGV90p
-	4DAK+pBTTujarqSUFsDLnqVZRIHHm5PB9gwOY8tASunGhKYjzGExq7pM+eWoQ==
-X-Received: by 2002:a17:90b:224d:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-39d9b984500mr3979666a91.0.1789103186851;
-        Thu, 10 Sep 2026 22:06:26 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:63d1:a611:b433:d4e7:c402])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39d98a58d23sm2801823a91.2.2026.09.10.22.06.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 22:06:26 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: mchehab@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH] media: dvb-usb: dib0700: Add Trek ThumbDrive Tuner support
-Date: Fri, 11 Sep 2026 13:06:19 +0800
-Message-ID: <20260911050619.96465-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1789105713; x=1789710513;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
+        b=UVGy5J9Ar6dF2POOa1ynhkbl+M0K5/7UfbjG7s3457iIoS5tNFOukjXy6Kg/R8auOu
+         4KLTEKSI2tqpADbX0K/jjpLrcWl9F9QaSDtIhda/0wk6A5QNVuHYS5pVxV6adpqtl57/
+         zuB2XPxx04+lmq6GqAco/UTDfU4vHK30h9MLzgrdQ1pCNXM4mvKCZL6mik6n8wM7E04l
+         iyLBDwF04obuhmYls2wdaCYE/W1Ydyzu0uwYQCg5on2AT3Ul98axWH9/sLnB3w/U44Vg
+         FbKLuyJgFaqOjvrnqJIpHYyDchinU2cHpqzZlGiwG3GBQQmGjLFS5HnoqmIvhNV6lyAx
+         azmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxvKJAU3URs9kwkr4i197JSo0NfbLW5hXqu2LBKWOWR6S+ojJ5joLmVLreyFCCONldTCyq/5lHnZLzzgA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kcJkAQ3FsBRvsDTRh7cT04KtQJ7OHFwe5ZMOxSPHqq6QeLkCz/
+	W8HCu5PVIZB+WS6ahpWMn+cosQ5wF0io36jfgy9N97+OqyP0UynReAV8SGlFXzF7XASW5VpGG/E
+	ZWEoKbSCKR1BI/CWNXC2Cacus+uWSMlqHedRtmUwH
+X-Gm-Gg: AYBFou0aaN0BGkhUwh6e4Ytp2Rcg257VqReDIVLk8R+r6zG9adk5Km9S/2g1m5RRK6a
+	ok5jBjAwbIQjRMhOQiRXhR+so79JquI9q6nP4+SsRCcrYE8kypyLBkSRYS+Vx7Y01MFLum6wUGx
+	Ya+mU3hSR21cjgMi1vufabyyzx9u1n/TtsQjSal7MUStk1OyvGXO/ZCwxsv4ZDX59hjffLPh/O8
+	ras78+B6gCmG/6UQeIl+k9b1gZYNjPY4RNBi7Qk/k930CmQqPFmmRC2JNPKRrehedkAnDhSttry
+	DXtiVUJXHyoAlHBWL3MSF86Ann5RpFTVIPWr1215aTG1y7tpHY1Iqv2LVFyjU850op2HQfq+PB+
+	6V5gYEXfzYx8uRhr37lxFDMa4kjvc1pA54mYi+xCO464=
+X-Received: by 2002:a05:6a00:2e20:b0:869:44c3:c24b with SMTP id
+ d2e1a72fcca58-86b0d065277mr3199091b3a.0.1789105711800; Thu, 10 Sep 2026
+ 22:48:31 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 05:48:31 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 05:48:31 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 11 Sep 2026 05:48:31 +0000
+X-Gm-Features: AcwNN1XJiM_-mKtor9wgRc0cKID8IrHW-RYw1kk88Sw8zQDxuASJ1G3ckAlh4HE
+Message-ID: <CA+0ovChNv1=1dfdKxSXnBN0KVC6eO6kZqTFTsozOoJYCvT8T4g@mail.gmail.com>
+Subject: [PATCH] media: cx231xx: don't free the media device on err_analog
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add Trek ThumbDrive Tuner (0a16:3630) using the existing
-STK7700P configuration.
+When cx231xx_register_analog_devices() fails, cx231xx_init_dev() jumps to
+err_analog and calls cx231xx_unregister_media_device(), which frees
+dev->media_dev while dev->v4l2_dev.mdev still aliases it. The next line,
+cx231xx_release_analog_resources(), releases the video device, so
+v4l2_device_release() takes the freed media device's graph_mutex in
+media_devnode_remove(). Remove that free from err_analog and leave it to
+cx231xx_usb_probe(), which frees the media device at err_v4l2, after
+cx231xx_release_analog_resources() has released the video devices and
+v4l2_device_unregister() has dropped the subdevs.
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
 ---
- .../admin-guide/media/dvb-usb-dib0700-cardlist.rst        | 2 ++
- drivers/media/usb/dvb-usb/dib0700_devices.c               | 8 +++++++-
- include/media/dvb-usb-ids.h                               | 2 ++
- 3 files changed, 11 insertions(+), 1 deletion(-)
+The device was emulated.
 
-diff --git a/Documentation/admin-guide/media/dvb-usb-dib0700-cardlist.rst b/Documentation/admin-guide/media/dvb-usb-dib0700-cardlist.rst
-index 4b76b6f1089b6..d78790562d929 100644
---- a/Documentation/admin-guide/media/dvb-usb-dib0700-cardlist.rst
-+++ b/Documentation/admin-guide/media/dvb-usb-dib0700-cardlist.rst
-@@ -132,6 +132,8 @@ dvb-usb-dib0700 cards list
-      - 1554:5010
-    * - Sony PlayTV
-      - 1415:0003
-+   * - Trek ThumbDrive Tuner
-+     - 0a16:3630
-    * - TechniSat AirStar TeleStick 2
-      - 14f7:0004
-    * - Terratec Cinergy DT USB XS Diversity/ T5
-diff --git a/drivers/media/usb/dvb-usb/dib0700_devices.c b/drivers/media/usb/dvb-usb/dib0700_devices.c
-index 6ddc205133939..97d0e2b32705a 100644
---- a/drivers/media/usb/dvb-usb/dib0700_devices.c
-+++ b/drivers/media/usb/dvb-usb/dib0700_devices.c
-@@ -3909,6 +3909,7 @@ enum {
- 	DIBCOM_STK8096PVR,
- 	HAMA_DVBT_HYBRID,
- 	MICROSOFT_XBOX_ONE_TUNER,
-+	TREK_THUMBDRIVE_TUNER,
- };
- 
- struct usb_device_id dib0700_usb_id_table[] = {
-@@ -3999,6 +4000,7 @@ struct usb_device_id dib0700_usb_id_table[] = {
- 	DVB_USB_DEV(DIBCOM, DIBCOM_STK8096PVR),
- 	DVB_USB_DEV(HAMA, HAMA_DVBT_HYBRID),
- 	DVB_USB_DEV(MICROSOFT, MICROSOFT_XBOX_ONE_TUNER),
-+	DVB_USB_DEV(TREK, TREK_THUMBDRIVE_TUNER),
- 	{ }
- };
- 
-@@ -4052,7 +4054,7 @@ struct dvb_usb_device_properties dib0700_devices[] = {
- 			},
- 		},
- 
--		.num_device_descs = 8,
-+		.num_device_descs = 9,
- 		.devices = {
- 			{   "DiBcom STK7700P reference design",
- 				{ &dib0700_usb_id_table[DIBCOM_STK7700P], &dib0700_usb_id_table[DIBCOM_STK7700P_PC] },
-@@ -4085,6 +4087,10 @@ struct dvb_usb_device_properties dib0700_devices[] = {
- 			{   "Gigabyte U7000",
- 				{ &dib0700_usb_id_table[GIGABYTE_U7000], NULL },
- 				{ NULL },
-+			},
-+			{   "TD Tuner",
-+				{ &dib0700_usb_id_table[TREK_THUMBDRIVE_TUNER], NULL },
-+				{ NULL },
- 			}
- 		},
- 
-diff --git a/include/media/dvb-usb-ids.h b/include/media/dvb-usb-ids.h
-index 1b7d10f3d4aa9..e857e1925ca6b 100644
---- a/include/media/dvb-usb-ids.h
-+++ b/include/media/dvb-usb-ids.h
-@@ -81,6 +81,7 @@
- #define USB_VID_TERRATEC			0x0ccd
- #define USB_VID_TERRATEC_2			0x153b
- #define USB_VID_TEVII				0x9022
-+#define USB_VID_TREK				0x0a16
- #define USB_VID_TWINHAN 			0x1822
- #define USB_VID_ULTIMA_ELECTRONIC		0x05d8
- #define USB_VID_UNIWILL 			0x1584
-@@ -414,6 +415,7 @@
- #define USB_PID_TINYTWIN_3				0x9016
- #define USB_PID_TREKSTOR_DVBT				0x901b
- #define USB_PID_TREKSTOR_TERRES_2_0			0xC803
-+#define USB_PID_TREK_THUMBDRIVE_TUNER			0x3630
- #define USB_PID_TURBOX_DTT_2000 			0xd3a4
- #define USB_PID_TWINHAN_VP7021_WARM			0x3208
- #define USB_PID_TWINHAN_VP7041_COLD			0x3201
+--- a/drivers/media/usb/cx231xx/cx231xx-cards.c
++++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+@@ -1505,7 +1505,7 @@ static int cx231xx_init_dev(struct cx231xx *dev,
+struct usb_device *udev,
 
-base-commit: 6e30287eaf3e41b86dfb86df3b811526693d74b4
--- 
-2.55.0
-
+ 	return 0;
+ err_analog:
+-	cx231xx_unregister_media_device(dev);
++	/* dev->v4l2_dev.mdev aliases media_dev until probe's err_v4l2 frees it. */
+ 	cx231xx_release_analog_resources(dev);
+ 	cx231xx_remove_from_devlist(dev);
+ err_dev_init:
