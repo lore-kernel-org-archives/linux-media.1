@@ -1,192 +1,332 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511AE42901F
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DDD443308;
+	Fri, 11 Sep 2026 10:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121965; cv=none; b=Nft28Lx+Ct0yQR8FPAXQI4yehfaNW3tjtBu/wsXVT6FCpf+JR3+TR8I95b22Tj/E/JMfA8qRib9ByiQQm5ggt6V8YmnE4pvHfa2Y9+60F/13Dvn1HQojX5a5TSk0tKM8LLsBnizXeXDbpNgzDRV+oPm63COV5WwSGzjgEvzVmug=
+	t=1789122294; cv=none; b=U8KguMmm3ufLMWl7yG6mUd3v6M3LNONCkS4O7nbwaHsqqM1uIRFnR2ohjd6cesh3299Q11w9iDvmlyQYe8iuPSK8C03UBJ/DcStY/oZYjoAj3Mpgcq6xmuEM4lR95wHbpPixB8wWq9EIJ6i3pbloR71g9LbnybturFJiKINlnjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121965; c=relaxed/simple;
-	bh=n6SP3rxcsgBQwYDRodqbs8EqZBwaeHAu098RqMv9lvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OSqIukFsDsI7AI0xQ/iZJ6WYAEqlANDeERhbICl9vdD4Q+Lw1UP0MHcpEyJXQO6gwcakcOEvGb7pbO/QqTfYCoZz6Jk0K95pSo9aQzIEzxSX38Chajg6Bu5w9XYMdltEiXSyczlrCUKRafHhpneQVwTygkTrzJt5HjZVuoCic6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bGZEScCX; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789122294; c=relaxed/simple;
+	bh=XCPLThBu3P2SukJrMurkLKsZkLi40Q5qkARJ8FMq1vI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tv3do6EsamAbcHXr98OAng5FmPXg3ypwMRasGqY5sKIzL0nTHxK/Z24NdXq4N1Fvrrg1dukW0gS4dY2XBz4CIpVi4z3atcWwePUsxXrewzfitKoVJaqFBpzR01g+SFcvktPnwdwTUTlDtQmKRDsItLgldyUkJOU9FIASts35Feg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEvyQLuu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bGZEScCX"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a68279dd86so895138a12.3
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:19:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789121961; x=1789726761; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AEzfJV11LjKwQWypwntHmfatnZ4DOiDzcipp8kgfTiQ=;
-        b=bGZEScCXieK4TVaf0rjSBlC5cyukKEf5BOyZC1osFiVUBgC1I3GuiEbED7S7QshW+4
-         lQuFNSkbESvduBo+iB80KLZ5ZftlWPdvUcNN580RlNaUnuaw93zSdUYNeYM2M1YzbIZP
-         sPcy7qXE3+koFlTxPVJnYD2M+IwhIwNsNYO+CTv5xNtrS+/2xh9UcZx6pCaQx5BMsbHO
-         gKCaErmigFmsUPl7xy3QKaLveFPlFWBliBlyBys8zw1xXSGymBX0WXSdCp9SUZhn4TyG
-         gst2SbSDDwWdkEHBhCj30JuGt7YjuMPzLpauKgCDxP5p4K5eLgGD7qQFa8qjJcVSv745
-         3bMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789121961; x=1789726761;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AEzfJV11LjKwQWypwntHmfatnZ4DOiDzcipp8kgfTiQ=;
-        b=kCkG6piY12kc4C6+wXrc6LqMeKMJxDS2gxqVJIu0pul7v2IybGZ2lRVc0x5HEswW3t
-         SBjdesNZ4JaW7wjJVpDlmZBxHq8lThkrxxgijpWQTSEkBNUdq0C96B4C6h2Cu+hrBmoN
-         hWCcLRhHz/pFQPfRBUKS/toHqqj61DrDI0lgCzR9k0XHhGU1L923IlNM4SdCEzIuitgF
-         hM1I0jjWgootATfoBp++I6NlcdTqIMCfYV+oAYhWRS1OPek2ivXJ/h9tVPZ8GN5TZJ5r
-         iqvKox/FdhzDAnJj3mUl2esXT6cUBDBrxmcEbrz9s3SKXTe6fgF1JF3y4hds0I+u6paw
-         ZXhg==
-X-Forwarded-Encrypted: i=1; AKwUvByXpOY1cVtQ9TQ6nhBILjj8iZNy//OmKI36sX2U4ZGMBmSYAyhfJ1qoiMtHB5/zRrtqzwiarLBNtjA23Q==@vger.kernel.org
-X-Gm-Message-State: AFuF++mF/1lIzC5j6rRGbgnja1FnqBO7nugxFPf65F8NW2EH34eY53eH
-	+mfWkVYkhqqone9doCybwavD0eOhOgME+yfQ1tV8wqnqmV1qgpD32K0t+gw8FCksP8Q=
-X-Gm-Gg: AYBFou3gmuqjCOSFcBBL56z0B0Otk5088RUKlN1JH/ZaL9MWLFjLP4fk5AU3l4+NPSb
-	DV11citVp5n70NhGJtYKCmJULZosTjvkxs3/M/WiAwtUdgEZvKABwcTWdMcdLARkt+Ydy07JSZT
-	qesuc8GkU4eyVL69r+iwXJ4YTBxFV1IQkLVWvfCKHFRMUgD065l/3qpuhPjCM2nDoV9bPKAXsRj
-	7F8Dly4TMYXNE0FCjTF/jFD0r8CHqUzE0tU+hdergK/PBGfoma6YoQytDbwlwwdYSMZYGNqsDM3
-	7OeqApAjc/8jFKaCKk/m5UXvfOZ6nzXVkpffmyKv3ixKQyWyJCsvYwn5uID4ROo7jiEhgSunM+S
-	Ev+3WLPG2oY2QI3PiR8HuVOJQiSZ6oNlHvY/EO/0Asl5jnHNAoFwUPwlRcCHlROjO3FXDBTksII
-	c3KhDueYd1VlMrTlmDkR7joy7nP+ytZ/nmvLyYzN9Ghe7kB0a2TnN5rzHD7GvBYXIyY9iDVqCKL
-	Q73crMp+4W/
-X-Received: by 2002:a05:6402:2115:b0:6a6:32f5:5573 with SMTP id 4fb4d7f45d1cf-6a9b569f04emr1620126a12.21.1789121961346;
-        Fri, 11 Sep 2026 03:19:21 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.225.241])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5773f72sm637132a12.0.2026.09.11.03.19.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 03:19:20 -0700 (PDT)
-Message-ID: <b44d7cc0-203f-4bf0-ac3b-5393bb0e1a90@linaro.org>
-Date: Fri, 11 Sep 2026 11:19:19 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEvyQLuu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343251F000FF;
+	Fri, 11 Sep 2026 10:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789122290;
+	bh=FsDQkX5qVD1HL2Qoye/f9xNhSTkp7Bvx/JXzS/JYNzk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PEvyQLuumFBeOUp0cGBCw8w+vJVhMcWC2mQyQ3rVvjjfjHKhZKhty6lG09J4CRP8B
+	 P/tk4a/Vl3IGahLUYuudsQ7W77/9yESis9SErkTkb0/55ZoMwW/nGZaLcb0JiJ52fA
+	 OKOBsV8thXmIeURnWnvn0cbDstmHIxH5cSVPxWwfmADZps0FOkkFGdbNz2bzLyv+mj
+	 z2wu7BCCB0WVjH0yLjYjxJeFc4o29majX+vaJk3eE8FKwnS8EeAZp7p/VPezVpESNJ
+	 sNpEBLddzx5nOrKNyp08kivpxwh7zkPhqc6gGFbAJNKIvAcFx7E+LpFkB2jLZF4STr
+	 7E5u9/D+YAmdw==
+Date: Fri, 11 Sep 2026 13:24:46 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v5 17/18] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260911102446.GV13683@unreal>
+References: <20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com>
+ <20260910-fix-p2p-acs-v4-0-v5-17-856087f63c0d@nvidia.com>
+ <7805bb89-2c46-46f6-9f15-8dce842d5ae5@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API
- support
-To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7805bb89-2c46-46f6-9f15-8dce842d5ae5@amd.com>
 
-On 11/09/2026 07:22, 
-Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+On Fri, Sep 11, 2026 at 09:51:48AM +0200, Christian König wrote:
+> On 9/10/26 13:32, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Exporters keep the &struct p2pdma_provider in their own private data and
+> > hand it to dma_buf_phys_vec_to_sgt() on every map. An importer cannot reach
+> > it, so it has no way to learn how its own peer-to-peer traffic would be
+> > routed before it programs its hardware.
 > 
-> This series adds V4L2 subdev streams API support to the CAMSS driver.
+> Why should that be interesting to importers?
+> 
+> In general importers should just consome the data provided by a DMA-buf and don't participate in any way in the decision how that data is made available.
 
-Can you please provide a use-case and test in your overview.
+The importer does not control how traffic flows, but it needs to know how
+to configure itself for optimal performance. In the mlx5 case, it needs to
+enable or disable ATS depending on the location of the exporter's device.
 
-i.e. show what it does and show it doesn't break anything in a way a 
-reviewer can test ?
+Think of this as a hint propagated from the exporter to the importer.
 
-> Each subdevice gains streams-aware enable_streams/disable_streams pad
-> ops alongside the existing legacy (non-streams) subdev ops, guarded by
-> a new per-instance streams_enable resource flag.
-> 
-> Patches 1-4 add the CSIPHY/CSID mechanism:
->   - CSIPHY: passthrough routing, NO_STREAM_MIX/NO_N_TO_1 validation, and
->     shared D-PHY lane enable/disable gated on stream-count transitions.
->   - CSID: per-source-pad routing (a single sink stream propagated to
->     every source pad by default, remappable for multi-VC sensors),
->     VC/DT discovery via get_frame_desc, and new hw_ops
->     (configure_rx/enable_stream/disable_stream) with a gen2 backend
->     implementation.
-> 
-> Patch 5 is a standalone bug fix, independent of the streams API:
-> camss_link_entities() used to create an all-to-all CSID-to-VFE
-> crossbar, but SM8250's hardware wiring is a fixed 1:1 pairing
-> (csid[i] <-> vfe[i]). Enabling a mismatched link (e.g. csid0 -> vfe1)
-> exposed a media link with no real hardware datapath. Fixed via an
-> opt-in csid_vfe_fixed_pairing flag, set only for sm8250_resources.
-> 
-> Patches 6-8 complete the mechanism and turn it on for real hardware:
->   - VFE: streams-aware pad ops. VFE lines are inherently single-consumer
->     (vfe_link_setup() enforces one link per pad), so no refcounting is
->     needed there.
->   - camss-video: the video device pipeline walk now checks, via
->     v4l2_subdev_has_op(), whether the directly-connected subdev supports
->     enable_streams/disable_streams; if so it issues a single top-level
->     call instead of manually walking the pipeline one subdev at a time
->     with .s_stream(). Falls back to the existing legacy path unchanged
->     when the remote subdev doesn't support the streams API, so no other
->     platform is affected.
->   - SM8250: streams_enable is set true on every CSIPHY, CSID, and VFE
->     line resource entry, turning the mechanism on for real hardware.
->     Every other platform keeps using the legacy non-streams subdev ops,
->     so this is a no-op everywhere else.
-> 
-> A practical benefit of the CSID routing change (patch 4) is routing
-> flexibility for multi-VC sensors: the CSID's routing table maps sink
-> streams to source pads/streams via userspace-configurable
-> v4l2_subdev_route entries instead of a fixed pad<->VC assignment, so a
-> sensor emitting multiple virtual channels can have each VC directed to
-> a different RDI output (and thus a different VFE line/video node)
-> with a set_routing call, rather than being constrained to whatever
-> fixed mapping the driver hardcodes.
-> 
-> When a sink stream is shared by multiple source pads/streams, CSID
-> only enables the corresponding upstream CSIPHY stream on the first
-> source stream that needs it, and only disables it once the last
-> remaining source stream using it is disabled. Enabling or disabling
-> additional consumers of an already-active shared stream is a no-op
-> upstream, so no consumer can double-enable or prematurely disable a
-> stream still in use by another. This also avoids ever hitting v4l2
-> core's own -EALREADY re-enable gate.
-> 
-> Verified clean with checkpatch --strict. Built, flashed, and tested on
-> RB5/SM8250 hardware; ran the no-routing capture verification test
-> across all four CSID/VFE RDI pairs (csid0->vfe0, csid1->vfe1,
-> csid2->vfe2, csid3->vfe3) at 4056x3040 - all four passed with
-> correctly-sized frame captures.
+Take a look at patch #18 and the old comment above mlx5_umem_needs_ats().
+It explains when enabling ATS is beneficial and when it may hurt
+performance.
 
-What's that - please detail your exact steps in the cover letter. What I 
-need to see in the first instance is that nothing breaks.
+>  
+> > Publish the provider through &struct dma_buf_export_info instead,
+> 
+> That is a very bad idea and not even remotely acceptable.
+> 
+> This needs to be a callback instead if that should really fly.
 
-Maybe try running libcamera cam with or without gpuisp. Show some yavta 
-commands to prove nothing breaks and then something to show how to use 
-your code.
+The provider is a stable pointer that never changes during the dma-buf
+lifetime, so it seemed natural to store it as-is. However, I can certainly
+change this to use a callback instead.
+
+Thanks
 
 > 
-> Gjorgji Rosikopulos (8):
->    media: qcom: camss: Add streams API support for CSIPHY
->    media: qcom: camss: Add streams API hw_ops to CSID interface
->    media: qcom: camss: Implement CSID streams API hw_ops for gen2
->    media: qcom: camss: Add streams API support in CSID subdevice
->    media: qcom: camss: Fix CSID-to-VFE all-to-all link crossbar on sm8250
->    media: qcom: camss: add streams API support for VFE
->    media: qcom: camss: add streams API support in camss-video
->    media: qcom: camss: enable streams API on SM8250
+> Regards,
+> Christian.
 > 
->   .../platform/qcom/camss/camss-csid-gen2.c     |  59 ++-
->   .../media/platform/qcom/camss/camss-csid.c    | 494 +++++++++++++++++-
->   .../media/platform/qcom/camss/camss-csid.h    |  45 ++
->   .../media/platform/qcom/camss/camss-csiphy.c  | 223 +++++++-
->   .../media/platform/qcom/camss/camss-csiphy.h  |   2 +
->   drivers/media/platform/qcom/camss/camss-vfe.c | 119 ++++-
->   drivers/media/platform/qcom/camss/camss-vfe.h |   1 +
->   .../media/platform/qcom/camss/camss-video.c   | 119 ++++-
->   drivers/media/platform/qcom/camss/camss.c     |  21 +-
->   drivers/media/platform/qcom/camss/camss.h     |   7 +
->   10 files changed, 1046 insertions(+), 44 deletions(-)
+> > and add
+> > dma_buf_p2pdma_map_type() for importers to query it by TLP class. It is
+> > fixed at export time, so dma_buf_phys_vec_to_sgt() no longer needs it as an
+> > argument and the two exporters no longer need a copy of it.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/dma-buf/dma-buf-mapping.c                 | 41 +++++++++++++++++++----
+> >  drivers/dma-buf/dma-buf.c                         |  1 +
+> >  drivers/infiniband/core/uverbs.h                  |  1 -
+> >  drivers/infiniband/core/uverbs_std_types_dmabuf.c |  7 ++--
+> >  drivers/vfio/pci/vfio_pci_dmabuf.c                |  8 ++---
+> >  include/linux/dma-buf-mapping.h                   |  4 ++-
+> >  include/linux/dma-buf.h                           |  5 +++
+> >  7 files changed, 49 insertions(+), 18 deletions(-)
+> > 
+> > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> > index 794acff2546a..8b431000e906 100644
+> > --- a/drivers/dma-buf/dma-buf-mapping.c
+> > +++ b/drivers/dma-buf/dma-buf-mapping.c
+> > @@ -6,6 +6,32 @@
+> >  #include <linux/dma-buf-mapping.h>
+> >  #include <linux/dma-resv.h>
+> >  
+> > +/**
+> > + * dma_buf_p2pdma_map_type - How peer-to-peer traffic to a buffer is routed
+> > + * @attach:	attachment of the importer that will issue the traffic
+> > + * @tlp_flags:	&enum pci_p2pdma_tlp_flags describing the TLPs it will issue
+> > + *
+> > + * Reports how the PCIe fabric routes @tlp_flags traffic between the buffer
+> > + * behind @attach and the importer attached to it, so that an importer can
+> > + * choose the TLP attributes that earn it a direct route before it programs
+> > + * its hardware.
+> > + *
+> > + * Return: the mapping type for @tlp_flags traffic, or PCI_P2PDMA_MAP_NONE
+> > + * when the exporter named no &struct p2pdma_provider and nothing is known
+> > + * about the route.
+> > + */
+> > +enum pci_p2pdma_map_type
+> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
+> > +			unsigned int tlp_flags)
+> > +{
+> > +	if (!attach->dmabuf->provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> > +	return pci_p2pdma_map_type_tlp(attach->dmabuf->provider, attach->dev,
+> > +				       tlp_flags);
+> > +}
+> > +EXPORT_SYMBOL_NS_GPL(dma_buf_p2pdma_map_type, "DMA_BUF");
+> > +
+> >  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+> >  					 dma_addr_t addr)
+> >  {
+> > @@ -71,7 +97,6 @@ struct dma_buf_dma {
+> >   * from arrays of physical vectors. This funciton is intended for MMIO memory
+> >   * only.
+> >   * @attach:	[in]	attachment whose scatterlist is to be returned
+> > - * @provider:	[in]	p2pdma provider
+> >   * @phys_vec:	[in]	array of physical vectors
+> >   * @nr_ranges:	[in]	number of entries in phys_vec array
+> >   * @size:	[in]	total size of phys_vec
+> > @@ -85,16 +110,17 @@ struct dma_buf_dma {
+> >   *
+> >   * A mapping must be unmapped by using dma_buf_free_sgt().
+> >   *
+> > - * NOTE: This function is intended for exporters. If direct traffic routing is
+> > - * mandatory exporter should call routing pci_p2pdma_map_type() before calling
+> > - * this function.
+> > + * NOTE: This function is intended for exporters, and works on MMIO memory
+> > + * only, so &dma_buf.provider must have been set at export time. If direct
+> > + * traffic routing is mandatory the exporter should call
+> > + * pci_p2pdma_map_type() before calling this function.
+> >   */
+> >  struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+> > -					 struct p2pdma_provider *provider,
+> >  					 struct phys_vec *phys_vec,
+> >  					 size_t nr_ranges, size_t size,
+> >  					 enum dma_data_direction dir)
+> >  {
+> > +	struct p2pdma_provider *provider;
+> >  	unsigned int nents, mapped_len = 0;
+> >  	struct dma_buf_dma *dma;
+> >  	struct scatterlist *sgl;
+> > @@ -104,10 +130,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+> >  
+> >  	dma_resv_assert_held(attach->dmabuf->resv);
+> >  
+> > -	if (WARN_ON(!attach || !attach->dmabuf || !provider))
+> > -		/* This function is supposed to work on MMIO memory only */
+> > +	if (WARN_ON(!attach || !attach->dmabuf || !attach->dmabuf->provider))
+> >  		return ERR_PTR(-EINVAL);
+> >  
+> > +	provider = attach->dmabuf->provider;
+> > +
+> >  	dma = kzalloc_obj(*dma);
+> >  	if (!dma)
+> >  		return ERR_PTR(-ENOMEM);
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index d504c636dc29..c2b9944e9659 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -747,6 +747,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+> >  	dmabuf->size = exp_info->size;
+> >  	dmabuf->exp_name = exp_info->exp_name;
+> >  	dmabuf->owner = exp_info->owner;
+> > +	dmabuf->provider = exp_info->provider;
+> >  	spin_lock_init(&dmabuf->name_lock);
+> >  	init_waitqueue_head(&dmabuf->poll);
+> >  	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
+> > diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
+> > index c64dd6b94e10..fbdac18b69ca 100644
+> > --- a/drivers/infiniband/core/uverbs.h
+> > +++ b/drivers/infiniband/core/uverbs.h
+> > @@ -139,7 +139,6 @@ struct ib_uverbs_dmabuf_file {
+> >  	struct list_head dmabufs_elm;
+> >  	struct rdma_user_mmap_entry *mmap_entry;
+> >  	struct phys_vec phys_vec;
+> > -	struct p2pdma_provider *provider;
+> >  	struct kref kref;
+> >  	struct completion comp;
+> >  	u8 revoked :1;
+> > diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+> > index 2411ebee69e2..94d3719a34da 100644
+> > --- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+> > +++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+> > @@ -33,9 +33,8 @@ uverbs_dmabuf_map(struct dma_buf_attachment *attachment,
+> >  	if (priv->revoked)
+> >  		return ERR_PTR(-ENODEV);
+> >  
+> > -	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
+> > -				      &priv->phys_vec, 1, priv->phys_vec.len,
+> > -				      dir);
+> > +	ret = dma_buf_phys_vec_to_sgt(attachment, &priv->phys_vec, 1,
+> > +				      priv->phys_vec.len, dir);
+> >  	if (IS_ERR(ret))
+> >  		return ret;
+> >  
+> > @@ -108,7 +107,7 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
+> >  		return -EINVAL;
+> >  
+> >  	ret = ib_dev->ops.mmap_get_pfns(mmap_entry, &uverbs_dmabuf->phys_vec,
+> > -					&uverbs_dmabuf->provider);
+> > +					&exp_info.provider);
+> >  	if (ret)
+> >  		goto err;
+> >  
+> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > index c16f460c01d6..10f47992e7f5 100644
+> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > @@ -15,7 +15,6 @@ struct vfio_pci_dma_buf {
+> >  	struct list_head dmabufs_elm;
+> >  	size_t size;
+> >  	struct phys_vec *phys_vec;
+> > -	struct p2pdma_provider *provider;
+> >  	u32 nr_ranges;
+> >  	struct kref kref;
+> >  	struct completion comp;
+> > @@ -59,9 +58,8 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
+> >  	if (priv->revoked)
+> >  		return ERR_PTR(-ENODEV);
+> >  
+> > -	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
+> > -				      priv->phys_vec, priv->nr_ranges,
+> > -				      priv->size, dir);
+> > +	ret = dma_buf_phys_vec_to_sgt(attachment, priv->phys_vec,
+> > +				      priv->nr_ranges, priv->size, dir);
+> >  	if (IS_ERR(ret))
+> >  		return ret;
+> >  
+> > @@ -274,7 +272,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+> >  	priv->vdev = vdev;
+> >  	priv->nr_ranges = get_dma_buf.nr_ranges;
+> >  	priv->size = length;
+> > -	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
+> > +	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &exp_info.provider,
+> >  					     get_dma_buf.region_index,
+> >  					     priv->phys_vec, dma_ranges,
+> >  					     priv->nr_ranges);
+> > diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+> > index 09bde3f748e4..d63ac4d52aa5 100644
+> > --- a/include/linux/dma-buf-mapping.h
+> > +++ b/include/linux/dma-buf-mapping.h
+> > @@ -7,8 +7,10 @@
+> >  #define __DMA_BUF_MAPPING_H__
+> >  #include <linux/dma-buf.h>
+> >  
+> > +enum pci_p2pdma_map_type
+> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
+> > +			unsigned int tlp_flags);
+> >  struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+> > -					 struct p2pdma_provider *provider,
+> >  					 struct phys_vec *phys_vec,
+> >  					 size_t nr_ranges, size_t size,
+> >  					 enum dma_data_direction dir);
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index d1203da56fc5..81c136fcee6e 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -368,6 +368,9 @@ struct dma_buf {
+> >  	/** @priv: exporter specific private data for this buffer object. */
+> >  	void *priv;
+> >  
+> > +	/** @provider: The peer-to-peer provider backing this buffer. */
+> > +	struct p2pdma_provider *provider;
+> > +
+> >  	/**
+> >  	 * @resv:
+> >  	 *
+> > @@ -501,6 +504,7 @@ struct dma_buf_attachment {
+> >   * @flags:	mode flags for the file
+> >   * @resv:	reservation-object, NULL to allocate default one
+> >   * @priv:	Attach private data of allocator to this buffer
+> > + * @provider:	Peer-to-peer provider backing the buffer
+> >   *
+> >   * This structure holds the information required to export the buffer. Used
+> >   * with dma_buf_export() only.
+> > @@ -512,6 +516,7 @@ struct dma_buf_export_info {
+> >  	size_t size;
+> >  	int flags;
+> >  	struct dma_resv *resv;
+> > +	struct p2pdma_provider *provider;
+> >  	void *priv;
+> >  };
+> >  
+> > 
 > 
-
