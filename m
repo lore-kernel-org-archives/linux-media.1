@@ -1,395 +1,159 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8A92D47E9
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 00:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789087863; cv=pass; b=YOdGleNsj1DpLJASxmg/w7DzDQYMTuAgNT+f8jy8CUrQjfEwXygzUOmZUCh55XLljYKuS7/GMLTIUZyH+JHFetUWTepASPB1GVfEyjF2RP9cKttcDuEHHc+TM8NiVBBFyoJyYI0sfa72tTk+CCyIl6s0vLjWnJhMZCxks/I4gq4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789087863; c=relaxed/simple;
-	bh=7gBuW1tDU3yKKtHFmuAy2ZPbuZatA14Dsl3bXDCQ7gs=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=aKtjhTiLmAgkjXVSKDBukJU1fOPsnQ/oqSrYEl5hbbmS5GOj86mgGVK5mhf4Iu3VsM+v4QQ2Ra0iOJHAt/6Z2kGY3MGo73p9WIwPBvUawX8FhUgGYHUrcju0sBrjTICFcUYbBioZ3KvEdcdF3WY5Ndi6TKyNvht1pRIM2QphJD4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=K8r8ukSO; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1133B14D7
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 01:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789091809; cv=none; b=upC21hOSeos79HOudQV0vU/pcxiv+0O+fZZQiiBbwmE6imJOm6YElTqEsIapP5L/CUg6myo240Y66lau5nEu4kodrpjkPDZCgofgh8Z4vUcydCEjQD+B5Hoe4opdZaqOriQpE7ov4S36KogdBTZ1FDMIAsFF8nL68kEG/NEGX3U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789091809; c=relaxed/simple;
+	bh=pTIKxt3rN8svwwlF+VkWkXOvUISb8VIjuqknOEyyVfE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L90esmwfT5hp3nIzqIBt+ni1le5qGsvoHe2gXuQhb7AiVvna+Bsxyjl6rfm16Y1mWzqPto00wp621QOEj1xcNfDKcyCpEdRNsHFTH0x1e4JGMIWtOt6Od8VG/obpyfk1SFaZ4CB/ojBn2E3tKTqjVqVC9v+QJvZEidDhkOtZMKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CteS1cUc; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="K8r8ukSO"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f9bso2818205ad.3
-        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 17:51:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789087861; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JfO2VGyonFBvnAz8xNEHiWB6Y3YU4gE6gcUkKy2fd86ytX+DQF7uc9BQv7AFBpJzTE
-         l3u0TymcDECn2i2CKmFEZkpMmHrlUe/o7z2YCmBQXeui1Zmy/34ND9LPDZeBO/iCuU+/
-         0GMPaXQgdkf3qn122URmixC3jmFXnoU3YcZ0XclsPsMhUukdoHwaQTI4OnccjiImNEji
-         3LHFU6C9dDco6M51G7xoiBWDTYsqZCQcR9hVx1uazEPIXXUZWW9SIH+5xN4QsuS4BAr6
-         9TeRK55aJbi3D08HIrpQvThX8N2idvVsue/sa7DLlvz+N0rDPrqy4oA8fhhdgqFIzk5c
-         61Ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=nK59Kzrx/zkadp+kUtxiEkQJ3EPT2Ic16ZxuFRhf9BE=;
-        fh=EOOz07nVjHQcjsBpnp2Nz3BB/FdUgoAQOED40pgsYHQ=;
-        b=GjeAatTDjOLkfbUR/dzEMFL/Qa+iXwsPkRInck1ddhoFX8H8PTMlMW4Za5+0PILt1D
-         vnBEKK0iLzDU1/nmR58Kf4X9quonnoYL35AoWTE9w4QFESKB4+YYCU0Scx+RdLihRZi/
-         eQaMxyAs9ck5Nj8WK5Lg/Nbmy4VMkzHs8uMkrqP6LtGrda7VT8T07eRw24MgkH1xaX/O
-         nqbSydI2I4lbi9dCejOXYs54IES3PFZp4sjJMf0gWW+yktJDeYJbFRJkbX3Wniautf5a
-         o+EnZIXHlSsSJkI7EThG3aqviuf+wPuI25SypsqzW9MhTSkr9jafbt0sHKo/Jb0DRD3R
-         lZzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CteS1cUc"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3990fe066ebso321134a91.1
+        for <linux-media@vger.kernel.org>; Thu, 10 Sep 2026 18:56:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1789087861; x=1789692661; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nK59Kzrx/zkadp+kUtxiEkQJ3EPT2Ic16ZxuFRhf9BE=;
-        b=K8r8ukSOOwyIKbSQhUWlAojwaUNMziP3oxtXUq38IwTJBlZEgPMnHoTQJ3DjtfqDzf
-         MaStfP+dunJz2rTXK69+W0UAHmkrAGFxl2cRs5IWycUsB7/UQEUROA3X9BA8kyv8Ac/B
-         0k2P3gmd+JnZ7Zo0nPnIXRGgxNwOy1HDlzMqrMItVH/bbCN3VLDxkz+NTZKQ3mdTQSa2
-         D1ouRf6ZCTh8/S1bHh7K2vtvg9/BPaARQbqEc77yf0/NSY9kemYdA4KEafC4dB5Mia80
-         7fKCqhcEfF2QNRSZ/hkzueABUzx0OsPvc9+4TmTT9YmriN5w4tTfMS1u4DBZRiO/G/8V
-         K8Fg==
+        d=gmail.com; s=20251104; t=1789091807; x=1789696607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nxq2TIe8bS3KM2vl9kkxjnCBMcSMNKULAJlsrLiD/GU=;
+        b=CteS1cUcvQfb+tGE5jbQ4TxVO794UcvJMa1pXysOXTvUQxmO5jArAQ9GpOEYcn9LHv
+         yy3YH+FOMxMD4PcWMNza8IprW8QQ0ZOyy4FiDwDxcG6jfatQxQ2kRPvCoRIVxie/NkuU
+         OgN8zCH3nAEtkrU589pPyWfRbdb86Bzt9rdrD7olfW2WGPD0IyMWZo9D0E+fqDl44AQ3
+         T5UhnbhnHEjH0jFGmVO7qzRL9SDPZMG0q2lMHeV6A0WwR3GTZKvIGuwtZNzq6Qr6bgpN
+         GvRvMOwHDmuQUgDEWnBmT1W6TxjIPPg434F3pXLds7IwkQME24xoYwptRZagDVkhOW3/
+         cPrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789087861; x=1789692661;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nK59Kzrx/zkadp+kUtxiEkQJ3EPT2Ic16ZxuFRhf9BE=;
-        b=EWdl/ugVSrTejAg2Frz7jpJOjvgOfCTNbn3W7td/+rfTTaZxbVt7lydggrQ4Ig5cZR
-         NTRvwUdvtj2TGS3fzHpEbZ/6PRkG0aYhteuUb7ZhaZmL8J8gRZuRVGBACsy4O75W8BMU
-         O0zcn1+5FCad67JCSCUny9rMCx5fVnu4ZAmdx1m2jCi5rl5HPzEi4RJeCIvZxWJSuk6a
-         aD3KS1qL0sP+kgZ7y1Omp87Lh3AKrFUZetarZGTWmzIKC8h6IQJdVzYoIpRVNDqzyiSK
-         G4KbjDa2+rC8Lt5vzdDscQGhYcxyyolIAKY6a0tg80MJI+2NdIf905PUTgZi4mK9+7D4
-         gB/A==
-X-Forwarded-Encrypted: i=1; AKwUvByTS8Jeots+IUKteKuPLEmQqrXbBRhuXbcV+HnnMtxwE1tEzs2NOYIUxm0MgrsNorvp/Qwk0eUqCMLamw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mFcZIXUBH2NZjtQlbsWITFPEdzdOxhtGnBYTP/1ZUL13lOBYBZ
-	X8cOquAUI3EqVgrm8I3g622EcD//ErBlY3yiq42DalHERQnoaHunutvU5hRaCQxlfmkdl1BPFbl
-	mGsdVzyYs38F/CIzxdjdovgzKnYmT4EmaWXf2yTlS
-X-Gm-Gg: AYBFou1PlzZ+ZUv8XKk4SyJ1f2pvNurZKsqscaEBcMzST+yPjK/OQVx7ni0aKOD5wW8
-	h4Yr5EjQFOxeEHb+XtJVF3t75VV862SfE7lvsnNzGeqA5nlYpDumP/Fq7oKItYRDxC4X+3m8TNf
-	u1uwgBmxFlNFRxUq+bwfogJc9fATkBeB43L19GTcQxgmInKWA+LiOR6+47HbyhLaOPiJAvXnE60
-	soM+nbcuhW9fyYB0qAdLZUaT0JGXu5iWkux+bMDDBSG0HDPX8T4V/EQx4jnebhxR5fOU5WkwBYW
-	0xIHFtbsHuqF0e6QYljUDpRl7yJdKfUuUZjpESaFY6zjR9I7vW7GE7vVDOYNFEjMg7q9Jl4/PoW
-	uR4BnRz6q8LOCEhmyAc4MWPW9bLVC1QPkW1EFXXme
-X-Received: by 2002:a17:902:d549:b0:2db:56da:6a0b with SMTP id
- d9443c01a7336-2dd2a34638bmr39864855ad.13.1789087859822; Thu, 10 Sep 2026
- 17:50:59 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789091807; x=1789696607;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nxq2TIe8bS3KM2vl9kkxjnCBMcSMNKULAJlsrLiD/GU=;
+        b=kr7PbAfK8zVIatLtNm0OOuebZ0kwa1TUuyLEkCBzsdU5BQiUE/3gHpaN7xNCvsHkMH
+         tdJFQ2/ZlcRdx3FijVBfI5Fkbs/iWugagraZKP0cbLcYu4OW4k25LCCo4IegAsb4tzbz
+         QblMgPf22eFq4xfDOWlo72Wr4rU9xAvEdQVR3hcq3OKUY+KfkmlJ7dJM7KTvlDAyEYb7
+         hEg3f/MzZPt7uofN78F87WDEh3FILe0SdT2UCFEX1mK4gqIR+XP4/E3CUleTobOXq1tY
+         GyxMQvSvd+QsL34ReCs2aSoomIqf0KZ5n06c1ICVq60z9DL/X/HjS7dIFmQU8hzstdUH
+         Z7Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ9VQ32lJH8thJhAlOZs7v5Cnivc/tY0IkybMSt+tTeP5+2CeqsGfYZzdqf+MTEmZU5nEfVBCi7Eo44Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++kAXQ8HAwEvyOd8dNpBgO+zghM3dgxHVFWa4izdIWd8l9lODVak
+	SA9itybhJ3C3VcsDWOHr5mQU02xzsmYTzDywMGF/yGBhImNX4p7WzO5y
+X-Gm-Gg: AYBFou1OcXeYvEP8i+XVY6SEh2hkFU8HTuz19ap15F3SEwY+G9zwEZTIqIkhI1JS0GX
+	1TOu3k6yDrfgel07MgPt+fmiLGAF3Rjb4eutqXPgBcmWFkTlkmk3w1XKUQG+/UNkRVmsM9isti5
+	Rppy9Hzza4DEUDdUjDpF18aqhK45g3MV+PoERkesxr3kuO4qGA/30oLJhwIKlWOnoD2Q2SSTeqg
+	OC/wwX9tTmGmZRZiemvglKgxeOno98xVTWVrWJVX8T1zXEPD/Q36CLC/d1sdBuAHICJzdLbbwUj
+	87P++VezxgmiR4QPpx+GqE745MgMn/GLgu3X6XwSJ7rQjqAdVZlvZTEyfIQZw6H41Y3vbMMpzTa
+	hLYaeSzJSCNxZHvYHTUPJEm7uokrCo4M1I3H9PuHSJ6dpwK8FlG8V/yToAcfgdZb6oC/UCKWzC3
+	6d5wglkOMLIkVV2HS9hA6x1bhIN7X3vEHiFV9VOx7UymTp37BqAysImw+ght43jWG3lf/LEZC7U
+	z+tCzjKSfUmYNno
+X-Received: by 2002:a17:90a:da8f:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39d9bc10072mr2329431a91.6.1789091807236;
+        Thu, 10 Sep 2026 18:56:47 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:fdee:b2:3ee8:60d7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95095946sm2178864a91.5.2026.09.10.18.56.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 18:56:46 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jacopo Mondi <jacopo+renesas@jmondi.org>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH v2] media: adv748x: Fix endpoint reference leaks on probe failure
+Date: Fri, 11 Sep 2026 09:56:40 +0800
+Message-ID: <20260911015640.1728828-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Thu, 10 Sep 2026 17:50:48 -0700
-X-Gm-Features: AcwNN1VhRlUSbKZ9RVq3NNVAa88MGlca-wfg0_MV4-7zNNAiGaghArEtMCa9Tp4
-Message-ID: <CA+0ovCgAXY1onOA8EGSkQwf6veyyRmnqoimzqtFYP4v2gaGAGg@mail.gmail.com>
-Subject: [BUG] KASAN: slab-use-after-free Read in vimc_probe
-To: Shuah Khan <skhan@linuxfoundation.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Farhad Alemi <falemi@asu.edu>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000005bf67b065b2a7afc"
+Content-Transfer-Encoding: 8bit
 
---0000000000005bf67b065b2a7afc
-Content-Type: text/plain; charset="UTF-8"
+adv748x_parse_dt() takes an extra reference for every endpoint saved in
+state->endpoints. If parsing later fails, adv748x_probe() skips
+adv748x_dt_cleanup(), so the saved references remain held. A CSI-2 lane
+parsing error also returns from for_each_endpoint_of_node() without
+dropping the iterator's reference.
 
-Hello,
+Save the endpoint reference only after lane parsing succeeds. Drop the
+iterator reference before returning a lane parsing error and route all
+parse failures through the endpoint cleanup path to release any saved
+references. This retains the endpoints only for a successful probe.
 
-We are reporting the following crash (reproducer attached; no proposed
-patch available yet):
-Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
-Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
+This issue was found by a static analysis checker and confirmed by
+manual source review.
 
-[   51.880657][ T9500] BUG: KASAN: slab-use-after-free in
-v4l2_device_unregister+0x125/0x270
-[   51.880669][ T9500] Read of size 8 at addr ffff88802dc00098 by task
-repro/9500
-[   51.880676][ T9500]
-[   51.880679][ T9500] CPU: 0 UID: 0 PID: 9500 Comm: repro Not tainted
-7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
-[   51.880688][ T9500] Hardware name: QEMU Standard PC (Q35 + ICH9,
-2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-[   51.880693][ T9500] Call Trace:
-[   51.880695][ T9500]  <TASK>
-[   51.880698][ T9500]  dump_stack_lvl+0xe8/0x150
-[   51.880706][ T9500]  print_address_description+0x55/0x1e0
-[   51.880714][ T9500]  ? v4l2_device_unregister+0x125/0x270
-[   51.880724][ T9500]  print_report+0x58/0x70
-[   51.880730][ T9500]  kasan_report+0x117/0x150
-[   51.880741][ T9500]  ? v4l2_device_unregister+0x125/0x270
-[   51.880751][ T9500]  v4l2_device_unregister+0x125/0x270
-[   51.880761][ T9500]  vimc_probe+0x1006/0x1610
-[   51.880771][ T9500]  ? __pfx_vimc_probe+0x10/0x10
-[   51.880779][ T9500]  platform_probe+0xf9/0x190
-[   51.880786][ T9500]  ? __pfx_platform_probe+0x10/0x10
-[   51.880792][ T9500]  really_probe+0x267/0xaf0
-[   51.880800][ T9500]  __driver_probe_device+0x1e2/0x350
-[   51.880808][ T9500]  device_driver_attach+0xe0/0x1d0
-[   51.880816][ T9500]  bind_store+0x1d0/0x220
-[   51.880823][ T9500]  ? __pfx_sysfs_kf_write+0x10/0x10
-[   51.880830][ T9500]  kernfs_fop_write_iter+0x3af/0x540
-[   51.880840][ T9500]  vfs_write+0x61d/0xb90
-[   51.880848][ T9500]  ? __pfx_vfs_write+0x10/0x10
-[   51.880856][ T9500]  ? do_sys_openat2+0x14e/0x200
-[   51.880864][ T9500]  ? kmem_cache_free+0x182/0x650
-[   51.880874][ T9500]  ksys_write+0x150/0x270
-[   51.880882][ T9500]  ? __pfx_ksys_write+0x10/0x10
-[   51.880890][ T9500]  do_syscall_64+0x155/0x510
-[   51.880899][ T9500]  ? trace_irq_disable+0x3b/0x140
-[   51.880908][ T9500]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   51.880914][ T9500]  ? clear_bhb_loop+0x30/0x80
-[   51.880922][ T9500]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   51.880928][ T9500] RIP: 0033:0x447e86
-[   51.880934][ T9500] Code: 47 ba 04 00 00 00 48 c7 c0 f0 ff ff ff 64
-89 10 48 c7 c2 ff ff ff ff c9 48 89 d0 c3 0f 1f 84 00 00 00 00 00 48
-8b 45 10 0f 05 <48> 89 c2 48 3d 00 f0 ff ff 77 0f c9 48 89 d0 c3 66 2e
-0f 1f 84 00
-[   51.880940][ T9500] RSP: 002b:00007fff1bfaa550 EFLAGS: 00000202
-ORIG_RAX: 0000000000000001
-[   51.880948][ T9500] RAX: ffffffffffffffda RBX: 0000000000000001
-RCX: 0000000000447e86
-[   51.880953][ T9500] RDX: 0000000000000006 RSI: 00000000004890ae
-RDI: 0000000000000003
-[   51.880958][ T9500] RBP: 00007fff1bfaa560 R08: 0000000000000000
-R09: 0000000000000000
-[   51.880962][ T9500] R10: 0000000000000000 R11: 0000000000000202
-R12: 00007fff1bfaa728
-[   51.880967][ T9500] R13: 00007fff1bfaa738 R14: 0000000000000002
-R15: 00000000004b0140
-[   51.880974][ T9500]  </TASK>
-[   51.880977][ T9500]
-[   51.880981][ T9500] Allocated by task 9500:
-[   51.880985][ T9500]  kasan_save_track+0x3e/0x80
-[   51.880993][ T9500]  __kasan_kmalloc+0x93/0xb0
-[   51.881001][ T9500]  __kmalloc_cache_noprof+0x325/0x610
-[   51.881008][ T9500]  vimc_sensor_add+0x5b/0x500
-[   51.881013][ T9500]  vimc_probe+0x3f1/0x1610
-[   51.881020][ T9500]  platform_probe+0xf9/0x190
-[   51.881026][ T9500]  really_probe+0x267/0xaf0
-[   51.881032][ T9500]  __driver_probe_device+0x1e2/0x350
-[   51.881039][ T9500]  device_driver_attach+0xe0/0x1d0
-[   51.881045][ T9500]  bind_store+0x1d0/0x220
-[   51.881051][ T9500]  kernfs_fop_write_iter+0x3af/0x540
-[   51.881059][ T9500]  vfs_write+0x61d/0xb90
-[   51.881065][ T9500]  ksys_write+0x150/0x270
-[   51.881071][ T9500]  do_syscall_64+0x155/0x510
-[   51.881080][ T9500]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   51.881086][ T9500]
-[   51.881088][ T9500] Freed by task 9500:
-[   51.881091][ T9500]  kasan_save_track+0x3e/0x80
-[   51.881099][ T9500]  kasan_save_free_info+0x46/0x50
-[   51.881105][ T9500]  __kasan_slab_free+0x5c/0x80
-[   51.881113][ T9500]  kfree+0x1c5/0x650
-[   51.881118][ T9500]  vimc_probe+0x14e2/0x1610
-[   51.881126][ T9500]  platform_probe+0xf9/0x190
-[   51.881131][ T9500]  really_probe+0x267/0xaf0
-[   51.881138][ T9500]  __driver_probe_device+0x1e2/0x350
-[   51.881144][ T9500]  device_driver_attach+0xe0/0x1d0
-[   51.881151][ T9500]  bind_store+0x1d0/0x220
-[   51.881156][ T9500]  kernfs_fop_write_iter+0x3af/0x540
-[   51.881164][ T9500]  vfs_write+0x61d/0xb90
-[   51.881170][ T9500]  ksys_write+0x150/0x270
-[   51.881176][ T9500]  do_syscall_64+0x155/0x510
-[   51.881185][ T9500]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   51.881191][ T9500]
-[   51.881193][ T9500] The buggy address belongs to the object at
-ffff88802dc00000
-[   51.881193][ T9500]  which belongs to the cache kmalloc-4k of size 4096
-[   51.881203][ T9500] The buggy address is located 152 bytes inside of
-[   51.881203][ T9500]  freed 4096-byte region [ffff88802dc00000,
-ffff88802dc01000)
-[   51.881210][ T9500]
-[   51.881212][ T9500] The buggy address belongs to the physical page:
-[   51.881218][ T9500] page: refcount:0 mapcount:0
-mapping:0000000000000000 index:0x0 pfn:0x2dc00
-[   51.881225][ T9500] head: order:3 mapcount:0 entire_mapcount:0
-nr_pages_mapped:0 pincount:0
-[   51.881230][ T9500] flags:
-0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-[   51.881237][ T9500] page_type: f5(slab)
-[   51.881246][ T9500] raw: 00fff00000000040 ffff88801b042140
-dead000000000122 0000000000000000
-[   51.881252][ T9500] raw: 0000000000000000 0000000000040004
-00000000f5000000 0000000000000000
-[   51.881258][ T9500] head: 00fff00000000040 ffff88801b042140
-dead000000000122 0000000000000000
-[   51.881263][ T9500] head: 0000000000000000 0000000000040004
-00000000f5000000 0000000000000000
-[   51.881269][ T9500] head: 00fff00000000003 fffffffffffffe01
-00000000ffffffff 00000000ffffffff
-[   51.881275][ T9500] head: ffffffffffffffff 0000000000000000
-00000000ffffffff 0000000000000008
-[   51.881278][ T9500] page dumped because: kasan: bad access detected
-[   51.881283][ T9500] page_owner tracks the page as allocated
-[   51.881286][ T9500] page last allocated via order 3, migratetype
-Unmovable, gfp_mask
-0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC),
-pid 9500, tgid 9500 (repro), ts 51865265021
-[   51.881298][ T9500]  post_alloc_hook+0x1f9/0x250
-[   51.881304][ T9500]  get_page_from_freelist+0x235a/0x23e0
-[   51.881312][ T9500]  __alloc_frozen_pages_noprof+0x217/0x5a0
-[   51.881320][ T9500]  allocate_slab+0x7d/0x610
-[   51.881326][ T9500]  refill_objects+0x2d6/0x350
-[   51.881331][ T9500]  __pcs_replace_empty_main+0x2c9/0x6c0
-[   51.881340][ T9500]  __kmalloc_noprof+0x48b/0x720
-[   51.881347][ T9500]  tomoyo_realpath_from_path+0xe3/0x5d0
-[   51.881353][ T9500]  tomoyo_check_open_permission+0x229/0x470
-[   51.881363][ T9500]  security_file_open+0xa9/0x240
-[   51.881372][ T9500]  do_dentry_open+0x4a8/0x13a0
-[   51.881380][ T9500]  vfs_open+0x3b/0x340
-[   51.881387][ T9500]  path_openat+0x1569/0x1f30
-[   51.881395][ T9500]  do_file_open+0x23e/0x4a0
-[   51.881402][ T9500]  do_sys_openat2+0x115/0x200
-[   51.881410][ T9500]  __x64_sys_openat+0x138/0x170
-[   51.881419][ T9500] page last free pid 9500 tgid 9500 ts
-51864729772 stack trace:
-[   51.881424][ T9500]  free_pages_prepare+0xa03/0xb00
-[   51.881430][ T9500]  __free_contig_range_common+0x174/0x340
-[   51.881440][ T9500]  free_pages_bulk+0x48/0x120
-[   51.881447][ T9500]  vfree+0x231/0x470
-[   51.881453][ T9500]  tpg_free+0x233/0x430
-[   51.881460][ T9500]  vimc_sensor_add+0x452/0x500
-[   51.881465][ T9500]  vimc_probe+0x3f1/0x1610
-[   51.881473][ T9500]  platform_probe+0xf9/0x190
-[   51.881480][ T9500]  really_probe+0x267/0xaf0
-[   51.881487][ T9500]  __driver_probe_device+0x1e2/0x350
-[   51.881493][ T9500]  device_driver_attach+0xe0/0x1d0
-[   51.881499][ T9500]  bind_store+0x1d0/0x220
-[   51.881505][ T9500]  kernfs_fop_write_iter+0x3af/0x540
-[   51.881513][ T9500]  vfs_write+0x61d/0xb90
-[   51.881519][ T9500]  ksys_write+0x150/0x270
-[   51.881526][ T9500]  do_syscall_64+0x155/0x510
-[   51.881534][ T9500]
-[   51.881536][ T9500] Memory state around the buggy address:
-[   51.881540][ T9500]  ffff88802dbfff80: fc fc fc fc fc fc fc fc fc
-fc fc fc fc fc fc fc
-[   51.881550][ T9500]  ffff88802dc00000: fa fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   51.881555][ T9500] >ffff88802dc00080: fb fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   51.881558][ T9500]                             ^
-[   51.881562][ T9500]  ffff88802dc00100: fb fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   51.881566][ T9500]  ffff88802dc00180: fb fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   51.881570][ T9500]
-==================================================================
-[   51.881587][ T9500] Kernel panic - not syncing: KASAN: panic_on_warn set ...
-[   54.465107][ T9500] CPU: 0 UID: 0 PID: 9500 Comm: repro Not tainted
-7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
-[   54.466057][ T9500] Hardware name: QEMU Standard PC (Q35 + ICH9,
-2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-[   54.467008][ T9500] Call Trace:
-[   54.467319][ T9500]  <TASK>
-[   54.467623][ T9500]  vpanic+0x56d/0xa60
-[   54.468000][ T9500]  ? __pfx_vpanic+0x10/0x10
-[   54.468422][ T9500]  ? __pfx___schedule+0x10/0x10
-[   54.468878][ T9500]  panic+0xc5/0xd0
-[   54.469225][ T9500]  ? __pfx_panic+0x10/0x10
-[   54.469637][ T9500]  ? preempt_schedule_thunk+0x16/0x40
-[   54.470160][ T9500]  ? v4l2_device_unregister+0x125/0x270
-[   54.470697][ T9500]  check_panic_on_warn+0x89/0xb0
-[   54.471174][ T9500]  ? v4l2_device_unregister+0x125/0x270
-[   54.471708][ T9500]  end_report+0x73/0x170
-[   54.472122][ T9500]  ? v4l2_device_unregister+0x125/0x270
-[   54.472655][ T9500]  kasan_report+0x128/0x150
-[   54.473094][ T9500]  ? v4l2_device_unregister+0x125/0x270
-[   54.473677][ T9500]  v4l2_device_unregister+0x125/0x270
-[   54.474175][ T9500]  vimc_probe+0x1006/0x1610
-[   54.474599][ T9500]  ? __pfx_vimc_probe+0x10/0x10
-[   54.475065][ T9500]  platform_probe+0xf9/0x190
-[   54.475547][ T9500]  ? __pfx_platform_probe+0x10/0x10
-[   54.476056][ T9500]  really_probe+0x267/0xaf0
-[   54.476515][ T9500]  __driver_probe_device+0x1e2/0x350
-[   54.477017][ T9500]  device_driver_attach+0xe0/0x1d0
-[   54.477485][ T9500]  bind_store+0x1d0/0x220
-[   54.477887][ T9500]  ? __pfx_sysfs_kf_write+0x10/0x10
-[   54.478366][ T9500]  kernfs_fop_write_iter+0x3af/0x540
-[   54.478854][ T9500]  vfs_write+0x61d/0xb90
-[   54.479248][ T9500]  ? __pfx_vfs_write+0x10/0x10
-[   54.479690][ T9500]  ? do_sys_openat2+0x14e/0x200
-[   54.480136][ T9500]  ? kmem_cache_free+0x182/0x650
-[   54.480595][ T9500]  ksys_write+0x150/0x270
-[   54.480992][ T9500]  ? __pfx_ksys_write+0x10/0x10
-[   54.481438][ T9500]  do_syscall_64+0x155/0x510
-[   54.481871][ T9500]  ? trace_irq_disable+0x3b/0x140
-[   54.482335][ T9500]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   54.482888][ T9500]  ? clear_bhb_loop+0x30/0x80
-[   54.483320][ T9500]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   54.483922][ T9500] RIP: 0033:0x447e86
-[   54.484285][ T9500] Code: 47 ba 04 00 00 00 48 c7 c0 f0 ff ff ff 64
-89 10 48 c7 c2 ff ff ff ff c9 48 89 d0 c3 0f 1f 84 00 00 00 00 00 48
-8b 45 10 0f 05 <48> 89 c2 48 3d 00 f0 ff ff 77 0f c9 48 89 d0 c3 66 2e
-0f 1f 84 00
-[   54.486046][ T9500] RSP: 002b:00007fff1bfaa550 EFLAGS: 00000202
-ORIG_RAX: 0000000000000001
-[   54.486836][ T9500] RAX: ffffffffffffffda RBX: 0000000000000001
-RCX: 0000000000447e86
-[   54.487557][ T9500] RDX: 0000000000000006 RSI: 00000000004890ae
-RDI: 0000000000000003
-[   54.488311][ T9500] RBP: 00007fff1bfaa560 R08: 0000000000000000
-R09: 0000000000000000
-[   54.489080][ T9500] R10: 0000000000000000 R11: 0000000000000202
-R12: 00007fff1bfaa728
-[   54.489827][ T9500] R13: 00007fff1bfaa738 R14: 0000000000000002
-R15: 00000000004b0140
-[   54.490578][ T9500]  </TASK>
-[   54.491137][ T9500] Kernel Offset: disabled
-[   54.491688][ T9500] Rebooting in 86400 seconds..
+Fixes: 6a18865da8e3 ("media: i2c: adv748x: store number of CSI-2 lanes described in device tree")
+Fixes: eccf442ce156 ("media: i2c: adv748x: Support probing a single output")
+Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+Changes in v2:
+- Move of_node_get() and the assignment to state->endpoints[ep.port]
+  after successful lane parsing, as suggested by Hans Verkuil.
 
-Regards,
-SEFCOM Lab @ ASU
+v1: https://lore.kernel.org/r/20260814134106.1387486-1-ruoyuw560@gmail.com/
 
---0000000000005bf67b065b2a7afc
-Content-Type: application/octet-stream; name="reproducer.c"
-Content-Disposition: attachment; filename="reproducer.c"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtw8osxk0>
-X-Attachment-Id: f_mtw8osxk0
+ drivers/media/i2c/adv748x/adv748x-core.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-LyoKICogMjI1LWthc2FuLXNsYWItdXNlLWFmdGVyLWZyZWUtcmVhZC1pbi12aW1jLXByb2JlCiAq
-LwojZGVmaW5lIF9HTlVfU09VUkNFCiNpbmNsdWRlIDxzdGRpby5oPgojaW5jbHVkZSA8c3RkbGli
-Lmg+CiNpbmNsdWRlIDxzdHJpbmcuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8ZmNu
-dGwuaD4KI2luY2x1ZGUgPHN5cy9tb3VudC5oPgojaW5jbHVkZSA8c3lzL3N0YXQuaD4KCi8qCiAq
-IHZpbWNfcmVnaXN0ZXJfZGV2aWNlcygpIGVycm9yIHBhdGhzIGNhbGwgdmltY19yZWxlYXNlX3N1
-YmRldnMoKSwgd2hpY2ggZnJlZXMKICogZXZlcnkgdmltY19lbnRfZGV2aWNlIHZpYSAtPnJlbGVh
-c2UoKS4gIFRoZSBzZW5zb3IvZGViYXllci9zY2FsZXIgdHlwZXMgaGF2ZQogKiBubyAtPnVucmVn
-aXN0ZXIgaG9vaywgc28gdGhlaXIgc3RydWN0IHY0bDJfc3ViZGV2IHN0YXlzIGxpbmtlZCBvbgog
-KiB2aW1jLT52NGwyX2Rldi5zdWJkZXZzIGFmdGVyIHRoZSBiYWNraW5nIG1lbW9yeSBpcyBnb25l
-LCBhbmQgdGhlIHRyYWlsaW5nCiAqIHY0bDJfZGV2aWNlX3VucmVnaXN0ZXIoKSB3YWxrcyB0aGF0
-IGxpc3QuICBBbnkgcHJvYmUgZmFpbHVyZSBhZnRlciB0aGUgZmlyc3QKICogZW50aXR5IHJlZ2lz
-dGVyZWQgaXRzIHN1YmRldiByZWFjaGVzIGl0LCBzbyBpbmplY3Qgb25lIGFsbG9jYXRpb24gZmFp
-bHVyZQogKiBwZXIgYmluZCBhbmQgc3dlZXAgdGhlIGFsbG9jYXRpb24gaW5kZXguCiAqLwpzdGF0
-aWMgaW50IHdyaXRlX3N0cmluZ190b19maWxlKGNvbnN0IGNoYXIgKnBhdGgsIGNvbnN0IGNoYXIg
-KnZhbHVlKQp7CglpbnQgZmQgPSBvcGVuKHBhdGgsIE9fV1JPTkxZKTsKCWludCBieXRlc193cml0
-dGVuOwoKCWlmIChmZCA8IDApCgkJcmV0dXJuIC0xOwoJYnl0ZXNfd3JpdHRlbiA9IHdyaXRlKGZk
-LCB2YWx1ZSwgc3RybGVuKHZhbHVlKSk7CgljbG9zZShmZCk7CglyZXR1cm4gYnl0ZXNfd3JpdHRl
-bjsKfQoKaW50IG1haW4odm9pZCkKewoJY2hhciBhbGxvY2F0aW9uX2luZGV4X3RleHRbMzJdOwoJ
-aW50IGFsbG9jYXRpb25faW5kZXg7CglpbnQgYmluZF9yZXN1bHQ7CgoJLyoKCSAqIHVkZXYgcnVu
-cyB2NGxfaWQgb24gZXZlcnkgL2Rldi92NGwtc3ViZGV2KiBhIHN1Y2Nlc3NmdWwgcHJvYmUgY3Jl
-YXRlczsKCSAqIHRoYXQgb3BlbiByYWNlcyB0aGUgdW5iaW5kIGJlbG93IGFuZCB0cmlwcyBhbiB1
-bnJlbGF0ZWQgTlVMTCBkZXJlZiBpbgoJICogc3ViZGV2X29wZW4sIGtpbGxpbmcgdGhlIG1hY2hp
-bmUgYmVmb3JlIHRoZSBzd2VlcCBnZXRzIGZhciBlbm91Z2guCgkgKi8KCXN5c3RlbSgidWRldmFk
-bSBjb250cm9sIC0tc3RvcC1leGVjLXF1ZXVlIik7CgoJbWtkaXIoIi9zeXMva2VybmVsL2RlYnVn
-IiwgMDc1NSk7Cgltb3VudCgibm9uZSIsICIvc3lzL2tlcm5lbC9kZWJ1ZyIsICJkZWJ1Z2ZzIiwg
-MCwgTlVMTCk7CgoJLyogZmFpbHNsYWIgc2tpcHMgR0ZQX0tFUk5FTCBhbGxvY2F0aW9ucyB1bnRp
-bCB0aGlzIGlzIGNsZWFyZWQgKi8KCWlmICh3cml0ZV9zdHJpbmdfdG9fZmlsZSgiL3N5cy9rZXJu
-ZWwvZGVidWcvZmFpbHNsYWIvaWdub3JlLWdmcC13YWl0IiwgIk4iKSA8IDApIHsKCQlwcmludGYo
-IkNPTkZJR19GQUlMU0xBQiBkZWJ1Z2ZzIGtub2JzIG1pc3NpbmdcbiIpOwoJCXJldHVybiAxOwoJ
-fQoKCS8qIHRoZSBkcml2ZXIgYm91bmQgdmltYy4wIGF0IGJvb3Q7IHN0YXJ0IGZyb20gdGhlIHVu
-Ym91bmQgc3RhdGUgKi8KCXdyaXRlX3N0cmluZ190b19maWxlKCIvc3lzL2J1cy9wbGF0Zm9ybS9k
-cml2ZXJzL3ZpbWMvdW5iaW5kIiwgInZpbWMuMCIpOwoKCS8qCgkgKiBmYWlsLW50aCBpcyBwZXIt
-dGFzaywgc28gbm8gb3RoZXIgdGFzayBzZWVzIGFuIGluamVjdGVkIGZhaWx1cmUuICBUaGUKCSAq
-IGluZGV4IHRoYXQgbGFuZHMgaW5zaWRlIHZpbWNfcHJvYmUgc2hpZnRzIHdpdGgga2VybmVsIHZl
-cnNpb24gLS0gaXQgaXMKCSAqIDE1NiBvbiA3LjMtcmMyIC0tIHNvIHN3ZWVwIGEgcmFuZ2Ugd2l0
-aCByb29tIGZvciB0aGF0IGRyaWZ0LgoJICovCglmb3IgKGFsbG9jYXRpb25faW5kZXggPSAxOyBh
-bGxvY2F0aW9uX2luZGV4IDw9IDUxMjsgYWxsb2NhdGlvbl9pbmRleCsrKSB7CgkJc25wcmludGYo
-YWxsb2NhdGlvbl9pbmRleF90ZXh0LCBzaXplb2YoYWxsb2NhdGlvbl9pbmRleF90ZXh0KSwKCQkJ
-ICIlZCIsIGFsbG9jYXRpb25faW5kZXgpOwoJCXdyaXRlX3N0cmluZ190b19maWxlKCIvcHJvYy90
-aHJlYWQtc2VsZi9mYWlsLW50aCIsIGFsbG9jYXRpb25faW5kZXhfdGV4dCk7CgkJYmluZF9yZXN1
-bHQgPSB3cml0ZV9zdHJpbmdfdG9fZmlsZSgiL3N5cy9idXMvcGxhdGZvcm0vZHJpdmVycy92aW1j
-L2JpbmQiLAoJCQkJCQkgICAidmltYy4wIik7CgkJd3JpdGVfc3RyaW5nX3RvX2ZpbGUoIi9wcm9j
-L3RocmVhZC1zZWxmL2ZhaWwtbnRoIiwgIjAiKTsKCQlpZiAoYmluZF9yZXN1bHQgPj0gMCkKCQkJ
-LyogcHJvYmUgc3Vydml2ZWQgdGhlIGluamVjdGVkIGZhaWx1cmU7IHVuZG8gaXQgKi8KCQkJd3Jp
-dGVfc3RyaW5nX3RvX2ZpbGUoIi9zeXMvYnVzL3BsYXRmb3JtL2RyaXZlcnMvdmltYy91bmJpbmQi
-LAoJCQkJCSAgICAgInZpbWMuMCIpOwoJfQoJcmV0dXJuIDA7Cn0K
---0000000000005bf67b065b2a7afc--
+diff --git a/drivers/media/i2c/adv748x/adv748x-core.c b/drivers/media/i2c/adv748x/adv748x-core.c
+index 3eb6d5e8f0826..70594d0018048 100644
+--- a/drivers/media/i2c/adv748x/adv748x-core.c
++++ b/drivers/media/i2c/adv748x/adv748x-core.c
+@@ -675,9 +675,6 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+ 			continue;
+ 		}
+ 
+-		of_node_get(ep_np);
+-		state->endpoints[ep.port] = ep_np;
+-
+ 		/*
+ 		 * At least one input endpoint and one output endpoint shall
+ 		 * be defined.
+@@ -689,8 +686,13 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+ 
+ 		/* Store number of CSI-2 lanes used for TXA and TXB. */
+ 		ret = adv748x_parse_csi2_lanes(state, ep.port, ep_np);
+-		if (ret)
++		if (ret) {
++			of_node_put(ep_np);
+ 			return ret;
++		}
++
++		of_node_get(ep_np);
++		state->endpoints[ep.port] = ep_np;
+ 	}
+ 
+ 	return in_found && out_found ? 0 : -ENODEV;
+@@ -739,7 +741,7 @@ static int adv748x_probe(struct i2c_client *client)
+ 	ret = adv748x_parse_dt(state);
+ 	if (ret) {
+ 		adv_err(state, "Failed to parse device tree");
+-		goto err_free_mutex;
++		goto err_cleanup_dt;
+ 	}
+ 
+ 	/* Configure IO Regmap region */
+@@ -809,7 +811,6 @@ static int adv748x_probe(struct i2c_client *client)
+ 	adv748x_unregister_clients(state);
+ err_cleanup_dt:
+ 	adv748x_dt_cleanup(state);
+-err_free_mutex:
+ 	mutex_destroy(&state->mutex);
+ 
+ 	return ret;
+
+-- 
+2.34.1
+
