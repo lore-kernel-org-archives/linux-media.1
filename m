@@ -1,129 +1,245 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E01E48C406;
-	Fri, 11 Sep 2026 13:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B052F6565
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 14:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134999; cv=none; b=O7Yu2qqQDGtJGkf3+04YMJ9rxql+jYaZZebUXPNnvgZfmESGxU5UQ+LNLImosj/GcGJlkW68RHr6eTis1vdaIpsGj23C40EqikBeN9rMPA3FLg6XneEPkLPCN4xYdeKzZOguW3t3miR6GOqYSIuLWYZzevuSoMuhGZroD+UD7lk=
+	t=1789135566; cv=none; b=FqLoiTRxnKGZLl+3ZUR2KmX6IVbLY0rBZ1+k12T8VzIaXBQ45bKJSYM7O19dpqGYLwhlA257IAmp8EukeCmm04Ajm1kOtsfpcDCf11HzzfFIu6pYKR4LjhxnGmKICdoS5S+SS783sZJw/iFXVrsjv2usKeQ8c7UPauMePtLEZIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134999; c=relaxed/simple;
-	bh=YliyGa1zgtLzCslNtNy69+u4K26DzRw41YQWRHAfEEw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ntA/SKUhE90JI/H/Ekhhxbdbg5v4OWihWUVO9slgqAfjuAGgsUWR7+bRYZhr0vI4cEE+WgGAqVf64vy3XluOwLHMXFam5XJSUBqx9PrN7oFRRQbhDosVVc0iVqLLO89RrrOy/AXsf8rSA3xqw1rQIDoDBo5SEsHaQoyrw00XjYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=U7BpDuNl; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789135566; c=relaxed/simple;
+	bh=ulbryzlRrQTqkJ1z6/JkfO6tU92hSZWWHgey+fY17PM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q2XjeLpQp465od/wwhSBKX0ufvHKzbaAyTBL5hzZyDNgRXz1NL9J335K96p+jNQ/GiftvMxqn1176h2vvkxEL2ahN8aS3LHXcqEY6evhHLvM4FqWdBYHXSnm4z7wt0ecKHpoV02MtW9I/chUDFPzJdKhUNi5moCRuWMrXkYxono=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Etfthvb/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IVVfQ/gb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="U7BpDuNl"
-Received: from [192.168.1.182] (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F19D363C;
-	Fri, 11 Sep 2026 15:54:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789134890;
-	bh=YliyGa1zgtLzCslNtNy69+u4K26DzRw41YQWRHAfEEw=;
-	h=From:Date:Subject:To:Cc:From;
-	b=U7BpDuNlhRVM0K60TlVEkGHyUbgbrDvi+M2vv00ER96hmSlZKuOR5ahjEvqX6kIlS
-	 LTFB5zkcol9L9eqmTEwO8k7rnpZi+jOwI38zDOg0yK1jZ3vFyzgE0+0A89uVzbPdUK
-	 PiTpniUwFqBdC99PCv/AKUPAepWs6fbLXYOszp4Q=
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Fri, 11 Sep 2026 15:56:19 +0200
-Subject: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Etfthvb/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IVVfQ/gb"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BCiV2E4187383
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 14:05:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BUKFOWdViEfGfisSzezZLfVxXxk5fHozrfLGvTM+b38=; b=Etfthvb/ZxyB6eug
+	s83sTqDaAWRWtdVFzzuRqlXuMKhMcAni1B0AuI8c5otdPabxWGqfihXtPRd4ndm5
+	WCX47iIngXgTQ0Ylo4w3Y8hHgrgLwrptCoB6bGTXocscatUTVbmSF8gAjbg5LlPa
+	D9+jZSYAHy4W40fxUZp5ywS9yUvwQf1WiPAH5Mlig+D7omTEPSMHHm7J2EcNHtjL
+	wGUYXU6geX8utol+NzYTK+/yD4NMGZcvTW/sAbRL8CQNWztonIVNhSFWh3pZvhT0
+	d8b8yj/TM0rN3PBmJ54devJTwq3QDnq3866WTZ/amPiMt8XN4Nj26zx4KJP1x7X+
+	6Y7YEw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd522fc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 14:05:58 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78d25a8ff32so213056137.2
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 07:05:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789135557; x=1789740357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BUKFOWdViEfGfisSzezZLfVxXxk5fHozrfLGvTM+b38=;
+        b=IVVfQ/gbng6trKutfdbMtaEEk5Z4rfKM3ldJjqRFtkcQzphayyZ5nlVlau8Osq1JO9
+         cUj+duEAE2a9a/TmQYnNj56tosFihYmZimxJRbltbNnfxPkNe1h/OAZ7CVGzp/iWRRc+
+         bN/eMGDm+T0mKEX3NJIKWckTTiZrorzZbCemvJTMdpeN0ESem5JMirNA3nTTJ4GC8FzQ
+         LED+6efFfLb+rhgbs5bgNgIJavZKzb7eEj4AqystcCvXYZlDEF3bkTtJd1w+9riAyrDR
+         Zdh+8tA6hAiKHXbuv3HFGMYroNCjNdG3S27y5OWGGbgva8jRlUbK8YqEfFNuWZVBLCTh
+         8ngg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789135557; x=1789740357;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BUKFOWdViEfGfisSzezZLfVxXxk5fHozrfLGvTM+b38=;
+        b=pT2KgXtmSCq2ty3JA0JrFBNiCxnVEsZlkJTvAtzMHDHMSpZytjnRpvG0uJyceEu/2i
+         Gdh6XBHs1qcARHokXR3oTzcOhPZ16HxaxmSLOsqfYfI3UClmLCZyF9DOcUL/VEgLyEPd
+         gKQSE7jAjXYvWu6e2nto48wr65iQ11KGi9n5kBBVcOnqBK+mzkMryTJTBPpwxCdgP9NX
+         e/FoD8gPA9IIuoUY+asEI1mehJS5XzFOQHvyi0TOXImsZdZaLIFLgJywdZzug7wxqRx7
+         2fWH/wP7YHNhritonXSAjkNDcwhbxi/ciCmHeDNA4b49OREYFrb1pKV9b20CMBxQHBoJ
+         4g8w==
+X-Forwarded-Encrypted: i=1; AKwUvByHIbI5InBi/1LnxxwFVJXHw28DCgn9zN8M7acEfYgCv6rEv9a0YicLiIZ7vbBnZfm3zrxf5YHjeYRnjA==@vger.kernel.org
+X-Gm-Message-State: AFuF++moB6cmRA4tw4QGaJnyfyL/dxvyYUgwTgZnbd0YEx+kazLv7KC+
+	KJ1ZWvIRU2SYOJ1OGyS4MSXClxzMKOE0600Fixur7aM17mjqsf6QPEwkzmIVwN02TeGAFKG0RsJ
+	yiy6yN8Ccjp8z9uGR32PmDtsi/cZ6FS/kmqgAtWtfsKivsEiJnEh/98USt09poGfZvQ==
+X-Gm-Gg: AYBFou1MFqBZtP1AIFUvydN3lLszVclwHTPD9vMBtPTmnoxzNhI87eJDSaydCDyXdpB
+	TGUhv/Wsg/iK6s0ix0Cu1f0TmpKHNi+zTWza2gItKJ/kBoGDvJBdZjvhUw7mzdCCzEst23bCuvp
+	TGG5zYFMuTAalR3iNHQxfohAwH52meuPbjLeAS5S1rcaNdzNakiexsz/Wiad57UoGAqS1oKVqlD
+	KOFp+XrU+z9IJRbXhjNOeA56MBYSskfLl4fs1GtuPs5xe4e2a56aCct8C0tVrVctSJrur1ExXG3
+	mZpfAUNKFIeDF/2Tzv0OijOHn7eVtXrIf5JS4xgUy2D2VO4qD//PLBGbivyK/jZ6TEpoS5ecNKJ
+	giAjJr6zYGzqQzA7YraueSQTWGo4A22vs+h2lRcSS
+X-Received: by 2002:a05:6102:55d1:b0:781:210d:28aa with SMTP id ada2fe7eead31-792a50c100dmr3782354137.2.1789135557520;
+        Fri, 11 Sep 2026 07:05:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:55d1:b0:781:210d:28aa with SMTP id ada2fe7eead31-792a50c100dmr3782252137.2.1789135557001;
+        Fri, 11 Sep 2026 07:05:57 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a81943sm48067045e9.1.2026.09.11.07.05.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 07:05:56 -0700 (PDT)
+Message-ID: <d9201e3c-45e7-423b-b81d-4d817fd8c8bc@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 17:05:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID
+ interface
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
+ <87e34805-e56c-45b8-a3d8-458ef17b92cc@linaro.org>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <87e34805-e56c-45b8-a3d8-458ef17b92cc@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWTuQBCmtVxEXyWSsIyQNGZVK6
- d0b6/It/l9BuQorXLoVKn9EZc4N9tQBPXyeGCU2gzOuN6O1KGkZUsHIaVYvJHnC8C1eFUNwwzm
- ORL430PpS+S7L8b7e/tZ3eDK9fkPYth0U3IppfQAAAA==
-X-Change-ID: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
-To: Dafna Hirschfeld <dafna@fastmail.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Paul Elder <paul.elder@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2230;
- i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=YliyGa1zgtLzCslNtNy69+u4K26DzRw41YQWRHAfEEw=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqpAiLYotbsXztTLtL3Y62JssWfvgaG33MhwjZL
- p3pkjDgG7qJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaqQIiwAKCRByNAaPFqFW
- PGW8EACrl1v7ZaaUem+zDs0hBnvGm+Aruh7c2kHnj93EfLP8sJtTLacTiNEpSxNUVh+NSaCFkO5
- BHbyY2t9ZFGU4elfVaZpRJ9JIJhbwLIzWMi8G1u0WdzHWCTMng1BAsFOK3yNvPAhUJZDWOUrW5j
- uyLg08dcqwKncwZ3ccum73AQjGbsLyr9JFGokaffyL2lT56Z1OYpVlPGS0rUhS8hEgNwc39m/LV
- yJFw1EfnFr/iOGpzvAdqd1KcQ1KjxplJYc/9bAzjnIkgRv+XQfSJhxrQbSCj1q/wQZt2CzzfIGK
- tAqxuKpSh1lO+rC+hhuBHozhkE+umrV78uJZecWDFD3v3NSD/BPtwSxn02DPcc8FZ7DF17xiiae
- LeqLxDrDOgIRmT6EaOK2xYBVqbzNM+79pptMjO0+UoacZBzeiS+M39R2/QMi76fO0OkkYyZG85i
- xa5AVgV8SD+9AALGz6FsCLs7Wr2nO54na+GQNfQzHrN1TQeNAHThpABERscv5aoVC/orAOxq6dF
- 9169VFrI6JviDuhULO2DSxazz9sawqnVBhwFtZqex9Uh3HRJSaX8kaXBe6mCzqZUjznTHUUFmR2
- Z9SN6JYwQJawNbF4DfjXh1hT7y0OS9C8KQFwGX5mfvc434ZBH3/DzdhyIA+z+2NU4HTR3zs02AP
- d9s7Ox7ApK9bVFg==
-X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
- fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
+X-Proofpoint-GUID: GZ6q8fWS-ON8J1HasKTo212J6CRckzTw
+X-Proofpoint-ORIG-GUID: GZ6q8fWS-ON8J1HasKTo212J6CRckzTw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE5NiBTYWx0ZWRfXwBYYWX9Q8hjF
+ 1eWZBsTV9bn6VZOjWrXQxRbpRD8yxNC40oOcC6lYlg9fU6aVE9c77S/5wSOnErV7jxA74ahJT7r
+ 5O3hfgqc3es7HeeOKksFb0APqE2MTPY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE5NiBTYWx0ZWRfXxvn+cy44726X
+ YrSC26gCSseKSkEDIOvf9fJ4wKzxXf9lHAPks5kAIswowCOVasS+WYwOFoSkM1xTV0d9kkrJZip
+ kuq5gtRJQxEx/hB5lslrPCb21ALYjSfKJ3+tSVgY3nmuz7xY78dBeWXISrko6gDgiw8xsFjk1Zb
+ V/6+Fdww+e3DjvrVNfDBEWS6UZHCmCWOZQ0BKoD8BgqEg9dsgTNunpzGIxLwSdGrfVLl0XixwyB
+ 09EVvAm0b1ZZ9Q4WILalAXq+Xo1bjDcCuds/2wQj3hGtCf8zEYvPcZedeTaDEUuP3js3CC0vhqz
+ RfTGmA9+DeYjWpONeofrG+Se7l38sWqsYrnwEA800/bCSggsE/QL/dtkR8MsXcnJc3Ry8tyQVfV
+ P9sSQcc46xmL8spF1Wy+oiaLuG5/Ph5V5wuU3P8zux1VV8WmOTmQaZWz1wJL5u8Fn+0HqYFtugs
+ Z3iGdkYRyqXhjMDMMdQ==
+X-Authority-Analysis: v=2.4 cv=db0VTnXe c=1 sm=1 tr=0 ts=6aa40ac6 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=FXOfda06WdeUfy0AeUkA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110196
 
-The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
-demosaicing block on the RkISP1 ISP.
+Hi Bryan,
 
-The current implementation however clears the bit when demosaicing
-have to be bypassed and sets it when demosaicing has to be enabled,
-effectively inverting the bypass bit handling logic.
+Thanks for the review,
 
-Fix this by setting the bypass bit when disabling the demosaicing block,
-and by clearing it instead when demosaicing has to be performed.
+On 9/11/2026 1:43 PM, Bryan O'Donoghue wrote:
+> On 11/09/2026 07:22, 
+> Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+>> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+>>
+>> Add configure_rx/enable_stream/disable_stream to struct csid_hw_ops:
+>> per-stream hardware operations needed to support the V4L2 subdev
+>> streams API, where the CSID Rx front-end is configured once
+>> independently of the per-stream RDI programming.
+>>
+>> No functional change: these are new optional hw_ops entries, not yet
+>> implemented by any backend or called by any code path.
+>>
+>> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+>> ---
+>>   .../media/platform/qcom/camss/camss-csid.h    | 43 +++++++++++++++++++
+>>   1 file changed, 43 insertions(+)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+>> index 5296b10f6bac..90ee611b9092 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+>> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+>> @@ -74,6 +74,25 @@ struct csid_phy_config {
+>>   
+>>   struct csid_device;
+>>   
+>> +/*
+>> + * struct csid_hw_ops - CSID hardware version specific operations
+>> + *
+>> + * configure_stream() is the legacy (non-streams-API) path and is mutually
+>> + * exclusive with enable_stream()/disable_stream() - a given CSID instance
+>> + * uses one family or the other, chosen by streams_enable.
+>> + *
+>> + * stream_id, as passed to enable_stream()/disable_stream(), is a hardware
+>> + * RDI/PIX port index in [0, MSM_CSID_MAX_SRC_STREAMS). It is currently
+>> + * always equal to pad - MSM_CSID_PAD_FIRST_SRC (multi-pad, 1:1
+>> + * pad-to-port mapping).
+> 
+> Lets not mix and match names. There has historically been a huge amount 
+> of sin and liberty taken, not the good kind unfortunately - with port_id 
+> and write-master.
+> 
+> port I believe is the misnomer we are currently stuck with - so lets 
+> continue to use it until a more crisp naming convention happens.
 
-The issue never manifested itself as libcamera hasn't an algorithm
-to control Bayer demosaicing bypass yet.
+I agree will switch to port until we have better name and change it everywhere.
 
-Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
----
-media: rkisp1: Fix demosaicing bypass
----
- drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+>> + *
+>> + * configure_rx() is called once, on the transition from zero to non-zero
+>> + * active sink streams, strictly before the first enable_stream() call.
+>> + * enable_stream()/disable_stream() calls are always made under the
+>> + * subdev's active-state lock (core-enforced via
+>> + * v4l2_subdev_enable_streams()/disable_streams()), so hw_ops
+>> + * implementations don't need their own serialization.
+>> + */
+>>   struct csid_hw_ops {
+>>   	/*
+>>   	 * configure_stream - Configures and starts CSID input stream
+>> @@ -81,6 +100,30 @@ struct csid_hw_ops {
+>>   	 */
+>>   	void (*configure_stream)(struct csid_device *csid, u8 enable);
+>>   
+>> +	/*
+>> +	 * configure_rx - Configure the CSID Rx front-end
+>> +	 * @csid: CSID device
+>> +	 *
+>> +	 * Called once, when the first stream is enabled.
+>> +	 */
+>> +	void (*configure_rx)(struct csid_device *csid);
+>> +
+>> +	/*
+>> +	 * enable_stream - Enable a single CSID output stream
+>> +	 * @csid: CSID device
+>> +	 * @stream_id: stream id to enable
+>> +	 * @vc: virtual channel to program
+>> +	 * @dt: data type to program
+>> +	 */
+>> +	void (*enable_stream)(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt);
+>> +
+>> +	/*
+>> +	 * disable_stream - Disable a single CSID output stream
+>> +	 * @csid: CSID device
+>> +	 * @stream_id: stream id to disable
+>> +	 */
+>> +	void (*disable_stream)(struct csid_device *csid, u32 stream_id);
+>> +
+> 
+> Seems odd that none of these have integer return types to propagate errors.
 
-diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-index 042b759eba62..496381962f1b 100644
---- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-+++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-@@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
- 	const struct rkisp1_ext_params_bdm_config *bdm = &block->bdm;
- 
- 	if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
--		rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
--					RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-+		rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-+				      RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
- 		return;
- 	}
- 
-@@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
- 
- 	if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
- 	    !(params->enabled_blocks & BIT(bdm->header.type)))
--		rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
--				      RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-+		rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-+					RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
- }
- 
- static void
+Well initially they were int indeed, but i get some internal review comments to switch 
+them to void, currently the implementation is writing only to the registers. 
+So i am ok to switch to int return type, other option is to leave them as they are
+and if needed in future to switch to int return type.
 
----
-base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
-
-Best regards,
---  
-Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> 
+>>   	/*
+>>   	 * configure_testgen_pattern - Validates and configures output pattern mode
+>>   	 * of test pattern generator
+> 
 
