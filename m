@@ -1,31 +1,31 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98D73E4C7A;
-	Fri, 11 Sep 2026 06:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A4E3EFD21;
+	Fri, 11 Sep 2026 06:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106965; cv=none; b=jT3BIBKzYTUakfmdD+EeAn94xZmr/ncvO9LF16452/Z3QCXMJnMHTsqmizfgIRLIt5JbX0+ByFtEOV1uByuyaq/5mq1FRY/FMviKNhDEl/mOSX79zZOdu2RQGjvhDTGmmMj2s0cpnEPsJ9LHSXnDrlDgidSah0b2xtCsdD6Fj7s=
+	t=1789106978; cv=none; b=AQzUPaQjgcxwQhimCO1rZfMi0sCdp2dXsm0RUYloPxhSCkKyfRfMVkS7+sm2FlS1kqjFPRRdLF4fRgI/JIRldyTKvhagHFG1d690VT6NOHtUxgjRear7H8t1/evclLwL+0LBlZOtrGtZvwVIR71CohnlMdtFtR5eMTlOUj85Qo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789106965; c=relaxed/simple;
-	bh=D8Kv4v2gyrj4qUT2U68/sdAzWRgC/88CDk1gFkP+4pY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OmeraWpi+4iVQUsMQehPfDPTzwp+4sZ4NL7EokPZoMonv7wXfIUiVBLoea5VGjeZBGGEuLNTadWrbWNr2rCFqxrbqb8TLKfUyln2RDxO/iRdtanNueQRwkSq9shHbw7/tyeD+UZCtLkkFCr4RayqRm5LLjVC3K98dhdU2Ly4F78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=M+ONjhaW; arc=none smtp.client-ip=101.71.155.101
+	s=arc-20240116; t=1789106978; c=relaxed/simple;
+	bh=bLHJdiPyMNpxEXcRIcX85BnimzVghstK4xXzepMi1jM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Wa5et4fKd2rZW+/+2xmAjOgI2JNgfXJSoTAOw2adLA+LNvGXBf+zp8TWVNBxJluSaqm1Driv0xygRCH/o/g5j56IOGf6vk3KoRUkZ5x1eCbpR8v9l2YF52NbpRzNdCO20vwmiKOfGS96R/k/vc1rGmZS4SlWMbFqKjZMBx72Klg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bnfAl9fU; arc=none smtp.client-ip=45.254.49.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="M+ONjhaW"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bnfAl9fU"
 Received: from seu.edu.cn (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d62c4fb0;
-	Fri, 11 Sep 2026 14:09:16 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d62c4fc6;
+	Fri, 11 Sep 2026 14:09:32 +0800 (GMT+08:00)
 From: Slavin Liu <bolin.liu@seu.edu.cn>
 To: mchehab@kernel.org
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bolin.liu@seu.edu.cn
-Subject: [PATCH RFC] media: cx23885: check MPEG video-device allocation
-Date: Fri, 11 Sep 2026 14:09:15 +0800
-Message-Id: <20260911060915.94287-1-bolin.liu@seu.edu.cn>
+Subject: [PATCH RFC] media: msi2500: propagate control import errors
+Date: Fri, 11 Sep 2026 14:09:31 +0800
+Message-Id: <20260911060931.94557-1-bolin.liu@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -34,56 +34,42 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08f15a74403a1kunmc4d17def1c7338
+X-HM-Tid: 0aa08f15e4ef03a1kunm2b249d901c7380
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0JKVk4fThhLTBofTxhPS1YeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHkJLVhodHUJOHx9IT0IZTFYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU
 	hOQ0NVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=M+ONjhaWz9A70c1wRUaXNas5B1Sg9WVrs8Tc+V+AZJY/5yuZs005ku1tH24re5eTY81rdQUPyeWJcq9N6CR7oPrkgePVqwwcLrgQ9fnSaDx0q3q/WtBkTx4Y5N/17OKnYr+Oj4V2CmxmA7nlGlwmbYZW+FnFHd/CihUUICdlS5M=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=Q5PPTqnx2e1jDma+Moaaw2+wOjKGefe51JBY9I2F1ug=;
+	b=bnfAl9fUbMS7RgfhTFbGdH7QCEoAjss9+Uf1/cydBK5STqX5TbX1iOBjjviVpOJbWV8q5Ke2QpQ4N2pMtLEQn5mJb5d8XmQ90twdGtG5iRaT7Xtc1djxxEk1wKxKXiHpBYj2SxXairfE5K8iAV2mG6UdNF9GC97N82Q6/lSWbAc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=TQ+Jne/ojyrFh4jUquuCUGtOpYyeuI2ifVl8iAa4YGA=;
 	h=date:mime-version:subject:message-id:from;
 
-cx23885_video_dev_alloc() returns NULL when allocation fails.
-cx23885_417_register() subsequently passes that pointer to
-video_set_drvdata() and accesses its fields.
-
-Check the allocation and release the initialized CX2341x control
-handler on failure. Import its controls into the parent handler only
-after the allocation succeeds: the parent retains borrowed control
-references and survives a failed MPEG registration, so freeing an
-already imported handler would leave dangling references. The successful
-registration path keeps the same controls and video device.
+Importing subdevice controls allocates new references and can fail
+even when the source controls exist. Abort probe through the existing
+control cleanup path rather than exposing a partial handler.
 
 Detected by static analysis and reviewed with AI-assisted source auditing.
 
-Fixes: b1b81f1db73f ("V4L/DVB (7725): cx23885: Add generic cx23417 hardware encoder support")
+Fixes: 2e68f841a5d1 ("[media] msi3101: use msi001 tuner driver")
 Assisted-by: LLM
 Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 ---
- drivers/media/pci/cx23885/cx23885-417.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/media/usb/msi2500/msi2500.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/cx23885/cx23885-417.c b/drivers/media/pci/cx23885/cx23885-417.c
-index 219937a153b3..13fbb1588e5c 100644
---- a/drivers/media/pci/cx23885/cx23885-417.c
-+++ b/drivers/media/pci/cx23885/cx23885-417.c
-@@ -1514,11 +1514,16 @@ int cx23885_417_register(struct cx23885_dev *dev)
- 	dev->cxhdl.priv = dev;
- 	dev->cxhdl.func = cx23885_api_func;
- 	cx2341x_handler_set_50hz(&dev->cxhdl, tsport->height == 576);
--	v4l2_ctrl_add_handler(&dev->ctrl_handler, &dev->cxhdl.hdl, NULL, false);
+diff --git a/drivers/media/usb/msi2500/msi2500.c b/drivers/media/usb/msi2500/msi2500.c
+index 282256ab812a..4c4508d2977c 100644
+--- a/drivers/media/usb/msi2500/msi2500.c
++++ b/drivers/media/usb/msi2500/msi2500.c
+@@ -1268,7 +1268,9 @@ static int msi2500_probe(struct usb_interface *intf,
+ 	}
  
- 	/* Allocate and initialize V4L video device */
- 	dev->v4l_device = cx23885_video_dev_alloc(tsport,
- 		dev->pci, &cx23885_mpeg_template, "mpeg");
-+	if (!dev->v4l_device) {
-+		v4l2_ctrl_handler_free(&dev->cxhdl.hdl);
-+		return -ENOMEM;
-+	}
-+	v4l2_ctrl_add_handler(&dev->ctrl_handler, &dev->cxhdl.hdl, NULL, false);
-+
- 	q = &dev->vb2_mpegq;
- 	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
- 	q->io_modes = VB2_MMAP | VB2_USERPTR | VB2_DMABUF | VB2_READ;
+ 	/* currently all controls are from subdev */
+-	v4l2_ctrl_add_handler(&dev->hdl, sd->ctrl_handler, NULL, true);
++	ret = v4l2_ctrl_add_handler(&dev->hdl, sd->ctrl_handler, NULL, true);
++	if (ret)
++		goto err_free_controls;
+ 
+ 	dev->v4l2_dev.ctrl_handler = &dev->hdl;
+ 	dev->vdev.v4l2_dev = &dev->v4l2_dev;
