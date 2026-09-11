@@ -1,91 +1,155 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0BF46982C
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 08:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26AB2E7F39;
+	Fri, 11 Sep 2026 08:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116711; cv=none; b=r+tBrjydWq7FXKVSiV55WP4g0Id4CgpX8Vk5SFj8DvG5R7ObfzKr/A4AsptkNpuvub/PJ6FA7CBGS/Zu3DuLYKNH8kVeGpABD4tSzlGcMhCB3KfbynrYJ2hqE/LlAU6DajG+SfnW3Bsq1kf8ke1LGuhWjtPi6/vG4VHObcUEha0=
+	t=1789116827; cv=none; b=sz9vb11xATi/Pl/HnIQZCgW6dyoii4XXKGSX1Mg8FxphkH6Hrc359BFRVY2Bcd9ORd1ZvjpspBIm4WJ4XGwYRtYbVNWrcDaizEZBf4VYcajDMsl75URx7YZpY84qCff4UqP5EyUkio90Zafvg+n0AI2z6wxqIb34RgmX3oi+XdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116711; c=relaxed/simple;
-	bh=hmoxnYwHQzaQCe4F8Y3CLA8NrxAw25ra2YX4rdQZWwU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lNqKc9VVUoSR5do2sJVTSQOtlKgk4OgWCmmy9lYVhxGaLL3a+3RpcUpzxP91tnGSvDBg163Fg/lfG0ka8UWVed8B5lRAK+nQmCVWrRrSxatiAJKZvRmKuw138uCmGIPRiAEsrO5xqqqFQjC2ydx1ibdErCI36MYsnyRjax0QQ4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YlTExZ3U; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789116827; c=relaxed/simple;
+	bh=hKG5P0tTq4RzoNZpCTbQPdMBJ2cV3b+axlhcsqqp73o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cZCAOPcniOBVYvfCEDSvvYNTvF/1apyKG6J87Cja4Uq7dpEfcuBjoWDQGLY2VLFK3UcV8A+7xoGu16Bs110Kdg1djV9LVD14OxDnzsrXmx22bCoZcEutEs0gHikhztMhXizxpnBV0tXxr1ZO3GRDOoGgItfcOle1atkbsMai5Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8jmrs9P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YlTExZ3U"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso423683f8f.1
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 01:51:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789116708; x=1789721508; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CmRU1GaF/wMfuP5xgxO3JnXP25/ia3NfUkXx+nJbTrI=;
-        b=YlTExZ3Ux/0/8Clcu35FBB3JJk9Mie5lY2GDN7XQAiS12wK1UcMYttLFw6y18V18A9
-         KA6KUeRx5v4IzeGnch0kcoQSCwz0sh0gwOHUPbX0vQru0bgoJRYOB1iVFrDtwMmfG3eZ
-         alBqIdqJImzxYZWZ4rxwf+ERWKfSIVQmU7FlFuyHsuuJ2Pq+l9YiifO9lLW8ARkX/AvN
-         KDAt0whq+09EZ3nVzcBS23Bid0PyBGtGXKtuuHbCmeHLgCuaN/1aBB58zhXkQzZTRJQZ
-         D5C2zT/E8zH7tOv8Uyq8A2o8cGWMktAsiY5OMxg5eCgyBEVifWP31/JZNru0aKvm9TSQ
-         SHiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789116708; x=1789721508;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CmRU1GaF/wMfuP5xgxO3JnXP25/ia3NfUkXx+nJbTrI=;
-        b=LwEpeeXeFgPYHYrBZyeqri+529sOFQZT8ntAiqaUO8Es3/XVhrY3jkq77DmW1xv8+c
-         Mnx+d7LYrtojfuPQcQXVxEO7ta7HzjPQ0KLIJpOFKh2/briqpUCMmHEPb5Z+BjuyOElI
-         JlVN/bSjIzH5/jYulUcmvFnwNyaAVmLyzj85/7d0G8XtJ1+AF5zmRN4wzx8A5acX1DDZ
-         1t9e5Wfckd5YvMeX6sUAfMfqu/sDkYnhlC6tIJRI0SUkYaMCcIgUz+KY3rnO+2bhJaUe
-         BQAMApuphA5GPsRpiXpg/pk3NTvKrsKadvXLc1y3MFcyM+f99BimlsEGpxfO6h/+gMJV
-         vEcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLeYCzmYeflquNgGBWAP67W5MD7CqVGLmeL1iwYFm8BzZ78Om8xPZh9dqgCwL43+7tYQybjWpzI/uevg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kRQXucKObKeQYYqvOMr6fmOJ5XblsnYdap8nluxfZPllhSSR30
-	ZYh1X8ip2cHipT/DCNELXUILVY1UuY7I9FEexUaRY3iKGqjeGiuJVs6L
-X-Gm-Gg: AYBFou3DWiKFuHbG1SpGeeeEgYGewMUByzxTPU3gn2yE4iR/9yF0q+afi20ahGuZA5Y
-	KyRZ4QWeHjImCxoD67gxM2aBZcKRPDvez18BdozZMgj4IvLtrkdv6DsuLYm8LWY7ay4yWOeJiEi
-	dHp5MIangZKoj03ick0NWLx0ZVulSZ9IgE5Bp3iDoa5uVpU5J/eVcyrEEry/eW3eFA1UdJ5ZwUF
-	v8gU2yavA0AnjIi8ccXkgSkFwbRWyblJ0muIDQ63uhbXPjE0LR9lW1dUq6fawclM3bsqEbUchAp
-	ii4nL0k/on0hjJWqeUYzNODj99NhvMXF0sO3YE8xzA2PyUaOJe77e1B9iL6rnFP8l/h3iLzCQQl
-	N/BnwFnqn+Rg18sW+bS7kh2dgRMO7LS3m11cImveXfuvJGCswKlsqq9aAm+uCHv3iTXxxWa4Vc4
-	vWorrrEecK66k+tqxhWDprxyHsjqLSk7Y+2tQPuG91JSgCWyFVkIl/wW2gxeY5/SpgYq0/0vwTC
-	/Z7mPm1FRtGN/hhsfMAteV266MsZRyEOc/979NGfHjeccSa234m2jX02SF6Wq3c
-X-Received: by 2002:a05:6000:618:b0:485:8c16:a361 with SMTP id ffacd0b85a97d-486eb3713e4mr3488982f8f.57.1789116707683;
-        Fri, 11 Sep 2026 01:51:47 -0700 (PDT)
-Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fc02sm4210259f8f.16.2026.09.11.01.51.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 01:51:47 -0700 (PDT)
-From: German <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: andre.gilerson@gmail.com,
-	dan.scally@ideasonboard.com,
-	germanpapulindez@gmail.com,
-	hansg@kernel.org,
-	krzk@kernel.org,
-	linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Full name to validate the Test on another machine and userspace for [PATCH v3 0/3] media: Add support for the Sony IMX681
-Date: Fri, 11 Sep 2026 10:50:15 +0200
-Message-ID: <20260911085015.8352-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911081810.66277-1-lsa.uz@pm.me>
-References: <20260911081810.66277-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8jmrs9P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D671F000FF;
+	Fri, 11 Sep 2026 08:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789116825;
+	bh=kgSConEeaNKwRfeQHsprcVAJQzgQ9r9vYuhm0YayU6U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h8jmrs9PBevDtTd4sRaOokYoR/qPc8H6BRrhVczX7pKyCqtn8SCIwEFXZ0Q1zROcq
+	 qP1eN9mIcpaxU8sFS5UPNg+ypt/CSSErUM5W8u8ynQnrvTC2TwRxRoLpJ3lfYhKejC
+	 /VcFj+a+7i/MFJb9v9GCwfgi2uMuxbplTdWG9G85NIvMpWhrwLuPxyfVb47en2fKXQ
+	 QoCra8sH/NOy3fhvCNQ9QNxc+RxTR1ANnn4LLHNP1p5rUwXYTdP1z/0K3+f/j5cI/F
+	 /NTOvtaMmYwVqK7nLDR9qI5TF/9FhOy+ayL5cw8W03+eXzHvh2i2XGMKtkiCoLTEB6
+	 OkDjkiv3boAaA==
+Date: Fri, 11 Sep 2026 10:53:41 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
+	Luca Weiss <luca.weiss@fairphone.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: media: i2c: dw9800: Redocument DW9800K
+Message-ID: <20260911-savvy-gazelle-from-tartarus-4ebddd@quoll>
+References: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
+ <20260910-b4-dw9800k_cleanup-v1-1-608255ea61ab@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910-b4-dw9800k_cleanup-v1-1-608255ea61ab@fairphone.com>
 
-From: German Pablo Lindo <germanpapulindez@gmail.com>
+On Thu, Sep 10, 2026 at 04:54:16PM +0200, Griffin Kroah-Hartman wrote:
+> The DW9800K's properties are too different to justify sharing the same
+> bindings file as the dw9719, Create a separate bindings documentation
 
-Im sorry for any inconvenience i might have caused regarding the tested by flag, im relatively new to this, so any correction on my behaviour/formatting is apreciated.
+Say here something useful which not immediately visible from the diff -
+which properties are different?
 
-  Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+> for the Dongwoon Anatech DW9800K with it's updated properties.
+> 
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> ---
+>  .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+>  .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+>  2 files changed, 91 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> index 8e8d62436e0d..38db0764c0f7 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> @@ -21,7 +21,6 @@ properties:
+>        - dongwoon,dw9718s
+>        - dongwoon,dw9719
+>        - dongwoon,dw9761
+> -      - dongwoon,dw9800k
+>  
+>    reg:
+>      maxItems: 1
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
+> new file mode 100644
+> index 000000000000..046c0a88bcef
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
+> @@ -0,0 +1,91 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
+> +
+> +maintainers:
+> +  - Luca Weiss <luca.weiss@fairphone.com>
+> +  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> +
+> +description:
+> +  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
+> +  +-130 mA output current sink capability, designed for linear control of
+> +  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
+> +  provides a Smart Actuator Control (SAC) mode intended for minimizing
+> +  mechanical vibration.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - dongwoon,dw9800k
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description: VDD power supply, can range from 2.3V to 4.8V
+> +
+> +  dongwoon,sac-mode:
+> +    description: >
+> +      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
+> +      SAC2-SAC5 (Smart Actuator Control).
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum:
+> +      - 0 # Direct mode
+> +      - 1 # LSC mode
+> +      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
+> +      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
+> +      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
+> +      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
+> +    default: 3
+> +
+> +  dongwoon,clock-presc:
 
+Why this cannot be named the same? Commit msg should answer such
+questions.
+
+> +    description:
+> +      Indication of VCM internal clock dividing rate select, as one multiple
+> +      factor to calculate VCM ring periodic time Tvib.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum:
+> +      - 0 #  Dividing Rate -  2
+> +      - 1 #  Dividing Rate -  1
+> +      - 2 #  Dividing Rate -  1/2
+> +      - 3 #  Dividing Rate -  1/4
+> +      - 4 #  Dividing Rate -  8
+> +      - 5 #  Dividing Rate -  4
+> +    default: 1
+> +
+> +  dongwoon,timing-control:
+
+So it seems you have only one different property, quite a difference
+comparing to bold statement in commit msg?
+
+Best regards,
+Krzysztof
 
