@@ -1,175 +1,192 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011022.outbound.protection.outlook.com [52.101.52.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ACD3CAA50
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121043; cv=fail; b=rhH4KAlWUTaPVcf++GyJq4JpTaU48Rn1/HZjvYiaL5UL8GnfzHkXziI345UBXbpul8fd1H/LJ8AcIvsvT5Pa8YEKvTEknAMCXaL7kxsLV9ZF+zvCFThMVy4DEsjFo5HICXMAl47mREoMyPKa0Gkg12jroMoNpwq+WdwKGWeVNOY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121043; c=relaxed/simple;
-	bh=rhqX4kY7WXgFNJLYyZIDzkVFRpVUOSxWJ7e5K0mK+xk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=HwGIZ1YCydfVH/hB24CLVRf4bNmTPJkeeOeyZhbPgJrUt2gq3KIuf+HWsDXBenJHeXQUeqqIK0cZvT5lAx+ib+zLBbByEysVUvyhtiDLiPzM7s17o2za4DOnG9AXoDYlr7akqjOLBswIMFdDbRfJLbeiJCAZuC9DAW4BXAuJf+Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uM5K3iMK; arc=fail smtp.client-ip=52.101.52.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511AE42901F
+	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 10:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789121965; cv=none; b=Nft28Lx+Ct0yQR8FPAXQI4yehfaNW3tjtBu/wsXVT6FCpf+JR3+TR8I95b22Tj/E/JMfA8qRib9ByiQQm5ggt6V8YmnE4pvHfa2Y9+60F/13Dvn1HQojX5a5TSk0tKM8LLsBnizXeXDbpNgzDRV+oPm63COV5WwSGzjgEvzVmug=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789121965; c=relaxed/simple;
+	bh=n6SP3rxcsgBQwYDRodqbs8EqZBwaeHAu098RqMv9lvs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OSqIukFsDsI7AI0xQ/iZJ6WYAEqlANDeERhbICl9vdD4Q+Lw1UP0MHcpEyJXQO6gwcakcOEvGb7pbO/QqTfYCoZz6Jk0K95pSo9aQzIEzxSX38Chajg6Bu5w9XYMdltEiXSyczlrCUKRafHhpneQVwTygkTrzJt5HjZVuoCic6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bGZEScCX; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uM5K3iMK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x0zf+Wo3fTDI/Bypd5tnfJuN+ASDvbgaDnAFAsf/zkbS9pHCc9BV5oIgcn2DYOYF5HasOdbi8aVEk1XjDSaVaAPT9FhBbQbXJiyeMwRIHngsS6hlKKxgs9iKZlxYfnGPu0M5Fp+n56QqYEyHyCaUWgDNFAcZm4CTvH0DW2Yyy3c4nXXs5ptqofuuRNJAQoim3Gez5p+0qjVMLyY1VYFoDcbE5IxYBibaLymE5NB7eVyyiUegDkrgjeKwjKSqHLBsEZYn2k5DoEapk1DOr8jiIR9VE6G/0TQ3aG4+v5zG2bGXtuzFuYWq5JXHTfLntS6oD4OXntzBYXFUqHop4DKIwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gLOAxBC42pew/9SKSiUK64b/G8BsmXRwsQMPreYA2io=;
- b=eLcTU0qLA7crdqq/UFvtCemiAZGx7q3/IIdQoxVH++mt93GKoTxOTTJXyeo3RCEbk+bS6Cj6WK/ul69hQHmHRdNBbxcetNEyHy+pLfaO87Gv31rD+9jOy9oBRkX2vhNQXnEvCUgg3akrGSFCShosM+RZ5s0tFd0vWKKqsHT7zP8ZdEqr0e5qdwh4Xy02vfO51m3RJX3iZgt7kcwuSSXmUS0wit7EinUhijbcvyt5s+NF/NWaD0hi25a2wlgFndrs/9JZDBZ4dja7jvw+GM5wgfAJeDiTNk6Ynw1DubbiL60Jpp4A3yBsFgsv6JFiIi2eVDtS2N4wkzPPv7O8oJ4eSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gLOAxBC42pew/9SKSiUK64b/G8BsmXRwsQMPreYA2io=;
- b=uM5K3iMKqzo+d1jj/08YAkMWxzrFwI6sCKxU8Iutiydoa/dlbtKzZ6foYNaWpe8KcAk/SudFbOk4lvytklbZTdXVVd5AWAk9Zmn2u87RTv70foXmMY3R93U0kF38zqGvwiUWchy14xlnlMNZS90/MLacLY7l+A1mYXtLqCmUrU0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB7852.namprd12.prod.outlook.com (2603:10b6:8:147::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Fri, 11 Sep
- 2026 10:03:53 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Fri, 11 Sep 2026
- 10:03:52 +0000
-Message-ID: <f885c2c3-7752-4142-af49-02475f5e08a8@amd.com>
-Date: Fri, 11 Sep 2026 12:03:49 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL
- kernels
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260907020015.24719-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260907020015.24719-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0262.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bGZEScCX"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a68279dd86so895138a12.3
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 03:19:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789121961; x=1789726761; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AEzfJV11LjKwQWypwntHmfatnZ4DOiDzcipp8kgfTiQ=;
+        b=bGZEScCXieK4TVaf0rjSBlC5cyukKEf5BOyZC1osFiVUBgC1I3GuiEbED7S7QshW+4
+         lQuFNSkbESvduBo+iB80KLZ5ZftlWPdvUcNN580RlNaUnuaw93zSdUYNeYM2M1YzbIZP
+         sPcy7qXE3+koFlTxPVJnYD2M+IwhIwNsNYO+CTv5xNtrS+/2xh9UcZx6pCaQx5BMsbHO
+         gKCaErmigFmsUPl7xy3QKaLveFPlFWBliBlyBys8zw1xXSGymBX0WXSdCp9SUZhn4TyG
+         gst2SbSDDwWdkEHBhCj30JuGt7YjuMPzLpauKgCDxP5p4K5eLgGD7qQFa8qjJcVSv745
+         3bMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789121961; x=1789726761;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AEzfJV11LjKwQWypwntHmfatnZ4DOiDzcipp8kgfTiQ=;
+        b=kCkG6piY12kc4C6+wXrc6LqMeKMJxDS2gxqVJIu0pul7v2IybGZ2lRVc0x5HEswW3t
+         SBjdesNZ4JaW7wjJVpDlmZBxHq8lThkrxxgijpWQTSEkBNUdq0C96B4C6h2Cu+hrBmoN
+         hWCcLRhHz/pFQPfRBUKS/toHqqj61DrDI0lgCzR9k0XHhGU1L923IlNM4SdCEzIuitgF
+         hM1I0jjWgootATfoBp++I6NlcdTqIMCfYV+oAYhWRS1OPek2ivXJ/h9tVPZ8GN5TZJ5r
+         iqvKox/FdhzDAnJj3mUl2esXT6cUBDBrxmcEbrz9s3SKXTe6fgF1JF3y4hds0I+u6paw
+         ZXhg==
+X-Forwarded-Encrypted: i=1; AKwUvByXpOY1cVtQ9TQ6nhBILjj8iZNy//OmKI36sX2U4ZGMBmSYAyhfJ1qoiMtHB5/zRrtqzwiarLBNtjA23Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++mF/1lIzC5j6rRGbgnja1FnqBO7nugxFPf65F8NW2EH34eY53eH
+	+mfWkVYkhqqone9doCybwavD0eOhOgME+yfQ1tV8wqnqmV1qgpD32K0t+gw8FCksP8Q=
+X-Gm-Gg: AYBFou3gmuqjCOSFcBBL56z0B0Otk5088RUKlN1JH/ZaL9MWLFjLP4fk5AU3l4+NPSb
+	DV11citVp5n70NhGJtYKCmJULZosTjvkxs3/M/WiAwtUdgEZvKABwcTWdMcdLARkt+Ydy07JSZT
+	qesuc8GkU4eyVL69r+iwXJ4YTBxFV1IQkLVWvfCKHFRMUgD065l/3qpuhPjCM2nDoV9bPKAXsRj
+	7F8Dly4TMYXNE0FCjTF/jFD0r8CHqUzE0tU+hdergK/PBGfoma6YoQytDbwlwwdYSMZYGNqsDM3
+	7OeqApAjc/8jFKaCKk/m5UXvfOZ6nzXVkpffmyKv3ixKQyWyJCsvYwn5uID4ROo7jiEhgSunM+S
+	Ev+3WLPG2oY2QI3PiR8HuVOJQiSZ6oNlHvY/EO/0Asl5jnHNAoFwUPwlRcCHlROjO3FXDBTksII
+	c3KhDueYd1VlMrTlmDkR7joy7nP+ytZ/nmvLyYzN9Ghe7kB0a2TnN5rzHD7GvBYXIyY9iDVqCKL
+	Q73crMp+4W/
+X-Received: by 2002:a05:6402:2115:b0:6a6:32f5:5573 with SMTP id 4fb4d7f45d1cf-6a9b569f04emr1620126a12.21.1789121961346;
+        Fri, 11 Sep 2026 03:19:21 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.225.241])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5773f72sm637132a12.0.2026.09.11.03.19.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 03:19:20 -0700 (PDT)
+Message-ID: <b44d7cc0-203f-4bf0-ac3b-5393bb0e1a90@linaro.org>
+Date: Fri, 11 Sep 2026 11:19:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB7852:EE_
-X-MS-Office365-Filtering-Correlation-Id: eebeceea-4195-4f74-36ec-08df0febfbe5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|6133799003|56012099006|11063799006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	p450QnGUu3BrtgRmPhzALIR3e0S7+Z+f/Bn4DJ0L/pvqvMQEeYrvGRnhXzpELSjuhjYE/sELVHVkN+NSAUJPmTObbepxZwtMYD+o1eHkMVZ3ChL+Fq0/Q9IsxZAkvUDCD/Wee8IekLi0t7bKt4qBl7AStFpeBrBQkvc804v/C06kdHepwNdqKrBud7QMGdU8Pu+zP+37CfTy8ycP8KeODeyFLF/ncJPO82JaN2gKqLxluNdL6e3qjKvVF0iRLtZROzqpD7XbwCD3B9rZHMM1KnY23L1MEIzxJBEENg68rtDCHbXRFEz0VeKCLPs/PzmUt0JUYfMBBpgP+k2IVDtAjZCk4bIt8zrTWFeEgh/UQa03XWLwtFE/N9nESwPm2aHE4NAVPmRdo3sfVRybkXKydymD7rhor+FtKUnWmKa1BDEOjecJ2XGYMpYPnSnr7XEMQglELULApgU+jZSudk+oSbVBExA4ZTuex4YhYOlFOK4DrEPss+DlIz3XxvuMcZaJPy6jgJ+NSlFWVbjgA+AezqvxYx4R+HJ8oWCC2Hw5m1BY7SYo8N93/aQLuvJuJnd3Y8s0lrrjWpUy+GU7fhMDQmbs8TakhSw9XVJaIXttOLPZ+r+zgFMG6dXlsI6YXTjg9B7tNFBd/pbNdSwlnCXceA8b2jFgGWGzYUqFh2+kzDg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0I0L1hSNVlvQ0RRMkZnVnpYSDFyVkFNNzVPQk8wLzlNaXdCaldpd0ZGeDhE?=
- =?utf-8?B?cHRac0xjZ3RDY3U5LzZwRlV1VzAva2FlSWkyWUZHSDN5WEJoa2h2SWpza1JS?=
- =?utf-8?B?TU9ta0MvWTRaRlQyaE94UTZqRkEycSsyaE1OTkwwNld2R211WkVYNTROdDhZ?=
- =?utf-8?B?SFR5SjZoN0RTQzBaV1lDTFVOQzBBUlZMZEpPOVFSNnplRkpkZVRyTHVoV0ly?=
- =?utf-8?B?ZUlRVXVaYi9tRnhUOWQ4K09iaE9kQnZBZlBDa0hkWW1rWW04K0d1SzRERE9v?=
- =?utf-8?B?MjdKU0F1Wk52SzlqR0x3VHBMNW10SE53MlVIS1k4Z3lQWHlYSEtTWXBWaEly?=
- =?utf-8?B?ODVYQ3BMYWo5WnpIdXY5cTZBaFlsT21VclJjaVBwQVZJck5FZzhmL0FyVjBR?=
- =?utf-8?B?SHNQbk5BQnAzT3cyRmtvSjhxMGtPVUpoMnJkQWFxczhXcFB2S2VUbDhRckF5?=
- =?utf-8?B?QlpUaGd2ZTd1aTJ5SHExc2dQbzRWd2tCNndIbjNsVUltWmF5eG0zZGI1Nlly?=
- =?utf-8?B?MG5kRlpzSXp4YUhvZ0tMeGVwQjBPQjVjU2NVb3pTK3pHWjVNaDgwRUlLc2Q5?=
- =?utf-8?B?RWMyRHJ2M2U5Vm5jTUdSd2VVdnZnWTFLa2EzVEgyeTZjWUsyaVpHQWprZFNW?=
- =?utf-8?B?WDI5Mm44aXFxdGxUWVVybzk5QzVjYlFSdlhVdkJCelI0YUI3UmNpajk2U3BT?=
- =?utf-8?B?eW12am1ma1IwUlBKdXJ5ZkRlVStTaHpUTDAyWnVYNlFXRUhwb21JbFpYbklo?=
- =?utf-8?B?LzY3VHF2eGZxUTMrSGRlY3JZR0pTOXhzMDJxMkxnSHhMcTRjZG5FK1orTzFH?=
- =?utf-8?B?dDdQdlRhUDJxb09CWTRseHVvYi81TDJLcWEvL21DN2ZyRXNKOWpsZXRndG96?=
- =?utf-8?B?YXhtSExRRkNuMk0wZnJ6WGdacDFOTW0yMnNjWktmZzh5cnRnbDNrL3NINFlU?=
- =?utf-8?B?aDZya2hOMFk5ZCszdWJrdS9ZNlZNbmYvcXZkK3BLdWRyZXVhTnJ4UnFWcXV2?=
- =?utf-8?B?TFdhM3BWNU1mNkh3U0t2OTBsMFFBcGdIWjJ1Ty84RXBFbWpDc1NRVzNQcElW?=
- =?utf-8?B?eTg5eFJGZThoQlNySlZPRHg4SHRjZ0ZyOTNpV0pPMmFrU1ZTeDA3RzJHeHAy?=
- =?utf-8?B?TG5uRVp0cDJMcDMvaXV5RFZSVm5sb3BFMnI5M2toMVpUU3l2bFlOcWtXd0Q5?=
- =?utf-8?B?ZVo4SjJtWVV5THppSEFBckpveGE0blZEMzRqa0Z5MWJkbFFnbjZRVVZWYTNT?=
- =?utf-8?B?YmVpYUg2N1hkN20xMnJJQ1hORDh6SjV2cHpTeGh5bTRYWVpFMFEvY0RocDRs?=
- =?utf-8?B?SHlZcDI2M2JCbmZqU0UvS1A0bDVCc3BJeXo5L3crOGZUemRPTWh5QU9aMkt0?=
- =?utf-8?B?V1ZZL3ZkMHhQdEZDSmMwdTlDcmtXMjIxeDB2ZWlzMUtUMzVjY0RNZ3I5clB5?=
- =?utf-8?B?YXMxd290VzQ5YVRYZGVlRnpqUzUzMngxZmFwK09wRS8va3UzdHA0OXRpcFM5?=
- =?utf-8?B?c2I5ZXBNQ0NFZkp5bG1RTVBOZC9FNEhHZGxWTEtTNGh0YWg3cjArM0VIN2Fl?=
- =?utf-8?B?SWNUaWNnNEJCdWJrOENlajRFd1lmMXM1R3dvTllUYU5pVUlDaVB5TzVmQ091?=
- =?utf-8?B?MUtaQXBJY2VDVklBSXBhRnU5TmJhem9sZjRGeFpSNFVGU2VrejRWc0dtVXAv?=
- =?utf-8?B?MnROS0ZVU3BjclZ1aklKZjRzeW83R3owdkJnZ3I0dDVKOGpucWdPeE9ZNDZ0?=
- =?utf-8?B?bkgzRUdmMi9aQkN4Z3h1eWJiV0plZVZvODhNRFRqZUprOWVrbVFYQ3ZyQVlC?=
- =?utf-8?B?YkVtUEhUT21iQWlNMER6WUhUZEdPWkd1cG5qd0tUY3NnK2ttR2xtMEhJLzYx?=
- =?utf-8?B?OExuL0VVR05PRURiQms4NkRyUU9JSDJNMGo2eGx4ZndkMFRURmxTS3JsQzR2?=
- =?utf-8?B?Sk5wZUoxUk12ZjFxZElyNVo1b3krUW5rVEw0REo4by9STnBTaFZtVXBTTGxN?=
- =?utf-8?B?Y2NVU0N1TEF1SnA1TFlHcGRydXZqaHU0b3R0OS9SbzBBTFpvM3JuVWdlUU1K?=
- =?utf-8?B?U09uWE1SaUl4eFRORkZ2KzBUTUNhMGE5V3QwSkYxYVZjZW9BRXk3MGhQSkdE?=
- =?utf-8?B?RE0zQUpidHQ4Vlltb3hPRC9LYUIwL3kxK1pXaEswYktXQ04xMC9TQ0NTMWEy?=
- =?utf-8?B?c1Y4RDkwemZVZ0dQQ1QzWVlpM2J6OWo3Tlk5Mzd2NHZCRlh0UTE2NnlNUmIr?=
- =?utf-8?B?eFBwWitDOXkxU0hYbVBpbzd2MkVCdzBmdm1ONmRiS3J4Zk9wVWR0Vk1kbnha?=
- =?utf-8?Q?GX+S4zY1T2ay7maI78?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eebeceea-4195-4f74-36ec-08df0febfbe5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 10:03:52.9160
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: utQo1nR5oFtSku1XtAKpcRbO9nB73bnafy8d4u7/Vt4VedVExiUcovToZejjRHXl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7852
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API
+ support
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 9/7/26 04:00, Karl Mehltretter wrote:
-> Commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG
-> kernels") changed the default of DMABUF_DEBUG to "y if DEBUG", but no
-> Kconfig symbol DEBUG exists, so the option has had no default since.
+On 11/09/2026 07:22, 
+Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 > 
-> Use DEBUG_KERNEL, the Kconfig symbol for a debug kernel.
-> 
-> Fixes: 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG kernels")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> This series adds V4L2 subdev streams API support to the CAMSS driver.
 
-Reviewed and pushed to drm-misc-fixes.
+Can you please provide a use-case and test in your overview.
 
-Thanks,
-Christian.
+i.e. show what it does and show it doesn't break anything in a way a 
+reviewer can test ?
 
-> ---
-> This enables the dma-buf debug checks on every CONFIG_DEBUG_KERNEL
-> configuration, which is what 646013f513f3 set out to do. If that is too
-> broad today, the alternative is to restore the previous
-> "default y if DMA_API_DEBUG".
+> Each subdevice gains streams-aware enable_streams/disable_streams pad
+> ops alongside the existing legacy (non-streams) subdev ops, guarded by
+> a new per-instance streams_enable resource flag.
 > 
->  drivers/dma-buf/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Patches 1-4 add the CSIPHY/CSID mechanism:
+>   - CSIPHY: passthrough routing, NO_STREAM_MIX/NO_N_TO_1 validation, and
+>     shared D-PHY lane enable/disable gated on stream-count transitions.
+>   - CSID: per-source-pad routing (a single sink stream propagated to
+>     every source pad by default, remappable for multi-VC sensors),
+>     VC/DT discovery via get_frame_desc, and new hw_ops
+>     (configure_rx/enable_stream/disable_stream) with a gen2 backend
+>     implementation.
 > 
-> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-> index 7efc0f0d0712..e4f078a326a4 100644
-> --- a/drivers/dma-buf/Kconfig
-> +++ b/drivers/dma-buf/Kconfig
-> @@ -43,7 +43,7 @@ config UDMABUF
->  config DMABUF_DEBUG
->         bool "DMA-BUF debug checks"
->         depends on DMA_SHARED_BUFFER
-> -       default y if DEBUG
-> +       default y if DEBUG_KERNEL
->         help
->           This option enables additional checks for DMA-BUF importers and
->           exporters. Specifically it validates that importers do not peek at the
+> Patch 5 is a standalone bug fix, independent of the streams API:
+> camss_link_entities() used to create an all-to-all CSID-to-VFE
+> crossbar, but SM8250's hardware wiring is a fixed 1:1 pairing
+> (csid[i] <-> vfe[i]). Enabling a mismatched link (e.g. csid0 -> vfe1)
+> exposed a media link with no real hardware datapath. Fixed via an
+> opt-in csid_vfe_fixed_pairing flag, set only for sm8250_resources.
 > 
-> base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
-> --
-> 2.53.0
+> Patches 6-8 complete the mechanism and turn it on for real hardware:
+>   - VFE: streams-aware pad ops. VFE lines are inherently single-consumer
+>     (vfe_link_setup() enforces one link per pad), so no refcounting is
+>     needed there.
+>   - camss-video: the video device pipeline walk now checks, via
+>     v4l2_subdev_has_op(), whether the directly-connected subdev supports
+>     enable_streams/disable_streams; if so it issues a single top-level
+>     call instead of manually walking the pipeline one subdev at a time
+>     with .s_stream(). Falls back to the existing legacy path unchanged
+>     when the remote subdev doesn't support the streams API, so no other
+>     platform is affected.
+>   - SM8250: streams_enable is set true on every CSIPHY, CSID, and VFE
+>     line resource entry, turning the mechanism on for real hardware.
+>     Every other platform keeps using the legacy non-streams subdev ops,
+>     so this is a no-op everywhere else.
+> 
+> A practical benefit of the CSID routing change (patch 4) is routing
+> flexibility for multi-VC sensors: the CSID's routing table maps sink
+> streams to source pads/streams via userspace-configurable
+> v4l2_subdev_route entries instead of a fixed pad<->VC assignment, so a
+> sensor emitting multiple virtual channels can have each VC directed to
+> a different RDI output (and thus a different VFE line/video node)
+> with a set_routing call, rather than being constrained to whatever
+> fixed mapping the driver hardcodes.
+> 
+> When a sink stream is shared by multiple source pads/streams, CSID
+> only enables the corresponding upstream CSIPHY stream on the first
+> source stream that needs it, and only disables it once the last
+> remaining source stream using it is disabled. Enabling or disabling
+> additional consumers of an already-active shared stream is a no-op
+> upstream, so no consumer can double-enable or prematurely disable a
+> stream still in use by another. This also avoids ever hitting v4l2
+> core's own -EALREADY re-enable gate.
+> 
+> Verified clean with checkpatch --strict. Built, flashed, and tested on
+> RB5/SM8250 hardware; ran the no-routing capture verification test
+> across all four CSID/VFE RDI pairs (csid0->vfe0, csid1->vfe1,
+> csid2->vfe2, csid3->vfe3) at 4056x3040 - all four passed with
+> correctly-sized frame captures.
+
+What's that - please detail your exact steps in the cover letter. What I 
+need to see in the first instance is that nothing breaks.
+
+Maybe try running libcamera cam with or without gpuisp. Show some yavta 
+commands to prove nothing breaks and then something to show how to use 
+your code.
+
+> 
+> Gjorgji Rosikopulos (8):
+>    media: qcom: camss: Add streams API support for CSIPHY
+>    media: qcom: camss: Add streams API hw_ops to CSID interface
+>    media: qcom: camss: Implement CSID streams API hw_ops for gen2
+>    media: qcom: camss: Add streams API support in CSID subdevice
+>    media: qcom: camss: Fix CSID-to-VFE all-to-all link crossbar on sm8250
+>    media: qcom: camss: add streams API support for VFE
+>    media: qcom: camss: add streams API support in camss-video
+>    media: qcom: camss: enable streams API on SM8250
+> 
+>   .../platform/qcom/camss/camss-csid-gen2.c     |  59 ++-
+>   .../media/platform/qcom/camss/camss-csid.c    | 494 +++++++++++++++++-
+>   .../media/platform/qcom/camss/camss-csid.h    |  45 ++
+>   .../media/platform/qcom/camss/camss-csiphy.c  | 223 +++++++-
+>   .../media/platform/qcom/camss/camss-csiphy.h  |   2 +
+>   drivers/media/platform/qcom/camss/camss-vfe.c | 119 ++++-
+>   drivers/media/platform/qcom/camss/camss-vfe.h |   1 +
+>   .../media/platform/qcom/camss/camss-video.c   | 119 ++++-
+>   drivers/media/platform/qcom/camss/camss.c     |  21 +-
+>   drivers/media/platform/qcom/camss/camss.h     |   7 +
+>   10 files changed, 1046 insertions(+), 44 deletions(-)
 > 
 
