@@ -1,137 +1,106 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDC04322FC
-	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 15:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228293; cv=pass; b=Ai6aoVLF1jYiX8SWK3Q1JqbzwhAGyVLZf9MSHoOMdnGvwq44qrhpJ1e9rxTBWBE+0aOUfZqf5yf5h9nNQRPobMIhYP77+xosPOBNM++il4PR5aaDHJfzbrG53RhpGCGquBoF91BsLOysmUO8R+2V+1MXYXpRKBnOPexkGRTJOK0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228293; c=relaxed/simple;
-	bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U5PLCz+XjybGu7IK5SSuF8fUDeXk5PbIJxqFZf4Wgevytme831dkq/fImqb3wYpe+eOFW8pSwX7BHgQS1/9mWzZLuspsm5yHjgzY4/IOX8eeOv1hDh5bgfFV5psgQT+AjH7V2+Dg/IAL833jxmoDVTlaUPKXbBmvHkN3u2sqoYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flUFPye+; arc=pass smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3926A4BEE38
+	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 16:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789229852; cv=none; b=AygS5ao4WM6cx8yEUv82J2O0xqMSRO7mQmT12IpC45pOr2Zl1lx+lvd6khtgGmqkXoOYVwyuTk8kGiXykOHOd0MN2YaEm34LhIWAyl0cr5/1mNsqjF16+ZWyjQYR/qHtuojl9FC+8+J6xQDONy3X1W1+efSQg8o7dxcH/EJQCYE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789229852; c=relaxed/simple;
+	bh=Jqw79SmqLYkewooIG0Ms5tC1rgyoHKKJFJs076jCzQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LqinhuM7DPAVPKoLqeOBP63ZlN11esr18VWFRAvDlEfROtpiDFytFyRgjYEGXAqjJDvLa+lUGsEZLzjtJoCJS2DDZsh39T3rFlcI7O63XoZc1RRBut4WeQjYxqZ0UEEKeXmQBh650OJld1R8yi/grHPfsUcOyVGFruUPnJi715I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xepfy9qN; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flUFPye+"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so1580496a12.3
-        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 08:51:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789228290; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iogWz5zzxm9zd8TOCb3TK3nOalB2omR44LHqXeG/j97KuaZG5v5sAM3vO6lfq4QMjp
-         jLdLUjTw3vCwioo9FENo4+KccTSe/VClQKrn1rvIHuDmNwVMSC9TZ2w83wNIv859Wfg5
-         BmqXSMwNDJ9suoPDLrqZLwxXsgrnfqxXgIut7Dv3zJDqF4q3dKWCTYWHcERwuAGTkFP4
-         cy16yEzw0Yqj3Xf0gxCAmp+3j3G8Ga29xYGnccSWIXZAwJziAhIYPr69zSPni23FdUG5
-         mRxvnXUz5arP5y6Vl9JOklKQZfDslBE5W7/REhdS+sp/9vO8vQqBjaW0+q9v5zF2sQwZ
-         H7hA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-        fh=BCOUbyKxVmf59cyM4KfKPOqgLAKZX0NsUP6/XlWtGDA=;
-        b=T+oyJUCkUE3QbI/RaiQI4LpD8ao7VkDH+H6N2kac/x9LCJfudtOGJno0pA2ygWjfO4
-         b99Jg4g2OFZ2HYNH88Br3OiWxpQJ5HnkxHxkAfllosmWcMLTRwZOlvNDnqxo8oQ5kFni
-         FVwtaF7Y6vWFHQEvbSs5Inqn/a8cYNxnlJczd2CS+CjssKwmswaboFUFI8oWapE7/S1o
-         AKiDiBzv1HCJiE1+qc2TevxVS3G16Y3Wa9OOM9sHrb8tbeoE/G6feiuf8+Q3RVibpJRJ
-         dXn5jNXz+hGTCz9Tt7ulR55vxdJykQiVWIUxzowt5LM0INOuVkFETaZnxDdVnoQP5YYJ
-         8EJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xepfy9qN"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd78so229595f8f.1
+        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 09:17:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789228290; x=1789833090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789229848; x=1789834648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-        b=flUFPye+q7pYckVgvjo7uiwouUrncBWQjyNXVq5DBiaIN6TvGVBtC6iVa+HfhRmjAF
-         0P+NsqPPed4JOMYh0GbYnkumfZdz5dKVBms+0kFJrPzOzP9CCzjl7Lrcl/zWs/+EPwOA
-         d8kAMgvwkxF+kIyAgObxACRMhZxY9lxCysgIxeg5sxsmXYcgPjInHsg5vlDqsLNCQRp8
-         A58meTMhJzKHCHWgZgXD68Wz97X9vo4A2P/e5nzKqyAkEJdSW2qNyDQWRd1jAhPdt6Y3
-         rNz6mgs1XoRpG9vimVD/rhjQZqIcy9divmMMjwSp2weWIA0iHRCidIPzoG3gJfLY1F1g
-         VnhQ==
+        bh=Jqw79SmqLYkewooIG0Ms5tC1rgyoHKKJFJs076jCzQQ=;
+        b=Xepfy9qNZjaG0hYkcJVpkJU6/tOJ27m+bV2j1zZTU50TNUsfdjh3XLVHQZAGbe/Bqx
+         zNn7lYJCMJXHrOFJe1DH3YHduovvnGHbqTVVzoK6sU2szGMagSmXuBJKpYEkU7tF25RM
+         H6kkcIDxsZXDQb53s3Re9wEQDmHABqb2Th76Wlcx33Qtrsq+BpTppGG7zeTP6vENlhHp
+         jJu+zqzRHw4FECFSpm5W75VsLnMdTLYn0f8yns2mfVtLYpaPIMnq8rHzsLGBa6lNr54k
+         ZLWIjGxScGY/uoz+rc0iT+fHmibaFCiAA01blaLGMICEz8LZihTuYbW9vlrLCZNa9Z84
+         +J5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789228290; x=1789833090;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789229848; x=1789834648;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-        b=YkdaPDD2pv8KH10uCtb5DEo2ujscgdKwZuyxyHK1TLuKVJdPnNRuQ6nQv+rVVzh6DR
-         0gbVw3MJA/KxQHuCnIstpLy/P1hmmud2HgmrXfj1DcvtucR9wWYnmFCa0hTcuFMO3XEV
-         4HYxKGk2m+xYUBHL/lcx5zuSWOhHFN0zHd1BoAxm58D9RYsOomL+Cn48EQXeKdXze/++
-         C0ehTG2cfXAIYLsy3NybX4IAlYx6td+VzBUY0zz7FH3NW6hTe2qvn1sIw/nwpqUmZbr3
-         Bji2uTf0dhMK9B//gmFgs1vSiUTLm4gDEsuC85YPvWDIDmTB6pUMMNQbJ/n4LZktTAhB
-         D7jA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKcLS1Pe36rQ2MCp4ScC1inrqP61AtaKUonSosM+XRWNuE7ebmwr+pNLzJrlho1so5v3f6PI+xkdyxHQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mlwnqVMhmFDsPVYkE3L8tIyfWdaKnL1yd0N57esM8xmlwCATCm
-	ihpnvgek/dIpgJXDSsthH8HqEEwl5HJRkRmq5d1QPa5hGlFeksLOgWHEtw9oB4kYJSOgT7V2QWy
-	3HqgxSt5Le7fcc2HoOfQhQKyeYIp10s0=
-X-Gm-Gg: AYBFou19riF+Z1sNGhSH8xzDHzAMDxySCe0cTgiDXsuMJPwWrYNS327v6AA6Su6Xx39
-	LZSUTGS+b3P7gK/xH+wYEhFSTNdQ7F5limOXNuyPDuoYer88ULjIC+ss2BjCYa0cC8h5n5mfsts
-	qwBBnWWcRcmfwVzdEZXUSzqoMATZut7xD/sUkQvXWXJwtiZ76S0gLwZzHdGgg7oFw6vuSldGL+j
-	SYyIpGKYYhBX0r4Q9pGUfSIqlSPieAkZoUkt7Fjy2Xb4nFOm7Dh/Dbs5csXpYDzwhxKcYZS1x9D
-	iJWBB483leKHL4ZfyVsyxeHA0EyfP5IgiQd1rwun48Ah7pql9l6Qr/UAZcCVphRRyxwYgvRy9Cf
-	+th/MigM4lfQqi7o9uKfqGLiieKF9HaShcQaocvdoY2YTZpWoikcyd082sIjTPiMjbdmh9nBcEL
-	69vVgDKsQgPuHOakkO72bNUcqKoHEixeLQk/sFfw6/gIDg3OrPJ0U=
-X-Received: by 2002:a17:906:f585:b0:c26:1648:a075 with SMTP id
- a640c23a62f3a-c29667067c8mr442873366b.48.1789228290103; Sat, 12 Sep 2026
- 08:51:30 -0700 (PDT)
+        bh=Jqw79SmqLYkewooIG0Ms5tC1rgyoHKKJFJs076jCzQQ=;
+        b=py9NE05be0st5wifPgz+yGxsqf/9jbm99dRN2lZcuYEcdRcV2aIHbKt/Xv3gGuvHN+
+         vRuh7HcdcnmTFcL7wO6s7LkTJfQZV+p4xsj99mdeaevRHAYlMZiwCqELEVA99QdfPr4c
+         zlAyxfxasLHhKLfJGxMQs5/WoDujxE/v6PMa9ILAILTChO9ZYzhQu1OH8QvgDV/uN8YB
+         pqsUUuF0PkjhzH+7Hh6OdRxTRJK7bayQ0nTKJL1KtclhWunKnSrCCtgeGNP4NB6Ga+TK
+         W+38+LmOA3sRVJcuayKvApm7aEWnjCwwj2eJnNvR8pFL7b9SNy3S6tT/n+ArgsyD26cK
+         lxGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRYbbVM1oOT5Ea2PMcfhBEh/i3LyAMHDw2j1LpkHzw5rnNVKEdO9VI73/Z7hCajkVPuq1DY4GDzfhs0A==@vger.kernel.org
+X-Gm-Message-State: AFuF++lm34t1eijf7m3w0687Uox+xEZ8S4aPQkHvLXr6nswMPUfgBXEf
+	jzDkzKSneailR61OsQ/w5O5dikKozTIGqH5BbbDZU0VfwS1YAwol0SpjrBRo7MCo
+X-Gm-Gg: AYBFou2C3zXrhWZ1QhGW5YzrhhgE8JKRXJw9EQTCMSwtFlQ5UBL092w8Z70/UJ4KOlk
+	wyugIqI/70gXP9e7G16NmKf8GxcuV0zwqSKVDM3pLVvRYuufTis8IZxwqChbdgdhrNTaMYCB83Q
+	+wYr9eZldqVM5PL0NCOObblf4xbr59xSq/Bc7hZch9UOrGBCP9SNDz3FWNi24yIFdtDP1TNjekA
+	95hndxHrRtlOMF/rbs68q08gmy582TQzR/5yL6pm1iLmON5RTqdaGHEDw9spQHupUL0snv7crAM
+	u9hk4rSJWIdJrnWEwIha9uckB4EyW2GUIEK3P97xkuGTRPg9hE2O+5q9igC+b/UlF45OEqhPiKT
+	nuFfYT3/ns5XhsSWGwJ/lfXpxUyObMICHoRODwLMfbtq/Dn2ZiK1dGxKBc+IoS6QmfWpZfOLzOy
+	zJmqWLszXo0+2t8YDEzQzBkPJV6wsIBW6VLJEULFWU6Uz7i0yDDnSaKr02Z07CLrqpB68gpR29b
+	gn4kyydYdvfXBeGxom7MDLNcjwoLQ2wD4kd1MIp3ZJsTt7Nw88b4A==
+X-Received: by 2002:a5d:5d83:0:b0:486:f040:2e0e with SMTP id ffacd0b85a97d-486f6d4ab19mr2656641f8f.42.1789229847393;
+        Sat, 12 Sep 2026 09:17:27 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee8bsm13567448f8f.15.2026.09.12.09.17.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 09:17:18 -0700 (PDT)
+From: German <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: cause of the image error in Gnome Snapshot [PATCH v3 0/3] media: Add support for the Sony IMX681
+Date: Sat, 12 Sep 2026 18:16:12 +0200
+Message-ID: <20260912161614.93775-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912010936.12832-1-ricardobarbosamscg@gmail.com>
- <CAHp75Vfpq7TXcqFfGfqBZSawSSyMdbCj_gdNRkarTHyzbkJL4w@mail.gmail.com> <CAOOzAW3+ySKGkSETW7knDLb7=aMTsgpJ4RSmRFcMjCb+gvaJuQ@mail.gmail.com>
-In-Reply-To: <CAOOzAW3+ySKGkSETW7knDLb7=aMTsgpJ4RSmRFcMjCb+gvaJuQ@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 12 Sep 2026 18:50:51 +0300
-X-Gm-Features: AcwNN1X5L6R8VeJmkjFevWlO1Zk9f-pg5FslM8lqB45lWu3P0SnHxHdoYHbt7ts
-Message-ID: <CAHp75VdKEzXDyUZbDwS-dGECjDXsosQ-62yVK9PasmjBBTEPoQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: remove duplicate blank line
-To: ricardo barbosa <ricardobarbosamscg@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org, 
-	andy@kernel.org, sakari.ailus@linux.intel.com, linux-staging@lists.linux.dev, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 6:44=E2=80=AFPM ricardo barbosa
-<ricardobarbosamscg@gmail.com> wrote:
+From: German Pablo Lindo <germanpapulindez@gmail.com>
 
-Please, do not top-post!
+I think i found (at least in my system) why Gnome Snapshot dosent work, i dont know if this error is also present on your machine with the patches, so i have organiced this message with commands for you to be able to directly copy-paste them and make tests
 
-> Thanks for the feedback, Andy.
->
-> As a beginner taking the LFD103 course, my main goal with this
-> submission was simply to validate the workflow and git send-email
-> toolchain with a zero-risk change.
+There are resolution in wich the cammera works fine like:
+qcam --stream "width=1280,height=720" the resolution that uses google meet
+qcam --stream "width=640,height=480" resolution on a web camera test online
+qcam whithout the stream parameter, which has a cuality of 3836 × 2640
 
-Unfortunately this driver is not the best choice for a newbie. We
-prefer to see real work (likely by a contributor who has a hardware to
-test) on it first.
+But there are some that experience the violet and lines error i reported o my previous test
+qcam --stream "width=1920,height=1080" this one is the resolution gnome snapshot uses
+qcam --stream "width=1440,height=810"
+qcam --stream "width=960,height=540"
 
-> I'll look into more meaningful tasks for my next patch.
-
-Yes, it's still possible to submit some cleaning stuff, but do not
-expect it will be accepted or even reviewed, we lack the resources to
-handle that driver ourselves with all contributions it gets lately.
-Thanks for understanding.
-
-> On Sat, Sep 12, 2026 at 8:36=E2=80=AFAM Andy Shevchenko
-> <andy.shevchenko@gmail.com> wrote:
-> > On Sat, Sep 12, 2026 at 4:11=E2=80=AFAM Ricardo Barbosa Dias
-> > <ricardobarbosamscg@gmail.com> wrote:
-> > >
-> > > Remove an unnecessary extra blank line to clean up code style
-> > > and fix checkpatch CHECK warning.
-> >
-> > This is the lowest possible priority patch, if even considered. If you
-> > want to clean up this driver, there are more interesting tasks.
-
---=20
-With Best Regards,
-Andy Shevchenko
+I hope this helps in the development of the driver
