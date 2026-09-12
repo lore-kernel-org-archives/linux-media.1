@@ -1,63 +1,61 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5287A4248DB;
-	Sat, 12 Sep 2026 10:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4F2299920;
+	Sat, 12 Sep 2026 10:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208213; cv=none; b=t67WaASiys6llvq43SJa+5Mtob6U2S6fwpSiCXbJnfGYalfzWUnuWtsNSLY3WQeKH5lfEhA8yLZMYTgUmLCXZKqa9kbabrAkFHg00YpfJu2D/1ohjTaLxErW+le2x08Tp+spuS2IzHDmFMcRweyIkP/ClKJBSRg4TEG1HkkFp94=
+	t=1789208622; cv=none; b=Ag4HyeHq/B/3EK0lvfFHBNSaT5W196DpZ5Xr6zoaRYu8L/sTMbXb7xjASlF/aPNnzVhIlSu8bH0j7uV3A+fE0xe9/492dDiZvCmckPH6sQXC5vWoSZMTx31uXDw0fsdJqx5KzvHmQpkBPsFr/pctv6eJAMBNX8Yap/AdXKOtur4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208213; c=relaxed/simple;
-	bh=z5WVj38IiC/hz5c3bJDAj7E0oAL60HZscOoZZnZ7vi0=;
+	s=arc-20240116; t=1789208622; c=relaxed/simple;
+	bh=1MgsdZqFByEuKZbj3wzMFofTkdE4lSy2fbRuCMSFLrs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfcJOo0psYg3syXoVuAM3C2Ra4pU/EaZucerTqFfofAD2VDoyQb91AxsTxZ9eW0GABnFzvafgi2emrAFvwFsk6h10uCf+rw4zBwiFbaSRt8/xmSYq6Cdj6xEUTHKCyWKEhXoUy7qNTUXhaT5e8nH/E/NIXotjjsIddugk6hXugk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Oc+Iki3a; arc=none smtp.client-ip=192.198.163.11
+	 Content-Type:Content-Disposition:In-Reply-To; b=TWcLATBC6LIOJrJnnAeLV/IBidPFlrdFz+Dp2AiXvgKxMYBBZ3fX4As7Fc9VRKppIYZld8HmyDCARstczycRs6YSV9b/VSoOiGZr2t9udTMwsy57hKzOvlPVYbxRR+RAA4FhAsfIJsClQFGlrFLCjRb/TIUIZdq6anw04sMAWl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k1+nFDmS; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Oc+Iki3a"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k1+nFDmS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789208210; x=1820744210;
+  t=1789208621; x=1820744621;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=z5WVj38IiC/hz5c3bJDAj7E0oAL60HZscOoZZnZ7vi0=;
-  b=Oc+Iki3aspX24lGtW1jo19/Lkk7upEpLFuux2xOPREHxA8ASkv4bB0tk
-   Cc18F0LZPdJQ/XEa6TQCvzFI9ZuHev0QvPU3sW08yZHPKcrIJXFViVzGZ
-   f2pwIiNWu62Ks7zQqI1ktw8/m9Kv/YDIFYU4kY81c/CDhXUT1TyGQM/wS
-   MpQvOLbTLRTWEY9GyPl7iBF3zfh9fmVaaxjPwwDEE0DUs/DCipPGk15s5
-   adgfAjgwyr9BiRMPn4ScHNnPf3xV2gtECh4pF2eozMw24o2MAnTCfCFlB
-   cLFi6Atbt+KNtANOiqGtclax1zM4O/WBpbRBJiv++h/YvXe6IlwnhVyDl
-   Q==;
-X-CSE-ConnectionGUID: JGPDO89zQvSr35SxeedzLw==
-X-CSE-MsgGUID: FbO4/p3GTOmUYuuNSS21jQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100248591"
+  bh=1MgsdZqFByEuKZbj3wzMFofTkdE4lSy2fbRuCMSFLrs=;
+  b=k1+nFDmSQc2bYGLMajvM4XRbdhMMrwGy3VxnUvf+HJnAMJGKSUoVa07p
+   1gC3/lk+xeWh2PC2ZpgoL+x3H3YDrRP+gjBI4WYYgSDKs90XaYzge9e8N
+   iMqsVnmEywW7T2XnDBjhj9yMoMIkt+zAQ8ly3Y57sKwkAw47bcgFbA3rW
+   FWfLX8o7QmmcLRS9xklEHsI9bXK72yvFPOqIVWToFJ5alCaXumLpr9JU4
+   5qeusqjo+gMEMXp08jiYDqeeomXqlLz+pu4Cm6WMmVXNFtwX7jmWH3ve3
+   wGA+xCX/56/MYxhbc/JRiSXNhgEafinQLlbkX10i4KRgBizbftet/9zjy
+   g==;
+X-CSE-ConnectionGUID: 3jkKGLxHQ8yT5bsq8h29ng==
+X-CSE-MsgGUID: St51xmwiQgKaEl5gG8wXQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100314336"
 X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="100248591"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:16:46 -0700
-X-CSE-ConnectionGUID: WxYq0ebZTheni3f+fkGWkQ==
-X-CSE-MsgGUID: LkotNZvCSiy5ua4aaoNTbg==
+   d="scan'208";a="100314336"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:23:40 -0700
+X-CSE-ConnectionGUID: gKzK93CnRVCtZfNWW1yRGQ==
+X-CSE-MsgGUID: 4EEHJie0RKySbFwHZdR7OA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="275906220"
+   d="scan'208";a="272669528"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.236])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:16:44 -0700
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:23:39 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B4A5D121BCE;
-	Sat, 12 Sep 2026 13:16:48 +0300 (EEST)
-Date: Sat, 12 Sep 2026 13:16:48 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id F36FB121BCE;
+	Sat, 12 Sep 2026 13:23:42 +0300 (EEST)
+Date: Sat, 12 Sep 2026 13:23:42 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Pierre Pinon <pierre@pinon1.fr>
-Cc: Jason Chen <jason.z.chen@intel.com>, Jimmy Su <jimmy.su@intel.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov08x40: Do not expose the broken
- 1928x1088 binned mode
-Message-ID: <aqUmkCIizqkwrgZG@kekkonen.localdomain>
-References: <20260904134604.595685-1-pierre@pinon1.fr>
+To: Nicola Fiorillo <nicfio@gmail.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org, hverkuil@kernel.org,
+	antti.laakso@linux.intel.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] media: Two oopses and a hang when unbinding a
+ streaming sensor
+Message-ID: <aqUoLr0JFGEBiJIf@kekkonen.localdomain>
+References: <20260911194854.78894-1-nicfio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -66,19 +64,23 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904134604.595685-1-pierre@pinon1.fr>
+In-Reply-To: <20260911194854.78894-1-nicfio@gmail.com>
 
-Hi Pierre,
+Hi Nicola,
 
-On Fri, Sep 04, 2026 at 03:46:00PM +0200, Pierre Pinon wrote:
-> Measured on a Dell Pro 14 Premium PA14260 (IPU7 + Intel CVS, 2 MIPI
-> lanes at 1500 Mbps) by instrumenting libcamera's software ISP to count,
-> for each line of the incoming buffer, how many samples were left at
-> 0xffff:
+On Fri, Sep 11, 2026 at 09:48:51PM +0200, Nicola Fiorillo wrote:
+> Unbinding a camera sensor while a capture is running is a scenario that
+> nothing in the IPU6 path handles: the kernel oopses twice, corrupts memory
+> once, and leaves the application blocked forever. None of this is caused by
+> the sensor drivers themselves, and all four failures are present in
+> mainline today.
 
-Can you provide the output of lsusb on that system, plesae?
+Thanks for the patchset. These are known issues and unfortunately unbinding
+drivers while streaming isn't supported on MC-enabled drivers currently.
+This is a MC/V4L2 framework limitation and cannot be meaningfully worked
+around in drivers.
 
 -- 
-Regards,
+Kind regards,
 
 Sakari Ailus
