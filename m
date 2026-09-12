@@ -1,160 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from s1.inspiredexperts.com (s1.inspiredexperts.com [162.243.156.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C630F39061C;
-	Sat, 12 Sep 2026 22:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120DF346E70;
+	Sat, 12 Sep 2026 23:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.156.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789251664; cv=none; b=HRLRBqlPqXYQKn/0NcNlQkpYv84aS2xuk409J784xaqmGKsfTVoAxex7+hamY3Z1mezMhEopbiTCz+kmLaBvWMBQ0RMRNyHkjQEg6uh7idme378XZ855juxaC3xPyFKWc/wIHFB3L2W9QGlub2SzXSbdCAPNJHVmg2Hx6wxZuX0=
+	t=1789256606; cv=none; b=lHYzTDWi3GFrJPs02x2v4xAmg71l/adY4Um5Kt4/79nknwlbcU9Jree3TDIPZSopuabP/WZU5UNH+wEk+J3O/ACZqgbD/oJLfn16zAvwYOU3HMqn3dRL5P5NabDMUzPUFWJSpRhg6vvCZL7HkS1mKZsDNAgCr87A32+yS63TX8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789251664; c=relaxed/simple;
-	bh=jJN5bbmJG6+W8ZaAl9RR52OiGtP0jEKBmRMAckxoXiM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aJe6HCLeEcaYPMYTJDo6bj52O4C4tN9/S/pJQ+nuxskJRaZYMGv/KJlET++t6zOUyeerAhGe7S1q8c9iuQ3BMZPp4tgAzfaoYtqM/d2uJ+98i0Myg33FwevRkgp9GRgF1P/rzFIYzEFpyw8oWzz9UatbWIXSpAj7k4XKeWMNeXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BHhPvzDn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789256606; c=relaxed/simple;
+	bh=kdWHNnj2buw8KnESIn62ViaYjzUQXhnmRufeT+fLLb8=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=hL6o/g+A5EruABMUX8eLeZhpC+ITmQOgLY9hgHbGP8kEdHYVJMzaejr5BWCQbIUL+cOPgKxV/AbHbdcO+KlV8Buco9bxbFnE3xw7U9Hq4BeWKKpLtm1PJqtuFCpyOJMBdMQ+TgMBCgrWKkVFL75EGSjK0a6x26fUVLgOcBMcS6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=inspiredexperts.com; spf=pass smtp.mailfrom=inspiredexperts.com; dkim=pass (1024-bit key) header.d=inspiredexperts.com header.i=@inspiredexperts.com header.b=LG0Tj71E; arc=none smtp.client-ip=162.243.156.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=inspiredexperts.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inspiredexperts.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BHhPvzDn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434821F000FF;
-	Sat, 12 Sep 2026 22:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789251662;
-	bh=A9T5TqugoZpwriYm80tITfJ7eL5e79XFR+RGRlWT3Yo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BHhPvzDnmzwpQttZFmPMZf/UutFNeY/Degy6vahXXbV7Z6hNGc9MkvFE+rdhQJ6MU
-	 VAw3b4RYQvofx2lNTbeX4zkZRnpelNzwDei0UTSd3ZGNIs/4odMQ67B9LiiARuySxb
-	 U6BER7d7wfXohAn2tXbzGwa2wiTRgp4c4+hrPC/Fg2mvopBtYwKpfuJcqo2gQktz/i
-	 UBA340zyHxS9IBLWpHZ7ZP/iBROp/81WLbTAUh34hL3mGOOjez8TZZyGHIC4Q8vD6X
-	 SvDJPAFOvk+SgEr6vR+aGc41krBbPQbYbAOql8ew7alD2jpnrmyuGLi/805cAMk+g3
-	 S6DFuxrkx8D2Q==
-Date: Sat, 12 Sep 2026 23:20:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Arnd Bergmann" <arnd@arndb.de>
-Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann"
- <arnd@kernel.org>, "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson"
- <danielt@kernel.org>, "Helge Deller" <deller@gmx.de>,
- devicetree@vger.kernel.org, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
- "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, "open list:GPIO SUBSYSTEM"
- <linux-gpio@vger.kernel.org>, linux-hwmon@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-watchdog@vger.kernel.org, "Guenter Roeck" <linux@roeck-us.net>,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev, "Mauro Carvalho
- Chehab" <mchehab@kernel.org>, mfd@lists.linux.dev, "Michael Hennerich"
- <michael.hennerich@analog.com>, patches@opensource.cirrus.com, "Pavel
- Machek" <pavel@kernel.org>, "Rob Herring" <robh@kernel.org>, "Sebastian
- Reichel" <sre@kernel.org>, "Support Opensource"
- <support.opensource@diasemi.com>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-Message-ID: <20260912232047.19c4cb10@jic23-hlaptop>
-In-Reply-To: <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
-References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
-	<11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=inspiredexperts.com header.i=@inspiredexperts.com header.b="LG0Tj71E"
+Received: from poshta.inspiredexperts.com (s1.inspiredexperts.com [127.0.0.1])
+	by s1.inspiredexperts.com (Postfix) with ESMTPSA id 9EA3DD2D689;
+	Sat, 12 Sep 2026 17:34:01 -0600 (MDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inspiredexperts.com;
+	s=default; t=1789256044;
+	bh=laYwCNgkRDOIGanPeYdfin/ZixwWXeoqyJmpqyk9fXQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=LG0Tj71E+k33uM+eA9GRBElmJ6cOeurgZByLxKp24fy+Zcfr4MMJzCUpVr+3OKYXN
+	 Xgt21uu3NynMWs7FIStl/IPb4PciO6a/YshylV+x8i0+LsQGlZiBXXt/ZwirKk1vaf
+	 FD7Mv2cZXINm/jQ/agS4cMTc0aMCE+PbL1iAkYGY=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Date: Sat, 12 Sep 2026 17:34:01 -0600
+From: James Alexander <opensource@inspiredexperts.com>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Daniel
+ Scally <dan.scally@ideasonboard.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, platform-driver-x86@vger.kernel.org,
+ linux-media@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: int3472: Increase handshake GPIO delay to
+ 200 ms
+In-Reply-To: <20260818121445.160751-1-johannes.goede@oss.qualcomm.com>
+References: <20260818121445.160751-1-johannes.goede@oss.qualcomm.com>
+Message-ID: <eb161a8046d812c892aec086f67a2874@inspiredexperts.com>
+X-Sender: opensource@inspiredexperts.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 10 Sep 2026 20:14:15 +0200
-"Arnd Bergmann" <arnd@arndb.de> wrote:
+Tested on the affected HP Spectre x360 14-eu0xxx after backporting to 
+Ubuntu's 7.0.14 kernel. The sensor probed successfully across multiple 
+reboots with no recurrence of the -121 chip-ID error.
 
-> On Thu, Sep 10, 2026, at 18:40, Svyatoslav Ryhel wrote:
-> > __ 
-> > Hello Arnd! May you please spare AAT2870 from being removed? I have a 
-> > device which uses aat2870 (LG Optimus 2X P990 Tegra 2, not upstreamed 
-> > yet, but in process as well) and atm I am working on converting this 
-> > driver to use OF. Thank you!  
+Tested-by: James Alexander <opensource@inspiredexperts.com>
+
+On 2026-08-18 06:14, Hans de Goede wrote:
+> There have been several reports of the sensor not properly powering on,
+> on laptops where an INT3472 handshake GPIO is used. Both with ov08x40 
+> and
+> hi556 sensors.
 > 
-> Sure, I have removed this patch from my series now.
+> Testing has shown that a delay of 200 ms is necessary in some cases.
+> The handshake GPIO is typically used to signal an extra bridge or other 
+> IC
+> with that IC running the full sensor power sequence based on the 
+> handshake
+> signal and also possible controlling I2C pass-through.
 > 
-> > P. S. If you are planning to remove more old drivers, please CC me in 
-> > since I may be interested in some additional driver upgrades for 
-> > devices I own.  
+> It seems that in some cases that extra IC takes up to 200 ms to before
+> the sensor is fully powered up and ready for I2C communication.
 > 
-> Please have a look at
+> With the default handshake signal delay increased to 200 ms the quirk 
+> to
+> increase it to 45 ms for the ov08x40 is no longer necessary and is 
+> actually
+> undesirable since some ov08x40 setups also need the longer delay, drop 
+> it.
 > 
-> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+> Fixes: 30359c239ba8 ("platform/x86: int3472: Increase ov08x40 handshake 
+> GPIO delay to 45 ms")
+> Closes: 
+> https://lore.kernel.org/platform-driver-x86/20260816204247.2844986-1-opensource@inspiredexperts.com/
+> Reported-by: James Alexander <opensource@inspiredexperts.com>
+> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333331
+> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333647
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> ---
+>  drivers/platform/x86/intel/int3472/discrete.c | 12 +++---------
+>  1 file changed, 3 insertions(+), 9 deletions(-)
 > 
-> I tried to be careful about figuring out exactly which drivers are
-> unused, but I'm sure there are still a few false positive and false
-> negative ones in there. I've added the current list of driver files below,
-> let me know if you see something that shouldn't be there.
-Hi Arnd
-
-For I2C and SPI at least, there doesn't need to be explicit
-device tree support as long as they have defaults when platform
-data isn't there. Those two buses will happily bind based on
-a dt-compatible and their i2c_device_id or spi_device_id tables
-for example.
-
-So unless they fail to probe (some might?) we don't have
-a clear signal on whether they are in use via DT or not.
-
-For vast majority of IIO drivers we don't have an upstream
-DTS as there is no clear motivation for anyone to upstream
-the dts for a random industrial control board or similar.
-
-> drivers/iio/adc/ad7266.c
-No to dropping this.
-
-Has fallbacks and should bind just fine  No one ever
-bothered adding an of_device_id table because it isn't
-needed. Fine to rip out the platform data support as nothing is
-using that.
-
-This is a production part that is likely being used in new designs.
-
-> drivers/iio/adc/ad7791.c
-No to dropping this one.
-
-I'm fine with ripping out the platform data but this again
-has defaults and may well be in use via DT. Antoniu from
-Analog was doing some cleanup on this recently so I'd guess
-they probably still at least somewhat care and some of the
-supported parts are still in production (e.g. the AD7788)
-
-> drivers/iio/adc/ad7793.c
-Maybe. Analog devices ack needed.
-
-Production part but this one indeed fails to probe.  Analog
-folk, do you want to fix this one up?
-
-> drivers/iio/adc/ad7887.c
-No to dropping this.
-
-Production part - should work fine with defaults in driver.
-Could like the others drop the platform data handling.
-
-> drivers/iio/adc/lp8788_adc.c
-Probably
-
-Sub driver of an MFD.  I'm fine with that going if we know
-the mfd is no longer in use.
-
-> drivers/iio/adc/lpc18xx_adc.c
-> drivers/iio/dac/lpc18xx_dac.c
-Probably
-
-Likewise these two.
-
-> drivers/iio/frequency/ad9523.c
-Maybe. Analog Devices ack needed.
-
-Fails to probe without platform data and marked not recomended
-for new designs. If we get an Ack from Analog devices folk
-I'm fine with this one going away.
-
-Jonathan
-
+> diff --git a/drivers/platform/x86/intel/int3472/discrete.c 
+> b/drivers/platform/x86/intel/int3472/discrete.c
+> index 115bb37577a1..f9e42959647e 100644
+> --- a/drivers/platform/x86/intel/int3472/discrete.c
+> +++ b/drivers/platform/x86/intel/int3472/discrete.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/platform_data/x86/int3472.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/string_choices.h>
+> +#include <linux/time64.h>
+>  #include <linux/uuid.h>
+> 
+>  /*
+> @@ -157,13 +158,6 @@ static const struct int3472_gpio_map 
+> int3472_gpio_map[] = {
+>  		.type_to = INT3472_GPIO_TYPE_RESET,
+>  		.con_id = "enable",
+>  	},
+> -	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops 
+> */
+> -		.hid = "OVTI08F4",
+> -		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
+> -		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
+> -		.con_id = "dvdd",
+> -		.enable_time_us = 45 * USEC_PER_MSEC,
+> -	},
+>  };
+> 
+>  static void int3472_get_con_id_and_polarity(struct 
+> int3472_discrete_device *int3472, u8 *type,
+> @@ -234,8 +228,8 @@ static void int3472_get_con_id_and_polarity(struct 
+> int3472_discrete_device *int3
+>  	case INT3472_GPIO_TYPE_HANDSHAKE:
+>  		*con_id = "dvdd";
+>  		*gpio_flags = GPIO_ACTIVE_HIGH;
+> -		/* Setups using a handshake pin need 25 ms enable delay */
+> -		*enable_time_us = 25 * USEC_PER_MSEC;
+> +		/* Powering up the sensor through the handshake pin takes up to 200 
+> ms */
+> +		*enable_time_us = 200 * USEC_PER_MSEC;
+>  		break;
+>  	default:
+>  		*con_id = "unknown";
