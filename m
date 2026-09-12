@@ -1,496 +1,289 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C901A6834
-	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 03:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13EA375F95
+	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 05:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789183603; cv=none; b=DCPTiWlavucWdfHZYGLSsdD76Hcppr7UOk5PPU9G0Sh+6F3FiU7KS0ycTz+spt+R01mK4N4lyLpc2jSzspPvFYuNhUSccZ3VQyZQKLAx2uyP0CA94aHnjbXiPkRP2WSExTD2BlqJjh3rpNKS1smpF0qrw6Xh1yJ7EqBEzlhixis=
+	t=1789191277; cv=none; b=Qqr80QTPm9hUtpI1tFcCeMbyYdsr77SrRiblKmzvcOwLqCQFtxmHK/WjyFKrkfancz0dmO+DIemp2rob5+UUl2+1/uHgUm52T/J5TJr0Z8dfWsRH8shiBRUM+4sb9IlU0fBzgNZDva0axJfQCRTU0Dm1q4aOTjmfbmbDoLluXpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789183603; c=relaxed/simple;
-	bh=MPCNwBp5FkYDqs0V1o1Vs4fXd5IIRrTa+KavVBgYSR4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=expv5X8YtpO0VaOuJLVMkwsb+8mFtpF4aNGpdzMFSiSY0LAtlxeNDRkDaF9PGeEkLmWcnBdoc0mJGduJmI2+iHAs58qJpWpTyMsSnyoKau01qbNWEJAIxuH0M8CKJBrUUFQ0nLxRV+OEtkjBnfAGc4h6rjNngH3E30Sw7H4QkgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev; spf=pass smtp.mailfrom=q-lab.dev; dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b=bumlszwb; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=QsIU2I1w; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=q-lab.dev
+	s=arc-20240116; t=1789191277; c=relaxed/simple;
+	bh=sJo34rQVqEpNknLIgZe57oTNIiOHak2toH2+M+rhl/c=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=UKC4UlU0CVSQunDifDgjM99CiBbI3feXNXde490rSYaIlR3MaGiPVBq9nYZn8C1uaHwbvsCJUJszAKReO+ORjj7sFnu0MFeA0n0NSuVgKlxhmdaQQZ84qTixu+dor/zvh+Ji3xq87MaKu1UmGbncaTSwXHt5OYrbS6/RosWPhm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TXsNZ1C8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UsUzwWs8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b="bumlszwb";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="QsIU2I1w"
-DKIM-Signature: a=rsa-sha256; b=bumlszwbiU/nL74wGeM1/hFZb7H/7FMLzG2fkzYdg2ezbeD5jUD/b+/a+6bBMjm3LoVo7qMj/Gm76OsJfIbBJ5baXrHRWdvlFwFTQfaFX8TNGvYNlCZCIe4n/jIQJWe57k9f5GHNUSOGZEu811HaoE7yekNq/FOJu8Mpw8VTtlumTE2wmkEa/mXOo8CyhPa6J6i4/5722VduPySIpEgmwmvD4N5TY37cN+xfwfZ01xEGYzhmY4RWK+e/ebA02jFj7yHUXh2OYvS3+L8yEvU5/ukU/gyYdF5b/t47yYSes2M7dES6HEq2VCrG849EIkxw12bQAWy57U/vphwmtdxKVw==; s=purelymail1; d=q-lab.dev; v=1; bh=MPCNwBp5FkYDqs0V1o1Vs4fXd5IIRrTa+KavVBgYSR4=; h=Received:Date:Subject:To:From;
-DKIM-Signature: a=rsa-sha256; b=QsIU2I1wMPOvjUiijhBV80LJ7qrEz+6niB3SHV9iMAOEPOWYU+NNTKO28k8WCjOwSRE6EvA2aeMTVCCHy24+VtMhIfHsME3Gi9Xv3kFVVIeqYwQk3jWHOgCWvk+5b7K9bxqTfZlFVFGr9lpiApGmZFrMsz8+yMEoNxDDisDAdKdHUDaIeWf5kWaqxKl+80xWAp4NgZ7hCXt+zPAwEsz4MfwKF1nxIbgJH8IHAdDAOI3AcbawFRw7Ew49oR88927L+M7c86Im4d7d6USHQS0XxqW4tYzHgr1QcU/aAhixvzWwt7rol5LdeKhi8cuH7ZjQpJJbXk/Ow/eSTpyUPgGaoQ==; s=purelymail1; d=purelymail.com; v=1; bh=MPCNwBp5FkYDqs0V1o1Vs4fXd5IIRrTa+KavVBgYSR4=; h=Feedback-ID:Received:Date:Subject:To:From;
-Feedback-ID: 284201:25281:null:purelymail
-X-Pm-Original-To: linux-media@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1510296314;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sat, 12 Sep 2026 03:26:22 +0000 (UTC)
-Message-ID: <76b9381d-dcd6-40d3-84f2-661413f56521@q-lab.dev>
-Date: Fri, 11 Sep 2026 20:26:20 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TXsNZ1C8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UsUzwWs8"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C4V4VC2226630
+	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 05:34:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5iF7h3QVjHnRytjjjc/3dTT/X64vIbM+wfEJdjbcWWE=; b=TXsNZ1C85kfGa4Fa
+	Kfh7VpGMDJUWnCJcTNwFBWtiPCf2cKMGiaYFpFtImLn+9XJKncI01crLY4TqQNcw
+	oWQ6eUWiw7ANuHGXPvhoY5aEAUdm0v+WDpNk6eoaRWkCHt5KtNq/7P3YHSmibFF1
+	GFhcES+MiZs/VHzqhAjVYZA9uq7AFM2egctf7Jixt3tg02kaRmRtMK/lFg7u6+jc
+	6eNdy0Or+PJqf4A+FbQ2zKIMKnzyNwyCXcwxPTqUoYZwlL70TISJ5pZ5YP6Pjt7M
+	Oz6T0UqsnX7+cgJBoXWOuIAUIL1YARxLVrCRKnWPXBQgsnoRTHCUMrMnUa2ubRgL
+	4ruRJA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c85e8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 05:34:34 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f3426a7cso214641585a.0
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 22:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789191274; x=1789796074; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5iF7h3QVjHnRytjjjc/3dTT/X64vIbM+wfEJdjbcWWE=;
+        b=UsUzwWs8smCSBTPViQdvbo4yr+yr03td3xF/yB6GyySpJ2TjYNJfJWzAFJyxDnyQXu
+         76hXij7pgxhuZcs0IQqUoY8cI3TXzqkwqEhfNUW9v/uZJaWmi6H0bnU23jRB674zbw0w
+         Gtwn+8jkEwYSj8MYuxpYOdZKWAN9pn5b272iNAbobiUo8ZpozbXRbrWK4fwdO8iRoyph
+         U9TZqwvpT+gOoUi0M4OdtygmTDqfsykYMXq6t3dUG5p2q41Ezljbn3OFBbI5KKZpynDU
+         NmFzNS2AxUG7ymA+8t/EyJdOfPjfbrjISfVBBA/TNIvwv6AUxiG97NCKWuoMrOOh5nXX
+         DI+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789191274; x=1789796074;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5iF7h3QVjHnRytjjjc/3dTT/X64vIbM+wfEJdjbcWWE=;
+        b=WKLRucHZhmAhUco5TkME8M3cJzuUfnIgUx5ZRfLZJHCGH3xy+ByACEGKpICNW1qvjh
+         RmbnpFfqhVJNVXS1AuzN1gfefGKs6Qp/dNa6bWD3HpzvLS57dczt1az9YagHFYTEipEv
+         e+7OWW0ObaAlJ6oQidOx8WeKP/G5/TgUi+ZrL8iAVNmSiBiJRcUMVvaL6jmUccRNdgEW
+         je3wZC3KRzz1sfpJi2FrkduHUliw4QlK+MatVB1N7laNGKx7RXgXf+AfubTUrcAS5jzu
+         tr5tKxPIX64lmqjrZCKvZ2vLqlgYq2N3V+6r+QrBaOhAscPnTQdsHNkZZTh2hQn8/1Yz
+         Jr1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxROzVX9+hiwrpW1kt0tGLDFmuR8nEtmVOx9yHTIAL0/+cNetp4KW7Vfw83THBHgLENRVDqDvB2UWpBLg==@vger.kernel.org
+X-Gm-Message-State: AFuF++kbGIBwonKFb/rgM6gbSkL7gHlkLxm2iEgQzDYHiyfdfLa+OYxe
+	vkYyBiVP0yNyuF0dbUcMGrHObud3e4NA8IoQUISPju+nb76LbA8d/rWz+9p8LVXTZGMxtlsOh+G
+	4/JXLPgjrHse73+djIVJItQGZj93lVRhd8jZ9qbw+i3FW2ORRk+0ZQcoOisUw/zzYxg==
+X-Gm-Gg: AYBFou38HBYsmcb8A7AAxJwGrRH8d/kPTcVCGiiORg9Md2pdVeIgyyIzSErHplQEwnf
+	nX8lbAuG8JSn/+HsL535zAQ2QYSwfGwB/YRyexeVrGBi5T7OkRSVew7CDc3FUwvDMmCctAwNX8O
+	oEarviqYYYMVAWw+MWMTZQTP9OUI8s2YtPNKmj1TGwgdLSUCfyCXh69rfy7O9S0eccpnWGTGwG5
+	ou8wKDiACRGJ9wPciLwjiAvkcadWSmwPqzICT+jD7jI8fwuhPzhKP0GV4cNTwAl62zu/ERIvH0R
+	Q9SI91sSH6Mzre322QKrSnNzWMhSomWdl/premEGrAwNifUh227Ckb92MQN/ffBKrE0kOLhCcE+
+	G89kesd5Jc/wEoa7XLswuIZUIq9x5B+F5MuP3j1vH
+X-Received: by 2002:a05:620a:288a:b0:939:ede4:a499 with SMTP id af79cd13be357-93a035f328dmr214129085a.5.1789191273966;
+        Fri, 11 Sep 2026 22:34:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:288a:b0:939:ede4:a499 with SMTP id af79cd13be357-93a035f328dmr214102585a.5.1789191268738;
+        Fri, 11 Sep 2026 22:34:28 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm186614475e9.14.2026.09.11.22.34.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 22:34:27 -0700 (PDT)
+Message-ID: <58ca2ad9-cfc8-46e9-bbd6-4640b5edd69c@oss.qualcomm.com>
+Date: Sat, 12 Sep 2026 08:34:25 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v17 15/22] media: i2c: add Maxim GMSL2/3 deserializer
- framework
-To: dumitru.ceclan@analog.com,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
- <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>
-References: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
- <20260909-gmsl2-3_serdes-v17-15-002499e534e8@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] media: qcom: camss: Implement CSID streams API hw_ops
+ for gen2
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260911062213.195007-4-gjorgji.rosikopulos@oss.qualcomm.com>
+ <CAFEp6-1+g+kpevwUyXb2+0M4H5NPtz=2bc-CRfzyhOukRAn7VQ@mail.gmail.com>
+ <f8601f35-75ce-4419-b4e0-4b2dc162f3fb@oss.qualcomm.com>
 Content-Language: en-US
-From: Quentin Freimanis <quentin@q-lab.dev>
-In-Reply-To: <20260909-gmsl2-3_serdes-v17-15-002499e534e8@analog.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi Dumitru,
-
-On 2026-09-09 6:27 a.m., Dumitru Ceclan via B4 Relay wrote:
-> From: Cosmin Tanislav <demonsingur@gmail.com>
->
-
-<snip>
-
-> +static int max_des_init_link_ser_xlate(struct max_des_priv *priv,
-> +				       struct max_des_link *link,
-> +				       struct i2c_adapter *adapter,
-> +				       u8 power_up_addr, u8 new_addr)
-> +{
-> +	struct max_des *des = priv->des;
-> +	u8 addrs[] = { power_up_addr, new_addr };
-> +	u8 current_addr;
-> +	int ret;
-> +
-> +	if (des->ops->select_links) {
-> +		ret = des->ops->select_links(des, BIT(link->index));
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = max_ser_wait_for_multiple(adapter, addrs, ARRAY_SIZE(addrs),
-> +					&current_addr);
-> +	if (ret) {
-> +		dev_err(priv->dev,
-> +			"Failed to wait for serializer at 0x%02x or 0x%02x: %d\n",
-> +			power_up_addr, new_addr, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = max_ser_reset(adapter, current_addr);
-> +	if (ret) {
-> +		dev_err(priv->dev, "Failed to reset serializer: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = max_ser_wait(adapter, power_up_addr);
-> +	if (ret) {
-> +		dev_err(priv->dev,
-> +			"Failed to wait for serializer at 0x%02x: %d\n",
-> +			power_up_addr, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = max_ser_change_address(adapter, power_up_addr, new_addr);
-> +	if (ret) {
-> +		dev_err(priv->dev,
-> +			"Failed to change serializer from 0x%02x to 0x%02x: %d\n",
-> +			power_up_addr, new_addr, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = max_ser_wait(adapter, new_addr);
-> +	if (ret) {
-> +		dev_err(priv->dev,
-> +			"Failed to wait for serializer at 0x%02x: %d\n",
-> +			new_addr, ret);
-> +		return ret;
-> +	}
-> +
-> +	if (des->info->fix_tx_ids) {
-> +		ret = max_ser_fix_tx_ids(adapter, new_addr);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int max_des_init(struct max_des_priv *priv)
-> +{
-> +	struct max_des *des = priv->des;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (des->ops->init) {
-> +		ret = des->ops->init(des);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (des->ops->set_enable) {
-> +		ret = des->ops->set_enable(des, false);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	for (i = 0; i < des->info->num_phys; i++) {
-> +		struct max_des_phy *phy = &des->phys[i];
-> +
-> +		if (phy->enabled) {
-> +			ret = des->ops->init_phy(des, phy);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		ret = des->ops->set_phy_enable(des, phy, phy->enabled);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	for (i = 0; i < des->info->num_pipes; i++) {
-> +		struct max_des_pipe *pipe = &des->pipes[i];
-> +		struct max_des_link *link = &des->links[pipe->link_id];
-> +
-> +		ret = des->ops->set_pipe_enable(des, pipe, false);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (des->ops->set_pipe_tunnel_enable) {
-> +			ret = des->ops->set_pipe_tunnel_enable(des, pipe, false);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		if (des->ops->set_pipe_stream_id) {
-> +			ret = des->ops->set_pipe_stream_id(des, pipe, pipe->stream_id);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		if (des->ops->set_pipe_link) {
-> +			ret = des->ops->set_pipe_link(des, pipe, link);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		ret = max_des_set_pipe_remaps(priv, pipe, pipe->remaps,
-> +					      pipe->num_remaps);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (!des->ops->init_link)
-> +		return 0;
-> +
-> +	for (i = 0; i < des->info->num_links; i++) {
-> +		struct max_des_link *link = &des->links[i];
-> +
-> +		if (!link->enabled)
-> +			continue;
-> +
-> +		ret = des->ops->init_link(des, link);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void max_des_ser_find_version_range(struct max_des *des, int *min, int *max)
-> +{
-> +	unsigned int i;
-> +
-> +	*min = MAX_SERDES_GMSL_MIN;
-> +	*max = MAX_SERDES_GMSL_MAX;
-> +
-> +	if (!des->info->needs_single_link_version)
-> +		return;
-> +
-> +	for (i = 0; i < des->info->num_links; i++) {
-> +		struct max_des_link *link = &des->links[i];
-> +
-> +		if (!link->enabled)
-> +			continue;
-> +
-> +		if (!link->ser_xlate.en)
-> +			continue;
-> +
-> +		*min = *max = link->version;
-> +
-> +		return;
-> +	}
-> +}
-> +
-> +static unsigned int max_des_enabled_links_mask(struct max_des *des)
-> +{
-> +	unsigned int mask = 0;
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < des->info->num_links; i++) {
-> +		struct max_des_link *link = &des->links[i];
-> +
-> +		if (link->enabled)
-> +			mask |= BIT(link->index);
-> +	}
-> +
-> +	return mask;
-> +}
-> +
-> +static int max_des_ser_attach_addr(struct max_des_priv *priv, u32 chan_id,
-> +				   u16 addr, u16 alias)
-> +{
-> +	struct max_des *des = priv->des;
-> +	struct max_des_link *link = &des->links[chan_id];
-> +	unsigned int mask;
-> +	int i, min, max;
-> +	int ret = -ENOENT;
-> +	int err;
-> +
-> +	max_des_ser_find_version_range(des, &min, &max);
-> +
-> +	if (link->ser_xlate.en) {
-> +		dev_err(priv->dev, "Serializer for link %u already bound\n",
-> +			link->index);
-> +		return -EINVAL;
-> +	}
-> +
-> +	for (i = max; i >= min; i--) {
-> +		if (!(des->info->versions & BIT(i)))
-> +			continue;
-> +
-> +		if (des->ops->set_link_version) {
-> +			ret = des->ops->set_link_version(des, link, i);
-> +			if (ret)
-> +				goto out_select_links;
-> +		}
-> +
-> +		ret = max_des_init_link_ser_xlate(priv, link, priv->client->adapter,
-> +						  addr, alias);
-> +		if (!ret)
-> +			break;
-> +	}
-> +
-> +	if (ret) {
-> +		dev_err(priv->dev, "Cannot find serializer for link %u\n",
-> +			link->index);
-> +		ret = -ENOENT;
-> +		goto out_select_links;
-> +	}
-> +
-> +	link->version = i;
-> +	link->ser_xlate.src = alias;
-> +	link->ser_xlate.dst = addr;
-> +	link->ser_xlate.en = true;
-> +
-> +out_select_links:
-> +	if (!des->ops->select_links)
-> +		return ret;
-> +
-> +	mask = max_des_enabled_links_mask(des);
-> +	err = des->ops->select_links(des, mask);
-> +	if (err)
-> +		dev_warn(priv->dev, "Failed to restore link selection: %d\n",
-> +			 err);
-> +
-> +	return ret;
-> +}
-> +
-> +static int max_des_ser_atr_attach_addr(struct i2c_atr *atr, u32 chan_id,
-> +				       u16 addr, u16 alias)
-> +{
-> +	struct max_des_priv *priv = i2c_atr_get_driver_data(atr);
-> +
-> +	return max_des_ser_attach_addr(priv, chan_id, addr, alias);
-> +}
-> +
-> +static void max_des_ser_atr_detach_addr(struct i2c_atr *atr, u32 chan_id, u16 addr)
-> +{
-> +	/* Don't do anything. */
-> +}
-> +
-> +static const struct i2c_atr_ops max_des_i2c_atr_ops = {
-> +	.attach_addr = max_des_ser_atr_attach_addr,
-> +	.detach_addr = max_des_ser_atr_detach_addr,
-> +};
-> +
-> +static void max_des_i2c_atr_deinit(struct max_des_priv *priv)
-> +{
-> +	struct max_des *des = priv->des;
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < des->info->num_links; i++) {
-> +		struct max_des_link *link = &des->links[i];
-> +
-> +		/* Deleting adapters that haven't been added does no harm. */
-> +		i2c_atr_del_adapter(priv->atr, link->index);
-> +	}
-> +
-> +	i2c_atr_delete(priv->atr);
-> +	priv->atr = NULL;
-> +}
-> +
-> +static int max_des_i2c_atr_init(struct max_des_priv *priv)
-> +{
-> +	struct max_des *des = priv->des;
-> +	unsigned int mask = 0;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(priv->client->adapter,
-> +				     I2C_FUNC_SMBUS_WRITE_BYTE_DATA))
-> +		return -ENODEV;
-> +
-> +	priv->atr = i2c_atr_new(priv->client->adapter, priv->dev,
-> +				&max_des_i2c_atr_ops, des->info->num_links,
-> +				I2C_ATR_F_STATIC | I2C_ATR_F_PASSTHROUGH);
-> +	if (IS_ERR(priv->atr))
-> +		return PTR_ERR(priv->atr);
-> +
-> +	i2c_atr_set_driver_data(priv->atr, priv);
-> +
-> +	for (i = 0; i < des->info->num_links; i++) {
-> +		struct max_des_link *link = &des->links[i];
-> +		struct i2c_atr_adap_desc desc = {
-> +			.chan_id = i,
-> +		};
-> +
-> +		if (!link->enabled)
-> +			continue;
-> +
-> +		ret = i2c_atr_add_adapter(priv->atr, &desc);
-> +		if (ret)
-> +			goto err_add_adapters;
-> +	}
-> +
-> +	if (des->ops->select_links) {
-> +		mask = max_des_enabled_links_mask(des);
-> +
-> +		ret = des->ops->select_links(des, mask);
-> +		if (ret) {
-> +			dev_warn(priv->dev, "Failed to select links: %d\n", ret);
-> +
-> +			goto err_add_adapters;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +
-> +err_add_adapters:
-> +	max_des_i2c_atr_deinit(priv);
-> +
-> +	return ret;
-> +}
-> +
-
-I was able to create a race condition during driver probe when using i2c 
-ATR.
-
-My setup has 1x MAX96724 + 4x MAX96717 + 4x distinct camera sensors
-
-NOTE: I am using this series on an older kernel release, with my own 
-non-mainline camera drivers. Although as far as I can tell this can 
-still happen on the latest media.git with mainlined camera drivers.
-
-Here is an example I observed on my setup:
-+------------------------------+------------------------------+
-| Thread 1                     | Thread 2                     |
-+------------------------------+------------------------------+
-| deser probes                 |                              |
-+------------------------------+------------------------------+
-| max_des_i2c_atr_init()       |                              |
-+------------------------------+------------------------------+
-| first iteration of           |                              |
-| for (i = 0; i <              |                              |
-| des->info->num_links; i++)   |                              |
-+------------------------------+------------------------------+
-| i2c_atr_add_adapter() called |                              |
-| on link 0                    |                              |
-+------------------------------+------------------------------+
-| i2c_add_adapter() called for |                              |
-| link 0                       |                              |
-+------------------------------+------------------------------+
-| max_des_ser_atr_attach_addr()|                              |
-| called for serializer 0      |                              |
-+------------------------------+------------------------------+
-| all other links are          |                              |
-| disabled to change ser 0's   |                              |
-| address, then all re-        |                              |
-| enabled again in             |                              |
-| max_des_init_link_ser_xlate()|                              |
-+------------------------------+------------------------------+
-| the seralizer is left unbound|                              |
-| because the module is not    |                              |
-| loaded yet                   |                              |
-+------------------------------+------------------------------+
-| second iteration of          |                              |
-| for (i = 0; i <              |                              |
-| des->info->num_links; i++)   |                              |
-+------------------------------+------------------------------+
-| i2c_atr_add_adapter called   |                              |
-| on link 1                    |                              |
-+------------------------------+------------------------------+
-| i2c_add_adapter called for   |                              |
-| link 1                       |                              |
-+------------------------------+------------------------------+
-| max_des_ser_atr_attach_addr()| max96717.ko loads, and the   |
-| called for serializer 1      | driver probes                |
-+------------------------------+------------------------------+
-| all other links are          |                              |
-| disabled in                  |                              |
-| max_des_init_link_ser_xlate  |                              |
-| to change serializer 1's     |                              |
-| address                      |                              |
-+------------------------------+------------------------------+
-| we write the new i2c         | camera 0 probes (module      |
-| address to serializer 1      | already loaded)              |
-+------------------------------+------------------------------+
-|                              | camera driver requests a     |
-|                              | reset gpio on serializer 0   |
-+------------------------------+------------------------------+
-|                              | max96717.ko does a i2c       |
-|                              | write on link 0, which       |
-|                              | fails since it was disabled  |
-+------------------------------+------------------------------+
-|                              | -EIO                         |
-+------------------------------+------------------------------+
-| all links re-enabled in      |                              |
-| max_des_init_link_ser_xlate  |                              |
-+------------------------------+------------------------------+
-| max96717.ko is loaded so we  |                              |
-| probe serializer 1           |                              |
-| now                          |                              |
-+------------------------------+------------------------------+
-| camera 1 probes              |                              |
-| (different driver)           |                              |
-+------------------------------+------------------------------+
-
-As a quick hack I fixed this in my local tree by modifying i2c-atr.c to 
-lock atr->lock in i2c_atr_attach_addr() and i2c_atr_detach_addr().
-
-After writing this out I realized there might also be another way:
-In max_des_init_link_ser_xlate() skip disabling links that have already 
-had their serializer changed to a new, unique address. This would also 
-require changing select_links to not reset all links connected to the 
-deseralizer. Not sure if that is possible.
-
-- Quentin
-
-<snip>
+In-Reply-To: <f8601f35-75ce-4419-b4e0-4b2dc162f3fb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=e+mT2qp/ c=1 sm=1 tr=0 ts=6aa4e46a cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=F_M2Yv-rfSBzxpAF3TcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDA3NyBTYWx0ZWRfX4WDuJY6fkDEk
+ cgvfpukdrnedKJk9LoNG32UtI0qoYp3ovuVBAvKNAq2UQErcU6Myq9+pdkOxMSO7IRj41l3NQas
+ Iw5OIygRWnuSVoNOnNfIM4asTTEZOZc=
+X-Proofpoint-ORIG-GUID: RjolsqlNcCvKBaz3yLQuLkxP3aS8UaQh
+X-Proofpoint-GUID: RjolsqlNcCvKBaz3yLQuLkxP3aS8UaQh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDA3NyBTYWx0ZWRfX1DFMthKWwUJA
+ X2fYUcWPofMcfEnyBV/ZBSyhj/sZVyWjELfJJqfgGCOc2yR1vUDac90X6W2bPvVnYIV1hYWF4dR
+ RxdwY8V3ED009KjH7PK1/k3fEZvhgSqWXIZJx5+mvMV+X0ARBCpzdcAIT0g5y/4HzKUvpqULtSc
+ EmFQxvO5WhkuzD9By+lND0ROgO8bGYd/n7z4WWCVsd44BM8vnGfsLxvqsCAM0qxPekFor4mFVkT
+ np2uHVA3e4D8f+FDbeNdhGJzphgnARPbbBfc/R6sKQdEmss4dhLaCvyEtXNVSzpwysdCP2h8Hgn
+ n5PXMD5JUhtSQ0SP4KJ34GPyWsgbUgHJpfus0MiB5jHGMEf3zpu48xUFOHIsFt/t0f8eiqSIWeH
+ g0JSttwByf5570SQuIt4ryyWFDvkfn+AfsxXTqDKa7UJInctNhqTCHPF0Izc0MVCWg/vhQjMwRP
+ It6ExqgQmy0r77FZRzw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_02,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120077
 
 
+
+On 9/11/2026 5:17 PM, Gjorgji Rosikopulos (Consultant) wrote:
+> Hi Loic, 
+> 
+> Thanks for the review,
+> 
+> On 9/11/2026 4:30 PM, Loic Poulain wrote:
+>> Hi Gjorgji,
+>>
+>> On Fri, Sep 11, 2026 at 8:22 AM Gjorgji Rosikopulos
+>> <gjorgji.rosikopulos@oss.qualcomm.com> wrote:
+>>>
+>>> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+>>>
+>>> Implement the configure_rx/enable_stream/disable_stream hw_ops added to
+>>> struct csid_hw_ops, for the gen2 CSID hardware backend used by SM8250.
+>>>
+>>> __csid_configure_rdi_stream() now takes an explicit data type parameter
+>>> instead of deriving it from the CSID source pad's format, since the
+>>> streams API keys each stream by stream_id rather than by pad. The
+>>> existing configure_stream() path is updated to pass its per-port format
+>>> lookup through to this parameter, preserving current behavior.
+>>>
+>>> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+>>> ---
+>>>  .../platform/qcom/camss/camss-csid-gen2.c     | 59 ++++++++++++++++---
+>>>  1 file changed, 51 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+>>> index eadcb2f7e3aa..2512cdb16d94 100644
+>>> --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+>>> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+>>> @@ -253,13 +253,8 @@ static void __csid_configure_testgen(struct csid_device *csid, u8 enable, u8 por
+>>>         writel_relaxed(val, csid->base + CSID_TPG_CTRL);
+>>>  }
+>>>
+>>> -static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
+>>> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc, u8 dt)
+>>>  {
+>>> -       /* Source pads matching RDI channels on hardware. Pad 1 -> RDI0, Pad 2 -> RDI1, etc. */
+>>> -       struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
+>>> -       const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
+>>> -                                                                  csid->res->formats->nformats,
+>>> -                                                                  input_format->code);
+>>>         u32 val;
+>>>
+>>>         /*
+>>> @@ -281,7 +276,7 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+>>>         val |= 1 << RDI_CFG0_TIMESTAMP_EN;
+>>>         /* note: for non-RDI path, this should be format->decode_format */
+>>>         val |= DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
+>>> -       val |= format->data_type << RDI_CFG0_DATA_TYPE;
+>>> +       val |= dt << RDI_CFG0_DATA_TYPE;
+>>>         val |= vc << RDI_CFG0_VIRTUAL_CHANNEL;
+>>>         val |= dt_id << RDI_CFG0_DT_ID;
+>>>         writel_relaxed(val, csid->base + CSID_RDI_CFG0(port));
+>>> @@ -330,15 +325,60 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+>>>         /* Loop through all enabled ports and configure a stream for each */
+>>>         for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
+>>>                 if (csid->phy.en_vc & BIT(i)) {
+>>> +                       /* Source pads match RDI channels: pad 1 -> RDI0, pad 2 -> RDI1, etc. */
+>>> +                       struct v4l2_mbus_framefmt *input_format =
+>>> +                               &csid->fmt[MSM_CSID_PAD_FIRST_SRC + i];
+>>> +                       const struct csid_format_info *format =
+>>> +                               csid_get_fmt_entry(csid->res->formats->formats,
+>>> +                                                  csid->res->formats->nformats,
+>>> +                                                  input_format->code);
+>>> +                       u8 vc = 0;
+>>> +
+>>>                         if (tg->enabled)
+>>>                                 __csid_configure_testgen(csid, enable, i, 0);
+>>>
+>>> -                       __csid_configure_rdi_stream(csid, enable, i, 0);
+>>> +                       __csid_configure_rdi_stream(csid, enable, i, vc, format->data_type);
+>>>                         __csid_configure_rx(csid, &csid->phy, 0);
+>>>                         __csid_ctrl_rdi(csid, enable, i);
+>>>                 }
+>>>  }
+>>>
+>>> +/*
+>>> + * configure_rx - Configure the CSID Rx front-end
+>>> + */
+>>> +static void csid_configure_rx(struct csid_device *csid)
+>>> +{
+>>> +       __csid_configure_rx(csid, &csid->phy, 0);
+>>> +}
+>>> +
+>>> +/*
+>>> + * stream_id is used directly as the hardware RDI port index below. This
+>>> + * assumes a 1:1 stream-to-port mapping and should be revisited once
+>>> + * per-platform src_streams data (stream id -> hw pipe) is added.
+>>> + */
+>>> +static void csid_enable_stream(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt)
+>>> +{
+>>> +       struct csid_testgen_config *tg = &csid->testgen;
+>>> +
+>>> +       if (tg->enabled)
+>>> +               __csid_configure_testgen(csid, 1, stream_id, vc);
+>>> +
+>>> +       __csid_configure_rdi_stream(csid, 1, stream_id, vc, dt);
+>>> +       __csid_ctrl_rdi(csid, 1, stream_id);
+>>> +}
+>>> +
+>>> +static void csid_disable_stream(struct csid_device *csid, u32 stream_id)
+>>> +{
+>>> +       struct csid_testgen_config *tg = &csid->testgen;
+>>> +
+>>> +       __csid_ctrl_rdi(csid, 0, stream_id);
+>>> +
+>>> +       if (tg->enabled)
+>>> +               __csid_configure_testgen(csid, 0, stream_id, 0);
+>>> +
+>>> +       __csid_configure_rdi_stream(csid, 0, stream_id, 0, 0);
+>>> +}
+>>> +
+>>>  static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
+>>>  {
+>>>         if (val > 0 && val <= csid->testgen.nmodes)
+>>> @@ -425,6 +465,9 @@ static void csid_subdev_init(struct csid_device *csid)
+>>>  const struct csid_hw_ops csid_ops_gen2 = {
+>>>         .configure_stream = csid_configure_stream,
+>>>         .configure_testgen_pattern = csid_configure_testgen_pattern,
+>>> +       .configure_rx = csid_configure_rx,
+>>> +       .enable_stream = csid_enable_stream,
+>>> +       .disable_stream = csid_disable_stream,
+>>
+>> Would it be possible to leverage the existing CSID configure_stream()
+>> callback to implement the stream API? This would likely require
+>> reconfiguring all CSID ports whenever a stream is started/stopped, but
+>> if the configuration remains unchanged, I do not think that would be
+>> problematic. That said, we probably need to address the current
+>> ambiguity between the concepts of "VC" and "PORT" in the existing
+>> drivers first.
+> 
+> I have experimented with something similar, we know in advance which
+> streams will be routed and active using stream routes, we can enable
+> them in advance. The drawback of that was that all the streams (even inactive)
+> will be enabled when first stream is enabled, but that is the case even today.
+> 
+> What you propose is something different, but that will require changing of the existing
+> api and verification of all csid implementations, i am ok with the proposal 
+> if someone can help with the verification of other devices.
+
+In addition using configure_stream and one api for multiple streams will make the interface
+more complex. We need to extend the interface with stream id's and pass vc/dt for each stream.
+I think that current enable/disable stream is more simple for this implementation.
+
+~Gjorgji
 
