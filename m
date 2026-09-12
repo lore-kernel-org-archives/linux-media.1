@@ -1,74 +1,76 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A475637B030
-	for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 23:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDD72E7622
+	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 01:11:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169496; cv=none; b=cyGXP8fLtTZ9QHRXhJF0EKIXtPUoWDUYI3T9AX5SFu8n8l/m8eVLiJoQPK93sch/Zf4UjYIGhRjgBdvcNzGpRmo+fQJLwtmTfEANh8bVkDyuGQhiKq3bNr2IUe53P3wmGVcqd01iwizuth4JksVdFUPBCTSNDdFUEgxSeXrAB7w=
+	t=1789175466; cv=none; b=LZ4LVoi9AqTKyc+wNPJhNMZd6CvP7MOYjf+K8TMukjT/64qMCx1LvE0S/iEb6Ly+SpaqdFe8/R5e8qJQ2IOe9fX5HrKu7AXPVkkviPE3JG/h7nzOSFiflGjQvRF3fu9Kdod0oN5nPh8sugaN9iRGiz+BlvtctiPZj2t8WT4OzyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169496; c=relaxed/simple;
-	bh=HAa0TEXydOHgMfafBsDr+x6HKG9INzGOAMdWGMZFkrY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ElMCNGRjhdpN8QddNYANl5HVxf4GodbGk3e9CCaU5n3rpQ4EqgJnZfazIdhDDCOwxrX5RiO4MqspkLmIGeK8TZz+RL0RpJ90ZB4+EnV2kbTmVdF0Qk5hzaFttvuLxrO1h5yZnUZLOqvd/M0CRQrt9xkL/Y1brpO7GQlkRS2ZAys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U5wSUjjx; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1789175466; c=relaxed/simple;
+	bh=3swsNw31lSkMLciZcYqtrvV/YSRJx0HnmGQgeLeCvZ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CRy12WQ5dU3Oj96stMjSAx8n3Uu8toZ+SsNYMCIBaBvwflPNHB8pIdZgIvrVh6qpKPe58pqPycEJ6DEjLOPk1J3cXqpRO41sEP3bskbomN8EOML9SCa5ubCEuRt696eGqPzb2WlSRUS+YJiS6/llTOhmSMJ8HQCRx2pmcCmqV7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H7ijKjql; arc=none smtp.client-ip=209.85.217.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U5wSUjjx"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-495437bb891so7548445e9.1
-        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 16:31:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H7ijKjql"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-784a1696a21so1119901137.2
+        for <linux-media@vger.kernel.org>; Fri, 11 Sep 2026 18:11:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789169493; x=1789774293; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789175462; x=1789780262; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2M0oCDpR78/TpqPTtQy9t/cWrQ5LXXH52OEtpZSn+ww=;
-        b=U5wSUjjxxX3Z36A8LqVLWJU/sQl2BzzhfV7a1G50RJfnGFLwYCKQOuSeAOzE3jKP/D
-         GfkwfYqw71vdr0u6ETcmkw/6rIFgXAvVMBRTGLHh/wYMsRrcBkPbXuxq7xHx3SXA71+0
-         zH+vSDxZk8g9ao9t6D/wBwEyLhcqfn1tiiC4dyJ+ZpZlxNh8PRuoHL4NiVQuB/wq9CEY
-         L7MA/lq+IPNQcytgGHVVz9oCX9K37fUSPR9Vf9F7u8r9IaUBSoT8b4DIPpdsPTkNEPV2
-         bWx0t1IncPl/P1/LC2Ew+vbG+dlJaj/vOJzNW6ErmN4NlJ/LjSyLwAr14TnjhjzpvwIu
-         KtwQ==
+        bh=w/LDGqOYLFoK6KgWIPFbEeA32vwB4mka4PD8SBisxBU=;
+        b=H7ijKjqlWd68w596FQJU3EZP3/EHlH2BeI7tS9q3Gl9aeLMmO+A5veNdZBG8H95qPL
+         k3ylzfazAtWHQzh/q/ifXsHovWZKRXr5mOwQO7JYfB29CkPt3YVOSUyR05JRi0dPJ2vs
+         U0zgR7Jp24QRuLECMn0B3P2xvXZsdOA4cchELR05MqX8OkfgF9aoDfwBoTLG0MoDUEZN
+         pYCCBQ2sqPz05Ir0bGXG9IPDZqc0YGotWHKqB9WXdpC5/PW061UiycFBHL+NIzrcrFjk
+         ZALDre5HHMspYORxpRy0DLmaJoYW+TzPG08OJqKBtEW/5iZaMc5bu7RnhM8ou7hTrlM3
+         lr1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789169493; x=1789774293;
+        d=1e100.net; s=20251104; t=1789175462; x=1789780262;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2M0oCDpR78/TpqPTtQy9t/cWrQ5LXXH52OEtpZSn+ww=;
-        b=AO7QEuGjyQGpRPi1C+BCxsdDja5ONCXyKL4EuUKiZx93n1LIYJdr2ePO9nZFs1//7R
-         W095j7SZCJrcFVag2eWYofy0F7gRIsVxIF/AxLC3MSYnslt407v4XwWf2743kFwK6bEL
-         F3DMiDZYS155xxBqj8BGOBnH8V6fz5jc8WKi6DL0b1LCVutm4lmkzu974q33P1bzsOdB
-         AroQfLLFQ8xIAGQYSeiNBJpSOqte2cj9yluhgYN7+DhqhE0hUSw5voIW8UU44MxTLvy4
-         1XcB/NEJxoKe5/gRAei9NoBPJFAwj+Pv+hQq6jxl0KvM+5VLrx7+wOb/2YHLTKzkRRwC
-         QgJw==
-X-Forwarded-Encrypted: i=1; AKwUvByhgr3RpeVA+UcDsDyTGE7gLYmY1J0wBAHbCq96ho2v+T7E925LFT8FwmK8ATJF2oJ9kud+7hOoPI8x8w==@vger.kernel.org
-X-Gm-Message-State: AFuF++l6LGxMg/APly8ucJUilPaEgOGOSmZXJlF+IdXtk7e37FsKCO74
-	etwT/fiyMn7ta/ShborzUsvT5hY4dsREJs96IIOEGQFsvcSbweCcBrlp
-X-Gm-Gg: AYBFou0kttlsxnBUiHZ7m5IAYCnlR7s1Q7Pk5yQhMNycI9IHWV2w3+zmhISlmYGtgFy
-	44HQGBd/yU0vizYs7JxEygcR0I7MB+X+sGH6T7eWEjKuB13+0CruVLMyuoGud9GNsvuHfxwLxPk
-	TvDhtHtTrCbkVLyP242G3NQQ2tnNJ7yM96MXncxAoyswjUpz3IYqNNab+NEPRO/hWygJQ4OIBHJ
-	QUG+GvnpZ6EbtiPTFOlSNetKNwjeLVupCO+BVcyuZbrHu6PzbXXQ+D6gn/hBQ7HKhpeh4+tOQSn
-	jOJzdXTiWmatxlfA8EfU6wROMocofKKCgvOkZBhaNOT/MS3wQIQXp8bI7TIs4OrDdo0ouU0R9/s
-	aBpfOKr+v4Q3jmepyF/AcDxUnyiow5QUtKnuxNwkyBRQAuoJnTUOtLUREUHarXnV1+yLeInVeXO
-	SZPwQSW8MiyGKdAnqy7+8YLIyCfajuwmwxAHk1NGucTIGQbtPCdY76MrIU52Rpmq0VE52mZ8DHl
-	HsX3IvTe02UJsVzZd92cviJHjcfv5Pvz0mkhP5fKMFXJcOTQ0AXnOWJwhpVMx4tokX/3WPJWNpz
-	JdBZOlOjeQtyBWRROBwfRXptIvcz2BS4ThFn
-X-Received: by 2002:a05:600c:3584:b0:49c:ff66:7d88 with SMTP id 5b1f17b1804b1-49d26d7f8a2mr181278145e9.7.1789169492807;
-        Fri, 11 Sep 2026 16:31:32 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb330bdcsm9650804f8f.13.2026.09.11.16.31.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 16:31:32 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Keke Li <keke.li@amlogic.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
+        bh=w/LDGqOYLFoK6KgWIPFbEeA32vwB4mka4PD8SBisxBU=;
+        b=oUjLmg03h448hMfYHRmISUjDghLajMA+vSY9wmP3x+Kpuivh1JkqiaHNHWc4rd7jp1
+         p10DZtTUK4EGHIKIySzNZkQFOPzQv7lXa+OciimhChSpbGmowGlbMBfoPiYono+KxCff
+         Q21o7LMKjRO78KMgEFMzaZMa9LV8o/lnq1OHdiJbISXB2gDazFZxO6t8Ura0NBVYABcp
+         D0UoCoBzXIQYKVoxJen8uL7h9OTmIlJGnoaCkaQo1Fm0w3WNmqVVP+O9tS4t2A03d6Zz
+         HTJTwpVu2PMs0VahiMlyyjnfmdlFO9hsSOgEnPDHutqd2CtpMBXR6Du6xM2L4q38/S4x
+         HvVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxzQRjfoh4U+ffFLyxlchSkZTGDmqEH88hlvheYBCzI/CDIFKQPvjVyL2HRPi1YiW1uiJsLycTiL1sN8g==@vger.kernel.org
+X-Gm-Message-State: AFuF++nChSp5RSgmlquKY7LUAPAKWKO8yNrsZhu65ZhqW9L3AGUDonEk
+	b2gLQ9/j/umgj6XzkZ7ywour+KBCdGgKDA1ut6ONSJmiPw4UjUC8yOlILD75qfuB
+X-Gm-Gg: AYBFou0/Pb/xLA4WcxgpBBsghlEcQh5DZIaw3WnsOeTFItr4NlVoUpxrk4i85AS9/+K
+	AAtgTIxus8nhe+e5mCn9Z4M16DvlHZArrOIT8fx95K9AubgCn8Cbj3y5WvAvmNEDJqWhh9teQaG
+	tXTz/Pan5GaRAANpL8BzCeypKQamIIKMripHdzhveTZhPRyc7c4psjEkaG9u1mLcJ4EZzGeC23G
+	mz+97Mz1JvhR+kF3rz0Yj6cppb3HxhhpbtJIhGnGSg5ZH5WLhkkNxYiYit8TYInbRuTIVeP5KIA
+	m9r2coYQmKoXC8vzTNg9ZvqCiZBqyocN9OEmnkzgkkRSaZUQg+paAKjU374xqAu/AMi1B7G4+9v
+	cV1DggSPhSU+ZmD2jOhRKTU9NmYr4/P3ZP5UDr4MsR3fsSlpxZx/035aVy5VamPTnK9FuNQsKHP
+	yNTWQ+35adRHpCZsnSHPEbCGIGSFPKFrga2re4i220TtKTPt5yiNiweuHaMwYtrDJAKajN+bSc3
+	jATZMF+x6wKiY/KJG713+2sDAUAoueNa2TLA3s=
+X-Received: by 2002:a05:6102:32c6:b0:790:9e43:1236 with SMTP id ada2fe7eead31-792aad5521cmr8814389137.9.1789175462127;
+        Fri, 11 Sep 2026 18:11:02 -0700 (PDT)
+Received: from kernel-dev.servicos.capsula.corp ([177.105.242.194])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982ba1105f6sm4625862241.11.2026.09.11.18.10.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 18:11:01 -0700 (PDT)
+From: Ricardo Barbosa Dias <ricardobarbosamscg@gmail.com>
+To: hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: andy@kernel.org,
+	sakari.ailus@linux.intel.com,
+	linux-staging@lists.linux.dev,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: uapi: Fix C3 ISP type references in kernel-doc
-Date: Sat, 12 Sep 2026 01:30:11 +0200
-Message-Id: <20260911233011.30951-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	linux-kernel@vger.kernel.org,
+	Ricardo Barbosa Dias <ricardobarbosamscg@gmail.com>
+Subject: [PATCH] staging: media: atomisp: remove duplicate blank line
+Date: Sat, 12 Sep 2026 01:09:36 +0000
+Message-ID: <20260912010936.12832-1-ricardobarbosamscg@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,61 +79,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The C3 ISP UAPI comments use singular names for the AWB, AE, and AF tap
-point enums, and misspell the parameter block header struct. The
-corresponding definitions already used the correct names when these
-comments were introduced.
+Remove an unnecessary extra blank line to clean up code style
+and fix checkpatch CHECK warning.
 
-Refer to c3_isp_params_awb_tap_points, c3_isp_params_ae_tap_points,
-c3_isp_params_af_tap_points, and c3_isp_params_block_header.
-
-Fixes: 6d406187ebc0 ("media: uapi: Add stats info and parameters buffer for C3 ISP")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Ricardo Barbosa Dias <ricardobarbosamscg@gmail.com>
 ---
- include/uapi/linux/media/amlogic/c3-isp-config.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../staging/media/atomisp/pci/runtime/isys/src/virtual_isys.c    | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/include/uapi/linux/media/amlogic/c3-isp-config.h b/include/uapi/linux/media/amlogic/c3-isp-config.h
-index 92db5dcdda181cb31665e230cc56b443fa37a0be..fc70b3124ccacff635a7d9c0135d4e3821ba1a33 100644
---- a/include/uapi/linux/media/amlogic/c3-isp-config.h
-+++ b/include/uapi/linux/media/amlogic/c3-isp-config.h
-@@ -247,7 +247,7 @@ enum c3_isp_params_awb_tap_points {
-  * from :c:type:`c3_isp_params_block_type`
-  *
-  * @header: the C3 ISP parameters block header
-- * @tap_point: the tap point from enum c3_isp_params_awb_tap_point
-+ * @tap_point: the tap point from enum c3_isp_params_awb_tap_points
-  * @satur_vald: AWB statistic over saturation control
-  *		value: 0: disable, 1: enable
-  * @horiz_zones_num: active number of hotizontal zones [0..32]
-@@ -305,7 +305,7 @@ enum c3_isp_params_ae_tap_points {
-  * @header: the C3 ISP parameters block header
-  * @horiz_zones_num: active number of horizontal zones [0..17]
-  * @vert_zones_num: active number of vertical zones [0..15]
-- * @tap_point: the tap point from enum c3_isp_params_ae_tap_point
-+ * @tap_point: the tap point from enum c3_isp_params_ae_tap_points
-  * @zone_weight: array of weights for AE statistics zones [0..15]
-  * @horiz_coord: the horizontal coordinate of points on the diagonal [0..2888]
-  * @vert_coord: the vertical coordinate of points on the diagonal [0..2240]
-@@ -342,7 +342,7 @@ enum c3_isp_params_af_tap_points {
-  * from :c:type:`c3_isp_params_block_type`
-  *
-  * @header: the C3 ISP parameters block header
-- * @tap_point: the tap point from enum c3_isp_params_af_tap_point
-+ * @tap_point: the tap point from enum c3_isp_params_af_tap_points
-  * @horiz_zones_num: active number of hotizontal zones [0..17]
-  * @vert_zones_num: active number of vertical zones [0..15]
-  * @reserved: applications must zero this array
-@@ -487,7 +487,7 @@ struct c3_isp_params_blc {
-  *	| | | b_gain = ...;                                               | | |
-  *	| | | gb_gain = ...;                                              | | |
-  *	| | +------------------ struct c3_isp_params_awb_config ----------+ | |
-- *	| | | +---------- struct c3_isp_param_block_header header ------+ | | |
-+ *	| | | +---------- struct c3_isp_params_block_header header -----+ | | |
-  *	| | | | type = C3_ISP_PARAMS_BLOCK_AWB_CONFIG;                  | | | |
-  *	| | | | flags = C3_ISP_PARAMS_BLOCK_FL_NONE;                    | | | |
-  *	| | | | size = sizeof(struct c3_isp_params_awb_config)          | | | |
+diff --git a/drivers/staging/media/atomisp/pci/runtime/isys/src/virtual_isys.c b/drivers/staging/media/atomisp/pci/runtime/isys/src/virtual_isys.c
+index 8e8433f5b07a..370cd8cac43b 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/isys/src/virtual_isys.c
++++ b/drivers/staging/media/atomisp/pci/runtime/isys/src/virtual_isys.c
+@@ -10,7 +10,6 @@
+ 
+ #include "system_global.h"
+ 
+-
+ #include "ia_css_isys.h"
+ #include "ia_css_debug.h"
+ #include "virtual_isys.h"
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
 
