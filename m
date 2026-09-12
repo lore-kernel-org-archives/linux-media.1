@@ -1,86 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4F2299920;
-	Sat, 12 Sep 2026 10:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F8D3002B3
+	for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 10:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208622; cv=none; b=Ag4HyeHq/B/3EK0lvfFHBNSaT5W196DpZ5Xr6zoaRYu8L/sTMbXb7xjASlF/aPNnzVhIlSu8bH0j7uV3A+fE0xe9/492dDiZvCmckPH6sQXC5vWoSZMTx31uXDw0fsdJqx5KzvHmQpkBPsFr/pctv6eJAMBNX8Yap/AdXKOtur4=
+	t=1789209277; cv=none; b=dFHrZSGbBk4w4hxjRXrVXO65uemA6kk9IKPvZp7WdIbNjnePcFxWTJ1aNTEiY6+uJOV7sumDwol4f7n9i93XgiJbgAlLbTBLTiTTF3ws1PvOZuwWe2i7gz+Ymz9L3MhVfut+KOioilWn8BI0TPW2FBcxe4jUXKdueWTKGjCf/E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208622; c=relaxed/simple;
-	bh=1MgsdZqFByEuKZbj3wzMFofTkdE4lSy2fbRuCMSFLrs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TWcLATBC6LIOJrJnnAeLV/IBidPFlrdFz+Dp2AiXvgKxMYBBZ3fX4As7Fc9VRKppIYZld8HmyDCARstczycRs6YSV9b/VSoOiGZr2t9udTMwsy57hKzOvlPVYbxRR+RAA4FhAsfIJsClQFGlrFLCjRb/TIUIZdq6anw04sMAWl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k1+nFDmS; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789209277; c=relaxed/simple;
+	bh=AkHj1D4uvAnTsmY9xvMRqq1u98CJm1B/o0kzjYgyjxk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tos51jDhXF2E1tx/YFZ4avmDclBgXyiBGlvNoDeWJXtudvxgY2AjEI986v2JNTsuRlPL4vdtNw72YMrlPWHOJPFpy0RgK37ZEgEZXD3HUMHLAVzboSJMQ47QhvqoJ4qw69x1FOe0uZwjSd5epaAAJ0a4u+QF0vl4YUG4mFqZ+5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bCl+RJe8; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k1+nFDmS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789208621; x=1820744621;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1MgsdZqFByEuKZbj3wzMFofTkdE4lSy2fbRuCMSFLrs=;
-  b=k1+nFDmSQc2bYGLMajvM4XRbdhMMrwGy3VxnUvf+HJnAMJGKSUoVa07p
-   1gC3/lk+xeWh2PC2ZpgoL+x3H3YDrRP+gjBI4WYYgSDKs90XaYzge9e8N
-   iMqsVnmEywW7T2XnDBjhj9yMoMIkt+zAQ8ly3Y57sKwkAw47bcgFbA3rW
-   FWfLX8o7QmmcLRS9xklEHsI9bXK72yvFPOqIVWToFJ5alCaXumLpr9JU4
-   5qeusqjo+gMEMXp08jiYDqeeomXqlLz+pu4Cm6WMmVXNFtwX7jmWH3ve3
-   wGA+xCX/56/MYxhbc/JRiSXNhgEafinQLlbkX10i4KRgBizbftet/9zjy
-   g==;
-X-CSE-ConnectionGUID: 3jkKGLxHQ8yT5bsq8h29ng==
-X-CSE-MsgGUID: St51xmwiQgKaEl5gG8wXQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100314336"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="100314336"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:23:40 -0700
-X-CSE-ConnectionGUID: gKzK93CnRVCtZfNWW1yRGQ==
-X-CSE-MsgGUID: 4EEHJie0RKySbFwHZdR7OA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="272669528"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.236])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:23:39 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F36FB121BCE;
-	Sat, 12 Sep 2026 13:23:42 +0300 (EEST)
-Date: Sat, 12 Sep 2026 13:23:42 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, hverkuil@kernel.org,
-	antti.laakso@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: Two oopses and a hang when unbinding a
- streaming sensor
-Message-ID: <aqUoLr0JFGEBiJIf@kekkonen.localdomain>
-References: <20260911194854.78894-1-nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bCl+RJe8"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843172bff4so249408f8f.0
+        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 03:34:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789209273; x=1789814073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lT1aNi2yWSuhDHg5i67jYaSBLUSPiuVZ7hWziwrLgCQ=;
+        b=bCl+RJe8/3SbHbUIgnKkxuh+PzDGeswNM0rNqN0QOEMgzFUYow+oj1Sy9WcIp5k1Fd
+         XLRZ4WdzgC25QpEzObEL+O/84i0VRxDX5HuRFTQYyXJERK0qgJ0IlLqATceNZce5yQCJ
+         injDVfyi8oCWydJCv9YrFsS/9XKgejz8cNE910f/ESogKOBTy9Ue1TIT/umikgmhhCts
+         Y7U0HA7OoLcGCrWwDBGccTK8yKw8IFeFzunDSwHF6Q9nhLeiV5fGJkhO8HRq4zPk3FL6
+         M2ngDoy40sB4HbBJ5SHP3dAMB9dFYffWsteCcgwUO4cVFHot2EzyS29qMDhY9/KjA0a7
+         sccA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789209273; x=1789814073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lT1aNi2yWSuhDHg5i67jYaSBLUSPiuVZ7hWziwrLgCQ=;
+        b=m4yvvVTk+DfoknllrJ1Y67d+ic/MoQ7Mc8gOoDQe0xIpu4E5BL4/j0MpktGysJXkAd
+         bpEWQcFj7e4K3P+hh9jikIee3iRgl1frVP6oq8k+3zy4hJquhNc3OX4OuI7xSV+dz9v6
+         sznsa9yXn6TKdFh5YKK1f1NWVjOtXZOi24NNVPQ9orPxEDf0iGM4UCKycqm1ZFlnTJya
+         yVNH+8gbR7ePNcagu2uUkXI3g0KfMUDirnCdH7HJdVJwd64sgHpqCIGoSNkNpAKjwKTd
+         b9jCq8DuBhkzocxwZpRUC3cNwkLUJsTahZtnRm1pPFCU5Cvi+pRhOdjB+pfdZUP2uEIi
+         FoRg==
+X-Forwarded-Encrypted: i=1; AKwUvBx/52BkhqjonYuhJ9uHaMv23T1s3QJKELmRdBLzDd7SMaVxPc4ivyrCoTpGwHGiMfiXqOmwrNObcdIaGw==@vger.kernel.org
+X-Gm-Message-State: AFuF++mJXKVTiMLiRwtH3YT9YTxjyov7aNuPuuGZ5bUzJCwpMPjJf5HR
+	Z8JPS6ZovtUPTY4MbgjaO5QTxVvshMEEYsu1csQ2gsy/tI314XeQFq0a6KN21t3TaYpKFw==
+X-Gm-Gg: AYBFou2m15qMJUfO8YZNHpxcHVVrC4s1CTNm3OTzEUiQKaqm/R3F56vWB1VaX83ANUM
+	KmvVHc7ubeWltevO2UqqGsMCG1ZzFKHokGQv+gau5t009t7v8pyVxhomBFACDoPAKwaxCqKlOz3
+	ZiatSbJ5n7DR7H3Fh70UodqP2+3THhS0xpHIJEzRL6BWgSjrLmsQNNcEgC+PkvZpohqD5sP9BQg
+	6wkrAirYvsrO8QPgNrMX46kgCynuRN19vSEXh7g9nXW7Caxq2Ivp9DhnlKVRfAqhv0PfBQZl00y
+	7NwbfS1qZUEoI1Rfjr1spw9TPpdlevmoqaEGdPP1rDSxNIY4E9qBcCK+ivrxSpUnQJ6Jyh/urVK
+	2s6u/auytVmHdOcWW3Q56vZCk5CJ/9w4J5Jg9lqbXQovGtcZqJTO1DJ1azBKAS4nmX21LssBsBj
+	2HzUUoLnD9HfO0sxJEc3GrXM6xtq3pHVLPSmgLE6ZkzTCnXEDgfp+5+1iEsPpVN9tgltsLwusmi
+	iGUc0+kiCGQCxc7peydpSGXkO1nQt9FM4tFpDs3o5lMJwpIqmLE3ts=
+X-Received: by 2002:a05:6000:2501:b0:486:e5f7:89ca with SMTP id ffacd0b85a97d-486eb1d99c5mr9475191f8f.8.1789209273438;
+        Sat, 12 Sep 2026 03:34:33 -0700 (PDT)
+Received: from DA14250.lan (tonb-05-b2-v4wan-173165-cust581.vm24.cable.virginm.net. [80.194.6.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecfc3sm11641445f8f.4.2026.09.12.03.34.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 03:34:32 -0700 (PDT)
+From: Keith Harvey <kthhrv@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: ipu-bridge: Add DMI quirk for Dell 14 Premium DA14250
+Date: Sat, 12 Sep 2026 11:34:31 +0100
+Message-ID: <20260912103431.15388-1-kthhrv@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911194854.78894-1-nicfio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Nicola,
+The Dell 14 Premium DA14250 has its OV02C10 front sensor mounted upside
+down, like the Dell 16 Premium DA16250 and the other Dell models already
+present in upside_down_sensor_dmi_ids[]. The rotation is reported as 0 in
+both the SSDB and the _PLD, so without a DMI quirk the image is presented
+upside down.
 
-On Fri, Sep 11, 2026 at 09:48:51PM +0200, Nicola Fiorillo wrote:
-> Unbinding a camera sensor while a capture is running is a scenario that
-> nothing in the IPU6 path handles: the kernel oopses twice, corrupts memory
-> once, and leaves the application blocked forever. None of this is caused by
-> the sensor drivers themselves, and all four failures are present in
-> mainline today.
+Add a DMI quirk entry for this model so that a rotation of 180 degrees is
+reported for its OVTI02C1 sensor.
 
-Thanks for the patchset. These are known issues and unfortunately unbinding
-drivers while streaming isn't supported on MC-enabled drivers currently.
-This is a MC/V4L2 framework limitation and cannot be meaningfully worked
-around in drivers.
+Signed-off-by: Keith Harvey <kthhrv@gmail.com>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -145,6 +145,13 @@
+ 		},
+ 		.driver_data = "OVTI02C1",
+ 	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell 14 Premium DA14250"),
++		},
++		.driver_data = "OVTI02C1",
++	},
+ 	/*
+ 	 * The first four characters of DMI_BOARD_NAME identify the Lenovo
+ 	 * machine type/model. For example, a DMI_BOARD_NAME starting with
 -- 
-Kind regards,
+2.43.0
 
-Sakari Ailus
