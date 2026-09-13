@@ -1,113 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF0538737A
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 09:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC3F39DBD3
+	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 10:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292283; cv=none; b=HyDy4KvH571k0zhus6TT961Avzo5a3VSkrWxojZ7zuYljGNvK45RoKZSAxfMpnZqGFb/Yr/utbtSsYx8lLiSB0Upk8xJSvqTq+qzs/eUh7V84QrVdZhsUmRtdym0zPLxwQ44T9FR6Bzgx3PQO0hjsDBONPfoFUQQ46hRnFmNz44=
+	t=1789294195; cv=none; b=Ekxjnft8sQqYkT0E7yCs8/Fj8LUqYs4SOa57810X66HVT6pbmqeSBIea6LSN8cITrO4xxxJyq6V0bo4auRlSVP52NHkgtQ0yJ2f8IfDk0wi5Dnec2M4FaKmUXF2OmbffvNh4zr584CTFaBKwjx0TKrX+h3Jjg1esomrydVBZ5sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292283; c=relaxed/simple;
-	bh=T/rAhOjt18aMA9s+5xkJ7Cs5xaj1ajpWSTdsJF0gngI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tyVWszSI3QnIa1oyxqi1LKZJjaq2SzpQa35q5OTSUUS92BQITM15xs8Hnnqj1BNXTlkU/tZrsN/ebd/oSgweQUfHm30tZ8c2QGQcUFh866X9k4oS+btmfCMvs2ak/YcXilznCCgf9ehxuAMbQ6bh123Opwy9mFNnBWySZ5JnhBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EK384ekI; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789294195; c=relaxed/simple;
+	bh=2o5A4iiS1lqxNbhElujqUzvNFnCq2CieecwNMtvfuss=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=FAHba0X7tMVW9eAtcv02vyP6Aa0asRx25a3wFyiEMmdjnNZ/H+fCYN+CirXmekq8koyHArYVGyzrCsR1rJ8EgY5bOg60uUJdeX02Bdm4t/efHopZaHvHrtcQ+5eThhYjVZKX//x3/vzgqQa98N2TFidJiq9DYnVV8c3c/CSzRQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=PfWJrnx4; arc=none smtp.client-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EK384ekI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789292281; x=1820828281;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=T/rAhOjt18aMA9s+5xkJ7Cs5xaj1ajpWSTdsJF0gngI=;
-  b=EK384ekIc1XbtvQr6LjwlExzFEEty9rQ8vlVTzQTYIrO8de4bUyCFCGl
-   OWTYESb8igHL34KQ9N53M2fPUS4amxyVgYU+3ZkkL0R3Amdt/FEbSz5h7
-   xgoQg5o7XDqSY/Pc4iOLRqO8IR4J+fQmU2u8lkAPtitHAMYcupKwHjlJF
-   HZqB33nDD7wZUVwEYW2HgsjAbwAVmsrfTYmxsFXZPnhlD8Y9otcus5KjA
-   WpX996kO42zMPe/4UuOsWutoQMcby0tpEaHTT7sFhIg4qIXMf4iZdc8Ny
-   vS4cx2Hf/9gHByXv95GUpna6MKvfljwGXJbfgqsYnQYwbVfXfMYFb1+Wb
-   Q==;
-X-CSE-ConnectionGUID: xHsQUPjqR+G6okeC8/rdvw==
-X-CSE-MsgGUID: e07PDi5iRGaMlyQg7tPRmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="89698041"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="89698041"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 02:37:59 -0700
-X-CSE-ConnectionGUID: XaxBlnTcTS+C6XdqrGC24w==
-X-CSE-MsgGUID: qrlloJM3TcKm0cpRZD8kLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="310636177"
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 02:37:56 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Manuel Knitza <manuel.knitza@googlemail.com>
-Cc: Sergey Zagursky <gvozdoder@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-media@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v3] media: ipu-bridge: do not use the CVS device lookup for IVSC
-Date: Sun, 13 Sep 2026 17:37:49 +0800
-Message-ID: <20260913093749.584191-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260912185836.309071-1-manuel.knitza@googlemail.com>
-References: <20260912185836.309071-1-manuel.knitza@googlemail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="PfWJrnx4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789294185; x=1789553385;
+	bh=dUm3bWj/s/e7eyre3P749gvl3TnSgWTHWCSKqq5OrOc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=PfWJrnx4y/6PQNvWDLBfX/E6E/549RwLf6CySjcUIA/nwo1fvcR+VHtJqPW0Npjno
+	 zfvM7seQZhX8KM2j4cpZhBCSvtoyEIdst3RKHRjVV466382PNa5taHZd2mUSSvyPVm
+	 6zmtXVjXVuO6bPNaMSEiEFC8hxROvHylGqHpREZjnmFpsmp1gc2FFdLnYG3p5Jxx99
+	 HgMboN7qskd9zJN3lWBSvJ/Y/k+byTHaqUYnHj4cX9rgvaG8ZWUwwH02jL4Vgb8358
+	 65hwFIh5CnZgG4xxIMIB6D/ZFyDdm/O9i2MQaq8W5AQrYyM1uqsFlXB0KaVoTq9At1
+	 fTN20K23s4QAQ==
+Date: Sun, 13 Sep 2026 10:09:40 +0000
+To: linux-media@vger.kernel.org
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH] media: ipu-bridge: add the OV13858 rear sensor
+Message-ID: <20260913100932.92087-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 3d750d2134485efee9e1b70ba0754c9dc062bb20
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 12 Sep 2026 20:58:32 +0200, Manuel Knitza wrote:
-> On this machine the driver on that i2c device is Intel's out-of-tree
-> intel_cvs (from intel/vision-drivers), and it provides only ownership
-> arbitration and firmware update - no CSI-2 subdevice.
-[...]
-> There is no in-tree CVS driver to take that role.
+The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
+an OV13858 as its rear sensor, enumerated as ACPI device OVTID858. That
+HID is not in ipu_supported_sensors[], so ipu_bridge_connect_sensors()
+passes over it and the IPU is left with an empty graph:
 
-There is, since v7.2: drivers/media/i2c/cvs/, CONFIG_VIDEO_INTEL_CVS,
-8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision
-Sensing Controller(CVS)"). It matches INTC10DE/E0/E1/FA, registers an
-"Intel CVS" MEDIA_ENT_F_VID_IF_BRIDGE subdev with sink and source
-pads, parses the port 0/1 endpoints ipu-bridge puts on the CVS node
-and binds the sensor through an async notifier (v4l2.c,
-cvs_csi_parse_firmware()), then calls acpi_dev_clear_dependencies()
-at the end of probe (core.c). That is the device c6b1b34b5090 and
-c28527ce5d06 are written against.
+  intel-ipu7 0000:00:05.0: no subdev found in graph
 
-Its module is also called intel_cvs. A vision-drivers DKMS build
-installs under updates/, which depmod searches before kernel/, so a
-CONFIG_VIDEO_INTEL_CVS=m kernel still binds the vendor module.
-modinfo -F filename intel_cvs shows which one you have; with the DKMS
-package removed the graph ends at a device that registers the
-endpoint. Not tested on a DA16260 here.
+Nothing is logged about the sensor having been passed over, which makes
+the failure hard to attribute: the ACPI device is present and enabled and
+the i2c client exists.
 
-> Gating on a bound driver would also cover the ACPI half of the same
-> conversion, c28527ce5d06, where a dependency on an unclaimed supplier
-> blocks enumeration outright - kernel bugzilla 221988.
+ov13858 declares two link frequencies, in this order:
 
-With the in-tree driver built, both gates pass. Kernels that carry
-the 7.2 bridge without CONFIG_VIDEO_INTEL_CVS are the bugzilla 221988
-case; Fedora has it enabled since 7.1.13-200. Whether the CVS entries
-in acpi_honor_dep_ids[] and ivsc_acpi_ids[] should sit under
-IS_ENABLED(CONFIG_VIDEO_INTEL_CVS) instead is Sakari's and Rafael's
-call.
+  #define OV13858_NUM_OF_LINK_FREQS=092
+  #define OV13858_LINK_FREQ_540MHZ=09540000000ULL
+  #define OV13858_LINK_FREQ_270MHZ=09270000000ULL
 
-One more check on the DA16260 while intel_cvs is bound: the in-tree
-driver requests its wake GPIO, and on the XPS 14 DA14260 that line is
-the CS35L57 amplifiers' speaker-ID input, so all four amps fail probe
-with -EBUSY and the machine has no sound (three Fedora reports,
-https://bugzilla.redhat.com/show_bug.cgi?id=2529031). If
-dmesg | grep spk-id shows the same on the XPS 16, the fix is
+With the entry added the bridge connects the sensor and the graph is
+built:
 
-  https://lore.kernel.org/r/20260908105717.496232-1-junjie.cao@intel.com
+  intel-ipu7 0000:00:05.0: Found supported sensor OVTID858:00 (\_SB.PC00.I2=
+C3.CAMR)
+  intel_ipu7_isys.isys intel_ipu7.isys.40: bind ov13858 1-0010 nlanes is 4 =
+port is 0
+
+  - entity 247: ov13858 1-0010 (1 pad, 1 link, 0 routes)
+                device node name /dev/v4l-subdev5
+    pad0: SOURCE
+          [stream:0 fmt:SGRBG10_1X10/4224x3136 field:none]
+          -> "Intel IPU7 CSI2 0":0 [ENABLED,IMMUTABLE]
+
+and libcamera captures from it, 30 fps at its own choice of 4220x3136 out
+of the sensor's 4224x3136.
+
+The rear camera on this hardware was reported dead publicly by German
+Pablo Lindo, who traced it to int3472 not recognising GPIO type 0x08:
+
+  https://lore.kernel.org/linux-media/20260903081557.16603-1-germanpapulind=
+ez@gmail.com/
+
+That is a different cause of the same symptom, fixed separately by
+"platform/x86: int3472: support the POWER1 GPIO type", which is in
+linux-next and not yet in media/next. The missing bridge entry is the
+next one along. The sensor also needs power sequencing the in-tree
+ov13858 driver does not do on this platform; that is a separate patch
+and not a prerequisite for this one to be correct.
+
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
+/ipu-bridge.c
+index 7e65491..8a16c81 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -88,6 +88,8 @@ static const struct ipu_sensor_config ipu_supported_senso=
+rs[] =3D {
+ =09IPU_SENSOR_CONFIG("OVTI08A1", 1, 500000000),
+ =09/* Omnivision OV08x40 */
+ =09IPU_SENSOR_CONFIG("OVTI08F4", 3, 400000000, 749000000, 800000000),
++=09/* Omnivision OV13858 */
++=09IPU_SENSOR_CONFIG("OVTID858", 2, 540000000, 270000000),
+ =09/* Omnivision OV13B10 */
+ =09IPU_SENSOR_CONFIG("OVTI13B1", 1, 560000000),
+ =09IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+--=20
+2.50.1 (Apple Git-155)
+
+
