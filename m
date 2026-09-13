@@ -1,143 +1,113 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BED62BE7A7;
-	Sun, 13 Sep 2026 19:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB053F327B;
+	Sun, 13 Sep 2026 20:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789329211; cv=none; b=JtOCbBQrxw3zs3eID3DJ3G9VcWoLQW/iwFtvsZ2wvJrKLQDQUEsFph1sAtr9nETMgpH6o61owDUdKA1OsPnECFhE6k4TggcT5XK40Cbi+UIV9L6lsvQrYMLl2KYSiiI1dfwVsrxJPNIrxrAMuoWhPLyNUivV0EBJ6+fq4/KFStY=
+	t=1789330908; cv=none; b=jUGpnc1K69UNGxynCo4yNjH68n0ObRdSSUVaHrLxrMgZMs8Hy/IhIszIsGRgFQ8S7pt90HjyI2lOBYxEcRT3RWCIIFZj1QaYRHt6kZaXMOAiyj48+Uw68a8/kWmfTvOiafnxddsVxl2BSYyE38zrYryNExmZ5UjYQDLLvveBlSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789329211; c=relaxed/simple;
-	bh=T0pqFukExVh823QT6gZ5rJ8J4IOF8bD800cZPU+R1TI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=arDFLn3SfUHPvqUyIXM093eOtY0NlnF+6TQJh62HjB8oXk6cMvh7695UGcaK/BrdtdF3ccIMiRsNapeVWqK961idC3v2dy7XS9GXAQXYcAA8T9L0COP/G3D4C7q3ChOhWjbqnKJzp2aUjzpaI8D3tYW+YfIfTSiiUynuC4OtbQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=bPrxv5Zx; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1789330908; c=relaxed/simple;
+	bh=Syp5jBipzovEBojlCn+siYKCwLE5/zN8iVHiuAEzAkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TwigJqAj/5hEYGzEOrf/ghNdm0Zvv8oOO4dAveufhdfDSWxhNrRr3LgputR4j0JbNYTj15/Dr+X71cLBdZSsQvkIDV2EaipnHPO5ueZwFb56Fu9oRHVT50+LU0JMGx3oxJw1XsYqIImg6cTidNs66ZnB7Ir+E+EMZuzRJ4gy1VU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E+Kfi1Zr; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="bPrxv5Zx"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id B5817CD5BC;
-	Sun, 13 Sep 2026 22:53:23 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro B5817CD5BC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789329207;
-	bh=OxeU5Su/M8erJsaUWOmS2EmM0zS643DtJmSk63z/Z00=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=bPrxv5ZxzllOQiy2krKFOjC+n45BHyruI8wXJWW2dWXRr4DcLu0qSRf6d6pHLDx2g
-	 jWcfuKvfm4R5fkihNP2bYAGlMPiEKu2EReiVm/sDrL/7gpXNRKBB7aWno9BxyE0PIx
-	 eJ2WBtrgtJF/6pZnjqFQwwsDO/KmzOaIx0fkVSU/CK9rK96UEIEpRCrZ3RBw/9RO7M
-	 dIG3X6gzczLJWO2ggvEASF+KnDy8M/wU/ZXNb4/e4nVlCj9JFDbH5mUjxdeheYhNPH
-	 IQWdrYEJBtqEOV1SW3KVrCuI7RGRLTeehLAl+p9Cvbyg6Rh5mmTzHhmbRZNO4iAJKh
-	 MCi83qnwm1Cog==
-Message-ID: <81f0bf10b41dff85872487ab68c750471b7c2f89.camel@rendec.net>
-Subject: Re: [PATCH v2 0/6] riscv: Make IPI_MAX visible and use it
- consistently
-From: Radu Rendec <radu@rendec.net>
-To: Guo Ren <guoren@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt	 <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti	 <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas
- Gleixner	 <tglx@kernel.org>, Anup Patel <anup@brainfault.org>, Tiffany Lin	
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai
- <minghsiu.tsai@mediatek.com>, Houlong Wei	 <houlong.wei@mediatek.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,  Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, "tip-bot2 for GUO Ren (XuanTie)"
-	 <tip-bot2@linutronix.de>, Nathan Chancellor <nathan@kernel.org>
-Date: Sun, 13 Sep 2026 15:53:22 -0400
-In-Reply-To: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E+Kfi1Zr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789330907; x=1820866907;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Syp5jBipzovEBojlCn+siYKCwLE5/zN8iVHiuAEzAkU=;
+  b=E+Kfi1ZrbfFL1S/+QILLohnFmD443/OSUxKsvpLsNailN3P8Nr06Yaup
+   stLwvFoWMg1ZalFImojsstm5LTGYXb3EapZ21pRzy39N49dNM5rjKyIqK
+   HY6ZxskIqAxSys8Zlk/0Y+XLm8z/leppm7YhOJqfOJRGwDsNU98hPldnS
+   AvKCk2I2+kI13riLThFoNRuog/Qzjfw9Zp6xkzXrGL13ywdevpehfsHcp
+   djkrobqbEZ7ZKETA2R6UXLFJ35BFdi1asgMraJbCf/cZKGBK67JMRrTz2
+   o0ESIDvzqlkCELqeiElfh4b4iOF8Th3jC+JAXi2yqTQrFBemonyrsSdb0
+   A==;
+X-CSE-ConnectionGUID: Q8xvPgfQTJSFz4iQ6fQe8Q==
+X-CSE-MsgGUID: sEJXCo0qRnGlYhZoumrvbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100027025"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="100027025"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 13:21:47 -0700
+X-CSE-ConnectionGUID: AUYoZfzYT0eHXG0Ulfozsg==
+X-CSE-MsgGUID: DqLzj6ytSw+5VVMsox8Igw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="272432754"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.20])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 13:21:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 902AD11F8E1;
+	Sun, 13 Sep 2026 23:21:48 +0300 (EEST)
+Date: Sun, 13 Sep 2026 23:21:48 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>, linux-acpi@vger.kernel.org,
+	rafael@kernel.org, lenb@kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, mehdi.djait@linux.intel.com,
+	wei.a.xu@intel.com, atul.raut@intel.com,
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [PATCH] ACPI: scan: Honor _DEP for Intel CVS devices
+Message-ID: <aqcF3JmvMKDJSQaE@kekkonen.localdomain>
+References: <20260601194040.18223-1-miguel.vadillo@intel.com>
+ <6e450fa2-8b40-48b6-b0b0-a1c4b72a383d@leemhuis.info>
+ <d7f4a573-1a2e-4274-8c8f-41d398592356@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d7f4a573-1a2e-4274-8c8f-41d398592356@leemhuis.info>
 
-On Fri, 2026-09-11 at 03:27 +0000, Guo Ren wrote:
-> This series removes the implicit assumption that RISC-V supports exactly
-> eight IPI message types.
->=20
-> Currently, the SBI, CLINT and ACLINT SSWI IPI providers use
-> BITS_PER_BYTE when sizing the generic IPI mux, while IMSIC carries a
-> separate IMSIC_NR_IPI definition set to 8. These values happen to match
-> IPI_MAX today, but neither is the proper source of truth for the number
-> of RISC-V IPI message types.
->=20
-> Move enum ipi_message_type to asm/smp.h so IPI providers can use IPI_MAX
-> directly, then replace the BITS_PER_BYTE and IMSIC_NR_IPI uses with
-> IPI_MAX.
->=20
-> This also makes adding future RISC-V IPI message types independent of
-> the current eight-entry assumption.
->=20
-> A follow-up patch renames the MediaTek VPU mailbox terminator from
-> IPI_MAX to IPI_VPU_MAX. That token belongs to the VPU firmware IPI id
-> enum and should follow the same prefixed convention as IPI_VPU_INIT
-> (and SCP_IPI_MAX on the SCP side), instead of reusing the generic
-> IPI_MAX name.
->=20
-> ---
-> GUO Ren (XuanTie) (4):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocksource: clint: Use IPI_MAX for IPI mu=
-xing
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 irqchip/aclint-sswi: Use IPI_MAX for IPI m=
-uxing
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 irqchip/imsic: Use IPI_MAX instead of IMSI=
-C_NR_IPI
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 media: mtk-vpu: rename IPI_MAX to IPI_VPU_=
-MAX
->=20
-> tip-bot2 for GUO Ren (XuanTie) (2):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 riscv: smp: Move enum ipi_message_type to =
-asm/smp.h
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 riscv: sbi: Use IPI_MAX for SBI IPI muxing
+Hi Thorsten,
 
-I am confused. Thomas merged your entire v1 series a week before (see
-the individual replies from=C2=A0tip-bot2@linutronix.de). Why are you
-sending v2?
+On Sun, Sep 13, 2026 at 10:27:15AM +0200, Thorsten Leemhuis wrote:
+> On 9/12/26 18:50, Thorsten Leemhuis wrote:
+> > On 6/1/26 21:40, Miguel Vadillo wrote:
+> >> CVS (Computer Vision Sensing) is an ACPI-enumerated device that sits
+> >> inline in the CSI-2 path between the camera sensor and Intel IPU.
+> >> On platforms where CVS is present, the camera sensor's ACPI node
+> >> declares a _DEP dependency on the CVS device.
+> >>
+> >> The CVS driver must be fully initialized before camera sensor drivers
+> >> probe, because CVS controls the CSI-2 link ownership handshake (via
+> >> GPIO REQ/RESP), the MIPI/CSI-2 lane configuration, and the camera
+> >> power domain. Without CVS ready, the sensor driver can bind but the
+> >> CSI-2 stream will not function correctly.
+> >>
+> >> The CVS driver calls acpi_dev_clear_dependencies() at the end of its
+> >> probe() to unblock waiting consumers once it is ready.
+> >>
+> >> Move the CVS HIDs from acpi_ignore_dep_ids[] to acpi_honor_dep_ids[]
+> >> so that camera sensor enumeration is deferred until the CVS driver has
+> >> finished probing, matching the behavior already in place for IVSC.
+> > 
+> > TWIMC, there is a bug report where one or two people claim that this
+> > change caused a regression; the report is quite verbose (guess LLM
+> > assisted) and hard to grasp for me as outsider; requests for
+> > clarifications from my side were not really fruitful. Not sure what to
+> > make of this, but I thought I'd let you know; for details see:
+> > 
+> > https://bugzilla.kernel.org/show_bug.cgi?id=221988
+> 
+> For completeness, a report that is more straight forward to read (at
+> least for me) was now posted here:
+> https://lore.kernel.org/all/20260912185836.309071-1-manuel.knitza@googlemail.com/
 
-Patch 6 was not included in v1 (but it's clearly related), so perhaps
-you meant to send only this one as a separate patch?
+Thanks for the link, I've replied to the bug report.
 
-Also:
- * The cover letter should include a changelog, indicating what changes
-   were made in each version compared to the previous one.
- * Patches 1 and 2 carry a "From:" tag that attributes authorship to
-   tip-bot2, which is wrong (if these patches were to be applied).
+-- 
+Kind regards,
 
->=20
-> =C2=A0arch/riscv/include/asm/smp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++=
-++++++
-> =C2=A0arch/riscv/kernel/sbi-ipi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 4 ++--
-> =C2=A0arch/riscv/kernel/smp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 12 ------------
-> =C2=A0drivers/clocksource/timer-clint.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/irqchip/irq-aclint-sswi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/irqchip/irq-riscv-imsic-early.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/irqchip/irq-riscv-imsic-state.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 1 -
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.c | 12 ++++++------
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.h |=C2=A0 4 ++--
-> =C2=A09 files changed, 28 insertions(+), 29 deletions(-)
-> ---
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-> change-id: 20260911-ipi_max-ff71eeadf6fd
->=20
-> Best regards,
-> --=C2=A0=20
-> GUO Ren (XuanTie) <guoren@kernel.org>
+Sakari Ailus
