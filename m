@@ -1,108 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4825D37DE8B
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 21:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C670E2F28FC;
+	Sun, 13 Sep 2026 22:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789334586; cv=none; b=CJsprikVnhaAg5SedmO78CUzPrDlvMnRqbnRra0gunDfcqMF/3rh8Wn+qPihYQW9vQuMsLA4iq3QfMW2L36voyTSFmCrD7s0arWitivbUODR8A61wwybLzVbAqKRoWv3Tz+2l3zli3/bW6OvNmSettWRRTg9f496Fyo3LoAnT48=
+	t=1789337044; cv=none; b=hcBYvgvqYWv5ILpAQQGmKcMi495/nfoE8kcchod1LOY/7Xra/xXHU/164hj3LbFr3GS0H53JLOFnUe7IQpw2VfSPhehJ1+ppWK4jZhWkGpd4Z1PRvnC7gQgw/BkVCyXYDOGzAsj1/PLgpNgzjWbd7fJLy5aK9Fi4XBhHzxS8m8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789334586; c=relaxed/simple;
-	bh=Vl4WVa/uXNcMY4R1Cndk8tNxDV7ocK3aLy9gMhb647M=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=liAaYncyFBdbzHHbT/pzXGJdIxw4bHAxZBM1eRgprsWxt2kLQJ6d2tvCo1fRtGXauUzqJXpFmy5ntwvJuQoSJEBlQ1ggJvxkrul3iATPKdjc8aRvmt0su3Ll4OWF539Vj+1r4ZIc3AoBwBRfQB3d2w8JuzrYEomGkipQR6YchyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XFpz6iTm; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789337044; c=relaxed/simple;
+	bh=47WmqnedWWqYfZPZQ3NzMNFRn8FZHL0B9IXQnGLDKmM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mkWruLuUbezfHmRiQRphw7D14M07rynkHTagTS7yRE9dAMGFO7YwycxqWmdYPhPd0Pv8h5ixqO8w1+9gcVtKPlXHRZSBc+MS8fRuoPG2Zf3gpD5B/nsnAUOAhAC393k3G2xxSeKSWk5naROD4JBLCtmh9sxd4v7LBYa94PiPITM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgYA+Y8c; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XFpz6iTm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789334584; x=1820870584;
-  h=date:from:to:cc:subject:message-id;
-  bh=Vl4WVa/uXNcMY4R1Cndk8tNxDV7ocK3aLy9gMhb647M=;
-  b=XFpz6iTmkmCBJjmzQXi/0N3WyM1XO4AcrB2GO2PjUN4l7CnwGwo+x0jf
-   Mqp5Mf1aMrcpOPQUZaJrRG9+0abk467FCsnxng+AXrrW7JUY66qyC5JbD
-   ZwnUewY7Y0Riwhbo5x+KDasZsSsJkfcUu0yWUCr3GthYeWm+315azsQ5V
-   nAJjaNfSpvL48CFA3ablTkpnBbuy7I+a8vm+kZ4wyADHAtioJfQUrgDrR
-   ikDxHSo1chNpdhFYm3yzwwZCIqGR3c074HcWK3hHt6XZbF/Qc57OL/28y
-   cmNeHQP9JcXio88TXmBprjDm2jswFGdxhi2T6CJi5CgVk8KWhTORMGhTR
-   Q==;
-X-CSE-ConnectionGUID: 5o8UwqRITauyHskbjXsZXg==
-X-CSE-MsgGUID: 7P7wy8RYTrGXMuuvhERpEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="88841325"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="88841325"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 14:23:04 -0700
-X-CSE-ConnectionGUID: CELMMIA/SOSYH/QTUh3SAg==
-X-CSE-MsgGUID: oQDSM8TBQjyeXkVZJaQ6QA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="272441200"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by orviesa007.jf.intel.com with ESMTP; 13 Sep 2026 14:23:02 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x5rf9-000000001KR-2Cy9;
-	Sun, 13 Sep 2026 21:22:59 +0000
-Date: Mon, 14 Sep 2026 05:22:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Subject: [sailus-media-tree:metadata 79/169]
- drivers/media/platform/nxp/imx95-csi-formatter.c:527:14: error: incompatible
- function pointer types initializing 'int (*)(struct v4l2_subdev *, const
- struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct
- v4l2_subdev_format *)' with an expre...
-Message-ID: <202609140557.zQdCENMs-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgYA+Y8c"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 38241C2BCC7;
+	Sun, 13 Sep 2026 22:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789337044;
+	bh=47WmqnedWWqYfZPZQ3NzMNFRn8FZHL0B9IXQnGLDKmM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cgYA+Y8czaROCIifpqTteTZ1gYJPEIl17Owqh2NWWnELKyKtfEJRdwCgQfPeWNWLU
+	 g8xRsPzaThgQOWVWKzTZxn5iaaKU9wQnp946s+8RQPu/NtHYuuvv78vZZVLr3ylNSA
+	 SOPWNMDu9PRJSZjhSVEMMULNnPx07M2whMQV8a7MS4jlw0pzMxx8VBdXMF7yCLGUg5
+	 OL38FE9ni9bEpAgMLEmkMacklNAsEgxmu6YSlndYGb2wNNeJF2rylxMiX0qUQHgN+Z
+	 qk+7yXO+u2GODC/aFToSSclpED7F1/zykHF2J1ItbEPflmaVONhTRVM7wK4ZOt/6uI
+	 HSzbD1I1qC87A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 141B4C88E64;
+	Sun, 13 Sep 2026 22:04:04 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 14 Sep 2026 00:04:01 +0200
+Subject: [PATCH v2] media: qcom: camss: Don't reject sensor links faster
+ than 4x the CSIPHY timer
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr0JmbQ0tgsQV9zAsaDuVMfKTTiUg4
+ e4WPIDLl3zfeyswekKGW7KCx4mYhj6COiVg2qZ/oCAbGVSqirRUShimsV0E26685OJFHQUWWmJ
+ mdeNym5UQr6NHR/Ohvdc/5rd+ogm7a1+0xGHwy9Gd5L77k5ikkMJmRard1cSMq2imcDYfqLdt+
+ wK+q0GsyAAAAA==
+X-Change-ID: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2724; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=4Cq9bOXeGKICKWJHpNyYvsyQ9j7GJVD/aYCdslBWgjk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqpx3SFUalm5mC9E2nv/wBYp16G9lduNx5j352M
+ stJXr6XkPWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqcd0gAKCRBgAj/E00kg
+ clLbD/4+CjTgR2qBsW2lv29+7ydJstXFbe0MqkBjKJBxK33hfox9lLhnbqy40UzSWx+UyBb8+rO
+ aZttSoYguDNXTTZ5aooSzzhwCS1X1DXK1bIta7WQ1ubiSPRytWD7FbMQTBqmqIqqjf3UuaPr0PS
+ SiYvqj8B11J8z/xYaCCz7JDIddW0nd9fJeLw2HxMPUDIPjfPYfcBoIbXoitX5ShrbUvATIBfX0N
+ CvvfBu6lDHu9/p/Kz7/A7NhyHCTng2FdtqYhyDh/TTF64GPeHv/+7JzEmYLTG6HOG9nXoJSfMww
+ 0weqpHGm7sUn/aqPCQir4Fn3SGBlVSHHeV/hP420TSSWWn4dMygoLDR9XbnGFhd6Ehq7IywRBZH
+ 0OtVyBNyC9Kf7Y388ECqFePMaexPcaxqbqK0gaAWzuhbsTNPFidr+NITA5H7ZnyWesLVkS79dq/
+ PK2D+tzihFgnrx52q4iQ4qythhVarC3VnT7WYS3wfii601fTfoxG90QgXZN3awXN0iubcqdilxH
+ +YZpRPH6tlN7uB4WSNzdUCh0u+ml4ROD8E8A5+N8YL1db5etY9dierXJUUeT794ekW2SIm8L1fk
+ Fh5HiSx7cl3dC9QOGJZ9JvXH4z8vHPWEyMJL4gUHN0Q+TGo8FcdEfGe1nltlvB9h7i+l2PldQSs
+ SjvDXAZPrTv0Krg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-tree:   git://linuxtv.org/sailus/media_tree.git metadata
-head:   357c2e168b861a3df80c68a9c44de9c9c282ec46
-commit: cd854e06923fe7a8c466ef89a0308bcab2adf45e [79/169] media: v4l2-subdev: Add struct v4l2_subdev_client_info pointer to pad ops
-config: arm64-randconfig-002-20260914 (https://download.01.org/0day-ci/archive/20260914/202609140557.zQdCENMs-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 148ee2b266b73a49f1f31d0bd17d4818b91bee9f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609140557.zQdCENMs-lkp@intel.com/reproduce)
+From: David Heidelberg <david@ixit.cz>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609140557.zQdCENMs-lkp@intel.com/
+The timer clock has no such relationship to the link rate. Both the 2ph
+and 3ph code use it only as the reference for csiphy_settle_cnt_calc(),
+where a faster link makes the settle count smaller, not larger: at
+269.33 MHz the count converges to 16 as the link rate grows. The vendor
+driver pins the timer to 269.33 MHz for every sensor (it is the highest
+rate in the SDM845 clock plan) and streams this exact link with it.
 
-All errors (new ones prefixed by >>):
+Clamp to the highest listed rate instead of failing, the same way the
+unknown-link-rate case is already handled.
 
->> drivers/media/platform/nxp/imx95-csi-formatter.c:527:14: error: incompatible function pointer types initializing 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' with an expression of type 'int (struct v4l2_subdev *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' [-Wincompatible-function-pointer-types]
-     527 |         .set_fmt                = csi_formatter_subdev_set_fmt,
-         |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
+Solves issue on sdm845 that caps the link at ~1.02 GHz,
+so the Samsung S5K2X7SP, ~2.3 Gbps/lane, link 1.15 GHz) fails with
+Pixel clock is too high for CSIPHY
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Tested on SHIFT 6MQ with sdm845-next-20260820-9.
+---
+Changes in v2:
+- Drop the camcc change entirely; the 269.33 MHz ceiling stands. (Konrad)
+- Fix the check in camss instead: clamp the timer clock to the highest
+  listed rate rather than failing, matching the vendor driver.
+- Link to v1: https://patch.msgid.link/20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz
+---
+ drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+index 539ac4888b608..f3d17ea0ab515 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+@@ -157,25 +157,23 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
+ 			long round_rate;
+ 
+ 			camss_add_clock_margin(&min_rate);
+ 
+ 			for (j = 0; j < clock->nfreqs; j++)
+ 				if (min_rate < clock->freq[j])
+ 					break;
+ 
+-			if (j == clock->nfreqs) {
+-				dev_err(dev,
+-					"Pixel clock is too high for CSIPHY\n");
+-				return -EINVAL;
+-			}
+-
+-			/* if sensor pixel clock is not available */
+-			/* set highest possible CSIPHY clock rate */
+-			if (min_rate == 0)
++			/*
++			 * The timer clock is only the reference for the
++			 * settle count and does not need to track the link
++			 * rate. Use the highest listed rate when the link is
++			 * faster than the table covers or unknown.`
++			 */
++			if (j == clock->nfreqs || min_rate == 0)
+ 				j = clock->nfreqs - 1;
+ 
+ 			round_rate = clk_round_rate(clock->clk, clock->freq[j]);
+ 			if (round_rate < 0) {
+ 				dev_err(dev, "clk round rate failed: %ld\n",
+ 					round_rate);
+ 				return -EINVAL;
+ 			}
+
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
-vim +527 drivers/media/platform/nxp/imx95-csi-formatter.c
-
-3652add7e9b01d Guoniu Zhou 2026-07-28  523  
-3652add7e9b01d Guoniu Zhou 2026-07-28  524  static const struct v4l2_subdev_pad_ops formatter_subdev_pad_ops = {
-3652add7e9b01d Guoniu Zhou 2026-07-28  525  	.enum_mbus_code		= csi_formatter_subdev_enum_mbus_code,
-3652add7e9b01d Guoniu Zhou 2026-07-28  526  	.get_fmt		= v4l2_subdev_get_fmt,
-3652add7e9b01d Guoniu Zhou 2026-07-28 @527  	.set_fmt		= csi_formatter_subdev_set_fmt,
-3652add7e9b01d Guoniu Zhou 2026-07-28  528  	.get_frame_desc		= v4l2_subdev_get_frame_desc_passthrough,
-3652add7e9b01d Guoniu Zhou 2026-07-28  529  	.set_routing		= csi_formatter_subdev_set_routing,
-3652add7e9b01d Guoniu Zhou 2026-07-28  530  	.enable_streams		= csi_formatter_subdev_enable_streams,
-3652add7e9b01d Guoniu Zhou 2026-07-28  531  	.disable_streams	= csi_formatter_subdev_disable_streams,
-3652add7e9b01d Guoniu Zhou 2026-07-28  532  };
-3652add7e9b01d Guoniu Zhou 2026-07-28  533  
-
-:::::: The code at line 527 was first introduced by commit
-:::::: 3652add7e9b01d6ea4d3d4ff3ade8f60084867f6 media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
-
-:::::: TO: Guoniu Zhou <guoniu.zhou@nxp.com>
-:::::: CC: Hans Verkuil <hverkuil+cisco@kernel.org>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
