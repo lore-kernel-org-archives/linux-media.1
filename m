@@ -1,282 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A543554763
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 22:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95F740861C
+	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 22:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789337774; cv=none; b=BoQf4PFrhypBh3xMSt/p3SWakCuWO0jSpa4PGsymcl9zM0HTpfbfqJUeg2TdHRnxj6qrpWAmEvSYMoTNXWvT/WKJ6swV7O4X2887jhUabBjk8SPJJDhZ5acH4Bonz+Lmnyu3aYFwmJl3dmnfvw/WSIALZ+xFmGvK648XesLV71w=
+	t=1789338804; cv=none; b=Y2VLyIUgm1SqeFtRDjlmAGJEQsY8qTWmAMKCHzm0deV5VVzgPco6RRkllUV5eTwQt7/9Sn9LuHqXOfM9UHvXiQdiO0ZpBZymbzts9P4JY2PW8PLUfBcodkRiYJkykJTc74yI+/oMzja7vm+YW6DZsLO3Tx8WWiEFa0jZccpcNGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789337774; c=relaxed/simple;
-	bh=ecFsenRlS3xp2E6Al8LiFV2CwaAIMNeSQ1XqXbuNq1w=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=C2beqhUH80mBu0sjNDSDujOIiprIgS0/nWZCkkWMKUu1362BjlXdlpXes/rWPMVx8FSmTjHy41F4c9A7Yqv41XTjADfKe/xpGwaGQC3YEkbQfWroVi4icnpqUtQTi6S8M3cZspKlysR9vSwaao5mEBdGdDFbemOuplL/cOB4TjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=fail smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NuBRF6zp; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789338804; c=relaxed/simple;
+	bh=eGytTdZXZULcD8tqC1CIcwuk1WfKe2DbR8H4QTvYg9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZF1Ka9CQgr49uL0WiKaVAdihSjds9NAXASczaZRv6VNGgUpuC5eGvOZRmi/C2kul/eg1GkVp2kY/DSZ9MPVHY+gYegWlhg6o6f9yUmLfpZEwqw4fyHewXjF1xa5KlCrmuvoGoBAaX1ljODJCtizmkfeayFDotT9zNPIJXcyJuPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fi3Ba/kT; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NuBRF6zp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789337768; x=1820873768;
-  h=date:from:to:cc:subject:message-id;
-  bh=ecFsenRlS3xp2E6Al8LiFV2CwaAIMNeSQ1XqXbuNq1w=;
-  b=NuBRF6zpZ/jdXdMndURpuV7OVdjzxRuhfhOqLCxSiALs74Sn48eGJQqF
-   HjnWwUb6IAwrJtuGpSm8xmkr3irPnLNk0U8BHLzu7DBq9oHhZG8fE0ahy
-   ZSy2JRhjg3vqE/Rxi/MKDd9PsXZ6DxrgcnwZFyE78XMuM/ZK30Cu9qXY/
-   y4x5ZejWUjb6/Vfw4PAtLVdXFTScwaA8uGHrNDUds9Vlq6hfmsPoA18pS
-   s32/aNAGb2oniRydWQpECO4HTPLCKtnNtR4j+Yu/pYRy6HcZLbifa6qbW
-   CcZMfapCh/0GkWyMhLZZgGxY8VvvAPDlnrQPRPnT0ed6bU4IzafoQ3mfx
-   Q==;
-X-CSE-ConnectionGUID: mQ/v3cNfQgiy5F3Rl+yEpQ==
-X-CSE-MsgGUID: MY97iChXR4CNbqI9FyO/nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89727125"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="89727125"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 15:16:08 -0700
-X-CSE-ConnectionGUID: vxcxvetuTSGcIiIkaodBkw==
-X-CSE-MsgGUID: cRqMoqFcQcmhkLI2Mttivw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="295963867"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 13 Sep 2026 15:16:05 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x5sUU-000000001ML-4BgW;
-	Sun, 13 Sep 2026 22:16:02 +0000
-Date: Mon, 14 Sep 2026 06:15:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org
-Subject: [sailus-media-tree:metadata 163/169]
- drivers/media/pci/intel/ipu6/ipu7-fw-isys.c:599:3: error: cannot jump from
- this goto statement to its label
-Message-ID: <202609140614.KMCttn8e-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fi3Ba/kT"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-936623c6dd3so394456185a.0
+        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 15:33:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789338802; x=1789943602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VVY8bihuflumLCxMEbX45VPeeuxfSdvnGs8RzNDh+/8=;
+        b=fi3Ba/kTP3Wj1IxUR/p7GByFp0qBIXhMhhN/yOrr/j7q0qWmDBmPT18/K5tvZv9JlI
+         aFj/S03g6FQmIDAuGaT2+jdMieZ9iFT4uZjR9Uaq+0V5eN4pDoqspIJE55woHv8k6Tr/
+         wrjMMJ13dcl27TNfg2IWJH9xdATx4SA/P4Hl6Im5iZ3cDQRFSJ1xiHSlTKQvbwcFZkL4
+         0l7IaElExQXDVROrQcGqjHqE7KszQk/66YsXbEgPthl2kGl/+l6yju5A6eFuRBeuHaWm
+         mOH6YDeIKKMzwTDU2fRMgQFQYEXuykLjuMoC8TYBRrJQbkhipCvknSpQI67+5N5sDZvr
+         RO6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789338802; x=1789943602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VVY8bihuflumLCxMEbX45VPeeuxfSdvnGs8RzNDh+/8=;
+        b=ARISZUyBIOrOLXcasYL7e+V9UE4/sgoKgbskh9Io6pSrvW0dMPqtGCz5p2BvmyBHyy
+         gzEzaNbWx4vVmZbRd2fRZXq/jvfxoAXyDilNHu2f6ZbuLj6Pz5S7EAuWMEZA5TsUt+JF
+         MjJRfJVeLGu/tIpRZKW+oGOmIeKONA7OV1RjNogG/7DKK0LinzE3cMq4dTmFku94uJaW
+         bEBbyw1hCAGZ5N9pWNlXy2LhIiGC2qfnvsIo+zl7jXuMKGxlgNDwkMghBKiWwkYj52Ak
+         yPCMMXxLTUJEyCut/NoPlDlRBFAUkATjzgSi2+7fw+V0Fam48gtfANuG1ormR0arXUn0
+         30yw==
+X-Gm-Message-State: AFuF++nOWhHYALShS2BZaoNRHdm8QpxBN/LMa1D4rZdGGVePcsNVEY+1
+	Y8rEefJekKWRAssLNEGbtGQHGrDx1l//Oq1V3U5TS0JNhePDwc0MVs7eUzQz6ifomndi
+X-Gm-Gg: AYBFou2BDJNyxV0z4F3K+C9Bw3wVxGnxdNI5eRXaFaD7sbSnWQFYxdk5UR5SoXx/m7L
+	/YxMrZ2DGWAHlUfPVUIIcwdy7gqAcnH027K2E5kiZBXewqSePxN/70QWNMvRVY9aZ1DEOIQH3a5
+	l1Yjy85HoUCL+ZbB48pDfSCSJw+l2qjJutMcBREHnlct1Y7LksqTzw7RR0V/3F+bA185Aa5RmVD
+	xnpIVI5aJOkHRhKCY4CqTHM4TjY93TWto8eIbK61CGIF81Sw2+yITtYBCYqeJ3VuHHkbCX02RoX
+	LYOxDyIklNBvUgLr1zA9hPThcvpZP0XTEOTbqYKhiq6UCNuXDaFU9hUPyXWGG9OI6nl4zjE5JQ4
+	F3JO01oh5vHlp204iOwx0TM94FCMVeLNzI4c1E+SOOUrHLQPxPuJ3ZVTyOg7xDibFAo6mfcSPqx
+	IyIyTbDTuTX7wRk6Iy9Cs3d8tM0AbiPFAFhf/z7hNQ3I6TphgP/uEWIMo66Uh88kSJBgf+rU8mi
+	v/0Tizlkh2ztgSE4jgqZvV70h1vAeIakfjk9ANUOMvLxe5Cqz+wgQRdrC/RkwWvzNXnnc8CJtZH
+	MCgKAD5lWUWh9qvX2FtzIB8YUMlG+Vtc1w==
+X-Received: by 2002:a05:620a:27cd:b0:939:319f:d6e3 with SMTP id af79cd13be357-93a18551fdamr367887285a.5.1789338801620;
+        Sun, 13 Sep 2026 15:33:21 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80bfc90sm824019585a.37.2026.09.13.15.33.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 15:33:20 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] media: go7007: unregister the I2C adapter on USB probe failure
+Date: Sun, 13 Sep 2026 18:33:13 -0400
+Message-ID: <20260913223313.90617-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree:   git://linuxtv.org/sailus/media_tree.git metadata
-head:   357c2e168b861a3df80c68a9c44de9c9c282ec46
-commit: 6757a837e28b868ce4068fb422f168f92ced6c1a [163/169] media: ipu6: Serialise access to stream pointers by isys stream_lock
-config: i386-randconfig-012-20260913 (https://download.01.org/0day-ci/archive/20260914/202609140614.KMCttn8e-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609140614.KMCttn8e-lkp@intel.com/reproduce)
+USB probe failures after I2C adapter registration free the backing
+go7007 structure without unregistering the adapter.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609140614.KMCttn8e-lkp@intel.com/
+If i2c_adapter_online is set, unregister the adapter before releasing
+USB resources so that I2C client removal can still use its callbacks.
 
-All errors (new ones prefixed by >>):
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
->> drivers/media/pci/intel/ipu6/ipu7-fw-isys.c:599:3: error: cannot jump from this goto statement to its label
-     599 |                 goto leave;
-         |                 ^
-   drivers/media/pci/intel/ipu6/ipu7-fw-isys.c:602:2: note: jump bypasses initialization of variable with __attribute__((cleanup))
-     602 |         guard(spinlock_irqsave)(&isys->streams_lock);
-         |         ^
-   include/linux/cleanup.h:423:2: note: expanded from macro 'guard'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^
-   include/linux/cleanup.h:303:3: note: expanded from macro 'CLASS'
-     303 |                 class_##_name##_constructor
-         |                 ^
-   <scratch space>:27:1: note: expanded from here
-      27 | class_spinlock_irqsave_constructor
-         | ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:33:1: note: expanded from here
-      33 | __UNIQUE_ID_unlock_437
-         | ^
-   drivers/media/pci/intel/ipu6/ipu7-fw-isys.c:602:2: note: jump bypasses initialization of variable with __attribute__((cleanup))
-   include/linux/cleanup.h:423:15: note: expanded from macro 'guard'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:165:2: note: expanded from macro '__UNIQUE_ID'
-     165 |         __PASTE(__UNIQUE_ID_,                                   \
-         |         ^
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:21:1: note: expanded from here
-      21 | __UNIQUE_ID_guard_436
-         | ^
-   1 error generated.
+Fixes: 59aea928d57f ("[media] go7007: don't continue if firmware can't be loaded")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Assisted-by: OpenAI:GPT-5.6
+---
+Validated with an ARM64 W=1 object build and strict checkpatch.
+No hardware runtime or probe-failure injection testing was performed.
 
+ drivers/media/usb/go7007/go7007-usb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-vim +599 drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
-
-f268203d74ff25 Antti Laakso 2026-08-27  542  
-f268203d74ff25 Antti Laakso 2026-08-27  543  static int ipu7_isys_isr_one(struct ipu6_bus_device *adev)
-f268203d74ff25 Antti Laakso 2026-08-27  544  {
-f268203d74ff25 Antti Laakso 2026-08-27  545  	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
-f268203d74ff25 Antti Laakso 2026-08-27  546  	struct ipu6_isys_stream *stream = NULL;
-f268203d74ff25 Antti Laakso 2026-08-27  547  	struct device *dev = &adev->auxdev.dev;
-f268203d74ff25 Antti Laakso 2026-08-27  548  	struct ipu6_isys_csi2 *csi2 = NULL;
-f268203d74ff25 Antti Laakso 2026-08-27  549  	struct ipu7_fw_isys_msg_err err_info;
-f268203d74ff25 Antti Laakso 2026-08-27  550  	struct isys_fw_msgs *isys_fw_msg;
-f268203d74ff25 Antti Laakso 2026-08-27  551  	struct ipu7_insys_resp *resp;
-f268203d74ff25 Antti Laakso 2026-08-27  552  	u64 ts;
-f268203d74ff25 Antti Laakso 2026-08-27  553  
-f268203d74ff25 Antti Laakso 2026-08-27  554  	if (!isys->fwctx)
-f268203d74ff25 Antti Laakso 2026-08-27  555  		return 1;
-f268203d74ff25 Antti Laakso 2026-08-27  556  
-f268203d74ff25 Antti Laakso 2026-08-27  557  	resp = ipu7_fw_isys_get_resp(isys);
-f268203d74ff25 Antti Laakso 2026-08-27  558  	if (!resp)
-f268203d74ff25 Antti Laakso 2026-08-27  559  		return 1;
-f268203d74ff25 Antti Laakso 2026-08-27  560  
-f268203d74ff25 Antti Laakso 2026-08-27  561  	if (resp->type >= N_IPU7_INSYS_RESP_TYPE) {
-f268203d74ff25 Antti Laakso 2026-08-27  562  		dev_err(dev, "Unknown response type %u stream %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  563  			resp->type, resp->stream_id);
-f268203d74ff25 Antti Laakso 2026-08-27  564  		ipu7_fw_isys_put_resp(isys);
-f268203d74ff25 Antti Laakso 2026-08-27  565  		return 1;
-f268203d74ff25 Antti Laakso 2026-08-27  566  	}
-f268203d74ff25 Antti Laakso 2026-08-27  567  
-f268203d74ff25 Antti Laakso 2026-08-27  568  	err_info = resp->error_info;
-f268203d74ff25 Antti Laakso 2026-08-27  569  	ts = ((u64)resp->timestamp[1] << 32) | resp->timestamp[0];
-f268203d74ff25 Antti Laakso 2026-08-27  570  
-f268203d74ff25 Antti Laakso 2026-08-27  571  	if (err_info.err_group == INSYS_MSG_ERR_GROUP_CAPTURE &&
-f268203d74ff25 Antti Laakso 2026-08-27  572  	    err_info.err_code == INSYS_MSG_ERR_CAPTURE_SYNC_FRAME_DROP) {
-f268203d74ff25 Antti Laakso 2026-08-27  573  		/* receive a sp w/o command, firmware drop it */
-f268203d74ff25 Antti Laakso 2026-08-27  574  		dev_dbg(dev, "FRAME DROP: %02u %s stream %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  575  			resp->type, is_fw_msg[resp->type].msg,
-f268203d74ff25 Antti Laakso 2026-08-27  576  			resp->stream_id);
-f268203d74ff25 Antti Laakso 2026-08-27  577  		dev_dbg(dev, "\tpin %u buf_id %llx frame %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  578  			resp->pin_id, resp->buf_id, resp->frame_id);
-f268203d74ff25 Antti Laakso 2026-08-27  579  		dev_dbg(dev, "\terror group %u code %u details [%u %u]\n",
-f268203d74ff25 Antti Laakso 2026-08-27  580  			err_info.err_group, err_info.err_code,
-f268203d74ff25 Antti Laakso 2026-08-27  581  			err_info.err_detail[0], err_info.err_detail[1]);
-f268203d74ff25 Antti Laakso 2026-08-27  582  	} else if (err_info.err_code) {
-f268203d74ff25 Antti Laakso 2026-08-27  583  		dev_err(dev, "%02u %s stream %u pin %u buf_id %llx frame %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  584  			resp->type, is_fw_msg[resp->type].msg, resp->stream_id,
-f268203d74ff25 Antti Laakso 2026-08-27  585  			resp->pin_id, resp->buf_id, resp->frame_id);
-f268203d74ff25 Antti Laakso 2026-08-27  586  		dev_err(dev, "\terror group %u code %u details [%u %u]\n",
-f268203d74ff25 Antti Laakso 2026-08-27  587  			err_info.err_group, err_info.err_code,
-f268203d74ff25 Antti Laakso 2026-08-27  588  			err_info.err_detail[0], err_info.err_detail[1]);
-f268203d74ff25 Antti Laakso 2026-08-27  589  	} else {
-f268203d74ff25 Antti Laakso 2026-08-27  590  		dev_dbg(dev, "%02u %s stream %u pin %u buf_id %llx frame %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  591  			resp->type, is_fw_msg[resp->type].msg, resp->stream_id,
-f268203d74ff25 Antti Laakso 2026-08-27  592  			resp->pin_id, resp->buf_id, resp->frame_id);
-f268203d74ff25 Antti Laakso 2026-08-27  593  		dev_dbg(dev, "\tts %llu\n", ts);
-f268203d74ff25 Antti Laakso 2026-08-27  594  	}
-f268203d74ff25 Antti Laakso 2026-08-27  595  
-f268203d74ff25 Antti Laakso 2026-08-27  596  	if (resp->stream_id >= IPU7_ISYS_MAX_STREAMS) {
-f268203d74ff25 Antti Laakso 2026-08-27  597  		dev_err(dev, "bad stream handle %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  598  			resp->stream_id);
-f268203d74ff25 Antti Laakso 2026-08-27 @599  		goto leave;
-f268203d74ff25 Antti Laakso 2026-08-27  600  	}
-f268203d74ff25 Antti Laakso 2026-08-27  601  
-6757a837e28b86 Sakari Ailus 2025-12-18  602  	guard(spinlock_irqsave)(&isys->streams_lock);
-6757a837e28b86 Sakari Ailus 2025-12-18  603  
-99f62d82955331 Sakari Ailus 2026-06-26  604  	stream = resp->stream_id < IPU6_ISYS_MAX_STREAMS ?
-99f62d82955331 Sakari Ailus 2026-06-26  605  		isys->streams_by_handle[resp->stream_id] : NULL;
-f268203d74ff25 Antti Laakso 2026-08-27  606  	if (!stream) {
-f268203d74ff25 Antti Laakso 2026-08-27  607  		dev_err(dev, "stream of stream_handle %u is unused\n",
-f268203d74ff25 Antti Laakso 2026-08-27  608  			resp->stream_id);
-f268203d74ff25 Antti Laakso 2026-08-27  609  		goto leave;
-f268203d74ff25 Antti Laakso 2026-08-27  610  	}
-f268203d74ff25 Antti Laakso 2026-08-27  611  
-f268203d74ff25 Antti Laakso 2026-08-27  612  	stream->error = err_info.err_code;
-f268203d74ff25 Antti Laakso 2026-08-27  613  
-f268203d74ff25 Antti Laakso 2026-08-27  614  	if (stream->asd)
-f268203d74ff25 Antti Laakso 2026-08-27  615  		csi2 = ipu6_isys_subdev_to_csi2(stream->asd);
-f268203d74ff25 Antti Laakso 2026-08-27  616  
-f268203d74ff25 Antti Laakso 2026-08-27  617  	switch (resp->type) {
-f268203d74ff25 Antti Laakso 2026-08-27  618  	case IPU7_INSYS_RESP_TYPE_STREAM_OPEN_DONE:
-f268203d74ff25 Antti Laakso 2026-08-27  619  		complete(&stream->stream_open_completion);
-f268203d74ff25 Antti Laakso 2026-08-27  620  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  621  	case IPU7_INSYS_RESP_TYPE_STREAM_CLOSE_ACK:
-f268203d74ff25 Antti Laakso 2026-08-27  622  		complete(&stream->stream_close_completion);
-f268203d74ff25 Antti Laakso 2026-08-27  623  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  624  	case IPU7_INSYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK:
-f268203d74ff25 Antti Laakso 2026-08-27  625  		complete(&stream->stream_start_completion);
-f268203d74ff25 Antti Laakso 2026-08-27  626  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  627  	case IPU7_INSYS_RESP_TYPE_STREAM_ABORT_ACK:
-f268203d74ff25 Antti Laakso 2026-08-27  628  		complete(&stream->stream_stop_completion);
-f268203d74ff25 Antti Laakso 2026-08-27  629  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  630  	case IPU7_INSYS_RESP_TYPE_STREAM_FLUSH_ACK:
-f268203d74ff25 Antti Laakso 2026-08-27  631  		complete(&stream->stream_stop_completion);
-f268203d74ff25 Antti Laakso 2026-08-27  632  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  633  	case IPU7_INSYS_RESP_TYPE_PIN_DATA_READY:
-f268203d74ff25 Antti Laakso 2026-08-27  634  		/*
-f268203d74ff25 Antti Laakso 2026-08-27  635  		 * firmware only release the capture msg until software
-f268203d74ff25 Antti Laakso 2026-08-27  636  		 * get pin_data_ready event
-f268203d74ff25 Antti Laakso 2026-08-27  637  		 */
-f268203d74ff25 Antti Laakso 2026-08-27  638  		isys_fw_msg = container_of((void *)(uintptr_t)resp->buf_id,
-f268203d74ff25 Antti Laakso 2026-08-27  639  					   struct isys_fw_msgs, dummy);
-f268203d74ff25 Antti Laakso 2026-08-27  640  
-f268203d74ff25 Antti Laakso 2026-08-27  641  		ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
-f268203d74ff25 Antti Laakso 2026-08-27  642  		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS)
-f268203d74ff25 Antti Laakso 2026-08-27  643  			ipu6_stream_buf_ready(stream, resp->pin_id,
-f268203d74ff25 Antti Laakso 2026-08-27  644  					      resp->pin.addr, ts, 0);
-f268203d74ff25 Antti Laakso 2026-08-27  645  		else
-f268203d74ff25 Antti Laakso 2026-08-27  646  			dev_err(dev, "No handler for pin %u ready\n",
-f268203d74ff25 Antti Laakso 2026-08-27  647  				resp->pin_id);
-f268203d74ff25 Antti Laakso 2026-08-27  648  		if (csi2)
-f268203d74ff25 Antti Laakso 2026-08-27  649  			ipu7_isys_csi2_error(csi2);
-f268203d74ff25 Antti Laakso 2026-08-27  650  
-f268203d74ff25 Antti Laakso 2026-08-27  651  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  652  	case IPU7_INSYS_RESP_TYPE_STREAM_CAPTURE_ACK:
-f268203d74ff25 Antti Laakso 2026-08-27  653  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  654  	case IPU7_INSYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE:
-f268203d74ff25 Antti Laakso 2026-08-27  655  	case IPU7_INSYS_RESP_TYPE_STREAM_CAPTURE_DONE:
-f268203d74ff25 Antti Laakso 2026-08-27  656  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  657  	case IPU7_INSYS_RESP_TYPE_FRAME_SOF:
-f268203d74ff25 Antti Laakso 2026-08-27  658  		if (csi2)
-f268203d74ff25 Antti Laakso 2026-08-27  659  			ipu6_isys_csi2_sof_event_by_stream(stream);
-f268203d74ff25 Antti Laakso 2026-08-27  660  
-f268203d74ff25 Antti Laakso 2026-08-27  661  		stream->seq[stream->seq_index].sequence =
-f268203d74ff25 Antti Laakso 2026-08-27  662  			atomic_read(&stream->sequence) - 1U;
-f268203d74ff25 Antti Laakso 2026-08-27  663  		stream->seq[stream->seq_index].timestamp = ts;
-f268203d74ff25 Antti Laakso 2026-08-27  664  		dev_dbg(dev,
-f268203d74ff25 Antti Laakso 2026-08-27  665  			"SOF: stream %u frame %u (index %u), ts 0x%16.16llx\n",
-f268203d74ff25 Antti Laakso 2026-08-27  666  			resp->stream_id, resp->frame_id,
-f268203d74ff25 Antti Laakso 2026-08-27  667  			stream->seq[stream->seq_index].sequence, ts);
-f268203d74ff25 Antti Laakso 2026-08-27  668  		stream->seq_index = (stream->seq_index + 1U)
-f268203d74ff25 Antti Laakso 2026-08-27  669  			% IPU6_ISYS_MAX_PARALLEL_SOF;
-f268203d74ff25 Antti Laakso 2026-08-27  670  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  671  	case IPU7_INSYS_RESP_TYPE_FRAME_EOF:
-f268203d74ff25 Antti Laakso 2026-08-27  672  		if (csi2)
-f268203d74ff25 Antti Laakso 2026-08-27  673  			ipu6_isys_csi2_eof_event_by_stream(stream);
-f268203d74ff25 Antti Laakso 2026-08-27  674  
-f268203d74ff25 Antti Laakso 2026-08-27  675  		dev_dbg(dev, "eof: stream %d(index %u) ts 0x%16.16llx\n",
-f268203d74ff25 Antti Laakso 2026-08-27  676  			resp->stream_id,
-f268203d74ff25 Antti Laakso 2026-08-27  677  			stream->seq[stream->seq_index].sequence, ts);
-f268203d74ff25 Antti Laakso 2026-08-27  678  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  679  	default:
-f268203d74ff25 Antti Laakso 2026-08-27  680  		dev_err(dev, "Unknown response type %u stream %u\n",
-f268203d74ff25 Antti Laakso 2026-08-27  681  			resp->type, resp->stream_id);
-f268203d74ff25 Antti Laakso 2026-08-27  682  		break;
-f268203d74ff25 Antti Laakso 2026-08-27  683  	}
-f268203d74ff25 Antti Laakso 2026-08-27  684  
-f268203d74ff25 Antti Laakso 2026-08-27  685  leave:
-f268203d74ff25 Antti Laakso 2026-08-27  686  	ipu7_fw_isys_put_resp(isys);
-f268203d74ff25 Antti Laakso 2026-08-27  687  
-f268203d74ff25 Antti Laakso 2026-08-27  688  	return 0;
-f268203d74ff25 Antti Laakso 2026-08-27  689  }
-f268203d74ff25 Antti Laakso 2026-08-27  690  
-
-:::::: The code at line 599 was first introduced by commit
-:::::: f268203d74ff25f5443a16813196fb8ecd775be3 media: ipu6: Add ipu7 isr handler
-
-:::::: TO: Antti Laakso <antti.laakso@linux.intel.com>
-:::::: CC: Sakari Ailus <sakari.ailus@linux.intel.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index c0cb92fa6..b2bf24d02 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -1320,6 +1320,8 @@ static int go7007_usb_probe(struct usb_interface *intf,
+ 	return 0;
+ 
+ allocfail:
++	if (go->i2c_adapter_online)
++		i2c_del_adapter(&go->i2c_adapter);
+ 	go7007_usb_release(go);
+ 	kfree(go);
+ 	return -ENOMEM;
