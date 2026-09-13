@@ -1,116 +1,78 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2914D34A78E
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 20:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08513385AC
+	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 20:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789331123; cv=none; b=ZK05Q/pJRtbUezvRU7wcmMFRXI9jAl1/V+Co7ywtg5w8Qu/k0/hRcnQGJjxMpYUgG8wihEGUye1CFp/rrIDxJ/zbzjwZEL5VfSiEWeuSTg9Q9BHJDo1pCLruFkPvxR5kqzhqffFTdvLQRcaE4zwllPT5RImj4cGJCz3+OE+Cf00=
+	t=1789332494; cv=none; b=YrwkEjrI3Q4P+PC+wy5x4ZyeqghTCchfqsu0IbseWUm/iqCL/y1s8a2Fhw3xJKEVkE4zsrpot1tkIMQ2wH1fUn2VgWK7GegR768xfQ2+zpHaJ/ao0lIbYDrhe2SAKV2SuAyXGOSGhVYAyjOMG57PEFe2956gf9MFSj2WtuDMeMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789331123; c=relaxed/simple;
-	bh=wVPdfHHc7Y5YOi1bq3/wbK/y4FPB0AGJQDgGhhASs/M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k9AiQUpG5Q8lFtzpCkTLs5DE9iTCLug1OOOdsFuVwOLlkhvkLg98MqiRcSkbt4dRm4dDkEmUha5o09ZecT1Ztm3LAJZc7HQBkA2cIEbagpB8Bwwie8b4KPMeYy4x44sw9lm4NL6qWseLnavuJWzgDvTk2ofcbd2jX2OGMYtpQ44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jS9Oyhi6; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789332494; c=relaxed/simple;
+	bh=OgWpSiiCVCMjd9MVKoGzYwMWmRA16L6acE9L1x/mWLw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nk/rEIUMCs8HFx8FsA0O74kcpQRs+d36fnETyM+DdSzEW1t4ZzVX2dDAVzvmMkhKQgIrguPAAk99QA7am3evhrZOrA7tErfcywULf6T6CXT/P4PAEr7vzvqtFnZ9K8RPm/N82vq2fFmtg0/atW66M82ZjQMqFPe7aBj+zudKQhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=K0bvKXJ3; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jS9Oyhi6"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-396a51b2605so1322550a91.0
-        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 13:25:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789331121; x=1789935921; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OwAJqMNkilHzTnH+YC8CauxeBsxg3wPDdOMmRVO1D3o=;
-        b=jS9Oyhi6WQ4t64PinJABMWXnDoH0gkUUs9MKRahfYm6jv5ifrAejreoAVEK9Jm/2sA
-         HVRhXLJzPeIPQdbHolwGYEtojcyWJDVudMfQyrTlCcBrOK4obAOn9NA7uNnswlQArbFe
-         RlwZcg0bgpOCg6jLEEOZsTciEI50dDeABpzY3nijbe2uw98XxQKhWV4f3Z1MQPoriyb8
-         vLQ2RxqPkPpecyT4O1DJ4TXdkMZYjyYRdnwffnQUiLAOVssixjVE4X9omjm7khGV1LYT
-         wWYoLEXoRECNbnz1IJVfekPIK0bu0CMeDMxjOmhj6RU6ikLk8homfnSBTgqhm5CDXU5L
-         SY4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789331121; x=1789935921;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OwAJqMNkilHzTnH+YC8CauxeBsxg3wPDdOMmRVO1D3o=;
-        b=EY9VTZoQ4L2JocrIJzoF4sDtbl5cBqYYATwIZItPPyv5sdKzUIqk3TKOliC9dj1mvq
-         Kir9AeVVF3Urit7jf8IZDD6mEfu5q+2TTTkMhSRPLxSWipxUe//SA/yvkBYP8HaIbmO9
-         cPic9hmMXPkELpWY3nCWy6RYYFkHptriROKO0VCh+CTSQc+dMgVTZyqlLJZaHCUsSBNB
-         bkmx9cInb7bXO3tGuuRUNoqGn16r1nPFWhgdFg8sLBnevf0V3uVVpiti7Ac+YwXCuo6+
-         LxF6NgS/eJOUIapWnjkBh4qvPtAIpj9Bc+uEY49NM1h+zaHKLup8YUdTVklHqeJoijxO
-         /FAA==
-X-Gm-Message-State: AFuF++lymqVrWrJzVBru6x7Eh7WCcHkG/RvNYbTSdxVuBU5Uylxe5WqK
-	AMnr2ROqA1yB/u1JyP5Af46Ixv6DZDTeoHVpQoosu6l8v8VLoA17kN5e
-X-Gm-Gg: AYBFou3Ks983znxQrfRJmR5cvDAFbOoB8l3fKPwE8SBhXJOthoFY71GnqveNOdvyEyR
-	Ggtqj2ATqWR1OTSfU3zlJ6jmw4JR/RmNyLODGfZxybhaIt5N94MxLbBrH71xlwVJtx03jeAb12c
-	gAIPwgaE9jRQZhk5AeS439H/AIcxpe5OnFZGc9XNHn/oqSh+LomkEPxrGOeiOkt9EqfxgH80smm
-	vKK9CTeZqE0zfa3l/DssPPv1KvnsykgpGNVXMTG4zFhIH5mhIAQ/0/sLOqDtUQ0atv1mQ4hy6pP
-	VrIleElXFaDyCLPWo1m7OIr1fSwwmWe8PCNBCeloDHFhlRs4bh0zz8TOzKufIO1e1Oi6lfNbkNl
-	6SHI+0zHH1Gje5GEOlxAadOFVxI5xo5cm7VBFYAK5U9QQSG64tPgbZ6SM39AB5biP5cmA5yhnSx
-	3eGbzwR6G7I0ZMnZcVfkkPurFme+LruEaZd/izbIBRFRqdanp0xxF7NmzF5LSNf75w/kEDubFiF
-	uhb3OYlLwtAFspcpCUF2g==
-X-Received: by 2002:a17:90b:53d0:b0:398:9bd1:3216 with SMTP id 98e67ed59e1d1-39d9c3597b5mr23602257a91.23.1789331121452;
-        Sun, 13 Sep 2026 13:25:21 -0700 (PDT)
-Received: from localhost.localdomain ([112.158.192.173])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98a58d23sm19214591a91.2.2026.09.13.13.25.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 13:25:21 -0700 (PDT)
-From: Hyeonjun Hong <hyeonjunhong330@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyeonjun Hong <hyeonjunhong330@gmail.com>
-Subject: [PATCH] media: Documentation: vivid.rst: Remove stale capture overlay mentions
-Date: Mon, 14 Sep 2026 05:24:22 +0900
-Message-Id: <20260913202422.1230428-1-hyeonjunhong330@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="K0bvKXJ3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789332490; x=1789591690;
+	bh=h6XrpRnkTUfqGJKJLmJAqROSOGkj9wyvgoWBb6/XIbg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=K0bvKXJ3HoYYpQkJQGXtlcan56dmk6xMsAu401uvBSIjfKb6mCpPO2Qncr85CeyA0
+	 KnP9/yNAJbuITR9UCkuQJD7WoYuw6jgcEFpLG19NhQNFd/D3lFvgCPUDEZ1a6kV8VY
+	 rsj+QmUBcvie+1Y7KIe5wbvtyT8pFl7x2xLj6Rt7h026OhkCjVDj9Z/HVMV91y245v
+	 SNeBFCCZFsA++hOrG6NXZGoGTai/uaSPLmKSlJbEwykdhVZyGk1b/3XWtY2WAYstC8
+	 oXUbAueG8a5nEU6bLCZV5m+X2C8zUqgxMn8LTm6cJwcnmK67fPu/kHzsbQ0hQDKY9r
+	 iU+KGV1oTTa6A==
+Date: Sun, 13 Sep 2026 20:48:07 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov13858: cap analogue gain at 15.5x
+Message-ID: <20260913204759.85961-1-lsa.uz@pm.me>
+In-Reply-To: <20260831180746.68878-1-lsa.uz@pm.me>
+References: <20260831180746.68878-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a10eb1aa193f3f5871fc3f75077001e528aa47b8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The introduction of vivid.rst says that the framebuffer device is
-available for testing capture and output overlays, and the feature
-list mentions capture and output overlay support.
+A ping, two weeks on:
 
-Commit ccaa9d50ca73 ("media: vivid: drop overlay support") removed
-capture overlay support, and vivid now only implements output overlays.
+  https://lore.kernel.org/linux-media/20260831180746.68878-1-lsa.uz@pm.me/
 
-Update both places to mention output overlays only.
+It still applies to media/next at df9e111016, checked today, and nothing in
+it has changed.
 
-Assisted-by: LLM
-Signed-off-by: Hyeonjun Hong <hyeonjunhong330@gmail.com>
----
- Documentation/admin-guide/media/vivid.rst | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Two things around it have. An ipu-bridge entry for this sensor is now on th=
+e
+list and has been tested on a second Surface Pro 11, so the OV13858 is abou=
+t
+to be reachable on Lunar Lake by more than one machine.
 
-diff --git a/Documentation/admin-guide/media/vivid.rst b/Documentation/admin-guide/media/vivid.rst
-index 034ca7c77fb9..6741f25220fc 100644
---- a/Documentation/admin-guide/media/vivid.rst
-+++ b/Documentation/admin-guide/media/vivid.rst
-@@ -6,7 +6,7 @@ The Virtual Video Test Driver (vivid)
- This driver emulates video4linux hardware of various types: video capture, video
- output, vbi capture and output, metadata capture and output, radio receivers and
- transmitters, touch capture and a software defined radio receiver. In addition a
--simple framebuffer device is available for testing capture and output overlays.
-+simple framebuffer device is available for testing output overlays.
- 
- Up to 64 vivid instances can be created, each with up to 16 inputs and 16 outputs.
- 
-@@ -35,7 +35,7 @@ This document describes the features implemented by this driver:
- - Raw and Sliced VBI capture and output support
- - Radio receiver and transmitter support, including RDS support
- - Software defined radio (SDR) support
--- Capture and output overlay support
-+- Output overlay support
- - Metadata capture and output support
- - Touch capture support
- 
--- 
-2.34.1
+And that second machine exists. The measurements in the patch are from one
+device, which I would rather say plainly than leave implied; if a
+confirmation on hardware other than mine would help, I can ask for one.
+
+One note that is worth more now than when I sent it. The gain table came fr=
+om
+raw Bayer at the ISYS capture node, not through libcamera, so the GPU debay=
+er
+fault that has turned up on this hardware in another thread this week canno=
+t
+reach it. The luma cross-check below the scissors did go through the softwa=
+re
+ISP, but it compares before against after on the same path.
+
+Sergey
 
