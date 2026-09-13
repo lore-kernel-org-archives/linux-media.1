@@ -1,134 +1,127 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57956384CF0
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 04:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4061389DE8
+	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 08:07:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789273123; cv=none; b=Zh0J3Nj64O+4B6M8oBwtp+IWwF5d1z2VrmgWGXoQxI/T46F+jZbzCYLXxuCGJwatIVgbqukxa7/dj0LWVAxwgveoA+x7VIxK3dr946tASAUq7BVj/no4/kj63xS+1DLCqzeEWrXOc3espD42hCvk8+YZlz9zheM6s45ZiVL9jpY=
+	t=1789286862; cv=none; b=vC9H0LNnQBLX8W9GItiQQMgaPFkh52zmSn8q8jUKqIJQi6hCxsQFdMXnM6qwq8zMr7OzgaBOddYLaVrYS63LhxhBsSJQYaw27nBTIwuV5170nCy5QPhr4kfpHn1T/eBUfSBSF8f0RJF3e/A+EwBxrWrc/TZVRJZ5URcL37UvOxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789273123; c=relaxed/simple;
-	bh=KIIwlgtQiPCeDblTe7idpuN5xdTWR3wTnKQTNX2q9PY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ElQ9PPksVA5uP+eXklGHrhJj85yqFWLkTLeilylZ5IR91igT4CZPfAmDh/HugTYayAY/Zo9XeZwxWorHn+GNsshK4m8qYlb9g3xahW0QDsFLvbFyz6NLHMbLOSyoMwDVIxBzf81EGM0oYNWpXpt+jb+9TOgHSFreKBIfXSKfNIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YwioAeQQ; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789286862; c=relaxed/simple;
+	bh=eVgPp3zE4UWPlXdNcCX28jql8tS5c8wjEHtHsF9tTgI=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=SitZ1bFWCd4bItYo1JLcuEBIgGIyaB4ypcY32XGJNqW3GEOrAm90d3+f1RvqG79Q5CQLOI5O9iyYWSECnRH+IxpCprtyzYruJ7Cm9wZ1zQFdY98mNA72HqdElunDUauNDweWf0UvAWVHEhRVnIglUGMZ5PVJyEXp19PShnqiJ4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y8ZhkDvW; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YwioAeQQ"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91219376dd6so13435016d6.2
-        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 21:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789273117; x=1789877917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Cy9tKh8kDj+/dr3iT8f18N8p4TbAne3xHKS21+yoCc=;
-        b=YwioAeQQdmz/TxQSxi3uouTkYpJYa31T8UqFnDBkXw04ZCyYq77bUMGli12nOrSfpk
-         XnWyuvFJcyBqK6cqeVfyxRIQxQ7Sz2wWxmXoooYMkoeNkehQzyIohjFm9joo8UAJ5vre
-         7BaM04DGeNzaWAcKjcKojSKGKHkEzaoJc2VzndRJWGCKRBer6y2xww75HGe3fJMS/eY2
-         iw/DqfqMzsMr0KuTK9TcmF/fmHguMsP1ejXidZzO8y1YmLbtPJCYBdAEVMm7FIkzGriK
-         0qzDvwG91BK6qKACPYn+x6rWABFNIIr22vhRk2lCnc6s0Um9hzJE8GABOnJVS48yp5BE
-         bs5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789273117; x=1789877917;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Cy9tKh8kDj+/dr3iT8f18N8p4TbAne3xHKS21+yoCc=;
-        b=Ra+0/TMruHhXzbpYfC0lpVMskXtybdtIBLsu+IWsVQeSDdPNclgGyLc763TczZ8EES
-         Vq1w8P3PEUcfrU4bsffusVTqfczqIpjY0DDkLh3um3WcxO0XwaP6v7vSLfGmAD4ewnlM
-         HTEmdtiVw+EaVWP73OpW2GuSyZ8fv4q6+8jKI13AAUNKJWgzZLMd7h2SSzA2D1qAdu+o
-         Z/zVPp16Vk3w9VQl6CpX6ebk6MYA7klPJ/lqMRQVscu4qc3MDPREGzYsuEiGqB3R+xLD
-         igxGVksdsiFybbW0ruAN5aNs1WfNL0fdONlro9zTMcLBzo4NlWgs3mgVR19p+L4Y195h
-         N1Mw==
-X-Forwarded-Encrypted: i=1; AKwUvBxMjvudPr7tE+vMwgB1APRa3aDWFjXjj/VWQ1Tycn6/yCPi7WeCCo+nt8MJIQ8JofRgOmATkT2JMFjOhw==@vger.kernel.org
-X-Gm-Message-State: AFuF++kP1co/MwUxz8q7ey0BQji0YqX0pu1i0NSGuNDaFuOxmnU/fz5x
-	aEVqz2lYHcxZbwhWFxHadhccNirxP83ZbDYF/T5Ul2RvX3eOoi0Ynz4=
-X-Gm-Gg: AYBFou3GLIyTFS4uL76C0GeDOS0MVLbFMI9fTGKe2SAEp443UjYKacx1l1aRKz7P0T0
-	rgI1aSjSg7M9jWRjYU6m71PUxnJGkKpxbD6LlgrxApGKNnaDQF89zDX+bUKi51Hu8VpdBa94PQS
-	l3km43neHDhSAOKMheS69njlqerIwM7VXoUXw4E7NI4RFfME8OZhUC5Grus4Bqu0hH7YGbodn8y
-	uxr/BN5BCge0iUoOvhQyKJvqe5AbXjoWiv1wkoV8r09BVLqvZoWsf/F5XfZvivvHUtwhbEEUUlo
-	tq0uPc9+qNS4SP2P5wKFCISstERuWwD+8KrGGNcUfHLDXWWxI+Qv+TPZS9HX4Wte9CGtklM7URF
-	WIceqdwj34BzW3JTadvvYWlloZfO/eIllZAOJwDSsqeI2/YAt7IYg8IKU1SqFzgfBJ+I4BpGrjf
-	2fSiClGSaxFKBd4Hi1ppKJc/lnvyIGCeozBOeM7TBmeLEDkyUi457M9Z8zp36yUHhKRigDaFKEq
-	WKnjWE0xVoMmeSVRE+pE3vVGxPsZhbMYa1zmaQIn166glPMw2mOVm+N4ohMpRNGerHdjDTVWXdB
-	RJvq0TTNBEup+m/MgxVXt7YlyAxfsZvxKw==
-X-Received: by 2002:a05:6214:20ef:b0:910:74ec:8892 with SMTP id 6a1803df08f44-9121d8eb88amr91874446d6.6.1789273117604;
-        Sat, 12 Sep 2026 21:18:37 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45adbfsm61735926d6.13.2026.09.12.21.18.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 21:18:36 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: i2c: dw9719: power down on detection errors
-Date: Sun, 13 Sep 2026 00:18:28 -0400
-Message-ID: <20260913041828.28430-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y8ZhkDvW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789286857; x=1820822857;
+  h=date:from:to:cc:subject:message-id;
+  bh=eVgPp3zE4UWPlXdNcCX28jql8tS5c8wjEHtHsF9tTgI=;
+  b=Y8ZhkDvWtZQolwBEb5oKUfUEyUxy+rdV7xCQkor2n2eaAYwUDUzXF5Qy
+   x7awvvYrD92mcbaUeohiJOFhXoz8dXUiwnlfDveMRN3ZTJSSs2fW7/mZz
+   K46Gk62f6j+o2grsA/RrjeniI617BqK5NDzV4XuXOCdK0ho+aE3PKpHqx
+   nGvdROaG12PIRxLmXaePNjoNyjtomcXYY8QU2Bbe5k3DUrFFJkPmh7xdy
+   bPAMx/CPdhQ4MzhLJY5b6HQW8Ovyck6K0cn8APEJbRFXhsih1w3n/eer1
+   0wBMDCzEFH/VmWGl32cV1uXF4MrFTEB+LHQ48/kB4VG5OKjuoTMjvPDyu
+   A==;
+X-CSE-ConnectionGUID: tWt+Z4GRR3OutNsQ0Dt0Rw==
+X-CSE-MsgGUID: WhdXbV4zTIyXTFMcUfJQTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="115218768"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="115218768"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:07:33 -0700
+X-CSE-ConnectionGUID: zumOgaLVQAKYQ5Absee0og==
+X-CSE-MsgGUID: 5JHnEf3gQH20Crv8VCS/hg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="277603326"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by fmviesa005.fm.intel.com with ESMTP; 13 Sep 2026 01:07:31 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5fFB-000000003kN-3kNp;
+	Sun, 13 Sep 2026 08:07:24 +0000
+Date: Sun, 13 Sep 2026 16:06:59 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org
+Subject: [sailus-media-tree:metadata 161/169]
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c:664:6: warning: variable 'source'
+ set but not used
+Message-ID: <202609131638.i4iLw29I-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Moving chip detection into dw9719_power_up() introduced direct returns
-after the regulator has been enabled. An INFO register read failure or an
-unrecognized ID bypasses the power-down path, while probe only cleans up
-the media entity and controls after a power-up error.
+tree:   git://linuxtv.org/sailus/media_tree.git metadata
+head:   357c2e168b861a3df80c68a9c44de9c9c282ec46
+commit: 99f62d82955331605ec24226a734233f2d52c6e0 [161/169] media: ipu6: Bridge the gap between streams in V4L2 and IPU6 firmware
+config: i386-randconfig-012-20260913 (https://download.01.org/0day-ci/archive/20260913/202609131638.i4iLw29I-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260913/202609131638.i4iLw29I-lkp@intel.com/reproduce)
 
-Route both detection errors through the existing power-down check. Preserve
-the read error or -ENXIO and leave the successful power-up and regulator
-enable failure paths unchanged.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609131638.i4iLw29I-lkp@intel.com/
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+All warnings (new ones prefixed by >>):
 
-Fixes: 2a1551665a85 ("media: dw9719: Add DW9761 support")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/i2c/dw9719.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+>> drivers/media/pci/intel/ipu6/ipu6-fw-isys.c:664:6: warning: variable 'source' set but not used [-Wunused-but-set-variable]
+     664 |         int source;
+         |             ^
+   1 warning generated.
 
-diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
-index 3b7ba88fd..8a34abe18 100644
---- a/drivers/media/i2c/dw9719.c
-+++ b/drivers/media/i2c/dw9719.c
-@@ -150,7 +150,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 
- 		ret = cci_read(dw9719->regmap, DW9719_INFO, &val, NULL);
- 		if (ret < 0)
--			return ret;
-+			goto out;
- 
- 		switch (val) {
- 		case DW9719_ID:
-@@ -168,7 +168,8 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 		default:
- 			dev_err(dw9719->dev,
- 				"Error unknown device id 0x%02llx\n", val);
--			return -ENXIO;
-+			ret = -ENXIO;
-+			goto out;
- 		}
- 
- props:
-@@ -218,6 +219,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 		cci_write(dw9719->regmap, DW9719_VCM_FREQ, dw9719->vcm_freq, &ret);
- 	}
- 
-+out:
- 	if (ret)
- 		dw9719_power_down(dw9719);
- 
+
+vim +/source +664 drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+
+33f56ed128438d Antti Laakso 2026-08-27  658  
+33f56ed128438d Antti Laakso 2026-08-27  659  static void ipu6_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
+33f56ed128438d Antti Laakso 2026-08-27  660  {
+33f56ed128438d Antti Laakso 2026-08-27  661  	struct ipu6_isys_stream *stream;
+33f56ed128438d Antti Laakso 2026-08-27  662  	unsigned int i;
+33f56ed128438d Antti Laakso 2026-08-27  663  	u32 status;
+33f56ed128438d Antti Laakso 2026-08-27 @664  	int source;
+33f56ed128438d Antti Laakso 2026-08-27  665  
+33f56ed128438d Antti Laakso 2026-08-27  666  	ipu6_isys_register_errors(csi2);
+33f56ed128438d Antti Laakso 2026-08-27  667  
+33f56ed128438d Antti Laakso 2026-08-27  668  	status = readl(csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
+33f56ed128438d Antti Laakso 2026-08-27  669  		       CSI_PORT_REG_BASE_IRQ_STATUS_OFFSET);
+33f56ed128438d Antti Laakso 2026-08-27  670  
+33f56ed128438d Antti Laakso 2026-08-27  671  	writel(status, csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
+33f56ed128438d Antti Laakso 2026-08-27  672  	       CSI_PORT_REG_BASE_IRQ_CLEAR_OFFSET);
+33f56ed128438d Antti Laakso 2026-08-27  673  
+33f56ed128438d Antti Laakso 2026-08-27  674  	source = csi2->asd.source;
+33f56ed128438d Antti Laakso 2026-08-27  675  	for (i = 0; i < NR_OF_CSI2_VC; i++) {
+33f56ed128438d Antti Laakso 2026-08-27  676  		if (status & IPU_CSI_RX_IRQ_FS_VC(i)) {
+99f62d82955331 Sakari Ailus 2026-06-26  677  			stream = csi2->streams_by_vc[i];
+99f62d82955331 Sakari Ailus 2026-06-26  678  			if (stream)
+33f56ed128438d Antti Laakso 2026-08-27  679  				ipu6_isys_csi2_sof_event_by_stream(stream);
+33f56ed128438d Antti Laakso 2026-08-27  680  		}
+33f56ed128438d Antti Laakso 2026-08-27  681  
+33f56ed128438d Antti Laakso 2026-08-27  682  		if (status & IPU_CSI_RX_IRQ_FE_VC(i)) {
+99f62d82955331 Sakari Ailus 2026-06-26  683  			stream = csi2->streams_by_vc[i];
+99f62d82955331 Sakari Ailus 2026-06-26  684  			if (stream)
+33f56ed128438d Antti Laakso 2026-08-27  685  				ipu6_isys_csi2_eof_event_by_stream(stream);
+33f56ed128438d Antti Laakso 2026-08-27  686  		}
+33f56ed128438d Antti Laakso 2026-08-27  687  	}
+33f56ed128438d Antti Laakso 2026-08-27  688  }
+33f56ed128438d Antti Laakso 2026-08-27  689  
+
+:::::: The code at line 664 was first introduced by commit
+:::::: 33f56ed128438dd791b9114ad079ab188daa1c09 media: ipu6: Move isys isr handlers to fw file
+
+:::::: TO: Antti Laakso <antti.laakso@linux.intel.com>
+:::::: CC: Sakari Ailus <sakari.ailus@linux.intel.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
