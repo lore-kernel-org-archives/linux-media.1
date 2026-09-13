@@ -1,72 +1,76 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECD8194C98
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 00:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5062D7DC8
+	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 01:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789259393; cv=none; b=NrUsG1zRbHR7W5OWLO7e2vTT07om2xOUfJYNUst3mySYe+FsTce9ZjqQ2Q8n6KJAT4uxDlPZ0GITLGTP5pvMi+FtvTCJ7ElFLVQhaupyiBb/EeaqliLqkR7+BqptzDqpYnjXtC75pl57OA71Zfm77JEKFtNrL7g1Y6kX8R2DmPs=
+	t=1789263824; cv=none; b=ifrjbx/Lkn9z8E4CAw7Tfi5pQ9gvDLpxIljLbmeMa4mQE/gFmZm1PXIwORPyqUgqL8BA/3ZsoHfXI3STv2dY5xfxxE03ZrWj0dk/WKsBHrjENrQLIgp+WlK04bpxMxXPMQmkhaxTTsRewm9I9NEY2VOf4XFpD61DOR9QqeNp/Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789259393; c=relaxed/simple;
-	bh=64GHYTg1r/dPubV34LDaud4uA/ldHinB73PiAAq6dL0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fwIyNI4v3xLIw01D7YZv8TTdk1JigfngrwKs5WPJFJwZWwlBWXXOzGnupMkFB+Zbp3n8UaGK6QKSBmOKS392C2sIB/t7NvjQuKsFxumxAJTVezo3+zMhvCt0bBKQKta2YmKQJYaIaPkcRv6PxvBGvZyRHpUmzq8EDwcIwNyg868=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=K/eki52j; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789263824; c=relaxed/simple;
+	bh=xbqmWE7TjVXjZipAzoB6FiWnOv6WAhfUg92RHYzDPuk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LW9pvKJm2Z1P6oc04+X5d2ILRhkbFsa0mxPqoeIw3EvDDHAVKUIGZOZJnq4EReRr8xYvPDAFDbfi8ri+p2kb7idw30M/+E0mXkvxSdvFX/FAnyTGGgfxsV5wzNsoI1i4kE9WW3cAqLSHZyX5cAbWx0dQdAWAA+mgexadnsMwohA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LV1702K3; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="K/eki52j"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so1540366a12.0
-        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 17:29:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LV1702K3"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so11464991cf.0
+        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 18:43:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789259390; x=1789864190; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789263822; x=1789868622; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ScvzY1Zp8ZMCyDWV+7q9ZIbetTA7/SJK3fOR/Be6tok=;
-        b=K/eki52jSQCCaMSD3UYg329lTYAcUrS4WzaaDIP5tJ3QMQYELAMphUE9XvP13BzS9+
-         TaLjjnQh7O+KmufGtixa2NbnQEwkil8jx+GJAN0IkrhFI2hTE5mGQtD5rwJJljo7BJkx
-         02+haKJcPPgIQUBAwLcqt+5X+Utm4bXQpco3OsNVNVFX1Ji+rRqTiCwuMtTfKFftGKPW
-         gSG3Mbc7A6TvRNc21cQhqAAZDGCHQuNp5a1PgkrA7bjHg1c7pNAmvwI0iWHuvEj+G69E
-         SAmdHmEjm1KX4WIhl+fdz4KIRGXb4ICYJ0uKKcclIAN+P6a74JlS4ppOnPVxJxCf/q+t
-         F2kQ==
+        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
+        b=LV1702K31p9vOXXy4tMlpZ17y2Ok8J6yKTTmvV7uishbEAxzinjkbXFqK/m55hR2nG
+         SV23I2+vuHaRJ+6yRl0H8aUSY9AjU0y7gR5LP49lQxwVcf1wWtOxVC/DuGOURyYlfsbw
+         TTzhgweGhF2Vp2glF5bgAdiitoj0LWRyitc04pBmzIXdSpiI7Wc85MroXtmZiJgFwu0x
+         ZDQLYESd2G/vfTgzIajFGV22FXwpnZ1OifvHfHRTuF3sKOwTbhQLGv2LA63ScC3y5JPp
+         9kbMXSv34k8FzayiVrZJYG56c82QZgittsZBBE0JlFL5gnw5wX43EoEddIUJYGGmyZET
+         XJAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789259390; x=1789864190;
+        d=1e100.net; s=20251104; t=1789263822; x=1789868622;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ScvzY1Zp8ZMCyDWV+7q9ZIbetTA7/SJK3fOR/Be6tok=;
-        b=hb6STDKqT2TuvF6yo9dRBRKAiEy1rMA/QuNJXEcSXA1zfHcoqSeJeLLDtUjJuQKO+b
-         ZWE1vy5jgqAUp/79BNs1XCjEXzh4BGmG893gHkkx+7sO7Bc+I8/GH8sBWJXCD3VEQ472
-         9smtYVr8tlSQ1QxDMrhok5EQDTxI8f4WEIl7TpnL3BToCUS66afjGOcOQFq6xEclIvL5
-         RCDykJ9T0kSttoEop3triLh/dEVzbJ/DjB323ShhBNTTIVA+Z6NV51G+S9UU4UQUMAeT
-         5uVFZfSZPVwM0/sy1JuGdjxplrKoUXKwvYpGIrLhJYZf47TUmtAiOvocCZpTyRtcqIhK
-         zLCA==
-X-Gm-Message-State: AFuF++m/Fk5r5HUBZL1QqrdCKy1nUeokkfQ3QzD7yWGCHMd6JyzsApau
-	uqcuLhg7sdCc9yEelO0oKaWNVCgMbU+xwO6kDdqQ2sIM6NlBscjvjPC3SlB3fhNsDQ==
-X-Gm-Gg: AYBFou0+7hdG7M8h69z6HzjFxeH48NakgYTzhOXGuFAajZO9f5t6KsR/WwjK4SiNDr/
-	bDHZqOoQ+8OQlQXfJ61del3QJwlaIraonTVsiJ99/UiaOxnj94YqEIbbbWi2nqxijKycGG3+iOp
-	zO+Jig4v2d5yvrzW+R9gjdKGMBXAJKBAfQfWaNA+fAZF+GshzmkaGfCnyh0Wk7aVXTNBBw36gHZ
-	WmwHTFRD+52MbkXaZCej6/kWOCEJq45wsNlrVdZ129m9mAQEuDxW03e1SkF0g1WLj8COFC9W8Rz
-	DfEAFepMjGwTUaZXCcwlqDl1nCFJUxX9Wcuc3zweHmu20t4vP+AYTxR8aG74o2cMdUF5JralacW
-	sSup0dDDUJ0Jpz8zdH1/1HyE/WUbeP9hoa+ucJ+Un5mMAYXDJNQ1wa40S4PsjhxNNTgP2uJtKwr
-	M0DFVaJ0qt3bW7TX2gwjFp1o+Tkl2SN0pz5HxEpVoTbIsk59/7oyFc3y60yCL3JhnRxbTMHogx1
-	NgJunF2vlBBptRJdt0SV2Ad6zZtVPLQ4vdOjYaQP0bJxPBiY05g7Q44
-X-Received: by 2002:a17:90a:d64c:b0:392:6638:2e6a with SMTP id 98e67ed59e1d1-39d9c1d260amr18545118a91.13.1789259390011;
-        Sat, 12 Sep 2026 17:29:50 -0700 (PDT)
-Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b78d59sm14899408c88.8.2026.09.12.17.29.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 17:29:49 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
+        b=UyQia2XwUC+4OuxlZi6h4zwuUge/Oo7easUDcy/k9u490y2wAGGhlB5nMEhhQkofvS
+         oTtaA+gxHBf8Sl7iWU6Ei3aRisaXEKLUY2qMyK17AcHK7GzjL7WIgYxc+psFZzyrtPkM
+         kCKmIbBaURoswT+Jzsrmt3WqV/d3yofNbD+M89hJLQDWhbCi9Q0exs8dV334uTm8LkCg
+         8mAm53hNHvlpMVK+CUoRoqssKUN/p5ykLC+gNR7y5jFYgDDMExhg2dp7RPmjcxB5ZJb2
+         /SgdE/rI+q6dV318CH2JBk2UkKOwXuLvycBGDQAB/CxLg2DzWWq7NMYspxEua4W4jGwf
+         QJDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvvB+9gaWd/PD3t/7FuGfyF2Ryzk1ZN58jGjBq6+QugFCRcJw9sSKUkePfEv0S7gwD3cThMECACbul2g==@vger.kernel.org
+X-Gm-Message-State: AFuF++nttiVVmaMFSM8pygJpBc+h9JBZr+W3nPx25wjBjZpCpQsms9+L
+	N4C88O0RIbnHhHIQbI8PyZH5OGZEC8vXFCmt37nbv9/bu50Za9ZdpEs=
+X-Gm-Gg: AYBFou0CY8E+sp6b1yQQ4r8PCAl2codQFq41y7oJ2QQSwnNQqMfvqISi5Zdv8DCHSk0
+	ZTsohgOq0cw6yKGiBP/fKSv7raC7Tw1aNIN6tDGbcsbk8oFYS82s4bPf1V5OfYUjQcH3aEFncDw
+	xc9CyRYTdcI2L15MxlloLoVGsJBKKYDfF3yoLRkRAiJdmG87hd7HmumC5u1zOx+5vxjXpxA5iv0
+	/Ac/o2/Z2AhmA46mr2ON9TA+38T8QMnoqdYcNuPQ3LBpKeYlNXX0E/5gBo7otKrAG+T/oM1wbkI
+	MX/nLdboI1ibuP2qiPQLGfoZqo4i8/JlzNWfXKB3GEMpszSX86WJChb6CWnKPFn9Zr2975nqTGF
+	3MVqxKsEZ+9aJQ+pyPvVbiBP8vHemOszhPQhbNAEHIMKGznuQwKDRoU7z9H1leUgcLixMe+61Sb
+	jGvARkFwKKQ8oaJDBFlEJFITnaF60EB5XLKpy5O4HvqgPOvSEglM9KkncywsVKHVDoMM9nICIai
+	NeRXKaIFS4E1P9PIbaw0CjxjS/sKKgKk5l1ZUVE4gNSYqDz5oltdgbO0SmqrdJEZM4WMo+AqJDf
+	vf+1aval4oc+nZRfIBRcVu7UOn5Z6tlkAQ==
+X-Received: by 2002:a05:622a:138c:b0:530:fc42:f4bf with SMTP id d75a77b69052e-530fc42f6fbmr4960731cf.24.1789263821700;
+        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45b61dsm59685581cf.6.2026.09.12.18.43.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Jacopo Mondi <jacopo@jmondi.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Akinobu Mita <akinobu.mita@gmail.com>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	co+9782320f78c23f40@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: em28xx: reject audio endpoint with zero packet size
-Date: Sat, 12 Sep 2026 17:29:45 -0700
-Message-ID: <20260913002945.338569-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] media: i2c: ov772x: power off sensor on ID read errors
+Date: Sat, 12 Sep 2026 21:43:35 -0400
+Message-ID: <20260913014335.37568-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -75,63 +79,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-em28xx_audio_urb_init() divides by the audio endpoint's wMaxPacketSize
-without checking it, so a USB device that declares a zero-sized audio
-endpoint divides by zero at probe time.
+ov772x_video_probe() powers on the sensor before reading the product and
+manufacturer IDs. Since the register read error checks were added, any read
+failure returns directly and leaves the clock enabled and the powerdown
+GPIO asserted.
 
-Reject a zero-sized audio endpoint like a missing one; the caller already
-unwinds on a negative return.
+Route those failures through the existing power-off path. This covers the
+old OV7720 and OV7725 sensors while preserving the direct return when
+power-on itself fails, the product-ID mismatch path, and control setup
+behavior.
 
-  Oops: divide error: 0000 [#1] SMP NOPTI
-  Workqueue: usb_hub_wq hub_event
-  RIP: 0010:em28xx_audio_init (drivers/media/usb/em28xx/em28xx-audio.c:718)
-  Call Trace:
-   em28xx_init_extension (drivers/media/usb/em28xx/em28xx-core.c:1248)
-   em28xx_init_dev.isra.0 (drivers/media/usb/em28xx/em28xx-cards.c:3887)
-   em28xx_usb_probe (drivers/media/usb/em28xx/em28xx-cards.c:4258)
-   usb_probe_interface (drivers/usb/core/driver.c:396)
-   ...
-   usb_set_configuration (drivers/usb/core/message.c:2268)
-   usb_generic_driver_probe (drivers/usb/core/generic.c:250)
-   usb_probe_device (drivers/usb/core/driver.c:291)
-   ...
-   usb_new_device (drivers/usb/core/hub.c:2703)
-   hub_event (drivers/usb/core/hub.c:5961)
-   process_one_work (kernel/workqueue.c:3322)
-   worker_thread (kernel/workqueue.c:3486)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-  Kernel panic - not syncing: Fatal exception
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-Fixes: 1b3fd2d34266 ("[media] em28xx-audio: don't hardcode audio URB calculus")
+Fixes: 30f3b17eaf49 ("media: ov772x: add checks for register read errors")
 Cc: stable@vger.kernel.org
-Reported-by: co+9782320f78c23f40@bugs.sh
-Closes: https://lore.kernel.org/all/51lCz4R7QyTUKbh4mhXNaNzX0evpk0siOzbh%40bugs.sh/
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/usb/em28xx/em28xx-audio.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/media/i2c/ov772x.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/usb/em28xx/em28xx-audio.c b/drivers/media/usb/em28xx/em28xx-audio.c
-index ccff6be5599e..7f0c5826ce5e 100644
---- a/drivers/media/usb/em28xx/em28xx-audio.c
-+++ b/drivers/media/usb/em28xx/em28xx-audio.c
-@@ -693,6 +693,13 @@ static int em28xx_audio_urb_init(struct em28xx *dev)
- 	}
+diff --git a/drivers/media/i2c/ov772x.c b/drivers/media/i2c/ov772x.c
+index be3ba284ee..e20a109d60 100644
+--- a/drivers/media/i2c/ov772x.c
++++ b/drivers/media/i2c/ov772x.c
+@@ -1280,10 +1280,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
+ 	/* Check and show product ID and manufacturer ID. */
+ 	ret = regmap_read(priv->regmap, PID, &pid);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 	ret = regmap_read(priv->regmap, VER, &ver);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
  
- 	ep_size = em28xx_audio_ep_packet_size(udev, ep);
-+	if (ep_size == 0) {
-+		dev_err(&dev->intf->dev,
-+			"Audio endpoint 0x%02x has a zero packet size\n",
-+			EM28XX_EP_AUDIO);
-+		return -ENODEV;
-+	}
-+
- 	interval = 1 << (ep->bInterval - 1);
+ 	switch (VERSION(pid, ver)) {
+ 	case OV7720:
+@@ -1301,10 +1301,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
  
- 	dev_info(&dev->intf->dev,
+ 	ret = regmap_read(priv->regmap, MIDH, &midh);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 	ret = regmap_read(priv->regmap, MIDL, &midl);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 
+ 	dev_info(&client->dev,
+ 		 "%s Product ID %0x:%0x Manufacturer ID %x:%x\n",
 -- 
-2.43.0
+2.47.1
 
