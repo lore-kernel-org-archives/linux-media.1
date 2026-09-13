@@ -1,76 +1,72 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5062D7DC8
-	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 01:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEF71F1932
+	for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 02:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789263824; cv=none; b=ifrjbx/Lkn9z8E4CAw7Tfi5pQ9gvDLpxIljLbmeMa4mQE/gFmZm1PXIwORPyqUgqL8BA/3ZsoHfXI3STv2dY5xfxxE03ZrWj0dk/WKsBHrjENrQLIgp+WlK04bpxMxXPMQmkhaxTTsRewm9I9NEY2VOf4XFpD61DOR9QqeNp/Lc=
+	t=1789265166; cv=none; b=lVxP+u97pM23m8PU8ZPM8WSG+gMMF8t3JpZ8hC88S4SHrL1x9nPWNUU2gVKgb86lomCzVDBIiYWTSZ6bX0NYUGXoCmKV6GAZZMz2NMlSRL1C9WSos6aDrt/IrbdgriXZS58AytogUAcsPHjneJ3LL8dsqg8tOXlYEKxCXtC+PFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789263824; c=relaxed/simple;
-	bh=xbqmWE7TjVXjZipAzoB6FiWnOv6WAhfUg92RHYzDPuk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LW9pvKJm2Z1P6oc04+X5d2ILRhkbFsa0mxPqoeIw3EvDDHAVKUIGZOZJnq4EReRr8xYvPDAFDbfi8ri+p2kb7idw30M/+E0mXkvxSdvFX/FAnyTGGgfxsV5wzNsoI1i4kE9WW3cAqLSHZyX5cAbWx0dQdAWAA+mgexadnsMwohA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LV1702K3; arc=none smtp.client-ip=74.125.230.205
+	s=arc-20240116; t=1789265166; c=relaxed/simple;
+	bh=u9GSM0aa+VAK9DTcZDNOH2O9K7tKZbEzTahPzC8uM54=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SsS8xOgWjrOnMSZv0xulBj6dmvXhe46NAXddvLxlJHyHOugBCqfi9ZZTh9qYWH3vfEHMJaM2Oyo/88jd07xKHzKCDGdGfp7yLhZ0dqSbz6XBDk8d162O0U8Gp2P3OCbaK40Y0kiIMMoCfJ3ukgGz4wabJ8yxYRLcH+CFYAZg52w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TwzkJS4u; arc=none smtp.client-ip=209.85.222.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LV1702K3"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so11464991cf.0
-        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 18:43:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TwzkJS4u"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-939d698e0d2so89427585a.2
+        for <linux-media@vger.kernel.org>; Sat, 12 Sep 2026 19:06:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789263822; x=1789868622; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789265164; x=1789869964; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
-        b=LV1702K31p9vOXXy4tMlpZ17y2Ok8J6yKTTmvV7uishbEAxzinjkbXFqK/m55hR2nG
-         SV23I2+vuHaRJ+6yRl0H8aUSY9AjU0y7gR5LP49lQxwVcf1wWtOxVC/DuGOURyYlfsbw
-         TTzhgweGhF2Vp2glF5bgAdiitoj0LWRyitc04pBmzIXdSpiI7Wc85MroXtmZiJgFwu0x
-         ZDQLYESd2G/vfTgzIajFGV22FXwpnZ1OifvHfHRTuF3sKOwTbhQLGv2LA63ScC3y5JPp
-         9kbMXSv34k8FzayiVrZJYG56c82QZgittsZBBE0JlFL5gnw5wX43EoEddIUJYGGmyZET
-         XJAw==
+        bh=tTjkICk3Y9ecBJSXUR8cu0YE3Z/N5m7EH1Ek0T2d8Cs=;
+        b=TwzkJS4unH+P2Gd3OizBqc6M13Nio4Fw5S+pFUF169VT02oqVyPU2tjbTrTdBPoofT
+         eIEa1izz33Y94nuI311CE7Z2iAT6qkcswwzAs6oPEAr95s1bLrSqPh8+B6CO40wC5ech
+         iUTfWxLLtmMDDMBmDCznGWQn1I5liNUk8Agv9S2kfqXmF8XgN7V9YsHBd4d7s01wgNqj
+         Famhz/LF9LL13WjO/s02xcAJO99gmoNdwdTT3xE7DP1K1aJDNKDpwTEvioLZG1cNpFPX
+         pbzO9/HynbyjY4yFJxduMN+Y42Fsxdr2WjeBVVuHrtKdF3acnJ28A4XGI+WD7F4F7yCt
+         5DZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789263822; x=1789868622;
+        d=1e100.net; s=20251104; t=1789265164; x=1789869964;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
-        b=UyQia2XwUC+4OuxlZi6h4zwuUge/Oo7easUDcy/k9u490y2wAGGhlB5nMEhhQkofvS
-         oTtaA+gxHBf8Sl7iWU6Ei3aRisaXEKLUY2qMyK17AcHK7GzjL7WIgYxc+psFZzyrtPkM
-         kCKmIbBaURoswT+Jzsrmt3WqV/d3yofNbD+M89hJLQDWhbCi9Q0exs8dV334uTm8LkCg
-         8mAm53hNHvlpMVK+CUoRoqssKUN/p5ykLC+gNR7y5jFYgDDMExhg2dp7RPmjcxB5ZJb2
-         /SgdE/rI+q6dV318CH2JBk2UkKOwXuLvycBGDQAB/CxLg2DzWWq7NMYspxEua4W4jGwf
-         QJDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvvB+9gaWd/PD3t/7FuGfyF2Ryzk1ZN58jGjBq6+QugFCRcJw9sSKUkePfEv0S7gwD3cThMECACbul2g==@vger.kernel.org
-X-Gm-Message-State: AFuF++nttiVVmaMFSM8pygJpBc+h9JBZr+W3nPx25wjBjZpCpQsms9+L
-	N4C88O0RIbnHhHIQbI8PyZH5OGZEC8vXFCmt37nbv9/bu50Za9ZdpEs=
-X-Gm-Gg: AYBFou0CY8E+sp6b1yQQ4r8PCAl2codQFq41y7oJ2QQSwnNQqMfvqISi5Zdv8DCHSk0
-	ZTsohgOq0cw6yKGiBP/fKSv7raC7Tw1aNIN6tDGbcsbk8oFYS82s4bPf1V5OfYUjQcH3aEFncDw
-	xc9CyRYTdcI2L15MxlloLoVGsJBKKYDfF3yoLRkRAiJdmG87hd7HmumC5u1zOx+5vxjXpxA5iv0
-	/Ac/o2/Z2AhmA46mr2ON9TA+38T8QMnoqdYcNuPQ3LBpKeYlNXX0E/5gBo7otKrAG+T/oM1wbkI
-	MX/nLdboI1ibuP2qiPQLGfoZqo4i8/JlzNWfXKB3GEMpszSX86WJChb6CWnKPFn9Zr2975nqTGF
-	3MVqxKsEZ+9aJQ+pyPvVbiBP8vHemOszhPQhbNAEHIMKGznuQwKDRoU7z9H1leUgcLixMe+61Sb
-	jGvARkFwKKQ8oaJDBFlEJFITnaF60EB5XLKpy5O4HvqgPOvSEglM9KkncywsVKHVDoMM9nICIai
-	NeRXKaIFS4E1P9PIbaw0CjxjS/sKKgKk5l1ZUVE4gNSYqDz5oltdgbO0SmqrdJEZM4WMo+AqJDf
-	vf+1aval4oc+nZRfIBRcVu7UOn5Z6tlkAQ==
-X-Received: by 2002:a05:622a:138c:b0:530:fc42:f4bf with SMTP id d75a77b69052e-530fc42f6fbmr4960731cf.24.1789263821700;
-        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
+        bh=tTjkICk3Y9ecBJSXUR8cu0YE3Z/N5m7EH1Ek0T2d8Cs=;
+        b=h1eU52KdaF3kH9qbCwy4mHL8Db91nurLtaNvfkSoXJOhh2mEp8Nalb/p5GLHk9tKm8
+         75Znf20KxIQ+zaJSvUTWczIhYLTKQOaZVj8bmYAHgCSzqTqLkAJl2n/OG+iPD2Goejdj
+         Pq0jll2jZIuURUlZiIahxl0VPTsDhKKtpmfwZMSBu/w2dGtzAKKUmgRj993W9Tb00zmr
+         GeUgGD4fTRJafkBsnCYRZ0O8DXgtga+IgLLvBb9Sqf1j2dYRTZ1cyvrRBCGpEsFimmij
+         QpCKOLfLaWQvDt/+I8vS88/+WXFS6PfG6VKHOg7gilqbYriRzUZurrPVVA6Udi01PaVZ
+         +yDA==
+X-Gm-Message-State: AFuF++mPvcxNjvC8UPQ/P20KxJlpX7oE3WOQk7aRFKxIEtVvaArh6Ifi
+	XvRo4lmrxEE9uM9XsS/9ts19HaQqm+9/OTuyFPauqTdzX2qIqdyZ9xA=
+X-Gm-Gg: AYBFou2UIDrwIz8csg17IyPB7TsvUKIfO/UQZohFewQ0TTmuwgj3a5RUEdb9k201uBx
+	KZjVhqiqjjizK05cZ6a1JzMHqgulSEpCfWcXi0cK8azk0FYGC1lNzIWzFs+mb88bfudv/8J5GTK
+	htTQaOxqPyAQfmSI8QaUhLiL3O8iXaqLBuI+5o//Upnocd6rYO7oBBHTmaGBHHaElqrhZsjvWFl
+	pUysYASaH07JdgxPppPGyJOHYwbVYydjDPfF3wL8tnI6VcGTnUUN0jhS3gyOy/w/jZ9sDMh4L3W
+	GKikxpJMmFOWrjrhfu7B2aV051nbA892GvoC9VX+Az8/Dl4/ZEXKLgYfKmEMNoFwp8frk/2bmHP
+	dLDEqxhVEIeUH9NVkDTO+sjR1Nep8iodyBzxUgtrlCGnQkq0As5TNLZsyeQZpOMCMkqUpXMGYP2
+	i9pqPvWygFC0pP8MNzCYpSa3jiKX9F0lfSeOUmk2yNcRkywfvl1CeBVxcs6xRmbIAX1WnbvzZ2r
+	wyhvqmvI+OQU+fRAdHzP1lICuMe19BRgvHxM0aIVg59aGCdJ0uDZitfnLbNN1hL4RuqCI4Z7RxO
+	Lg0Nuhsjgf0PsDmVb2pIbYUvQKMpC3mXoQ==
+X-Received: by 2002:a05:620a:6191:b0:939:3b56:c416 with SMTP id af79cd13be357-939ea0e6c8fmr1489184285a.8.1789265164106;
+        Sat, 12 Sep 2026 19:06:04 -0700 (PDT)
 Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45b61dsm59685581cf.6.2026.09.12.18.43.39
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm540462185a.43.2026.09.12.19.06.03
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
+        Sat, 12 Sep 2026 19:06:03 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Jacopo Mondi <jacopo@jmondi.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Akinobu Mita <akinobu.mita@gmail.com>,
-	linux-media@vger.kernel.org,
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: i2c: ov772x: power off sensor on ID read errors
-Date: Sat, 12 Sep 2026 21:43:35 -0400
-Message-ID: <20260913014335.37568-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+Subject: [PATCH] media: cx23885: unregister DVB bus when SP2 CI setup fails
+Date: Sat, 12 Sep 2026 22:05:54 -0400
+Message-ID: <20260913020554.55506-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,59 +75,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ov772x_video_probe() powers on the sensor before reading the product and
-manufacturer IDs. Since the register read error checks were added, any read
-failure returns directly and leaves the clock enabled and the powerdown
-GPIO asserted.
+The DVBSKY S950C, DVBSKY T980C and TechnoTrend CT2-4500 CI paths register
+the DVB bus before attaching their SP2 CI client. If that client cannot be
+created, bound, or pinned, the current error path removes the I2C frontend
+components and only deallocates the frontend list, leaving the registered
+DVB adapter behind. Removing an I2C demod before unregistering the DVB bus
+can also expose the use-after-free ordering fixed for the normal remove
+path.
 
-Route those failures through the existing power-off path. This covers the
-old OV7720 and OV7725 sensors while preserving the direct return when
-power-on itself fails, the product-ID mismatch path, and control setup
-behavior.
+Unregister the DVB bus immediately when SP2 CI setup fails, before the
+existing I2C client cleanup. The bus helper empties the frontend list, so
+the later frontend deallocation has nothing left to release. Keep failures
+from vb2_dvb_register_bus() on the existing cleanup path. Also release an
+unbound SP2 client and propagate the actual I2C creation or CI registration
+error.
 
 This issue was identified during our ongoing static-analysis research while
 reviewing kernel code.
 
-Fixes: 30f3b17eaf49 ("media: ov772x: add checks for register read errors")
+Fixes: 2b0aac3011bc ("[media] cx23885: move CI/MAC registration to a separate function")
 Cc: stable@vger.kernel.org
 Assisted-by: OpenAI:GPT-5.6
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/i2c/ov772x.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/media/pci/cx23885/cx23885-dvb.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/i2c/ov772x.c b/drivers/media/i2c/ov772x.c
-index be3ba284ee..e20a109d60 100644
---- a/drivers/media/i2c/ov772x.c
-+++ b/drivers/media/i2c/ov772x.c
-@@ -1280,10 +1280,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
- 	/* Check and show product ID and manufacturer ID. */
- 	ret = regmap_read(priv->regmap, PID, &pid);
- 	if (ret < 0)
--		return ret;
-+		goto done;
- 	ret = regmap_read(priv->regmap, VER, &ver);
- 	if (ret < 0)
--		return ret;
-+		goto done;
+diff --git a/drivers/media/pci/cx23885/cx23885-dvb.c b/drivers/media/pci/cx23885/cx23885-dvb.c
+--- a/drivers/media/pci/cx23885/cx23885-dvb.c
++++ b/drivers/media/pci/cx23885/cx23885-dvb.c
+@@ -1158,8 +1158,12 @@ static int dvb_register_ci_mac(struct cx23885_tsport *port)
+ 		info.platform_data = &sp2_config;
+ 		request_module(info.type);
+ 		client_ci = i2c_new_client_device(&i2c_bus->i2c_adap, &info);
+-		if (!i2c_client_has_driver(client_ci))
++		if (IS_ERR(client_ci))
++			return PTR_ERR(client_ci);
++		if (!client_ci->dev.driver) {
++			i2c_unregister_device(client_ci);
+ 			return -ENODEV;
++		}
+ 		if (!try_module_get(client_ci->dev.driver->owner)) {
+ 			i2c_unregister_device(client_ci);
+ 			return -ENODEV;
+@@ -1202,7 +1206,7 @@ static int dvb_register(struct cx23885_tsport *port)
+ 	int (*p_set_voltage)(struct dvb_frontend *fe,
+ 			     enum fe_sec_voltage voltage) = NULL;
+ 	int mfe_shared = 0; /* bus not shared by default */
+-	int ret;
++	int ret = -EINVAL;
  
- 	switch (VERSION(pid, ver)) {
- 	case OV7720:
-@@ -1301,10 +1301,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
+ 	/* Get the first frontend */
+ 	fe0 = vb2_dvb_get_frontend(&port->frontends, 1);
+@@ -2587,8 +2591,10 @@ static int dvb_register(struct cx23885_tsport *port)
  
- 	ret = regmap_read(priv->regmap, MIDH, &midh);
- 	if (ret < 0)
--		return ret;
-+		goto done;
- 	ret = regmap_read(priv->regmap, MIDL, &midl);
- 	if (ret < 0)
--		return ret;
-+		goto done;
+ 	ret = dvb_register_ci_mac(port);
+-	if (ret)
++	if (ret) {
++		vb2_dvb_unregister_bus(&port->frontends);
+ 		goto frontend_detach;
++	}
  
- 	dev_info(&client->dev,
- 		 "%s Product ID %0x:%0x Manufacturer ID %x:%x\n",
+ 	return 0;
+ 
+ frontend_detach:
+@@ -2618,7 +2624,7 @@ static int dvb_register(struct cx23885_tsport *port)
+ 
+ 	port->gate_ctrl = NULL;
+ 	vb2_dvb_dealloc_frontends(&port->frontends);
+-	return -EINVAL;
++	return ret;
+ }
+ 
+ int cx23885_dvb_register(struct cx23885_tsport *port)
 -- 
 2.47.1
-
