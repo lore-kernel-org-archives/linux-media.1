@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8357D44998F
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:42:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A55449B37
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386134; cv=none; b=TMUbWZAZw0083F/Euj2dK7zqgln1uQ0mbhwzMdOJcFsCUsFzxNWpsv8EUkmPDJUk8I4U7pvQPNQbG6z536QZmY0Ir1j499J5iePupWHbKjjBEslZjK9xadvviRhTMIidKrrOvthnHFH142XtmIjf2fHxvJnXmYSFldcjiHNs6zE=
+	t=1789386135; cv=none; b=K7fWdXIlVRvnBS3bB5I6usEVmYJQLSDMuwqSoO82t8qNOBjEYO0ltX2MbbxrDokkwR2EfZA1q7I7ACLLwbnBaNZ+LO8p5vh26iIdtVa9JAi3/Q0g1KpKJSgQm8duT4PWq2zFXYyR7Ru8M9Lo2sSWc5cDZ8BPTqCbg9uIntNhxc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386134; c=relaxed/simple;
-	bh=nM0x+/p4MerQCNnFXufY8ca46/HitlqunY0NyMIAPYE=;
+	s=arc-20240116; t=1789386135; c=relaxed/simple;
+	bh=sKjyWQWRP3SE7mCM5EAXmyMs5H6AVUKPk/U6t2Kcrds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qWcw7eT17hxe4qb7Hbqw8B1vfC89DJFBKuSpZ3LA3eWliYm27FfIOKBI9yt2CrF9aIBNJg82uZKbjapeQOkORvEIPtpyRQ23yA2DoQRY7MoogiUnKIi1IvqhZEWmFN8HAMUFdl4PsaVMWh1dq/tBuPdTAdmkfqQvwv6UkS7l6II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nvfYs6Jc; arc=none smtp.client-ip=192.198.163.9
+	 MIME-Version; b=NNNeWxuILf8XKuZYbnRC+n8Vz3LIUaawR69IzztEVhWchgaIMWsIKEjGaxy1Xkwftvkac68MKsVd6y3e5rxz8FYAXo5Tz81EZPjkAasWik1b2Qg35iKZ/Mv/TktflkvWMnN0xcrd/8d2rAf2T8NWhYXxHkDHXcIKWtxpmdg1yZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wu+Ju3dp; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nvfYs6Jc"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wu+Ju3dp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789386132; x=1820922132;
+  t=1789386133; x=1820922133;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=nM0x+/p4MerQCNnFXufY8ca46/HitlqunY0NyMIAPYE=;
-  b=nvfYs6JcZ4XnZO+eaqGE7znwS5/m2U6G9GCHOsCmZzHx05dTvSMJzpz4
-   InEbQJicyb5TcvjFXSX39nyi0XhNa61ZS+dbb/I5iGwQGnrdUEUxj2/+R
-   743mhKAkyXVMkKwALn6K5XtY0pji1SYENojwSl+Af8lJ73sUQIqCcHfBx
-   K+6YaXNiMgHPZv8f+p2rWgsAsVksTtjxeQ3+6u8+oVw4kGD8L4LHSSsnR
-   6vaZLSZ2t8XUY/w2JeYDjP6WEqr03aYOf33QryfjNSuPrU0OiwMQbkuOF
-   RV7Drlfcx2QqUmGRPfHnTvJIhOFDJL2VZ3G3EzFxGSoHpN16/iJ7JbSjd
-   w==;
-X-CSE-ConnectionGUID: ajlWlHfMTPajkDg44Zqgng==
-X-CSE-MsgGUID: haQ0FlSYT62XN1Q7dJHO7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100397109"
+  bh=sKjyWQWRP3SE7mCM5EAXmyMs5H6AVUKPk/U6t2Kcrds=;
+  b=Wu+Ju3dpKMMmVtQzVQOzD1lwvmsTxTEzK6wT0dzTNr9bT6KXjKdCuqvy
+   cgqKZIXWeR386gaMmJWxoBPd3KOAa1WDS07Niy6bPd018A+GLbV5zHg3z
+   d23mXH1YQI36rGlPGswcYHIKEodiz37tGTvA2/Igv4GdIX3MIn5OuNXqn
+   EO8NIlFAj1rJmQ2JpDI8GazdLfmG0SBrZWhQVCJ52qPc+NMxP5Dt1sqs+
+   GTZ8zqQ+lt2NNPR+VvLTtrTEqgHsPpXRt1xLj4TeVjuW4fPqdUdYbC867
+   bl0196CKxc/P13rpjRzJ1QwfRwyoUvD3ghEQ2v2J+LPKLNM0ii3HFu+vn
+   g==;
+X-CSE-ConnectionGUID: EXN+i4CRQz2t4laE6y76MA==
+X-CSE-MsgGUID: P/Og3Hg3Q9GA+rW2HYYikw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100397120"
 X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="100397109"
+   d="scan'208";a="100397120"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
   by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:42:07 -0700
-X-CSE-ConnectionGUID: nHO891I7ScCjCAdo3qEY8A==
-X-CSE-MsgGUID: bLgrQRfQRbmJ5/JlTvaZiA==
+X-CSE-ConnectionGUID: 8fZSSzWTQkSQJBgtLhVz+w==
+X-CSE-MsgGUID: Pfk+w26+QSeoXHz1xaGLAw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="274538824"
+   d="scan'208";a="274538825"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.61])
   by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:42:01 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id CAFF7121BC0;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id BBFF3121BBD;
 	Mon, 14 Sep 2026 14:41:56 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x654D-00000002PYB-1C3p;
+	id 1x654D-00000002PXv-0v4z;
 	Mon, 14 Sep 2026 14:41:45 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	Rishikesh Donadkar <r-donadkar@ti.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>,
 	Antti Laakso <antti.laakso@linux.intel.com>
-Subject: [PATCH v8 12/13] media: cvs: Drop comments on sub-device operations
-Date: Mon, 14 Sep 2026 14:41:43 +0300
-Message-ID: <20260914114145.574791-13-sakari.ailus@linux.intel.com>
+Subject: [PATCH v8 08/13] media: v4l2-subdev: Move op check to sub-device op wrappers
+Date: Mon, 14 Sep 2026 14:41:39 +0300
+Message-ID: <20260914114145.574791-9-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260914114145.574791-1-sakari.ailus@linux.intel.com>
 References: <20260914114145.574791-1-sakari.ailus@linux.intel.com>
@@ -96,157 +96,282 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sub-device operations are well documented in the V4L2 sub-device
-framework already. Drop them from the CVS driver.
+In anticipation of performing work for sub-device operation when the
+driver doesn't implement one, move the check of operation existence to the
+wrapper itself.
+
+No functional change intended.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- drivers/media/i2c/cvs/v4l2.c | 82 ------------------------------------
- 1 file changed, 82 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 92 ++++++++++++++++-----------
+ include/media/v4l2-subdev.h           |  6 +-
+ 2 files changed, 59 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
-index 863112cde266..e2104ed2b932 100644
---- a/drivers/media/i2c/cvs/v4l2.c
-+++ b/drivers/media/i2c/cvs/v4l2.c
-@@ -72,19 +72,6 @@ static int csi_set_link_cfg(struct icvs *ctx, u64 link_freq)
-  * Streaming
-  */
- 
--/**
-- * cvs_csi_enable_streams - Start streaming through the bridge
-- * @sd: Sub-device pointer
-- * @state: Active state
-- * @pad: Pad identifier (must be ICVS_CSI_PAD_SOURCE)
-- * @streams_mask: Streams to enable (bit 0 supported)
-- *
-- * Runtime-resumes the bridge (triggering cvs_runtime_resume() to claim CSI-2
-- * link ownership), fetches the link frequency, programs the MIPI configuration,
-- * and forwards the enable request downstream.
-- *
-- * Return: 0 on success or negative errno.
-- */
- static int cvs_csi_enable_streams(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *state,
- 				  u32 pad, u64 streams_mask)
-@@ -130,19 +117,6 @@ static int cvs_csi_enable_streams(struct v4l2_subdev *sd,
- 	return ret;
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index f392586d5dba..f53bac995822 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -244,20 +244,32 @@ static inline int check_format(struct v4l2_subdev *sd,
+ 	       check_state(sd, state, format->which, format->pad, format->stream);
  }
  
--/**
-- * cvs_csi_disable_streams - Stop streaming through the bridge
-- * @sd: Sub-device pointer
-- * @state: Active state
-- * @pad: Pad identifier (must be ICVS_CSI_PAD_SOURCE)
-- * @streams_mask: Streams to disable (bit 0 supported)
-- *
-- * Disables the remote sensor stream then drops the PM reference acquired
-- * during enable. After the autosuspend delay, cvs_runtime_suspend() will
-- * return CSI-2 link ownership to CVS firmware.
-- *
-- * Return: 0 on success or negative errno.
-- */
- static int cvs_csi_disable_streams(struct v4l2_subdev *sd,
++#define do_subdev_call(sd, check, o, f, args...)	\
++	(!(sd)->ops->o->f ? -ENOIOCTLCMD : (check) ? :	\
++	 (sd)->ops->o->f(sd, ##args))
++
+ static int call_get_fmt(struct v4l2_subdev *sd,
+ 			struct v4l2_subdev_state *state,
+ 			struct v4l2_subdev_format *format)
+ {
+-	return check_format(sd, state, format) ? :
+-	       sd->ops->pad->get_fmt(sd, state, format);
++	return do_subdev_call(sd, check_format(sd, state, format), pad, get_fmt,
++			      state, format);
+ }
+ 
+ static int call_set_fmt(struct v4l2_subdev *sd,
+ 			struct v4l2_subdev_state *state,
+ 			struct v4l2_subdev_format *format)
+ {
+-	return check_format(sd, state, format) ? :
+-	       sd->ops->pad->set_fmt(sd, state, format);
++	return do_subdev_call(sd, check_format(sd, state, format), pad, set_fmt,
++			      state, format);
++}
++
++static int check_which_pad_state(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *state, u32 which,
++				 u32 pad, u32 stream)
++{
++	return check_which(which) ? : check_pad(sd, pad) ? :
++		check_state(sd, state, which, pad, stream);
+ }
+ 
+ static int call_enum_mbus_code(struct v4l2_subdev *sd,
+@@ -267,9 +279,9 @@ static int call_enum_mbus_code(struct v4l2_subdev *sd,
+ 	if (!code)
+ 		return -EINVAL;
+ 
+-	return check_which(code->which) ? : check_pad(sd, code->pad) ? :
+-	       check_state(sd, state, code->which, code->pad, code->stream) ? :
+-	       sd->ops->pad->enum_mbus_code(sd, state, code);
++	return do_subdev_call(sd, check_which_pad_state(sd, state, code->which,
++							code->pad, code->stream),
++			      pad, enum_mbus_code, state, code);
+ }
+ 
+ static int call_enum_frame_size(struct v4l2_subdev *sd,
+@@ -279,9 +291,9 @@ static int call_enum_frame_size(struct v4l2_subdev *sd,
+ 	if (!fse)
+ 		return -EINVAL;
+ 
+-	return check_which(fse->which) ? : check_pad(sd, fse->pad) ? :
+-	       check_state(sd, state, fse->which, fse->pad, fse->stream) ? :
+-	       sd->ops->pad->enum_frame_size(sd, state, fse);
++	return do_subdev_call(sd, check_which_pad_state(sd, state, fse->which,
++							fse->pad, fse->stream),
++			      pad, enum_frame_size, state, fse);
+ }
+ 
+ static int call_enum_frame_interval(struct v4l2_subdev *sd,
+@@ -291,9 +303,9 @@ static int call_enum_frame_interval(struct v4l2_subdev *sd,
+ 	if (!fie)
+ 		return -EINVAL;
+ 
+-	return check_which(fie->which) ? : check_pad(sd, fie->pad) ? :
+-	       check_state(sd, state, fie->which, fie->pad, fie->stream) ? :
+-	       sd->ops->pad->enum_frame_interval(sd, state, fie);
++	return do_subdev_call(sd, check_which_pad_state(sd, state, fie->which,
++							fie->pad, fie->stream),
++			      pad, enum_frame_interval, state, fie);
+ }
+ 
+ static inline int check_selection(struct v4l2_subdev *sd,
+@@ -311,16 +323,16 @@ static int call_get_selection(struct v4l2_subdev *sd,
+ 			      struct v4l2_subdev_state *state,
+ 			      struct v4l2_subdev_selection *sel)
+ {
+-	return check_selection(sd, state, sel) ? :
+-	       sd->ops->pad->get_selection(sd, state, sel);
++	return do_subdev_call(sd, check_selection(sd, state, sel),
++			      pad, get_selection, state, sel);
+ }
+ 
+ static int call_set_selection(struct v4l2_subdev *sd,
+ 			      struct v4l2_subdev_state *state,
+ 			      struct v4l2_subdev_selection *sel)
+ {
+-	return check_selection(sd, state, sel) ? :
+-	       sd->ops->pad->set_selection(sd, state, sel);
++	return do_subdev_call(sd, check_selection(sd, state, sel),
++			      pad, set_selection, state, sel);
+ }
+ 
+ static inline int check_frame_interval(struct v4l2_subdev *sd,
+@@ -338,16 +350,16 @@ static int call_get_frame_interval(struct v4l2_subdev *sd,
  				   struct v4l2_subdev_state *state,
- 				   u32 pad, u64 streams_mask)
-@@ -168,15 +142,6 @@ static int cvs_csi_disable_streams(struct v4l2_subdev *sd,
- /*
-  * Pad operations / formats
-  */
--/**
-- * cvs_csi_init_state - Initialize pad formats in subdev state
-- * @sd: Sub-device
-- * @state: State container
-- *
-- * Sets all pad formats to a minimal 1x1 default.
-- *
-- * Return: 0.
-- */
- static int cvs_csi_init_state(struct v4l2_subdev *sd,
- 			      struct v4l2_subdev_state *state)
+ 				   struct v4l2_subdev_frame_interval *fi)
  {
-@@ -187,17 +152,6 @@ static int cvs_csi_init_state(struct v4l2_subdev *sd,
- 	return 0;
+-	return check_frame_interval(sd, state, fi) ? :
+-	       sd->ops->pad->get_frame_interval(sd, state, fi);
++	return do_subdev_call(sd, check_frame_interval(sd, state, fi),
++			      pad, get_frame_interval, state, fi);
  }
  
--/**
-- * cvs_csi_set_fmt - Negotiate pad format
-- * @sd: Sub-device
-- * @state: State
-- * @format: Desired / returned format
-- *
-- * Mirrors sink format onto source pad. Accepts many media bus codes, falling
-- * back to Y8 if unsupported. Normalizes field setting.
-- *
-- * Return: 0.
-- */
- static int cvs_csi_set_fmt(struct v4l2_subdev *sd,
- 			   struct v4l2_subdev_state *state,
- 			   struct v4l2_subdev_format *format)
-@@ -320,17 +274,6 @@ static int cvs_csi_set_fmt(struct v4l2_subdev *sd,
- 	return 0;
+ static int call_set_frame_interval(struct v4l2_subdev *sd,
+ 				   struct v4l2_subdev_state *state,
+ 				   struct v4l2_subdev_frame_interval *fi)
+ {
+-	return check_frame_interval(sd, state, fi) ? :
+-	       sd->ops->pad->set_frame_interval(sd, state, fi);
++	return do_subdev_call(sd, check_frame_interval(sd, state, fi),
++			      pad, set_frame_interval, state, fi);
  }
  
--/**
-- * cvs_csi_get_mbus_config - Provide current CSI-2 bus configuration
-- * @sd: Sub-device
-- * @pad: Pad index
-- * @cfg: Returned bus config
-- *
-- * Fills lane ordering and number of lanes; retrieves link frequency from
-- * remote entity.
-- *
-- * Return: 0 on success or negative errno.
-- */
- static int cvs_csi_get_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
- 				   struct v4l2_mbus_config *cfg)
+ static int call_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+@@ -361,6 +373,9 @@ static int call_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+ 		return -EOPNOTSUPP;
+ #endif
+ 
++	if (!sd->ops->pad->get_frame_desc)
++		return -ENOIOCTLCMD;
++
+ 	memset(fd, 0, sizeof(*fd));
+ 
+ 	ret = sd->ops->pad->get_frame_desc(sd, pad, fd);
+@@ -405,12 +420,12 @@ static inline int check_edid(struct v4l2_subdev *sd,
+ 
+ static int call_get_edid(struct v4l2_subdev *sd, struct v4l2_subdev_edid *edid)
  {
-@@ -385,17 +328,6 @@ static const struct media_entity_operations cvs_csi_entity_ops = {
- /*
-  * Async notifier
-  */
--/**
-- * cvs_csi_notify_bound - Remote sensor bound callback
-- * @notifier: Async notifier
-- * @sd: Remote subdev
-- * @asc: Async match connection
-- *
-- * Locates the source pad of the remote sensor and creates a media link to
-- * the CVS bridge sink pad enabling it by default.
-- *
-- * Return: 0 on success or negative errno.
-- */
- static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
- 				struct v4l2_subdev *sd,
- 				struct v4l2_async_connection *asc)
-@@ -419,12 +351,6 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
- 	return v4l2_device_register_subdev_nodes(sd->v4l2_dev);
+-	return check_edid(sd, edid) ? : sd->ops->pad->get_edid(sd, edid);
++	return do_subdev_call(sd, check_edid(sd, edid), pad, get_edid, edid);
  }
  
--/**
-- * cvs_csi_notify_unbind - Remote sensor unbind callback
-- * @notifier: Notifier
-- * @sd: Remote subdev
-- * @asc: Connection
-- */
- static void cvs_csi_notify_unbind(struct v4l2_async_notifier *notifier,
- 				  struct v4l2_subdev *sd,
- 				  struct v4l2_async_connection *asc)
-@@ -442,14 +368,6 @@ static const struct v4l2_async_notifier_operations cvs_csi_notify_ops = {
- /*
-  * Controls
-  */
--/**
-- * cvs_csi_init_controls - Initialize V4L2 controls
-- * @ctx: CVS context
-- *
-- * Currently sets up a read-only privacy control placeholder.
-- *
-- * Return: 0 on success or negative errno.
-- */
- static int cvs_csi_init_controls(struct icvs *ctx)
+ static int call_set_edid(struct v4l2_subdev *sd, struct v4l2_subdev_edid *edid)
  {
- 	struct v4l2_ctrl *privacy_ctrl;
+-	return check_edid(sd, edid) ? : sd->ops->pad->set_edid(sd, edid);
++	return do_subdev_call(sd, check_edid(sd, edid), pad, set_edid, edid);
+ }
+ 
+ static int call_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
+@@ -419,8 +434,8 @@ static int call_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
+ 	if (!timings)
+ 		return -EINVAL;
+ 
+-	return check_pad(sd, pad) ? :
+-	       sd->ops->pad->s_dv_timings(sd, pad, timings);
++	return do_subdev_call(sd, check_pad(sd, pad),
++			      pad, s_dv_timings, pad, timings);
+ }
+ 
+ static int call_g_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
+@@ -429,8 +444,8 @@ static int call_g_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
+ 	if (!timings)
+ 		return -EINVAL;
+ 
+-	return check_pad(sd, pad) ? :
+-	       sd->ops->pad->g_dv_timings(sd, pad, timings);
++	return do_subdev_call(sd,  check_pad(sd, pad),
++			      pad, g_dv_timings, pad, timings);
+ }
+ 
+ static int call_query_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
+@@ -439,8 +454,8 @@ static int call_query_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
+ 	if (!timings)
+ 		return -EINVAL;
+ 
+-	return check_pad(sd, pad) ? :
+-	       sd->ops->pad->query_dv_timings(sd, pad, timings);
++	return do_subdev_call(sd, check_pad(sd, pad),
++			      pad, query_dv_timings, pad, timings);
+ }
+ 
+ static int call_dv_timings_cap(struct v4l2_subdev *sd,
+@@ -449,8 +464,8 @@ static int call_dv_timings_cap(struct v4l2_subdev *sd,
+ 	if (!cap)
+ 		return -EINVAL;
+ 
+-	return check_pad(sd, cap->pad) ? :
+-	       sd->ops->pad->dv_timings_cap(sd, cap);
++	return do_subdev_call(sd, check_pad(sd, cap->pad),
++			      pad, dv_timings_cap, cap);
+ }
+ 
+ static int call_enum_dv_timings(struct v4l2_subdev *sd,
+@@ -459,8 +474,8 @@ static int call_enum_dv_timings(struct v4l2_subdev *sd,
+ 	if (!dvt)
+ 		return -EINVAL;
+ 
+-	return check_pad(sd, dvt->pad) ? :
+-	       sd->ops->pad->enum_dv_timings(sd, dvt);
++	return do_subdev_call(sd, check_pad(sd, dvt->pad),
++			      pad, enum_dv_timings, dvt);
+ }
+ 
+ static int call_get_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
+@@ -468,14 +483,17 @@ static int call_get_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
+ {
+ 	memset(config, 0, sizeof(*config));
+ 
+-	return check_pad(sd, pad) ? :
+-	       sd->ops->pad->get_mbus_config(sd, pad, config);
++	return do_subdev_call(sd, check_pad(sd, pad), pad, get_mbus_config,
++			      pad, config);
+ }
+ 
+ static int call_s_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	int ret;
+ 
++	if (!sd->ops->video->s_stream)
++		return -ENOIOCTLCMD;
++
+ 	/*
+ 	 * The .s_stream() operation must never be called to start or stop an
+ 	 * already started or stopped subdev. Catch offenders but don't return
+@@ -509,7 +527,7 @@ static int call_s_stream(struct v4l2_subdev *sd, int enable)
+  * wrapper handles the case where the caller does not provide the called
+  * subdev's state. This should be removed when all the callers are fixed.
+  */
+-#define DEFINE_STATE_WRAPPER(f, arg_type)                                  \
++#define DEFINE_STATE_WRAPPER(f, arg_type)				   \
+ 	static int call_##f##_state(struct v4l2_subdev *sd,                \
+ 				    struct v4l2_subdev_state *_state,      \
+ 				    arg_type *arg)                         \
+@@ -526,7 +544,7 @@ static int call_s_stream(struct v4l2_subdev *sd, int enable)
+ 
+ #else /* CONFIG_MEDIA_CONTROLLER */
+ 
+-#define DEFINE_STATE_WRAPPER(f, arg_type)                            \
++#define DEFINE_STATE_WRAPPER(f, arg_type)			     \
+ 	static int call_##f##_state(struct v4l2_subdev *sd,          \
+ 				    struct v4l2_subdev_state *state, \
+ 				    arg_type *arg)                   \
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index 04fa23b9a651..b8874eeec2e5 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -1951,14 +1951,16 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
+ 		int __result;						\
+ 		if (!__sd)						\
+ 			__result = -ENODEV;				\
+-		else if (!(__sd->ops->o && __sd->ops->o->f))		\
++		else if (!__sd->ops->o)					\
+ 			__result = -ENOIOCTLCMD;			\
+ 		else if (v4l2_subdev_call_wrappers.o &&			\
+ 			 v4l2_subdev_call_wrappers.o->f)		\
+ 			__result = v4l2_subdev_call_wrappers.o->f(	\
+ 							__sd, ##args);	\
+-		else							\
++		else if (__sd->ops->o->f)				\
+ 			__result = __sd->ops->o->f(__sd, ##args);	\
++		else							\
++			__result = -ENOIOCTLCMD;			\
+ 		__result;						\
+ 	})
+ 
 -- 
 2.47.3
 
