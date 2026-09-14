@@ -1,163 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7AF4483A0;
-	Mon, 14 Sep 2026 11:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFED4446EE
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385034; cv=none; b=Y1ZY02/GCxBirzSZjkwdQWWZ4RnSp7Hv42zNWOyqDf3kSNaYs+vbtKZ3uWsWYXRq/th1UpvX4crjx6g5H1SCqFnd7ECHYeobWxc5hivMEg88LfSqpniGshk8WYrvdjElPYsaHUR1cN083oX6Ai17itolBCwH66olfy8bOFIbaIs=
+	t=1789385232; cv=none; b=i7zZdtwDstSaxQyJPr3+blr2yobkLAMc1xgoSG9IUhenhiCaa7QpOLll5fHFTZVHNUDx7wXfegtbc2l9n0N1UQK4Sd11ElmAK3FwuVQVmmfye9yaHVfKaoY6gReK1DCN6z0z5YfadTfNHbT5F93fDLfyEy122hgxHoFzzWVLDYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385034; c=relaxed/simple;
-	bh=OmXiaQz8oAAg8BSkVKc3iM7ZxXZ/pDOr0Gp5QWWZ59o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dh7/d7BjUUnBYtM3mlqZFLZtDuRaMVmu2zlJLj6TvTOM1WLhUFGD/jKu1f7gfm5pmx4+ytfwKXRzCjJep0CKggh/2a7ju4+ymAF4aAk/P0TcwNBtA6RejE0VL5EARAUgu1WFa9WPsJqSdhDblcLE3rZxdwljfvpO1wk/pReIjE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlT0ZyR3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789385232; c=relaxed/simple;
+	bh=S3cHWu7xcUvy0eCh33hOcgT4RaUxYY6azMPOstL4lBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k6ioioMgL/5LwIbBPnHQFMH6YQ+YmzXvV41Wurgte2wbacDwig7JI8MF9AnZ1tahaLIXIQf2e0Z+RhIMOZmVKE+4YofPY3dOITWqs9F2IzX93okCh+JvRVkuUKziyUtojtxFOuHIXNgmRCH9JXddulvaMlLCbPKoO3bT4by68GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GosI7bja; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XkNG6nSn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlT0ZyR3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAD81F00893;
-	Mon, 14 Sep 2026 11:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789385032;
-	bh=xO95Pk5XRLE0oFtxojC3cgHS1ScHTkbYcAUHrZA8bgM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JlT0ZyR3T4YxaoWD2Gy/8ilH9ZdzDvp8yYkAbLDw18vxgb0xs1z25SKd5SCk/v6Xb
-	 2W6J1OORi84LXIaIP6FyM//CxgpOYApjVFD6j/Zf+RxxYBUuWtoMvnPfo7+OHSVTFU
-	 5rHbOKZL3uC2Nr/g+/lKqHiZJrBnBqAJyMEeuTwwpRP0CgmDgGH/aLtxa+y+l7rj/T
-	 jT8i2UzjTcdKjYthKu1N1fIJ0TDVUEjkvkB/RXgLy7euriCuVma+JaP9Mdfv+4Ppzs
-	 mP6z+qXFlhNXNHrisQ2Tl4TIvap0oYRBbnTNZ4v2OPHopn3pAqXgO+7ofmTBH7c8b3
-	 7SflxJ9eN1n6Q==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [PATCH v6 16/18] PCI/P2PDMA: Document TLP-class routing
-Date: Mon, 14 Sep 2026 14:22:49 +0300
-Message-ID: <20260914-fix-p2p-acs-v4-0-v6-16-5ef07ec9ef06@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GosI7bja";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XkNG6nSn"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAm1W8727598
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:27:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=IJCHzSLhrd043XzsASUdlLLU
+	ScQGc2AdK8sGqJtE+JM=; b=GosI7bjaYzMwzcEP8402h62t9XHfpySomYVO4Bqk
+	fSybZG9pT8UqZyqVN5Me7TOq6m7Tj1XDBr0IwPwwxOQBrQSpygh7HhiomPQxsJ25
+	63bazsxsFuhHZhd0wYAN7K3bZBRcbQJNzRS0/STG7Jj/jh3qoBEtyIzGP6SeNiT7
+	lvFKvoUD+OUG7sQxVtMIW4FwO9Xeeibk7YXDf3F8tv3MmXavGokYQCUKvPK+qfBn
+	ks8b6L071OKQJOKth2ahP5De8DtjA1LnWice1oB+PZx1dAwZGqUwUzx3e2/TkZ+5
+	9/4eZv/TsdFWd/ka/EbDENFxef8EeGLiAi1isL2Uw0Ma5w==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdb5rpch-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:27:10 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-936e393061dso507894885a.2
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 04:27:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789385230; x=1789990030; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IJCHzSLhrd043XzsASUdlLLUScQGc2AdK8sGqJtE+JM=;
+        b=XkNG6nSnbIyG0mrmEUJgkhyYesi8N1V+DAFl8UwY7LBi5WWB8jowMfS1JXW43R3P5K
+         5Al0xvCGFl5jIn4KNMV6qJkC/ME3fgf3n08GOacAwBox5VWk4/pQqag+XoWYzUvp/MJf
+         t9ZpkMkwhNjcXVNi7R0EALX/o7FIun/6eaAqR5q/Fn7m57XB90yOKF84WhDW76wSfJ2c
+         YgvyxpsIjlphj28Px7s5+g1oxMlKifL5x9MTI0UIpMjSpSbOP5NlkuW0zgWmSmoRlJhj
+         wKJLMwAXCNfcFJjJLp5/dY2dXcYQW99h9FsgFfMlKleCOOTuXPPGBzCm4sfwf9O38BZ/
+         RLiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789385230; x=1789990030;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IJCHzSLhrd043XzsASUdlLLUScQGc2AdK8sGqJtE+JM=;
+        b=hfMgpCnCFFc3+qFrMliWEZsnwWG0TnzKWdA3uWg6kpajsxvin6QxIoWAJ+cTMy9A2/
+         n7IvRyvN34+OQ/0KYl7M/6Lw39HHPHPyeEByGSnFT1jXzRo+MLhmALmO7ScRG6Lbr3qD
+         o7hBUujpfkhjyNOGryfFEmGdLlwixiNJ7vY+nMZwQwO3TD6ZF+a2Kmkm8sQ04RpQO9df
+         l4chXAMqZQA8Su4Z+rpgoFTXiSPgoF9b5L7ff16Rm7royF0PQligA7GVi0uncnMfHg5y
+         qaqE2dbtHec/NIDncpnnuRj9pWxX3j+VXRrJEcdZ6y4P8z6oh0LiXfb/Qr9uBiDjBPvO
+         Xciw==
+X-Forwarded-Encrypted: i=1; AKwUvBwji4UWza1XbnQBM4+y8wWXrD0d2zYXsTiEfME066U9S6w8+PoP3E8L0l7NHbdLfgmL6+TTxJyedcCjJQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mne+FeNrq+NduJO1UyRm4xBxG+UyXK4hWHBOgNVNnSM42y/M5h
+	2h4GytAexuEqgaFgW0tMOlDDrEcg6lAlL1Bx1YSx0nXnZMv/mwqjyuUatye7lUqw4uxB37R0Raa
+	dKm/PWW2Zf6UUGmMAo76VvpcZnSgBrcsPkyswMaEJY0fjP1KGzD8bqrNcVVSlBXMgXA==
+X-Gm-Gg: AYBFou2Va/O1WM9kQH0GRiUFxMC8pwURN3UUCGWUVknzryN/QloP9aaTwLFZGSZZCQy
+	jb1JBF/khnW/kD6kzDa91YsIe4OL1s/NqrSjUk6nAvdqIJscoaTS7MhSEQkr23uDOEmle9faDhl
+	vInb6bsuAugRLXMNyvnbURjBAUjQJeah/uKXqX8brpVcC8DMHzAmJGAmThIrt+Js9VOWC3O22pk
+	eQ8jIwCo92FC9Yb0rOP/2xfPFIuHMQ5SS0qZVCyBvI4wKkc1k+lRtwLPIT2ivaWA/249syJ5Zi6
+	duaKLDJK5oOxEzlYHgW5Gx7DwkC6PH2JO9ihaHu+3jIgNT3R7uAoRqQwlI4M5aZ+cLAC+ImVBjl
+	58Bfht+WrSVnFVA==
+X-Received: by 2002:a05:620a:1d0c:b0:93a:21e5:a8e5 with SMTP id af79cd13be357-93a2986f870mr277726785a.21.1789385229627;
+        Mon, 14 Sep 2026 04:27:09 -0700 (PDT)
+X-Received: by 2002:a05:620a:1d0c:b0:93a:21e5:a8e5 with SMTP id af79cd13be357-93a2986f870mr277720385a.21.1789385228954;
+        Mon, 14 Sep 2026 04:27:08 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm26107741f8f.9.2026.09.14.04.27.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 04:27:08 -0700 (PDT)
+Date: Mon, 14 Sep 2026 14:27:05 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: eliza-mtp: Enable iris video codec
+Message-ID: <ccceh4gy3otlfegvbd2macgc2kend63gorsak2eukap4jm4vbu@q5pcxpw4od2s>
+References: <20260914-add_iris_for_eliza-v1-0-e8ccd9b8cf7a@oss.qualcomm.com>
+ <20260914-add_iris_for_eliza-v1-4-e8ccd9b8cf7a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-add_iris_for_eliza-v1-4-e8ccd9b8cf7a@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE2MiBTYWx0ZWRfX1l7kbXcD4sq7
+ AKzTDjv1uRpGxPX1ES2wOdRYmunzB9CeM3PtqjeQSyJIKkXaQNSbe6/Oo87nppjPAIg8z0WnYFu
+ grOqgtdw4W3dJIFIRUNb2qMvxqavXS4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE2MiBTYWx0ZWRfX940y+x4JRg5T
+ 4i0MaGRuiCiJY12asjTiJiA//YcQS5/BxZi3+/dc2txqygnhdQFQL68hUENzGtLrBHRSpP/chug
+ Kz3cek2oJNauRmsIodHdRlm3Ll6IW0w8yPrgXSgAeT+E73wK3xAE2gbZaeS+oLwGFOc5Yn0wwvx
+ 8K6qnsIRAQ1VJfLSULnPLW0ak/JsbrFpsy7FuGq4if2eLU0yPZDBVayY1KjdNQz8bt5z9idJEQx
+ 9Mq7x34lnnmXNLfWoRUtqMOu6D5m7StS055Hbu1LFIlAfkg+DB7Q28iCfDhIe4Vz3/w4rf4kfLr
+ wlKWi3wEXph5ABqUoHusgVqj3QapmMDxVnHs6Dq5LVU5S4ZOIe0c2cRt7vvKj6qMZjvEfTe2krc
+ gxcijYLACUVVBmemby4vvV2BNippZ1iRloSyuds4VTWX3Z0XNqh2xN0yqLp3lVEOaUeeXOuPSoG
+ 4jPEQyXmN4FSMVZddWw==
+X-Proofpoint-GUID: zrPPRmRWsmXa2n9_IaiSacv3gU6uHljU
+X-Authority-Analysis: v=2.4 cv=Ie4Symqa c=1 sm=1 tr=0 ts=6aa7da0e cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=zFfZ_-Fbgzo0WQ8s5VoA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: zrPPRmRWsmXa2n9_IaiSacv3gU6uHljU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140162
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On 26-09-14 17:54:26, Wangao Wang wrote:
+> The Eliza MTP includes the Iris video codec, but the device tree leaves
+> the node disabled. Mark it as okay so the video codec driver can probe
+> on this board.
+> 
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
 
-The P2PDMA documentation stated that the mapping result is not defined for
-Relaxed Ordering or ATS-translated Requests. It now is.
+Can you send this for EVK as well?
 
-Replace that paragraph with what the three TLP-sensitive ACS controls do,
-the table of outcomes per class, and the interface a client uses to name
-its traffic. Record that a caller claiming Relaxed Ordering Completions is
-asserting provider behaviour the PCIe specification leaves optional.
-
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- Documentation/driver-api/pci/p2pdma.rst | 61 +++++++++++++++++++++++++++++----
- 1 file changed, 55 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-index 42b18610bf7d..96a4c1d1b0fb 100644
---- a/Documentation/driver-api/pci/p2pdma.rst
-+++ b/Documentation/driver-api/pci/p2pdma.rst
-@@ -28,12 +28,61 @@ through the host bridge when either applicable port redirects. If an ACS
- Control register cannot be read, P2P DMA is rejected because the kernel cannot
- establish a usable route.
- 
--This evaluation assumes clients issue strictly ordered Requests carrying an
--Untranslated address. Its result is not defined when clients use Relaxed
--Ordering or issue ATS-translated Requests because those TLP attributes can
--select different routes through the fabric. Unless ACS Translation Blocking
--is enabled, a Port with ACS Direct Translated P2P enabled routes a
--Translated Request directly to the peer regardless of the redirect controls.
-+Three of those controls act on TLP attributes that the client chooses rather
-+than on the topology, so the same path routes differently for different
-+traffic. ACS Translation Blocking rejects any Request whose Address Type is
-+not Untranslated, and takes precedence over every other P2P control. ACS
-+Direct Translated P2P routes a Translated Request to the peer regardless of
-+Request Redirect and Egress Control. ACS Completion Redirect leaves alone
-+Completions that carry the Relaxed Ordering attribute.
-+
-+A client therefore describes its traffic with ``enum pci_p2pdma_tlp_flags``
-+and asks ``pci_p2pdma_map_type_tlp()``. ``pci_p2pdma_map_type()`` answers for
-+the default: strictly ordered Requests carrying an Untranslated address.
-+
-+The two directions are decided independently. Translation Blocking (TB),
-+Direct Translated P2P (DT), Request Redirect (RR) and Egress Control (EC) on
-+the client-side port decide the Request:
-+
-+=====  =====  =======  ============  ==========
-+TB     DT     RR/EC    TLP class     Request
-+=====  =====  =======  ============  ==========
-+set    x      x        translated    blocked
-+clear  set    x        translated    direct
-+clear  clear  clear    translated    direct
-+clear  clear  set      translated    redirected
-+x      x      clear    untranslated  direct
-+x      x      set      untranslated  redirected
-+=====  =====  =======  ============  ==========
-+
-+Completion Redirect (CR) on the provider-side port decides the Completions:
-+
-+=====  =========  ==========
-+CR     TLP class  Completion
-+=====  =========  ==========
-+x      relaxed    direct
-+clear  strict     direct
-+set    strict     redirected
-+=====  =========  ==========
-+
-+A path is bus addressable only where both directions route directly, so with
-+nothing enabled every class is. A blocked Request is not supported, because
-+Translation Blocking rejects the Address Type wherever the Request is
-+addressed. Anything else goes through the host bridge.
-+
-+Note that DT only matters where RR or EC would otherwise redirect: it
-+overrides them for a Translated address rather than granting a direct route
-+that was not already there.
-+
-+Translation Blocking is not a routing control, so it is evaluated on every
-+client-side port rather than at the divergence alone. A Request it rejects
-+has no host bridge fallback, because the Address Type is rejected wherever
-+the Request is addressed.
-+
-+The Completer chooses whether a Completion carries Relaxed Ordering, and the
-+PCIe specification does not require it to copy that attribute from the
-+Request. A caller passing ``PCI_P2PDMA_TLP_RELAXED_CPL`` is asserting that
-+its provider does.
- 
- However, if the P2P transaction reaches the host bridge then it might have to
- hairpin back out the same root port, be routed inside the CPU SOC to another
-
--- 
-2.55.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
