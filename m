@@ -1,71 +1,80 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9915F314D18
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 02:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD0D30D402
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 02:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789352900; cv=none; b=IkFj9GJLHNuQaedWRx6icJwBZYHCjUU/Fqlot1QQ76HMtIKNJeSdqCvH1aZU4WdjoaJlumzE3B9lx3/inxXitQWAJIFMhAhIQW1FcCW3EOQGDPY60ROnV0hylP9Z8BSUy3xjpVzQ+OCHe0GIoKWc3IotareRXrnD+jRxBIW9/N4=
+	t=1789353781; cv=none; b=R7fbeP25xO8bSPpX50PThL4Ab/Klb7XWPbzmC7c+EgU7Q7nHNYASOf4l6SL/GZOsuiNhl8eJ8K1TjCsTbuBShrblCpYLhfYKVWXKK/jCa8Chm7/2Zk1KKkAo/OdFsDp6+uMVAIE3CbnQep3P5REQ5LGpvk6A+DnFuo2OnNNyCEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789352900; c=relaxed/simple;
-	bh=UwQcyCtvAgULgEsPJFhkCRC5Ap9dKgwHVKIG/nOSa/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sTq/OzLa77puLQThZNdjP90IMUUP8GPX6WkSaWpWwhLegIPKHSc5r+XYltopcIZcqDzdHR/s3kYFQQgG79JGHR7VG14R+W3x3WRMXQ3Mn3AykIiM3T7UBsPWKQse2LPz8knhpPN+TyKwVnjmRlhhoECifrG4dns7Z4QwatUoPj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PNdWhvY4; arc=none smtp.client-ip=209.85.222.169
+	s=arc-20240116; t=1789353781; c=relaxed/simple;
+	bh=azDpHypCFmxLda1NALxVvN7aw45bukozhuDx4ej+seI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TRIt3WOoTgjiep/lmr01CCTfFAxrbEUHSsWjAtGOIVtfhkCo8M5ykLtxD0Rn7Hoz5o2mfXCLlZipAANKhIe1xk6yt88SDvlD2tjS5FMgb8powEh5r4UbYfAK5D8+hDkY0K0/s14wvIiN6sh08u7fIw2dNY+yILJvLTJP6m6DX4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LxWyrMq4; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PNdWhvY4"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93a1118fbb8so127555385a.2
-        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 19:28:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LxWyrMq4"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2442309a91.0
+        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 19:43:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789352897; x=1789957697; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789353780; x=1789958580; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DfLRfSvn+xOZSC/1dZJbN6doVrHFNDZyUwYsTq1qEDw=;
-        b=PNdWhvY4gIiHTRUPnOB1S8P3O0ipRmP3XmL+t+fQMMmso+GJyuQOxl2dZL5EBtdYNG
-         yLqS4bRTUOLe9VYCDScEufZOMliTCKu6m/fdFv5yjknCraXCQZKH9wwFGEDvpEKBpasi
-         hudlEy3Is1khqktRwIEbF/ipjb6gD8n0QedrUfs3g5RIL2ZDIxQls+wup0zd44frdyX9
-         +bFCFbEMfyJbNfmrKwTKKsLJmqzgLalQVIOi6fEouhJFCcOUG5rX5RTiKewXZ3TWLVeL
-         reVulOGGCmLTjPrdfBosuGPas/MCKhK+fvxVvepYpDv5+Gi90qzMPvtsbVc9lwFZP3Mh
-         HO0g==
+        bh=/qmshfoHf/3XH39fqg85nyx5ztRNNQEfwMbJuzYIVkc=;
+        b=LxWyrMq4KNeAizWWqqsJxmS/3Lau3+idhj1qRhKuf6vhqt8ttsLbFJQPTQ7NC4KALF
+         nJqp3Z8HI9vzXuC+MAmlALEh05n/iV58NfTSfHnLKoFnoCZS18mSz4CIHhhnRnRcZKIn
+         aWZc3Udh5vibbj/o4oGWkT+AEtlfssvW8Hn10C7gv8cjTtCIxloD/vk7Wm+uykhROO0F
+         fcoJgPFW7/G1fMW1tPI7c2aVkjfwxtwy/HciBRQ78r6gPYlm2Q/vwe5+W9/aQHkz/cFe
+         Ha/037kyPBfGmKQCtpvAeCH8TsJnNGPU8k6JseCJ13BmSuRRmiFRkhsGbf//uHOkwilN
+         vXHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789352897; x=1789957697;
+        d=1e100.net; s=20251104; t=1789353780; x=1789958580;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DfLRfSvn+xOZSC/1dZJbN6doVrHFNDZyUwYsTq1qEDw=;
-        b=ob09KB7dy9iShI1CRj20DogxXQ3KR1PYLKw4aiMi4sa/IhwrKuKV47+kNygsannFVF
-         r/dPBe8unwbsivD+zzh6nBMGtNhXIwDRGj0+3gPLd79ZHV0GX8anj4JVXRuv05zt1ZyC
-         4pJXD6FSR0eh24EMapkJhbkNt8rA7gu/f8ylXRsZvqKkBI3UozeAMZbqLPp7m1QmpOri
-         SgN1hSB4uDzsng5vvHgcONf58nkEkFaJcxcLzRDHhfl0X8voYhOA15O3rwqGb5zUuEBD
-         1ZTmyMmqxry8bo/S8aYBpN5gKKqtK1fkX3KI0j4be6/b6FR9DEd36z+iQlNCzZJwfhA3
-         bf8Q==
-X-Gm-Message-State: AFuF++mpKheoN/VZmsdXReNkmxq/sc7nrHLSywerla4hacDHPajF/8z7
-	tQuH4nJJ1hICjkbbpTrJ2Mq5ugSEahAD9uzev9ZWDndEIoiluUgkBRU=
-X-Gm-Gg: AYBFou1rdvfcoZhqOy5+OyCPjHo1V5SI+oX97pEzreKzzJF1W/zngwj1SRrHLwgUZV7
-	SU5Ph4D0tBU7kmH3Gc+PF6JU56BkxaBRwHtXwhORh4v+fvtbPY1z/NpKZymMZPzsiE6l+U486B0
-	nYCrET5pac0/m4oHtO7zwkBE1S+uNEry6T/KqOanDghJW48zq7OIKwBIK6qxXPN60w60CxFeaxG
-	Ief8OnQ9ApEsw7VpR/NH6pFEHZRfZHZq+AgVVXWwhN74n712ybau/xR30xzmDR/ekf0vuyNSYaK
-	J+VINQYjZ1Jrq6jshkMAqOx0n2ge51vWkiG+Wd09XJC+D8Uhv3dhXcIANS5VQZDcHM6sseDlmLH
-	y2Mz8v1buJMSK2sOHs5TB/Upbmsmwm8bJAfujM6mTBmm4C26SiZf6uWXhkZK71nxzb4pwBYX5yb
-	OP+Wl3G+UTC80HroOMv6os0wfgXJ686/N+Db0OWaO0BByMI7E4Z3NIA25cYJ3NuMFl0e8beMlGG
-	hPQ05kQj4ROw9OYSMy5CN/hHmh4De2eGTo6//JBM6JNCrCwPx6sxxI7h/tzzD7fxX0/xLZWmdM+
-	6JkVBZuuiR7x3CpRD/DlmpBYXukiT4jREg==
-X-Received: by 2002:a05:620a:1a01:b0:93a:f9:614f with SMTP id af79cd13be357-93a29bfd0f8mr105360485a.52.1789352897622;
-        Sun, 13 Sep 2026 19:28:17 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d3779sm82963676d6.43.2026.09.13.19.28.16
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 19:28:16 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
+        bh=/qmshfoHf/3XH39fqg85nyx5ztRNNQEfwMbJuzYIVkc=;
+        b=fh6BDUVPXLyd986Lf5wQQJN1h3TBRmCmtikYLy9rmKNTF5YzlffMz6PnssYY7g5H+r
+         Z7WbmaV6jzwfgs0SM4r5094YiEWMvHGE4mnlxymr+VUyaI3m5Oq4KdqixALu0bBoTuP1
+         PC42k4dPF48k1nSp5/XRNHJSsgfCXF/1AVdJxkTi5xtg0jN6XQgKvZ8hmXD2kiaX0mk3
+         w+YUntouvJYV2pc/e4wgqgQgNTPVXRcJKjNh065bXNsyVHhPDYTIRxN3Q0F8n69kLyWI
+         UbR3RBVhCZiVsE5zsl57gZmIgwN3FFQn1gs9tGkmvIUPCW5lwxc6/8r1noJbZwH3jTRw
+         z4tw==
+X-Gm-Message-State: AFuF++kJlneo6at+cIEj1lYTlVU3VU4ViAaoAN4mH71sfacKlg/sCzG7
+	c/YFA03js+8yjvLGL2OvgD6MbGMr8VPvQtxSf6WSJ69jpsvGts0QKrkU
+X-Gm-Gg: AYBFou3/9ye9FzxWqhHyqk6e0Pwae424DB4XdGtGbn+m7nsMsN5O8FJNeP2rcwoxKZl
+	LB+xXV7qfiCGI5WzyfJ3AJO+JXQAUp4ecApFtYM2hSYsuVvA/lHrIYqULq6EvcCNPK75jddFo9z
+	Q9hGa5z5CEDLRTgKF9L1YULRHKtjYjAZKZn7jhs+pc2VD4GUGgpdK2tkSekQVMCZeQNjAK+U7fd
+	gSGFIQ0t/pc/A/sQKvFFJWuNGv/niovJ8tdwSplQeYIM70DXz2Hpm7LOnrimNNnnynRa0wiP/6P
+	1gaDqKmjH4amO1SM+7pgMCcu2dlmILOu88v2HYlTfn6ebwqC16GHFgkuQ7emqmrewg191OlOVHF
+	hLD7Owssn23/ZLoOq5ZEKm13DVU65WwoDyJ9XMI783U9OPRID0cgn86CJ+vgxen/4f39CgorFOE
+	WPfNDK/cauJ/GXE2pd/JOpvnVPwEwEOu+QACpgP+1CqLF57ImR8RV64hjayfl27903oJNnNgn1z
+	dI9FsASw+hp+g==
+X-Received: by 2002:a17:90b:3b42:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39debfa6792mr1445300a91.9.1789353779738;
+        Sun, 13 Sep 2026 19:42:59 -0700 (PDT)
+Received: from fa283618c643.. ([106.37.146.76])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95092c06sm18396545a91.4.2026.09.13.19.42.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 19:42:59 -0700 (PDT)
+From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+To: hverkuil+cisco@kernel.org,
+	sakari.ailus@linux.intel.com,
+	mehdi.djait@linux.intel.com,
+	u.kleine-koenig@baylibre.com,
+	laurent.pinchart@ideasonboard.com,
+	jacopo@jmondi.org,
+	p.zabel@pengutronix.de,
+	ezequiel@vanguardiasur.com.ar,
+	mchehab+samsung@kernel.org,
+	festevam@gmail.com,
+	xiaoleiwangxiaolei@gmail.com
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: cx88: Disable PCI device on MPEG initialization failure
-Date: Sun, 13 Sep 2026 22:28:09 -0400
-Message-ID: <20260914022809.70623-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	stable@kernel.org
+Subject: [PATCH v2] media: i2c: ov5645: Keep the sensor in software power-down during init
+Date: Mon, 14 Sep 2026 10:42:40 +0800
+Message-Id: <20260914024240.152741-1-xiaoleiwangxiaolei@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,61 +83,88 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cx8802_init_common() enables the PCI device, then returns directly if
-DMA mask setup or IRQ registration fails. cx8802_probe() frees the
-device and drops the shared core reference without disabling PCI.
+On the RK3576 platform, after ov5645_global_init_setting completes and
+before stream on, the CSI host reports a high rate of CRC errors:
 
-Disable the PCI device on both post-enable failures. Preserve -EIO for
-a DMA mask failure and the original request_irq() error. Do not call
-the full fini helper because the IRQ was not successfully requested.
-The successful probe and normal removal paths are unchanged.
+  MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
 
-These missing error-path disables are present in the initial Git import.
+These errors occur exclusively in the window between init completion and
+stream on. Once preview starts and the sensor outputs valid HS data, no
+further CRC errors are observed.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
+the power sequence to properly enter LP-11 during power-up. As part of
+this change, the SYSTEM_CTRL0_STOP (0x42) write on the power-up path was
+replaced with usleep_range(500, 1000). Since ov5645_global_init_setting[]
+ends with SYSTEM_CTRL0_START (0x02), the sensor core is left awake from
+the end of initialisation all the way to stream on, driving the data
+lanes while the host is not expecting any traffic. Reverting the commit
+resolves the CRC errors, confirming it as the triggering change.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Assisted-by: OpenAI:GPT-5.6
+ov5645_global_init_setting[] writes SYSTEM_CTRL0 four times: STOP at the
+very beginning, then START, STOP and START again near the end. Register
+writes are accepted over I2C while the sensor is in software power-down,
+so there is no reason to leave it briefly, and the three trailing writes
+serve no purpose. Drop them and keep the sensor in software power-down
+for the whole initialisation sequence. It is woken up only by
+ov5645_enable_streams(), once the host is ready to receive data.
+
+This preserves the LP-11 compliance improvements from commit
+092e8eb90a7d ("media: i2c: ov5645: Fix power sequence"), as the MIPI PHY
+stays powered and parked in LP-11, while eliminating the CRC errors on
+RK3576.
+
+While at it, use the register macros for the remaining SYSTEM_CTRL0
+write.
+
+Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
+Cc: stable@kernel.org
+Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
 ---
-Validated with an ARM64 W=1 object build and strict checkpatch.
-No hardware runtime or probe-failure injection testing was performed.
 
- drivers/media/pci/cx88/cx88-mpeg.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-diff --git a/drivers/media/pci/cx88/cx88-mpeg.c b/drivers/media/pci/cx88/cx88-mpeg.c
-index 0c07ad3..cd23667 100644
---- a/drivers/media/pci/cx88/cx88-mpeg.c
-+++ b/drivers/media/pci/cx88/cx88-mpeg.c
-@@ -392,7 +392,8 @@ static int cx8802_init_common(struct cx8802_dev *dev)
- 	err = dma_set_mask(&dev->pci->dev, DMA_BIT_MASK(32));
- 	if (err) {
- 		pr_err("Oops: no 32bit PCI DMA ???\n");
--		return -EIO;
-+		err = -EIO;
-+		goto fail_disable_device;
- 	}
+Changes in v2:
+  - Instead of appending another SYSTEM_CTRL0_STOP write, remove the three
+    redundant SYSTEM_CTRL0 writes at the end of the init sequence, so the
+    sensor simply stays in software power-down from the initial STOP until
+    stream on
+  - Use OV5645_SYSTEM_CTRL0 / OV5645_SYSTEM_CTRL0_STOP instead of raw
+    values for the remaining write
+
+Link to v1: https://patchwork.linuxtv.org/project/linux-media/patch/20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com/
+
+ drivers/media/i2c/ov5645.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
+index c772ef6e51d2..2985966ab09f 100644
+--- a/drivers/media/i2c/ov5645.c
++++ b/drivers/media/i2c/ov5645.c
+@@ -115,7 +115,7 @@ static inline struct ov5645 *to_ov5645(struct v4l2_subdev *sd)
  
- 	dev->pci_rev = dev->pci->revision;
-@@ -413,13 +414,17 @@ static int cx8802_init_common(struct cx8802_dev *dev)
- 			  IRQF_SHARED, dev->core->name, dev);
- 	if (err < 0) {
- 		pr_err("can't get IRQ %d\n", dev->pci->irq);
--		return err;
-+		goto fail_disable_device;
- 	}
- 	cx_set(MO_PCI_INTMSK, core->pci_irqmask);
- 
- 	/* everything worked */
- 	pci_set_drvdata(dev->pci, dev);
- 	return 0;
-+
-+fail_disable_device:
-+	pci_disable_device(dev->pci);
-+	return err;
- }
- 
- static void cx8802_fini_common(struct cx8802_dev *dev)
+ static const struct reg_value ov5645_global_init_setting[] = {
+ 	{ 0x3103, 0x11 },
+-	{ 0x3008, 0x42 },
++	{ OV5645_SYSTEM_CTRL0, OV5645_SYSTEM_CTRL0_STOP },
+ 	{ 0x3103, 0x03 },
+ 	{ 0x3503, 0x07 },
+ 	{ 0x3002, 0x1c },
+@@ -198,7 +198,6 @@ static const struct reg_value ov5645_global_init_setting[] = {
+ 	{ 0x5a00, 0x08 },
+ 	{ 0x5a21, 0x00 },
+ 	{ 0x5a24, 0x00 },
+-	{ 0x3008, 0x02 },
+ 	{ 0x3503, 0x00 },
+ 	{ 0x5180, 0xff },
+ 	{ 0x5181, 0xf2 },
+@@ -347,8 +346,6 @@ static const struct reg_value ov5645_global_init_setting[] = {
+ 	{ 0x3a11, 0x60 },
+ 	{ 0x3a1f, 0x14 },
+ 	{ 0x0601, 0x02 },
+-	{ 0x3008, 0x42 },
+-	{ 0x3008, 0x02 },
+ 	{ OV5645_IO_MIPI_CTRL00, 0x40 },
+ 	{ OV5645_MIPI_CTRL00, 0x24 },
+ 	{ OV5645_PAD_OUTPUT00, 0x70 }
+-- 
+2.34.1
+
