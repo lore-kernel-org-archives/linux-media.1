@@ -1,153 +1,287 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B909481A9E;
-	Mon, 14 Sep 2026 15:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789400961; cv=none; b=bvPO24CMJGLnfbScoTZKZEwCp3rAgQ7pkPk6HdSiXqlAzNsV48thTUMj1xh3ya68fOWOW/a2mqqijF9F5VRVYhL/Z4nOd7B4CD/Z0iWz+sEthIAM24Pakx74dwnrQBtJCLoOMM+UAii1KxNETW+ginoep/ToeKEJ0FHDBUxs/cc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789400961; c=relaxed/simple;
-	bh=E8tjVWXwO+8EdCuNkyjyH95QEBkYUUfGm2BVhvoyOP0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=njQkFXRKVxKF4n4S3SGrEXkFX6i18TAQGRPPic6zqxWnugthLi4uQZeRjPgv+yv+OJaqwuuvRf5Q/TSDz/ElyVhmZWj9MDEA4Ad3th2eTlXrkvX5xzmnmiUcdDLnpSLLmyEfUACIRDq6qSDokOJfKpju55y4sUwic66FrHuizB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaWiuxe6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79B9477E3B
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789401480; cv=pass; b=PYVbPg583k77BLnx5yTLpqGwj4lMVqdIUA+oEhsNcs7v+o3/i1Ozzk/3up1HWic9ybrBO5uRNjS7XnD+V9a3R3lNKlxphc1NZxqF1bYNOp4TU95SC5kdZi7f9NIoqqWi+NVlFaACJWDTSR1JPG6olfQUpFD6SHSeftDRFaKxm1k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789401480; c=relaxed/simple;
+	bh=9Ta1M8XJETIIM0prQ4GdP+3MHzBhGBuNdaGROU6B6gE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GX6z96UqWv59MAi7ARjAtpdxub6xFVDxSDAthLdcgK923dmHkamyGIaITQRZPmBFR3X5zmJqlOh3F/dwzG6rH7MONlpA/m8s5pGRMorldcbN1PKWcKbxv0MwNSjGvUFxHVETurn02rv82Ne/3EFvcRgxgmY9OzlPjdvE4SePtYs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TRxHVYez; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YkqNsvZo; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaWiuxe6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527301F000FF;
-	Mon, 14 Sep 2026 15:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789400959;
-	bh=edl9EHBzE8Mh2FGf3Ke+RZmWB9164se0RagjspZeMpA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZaWiuxe6TbxR/OQg8ph2mwK9MBBU0wt8iKh1wwOet5UtTosU4mZi+S+BcrNfxiqxs
-	 TU+3sHWHkhkoyZ2NMvbcVhektQI5i1i/LBN4vzVJBXglLfpiqhXyysW5Qg2hCdVLnU
-	 vqEOUZJ7JqcBbUjeYjLIywDEwHwWa963lRu/eeCATCCYBeuu7H0GtCvwjKUKt3frGa
-	 ynTLDz+JuOfJ4cgj7K56n0Rj41Hi7ijqkipHGvFyYwkU6kZgByOZQajNsZIaljdHuK
-	 O2DgjyFz4addNG6TF1g+g4499srp8WrpcC0ndzhWU9wDKBm4WOzPB1aaFXC9WkqB8P
-	 2zWNGAPuEQmew==
-Message-ID: <5abdc1b7-5fd9-4b1d-975b-eceb3ba57a82@kernel.org>
-Date: Mon, 14 Sep 2026 17:49:07 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TRxHVYez";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YkqNsvZo"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0J454090447
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:57:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=; b=TRxHVYezCwqq4q9Y
+	kN/buNB1dNTxgIEKMCqLjzqKrWxwtgDKQB3Tnem/QBBWs/BFqMXfDsRARBJcPo/J
+	/sGEIkskxBFRxqY/rIfx6nUIgkXd9RWzSmUo208JD1HMly2JxsFUQfvvA4Uu0Qfc
+	TBCG2ozceKL3gE98q8vPlDQBeThe3s4u5U6stgE1TJV+Fxnut16Bue/NS1hAT3Lg
+	mcfppt+wy8P41BWph0loM75bl45JoEgbF/DPUBpROD+RdNrC4+g3NuH8Ye4r6X3g
+	Xan6vcbVCZT7lQxnL+oRYM0DwgixpKtviJ3BQj0JCm5CrjMlWu76/kLQPu/HmVpN
+	Wl239A==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg20k1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:57:57 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939f3426a7cso591753385a.0
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 08:57:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789401477; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LvlCq8Gqq94sNMRE1YXH5gYHmJXbOkqIItvkwFrO+LFUnFYoskzd6E5ZzMQf6wqNPn
+         IByow+JS936cpEjK9IM0COTu9EmfSBSL0QcdT7D9fpdFR051+xmYUkhnY9l5IVTKwtb+
+         au+VkEjrthM/KP72jbWSkmzSvgldIq+6v55uZKMMI4azL+IvGm5aiLhsX5asQ7Reav4X
+         L6guVIgVPI+xQyGX01E+6CoIHGEnwZ6e/ikYBg41fHF5Z0IkI1OB98QgxhONKktjy5vH
+         70AJFV95R09qlm4fNwLatIDZ4qCTwpNJZ7svWhwMAr+Sscn+JpHT2zUrmxb1AUz7wUSA
+         KkaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=;
+        fh=w2b/O3v3Pi4nIjqYI1NWMxxbqvmD4oA4QUyGKmUqoww=;
+        b=SefGK6KOA925TjDUpNTEmIfgVbHZYUAQmZXqRJllFNLWHYbtizv0zYVzBZlhUm3uSG
+         4FnczpwBgETnp9KhSWLaNzyJjObUMGT3lME9WiT0DbyBfBO/RZ8aTRy4UyxFUIk3r7cb
+         zs3L+4tdVxpOvwQWBka9nyzJ6H9jeSd24JxexiPnQieQQxv4xRFgOPKD3Qoa6SYbjLx/
+         d/hr3kupILhRYxbapULBm3BMG+/ZIzotKPkjn+VME40JK4CD3oQCEVVhjPu294tgjfBK
+         ljcwEf0H3yo0cRPcRAZidv8tYw5wTYQv+elPbE1JgIcJBolVb9jRI1CAkmD8s+EH3AHw
+         k1Rg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789401477; x=1790006277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=;
+        b=YkqNsvZosI8JGf1LVQPH6OoC9Jnn7+wJUJ81EV+mV4NYfwC809F+7gAQ+102BknV7y
+         970XVif/B8pFlyecVqzn+wA2lEc10JtP+3B3gtNkgqZd5nWDadDO99FVN4AVQD4Ujsvj
+         dTXfPjDuSl6aw/nugZuPZW6YoW3A80lnryTr11nnniL3iGHOw0T1UwkyvscYtCf6wnOe
+         ulkDpHBdq4lDRDcS2Y5TVTq7/g7H7H49OgLYWoWpehY5VQM/T3TZs0OWOJt0Bhpg9ptP
+         92uBe/JxGJ0bFwlJDooft+1HRHaAlR4TddyYAdCQhf8ehG5LIjwd72mLKqWO8YEelmhs
+         /n8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789401477; x=1790006277;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=;
+        b=E/dIhp8IHbD82w4HxNmS4fne+cGeOF3K+Y62ej0MWdEIeZcwjSCA//xtRtFxY9UsLK
+         FQHugo345mq0TqZqgTyw/33cQtvBnn2p/VzyFbNp40CFgwXbghnWPOD+zDG+cx9FLm6L
+         Ud5YxjD9nO9mWpHE2SggHdWo2CNl0+zlc3iDKhPMznLChDStRnfmwGSR98C4yuad1vy9
+         O0Nk5+fxW+btIwmHXYbblF1cDhxMCQExntT6YC5QbmVW9bzPR4e6Hk243TVuWBWXwZ6c
+         d81N780MwkdhpFTicpyOJtkIodztp3InU8SLX5KQ0II1C2xSxaRMvFZlh+qdcKLv/MrH
+         2rtQ==
+X-Gm-Message-State: AFuF++nn6vUucyH9QeW9XNvb6oWMYVKscrx+2yGUpKBKhC4Th2D07nQf
+	d74VPxVSUudmJABg+jLnQKMRKYVp0pffuam3sqyXQsK2Ppc8wuo+5dY5714w97T80DV0NvhO8f3
+	cklxYKQvslVSGMyA5tFZP1qz0PWQTnpqkE98DQ96iNAq2ToVbca5MBxSti0zLEDG4eB89uRWklp
+	B4lUHePLxwMRIYP6avemt+twj82AVJIP9jt5o2oD92
+X-Gm-Gg: AYBFou1JwAhr3W5+qxQtGLbXf7wsbNNrrDn56lzbUSqRFtFZrDPTZxzbflV4Lfrtf9B
+	ycf5xLZ8Q14Yk3FjHNdtLxxm8ForwmoRBAaeukq0feLI5wovL52+l3IV0zwNLMvDe5+4HVX6TuY
+	uKDrVJKGVUPZB+6Zuqi9PsJzR1NXNXt891cg3xnDoMVjcNuoFkJmsVCQ6eZXsK1x+0N3XwmDJJs
+	/ofX+9vAFHLtLNJ+SZTZMTBi8eG0wnFB38OLO2DvJ5D5/FpkqVpDRdr/dSynFiCykTKMQERI8w=
+X-Received: by 2002:a05:620a:470e:b0:939:b43f:341e with SMTP id af79cd13be357-93a2987f902mr442694785a.22.1789401476749;
+        Mon, 14 Sep 2026 08:57:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:470e:b0:939:b43f:341e with SMTP id
+ af79cd13be357-93a2987f902mr442689485a.22.1789401476216; Mon, 14 Sep 2026
+ 08:57:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
-To: Frank Li <Frank.li@oss.nxp.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- stable@vger.kernel.org
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
- <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
- <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
- <aqf835LdzdNZR8rh@SMW015318>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <aqf835LdzdNZR8rh@SMW015318>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260914133416.1030231-1-hitesh@ebytelogic.com> <20260914133416.1030231-8-hitesh@ebytelogic.com>
+In-Reply-To: <20260914133416.1030231-8-hitesh@ebytelogic.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 17:57:45 +0200
+X-Gm-Features: AcwNN1XINkaus2FnglJoOiLWFzpVQZwTJhph8aa6885b1nGo29uYeYlIMD4gkXI
+Message-ID: <CAFEp6-1yTw+p6B_dOPAtidiNvuYXqAq3PxwWiEkCp-G7ZtVhdg@mail.gmail.com>
+Subject: Re: [PATCH 7/8] media: qcom: camss: drive streams-aware transmitters
+ through the streams API
+To: Hitesh Patel <hitesh@ebytelogic.com>
+Cc: linux-media@vger.kernel.org,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ravi@ebytelogic.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa81985 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZovgdgjKAAAA:8
+ a=HxDX4g0csZKSo-3CQAoA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=VOxKbm1zgHvARWIDjr3b:22
+X-Proofpoint-ORIG-GUID: ACibSO-bnW0Qv6x7AF3sDmpcD1jVTR9d
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIyNyBTYWx0ZWRfXzQl0ziLIIBp3
+ LZQqK/XHNRHJydJ7Pd48uFYYMy1tbpYBNWKtnNqaXN7Mdt+KZ5SrG3RnbIcK9+soXVnAjMr2Ht9
+ IAyXsIJv1CWGisgMScGXrKVoxWEF2gQ=
+X-Proofpoint-GUID: ACibSO-bnW0Qv6x7AF3sDmpcD1jVTR9d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIyNyBTYWx0ZWRfX5JKiHwm+9p9h
+ UnXVy2Qwkwz9rvl65RJS4BYtQdsXkpUyJRwGFWG5pQzRSqUWV3BMdf2mkRj3kWBz0VDMy6kFrM4
+ uzdvXJ6JXRsxVDD06cC0hbyskEqKnJH9iRlV+/cpaUjfiNIyEl2VEv6+QacmMk/Wk4WrT3/A0c4
+ HBXYCs858YrZeAvtYofjbYT7wtlybAk8Zpyt0APklbz441i2Sy5gur7MdqlJDXOjVUUEf58aj+D
+ cKG2WMLrxL5FxXUIYRe466K+t0V7ug0hWHPI00DmJFi42Nhl0ckYwcrAa71ogvhtPtTwS/SmptT
+ SKDgOjGME6P1ay7VTSWS6hmXHoEBdlQh0X6sqKql0Mjh9A6HV0mVYHz1GSKGGSrUhX4PY+wbYZz
+ 73MIMcC1K9OoL6y7oFe7z8XwXXXJdxuCPBlhgXKjXQ12fU8Q7AV29MspRyzHXNWmevwaoxhKeQr
+ RfFA10IDFDfDrK4KQkw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140227
 
-On 14/09/2026 15:55, Frank Li wrote:
-> On Mon, Sep 14, 2026 at 12:37:06PM +0100, Bryan O'Donoghue wrote:
->> On 11/09/2026 21:56, Frank Li wrote:
->>> suggested subject:
->>>
->>> phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
->>
->> A pattern I try to encourage and role-model is making fixes very explicit
->> and obvious - frequently I'll ask people to prefix their patches fixing
->> things with Fix.
-> 
-> Generally, I got feedback from most maintainer is
-> 
-> 	do something to fix ...
+Hi Hitesh,
 
-You got it wrong, I think.
+On Mon, Sep 14, 2026 at 3:34=E2=80=AFPM Hitesh Patel <hitesh@ebytelogic.com=
+> wrote:
+>
+> video_start_streaming() and video_stop_streaming() drive every subdev
+> of the pipeline through video.s_stream. That op is per subdev, and
+> the core allows one transition per subdev, so a transmitter that is
+> shared by two independent pipelines can only be started once and is
+> stopped by the first pipeline that stops.
+>
+> A GMSL deserializer with two CSI-2 output ports, one camera routed to
+> each, is exactly that case: the same subdev sits at the head of two
+> pipelines that otherwise share nothing (each has its own CSIPHY, CSID
+> and VFE). The second camera never starts, and stopping either one
+> kills the other.
+>
+> Such transmitters implement the V4L2 streams API and advertise it
+> with V4L2_SUBDEV_FL_STREAMS. For those, enable or disable only the
+> streams routed to the source pad the pipeline arrived through, using
+> v4l2_subdev_enable_streams()/v4l2_subdev_disable_streams(). The core
+> refcounts enabled streams per pad, so the two pipelines no longer
+> interfere. Enabling streams on a source pad propagates upstream to
+> the sensor by itself, so the walk ends there rather than starting
+> the rest of the chain a second time through s_stream.
+>
+> Subdevs without the flag keep using video.s_stream exactly as
+> before.
+>
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 
-> 
-> "do something" become more important. the most maintaniner dont like simple
-> said
+I would like to point out that Gjorgji has recently posted a CAMSS
+stream API series [1]. Would that series address your use case, or are
+there requirements that it does not cover? It would be good to
+understand whether there is an opportunity for a common solution.
 
-"Do something" is not more important, because you repeat the diff.
+[1] https://lore.kernel.org/all/20260911062213.195007-1-gjorgji.rosikopulos=
+@oss.qualcomm.com/
 
-> 	- fix build warning
-> 	- simplify code
-> 	- fix UAF
-> 	- fix memory leask
-> 
 
-Exactly all above are "do something"...
-
-> I think it is reasonable, git log --oneline ..., if just list
-> 	"fix build warning", which is hard to locate patch because there
-> are too much "fix build warning".
-
-And "rename function to fix build warning" is not better, because rename
-is obvious from the diff. Title should not say what you are doing, but
-explain the nature of the bug being fixed, so "fix build warning due to
-typo in foo bar" would be better.
-
-Best regards,
-Krzysztof
+> ---
+>  .../media/platform/qcom/camss/camss-video.c   | 56 +++++++++++++++++++
+>  1 file changed, 56 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/me=
+dia/platform/qcom/camss/camss-video.c
+> index 16c5f3748..90f22ce76 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -249,6 +249,32 @@ static int video_prepare_streaming(struct vb2_queue =
+*q)
+>         return ret;
+>  }
+>
+> +/*
+> + * video_source_pad_streams - Streams routed to a subdev source pad
+> + * @sd: Streams-aware subdevice
+> + * @pad: Source pad index on @sd
+> + *
+> + * Return the mask of streams of the active routes ending on @pad.
+> + */
+> +static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad)
+> +{
+> +       struct v4l2_subdev_state *state;
+> +       struct v4l2_subdev_route *route;
+> +       u64 mask =3D 0;
+> +
+> +       state =3D v4l2_subdev_lock_and_get_active_state(sd);
+> +       if (!state)
+> +               return 0;
+> +
+> +       for_each_active_route(&state->routing, route)
+> +               if (route->source_pad =3D=3D pad)
+> +                       mask |=3D BIT_ULL(route->source_stream);
+> +
+> +       v4l2_subdev_unlock_state(state);
+> +
+> +       return mask;
+> +}
+> +
+>  /*
+>   * video_subdev_set_stream - Start or stop a subdev of the pipeline
+>   * @video: CAMSS video device
+> @@ -324,6 +350,20 @@ static int video_start_streaming(struct vb2_queue *q=
+, unsigned int count)
+>                 entity =3D pad->entity;
+>                 subdev =3D media_entity_to_v4l2_subdev(entity);
+>
+> +               if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
+> +                       u64 mask =3D video_source_pad_streams(subdev, pad=
+->index);
+> +
+> +                       if (!mask)
+> +                               break;
+> +
+> +                       ret =3D v4l2_subdev_enable_streams(subdev, pad->i=
+ndex,
+> +                                                        mask);
+> +                       if (ret && ret !=3D -EALREADY)
+> +                               goto error;
+> +
+> +                       break;
+> +               }
+> +
+>                 ret =3D video_subdev_set_stream(video, subdev, true);
+>                 if (ret < 0 && ret !=3D -ENOIOCTLCMD)
+>                         goto error;
+> @@ -362,6 +402,22 @@ static void video_stop_streaming(struct vb2_queue *q=
+)
+>                 entity =3D pad->entity;
+>                 subdev =3D media_entity_to_v4l2_subdev(entity);
+>
+> +               if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
+> +                       u64 mask =3D video_source_pad_streams(subdev, pad=
+->index);
+> +
+> +                       if (!mask)
+> +                               break;
+> +
+> +                       ret =3D v4l2_subdev_disable_streams(subdev, pad->=
+index,
+> +                                                         mask);
+> +                       if (ret && ret !=3D -EALREADY)
+> +                               dev_err(video->camss->dev,
+> +                                       "Failed to disable streams %#llx =
+on %s:%u: %d\n",
+> +                                       mask, subdev->name, pad->index, r=
+et);
+> +
+> +                       break;
+> +               }
+> +
+>                 ret =3D video_subdev_set_stream(video, subdev, false);
+>                 if (ret) {
+>                         dev_err(video->camss->dev, "Video pipeline stop f=
+ailed: %d\n", ret);
+> --
+> 2.43.0
+>
