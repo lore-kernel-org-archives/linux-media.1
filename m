@@ -1,279 +1,219 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010036.outbound.protection.outlook.com [52.101.61.36])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7872C3C1D75;
-	Mon, 14 Sep 2026 11:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384030; cv=fail; b=suPfrS8kFM8brIDZLbvpf90c2R5bwqivuyciU3tfGPMDLz0K60eVJNH+xMFM1uAKYPgPZ+Yn4oEHDl5ymjTDhH3+N74YpeQQYnUj+IcJ7SbM4PQWdvKQeKmR4j061P6u9IYmErGMvhKLPj2ptO5y8rtCvUP3f2cjLIxFzR5fvG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384030; c=relaxed/simple;
-	bh=xhCYvfvDGRlMH44Z93CVGmf+CCQ5lFf0eWp6esVhLPo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=k0NxkIcSvoW6wg9ImB10RHp+vLCv3ofS45jV96HgfxUsLovm9Z3sUIsQfmXXu6gGYOjqruwqTlOB24n6eBBhAbTzoplG08XD+9gXe9J0N/FP/BJA4n2stkO/W9K2RmHEfldNl/0YueB0gyLlnEfH6Fa3PMmNHXTzou2s/t+6omk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=R49o3Mss; arc=fail smtp.client-ip=52.101.61.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2249043F8C8
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789384250; cv=none; b=OkqVirxBV3fxR5I4T2oVDc0G9Q5kmdqsubw9VMGExuADFtF1JOKNe+mpVJtVoW6W1CxZdk1wBNWOiVC+7pM0YpTwXxYD+NPAfjJnaDeBybV/2yJ7T4TWnxXmu6z2qgoN5CM5CAjz8rtQI7siUsLWW2ChglB0xE2u9xe7O5dcfKI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789384250; c=relaxed/simple;
+	bh=AmdoA3r24dHAajQOXdZSVXOQ/7zFOK7uEZvjLzLavQM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QD8V0irNB9aEefOLx7SFQdsWHCY+wZxPJxLZkNVCLtVCz9mqKG2BVfKEoHPcpk3QIuNrRF/ZT0w0XeuWkriLW8Hx2eOIedXBAZoBQSLMnpAu0JsFa15r/W91bGKPUQFfJgRBpecBvZq4cn1ugtlf4uxrFDtCf0OWLpiw/VTcD50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oTui/J2S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BsPpSbVC; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="R49o3Mss"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EjwgULxb6leY/AF3GgGLXehPLDRb4+Pk9gnV4cshnG8O/2RAYUVMxWw1mnWoLt8hzrrfsy5gA3pOATZmN8eKviW6PvNP9EZEEQKS1wC1A1tqfQUV8148Y7C+CaUmryXmZRrsXbqpG+kaGakuIHXkT6qglgZ0teWS26b38v5eXJD3OqmBramUQgfzlxPGJfgASNHO1RFT0yQg7RskKOPsdXMoPGEwDyxGldu5sbnvi9QQnMhngZbfCyyPLgHeu+VNRcINPICy/lrYrjc2DA+Oon7Lq6IjBqpLdV2QeMe+80063sTqYxPk3WO1nZRd9rDnFcFTyNoESnkb9MTqXeWsHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=btkACDYqI4dY+U7aXfamIKC+T7l96iCh0T7XtRj8Ehc=;
- b=jwR5CDITpqX62rRKtSJx6l1WdGmmW3xm1VIQyj1/C5qFqOdkmyvKIpL+jmIVZdS3ZVc34NBQp4sGxM4H6ew2Da5OAAr8zub5d+ETelaug9Ziqa69qmMLPpApFRMpJ062FyIgWfXmEFDx5j4yNonB4pnQaYRUt0twUTHRoqTXr2Wurv0Hdvbezt8+njJmZ5fbjnTdIGt9p/gteQV+jJrGSSH26Nd9PDBRibx9pVAFJqsvTjd2hzVlhhy8KQuyxShHjmFEraOFR/eVKD73Q4QT8RHBMSgFaa7HjxlbfuolO8d/8gSkHb0aUlkx2eOFGg6ho5QgRwf7YXltCaPFHlEXUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btkACDYqI4dY+U7aXfamIKC+T7l96iCh0T7XtRj8Ehc=;
- b=R49o3Mss/k4XQuMAYSvHgPqhy4Vn9cHSdIssT52ZU4VN5VJuNji5naL95/IKQgHPbyst3R4S9v6YH31+cCreaetNZm2YuKZ3MINHmdrRw+KKkfbPV0/H6KRmxRIIZ8K0Qmaw8N0sIdv05eogW8anrRdKqBF7oRKFfW9+v/s2m7s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7983.namprd12.prod.outlook.com (2603:10b6:510:28e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
- 2026 11:07:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 11:07:01 +0000
-Message-ID: <38195919-cdf3-49d4-bf2a-10f6cbab454a@amd.com>
-Date: Mon, 14 Sep 2026 13:06:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/9] dma-buf: Export dma_buf_set_name()
-To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-4-matt@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260911214200.33793-4-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0255.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oTui/J2S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BsPpSbVC"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAmb05314086
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:10:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=9q9U2IK1L+GKlvlEos9Svn
+	w0EMZHyBDz+3wHlJtnOwc=; b=oTui/J2SWbhnEEXK6LCpyDEplg5BhJN2N/1ygS
+	YSER5nGm1nTSGGQPANsxWAKljD1GdEtafI5rv0/rYfiPXc71paj2+Fr2GPCHwV0V
+	k+xrw7UvhkO6CVA2rHnZyXu3XGj+e1SM4+0ZxDJMWyR8xZXHGgquh+80rLWjp0PQ
+	YwP9kb8xLMmY7aEjOVTtVCyWwCBZP+6WW/O0cFiGEXuvYqoD26I2ruVl797mbRLn
+	V95qSNNXFBYk145wBKFvHa+Q1aa3Ual6zcw9oI2KYXmP67nbdNrstdfJrtfNxak/
+	LDGI/K0RwIebQHGV/zY9oqfSl6k4jEtbBTUsre9+VkvhOvSw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c6b82-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:10:45 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90ce21f2cc9so97200156d6.2
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 04:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789384245; x=1789989045; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9q9U2IK1L+GKlvlEos9Svnw0EMZHyBDz+3wHlJtnOwc=;
+        b=BsPpSbVCQI6Mto14/j98es8Hnxxr6B1liOaI+SUCwkjThYA591YACFcB+y/z/f4/xJ
+         bSaZ3uOBPuX7e19wlxkbv1cCz4+g31BVJiss8N5Q8lFfgFG1mosAw9VCya5oNBHoM90H
+         8pUkI4T5/FfK+JnNUZadlwKdfQlbdPOFVpFgT6MjGS3r1/TpDlEulO0EknmkKwL6blhB
+         xgiSCLyUX/owftrop8KXH319kkQfkeFkfA25ie+HPbuukVKRQrOfDi+ppelsQnQ7lKzx
+         sxHtmGSK2cyb5X/B2qtvxofNFcBXq8mri7SgPRSjOY73lF8h9PHnHducIu+Gpjdt+fEe
+         JTVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789384245; x=1789989045;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9q9U2IK1L+GKlvlEos9Svnw0EMZHyBDz+3wHlJtnOwc=;
+        b=UzHJUz8GHOm0082g0BCdonDASTqAoifJYgaf7P5HyJbOWcFIQBy283sNZnQy+eHkRJ
+         hKZ+EcoZOr+EVVqXqeVbcJTKVyRfqUc/Xa2n+8Wj87OzfbXIch00jO/IzI6OUNQNQTYS
+         LSs2uJwSni5zIs3N14cnyreN9jxLDKzH8x81NrHlGTF5H9/0wIJnOKzyK2T3hanHrTyM
+         KE1yJU1gErvl2JhK08YqSemuqCcIQwrPx03ul8DVOEiTsvWMHC3Rc9rzIp4lxZgOEydF
+         DsGymRotx21eNQAVn7ZrOogQGcs9WLrJRV71e7EgEjLug78V6xN4n5awXdDnGg94+2J6
+         8u5Q==
+X-Gm-Message-State: AFuF++ndv1BsXxr7VXS5AUTccamClZQDvjL9C3IywnPo9z44fKPTwKLH
+	MB3yAiquxl92A8JLdSokIBV/5uHiYUxbdJA68y/WL1oLQjQaW9u1vnYX7miK0kPbrGCf2vVug08
+	tI81PTgaZnzcKYUgMxV2OmswX7qNVqknJxd/UNQfljPZ/rXQ+JfB6zL+XlG0/9JWMzg==
+X-Gm-Gg: AYBFou3numv/yjlyRaVu1icPaC8e/w9vkk6uMuEWI67oYacJIsOcufY/2XPfVxdctZ6
+	JlbaPNzGJfqHTV2+pA8qK/epLdrt83TJOGrn5bHdQ4tKCkCMxoLXRceXToJ3m8jtZKXrWOEHTkX
+	g3ff4jP5KkDgrT2das8eG0vFUQ0GMZOydPxfXMzcVrdyMOcbY7VFpPtc/HS73BMXaOFm32oxIhO
+	1RmgMeY3cIMshrAaWcEzFqpuEri9t2YcuCnXTEKrMQmx/7UWq3AstKboAc8V6rAwq92FPZXHrNM
+	Xi36WNt/NNS+++289XIcG9LZwxZ/9JtmcyqyngaBNCiIThVnr2831HfjrjZILU3fnP5bBFhIFNY
+	ZUrNkwsutyuPsVKqVtuwY815sYqt9oRtZ28cgQ7LU2H/P/UZQ1JvGZ+CkQzzPbxzrcgmK
+X-Received: by 2002:a05:622a:1807:b0:531:181:d6b6 with SMTP id d75a77b69052e-5310d02f2cdmr27308531cf.37.1789384244745;
+        Mon, 14 Sep 2026 04:10:44 -0700 (PDT)
+X-Received: by 2002:a05:622a:1807:b0:531:181:d6b6 with SMTP id d75a77b69052e-5310d02f2cdmr27308001cf.37.1789384244341;
+        Mon, 14 Sep 2026 04:10:44 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4787eesm91720226d6.21.2026.09.14.04.10.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 04:10:43 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] media: i2c: Add Samsung S5KJN5 image sensor
+Date: Mon, 14 Sep 2026 19:10:23 +0800
+Message-Id: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7983:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86aa5c77-2e80-476a-a411-08df12504d20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10067099003|4143699003|22082099003|18002099003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	mhGs9b/6NcQjlBdg9iPLp4cNjJgufI2ZkPpx7IfEs1cHNinTWndjAg6yCaLQnGonsim3zQTsxQNO3Eq/TCL6oTcVlpSght8v1T0+qYjC/vY8mszn69j/oZ0kxT4SlxAwnIUnIjVW7h4393lcLlqIekMV54dAhkoh2d8g3c5qKs2qqsvEhBcU0LL1CE8AnU2juqlxtLkXVV4CfUIUUjf74ud6M0pxnuq4o0Ym5brv7GvzuJgXMLguAUo21cxQ1Q1pqFvpOldJ+Wra5ohssKsgnWhfLvKN8naS37A4l5T7kd8/t+NFMS6ZYsvm6JF3O4Qak9NpgmsA7SKUxaZyDbocaXAbNUkAPyL6jO9JKHYjhgRVhuP/ct5/+B5CYy55F09D6CODYH2mQY28Z+I4EcZw9s3wdR0JbpjlNsJXqRfPrv2OrF10Je31OPD4xfW8AR6fxZwoArB/cJixrzsFd1+lhg5I7YCTnPX8VHmvnrNZUOE5xswd5y8A2mQJOTbMeW0gnksi/9atQHyqIw2JZARSdAQvfOG8mhFGbpYrL8qJ7UuoYz5ovQds/k42tNQkYFxwKJls+1a+ljRhg1LDHQgJVsa4YpVdQpf/vh76lnTBjZ7zg+8elNY7MHWoiPphKvoyrY++EY00mMtRp6+H7jmBMm2MpNh+hFnEM9DGyYVITxFiXAwDEfa/xa54FUInqWEbYHaQQuqrBoAhPn/Jt1ZNsA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1pCTmZOSTE5OHVtL1NsSTRtNnUyUjJRV2pHUG42cTgvMFB2RklTSEsyRXBP?=
- =?utf-8?B?eFhCOUJ3VlloY1BhMlluWmkwbkllR3EwdW1RSUxYKzRKaGQxVm9GWFByTDhu?=
- =?utf-8?B?bmtWakVtUUtHRm02Vm55NE5va09kakRGT1MrQTkxK014M0RlclVtSmNRT1lu?=
- =?utf-8?B?VXJ5UkZNeEViWnV4YzhDeGJ0aFdTaW4zQk1yTVM3V01ZdzFmaHVWeVY4aU1Y?=
- =?utf-8?B?OUZDbUJjNkdISlgvejZLWkZEczdpV0R5VVdrakFVZG1YUHo0TWJZejdDd1dv?=
- =?utf-8?B?Mkc2NWN2SEY0blZBeWN3cWdwN0dKQys0OWtDd0orUExsUjdPSHllNHl6QkVC?=
- =?utf-8?B?V0kxaUZmYlNDcVVYZmsvR01RUHQwdTlGMHVPb3NPUm9iSkNMbnhvaUdkUFdn?=
- =?utf-8?B?bGlJNzRyWkNlUTZHeDZ2VHN5TEVFRXJ1Z2dqV0ZpWElaenRCaTk1NFZ2Q0Zo?=
- =?utf-8?B?aG1qOFNtWTlCRnRGcnE4UzE2RDEwdGp5RktnSnl0QTByN3VaZDJLOGtMVE5X?=
- =?utf-8?B?cjdoaTdQeloyU1pJaWNkWG83WUU0OG5DZk4rUnZHclNoc1RDUkd5QVJ2MmZ3?=
- =?utf-8?B?UHR0UHlPTUg1cTE5Mis3Q3d1UG5jeDJKWUMySExpZjhKTU85MEdXellyS2ha?=
- =?utf-8?B?SEwyMFdiVTBtT3FidUoyMzBlMkg2dmthK0ZReGJkUFdpQkUwVDEvNmM4bWFS?=
- =?utf-8?B?eTltTlRXWGtuaEVjWll0SThDeGNBOU1XRnRka25NRzZ2WDJrdEtmdkgrQVBw?=
- =?utf-8?B?eHZZaUZtQWwvSEdSLzNjSFJ0T3F1WTJuRUR0bzNGeWNMM2ZPVlF0Z3lybGtx?=
- =?utf-8?B?Rk4wZWV3dUlZOE1qTjR0Q0JZeFh5NytsdTdXN0tmclA5NTlHcVhxc094anpT?=
- =?utf-8?B?M2JpUllvWGVXNlFHSXRHVVEwQnlvOUozeGxvUGUvUkw1UUEwM0t0cE9NdWIv?=
- =?utf-8?B?N0hudWE4aWJZdEhGUFdVOHpRRnV4MGpHU1FHRjdyUDdxd2JYelFDb3d3WU9x?=
- =?utf-8?B?SUxmdE10Tm02Z252TGhOakc4OUxJWHNyN1JhbEsvM0tMeGIzRTUwTktrTUNQ?=
- =?utf-8?B?b04rangxMU1XbklYeWJTcnRrNzBsbGREamtvT21qZzJxTEFLejY4NHZONHh1?=
- =?utf-8?B?V1F2eVV6WVBTUHd2OWZxN050Z1lIdjZLZHMxcWNGQlVHRVptL3J5eEN2VDd1?=
- =?utf-8?B?a3FiSG5XN2FFQXMzcGtISGZyNU5Vamt1OGNFQ0FmRTU4cHFWMFhhTEZldDJB?=
- =?utf-8?B?WU1HTnpqcUtyVWRFNHNXbm5zSlZTYjZjbml3WG01MkxBTXZ1SnVkamV0bnFx?=
- =?utf-8?B?cUxLR2xXVkFsLytpclE0NWN0R2hHWmtpYXFieFh4T0tqTTNrdW13M2ZGSVlD?=
- =?utf-8?B?alhyZlVWdXNlZ2VvcDhwMno4Tm5QVE1GT3lwMG9SejFWcVdQRDkzSzhFellC?=
- =?utf-8?B?YXJKck9TcENwWCtYcGszUWRETGwzUWkxbTJlQnQrWGZyWXFIcm9YczB1S1Nm?=
- =?utf-8?B?bk9IRnV6dTFVY2dMVjU0ckFoL3loTFVIUGVJYjdmQ21PalU5MUpCN2tydUdn?=
- =?utf-8?B?QVd4TzBod0RXSGhTM2ZUUUVoaUZjeXNFNjlkS3lmeEpyQ3VDQlJUUEE5SEVX?=
- =?utf-8?B?bG15Yno1dXNXUVpsNm9FUWZxZ0JUQXFHVTVnbk0wM2w4K0hkL3owTGtJaUNS?=
- =?utf-8?B?bzlNeGFlT1l4UHh2UzJ6MmFaMVhIc0FwWjlodFpVYVo2a1F5K012bmJDV2NL?=
- =?utf-8?B?dUM4YVNPeE02TVdVUDdMT0pnaTBiSFFSZHRBYzR5YXNhaFlvZXI4OWlmYXRm?=
- =?utf-8?B?cXIwZ2srdEUyNDNrQzdPWVk2YmlWTC9IVUJ4OUVDZTNVczd0Szg5Vmo2MGZ5?=
- =?utf-8?B?NW9JL3I5L3FqSGZJdWc3dDVETHUrUnEyLzZjNHprNkkvOWdBbjZDVDVLUUlh?=
- =?utf-8?B?Nm5YOFQxUzZBTDc3Tm9zc1U1ZkN1VFJLQjV1RTkzM1FVM2xLcFl0ZDVLcmJE?=
- =?utf-8?B?TldpVEhIK0JwVGFoeitGc1c1WEdlN0ZkMlRQLzVSUWh0VG04c3RHckVvUEZn?=
- =?utf-8?B?Z242UCtTb3hEb0ttVlZ1U2JMMHloa2tmMmp6S2xxdm5rdkV4Uk5pNy8wdGNK?=
- =?utf-8?B?VUFFYkh6YkJsL1piMXgwVVlnMlZaQXRFcFdrUzNaVjhHbmo1NWh3UGhvaVJv?=
- =?utf-8?B?QnZYRVR6SGVLbzJYMnR4ZkNhQnUvaU55M3E5NitCcWxIVW1VcUlXamlnbEMr?=
- =?utf-8?B?eUdFR2xlNkpXOGs1clM1TkdwNFFHY2NpTGtPQjhEeVBPTjJzNXVlVXlhbUVM?=
- =?utf-8?Q?6cgsd9F8kPntqCHSdz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86aa5c77-2e80-476a-a411-08df12504d20
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 11:07:01.2156
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nGxcEKF/ijJv9EGHUUi/Vtd19LUGEALXf0u5N7YJTOq3aWe6q//7/xHh6feqaXXV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7983
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB/Wp2oC/3WOSw6CMBBAr0K6tqQ/aOvKexgXpS1SFapUGw3h7
+ hYS0IVuJnmTeS8zgGB7ZwPYZgPobXTB+S4B22RAN6o7WuhMYkAQKRHHJQzn4tQVsLKMkkpLqaQ
+ A6fja29o959D+kLhx4e7719yNeNouCb4kIoYIGlViZHhtmGQ7H0J+e6iL9m2bpwGmUiRfNmGrT
+ ZItODa0kopYxv/Y9GMLtL4fabJRRZXGVplaqB/2OI5vF57SBh8BAAA=
+X-Change-ID: 20260716-sk5jn5-be432bc99a98
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789384240; l=3562;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=AmdoA3r24dHAajQOXdZSVXOQ/7zFOK7uEZvjLzLavQM=;
+ b=Z+B78ICpw+MIyNgCjf0vvNax3X7oL3rCd042Ro3MVr6yAno/QRX5RSR5HzNDPHgnEiBTRQVdP
+ lQb7Lc8/BqVBLXP9Wx69iT63GYkbeBy/YzrXNDmRzH6DpNoBQMPaxYw
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-ORIG-GUID: BB0MTC_48N79pwKRT6tK56EdphZjLe2d
+X-Proofpoint-GUID: BB0MTC_48N79pwKRT6tK56EdphZjLe2d
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa7d635 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=y_Jm3pi-UkWrk6VzsO0A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1OCBTYWx0ZWRfX+Q5dZTglWz6E
+ etGHN0S8Rpz88jGVsDs439BqCMJRTkQVCM/rAR8D0m1pG/hoPsv+4+4VX6VzEuI6nYTBHFfdBh0
+ b0kz5jGfC2Tv0LDXDlRB3m8UWQReg8Mrs0TCLNrawUfOAK3WhPBxDNThBZqh50BkfGlTb6FoLJU
+ 7S9Q7UoNobGB3G8aFbarA+fqaPjmqiymNWpxzXph5C8LY/gfM/Fl1Ga2tYoaKqErTxq6tdVFRo7
+ eWKWe3gbIZ0PrUiEuvKELJ02JgV9WLPtj2uH4Ei6sn5GI/L2U/Y+7OGqKUbBQVB/BwbXjjZIR1p
+ FHdGkQAYtnxXkkoO+2+V+4gHAAzsmhXUR5H5IVkHn3iddKxSOyB1IxSSnD01s2VvY4Gn0ETi5dl
+ UW9p3hWrEM+p/58jJYrqRXrFsecVCbkKtzhFzOYCwq5ct8n+ZcoXOrE+J70oJEtFQUK8465OsA1
+ vtd/Z21xZHOEhP6Daxg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1OCBTYWx0ZWRfXwah1tG7yEQae
+ 1tyV0JqaFn/Xx3swW1lRs01XPlW9RJFFVABItEUn4yTnmqH6L78ZfS52goIeLzkCkXk6fr1qI6B
+ nbN5nOktDncSibcU3OtsPJSARqm3jBM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140158
 
-On 9/11/26 23:41, Matt Evans wrote:
-> dma_buf_set_name() originally took a __user string to duplicate for
-> the buffer name.  Make this function a generic set-name helper, taking
-> a kernel-allocated string.
-> 
-> Wrap this by a new dma_buf_set_name_user() to support the existing
-> ioctl path for a user-provided string.
+This series adds support for the Samsung S5KJN5, a 50 MP 10-bit RAW MIPI
+CSI-2 image sensor.
 
-That just describes what the patch does and not why, in other words this needs a bit more justification for the change.
+This is implemented as a separate driver rather than extending the existing
+s5kjn1 driver. Although both sensors belong to the same family, they are
+different parts with different register maps and power supplies.
+Combining support for both devices in a single driver would result in very
+little shared code while introducing separate initialization and control
+paths, so keeping them as independent drivers is cleaner.
 
-For example something like "Allow exporters/importers to set the name of buffers from pre-existing information".
+Power Supplies:
+| Power Rail | S5KJN5 | S5KJN1 |
+|------------|--------|--------|
+| VDDD       | 1.0 V  | 1.0 V  |
+| VDDA       | 2.2 V  | 2.8 V  |
+| VDDIO      | 1.8 V  | 1.8 V  |
+| VDDIO1p2   | 1.2 V  | -      |
+| VDDM       | 1.0 V  | -      |
 
-It is also important to describe which role should set a name (exporter, importer or both). When an exporter gives a standard name for it's buffers that is most likely harmless, but when an importer bluntly overwrites a name previously set by an exporter or userspace then we really need a good reason for that.
+Tested on the Qualcomm Hawi qrd board.
 
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 58 ++++++++++++++++++++++++++++++---------
->  include/linux/dma-buf.h   |  2 ++
->  2 files changed, 47 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index d504c636dc29..8129ea11ff58 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -405,31 +405,29 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
->  }
->  
->  /**
-> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
-> - * It could support changing the name of the dma-buf if the same
-> - * piece of memory is used for multiple purpose between different devices.
-> + * dma_buf_set_name_user - Set a dma_buf's name from a user string
-> + *
-> + * The string is up to DMA_BUF_NAME_LEN long, including the terminator.
->   *
->   * @dmabuf: [in]     dmabuf buffer that will be renamed.
->   * @buf:    [in]     A piece of userspace memory that contains the name of
->   *                   the dma-buf.
->   *
-> - * Returns 0 on success. If the dma-buf buffer is already attached to
-> - * devices, return -EBUSY.
-> - *
-> + * Returns 0 on success, and any previously-set name is freed.
->   */
+---
+Changes in v4:
+- Removed AGAIN/DGAIN _DEFAULT and _STEP macros, inlined min/step=1.
+- Removed S5KJN5_NUM_SUPPLIES, use ARRAY_SIZE(s5kjn5_supply_names).
+- Reordered struct s5kjn5_init_op to save padding.
+- power_on(): removed goto, single error path handled inline.
+- s_ctrl(): checked __v4l2_ctrl_modify_range() return; removed the two
+obvious comments.
+- init_controls(): moved v4l2_fwnode_device_parse() before the handler
+init; return hdlr->error directly.
+- Removed the redundant single-subdev .link_validate media entity op.
+- dev_info() -> dev_dbg() for the detection message.
+- Added blank lines before the probe() error labels.
+- Added get_selection (CROP / CROP_DEFAULT / CROP_BOUNDS / NATIVE_SIZE)
+reporting the full 8192x6144 pixel array, per the libcamera sensor
+driver requirements.
+- Link to v3: https://lore.kernel.org/r/20260806-sk5jn5-v3-0-0b3ac1eadf8a@oss.qualcomm.com
 
-Kerneldoc for a static function is usually overkill.
+Changes in v3:
+- Add vddm-supply to the regulator list.
+- Drop GBRG from Kconfig, file header and MODULE_DESCRIPTION. -- Vladimir
+- Compute pixel_rate at runtime from the link frequency instead of
+  storing it in the mode. -- Vladimir
+- Split the init sequence into two tables around the 5 ms delay and
+  drop the .delay_us field/handling. -- Vladimir
+- Remove unused v4l2_ctrl pointers and the unused <media/v4l2-device.h>.
+  -- Vladimir
+- Move all control flag setting to the end of s5kjn5_init_controls(). -- Vladimir
+- Fix s_ctrl() to apply controls when CONFIG_PM is disabled
+  (pm_runtime_get_if_active() returns -EINVAL).
+- Use S5KJN5_CHIP_ID in the init sequence; reword the clock-rate error;
+  minor style fixes (reverse x-mas tree, ret init).
+- Link to v2: https://lore.kernel.org/r/20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com
 
-And since this is used only once and very complicated I would completely merge the logic into dma_buf_ioctl().
+Changes in v2:
+- dt-bindings: drop the "T:" MAINTAINERS entry -- Krzysztof
+- Rename vdda2 -> vddio1p2; fix supply descriptions (vddio = 1.8 V VDD18,
+  vddio1p2 = 1.2 V VDDIO12) -- Wenmeng
+- Link to v1: https://lore.kernel.org/r/20260717-sk5jn5-v1-0-da610d7fd494@oss.qualcomm.com
 
-Regards,
-Christian.
+---
+Wenmeng Liu (2):
+      dt-bindings: media: i2c: Add Samsung S5KJN5 image sensor
+      media: i2c: Add Samsung S5KJN5 image sensor driver
 
-> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
-> +static long dma_buf_set_name_user(struct dma_buf *dmabuf, const char __user *buf)
->  {
->  	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
-> +	int ret;
->  
->  	if (IS_ERR(name))
->  		return PTR_ERR(name);
->  
-> -	spin_lock(&dmabuf->name_lock);
-> -	kfree(dmabuf->name);
-> -	dmabuf->name = name;
-> -	spin_unlock(&dmabuf->name_lock);
-> +	ret = dma_buf_set_name(dmabuf, name);
-> +	if (ret)
-> +		kfree(name);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  #if IS_ENABLED(CONFIG_SYNC_FILE)
-> @@ -578,7 +576,7 @@ static long dma_buf_ioctl(struct file *file,
->  
->  	case DMA_BUF_SET_NAME_A:
->  	case DMA_BUF_SET_NAME_B:
-> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
-> +		return dma_buf_set_name_user(dmabuf, (const char __user *)arg);
->  
->  #if IS_ENABLED(CONFIG_SYNC_FILE)
->  	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
-> @@ -854,6 +852,40 @@ void dma_buf_put(struct dma_buf *dmabuf)
->  }
->  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
->  
-> +/**
-> + * dma_buf_set_name - Set a dma_buf's name
-> + * It could support changing the name of the dma-buf if the same piece
-> + * of memory is used for multiple purpose between different devices.
-> + *
-> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
-> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
-> + *                   similar.  This takes ownership of the allocation
-> + *                   on success, which will be kfree()d when the
-> + *                   dmabuf is released or a new name assigned.
-> + *
-> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
-> + * name exceeds DMA_BUF_NAME_LEN.
-> + */
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
-> +{
-> +	if (!name)
-> +		return -EINVAL;
-> +
-> +	/* dmabuffs_dname() won't use the string if the length
-> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
-> +	 */
-> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
-> +		return -E2BIG;
-> +
-> +	spin_lock(&dmabuf->name_lock);
-> +	kfree(dmabuf->name);
-> +	dmabuf->name = name;
-> +	spin_unlock(&dmabuf->name_lock);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
-> +
->  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
->  {
->  	struct scatterlist *to_sg, *from_sg;
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d1203da56fc5..14d3950b63c8 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -570,6 +570,8 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
->  struct dma_buf *dma_buf_get(int fd);
->  void dma_buf_put(struct dma_buf *dmabuf);
->  
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
-> +
->  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->  					enum dma_data_direction);
->  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+ .../bindings/media/i2c/samsung,s5kjn5.yaml         |  117 +
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/s5kjn5.c                         | 2861 ++++++++++++++++++++
+ 5 files changed, 2997 insertions(+)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260716-sk5jn5-be432bc99a98
+
+Best regards,
+-- 
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 
