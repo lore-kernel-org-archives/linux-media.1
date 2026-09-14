@@ -1,170 +1,102 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD0D30D402
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 02:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDA7331A63;
+	Mon, 14 Sep 2026 04:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789353781; cv=none; b=R7fbeP25xO8bSPpX50PThL4Ab/Klb7XWPbzmC7c+EgU7Q7nHNYASOf4l6SL/GZOsuiNhl8eJ8K1TjCsTbuBShrblCpYLhfYKVWXKK/jCa8Chm7/2Zk1KKkAo/OdFsDp6+uMVAIE3CbnQep3P5REQ5LGpvk6A+DnFuo2OnNNyCEc=
+	t=1789360371; cv=none; b=B3blfh8HFLoL8aRqvVPdeET/qH+zdb5OCn35ve5XcCWPECRMa8XAw5RXZ+hBlxRJPZqRXVJdkfCGE+bSLE4ZgUPoFdNQvFM/K6J+mhQhkrvO+kLHjMr0FVqOqpCAxHo2NKzgUn1rCv1qrR5wiig/65jI+PE5K5Xm2QkRvFhglog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789353781; c=relaxed/simple;
-	bh=azDpHypCFmxLda1NALxVvN7aw45bukozhuDx4ej+seI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TRIt3WOoTgjiep/lmr01CCTfFAxrbEUHSsWjAtGOIVtfhkCo8M5ykLtxD0Rn7Hoz5o2mfXCLlZipAANKhIe1xk6yt88SDvlD2tjS5FMgb8powEh5r4UbYfAK5D8+hDkY0K0/s14wvIiN6sh08u7fIw2dNY+yILJvLTJP6m6DX4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LxWyrMq4; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789360371; c=relaxed/simple;
+	bh=ebUzZYfqJvoaNtUcw2lFtwe2BilMy5OTQtpgRT6xJJE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ksRcxrLjBdiDYifjCKCHabqyEWuW+GJKC0/lZoKjZagcgIwHP1arJHOgklE2z85ebhZXkeSrC7Wm7Ib+YWWO0UiAqn7hxa6+J6VMqRlcByMp4D4DFMXTSW+Vb8ivA1+Rv6yJYseEc7OFVLRaEgk06JYKC8yMPE2d7WK9O+9nqKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=KN315nW/; arc=none smtp.client-ip=188.68.63.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LxWyrMq4"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2442309a91.0
-        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 19:43:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789353780; x=1789958580; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/qmshfoHf/3XH39fqg85nyx5ztRNNQEfwMbJuzYIVkc=;
-        b=LxWyrMq4KNeAizWWqqsJxmS/3Lau3+idhj1qRhKuf6vhqt8ttsLbFJQPTQ7NC4KALF
-         nJqp3Z8HI9vzXuC+MAmlALEh05n/iV58NfTSfHnLKoFnoCZS18mSz4CIHhhnRnRcZKIn
-         aWZc3Udh5vibbj/o4oGWkT+AEtlfssvW8Hn10C7gv8cjTtCIxloD/vk7Wm+uykhROO0F
-         fcoJgPFW7/G1fMW1tPI7c2aVkjfwxtwy/HciBRQ78r6gPYlm2Q/vwe5+W9/aQHkz/cFe
-         Ha/037kyPBfGmKQCtpvAeCH8TsJnNGPU8k6JseCJ13BmSuRRmiFRkhsGbf//uHOkwilN
-         vXHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789353780; x=1789958580;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/qmshfoHf/3XH39fqg85nyx5ztRNNQEfwMbJuzYIVkc=;
-        b=fh6BDUVPXLyd986Lf5wQQJN1h3TBRmCmtikYLy9rmKNTF5YzlffMz6PnssYY7g5H+r
-         Z7WbmaV6jzwfgs0SM4r5094YiEWMvHGE4mnlxymr+VUyaI3m5Oq4KdqixALu0bBoTuP1
-         PC42k4dPF48k1nSp5/XRNHJSsgfCXF/1AVdJxkTi5xtg0jN6XQgKvZ8hmXD2kiaX0mk3
-         w+YUntouvJYV2pc/e4wgqgQgNTPVXRcJKjNh065bXNsyVHhPDYTIRxN3Q0F8n69kLyWI
-         UbR3RBVhCZiVsE5zsl57gZmIgwN3FFQn1gs9tGkmvIUPCW5lwxc6/8r1noJbZwH3jTRw
-         z4tw==
-X-Gm-Message-State: AFuF++kJlneo6at+cIEj1lYTlVU3VU4ViAaoAN4mH71sfacKlg/sCzG7
-	c/YFA03js+8yjvLGL2OvgD6MbGMr8VPvQtxSf6WSJ69jpsvGts0QKrkU
-X-Gm-Gg: AYBFou3/9ye9FzxWqhHyqk6e0Pwae424DB4XdGtGbn+m7nsMsN5O8FJNeP2rcwoxKZl
-	LB+xXV7qfiCGI5WzyfJ3AJO+JXQAUp4ecApFtYM2hSYsuVvA/lHrIYqULq6EvcCNPK75jddFo9z
-	Q9hGa5z5CEDLRTgKF9L1YULRHKtjYjAZKZn7jhs+pc2VD4GUGgpdK2tkSekQVMCZeQNjAK+U7fd
-	gSGFIQ0t/pc/A/sQKvFFJWuNGv/niovJ8tdwSplQeYIM70DXz2Hpm7LOnrimNNnnynRa0wiP/6P
-	1gaDqKmjH4amO1SM+7pgMCcu2dlmILOu88v2HYlTfn6ebwqC16GHFgkuQ7emqmrewg191OlOVHF
-	hLD7Owssn23/ZLoOq5ZEKm13DVU65WwoDyJ9XMI783U9OPRID0cgn86CJ+vgxen/4f39CgorFOE
-	WPfNDK/cauJ/GXE2pd/JOpvnVPwEwEOu+QACpgP+1CqLF57ImR8RV64hjayfl27903oJNnNgn1z
-	dI9FsASw+hp+g==
-X-Received: by 2002:a17:90b:3b42:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39debfa6792mr1445300a91.9.1789353779738;
-        Sun, 13 Sep 2026 19:42:59 -0700 (PDT)
-Received: from fa283618c643.. ([106.37.146.76])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95092c06sm18396545a91.4.2026.09.13.19.42.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 19:42:59 -0700 (PDT)
-From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
-To: hverkuil+cisco@kernel.org,
-	sakari.ailus@linux.intel.com,
-	mehdi.djait@linux.intel.com,
-	u.kleine-koenig@baylibre.com,
-	laurent.pinchart@ideasonboard.com,
-	jacopo@jmondi.org,
-	p.zabel@pengutronix.de,
-	ezequiel@vanguardiasur.com.ar,
-	mchehab+samsung@kernel.org,
-	festevam@gmail.com,
-	xiaoleiwangxiaolei@gmail.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@kernel.org
-Subject: [PATCH v2] media: i2c: ov5645: Keep the sensor in software power-down during init
-Date: Mon, 14 Sep 2026 10:42:40 +0800
-Message-Id: <20260914024240.152741-1-xiaoleiwangxiaolei@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="KN315nW/"
+Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjshG0gsNz6NYq;
+	Mon, 14 Sep 2026 06:32:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789360366;
+	bh=ebUzZYfqJvoaNtUcw2lFtwe2BilMy5OTQtpgRT6xJJE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KN315nW/zI9iny0dGLRHIPaCnoGcpgMzqClCQoqexzsWQQ8QIXZg0mYVnbx5Ld4uK
+	 ICxaswFt1xID/f67P/MVJP8ssVrRDeBUjMelxF00g4hUqKv+QRLkBeT3Y8IoEk1jZ9
+	 U6ijuIpUVzQ8HXzrlbRwFjUr1mL9t2wgeDHXFF1ScW8gsueaF42lxux8S4/wKvAk2W
+	 9ZeEjFn57ijuLYnmOohBHesTTOT5Pk2HJHefAiFI11WCQvYlZB32illDN6TMGMwt8a
+	 xQmaf1863JjeFhtL+ouWYYyWAoIaziuLt/Y5XxwSDdYlCW890cwYv6OKkPcJdDv/SN
+	 xWxbITgnYhw3Q==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjshF74NZz4xjV;
+	Mon, 14 Sep 2026 06:32:45 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjshD66Fcz8svG;
+	Mon, 14 Sep 2026 06:32:44 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C4EF75F9F0;
+	Mon, 14 Sep 2026 06:32:43 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <bf269f69-2b22-4b31-8ef0-48fbd8d19865@leemhuis.info>
+Date: Mon, 14 Sep 2026 06:32:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] media: ipu-bridge: do not use the CVS device lookup
+ for IVSC
+To: Sergey Zagursky <gvozdoder@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Miguel Vadillo <miguel.vadillo@intel.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, stable@vger.kernel.org
+References: <20260902211524.5572-1-gvozdoder@gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260902211524.5572-1-gvozdoder@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178936036425.723339.344260528783743414@mxe9fb.netcup.net>
+X-NC-CID: OA7hWtdI5LV0t/nSGqSMt6ZGfUpw2n9bcbNdbzcs9WFZG2xEIQU=
 
-On the RK3576 platform, after ov5645_global_init_setting completes and
-before stream on, the CSI host reports a high rate of CRC errors:
+On 9/2/26 23:15, Sergey Zagursky wrote:
+> Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
+> bridge driver") the internal camera no longer works on laptops where the
+> sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
+> INTC10CF, ov02c10):
+> 
+>   intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+>   intel-ipu6 0000:00:05.0: Connected 1 cameras
+>   ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
+>       without device fwnode!
+> 
+> No sensor subdevice is registered, the media graph has no sensor entity
+> and userspace finds no camera at all.
 
-  MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
+For the record: Linus pulled this directly from the list into mainline
+yesterday after I pointed to this patch in a small regression report, as
+I had seen multiple people reporting a regression who confirmed that
+this patch fixed things for them.
 
-These errors occur exclusively in the window between init completion and
-stream on. Once preview starts and the sensor outputs valid HS data, no
-further CRC errors are observed.
+Bypassing subsystems like this has obvious downsides and risks; hence,
+if that got something on the wrong track, please speak up -- or ideally
+send patches to set things straight again in mainline.
 
-Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
-the power sequence to properly enter LP-11 during power-up. As part of
-this change, the SYSTEM_CTRL0_STOP (0x42) write on the power-up path was
-replaced with usleep_range(500, 1000). Since ov5645_global_init_setting[]
-ends with SYSTEM_CTRL0_START (0x02), the sensor core is left awake from
-the end of initialisation all the way to stream on, driving the data
-lanes while the host is not expecting any traffic. Reverting the commit
-resolves the CRC errors, confirming it as the triggering change.
+https://git.kernel.org/torvalds/c/856c562c94964a74f63c6d5f38a1509a59a2357d
+/
+856c562c94964a ("media: ipu-bridge: do not use the CVS device lookup for
+IVSC") [v7.3-rc3]
 
-ov5645_global_init_setting[] writes SYSTEM_CTRL0 four times: STOP at the
-very beginning, then START, STOP and START again near the end. Register
-writes are accepted over I2C while the sensor is in software power-down,
-so there is no reason to leave it briefly, and the three trailing writes
-serve no purpose. Drop them and keep the sensor in software power-down
-for the whole initialisation sequence. It is woken up only by
-ov5645_enable_streams(), once the host is ready to receive data.
-
-This preserves the LP-11 compliance improvements from commit
-092e8eb90a7d ("media: i2c: ov5645: Fix power sequence"), as the MIPI PHY
-stays powered and parked in LP-11, while eliminating the CRC errors on
-RK3576.
-
-While at it, use the register macros for the remaining SYSTEM_CTRL0
-write.
-
-Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
-Cc: stable@kernel.org
-Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
----
-
-Changes in v2:
-  - Instead of appending another SYSTEM_CTRL0_STOP write, remove the three
-    redundant SYSTEM_CTRL0 writes at the end of the init sequence, so the
-    sensor simply stays in software power-down from the initial STOP until
-    stream on
-  - Use OV5645_SYSTEM_CTRL0 / OV5645_SYSTEM_CTRL0_STOP instead of raw
-    values for the remaining write
-
-Link to v1: https://patchwork.linuxtv.org/project/linux-media/patch/20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com/
-
- drivers/media/i2c/ov5645.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-index c772ef6e51d2..2985966ab09f 100644
---- a/drivers/media/i2c/ov5645.c
-+++ b/drivers/media/i2c/ov5645.c
-@@ -115,7 +115,7 @@ static inline struct ov5645 *to_ov5645(struct v4l2_subdev *sd)
- 
- static const struct reg_value ov5645_global_init_setting[] = {
- 	{ 0x3103, 0x11 },
--	{ 0x3008, 0x42 },
-+	{ OV5645_SYSTEM_CTRL0, OV5645_SYSTEM_CTRL0_STOP },
- 	{ 0x3103, 0x03 },
- 	{ 0x3503, 0x07 },
- 	{ 0x3002, 0x1c },
-@@ -198,7 +198,6 @@ static const struct reg_value ov5645_global_init_setting[] = {
- 	{ 0x5a00, 0x08 },
- 	{ 0x5a21, 0x00 },
- 	{ 0x5a24, 0x00 },
--	{ 0x3008, 0x02 },
- 	{ 0x3503, 0x00 },
- 	{ 0x5180, 0xff },
- 	{ 0x5181, 0xf2 },
-@@ -347,8 +346,6 @@ static const struct reg_value ov5645_global_init_setting[] = {
- 	{ 0x3a11, 0x60 },
- 	{ 0x3a1f, 0x14 },
- 	{ 0x0601, 0x02 },
--	{ 0x3008, 0x42 },
--	{ 0x3008, 0x02 },
- 	{ OV5645_IO_MIPI_CTRL00, 0x40 },
- 	{ OV5645_MIPI_CTRL00, 0x24 },
- 	{ OV5645_PAD_OUTPUT00, 0x70 }
--- 
-2.34.1
-
+Ciao, Thorsten
