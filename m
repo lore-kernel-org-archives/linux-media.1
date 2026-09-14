@@ -1,287 +1,122 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79B9477E3B
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401480; cv=pass; b=PYVbPg583k77BLnx5yTLpqGwj4lMVqdIUA+oEhsNcs7v+o3/i1Ozzk/3up1HWic9ybrBO5uRNjS7XnD+V9a3R3lNKlxphc1NZxqF1bYNOp4TU95SC5kdZi7f9NIoqqWi+NVlFaACJWDTSR1JPG6olfQUpFD6SHSeftDRFaKxm1k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401480; c=relaxed/simple;
-	bh=9Ta1M8XJETIIM0prQ4GdP+3MHzBhGBuNdaGROU6B6gE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GX6z96UqWv59MAi7ARjAtpdxub6xFVDxSDAthLdcgK923dmHkamyGIaITQRZPmBFR3X5zmJqlOh3F/dwzG6rH7MONlpA/m8s5pGRMorldcbN1PKWcKbxv0MwNSjGvUFxHVETurn02rv82Ne/3EFvcRgxgmY9OzlPjdvE4SePtYs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TRxHVYez; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YkqNsvZo; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D8149BD91
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 18:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789409323; cv=none; b=gbqeI1vN4NB5x6I0OPiXLaPBO4CP+nDPaOIhYOtO3lkY+378a/cew3hUUrh6VPjb022Ga6GjqkG6Lr2KofHepzpXWeqIk7DFnwOpGzEl2wJb3oGDYW/nkAf444zd63A7A9iUc9AtLKKydCvarXJwFVWlWd/4tr74KWfWMFxaOFU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789409323; c=relaxed/simple;
+	bh=MZeHia5Sjdq+jl2QWpcNU33wRrn06cJxwy3XHGpOMVA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jWpfBMbPtAKTgnEudU2zrxKm9ScVofMPutHUFaDN539OER9GMtDaGBnyVK/K6QC16Mlwwsc2JaUbKs1FuF/jEVhNhx/ywY41OE0dE1YYqKlMjj1+ixp+ryhgG9Hd6YZYxda9qPdPvNd6ZAN5v3aR2GgV75bIdvtGOkpQZa+JYpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DBSErzxi; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TRxHVYez";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YkqNsvZo"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0J454090447
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:57:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=; b=TRxHVYezCwqq4q9Y
-	kN/buNB1dNTxgIEKMCqLjzqKrWxwtgDKQB3Tnem/QBBWs/BFqMXfDsRARBJcPo/J
-	/sGEIkskxBFRxqY/rIfx6nUIgkXd9RWzSmUo208JD1HMly2JxsFUQfvvA4Uu0Qfc
-	TBCG2ozceKL3gE98q8vPlDQBeThe3s4u5U6stgE1TJV+Fxnut16Bue/NS1hAT3Lg
-	mcfppt+wy8P41BWph0loM75bl45JoEgbF/DPUBpROD+RdNrC4+g3NuH8Ye4r6X3g
-	Xan6vcbVCZT7lQxnL+oRYM0DwgixpKtviJ3BQj0JCm5CrjMlWu76/kLQPu/HmVpN
-	Wl239A==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg20k1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:57:57 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939f3426a7cso591753385a.0
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 08:57:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789401477; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LvlCq8Gqq94sNMRE1YXH5gYHmJXbOkqIItvkwFrO+LFUnFYoskzd6E5ZzMQf6wqNPn
-         IByow+JS936cpEjK9IM0COTu9EmfSBSL0QcdT7D9fpdFR051+xmYUkhnY9l5IVTKwtb+
-         au+VkEjrthM/KP72jbWSkmzSvgldIq+6v55uZKMMI4azL+IvGm5aiLhsX5asQ7Reav4X
-         L6guVIgVPI+xQyGX01E+6CoIHGEnwZ6e/ikYBg41fHF5Z0IkI1OB98QgxhONKktjy5vH
-         70AJFV95R09qlm4fNwLatIDZ4qCTwpNJZ7svWhwMAr+Sscn+JpHT2zUrmxb1AUz7wUSA
-         KkaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=;
-        fh=w2b/O3v3Pi4nIjqYI1NWMxxbqvmD4oA4QUyGKmUqoww=;
-        b=SefGK6KOA925TjDUpNTEmIfgVbHZYUAQmZXqRJllFNLWHYbtizv0zYVzBZlhUm3uSG
-         4FnczpwBgETnp9KhSWLaNzyJjObUMGT3lME9WiT0DbyBfBO/RZ8aTRy4UyxFUIk3r7cb
-         zs3L+4tdVxpOvwQWBka9nyzJ6H9jeSd24JxexiPnQieQQxv4xRFgOPKD3Qoa6SYbjLx/
-         d/hr3kupILhRYxbapULBm3BMG+/ZIzotKPkjn+VME40JK4CD3oQCEVVhjPu294tgjfBK
-         ljcwEf0H3yo0cRPcRAZidv8tYw5wTYQv+elPbE1JgIcJBolVb9jRI1CAkmD8s+EH3AHw
-         k1Rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DBSErzxi"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so10892335e9.1
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:08:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789401477; x=1790006277; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=;
-        b=YkqNsvZosI8JGf1LVQPH6OoC9Jnn7+wJUJ81EV+mV4NYfwC809F+7gAQ+102BknV7y
-         970XVif/B8pFlyecVqzn+wA2lEc10JtP+3B3gtNkgqZd5nWDadDO99FVN4AVQD4Ujsvj
-         dTXfPjDuSl6aw/nugZuPZW6YoW3A80lnryTr11nnniL3iGHOw0T1UwkyvscYtCf6wnOe
-         ulkDpHBdq4lDRDcS2Y5TVTq7/g7H7H49OgLYWoWpehY5VQM/T3TZs0OWOJt0Bhpg9ptP
-         92uBe/JxGJ0bFwlJDooft+1HRHaAlR4TddyYAdCQhf8ehG5LIjwd72mLKqWO8YEelmhs
-         /n8w==
+        d=gmail.com; s=20251104; t=1789409305; x=1790014105; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=npapGo+2obRZMka7BZe1zrgegdn0mSsQ3mrLs63xQeY=;
+        b=DBSErzxiOSzf2OnzrO7JHkpREcpm2ksOTkgYrGrJ3Tj6qFFgBjyoKMx5qzbLO3fjTu
+         rE+/EBXeWpOfJ1kx+x6m7/f+B4HezJ4DBkyv0EKxogtaa3fhKLpGwjgWji3w+IEab9xI
+         0jX0p31wqHYxot/wp/s5+A3kiz2Fn5WSm6RVcFQMWivd+3RyJH3UyZY3AIs69gqlBN2k
+         XZQjtG8zyCuVkf3H8o5LXUunO/rLs9oKOct5Ms6G9lCctXAfgWzSyJI//5dkdIlC7DdI
+         apba8DkWoeqtldJRnrMxzVwDdqElhlBDWpomnhdulwFg7op+yR1rOONgOFT2vNT8A7a1
+         abvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789401477; x=1790006277;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gkpg2aLKwzhrtz5qzsRq2nrFbgnSGvmpPH/Iw8RllcU=;
-        b=E/dIhp8IHbD82w4HxNmS4fne+cGeOF3K+Y62ej0MWdEIeZcwjSCA//xtRtFxY9UsLK
-         FQHugo345mq0TqZqgTyw/33cQtvBnn2p/VzyFbNp40CFgwXbghnWPOD+zDG+cx9FLm6L
-         Ud5YxjD9nO9mWpHE2SggHdWo2CNl0+zlc3iDKhPMznLChDStRnfmwGSR98C4yuad1vy9
-         O0Nk5+fxW+btIwmHXYbblF1cDhxMCQExntT6YC5QbmVW9bzPR4e6Hk243TVuWBWXwZ6c
-         d81N780MwkdhpFTicpyOJtkIodztp3InU8SLX5KQ0II1C2xSxaRMvFZlh+qdcKLv/MrH
-         2rtQ==
-X-Gm-Message-State: AFuF++nn6vUucyH9QeW9XNvb6oWMYVKscrx+2yGUpKBKhC4Th2D07nQf
-	d74VPxVSUudmJABg+jLnQKMRKYVp0pffuam3sqyXQsK2Ppc8wuo+5dY5714w97T80DV0NvhO8f3
-	cklxYKQvslVSGMyA5tFZP1qz0PWQTnpqkE98DQ96iNAq2ToVbca5MBxSti0zLEDG4eB89uRWklp
-	B4lUHePLxwMRIYP6avemt+twj82AVJIP9jt5o2oD92
-X-Gm-Gg: AYBFou1JwAhr3W5+qxQtGLbXf7wsbNNrrDn56lzbUSqRFtFZrDPTZxzbflV4Lfrtf9B
-	ycf5xLZ8Q14Yk3FjHNdtLxxm8ForwmoRBAaeukq0feLI5wovL52+l3IV0zwNLMvDe5+4HVX6TuY
-	uKDrVJKGVUPZB+6Zuqi9PsJzR1NXNXt891cg3xnDoMVjcNuoFkJmsVCQ6eZXsK1x+0N3XwmDJJs
-	/ofX+9vAFHLtLNJ+SZTZMTBi8eG0wnFB38OLO2DvJ5D5/FpkqVpDRdr/dSynFiCykTKMQERI8w=
-X-Received: by 2002:a05:620a:470e:b0:939:b43f:341e with SMTP id af79cd13be357-93a2987f902mr442694785a.22.1789401476749;
-        Mon, 14 Sep 2026 08:57:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:470e:b0:939:b43f:341e with SMTP id
- af79cd13be357-93a2987f902mr442689485a.22.1789401476216; Mon, 14 Sep 2026
- 08:57:56 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789409305; x=1790014105;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=npapGo+2obRZMka7BZe1zrgegdn0mSsQ3mrLs63xQeY=;
+        b=mSMU8NkZSlG/ILHTvzeTKTtXtimC6ONQH3IFR2x9XVU1PG6SanOlHpgfSaKZfJPEr4
+         oHh6xBA4jygBWEELyOYapvGPz0VeG9xjA1MsOrk5WreMxgO5+xoIghWCyeTlDKR9f8LO
+         6hXajKoClMQQ9Wvgd/hJ3lgwh4Xs+VFChO9ATqSRGmzPCxAnIOUQTpTJ0xR9fsYQYecu
+         41RPn+9ohyW7yVrevj+UyUwE+DEEBg/eZiGcGlTT92Z+erKskxgWyyH59ibfo3w4ILST
+         FwDhI/Soj50rm5HMljXRFkIl0cPq02L2Efla48bG4DSR2cxCRbytibMmbBUF6Lc27y04
+         ohUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYYq1O7y6pd2Urft5iWZ5aOjKL7fxcBec5zQs4RhVL4axSQEprK3JWeZArJw3YAhD9VVNA7UEH6XnL2g==@vger.kernel.org
+X-Gm-Message-State: AFuF++lBz0oMu/9Et8U14kHrxTww9iZwb0/UW1j6ZH3anuf4SmEn9Fan
+	jjkrBIPB9o/MeVc+QlNWEIk71lnOrjREX39CZATbzpTBEZLUKQg2rPxz
+X-Gm-Gg: AYBFou1WyxBxJjOFCnFgMo6hFvV1tmhMYBzzJ7lrqXI95LgHkYkJ2AGS5li6JgKLNf6
+	3NLvMiTe9TrIfBM5oA8NbIRygXCfDX5XqxOgS0l5gKdhy+QkwYX2Js23uN2ymYCisvQ8mEHpxJq
+	Xb+y/29vwlHNQevU8DHrBy+yiDvOAkLlGF3+eOzdFi/Zi6pANQjhMtlzjXZTIq0elCSR/xTHu6V
+	lpEfvcYU6rkG0rdMmv3ZLYH3ApUF5Ceml8T3LvR7CxWQbRqnoJ1/OV8jpCKaeh6T2vAxn4EtJHa
+	s4CQUb8srJwiLEXouTAGuIQovjU2xtEhB5/3i3nfD/MUmUVZPYGu/ck4rSjLkenCNOTvAidoKpF
+	uSDOM2NtbxMXS/ZqZb9y2U6g5h2ojLNMjqREo3pnIjEQwovI5C6tSLz7hEpSjG987qU/5fxTjhC
+	WIQR+tKvMxTZl79B/JMtotyhmhPFiQQ9n3M3gIj/VN+/u7nMXNdrdX4Om9Rnvnw9Fu19Yf3oTqC
+	n9KKzg376RYNZ2LoAasUmXoLt+q2eQC
+X-Received: by 2002:a05:600c:3484:b0:49c:fa21:e742 with SMTP id 5b1f17b1804b1-49e7a68c148mr52389725e9.24.1789409304507;
+        Mon, 14 Sep 2026 11:08:24 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.65.89.105])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2717a6sm7069495e9.2.2026.09.14.11.08.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 11:08:24 -0700 (PDT)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: "D. Manresa" <dmanresa@gmail.com>
+Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Jakob Berg Jespersen <dev@berg.pm>,
+	Fil Dunsky <filipp.dunsky@gmail.com>,
+	Kengo Oki <dev.kengo.fugu0141@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/7] media: Enable the OV5693 front camera on IPU6 Surface devices
+Date: Mon, 14 Sep 2026 19:06:56 +0100
+Message-ID: <20260914180807.150971-1-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260906073932.24090-1-dmanresa@gmail.com>
+References: <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260902142322.73523-1-fernandorimoli11@gmail.com> <20260906073932.24090-1-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914133416.1030231-1-hitesh@ebytelogic.com> <20260914133416.1030231-8-hitesh@ebytelogic.com>
-In-Reply-To: <20260914133416.1030231-8-hitesh@ebytelogic.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 17:57:45 +0200
-X-Gm-Features: AcwNN1XINkaus2FnglJoOiLWFzpVQZwTJhph8aa6885b1nGo29uYeYlIMD4gkXI
-Message-ID: <CAFEp6-1yTw+p6B_dOPAtidiNvuYXqAq3PxwWiEkCp-G7ZtVhdg@mail.gmail.com>
-Subject: Re: [PATCH 7/8] media: qcom: camss: drive streams-aware transmitters
- through the streams API
-To: Hitesh Patel <hitesh@ebytelogic.com>
-Cc: linux-media@vger.kernel.org,
-        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ravi@ebytelogic.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa81985 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZovgdgjKAAAA:8
- a=HxDX4g0csZKSo-3CQAoA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=VOxKbm1zgHvARWIDjr3b:22
-X-Proofpoint-ORIG-GUID: ACibSO-bnW0Qv6x7AF3sDmpcD1jVTR9d
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIyNyBTYWx0ZWRfXzQl0ziLIIBp3
- LZQqK/XHNRHJydJ7Pd48uFYYMy1tbpYBNWKtnNqaXN7Mdt+KZ5SrG3RnbIcK9+soXVnAjMr2Ht9
- IAyXsIJv1CWGisgMScGXrKVoxWEF2gQ=
-X-Proofpoint-GUID: ACibSO-bnW0Qv6x7AF3sDmpcD1jVTR9d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIyNyBTYWx0ZWRfX5JKiHwm+9p9h
- UnXVy2Qwkwz9rvl65RJS4BYtQdsXkpUyJRwGFWG5pQzRSqUWV3BMdf2mkRj3kWBz0VDMy6kFrM4
- uzdvXJ6JXRsxVDD06cC0hbyskEqKnJH9iRlV+/cpaUjfiNIyEl2VEv6+QacmMk/Wk4WrT3/A0c4
- HBXYCs858YrZeAvtYofjbYT7wtlybAk8Zpyt0APklbz441i2Sy5gur7MdqlJDXOjVUUEf58aj+D
- cKG2WMLrxL5FxXUIYRe466K+t0V7ug0hWHPI00DmJFi42Nhl0ckYwcrAa71ogvhtPtTwS/SmptT
- SKDgOjGME6P1ay7VTSWS6hmXHoEBdlQh0X6sqKql0Mjh9A6HV0mVYHz1GSKGGSrUhX4PY+wbYZz
- 73MIMcC1K9OoL6y7oFe7z8XwXXXJdxuCPBlhgXKjXQ12fU8Q7AV29MspRyzHXNWmevwaoxhKeQr
- RfFA10IDFDfDrK4KQkw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140227
+Content-Transfer-Encoding: 8bit
 
-Hi Hitesh,
+Hi Manresa,
 
-On Mon, Sep 14, 2026 at 3:34=E2=80=AFPM Hitesh Patel <hitesh@ebytelogic.com=
-> wrote:
->
-> video_start_streaming() and video_stop_streaming() drive every subdev
-> of the pipeline through video.s_stream. That op is per subdev, and
-> the core allows one transition per subdev, so a transmitter that is
-> shared by two independent pipelines can only be started once and is
-> stopped by the first pipeline that stops.
->
-> A GMSL deserializer with two CSI-2 output ports, one camera routed to
-> each, is exactly that case: the same subdev sits at the head of two
-> pipelines that otherwise share nothing (each has its own CSIPHY, CSID
-> and VFE). The second camera never starts, and stopping either one
-> kills the other.
->
-> Such transmitters implement the V4L2 streams API and advertise it
-> with V4L2_SUBDEV_FL_STREAMS. For those, enable or disable only the
-> streams routed to the source pad the pipeline arrived through, using
-> v4l2_subdev_enable_streams()/v4l2_subdev_disable_streams(). The core
-> refcounts enabled streams per pad, so the two pipelines no longer
-> interfere. Enabling streams on a source pad propagates upstream to
-> the sensor by itself, so the walk ends there rather than starting
-> the rest of the chain a second time through s_stream.
->
-> Subdevs without the flag keep using video.s_stream exactly as
-> before.
->
-> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+On Sun, Sep 06, 2026 at 09:39:32AM +0200, D. Manresa wrote:
+> - The sensor's 2x2 binned 1296x972 readout (a downstream mode, not in
+>   mainline) streams through the IPU6 hardware ISP (PSYS) at ~28.7 fps
 
-I would like to point out that Gjorgji has recently posted a CAMSS
-stream API series [1]. Would that series address your use case, or are
-there requirements that it does not cover? It would be good to
-understand whether there is an opportunity for a common solution.
+Thank you, and sorry for the slow reply. Your tag is the only one that
+covers the binned readout and the PSYS path, which is how the Pro 7+ front
+camera is actually used, so it filled a real gap in the coverage. The
+point about the CSI-2 error signature being identical to the 0x2d build over
+the same five capture cycles is also the cleanest confirmation so far that
+bits 0, 2 and 3 were doing nothing.
 
-[1] https://lore.kernel.org/all/20260911062213.195007-1-gjorgji.rosikopulos=
-@oss.qualcomm.com/
+The series was applied to media-committers next on 2026-09-11, and your tag
+did not make it into the commits. I have pointed Sakari at your message in
+the follow-up fix, in case that commit can still be amended.
 
+You were also right about the property name, but I was slow and the
+literal went in as 8e3def7bf410 with the bug intact. I have sent the fix as
+a follow-up, with you as Reported-by:
 
-> ---
->  .../media/platform/qcom/camss/camss-video.c   | 56 +++++++++++++++++++
->  1 file changed, 56 insertions(+)
->
-> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/me=
-dia/platform/qcom/camss/camss-video.c
-> index 16c5f3748..90f22ce76 100644
-> --- a/drivers/media/platform/qcom/camss/camss-video.c
-> +++ b/drivers/media/platform/qcom/camss/camss-video.c
-> @@ -249,6 +249,32 @@ static int video_prepare_streaming(struct vb2_queue =
-*q)
->         return ret;
->  }
->
-> +/*
-> + * video_source_pad_streams - Streams routed to a subdev source pad
-> + * @sd: Streams-aware subdevice
-> + * @pad: Source pad index on @sd
-> + *
-> + * Return the mask of streams of the active routes ending on @pad.
-> + */
-> +static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad)
-> +{
-> +       struct v4l2_subdev_state *state;
-> +       struct v4l2_subdev_route *route;
-> +       u64 mask =3D 0;
-> +
-> +       state =3D v4l2_subdev_lock_and_get_active_state(sd);
-> +       if (!state)
-> +               return 0;
-> +
-> +       for_each_active_route(&state->routing, route)
-> +               if (route->source_pad =3D=3D pad)
-> +                       mask |=3D BIT_ULL(route->source_stream);
-> +
-> +       v4l2_subdev_unlock_state(state);
-> +
-> +       return mask;
-> +}
-> +
->  /*
->   * video_subdev_set_stream - Start or stop a subdev of the pipeline
->   * @video: CAMSS video device
-> @@ -324,6 +350,20 @@ static int video_start_streaming(struct vb2_queue *q=
-, unsigned int count)
->                 entity =3D pad->entity;
->                 subdev =3D media_entity_to_v4l2_subdev(entity);
->
-> +               if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
-> +                       u64 mask =3D video_source_pad_streams(subdev, pad=
-->index);
-> +
-> +                       if (!mask)
-> +                               break;
-> +
-> +                       ret =3D v4l2_subdev_enable_streams(subdev, pad->i=
-ndex,
-> +                                                        mask);
-> +                       if (ret && ret !=3D -EALREADY)
-> +                               goto error;
-> +
-> +                       break;
-> +               }
-> +
->                 ret =3D video_subdev_set_stream(video, subdev, true);
->                 if (ret < 0 && ret !=3D -ENOIOCTLCMD)
->                         goto error;
-> @@ -362,6 +402,22 @@ static void video_stop_streaming(struct vb2_queue *q=
-)
->                 entity =3D pad->entity;
->                 subdev =3D media_entity_to_v4l2_subdev(entity);
->
-> +               if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
-> +                       u64 mask =3D video_source_pad_streams(subdev, pad=
-->index);
-> +
-> +                       if (!mask)
-> +                               break;
-> +
-> +                       ret =3D v4l2_subdev_disable_streams(subdev, pad->=
-index,
-> +                                                         mask);
-> +                       if (ret && ret !=3D -EALREADY)
-> +                               dev_err(video->camss->dev,
-> +                                       "Failed to disable streams %#llx =
-on %s:%u: %d\n",
-> +                                       mask, subdev->name, pad->index, r=
-et);
-> +
-> +                       break;
-> +               }
-> +
->                 ret =3D video_subdev_set_stream(video, subdev, false);
->                 if (ret) {
->                         dev_err(video->camss->dev, "Video pipeline stop f=
-ailed: %d\n", ret);
-> --
-> 2.43.0
->
+  media: ipu-bridge: Keep the clock-noncontinuous property name out of rodata
+
+It routes the name through ipu_property_names exactly as you suggested, so it
+matches what you already had applied locally when you ran the rebind test.
+One detail: the dangling pointer does not depend on your series at all. 
+The nodes are already never unregistered on a successful init, so the literal
+dangles in the tree as it stands today.
+
+Your 1/2 is still the fix for the remaining two, the link-frequencies values
+and the lens-focus name, both of which are still literals in next.
+
+Thanks again for the review and the testing.
+
+Fernando
