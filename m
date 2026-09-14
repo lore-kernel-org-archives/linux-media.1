@@ -1,57 +1,58 @@
-Received: from buffalo.birch.relay.mailchannels.net (buffalo.birch.relay.mailchannels.net [23.83.209.24])
+Received: from shrimp.cherry.relay.mailchannels.net (shrimp.cherry.relay.mailchannels.net [23.83.223.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566DD3E5A0E
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 21:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.209.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB49303A35
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 22:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789422622; cv=none; b=mo5idCliTChJE4VJzkQfZ+XaMQM0EquC99wGfW9Ila5MfSaqorjjvQSAlMjCcSUVOORZku7TeTwcVW4CqneYJis7hV18zomghazYDq8GQucZtT4IUUQkjP+yoq2px9iMV0F3txbrsCl4xG0qW7/k1Q+VJZbf6Wa3E7ny3xTKjjw=
+	t=1789423257; cv=none; b=fqzkCXISQ3zb4y3NCLmJX4sB28iSll27u5tayY7y95tAIIRJve52vV8uDlBIScgBaDGGUhVO0CJfb963EvOu4KXQ+gxKtycoPtFSAkf1qy1onZcM6g33p5RWLb9gaDvivdC9zO5o8JHhiq1Bah6IFXFggN7tVOlL9v3juZqa+Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789422622; c=relaxed/simple;
-	bh=CPCU0dlqML1dcj4ipllvUSEWI5SLzcSqBKtshlWXe+M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r4be511tIY7dSgdaPYOWGHnJLZU2bBY9Nldy7Y/1152dmrpbx5E2Ie/4sjUfapBVAygXAsKxzk94Xhtt4kcqRafgpTpCZ9T16s6uDkEEtIyN//u4e02wuViUsZFCrYnggr6dGf6QDUZO96hXjgpM8iyiGZU0RXHcSOApCpmld/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=bjIJ/hgq; arc=none smtp.client-ip=23.83.209.24
+	s=arc-20240116; t=1789423257; c=relaxed/simple;
+	bh=R/1K9ZMiOC1YrELhO5RJIYyvsj9+GfH3Z3TeKHznzU0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LFSdSm1elJfylfFTjdpVKfLfeXf0ImzcvsrIJnYjDS1vRyrUM7eU5f0dH0r9dIBTZGVa1goMdItuKgEza9wtau8LQ43cRq7nTxbKPDptW7IPrh2RdjEQfdlWs3RiTH45vtE7XE4f3FfSeOAYurDhvAaxy2A2YurfnP4zrOP2Dfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=rdL4iT5O; arc=none smtp.client-ip=23.83.223.164
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="bjIJ/hgq"
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="rdL4iT5O"
 X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
 Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id D8796401A9F;
-	Mon, 14 Sep 2026 21:23:00 +0000 (UTC)
-Received: from pdx1-sub0-mail-a247.dreamhost.com (100-98-23-230.trex-nlb.outbound.svc.cluster.local [100.98.23.230])
+	by relay.mailchannels.net (Postfix) with ESMTP id 57801721DAB;
+	Mon, 14 Sep 2026 21:23:01 +0000 (UTC)
+Received: from pdx1-sub0-mail-a247.dreamhost.com (trex-green-1.trex.outbound.svc.cluster.local [100.100.67.126])
 	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 6A980400AAE;
-	Mon, 14 Sep 2026 21:23:00 +0000 (UTC)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 073B8721D89;
+	Mon, 14 Sep 2026 21:23:01 +0000 (UTC)
 X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
 X-MC-Relay: Neutral
 X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
 X-MailChannels-Auth-Id: dreamhost
-X-Thread-Madly: 50e8e9824ae3bb2a_1789420980662_268343512
-X-MC-Loop-Signature: 1789420980662:1542830486
-X-MC-Ingress-Time: 1789420980662
+X-Battle-Illegal: 4011a0a06d622046_1789420981272_1568935317
+X-MC-Loop-Signature: 1789420981272:1443187600
+X-MC-Ingress-Time: 1789420981272
 Received: from pdx1-sub0-mail-a247.dreamhost.com (pop.dreamhost.com
  [64.90.62.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.98.23.230 (trex/8.0.2);
-	Mon, 14 Sep 2026 21:23:00 +0000
+	by 100.100.67.126 (trex/8.0.2);
+	Mon, 14 Sep 2026 21:23:01 +0000
 Received: from offworld.lan (unknown [76.167.199.67])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a247.dreamhost.com (Postfix) with ESMTPSA id 4hkJ5v5rfvzyrD;
-	Mon, 14 Sep 2026 14:22:59 -0700 (PDT)
+	by pdx1-sub0-mail-a247.dreamhost.com (Postfix) with ESMTPSA id 4hkJ5w36GrzyrG;
+	Mon, 14 Sep 2026 14:23:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
 	s=dreamhost; t=1789420980;
-	bh=+gamu+CGGogG3yY20r9M7q0gS6qZ3bN6gqK7kTFXars=;
+	bh=0luPDCr1vELBAZ5cKhi59z+ffr0fEhQe2roACfBE8PI=;
 	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
-	b=bjIJ/hgqyhvv4mWS+5E9pKu8oxHuIQ/UCjM83pncY5L5qMQWGn4wSkFHJmx3xilsm
-	 sbA7iXBORfOrgNj8HaUozO9E8QpXEUgR0PdWEqp8QPoI9JLmhW6IAFqKMIWDdPhqq9
-	 KgsIlig3gGAuOz57Q7Y7yjMhOd7lYpduJKtuvltXfGsQF2T2IHibO3oUnbUHTyngqo
-	 ETKFXf25HJ/tHPytDT1B5ZBwRu78x8ZiMF4aNxMt9+oaFl+OVSUM7Kin2H52GO5H6E
-	 nKJsnJaxVNqWBTGO1VcZkBIf6Pmo1cvrbjFFHb8JVyl9f0N5GdPvdiemKsEZaUx/nP
-	 OKtfY5cyOil7Q==
+	b=rdL4iT5O5V1uVSeRHIKUw6ViAux3AsGc046i38oaUR8pATsERO+hWQ8FBhWpuW6EP
+	 aj1DjrN6lBFEBEL0PcWwlHtxUsm5wkIwxAUDdzYY7MRQpFY2G09or0sh76oD1MRfjX
+	 lZAUP/2my9oaQ/wZl9PUiV4ehhwysnl9g9ihl+lqpMW2lMNP/NE0Dfuw+1urfZc4Vp
+	 L214uVxdWYNbmPFPs/AAWLb1jaeuQrORezEwOf7zh0hEQ7A5EULl6vau7qJ7JeXk3V
+	 0ThQlBTmjhVJ2ltsh3FhqGXCX0rsoj8H+qX6NRSEeX5uQo9j084NHflRbok0suaQFI
+	 namvTCHZI2yFQ==
 From: Davidlohr Bueso <dave@stgolabs.net>
 To: sumit.semwal@linaro.org,
 	christian.koenig@amd.com,
@@ -62,10 +63,12 @@ Cc: benjamin.gaignard@collabora.com,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	Davidlohr Bueso <dave@stgolabs.net>
-Subject: [PATCH 0/3] dma-buf: system_heap: 2MB system heap chunks
-Date: Mon, 14 Sep 2026 14:22:55 -0700
-Message-Id: <20260914212258.2657788-1-dave@stgolabs.net>
+Subject: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for IOMMU superpages
+Date: Mon, 14 Sep 2026 14:22:56 -0700
+Message-Id: <20260914212258.2657788-2-dave@stgolabs.net>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260914212258.2657788-1-dave@stgolabs.net>
+References: <20260914212258.2657788-1-dave@stgolabs.net>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,26 +77,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
+and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v2
+page-table formats, and Arm SMMU's 64-bit long-descriptor format with
+a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
+mappings, but no 1MB leaf. A 1MB chunk therefore requires 256 4KB leaf
+entries unless it can be combined with adjacent chunks into a
+suitably aligned larger mapping.
 
-- Patch 1 adds order 9 to the allocation order ladder.
+Adding a 2MB allocation order provides naturally aligned, physically
+contiguous chunks matching the 2MB leaf size, without relying on this
+being accidental for separate smaller allocations. The new cost
+is one failed order-9 attempt (keeping current large allocation semantics)
+per buffer when 2MB pages are exhausted.
 
-- Patch 2 fixes the order imprecision when using non 4k base pages.
-This is not new but patch 1 enlarges it.
+Two benchmarks, measured on an AMD EPYC 7313P.
 
-- Patch 3 is a misc independent fixlet.
+(i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
+measuring map/unmap: with the v1 page table restricted to 4K/2M/1G
+(amd_iommu=v2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks,
+only one of whose 2MB windows was superpage-mappable in that run, to
+512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
+decrease by ~16x on average with ~32x for the worst cases. Unmapping
+that buffer drops from ~500 us to 1.25 us.
 
-Thanks!
+(ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+close
+across various thread counts decreases by factors of ~3-7x alleviating
+allocator's zone->lock contention by being PMD order and therefore is
+pcpu list eligible. Once the buffer size is large enough then the cost
+of the zeroing takes over.
 
-Davidlohr Bueso (3):
-  dma-buf: system_heap: add a 2MB allocation order for IOMMU superpages
-  dma-buf: system_heap: fix the allocation ladder on non-4K base pages
-  dma-buf: validate the attachment before asserting its reservation lock
+Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+---
+ drivers/dma-buf/heaps/system_heap.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
- drivers/dma-buf/dma-buf-mapping.c   |  4 ++--
- drivers/dma-buf/heaps/system_heap.c | 23 ++++++++++++++++-------
- 2 files changed, 18 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index c8959eadc71d..621cf238ef97 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -55,14 +55,15 @@ struct dma_heap_attachment {
+ #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+ 				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
+ 				| __GFP_COMP)
+-static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
++static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
++			      HIGH_ORDER_GFP, LOW_ORDER_GFP};
+ /*
+- * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
+- * to match with the sizes often found in IOMMUs. Using order 4 pages instead
+- * of order 0 pages can significantly improve the performance of many IOMMUs
+- * by reducing TLB pressure and time spent updating page tables.
++ * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K) is
++ * designed to match with the sizes often found in IOMMUs. Using larger order
++ * pages instead of order 0 pages can significantly improve the performance of
++ * many IOMMUs by reducing TLB pressure and time spent updating page tables.
+  */
+-static const unsigned int orders[] = {8, 4, 0};
++static const unsigned int orders[] = {9, 8, 4, 0};
+ #define NUM_ORDERS ARRAY_SIZE(orders)
+ 
+ static int system_heap_set_page_decrypted(struct page *page)
 -- 
 2.39.5
 
