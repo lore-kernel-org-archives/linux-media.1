@@ -1,117 +1,96 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D68E368D66
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 07:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8A13F076C;
+	Mon, 14 Sep 2026 08:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372487; cv=none; b=stXaKzWSsKy29YHgkPIEc9111+nEfDLBTwtduHgS68jkxg+F7wAT6V/lYz/cyAC+WcnigJ2kBkrXkFt9cXm9vwrWeh0toi/fyWoQ+qvsWiamPvFOBi4dCSgwvMKhmh/vanWhrXeturqZbDZCbRCxZdmeX6gBpvDQ3C0Mb0BEXwI=
+	t=1789373426; cv=none; b=NTMC45/iyOb4CVD3lfrCw22KI/PBG7VWwTorQZeU4T+mr/lwCqMsHYIOdyQD3p5MuzkHNOKQ34w5dXXazrxS1RcOCHPXLasXd0+c9qhLYX1zvuComInbJsfdbzHgGYvJkPot+qjl2enj6WvcqTtf8eaXwVF8gV1Ep1MZbzRd9Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372487; c=relaxed/simple;
-	bh=GpQvmXJKaX/jCUsCqpqIRB1D9KEM7Tyldr2xTwaFULM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jk95xT0COaVqXwFFneQCl/w4JZku5k8uSp+6oydTlhUz8GD4W9kJFQ+W2kdwX1s27N3shqjzLo9MICFU7g4r99h6Rg4c1GLl9fzOw/Y+m94AdzBdTKpT78px2micK90j4qPCMTDgLLegSRJo7906bifYIV7rE21ETNHET2w8k7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=eCZ6wa9T; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1789373426; c=relaxed/simple;
+	bh=PynJ5xo9Sdp/Ik69/y60OZIBerQ/6DJ4h2lEOta72bc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tRBhu8vWlbga+MwSXORVq8gB/Ov1n228vyzK87TygOXVU29XUmGTDDuv/J/toIq2paeaOm+J7MnrjGX0YrKC7E+hoyvTt1NkhyAZrjoXR6GRIs9hn8KGyH5vNDaQMgq180QEzXGe/2D3Mduq+Cif8l3fuCrSKJtXxxDiw+Ut8wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/HNsU4m; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="eCZ6wa9T"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so1436958f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 00:54:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789372483; x=1789977283; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=swXbAXeu7dbjlR8kjOxhq96ObvL9yW1PSiyfjSJ6wxs=;
-        b=eCZ6wa9THSMlsxUcY/gR/KKTgpmel4mKetzFzUKhIygHsqUabUti9XUcC6QMolrF7h
-         ygHAAnInXI3EbK2j8EiStXpxASR62su4B1PZDaD6ImNMhUWgMVFh3W8z58YV+5Z4DBi9
-         DWO9dvXBWWdyWoylfpMl8/CxkgtWyWBvTxIc/5UQENkd5FnfvAiX8zJRiUusB5U8SvtP
-         4nHrAhcHdMH9EH4qdagcaJxN6+BAlg698heIWbnY5+u2jXASkQf2ai3oUSyQ9rxm6OpF
-         +uT8RrehQPbMbCL8CND2T5YODyFQjwlKXjYOZmSN1bV2m1NKVR0ppxgle8WSlQmx1vYH
-         /pmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789372483; x=1789977283;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=swXbAXeu7dbjlR8kjOxhq96ObvL9yW1PSiyfjSJ6wxs=;
-        b=YTZ7cuVHBYYDPvmEZUWXCIqLQu/EPQPr2Jmwu8DM/59D3O3FC/+7dNepQ2kSuy/erF
-         6Wj/OAVLhDpcoWLQxAXLXlmSgR6VkfkBlgd1kYLwoxYoJ0AXc2wr3oByOkbU2265WIeZ
-         vY1seLaREk0Ks4HURd+nba/b6X4laB9+uRNSo3oNazqEj7rWza3qOHO4497A3wC1VJJh
-         VCvtcMPPnPxT9vFKMa1TLsbpEvM9Qvr08/WRGGDzguDAVh7ZOPqzkeOmU5NSlcLWjjJJ
-         rE7ZqlKb7KnCa0LvA8N4+q0aB7r0XmR41kvmWOfuCx/+8YZNOUUFgNtnzO9+w6a+Rxeb
-         Gopg==
-X-Forwarded-Encrypted: i=1; AKwUvByT62vFGqmTVNcB/e5AYCvsJF5NIE+GO1DdTV3Iif4JcGepNt4yl6+95K8cejR/cGcqPrqpa2c9+pXrCA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kwxljeLg4R2OYdKYsiGaeQ182DapEEm/uQ2R26wVQsmBjgcxpI
-	iRzXM/5MhLws7dyl1tc54XlkLd3nH9kTHG0aVN4eAJ5mTYgUvtTbdo82
-X-Gm-Gg: AYBFou36dtP0yl/M/w5s3Pxgh/fdhIfRaImKiqsHyuJNpY65gqsezc9OQ+eb0QmdD4I
-	mxDBvL8jsXoYpDH4M7H+sB80Ef7FY7tSFmdiXICwtorOQ1IGYxj7tE5p6KGQGpfb6TkHhFT9ipm
-	Z3ncx7GGv1+hL2XBS+CM9aOvOvrfiP5mP7sxnKps22uCjDJ54II/HzPH9d/J+x/8EcX3uON3YhY
-	2utYuUOscoJiWkQ+EmqRjkb2ujtC75yiY3Hs1qCnErh9RRn7Pz7CoF2lUje/SLuvvpL3Eyqysvs
-	Nf9NN0FsubRnI/pTbzEg+9eZmlojclelSv60lQ/y/qcusVYMlhWxzOS8hPJTpDaJ6dH6fX9ir4K
-	zLG8giIvbtQwXk6zoOH8/D8dPIUQOXs2iju9r+/8UBl0jmh2g7LAtS9SubOL9qyO8OKxYaPPGhd
-	WodylvPcKold3UQcwT9skEzyRHWibM6vznvQouSXy8axLIDHlJ6EMRCqxC+leqtR8O7CT62WCzG
-	mWZD31W3d1ZruZ5vqTdyPG6jsCI2HTa/QLqHXAeJ0boJS4cp+Uix36N+3pphvKXjLsQryuZjQ==
-X-Received: by 2002:a5d:64ce:0:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-48702b3ce87mr2771348f8f.28.1789372483452;
-        Mon, 14 Sep 2026 00:54:43 -0700 (PDT)
-Received: from omarchy.lan (p200300dec74de0474f67e4b61f2de2c6.dip0.t-ipconnect.de. [2003:de:c74d:e047:4f67:e4b6:1f2d:e2c6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm24224096f8f.35.2026.09.14.00.54.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:54:42 -0700 (PDT)
-From: Manuel Knitza <manuel.knitza@googlemail.com>
-To: junjie.cao@intel.com
-Cc: miguel.vadillo@intel.com,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	hpa@redhat.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manuel Knitza <manuel.knitza@googlemail.com>
-Subject: Re: [PATCH] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
-Date: Mon, 14 Sep 2026 09:50:43 +0200
-Message-ID: <20260914075354.38975-1-manuel.knitza@googlemail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908105717.496232-1-junjie.cao@intel.com>
-References: <20260908105717.496232-1-junjie.cao@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/HNsU4m"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BC84FC2BCFA;
+	Mon, 14 Sep 2026 08:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789373425;
+	bh=PynJ5xo9Sdp/Ik69/y60OZIBerQ/6DJ4h2lEOta72bc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=g/HNsU4m8LqTruZZRaHMQkGKpRUaTLsaZ/2ovo99zwSJpLJJX7Zikha+tyW3LwDXF
+	 e4xvPez8X81IjfP1mWdC7csamtdnvmEkxRRVKiRTd2dh83J6t07h3W8stf0BO+/iAr
+	 02kbCyiRxsHb0ity25IqCHTJdDtSFG9uu+jVt8TWjF+3mOzWispVEqg/qV5xalcM2N
+	 MQrnV2ACoiw29BcYdbSrRCHf95ODvoZ/5dpRDon912LNnEbTZkIwWjS6PlFxiAQnDy
+	 +f7Ghqt8JCeVYy4qurZezkzup01dNBYiRTtSiWOVCUWvRWOUn/WEE8H5aKHoVylsr8
+	 VdVoQuXVjW+4Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D70FC88E50;
+	Mon, 14 Sep 2026 08:10:25 +0000 (UTC)
+From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
+Date: Mon, 14 Sep 2026 16:10:18 +0800
+Subject: [PATCH v9 1/6] firmware: meson: sm: video firmware loading via
+ secure monitor
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-b4-s4-vdec-upstream-v9-1-72fdb0d71b02@amlogic.com>
+References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+In-Reply-To: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789373423; l=670;
+ i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
+ bh=ioNPQiZsvUfM7WHdEfF4xb07l7H3o3hVIdC2XZUtO1g=;
+ b=1CLo+30Ei02EhAt7eYtDaRQEUam7kIUmL7XvmRwXk6aHWi4zjcE3akmc38tmGBx2hq6J7q4C7
+ 156ZgdTps3XAKtCLzTAFq6TxjHH9o1BBCNUY+hE6RBYnAj7dGXJZ3Vc
+X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
+ pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
+X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
+ auth_id=555
+X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Reply-To: zhentao.guo@amlogic.com
 
-Tested-by: Manuel Knitza <manuel.knitza@googlemail.com>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Answering the DA16260 question you asked in the ipu-bridge thread, and
-giving the tag here where it belongs.
+Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+to allow decoder drivers to load firmware through the meson_sm
+interface.
 
-Dell XPS 16 DA16260, INTC10E1, ov08x40, linux-ptl 7.2.3. No spk-id
-conflict: all four CS35L56 amplifiers bind, no -EBUSY, audio works.
+Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+---
+ include/linux/firmware/meson/meson_sm.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Note what that does and does not show. I am running your change, but as
-a DKMS copy of drivers/media/i2c/cvs rather than a kernel build - Arch
-derived configs cannot enable CONFIG_VIDEO_INTEL_CVS, exactly as you
-described, so the Omarchy packaging carries the in-tree driver as a DKMS
-module and applies this patch verbatim on top (omacom/omarchy-pkgs#418).
-So it is a test of the patched code, not of the unpatched driver on this
-model - I never ran that, and cannot say whether the DA16260 would have
-hit the conflict without it.
+diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+index 3ebc2bd9a976..3b90b49d0552 100644
+--- a/include/linux/firmware/meson/meson_sm.h
++++ b/include/linux/firmware/meson/meson_sm.h
+@@ -15,6 +15,7 @@ enum {
+ 	SM_THERMAL_CALIB_READ,
+ 	SM_A1_PWRC_SET,
+ 	SM_A1_PWRC_GET,
++	SM_LOAD_VIDEO_FW,
+ };
+ 
+ struct meson_sm_firmware;
 
-The rest of your analysis matches what I see. With vision-drivers gated
-out and the in-tree driver bound, the graph is as intended:
+-- 
+2.42.0
 
-  intel_cvs i2c-INTC10E1:00: Quirks: 0x7a (VID:0x06cb PID:0x0701)
-  intel_ipu7_isys: bind Intel CVS nlanes is 2 port is 0
-  intel_ipu7_isys: All sensor registration completed.
 
-"Intel CVS" sits between ov08x40 and Intel IPU7 CSI2 0 on
-/dev/v4l-subdev4, the sensor enumerates and frames flow. The
-manage.c:1502 WARNING from the out-of-tree module is gone too, since that
-driver never had the IRQF_ONESHOT issue.
-
-Thanks for the correction in the other thread - I had claimed there was
-no in-tree CVS driver, which was wrong.
-
-Assisted-by: Claude Code:claude-opus-5
