@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71DF444705
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:42:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50104446F7
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:42:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386129; cv=none; b=ugffLoDMmppWTgaPF3gRk+5Ls++/kI5X1J335fQptCzYFPjx167gY3PcEwk3EPyLWTTWczt7qoQZ8dQ/95t47Mt+Zc9WvZsPrS/Pg9+H8lJw3+sf7+2yUz9rJSCwkMYGFXwibq26iu9uMbzG55Cmr1chp2D/x60hfE9vw8wcf2I=
+	t=1789386130; cv=none; b=MXLGYA1rGK5xsGnCPGR30fyvpjFhELzqllbPNV45qDkw/TxczUPwejAT3bFhqYFde3J+cSTwn2JsO0e/jKN5Tje9HhIMq9oACa73QCZ7d7thVzKAHjhIlWyN0j0pnDdh1LuAhCW5SzOdpI00UiM2jdAMjghOk1o4LKg877p/PLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386129; c=relaxed/simple;
-	bh=HNllAwcnKsnMoguhOBdvPnymUj8B9LGxWkQjfbwmgmA=;
+	s=arc-20240116; t=1789386130; c=relaxed/simple;
+	bh=vavXAcbvQmjLduNX5kIw4qVXAV4lQyycy7zDt2jwynI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EosFRrFNzBpuPJDEMP6RBkN67mq5mhUJuc0/qH4/g1/al5VGe/YIrQExYZYi5KsMUNnokbM/kgXSRzHtQtHqo5KYysSiPLdbZBcypZu5aP60ZLJNdP+93CWDccIER5Ex8PKeFCeahKsd9ofL+iAH6jjNLBEkE4MTBZqMOWc6AKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b544nzk4; arc=none smtp.client-ip=192.198.163.9
+	 MIME-Version; b=my7YNbYALWkorpiXmlhXwjPv+ejLx1kfFV5f3HobxmY0z2OlQPLXMl9r/NXDqjvzY8H0zvZnO4du9x1eY8yxFZDmh0qBoZi3Ni3daZwuYZHV/E7Ne8kyr5YXIdDmA7PNeJwFwXpCT1YvpfOJlPzormmPdkeiVtAfDnvHUNQTA5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PLT5jjTD; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b544nzk4"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PLT5jjTD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789386128; x=1820922128;
+  t=1789386129; x=1820922129;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=HNllAwcnKsnMoguhOBdvPnymUj8B9LGxWkQjfbwmgmA=;
-  b=b544nzk4+heEdM3kIIctlqrJ+hwgR2rW1MOCfbmXUNXXsnTedRqCy54V
-   nfxzeK0Jrhux1Pb5MGgKfmvUUh7thzCzJ1XZpvYzrBnKUS29+rC18Xsl1
-   qhHWTM2O+q7zj46ItbV9zlqadekqE9fihpoFgnYwGszqVadqDBLu7vsue
-   zrbYMosfM87/7fEHgcQq6u+7M2kNJVllzi80PnevFFRevuuVIPBTXz6nM
-   jtGDw/5zEQtVv29Qln+EQzTv418P9WAwyEzJxT92qom8IQDYp4uQ+nuAK
-   R73LBAv3lHsgCwPg7jA9ESr6GJZg3yKSbNEQh242teDSOn51n6BiR5ted
-   Q==;
-X-CSE-ConnectionGUID: Wy+/U1oXQSGU4ztLuXdMPQ==
-X-CSE-MsgGUID: qUnWQDdHS46XZEaSkI5I+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100397031"
+  bh=vavXAcbvQmjLduNX5kIw4qVXAV4lQyycy7zDt2jwynI=;
+  b=PLT5jjTDcSdKmhhW3hFIYXQLfxh6BOp2nMEAlhb+rSGbMZ02R4t0PtiF
+   PXBVjeQw8iWsmxK15ukmhD84A/l6fA/PY7zfGj6060ny7lQs3b2B+TT75
+   y09lCbVifZYpt7V5+/8RUcRAab5Ul17HEN7oNThnazTlDI0G8zDedneV5
+   rlO+hrJlIwiUNeQfFIFhQY68LiMqpY50Z3+ytaMzP+BWUBwaVlqLtX8ln
+   Fc8FOnZ3hwKvPvSQ697JoUtLRVUEYMH2/HVUp7MRjRiwgg1tzFDN3ELKj
+   NlMjcxbHX6uAceGxz1S6YMiczE5D1ufXIw1Ecywlh/+vXeTIBIf/6ul0+
+   A==;
+X-CSE-ConnectionGUID: JjN5f+15THivqyLJIH0xdQ==
+X-CSE-MsgGUID: ACA02Xi8SOeeVDxi5+Gs+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100397045"
 X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="100397031"
+   d="scan'208";a="100397045"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
   by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:42:07 -0700
-X-CSE-ConnectionGUID: W9EJEiW5Si+Fjcja7fdAGQ==
-X-CSE-MsgGUID: hE2oWc2uRMGq7Vbp3RE5gA==
+X-CSE-ConnectionGUID: HEVk9U61TdeABbMJEZTySA==
+X-CSE-MsgGUID: 37/exHSiS9yTn1xLzBSB0g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="274538814"
+   d="scan'208";a="274538815"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.61])
   by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:42:01 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id C3E22121BBE;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id CB094121BC1;
 	Mon, 14 Sep 2026 14:41:56 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x654D-00000002PXz-0z8e;
+	id 1x654D-00000002PY7-180O;
 	Mon, 14 Sep 2026 14:41:45 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	Rishikesh Donadkar <r-donadkar@ti.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>,
 	Antti Laakso <antti.laakso@linux.intel.com>
-Subject: [PATCH v8 09/13] media: v4l2-subdev: Always call get_fmt() if set_fmt() is unavailable
-Date: Mon, 14 Sep 2026 14:41:40 +0300
-Message-ID: <20260914114145.574791-10-sakari.ailus@linux.intel.com>
+Subject: [PATCH v8 11/13] media: mt9m001: Pass sub-device state to set_selection() callback
+Date: Mon, 14 Sep 2026 14:41:42 +0300
+Message-ID: <20260914114145.574791-12-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260914114145.574791-1-sakari.ailus@linux.intel.com>
 References: <20260914114145.574791-1-sakari.ailus@linux.intel.com>
@@ -96,46 +96,50 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Many drivers implement set_fmt() pad op that simply returns the format
-just as get_fmt() would do, usually because the driver only supports a
-single one. As a driver should always implement set_fmt() either on its
-own or via get_fmt(), call get_fmt() in case set_fmt() isn't implemented
-by the driver. This allows removing a fair amount of boilerplate code as
-well as ensures that set_fmt() works whenever get_fmt() does.
+When the set_selection() pad operation is called from mt9m001_s_fmt(),
+it receives a NULL pointer for the state argument. As the function does
+not use the state this does not cause any issue in practice, but it
+could cause NULL pointer dereferences if the mt9m001_set_selection()
+implementation is modified. Avoid future issues by passing the subdev
+state.
 
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/media/i2c/mt9m001.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index f53bac995822..58e50d9442e7 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -260,8 +260,19 @@ static int call_set_fmt(struct v4l2_subdev *sd,
- 			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format)
- {
--	return do_subdev_call(sd, check_format(sd, state, format), pad, set_fmt,
--			      state, format);
-+	int ret;
-+
-+	if (!sd->ops->pad->set_fmt && !sd->ops->pad->get_fmt)
-+		return -ENOIOCTLCMD;
-+
-+	ret = check_format(sd, state, format);
-+	if (ret)
-+		return ret;
-+
-+	if (sd->ops->pad->set_fmt)
-+		return sd->ops->pad->set_fmt(sd, state, format);
-+
-+	return sd->ops->pad->get_fmt(sd, state, format);
+diff --git a/drivers/media/i2c/mt9m001.c b/drivers/media/i2c/mt9m001.c
+index 0ade967b357b..d8fffed0818a 100644
+--- a/drivers/media/i2c/mt9m001.c
++++ b/drivers/media/i2c/mt9m001.c
+@@ -343,6 +343,7 @@ static int mt9m001_get_fmt(struct v4l2_subdev *sd,
  }
  
- static int check_which_pad_state(struct v4l2_subdev *sd,
+ static int mt9m001_s_fmt(struct v4l2_subdev *sd,
++			 struct v4l2_subdev_state *state,
+ 			 const struct mt9m001_datafmt *fmt,
+ 			 struct v4l2_mbus_framefmt *mf)
+ {
+@@ -359,7 +360,7 @@ static int mt9m001_s_fmt(struct v4l2_subdev *sd,
+ 	int ret;
+ 
+ 	/* No support for scaling so far, just crop. TODO: use skipping */
+-	ret = mt9m001_set_selection(sd, NULL, &sel);
++	ret = mt9m001_set_selection(sd, state, &sel);
+ 	if (!ret) {
+ 		mf->width	= mt9m001->rect.width;
+ 		mf->height	= mt9m001->rect.height;
+@@ -404,7 +405,7 @@ static int mt9m001_set_fmt(struct v4l2_subdev *sd,
+ 	mf->xfer_func	= V4L2_XFER_FUNC_DEFAULT;
+ 
+ 	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE)
+-		return mt9m001_s_fmt(sd, fmt, mf);
++		return mt9m001_s_fmt(sd, sd_state, fmt, mf);
+ 	*v4l2_subdev_state_get_format(sd_state, 0) = *mf;
+ 	return 0;
+ }
 -- 
 2.47.3
 
