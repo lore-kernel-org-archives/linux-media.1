@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EFD3A6F17
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 20:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2E13E95B2
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 20:53:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419238; cv=none; b=CNKvtHZdTibJrvr4PLCo961cAFyR36ILCU6LZSwwc+X/yM00e3kLuD+VaLEjbqxLerIcAMCg7j45agmj1rpQaI/IbDTzStU+FIIqURaqfcplGW4cfg5EIcN/91kwTPmRui6qdjRyrvzYM8atSbkiRrgKEXdgqNgiU/kSoxXylPQ=
+	t=1789419240; cv=none; b=NlxAAHhRzK/V6trWNwJYJQlYT4xqoZRL+t4tF9qDIVjLO/Q8jdXRx1xaMKNxArG5SKiQnALwA+fEBdFNDASLuq6VAlpg0klMvf4G9yzcqPRtXhQEmnYS690qTbVt8rPh9JmNaxiZLw6bi96ZnQyoMshVd5UU+319tGWhEfVjmDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789419238; c=relaxed/simple;
-	bh=ObT+EvUcx7eR8lkOz2IZVXNY8eqpBNc2+eT2rucnoSs=;
+	s=arc-20240116; t=1789419240; c=relaxed/simple;
+	bh=myul2k7iqXXwkC+SXchK0yw2GdQw69X76IcwPdYJNts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U+Ej9EW3aObQQvRvlOF1QThxq/XMJEqLd+drw5zRit80WpfPCEjMkW+Q4Gp+x1gnSoWYgc/w3jW65riXJBfreEeRqfs9xZlKLygydfdEsmxQhaJWNh1XRuxbLmT2qvjGB/6dh1GXaEX9qwXBhL2fBBCpFAkleJAYk2ru8yZcLXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=defGEA++; arc=none smtp.client-ip=198.175.65.16
+	 MIME-Version; b=Gs/IAgUqC7WYXUT9r6jJkponAuEGkdnTywkzYGcJANgu1TrXVpKHFAob7HAu2TXs7soSDotam2y/4haggTmGighCWefCS3wFeywcuM5O3fx0ikTHKySalwaqinFuTqsRAFi5TC2TLyzgrFwfX5PbdL/WtFrkLywff6deZIYZ+28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dXiXbIgw; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="defGEA++"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dXiXbIgw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789419236; x=1820955236;
+  t=1789419239; x=1820955239;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ObT+EvUcx7eR8lkOz2IZVXNY8eqpBNc2+eT2rucnoSs=;
-  b=defGEA++OOiq3ktCuh4ILTeBejBQ1ia7Wk3AtbC68ReWRm+twBOP4i3w
-   OVuhNBVgPg/oWpWo4z5lUzOy9CxuSJyUz/y/9WSQN+hKWvOW4ubXUY8+D
-   mAFdbhZy3KW7E/UiidIQDB2MZYg8LynR9eUAf+pVzkIbnjJGE6tVZIARM
-   KFTZ8zEzf87XnA60k9720XrbLIf059VdxPP9MNVyHDQCw0yVa08xWS8Nz
-   E0g8oVdugR5hzALBrb5o9viItzMZDhlFDO77RfXY9yeLPjwwmGCBLNS5S
-   H9gnMxfyRejNVFGEicMuJTLMx7DQBlxL/EFuHImsuxGL0OcCZpvifhjdB
+  bh=myul2k7iqXXwkC+SXchK0yw2GdQw69X76IcwPdYJNts=;
+  b=dXiXbIgwaSgHpNkq6adGUH+3w5tHRE09DD0U5fCAwZ1d8Fm22cRaG1Pi
+   CT02PatDSlqtJbBSFGY7Ahq3OrCopDwSTc3DJ9Cvs0H/gPz5hk4RY37Ce
+   dJbtrP2YDAN61/Lb3uYz6vgSOdXKhdvECa284BqYIxts064FgfOvczWMP
+   H2EE5MBXvf7B7Hy0Ekzds1qBYb3K9nkp5nzAZxtHwURaqy0QSqIH7Tn9h
+   9rGwvWERYm7fT10YvxPd0XYezi4W3lXv0bshOuqKOYBagpXMRKIBCUaYq
+   i/1x20NaOIbBT40eZoRnwOgS3DuTptZFat91ZhA7GgOUG4K2PRF2Kt844
    A==;
-X-CSE-ConnectionGUID: SsuQC48cR2W72+T/VODfIA==
-X-CSE-MsgGUID: EPveq3wLSIyRDq6eQ1NL4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984113"
+X-CSE-ConnectionGUID: ijbLdw+ASxqvC3IzhIiMyg==
+X-CSE-MsgGUID: ZjPrJJNvS6OT9ZrzZwzgmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984114"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89984113"
+   d="scan'208";a="89984114"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:55 -0700
-X-CSE-ConnectionGUID: t9UIrnxbTVScnVz9HsUzlg==
-X-CSE-MsgGUID: AM66oBZORaahWrc8iGOYMQ==
+X-CSE-ConnectionGUID: WAoui7NcSwOPKUldunnTnQ==
+X-CSE-MsgGUID: D/MnE6cKQVax7kmEBwSa6g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297760689"
+   d="scan'208";a="297760691"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.173])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:52 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 4438911F7E9;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 4968D121BBA;
 	Mon, 14 Sep 2026 23:53:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x6Dgc-000000035Ih-31p6;
+	id 1x6Dgc-000000035It-3Cdw;
 	Mon, 14 Sep 2026 23:53:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH 01/21] media: ipu6: Fix releasing resources at failing streamon
-Date: Mon, 14 Sep 2026 23:53:38 +0300
-Message-ID: <20260914205358.735307-2-sakari.ailus@linux.intel.com>
+Subject: [PATCH 04/21] media: ipu6: Rename misnamed out_free_watermark label in video init
+Date: Mon, 14 Sep 2026 23:53:41 +0300
+Message-ID: <20260914205358.735307-5-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
 References: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
@@ -74,74 +74,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If obtaining a firmware message or requesting to queue a buffer list
-failed, either the buffer list or the firmware message buffer wasn't
-properly released. While this is unlikely to happen, return the remaining
-resources now.
-
-This may still leave buffers queued.
+ipu6_isys_video_init() has a label in the error path where it is used to
+destroy a mutex. Rename the label as err_mutex_destroy.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../media/pci/intel/ipu6/ipu6-isys-queue.c    | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 38db162d64ca..4d862f14c765 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -242,6 +242,7 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
- 	struct ipu6_isys_stream *stream = av->stream;
- 	struct device *dev = &adev->auxdev.dev;
- 	struct ipu6_isys_buffer_list __bl;
-+	struct isys_fw_msgs *msg;
- 	int ret;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index b15c24b1b710..781fc0e88417 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -1107,7 +1107,7 @@ int ipu6_isys_video_init(struct ipu6_isys_video *av)
  
- 	guard(mutex)(&stream->isys->stream_mutex);
-@@ -254,26 +255,26 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
- 	bl = &__bl;
+ 	ret = ipu6_isys_queue_init(&av->aq);
+ 	if (ret)
+-		goto out_free_watermark;
++		goto out_mutex_destroy;
  
- 	do {
--		struct isys_fw_msgs *msg;
--
- 		ret = buffer_list_get(stream, bl);
- 		if (ret < 0)
--			break;
-+			return 0;
+ 	av->pad.flags = MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
+ 	ret = media_entity_pads_init(&av->vdev.entity, 1, &av->pad);
+@@ -1144,7 +1144,7 @@ int ipu6_isys_video_init(struct ipu6_isys_video *av)
+ out_vb2_queue_release:
+ 	vb2_queue_release(&av->aq.vbq);
  
- 		msg = ipu6_get_fw_msg_buf(stream);
--		if (!msg)
--			return -ENOMEM;
-+		if (WARN_ON(!msg))
-+			goto out_requeue;
+-out_free_watermark:
++out_mutex_destroy:
+ 	mutex_destroy(&av->mutex);
  
- 		fw_ops->prepare_buf_set(msg, stream, bl);
- 		fw_ops->dump_frame_buf_set(dev, msg, stream->nr_output_pins);
- 		ipu6_isys_buffer_list_queue(bl, IPU6_ISYS_BUFFER_LIST_FL_ACTIVE,
- 					    0);
--
- 		ret = fw_ops->stream_capture(stream->isys,
- 					     stream->stream_handle, msg);
--	} while (!WARN_ON(ret));
-+		if (WARN_ON(ret))
-+			break;
-+	} while (true);
- 
--	return 0;
-+	/* Error handling begins here. */
-+	ipu6_put_fw_msg_buf(stream->isys, msg);
- 
- out_requeue:
- 	if (bl && bl->nbufs)
-@@ -282,7 +283,7 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
- 					    VB2_BUF_STATE_QUEUED);
- 	flush_firmware_streamon_fail(stream);
- 
--	return ret;
-+	return 0;
- }
- 
- static void buf_queue(struct vb2_buffer *vb)
+ 	return ret;
 -- 
 2.47.3
 
