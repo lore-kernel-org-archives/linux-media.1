@@ -1,67 +1,33 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C644486437
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B909481A9E;
+	Mon, 14 Sep 2026 15:49:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399693; cv=none; b=FXvDGia++aqNyYki13AEWtHpUNDfA1X7TXD78JTOm4lqsMVAR/VHaabOWTv6ylkSe/54rW1kbGyUNkvvDkamXqRl3FQZZk8eq8A1fM7ZZ2V0ZyOM9t6oTcXPdIyT3cQ6NxWKuwwY8NuADCW7ogQfnkFEDzyi2ep1/wkfcaihJbo=
+	t=1789400961; cv=none; b=bvPO24CMJGLnfbScoTZKZEwCp3rAgQ7pkPk6HdSiXqlAzNsV48thTUMj1xh3ya68fOWOW/a2mqqijF9F5VRVYhL/Z4nOd7B4CD/Z0iWz+sEthIAM24Pakx74dwnrQBtJCLoOMM+UAii1KxNETW+ginoep/ToeKEJ0FHDBUxs/cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399693; c=relaxed/simple;
-	bh=+d8Oj3p5oshm7ntJAldurnbE3ACbEUbHyyX2UN8meL0=;
+	s=arc-20240116; t=1789400961; c=relaxed/simple;
+	bh=E8tjVWXwO+8EdCuNkyjyH95QEBkYUUfGm2BVhvoyOP0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BrZCfYm8ry0flD6NsQypb5u3J3O1uw4z8rFl/YHhi4xN3sGTiEb5nieSHRuHWgGbwNao/o1yFsZuSQJ5KfEsE8B9X1sh98WKuYonOnCe0KaAkGvS7huHkg/xgvZgfPO+MEsrHrf1aM4+YlPLgc6xcS0YI/ie+fVvH5JCQ2t7F54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cyA6XXU2; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=njQkFXRKVxKF4n4S3SGrEXkFX6i18TAQGRPPic6zqxWnugthLi4uQZeRjPgv+yv+OJaqwuuvRf5Q/TSDz/ElyVhmZWj9MDEA4Ad3th2eTlXrkvX5xzmnmiUcdDLnpSLLmyEfUACIRDq6qSDokOJfKpju55y4sUwic66FrHuizB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaWiuxe6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cyA6XXU2"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9c4c3e3b2so2692933a12.0
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 08:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789399689; x=1790004489; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=usjdH/oMD5uW30baonZ+kYj9XHMcowahynwuwBsx2ZI=;
-        b=cyA6XXU2lxEEeFV1cGdspGqGbWMpXYqJtOj2OS0zzPVSmMYEtTfaLRU+RJTlU8n1pd
-         HT+tYzvgXjKOR8vslqKQHAosefSNW+XS2GOh3m9EE18HNBjLutdstpDz+CCADPN8haUP
-         7sOPLenLrLmjVpQ8mtGZz94PoVYQvYdZy8bKJKvVc1uQdwb51GPHZokh5x70iTD0X+QX
-         CFQKTI2YTErparUiSIGFP4b3mMuM6wGRxK5dgqICuW2d+53R2wS9gcX8RLb/SxkTHZ/j
-         GAenF3API9Nimiz9zGf0GVuszfatSsZa58b5QziB0wTXT7lf+kwKOT+CWkdlNKmjAgIa
-         4pOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399689; x=1790004489;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=usjdH/oMD5uW30baonZ+kYj9XHMcowahynwuwBsx2ZI=;
-        b=aPOICFA+zkHwZkbqeaQ7LLBy12Fso3z2KA9RAm8bM0wjBaWBqCkbQGVQOfqxl68RgI
-         toR7H+2aYqYcbN1iq9JlYNuJ/NtuNnUjC4Lzq3VWsdwOg0YA3qCCiChhwBTqW/OOkDFB
-         /MqYxZuPdgiDHDtk42pdyVlWywy7c15SVuNCSH0xjDWYfXA7hPcHE1jhmGv7hXbfZ+WT
-         9TtPrO4otvH3MfB4O2hc10QVpea9Qlr3RiZKHeaBqpjDKZnB/EiKvZSUJz6K5MVbyEYc
-         2H1qMarisJtn8ZkDDjHBdssuiwDeoG7T0rYbKtCCpw67Xg+sHYShsZk8g3o9rut4klJO
-         m2pw==
-X-Forwarded-Encrypted: i=1; AKwUvByIqkPCXwsYV2UwaF7ly8tbJ3iShG7Ub1ZeBjrfIdMD4ZzmtYJvBGS8wk1xoloEGQmh9dhqi+aPgvYUlg==@vger.kernel.org
-X-Gm-Message-State: AFuF++l8jc2FZSd+ftNQpsBw3fIyLUj0aVEHyjPeDTo0IDq7Ybz+QzYq
-	1sPBmWFYZnbSZ6uqvrP9nkqZ1vcyW+4Gn3bqcxVldTrbfi4nRLcuUvm5326pivNFgSw=
-X-Gm-Gg: AYBFou3QPwOEhzS3+hBiJAM9Wj7p+iK1ikl9u8F6L6cb8fTrzjyxDIUKsKTzSlpglnw
-	EJm38E3PGNNbHbRfURP6LshIYpjFDdaOc6N1/eQ6qkbtJ+F+PVJVH757AWpbdfOCClJPLbpblfP
-	uF21m0Nu9tL6foxJIpR3qgrEz092xfH+ikNi7xpxhGmULAb9rHHJ09YQqpirLBBjz/pyzj+6b2W
-	YgqLg/JCFX/6bv9Baa8LI6S5fY7s8uEknYu5O61x1IK3svwoLpTueqgRvVyHGxZu4qmALEnoqF0
-	/tsj/xDv0eiLHQzPSDYdkpwhL9m2j8NckifrmK7DgX03wxHHeA280FNIl+f3Ry4HIOtPOdKTAdC
-	KwvjiPjztMJG5rmkEhVbBs7fsWzUHAOid0XKje+fbl3B8a+76YRjzAKGO53dpAv8zJCxgtuXx3W
-	heVhkkaY6w5Jxz+8eo3Dhko3zBD9e7XZ+Y2P3jQpFp0hpyp7sJRljzCRL+JfGlN3hK1QW6apxeT
-	G8VrM2yx2c=
-X-Received: by 2002:a05:6402:4286:b0:6a5:f4f4:5c10 with SMTP id 4fb4d7f45d1cf-6a9f61e4e94mr4922390a12.3.1789399689224;
-        Mon, 14 Sep 2026 08:28:09 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.248.34])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5920f4asm4385120a12.16.2026.09.14.08.28.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 08:28:08 -0700 (PDT)
-Message-ID: <01fd3d46-2588-4d54-a131-ffe8d16e5dc1@linaro.org>
-Date: Mon, 14 Sep 2026 16:28:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaWiuxe6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527301F000FF;
+	Mon, 14 Sep 2026 15:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789400959;
+	bh=edl9EHBzE8Mh2FGf3Ke+RZmWB9164se0RagjspZeMpA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZaWiuxe6TbxR/OQg8ph2mwK9MBBU0wt8iKh1wwOet5UtTosU4mZi+S+BcrNfxiqxs
+	 TU+3sHWHkhkoyZ2NMvbcVhektQI5i1i/LBN4vzVJBXglLfpiqhXyysW5Qg2hCdVLnU
+	 vqEOUZJ7JqcBbUjeYjLIywDEwHwWa963lRu/eeCATCCYBeuu7H0GtCvwjKUKt3frGa
+	 ynTLDz+JuOfJ4cgj7K56n0Rj41Hi7ijqkipHGvFyYwkU6kZgByOZQajNsZIaljdHuK
+	 O2DgjyFz4addNG6TF1g+g4499srp8WrpcC0ndzhWU9wDKBm4WOzPB1aaFXC9WkqB8P
+	 2zWNGAPuEQmew==
+Message-ID: <5abdc1b7-5fd9-4b1d-975b-eceb3ba57a82@kernel.org>
+Date: Mon, 14 Sep 2026 17:49:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,93 +35,119 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] media: qcom: camss: vfe: only reset the VFE when its
- last line stops
-To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, ravi@ebytelogic.com
-References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
- <20260914133416.1030231-6-hitesh@ebytelogic.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260914133416.1030231-6-hitesh@ebytelogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
+To: Frank Li <Frank.li@oss.nxp.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ stable@vger.kernel.org
+References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
+ <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
+ <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
+ <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
+ <aqf835LdzdNZR8rh@SMW015318>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <aqf835LdzdNZR8rh@SMW015318>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/09/2026 14:34, Hitesh Patel wrote:
-> vfe_disable_output() stops the write masters of the line being
-> disabled and then issues a global VFE reset. The reset is not scoped
-> to the line: it resets the whole block.
+On 14/09/2026 15:55, Frank Li wrote:
+> On Mon, Sep 14, 2026 at 12:37:06PM +0100, Bryan O'Donoghue wrote:
+>> On 11/09/2026 21:56, Frank Li wrote:
+>>> suggested subject:
+>>>
+>>> phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
+>>
+>> A pattern I try to encourage and role-model is making fixes very explicit
+>> and obvious - frequently I'll ask people to prefix their patches fixing
+>> things with Fix.
 > 
-> Several lines of one VFE stream at the same time when a CSID
-> demultiplexes virtual channels to different RDIs, e.g. two GMSL
-> cameras aggregated by a MAX9296A onto one CSI-2 port, each on its
-
-You can drop references to a particular part - all aggregators would do 
-this.
-
-> own VC and RDI. Stopping one of them then resets the VFE underneath
-> the other: its in-flight buffers are never completed, its write
-> master configuration is gone and the block is left in a state where
-> the next reset is not acknowledged, which surfaces as
-
-"Stopping one of the streams/VFEs/RDIs" - basically we haven't defined 
-what the "it" in this paragraph is "its write master configuration is gone"
-
-What it ? Define the object instead of assuming the reader knows what is 
-meant by it.
-
-IT: a spider that lives in the sewers of Derry Maine.. [1]
-
->    VFE reset timeout
+> Generally, I got feedback from most maintainer is
 > 
-> when the remaining camera is stopped or restarted.
+> 	do something to fix ...
+
+You got it wrong, I think.
+
 > 
-> Only issue the reset when the line being disabled is the last one
-> streaming on this VFE, as tracked by vfe->stream_count. Stopping the
-> line's write masters is sufficient to quiesce it while other lines
-> keep running. The single-line case resets exactly as before.
+> "do something" become more important. the most maintaniner dont like simple
+> said
+
+"Do something" is not more important, because you repeat the diff.
+
+> 	- fix build warning
+> 	- simplify code
+> 	- fix UAF
+> 	- fix memory leask
 > 
-> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-> ---
->   drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-> index 319d19158..9cdf26671 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> @@ -814,6 +814,7 @@ static int vfe_disable_output(struct vfe_line *line)
->   	struct vfe_output *output = &line->output;
->   	unsigned long flags;
->   	unsigned int i;
-> +	bool last;
->   
->   	spin_lock_irqsave(&vfe->output_lock, flags);
->   	for (i = 0; i < output->wm_num; i++)
-> @@ -821,6 +822,13 @@ static int vfe_disable_output(struct vfe_line *line)
->   	output->gen2.active_num = 0;
->   	spin_unlock_irqrestore(&vfe->output_lock, flags);
->   
-> +	mutex_lock(&vfe->stream_lock);
-> +	last = vfe->stream_count == 1;
-> +	mutex_unlock(&vfe->stream_lock);
-> +
-> +	if (!last)
-> +		return 0;
-> +
->   	return vfe_reset(vfe);
->   }
->   
 
-Other than the rambling commit log - looks like a valid Fix to me.
+Exactly all above are "do something"...
 
-Again
+> I think it is reasonable, git log --oneline ..., if just list
+> 	"fix build warning", which is hard to locate patch because there
+> are too much "fix build warning".
 
-- Fixes tag
-- Fixes to first
-- Fix in the patch title name
+And "rename function to fix build warning" is not better, because rename
+is obvious from the diff. Title should not say what you are doing, but
+explain the nature of the bug being fixed, so "fix build warning due to
+typo in foo bar" would be better.
 
-[1] We all float down here.
+Best regards,
+Krzysztof
