@@ -1,67 +1,67 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33438490C14
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C644486437
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 15:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399318; cv=none; b=q3LYteOiYKUWIyKSUo5umlVFY4PRAAZGZXmvRAObqelCHkAkRxD8RachOHX3zLLSC17Y6GwNnehe3qaLyAOfpqwv31jvXlDEWNhNVMronpjko2/mWo5xyIJSV9pOXBRf9Vsxa3gACwtTcjYpNFuwNOxq/c/Oeohp5kHuZwyesY4=
+	t=1789399693; cv=none; b=FXvDGia++aqNyYki13AEWtHpUNDfA1X7TXD78JTOm4lqsMVAR/VHaabOWTv6ylkSe/54rW1kbGyUNkvvDkamXqRl3FQZZk8eq8A1fM7ZZ2V0ZyOM9t6oTcXPdIyT3cQ6NxWKuwwY8NuADCW7ogQfnkFEDzyi2ep1/wkfcaihJbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399318; c=relaxed/simple;
-	bh=7nGECr84emLqWyNDyOX70IfdI2ORNdzf43u4uutTtBo=;
+	s=arc-20240116; t=1789399693; c=relaxed/simple;
+	bh=+d8Oj3p5oshm7ntJAldurnbE3ACbEUbHyyX2UN8meL0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uqvSY4RZ+K9w+6AaiOcXt6Ac0hKlCroqJBDWfNwmAUfWW62J+N+LpwFqzEP0pmsXAyXHn1kLTBhJIF3jpvX4fz8nTR6xmGUgRK9n8/kUvbAmCD2tJNlNuSb8jDPsqZ8aWVvPqkD1RIslJ6VNO2bCIAkJwpqvCea8zfVHmlYyJgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rCvOVXKx; arc=none smtp.client-ip=74.125.228.140
+	 In-Reply-To:Content-Type; b=BrZCfYm8ry0flD6NsQypb5u3J3O1uw4z8rFl/YHhi4xN3sGTiEb5nieSHRuHWgGbwNao/o1yFsZuSQJ5KfEsE8B9X1sh98WKuYonOnCe0KaAkGvS7huHkg/xgvZgfPO+MEsrHrf1aM4+YlPLgc6xcS0YI/ie+fVvH5JCQ2t7F54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cyA6XXU2; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rCvOVXKx"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso385807566b.1
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 08:21:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cyA6XXU2"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9c4c3e3b2so2692933a12.0
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 08:28:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789399314; x=1790004114; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1789399689; x=1790004489; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qLA3m0NGa2cvdE7XQveDYTZqplmx5lDSMQV/pnRZYqg=;
-        b=rCvOVXKxPv/FFfQwsHVmxjQFa+mToo3kHUmwb/zeEi86gCXrwww/IsL+EXkmnzSEWM
-         M+Bnbd3W7+ml+S/2sYTojU5J5Ms/9I5fLoC//jrQ9IH8qSvvxiE4KWzZ2+RqxYllreOr
-         IyMFgbUY8QdLcVd9c5CYXlmS12/dz1FoiNfFxbYIPBan2VBuP5MjT7rLNQMTnuzz5z9q
-         KNpZcYlWHRiTjQxgOAA1NLiy+yd7nRcAfFFmzh1seVfzRdLiBy0oO3Vw9KVRW0HXS9kC
-         9hAcigIQ2zDKkI4JqnG/PLMNIMqrIn5qVPNpU+UcfRWqNdKg4FUZYBhhex9RopqdDD48
-         gZRQ==
+        bh=usjdH/oMD5uW30baonZ+kYj9XHMcowahynwuwBsx2ZI=;
+        b=cyA6XXU2lxEEeFV1cGdspGqGbWMpXYqJtOj2OS0zzPVSmMYEtTfaLRU+RJTlU8n1pd
+         HT+tYzvgXjKOR8vslqKQHAosefSNW+XS2GOh3m9EE18HNBjLutdstpDz+CCADPN8haUP
+         7sOPLenLrLmjVpQ8mtGZz94PoVYQvYdZy8bKJKvVc1uQdwb51GPHZokh5x70iTD0X+QX
+         CFQKTI2YTErparUiSIGFP4b3mMuM6wGRxK5dgqICuW2d+53R2wS9gcX8RLb/SxkTHZ/j
+         GAenF3API9Nimiz9zGf0GVuszfatSsZa58b5QziB0wTXT7lf+kwKOT+CWkdlNKmjAgIa
+         4pOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399314; x=1790004114;
+        d=1e100.net; s=20251104; t=1789399689; x=1790004489;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qLA3m0NGa2cvdE7XQveDYTZqplmx5lDSMQV/pnRZYqg=;
-        b=LQH+qWAucV9cPK4ryS+ku0VRphqjZT8pfZAyRj9xTD5sVjSili/XhxpvBKsmISWc5X
-         1rWUsNglhSlwW2SIJb5NDAyEVfY7WNA6Hx3DZwf8dZBC6Lkr0eRha2jrdaQa6edjW08b
-         f0hvLQTX7R59Tv0fIuX/aIm0AEUA6fuYqWVTKzPDoCdquLDdjQzuIei4DKiMaC/3QQNT
-         tmFJDhgfcpNZ/SYLjpIGsCWGTwqFd40GJluaiOdx5G3shqyQtWkz1xuNhO+XRiqubOtN
-         MOVrr9i06zYtc2JL/IVVVQzpRprEP0URWHx9VjwSzJ+BG6b5vVsT8rg0zs7i+wGzkNkD
-         nqbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuH0lwsWAyhcRUfkY39T0poLR5EvaigUlLCwD8latj3zfOYwB9FpDPhI4j3wZ0LFvsWGlBGWLd9CxL2w==@vger.kernel.org
-X-Gm-Message-State: AFuF++k5e134ijuULbhzeOvHdxA5ket/HXG5gy8gTR3eDqUYTq+mSYiR
-	reWArevcfm6Te4/8pydrdy6ONpFdPKvoiC2Ga1h5si26fTYyQoGYn9iHm1qAIO96ZpQ=
-X-Gm-Gg: AYBFou1GdgDv7VMkjIM4al1SqYJO26aL4wLr7UviUX2d6JkNp6YaKgsfaX1XCOZHIb2
-	Uk5jJg7wZOnoxcPKLJUYY99We+3mGEjK9rTyMVoajZV5AewoOjYDDm6ZWQs5pujH0vqDd9OrP6h
-	IhZItUWXRC/MlEafPRnI9ps6tV2l0+RaBKe03tcXceao5hv03oxoM04PsxgTV5QYYdNTK65fEA2
-	JJhkGAUOEORuUgSZwC8kPQUFXwpIqcl41GHWZ7d6wwUKdQnE+7IEsdor1eAXdeybcrfmZXbbkcj
-	zrp0om8Tl4EVBiyL4EXndBbFPIYclN5FdlqN2H1HgByV6Fb4uNnIjjePQdM8ef3y+e6GC/s3TUs
-	Bw5wVb7iBXcqtlkQoJL3/7fPq90/NZ1lXP3EmfDsEAvE/kdlt1E4DaGpm4bFZgsaij3fPkcXTZ4
-	Ch5JFl+GNmK5+5DNlIN1nHWXUDce1DqMtepRFA6L3eFEZM8pELNS0XZYvzOvK2sH0AE2v3hwycB
-	+hRkDfhrAs=
-X-Received: by 2002:a17:907:3c94:b0:c25:c979:e76a with SMTP id a640c23a62f3a-c29b8767641mr374816866b.22.1789399313992;
-        Mon, 14 Sep 2026 08:21:53 -0700 (PDT)
+        bh=usjdH/oMD5uW30baonZ+kYj9XHMcowahynwuwBsx2ZI=;
+        b=aPOICFA+zkHwZkbqeaQ7LLBy12Fso3z2KA9RAm8bM0wjBaWBqCkbQGVQOfqxl68RgI
+         toR7H+2aYqYcbN1iq9JlYNuJ/NtuNnUjC4Lzq3VWsdwOg0YA3qCCiChhwBTqW/OOkDFB
+         /MqYxZuPdgiDHDtk42pdyVlWywy7c15SVuNCSH0xjDWYfXA7hPcHE1jhmGv7hXbfZ+WT
+         9TtPrO4otvH3MfB4O2hc10QVpea9Qlr3RiZKHeaBqpjDKZnB/EiKvZSUJz6K5MVbyEYc
+         2H1qMarisJtn8ZkDDjHBdssuiwDeoG7T0rYbKtCCpw67Xg+sHYShsZk8g3o9rut4klJO
+         m2pw==
+X-Forwarded-Encrypted: i=1; AKwUvByIqkPCXwsYV2UwaF7ly8tbJ3iShG7Ub1ZeBjrfIdMD4ZzmtYJvBGS8wk1xoloEGQmh9dhqi+aPgvYUlg==@vger.kernel.org
+X-Gm-Message-State: AFuF++l8jc2FZSd+ftNQpsBw3fIyLUj0aVEHyjPeDTo0IDq7Ybz+QzYq
+	1sPBmWFYZnbSZ6uqvrP9nkqZ1vcyW+4Gn3bqcxVldTrbfi4nRLcuUvm5326pivNFgSw=
+X-Gm-Gg: AYBFou3QPwOEhzS3+hBiJAM9Wj7p+iK1ikl9u8F6L6cb8fTrzjyxDIUKsKTzSlpglnw
+	EJm38E3PGNNbHbRfURP6LshIYpjFDdaOc6N1/eQ6qkbtJ+F+PVJVH757AWpbdfOCClJPLbpblfP
+	uF21m0Nu9tL6foxJIpR3qgrEz092xfH+ikNi7xpxhGmULAb9rHHJ09YQqpirLBBjz/pyzj+6b2W
+	YgqLg/JCFX/6bv9Baa8LI6S5fY7s8uEknYu5O61x1IK3svwoLpTueqgRvVyHGxZu4qmALEnoqF0
+	/tsj/xDv0eiLHQzPSDYdkpwhL9m2j8NckifrmK7DgX03wxHHeA280FNIl+f3Ry4HIOtPOdKTAdC
+	KwvjiPjztMJG5rmkEhVbBs7fsWzUHAOid0XKje+fbl3B8a+76YRjzAKGO53dpAv8zJCxgtuXx3W
+	heVhkkaY6w5Jxz+8eo3Dhko3zBD9e7XZ+Y2P3jQpFp0hpyp7sJRljzCRL+JfGlN3hK1QW6apxeT
+	G8VrM2yx2c=
+X-Received: by 2002:a05:6402:4286:b0:6a5:f4f4:5c10 with SMTP id 4fb4d7f45d1cf-6a9f61e4e94mr4922390a12.3.1789399689224;
+        Mon, 14 Sep 2026 08:28:09 -0700 (PDT)
 Received: from [192.168.0.167] ([109.76.248.34])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296608480esm470622966b.36.2026.09.14.08.21.52
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5920f4asm4385120a12.16.2026.09.14.08.28.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 08:21:53 -0700 (PDT)
-Message-ID: <18b629b6-5944-4a1c-9573-fd0ee4b25cf4@linaro.org>
-Date: Mon, 14 Sep 2026 16:21:50 +0100
+        Mon, 14 Sep 2026 08:28:08 -0700 (PDT)
+Message-ID: <01fd3d46-2588-4d54-a131-ffe8d16e5dc1@linaro.org>
+Date: Mon, 14 Sep 2026 16:28:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,66 +69,93 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] media: qcom: camss: vfe-17x: use the write master
- matching the RDI line
+Subject: Re: [PATCH 5/8] media: qcom: camss: vfe: only reset the VFE when its
+ last line stops
 To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
 Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, ravi@ebytelogic.com
 References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
- <20260914133416.1030231-5-hitesh@ebytelogic.com>
+ <20260914133416.1030231-6-hitesh@ebytelogic.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20260914133416.1030231-5-hitesh@ebytelogic.com>
+In-Reply-To: <20260914133416.1030231-6-hitesh@ebytelogic.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 14/09/2026 14:34, Hitesh Patel wrote:
-> Signed-off-by: Hitesh Patel<hitesh@ebytelogic.com>
-> ---
->   .../media/platform/qcom/camss/camss-vfe-17x.c | 22 +++++++++++++------
->   1 file changed, 15 insertions(+), 7 deletions(-)
+> vfe_disable_output() stops the write masters of the line being
+> disabled and then issues a global VFE reset. The reset is not scoped
+> to the line: it resets the whole block.
 > 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-> index f62fdabbc..0cfc24255 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-> @@ -403,10 +403,20 @@ static int vfe_get_output(struct vfe_line *line)
+> Several lines of one VFE stream at the same time when a CSID
+> demultiplexes virtual channels to different RDIs, e.g. two GMSL
+> cameras aggregated by a MAX9296A onto one CSI-2 port, each on its
+
+You can drop references to a particular part - all aggregators would do 
+this.
+
+> own VC and RDI. Stopping one of them then resets the VFE underneath
+> the other: its in-flight buffers are never completed, its write
+> master configuration is gone and the block is left in a state where
+> the next reset is not acknowledged, which surfaces as
+
+"Stopping one of the streams/VFEs/RDIs" - basically we haven't defined 
+what the "it" in this paragraph is "its write master configuration is gone"
+
+What it ? Define the object instead of assuming the reader knows what is 
+meant by it.
+
+IT: a spider that lives in the sewers of Derry Maine.. [1]
+
+>    VFE reset timeout
+> 
+> when the remaining camera is stopped or restarted.
+> 
+> Only issue the reset when the line being disabled is the last one
+> streaming on this VFE, as tracked by vfe->stream_count. Stopping the
+> line's write masters is sufficient to quiesce it while other lines
+> keep running. The single-line case resets exactly as before.
+> 
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+> ---
+>   drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+> index 319d19158..9cdf26671 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -814,6 +814,7 @@ static int vfe_disable_output(struct vfe_line *line)
+>   	struct vfe_output *output = &line->output;
+>   	unsigned long flags;
+>   	unsigned int i;
+> +	bool last;
 >   
->   	output->wm_num = 1;
+>   	spin_lock_irqsave(&vfe->output_lock, flags);
+>   	for (i = 0; i < output->wm_num; i++)
+> @@ -821,6 +822,13 @@ static int vfe_disable_output(struct vfe_line *line)
+>   	output->gen2.active_num = 0;
+>   	spin_unlock_irqrestore(&vfe->output_lock, flags);
 >   
-> -	wm_idx = vfe_reserve_wm(vfe, line->id);
-> -	if (wm_idx < 0) {
-> -		dev_err(vfe->camss->dev, "Can not reserve wm\n");
-> -		goto error_get_wm;
-> +	if (line->id == VFE_LINE_PIX) {
-> +		wm_idx = vfe_reserve_wm(vfe, line->id);
-> +		if (wm_idx < 0) {
-> +			dev_err(vfe->camss->dev, "Can not reserve wm\n");
-> +			goto error;
-> +		}
-> +	} else {
-> +		wm_idx = line->id;
-> +		if (vfe->wm_output_map[wm_idx] != VFE_LINE_NONE) {
-> +			dev_err(vfe->camss->dev, "Can not reserve wm %d\n",
-> +				wm_idx);
-> +			goto error;
-> +		}
-> +		vfe->wm_output_map[wm_idx] = line->id;
+> +	mutex_lock(&vfe->stream_lock);
+> +	last = vfe->stream_count == 1;
+> +	mutex_unlock(&vfe->stream_lock);
+> +
+> +	if (!last)
+> +		return 0;
+> +
+>   	return vfe_reset(vfe);
+>   }
+>   
 
-I don't get why you are disjuncting on PIX here.
+Other than the rambling commit log - looks like a valid Fix to me.
 
-Also isn't this a problem for ~ every VFE ?
+Again
 
-Again.
+- Fixes tag
+- Fixes to first
+- Fix in the patch title name
 
-- Fixes:
-- Prefix patch title with Fix
-- Fixes go first in the queue of submitted patches before functionality
-
-And since you are going in with the knife for vfe 17x you may as well 
-fix this for all of them.
-
----
-bod
+[1] We all float down here.
