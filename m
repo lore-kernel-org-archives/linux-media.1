@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99A9445AE3;
-	Mon, 14 Sep 2026 19:43:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1601748640F;
+	Mon, 14 Sep 2026 19:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789414986; cv=none; b=orpM0vqdZRQkUTsO7sMAUmZe+uSRmDzgdd1o/IFut6Ac26oWhsK2dx2iRIy3erRo95GFBYizksIre6SR8Orr8m0RIJlPeT+DShMsrHBC+W1v2QI25g7k0G5c3w3R1VgVeXJ6oXr2SP6L80LfPSXJD35kGJYDlkd06Yussa9NpHg=
+	t=1789415374; cv=none; b=m4XFwFeKiAAZCQi4r5Aa9dBwMgTRdrbRCF7AYTh9Wum8uY48036fitS3PbtI2NMhHzJTRPh+lmqM7MKMhCIluuQS2OAGKNHTf98gK6BEtClc6DNCh1RLDXtoEWklofIxvRf6fbecjWqS9/nhbmuUC8MK0kISpVb2RpPpIO17kYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789414986; c=relaxed/simple;
-	bh=FMBJpoz00RwuJxbTXqmE1QuOwU9xkmDp86nAklx5NMo=;
+	s=arc-20240116; t=1789415374; c=relaxed/simple;
+	bh=v8fQTf8hIDVv2spdVQcj0yniPhd6/n1JDKVbDQQa+vQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fpsBYhEvlGITTtODessEMDF4VsaFbCH8fHPKr5GUC+SnbMUM6QleXjoZSnAhNvgfAwgtTvLql203s/xHpe0YeGV8qNXdEjPxFaD7rZECBpQFp7G31jd51trxD0I0QFYIlCFLhFYIYWAtsEN67QLqVTckgpO0h9TH0YpRoQEDiJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0ymOAxx; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=lKhU1OPwqr52Ue47AgV2TBvMHbx6TUxoVgSJ2lTfioWXs5Vsff+Y1jYwY+VcbU4H8FvK+5HJwhtO0yk3Bf+Q2YcnNu+eLvQmOmCvpq5ClCFGfpYl9tFwGDsknELbNrNRTMEy4uPGsyfkGFogWjFz4ijaN6w0ETH6M7WfjR7HhSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FUDqtBzp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0ymOAxx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D8A1F000FF;
-	Mon, 14 Sep 2026 19:42:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FUDqtBzp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9531F000FF;
+	Mon, 14 Sep 2026 19:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789414983;
-	bh=/VT0ZtmdBdmcyDLszz+EjXM1NJOqWXzrb3E9ScPzTzs=;
+	s=k20260515; t=1789415372;
+	bh=Q9tsfPq/xC4E4Hb+9MJyzyE+WxIjNjK0nuqmNERsk4Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a0ymOAxxRRxCMKdwX/ju0eBUKZzALkb1j/kGwM1roAzVEkablzvgpbmBL2FU5/e2j
-	 s5RABLJHZqYCWyPX0U0zVGndoj/xlX7JsJatd+6r1nE7aEJVd39MF/FsqCiyBSqjbZ
-	 k6/Lea7L8YxUkRHZEYSXmev195zOBp/AaJJ1ajg5n73VBFdPk2Rz1j1n6sgegvsVKd
-	 HGlcb+TJ/EtWnrH0MjRWo2o9nqNfd1Sk5nR8TPSRPMwT6uLvx51GfhfMtrP6mUsuE5
-	 /rcn09wPTmbL3+7V95hMKs0nID+Mut1usn3UCfmE3fFTiKiIZLcKrvvhBW0t/wqWls
-	 OzJwqKFqdpaYQ==
-Message-ID: <d8c1d02b-d03f-4b3b-914d-a0849936f24d@kernel.org>
-Date: Mon, 14 Sep 2026 20:42:58 +0100
+	b=FUDqtBzpzR0LEOZEwDqNbmWvdMjy7yPSld+MllLqTrc89rYOETpE0FVoro+iUiwaN
+	 UqDYSjXQPJVCsTTFhZYis1xmK7CR1fvqQnhuLhA6HNbdWDnDFPSmIaRQZxks7vWmQP
+	 05qoM8zp53LUW4ZyyiXfia8qOgt6ZXJfxD4aot/zIUgrrZYqiMDMgjPBy9BoX/VSH2
+	 ja6JC9HcwaYg95n53Yr6PYcfYxsApZ/92xuwsPL9Q6SWgzumRruyztQJcnW5H8AQME
+	 V4eRMbi8OtJheG89PViQnFK3eV2N8Cl8lMEBnagxO/pCG0/QCiXorOEPr8AwgVGxaM
+	 XXS5kvrgqtjWQ==
+Message-ID: <28f71370-1cde-4b67-9201-b3d3c3f2cb85@kernel.org>
+Date: Mon, 14 Sep 2026 20:49:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] media: iris: add AV1 decode buffer size support for
- vpu4x
+Subject: Re: [PATCH 4/5] media: iris: fix VPU4x encoder line buffer size
+ calculations
 To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
@@ -49,8 +49,8 @@ To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260914-add_iris_for_maili-v1-0-09df2b54c317@oss.qualcomm.com>
- <aGtbqVizOvw2VPXXiZjw3_w4n5h4O_4wkkJfwPzsgvQDBxysF1c_3DMmtB_LQHSoYG_qPxZl0wtTZA2ysCC_mg==@protonmail.internalid>
- <20260914-add_iris_for_maili-v1-3-09df2b54c317@oss.qualcomm.com>
+ <5WLpQRqOVwgiU7GZrXEuE_QSd2Yl7KZ2mLQn4GzNXj_CEE9P5vH7ypd4mriRwrShRHCAlVcm8zeM3W2OEAjF9A==@protonmail.internalid>
+ <20260914-add_iris_for_maili-v1-4-09df2b54c317@oss.qualcomm.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -96,122 +96,68 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20260914-add_iris_for_maili-v1-3-09df2b54c317@oss.qualcomm.com>
+In-Reply-To: <20260914-add_iris_for_maili-v1-4-09df2b54c317@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 14/09/2026 14:00, Wangao Wang wrote:
-> Add necessary buffer size calculation to support AV1 decode for vpu4x
+> size_vpss_line_buf_vpu33() expects (num_pipes, height, width) but was
+> called with width and height swapped, miscalculating VPSS line buffer
+> size for non-square resolutions.
 > 
-> - wire AV1 into iris_vpu4x_dec_line_size() via hfi_buffer_line_av1d()
-> - add hfi_vpu4x_buffer_persist_av1d() for the vpu4x's persist buffer
->    size calculation
-> - add BUF_PARTIAL to the vpu4x decoder dispatch table, which AV1D
->    requires
+> iris_vpu4x_enc_line_size was reading resolutions directly from
+> inst->fmt_dst. Use iris_vpu_enc_get_bitstream_{width,height}() which
+> account for the 90/270-degree rotation case.
+> 
+> Fixes: df816dce1b01 ("media: iris: Introduce buffer size calculations for vpu4")
 > 
 > Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
 > ---
->   drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 35 ++++++++++++++++++++--
->   drivers/media/platform/qcom/iris/iris_vpu_buffer.h |  1 +
->   2 files changed, 33 insertions(+), 3 deletions(-)
+>   drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
 > 
 > diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> index faebb54728660cc621f8822dabf2e44ce8c55c58..55996fd0d14c385ee63d2577b3e6d71b51d9e541 100644
+> index 55996fd0d14c385ee63d2577b3e6d71b51d9e541..c4922a25b4501a851e31fcc85bc13735803be366 100644
 > --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
 > +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> @@ -1833,6 +1833,8 @@ static u32 iris_vpu4x_dec_line_size(struct iris_inst *inst)
->   	else if (inst->codec == V4L2_PIX_FMT_VP9)
->   		return hfi_vpu4x_buffer_line_vp9d(width, height, out_min_count, is_opb,
->   						  num_vpp_pipes);
-> +	else if (inst->codec == V4L2_PIX_FMT_AV1)
-> +		return hfi_buffer_line_av1d(width, height, is_opb, num_vpp_pipes);
+> @@ -2059,8 +2059,8 @@ static u32 hfi_vpu4x_buffer_line_enc(u32 frame_width, u32 frame_height,
+>   	u32 dma_opb_lb_size = size_dma_opb_lb(num_vpp_pipes_enc, frame_width_coded,
+>   					      frame_height_coded);
+>   	u32 dse_lb_size = ALIGN((256 + (16 * (frame_width_coded >> 4))), DMA_ALIGNMENT);
+> -	u32 size_vpss_lb_enc = size_vpss_line_buf_vpu33(num_vpp_pipes_enc, frame_width_coded,
+> -							frame_height_coded);
+> +	u32 size_vpss_lb_enc = size_vpss_line_buf_vpu33(num_vpp_pipes_enc, frame_height_coded,
+> +							frame_width_coded);
+
+Only this much belongs in this patch - the fix.
+
 > 
->   	return 0;
->   }
-> @@ -1856,14 +1858,40 @@ static u32 hfi_vpu4x_buffer_persist_vp9d(void)
->   		HDR10_HIST_EXTRADATA_SIZE;
->   }
-> 
-> +static u32 hfi_vpu4x_buffer_persist_av1d(u32 max_width, u32 max_height,
-> +					 u32 total_ref_count, u32 rpu_enabled)
-> +{
-> +	u32 comv_size, size;
-> +
-> +	comv_size =  hfi_buffer_comv_av1d(max_width, max_height, total_ref_count);
-
-> +	size = (SIZE_AV1D_SEQUENCE_HEADER * 2 + SIZE_AV1D_METADATA +
-> +	AV1D_NUM_HW_PIC_BUF * (SIZE_AV1D_TILE_OFFSET + SIZE_AV1D_QM + SIZE_AV1D_ARP) +
-> +	AV1D_NUM_FRAME_HEADERS * (SIZE_AV1D_FRAME_HEADER +
-> +	2 * SIZE_AV1D_PROB_TABLE) + comv_size + HDR10_HIST_EXTRADATA_SIZE +
-> +	SIZE_AV1D_METADATA * AV1D_NUM_HW_PIC_BUF) +
-> +	rpu_enabled * NUM_HW_PIC_BUF * SIZE_DOLBY_RPU_METADATA;
-
-Ah come on.
-
-A routine, a macro can't accept something like that. You have two 
-variables and a ton of constants.
-
-Plus the logic that gives you this clause may make sense to you but, I 
-don't see how.
-
-For some of these defines - it looks like they pertain to headers, 
-footers, offsets etc they can be reduced down to some sort of packet 
-header type thing.
-
-I've asked for this type of reduction of clause complexity before.
-
-Please take heed.
-
-> +
-> +	return ALIGN(size, DMA_ALIGNMENT);
-> +}
-> +
->   static u32 iris_vpu4x_dec_persist_size(struct iris_inst *inst)
+>   	return se_lb_size + te_lb_size + fe_lb_size + md_lb_size + dma_opb_lb_size +
+>   		dse_lb_size + size_vpss_lb_enc;
+> @@ -2070,9 +2070,8 @@ static u32 iris_vpu4x_enc_line_size(struct iris_inst *inst)
 >   {
-> -	if (inst->codec == V4L2_PIX_FMT_H264)
-> +	struct platform_inst_caps *caps;
-> +
-> +	if (inst->codec == V4L2_PIX_FMT_H264) {
->   		return hfi_buffer_persist_h264d();
-> -	else if (inst->codec == V4L2_PIX_FMT_HEVC)
-> +	} else if (inst->codec == V4L2_PIX_FMT_HEVC) {
->   		return hfi_vpu4x_buffer_persist_h265d(0);
-> -	else if (inst->codec == V4L2_PIX_FMT_VP9)
-> +	} else if (inst->codec == V4L2_PIX_FMT_VP9) {
->   		return hfi_vpu4x_buffer_persist_vp9d();
-> +	} else if (inst->codec == V4L2_PIX_FMT_AV1) {
-> +		caps = inst->core->iris_platform_data->inst_caps;
-> +		if (inst->fw_caps[DRAP].value)
-> +			return hfi_vpu4x_buffer_persist_av1d(caps->max_frame_width,
-> +			caps->max_frame_height, 16, 0);
-> +		else
-> +			return hfi_vpu4x_buffer_persist_av1d(0, 0, 0, 0);
-> +	}
+>   	u32 num_vpp_pipes = inst->core->iris_platform_data->num_vpp_pipe;
+>   	u32 lcu_size = inst->codec == V4L2_PIX_FMT_HEVC ? 32 : 16;
+> -	struct v4l2_format *f = inst->fmt_dst;
+> -	u32 height = f->fmt.pix_mp.height;
+> -	u32 width = f->fmt.pix_mp.width;
+> +	u32 height = iris_vpu_enc_get_bitstream_height(inst);
+> +	u32 width = iris_vpu_enc_get_bitstream_width(inst);
 > 
->   	return 0;
->   }
-> @@ -2163,6 +2191,7 @@ u32 iris_vpu4x_buf_size(struct iris_inst *inst, enum iris_buffer_type buffer_typ
->   		{BUF_PERSIST,     iris_vpu4x_dec_persist_size   },
->   		{BUF_DPB,         iris_vpu_dec_dpb_size         },
->   		{BUF_SCRATCH_1,   iris_vpu_dec_scratch1_size    },
-> +		{BUF_PARTIAL,     iris_vpu_dec_partial_size     },
->   	};
-> 
->   	static const struct iris_vpu_buf_type_handle enc_internal_buf_type_handle[] = {
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.h b/drivers/media/platform/qcom/iris/iris_vpu_buffer.h
-> index 8c0d6b7b5de85f7d7aaa8fc36218e8d095419569..c7020931a642f0484b6f84af7ab51242e1845458 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.h
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.h
-> @@ -116,6 +116,7 @@ struct iris_inst;
->   #define SIZE_AV1D_TILE_OFFSET     65536
->   #define SIZE_AV1D_QM              3328
->   #define SIZE_AV1D_PROB_TABLE      22784
-> +#define SIZE_AV1D_ARP             9728
-> 
->   #define SIZE_SLICE_CMD_BUFFER (ALIGN(20480, 256))
->   #define SIZE_SPS_PPS_SLICE_HDR (2048 + 4096)
+>   	return hfi_vpu4x_buffer_line_enc(width, height, 0, num_vpp_pipes,
+>   					 lcu_size, inst->codec);
 > 
 > --
 > 2.43.0
 > 
 
+This change should go into its own patch since the original here doesn't 
+swap height and width, so if that is a fix, it should go into its own 
+fixes patch.
+
+Best practice is to stack your fixes at the start of your series so that 
+you can be sure your fixes don't depend on whatever functionality you 
+are enabling.
+
+---
+bod
