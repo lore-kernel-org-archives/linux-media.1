@@ -1,79 +1,62 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7423E5A03
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 09:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CFD41E6D6;
+	Mon, 14 Sep 2026 09:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377293; cv=none; b=aGObDIGBB+8BYIQrQrmL8HxsW3ke7lWsy/4YGiFLRuTWdgk1102fVBF4aUEOWzGBp+CByncA+73vJ+uhjV2ku138O0h7w399wSAzbn5ALxN5TlNO5qJQEm0Pq/G+ZB8Fk5dhOmtR3esn47ke/wt7QW83NCsRhAJ0Y+546xU6JLU=
+	t=1789378498; cv=none; b=s7BGV9bFd0IpZpKN5anShLx3MUQGVj3S7NVhn3jQiwZG302UaZyDpsNZFBC/DP7mt4PwhA3XlVnbdNJj3w/O+J30hhv63ViEfGMSKLdzI0/8S3ufP2TyDJEd6U0ktzTJKDnu3Wh9K8LYJ2hrn7sFjpg2vBmsRVVSAAu93CkvgwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377293; c=relaxed/simple;
-	bh=GpQvmXJKaX/jCUsCqpqIRB1D9KEM7Tyldr2xTwaFULM=;
+	s=arc-20240116; t=1789378498; c=relaxed/simple;
+	bh=I0/YcWacnfBTryVuJqe6e5KjjUML5m9WWY0xez8S3bM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W6hNLK5Id0xqVcYEQHN4gpdTenLoGT9dqyulexLTFfhIHymnGoooIkAx56I3uqKXJKMHTkWcHNzM+5ctxJUw8bgJh0s21xDN+C/SPreHHSNUYpky2nqcyaDS7sfIdhp9HOxBDj0pKMubFnaE6uMI21wSWfSbO1OAWtD03113MbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=DoXVc4TO; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	 MIME-Version; b=Xek99Ic3shU2rZlO+U6ewnN1nYcKSA77MMyvGrl99u5gJVSySU02BFCk0o+zvcRgkNnrsDt5IxWVKO9gtHQzCfUxo7gf9VEeHCUcrKKWhpqCGE1SeDcwLXDS5HiKED2cAeNC2Ld9HNhWAhgX9eWi0Z+bqV55LAwQn0XecM54/UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O1QMiUft; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="DoXVc4TO"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so21906215e9.3
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 02:14:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789377290; x=1789982090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=swXbAXeu7dbjlR8kjOxhq96ObvL9yW1PSiyfjSJ6wxs=;
-        b=DoXVc4TOC2HjL/M9ZoRzgwxRkO2/1ssSqaLALgbAeMnlmpuy1fsw3Lgi2LSgsKz0z+
-         WpCBric22a3rbE7PSsf/mGYj3tVucy6Z+p41m6A3NZ6kNprbidrLKeyiZoYw0HPbPGRR
-         3e+qMEmWTfuVLzzxN9iVD6earjA0vL3S/tEglJ1TY/C3sp9AlTZu89N/IjcWqTcf7K3D
-         yjh4OksrgylSOVS9hV8Mg6K3p1gbaayNi3EXtJj8AFcanxHXLY/CdfxtPsBqnS2CQ9oW
-         GYjTblpChl72yBvYsA3UMMNH8h9K7lio/i/PO0zd2K4p56S6Sw0RAHxAF14C64pvtm2Y
-         oHNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789377290; x=1789982090;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=swXbAXeu7dbjlR8kjOxhq96ObvL9yW1PSiyfjSJ6wxs=;
-        b=TJAVKZC7pPW8TcQbg0DKtuzT6JP2GAgRVmCAnyLHrflOICvou2oPzIA3sACaMhg1Ua
-         z9/6Vtt6bfxeHOjd68kEv0oWNPdAr1AZEX2+DP7vFgjGgzRc6sq3+Plyl49KE4k6Uzyg
-         54M7krsg+YB+32OxllmEnaJo5rBfBeR+igCR0eTsHFJ21DF2SH4RrF556GCWBRDJ6T2m
-         xdYme1Ej6rjKhwwpjHp/3uSPcezFvqGaHPS8d/ToqgwolHCL5I5ro0LhctUQp+u04Ixc
-         Mm/D+rw8FFUtu4Mgjcuk1dFyqxz++tyiV+hvwx9kNS5Ctp2B4MDlpu0I9MuTvl/m++cP
-         B8eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzRrgUxqJ3rznmfgJwb6wpWeLx6OAV5eY11riDYivB3em8vnMUaYeiY2bhWEytomFfI3/sRmc/GqG/eyw==@vger.kernel.org
-X-Gm-Message-State: AFuF++kvO3Zw4rRBvesT1EYISLnb2Uiuai5Jg/X0MvVrVIdRiiNKkJyB
-	VF+07NM22lSR0U+UaUZMPPYDJkATPd5B3oxwkuh5wHcbPqNtOEZgbj5/
-X-Gm-Gg: AYBFou3zx3OqAqPxsjR23WiCaT33FfX6efArmTPN06Gs9ciz09Gm/e3dmk3IvaHQ7ue
-	d6cnH3LgjYwPsjhwi5rFaEpcbjSVMq7HKPrV4o7QL4k2d7wbda22r6SFe6/z2Pb3kEeXOlO2ppn
-	I2mSARxqZTpK3pVS473CYuvFcsOUpChUtvSOvom50crTtv7cW4e/kRYeSpaP/Oc1BTlpEDwHkhU
-	AeWW0kq/W+zyvEqP5B5+Yw190/BafBGaxkLTs+6RinW909PORRO0Jhk9DINhT3F5mMJQjpRm/F4
-	M1+6uOnc5EYv9zMpWIcmF3uiXgRBMAds4ktnoYKG2yFy5704N3RLxtMe60y4bCvOTcRVHWOyZNI
-	iUgPqyqAmaWFbc+dhkRsowu+GowBQ1cSKgqXeNPM7YgdlgIWHf0aTJhvK63cdFYq5dRCFutJNAg
-	ZoVIBKSvb6sQE+yQqVyLfXRgL0+0KYw3FmbjAoOjaltZISBoukMKCHfq/yM0GU4nJmL+XEXH5YY
-	HCRZzdoT7BsxlMGcIzlp4+mwT8VmNvvqGWQOK9zWjGM2DyBAw9BupyCCyplAmnfN4EycDfapQ==
-X-Received: by 2002:a05:600c:a08:b0:49c:fc6e:a3d5 with SMTP id 5b1f17b1804b1-49e7a66cb16mr18300495e9.20.1789377289815;
-        Mon, 14 Sep 2026 02:14:49 -0700 (PDT)
-Received: from omarchy.lan (p200300dec74de0474f67e4b61f2de2c6.dip0.t-ipconnect.de. [2003:de:c74d:e047:4f67:e4b6:1f2d:e2c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6aac22bbsm154490965e9.0.2026.09.14.02.14.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:14:48 -0700 (PDT)
-From: Manuel Knitza <manuel.knitza@googlemail.com>
-To: junjie.cao@intel.com
-Cc: miguel.vadillo@intel.com,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	hpa@redhat.com,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O1QMiUft"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789378496; x=1820914496;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=I0/YcWacnfBTryVuJqe6e5KjjUML5m9WWY0xez8S3bM=;
+  b=O1QMiUfteaPI5w+sQGqLK2xJx3D/d+DBHy/dDg/G6oPUZrxWqDA6LwuC
+   zbhNmhWF7jEs1TXcxdZTdod0FX/wowVdK/oF3+rvLhX3QAeICsK7+aNPV
+   HDfveQafdxkenLsxyM9ZEWTtScuFRlXn7wRp7cY/CnZGGcD8WjSUtPgnF
+   AoO3ZqXxaDQsaC325c+YmeNE7o62+cAFzv82LArG8j0srzf6yK6btcI9n
+   ZL++W73a6OApsiZc8uOl7VZKOJfBizwsOybAXZqcABcHW42tG8h5N0VsH
+   JtBPuXohPIX0k2H5u+zoIs0xYbcDCk+43Bxpvjzjke0YLIJr6XhTbmtkY
+   g==;
+X-CSE-ConnectionGUID: GWbP2lHFSSqWpStGcGBxTA==
+X-CSE-MsgGUID: 6wy7YuKrQPCksWtrz7O2EQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89604400"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89604400"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:34:56 -0700
+X-CSE-ConnectionGUID: T+lUrQ0QQY2SY/1WHvNoPQ==
+X-CSE-MsgGUID: qIHd5XIPSMGH0sqW6AeteA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="266381043"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:34:53 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Manuel Knitza <manuel.knitza@googlemail.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Kate Hsuan <hpa@redhat.com>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manuel Knitza <manuel.knitza@googlemail.com>
+	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
-Date: Mon, 14 Sep 2026 11:13:51 +0200
-Message-ID: <20260914091355.148477-1-manuel.knitza@googlemail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908105717.496232-1-junjie.cao@intel.com>
-References: <20260908105717.496232-1-junjie.cao@intel.com>
+Date: Mon, 14 Sep 2026 17:34:34 +0800
+Message-ID: <20260914093434.639537-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914075354.38975-1-manuel.knitza@googlemail.com>
+References: <20260914075354.38975-1-manuel.knitza@googlemail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,36 +65,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Tested-by: Manuel Knitza <manuel.knitza@googlemail.com>
+On Mon, 14 Sep 2026 09:50:43 +0200, Manuel Knitza wrote:
+> Tested-by: Manuel Knitza <manuel.knitza@googlemail.com>
 
-Answering the DA16260 question you asked in the ipu-bridge thread, and
-giving the tag here where it belongs.
+Thanks for testing! The link I gave predates v2, which
+carries the same code, so the tag landed one thread too
+early ;)
 
-Dell XPS 16 DA16260, INTC10E1, ov08x40, linux-ptl 7.2.3. No spk-id
-conflict: all four CS35L56 amplifiers bind, no -EBUSY, audio works.
+https://lore.kernel.org/r/20260913133017.624919-1-junjie.cao@intel.com
 
-Note what that does and does not show. I am running your change, but as
-a DKMS copy of drivers/media/i2c/cvs rather than a kernel build - Arch
-derived configs cannot enable CONFIG_VIDEO_INTEL_CVS, exactly as you
-described, so the Omarchy packaging carries the in-tree driver as a DKMS
-module and applies this patch verbatim on top (omacom/omarchy-pkgs#418).
-So it is a test of the patched code, not of the unpatched driver on this
-model - I never ran that, and cannot say whether the DA16260 would have
-hit the conflict without it.
-
-The rest of your analysis matches what I see. With vision-drivers gated
-out and the in-tree driver bound, the graph is as intended:
-
-  intel_cvs i2c-INTC10E1:00: Quirks: 0x7a (VID:0x06cb PID:0x0701)
-  intel_ipu7_isys: bind Intel CVS nlanes is 2 port is 0
-  intel_ipu7_isys: All sensor registration completed.
-
-"Intel CVS" sits between ov08x40 and Intel IPU7 CSI2 0 on
-/dev/v4l-subdev4, the sensor enumerates and frames flow. The
-manage.c:1502 WARNING from the out-of-tree module is gone too, since that
-driver never had the IRQF_ONESHOT issue.
-
-Thanks for the correction in the other thread - I had claimed there was
-no in-tree CVS driver, which was wrong.
-
-Assisted-by: Claude Code:claude-opus-5
+Would you mind resending it there so it gets picked up
+with v2?
