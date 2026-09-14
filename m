@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3FC3A1E67;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECC43A380C;
 	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789413685; cv=none; b=h8PPyHGTL/xh6TuuK/n8jeJDNI34TrJ0QwLz9aDGM/w9Pjyt9mzukBEZRpC6/19AZKbfLWf5TplpXif/gdcrkRJg8hPnmC2mRahRpneM1tdamXuMwOOd9vwp8pU32yXnQwOmhhC+K8uE3rBipd3/LfP6CLOyzrB6Wq+aBHw25HY=
+	t=1789413685; cv=none; b=JwD8XuXDAPM62AICgzLzHG+V4SQnL+hPfLZYjuFGHVbDa/06mPlg08cdj35g+gdSCfPCGxquKX4pM2GJoZ2QcjdsD28OPorAMYS0uWjcNgZxxEG1IamCtFeLvlbrlTbF9/bPuz+R2l8h+bJuIDgjKMVqiVw9TUqsPKfdamtdmX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789413685; c=relaxed/simple;
-	bh=aGlhmX7jD+MBnjOKtuwFJE1JDXZjtQZXasoYCmCS4OQ=;
+	bh=ER+zQkWzydHRzZp5pEY5WGaoGbUivQBZvblB/0wtPVM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EMO4X453BLGzp/pNFfrCctthLTejmFn4Xr3h84EOAJHZbBqyPWXptkeyIjRpSSnFwmWN7JnavB/zYTM5R1SfB9dqb2uZomMA+xe6exNvdqTCXOD+gY/fvN684j+zgWv1xDOCCuVks7h9g/xcPBmo2QiJCeUxjRvBWn0ZwIFwF+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kyMRsOkn; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=YyScnnxCRqKCsEIHhyinf11HF2g9c0D/FJgXTjzTHdCl95G8S14qeRs01yj4Z4jeOo+A+2HqG4vB7JOfUyg1PlcscHlImeU0V9JvLRuqE1z1jdhITTX2eZSQ9uHeYKnDyjjZRQ/FjtLFl0Q2FxIHS15mOOLxJhtXQgZ/MrkOimI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qPCdmJwA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kyMRsOkn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 739DAC2BCFF;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qPCdmJwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 90737C2BD05;
 	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1789413685; bh=aGlhmX7jD+MBnjOKtuwFJE1JDXZjtQZXasoYCmCS4OQ=;
+	t=1789413685; bh=ER+zQkWzydHRzZp5pEY5WGaoGbUivQBZvblB/0wtPVM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=kyMRsOknG48np14cAZFPbXUl4R7wv1vNSumVvFxjUo/JQRuydTxZ048MpiH8EBS0Q
-	 VeUIKe+tcmpzLzg4NhI74Tt0ojOvtMimX15iJEvCTol4qvQPG5sxvWfXUw4jSpP4G8
-	 Wt3uQZTOuoBA7I/1PqjcCGTNhBG/mxXRowlvoMPI=
+	b=qPCdmJwAABpvamyyBgc7mlmppm55CF7lUXUVPxtNRWbg6lfMvpPySG9klzqRkenZ9
+	 cgt9M6ofq5ZLblrQbgU+B8mN/AK1Aoc0OZgvnbmixErX8ipgigO/ZzVcl3QHNAXIk/
+	 SQrAdPI8diCEjq1gXUTQ6DIdG8KgDnp0vfyxPHhs=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5673BC88E7D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 766CBC88E7F;
 	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 14 Sep 2026 21:20:59 +0200
-Subject: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure time
- calculation
+Date: Mon, 14 Sep 2026 21:21:01 +0200
+Subject: [PATCH 04/10] media: i2c: ov9282: update flash_duration range even
+ when powered down
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -36,8 +36,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-ov9282-fixes-v1-4-f520af59df1b@linux.dev>
 References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
 In-Reply-To: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
 To: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -52,109 +52,54 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Richard Leitner <richard.leitner@linux.dev>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789413683; l=3330;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789413683; l=1346;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=aGlhmX7jD+MBnjOKtuwFJE1JDXZjtQZXasoYCmCS4OQ=;
- b=09NOCbRYWWMa4nkEoSDjjdX1ogzH3XZwHTv9qF5qOh/z8A1ku+qsPTlxSAYNsoDonNgjVY+bm
- sINCkAOmsoaBrxVajMBwTY4RZxhKg/bsgYiNK4U2iRO56Q8XOnshzfv
+ bh=ER+zQkWzydHRzZp5pEY5WGaoGbUivQBZvblB/0wtPVM=;
+ b=koYQdyi9oc7cfHz0ZeuMXhUNtWxeq6ydv4PIYUL370PQLk5MMIKA4vGyfMUg1op2icjHT+y8n
+ mxHUVQxPG4NAKtt+GiUPTTb8SRUbtsIgr8DzalMWhI8RcIBXdTNcNZL
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-ov9282_exposure_to_us() divided the line length by the pixel rate control,
-which is the MIPI rate and not the clock HTS is counted in. The right
-clock is PLL2's system clock. With the PLL2 dividers left at their reset
-values the chain
+The flash_duration range update sat inside ov9282_update_exp_gain(), which
+ov9282_set_ctrl() only reaches after the pm_runtime_get_if_in_use() early
+return. So with the sensor idle the ceiling kept whatever value it had
+when it last streamed. Therefore setting exposure before flash_duration
+while the sensor is powered down may clamp flash_duration against an
+outdated exposure.
 
-SYS_CLK = XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sys_div
-        =    24  /    1     /    3    * loop_div /     4       /    2
-
-collapses to SYS_CLK = loop_div MHz.
-
-Fix this by introducing a new static function to calculate the current
-line time and use it in ov9282_exposure_to_us().
+Fix this by moving the range update before the power check.
 
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- drivers/media/i2c/ov9282.c | 46 +++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 37 insertions(+), 9 deletions(-)
+ drivers/media/i2c/ov9282.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index c10b2e205834e..3f83a6cf338d8 100644
+index 90a0fe542ce4a..4c88de1965171 100644
 --- a/drivers/media/i2c/ov9282.c
 +++ b/drivers/media/i2c/ov9282.c
-@@ -10,10 +10,12 @@
- #include <linux/delay.h>
- #include <linux/i2c.h>
- #include <linux/math.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time64.h>
+@@ -645,6 +645,19 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		if (ret)
+ 			return ret;
+ 		break;
++	case V4L2_CID_EXPOSURE:
++		/*
++		 * Ensure the flash duration range is also updated on powered
++		 * down sensors.
++		 */
++		ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
++					       ov9282_exposure_to_us(ov9282,
++								     ctrl->val),
++					       1,
++					       OV9282_STROBE_FRAME_SPAN_DEFAULT);
++		if (ret)
++			return ret;
++		break;
+ 	}
  
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
-@@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
- 	return container_of(subdev, struct ov9282, sd);
- }
- 
-+/**
-+ * ov9282_line_time_ns() - Calculate duration of one sensor line.
-+ * @ov9282: pointer to ov9282 device
-+ *
-+ * The line time and therefore OV9282_REG_TIMING_HTS and the strobe frame span
-+ * are counted in PLL2's system clock. We assume the PLL2 dividers are at their
-+ * reset values, so the formula reduces to SYS_CLK = loop_div MHz.
-+ *
-+ * Return: line time in nanoseconds.
-+ */
-+static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-+{
-+	u32 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-+	u32 sclk_rate_mhz = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ?
-+		OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
-+
-+	/*
-+	 * OV9282_REG_TIMING_HTS counts 2-pixel units
-+	 */
-+	return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_rate_mhz);
-+}
-+
-+/**
-+ * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-+ * @ov9282: pointer to ov9282 device
-+ * @exposure: exposure register value to convert
-+ *
-+ * Return: microsecond represenation of the given exposure register value.
-+ */
-+static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-+{
-+	return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-+		       NSEC_PER_USEC);
-+}
-+
- /**
-  * ov9282_update_controls() - Update control ranges based on streaming mode
-  * @ov9282: pointer to ov9282 device
-@@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- 					mode->vblank_max, 1, mode->vblank);
- }
- 
--static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
--{
--	/* calculate exposure time in µs */
--	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
--	u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
--
--	return exposure * trow_us;
--}
--
- /**
-  * ov9282_update_exp_gain() - Set updated exposure and gain
-  * @ov9282: pointer to ov9282 device
+ 	/* Set controls only if sensor is in power on state */
 
 -- 
 2.53.0
