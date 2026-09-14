@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7602B49E5F0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14BA49EC51
 	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 20:54:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419242; cv=none; b=DfAqLW4lGUIXYJF8xfgS8WktSjBgpj4Rs6dh8bbyjQKB7UvcGPVAoVmKalrhS+LEkjQhQ6+/c47wHgtuoESNtV9Jntj9x1F9i8l4h2docGsYpflrZC7pfZ/SuVJLnmfd44Y85KJwGwGCMAEgTnU5PJwgRKcJv7z9kK7H/p162l0=
+	t=1789419243; cv=none; b=bx3TdXpB7toT+xcy4iabt7NglUBQpRvXKhs+e0A8AvFyR5/kRABkNhn35AJsi8NaRie2aLCidxsbbWFZa4CXuA+fePm4j2PoQLGAfMcjTKNqgDR8qQVfb/GEnZSqMqrgIH0uiruAzurTb1HqbOBneTQguGcIZpn57OQJBN/UaHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789419242; c=relaxed/simple;
-	bh=JGCHCPPdQaakfn0aYQL9dybqmmp7+siBaWXaH1ZCUyc=;
+	s=arc-20240116; t=1789419243; c=relaxed/simple;
+	bh=dyFop+GWK8kPwETce6O6U3jKi8pEOcQXQbDk8OF3Fhg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gDFhyFp0LL6YvIeNnTXQvcrXFSD03YxQ9gY9wZlUSTzXVziuFO9kn7Dxe7m5fgarSMiMPwJMIXqt+OL29VQ8whLeP8plaJs4bW/pXl962iiTeLGDCbLnJCHNjV72YqnJAjRLwHbQB9jHnqDlvDv1PMpqgqSe6v1H75U9k37Dh2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mAotltRQ; arc=none smtp.client-ip=198.175.65.16
+	 MIME-Version; b=hGLLa1+jMYKwwnTW7RdA7I/bGvGxM8vrKErarPAHDzflGXHeua35k2LV6mGYJnOmvby48yE/mypv3BSxyuFX9+ul6O2KFKgvismDoUhSfE3JssdG92fjBN2j5ZEMjbRrlzKXmw4hyqdzJi4sUO0ikhYzuWCdS+k8pkk0ePa3v2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gO6Lg3Rg; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mAotltRQ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gO6Lg3Rg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1789419242; x=1820955242;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=JGCHCPPdQaakfn0aYQL9dybqmmp7+siBaWXaH1ZCUyc=;
-  b=mAotltRQQK53f2rVpBQnu/flgwK34HHt3LtXSnBsZLJNR3fDCkJ3cHYC
-   AS9bSa06MlCv2JutP69SUyULysZuQPLxFUKn5GKkkTacwOB4UuqBb6qUc
-   z7riDhQERrDzohPYxAabO8dquanSP9Vq3K6WkxWKYFy3lHYHrA8xG3fGs
-   nbzJlRE0gA1LUnUj3S7qsEIxMfwOUq81TF0sw1zp5aqIMYj4FtpYVa69z
-   5RSrWh9bva6l0wP+URAWM8IiRR8VkotEbdqMLLWIJfY5OdInqQhLcREqC
-   SEf7LDYDMY6hM3g4CiWGzHMsu1KFJCk7mq8I/lEV/qtOHYFdlrTpfCwfV
-   Q==;
-X-CSE-ConnectionGUID: TTnRR5G/QDuPfv9FWt46Qw==
-X-CSE-MsgGUID: 3R0jekkvSGmnaKp2Fz8OVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984119"
+  bh=dyFop+GWK8kPwETce6O6U3jKi8pEOcQXQbDk8OF3Fhg=;
+  b=gO6Lg3RgmzRf3LGuSApyTtlLQ7p2++BXRTTJoYKNit5EL3s0kblM6qj0
+   kPn4Ni7XO+BmS26Iix2yuYrfCw/uSPsE6fhtsVfXu32onjB4rliR5Po/y
+   0Xyp81MIhWicy7uYBFuDr6UjOrOX7cVw0Zz7y0mL6rjf52rn0RqyaO4xK
+   HtaUoKoh7DNpXtnVXV5dBgUoG3lNGnJr4LFfCyq1wZrUiTziNRqCCVaQM
+   g5E4pYnR1NjutK3ahhrOQxfpNkgI8a/N/J6gxJ2qzCx+wqiMgbI+fSEbO
+   srQVqsl1AyQHCodikPKL0hfXUaABJRVV9088VlQrhv+8B6gQI4RL+zKO0
+   A==;
+X-CSE-ConnectionGUID: vP0CcFspRPGmJw/lCqf9MQ==
+X-CSE-MsgGUID: I4ex1tnhTgK2W2kOP9aQww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984120"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89984119"
+   d="scan'208";a="89984120"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:59 -0700
-X-CSE-ConnectionGUID: i+jLB6K6RB2jr7B6asncQA==
-X-CSE-MsgGUID: tirEB6UtQgqutRuHDP09Gg==
+X-CSE-ConnectionGUID: 3jHqmvnTQbOI1nrzrQRP3w==
+X-CSE-MsgGUID: /mM185jnT6mytQL7458r6Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297760722"
+   d="scan'208";a="297760725"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.173])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:56 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 560DA121BBE;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 511C2121BBD;
 	Mon, 14 Sep 2026 23:53:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x6Dgc-000000035JD-3SdH;
+	id 1x6Dgc-000000035J5-3Nk2;
 	Mon, 14 Sep 2026 23:53:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH 08/21] media: ipu6: Collect IPU streams into CSI-2 receiver sub-device context
-Date: Mon, 14 Sep 2026 23:53:45 +0300
-Message-ID: <20260914205358.735307-9-sakari.ailus@linux.intel.com>
+Subject: [PATCH 07/21] media: ipu6: Get watermark configuration directly from ipdata
+Date: Mon, 14 Sep 2026 23:53:44 +0300
+Message-ID: <20260914205358.735307-8-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
 References: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
@@ -74,81 +74,63 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Collect the IPU streams to the CSI-2 receiver sub-device's context.
-
-The background is that an IPU stream is bound to a CSI-2 virtual channel
-but in a V4L2 pipeline there's no such assumption. Therefore a pipeline
-may contain multiple virtual channels and so multiple IPU streams, too.
+Instead of passing watermark configuration data around, get it directly
+from IPU variant specific static data structure.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c  | 6 ++++++
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h  | 1 +
- drivers/media/pci/intel/ipu6/ipu6-isys-video.h | 1 +
- 3 files changed, 8 insertions(+)
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 12 ++++--------
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.h |  2 --
+ 2 files changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-index 0fd4171b50ac..f92577054d89 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-@@ -457,6 +457,8 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 		return ret;
- 	}
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index 3d455872f29a..b3cbd4266da1 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -657,8 +657,6 @@ void ipu6_isys_configure_stream_watermark(struct ipu6_isys_video *av,
  
-+	list_add(&av->csi2_entry, &csi2->av_head);
-+
- 	ret = ipu6_isys_start_stream_firmware(av, &bl);
- 	if (ret) {
- 		dev_err(sd->dev, "start stream of firmware failed\n");
-@@ -493,6 +495,7 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 	ipu6_isys_close_streaming_firmware(av);
+ 	av->watermark.width = ipu6_isys_get_frame_width(av);
+ 	av->watermark.height = ipu6_isys_get_frame_height(av);
+-	av->watermark.sram_gran_shift = isys->pdata->ipdata->sram_gran_shift;
+-	av->watermark.sram_gran_size = isys->pdata->ipdata->sram_gran_size;
  
- err_return_buffers:
-+	list_del(&av->csi2_entry);
- 	ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_INCOMING, 0);
+ 	ret = v4l2_g_ctrl(esd->ctrl_handler, &hb);
+ 	if (!ret && hb.value >= 0)
+@@ -697,17 +695,15 @@ static void calculate_stream_datarate(struct ipu6_isys_video *av)
+ 		ipu6_isys_get_isys_format(ipu6_isys_get_format(av), 0);
+ 	u32 pages_per_line, pb_bytes_per_line, pixels_per_line, bytes_per_line;
+ 	u64 line_time_ns, stream_data_rate;
+-	u16 shift, size;
+-
+-	shift = watermark->sram_gran_shift;
+-	size = watermark->sram_gran_size;
  
- 	return ret;
-@@ -530,6 +533,8 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
+ 	pixels_per_line = watermark->width + watermark->hblank;
+ 	line_time_ns =  div_u64(pixels_per_line * NSEC_PER_SEC,
+ 				watermark->pixel_rate);
+ 	bytes_per_line = watermark->width * pfmt->bpp / 8;
+-	pages_per_line = DIV_ROUND_UP(bytes_per_line, size);
+-	pb_bytes_per_line = pages_per_line << shift;
++	pages_per_line = DIV_ROUND_UP(bytes_per_line,
++				      av->isys->pdata->ipdata->sram_gran_size);
++	pb_bytes_per_line =
++		pages_per_line << av->isys->pdata->ipdata->sram_gran_shift;
+ 	stream_data_rate = div64_u64(pb_bytes_per_line * 1000, line_time_ns);
  
- 	ipu6_isys_close_streaming_firmware(av);
- 
-+	list_del(&av->csi2_entry);
-+
- 	return 0;
- }
- 
-@@ -675,6 +680,7 @@ int ipu6_isys_csi2_init(struct ipu6_isys_csi2 *csi2,
- 	if (ret)
- 		goto fail;
- 
-+	INIT_LIST_HEAD(&csi2->av_head);
- 	csi2->asd.source = IPU6_FW_ISYS_STREAM_SRC_CSI2_PORT0 + index;
- 	csi2->asd.supported_codes = csi2_supported_codes;
- 	snprintf(csi2->asd.sd.name, sizeof(csi2->asd.sd.name),
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-index dbaaf00af623..7c936154691e 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-@@ -41,6 +41,7 @@ struct ipu6_isys_csi2 {
- 	struct ipu6_isys_subdev asd;
- 	struct ipu6_isys *isys;
- 	struct ipu6_isys_video av[NR_OF_CSI2_SRC_PADS];
-+	struct list_head av_head;
- 
- 	void __iomem *base;
- 	u32 receiver_errors;
+ 	watermark->stream_data_rate = stream_data_rate;
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
-index 4c890c6af8f5..cb4b45f0dae2 100644
+index 5e522686135f..4c890c6af8f5 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
-@@ -78,6 +78,7 @@ struct video_stream_watermark {
+@@ -73,8 +73,6 @@ struct video_stream_watermark {
+ 	u32 frame_rate;
+ 	u64 pixel_rate;
+ 	u64 stream_data_rate;
+-	u16 sram_gran_shift;
+-	u16 sram_gran_size;
+ 	struct list_head stream_node;
+ };
  
- struct ipu6_isys_video {
- 	struct ipu6_isys_queue aq;
-+	struct list_head csi2_entry;
- 	/* Serialise access to other fields in the struct. */
- 	struct mutex mutex;
- 	struct media_pad pad;
 -- 
 2.47.3
 
