@@ -1,26 +1,26 @@
 Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020092.outbound.protection.outlook.com [52.101.225.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312F3346E7A;
-	Mon, 14 Sep 2026 13:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9951E472527;
+	Mon, 14 Sep 2026 13:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.92
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392884; cv=fail; b=lBRDREqWzzYPk08ysaJm0bFelKGLetPIkoKzmjYOCgT/7mAsIXh0FfeT9gRQV4dYjZtaIJRlcvgLn4Kr4udssmhUzmQqJa4UJt0XxiiS2zhIBza0PFXbOpL/CcZ4y7EMu8UIyq+/z+6cK/u9RkkUdiURUywau7GLFGXyctAOXdw=
+	t=1789392886; cv=fail; b=gbh0IY6yZ7lEWbkLSGNwGF86ynx0ulv6ZFFeKulzjTTDiQRsBxVlTMxv/jpbaVsDR9tI5Wmikit5Xd1mcLHI3I7+3Ug39Rs8hjJAcNIzM7FfalFrI1hzUqULrL6i0BHX5YsYVVetDTFsIaVZVA6jV67ro+1obGgE+LAOd7BJirQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392884; c=relaxed/simple;
-	bh=TQVKIzh5bH+lwvr9GKJjMwuX5ZadPOS4jONuOF/w0Ds=;
+	s=arc-20240116; t=1789392886; c=relaxed/simple;
+	bh=YJwWVq2CNUNPCmPHrbeCRebXO/0oPXHgr8pXHMI6OWU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ohF+8fNXaLdDUTT5y6vAv1UpS0ruDRV/FFVhkZmVR9QvZU2Atrwgi30SLhhC2YjALRi9k0DZYufa+VEPaT9UV1JNdzBlIFXC1Mz6oJzfP+dAvO4iUrDApoji8OxxX6v2GJxZHbTOwVySXDNuQ4uWiKLfQkIXQNp8pODOgZVfmbw=
+	 Content-Type:MIME-Version; b=pauBEnpOPZ/FQ1NvZyIm2id48qipRs4dzBffauMcD9nCP5TcGAM/HqP/IfVn+xIR7b4fSeD+baJnqResT3smCbSk2CZXfobZo1bxguFJDdAcnXDsBtNRcWBap5LYMIU6FbeuXfeWYa6QZRrYnB7Rh2ed0ErPK6rQLK/MawhEKtM=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RHCG3/WuFjhotGEuUHbvZLB+4SggxBVQHCj/0rGQsfmxlS/DvwPuQZJpz933Nu+jEaCh09pwAuaXsZY/AVuB+YsOlDwG/ARBgPHsIZt7BwWHToWD1Zl2ELLDQBvi6szYbUZ8WT9DevjEfc8V62la+0hymfBuuXgaCr3C4FbgUnddDtMNYyepF/BIdcgE2d8cVNQ1SZ9FGN8bYL21ByUCa0V4Gl+/KjomkgMTH8GN0RBk1/ErW1yj+TEE4aB4K4a6TUMRxmlTPU1KDEo2zzapK9/fgZ77Mr5b0haqszSXcqxnS6BvDZUhl1oE+unCikNvV5vfyOoU9rbktM7ZkEJfQg==
+ b=qIqF3JguZV2lIUiITPTmPmBZ6YtI51PgXaTbtw2M4Tbqp6tW0c6IJtL/ZqKvONzq+l0ylcdqWgSJ/xuz9XXJPlge5rEGH+qDY/raKDN9mxAUw20DRo1oKNz3IjksfTB16QIUiAcRMDEl9dczGVCp4OsMj0TYxp82+U9kH42xAMQ+dCx9+o9IeOLeaUhJBPwZNqZk3/gPotRny57C3GKoOzt3uknWg7L4fhIFPAyNtYABw2fPuV3KlAPvbjOT03bPkNluCJ+z3q4Wopa/nshNvQEyTl/8NvBUhxZOBxl5rXWdOhmJi8yRM8hFcAYWkzINBrWtGqU8utj0CCIdrfglTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ojZ2mXdw32kVSt2/uLj7XldDPFmz5tzNJFnp6AwtOeI=;
- b=vKeLsQ3BmI0Ks6UdJg7l4zUAQ7y6y4OiLdtjEotZHSWldGwsK4hmln8OLdzbhJVNdkd+GGhEGyJr+o26mGMI7dPwBWOvffopiNbM+xPCZIQArv/Oh7IYEvzPZM9+WaF7dbAe3c7cJOiaGqdHx7SKp5BtYdON4N32PPPPnc8zNcPUcvkLCe9kuwNJGayfgPzu6bDePhDrSbrQZdN0S0PdTX9eDFwBr0xjShy/2uxXcFER9YDqQhgyvrpb5lEnXPEqBPSxkeXa7uoKGse3sE4yS0RqrMgOt0tVk4XTWVu11grCNpNqGqiUV1t+hFWQQrqddk0/2WrAklJ0h5u3NVEviA==
+ bh=Bg9rTlNHWVPDpyT5lQgGIzx0WcV7zZ66+/Jr7WxnGGw=;
+ b=gpa2/FQHiLA+dH67BTnlGNOtKuskJkE6ZHW5QUpPdzkKLDW1qoI0nKehfGe9PVCUXIjeoMnLfCOE02vCpAiAGIikLvT2qj6lilMu/VTtm13unLl3nI81qZDLwNAil9csn2fXDZRTa4g35n2NIOONZJfZ6S0f1sHE0dfjmELumFfLsV94R/f/BQVUnL9AuGbKty8lKfBZ3bbKuWBvT9w2LoyYPM7ktbnsdsO3ZfkJiJ6JPDKdb2zeAlLqGwZXfIJJWBsY2JIoxuwQNbow6hbXkiBX+tF0OUP8QcS8MzhnUtJjLkARkij55fleDypJoOPPri02fAaUqhDjvqm6Ew1nMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -30,11 +30,11 @@ Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
  by PN2P287MB1360.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:127::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 13:34:37 +0000
+ 2026 13:34:38 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 13:34:37 +0000
+ 13:34:38 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: linux-media@vger.kernel.org
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -45,9 +45,9 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH 3/8] media: qcom: camss: vfe-17x: do not gate write master done on IRQ_STATUS_0
-Date: Mon, 14 Sep 2026 19:04:11 +0530
-Message-ID: <20260914133416.1030231-4-hitesh@ebytelogic.com>
+Subject: [PATCH 4/8] media: qcom: camss: vfe-17x: use the write master matching the RDI line
+Date: Mon, 14 Sep 2026 19:04:12 +0530
+Message-ID: <20260914133416.1030231-5-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260914133416.1030231-1-hitesh@ebytelogic.com>
 References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
@@ -64,116 +64,130 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN2P287MB1360:EE_
-X-MS-Office365-Filtering-Correlation-Id: e962b17f-ec23-48e0-4b23-08df1264ebbb
+X-MS-Office365-Filtering-Correlation-Id: d6423a39-da3e-49de-2d08-08df1264ec86
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|10070799003|23010399003|1800799024|366016|3023799007|10067099003|56012099006|5023799004|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|52116014|10070799003|23010399003|1800799024|366016|3023799007|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	3Z6Z+LJu+dl5KcsWY9cgrZxNurlSw1AGMh7k20HKJFr6uymMV2ZpIhWJXHV5JfVGVW+AxH815B6ZZPdWrLpEAAswRs1UQx2coeXzgZKiqppiCynuEO/pRAXugt76GYXEZGGAhgbdhQp3b/mY1TK171U2WRYrgGGXvQh8tvQXQIs10IIUSTXIvIENa3I8FO4HI6CuAbawey2QR7rGna4IlHFnw7ZTVnxHQWo778oAOm9X0IR4xKt7qyUW0DiYaa1oluACiTXju7KBN3lEfRwuwc74D6qGH937AoUggMeXjagt+0tCAM8uCP/aMfnNsoh90z5mXoTe/rltPYuassEI6TP4Hmc8tZu3fsMo1dG8zEFSvXTwdQm8ZevZ2fIE6Vk1GhT916oGdAiuVj4Dq/CBvMkc+IYYl52VR/tmPbucDgdfffm5Cz9nQUffBOl8Zr9Unr0U0QVPn7hiDZqLe/sS6JA1h9OX6mhQzPs/wBwfBJZHAoFbXTSVqFwaCZLBbpeBQ/j/WIpV9SCl76NRggBiJAOdXjKBLn5/h9pCbssb1qE11R5j40obyTH/VLdpW3ZFTMWGNyoC6qs4YQ0YTsAnJtzOSi5njUZZcIpTsacJyPz2EFCZjFhey+x5Xp64Vva0CThGQ1+9n9ZEt5fCKmfA1+OMMzQ8vQSBvw4eMcD1sUc=
+	NA5BlIQFzydpnGPHJOnbn1+XQ5l+a4Tv7skZ5wF/+KkOYZpnH/9iEza9xhbA16ysrje1huBAKk2WCy+HAP0Gmt1r0BeRpt+FPfSbQSKFx7S1IswME8vSnoUGZw6VXUct1aIZbfauZatp2Hou+xKSv4rG8+deDPBnD+LPlir1N2QOCh7KHFyw+9OKl3/aLNdXAOzSpjTE4/r0mUF6mh3aUB7CChWfNF/G9iwXqgm9j/C6Y4OEO7T9DEQecwhfZZXZnKCXGUoFHWv6ybWwoeEIm27reOFMO1i0JnmD5a9dxzpxM+0BFcVfqsO6dwAdx8nmUfSDocwyoR5P/iqu/lMpgxtfR9c5sWtaZDzX0cBMV1/XmbS6AbDp8cA7Ib1S3Tc2VgFUN6r/oxFTk8lLA5GlzKXG/Pl6kq4VsGoaP2wk4HmYvHg3r5241In3/0iKWTkAcvBeceoQqiI4iCF+Fyg/GhkYJU7JqjcZ6lC8QpQXi0FZ9/c26jM/W8ZFVUILr/sp0bTyJdfXYZ77Z8POCnF1mEphgK8F/OdF2Lstmmi+7fs3EwgOeAZpPnr1h5PtdNtfwtZ9wIBlYdb3rF0siy8lcCsgDViS0dNplzmCTXg5dEkQ342vr0RUGjcWIvLndcERvCln69UIcUJ+mWvc1qGkcZo2h0HgZ0PlYfs0KHhklNs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(10070799003)(23010399003)(1800799024)(366016)(3023799007)(10067099003)(56012099006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(10070799003)(23010399003)(1800799024)(366016)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zy3l3ZDQaUMlTVK+9XklhPHWNa96vn5NvenzBY0XSmWEDBKG2C0xxCFXQZ7o?=
- =?us-ascii?Q?0KkUmcXOHEsuXwbnDwJC6OjOZC//Vr9fA7fj7sL5yGhYOvxkTfm3TnsqY/2n?=
- =?us-ascii?Q?QqXH2D7WHw5reBupWsQTQN7kO6YVU4QPwQQS7BCWocrx6T3cvTSywr7ARSyR?=
- =?us-ascii?Q?ST+fAALWHxI9TS77Lmd+It6Ux8im0R2sLtPucnqrCXoPqZjUB7Q4fvsWOIQJ?=
- =?us-ascii?Q?e1unMmrevMT1dm3kq9e8k4XLmIB5UUq4+dDkZqf8sBDzEcZjXgnOrw/Seh5F?=
- =?us-ascii?Q?ACyjmRqnLpcpLsK2OURg6ktnTbHRgC662MIDOVgLWjuq97w6ddRmXDqypHni?=
- =?us-ascii?Q?z6UPfsTiLe5q6cwTYkIpUkpHb+2LyoW74lz4App4dbHyK71LW906A4+UzN7U?=
- =?us-ascii?Q?ejVB4o2JBSMmhUn1+csgp/wYE8Uh1lp9YKL9CeBvjmaTpWsNAqHTxHMQ4g3s?=
- =?us-ascii?Q?R3cy5fqBlRzAri8WrXy2ndaXtWhgDvuGAAKChfy7l+hXiX6XVzjCSQVvVSrG?=
- =?us-ascii?Q?lj3uAF3bT8HS4+Kpn4V39C/HUL1lKxyMW5Wjq5rUoOw7omAK7/omCrnyELor?=
- =?us-ascii?Q?Q5An2co62guqKJN8S1F0cX6tNnXtYTJgNSp/BQN+3JnS7eZhPq+3n+LkTVEP?=
- =?us-ascii?Q?pbC1TvhW5tai5YhMgrqZZmFxWTMBWkuXcgyYn8UinFRGrIwfSgbVmuahTgDK?=
- =?us-ascii?Q?17OlpaAK4KrJrfIcA2ALZYWJZs/v0DYIXuEaKCudC7S8Oa/q82GQWf9hfEh1?=
- =?us-ascii?Q?Fn/j9bchLcJ2kvJsQlBY3DBcxw5b/duOCETHWqdCdyi5NS3tbCnbUcr4A98x?=
- =?us-ascii?Q?K6YMv2ZK32WFYA2kLg9wVge3phwbjQI637RMHdLkmm2gyssJ0NXgdAlJdhkx?=
- =?us-ascii?Q?Itj+BbLy33NMTIM8tmE3sVe8o7i5vvgmWGiS+cXgG3ZshY+Zk+B2XHbkPP4Y?=
- =?us-ascii?Q?K5//ZZ69MgiWdwo2HZCdo7yrrVYZEibl7ZzivriybMw7+FQhlpysdsh23HWZ?=
- =?us-ascii?Q?RUCuPm/o8yHgeieEANiJBF3CcLTLeHp9A1GfwyYWkEHB3wNmw4cIoIaAfSyr?=
- =?us-ascii?Q?tTHP0shNOxziJdkxzQy81kD9dArlo3FDsCvAaAQkbfUXDSkOJbuSWcd3iUl5?=
- =?us-ascii?Q?iYQShvI0b/IKvhrpSfYtg1esxJ1BUWTqtcQobJyzLorurnSukJOOJYy+8wc9?=
- =?us-ascii?Q?x4Zk+rQQYN4c/IP9eyrX57WYRsHI7d44J8qpP047aecMY9jpg3Onm+hVfe4q?=
- =?us-ascii?Q?sJspkKiuOMrc9fy116LWLN2WUIJARP9tBxCgK1pKBdcvNrbXobTg+SHCk+EQ?=
- =?us-ascii?Q?dTsOm2ccY9zoFpKnIdxBXvcmneh3NlRGioKiZ1cORvXqrQgs1yFO/6r4SFID?=
- =?us-ascii?Q?06uRGEq3R3RX1ZeW6/UTPTer4zp4+Z3uzr+laMWQxbfU/NOKONXCPDBauWTs?=
- =?us-ascii?Q?XPpLvYu/HuGlrPHC7WrB8bKCTFSC0tbChKM8bSIYEgj50Q+1rIx/+PthrDjA?=
- =?us-ascii?Q?iMrqRKv5FHcoztkBh9xBo2rvSV1YcxVapoUqRf8JqhjboN8KdUf6y65fGrmj?=
- =?us-ascii?Q?Ab75pX6kwRmzI8KfxOrOCBG47I3zwgmE4QLlmFMgyivUUWOfAJXDHmW8WPwl?=
- =?us-ascii?Q?IDerFZW9Qwp9mwufmhgfGmUCnTMGPsOkC9bAn3VMr2lhLO1sEQ+2KAGbC9Ft?=
- =?us-ascii?Q?z+aHDWUcCJv844LAXkmsqWFWvXAHVo9OpjOVPKGZcCKUPWFszd+cj4fIpuqT?=
- =?us-ascii?Q?FfRRu34vyOnsKmK/cI2gxLoiYCjvNwE0wU/08n82DGQ54WtzhvynB+eLPFLd?=
-X-MS-Exchange-AntiSpam-MessageData-1: QXmz9/9F8LdXiA==
+	=?us-ascii?Q?7+qfepLZ948UfdoQHf/K6WPJZlfrSlgidptPbLSMxRFsja4Ndik8+t0KV6Xw?=
+ =?us-ascii?Q?neeOWZdVt2r0xRKRxmA0G2OpBjEDufeIhRK4Zeg1lB8peRWFCnvS1kr+V9YQ?=
+ =?us-ascii?Q?Ob3dAO6jlBjUQ6jGURv5vsQ5UFMKowxYygPzaJjNYDxnT9iTITTatK26hq17?=
+ =?us-ascii?Q?uhLH0v5diRkJMN8a6vKKKDn9yV6Ixb8HmH8kAM3d9tde2JoW+kcIzWwFJI7d?=
+ =?us-ascii?Q?CJxpDKkBWloHDwj9gx6627183b+7CwfqYwkG4g7ua+BlMsUhwuu/Ag0AUz49?=
+ =?us-ascii?Q?WY+utlN5fa7CngQHsDsO9rWKXx2AHyTF7rDjyPRIFNT+YQCrkNtpskldpg4B?=
+ =?us-ascii?Q?DdI7OgvEl7oG3zQLYrHxTm1rPm6fkS77ZEqH5hdFoF6u88uu8FLftIAt1K2m?=
+ =?us-ascii?Q?ZRmZRD9XJy9WBv1nMk4Oz/toWyony1M31ofsNZnWFW1MxdKJSUyCkqibPj5G?=
+ =?us-ascii?Q?/Y7GdHQSK5oavXXotySgmTy+ZyNCxnEDkWmeoHjz0MPlRxRK2pSnfOaaLizp?=
+ =?us-ascii?Q?Bc9YHjdO73M8PWWxUI2WsVN/LyMzfr+YryAAohtMEQLW06Q9pi2eGJdFivrM?=
+ =?us-ascii?Q?B11WXRDgQeCoUwiNUqSHjL3wx5Jh0X5Ro8zeycmZnHE21dpaqbUWCIfT5Sft?=
+ =?us-ascii?Q?4bnDGjTFczflSPZ+ko9njVe/Poac2N22eNui881v8E9KoOKpTm6fz5KyY3Vj?=
+ =?us-ascii?Q?wu5RHBkW2PlqCuTD1znaShz/uOFXWvafIj0vVu0u9M1K8vTFCt59iEy0E7o8?=
+ =?us-ascii?Q?+7TKAZDmmvuHztfKq/df+41j04f9jA+E1oHw+uSslAOYxLU4OD1tI+jWaNCp?=
+ =?us-ascii?Q?+j4BW0lSuAWDFY2vdWbypA/AnUvtTlIIDfiaI5sEyuVSZ9CS3fM9g8V3ARs9?=
+ =?us-ascii?Q?UdKGMV4ZWnqlpWhJlrbt/FvvwSurxpv5gZFR6e4nkB8GaIgWFTT/2vlmvtTa?=
+ =?us-ascii?Q?DlbEZKwi+IyrwYhJDHtVIHjDWI/8rb5b1Lb/iTnQiJOu8V4XkZreWOa1qRQi?=
+ =?us-ascii?Q?Ge0aHAasjmXOnZKcv1+Eb0wVRGPBOfJCN8+hJjdIOdI2E/2oRc0wTD7B0a5O?=
+ =?us-ascii?Q?bOsGxjZHVGKhD0FTOedreXXra4B7KLQhFiFUqGVtAy6Z7c01ksWT1+D4yGeC?=
+ =?us-ascii?Q?UzD2gzp5JmaR8fsBhgkTENBRqujqiqouSXsmFH1Kk5Vz7Y2UDTHzTidyXD2/?=
+ =?us-ascii?Q?2fhr9ojPtzh+ASIvGdtV1gB5gE16hbv2itDWKTd6lj9dAZpGmfx6KTqUhM6G?=
+ =?us-ascii?Q?QFD7reXQOwfYJOsXMb/YpS9epk5EtXOdj2L/HFwyevh1CbqQRLXOqwj6lxTx?=
+ =?us-ascii?Q?ihRg/03UXHW58xELOI1lET1Do/izekdP4TWMFVrQmnxFJvt2i4vTgdL7lJAe?=
+ =?us-ascii?Q?LyXANMcPDSGbKi9pzTVKKiWufEjsLWiwQMgSUTdaXQkm8IZTqiR9I8mIM/cs?=
+ =?us-ascii?Q?l/VkCqXk/1g+YffwRZn0T7P888YMe008r8DUn6Jv11Y2vV56QTPT9SHAb7sv?=
+ =?us-ascii?Q?u+szoctYETKsW4PFuxPo0P1bJKbhROfZpQgTYLNdoEtWj+czPItlQggwkIlO?=
+ =?us-ascii?Q?HfxlASNkqY52weKYHpXI9n29h87+gRAIL5CZ3siUsnCmahv4WlYGI0UZnsXY?=
+ =?us-ascii?Q?F+pYJIYwJwQdYxNl1R+cJFZy/Xq/5XtpVUvPcSjnmb/LmQkgK5i/8jmAyEnV?=
+ =?us-ascii?Q?FnapZelBfMnBrDx/OZaCUcW3BCkGLSzyrU3xEYJGyOqE8fssoQPjGX/GetE7?=
+ =?us-ascii?Q?XV+1GCANxvKtWYGRsJdj1rASmkLslabkceP4LtzAtLw0tvDB5kRLgE7BaF3E?=
+X-MS-Exchange-AntiSpam-MessageData-1: Ie0QG4yFixOWjw==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e962b17f-ec23-48e0-4b23-08df1264ebbb
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6423a39-da3e-49de-2d08-08df1264ec86
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:34:37.1791
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:34:38.5023
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: szyYeBR00vNRu78t6S0GQB3oPWM46LIes3H62sjaMH5khMFzQMzwvKWgF2UObOlKHQUViTWrdQI9GeZfOpLPmg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: raOnZOsGTXdV9kHPTTPjx7u/KOI+1HC1XZazDtJwDF7n2izValk2GGA2U1QKLA9sK1pTJ3cRSP5ibHCvfOQpDw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1360
 
-The VFE 17x interrupt handler reads and clears IRQ_STATUS_0/1 and
-then reads and clears every BUS_IRQ_STATUS register, unconditionally.
-It only acts on the per write master WM_CLIENT_BUF_DONE bits from
-BUS_IRQ_STATUS(1), however, when bit 9 of the previously sampled
-IRQ_STATUS_0 was set. That bit is the ping-pong flag of image master
-1, which says nothing about the other masters.
+vfe_get_output() on VFE 17x reserves a write master with
+vfe_reserve_wm(), which hands out the first free entry of
+wm_output_map. That only coincides with the line being started when
+lines are started in order and RDI0 goes first. There is no crossbar
+programmed on this bus: RDI n feeds bus write master client n, so
+the write master an RDI line uses is not a free choice.
 
-Those two reads are not atomic either. A buffer done that becomes
-pending after IRQ_STATUS_0 has been sampled but before
-BUS_IRQ_STATUS(1) is read, for example while the handler is entered
-for another line's RDI SOF or REG_UPDATE, is cleared by the bus
-status read and then dropped by the gate: wm_done() is never called
-for it, the buffer is never returned to userspace and that line
-stalls until the next frame happens to line up with the gate again.
+The mismatch is not visible as long as a single line of the VFE is
+streaming: RDI0 always gets write master 0. It breaks when a CSID
+demultiplexes two virtual channels to RDI0 and RDI1 on the same VFE.
+Whichever line starts second is handed the other line's write
+master, and both clients are then programmed with the wrong buffer
+address and frame size. Frames are truncated at the smaller of the
+two buffer sizes and the SMMU faults on the overrun of the larger
+one.
 
-With a single RDI streaming the window is rarely hit. As soon as a
-second RDI of the same VFE streams, which is the case when a CSID
-demultiplexes two virtual channels to RDI0 and RDI1, the interrupt
-rate doubles and one of the two lines loses buffer done events
-continuously.
+Reserve write master line->id for RDI lines, as the gen2 VFE path in
+vfe_get_output_v2() already does, and fail if it is in use. A PIX
+line is not an RDI and its write master is not fixed by the same
+rule, so it keeps using vfe_reserve_wm().
 
-The bus status is read-to-clear in this handler, so once read it is
-the authoritative record of which write masters completed. Act on it
-directly, as the gen2 VFE handler does, and drop the gate.
-
-The write master of a PIX line is skipped: its buffers are completed
-from the composite done above, through vfe_isr_comp_done(), and
-completing them here as well would return two buffers per frame.
+This also removes the error_get_wm label, which released
+output->wm_idx[0] before it had been assigned.
 
 Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-17x.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-17x.c | 22 +++++++++++++------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index e5ee7e717..f62fdabbc 100644
+index f62fdabbc..0cfc24255 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -363,10 +363,13 @@ static irqreturn_t vfe_isr(int irq, void *dev)
- 		if (vfe_bus_status[0] & STATUS0_COMP_BUF_DONE(i))
- 			vfe->isr_ops.comp_done(vfe, i);
+@@ -403,10 +403,20 @@ static int vfe_get_output(struct vfe_line *line)
  
--	for (wm = 0; wm < MSM_VFE_IMAGE_MASTERS_NUM; wm++)
--		if (status0 & BIT(9))
--			if (vfe_bus_status[1] & STATUS1_WM_CLIENT_BUF_DONE(wm))
--				vfe->isr_ops.wm_done(vfe, wm);
-+	for (wm = 0; wm < MSM_VFE_IMAGE_MASTERS_NUM; wm++) {
-+		if (vfe->wm_output_map[wm] == VFE_LINE_PIX)
-+			continue;
-+
-+		if (vfe_bus_status[1] & STATUS1_WM_CLIENT_BUF_DONE(wm))
-+			vfe->isr_ops.wm_done(vfe, wm);
-+	}
+ 	output->wm_num = 1;
  
- 	return IRQ_HANDLED;
- }
+-	wm_idx = vfe_reserve_wm(vfe, line->id);
+-	if (wm_idx < 0) {
+-		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+-		goto error_get_wm;
++	if (line->id == VFE_LINE_PIX) {
++		wm_idx = vfe_reserve_wm(vfe, line->id);
++		if (wm_idx < 0) {
++			dev_err(vfe->camss->dev, "Can not reserve wm\n");
++			goto error;
++		}
++	} else {
++		wm_idx = line->id;
++		if (vfe->wm_output_map[wm_idx] != VFE_LINE_NONE) {
++			dev_err(vfe->camss->dev, "Can not reserve wm %d\n",
++				wm_idx);
++			goto error;
++		}
++		vfe->wm_output_map[wm_idx] = line->id;
+ 	}
+ 	output->wm_idx[0] = wm_idx;
+ 
+@@ -416,10 +426,8 @@ static int vfe_get_output(struct vfe_line *line)
+ 
+ 	return 0;
+ 
+-error_get_wm:
+-	vfe_release_wm(vfe, output->wm_idx[0]);
+-	output->state = VFE_OUTPUT_OFF;
+ error:
++	output->state = VFE_OUTPUT_OFF;
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 
+ 	return -EINVAL;
 -- 
 2.43.0
 
