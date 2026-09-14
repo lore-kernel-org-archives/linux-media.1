@@ -1,194 +1,114 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52763328FC
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 23:24:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E52397AF2
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 23:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789428243; cv=pass; b=UH5CEX+oEJYWT2Or3f48Cl5PxLab6YoDUSnPP/DQHHqnEp9q6NFZ/Jy6QddloTgn2ky8MJ25z3bqt49gOOuJycVyztFUA2qOfbYWqFHaqCRBcejKo70hjDS1eCDDp4z4+B0mkTWMUKfKtCt3FaHAbIgM2HahD9kKHIZ/kwHBSto=
+	t=1789428279; cv=pass; b=bRel9mwD2JwBxDEoJAUgMQ4udWoX/iXevskpeY29241rLO2rGGnrreFMkTNVJUuN3B4sYYUvF2zRWAu+HjizWVCmQzgdSCK/tv69wCYz+Ed7Bfs7nLBj683HsausmBfzw3kNSK6NpVbQXV627Rw8GzOLQLaP0ovmaB7Yab12acc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789428243; c=relaxed/simple;
-	bh=5AHgKLgX4FxvEY7hgdFLKJhNqrH2xubudOm2D7g+zyY=;
+	s=arc-20240116; t=1789428279; c=relaxed/simple;
+	bh=7p4q/8XpWdajN+6pM5dO5w0pWVy5g2TnVfIncKpHzXw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f7fam9rWyGlO+otHVEcOEWUlWBKP7JrB6NnaJebR5Yem+2nmufjTnGg36dRMG+s3+auAdsfiL+Yd0XDZtUtoqKdI9Gvi/Nfr/nm8aYWkCrXZFHdduvq5RINltqOMgcBgPLXZlcL2TrtatxrZaPKUP5UhiiMEaRwsZJhGJlJwVis=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bYGIrS/M; arc=pass smtp.client-ip=74.125.225.140
+	 To:Cc:Content-Type; b=tUWmsCW6ACTcnK+9Kx6Oqf62lRQEW2YEJ8qJiHrawsm9xGp66OngdrNpXhXNGdvXwvqjeH6WB+TyPJrUXTQ933tMxFPSAdeGys5ajoxqu7UT+1aOeniFWkwEDrMWFVLqfc7T+7XU1lid/o5BWC6itJGaIhlz15ULIFT3BhPGboM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vG1a5IlI; arc=pass smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bYGIrS/M"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cff3b3b92so5875e9.1
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 16:24:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789428239; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vG1a5IlI"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3bc34cso8495e9.0
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 16:24:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789428276; cv=none;
         d=google.com; s=arc-20260327;
-        b=Ru2wXW82qeEe07nVI/ie4DOCyAuttG92IKApCK13otkXtGNgIXif9yT5vTFe3cWIDd
-         qKZ7pqnlj53LPQYY9Op+V6Nqf3U6aYn+9fwGEerYceklhQQQ3irJwAcViqqIsrgrjKMk
-         cVRwK0+pA8gw1IB/gt9DBkhnS358oHFrNhOVG+AQRdqz5isEbLxCwXd+BWMcm8nxezL0
-         hB8Bqxchv+kpnOMAN4UhdsxPEgQ+pUCi1jMsVI3+q89BFLLeLse2CHEBudV1nvbLel4C
-         t0NeTz2IdLHSlrI4upEL9XDaM5FGsm348ray4wegxuIr/4r0+QX1ue7k17sibbt+ZcjR
-         xPJA==
+        b=iaQ2elDFIj/e8hkbMZukib3RIqAkxdQs05ng2AZ1cxPLvYpEOk8rtms00Ci27M0T75
+         mpeUNUoirMd38djFtFJS4KgbemNiSILAZZRKCtHJd/x371QX13GC6lUhtOle1BIGRTA4
+         cZaGct+iu+IoDNz2Plc9mESYp+LQlacE/urtqMFoHXnmfrhYUQ6JJnZ/qnI20autY2CJ
+         xSstDR9k+gPsYfqUCvJzhEoQtiCXnOMjVZxalizYOx3bucgZIqM6w3Bm2gelfZwaTNlr
+         QAPo7y108Y5e8EahZsMWxRhDWWnf6YdMrmddxRsaxNuQv3lIsbriDzWWZYwVUbDmbUNF
+         9aDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=7bCiBaA1KLPmBbIRbTd/usVfbjDAGvg/fHxPmUuwfOk=;
-        fh=zjEqfY2WQoCX29WJnVPVqplF/4bThREKTfIW5lChJ8Y=;
-        b=siE95eoMzbPv54ssnnZDrDSe8xVTEdfi9mT6SfTTF1t/VE73or7XG1zx6ZVoJQLG9z
-         pWfYR6hkaF3BdGo4u2PIMcLqEYL2bZsU2iCZkJgTS2Tm7hOS/gg9KkL8pzSJLYK6CaS3
-         ngRt0stNsSb6poXiKO+qful3qQx5/R3zInyVdeG5DcMUCFjSXVJvW2F2NQaPD8GaMUpA
-         OaByyd4SnN2Bi42e5Om6ajtY9ZIxKjoJ9XvVISnrM1lJgOYfQN+55EIrGzGUpD8gAeZo
-         5RnRw4puxFUsLVsCH1V4u6F4x5xpxNFWB9OQhOW8d4CkcDCSMiA0zBp4rYoHJSB6cKIF
-         rTRA==;
+        bh=7p4q/8XpWdajN+6pM5dO5w0pWVy5g2TnVfIncKpHzXw=;
+        fh=9dfLDEI4N9x10WusCzPOfEh81cNq85/XM3WejpqD+Sk=;
+        b=jsYuW9W6QvUgT0Mjh1ctp9B9RvwYnVVzQ5dlewFO0RoTnc8AckoOUqQhWZt/GM/7E/
+         HNU/1IAdo2IFa5YWkuad1QyuYEWFf6hO7Z1nhXUlsXsQxeeDKU8e1jpEDYwxkHqHXwHf
+         fdojblpMFUN1ncQhpNfuciJmJnAxfSRB3wV6ol8RQewMwg0OUSpR0MG9I1zIVgio3Mf9
+         ADR1kCtWFiriYASjfyP3SMdvD/IH5PqLJl1zidDN0NpOXiddQZnsdtIlgVGomcbyPH8F
+         Q1WD2/Ln/NIYcu0Z8y/Yk079tAN30pMm5vYunGldWCMfHHohtim46n/9Q3pn8BhxgSKX
+         3rCg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789428239; x=1790033039; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789428276; x=1790033076; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7bCiBaA1KLPmBbIRbTd/usVfbjDAGvg/fHxPmUuwfOk=;
-        b=bYGIrS/Mof8wtm0xJyv0Po+xMqM2kTFchMMGRCPvvIDBChzQIsOoFispqU8HF5jCQF
-         TQXccC2k9osE6q9gOP8zdub4VmWCfxD7tYSWcZdm6OXwwN09oHp2juJpwoKTEbCj2e3o
-         QOwXFBJsCYoR8TkWLMl0U3OSly6NHonhr/9xB8tYb71aLnAhYwjyRErk5Xerwmh+FcfP
-         l+5Bu7THOwrcqzWq2A5vpxXC3sfJLmbvMJflh4fbeX3P0uxWVWUmJVJKHMIXu1upKAZb
-         EwP2HN7juOhaG6YsFmyf6Rl7/anR7d76ytTwVJ1wVmj8vtj07Yqi00b/Upjl48jUbULu
-         uxQg==
+        bh=7p4q/8XpWdajN+6pM5dO5w0pWVy5g2TnVfIncKpHzXw=;
+        b=vG1a5IlIKdghq+xDVheYqyafNkJDolWsOtRcvsDGo1UlzC4+5vrur81qQpaPRiKJOD
+         GntjcK5dBAWsDtTQiS0nA+jnLSIfCIjFrqmGWYHAN3ALPtHbqIPosMMlgRfIpJhPb5dw
+         OK3pb53Y4UpfSoMeFqa7gL7zbbNmmQ2aJaMemFerMvLnB5k98ZaiDfmnJ+chlx9pR1wP
+         q3lSdLdhAsIMOmnaC5UFDf2elyVgvpD+hhjfm7FfJm/D7aoNnKC1laOmWd0s6psWoRGB
+         1rnOlJhZ+MNJ3KqN3MIpYOCsVIno+kCEBv6gbfhjelOAjmwYHknwoKU9muRt6FiVS7Mv
+         E7bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789428239; x=1790033039;
+        d=1e100.net; s=20260707; t=1789428276; x=1790033076;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7bCiBaA1KLPmBbIRbTd/usVfbjDAGvg/fHxPmUuwfOk=;
-        b=L+I5/zweseDw9VnqggG0QhB9cojhEiVBFF7hwNC6mkZFY+UhLQkZR8BBYheAzZity7
-         vZwWlVkMKuaH57tzbUa9mzi6UlCE3RQDBOTpr3XaOBbbVCEJQhLKMXWxr0FHfGjBITw8
-         HW8SaDRpstDnSXvno9qiDMLwdLDXB3Z+yoYv10Gd0xRraJ+lf9yo4ydVd3mmKzHoRc2U
-         A8a3BpxbyOIY5xEnat3fl3pFb/xF2DrfCotZkUabFgegtfN7wAC2fcUzElw+z9jwMKFv
-         hT82/hKlLTbYifr+Lfc7qRyn6stYcL6KpORdvKEB9r/EPTSaXny519i1dmcagpggXTA5
-         +F3g==
-X-Forwarded-Encrypted: i=1; AKwUvByuDiAsgzyk4vMpPj4GPEx2dHeGEQGrghg9S2Ph+SGAPt72sDmQXP2/1Wdt2Tikrmlf09wljWsvzvJiXA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mWgT7n8vsVYpIEB9lAdl7CZr6xwQCk+U+fG8ecDNxzogTxQXVC
-	VWNozwyNYn61hB428DEmebGAzh8gGN97iWGgBa+lbCVV1yWxd8ASj7ZTAVVxx6dsbtQmzAPpFrc
-	CoB9Gz260Xh7yKJ8qym4hi2LRRabXv/UmCfjAw4Sb
-X-Gm-Gg: AYBFou0G/Yzx9OO4My4RQ527asb1sPhjOVe0rw9xKapxcjEyQoock2CULCF2J+BAn3z
-	c2QRQpVcDcao9FsoHk8mye158rC8rwV1WAUrGrgLbNAbA+s4/YHMTvLqqQOoaakQ0AHfUP6w8M9
-	8qTqM0JYaymQUggIwnLQ2l8KDWNcWV8v3OgBddb3F8HrdixQNilHJMSM4vI81bfAUttoXK4frGs
-	IoG3dO6hvsyhBisqof3Kkzf33FVNsxUg/qXy/9ZJahNwSnE+3pk6rnjiKGkTfE0cJJJIQBxwEc1
-	rfIDaG0zwV4bfResEvbEiT739QGt9cy4qsSqr8/QVnj51gvvFhHxppZoPdaRvgvSjBnsjrWHN42
-	s4o3cS6d8zw==
-X-Received: by 2002:a05:600c:28d:b0:49e:7981:4294 with SMTP id
- 5b1f17b1804b1-49e7f0a75f7mr109195e9.5.1789428235941; Mon, 14 Sep 2026
- 16:23:55 -0700 (PDT)
+        bh=7p4q/8XpWdajN+6pM5dO5w0pWVy5g2TnVfIncKpHzXw=;
+        b=mPpqMEnTIMcMsWgSI+0G3Wybhccto91+FRwCFAyTz7cBqedQQ69O2L7Fh+ezhLbkE0
+         da+G1DXws6hA+4VZA8j/C8c4Ajne1JL7gzGHGBMN8fbAlLMpa/8uB4cvTGcl3JcG/IoG
+         sRKid3jI1x+ox1CWoBAuCqD3ylbJJd8t1DHu3tKev0mRN3mSIhlO3of0+YNpTwG+Jau7
+         3lwup87+uUkZ9FIoZmpRrenN2MOPTGYO2qDCVLgwQ3YQWB9VJymvTQzYmucmxTuYLNVI
+         125+5XkmkolzbAPHPjXOSVBdpEnzllPdw4v1Pb2AcA2cP0etsnpcCUVG6UicGiUBlQZU
+         DNwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw459L+cgGxVS0t33qnseBgEWunDUa+BamjE4HZP5E8rrM+UMK6q/Znp/D08KL09HwzG+qK2Ad3ybBFGg==@vger.kernel.org
+X-Gm-Message-State: AFuF++m3zXEQXTTEZ8JgDFbUUOHWQXklC1ZKTk3znD0MI9VundKnUroB
+	DFcGWiFgEqpR94Xi64LCB1n9NnYCMQnZ+qhLTeQnZ+W4Cc8/2/fEfBNGhFVzl5aaoAd/16XrWlV
+	ozxepaOwoO2ZiMBQtfBUMAUkXn0LSXsFR8puDwAa7
+X-Gm-Gg: AYBFou3cdlYdFTPv1SjdmqdMbYnZB9s+j/fln3ncwW3utIRz7ihf0Er/B2qOSnZXNjL
+	A1b58rO8Rkk4Wad2yHh9h/I9xhYLynxL2tqUgsVkzaXDBxipDdBJSzYBVp0jcILkdQCyP9CIEqe
+	a+SVS9b7nwTlDxCUqJrRXbK5G4eb0MnbnOmII7wMJW8rjHO2MI+zEBxoU/s3mwKRo0TblAZ8VQQ
+	oJiTrTb4GBvlUlFKp/mFl9Y3mzYhg9GPhruwmAJPx0vTk+HBwcLsZFfRBtPzB8kUVryp0vcrSvp
+	uMVh2+bsu2PMl/ec/fLbrDxhoeiiYMdGCH556p22Uz6kXCQzzYSrkpdjAf+tOY4FZqstVP5vD76
+	35r0Iw9FW7w==
+X-Received: by 2002:a05:600c:4252:b0:499:c3da:6f40 with SMTP id
+ 5b1f17b1804b1-49e7daa1eacmr259015e9.4.1789428275379; Mon, 14 Sep 2026
+ 16:24:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914212258.2657788-1-dave@stgolabs.net> <20260914212258.2657788-2-dave@stgolabs.net>
-In-Reply-To: <20260914212258.2657788-2-dave@stgolabs.net>
+References: <20260914212258.2657788-1-dave@stgolabs.net> <20260914212258.2657788-3-dave@stgolabs.net>
+In-Reply-To: <20260914212258.2657788-3-dave@stgolabs.net>
 From: "T.J. Mercier" <tjmercier@google.com>
-Date: Mon, 14 Sep 2026 16:23:44 -0700
-X-Gm-Features: AcwNN1WtjBrQlHaHMrN5leZ63LaTP-D5FEN0Ol0qz2UAQhJrFSDnK-hyD_rAvN4
-Message-ID: <CABdmKX3Oum+wJPy2JUZKoke85L-E5VJKu1VJs-sy+LLbhe2LMA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
- IOMMU superpages
+Date: Mon, 14 Sep 2026 16:24:23 -0700
+X-Gm-Features: AcwNN1XWnnbhAeWCdYdUleWL6H4kAfKBgLjOO27tKKfVi6W-pWHl8l94S0Cfe5w
+Message-ID: <CABdmKX2-3vZB0Em3iUK2H3mbQMpv=v4P1Syj9tm_bsKnP-D74Q@mail.gmail.com>
+Subject: Re: [PATCH 2/3] dma-buf: system_heap: fix the allocation ladder on
+ non-4K base pages
 To: Davidlohr Bueso <dave@stgolabs.net>
 Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
 	benjamin.gaignard@collabora.com, jstultz@google.com, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	Juan Yescas <jyescas@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Mon, Sep 14, 2026 at 2:23=E2=80=AFPM Davidlohr Bueso <dave@stgolabs.net>=
  wrote:
 >
-> With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
-> and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v2
-> page-table formats, and Arm SMMU's 64-bit long-descriptor format with
-> a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
-> mappings, but no 1MB leaf. A 1MB chunk therefore requires 256 4KB leaf
-> entries unless it can be combined with adjacent chunks into a
-> suitably aligned larger mapping.
->
-> Adding a 2MB allocation order provides naturally aligned, physically
-> contiguous chunks matching the 2MB leaf size, without relying on this
-> being accidental for separate smaller allocations. The new cost
-> is one failed order-9 attempt (keeping current large allocation semantics=
-)
-> per buffer when 2MB pages are exhausted.
->
-> Two benchmarks, measured on an AMD EPYC 7313P.
->
-> (i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
-> measuring map/unmap: with the v1 page table restricted to 4K/2M/1G
-> (amd_iommu=3Dv2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks,
-> only one of whose 2MB windows was superpage-mappable in that run, to
-> 512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
-> decrease by ~16x on average with ~32x for the worst cases. Unmapping
-> that buffer drops from ~500 us to 1.25 us.
->
-> (ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+close
-> across various thread counts decreases by factors of ~3-7x alleviating
-> allocator's zone->lock contention by being PMD order and therefore is
-> pcpu list eligible. Once the buffer size is large enough then the cost
-> of the zeroing takes over.
+> The orders for large base page sizes are calculated incorrectly, and
+> currently only hold for the 4K case. Order 9 is intended for 2MB but
+> will be 8MB on 16K, for example. Adjust the orders/sizes accordingly.
 >
 > Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
-> ---
->  drivers/dma-buf/heaps/system_heap.c | 13 +++++++------
->  1 file changed, 7 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
-system_heap.c
-> index c8959eadc71d..621cf238ef97 100644
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-> @@ -55,14 +55,15 @@ struct dma_heap_attachment {
->  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
->                                 | __GFP_NORETRY) & ~__GFP_RECLAIM) \
->                                 | __GFP_COMP)
-> -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDE=
-R_GFP};
-> +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
-> +                             HIGH_ORDER_GFP, LOW_ORDER_GFP};
->  /*
-> - * The selection of the orders used for allocation (1MB, 64K, 4K) is des=
-igned
-> - * to match with the sizes often found in IOMMUs. Using order 4 pages in=
-stead
-> - * of order 0 pages can significantly improve the performance of many IO=
-MMUs
-> - * by reducing TLB pressure and time spent updating page tables.
-> + * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K) i=
-s
-> + * designed to match with the sizes often found in IOMMUs.
-
-and now also PMD order for allocation / page table efficiency in
-addition to sizes IOMMUs can coalesce
-
->  Using larger order
-> + * pages instead of order 0 pages can significantly improve the performa=
-nce of
-> + * many IOMMUs by reducing TLB pressure and time spent updating page tab=
-les.
->   */
-> -static const unsigned int orders[] =3D {8, 4, 0};
-> +static const unsigned int orders[] =3D {9, 8, 4, 0};
->  #define NUM_ORDERS ARRAY_SIZE(orders)
->
->  static int system_heap_set_page_decrypted(struct page *page)
-> --
-> 2.39.5
->
 
 Reviewed-by: T.J. Mercier <tjmercier@google.com>
 
-The origin of these orders is:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/d=
-rivers/staging/android/ion/ion_system_heap.c?id=3Dbd5d6bdae118c49d194869ef7=
-57fd650dcabd33e
-with not a lot of justification in the commit message.
-
-Downstream we attempt order 9 instead of 8 on heaps that we actually
-ship on our devices to match the 2MB PMD size, and many other vendor
-heap implementations do as well. Not that it's always likely we'll get
-pages that big due to fragmentation.
+We've been doing something like this downstream to support 16k base
+pages: https://r.android.com/3907360
