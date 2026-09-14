@@ -1,58 +1,58 @@
-Received: from beige.elm.relay.mailchannels.net (beige.elm.relay.mailchannels.net [23.83.212.16])
+Received: from crab.ash.relay.mailchannels.net (crab.ash.relay.mailchannels.net [23.83.222.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC80D415B85
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 21:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.212.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D2D419FB2
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 21:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789421566; cv=none; b=Qrfg7AUtGZ0d7Sf+83Li9bZZM/f5bM6M5rH8t1tBPk9EJ9uWU3ye8y56uPfPND/sqc1a6pPvdcbKALvTEeTr13eBrTeARAIingrZretqDTLSNTFejVtv46cwBSmMElNSCZvT4SOKU4uksaH0ZtA2iEZKsV31kdIZ/drNzVuXetY=
+	t=1789422057; cv=none; b=cLmuuCr+wVXE3NnPYCJH/Q8cWU8oEWtMHuRZwQ0uNOWOqhiNjuiQqxO+Hvh0IgNjbHF9bST8ze5BoyoPonk/OQsPXwrVt0jy8V5iJICxa+4mLYRjxcU1x8kTuirX//8XfQO/YNtasn1fHj6CuMqT70f4dXSIP3dtSqJRjkv8vW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789421566; c=relaxed/simple;
-	bh=ufXw4uCVxvNYKgDoWeGTQAuOXuc7KFR0ri6ssG+QcEo=;
+	s=arc-20240116; t=1789422057; c=relaxed/simple;
+	bh=uqbvUoHUzoVwZc9i8jJ/qvDY6OImuMx4gzo3AUYPUGg=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dYyeNA/KpXR8Ct38loyOy57WgrFebTkJwVQnbBivkWVcjr2vo4ypWoobKoZ5Lickf0k/VkPCTKGJPNtU0nspjkTh5MwG/JVFGlkMoUxKHdzYy5fnXN05j2ALCMvrgO6CvgYHP0mUQ33Rpaf5UdDYwmpym9q/XgeKHYhh/4fe/AU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=SoLOgKWy; arc=none smtp.client-ip=23.83.212.16
+	 MIME-Version; b=FagDSihZpjNlJAZD0+10deD+hhNFEI/VhSAkOLJOwf4tbj/0tPz0meBBlaNV07E/mgL2l71CEJVpUqlqlkUklSUEDvLZzlh1TSgS3nA+qBE+ckFnKqkQw908HG3tSIF2ModbKVvCbMWV4w8opEkrB3iY+RmqOgMWjuocYr2rQvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=BiGpW2hk; arc=none smtp.client-ip=23.83.222.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="SoLOgKWy"
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="BiGpW2hk"
 X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
 Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id A14368016E4;
-	Mon, 14 Sep 2026 21:23:06 +0000 (UTC)
-Received: from pdx1-sub0-mail-a247.dreamhost.com (trex-green-1.trex.outbound.svc.cluster.local [100.100.67.126])
+	by relay.mailchannels.net (Postfix) with ESMTP id E2542720527;
+	Mon, 14 Sep 2026 21:23:01 +0000 (UTC)
+Received: from pdx1-sub0-mail-a247.dreamhost.com (trex-green-3.trex.outbound.svc.cluster.local [100.100.68.70])
 	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 49695801461;
-	Mon, 14 Sep 2026 21:23:02 +0000 (UTC)
+	by relay.mailchannels.net (Postfix) with ESMTPA id B116A720968;
+	Mon, 14 Sep 2026 21:23:01 +0000 (UTC)
 X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
 X-MC-Relay: Neutral
 X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
 X-MailChannels-Auth-Id: dreamhost
-X-Tank-Bubble: 1fc4c4da24a9f59b_1789420986561_3665350486
-X-MC-Loop-Signature: 1789420986560:4095314019
-X-MC-Ingress-Time: 1789420986560
+X-Soft-Whistle: 3a3d47cb4edfe880_1789420981837_1410610308
+X-MC-Loop-Signature: 1789420981837:1682820129
+X-MC-Ingress-Time: 1789420981836
 Received: from pdx1-sub0-mail-a247.dreamhost.com (pop.dreamhost.com
  [64.90.62.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.100.67.126 (trex/8.0.2);
-	Mon, 14 Sep 2026 21:23:06 +0000
+	by 100.100.68.70 (trex/8.0.2);
+	Mon, 14 Sep 2026 21:23:01 +0000
 Received: from offworld.lan (unknown [76.167.199.67])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a247.dreamhost.com (Postfix) with ESMTPSA id 4hkJ5x57G9z105H;
-	Mon, 14 Sep 2026 14:23:01 -0700 (PDT)
+	by pdx1-sub0-mail-a247.dreamhost.com (Postfix) with ESMTPSA id 4hkJ5x06xpzyrD;
+	Mon, 14 Sep 2026 14:23:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1789420982;
-	bh=6IKLKmDIKx0whR4qJGZ5km9++1OTPpBzFcxxbrXhRWo=;
+	s=dreamhost; t=1789420981;
+	bh=m8rfwDK1X1NpPD/EyT7uYwRVnALvlAqDvKBxfrxrlaM=;
 	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
-	b=SoLOgKWydf5tpx3vLcoKMa4ECJV6TO0RCMR/xu20336ypPvBqJpzo4ft41yZNaaU6
-	 PCmCFAm7FfDYbgJSigSSrBGtusqZPcYbQ+wKoigCzKcOrP8P4CG7vO/nvA7ZDwW/NG
-	 wDMgGLDpVsBPr2pwUg5X1sO088PvxiV1QgxzRrCh7yGDGzj8hbqpwUoWUXJhD0KFz4
-	 e7YAGMFTloUNx8fKLZjzRNcn1vBaEHhKoi7/TFYN96bteC6HzGuXkIL3vOuT2fpSiJ
-	 Bf09rEU9JbTOAL6AmRGjAZvJmZC5bswBxKJT+fRdT7pNZHyJB3c43twG8llf07NIiM
-	 6H4XNWbHQ47hA==
+	b=BiGpW2hkMBPjMn5D3OQbzNyPxvrt4j+e1WXBYR0PfbCKKpalfbPFuiu0JJ2IjRi7T
+	 rfzudTu+d7peGqsE4awYjzz3MYnToeAjQx3lXCeRMeWKMju7eQIjYvZG5l9eME8tmj
+	 XgjWs5Jh/B3iTfMdmLO+8nRdy9rvzEQxFUVglsklfLms+tQca5eDHl6aADp/ATRPLo
+	 BOsin15yeDI6VYeg7kXEim3UvdpvEcmE/ilxfOoeBQGtf/PfXckS6d8j/KQyXgU+99
+	 ukc44RXYF+bUTTUlfrMHgpv8KXxenMei6tnp+wvKejvRL/nd4V2g8qwFtxM1NZmvgX
+	 NV7Pf4y6Vx1Kw==
 From: Davidlohr Bueso <dave@stgolabs.net>
 To: sumit.semwal@linaro.org,
 	christian.koenig@amd.com,
@@ -63,9 +63,9 @@ Cc: benjamin.gaignard@collabora.com,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	Davidlohr Bueso <dave@stgolabs.net>
-Subject: [PATCH 3/3] dma-buf: validate the attachment before asserting its reservation lock
-Date: Mon, 14 Sep 2026 14:22:58 -0700
-Message-Id: <20260914212258.2657788-4-dave@stgolabs.net>
+Subject: [PATCH 2/3] dma-buf: system_heap: fix the allocation ladder on non-4K base pages
+Date: Mon, 14 Sep 2026 14:22:57 -0700
+Message-Id: <20260914212258.2657788-3-dave@stgolabs.net>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260914212258.2657788-1-dave@stgolabs.net>
 References: <20260914212258.2657788-1-dave@stgolabs.net>
@@ -77,34 +77,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dma_buf_phys_vec_to_sgt() asserts the reservation lock before its
-NULL checks run. Validate first, then assert.
+The orders for large base page sizes are calculated incorrectly, and
+currently only hold for the 4K case. Order 9 is intended for 2MB but
+will be 8MB on 16K, for example. Adjust the orders/sizes accordingly.
 
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
 Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
 ---
- drivers/dma-buf/dma-buf-mapping.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma-buf/heaps/system_heap.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 833be519e1e6..12674d89b23e 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -111,12 +111,12 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
- 	size_t i;
- 	int ret;
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index 621cf238ef97..341631e4a9ec 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -16,12 +16,15 @@
+ #include <linux/dma-heap.h>
+ #include <linux/err.h>
+ #include <linux/highmem.h>
++#include <linux/log2.h>
+ #include <linux/mem_encrypt.h>
++#include <linux/minmax.h>
+ #include <linux/mm.h>
+ #include <linux/set_memory.h>
+ #include <linux/module.h>
+ #include <linux/pgtable.h>
+ #include <linux/scatterlist.h>
++#include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
  
--	dma_resv_assert_held(attach->dmabuf->resv);
--
- 	if (WARN_ON(!attach || !attach->dmabuf || !provider))
- 		/* This function is supposed to work on MMIO memory only */
- 		return ERR_PTR(-EINVAL);
- 
-+	dma_resv_assert_held(attach->dmabuf->resv);
+@@ -55,15 +58,18 @@ struct dma_heap_attachment {
+ #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+ 				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
+ 				| __GFP_COMP)
+-static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
+-			      HIGH_ORDER_GFP, LOW_ORDER_GFP};
++#define SIZE_ORDER(sz) \
++	MIN(MAX(const_ilog2(sz) - PAGE_SHIFT, 0), MAX_PAGE_ORDER)
 +
- 	dma = kzalloc_obj(*dma);
- 	if (!dma)
- 		return ERR_PTR(-ENOMEM);
+ /*
+  * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K) is
+  * designed to match with the sizes often found in IOMMUs. Using larger order
+  * pages instead of order 0 pages can significantly improve the performance of
+  * many IOMMUs by reducing TLB pressure and time spent updating page tables.
+  */
+-static const unsigned int orders[] = {9, 8, 4, 0};
++static const unsigned int orders[] = {
++	SIZE_ORDER(SZ_2M), SIZE_ORDER(SZ_1M), SIZE_ORDER(SZ_64K), 0
++};
+ #define NUM_ORDERS ARRAY_SIZE(orders)
+ 
+ static int system_heap_set_page_decrypted(struct page *page)
+@@ -384,11 +390,13 @@ static struct page *alloc_largest_available(unsigned long size,
+ 	gfp_t flags;
+ 
+ 	for (i = 0; i < NUM_ORDERS; i++) {
++		if (i && orders[i] == orders[i - 1])
++			continue;
+ 		if (size <  (PAGE_SIZE << orders[i]))
+ 			continue;
+ 		if (max_order < orders[i])
+ 			continue;
+-		flags = order_flags[i];
++		flags = orders[i] ? HIGH_ORDER_GFP : LOW_ORDER_GFP;
+ 		if (mem_accounting)
+ 			flags |= __GFP_ACCOUNT;
+ 		page = alloc_pages(flags, orders[i]);
 -- 
 2.39.5
 
