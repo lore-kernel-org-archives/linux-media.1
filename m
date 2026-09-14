@@ -1,54 +1,53 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF588411A1B
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 20:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B59414A21
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 20:54:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419240; cv=none; b=lipwQf3oWigbitNzQFwSmo9fFfHIoqZ/MV9mBCj+J3sOB2hEuhaKPsNQ8wI5kZ5KMNksCsy8GOIq+2NLGDsqu9v0eHeBKNI4cdXGYMzYDIS7I2F1DuiJm3YJBJfe9ASaQFwPIycp4vi5jvXcytlp/yBKpawA3N88eefiLNqQiDU=
+	t=1789419241; cv=none; b=l73n9wOsEFRO0izCKx6lm1Z9H0X6cUryXg7hOgJjyX1EswYv6tt+UMr2+PWZ+YYSvc4h9dkEmqTvQOswJFFGTB3moKXE/1+z7k7IyGfLO2jy50GZFy+qeueOi7et1wjH2TRxZ8csYJZmHLCmtKjtZY9EvvB4pJiY4XOVfDQJ8Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789419240; c=relaxed/simple;
-	bh=5ZJGT+sSoLuOScNqMW67SdV0W4j7Nf479cMKpscHax0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dAa1VDNa2mtsC3Nkv5qCz9M8hhJNG1NGQ3XzivEP5KvF9GjPQMhuK99aZAKHGdHg8JzkZIiEaWhnJVA1Ch92aru6jKR1J/S6Tw2Tdjh7t8j5qh4u0tkTjhq/jAdZDf2yMiZgo3zo/7EORk1AYcJ1fG7WFc7ZWj6zYfn/edAM1WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YsjLwoFF; arc=none smtp.client-ip=198.175.65.16
+	s=arc-20240116; t=1789419241; c=relaxed/simple;
+	bh=FY0Uh23gc9bebY1W+qGW0CPXaYSsj+sLoTAyysMAW5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r7QIW9a/fCdWuj5fLku4QZXcVZ6VVe8kb9OWa+c9EVdB6sH5dQfyeh1i3I8oz+XvAMRZZYKl3i8zA6LsKOZmp9fCWadFRJKcsua/ZQFu7yxqmYQXygHU8YcXKVIxjVK1r7CHdkIAB8ajDfweJAjGVu8vYGi7jRWYu5GLAzJl1Ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E8aXOQ4H; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YsjLwoFF"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E8aXOQ4H"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789419239; x=1820955239;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=5ZJGT+sSoLuOScNqMW67SdV0W4j7Nf479cMKpscHax0=;
-  b=YsjLwoFFkA3c/Rf4AUvhZqQ7Y5gFOhgiE4zhU5WQ5Jwt4NKGxrs+JPuf
-   m54T1Q2XrNG3KFXM8tcpLGBw6bwnAvYVXBmsMr3J0ST0UsFyJoVuXBVKm
-   RTnvfyy715co9mL2cy4lc582DFpl0/y2bcaTk+Bd2zVFgpREMGMchqHZi
-   ad9zGMayeUnPJzaZoSq3TVOs95g2TZkeQ2X97+tvZP5+41w2oDZ8heDRy
-   fa4fbZWd1jnFZagjf5AKqnXI7on3oGrxGCzO0qbv/gkHS8f7FLv2jQPtF
-   GdoOEN+wFfr6ORhwtx9/duanVz3qy9zNTNXchqCxnnIEDFrNNWHjwUAMG
-   Q==;
-X-CSE-ConnectionGUID: iSGGb4aKSBmjz34bpcIW7Q==
-X-CSE-MsgGUID: F4hVT2ZjQeSQorj1DjGL3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984115"
+  t=1789419240; x=1820955240;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=FY0Uh23gc9bebY1W+qGW0CPXaYSsj+sLoTAyysMAW5I=;
+  b=E8aXOQ4HUvlE29UdgdhWafxhpg2YgHOzC8SzrBUd+O5IcCUwlQozZ7eJ
+   js1royBr6/amHaQLS7/krtYQ3C1ZlHV1bBJsiLMBPH+9ZM17/bs533Shm
+   BO0Fp14Ks7tDCxBxs3cM38qWOkq5/pnzdpVm2fjBL+6SZ/gTriYMuUuae
+   yCO31NLnxALwcG4Wcb1D+OWVt8b8a8FzWhb1U1nbhHd0t+QaFMld4+Dql
+   +gE1wiaOXzDisNsvG4P8sna3kEO0+2KxznSX/m5QkGV8qbKdQe/dp88lf
+   TH1m75SmxB3kP4V7D+hOHbAkjSD/gXUd5z9Ff7sxOmZDmq7vexmp6L+zG
+   g==;
+X-CSE-ConnectionGUID: v1dqsNt+QnGZWQpr4hnELQ==
+X-CSE-MsgGUID: xFhzaSkoRFecRpPRAxhXZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984116"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89984115"
+   d="scan'208";a="89984116"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:55 -0700
-X-CSE-ConnectionGUID: 6nuUpGDATmikraZ1/NLC0Q==
-X-CSE-MsgGUID: tSjWums9SfW/RAo6XPT+pA==
+X-CSE-ConnectionGUID: 3WawhxEfTnm+ZrF39ePZRw==
+X-CSE-MsgGUID: 3b1Dan2FQN22kTRg6C8uog==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297760693"
+   d="scan'208";a="297760695"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.173])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:52 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 45449121BB9;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 44993121BB7;
 	Mon, 14 Sep 2026 23:53:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x6Dgc-000000035Ip-3947;
+	id 1x6Dgc-000000035Ie-2uLa;
 	Mon, 14 Sep 2026 23:53:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,12 +59,10 @@ Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH 03/21] media: ipu6: Stream number on CSI-2 receiver source pads is always 0
-Date: Mon, 14 Sep 2026 23:53:40 +0300
-Message-ID: <20260914205358.735307-4-sakari.ailus@linux.intel.com>
+Subject: [PATCH 00/21] IPU6 multi-stream and metadata support preparation
+Date: Mon, 14 Sep 2026 23:53:37 +0300
+Message-ID: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
-References: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,91 +71,60 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The stream number on the video nodes' single pad is always 0, thus the
-stream number of the CSI-2 receivers' source pads is also 0. Remove the
-complexity that is there to come up with 0.
+Hi folks,
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- .../media/pci/intel/ipu6/ipu6-isys-video.c    | 49 ++-----------------
- 1 file changed, 5 insertions(+), 44 deletions(-)
+I split this set off of the metadata series as it seems it can be merged
+early. Basically, it prepares the ipu6 driver for streaming multiple
+streams from a single source, when the rest of the necessary patches are
+merged.
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index b63fb9673604..b15c24b1b710 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -867,66 +867,27 @@ ipu6_isys_query_stream_by_source(struct ipu6_isys *isys, int source, u8 vc)
- 	return stream;
- }
- 
--static u64 get_stream_mask_by_pipeline(struct ipu6_isys_video *__av)
--{
--	struct media_pipeline *pipeline =
--		media_entity_pipeline(&__av->vdev.entity);
--	unsigned int i;
--	u64 stream_mask = 0;
--
--	for (i = 0; i < NR_OF_CSI2_SRC_PADS; i++) {
--		struct ipu6_isys_video *av = &__av->csi2->av[i];
--
--		if (pipeline == media_entity_pipeline(&av->vdev.entity))
--			stream_mask |= BIT_ULL(av->source_stream);
--	}
--
--	return stream_mask;
--}
--
- int ipu6_isys_video_set_streaming(struct ipu6_isys_video *av, int state)
- {
--	struct v4l2_subdev_krouting *routing;
--	struct ipu6_isys_stream *stream = av->stream;
--	struct v4l2_subdev_state *subdev_state;
- 	struct device *dev = &av->isys->adev->auxdev.dev;
- 	struct v4l2_subdev *sd;
- 	struct media_pad *r_pad;
--	u32 sink_pad, sink_stream;
--	u64 r_stream;
--	u64 stream_mask = 0;
- 	int ret = 0;
- 
--	dev_dbg(dev, "set stream: %d\n", state);
--
--	sd = &stream->asd->sd;
-+	sd = &av->stream->asd->sd;
- 	r_pad = media_pad_remote_pad_first(&av->pad);
--	r_stream = ipu6_isys_get_src_stream_by_src_pad(sd, r_pad->index);
--
--	subdev_state = v4l2_subdev_lock_and_get_active_state(sd);
--	routing = &subdev_state->routing;
--	ret = v4l2_subdev_routing_find_opposite_end(routing, r_pad->index,
--						    r_stream, &sink_pad,
--						    &sink_stream);
--	v4l2_subdev_unlock_state(subdev_state);
--	if (ret)
--		return ret;
- 
--	stream_mask = get_stream_mask_by_pipeline(av);
- 	if (!state) {
- 		/* stop sub-device which connects with video */
--		dev_dbg(dev, "stream off entity %s pad:%d mask:0x%llx\n",
--			sd->name, r_pad->index, stream_mask);
--		ret = v4l2_subdev_disable_streams(sd, r_pad->index,
--						  stream_mask);
-+		dev_dbg(dev, "stream off %s pad:%d\n", sd->name, r_pad->index);
-+		ret = v4l2_subdev_disable_streams(sd, r_pad->index, 1);
- 		if (ret)
- 			dev_err(dev, "stream off %s failed with %d\n", sd->name,
- 				ret);
- 	} else {
- 		/* start sub-device which connects with video */
--		dev_dbg(dev, "stream on %s pad %d mask 0x%llx\n", sd->name,
--			r_pad->index, stream_mask);
--		ret = v4l2_subdev_enable_streams(sd, r_pad->index, stream_mask);
-+		dev_dbg(dev, "stream on %s pad %d\n", sd->name, r_pad->index);
-+		ret = v4l2_subdev_enable_streams(sd, r_pad->index, 1);
- 		if (ret)
- 			dev_err(dev, "stream on %s failed with %d\n", sd->name,
- 				ret);
+All the patches in the set can be found in my metadata branch. This set
+possibly depends on the metadata preparation series
+<https://lore.kernel.org/linux-media/20260914114145.574791-1-sakari.ailus@linux.intel.com/T/#t>
+I posted earlier today.
+
+Sakari Ailus (21):
+  media: ipu6: Fix releasing resources at failing streamon
+  media: ipu6: Move streaming control to CSI-2 receiver driver
+  media: ipu6: Stream number on CSI-2 receiver source pads is always 0
+  media: ipu6: Rename misnamed out_free_watermark label in video init
+  media: ipu6: Always request a capture ack
+  media: ipu6: Clean up link frequency calculation
+  media: ipu6: Get watermark configuration directly from ipdata
+  media: ipu6: Collect IPU streams into CSI-2 receiver sub-device
+    context
+  media: ipu6: Start streaming once all streams have started, stop when
+    not
+  media: ipu6: Add lockdep checks for CSI-2 streaming enable and disable
+  media: ipu6: Remove nr_queues and nr_streaming fields in
+    ipu6_isys_stream
+  media: ipu6: Collect enabled stream IDs
+  media: ipu6: Avoid accessing av->streams before streaming
+  media: ipu6: Rework watermark calculation
+  media: ipu6: Rework watermark setting
+  media: ipu6: Bridge the gap between streams in V4L2 and IPU6 firmware
+  media: ipu6: Drop {get,put}_streams_opened()
+  media: ipu6: Serialise access to stream pointers by isys stream_lock
+  media: ipu6: Move firmware init/cleanup to RPM callbacks
+  media: ipu6: Don't track power status, rely on runtime PM
+  media: ipu6: Support upstream sub-devices without get_frame_desc()
+
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   | 103 ++-
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 374 ++++++++--
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |  13 +-
+ .../media/pci/intel/ipu6/ipu6-isys-queue.c    | 132 ++--
+ .../media/pci/intel/ipu6/ipu6-isys-queue.h    |   2 +
+ .../media/pci/intel/ipu6/ipu6-isys-subdev.c   |  22 +-
+ .../media/pci/intel/ipu6/ipu6-isys-subdev.h   |   2 +
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    | 642 +++++-------------
+ .../media/pci/intel/ipu6/ipu6-isys-video.h    |  59 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      | 212 +++---
+ drivers/media/pci/intel/ipu6/ipu6-isys.h      |  52 +-
+ drivers/media/pci/intel/ipu6/ipu7-fw-isys.c   |  77 ++-
+ 12 files changed, 738 insertions(+), 952 deletions(-)
+
+
+base-commit: b13e71830f090d248298922d7d2f478aa216a3a1
 -- 
 2.47.3
 
