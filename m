@@ -1,283 +1,331 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43A043BDC7
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 10:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8009A43CE7F
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 10:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382408; cv=none; b=JIAHU/mYJTAM/6WJD7J8ScWwCIIS/0z1N0DUYmSvTn8ja5G4dPoG9j7rhz2OPrWC7Ipxjns7DYvxLMn9Ee1+nJ474Kvcp6aLuetL385XolbPzKwZUizWdMVlTgkTwA6J3FYlH01DtQylbeoK/vzCoByO3gPNo9YBwuYqpGyyAAA=
+	t=1789382435; cv=none; b=nqgt5QRXxyeE50IW2ECO5lmTlAvwfwXCxtmdOkvdVg6fFcoC3IliKshw85i2+TcZOSTLb5ATvCYI3XZNXPs/HKrgdUoGfqZDBp1t3csEwl/w9RR8VkWgeygVi3OpVOzyAk4OQHn1rj870sudF9U0W8hkduRd7/R6i1NK8B8Kah4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382408; c=relaxed/simple;
-	bh=PTvjgwQ+yN25adXDyjq8mSXqE4+s2G8bIzgTZTvzHqE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q77zmsc5GFMPUmGQa5RU7s6bO5IjgQaubKSTXrNk/FfAWo+VKFH9TTJqHjwydpkI/YZxSn8n2KUVSXLibKSthO3S9xiDBKMQZWKowkQ++AJh20LEub1LhmbBPWs2Veuiafx4Aw+s83MRYMDR+ofsAmDiZ2TAucFjmUsu6MBmNwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yu5sTzrk; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789382435; c=relaxed/simple;
+	bh=RDhTYlZS7hi0tzcsCmfwGYPP0/Xl6nTD3N/EEYwrUxI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OMnlBL0RntS0tA/P+JEut1ttK0Drryq5VdpVwFX3R905hp/YXlLFF2PncyOiWcOPIr85bORpt8Os+MeMu1xXFWHrh6uhpcrfSaYaYC0BpsGG20HRxGpPXSKGax2DevGmQT4X4tZvvmFIOMtIE0OyhZnfcb2nmAOqRNzbe8zZnZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XBeLfT4r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ABuK300Z; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yu5sTzrk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789382406; x=1820918406;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PTvjgwQ+yN25adXDyjq8mSXqE4+s2G8bIzgTZTvzHqE=;
-  b=Yu5sTzrkQq24Gx2DlJxTyHqOtMrWBwrTfdvbpkDK9VRNMVXzSnR4XIWT
-   vIVxqd55BalkZDeroEPGC8lW79VZ5ld/EemKtG7Ejf+3jLbuBFOSIOQ9s
-   Z8igGf6y3I5BvEY6qzGbwx5SHtQCVe1fbwORqiNSih/qGqB9Gw+CnnRdE
-   HdZP97VecmDt1koRWuKx609GRXRg+pMvF+Zfnkrqa1CKzAdiZF7yrLI6M
-   nXoyno8OVREl7e72bRP3HAPmq3Z+v4E/SskvJbNggoihb+2Mh6vKgWBt2
-   bnOXASuXn67gH7m8NbqIsOtdx/nvAuBWJ4GL8a5K9/LrSfLi4ppjeOEFX
-   A==;
-X-CSE-ConnectionGUID: 4JB+K+UlRiSDMpgBMlGxJQ==
-X-CSE-MsgGUID: CPyytmUcQkyywQiQ8VNMHQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="107104507"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="107104507"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 03:40:05 -0700
-X-CSE-ConnectionGUID: X6Ne53g5RY691ZAWFcE9CA==
-X-CSE-MsgGUID: Xjf//VH0SteWwxjhcCzJqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="276127484"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.61])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 03:39:58 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id AF585121BB5;
-	Mon, 14 Sep 2026 13:40:04 +0300 (EEST)
-Date: Mon, 14 Sep 2026 13:40:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v7 14/14] media: v4l2-subdev: Add struct
- v4l2_subdev_client_info pointer to pad ops
-Message-ID: <aqfPBN0lX95Xiqeq@kekkonen.localdomain>
-References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
- <20260807122409.45807-15-sakari.ailus@linux.intel.com>
- <20260902132651.GA287496@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XBeLfT4r";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ABuK300Z"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nfuP401812
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 10:40:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7
+	Su9CofKM=; b=XBeLfT4rdS5reL1zeWXMvc21OQKiUY64erkAmejdbqsJki3FCbp
+	wEcWilUOPLrSfDc5m3XeYd30WDmpgSyPD8S1rV7Ciip5ONNwlmPxlJ5nHWqY8ZoY
+	QR4cQXpLq9rVwWYpSqTpJtCDRwvC0o6JS3spf2JmnCRdPOlgnnbaJUF0gTUYJmxl
+	JN1DNuE8rLK/UxpRAa+HyNFHFYloO8lZS7x1b5irbSEv9g6aWWPRZ9AS9GCUAc+q
+	EvCuaD+SEcGB5mKaWrlkQkJyIi31/MjQfRTIpsJp90C/26+8XlwtSwGIlCPPn+uj
+	gXDtZjsdgDANlJgWHLh5Ix68IjrWinsHAQg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hssyeq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 10:40:31 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso3857421a91.2
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 03:40:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789382431; x=1789987231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7Su9CofKM=;
+        b=ABuK300ZaKfS9DVQwcFAO9YDp0FaUleujIaIhdx4r0FhbCanl1MasUHGTno6H4DSUr
+         9GEAT1UcnTAOMD1f3cHo4UeMC4VweC+zoGJEi+m9aZs2Q6UIWUb2/eixMZB/5PFGk8Fd
+         y0M5tnWzEnUzQNWTbwuNkAi9qRPCIPV2JDiKXEYBCclquXbPoQ4yue4CBClR0m02CSbO
+         QOlHdkiETYKimbXr3QImXSgl6oJ0w33bFlLPBcMGYZed+KASdaTg0mV6Zd0UXHuV3aGm
+         mgALaWLnwESlDX3rhNb1vyCkp9PKMmThCUXgIpqXdNaowo6qnwaqNBDuE7RlPYrsvM5x
+         VMZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789382431; x=1789987231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7Su9CofKM=;
+        b=bHVkaKOc4ex9695blz749QSyuM1+K+yvZ5RqmoMZWTUcM3uBU/C23bRnOKzU+zQ3/S
+         lv9WxuN5EWEqnUR9C85HxuBXFs5oTX0NQ25uZ07qSLq9Ody+3DSM4cDoT8i0EBLq4dKy
+         kvog+HGdKC1uukdcF/MDho48Ege59gf5G/DNG6iBvaGp1rSP3V0gM9uhIcHeUctzoCTk
+         fSx4dMQB13lug8uoxcw+SOraBvSQ60rYUH3slZKbXySgXpdr0A7a6rVG16HRkKgo4Wll
+         0vEILZB0ltY6HsRmoSYWz/+/nD3+69MadIKCMvbK+xY2fC+wnzS+3KcaqkleaQeLiQns
+         QQTg==
+X-Forwarded-Encrypted: i=1; AKwUvBw54bUePR93MvKLLQ+sK21CYbAnxxwNOSrVV7LDrW5xl9gIhqcK69NHN3JhMGyt8hNHXvbmrC02BhVfMQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mWji3wpaHiImeJaW9VTRpQ+sEJLKTqxSrYsHi4aO8P3LBkxRtx
+	E6XaWYyxznObYB1Htvf1Zf5QrU65Rb0vXeFmXI611jCOyhSYMt9OgJNviggC9y/NW+5yCrqCAp5
+	rNgIqKkEtVW4k1KYincbGvywsMPQiDCUa2XHgDbij+nylfLuziPt6d653lET+N89Vig==
+X-Gm-Gg: AYBFou1yljPObK4KTD9wurHwNyWZYS51vhqEfzS+NKZnip12KjWe9fe+1MYbmn1bcar
+	goGsIpWHV5pTk87Dua6N1cOOMQBtbBkOgTsYrW6r+w9MqBH61nUw38CDX3sYdRGpLUMVNz0qAki
+	E7vsSDlITX5Es6hsvUTk0y5Dy7EX37R9/S0IN4aJIud4t0NpsYnZIsSKkINjXdvZ02nsTXWJluZ
+	/TLPuowzZXm0ZrCaFAdpUlk8S2Rp2FBCudcSxIHZqCWs0pqV2sAHQodL/iVWTsamhl2IqTSJ6ef
+	AmTNISbZFK6QCArGeB3/g54hkPX/h7eOudY0fOg4HWRMPc4+sRLpfIENgd+lAaOIoFu6mGHgsgQ
+	ecowxDhcR8gIkK+OjKbBaTlL0YPaYccpQ7yteajhjkTSGT5G/AGMtsQaxnxZCT9yZc4gtQGtI
+X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id 98e67ed59e1d1-39df720d07bmr1003962a91.15.1789382430374;
+        Mon, 14 Sep 2026 03:40:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id 98e67ed59e1d1-39df720d07bmr1003519a91.15.1789382427491;
+        Mon, 14 Sep 2026 03:40:27 -0700 (PDT)
+Received: from QCOM-SocCW5bzXR.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db996bde4sm14328042a91.7.2026.09.14.03.40.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 03:40:27 -0700 (PDT)
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+        Ling Xu <quic_lxu5@quicinc.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com,
+        stable@kernel.org
+Subject: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+Date: Mon, 14 Sep 2026 18:40:19 +0800
+Message-Id: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902132651.GA287496@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1MiBTYWx0ZWRfX1/hOzxsm4cMu
+ tj/rOtQxjT7LkaVFlFD2o/8vmf/nd5+2xugqpojuaPLLNITFOuXe7FxodkoKEd6SVMqnSVdAadW
+ rw+y7aJ9d6b8S3Kxeze42F9xJ9AUfiM5gpmjPmXjgOJyefrL7TS/To2moMozV/V5L14rxsnV3AO
+ lq4hf+LsyXUs6S1dzMtsOQgE36xEx3rC8l+KHJLBS3bmD1nkRkw4II4Ll2mxaX7fipzqSPFZKut
+ Dwhuaq3UPjKT3n5Bgv81VwJk2ztH3u8LJB5Ib1O5TZyAA1aBBRxqyj64+FOfqzTf7mot8m4Fn9/
+ nVcCze2BOxcliOKr9hLrT8jm2FnMeiMjxuusm4lR69dZGG3pJ7c4Vg9z80swUwI8X54rYDCIKNy
+ jujIx3Rn0psE8BhSD3s20owKfeJSp/xrE62Ipctly9rgkYBHN1bBR+DcxQhWI7LSWFXtXymJ/Jb
+ 2qgE2wWGup1n2F+6TDA==
+X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa7cf1f cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=jcsToSEUEPbHcpESBJIA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: xhQnu2kb5ifuTvp30NG9uRjr2ndOVbTY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1MiBTYWx0ZWRfX3d7lJPPzzFoq
+ 80oTuOufOB5ZhmS+6/UOiwmmE0nNwNmf3CXSAVkou2vuFGEekFtOB+F1vN3Rn9+PRTyduQ+vI0W
+ gPukk8PYERmIavXNu7ahhiUMQqnWlFM=
+X-Proofpoint-ORIG-GUID: xhQnu2kb5ifuTvp30NG9uRjr2ndOVbTY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140152
 
-Hi Laurent,
+DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
+to the same dma_buf fd as an input/output buffer argument. Taking an
+extra reference for such DMA handle maps leads to duplicate mappings and
+an unbalanced reference count, since DMA handle maps are released
+separately when the DSP returns the fd through the fdlist.
 
-On Wed, Sep 02, 2026 at 04:26:51PM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
-> 
-> Thank you for the patch.
-> 
-> On Fri, Aug 07, 2026 at 03:24:09PM +0300, Sakari Ailus wrote:
-> > Add a pointer to const struct v4l2_subdev_client_info to the get_fmt,
-> > set_fmt, get_selection and set_selection sub-device pad ops. The client
-> > info struct will soon be used to differentiate UAPI based on client
-> > capabilities.
-> > 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> 
-> [snip]
-> 
-> I really dislike that the operations can receive a NULL client info
-> pointer. Let's see where that's the case. We have multiple categories of
-> users:
-> 
-> - Drivers that call their own .set_fmt() or .set_selection() operations
->   from .init_state():
-> 
->   - drivers/media/i2c/adv7180.c
->   - drivers/media/i2c/gc05a2.c
->   - drivers/media/i2c/gc08a3.c
->   - drivers/media/i2c/imx214.c
->   - drivers/media/i2c/imx219.c
->   - drivers/media/i2c/imx290.c
->   - drivers/media/i2c/imx296.c
->   - drivers/media/i2c/imx334.c
->   - drivers/media/i2c/imx335.c
->   - drivers/media/i2c/imx355.c
->   - drivers/media/i2c/imx412.c
->   - drivers/media/i2c/imx415.c
->   - drivers/media/i2c/imx471.c
->   - drivers/media/i2c/lt6911uxe.c
->   - drivers/media/i2c/og01a1b.c
->   - drivers/media/i2c/og0ve1b.c
->   - drivers/media/i2c/ov02a10.c
->   - drivers/media/i2c/ov2732.c
->   - drivers/media/i2c/ov2735.c
->   - drivers/media/i2c/ov5645.c
->   - drivers/media/i2c/ov6211.c
->   - drivers/media/i2c/ov7251.c
->   - drivers/media/i2c/ov8858.c
->   - drivers/media/i2c/ov9282.c
->   - drivers/media/i2c/s5k3m5.c
->   - drivers/media/i2c/s5kjn1.c
->   - drivers/media/i2c/vd55g1.c
->   - drivers/media/i2c/vd56g3.c
->   - drivers/media/i2c/vgxy61.c
->   - drivers/media/platform/nxp/imx-mipi-csis.c
->   - drivers/media/platform/renesas/rzg2l-cru/rzg2l-csi2.c
->   - drivers/media/platform/renesas/rzg2l-cru/rzg2l-ip.c
-> 
->   Those are internal calls, so the driver knows what to expect. We can
->   live with that for the time being. However, I don't want to see NULL
->   checks appearing in the .set_fmt() and .set_selection() operations for
->   those drivers. This design pattern should be deprecated, and drivers
->   should be refactored to avoid introducing NULL checks. If we agree on
->   paying attention to this during reviews, I have no objection to
->   addressing this issue in the future.
+Fix this by not taking an extra reference for DMA handle arguments
+(take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
+these maps are borrowed references, fastrpc_get_args() re-validates the
+map via fastrpc_map_lookup() before dereferencing it, so it is not used
+after being freed. fastrpc_put_args() only releases maps flagged as
+FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
+exactly once.
 
-I'm fine with that.
+Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+---
+Patch [v3]: https://lore.kernel.org/all/20260805060940.41414-1-jianping.li@oss.qualcomm.com/
 
-> 
-> - Drivers that call their own .set_fmt() or .set_selection() operations
->   from .open():
-> 
->   - drivers/media/platform/qcom/camss/camss-csid.c
->   - drivers/media/platform/qcom/camss/camss-csiphy.c
->   - drivers/media/platform/qcom/camss/camss-ispif.c
->   - drivers/media/platform/qcom/camss/camss-tpg.c
->   - drivers/media/platform/qcom/camss/camss-vfe.c
->   - drivers/media/platform/ti/omap3isp/ispccdc.c
->   - drivers/media/platform/ti/omap3isp/ispccp2.c
->   - drivers/media/platform/ti/omap3isp/ispcsi2.c
->   - drivers/media/platform/ti/omap3isp/isppreview.c
->   - drivers/media/platform/ti/omap3isp/ispresizer.c
->   - drivers/media/platform/ti/omap3isp/ispvideo.c
-> 
->   Bryan has volunteered (or maybe I should say I have volunteered Bryan)
->   to convert the camss driver to the active state API and use
->   .init_state(). It will then fall in the previous category.
-> 
->   The omap3isp driver should be converted as well. Furthermore, it
->   should stop calling internal subdev operations to implement
->   G_SELECTION and S_SELECTION on video nodes. No objection against doing
->   so at a later date.
-> 
-> - Drivers that call their own .set_fmt() or .set_selection() operations
->   from .probe():
-> 
->   - drivers/media/i2c/adv7183.c
-> 
->   The proper fix is to convert the driver to use the subdev active
->   state. This can be left for later (likely never, as the driver doesn't
->   receive much attention).
-> 
-> - Drivers that call their own .set_fmt() or .set_selection() operations
->   at runtime:
-> 
->   - drivers/media/platform/renesas/vsp1/vsp1_drm.c
->   - drivers/media/platform/renesas/vsp1/vsp1_entity.c
->   - drivers/media/platform/renesas/vsp1/vsp1_vspx.c
-> 
->   This is a special case. The driver calls subdev operations of its
->   internal subdevs to configure the media pipeline on behalf of
->   in-kernel clients. Should there be a need to check the client info in
->   subdevs, an in-kernel client info will be allocated. Using NULL is
->   fine for the time being, it doesn't cross any driver boundary.
-> 
-> - Drivers that call their own .set_fmt() or .set_selection() operations
->   from an IRQ handler:
-> 
->   - drivers/media/i2c/lt6911uxe.c
-> 
->   The driver calls the .set_fmt() handler to update the active format
->   when the device reports an input format change. This seems to be an
->   incorrect usage of the V4L2 API, the right fix will be to drop that.
->   It can be done later.
+Changes in v4:
+- Do not expose FASTRPC_MAP_DMA_HANDLE through the uapi header. The flag
+  is only set and consumed by the driver, userspace never passes it as an
+  input flag, so define it privately in fastrpc.c instead. This also keeps
+  FASTRPC_MAP_MAX as the real upper bound of the uapi flags.
+- Drop the FASTRPC_MAP_DMA_HANDLE rejection in fastrpc_req_mem_map(): with
+  the flag no longer in the uapi, userspace cannot pass this value through
+  the MEM_MAP path, so the check is dead code. The commit message paragraph
+  describing it is removed as well.
 
-In this case the format is obtained from the upstream HDMI link and there's
-no subdevice driver there.
+Changes in v3:
+- No functional changes.
+- fastrpc_put_args(): document that clearing map->flags without a lock
+  is safe because the DSP reports a given fd in the fdlist only once,
+  so no concurrent fastrpc_put_args() can race on the same map's flags.
 
-> 
-> - Drivers that already pass a NULL (or fake) subdev state to .set_fmt()
->   or .set_selection() and now also pass a NULL client info:
-> 
->   - drivers/media/pci/cobalt/cobalt-driver.c
->   - drivers/media/pci/cobalt/cobalt-v4l2.c
->   - drivers/media/pci/cx18/cx18-controls.c
->   - drivers/media/pci/cx18/cx18-ioctl.c
->   - drivers/media/pci/cx23885/cx23885-video.c
->   - drivers/media/pci/ivtv/ivtv-controls.c
->   - drivers/media/pci/ivtv/ivtv-ioctl.c
->   - drivers/media/pci/saa7134/saa7134-empress.c
->   - drivers/media/platform/amd/isp4/isp4_video.c
->   - drivers/media/platform/atmel/atmel-isi.c
->   - drivers/media/platform/intel/pxa_camera.c
->   - drivers/media/platform/marvell/mcam-core.c
->   - drivers/media/platform/renesas/renesas-ceu.c
->   - drivers/media/platform/renesas/sh_vou.c
->   - drivers/media/platform/samsung/exynos4-is/fimc-capture.c
->   - drivers/media/platform/samsung/s3c-camif/camif-core.c
->   - drivers/media/platform/st/stm32/stm32-dcmi.c
->   - drivers/media/platform/ti/am437x/am437x-vpfe.c
->   - drivers/media/platform/ti/vpe/vip.c
->   - drivers/media/platform/via/via-camera.c
->   - drivers/media/usb/cx231xx/cx231xx-417.c
->   - drivers/media/usb/cx231xx/cx231xx-video.c
->   - drivers/media/usb/dvb-usb/cxusb-analog.c
->   - drivers/media/usb/em28xx/em28xx-camera.c
->   - drivers/media/usb/go7007/go7007-v4l2.c
->   - drivers/media/usb/pvrusb2/pvrusb2-hdw.c
->   - drivers/staging/media/tegra-video/vi.c
-> 
->   Those drivers are not compatible with modern source (i.e. image
->   sensors, video receivers, ...) subdev drivers that use the active
->   state API. No workaround will be added to source drivers to support
->   the above drivers, they should instead be converted to modern APIs. I
->   have no objection passing a NULL client info.
-> 
->   drivers/media/platform/ti/cal/cal-video.c is in a similar category. It
->   calls those operations to implement the legacy video node-centric API,
->   which is getting deprecated. No concern there either.
-> 
-> - Finally, there's the atomisp driver. Cleaning that up will require
->   time. As it's a staging driver I'm not concerned about adding NULL
->   checks to sensor drivers. If atomisp uses a sensor driver that
->   requires client info, the fix should be on the atomisp side.
-> 
-> 
-> Conclusion: I'm fine with this patch (with two changes pointed out
-> separately moved to 10/14) as long as we address the above issues when
-> required, without adding NULL checks on the client info in subdev
-> drivers.
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Changes in v2:
+- Rework the commit message to describe the DMA handle reference and
+  lifetime problem more precisely.
+- Introduce a new FASTRPC_MAP_DMA_HANDLE uapi flag and a 'flags' field
+  in struct fastrpc_map to explicitly tag DMA handle maps, instead of
+  relying only on the nbufs boundary / take_ref.
+- Plumb an mflags argument through fastrpc_map_create() and
+  fastrpc_map_attach() so DMA handle maps are tagged at creation time.
+- Re-validate the borrowed map in fastrpc_get_args() via
+  fastrpc_map_lookup() before dereferencing it, to avoid a
+  use-after-free when the map was created with take_ref = false.
+- In fastrpc_put_args(), only release maps tagged FASTRPC_MAP_DMA_HANDLE
+  and clear the flag afterwards, so such maps are freed exactly once.
+- Reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since these
+  handles are already mapped implicitly during the remote invoke and
+  must not be mapped again through the explicit MEM_MAP path.
+---
+ drivers/misc/fastrpc.c | 56 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 41 insertions(+), 15 deletions(-)
 
-Thanks!
-
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index d4fac2caca86..58f27e271317 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -52,6 +52,9 @@
+ #define FASTRPC_CTXID_SEQ_SHIFT	16
+ #define FASTRPC_CTXID_SEQ_MASK	GENMASK_ULL(63, 16)
+ 
++/* Map the DMA handle in the invoke call for backward compatibility */
++#define FASTRPC_MAP_DMA_HANDLE  0x20000
++
+ /*
+  * Newer DSP firmware implements a PD (Protection Domain) notification
+  * framework that sends PD state notifications upon request. The PD exit
+@@ -253,6 +256,7 @@ struct fastrpc_map {
+ 	u64 len;
+ 	u64 raddr;
+ 	u32 attr;
++	u32 flags;
+ 	struct kref refcount;
+ };
+ 
+@@ -879,7 +883,7 @@ static dma_addr_t fastrpc_compute_dma_addr(struct fastrpc_user *fl, dma_addr_t s
+ }
+ 
+ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+-			      u64 len, u32 attr, struct fastrpc_map **ppmap)
++			      u64 len, u32 attr, struct fastrpc_map **ppmap, int mflags)
+ {
+ 	struct fastrpc_session_ctx *sess = fl->sctx;
+ 	struct fastrpc_map *map = NULL;
+@@ -896,6 +900,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 
+ 	map->fl = fl;
+ 	map->fd = fd;
++	map->flags = mflags;
+ 	map->buf = dma_buf_get(fd);
+ 	if (IS_ERR(map->buf)) {
+ 		err = PTR_ERR(map->buf);
+@@ -970,13 +975,13 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 	return err;
+ }
+ 
+-static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+-			      u64 len, u32 attr, struct fastrpc_map **ppmap)
++static int fastrpc_map_create(struct fastrpc_user *fl, int fd, u64 len, u32 attr,
++			      struct fastrpc_map **ppmap, bool take_ref, int mflags)
+ {
+-	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
++	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
+ 		return 0;
+ 
+-	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
++	return fastrpc_map_attach(fl, fd, len, attr, ppmap, mflags);
+ }
+ 
+ /*
+@@ -1047,23 +1052,25 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
+ 	int i, err;
+ 
+ 	for (i = 0; i < ctx->nscalars; ++i) {
++		bool take_ref = i < ctx->nbufs;
++		int mflags = 0;
+ 
+ 		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
+ 		    ctx->args[i].length == 0)
+ 			continue;
+ 
+-		if (i < ctx->nbufs)
+-			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
+-				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+-		else
+-			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
+-				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
++		/* Set the DMA handle mapping flag for DMA handles */
++		if (i >= ctx->nbufs)
++			mflags = FASTRPC_MAP_DMA_HANDLE;
++
++		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
++					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
+ 		if (err) {
+ 			dev_err(dev, "Error Creating map %d\n", err);
+ 			return -EINVAL;
+ 		}
+-
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -1195,6 +1202,16 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 		list[i].num = ctx->args[i].length ? 1 : 0;
+ 		list[i].pgidx = i;
+ 		if (ctx->maps[i]) {
++			/* It is possible that map is created with
++			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
++			 * is false. Check if map still exists or is
++			 * being freed as take_ref is false
++			 */
++			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
++					       &ctx->maps[i], false)) {
++				ctx->maps[i] = NULL;
++				return -EINVAL;
++			}
+ 			pages[i].addr = ctx->maps[i]->dma_addr;
+ 			pages[i].size = ctx->maps[i]->size;
+ 		}
+@@ -1244,8 +1261,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
+ 	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
+ 		if (!fdlist[i])
+ 			break;
+-		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
++		/*
++		 * DMA handle maps are released when the DSP returns the corresponding fd in
++		 * fdlist. The DSP is expected to return a specific fd only once in fdlist,
++		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag for
++		 * the same map concurrently.
++		 */
++		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
++		    mmap->flags == FASTRPC_MAP_DMA_HANDLE) {
++			mmap->flags = 0;
+ 			fastrpc_map_put(mmap);
++		}
+ 	}
+ 
+ 	return ret;
+@@ -1621,7 +1647,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
+ 	fl->pd = USER_PD;
+ 
+ 	if (init.filelen && init.filefd) {
+-		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
++		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true, 0);
+ 		if (err)
+ 			goto err;
+ 	}
+@@ -2244,7 +2270,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
+ 		return -EFAULT;
+ 
+ 	/* create SMMU mapping */
+-	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
++	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true, 0);
+ 	if (err) {
+ 		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
+ 		return err;
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
