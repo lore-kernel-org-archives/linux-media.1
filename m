@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0458949F11D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D845442FBE
 	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 20:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419244; cv=none; b=A8x05KkqEHJNQ8r+hb0FFlX/OaTppg93ToB9YYHoMmocKoO4wvv2d5ty1sIeDEvDJ+DTbtGoOhc6hKXkOMD2NSEKABjPRq8ImEivBUEQnrBF4MdvpX4w7PsAgJ6/SYozni6puCdeu8qwKBSWa2h+XnSksNdBBbxWaXJqHNiu8Hs=
+	t=1789419244; cv=none; b=s92NCEvsDBZyXHiz+YYihbMuGwY3f//yMihYJTZKEkK36n0D9ZYsd3buUvOMhSY83BMxZMtuCscK1ExdCRADsdR9ZR63LxkI+zeXUZTQ4YDT8YWFB8ykMcgM1x3h/SGz0/DklV0k4fj3XRSGX3WuU3GM23sqjHwi5r70q631XCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789419244; c=relaxed/simple;
-	bh=ZBc74N57Ra7Mdbx5Z0Noqj8xfQ2T+MfYl59qhpIWKtM=;
+	bh=23/uWu8PHS4GTYmh69YfYhpXVqnEOE/xKf/9GchjHro=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SJGtsYxW40gU5o5NKQSbbq/WpGlLLTtHDP6pDEEG8wbfYTuOSkfD97WK0fNDat+pLCi9MrIFkQ3wLUz9mzsxL3PhK9NHPF8GaijUKT7Yk79Fvz0l9jQ1htFC/qWtpScACAKnSqLT9jVm8P9fA2hh8dCmrGfGCqy1AfwEV9gpNG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=laJujMNF; arc=none smtp.client-ip=198.175.65.16
+	 MIME-Version; b=XPSYVowZ7c8LYPMyKwAIR3iOxYABFJAGUAs8DdhoMzi8HfglJlTxe7K5+hoqZ//SGK6DDo+Bmzib7carn2b5ydZyTaoaKK4gzbXo5yGxAJLwiX31uukxyrpgqS9Xqm/eHnTnS9TELcjkLTc5iIa6Nw/eLOYd6FKtKWYvuix5/78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mtMpL2Ai; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="laJujMNF"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mtMpL2Ai"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789419243; x=1820955243;
+  t=1789419244; x=1820955244;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ZBc74N57Ra7Mdbx5Z0Noqj8xfQ2T+MfYl59qhpIWKtM=;
-  b=laJujMNFU8lZqcPY2E9lcT6ihKndGaBV7VAgQ1gN26LGDdd557MfBGm7
-   9wBVK2UM/R86dvWQsglDHSNgoycekYadrE8/zdsB4gcy1+OafuZpEkvbM
-   YFQJhD5fbnw7S3UOMsxb8rwn5eDkU85mwqSYo5FAfVV0F1YiwkCEcS47w
-   Lti3kGZJMk/Thyz9Ue6+4dan5CtPj/dh+3bQhY715QFoRTlX5Kn1pjm/E
-   TM3NJy2G8+GmDUFjnX9q+c7STQ3/p2/R3py6r8+nCSOW5J7TY/LrhcEuK
-   s9zNN6CJ8kNM7pxtMX8GbWg8RgXR0RFjSy7HO5vaVuJGkmE+2bMCSEVWJ
-   Q==;
-X-CSE-ConnectionGUID: lftLWAKRQdyAfzTPPC0Bsg==
-X-CSE-MsgGUID: m9xRT6a2RRqQnqaZRRpzkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984122"
+  bh=23/uWu8PHS4GTYmh69YfYhpXVqnEOE/xKf/9GchjHro=;
+  b=mtMpL2Ai9q+a2hDfZDkwukuzWgUtFZOoxpCruuiLoUfNF92wtbM0Z5S3
+   XrFanSqFD15hkZu030wjuuf/6p4/1TplgvmGq9alx+4XC1sYCKK0hHFPQ
+   v9pllbLUcAXOjNAza9D7AUjLIo32xaWO93QaV1KLBXBUdZbUSZ5YhGssf
+   XCVDNXrqWzwOD0yy+B9tAtdbH160OmBMG1iEX3LVFU027GOZ6JtTzC8lG
+   ahohgv5Sh6GU8XHtYOBNMCcoJ+c2YckeEsM39/7zAPbClZ0BADxApCQAv
+   Gbn8Rt11D5DIn23/Dn2vXQgiJnJiEAwnNmxyVltvxb7RAxIIcXbHq1rcD
+   A==;
+X-CSE-ConnectionGUID: hYnoW/4NQ760Fn+lnHzEXw==
+X-CSE-MsgGUID: GjQ8UqcaTemOmfWl5p735g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89984123"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89984122"
+   d="scan'208";a="89984123"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:59 -0700
-X-CSE-ConnectionGUID: 1hBxLTjvQKm7zkOWwMG39w==
-X-CSE-MsgGUID: D/34+FHfT7aS/86LjwbaGw==
+X-CSE-ConnectionGUID: LwyxLNmGTCeZKjmbTlTmPg==
+X-CSE-MsgGUID: hXZFiNC3QBSICsfKp+C6Ww==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297760723"
+   d="scan'208";a="297760727"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.173])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 13:53:56 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 4D1A4121BBC;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 63248121BC2;
 	Mon, 14 Sep 2026 23:53:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x6Dgc-000000035J1-3KAT;
+	id 1x6Dgc-000000035JX-3g5x;
 	Mon, 14 Sep 2026 23:53:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH 06/21] media: ipu6: Clean up link frequency calculation
-Date: Mon, 14 Sep 2026 23:53:43 +0300
-Message-ID: <20260914205358.735307-7-sakari.ailus@linux.intel.com>
+Subject: [PATCH 12/21] media: ipu6: Collect enabled stream IDs
+Date: Mon, 14 Sep 2026 23:53:49 +0300
+Message-ID: <20260914205358.735307-13-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
 References: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
@@ -74,76 +74,100 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Handle link_freq <= as a special case and continue calculating the pixel
-rate otherwise.
+Collect enable stream IDs as streaming is enabled on video nodes. These
+values will be needed once streaming actually starts. This is required for
+multiple streams from a single source.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../media/pci/intel/ipu6/ipu6-isys-video.c    | 37 ++++++++-----------
- 1 file changed, 16 insertions(+), 21 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 25 ++++++++++++-------
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |  1 +
+ 2 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index 781fc0e88417..3d455872f29a 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -648,12 +648,9 @@ void ipu6_isys_configure_stream_watermark(struct ipu6_isys_video *av,
- 	struct ipu6_isys_csi2 *csi2 = NULL;
- 	struct isys_iwake_watermark *iwake_watermark = &isys->iwake_watermark;
- 	struct device *dev = &isys->adev->auxdev.dev;
--	struct v4l2_mbus_framefmt format;
- 	struct v4l2_subdev *esd;
- 	struct v4l2_control hb = { .id = V4L2_CID_HBLANK, .value = 0 };
--	unsigned int bpp, lanes;
--	s64 link_freq = 0;
--	u64 pixel_rate = 0;
-+	s64 link_freq;
- 	int ret;
- 
- 	esd = media_entity_to_v4l2_subdev(source);
-@@ -671,28 +668,26 @@ void ipu6_isys_configure_stream_watermark(struct ipu6_isys_video *av,
- 
- 	csi2 = ipu6_isys_subdev_to_csi2(av->stream->asd);
- 	link_freq = ipu6_isys_csi2_get_link_freq(csi2);
--	if (link_freq > 0) {
--		struct v4l2_subdev_state *state =
--			v4l2_subdev_lock_and_get_active_state(&csi2->asd.sd);
--
--		lanes = csi2->nlanes;
--		format = *v4l2_subdev_state_get_format(state, 0,
--						       av->source_stream);
--		bpp = ipu6_isys_mbus_code_to_bpp(format.code);
--		pixel_rate = mul_u64_u32_div(link_freq, lanes * 2, bpp);
--
--		v4l2_subdev_unlock_state(state);
--	}
--
--	av->watermark.pixel_rate = pixel_rate;
--
--	if (!pixel_rate) {
-+	if (link_freq <= 0) {
- 		mutex_lock(&iwake_watermark->mutex);
- 		iwake_watermark->force_iwake_disable = true;
- 		mutex_unlock(&iwake_watermark->mutex);
--		dev_warn(dev, "unexpected pixel_rate from %s, disable iwake.\n",
-+		dev_warn(dev, "unexpected link_freq from %s, disable iwake\n",
- 			 source->name);
-+		return;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+index 70b48d02c0c0..3b02ca4b7e40 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+@@ -516,6 +516,10 @@ static bool ipu6_isys_csi2_streaming_change(struct ipu6_isys_subdev *asd,
+ 		return true;
  	}
+ 
++	dev_dbg(asd->sd.dev, "not setting streaming %s %s (%u/%u)\n",
++		str_enabled_disabled(enable), enable ? "yet" : "anymore",
++		nodes_streaming, streams_enabled);
 +
-+	struct v4l2_subdev_state *state;
-+	struct v4l2_mbus_framefmt *format;
-+	unsigned int bpp;
-+
-+	state = v4l2_subdev_lock_and_get_active_state(&csi2->asd.sd);
-+	format = v4l2_subdev_state_get_format(state, 0, av->source_stream);
-+	bpp = ipu6_isys_mbus_code_to_bpp(format->code);
-+	v4l2_subdev_unlock_state(state);
-+
-+	av->watermark.pixel_rate = mul_u64_u32_div(link_freq, csi2->nlanes * 2,
-+						   bpp);
+ 	return false;
  }
  
- static void calculate_stream_datarate(struct ipu6_isys_video *av)
+@@ -546,6 +550,11 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 
+ 	list_add(&av->csi2_entry, &csi2->av_head);
+ 
++	sink_streams =
++		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
++						&streams_mask);
++	csi2->stream_ids |= sink_streams;
++
+ 	if (!ipu6_isys_csi2_streaming_change(asd, state, pad, &vc, true))
+ 		return 0;
+ 
+@@ -555,13 +564,6 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 		goto err_return_buffers;
+ 	}
+ 
+-	remote_pad = media_pad_remote_pad_first(&sd->entity.pads[CSI2_PAD_SINK]);
+-	remote_sd = media_entity_to_v4l2_subdev(remote_pad->entity);
+-
+-	sink_streams =
+-		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
+-						&streams_mask);
+-
+ 	if (!csi2->streaming_vc) {
+ 		ret = IS_IPU7(isp) ? ipu7_isys_csi2_stream_enable(csi2) :
+ 				     ipu6_isys_csi2_stream_enable(csi2);
+@@ -569,8 +571,11 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 			goto err_stop_stream_firmware;
+ 	}
+ 
++	remote_pad = media_pad_remote_pad_first(&sd->entity.pads[CSI2_PAD_SINK]);
++	remote_sd = media_entity_to_v4l2_subdev(remote_pad->entity);
++
+ 	ret = v4l2_subdev_enable_streams(remote_sd, remote_pad->index,
+-					 sink_streams);
++					 csi2->stream_ids);
+ 	if (ret)
+ 		goto err_stop_stream_csi2;
+ 
+@@ -589,6 +594,7 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 	ipu6_isys_close_streaming_firmware(av);
+ 
+ err_return_buffers:
++	csi2->stream_ids &= ~sink_streams;
+ 	list_del(&av->csi2_entry);
+ 	ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_INCOMING, 0);
+ 
+@@ -631,7 +637,8 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
+ 	else
+ 		ipu6_isys_csi2_stream_disable(csi2);
+ 
+-	v4l2_subdev_disable_streams(remote_sd, remote_pad->index, sink_streams);
++	v4l2_subdev_disable_streams(remote_sd, remote_pad->index,
++				    csi2->stream_ids);
+ 
+ 	ipu6_isys_close_streaming_firmware(av);
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
+index a98a60e443c6..4d84899fde4c 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
+@@ -50,6 +50,7 @@ struct ipu6_isys_csi2 {
+ 	u32 legacy_irq_mask;
+ 	unsigned int phy_mode;
+ 	u32 streaming_vc;
++	u64 stream_ids;
+ };
+ 
+ struct ipu6_isys_csi2_timing {
 -- 
 2.47.3
 
