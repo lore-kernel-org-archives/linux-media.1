@@ -1,166 +1,147 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DF9403E88
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA10B447805
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 11:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385834; cv=none; b=T6ik50eB068nfsIyvG3Z6hsSWsXxwDn81QWrOeuwzueBgUTncRjdSzJMiovLhr4CDJxCG2vsMmJxQzBkDpNwh/gt9q9iJ6WJomGAD1TR37yY0UiMbPHf9mo54Rv2Za7tKoYAbsF/FtjIU86+fRgb8S0LJHKc8Fak3r//I8bKDnc=
+	t=1789386120; cv=none; b=D3pd5Xu9PldRFAtjfd9uTWZNOIdwFKBUZZ2uYqKdIF38l1lgFgkB0kp7xA/qHsXHdEbq3hTjxrBg/qsqqCmGjE9xweECIRTC8LXGqgZ38Sm5zFlklqdcUs88LmiE+SvKg+I/SC/546kadYOGNO97W2ZZvJi7JtvG/KWsK4N8OV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385834; c=relaxed/simple;
-	bh=fVFayjc2eOqsSz3WXVu1VPZKmGsi43dhiuYuNC+XHjw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aQy4FmrFowfNIqkgUavLXeOmeP+q0X1oouZ5EI8Ck3l3N2FIluKCpI1v32r3kXjG9ACpVt4/WnBeb2bXKET9oVpfSrbxTa/bE7xWdtoL+lZzpV1DK3vtEIJU+7BnKVvBLghQ/8/OHf1YVkDeKIVeMB0D7f74Iy41uyoZ46yW5S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wHsPQhQa; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789386120; c=relaxed/simple;
+	bh=VKSdYQvaqWvz1EoYz+h5ycoljt06DA1ZZ3DWNEN7DLc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o9pM93yKG7WF9amNqaJqsUvGYKTQovNzO1DDb3HozrxcxERYxnC2rXd+pUHxKbE3giNusgNiB2uh2fWLL0P786zLoSFbMj1aC8Wouk3CtccfUos6IKwfmMSa9vqnPuckpb79NRilszYHjKI962F5lKY/SFl6NktP9+OepWLP6IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZLFyLdzf; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wHsPQhQa"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa4c24cso260994266b.2
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 04:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789385830; x=1789990630; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BrFobApx96GbKEm837whkFKjtf7GL+qiMSoZ+3ZGcro=;
-        b=wHsPQhQaTJzUQzz1qYlTn4P++71n2Iy5bqhx0T7CRPf+7i3lKHY1rexkOlNGQMCwcZ
-         u0Si7AN1hryouOPT0nQ0XaHFU17Iz0k837RLoBm0pTbq3bVh3u6e8NjjrxEZo1yzlreq
-         1zeFFjjSVCVNE917fZ1a0rcs2BBY86bNkcm8ynrlvONS2osqrRYMOqKc4nbC9jcDbBaR
-         8Mo1vHCg2uYDr/G9ok+a/q8fdH2mrPsd4SB5QMrq9jVl5Vb8QjRxzNjhzSrHzNM275s4
-         w8KsXaUL4F+uO0EjoogrCOS/Qg7/3bCEvsns7xfnDYsM2h8qyihbpQOc/NHgDu7MPpdn
-         3q7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789385830; x=1789990630;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BrFobApx96GbKEm837whkFKjtf7GL+qiMSoZ+3ZGcro=;
-        b=MJPJfNTOkBFcGRPk0eEui6XSmNo2LERqNdH57pZHqUhnhA+/pgsh7n9fIZ5Ru7G8mp
-         ihWgl0F1S9ArrUIiQytBX4x2rxmyPo39KQ2nGHIM6rWz0fJfi8tZqxyU/zxFo5/M5/RF
-         I2twkI9Nio0o+3HY+WeqjgfQUOYeSTVLGgy9dKts13A6CzSdw1oOdL9TIWKeagBdIFzl
-         ZpQipsZcJ8H0DuLg+ZvU/dIUXO/umb/d8zJ7Bcy9KqHt8vhfuio5JamIlPX0Mmz0M/us
-         uXhWwjzqnkDC9e1PYcej0x5RIFR5llgdrWrhhz0SI4Hh7AaW7i6Ys+5EWuAI2UPIRkfv
-         erqg==
-X-Forwarded-Encrypted: i=1; AKwUvByAgzid/lUd6QpyLYolsjuBvrJtNNk6p5UR49AW5eGpmkbLu45bCbdGHds/d373Pe8bn8iv4dG9bdrmJw==@vger.kernel.org
-X-Gm-Message-State: AFuF++n2v+QAHshMIQc3PuEbAhvrkTzSDwV5jpYgnBc26gEGMNvxDivH
-	R1R2vrj7iUfa8dNDMwiECG5HkUtxDkhOqm3tSFRH43J7uqh6Ua+Th7la02Byx15eKZ4=
-X-Gm-Gg: AYBFou3+P3pQA6neCv/Fv4yAs0szLT1nJbS2xJizQwJKp0bJArE429orWX68BihGdWy
-	NyNr4/tIhZY8HlNl5UVZVBhA8pWpu3lIyRSa+YiRCFaCFfRTHPFKjxtJI4auy/LClnVtBkq6uI5
-	wj8ERASni23OjmT7Tw+vgU8VufEHLwzsVgqdtCu/Gp/1UNPaQ5D5z98x5o1nchxbIVzhKfVD6k/
-	NXElc3bHRAL+fasoZSN/1ZS2ZSVsOvdrRGar9BOWYCjne205w2fJC/cvKT8p0G/ha3z7SIuN7It
-	jjTUsqU4x/LZ7eLAeVD2f+DoLUPt8Lyr2Iaiop4iU6CTRD69yS1VwzuDOH3xpyXjEWNFK843mP8
-	Nt3tCEXVZuVALUGcqkKJv39r69zO0FImTC2cj2HD5uLtFKx4z59r7j25zowwUAwECW78Jf2aPLC
-	eO5XguGgiBqiKOwloCAC9nF7ksMat8VNzYfrlA7o3rxDegLjh/MdwzGtEhJiVg6Af8UQfLHBnZi
-	9Wj+pFbPA==
-X-Received: by 2002:a17:907:806:b0:c29:53b5:c69d with SMTP id a640c23a62f3a-c29b86f99a5mr151242966b.28.1789385830007;
-        Mon, 14 Sep 2026 04:37:10 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.248.34])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660219ecsm412455366b.16.2026.09.14.04.37.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 04:37:09 -0700 (PDT)
-Message-ID: <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
-Date: Mon, 14 Sep 2026 12:37:06 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZLFyLdzf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789386119; x=1820922119;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=VKSdYQvaqWvz1EoYz+h5ycoljt06DA1ZZ3DWNEN7DLc=;
+  b=ZLFyLdzfsyOYLs/nXrioGzdUmD27QP9pbnxJbwZ1KxkWsYqMCCoQZIma
+   YCbPtsPvrd2XaRvqhECADX/FqagRByVY+Ol2cXRW6tENdMRklzCI1+HZl
+   EbnI7avWbhv13PW18kImRcKmTQQcmc2FpBG2C7h/xNVm5AbMADoi0Sg4n
+   O3g1ia/Z4+qHzT9YVdu/eUdBnVou8M73tbMbGv8gL9xEeJJ4/w8L3WJyX
+   T1Jhd/bqyiJMzQFGDx7Cg7kf91uOPUv63uDLv1qcOW+AHF3iQdmD+tvlO
+   mWAbr6iGtpkeX8bPyyTSLJs7y+mKGg2L/R94ZHawWGgjmbC8tfccMeBb/
+   Q==;
+X-CSE-ConnectionGUID: EB0fWO+LQBiym+5V+i7lzw==
+X-CSE-MsgGUID: 2g50GP8OT1OI32A2aL+8/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93431864"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="93431864"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:41:58 -0700
+X-CSE-ConnectionGUID: GeBfHh3WT1K4FYaJQiRe6w==
+X-CSE-MsgGUID: /s/xHa2OSvKL48V92EKf0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="270812719"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.61])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 04:41:51 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AA4CA121BB6;
+	Mon, 14 Sep 2026 14:41:56 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1x654D-00000002PXX-0V26;
+	Mon, 14 Sep 2026 14:41:45 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>
+Subject: [PATCH v8 02/13] media: imx219: Account rate_factor in setting upper exposure limit
+Date: Mon, 14 Sep 2026 14:41:33 +0300
+Message-ID: <20260914114145.574791-3-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260914114145.574791-1-sakari.ailus@linux.intel.com>
+References: <20260914114145.574791-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
- <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/09/2026 21:56, Frank Li wrote:
-> suggested subject:
-> 
-> phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
+The rate_factor multiplier is used to multiply a few values in the
+sensor's timing configuration and the exposure time is one of them. This
+also needs to be taken into account in exposure time margin: multiply it
+by rate_factor so that sensor's exposure time margin is respected.
 
-A pattern I try to encourage and role-model is making fixes very 
-explicit and obvious - frequently I'll ask people to prefix their 
-patches fixing things with Fix.
-
-I'll split the difference with you since now that I read this submitted 
-patch title you're right, it could read better.
-
-"Fix race-condition between _of_phy_get and try_module_get()"
->> Sashiko asked during a patch review if the existing usage pattern had a
->> race condition; specifically in of_phy_get() if it was possible between
->> returning from _of_phy_get() and running try_module_get() that a module
->> might be unbound leading to use-after-free.
->>
->> Looking at the code this appears to be so, there is no linkage between the
->> phy and module under a synchronisation primitive.
->>
->> Using the phy_provider_mutex in phy_get() will ensure there is a link between
->> the returned phy pointer and the module_get() bumping the module reference
->> count.
->>
->> Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
->> same usage pattern.
->>
->> phy_provider_unregister() must take the phy_provider_mutex so amending
->> phy_get()/of_phy_get() to take that same mutex guarantees there is no
->> use-after-free.
->>
->> Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
->> Cc:stable@vger.kernel.org
->> Reviewed-by: Loic Poulain<loic.poulain@oss.qualcomm.com>
->> Signed-off-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
->> ---
-> ...
->> @@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
->>   	if (con_id)
->>   		index = of_property_match_string(np, "phy-names", con_id);
->>
->> +	mutex_lock(&phy_provider_mutex);
->> +
->>   	phy = _of_phy_get(np, index);
->>   	if (IS_ERR(phy))
->> -		return phy;
->> +		goto out_unlock;
->>
->> -	if (!try_module_get(phy->ops->owner))
->> -		return ERR_PTR(-EPROBE_DEFER);
->> +	if (!try_module_get(phy->ops->owner)) {
->> +		phy = ERR_PTR(-EPROBE_DEFER);
->> +		goto out_unlock;
->> +	}
-> why no use auto cleanup guard() for mutex lock?
-
-Technically this fix would apply to kernels predating scoped_guard() - 
-kernel 6.5 v Fixes: @ ~ 3.13.
-
-Not really sure how far back the cherry-pick will work but I'd like to 
-give the possibility.
-
-We can always sweep this file to use scoped_guard() on tip-of-tree later.
-
+Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
-bod
+ drivers/media/i2c/imx219.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 9571f3622d2d..5184523de8be 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -466,7 +466,8 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		int exposure_max, exposure_def;
+ 
+ 		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = format->height + ctrl->val - IMX219_EXPOSURE_OFFSET;
++		exposure_max = format->height + ctrl->val -
++			IMX219_EXPOSURE_OFFSET * rate_factor;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+ 				exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+@@ -893,6 +894,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+ 
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
++		int rate_factor = imx219_get_rate_factor(state);
+ 		int exposure_max;
+ 		int exposure_def;
+ 		int llp_min;
+@@ -911,7 +913,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 			return ret;
+ 
+ 		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
++		exposure_max = mode->fll_def -
++			IMX219_EXPOSURE_OFFSET * rate_factor;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+ 				exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+-- 
+2.47.3
+
