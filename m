@@ -1,61 +1,82 @@
-Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021110.outbound.protection.outlook.com [40.107.57.110])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013000.outbound.protection.outlook.com [52.101.83.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AE64718FF;
-	Mon, 14 Sep 2026 13:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315553D9029;
+	Mon, 14 Sep 2026 13:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.0
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392896; cv=fail; b=L9zRlsntfziieMGRbsxMk9fCLy9KT+j7r4kJlqa+NRxEwa3w4H6fLoM0wsaEVu9qaMPmqR6gMy49msEYry20luhQPUbsm484NBqyCMgHYwG63hkfEX0XC8zrCfKa0ktTU4Lg68XHDmkYMOAsX8vo+/BluxKgT7JoLj5+Fcppjbw=
+	t=1789394164; cv=fail; b=AeQEF6DRcyEBrTOXJ8UH44vOVFuWWDbl21p2uthHYSzkqJ6Hyc5nve4hzlMIRX5Quac638f4vC7pWfpI+qsG9HLXbSezNwKPwJhLIPCjyiwnW4yo/BpBASwznTK34bk9+zsVArQmyX8i84/f3tHZYPMNzYZsDs1d6dWWtvnqrCc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392896; c=relaxed/simple;
-	bh=8WO6i/bfRdYgxmndgHzfnphIFGQVenOyz3VhXS7O7Xg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WuDu2UgyzkGgFS0Nq4ha8raD0z/YGShzSuvwbgmTPMcY/lz7Egp1iWXURHW+Odw6Q0mI77DNiC48VlFa2S4AADpvMLa/kQpoviMSlhG8933Ih1HA4Jy1cDmb5JOyGcb2NFqtfdZxSj4oeP0xFr+Wn8CG9l/hpz0nbaCf325ZmJQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.57.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+	s=arc-20240116; t=1789394164; c=relaxed/simple;
+	bh=xkeYCtWz6xtkzC4M9AWreXBpHgJJm5xu3ajleC4y19A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BY71ZsZKz0k0vt0NkzrHa+JdgqkcQTR9VAx1EgMXlcJojrnKhEqRHHxGukTZh/jUFwzR5vPwn97ZNnC/AHXvVSRemqIkJUkUOXLZvEVJ+xbGulzkan4CVgvkj9H2/vb4GSvO1e0aOb6GLKr/hcl+NDrUlCrW8FNG6T5Pn0MCIXI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=g7saD8Sm; arc=fail smtp.client-ip=52.101.83.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="g7saD8Sm"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LSMOH5Jp4Uj53QN+FemWKzM//QroLMA1eRpmSx2ia9nOw3RTvmLfTuTWSyr3TvkxjLxyUl0LaQ4PBV3TwdIiyZNlad6vVc6qrWE2eui7fdvkf4yMvTrP6CPT5hgZbSGrmoGDB4/HHyt/ldH2yvBlj5P3ee2zWQF6FIVw5XnCzO+A6wsTG0r39I7nyskDrUC+9lxihyZ6fQauHqTcxK+Pojc6l66PWSN6xzpnKC+JnFqtPRi29ODfar5dGBJTJiT3CKwtlC06kFPikOmZkUuGm75CGaXMZ02fRabVu4r0lFvnrzU+wGZ3jtB/iEVRbl8vuFnjIBhphgU8lFwHPguchA==
+ b=JQcboAr+bLJNz1DWh0LTohKVaD0JP9hytywMoHOOJzQmgVfHSrmHbEKxF3InPOuupqRyJ4HVw5PDGgWuPbf3gS3NaowbJ7dGCQKnMbmwZWbfYygyAz/9HAw3Vf0nrh7qQJzFIlgXo3KO0ssMCiKPiMU9YFOcsbC4wa+TGvZ5996wd+yYOf/2oT0zx+wb2rZs/eISII+mmdA6HaDFNQgQpeI0aUmKdWa33hjSzzVarSEffaz+4L9TfTHsCduca2Xl5kltIQD/3ywS6+DYIThLpcEUHny/3E4V8cPM2roFIsLIQ2Rh7Vpvjh32s2l9npkr5eXGz5BW4/JiDOJYBrSUSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YJy3EIPLk9eWpIIwGUmrVB7SkTiDAXZuHl5SQCT6ZMY=;
- b=eZFWEJuMQT63vDXecTupFDOQvf49kYsm51NlKHGx6bY4XslN24Gl0+HXlvsacZvWpQtkPumR8PG2FC9so+NEiHWCYh9oKrRdhYkc8x0QKFNlOAoNij+IEk1KMuzycvnI4DrFHVAw0lFhQe9OQkpSE1J5TwfakNl8b5e5L4fdV80UDsb9IvZgPajX7YqhO45J3pKkWJEF+asLctwtWt1puCrxAmD/8Ne0AkzM6gEGDNx5MUe9upo8UKiOKHF2pDSR1anjSiVMOpF2na7mSLytwPWMG7Lq9BdhHBEhnO78Ll2+DfaQbSjVQ+z4gOjSqJO4eUdGFMSZBk8ueX4hoLoktg==
+ bh=zCX7QhfC5sqXYjNMsiL2TGAG7/QLmXifJVxhVgsG4yg=;
+ b=dQfXsAG7nIG0wZuF7yVuHGpXQagAKX3oxTxP9RCoMKipQ4HdTh7nsLCqNxykaVLjfo1vbvk4LANnQDFfty2EGifxxzTSm8JlKZOu66U0qHkLaI49p2a7pdalk0fwJgR0jzVNlQUEpe/PctiwfD+jdLEA91r7s35ddejiDd2D7E5cxeFMMAlRCsBGLH+mTRkOUQMGaW6EkFitdRAKpiaWokvYKMpF1z/fiXpays3xCCrSIDB7+lbl0DTLEl3/Ez6yiqYdJdmIbIwE2elLl6RHWEgo512DHEqYp2ulDNPN4RJhxOm2pGfAIJu0QFlfvpEKxwH7lVH8qSJhi7PlXma81A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zCX7QhfC5sqXYjNMsiL2TGAG7/QLmXifJVxhVgsG4yg=;
+ b=g7saD8SmxjSIp0uF9lF8n3fFZdgjd4DiT5fInjN1PUiUE6QyqjAZ2W0h0zcr7Ewom1KUVnbonU1WKK3W6u4vryNwCZp8v4eNyAxM7wvPdSw9DjTo0/0hTucOiCOIpegBpNtUVY4D2rceGb8AyB0I2qEtk01YIWbO5pKjzmFtZ8ypgJ3j5LW1R1+8V0LpzuoP9j89YA7Bslk+H+JMeyRHFsFnmwvXFL7KlBaoK81wAS1NbMq5gISQ5NOMDRx59H0had+TMjmJDT70GPjb0LqX0r5Iu0Ms0IzrE9mosFyrCNJGUDDhud7VrlKsl6vF+EKBMe8RCRQJpvG0LPM01PHQZg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PNVP287MB6090.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:34c::23) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU0PR04MB9634.eurprd04.prod.outlook.com (2603:10a6:10:31c::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 13:34:44 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 13:34:44 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ 2026 13:55:56 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 13:55:56 +0000
+Date: Mon, 14 Sep 2026 08:55:43 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH 8/8] media: qcom: camss: enable only the stream of the pipeline's virtual channel
-Date: Mon, 14 Sep 2026 19:04:16 +0530
-Message-ID: <20260914133416.1030231-9-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914133416.1030231-1-hitesh@ebytelogic.com>
-References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN5P287CA0003.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:262::11) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
+Message-ID: <aqf835LdzdNZR8rh@SMW015318>
+References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
+ <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
+ <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
+ <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
+X-ClientProxiedBy: PH7P223CA0008.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -63,245 +84,150 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNVP287MB6090:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2384936a-6657-479e-8324-08df1264efd6
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU0PR04MB9634:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa3d1cd3-a6ef-4643-51a4-08df1267e629
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|10070799003|23010399003|1800799024|366016|3023799007|10067099003|5023799004|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|23010399003|1800799024|10067099003|4143699003|18002099003|22082099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	p+MuidK+01qsx12Y4/enF7VPYsai7xY26PyMWN4/fYb9ComOmEExy39VCC40HKP9MZ9cfoWYx+DyWBBwhBOReC+jjW2CeHhFJXQJH963wr1akooI/+H4yrQBdfzoKOMpBWDMv6/12eJirqzi8QxFDNuPw4HVajdnXBXcKyRdeN78Q/MFVOtYd4/GwVSVOtJMNaNsLTaiyjP17nqaXIM7OebWRIGhBRidIXlBjmgma8YT9cntXQS6jxqtNDOohzPjGqbCMpRS65Ol5UNXP947Rh+sKfFVS2vsFX//H9N/TIuraAtQVCLtbwwIla6XfoNjDS8RiZkK/zHbcXHn5X4hUUKDCjXkLZKH4YhgF9zKBilSSouDfhs3nXaQdbkkGiuOikFbdmRF7DcrNOhn3qDODkakPu6XQgm6m0OK0bWAJQv3KD+G+nGsApG7P+DIc49A+6Rhz1UVwREl1qY30Jytzb7xmBHbWMcDGuDkInBFbtiT5lelKFo5/97iiILTlckBiMSldtGIrecIzQ5U9aOJrjd03WVE/y8MVpEaDLOmk9WOW2+UigD8BsgGPsr07YOLUYdphfT33v+lXOTN5MOcFS6fwnz4HFyH+aO/ty2We/kqKaTZ4b/h53IHn8BWC1XiQv9E9POfGRk69Q+F5JEaOrXiiO/+9FhwXBQp3DFx8YI=
+	oCcEsB2Ex93kxj6U/Uur5Q656B+qW9U6tOzhrzmFlzvBxgv/zVl2VM7Dg6dmRAZTPan1kix6ekrNRr4NEdWhI9X4rCpBBvd5PksFX+1rjIn8z02raScU6GmrAH3y7apvPPKMqb1KATvdAQwt+cjHenx/UkLIVjdYCLqf3WWQKs2mpHJqP6mu2MC5nD3Jj0Nl/aL22ryXtyHYgdcZR61XeLsm6vU8BjmoR2WpkrvSFtXKjPc8jOLBdM2w9bhCbUk5DpasJEGdhIMZzYaKg6EmI6MBSVjVumDes46gsRJAZpDYXRQQYANj2fjx2NOEK/M+hgPdz7JlQHJMJIxJvM+XgvZPsQ9KmKKXSnnwfWaG5xRb0/GuX5yQgiHgyJz/jQJZaZ5Jnq1M8A4tegNasWwl2kl/YjmeNP00ax3ynBl1id96Uxud6TBK9wJ3eHnUEZhiEArkH+zxndAxM+6gvdi/5zX4zT40zvaeoOMPXyQAMal93YpxTp7NuZzmkFr8J4vlfCcCT38lpil1iWcOsZzKcxQFG/XAWib9aUT9DjezrJ1SwyVHH6TwL9i57+1fnNVx8GnbR1vfaNL/DTCnMW2n0KqcKG1dRzkgUOb5+UVOfZiSuPfOh5cRnNsjJrRQDi0EFzXJo9VOlToWLAuAreerRXh2CTxedVNSR2u0aUi7cjc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(10070799003)(23010399003)(1800799024)(366016)(3023799007)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(23010399003)(1800799024)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?i3z242yvIfhowLvh+3Al0jWZ/zLqAD3OohhUGqv1syFfVbTv+e0ucuRfiKs7?=
- =?us-ascii?Q?yCaLPoo+INlyEByEmeZziHwGO6ihFpnQYtWv9Fpwi/xGi8J/VExeSlEyiZH5?=
- =?us-ascii?Q?wrH6I1ieKU/UOgO7GHAyB2P+ftBgu2guhbgxl42ZmRHcLMGa6q6h4ZAXpjN0?=
- =?us-ascii?Q?NKnUbYckRwDCB5cUxu1KJ7lu0OKr6ZyyP2XKnusjf4hkMB4q2rVbVQJOoROI?=
- =?us-ascii?Q?GB4j3+zLSIY1QCj1OnQkKwOmEwMIcm9kQgevKj7/40bH3A/6kqR1HLWVSkLd?=
- =?us-ascii?Q?Y6SwcLSgRfCoyC5vOoMH2A36qQebFoa0zErpguN7SCKiuFO267SHMUC8gnMw?=
- =?us-ascii?Q?9raocw3z6/nBw4m1jYhWnCWbst88VO5xjnQHesupeCf8D1LQeMRcYlZojH6S?=
- =?us-ascii?Q?EdnA/kiZVsquTsotkU1Y8xvM6RWafjmtTLZpJ2a3hjUWvwI1j25znuWBmTtF?=
- =?us-ascii?Q?NrVNmbW3YNKFiJJNbkcfgDupsn7SGXMb2+HKTqKp657YO2ZUPj7ku7MXYrEm?=
- =?us-ascii?Q?ePZS4MA9P/Wa9h97Z19cyjRjZqAkXJNp3qvLeQTac9HWDofm4W85k5s3eOJr?=
- =?us-ascii?Q?Gp5TLc5xB82FGRKQZHnevhCIotljd5M+FayCDUWU/JHPhIV2zn3Z0USHF5mk?=
- =?us-ascii?Q?DsCuFhZ4w1bD/IsBhhI4s41gE4fmzgFYP/ghjBdetkkDNxsvMhJZL0DtFe4T?=
- =?us-ascii?Q?Qr94Y5SOeKPUkP3U5KLC5M0RPlY72A7lMs6uVljKNTiU0eb5gWq2yTkILuaG?=
- =?us-ascii?Q?Di8nqTyXwp5rKEeCAFynA3HjdelHlidpc1XQwE0zBTKntKXJRICKYh9Sw5DB?=
- =?us-ascii?Q?TMBh9SWs5leEkwTEc8C/Vemgwqte6yWo1z581n2hglj+32KX9+z9e02RVycE?=
- =?us-ascii?Q?MvPTYkzCtoxWgFOsyW636CnkUAJwZk6399XaChtpMquZbk+hjE20aZmvY2Ud?=
- =?us-ascii?Q?plBDFRB/x2cIHG1rQmOwfkOyBsXaZnY0/fXWUK2KWFupbpWLrTnCaJPYQyzj?=
- =?us-ascii?Q?RWy16oDD1mlqkJdCbp0qbVDyeB912RUJUmbrPW0z2MUyG+xus3eOWKGwiqSR?=
- =?us-ascii?Q?ukET2nSuQfi3l6CdNcKW+oQD5pvWZWCG+P+8kIr5IInwX6HxaTDrJ5ytVWPn?=
- =?us-ascii?Q?1xGVy9PLxaQ10HH7ItKHf1VH3yxbhJxOwuZ7HbjVzqEFNtne0J/rmDIlTpVr?=
- =?us-ascii?Q?V5XRquHm82dN+4V1eKlrqZQdH+M9hYVBgex5J1kLozxWVAgJNQKrCbwQwhPv?=
- =?us-ascii?Q?11I8P66Cr0AP8rB7qdccDpQSXdBaiuCxQPVDFOYr94R8cfQ12TEi+6oVFMEg?=
- =?us-ascii?Q?LLD+NkSq9jDZHZW0yGl22jIDWCuYxaeICdEmcSjQDBkmA+5PpcumR1i62G2u?=
- =?us-ascii?Q?Fwn4ycY0xbBkREZT0apKd5F/M65vw2eUQJ6sECZYZiGlRx/DfAlIJJukTcRU?=
- =?us-ascii?Q?QId2iW4R9yw+LSd3705Mt9bVRTPbTly5xwF88oFqhm2b9m3xK8cyo22fM6nJ?=
- =?us-ascii?Q?GAxsN4bF/w0yAZanqDVYKAop7PB3mW86U5N55K3Mt+4MP7ZILl2JZTlTPH6V?=
- =?us-ascii?Q?JP+nI1PgZzIaJvf2ngcir1cjpJzvQD0mAkLHReqvJ3RIEFogoZNrVKv86dg7?=
- =?us-ascii?Q?JZnYpouJ5vobgGuvQWkkKTsS7GHtyVes0IiAjhfGyKZBN7bgFzTn/uFYaLU6?=
- =?us-ascii?Q?36pJbYdxwisZzaPgf2JE4XX3gkoL0ZnciQ2TTDkUiLG2u5N65oXrKTLJVNfy?=
- =?us-ascii?Q?kjQo2QGv+wGCN5uXmfsmHpCpeLxw0H8QXAdGMvN6JSLZRFvR1OHeWuIUxvzw?=
-X-MS-Exchange-AntiSpam-MessageData-1: maCj/O+an+VztQ==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2384936a-6657-479e-8324-08df1264efd6
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+	=?us-ascii?Q?b11huIWGVDxCZMvoiM3+T6R9Z4yqYbRiIvknUWJz+btYIBGE7qbt6SzKxVmi?=
+ =?us-ascii?Q?8i7Aeu0f7twj1WeCJL4bzAqf0/PT39o478e1sosRTVcdbnKV3EGfBCtgNI4o?=
+ =?us-ascii?Q?lSus6jfBZ/ExXcD2B5IkibJCGffTaY453J/y3Ua4z5a3KvtMuIvWJiqyWh6q?=
+ =?us-ascii?Q?YeLRztPkf3QpHkCXhf68Twjm4BE6K0UOiEUz+3ZSAg3Qk3ZCN2ZZQxH+FVZp?=
+ =?us-ascii?Q?E1g2ifY5EBsXd/qsXwZuzTYE2vBwRWgfjwNxgS/mutAnw4et0FpoFCPo+REA?=
+ =?us-ascii?Q?e41uiq1oavJgbNQ27NJyx95lvql3t1OJSccUNKpfCvr2pXjEBOYZ0cb2A/bW?=
+ =?us-ascii?Q?ee//zOE9A6eT6lZk4J1cmwo7O2qidyvgMCYh0jq4oofBuwtRvN4xs1x1NlVW?=
+ =?us-ascii?Q?XcvIAj8qOWq0GqgBY8MinvqIWcXJvL4JKxLx6dCE7U5QPhcHfBJiIYXHbhjM?=
+ =?us-ascii?Q?MdwKzVKulvDeuivwkrEq93Fl7ae7KKdVvRS5vIP4PgpjYY5We8SsAUXeCuFK?=
+ =?us-ascii?Q?f6g74zfVOp952I8fVqrOrM4Crkfi2SS0BppgzOmEfTKC2A11vlqQ24Qu3u3c?=
+ =?us-ascii?Q?bLq0k2Enqn9bLeAAc+jilA+K/RdxXRLZcj/BWd0lc8Ra3k4W2XaanaIeSMke?=
+ =?us-ascii?Q?854UEAVRPX4jsb1WoN4u17T/nEErWbOa67KUJXy2mMlFwqePHt19znT8m8rV?=
+ =?us-ascii?Q?ugEOjDClrEfPp+bC6qnWuEkiRCMDy/FjLUfx7TK7Qa5JxLVfcj6aRgnzd0ib?=
+ =?us-ascii?Q?CF05+VTDLApADVz/7t++hfLWoH61xGZJUoO9CWGzVUArdS369zyO/ZFEAIjI?=
+ =?us-ascii?Q?nG7p7xkR8mTik7ovDGkEpgTu7wlk/1fYpIdzgM3Cy2+d7IThmdK+pX0hxg5Y?=
+ =?us-ascii?Q?h2OQxaIkVb+PDGPOhHAoZWda8M7qxbNEQvfL5l7FjdF6VQTB9f+uJ5Ztc+iK?=
+ =?us-ascii?Q?rVIWUfz7jkEi/ZCOOkNExut5kJkmeoWbochi6aPAkyDlVvLlUvVbilsqPbMT?=
+ =?us-ascii?Q?t+7+zYNT/y235ilxG1vD67SkFH5xF/r9yQqJcX7fbYtvbnfuXvCpEUptIPML?=
+ =?us-ascii?Q?x27Y4StXiDltoQscNVLnDXBeWKsKM6KspEWZd8Bd/gYnjDczyeJ651vDmoM0?=
+ =?us-ascii?Q?WQ55zQDGIiUqr3eBLvji6IW/mlH5i7Q2aMorEATddhkhiVX3VkGjuAKe/E34?=
+ =?us-ascii?Q?x8WfjZeoubvgpGcbgWybbn9KsC+UJ8nLqP7QT52ADNK1HgDJoYKeKp1kHn99?=
+ =?us-ascii?Q?vBWeuWlvass83EgbVJ2zFJ31ka6uPGo3IX1aqBavT8k9y4L0HNZzReJJs3v6?=
+ =?us-ascii?Q?kfRyJAnUWxyvBRxIVLoQjAXehqHQsoYgvmKpjA2ZSTKjwByL03QAKtwu+Xqj?=
+ =?us-ascii?Q?cb942P6qL4rTy/smjMFP4+BltzavT0xBpY5y1WlstAQCW26V+hAhd4IJhNBa?=
+ =?us-ascii?Q?2or+x43opsigpSmqkq6hfBSYHhhyLIzmJCWYHU27ptGRQLSYRmbY8LILZdpu?=
+ =?us-ascii?Q?jjO9JOuFLJYal/1DL6N7b5H3+UtU5QWjeWaXuVEt6eIwzjOvUzYPCZzmEE+t?=
+ =?us-ascii?Q?qbSBzYhkh1uztduUSryNPLPrcSkTv9SZ8pMV9mXgEBQAhKZ4F/fMGiaMot9p?=
+ =?us-ascii?Q?aH0so0bp91z7vcpMJe1nyZGqZSe/W5LQH0c+nZVASxDazmEL357v6dQF8Oe0?=
+ =?us-ascii?Q?WXBZlYSvJAD50zwhDMqyO0LcMAM+OSHiZyEqILPpV03nE+odGEapXOu4E4tz?=
+ =?us-ascii?Q?RCaEjYeIT07BW2PtKqa7BSqXNQEAX0IkVhRO+j46brX06WecScKx?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa3d1cd3-a6ef-4643-51a4-08df1267e629
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:34:44.0983
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:55:56.5104
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +njrh7MaWu+VJ/4AlAhupDaEXIoXE1VNJG27vNy3ZPGiIU5c2GqzKIkXde5onoAFTdPKA8y1zZmmI0N8MnPN/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNVP287MB6090
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1e/hqwwRLfjBzIwRhn29HjiCv+2ivlZVnqZkYbgioUDnAQlfqCTJA5XJI72zJm9XiH+TTQBfuCeckibsuI9X8OI/qxt3QfwlNtSTtRNXRKVi6q4iIKepdlcY+lxQADJ6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9634
 
-When a streams-aware transmitter is found at the head of the
-pipeline, every stream routed to the source pad the pipeline arrived
-through is enabled at start and disabled at stop.
+On Mon, Sep 14, 2026 at 12:37:06PM +0100, Bryan O'Donoghue wrote:
+> On 11/09/2026 21:56, Frank Li wrote:
+> > suggested subject:
+> >
+> > phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
+>
+> A pattern I try to encourage and role-model is making fixes very explicit
+> and obvious - frequently I'll ask people to prefix their patches fixing
+> things with Fix.
 
-That is right for a transmitter driving one camera per output pad,
-but not when it aggregates several cameras onto one output. A GMSL
-deserializer can send two cameras on a single CSI-2 port as two
-virtual channels, which the CSID demultiplexes to two RDIs and thus
-two pipelines. Both pipelines then reach the same source pad, and
-each of them enables and, worse, disables both cameras' streams:
-stopping one video node stops the other camera as well, and
-starting the second one has nothing left to enable.
+Generally, I got feedback from most maintainer is
 
-Identify the stream a pipeline owns from the CSID it went through:
-CSID source pad MSM_CSID_PAD_FIRST_SRC + n carries virtual channel n.
-Remember that virtual channel while walking upstream, ask the
-transmitter for the frame descriptor of its source pad, and only
-enable or disable the stream(s) it reports on that virtual channel.
+	do something to fix ...
 
-A pipeline that did not pass through a CSID source pad, or a
-transmitter without a CSI-2 frame descriptor, keeps enabling every
-stream of the pad as before.
+"do something" become more important. the most maintaniner dont like simple
+said
+	- fix build warning
+	- simplify code
+	- fix UAF
+	- fix memory leask
 
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
----
- .../media/platform/qcom/camss/camss-video.c   | 45 +++++++++++++++++--
- drivers/media/platform/qcom/camss/camss.c     | 30 +++++++++++++
- drivers/media/platform/qcom/camss/camss.h     |  2 +
- 3 files changed, 74 insertions(+), 3 deletions(-)
+I think it is reasonable, git log --oneline ..., if just list
+	"fix build warning", which is hard to locate patch because there
+are too much "fix build warning".
 
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 90f22ce76..a261f7692 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -253,14 +253,39 @@ static int video_prepare_streaming(struct vb2_queue *q)
-  * video_source_pad_streams - Streams routed to a subdev source pad
-  * @sd: Streams-aware subdevice
-  * @pad: Source pad index on @sd
-+ * @vc: Virtual channel of the pipeline, or -1 if unknown
-+ *
-+ * When a transmitter aggregates several cameras onto one output, that pad
-+ * carries one stream per camera and each of them is a separate pipeline here.
-+ * Enabling or disabling the whole pad would start or stop every camera at
-+ * once, so pick out the single stream this pipeline owns: the one the frame
-+ * descriptor reports on the virtual channel the CSID demultiplexed it from.
-+ * With @vc unknown, or without a frame descriptor to map it, the whole pad is
-+ * returned, which is the case for a transmitter driving one camera per output
-+ * pad.
-  *
-  * Return the mask of streams of the active routes ending on @pad.
-  */
--static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad)
-+static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad, int vc)
- {
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_subdev_route *route;
-+	struct v4l2_mbus_frame_desc fd;
-+	u64 vc_mask = ~0ULL;
- 	u64 mask = 0;
-+	int ret;
-+
-+	if (vc >= 0) {
-+		ret = v4l2_subdev_call(sd, pad, get_frame_desc, pad, &fd);
-+		if (!ret && fd.type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
-+			unsigned int i;
-+
-+			vc_mask = 0;
-+			for (i = 0; i < fd.num_entries; i++)
-+				if (fd.entry[i].bus.csi2.vc == vc)
-+					vc_mask |= BIT_ULL(fd.entry[i].stream);
-+		}
-+	}
- 
- 	state = v4l2_subdev_lock_and_get_active_state(sd);
- 	if (!state)
-@@ -270,6 +295,8 @@ static u64 video_source_pad_streams(struct v4l2_subdev *sd, u32 pad)
- 		if (route->source_pad == pad)
- 			mask |= BIT_ULL(route->source_stream);
- 
-+	mask &= vc_mask;
-+
- 	v4l2_subdev_unlock_state(state);
- 
- 	return mask;
-@@ -325,6 +352,7 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
- 	struct media_entity *entity;
- 	struct media_pad *pad;
- 	struct v4l2_subdev *subdev;
-+	int vc = -1;
- 	int ret;
- 
- 	ret = video_device_pipeline_alloc_start(vdev);
-@@ -350,8 +378,13 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
- 		entity = pad->entity;
- 		subdev = media_entity_to_v4l2_subdev(entity);
- 
-+		if (vc < 0)
-+			vc = camss_csid_source_vc(video->camss, subdev,
-+						  pad->index);
-+
- 		if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
--			u64 mask = video_source_pad_streams(subdev, pad->index);
-+			u64 mask = video_source_pad_streams(subdev, pad->index,
-+							    vc);
- 
- 			if (!mask)
- 				break;
-@@ -387,6 +420,7 @@ static void video_stop_streaming(struct vb2_queue *q)
- 	struct media_entity *entity;
- 	struct media_pad *pad;
- 	struct v4l2_subdev *subdev;
-+	int vc = -1;
- 	int ret;
- 
- 	entity = &vdev->entity;
-@@ -402,8 +436,13 @@ static void video_stop_streaming(struct vb2_queue *q)
- 		entity = pad->entity;
- 		subdev = media_entity_to_v4l2_subdev(entity);
- 
-+		if (vc < 0)
-+			vc = camss_csid_source_vc(video->camss, subdev,
-+						  pad->index);
-+
- 		if (subdev->flags & V4L2_SUBDEV_FL_STREAMS) {
--			u64 mask = video_source_pad_streams(subdev, pad->index);
-+			u64 mask = video_source_pad_streams(subdev, pad->index,
-+							    vc);
- 
- 			if (!mask)
- 				break;
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index ca8101c2d..63cc81570 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4655,6 +4655,36 @@ static bool camss_is_receiver_subdev(struct camss *camss,
- 	return camss_subdev_stream_users(camss, sd);
- }
- 
-+/*
-+ * camss_csid_source_vc - Virtual channel behind a CSID source pad
-+ * @camss: CAMSS device
-+ * @sd: Subdevice to test
-+ * @pad: Source pad index on @sd
-+ *
-+ * The CSID demultiplexes virtual channels to its source pads, source pad
-+ * MSM_CSID_PAD_FIRST_SRC + n carrying virtual channel n (see the en_vc mask
-+ * maintained by csid_link_setup()). Walking a pipeline upstream, this tells
-+ * which virtual channel, and so which stream of a shared transmitter, the
-+ * pipeline belongs to.
-+ *
-+ * Return the virtual channel, or -1 if @sd is not a CSID of @camss or @pad is
-+ * not one of its source pads.
-+ */
-+int camss_csid_source_vc(struct camss *camss, struct v4l2_subdev *sd,
-+			 unsigned int pad)
-+{
-+	unsigned int i;
-+
-+	if (pad < MSM_CSID_PAD_FIRST_SRC)
-+		return -1;
-+
-+	for (i = 0; i < camss->res->csid_num; i++)
-+		if (sd == &camss->csid[i].subdev)
-+			return pad - MSM_CSID_PAD_FIRST_SRC;
-+
-+	return -1;
-+}
-+
- /*
-  * camss_find_transmitter_pad - Find the pad of the CSI-2 transmitter
-  * @camss: CAMSS device
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 00b8d5304..14a7c737e 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -169,6 +169,8 @@ int camss_enable_clocks(int nclocks, struct camss_clock *clock,
- void camss_disable_clocks(int nclocks, struct camss_clock *clock);
- unsigned int *camss_subdev_stream_users(struct camss *camss,
- 					struct v4l2_subdev *sd);
-+int camss_csid_source_vc(struct camss *camss, struct v4l2_subdev *sd,
-+			 unsigned int pad);
- struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
- s64 camss_get_link_freq(struct camss *camss, struct media_entity *entity,
- 			unsigned int bpp, unsigned int lanes);
--- 
-2.43.0
+>
+> I'll split the difference with you since now that I read this submitted
+> patch title you're right, it could read better.
+>
+> "Fix race-condition between _of_phy_get and try_module_get()"
 
+I think it is fine.
+
+> > > Sashiko asked during a patch review if the existing usage pattern had a
+> > > race condition; specifically in of_phy_get() if it was possible between
+> > > returning from _of_phy_get() and running try_module_get() that a module
+> > > might be unbound leading to use-after-free.
+> > >
+> > > Looking at the code this appears to be so, there is no linkage between the
+> > > phy and module under a synchronisation primitive.
+> > >
+> > > Using the phy_provider_mutex in phy_get() will ensure there is a link between
+> > > the returned phy pointer and the module_get() bumping the module reference
+> > > count.
+> > >
+> > > Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
+> > > same usage pattern.
+> > >
+> > > phy_provider_unregister() must take the phy_provider_mutex so amending
+> > > phy_get()/of_phy_get() to take that same mutex guarantees there is no
+> > > use-after-free.
+> > >
+> > > Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
+> > > Cc:stable@vger.kernel.org
+> > > Reviewed-by: Loic Poulain<loic.poulain@oss.qualcomm.com>
+> > > Signed-off-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
+> > > ---
+> > ...
+> > > @@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+> > >   	if (con_id)
+> > >   		index = of_property_match_string(np, "phy-names", con_id);
+> > >
+> > > +	mutex_lock(&phy_provider_mutex);
+> > > +
+> > >   	phy = _of_phy_get(np, index);
+> > >   	if (IS_ERR(phy))
+> > > -		return phy;
+> > > +		goto out_unlock;
+> > >
+> > > -	if (!try_module_get(phy->ops->owner))
+> > > -		return ERR_PTR(-EPROBE_DEFER);
+> > > +	if (!try_module_get(phy->ops->owner)) {
+> > > +		phy = ERR_PTR(-EPROBE_DEFER);
+> > > +		goto out_unlock;
+> > > +	}
+> > why no use auto cleanup guard() for mutex lock?
+>
+> Technically this fix would apply to kernels predating scoped_guard() -
+> kernel 6.5 v Fixes: @ ~ 3.13.
+
+DMA engine already use cleanup. consider the same maintainer, I think it
+should be fine
+
+Frank
+
+>
+> Not really sure how far back the cherry-pick will work but I'd like to give
+> the possibility.
+>
+> We can always sweep this file to use scoped_guard() on tip-of-tree later.
+>
+> ---
+> bod
