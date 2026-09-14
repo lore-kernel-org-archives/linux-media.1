@@ -1,96 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6E83F5BDB;
-	Mon, 14 Sep 2026 08:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7423E5A03
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 09:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373426; cv=none; b=BWGBQ+YF72VDOaIjYpgBBmTMqk7O3CMoeIVh59vvwKGE6sXX1t7GUjrUzUztwoueDVMRLpOXw5RJJQy3mICzZBL7cm600cDjwSZuJq8S6qiRbGY+6K0KUaGVGnmdVQkE6KI/3AemTkPZZLaWzliPsN+gsI7ewVeCkgpazz6/7+c=
+	t=1789377293; cv=none; b=aGObDIGBB+8BYIQrQrmL8HxsW3ke7lWsy/4YGiFLRuTWdgk1102fVBF4aUEOWzGBp+CByncA+73vJ+uhjV2ku138O0h7w399wSAzbn5ALxN5TlNO5qJQEm0Pq/G+ZB8Fk5dhOmtR3esn47ke/wt7QW83NCsRhAJ0Y+546xU6JLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373426; c=relaxed/simple;
-	bh=+uFwpByf2LCo/+vxMzKp8oQ51ZDMbMXPPhDKZXRiZQY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=niHSYMCZej9yYJklVScriIGwbufWvaqlDCZJy+jOzYf7+5OtiQV6YDUprzOXM8vu6xaXgk+Qck3GyX37qdZy+Gt5Ac+JEnDHrVlcSyvMgkT1j8QU71P3y0o3/8/ulo7J5x/H6uKeU4ekzu+vXhNqaKxOtg3NxPrahvg9/dCa6Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxTK3Whh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789377293; c=relaxed/simple;
+	bh=GpQvmXJKaX/jCUsCqpqIRB1D9KEM7Tyldr2xTwaFULM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W6hNLK5Id0xqVcYEQHN4gpdTenLoGT9dqyulexLTFfhIHymnGoooIkAx56I3uqKXJKMHTkWcHNzM+5ctxJUw8bgJh0s21xDN+C/SPreHHSNUYpky2nqcyaDS7sfIdhp9HOxBDj0pKMubFnaE6uMI21wSWfSbO1OAWtD03113MbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=DoXVc4TO; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxTK3Whh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 15A2EC32781;
-	Mon, 14 Sep 2026 08:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789373426;
-	bh=+uFwpByf2LCo/+vxMzKp8oQ51ZDMbMXPPhDKZXRiZQY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MxTK3WhhxmnmvutOY1LS1+cudz2FGTHxgRpwu8AU8lA1G/H2ch9N+x++pqB6LT66v
-	 2kaYHjSNID2pHjjS1qeViUByWD625keZxphF99wJUH2ZJAgLRmKGxE4pjJ7YumBo+S
-	 PzB7+cqP9/w/a7Kf1ASb4T8RcxHgSnUXr+0P4EzfXFwr1KqL3UHSV1LHNTqIq4r0PG
-	 yF6fY54scV1lQV2xio5Qd/LPNXOcQJ976W1DSHychC6YRsn6aVC6VcxbjeaISMPNR8
-	 xyRSUpLTqMROEwMOWdgYx/nmCvfgv2ELJbMOu7Zvz7ZsL9/ZNmyakRH5uAf537SC5E
-	 39QK/UWS7/atw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0365EC88E50;
-	Mon, 14 Sep 2026 08:10:26 +0000 (UTC)
-From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Mon, 14 Sep 2026 16:10:23 +0800
-Subject: [PATCH v9 6/6] arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="DoXVc4TO"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so21906215e9.3
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 02:14:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1789377290; x=1789982090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=swXbAXeu7dbjlR8kjOxhq96ObvL9yW1PSiyfjSJ6wxs=;
+        b=DoXVc4TOC2HjL/M9ZoRzgwxRkO2/1ssSqaLALgbAeMnlmpuy1fsw3Lgi2LSgsKz0z+
+         WpCBric22a3rbE7PSsf/mGYj3tVucy6Z+p41m6A3NZ6kNprbidrLKeyiZoYw0HPbPGRR
+         3e+qMEmWTfuVLzzxN9iVD6earjA0vL3S/tEglJ1TY/C3sp9AlTZu89N/IjcWqTcf7K3D
+         yjh4OksrgylSOVS9hV8Mg6K3p1gbaayNi3EXtJj8AFcanxHXLY/CdfxtPsBqnS2CQ9oW
+         GYjTblpChl72yBvYsA3UMMNH8h9K7lio/i/PO0zd2K4p56S6Sw0RAHxAF14C64pvtm2Y
+         oHNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789377290; x=1789982090;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=swXbAXeu7dbjlR8kjOxhq96ObvL9yW1PSiyfjSJ6wxs=;
+        b=TJAVKZC7pPW8TcQbg0DKtuzT6JP2GAgRVmCAnyLHrflOICvou2oPzIA3sACaMhg1Ua
+         z9/6Vtt6bfxeHOjd68kEv0oWNPdAr1AZEX2+DP7vFgjGgzRc6sq3+Plyl49KE4k6Uzyg
+         54M7krsg+YB+32OxllmEnaJo5rBfBeR+igCR0eTsHFJ21DF2SH4RrF556GCWBRDJ6T2m
+         xdYme1Ej6rjKhwwpjHp/3uSPcezFvqGaHPS8d/ToqgwolHCL5I5ro0LhctUQp+u04Ixc
+         Mm/D+rw8FFUtu4Mgjcuk1dFyqxz++tyiV+hvwx9kNS5Ctp2B4MDlpu0I9MuTvl/m++cP
+         B8eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzRrgUxqJ3rznmfgJwb6wpWeLx6OAV5eY11riDYivB3em8vnMUaYeiY2bhWEytomFfI3/sRmc/GqG/eyw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kvO3Zw4rRBvesT1EYISLnb2Uiuai5Jg/X0MvVrVIdRiiNKkJyB
+	VF+07NM22lSR0U+UaUZMPPYDJkATPd5B3oxwkuh5wHcbPqNtOEZgbj5/
+X-Gm-Gg: AYBFou3zx3OqAqPxsjR23WiCaT33FfX6efArmTPN06Gs9ciz09Gm/e3dmk3IvaHQ7ue
+	d6cnH3LgjYwPsjhwi5rFaEpcbjSVMq7HKPrV4o7QL4k2d7wbda22r6SFe6/z2Pb3kEeXOlO2ppn
+	I2mSARxqZTpK3pVS473CYuvFcsOUpChUtvSOvom50crTtv7cW4e/kRYeSpaP/Oc1BTlpEDwHkhU
+	AeWW0kq/W+zyvEqP5B5+Yw190/BafBGaxkLTs+6RinW909PORRO0Jhk9DINhT3F5mMJQjpRm/F4
+	M1+6uOnc5EYv9zMpWIcmF3uiXgRBMAds4ktnoYKG2yFy5704N3RLxtMe60y4bCvOTcRVHWOyZNI
+	iUgPqyqAmaWFbc+dhkRsowu+GowBQ1cSKgqXeNPM7YgdlgIWHf0aTJhvK63cdFYq5dRCFutJNAg
+	ZoVIBKSvb6sQE+yQqVyLfXRgL0+0KYw3FmbjAoOjaltZISBoukMKCHfq/yM0GU4nJmL+XEXH5YY
+	HCRZzdoT7BsxlMGcIzlp4+mwT8VmNvvqGWQOK9zWjGM2DyBAw9BupyCCyplAmnfN4EycDfapQ==
+X-Received: by 2002:a05:600c:a08:b0:49c:fc6e:a3d5 with SMTP id 5b1f17b1804b1-49e7a66cb16mr18300495e9.20.1789377289815;
+        Mon, 14 Sep 2026 02:14:49 -0700 (PDT)
+Received: from omarchy.lan (p200300dec74de0474f67e4b61f2de2c6.dip0.t-ipconnect.de. [2003:de:c74d:e047:4f67:e4b6:1f2d:e2c6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6aac22bbsm154490965e9.0.2026.09.14.02.14.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:14:48 -0700 (PDT)
+From: Manuel Knitza <manuel.knitza@googlemail.com>
+To: junjie.cao@intel.com
+Cc: miguel.vadillo@intel.com,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	hpa@redhat.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Manuel Knitza <manuel.knitza@googlemail.com>
+Subject: Re: [PATCH] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
+Date: Mon, 14 Sep 2026 11:13:51 +0200
+Message-ID: <20260914091355.148477-1-manuel.knitza@googlemail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908105717.496232-1-junjie.cao@intel.com>
+References: <20260908105717.496232-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-s4-vdec-upstream-v9-6-72fdb0d71b02@amlogic.com>
-References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
-In-Reply-To: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789373423; l=804;
- i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=pkxh5YjN/46und6BilAFWFBEvRqbE1Z6teriyhXV5cA=;
- b=CAyXaceybdAKLUeLU2d0HLWWUDMcmAoH1I4NhFQbtFxR8UL6nWQG2fnK9u29DD+O2uA5TnFAA
- 981k6/vvwhcCGondGMgxGoi+J9HhvGSCvsxZPV7hnZR/0F5abF5ignt
-X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
- pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
-X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
- auth_id=555
-X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
-Reply-To: zhentao.guo@amlogic.com
+Content-Transfer-Encoding: 8bit
 
-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Tested-by: Manuel Knitza <manuel.knitza@googlemail.com>
 
-Enable the Amlogic V4L2 stateless video decoder driver as a module
-in the arm64 defconfig to support stateless video decoder on Amlogic
-SoCs. The driver is used by Amlogic S4 platform, such as S805X2
-board.
+Answering the DA16260 question you asked in the ipu-bridge thread, and
+giving the tag here where it belongs.
 
-Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Dell XPS 16 DA16260, INTC10E1, ov08x40, linux-ptl 7.2.3. No spk-id
+conflict: all four CS35L56 amplifiers bind, no -EBUSY, audio works.
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index f0947c8176a1..d29e7bf5769f 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -919,6 +919,7 @@ CONFIG_USB_VIDEO_CLASS=m
- CONFIG_V4L_PLATFORM_DRIVERS=y
- CONFIG_SDR_PLATFORM_DRIVERS=y
- CONFIG_V4L_MEM2MEM_DRIVERS=y
-+CONFIG_VIDEO_AMLOGIC_VDEC=m
- CONFIG_VIDEO_AMPHION_VPU=m
- CONFIG_VIDEO_CADENCE_CSI2RX=m
- CONFIG_VIDEO_WAVE_VPU=m
+Note what that does and does not show. I am running your change, but as
+a DKMS copy of drivers/media/i2c/cvs rather than a kernel build - Arch
+derived configs cannot enable CONFIG_VIDEO_INTEL_CVS, exactly as you
+described, so the Omarchy packaging carries the in-tree driver as a DKMS
+module and applies this patch verbatim on top (omacom/omarchy-pkgs#418).
+So it is a test of the patched code, not of the unpatched driver on this
+model - I never ran that, and cannot say whether the DA16260 would have
+hit the conflict without it.
 
--- 
-2.42.0
+The rest of your analysis matches what I see. With vision-drivers gated
+out and the in-tree driver bound, the graph is as intended:
 
+  intel_cvs i2c-INTC10E1:00: Quirks: 0x7a (VID:0x06cb PID:0x0701)
+  intel_ipu7_isys: bind Intel CVS nlanes is 2 port is 0
+  intel_ipu7_isys: All sensor registration completed.
 
+"Intel CVS" sits between ov08x40 and Intel IPU7 CSI2 0 on
+/dev/v4l-subdev4, the sensor enumerates and frames flow. The
+manage.c:1502 WARNING from the out-of-tree module is gone too, since that
+driver never had the IRQF_ONESHOT issue.
+
+Thanks for the correction in the other thread - I had claimed there was
+no in-tree CVS driver, which was wrong.
+
+Assisted-by: Claude Code:claude-opus-5
