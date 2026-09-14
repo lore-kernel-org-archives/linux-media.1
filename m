@@ -1,74 +1,75 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9343C2D2487
-	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 01:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128C31E8826
+	for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 02:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789349837; cv=none; b=legF7tkWLJO2x1tdDo6Oa1UwF6hjC/sTcwFZCGt4SgLMU7NoeP72NoQS1U/zfwSHKlW5ClJNv4aUjZG2fz3oEJCP/J1eP+BKBb/AN55Gi+RpHAOJr86lHOJd5REYPqC66gB4GDdGXg0tKgh6ZPf6RSl8eA6d1dTjPAU/eKgVDLE=
+	t=1789352899; cv=none; b=LOAdJJMeA7CuG9NT+RfqOJtU+HFGiy0FtCvvw9W2/zGy0amHJAFED5otfANejns/XPmyAIYXNAfkSx5T5Cu5H2KhfgZ1t7pfh8giJElmIK/fr+v+5uN8A72UvDXI6RYZXv+LGgV0PAnIAio5hp056EHUFa5RRX/KwL7TpK6LE/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789349837; c=relaxed/simple;
-	bh=+v1rkjMl8Dk8F9b/8Yn4mlrfNxvrTeYq7/TR5qmLoyk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ls2kjNuvXWfpxEUpbSGrsh/XWN7Fp5SF93UZULmTfUmsvXPgPS5LgKqVgMznOqCEQ+qIVChvaUgci8s4L4yv32vDOQzgs25RRC2aD/oRBSUXUgL+f11bjM+R3IntUMAk8Jl8f+54U4zl2pgLP4CNvbFUKwsL9McD4QtILfXpTqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J25VJS7N; arc=none smtp.client-ip=74.125.230.140
+	s=arc-20240116; t=1789352899; c=relaxed/simple;
+	bh=usI9XZeqS68h+aQ09RC4HHK1fkirxcpzu11PiNKhG5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S34W68t9mQW1aH+uk8trE2z55YwfP6LGCDkZUDhQKHT2TqGCQW+9MPVoAb8gCyh/chHC9iFnmw3zvoIYjjBd65sWMF2ab/0otQkg1BRaw5WeVIaLe2w3ISc0DcsrDI8xh6Cntq7vgwutSn2QGDkf58g8wQPTNz9f6GQNl8UKYPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jT0NPb6O; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J25VJS7N"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91219376dd6so20591766d6.2
-        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 18:37:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jT0NPb6O"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-939e59ff27eso269921385a.3
+        for <linux-media@vger.kernel.org>; Sun, 13 Sep 2026 19:28:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789349834; x=1789954634; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789352897; x=1789957697; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/toox/sEIAgy69QCwA7fzFRnXlkL+BXk7kS7eLbkjDw=;
-        b=J25VJS7NdxxkZQhUY9ck+B22q6tp0P2K5wN+v8wgiLainKsx4S+hAB60bwELqtXy0g
-         EdCb6D9niNI8XXNQPncz0ow6FOb3HR419fS0EnFaT8YMOeM4pkOgVGmywPbJXaDygP+8
-         uR+mq2K3XGgG82hUxKn6vG0zw/DezL7tGkwKpeXtARjEsl/gKQgbdI2Wo5HBew7NpJC8
-         oVz6GSpjvsVE9F6UVJBICBmTX1B4rnGzwSqlmy3DLlw4oVg6hxgIhqNjCNhmq9c6o5Z6
-         w1/mS1z+3IFLqZ8YyxeF0AT/NIug25l/wb/6uefn8gxpTbGBThyC5SyhT6/uusmLpK12
-         +nPA==
+        bh=O+euEtVk/lOdTYTMh0Py4M4/UHpaSMOa7kpgqctZUnY=;
+        b=jT0NPb6OFW59yr48xpVHc1MPpgjxa29xUOEH4n7pdSaPeuvqbM3ytCLYHwmuWRi2vu
+         feYX3f+im/EcLdaz3i8bf7Os+7eqCc41/Y6pUvvR2aRw5wK+7PCfV4WOgOf0qi4XS2u/
+         X8yM7G8T/rOSdbDyc0zPuai4UVBmy2RypxgKtkeBtGPRlf6KdXFy/L08XlPgBINBBLEQ
+         RjZ4aMt8T0qerXaFBQBf8WvhenXxCJfSpum2tUUNsLymewB4XsXN9z+NpnKvrrwffE5x
+         aOIpJ5xOqlKWIniZLxjazqfLwZr8HnAdf6kvVl3lkdoI0hLEAzDENdNSIAUcfUYCdSKs
+         WXpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789349834; x=1789954634;
+        d=1e100.net; s=20251104; t=1789352897; x=1789957697;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/toox/sEIAgy69QCwA7fzFRnXlkL+BXk7kS7eLbkjDw=;
-        b=A/irnkFCpull43Q6qYfIy7QLMlnXdbINuj+st8OdnIuE/WphAcmE9ViydBQtsgqyxT
-         untGBjWzjwQNXeqSJncsbqrO3A7Pq3G8xSkffBVFBS8ltGnpg+i71lNNo21ku7+SoB+C
-         7N0uXr9sH2nxXVPIW6Lw2yxj9upky02osngIyI5NMwXghx1xkvCgmTJMHBWnEsBF2mqT
-         IyPhBF3RcpUtmLHB5P9OjV7zHFefcXYm/fngMnxRxkXYaR6q4oKm8gx9Ini5N5HEqB5Q
-         GTmhbYYJV7RnkvzplxqDO7qaE7XRMcv/iRMNov9mQ1oldj9WB2AoabWaIo/+QkPll/Sg
-         feEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlqq0ZyWk10Xw7WzxsM5Di30c0faK77Jz7Dm+cKf86zJ8UTeaB5vWHpW6ja1l5w3Du0x1qv/1P3nwteQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++lQ/70YH+VMymy0KQMnsoycwgnWVm6HZ5xfUBTJVaHdDV41eF+x
-	fqfppt4YSplmPdtKcohRtYQgyuulXacjXstPOlTpgl55z/yzUSoEJGM=
-X-Gm-Gg: AYBFou0ZeqruyiFX8Ys4aTHpAVqpARFOH55XJR/jrB2YWkmmhDp5rl3/KyGjnDJUuua
-	yacA4ViUdVQk5BndrTNeVkBFqi2GM7ip75tuVwKf2m3G0vcE7n+GWS9BMpLUwp2GIiSKQ7Bgg+b
-	lthFiBjoaOydHeAPOhmkIgaE/VWlX9Via+G/Pz7rN5Xc6KJ45TLUMgp0JaA4/6uVQIWzWhZ8DoW
-	X8ugRi3Fx7oUDrLLHNlE3lHot8mBz6ykYKAKs98IBqpfeIjicLFnExhjhE8QTwl8ZNnUpZ/Bw0A
-	GcXyjbiUWGsHw2hJ+hq4J/CBiRxedJcs+Ib2rWGD5zlltb7mtfEp4LPhB0PgKhC/dptsC4p/nIf
-	EX6mBTYh1Nvm3Dhp72f34sxY4KgKpoWQs1o2IAgWc2frj9hwpBA46w0rX9/Ky9N4YTbnCYhZ74T
-	aAhPrq7Xnkd9Lo1gmg4G2jEyjqkUO4OGzRes/pAulBRSij5PbguhEPI6vtsRCjhSQPA4EujTt6S
-	ApiRLEaCwfm2cVvnE0xrIYW/mW5j1Ermo8+4su1CQgoH4NPT693e5j/Ie4hw1g6sSHA7RZpYsUB
-	0kOWRTIHGzQZuKhiZV6n/+uAngxGPNITZQ==
-X-Received: by 2002:a05:6214:860b:b0:90e:9d05:b757 with SMTP id 6a1803df08f44-9122e148035mr9798376d6.0.1789349834523;
-        Sun, 13 Sep 2026 18:37:14 -0700 (PDT)
+        bh=O+euEtVk/lOdTYTMh0Py4M4/UHpaSMOa7kpgqctZUnY=;
+        b=R63kQx5JPdZJreEnRRQnfBnztIJTeWmz379BGlqQqPg8P2xEa2TwckTitCW7XXduKz
+         phxBeVCiIKPsA8Oa3kvCURyfkBHLi9tlynKtoA4D4YTMQMuyBdLXo5MNBFzqUNsNSC02
+         3YQS+YpAgUlSknuYnHefPnnymF/bDTWXlbhN8aPJU4dJodyqJOIHWs5qA/gChbAl1wB9
+         0XknfzUnZoNpkhwwtvqkTcW68fs9FGqBVmku/jnbp8gmY4CYBItqqpCycvaVINU4Glii
+         vG+Wpn4xOYJwU3eilSxXKKmxlQgDVcxKAygTZFNZOWf3HEpTnmB4mQJymQMebaATaEf8
+         KwSg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9e9c8MwUJSwT0MmpPLiNxwdEvVKXqvuULJHbo72ytG4FgrqgoSt02XlH97X4AVT40rRql4nqwlIuQtw==@vger.kernel.org
+X-Gm-Message-State: AFuF++nESyibI+S2tkEVT2QpvsouUXkYdup670cl8cLxxk6zT09psnIJ
+	UtJm2hdhHhgd51c/zKDsm9mhtsnn9jWgpiW3JWAmfTQ9f38J2dSsDOvrIhJkwFFvQrxf
+X-Gm-Gg: AYBFou3uC+5C5hP222t5PkuD9jRg/TUG6vJcdylaVberxkA4PmO/2kts/1wl4+iOfuo
+	rYYxyL0ledDLkDwY4o30RQA7cn55CgVGHqEqjYvvrRYr1expqsGbun1awXBl07hMoEYFaBHgzPO
+	YQbFOGmS9lqBFgixAv3EpE5tZOsd+xFAvRYNySI2vARyijnApChw45LNeXWG0AD/RQoES9JwPu0
+	98VrcOUQzMkTNFeilyPQuwkb3Lcqfaiky0UnlroN8cG/pdQhh93emTz5g21AVAJwmf7Ux8npjXV
+	0mFK3d+2yUtLvJPK4kM8qPXurVRfiN4/UYSTcZry0LAA+IOC5dSPaOpHrF34KMOTB8auZDtfOZP
+	q54XlvD/qqVHownzmJasvnGXZkDDT+1yxNdBdrWaAljZHryUxXcULpFG5a1RF9SOyaVldYFBOX3
+	g1nnBlE3xU+Ua8L6S6MXvqvNRCg/CVpV73sPrIQ0ADB9882pkBkVo5BrHxtLRkO9eKHON1eNDML
+	6xfQJYxp4LwrHWrVkHN2G6xEsRMwojUkI56SapKHvMPtOWylpAMQNCP2yirHjEg8ecaOavm9Q/0
+	yQZ1zrkF6jFuwZWPcEmlL1Vy8XhuZ/MYvj3S+m+DTQ2Q
+X-Received: by 2002:a05:620a:269d:b0:939:e93d:a66a with SMTP id af79cd13be357-93a29939a08mr95154785a.32.1789352896708;
+        Sun, 13 Sep 2026 19:28:16 -0700 (PDT)
 Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d3779sm82134856d6.43.2026.09.13.18.37.13
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939fc4a9455sm658677985a.31.2026.09.13.19.28.15
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 18:37:13 -0700 (PDT)
+        Sun, 13 Sep 2026 19:28:16 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Oliver Endriss <o.endriss@gmx.de>,
-	Ralph Metzler <rmetzler@digitaldevices.de>,
-	Daniel Scheller <d.scheller@gmx.net>,
+To: Andy Walls <awalls@md.metrocast.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>,
+	Michael Krufky <mkrufky@linuxtv.org>,
+	Steven Toth <stoth@hauppauge.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: ddbridge: Disable PCI device on early probe failures
-Date: Sun, 13 Sep 2026 21:37:00 -0400
-Message-ID: <20260914013700.51804-1-mhun512@gmail.com>
+Subject: [PATCH] media: cx18: Disable PCI device on probe failure
+Date: Sun, 13 Sep 2026 22:28:08 -0400
+Message-ID: <20260914022808.70592-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -78,18 +79,21 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The DMA mask and device allocation failure paths return directly after
-pci_enable_device(), leaving its enable count unbalanced.
+cx18_setup_pci() enables the PCI device but does not disable it when
+DMA mask setup or the memory-region reservation fails. Later probe
+failure paths release the region without balancing the enable either.
 
-Route both failures to the existing PCI disable step, after the cleanup
-that requires an allocated device object. Preserve the existing error
-codes and successful probe and removal behavior.
+Unwind the enable inside cx18_setup_pci() when that helper fails after
+enabling the device. Once setup succeeds, disable it in the probe
+cleanup after releasing the memory region. Setup failures skip that
+cleanup, so each successful enable is balanced exactly once.
+
+Keep the existing error codes and normal removal path unchanged.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: ccad04578fcb ("[media] ddbridge: Initial check-in")
-Fixes: 22e743898dcd ("media: ddbridge: bump ddbridge code to version 0.9.29")
+Fixes: 1c1e45d17b66 ("V4L/DVB (7786): cx18: new driver for the Conexant CX23418 MPEG encoder chip")
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
@@ -98,36 +102,43 @@ Assisted-by: OpenAI:GPT-5.6
 Validated with an ARM64 W=1 object build and strict checkpatch.
 No hardware runtime or probe-failure injection testing was performed.
 
-diff --git a/drivers/media/pci/ddbridge/ddbridge-main.c b/drivers/media/pci/ddbridge/ddbridge-main.c
-index 248ace2..591a43e 100644
---- a/drivers/media/pci/ddbridge/ddbridge-main.c
-+++ b/drivers/media/pci/ddbridge/ddbridge-main.c
-@@ -172,12 +172,16 @@ static int ddb_probe(struct pci_dev *pdev,
- 	pci_set_master(pdev);
+ drivers/media/pci/cx18/cx18-driver.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+diff --git a/drivers/media/pci/cx18/cx18-driver.c b/drivers/media/pci/cx18/cx18-driver.c
+index 214fac7..ac90ce6 100644
+--- a/drivers/media/pci/cx18/cx18-driver.c
++++ b/drivers/media/pci/cx18/cx18-driver.c
+@@ -805,12 +805,12 @@ static int cx18_setup_pci(struct cx18 *cx, struct pci_dev *pci_dev,
+ 	}
+ 	if (dma_set_mask(&pci_dev->dev, DMA_BIT_MASK(32))) {
+ 		CX18_ERR("No suitable DMA available, card %d\n", cx->instance);
+-		return -EIO;
++		goto err_disable_device;
+ 	}
+ 	if (!request_mem_region(cx->base_addr, CX18_MEM_SIZE, "cx18 encoder")) {
+ 		CX18_ERR("Cannot request encoder memory region, card %d\n",
+ 			 cx->instance);
+-		return -EIO;
++		goto err_disable_device;
+ 	}
  
- 	if (dma_set_mask(&pdev->dev, DMA_BIT_MASK(64)))
--		if (dma_set_mask(&pdev->dev, DMA_BIT_MASK(32)))
--			return -ENODEV;
-+		if (dma_set_mask(&pdev->dev, DMA_BIT_MASK(32))) {
-+			stat = -ENODEV;
-+			goto fail_disable_device;
-+		}
+ 	/* Enable bus mastering and memory mapped IO for the CX23418 */
+@@ -834,6 +834,10 @@ static int cx18_setup_pci(struct cx18 *cx, struct pci_dev *pci_dev,
+ 		   cx->pci_dev->irq, pci_latency, (u64)cx->base_addr);
  
- 	dev = vzalloc(sizeof(*dev));
--	if (!dev)
--		return -ENOMEM;
-+	if (!dev) {
-+		stat = -ENOMEM;
-+		goto fail_disable_device;
-+	}
- 
- 	mutex_init(&dev->mutex);
- 	dev->has_dma = 1;
-@@ -237,6 +241,7 @@ fail:
- 
- 	ddb_unmap(dev);
- 	pci_set_drvdata(pdev, NULL);
-+fail_disable_device:
- 	pci_disable_device(pdev);
- 	return stat;
+ 	return 0;
++
++err_disable_device:
++	pci_disable_device(pci_dev);
++	return -EIO;
  }
+ 
+ static void cx18_init_subdevs(struct cx18 *cx)
+@@ -1120,6 +1124,7 @@ free_map:
+ 	cx18_iounmap(cx);
+ free_mem:
+ 	release_mem_region(cx->base_addr, CX18_MEM_SIZE);
++	pci_disable_device(pci_dev);
+ free_workqueues:
+ 	destroy_workqueue(cx->in_work_queue);
+ err:
