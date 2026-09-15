@@ -1,316 +1,134 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448864A2061
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEC7372B57;
+	Tue, 15 Sep 2026 08:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460879; cv=none; b=CaBEUvRSXyr5bro1ZucTdsuFnTWrNhhHj7sbtD0gOT2/qrqRUNC2qvkE8L0kY1Vr9hjh2kKHFnyEm71ZChIfOwSe2R8mJhuUg66EQ+gybBioKM+tjibveVRy5om81N8L059l9bwA55kn7WORDExuHoIhwwWQ/Qld2tj4AEWF0Dk=
+	t=1789461185; cv=none; b=c9S0wDWQtlQ1htb7e8Eu3kzceZlB6g/BEGvKSKEdW6gO4ZtBHmPLpwwW/g8OyZ/uk66+23k+sBQ3Wvc2wjPHkCKN5DvTaDfEHsA/1LkBWvJlJZqbVDZlQP9RzX4aDuL66xqbEs0WbieVyTrlMcNf8ofqhSWCLrwQv3/eHmdZj58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460879; c=relaxed/simple;
-	bh=7ISDVBxGmgeCdxhmRRdB69cX7Bxvnv7xpoH47YwrzBI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dWYpPgRnxGGSRwhOgp0e4PDKYsbLSHVZFiB8PEOg+aSJCY6gNmag57o01CPR1fdlOKP86z/ciqGa2JDHMeVb66JcMZpUF/EX6A1pfyCxhscJEGMbWwpbzW228KOh2X2bwzzswCYV6dB99qxmehgfX0ETDDMTncli+DSuU9IiS60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pEqXzEFQ; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1789461185; c=relaxed/simple;
+	bh=WNs8D4arokG53Zki8ASyISHql/nDLj2Xji+hml43eFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YeR5FhB/YH9zHWmGdspYDlixfBfGAxm9FRGa93Ov6wDM+a8rbXgq0/rUO0tgIr9cO56aua7S1gRbc3L1rusIfLk9CHLtBsBdM6ct+SCi8KmeEY7KhjQZO/wtZeI5z0PBN7LtwRzhQf+IIQu0RW3A4akb6KkqYOz00Bf9E4g7W1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=toGbY8E0; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=QV4VS6G3; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pEqXzEFQ"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d54187d8b0so90170935ad.0
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:27:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460877; x=1790065677; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Yp7aMeBt5kbv9wDm9MP1w/VhRzf84I2dhiWVAxjsG5I=;
-        b=pEqXzEFQKXRaUTuqOZPZ4YTHFvZ8F4B70Sl+WaIoQ9A/KxSRH5VRuTVkBakOJShjpA
-         y4bEjN9UuZJMZUP0kKVv0uHV/wYmkzwrotWPYH+NDBxVZmw8yxLdlTc9cUw95qnGlxmE
-         zo+r6zmEkAvAS1/zZY6+6HNMQBVRPCUwvMRi6oryWEoVKxzydXHiLq6GwsNqD2CrpoZa
-         UXJlVkl1eaYwczqIt0AcfsQoqCDE1ZaBd5WhIFpRR1sHaEisL1VN1t2byTH1cFTBeOVU
-         RDtETpD86AU2MnYlfI+T49LCa1i74doww8YrICZxMs0mredaadyhnV11pDHMDT50RNuw
-         kL1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460877; x=1790065677;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yp7aMeBt5kbv9wDm9MP1w/VhRzf84I2dhiWVAxjsG5I=;
-        b=nwB8pyd1f3VmCsf4QTkxKz9KKmjhScZhFVzU66hCf7gyKG7rVsf/H9rFg2FOK0fQrz
-         2iVpo/SjxXNYALQqN776bkWl2jjB8kWxZJrs+FzgfRbT4BXwPSEx8UYTeQfp/D6yOZhs
-         ZAbJf7vniMPxudMe5MAw4lMMKRvPaDbvB2lZdDW4S+q3MiIaV3xtj2CMQrmd3SeFWrqd
-         KTw9y16esFCb4t5TWBLOXvCYxKc2xjzz6qX3pPz3/VnZLF+tQHIayTJXZizaiR08Gh+f
-         wtHMtaPwcrIbp1ekDU00JKwISIr4gIgmPBlp66muA/8WU90CJ3HRWzTXXLftlNwP1Vz2
-         8CiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMV0pTBfTYbSLWSzdVlxcZI6V14ESIyMSMQjBLVAfj/E1W66lI69b+hCEVgQ87LAaPS6AcCbyUgsO3sw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lbBvZ9ThTT9fECB02J2GuxKLORGG7I7Pj9tzvYPLNRV9xBYoMt
-	VXtjfoLJBCHfNZjunEUZGOVt5sMr3tTg7lhuCO25sfmTHc4ipY/Mdd9V5vC9lAAmXpcyByuE4oy
-	n
-X-Received: from pltt2.prod.google.com ([2002:a17:902:d142:b0:2dd:5303:f006])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f64f:b0:2dd:278c:5eb
- with SMTP id d9443c01a7336-2dd83851f4amr602125ad.14.1789460417430; Tue, 15
- Sep 2026 01:20:17 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:43 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="toGbY8E0";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="QV4VS6G3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461176; bh=WNs8D4arokG53Zki8ASyISHql/nDLj2Xji+hml43eFA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=toGbY8E07siYO3WB1Q/MDl/oUAtA+Rr0w7COCNeZjw/9Mm9LsKsLNKgtytSLwn4f1
+	 R7Wz2+eR6Ge7SKbFfKRhJh1/jgUvePhcUZTbrz7i0PVZAPx5KZjhh3Vz2SFPP4tipc
+	 ZBa9QXCPW9ECT6CqdFTeuMrgB3eH7nKUPv8wcqIHsasH0iDZzVb5IGl6+GJriOIj2k
+	 5qVsCpUPSvuSI4RxLx0dWLzSLYDMdKbSG1p5xPFjlQk5p0wjudYwgkP9aCBSm9vq9X
+	 Wx+Nubbru4/uZDVoFSMUqxRCJz0CJKFKw2snwOnpvW5p85y7A+xDpwT8HifDCwqGCw
+	 G1/8gzJSYgs1g==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id A312040BA6; Tue, 15 Sep 2026 09:32:56 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461175; bh=WNs8D4arokG53Zki8ASyISHql/nDLj2Xji+hml43eFA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=QV4VS6G3cK+ArccT4crWhY6b2/9MbQI63yqzA8RVLjCBmxKoLn016ssfxTlrmU8nQ
+	 yl5onhVB2AaskLQSvgSOTbMbBr3qmWGYw4zq5vNKsXcR00W4mojeHpBh3V6xsNxdC9
+	 k5Pa5e50mlTdCjGe3asT/Uqz+W7SPV25hcQfcW2Iqwj6swWQFCA4tpLpKbyohVBI4D
+	 dmF4/wfyN8M6ePytQ1Hwqi4QoYezRF/pEVX0dohkHJOvcmjYr+SsPI99Du0Ltj44Tk
+	 gsOv6VrIZEtfgA6/rXnqmbR4UuCVrYr7rPVvRNgE3Jfm6NDqKIToiNSL72AgWViSgh
+	 auXRK3k1zeniA==
+Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 5BDE840155;
+	Tue, 15 Sep 2026 09:32:55 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Rik van Riel <riel@surriel.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 01/20] media: rc: Ensure registered is cleared in error path
+Date: Tue, 15 Sep 2026 09:32:11 +0100
+Message-ID: <d357f944fe9a4c771f210f09ef65ccd20dd25aa0.1789460680.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1789460680.git.sean@mess.org>
+References: <cover.1789460680.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-27-morbo@google.com>
-Subject: [PATCH 26/28] wifi: wil6210: Refactor resume_triggers2string() to use seq_buf
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
-	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
-	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-resume_triggers2string() builds a space-separated string of active resume
-trigger names using a series of conditional strlcat() calls.
+If rc_register_device() fails, ensure that registered is not set to true.
+If lirc_register() succeeded, then userspace could have an open file
+descriptor open. This leads to a use-after-free.
 
-In preparation for removing the deprecated strlcat() API[1], replace the
-strlcat() calls with struct seq_buf and seq_buf_puts().
+lirc_unregister() must be called with registered = false, else there is a
+possibility that an fd is open and polling, which would never return
+POLLERR unless registered is false.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: CoPilot:1.0 [editor_update_file, make_kernel_build_single_file=
-]
-Signed-off-by: Bill Wendling <morbo@google.com>
+Note that registered must be changed under dev->lock, many functions
+read registered under lock (e.g. lirc_ioctl).
+
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
 ---
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- drivers/net/wireless/ath/wil6210/wmi.c | 38 ++++++++++++++------------
- 1 file changed, 21 insertions(+), 17 deletions(-)
+ drivers/media/rc/rc-main.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/wil6210/wmi.c b/drivers/net/wireless/=
-ath/wil6210/wmi.c
-index 479b2418ca34..fcc9e9eb5732 100644
---- a/drivers/net/wireless/ath/wil6210/wmi.c
-+++ b/drivers/net/wireless/ath/wil6210/wmi.c
-@@ -7,6 +7,7 @@
- #include <linux/moduleparam.h>
- #include <linux/etherdevice.h>
- #include <linux/if_arp.h>
-+#include <linux/seq_buf.h>
-=20
- #include "wil6210.h"
- #include "txrx.h"
-@@ -3162,27 +3163,30 @@ int wmi_suspend(struct wil6210_priv *wil)
-=20
- static void resume_triggers2string(u32 triggers, char *string, int str_siz=
-e)
- {
--	string[0] =3D '\0';
-+	struct seq_buf s;
-+
-+	seq_buf_init(&s, string, str_size);
-=20
- 	if (!triggers) {
--		strlcat(string, " UNKNOWN", str_size);
--		return;
-+		seq_buf_puts(&s, " UNKNOWN");
-+	} else {
-+		if (triggers & WMI_RESUME_TRIGGER_HOST)
-+			seq_buf_puts(&s, " HOST");
-+
-+		if (triggers & WMI_RESUME_TRIGGER_UCAST_RX)
-+			seq_buf_puts(&s, " UCAST_RX");
-+
-+		if (triggers & WMI_RESUME_TRIGGER_BCAST_RX)
-+			seq_buf_puts(&s, " BCAST_RX");
-+
-+		if (triggers & WMI_RESUME_TRIGGER_WMI_EVT)
-+			seq_buf_puts(&s, " WMI_EVT");
-+
-+		if (triggers & WMI_RESUME_TRIGGER_DISCONNECT)
-+			seq_buf_puts(&s, " DISCONNECT");
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index d93e98189c1a..930d45517229 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1934,7 +1934,8 @@ int rc_register_device(struct rc_dev *dev)
+ 			goto out_raw;
  	}
-=20
--	if (triggers & WMI_RESUME_TRIGGER_HOST)
--		strlcat(string, " HOST", str_size);
--
--	if (triggers & WMI_RESUME_TRIGGER_UCAST_RX)
--		strlcat(string, " UCAST_RX", str_size);
--
--	if (triggers & WMI_RESUME_TRIGGER_BCAST_RX)
--		strlcat(string, " BCAST_RX", str_size);
--
--	if (triggers & WMI_RESUME_TRIGGER_WMI_EVT)
--		strlcat(string, " WMI_EVT", str_size);
--
--	if (triggers & WMI_RESUME_TRIGGER_DISCONNECT)
--		strlcat(string, " DISCONNECT", str_size);
-+	seq_buf_str(&s);
- }
-=20
- int wmi_resume(struct wil6210_priv *wil)
---=20
-2.55.0.1032.g73a4cd73de-goog
+ 
+-	dev->registered = true;
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = true;
+ 
+ 	rc = device_add(&dev->dev);
+ 	if (rc)
+@@ -1954,7 +1955,7 @@ int rc_register_device(struct rc_dev *dev)
+ 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC) {
+ 		rc = lirc_register(dev);
+ 		if (rc < 0)
+-			goto out_dev;
++			goto out_lirc;
+ 	}
+ 
+ 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
+@@ -1977,11 +1978,18 @@ int rc_register_device(struct rc_dev *dev)
+ out_rx:
+ 	rc_free_rx_device(dev);
+ out_lirc:
+-	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = false;
++
++	if (device_is_registered(&dev->lirc_dev))
+ 		lirc_unregister(dev);
+-out_dev:
+ 	device_del(&dev->dev);
++	/* registered already cleared above */
++	goto out_free_table;
+ out_rx_free:
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = false;
++out_free_table:
+ 	ir_free_table(&dev->rc_map);
+ out_raw:
+ 	ida_free(&rc_ida, minor);
+-- 
+2.55.0
 
