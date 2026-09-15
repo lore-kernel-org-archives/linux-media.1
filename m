@@ -1,74 +1,77 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2EF39E6EB
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 13:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811583502A5
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480462; cv=none; b=ACmYtc7GR9UAi+wr8bxefC0wgi4rP2XU7LJaccisS5dnlvfMehYOFRWRxsUCHNJ59O5vcIb4T7NqG7RsB9iIPsmeIsRUGTrRHIJgKh2xlyjW07xDYg61lJi3XVwRgX+sjq6zwLAbWCG7uXXGgzc+VO+4efDBwK9hjUu5ySxePuM=
+	t=1789481126; cv=none; b=NT2ecJpzM1yoQqZdcLaVhFBHeBUL19MOXFNA1+a7r870y56tIPBogPDo0db/gEw7V70lShiJRXj4TGVGFvN1hrPlDiJzol5igJc3c0jQeE8NUV2CP88HelYcGJ2IszqcPHOrbZdYjUNX0egOWCdd9R3slYgi8V7CB6GYXPhVAHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480462; c=relaxed/simple;
-	bh=Ag5tfz00fBg6YXo3im7agg0lkNAqHNZutLBmML/rBjs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KrapGMtNcvmAkGPMYME6kFdKsOnlZLVRrncU6TxxSmp9VERn8CMxL1mDTCkXmi1BXRNX+lCaftv10YfKSJjkAHSFo45jiIdlRSbdAp7ju1H7P4ievUAli6az3pWgQipPz+bmqbyzcFbpNyjWJpkMXlym4CwGp4leJ41E/KqgJKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0mwRs89; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789481126; c=relaxed/simple;
+	bh=l1MSFdroio9w5UUZCK7+2//D7579OK4nRstZyOaDeE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LpvCL0tjYN+an2/piFae6P/gZENvDsRCSwK6tsb7Cc2WJr/hYAWKiQm+ge07a1zGW8XYAQ3GiKFiVBFPyzaCkBFFMdPItG6MKndDACkKlgl3jAwbHrc53EabTtSTKFOxzcwxuGqGBthbzCNvIgk5fevAZugAkpKgpR4IjmFKyWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=efANzoMp; arc=none smtp.client-ip=74.125.231.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0mwRs89"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3162425a91.3
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 06:54:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="efANzoMp"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c3b639adbcso298779b6e.1
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:05:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789480459; x=1790085259; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789481124; x=1790085924; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
-        b=H0mwRs89+UPb/DZtvXtW8tJ20Ms+Ff2SLVKSuZT+nARB6Ady+AbKw5jJno08CkCoKz
-         YzPdklCHVLFOWbKc8Mucu7fCEGzR+RcfikB6msm9o5MP1gtuw+3J0//uPLTXlMPmgCIT
-         LeqdVVvUrvHH81iyaMwADOZizOjW8ddC4QrN0UEpNg4TJ2bToX75cHcdycb8L3pvas3M
-         V1eF3OwY3ykCg7nLieG2uaHDq5b8OcYW5nNaIDb01fUP0t2X7by+SVwNUUD+cF3et6io
-         tjzFL4CYZkOGYAHSFXcLQAVood0pF87e2j6+OvcwoHP8Xt21ihO4sy5ATv34hh8h9mFU
-         qCDQ==
+        bh=4/dvc0f8jIgO60uW57rTwjvHY9CDCgJCM89WrVhajN4=;
+        b=efANzoMpspjN+nI7BjiTg8E5Ixhw/qAu3h8y6dh64dS3y4VzNCEv/5meX8p5YZF3DX
+         AuxJWZbOSeavGPqGH6kuJnXVpmxes79+PM+9Ufz9t0cAn9/PIeG4pJmiPHb6iiJPDz8Y
+         JlkdQH1er8EGAtoUKNyNyse3679/0R8FR2JX+6IMK8rn4JHZ4LPLhSwUvB2MztDa/uW5
+         NmPvkDZVXazApkjhMPC9aIW7uI5xWwfrj7ydtlGJ5ZKFfVlm2+UOALBrXKIamTH7pKSU
+         9i5vB0njf4YXM6NydtEZneyO7a8vYo26WLQMoF4a81cl2BBhW+1B96RQwSAkBpYxQr4g
+         QEFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789480459; x=1790085259;
+        d=1e100.net; s=20260707; t=1789481124; x=1790085924;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
-        b=mt7CSQsurPnPADZgnqap+DDMC+FttsHujme9sher9tHZutCqUjErD5zjsLnEWl8hhF
-         HG0FQXTTnsuvTvSstgaEReKRaKGeAegJoAn+zOIHe2xMdCClykBQvpCHuhZuPwPs3FEV
-         LPTdf3UVYVUf6AWhQv3QIgxkKPeu4x8jRAciVfvcuy1GLV7zfIMLCRuXOdRLqsqGf1zA
-         CVIvAR/JaKpbxPEVGPaGB9SpIl3ZFdUnaOmIgMAyfbZyQOkrfqrXItuRX4H5XFotWgHG
-         xa/rmjMUHt7O/PiHtUM10OGyB19sEx7NfqA5RlmY3ZpDzkZOzlhZUw4GePdQQNrOlYOD
-         G1Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjFztpbnP337LhBBAgyouvOBb5L8/P8SX0vBN3jLMOhwKO6SREuIRFQL4vbrORDXMhyd6AbxFitjFGWA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mR5jCnLPu1yc3w1/zL+ZnaiFI+3f92XpcheChU2O1Ha03hAGx+
-	3VW8rm6fjI2CRJZD10z2KFxRrzihoKoJdpJbDCHlpBcDZ4SGDp/TdsNd
-X-Gm-Gg: AYBFou3RPHMbdDdW44DkxqNsLVEPXEDglL9CdyxC7nCXUScd6UzJir9Lgm6hH5664M5
-	i3X5TlUqmRV28SUbhNrhYVo4FQEUSmPYLQFdTKKOJ8pJI+NLPqi/CgE6RiWoNZDzi/yoPhpU5aF
-	BqsO/H1kT2oB+sdwRtomNc/wK/eZ3p1KW6prXcIQ5BHXOuGmyO/9+AI9o/1g8Fp+lV+z0vcU83E
-	vxjO7Qc2H4tmEyHu9GREGbY0ma8YjCF6tBp0J5g7w+r6RLx6ApIUVMXlpOlxaHq5h4Y8kEwsjxr
-	0mJv1H+bwysO++ZjDB7Wld0jo7ZGYLY66dcANcqnSGC1eGoXDxx64zlZZvhe0N8NP0CwYzJv2EX
-	BVTKpuUMkesPrc03j8kXcaRgL0bg8YLEfzdq+edFmYc1NDfIlyPyC7tremx+CXCpzHNJHdkFpRB
-	WTKp5VHjOnF/YhR/vwp3ku0i9ZJjpDkC+W1wbhEfjxhtkcpOKzQUXZhYU=
-X-Received: by 2002:a17:90b:39ac:b0:39e:261:4e0d with SMTP id 98e67ed59e1d1-39e026159e9mr5815662a91.25.1789480458971;
-        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
+        bh=4/dvc0f8jIgO60uW57rTwjvHY9CDCgJCM89WrVhajN4=;
+        b=i67YeLQFkQMj9f1FGB6pb45DHMbMp/hFwHTupBnvVnbvWnVtLEzWZe32wCN1+dW5Un
+         T7GM7fEsmTRCVo2bdUN6BJSm39xbmEwBCBC4Y8C4DseTgYNDMV5PzMPm9sjDbkFS0Ifd
+         dwsEdTyGCRwiC0eNOB4q+u5ix9rKlCGcrtubkspaCBPHB3jxuNYJYDwIc1kZQu4lry7w
+         0A229ZQopk2S3na3pw8vLYzNNGEoWyh56kpSeh+XGQ36VXU/K/Icm+Ae7iNYKmI2+XZp
+         ARuFtlLBH8gGR13rQW3ftp5jYvjFeuAmw5AImhF2lNLSsoQI6XcTZbPvjXNcOwcY1J9S
+         NEmA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1ofUQ5auxc2tNrt9mIKun1VAsCJjiU66Rx9gaJoB1Td6HsQKbrXA9CNqAm3mqJNt8bd2tNPQrMlg8rw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kOb5LzQWQkHVS0A9zysfXpv39EvqikE17IHcC4kgJYUMhSUsqA
+	z4XoXyOtU4a4V2uuP1b2qb/mtn4xf4SRWivcRApqh73G6VQbKMto5JzPhnB/Lv9a
+X-Gm-Gg: AYBFou0NqKX8cPqPfq/SYhxCFlJJFh5d4mo+Wr4BGZYTJJNyOCWx2XsrL9o1UUPYmdv
+	t0kMBS076/wXoUH0M5jmv+zOkDbhDqsrl41W+GVF7yoGOVE8wajj1wffRFH6uIOeOydD1J/PqGh
+	bXi77oR0dEs5pf+ESJJ/Dx0p7tvUaowtkBv+c9kRJZLs0h85hxXIHJFj+SdHELJN9wRpqtP6JNK
+	fKXmg5NjVHXiCVCJC851EO3x5tinli6g9DZHkckJbjW6i4UuG04gXZFCzf4iJi4K1/4tWLSNiLN
+	ySPexIrx8ZYFKAWuQs3EdnirkFENyRf1IAMdzOEoJniH1LETs11b//flZ0dsEbsYMZnZazpybt9
+	yy50s7o8w6QnS1n+/V2GbRTfosd3XOyjcLweRuWvEdxiCUS0KWmo7xj3XOyE6tGhi7F5+ZdgXQ6
+	b55qKyfqSC2jEH0EM8qPtW8ujTGRflnc69g7Bpy1FaIOoUdfAFAphiZQ==
+X-Received: by 2002:a05:6820:8c7:b0:6b8:1306:8567 with SMTP id 006d021491bc7-6c739c76dc5mr719865eaf.57.1789481124343;
+        Tue, 15 Sep 2026 07:05:24 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd0ba9bsm5533757a91.7.2026.09.15.06.54.12
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6036fd7sm7020010a12.0.2026.09.15.07.05.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
+        Tue, 15 Sep 2026 07:05:23 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jacopo Mondi <jacopo@jmondi.org>,
+To: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: renesas: ceu: free device data if video device is unregistered
-Date: Tue, 15 Sep 2026 21:54:06 +0800
-Message-ID: <20260915135406.2423337-1-lgs201920130244@gmail.com>
+Subject: [PATCH] media: rkvdec: do not destroy borrowed SRAM pool
+Date: Tue, 15 Sep 2026 22:05:11 +0800
+Message-ID: <20260915140511.2429792-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -78,44 +81,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ceu_probe() allocates ceudev, while ceu_remove() does not free it if the
-video device has not been registered.
+rkvdec_probe() obtains a provider-owned SRAM pool with
+of_gen_pool_get(), but its error path incorrectly destroys the borrowed
+pool with gen_pool_destroy().
 
-The video device is registered from the async notifier complete
-callback, and its release callback is responsible for freeing ceudev.
-If the device is removed before the notifier completes, or before video
-device registration succeeds, video_unregister_device() does not invoke
-the release callback and the ceudev allocation is leaked.
+of_gen_pool_get() returns a pool managed by the SRAM provider. The pool
+is not created or owned by the rkvdec driver and is destroyed by the
+provider when its own managed resources are released.
 
-Check whether the video device was registered during remove. Unregister
-it normally when registered so that its release callback handles the
-final free, otherwise free ceudev directly.
+Destroying it when rkvdec_v4l2_init() fails can invalidate the pool
+while the provider and other consumers still reference it, and can also
+result in the provider attempting to destroy it again later.
+
+Remove the incorrect gen_pool_destroy() call from the probe failure
+path.
 
 This issue was found by manual code inspection.
 
-Fixes: 32e5a70dc8f4 ("media: platform: Add Renesas CEU driver")
+Fixes: e5640dbb991c ("media: rkvdec: Add RCB and SRAM support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/media/platform/renesas/renesas-ceu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/media/platform/renesas/renesas-ceu.c b/drivers/media/platform/renesas/renesas-ceu.c
-index 65f7659a9e02..5015b7837381 100644
---- a/drivers/media/platform/renesas/renesas-ceu.c
-+++ b/drivers/media/platform/renesas/renesas-ceu.c
-@@ -1705,7 +1705,10 @@ static void ceu_remove(struct platform_device *pdev)
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 061281f903f3..4541ef9ee3b9 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -1857,9 +1857,6 @@ static int rkvdec_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
  
- 	v4l2_device_unregister(&ceudev->v4l2_dev);
- 
--	video_unregister_device(&ceudev->vdev);
-+	if (video_is_registered(&ceudev->vdev))
-+		video_unregister_device(&ceudev->vdev);
-+	else
-+		kfree(ceudev);
+-	if (rkvdec->sram_pool)
+-		gen_pool_destroy(rkvdec->sram_pool);
+-
+ 	return ret;
  }
  
- static const struct dev_pm_ops ceu_pm_ops = {
 -- 
 2.43.0
 
