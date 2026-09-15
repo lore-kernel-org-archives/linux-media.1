@@ -1,179 +1,136 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17043C9438
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483398; cv=pass; b=A7XfwtcY8L6JeXUnAq6aTbs2gI/cEbF9JkhhlPWCkXA2hDGUPJOBpcywko3+GVybn8ENJZ/n/KjmGkJZCdKYfowl2UosFQgwESii5pjGMFuHXRbq6h2BlnrN4kF9fohuQNzJwRcXM/Zo24Szttl4O/VmBcyyW4JFUeV6vz8Heh0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483398; c=relaxed/simple;
-	bh=15/+SywPQsJQghdy0lHJz8wGdQwZPe4GOXiZDdhxSII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bhkMCCtPFGRxmbC4VOFLfnKBZO58K0nas+nADkDXTuhIm+bIB/LhDIQ9WlZKtyWBULU8VTxn4VAeLH2EQLaKFwxWbVHQ7sn2Qnwiqc2suy8ELF8hfyvmEgV3vGkK9BCRkDIMskG48uqLOs7tMngakbPUzeEwmcwxx2h3ZP3Tmnk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=dcLYwy0D; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="dcLYwy0D"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6eeso34858646d6.0
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:43:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789483393; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aR6V1OhqBg4NUgBXDfOlzPEHENWirXCFRXUDTtCOlcxq40g1/MtgQZCiCLRkWdxy81
-         +exPh1uRZ4RhXSxAFrfEQl94GypyATrbGmn8hhF678pjLjrGgclIgc5uFEE1xwgFhLav
-         6N1yYEfJGhDv8tUWQzTU3WooPrv8+O2PhF2T2SS8S8CbpwApQMKAKWk7kuwtWjKvW0V7
-         68Kn3tLDldCpsn3Pile9PcxLX+iPk3yF8eDuRvIIQBo051bnTdUDZ8zatHcUjNk7wfH0
-         jkg04db2ITGt0byIuG7t6y9OxMKteF/MgX+MjCBAm5qzysTAqQxw4sP5vI/1yyFzMAwP
-         LA9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rID0m9JFEu6NHI6Fa/R4Mit9IJeM2Yeqh/iWfm9iBds=;
-        fh=yZN97dKW7rvgETgvK55cddCMkmcb7Xu+GqQYJgxDsXw=;
-        b=Tz9Uwji/TzxM+lxDH9L3WJY6g/fb2XXH5PuIjGNgkx5fHBa2yI3f+DSqdvzVYUDz0y
-         nymI9GeCQJC/IDTSyDdyzB4LsA5S/ur/uhs77hAl7AGz9lZ/uyy6RHbcNbqn7tlrY70f
-         7pfZpPMsqsLkEFPDSnWK8Gc3qx3f3Wkf9Bcq6qDKNEKNcCnovESP9/qsuPtSGoAZX+hf
-         ebFOc/CeDMt2HgELX5YgO1x6A4BRf6BdkSt4r/CIgHrguYsLsMMxxDsSA4IWaVM2rr+O
-         ljpuXiHra7MM0rbXz3B6prlhH1xUXhwR15X0uvBcC1muko7ivb6VgwdjiLHT8cXxWAps
-         DNJA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1789483393; x=1790088193; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rID0m9JFEu6NHI6Fa/R4Mit9IJeM2Yeqh/iWfm9iBds=;
-        b=dcLYwy0Dj6xYUFzGAacOg5WoiZ4eBVMxfgWLiPhp4x/xGzIuN/aCL3LClzw9VgImjJ
-         qEN0nskYTZ2kkdLcUeHbFIwZsqQ/JoczfTQaDz+y8Ki2IEOJQDogv/RZuuJRM0nUDVnY
-         X7Ho16jgb6Xzw6cr229UxDJTG7qYYz7+cx5MxY79A4klE0Iiz0buqG/rLCnWGLAcquA6
-         XNcNGX1w/ahJBz9Xh8qa2MpWTp2YYkp7xpIBznTkJ36LdEND7Z3ET+oURVYr7vsQPdVX
-         fxp0bUU0rEAE9FYtUaK38GVDDrjMEmCcjDvuu0AbOdUbVoonxVjoluDA7WQsdwBi6nU+
-         vX7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483393; x=1790088193;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rID0m9JFEu6NHI6Fa/R4Mit9IJeM2Yeqh/iWfm9iBds=;
-        b=m/5MWHyU6ywqrt9rD0wzA2MrCKVE4DsRknAxt0qM/21/3AVSGsXWNuDDksYUF+srsF
-         kY40ODcRJUEXqIvNodSEgAHdB289V05iTuxhlHfWUmmQRGYyTJlSMjAvTjEXjdMZM73n
-         phhr+zYMxLQsRWW3uJz28kC+Wv76SGuhpaSYa1Kv0T3wNAqoyJwqUAV5WrX80lcLBHKk
-         Wx/ynYV/vJLNk3/VZC2mRObZzAb0kGR62eEBJjzVP15rq1K5dqjaB3dqiqzuqa20gTyd
-         SUJOB6EYSr6ZoRMJzueIIUsjnMkhkqfFzqh2Rwf3SBiPjztboB2955nDYZUjPNeTD/UO
-         bXrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIPLEQdA7tDprDS9FJht0Xo6ugpr1xPX0aHjHrLr8Iwn+8GMgiaQ8KZtCyUEedXiqBEGWOSQ8IH13r6Q==@vger.kernel.org
-X-Gm-Message-State: AFuF++lL54/XOqaJaQ9SR2bRlTO7Q7mc8M6GLw+xSjw8lGeoJuHG2/pv
-	c9oQlW+eP7A71EwDJwF157lZlSy9RpAGuU/tPTOlZfBw2JUCdL1XJ7XvoXvjXBSlm0xhfQacDO5
-	zTXI4DN1L/1MvZZ70bfiBH6ONthMqVKBOL8apCPidyg==
-X-Gm-Gg: AYBFou3ARHqePAWK0mbY9vC9f7TXjw+Z/P4Ehd160RTv3QJZwqp7CFKpZsm0Gnj3lT6
-	GHfd6v5hcLTkvi5nEcUe8CkfMnIJZSSP/iqbaPofaKvjf3FyX3uwy6oc2lzwhnVkEh92+Z2hiu+
-	wf2K4SLnFKJ2gdTBXmD2Qj+oigR6llkfFFvdpzkIpfGs8Z3x+qvVPDQ/D1Q0Pmw/rLQCd+tP0wF
-	Kpbf5gNHAeywFDvzXDqGMO1XJ+6zM2qM1qZR7mPQcHkuNSuc8Fl5p3w/bvuTfEk1HfJbuuCXGCX
-	BOtLk55l4Y+hF3fI160GdcxrbinRjVsGRWzdbt76TZKXN29eSvU64uQFDOww4muMH+TvKUP0NgK
-	I4BJtgKP+UUPo/w9X3nfpNjmvHUqVZMHWUatpFDXOX9OoSYO5S096VGE1h0IXSFDfUQAhJVtb
-X-Received: by 2002:a05:6214:b63:b0:90e:8cd4:30da with SMTP id
- 6a1803df08f44-9122e55ceacmr123209306d6.18.1789483393372; Tue, 15 Sep 2026
- 07:43:13 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C426D4A3D44;
+	Tue, 15 Sep 2026 14:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789483710; cv=none; b=GNncd4mrbDhcUmmDGePo+gL0HazGvfUmH1wUMQXinzXYqccTLaOcki9gMrs1IDKXqS/gZT/N9DeV8OC8J1RvEwFwiOeeE0DYB03Jbg1PTFAcHBIlB4ZyolQO2eE397Sp3LNBNd5w0ffflg90HAiP6WeDQXy4Lb+VKPkHCpUaqO4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789483710; c=relaxed/simple;
+	bh=U4V+Mnx5yBT8muMDdf8O89ESb1sfYJqsFhQw2mJn+B8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uhEYIoOmpiKDd5Tqjzh2WiINXaHJq6KnMbGN+lGGPSSMesjMT/0hKid2ihq7DrAuYvkSmKkUk4IKfkr3WiBbceM8EjbhyexiSZdG+OPtXeNhG+qPvRguss1suclCSe8OTLzxQ0IE2WGjvnQn6qoTrzPnNmzW7gM8lgJHBQj3uT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip4t1789483661t5fd737bd
+X-QQ-Originating-IP: WsbpIfDhMJsGXWn3oz+rP65P3m3zbFHSIzYe+z2lHOw=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 15 Sep 2026 22:47:35 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10969957875995836888
+EX-QQ-RecipientCnt: 9
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 15 Sep 2026 22:47:32 +0800
+Subject: [PATCH v2] media: iris: Support HFI Gen2 on VPU2 4-pipe platforms
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-7-f520af59df1b@linux.dev>
-In-Reply-To: <20260914-ov9282-fixes-v1-7-f520af59df1b@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 15 Sep 2026 15:42:54 +0100
-X-Gm-Features: AcwNN1W1SjWSkd5yJqtH0RgT6TBJ1Go9MLnuWlo9YYy7VousLlRm-tuvUaXNS28
-Message-ID: <CAPY8ntABqjqzt9jJLiOpgH7yjpk5GZzhx9rKicd+-Dh-ewZ54A@mail.gmail.com>
-Subject: Re: [PATCH 07/10] media: i2c: ov9282: drop redundant vblank field
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-sc8280xp-hfi-gen2-v2-1-c52075bc284a@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2TVthaZ48j8Mh9puYU0E0iLBE
+ P7dgnePbzLzZoVEkSnBtVgh0syJhz6DOhXgOtu3hOwzgxJKi1oKTM4oI5YRu8DYUq+w1pXTZZl
+ TU0PejZECL4fz3vw4vR9PctMu2hsdp2mIn+N0lnvvn3+WKJFsJb24GB18uEXrF3t2wwuabdu+T
+ zh+y8QAAAA=
+X-Change-ID: 20260910-sc8280xp-hfi-gen2-965c64428089
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2215; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=U4V+Mnx5yBT8muMDdf8O89ESb1sfYJqsFhQw2mJn+B8=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkrozp2hk0/sj8m0rx4geI5F/83HsZpZSdjBDxXL2Iqn
+ PaC1a2go5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwETSjjP84Zxlo/duQ+PL2G1N
+ Et8s9p3t7XIsXbJ91j/zOslnWr7JwYwM+7Kal1lL/L+sGxy60cqreP2zM54iGlFN7516s6d98ZX
+ iAQA=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NQSdGtztsEMuzM6+TTxRk06hwThoGJXs3SC6Pfv8k63GdbkUu07xrbCi
+	/fi2SlvBR5G27V0HRZMzC6kkQPKgBTb6FcSGqHcdpJsWTc8a3gQNrYIhMNgv5XevsoyUc44
+	ajMQaNL5dOD/gUMxgQWhenfDKUaq7nZEh1D+3Jc9jzFC3wuXYMZIxmHshQEnuUTMtlS6InL
+	jxqxBMc3MJZF1n2vRNg2WjfHrwjX92NsTFXKSwfAqWqT+5zHqeGi42LQaF5vf8o3zqiG6H5
+	vVmPtEwuGTMlhEB3HlzWlYhrWoJvcE2tEvQYjVYHobMDd4mABSRQWpYwB6D7ZVv0uuTQKfH
+	xhntIQmRc9At93948IQb9dNlHHA4Cj8DkHzqnLhD8ByOkhVwS5xSqEn8gxR9h5gTyQlvPv4
+	WXm8GGsKqTArXKvd2SEbukukG3eUGapFfNVv3JwIQUDjNYsxgAwplMQwJNW/zREeu3B1m29
+	MDjU3XfRoLQPUrZ4zbU/sWIoOaoiausJljOx5SWA5s9edqBK0/zLAig4B/ps1yMNA73h32O
+	2LlxaeYvukp+epXAZ0zov1DVt1KItesNQCE4zPu8Eb88f0K5r4N9qBYLR/UprzKqIKOQXhZ
+	Rb8JWGAydPX8286HZnmS4wVIwTPejdWtcC48uUm05mOwoFqmCBeLdpIkXwny2b1Raes9Qtx
+	DoTVWjvc+Fe1TkLwS1R/5fpAZw9EP7pVxaRSa0zsFLxh22ar4IK8ktGMbTakBwLkSClt7+v
+	wn+EPQFTfQ6jPXxRX0mlk2QSsU0efdAD1cVs10yhJs8UYmQzUgE1ySSC+t6qmf4zxm9mS6H
+	sdyUrQmBSS2eCXi41nKq0PCi03oIpniPrLUlTlBSFsAxWNyRlDIUMte1+8yeI6H5pMHG1fX
+	6MjN1B9Wm9Q6Z+VA+UCkeYLwn1QxeYXlND7YEGJw9Ra0NRlZENoUhrc4KM74lhILzGhWttZ
+	Cql2OUxoF91SfU0CW5gHQxFQuGDywilSrlsT0auUECh8n78s2PEA1daJNg0A1Eqw5Iy2xqy
+	8oOnuUkNLWzlYssNTAkBVcUGWDqU5NB3iGFB8PA0BjwiIS9ct/PyK1IuGwveA=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-<richard.leitner@linux.dev> wrote:
->
-> The ov9282 main struct has a dedicated vblank field which was only used
-> to duplicate the value of the vblank v4l2 control.
->
-> Therefore drop this struct field.
->
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+Some VPU2 platforms with four VPP pipes, such as SC8280XP, can use
+HFI Gen2 firmware.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Add the Gen2 firmware descriptor to the existing sm8250 platform data.
+This lets every platform sharing the VPU2 4-pipe entry select either
+firmware generation at runtime.
 
-> ---
->  drivers/media/i2c/ov9282.c | 15 ++++-----------
->  1 file changed, 4 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index 632184e76b9bd..28f8b05b4c09e 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -193,7 +193,6 @@ struct ov9282_mode {
->   * @again_ctrl: Pointer to analog gain control
->   * @pixel_rate: Pointer to pixel rate control
->   * @flash_duration: Pointer to flash duration control
-> - * @vblank: Vertical blanking in lines
->   * @noncontinuous_clock: Selection of CSI2 noncontinuous clock mode
->   * @cur_mode: Pointer to current selected sensor mode
->   * @code: Mbus code currently selected
-> @@ -216,7 +215,6 @@ struct ov9282 {
->         };
->         struct v4l2_ctrl *pixel_rate;
->         struct v4l2_ctrl *flash_duration;
-> -       u32 vblank;
->         bool noncontinuous_clock;
->         const struct ov9282_mode *cur_mode;
->         u32 code;
-> @@ -646,17 +644,13 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->
->         switch (ctrl->id) {
->         case V4L2_CID_VBLANK:
-> -               ov9282->vblank = ov9282->vblank_ctrl->val;
-> -
-> +               lpfr = ctrl->val + ov9282->cur_mode->height;
->                 dev_dbg(ov9282->dev, "Received vblank %u, new lpfr %u",
-> -                       ov9282->vblank,
-> -                       ov9282->vblank + ov9282->cur_mode->height);
-> +                       ctrl->val, lpfr);
->
->                 ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl,
->                                                OV9282_EXPOSURE_MIN,
-> -                                              ov9282->vblank +
-> -                                              ov9282->cur_mode->height -
-> -                                              OV9282_EXPOSURE_OFFSET,
-> +                                              lpfr - OV9282_EXPOSURE_OFFSET,
->                                                1, OV9282_EXPOSURE_DEFAULT);
->                 if (ret)
->                         return ret;
-> @@ -704,7 +698,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->                 ret = ov9282_update_exp_gain(ov9282, exposure, analog_gain);
->                 break;
->         case V4L2_CID_VBLANK:
-> -               lpfr = ov9282->vblank + ov9282->cur_mode->height;
-> +               lpfr = ctrl->val + ov9282->cur_mode->height;
->                 ret = cci_write(ov9282->regmap, OV9282_REG_LPFR, lpfr, NULL);
->                 break;
->         case V4L2_CID_HFLIP:
-> @@ -1412,7 +1406,6 @@ static int ov9282_probe(struct i2c_client *client)
->         /* Set default mode to first mode */
->         ov9282->cur_mode = &supported_modes[DEFAULT_MODE];
->         ov9282->code = MEDIA_BUS_FMT_Y10_1X10;
-> -       ov9282->vblank = ov9282->cur_mode->vblank;
->
->         ret = ov9282_init_controls(ov9282);
->         if (ret) {
->
-> --
-> 2.53.0
->
->
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+Changes in v2:
+- Extend the sm8250 entry instead of adding a new one. (Dmitry)
+- Link to v1: https://patch.msgid.link/20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com
+
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Bryan O'Donoghue <bod@kernel.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/media/platform/qcom/iris/iris_platform_vpu2.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+index bbdbf21961d7..0bc559b7a072 100644
+--- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
++++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+@@ -41,6 +41,12 @@ static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
+ 	.fwname = "qcom/vpu/vpu20_p4.mbn",
+ };
+ 
++static const struct iris_firmware_desc iris_vpu20_p4_gen2_s6_desc = {
++	.firmware_data = &iris_hfi_gen2_data,
++	.get_vpu_buffer_size = iris_vpu33_buf_size,
++	.fwname = "qcom/vpu/vpu20_p4_gen2_s6.mbn",
++};
++
+ static const u32 iris_fmts_vpu2_dec[] = {
+ 	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
+ 	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
+@@ -137,6 +143,7 @@ const struct iris_platform_data sc7280_data = {
+ 
+ const struct iris_platform_data sm8250_data = {
+ 	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
++	.firmware_desc_gen2 = &iris_vpu20_p4_gen2_s6_desc,
+ 	.vpu_ops = &iris_vpu2_ops,
+ 	.icc_tbl = iris_icc_info_vpu2,
+ 	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260910-sc8280xp-hfi-gen2-965c64428089
+
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
+
