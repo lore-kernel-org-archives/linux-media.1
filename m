@@ -1,139 +1,120 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0800A4BA1F6
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 11:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5FF49EC58
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 11:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473021; cv=none; b=BTv9tfliLa15CqIAys2RfLMQgNIJtJAQjX1+sZrMUfXsOyYQr8uLpY6y65z/lN+MntHwS8i7zX4lGdEPjuKs31/EGaQIsuxn6910yFMjWTOxk/AyuznaK7QGGReNiNEIlcPS7xc6LVrtSYfOv34CNA69OeFdnJE5wgEQdWmR65M=
+	t=1789473409; cv=none; b=YSTsuUZHw9MrTt4+S+sSC0QiZBx1FrWaAL3rJu/J3y0Lg6aUgeO6dF1BeAnz5jpCAYFiDL/wqgfO10jcD0eKwPx2wFq5iO6u31IXBLmxBKwxLT2b5LsfwC+XK77Qf3n2IqJxbksWFeH9J8yDHatjqLlQzPcoTWXi2lg26Q1LjJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473021; c=relaxed/simple;
-	bh=HrpS0+5vBPnHQrYihC1+KHpGhL5ZrFqgwBQSMxw0ThM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=juj/oSh1KSCNRee2gDB63FGasm3Qrn3FLIBIJmM/FfpiqKKxGp6XamZCtDE7ncrvQRzBDzSRUV3Euv/8ZjlKGlQDM8oNlpHiEfYUsPmsu2hs48b8eaISUSDAWc9LEiDFs2LG9IKrOfsuy8MU6OC/H4V2E7RytCpU7/+Al1oRmWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eMFMXB5L; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789473409; c=relaxed/simple;
+	bh=76t/6TvrHo/ckJ30OYPKat5fWAU1rA0fOHpl6d6Cs/A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WtleEXKnViRMLzCvjCD2ugKq5S9E6H1G2w0wilMSGbw5xDyQqHgVpcXELmjz06u8T/uG9NtUUMIV4PjNQL5fea1HwKDz1wXxNHkVrsGESkY0AEKBiXqrNfoWMHM4ILkthZYEk1zUC+EGg76t1xnDGQMJYCMVum+LZfXP0FeTaW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qbNUilRB; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eMFMXB5L"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fe517774so39215345ad.0
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 04:50:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qbNUilRB"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so1508015e9.2
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 04:56:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789473019; x=1790077819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pzARCoC9K2+xHcKxtS92tzMDdovjtNP+xvj5FczbmUY=;
-        b=eMFMXB5L+DTy2a3IjmIHvY9ZjftWpnyF0Q5dC0hmrUN2T6KEbjP6fVGOHbzh9TXxC3
-         jse2cRB/Y03QYBOqmllHPGF7FuxGuVui6Qr2i5gFw1xfv3bbsTDiQuyRDd8XSakGLMqP
-         0HwVAPGtn5xqpAe6uiAFxIQQpkBdA91fkh6kalWvb/F5Ua5yAiBW8Dj9KhxNKy6jYcv+
-         HWXx6JHVslkJMAqvzHBidoHzyVXTjokAkC/XqLzlpqFUiIv/owi1CvB2VQLKNHiH60yl
-         N2O2eekbH9uG2AJ5+R7ayO39s9JJ8a4OD0sZSf/ntr47e25HVrg0v1lk4B+dODVVLane
-         33DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789473019; x=1790077819;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789473406; x=1790078206; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pzARCoC9K2+xHcKxtS92tzMDdovjtNP+xvj5FczbmUY=;
-        b=IG8T3a00ALdjQf1dRtUOuxrV8z1v0PoICEO9Rc0UeetatirxA0dKGKMAw6yF5/DlBB
-         4FxSudqVJlcQM+H5a6t1qjjpfszFFMDwxY9s/v+fo8pYko0/HNkitBBhW2MUHClRZmTa
-         Ij1fsMsFPiPMksiDyfyvRNrG5aPGbeipaN0rvOxsK0c/OzulQmY9XOU4Ir8UMRyqLCPV
-         Z7yiTxcY2AEjh0rV7fmkUAFygeVSoZT4MbcuLr5oHRZjygJz7jBmWKHaeMoyw4obE6YW
-         IAuSmmLa8ykVb6sLEwxkfyK++UibTeUTgCiFPQw5DLsKBxhUO9Fl0FDhQv0ZOKdW+uj4
-         R0xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBqYH0enYTIb9P3KXHRwLc3+Rj7w33wxZkoHhRLYCLqjUT/+hHwNZqyS8AlvFsB96B1UrY9H3UkgWwYA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kU2GbODfYKErd4ZHc2dsPYmg+ltJDADHx42HDsyUc5zLnjJvav
-	zpBp9gHMAJ39oo9b0lWpEujG/wFeWbLmQXW5Amv6K+mpZTz5/qJHhJyP
-X-Gm-Gg: AYBFou1151rcbYnqclZ/IiYc3CtpvFdjBL2fcutOf3YTIS0RP+bFXuHflJRFx2oLhh1
-	7r2uav3F01/SJLOzwvX2ZIVm1FPiXYcvxlcDw6Qff0X37JH22VYDNR6kqNAhwyomvbbAZ3y3wlT
-	e1Yyns4/6uYahs0IEPHUqTN8arQSxooN4+6HOY9ehN7Z1tuN3bd9rZPwTBswmQRvOgvFl8a4vDq
-	opbkHJw+BdrwjrGqOfzW2HoL7U2uyklr+nzhu0uy8G+r0G+ruOlJ4APr2b4YHnpILKidNyWvxd7
-	IezyZm5Fl7KGqRJoD+kmseBp4vWiDUFQ+luNhB/Xm3NrSnDOCeMPO4ydx3NUd+RxXcI1yZqeBsX
-	10hVggEXjZrL7g35dmL2bibU10g6gqO3Brglm245tj9g/Wvu5jG/4GfsJQhtJnD6rP19Psto3W0
-	pJAf2RlzK+ksrpxghuQniGlMba2U2y6f4ZxcxV8Q6ra1t7U9rcpaK2iQ==
-X-Received: by 2002:a17:90b:1642:b0:39e:b7:cbef with SMTP id 98e67ed59e1d1-39e00b7d25bmr6619070a91.25.1789473019195;
-        Tue, 15 Sep 2026 04:50:19 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfd9baad9sm4943498a91.4.2026.09.15.04.50.12
+        bh=IL/M9C+9tQ0Kk34dqluvw+MHZP0Z0vOWF8jr2i8QPWY=;
+        b=qbNUilRBfx2vJPP8G20CKAJ7eBDm63tFaKm3cDhBIt0RfCZL2vRSH2nsF6E8Cia2D0
+         kO7KbJOdhpGIZEcgAI1RoxzlABD7aV3/UeI6Uek4jgm00TpRJUPiliYzyeOQpgZinRaT
+         4u4d6QpBsSc3SdrEuKGUBfdeg7lyBrOqoONXxog/EwNmb7Yb8I2awK4pHFGvUmqrqEYs
+         S2dIyd3UAcxAjILTsLnY6vXiyQKnNUBXPcR8fyn0bKDONkv8py4toI1sKuXT6eBxCkkX
+         GvszUpx8RSUqpuOBN/tQWgpVbTH81QMsH8BTr8Ym1rWZzT/nIQjt49XcNebQOnAFuAC8
+         t0UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789473406; x=1790078206;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IL/M9C+9tQ0Kk34dqluvw+MHZP0Z0vOWF8jr2i8QPWY=;
+        b=htmFD+BlV7cLIihbkL9Jy2wNhf7I5QwYQyl2Rg1kI8croWdYnDFEDmzIIoVkNh+38b
+         7X6kHKOE18YDxp2YT2Igl5t36fj8du88usxERpNHyovBA+g9Cn2SLpYFAPPVYMX7TWmp
+         VSoZgcTDRIYmIYWwQcl5AtYyYz1rtFVtkBCHXbYNvO+yJ4iigeZ/tIPR2UkcSioxM+HF
+         dODxW7/Rr4n0MCItrHkr1isfY6hdoSZ5x3wIZomipHo/8rg1sHJB+M821BTThm4JD3oT
+         HlLrjA9QC+QQHpgaw1ionEJKIlsCEy7LySlNShI2xhO9lnBpBwLrgOrVklw5Y/v7VVRN
+         Vt+w==
+X-Gm-Message-State: AFuF++kR49VkcWaVRxFNWNjyWB5MNSCS2w/Kk0czwERj5aTttQokdkPW
+	g2pE3t4a2YVLkkJqBMpdCTqQqaMaEeBuE+bCiMJY/tF25PCICIevsptE
+X-Gm-Gg: AYBFou1m9AiolQWwUVqP/43NxE8M5dgFnxrf7wfLktAVBVvP/RKy4i09QQkRkEouyFz
+	lh8RSD3t2EUB3vZg9dbpmF7tIlflL9zDlJBoUUDM/HxBzaDjBIY2ZIIj24d1Q2uotjo6GxnWrz0
+	YDUe7QM7s2c+Fro38FBpu13qGdINT+cp/OrJzPPR1eUi7TCQc2z/pSRd2/kQVLcfVGEa1IDyv66
+	v6gJOqZNlRLoPapEDoTad+EIEAH5v7CCzAKAuCz3m8DbpY2zihoVLPHf5MmOVkiAI2Gpw/thWPq
+	/FKhhAO0wsVFrHQD3HEz0wY7YiAWaDiejlbe6OBF/eqBSyyNSb5QMpAITbYK08otwoqOgml6Nzn
+	11O8Bv3iiAnRHpuFQNReORF/hcJ3vH+7nSTA84l6Te7nH7HcWkxXpoH8CNRNa761IzYdriW0Oe1
+	r5SZd077XU9njnxGArxk+D0xJRnh2ubQDeakhttYMSlFcrdr68Nk2AkOPhKmyhZlSSigXMKvv4U
+	cj4eihiDJfQ7DCRbpMCj+N6/Dst+pdL55YJW3YEWxO3C8pUVhMkRw5xfpTXmE4xFbo=
+X-Received: by 2002:a05:600c:4e51:b0:49e:7cff:f8ca with SMTP id 5b1f17b1804b1-49e822a63ffmr11750555e9.29.1789473405919;
+        Tue, 15 Sep 2026 04:56:45 -0700 (PDT)
+Received: from [127.0.1.1] (2a01cb0007c59900d73f8285c1e647ab.ipv6.abo.wanadoo.fr. [2a01:cb00:7c5:9900:d73f:8285:c1e6:47ab])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef88754sm63175565e9.13.2026.09.15.04.56.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:50:18 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Johan Hovold <johan@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Ping-Hsun Wu <ping-hsun.wu@mediatek.com>,
-	Moudy Ho <moudy.ho@mediatek.com>,
-	daoyuan huang <daoyuan.huang@mediatek.com>,
-	Sebastian Fricke <sebastian.fricke@collabora.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] media: platform: mtk-mdp3: fix resource cleanup on remove
-Date: Tue, 15 Sep 2026 19:50:06 +0800
-Message-ID: <20260915115006.2409591-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 15 Sep 2026 04:56:45 -0700 (PDT)
+From: Amin Gattout <amin.gattout@gmail.com>
+Date: Tue, 15 Sep 2026 13:56:40 +0200
+Subject: [PATCH v2 1/2] media: dt-bindings: rockchip,rk3568-mipi-csi2: add
+ rk3576 compatible
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-csi-2-rcv-dts-v2-1-bdaf8141616a@gmail.com>
+References: <20260915-csi-2-rcv-dts-v2-0-bdaf8141616a@gmail.com>
+In-Reply-To: <20260915-csi-2-rcv-dts-v2-0-bdaf8141616a@gmail.com>
+To: Michael Riesch <michael.riesch@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789473404; l=1108;
+ i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
+ bh=76t/6TvrHo/ckJ30OYPKat5fWAU1rA0fOHpl6d6Cs/A=;
+ b=U/+xcpmDD44TQLOMhpTWGOwHvugHp+qVjCLKGJpJc12iRo2mVKucsEvPRwhvI7BINPCfkaRtm
+ ERXc22c4d6aC02BGFdZ1GwYSFiZhhii8gTNoE53pdNPf+ra6wSiiQVc
+X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
+ pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-mdp_probe() has two successful initialization paths, but mdp_remove()
-does not correctly tear down either of them.
+The RK3576 MIPI CSI-2 receivers are compatible to the ones found in the
+RK3568: the register map is identical. Add the RK3576 variant to the list
+of compatible variants falling back to the RK3568 one.
 
-For the main MDP instance, mdp_m2m_device_register() registers an M2M
-video device whose release callback performs the final resource
-cleanup. The remove path only unregisters the V4L2 device and leaves
-the M2M video device registered, preventing the normal video device
-teardown path from releasing the resources associated with the MDP
-device.
-
-For secondary MDP instances, probe returns successfully after allocating
-an mdp_dev and storing it as driver data without registering an M2M
-video device. The remove path does not free this allocation, leaking it
-on driver unbind.
-
-If an M2M video device was registered, unregister the V4L2 device first
-and then unregister the M2M device so that its release callback can
-perform the final cleanup. Otherwise, free the mdp_dev directly.
-
-This issue was found by manual code inspection.
-
-Fixes: 61890ccaefaf ("media: platform: mtk-mdp3: add MediaTek MDP3 driver")
-Fixes: 4294b9d6c8c4 ("media: platform: mtk-mdp3: avoid multiple driver registrations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 ---
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-index f412aadb5996..bf5cc20af715 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-@@ -374,7 +374,12 @@ static void mdp_remove(struct platform_device *pdev)
- {
- 	struct mdp_dev *mdp = platform_get_drvdata(pdev);
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+index 8bfad0fca3b7..1898f3787a98 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+@@ -23,6 +23,7 @@ properties:
+           - rockchip,rk3568-mipi-csi2
+       - items:
+           - enum:
++              - rockchip,rk3576-mipi-csi2
+               - rockchip,rk3588-mipi-csi2
+           - const: rockchip,rk3568-mipi-csi2
  
--	v4l2_device_unregister(&mdp->v4l2_dev);
-+	if (mdp->m2m_vdev) {
-+		v4l2_device_unregister(&mdp->v4l2_dev);
-+		mdp_m2m_device_unregister(mdp);
-+	} else {
-+		kfree(mdp);
-+	}
- 
- 	dev_dbg(&pdev->dev, "%s driver unloaded\n", pdev->name);
- }
+
 -- 
 2.43.0
 
