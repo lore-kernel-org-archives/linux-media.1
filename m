@@ -1,57 +1,57 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F0D457E67
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E563CB548
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460459; cv=none; b=J1Zu5xhh5foXTGWxZ2tHqvzY4woxd5pF6y9e5VBsm3HBRXEdoq8z7b12wfwsRNWuiE9880Ejt8cSJ1Mxfk6n8QXJQKf+RRDDnJ9fd3ZdKFGybgMzFDvzZLXTXV0ZGM3tXumXezz9TTThaEIB5jzgmCVEZnc28fkIXmuZWk/a9xE=
+	t=1789460460; cv=none; b=PZJI6su2rusqmq6P+C0jF/gxwQQIrjouMJHsV8rPpssPaumVAiH0Jvi7HaC8JKMQFIgHRXKHe/l002bSZKgjMOrOitWKFoPWkHqtIYe0YoLgbzuYTWwQMhw5xlzQaJDIRjIyvuhB/hWWZ6j6Bi2Oj4+Kk+ym3B4D46OOKH2YhYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460459; c=relaxed/simple;
-	bh=NfZ3UTUNDbDjVdxNaJ9EQv1Rzk566CEKZbIH1K+eaM8=;
+	s=arc-20240116; t=1789460460; c=relaxed/simple;
+	bh=zW9p0CztRSiZVUTiJTuEFyMkjkuMAZaOn1FMnzhmj88=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=K/ltJpnZShxlXo8ZmcZPmaYsnF/nSY3YUxEDlz9dtdQ51fh8XaMAdsLUMz6LTzDFSBJUWcVRk2Fxd/WrH7Ajn4LYqi/iLCKgUPnUNeiuW3w6M1qODkj3Oc9gq5YtceuAncwsO7AYQK6AL21smFhUkmbecthYhBPWARBKyaSn8Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LJSA2of3; arc=none smtp.client-ip=209.85.215.199
+	 To:Cc:Content-Type; b=BU90o8mXuyeKivKxAOeYYG9MKGZXGbaSewBCU4ycmONxtS5PTWCyLqDxKNTDYq7wfACoGOZppd87yOJLdIRcUvKy2TmhO/jCieb2MURyTS+iULt7F1kPk5l+/Q+tEbC1Z286hHlmkcAHdzux5O5pZsGKqTRlw9WqT9JiNxs8Rps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KWcXfgJ4; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LJSA2of3"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4c1fc9ceaso3462544a12.3
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:19:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KWcXfgJ4"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d7443e0f0bso78283565ad.1
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:20:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460394; x=1790065194; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789460408; x=1790065208; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=fp8wJxWuumatGVjI+YCt9Q6O6hUP8tXGtI5nMGsUbio=;
-        b=LJSA2of3W8P6+BjUV7LwgYXsac3nhvfffLX0uzCdrZluKDCqjXp1K6p2EcaZJWjx/r
-         p7MKXClnpW3/vqLPzq/LsbDTlG52UR6g+Pkbt2trNgt6AKOCTrOaydEDHsRlTWgwmCtC
-         g4PlYKVGyIcqkHgEGFCBmDscXK/7iHIUpWENlhgSJajsyuA02I+zHVX2U6amJMaUuxYz
-         zGWelncx6qbI+rTAn6tGSsG0EvLSfQDAIKxsu5L0jDz5mk2MaI1Khf16SCRgE0Zm2d5T
-         3tZls0Nl+SI6YP1eQcVEWWnFCUb/ZoWesXQLqE9PU5TJr5wjKC7HD3VPlQtPv7CIKgaF
-         euMQ==
+        bh=y5tFxAHb/e8uKrTICVzoygvHAjZ6k748iiDqUmGJfRE=;
+        b=KWcXfgJ4+FaMwJLl96wBD/F113qE6yPIWO6cxRtACLZ7BEC2vugmZUf/DNYgZgaPxy
+         kqbhoqhpuCy1aVuiNViEZPMtTkUHmI6XYGDtiJVKf9tHjndqVPIMl5ZHXUkTQYUjFQJL
+         CiKE9ELGkyIhe0T51MznFME/W+D6jj0O/Aby3gfcIUhMUWCVtPQw7BaPVbADlv8Wcx7N
+         wAMf+DCkJIS9a/XWDFQZphu9B8VLzwnbTKPlelogEDTjrcoeasGUWfxwGIlHNcht8wJn
+         505Z2gsG+yWhEDJqTcB+XydD5vP5Dzadax511XxRXmUo3PUjrBKupscTY+YD5K6D+KbB
+         ycBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460394; x=1790065194;
+        d=1e100.net; s=20260707; t=1789460408; x=1790065208;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fp8wJxWuumatGVjI+YCt9Q6O6hUP8tXGtI5nMGsUbio=;
-        b=WsBVVw/plHT8YojADfunerVN5+54T+iGjOnPRRrkfwqTwtUyvWnXFrpVNlkJ8M74oy
-         4O/AkLvOaYwiZqxtqmUXxXxrwKzo5TQMc4spkYTWzOCQzwiMnw3YeObzlAjeNX+EPsyq
-         4swEpggwQKX3pmiChChlSVFQVXFyj2n1C1s2KYpYehMkcHunJHb5zshJT5Ev9OjYVIfz
-         tzaBQtywp2/YPjTgTNQIJjReVD7a4/o4IfsDNxYzJePwx0FJjoFyLOXVmBTTGmmRyOrK
-         ZUcFamLbMriHUroGUUgxvECuE/phfdnuS5uPVF+gIpYNWlX1dvYMFuT1hWsTPqSt3c88
-         +b1A==
-X-Forwarded-Encrypted: i=1; AKwUvBwrTXzTmgQHeTHxQ87s02yKnbhNFHLOHAkXnPAZM3jZPnoIEpcjeOduYW6r0wY3AJ6tQ8+pdgeIYrpEKw==@vger.kernel.org
-X-Gm-Message-State: AFuF++l3UfXgsdPWdCYmXVsMAg41WFteO72CIneTFNkmzN8JZRKIJgtn
-	m6S4tnYBr7er3OXzJlmii45zaMF4S1snnC+GM0lC0AVmBXAGGet9Se3/OKFXJisuXQWv+8Bp/O6
-	k
-X-Received: from plbkw15.prod.google.com ([2002:a17:902:f90f:b0:2db:5cac:a627])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ffd0:b0:2bf:27b2:4b80
- with SMTP id d9443c01a7336-2dd8384ce53mr639785ad.14.1789460393875; Tue, 15
- Sep 2026 01:19:53 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:23 +0000
+        bh=y5tFxAHb/e8uKrTICVzoygvHAjZ6k748iiDqUmGJfRE=;
+        b=lAlK8hOc1xxfYMqcw66cN3saePJJjLMScaX9XQuHB8fjVjz+4YbLE6IqYkL/rSFUZn
+         hG5xX4tbSDFBT+tG/sWzQ2U7uw0fO6ERHND24ifD50bIyLilYLHrRXlwiMcNwmBbfj/8
+         vv1O7eGp1+BWebI2W+xLtMpH8iIRj6xyIV7KiqOluFJClzstB97fMrW/CYf5jAoiUZgG
+         3FzeGsQlwHgIdAbKDq+VcOF7Oa+K8LnyrdgER8zh2SNE5EEd6GugUIZ3n0r07ur6wHSE
+         qzv3I+D0tklHDC+tiIIiKOqVXMpouxJVfGGBHRirZKfHGkLWzHxVwTVufNyLQwOokR6F
+         /Z8w==
+X-Forwarded-Encrypted: i=1; AKwUvBydzcZ2+0hJSnJqDKLPMt+esKTFHw9FIgUbzn//jdR1kERle2YRsmlEGtLzP26PUWxCg23x5kJw3lJPNQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++myavJYUPaeyZ+4on/p+96GK/TTSWfdylTTQS8OR3ixU2JQOmMH
+	lTLZoHPoJhNHiRFa6z6VplyJ6UYbhrd9YdAqyc/JrA7WeaRchUZgqJGkYjQuqmTvmK93gCAFBgK
+	s
+X-Received: from plav12.prod.google.com ([2002:a17:902:f0cc:b0:2dd:3949:eb03])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c40d:b0:2db:5c0a:f184
+ with SMTP id d9443c01a7336-2dd6c6fc4f3mr121827545ad.17.1789460406752; Tue, 15
+ Sep 2026 01:20:06 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:31 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -61,8 +61,8 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-7-morbo@google.com>
-Subject: [PATCH 06/28] comedi: comedi_bond: Refactor strlcat() to seq_buf in do_dev_config()
+Message-ID: <20260915081910.4142719-15-morbo@google.com>
+Subject: [PATCH 14/28] ALSA: usb-audio: Refactor append_ctl_name() to use snprintf()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -123,19 +123,18 @@ Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-do_dev_config() builds a space-separated list of bonded devices in
-devpriv->name by formatting each "minor:subdev " pair into a temporary
-stack buffer with snprintf() and appending it with strlcat() in a loop.
+In preparation for removing the deprecated strlcat() API[1], replace the
+strlcat() call in append_ctl_name() with strlen() and snprintf(),
+preserving its return value semantics (the total length of the string it
+attempted to create).
 
-In preparation for removing the deprecated strlcat() API[1], use struct
-seq_buf and seq_buf_printf() to format each entry directly into
-devpriv->name. This avoids repeated rescanning of devpriv->name and
-eliminates the temporary buffer.
+Also replace an open-coded strlcat() call in build_connector_control()
+with append_ctl_name().
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: SecurityEngineerAgent:Gemini2.5 [editor_update_file, make_kern=
-el_build_single_file]
+Assisted-by: CoPilot:Claude-3-5-Sonnet [editor_update_file, shell_command_r=
+un]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -249,65 +248,38 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- drivers/comedi/drivers/comedi_bond.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ sound/usb/mixer.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/=
-comedi_bond.c
-index 8e10ecab4f0d..a10cfbd04c72 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -39,6 +39,7 @@
-=20
- #include <linux/module.h>
- #include <linux/string.h>
-+#include <linux/seq_buf.h>
- #include <linux/slab.h>
- #include <linux/comedi.h>
- #include <linux/comedi/comedilib.h>
-@@ -170,10 +171,11 @@ static int do_dev_config(struct comedi_device *dev, s=
-truct comedi_devconfig *it)
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index ecaa8bc08d7c..f64ecad4e77e 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1722,7 +1722,11 @@ const struct snd_kcontrol_new *snd_usb_feature_unit_=
+ctl =3D &usb_feature_unit_ctl;
+  */
+ static size_t append_ctl_name(struct snd_kcontrol *kctl, const char *str)
  {
- 	struct comedi_bond_private *devpriv =3D dev->private;
- 	DECLARE_BITMAP(devs_opened, COMEDI_NUM_BOARD_MINORS);
-+	struct seq_buf s;
- 	int i;
-=20
- 	memset(&devs_opened, 0, sizeof(devs_opened));
--	devpriv->name[0] =3D 0;
-+	seq_buf_init(&s, devpriv->name, sizeof(devpriv->name));
- 	/*
- 	 * Loop through all comedi devices specified on the command-line,
- 	 * building our device list.
-@@ -250,15 +252,9 @@ static int do_dev_config(struct comedi_device *dev, st=
-ruct comedi_devconfig *it)
- 			}
- 			devpriv->devs =3D devs;
- 			devpriv->devs[devpriv->ndevs++] =3D bdev;
--			{
--				/* Append dev:subdev to devpriv->name */
--				char buf[20];
-=20
--				snprintf(buf, sizeof(buf), "%u:%u ",
--					 bdev->minor, bdev->subdev);
--				strlcat(devpriv->name, buf,
--					sizeof(devpriv->name));
--			}
-+			/* Append dev:subdev to devpriv->name */
-+			seq_buf_printf(&s, "%u:%u ", bdev->minor, bdev->subdev);
- 		}
- 	}
-=20
-@@ -267,6 +263,8 @@ static int do_dev_config(struct comedi_device *dev, str=
-uct comedi_devconfig *it)
- 		return -EINVAL;
- 	}
-=20
-+	seq_buf_str(&s);
+-	return strlcat(kctl->id.name, str, sizeof(kctl->id.name));
++	size_t len =3D strlen(kctl->id.name);
 +
- 	return 0;
++	if (len >=3D sizeof(kctl->id.name))
++		return len + strlen(str);
++	return len + snprintf(kctl->id.name + len, sizeof(kctl->id.name) - len, "=
+%s", str);
  }
 =20
+ /*
+@@ -2090,7 +2094,7 @@ static void build_connector_control(struct usb_mixer_=
+interface *mixer,
+ 	}
+=20
+ 	if (check_mapped_name(map, kctl->id.name, sizeof(kctl->id.name)))
+-		strlcat(kctl->id.name, " Jack", sizeof(kctl->id.name));
++		append_ctl_name(kctl, " Jack");
+ 	else
+ 		get_connector_control_name(mixer, term, is_input, kctl->id.name,
+ 					   sizeof(kctl->id.name));
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
