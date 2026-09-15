@@ -1,154 +1,371 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0C72EEE73
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 00:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F763BB48;
+	Tue, 15 Sep 2026 00:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789430520; cv=none; b=Oqa++3Eb4nwIiz9/ZHIF3QCyc7NBr9aU1hbs0FHbmo1QkM3GcMgb4Pb41pDh3xCKFXWgOwCWwzinypTkVFcviHT3NUsqKQGHE416mrQprGmAwF3b4zcqEhWt9YqfmVc1JT2Jj3aS9ZdHVSyr86E90on/IuV3W7Q024274S6pw2o=
+	t=1789430725; cv=none; b=p35nB6LqnXvBJ8PxcqfvTnAvn7WMb1uA5JMSKifO2Yhk6Ndn0wUE6Ztimzzv+Luh+Qg92fejwqdJt94cCoyernDjZloE4Rvv7N0v7N8VH/SjSnXdtC4GhCPAQxPA2vEvqcT9OBP4ha0/ZYzDgegoETi7TyBqnMYkXZaEUokvDBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789430520; c=relaxed/simple;
-	bh=cCK5QtljhNwwltZ3gjweK3kol/149Oy3L0Nfhf3Vk4Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eMlpYl5ec88pqpGu2TNMdI/9LScDTxSTmNTumXnSCKwK+geJArJy14jmvyWOdLa0PhdF7h4FjHzcLT54WmY62vZyx+OH7RW/k41LpAsvpUTxC6FvwI5A/KkosY3hX4Ps2bd1o0FrXILPZy1Hj/yhT5nG01TJM7pmYJOEA+ssGsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qNk5wgjI; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789430725; c=relaxed/simple;
+	bh=pnQjveCJaTht4nhZTpwWuMYbdnSb4VYI5/J/S81rxrw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZzPe/GAJ4YM/A/H2KI2rVd2hil7eO7jkJTZMwOLTs204cdCya1fjxQGeyrQHBBWYalVbt374fvGNVIyNLVEaeJ1ZGaN1vLqIdZezYzGNGlb+An4wAnocq5QMB4MmtP8NG73vfrAzda/dpeDTEHfhEfOA5u/AOeQRcJq4gezY110=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=In/E9cKY; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qNk5wgjI"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso30655865e9.2
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 17:01:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789430517; x=1790035317; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=45XCm1gWXVXPQxvqd7V6pmmwz0pMn952uodMWyHXxOg=;
-        b=qNk5wgjI3pUMSnpjyaOCOvW5O+ezNYZK9t13OHg5LRsb0B6fxGQkbzjyUJhMWdzT0k
-         /RVRtHCL3jAeF0M3HNAhVGSNhR/LerPIN+yTTRkJzeJEW5Pq9V481N3vLqshD/gQ4Uwk
-         0TgOdUIHBbEWIXJSp+ToFXToDGVmglY2wsCKOsiKn0YBrCfo+720KGt/l1m6yMxKl00E
-         L6hpZe88qwDXu1B/ZYbhXvPNZEMFPtlRRdB7UgBvAwd3BCATaiG86UByQukv4R/2MlwK
-         4xnOze4rAn8zvJbSICr1bGcBjT1LomZq2T4LJxQkbEJxVzkTnu1ojGgrVaeR99IfgtPN
-         GrEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789430517; x=1790035317;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=45XCm1gWXVXPQxvqd7V6pmmwz0pMn952uodMWyHXxOg=;
-        b=AskUWwAGhFi3bO5qzHfrb/Tjw/znJdK0MLBwIlFMRLL6JPRajyQdie3imkpmDsg2GY
-         5EDCqHp/y2bJRzTLIqVsCBVM0qpZLaSEJ2Q+vYqAiHpX/ZFMBJgfe0wo1+kWjW+BsDnS
-         fv8pGQcNcsSN1luMtC7WnutF30jksRr3PG9jkBRbLJ5A+mF3veKRuX5w6MNU4g88q8i5
-         GyTtkZTxkgEYPr5Cu7E00JSMBOCM34EeTk4bkaijKKOWYhAiz19jQOSVEgS15PaJSLhg
-         t3IygWuXH9hqhB0/fbhGXMXOqWKMoPlmLC6IzWsQ26UjVL5Nc7JZaHCUMKXTVFnyUOcO
-         UJCw==
-X-Gm-Message-State: AFuF++lBlkQsA/12xycBHri4Pn8R+2F0+1GJ8o6kW9xHVVJmhTZa9Kf8
-	ueaeHpGWU3RRgtnj686eK+cwXQvlUweP5rg3nJ/e32+Y8tujteSKNDqsLzaNKHZr
-X-Gm-Gg: AYBFou3sgJY/e/q47cXDPnwQDeFaXnUqwEbY7AaIIE06Q9vuDPbVH6iBmGzTfk+keAf
-	MUJh8ASMoX2tLNZQ4XUDlRRMie3gC0+4wEigN11Dimch7C4VEMWJ8H3+Ez7eWF0HOBLptkiTVif
-	M3o9aA0opbHoWTl+e+jKtYuPTmH7fBakN/uiX3y+7wvDXZUPmtdc3P1b+q9xNaVc/AbreLPiI+V
-	Y72dXhJLG9xNG8hovk7WrpRBG7AXwEeDygQXtk/rBJMnEz9ea+SvFjbkMuh3o3UbwlIDIyCdaav
-	TGfB2/9QbDOOY7diImiJ/EbBw7JCo/nN/We6z9RsK7BH6LAmNGQsGhugnS9PONWvm1F/XX+qzPX
-	vYqMVGOq16yF1feus6DoyshjGYndlbBXDC3F7pqbv01R2BCZMfckIG8/lsGXH2wLFLsAXKXEkd8
-	cCGoMac5EnT4hTqUvJeplabCyLwrHbiE2obYEtGA7KqeLrZgkMhzkM8Oz+oxHiKp8Etll5CQoaD
-	jk6UNxdLAmnDoZn4kLwNUs1HMeSEA0a
-X-Received: by 2002:a5d:64ce:0:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-48702b3ce87mr11660766f8f.28.1789430516532;
-        Mon, 14 Sep 2026 17:01:56 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.65.89.105])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm29896602f8f.2.2026.09.14.17.01.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 17:01:56 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	dan.scally@ideasonboard.com,
-	mchehab@kernel.org,
-	hansg@kernel.org,
-	lsa.uz@pm.me,
-	linux-kernel@vger.kernel.org,
-	Fernando Rimoli <fernandorimoli11@gmail.com>
-Subject: [PATCH] media: ipu-bridge: Add upside-down sensor quirks for the Surface Pro 9
-Date: Tue, 15 Sep 2026 01:01:40 +0100
-Message-ID: <20260915000140.47125-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="In/E9cKY"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9F966447;
+	Tue, 15 Sep 2026 02:03:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789430621;
+	bh=pnQjveCJaTht4nhZTpwWuMYbdnSb4VYI5/J/S81rxrw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=In/E9cKYBLrWIn6bm/TB/buW7Ddb0EyYyxZT0THFQ6wwV+7d4pfHu+vkoO6wuw7Fi
+	 kKT5Fl3p4hkFYQ4B04LWPT2DVpeWiomVpUKcM/7NKgFBY532e6cVTVJiy6ZK2AeoiI
+	 BiH6EWOiFp/UsWLD/RuDme//6C0jjVn/WiCbpO98=
+Date: Tue, 15 Sep 2026 03:05:20 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] media: imx8-isi: Enable ISI RAW10/12/14 output
+ LSB alignment
+Message-ID: <20260915000520.GB2804748@killaraus.ideasonboard.com>
+References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
+ <20260831-isi_imx952-v2-6-fafdb4b446d4@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831-isi_imx952-v2-6-fafdb4b446d4@oss.nxp.com>
 
-The Microsoft Surface Pro 9 mounts both its front sensor (OVTI5693) and
-its rear one (OVTID858) rotated 180 degrees, and its SSDB reports 0 for
-each, so frames from either arrive inverted with nothing to say so.
+On Mon, Aug 31, 2026 at 11:37:01AM +0800, Guoniu Zhou wrote:
+> V4L2 requires RAW formats to be LSB-aligned (right-aligned). Before
+> i.MX952, the ISI shifts RAW10/12/14 output left to MSB, so the driver
+> works around this by using RAW16 format instead.
+> 
+> The i.MX952 ISI introduces a RAW output LSB alignment bit. Enable it
+> along with the input MSB alignment on platforms that support this
+> feature, so that RAW10/12/14 output formats can be used directly
+> without the RAW16 workaround.
+> 
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+>  .../media/platform/nxp/imx8-isi/imx8-isi-core.c    |  1 +
+>  .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |  1 +
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c  | 39 ++++++++++++++++++++-
+>  .../media/platform/nxp/imx8-isi/imx8-isi-regs.h    |  3 ++
+>  .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 40 +++++++++++-----------
+>  5 files changed, 63 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> index d492631dfb6d..0f776fc8fd7e 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> @@ -394,6 +394,7 @@ static const struct mxc_isi_plat_data mxc_imx952_data = {
+>  	.format_mask		= GENMASK(30, 24),
+>  	.buf_active_reverse	= true,
+>  	.has_36bit_dma		= true,
+> +	.raw_out_lsb		= true,
+>  };
+>  
+>  /* -----------------------------------------------------------------------------
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index 73f6ea7b0ea1..c352bcf8dc47 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -166,6 +166,7 @@ struct mxc_isi_plat_data {
+>  	u32 format_mask;
+>  	bool buf_active_reverse;
+>  	bool has_36bit_dma;
+> +	bool raw_out_lsb;
 
-Add both to upside_down_sensor_dmi_ids. The two entries carry identical
-DMI matches and differ only in the ACPI HID they gate on, which works
-because ipu_bridge_parse_rotation() walks every matching DMI entry rather
-than stopping at the first one.
+As there's a single SoC that supports this, I would have used the model
+field instead of adding a new boolean.
 
-Measured on a Surface Pro 9, DMI product SKU Surface_Pro_9_2038, IPU6
-Alder Lake-P 8086:465d, where the inversion of both sensors was confirmed
-visually. Matched on DMI_PRODUCT_NAME as the rest of the table is, rather
-than on the narrower SKU: the entries only take effect when the ACPI HID
-matches too, so a variant of the same model that shipped different
-sensors is left alone.
+>  };
+>  
+>  struct mxc_isi_dma_buffer {
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> index 2405f7d33d0a..4838b445f279 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> @@ -308,6 +308,7 @@ static void mxc_isi_channel_set_control(struct mxc_isi_pipe *pipe,
+>  					unsigned int vc,
+>  					bool bypass)
+>  {
+> +	const struct mxc_isi_plat_data *pdata = pipe->isi->pdata;
+>  	u32 val;
+>  
+>  	mutex_lock(&pipe->lock);
+> @@ -357,6 +358,20 @@ static void mxc_isi_channel_set_control(struct mxc_isi_pipe *pipe,
+>  			val |= CHNL_CTRL_VC_ID_1(vc >> 2);
+>  	}
+>  
+> +	if (pdata->raw_out_lsb) {
+> +		/*
+> +		 * Enable RAW10/12/14 output LSB alignment to match the
+> +		 * V4L2 requirement that RAW formats are LSB-aligned.
+> +		 */
+> +		val |= CHNL_CTRL_RAW_OUT_LSB_ALIGN;
+> +
+> +		/*
+> +		 * Align the data selection from pixel link to MSB to
+> +		 * avoid data shift since the data from PL is MSB.
+> +		 */
+> +		val |= CHNL_CTRL_RAW_IN_MSB_ALIGN;
+> +	}
+> +
+>  	mxc_isi_write(pipe, CHNL_CTRL, val);
+>  
+>  	mutex_unlock(&pipe->lock);
+> @@ -406,11 +421,19 @@ void mxc_isi_channel_set_input_format(struct mxc_isi_pipe *pipe,
+>  		      CHNL_IN_BUF_PITCH_LINE_PITCH(bpl));
+>  }
+>  
+> +static bool isi_out_raw(u32 format)
+> +{
+> +	return format == CHNL_IMG_CTRL_FORMAT_RAW10 ||
+> +	       format == CHNL_IMG_CTRL_FORMAT_RAW12 ||
+> +	       format == CHNL_IMG_CTRL_FORMAT_RAW14;
+> +}
+> +
+>  void mxc_isi_channel_set_output_format(struct mxc_isi_pipe *pipe,
+>  				       const struct mxc_isi_format_info *info,
+>  				       struct v4l2_pix_format_mplane *format)
+>  {
+>  	const struct mxc_isi_plat_data *pdata = pipe->isi->pdata;
+> +	u32 fmt;
+>  	u32 val;
+>  
+>  	/* set outbuf format */
+> @@ -418,7 +441,21 @@ void mxc_isi_channel_set_output_format(struct mxc_isi_pipe *pipe,
+>  
+>  	val = mxc_isi_read(pipe, CHNL_IMG_CTRL);
+>  	val &= ~pdata->format_mask;
+> -	val |= CHNL_IMG_CTRL_FORMAT(info->isi_out_format);
+> +
+> +	/*
+> +	 * Before i.MX952, the ISI shifts the 10/12/14-bit formats left
+> +	 * by 6, 4 and 2 bits when using CHNL_IMG_CTRL_FORMAT_RAW10/12/14
+> +	 * respectively, to align the bits to the left and pad with zeros in
+> +	 * the LSBs. The corresponding V4L2 formats are however right-aligned,
+> +	 * we have to use CHNL_IMG_CTRL_FORMAT_RAW16 to avoid the left shift.
+> +	 * After i.MX952, ISI add RAW10/12/14 LSB output alignment, so skip
+> +	 * the above workaround.
 
-This makes the kernel report the mounting truthfully and does no more
-than that. Nothing in the bridge rotates pixels, so an application that
-reads the property can turn the image the right way up while one that
-ignores it still shows it inverted.
+What happens on i.MX952 if you use CHNL_IMG_CTRL_FORMAT_RAW16 and don't
+set CHNL_CTRL_RAW_OUT_LSB_ALIGN ? Won't that work, the same way as on
+previous ISI versions ? If so we could use that workaround on i.MX952 as
+well and avoid this complexity.
 
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
----
-Applies to media/next as it stands today.
+> +	 */
+> +	fmt = !pdata->raw_out_lsb && isi_out_raw(info->isi_out_format) ?
+> +	      CHNL_IMG_CTRL_FORMAT_RAW16 :
+> +	      info->isi_out_format;
+> +
+> +	val |= CHNL_IMG_CTRL_FORMAT(fmt);
+>  	mxc_isi_write(pipe, CHNL_IMG_CTRL, val);
+>  
+>  	/* line pitch */
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> index 35dec3a650ac..c9c22a3668f9 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> @@ -20,6 +20,8 @@
+>  #define CHNL_CTRL_CHAIN_BUF_NO_CHAIN				0
+>  #define CHNL_CTRL_CHAIN_BUF_2_CHAIN				1
+>  #define CHNL_CTRL_SW_RST					BIT(24)
+> +#define CHNL_CTRL_RAW_OUT_LSB_ALIGN				BIT(23)	/* i.MX952 only */
+> +#define CHNL_CTRL_RAW_IN_MSB_ALIGN				BIT(22)	/* i.MX{91,93,95,952} only */
+>  /*
+>   * CHNL_CTRL_BLANK_PXL: i.MX8{QM,QXP} only
+>   * CHNL_CTRL_VC_ID_1, CHNL_CTRL_VC_ID_1_MASK: i.MX{95,952} only
+> @@ -88,6 +90,7 @@
+>  #define CHNL_IMG_CTRL_FORMAT_YUV420_3P10P			0x3a
+>  #define CHNL_IMG_CTRL_FORMAT_YUV420_2P12			0x3d
+>  #define CHNL_IMG_CTRL_FORMAT_YUV420_3P12			0x3e
+> +#define CHNL_IMG_CTRL_FORMAT_RAW14				0x41	/* i.MX{8ULP,91,93,95,952} only */
 
-Two notes for whoever sequences this against Sergey Lebedev's Surface Pro 11
-entry, which is in flight for the same table:
+This is documented as available on i.MX{8ULP,91,93,95,952}, but the
+format will only be used on i.MX952.
 
-  https://lore.kernel.org/linux-media/20260913153526.80287-1-lsa.uz@pm.me/
+>  #define CHNL_IMG_CTRL_GBL_ALPHA_VAL(n)				((n) << 16)
+>  #define CHNL_IMG_CTRL_GBL_ALPHA_VAL_MASK			GENMASK(23, 16)
+>  #define CHNL_IMG_CTRL_GBL_ALPHA_EN				BIT(15)
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> index f45c2aae59ce..9a6a8302774c 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> @@ -221,11 +221,11 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  	/*
+>  	 * RAW formats
+>  	 *
+> -	 * The ISI shifts the 10-bit and 12-bit formats left by 6 and 4 bits
+> -	 * when using CHNL_IMG_CTRL_FORMAT_RAW10 or MXC_ISI_OUT_FMT_RAW12
+> -	 * respectively, to align the bits to the left and pad with zeros in
+> -	 * the LSBs. The corresponding V4L2 formats are however right-aligned,
+> -	 * we have to use CHNL_IMG_CTRL_FORMAT_RAW16 to avoid the left shift.
+> +	 * The format entries use the native RAW10/12/14 ISI format codes.
+> +	 * On platforms without hardware LSB alignment, the driver
+> +	 * substitutes RAW16 at runtime in
+> +	 * mxc_isi_channel_set_output_format() to avoid the left shift
+> +	 * that the ISI applies to RAW10/12/14 output.
+>  	 */
+>  	{
+>  		.mbus_code	= MEDIA_BUS_FMT_Y8_1X8,
+> @@ -240,7 +240,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
+>  		.fourcc		= V4L2_PIX_FMT_Y10,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -249,7 +249,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_Y12_1X12,
+>  		.fourcc		= V4L2_PIX_FMT_Y12,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -258,7 +258,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_Y14_1X14,
+>  		.fourcc		= V4L2_PIX_FMT_Y14,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -312,7 +312,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+>  		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -321,7 +321,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
+>  		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -330,7 +330,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
+>  		.fourcc		= V4L2_PIX_FMT_SGRBG10,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -339,7 +339,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
+>  		.fourcc		= V4L2_PIX_FMT_SRGGB10,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -348,7 +348,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
+>  		.fourcc		= V4L2_PIX_FMT_SBGGR12,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -357,7 +357,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
+>  		.fourcc		= V4L2_PIX_FMT_SGBRG12,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -366,7 +366,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
+>  		.fourcc		= V4L2_PIX_FMT_SGRBG12,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -375,7 +375,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
+>  		.fourcc		= V4L2_PIX_FMT_SRGGB12,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -384,7 +384,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SBGGR14_1X14,
+>  		.fourcc		= V4L2_PIX_FMT_SBGGR14,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -393,7 +393,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SGBRG14_1X14,
+>  		.fourcc		= V4L2_PIX_FMT_SGBRG14,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -402,7 +402,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SGRBG14_1X14,
+>  		.fourcc		= V4L2_PIX_FMT_SGRBG14,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
+> @@ -411,7 +411,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  		.mbus_code	= MEDIA_BUS_FMT_SRGGB14_1X14,
+>  		.fourcc		= V4L2_PIX_FMT_SRGGB14,
+>  		.type		= MXC_ISI_VIDEO_CAP,
+> -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
+> +		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
+>  		.mem_planes	= 1,
+>  		.color_planes	= 1,
+>  		.depth		= { 16 },
 
-Both his entry and mine go in immediately before the terminating entry, so
-whichever is applied second needs a one-line context fix. Nothing else in the
-two overlaps: different machines, different HIDs.
+-- 
+Regards,
 
-Separately, and only because it would be a shame for it to be dropped
-silently: his version as posted does not apply to the current tip. Its hunk
-context ends at the Samsung Galaxy Book5 Pro 360 entry (OVTI02E1), while the
-table now ends with the Book3 Ultra (960XFH, OVTI02C1), so his base predates
-that entry. A rebase is all it needs.
-
-I have not touched the Surface Pro 9 rear sensor's own bridge entry here.
-That is Sergey's patch, which I tested separately:
-
-  https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-
- drivers/media/pci/intel/ipu-bridge.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 952868a..f286881 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -226,6 +226,22 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
- 		},
- 		.driver_data = "OVTI02C1",
- 	},
-+	{
-+		/* Microsoft Surface Pro 9, front sensor */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
-+		},
-+		.driver_data = "OVTI5693",
-+	},
-+	{
-+		/* Microsoft Surface Pro 9, rear sensor */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
-+		},
-+		.driver_data = "OVTID858",
-+	},
- 	{} /* Terminating entry */
- };
- 
+Laurent Pinchart
