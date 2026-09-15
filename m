@@ -1,211 +1,120 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012026.outbound.protection.outlook.com [52.101.48.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560B83AEF4F
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461672; cv=fail; b=QAQDaaK3BSTCtO2slY8YiZ5jRd18lQGbmsn6QWo4BKg1LC1fIGAYqIxEqKanyEsrsVJDjWoC8yGd20OWLYDAX2+IwCp9t3X1gjLxowYdMKXP3w3MlF+q8PKV2MmU6hkLsgJbuBYs/u+568JQS7zSb8p4q/xQa34zMXwkvuteQWc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461672; c=relaxed/simple;
-	bh=kLJwqnSFC7D4jCicKllEuJn2k2wyF7S/iJ8Nd+KX/H8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=PqAaIgNVYQF+HTQFCsT6OHrkotVgd+uVBLbQEGR4Ygd+d/rTFCCOvYNHRp5zwmKJEitTNm8fyKiQ3rScUtZfgCUAcsGTcFzljUWXbgL/SUTrHK80Ngvbjg40eOOWAncrWvU7Bo0yHcEW1nC5WLr1DqCYYRoLABIokvSSaw9lJKM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=T8waihPP; arc=fail smtp.client-ip=52.101.48.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C7E495024
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789461892; cv=none; b=C2a3wIf5O4cjPf6O7rFYh3FsA/998vmoYh4kcR7lapcuoArAz9h6nb+0NnYgY2fytap8sjPMTPGXlEO9IeBiPJlRJ7s6P+X1XeKa1159W8ApEvhNxUwJp3mwMznujy5QCEQDvsBin5Eo9PHxFIOG66WA/kew1XcfkZWsmkVVVPY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789461892; c=relaxed/simple;
+	bh=sIWXsFOViFSc+IDafr5CEvfwl5IYge2eVO88nxfFni0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lzeoBJTTHL50pE9semkFUhJJ89Aauvjc/IpqwpH9X8NDh5udqP0s+aKfRYLpw9EE1O3soebXaeOJ+HkfH9XRQRv8dI7mAbeK0X+hJiC88PxMga1e0Fiy6E7hsCfgk4Jzhc/Kd7FMPyQYi53AvtF12fMjWwC/+fAXpHUqnQq1p/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jI8qnZnu; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="T8waihPP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rYUzTUUl2ALaRHr4io+e4bVqcXxTrncaIvJPfKVYtAgsZbQCXUuMkljZrJNdUAk43G4HSKRZyFNjd25SBEcbvDxO+YTULpyNBh7o+EXSz0iMnKawkTnuOODUK49ePRqrqrkpeG0MDimz1c2wFBQ+nLtA81XZQgtodG0awM8Xn88sY/iAcK7H6uu/GSwojATkxlgetBaBphULJY41aSazyVzWYUCea/wtq4vu8QAAReR9Nub0x5y9kZc1fJhSfOGkGA0dS7eX3CClgTr5sOQN+U6sK7LGNNTvSmXN0onSykbG9FCIdgGKK4w0tpDLUleeWY/IZoHpyJiphqzcVyqraA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mtumm/eJXylVjf83g2EXxaJAtPVmLa5sucl9kvPfQ/o=;
- b=qStFD6EqIgbg9bh7bDK/CInTwYR1qh/zTh819jzHpRPwoOXONZ6kM7vcMySzEWhWCRePYYQqMNprkPaNGzZcTnzgJP2iy8x5nTXBMwPDV3otVWQDiaSYquOdXNNcd6L0QGwiltfYXi4ClMA0ViqN5kQFgiDKkjOEQ5R3dxbYwz7SX+RfNAvhXcZ1hFXNh5kV11eMfY8Mpm+sTHDKWdif1FJfePch/4p3cJ4lA6boP3Ob7+BkaO/Xyr2jgjlNRYwlvNbvTlwiGdqeFAMeibVYneVrd8JDx20PTpjTigcm9zPSAbswGWDHJwLG91LOwbXn5MJ8ccTfIn//1DJsb+yVJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mtumm/eJXylVjf83g2EXxaJAtPVmLa5sucl9kvPfQ/o=;
- b=T8waihPPzcbD1xgKNcLfAfD/e0g4XS7+80iwI25vSuRGeWpXURDFgcsN7+d2RHFBqxXYD2Z8Y9iKSI5pqqgZelldul3NQAwq5yotvUAlsbHzXGzlYG1SQTz4hbrpA6zmDpoqkMUeawBxEqBg7FUIoQTZSSSEp0CGvvGSa7/yUco=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA3PR12MB9130.namprd12.prod.outlook.com (2603:10b6:806:37f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 08:41:07 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 08:41:07 +0000
-Message-ID: <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
-Date: Tue, 15 Sep 2026 10:41:03 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
- IOMMU superpages
-To: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
- phasta@kernel.org
-Cc: benjamin.gaignard@collabora.com, jstultz@google.com,
- tjmercier@google.com, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260914212258.2657788-1-dave@stgolabs.net>
- <20260914212258.2657788-2-dave@stgolabs.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260914212258.2657788-2-dave@stgolabs.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0155.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jI8qnZnu"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso17476a12.0
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:44:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789461888; x=1790066688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZZpYund0BctTk6ZH3SpbNGSO6zmMyboEAdN+GkOuIBA=;
+        b=jI8qnZnu7uDOdAVW2I8qt620CwL1qYLkLRpFYssH/rWpXNRd0J3r5TMKdv+11vPr0J
+         L67H/ULryeVp3mjXhiCycncaZ1R2FFURGZm6ss7salhjCCobfTJovosHdGZWK/uMTwZB
+         31+R0BP9vX9CFJx/y6K+LNzpNxpDi9aCuCFrtsrlPGNJhVvBlrhSZkuUUkE26G5zTsqZ
+         i8VXrnxtO3GarP75GwZtW/PgOvatJWxChudVV8Rah4Pd7WmFHN5Ahej1w+zFIUKKBCSG
+         h2nzLLIA+sxd2wfm2P8kRQrpmRxNZ1EBAdALsl789N8e3O095KUcVmYhafm39XEMQgpK
+         Am/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789461888; x=1790066688;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZZpYund0BctTk6ZH3SpbNGSO6zmMyboEAdN+GkOuIBA=;
+        b=mNxK3x8wkevQYmBHyZgML5pwatBj6WgnWnAFF2b5ZLAXYmKFaE5AJWeEUuGAmcBec0
+         ZH3az1rkvvF5lZ0CRbjXrWd5nccipRxXwJ8ee32Z52iOHaSHFkZM7GDL9LfxiM0JogoG
+         OYXjAHAeeXP/f0fLdNZbIPAJOAlYk8sSo0Da9GWtJsU5D3agX9FHLASbwHcgG7s37Ri+
+         /wcP8vBj+t1zqA1YqEftM8kzHs/DNna0yNe6x12AGxZf+WdOsDAbzH5vmWYVaYxfyQ2l
+         trmVfEIicB1GGygBuH+l++84GZf1svgZsrBQDsqLeu2ZnlW1uiYiugGyAM3TCRvaGcGa
+         XKLg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtDAxAn1LITi3Uzul0Q/Tlri5h64P+Zl3Orrm/Va3rzVhhlp5y+YiqtJKfJ2wQgC/vExTgBaZMwo6asA==@vger.kernel.org
+X-Gm-Message-State: AFuF++k4ugAP9UociWju0qyn/dNbSGwWhb05SIhs/uhwpYtYeJb0kcBC
+	iORVkgmqLJta6iljZgLip5HAPGQEdGf/m+fmKP4u4xKQS2pKaxfIFV8hSOfwH8nW
+X-Gm-Gg: AYBFou3wLwGVwCXu3nOFRPoRVDamxTqXXoKZY8X7HVxMM/Uc+dTG9G/ixGifD6CodLX
+	zygZiO5Q/kSVO3Yb/LVDfqb1JhiZSHZMQxYvvW4Q8vgGcYPLYrp2hRh5m2WGzgzjO40aPc9DrBr
+	wUcWSlyqSFbMGVLCYxh8NqAjBZy2oy8mjj/UpVkXJhum3skqNn7Zb4fk2MyM4Mvgs0VF0YktZHU
+	338OMxYKLkrSgzweeEPqGbectsI3EbxnjiFcbhPUz80v6InGyixwK2T/7XMeuE16Z3hpTGck6Hk
+	opuu64HknXBby9BHaYfyVA/OzaNmGjRWsqNxyt/NNNoGDtn3TwJmsh4xeG0K5DqVnJl/MeujV2Q
+	8ZpFjTl/t++hy1RQBpQblDbcUIHHI/qWrBuRcdJiq/sqnOg34YWKzGZZRrhpsaG975edqX77mk9
+	CP8NS5Mwmo/N+SESpQdSCWx3CFOIZdVfgkI6gb+n4dJcICyDG/zjG8HIY=
+X-Received: by 2002:a05:6a20:7f8a:b0:3da:7140:da35 with SMTP id adf61e73a8af0-3dd52823778mr469275637.15.1789461887506;
+        Tue, 15 Sep 2026 01:44:47 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6528fb9sm6186338a12.10.2026.09.15.01.44.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:44:45 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Hao Yao <hao.yao@intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: ov13b10: fix power cleanup on remove
+Date: Tue, 15 Sep 2026 16:44:36 +0800
+Message-ID: <20260915084436.2329278-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB9130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 965fccf9-de8c-4324-49c1-08df130515f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|4143699003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	E8+IFICcM41894Gr0gC8mrB5Jl3eiyG1bMsWmeKYA6c2OgMEYc0r1pAvrnklmPLNYx3Sc9f17xn7KjhRF3wgumstF/LEgN5bUIyxULjQkfHceu4ldXSU304/MAf9StLnKcT61Ivt8x5UHzrM/zSiyuPweJtmkucVCdXGOFljdLHq9X6ZC+sqYaMVw7NToByGQgoM0wp79+F1aYlAmMn7ooVu5Ojq8/cMjzK3OORcbT67SeU0oK3UbQEkrwcajA1u8jxM4smj2p0rPd1HcHxI/bJ+zDBEL+pMAp4JHLkJC2oniOHs/qJOYMrThKccVbmBGQep5OPH4PGSpodcN5TcEJGutAyP86MVBguxYr8CcGVauqIVDfxfHyFSW8Ep3QojOnM9pYUDIH33KgReYUwLb9v9nFI6LTXEA1CMDc2F4YBu5hvWoNtdgj+qj3Kl4q2WcjTGdFXVZpfZfAbAJtM/UKw70//eAHgf/u0KNVx8rHkpY6a/8T3hMUihLXBla8UtwrwWe7Wzh447vtw1xaNID3ZfLhRbU1t8yxd0qoxVIbznHbnZHSt4hGXhp90MQXjpDNoz50s2a4vXzSs+Vyp82VnH0OIVzf7F1s2d2VcJv6X70+0OTmu5ShCaUgAaI7skUdydMKM+AcEUZn4ncKAYewhP3plCo0Brei3cVh6vyE8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T2NBWmVDaG53cFROZThYcUJRR0ZEUDVZbDVCOVp2VjRxc0tIODJBcnNZb2hk?=
- =?utf-8?B?Q1lUQ3Fmd1QwcXgzbHBzMUF1cFppYU5YTGVBVWgwQzcrWTYxOTg3TlZtVG02?=
- =?utf-8?B?RVZMU3M0d1B2NWxJTTBVSi9Xc1Fvb0Q5M2ZiYmR5UW9Sd3JrR3JpL3N3UjFU?=
- =?utf-8?B?YlRSMTB6ME9heCtWNk1OblpIc05mNG96T1BJWGtqbVk4c1ZnSjNxbUR6YThx?=
- =?utf-8?B?U0xvVGNiSmtJS2ExRXVqVWZpQld4aHFwZzE0M3kwcEJxTDNwVnFRUlVBWTVL?=
- =?utf-8?B?S3JwUkdnMnBLQjc5dzlDdUVPcU5FNjEvMHd1U2xtSWxIRnlPSFo3SUpveWhz?=
- =?utf-8?B?bHNXRVJVTVF4TFFYdmdPK3hEL0NXc1RkcFJrbGJNMjhrTTdCc25YeDhSNWl3?=
- =?utf-8?B?VWthRzFGSHNESHM4cU5hOC91N1dIMlpLWG5JRU9ndDM2Y2lFa3JUeENZMCtN?=
- =?utf-8?B?a3lBdGtvSnA0QXFBd1pnRUVIcE1RdnFFQjdtYWU1eWw1QmZXcGQ0cHpvdTEx?=
- =?utf-8?B?MzJjSlUzaUhsZ2drRWVCYSsrS1hVam0yazNhOVo1dzg5ZkF1MnlMb3JqVExG?=
- =?utf-8?B?QU5XcG9ScTNyNEw5VzRFQ1JVK0R3U2VkNVlXUzRNZXhEWUxKV04yRUZNQ2JN?=
- =?utf-8?B?dEFOb1NoQU8rOFhTMUthTkdaSERTbGFpdER6cW52eVEvd1hZQWZEREVhTURy?=
- =?utf-8?B?YTVObnJhV2lZeUFveEppRWR1ZjhoMExldUZJbjhZdmtaenZZR1BHbExyN2s3?=
- =?utf-8?B?eFNSdURId2puNEQ2NkYwdENnZkNXNTMrTFNXaHNTN3I0ekRmdlYvQjRtdkxC?=
- =?utf-8?B?S1lPQkVHTjFEcW4zUFlpL0FjRUZFYytIUkxzNzNuTnFxaUlMSHVraWlSVlRx?=
- =?utf-8?B?QW9sN2IwekxlMXVXVExkbGloMFdQbVlacXJaTndhRThwQzN1UmVNVTE5elFT?=
- =?utf-8?B?VmdaNWV6SEJOT3ZUK0FSUTNMa2RURVA2SHpHRGtBVXArRkpJcUJ6bVgwQWZ6?=
- =?utf-8?B?ODJtWlJMd0tWbG1NV1Vjc0FIajUwZlBJTE5ROXAyVHlaWmxINVRsa05WY2Ft?=
- =?utf-8?B?bS9LMGxSY0ZFNTcwUHVlRDh0Qm5EMmNnQmcrNWVzQWRLTitrb0xVQXlCZWFW?=
- =?utf-8?B?QTJxUDVpTlN0YTNCbUY2WGVZanIxbTd5d2tUOWQxdVBTaEFpOGhUTkpqaXdx?=
- =?utf-8?B?R21nTkpiOVc1YkYwR2lZSkZldkFjR1Nha05mU1Z3bUR1TDhEeWEzNWYxUE9p?=
- =?utf-8?B?NnpWaHVsZGozeGJXVFFLOTVTN2tIN2VLREkzcmhEVFA3NjdVcHkvK3BKV3ZQ?=
- =?utf-8?B?eGc2UVVYMlhNQThXOFhYOUFvTFU3S2ZsZVJJaHhyS29CRkpOR0lwbmZVRzJC?=
- =?utf-8?B?T3ZIdXd0SU93L3F6OHNlczJZVVlFV0xJZkFHcElVQU1YWDJJYkxlbENjcFdR?=
- =?utf-8?B?aG1hUmFDOUs3U202WUJtZXhDUzYwVk9uY2RIdkdQLzlmUjFFak9VZFp3ZVEv?=
- =?utf-8?B?K0xtV2NzMTgyZ3VwcnNwbzJpVkpZczNqU0lkSzV4VGlQbjZENmttUHJEU29S?=
- =?utf-8?B?N0RLZ0FJdnQrcFhSbDQ1U2g3SGwydUZKbWU5L3hOVS91L2R6RmFwSjBKN0JB?=
- =?utf-8?B?MEJvTmlHWGZveXUrSGF4UTNUSXNDZDNwcUdtWHRSckZtd3F4YnN1YzltRlJt?=
- =?utf-8?B?c2JOb2NyajQ1SUZJT0FuT2RQMnU3RzRRdkIrUGxwbnFQTVlwSkJjOGo5dXAx?=
- =?utf-8?B?UGphcmVxd0M4OHFNU3YrYkdsdUIraXQrMi9tb05GNFNjMGY0YWJBMnh4SmMv?=
- =?utf-8?B?c253d2IwZ0grelM2Qm9aNnRzd0d2KzM1STVJak04dmNtZjBGREhaQzlEUUpK?=
- =?utf-8?B?cnJXUFpocmxVS25XVjB3WHBBM0lMQkphNVNrTkQ5NjBYbmlMR2toYXFCUkkv?=
- =?utf-8?B?bjU2UU5kd056OVI1MlNxZ1ZHYjk5bFh5REtzUVJtSStpaW1hVjU4SXFrWm4y?=
- =?utf-8?B?T2JYMTRuay9sazllTVhCbG53Q0FraFpkN29LTHVsK3NDS3ZVS2tOTDJMemN3?=
- =?utf-8?B?MURDaHAvMFhBNllFZHp2MFFpakpqQ3BNWVVDazhNU0xGd1pUQ0hIeGtrOXRB?=
- =?utf-8?B?c0hxVjdNREFXSjRoaENzc2FWdGNESEhQNG5EcU9NUThEbUN5eWlrd2w3QnhK?=
- =?utf-8?B?NHc1VEtsTkVuakowRjdDai95TVNRZGdhbVdxKyswSGVQdUZ1eFB4WnlqbVZV?=
- =?utf-8?B?NXN0RDdvYXd0UEpONFRZWFJXWS9FN1B5Z2t3em5MUG1KNTgvaVFVZVBMTEJl?=
- =?utf-8?Q?b0wHv824TZQLciAARZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 965fccf9-de8c-4324-49c1-08df130515f2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 08:41:07.7025
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0URKhefsaUtcut73sfEKMtxJgvOYsScdV9lQmtYCM48EizUmuF0trCNUl5Irzs5K
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9130
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 23:22, Davidlohr Bueso wrote:
-> With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
-> and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v2
-> page-table formats, and Arm SMMU's 64-bit long-descriptor format with
-> a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
-> mappings, but no 1MB leaf. A 1MB chunk therefore requires 256 4KB leaf
-> entries unless it can be combined with adjacent chunks into a
-> suitably aligned larger mapping.
+ov13b10_remove() disables runtime PM and marks the device suspended, but
+does not power off the sensor if it is still runtime active.
 
-Yes, it was an intentional design choice to *NOT* optimize for AMD nor Intels IOMMU here.
+pm_runtime_disable() prevents further runtime PM callbacks, but does not
+force the runtime suspend callback to run. If the sensor is active when
+the driver is removed, pm_runtime_set_suspended() only updates the
+runtime PM state while the imaging clock and regulators can remain
+enabled and the reset line can remain deasserted.
 
-> Adding a 2MB allocation order provides naturally aligned, physically
-> contiguous chunks matching the 2MB leaf size, without relying on this
-> being accidental for separate smaller allocations. The new cost
-> is one failed order-9 attempt (keeping current large allocation semantics)
-> per buffer when 2MB pages are exhausted.
+After disabling runtime PM, check whether the device is already
+suspended and call ov13b10_power_off() if it is still active. Avoid
+calling the power-off helper for an already suspended device to prevent
+unbalanced clock and regulator disable operations.
 
-We have plenty of experience with this with TTM and the overhead this results in is usually not acceptable.
+This issue was found by manual code inspection.
 
-> Two benchmarks, measured on an AMD EPYC 7313P.
+Fixes: 6e28afd152280 ("media: ov13b10: add PM control support based on power resources")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/ov13b10.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Why in the world are you testing the system heap on an AMD EPYC system?
-
-AMD clearly doesn't recommend using the system heap on those boxes for ROCm, so I'm really wondering what combination of HW you have here?
-
-Regards,
-Christian.
-
-> 
-> (i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
-> measuring map/unmap: with the v1 page table restricted to 4K/2M/1G
-> (amd_iommu=v2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks,
-> only one of whose 2MB windows was superpage-mappable in that run, to
-> 512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
-> decrease by ~16x on average with ~32x for the worst cases. Unmapping
-> that buffer drops from ~500 us to 1.25 us.
-> 
-> (ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+close
-> across various thread counts decreases by factors of ~3-7x alleviating
-> allocator's zone->lock contention by being PMD order and therefore is
-> pcpu list eligible. Once the buffer size is large enough then the cost
-> of the zeroing takes over.
-> 
-> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
-> ---
->  drivers/dma-buf/heaps/system_heap.c | 13 +++++++------
->  1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-> index c8959eadc71d..621cf238ef97 100644
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-> @@ -55,14 +55,15 @@ struct dma_heap_attachment {
->  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
->                                 | __GFP_NORETRY) & ~__GFP_RECLAIM) \
->                                 | __GFP_COMP)
-> -static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
-> +static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
-> +                             HIGH_ORDER_GFP, LOW_ORDER_GFP};
->  /*
-> - * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
-> - * to match with the sizes often found in IOMMUs. Using order 4 pages instead
-> - * of order 0 pages can significantly improve the performance of many IOMMUs
-> - * by reducing TLB pressure and time spent updating page tables.
-> + * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K) is
-> + * designed to match with the sizes often found in IOMMUs. Using larger order
-> + * pages instead of order 0 pages can significantly improve the performance of
-> + * many IOMMUs by reducing TLB pressure and time spent updating page tables.
->   */
-> -static const unsigned int orders[] = {8, 4, 0};
-> +static const unsigned int orders[] = {9, 8, 4, 0};
->  #define NUM_ORDERS ARRAY_SIZE(orders)
-> 
->  static int system_heap_set_page_decrypted(struct page *page)
-> --
-> 2.39.5
-> 
+diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+index b0d34141a13a..6d57da39c371 100644
+--- a/drivers/media/i2c/ov13b10.c
++++ b/drivers/media/i2c/ov13b10.c
+@@ -1688,6 +1688,8 @@ static void ov13b10_remove(struct i2c_client *client)
+ 	ov13b10_free_controls(ov13b);
+ 
+ 	pm_runtime_disable(ov13b->dev);
++	if (!pm_runtime_status_suspended(ov13b->dev))
++		ov13b10_power_off(ov13b->dev);
+ 	pm_runtime_set_suspended(ov13b->dev);
+ }
+ 
+-- 
+2.43.0
 
