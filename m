@@ -1,65 +1,65 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010006.outbound.protection.outlook.com [52.101.85.6])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012067.outbound.protection.outlook.com [40.93.195.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FA239B943
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C02347DFAA
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461946; cv=fail; b=X7pRoGOmozP9oB+Ngzv3PXsFpcHLfxFAtsVzM3aojxIERL/ezu3b3ZtqAet45svMkvI5r89gLguwigcjU4q2AsARYvwo4OtInJZC4geT/oAqQhv1SNBOVD2WKRTwv01HPEtl5dPIU3gvUD3PeNAlu13sDPzTVLGd3BQxrFRW34g=
+	t=1789462028; cv=fail; b=uzeGnjw5obEP2RGvWhJnVki4eXYzynHABwAHRnU0aJDuA+drWc5m4RF1UPQVAHLmHN5K7U3+hZl9c8PmaS6YkGr6YlZ6+/QNRkPpRNpAp11+ijgsvM5PT3o7gnn8jQOQY2FX9zq6Zmr8LyTZxSUTHlNkWem5VODKPg7RBbc2ibI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461946; c=relaxed/simple;
-	bh=NhTeFvy5yeSLxMzeeSLZChqXQ5qThuSz6z4fUw9a3Ms=;
+	s=arc-20240116; t=1789462028; c=relaxed/simple;
+	bh=+8VCYqgY9GWL0YliWDNgrlJ/IySkxLbSHKieaBGaIUo=;
 	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=CxWozT9EOmI/Vn/NnYSTmE4hZW/eIF1d95CXpj1RyEscJm2ttlCJiDMqcHgUWBjeKGQc0J0CXcG1zEToWVI7Jx1yCEqDS7inCZT3JfHdP6Tptt6aIfV9LeefAqvO0I3VNQZLFp/JLGcYOaYNMflCvAlcaFZZCh7tUBVSa43hNJ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dKlpGG3I; arc=fail smtp.client-ip=52.101.85.6
+	 Content-Type:MIME-Version; b=Az4ainqyhc4w6jmDvX78t9FZ6DqBa1b+ZhYH+9YL1lIbDi0n8/LlWE5ljmCCcXd0Zhrtm1xVqOuYeFBMwAqxYvopa/N5HU9Rwz0s4XiOw05XD1IjS+VoxZKssj61Ec97eAm5HwW2DrdCVMEvOMaEmYSu4fTzkefGjxnwkVIWhZQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QAO9cMoX; arc=fail smtp.client-ip=40.93.195.67
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dKlpGG3I"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QAO9cMoX"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=on5qCV4iCIk+0YdCKjCSNaUrq7GnJaeTi3Hyk/go2WhcuTKkYFBunjBxBdjFjDsItqNDQklyyZDnDwecJpRi8cHUFd96dt5kr5+hElv+5Yk5NlyzxKYYS9qWpQRXpZNiQli4NgeTEQtZCyf8B8awShEyz0x1SS3pF2lHpJj3rCDRa0KnADNAT5zdpPp2uHWqs70xWOkSOClngq8njoWAJqOnmwnV39I8ux+SXDYb4lzHc0a5EmLYkyoW/Ts1YddP20uaY1VMNr+q8bfn8scCMTIN95OTPm8nfz15w2Av40uamAxNNMWn0hris6HgkGMMzwx7Fh3tAsXHtu/UlzIG/A==
+ b=L1Z6ISdItVk0sLqlBoXphJCxUXxHI6t1FMSkmL+Bb8IK1nHkQnoCMJejDDylmHttEsxUnxOCHnVDyaNAizwuG+HpM+KLF0vOGjl32j1blMNVgVtM2Q8gu3bR6o/s0t57Qfsd+KKys7mwIoffM9X9lj/MdgkI5z7yH/a9HL5F6mx0Nnc8fScYXvxoS45xHJ7/FJZyPkpqhuOaolkXyp7pxUkgKrFgsVtpPEeNK8YRzQlhL3vGPZRnzoxXL7b2RPx/qv4ym+e8qLhBtDCSUYTlnINJX9Hm6qesGUjdaIQlS4U0BGNKYVJjP4wuawFw/WdN81ceL0bbjBODmAJpgzC9vQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8QD6DsQ8l6iGFrBzsCAFSrik327hKuVR4MZ/saNPxuQ=;
- b=hr89IUt2wo/X1m0XElAKQ0PP9QoquT8d+HACKUiDodFb0fA1OtAGObfaYsix2W6GdlT1MNjZVWofNzOV5SQxywpXXG333Xpf0V/0dXXVTQ9JiDMIMdiutu6B07E27DstduBqjgDBpd9c3ABZFa4u0Q8/ziE7bVEMrfg4C7ryONY1J6/gJnT2C02Du1d6qMNJIvDfgjJApEL7B1Gaf8CGuwvzamYfEw8V7hfSmMA1eO0wCaYzZ73MatSGJdoQx6SZ7iCG/lyiU0JttyL0ijM8+7IQE/E5zLmOPhkiF/8/AvrqbHGWoKiHJUqVhwNUHWr4AOLxxKN1VaECkGG18h35XA==
+ bh=o6Z9q7GuObzb1jbh3Skdq2+RIdsW0t6Z0gWP7ZHjxNo=;
+ b=p7/QSDr/FGgtBjewmbWi1RWtQKWYxtgtOMpHkZTCbjY5QANhla9kKiwrEVrz3greqpOqz/LBGx5bgy5UVp/ZRk1cwDaTo1qMSHbTyxpOAVpf3b+W/QEh4HECX5/yq99oxWDza6DEmxorwH3WlnSPboUZrCHtPkwGnPsOPa6MeuLMdoFdP1E/sle9Xo4catwzz6sEWItSvOVpOhm7TjXGs/FBeaH59r6t4PIIgSAyaFRz1JzayNSbu0AXoUie3qR22BR5GYzAKxrV8jCM0oh0OgPbss6TCeMmEig/ATckH8uJsblzDJ2k2bzhSJy8jPljzGzR3CBsxUNnOX0oDKUfEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8QD6DsQ8l6iGFrBzsCAFSrik327hKuVR4MZ/saNPxuQ=;
- b=dKlpGG3ITplY/WJeGZmnSPsxHOP5khtjqleml4Ed/zAMlQWksgCzXxjNA/aHiZWHBt0JD4kA3A60nyRDxZmST/1nXVD/vhu94K0eNE/nrW4qtOCFGXK6/5fp9pFT68rMoP6wxP5kvh093jR4L/uvdHoCJk/OpskDmDAD3cNait4=
+ bh=o6Z9q7GuObzb1jbh3Skdq2+RIdsW0t6Z0gWP7ZHjxNo=;
+ b=QAO9cMoXtaYDjBPNaG8DpVFhUSOoyZZlOUHJuFH0SPHqxcA+HAXwMR4ff5PWYVEWaoyhCOJnFKFH59hfH0I5YrCOOof9iOaT4ugzCNbYkQGdgI/tMxxd1mqLW+xCriEhI1NWc64k2Mi+OTJu5O8ypQfwKhvGPaqg2eQkV//O6vU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by PH7PR12MB6955.namprd12.prod.outlook.com (2603:10b6:510:1b8::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 08:45:42 +0000
+ 2026 08:47:04 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 08:45:42 +0000
-Message-ID: <3cee59e0-18ad-4803-bd7c-4d9bb5c23215@amd.com>
-Date: Tue, 15 Sep 2026 10:45:38 +0200
+ 08:47:04 +0000
+Message-ID: <465500e6-ec7d-4039-8b2f-750b9f441327@amd.com>
+Date: Tue, 15 Sep 2026 10:46:59 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dma-buf: system_heap: fix the allocation ladder on
- non-4K base pages
+Subject: Re: [PATCH 3/3] dma-buf: validate the attachment before asserting its
+ reservation lock
 To: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
  phasta@kernel.org
 Cc: benjamin.gaignard@collabora.com, jstultz@google.com,
  tjmercier@google.com, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org
 References: <20260914212258.2657788-1-dave@stgolabs.net>
- <20260914212258.2657788-3-dave@stgolabs.net>
+ <20260914212258.2657788-4-dave@stgolabs.net>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260914212258.2657788-3-dave@stgolabs.net>
+In-Reply-To: <20260914212258.2657788-4-dave@stgolabs.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0057.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0098.namprd03.prod.outlook.com
+ (2603:10b6:208:32a::13) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -69,146 +69,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ff7b0fc-d564-4367-9b4f-08df1305b9b2
+X-MS-Office365-Filtering-Correlation-Id: 4f246353-1134-4925-2673-08df1305ea8a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	8xqwMAgAo47Kx3d5geHn9qJciKWgQHXpBK+ZfaZtEwVV6la0Hlf9cC9i0gBiRfc1ae0CqOaw0Ihen6hTX7ij32ceQc+7SgGzrjkfbytuHQ+l9kVdplZ5PnqRjN3OytysfQibPkpUWfCD9FnBslNHXcN+w7AWeDn7yl0SuUFEz/Je/jje0UMo9Q2HwQVdwgnD+cb0QhkYComkfcWv9wrMkh+aD8fG6TEY29BYv/mMwNDeSTXJdsELNm3r5a0r+6moJq6ULx33xu4FSf/cgaUjM0FHkcHtMV+7EmecFi/S5BkBxusmcPvmUi/+dXUJb4BlZ6L/HKKPB2rLFWHvo72WC1KighLSi+TUaz+kk45X0o4HC6K4KKVAWceIo7ZV4JnlmzdXVnJ403AK8DiKrRG29/4f6Ue7EpyHFhnnD/w8b9jUR2Lsg6j+zNEv+EbZ2J94w0GYHSOmFyHYm8qebiSvF9T+7tBBU23GIG4ROImKl5em4w5lwfJ5kjqAdSbMN4iTkUhArxH9CTkfmEpmFOagkGOShkWluJTbg8dcA2VKmX7r9TjO8YPg45rklpNyXh+8ZLKDQqwdpXMgU3X4F3G2swvT2hau/2X52l+A27POYBdh0QiDuZhepMVE24mniVmFGvmW2B5+IdAanCGXx1FTpxCaf4YsDxwjekzE5vfYH8A=
+	5Ay/2gORyr5Qi9Qj9iQFCOS7rp0SB42jmZUXRze8stJbpVcvPHlVulFIqvUOsLPRBlpd83OQ8EkvN/gHHvZ7p2mPyODPWsI4yGBTwprIKmERaMfPaXkJEAeOHpmC/2YpM94E+xl79SBU/ujITwfm8JXrwhyz/RlvY8YC57ya4xvreYGnZKJ1NGhBfSkXZQ/hzMvdZk+BxQqcKmUBKEE45mjuWigDrzqB3dzBSRv29hsRAvgnr8I69Kmt6LqltDfUpkF2fVBGWR4Rtr8tZO1gIgVkPQtoPIRBUPLjMiiDlK471xQ1xn+85k/YPneSNKi11m5kABkvz0K7bM9qD+iT+ppoAs0ns0OkaNvxOl5gpPGrJLCG8itg8PSk2xtqvzTo4BY9ldi33qvcXKFFm0pbez5RRgKO9OSz2QEo0irebj/eYBSTwjUnfIDC/7qmRtZnjFYOsMrl1O9zxe8gUyvj+Pmly5BBMwTkWAXFrOAW8yHXEt/G62s60KveSXrhX9BLe6n3tvuWIMG3+yXSPCakBd0knXCfphwUjx+gjKb857G94EbQT9OCJVbcsTKuoHIb7tDSsBnkXmJauBxbzp0RxWMFDvOYngQ5tw/ukNe+TWsrT/mSeSLdg1/BbXHTccuGqM6zh8CjXm0AlJmA3hp7dw6pLPt0AISCNU9Cf1nOj6U=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bWZRVU5sd1FmV1c3WGx0MUV0MnE0TmxvS3hhVWMzSVdmbTgrWUs2WmpPNnUw?=
- =?utf-8?B?L3BKSFdTYnlPNmtMZG1wTm1JN2lrL2JrL1drZFJQMk9NZ2djVlNMNjNXSVhn?=
- =?utf-8?B?SEFmSCtqRFd5WWYxNFB6L2syS2wydko0ZVBYTGZ0OE4ydXNucFp5cjRGYVJy?=
- =?utf-8?B?TVJHRDdSTHBPUEZVc09GOUV0QzVTNUMxZVZmcytLL1B6Tm8rQUxLb2ZJZ3hw?=
- =?utf-8?B?eVBtWkdrY2xRQzFNN0tuZzdIUmk4WlVXSERQMnpCbVlTSDQyZ3lNRUthaXh1?=
- =?utf-8?B?V2hpbDJudWQxQzRENHZrYzBDd3FMSkxxQjlYc0pwNU85QkY1RURVQTB5a0VL?=
- =?utf-8?B?cW05enpjUlQ2UGVaS0V6aGZhbTh2Q1FoRERLSlljK2kzQjlQcmhpWXNmWHJN?=
- =?utf-8?B?M0xyR1UzUWpmN2JTNEEvNUlaeWQ3YmYyTTJkOXk2V0QrMmlwdlZ6QmJscG4r?=
- =?utf-8?B?aGtMTmw4QWRkaWREaWwyY0pHQWJXOWhDM0QxVER2K2Q1bThlNHJTbjc3d1dj?=
- =?utf-8?B?UUhOMTZNYi9JcFAwMkRPbGI5WUVKUjFyVzZLYjFxbS8ycUNiMUtyVlBuM2Fu?=
- =?utf-8?B?QmIydU9SK1A4b2lMSTBPa3JYV0xla3E0bWRYSEZlOWpkOEIzY1ZLNVAvNjRH?=
- =?utf-8?B?eTlSMnZxMjJmNUswMmdzTEJ4eVVCY0xrdlZqYlZZemFWeHpNMWt5WlF3QXBs?=
- =?utf-8?B?THdZdzJVcU8rVkhUWUxwd0dvMXVxd25OMFliRExxdFUvNyswU0ozaFBXQ0JC?=
- =?utf-8?B?Ykh6MUxUYjJhbXk4cnBncWNyYk9VYm1kY3JDNXZpMFg0THQ1ZkVrMVZKQ1c0?=
- =?utf-8?B?RUJIcnZiZk9qekJZeStrNkhzazljYkVCY3B0dmdqZXlUL2JlaTV6OVVnQyt1?=
- =?utf-8?B?TzUyOURqcVJmMGs0SmRnalVxbkNOSVRyRWpEazN6ZnN1K2JYZ044QlViVGZs?=
- =?utf-8?B?N09QSThLUlpjWVFxbmFYME9mR0M1QmVjcGhWci9BTHFEQ3JPbnFoM0NxR2F6?=
- =?utf-8?B?NGU4V0JlLzJtTG5jS1ZQdXMxaytpRC9yTnBlOEsxWGQ4ZmVRb3doWkZoZFhF?=
- =?utf-8?B?dXJkSHppNE5STjBITjNpMHZad2lRNXRGcHdpbkR3K2pjTmpYU1BjSEVQMmF1?=
- =?utf-8?B?ODk4cFdDbFBFdWVTTWZxV3F5YWoxa2tuVGlxSkg0WGM3anIvUkZOelg4SFpN?=
- =?utf-8?B?aTZTM3J6aUNoU2FWYXJCZm5qUytseU0zWkF5bkNndk52WHhDRTJHWmM3UmFD?=
- =?utf-8?B?ZVhFTXVqWnRhVnp6WGdWek5JcG5QNER2NHlJODlvUFhtaGFZQ09TS3hMT251?=
- =?utf-8?B?aXZKV0RzbHMxSWVybmxraFp6S0ZpU0xmR29LT2lHdzMxbHBnMWV3Y1FIT1Bi?=
- =?utf-8?B?dnVVRTdGWEo3RjNkOGZPU0FJcGlvWDR6VXM5OWVUUEVsbXRvQkdPaEw2SlN3?=
- =?utf-8?B?endSenRtNTcydHVaemNvUkd4SUxTTWpEL2VmTnQ5Uld5S1JSUitpSjYvUUE1?=
- =?utf-8?B?OXJSeElWV3ZzMFlkSm9DK1lRQjltNWNEdlhoM2RpTU1DTkFMUEFPMWNYdHBk?=
- =?utf-8?B?bVdHbmh6RWVsamdXZ0hsS2dndmFuMTRkMTRTVk84WFNzSndpRkFQR2JQUWlp?=
- =?utf-8?B?cGdBK1FSSlJ6UzNqZ3VpdVE4bW54Z1pwVXVYOTJpY3VHYU8wSnlxc01wbkJJ?=
- =?utf-8?B?b3FyMlBBdkJ3S3pWNE40L3Vtcys2a09GTTZBdmcxSVI3S3hrWkZORXpvOE80?=
- =?utf-8?B?RjdlLzR1YU1mbjkwcXY2Yy9wRnU1bjAweEx2M1lMb2Zibzc4MThZVVcyeWIy?=
- =?utf-8?B?MlAyUTVMdGpjZmxKYTlxS21kZnEvNWpPMVFQZ1N5UEcyRTl2Z1RUOG9UTVEr?=
- =?utf-8?B?NWZOYmc0TjdFblkwTk4rQ29aaFhTWHNsRHNKcTRxcFlvOWZHN1RHY2dXdDFk?=
- =?utf-8?B?azdkTHJOWWROL1hubVdrVTQ0anR0Ty9rS3cvM2pVeWE2VVk4TGZCYW5WT0hN?=
- =?utf-8?B?MXdJK0VRQ2x1UHpLREdoMndDOU9RV09odWZZVmhnRUFscjVlQ1gxeWlRZFdl?=
- =?utf-8?B?eDZNWVhxZXVrdEE0RVMrWnkwREwwcjJOMWlBZFVGZmZDWTR0SHZXSUF0R3Zj?=
- =?utf-8?B?M3VmVSt2YlBmK2pmbi91VC9FQlBZbTFtclFwWHdYNHpHZlBYNklJZy9VbGN2?=
- =?utf-8?B?aGlZaUIrN3dCdTNwd1B2Y2hVZDVjOTU1YlB3VGsxamFTd3FwS2gvMkhndFpq?=
- =?utf-8?B?OFhMVzdZOWVxY3ErSE9SUktXWWhHblZLWC9yNkFvMlBaMHZvTUkzQ1c2Z0Zl?=
- =?utf-8?Q?+Ku8remO+M8BP1bEcD?=
+	=?utf-8?B?S2QwUFNsaVRHekliUHVBbEFPcFlaUzFlUVJITFhHVTIzdHlVMUg3bmJHV3Qx?=
+ =?utf-8?B?N3FRV1ZJQU91Y2JEZTBTMUhrNEZIRUp5UmRVZE9md01mc21kVm9IZkE3WnFH?=
+ =?utf-8?B?UDJ1cm9VZ0pYSFo4dzYwMXpCSWZ3YTNCdUlTMEFBS1ZYVFp5eFVHMTNLWmJo?=
+ =?utf-8?B?WnI2dExxMmFZckhMcExYM1Rnd1FrdmhIdFhXVitTa0lWRGNjU3BkcjJLd2FI?=
+ =?utf-8?B?blEzdi9DMVVLSEtvZFdDZlo4ZWkzNUFUenpYeVl3MktVZERFclAybmJIVmxH?=
+ =?utf-8?B?N3hSaS9ZOHpPTGR1Ty9TdGNsNUV1a2hiQnpGd3JLWEUrSzZzYkVzdTJ2SGVu?=
+ =?utf-8?B?dE5iQU9jNXQzQ2J6d2l3d0xHb2hpZ09semg4anNUM3I2TU12WFR1a0o0SDFP?=
+ =?utf-8?B?TVJIdERsU295eHRROEZUV1FoMEh0ekV1c0J2UjhLakNSMjdkbS9kUk9ScVN1?=
+ =?utf-8?B?blQxbWZWUUpvUUhGSnYrNTVndE1rSDNNRDgwL2hCVjVvamNUYU9OS21GdTdL?=
+ =?utf-8?B?VnhzTEs3NVhSTERXL20rQkhyK2ZVSTJWOG5ybWxIQStOZEM3V2txSkdnZ0ZL?=
+ =?utf-8?B?bWVVUGxyTENVUkt4VlBCckNpaC8vaHkwQWV2M09nQXBveUtZWGJxaXlMMGVD?=
+ =?utf-8?B?OW9kb09qNmxZcWF0eklPUG5NbFA5MUQvRXVaem5tYmdhR0lKNFFFUHVQaVZm?=
+ =?utf-8?B?dmI4a2NWT3NOaEJBNE5hcjVKc0ZIUFFxN0M5T0JXM2NSYnA0M0crZnlpbmdy?=
+ =?utf-8?B?enplak5UbWtDVnhJTDB0NjZ4RnVPNHV3ZUFJTlNmd2NyQWZzWnpkcGYzQjRz?=
+ =?utf-8?B?TFNWa2ZDOHZzb2hHNFc4YmQ1Zkgya1ptVmFYNEc3L2ZEcW9NeU9BczNlMUNO?=
+ =?utf-8?B?VU01NkZQOVMvdTJDbjRDVWFnVWI1UTV5UFN0V1F4TWxQdExzMVdzQXNvK0FD?=
+ =?utf-8?B?Q0tFT05Ha3lTcHBYVVc1MHdSMXFkRU5zUnhpdmJWTzhVMmp4TzRaQnhQVzlM?=
+ =?utf-8?B?ZGxMOCtSVWh3elJJVHRsT2p6WTdveWxYQUtWWUY0WVNTUDU4VTJJWTBDTnIy?=
+ =?utf-8?B?OGpJQ3NCc2ZzUUN1RVhjWEtZVWRsamZ1N1czbVFWWFU5N2RRQTBQcmdLSFF0?=
+ =?utf-8?B?YXdXMUFPZmxDVEhVYnRtUE9sdC9aUURraS9VcGU2NnNwSi9NMkNBd2czeDlr?=
+ =?utf-8?B?Qm1yWG0vWVRhMVFkYTNwN1QydERvNzBROHBybm9rYlZWOUxxZ3hGZUs2SVFh?=
+ =?utf-8?B?cVlaQWlRQSs0azB0MCtRMUNmWTVidjlxQ3ZTbm1kM3BVejJCY1FYdC9hM1dY?=
+ =?utf-8?B?RS9HWUJNODFROC96RXEvVVNCOWRuMll5NjFJaFpLNWZtM2lnUzhRU1pTTW9F?=
+ =?utf-8?B?c014bklyTGJBZGdjSGMxS2FNOGlNWlNXYlpOeFdPMjU2ZzIwYkdJN05Wc3pY?=
+ =?utf-8?B?Y3RLdVFEdGNXZkJ5OU44SVBwNGprNUZLR0lSN3FzSWphMlR0MmI5VHduMGVp?=
+ =?utf-8?B?RnU4KzA0RjdtU0Q3VWQyVjZuRDFkNDNueGExWkQvaElzVDg4TlpucWVSOGxM?=
+ =?utf-8?B?VTFVVzVCRHdDckh6SlFCRnlQMDBqUWV2aHdjdGxGQk1GakNreE1ab0JXR0Ri?=
+ =?utf-8?B?eVQyV1FVSktHM2VtVlNqWXhoaWMxYXNLNjRCcWJseHY1eEo4Skwralhya1pB?=
+ =?utf-8?B?TnZrd2JLSmFFNUp2QWVZNzZ6S0txU1pkNllwRWtpdmE5UlkzMmtSVkxKSWUz?=
+ =?utf-8?B?NStBMUJoQ2RxY0tXM0sxUVB2RVFMMHkraDllWDZTSGpZaHBJTzk0cHdxQ0hh?=
+ =?utf-8?B?Q1cxTHZsTXc0WUpaaHZya2wyVTJZOXJIQlJGejNiYXJqczhwODBOVk5neDRr?=
+ =?utf-8?B?OHU5MXE1ZlBTQ0lzQjF0UWphcWVQaGVudzhKYU43NFQvZS9zV0xzQ0FObmlO?=
+ =?utf-8?B?Z2pINjJCNGNBdVFMYzE1SXlEaXdlajVpcjZISmVxalhTTzNIZ3ZyMHlpOVp2?=
+ =?utf-8?B?N3BhUGpEaFlGUVRGelRUTTdGZlZJcmZ3SDZPWUE4KytPd2VjUjcwemU3K1FC?=
+ =?utf-8?B?SGdKaFBMeXd6TU1DcXI2bUp0NTN5YlZaMHF5OHJxNTVXVnNmV2JIdEgvbmRN?=
+ =?utf-8?B?NjRGNHFBWDZjQXVtMWkrcElSeUxLRDlJdVBlcmZobklnRGNtblpEZ3ZIZVk1?=
+ =?utf-8?B?a2lEc2J2bGxoZVAyRktLL1VjZ21nQWxIYzNWaWtWOTZ0OUxXUEdheWduUXYx?=
+ =?utf-8?B?NXUyY3dZcWpNQVZhSEZiV0ZnVGZ2enoxS011RlR1MzZkWjRpdGR4VjkrYVVu?=
+ =?utf-8?Q?P1OhEeokKKXvgVChu+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ff7b0fc-d564-4367-9b4f-08df1305b9b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f246353-1134-4925-2673-08df1305ea8a
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 08:45:42.2691
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 08:47:04.2388
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dyfaVgxJc80kxx4MWoeXbJ30br4V/dMu8kCeuE6XGhMfM7BT2p7u54XSqfr2HHxT
+X-MS-Exchange-CrossTenant-UserPrincipalName: a9tb/BqMzc8q8BlA6a6z5/UyDwJENyJ1Lxnhs5xWPdg0cEDIxIg6+7R2T363wuI3
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6955
 
 On 9/14/26 23:22, Davidlohr Bueso wrote:
-> The orders for large base page sizes are calculated incorrectly,
+> dma_buf_phys_vec_to_sgt() asserts the reservation lock before its
+> NULL checks run. Validate first, then assert.
+> 
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
 
-No, they aren't. This system heap is just only optimized for 4k page size and doesn't take anything else into account.
+Good catch, but in general please put bug fixes as first one in a patch set.
 
-And yes that is a fully intentional decision.
-
-What we could do is to make this architecture dependent, e.g. on ARM we only use 1M/64K while on X86 we always use 2M, no idea what others use.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 Regards,
 Christian.
 
-> and
-> currently only hold for the 4K case. Order 9 is intended for 2MB but
-> will be 8MB on 16K, for example. Adjust the orders/sizes accordingly.
-> 
-> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
 > ---
->  drivers/dma-buf/heaps/system_heap.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
+>  drivers/dma-buf/dma-buf-mapping.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-> index 621cf238ef97..341631e4a9ec 100644
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-> @@ -16,12 +16,15 @@
->  #include <linux/dma-heap.h>
->  #include <linux/err.h>
->  #include <linux/highmem.h>
-> +#include <linux/log2.h>
->  #include <linux/mem_encrypt.h>
-> +#include <linux/minmax.h>
->  #include <linux/mm.h>
->  #include <linux/set_memory.h>
->  #include <linux/module.h>
->  #include <linux/pgtable.h>
->  #include <linux/scatterlist.h>
-> +#include <linux/sizes.h>
->  #include <linux/slab.h>
->  #include <linux/vmalloc.h>
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> index 833be519e1e6..12674d89b23e 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -111,12 +111,12 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+>         size_t i;
+>         int ret;
 > 
-> @@ -55,15 +58,18 @@ struct dma_heap_attachment {
->  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
->                                 | __GFP_NORETRY) & ~__GFP_RECLAIM) \
->                                 | __GFP_COMP)
-> -static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
-> -                             HIGH_ORDER_GFP, LOW_ORDER_GFP};
-> +#define SIZE_ORDER(sz) \
-> +       MIN(MAX(const_ilog2(sz) - PAGE_SHIFT, 0), MAX_PAGE_ORDER)
+> -       dma_resv_assert_held(attach->dmabuf->resv);
+> -
+>         if (WARN_ON(!attach || !attach->dmabuf || !provider))
+>                 /* This function is supposed to work on MMIO memory only */
+>                 return ERR_PTR(-EINVAL);
+> 
+> +       dma_resv_assert_held(attach->dmabuf->resv);
 > +
->  /*
->   * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K) is
->   * designed to match with the sizes often found in IOMMUs. Using larger order
->   * pages instead of order 0 pages can significantly improve the performance of
->   * many IOMMUs by reducing TLB pressure and time spent updating page tables.
->   */
-> -static const unsigned int orders[] = {9, 8, 4, 0};
-> +static const unsigned int orders[] = {
-> +       SIZE_ORDER(SZ_2M), SIZE_ORDER(SZ_1M), SIZE_ORDER(SZ_64K), 0
-> +};
->  #define NUM_ORDERS ARRAY_SIZE(orders)
-> 
->  static int system_heap_set_page_decrypted(struct page *page)
-> @@ -384,11 +390,13 @@ static struct page *alloc_largest_available(unsigned long size,
->         gfp_t flags;
-> 
->         for (i = 0; i < NUM_ORDERS; i++) {
-> +               if (i && orders[i] == orders[i - 1])
-> +                       continue;
->                 if (size <  (PAGE_SIZE << orders[i]))
->                         continue;
->                 if (max_order < orders[i])
->                         continue;
-> -               flags = order_flags[i];
-> +               flags = orders[i] ? HIGH_ORDER_GFP : LOW_ORDER_GFP;
->                 if (mem_accounting)
->                         flags |= __GFP_ACCOUNT;
->                 page = alloc_pages(flags, orders[i]);
+>         dma = kzalloc_obj(*dma);
+>         if (!dma)
+>                 return ERR_PTR(-ENOMEM);
 > --
 > 2.39.5
 > 
