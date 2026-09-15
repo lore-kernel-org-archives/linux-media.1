@@ -1,83 +1,80 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6193AB288
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 11:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDC946EF69
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 12:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473493; cv=none; b=LyiOwHDe3/ebLdU+6OGmu1F0bLNu9lFNDC9FzjmYYiPfI71WTD4irJc10mlVcf4I2YD23ahm/kS57BeEIg1ptvCY8mW1nMKG9Pj4fX0iFgkkBhvy+RCkFF9/7e0j0fYcc1rjsYIzykEik8zG1gNClrAj65kRN9yxY1cUHnSGO0U=
+	t=1789474239; cv=none; b=Zx4XLH/oFXSO88/HxbhPEKlxaApETw8vPgE7yy5CuMW/5+xQgzRasXXVOV6YGOnLFITSiFVQqq+xi4hGV+0lVG1EihZoJ/Ups3uxSSHtjK0yyR3alFiG4N6d6XrhFA0gXrevFmcilo1EGSVZZYBbdSbsE5PG3YDoB5Z++mPI9NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473493; c=relaxed/simple;
-	bh=8g5Sd3uFifK3ZVwdy+TGQIZh+jmWxcGuzGLJlv4ed50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T0ij8QCGrQK3xbhotIKctEtJhqSqxjMJgp+wykof7+YYW6bWLpMGh5sGLo9GEl2RTzVDkfLRvxUONN5nNahRu5PxMrVdx3dKKT3Uqp9v7PJJCvEle7EiPVoX8weauk25Atsd4Iwl4ksMJlkZUEyoFq3dKxCNn2kIKod608qe7rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJOgV5xm; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789474239; c=relaxed/simple;
+	bh=dhlrGVJ7D9Hj9A6FiXBLOrjstCSBxDQs1GtUiWJMBS4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L5xvPkgZlU1+47nMOjBxapea9hr/MjdYxxeQxqWdPaKFY0sCjmkf71jMUwFfdOS7cxK8nLTZaxWETXGlBxrMsUTEeXNuIVUxP+80gcbJs075LLzUvc08fPRaeCy4fPKZ6FdXAsSSs7FgZDhX+6Y/HW56BS47Wk8jtO6lW10Sbt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DOWoBGT3; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJOgV5xm"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso2388467a91.1
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 04:58:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DOWoBGT3"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so35981975ad.3
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 05:10:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789473492; x=1790078292; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789474238; x=1790079038; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BrGTdKyYWPDzcFJDUsLHUxteyx4n5jj5bbwXZChmZq4=;
-        b=UJOgV5xmpcexrx8WPOzF9+dgeAnoI4fLkiJQBwICqMb4rqapGLQSNET7cz+2SLajNI
-         WDg+PsecXJMOVrUsub/T31Ol1fpThGMqBdexgwxa0hsnCSEWa8QCmlPmE12vyDDeVMD/
-         +7RHE2w+yrWIcffX13f3zwkHpnz+99yldeqfXvPvNDa6ckxAxOVmUTCBmuST1RfdOW8C
-         0XAE6rKzw+0JtIAzqwUytVkFRSvh1htg7Ow00kMDHACP87Dfq5JscoWCAMZAMCmHyMZB
-         fmBQAmcIO+DypvpTOLciOnZADrXzLR00iIyQOgPR4Y8eYQx93Lo483onOkYrYZvXCWUg
-         G55Q==
+        bh=ARc4u49b6G5t0LuKLqwXD8cu3X9ELbFHgcHDb7cDF2U=;
+        b=DOWoBGT3Xdze7NRdlHBOGu+/jqOc0krPoz7fA3s2cpv9rBCgaNuROGRD00SLUzFMgJ
+         fMhnKXKYjPXyX7eCPB8sdkyy9AWlm0/Dekr3mpPAFgbWx69ga8eOFYyA9h0f2Rn7VmKo
+         QR98P8gbKftzva//gbx7hOG1Tk/ffrk9tVYGq25R6vwxG6yjeTr4ebtv3TeezQBIp/EO
+         RG2563XeLWA5ub7wzupEMaCE2eDVBWy2ri/hWALVvMOjwqqZTe6vMFYbHDdGftH7vAPl
+         mNpRppvAGEl9AENaYJ7uvG9Zs3jRRHMIvuK+QgUbb06RDtTbdmgBxQwqfyF7I3pWrBFX
+         gdzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789473492; x=1790078292;
+        d=1e100.net; s=20260707; t=1789474238; x=1790079038;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BrGTdKyYWPDzcFJDUsLHUxteyx4n5jj5bbwXZChmZq4=;
-        b=mRc9d8XfnhiRnvEOqwmqKKJi36i84EMHY9iCMRHAGxeOaXBeoTTQPIrk8hftS4c8QK
-         MdKl4YvGLL/FEVzqlO9Y+0ZRb73eVKnfN2xSQ7p4YWL6xll/LrC0Pa7cC6pItjzE2DOr
-         kL4+EOXauE59jZjgTASAaQVNafiwvvVHUn+JpH4zRjkIEgxVw0TZ3hvrY/GWY0tcW1hu
-         R5E6xpalGkDfVQbEzGjdaNhEHQOdlA5jWkGo3IM7R7UwpwBN/jnUQbmMpxUsSNMKx2Fh
-         tv/OBdl8hnKnEQ2Nzno99vCOMtTpcPmwE4mUb1gncGfoRm1XmZ/Ldr5MUfEp6Yr0xelM
-         pPrg==
-X-Forwarded-Encrypted: i=1; AKwUvBzINNOtu3z3M3E2RC3iQb2KWe2jzY4AtTVSwcoRszZTTYvhvoQKBK4u3wy793fDPJqN6BUOa/eYPjMSUw==@vger.kernel.org
-X-Gm-Message-State: AFuF++kYTq5hG5CiBB/s7rFHDMCu0MYxeokj8hki/l+VMZ79fiYh3KRN
-	auCIqLb33sY0xb85iBWyx8sFrAUbpaEX5TnsVfeFjXEGjuvyzyMBXQLC
-X-Gm-Gg: AYBFou1A3MyzwIrDJ9275PpNvPZqBlRm1FT1yaRvwtrNl4T00dvkR1K3GZNVN2qzzF+
-	x5bskcTNxTxjyDalP17vcKJMW7brSkbT6DrI7q8wdczHiYAI3e3LC+U25gma3ImSa++MferQtdl
-	+TM/ZyhRNDTwC+G41mpAAb2WO528/43nRMf9o9GWd2QUAhvXz297C1RlVK0hwyLJhISALf3hekM
-	lkqj/seJLIjtbUzImPHEK8//d5W34ZUV9Gs1q968vX4PMkJL5ey7jwaV3X0fmqAKYWamgU68VaI
-	OCJGxZ2GMgfBh5wXB1RJ9/XEdRiryKdJH/UBc67EvL9p4elMK0CsfiOPTbnPMLd6JMX3Ch0AszR
-	VUzi/oE1rrmkB1SX5PAWHn24e5ex/Odfs8WEUz4Dt2LSkP+U+Rz+NJ2EsOXwXTKU5d+rHPzZ9ws
-	IHRPhWJkiiuoYeojjoZ89PLGNK0iUDT2eIN0xbN8ftKsyDwFz11nkTNQ==
-X-Received: by 2002:a17:90a:d648:b0:39d:cbb1:c96f with SMTP id 98e67ed59e1d1-39dec09a779mr13558544a91.18.1789473491565;
-        Tue, 15 Sep 2026 04:58:11 -0700 (PDT)
+        bh=ARc4u49b6G5t0LuKLqwXD8cu3X9ELbFHgcHDb7cDF2U=;
+        b=zDvFrcM81V9biDFzyDJpuSsAugKEhno0ZB/OulLlXRlBAXiNJEd3iLs7kdMxCjTml2
+         kF0b3SUEaIVjKizBm3WWUlUa+3X72Tp+7i0DMAUt+E+wmFJcgjdG9odTPkUGdPO47oJW
+         thoYXSQJsgNvn89QXQ0ZyoaZPPDXHExWMxsqCQuzGE+9TfjiY2rUX38lw+pyx5Fld4Qn
+         YMqb35phD0cp8IDOubLgqmoZmjvS5Q6GTxIoLULTekWwBOufYe1IMpFoBRnmMtpFtTRw
+         jIQCfgAnYkLLINWv3ltVMCmNxEAbFn/ydwsYmtx6YF4A1t+BZznrmKKjzpfppb36zZnz
+         yhaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzp52JxK1m27sQg4pNIhvzT5nJb6u4a7kC3FihfdSUb056C6/5BxDkiM9uKpdBA59NfisbfbT11qqn7cg==@vger.kernel.org
+X-Gm-Message-State: AFuF++lZHHXc/0mj8P5Uh110NwQSk4elN57Jsx5laU78yv+ljxfEjjLX
+	TGeC1QQIFuqJr6mvePQTl13Ug32ExH7itJnV23bIvgmwuzaHpGqSZbRa
+X-Gm-Gg: AYBFou2I0QJ3ak5FgIDk17/iK5N5s5Pd793xW5fvp9HJOLljwXpFE+bfE/A2TO5lo+X
+	9/H2FVOcIqmul+y7SqtadgKC9y5qy/qeaGLxX6fzireWHvr+LNq3e+fc5HxpdMF4ATkoxrWiJ9Q
+	4ZJAh/FZhA6G0IHkdALMsz+coNsXlcUDbkXVaa2fLihejcSqVUmPBVU/rA8cFGMMkg4kWxMMUtV
+	OEgu1KofDEvQmO1s8omu9A3ILhm/Yqy+Uw6JS7myaMvJ2p1mu/8KkXRxG6KtUsCRnY/r74hkbvM
+	PAzmfF7J0MAcdxU7owfA2Fk3Fk13XwTH9WJMyUkNnbXXNLriDX0lYVD2waQ1VqBrs4zdii5/+gA
+	inVK2U8VE9ktXBQxxkEO+r6JybC2qyUxmP8rNV35ta/sDi5gwyi7wqT04fXQx5DL7yX630cYsPk
+	xUB5FzbMiDB1FlSAAjE47nWFvoJPhFMXxGiYtMZ0pGuyxrRz2MIZ8nPA==
+X-Received: by 2002:a17:903:2c07:b0:2d5:e3ce:3988 with SMTP id d9443c01a7336-2dd6c6e9b11mr142531885ad.11.1789474237753;
+        Tue, 15 Sep 2026 05:10:37 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdacba6bsm4953697a91.14.2026.09.15.04.58.03
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfce707sm66466685ad.55.2026.09.15.05.10.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:58:10 -0700 (PDT)
+        Tue, 15 Sep 2026 05:10:37 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>,
+To: Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+	Houlong Wei <houlong.wei@mediatek.com>,
 	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
 	Yunfei Dong <yunfei.dong@mediatek.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Fei Shao <fshao@chromium.org>,
-	Kees Cook <kees@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Steve Cho <stevecho@chromium.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: vcodec: destroy core workqueue on remove
-Date: Tue, 15 Sep 2026 19:57:53 +0800
-Message-ID: <20260915115753.2411047-1-lgs201920130244@gmail.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: vpu: release reserved memory on remove
+Date: Tue, 15 Sep 2026 20:10:25 +0800
+Message-ID: <20260915121025.2412446-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -87,39 +84,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The decoder probe allocates core_workqueue for latency-based decoder
-architectures. The probe failure paths destroy the workqueue, but the
-normal remove path only destroys decode_workqueue.
+mtk_vpu_probe() may assign a reserved memory region to the VPU device
+with of_reserved_mem_device_init(). The probe failure path releases the
+assignment with of_reserved_mem_device_release(), but the normal remove
+path does not perform the corresponding cleanup.
 
-As a result, removing a latency-based decoder leaves core_workqueue
-allocated after the device lifetime has ended.
+As a result, removing the VPU driver after a successful probe can leave
+the reserved memory assignment associated with the device after its
+lifetime has ended.
 
-Destroy core_workqueue during remove for latency-based decoder
-architectures, matching the cleanup performed by the probe failure
-paths.
+Release the reserved memory assignment after freeing the VPU external
+firmware memory, matching the cleanup performed by the probe failure
+path.
 
 This issue was found by manual code inspection.
 
-Fixes: 365e4ba01df4 ("media: mtk-vcodec: Add work queue for core hardware decode")
+Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- .../media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index e936ed8dffba..426d060d937c 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -570,6 +570,8 @@ static void mtk_vcodec_dec_remove(struct platform_device *pdev)
- 	struct mtk_vcodec_dec_dev *dev = platform_get_drvdata(pdev);
- 
- 	destroy_workqueue(dev->decode_workqueue);
-+	if (IS_VDEC_LAT_ARCH(dev->vdec_pdata->hw_arch))
-+		destroy_workqueue(dev->core_workqueue);
- 
- 	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
- 		media_device_unregister(&dev->mdev_dec);
+diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+index 8d8319f0cd22..16b5bdc2f2c0 100644
+--- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
++++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+@@ -966,6 +966,7 @@ static void mtk_vpu_remove(struct platform_device *pdev)
+ 		destroy_workqueue(vpu->wdt.wq);
+ 	vpu_free_ext_mem(vpu, P_FW);
+ 	vpu_free_ext_mem(vpu, D_FW);
++	of_reserved_mem_device_release(&pdev->dev);
+ 	mutex_destroy(&vpu->vpu_mutex);
+ 	clk_unprepare(vpu->clk);
+ }
 -- 
 2.43.0
 
