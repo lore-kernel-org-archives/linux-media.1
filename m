@@ -1,108 +1,106 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58A3387590
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CC533372A
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458933; cv=none; b=JhZCbqS0MsS6EkiUtNmEcCeHlD12U8gFUNthPz7s6rz337YtfocKPHTJIi/F+nfHhNAcTSCvIR4sYUFvrNp01GGwWJ6Ygr87gbIrVnYxVb3LfabLkxPm3J1KJ7fUN60e6r1gjsP0d2Drt8Co8NdYZ7PrtgGxINbUtUNu/PcH5wk=
+	t=1789458998; cv=none; b=TB/sTMU6/J90ZSwg7cZXRoWQp8goEJyEEuW5KqOb+oZk2epa38QypHaHBdlewO3BJSRi/yWtbOx/Si3s+G33HFB8wnYd/AswzlrkOnk+ZHt+eo/IaW5F8CrPLqCV/8uHtdyGp3tx8QKmag4TwlevwFhumsO1eLxFdMy5AGNTwxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458933; c=relaxed/simple;
-	bh=tCmrY8bbWX/n5rVI3Gf1grWS2sFWfnCZLxtu4re3KDU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JVyxeZKx04v8vm5Aj0cKQ4XTToOWrg6WjpRwCaPWee2NMFdV0UpZKfcIQbBUYEG7wA/O6kSuGKe5xJNdssj+MdGdimceJUeJN24CZp0wPIngxdRrjhPnMuTW4OEbOFWzIaOH6Cjxv7V4IGurcROlXfpkE0SGigX7Fbm7P3PBJ68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bE4uWn6F; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789458998; c=relaxed/simple;
+	bh=g+EasKO2bi7mxkYRHU6ebTWU9VqhTRqT05/QyINn3W0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NxVDbyvL+h4i5oI3T65rjlIRVkPW8QD9o7axPDwGKNB5gxB8IaiIh9l+CZ1R8lZhEaZU+140xy0QkqfhtZv8YuAnmBDzyYK1R8DT4a1KaY0KY9rIuZA5rf6cNkg/SDj5Lh99PgwglipAr6+1BOJ8Qy8T87vKlGGwBxg72a9o87M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=eSNe5Oay; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bE4uWn6F"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e211a3so2251801b3a.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 00:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789458931; x=1790063731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VKOice3d+d9oEFyie9yQ2tllBkQHbuzBZLWo6vl/Ptg=;
-        b=bE4uWn6FQXPPHeSYqFLTJMcg9+Mt7PlBT1NSIR7QJfn2w2Y5PVjKrnKviaj5pRu5PT
-         VCykXEEmWcRGeRO0TeokyK49x+LkYVNMNBvQKBYGqCC2puGGsgtw1IghDfNMXdLzMPho
-         4dPNgKZEpNILE9CfdQXl+GdjcTWDbhLy2G5vjFiixsNaT9ks2ueL+iCM5mfOOPD385Ia
-         GJfBtssZdZC8SFRowQ7X9i+DHo0v875wA4B3EQ9O1ZoqPzsWE0lFXzmqdQhnSL032Sxv
-         ueHFWhD7ILT6GziQZW/NB4mHdsRElQXQ3vHEUl0bvLONWplk3Y4Hv1VmOD85R0OLrmAX
-         dOVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789458931; x=1790063731;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VKOice3d+d9oEFyie9yQ2tllBkQHbuzBZLWo6vl/Ptg=;
-        b=0M9IawR2vv9/ICb7/Ql4g+V+qVlAYGHicHsT3c+f2lTprkOhauTgjGsqCX1bzKtH5/
-         zd7g7YTMTw2tABsIQ8/4XiqELC22u2uEdlS0w9UnPCDamotj54b/nFmDgnc0zJikxu04
-         TGVcYdAEiP+DWqcZhdvUYa7BZSgoznOUeYwpdXn9jXEEZj1BgMZzTXKAJ3Is1gkZDqDx
-         2NwwJDBwPXDJmxkqxC1/rL31jj9ozELyzHUL4FiNo9TBrwBwO2woCuY7XSHWZPwp4CVu
-         oEbMPtRqMxIPWPLl1fcE6/OMm51G/oNetcDRKgaHyXJZGOAKg2o7vW3MXTCfcounAdB1
-         p1tw==
-X-Forwarded-Encrypted: i=1; AKwUvBzI/VsqLpZm3YjxxSD2kNVIgJ3Nx+0aYItmWYftuz/si+Wunpec2ULNyqwjRAZMIuJng1SMJiZnDODFYA==@vger.kernel.org
-X-Gm-Message-State: AFuF++n9WJRp7WOzKg9Yk3+MISJUamalj8c5bi0T79igJDFKNXhfcRdY
-	8ODBdWYeOzW87ClzYcCVzQW1hjXYAwx35cRG9AZtfAAOd8lpXNN7ivmw
-X-Gm-Gg: AYBFou0XwmiRL7FutLCDJaylej6F3sOFIK/rcSUG2Ec8bALfslB1/lwCXWpP1xehcwx
-	YRRA12TCDgxcISLQRvQs8EpClu8WTVk+Y5x4TRnnkzi5Z0jXzY0QBdsOfjjJbzUijF9/GAV4sVo
-	8WbfX0K2BUJvRTZWrhzMsRyz1HAun4j13JIJzEq44JfWe10p5E1/0QyQ9aH1UO5bCeq/9o1BqDZ
-	2djyOJnqurZnE8w+JfLp/qRK4fT3r069ryc7DaoYlb5Yst4sXRssx1JUrbSjDMI6s5N8bQjIlvx
-	vC59veNwDL/gtiCI4VyBYwXCiGIRw7gwMiXFR1aVV4EqgYVUljldPhpdFcjtINLmgq7lr9KNa1w
-	3g3bz0eTOSfrQSWwev/WwGTofQRfedV3FvzWdU8Pds2T2NQrZ1HMWpNSCujJp+dRvEFpoN75mMA
-	sWeXH6CxYUBaZ/G9lwyxvh+oX6sDI+ts0dKEq02fvLGRxXq2bCriH0Dw==
-X-Received: by 2002:a05:6a00:2d88:b0:845:cf73:c1d8 with SMTP id d2e1a72fcca58-86f85106b87mr11748969b3a.14.1789458931018;
-        Tue, 15 Sep 2026 00:55:31 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c659b9a3sm6172351a12.29.2026.09.15.00.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:55:30 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	=?UTF-8?q?Krzysztof=20Ha=C5=82asa?= <khalasa@piap.pl>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] media: i2c: ar0521: remove duplicate media entity cleanup
-Date: Tue, 15 Sep 2026 15:55:20 +0800
-Message-ID: <20260915075520.2122757-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="eSNe5Oay"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789458989; x=1789718189;
+	bh=ImAhYoPtxPkBaBIuifb9Gdy1uqlzRhoT/JFuafRJqjg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=eSNe5OaybYgLITbUYhA9G9W4Nwfjg1O1ZwYiHxj5HRT5JgDvs4/WKfqxuOFRz7hAV
+	 wBvgwD9cRmWX0AIqdqqB6NDc+MBnV/DygJ5eOjcC5QToiSi6wrpvm+xsWNllggcWAA
+	 GURFlDIS2sMYwNgPjtTrlJsPmkpb0Wm0AKaGKkUFtgEuT09yHLJIEaUph1kQx7Up2X
+	 ai9cdQJjEn/8Y8cW4bvvlfLE7mbKN4fKHknQ4PSw4XVwbB60UjDGWCTBZaAMtOODZ/
+	 V1XmrSXefL1g3C4v1XqMXyQ34bbyiSBpRcb/Pc+gmu43y0Lg+vpQt58cY/C3jjE7IQ
+	 wslZffBbZ9eJA==
+Date: Tue, 15 Sep 2026 07:56:24 +0000
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu-bridge: Add upside-down sensor quirks for the Surface Pro 9
+Message-ID: <20260915075619.96025-1-lsa.uz@pm.me>
+In-Reply-To: <20260915000140.47125-1-fernandorimoli11@gmail.com>
+References: <20260915000140.47125-1-fernandorimoli11@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: dbac799915a13a26dd2d8ae6fb4347d87e51e3b8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The error path taken when ar0521_power_on() fails calls
-media_entity_cleanup() at the disable label and then falls through to
-the entity_cleanup label, where media_entity_cleanup() is called again.
+Two things your commit message says are ones I have checked on the Surface
+Pro 11, so for what it is worth from another submitter rather than a
+reviewer.
 
-There is no need to clean up the media entity twice. Remove the first
-call and let all error paths converge on the common entity_cleanup
-label.
+That nothing in the bridge turns pixels - measured. One static scene captur=
+ed
+through libcamera with the property at 0 and at 180, vertical brightness
+profiles correlated: +0.995 the same way up against -0.781 flipped. Asking
+explicitly for rot0 with the entry in place makes libcamera answer "Camera
+configuration adjusted" and hand back the same frame - it tells the
+application it cannot, rather than doing it. That was on a 7.3.0-rc1 built
+from media/next with libcamera 0.5.0, on a Surface Pro 11 for Business
+(Intel), firmware 17.105.143.
 
-This issue was found by manual code inspection.
+What happens above the bridge, which your last paragraph leaves open, has a=
+n
+answer now too. German Pablo Lindo tested the SP11 entry on a second
+machine. The image is correct in Gnome Snapshot and in Firefox, and still
+inverted in qcam. His reading is that the first two take the frame through
+pipewire while qcam talks to libcamera directly. So an application that rea=
+ds
+the property does turn the image the right way up; the one that ignores it =
+is
+qcam.
 
-Fixes: 852b50aeed15 ("media: On Semi AR0521 sensor driver")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/i2c/ar0521.c | 1 -
- 1 file changed, 1 deletion(-)
+That the entry only fires when the HID matches - read rather than measured.
+ipu_bridge_parse_rotation() walks every DMI match rather than stopping at t=
+he
+first, and returns 180 only where acpi_dev_hid_match() also succeeds. That =
+is
+what makes DMI_PRODUCT_NAME safe for a model that might have shipped
+different sensors, and it is the same reasoning behind the SP11 entry.
 
-diff --git a/drivers/media/i2c/ar0521.c b/drivers/media/i2c/ar0521.c
-index ed324c2d87aa..be68789eb8f5 100644
---- a/drivers/media/i2c/ar0521.c
-+++ b/drivers/media/i2c/ar0521.c
-@@ -1142,7 +1142,6 @@ static int ar0521_probe(struct i2c_client *client)
- 
- disable:
- 	v4l2_async_unregister_subdev(&sensor->sd);
--	media_entity_cleanup(&sensor->sd.entity);
- free_ctrls:
- 	v4l2_ctrl_handler_free(&sensor->ctrls.handler);
- entity_cleanup:
--- 
-2.43.0
+On your note that mine no longer applies
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+You are right, and I would rather be exact about where, because the tree
+decides it. Checked today:
+
+  media/next, 27953c0449        table ends 960QHA / OVTI02E1    mine applie=
+s
+  mainline master               no 960XFH                       mine applie=
+s
+  linux-next                    has 960XFH                      conflict
+
+The 960XFH entry is Felipe Calliari's Samsung Book3 Ultra patch of
+2026-09-05, which has reached linux-next but not media/next. So as posted m=
+ine
+still applies to the tree it is aimed at. It stops doing so when that entry
+arrives there, and then it wants exactly the one-line fix you describe - as
+does yours, for the same reason.
+
+Thank you for raising it rather than letting it be found later.
+
+Sergey
 
