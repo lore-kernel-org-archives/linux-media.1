@@ -1,62 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF8E47F777;
-	Tue, 15 Sep 2026 08:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBE747FAED;
+	Tue, 15 Sep 2026 08:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461192; cv=none; b=H4HHySFwFE3Vaz4WQJlaC8zLUlHqu9zi8peaIJyqbVcUtjl1GW0C3syKhsiiISJfbUmv0Ew4ThDOE2nZxjtaz06FjfxnDrErOeS8f6OubrBe9lKdMZ5KxhqgjvoxSeCk9xVZ/V82707OORtbv+EwwPYmGEyfKZozUu80rZyeCHc=
+	t=1789461193; cv=none; b=uEznToYN1kgstC/BDIetD89ldYeahtSdIpmuWqZ7DEgPLWr1Qc6Jq7IL214K3Gsxhgm22HZySpMGReSO2TWKZNsieeVbMts/RIpRCJpP459DfwPV7RTN0QxvERKn5b2Qi/H9Qx+j56fDdgld1Ux2w0nU9VUy9qPmjgo8icPnU5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461192; c=relaxed/simple;
-	bh=HF68j55DxHGSP2KQtDGRCV0ajrgKv4ytVDI+X4FKYxI=;
+	s=arc-20240116; t=1789461193; c=relaxed/simple;
+	bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lno6OFWvytcMKy1cjA5NFwoK+Klsg01MijmQSDM+MpJYo63po51rkrpNaWs25HiaA04w/yO6gZqD0OrmEdckzZG/TMqP0DwrVu4pJm++i4y5lxA+aycFX+z2Pu6BdcwEvD3Q3VqI3OC23Gb8yflVCKEqDCz9IqjbpoYlTFsaP58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=iVw9BJd6; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Q1xt7Cdb; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=eQsKVIGTE6m/d/G5p0d5vhSMgSsMmWescfex2eY+vn47LvuBqMlOW9H4i3lmOSfBAOXgNKsGJVtYI2SDlZCg/YZP6DHmoGA6TpcnfffmYCCDlXh8psknPosg70J83bz85cT4zlNoxSUuaR8cucvYHp3weshqjkfAnXMKNG4VzTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ljRKywPu; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ljRKywPu; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="iVw9BJd6";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Q1xt7Cdb"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ljRKywPu";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ljRKywPu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461188; bh=HF68j55DxHGSP2KQtDGRCV0ajrgKv4ytVDI+X4FKYxI=;
+	t=1789461189; bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iVw9BJd6GAa7XjD6McujOpfVHVtGPLf+Q59K2HVCyXqMBjeeKhOAIZru0hqz5yI6L
-	 VMUP5MQ3AtbAq7OMpc48MPLeugS/MqX9YSTdXV5O98vJtHMyA5vlbhJzRFmbNxPp7N
-	 vaVs7iRIZ/FTlt5F99jREnRNjvq3ARqyF+/R9vyxxWtWzBHeXq5xEGJXuEva//CMZZ
-	 frX+NHUxcZa6WL/w82sMYdfjrzE7TjtCVqimH+Y2Cmt2TymTCRUwzDgTZ6TzLMzc42
-	 kwVo8CVa8pLZSKTlBCV3//hLYejlmnCEZXgm8/tjfDzMmcNjX2SnYYnpOHllpP3kOO
-	 sGMffaK/RNQJQ==
+	b=ljRKywPu1VFtBKR4dK9EbkSL790mVFb1SVmtVEqszCkUknOjXqxJfloWrAXnwJx2w
+	 s82RnSfD98B7s3jzhZihDphUfQ2kwBh3CRX9iFd7nXaneSQZqzShlXbbvW1VuvSoxq
+	 kC2ZDpeU8QPMZtKJohHah+SgqBg+0yXwrzJRZ782aT1xg/ioI7ANf75OxNjyer34/B
+	 xC0EeNNf/+bYOEkyRueoUWNW7qEQjUfRa1/N/gDNnokgVNuh84hUiDOdVENu80d4ge
+	 OKaErldUtBZ7xf8ujKwItUbP6CRmfRIXSsEeCrbcZ/U4IJXbbrJAcSR7/Gd7TtuYXC
+	 e5TuUjJ8XD1/Q==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id A5DA740BA4; Tue, 15 Sep 2026 09:33:08 +0100 (BST)
+	id C6DFE40BA8; Tue, 15 Sep 2026 09:33:09 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461187; bh=HF68j55DxHGSP2KQtDGRCV0ajrgKv4ytVDI+X4FKYxI=;
+	t=1789461189; bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Q1xt7CdbAA+4DzI0imYZ7k912PpWncJ1HUkhw+eNoXlbXry+negZ9RxJW9mkprOvD
-	 J3DqmwiUfLfz3a3bnZ4eTGrLZ3LR4iEWaVo5cntLjPes8Jrp+3OH/ATMCKYa5sHbu0
-	 frUQdqde5Q5kxXnM9HYl9WXjR9ipcMaJ53pOoX/gAungygbupN1rBPkX3j8lyT/ZLI
-	 SbRx1ArKdC65aDuA/QPaOu6UgTVnbWETRQHkfKoevToKaPay1V25SkB66WsGJEIYGQ
-	 TlSCqeaSOHLh/q908bCjCcJ9bUnc2x4VuhkLj1bcZ63jF21YJrCLV6LDPtSpZtWUJ0
-	 /9WtOS/ttHQrA==
+	b=ljRKywPu1VFtBKR4dK9EbkSL790mVFb1SVmtVEqszCkUknOjXqxJfloWrAXnwJx2w
+	 s82RnSfD98B7s3jzhZihDphUfQ2kwBh3CRX9iFd7nXaneSQZqzShlXbbvW1VuvSoxq
+	 kC2ZDpeU8QPMZtKJohHah+SgqBg+0yXwrzJRZ782aT1xg/ioI7ANf75OxNjyer34/B
+	 xC0EeNNf/+bYOEkyRueoUWNW7qEQjUfRa1/N/gDNnokgVNuh84hUiDOdVENu80d4ge
+	 OKaErldUtBZ7xf8ujKwItUbP6CRmfRIXSsEeCrbcZ/U4IJXbbrJAcSR7/Gd7TtuYXC
+	 e5TuUjJ8XD1/Q==
 Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id D9C7440155;
-	Tue, 15 Sep 2026 09:33:06 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id EE0ED40B71;
+	Tue, 15 Sep 2026 09:33:08 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
-	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 08/20] media: ene_ir: Ensure teardown is done in the correct order
-Date: Tue, 15 Sep 2026 09:32:18 +0100
-Message-ID: <f497207cbb9f657a3af5837c6abb496d642a0b19.1789460680.git.sean@mess.org>
+Subject: [PATCH v5 09/20] media: rc: Use binary search for adding or updating a scancode
+Date: Tue, 15 Sep 2026 09:32:19 +0100
+Message-ID: <042abeb49891d9d6be5035559c656da18eb22fc9.1789460680.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1789460680.git.sean@mess.org>
 References: <cover.1789460680.git.sean@mess.org>
@@ -68,39 +64,60 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The timer can be re-armed from the irq, so ensure that the timers are
-deleted after the irq and that we only free the rc device once we are
-sure that the irq has been silenced.
+We can have up to 1024 scancodes entries which are always sorted, so make
+this a little faster.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Cc: stable@vger.kernel.org
+We need to either get an scancode entry, or find the insertion point
+in the sorted array if no existing entry was found. The bsearch() function
+cannot do this as it runs NULL is no matching entry is found. Therefore,
+we provide an open coded binary search.
+
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/ene_ir.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/rc/rc-main.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
-index 6f7dccc965e7..f98d76277b62 100644
---- a/drivers/media/rc/ene_ir.c
-+++ b/drivers/media/rc/ene_ir.c
-@@ -1103,15 +1103,15 @@ static void ene_remove(struct pnp_dev *pnp_dev)
- 	unsigned long flags;
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 37ba19164875..ed746255b0a2 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -391,7 +391,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 					  struct rc_map *rc_map,
+ 					  u64 scancode, bool resize)
+ {
+-	unsigned int i;
++	unsigned int i, lo, hi;
  
- 	rc_unregister_device(dev->rdev);
--	timer_delete_sync(&dev->tx_sim_timer);
- 	spin_lock_irqsave(&dev->hw_lock, flags);
- 	ene_rx_disable(dev);
- 	ene_rx_restore_hw_buffer(dev);
- 	spin_unlock_irqrestore(&dev->hw_lock, flags);
+ 	lockdep_assert_held(&rc_map->lock);
  
--	rc_free_device(dev->rdev);
- 	free_irq(dev->irq, dev);
-+	timer_delete_sync(&dev->tx_sim_timer);
- 	release_region(dev->hw_io, ENE_IO_SIZE);
-+	rc_free_device(dev->rdev);
- 	kfree(dev);
- }
+@@ -406,15 +406,21 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 	if (dev->scancode_mask)
+ 		scancode &= dev->scancode_mask;
  
+-	/* First check if we already have a mapping for this ir command */
+-	for (i = 0; i < rc_map->len; i++) {
++	/*
++	 * Binary search for an existing mapping for this ir command.
++	 */
++	lo = 0;
++	hi = rc_map->len;
++	while (lo < hi) {
++		i = lo + (hi - lo) / 2;
+ 		if (rc_map->scan[i].scancode == scancode)
+ 			return i;
+-
+-		/* Keytable is sorted from lowest to highest scancode */
+-		if (rc_map->scan[i].scancode >= scancode)
+-			break;
++		if (rc_map->scan[i].scancode < scancode)
++			lo = i + 1;
++		else
++			hi = i;
+ 	}
++	i = lo;
+ 
+ 	/* No previous mapping found, we might need to grow the table */
+ 	if (rc_map->size == rc_map->len) {
 -- 
 2.55.0
 
