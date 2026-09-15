@@ -1,210 +1,169 @@
-Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4662F456DE1
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 19:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681D0456DF6;
+	Tue, 15 Sep 2026 20:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501874; cv=none; b=rDj/Avy7vzWMIgS2KzS7i0o74nVE1bbJNL8g/JZk0WimZpGsC/8gS+rjNG0zP+sQPAR82Qze1ipt5GferQDBYpyzLbi12rKyJ056MkmutNJubXpv70sUuEvt9j2xea2IjO7HQEulFi7Xf3n61ioMIhW96LvkA44M+LS3TTvcW88=
+	t=1789502404; cv=none; b=grmNmtO7k43gdFEEaagxccHY2x2+ReWdaVWaLf1SlNaPbkiFwm80XjoURx+41u+XbQ5+pJ6zxo6rkDEPp1qgErcBZD9FZr9c2UXEN/Cic5joK0+XCuNwv1LHXS5qRav2vs8cNJ9XdKFdpg1E8qws+kPMo01ljufLDpRPTcp88Y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501874; c=relaxed/simple;
-	bh=uAf2DJcdhrhTYI1UJ6GNxaESDfQLXKd+SMlyrQoroTM=;
+	s=arc-20240116; t=1789502404; c=relaxed/simple;
+	bh=Ozqb8Nlqcx4jTJr4HzpCRa4epQHmJdVAuT7sAYodQSg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jSXzNANOvnrWyRki1If+60GKZdzeh+9fgs81Xxdxtoai/Cz0kwVyroTGMIwbqDVGzFLpFn8S1HX+l6cW2govj2CkVHG9raV3J4Ifnc5bGGJQPC/StVXt6+Vn+CY/e+UrpP8eQykmDp6jdsOIdwBdUWA3ht0rrQRUiR/sUMfecVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nsj8AtOt; arc=none smtp.client-ip=91.218.175.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=h8BQceOegfJr5rqgsF5zv+89DQxUeabk43C2i48Tedj7+86EOj2E/POVUrGyZDf2UACoFu9/dBhkB7NbemcKPj6dAGB7Yst/ZUQFeE4MENnoZjcprAUMyPV/TKnJAv00dQg7J1RIUtzU4y5SJwNHewx9ZJ3TnuVKuq5xMAYrG8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k7PBojoR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nsj8AtOt"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uAf2DJcdhrhTYI1UJ6GNxaESDfQLXKd+SMlyrQoroTM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789501869; v=1; x=1790106669;
- b=nsj8AtOtPOgMApO0KqyHXvOYlEPTN8afxEZ27h/qxar0Ia4CYNAKqzFVWTd8hq/rMEZZWlhA
- 8HZNq8O1Y6emzDzslFPnxL7R6E9NgSrxF10YI1RLZoflX/ahjLiolNQurCGGHi5eGZxcpTb1DUj
- dDtI1QlNTbzdFPgJTnVd0zw4=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id df467dddeed73729;
-	Tue, 15 Sep 2026 19:51:09 +0000
-X-Mizu-Trace-ID: df467dddeed73729
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 21:51:03 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/10] media: i2c: ov9282: harmonize dev_err_probe usage
-Message-ID: <aqmhSapyl1p7rTpK@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-8-f520af59df1b@linux.dev>
- <CAPY8ntB-vJR-Z-x3NV18NHueVGuo6zd8J7Mf6GQDYgZuJq8LDw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k7PBojoR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069581F000FF;
+	Tue, 15 Sep 2026 20:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789502402;
+	bh=060FvzlSY1s+NjIuTsRc9Ny+zBNXkBYeefHqKI9hLNs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k7PBojoRGnlYP+7hm1RNQd5WiXBzFE9G/TC6RDJLFlkIfILpDtK/GBadjjEtwmvkI
+	 VltqHkns7rFQJUs7zOmt6Aou56t41/k1s3vtqxmfTJXB2iTYaoQOZMoaAQLEbiBATM
+	 QliN/deaZlJIoWJkLmj+D4VvTn5Jx146y3TPh/vvsa/DnZhr9eIjruGktKRmZd1F8W
+	 d/n8s23s+ioe/dcLrN5uPZzQxe+1Zt37jah6tmmp47xTq2Q8c6opmO/Bh9z6yBVHOy
+	 7ebwggwCD440EEMlDbbPNOt17kbvHZ9ZDz+ruV708XKWcQk5yesfJHNbhyUtEGTA1U
+	 d3OVGyDuwb7RA==
+Date: Tue, 15 Sep 2026 13:00:00 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Matthias Schwarzott <zzam@gentoo.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Mike Marshall <hubcap@omnibond.com>,
+	Martin Brandenburg <martin@omnibond.com>,
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Kanglong Wang <wangkanglong@loongson.cn>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Qiang Ma <maqianga@uniontech.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Thorsten Blum <blum@kernel.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Ashutosh Desai <ashutoshdesai993@gmail.com>,
+	Imre Deak <imre.deak@intel.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Johan Hovold <johan@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Will Porter <mrwillporter@gmail.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
+	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
+	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
+Message-ID: <202609151258.5FC01072@keescook>
+References: <20260915081910.4142719-1-morbo@google.com>
+ <20260915081910.4142719-26-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAPY8ntB-vJR-Z-x3NV18NHueVGuo6zd8J7Mf6GQDYgZuJq8LDw@mail.gmail.com>
+In-Reply-To: <20260915081910.4142719-26-morbo@google.com>
 
-Hi Dave,
+On Tue, Sep 15, 2026 at 08:18:42AM +0000, Bill Wendling wrote:
+> index e7c335ca0c36..4e3781815b6d 100644
+> --- a/drivers/edac/thunderx_edac.c
+> +++ b/drivers/edac/thunderx_edac.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/atomic.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/circ_buf.h>
+> +#include <linux/seq_buf.h>
+>  
+>  #include <asm/page.h>
+>  
+> @@ -47,12 +48,17 @@ static void decode_register(char *str, size_t size,
+>  {
+>  	int ret = 0;
+>  
+> +	if (size > 0)
+> +		str[0] = '\0';
+> +
+>  	while (descr->type && descr->mask && descr->descr) {
+>  		if (reg & descr->mask) {
+>  			ret = snprintf(str, size, "\n\t%s, %s",
+>  				       descr->type == ERR_CORRECTED ?
+>  					 "Corrected" : "Uncorrected",
+>  				       descr->descr);
+> +			if (ret < 0 || ret >= size)
+> +				break;
+>  			str += ret;
+>  			size -= ret;
+>  		}
 
-thanks for the review!
+Seems like seq_buf would be better her? But yes, at the very least, this
+needs to be scnprintf, not snprintf (or add the checks as you have
+here).
 
-On Tue, Sep 15, 2026 at 03:55:01PM +0100, Dave Stevenson wrote:
-> Hi Richard
-> 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > Use dev_err_probe() for all error messages during probing. This ensures
-> > there's a common "look-and-feel" in the drivers source code as well as
-> > the system log.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 38 ++++++++++++++++++--------------------
-> >  1 file changed, 18 insertions(+), 20 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index 28f8b05b4c09e..f728709fcf0a6 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -1109,26 +1109,25 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
-> >         ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
-> >                                                      GPIOD_OUT_LOW);
-> >         if (IS_ERR(ov9282->reset_gpio)) {
-> > -               dev_err(ov9282->dev, "failed to get reset gpio %pe",
-> > -                       ov9282->reset_gpio);
-> > -               return PTR_ERR(ov9282->reset_gpio);
-> > +               return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
-> > +                                    "failed to get reset gpio");
-> >         }
-> >
-> >         /* Get sensor input clock */
-> >         ov9282->inclk = devm_v4l2_sensor_clk_get(ov9282->dev, NULL);
-> >         if (IS_ERR(ov9282->inclk))
-> >                 return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->inclk),
-> > -                                    "could not get inclk\n");
-> > +                                    "could not get inclk");
-> 
-> My understanding is that dev_err_probe should always have the \n on
-> the end of the log text.
-> Admittedly "failed to get reset gpio %pe" above is missing it, but
-> removing it off all the other instances seems to be the wrong fix.
+The rest of the seq_buf conversions look right.
 
-Thanks for the pointer. I wasn't aware of this convention. Also the
-documentation of dev_err_probe mentions nothing. Nonetheless when
-grepping through the kernel source I totally agree. "\n" is definitely
-preferred.
-
-I will adapt this for v2.
-
-regards;rl
-
-> 
-> Otherwise the patch looks fine.
-> 
->   Dave
-> 
-> >
-> >         ret = ov9282_configure_regulators(ov9282);
-> >         if (ret)
-> >                 return dev_err_probe(ov9282->dev, ret,
-> > -                                    "Failed to get power regulators\n");
-> > +                                    "Failed to get power regulators");
-> >
-> >         rate = clk_get_rate(ov9282->inclk);
-> >         if (rate != OV9282_INCLK_RATE) {
-> > -               dev_err(ov9282->dev, "inclk frequency mismatch");
-> > -               return -EINVAL;
-> > +               return dev_err_probe(ov9282->dev, -EINVAL,
-> > +                                    "inclk frequency mismatch");
-> >         }
-> >
-> >         ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
-> > @@ -1144,16 +1143,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
-> >                 bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
-> >
-> >         if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
-> > -               dev_err(ov9282->dev,
-> > -                       "number of CSI2 data lanes %d is not supported",
-> > -                       bus_cfg.bus.mipi_csi2.num_data_lanes);
-> > -               ret = -EINVAL;
-> > +               ret = dev_err_probe(ov9282->dev, -EINVAL,
-> > +                                   "number of CSI2 data lanes %d is not supported",
-> > +                                   bus_cfg.bus.mipi_csi2.num_data_lanes);
-> >                 goto done_endpoint_free;
-> >         }
-> >
-> >         if (!bus_cfg.nr_of_link_frequencies) {
-> > -               dev_err(ov9282->dev, "no link frequencies defined");
-> > -               ret = -EINVAL;
-> > +               ret = dev_err_probe(ov9282->dev, -EINVAL,
-> > +                                   "no link frequencies defined");
-> >                 goto done_endpoint_free;
-> >         }
-> >
-> > @@ -1382,14 +1380,14 @@ static int ov9282_probe(struct i2c_client *client)
-> >
-> >         ret = ov9282_parse_hw_config(ov9282);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "HW configuration is not supported");
-> > -               return ret;
-> > +               return dev_err_probe(ov9282->dev, ret,
-> > +                                    "HW configuration is not supported");
-> >         }
-> >
-> >         ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
-> >         if (IS_ERR(ov9282->regmap))
-> >                 return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->regmap),
-> > -                                    "Failed to init CCI\n");
-> > +                                    "Failed to init CCI");
-> >
-> >         ret = ov9282_power_on(ov9282->dev);
-> >         if (ret)
-> > @@ -1399,7 +1397,7 @@ static int ov9282_probe(struct i2c_client *client)
-> >         /* Check module identity */
-> >         ret = ov9282_detect(ov9282);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "failed to find sensor: %d", ret);
-> > +               dev_err_probe(ov9282->dev, ret, "failed to find sensor");
-> >                 goto error_power_off;
-> >         }
-> >
-> > @@ -1409,7 +1407,7 @@ static int ov9282_probe(struct i2c_client *client)
-> >
-> >         ret = ov9282_init_controls(ov9282);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "failed to init controls: %d", ret);
-> > +               dev_err_probe(ov9282->dev, ret, "failed to init controls");
-> >                 goto error_power_off;
-> >         }
-> >
-> > @@ -1422,14 +1420,14 @@ static int ov9282_probe(struct i2c_client *client)
-> >         ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
-> >         ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
-> >         if (ret) {
-> > -               dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
-> > +               dev_err_probe(ov9282->dev, ret, "failed to init entity pads");
-> >                 goto error_handler_free;
-> >         }
-> >
-> >         ov9282->sd.state_lock = ov9282->ctrl_handler.lock;
-> >         ret = v4l2_subdev_init_finalize(&ov9282->sd);
-> >         if (ret < 0) {
-> > -               dev_err_probe(ov9282->dev, ret, "failed to init subdev\n");
-> > +               dev_err_probe(ov9282->dev, ret, "failed to init subdev");
-> >                 goto error_media_entity;
-> >         }
-> >
-> >
-> > --
-> > 2.53.0
-> >
-> >
+-- 
+Kees Cook
