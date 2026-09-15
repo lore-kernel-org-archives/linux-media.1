@@ -1,57 +1,57 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA6F439F68
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EFD3F1ACF
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460432; cv=none; b=iVh1BeqL5zbtV6afpWDEmthl2hK7Eka93OvS5Q7FFaJRxE36XgV9uqBHk7mbNk+rDa7oJGrbYcQQBgk97pIuigbquG+JkAxMupty/wQdy67PIHSWQAw2XpGqrUVZycUSDZMhV7z5nhlCOG+ZAYh7McGp0KjqjpxRB4MQN294TE8=
+	t=1789460427; cv=none; b=JvZq3GIiBkequpArOOYrTOwfwvdVidF8Gr11wdIrNXpzVKCcjtpCxhPzaA75ckVpOaAv/H1c/sMgP7GpqQMOmW7EZtvpf2T24/pmBc1XwV2DTgNeXGaQHVbN1XXI3wFXBTR5WFb9KNIul0da/5R0pMmN1DwGGJFFnMs2qTAlm2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460432; c=relaxed/simple;
-	bh=Hf8Hcf3/GVCrKP3bnfnvDYzjoz8pInTEuZeXHBnhpZg=;
+	s=arc-20240116; t=1789460427; c=relaxed/simple;
+	bh=AdZQZFBZ+Sq+Xs3+ioKoxuNwDqkD/CEsMpiPWsVgYCg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=V3kbMlopKGwBHM8JiYwZr9BJGbAL9WiscbZ9QjE9kUfwJ1RJzOSHej4uSFV6a3WjxqpyUtwpR51iYufTPylcBFw6/Wc0EMRuvEKRjFMyRhpbU/VqU01ZOtJg1wQCAQaAv6xwJhsxKO89GQEvN8XMXHEa2MwLb1Tozf0xBDhSLY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L24HfS41; arc=none smtp.client-ip=209.85.214.199
+	 To:Cc:Content-Type; b=c84HoGTu9RjvSW0CkzcyFg5FMztJoxkq8CYB5t4I6yREpz2bueAFFx4Y7eBUq8xdDiBU1wH0EuaKr3KeB4vTYFe3R6AI6mMVYkQRHccl9785SyoHXkca/Wo+8mNNRKhUQHaZ9veD9+29boZhJmB38NlcGnnqVQRbXmrF/+mxB24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e7zvsQ58; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L24HfS41"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6fed0652bso45533465ad.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:19:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e7zvsQ58"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d02df2bf09so40880245ad.0
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:19:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460398; x=1790065198; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789460391; x=1790065191; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=q9qHU7CDEu6zWWmniYe9q2ucwWYfoa3UieeTJM1aJto=;
-        b=L24HfS41HHfpDQT5zlyJA0uJuEuN9xySD5geTaPiPzpaZsWIJ4ViCOTZDlYoyqjjgL
-         JsJyZXfg3SYZcc+3emOR9lEe5dIWKzWDQqWfFgOlS0o7TPv0waMYj/kjRQmmiP+mZQYe
-         fn+xe7WXI4uDdP8JcI6wa5TP+rEOIH/DMh5tbLIjo9cmWezCQy0zqkABLMUhnFN7BAHQ
-         5aBOISJpiPFomDtCWTcYjgSdJ9YsmOXAS7sTMwdy+5WpFMubBETlElDi4+ZOsZKt3zMC
-         BuV8YWKWxAThPfTuPiRQUkx30EqzqE739kQ5vIC/+qSCni1GhpYQ9IHH6+pMTAgf6Uny
-         y4LA==
+        bh=i189Z1372pvpafDRMVnLFn5IBf8O4Z3ONLFW1RCweBo=;
+        b=e7zvsQ58BkKTiZW4t1dlacydlPXAyV5l7nrlXWGuEnl8ITedm+WZqimRu2Ntz065t4
+         I00TgGLvLcai1VOpDqY0l/EmyYeA0dDc4gRltA0iwoBuD923CtGSmNfi9u9sahP1oR+K
+         +PaHxh0VGG2vE2cFpXvFEfHpfHHTARCVZhCjplJ0URdGB5zttT3AV1tLmrrSgbBz7J2/
+         Xgv6ZWPZW4F0K1qnOdSxXmsxvR33uIEkdKSrtfzlnQjv/HtRWJdOf7qBTgXuMM7+1MAI
+         tuPOpJAlqeiQhLvD6+3+vnZBbW8J5frLP8RFZPhZ9ByDYqh23hwk1njZ31sP7KgvAB5R
+         +hqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460398; x=1790065198;
+        d=1e100.net; s=20260707; t=1789460391; x=1790065191;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=q9qHU7CDEu6zWWmniYe9q2ucwWYfoa3UieeTJM1aJto=;
-        b=2CsN17W3vPq1U32h1TUxDZD735gFC/5V4KtuS985zAF3YwRKwH4UQsDZN+eLM7Odeq
-         IPXtuH6XKVXqmXEfe31wdPR+5Udut1b96OpHMUiPWw3wmpWzThlzt8LlCTInYtPR+vkX
-         jSrcWhtz62ROwTNdJykqkBKyV/c3mumrnCkH2DP2G+Anszdr/tvyxwggA6RO3KygOmVm
-         8TLLuTMNgrNaRnJW4Pyd+7unX8m/XF4jBnZTYQ8ZZ4V8sXMOppWJDnnT+356JOhOlkUq
-         7QhsRx7h38oI9Zyq4nebfAgJ+U8I/Mb3otZhLtIen4nWgnIxPaeYBkaXNAQD8Hv1TnAo
-         lt3g==
-X-Forwarded-Encrypted: i=1; AKwUvByiyTOBHrnree1R5UYFEIeqt/SU1k2O9yiBTuyUSXMwJcGA1DLjM3j5btW26zH9xBfhbwSpFnaEtiyVsQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nCO0BN6x2eCUCWx5zuw24J1+JC7gXTDXC6+O59mR6btpH8q8hm
-	5sRH7zHEbcbkYAujSbuZ+UBVx71kntov952oTm73jFdCBAu0/f2vAM5db1tQiEMVRtgube2i7RL
-	H
-X-Received: from plhc17.prod.google.com ([2002:a17:903:2351:b0:2cf:ca4d:25e3])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2408:b0:2d8:d4ce:9f32
- with SMTP id d9443c01a7336-2dd83869ae3mr512075ad.16.1789460397125; Tue, 15
- Sep 2026 01:19:57 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:27 +0000
+        bh=i189Z1372pvpafDRMVnLFn5IBf8O4Z3ONLFW1RCweBo=;
+        b=Jeg6f4ukqvO/d17PuBv2gUcdEhEZMz9n/LxI6BKFRQddTTl51y1IdoveI6ixNnuv6+
+         8dnbUEfJsGAthvTCF3AFKVXeWHTuPPDaq/nwOwSHf8IypFdSnB/S+SzPid6gxXtag0ll
+         VwYURAry3erOo7h4n5MtdRe+6XWKcG/K8ocKDRwfWz4yUNL5Gtn5Kc9AOEZUAqPjVT3J
+         ylqi8Fg6SRWsZn8CaboDH9XBhACQ1nJOZwqQTVlvhdCV4cbNCHD/xDdy3aisMfBOCKVw
+         T6RYrdiB0Kzhd5Hb1hs91IeUVzlO7z2a/lPt9nUhXF0zJV1cwm+MMWfhB0+69dPmdyiI
+         K3JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz5XBmih641rjiE08SH1gmYKLTO7yt5va/UlqFEclaocuOiiCzEkaxsvf8CUAOpQIV/+FAUQcB6AUlkIA==@vger.kernel.org
+X-Gm-Message-State: AFuF++li9vMwBWpMFLVyXhp5zL1Lfxj9re9KPU8POC9NoI9YoOQEPxZ6
+	PXlIfvH4UY2Af+/e8EvWMrYpLwygFNZWQtIU7sdposNYTbF2xMKkVdr5x05nNRlR7Eum+nbxf+d
+	+
+X-Received: from plrd12.prod.google.com ([2002:a17:902:aa8c:b0:2db:8b6a:31a7])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:388d:b0:2dd:143:d5
+ with SMTP id d9443c01a7336-2dd6c75a396mr155065525ad.22.1789460390543; Tue, 15
+ Sep 2026 01:19:50 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:19 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-11-morbo@google.com>
-Subject: [PATCH 10/28] of/fdt: Replace strlcat() with snprintf() in early_init_dt_scan_chosen()
+Message-ID: <20260915081910.4142719-3-morbo@google.com>
+Subject: [PATCH 02/28] sunrpc: Refactor rpc_sockaddr2uaddr() to use snprintf()
+ instead of strlcat()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -123,22 +124,18 @@ Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-When CONFIG_CMDLINE_EXTEND is enabled, early_init_dt_scan_chosen() uses
-two strlcat() calls to append a space and CONFIG_CMDLINE to the command
-line buffer.
+rpc_sockaddr2uaddr() formats the IP address into "addrbuf", formats the
+port into a temporary "portbuf" buffer with snprintf(), and then appends
+"portbuf" to "addrbuf" using strlcat().
 
-In preparation for removing the deprecated strlcat() API[1], replace the
-strlcat() calls with a single snprintf() call using the existing string
-length.
-
-Additionally, check for a NULL initial_boot_params pointer and jump to
-"handle_cmdline" so that CONFIG_CMDLINE handling still occurs without
-dereferencing a NULL FDT pointer in fdt_path_offset().
+In preparation for removing the deprecated strlcat() API[1], capture the
+length returned by rpc_ntop4() and rpc_ntop6_noscopeid() and format the
+port directly onto the end of "addrbuf" with snprintf(). This eliminates
+the strlcat() call and the temporary "portbuf" buffer.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: Assistant:Claude-3.5-Sonnet [editor_update_file, shell_command=
-_run]
+Assisted-by: CoPilot:3.5-sonnet [editor_update_file, shell_command_run]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -252,39 +249,58 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- drivers/of/fdt.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ net/sunrpc/addr.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index a64afc3ded3d..311021a83f03 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1095,6 +1095,9 @@ int __init early_init_dt_scan_chosen(char *cmdline)
- 	const void *rng_seed;
- 	const void *fdt =3D initial_boot_params;
+diff --git a/net/sunrpc/addr.c b/net/sunrpc/addr.c
+index 97ff11973c49..a1e4173e5a53 100644
+--- a/net/sunrpc/addr.c
++++ b/net/sunrpc/addr.c
+@@ -264,18 +264,20 @@ EXPORT_SYMBOL_GPL(rpc_pton);
+  */
+ char *rpc_sockaddr2uaddr(const struct sockaddr *sap, gfp_t gfp_flags)
+ {
+-	char portbuf[RPCBIND_MAXUADDRPLEN];
+ 	char addrbuf[RPCBIND_MAXUADDRLEN];
+ 	unsigned short port;
++	size_t len;
 =20
-+	if (!fdt)
-+		goto handle_cmdline;
+ 	switch (sap->sa_family) {
+ 	case AF_INET:
+-		if (rpc_ntop4(sap, addrbuf, sizeof(addrbuf)) =3D=3D 0)
++		len =3D rpc_ntop4(sap, addrbuf, sizeof(addrbuf));
++		if (len =3D=3D 0 || len >=3D sizeof(addrbuf))
+ 			return NULL;
+ 		port =3D ntohs(((struct sockaddr_in *)sap)->sin_port);
+ 		break;
+ 	case AF_INET6:
+-		if (rpc_ntop6_noscopeid(sap, addrbuf, sizeof(addrbuf)) =3D=3D 0)
++		len =3D rpc_ntop6_noscopeid(sap, addrbuf, sizeof(addrbuf));
++		if (len =3D=3D 0 || len >=3D sizeof(addrbuf))
+ 			return NULL;
+ 		port =3D ntohs(((struct sockaddr_in6 *)sap)->sin6_port);
+ 		break;
+@@ -283,11 +285,8 @@ char *rpc_sockaddr2uaddr(const struct sockaddr *sap, g=
+fp_t gfp_flags)
+ 		return NULL;
+ 	}
+=20
+-	if (snprintf(portbuf, sizeof(portbuf),
+-		     ".%u.%u", port >> 8, port & 0xff) >=3D (int)sizeof(portbuf))
+-		return NULL;
+-
+-	if (strlcat(addrbuf, portbuf, sizeof(addrbuf)) >=3D sizeof(addrbuf))
++	if (snprintf(addrbuf + len, sizeof(addrbuf) - len,
++		     ".%u.%u", port >> 8, port & 0xff) >=3D sizeof(addrbuf) - len)
+ 		return NULL;
+=20
+ 	return kstrdup(addrbuf, gfp_flags);
+@@ -352,3 +351,4 @@ size_t rpc_uaddr2sockaddr(struct net *net, const char *=
+uaddr,
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(rpc_uaddr2sockaddr);
 +
- 	node =3D fdt_path_offset(fdt, "/chosen");
- 	if (node < 0)
- 		node =3D fdt_path_offset(fdt, "/chosen@0");
-@@ -1133,8 +1136,12 @@ int __init early_init_dt_scan_chosen(char *cmdline)
- 	 */
- #ifdef CONFIG_CMDLINE
- #if defined(CONFIG_CMDLINE_EXTEND)
--	strlcat(cmdline, " ", COMMAND_LINE_SIZE);
--	strlcat(cmdline, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
-+	{
-+		size_t len =3D strlen(cmdline);
-+
-+		if (len < COMMAND_LINE_SIZE)
-+			snprintf(cmdline + len, COMMAND_LINE_SIZE - len, " %s", CONFIG_CMDLINE)=
-;
-+	}
- #elif defined(CONFIG_CMDLINE_FORCE)
- 	strscpy(cmdline, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
- #else
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
