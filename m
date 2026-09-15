@@ -1,106 +1,120 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CC533372A
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0321D3C7DE8
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458998; cv=none; b=TB/sTMU6/J90ZSwg7cZXRoWQp8goEJyEEuW5KqOb+oZk2epa38QypHaHBdlewO3BJSRi/yWtbOx/Si3s+G33HFB8wnYd/AswzlrkOnk+ZHt+eo/IaW5F8CrPLqCV/8uHtdyGp3tx8QKmag4TwlevwFhumsO1eLxFdMy5AGNTwxo=
+	t=1789459516; cv=none; b=Kzsiy7rdLMactduRf15QYhx4XSkgqiO/BR0EDb7U7vCcU7hV5DqET0GY9t4H9IDgwpBlsO5zDBq4o36VC6mU6xi5OnoWSqRzRP8sjtf73OSLdbjBh8b/CsARqPQzbsTbgjo4UEKGUougTFl08EzIJZskfRvEwSw9wvvfra9IiJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458998; c=relaxed/simple;
-	bh=g+EasKO2bi7mxkYRHU6ebTWU9VqhTRqT05/QyINn3W0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NxVDbyvL+h4i5oI3T65rjlIRVkPW8QD9o7axPDwGKNB5gxB8IaiIh9l+CZ1R8lZhEaZU+140xy0QkqfhtZv8YuAnmBDzyYK1R8DT4a1KaY0KY9rIuZA5rf6cNkg/SDj5Lh99PgwglipAr6+1BOJ8Qy8T87vKlGGwBxg72a9o87M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=eSNe5Oay; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789459516; c=relaxed/simple;
+	bh=oZ0N0PsuEqbDomR5sP8cO8KR7NnXA59aOg2GPCnVdzM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DmYE5BWgXS+LYHs+7INUlQ6s8kzDE0w7McL5d0i6bTzr/7aZD7ZvG9h/SCv/Za7tmc4CyQlhxiHkxNMsf9xVFM4O8YphOuhgzO5MnaqCBx32Pk40m7fevLaztNX5mafTyGsIuqsCuNsirqhQdBBBhMydZhz+7F7JAPRh07+1798=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YvUHXw09; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="eSNe5Oay"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789458989; x=1789718189;
-	bh=ImAhYoPtxPkBaBIuifb9Gdy1uqlzRhoT/JFuafRJqjg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=eSNe5OaybYgLITbUYhA9G9W4Nwfjg1O1ZwYiHxj5HRT5JgDvs4/WKfqxuOFRz7hAV
-	 wBvgwD9cRmWX0AIqdqqB6NDc+MBnV/DygJ5eOjcC5QToiSi6wrpvm+xsWNllggcWAA
-	 GURFlDIS2sMYwNgPjtTrlJsPmkpb0Wm0AKaGKkUFtgEuT09yHLJIEaUph1kQx7Up2X
-	 ai9cdQJjEn/8Y8cW4bvvlfLE7mbKN4fKHknQ4PSw4XVwbB60UjDGWCTBZaAMtOODZ/
-	 V1XmrSXefL1g3C4v1XqMXyQ34bbyiSBpRcb/Pc+gmu43y0Lg+vpQt58cY/C3jjE7IQ
-	 wslZffBbZ9eJA==
-Date: Tue, 15 Sep 2026 07:56:24 +0000
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: Add upside-down sensor quirks for the Surface Pro 9
-Message-ID: <20260915075619.96025-1-lsa.uz@pm.me>
-In-Reply-To: <20260915000140.47125-1-fernandorimoli11@gmail.com>
-References: <20260915000140.47125-1-fernandorimoli11@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: dbac799915a13a26dd2d8ae6fb4347d87e51e3b8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YvUHXw09"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so996706a91.1
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:05:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789459513; x=1790064313; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8oXVOqLbDDmDiQXcRbmwevDgD4MKWOik8Fi0EZ/eGXA=;
+        b=YvUHXw097GpnOeKx3RqOvXwHCDuOFBisU2oZR8wSUAlVg587FR5RKspun6BYboviEE
+         JJWC8Xl3JaAoNWvSFokP4axbLJ3T5W0lojiJku32hZen8xx0MIzsgYD91x/zaOuUXri2
+         AygA/0kn6SgQVCrUtNpq8KGevX+FuAv2Y4pSwwJxDc4h6YVyH2y4T7iVHjv9a0LfN13i
+         Wj7R3U00jJaeOhnhFPeMAR3O6WrWc13Y2N9zg3KMgajXP4pe1bD2YX/ngwaMPcJJldya
+         RNRqh5ZbVnlSCtGPyGNH21tvL+8cflMvBD05v2t9Sj9ceYgqTEmaVosiyfY9829iWW7/
+         Ocog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789459513; x=1790064313;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8oXVOqLbDDmDiQXcRbmwevDgD4MKWOik8Fi0EZ/eGXA=;
+        b=U9WukytL4+pZ3C25XWxbr4eHobfV7LHut+S80QGccDjU8CMs3PQYQzYXObYJwmWSTw
+         04043YXnpfaEGnrhwj1o0qhTz8MpFnVKA8GQgPkMxzIfCr41oTdWpy/PYE5KUW2QfMDi
+         fOWxDi3urs0nvhrlHBlZgdcKfOgXXFPuUZO4HX5J2cU1cUdXq/zFz9F60r+QA0PTeIaf
+         pk7oH9aRf74S2vaJ761pl/ypXU0DlnBnO1v162RJIsPhU2kEpVDQS4P08fm2uZv0T5pD
+         YuxOR3Vp+5uJWYkNByP9vzTEX1gheBPfmOOhebzAeTRujsB7FNMrHhY40eJ1exSbQqAe
+         OTpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy86ojFLWPh+qKq5ZTEolyB5F2SAs3DGW3X+E/RhTT22aw98CNcawzwyWG92hEN60BX0WrKEoX4NaiLrA==@vger.kernel.org
+X-Gm-Message-State: AFuF++njnXDmp5zwQd4/9J8DlhftIr3l34ewtTd6127KsTqGHb9x6qRy
+	+/8rFF/saf3ZwvDvyxs2/btGgOg7UNWQBGeCgZQQg9VcmD1FB7eEwhFG
+X-Gm-Gg: AYBFou2v0mRD3u2yb+/VgrmjSOUjfJ+gV8DemmxDfBI4hkwtFfcAO2Jav3RGfciLjQZ
+	aEz2JwYfJ/+YuOrIVv1WOrk9BcSe4z7q5UtbLET/wLcX3RWWUXPpJpPE3sw65yCEiwzMgz2MDJb
+	AMU0SJfbxnP0g9wWwmuRDOmlWcSMOlTxTwfMY1OYNMsnHWbcT+1cRj24AAyNZi7HwdIJ9k2Uyab
+	inDrDcBizKpyjy3bnsd3czoNKVb5RpwDANOrPePidGb6TLJuDfIDlOFVjfGtuj3GlKsERdFcFd1
+	FkhCYG90fRoaI3AWDgc1SiVM1PZEHAnqiYSN0cFrTN7ARCS9G3s50whfIIKsIom9AgiTtp0kF+6
+	QyKYZircZ5h5Zcu3r11UMnst2i2JGMASh/EVTEKBV8oVGfwDp1K4E5cOu9XCoH8oehuW3u5RImc
+	W0vbZ1p2RAQ3azCLVY3iJJOQ5Fgby2EbGi/qsfZLXtS4HmxtDBS49KxQ==
+X-Received: by 2002:a17:90b:314c:b0:398:9bd3:d6d6 with SMTP id 98e67ed59e1d1-39dfe1901e4mr2977305a91.16.1789459513101;
+        Tue, 15 Sep 2026 01:05:13 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfddc2759sm3727034a91.17.2026.09.15.01.05.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:05:12 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: gc0308: drop runtime PM reference after probe
+Date: Tue, 15 Sep 2026 16:05:01 +0800
+Message-ID: <20260915080501.2164892-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Two things your commit message says are ones I have checked on the Surface
-Pro 11, so for what it is worth from another submitter rather than a
-reviewer.
+gc0308_probe() powers the sensor manually and takes a runtime PM
+reference with pm_runtime_get_noresume() before enabling runtime PM and
+autosuspend.
 
-That nothing in the bridge turns pixels - measured. One static scene captur=
-ed
-through libcamera with the property at 0 and at 180, vertical brightness
-profiles correlated: +0.995 the same way up against -0.781 flipped. Asking
-explicitly for rot0 with the entry in place makes libcamera answer "Camera
-configuration adjusted" and hand back the same frame - it tells the
-application it cannot, rather than doing it. That was on a 7.3.0-rc1 built
-from media/next with libcamera 0.5.0, on a Surface Pro 11 for Business
-(Intel), firmware 17.105.143.
+The probe error path correctly drops this reference with
+pm_runtime_put_noidle(), but the successful probe path never releases
+it. As a result, the runtime PM usage count remains non-zero for the
+entire lifetime of the bound driver, preventing the sensor from
+runtime-suspending when idle.
 
-What happens above the bridge, which your last paragraph leaves open, has a=
-n
-answer now too. German Pablo Lindo tested the SP11 entry on a second
-machine. The image is correct in Gnome Snapshot and in Firefox, and still
-inverted in qcam. His reading is that the first two take the frame through
-pipewire while qcam talks to libcamera directly. So an application that rea=
-ds
-the property does turn the image the right way up; the one that ignores it =
-is
-qcam.
+Drop the initial runtime PM reference with
+pm_runtime_put_autosuspend() after the V4L2 subdevice has been
+successfully registered. This allows the usage count to reach zero and
+the sensor to enter runtime suspend after the configured autosuspend
+delay.
 
-That the entry only fires when the HID matches - read rather than measured.
-ipu_bridge_parse_rotation() walks every DMI match rather than stopping at t=
-he
-first, and returns 180 only where acpi_dev_hid_match() also succeeds. That =
-is
-what makes DMI_PRODUCT_NAME safe for a model that might have shipped
-different sensors, and it is the same reasoning behind the SP11 entry.
+This issue was found by manual code inspection.
 
-On your note that mine no longer applies
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Fixes: 3ae52083b533 ("media: i2c: gc0308: new driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/gc0308.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-You are right, and I would rather be exact about where, because the tree
-decides it. Checked today:
-
-  media/next, 27953c0449        table ends 960QHA / OVTI02E1    mine applie=
-s
-  mainline master               no 960XFH                       mine applie=
-s
-  linux-next                    has 960XFH                      conflict
-
-The 960XFH entry is Felipe Calliari's Samsung Book3 Ultra patch of
-2026-09-05, which has reached linux-next but not media/next. So as posted m=
-ine
-still applies to the tree it is aimed at. It stops doing so when that entry
-arrives there, and then it wants exactly the one-line fix you describe - as
-does yours, for the same reason.
-
-Thank you for raising it rather than letting it be found later.
-
-Sergey
+diff --git a/drivers/media/i2c/gc0308.c b/drivers/media/i2c/gc0308.c
+index 15900d5414cf..266f737f9c5d 100644
+--- a/drivers/media/i2c/gc0308.c
++++ b/drivers/media/i2c/gc0308.c
+@@ -1385,6 +1385,7 @@ static int gc0308_probe(struct i2c_client *client)
+ 		dev_err_probe(dev, ret, "failed to register v4l subdev\n");
+ 		goto fail_rpm;
+ 	}
++	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+ 
+-- 
+2.43.0
 
