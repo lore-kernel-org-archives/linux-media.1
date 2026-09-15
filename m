@@ -1,64 +1,57 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEC7372B57;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD9E36B937;
 	Tue, 15 Sep 2026 08:33:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461185; cv=none; b=c9S0wDWQtlQ1htb7e8Eu3kzceZlB6g/BEGvKSKEdW6gO4ZtBHmPLpwwW/g8OyZ/uk66+23k+sBQ3Wvc2wjPHkCKN5DvTaDfEHsA/1LkBWvJlJZqbVDZlQP9RzX4aDuL66xqbEs0WbieVyTrlMcNf8ofqhSWCLrwQv3/eHmdZj58=
+	t=1789461185; cv=none; b=HrkXOqoKug1CWzD3KSycWAhVaHtu8cR7rB8c3fqFzIuxQKovN+3/PRjVtT+9fxP4sTmEjfJauNkwt9LwSijnjAR9NffyDesAKc8SC8X885NpjpnGNLTTF2KGXSzWZiTidHRxAg0VxKDTNvcRmxhRz3EvuG/Ns2jL2upZzhVaq5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789461185; c=relaxed/simple;
-	bh=WNs8D4arokG53Zki8ASyISHql/nDLj2Xji+hml43eFA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YeR5FhB/YH9zHWmGdspYDlixfBfGAxm9FRGa93Ov6wDM+a8rbXgq0/rUO0tgIr9cO56aua7S1gRbc3L1rusIfLk9CHLtBsBdM6ct+SCi8KmeEY7KhjQZO/wtZeI5z0PBN7LtwRzhQf+IIQu0RW3A4akb6KkqYOz00Bf9E4g7W1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=toGbY8E0; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=QV4VS6G3; arc=none smtp.client-ip=92.243.27.206
+	bh=VtAhDb6NREb44ppj0Ga81SnhKAdH0IigntJyB/N3QVs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A21GWyU8aitwVKXk0qYZFi0o3z/gTwrY3MyHmMf9RjbiT7fztW7bDnXGr95u8MaOiOUYTza4ZncXNhJrLAAJQSpzGwXmNx2FbuemND90AxJnidiCtHr38r80wHR+nOXLWx8aDPUNKZiUzvfGEUbPIM0smgJnPuRWfwneOvJ0rEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ofNRTHw9; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=FZ+CD7nF; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="toGbY8E0";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="QV4VS6G3"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ofNRTHw9";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="FZ+CD7nF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461176; bh=WNs8D4arokG53Zki8ASyISHql/nDLj2Xji+hml43eFA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=toGbY8E07siYO3WB1Q/MDl/oUAtA+Rr0w7COCNeZjw/9Mm9LsKsLNKgtytSLwn4f1
-	 R7Wz2+eR6Ge7SKbFfKRhJh1/jgUvePhcUZTbrz7i0PVZAPx5KZjhh3Vz2SFPP4tipc
-	 ZBa9QXCPW9ECT6CqdFTeuMrgB3eH7nKUPv8wcqIHsasH0iDZzVb5IGl6+GJriOIj2k
-	 5qVsCpUPSvuSI4RxLx0dWLzSLYDMdKbSG1p5xPFjlQk5p0wjudYwgkP9aCBSm9vq9X
-	 Wx+Nubbru4/uZDVoFSMUqxRCJz0CJKFKw2snwOnpvW5p85y7A+xDpwT8HifDCwqGCw
-	 G1/8gzJSYgs1g==
+	t=1789461175; bh=VtAhDb6NREb44ppj0Ga81SnhKAdH0IigntJyB/N3QVs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ofNRTHw9ybD0+AwUWzUAz+jcwPWu1H24csCCQnZPifEsvVLcotT7orYVyHrJOj5zp
+	 wc/85y3cdgr0KJsP9ciYfwkbBaHenXssf92MJTY5jf7fT3GtBH1Ds5wgii3K/zIWWL
+	 Y16KENR89rRprsr8hLsZdN+pYqbaRXQYGD9ukJAxjLKUw0IAVebfKUDuvhKNB4nO//
+	 x+I8kw7JO22QWn+HvPG3YJiAbndWdgb7PKopT9BefiXCplaw0ud3/YFqrMXGi3CmKK
+	 p+oK0jZAGsqPbaMmwlspunJROYKmKHwVSSfOcVOFfyhxW6y8M+e18jGD9htEFq/o4u
+	 Xg6UxUeB++CgQ==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id A312040BA6; Tue, 15 Sep 2026 09:32:56 +0100 (BST)
+	id 051DC40B86; Tue, 15 Sep 2026 09:32:55 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461175; bh=WNs8D4arokG53Zki8ASyISHql/nDLj2Xji+hml43eFA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QV4VS6G3cK+ArccT4crWhY6b2/9MbQI63yqzA8RVLjCBmxKoLn016ssfxTlrmU8nQ
-	 yl5onhVB2AaskLQSvgSOTbMbBr3qmWGYw4zq5vNKsXcR00W4mojeHpBh3V6xsNxdC9
-	 k5Pa5e50mlTdCjGe3asT/Uqz+W7SPV25hcQfcW2Iqwj6swWQFCA4tpLpKbyohVBI4D
-	 dmF4/wfyN8M6ePytQ1Hwqi4QoYezRF/pEVX0dohkHJOvcmjYr+SsPI99Du0Ltj44Tk
-	 gsOv6VrIZEtfgA6/rXnqmbR4UuCVrYr7rPVvRNgE3Jfm6NDqKIToiNSL72AgWViSgh
-	 auXRK3k1zeniA==
+	t=1789461174; bh=VtAhDb6NREb44ppj0Ga81SnhKAdH0IigntJyB/N3QVs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FZ+CD7nFzCgzRD0L/5Zq37JiuzDofJJd7+UkXOJS55gyy7HCT6KgEvdn+Qm+YDSz8
+	 S3BJjdWVSrAZFL298MItGVSGc4brYha8fXLspnYqhAqNKvuaipLfUazyWqMv54mr1u
+	 XA9jbhFKMgp/FR611Pe9n9G8T1YoL9bzJPnuL/KgEjlQcBXj51EIgEe5YrfjZxc8Zc
+	 ZtRQ4AgXjeCwMy1tLcIvq3Lq1MVUtLsPVgeIQs7oS3iy+xFamBLcZ90+cAVkShz1Fi
+	 LGtsd5MsCdZGdKo3fzJw0K21a3bnlSKfOvJb53fEIQRjZPLhQ2rPg3jsV+0TyuXvCu
+	 an3nXBidUimWg==
 Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 5BDE840155;
-	Tue, 15 Sep 2026 09:32:55 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 11E9A40155;
+	Tue, 15 Sep 2026 09:32:54 +0100 (BST)
 From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+To: linux-media@vger.kernel.org
 Cc: Rik van Riel <riel@surriel.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 01/20] media: rc: Ensure registered is cleared in error path
-Date: Tue, 15 Sep 2026 09:32:11 +0100
-Message-ID: <d357f944fe9a4c771f210f09ef65ccd20dd25aa0.1789460680.git.sean@mess.org>
+	Sean Young <sean@mess.org>,
+	bpf@vger.kernel.org
+Subject: [PATCH v5 00/20] media: Fix locking issues in rc core
+Date: Tue, 15 Sep 2026 09:32:10 +0100
+Message-ID: <cover.1789460680.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1789460680.git.sean@mess.org>
-References: <cover.1789460680.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,68 +60,79 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If rc_register_device() fails, ensure that registered is not set to true.
-If lirc_register() succeeded, then userspace could have an open file
-descriptor open. This leads to a use-after-free.
+Fix issues found by Sashiko and claude, and other cleanups.
 
-lirc_unregister() must be called with registered = false, else there is a
-possibility that an fd is open and polling, which would never return
-POLLERR unless registered is false.
+Changes since v4:
+ - Split keymap locking into two commits: one for krealloc rewrite
+   and one for the locking
+ - Fixed meson-ir-tx: Validate carrier and duty_cycle to actually
+   fix divide by zero
+ - Improved commit messages
+ - imon calls usb_driver_claim_interface() before using it
+ - Ensure lirc_unregister() is always called with registered = false
+   else any polling fds never get triggered
 
-Note that registered must be changed under dev->lock, many functions
-read registered under lock (e.g. lirc_ioctl).
+Changes since v3:
+ - serial_ir: Fix race condition where timer can be re-armed
+   This introduced a new race condition; reworked
+ - rc: After rc_unregister_device() timers can be re-armed
+   Sashiko suggested a simpler implementation with
+   timer_shutdown_sync()
+ - Add meson-ir-tx: Validate carrier and duty_cycle
+ - Add ir_toy: Validate the maximum tx carrier
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
----
- drivers/media/rc/rc-main.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+Changes since v2:
+ - Cosmetic changes in:  Add missing locking for keymap
+ - Patch 7 to 17 are new issues found
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index d93e98189c1a..930d45517229 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1934,7 +1934,8 @@ int rc_register_device(struct rc_dev *dev)
- 			goto out_raw;
- 	}
- 
--	dev->registered = true;
-+	scoped_guard(mutex, &dev->lock)
-+		dev->registered = true;
- 
- 	rc = device_add(&dev->dev);
- 	if (rc)
-@@ -1954,7 +1955,7 @@ int rc_register_device(struct rc_dev *dev)
- 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC) {
- 		rc = lirc_register(dev);
- 		if (rc < 0)
--			goto out_dev;
-+			goto out_lirc;
- 	}
- 
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
-@@ -1977,11 +1978,18 @@ int rc_register_device(struct rc_dev *dev)
- out_rx:
- 	rc_free_rx_device(dev);
- out_lirc:
--	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
-+	scoped_guard(mutex, &dev->lock)
-+		dev->registered = false;
-+
-+	if (device_is_registered(&dev->lirc_dev))
- 		lirc_unregister(dev);
--out_dev:
- 	device_del(&dev->dev);
-+	/* registered already cleared above */
-+	goto out_free_table;
- out_rx_free:
-+	scoped_guard(mutex, &dev->lock)
-+		dev->registered = false;
-+out_free_table:
- 	ir_free_table(&dev->rc_map);
- out_raw:
- 	ida_free(&rc_ida, minor);
+Changes since v1:
+ - Fix issue where input device was still leaked
+ - Add: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
+ - Add: Fix inconsistent locking of keylock
+
+Sean Young (20):
+  media: rc: Ensure registered is cleared in error path
+  media: rc: Ensure that rc_unregister_device() does not free input
+    device
+  media: rc: Fix ABBA deadlock by making locks more fine grained
+  media: rc: Replace open coded krealloc() for keymap
+  media: rc: Add missing locking for keymap
+  media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
+  media: rc: mce_kbd: Fix inconsistent locking of keylock
+  media: ene_ir: Ensure teardown is done in the correct order
+  media: rc: Use binary search for adding or updating a scancode
+  media: rc: imon: Bind both interfaces via usb_driver_claim_interface()
+  media: ir_toy: Remove unused struct field
+  media: nuvoton-cir: Remove unused struct field
+  media: ite-cir: Removed unused struct field
+  media: fintek-cir: Remove unused fields
+  media: mceusb: Remove unused field
+  media: serial_ir: Fix race condition where timer can be re-armed
+  media: rc: After rc_unregister_device() timers can be re-armed
+  media: rc: Validate carrier range in LIRC_SET_REC_CARRIER ioctl
+  media: ir_toy: Validate the maximum tx carrier
+  media: meson-ir-tx: Prevent divide by zero in
+    meson_irtx_prepare_pulse()
+
+ drivers/media/rc/ene_ir.c             |   4 +-
+ drivers/media/rc/fintek-cir.c         |  13 --
+ drivers/media/rc/fintek-cir.h         |  22 ---
+ drivers/media/rc/imon.c               | 164 ++++++++++-------------
+ drivers/media/rc/ir-mce_kbd-decoder.c |   5 +-
+ drivers/media/rc/ir_toy.c             |   4 +-
+ drivers/media/rc/ite-cir.c            |   1 -
+ drivers/media/rc/ite-cir.h            |   1 -
+ drivers/media/rc/lirc_dev.c           |   2 +
+ drivers/media/rc/mceusb.c             |   1 -
+ drivers/media/rc/meson-ir-tx.c        |   3 +
+ drivers/media/rc/nuvoton-cir.h        |   3 -
+ drivers/media/rc/rc-ir-raw.c          |  39 +++---
+ drivers/media/rc/rc-loopback.c        |   5 -
+ drivers/media/rc/rc-main.c            | 186 ++++++++++++++++----------
+ drivers/media/rc/serial_ir.c          |   2 +-
+ include/media/rc-map.h                |   2 -
+ 17 files changed, 222 insertions(+), 235 deletions(-)
+
 -- 
 2.55.0
 
