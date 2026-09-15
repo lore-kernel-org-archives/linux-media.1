@@ -1,78 +1,44 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8AD3D3D02
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 15:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7924AEBDF;
+	Tue, 15 Sep 2026 15:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789486728; cv=none; b=sNjHx3RZ/TG+fi3SZadaeBuCWEIfO7ZmpZafsCpLVsr9MfAstJx3i0Mub38LBIUOKE5n8n0LpwrzQsqh29Te6kNpp/1zn6TnMHRLvZko4qMltOmcfkV4ZMMwX5HaPzt/342L15Y1thMx0Uji5eZke5vBKutjHhQzmJMvTDLDfu4=
+	t=1789487031; cv=none; b=RayBT2R5uM7LcFLOZnxBauj3VN9Yb5+eVwQP6Lxs2/3iHA+6nz90mPw1WPIE+pwD6lo+espIaFLFBD6bXaJtoKsKhA4tvRqm3Pn+T/7xhH5f6FcP3WN7MjSYSby1ulbCyWFM+6pFM42h7uVicjPmsAgaKqXQAiVYU3HKELbZXPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789486728; c=relaxed/simple;
-	bh=+uXmbD88BiEUIkLs0C20M88JsOLHQcJbIINYHao3O00=;
+	s=arc-20240116; t=1789487031; c=relaxed/simple;
+	bh=du2XYEijBqSXIMmKSaSxD0l4/kRS+Jv8A+3wvT3Xsxg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dRtNimgFW+yuEVPZJYQlVNI87pEDBYLsUYdrD9KvunHsE+Y/5pG5M+mMYc99Kvg9NY9QYEodyKUjnoKKhEGqZzrl75W5Dzlm3TmVNwWBddgioRxEjKE2/T02UIg73T+Q/QSYaZUUq0xm947mWki+aG8d1UpL4kt94U2kKedFJh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kksWIDgc; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lwIhPJMMICYV/kanc+dIIpARg/BqRqBXKOAEv1AQpVWx6F4VtYBxnTjfdZSQT3h8a7xsXqPdgCOs1KzkF6rqtdyIngyFvDGI3B1cWLc2Bo+tjYfkM6UtEkE0Dfs6r5obFz+Q+fAinH8KdIbgLMpXFb0i0AfqfCwjEks8LyglOLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=tssPH1kX; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kksWIDgc"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso39061185e9.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789486725; x=1790091525; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0NDrDdvnRkf8oxzdqkBmS7w/O32Fpy9g/+yKR1PGh7M=;
-        b=kksWIDgcdYv58/5E2u6zYyZYCazSqDgxYCRQFq/KCheo/ukdkEButZUwKsZqziJvdo
-         SRhWmQa9m0rBRf8HW3WbcXI6Ups5IOsFcfzEtDi1qLQ+es2RjLRJUj1vjlwspqhCLiwu
-         amF8J3oblO4z8DKWE7ckgE9tzzlo+BfytOTjFVmObkMdxP2zGaXFSWqsfSl0/+lnBlUm
-         TDpjqQhkDz1i0bUN87z/qfbw1v4SCLrEg9sJWJbymO1n8dd6kyZKP9UmQEBWCAHuLLUD
-         f7YZyCP0n+mAFdb7d1aDrNxQEJzVGRBQqD945Uxru75OD8Wsn7AMUjecLrcEznppdQe4
-         KZ4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789486725; x=1790091525;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0NDrDdvnRkf8oxzdqkBmS7w/O32Fpy9g/+yKR1PGh7M=;
-        b=luraRi39lLFO4LaRa8t5JUIM686nSTwCCJZNjtTTcco/J0qyRejb4yRTVv0YbSbpv7
-         IGiAld4j8cfO2EO0h8cI0LdeC4RZDQjEDglsyh2fUnZAJigQYaUipitVhhepjxSYHkvT
-         4OHC5pWNfUG3rszQl5NWHvv4VqZBFBQS6rvZQhPeOHosAiEjN6SiH0sAHqveZAQYd1ta
-         fisg6d7B3OnLKOjRRmubq6y75Qh5ONztTtTyz6+Vm53IGlpreKGiDtXFONbUzacpV381
-         4o3zxXqQJNDM8YT4sRyohqONXO631G30GIrvzUK0MnKcUkffdsSLj9gEAALOGkKwyzjk
-         Fd2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBycqeF4GUAQNNx6lhzfElbl77QWhuaCy5TgS0ylY9Sq5H6XxF64UvKISQkyTR31c5s0zqoLe6IlxEFQ5A==@vger.kernel.org
-X-Gm-Message-State: AFuF++n9MMSjJkDif4mYJinrPMq/VP4a4mSt5okOplO/6uZyQuCuzsq8
-	ulfeMhv3lT0thErv3v9anTmLhti/PycL40szsGKHqRbRATfN6J/PrWRt
-X-Gm-Gg: AYBFou3KiiKblT09r3k3yAYZw3amZM5v6Fs+vC/m7zSfPE/4QO7xedZz8DuZCWGXoW1
-	XgPgcVQkQSdz3bRLhNF75l1ofgD6TdWMAV6DkdBOt3D3p+PWldJZet1L7iTGoYqsAsrT6s1sm/d
-	lT/EDNdwXxRiaO2MGqlg3EvnpJPiocpoA3ZDo8Ue6ElVyIgS3iBWYotvz3STf0DYzkmR72mS4p9
-	mTQtIs/0PDaDbTJubXJuUDWbA2HFKwzVd0D0cyjXEqo6i3TRyVtYeV+KW/c/1OR7rcm0F2m5Pfp
-	YOS9m+aZmT1Idfw4OGdB2CQHZyrU4L1Tij+c5eY1XiJl61Nm4Qg0s2BWh5mFF+lgSan/il82UAZ
-	KwHcCIFPNUMSxIJkhIhCctRVejWLEADn+6eZAzzpJwPwcBYF8doVW/jn1LBnLZynCyOUFebSzJg
-	naQGUnpq7X43NfRmsGBhYGsisCGts97gfkyS++93rLPrO3xX9MqCCUakGHTiylsNLHxAnzHJ8fO
-	LhyoQ==
-X-Received: by 2002:a05:600c:198f:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49e7a66b2c5mr160200285e9.10.1789486724578;
-        Tue, 15 Sep 2026 08:38:44 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83ac3c52sm4128355e9.13.2026.09.15.08.38.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:38:43 -0700 (PDT)
-Date: Tue, 15 Sep 2026 18:38:40 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Punnay Sharma <punnaysharma805@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] media: atomisp: ov2722: Return after failed pad
- initialization
-Message-ID: <aqlmgA3HNfxbvjXF@stanley.mountain>
-References: <20260915140828.25537-1-punnaysharma805@gmail.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="tssPH1kX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789487026; bh=du2XYEijBqSXIMmKSaSxD0l4/kRS+Jv8A+3wvT3Xsxg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tssPH1kX18xCIJFOZ6rEuQcjRa8qLd3v9uGM8jZj94gmfGQO2LaxBIhKHjyq0T5Ww
+	 iWKJN/bt290+r18cDkmlHKI128KUaOw5d8lidlTKq9w459ZZttWNYO4B3M0guGGM52
+	 mHLwzutBF6DgTJ2Gx3bEk/JStQLJZGl1Zgra1GW9X4eWuylF2xnpY3POCJ7VZqAiH7
+	 kbyTBVLMIp33qiSd9nLXMUIOW6hECe2WEVhPrh4Z12KIiQxTcU2uotgf/df1ihH6Ot
+	 5tmK4zOVblM+lIeSqCZZazxeX8yS5i2ovL4SviptlQ3txEUpLim4tFbOYnoH1EOyQA
+	 3/KvFWEALMs9A==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 6950940B71; Tue, 15 Sep 2026 16:43:46 +0100 (BST)
+Date: Tue, 15 Sep 2026 16:43:46 +0100
+From: Sean Young <sean@mess.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
+ keymap
+Message-ID: <aqlnsiUas27yhKHi@extorris.mess.org>
+References: <cover.1789460680.git.sean@mess.org>
+ <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
+ <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
+ <aqlcj9xXNRURA5iJ@extorris.mess.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -81,44 +47,138 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915140828.25537-1-punnaysharma805@gmail.com>
+In-Reply-To: <aqlcj9xXNRURA5iJ@extorris.mess.org>
 
-On Tue, Sep 15, 2026 at 07:38:28PM +0530, Punnay Sharma wrote:
-> If media_entity_pads_init() fails, ov2722_probe() calls
-> ov2722_remove(), which frees the device structure. The probe then
-> continues into atomisp_register_i2c_module() with a pointer to the
-> freed subdevice, causing a use-after-free.
+On Tue, Sep 15, 2026 at 03:56:15PM +0100, Sean Young wrote:
+> On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
+> > On 9/15/26 10:32, Sean Young wrote:
+> > > Replace some ugly code with open coded krealloc() and remove
+> > > superfluous member of struct rc_map.
+> > > 
+> > > Signed-off-by: Sean Young <sean@mess.org>
+> > > ---
+> > >  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
+> > >  include/media/rc-map.h     |  2 --
+> > >  2 files changed, 22 insertions(+), 25 deletions(-)
+> > > 
+> > > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+> > > index d4baaae3a834..53e39b7a489a 100644
+> > > --- a/drivers/media/rc/rc-main.c
+> > > +++ b/drivers/media/rc/rc-main.c
+> > > @@ -17,9 +17,8 @@
+> > >  #include <linux/module.h>
+> > >  #include "rc-core-priv.h"
+> > >  
+> > > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
+> > > -#define IR_TAB_MIN_SIZE	256
+> > > -#define IR_TAB_MAX_SIZE	8192
+> > > +#define IR_TAB_MIN_ENTRIES	32
+> > > +#define IR_TAB_MAX_ENTRIES	1024
+> > 
+> > This is better...
+> > 
+> > >  
+> > >  static const struct {
+> > >  	const char *name;
+> > > @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+> > >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+> > >  			   const char *name, u64 rc_proto, size_t size)
+> > >  {
+> > > +	unsigned int alloc;
+> > >  	rc_map->name = kstrdup(name, GFP_KERNEL);
+> > >  	if (!rc_map->name)
+> > >  		return -ENOMEM;
+> > > +	alloc = roundup_pow_of_two(size);
+> > >  	rc_map->rc_proto = rc_proto;
+> > > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
+> > > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
+> > > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
+> > > +	rc_map->len = 0;
+> > > +	rc_map->size = alloc;
+> > 
+> > ...but this still says 'size'...
 > 
-> Return the original error immediately after cleanup to prevent
-> registration from accessing the freed device.
+> struct rc_map_table has a len and size member. I agree that size is not
+> a good name. How about capacity or cap]? I am not sure that entries is much
+> clearer that entries tbh, because what's the difference between len and
+> entries?
+
+Turns out this is a bit of a mess. All the keymaps in
+drivers/media/rc/keymaps/ set the size member for the number of entries they
+have - which really should be len. So, renaming this member of struct
+rc_map_table will mean patching all the keymap entries. Nothing too complex
+but maybe this is something for the next patch series.
+
+It would be useful to hear what you think of I'm proposing though:
+
+1. Rename size to cap in struct rc_map_table (so it will have a len and cap)
+2. Rename newsize to newcap in ir_resize_table() and related functions
+3. In every keymap, replace:
+	.size     = ARRAY_SIZE(empty),
+   With
+	.len      = ARRAY_SIZE(empty),
+
+This will be part of next series for rc-core, probably for the next release
+ cycle.
+
+
+Thanks,
+Sean
+
 > 
-> Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
-
-This needs a Fixes tag.
-
-> ---
->  drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> > > +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
+> > >  	if (!rc_map->scan) {
+> > >  		kfree(rc_map->name);
+> > >  		rc_map->name = NULL;
+> > >  		return -ENOMEM;
+> > >  	}
+> > >  
+> > > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
+> > > -		rc_map->size, rc_map->alloc);
+> > > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
+> > > +		alloc, alloc * sizeof(struct rc_map_table));
+> > >  	return 0;
+> > >  }
+> > >  
+> > > @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
+> > >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+> > >  			   gfp_t gfp_flags)
+> > >  {
+> > > -	unsigned int oldalloc = rc_map->alloc;
+> > > -	unsigned int newalloc = oldalloc;
+> > > -	struct rc_map_table *oldscan = rc_map->scan;
+> > > +	unsigned int newsize = rc_map->size;
+> > >  	struct rc_map_table *newscan;
+> > >  
+> > >  	if (rc_map->size == rc_map->len) {
+> > >  		/* All entries in use -> grow keytable */
+> > > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
+> > > +		if (newsize >= IR_TAB_MAX_ENTRIES)
+> > >  			return -ENOMEM;
+> > >  
+> > > -		newalloc *= 2;
+> > > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
+> > > +		newsize *= 2;
+> > > +
+> > > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
+> > >  	}
+> > >  
+> > > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
+> > > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
+> > 
+> > ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
+> > are mixed.
+> > 
+> > This is not important for this series, so you can go ahead with it.
+> > 
+> > But personally I would prefer to rename rc_map->size to rc_map->entries and
+> > ditto for newsize to newentries. That way it is clear that these variables
+> > deal with the number of entries and not the size in bytes.
 > 
-> diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-> index 2c41c496daa6..0748247ca42c 100644
-> --- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-> +++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-> @@ -979,8 +979,10 @@ static int ov2722_probe(struct i2c_client *client)
->  	dev->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
->  
->  	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
-> -	if (ret)
-> +	if (ret) {
->  		ov2722_remove(client);
-> +		return ret;
-> +	}
->  
->  	return atomisp_register_i2c_module(&dev->sd, ovpdev);
-
-The bug you are describing is real and your patch fixes it, but
-this isn't a complete fix.  For example, there is no cleanup if
-atomisp_register_i2c_module() fails.
-
-regards,
-dan carpenter
+> How about newcapicity or newcap? 
+> 
+> > I mention it only because when I reviewed v4 it confused me.
+> 
+> Thanks,
+> 
+> Sean
