@@ -1,114 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C7A483BC8;
-	Tue, 15 Sep 2026 11:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AE847F769
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 11:09:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470396; cv=none; b=XL9OsrsKnpVmBA1sGUAnk5tf94cKEI8CZYZ/VinGMhgL2QvBcmLYZo24mGypnfOipJqb2OiIUoc/JR65OKxg/Xyt50ElqWb7K0qILR3D4QIXSXAlZmruC7R3XDsXBo+n0pZ97Hb597Ms+MwbQzWfoOg02KVP4nE3qBJUpATqJhA=
+	t=1789470553; cv=none; b=BuZghefy25riaQDiD9LR16zVfoUjNwT4yBqzYdwCNnpWIZypxU9bXYxA5+Mr96At9StysNZy4LD8HHspXRjBSA1BRQahUoV4ey//IjQy9VSfE3tBvJLg/GgBsbhUwGb6ij9kL1FvpborvQCv8WjJjXcc5gtI2/AkS/IQbJXaXbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470396; c=relaxed/simple;
-	bh=V13g0+Uke6D4CA3CcJ2M/uZwFY+U6Dxry5wlbo/vs48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aheKtz5mGSOhiPFVF9ku4vRVk6abyiIG/LXB0BQi3/jtAh2l71KAPqeAHwFfcyiRQLsLbSxiFoydYTI5AtgAJ4EQkhVlhzwvBF6ZcJa4QxMgXgFWQk7hVregdNQp6f6g7Lg8qLaCnentGjCm4Cn00iy1ycpD6ytP8FFPaDE2EcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnRqQJ3l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789470553; c=relaxed/simple;
+	bh=f7bXHlhXsnOZ/6ZvQ+o+waq2nBAiEKG6Kg1glvRzHJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bdV5BE/Ov9A0eMpmv3GugOvrAzaZNvu1bCs+UY9jVkF2irnYAdmwWUqJMmAbVb2xsOeIPM2IZ4M7JUCVA0lHOppEddgDNMbsjEmvWHNj/ou6SFsxZP4cGcj5OK7pk4LYxsjB1GmD+VEBnZSR229k+m210CUufJc+ozI7B05+ZrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OrkxJ37w; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnRqQJ3l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E4F1F000FF;
-	Tue, 15 Sep 2026 11:06:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789470394;
-	bh=Uvb5cxcO7eMkL843RdmqZjWRFbWi3Vw/jEhdtXm7mm8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hnRqQJ3luuJg20LS6BMVWqJJWDatC0RXOD49BI9u66fBvGejUqzjolS8YbWqtz14h
-	 ipvSB6KppLhnJsNNizkHBukfRwj1G3ZuRAsdy/pst6Nms7/tuDiS7bIsirFzsZqOyl
-	 VXwW1eWggV/yFn8t0GjNyAjZ2PQeFTyihgSSXw9vBivV9dCjTTmvzQW8s38h//niFN
-	 S36N5GHkD/0xV0LhB0k+MTZc6REumaGK0RVYFz08muHkThXgp5bfiM7yJb8Ep4lYh2
-	 TTxu47FeoOT2BerbisF1euvDg2QRhWe9C6/qUMavkw/byJBK76aBB6ROhf3jNAUHJo
-	 h6O9mjEKCyFyg==
-Message-ID: <7b6dd295-602c-488c-a3c0-b0fefc5c2cd2@kernel.org>
-Date: Tue, 15 Sep 2026 13:06:27 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OrkxJ37w"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso117456a91.2
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 04:09:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789470552; x=1790075352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lh7rYkhxlrvXjsZrQxcY6UVDt2QLiuI71BjvESmUG5o=;
+        b=OrkxJ37wMz9fIg1tz/0DBTIANhZHPZLHXpyST2kvx9sdNMfTOOAfFhp8+3OH+XIkvM
+         FBnY0oh9l43RNSs9c/UGqgNHZQeE4uYh74yd5E04JeI7J/pq7jEqPtzf2dNSFUCzTu5Z
+         ITOaaRcEJD9q4WILe/m881OGOv3McvUCV9wJM8LK7ikd0Pvr0dihvi8HOMlBI+YHYrSO
+         2qkLGK8EJNDyygBYwqje8G6I2qaV8+fg9ifQ2k92Yai6I4II1Wf7hmP97wukDDJV+Hrk
+         0qhlS3967PbQikLtidKtpDHhwXrlGZD5dJO+CqjIjagH/8f31R3rVmq2dGL9Z61+OWNi
+         H1SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789470552; x=1790075352;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lh7rYkhxlrvXjsZrQxcY6UVDt2QLiuI71BjvESmUG5o=;
+        b=YUO4twMCm+ZG2sKuDP7RsIxxthGx7rjBzBaEMayeP3z45H8ksldSavpPBkjVfYvCrF
+         G9vPb/+MXKgw4jLzWBDiDpxnRmq7blXlAlCZ0HRoj8QdYZwPkJrfj3wFvEUPYGjiYgbV
+         roEGj9J53TOeDI6P8fIfIvGjL87dZ7VoFoQJLk1zgSDI92QO00f7qB4PeHr2t9kLir/r
+         Fv8LuAy+K/xeShXbFwwx07L7kN16FSyJS7jByoJrzm5x+o1oGlAddL5KZymMb5liGP8w
+         h7iX5RcVO6PfLHOy2HXU0knVaxTYgs2eWS3QEFkpJLL/2OZpG/jLjU7rU0XdEw4vF2l8
+         UbOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwsx4x1aJEQZA0BJQkQfuXIn2LOWP0ZXgMZ/nzkdi6rd8lFv0S5zGQV40hGtIIS+H+AVRoferbTpDdAUg==@vger.kernel.org
+X-Gm-Message-State: AFuF++miWAGJvwpCRbzWyF9/QGwrRpgX8Gp6k/wcImPuHdV0pOZhhDoc
+	sRHPjmcr1PtLyzW+OZLG/h3BcFvolv8JAs1GIRPzjezQLh4rZhAnEP3Q
+X-Gm-Gg: AYBFou1k0nTW7nV968Ky6TWYE0WR+6z47dqa/4QoorD2bRBuUVQGX/vl6/349HFnx3m
+	KPJvuKJpGe3p1FUMcSY/4a7J1zuIdAzAeM5TjWYB8O6nJptZDMZ0THjWU0uIUc0Iz4p2D5D7BWB
+	nIiAgJLBBtyhU3CcS3SuDtlMiKxIrRoNYLnoqol6Dqzf8m7p3lvdxIAHLBuXxX0Bvo90bOyLw10
+	UFiNRTAMZao/9HiHGmQ6ox7vLJ3gO2CA8XTgNOLDiIiR8S+82oN25DoUPciuaPGqyH44X+fJqak
+	4F8/ULLIaKUo+JRZWqWtyjxRxV9d1c84xzMUZZJ/Gij6P2gonITr+t/R1/FLZpJV1keFUGg49Cp
+	h50gukIoI88nEjQIua5pJgNV+aYn3k9vGjE9JHrJG/kjOr47cSkUPo5rzAUBAWEsq1/a9w88Dam
+	l/9ki1+N772rNX+ACFTSvWUukrSLwXGjjeYxAO0lPIlB33GqqzKmUzsA==
+X-Received: by 2002:a17:90b:4b05:b0:39d:f5b1:e365 with SMTP id 98e67ed59e1d1-39e110f66f8mr651424a91.25.1789470551569;
+        Tue, 15 Sep 2026 04:09:11 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda8bdf4sm4828687a91.12.2026.09.15.04.09.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:09:11 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: tw686x: fix V4L2 device lifetime on probe failure
+Date: Tue, 15 Sep 2026 19:08:58 +0800
+Message-ID: <20260915110858.2381610-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: i2c: ov2735: fix power cleanup on remove
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
- Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+
+tw686x_video_init() registers the V4L2 device, which initializes its
+reference count. Successfully registered video devices take additional
+references to the V4L2 device as well.
+
+The probe failure paths currently tear down the PCI resources and then
+free the channel arrays and the tw686x device directly. This bypasses
+the V4L2 device reference count and the tw686x_dev_release() callback.
+
+If a video device still holds a reference, its eventual release will
+drop a reference to the already freed V4L2 device. Even when no extra
+references remain, directly freeing the device bypasses the lifetime
+management established by v4l2_device_register().
+
+After cleaning up the PCI resources, check whether the V4L2 device was
+registered. If so, mark the hardware unavailable and drop the driver's
+V4L2 device reference, letting tw686x_dev_release() free the backing
+objects when the final reference is released. Keep the existing direct
+free path for failures that occur before V4L2 device registration.
+
+This issue was found by manual code inspection.
+
+Fixes: 704a84ccdbf1 ("[media] media: Support Intersil/Techwell TW686x-based video capture cards")
 Cc: stable@vger.kernel.org
-References: <20260915085031.2331315-1-lgs201920130244@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260915085031.2331315-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/pci/tw686x/tw686x-core.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-On 15/09/2026 10:50, Guangshuo Li wrote:
-> ov2735_probe() explicitly powers on the sensor before enabling runtime
-> PM. The probe failure paths call ov2735_power_off(), but the remove path
-> does not perform the corresponding power-off operation.
-> 
-> The managed runtime PM helpers only clean up the runtime PM state.
-> devm_pm_runtime_set_active_enabled() disables runtime PM and restores
-> the suspended state during device resource release, while
-> devm_pm_runtime_get_noresume() drops the runtime PM usage reference.
-> Neither helper invokes ov2735_power_off().
+diff --git a/drivers/media/pci/tw686x/tw686x-core.c b/drivers/media/pci/tw686x/tw686x-core.c
+index 5a4ab329c06e..1e3079bb8bb4 100644
+--- a/drivers/media/pci/tw686x/tw686x-core.c
++++ b/drivers/media/pci/tw686x/tw686x-core.c
+@@ -241,6 +241,7 @@ static int tw686x_probe(struct pci_dev *pci_dev,
+ 			const struct pci_device_id *pci_id)
+ {
+ 	struct tw686x_dev *dev;
++	unsigned long flags;
+ 	int err;
+ 
+ 	dev = kzalloc_obj(*dev);
+@@ -352,6 +353,15 @@ static int tw686x_probe(struct pci_dev *pci_dev,
+ 	pci_release_regions(pci_dev);
+ disable_pci:
+ 	pci_disable_device(pci_dev);
++	if (dev->v4l2_dev.dev) {
++		spin_lock_irqsave(&dev->lock, flags);
++		dev->pci_dev = NULL;
++		spin_unlock_irqrestore(&dev->lock, flags);
++
++		v4l2_device_put(&dev->v4l2_dev);
++		return err;
++	}
++
+ free_audio:
+ 	kfree(dev->audio_channels);
+ free_video:
+-- 
+2.43.0
 
-AGAIN, you send patch by one, instead of grouping them in a patchset.
-I already asked you to stop this and fix your workflow.
-
-Please read submitting patches document.
-
-Best regards,
-Krzysztof
