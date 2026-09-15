@@ -1,111 +1,356 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A6D3AB28F
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF1E370D61
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459602; cv=none; b=lDL3H5lwBkTB8RY4ijF3l0ngAsuLaXJ7+XJajx3SFmDQ1wnwmXE7NojkZ2y90Heg+5ve/+obbr0ykkpACvlrMgmjFWr2NutETKX9CMZtV8ut36nabtWTHyepsYLu9J1Jr7q7O5uwTHG89R+33zkjLSAgmzyWlJPRdwAC4Ap6ttw=
+	t=1789459871; cv=none; b=bRuGg7oBQmigZFani28IRvijDhi8tQD1oDUaPM7khACdQ8venqGtoTt/DzLQKvk9XRdHt8DwuhHlpE3xLkheeHn5qhC9nFOp0v7M0kuvd4LN31Grb/KTwX7Mr7dUh3udEF1rECzRxQqf4wCIlSxav6EyfgpG8TIQ95jYCYVpvkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459602; c=relaxed/simple;
-	bh=heCFy2bFPAFPDyeCf8OpyG8vFQyBTqauqjXZX0i22bg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BUnu/HGZknNkBcD9rjrTVKvekYiJE6jEhpmYzO6kBukjinlLqueb8ZhwTrbELIoKSrmVLJHbmZS9uBO2b+kSifl0wr6vyZWvLh4roLC0j376K+wRJocj/9zzdcr5eDaMCY6sMGKgKSzj/fXsthElonXmRbLKikYHDdOmrK38+Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WXx1KQmd; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789459871; c=relaxed/simple;
+	bh=2P4URBnbrgvET8SjqPdLaYN60pPW3byBP65m9vi+hYs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SR0OWWstxrPW9zMAiyOOzuZ+0wheDmtF2SihDVWDU3xINgz8Y7J9oPQjG6hxQDjGPpNWjZ5YpU75ISBmt46JJRGwGhI6/zORi6bfZISJ3Ihh2xXEi1Qx1DI6LWiCa2navwHMlIGppK2fN0XXRIhVTnro46caC+L6UVc2OKGOiCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MEpMZ75W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TlpO2hBT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WXx1KQmd"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso5513886a12.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:06:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MEpMZ75W";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TlpO2hBT"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Zunw3126849
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:11:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=c16WSwJq7cu1gewzysb0hJ
+	HNZbSI+jvLzGTjduRObZY=; b=MEpMZ75WYGVimodtyZgx2ydFHPAkqSHIAiSF58
+	2ov82BEvNj1e7pSle5/EFQ5oHXUF3BT9b6CSW0kMswWKa4DiydN27+pZWjhWUUFu
+	gOxPgKihMSNMVHHQuZj5adz/TxzI4kw8mwSaaj5K8PaC+ewwX/fiK4iTe8TDH3Ua
+	Db0fdvYjBTRYR/bEYsCxAGEX5mzrEDaMna+TpK3bPFt4+7qwCxyG3Bn0pvOjlEf8
+	fOXpK+/Hj40WjK4svhNlaG0yrYeXQv4Xh/+hi37RdJKo+N7rMJy48yAcwqrG5WLi
+	LTyxS0uuWmx0sQeWULixh1hxlHc3AwFhyc1Q7rkc2tKvHY5A==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpmx9uav9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:11:07 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934963b2bc0so873660585a.3
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:11:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789459599; x=1790064399; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=heCFy2bFPAFPDyeCf8OpyG8vFQyBTqauqjXZX0i22bg=;
-        b=WXx1KQmdnlWnDaFGOTOy9pYGdWvh+3Cb0IrnAqrjYMzI5GBEkgU93wW4hIRwBjODlD
-         aT4QqCyf5V2jlMjmN1l+NALCkyBKjlMta7gpL/ZeMRDB3vigWtK45lKwt5OnzkEP5KI4
-         +LrH+CiPYcpqd+yrK2camCGNXIGJfEts5jRCr63yVMX8Wd8/i9YOiFjUwOzVePneJMB9
-         ajnd4JTCaaefZzx/7WOkWjBTKNDgpfdCYbW2Mil58TE+HPbLpAWaYMEDW9VWHzw/l1t3
-         lsibGxrg99sap8ezFqv5Qu/RqvVgDegwlzNxCfGv5DYunPN5ahff9D1CH0FGt3oqe3zi
-         QB8g==
+        d=oss.qualcomm.com; s=google; t=1789459867; x=1790064667; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=c16WSwJq7cu1gewzysb0hJHNZbSI+jvLzGTjduRObZY=;
+        b=TlpO2hBT5N2rzNqCiX7fqNH+imMWpTgWAeQG//+mEXoOH8zniBOQ6Og+SI3QV9jT3s
+         2GWLaSM9/ba8BG+4hBzr/lclYZxo3e3qbZtgfQINLinYOAYoPMIIx2LgmtOJbgUvnKvK
+         BkfgoyzumVWprmj9YMoJEXzDsuJzxF/89z7NSLAonkgP1iNqf1g230SXYjjlKN5lKZtG
+         uerCO3oY64JMTT0X0d+9A7vZzpmTfq5TqMskXMEEimCuhh5u1BgaGc9jwrsL8ejGA+cH
+         Z8uPQuhLyXblG4YugzAwMMUIyHuRdHmyX1bjKdIYjOFYpeGtOlwqKjqqxMCrMmDbgCTI
+         1ueA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459599; x=1790064399;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=heCFy2bFPAFPDyeCf8OpyG8vFQyBTqauqjXZX0i22bg=;
-        b=iHoQqCqNOb4m5cGT11IrbFdC4ftO8GPABRsuKsZ1B3THAObzkwintFyMLAzSUAdS3L
-         Cj4+QeugmnwkibPYe0DKVGRRp+GP2WTIvkftGwRbdYz5KyZeavLvTZKKfy3giVqZ4l6r
-         Zj08o8EFfVoIVmsrqeuSt1JZDocQlOmU8MxF73TJx6GsWmWz9cNXY4VyTKEBNMgtI1Lf
-         NSqT7TmTyhWbSl4kBV2OvJpqhoPBeVrKXNN1bzgKhZL9ya7btHiFOsjDnwb5pMdw6DvS
-         OypWnF1sLc6Vrl0YGwVLwL6hpOV2sUkUZsqMpFM00UOF8y8qsZ5XffVSrqROjgreGZTr
-         L7LQ==
-X-Forwarded-Encrypted: i=1; AKwUvByhyyYPiAE9D0tyQgsUeNEnXuGcuUNgTsfhdginipv7YJMMB46qX1hrKaY0BHUdhIp/Zf3sVvmXgRTT/g==@vger.kernel.org
-X-Gm-Message-State: AFuF++n6wg+cqscV7HbyYzEHbwLIq0lDfd1IbdZLJQ6OF3mFf4Ysf8R+
-	gkurhg7eGyNb6AK/oupN5JQAV3ta7HupnbV+9OrZqPkXrrzI1XzcYNccXScDJJ3IqoA=
-X-Gm-Gg: AYBFou1JtchZkmQ+A+nHi7RVE1Fsr4WqVgP13UFRPBME8D2NedwzksSqXGE1Gs4GR4A
-	V4gOpwNGf4Wh3AnqoEYjwQBP2dezUVGOI60LYvVZFh5/zQgDDVbaPwE+LcgRAZ90du8IBiXgzoM
-	ks6Vh7aQopDr7al8YWvgxyUPTdajtIJlWvKtM1mTGowxfetPZJfi4+alK9kuHyln2pHvlEnwQKR
-	r1N5Y1D/Aaf771h5goqn+TmObd04LnQgIbtaqHvgtH0+1WFaI32kPvFIyuR1szkbQ7NRFFfILAw
-	/CHIS/Gy86vJur9I04f0BMqlStQ2+cWzQ3GJ0B2LeSkxXTfzGF9vWkg5jTaS6xeHroVFinmigOx
-	CWULgY6BjV8MGmtiSyHHjcNBrixKoYsuYYTvzOEK9XPbPKsjokNvERkfVEz6saiuHDo7onMfuYX
-	251QFt3FYyYVjiBNMCz1UEW3RXI5JzTfjsOpU3ZBU0ECcn2LxTulDmnMfazsirQcT/0BtZfsVYl
-	sk=
-X-Received: by 2002:a05:6402:4510:b0:6a9:9cd3:a07a with SMTP id 4fb4d7f45d1cf-6a9f626e2f0mr4077380a12.20.1789459598660;
-        Tue, 15 Sep 2026 01:06:38 -0700 (PDT)
-Received: from draszik.lan ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5831187sm5396669a12.1.2026.09.15.01.06.37
+        d=1e100.net; s=20260707; t=1789459867; x=1790064667;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=c16WSwJq7cu1gewzysb0hJHNZbSI+jvLzGTjduRObZY=;
+        b=FZ5Vk4v3vvXTWj6MPB869GaJWqJrhxtPH6WJJvrLsB3dUb9EkqGCcKKMgOMLhTWPni
+         8uirIvmLf+EjcI8pczR+tTGrTcz2XzRv6YwHKdd7kdyIWa5Xgt55q28rXoUhauEsQz7q
+         eTC8zvJfoxmtJ109L4huEHTL9D+xWoZC40UmlJa8u/zELmX6xK5BXkFLChGz0a1GQweP
+         uSaLukbAqJgfdYb9a4UVjDm2P/URJJKutS8AD2ykEWv1x6cbT9DLjgiAyZfqKhbEg8gb
+         ekabmQo2PtRt9S+oUF+kofbZESbh23f7i4VILfpxBHXrHZVwbbxePsU/9se849TJMcjj
+         w5pQ==
+X-Gm-Message-State: AFuF++m3ta4iy+3WHOfAXObfkez26KpVNZvottBUzDcyddB5gxIdkZ6+
+	NDe35Oq8i8zV+G1c0eY8B5mNFBl0wJepi3InFaPZk0BBB7a6W6UE7ncMTb+UjHO70Z+JvbN3eQj
+	lDhAdCjaNJNeP0PNVQSmOPFbMuMQABM6JclHsaPmM0MT7A8dbJHPQ2pDiCF2AuYGPzg==
+X-Gm-Gg: AYBFou2F+vcDpnWPPgYbQoUjX2JIZ4AWqNjn+leZjp/+D+E5k+Sm0fY8GGM8qkQbbdT
+	FafDyMGbpQ9qxJlt9yM2JEKr06Bx+ZsyCIrVy9AsHJO0QJp+l9zkXsMmnPvTCPrF5LpR/hJyI15
+	n11wM6zU6YLXS63O+JUq1qU8/yGh7j0Fv+4cYeJd4jwmZAd0QSvjK//aBPFwD59bk4ptVLYRBir
+	9aQiEYpWuLegeCkWEsuB1a0xbc5o2Uj/6JbyUOfIe5Nn2v4N1EdszYB3ZpBsBhmy/cg2t5Bpn0D
+	33qxcyp5bLQqAoeSqo2VcxeTC61guuBb0j3DjVvgqsXeY5J8uVG8Io9ev1WfsDX4dopmjZTkFcJ
+	B/kBOUYsvP6S8txNtN79LxW/bBgFBZGJtutF4bQXpqIFlsaxwWMcwEANIhMxGsm9ex56rUuUFY/
+	FJncvKdcxIYvoKpc58siKHQUXhNevOPNGxt86eeHz5yb7Se+Sx+M0=
+X-Received: by 2002:a05:620a:19a1:b0:93a:1264:7f46 with SMTP id af79cd13be357-93a29ba8016mr930448585a.46.1789459867162;
+        Tue, 15 Sep 2026 01:11:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:19a1:b0:93a:1264:7f46 with SMTP id af79cd13be357-93a29ba8016mr930444785a.46.1789459866707;
+        Tue, 15 Sep 2026 01:11:06 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:7034:b557:872c:5602])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d292d3csm48847885e9.4.2026.09.15.01.11.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:06:38 -0700 (PDT)
-Message-ID: <321bcc9b1752d7fd2e1488270cb8bf4bf2cb5224.camel@linaro.org>
-Subject: Re: [PATCH v3 0/2] drm/drm_crtc: dma_fence_ops fixes
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal	
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>, Sean Paul
- <seanpaul@chromium.org>, Gustavo Padovan	 <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin	
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com, Simona Vetter
- <simona.vetter@ffwll.ch>, 	stable@vger.kernel.org
-Date: Tue, 15 Sep 2026 09:07:58 +0100
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+        Tue, 15 Sep 2026 01:11:05 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v7 0/9] media: qcom: camss: CAMSS Offline Processing Engine
+ support
+Date: Tue, 15 Sep 2026 10:11:03 +0200
+Message-Id: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJf9qGoC/3XQwW6DMAwG4Fepcl5Q7MQEdtp7TD2EEEYkICxpU
+ aeKd1/oDkxsvVj6D/78y3eWXPQusdfTnUW3+OTDlIN+OTHbm+nDcd/mzFBgKRRqbs2YEvdp5mF
+ 2XDWkqeucRdeyvDNH1/nbw3s/59zFMPJLH53ZFYkSkCpUBQKUQBz4ELwt5nAdjJ/eQkrF59UMN
+ oxjkcfm9j5dQvx61Fzkpv9YJKpDo0VywZsGBBFqla/99bZii9oRDeKIqIwQoNBGSKjb6glCvxB
+ UR4Qy4rQwreqMrK17gpQ7Uovjg5cyI2VTAzW1JZDwD7Ku6zetuzpyyAEAAA==
+X-Change-ID: 20260427-camss-isp-ope-4b575ffec2ed
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=G+KJgNk5 c=1 sm=1 tr=0 ts=6aa8fd9b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=B25icdsSMqDT0xbHnQgA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDExNiBTYWx0ZWRfXz8I6oKduhBEv
+ VeL9e1e76HJVAS+zdzu8tYX6jCbmzpqSzNbLz4V/d53Qi3ahOSfPuYEQiHo2FJwDZiApHJ6ElGd
+ oGjmrGq4/fUWUrXMK7EtGeXMqQ5po92EOR4Ah++c2+ogvO8zseZ81RXxQJcr/bOoT3bWk+dcXmI
+ q1uG7V6EuUs73sDKTMuF9yspe+mI9RO/cxxB1fweQmXL4FubIu9HfXas4kahcpHrrf8HAWLqbLU
+ F+nzlizj/SWQpyfSq1/LJhJD0vFkOHZY510A9UFOTn+c0mM+bdV0qYiuJDXgIQ0gJ2uZwGZqvIG
+ yOwMoeK0htd7XBOoj2EkXYefLZWDPO5SplGPSUouPcZfNeej7Aw0xkjuEJKDmNHivMe7AWyT0WR
+ KdQx1wu5fuhEwZUy0J3zwajmblc/REE/gVfqR38jk3hwq448mVfc1X/FtqhqOIfpD5u9duNWTja
+ lRF8MTdDDAatwujHRPg==
+X-Proofpoint-GUID: VkOVikFPHMe_-wA3uwe1XZiL1djBqhXA
+X-Proofpoint-ORIG-GUID: VkOVikFPHMe_-wA3uwe1XZiL1djBqhXA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDExNiBTYWx0ZWRfX6WZxOHmGfffQ
+ UKGdGg9BsQSZfv62f5rejEgBIeGbuhyhg/9/LZxbjPWVmPzAPlWBKtJlmLBYssQqy3GAMEJ6rMA
+ 5+9bz2K/mX4PmPUOY4E91bsINX8Wv/U=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150116
 
-On Tue, 2026-07-21 at 09:21 +0100, Andr=C3=A9 Draszik wrote:
-> Hi,
->=20
-> These patches fix two issues in the drm/drm_crtc driver. Initially I
-> was hitting the BUG_ON() in a scenario as explained in the commit
-> message of what is now the second patch in this series.
->=20
-> After posting, sashiko.dev noticed another issue, that was previously
-> masked by the now-removed BUG_ON(). Since we can't have a loud BUG() be
-> replaced with silent data corruption or worse, I've also added a patch
-> to address this issue highlighted by sashiko.dev. I believe its
-> observation and analysis to be correct.
->=20
-> Cheers,
-> Andre'
+This series introduces support for the Qualcomm CAMSS Offline Processing
+Engine (OPE), as found on Agatti-based platforms. Boards such as Arduino
+UNO-Q use this SoC family and will benefit from hardware-assisted image
+processing enabled by this work.
 
-Friendly ping on this series.
+This represents the first step toward enabling image processing beyond
+raw capture on Qualcomm platforms by using hardware blocks for
+operations such as debayering, color correction, and scaling.
 
-Cheers,
-Andre'
+The OPE sits outside the live capture pipeline. It operates on frames
+fetched from system memory and writes processed results back to memory.
+Because of this design, the OPE is not tied to any specific capture
+interface: frames may come from CAMSS RDI or PIX paths, or from any
+other producer capable of providing memory-backed buffers.
+
+The hardware can sustain up to 580 megapixels per second, which is
+sufficient to process a 9MPix (4K) stream at 60 fps or to handle
+four parallel 2MPix (HD) streams at 60 fps.
+
+The driver is designed to support multiple processing contexts. At
+present, however, only a single context is instantiated, which is
+created on the first media-pipeline open. This keeps the implementation
+simple while ensuring the design is ready for forthcoming multi-context
+support at the V4L2/media framework level.
+
+The OPE is a standalone device, independent from the CAMSS device. It
+manages its own clocks and power domains (CAMSS GDSC and CX), and does
+not require any change to the core CAMSS driver.
+
+Graph:
+ope_input ----+
+              +--> ope_proc --> ope_disp --> ope_disp_output
+ope_params ---+
+
+Compliance: v4l2-compliance has been executed without any error on
+the media and video devices.
+
+libcamera: Hans has been leading the userspace work and has submitted
+OPE ISP support to libcamera. An implementation is available at:
+https://github.com/jwrdegoede/libcamera/commits/camss_pipeline_v2.1
+
+Testing: A camss-isp-m2m tool is available at
+https://github.com/loicpoulain/camss-isp-m2m-test
+The tool can be used to exercise and stress-test the OPE engine,
+as well as to observe performance and latency behavior under
+various operating conditions (resolution, format, buf count, etc).
+
+./camss-isp-m2m -s 3840x2160 -n 5
+
+  Name                            Device            Dir       Type
+  --------------------------------------------------------------
+  ope_input                       /dev/video10      output    video
+  ope_params                      /dev/video11      output    meta
+  ope_disp_output                 /dev/video12      capture   video
+  ope_proc                        /dev/v4l-subdev13  -        subdev
+  ope_disp                        /dev/v4l-subdev14  -        subdev
+
+Test: 3840x2160 RGGB -> 3840x2160 NV12  [5 frames]
+  Input   /dev/video10  3840x2160 RGGB  bpl=3840  size=8294400
+  Output  /dev/video12  3840x2160 NV12  bpl=5760  size=12441600
+
+Buffers:
+  /dev/video10    buf[0]  offset=0x00000000  length=8294400   VA=0xffffbcb87000
+  /dev/video11    buf[0]  offset=0x00000000  length=12441600  VA=0xffffbbfa9000
+
+Streaming  5 frames...
+  seq=0      buf: in=0 out=0   14.833 ms  (67.4 fps)
+  seq=1      buf: in=0 out=0   14.874 ms  (67.2 fps)
+  seq=2      buf: in=0 out=0   14.902 ms  (67.1 fps)
+  seq=3      buf: in=0 out=0   14.960 ms  (66.8 fps)
+  seq=4      buf: in=0 out=0   14.896 ms  (67.1 fps)
+
+---
+Changes in v7:
+- Tie the driver context lifetime to the v4l2_device refcount
+- Free the MC pipeline from the v4l2_device release callback
+- Reorder unbind teardown
+- Refuse to start jobs or start streaming once the device is disconnected
+- Fix a permanent scheduler stall
+- Complete the job when a cancel reset times out
+- Make the reset-done interrupt terminal (no ctx/job rescheduling)
+- Drain the ready queues with the scheduler held off
+- Invalidate the gamma LUT cache when a context is destroyed
+- Factor the reset-and-wait sequence into ope_hw_reset_sync()
+- OPE node enabled by default, this is a pure SoC level feature
+- Link to v6: https://lore.kernel.org/r/20260907-camss-isp-ope-v6-0-6b915b9c5131@oss.qualcomm.com
+
+Changes in v6:
+- uapi: Rename include/uapi/linux/camss-ope-config.h to
+  qcom-camss-config.h and make the parameter enum/format generic.
+  (Hans, Gjorgji, Bryan).
+- videodev2.h: Drop "offline" from the V4L2_META_FMT_QCOM_ISP_PARAMS
+  comment as the format is generic to CAMSS ISP, not offline-only
+  (Gjorgji).
+- ope: Add gamma correction (CLC_GLUT) support: new
+  CAMSS_PARAMS_OPE_GAMMA block, camss_params_ope_gamma struct with
+  per-channel 256-entry LUTs, and double-banked LUT upload/programming
+  in the driver.
+- ope: Remove stale .wait_prepare/.wait_finish vb2 ops, which were
+  removed upstream and caused a build failure (Nihal).
+- doc: Add Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
+  describing V4L2_META_FMT_QCOM_ISP_PARAMS, the OPE processing pipeline
+  (block order and input/output formats) and the uAPI data types.
+- Copy the params buffer into a kernel-only scratch buffer before
+  validating/parsing it.
+- Add locking around ope->ctx_list
+- Fuard a NULL/out-of-range stripe pointer
+- MAINTAINERS: Add the new metafmt-qcom-isp.rst doc and
+  qcom-camss-config.h uapi header to the CAMSS entry.
+- Link to v5: https://lore.kernel.org/r/20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com
+
+Changes in v5:
+- Make params definition ope specific (Bryan)
+- Add pipeline/params helpers to ope driver/subdir.
+- driver: fix COLOR_CORRECT base (0xa00, was 0x400) (Bryan).
+- driver: fix DEMO INTERP_COEFF lambda masks (G [7:0], RB [23:16]).
+- driver: map pipeline blocks individually, dump per-block HW_VERSION (Bryan).
+- driver: disp subdev is pass-through, mirror sink format to source
+  and make source read-only.
+- dt-bindings/dts: map the CDM register block and rename node to isp@5c42000 (Bryan).
+- Link to v4: https://lore.kernel.org/r/20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com
+
+Changes in v4:
+- Made OPE a standalone device again, sibling of CAMSS rather than
+  a child node, following maintainer feedback (Bryan)
+- Aligned params with ones suggested by Bryan (when possible) (Bryan)
+- Correct usage of subdevice states for configuration (Hans)
+- Removed the bufq and scheduling helpers (now in ope driver) (Bryan)
+- Moved generic pipeline and params helpers to camms 'core'
+- Fixed Green hue with some downscaling factors (reported by Hans)
+- Fixed ope_enum_fmt_vid_cap (Hans)
+- don't hardcode DT assigned-clock-rates for AXI (Konrad)
+- Link to v3: https://lore.kernel.org/all/20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com
+
+Changes in v3:
+- Simplified camss_init_pm_clks()- no clk_get, no rate setting;
+- Added Assigned clock rate in devicetree for CAMSS AXI clock
+- Add Kernel Doc for camss-isp-bufq exported functions
+- Added description explaining the 2-cell for CAMSS bus
+- Reworked OPE media topology with intermediate ope_disp subdev
+- Support for crop and compose in ope_proc sink/source
+- Fixed Write Engine violation with some scaling config
+- Fixed input/output custom-stride issue (Hans)
+- Split uapi header (camss-config.h) into its own dedicated commit
+- Patch reordering to respect dependency in regards to ABI/dt-bindings introduction
+- Link to v2: https://lore.kernel.org/r/20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com
+
+Changes in v2:
+- Not an RFC anymore
+- Move from v4l2-m2m to multi-devices design
+- Support for parameters
+- Helpers for pipeline, job scheduling, buf-queues
+- OPE as a child node of CAMSS
+
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Kees Cook <kees@kernel.org>
+To: Gustavo A. R. Silva <gustavoars@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-hardening@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Loic Poulain (6):
+      media: qcom: camss: Add V4L2 meta format for CAMSS ISP parameters
+      dt-bindings: media: qcom: Add CAMSS Offline Processing Engine (OPE)
+      media: uapi: Add CAMSS ISP configuration definition
+      media: Documentation: uapi: Add qcom-camss ISP params documentation
+      media: qcom: camss: Add CAMSS Offline Processing Engine driver
+      arm64: dts: qcom: agatti: Add OPE node
+
+Nihal Kumar Gupta (3):
+      dt-bindings: media: qcom,qcm2290-camss-ope: Document shikra compatible
+      arm64: dts: qcom: shikra: Add OPE node
+      arm64: defconfig: Enable CAMSS OPE driver
+
+ .../bindings/media/qcom,qcm2290-camss-ope.yaml     |  154 +
+ .../userspace-api/media/v4l/meta-formats.rst       |    1 +
+ .../userspace-api/media/v4l/metafmt-qcom-isp.rst   |  145 +
+ MAINTAINERS                                        |    2 +
+ arch/arm64/boot/dts/qcom/agatti.dtsi               |   77 +
+ arch/arm64/boot/dts/qcom/shikra.dtsi               |   77 +
+ arch/arm64/configs/defconfig                       |    1 +
+ drivers/media/platform/qcom/camss/Kconfig          |    2 +
+ drivers/media/platform/qcom/camss/Makefile         |    2 +
+ drivers/media/platform/qcom/camss/ope/Kconfig      |   16 +
+ drivers/media/platform/qcom/camss/ope/Makefile     |    9 +
+ drivers/media/platform/qcom/camss/ope/core.c       | 3658 ++++++++++++++++++++
+ drivers/media/platform/qcom/camss/ope/params.c     |   78 +
+ drivers/media/platform/qcom/camss/ope/params.h     |   95 +
+ drivers/media/platform/qcom/camss/ope/pipeline.c   |  412 +++
+ drivers/media/platform/qcom/camss/ope/pipeline.h   |  239 ++
+ drivers/media/v4l2-core/v4l2-ioctl.c               |    1 +
+ include/uapi/linux/qcom-camss-config.h             |  212 ++
+ include/uapi/linux/videodev2.h                     |    3 +
+ 19 files changed, 5184 insertions(+)
+---
+base-commit: 1e15e15a1225e9349fd87fb3f285ecafab73b3fe
+change-id: 20260427-camss-isp-ope-4b575ffec2ed
+
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
+
