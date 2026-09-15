@@ -1,125 +1,173 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB654BB266
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 17:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705D44399CC;
+	Tue, 15 Sep 2026 18:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493784; cv=none; b=aICeRRpAWJtlyZwzgpbq9JtTRLyIzEdrwRfVAL0oZ+eZHuKcOhVLRKxcOF6gdYWL9jTWe1IN0hhR+vVZj50vDj/MqrMOQWcqFY0atnVCPaECLwxESHZuZJIz48DYiFJyHuCyxzTLddhhXHblCPIKpORhcnaSSMIoG/cn7SIBLoE=
+	t=1789495532; cv=none; b=scEk3jaJqbfeet0JDqfFF0hblNplzvmS+1lPz5NwnsVrm4u1kVOCfExiYi/g6Hcz/08l4v56diz5hEAm6GLeiPHgwD5vF0ECUh6ZHM6V+9zH5qgIzxHNOxKGwTLx8eYsV+cO0V34F90js4GWpfA4rKUMxDgVeEre50pX0LwffPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493784; c=relaxed/simple;
-	bh=urqgFBe3Wi6DGd08ZgfJUDRP1MbBh8rdERHwKGNysNw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mEV6iEVocMIx6vjpm5ZUfR7ZyqZuNaPS+8tGltZGlpZ+J9ESe6+NkZ4yVPhWb8OIwBSkaFYUNtm4w31NuyZG0/euXmhQ6TJPE2gHs+XeFw3v82qcxvftOa/u3Vzo95RNdvsjOJMbIJe1D74hBjI6BBFRDAS/F/hPiy6DvUJSM7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ShkluQmz; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789495532; c=relaxed/simple;
+	bh=V6K4OlMCnUsCbDMREVaUa2vUImH9KQWys0wgaxngXJA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gfuPf03J7lxn0tqT5OuVYHZ4DS/aVd4KrSy2EDRM8b982EshWCpuzHWUr+D9KdPANs83cOFX09kIsaIw7aDm2lEcsp6xot0jmqiCR0NzNGmwbnunVarZnX3eiEP4fnf2GnWnQ/YsopuMzFiqjYgckczMy+23ng8N45508TCOPxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTo4X3Om; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ShkluQmz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789493774; x=1789752974;
-	bh=bYkDKi/DEjIinF9dQE8tfaHzj59gkkksxWlOZrdaq2I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ShkluQmzs1YcjqN489jKeZLwo5KMqYQhDaxwAuCLSfR1BS01Z9XOH2cYubbBU9n2a
-	 rP/CrubG9QvxBWXIdy76OjNvRm45DbPZkLC3ogAuwort03NY2rAyNL9ZpTnmatsd0c
-	 1+hnieEs42sWflLDwMeJEqq945y2SRaNVeJ4uF7wNo/M6iwU7nLzGS/p6I168dnRzC
-	 jn3c/V3Et3V1S9Lge/P79joEBIqx6kFgfNepH8S6z7mauEAuGWcbiuLznTLx57FU5v
-	 MGMV5P1VXi87lcnjPcoqYEaE07DAuHLrqLoUubnWB1+AQcnHpyGt98RRR97VraKZP/
-	 Vq9ZLT5ueGQtQ==
-Date: Tue, 15 Sep 2026 17:36:09 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Peter Marshall <pm@petermarshall.ca>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
-Message-ID: <20260915173604.65023-1-lsa.uz@pm.me>
-In-Reply-To: <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
-References: <20260910213308.53429-1-lsa.uz@pm.me> <1070f707-8a23-419e-a0a2-a6f295ceb5a0@foss.st.com> <20260915100722.38504-1-lsa.uz@pm.me> <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 368db0238073872b7b836241303c98d2931dc873
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTo4X3Om"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF23A1F00898;
+	Tue, 15 Sep 2026 18:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789495529;
+	bh=mPeI+6lTU/Y8EitQI5ZfnrfapFmX8wWN22xo6A7UJaE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jTo4X3Om6pjYJxMpPsXGw742bcwi+fNKt1WirPMCjMB3CN4+QeGCMAad0HowUYo27
+	 zkPX73/bpXrtYTMe0XsfHOKvy0auvvNyZSnejxr33FwP5Y4EAzd8YeVUzA5p/dgDEw
+	 5cFlE/iE3GLNGT0ByRP+/biS9WQfT2P4HJ97Jm9P9K/qgKyfL5uH3H46GOijU3awQE
+	 U05QkDGXb1dMAlMiuCtrF46H69n28W2iJaBayGHH26y3LSBp2/268of5pUNUCjMz6C
+	 lP5HOIiL9QmsIGugbJJQ+XSzW3eNNY7uy3+IQE3mKC77JsHqvgv78X1PoCadcnYcJG
+	 U7RPeBeWp4lDg==
+Date: Tue, 15 Sep 2026 11:05:29 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Matthias Schwarzott <zzam@gentoo.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Mike Marshall <hubcap@omnibond.com>,
+	Martin Brandenburg <martin@omnibond.com>,
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Kanglong Wang <wangkanglong@loongson.cn>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Qiang Ma <maqianga@uniontech.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Thorsten Blum <blum@kernel.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Ashutosh Desai <ashutoshdesai993@gmail.com>,
+	Imre Deak <imre.deak@intel.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Johan Hovold <johan@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Will Porter <mrwillporter@gmail.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
+	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
+	nikitash.mariiaw@gmail.com, linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org,
+	devel@lists.orangefs.org, linux-hardening@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH 00/28] Replace remaining strlcat() call sites with
+ snprintf()/seq_buf()
+Message-ID: <202609151055.AFC6267@keescook>
+References: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 
-Benjamin,
+On Tue, Sep 15, 2026 at 08:18:17AM +0000, Bill Wendling wrote:
+> strlcat() is deprecated: like strcat(), it requires re-scanning the
+> destination string from the beginning on every call, which is O(n^2)
+> when used to build up a string incrementally, and its truncation
+> behavior is easy to get wrong. See:
+> 
+>   https://github.com/KSPP/linux/issues/370
+> 
+> This series removes the remaining strlcat() call sites in the tree
+> (plus the one inside fortify-string.h's strcat() implementation
+> itself), replacing each with snprintf(), scnprintf(), or the seq_buf()
+> API, whichever best fits the surrounding code.
 
-Thank you - for the explanation, for the link, and for saying where you
-stand. All three are worth more than an ack would have been.
+Thanks for tackling this!
 
-Sorry for the slow reply. I spent the hours reading rather than writing: th=
-e
-repository you pointed at, the two drivers side by side, and the in-tree
-binding. The checking changed what I have to say, so it seemed better than
-answering quickly. Three things below, separated so you can take whichever =
-is
-worth your time.
+A few global notes:
 
-1. The licence question, and my mistake
----------------------------------------
+- This series almost certainly needs to be sent as separate single
+  patches to each subsystem maintainer (rather than a giant CC list).
 
-Settled, by your link. vd55g0_patches.h carries
-"SPDX-License-Identifier: GPL-2.0" and "Copyright (C) 2024 STMicroelectroni=
-cs
-SA", with cut1 and cut2 arrays. ST published the firmware itself, two years
-ago, under a licence that answers the question I was asking.
+- As others noted already, we don't want to do anything as just an
+  open-coded strlen/sprintf; this doesn't gain us anything. If we can't
+  use seq_buf or some other solution, we need to figure out what we _can_
+  do for a given use.
 
-There is nothing for anyone to grant, and the right source to take those
-bytes from is yours rather than any third-party copy of them.
+- There are some collisions with other in-flight patches, e.g.  Mariia's[1]
 
-I should have found that before raising the point twice. Your standalone
-driver was named to me in this thread and I did not open it. The blocker I
-reported on 7 September is not a blocker and never was.
+- The "Assisted-by:" trailer doesn't need the level of detail you've
+  got, which changed recently[2]. Now the desired trailer would just be:
+    Assisted-by: LLM
 
-2. What the work would actually be
-----------------------------------
+- Please avoid including the Cc list in the email body (above or below
+  the "---" line), as it ends up being redundant.
 
-I measured it rather than guessed, so that we are talking about the same
-thing:
+I'll go look through the individual patches...
 
-  - twenty-five LINUX_VERSION_CODE guards, all of the form
-    "#if KERNEL_VERSION(x,y,z) > LINUX_VERSION_CODE", about 180 lines to dr=
-op
-  - s_stream to enable_streams and disable_streams, with vd55g1 in-tree as =
-a
-    line-by-line reference written by you
-  - st,vd55g0.yaml, adapted from the 3.3 KB st,vd55g1.yaml
-  - Kconfig, Makefile, MAINTAINERS
-  - checkpatch, sparse, builds across configurations, and testing here
+-Kees
 
-That should not take as long as I expected.
+[1] https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786411026.git.mariianikitash@google.com/
+[2] https://git.kernel.org/linus/816d9992d9ed ("coding-assistants: simplify attribution")
 
-3. The question I cannot answer on your behalf
-----------------------------------------------
-
-A 2100-line driver arriving beside a 2100-line sibling by the same author
-invites "why is this not an extension of vd55g1". If I answer that badly,
-the third version is a rewrite in the direction you have already rejected.
-
-Reading the two files I can see arguments for your position. vd55g0 is
-monochrome-first, Y8_1X8 and Y10_1X10, where vd55g1 carries the Bayer codes=
-.
-vd55g0 has real strobe and flash handling that vd55g1 barely touches. The
-register namespaces are essentially disjoint.
-
-But those are my inferences from one reading. What I would be repeating to =
-a
-maintainer is your engineering judgement, and I would rather have it from
-you.
-
-So: you offered to elaborate. Please do, if you have the time. Not to
-convince me - I have no stake in either shape. It is so that when Sakari or
-Hans asks why VD55G0 is not folded into vd55g1, the answer comes from the
-person who wrote both parts.
-
-If a separate driver is right, I will start and send you something to look
-at. If the two really should converge, that is worth knowing now too, and
-Peter's series already points that way.
-
-Sergey
-
+-- 
+Kees Cook
