@@ -1,112 +1,141 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D6B3655CC
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481332; cv=none; b=PltSGToj77QDhiFSVL0/IAikt5AqmAyT0Z/W0g7ravIX/uq2i5F/VjfZo/jOLYD0JnAS8iafKooX5aoBK97lRGIhC2H8BfZmnLebDOZCPO/EpidpQcRbUL1rtK1K1fpR1Q1XayR6nRerxr6kTSrLdi6NXTNJs6tuybrOrUwL0GA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481332; c=relaxed/simple;
-	bh=bx4DSXNCIULw2FUncUSRqfYmz85DyjyUcd9/xdHxYPE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FHwrd5AZRJvjJ2S1hY1jmXUoR5t6j42zGFSh1xrXnGy/MQlajkW14kfccjCuBaIG/020Y/QEFlMGnBqBeYAD9FRTe8wicvXrFmPdsojNzaEu2fgwT+5MRzPRdNJYzGh1EmbNXOU1/7NDu1V+Oc8Srdm+ku/L5u7g2QB9L9eLCbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ANjEIaCU; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D883B14A2
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789482007; cv=pass; b=nOLR90DDg9GAyuzG87hQnL8pgSHHqQsO/U3s++qNenBia69JZ37QHmOEYCpxBKWiIU1Y/+tWyFpguZVBx/4im9yqVitfBlwhhb/opfbq4j+mOxNoRpjBL2Ss40yqxmMxzffzbKSErYrDR3pMHTejMoGNrOMKclWqTWEFzkotkSk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789482007; c=relaxed/simple;
+	bh=jzjn0k4srI5F1aSZR0pfM3WdUHfq7jYHQR3HlQNiVc8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KQI7hI8q0wNtMLZwI7HX3P+/9JAIsd2BJf6qIXAYdya6RWNFWJjk8gEI073n4oPZO3ZUJ5gzCMeOQpMUykIW6DS7Tft6or+lsCuakCHBK/IS16ZIeH1ZSYGCFH6BYbF/LIGNBGU0NqisK6JSMiaWHz0IpqFfUvaRGTyq4ab6ESs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=YxnpGu2F; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ANjEIaCU"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so720920a12.0
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:08:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="YxnpGu2F"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc93e00so1776806d6.3
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:20:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789482004; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kUlslS8+9c8iqeMaW2Jzjr2jnkUcXvoCizOQIwLjv0pEVF4k42KF+KojfzZ0ab6LSN
+         cF+n5oJi323O8Jn3OGPIDyDlK+VaZ70ZgjwRO3/Frxl8GKW2AEVd79wAV8TmOZABbNZS
+         x+C4t/X7AOp3/Yv/+pDseekotm7yUY4LEHPdrhIGP50dxM3evRQLTG4AjsPhW3/sDr5Q
+         6+u3eTq9HquvA22KdL2EprXeuJNeYzu+QWAmztlDDx3xxsRxNS8Pj/o/6shKKi8LAEKM
+         Lsl4ggpyiYQ+4B5M5KmGl8C5bB3UTbgbwUoXYmTSpq60IMC9xEIpbH5jaTvw1kaVyHmM
+         499g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Mbk5oDhmq9C3ryUTeB+AgXe55pLwJERRdnBXATeh3YA=;
+        fh=aOVYN1D6fSysAzEed9PuVGSM/rYUcTXGVZM6u5NBPpQ=;
+        b=hdKoooijWDanCpe3JU1iZVlSD19bqnNgrYqjrLFP24Xb4dFiR41UmW+s3ardrvH/09
+         s+hCD3MTidHuaERpeuhUUt34hEILrO90pDww9jxInCV6zcmaCwjI0jUMQApJnG6dscng
+         8GUL+9kzIVkLIL7HTfraRi7le3eBjFfx+pEScBPRYbvBF6rwYd71EEkentDAzIuEYubH
+         bzLmswPZ8Knn46K8+PCETtq5nHbI/+/T22ZTICMxsr7wlVu5+qLhWR7rlKWv+fnly2Gn
+         Di1Py0Kj19xNSt8+rRMDA2V1/hV/HTlNg95G/4uGoabpiz68DV1jK8Bf1I6yM+OpOtYT
+         Ly+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481331; x=1790086131; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dfdpMft+Taz5w+O+/iQK+gDuE29kZk9QP9FYpppeBn4=;
-        b=ANjEIaCUbN+pJRfCyOHqMgw0W+d0iBadgcnNs4uUkevs/f9q9j8/+DLNhrvoK+Gij6
-         zWO0O1/6MPRGc1LHs0khFw3c592czQ1PEyZ+jHTSqqtdIFfyI0N4Cwh+Pm8SOn8uloJI
-         rM0oKnmxyKeqa8j47JKfHuMwdjz3BHdhDbScNJQjrQcBEUXHwU0Z8aZBQcJjTA7sjO4F
-         ZbmKHAgBPqnbkjGV21pZ2y5xRIcEGQY3hYYCV5FxOHG2LfLC5+Q1HGiZP6Kijkf4Xn0z
-         K8O210nZ+7BE9q9kuRslvg7ZL3TUfpRA3t8IjsbNE372X/QqYxfoJP+vz14efJMocbXw
-         jMPQ==
+        d=raspberrypi.com; s=google; t=1789482004; x=1790086804; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mbk5oDhmq9C3ryUTeB+AgXe55pLwJERRdnBXATeh3YA=;
+        b=YxnpGu2FyqgHkG1svIBY8ZbNZDfo6Rz27YYjHInfPJNt+k8xdlrLrqJ9MQwrhd2ioJ
+         sUaqHXFXoqjXOgOSRS8DthmFgvKNp2XbEyJVD0BlTjSYoXNu1hNSdBbgWU+Qh+JENORz
+         h+mSakWPNv7nMv7WojHcngEohCNCIY87vaZanPfTpk8zXWEmbYt/+6Dax07lGvNqM++3
+         OyzHwT1Pk664a/PUFeNFE8m9dWd0hdbNvn+qe+hmFn6LkF7lTEGe6gDA0LAsNrOcvKBp
+         7kIuxAECadfoBmeMdJ1F6iEfMS++OZy2MYdnYrAUgX2AHZ2NCiWyhgSLqrDz5ZYTHxBC
+         lahQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481331; x=1790086131;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dfdpMft+Taz5w+O+/iQK+gDuE29kZk9QP9FYpppeBn4=;
-        b=LoV+CVnK2Cgc7RSluBC/6sYItutDv4tfz+BNjkcdhPGJUPhYqsKNkHCst+gDBbircb
-         jQ96kc4dV6Lh/UigQg9lIK8oM12QJCCm7QMiv3h9juvz6HoIA6RUH3aX4+pIiC7DDGnJ
-         lnwRT8SSTHgz/yCw293L9+HGPYN4b+dEXwOOPPm4mjV2zyz5oQMC/ssWY5G6wsIApUPG
-         Jvaxxh4WHKEupW81bp4LwzwwylczIZBx1UQ1U/hcVxgsx1h0jIA4k7xV/1EkivM591Tg
-         skXHRD9NQ2QC8gIe52szu7bDarL+wrEmWLcqXDn8IFnxAbIruNNkX9imzsI5rE790VYS
-         RiTg==
-X-Forwarded-Encrypted: i=1; AKwUvBziBFB3Y6xz84lvB4IGLR4ccjbnSSOJ2o9VUySgkQhIx4ZA2NDk9lfkg2lD6AhUQ8k2XOFg084Fzro8lA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nD+A2uH5JwXnizlqSeJdzXEbexkQkBLjCGTwl5gnZmxnPkLPzo
-	xHFrJtK8Vmvgm5v3huaBb/6Adgtwz8U0rkHFoEMyAG4i1ykdVbjfs+ef
-X-Gm-Gg: AYBFou0CTOBsO8R6A/mwuHoog2soYfCjKiwJ5qbZ3nJQ/LWwuBhi9cAgTt3DMoibHod
-	MHVr8ZCa2PvGa47psZEwH2oY/ayHQlBj3Fz/iG8BrcuyCgKfMtsUwr2mJyihnELTMX3yZhTp+vs
-	hkmOSthmH0BDQ2IKhH4LJ7smmG9Ld0XnmsOoTZ4JFnTCPhtpootZEATF0aoOqK/elcIhlc9ijFy
-	3h1iqXgAKfGpXrliBPRrqiqu7V72PAWWRlJFfrbaIRhNBlFoEiYvmWNTxU8Sxtqa/ZAbBgmKcQ2
-	QZvFY1VZyWX+/aywtdmUwDAYMJ5EtBxJdsDaYipsKydN1YI6hl0G/VZgqVTMOicKYGrX58N62RP
-	6p/l9jEbQOhFdpU7KCX8hgnd8Fx+GNU4VDzKB1w1hEXUJIfTErzq7AHPsvqaWC2xE2y+e392E2X
-	xsunC2mKbJiLHnoZ1w19JeWdGi/RROxbgFFWodM+ZxHfJLWFzAvDp4CExW5OC8jTnBVxRDyRgy9
-	rqvnULEOAd20YAkhkwLmihHDqoIpNsHHu1dmfg=
-X-Received: by 2002:a17:90b:5646:b0:390:84db:888e with SMTP id 98e67ed59e1d1-39dfe097622mr4709299a91.7.1789481330561;
-        Tue, 15 Sep 2026 07:08:50 -0700 (PDT)
-Received: from localhost ([2401:4900:1c6f:fd8f:123a:b4ef:d8b:c604])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd58b30sm5863118a91.11.2026.09.15.07.08.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:08:50 -0700 (PDT)
-From: Punnay Sharma <punnaysharma805@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] media: atomisp: ov2722: Return after failed pad initialization
-Date: Tue, 15 Sep 2026 19:38:28 +0530
-Message-ID: <20260915140828.25537-1-punnaysharma805@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1789482004; x=1790086804;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Mbk5oDhmq9C3ryUTeB+AgXe55pLwJERRdnBXATeh3YA=;
+        b=et3hoQCfP5NDpCDuzXe6MmiVamlMe9zp6HmjFS5DvzfnikB8C10AKXHgZ0GmgjL7tV
+         SPYvt3ev3pHbtD1ZrxSi4wyqWg1sgCVwGVM4TEuFDfbhYhtJnhCHGC1LaCdBfXFTUaN0
+         KR5ceiCoaMbZ8PImzioJmmmlsP2GLWZF1IfUaXtXKcNjcEI1t669rWlERlggEGcrwa/n
+         t3Fxx+i3czz5s7cOeTVUDliySx8qnGQHG6sDUcHrcBDSrQS3gfOM2sjSzmwHO4oCBpe4
+         3kNPAJPs43y6YO7mDOoQqZalao22b5bLJ7OBqvhf2+JxPeV6TxQJ3BKsdsLYn8YYR297
+         LGRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQiDWvg5vljZdzj5/BX0fBFglSe5arrpaVg83wvHIikiLCpdbUeIJxcfO4XKk5Vaz1dyo+ugM+dU2QIQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++kXWPEpdrR0B2ytKtFWuCtS/vP4Y/tNTrKjpbiX8+vhPhFpBGuB
+	f9M530XB2EEE09RHGBzP7K1z7emDkjbUZBFP2Ed+McOgh7aYp0HsPseBBu2CgQsRXgdZ3UQ/6TP
+	R4yS9KK6hwodLHx0L3vocQobezdYyGI/Myflu6i0Gtg==
+X-Gm-Gg: AYBFou3SVFq/GZCt+0NuyXld5nGbESNiKCTS4m4ySL91N75B1z6VyLCGRkqZItaf/IM
+	qPTW9qaKfQ9BC94a2p2ZtqcxvJGpa5flPnFhoLhUZ3reeDec3GG5FsmrWxN5t++qdmXFGh9ScXR
+	rwfOufDp535BjqLwd65udjQVToWQqGfJLmtL1gHsRfLMTfMZQkKYuW6ufAAEmT2meW+kU1HE1KG
+	sdOW2FmGr2G4Rs/Ub+AUm47FQVIoVy/++mrz2cOsqrhrvkfL/M6koaxDQbYjjTayNbpwrZre0aK
+	lDFUVHiIlv+Io3OSaglX8OP9iV+yBL89kOQAR9Fvg458ZPXX4zwlzvWagNHqsyaI6Q36NUSyP1i
+	33oDiViQ0KnHZyIUkbs5BjGIMg7DkGWNd5ga85XT/If/4yeg+//oZNSxpC/CEGzGFwh1+qz90ig
+	==
+X-Received: by 2002:a05:6214:8503:10b0:912:3b8b:3275 with SMTP id
+ 6a1803df08f44-9123b8b32bfmr3657116d6.19.1789481999618; Tue, 15 Sep 2026
+ 07:19:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-1-f520af59df1b@linux.dev>
+In-Reply-To: <20260914-ov9282-fixes-v1-1-f520af59df1b@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 15 Sep 2026 15:19:42 +0100
+X-Gm-Features: AcwNN1X1t13-sNIByzRZhObLlskVbwDF7voVmSdDqd5Oiho8QeQtdpxx9t-nma0
+Message-ID: <CAPY8ntCJLtHbBK6a9R1EMN6BWEnftW8GJPaKrA03rdMUwkKZRw@mail.gmail.com>
+Subject: Re: [PATCH 01/10] media: i2c: ov9282: handle error from exposure
+ range update
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-If media_entity_pads_init() fails, ov2722_probe() calls
-ov2722_remove(), which frees the device structure. The probe then
-continues into atomisp_register_i2c_module() with a pointer to the
-freed subdevice, causing a use-after-free.
+On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> When setting V4L2_CID_VBLANK the V4L2 range for the exposure control is
+> updated v4l2_ctrl_modify_range(). This range update missed a return value
+> check, which resulted in ov9282_set_ctrl() not returning on an error from
+> that function call.
+>
+> Fix this by checking the return value and returning it on error.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 
-Return the original error immediately after cleanup to prevent
-registration from accessing the freed device.
+AFAICT A failure there would imply a driver bug rather than userspace,
+but better to handle it rather than just ignoring it.
 
-Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
----
- drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-index 2c41c496daa6..0748247ca42c 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-@@ -979,8 +979,10 @@ static int ov2722_probe(struct i2c_client *client)
- 	dev->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
- 
- 	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
--	if (ret)
-+	if (ret) {
- 		ov2722_remove(client);
-+		return ret;
-+	}
- 
- 	return atomisp_register_i2c_module(&dev->sd, ovpdev);
- 
--- 
-2.55.0
-
+> ---
+>  drivers/media/i2c/ov9282.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index 5d301660a87d8..c10b2e205834e 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -608,6 +608,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                                                ov9282->cur_mode->height -
+>                                                OV9282_EXPOSURE_OFFSET,
+>                                                1, OV9282_EXPOSURE_DEFAULT);
+> +               if (ret)
+> +                       return ret;
+>                 break;
+>         }
+>
+>
+> --
+> 2.53.0
+>
+>
