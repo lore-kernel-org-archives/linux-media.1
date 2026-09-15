@@ -1,88 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7851245A2BB;
-	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CF64CCDD7;
+	Tue, 15 Sep 2026 20:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503655; cv=none; b=mXW0JddaIgxXRPu/zVLn/+WJJxfWHjU9bjiOtykGnZb0cv7y2+67cPH5FqIBLIFwahFNuCfW1dRNELh+GmHDCk0xId+jCwTvdlppo+hCNY3rvr3dfs2pOI73gCW0IX8I+sb+j/IUL+WnA0qwique7nsVOEke9c9w6tKCC9yu8lI=
+	t=1789503905; cv=none; b=G7filaHj9iXGMvAVT/bpJ2mbaA12NKyRv1m+rqdj7K3/fAmsirylhKjfjfYd04UxxGrLj63GDoSBNRABNnNORETGRmAlQ7nri684DbdgtVnRpyJvW8/kM0Aow6299y6Cac+7VOZ54tV3etkA8JJVkDOs0ChZV813Cv6qltrwEP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503655; c=relaxed/simple;
-	bh=cy6NnsJcH0jNfhQsnNyLRIM3THjaYMss2IiZOPpYDUs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d0X4Ak/O+RqnrluJNthNRdRdkVqcrTAbFPLXolfUuSVx/TIxRsqU9hEfjqzLA6aMT18iQlK0ua6hxLjNVTO14Y791ESI7k2f8inlpTHXkKKFkMi/pGqZJuqUi10c2ScEvL+syq/5acQpbo8banrnS7bM/XQsAAtEgTpB1+vMWT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ogt5JmZr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789503905; c=relaxed/simple;
+	bh=2DcnYg2At1N5Cr25JbjUCZQhYqC7BnHQoxJPdO/m+x8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S0FODgx29bRDMaOFsSjxKjbatFjQf9fV5v/R4UwM6RlCtGLQasyvWeVhNTkfhwscF0GvrDR9bY4NSUWk8HQTJ0lrUmRLDe7VgXDq4zsyBvxG0oJYH7oSwxpAtrU05vtoIqLxrH+5YLeq6yNgi+tZ9erTZQ/9mLubBSBlovZhjz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9rigXwe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ogt5JmZr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1FCFCC2BCB8;
-	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1789503655; bh=cy6NnsJcH0jNfhQsnNyLRIM3THjaYMss2IiZOPpYDUs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Ogt5JmZr2+bC8zTS+J4lU+R4lypuyK3alsxxAnc9QqBsLlkJN98uVNBJ/ma2FfiME
-	 Hu8u49u24mplGfbK6pxw9zOE4gw0cyTx6DOJp1Bp/rlC7hzW9C2T7MxpbUke1TFWlS
-	 eVRPaBLZxBHN02Y8K7lp4z3zRhHcRPRyGCZFS/G4=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F264AC88E77;
-	Tue, 15 Sep 2026 20:20:54 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 15 Sep 2026 22:20:23 +0200
-Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: add Vision Components
- GmbH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9rigXwe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82DCF1F000FF;
+	Tue, 15 Sep 2026 20:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789503903;
+	bh=Csd4l47tH20QHUGnUYb7+NRxShDy4/5ue3Dj0thUdb0=;
+	h=From:To:Cc:Subject:Date;
+	b=K9rigXwettXA+yylIwKM8irMnqW7H7qVINnjRp8lNjL4mvbFLVAKpXA9XTwh2tdSQ
+	 j7TLH/nXMFVreoJufUn2l1Qhi7vMhwdOdJHjNY34sSy+ifGDXwLivfXReOMvbeEl7P
+	 y9Ej3kC9K+khJpbztKKIJiSczaUqKjGno7yDAMRGL3RQwSkJmgmAY1SPjDWBIGwjKg
+	 1ePUHzxbG6dMmkJVWIVPJVBElar7vauvBqXEptd7omg1xCio0Rito0YxlP9oLJdIeU
+	 v+Xta46QMS39JCm1YKP5eAB8+6canNOtbJ0WY+5B295sSbyc7sz9utgvt8wMRlF8Rt
+	 vGXSn+er1uLJA==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: mali-c55: add padding to mali_c55_params_ccm structure
+Date: Tue, 15 Sep 2026 22:24:48 +0200
+Message-ID: <20260915202458.3673504-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-vc-mipi-ctrl-v1-1-8a42b693d889@linux.dev>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
-In-Reply-To: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, Richard Leitner <richard.leitner@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789503653; l=978;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=cy6NnsJcH0jNfhQsnNyLRIM3THjaYMss2IiZOPpYDUs=;
- b=Nq5t2AjUH7qMg4geKgmTyocO81gMyO8ukMpX6uhC4wfyNVte5YYuI52grFHXffNPo9ioy5wl3
- 3XzREEVAISPD85LMzhwNKeJ658UQKGpkaewdQ5btcosPN8fWenA9xPU
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
+Content-Transfer-Encoding: 8bit
 
-Add vendor prefix for Vision Components GmbH, a manufacturer of camera
-modules. The prefix will be used in the Vision Components MIPI Camera
-Controller driver.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Link: https://www.vision-components.com
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+The newly added structure has extra padding on the on
+some architectures, which triggers a pedantic uapi check:
+
+./usr/include/linux/media/arm/mali-c55-config.h:807:1: error: padding struct size to alignment boundary with 2 bytes [-Werror=padded]
+
+Add explicit padding here to avoid risking information leaks
+and incompatibilities between architectures.
+
+Fixes: bb401df68c06 ("media: mali-c55: Add support for CCM")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ include/uapi/linux/media/arm/mali-c55-config.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba20029693734..b853fb9338527 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1845,6 +1845,8 @@ patternProperties:
-     description: Vishay Intertechnology, Inc
-   "^visionox,.*":
-     description: Visionox
-+  "^vision-components,.*":
-+    description: Vision Components GmbH
-   "^vitesse,.*":
-     description: Vitesse Semiconductor Corporation
-   "^vivante,.*":
-
+diff --git a/include/uapi/linux/media/arm/mali-c55-config.h b/include/uapi/linux/media/arm/mali-c55-config.h
+index 84d8f3901405..9c922290e035 100644
+--- a/include/uapi/linux/media/arm/mali-c55-config.h
++++ b/include/uapi/linux/media/arm/mali-c55-config.h
+@@ -804,6 +804,7 @@ struct mali_c55_params_ccm {
+ 	__u16 coeffs[3][3];
+ 	__u16 gains[3];
+ 	__u16 offs[3];
++	__u16 __pad;
+ };
+ 
+ /**
 -- 
 2.53.0
-
 
