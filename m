@@ -1,106 +1,149 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977843C0A0E;
-	Tue, 15 Sep 2026 14:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090983C1970
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482646; cv=none; b=BBTxgRKztbTWlHURd02oIRhymb2XZwcxyxIgWsUMtojflipx6CHuZBPdjbkZnIHQKiQTuuOQZ6QRblzIOH64dGqtda+CCnRRSNkZyN/StLP9XWIEqfzrni1XaOcMKbJm5k9zJzYERxO5HJEtBPR92j7O00psKYtq1lIR42rKKtI=
+	t=1789482761; cv=none; b=BhlLrxT6cxhRNfWkIMFH+kKAMhywkIkfplK/IMOtypoVD+XFgS6uebYJdd3iGgQF6pHGF5597evCxFbmnEFjtQvazgtVgeJuKecsmalyy7eCn9RkKzMpNOg/pUMfeP/RyP0f93dsIZ7nMVieGAvgVdMfiA+CjUfPMTIYLdVuRvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482646; c=relaxed/simple;
-	bh=twc0fIx68+kEF+cShbyc3RFtm6NSYj1UGSjcKRuPYUU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F67wG8K4e7Okf12j75h4josJW18VBi4XRAi0L0xU7nb0AqCoIgf62WuSlIBExq9a99NOuGQHhnLoO0w/NrSpVsZtRswNlSc/NqiYWcxR/P6kT05tZj+ySc2YSrfyJGEl+p0G94aTQ06JrzG2mdmBejgm2O/XWI75cXE5wj/gnLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=HW2jWuBP; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1789482761; c=relaxed/simple;
+	bh=NZGJJ76OT7pnGtlTTLVbGV1sNyqDJXn8A6m1uHnqt9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=PjmsmbPCW1k/irEzSy9GAewkP9ER0XYm3COjEXOrgcJSs+Cr7Z2JPtMDRcVvBFvQYvOFLaJ4agFcdraF2b8jiQRfjWZP2sh4Fh4qTHXtCoZ5KO5sIfdZ1nyxwvSZqTLXKHlbhXJmNYRbk4J0JxC0iBaiqvlCWx4fyWDAje5uiDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B6N4GFCh; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="HW2jWuBP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1789482627;
-	bh=5x9PVSs1pegITND9ej196jOTL1wg1+lrDdeCERTcAHc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HW2jWuBPYllN+POQQWsl9SXygg0v21ChZrs/LiJUyRXjiHTCByo+VsqV60ZoXKldG
-	 41ptofyOkN6OVSCyTCHR1WdrTkrEsJKjSkPQlI5Wa8FHPCkNND6LisEhHlWUAj+7sG
-	 hkMOgFOh1R0i3F96CpuT5OBkKjiv4ltHfiB3h1SVGuIPXLzKURaSl6QI0Gp8mRSgC+
-	 3H1F//DVOQSEQpXu4fmWDq+E8cGaV+JG1rdwfJLGt7FW96YUuatkZBB41ZOlAL5bBe
-	 i6BMmYH83fCJ51UmvwtyS/Z5dmcwwO/zQXESU2QH7hNId0BzSxx71viz2QtOnjk9sj
-	 rwR69zCQL/Qxw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hkkvH33lkz4wBB;
-	Wed, 16 Sep 2026 00:30:19 +1000 (AEST)
-Message-ID: <9ebcebb9-94a5-40b4-8764-5d70ea465f9c@ozlabs.org>
-Date: Tue, 15 Sep 2026 15:30:32 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B6N4GFCh"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso562637566b.2
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:32:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789482758; x=1790087558; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hXmryL3wvO3cdvxzlfBmjb/0ETnTJX518ezjoffucPQ=;
+        b=B6N4GFChvE0Cmllv+WAwisvpp6F1hHfi/+z+9Yn5OMdaCocxX902XiMlPTkqQXUfMN
+         zXITU5Ec2TkNCZk2zUaN6OIAT4acJhxAGibUZereoGmzYzOg9HXYIZjE5yi0Q8ddFRNl
+         scIXpRJ6L8yii9HYEzCVZsNExhR1P+AEg7YYwvuSNLRrskUFDTwoIjGqY9l/+AXy4Dy6
+         HgBHGQIIZEP5TqwERYiKG6nuKdNaANOpzDNHx5gVrY/tIzK4+ANlHxzRQoe7+iU3Xikr
+         KC7L08eEVqKszWuah5xCbOJpmv9s6ZIBXCpR8kwZxu4/ieI6rf0z7Zrz+lAkmczBJsPJ
+         X+mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789482758; x=1790087558;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hXmryL3wvO3cdvxzlfBmjb/0ETnTJX518ezjoffucPQ=;
+        b=D2V+A7tTChHclx/gu4qFWYnd4C6af8uHDSIptSLswj+FpTW9A2rApMznJCsRMIVimJ
+         KJEyOjmIxK1eOj2d8zkMV3Uy6MoPfEB+nOZFHKNP3DmfzjX3S/MqOz5vZOqkyESBjPEL
+         oRbe2eI6duYvkQElCYXdgfH4QBkXtNPDDJB4qavf2C8MVfXdBJ9hGBlz3b0ZYAf2W7Wl
+         VrzofLawl8+eMfHDf9aXosg4UcXBzOwMFL/28b4NGr3yPMQbS1E+xCYRMP2GbNWL6lC9
+         yCQQFPj9UcJZ4QA2Dk/obKWEsOGhLSFfKYBw9yyrqg4jlP91JXkhHERdgMwd7ZdrhrvR
+         ak0w==
+X-Gm-Message-State: AFuF++ldVbgUel+V9pYndN3H1CLvteE95sJwOIWhX0auWbYpJG4T2386
+	xq7JqI9NK4bVyP60PyBI7vMFdPIszptNZGvyth1VUG1nBFVFvPpTKD2+
+X-Gm-Gg: AYBFou1wtXcevqw2RxToIEA41TDo9/DG4H2vb6gjM8cKqZu1ustNfox0hWNHYIfCnWO
+	7FtzlOlc/0reI1Mp14qD84GujJK94Q6k+eOhxQoixK9VPOywuQ+cgPaWMCs1bWWqt//1u0C7BZv
+	+SqTQAh1M0ZI6rF3DOSTh7wwcq4vYXPjL/dVJ6oqolKCCz5h20kWQ9vzvm9TqyWcQA0LRJOhfRg
+	vfb6ELYuavNP4LnjtqjMhACRQ5yzFndKfjkXdbQwJ321rjKpBMj1tlPW3mo+H3ncaEDwV3bx7T3
+	kWBD0XvAVc3M2cQHWI4I+B5iCJPFTfDmLAJnlZnYewqEFsokzr6AcGrfaF576ZWR83uAZ7zP+ae
+	wFvJwde8TIiYt/1RENEiEQaRxYoglX/3W1bJ9y1g6MN9Pr9jYf8XMWkEUMr5pRLtN195KnEbaTV
+	t4T5xNGq8FAnt2nFwzXRkYGDxmK2a5WSTk/Aoeg3rsrqlJ5Rm69p07OU7k3ozyw/UyPjNXw0L2p
+	8Ii5A==
+X-Received: by 2002:a17:907:fd8a:b0:c26:3107:71bb with SMTP id a640c23a62f3a-c29b879a01emr874169466b.24.1789482758031;
+        Tue, 15 Sep 2026 07:32:38 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966066b76sm102979766b.29.2026.09.15.07.32.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:32:36 -0700 (PDT)
+Date: Tue, 15 Sep 2026 17:32:33 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Subject: [bug report] media: ipu6: Move isys fw mapping to pci_probe
+Message-ID: <aqlXAXcXvMM3HWtJ@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Content-Language: en-GB
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
- <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
- <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
- <20260915123517.GS3968357@nvidia.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260915123517.GS3968357@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Jason,
+Hello Antti Laakso,
 
-On 15/09/2026 13:35, Jason Gunthorpe wrote:
-> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
->> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
->> ranges previously delegated to a subordinate client process: by
->> revoking, the driver process can ensure that the loaned resources are
->> made inaccessible when the client is deemed "done".  The original
->> DMABUF is defunct, and BAR resources can then be safely re-exported
->> for use by new clients."
-> 
-> This makes the point clear, you want a way to permanently revoke a
-> specific dmabuf fd and render it forever unable to access any
-> underlying memory.
-> 
-> You want to do this so the vendor can fence the vendee without
-> requiring its co-operation.
+Commit 69ebb1bfc865 ("media: ipu6: Move isys fw mapping to
+pci_probe") from Aug 27, 2026 (linux-next), leads to the following
+Smatch static checker warning:
 
-Exactly!  (I'll reword this commit message still, re other requests in
-this thread, but you got the concept.)
+	drivers/media/pci/intel/ipu6/ipu6.c:865 ipu6_pci_remove()
+	warn: variable dereferenced before check 'isp->psys' (see line 844)
 
-> "temporary revoke" ie what VFIO already does around reset is a
-> different thing.
+drivers/media/pci/intel/ipu6/ipu6.c
+    836 static void ipu6_pci_remove(struct pci_dev *pdev)
+    837 {
+    838         struct ipu6_device *isp = pci_get_drvdata(pdev);
+    839         unsigned long dir;
+    840 
+    841         devm_free_irq(&pdev->dev, pdev->irq, isp);
+    842 
+    843         dir = IS_IPU7(isp) ? DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
+    844         ipu6_cpd_free_pkg_dir(isp->psys);
 
-Yes, right.  From the DMABUF importer (and now mmap) perspective the
-mechanism is unchanged.  priv->revoked was always "temporary"/transient
-(OK, splitting hairs, but at VFIO shutdown an exported DMABUF becomes
-permanently inaccessible).
+ipu6_cpd_free_pkg_dir() dereferences isp->psys so
 
-Here the only change is adding another cause of becoming inaccessible
-(direct request from userspace) and the length of time (it can never be
-re-attached, for the reasons you mentioned).
+    845         ipu6_unmap_fw_region(isp->psys, dir);
+    846 
+    847         if (isp->isys) {
 
-Cheers,
+is too late.  Fortunately, it's also unnecessary.  Just delete it.
 
+    848                 ipu6_cpd_free_pkg_dir(isp->isys);
+    849                 if (isp->isys->fw_sgt.nents)
+    850                         ipu6_unmap_fw_region(isp->isys, dir);
+    851         }
+    852 
+    853         vfree(isp->fw_code_region);
+    854         isp->fw_code_region = NULL;
+    855 
+    856         ipu6_buttress_exit(isp);
+    857 
+    858         ipu6_bus_del_devices(pdev);
 
-Matt
+I'm using ChatGPT to review Smatch warnings these days and it
+gives a bonus bug that ipu6_bus_del_devices() frees isp->psys.
+
+"ipu6_bus_del_devices() calls:
+
+	auxiliary_device_delete(&adev->auxdev);
+	auxiliary_device_uninit(&adev->auxdev);
+
+The uninit drops the device reference, and ipu6_bus_release() frees
+the containing ipu6_bus_device. Consequently, accessing isp->psys->mmu
+or isp->isys->mmu afterward can use freed memory."
+
+    859 
+    860         pm_runtime_forbid(&pdev->dev);
+    861         pm_runtime_get_noresume(&pdev->dev);
+    862 
+    863         release_firmware(isp->cpd_fw);
+    864 
+--> 865         if (isp->psys)
+    866                 ipu6_mmu_cleanup(isp->psys->mmu);
+                                         ^^^^^^^^^
+
+    867         if (isp->isys)
+    868                 ipu6_mmu_cleanup(isp->isys->mmu);
+                                         ^^^^^^^^^
+So these dereferences are a use after free.  Originally, this code saved
+the pointer the mmus before calling ipu6_bus_del_devices().
+
+    869 }
+
+This email is a free service from the Smatch-CI project [smatch.sf.net].
+
+regards,
+dan carpenter
