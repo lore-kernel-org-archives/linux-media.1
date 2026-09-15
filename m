@@ -1,159 +1,132 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB58549E15A;
-	Tue, 15 Sep 2026 14:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431333D7D82
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484184; cv=none; b=Dne19lc7jAaE+BwR8IJdecB9POLYxmV6mbepmv7tUWmaNl1+M7UA93BaCpfRqRjmjGbimT7OhFWFJh/Th+tIsHjXVvv3xWxowh7oLqBr1P1CZmIHQqd/om8C6B8Bt65FJbp0hoTGaBFew2YZ6Bl6VCULh+Mt+GH7DFZm24Il48w=
+	t=1789484247; cv=none; b=Jij2qZ+VdeTUCh6muHguk2uwdmEslh8DQ1eO2Im7rOLwWld/i2shpARRMRevEUtv+LPylWDVZfQtgzfw1LfZUp0ABDuK1fy6zC3hDlE5zWqDasV/+7ocFlNqoppL5eaM2Bk620+AdnKdtmy6sGvaxujow9LVP0m857JzFgdk/DY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484184; c=relaxed/simple;
-	bh=kg9GekJuBJ8SYQL6TTBh61wvP3AifQMScyKfkRmP62A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EmvkRTqRC710Imw6xvrC5H3QQmGVJjrbqXMBTHJ6ih/sOBcn1OdxyvTDodeFgfiqrZw6lWetDpXO2+IsueH2iGGQ9cGNXVWJrecOnofTMbU2Pt7TBDgslaCB5hn2iy3RQX1v4m7oPi9A5NSz6BDa/oEDB1x2DSQ7TisCf8/QXT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=grG5Mx/o; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1789484247; c=relaxed/simple;
+	bh=73dcmCtFY2CDl1BsMVa7IHDXjjbkK6aeKkUkmk7sgpc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=U1sGNrCqMEN947l8KlgZTSSiT4/GfD2IEv5mwJsP3ns4INSFIQx5pDK67Uku23nqL/bveXJbrvd6sUvfx17PNt5UQ3J9/QT63UOIosVTlDeEjBhBcWLHdBmf0FlPPExTO1Dp2scCGu2q02rxZ52NSNu0bqD//vW+hgUw9hCbN9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CMxRiALK; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HWvLdMTc; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="grG5Mx/o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789484175; bh=kg9GekJuBJ8SYQL6TTBh61wvP3AifQMScyKfkRmP62A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=grG5Mx/oU7ozBT1BnMN1wIeFxU6HPj2uLSo/wrh3X0u6j6gNtYcUQpsfcFz+s1TXX
-	 LRoy9hiI0SdavFB7kxOypX/uaRoXONyqV9vFPm8NY5VodJDaJDy2QFYcyZJ9gySvUm
-	 a1wisXtLn6uPoqDML2wmBFEjYETk/oGzfSzR/vU5j+1eCtfMgEItU7bmUlxLixgHrF
-	 6jRUYn20dE52Esaw+MgCgIzpq8u2duH9kBkfuCJQ1aAOog1ET3+Tim50r3J0a1Hdja
-	 1GgzO/JnI0BP6DExYFlVqBuQYgrO1USPD3z0Qt8LgylUgi9WzhCxlM8uEvKagDKay0
-	 Rm2eph1MLDo0A==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 14E0C40B71; Tue, 15 Sep 2026 15:56:15 +0100 (BST)
-Date: Tue, 15 Sep 2026 15:56:15 +0100
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
- keymap
-Message-ID: <aqlcj9xXNRURA5iJ@extorris.mess.org>
-References: <cover.1789460680.git.sean@mess.org>
- <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
- <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CMxRiALK";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HWvLdMTc"
+Date: Tue, 15 Sep 2026 16:57:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789484239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=254R1arFeoToj39V4xt3wD6Cd/e86zUvnv4vHFoNiO8=;
+	b=CMxRiALKRyq1V0anX/6ckGE1/BYVlY9fL1HrNqPxF+rhX83P1p/qFKV4bWiUlU9UTMePxr
+	HzlLa9dzLTZcH25PTP5dqzuDisqVgjoTO/HivOoWmBbN/i+78iVHckmaa3Zg/MNXIrYKxM
+	TDTopVi1FbxNwr7k3Z1/KmX/58vPQC5SLzDhW1V3Q53a5Z176YzBvHkmZE9oH5tuM8RoPu
+	2re8k0NPE8tC3mOO/wVwfwx+0RcS2aX0OkNunxeVH9EIp/kAb/ZHlU/I1GyqZh3NmysbTg
+	vsw0bDc6EkpveHAS/raUcFqg6Ww2kHMnqGKir0+stdZKgWh/NNrgm4lCqPNSaw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789484239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=254R1arFeoToj39V4xt3wD6Cd/e86zUvnv4vHFoNiO8=;
+	b=HWvLdMTcF+Vhh5bpLeoxnfSNe/H03Ev2y7ULP+pZoyAwB/q2HdfOaRc3o3cfsSOIIJg3e4
+	RkAgiAkQLZ7EddAg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Johan Hovold <johan@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [BUG] mtk-mdp3: Crash during probe in mtk-mdp3
+Message-ID: <20260915145718.5D7Dsuwc@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
-> On 9/15/26 10:32, Sean Young wrote:
-> > Replace some ugly code with open coded krealloc() and remove
-> > superfluous member of struct rc_map.
-> > 
-> > Signed-off-by: Sean Young <sean@mess.org>
-> > ---
-> >  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
-> >  include/media/rc-map.h     |  2 --
-> >  2 files changed, 22 insertions(+), 25 deletions(-)
-> > 
-> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> > index d4baaae3a834..53e39b7a489a 100644
-> > --- a/drivers/media/rc/rc-main.c
-> > +++ b/drivers/media/rc/rc-main.c
-> > @@ -17,9 +17,8 @@
-> >  #include <linux/module.h>
-> >  #include "rc-core-priv.h"
-> >  
-> > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
-> > -#define IR_TAB_MIN_SIZE	256
-> > -#define IR_TAB_MAX_SIZE	8192
-> > +#define IR_TAB_MIN_ENTRIES	32
-> > +#define IR_TAB_MAX_ENTRIES	1024
-> 
-> This is better...
-> 
-> >  
-> >  static const struct {
-> >  	const char *name;
-> > @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
-> >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
-> >  			   const char *name, u64 rc_proto, size_t size)
-> >  {
-> > +	unsigned int alloc;
-> >  	rc_map->name = kstrdup(name, GFP_KERNEL);
-> >  	if (!rc_map->name)
-> >  		return -ENOMEM;
-> > +	alloc = roundup_pow_of_two(size);
-> >  	rc_map->rc_proto = rc_proto;
-> > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
-> > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
-> > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-> > +	rc_map->len = 0;
-> > +	rc_map->size = alloc;
-> 
-> ...but this still says 'size'...
+Hi,
 
-struct rc_map_table has a len and size member. I agree that size is not
-a good name. How about capacity or cap]? I am not sure that entries is much
-clearer that entries tbh, because what's the difference between len and
-entries?
+On next-20260914 I saw:
 
-> > +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
-> >  	if (!rc_map->scan) {
-> >  		kfree(rc_map->name);
-> >  		rc_map->name = NULL;
-> >  		return -ENOMEM;
-> >  	}
-> >  
-> > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
-> > -		rc_map->size, rc_map->alloc);
-> > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-> > +		alloc, alloc * sizeof(struct rc_map_table));
-> >  	return 0;
-> >  }
-> >  
-> > @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
-> >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
-> >  			   gfp_t gfp_flags)
-> >  {
-> > -	unsigned int oldalloc = rc_map->alloc;
-> > -	unsigned int newalloc = oldalloc;
-> > -	struct rc_map_table *oldscan = rc_map->scan;
-> > +	unsigned int newsize = rc_map->size;
-> >  	struct rc_map_table *newscan;
-> >  
-> >  	if (rc_map->size == rc_map->len) {
-> >  		/* All entries in use -> grow keytable */
-> > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-> > +		if (newsize >= IR_TAB_MAX_ENTRIES)
-> >  			return -ENOMEM;
-> >  
-> > -		newalloc *= 2;
-> > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-> > +		newsize *= 2;
-> > +
-> > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
-> >  	}
-> >  
-> > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-> > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
-> 
-> ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
-> are mixed.
-> 
-> This is not important for this series, so you can go ahead with it.
-> 
-> But personally I would prefer to rename rc_map->size to rc_map->entries and
-> ditto for newsize to newentries. That way it is clear that these variables
-> deal with the number of entries and not the size in bytes.
+| mtk-mdp3 14001000.dma-controller: deferred probe timeout, ignoring depend=
+ency
+| Unable to handle kernel NULL pointer dereference at virtual address 00000=
+00000000019
+| Mem abort info:
+|   ESR =3D 0x0000000096000004
+|   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+|   SET =3D 0, FnV =3D 0
+|   EA =3D 0, S1PTW =3D 0
+|   FSC =3D 0x04: level 0 translation fault
+| Data abort info:
+|   ISV =3D 0, ISS =3D 0x00000004, ISS2 =3D 0x00000000
+|   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
+|   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0
+| user pgtable: 4k pages, 48-bit VAs, pgdp=3D0000000110d36000
+| [0000000000000019] pgd=3D0000000000000000, p4d=3D0000000000000000
+| Internal error: Oops: 0000000096000004 [#1]  SMP
+| dwmac-mediatek 11021000.ethernet end0: renamed from eth0
+| Modules linked in: mtk_vcodec_dec_hw =E2=80=A6
+| CPU: 6 UID: 0 PID: 90 Comm: kworker/u32:1 Tainted: G        W           7=
+=2E3.0-rc3-next-20260914 #1 PREEMPT_{RT,(full)}
+| Tainted: [W]=3DWARN
+| Hardware name: MediaTek Genio 1200 EVK-P1V2-EMMC (DT)
+| Workqueue: events_unbound deferred_probe_work_func
+| pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)
+| pc : mtk_mutex_get+0xc/0x44 [mtk_mutex]
+| lr : mdp_probe+0x150/0x438 [mtk_mdp3]
+| sp : ffff8000837ebb30
+| x29: ffff8000837ebb30 x28: 0000000000000000 x27: 0000000000000000
+| x26: 000000000000000c x25: 000000000000000d x24: ffff0000c0de3410
+| x23: 0000000000000000 x22: ffff0000c0de3400 x21: 0000000000000000
+| x20: ffff0000d1e56800 x19: ffff0000d1e56800 x18: ffff8000826bfd18
+| x17: 3030303030303431 x16: 3a6d726f6674616c x15: 0000000000000058
+| x14: ffffffffffffffff x13: 0000000000000028 x12: 0101010101010101
+| x11: 7f7f7f7f7f7f7f7f x10: fefeff776473746c x9 : 0000000000000008
+| x8 : ffff0000c0864500 x7 : 0000000000000000 x6 : 0000000000000020
+| x5 : 0000000000000020 x4 : 0000000000000040 x3 : 0000000000000000
+| x2 : ffff80007b37d040 x1 : 0000000000000000 x0 : 0000000000000019
+| Call trace:
+|  mtk_mutex_get+0xc/0x44 [mtk_mutex] (P)
+|  platform_probe+0x5c/0xa4
+|  really_probe+0xbc/0x2c0
+|  __driver_probe_device+0x11c/0x184
+|  driver_probe_device+0x3c/0x114
+|  __device_attach_driver+0xb8/0x11c
+|  bus_for_each_drv+0x88/0xe8
+|  __device_attach+0xa0/0x190
+|  device_initial_probe+0x50/0x54
+|  bus_probe_device+0x38/0xac
+|  deferred_probe_work_func+0x90/0xc8
+|  process_one_work+0x188/0x4f8
+|  worker_thread+0x18c/0x308
+|  kthread+0x130/0x140
+|  ret_from_fork+0x10/0x20
+| Code: ???????? f9403c03 52800001 91006460 (39400002)
+| ---[ end trace 0000000000000000 ]---
 
-How about newcapicity or newcap? 
+That report ist from
+	https://dashboard.kernelci.org/test/maestro%3A6aa88a0d20239ade9037b72f
+	https://files.kernelci.org/rt-tests-cyclictest-6aa88a0d20239ade9037b72f/lo=
+g.txt.gz
 
-> I mention it only because when I reviewed v4 it confused me.
+This is also visible on 7.3.0-rc3:
+	https://files.kernelci.org/rt-tests-cyclictest-6aa84e3720239ade90364e29/lo=
+g.txt.gz
 
-Thanks,
+Could someone please take a look, I don't have the hardware myself.
 
-Sean
+Sebastian
