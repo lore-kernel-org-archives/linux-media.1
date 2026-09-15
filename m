@@ -1,296 +1,96 @@
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A012C11E6
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDFD4746C8;
+	Tue, 15 Sep 2026 08:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460775; cv=none; b=k6TEo6Fx/qFEMfNvjN0d/y7OGgUPpLFzAwBuRdQVUmYz5jY1JucSzoiW5SNgHOmUYz7nb9M7e4b+pZj8LzUoIfDq1UmBEc+QKfNaZxWB4eyu1WrvE7zF1M50UkyViUya3OauHO71MGZjrixTP7y6YdpdqBrkQTsho4WyLtCSJJM=
+	t=1789460820; cv=none; b=fsHrYvPPAKUKr9mL4mtcAKpXA/vxltCC0E4V/mkNbdT7uI3otr7Qfhkjy4a0Hc159upK1EzD/A9KytnULIILP2ThunLxi1XoFPAeIASnwJJpfg04YMn2jlGhY3Zz7tOq+UCY8vi6ajT9mJppHq94kO7CnGHLAnUL7IBRA/PMGC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460775; c=relaxed/simple;
-	bh=LqJMFQGliTTZ9KNIvLTBQqllQDtaRAf0jEikiPuUKto=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=CXYmZ3Q6+etPKQemwXPih6OQzMj2hprcwZyaIBi62zfjajCVG2SDSIjVEOmm7uePxgbC/jDKwyoL4ScBlbhgTHtRP3fGaYoS4J/eKSa9KNTLoZthL0pR3GgWBlftJxXnScx9a0IHT0AJOFHrdj+NAZMshcTJTffr3pygVhSzfMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bk7xpRJD; arc=none smtp.client-ip=209.85.219.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1789460820; c=relaxed/simple;
+	bh=k/kXBbvUnsR2JZE7L5PkepCXLAnreHT5OcvsBEAggn4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DaPjcFCBhxTGSLTXfllXKt2i9kKhSvBXwHJkpi3h7LoW1qY1bFRk7QSVQppx8MqDS5qsF2kP6FBJTA65B6+FIuQMA8N0+o/NrMWUvcSwk4GOAM2orlrE1tyqFQUm4Cm6TrQejq24U4tZjMnklwZPHDlCtB0ozhG0pJQNXfgacdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=O37J8NVR; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bk7xpRJD"
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90ce21f2cc9so131774756d6.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:26:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460772; x=1790065572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eELVo8fI0ZjlHs2eEJ49S4+N/SPMib/OwBxEH2gJjRU=;
-        b=bk7xpRJDwjkrwyL99b7N7uvxkdA5aH4UsMGSw1cHQYSQzhcVT4Icp5VgtYLkacxTmA
-         Xnzuu4PHp3FhBuqkNWVS5Q6nYgqhnpvW1U8VH9H1fgv1LwEgPyN/Tb0nCu8fVZgp5EkH
-         K9pTuExSLSRTZ9551SaX5koiIAh7o1wa6lwZIs/xM9x9MjmozY/7nQxPy3QauTl/4BCD
-         FKX/meZbwiEf6JYBCQ2yMBS2Zhw8D8S3I6D/yaCsvBabwMObyx9tgS4qYz8gP/0MlcDY
-         8es+Iwpt/l3CCh+j8AzXbW67BJ4DX9LObWOjSYzV3XRPLwq0RboCBnjb2WzFlPcztWHO
-         beTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460772; x=1790065572;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eELVo8fI0ZjlHs2eEJ49S4+N/SPMib/OwBxEH2gJjRU=;
-        b=x1KeUT20o2C4KgtFan/SKs91RSczu1pNnzyM44RR/cDtUo9/9B4KlvVir1mdMRes/C
-         vdYt4iv1ZtCTSXvoh/3pjlnciK2JdhG0470zRKm2BIJAwsibY33Vlitk8UQ+pH1djxJY
-         NR5Ne2u+odrJcVd7AGnO2guKeoGdK8IiJ/jNuCW2QQD38TlShcyB3un86EpiDocKyB03
-         Bbvk1JjP9IYATNRFHZG2oS3WufRTY0x+zdUG85oyG1GTRO/GK5oO46hlUpK86Ah7wBGz
-         xW+1WLAbmocWarDdJ6lwlHh1zTnFlm3C8MaN2rfHTYIt0HWIhPbHmDvqrU7fbETDQTL6
-         BCCA==
-X-Forwarded-Encrypted: i=1; AKwUvByYdQxBctAeOOPvuAT1NuoSYTpFkSe2w869+kBny+HVQbI6ynYvSwXh51OXZ07H4OsbEf7U7QElP4w3Qw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mgefZqd4rX0oWac5kbozhYJ1yzzGlDIF3yobSbqtiATxrcQW4A
-	XGUk7d2l0GM0v0EH1fYkJTPQRhJukVOMmZT2bZuosG/kx0rwz/u6jbFSqRLkWVW14mofxhTZdbT
-	c
-X-Received: from plvv1.prod.google.com ([2002:a17:902:d081:b0:2ca:ceab:34a3])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f612:b0:2d8:d4dd:24c0
- with SMTP id d9443c01a7336-2dd6c7e1a9fmr128970685ad.21.1789460409250; Tue, 15
- Sep 2026 01:20:09 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:34 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="O37J8NVR"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4dd202c5e;
+	Tue, 15 Sep 2026 16:26:44 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hans.verkuil@cisco.com>,
+	Federico Vaga <federico.vaga@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH] media: adv7180: Initialize mutex before ancillary clients
+Date: Tue, 15 Sep 2026 16:26:38 +0800
+Message-Id: <20260915082638.1319954-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-18-morbo@google.com>
-Subject: [PATCH 17/28] MIPS: cmdline: Refactor bootcmdline_append() to use snprintf()
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
-	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
-	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0a42cf3e103a1kunmab96dc082cab21
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGk9PVk4aGU5KHUsaQhpLHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=O37J8NVRpE0hIv8XdkWxdyI9wVehzOR9TI3pBmGql6Hr/E1wOAVzEDWfZKORRt0GLb9onNMO5f/ntFdVmPugTg1nDp4A81y8aGoIMsuvFxn6U/eNrMIPO/TkMvZ/ZK4d1PeVIf0rIZ+wBeUwa5Ph6DpX2c9NsfcHI46Y0C5VgvE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=2hxudm3/8OerbnXxJeguxeo2vni+wS29uEEipI4Ld0w=;
+	h=date:mime-version:subject:message-id:from;
 
-bootcmdline_append() passes "max" (the maximum length of the source
-string "s") as the destination buffer size argument to strlcat(). Because
-strlcat() expects the total size of the destination buffer
-(COMMAND_LINE_SIZE), it fails to append anything whenever "max" is smaller
-than the current length of boot_command_line, and could overflow
-boot_command_line if "max" exceeds COMMAND_LINE_SIZE.
+The VPP ancillary-client error path unregisters the CSI client before
+destroying state->mutex. For I2P variants, the failure can occur before
+mutex_init(), so cleanup destroys an uninitialized mutex.
 
-In preparation for removing the deprecated strlcat() API[1], replace the
-strlcat() calls with snprintf() using the "%.*s" precision specifier. This
-bounds the read from "s" to at most "max" bytes while properly respecting
-the remaining space in boot_command_line.
+Initialize the mutex immediately after allocating the driver state, before
+creating any ancillary clients. This keeps every cleanup path matched with
+a completed mutex initialization.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: SecurityEngineer:Gemini2.5Pro [editor_update_file, shell_comma=
-nd_run, make_kernel_build_single_file, test_runner_run_kunit_test]
-Signed-off-by: Bill Wendling <morbo@google.com>
+A QEMU x86_64 test using an i2c-stub bus instantiated an ADV7280 client
+at address 0x21 and occupied its VPP ancillary address 0x42. This forced
+i2c_new_ancillary_device() to return -EBUSY. An instrumentation oracle
+observed an uninitialized mutex on the buggy kernel and an initialized
+mutex on the fixed kernel. The failure was deliberately injected to
+exercise the error path; no natural crash was observed.
+
+Fixes: 851a54effbd8 ("[media] adv7180: Add I2P support")
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- arch/mips/kernel/setup.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/media/i2c/adv7180.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/mips/kernel/setup.c b/arch/mips/kernel/setup.c
-index 1ae6d0c0e1d6..0d9c2137d675 100644
---- a/arch/mips/kernel/setup.c
-+++ b/arch/mips/kernel/setup.c
-@@ -518,13 +518,28 @@ static void __init check_kernel_sections_mem(void)
-=20
- static void __init bootcmdline_append(const char *s, size_t max)
- {
-+	size_t len;
-+	int prec;
-+
- 	if (!s[0] || !max)
- 		return;
-=20
--	if (boot_command_line[0])
--		strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
-+	len =3D strlen(boot_command_line);
-+	if (len >=3D COMMAND_LINE_SIZE - 1)
-+		return;
-=20
--	strlcat(boot_command_line, s, max);
-+	if (len) {
-+		if (COMMAND_LINE_SIZE - len < 3)
-+			return;
-+
-+		prec =3D min_t(size_t, max, COMMAND_LINE_SIZE - len - 2);
-+		snprintf(boot_command_line + len, COMMAND_LINE_SIZE - len, " %.*s",
-+			 prec, s);
-+	} else {
-+		prec =3D min_t(size_t, max, COMMAND_LINE_SIZE - 1);
-+		snprintf(boot_command_line, COMMAND_LINE_SIZE, "%.*s",
-+			 prec, s);
-+	}
- }
-=20
- #ifdef CONFIG_OF_EARLY_FLATTREE
---=20
-2.55.0.1032.g73a4cd73de-goog
+diff --git a/drivers/media/i2c/adv7180.c b/drivers/media/i2c/adv7180.c
+index a1c7f6822..8c2cf3f53 100644
+--- a/drivers/media/i2c/adv7180.c
++++ b/drivers/media/i2c/adv7180.c
+@@ -1454,6 +1454,7 @@ static int adv7180_probe(struct i2c_client *client)
+ 	if (state == NULL)
+ 		return -ENOMEM;
+ 
++	mutex_init(&state->mutex);
+ 	state->client = client;
+ 	state->field = V4L2_FIELD_ALTERNATE;
+ 	state->chip_info = i2c_get_match_data(client);
+@@ -1497,7 +1498,6 @@ static int adv7180_probe(struct i2c_client *client)
+ 	}
+ 
+ 	state->irq = client->irq;
+-	mutex_init(&state->mutex);
+ 	state->curr_norm = V4L2_STD_NTSC;
+ 
+ 	state->input = 0;
+-- 
+2.34.1
 
