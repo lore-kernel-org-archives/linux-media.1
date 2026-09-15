@@ -1,241 +1,159 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A90B49C4B6
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 14:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484128; cv=pass; b=LSAn1tvd99jvs45vyxCZFxKFpQw36vfiArpBlwlXAX2EuFGzG/8Up89h8dcnFr+Z8mJxG+xAqQCS0cqTb01rsYJMx4XejBgXIFTXjac6qdoLYg/4yIQCDWw4WD/a6UsTyalMn2I0c051kX/fBXa8gvJrbw4cTDTP91xmYFXEKHU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484128; c=relaxed/simple;
-	bh=IQOVHgvKNMsV2dpQitqyeqDC65v1umIV6EK+mzQp5cE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a+KF0kyAfZMZAA2UAaKLPFFDIGXAc0XNAoXPVzlNJYcMMQMMqH1QljrCsQ/9IaHBv/aaTHQmCq2ulOwyUKZfboJEO4Gg3ea0nJtYLfRt5/vk/FOlYFvGB+mIIrfSyoy2rX7s/WZr93PVzNHePIL34R6I4NUSXjcfaxkabyH1nk4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=UBdYAUdt; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB58549E15A;
+	Tue, 15 Sep 2026 14:56:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789484184; cv=none; b=Dne19lc7jAaE+BwR8IJdecB9POLYxmV6mbepmv7tUWmaNl1+M7UA93BaCpfRqRjmjGbimT7OhFWFJh/Th+tIsHjXVvv3xWxowh7oLqBr1P1CZmIHQqd/om8C6B8Bt65FJbp0hoTGaBFew2YZ6Bl6VCULh+Mt+GH7DFZm24Il48w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789484184; c=relaxed/simple;
+	bh=kg9GekJuBJ8SYQL6TTBh61wvP3AifQMScyKfkRmP62A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EmvkRTqRC710Imw6xvrC5H3QQmGVJjrbqXMBTHJ6ih/sOBcn1OdxyvTDodeFgfiqrZw6lWetDpXO2+IsueH2iGGQ9cGNXVWJrecOnofTMbU2Pt7TBDgslaCB5hn2iy3RQX1v4m7oPi9A5NSz6BDa/oEDB1x2DSQ7TisCf8/QXT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=grG5Mx/o; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="UBdYAUdt"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9107051ba26so2082656d6.1
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 07:55:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789484119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ox39qHqFUb2Fw+GS1dPqhm9a2u0ZtTcLTjUDkYK9JDuquhlJPAntSrhnXvuU5Hu746
-         NeEv9Qb+xcFP1+d6LH8GExLKq9QbzWnv7jwkl0fZLhmf4IAEuDDIG2eGFa6AFSa7ueh4
-         8xrMPPyt8lpejaZOtboZlwHD4xdlyxYy/EotqHYx/lZP5GKRnSgpaE6bOQ7lqH5VYuW8
-         TmNMKHkQIeKEh964wdWwKUvMaqMo0/S3zZeotaFfEFh6k/HuN9SNqDN20RKFVdjK+lAl
-         ZxvGBiPj1zR8VRtdA60xKS/5riICd+Z11Z3LYT8E8lL9h/Q1l6ZzIPYmeLy8rgQSzVsb
-         Pt2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YkDpn1JCbSK0XZcKlenB4zRb1JTQeGLgWK+EJPOwUG8=;
-        fh=Su/viuO3fb9HRN0crhVyQ35zj4LecwbiHNwGkiZOKTM=;
-        b=XmsyHik03n3uvl4j031PCrNsp9yQCrtrgA7qsCud/tYpA5hjoiGpaW9tW//sc/0hV1
-         JIKX/KXia7LqDYadqac0L89G/hrTKsmgmxr7Nm31OBt5AfAMF0ft8qgUMLOLDQ2C1ZAx
-         Td062/uUlL5tQ2Smz41bSBBzcQCmrBY4AOFwGn4d8u0MRuJheIGyFAquMBEXAQMSbudQ
-         0j/CsF2u5FGnnFxUlg94ev0fJf/fLLjs/3AghCTnAqF86ksU8K/KXM0vZi6wEIoBomU4
-         b4joKLi1hyK+XIysIXBuWUGIhNHttyKpvc7AqrsvPDvkVlJQ482BjapkB3mYqY4nHmEs
-         6cBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1789484119; x=1790088919; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YkDpn1JCbSK0XZcKlenB4zRb1JTQeGLgWK+EJPOwUG8=;
-        b=UBdYAUdtVuF1rLO5biBHrUPXGibqLC8D0ggCw166/LgkYrJnhy1amStf0bhL9McmQ8
-         hAPn+xPXi3qTrXLrg7Y2+DmnQmeezczqXr28Zhu61Iq5r5036d0oMEpCF/5pbXcNGMY+
-         jb71BiodQiqdtvOC8Ri/vlurTZHaK6Ehxpyu0aoJBjp35w/t8xYtpluH6DJCirjdSOD0
-         0IlmZeVGxCNidXA0+4Hi5dU0j251h6KXt34gXLz/w3L1lNx4/jhVp24nhynYKX6IiIgM
-         nwIvtqLJw7QCLPcau4BqMxyQGe6f+m8GVFuceIuhKlYRJgfuGC4sled2ApY3Kaki0On2
-         vpqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484119; x=1790088919;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YkDpn1JCbSK0XZcKlenB4zRb1JTQeGLgWK+EJPOwUG8=;
-        b=gON//QTfAcWQ3R6bCn5gxkHDxS1Mi2h3g1W4n9lSQUMFDnPfueSSiAgRAiq4bd3rn1
-         uZs7ogNyN9nXisWIw4HWaWislapji76Mz7VICp+gtwZx8DeLGXPW7n2IgOxC/3Ug288Y
-         dcbANBQQbbOUAdf/svPiCgUs1WFWeSI3A2o7ThT+b4wRqROXvJq7DCd9YhGUvi4L0UKn
-         C8/20FSzJhu/U6U3AnrzuZ909AIc/Ad6r8mt9d+4572TLAOqMe+R86963pY6Mz2H9v/e
-         Z1Y1nPdOgYQlByarkp3my4WHP8p5LYXCc71SVheYrI9FJsLhNwmnNtItuN99SFyhoN+7
-         WPkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCs26Zz5NUImCCJOwQ/CEHQW3FVmpZuES5XD30HW7w6ftca2i1a+BmKZ2zJYJKW7mQwT7qDa2Nn3i2UQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mYxF4KsH3Y/FbZjbDuSp4QJgR6ipg+ihXFwyMKdVI79QrSaqmE
-	Z0wqrF/yJtUya5OpbscYQlRojmT1114I9aIyZS6Z3JjuUFAd25OY93HeMAgVHSwDEXWENQlPSQk
-	tn3KRi+UnaXjSUIR8OUTHsa7P04dWAVFnK4DIO+onjw==
-X-Gm-Gg: AYBFou0JLvg4KSR8WMgPwRpccNrkjKVZo8dajWfTOU1FDezoQtSguHydvl+D+pEpD/Z
-	wCAZ4nurvlyjbRCdvggKNyDkm0oIljDDykE2Z+uS2hFEh6tN2bQoRpf95ssUg10vR6jS7AweXNt
-	7+QIuKt3tfxfqGSY/ZWnZ3WV7bzXre73u0I0vDrHsGvFB2bSlB9B7GvQ1mwz7dDNDiDbU+X3Vik
-	+beU4VAdvuHwISQS7diZUjLAK1b19ay6XEqTA7QckvaZxxU3VOipHkVWyRVR5SNqj4ZK0LXfkLn
-	wfaL8Llw/8NHaRjTaOOjIG7ccR2+AhCLmd9ZAfoYMIRSSM5NJSpPMS/caRYH1vXG0dzRRwb/+ql
-	DTyBjhwePel+qVPlsQTqjcRW2fhnIIBqNpbq9GQCliVpSONKQqIxnWlZfXChb1rZDUdAfvwve
-X-Received: by 2002:a05:6214:4890:b0:90e:9dea:82f0 with SMTP id
- 6a1803df08f44-9123a453bfemr21659816d6.15.1789484118558; Tue, 15 Sep 2026
- 07:55:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="grG5Mx/o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789484175; bh=kg9GekJuBJ8SYQL6TTBh61wvP3AifQMScyKfkRmP62A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=grG5Mx/oU7ozBT1BnMN1wIeFxU6HPj2uLSo/wrh3X0u6j6gNtYcUQpsfcFz+s1TXX
+	 LRoy9hiI0SdavFB7kxOypX/uaRoXONyqV9vFPm8NY5VodJDaJDy2QFYcyZJ9gySvUm
+	 a1wisXtLn6uPoqDML2wmBFEjYETk/oGzfSzR/vU5j+1eCtfMgEItU7bmUlxLixgHrF
+	 6jRUYn20dE52Esaw+MgCgIzpq8u2duH9kBkfuCJQ1aAOog1ET3+Tim50r3J0a1Hdja
+	 1GgzO/JnI0BP6DExYFlVqBuQYgrO1USPD3z0Qt8LgylUgi9WzhCxlM8uEvKagDKay0
+	 Rm2eph1MLDo0A==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 14E0C40B71; Tue, 15 Sep 2026 15:56:15 +0100 (BST)
+Date: Tue, 15 Sep 2026 15:56:15 +0100
+From: Sean Young <sean@mess.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
+ keymap
+Message-ID: <aqlcj9xXNRURA5iJ@extorris.mess.org>
+References: <cover.1789460680.git.sean@mess.org>
+ <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
+ <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-8-f520af59df1b@linux.dev>
-In-Reply-To: <20260914-ov9282-fixes-v1-8-f520af59df1b@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 15 Sep 2026 15:55:01 +0100
-X-Gm-Features: AcwNN1XJ97RRaChz_Ari5H04vXbpih7jQTNs_yqFVO4YUf8A61DtI85agIxDfRM
-Message-ID: <CAPY8ntB-vJR-Z-x3NV18NHueVGuo6zd8J7Mf6GQDYgZuJq8LDw@mail.gmail.com>
-Subject: Re: [PATCH 08/10] media: i2c: ov9282: harmonize dev_err_probe usage
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
 
-Hi Richard
+On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
+> On 9/15/26 10:32, Sean Young wrote:
+> > Replace some ugly code with open coded krealloc() and remove
+> > superfluous member of struct rc_map.
+> > 
+> > Signed-off-by: Sean Young <sean@mess.org>
+> > ---
+> >  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
+> >  include/media/rc-map.h     |  2 --
+> >  2 files changed, 22 insertions(+), 25 deletions(-)
+> > 
+> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+> > index d4baaae3a834..53e39b7a489a 100644
+> > --- a/drivers/media/rc/rc-main.c
+> > +++ b/drivers/media/rc/rc-main.c
+> > @@ -17,9 +17,8 @@
+> >  #include <linux/module.h>
+> >  #include "rc-core-priv.h"
+> >  
+> > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
+> > -#define IR_TAB_MIN_SIZE	256
+> > -#define IR_TAB_MAX_SIZE	8192
+> > +#define IR_TAB_MIN_ENTRIES	32
+> > +#define IR_TAB_MAX_ENTRIES	1024
+> 
+> This is better...
+> 
+> >  
+> >  static const struct {
+> >  	const char *name;
+> > @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+> >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+> >  			   const char *name, u64 rc_proto, size_t size)
+> >  {
+> > +	unsigned int alloc;
+> >  	rc_map->name = kstrdup(name, GFP_KERNEL);
+> >  	if (!rc_map->name)
+> >  		return -ENOMEM;
+> > +	alloc = roundup_pow_of_two(size);
+> >  	rc_map->rc_proto = rc_proto;
+> > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
+> > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
+> > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
+> > +	rc_map->len = 0;
+> > +	rc_map->size = alloc;
+> 
+> ...but this still says 'size'...
 
-On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-<richard.leitner@linux.dev> wrote:
->
-> Use dev_err_probe() for all error messages during probing. This ensures
-> there's a common "look-and-feel" in the drivers source code as well as
-> the system log.
->
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> ---
->  drivers/media/i2c/ov9282.c | 38 ++++++++++++++++++--------------------
->  1 file changed, 18 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index 28f8b05b4c09e..f728709fcf0a6 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -1109,26 +1109,25 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
->         ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
->                                                      GPIOD_OUT_LOW);
->         if (IS_ERR(ov9282->reset_gpio)) {
-> -               dev_err(ov9282->dev, "failed to get reset gpio %pe",
-> -                       ov9282->reset_gpio);
-> -               return PTR_ERR(ov9282->reset_gpio);
-> +               return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
-> +                                    "failed to get reset gpio");
->         }
->
->         /* Get sensor input clock */
->         ov9282->inclk = devm_v4l2_sensor_clk_get(ov9282->dev, NULL);
->         if (IS_ERR(ov9282->inclk))
->                 return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->inclk),
-> -                                    "could not get inclk\n");
-> +                                    "could not get inclk");
+struct rc_map_table has a len and size member. I agree that size is not
+a good name. How about capacity or cap]? I am not sure that entries is much
+clearer that entries tbh, because what's the difference between len and
+entries?
 
-My understanding is that dev_err_probe should always have the \n on
-the end of the log text.
-Admittedly "failed to get reset gpio %pe" above is missing it, but
-removing it off all the other instances seems to be the wrong fix.
+> > +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
+> >  	if (!rc_map->scan) {
+> >  		kfree(rc_map->name);
+> >  		rc_map->name = NULL;
+> >  		return -ENOMEM;
+> >  	}
+> >  
+> > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
+> > -		rc_map->size, rc_map->alloc);
+> > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
+> > +		alloc, alloc * sizeof(struct rc_map_table));
+> >  	return 0;
+> >  }
+> >  
+> > @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
+> >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+> >  			   gfp_t gfp_flags)
+> >  {
+> > -	unsigned int oldalloc = rc_map->alloc;
+> > -	unsigned int newalloc = oldalloc;
+> > -	struct rc_map_table *oldscan = rc_map->scan;
+> > +	unsigned int newsize = rc_map->size;
+> >  	struct rc_map_table *newscan;
+> >  
+> >  	if (rc_map->size == rc_map->len) {
+> >  		/* All entries in use -> grow keytable */
+> > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
+> > +		if (newsize >= IR_TAB_MAX_ENTRIES)
+> >  			return -ENOMEM;
+> >  
+> > -		newalloc *= 2;
+> > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
+> > +		newsize *= 2;
+> > +
+> > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
+> >  	}
+> >  
+> > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
+> > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
+> 
+> ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
+> are mixed.
+> 
+> This is not important for this series, so you can go ahead with it.
+> 
+> But personally I would prefer to rename rc_map->size to rc_map->entries and
+> ditto for newsize to newentries. That way it is clear that these variables
+> deal with the number of entries and not the size in bytes.
 
-Otherwise the patch looks fine.
+How about newcapicity or newcap? 
 
-  Dave
+> I mention it only because when I reviewed v4 it confused me.
 
->
->         ret = ov9282_configure_regulators(ov9282);
->         if (ret)
->                 return dev_err_probe(ov9282->dev, ret,
-> -                                    "Failed to get power regulators\n");
-> +                                    "Failed to get power regulators");
->
->         rate = clk_get_rate(ov9282->inclk);
->         if (rate != OV9282_INCLK_RATE) {
-> -               dev_err(ov9282->dev, "inclk frequency mismatch");
-> -               return -EINVAL;
-> +               return dev_err_probe(ov9282->dev, -EINVAL,
-> +                                    "inclk frequency mismatch");
->         }
->
->         ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
-> @@ -1144,16 +1143,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
->                 bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
->
->         if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
-> -               dev_err(ov9282->dev,
-> -                       "number of CSI2 data lanes %d is not supported",
-> -                       bus_cfg.bus.mipi_csi2.num_data_lanes);
-> -               ret = -EINVAL;
-> +               ret = dev_err_probe(ov9282->dev, -EINVAL,
-> +                                   "number of CSI2 data lanes %d is not supported",
-> +                                   bus_cfg.bus.mipi_csi2.num_data_lanes);
->                 goto done_endpoint_free;
->         }
->
->         if (!bus_cfg.nr_of_link_frequencies) {
-> -               dev_err(ov9282->dev, "no link frequencies defined");
-> -               ret = -EINVAL;
-> +               ret = dev_err_probe(ov9282->dev, -EINVAL,
-> +                                   "no link frequencies defined");
->                 goto done_endpoint_free;
->         }
->
-> @@ -1382,14 +1380,14 @@ static int ov9282_probe(struct i2c_client *client)
->
->         ret = ov9282_parse_hw_config(ov9282);
->         if (ret) {
-> -               dev_err(ov9282->dev, "HW configuration is not supported");
-> -               return ret;
-> +               return dev_err_probe(ov9282->dev, ret,
-> +                                    "HW configuration is not supported");
->         }
->
->         ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
->         if (IS_ERR(ov9282->regmap))
->                 return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->regmap),
-> -                                    "Failed to init CCI\n");
-> +                                    "Failed to init CCI");
->
->         ret = ov9282_power_on(ov9282->dev);
->         if (ret)
-> @@ -1399,7 +1397,7 @@ static int ov9282_probe(struct i2c_client *client)
->         /* Check module identity */
->         ret = ov9282_detect(ov9282);
->         if (ret) {
-> -               dev_err(ov9282->dev, "failed to find sensor: %d", ret);
-> +               dev_err_probe(ov9282->dev, ret, "failed to find sensor");
->                 goto error_power_off;
->         }
->
-> @@ -1409,7 +1407,7 @@ static int ov9282_probe(struct i2c_client *client)
->
->         ret = ov9282_init_controls(ov9282);
->         if (ret) {
-> -               dev_err(ov9282->dev, "failed to init controls: %d", ret);
-> +               dev_err_probe(ov9282->dev, ret, "failed to init controls");
->                 goto error_power_off;
->         }
->
-> @@ -1422,14 +1420,14 @@ static int ov9282_probe(struct i2c_client *client)
->         ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
->         ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
->         if (ret) {
-> -               dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
-> +               dev_err_probe(ov9282->dev, ret, "failed to init entity pads");
->                 goto error_handler_free;
->         }
->
->         ov9282->sd.state_lock = ov9282->ctrl_handler.lock;
->         ret = v4l2_subdev_init_finalize(&ov9282->sd);
->         if (ret < 0) {
-> -               dev_err_probe(ov9282->dev, ret, "failed to init subdev\n");
-> +               dev_err_probe(ov9282->dev, ret, "failed to init subdev");
->                 goto error_media_entity;
->         }
->
->
-> --
-> 2.53.0
->
->
+Thanks,
+
+Sean
