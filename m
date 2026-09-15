@@ -1,107 +1,205 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C1C135A53;
-	Tue, 15 Sep 2026 00:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372A13090C6
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789430812; cv=none; b=BL7f0zEmADpKDQBFSej627KER1ZHRStcsC5Bk6HgSZMNuyMaDDA78MIdBqbuh8xsB81wNpS6r1Lh1tSPmXAteCpzaaCxXk20NEE5b8ZBXpj0y0TIjb2Ab615WY7A7IluuTLO7SEEXC2wIgFeWe+DcnYZS7eKBReb5OwQsOrJkvQ=
+	t=1789434078; cv=none; b=qecCx19D0OK7yPLOkQgytDpPqA//7j7oBDqb6lNJtehzzLxbBlZhzjAxbg8L4QUvUw5Q6JxlHQXsDY1WkHReIO+iwbDZRtP5yhgit6qEnWzmkGmQayBIk8nOftTyYyPIf3hRBG/WDK1zNarp2G/X1weVAaKlkN2MwkPFErmW/Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789430812; c=relaxed/simple;
-	bh=WOwRBLg+7b+gJWo+/8WY+8abFEJ6zaAncWZOIAQZjvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqEvJPhr6d6qcPaMzA8xb/xdnAb5WUvnWEAXo+mOs6dhhu7qXCuX2Pur4Z1SrabZjnckeDg3wkMbtFvzgZeaQq9L72mFq43ub9YX0Iq6YeXA2UTN6CYGEPE0WeiwW7hTZyaoUjlf1AZJjGiEiAXDeXw5edy0fCdTGm63Y+MJzQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OVYGPm5q; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789434078; c=relaxed/simple;
+	bh=6VDkLnXloEgLZAQkEc6JPjUeoK2T5pqG7bVPz15pr1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YMsEUHbZFTH0w8FFrSjy1hJwDa5bc21n9wk/X8ThjKq1q23MxZm09dvLBfmIVLUKit4iZKa8Get1fyxFDd3tAs1vwgg9UOWHfJ5SqMBoPKwivSqp49K0yBGKm+nsBdMB0CDlycVDQM4MY7TBVNehzrUuAD6mZmmYK3DVEFBZI9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWajsXJQ; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OVYGPm5q"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2BEB2447;
-	Tue, 15 Sep 2026 02:05:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789430709;
-	bh=WOwRBLg+7b+gJWo+/8WY+8abFEJ6zaAncWZOIAQZjvc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OVYGPm5qwGxfBR6c4XwK2/TN0jkK9BYeOvjGfSHatHPPfOS98egoniH1pBDVlDlJg
-	 w+yd+pfHgux9RYvKwij4RPS/LdgOboEUey4XcXgw6UfPEePC96NILXsNX5wROeu4YL
-	 mTSLxYDQCb47H5BI5wyTeN6TIj/kYKD6kbDIR35o=
-Date: Tue, 15 Sep 2026 03:06:48 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] media: dt-bindings: nxp,imx8-isi: Add i.MX952 ISI
- compatible string
-Message-ID: <20260915000648.GC2804748@killaraus.ideasonboard.com>
-References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
- <20260831-isi_imx952-v2-4-fafdb4b446d4@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWajsXJQ"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cadeb4so381133785a.1
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 18:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789434076; x=1790038876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nkm39s62KoUeXtjUMR2iUNjO7KM7iB+N7kJ3tlV0Lus=;
+        b=KWajsXJQca+8jP+4W+Awv3bcxbQgBX4xCK/pvK2wkUqizCqB7V7m3epjimcquqeIqK
+         wXIKj+6+FJnCrO5/WQbk7q4ukAe0MsriFQA1YM/ilpyE2xFZul9V+pRg2H/YoThOvCyT
+         bDoa8AsyOdYCbHMr2/j51zmvc4BlZX62PVOnZYEbHZWbDpyUcNfX646Tj2P6XvXDChI/
+         Flk08hhrZ0TM85BcCcceZGtVAIrt12U/xJ+XNWotVBaKE1OFOlo/jSxRhZRj85t96vQR
+         LlICI0NGS+P5etWwmUCtM1ke896oDbULB3O8YTxYH2n1fh+KqA4jnQWjicFhEshg/cPr
+         f/DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789434076; x=1790038876;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nkm39s62KoUeXtjUMR2iUNjO7KM7iB+N7kJ3tlV0Lus=;
+        b=Ql0LzA+Wsr7/KfK6wI7X1YF3XmzmVjN6dAsJuvW7+USz7vR1Je3JV3p8VpKU2z7csO
+         wuytyYOUFMbu+Kp99XVGvsfTdDBVUmPq2tPkocYtEPN05wObIVA75Or/ac0TCJwo/Bgs
+         398ppW42SVPm1OlMbVgMsewLhRmVUsUHHVWzhkn/f1BEDB7iofdqIhMwUXXalMQdSukp
+         YQZKNyV1Z7HlnnwG8EwgTSH4HC/6FbUK+4AAt6JkHqfI2v0XsneM2+IT0UM7h3XNlYwW
+         3Q+6wBDKHnndKb7zItsZQzIzirEA5xQLLqZtHR0x2DwnhKYcyj7L14sqcYRvqJbcyXEX
+         cJyQ==
+X-Gm-Message-State: AFuF++kzsPLIzT/t/VLPWRbTJMOXc32YugZfLCN9KgJZA5QqWhMcc2vX
+	xK/5b/O7cPuuZlr8GDX524AdsYF2QmDcMqkvz7xYAhBFq0QGISjN8/mGxHAfcml3
+X-Gm-Gg: AYBFou0WVT6SjckX6tYGHmUIq026exOoxNZ9brMZRgvWNP5u1fRfj0FhP9dKVUtOyfJ
+	yCfJOCjS7ByfsmxCn5CPF98kRTQMoG1mpOjK+cx6eQn0UKHj3TL3IKp4Fp7W/UOK6N1wj2Z0EGY
+	n9mGDcLyA+eQeXvFhj7jusNmCrLRLjK2QmsOQsO6pnhb2sTQR3pGl+BgJFzs6lTneSuE9Qnb6Gx
+	0+7rMaNfzhdj1dfSWKJGspF23WP4YMxOgmT/cpq+vJagBewIvkxFUVxO3TiH9wy1v+E+MJaXaZq
+	+IsBlR2NfXyr8Io9NWkipW1h+qUcDhGlM52piyLsZPLbvpwRLtZY5UdwVvh7j3yvoeKPos5lvmf
+	thlgVWLCREg/pJtAdx+KGRoTG2dNhHWq+vmdouKOvbNqFnf2DSeEKBva3c9qKIjoAywXKNwbMRG
+	0nk6mkx4mQEaonor9BLsFjjCajgVzbq65fQUNegZImHYygiRxnL+IIFLpeTQ65yoU1QUoH06LRb
+	T034So4I1XRs7blOBai4VRJNlpWZ7jaXH2FcqvKOQW++ra1BQ==
+X-Received: by 2002:a05:620a:2904:b0:930:9091:f0ce with SMTP id af79cd13be357-93a2985a593mr819363885a.22.1789434075834;
+        Mon, 14 Sep 2026 18:01:15 -0700 (PDT)
+Received: from father (76-224-4-192.lightspeed.clmboh.sbcglobal.net. [76.224.4.192])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f18467sm1147705885a.11.2026.09.14.18.01.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 18:01:15 -0700 (PDT)
+From: Ben Hoff <hoff.benjamin.k@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org,
+	hverkuil@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/3] media: hws: quiesce interrupts without disabling shared IRQ
+Date: Mon, 14 Sep 2026 21:01:10 -0400
+Message-ID: <20260915010111.101551-3-hoff.benjamin.k@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915010111.101551-1-hoff.benjamin.k@gmail.com>
+References: <20260915010111.101551-1-hoff.benjamin.k@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-isi_imx952-v2-4-fafdb4b446d4@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 11:36:59AM +0800, Guoniu Zhou wrote:
-> The i.MX952 ISI is a minor silicon revision of the i.MX95 ISI,
-> primarily addressing RAW data alignment. The core functionality
-> remains identical, so the i.MX952 ISI uses a fallback compatible
-> string to fsl,imx95-isi.
-> 
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+HWS requests its legacy interrupt with IRQF_SHARED, but suspend, shutdown,
+and removal call disable_irq() on the shared descriptor. This prevents
+other devices on the line from being serviced, and removal leaves the
+IRQ disable unbalanced.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Mask the HWS interrupt gate, flush the write, and synchronize the handler.
+Publish suspended state before draining so callbacks caused by a peer on
+the shared line return without accessing HWS registers after suspend.
 
-> ---
-> Changes in v2:
-> - Use fallback compatible fsl,imx95-isi for imx952 (Frank, Conor Dooley)
-> ---
->  .../devicetree/bindings/media/nxp,imx8-isi.yaml        | 18 +++++++++++-------
->  1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml b/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
-> index 279c9cd3034a..d0a99f00a45e 100644
-> --- a/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
-> @@ -18,13 +18,17 @@ description: |
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - fsl,imx8mn-isi
-> -      - fsl,imx8mp-isi
-> -      - fsl,imx8ulp-isi
-> -      - fsl,imx91-isi
-> -      - fsl,imx93-isi
-> -      - fsl,imx95-isi
-> +    oneOf:
-> +      - enum:
-> +          - fsl,imx8mn-isi
-> +          - fsl,imx8mp-isi
-> +          - fsl,imx8ulp-isi
-> +          - fsl,imx91-isi
-> +          - fsl,imx93-isi
-> +          - fsl,imx95-isi
-> +      - items:
-> +          - const: fsl,imx952-isi
-> +          - const: fsl,imx95-isi
->  
->    reg:
->      maxItems: 1
+Keep capture-core initialization from opening the interrupt gate. Resume
+restores the core and clears pending causes before publishing live state
+and unmasking the device-local gate.
 
--- 
-Regards,
+Fixes: ba07fd2f5742 ("media: pci: add AVMatrix HWS capture driver")
+Assisted-by: Codex:GPT-6
+Signed-off-by: Ben Hoff <hoff.benjamin.k@gmail.com>
+---
+ drivers/media/pci/hws/hws_irq.c   | 12 +++---------
+ drivers/media/pci/hws/hws_pci.c   | 27 +++++++++++++++++----------
+ drivers/media/pci/hws/hws_video.c |  8 ++------
+ 3 files changed, 22 insertions(+), 25 deletions(-)
 
-Laurent Pinchart
+diff --git a/drivers/media/pci/hws/hws_irq.c b/drivers/media/pci/hws/hws_irq.c
+index 787c9e498799..8d883663617b 100644
+--- a/drivers/media/pci/hws/hws_irq.c
++++ b/drivers/media/pci/hws/hws_irq.c
+@@ -150,15 +150,9 @@ irqreturn_t hws_irq_handler(int irq, void *info)
+ 	struct hws_pcie_dev *pdx = info;
+ 	u32 int_state;
+ 
+-	/* Fast path: if suspended, quietly ack and exit */
+-	if (READ_ONCE(pdx->suspended)) {
+-		int_state = readl_relaxed(pdx->bar0_base + HWS_REG_INT_STATUS);
+-		if (int_state) {
+-			writel(int_state, pdx->bar0_base + HWS_REG_INT_STATUS);
+-			(void)readl_relaxed(pdx->bar0_base + HWS_REG_INT_STATUS);
+-		}
+-		return int_state ? IRQ_HANDLED : IRQ_NONE;
+-	}
++	if (!pdx || READ_ONCE(pdx->suspended) || !pdx->bar0_base)
++		return IRQ_NONE;
++
+ 	int_state = readl_relaxed(pdx->bar0_base + HWS_REG_INT_STATUS);
+ 	if (!int_state || int_state == 0xFFFFFFFF) {
+ 		return IRQ_NONE;
+diff --git a/drivers/media/pci/hws/hws_pci.c b/drivers/media/pci/hws/hws_pci.c
+index 65b32fac6d1a..c9397b13392a 100644
+--- a/drivers/media/pci/hws/hws_pci.c
++++ b/drivers/media/pci/hws/hws_pci.c
+@@ -325,14 +325,21 @@ static void hws_irq_clear_pending(struct hws_pcie_dev *hws)
+ static void hws_block_hotpaths(struct hws_pcie_dev *hws)
+ {
+ 	WRITE_ONCE(hws->suspended, true);
+-	if (hws->irq >= 0)
+-		disable_irq(hws->irq);
++	/* Publish the stop state before a racing handler can enter MMIO. */
++	smp_mb();
+ 
+-	if (!hws->bar0_base)
+-		return;
++	if (hws->bar0_base)
++		hws_irq_mask_gate(hws);
+ 
+-	hws_irq_mask_gate(hws);
+-	hws_irq_clear_pending(hws);
++	/*
++	 * Do not disable the shared descriptor. Wait for any invocation of this
++	 * handler that raced with the device-local gate instead.
++	 */
++	if (hws->irq >= 0)
++		synchronize_irq(hws->irq);
++
++	if (hws->bar0_base)
++		hws_irq_clear_pending(hws);
+ }
+ 
+ static int hws_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
+@@ -661,11 +668,11 @@ static int hws_pm_resume(struct device *dev)
+ 	hws_init_video_sys(hws, true);
+ 	hws_irq_clear_pending(hws);
+ 
+-	/* IRQs can be re-enabled now that MMIO is sane */
+-	if (hws->irq >= 0)
+-		enable_irq(hws->irq);
+-
++	/* Make our handler live before reopening only this device's IRQ gate. */
+ 	WRITE_ONCE(hws->suspended, false);
++	/* Publish the live state before the device can raise another interrupt. */
++	smp_mb();
++	hws_irq_unmask_gate(hws);
+ 
+ 	/* vb2: nothing mandatory; userspace will STREAMON again when ready */
+ 	hws_video_pm_resume(hws);
+diff --git a/drivers/media/pci/hws/hws_video.c b/drivers/media/pci/hws/hws_video.c
+index 624c48a63b3b..bdbce09ec3e6 100644
+--- a/drivers/media/pci/hws/hws_video.c
++++ b/drivers/media/pci/hws/hws_video.c
+@@ -565,7 +565,7 @@ static void hws_ack_all_irqs(struct hws_pcie_dev *hws)
+ 	}
+ }
+ 
+-static void hws_open_irq_fabric(struct hws_pcie_dev *hws)
++static void hws_configure_irq_fabric(struct hws_pcie_dev *hws)
+ {
+ 	/* Route all sources to vector 0. */
+ 	writel(0x00000000, hws->bar0_base + PCIE_INT_DEC_REG_BASE);
+@@ -574,10 +574,6 @@ static void hws_open_irq_fabric(struct hws_pcie_dev *hws)
+ 	/* Enable the PCIe bridge. */
+ 	writel(0x00000001, hws->bar0_base + PCIEBR_EN_REG_BASE);
+ 	(void)readl(hws->bar0_base + PCIEBR_EN_REG_BASE);
+-
+-	/* Open the global/bridge gate (legacy 0x3FFFF) */
+-	writel(HWS_INT_EN_MASK, hws->bar0_base + INT_EN_REG_BASE);
+-	(void)readl(hws->bar0_base + INT_EN_REG_BASE);
+ }
+ 
+ void hws_init_video_sys(struct hws_pcie_dev *hws, bool enable)
+@@ -604,7 +600,7 @@ void hws_init_video_sys(struct hws_pcie_dev *hws, bool enable)
+ 	writel(0x80FFFFFF, hws->bar0_base + HWS_REG_DEC_MODE);
+ 	writel(0x13, hws->bar0_base + HWS_REG_DEC_MODE);
+ 	hws_ack_all_irqs(hws);
+-	hws_open_irq_fabric(hws);
++	hws_configure_irq_fabric(hws);
+ 	/* 6) record that we're now running */
+ 	hws->start_run = true;
+ }
