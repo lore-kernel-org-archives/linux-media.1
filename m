@@ -1,174 +1,120 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012067.outbound.protection.outlook.com [40.93.195.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C02347DFAA
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462028; cv=fail; b=uzeGnjw5obEP2RGvWhJnVki4eXYzynHABwAHRnU0aJDuA+drWc5m4RF1UPQVAHLmHN5K7U3+hZl9c8PmaS6YkGr6YlZ6+/QNRkPpRNpAp11+ijgsvM5PT3o7gnn8jQOQY2FX9zq6Zmr8LyTZxSUTHlNkWem5VODKPg7RBbc2ibI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462028; c=relaxed/simple;
-	bh=+8VCYqgY9GWL0YliWDNgrlJ/IySkxLbSHKieaBGaIUo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Az4ainqyhc4w6jmDvX78t9FZ6DqBa1b+ZhYH+9YL1lIbDi0n8/LlWE5ljmCCcXd0Zhrtm1xVqOuYeFBMwAqxYvopa/N5HU9Rwz0s4XiOw05XD1IjS+VoxZKssj61Ec97eAm5HwW2DrdCVMEvOMaEmYSu4fTzkefGjxnwkVIWhZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QAO9cMoX; arc=fail smtp.client-ip=40.93.195.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE4D45C6EA
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789462243; cv=none; b=nQ9lJOlOumuyMVtzkzJdTbwyxEZ+dVb0C3SbYSNQuamKb1do6540dGLOKWeRVOZHs6A4UP7QhY4oFsexF+CGUzDK9L0NDYbR/cK3yaZu6iIpH10mdsA9fCd2t9Kpe21mp4DfeDET8BNGWGLi6s3JsKUkHkvEwjig1gX+AqS/w6c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789462243; c=relaxed/simple;
+	bh=aOycPQPzW1hoyp3VFb8uVa68Tk1zbSs3hp8DysdIXZ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V0lBH/EUafcVWEMP+iENQzLulmyB1uqcY6+5ZVigvyojYwFjzLHug4lrpth+VnTsV1B693Qyc4ygLnqSrtKk8aqy6bfGTUutq92iaiY+Gvqu2lhlcLaobau1C2SuQoBgQ3qx+H86XuAj+NJNemrBBMa9xyOUWtTJu7KrROIu3qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akwQ9mg8; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QAO9cMoX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L1Z6ISdItVk0sLqlBoXphJCxUXxHI6t1FMSkmL+Bb8IK1nHkQnoCMJejDDylmHttEsxUnxOCHnVDyaNAizwuG+HpM+KLF0vOGjl32j1blMNVgVtM2Q8gu3bR6o/s0t57Qfsd+KKys7mwIoffM9X9lj/MdgkI5z7yH/a9HL5F6mx0Nnc8fScYXvxoS45xHJ7/FJZyPkpqhuOaolkXyp7pxUkgKrFgsVtpPEeNK8YRzQlhL3vGPZRnzoxXL7b2RPx/qv4ym+e8qLhBtDCSUYTlnINJX9Hm6qesGUjdaIQlS4U0BGNKYVJjP4wuawFw/WdN81ceL0bbjBODmAJpgzC9vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o6Z9q7GuObzb1jbh3Skdq2+RIdsW0t6Z0gWP7ZHjxNo=;
- b=p7/QSDr/FGgtBjewmbWi1RWtQKWYxtgtOMpHkZTCbjY5QANhla9kKiwrEVrz3greqpOqz/LBGx5bgy5UVp/ZRk1cwDaTo1qMSHbTyxpOAVpf3b+W/QEh4HECX5/yq99oxWDza6DEmxorwH3WlnSPboUZrCHtPkwGnPsOPa6MeuLMdoFdP1E/sle9Xo4catwzz6sEWItSvOVpOhm7TjXGs/FBeaH59r6t4PIIgSAyaFRz1JzayNSbu0AXoUie3qR22BR5GYzAKxrV8jCM0oh0OgPbss6TCeMmEig/ATckH8uJsblzDJ2k2bzhSJy8jPljzGzR3CBsxUNnOX0oDKUfEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o6Z9q7GuObzb1jbh3Skdq2+RIdsW0t6Z0gWP7ZHjxNo=;
- b=QAO9cMoXtaYDjBPNaG8DpVFhUSOoyZZlOUHJuFH0SPHqxcA+HAXwMR4ff5PWYVEWaoyhCOJnFKFH59hfH0I5YrCOOof9iOaT4ugzCNbYkQGdgI/tMxxd1mqLW+xCriEhI1NWc64k2Mi+OTJu5O8ypQfwKhvGPaqg2eQkV//O6vU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6955.namprd12.prod.outlook.com (2603:10b6:510:1b8::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 08:47:04 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 08:47:04 +0000
-Message-ID: <465500e6-ec7d-4039-8b2f-750b9f441327@amd.com>
-Date: Tue, 15 Sep 2026 10:46:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] dma-buf: validate the attachment before asserting its
- reservation lock
-To: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
- phasta@kernel.org
-Cc: benjamin.gaignard@collabora.com, jstultz@google.com,
- tjmercier@google.com, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260914212258.2657788-1-dave@stgolabs.net>
- <20260914212258.2657788-4-dave@stgolabs.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260914212258.2657788-4-dave@stgolabs.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0098.namprd03.prod.outlook.com
- (2603:10b6:208:32a::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akwQ9mg8"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d6e954afbdso33251675ad.2
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:50:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789462241; x=1790067041; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EZwK4GxS0mTkcXMKP8dTYTElQEtFXQdtakQVWZWGWY8=;
+        b=akwQ9mg89ZrMDBRUKanD+mVGTGgNbzRxMKlQScviLHR+k5NbO7kffI7WvuaaZsp8U1
+         eqVWdTJhZ8zac9hWolYcpYW/ppph/8i9GVwd9WwhZWj02rf+scQyXw62AKheVW5UnDJA
+         5jy4f2In7M/8YJthjEcVaX3ypism7aJnQG8mvqk0UiZhAo1vk4WSuyYrBJ46+Qv7jl6O
+         qV9hGrFpY7CAm363jHF3B07QaiwfPg9jp/VSCaxZTkKIO2z9XPVwm2TjYgGlUK5iNl3V
+         X/kCna+FJEKS/MDg90QIodyA4+27mnIYGc47RTugoH/6l04GbtFkNd0w10Uzv3HlRBbe
+         FBig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789462241; x=1790067041;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EZwK4GxS0mTkcXMKP8dTYTElQEtFXQdtakQVWZWGWY8=;
+        b=1x5OEKGmXpJo1wNxvcbvN/G5f2I65J4g4novUYR27k7U0TmftlS/XGEN1AACbzA1xJ
+         XZjuw8pzyTYOj9WSwLpwg/C6hCWXPTYEk1f+kHlOodGMNGQO0e+g5xEbJHAzIQKeCiHX
+         bWXhaLj+ZiESL7pfIoJ+JJmHN5pRDS6BIQMjeMx5Ubn4zWTDFVcwHSb/kD9qWQ+rjvB2
+         oxyh3ymFKPaF6yfSzMakFvXHTk5Bqb4lw5QpGBgQ5I2uHwdntqGdDvgDY80Zei4L7QM+
+         J+71OXnN+LYvggDIs0v/knAzAGOzshAPbgzfIa4rInhuku4GYrLoXKIsgcpkERy385r9
+         M/+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxzqh3waGIUCp2C/qWivYF2smY8k3cNnfgmagFrvDRh9Ct2qNJHv/oqZrox+veTTUWnn8OkcRvRSSIpnA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mT8PWaeEXJTYUWtMoyBIHqOnnsRpx3SAuKsarRFUJc4luIdaiD
+	SpzKX2+HhEp5fVGtHGqSETb6AWIYeNitBD9zzaPOntHfFQg/G2xOrL3i
+X-Gm-Gg: AYBFou2R6qqyKeooQTuaAOICCC2B2j3NJt4h4udDaxlGVYqr8dbBVwoK50N0oVWiE2P
+	YzEDYOYTROstRfwoph+eUv0QPdF6r9MewIjYk/yd312Aw3VUkbFkZ4/M0n7BXf6yBl8ruVKMOJp
+	t77NvdG6vNcKwGMh2LErwtoW2rVvYk6HWqRl7myfbs0/ljgfbZYBk+W1a7KHGX7gXErM+2c5yf7
+	JncfR2neswwLiULpqeu+mMAAeHEt/N9Rux3+n0xiLZ+Akc/Se1XVHdYI3bB0MVQPeb+GWUeGhOe
+	gupTy6auXZtDFaj3uUBd/EiyART82u4NH5TbxH/4Mu6JkbcGbCAkcj2ezxAHAQCZmaqhLHB2OeU
+	JPBlWlYl2GVb8Zzfrk8JPLenOvta0P+CSruRTtqQ14kQp2Vdmi83HXjs0SJosKHeGrnF7ZzEwuf
+	XdhvMzX4F9M4wkasMLz5KKiqeFl1UjeFXyYXYvbCIEy/9yN8MwI6Inh8T6zAYzuXI6
+X-Received: by 2002:a17:90a:d88b:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-39dec08fa53mr12246257a91.12.1789462240654;
+        Tue, 15 Sep 2026 01:50:40 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd28acbsm4003559a91.10.2026.09.15.01.50.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:50:40 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: ov2735: fix power cleanup on remove
+Date: Tue, 15 Sep 2026 16:50:31 +0800
+Message-ID: <20260915085031.2331315-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f246353-1134-4925-2673-08df1305ea8a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5Ay/2gORyr5Qi9Qj9iQFCOS7rp0SB42jmZUXRze8stJbpVcvPHlVulFIqvUOsLPRBlpd83OQ8EkvN/gHHvZ7p2mPyODPWsI4yGBTwprIKmERaMfPaXkJEAeOHpmC/2YpM94E+xl79SBU/ujITwfm8JXrwhyz/RlvY8YC57ya4xvreYGnZKJ1NGhBfSkXZQ/hzMvdZk+BxQqcKmUBKEE45mjuWigDrzqB3dzBSRv29hsRAvgnr8I69Kmt6LqltDfUpkF2fVBGWR4Rtr8tZO1gIgVkPQtoPIRBUPLjMiiDlK471xQ1xn+85k/YPneSNKi11m5kABkvz0K7bM9qD+iT+ppoAs0ns0OkaNvxOl5gpPGrJLCG8itg8PSk2xtqvzTo4BY9ldi33qvcXKFFm0pbez5RRgKO9OSz2QEo0irebj/eYBSTwjUnfIDC/7qmRtZnjFYOsMrl1O9zxe8gUyvj+Pmly5BBMwTkWAXFrOAW8yHXEt/G62s60KveSXrhX9BLe6n3tvuWIMG3+yXSPCakBd0knXCfphwUjx+gjKb857G94EbQT9OCJVbcsTKuoHIb7tDSsBnkXmJauBxbzp0RxWMFDvOYngQ5tw/ukNe+TWsrT/mSeSLdg1/BbXHTccuGqM6zh8CjXm0AlJmA3hp7dw6pLPt0AISCNU9Cf1nOj6U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2QwUFNsaVRHekliUHVBbEFPcFlaUzFlUVJITFhHVTIzdHlVMUg3bmJHV3Qx?=
- =?utf-8?B?N3FRV1ZJQU91Y2JEZTBTMUhrNEZIRUp5UmRVZE9md01mc21kVm9IZkE3WnFH?=
- =?utf-8?B?UDJ1cm9VZ0pYSFo4dzYwMXpCSWZ3YTNCdUlTMEFBS1ZYVFp5eFVHMTNLWmJo?=
- =?utf-8?B?WnI2dExxMmFZckhMcExYM1Rnd1FrdmhIdFhXVitTa0lWRGNjU3BkcjJLd2FI?=
- =?utf-8?B?blEzdi9DMVVLSEtvZFdDZlo4ZWkzNUFUenpYeVl3MktVZERFclAybmJIVmxH?=
- =?utf-8?B?N3hSaS9ZOHpPTGR1Ty9TdGNsNUV1a2hiQnpGd3JLWEUrSzZzYkVzdTJ2SGVu?=
- =?utf-8?B?dE5iQU9jNXQzQ2J6d2l3d0xHb2hpZ09semg4anNUM3I2TU12WFR1a0o0SDFP?=
- =?utf-8?B?TVJIdERsU295eHRROEZUV1FoMEh0ekV1c0J2UjhLakNSMjdkbS9kUk9ScVN1?=
- =?utf-8?B?blQxbWZWUUpvUUhGSnYrNTVndE1rSDNNRDgwL2hCVjVvamNUYU9OS21GdTdL?=
- =?utf-8?B?VnhzTEs3NVhSTERXL20rQkhyK2ZVSTJWOG5ybWxIQStOZEM3V2txSkdnZ0ZL?=
- =?utf-8?B?bWVVUGxyTENVUkt4VlBCckNpaC8vaHkwQWV2M09nQXBveUtZWGJxaXlMMGVD?=
- =?utf-8?B?OW9kb09qNmxZcWF0eklPUG5NbFA5MUQvRXVaem5tYmdhR0lKNFFFUHVQaVZm?=
- =?utf-8?B?dmI4a2NWT3NOaEJBNE5hcjVKc0ZIUFFxN0M5T0JXM2NSYnA0M0crZnlpbmdy?=
- =?utf-8?B?enplak5UbWtDVnhJTDB0NjZ4RnVPNHV3ZUFJTlNmd2NyQWZzWnpkcGYzQjRz?=
- =?utf-8?B?TFNWa2ZDOHZzb2hHNFc4YmQ1Zkgya1ptVmFYNEc3L2ZEcW9NeU9BczNlMUNO?=
- =?utf-8?B?VU01NkZQOVMvdTJDbjRDVWFnVWI1UTV5UFN0V1F4TWxQdExzMVdzQXNvK0FD?=
- =?utf-8?B?Q0tFT05Ha3lTcHBYVVc1MHdSMXFkRU5zUnhpdmJWTzhVMmp4TzRaQnhQVzlM?=
- =?utf-8?B?ZGxMOCtSVWh3elJJVHRsT2p6WTdveWxYQUtWWUY0WVNTUDU4VTJJWTBDTnIy?=
- =?utf-8?B?OGpJQ3NCc2ZzUUN1RVhjWEtZVWRsamZ1N1czbVFWWFU5N2RRQTBQcmdLSFF0?=
- =?utf-8?B?YXdXMUFPZmxDVEhVYnRtUE9sdC9aUURraS9VcGU2NnNwSi9NMkNBd2czeDlr?=
- =?utf-8?B?Qm1yWG0vWVRhMVFkYTNwN1QydERvNzBROHBybm9rYlZWOUxxZ3hGZUs2SVFh?=
- =?utf-8?B?cVlaQWlRQSs0azB0MCtRMUNmWTVidjlxQ3ZTbm1kM3BVejJCY1FYdC9hM1dY?=
- =?utf-8?B?RS9HWUJNODFROC96RXEvVVNCOWRuMll5NjFJaFpLNWZtM2lnUzhRU1pTTW9F?=
- =?utf-8?B?c014bklyTGJBZGdjSGMxS2FNOGlNWlNXYlpOeFdPMjU2ZzIwYkdJN05Wc3pY?=
- =?utf-8?B?Y3RLdVFEdGNXZkJ5OU44SVBwNGprNUZLR0lSN3FzSWphMlR0MmI5VHduMGVp?=
- =?utf-8?B?RnU4KzA0RjdtU0Q3VWQyVjZuRDFkNDNueGExWkQvaElzVDg4TlpucWVSOGxM?=
- =?utf-8?B?VTFVVzVCRHdDckh6SlFCRnlQMDBqUWV2aHdjdGxGQk1GakNreE1ab0JXR0Ri?=
- =?utf-8?B?eVQyV1FVSktHM2VtVlNqWXhoaWMxYXNLNjRCcWJseHY1eEo4Skwralhya1pB?=
- =?utf-8?B?TnZrd2JLSmFFNUp2QWVZNzZ6S0txU1pkNllwRWtpdmE5UlkzMmtSVkxKSWUz?=
- =?utf-8?B?NStBMUJoQ2RxY0tXM0sxUVB2RVFMMHkraDllWDZTSGpZaHBJTzk0cHdxQ0hh?=
- =?utf-8?B?Q1cxTHZsTXc0WUpaaHZya2wyVTJZOXJIQlJGejNiYXJqczhwODBOVk5neDRr?=
- =?utf-8?B?OHU5MXE1ZlBTQ0lzQjF0UWphcWVQaGVudzhKYU43NFQvZS9zV0xzQ0FObmlO?=
- =?utf-8?B?Z2pINjJCNGNBdVFMYzE1SXlEaXdlajVpcjZISmVxalhTTzNIZ3ZyMHlpOVp2?=
- =?utf-8?B?N3BhUGpEaFlGUVRGelRUTTdGZlZJcmZ3SDZPWUE4KytPd2VjUjcwemU3K1FC?=
- =?utf-8?B?SGdKaFBMeXd6TU1DcXI2bUp0NTN5YlZaMHF5OHJxNTVXVnNmV2JIdEgvbmRN?=
- =?utf-8?B?NjRGNHFBWDZjQXVtMWkrcElSeUxLRDlJdVBlcmZobklnRGNtblpEZ3ZIZVk1?=
- =?utf-8?B?a2lEc2J2bGxoZVAyRktLL1VjZ21nQWxIYzNWaWtWOTZ0OUxXUEdheWduUXYx?=
- =?utf-8?B?NXUyY3dZcWpNQVZhSEZiV0ZnVGZ2enoxS011RlR1MzZkWjRpdGR4VjkrYVVu?=
- =?utf-8?Q?P1OhEeokKKXvgVChu+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f246353-1134-4925-2673-08df1305ea8a
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 08:47:04.2388
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a9tb/BqMzc8q8BlA6a6z5/UyDwJENyJ1Lxnhs5xWPdg0cEDIxIg6+7R2T363wuI3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6955
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 23:22, Davidlohr Bueso wrote:
-> dma_buf_phys_vec_to_sgt() asserts the reservation lock before its
-> NULL checks run. Validate first, then assert.
-> 
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+ov2735_probe() explicitly powers on the sensor before enabling runtime
+PM. The probe failure paths call ov2735_power_off(), but the remove path
+does not perform the corresponding power-off operation.
 
-Good catch, but in general please put bug fixes as first one in a patch set.
+The managed runtime PM helpers only clean up the runtime PM state.
+devm_pm_runtime_set_active_enabled() disables runtime PM and restores
+the suspended state during device resource release, while
+devm_pm_runtime_get_noresume() drops the runtime PM usage reference.
+Neither helper invokes ov2735_power_off().
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+As a result, removing the driver after a successful probe can leave the
+sensor clock and regulators enabled and the GPIOs in the powered state.
 
-Regards,
-Christian.
+Call ov2735_power_off() from ov2735_remove() to match the successful
+ov2735_power_on() performed during probe.
 
-> ---
->  drivers/dma-buf/dma-buf-mapping.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 833be519e1e6..12674d89b23e 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -111,12 +111,12 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->         size_t i;
->         int ret;
-> 
-> -       dma_resv_assert_held(attach->dmabuf->resv);
-> -
->         if (WARN_ON(!attach || !attach->dmabuf || !provider))
->                 /* This function is supposed to work on MMIO memory only */
->                 return ERR_PTR(-EINVAL);
-> 
-> +       dma_resv_assert_held(attach->dmabuf->resv);
-> +
->         dma = kzalloc_obj(*dma);
->         if (!dma)
->                 return ERR_PTR(-ENOMEM);
-> --
-> 2.39.5
-> 
+This issue was found by manual code inspection.
+
+Fixes: fa9e6df636fb ("media: i2c: add ov2735 image sensor driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/ov2735.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/i2c/ov2735.c b/drivers/media/i2c/ov2735.c
+index dcb1add1fd9f..2defcaa8b795 100644
+--- a/drivers/media/i2c/ov2735.c
++++ b/drivers/media/i2c/ov2735.c
+@@ -1081,6 +1081,7 @@ static void ov2735_remove(struct i2c_client *client)
+ 	v4l2_subdev_cleanup(&ov2735->sd);
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(ov2735->sd.ctrl_handler);
++	ov2735_power_off(ov2735->dev);
+ }
+ 
+ static DEFINE_RUNTIME_DEV_PM_OPS(ov2735_pm_ops,
+-- 
+2.43.0
 
