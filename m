@@ -1,184 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761803DA7F8;
-	Tue, 15 Sep 2026 15:05:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484715; cv=none; b=n9cgZtmnJDObiTU3Dzaz31+a0VE8p5ZkvWNSAbO1BqKOoJRmIWji1QNFhKzdEI2MX0bJ9F/YXI3uyOZdhlfOELsxpQ5knNY/dhvubvT5UW5SBu9uY6EXcsd12KPYAIcKqFSX5y1I4It5zBqPrpVF2mzx2metov7nPf0Tsp3C8wk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484715; c=relaxed/simple;
-	bh=DAmlGFJZYAmgnOIvR39oev84RuA6yc2k24v0yU66UX8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Iv6os0/vSp83JQmPUZT3K8t+sCZv2X60CfX89bJcHxd7tH+hEYtWoG0HV/va1SvJDRZ2I+AyXHKMpAP7G/BJeqN4JAOpZN+SfcdLpV3ADIj9hW6BriMLtKaaFKvMPLPutnyRNXNBS0v0kDuSOoCng4cAiHqi+5c4xOXLqYRZLs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gf5L5wnm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E663DEFE3
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 15:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789484977; cv=pass; b=TgMdmc+bzLyI1vCG6VXN7BGQFWLhj7gDLw7rtg5sc4aggeX408nJ7nHA4ZirlCkLLzXbYec0orciEECipW0sZ6ejF8b6YhCOljFcI+Wbu1X/viIAAvUrtH1RAklSBUG0W76b6f03vEybZw5PwGcKP3d4AjMUI9US2rEqcqn1t0Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789484977; c=relaxed/simple;
+	bh=wrwfiuuxQ7VMyrq8n37+qtZAtTX3QP8R+sDtYZcuGZU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QwyT1SPnr841pTaz/NDy31wuDJYYOxL36qevtWUWhPPClR8VLN66W8uWhYXr2GZMcWD+l9e4Rv/9X0Q0lGjrT63z/H/k3LeAFaMCZjRDwuUaFwoqlA+9fYQSMPImTpuuNht0omBSVrgQSZmguKfVomh7dBvB9fTLrBppGCY0ABQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=WWlcIjrp; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gf5L5wnm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609DE1F00893;
-	Tue, 15 Sep 2026 15:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789484714;
-	bh=92Jyv3r5iRKPp9A+0MWzJBMIdxeAT/qbE/UD5yjhWE0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gf5L5wnmtccLwoqcVRv226Jxh21B1B//39SXNk9kc4N8OS1FTlhq9PWO0oO0C2lV5
-	 /puLCofTcTcdOq9gexMECkzKA3ObUOxFvtdLZex77Bqia2hDmeu6n908Nd0hiX8iF9
-	 qTYQDbAMbNgjSO8+cNHSBskD1SEuiooBkMWuneDZS5c3lKtRyIRRattmm2nfwDtRhi
-	 /vDHelzWwxEEbNDJ6m9bDtWIf3Gi0xBkpoRi48jhIlvmxyg1p97zwYUvcCDIpP4GL2
-	 89RyOdTBK97/VTtSVGn5HnnYF5QSg1YyyyGBUWH6C6xYN7eMiLrpeTG7VTkcG879bb
-	 BqI5RrgGxycEw==
-Date: Tue, 15 Sep 2026 10:05:11 -0500
-From: Rob Herring <robh@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Kees Cook <kees@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
-	Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 10/28] of/fdt: Replace strlcat() with snprintf() in
- early_init_dt_scan_chosen()
-Message-ID: <20260915150511.GB1926857-robh@kernel.org>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-11-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="WWlcIjrp"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43db0c1cso27339927b3.0
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:09:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789484970; cv=none;
+        d=google.com; s=arc-20260327;
+        b=noDP2LEed+cGrOANqfvv2Hw6+a6yB+dTHscEphnDX/E0t1JTZ93zCoD8HSKA0ChXRA
+         IYQnDZmR077zQr4GKoyzlEs+Y2LYej2F6RpR/TN8a9SHuhuOrunjD/Dr2jt9vAPp9+QH
+         Pnvu7CZJYjxFo0bLOplzDUe5cQxYQbFoBh58mSTYhCM4T5lYed2K7HjEnumvvcQdJ+YC
+         FdAQOemElDbZiEyeIc3iSXM5rLvZk6QkWpea+VyHQJhbQTM82uKohGH4UbI9GGpA90t8
+         ui3zmMJEqbLLKwkNCVl6GXAvvHKjCrG01J8jMb6Usvd7lQMgQ9RnEhsRCMgFKdOhO5I5
+         WL3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
+        fh=2aU0Tfaqa3Q2o7fkyu3vK2HnoluL2a5inpyVWHt73Ng=;
+        b=Fi0FIrtPbNAsYmQlgoqxeIo/5lYlzNrpnCLGs5jcLdqg5RROjAS3khzbfkp6R7SbJ/
+         SI+nMV32KxYfStcLDoKj5bslVu8T32dhDjFttCKC9Hs5Gqc0dk47YT/asJ0haxym0KRS
+         3KDTJ5nsyiWjKWaftMc4ckZvQr9yDNeh1GKLg5ozT5GYlQgAzypvJCBzC0E1FPiyvfP/
+         hClG8lUFbtUmF39HWFA1LoyM1zv1GdDiyx0Br5qKU3n+emeYpKWtMvpefWdgcOcRxl2g
+         m8cMpOkIYktm4VcAgyBqn1mUGoVKNXgjmbFg4GpfZ31/ncfxay8xTUNMws3NWjiz1eiD
+         le+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1789484970; x=1790089770; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
+        b=WWlcIjrpgpKxi0Pj3Uq7k81ACijVq6rbjQXcCQCUXPRb1z8a5GCrOG1P/8hG9eHbwQ
+         Lh1+Lj/h6FbWonXWLsBZWOs0k1keQZyYCbdc9lbsYtgGtK2sOiOzqfb58qqrSBgmGByv
+         mF04X2D7OrzCxSxZSqGHNdUpiiXCADIHBEez6IDTbwgxiLmzb2tgnBVr4Q3RRxSCyy2Z
+         n/210xbEZ6ewmOFzvxf1Hou7wGRzyrzLwUdLuvQdbxAuUC87CmcfriYX802FIhn2dOh3
+         KochDNJU4+yzIpS+9faJDEULJiI0qVFMFwZIVFsffrGFE6k2J3miVkVNARrgpXq9pcV8
+         MoqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789484970; x=1790089770;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
+        b=ZHHZbTSmheJocQAqIdroBr5Bw7y33Mb9WpaYHEUmx+UtbB6tasLU7zNNtXoaGivtTR
+         QGZ9TRXRCpbDGqv/legMBueiUnR+YJajQWtLucW6uMQajSXKGq50kpK/SZ+Dcw6TqCqd
+         Yy/CmDSMUhWA+zOkW72CIIH1R7r+4xop94QGKFZUbYr4ScJZ9T33Rn25kXbFKDPSBJOd
+         amsRg8NWmdimzgZQHgQalJa+SnPQTrhh6IgAR0dY9ZICpND8MxY1B1D5kLa40dYXl/fK
+         rJnoGBCf5Bho6ZhqAhDhqEfoBIwFvSxyXvAavUr6SM8QUhhYzHO9zVf/JaHrQONKyATZ
+         d/RA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNCh3aDu8RNdBLRE9nyo7sixx2D6DMG8j3FLC6NbYgyrJyF49Pn/nzIa+2gnocY1MVGFb5+gsp3p3GiA==@vger.kernel.org
+X-Gm-Message-State: AFuF++l7G/9+aIfbCe+5HELDJr3rAwcGxLyqiBtmvWwNmqcGkKjL8eXX
+	mqcDIeqLozgdgEOz+f31w36s1gfWHWbOFwfVEye/I/1Q35IzxdkPgb9uOsg3tCY7xEMXeQzCVVO
+	jMiF1IrBJkrjsESRBRWuNSZoQIiPcfPYV5pc79BZJcg==
+X-Gm-Gg: AYBFou11h0B0BuSxBa6uFqTg2nIGRP06bzu62Zh+ib71CieHilpOeGL6bUHevsUaTjv
+	s6tqLTncCzB3vzN3eoTSb+kKFF5w3a8pR77aq8t5ebb3aQ5AUJuJBxuJW/bnZkqA+Mbm/adQSNI
+	ofmwAzHYsPmZ+UHF3LGqSFJtBdoteXocONq6i8H+TcpUzCKUdw7pyHaRGHCZPB3qcmKS+xOCQZW
+	sG1FfIsP35J8bHf35K4/VRf4JP4itTmDa0XzUqloEOS6kognl8hYhtaBalUDI4pbnR1izBA77yy
+	dGV0TF0+Gqti0SS2VrdrOUBk3wP3+ZyGSKzOuVYKb1LT/kfPta+zN7szwozfKD+qCeM1upDeByn
+	DXM8F2NqiLYFZ+bykACXqKWuGY/2ZrrrWvbmFpAIcrrJgAtSfFGJgFQSXitVFvze0E5RSUrw/
+X-Received: by 2002:a05:690c:9990:b0:864:6f4d:ef7f with SMTP id
+ 00721157ae682-88d1e93ffc1mr24683597b3.7.1789484969777; Tue, 15 Sep 2026
+ 08:09:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-11-morbo@google.com>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
+In-Reply-To: <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 15 Sep 2026 16:09:13 +0100
+X-Gm-Features: AcwNN1W7-TtmTIyUjllHDLNIKHhLg8r83BUrDSRNpnCFbQDI5w7N_3zM_OKztmM
+Message-ID: <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
+Subject: Re: [PATCH 10/10] media: i2c: ov9282: clamp flash_duration default to
+ its maximum
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 08:18:27AM +0000, Bill Wendling wrote:
-> When CONFIG_CMDLINE_EXTEND is enabled, early_init_dt_scan_chosen() uses
-> two strlcat() calls to append a space and CONFIG_CMDLINE to the command
-> line buffer.
-> 
-> In preparation for removing the deprecated strlcat() API[1], replace the
-> strlcat() calls with a single snprintf() call using the existing string
-> length.
-> 
-> Additionally, check for a NULL initial_boot_params pointer and jump to
-> "handle_cmdline" so that CONFIG_CMDLINE handling still occurs without
-> dereferencing a NULL FDT pointer in fdt_path_offset().
-> 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: Assistant:Claude-3.5-Sonnet [editor_update_file, shell_command_run]
-> Signed-off-by: Bill Wendling <morbo@google.com>
+"media: i2c: ov9282: clamp flash_duration default to its maximum"
+took me a moment to parse as to be the control maximum, not the default maximum.
+"clamp flash_duration default to valid range"?
+
+On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> Currently the OV9282_STROBE_FRAME_SPAN_DEFAULT is always passed as default
+> to the flash_duration v4l2 control, where the maximum is dynamically
+> changed. This may lead to situations where the default is above the
+> maximum.
+>
+> Fix this by setting the maximum value as default when
+> OV9282_STROBE_FRAME_SPAN_DEFAULT is above the maximum value.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+
+With or without that changed:
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+
 > ---
-
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index a64afc3ded3d..311021a83f03 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-> @@ -1095,6 +1095,9 @@ int __init early_init_dt_scan_chosen(char *cmdline)
->  	const void *rng_seed;
->  	const void *fdt = initial_boot_params;
->  
-> +	if (!fdt)
-> +		goto handle_cmdline;
+>  drivers/media/i2c/ov9282.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index be38ecfad8c82..1c5bed85781ce 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/i2c.h>
+>  #include <linux/math.h>
+>  #include <linux/math64.h>
+> +#include <linux/minmax.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> @@ -556,12 +557,15 @@ static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+>         u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+>         u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+>         u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> +       u32 fd_default;
+>
+>         if (fd_max_us < exposure_us)
+>                 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+>
+> +       fd_default = min_t(u32, OV9282_STROBE_FRAME_SPAN_DEFAULT, fd_max_us);
 > +
->  	node = fdt_path_offset(fdt, "/chosen");
->  	if (node < 0)
->  		node = fdt_path_offset(fdt, "/chosen@0");
-> @@ -1133,8 +1136,12 @@ int __init early_init_dt_scan_chosen(char *cmdline)
->  	 */
->  #ifdef CONFIG_CMDLINE
->  #if defined(CONFIG_CMDLINE_EXTEND)
-> -	strlcat(cmdline, " ", COMMAND_LINE_SIZE);
-> -	strlcat(cmdline, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
-> +	{
-
-No need for brackets.
-
-> +		size_t len = strlen(cmdline);
-> +
-> +		if (len < COMMAND_LINE_SIZE)
-> +			snprintf(cmdline + len, COMMAND_LINE_SIZE - len, " %s", CONFIG_CMDLINE);
-> +	}
->  #elif defined(CONFIG_CMDLINE_FORCE)
->  	strscpy(cmdline, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
->  #else
-> -- 
-> 2.55.0.1032.g73a4cd73de-goog
-> 
+>         return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
+> -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +                                       1, fd_default);
+>  }
+>
+>  /**
+>
+> --
+> 2.53.0
+>
+>
