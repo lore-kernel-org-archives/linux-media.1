@@ -1,159 +1,198 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E663DEFE3
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 15:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAE33D9525
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 15:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484977; cv=pass; b=TgMdmc+bzLyI1vCG6VXN7BGQFWLhj7gDLw7rtg5sc4aggeX408nJ7nHA4ZirlCkLLzXbYec0orciEECipW0sZ6ejF8b6YhCOljFcI+Wbu1X/viIAAvUrtH1RAklSBUG0W76b6f03vEybZw5PwGcKP3d4AjMUI9US2rEqcqn1t0Q=
+	t=1789486448; cv=pass; b=MxbRIlB5KJyQmBntfyPA8a3WiIGhwq6mTz86Htvgt/d79wAIpD5fs+ewdAsfFxHEt8JChOIsaXNOoUDv2u+P30ddh87bTZr0NdpAQH0VQQPKIbLraMaIf5SPrdmbCELhTxAj9IAl+cmx4UifZ9O7Qr351uneOHhViWQ8oc6HPi0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484977; c=relaxed/simple;
-	bh=wrwfiuuxQ7VMyrq8n37+qtZAtTX3QP8R+sDtYZcuGZU=;
+	s=arc-20240116; t=1789486448; c=relaxed/simple;
+	bh=Csgbxe10Z+ZCPKzBVB/A4IDZsvLPwkzNJLNs1a1qPT4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QwyT1SPnr841pTaz/NDy31wuDJYYOxL36qevtWUWhPPClR8VLN66W8uWhYXr2GZMcWD+l9e4Rv/9X0Q0lGjrT63z/H/k3LeAFaMCZjRDwuUaFwoqlA+9fYQSMPImTpuuNht0omBSVrgQSZmguKfVomh7dBvB9fTLrBppGCY0ABQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=WWlcIjrp; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	 To:Cc:Content-Type; b=jyMTgj3WsOQaQFxhAFJLqI6o5uQDvIr1Ymg8CIr2vC3XbiKH6Hpuyo0YOaS8OA/iPqFUACSnvgYCJsG8zuK0ShcasoYX6/g+deGD7EgAdk9QmdvQtB/SWFds59nGu4Ci+Eb8frmA/mC+iNlfae5qUGsY93bXwtHTv9HdgPAGEbw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i+jo+a4C; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="WWlcIjrp"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43db0c1cso27339927b3.0
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:09:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789484970; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i+jo+a4C"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530d5fc2cd8so53371cf.1
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:34:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789486445; cv=none;
         d=google.com; s=arc-20260327;
-        b=noDP2LEed+cGrOANqfvv2Hw6+a6yB+dTHscEphnDX/E0t1JTZ93zCoD8HSKA0ChXRA
-         IYQnDZmR077zQr4GKoyzlEs+Y2LYej2F6RpR/TN8a9SHuhuOrunjD/Dr2jt9vAPp9+QH
-         Pnvu7CZJYjxFo0bLOplzDUe5cQxYQbFoBh58mSTYhCM4T5lYed2K7HjEnumvvcQdJ+YC
-         FdAQOemElDbZiEyeIc3iSXM5rLvZk6QkWpea+VyHQJhbQTM82uKohGH4UbI9GGpA90t8
-         ui3zmMJEqbLLKwkNCVl6GXAvvHKjCrG01J8jMb6Usvd7lQMgQ9RnEhsRCMgFKdOhO5I5
-         WL3g==
+        b=mpvPvXB+uA/aNm+3+KysCzKC8EdHJhFLdA2bXJB1UQAyWaLRpbmPxCcS4Gz26+GPbe
+         a5Lu9TmPKR7iEclHyZHPbc5Acs85qLY+tdFa7tU6T8HYYqzmGNMNN/BE/5V9DLoosqq9
+         dviDRmPEfZ7YASOeWsYfRK2xWlErjU1jqCJ5oYpvaYAgq21XmSSCGTeP4jkNSFw2X7aR
+         kEu5opMu+CSnDam1TjqOvTEwkJDEyH/D4sSMM10P5uboPyp0lw8bT2JuzA0bq4avmM8u
+         5IpzFJ6xjdO3BCuVDC3DTqKu5bY55Ch+1wzFoY1ZY1WE9kT7d7RHCRWufM0S2kZYoi2j
+         st5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
-        fh=2aU0Tfaqa3Q2o7fkyu3vK2HnoluL2a5inpyVWHt73Ng=;
-        b=Fi0FIrtPbNAsYmQlgoqxeIo/5lYlzNrpnCLGs5jcLdqg5RROjAS3khzbfkp6R7SbJ/
-         SI+nMV32KxYfStcLDoKj5bslVu8T32dhDjFttCKC9Hs5Gqc0dk47YT/asJ0haxym0KRS
-         3KDTJ5nsyiWjKWaftMc4ckZvQr9yDNeh1GKLg5ozT5GYlQgAzypvJCBzC0E1FPiyvfP/
-         hClG8lUFbtUmF39HWFA1LoyM1zv1GdDiyx0Br5qKU3n+emeYpKWtMvpefWdgcOcRxl2g
-         m8cMpOkIYktm4VcAgyBqn1mUGoVKNXgjmbFg4GpfZ31/ncfxay8xTUNMws3NWjiz1eiD
-         le+Q==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gt2obvr/vrzXbdJZb7+7fZvd97UZ/AmDVWmrtkgr1HY=;
+        fh=YjkMB63BiqqNEi2P7gwny37Sfm1CtJf22Atu60EX0J4=;
+        b=Cw6NZZHLZKmvVsJQgfbZNlOF6YQr6kMUzUNOWly69M4d9m8RjF6z7QW1madOlOWgyH
+         r6B5SIuPAm7Eyu45a30E23D2Wlv679N0iJiMy7wweVs6g/y7CSVe7fy+vNa9rPv9YikI
+         Vf+hZnJ6ORrYbkh6F3hM6cG7Fq1YtEoFYhpy9PnS1czEfW7n+iVNIj1PulkIlrJpprH1
+         Yf1Xv2zCA8Rss6f+FLuZvGlRwfJP9FlHsRoltk0DschB/psy5Vm0gLfhGdeX10T+dWZn
+         wdKoQTYCxDo/RXOvFwT+u5k78Pv2HEOadPUHNd5J79HaUPmNs8zYz+uHGMIrizwo6Yv9
+         Z7hA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1789484970; x=1790089770; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
-        b=WWlcIjrpgpKxi0Pj3Uq7k81ACijVq6rbjQXcCQCUXPRb1z8a5GCrOG1P/8hG9eHbwQ
-         Lh1+Lj/h6FbWonXWLsBZWOs0k1keQZyYCbdc9lbsYtgGtK2sOiOzqfb58qqrSBgmGByv
-         mF04X2D7OrzCxSxZSqGHNdUpiiXCADIHBEez6IDTbwgxiLmzb2tgnBVr4Q3RRxSCyy2Z
-         n/210xbEZ6ewmOFzvxf1Hou7wGRzyrzLwUdLuvQdbxAuUC87CmcfriYX802FIhn2dOh3
-         KochDNJU4+yzIpS+9faJDEULJiI0qVFMFwZIVFsffrGFE6k2J3miVkVNARrgpXq9pcV8
-         MoqA==
+        d=google.com; s=20251104; t=1789486445; x=1790091245; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gt2obvr/vrzXbdJZb7+7fZvd97UZ/AmDVWmrtkgr1HY=;
+        b=i+jo+a4CRzr1Y6Y6HoWjtiD5fZWAMAyYTDmUSoPgBV9gdmQGoof5pj2e9bU/cYvTT1
+         0ZEmTtIvFjq+LNqby5kFN4s/Pi2Lu4GB94aY3A8W8S/eEhqyHbmigOzgiYktjz0OZ1PG
+         lp5fXjfCuSBnDj/iK4yS6HebqS4ktH18uRucxR9lriWUoz7/IU85Vy6UlMG8q/Qn0ax4
+         +dBjjtk25B3jW/p1YXRdpq7gPH3fuj7YGSkNbaXj8kfGU5UzRt48rSH2cwnnCJcCPnNc
+         IaJ3pbd1qATezIUCV492+Ne6q2PO0glVEYF4OF01IpSYwY+dYyOWLaPpdb1lsBMfuYiA
+         E9/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484970; x=1790089770;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jITtBmWMyGQHz3OcenM0SvZwsTiLzDM/UHvlj8p50X0=;
-        b=ZHHZbTSmheJocQAqIdroBr5Bw7y33Mb9WpaYHEUmx+UtbB6tasLU7zNNtXoaGivtTR
-         QGZ9TRXRCpbDGqv/legMBueiUnR+YJajQWtLucW6uMQajSXKGq50kpK/SZ+Dcw6TqCqd
-         Yy/CmDSMUhWA+zOkW72CIIH1R7r+4xop94QGKFZUbYr4ScJZ9T33Rn25kXbFKDPSBJOd
-         amsRg8NWmdimzgZQHgQalJa+SnPQTrhh6IgAR0dY9ZICpND8MxY1B1D5kLa40dYXl/fK
-         rJnoGBCf5Bho6ZhqAhDhqEfoBIwFvSxyXvAavUr6SM8QUhhYzHO9zVf/JaHrQONKyATZ
-         d/RA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNCh3aDu8RNdBLRE9nyo7sixx2D6DMG8j3FLC6NbYgyrJyF49Pn/nzIa+2gnocY1MVGFb5+gsp3p3GiA==@vger.kernel.org
-X-Gm-Message-State: AFuF++l7G/9+aIfbCe+5HELDJr3rAwcGxLyqiBtmvWwNmqcGkKjL8eXX
-	mqcDIeqLozgdgEOz+f31w36s1gfWHWbOFwfVEye/I/1Q35IzxdkPgb9uOsg3tCY7xEMXeQzCVVO
-	jMiF1IrBJkrjsESRBRWuNSZoQIiPcfPYV5pc79BZJcg==
-X-Gm-Gg: AYBFou11h0B0BuSxBa6uFqTg2nIGRP06bzu62Zh+ib71CieHilpOeGL6bUHevsUaTjv
-	s6tqLTncCzB3vzN3eoTSb+kKFF5w3a8pR77aq8t5ebb3aQ5AUJuJBxuJW/bnZkqA+Mbm/adQSNI
-	ofmwAzHYsPmZ+UHF3LGqSFJtBdoteXocONq6i8H+TcpUzCKUdw7pyHaRGHCZPB3qcmKS+xOCQZW
-	sG1FfIsP35J8bHf35K4/VRf4JP4itTmDa0XzUqloEOS6kognl8hYhtaBalUDI4pbnR1izBA77yy
-	dGV0TF0+Gqti0SS2VrdrOUBk3wP3+ZyGSKzOuVYKb1LT/kfPta+zN7szwozfKD+qCeM1upDeByn
-	DXM8F2NqiLYFZ+bykACXqKWuGY/2ZrrrWvbmFpAIcrrJgAtSfFGJgFQSXitVFvze0E5RSUrw/
-X-Received: by 2002:a05:690c:9990:b0:864:6f4d:ef7f with SMTP id
- 00721157ae682-88d1e93ffc1mr24683597b3.7.1789484969777; Tue, 15 Sep 2026
- 08:09:29 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789486445; x=1790091245;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gt2obvr/vrzXbdJZb7+7fZvd97UZ/AmDVWmrtkgr1HY=;
+        b=TIMzRPPOidLIyMo77POQcNIiEDkLFlIXO08kTTRsWQW3i+lIce2ywV+Jva6eMxs8Qg
+         PMtRKlB4iVMKk5sU2ClCALb6q6hxpjC06ndrqT1/t9tnkMZhmRq2zvnJjeaumtoV7Bgr
+         3hk37qobKOTScIjBV3WrVAyCXA0KSJw8UxEo0eyn7DHh5INiKlPA3lcipDzGTxXhzvIx
+         ZST+VaEtQohaykI/sMAOWoQgUvtpyzKWoFAMu/hxPJEksRvbbIdlEyrOxsGIyvSpxt0Q
+         ZzwTdx6A3aiMquJk4GSQ4cehihyig4uO+Q7nTn2u8BJKmSmT7OPo28h7AwLWmLVw6ldr
+         pG0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzZxxtqhVMFTxhs3fiGFiTqERhxyBJH4MUEIw0QxZwNW8A4x6Tr1bznZs3BVLuTl0VOru0JhGEQcO0kWA==@vger.kernel.org
+X-Gm-Message-State: AFuF++n9BMIy2+5766T9nVns/cGO+p47GCeVaV2OlTLur1k7JO8ChWik
+	RDXYndztnA9pzZuGh38L4kjWC2Ez6vF+r+16CmS/e1FraLbqo4JpXMrtF7uqaCBFViJCeO5lQOa
+	XeJG1zq6fxxU4pMbuRT3Ej4IzxV5UeSKZ6KxarWDk
+X-Gm-Gg: AYBFou2LoLZfbO+LtT+GyFWjcXHFVivJlQUQLxmR28EquL9s6HuhJHgZktp3Ut1x1jo
+	hNzGDL1C5QT47Ue14fXjnD3g5Q35UZCt/rsZ7gJ9Ob/r6bA07c9xFStsmKVkXjZ/EpM+g+LEcQI
+	swQ9jaxKj1uCVBrCvb9kWimnlDXu/hiwBdyRAII2u/Yrkx6YCrNU0kLVhtSUHkgPfIfXYwPpUIE
+	r3eRvMpkjgYvj5E4qfM2A60sAwFxO7U6r9lVyDLrLJ/8AJkZsYWGeb2fYkd2+k2WkmVukAGnNbW
+	0CJ6h/FK/XppC2yFIRphr1RB0ur8YOkj6He6vfAJ5il2UBTaKISQomV8Azu60hkwzniTzqAZfSy
+	6/q/l1nKWBVhevOAxmX7LoR9MIW1Jd5feXS8La8EajQ==
+X-Received: by 2002:a05:622a:5809:b0:530:3f93:9023 with SMTP id
+ d75a77b69052e-5311a5c4ddbmr20364911cf.4.1789486444831; Tue, 15 Sep 2026
+ 08:34:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
-In-Reply-To: <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 15 Sep 2026 16:09:13 +0100
-X-Gm-Features: AcwNN1W7-TtmTIyUjllHDLNIKHhLg8r83BUrDSRNpnCFbQDI5w7N_3zM_OKztmM
-Message-ID: <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
-Subject: Re: [PATCH 10/10] media: i2c: ov9282: clamp flash_duration default to
- its maximum
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260914212258.2657788-1-dave@stgolabs.net> <20260914212258.2657788-2-dave@stgolabs.net>
+ <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
+In-Reply-To: <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 15 Sep 2026 08:33:50 -0700
+X-Gm-Features: AcwNN1UtZ4NVKEtG0gDNaQN9gNuUkQxhk8G8OfUhBdsUri_jipzZr0yInGwVu2Y
+Message-ID: <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
+ IOMMU superpages
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org, phasta@kernel.org, 
+	benjamin.gaignard@collabora.com, jstultz@google.com, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-"media: i2c: ov9282: clamp flash_duration default to its maximum"
-took me a moment to parse as to be the control maximum, not the default maximum.
-"clamp flash_duration default to valid range"?
+On Tue, Sep 15, 2026 at 1:41=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 9/14/26 23:22, Davidlohr Bueso wrote:
+> > With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
+> > and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v2
+> > page-table formats, and Arm SMMU's 64-bit long-descriptor format with
+> > a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
+> > mappings, but no 1MB leaf. A 1MB chunk therefore requires 256 4KB leaf
+> > entries unless it can be combined with adjacent chunks into a
+> > suitably aligned larger mapping.
+>
+> Yes, it was an intentional design choice to *NOT* optimize for AMD nor In=
+tels IOMMU here.
+>
+> > Adding a 2MB allocation order provides naturally aligned, physically
+> > contiguous chunks matching the 2MB leaf size, without relying on this
+> > being accidental for separate smaller allocations. The new cost
+> > is one failed order-9 attempt (keeping current large allocation semanti=
+cs)
+> > per buffer when 2MB pages are exhausted.
+>
+> We have plenty of experience with this with TTM and the overhead this res=
+ults in is usually not acceptable.
 
-On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-<richard.leitner@linux.dev> wrote:
->
-> Currently the OV9282_STROBE_FRAME_SPAN_DEFAULT is always passed as default
-> to the flash_duration v4l2 control, where the maximum is dynamically
-> changed. This may lead to situations where the default is above the
-> maximum.
->
-> Fix this by setting the maximum value as default when
-> OV9282_STROBE_FRAME_SPAN_DEFAULT is above the maximum value.
->
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+Overhead from compaction and reclaim to get 2M pages? That is disabled
+for non-0 page orders here in HIGH_ORDER_GFP.
 
-With or without that changed:
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
-> ---
->  drivers/media/i2c/ov9282.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> > Two benchmarks, measured on an AMD EPYC 7313P.
 >
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index be38ecfad8c82..1c5bed85781ce 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -11,6 +11,7 @@
->  #include <linux/i2c.h>
->  #include <linux/math.h>
->  #include <linux/math64.h>
-> +#include <linux/minmax.h>
->  #include <linux/module.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
-> @@ -556,12 +557,15 @@ static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
->         u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
->         u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
->         u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> +       u32 fd_default;
+> Why in the world are you testing the system heap on an AMD EPYC system?
 >
->         if (fd_max_us < exposure_us)
->                 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+> AMD clearly doesn't recommend using the system heap on those boxes for RO=
+Cm, so I'm really wondering what combination of HW you have here?
 >
-> +       fd_default = min_t(u32, OV9282_STROBE_FRAME_SPAN_DEFAULT, fd_max_us);
-> +
->         return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
-> -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> +                                       1, fd_default);
->  }
+> Regards,
+> Christian.
 >
->  /**
->
-> --
-> 2.53.0
->
+> >
+> > (i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
+> > measuring map/unmap: with the v1 page table restricted to 4K/2M/1G
+> > (amd_iommu=3Dv2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks,
+> > only one of whose 2MB windows was superpage-mappable in that run, to
+> > 512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
+> > decrease by ~16x on average with ~32x for the worst cases. Unmapping
+> > that buffer drops from ~500 us to 1.25 us.
+> >
+> > (ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+close
+> > across various thread counts decreases by factors of ~3-7x alleviating
+> > allocator's zone->lock contention by being PMD order and therefore is
+> > pcpu list eligible. Once the buffer size is large enough then the cost
+> > of the zeroing takes over.
+> >
+> > Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+> > ---
+> >  drivers/dma-buf/heaps/system_heap.c | 13 +++++++------
+> >  1 file changed, 7 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heap=
+s/system_heap.c
+> > index c8959eadc71d..621cf238ef97 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -55,14 +55,15 @@ struct dma_heap_attachment {
+> >  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+> >                                 | __GFP_NORETRY) & ~__GFP_RECLAIM) \
+> >                                 | __GFP_COMP)
+> > -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
+> > +                             HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> >  /*
+> > - * The selection of the orders used for allocation (1MB, 64K, 4K) is d=
+esigned
+> > - * to match with the sizes often found in IOMMUs. Using order 4 pages =
+instead
+> > - * of order 0 pages can significantly improve the performance of many =
+IOMMUs
+> > - * by reducing TLB pressure and time spent updating page tables.
+> > + * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K)=
+ is
+> > + * designed to match with the sizes often found in IOMMUs. Using large=
+r order
+> > + * pages instead of order 0 pages can significantly improve the perfor=
+mance of
+> > + * many IOMMUs by reducing TLB pressure and time spent updating page t=
+ables.
+> >   */
+> > -static const unsigned int orders[] =3D {8, 4, 0};
+> > +static const unsigned int orders[] =3D {9, 8, 4, 0};
+> >  #define NUM_ORDERS ARRAY_SIZE(orders)
+> >
+> >  static int system_heap_set_page_decrypted(struct page *page)
+> > --
+> > 2.39.5
+> >
 >
