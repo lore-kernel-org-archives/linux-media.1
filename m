@@ -1,158 +1,233 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC5F3CEB99
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 15:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487822; cv=none; b=qd6Tv9Ks73e1xdzNh/0G9/BazwooY9+Xc34uyl1juMvsJ5jQ6VgY/F1f9LBKqis84+Ac58BA7sYRV/DBoSAxRlQcjmB1OgtTWGEaMn+QZpZYqsTKCNylZJElEKLtrIHbhkuC15ui+WsSVf1dqqny/1zRGwxOniCo+9kLGPX5BjM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487822; c=relaxed/simple;
-	bh=QlBta+H5mNjq+dbHXbi+7XyTVzhQ/G0m8qgfcGULLxU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1B13D3D02
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 16:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789489618; cv=pass; b=a9gyMiI4Jyv61P5KepP1DKP8liM26lsKtWowpboSQYhhfz2zd4O21GwIza3Ygeqj2jMgB1xtFuhkRN8hFiDi9WRLBrjfriPfcZmYRnoCFqPZC6Byr586EJ8jBX3Gpsq2tvdRiMDMeZSG19Y27pRd0FNnVsZVjqbry8mWS4GcVTo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789489618; c=relaxed/simple;
+	bh=5OP+R3pM76gS/l5NYt8QUkiNU62yG9a3CywRT5+GqOs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PZxr3UIF9iYX4UCnlsiiKcVVK3hsnfo6Jc/7Xy6hxeoC6TY23BPbH4/SxVN+e3Ifis90zXLDn5fEPcplKyQskcDeLlxRG3Tz3oQ1X4HGmoDctG4EIY3h3ae8lLkiPAUd1ZxxUaYgcW4sfSJc0FJ5aN2zvhw2IN7WaumGv3MlHYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=E5nh0Qox; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=bZv7cB9F3Ja81u+9YdANPagecUBX7ZTkX+0ftJsgr3h6C2p6O3OMeVhTXtb+MkuE7RUwR48IlOP67n02Go/qb2+Juy3WRlB2CwEYcgn1RsfIDiEYMMTuntmV3uX0MokiAoYOO6fzPY92UQcb6flHy+rEvaiLc3PI/B6mdoTe28w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uuZG1tdt; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="E5nh0Qox"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2826652a91.3
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:57:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uuZG1tdt"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so85721cf.0
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 09:26:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789489615; cv=none;
+        d=google.com; s=arc-20260327;
+        b=og5CTx1yJut42gh751n7dqRUeS+O2NJLQmOg/Rl4E/e0pdVkhFvx/s7MFi8vFCGE1L
+         RS2y5bcxThMeYKrpeqC3J4/Pgat3ceHOUA7TdnHsqkIoPjHPPmgJyKpXidaxveed3/1m
+         GI5jKtO74E8N+Ba/GGXbAtXbxuFRpH5+vCJQ/HkzKkVO7oRZ+N0VHJSKzZWNTvnoSgPH
+         fpVePEHz5ePpRcUA9yUYXlQZI+l+U6lIyQaopHyu7XOv3/xkTla15/goLtqpZ3I3V7DB
+         DCtftirSM9fX6TgyduteIKxQIdHGsv71qrfqt788sNdWALhWViEJ8Zr8mivaAAdDNIuk
+         La3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yVsdbL4Nf3Bwu61qw5TPwMH34bzVbrtCOAxvi0a+fbY=;
+        fh=f/Gp78qMN9x4PQkVmtGT02IKdkb6FOIrwjtFqty72HI=;
+        b=EsKsIJUUyfTjVb5l1bUxeurmUz8erMr3MvOKUOuWnW83gZTl817SRUd/8sfA6utRH5
+         dJqgcGMeouFeZCL/xcUdenjhr29qfI7cK94MfROCxtTQyJ6Wt+LnkhrLCRjSxR4FW3jm
+         4X3wrNRfSUfnzi5nvgOP9fEJNHzZUV0C7Bixo13qNfrzSHbjVifsovXFZ9gZne8KAxZT
+         bPlq3rktQTDu4glCehi/EIRk7uJ2b6XCWit3+w2IaBHC8wpnQ8eSKX+AWN4XCet6Scrg
+         OC7Gyi5JiFZNhD1qCmxuX0yQ4TXtQV7Oe0993lujyhuIjHhMXyPopLQkNXgwlATILd9O
+         glpg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789487820; x=1790092620; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SNucMVkd678hHS4QioCaDYebjQk2vtrspVRirogiq3E=;
-        b=E5nh0Qox0Rp+e/ILwvLVNvUZQtclgeJytWGBcb7hNfzdDs2Jko71mjvvqJfPb9MjvC
-         U1xHojW3K8s41C17fgavMMnx1mFDLqnRauZ3YKBMFT7UFF6F23R2qkYjn8ruhHhOjESc
-         1s2sYAbLN/ggtrOMjSRCUXzEM0faCi0M6RGxE=
+        d=google.com; s=20251104; t=1789489615; x=1790094415; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yVsdbL4Nf3Bwu61qw5TPwMH34bzVbrtCOAxvi0a+fbY=;
+        b=uuZG1tdtb/PJRu/iUo+YrSvKYapXW0yxFykt7ip2bMN/ZWDVj5OqfOHSQNKD1P+ycr
+         G0Mte6fxZFrm3rFfT0k3/f7on4R3PF+Lc7XWXqm3FQK7laz7VjJysw6bTq1zmohHhHml
+         +Qh5jRfqO/PIgmeHDR01wfuT01dhDKz4flPyHHkX1SldRVuHDXhsEXoMNrvxPaxXoVYY
+         dIczomOBWUslp/vy/Tj1mrkSQaipYyDem6R7iN617RwVBFUfCJnF2r5l56hT51Vj8aXh
+         +8AJPCOFQiM4oFjS4kK7rdM3L1YUYUpUiOv6b0TPNw1eSOpKfFR3SKsYimZX4ALrm/zA
+         AzwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789487820; x=1790092620;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SNucMVkd678hHS4QioCaDYebjQk2vtrspVRirogiq3E=;
-        b=XHLvEjeOHwC8AgDE94l0rTgPzgYx7rDyhG9Eql6+qWmBKPdzlgSMu/VOG6HW76n3bb
-         AlUc2AYAYMKBFxhxER7P6q5Yni1r28vDi42PRxUlN+Assed7AwbgwvQAbJVOSVx/yasJ
-         DoCd9XER2jYiv5Urn6RVhe5ixc0DRPDom1uVC4jbTwkTSdh9jI1QikNFPCXNqzfjevZc
-         KPsvCiVZomtj9xQH6Y1Bc+hRwvUbf/wHTCIM7P9dU3OHFIGxmKlgk4vmAZsRktIEe/Hy
-         IrG8juvzAE25FVrHFwn6vdIDZQyHtRuLyBu8dbF3FKE2Pj47I9O47G2BEdQTXhmYZtD2
-         gc4w==
-X-Forwarded-Encrypted: i=1; AKwUvBzmPbQrUTja6KFllPz8AW9BQXXdNvgE9zeUmDHmjy4y6lEmT9SpelYm0wo7cnyDCZWqfpoE+vIZUT/RRA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mAqZ7rffY4P+Ma1QLJDWIBcsGlXe/nRmZ+yvXHLDy6l7ofJPZn
-	d7MIwu5If1glbsvYPOwD8Lb2l0kGOmJgWgc7Jp8iodqpOO2hS5dHMSZKEhxCDbuU97Zmx+/UNvY
-	Ad5E=
-X-Gm-Gg: AYBFou3v1wjBc4C5SjhxaoclZykHzZ+lZ9DCT1iDnqK9FxOwxdGWwtgY/Bt4dc678Du
-	XsuWXGniEPkii+t9wJ2MDmtCo/eThJpn45t+aSdtZIoyFi1JRQVhj8c+5M7JWsz1MORTN8UsoFu
-	hUl17tajwp5uniHz7d/qvYmN8MEAi+l11eaUMihHJmvIHA5fEAB2D07uGMXZVwMiXsS8tSLYqOC
-	66vZ+Hvo5ldkBkc3OVYZWcDCYvBdnTx/SbDeeBGoHJ990esN0A81n9CgQeYDUX8+uKhs7tqrtFy
-	EjjwHBGVmveXfgnzzuApaTHCCYCNbvj7LsLYpIMfnxaL/tAQ7CxAp2I+uGB5NpaiPCzUKyYiIDS
-	USoes6WDuQ2msSLi3cdnhBmD8rNJpqZpFZgO5y4laYWiyR7Ros0Cull+KwTvHeykbME2PPmGw8B
-	pzeO7DMOUDSq9rp6e22GuTHHG9dELLD4o46dJ5a6jym6oYBPpJLA5P15cg72y6rrG6gr9TsmJl1
-	gXTGUCXu4DR6B9zs77WR91ASXtHkracTxUf
-X-Received: by 2002:a17:90b:534c:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-39df08f09b2mr16449735a91.9.1789487819769;
-        Tue, 15 Sep 2026 08:56:59 -0700 (PDT)
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com. [74.125.228.43])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdb3045bsm7064396a91.17.2026.09.15.08.56.59
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 08:56:59 -0700 (PDT)
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e25187so2646949b3a.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 08:56:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwWmmBVoYTHBJlrcxKonCGrkffehOOYAnlraRgHmgthYJWEgfHfTufL0beK7R0DS7yzKzx4MT3Z+y3tew==@vger.kernel.org
-X-Received: by 2002:a05:6a21:3315:b0:3cc:3d08:da2b with SMTP id
- adf61e73a8af0-3db405ca519mr21103752637.15.1789487816474; Tue, 15 Sep 2026
- 08:56:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789489615; x=1790094415;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yVsdbL4Nf3Bwu61qw5TPwMH34bzVbrtCOAxvi0a+fbY=;
+        b=Mmy1ZGNxSD4zTImSPf1v1ydtXs5XY8y2Mj+EpFxrQ+COf+E1vMKePnG4dITECWaWA9
+         26VgypPH+eLzwqdB61XnOn+kEVKwvnWJzGjgBYomvqrrdNPbuL3AHSwtPlKwHjGhuxpV
+         BK/B5cLnIGwIpFRRnJ9VpbRZkWBQT5/st3EeiUCEO/Bv9ysHVU56HhMVQuaGHbwnH05D
+         hqRp9ik5pefQd/LkQszVm7Zptrkj7y5uLyn1fKqoM+LIsVQG1ysnF/plf4CHwjMKeh0i
+         CJAUUaslMXmjjgphkotEaSuoag4zX1y2yH/ve4L2DQQUn4uATIiT8j6bgVW6cIThhSEK
+         CdRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWOEavyyiTDdYOqmUZG2NW8sIleVY9VIFrQL8whhEe+nfJNfkGYxSQqpvRWU1s5BC5H+bWPqXkgayT+Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++nNf50XdRwR78UimROXLX3R/mbRAWyRadVOCPcvexJ1uwu88Cr1
+	JgNKHsv6SVPXv7Fu+dhUKaZYLWU+KR2TemIG17nAFmwzZdvtxjz7ggRSrmXPeSTzAVrZ72ZbIbS
+	JVNYXPMAVovkHfrE7w/Dfbsg/seDJv9mXUbymzZjz
+X-Gm-Gg: AYBFou2wwv6k0HuUkmLjoOMrLe3OZ4Ybq7OQDBfJwhfnuWoD/l3xQrJH2bnJthKwZMR
+	HhAUtS+pgEoJUJA/W5DTPVYMHntg9xrnbe6mqBgC+iiPiu0v+mcSYVbUhmSpo0beCsBoH2c83J0
+	XrltSvZNzxGHUY+zVozl6XTqLYfpQ48jk0KNEV7broACuoPvqNUidPw4pjsbGPofzp/2LKQCe5/
+	gAkp4eZQlzzJHbDmqFVGy45Z/vINFCCFWnYa29KQ0LqPmEI9ocbq6nGcacvCKzbz7ktz/59K3q0
+	oCJe1Vn0jqCCXQQAA4ltQGHRO+/oG6sj+IXqWcpbHg3KbYICXNDYzqI3wlDtxM6DonpGWTp51II
+	2rI5DIHmCf2EFPcpT0xlFFp3gUh5FUjFoRvzcvtNrGieOKFwAwEMd
+X-Received: by 2002:ac8:7e92:0:b0:530:4381:e745 with SMTP id
+ d75a77b69052e-5311c75235cmr16483171cf.10.1789489614432; Tue, 15 Sep 2026
+ 09:26:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <apqGlTiybdvQX3Ao@kekkonen.localdomain> <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
- <aqU5QFGmYlCtbdiE@kekkonen.localdomain> <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
- <aqfyYSagcejWb4xD@stanley.mountain>
-In-Reply-To: <aqfyYSagcejWb4xD@stanley.mountain>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 15 Sep 2026 17:56:43 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtEmAZippX45kaxjWAHs+cd+vpFFtxOnnz00nmVnkgqzQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VOeS6uL0_wTY-nR6d_j0OJAaYWMrSrW2geaFCqxnwzMq5M1mnIaCQWjMI
-Message-ID: <CANiDSCtEmAZippX45kaxjWAHs+cd+vpFFtxOnnz00nmVnkgqzQ@mail.gmail.com>
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: Dan Carpenter <error27@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Ceclan Dumitru <mitrutzceclan@gmail.com>, 
-	dumitru.ceclan@analog.com, 
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
-	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
-	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
-	Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu <Adrian.Suciu@analog.com>, 
-	Cosmin Tanislav <demonsingur@gmail.com>, Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260914212258.2657788-1-dave@stgolabs.net> <20260914212258.2657788-2-dave@stgolabs.net>
+ <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com> <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
+ <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
+In-Reply-To: <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 15 Sep 2026 09:26:39 -0700
+X-Gm-Features: AcwNN1Ublkw1G4b_G7djr5SdAcXDGM_6QerSz9j4ZUwkBsSgS1ICq54mARllNGQ
+Message-ID: <CABdmKX1g=wcLHOFkRN6DLPTABrnn2uWmgCKpCtixhiV_b+9J1g@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
+ IOMMU superpages
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org, phasta@kernel.org, 
+	benjamin.gaignard@collabora.com, jstultz@google.com, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Dan, Hi Sakari
-
-On Mon, 14 Sept 2026 at 15:11, Dan Carpenter <error27@gmail.com> wrote:
+On Tue, Sep 15, 2026 at 8:44=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> On Mon, Sep 14, 2026 at 02:10:10PM +0200, Ricardo Ribalda wrote:
-> > Hi Sakari
+> On 9/15/26 17:33, T.J. Mercier wrote:
+> > On Tue, Sep 15, 2026 at 1:41=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> On 9/14/26 23:22, Davidlohr Bueso wrote:
+> >>> With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
+> >>> and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v=
+2
+> >>> page-table formats, and Arm SMMU's 64-bit long-descriptor format with
+> >>> a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
+> >>> mappings, but no 1MB leaf. A 1MB chunk therefore requires 256 4KB lea=
+f
+> >>> entries unless it can be combined with adjacent chunks into a
+> >>> suitably aligned larger mapping.
+> >>
+> >> Yes, it was an intentional design choice to *NOT* optimize for AMD nor=
+ Intels IOMMU here.
+> >>
+> >>> Adding a 2MB allocation order provides naturally aligned, physically
+> >>> contiguous chunks matching the 2MB leaf size, without relying on this
+> >>> being accidental for separate smaller allocations. The new cost
+> >>> is one failed order-9 attempt (keeping current large allocation seman=
+tics)
+> >>> per buffer when 2MB pages are exhausted.
+> >>
+> >> We have plenty of experience with this with TTM and the overhead this =
+results in is usually not acceptable.
 > >
-> > On Sat, 12 Sept 2026 at 13:36, Sakari Ailus
-> > <sakari.ailus@linux.intel.com> wrote:
-> > >
-> > > Hi Dumitru, Dan, Ricardo,
-> > >
-> > > On Tue, Sep 08, 2026 at 01:35:05PM +0300, Ceclan Dumitru wrote:
-> > > > > Can you check this
-> > > > > <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
-> > > > > please? If there's a single patch that needs to be modified, I can squash a
-> > > > > patch into that, otherwise v17 it is.
-> > > > >
-> > > >
-> > > > These are the same warns reported by Niklas in V13. Dan fixed them in
-> > > > smatch in devel branch but fix is not in master. Testing with smatch on
-> > > > that branch yields no warnings.
-> > >
-> > > Dan: any plans to merge these things to master some time soon? Or:
-> > >
-> > > Ricardo: could we use devel branch of smatch for some time?
+> > Overhead from compaction and reclaim to get 2M pages? That is disabled
+> > for non-0 page orders here in HIGH_ORDER_GFP.
+>
+> Ah! Thanks for pointing that out, I misread the code that __GFP_RECLAIM i=
+s ORed into the mask.
+>
+> But the question is still why? Without reclaim that is pretty much an use=
+less feature on most x86 boxes.
+
+Even on arm64 phones free 2M pages aren't likely to be available for
+very long after boot, but lately we have been doing more proactive
+reclaim triggered by userspace before launching workflows that desire
+large dma-buf allocations (and also at other times during application
+lifecycle in general). That somewhat increases the likelihood that
+high order pages will be available. I agree there's no guarantee we'll
+get any, but without __GFP_RECLAIM the attempt is pretty cheap and the
+payoff can be pretty benficial which Davidlohr's allocation and
+mapping measurements demonstrate.
+
+
+> Regards,
+> Christian.
+>
 > >
-> > Do you know what patch fixes it? If it is easy to cherry pick I can
-> > add it to our list of smatch patches
-> > https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/third_party?ref_type=heads
-> >
+> >>> Two benchmarks, measured on an AMD EPYC 7313P.
+> >>
+> >> Why in the world are you testing the system heap on an AMD EPYC system=
+?
+> >>
+> >> AMD clearly doesn't recommend using the system heap on those boxes for=
+ ROCm, so I'm really wondering what combination of HW you have here?
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> (i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
+> >>> measuring map/unmap: with the v1 page table restricted to 4K/2M/1G
+> >>> (amd_iommu=3Dv2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks=
+,
+> >>> only one of whose 2MB windows was superpage-mappable in that run, to
+> >>> 512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
+> >>> decrease by ~16x on average with ~32x for the worst cases. Unmapping
+> >>> that buffer drops from ~500 us to 1.25 us.
+> >>>
+> >>> (ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+clos=
+e
+> >>> across various thread counts decreases by factors of ~3-7x alleviatin=
+g
+> >>> allocator's zone->lock contention by being PMD order and therefore is
+> >>> pcpu list eligible. Once the buffer size is large enough then the cos=
+t
+> >>> of the zeroing takes over.
+> >>>
+> >>> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+> >>> ---
+> >>>  drivers/dma-buf/heaps/system_heap.c | 13 +++++++------
+> >>>  1 file changed, 7 insertions(+), 6 deletions(-)
+> >>>
+> >>> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/he=
+aps/system_heap.c
+> >>> index c8959eadc71d..621cf238ef97 100644
+> >>> --- a/drivers/dma-buf/heaps/system_heap.c
+> >>> +++ b/drivers/dma-buf/heaps/system_heap.c
+> >>> @@ -55,14 +55,15 @@ struct dma_heap_attachment {
+> >>>  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN =
+\
+> >>>                                 | __GFP_NORETRY) & ~__GFP_RECLAIM) \
+> >>>                                 | __GFP_COMP)
+> >>> -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_=
+ORDER_GFP};
+> >>> +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
+> >>> +                             HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> >>>  /*
+> >>> - * The selection of the orders used for allocation (1MB, 64K, 4K) is=
+ designed
+> >>> - * to match with the sizes often found in IOMMUs. Using order 4 page=
+s instead
+> >>> - * of order 0 pages can significantly improve the performance of man=
+y IOMMUs
+> >>> - * by reducing TLB pressure and time spent updating page tables.
+> >>> + * The selection of the orders used for allocation (2MB, 1MB, 64K, 4=
+K) is
+> >>> + * designed to match with the sizes often found in IOMMUs. Using lar=
+ger order
+> >>> + * pages instead of order 0 pages can significantly improve the perf=
+ormance of
+> >>> + * many IOMMUs by reducing TLB pressure and time spent updating page=
+ tables.
+> >>>   */
+> >>> -static const unsigned int orders[] =3D {8, 4, 0};
+> >>> +static const unsigned int orders[] =3D {9, 8, 4, 0};
+> >>>  #define NUM_ORDERS ARRAY_SIZE(orders)
+> >>>
+> >>>  static int system_heap_set_page_decrypted(struct page *page)
+> >>> --
+> >>> 2.39.5
+> >>>
+> >>
 >
-> Commit d12183645a31 ("precedence: silence some false positives")
->
-> Sorry, I felt like I was close to merging devel but then I started
-> another major surgery to the core and got stuck.
-
-Thanks for the pointer. I have added the patch to media-ci
-https://gitlab.freedesktop.org/linux-media/media-ci/-/merge_requests/351
-
-Now that I have your attention ... :P
-
-May I ask you to look int
-https://lore.kernel.org/all/20260914-unqual-v2-0-60a1407a0cd4@chromium.org/
-in case you have missed it?
-
-Thanks a lot!
-
-
->
-> regards,
-> dan carpenter
->
->
-
-
--- 
-Ricardo Ribalda
