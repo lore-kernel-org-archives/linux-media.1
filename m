@@ -1,71 +1,72 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A75931F99C
-	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463F5324B24
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 01:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434674; cv=none; b=awz1PesMLNNFwxcH4utf54y9QsqfFBkIssbqXRP73aFGjAqkrXAkNj2nbYCR0P3uyAnarHrEIuiALv1vj6hzikYeqX5CGtG191KmsoHahaeSCbPsUKH80m2ZXsArp2mk05zNfFNpsK+PqTYDlgKRud6cuRg2JiNC2Uzdu/yG5JA=
+	t=1789434818; cv=none; b=NE4d3HdoNKq48KS9dra9QmZk2vpjAy6bAwXyC5OireMWlpPkVz3R+7BXSFMejysVIVgkDaax1yU35UBZImrnXVVIEIjK3YYvE/nj8b41rKXMYIYR7NEV3FCpc6QWOVbjWfWQAvqIyesiUuV3+Whf1RfLG8MndKSSgiPkpv/m7zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434674; c=relaxed/simple;
-	bh=RthSqZf0DDbfE7GqRv1mD8ZLsDt8tj3LzD0j2X4Sgvo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nnuRwD46+di1mh9dmLflEAV6iimckXC5OWYDemEuXSPx16dDM1yB/9aI5uEaqclwUkUsuWiDMrOcwHfGpM9rOsgBB3dAgyNTdlYbTtvXziz7cGE2eoKk24Xm+QI7jtvkHRotSPlIXV3Sb5ObbJO6hLzxXv/0B6BARZ5aO/wVATs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LysJkkJN; arc=none smtp.client-ip=209.85.222.173
+	s=arc-20240116; t=1789434818; c=relaxed/simple;
+	bh=ArUMxvEg/9Wg+ds61xB4rMefcv6aLplEv1aBo/D5quQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qpu8prIgz1yOWi81kcOhUwzjTWjSOei9gIUsRfbAfsU1cIo9UvuPk5Gp0xwrOdu9FJU+hz+5XKy3ggUnEt2q69Y8vjCB7uDAvIW81VD5jQI8nSgV3ZuuhuS6v85Oas6ecm49nDr+xt4pW2y3XcGuLrrBccBTLaRd7PKKo1wrteQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FnmhLOqr; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LysJkkJN"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93a0bf264a4so238973985a.1
-        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 18:11:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FnmhLOqr"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309a20a55bso26870741cf.1
+        for <linux-media@vger.kernel.org>; Mon, 14 Sep 2026 18:13:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789434672; x=1790039472; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789434815; x=1790039615; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AAKtLNOJWbVnxDBkVZ/0uqO6Tw1qnmXMwpf6IStwoh8=;
-        b=LysJkkJNlkYwqiziNwoslfoDXK/moa35vApFMWIqPdqVi7IiIkkutg5OcdbvSY0JQZ
-         2bNAvnesA0ERR+wGRAsExxXfTxge2Uk1DaFEdk7zLuKKTs8rvVNhJ1ES2rep1gTMRYWq
-         RpDLRxmPlF11WbAkJ4iti39CI0VO1R6zabulvlNfkln72XdQWiiFuDn3pGXo9NUTxfQR
-         BtV1kdVb8tIYa2LAmw/PFQNtrpNag94RjBh+DQDUXSfI+839fwnWV/8slcrYXgG7umuo
-         KHPlmSnEBt7S1X3P4EXkSdV9Hg54I/WiddIUqHvKTWe/dbCq9BdIB481cr/jv8Tuuswb
-         RaMg==
+        bh=AXgWED4DR0uWovVFKapj0G3QwW4Ar6tjesWzskazBmE=;
+        b=FnmhLOqrE/AzmawEiKmoUTmXC7lptpm5Dok05KhkdnjSPdfZwCyOvtzkd3z/WC8wuR
+         lu84UTHgVSbOZC/A2kw7QM6n3tWynrUz+bcGyq2WI77hce7+VzSnmsT52Qp1k8u6F95c
+         DxekIXHqvNzh63kY5lSvPmHfKxKjUoDGjiKyUopXjTrGWDenFoUTM3gBHu9MFdStx/Sf
+         hZieqXs0Js19wkKsgE1iRw12TRlQlOLOciLyoyhdUpMPswolMm+dkpUysypn+qdSMsZD
+         7BvApNnpvmHWdibqky4DG76eYdEE4Hz5hwgfln0vC3v+EvL+S8RYw2SoRjhSwF93GAf5
+         32Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789434672; x=1790039472;
+        d=1e100.net; s=20260707; t=1789434815; x=1790039615;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AAKtLNOJWbVnxDBkVZ/0uqO6Tw1qnmXMwpf6IStwoh8=;
-        b=daEAWMjTPt6fMYQgR9Ri/ViJYgnUpQ8uX+QpXNVnWA+H+1hR49Ia6CrprIMn84DUcp
-         yTmZinJOuEIfU++j+pLiqRmDxTpQAcBEsVwIwslD+Z7n5gCYNQwMEaiudLTdzgSRQTSk
-         grklFoqgtFJAPjC9Mn4+0CDYLZlYz94p09e2mxmdsggLYjelCeB9uorcrzMh7bLy9tMQ
-         FofC/vuxNqIGX0YYfmiihfylTaPLpaz6DfRf7mKiZ3iQuNnaX9GNQ06mTtohxZgXjK+4
-         8rFQ6mSuiR6pm0ZYU5Vod5TaUOqFWmcov+tax6hgUQKqXlObhRU+g5QYSCOMjnF4tzRQ
-         cwBA==
-X-Gm-Message-State: AFuF++kUNicLeJGy/O1DsFeIVgaktQylMpqL8rdtkepXvVBrRXtF8m0w
-	GKNZnTPxVu90Oinc+N+pSa0inCNDP4djNCvsrUg7jJYyKd05/o7PKew=
-X-Gm-Gg: AYBFou07+yZTLMDV5JSq3CUuRr5gZK1bCDkxVVxT1WuJZbVC51EDjXRGaebj9b62Ouc
-	saiQRtptQtRshYz7bs4jLHcVby7q4QXYPz3ufAN9NxDwJzesKEOwCr41oz6RbqSNg8m8P2VaQsd
-	P1fZN7H3bAPMNmLKQEwseJkG122DIXzl5rHu+SSMg1wlsRcbLsUzFmivatPUh7tmGzp8mTMQSh8
-	M+39H3gV7VV+uEQGOpKz2fI5tFSey/1kWfPsiZoGl0drZ3lZbU6p/935gl/DXUB20qeBWqLCT0Z
-	RaYwUIkLDPBkOijAVssaXQ4I8gwoNLo0v3ZFYpEHtKxkyv3NUra0c7qgq7/N4FEOR0Fg+NUh8aY
-	wqWla4aUVBd9LzYJe4bTy/2VucWB3P9lLQp1KudX+Y63IQMlMexcvL99U5Xn1+zpRglzdOQqxbW
-	Bii7i8oqUmRz1WOXnZumVymbCI2GhDcLSIGKXyUnXve4jbie63Cvnvrk80/4MFCkvZY+cXrfzzL
-	LaFsskLRvrrckYazZHpEaXrfcaJOKgywEEYIkXRrVu+UIPYKvDusUelDxGwz515aKgwxqtxBBCG
-	P64C2sD+9CbTC9fBSB0l/RZC81KnEZOorgA5SUVQKiM446EmJrt78soAsfqXnEMKDAm3ZD0=
-X-Received: by 2002:a05:620a:4555:b0:93a:2e8:5afa with SMTP id af79cd13be357-93a29939a68mr737739085a.30.1789434672383;
-        Mon, 14 Sep 2026 18:11:12 -0700 (PDT)
+        bh=AXgWED4DR0uWovVFKapj0G3QwW4Ar6tjesWzskazBmE=;
+        b=wWsoQuqN9gs+Y4G0hriALK13Askah59jDm1udpolXDDa65Rm9Tz0rMwI5NaVGouZa8
+         tBrBMI6TtYZB0Icrp+dpZRP0ch/ekawdrEudHekuyXEk5uqvkQJQbomCb34ImXjAqeKb
+         ivWiL+9b/eXAboXNff5xcKj00RXtsct9hfW5g/Cr2a/L+2YyZLH2UJLbxaiAwABvvAYv
+         utKWYhvto41ayolOGZ5lb6nGtn+k+YSODXr6R5HL3xZ6XXm3/ChzdOThisdJpEZjbphe
+         kWNrt6PXDqI509S5XWX0iDTSSb1M2chpRJ5gX8JUJ0HPeByV0b+tfguAL7Q19d5okqt8
+         bS6g==
+X-Gm-Message-State: AFuF++n3IUyJoPppj/kdCAoe3jNSQPamUxgNAditnHcftN5bG1k/TsmZ
+	vs/9HPJTVI4eaCtR06ZR3tR4wo8rPaRFgdQTHf26sWWK/mda4ltFJ/4=
+X-Gm-Gg: AYBFou0TIuXN5DSzLdgcxopEcaWAi3coXuwmtgQ8G0V47nK10KptWrJqv0k6wIdJDGX
+	mpo/oG+oujp3TGQ+ZHgfz2pVEw8rFNy8rH80+0YYLkxobC2RgLQ+/YQKMlK4yhMsIxRiAQwUPn8
+	F2xmhP41IBshhOfTCIFbqCb4KTxfcLdNOMOsrN/NKlZ3KxsRfg7L+dXmXV9gu0/FNm3OTsHmt68
+	LTl7GMmfs0Bx/+TL3EU9jLDSPCNI8fm3ADHnMgjR+iQJ8zllBv3UDvqmLit9CxdDVOOxIpA5a5T
+	Cn23gnpjia49zWwvmObl5O43mucyJ4h/PqS5RNa1hgiwMB202IFyI6FeAJFe2ASmCoJWIuZukka
+	Czqoq3VPXZbaoupkvA9PJKQbuYCXfDJTPyRkjSI5CtT4GiSvxoi3CsZtGJaMfPLcOMK/MMSTFs7
+	EL479T2Dq/uBi5tPLD0XSGLDBidmepLky/SpvPnf3JGu1GyxQC5r1lq4wMk+bWr4PRil7vnhaU7
+	22EGbOmbjer0IigEZ/ayqwzCh7CxwBrEtDUE6eJyfSuGpjfaTHtE8rOGVjUwTJDPLTu0+X9Wg1H
+	dTXs7oX4kjZq5e4Biq3Q+T12wZQNyMQ5+TpsK6Wb3KG37dxG2t510A6g2cYQTAPMmfIVc+7JswI
+	=
+X-Received: by 2002:a05:622a:506:b0:530:5ecf:6e9a with SMTP id d75a77b69052e-5310cf6d5c1mr80899411cf.22.1789434814869;
+        Mon, 14 Sep 2026 18:13:34 -0700 (PDT)
 Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e809fd0bsm1118996885a.33.2026.09.14.18.11.11
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4b699bsm109060396d6.37.2026.09.14.18.13.33
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:11:11 -0700 (PDT)
+        Mon, 14 Sep 2026 18:13:34 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
+To: Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] media: tw68: balance PCI enable on cleanup
-Date: Mon, 14 Sep 2026 21:11:05 -0400
-Message-ID: <20260915011105.56149-1-mhun512@gmail.com>
+Subject: [PATCH 1/2] media: sti: hva: Drop redundant clock preparation in probe
+Date: Mon, 14 Sep 2026 21:13:26 -0400
+Message-ID: <20260915011327.57695-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -75,34 +76,84 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tw68_initdev() leaves the PCI device enabled after a later probe failure
-or tw68_finidev(). Use pcim_enable_device() to balance the enable reference
-when the driver is detached or probe fails.
+hva_hw_probe() prepares the clock separately from the runtime PM
+callbacks. The callbacks balance their own clk_prepare_enable() and
+clk_disable_unprepare() calls, leaving the probe's extra prepare
+reference behind on removal.
 
-The managed disable runs after the managed IRQ has been released.
+Let runtime PM own clock preparation. Runtime resume already prepares
+the clock before the IP version check and encoding operations, so the
+extra reference is unnecessary.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: e15d1c12c587 ("[media] tw68: refactor and cleanup the tw68 driver")
+Fixes: 57b2c0628b60 ("[media] st-hva: multi-format video encoder V4L2 driver")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/pci/tw68/tw68-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/platform/st/sti/hva/hva-hw.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/media/pci/tw68/tw68-core.c b/drivers/media/pci/tw68/tw68-core.c
---- a/drivers/media/pci/tw68/tw68-core.c
-+++ b/drivers/media/pci/tw68/tw68-core.c
-@@ -228,7 +228,7 @@
- 
- 	/* pci init */
- 	dev->pci = pci_dev;
--	if (pci_enable_device(pci_dev)) {
-+	if (pcim_enable_device(pci_dev)) {
- 		err = -EIO;
- 		goto fail1;
+diff --git a/drivers/media/platform/st/sti/hva/hva-hw.c b/drivers/media/platform/st/sti/hva/hva-hw.c
+--- a/drivers/media/platform/st/sti/hva/hva-hw.c
++++ b/drivers/media/platform/st/sti/hva/hva-hw.c
+@@ -329,17 +329,10 @@ int hva_hw_probe(struct platform_device *pdev, struct hva_dev *hva)
+ 		return PTR_ERR(hva->clk);
  	}
+ 
+-	ret = clk_prepare(hva->clk);
+-	if (ret < 0) {
+-		dev_err(dev, "%s     failed to prepare clock\n", HVA_PREFIX);
+-		hva->clk = ERR_PTR(-EINVAL);
+-		return ret;
+-	}
+-
+ 	/* get status interruption resource */
+ 	ret  = platform_get_irq(pdev, 0);
+ 	if (ret < 0)
+-		goto err_clk;
++		return ret;
+ 	hva->irq_its = ret;
+ 
+ 	ret = devm_request_threaded_irq(dev, hva->irq_its, hva_hw_its_interrupt,
+@@ -349,14 +342,14 @@ int hva_hw_probe(struct platform_device *pdev, struct hva_dev *hva)
+ 	if (ret) {
+ 		dev_err(dev, "%s     failed to install status IRQ 0x%x\n",
+ 			HVA_PREFIX, hva->irq_its);
+-		goto err_clk;
++		return ret;
+ 	}
+ 	disable_irq(hva->irq_its);
+ 
+ 	/* get error interruption resource */
+ 	ret = platform_get_irq(pdev, 1);
+ 	if (ret < 0)
+-		goto err_clk;
++		return ret;
+ 	hva->irq_err = ret;
+ 
+ 	ret = devm_request_threaded_irq(dev, hva->irq_err, hva_hw_err_interrupt,
+@@ -366,7 +359,7 @@ int hva_hw_probe(struct platform_device *pdev, struct hva_dev *hva)
+ 	if (ret) {
+ 		dev_err(dev, "%s     failed to install error IRQ 0x%x\n",
+ 			HVA_PREFIX, hva->irq_err);
+-		goto err_clk;
++		return ret;
+ 	}
+ 	disable_irq(hva->irq_err);
+ 
+@@ -405,8 +398,6 @@ err_pm:
+ 	pm_runtime_put(dev);
+ err_disable:
+ 	pm_runtime_disable(dev);
+-err_clk:
+-	clk_unprepare(hva->clk);
+ 
+ 	return ret;
+ }
+-- 
+2.51.0
