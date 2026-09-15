@@ -1,212 +1,139 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010027.outbound.protection.outlook.com [52.101.84.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB874AE13F;
-	Tue, 15 Sep 2026 11:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472890; cv=fail; b=NiGxg6CxFnq4IMUlLbGl9mA5kFYXcjv7qiYs/VD0yrQyChDDxAXPotG1KbXVnA2bfBV/HL7DVR5W1qsz44QoupAdpCly8KP5PxocXwcRIpTLywr92azKUtD/R/en80D9TOx4oMeucXCJGEWMuqb6iSc1iLHSnJAftkFxs/RpHGA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472890; c=relaxed/simple;
-	bh=KMM6eL0UbZzjA6KrzI7IpmUxEQW0M+E81rqUznoqvUc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=LiFGiRn/5byJSIplO6pCpG6c34FnhcJu8qA4fC+UN1jR4JPYgzt0GhdNK+6bSIJ/P/LqldZ1Fg1Z8/J1v+RrOnk7UHa1hJaWWUbt/kmghA81JLaH0QYJr7JtXubOJO3HPChohlcbWROK4Ag1di0mrfj523M52AcKHVjGyz8taDY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=lTsBCRu8; arc=fail smtp.client-ip=52.101.84.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0800A4BA1F6
+	for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 11:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789473021; cv=none; b=BTv9tfliLa15CqIAys2RfLMQgNIJtJAQjX1+sZrMUfXsOyYQr8uLpY6y65z/lN+MntHwS8i7zX4lGdEPjuKs31/EGaQIsuxn6910yFMjWTOxk/AyuznaK7QGGReNiNEIlcPS7xc6LVrtSYfOv34CNA69OeFdnJE5wgEQdWmR65M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789473021; c=relaxed/simple;
+	bh=HrpS0+5vBPnHQrYihC1+KHpGhL5ZrFqgwBQSMxw0ThM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=juj/oSh1KSCNRee2gDB63FGasm3Qrn3FLIBIJmM/FfpiqKKxGp6XamZCtDE7ncrvQRzBDzSRUV3Euv/8ZjlKGlQDM8oNlpHiEfYUsPmsu2hs48b8eaISUSDAWc9LEiDFs2LG9IKrOfsuy8MU6OC/H4V2E7RytCpU7/+Al1oRmWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eMFMXB5L; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="lTsBCRu8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bzlKMmctVluHo7GCPF23ITjjf1QrLLGy5q1685xaMkH4FRf4E5+CyQPOsbLI5pw9wJ2VTgIx1cx9KnlJ/logeG2TXuk+ZL/odHsXoL9JGrHY3co7gpNNYsUinL7XXtyjRKLxtbsMUISUJpOZ2+dEHMT3UDsfAcN1/6y+KVQrz4FUmHsdPa3XWElj2mk4qCbsGFT+y56s73RIOcteelsZIapEGQctmIAvaE8TIy09CbtyIn+Ksk7+X6LKdsgN8zB6xtEOXCORbjuALG2Prs+Nb397aS5A6UV2ZsKrNPMXwP6fCWW6CO/VjxeRF09q0q4WjwnrUAEXrlfOv+aAH1l/0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vaNZAyVMr9TQ0PhI2P+tfwgddyQY1zp845jlWmkLxoE=;
- b=RQnSXLi+zrmO+zGnkkSy8pXgBE/Q++q3YRI7Tw2ZJ8Z1NnpASMKeSe+65E+n2wtu32uMRPL3fbRPUBTyxxOFw2Ggy2BK3risu5oqV0HIV3doh9WyW9+UHkhDdhY4ijSLuMk6R7bKWeYseB3EtMG/omqXjRW4bQqRbMVuEAeXjSswwMkDP/xH6iTFqAl/hLj4RBO7qlyPyRsNXBYMaDjsSlwk40+XPCi2YlJSQQgHRZWRN7gI/l+78nkVmOKdd4z0jpr9ce/Xk3mwalMvS+izj3cb9G52UklJcdn2MNIktmBpgNb0zlWnSbKwvPZyv3VjR4PfMKvh3g7yH+7O2tgW0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=pm.me smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vaNZAyVMr9TQ0PhI2P+tfwgddyQY1zp845jlWmkLxoE=;
- b=lTsBCRu8mFzkDoh0Tf+UuprzfxeivHv1uVjH7UDpIuP6mYkbgOpQ73mG27VJzW5NGC4zYgKGKH03mBj51LLPJ6s43LVumNtlfabRlEpiTubhYBYo0NDod8DTq8rzVjbS2rLRocTJJE6piFmMx/PMGRU/3o6nXM12oWOrFOtgLRqcs8RJYMDLWl3JoIeh0nsD0kge6mGROkFCVtFD4SzRczljZ3Kti0Gn/UvrxUcM/cs/XF6dhrEsWBh1tLM1amOHYu1S9tNDQktJLa/21fRphQxwI7bw8Mk6bfp+Ch+MFCO30scAPzNeCN5CsUCkqjVfWQnkNFEKPDGGftMLwSPDOw==
-Received: from VIXP296CA0021.AUTP296.PROD.OUTLOOK.COM (2603:10a6:800:36c::6)
- by DB9PR10MB6714.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3d2::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 11:48:00 +0000
-Received: from WA1PEPF000099D0.eurprd04.prod.outlook.com
- (2603:10a6:800:36c:cafe::86) by VIXP296CA0021.outlook.office365.com
- (2603:10a6:800:36c::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
- Sep 2026 11:48:00 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- WA1PEPF000099D0.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 11:48:00 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 13:54:03 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 13:47:59 +0200
-Message-ID: <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
-Date: Tue, 15 Sep 2026 13:48:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eMFMXB5L"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fe517774so39215345ad.0
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 04:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789473019; x=1790077819; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pzARCoC9K2+xHcKxtS92tzMDdovjtNP+xvj5FczbmUY=;
+        b=eMFMXB5L+DTy2a3IjmIHvY9ZjftWpnyF0Q5dC0hmrUN2T6KEbjP6fVGOHbzh9TXxC3
+         jse2cRB/Y03QYBOqmllHPGF7FuxGuVui6Qr2i5gFw1xfv3bbsTDiQuyRDd8XSakGLMqP
+         0HwVAPGtn5xqpAe6uiAFxIQQpkBdA91fkh6kalWvb/F5Ua5yAiBW8Dj9KhxNKy6jYcv+
+         HWXx6JHVslkJMAqvzHBidoHzyVXTjokAkC/XqLzlpqFUiIv/owi1CvB2VQLKNHiH60yl
+         N2O2eekbH9uG2AJ5+R7ayO39s9JJ8a4OD0sZSf/ntr47e25HVrg0v1lk4B+dODVVLane
+         33DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789473019; x=1790077819;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pzARCoC9K2+xHcKxtS92tzMDdovjtNP+xvj5FczbmUY=;
+        b=IG8T3a00ALdjQf1dRtUOuxrV8z1v0PoICEO9Rc0UeetatirxA0dKGKMAw6yF5/DlBB
+         4FxSudqVJlcQM+H5a6t1qjjpfszFFMDwxY9s/v+fo8pYko0/HNkitBBhW2MUHClRZmTa
+         Ij1fsMsFPiPMksiDyfyvRNrG5aPGbeipaN0rvOxsK0c/OzulQmY9XOU4Ir8UMRyqLCPV
+         Z7yiTxcY2AEjh0rV7fmkUAFygeVSoZT4MbcuLr5oHRZjygJz7jBmWKHaeMoyw4obE6YW
+         IAuSmmLa8ykVb6sLEwxkfyK++UibTeUTgCiFPQw5DLsKBxhUO9Fl0FDhQv0ZOKdW+uj4
+         R0xg==
+X-Forwarded-Encrypted: i=1; AKwUvBzBqYH0enYTIb9P3KXHRwLc3+Rj7w33wxZkoHhRLYCLqjUT/+hHwNZqyS8AlvFsB96B1UrY9H3UkgWwYA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kU2GbODfYKErd4ZHc2dsPYmg+ltJDADHx42HDsyUc5zLnjJvav
+	zpBp9gHMAJ39oo9b0lWpEujG/wFeWbLmQXW5Amv6K+mpZTz5/qJHhJyP
+X-Gm-Gg: AYBFou1151rcbYnqclZ/IiYc3CtpvFdjBL2fcutOf3YTIS0RP+bFXuHflJRFx2oLhh1
+	7r2uav3F01/SJLOzwvX2ZIVm1FPiXYcvxlcDw6Qff0X37JH22VYDNR6kqNAhwyomvbbAZ3y3wlT
+	e1Yyns4/6uYahs0IEPHUqTN8arQSxooN4+6HOY9ehN7Z1tuN3bd9rZPwTBswmQRvOgvFl8a4vDq
+	opbkHJw+BdrwjrGqOfzW2HoL7U2uyklr+nzhu0uy8G+r0G+ruOlJ4APr2b4YHnpILKidNyWvxd7
+	IezyZm5Fl7KGqRJoD+kmseBp4vWiDUFQ+luNhB/Xm3NrSnDOCeMPO4ydx3NUd+RxXcI1yZqeBsX
+	10hVggEXjZrL7g35dmL2bibU10g6gqO3Brglm245tj9g/Wvu5jG/4GfsJQhtJnD6rP19Psto3W0
+	pJAf2RlzK+ksrpxghuQniGlMba2U2y6f4ZxcxV8Q6ra1t7U9rcpaK2iQ==
+X-Received: by 2002:a17:90b:1642:b0:39e:b7:cbef with SMTP id 98e67ed59e1d1-39e00b7d25bmr6619070a91.25.1789473019195;
+        Tue, 15 Sep 2026 04:50:19 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfd9baad9sm4943498a91.4.2026.09.15.04.50.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:50:18 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Johan Hovold <johan@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Ping-Hsun Wu <ping-hsun.wu@mediatek.com>,
+	Moudy Ho <moudy.ho@mediatek.com>,
+	daoyuan huang <daoyuan.huang@mediatek.com>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] media: platform: mtk-mdp3: fix resource cleanup on remove
+Date: Tue, 15 Sep 2026 19:50:06 +0800
+Message-ID: <20260915115006.2409591-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add
- VD55G0 support
-To: Sergey Lebedev <lsa.uz@pm.me>, Peter Marshall <pm@petermarshall.ca>
-CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>, Daniel Scally
-	<dan.scally@ideasonboard.com>, <linux-media@vger.kernel.org>,
-	<platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260910213308.53429-1-lsa.uz@pm.me>
- <1070f707-8a23-419e-a0a2-a6f295ceb5a0@foss.st.com>
- <20260915100722.38504-1-lsa.uz@pm.me>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20260915100722.38504-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: WA1PEPF000099D0:EE_|DB9PR10MB6714:EE_
-X-MS-Office365-Filtering-Correlation-Id: 855fd9b3-a9ad-4a53-77ec-08df131f3154
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|6133799003|18002099003|22082099003|13003099007|4143699003|10067099003|5023799004|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	g2TO6f+/w5WIkpTV7ktE6CZAeh6YvYiTATIgY48jrRuFb0tVijX+zxPxZNt+47VHGyvzdnYrHzm/g4Hi7pPbOrlV48osBiZuI6uxtY9x4QluaK8hK7T2sl/nvdv2Ideo5O4fxFROK/zkt9tz/pLj3mIqgA4T5xsG4LHRECzm7FLAr7Cm9eiCbRu9uOgQSbi1w7182wk9i9xVYk5IdwUMM4TAXIlMoKKkRg/C4Yl8CChzSp7V141eA5AMMpqmm9tqu/wYMEXI94UAiNYtpLYzuB08Tqdhh+xstG9W9QGC2UxqGFsXx64Qlelf0wbPLjs0i4GGO6WP0FnI4AM/pNp1CmCVbHJKiQ1Wdd1N1lGCnPF4g8iqb7bQdOuPGhGFvUEu5duLmcjilSxNECQXgOcPLrcSsyBDAuC2oH3YQnm8CLjes3W1n/0DrtbUaXqClfNR195nKPr0ZnFiqO3tMGbFhC38TkNXV5ZckHh3Esp5rJgSFj1FLr796oRrxfbMrjz4VF8WnQ3p24j6xXVAAPBALREiY886h95ce2npPKpfMUuiUtfiQG6JOEszLNyPkGAJkfn50IGZsmk0dNlnkDRURbFkTLzxc86BxhBS3FCFvh3Sd7RYoop0qNy8Es0GshMKAyjTEJkCoTxC2LXyrtuxoeATQu1Ywlpz77hjNBoAytLaSuFThBiBjzNU0ZcR0kSKcorKvWxCiE77c5DD9RqZ2A==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(6133799003)(18002099003)(22082099003)(13003099007)(4143699003)(10067099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eLJNt3vnBXQ7RUZuELUA047zKTP9q9DivrMf3O+gHWXQBRO+yzcG19tTLbPkPwsLW1T76kA4taKGNaa0gVUgaWDN6Mh4Ax6LZDKfZhzdmfIDLWKLd1LH5iU0YBlhpK3UGLveRL+Kxl28AWEbS9GqV7b70Td3bnOL2RXbjPLDjJBgUGSfRsemxn5VHnIQQ2TZd/SyLkKUGw5DsZ7a2pcZV/RRtLP4MIL0I8oFPd5b3HQY5OISXlB3veZNu5Z2r+Uz/BpctybykitMapI/fmrw2ZVjdggs2vdytvxJzUX8PqZgpEPPYxpadVcOrcFGf8Oe00/c6z1lW7DmbQ7nqRN+6yI+XGNv/pLkbXDDOko/Uw9jr9VgiEyLs1TtW8Br5utWgAHKAu++KLJFThmNawwR0UyngXJzkxfTmN28U/ETWLKNyNviicN0Zsg5m0ccelvm
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 11:48:00.1367
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 855fd9b3-a9ad-4a53-77ec-08df131f3154
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	WA1PEPF000099D0.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB6714
 
-Hi Sergey,
+mdp_probe() has two successful initialization paths, but mdp_remove()
+does not correctly tear down either of them.
 
-Le 15/09/2026 à 12:07, Sergey Lebedev a écrit :
-> Benjamin,
-> 
-> First, an apology: I wrote that badly. Reading it back I can see it lands as
-> a request to move vd55g1 to request_firmware, and it was never meant as one.
-> You have had to defend a position I was not attacking, and that is my fault
-> rather than yours.
+For the main MDP instance, mdp_m2m_device_register() registers an M2M
+video device whose release callback performs the final resource
+cleanup. The remove path only unregisters the V4L2 device and leaves
+the M2M video device registered, preventing the normal video device
+teardown path from releasing the resources associated with the MDP
+device.
 
-No worries, It didn't feel like an attack of any sort ;)
+For secondary MDP instances, probe returns successfully after allocating
+an mdp_dev and storing it as driver data without registering an M2M
+video device. The remove path does not free this allocation, leaking it
+on driver unbind.
 
-> 
-> What I meant, and should have written: the VD55G0 firmware has to reach users
-> somehow, and I do not mind which of the two mechanisms carries it. Your three
-> reasons settle the mechanism for me - built in, and no more about it. Peter
-> preferred linux-firmware and I relayed that with his agreement; whether your
-> answer changes his view is his to say, not mine.
-> 
->> I'm not sure I get you. Is this a licence problem of some sort ? Could
->> you rephrase ?
-> 
-> Yes, and it is not about the API at all. It is about who may put ST's
-> firmware into the kernel tree.
+If an M2M video device was registered, unregister the V4L2 device first
+and then unregister the M2M device so that its release callback can
+perform the final cleanup. Otherwise, free the mdp_dev directly.
 
-Ah I got you. I'm not a licence expert in any way but since we already
-disclosed the firmware patch in our out of tree driver as GPL2 [1], then
-I guess it's free to use it as long as you respect GPL2, whether you're
-from ST or not.
+This issue was found by manual code inspection.
 
-[1]
-https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/master/vd55g0_patches.h
+Fixes: 61890ccaefaf ("media: platform: mtk-mdp3: add MediaTek MDP3 driver")
+Fixes: 4294b9d6c8c4 ("media: platform: mtk-mdp3: avoid multiple driver registrations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-> 
-> vd55g1.c raises no question. ST holds the copyright and ST put its own array
-> in its own file, GPL-2.0, 3512 bytes, no request_firmware path anywhere.
-> Nothing had to be granted, by anyone, to anyone.
-> 
-> VD55G0 is not in that position today. The bytes this series would carry were
-> extracted from a third-party out-of-tree driver, by people who are not ST.
-> That is the same question whether they land as a C array or as a file in
-> linux-firmware - the mechanism does not change who owns them. linux-firmware
-> only makes it audible, because WHENCE asks for the grant out loud, where a
-> built-in array lets the same question pass without being asked.
-> 
-> So there are three routes, and only one of them is clean:
-> 
->   built in, sent by someone outside ST - which is the series as it stands.
->   Works technically. Leaves the provenance question unasked rather than
->   answered.
-> 
->   linux-firmware - needs an explicit grant from ST in WHENCE, and you have
->   now ruled out the API change it would require. So: closed.
-> 
->   ST upstreams VD55G0 itself, with its own array, exactly as you did for
->   vd55g1. Nobody outside ST has to ask for anything, because nothing is being
->   redistributed by anyone who does not own it.
-> 
->> By the way we didn't upstream the vd55g0 because it requires a bit of
->> cleaning, but this is something that could also be done.
-> 
-> That is the one I would hope for, and it is worth more than getting my own
-> machine working. It is the only route that ends the question rather than
-> moving it. And it puts VD55G0 on the same footing as its sibling, rather than
-> leaving it the part with an awkward history.
-> 
-> If the cleaning is what stands in the way, say what would help and I will do
-> what I can. I cannot clean code I do not have. I can carry the mechanical
-> half of it - checkpatch and sparse, builds across configurations, dt-binding
-> checks, a review pass. And I can test on hardware you may not have: a Surface
-> Pro 11 where the VD55G0 is the face-unlock sensor, so it is exercised by
-> something real rather than by a capture tool. Peter's series in this thread
-> already does a good deal of the genericising, if any of it is useful as a
-> starting point.
-
-I still stand against the refactoring and generalisation. I can
-elaborate on that point if needed.
-
-Now about mainlining vd55g0 out of tree module, my current priorities
-won't allow me to do it anytime soon, but if you want to start from the
-out of tree module and clean the driver to submit it I'll be happy to
-assist. On top of my head we need to remove the KERNEL_VERSION guards
-and move to streams api. Having the vd55g1 as reference is also a good
-idea. I can test on device trees platforms.
-
-> 
-> Whether GPL-2.0 on the surrounding code carries a blob with it is still a
-> licence question, and still not one I will answer.
-> 
-> Sergey
-> 
-
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+index f412aadb5996..bf5cc20af715 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+@@ -374,7 +374,12 @@ static void mdp_remove(struct platform_device *pdev)
+ {
+ 	struct mdp_dev *mdp = platform_get_drvdata(pdev);
+ 
+-	v4l2_device_unregister(&mdp->v4l2_dev);
++	if (mdp->m2m_vdev) {
++		v4l2_device_unregister(&mdp->v4l2_dev);
++		mdp_m2m_device_unregister(mdp);
++	} else {
++		kfree(mdp);
++	}
+ 
+ 	dev_dbg(&pdev->dev, "%s driver unloaded\n", pdev->name);
+ }
 -- 
-Regards,
-Benjamin
+2.43.0
 
