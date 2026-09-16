@@ -1,151 +1,175 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010069.outbound.protection.outlook.com [52.101.193.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDC54F6464
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 13:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565390; cv=none; b=kcZrDTuNKz5vxEa3xGr765ZOF3mL/r2HUPwtx2uGRdJl85txDUKK0SKxuiLEl2zyz2ImzXejLyhsCep6q6V1DZAYJrvd/xDEkUtS/WLgiD5tM3pv1IlNMG9O1gSsfRAR6VFCjABcSxu/7afVbmcMKD1tHITudSE5WAJuR7qkgh8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565390; c=relaxed/simple;
-	bh=pB0+L5OLcmL52KZ7MnLhTwXXE7rnrcFAPfaF8iIliJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dHJbL8w87Oh1Lm3JgcF4Ma41veH8p1u9WoFoeTDl1j1Y0OTknRdXKcev1VSMrO+Bb1yMqRk1HaOCDNw8s0v3KTqVjhUV0Zn4WwW1dPT+IdUSum4w7/S9Xmxg6lG78RufrFtHdRzDXb5sfM2li3+yZUcf7yEocxg5R3z2cGgqvBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOYEzCBO; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A863612E0;
+	Wed, 16 Sep 2026 13:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789565426; cv=fail; b=K+7plZLy2ViGpgiXuDN+eqglZoXk3yzCP1ZgQsM0pBLHWpINvvuJqcnSbVZ8tbnjInJDSDQhGeR81iOKU4STlqeBuLJ7qJ+mN3H5hve3Gkr0qd8T/sfYf6QJUcUIxpdg6Eb5F8JxV2iR76y1lG+otZXzDNvcuTTwEQAYcOjd4rY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789565426; c=relaxed/simple;
+	bh=VDDrR6dlgMA6WWvA561Ee71srJMpUxendZmKTKP7z+E=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=a8PE9uPb43EbrlxrbWw9GhEDDz6TbwjqdWEl+SZjRoqTnIVymFOOWcGn3WEnldiX7NeyIjyd0gwZjcEZTJtZroM6Q1IzOZy2a/A2DR4h8RPi/SBZjHmJ1QbNchLK6rG3/8D/cdrFXOdbXyuzwPS0pR8Y8qdIPHJ6l0BwQcbAESg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WPrgFdfQ; arc=fail smtp.client-ip=52.101.193.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOYEzCBO"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so10393055e9.0
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 06:29:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789565383; x=1790170183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rUUWWKVmm3TYP5508zsFDBoNmLN2rO04Kb+yJop+U20=;
-        b=pOYEzCBORbyCAW/s2EBBA5pbH+5U1HHxTzSbzrAy8aWjU6gEXH6U1t2MIwdKBHN1Vv
-         YJ2dUCSypttpbFbcNjVo4OHPH/5wIfxH02K86N5v34LCma/Z86/unOYoyZ7OP5zRijAU
-         DflsZicpob2D34cHC50hCEtFpMgZonZWzQpdOTBPR8dHuFn516KVFZ3NlSNZsCrmdEb6
-         cqF+hAcwbtDKEZtt/9UWUh6ESBlRHtiDNvuLYvfWPqgJPi3uEuSatM5dv12lmncwN1yX
-         8lcS4eVd8ezclT49xaPkNZb/zTnWfXi69s2ysFg1AqrOVrAHAnZLL+KxI0oGDb/Lyy1G
-         YKBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565383; x=1790170183;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rUUWWKVmm3TYP5508zsFDBoNmLN2rO04Kb+yJop+U20=;
-        b=cmHBTsv8WeNHyyQPoY6mrG35GHGAwjn/jisYZPbO4NS05np3v6Z4DIeXreL6dA0fNB
-         EqVL1vXFnozlwSqoe+NnTeoPWqKVSuEZ4h6EGrle06wiHonMgncqmIzz8jC0YZReD5iZ
-         BRbKafpMRLmfvN5EZYmllGsqu/I9zBovjg8+Y1rC7Xkvkv+273cOViYGSr5ZTTr24q9D
-         gQyusKq6xIwwVYvpsHimFSLmxz/I2BRwldLc2stH6/TOoY/ZnubruVQ6+j3o1sOTxXcc
-         i7pxcQtyPFpyY5dPXeVDpO8I3xzTC8dojJLkIyff62oPkNUzUwQn5YYEr5Aw7ROP/WzD
-         aF/g==
-X-Forwarded-Encrypted: i=1; AKwUvByyTpuEl8kiUV4jCNmBYceF6zRiYfwFanSB5GuR4fhgppqZOBctlsoGA+peUSu1EvbZjT8rtKDxbr4V7g==@vger.kernel.org
-X-Gm-Message-State: AFuF++kkh0IVN1KSL5X2xefCtX8Fmkll7bu1HpRmX2/0OWJKkVExSBHU
-	BYmK2Tb9a1J/ENDnPDEgcwc1mvuuhy6KEeGAPnlvQDxom/OZSU2OJZOb
-X-Gm-Gg: AYBFou1qtGU4GxAt134z1jrkgH3UBlo79K3Zqf1oLwQI6a73SQiDW/msw3n9VOyHWPd
-	dPmTTIIY6C+Zo5qnU7WNYrNzdGef5NEb0UuW/KBo2wfuNXQgXURAoWiB3hNhcTKCXG/npZVTvUF
-	BuLYiu+fHbZ9EEYezQAYroQ1J99SQhhDUOmRePYGuUBOoAE95Oe9o8F2NdhgIPtd4Hw1OtQHZqP
-	eLtEQdKOHroIAwVG9bOQlv5u/H5DuLpVBCWCiQfXJfx1Q9ZNFkYhB8w4iV79Sfb2r/rPNkxdhKH
-	Kwle7L23qPfUeDCi7J3n+wX6JOGVOaamWaL+iF53/Gg5cVVVUm09iXkofpkMwMZ+yEN7uGWeLe2
-	HI75qt5UqYEpBPsg81ZP0IxLPPjgQzmWFKouxHve72NRm2h7BFgqT/151VN5rDRStEnZe9OJwiM
-	6ZtgFDDYr69tvJOgEwjV5Uv6w7uBHc6gZoshYKyJYu2xmwDtUNcElgwIaFaaHxdVLLKC1SEX6i+
-	3gsyN8zHvw=
-X-Received: by 2002:a05:600c:3ba4:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49eb7337325mr40903525e9.23.1789565382845;
-        Wed, 16 Sep 2026 06:29:42 -0700 (PDT)
-Received: from localhost.localdomain ([194.154.195.114])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4870bf1f80bsm6884173f8f.7.2026.09.16.06.29.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:29:42 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 3/5] media: qcom: camss: Add support for PHY API devices
-Date: Wed, 16 Sep 2026 15:29:33 +0200
-Message-ID: <178956537382.2699.6279926603215472320@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org>
-References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WPrgFdfQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n4usrxmHwtLMCHv9SnKXuFjgksBgbxjTivaLj7BnP+uYyff6Mn10qZmXL9SOL5maidwFmLTnd0oZ6cTU3prKx4d17JeWDUsEAJDH21yiVdgkDRgmXy4lLy2bhH9LRxdvDiOtMF0adZ+f/ARzzq0N7e2ZC6fn+Sdk1ontUV+3zvG9PlEB3CDMV4YQWDrvPFRLc5oR3B5OW+naWqthqFflO9MLgSY2wEfnu+gnp5AdQ461u2PI9xFbIwGGmwY0UgWZwarCvQ26tKq99NjaNSwe7Dko8tSJWZJsF69PUipP5MhbITnnaUPM8fY/buhVV17wpsfBuHARoTbSllum2c/GCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jo8S/l8JJzBQNMO/i75lVdt/pq9IEWuVKGTUb8oHPVc=;
+ b=WAcmicr1kKsR8206TAKVWLU35rzA3IvtYB0oaE33x0lHa9DqaVxDVyvKetK1mQW6dcMPH23lZQ3kj5jTGLgFMmCLPPyZ1Em9M/tuzEUjY3vX3e4DrT9K2/1AubJJTsZ7WBialPx79pksWt8B6lIBYY9ZrzhzXR8f3Y9Oykf5dEaM9SlXhR2CeEc8Qr/XIV+uPhVa7BTcggR/NNiP6owFSQAr7yB16IeQyfS0c6foyR3bqP2HkVEIWGRlOdvXDXsjfwTyFYGbohnshYjLoIVYxoKObxlb1EyyQa/u5+RaR6gV7rj0Vx+brjIk+aa53gFwuagPw9dPMeqQFFINoAnJFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jo8S/l8JJzBQNMO/i75lVdt/pq9IEWuVKGTUb8oHPVc=;
+ b=WPrgFdfQawn9/diq1ac8xFIlY2ZSLhHqlz/37PgkNOVq54g984oFXl6yUQ7NkXu7vMXCfmTNvpB2kxmaanc9gcW6h9ykmbYUdiynBBWGCRCQpVh1o99SU7jYZHayRXsbBq8Bj6/ac6wEU/pVSK3zmU7AjJEcLpNUpuhb9j6rhuk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB8584.namprd12.prod.outlook.com (2603:10b6:610:164::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 13:30:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 13:30:11 +0000
+Message-ID: <a51b4181-f102-4820-b5c1-af9cb3d9b77f@amd.com>
+Date: Wed, 16 Sep 2026 15:30:07 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: DMA BUFFER SHARING FRAMEWORK: tighten F:
+ matches
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0081.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8584:EE_
+X-MS-Office365-Filtering-Correlation-Id: a06b9ff9-6f05-470e-6cb8-08df13f6a261
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|10067099003|5023799004|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PxIevyZJUKiDbfcoglak9mxEd8KNg8dLfuwQ6z+jmWLyZ3PJ/6VYMkouxmpq2CDB9x2pH4NdpURoicbZ6Z8J9xnsJUFoIcmZRYFVbpmZNRA/0J2AKEvUieBOt3a/l6ypj6Y0t5yTSZnY6Tovrjg7e6qWm3OGv9YeO67Z+aml+C7qc09V+SlJJw9vqQIc3lHqiNv4dLixbwFsf8fyF4rVk033QhsBmqQr6xMljzjIP6R4Vrte7SbAKbRJ4burfz6V49jsftCLw2QKKEQGzjWygzTMRHJydSuFMLbVQX6UVabbLhoZZfQqXJNvx/EECSCAiShoJIi1C2cGcL0pJSpE/6TlCxbwy+GgICisN/uCE1t7G3ABJJuamYLD7g0qhJpfi8oiNhJHE8NF+BXdxWe5oZPF38c9lq4RGdceG0RoeH8/DnyYTwLWHBNf5g6MZasCd1PDeA18L6qQsfDifDr+mfFcb4wpL99/Lt8Ty+50Isi/gly2/n0HVH++nDWGtLaNYfAewyis62kt6/CKUWdkTR87G2FTGqa/uFKWrr4gHrRbL88mzqZ1dGfIfNQXgioBiGi6RohyPZ8NcVzXD3qTy25vNcpc6l6L+BsaX9BHz8Rm5/vjzsP9fKeBLdNFwY73
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V2o1T3pUNkR2M1Z4eW1XODJRakdick1CclRqbU9INFlHam8zMDcvK3ZSNitn?=
+ =?utf-8?B?MDZVbkNmMjRFSk5JR3VHNHpMb0pqRTlVWm5QZ3VQdkZRdndLeGNCRTFxUmRE?=
+ =?utf-8?B?SDgzYzZPeGhlL1U4MTFmdFBUSVdxSGxJd1F0RVlZZnJibXBrYmJueGkzdE5O?=
+ =?utf-8?B?UWQ5RHdSR2R4L2Jpa1hXbW0xSGRJR3BUcWJ3dmtsZDFXTnVFQlpnbWRDVDl5?=
+ =?utf-8?B?RXRPY2w1VFZZTCtLR3BjcE5KeG81VDJ0cS9QbHJNcGV0NEpsSkdFOSs4WERz?=
+ =?utf-8?B?c3phNVZ3M1IxV1FudVpyTk1EV0k4anJJQ0I5TG1GZ1paQXo0Z1RVUnhqODVq?=
+ =?utf-8?B?SktqYUVkZ283QTlhNlNyWFJ5STBxSkdEUEFNMVBsUWYvZzl1a202eXBwelNV?=
+ =?utf-8?B?ait0cmU5RURUS0Q0NzVjd01aazJ5OG9mVzB6bnM4Ny81U3IrU1hsZWNyQ0Jm?=
+ =?utf-8?B?YXVqT0lwTDdIODFGNkxqT2FlSDhMZUZKN0RKSjQ5WUJaL1dSTndwQUdMRU5D?=
+ =?utf-8?B?cHpKTXAyUDJ6OHZMOFptYmcxNkx5MVE5RzhjbDdFWFYxSHkxeG1PckhST3Jt?=
+ =?utf-8?B?UHZSYWM2TUhLNTFCUVBEMmMxR3J0QVpsZXc1ZEJiNmZ2eitWb3F4Q2Q1U0tB?=
+ =?utf-8?B?c3Ixb3FuR1h2WXU1MW1vMEtvSkcwUEp6Q2UzMXVzQ0NiSkRyMFBIU1hGellv?=
+ =?utf-8?B?U1o1cG4yeVlPTEJRYU1icDRtTENPYlEwZDNCQ1JWN01ubXNiQVpnQXl0YzMw?=
+ =?utf-8?B?cTZaeko2VU5wckNsL1l5VitMY253K0dvdFBoNnY4Wk96K0dUSmV1U3Y5WGcr?=
+ =?utf-8?B?ay96WjE2bDhadGNkZ2FYOVBlUmhod2pKR2NEMUlsUjVlQkthV0VNdjNnNWpj?=
+ =?utf-8?B?U052Sjh4Wmo3K0IyeEswREhLaHdDZEVDT0tQamJDUVJKR0l6aFpYNzgvM0dY?=
+ =?utf-8?B?MzMySDJTL0Z0bGxwUmZFcDg5ZGh3bVNBQmtRYll2eWY2UHU2VzE1Szh6S2Fv?=
+ =?utf-8?B?RUdubTJQUVNCN1RDTFFCOFVhNVVvbTViTjVZUGR5Nmxtd3FBdDhMbzMvbDl1?=
+ =?utf-8?B?REEzRlZBNWE1UUcyWmQ4UXRjQW1Cc0hSK2V5RnYvbENRUXEwR2NvR2hMdktp?=
+ =?utf-8?B?ZFJEYklxMGl4cVBjZTNVUGN2WFcyREZSbUc2Nk5BYy9IK1FFZFRhQW1raDdR?=
+ =?utf-8?B?b05keU5oaWdPUUFKRFMzQmlNc0lYMEhMWjk0aHh0NVVidGhDV2p3QVNFcnRG?=
+ =?utf-8?B?S2NkS2FmQ0JtOTBJOTdpM0ZTY1Q1V2RqU2JEVDVRZTluaGRHU2NZUXhkc0hK?=
+ =?utf-8?B?UURxMnV5T0RnZDc1ZjNhL1lnVEtBWjNCdDg5TlArbjhxTEx1K0JDa2FQSzVU?=
+ =?utf-8?B?QnE2K0RoSHVlek1OYXlIYU9jQ0dycVgwa01aTzQvUGZtS2g3N0dtY0VUS2lL?=
+ =?utf-8?B?Y1Awbk5IU1FXQnpRYk1XUWlLUWVaSGNWcjBOMFJDRFRzbm91V01PMXBrZDBa?=
+ =?utf-8?B?UGhueE8zRFhuZGpNTVhQTXVpQ2hqWUFkNDBlamFld09IaGdjeWU0bytaZTFt?=
+ =?utf-8?B?UFRydTUrSkpIT3ROOG1MS0hvUi9RZjdLdGlJaWIyU0VFOUxYTEIyZEs3VUVN?=
+ =?utf-8?B?S3lYdVhvM2prOVhUNitTME9BZ1pjODFiREdJbEZYR2JGRzg4V2xuelIrNWt1?=
+ =?utf-8?B?YStjMWxscXZDYW5RaVNDemxaZi8vOXJyL3pBL242ejBnUzJLWEQ4TXlMQS9H?=
+ =?utf-8?B?MVh6NzUrK1A1TWxqd0h5VmxWY0VzWnZsZzV0N2FtWkRrSW5PRDNrZEU1RkhK?=
+ =?utf-8?B?U0pjWThZKzBMcEs5QnM4R1N4aEE2NjJKVFprTUh5OFNmRm5uK0JvcGRQNzdW?=
+ =?utf-8?B?bFNTTEhwNWJWbzE4Sk0wSkY2bFhYT3VMeENFbGt4MFI5dTNoeTZDWXoyRTBR?=
+ =?utf-8?B?RXRaZGMxcFl5Q0NEOFltZ3ZUMTRNRlpoSE92TGRBdjFmSFhyLzFXNDhhYUtD?=
+ =?utf-8?B?elpYbHJFSWlPeWFGMEJ5azRWdDY5aUZhV01FQ1dQcnM0emNmMk1KVEdvUFVh?=
+ =?utf-8?B?TjhOQ1crdXRZRXh6K2d1cktSbDd6cHc5SkdsSGREODBqVzg5OUcrMndZdUt0?=
+ =?utf-8?B?ckNxcURHMFF2azdieFRPaG5NU1hKOEtSNzR4b3c3Uzg3U3JxU3Zyc1UvSFVC?=
+ =?utf-8?B?TzM5YUxUOGlaNys4LzdpN1BOSlVJRGd1NEZ6NSt3WWZ0ME1RMW1uZG5kbWxi?=
+ =?utf-8?B?dWxYT3BGZWVIOTRYeU96ekNMby92MW5EOGk0ZGpsNVlJRW51dDVaSXFWWHc5?=
+ =?utf-8?Q?7daODAhcHdXO7zuMY2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a06b9ff9-6f05-470e-6cb8-08df13f6a261
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 13:30:11.8979
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /WT+pO/mzRrxugBiT0ysnI7MVivprNeg8U63WgG1CNn8XwRuTAb+p9WWMfklsxr5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
 
-Hi Bryan,
+On 9/16/26 15:21, Mike Rapoport (Microsoft) wrote:
+> F:	include/linux/*fence.h
+> 
+> in "DMA BUFFER SHARING FRAMEWORK" entry matches include/linux/kfence.h
+> although that header has nothing to do with dma-buf.
+> 
+> Replace it with explicit 'include/linux/dma-fence.h'.
+> 
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-On Tue, Jul 28, 2026 at 10:35:34AM +0100, Bryan O'Donoghue wrote:
-> Add support for PHY API devices
+Acked-by: Christian König <christian.koenig@amd.com>
 
-One thing I ran into while bringing this up on a Lenovo Yoga Slim 7x
-Gen 11 (Glymur, ov08x40 on CSIPHY4, two lanes), with Nihal's Glymur
-CAMSS series on top: the two ends of the CAMSS <-> PHY link count lanes
-differently, and the CAMSS side silently ends up on the wrong lanes.
+Thanks a lot that was on my TODO list for an eternity as well!
 
-The csi2-phy binding numbers data-lanes from 1, and the PHY driver
-converts:
+Regards,
+Christian
 
-	/* Convert data-lanes = <1 2 3 4> to bit positions */
-	csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i] - 1;
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c2414447892c2..656bc5ed8d2ba 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7688,7 +7688,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>  F:	Documentation/driver-api/dma-buf.rst
+>  F:	Documentation/userspace-api/dma-buf-alloc-exchange.rst
+>  F:	drivers/dma-buf/
+> -F:	include/linux/*fence.h
+> +F:	include/linux/dma-fence.h
+>  F:	include/linux/dma-buf.h
+>  F:	include/linux/dma-buf/
+>  F:	include/linux/dma-resv.h
+> 
+> ---
+> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+> change-id: 20260916-maint-dma-buf-3311abfdc90e
+> 
+> --
+> Sincerely yours,
+> Mike.
+> 
 
-The CAMSS endpoint still takes its data-lanes as 0-based positions;
-camss_parse_endpoint_node() stores them verbatim and
-csid_get_lane_assign() packs them straight into CSID_CSI2_RX_CFG0's
-DLn_INPUT_SEL fields.
-
-With the reference boards' style on both endpoints, i.e.
-
-	&camss_csiphy4_inep { data-lanes = <1 2>; };
-	&csiphy4_in_ep      { data-lanes = <1 2>; ... };
-
-the PHY enables physical lanes 0 and 2 as before, but the CSID is told
-DL0 <- 1, DL1 <- 2. Everything probes, the pipeline configures, VFE never
-sees a frame and nothing is logged. With <0 1> on the CAMSS endpoint
-alone, frames flow.
-
-The x1e80100-crd and glymur-crd sensor patches use <1 2 3 4> on the
-CAMSS endpoint; with four lanes that yields a lane assign of 0x4321
-rather than 0x3210, so either the CSID tolerates it in the all-lanes
-case or those boards only work by accident. Two lanes are not
-tolerated.
-
-Would it make sense to make the CAMSS endpoint follow the PHY
-convention when its remote is a PHY, so the same numbers can be written
-on both ends? Something like this on top of 3/5, against the parse
-function:
-
-	if (!legacy) {
-		if (mipi_csi2->data_lanes[i] < 1)
-			return -EINVAL;
-		lncfg->data[i].pos = mipi_csi2->data_lanes[i] - 1;
-	} else {
-		lncfg->data[i].pos = mipi_csi2->data_lanes[i];
-	}
-
-where "legacy" is what camss_detect_legacy_phy() already computes, and
-the binding example for the PHY-attached case says so. The alternative
-is to document that the CAMSS endpoint stays 0-based and fix the two
-board files, but having <1 2 3 4> mean two different things on the two
-ends of one link seems worse.
-
-Happy to send either as a patch if you prefer; this is your series, so I
-did not want to do that uninvited.
-
-Thanks,
-Oleg
