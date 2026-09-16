@@ -1,82 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36834490BF6;
-	Wed, 16 Sep 2026 09:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A48749502C
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 09:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549580; cv=none; b=Fz0S06bZNwtSaEt85PHqXEIzrF3LM/hKyakjyj6oA8Sd6oa3NVnp8AIUkadMKCSbYcJ0c2+6spzPFvIQTzy811SsygnwXk2Bno4C+pSBilnpHk8Do82fg2tI5HDLRFzxwAMkh7l2WcWKaOuJ6MG39YpbWybkVtYJpEmbZa6Aeig=
+	t=1789551007; cv=none; b=CEpqzUcPo2P+rWcNFivNA/lLgu0K/kM2BzudFW25582xDDXT+o98t9ZYhqe9/7FvqKuKzV6/mtnPZBIsCJQkG7VbwqKM6Cw31AtvXmB+Z+FXva7qqp+7NZPSQDQQev695C1v+uUBuZXExFfvACZjepY80zOnL61uFGv21YnE8Zw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549580; c=relaxed/simple;
-	bh=+VDz1J5rdGERVVmAIcntFj3n3C5YKbpcFcBBMkMOPGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UdD0ytfrJqrN/1cw4m0GwvYPR03dC40DZzECYlptQyZoH92ItA3yULt50a7em9aFfAXfb41XeJcNA+rIz6prFQCOYxUcsmVFqtrWAoSOJG3TFMbO9+iGUHpp8Sjg5O5zp6e/8nPmebMITjAc4BGC2ErPHKisCPttNXVd6NGrStI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3xlIEui; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789551007; c=relaxed/simple;
+	bh=g/iC+DIqI1xrZJ0xCTu4BStW2wCcnb3D4yhvlUsffN0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NGz4PO2d81Lp0QF713WQoOqxH/QK1W1fm/al2uJk4hRMA+3vRSFnnx6ano/uarC4izdZhrxxA0Romq/Rm69eb+BR20pAGyGh6i6vUlYJ++7p1ogpmhrW5TARFLOEfdS/4JaJtJY4mvSHMG9eL6sTzaIsnhwQbY5ZYiDwj+QK2sM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqKxl7Lr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3xlIEui"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D511F000FF;
-	Wed, 16 Sep 2026 09:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789549573;
-	bh=Vko3nN/Bde41QZ/UJ3rIB6o26nKsrR7Gyy/tMZzX+jQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R3xlIEuirF2XQxnG9v2cjLvwpeGGypB/TNegNrxprnX14tynRfrLKpH+zaMwkKsyh
-	 OtTcNNIymxqDViyboHCnyLZ7O2ammaucwhR3vPAOQbzsRqBU8cNmmNi3UyoCmlDwSv
-	 VBrlSb9wvrKjhlEidqPXpDUdDfgTpWoUxJ2DODI8lHraXiKDud1SG7i5MOveKjG7oh
-	 Z2H/Sox6P/H6hdBKG6Tb2fPHAnTH9XP4cOM4rgFQ53P1Pbhjf1xmGq4ZbFLZ/rHY6D
-	 vhjoZwoC+41SoDTcr+za/HgW/UW2dFJ6aAQ+c2qWygMDVecuDijBr+lHgxSfbBUlaB
-	 X6290AbrgOJxg==
-Date: Wed, 16 Sep 2026 11:06:08 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: dw9800: Redocument
- DW9800K
-Message-ID: <20260916-meek-qualified-penguin-fd8cea@quoll>
-References: <20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com>
- <20260914-b4-dw9800k_cleanup-v2-1-6553273aaa33@fairphone.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqKxl7Lr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so3815315e9.1
+        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:29:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789550994; x=1790155794; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=drCB0bFzLSt3iJv3AQNAxjZ5jc1SFYIJv68Mmbr8obI=;
+        b=TqKxl7LrugOFrQrgr8bdk88+4lv6xwiasJTOfStkN5VPSjnmIzv6T/HIKUKB391l8m
+         aP0WS6ji1Q/XPsOSzWynGbp6G3Sqk/TrqGdPwxlP+NPP7z04EpDLifyTLmNpyKjPitul
+         EB9Rkfwh8ymrL4n1jIueyXuEuicoczUb6JmVVr6Ywn6sjH6iyLNAuPuGHRMBurrKQw1r
+         4ZrPpvellJRfv8uBz/Hvs87/BfLCOS4sganTG4pAUCnUPLSPyjBBFaxLvBqNXUXAURG3
+         7JEvragE67izv0WU4XGTUcfR1iYvN1W8CdmHmjmDSfZR8IAkAZA9Dx4kydTrt7X1fSg9
+         yxqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789550994; x=1790155794;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=drCB0bFzLSt3iJv3AQNAxjZ5jc1SFYIJv68Mmbr8obI=;
+        b=PslXENHj/ivUueOW7jO6hYIJPMNtW8d9EatoTWbKFaPrCKh8CYopkQ0bbKDV4m28GV
+         0HvjtPWlvkuKkAAdFaAo8lEP2wkX5CM/X1hyImXUBFWpI8H7p1SwdDksK90/XM7+0YOl
+         65oM258VCkbLKyfvo4FyLZqvxh0Q6410WD82uh0Vn7qzNXhJh5U6tfaFSlEXHwHR8zR4
+         YOiPiobPa2I3LY4EEziQtbk2txU8/QMlfEFX9kZx8jtsNdBMuFecfQ7Vg5zmPPYCyGpY
+         mSYUrDFdVTmIxXxsqvZlUx6PPUeE7Z70cHm8uD5a8Y2L1zzWQnGdAh2w7LFNaxtqIFwb
+         1Kxg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAltk7twUS4TNG9Az3ahmWXWNNfVAlk4tXHdP3sGh/haRDJTEpwet1M+4r+zZS/+W0bJeRlQrEguwWRw==@vger.kernel.org
+X-Gm-Message-State: AFuF++nP7IBQ0o0uA4Cn2zvh8rj38T8EIrnSBgEPwd1bglTC8rlcUUEM
+	0gKtaDOqVz0VY6d5fRMOa+cuMNiqWOcJPCJaImIm0bU+zJMlOCQyCx+v
+X-Gm-Gg: AYBFou1OiVi0nnQjWsCO2QmnyjiAeQ0DPsZeR5OjsS13ZVaBjq0jY1Fk3p/Ap1F+Ab8
+	/LtO+Gm4+13jJNhSGDjAmNzM5qo/btL+P/ZScleeM6YtTWH2qZeZTjfjZSOqdu7vpEVtwsK7FgM
+	uQtRECj3BnG8nMfSr9qPlm+Y1PCPbJu0ural0cSQZcndfpXVQ/rvqxzbYsNPvxdPQRa9OcdX8rW
+	A5PYKSiOF5J2m8rQ+io2c1aYkxuS2kKeGxfhcS4x/pBNvboKiFNx0yjGgeZJBHk+hyjZtzq2z6j
+	Ue9XTP0+5tz5Ip4XrCjWEjOlB5tQBs6lSpz9Sz3aSlDARUbaSHz0CXFxcXmPwvJxzBA8du4qIZE
+	CtMLX0doMNyYAz97PX2aw2Lxz6ulXHx3p9ZgClQrI224lPFIN4MLFFGZC2N+2cNo14Uu/GHWssR
+	Vi5pWNMWYZhKTOpFtqsWVtfHpeIAJGhwVR3/mDfxXQ2P0QjzpWUJPeGimEKldXla9tMiGXkPGyH
+	UZ/3tmif/EFUyqVlNYyKXwuG7B1Al5VUYXk
+X-Received: by 2002:a05:600c:4709:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49eac46374bmr21150555e9.7.1789550993497;
+        Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83db9102sm64812065e9.12.2026.09.16.02.29.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:29:51 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, linux-kernel@vger.kernel.org,
+ codemender-patching+linux@google.com, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Peter Griffin <peter.griffin@linaro.org>, Linus
+ Walleij <linusw@kernel.org>, "Martin K. Petersen" <mkp@kernel.org>, Trond
+ Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Jiri
+ Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever
+ <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown
+ <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
+ <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Andrew Morton
+ <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang
+ <yangtiezhu@loongson.cn>, Qiang Ma <maqianga@uniontech.com>, Randy Dunlap
+ <rdunlap@infradead.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard
+ Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, Thorsten
+ Blum <blum@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold
+ <johan@kernel.org>, Cen Zhang <zzzccc427@gmail.com>, =?UTF-8?B?Q8Ohc3Np?=
+ =?UTF-8?B?bw==?= Gabriel <cassiogabrielcontato@gmail.com>, Rong Zhang
+ <i@rong.moe>, linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ devel@lists.orangefs.org, linux-hardening@vger.kernel.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 01/28] ALSA: ac97: Refactor snd_ac97_get_name() to use
+ snprintf()
+Message-ID: <20260916102532.4b881a25@pumpkin>
+In-Reply-To: <202609151134.361FEA04@keescook>
+References: <20260915081910.4142719-1-morbo@google.com>
+	<20260915081910.4142719-2-morbo@google.com>
+	<202609151134.361FEA04@keescook>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-b4-dw9800k_cleanup-v2-1-6553273aaa33@fairphone.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 12:25:56PM +0200, Griffin Kroah-Hartman wrote:
-> The DW9800K's properties are too different to justify sharing the same
-> bindings file as the dw9719, Create a separate bindings documentation
-> for the Dongwoon Anatech DW9800K with it's updated properties.
+On Tue, 15 Sep 2026 11:39:34 -0700
+Kees Cook <kees@kernel.org> wrote:
+
+(I've just juked a lot of the 'reply to' list - too long to gmail.)
+
+> On Tue, Sep 15, 2026 at 08:18:18AM +0000, Bill Wendling wrote:
+> > --- a/sound/pci/ac97/ac97_codec.c
+> > +++ b/sound/pci/ac97/ac97_codec.c
+> > @@ -1850,10 +1850,12 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigned int id, char *name,
+> >  
+> >  	pid = look_for_codec_id(snd_ac97_codec_ids, id);
+> >  	if (pid) {
+> > -		strlcat(name, " ", maxlen);
+> > -		strlcat(name, pid->name, maxlen);
+> > +		int l = strlen(name);
+> > +
+> >  		if (pid->mask != 0xffffffff)
+> > -			sprintf(name + strlen(name), " rev %u", id & ~pid->mask);
+> > +			snprintf(name + l, maxlen - l, " %s rev %u", pid->name, id & ~pid->mask);
+> > +		else
+> > +			snprintf(name + l, maxlen - l, " %s", pid->name);
+> >  		if (ac97 && pid->patch) {
+> >  			if ((modem && (pid->flags & AC97_MODEM_PATCH)) ||
+> >  			    (! modem && ! (pid->flags & AC97_MODEM_PATCH)))
+> > @@ -1861,6 +1863,7 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigned int id, char *name,
+> >  		}
+> >  	} else {
+> >  		int l = strlen(name);
+> > +
+> >  		snprintf(name + l, maxlen - l, " id %x", id & 0xff);
+> >  	}
+> >  }  
 > 
-> More specifically:
+> I'd rather not open-code the length math here. Can't we use seq_buf()
+> instead?
 > 
-> The DW9800K did not share the SAC1 and SAC6 modes
-> that the DW9719 used.
-> 
-> The DW9800K does not actually have a register that matches the property
-> description of vcm-prescale, instead the description of the clock-presc
-> in the DW9768 is much more applicable to the functionality required
-> according to the DW9800K datasheet.
 
-I don't get why it does not match. You have exactly the same first part
-of the description, look:
+Or just use the length returned by the strscpy() call that wrote the initial
+part of name[].
+The return the name length so the callers don't have to use strcat()
+themselves.
+Replacing strlcat() with strlen() and a copy is just pointless.
 
-dw9719:
-  Indication of VCM switching frequency dividing rate select
-
-Your code:
-  Indication of VCM internal clock dividing rate select,
-
-Both are dividing the VCM clock rate, no?
-
-Best regards,
-Krzysztof
-
+David
