@@ -1,279 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF232D5925
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA5B2D0C94;
+	Wed, 16 Sep 2026 01:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519211; cv=none; b=Pgm3FdYaK0Ppp3/9nM6peaLiELKacbJzpc+pQAk/mfwJmHEAR92YRJiOkzLWPNSsVkqjIJYFyPDvpwZawsCId6rlqgyjw4D6T+aB51FB3myOuhkINCX94Q6Ixt8KnwJbDcjv035Ybh+l/AffNFUpxQe/seZLN54zK8tAaCMloGE=
+	t=1789521112; cv=none; b=n395nxUQhl+cKHnAzwzJ+zxeDceT/Laq2EAKkXnk6nBd562rI43Rl9C1cpDITe6cZ8CBxwpGvrjDJUUk/14KFlr9jBcUxrBYofr5zZUFbPVO8rQkiT9bgt04dk1aWX0rKYy1YonREuWQsAnma+nsGcM56YRAv3MSG49bfP+KDEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789519211; c=relaxed/simple;
-	bh=ypxLGmLSUVWG8ECnUHxLHNQFJhs3awMzBdST2RGLXwk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M5bbziFxU4Cy5svvrF+F8/ve1G0EHFqtId21FrUSeA8IqSZWJ1JxyUk6XYsZX837q/AFKT49fdyW93Lqgk7SPjz4UceM356qedCpiL2KWmVNudYiuopSMwsSnhW5Xtf1yyn1RDyDPZMSuWHyHBItLPUk1WjFAN6g3VllaMgTsWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dMF63eRP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wh0J+56m; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789521112; c=relaxed/simple;
+	bh=qD7WMAo+dVVnjd0ZsNjjuy+BJVsiMK9NyvdybQvFWSI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hBNLhSDmJWHFqvv9TaILJxdr/iqCfUX6rsyqkjbLklSF+77Z0o+7YuXvnmxf2P3ZoIKWi13YtNcjzxCUgHvtNWMpfW0EPrwe/s43kyFOLqvFafK4bdjokXqdj6BhKI6fbjnYkVho/CBskAAs5kcchx5PDOdQSoievUGhm0Y4JUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hnodkwuX; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dMF63eRP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wh0J+56m"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLZ0Lg079868
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:40:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AyZ/ISVPeawgOApKz8uzNwBVah0yPiq8aZnDnOrBQG8=; b=dMF63eRPOCny0i6x
-	12kY6Jh44DOsaaAHeLL5lX+CxhP+dYSYm0ZRKW6bpHd8rx9XoHX0AH32xe4hJgFf
-	kLrQ0iq+6koY/F6TbTH+gwC72sHa2RKuqbOEggM1LHExgdySWWUGSQKPSPv79w8K
-	ccqg+ayKx8UbR+zFa0larLuvQspylHSkVzGuQJ/CcMPMbYRX+2QLuyq116eRLcSi
-	o6eX3+jE7Ackj04pZuufwvjjJNKh+jEsnRs1yUS3Du1RQIj0usFHuvKsv6b18RPW
-	0y7aNqQkLzhU+Cw3DN5zdUnt1IGR3wwBaL7PcSp4hCOD0HPrw9R9/Lls0bDSrsX7
-	hKEZxw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqagehjbs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:40:08 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3967eca9c6aso1502395a91.2
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 17:40:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789519208; x=1790124008; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AyZ/ISVPeawgOApKz8uzNwBVah0yPiq8aZnDnOrBQG8=;
-        b=Wh0J+56mC3+/wNQHTUDFC1EQuiqiV9mIDGQWzqtSXYUphV0AsN/AQos1CIJZi+vrw/
-         sD7UGgozddzdC+gdHNO7rUdVDcsYZPYbl4g+1s1mYHECj7lFgRCGgVU+ZxVeKMbW58DA
-         ENZ4t5xkK3/HhrADdl8HjnHZ92a1Q6NOZiM9OCqQGs0gZRAFHVqo1U+tqYiOa+EYa1Vd
-         aAQ6SARAfgeZ+5YHUOpyYNtVElRgM3boCBaRjzzTb+XDV9SOzPKnW4ECX6vxM7T9GAAz
-         hcYe6yHAh1rZO4wpFUXvRn0DiZfW9j6KHFIT99YdarDF052LwKVG7tuL9/YnXgmG2gMu
-         WHRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789519208; x=1790124008;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AyZ/ISVPeawgOApKz8uzNwBVah0yPiq8aZnDnOrBQG8=;
-        b=o+rRFgxXOmP9fZEJGpQaw4upbmKLiJ9JIjPzVPVnlCOaKx3TxJ6PAfgCgMNkqYDmM2
-         C5XQC4F40F6nUJ9vzH12CLztOloRZaoOIXiQ7KxVYoZMvBZWnsFLdk2mYDd/4+sx7g/I
-         4rRqtt7gZ+yuvhvEUK86+L0+Z5tIdky9Vi8V0sD3h0BRt+3lURQKtZ7ULkl9qa5f1Cwi
-         ocIvfc0wCKQJd9zHo6KMFjCNh7dvTM/TqkiyMWC+rdyst9tkMZBRvPZjFDTJLPE3Ux4o
-         o55DRSjwv2v6Yo+tO2HVX9tHvCrJEVLklpHnFCJDjKAZ21vRtDAr28Ux2x5ZAWahQUov
-         YqHA==
-X-Gm-Message-State: AFuF++kf6UqP2345WWd6lPRxxbY3WkTiPs9pmiIJCTbgGTuy9F7HuoIR
-	yz4r+tCLM5CZDph06BptDC4NxAqr65i42+IFcI+qTnODJdG6mKfMJY12+9hWQbcZbx8zrrX9vTz
-	+L2K8BKyZpZVYGN8bLpNmvLvfo0YWyQxmNsWxqHssn6y2jlbNT8vK66Y1qb5D7RXtbg==
-X-Gm-Gg: AYBFou3X/RuaB6hIgjTJNsieb5lyy/LQB5dQ8gPPNYRL63od30wWfZuUxKfvdAaIA26
-	TOHCh4CjvjTZWpvrRcbYZ92H8XEBrVVj844OY8WO9YL6RRLSY0eZmQq8gquu16Y65vxA8DH1QBZ
-	ltLZJd4cNmn68KIYJm64xdTskLKurbWwZWOkqjnpKjqKdmyjHJib/hWvGrNCzwcIApwk1Q2/OtF
-	aOWrndM3KOLEbm6BV5uBHgfRiQlk9/pDbD9DO1akoquL7VHGmtCSwIMKYsnPqBfHLvOKsdRZ9gs
-	Nk1yIHLZdADZ8/lMacEdKM9LIp61O+DKs+15DDu3GqL+Krn1zi1YJP2wQtC3gW1IUhKWxYBpvw4
-	VVu6ik+GsP5YQsnY2UGZkJTGWaPoLt9hqrXbSgJVO/0d3kVluSph+2M+zGqUZrQ==
-X-Received: by 2002:a17:90b:3b82:b0:396:d28e:b52 with SMTP id 98e67ed59e1d1-39e1e47ab2cmr818827a91.3.1789519207505;
-        Tue, 15 Sep 2026 17:40:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b82:b0:396:d28e:b52 with SMTP id 98e67ed59e1d1-39e1e47ab2cmr818778a91.3.1789519206954;
-        Tue, 15 Sep 2026 17:40:06 -0700 (PDT)
-Received: from [10.110.88.91] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a93f1fsm2753661eec.11.2026.09.15.17.40.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 17:40:06 -0700 (PDT)
-Message-ID: <b71a5f7a-bc56-4b56-a656-e6f592f69936@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 17:40:05 -0700
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hnodkwuX"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E139440E01F9;
+	Wed, 16 Sep 2026 01:11:47 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Via_o3Lf8krk; Wed, 16 Sep 2026 01:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789521101; bh=3ZSg2A9Jc3tPW66xvM7m3+dRrVCDgCi9cK4YxnfVb38=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hnodkwuXLSWfi6qopViNWmJ1DPlBw5Qh3eySg1tCSS2QD436Qt0nPX6UFExBzVDyC
+	 7SyGGcsWnxzv7hOn9TLSBnJ4ro6jptALPeAa4mABB02U8A8kyDVYgQcRGWluq/fx/T
+	 EMGtgYR0BJRN0noLxTL7Cqn0kUZN/e7hpblUXONwx5NZPJTHRigWmkF7fbX5MiTlCA
+	 Ug3X16M/GCzJ2EvHdJ5Au6IDIT+Teyvf2UrAOoXUtxWbGbeGeSpEE7gTOLS6aVWh3O
+	 QVHdu8R2pS0Kic8RVQoKePhKFLfyptiUBo3kdERUO2eAyR7oGf6dcBxiUoTp1pRM8k
+	 m/r9x41iu9V1E1kuNZgnm55bT9n6FqBusi5N/v4THEAMC+1O/CgmoqbgmjA7wOtzc6
+	 W7ZqppfDVVsuffyZT3M74O0p3N7ChLh7uahpi/aocg/EFvFx64JaafjbILfpcHrftc
+	 VeSWvKyuAw8fZobdLPp2FioEpzYkD4+kshFyvw+tvXaJdvVomypIlYIV9a17prjpSB
+	 JHHcRnkltsxttm2SQz3HffWQnaJXpVgSEO454rAL+eZ3iP64nohKluW8bKWtFst3Yl
+	 /vVNOphRdFEgFwxGUoFDnKGfTct3/OisLyDq0AYpAEsYHVrTzhg/UGC8HQSC4ByBBB
+	 u7UrMRdF4GDpZnl/0v0mduZE=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D932740E00B9;
+	Wed, 16 Sep 2026 01:09:49 +0000 (UTC)
+Date: Tue, 15 Sep 2026 18:09:45 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, linux-kernel@vger.kernel.org,
+	codemender-patching+linux@google.com,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Matthias Schwarzott <zzam@gentoo.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Mike Marshall <hubcap@omnibond.com>,
+	Martin Brandenburg <martin@omnibond.com>,
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Kanglong Wang <wangkanglong@loongson.cn>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Qiang Ma <maqianga@uniontech.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Thorsten Blum <blum@kernel.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Ashutosh Desai <ashutoshdesai993@gmail.com>,
+	Imre Deak <imre.deak@intel.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Johan Hovold <johan@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Will Porter <mrwillporter@gmail.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	=?utf-8?Q?C=C3=A1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
+	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
+	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
+Message-ID: <20260916010945.GEaqnsWSZ-DTMyTO25@fat_crate.local>
+References: <20260915081910.4142719-1-morbo@google.com>
+ <20260915081910.4142719-26-morbo@google.com>
+ <202609151258.5FC01072@keescook>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] media: iris: add AV1 decode buffer size support for
- vpu4x
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Wangao Wang <wangao.wang@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914-add_iris_for_maili-v1-0-09df2b54c317@oss.qualcomm.com>
- <aGtbqVizOvw2VPXXiZjw3_w4n5h4O_4wkkJfwPzsgvQDBxysF1c_3DMmtB_LQHSoYG_qPxZl0wtTZA2ysCC_mg==@protonmail.internalid>
- <20260914-add_iris_for_maili-v1-3-09df2b54c317@oss.qualcomm.com>
- <d8c1d02b-d03f-4b3b-914d-a0849936f24d@kernel.org>
-Content-Language: en-US
-From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-In-Reply-To: <d8c1d02b-d03f-4b3b-914d-a0849936f24d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAwNiBTYWx0ZWRfX1Kqi5KuG1hB9
- 4OrUXtyhYUXnXAB1k2qWGOX3gxYC+GhSPnjNAL7m6PgXfFtWhGDrCV1kCpzjvXiDtvSVPjHqioy
- Kfy1mVBK2CxnrD9i1LBuroWAH2+1Pw8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAwNiBTYWx0ZWRfXxhkLOmDTxLS0
- tlbKqu8qoDdRgzvUj7+c90aCm7hSrengHJ4O+LDssv3dqo+mw6TVI4hy9Pn0zUlLS/1SEvZLfk0
- 38IgZ3VC/cOYQagHpUxtUVcRjgKjD8i8JtcQPRS2h5nm91kLsPTtSqRboJ6NyRjk3Z7yUKbrtbl
- 0kYA1uL/aeLxA7YAAV1fzrwp2kLfQMdGpG1AgoAtoEMKAL2DRxsyNeUiBfAvaFJYAqTU7pAPm95
- q6ONq+Sq6I02EnYSDiykuqqkNzVdzkg19KaJ6Nk8O17QNRjia6pnvCapiMa0rF4j4gKak/BM3KA
- mIv+l4ebYYW0flgH/SyJNBoTHlzGuqGXQT1L4UiPgUxEtIufERPNQGVMT0EyuBnjAlkhDQZHOCh
- jhvL2c3S1VhSIWB7LUZY+osQYA7LN5ZhfuPz1LSUm+SaUXyCA0NrNM5gKerD30L33YFLd5DS3Pa
- DKwBjSvCihzSmyfF/Pg==
-X-Proofpoint-GUID: edZp8ZFEjwB5R-55Cib1bmwywIuO-Y5Q
-X-Proofpoint-ORIG-GUID: edZp8ZFEjwB5R-55Cib1bmwywIuO-Y5Q
-X-Authority-Analysis: v=2.4 cv=PcZqFShd c=1 sm=1 tr=0 ts=6aa9e568 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=gG53d2m2E3KGUQgWRSkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160006
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <202609151258.5FC01072@keescook>
 
+On Tue, Sep 15, 2026 at 01:00:00PM -0700, Kees Cook wrote:
+> Seems like seq_buf would be better her? But yes, at the very least, this
+> needs to be scnprintf, not snprintf (or add the checks as you have
+> here).
+> 
+> The rest of the seq_buf conversions look right.
 
-On 9/14/2026 12:42 PM, Bryan O'Donoghue wrote:
-> On 14/09/2026 14:00, Wangao Wang wrote:
->> Add necessary buffer size calculation to support AV1 decode for vpu4x
->>
->> - wire AV1 into iris_vpu4x_dec_line_size() via hfi_buffer_line_av1d()
->> - add hfi_vpu4x_buffer_persist_av1d() for the vpu4x's persist buffer
->>    size calculation
->> - add BUF_PARTIAL to the vpu4x decoder dispatch table, which AV1D
->>    requires
->>
->> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
->> ---
->>   drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 35 
->> ++++++++++++++++++++--
->>   drivers/media/platform/qcom/iris/iris_vpu_buffer.h |  1 +
->>   2 files changed, 33 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c 
->> b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
->> index 
->> faebb54728660cc621f8822dabf2e44ce8c55c58..55996fd0d14c385ee63d2577b3e6d71b51d9e541 
->> 100644
->> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
->> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
->> @@ -1833,6 +1833,8 @@ static u32 iris_vpu4x_dec_line_size(struct 
->> iris_inst *inst)
->>       else if (inst->codec == V4L2_PIX_FMT_VP9)
->>           return hfi_vpu4x_buffer_line_vp9d(width, height, 
->> out_min_count, is_opb,
->>                             num_vpp_pipes);
->> +    else if (inst->codec == V4L2_PIX_FMT_AV1)
->> +        return hfi_buffer_line_av1d(width, height, is_opb, 
->> num_vpp_pipes);
->>
-This needs to be updated to hfi_vpu4x_buffer_line_av1d - The line buffer 
-calculation differs for iris4 av1d
-and is lut based. Without it firmware session error should be seen.
+This driver has been an orphan for a while now (we just made it official) so
+I'd prefer it if we don't do anything here.
 
->>       return 0;
->>   }
->> @@ -1856,14 +1858,40 @@ static u32 hfi_vpu4x_buffer_persist_vp9d(void)
->>           HDR10_HIST_EXTRADATA_SIZE;
->>   }
->>
->> +static u32 hfi_vpu4x_buffer_persist_av1d(u32 max_width, u32 max_height,
->> +                     u32 total_ref_count, u32 rpu_enabled)
->> +{
->> +    u32 comv_size, size;
->> +
->> +    comv_size =  hfi_buffer_comv_av1d(max_width, max_height, 
->> total_ref_count);
->
->> +    size = (SIZE_AV1D_SEQUENCE_HEADER * 2 + SIZE_AV1D_METADATA +
->> +    AV1D_NUM_HW_PIC_BUF * (SIZE_AV1D_TILE_OFFSET + SIZE_AV1D_QM + 
->> SIZE_AV1D_ARP) +
->> +    AV1D_NUM_FRAME_HEADERS * (SIZE_AV1D_FRAME_HEADER +
->> +    2 * SIZE_AV1D_PROB_TABLE) + comv_size + HDR10_HIST_EXTRADATA_SIZE +
->> +    SIZE_AV1D_METADATA * AV1D_NUM_HW_PIC_BUF) +
->> +    rpu_enabled * NUM_HW_PIC_BUF * SIZE_DOLBY_RPU_METADATA;
->
-> Ah come on.
->
-> A routine, a macro can't accept something like that. You have two 
-> variables and a ton of constants.
->
-> Plus the logic that gives you this clause may make sense to you but, I 
-> don't see how.
->
-> For some of these defines - it looks like they pertain to headers, 
-> footers, offsets etc they can be reduced down to some sort of packet 
-> header type thing.
->
-> I've asked for this type of reduction of clause complexity before.
->
-> Please take heed.
->
->> +
->> +    return ALIGN(size, DMA_ALIGNMENT);
->> +}
->> +
->>   static u32 iris_vpu4x_dec_persist_size(struct iris_inst *inst)
->>   {
->> -    if (inst->codec == V4L2_PIX_FMT_H264)
->> +    struct platform_inst_caps *caps;
->> +
->> +    if (inst->codec == V4L2_PIX_FMT_H264) {
->>           return hfi_buffer_persist_h264d();
->> -    else if (inst->codec == V4L2_PIX_FMT_HEVC)
->> +    } else if (inst->codec == V4L2_PIX_FMT_HEVC) {
->>           return hfi_vpu4x_buffer_persist_h265d(0);
->> -    else if (inst->codec == V4L2_PIX_FMT_VP9)
->> +    } else if (inst->codec == V4L2_PIX_FMT_VP9) {
->>           return hfi_vpu4x_buffer_persist_vp9d();
->> +    } else if (inst->codec == V4L2_PIX_FMT_AV1) {
->> +        caps = inst->core->iris_platform_data->inst_caps;
->> +        if (inst->fw_caps[DRAP].value)
->> +            return hfi_vpu4x_buffer_persist_av1d(caps->max_frame_width,
->> +            caps->max_frame_height, 16, 0);
->> +        else
->> +            return hfi_vpu4x_buffer_persist_av1d(0, 0, 0, 0);
->> +    }
->>
->>       return 0;
->>   }
->> @@ -2163,6 +2191,7 @@ u32 iris_vpu4x_buf_size(struct iris_inst *inst, 
->> enum iris_buffer_type buffer_typ
->>           {BUF_PERSIST,     iris_vpu4x_dec_persist_size   },
->>           {BUF_DPB,         iris_vpu_dec_dpb_size         },
->>           {BUF_SCRATCH_1,   iris_vpu_dec_scratch1_size    },
->> +        {BUF_PARTIAL,     iris_vpu_dec_partial_size     },
->>       };
->>
->>       static const struct iris_vpu_buf_type_handle 
->> enc_internal_buf_type_handle[] = {
->> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.h 
->> b/drivers/media/platform/qcom/iris/iris_vpu_buffer.h
->> index 
->> 8c0d6b7b5de85f7d7aaa8fc36218e8d095419569..c7020931a642f0484b6f84af7ab51242e1845458 
->> 100644
->> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.h
->> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.h
->> @@ -116,6 +116,7 @@ struct iris_inst;
->>   #define SIZE_AV1D_TILE_OFFSET     65536
->>   #define SIZE_AV1D_QM              3328
->>   #define SIZE_AV1D_PROB_TABLE      22784
->> +#define SIZE_AV1D_ARP             9728
->>
->>   #define SIZE_SLICE_CMD_BUFFER (ALIGN(20480, 256))
->>   #define SIZE_SPS_PPS_SLICE_HDR (2048 + 4096)
->>
->> -- 
->> 2.43.0
->>
->
+And yes, that mega CC list is just gross.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
