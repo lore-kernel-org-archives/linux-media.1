@@ -1,276 +1,181 @@
-Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ironport.ite.com.tw (unknown [210.202.87.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE5D48F034
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 09:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B511E47F2C6;
+	Wed, 16 Sep 2026 09:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549336; cv=none; b=nCwRkuOJPudbzVnJmttVKv06JWVZMiazdLZP03aZANg/pM1DbZu/AiWoBxtZOnKRQqKcVsGaGRfxkVRmw9E1IqbXWG8dOKgsYbMWbMPdYOaKMxrm+GdbuNYUk+u8Fz7SHs1AhRgco7XwDCmQKBEdwO2RITARrJx7YWgYRKjCdmI=
+	t=1789549374; cv=none; b=Lo+5yNwH+9FrZ09TW3n3xKsoPO6VcFvRJScTJavJuLJmCDnUcriDcDS62aM/RrAzduge7DY0zrrFlhYAYpDbVFQlJHcOf02ylgUs0A8Clk0PGkTVYBuv2Z8fsHZxkRhxZRbtNWqZwgg+eea6++GKziJ+me1oHbMeu5o+u0a8+48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549336; c=relaxed/simple;
-	bh=8oHUhBDo+/jTkCvbCJge5wJmHwyd6hCpQMKj52r+FXA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EKaFBP9YHjgKOnbY2zZ3SEkEnCCO+uItR4O/yFkFN2N0KOLTimKVoU5glYo0rnscoxOKQDUJ27XsMnhmLeS5jxWQ/Y8Yqf2NpVRa3xRIZCyQhxtgc0QYxj6UVmSEWzM/tH4A7FHNzzJm8QRs9HNf3g/AHdZQbWaSykkKO8ZNUj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XXmcZqsX; arc=none smtp.client-ip=91.218.175.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789549374; c=relaxed/simple;
+	bh=zaG7cAtDd51nn3ZmpYXj/O6hmncShQqjM7MyixTdEbo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pxz7VPiS6FXXKqtsoVckb4qy7LkCxi9JEC8neOVRM1BY0UtccKbXrL9QHpZcylWGUg+/ACtkbLUO0APGk2nWcz2mXw3ZTS4ZqfKBP84kkYvW81XlovmkDTGADm2WJGSrLUTTDqxqbMmo6IuPf2+M7qvKV3j0dR2omMRXkhb/0lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=eEgzME0N; arc=none smtp.client-ip=210.202.87.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XXmcZqsX"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8oHUhBDo+/jTkCvbCJge5wJmHwyd6hCpQMKj52r+FXA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789549314; v=1; x=1790154114;
- b=XXmcZqsXxa9hB8GUc4ZO2oXD5shmwFFcwggPI6lUkZWJz0wBZahKngAqkkaZUJ6dICeKMvvd
- H6Iyj3m8UgGQRl1zkZMc0TAuFyyefh5IoXjiYVfAp8pbNoCISkcGhw5cDvgPiVMN6lCYBuS+Jx5
- 3qXrGkY/xfsy/qN9fsoYVUOs=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d8ef2e75950357ff;
-	Wed, 16 Sep 2026 09:01:53 +0000
-X-Mizu-Trace-ID: d8ef2e75950357ff
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 11:01:42 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <aqpYqrtKTY20IW_0@bombadil>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
- <aqpC8fxO4F3bFjF4@bombadil>
- <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="eEgzME0N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=zaG7cAtDd51nn3ZmpYXj/O6hmncShQqjM7MyixTdEbo=;
+  b=eEgzME0N+sS2APCYwwJtDe0o62TGiuSZ2EvjsA+56K/Tfe6uKt0D1X4i
+   Xjm39EMpoZNMEkaL1m66EAH9UJpbvF6CuEDO7TxU1jFk5pPdwM3OQMF8s
+   jroJZLglAA/M3r6BqRTs6XuTS7LfgBcdZpn322usLT2Js7oM3h/do6G9+
+   k/tSGRsqBxwi78CD8JE0753R23s428OplF16ESVAMdDBu1UkixTv3RczU
+   H5y1y8odMf+HXzsV86iOm3NAMFhpOJYRRHWUQdohLI/wYJH/WOFIH87Jv
+   6yxb2MmmzASmBu2XXa/wAt3NeAj+PO8lSfh08ZWFvSpGFH+U6RL6tNIa3
+   w==;
+X-CSE-ConnectionGUID: 7U6Ze2OUSQeNk8B78tW2tg==
+X-CSE-MsgGUID: A/QY3g5CRiOT4jvPxSJtfg==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 16 Sep 2026 17:01:08 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 68G914hi038153;
+	Wed, 16 Sep 2026 17:01:04 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 17:01:02 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Wed, 16 Sep 2026 17:01:02 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <sakari.ailus@iki.fi>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
+ binding
+Thread-Topic: [PATCH 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
+Thread-Index: AQHdRblQ4bJksI4QJkm15agGm24I5LbQ55Mg
+Date: Wed, 16 Sep 2026 09:01:02 +0000
+Message-ID: <54d6d950452649fc8c0b53f434fc371b@ite.com.tw>
+References: <20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw>
+ <20260720-upstream-it6625-it6626-v1-1-475912f74459@ite.com.tw>
+ <aqpZuwSx3lPXCda6@valkosipuli.retiisi.eu>
+In-Reply-To: <aqpZuwSx3lPXCda6@valkosipuli.retiisi.eu>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 87170BE9406EAD0BC13CFF5E1080D4905445F4B1D84DAE39BDCB518A8030F6C22002:8
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
+X-MAIL:mse.ite.com.tw 68G914hi038153
 
-On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
-> On 16/09/2026 09:33, Richard Leitner wrote:
-> > Hi Krzysztof,
-> > 
-> > thanks for the review!
-> > 
-> > On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
-> >> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
-> >>> Add bindings for the Vision Components MIPI Camera Module Controller.
-> >>>
-> >>> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> >>> ---
-> >>>  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
-> >>>  MAINTAINERS                                        |  7 ++
-> >>>  2 files changed, 99 insertions(+)
-> >>
-> >> This fails tests, so a very brief review / a few comments:
-> > 
-> > Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
-> > Will not happen again.
-> > 
-> >>
-> >>>
-> >>> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> >>> new file mode 100644
-> >>> index 0000000000000..2a031aea68457
-> >>> --- /dev/null
-> >>> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> >>> @@ -0,0 +1,92 @@
-> >>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> >>> +%YAML 1.2
-> >>> +---
-> >>> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
-> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >>> +
-> >>> +title: Vision Components MIPI Camera Module Controller
-> >>> +
-> >>> +maintainers:
-> >>> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> >>> +  - Richard Leitner <richard.leitner@linux.dev>
-> >>> +
-> >>> +description: |-
-> >>> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
-> >>> +  controller found on MIPI camera modules from Vision Components. It abstracts
-> >>> +  the camera sensor behind a unified register interface, and controls and
-> >>> +  sequences the on-board power supplies and clocks.
-> >>> +
-> >>> +  The camera sensor abstraction is optional. The controller exposes a tunneled
-> >>> +  downstream I2C bus used by the attached image sensor. The controller node
-> >>> +  acts as the upstream device on the host bus, while child node below the
-> >>> +  controller represent the sensor device reachable through the tunnel.
-> >>> +
-> >>> +properties:
-> >>> +  compatible:
-> >>> +    const: vision-components,mipi-module-controller
-> >>
-> >> There is no model name, no version, nothing identifying it better?
-> >> Compatible must be specific to the device (see also writing bindings).
-> > 
-> > There is one FPGA implemenation for all Vision Components MIPI camera
-> > modules AFAICT. So I have no idea how it could be more specific, TBH...
-> > 
-> > Adding the FPGA hardware model/type is wrong IMHO as it depends on its
-> > configuration/firmware, not the hw.
-> > 
-> > There are different versions of the configuration/firmware. But I think
-> > this is also not the correct way to distinguish those, or is it?
-> > 
-> > According to their homepage the vendor calls those modules simply
-> > "VC MIPI" modules, which implies this FPGA controller is available on it.
-> > So maybe "vision-components,vc-mipi-controller" would be a better fit?
-> > 
-> > Do you have any ideas/feedback on how improve this name?
-> 
-> So there are different modules? I see several different names on:
-> https://www.mipi-modules.com/en/mipi-camera-modules/
-
-Yes, there are different modules, but all feature the same controller.
-Which this is basically the device driver binding for. So the idea is to
-describe the controller independently from the sensor which is "behind"
-it.
-
-This works because the controller "soft-core" should be the same on all
-modules. A downstream implemenation (which I haven't studied in detail)
-is available at https://github.com/VC-MIPI-modules/vc_mipi_core if that
-helps?
-
-> 
-> 
-> > 
-> >>
-> >>> +
-> >>> +  reg:
-> >>> +    maxItems: 1
-> >>> +
-> >>> +  '#clock-cells':
-> >>> +    const: 0
-> >>> +
-> >>> +  clock-frequency:
-> >>> +    description: Frequency of the sensor clock provided by the module
-> >>
-> >> Drop, implied by the compatible
-> >>
-> > 
-> > Do you mean dropping the whole property, or just the "description"?
-> 
-> I meant entire property, but we keep discussing in Laurent's reply.
-> 
-> > 
-> >>> +
-> >>> +  vcc-supply:
-> >>> +    description: Power supply of the module (3.3V)
-> >>> +
-> >>> +  '#address-cells':
-> >>> +    const: 1
-> >>> +
-> >>> +  '#size-cells':
-> >>> +    const: 0
-> >>
-> >> No children allowed, so why these two?
-> > 
-> > Based on your and the bot feedback I would suggest for v2 to change this
-> > "generic i2c bus" to a simple "i2c-tunnel" property which has
-> > "$ref: /schemas/i2c/i2c-controller.yaml".
-> > 
-> > This would better reflect the actual hardware, as there is only this one,
-> > in firmware hard-coded I2C downstream bus.
-> > 
-> > Would this be a sane approach?
-> 
-> If the underlying I2C bus and sensor are important, then yes. But I have
-> doubts that you need to describe the sensor if it is truly
-> unadressable/invisible to the OS.
-
-Yes, the I2C bus and sensor is important. The device driver of the sensor
-talks (via the tunneled I2C interface) directly to the sensor.
-
-The separate I2C controller/bus description is necessary as the tunneled
-I2C bus has some quirks unfortunately. Those need to be addressed as 
-otherwise the sensor drivers do not work.
-
-So the idea is to not have a vc-mipi module binding per "sensor variant"
-of the camera modules, but provide a common controller driver which
-provides the I2C bus for the sensor driver.
-
-> 
-> > 
-> >>
-> >>> +
-> >>> +required:
-> >>> +  - compatible
-> >>> +  - reg
-> >>> +  - '#clock-cells'
-> >>> +  - clock-frequency
-> >>> +  - vcc-supply
-> >>> +  - '#address-cells'
-> >>> +  - '#size-cells'
-> >>> +
-> >>> +unevaluatedProperties: false
-> >>
-> >> additionalProperties instead, see writing bindings or writing schema.
-> >> Unless you miss here some other schema $ref.
-> >>
-> >>> +
-> >>> +examples:
-> >>> +  - |
-> >>> +    i2c {
-> >>> +        #address-cells = <1>;
-> >>> +        #size-cells = <0>;
-> >>> +
-> >>> +        vc_mipi_ctrl: controller@10 {
-> >>> +            compatible = "vision-components,mipi-module-controller";
-> >>> +            reg = <0x10>;
-> >>> +            #clock-cells = <0>;
-> >>> +            clock-frequency = <37125000>;
-> >>> +            vcc-supply = <&cam_3v3>;
-> >>> +
-> >>> +            #address-cells = <1>;
-> >>> +            #size-cells = <0>;
-> >>> +
-> >>> +            i2c@0 {
-> >>> +                #address-cells = <1>;
-> >>> +                #size-cells = <0>;
-> >>> +
-> >>> +                vc_mipi_sensor: camera@60 {
-> >>> +                    compatible = "ovti,ov9281";
-> >>> +                    reg = <0x60>;
-> >>
-> >> Why having the child abstraction if it is completely abstracted? I don't
-> >> fully get the explanation from description. Completely optional means no
-> >> benefits, no point in it, no?
-> > 
-> > I will try to improve the description. The idea behind this device
-> > driver/devicetree node is to not rely on the sensor abstraction from
-> > vision components, but to use the upstream sensor specific driver.
-> 
-> You can use driver even without these nodes... but fine, let's assume
-> you have them, so driver will talk with OV9281 sensor for example?
-
-The vc-mipi driver does not talk to sensor at all. This is done by the
-dedicated sensor driver. The vc-mipi driver is only controlling the
-regulator, clock, etc. as described and sets up the "quirk aware"
-tunneled i2c interface.
-
-> 
-> > 
-> > As the tunneled downstream i2c bus needs quirks applied this is modeled
-> > as a separate bus.
-> > 
-> > Previous discussions on this approach are available at:
-> > 	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
-> > 
-> Best regards,
-> Krzysztof
-
-If you have any other questions or something is still unclear to you,
-please feel free to reach out!
-
-regards;rl
+SGkgU2FrYXJpDQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IFNha2FyaSBB
+aWx1cyA8c2FrYXJpLmFpbHVzQGlraS5maT4gDQo+U2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIg
+MTYsIDIwMjYgNDo1NiBQTQ0KPlRvOiBIZXJtZXMgV3UgKKdkqM6nuykgPEhlcm1lcy5XdUBpdGUu
+Y29tLnR3Pg0KPkNjOiBNYXVybyBDYXJ2YWxobyBDaGVoYWIgPG1jaGVoYWJAa2VybmVsLm9yZz47
+IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93c2tpIDxrcnpr
+K2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5vcmc+OyBsaW51
+eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51
+eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+U3ViamVjdDogUmU6IFtQQVRDSCAxLzJdIGR0LWJp
+bmRpbmdzOiBtZWRpYTogYWRkIElURSBJVDY2MjUvSVQ2NjI2IEhETUkgYnJpZGdlIGJpbmRpbmcN
+Cj4NCj5IaSBIZXJtZXMsDQo+DQo+VGhhbmtzIGZvciB0aGUgc2V0LiBJIGtub3cgdGhlIHNldCBo
+YXMgYmVlbiBtZXJnZWQgYWxyZWFkeSBzbyBjb3VsZCB5b3UgYWRkcmVzcyB0aGUgaXNzdWVzIGlu
+IGZvbGxvdy11cCBwYXRjaGVzLCBwbGVhc2U/DQoNCkkgd2lsbCBkby4gVGhhbmtzIGZvciB0aGUg
+cmV2aWV3Lg0KDQo+T24gTW9uLCBKdWwgMjAsIDIwMjYgYXQgMDM6NTc6NDVQTSArMDgwMCwgSGVy
+bWVzIFd1IHZpYSBCNCBSZWxheSB3cm90ZToNCj4+IEZyb206IEhlcm1lcyBXdSA8SGVybWVzLnd1
+QGl0ZS5jb20udHc+DQo+PiANCj4+IERvY3VtZW50IHRoZSBkZXZpY2V0cmVlIGJpbmRpbmcgZm9y
+IHRoZSBJVEUgSVQ2NjI1L0lUNjYyNiBIRE1JIHRvIE1JUEkgDQo+PiBDU0ktMiBicmlkZ2UuIFRo
+ZSBkZXZpY2UgZXhwb3NlcyB0aHJlZSBncmFwaCBwb3J0czogcG9ydEAwDQo+PiAoTUlQSTApIGFu
+ZCBwb3J0QDEgKE1JUEkxKSBhcmUgdGhlIHR3byBzZWxlY3RhYmxlIENTSS0yIEQtUEhZL0MtUEhZ
+IA0KPj4gb3V0cHV0cywgYW5kIHBvcnRAMiBpcyB0aGUgSERNSSBjb25uZWN0b3IgaW5wdXQuIE9u
+bHkgcG9ydEAwIGlzIA0KPj4gcmVxdWlyZWQsIHNpbmNlIGEgYm9hcmQgb25seSBuZWVkcyB0byB3
+aXJlIHVwIGFzIG1hbnkgb2YgdGhlIGJyaWRnZSdzIA0KPj4gb3V0cHV0cyBhcyBpdCBhY3R1YWxs
+eSB1c2VzLg0KPj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBIZXJtZXMgV3UgPEhlcm1lcy53dUBpdGUu
+Y29tLnR3Pg0KPj4gLS0tDQo+PiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0
+ZSxpdDY2MjUueWFtbCAgfCAxMzYgDQo+PiArKysrKysrKysrKysrKysrKysrKysNCj4+ICAxIGZp
+bGUgY2hhbmdlZCwgMTM2IGluc2VydGlvbnMoKykNCj4+IA0KPj4gZGlmZiAtLWdpdCANCj4+IGEv
+RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21lZGlhL2kyYy9pdGUsaXQ2NjI1Lnlh
+bWwgDQo+PiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9pMmMvaXRl
+LGl0NjYyNS55YW1sDQo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4gaW5kZXggDQo+PiAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwLi4xMDJhZjVkY2IzODBiMGFkMjQ2
+MmMzNzZlNWE4DQo+PiA3YjIyZDcyOTZmMTQNCj4+IC0tLSAvZGV2L251bGwNCj4+ICsrKyBiL0Rv
+Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9pMmMvaXRlLGl0NjYyNS55YW1s
+DQo+PiBAQCAtMCwwICsxLDEzNiBAQA0KPj4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChH
+UEwtMi4wLW9ubHkgT1IgQlNELTItQ2xhdXNlKSAlWUFNTCAxLjINCj4+ICstLS0NCj4+ICskaWQ6
+IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL21lZGlhL2kyYy9pdGUsaXQ2NjI1LnlhbWwj
+DQo+PiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlh
+bWwjDQo+PiArDQo+PiArdGl0bGU6IElURSBJVDY2MjUvSVQ2NjI2IEhETUkgdG8gZHVhbCBNSVBJ
+IENTSS0yIGJyaWRnZQ0KPj4gKw0KPj4gK21haW50YWluZXJzOg0KPj4gKyAgLSBIZXJtZXMgV3Ug
+PEhlcm1lcy53dUBpdGUuY29tLnR3Pg0KPj4gKw0KPj4gK2Rlc2NyaXB0aW9uOiB8LQ0KPj4gKyAg
+VGhlIElURSBJVDY2MjUgYW5kIElUNjYyNiBhcmUgSERNSSB0byBNSVBJIENTSS0yIGJyaWRnZSBk
+ZXZpY2VzLg0KPj4gKyAgSVQ2NjI1IHN1cHBvcnRzIGFuIEhETUkgMi4wIGlucHV0IGFuZCBjb252
+ZXJ0cyBpdCB0byBvbmUgb3IgdHdvIA0KPj4gK0QtUEhZIENTSQ0KPj4gKyAgb3V0cHV0cywgd2hp
+bGUgSVQ2NjI2IHN1cHBvcnRzIGFuIEhETUkgMi4xIGlucHV0IGFuZCBjb252ZXJ0cyBpdCB0byAN
+Cj4+ICtvbmUgb3INCj4+ICsgIHR3byBDL0QtUEhZIENTSSBvdXRwdXRzLiBUaGUgYnJpZGdlcyBh
+cmUgcHJvZ3JhbW1hYmxlIHRocm91Z2ggSTJDIA0KPj4gK2FuZA0KPj4gKyAgZXhwb3NlIG9uZSBI
+RE1JIGlucHV0IHBvcnQgYW5kIHR3byBzZWxlY3RhYmxlIENTSS0yIG91dHB1dCBwb3J0cy4gDQo+
+PiArVGhlDQo+PiArICBicmlkZ2UgY2FuIG9wZXJhdGUgaW4gc3BsaXQgbW9kZSBvciBjbG9uZSBt
+b2RlLg0KPj4gKw0KPj4gK3Byb3BlcnRpZXM6DQo+PiArICBjb21wYXRpYmxlOg0KPj4gKyAgICBl
+bnVtOg0KPj4gKyAgICAgIC0gaXRlLGl0NjYyNQ0KPj4gKyAgICAgIC0gaXRlLGl0NjYyNg0KPj4g
+Kw0KPj4gKyAgcmVnOg0KPj4gKyAgICBtYXhJdGVtczogMQ0KPj4gKw0KPj4gKyAgcmVzZXQtZ3Bp
+b3M6DQo+PiArICAgIGRlc2NyaXB0aW9uOg0KPj4gKyAgICAgIEdQSU8gY29ubmVjdGVkIHRvIHRo
+ZSBhY3RpdmUtbG93IHJlc2V0IGxpbmUuDQo+PiArICAgIG1heEl0ZW1zOiAxDQo+PiArDQo+PiAr
+ICBwb3J0czoNCj4+ICsgICAgJHJlZjogL3NjaGVtYXMvZ3JhcGgueWFtbCMvcHJvcGVydGllcy9w
+b3J0cw0KPj4gKyAgICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAgIHBvcnRAMDoNCj4+ICsgICAgICAg
+ICRyZWY6IC9zY2hlbWFzL2dyYXBoLnlhbWwjLyRkZWZzL3BvcnQtYmFzZQ0KPj4gKyAgICAgICAg
+dW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKyAgICAgICAgZGVzY3JpcHRpb246IENT
+SS0yIG91dHB1dCBwb3J0IE1JUEkwDQo+PiArDQo+PiArICAgICAgICBwcm9wZXJ0aWVzOg0KPj4g
+KyAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAgICAgICAkcmVmOiAvc2NoZW1hcy9tZWRp
+YS92aWRlby1pbnRlcmZhY2VzLnlhbWwjDQo+PiArICAgICAgICAgICAgdW5ldmFsdWF0ZWRQcm9w
+ZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gKyAgICAgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAg
+ICAgICAgICAgICBkYXRhLWxhbmVzOg0KPj4gKyAgICAgICAgICAgICAgICBtaW5JdGVtczogMQ0K
+Pj4gKyAgICAgICAgICAgICAgICBtYXhJdGVtczogNA0KPj4gKw0KPj4gKyAgICAgICAgICAgICAg
+YnVzLXR5cGU6DQo+PiArICAgICAgICAgICAgICAgIGVudW06DQo+PiArICAgICAgICAgICAgICAg
+ICAgLSAxICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9DUEhZDQo+PiArICAgICAgICAgICAgICAgICAg
+LSA0ICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9EUEhZDQo+DQo+SWYgYnVzLXR5cGUgaXNuJ3QgcmVx
+dWlyZWQsIGEgZGVmYXVsdCBuZWVkIHRvIGJlIHNwZWNpZmllZC4NCj4NCj4+ICsNCj4+ICsgICAg
+ICAgICAgICAgIGNsb2NrLW5vbmNvbnRpbnVvdXM6IHRydWUNCj4+ICsgICAgICAgICAgICAgIGxp
+bmstZnJlcXVlbmNpZXM6IHRydWUNCj4+ICsNCj4+ICsgICAgICAgICAgICByZXF1aXJlZDoNCj4+
+ICsgICAgICAgICAgICAgIC0gZGF0YS1sYW5lcw0KPj4gKw0KPj4gKyAgICAgIHBvcnRAMToNCj4+
+ICsgICAgICAgICRyZWY6IC9zY2hlbWFzL2dyYXBoLnlhbWwjLyRkZWZzL3BvcnQtYmFzZQ0KPj4g
+KyAgICAgICAgdW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKyAgICAgICAgZGVzY3Jp
+cHRpb246IENTSS0yIG91dHB1dCBwb3J0IE1JUEkxDQo+PiArDQo+PiArICAgICAgICBwcm9wZXJ0
+aWVzOg0KPj4gKyAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAgICAgICAkcmVmOiAvc2No
+ZW1hcy9tZWRpYS92aWRlby1pbnRlcmZhY2VzLnlhbWwjDQo+PiArICAgICAgICAgICAgdW5ldmFs
+dWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gKyAgICAgICAgICAgIHByb3BlcnRpZXM6
+DQo+PiArICAgICAgICAgICAgICBkYXRhLWxhbmVzOg0KPj4gKyAgICAgICAgICAgICAgICBtaW5J
+dGVtczogMQ0KPj4gKyAgICAgICAgICAgICAgICBtYXhJdGVtczogNA0KPj4gKw0KPj4gKyAgICAg
+ICAgICAgICAgYnVzLXR5cGU6DQo+PiArICAgICAgICAgICAgICAgIGVudW06DQo+PiArICAgICAg
+ICAgICAgICAgICAgLSAxICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9DUEhZDQo+PiArICAgICAgICAg
+ICAgICAgICAgLSA0ICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9EUEhZDQo+DQo+RGl0dG8uDQo+DQo+
+PiArDQo+PiArICAgICAgICAgICAgICBjbG9jay1ub25jb250aW51b3VzOiB0cnVlDQo+PiArICAg
+ICAgICAgICAgICBsaW5rLWZyZXF1ZW5jaWVzOiB0cnVlDQo+PiArDQo+PiArICAgICAgICAgICAg
+cmVxdWlyZWQ6DQo+PiArICAgICAgICAgICAgICAtIGRhdGEtbGFuZXMNCj4+ICsNCj4+ICsgICAg
+ICBwb3J0QDI6DQo+PiArICAgICAgICAkcmVmOiAvc2NoZW1hcy9ncmFwaC55YW1sIy8kZGVmcy9w
+b3J0LWJhc2UNCj4+ICsgICAgICAgIHVuZXZhbHVhdGVkUHJvcGVydGllczogZmFsc2UNCj4+ICsg
+ICAgICAgIGRlc2NyaXB0aW9uOiBIRE1JIGNvbm5lY3RvciBpbnB1dCBwb3J0DQo+PiArDQo+PiAr
+ICAgICAgICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAg
+ICAgICAkcmVmOiAvc2NoZW1hcy9ncmFwaC55YW1sIy8kZGVmcy9lbmRwb2ludC1iYXNlDQo+PiAr
+ICAgICAgICAgICAgdW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gKyAgICBy
+ZXF1aXJlZDoNCj4+ICsgICAgICAtIHBvcnRAMA0KPj4gK3JlcXVpcmVkOg0KPj4gKyAgLSBjb21w
+YXRpYmxlDQo+PiArICAtIHJlZw0KPj4gKyAgLSBwb3J0cw0KPj4gKw0KPj4gK2FkZGl0aW9uYWxQ
+cm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gK2V4YW1wbGVzOg0KPj4gKyAgLSB8DQo+PiArICAg
+ICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9ncGlvL2dwaW8uaD4NCj4+ICsNCj4+ICsgICAgaTJjIHsN
+Cj4+ICsgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4+ICsgICAgICAjc2l6ZS1jZWxscyA9
+IDwwPjsNCj4+ICsNCj4+ICsgICAgICBoZG1pLWJyaWRnZUA0YyB7DQo+PiArICAgICAgICBjb21w
+YXRpYmxlID0gIml0ZSxpdDY2MjUiOw0KPj4gKyAgICAgICAgcmVnID0gPDB4NGM+Ow0KPj4gKw0K
+Pj4gKyAgICAgICAgcmVzZXQtZ3Bpb3MgPSA8JmdwaW8gMiBHUElPX0FDVElWRV9MT1c+Ow0KPj4g
+Kw0KPj4gKyAgICAgICAgcG9ydHMgew0KPj4gKyAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwx
+PjsNCj4+ICsgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+PiArDQo+PiArICAgICAgICAg
+IHBvcnRAMCB7DQo+PiArICAgICAgICAgICAgcmVnID0gPDA+Ow0KPj4gKyAgICAgICAgICAgIGNz
+aV9vdXQwOiBlbmRwb2ludCB7DQo+PiArICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8
+JmNzaTJfcngwPjsNCj4+ICsgICAgICAgICAgICAgIGJ1cy10eXBlID0gPDQ+OyAvKiBNRURJQV9C
+VVNfVFlQRV9DU0kyX0RQSFkgKi8NCj4+ICsgICAgICAgICAgICAgIGRhdGEtbGFuZXMgPSA8MSAy
+IDMgND47DQo+PiArICAgICAgICAgICAgfTsNCj4+ICsgICAgICAgICAgfTsNCj4+ICsgICAgICAg
+IH07DQo+PiArICAgICAgfTsNCj4+ICsgICAgfTsNCj4+IA0KPg0KPi0tDQo+UmVnYXJkcywNCj4N
+Cj5TYWthcmkgQWlsdXMNCj4NCg==
