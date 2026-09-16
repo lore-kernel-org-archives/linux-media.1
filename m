@@ -1,175 +1,322 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010069.outbound.protection.outlook.com [52.101.193.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A863612E0;
-	Wed, 16 Sep 2026 13:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565426; cv=fail; b=K+7plZLy2ViGpgiXuDN+eqglZoXk3yzCP1ZgQsM0pBLHWpINvvuJqcnSbVZ8tbnjInJDSDQhGeR81iOKU4STlqeBuLJ7qJ+mN3H5hve3Gkr0qd8T/sfYf6QJUcUIxpdg6Eb5F8JxV2iR76y1lG+otZXzDNvcuTTwEQAYcOjd4rY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565426; c=relaxed/simple;
-	bh=VDDrR6dlgMA6WWvA561Ee71srJMpUxendZmKTKP7z+E=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=a8PE9uPb43EbrlxrbWw9GhEDDz6TbwjqdWEl+SZjRoqTnIVymFOOWcGn3WEnldiX7NeyIjyd0gwZjcEZTJtZroM6Q1IzOZy2a/A2DR4h8RPi/SBZjHmJ1QbNchLK6rG3/8D/cdrFXOdbXyuzwPS0pR8Y8qdIPHJ6l0BwQcbAESg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WPrgFdfQ; arc=fail smtp.client-ip=52.101.193.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D674A8FF7;
+	Wed, 16 Sep 2026 13:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789566096; cv=none; b=Nnyw//4BHSSrnAcQJXoh5UgDQMtZ0J1JUGpe79fSgLX7BFnxyUjwVBaRcXfp9eeMj8gszFhshghu8QG3xnf/Avhp/+OvtHz6nrRDExjKyi0MHY3LpeqhsPYEkt8GL9VNrUzScUudQ1OqN2ZVm92ZPqoZl/GTRdWx1RobrZHzbKI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789566096; c=relaxed/simple;
+	bh=Y23TEL4VWjKk050EFd+EMGfECRJpcBc/J1ICpp2a8AI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eHskPlc336nG6v6816cXD+9Kj4DwJHp4QbznZRM/0pAYytbzsV8sSh2orvRI7of9R6P6wYN85kMurXXNH4puz/zGgvO02ZPL52udAITQDa3WzC5lXhPmkPUESsN6bglSYHKrMEcg3fPA/5Qymt/eFfNjZ9sW1e3c98THusfFunU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEPFaEgt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WPrgFdfQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n4usrxmHwtLMCHv9SnKXuFjgksBgbxjTivaLj7BnP+uYyff6Mn10qZmXL9SOL5maidwFmLTnd0oZ6cTU3prKx4d17JeWDUsEAJDH21yiVdgkDRgmXy4lLy2bhH9LRxdvDiOtMF0adZ+f/ARzzq0N7e2ZC6fn+Sdk1ontUV+3zvG9PlEB3CDMV4YQWDrvPFRLc5oR3B5OW+naWqthqFflO9MLgSY2wEfnu+gnp5AdQ461u2PI9xFbIwGGmwY0UgWZwarCvQ26tKq99NjaNSwe7Dko8tSJWZJsF69PUipP5MhbITnnaUPM8fY/buhVV17wpsfBuHARoTbSllum2c/GCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jo8S/l8JJzBQNMO/i75lVdt/pq9IEWuVKGTUb8oHPVc=;
- b=WAcmicr1kKsR8206TAKVWLU35rzA3IvtYB0oaE33x0lHa9DqaVxDVyvKetK1mQW6dcMPH23lZQ3kj5jTGLgFMmCLPPyZ1Em9M/tuzEUjY3vX3e4DrT9K2/1AubJJTsZ7WBialPx79pksWt8B6lIBYY9ZrzhzXR8f3Y9Oykf5dEaM9SlXhR2CeEc8Qr/XIV+uPhVa7BTcggR/NNiP6owFSQAr7yB16IeQyfS0c6foyR3bqP2HkVEIWGRlOdvXDXsjfwTyFYGbohnshYjLoIVYxoKObxlb1EyyQa/u5+RaR6gV7rj0Vx+brjIk+aa53gFwuagPw9dPMeqQFFINoAnJFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jo8S/l8JJzBQNMO/i75lVdt/pq9IEWuVKGTUb8oHPVc=;
- b=WPrgFdfQawn9/diq1ac8xFIlY2ZSLhHqlz/37PgkNOVq54g984oFXl6yUQ7NkXu7vMXCfmTNvpB2kxmaanc9gcW6h9ykmbYUdiynBBWGCRCQpVh1o99SU7jYZHayRXsbBq8Bj6/ac6wEU/pVSK3zmU7AjJEcLpNUpuhb9j6rhuk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8584.namprd12.prod.outlook.com (2603:10b6:610:164::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 13:30:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 13:30:11 +0000
-Message-ID: <a51b4181-f102-4820-b5c1-af9cb3d9b77f@amd.com>
-Date: Wed, 16 Sep 2026 15:30:07 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: DMA BUFFER SHARING FRAMEWORK: tighten F:
- matches
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0081.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEPFaEgt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532331F000FF;
+	Wed, 16 Sep 2026 13:41:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789566083;
+	bh=ty9HMdXm16jh0iP7vayc+uF466KQcdah8P1bvXP44aE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LEPFaEgt6q0wI/3g+F7g5JB59ceU28bS71D9rlo/TgyOvOPdq6tngHXVAp5PIrjfo
+	 PZdeE+4F89B/p8qpwwn4iPGTVxh55iZkfso0rEPHVwYvghgRVy2rlDziRgzyjxEPRJ
+	 BAS09hfxkS8bUzwoyM+Oirvz7l5CuzA0mOhCpY6HIVUNNY4FUZIzCrBeCWgIlQJjYJ
+	 oUSh0WsEDReUhKFzZ1h7gCQVLpxWXu6K6M1nl5IcZJTWiV4p7NzjxjDPa4vYRhKDIF
+	 ARSyizhnC9X1BjGy4CE/XgbZgzNwXJCNNXBV04IT92kX1Bhi2klOUXrVeab/5vHKsH
+	 5w4MU3NXIiOLw==
+Message-ID: <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+Date: Wed, 16 Sep 2026 15:41:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8584:EE_
-X-MS-Office365-Filtering-Correlation-Id: a06b9ff9-6f05-470e-6cb8-08df13f6a261
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|10067099003|5023799004|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	PxIevyZJUKiDbfcoglak9mxEd8KNg8dLfuwQ6z+jmWLyZ3PJ/6VYMkouxmpq2CDB9x2pH4NdpURoicbZ6Z8J9xnsJUFoIcmZRYFVbpmZNRA/0J2AKEvUieBOt3a/l6ypj6Y0t5yTSZnY6Tovrjg7e6qWm3OGv9YeO67Z+aml+C7qc09V+SlJJw9vqQIc3lHqiNv4dLixbwFsf8fyF4rVk033QhsBmqQr6xMljzjIP6R4Vrte7SbAKbRJ4burfz6V49jsftCLw2QKKEQGzjWygzTMRHJydSuFMLbVQX6UVabbLhoZZfQqXJNvx/EECSCAiShoJIi1C2cGcL0pJSpE/6TlCxbwy+GgICisN/uCE1t7G3ABJJuamYLD7g0qhJpfi8oiNhJHE8NF+BXdxWe5oZPF38c9lq4RGdceG0RoeH8/DnyYTwLWHBNf5g6MZasCd1PDeA18L6qQsfDifDr+mfFcb4wpL99/Lt8Ty+50Isi/gly2/n0HVH++nDWGtLaNYfAewyis62kt6/CKUWdkTR87G2FTGqa/uFKWrr4gHrRbL88mzqZ1dGfIfNQXgioBiGi6RohyPZ8NcVzXD3qTy25vNcpc6l6L+BsaX9BHz8Rm5/vjzsP9fKeBLdNFwY73
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V2o1T3pUNkR2M1Z4eW1XODJRakdick1CclRqbU9INFlHam8zMDcvK3ZSNitn?=
- =?utf-8?B?MDZVbkNmMjRFSk5JR3VHNHpMb0pqRTlVWm5QZ3VQdkZRdndLeGNCRTFxUmRE?=
- =?utf-8?B?SDgzYzZPeGhlL1U4MTFmdFBUSVdxSGxJd1F0RVlZZnJibXBrYmJueGkzdE5O?=
- =?utf-8?B?UWQ5RHdSR2R4L2Jpa1hXbW0xSGRJR3BUcWJ3dmtsZDFXTnVFQlpnbWRDVDl5?=
- =?utf-8?B?RXRPY2w1VFZZTCtLR3BjcE5KeG81VDJ0cS9QbHJNcGV0NEpsSkdFOSs4WERz?=
- =?utf-8?B?c3phNVZ3M1IxV1FudVpyTk1EV0k4anJJQ0I5TG1GZ1paQXo0Z1RVUnhqODVq?=
- =?utf-8?B?SktqYUVkZ283QTlhNlNyWFJ5STBxSkdEUEFNMVBsUWYvZzl1a202eXBwelNV?=
- =?utf-8?B?ait0cmU5RURUS0Q0NzVjd01aazJ5OG9mVzB6bnM4Ny81U3IrU1hsZWNyQ0Jm?=
- =?utf-8?B?YXVqT0lwTDdIODFGNkxqT2FlSDhMZUZKN0RKSjQ5WUJaL1dSTndwQUdMRU5D?=
- =?utf-8?B?cHpKTXAyUDJ6OHZMOFptYmcxNkx5MVE5RzhjbDdFWFYxSHkxeG1PckhST3Jt?=
- =?utf-8?B?UHZSYWM2TUhLNTFCUVBEMmMxR3J0QVpsZXc1ZEJiNmZ2eitWb3F4Q2Q1U0tB?=
- =?utf-8?B?c3Ixb3FuR1h2WXU1MW1vMEtvSkcwUEp6Q2UzMXVzQ0NiSkRyMFBIU1hGellv?=
- =?utf-8?B?U1o1cG4yeVlPTEJRYU1icDRtTENPYlEwZDNCQ1JWN01ubXNiQVpnQXl0YzMw?=
- =?utf-8?B?cTZaeko2VU5wckNsL1l5VitMY253K0dvdFBoNnY4Wk96K0dUSmV1U3Y5WGcr?=
- =?utf-8?B?ay96WjE2bDhadGNkZ2FYOVBlUmhod2pKR2NEMUlsUjVlQkthV0VNdjNnNWpj?=
- =?utf-8?B?U052Sjh4Wmo3K0IyeEswREhLaHdDZEVDT0tQamJDUVJKR0l6aFpYNzgvM0dY?=
- =?utf-8?B?MzMySDJTL0Z0bGxwUmZFcDg5ZGh3bVNBQmtRYll2eWY2UHU2VzE1Szh6S2Fv?=
- =?utf-8?B?RUdubTJQUVNCN1RDTFFCOFVhNVVvbTViTjVZUGR5Nmxtd3FBdDhMbzMvbDl1?=
- =?utf-8?B?REEzRlZBNWE1UUcyWmQ4UXRjQW1Cc0hSK2V5RnYvbENRUXEwR2NvR2hMdktp?=
- =?utf-8?B?ZFJEYklxMGl4cVBjZTNVUGN2WFcyREZSbUc2Nk5BYy9IK1FFZFRhQW1raDdR?=
- =?utf-8?B?b05keU5oaWdPUUFKRFMzQmlNc0lYMEhMWjk0aHh0NVVidGhDV2p3QVNFcnRG?=
- =?utf-8?B?S2NkS2FmQ0JtOTBJOTdpM0ZTY1Q1V2RqU2JEVDVRZTluaGRHU2NZUXhkc0hK?=
- =?utf-8?B?UURxMnV5T0RnZDc1ZjNhL1lnVEtBWjNCdDg5TlArbjhxTEx1K0JDa2FQSzVU?=
- =?utf-8?B?QnE2K0RoSHVlek1OYXlIYU9jQ0dycVgwa01aTzQvUGZtS2g3N0dtY0VUS2lL?=
- =?utf-8?B?Y1Awbk5IU1FXQnpRYk1XUWlLUWVaSGNWcjBOMFJDRFRzbm91V01PMXBrZDBa?=
- =?utf-8?B?UGhueE8zRFhuZGpNTVhQTXVpQ2hqWUFkNDBlamFld09IaGdjeWU0bytaZTFt?=
- =?utf-8?B?UFRydTUrSkpIT3ROOG1MS0hvUi9RZjdLdGlJaWIyU0VFOUxYTEIyZEs3VUVN?=
- =?utf-8?B?S3lYdVhvM2prOVhUNitTME9BZ1pjODFiREdJbEZYR2JGRzg4V2xuelIrNWt1?=
- =?utf-8?B?YStjMWxscXZDYW5RaVNDemxaZi8vOXJyL3pBL242ejBnUzJLWEQ4TXlMQS9H?=
- =?utf-8?B?MVh6NzUrK1A1TWxqd0h5VmxWY0VzWnZsZzV0N2FtWkRrSW5PRDNrZEU1RkhK?=
- =?utf-8?B?U0pjWThZKzBMcEs5QnM4R1N4aEE2NjJKVFprTUh5OFNmRm5uK0JvcGRQNzdW?=
- =?utf-8?B?bFNTTEhwNWJWbzE4Sk0wSkY2bFhYT3VMeENFbGt4MFI5dTNoeTZDWXoyRTBR?=
- =?utf-8?B?RXRaZGMxcFl5Q0NEOFltZ3ZUMTRNRlpoSE92TGRBdjFmSFhyLzFXNDhhYUtD?=
- =?utf-8?B?elpYbHJFSWlPeWFGMEJ5azRWdDY5aUZhV01FQ1dQcnM0emNmMk1KVEdvUFVh?=
- =?utf-8?B?TjhOQ1crdXRZRXh6K2d1cktSbDd6cHc5SkdsSGREODBqVzg5OUcrMndZdUt0?=
- =?utf-8?B?ckNxcURHMFF2azdieFRPaG5NU1hKOEtSNzR4b3c3Uzg3U3JxU3Zyc1UvSFVC?=
- =?utf-8?B?TzM5YUxUOGlaNys4LzdpN1BOSlVJRGd1NEZ6NSt3WWZ0ME1RMW1uZG5kbWxi?=
- =?utf-8?B?dWxYT3BGZWVIOTRYeU96ekNMby92MW5EOGk0ZGpsNVlJRW51dDVaSXFWWHc5?=
- =?utf-8?Q?7daODAhcHdXO7zuMY2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a06b9ff9-6f05-470e-6cb8-08df13f6a261
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 13:30:11.8979
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /WT+pO/mzRrxugBiT0ysnI7MVivprNeg8U63WgG1CNn8XwRuTAb+p9WWMfklsxr5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org> <aqpYqrtKTY20IW_0@bombadil>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <aqpYqrtKTY20IW_0@bombadil>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 9/16/26 15:21, Mike Rapoport (Microsoft) wrote:
-> F:	include/linux/*fence.h
+On 16/09/2026 11:01, Richard Leitner wrote:
+> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
+>> On 16/09/2026 09:33, Richard Leitner wrote:
+>>> Hi Krzysztof,
+>>>
+>>> thanks for the review!
+>>>
+>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
+>>>>>
+>>>>> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+>>>>> ---
+>>>>>  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+>>>>>  MAINTAINERS                                        |  7 ++
+>>>>>  2 files changed, 99 insertions(+)
+>>>>
+>>>> This fails tests, so a very brief review / a few comments:
+>>>
+>>> Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+>>> Will not happen again.
+>>>
+>>>>
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+>>>>> new file mode 100644
+>>>>> index 0000000000000..2a031aea68457
+>>>>> --- /dev/null
+>>>>> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+>>>>> @@ -0,0 +1,92 @@
+>>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>>> +%YAML 1.2
+>>>>> +---
+>>>>> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>> +
+>>>>> +title: Vision Components MIPI Camera Module Controller
+>>>>> +
+>>>>> +maintainers:
+>>>>> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>>>>> +  - Richard Leitner <richard.leitner@linux.dev>
+>>>>> +
+>>>>> +description: |-
+>>>>> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+>>>>> +  controller found on MIPI camera modules from Vision Components. It abstracts
+>>>>> +  the camera sensor behind a unified register interface, and controls and
+>>>>> +  sequences the on-board power supplies and clocks.
+>>>>> +
+>>>>> +  The camera sensor abstraction is optional. The controller exposes a tunneled
+>>>>> +  downstream I2C bus used by the attached image sensor. The controller node
+>>>>> +  acts as the upstream device on the host bus, while child node below the
+>>>>> +  controller represent the sensor device reachable through the tunnel.
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    const: vision-components,mipi-module-controller
+>>>>
+>>>> There is no model name, no version, nothing identifying it better?
+>>>> Compatible must be specific to the device (see also writing bindings).
+>>>
+>>> There is one FPGA implemenation for all Vision Components MIPI camera
+>>> modules AFAICT. So I have no idea how it could be more specific, TBH...
+>>>
+>>> Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+>>> configuration/firmware, not the hw.
+>>>
+>>> There are different versions of the configuration/firmware. But I think
+>>> this is also not the correct way to distinguish those, or is it?
+>>>
+>>> According to their homepage the vendor calls those modules simply
+>>> "VC MIPI" modules, which implies this FPGA controller is available on it.
+>>> So maybe "vision-components,vc-mipi-controller" would be a better fit?
+>>>
+>>> Do you have any ideas/feedback on how improve this name?
+>>
+>> So there are different modules? I see several different names on:
+>> https://www.mipi-modules.com/en/mipi-camera-modules/
 > 
-> in "DMA BUFFER SHARING FRAMEWORK" entry matches include/linux/kfence.h
-> although that header has nothing to do with dma-buf.
+> Yes, there are different modules, but all feature the same controller.
+> Which this is basically the device driver binding for. So the idea is to
+> describe the controller independently from the sensor which is "behind"
+> it.
 > 
-> Replace it with explicit 'include/linux/dma-fence.h'.
+> This works because the controller "soft-core" should be the same on all
+> modules. A downstream implemenation (which I haven't studied in detail)
+> is available at https://github.com/VC-MIPI-modules/vc_mipi_core if that
+> helps?
 > 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>>
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +  reg:
+>>>>> +    maxItems: 1
+>>>>> +
+>>>>> +  '#clock-cells':
+>>>>> +    const: 0
+>>>>> +
+>>>>> +  clock-frequency:
+>>>>> +    description: Frequency of the sensor clock provided by the module
+>>>>
+>>>> Drop, implied by the compatible
+>>>>
+>>>
+>>> Do you mean dropping the whole property, or just the "description"?
+>>
+>> I meant entire property, but we keep discussing in Laurent's reply.
+>>
+>>>
+>>>>> +
+>>>>> +  vcc-supply:
+>>>>> +    description: Power supply of the module (3.3V)
+>>>>> +
+>>>>> +  '#address-cells':
+>>>>> +    const: 1
+>>>>> +
+>>>>> +  '#size-cells':
+>>>>> +    const: 0
+>>>>
+>>>> No children allowed, so why these two?
+>>>
+>>> Based on your and the bot feedback I would suggest for v2 to change this
+>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
+>>> "$ref: /schemas/i2c/i2c-controller.yaml".
+>>>
+>>> This would better reflect the actual hardware, as there is only this one,
+>>> in firmware hard-coded I2C downstream bus.
+>>>
+>>> Would this be a sane approach?
+>>
+>> If the underlying I2C bus and sensor are important, then yes. But I have
+>> doubts that you need to describe the sensor if it is truly
+>> unadressable/invisible to the OS.
+> 
+> Yes, the I2C bus and sensor is important. The device driver of the sensor
+> talks (via the tunneled I2C interface) directly to the sensor.
+> 
+> The separate I2C controller/bus description is necessary as the tunneled
+> I2C bus has some quirks unfortunately. Those need to be addressed as 
+> otherwise the sensor drivers do not work.
+> 
+> So the idea is to not have a vc-mipi module binding per "sensor variant"
+> of the camera modules, but provide a common controller driver which
+> provides the I2C bus for the sensor driver.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Bindings must accurately describe the device and so far - based on the
+website - there is no device as mipi-module-controller alone.
 
-Thanks a lot that was on my TODO list for an eternity as well!
+I don't get why you assume that all of the variants are exactly
+identical, thus sensor variant is not applicable.
 
-Regards,
-Christian
+If they are identical in all aspects, then why clock-frequency property?
+That's obviously rhetorical question, because they are not identical in
+all aspects and must produce different clock at least.
 
-> ---
->  MAINTAINERS | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c2..656bc5ed8d2ba 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7688,7 +7688,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->  F:	Documentation/driver-api/dma-buf.rst
->  F:	Documentation/userspace-api/dma-buf-alloc-exchange.rst
->  F:	drivers/dma-buf/
-> -F:	include/linux/*fence.h
-> +F:	include/linux/dma-fence.h
->  F:	include/linux/dma-buf.h
->  F:	include/linux/dma-buf/
->  F:	include/linux/dma-resv.h
-> 
-> ---
-> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-> change-id: 20260916-maint-dma-buf-3311abfdc90e
-> 
-> --
-> Sincerely yours,
-> Mike.
-> 
 
+> 
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +required:
+>>>>> +  - compatible
+>>>>> +  - reg
+>>>>> +  - '#clock-cells'
+>>>>> +  - clock-frequency
+>>>>> +  - vcc-supply
+>>>>> +  - '#address-cells'
+>>>>> +  - '#size-cells'
+>>>>> +
+>>>>> +unevaluatedProperties: false
+>>>>
+>>>> additionalProperties instead, see writing bindings or writing schema.
+>>>> Unless you miss here some other schema $ref.
+>>>>
+>>>>> +
+>>>>> +examples:
+>>>>> +  - |
+>>>>> +    i2c {
+>>>>> +        #address-cells = <1>;
+>>>>> +        #size-cells = <0>;
+>>>>> +
+>>>>> +        vc_mipi_ctrl: controller@10 {
+>>>>> +            compatible = "vision-components,mipi-module-controller";
+>>>>> +            reg = <0x10>;
+>>>>> +            #clock-cells = <0>;
+>>>>> +            clock-frequency = <37125000>;
+>>>>> +            vcc-supply = <&cam_3v3>;
+>>>>> +
+>>>>> +            #address-cells = <1>;
+>>>>> +            #size-cells = <0>;
+>>>>> +
+>>>>> +            i2c@0 {
+>>>>> +                #address-cells = <1>;
+>>>>> +                #size-cells = <0>;
+>>>>> +
+>>>>> +                vc_mipi_sensor: camera@60 {
+>>>>> +                    compatible = "ovti,ov9281";
+>>>>> +                    reg = <0x60>;
+>>>>
+>>>> Why having the child abstraction if it is completely abstracted? I don't
+>>>> fully get the explanation from description. Completely optional means no
+>>>> benefits, no point in it, no?
+>>>
+>>> I will try to improve the description. The idea behind this device
+>>> driver/devicetree node is to not rely on the sensor abstraction from
+>>> vision components, but to use the upstream sensor specific driver.
+>>
+>> You can use driver even without these nodes... but fine, let's assume
+>> you have them, so driver will talk with OV9281 sensor for example?
+> 
+> The vc-mipi driver does not talk to sensor at all. This is done by the
+> dedicated sensor driver. The vc-mipi driver is only controlling the
+> regulator, clock, etc. as described and sets up the "quirk aware"
+> tunneled i2c interface.
+
+I meant, driver for the sensor. So who controls sensor supplies? Not the
+sensor driver? It tells something how the hardware is managed, no?
+> 
+Best regards,
+Krzysztof
