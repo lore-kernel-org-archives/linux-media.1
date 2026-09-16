@@ -1,126 +1,202 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D170337D11A
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 15:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A941337F305;
+	Wed, 16 Sep 2026 15:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571186; cv=none; b=df+2azIlDkC+Wv/TVolZBxqE0xbD0MHvHty1AuyfqjiouxyvbAoLO6ekJ48zj8Y71EmlnOffuEQ5QlLlkGUMnQgDmkw/M5C2w9+SDD5Ba3aARfHmgiXyjkSirpT7Kxk7qyOaEkZ0lMIRbL7BJ5Ic1c0ysX2Bg6vdd5w9satJOcE=
+	t=1789571391; cv=none; b=QcUMNbz0m8Plt93i54tX6Bq5D3Lz5KKrFPcmDbRwkoDCBqeFLQMPIh+4oQagOD1rc1FP46RZC2fkBkoG/Nx5odJ8hOUhsvp0YOUUIAP98XyJYsjJa+BAYqhqHDgsM9DYVMKvqKg+1/xxXyzzv52XtjWexSozxzx8CIUPB/Hu6mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571186; c=relaxed/simple;
-	bh=fnE5efAXrYDH63o61zDt3jsPaz4AKBrN/AQ+31gDqD0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UpnmJ6w3OUPaDWB28Cz9MdolEkCsjlYZ91bSKsBW/gGlqefKOxSkmBQYJ+hdipY+AaoTrqILyxf9+/Qfg5KHvEIrU1U3oYWGNJYlE6pXcx7e45xoT8hk+Tsi5kqUKAqRzSdeE2s9VgTwDi0hWKkx/RB3+YozS0EnWDr2FTPgnM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=g8uLxNpD; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="g8uLxNpD"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so1531913a12.0
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 08:06:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789571183; x=1790175983; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a0ZqTXxWmIi8spdoKcHLXhkmgdsqCfsr13D7RbpQDjQ=;
-        b=g8uLxNpDOWf4Ro7imrfuTpkB6KLXSmbO1UOnSXsw2RC6r7A56yhtpHPYkjqEXC7Opn
-         3KbDBbfSVL2DTORigWOSZp9Dw7fkEXdzcpRfuoOr+dWA5+OvWogxcd1nYtK8Z17rTuwk
-         fGls2FrkynG5efUKCsJ4Ksi10mPXB2TZ51lSLT0RrxKdtom1a5WHAhCrH84b4N6+po5j
-         yCelzRRzH/JW5rt0Dkc/Iv8ip6vC+hKSvRMTR8Kyqcp4LXk1uAM7CGQqK1TXnOXRly8D
-         sG27oApa+Ydp/VvAZtMbJw5m9pJR96v+024AMiu7rVjnkBUqfxCNKPKw2vROzGbPYNeZ
-         4TYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789571183; x=1790175983;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a0ZqTXxWmIi8spdoKcHLXhkmgdsqCfsr13D7RbpQDjQ=;
-        b=P8A7qw8g0Tu5Xl30Zj24/fyA8sCnic65FQ0c7dQJCeS1Mho5LZSo2kfk727VV5LChg
-         UNcWe9wa7Ads0cX46vE27f2hmMP//OREHTj7ixDt+o0Ac6pYh4BYxIZ5RdF+yWsni9nC
-         3Ys/KDVH2l6gZEYYjI9RjaXeNrPhgZhwFufzyxkzFPOgMSz+SQnfB1nUGf3Gb77YV25W
-         5EQTzipAdJ3nD6dvoil+UOuicKx/lVw1xoq0ph/ZWNSPICUzKhAGzlTD38iaVocltNmV
-         qXLLBfGoUug2k3N+NBZMLvazZnIpzshYgcIXC9vl+7uJV9wj9ZKAAZikQP7TqgOit1ju
-         XbMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznHedId+5rblinEMC5XRu37jipTgF2zry2d8BajRwlEpXkQtkZq6AupUAxXQUKqazMFBgdSSTcdg1yRw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mHsBjkoa2XkXJuDP/kws8lm5gqg9GrFrPu8cwQGg2XQp8z4FFo
-	skrPq6Zh44tlrKH1g2iqo1ZEAnk7o/2hxWnYxCKfPtxOYSTX5GVE1UJW+Vpet/pDq70=
-X-Gm-Gg: AYBFou0O3oAmpq5LHeNu42suT2KvVLLdS/11UqJiROWNHx0zOt04mA2y6n27blQUUyE
-	Z2JrDom7Qca02gTN/4D/ca6zV+riUaOb4pcXTT7a7bSmsOfi1O2X5hoxHOd9OqeLrZsqYr79J/d
-	cNYSM3FHOKrMN1bkep8OSGHIJI3Ldhy/jLI4Z6nwKInX5zIngVgyyqNIMgrItpda/uzNyjtXKQC
-	ZmHrAmao62N12Jxh01IEjvySuOWoC8GdxNlwUYh0dS3SI4pcZnqyKM5XvwQzVC7GO97MyT3ODfw
-	QauSGllcXQ26kkIad2YnPl0IDUXAbhuOoYoAfTsafjAUqcsOI5/aqx3aVLYbUcb/sf7QAxWKi7N
-	tzz6MlyGAf9GqE3CwTB2FSI4pecDi4Q1OVl2tOgqD3LrcUZJ5banq81a5+cJ4C9HCzGn6Yn+9mC
-	gViRBPpe0QjX+529ynu+FxkEn6va2WzsftLNcjvb1E1MOcEwVyh0/fCNh5eJfAlURAar2DsJu8F
-	wx6c/F/Nkwr
-X-Received: by 2002:a05:6402:c42:b0:6a9:232b:ec6d with SMTP id 4fb4d7f45d1cf-6aa22479709mr2186159a12.41.1789571182901;
-        Wed, 16 Sep 2026 08:06:22 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.116.194])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d260702sm1876319a12.18.2026.09.16.08.06.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 08:06:22 -0700 (PDT)
-Message-ID: <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
-Date: Wed, 16 Sep 2026 16:06:20 +0100
+	s=arc-20240116; t=1789571391; c=relaxed/simple;
+	bh=vhtudKUQKYUWQ38SniEAJTU/7hdJid213xqQRcLm1ys=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=d7On2AwD8+0AB+dBipsS0bdx7lWZ4mBl0cOLXulbyzE8p2+4ECadI2gvXAsGwWpH34UuHEgGwioX+ubrteUckvKnijlCsxN/K6EiKHT2mlX1GcrGq2ICEEIBAMW9Esrlk8+KTMiR1VNtnbJqXaDl9BJDiTNtgJEnR50JoYZlOCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: ezequiel@vanguardiasur.com.ar
+X-PTX-Original-Recipient: jacob-chen@iotwrt.com
+X-PTX-Original-Recipient: mchehab@kernel.org
+X-PTX-Original-Recipient: detlev.casanova@collabora.com
+X-PTX-Original-Recipient: heiko@sntech.de
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
+X-PTX-Original-Recipient: linux-arm-kernel@lists.infradead.org
+X-PTX-Original-Recipient: linux-rockchip@lists.infradead.org
+X-PTX-Original-Recipient: lgs201920130244@gmail.com
+X-PTX-Original-Recipient: p.zabel@pengutronix.de
+X-PTX-Original-Recipient: kernel@pengutronix.de
+X-PTX-Original-Recipient: s.pueschel@pengutronix.de
+X-PTX-Original-Recipient: m.tretter@pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 59E73201F41;
+	Wed, 16 Sep 2026 17:09:46 +0200 (CEST)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1x6rGc-001Fsx-0m;
+	Wed, 16 Sep 2026 17:09:46 +0200
+From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Subject: [PATCH v2 00/17] media: rockchip: rga: Add multi-core support
+Date: Wed, 16 Sep 2026 17:09:41 +0200
+Message-Id: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
- sensor on CSIPHY4
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
- <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
- <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
- <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
- <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
- <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4XM2pq2hIKu/A/DopQBxmhL+iAYw
+ r8LGHcuT3LuuQsE9IQBrtkCHicK5OwG8pSBGbTtkVG7MUguFVdcsjAm5nudv9IzknEemcbKVEZ
+ 3XOAFtt3osaP5aN7rL4fUPNDEPbQbA4Xo/Ps4ncTu/frqT38SjLMcjWxEocqiK28j2j5F7yzN5
+ xahXtf1A/QpsljJAAAA
+X-Change-ID: 20260602-spu-rga3multicore-ae8c8caf01e9
+To: Jacob Chen <jacob-chen@iotwrt.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ Guangshuo Li <lgs201920130244@gmail.com>, 
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+X-Mailer: b4 0.15.2
 
-On 16/09/2026 16:04, Konrad Dybcio wrote:
-> Perhaps moving the endpoint label and definition there too would
-> make sense, i.e.
-> 
-> -- hamoa.dtsi
-> ports {
-> 	#address-cells = <1>;
-> 	#size-cells = <0>;
-> 
-> 	port@0 {
-> 		reg = <0>;
-> 
-> 		camss_csiphy4_inep: endpoint {
-> 		};
-> 	};
-> 
-> 	...
-> };
-> 
-> 
-> -- x1-crd.dtsi
-> &camss_csiphy4_inep {
-> 	...
-> };
+Add multi-core support to the RGA (Raster Graphic Accelerator) driver
+for Rockchip SoCs. This works by scheduling the given work to multiple
+identical RGA cores. Previously other identical cores were discarded
+while probing with -ENODEV to avoid exposing multiple video devices for
+identical cores and breaking the ABI when adding an in-kernel scheduling.
 
-I don't think I can add the endpoint, my memory is I tried that and the 
-dtbs_checker spat it back out at me.
+This series targets the RK3588 SoC, which has one RGA2-Enhance core
+and two RGA3 cores (see [1] for an overview of the different RGA cores).
+The slimmed down RK3576 SoC also features two RGA2-Pro
+(also described as RGA2.5) cores, but is currently not supported by
+the driver. Tests are done on a Radxa Rock 5T SBC.
 
-I'll retry though since I may be mis-remembering.
+The scheduling is done only on a context level, which causes no
+increased performance for a single stream (which uses only one mem2mem
+context). Therefore at least N parallel stream are necessary to utilize
+N cores. This avoids the more complex buffer handling required to avoid
+mixing the frame ordering when one core is slightly faster than the
+other (e.g. due to memory transfer timings or different clocks).
+
+While the work is based on Detlev Casanova's multi-core series for the
+rkvdec driver [2], it differs in two major aspects:
+
+(1) It doesn't directly call v4l2_m2m_job_finish to mark the current job
+as finished in the device_run callback. Detlev used this to trick the
+m2m framework to directly schedule the next job. This looked like a
+dirty hack and had me running into some of it's pitfalls (e.g. the
+difference between the v4l2_m2m_buf_done and the newly introduced
+v4l2_m2m_buf_done_manual function).
+Instead I've dropped the current curr_ctx member of the v4l2_m2m_dev
+struct and added a max_parallel_jobs member to specify the maximum
+number of parallel jobs. This allows the driver to set it's maximum
+number of parallel jobs with the newly introduced
+v4l2_m2m_set_max_parallel_jobs function. The RGA driver uses it to set
+it's number of parallel jobs to it's number of available cores. The m2m
+framework then schedules the first N jobs on it's job queue to the
+device_run callback instead of only one.
+
+(2) Instead of attaching an identical RGA core on probe to the first
+probed RGA core instance, use component helpers to add all cores as
+components to a virtual platform device. This has the advantage of only
+creating the video device after all cores have been probed successfully
+and tearing it down if one core is being removed (e.g. by the sysfs),
+which otherwise could lead to nasty memory bugs. The implementation is
+based on the driver of the etnaviv gpu. As the virtual platform device
+doesn't has an iommu, we still allocate all relevant drives on the first
+core, which shares it's iommu domain with all other cores.
+
+v4l2-compliance results:
+    v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+    ...
+    	Card type        : rga2
+    ...
+    Total for rockchip-rga device /dev/video0: 48, Succeeded: 48, Failed: 0, Warnings: 0
+    
+    v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+    ...
+    	Card type        : rga3
+    ...
+    Total for rockchip-rga device /dev/video1: 48, Succeeded: 48, Failed: 0, Warnings: 0
+
+Patch 1-3 address review comments from my last RGA3 patch series
+Patch 4-5 additional driver cleanup/improvements
+Patch 6-7 implements support for parallel jobs in the m2m framework
+Patch 8-10 add multi core preparations to the driver
+Patch 11-15 rework the driver to use component helpers
+Patch 16 puts all cores into the same iommu domain
+Patch 17 enables the multi-core support
+
+[1] https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Developer_Guide_RGA_EN.md#design-index
+[2] https://lore.kernel.org/linux-media/20260409-rkvdec-multicore-v1-0-62b316abf0f7@collabora.com/
+
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+---
+Changes in v2:
+- split v4l2-core change into two commits
+- move pm_runtime_enable to it's devres version
+- add missing pm_use_autosuspend call
+- fix NULL pointer deref when unbinding and rebinding a core
+- allow manual binding the component master without needing a driver
+  override
+- various fixups in the error paths
+- extend spinlock usage for their data structures
+- moved core bind to probe commit for a better diff
+- export the v4l2_m2m_set_max_parallel_jobs symbol
+- document the new v4l2_m2m_set_max_parallel_jobs function
+- dropped cherry-picked patches (now included in media/next)
+- add Guangshuo Li regarding multi-core in mtk-jpeg
+- Link to v1: https://patch.msgid.link/20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de
+
+To: Jacob Chen <jacob-chen@iotwrt.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
 ---
-bod
+Sven Püschel (17):
+      media: rockchip: rga: zero cmdbuf in shared code
+      media: rockchip: rga: add comment about pixel alignment for YUV formats
+      media: rockchip: rga: move early return into if condition in vidioc_enum_fmt
+      media: rockchip: rga: removed unused regmap member
+      media: rockchip: rga: use devres version of pm_runtime_enable
+      media: v4l2-mem2mem: drop curr_ctx member from v4l2_m2m_dev struct
+      media: v4l2-mem2mem: support running multiple jobs in parallel
+      media: rockchip: rga: move power handling to device_run
+      media: rockchip: rga: adjust get_version to return the version
+      media: rockchip: rga: add rga_core structure
+      media: rockchip: rga: use components to manage multiple cores
+      media: rockchip: rga: move rockchip_rga allocation to master probe
+      media: rockchip: rga: move core initialization from bind to probe
+      media: rockchip: rga: move video device to the master
+      media: rockchip: rga: bind all cores to the master
+      media: rockchip: rga: put all cores into first core iommu domain
+      media: rockchip: rga: schedule jobs to multiple cores
+
+ drivers/media/platform/rockchip/rga/rga-buf.c |  16 +-
+ drivers/media/platform/rockchip/rga/rga-hw.c  |  40 +-
+ drivers/media/platform/rockchip/rga/rga.c     | 556 +++++++++++++++++++-------
+ drivers/media/platform/rockchip/rga/rga.h     |  44 +-
+ drivers/media/platform/rockchip/rga/rga3-hw.c |  32 +-
+ drivers/media/v4l2-core/v4l2-mem2mem.c        |  94 +++--
+ include/media/v4l2-mem2mem.h                  |  18 +
+ 7 files changed, 560 insertions(+), 240 deletions(-)
+---
+base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+change-id: 20260602-spu-rga3multicore-ae8c8caf01e9
+
+Best regards,
+--  
+Sven Püschel <s.pueschel@pengutronix.de>
+
