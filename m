@@ -1,34 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935B03EF66B;
-	Wed, 16 Sep 2026 07:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA86544E038
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 07:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542051; cv=none; b=q4qmYHf29x56/Lo0VJ1rng6dMNuEDU/O4tU4Cmbj1+FcG4hd5Rk/s2QmYVxzwaWYe63CziIH2Uszha9TemKYtq7IkfQ488/IBCUnP3jWyhWCr/r/GjnHMuHYPjEd3XPpkRo1SzzcyTMh4s3yDSKbinuNmsJstpPWCG1UeNhCFq0=
+	t=1789544037; cv=none; b=aZRwUNpYjfC308ilsqbeB0ebxF0MoLSjQ4YARkX+W1GWtD0yaBVMtNNmnaK0vvgYMNkp1P3eTRA45Xi+1nMEbTlHf7LVBdVbxpf0wviwI8JWefpeyXIsceFKGAj4p3OGSH1vTmSpZt4shsjnWfAFn9+HGYFTl/Pdc+YT+2799Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542051; c=relaxed/simple;
-	bh=XXt/qwAoj1t7ccosJHSNNE4Gha6I7iVikWuRABYWWHA=;
+	s=arc-20240116; t=1789544037; c=relaxed/simple;
+	bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d/Ijpwl/BduwHlTAHrhXflfoT8zEF0WI0kuT1yC3IDrjfDN9hu7j8ioOY8rzt4IrWgqQ597UAyAAgOldNw9OCZHirSgE2d8DA6vk5J1/yotkI9OKpJ4odJVxPCxidNeZvkLP/j3/yzQ+EeczUv29/iBUncsxka62/mO+v2OXlIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RP4WARjx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=s+im7jgfeIM+sC+Or4qCtVGq5Xx2OhSa8SBEDN8mKQqsmTHNuE5X0MlW83+SkOdqmnE+guoghjlqa6iF8IWAwVs+vgYN3LlTR8vUX2W1B2gY/Pqnd3SBSyVKcNjX+7e+Zb0DFlFks9zF8MvFIQ3RkkHeXxtXr1ESMgxDbn48DXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=raM5XhAV; arc=none smtp.client-ip=91.218.175.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RP4WARjx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199611F000FF;
-	Wed, 16 Sep 2026 07:00:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789542050;
-	bh=VjyJ3QHfl2rO9pAu/Qmpoe/bIC8oEq7hAxTnd1ZvaN4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RP4WARjxtQ69HDtiE8hQUy0gl4gsh99I3K7YK9iH2WZjj3+pvDNLRZ0cxd70zfexm
-	 1dgdbtAqj+XV1YALD7B3d6ELuE+nzjHzxyQlLVdTf9XBfyQxYdFJOOLVhkb2AtkAUp
-	 aE801UddQBWATlihnprKpwwLfTUcUGfQuK65w9HomeQx+UzJKrM+u+j8m9OD7UhA24
-	 qDR9i1mBit2t7LejFGjROCHn2YiPhOYMCqofoMMIGHNAhlwMqEap/jimVqycS0roES
-	 h4RwiztqfAwKAxjOOMFzNU3oRoqsqygw67epnofyWOoTLGVEw6XlJN6kQp6kK2VhmQ
-	 B2S1zr4wvGVfg==
-Date: Wed, 16 Sep 2026 09:00:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Richard Leitner <richard.leitner@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="raM5XhAV"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789544022; v=1; x=1790148822;
+ b=raM5XhAVIv7hETvmFWax/zdQw1WlFoCUi6rwh3HkCNQ+3F009aGeTRgb4KcNoRmgF/S9p0cO
+ 2ZqGxV6NXEFIUg36ZN04EudkS6sJgDCXA0CF+nWtT4o8Ff1MN/DbRiZWd72hkXuaFFGyZZfV8yZ
+ quovv+2N+GJU/GtQPTfxPB10=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 78ccef53a41417d8;
+	Wed, 16 Sep 2026 07:33:42 +0000
+X-Mizu-Trace-ID: 78ccef53a41417d8
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 09:33:36 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -36,9 +39,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-media@vger.kernel.org
 Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
  vision-components,mipi-module-controller
-Message-ID: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+Message-ID: <aqpC8fxO4F3bFjF4@bombadil>
 References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
  <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -47,124 +51,177 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+In-Reply-To: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
 
-On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
-> Add bindings for the Vision Components MIPI Camera Module Controller.
+Hi Krzysztof,
+
+thanks for the review!
+
+On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> > Add bindings for the Vision Components MIPI Camera Module Controller.
+> > 
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  7 ++
+> >  2 files changed, 99 insertions(+)
 > 
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> ---
->  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 99 insertions(+)
+> This fails tests, so a very brief review / a few comments:
 
-This fails tests, so a very brief review / a few comments:
+Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+Will not happen again.
 
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> new file mode 100644
-> index 0000000000000..2a031aea68457
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> @@ -0,0 +1,92 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Vision Components MIPI Camera Module Controller
-> +
-> +maintainers:
-> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> +  - Richard Leitner <richard.leitner@linux.dev>
-> +
-> +description: |-
-> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
-> +  controller found on MIPI camera modules from Vision Components. It abstracts
-> +  the camera sensor behind a unified register interface, and controls and
-> +  sequences the on-board power supplies and clocks.
-> +
-> +  The camera sensor abstraction is optional. The controller exposes a tunneled
-> +  downstream I2C bus used by the attached image sensor. The controller node
-> +  acts as the upstream device on the host bus, while child node below the
-> +  controller represent the sensor device reachable through the tunnel.
-> +
-> +properties:
-> +  compatible:
-> +    const: vision-components,mipi-module-controller
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > new file mode 100644
+> > index 0000000000000..2a031aea68457
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > @@ -0,0 +1,92 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Vision Components MIPI Camera Module Controller
+> > +
+> > +maintainers:
+> > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > +  - Richard Leitner <richard.leitner@linux.dev>
+> > +
+> > +description: |-
+> > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> > +  controller found on MIPI camera modules from Vision Components. It abstracts
+> > +  the camera sensor behind a unified register interface, and controls and
+> > +  sequences the on-board power supplies and clocks.
+> > +
+> > +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> > +  downstream I2C bus used by the attached image sensor. The controller node
+> > +  acts as the upstream device on the host bus, while child node below the
+> > +  controller represent the sensor device reachable through the tunnel.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: vision-components,mipi-module-controller
+> 
+> There is no model name, no version, nothing identifying it better?
+> Compatible must be specific to the device (see also writing bindings).
 
-There is no model name, no version, nothing identifying it better?
-Compatible must be specific to the device (see also writing bindings).
+There is one FPGA implemenation for all Vision Components MIPI camera
+modules AFAICT. So I have no idea how it could be more specific, TBH...
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#clock-cells':
-> +    const: 0
-> +
-> +  clock-frequency:
-> +    description: Frequency of the sensor clock provided by the module
+Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+configuration/firmware, not the hw.
 
-Drop, implied by the compatible
+There are different versions of the configuration/firmware. But I think
+this is also not the correct way to distinguish those, or is it?
 
-> +
-> +  vcc-supply:
-> +    description: Power supply of the module (3.3V)
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
+According to their homepage the vendor calls those modules simply
+"VC MIPI" modules, which implies this FPGA controller is available on it.
+So maybe "vision-components,vc-mipi-controller" would be a better fit?
 
-No children allowed, so why these two?
+Do you have any ideas/feedback on how improve this name?
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#clock-cells'
-> +  - clock-frequency
-> +  - vcc-supply
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +unevaluatedProperties: false
+> 
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  '#clock-cells':
+> > +    const: 0
+> > +
+> > +  clock-frequency:
+> > +    description: Frequency of the sensor clock provided by the module
+> 
+> Drop, implied by the compatible
+> 
 
-additionalProperties instead, see writing bindings or writing schema.
-Unless you miss here some other schema $ref.
+Do you mean dropping the whole property, or just the "description"?
 
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        vc_mipi_ctrl: controller@10 {
-> +            compatible = "vision-components,mipi-module-controller";
-> +            reg = <0x10>;
-> +            #clock-cells = <0>;
-> +            clock-frequency = <37125000>;
-> +            vcc-supply = <&cam_3v3>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            i2c@0 {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +
-> +                vc_mipi_sensor: camera@60 {
-> +                    compatible = "ovti,ov9281";
-> +                    reg = <0x60>;
+> > +
+> > +  vcc-supply:
+> > +    description: Power supply of the module (3.3V)
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> 
+> No children allowed, so why these two?
 
-Why having the child abstraction if it is completely abstracted? I don't
-fully get the explanation from description. Completely optional means no
-benefits, no point in it, no?
+Based on your and the bot feedback I would suggest for v2 to change this
+"generic i2c bus" to a simple "i2c-tunnel" property which has
+"$ref: /schemas/i2c/i2c-controller.yaml".
 
-Best regards,
-Krzysztof
+This would better reflect the actual hardware, as there is only this one,
+in firmware hard-coded I2C downstream bus.
 
+Would this be a sane approach?
+
+> 
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - '#clock-cells'
+> > +  - clock-frequency
+> > +  - vcc-supply
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> > +
+> > +unevaluatedProperties: false
+> 
+> additionalProperties instead, see writing bindings or writing schema.
+> Unless you miss here some other schema $ref.
+> 
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        vc_mipi_ctrl: controller@10 {
+> > +            compatible = "vision-components,mipi-module-controller";
+> > +            reg = <0x10>;
+> > +            #clock-cells = <0>;
+> > +            clock-frequency = <37125000>;
+> > +            vcc-supply = <&cam_3v3>;
+> > +
+> > +            #address-cells = <1>;
+> > +            #size-cells = <0>;
+> > +
+> > +            i2c@0 {
+> > +                #address-cells = <1>;
+> > +                #size-cells = <0>;
+> > +
+> > +                vc_mipi_sensor: camera@60 {
+> > +                    compatible = "ovti,ov9281";
+> > +                    reg = <0x60>;
+> 
+> Why having the child abstraction if it is completely abstracted? I don't
+> fully get the explanation from description. Completely optional means no
+> benefits, no point in it, no?
+
+I will try to improve the description. The idea behind this device
+driver/devicetree node is to not rely on the sensor abstraction from
+vision components, but to use the upstream sensor specific driver.
+
+As the tunneled downstream i2c bus needs quirks applied this is modeled
+as a separate bus.
+
+Previous discussions on this approach are available at:
+	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
+
+Thanks again for your review Krzysztof!
+
+regards;rl
+
+> 
+> Best regards,
+> Krzysztof
+> 
