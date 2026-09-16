@@ -1,65 +1,85 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007184E56CB;
-	Wed, 16 Sep 2026 13:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722B137F304;
+	Wed, 16 Sep 2026 13:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789564034; cv=none; b=rpHWbFkT/5VUxZnuB6f/PHcU51HLIYdHSRtOZIV+/cXYLSYpoUdXaWPdmpdxhgxw0thpt9xD6tUzJ4PPZJrPMJmRqYYcK1pD+9bLv83mt59sHDX11gkSQ65hyL/O5Pqteq6207xiURIYVrguxQZXmqYjC0I+3sz+RN5gRHMM0dg=
+	t=1789564926; cv=none; b=r4+UnPgExlSf/wliNec0blwTB04xoanA/eeWC2g9s5P5NcyzXeMyd1ZKh1MAemq+tg2LtflX7rZ2E6xqtL9V9Z2KQqaolQEfrU9oYnHlmGsUGw40RgeGrqk8NXxgEZsWyv5kUl2StciDBVFQHaPa/7BC34ewaY16/DpMRN/cLHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789564034; c=relaxed/simple;
-	bh=9YhQCzMXQ1kxLsRhTeD5Ao09tfL+Ps7UF4I8rMimm9g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qOKiy5TGMg8P9d221MH+6AoMBdInaqusvexru+pAcLCgA5wdBwdsZOex4KXSQFodbgeWrdQ5a4UB+yGiz3+CHL/JL7x73CSGMLM7x2009nvxPfshqADU4l02PUbGM2hW+454s6ro0YBArAeK5PhlBEWD2djknhmaUV5b+cSWGfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=EFRnfk1P; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XRhGQ0sL; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789564926; c=relaxed/simple;
+	bh=w5vSeBn2UKDwavhh0XOtt/681k0oS++9Dv9PClYyuh8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W5lvmwfS88v6/nn0lhw7xYcmemiBJy4nhUQV3kyCSahYIUqq2bfEuPeYixq994acC8LMm7jx+bYap/IOcd5Z2ZJMwDH8/9buVWy5jACIy3k+T+8tLHDc2XhiuH2YEdqqebtK4U3Fu3mXHb7bS5OtU02pSxGtt5ONsnQd3br9Y3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfoVsNzt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="EFRnfk1P";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XRhGQ0sL"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1789563991; bh=9YhQCzMXQ1kxLsRhTeD5Ao0
-	9tfL+Ps7UF4I8rMimm9g=; b=EFRnfk1Py9b4T2nKs2349/0ToUfWYOEaFRYwS7W93OQEZpRLgn
-	Ze2XZGgoJsUNSzESvRpxj/pBWXU4CEB5GvLHafbLXkPzkMBQ7o8nQuFCVFKg7C4QnSGkJSmX4z4
-	skmnCORj/eljqWRRfxq1DCEYaLM+NHC0e677zB+O+kHY4MZOZ8UgPjmgdY7QSWQSQx1THjhAWEd
-	omGCdaC3uDFIfmIsA/v7es9eWp+qLoSi+b39S2uBDHoHY8wPJoVkeE+UygTP6pKQThsHC9JyuCR
-	/NFkXgDmVAV4g+HmgkcopTZoQhD2N47Y5umBjjhum+qua+iYhn00s8RJlV6AWR5//pQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1789563991; bh=9YhQCzMXQ1kxLsRhTeD5Ao0
-	9tfL+Ps7UF4I8rMimm9g=; b=XRhGQ0sLjBDzU6FE4HPuEuJS9SK/kdcZWV745wfvWlSYMhJq3o
-	XOoNC7pepPhUrYEPKoSNz4l7I6GRjMJYV1Dg==;
-Message-ID: <8f2245c5-cb1e-4463-8255-bebbbac08a52@mainlining.org>
-Date: Wed, 16 Sep 2026 16:06:30 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfoVsNzt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366A81F000FF;
+	Wed, 16 Sep 2026 13:22:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789564923;
+	bh=YFiTkxY4NnahRWADkTjvK32t/QFawfHXHLOvPkMD0aQ=;
+	h=From:Date:Subject:To:Cc;
+	b=LfoVsNzttzZqw9jnVkyiKm1jz+gqn9MVzP6upZW+Cvpfvd4RJMlUv/W2EVBdpN0m2
+	 P3IcsjsLZkLuPbbV1Po9K1gKylmprm58C01Y6VUd4HfGIvZUQ1aIMc6/QMX45+Yiug
+	 67hZhEMDg5EDO5cSZQN1Sjh9DvQ2vEer22SvLAYt4+ougxk1Gf8cxREmBiwnm+1+oo
+	 s1wyueL5y+UtLChAJcCAuTmJxca04manCul/6PI8joa9F8k7or12RIyQHchxNQxdwd
+	 sigzQkzEyKLH9Vz2yV+suHMRGb6MY12IVj+DdC4BHEUGYZLBexHNDh3uL1/69jMw/T
+	 fdiz1E6L9WFkg==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Wed, 16 Sep 2026 16:21:58 +0300
+Subject: [PATCH] MAINTAINERS: DMA BUFFER SHARING FRAMEWORK: tighten F:
+ matches
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Add Reset GPIO to imx258
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>
-References: <20260829-imx258-add-reset-gpio-patch-v2-0-bfd27891e225@mainlining.org>
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Content-Language: en-US
-In-Reply-To: <20260829-imx258-add-reset-gpio-patch-v2-0-bfd27891e225@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKz7tBEQbBXKV1MkolOIbFMtBTEu
+ zdpl+/z3zugsAoXuHUHKL+lyJor2EsHfqE8M0qoDL3pRzPZERNJ3jAkQrdHHAZrycXgJ8NQnZd
+ ylM+vd3/8uezuyX5rkfZwVBidUvZLm1aVWfI1UdlY4Ty/DQzjNJEAAAA=
+X-Change-ID: 20260916-maint-dma-buf-3311abfdc90e
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=83=C2=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+X-Mailer: b4 0.17-dev
 
-Hi Sakari Ailus,
+F:	include/linux/*fence.h
 
-I addressed the v1 review comments in v2, but haven't seen
-further feedback for nearly 3 weeks.
+in "DMA BUFFER SHARING FRAMEWORK" entry matches include/linux/kfence.h
+although that header has nothing to do with dma-buf.
 
-I plan to rebase this onto the latest linux-next and send a v3.
-Would that be okay?
+Replace it with explicit 'include/linux/dma-fence.h'.
 
-Thanks
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Muzaffer Kadir
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c2414447892c2..656bc5ed8d2ba 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7688,7 +7688,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/driver-api/dma-buf.rst
+ F:	Documentation/userspace-api/dma-buf-alloc-exchange.rst
+ F:	drivers/dma-buf/
+-F:	include/linux/*fence.h
++F:	include/linux/dma-fence.h
+ F:	include/linux/dma-buf.h
+ F:	include/linux/dma-buf/
+ F:	include/linux/dma-resv.h
+
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260916-maint-dma-buf-3311abfdc90e
+
+--
+Sincerely yours,
+Mike.
 
