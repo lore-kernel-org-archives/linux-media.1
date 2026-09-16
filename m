@@ -1,193 +1,142 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5682ED154
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B15322B87
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 03:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789527481; cv=none; b=ScGAiUlqDxU/NSx1zf6shq6kfNDykGy+Ooit86RncodhTl3CD9uO5uEfApvMUPkUSTdhQvMwC8NBgHO6tN8/Gttbmo6Svh0bKckf+fOTqxUszZTa54COaOTyiVVfjvwTHUEvaftBNKxtuGckDyaFBrKNhXPkBRJbodF5WonXkGk=
+	t=1789530340; cv=none; b=GzT4LqHFmE5I1laJDfw0dPn0QtEsQa72wxiBsNqc8vfG0o08LQmxHWLZualcVHLgHuYMloH/F3DNxzyEP+g94aqfJLB2Z2eaESlAnsPt2KWVBdhMBe17szoLJruG4K6VaCX19KnfnMQbemQfeto9OTRP4+dCmuv0zJ8vxx7P1Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789527481; c=relaxed/simple;
-	bh=kCximO2sOnisCbU1KtlPdQ0kwgcUNMXMR/DY9mInT0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gfk0Q3FhYgF94Cjmr2EPPLyhr9/4QkX5O1hFCK8b5ql5MU3yLX+APSYqs1XeCRkBJ5KzRKY6fE2Mv6jSnTJKasvdfHa/EU73kTr035hkp9K6wnIRaCCkC6qejO663s2w94U1BoU6MwVucHBK66gwaDsDuDL2Lj+EGyaDA/GF7zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=orH7bhyT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IXtaqO+I; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789530340; c=relaxed/simple;
+	bh=kj+jwfz2ESgc5zFDsF3Qm12OZV92X1W7h3OVHgPgo7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sdYYzp972RHYogYZxi7pnXdWx5Abpy7ge/XfOeVYe47LQHbzmauJu7/xK2Hpir9gEJ9dQAzNY71g9VEcO/0ywt5AjwHc9YxXDLTYrh3SB4FtrYNZ73zrwn+b8Kf+1RRfhiynZZwdKMyWy3+ZnWFqV5pnwmMQhCS3aSHbmHxaKNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=rKlYr2eA; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="orH7bhyT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IXtaqO+I"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYjoO225042
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:57:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QxUKbcmmujyJc5EWtoiZ+rl/qAHfyBU+aCNAFK4xl3U=; b=orH7bhyT9+ugZmfI
-	VImCeaYUBjJ5blLnzBRZL7QgZOamL3fhxZW6ZIYEEWMVcbEYFWqyOYI8XMtlraok
-	xgzH1DhGKUomrTddEUzmHD9t3sbpD6BofMD5QralpQ4GEkkFOAX2BI4UvX0XRn0f
-	bc0XkQFtUZelPmbNudGdScLAQ3BqmI2IvNmygU/KO8Igkxvd/aTUA6stsmdyxtqE
-	w6ev//9VNgU8fc3zNFZ4bbUhOW5Mbj15jmcxbjwzb4gnfGFohcIMdg3HrlklId4x
-	6oohXelfjxg6HucD2v0yHENaNphOfBlGHF8afRjvld4NM6mX7qAuK+Uai17WtExT
-	duEqTA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqbmnhka5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:57:59 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-530256c61b4so107917731cf.3
-        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 19:57:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="rKlYr2eA"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1473251a91.0
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 20:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789527478; x=1790132278; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QxUKbcmmujyJc5EWtoiZ+rl/qAHfyBU+aCNAFK4xl3U=;
-        b=IXtaqO+Idw7Ix5YfdAmIEtFmnTjTGLDVqUhavHc/B69JZMwtCGDLVtWhF1gRSnq/oJ
-         +y/7kFDONa7ZpwroOsPej+c9ytC6dN2wG98XlPyhJ0zvzyCCqUILI+K1+j91iEzXMQHz
-         fdG38rxKVMxAstRRqtpBxAUiBnqQkEBVv6D4CKpQbjdR+P45jyawIBqTuOwAaLfPYt5E
-         NlZBRhuFypUsIzfFgX8Rsrz6KiZ/GNOaX2hp2C8td1Q5oinLAG7y0mHzdj06EpDqs/8A
-         kRtyYs3yTO+NTQG7DvYAlFir1TZCkhQWntHblzRopXqfmg1jleHnbWp4JcWM9TraBfn/
-         x0Xg==
+        d=asu.edu; s=google; t=1789530337; x=1790135137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G8OBnZpdkznSDHoOVDOJgOwhfNo4gWFfvtnI5e7GBu8=;
+        b=rKlYr2eAUhKC02NildikSqpZUTltbAtlFj8cRVwAWM/zt1x1Etb/5wA1cSKN0fbSWl
+         2XF0CRkek3auZZVQNszH/ceTS0wRxShcOseNnMIO3rLjEvSU7MgM6Aq3684/WoMtNwkC
+         3FcmKKAjTUbdwH1mz1pmmZM/CVGCDNtZO+QhY6Rvtl/aoxBZYjs2Rb754rfQdJhqWiR/
+         LffFB56cX2XirC2dU+3hX/3TKIbNHYAS6K9mFOc+SW1nQVafgSEzwxaQbuNyTytj+rcv
+         tuCU5iVSGo7hXAbE45W5q0QoYP72LctF7zdJSuBlD92+UNz/ckuzFzWSbL5csCjfv25f
+         jgNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789527478; x=1790132278;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QxUKbcmmujyJc5EWtoiZ+rl/qAHfyBU+aCNAFK4xl3U=;
-        b=GFOi5Jv64eUIx++k+oQj/BHrgwRze6CMPfYf6qvOM9vooxlrQZhhaiGhzXrDsohOOu
-         QQwwwUQbkEGTNzhBwg+neKA5IXQCMffAY3PsrN8lkumQeBciHMw+Rz5u4CxJnS5KU+oM
-         tfqI/3Ra29B8zCfnV7z2N83VuEwu265MRNFipv6w7nRO8XvFLCKQyfP9mnSw75BDFOlh
-         yZ1uWi/+fU9JNuHTMzB8KK3aMfL+52F5pOd3/J3DyO6Z6RSCR/+XvwgKHAyalqJH7/+2
-         zZqw5oOiew9viA8KW8M4KNkTJmnuzdIJ2+Udnfqftjorzjx+JvoomOeGEe1/CD/s+yqQ
-         r1gA==
-X-Gm-Message-State: AFuF++me6sdP1oNl+VG9f3mH7DB9o1/4lDMIwkj8b2NMecZOuFaNs9xw
-	HutVKGuNhEGswTr3X+R9C3aOPrvjYPoOqbUhTQMEheSRsHuKTibFqWsrzr6gBU1J4orEIPvmp7e
-	Ue/S2Ic17rlBxUhYCjSQkWn97PKkdVMtwjK6ey27ZFXLTSszZeRiokTI3vzMD2zJzd8xNQS2xTW
-	UV
-X-Gm-Gg: AYBFou3Gs8WoKxXU8VummEk81UsIINVI4/0FbsNi2RENJUYpkTDuBUaZLw0tNPCfbgT
-	Td0frrgvfUTnrL2rwBl1szIvQOyd0w46GTQ3bgOeiyixj3UEAqT1RI8Sl2BHN/ZujDGejqAl8NB
-	EWyWn/KjRBpw5hoMipT07/RVizfD5PI39p61fnXuGJAZvJDa3r7Tb/m+QLa44hwmkX8c9Ccqa8B
-	2PTZ1MEmk+If4xxHb++6ugea1GSbe1DR+H226/L8HBcrUl7MM4eHm0lWfq5D5gfF6R7cbQpU8FP
-	QrC3c+oDYmt2AxTPp46s9LyT9zgik91WfC5tjcWiYwvLwbh73iefDcpL46+HcspokQPQnXjx7/r
-	ey0QKROJiu2FDhAnkRFGhmvV5PG75ALyhI/ESGvr9yap2J5lAA5r1/qVKai4KAfk=
-X-Received: by 2002:a05:622a:1aa4:b0:51c:8432:1753 with SMTP id d75a77b69052e-5327ef3a3dcmr15351171cf.30.1789527478391;
-        Tue, 15 Sep 2026 19:57:58 -0700 (PDT)
-X-Received: by 2002:a05:622a:1aa4:b0:51c:8432:1753 with SMTP id d75a77b69052e-5327ef3a3dcmr15351031cf.30.1789527477919;
-        Tue, 15 Sep 2026 19:57:57 -0700 (PDT)
-Received: from [10.111.161.15] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326208ea78sm11432351cf.24.2026.09.15.19.57.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 19:57:57 -0700 (PDT)
-Message-ID: <c9925024-b293-4349-9105-45ae8aeef75f@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 10:57:52 +0800
+        d=1e100.net; s=20260707; t=1789530337; x=1790135137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G8OBnZpdkznSDHoOVDOJgOwhfNo4gWFfvtnI5e7GBu8=;
+        b=YTsMbCOwzYd4/1Gb9W1xbkwivy5usAg+Lbz20p448cLS4e2VUwJJeDtrwJzHzq8wVp
+         qD6dftUOeZllilq3t6lCQy4Ml97jukKf9vwXFvJCNLpovGPbIahFrFShaHfpY+YZ98u9
+         /debfgvjAakYMRFsRDcFzooclgBpnmcyrvqkMMw1NPjcHSwziQnx/93R6L1t70TcBIBH
+         mHwpii1/m4r4N2sCt7ptHJhS73sQSPCUrLefWu7lIPIS8czi9awzQ9BYasykoeb5Nuaj
+         JTqWXrqyhdCFmvodT9iNB18rflqwPL8BPNhxnZ891gf7+zdcQ02RgPls/ewDtwsTQQze
+         p0aA==
+X-Forwarded-Encrypted: i=1; AKwUvBxWNPbHV1fmAHyj54j1X7O57G5VJKScBvDppU7Rh+Mh7ny6GDPpglwSdVsaHedW2MnC+qXBkVpz4BIDTw==@vger.kernel.org
+X-Gm-Message-State: AFuF++nPk0Nda6xVnnCuvgiFTrosMX1/bCTR/5Cr1UW1G2S9b/+SWymw
+	yBPZnp59sOLyaMLvzSxZ4Erb8BJ9kq2q3XNYUurrBI4UKcU88pHwASj0PUctXuqyMQ==
+X-Gm-Gg: AYBFou0RmTUeUrC4Ylr1/kZ8DODzAHHIaUbaysYf3MFg3HPN2U3cT5vmeHbWymaIfha
+	Qg+pGtfMvDdj6Gkz7rGdYIXuZNOgvbRB96hQk8TReXDvWs8bprYVmoSaKU2rLVsVAbKhIE60KQX
+	n5anPFMJeOCV3LRa13nk+QJ6qhch1zMX4pa7JIQTZNaCNEItjXnfDDky8KRf6esOkmFOLpMoIgz
+	9h9CTUFCNjW5cjdjTSdiFlzarxDY64TuE6MWI2zhYUgRlaZFUWkk3t++D7r2lKAO2WONd/MNzql
+	FM9B/weQXzCKrRz4vF3EvPHIoSPwYYffUVlSWlhQPPnyDqlqgm/XIq8+bPkHVsfQ2Wv4Q8rF/Oz
+	Fd46E2WruqMzqw8qYLLdNuxDVKICwJS200UEFf4r9Zq6TGjEcT21Vu5S78LqM777bdUdnRMwZTT
+	OQxqPJUUZC48i//JZUXmUDCxaRWtEVBvWTt8xRsWOv359A7abF8Rm728D9JmGDlED9zHmPad0Np
+	dApgpuQVJYJ3LeYsfSRs99mLZGkttt5+sB+9tDfv2ESSLDU6ZgOqK3q
+X-Received: by 2002:a17:90b:35cb:b0:39e:1e25:c6fd with SMTP id 98e67ed59e1d1-39e1e25f48cmr1670277a91.30.1789530336957;
+        Tue, 15 Sep 2026 20:45:36 -0700 (PDT)
+Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b2753csm6953812eec.31.2026.09.15.20.45.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 20:45:36 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	co+ac0ebfcd53bd2316@bugs.sh,
+	stable@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] media: go7007: only set audio_enabled if go7007_snd_init() succeeded
+Date: Tue, 15 Sep 2026 20:45:34 -0700
+Message-ID: <20260916034534.863732-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [0/6] media: qcom: camss: Add support for Nord CAMSS
-To: linux-media@vger.kernel.org
-Cc: Linux Media CI <media-ci@linuxtv.org>
-References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
- <6aa92fc5.2eca3aba.387881.68f4@mx.google.com>
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-In-Reply-To: <6aa92fc5.2eca3aba.387881.68f4@mx.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=POyaavqC c=1 sm=1 tr=0 ts=6aaa05b7 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=cgb-tkddOU3forQDX4sA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAzNyBTYWx0ZWRfX9H8wrv48QPEL
- zfNsOSFymssIk4FHi9SnI9ebNc60OZGSnCu4NoS0aKoMe6hMMpnYtrct++SrVpCz0dSFlg38cD8
- 3mWZaII1DciGOux8PEvfcepUZbYg/PWpBL57NQ6XnTa5LqebzL7EVKnRMZ01O0ps1zU+hDaqbSr
- fokwxEAdPYA1Ss1LrlPHaLJEVWHqyvgRYj2S6e121rD/ndo0XFeKH6onaDkIl7h/OsEo4K99glG
- CUIcVhm5tAHev1qpJo8/e8Q3ykPKbgQZoLPnRWjdGm4ydAIUdlkg7T5ia49pzdZ/XxdXu+lSTkm
- jVaTWHnYU8QcSwJsMcwSC8J3md+CnDeUCjXxv6ZQoPixvQLlBWimr8iXO8wZl3U+RLaPf/OdNfc
- j9vroW5NHxJDWr9u4R8LLq4JeXizH+ogxf/jb8dLR8dvWDb00xatQDnaqrpTOMm7v5nZlu/8dc+
- vIvAHtsQAHUaAeRVr4g==
-X-Proofpoint-GUID: D4E5aUFc5Tf8CBTtL7L-7SxZ69JWY4I6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAzNyBTYWx0ZWRfX3WcLMMWHyRg9
- u5NXiOBnqrSs6VCpR9uYlc2aGU+l2/3DGURmYF8JQURApAI5yxkmzfJx/hQcwUcALfrjSIS/f9r
- EuCLmRKMOCJ+WmAFiO8YqaSOA+f0DLs=
-X-Proofpoint-ORIG-GUID: D4E5aUFc5Tf8CBTtL7L-7SxZ69JWY4I6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160037
+Content-Transfer-Encoding: 8bit
 
+go7007_register_encoder() sets go->audio_enabled before calling
+go7007_snd_init() and discards its return value.  go7007_snd_init()
+assigns go->snd_context only on success, so a failed ALSA setup leaves
+audio_enabled set with snd_context still NULL.  The disconnect path tests
+audio_enabled and calls go7007_snd_remove(), which dereferences
+snd_context unconditionally.
 
+go7007_snd_init() returns -ENODEV once its never-decremented static card
+counter reaches SNDRV_CARDS, so SNDRV_CARDS attach/detach cycles arm the
+next attach; no memory pressure is needed.
 
-On 9/15/2026 7:45 PM, Patchwork Integration wrote:
-> Dear Wenmeng Liu:
-> 
-> Thanks for your patches! Unfortunately the Media CI robot detected some
-> issues:
-> 
-> # Test checkpatch:./0001-dt-bindings-media-Add-bindings-for-qcom-nord-camss.patch checkpatch
-> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-> #24:
-> new file mode 100644
-> 
-> total: 0 errors, 1 warnings, 0 checks, 393 lines checked
-> 
-> # Test checkpatch:./0002-media-qcom-camss-csid-Add-support-for-CSID-900.patch checkpatch
-> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-> #41:
-> new file mode 100644
-> 
-> total: 0 errors, 1 warnings, 0 checks, 389 lines checked
-> 
-> # Test checkpatch:./0003-media-qcom-camss-vfe-Add-support-for-VFE-gen4.patch checkpatch
-> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-> #50:
-> new file mode 100644
-> 
-> total: 0 errors, 1 warnings, 0 checks, 237 lines checked
-> 
-> # Test dts-bindings:test-dts-binding
-> Documentation/devicetree/bindings/media/qcom,nord-camss.example.dts:25:18: fatal error: dt-bindings/clock/qcom,nord-camcc.h: No such file or directory
->     25 |         #include <dt-bindings/clock/qcom,nord-camcc.h>
->        |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> compilation terminated.
-> make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/media/qcom,nord-camss.example.dtb] Error 1
-> make[2]: *** Waiting for unfinished jobs....
-> make[1]: *** [/builds/linux-media/users/patchwork/Makefile:1714: dt_binding_check] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
-> 
-> 
-> 
-> Please fix your series, and upload a new version. If you have a patchwork
-> account, do not forget to mark the current series as Superseded.
-> 
-> For more details, check the full report at:
-> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/110294816/artifacts/report.htm .
-> 
-> 
-> 
-> Best regards, and Happy Hacking!
-> Media CI robot on behalf of the linux-media community.
-> 
-> ---
-> Check the latest rules for contributing your patches at:
-> https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
-> 
-> If you believe that the CI is wrong, kindly open an issue at
-> https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-all
-> to this message.
+Set go->audio_enabled only once go7007_snd_init() has succeeded.
 
-Not a issue, linux-next branch already have this file.
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  Workqueue: usb_hub_wq hub_event
+  RIP: 0010:go7007_snd_remove (drivers/media/usb/go7007/snd-go7007.c:273)
+  Call Trace:
+   go7007_usb_disconnect (drivers/media/usb/go7007/go7007-usb.c:1336)
+   usb_unbind_interface (drivers/usb/core/driver.c:461)
+   device_remove (drivers/base/dd.c:618)
+   device_release_driver_internal (drivers/base/dd.c:1349)
+   bus_remove_device (drivers/base/bus.c:664)
+   device_del (drivers/base/core.c:3965)
+   usb_disable_device (drivers/usb/core/message.c:1478)
+   usb_disconnect
+   hub_event (drivers/usb/core/hub.c:5966)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  Kernel panic - not syncing: Fatal exception
 
-Thanks,
-Wenmeng
+Cc: stable@vger.kernel.org
+Fixes: 866b8695d67e ("Staging: add the go7007 video driver")
+Reported-by: <co+ac0ebfcd53bd2316@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ drivers/media/usb/go7007/go7007-driver.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/media/usb/go7007/go7007-driver.c b/drivers/media/usb/go7007/go7007-driver.c
+index 453ab5c3aa03..7db2440886b0 100644
+--- a/drivers/media/usb/go7007/go7007-driver.c
++++ b/drivers/media/usb/go7007/go7007-driver.c
+@@ -306,10 +306,9 @@ int go7007_register_encoder(struct go7007 *go, unsigned num_i2c_devs)
+ 	if (ret < 0)
+ 		goto err_free_controls;
+ 
+-	if (go->board_info->flags & GO7007_BOARD_HAS_AUDIO) {
++	if ((go->board_info->flags & GO7007_BOARD_HAS_AUDIO) &&
++	    go7007_snd_init(go) == 0)
+ 		go->audio_enabled = 1;
+-		go7007_snd_init(go);
+-	}
+ 	return 0;
+ 
+ err_free_controls:
+-- 
+2.43.0
 
