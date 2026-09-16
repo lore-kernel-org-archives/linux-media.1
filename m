@@ -1,259 +1,176 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C0447DD7C;
-	Wed, 16 Sep 2026 08:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549010; cv=pass; b=ix1Y1BQT6O+kHPj1h9w2AAoV+AtN3obgHlhn3IFP6w7XjBTFsgdCUUH2YsMYiI3I6SFR992QOUVcWRl4+X8AgmIat1+LmemT0JG6UtB/2bWdmu9cYqnZZJlqI0IxQEUG56fbCxeBNL7exnrk6ZpRzWnjTgbkZ6r2z20sRoi+bG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549010; c=relaxed/simple;
-	bh=XEv6d6bJdSTUPtUlJnfPrgdNMwC9r6COxl37Ji4f/v4=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328643B3888;
+	Wed, 16 Sep 2026 09:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789549274; cv=none; b=PeuKGbXN7CNUS6RdyDvOSBSGlKGJeg9chIZfyHj4Ks2S4NGsn8W6gYjegFBTidj8/q6hkMc4niOVo/u0GGtOxTlKldiW+JDq2DX0/CJjauhi7PdKuVV/EO7RWwjkzA7wTjLpOIrmT3ZWH5n+LRB37ghvPNUCJ29+BWaVAnb+qms=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789549274; c=relaxed/simple;
+	bh=49KaUqlPgdGt7QWuQOfO+uCer56makdcKG1KdFpKNzw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TMB38hMXrlupsrW1XyFzFebZnoUpQkiQd9eyJsfuzNFR+NPgd2Y6m/asn7SZn9D0fZsbNBLZoTkHOThQVi/X/HLpR7wLubn9x7JMwmBWo010sniBzGziY7Ow5pyCR6bMHJr1R94UQB7M9kG1C8FAC/Rep0Z5bO3fZJR4xVCDwc8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=poD7HyNx; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmri0soc2oxPd4FK7q65D/lE0WEqQiKQ8N0jKOBaqnhRP7YCbTJSKQ84xOJLS+/hcL6DPhUgpsq1A78Kjso9sj9BLLHaopSUnSPJI8eX9zPWPsEUsOcvoGrikrJqKK33ebo8ncP6UyoE1wCFU3sUSDhACD5tay95cxhqyKS91do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AumnpGha; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="poD7HyNx"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hlCRd5PDgz49PxH;
-	Wed, 16 Sep 2026 11:56:28 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789548990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ezQiH4GI5x0B5Nn8vmUNZz5LEmTUvo5o5R80qIpMy20=;
-	b=poD7HyNxO6VAFMS7x2lNSRmXgPgkTvuKmYliJRaxIjgDwQ/xHb64Isd94e3gJr0WQb57Ek
-	0hgThyDUShn0TqAxB2bHjwvjprsYxyeTM8HR7xYdQpCGE6AKYFenml4tHsvEmLxe/LJYY5
-	5lGMjjJSUwcLSkTcMsWfxiBd2USBcllbagAxL9c221T4KYLKL9Py+9pdB+Ecg1og2b9Tic
-	P04wKbc0OGfeEo7faXynOpQ7lvXsfV/piE7gM6osRRF2Ka33iWg+rS3+mliFKaBqikYLdv
-	5B2C1JmBLNzOY/PkjJRJpTgjY7io3YqfLtbRgJOuE+/N6n61M6ITwVekhLERJQ==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789548990;
-	b=hiyBUYybyewFm5MAJvtYZMqY3TaZax+JtgmcubQJv8lSdZ/B592yiEFG7HOkXQP523x9Vo
-	IUmuj7ssQ65ZWBhIUFk00pb8Pef6vxXkNBcXi+JCA2i/pPMV5ORDZxDMAVtnh9deJCUCTI
-	7qBhjhFeMtDEFYuwchBXaNBfDNbab8k+eD3VLfLFcPxE3ZWAwf4DGuPcczXlZu59Vs0gKa
-	P2/gRX1h4NlckjWuOHAQR/CHZqNGz9Ztx9opbTe5g/hEX3BR3jWsG1OhvRBCbzCQt3Zlr5
-	iPiqf61GRxrmEz6wh93vT+hrz4Twmft0uooTYNoUVD+00WAlzHn6iSRB+h7PMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789548990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ezQiH4GI5x0B5Nn8vmUNZz5LEmTUvo5o5R80qIpMy20=;
-	b=u5c9gAAW1OBV7kdTpw26zgk3AAedsiTdq5l6SO78Xx7/mG+ZuNlVkKPJiGFHfJn4o6Jv/0
-	evlNoI7fxTAYaRC/JcnjKPyMY8zPOkeb4paMl9y1aaPLodtilv+NUHObrVd0UcHsIy2tx3
-	19ESkY7Ined9qpmBWw2ztVDPPYyIk+aXhnAxLO71HVOLtiXzut2yOXuiwRaIIKo2j5SKZR
-	1UWz3swn84rVk992lvXVpLMIcJD3RouTTEKE1FzGUnwI+bh/5id3ea2AthOrCOuYftHmna
-	SHbpQ2fXQuIlr58RZ/AGrcvNndaMykLDYqA/IvC45cfWvC208Ki8Y7lseCBCig==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id C3C9E634C51;
-	Wed, 16 Sep 2026 11:56:27 +0300 (EEST)
-Date: Wed, 16 Sep 2026 11:56:27 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Hermes.wu@ite.com.tw
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge binding
-Message-ID: <aqpZuwSx3lPXCda6@valkosipuli.retiisi.eu>
-References: <20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw>
- <20260720-upstream-it6625-it6626-v1-1-475912f74459@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AumnpGha"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5292E1F0089A;
+	Wed, 16 Sep 2026 09:01:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789549268;
+	bh=ndY4ZVKXn4jYxy2ap4ChhJIz6Pf0w0TMQtMwao0c/s4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AumnpGhaRDz4R/OANmzzZG+60wVb7KKHlLqeRbzur2rPpJXJ+bSfzUwzzC5ntEdX/
+	 k2O4TX/o4wTaK24YTKSYeDi6Z1xNup/y0HiQJJ2Kirvk2xH1IykfBjzRH7zSIZhCnx
+	 14SA24CeuBJNR7vqi3LN0PN7V6vbfiG4TeJclZxgNbq67C9nYZtqbsId6UYS/rI812
+	 vxYfu77u3+0mr3rF9Q+LebrLCvhnssBgk+1qvFZ432Xmwj5afxGwOgyvOEKV+f+jSJ
+	 haZpG5Fi0eQOBUyRRKs7NdnL98JJ+LP/kj+7kvjJ+sSbl9do4hVO0z4dIomZJ4r7AG
+	 v1guUypbrXsUQ==
+Date: Wed, 16 Sep 2026 11:01:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Zhentao Guo <zhentao.guo@amlogic.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v9 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
+Message-ID: <20260916-fat-enthusiastic-termite-44b2e2@quoll>
+References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+ <20260914-b4-s4-vdec-upstream-v9-3-72fdb0d71b02@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260720-upstream-it6625-it6626-v1-1-475912f74459@ite.com.tw>
+In-Reply-To: <20260914-b4-s4-vdec-upstream-v9-3-72fdb0d71b02@amlogic.com>
 
-Hi Hermes,
+On Mon, Sep 14, 2026 at 04:10:20PM +0800, Zhentao Guo wrote:
+> Describe the initial support for the V4L2 stateless video decoder
+> driver used with the Amlogic S4 (S805X2) platform.
 
-Thanks for the set. I know the set has been merged already so could you
-address the issues in follow-up patches, please?
+Drop driver. Describe the hardware instead.
 
-On Mon, Jul 20, 2026 at 03:57:45PM +0800, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
 > 
-> Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
-> MIPI CSI-2 bridge. The device exposes three graph ports: port@0
-> (MIPI0) and port@1 (MIPI1) are the two selectable CSI-2 D-PHY/C-PHY
-> outputs, and port@2 is the HDMI connector input. Only port@0 is
-> required, since a board only needs to wire up as many of the bridge's
-> outputs as it actually uses.
-> 
-> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 > ---
->  .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 136 +++++++++++++++++++++
->  1 file changed, 136 insertions(+)
+>  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+>  1 file changed, 114 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
 > new file mode 100644
-> index 0000000000000000000000000000000000000000..102af5dcb380b0ad2462c376e5a87b22d7296f14
+> index 000000000000..d350b3e68a38
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-> @@ -0,0 +1,136 @@
+> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> @@ -0,0 +1,114 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
+> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
+> +title: Amlogic Video Decode Accelerator
 > +
 > +maintainers:
-> +  - Hermes Wu <Hermes.wu@ite.com.tw>
+> +  - Zhentao Guo <zhentao.guo@amlogic.com>
 > +
-> +description: |-
-> +  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
-> +  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
-> +  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
-> +  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
-> +  expose one HDMI input port and two selectable CSI-2 output ports. The
-> +  bridge can operate in split mode or clone mode.
+> +description:
+> +  The Video Decoder Accelerator present on Amlogic SOCs.
+> +  It supports stateless h264 decoding.
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - ite,it6625
-> +      - ite,it6626
+> +    const: amlogic,s4-vdec
 > +
 > +  reg:
+> +    maxItems: 2
+> +
+> +  reg-names:
+> +    items:
+> +      - const: dos
+> +      - const: dmc
+> +
+> +  interrupts:
+> +    maxItems: 2
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: core_hvdec
+> +      - const: core_vdec
+
+Drop "core_" from both... or rather some consistency would be more
+useful. Below you call them core_v and core_h, but there is also:
+
+> +
+> +  clocks:
+> +    items:
+> +      - description: Clock for dos core
+
+core dos?
+
+> +      - description: Clock for vdec core
+> +      - description: Clock for hvdec core
+> +
+> +  clock-names:
+> +    items:
+> +      - const: dos
+> +      - const: core_v
+
+hvdec?
+
+> +      - const: core_h
+
+vdec? to keep the naming and order of interrupts?
+
+> +
+> +  power-domains:
+> +    maxItems: 2
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: dos_v
+> +      - const: dos_h
+
+So there is also dos variant v and h?
+
+Pretty confusing.
+
+> +
+> +  resets:
 > +    maxItems: 1
 > +
-> +  reset-gpios:
-> +    description:
-> +      GPIO connected to the active-low reset line.
-> +    maxItems: 1
+> +  amlogic,canvas:
+> +    description: Canvas maintains an index-to-physical-address
+> +     mapping table that allows the 16-bit AMRISC decoder core
+> +     to access 32-bit or 64-bit physical address.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
 > +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 output port MIPI0
+> +  amlogic,secure-monitor:
+> +    description: Used to decrypt and load the signed decoder
+> +     firmware through ARM SMC (Secure Monitor Call).
+> +    $ref: /schemas/types.yaml#/definitions/phandle
 > +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-
-If bus-type isn't required, a default need to be specified.
-
-> +
-> +              clock-noncontinuous: true
-> +              link-frequencies: true
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 output port MIPI1
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-
-Ditto.
-
-> +
-> +              clock-noncontinuous: true
-> +              link-frequencies: true
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI connector input port
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> +            unevaluatedProperties: false
-> +
-> +    required:
-> +      - port@0
 > +required:
 > +  - compatible
 > +  - reg
-> +  - ports
+> +  - reg-names
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - power-domains
+> +  - power-domain-names
+> +  - resets
+> +  - amlogic,canvas
+> +  - amlogic,secure-monitor
 > +
 > +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      hdmi-bridge@4c {
-> +        compatible = "ite,it6625";
-> +        reg = <0x4c>;
-> +
-> +        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
-> +
-> +        ports {
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +
-> +          port@0 {
-> +            reg = <0>;
-> +            csi_out0: endpoint {
-> +              remote-endpoint = <&csi2_rx0>;
-> +              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
-> +              data-lanes = <1 2 3 4>;
-> +            };
-> +          };
-> +        };
-> +      };
-> +    };
-> 
 
--- 
-Regards,
+Best regards,
+Krzysztof
 
-Sakari Ailus
