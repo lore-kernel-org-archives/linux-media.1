@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5000435C687;
-	Wed, 16 Sep 2026 14:58:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A67C371053;
+	Wed, 16 Sep 2026 14:59:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570725; cv=none; b=s2JI2/3AWsfPOFlI8rP3ZPHpE2y7f4SiZPD7L0rFqqTs5UjXPhk67pFR6K+qWpiqoFfX6HiCT/m60tqs3e9O3kyV8G8smqvtLtDgd9bRQYpiYYt/qEQzuTpwmm6q6B2oPsuB+j5QnAkksZdiei6JvdIkbUwspSJEO4r9HNlYUmA=
+	t=1789570787; cv=none; b=GyL1GRUbHUKa9ruOgYK9JkO5Gwn066GjD7pIqEyjqSUGxqXlYMjAlY3rwehyTFySEPag7GFJl8RMrt8BcAKDRCNvg9zDZJ7q13gxYRF7AyTMHiVpz2n7qaIwuhVM8Ui7zb8zF+fhf5m7tYK0DgV8/qFIFpmj/CZIOJ5kAFymEY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570725; c=relaxed/simple;
-	bh=CymZA2LzTYgn3hWqYqfacJMpnM2h+UXGgQaDayK5mtM=;
+	s=arc-20240116; t=1789570787; c=relaxed/simple;
+	bh=r8tNnnYMIrMCABSCSfdF+QISFTBQ7YAlC/+y2GB71/k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cdy5jQdl3M1AxlLZbfdLn8W8nxlU1BT1yinyYyEEWVbtCL8suLLXQNSnPlo/jf42dt7VPieqMTjMkJ6H2l4wP6jfk5Ki57ZXlZPO7X8ScT3j8ZpB6+YR7H7EgZjeU15E3EU+j9VzW2vXZYwJ/xSVLJMeLS8j8wUMsJnbcci68wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jue4zi+q; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Lt7Wx0oYMwCfGF6EyyT7D0lYg+UIGHlTaeA5GLjPmZe6AWQSIl2qiGdn1WrgV0FddgqaWn7LMfy3Fj7ssSMrGZ3qSNUUcKnlzrkWoSkYH9wy5Wi2qImcjPuuSP5xv5wmlT4cgeu1wki6QoPBdwqkX1DsfmT3MijHb/5IN46qQGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eii+J7Ud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jue4zi+q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DE41F000FF;
-	Wed, 16 Sep 2026 14:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eii+J7Ud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0E61F000FF;
+	Wed, 16 Sep 2026 14:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570723;
-	bh=DeQfwt4pOwat3bB9CM4yN4cHfAb5CviWq/UT6vnqWRs=;
+	s=k20260515; t=1789570785;
+	bh=2oMofVJ/mbzB5hAG5XkfLdTnP1RP/kHpEHbDFQBjue0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jue4zi+qO6RguKO41+9iYoFYTDUeb2XXwG2pt8kO5b3kxQe1OM54VpJIhQEcBwtBm
-	 8Z1UFQ75auhKLFyNjA3ckceiznW3BBeX8UGH4YZ0xPFV7Ii8XVRvedYog5gNj2v4px
-	 R4pFKhg5jauwst06pszoGDFYStlrge7gMVtKu0XUlPwQBPyJ5UhZcagrO+suFlMJ86
-	 7xT8TFouWWfuoRQ3blZYF/omG7b7g+/tEwvCSl36cfQ+4ST8GgEYcgGMSTTORbvjBE
-	 xXlLZWlL2zC6JJ3twa+z8/0SNEjJTt6bBd5AxV3jrzWYHRmI2Wzw16ZdsX9QhkXfZu
-	 F+XP2Ol2E3dLw==
-Message-ID: <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
-Date: Wed, 16 Sep 2026 15:58:36 +0100
+	b=eii+J7UdNTiTC+PEkBCirGOKfRBj8mwTjEnhcquFP0zkLTp+UqhZoSvLpVC6HGNrZ
+	 jJJQB0Nut+9K72eR8eCadG3TZ+jPUquH4VnzN4vDkSO5r6Vcto6i2MHGT39Pk2R/qI
+	 TZ5z8MOUiAzTxNl+hAc548k0P9QzaRITS/7QVJDrD5Z+VsHEeS/DEONxaP1bCJZHMc
+	 xRDBNMZwmkEgstdL9t3n/WmWX9zVORdMXDQT902hEDicKjQ1LyZ8ec8KzsWayVusSC
+	 NXqgFNTA/z92CmLBNXkzg1HmqnKKU+hMXW8bGoLnZpNAdynVGy+dh8uz/cGW3ktw+T
+	 6i8AEsd8i0yzQ==
+Message-ID: <6ca6cacc-3fcc-4d1d-a6cc-cdc1e9a403ca@kernel.org>
+Date: Wed, 16 Sep 2026 15:59:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,9 +35,9 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
- sensor on CSIPHY4
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+Subject: Re: [PATCH v6 05/13] arm64: dts: qcom: x1e80100: Add CAMSS block
+ definition
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -48,9 +48,9 @@ To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
 References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
- <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
- <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
- <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org>
+ <KE4uG1eVJQ53r3OwBVGp0Yl45AtOqMj-yJJmAq67lq7ze23gLlb-2Ci_I0qYx574oG8woS9A13xt2Iu1TkTMZg==@protonmail.internalid>
+ <4c43c80c-d8c3-4738-9a5f-0b3e1c19679d@oss.qualcomm.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -96,43 +96,18 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
+In-Reply-To: <4c43c80c-d8c3-4738-9a5f-0b3e1c19679d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 09/09/2026 13:43, Konrad Dybcio wrote:
->> +		port@3 {
->> +			camss_csiphy4_inep: endpoint {
->> +				data-lanes = <1 2 3 4>;
->> +				remote-endpoint = <&csiphy4_out_ep>;
->> +			};
->> +		};
-> This port should be defined in the SoC DTSI
+On 08/09/2026 09:46, Wenmeng Liu wrote:
+>> +				 <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
+> I think we should remove the SRC clock.
+> 
+> Thanks,
 
-20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org
-
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+				};
-+			};
-
-I don't understand your ask.
+There's no clock that is derived from this clock, so if we remove it, 
+what is responsible to switch this on ?
 
 ---
 bod
