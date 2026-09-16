@@ -1,123 +1,194 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f25.google.com (mail-ua2-f25.google.com [74.125.226.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BE744AB99
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 08:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546936; cv=none; b=jlZy4xXaA68t5d2HX7vVK01Fk46+FzfKekTn5+Gs3k8zwFU+Q71PRaUzATqheEPdHPByoQg2ntxLM+ySBLlyIx6gxbbI+f+tOUwHmlSLMQ+oEneRrGytcFEewt2g6lcoqDpdymeWZ77stjvDh0OrIHxAeqYCINC4fe0lOisGHsk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546936; c=relaxed/simple;
-	bh=E7MPsoFwmZV1udINAxDCpS1bHnQxHVp9/EMlXY9iCaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HmABQaVEzI66XG89p/p/PUeTXXP4NiBb9xch6MXiCq+Zn/6DuVmn1f/sTUu4jFGTYVPC4EGuo02d+FfyX+KHsxJmYux2ryV3TrkFRi5Ly5gdm2NMRs3gPdwet6plDk3qT9UgN6wwZ6lH4RSHfHPQy3H4594wxtFQ07jzZ5knTmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vk84rd7w; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6576246EC84
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 08:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.217
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789547315; cv=pass; b=G6yJtEVL0Ry5XXm3/DA6GszFryceuR4PrjaVqduuyrlMeWdRaNE3mgSpOTSD35pLd8P27ZQL37tdVb2rhNm03Mow2k9gjlxjmvEioVZG58Fccbot2ILFbBFwaRWjsKlNrwqJJ3R/nfQ2EEX3d9rTADMF0SeQG9S7Wqa77lPDpUc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789547315; c=relaxed/simple;
+	bh=T9FXw02kbHJEl+ZSBnKkmAGVnRlakuQY/1vtyQfdaEU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hq97kBIfb4QGjRcOUgTWLMtpRfznABbNdPBjpwIZKPUBb3pjWXz5oiaXxC+R14oEX0fO+QEhUCbVmXHiS1IblyVU/1ld+xkXZ11bNOEMwjmPWgWgmntdD1V2OCl4WEEByNsRiv09MLm4bIN/eYT2ZAP0sURhAMWqu6uMVYKwZBs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VoGSrkoy; arc=pass smtp.client-ip=74.125.226.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vk84rd7w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789546925; x=1821082925;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=E7MPsoFwmZV1udINAxDCpS1bHnQxHVp9/EMlXY9iCaQ=;
-  b=Vk84rd7w7M/ISVftf9zce8qmZZvJOlJdokHVJ5mBjn0iXgCTBCqEkdZp
-   AStWprYvJWEdfatqewoivAc32mO2wOvFQA9dJlU0t9xzrIgYlujAf03hM
-   e924vKFfR6XPKRhgnzbuv86pDXIfa8RFv6va0ctgtvzJg4u3siC0AL4bQ
-   UaLM2u7+Y6/PfnolUPr5vhWFXZdgXzmuIvk1+84MRDYPRX/inx6akDAw/
-   lKvCc31S4kcCwbyDwyXOpHkl9fWkQByosB8Flfid3MW2XJZp64Mm5xA6z
-   q3Vd1bl/i9WaOh7gOR7bURJczyVp1c2/eDeayKAPS755N2tO6hiD73vqt
-   Q==;
-X-CSE-ConnectionGUID: TlEKjOAzQ72AcFkIwfH+Zg==
-X-CSE-MsgGUID: Kpq8i5xYSB6fMNIJtXcMLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89963174"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89963174"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 01:22:02 -0700
-X-CSE-ConnectionGUID: ecSSLTlYQCaRiCut7tW1kQ==
-X-CSE-MsgGUID: 6qws6K47Tg+jmzNpmbboRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="273236854"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.126])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 01:21:59 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D67911FB00;
-	Wed, 16 Sep 2026 11:22:07 +0300 (EEST)
-Date: Wed, 16 Sep 2026 11:22:07 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 28/29] media: v4l2-subdev: Use
- v4l2_subdev_get_frame_desc() for passthrough
-Message-ID: <aqpRr9WEJe6xVMHM@kekkonen.localdomain>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-29-sakari.ailus@linux.intel.com>
- <CAD++jL=8jN+JoDue=0+R_EvwoPSpxOsa1RN9HYHWP7+AZ5X3wA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VoGSrkoy"
+Received: by mail-ua2-f25.google.com with SMTP id a1e0cc1a2514c-982e8fa91d3so124370241.1
+        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 01:28:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789547310; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ea3czTK+TGNMzqh/6hiA6PUT11zKyJCW99o2pN6rMQ0cY+/FqZD1ohB1t5xW0XWwAf
+         byWV2E8ftXuRtxuSu+H/9yAqWrVozLSLdjPO27K7TlwBhek7fYAOUI1ubSgEBP95rE7d
+         bZP4yoYJ+x804nk45l9LoIhRZ+zPRTFxy7442i4zoKSx2P5+RwxhD7avFl9gzuU1zD6i
+         DtNi9qGvxlZc89bt87QJjxvEJvKtn3iIMzCXpJWj0V38pw+kE8Upu8nstDvkck9kPtHm
+         6HcpGlY7I1pz4SY5U+C2pt3KBgkpXApQPsOuLSjvaamwRAH+/01zI0bhIUSwxhoLpdXX
+         HQxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MArIcxEq1DF3tM6gYQ8CgYvDf8FqlVp7SuT0GyZ8Xuo=;
+        fh=flg8B3ROgnhASkudjqty4fCPnGbIZVl6KBFnyAOXcLI=;
+        b=YKfhLQYqrb5wuEGWzdJQlUcuLHN3bnFZE6dNGMC0OJzji4HLnIM5mYzRIQg49+hv6g
+         xjye6MWLphuuYxDAyFIgyF1OMmdJ6VOtmTn/ZGK7SXluX7d67hbAkjeIiSBTH+JgE3OD
+         iSPuDzytmjTwKYQJ5ndEC2D5fEIii/VocOO1DOJKIcAlSQViE70ddAO0aNq0eRtKTIDa
+         GA4drf+JACf6G2swqQ3no8pB3KCD8JWmR2kCNmBELO+BjCdIu3MX78soXPOIJNnMfk/s
+         C9lbaO7jViUL7ny+lWhEju2n1XyowZu6eGHlHbjq4ud5/fbKgYokn6TBpL173Do/9IJl
+         J/gg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789547310; x=1790152110; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MArIcxEq1DF3tM6gYQ8CgYvDf8FqlVp7SuT0GyZ8Xuo=;
+        b=VoGSrkoykj4iHFBQlHi6x04MMZ4xlV2riMpfJ6wSq6uWEU/YZEm4zFEvaKTt8Bnss/
+         KguOf6k2h3GF/q5RTu8fC4OklgcKX8epdHUlHqWQjhJq+iFTkPt/+mCMs4J7O3GvYvQF
+         P+hKfiW15cldfddkPJMiS7aOS0vemE/CqqIXnZNuGTjdax3yzKFz5ArlVFlmuAw+0E9s
+         Qy6HfEuGzy1JhqU5AikECaOVGMfNxTdehATGPVl74iq2MShnoj+5SOEzJbHLB3Kew61N
+         kI+b/JimjFPEp/gErA0Q/OAqkM3ZqEcQY8su3dd7sw7vd/8Cl2vmjq+HPXXJ/PrdOJKs
+         vpUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789547310; x=1790152110;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MArIcxEq1DF3tM6gYQ8CgYvDf8FqlVp7SuT0GyZ8Xuo=;
+        b=xKZTbskecRdYcu6pL8W6JEEO9UdjL6sciEkhoKq6Fh1Nnml7AiElSutEmFbeeLBZ/v
+         Qy1jMj0k5oU9vfrtPl9EJolRoa66g02LNuDSsZ03K3CcUmdV3sPVhA6c3N6FXXs1cJ2i
+         Xq0qXYz7aHAEoOsQA0UcWrxOn8D2CC8Y9wnd+p/T3/93FWhf/iKphGtxjdeP7/GUwOOv
+         SkmuX1uZIaACgY84uIUSMF1f5ITe0keDQX+mZCooQtATTocz/xSA9mA/fLrVk6TeB696
+         Io2Zbciks6xkhnoRb6XJDpogschhag4DNySNkXg8XphbpcXNcGyD3wsnPNxhE91mv/KV
+         NyWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUbOkHMWsJr6yotXD/9M8T5asmyxQlWdjiG9Zu1YmeQ3dNYNEAbNI4aPg1xCchTw2hoCOUXYhiHEoJtw==@vger.kernel.org
+X-Gm-Message-State: AFuF++ncBsmU1QNiVmAbzIgZpZFjsR57M3FVXfKGP74SDmV1XOaM47ap
+	qslbhORtGyzXrSG2NAD32ELNP8rQbDE+Dn3CYMutpheIQXEJJvoH0/4a7D44XC688hHNieKvzTd
+	MAKBpX06MPNAdGjHJZdqsmo8swV5yAt/B+mR6aCM=
+X-Gm-Gg: AYBFou1XJFTvusboHA8IpuUOPGdRBkrv0ptr/u4RwRRegO4D9KRq20niH4awANNiMRU
+	Xn5Hb2MJd/PMvWGzDLFfAHKDvzuyWhvJcFyHmDSDhnSoGPqCdMXmKquL7GNllpb8wBmisNCtREe
+	wW2SL5LmTjYjiKCHA93QTgTd5ZbHZJJeq50+CK+NvWALfqi/c0JYNSPE2MhLJDCLgOsSZ0RUclV
+	m96odI6dVl+wg6zw4YbQzf+0Mz+2TGgdpcZi2FHGBZYULp8XDYJOgkHv4Butv2nePVM2/HyNQ8C
+	dLau726MzyY8KSk5pxXr/wLc4fiOWba7qH+Vm2cU+O3mPA9e3X5J5Uzf4Wsp5cKQBCN+sF8UOzQ
+	L2l2liLe25C4dsJKP373g
+X-Received: by 2002:a05:6102:3712:b0:786:a11e:484d with SMTP id
+ ada2fe7eead31-7a0522a8290mr540435137.6.1789547309631; Wed, 16 Sep 2026
+ 01:28:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=8jN+JoDue=0+R_EvwoPSpxOsa1RN9HYHWP7+AZ5X3wA@mail.gmail.com>
+References: <20260915081910.4142719-1-morbo@google.com> <20260915081910.4142719-4-morbo@google.com>
+ <202609151155.CC22827@keescook>
+In-Reply-To: <202609151155.CC22827@keescook>
+From: Bill Wendling <morbo@google.com>
+Date: Wed, 16 Sep 2026 01:28:13 -0700
+X-Gm-Features: AcwNN1W06HBvxyPAyDNMWJbd-pZRzg8rOuNuZoGljznF0BEtCKl9YZ-3dIsOV-o
+Message-ID: <CAGG=3QU2LxKLdqTOHse4U9AZ3sGAUe-C_wbDnBq4W1ncdsPVwg@mail.gmail.com>
+Subject: Re: [PATCH 03/28] ARM: atags: Replace strlcat() with snprintf() for
+ cmdline extend
+To: Kees Cook <kees@kernel.org>
+Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com, 
+	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Matthias Schwarzott <zzam@gentoo.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+	Tom Talpey <tom@talpey.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
+	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
+	Johannes Berg <johannes.berg@intel.com>, 
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
+	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
+	=?UTF-8?Q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>, 
+	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>, 
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org, 
+	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-nfs@vger.kernel.org, devel@lists.orangefs.org, 
+	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hej Linus,
-
-On Fri, Sep 04, 2026 at 10:38:00PM +0200, Linus Walleij wrote:
-> Hi Sakari,
-> 
-> thanks for your patch!
-> 
-> On Mon, Aug 24, 2026 at 2:15 PM Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> 
-> > Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor in
-> > __v4l2_subdev_get_frame_desc_passthrough(). This is preferred over calling
-> > the get_frame_desc() pad operation directly.
-> >
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> (...)
-> 
-> this caught my eye:
-> 
-> > @@ -2558,6 +2558,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-> >                                              unsigned int pad,
-> >                                              struct v4l2_mbus_frame_desc *fd)
+On Tue, Sep 15, 2026 at 12:00=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
+> On Tue, Sep 15, 2026 at 08:18:20AM +0000, Bill Wendling wrote:
+> > --- a/arch/arm/kernel/atags_parse.c
+> > +++ b/arch/arm/kernel/atags_parse.c
+> > @@ -121,9 +121,10 @@ __tagtable(ATAG_REVISION, parse_tag_revision);
+> >  static int __init parse_tag_cmdline(const struct tag *tag)
 > >  {
-> > +       struct v4l2_mbus_frame_desc *source_fd = NULL;
-> (...)
-> > +                               if (IS_ERR(source_fd)) {
-> > +                                       ret = PTR_ERR(source_fd);
-> >                                         dev_err(dev,
-> >                                                 "Failed to get frame desc from remote subdev %s\n",
-> >                                                 remote_sd->name);
-> >                                         goto err_free;
-> (...)
-> >  err_free:
-> > +       v4l2_subdev_free_frame_desc(source_fd);
-> 
-> Here you end up passing a source_fd that contains an error pointer
-> to v4l2_subdev_free_frame_desc() and that seems wrong.
-> 
-> Maybe a separate label err_nofree: right below that statement
-> could be better for this error path?
+> >  #if defined(CONFIG_CMDLINE_EXTEND)
+> > -     strlcat(default_command_line, " ", COMMAND_LINE_SIZE);
+> > -     strlcat(default_command_line, tag->u.cmdline.cmdline,
+> > -             COMMAND_LINE_SIZE);
+> > +     size_t len =3D strlen(default_command_line);
+> > +
+> > +     snprintf(default_command_line + len, COMMAND_LINE_SIZE - len,
+> > +              " %s", tag->u.cmdline.cmdline);
+> >  #elif defined(CONFIG_CMDLINE_FORCE)
+> >       pr_warn("Ignoring tag cmdline (using the default kernel command l=
+ine)\n");
+> >  #else
+>
+> It's pretty clear we have a pattern of "simple append" that is needed,
+> and while strlcat() does that, it's horrible. I feel like we need an
+> appending scnprintf(), and it needs to return like strscpy() does (i.e.
+> -E2BIG on truncation).
+>
+> My goal would be:
+>
+> - don't open-code string length math
+> - never leave the destination unterminated
+> - allow for format strings
+> - yes/no return indication for "did this truncate?"
+>
+> Initializing a whole seq_buf struct for these small cases is too much
+> overhead...
+>
+> For both cases (small without seq_buf, large with seq_buf), it is also
+> frequently needed to know the resulting strlen. seq_buf doesn't do this
+> right today, and a strscpy-style return value also doesn't tell us. :(
+>
+Something like "llvm::Twine" would work well for this.
 
-Yes, makes sense. I'll do that for v4.
-
--- 
-Med trevliga hälsningar,
-
-Sakari Ailus
+-bw
