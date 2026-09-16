@@ -1,51 +1,54 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7CC1E0DD8
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 17:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A68736D503;
+	Wed, 16 Sep 2026 17:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578484; cv=pass; b=VK9YsMUF8U14tngGHNAlQggz/vdipbRBY0hM2OTiW3uHoV3M4tbgZy3fJ2IC9UJ2K6mU3WyQ7OQOIj3d8nHxJgEuK1WxSfDx5CkOE2Lg2YQbslq7pB2EdRr3nmu1DgFl4E7SqaDUj1iUJcWbzgsDprbdK3MYl00WgfcE5cffxyk=
+	t=1789579648; cv=pass; b=DhaFEPVEvx07MhHGk1Zo9lpPbn8gHCDLmAxzH9Syfv+fIT7DYcDnUPo3e8hjCI0RTsMKgv6XYHrv8/4Ncx0W36kmxh9bGffwxpPCLIV5F6oNatUPHs302SySHq9zSI5Ds7Cmt0O4ieYctPeUGuuJSrulprkOfhoZnFxxdhi788g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578484; c=relaxed/simple;
-	bh=kxjCVLD3LjsOhqL0d8VPNaJDf4RDg4aXxoVoBWW7dgg=;
+	s=arc-20240116; t=1789579648; c=relaxed/simple;
+	bh=92tg37CmSF1ufzebv0RSmYfnRdV6jfMV9hOZCai3IOw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h8pRqGv632aw+k4GuzZk1KvjAFVnixaN+ubXRFmraMSe8PPmbSqlOM7zIqP2RbfPfqgp8qwavSstglKEii5Dhc0SEKqMtYhiPDf8jL7tEGFBRtB//r6Uf1zpxl9b8V6/RntvoeBliBwrXnfzfkOP4yBwqwrmPZ2FlYefJwdBZKE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=gkP2uX/9; arc=pass smtp.client-ip=165.173.180.11
+	 MIME-Version:Content-Type; b=jwbkByFPwgeHYxvZv2RyskzRu+O39DQqjzbSVQSaopNbehD7xyvc4X4qFz1ocvNcmlM6STt+N3v7KjbQN28FkPwcOdVmcjDOHko/SVyleeC/Js60ydbzvp9IKhTl2a9iruW8bUo+5Zf3Ufcj5BgYH7xxl7mNcoXLtfdLnFub51g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=JCN6Jf3V; arc=pass smtp.client-ip=165.173.182.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="gkP2uX/9"
-ARC-Seal: i=1; a=rsa-sha256; t=1789578472; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="JCN6Jf3V"
+ARC-Seal: i=1; a=rsa-sha256; t=1789579634; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=k0BblBnTqgf3eygKZEvZmHVSMb0d+OsPJmJmncnY1tCv0G6cCKK9Xi3kJLPkQyxKNT4u3YhODQK9q1hFyJgGpKCQkwC+iLEWZWLzwoyeD8UqBQvCjyaJsTfdZ+wQkmRw1SNUIDO5aVQpey9vrZ3HNsehYAysJWBT4f2wjlF0xr8=
+	b=OcWGWbCtQyAF4qkrN7p4azhGGDdw+5U5j8VyYOYLb1gBsSy3qgD5MLDMhBmn9+QjxkOqvYGfCX1flfr+kKYJxLwzsFX1cRUoA0iZWajNauXTL5DcfCF6+8H/CZOCKHJH9rZ8Z0yGzLIHMXFqU38Th52vBvswiwzlz/YcrTqiqrM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789578472; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QzJV4EBZ/ZPPkHNUSlAM078NEu5vA95C97LBNrhtpQo=; 
-	b=Gg9tBQj5e1HefZVI2gNOX4Zzolw+B9VN3VYtEw0vNDdPQkGdyj2ciDHYkExT9ThLujTVNHsyW/lpVja+A0TA0l3AwF8CWam0L5ubPxAu2Q8U1pFFb40E+jZ7VxiwkaiKS2auGYYeOLgSNAsCxELsG0OUsTS2riOWD7tuonSPD90=
+	t=1789579634; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yu4I8aA/dSCWiNzd0EiMaIb1hEBPZBMS5B0bclDwg3U=; 
+	b=j1EjAJDPWLzUqrtf/AWps9jhj7K6lk233J0lmD2EGKZD6Xs1NfIr5FzpvHJvh4jpa3HwPTEXTskgBmeApmAwq8PIskOPdChg2bnHC/+cNVLIvBRe5ar9uK6zK/DSVa3694wXupmzLoyL1VBtW45k49r78EvTopgQqZ+yBA0WQrI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
 	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789578472;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789579634;
 	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=QzJV4EBZ/ZPPkHNUSlAM078NEu5vA95C97LBNrhtpQo=;
-	b=gkP2uX/90T+O3XNAR2uvUEEyEA07NRJdkY7yliySTBdM6862FVAs8u3pGxhZbv9b
-	HlIkBUysR9FbTO4d53BCWbb+OV6n0z7b6rRlZVirx5rhfPfv7gCV/IhnoDCGNcA1HOm
-	JEHfMdOx1TUdVnz8i/WW56YyWTCvs6LHeI2hla38=
-Received: by mx.zohomail.com with SMTPS id 1789578470483327.4383597870594;
-	Wed, 16 Sep 2026 10:07:50 -0700 (PDT)
+	bh=yu4I8aA/dSCWiNzd0EiMaIb1hEBPZBMS5B0bclDwg3U=;
+	b=JCN6Jf3VoU2FPQcE7Cla4Ac5E0bw+bPSvMGe+NiYJCMTz422U1TYnCsuRJOreAtD
+	2ca+SRFf5xxKjMxM/+jr4coKAkqbDzVU5gThzZjCCf30AOZ+/Ypuvxar3/2759XUcmy
+	W5TjQELzpkBQvDKB8T7xNYVjeI5pzIdNItz7RHY0=
+Received: by mx.zohomail.com with SMTPS id 1789579634133586.5912753636819;
+	Wed, 16 Sep 2026 10:27:14 -0700 (PDT)
 From: Detlev Casanova <detlev.casanova@collabora.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: linux-media@vger.kernel.org
-Subject: Re: [PATCH RFC 0/3] utils: Add the v4l2top tool
-Date: Wed, 16 Sep 2026 13:07:49 -0400
-Message-ID: <e_sk-IZPRRGozyk_ZJz9zA@collabora.com>
-In-Reply-To: <20260916173305.00aa071b@localhost>
-References:
- <20260916-add-v4l2top-v1-0-470629ba5ffa@collabora.com>
- <20260916173305.00aa071b@localhost>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] media: rkvdec: do not destroy borrowed SRAM pool
+Date: Wed, 16 Sep 2026 13:27:12 -0400
+Message-ID: <h_fJ5CZXS3anfaQzbf4v3w@collabora.com>
+In-Reply-To: <20260915140511.2429792-1-lgs201920130244@gmail.com>
+References: <20260915140511.2429792-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -56,28 +59,59 @@ Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
 X-ZohoMailClient: External
 
-Hi Mauro,
+Hi Guangshuo,
 
-This is strange, maybe a b4 bug, because the commits have the v4l-utils in the 
-title, it's only missing from the cover-letter, for some reasons. I'll have a 
-look at what b4 is doing.
+On Tuesday, 15 September 2026 10:05:11 EDT Guangshuo Li wrote:
+> rkvdec_probe() obtains a provider-owned SRAM pool with
+> of_gen_pool_get(), but its error path incorrectly destroys the borrowed
+> pool with gen_pool_destroy().
+> 
+> of_gen_pool_get() returns a pool managed by the SRAM provider. The pool
+> is not created or owned by the rkvdec driver and is destroyed by the
+> provider when its own managed resources are released.
+> 
+> Destroying it when rkvdec_v4l2_init() fails can invalidate the pool
+> while the provider and other consumers still reference it, and can also
+> result in the provider attempting to destroy it again later.
+> 
+> Remove the incorrect gen_pool_destroy() call from the probe failure
+> path.
 
+This is indeed invalid, as the gen_pool is already created when this driver is 
+being probe()'d.
+The sram module can only be built-in, not a module, so we know that the 
+gen_pool will never be destroyed while rkvdec uses it. That allows rkvdec to 
+just get the pool pointer and not have to call a matching put() function as 
+there is no need for ref counting.
+
+Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
+
+> This issue was found by manual code inspection.
+> 
+> Fixes: e5640dbb991c ("media: rkvdec: Add RCB and SRAM support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> b/drivers/media/platform/rockchip/rkvdec/rkvdec.c index
+> 061281f903f3..4541ef9ee3b9 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> @@ -1857,9 +1857,6 @@ static int rkvdec_probe(struct platform_device *pdev)
+>  	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> 
+> -	if (rkvdec->sram_pool)
+> -		gen_pool_destroy(rkvdec->sram_pool);
+> -
+>  	return ret;
+>  }
+
+Regards,
 Detlev.
-
-On Wednesday, 16 September 2026 11:33:05 EDT Mauro Carvalho Chehab wrote:
-> On Wed, 16 Sep 2026 11:20:41 -0400
-> 
-> Detlev Casanova <detlev.casanova@collabora.com> wrote:
-> > Hello !
-> 
-> For consistency (and to help scripts we may use) add "v4l-utils" at
-> the title, e.g.:
-> 
-> Subject: [PATCH RFC v4l-utils 0/3] utils: Add the v4l2top tool
-> 
-> Thanks!
-> Mauro
-
 
 
 
