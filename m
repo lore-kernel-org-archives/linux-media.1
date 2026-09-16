@@ -1,153 +1,140 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0BE3955FB;
-	Wed, 16 Sep 2026 15:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A06388E4F
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 15:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571397; cv=none; b=Oa6cKzXCM8oNMBZTri+xyNYMlBQCmn/ikNh0ZsGPLZKoniwV+cTKNofgQbEQY4tnjFQmPoGHCpIRQFb1n31m2LuqlkhTDmkjYAQJVxLA5fSQiCFTv6DVswmvvdufQsC1H7DfcuI/muPl3ayYLXm+YLTlMJTBA5yItiM4RIQa9Nk=
+	t=1789571661; cv=none; b=QBCgeFN+8PBV50xwCamZje7Ktp0kxVZBHE/PB0K3XNmXMWsnPTGK90bNjsjGRWLGS5D1TMtYQ/agJBNxh0Uoa25mEYDmaymS9qu8CWPZiS4Y4sPnh7zqZkb06s4MF4Zc7cvKhIZVN6OXlVjINxks34hNg10lqknzlBHidzReoVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571397; c=relaxed/simple;
-	bh=6lYoDfIk4NpAcOB/cW6IiEbe+rssQS994U/XwaDkBi8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ePvdl9JqrPIL3goVaKnBRAf3FiiaLTtfomrSFMjPfqk9dQKWkzxby4G0pVUwc+DsJkRrrSjTo0POqCXziN4IjIOogOuHV+AYKAWVuqxdsyMsWj/UyE3SRICDvf6BUwjy41kREX91PamH+V0OKYjUmMEV5zRLfMFUSWo3LcDY0Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: ezequiel@vanguardiasur.com.ar
-X-PTX-Original-Recipient: jacob-chen@iotwrt.com
-X-PTX-Original-Recipient: mchehab@kernel.org
-X-PTX-Original-Recipient: detlev.casanova@collabora.com
-X-PTX-Original-Recipient: heiko@sntech.de
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: linux-media@vger.kernel.org
-X-PTX-Original-Recipient: linux-arm-kernel@lists.infradead.org
-X-PTX-Original-Recipient: linux-rockchip@lists.infradead.org
-X-PTX-Original-Recipient: lgs201920130244@gmail.com
-X-PTX-Original-Recipient: p.zabel@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: s.pueschel@pengutronix.de
-X-PTX-Original-Recipient: m.tretter@pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CF4A32059FC;
-	Wed, 16 Sep 2026 17:09:52 +0200 (CEST)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1x6rGi-001Fsx-2K;
-	Wed, 16 Sep 2026 17:09:52 +0200
-From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 16 Sep 2026 17:09:50 +0200
-Subject: [PATCH v2 09/17] media: rockchip: rga: adjust get_version to
- return the version
+	s=arc-20240116; t=1789571661; c=relaxed/simple;
+	bh=I1mUBpETXIszOJUI+4PfxF9aL9vUcBmsZqAXr03BHWM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jMe73zJKeQQHyYTNqMEY/rtyBcAuTUX2kCyeRoWzm+jXNyOMZy10CIk4uMCK6oO97aIsxf8Tfd5hnYntE8Op23YoRHMQyMoWgCcAyG9MrQQO4z/+YxwTqBbPKXwtm1O3xztacfpioLTd+Cq0uxyJ+IJ7WHPjVhVxjyJJaQN5TJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xapfVJko; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xapfVJko"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso1760814a12.1
+        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 08:14:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789571655; x=1790176455; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EGiTz7ecYRQ3R9tZPodslfq/Xnj5pm8tXpwlFqHcud4=;
+        b=xapfVJkoYBobjp8XjptcdXGEtHvKOADHSRHD94vwtUKg/bWGND9iUlmGIz2ltM1WQL
+         l2Ck+yJIGOflplDkKbFoADzz4zBA5u36MaWxg4SczCUjMa+YoOv6ZXY5obQbDbqvyNxA
+         prRuMDlyzSk6G0wg7frPgzPd/7FBGet+sf1Hkt/KpqcifO2Snbl3Bls8k6K/wZz9vsmq
+         P7d7ZF5QnUdmo7UkuHQj+dVt+6l9oWqIUIYJUokGnYbKnubcpO/8AEnKu4bytYFvJqdz
+         22Gm+by7e0RP+ToXct3mX7gJHosrj1idA6K52xpsktToH4M36EwhReJt1EfjeA4XrjtU
+         sLvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789571655; x=1790176455;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EGiTz7ecYRQ3R9tZPodslfq/Xnj5pm8tXpwlFqHcud4=;
+        b=xGglWO4mOnYoFuaiRE0PurrAKfOfpMpxYSk7pjIu6EgCdgppvTELHU8pJNRKLhmG0W
+         eW1hQbQfNT+bUTMqrSvBSlX8Y61AFPPnwySIWNP8kvSJZ7r94q9573GBnoA5UkNE2xuM
+         E9mdxUTKCNmKHRsoD2JYMxHgrsYCtKqtMw6KOjtx85hiI+XpFhaw2MUHJRLhnnVYBl4v
+         gX8+fAsYYOOcq85dfoKum13wLH40yxUY0YzeF4sh/ylDG+YzCThYmsSKBMNuU1B2hojE
+         P8HVZXE75ysoQC9moh3m32/WJDb6+dXSKUDSqn5Y/Yr8UEaOoRnp7La19F9WNIRciLsm
+         BCfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWdE9R/xlyhUc5yjO+nyJU+a8YqjRV8lP4ucvhOPKQGLnDxkp1jrO+iiUm/EjBXZ5jRJuSyg8MDV9kSA==@vger.kernel.org
+X-Gm-Message-State: AFuF++lnWjCbKG/KRefGvODdOnoUQVqKzoJfbeaDvjojs5znXKEVS8v1
+	p6SYvGgPIpYmswPS3QNFO+BXVy2xLwT7cwIjQCkhviBJS8utTJjlmvaVIPuWWu7f8+E=
+X-Gm-Gg: AYBFou3nLNmPZF9kVQMBKdq0k/LosMK7xCahPMFe8WjMbA+qZi4VtAIqoeZ8vk1chJY
+	cyU6cckSbKOy2rOMfB9qXdLdDCQN35eNabu6MZLhxUoe+pkMzqM5cC4A+ZlQ1W9rpqHOOrbfioX
+	g6Ero8GPJV9vmOVgVEHYtBPKvrIrWEB14kRDx+wbew3x3Qq5JB1Z6Z8LnB6MUf+xC6jTBojVqEm
+	AfmmYOJbpSPlovAWlPS1NFdiPZcCNALEVUMEobnTWEngecyCmlCm2jOqo9bxINRp5h10eHCJNr8
+	7lldFQM31hteg8HLCqUJKruqlLgihqShLgXFZya/xIiGRMP1pv1INmJ6efvobsix8z1pCQ1CsOx
+	nZ51mlK/eiE2CN8W/EgOgo4fqUnNGEaHlt8v/UTXqhJdrqsuZlEI/1GSKeoPxBKUoS3FQ7K/J+U
+	LMZeKMQdll+1GXru5DeTsIoJbLo/f8kjVZnQP5KMetc8aM3gU/lHLcIJSb+96kVVxMJlLSJdMXz
+	7Vr/CSWuwYk
+X-Received: by 2002:a05:6402:548d:b0:6a9:a33b:bb8f with SMTP id 4fb4d7f45d1cf-6aa2245f519mr2317168a12.41.1789571654700;
+        Wed, 16 Sep 2026 08:14:14 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.116.194])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d2ab4ebsm2002234a12.30.2026.09.16.08.14.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 08:14:13 -0700 (PDT)
+Message-ID: <6c084416-39bf-4715-908e-14cb7e89b7d9@linaro.org>
+Date: Wed, 16 Sep 2026 16:14:12 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
+ sensor on CSIPHY4
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
+ <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
+ <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
+ <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
+ <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
+ <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260916-spu-rga3multicore-v2-9-23aa2cb74e61@pengutronix.de>
-References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-In-Reply-To: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-To: Jacob Chen <jacob-chen@iotwrt.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Guangshuo Li <lgs201920130244@gmail.com>, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-X-Mailer: b4 0.15.2
 
-Adjust get_version to return the version instead of directly updating it
-in the rockchip_rga structure. This is done in preparation for a
-multi-core support to check that cores with the same compatible share the
-same version.
+On 16/09/2026 16:06, Bryan O'Donoghue wrote:
+> On 16/09/2026 16:04, Konrad Dybcio wrote:
+>> Perhaps moving the endpoint label and definition there too would
+>> make sense, i.e.
+>>
+>> -- hamoa.dtsi
+>> ports {
+>>     #address-cells = <1>;
+>>     #size-cells = <0>;
+>>
+>>     port@0 {
+>>         reg = <0>;
+>>
+>>         camss_csiphy4_inep: endpoint {
+>>         };
+>>     };
+>>
+>>     ...
+>> };
+>>
+>>
+>> -- x1-crd.dtsi
+>> &camss_csiphy4_inep {
+>>     ...
+>> };
+> 
+> I don't think I can add the endpoint, my memory is I tried that and the 
+> dtbs_checker spat it back out at me.
+> 
+> I'll retry though since I may be mis-remembering.
+> 
+> ---
+> bod
 
-Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+qcom,x1e80100-camss.yaml
+
+^port@[0-3]$ → endpoint
+
+required:
+   - data-lanes
+
+So I'll have to leave endpoints out.
+
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c  | 10 +++++++---
- drivers/media/platform/rockchip/rga/rga.c     |  2 +-
- drivers/media/platform/rockchip/rga/rga.h     |  2 +-
- drivers/media/platform/rockchip/rga/rga3-hw.c |  8 +++++---
- 4 files changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 4d7b0a03820a1..190104f3b2954 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -474,10 +474,14 @@ static bool rga_handle_irq(struct rockchip_rga *rga)
- 	return intr & RGA_INT_COMMAND_FINISHED;
- }
- 
--static void rga_get_version(struct rockchip_rga *rga)
-+static struct rockchip_rga_version rga_get_version(struct rockchip_rga *rga)
- {
--	rga->version.major = (rga_read(rga, RGA_VERSION_INFO) >> 24) & 0xFF;
--	rga->version.minor = (rga_read(rga, RGA_VERSION_INFO) >> 20) & 0x0F;
-+	u32 version = rga_read(rga, RGA_VERSION_INFO);
-+
-+	return (struct rockchip_rga_version) {
-+		.major = (version >> 24) & 0xFF,
-+		.minor = (version >> 20) & 0x0F,
-+	};
- }
- 
- static struct rga_fmt formats[] = {
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index c24bc8e26b91e..2107d0f4a1659 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -860,7 +860,7 @@ static int rga_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		goto rel_m2m;
- 
--	rga->hw->get_version(rga);
-+	rga->version = rga->hw->get_version(rga);
- 
- 	v4l2_info(&rga->v4l2_dev, "HW Version: 0x%02x.%02x\n",
- 		  rga->version.major, rga->version.minor);
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 0e62337f8dd38..0e854cdf739f4 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -158,7 +158,7 @@ struct rga_hw {
- 	void (*start)(struct rockchip_rga *rga,
- 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
- 	bool (*handle_irq)(struct rockchip_rga *rga);
--	void (*get_version)(struct rockchip_rga *rga);
-+	struct rockchip_rga_version (*get_version)(struct rockchip_rga *rga);
- 	void *(*adjust_and_map_format)(struct rga_ctx *ctx,
- 				       struct v4l2_pix_format_mplane *format,
- 				       bool is_output);
-diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/media/platform/rockchip/rga/rga3-hw.c
-index 46ba6d270f232..a80dd7609ccfe 100644
---- a/drivers/media/platform/rockchip/rga/rga3-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
-@@ -299,12 +299,14 @@ static bool rga3_handle_irq(struct rockchip_rga *rga)
- 	return FIELD_GET(RGA3_INT_FRM_DONE, intr);
- }
- 
--static void rga3_get_version(struct rockchip_rga *rga)
-+static struct rockchip_rga_version rga3_get_version(struct rockchip_rga *rga)
- {
- 	u32 version = rga_read(rga, RGA3_VERSION_NUM);
- 
--	rga->version.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version);
--	rga->version.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version);
-+	return (struct rockchip_rga_version) {
-+		.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version),
-+		.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version),
-+	};
- }
- 
- static struct rga3_fmt rga3_formats[] = {
-
--- 
-2.55.0
-
+bod
