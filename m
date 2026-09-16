@@ -1,98 +1,220 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A65C44E67B
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 07:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64041368D5A;
+	Wed, 16 Sep 2026 07:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544251; cv=none; b=PmIxRYZEylMFm9PKCaOUo/sWrhMMa63J7p1h6fV9jX4EobIvCok3abwo2XNHtd1pImek5Kw81e8aP9mjJ8rz8G9SI8qN2GzGWKxJoDSvqoBEUSQLarE2BBB5javNjZ9qjID2024D4f8kvEAjIoClqXezGXLYS7ncd8hgyrKXFQk=
+	t=1789544769; cv=none; b=X7hH2NSSORuD280xZFqKauX7S/Udvc3vYoJlX9NDIEWYLbCXr9piZRa5DupzudMt242g4MgT46d6qrOY8neMc2fLhWyHbapvK6p4eUBoL2e6KFB/U7QRCADfXM5hON4ekKtG9XrDbxpMzydpllmSjgdiN4KPJkN8Eyof0uyz4WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544251; c=relaxed/simple;
-	bh=3x+6rjHOdFM+ukeG5dKUPQOJLlodagt5Tb/55EQ79lE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NoVdanTgQgKUyrxfVwjKc+p/TfW7p2BXRYJMkJrSYrlkADg+BJt+eFLSQ8XYR/gB9pDT+iORSp9/yaZfMJuorZth2csJX3ry8aJQKoZI/O4rT2CHiEW4G75r7yF4mPwURZOCg3FxKHPnKUaoe/pOtmQiK0eIjR2rT8ujGKswUXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=iKt1psIj; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789544769; c=relaxed/simple;
+	bh=Nno3OlO3iewCiHcvZdyzepOILM5zdk/EDcFwj2tLg+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g3mPd8s8Hq92iuTi3vMSRa/jDdG0OJPHNDOFBsWbTdGXJduYZ7sRxwEhPzj4aP+G4NhSVG0NNe2RUsJb7D5C63EMSVikn9oU1Ydte+Jqduu0Lxc1cPQkevXJpiYtd9JuxteUAmMoMGKj6eQw+GRsuELzI8ATDLUMpK75ScSN+3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=T+JTGWyk; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="iKt1psIj"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f0135fso6081645ad.0
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:37:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789544231; x=1790149031; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3x+6rjHOdFM+ukeG5dKUPQOJLlodagt5Tb/55EQ79lE=;
-        b=iKt1psIjHwqsDRiDCxpviyjCFb5oResLX/C5EEVt740nEVoPaY/sHo6n4pzMOFKh22
-         PBhzXIXGA+5JC1OOPA2TtG4PZxovPs4IiuJMhv1odvFUk+dm4T85S9hPq0sWd33iDZqp
-         nfCY9TPInGyELTfPPzPK8LmwNYzlP527+yW5k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789544231; x=1790149031;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3x+6rjHOdFM+ukeG5dKUPQOJLlodagt5Tb/55EQ79lE=;
-        b=SRFTlrI5gK03a38MwwrRt8+k5oblXp4IkWuOuOoVDQKoxLnps4nByTvR6vgsRDlopB
-         TQyVEPFWft3yWAn5wBhvTX+tzgNEVqM0TOPTCCP6CDxsgwjzWjKSRyH/yOGcZwOBfVY3
-         v0lwXydPx8R7mNfrrauqYH0zjvhRjijuhSxmPYQi4QABSeYm4Qh5nYUhSo6h146G+02K
-         dfAOiZVbdguHceoitnKTYX6/zQjPN3Nu4aSU/rrViB7dmTt+DhSuUSZleEa2SQ/1e1Rn
-         Jv5r5tLm+7DusYoFbVL8rVaeU5voxRs0p/xH/kgs27Pd3vIDwp1bTB9guLbZkQe1tDO2
-         mSGQ==
-X-Gm-Message-State: AFuF++klyJOX7Z9vp6PsPANGG0W9Ts/H2H8NI9qoBg387o/CDS8xjF0v
-	hxLYOIOUtQGmeWQKesn0XDp+2q9kIJtwa16BA5OARtkT+UcTBjMUtvBtmby4JnwnnWkLY/h/MKA
-	MYTRhWw==
-X-Gm-Gg: AYBFou1pTUs5TLexYd76pgj94JXPcnXo2Ezuei/gdjo3aRYGjlqE7fykAuxIuo75IwN
-	8aBePUGC1FI8GbC/KufKpLjC1u4auQUf0m+14fdygvHwaK7MYsTZdSPQgWXxo+8+voXyTKg6v1N
-	dJ6e7dTVvyNXPmRT+B4b4L+MQwfMekjPMHaCdEChil0e5U+xxnrvDa+LJ5sYr5byDsdoCUo6Coz
-	8iDXkFEtYf+BiwQ6emYeTEdJoYAdh2JQAQE8l3q4P/e9NHgSG4+PYztH1jiOYMq7lzmQgg740fz
-	fbKyD6oC1sxhbeVC7V5KLskW4IlGOnqDWj++lcSSL+elWEIwieJBNSpdJOG69wA9X6djroXJawL
-	UfHY14Bu04ZaZWKTdheMKFYv50fhO0Ni4LQE/vYcIdZijg+kXUqWvMOyGTl4Q9ceX7RPwlkwlFX
-	FPWaexzj1msK7T1TabhaCbWLq6jV80Ma5HwE4vMR4QovR8loKh8qENtong5MTEYtvRTvd604uRB
-	31vg9mdE8byCHPAMT7OExJulGxta43lx5hPFQ==
-X-Received: by 2002:a17:903:2308:b0:2dd:1701:3b6e with SMTP id d9443c01a7336-2dd8e73f93amr32322705ad.16.1789544230645;
-        Wed, 16 Sep 2026 00:37:10 -0700 (PDT)
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com. [74.125.227.141])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d9007csm6913235ad.5.2026.09.16.00.37.10
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 00:37:10 -0700 (PDT)
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so7184815ad.3
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:37:10 -0700 (PDT)
-X-Received: by 2002:a17:90a:e18e:b0:39e:ac:b776 with SMTP id
- 98e67ed59e1d1-39e1e5187b4mr3432779a91.25.1789544229188; Wed, 16 Sep 2026
- 00:37:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="T+JTGWyk"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F8122EC;
+	Wed, 16 Sep 2026 09:44:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789544653;
+	bh=Nno3OlO3iewCiHcvZdyzepOILM5zdk/EDcFwj2tLg+o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=T+JTGWykehchs3y3+yhf1UlxD+oxOt8ImsO89QYli5iW7KiUOvyMKsdfStJ7oikBh
+	 OVSEfb/luQSOJG5Zg66itdJZEi2uD6eu0Odod/CDkOSDC4xlucYdx+SU5vEDQLq740
+	 pXlYMHA5vJFroMT7vohxnZwnOaCWnVTxvzwbBJYw=
+Date: Wed, 16 Sep 2026 10:45:53 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <20260916074553.GB3871857@killaraus.ideasonboard.com>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
- <CANiDSCsQL_AWPz+spNwFkD=iSuDp5YKuk_0KROvmLNx0rG4tfQ@mail.gmail.com>
- <t3hEIJz-K9HvqsANa0jwTFis2jKV-LIIUZ3-7AUs-sQnAgSsLZhu2013EUO_AOWgospC7Lvphv7D1iyhJb9vFMxnbtUjaKwTljvmHjUiU8A=@protonmail.com>
- <CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com>
- <njQpJCsjie_PEmoIZWXlTHCGW4nqAbpwp0ev50qLl-r5rWkV4mwEK0lSvJ-3w9BOPhvZE04A9O7pFeAdqq6-zKAF6tVIsPN6dPA1dnx86dE=@protonmail.com>
- <CANiDSCumxDChOj9JyCW3s1nBhpyeicerLyHSZDh=mTNfxbkGUg@mail.gmail.com>
- <CANiDSCts7TgGB8eVBSw1L8MNioHxD6_KfoW6mBwn9D51crVsvQ@mail.gmail.com>
- <tzjfIh6x0Uwujqr2ejd12rHu20MI9yIVwFE8AnxwHqGnTy6C1AVK6IzI2TdM-0RUriXVnCBZ9jf8hqbCTwyfg0UegbRSXAMp0bym0gU0vEs=@protonmail.com>
- <CANiDSCtKAZhWTLmaDXHJVkUXTiik8v2VdTYjPubU8_=SzB6m5g@mail.gmail.com>
- <JpRUI3y4S8sLw4DG4cIAG-hZh2Kh2eW6jCO_UtqMgui3G1G6y3-a7OzJnqTABPEbFbLaR3H_7BacQSbAqEcOHPUcvX2atXA_eiHYBuIyAbY=@protonmail.com>
- <mJ1rs8fZIGetLtBq6B0Sk5im9xHBJTGxPQvRnaWh083IOCtUXzEX6HwerzTvu1iiARLKRx8CRHdJfKjtgwb_Zqsvw9GFj5sAwux_bhbDN4o=@protonmail.com>
-In-Reply-To: <mJ1rs8fZIGetLtBq6B0Sk5im9xHBJTGxPQvRnaWh083IOCtUXzEX6HwerzTvu1iiARLKRx8CRHdJfKjtgwb_Zqsvw9GFj5sAwux_bhbDN4o=@protonmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 16 Sep 2026 09:36:55 +0200
-X-Gmail-Original-Message-ID: <CANiDSCuSy5+aBv6dbW9q9YNfYXPwk8YKbp2txKaVUt2p4X-7OQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Vx5GTpSzKhTG893jypW-FpZRHGk0MD6piRQwZN1HZ43D3QuEzm_yQAR8Q
-Message-ID: <CANiDSCuSy5+aBv6dbW9q9YNfYXPwk8YKbp2txKaVUt2p4X-7OQ@mail.gmail.com>
-Subject: Re: Re : Re: Avermedia GC515 implementation
-To: Edwin Gatier <edwin.gatier@protonmail.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqpC8fxO4F3bFjF4@bombadil>
 
-Hi Edwin
+On Wed, Sep 16, 2026 at 09:33:36AM +0200, Richard Leitner wrote:
+> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> > On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> > > Add bindings for the Vision Components MIPI Camera Module Controller.
+> > > 
+> > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > ---
+> > >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+> > >  MAINTAINERS                                        |  7 ++
+> > >  2 files changed, 99 insertions(+)
+> > 
+> > This fails tests, so a very brief review / a few comments:
+> 
+> Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+> Will not happen again.
+> 
+> > > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > > new file mode 100644
+> > > index 0000000000000..2a031aea68457
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > > @@ -0,0 +1,92 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Vision Components MIPI Camera Module Controller
+> > > +
+> > > +maintainers:
+> > > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > +  - Richard Leitner <richard.leitner@linux.dev>
+> > > +
+> > > +description: |-
+> > > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> > > +  controller found on MIPI camera modules from Vision Components. It abstracts
+> > > +  the camera sensor behind a unified register interface, and controls and
+> > > +  sequences the on-board power supplies and clocks.
+> > > +
+> > > +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> > > +  downstream I2C bus used by the attached image sensor. The controller node
+> > > +  acts as the upstream device on the host bus, while child node below the
+> > > +  controller represent the sensor device reachable through the tunnel.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: vision-components,mipi-module-controller
+> > 
+> > There is no model name, no version, nothing identifying it better?
+> > Compatible must be specific to the device (see also writing bindings).
+> 
+> There is one FPGA implemenation for all Vision Components MIPI camera
+> modules AFAICT. So I have no idea how it could be more specific, TBH...
+> 
+> Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+> configuration/firmware, not the hw.
+> 
+> There are different versions of the configuration/firmware. But I think
+> this is also not the correct way to distinguish those, or is it?
+> 
+> According to their homepage the vendor calls those modules simply
+> "VC MIPI" modules, which implies this FPGA controller is available on it.
+> So maybe "vision-components,vc-mipi-controller" would be a better fit?
+> 
+> Do you have any ideas/feedback on how improve this name?
+> 
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  '#clock-cells':
+> > > +    const: 0
+> > > +
+> > > +  clock-frequency:
+> > > +    description: Frequency of the sensor clock provided by the module
+> > 
+> > Drop, implied by the compatible
+> 
+> Do you mean dropping the whole property, or just the "description"?
 
-On Sun, 13 Sept 2026 at 16:41, Edwin Gatier <edwin.gatier@protonmail.com> wrote:
->
-> Looking back at the log I waited a bit too much before dumping dmesg outut in a file, here is a more usefull version.
-Thanks for the logs :)
+Different modules have different clock frequencies, don't they ? The
+property seems needed.
+
+> > > +
+> > > +  vcc-supply:
+> > > +    description: Power supply of the module (3.3V)
+> > > +
+> > > +  '#address-cells':
+> > > +    const: 1
+> > > +
+> > > +  '#size-cells':
+> > > +    const: 0
+> > 
+> > No children allowed, so why these two?
+> 
+> Based on your and the bot feedback I would suggest for v2 to change this
+> "generic i2c bus" to a simple "i2c-tunnel" property which has
+> "$ref: /schemas/i2c/i2c-controller.yaml".
+> 
+> This would better reflect the actual hardware, as there is only this one,
+> in firmware hard-coded I2C downstream bus.
+> 
+> Would this be a sane approach?
+> 
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - '#clock-cells'
+> > > +  - clock-frequency
+> > > +  - vcc-supply
+> > > +  - '#address-cells'
+> > > +  - '#size-cells'
+> > > +
+> > > +unevaluatedProperties: false
+> > 
+> > additionalProperties instead, see writing bindings or writing schema.
+> > Unless you miss here some other schema $ref.
+> > 
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    i2c {
+> > > +        #address-cells = <1>;
+> > > +        #size-cells = <0>;
+> > > +
+> > > +        vc_mipi_ctrl: controller@10 {
+> > > +            compatible = "vision-components,mipi-module-controller";
+> > > +            reg = <0x10>;
+> > > +            #clock-cells = <0>;
+> > > +            clock-frequency = <37125000>;
+> > > +            vcc-supply = <&cam_3v3>;
+> > > +
+> > > +            #address-cells = <1>;
+> > > +            #size-cells = <0>;
+> > > +
+> > > +            i2c@0 {
+> > > +                #address-cells = <1>;
+> > > +                #size-cells = <0>;
+> > > +
+> > > +                vc_mipi_sensor: camera@60 {
+> > > +                    compatible = "ovti,ov9281";
+> > > +                    reg = <0x60>;
+> > 
+> > Why having the child abstraction if it is completely abstracted? I don't
+> > fully get the explanation from description. Completely optional means no
+> > benefits, no point in it, no?
+> 
+> I will try to improve the description. The idea behind this device
+> driver/devicetree node is to not rely on the sensor abstraction from
+> vision components, but to use the upstream sensor specific driver.
+> 
+> As the tunneled downstream i2c bus needs quirks applied this is modeled
+> as a separate bus.
+> 
+> Previous discussions on this approach are available at:
+> 	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
+> 
+> Thanks again for your review Krzysztof!
+
+-- 
+Regards,
+
+Laurent Pinchart
