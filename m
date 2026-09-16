@@ -1,100 +1,65 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37044BFE61;
-	Wed, 16 Sep 2026 12:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007184E56CB;
+	Wed, 16 Sep 2026 13:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563297; cv=none; b=Mo42n8doVDLq28xXDs/P+G3E3Pbx4elN5Jf3VLpO46BhthwO9E+oTnu/zHfoDt3goAltc530OYINykhIEoj81foAZ4tSCWavxiOpfqx6YwR6I/07jl6x7vQsV+9D9ouMEotdqZnNfQwBcWFk312PHftec52AgSHbxfGBUAjXnGA=
+	t=1789564034; cv=none; b=rpHWbFkT/5VUxZnuB6f/PHcU51HLIYdHSRtOZIV+/cXYLSYpoUdXaWPdmpdxhgxw0thpt9xD6tUzJ4PPZJrPMJmRqYYcK1pD+9bLv83mt59sHDX11gkSQ65hyL/O5Pqteq6207xiURIYVrguxQZXmqYjC0I+3sz+RN5gRHMM0dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563297; c=relaxed/simple;
-	bh=eOI2q3uxCKkIliMe03rIur3xYlkC3y6bAVkEvyKeEnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OW9tgU41JE8epENxYTWrR52vwEIKbxK0CrosChHZSvmxQ+RYKyinYVsbHkTY+P0kmTTwdOHmjgvLx8WndsCZAYUSEvstN/do9wWlT3r5EQcuaWirC0+vBhrCmCwte2OhL5toMEAk8cBmAL7XOMsbcbVpuQ/Ran2xrsxqwuFTdiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cgcLUcRl; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789564034; c=relaxed/simple;
+	bh=9YhQCzMXQ1kxLsRhTeD5Ao09tfL+Ps7UF4I8rMimm9g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qOKiy5TGMg8P9d221MH+6AoMBdInaqusvexru+pAcLCgA5wdBwdsZOex4KXSQFodbgeWrdQ5a4UB+yGiz3+CHL/JL7x73CSGMLM7x2009nvxPfshqADU4l02PUbGM2hW+454s6ro0YBArAeK5PhlBEWD2djknhmaUV5b+cSWGfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=EFRnfk1P; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XRhGQ0sL; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cgcLUcRl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789563291;
-	bh=eOI2q3uxCKkIliMe03rIur3xYlkC3y6bAVkEvyKeEnA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cgcLUcRl1F3UpKx6T+FPc+kyCicbxNO0aAc1nJzhNfNj9tr0ZSBe7loLNsDL9cX0S
-	 Nf93ozBYxWJ54qLgZYYhHcbNpwORE0un5IoQa/EWrrysZ16OPKGtUHkcNaVrD2OoHC
-	 3J1LFjc410SxZDKw8pmCJ/oXpmQkul0FV6jl9+O4PLRqowOeupWMTmM4BRppaVKJoP
-	 iQOvldl7V+bUVu3Zl7Cat1V+OBre3fZ/+V96xUQz6t3xPr43tfoNMBQVm1kBpnLdn7
-	 71ysPJCepqh9RtpTqjdl0ansxP/j0DG5BxfCaV669g+6n1Xyz286FTC8kPhOurSNE7
-	 5ivo9iV8vs4uA==
-Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9543317E13C3;
-	Wed, 16 Sep 2026 14:54:51 +0200 (CEST)
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: nicolas.dufresne@collabora.com,
-	benjamin.gaignard@collabora.com,
-	p.zabel@pengutronix.de,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: [PATCH v1 7/7] media: verisilicon: mpeg4: Use alloc/free helpers for auxiliary buffers
-Date: Wed, 16 Sep 2026 14:54:43 +0200
-Message-ID: <20260916125443.78602-8-benjamin.gaignard@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916125443.78602-1-benjamin.gaignard@collabora.com>
-References: <20260916125443.78602-1-benjamin.gaignard@collabora.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="EFRnfk1P";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XRhGQ0sL"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789563991; bh=9YhQCzMXQ1kxLsRhTeD5Ao0
+	9tfL+Ps7UF4I8rMimm9g=; b=EFRnfk1Py9b4T2nKs2349/0ToUfWYOEaFRYwS7W93OQEZpRLgn
+	Ze2XZGgoJsUNSzESvRpxj/pBWXU4CEB5GvLHafbLXkPzkMBQ7o8nQuFCVFKg7C4QnSGkJSmX4z4
+	skmnCORj/eljqWRRfxq1DCEYaLM+NHC0e677zB+O+kHY4MZOZ8UgPjmgdY7QSWQSQx1THjhAWEd
+	omGCdaC3uDFIfmIsA/v7es9eWp+qLoSi+b39S2uBDHoHY8wPJoVkeE+UygTP6pKQThsHC9JyuCR
+	/NFkXgDmVAV4g+HmgkcopTZoQhD2N47Y5umBjjhum+qua+iYhn00s8RJlV6AWR5//pQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789563991; bh=9YhQCzMXQ1kxLsRhTeD5Ao0
+	9tfL+Ps7UF4I8rMimm9g=; b=XRhGQ0sLjBDzU6FE4HPuEuJS9SK/kdcZWV745wfvWlSYMhJq3o
+	XOoNC7pepPhUrYEPKoSNz4l7I6GRjMJYV1Dg==;
+Message-ID: <8f2245c5-cb1e-4463-8255-bebbbac08a52@mainlining.org>
+Date: Wed, 16 Sep 2026 16:06:30 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] Add Reset GPIO to imx258
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>
+References: <20260829-imx258-add-reset-gpio-patch-v2-0-bfd27891e225@mainlining.org>
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Content-Language: en-US
+In-Reply-To: <20260829-imx258-add-reset-gpio-patch-v2-0-bfd27891e225@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Simplify and clean up the code by using the helpers.
+Hi Sakari Ailus,
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
----
- .../media/platform/verisilicon/hantro_mpeg2.c   | 17 ++---------------
- 1 file changed, 2 insertions(+), 15 deletions(-)
+I addressed the v1 review comments in v2, but haven't seen
+further feedback for nearly 3 weeks.
 
-diff --git a/drivers/media/platform/verisilicon/hantro_mpeg2.c b/drivers/media/platform/verisilicon/hantro_mpeg2.c
-index 04e545eb0a83..f21115e6bdbe 100644
---- a/drivers/media/platform/verisilicon/hantro_mpeg2.c
-+++ b/drivers/media/platform/verisilicon/hantro_mpeg2.c
-@@ -37,25 +37,12 @@ void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
- 
- int hantro_mpeg2_dec_init(struct hantro_ctx *ctx)
- {
--	struct hantro_dev *vpu = ctx->dev;
--
--	ctx->mpeg2_dec.qtable.size = ARRAY_SIZE(zigzag) * 4;
--	ctx->mpeg2_dec.qtable.cpu =
--		dma_alloc_coherent(vpu->dev,
--				   ctx->mpeg2_dec.qtable.size,
--				   &ctx->mpeg2_dec.qtable.dma,
--				   GFP_KERNEL);
--	if (!ctx->mpeg2_dec.qtable.cpu)
-+	if (hantro_allocate_aux_buf(ctx, &ctx->mpeg2_dec.qtable, ARRAY_SIZE(zigzag) * 4))
- 		return -ENOMEM;
- 	return 0;
- }
- 
- void hantro_mpeg2_dec_exit(struct hantro_ctx *ctx)
- {
--	struct hantro_dev *vpu = ctx->dev;
--
--	dma_free_coherent(vpu->dev,
--			  ctx->mpeg2_dec.qtable.size,
--			  ctx->mpeg2_dec.qtable.cpu,
--			  ctx->mpeg2_dec.qtable.dma);
-+	hantro_free_aux_buf(ctx, &ctx->mpeg2_dec.qtable);
- }
--- 
-2.53.0
+I plan to rebase this onto the latest linux-next and send a v3.
+Would that be okay?
+
+Thanks
+
+Best regards,
+Muzaffer Kadir
 
