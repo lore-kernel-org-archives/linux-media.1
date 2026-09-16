@@ -1,166 +1,193 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA5B2D0C94;
-	Wed, 16 Sep 2026 01:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5682ED154
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789521112; cv=none; b=n395nxUQhl+cKHnAzwzJ+zxeDceT/Laq2EAKkXnk6nBd562rI43Rl9C1cpDITe6cZ8CBxwpGvrjDJUUk/14KFlr9jBcUxrBYofr5zZUFbPVO8rQkiT9bgt04dk1aWX0rKYy1YonREuWQsAnma+nsGcM56YRAv3MSG49bfP+KDEY=
+	t=1789527481; cv=none; b=ScGAiUlqDxU/NSx1zf6shq6kfNDykGy+Ooit86RncodhTl3CD9uO5uEfApvMUPkUSTdhQvMwC8NBgHO6tN8/Gttbmo6Svh0bKckf+fOTqxUszZTa54COaOTyiVVfjvwTHUEvaftBNKxtuGckDyaFBrKNhXPkBRJbodF5WonXkGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789521112; c=relaxed/simple;
-	bh=qD7WMAo+dVVnjd0ZsNjjuy+BJVsiMK9NyvdybQvFWSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hBNLhSDmJWHFqvv9TaILJxdr/iqCfUX6rsyqkjbLklSF+77Z0o+7YuXvnmxf2P3ZoIKWi13YtNcjzxCUgHvtNWMpfW0EPrwe/s43kyFOLqvFafK4bdjokXqdj6BhKI6fbjnYkVho/CBskAAs5kcchx5PDOdQSoievUGhm0Y4JUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hnodkwuX; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789527481; c=relaxed/simple;
+	bh=kCximO2sOnisCbU1KtlPdQ0kwgcUNMXMR/DY9mInT0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gfk0Q3FhYgF94Cjmr2EPPLyhr9/4QkX5O1hFCK8b5ql5MU3yLX+APSYqs1XeCRkBJ5KzRKY6fE2Mv6jSnTJKasvdfHa/EU73kTr035hkp9K6wnIRaCCkC6qejO663s2w94U1BoU6MwVucHBK66gwaDsDuDL2Lj+EGyaDA/GF7zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=orH7bhyT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IXtaqO+I; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hnodkwuX"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E139440E01F9;
-	Wed, 16 Sep 2026 01:11:47 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Via_o3Lf8krk; Wed, 16 Sep 2026 01:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789521101; bh=3ZSg2A9Jc3tPW66xvM7m3+dRrVCDgCi9cK4YxnfVb38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hnodkwuXLSWfi6qopViNWmJ1DPlBw5Qh3eySg1tCSS2QD436Qt0nPX6UFExBzVDyC
-	 7SyGGcsWnxzv7hOn9TLSBnJ4ro6jptALPeAa4mABB02U8A8kyDVYgQcRGWluq/fx/T
-	 EMGtgYR0BJRN0noLxTL7Cqn0kUZN/e7hpblUXONwx5NZPJTHRigWmkF7fbX5MiTlCA
-	 Ug3X16M/GCzJ2EvHdJ5Au6IDIT+Teyvf2UrAOoXUtxWbGbeGeSpEE7gTOLS6aVWh3O
-	 QVHdu8R2pS0Kic8RVQoKePhKFLfyptiUBo3kdERUO2eAyR7oGf6dcBxiUoTp1pRM8k
-	 m/r9x41iu9V1E1kuNZgnm55bT9n6FqBusi5N/v4THEAMC+1O/CgmoqbgmjA7wOtzc6
-	 W7ZqppfDVVsuffyZT3M74O0p3N7ChLh7uahpi/aocg/EFvFx64JaafjbILfpcHrftc
-	 VeSWvKyuAw8fZobdLPp2FioEpzYkD4+kshFyvw+tvXaJdvVomypIlYIV9a17prjpSB
-	 JHHcRnkltsxttm2SQz3HffWQnaJXpVgSEO454rAL+eZ3iP64nohKluW8bKWtFst3Yl
-	 /vVNOphRdFEgFwxGUoFDnKGfTct3/OisLyDq0AYpAEsYHVrTzhg/UGC8HQSC4ByBBB
-	 u7UrMRdF4GDpZnl/0v0mduZE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D932740E00B9;
-	Wed, 16 Sep 2026 01:09:49 +0000 (UTC)
-Date: Tue, 15 Sep 2026 18:09:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, linux-kernel@vger.kernel.org,
-	codemender-patching+linux@google.com,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?utf-8?Q?C=C3=A1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
-Message-ID: <20260916010945.GEaqnsWSZ-DTMyTO25@fat_crate.local>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-26-morbo@google.com>
- <202609151258.5FC01072@keescook>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="orH7bhyT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IXtaqO+I"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYjoO225042
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:57:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QxUKbcmmujyJc5EWtoiZ+rl/qAHfyBU+aCNAFK4xl3U=; b=orH7bhyT9+ugZmfI
+	VImCeaYUBjJ5blLnzBRZL7QgZOamL3fhxZW6ZIYEEWMVcbEYFWqyOYI8XMtlraok
+	xgzH1DhGKUomrTddEUzmHD9t3sbpD6BofMD5QralpQ4GEkkFOAX2BI4UvX0XRn0f
+	bc0XkQFtUZelPmbNudGdScLAQ3BqmI2IvNmygU/KO8Igkxvd/aTUA6stsmdyxtqE
+	w6ev//9VNgU8fc3zNFZ4bbUhOW5Mbj15jmcxbjwzb4gnfGFohcIMdg3HrlklId4x
+	6oohXelfjxg6HucD2v0yHENaNphOfBlGHF8afRjvld4NM6mX7qAuK+Uai17WtExT
+	duEqTA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqbmnhka5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:57:59 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-530256c61b4so107917731cf.3
+        for <linux-media@vger.kernel.org>; Tue, 15 Sep 2026 19:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789527478; x=1790132278; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QxUKbcmmujyJc5EWtoiZ+rl/qAHfyBU+aCNAFK4xl3U=;
+        b=IXtaqO+Idw7Ix5YfdAmIEtFmnTjTGLDVqUhavHc/B69JZMwtCGDLVtWhF1gRSnq/oJ
+         +y/7kFDONa7ZpwroOsPej+c9ytC6dN2wG98XlPyhJ0zvzyCCqUILI+K1+j91iEzXMQHz
+         fdG38rxKVMxAstRRqtpBxAUiBnqQkEBVv6D4CKpQbjdR+P45jyawIBqTuOwAaLfPYt5E
+         NlZBRhuFypUsIzfFgX8Rsrz6KiZ/GNOaX2hp2C8td1Q5oinLAG7y0mHzdj06EpDqs/8A
+         kRtyYs3yTO+NTQG7DvYAlFir1TZCkhQWntHblzRopXqfmg1jleHnbWp4JcWM9TraBfn/
+         x0Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789527478; x=1790132278;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QxUKbcmmujyJc5EWtoiZ+rl/qAHfyBU+aCNAFK4xl3U=;
+        b=GFOi5Jv64eUIx++k+oQj/BHrgwRze6CMPfYf6qvOM9vooxlrQZhhaiGhzXrDsohOOu
+         QQwwwUQbkEGTNzhBwg+neKA5IXQCMffAY3PsrN8lkumQeBciHMw+Rz5u4CxJnS5KU+oM
+         tfqI/3Ra29B8zCfnV7z2N83VuEwu265MRNFipv6w7nRO8XvFLCKQyfP9mnSw75BDFOlh
+         yZ1uWi/+fU9JNuHTMzB8KK3aMfL+52F5pOd3/J3DyO6Z6RSCR/+XvwgKHAyalqJH7/+2
+         zZqw5oOiew9viA8KW8M4KNkTJmnuzdIJ2+Udnfqftjorzjx+JvoomOeGEe1/CD/s+yqQ
+         r1gA==
+X-Gm-Message-State: AFuF++me6sdP1oNl+VG9f3mH7DB9o1/4lDMIwkj8b2NMecZOuFaNs9xw
+	HutVKGuNhEGswTr3X+R9C3aOPrvjYPoOqbUhTQMEheSRsHuKTibFqWsrzr6gBU1J4orEIPvmp7e
+	Ue/S2Ic17rlBxUhYCjSQkWn97PKkdVMtwjK6ey27ZFXLTSszZeRiokTI3vzMD2zJzd8xNQS2xTW
+	UV
+X-Gm-Gg: AYBFou3Gs8WoKxXU8VummEk81UsIINVI4/0FbsNi2RENJUYpkTDuBUaZLw0tNPCfbgT
+	Td0frrgvfUTnrL2rwBl1szIvQOyd0w46GTQ3bgOeiyixj3UEAqT1RI8Sl2BHN/ZujDGejqAl8NB
+	EWyWn/KjRBpw5hoMipT07/RVizfD5PI39p61fnXuGJAZvJDa3r7Tb/m+QLa44hwmkX8c9Ccqa8B
+	2PTZ1MEmk+If4xxHb++6ugea1GSbe1DR+H226/L8HBcrUl7MM4eHm0lWfq5D5gfF6R7cbQpU8FP
+	QrC3c+oDYmt2AxTPp46s9LyT9zgik91WfC5tjcWiYwvLwbh73iefDcpL46+HcspokQPQnXjx7/r
+	ey0QKROJiu2FDhAnkRFGhmvV5PG75ALyhI/ESGvr9yap2J5lAA5r1/qVKai4KAfk=
+X-Received: by 2002:a05:622a:1aa4:b0:51c:8432:1753 with SMTP id d75a77b69052e-5327ef3a3dcmr15351171cf.30.1789527478391;
+        Tue, 15 Sep 2026 19:57:58 -0700 (PDT)
+X-Received: by 2002:a05:622a:1aa4:b0:51c:8432:1753 with SMTP id d75a77b69052e-5327ef3a3dcmr15351031cf.30.1789527477919;
+        Tue, 15 Sep 2026 19:57:57 -0700 (PDT)
+Received: from [10.111.161.15] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326208ea78sm11432351cf.24.2026.09.15.19.57.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 19:57:57 -0700 (PDT)
+Message-ID: <c9925024-b293-4349-9105-45ae8aeef75f@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 10:57:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <202609151258.5FC01072@keescook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [0/6] media: qcom: camss: Add support for Nord CAMSS
+To: linux-media@vger.kernel.org
+Cc: Linux Media CI <media-ci@linuxtv.org>
+References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
+ <6aa92fc5.2eca3aba.387881.68f4@mx.google.com>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <6aa92fc5.2eca3aba.387881.68f4@mx.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=POyaavqC c=1 sm=1 tr=0 ts=6aaa05b7 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=cgb-tkddOU3forQDX4sA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAzNyBTYWx0ZWRfX9H8wrv48QPEL
+ zfNsOSFymssIk4FHi9SnI9ebNc60OZGSnCu4NoS0aKoMe6hMMpnYtrct++SrVpCz0dSFlg38cD8
+ 3mWZaII1DciGOux8PEvfcepUZbYg/PWpBL57NQ6XnTa5LqebzL7EVKnRMZ01O0ps1zU+hDaqbSr
+ fokwxEAdPYA1Ss1LrlPHaLJEVWHqyvgRYj2S6e121rD/ndo0XFeKH6onaDkIl7h/OsEo4K99glG
+ CUIcVhm5tAHev1qpJo8/e8Q3ykPKbgQZoLPnRWjdGm4ydAIUdlkg7T5ia49pzdZ/XxdXu+lSTkm
+ jVaTWHnYU8QcSwJsMcwSC8J3md+CnDeUCjXxv6ZQoPixvQLlBWimr8iXO8wZl3U+RLaPf/OdNfc
+ j9vroW5NHxJDWr9u4R8LLq4JeXizH+ogxf/jb8dLR8dvWDb00xatQDnaqrpTOMm7v5nZlu/8dc+
+ vIvAHtsQAHUaAeRVr4g==
+X-Proofpoint-GUID: D4E5aUFc5Tf8CBTtL7L-7SxZ69JWY4I6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAzNyBTYWx0ZWRfX3WcLMMWHyRg9
+ u5NXiOBnqrSs6VCpR9uYlc2aGU+l2/3DGURmYF8JQURApAI5yxkmzfJx/hQcwUcALfrjSIS/f9r
+ EuCLmRKMOCJ+WmAFiO8YqaSOA+f0DLs=
+X-Proofpoint-ORIG-GUID: D4E5aUFc5Tf8CBTtL7L-7SxZ69JWY4I6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ suspectscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160037
 
-On Tue, Sep 15, 2026 at 01:00:00PM -0700, Kees Cook wrote:
-> Seems like seq_buf would be better her? But yes, at the very least, this
-> needs to be scnprintf, not snprintf (or add the checks as you have
-> here).
+
+
+On 9/15/2026 7:45 PM, Patchwork Integration wrote:
+> Dear Wenmeng Liu:
 > 
-> The rest of the seq_buf conversions look right.
+> Thanks for your patches! Unfortunately the Media CI robot detected some
+> issues:
+> 
+> # Test checkpatch:./0001-dt-bindings-media-Add-bindings-for-qcom-nord-camss.patch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #24:
+> new file mode 100644
+> 
+> total: 0 errors, 1 warnings, 0 checks, 393 lines checked
+> 
+> # Test checkpatch:./0002-media-qcom-camss-csid-Add-support-for-CSID-900.patch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #41:
+> new file mode 100644
+> 
+> total: 0 errors, 1 warnings, 0 checks, 389 lines checked
+> 
+> # Test checkpatch:./0003-media-qcom-camss-vfe-Add-support-for-VFE-gen4.patch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #50:
+> new file mode 100644
+> 
+> total: 0 errors, 1 warnings, 0 checks, 237 lines checked
+> 
+> # Test dts-bindings:test-dts-binding
+> Documentation/devicetree/bindings/media/qcom,nord-camss.example.dts:25:18: fatal error: dt-bindings/clock/qcom,nord-camcc.h: No such file or directory
+>     25 |         #include <dt-bindings/clock/qcom,nord-camcc.h>
+>        |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> compilation terminated.
+> make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/media/qcom,nord-camss.example.dtb] Error 1
+> make[2]: *** Waiting for unfinished jobs....
+> make[1]: *** [/builds/linux-media/users/patchwork/Makefile:1714: dt_binding_check] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
+> 
+> 
+> 
+> Please fix your series, and upload a new version. If you have a patchwork
+> account, do not forget to mark the current series as Superseded.
+> 
+> For more details, check the full report at:
+> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/110294816/artifacts/report.htm .
+> 
+> 
+> 
+> Best regards, and Happy Hacking!
+> Media CI robot on behalf of the linux-media community.
+> 
+> ---
+> Check the latest rules for contributing your patches at:
+> https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
+> 
+> If you believe that the CI is wrong, kindly open an issue at
+> https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-all
+> to this message.
 
-This driver has been an orphan for a while now (we just made it official) so
-I'd prefer it if we don't do anything here.
+Not a issue, linux-next branch already have this file.
 
-And yes, that mega CC list is just gross.
+Thanks,
+Wenmeng
 
--- 
-Regards/Gruss,
-    Boris.
 
-https://people.kernel.org/tglx/notes-about-netiquette
