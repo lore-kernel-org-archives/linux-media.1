@@ -1,16 +1,16 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A66382F35;
-	Wed, 16 Sep 2026 15:15:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7673AFAED;
+	Wed, 16 Sep 2026 15:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571703; cv=none; b=mIW78LlaoQhZOi+dvi2+/KMauEQevTvGq1vtHPmTsISRCOhv0jNY7NGySj/hGwPcyzsEFQfDn1+Qxq0CoGkT/JSVciEjTdlMSiAISe5vFPdUv31HZwB4o6XKVq2SwB6Utcewe9ZwJfoWxTbFgBARTTm13hQDbqSzjTVsd00KumA=
+	t=1789571707; cv=none; b=c9ILrzDkJy/DBEdDZWuWg7xRVrDqbZKVe1UiGXy/fCiwBrIq7/ufgUbtole4WOleqeDidWVL/hopjmVmU9FS1hH2pkYr7ebxQodSE9bsM4ppi0mYlgBRONHdfkKGDiNC9ZIbRzst2uT1jy9A5sG6uuIza+bxCKIDFqXf0RxazfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571703; c=relaxed/simple;
-	bh=yxFG0aC/dfArZCiuejwoEokZSKztmcMpVr7xcbfJCd0=;
+	s=arc-20240116; t=1789571707; c=relaxed/simple;
+	bh=ygtkTR8WXgTZZeBapS+R9oHRk6VqN+yFXE46h+6kcms=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NfQ2umrY/p6IWn/Vg4qgD0uDLilLxmqBIvGoPe4VC0Cnbvj50kFzeZiPEihETjNcO75SS5YJy4odBeY/GOXqv4qI1fkzFHxkpqhPboIAJKK59UoRKunYtKVGeRgzONaUDvAjHGriXOu18qR38TOEGXZeI1/A7WjhvSMt3FTT3LY=
+	 In-Reply-To:To:Cc; b=ZlkAGQPysVM0VTZSgmf+kKdJo0GPL8egAJYeykqaRwBPls9krQPrxJzN2krGPq+QSqFgOoe3mHzK6I10BhBQ1vmYVm32Y05YJkYhn6kRLnskzHZvfVDTOKkCxQc19/pqFOwceToG32Tn4QH9i2WG7f2m5GmfLqL71Ll1bKIAPH0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
@@ -30,17 +30,17 @@ X-PTX-Original-Recipient: s.pueschel@pengutronix.de
 X-PTX-Original-Recipient: m.tretter@pengutronix.de
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A5AD3205A03;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D4618205A07;
 	Wed, 16 Sep 2026 17:14:58 +0200 (CEST)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1x6rGn-001Fsx-2l;
-	Wed, 16 Sep 2026 17:09:57 +0200
+	id 1x6rGk-001Fsx-2z;
+	Wed, 16 Sep 2026 17:09:54 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 16 Sep 2026 17:09:57 +0200
-Subject: [PATCH v2 16/17] media: rockchip: rga: put all cores into first
- core iommu domain
+Date: Wed, 16 Sep 2026 17:09:53 +0200
+Subject: [PATCH v2 12/17] media: rockchip: rga: move rockchip_rga
+ allocation to master probe
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,7 +49,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260916-spu-rga3multicore-v2-16-23aa2cb74e61@pengutronix.de>
+Message-Id: <20260916-spu-rga3multicore-v2-12-23aa2cb74e61@pengutronix.de>
 References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
 In-Reply-To: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -64,71 +64,96 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-Put all cores into the iommu domain of the first core to allow them to
-be used by any core. All buffers accessed by the hardware are allocated
-on the first core, as the scheduling to a specific core is done after
-the allocation. Therefore put all cores into the same domain to have the
-same iommu mapping on all cores.
+Move the rockchip_rga struct allocation to the master component probe
+function in preparation of enabling all cores. This also adjusts the
+allocation to use the actual number of cores found in the of tree
+instead of being fixed to one core.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
-
 ---
-v2
-- Fixed domain not being an err ptr
-  (https://sashiko.dev/#/patchset/20260606-spu-rga3multicore-v1-0-3ec2b15675f7%40pengutronix.de?part=14)
-- Detach domain on unbind callback
-  (https://sashiko.dev/#/patchset/20260606-spu-rga3multicore-v1-0-3ec2b15675f7%40pengutronix.de?part=14)
----
- drivers/media/platform/rockchip/rga/rga.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/media/platform/rockchip/rga/rga.c | 32 ++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 5348fcc03c525..b2eeae0a61771 100644
+index 367df0ee7b02f..37ccac5b406a4 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -10,6 +10,7 @@
- #include <linux/delay.h>
- #include <linux/fs.h>
- #include <linux/interrupt.h>
-+#include <linux/iommu.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
-@@ -761,6 +762,19 @@ static int rga_core_bind(struct device *dev, struct device *master, void *data)
- 		  rga->version.major, rga->version.minor);
+@@ -741,7 +741,7 @@ static int rga_parse_dt(struct rga_core *core)
+ static int rga_core_bind(struct device *dev, struct device *master, void *data)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct rockchip_rga *rga;
++	struct rockchip_rga *rga = data;
+ 	struct rga_core *core;
+ 	struct video_device *vfd;
+ 	int ret = 0;
+@@ -750,17 +750,6 @@ static int rga_core_bind(struct device *dev, struct device *master, void *data)
+ 	if (!pdev->dev.of_node)
+ 		return -ENODEV;
  
- 	if (rga->num_cores) {
-+		/* Attach to the first cores iommu */
-+		struct iommu_domain *domain = iommu_get_domain_for_dev(rga->cores[0]->dev);
-+
-+		if (!domain) {
-+			dev_err(core->dev, "Couldn't get domain of the first core\n");
-+			return -ENODEV;
-+		}
-+		ret = iommu_attach_device(domain, core->dev);
-+		if (ret) {
-+			dev_err(core->dev, "Couldn't attach to the domain of the first core\n");
-+			return ret;
-+		}
-+
- 		/* we are not the first core, expect that we have the same version */
- 		if (rga->version.major != version.major || rga->version.minor != version.minor) {
- 			v4l2_err(&rga->v4l2_dev, "Detected multi-core setup with different core versions!\n");
-@@ -788,6 +802,14 @@ static void rga_core_unbind(struct device *dev, struct device *master,
- 		if (rga->cores[i] != core)
- 			continue;
+-	rga = devm_kzalloc(&pdev->dev, sizeof(*rga) + 1 * sizeof(*rga->cores), GFP_KERNEL);
+-	if (!rga)
+-		return -ENOMEM;
+-
+-	rga->hw = of_device_get_match_data(&pdev->dev);
+-	if (!rga->hw)
+-		return dev_err_probe(&pdev->dev, -ENODEV, "failed to get match data\n");
+-
+-	spin_lock_init(&rga->ctrl_lock);
+-	mutex_init(&rga->mutex);
+-
+ 	core = devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
+ 	if (!core)
+ 		return -ENOMEM;
+@@ -941,9 +930,10 @@ static struct platform_driver rga_core_pdrv = {
  
-+		if (i) {
-+			/* Detach from the first core iommu */
-+			struct iommu_domain *domain = iommu_get_domain_for_dev(rga->cores[0]->dev);
-+
-+			if (domain)
-+				iommu_detach_device(domain, core->dev);
-+		}
-+
- 		rga->cores[i] = rga->cores[rga->num_cores - 1];
- 		rga->num_cores--;
+ static int rga_bind(struct device *dev)
+ {
++	struct rockchip_rga *rga = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	ret = component_bind_all(dev, NULL);
++	ret = component_bind_all(dev, rga);
+ 	if (ret) {
+ 		dev_err(dev, "component bind failed\n");
+ 		return ret;
+@@ -968,6 +958,8 @@ static int rga_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct component_match *match = NULL;
+ 	struct device_node *core_node;
++	struct rockchip_rga *rga;
++	u8 num_cores = 0;
+ 
+ 	if (!match_desc)
+ 		return dev_err_probe(dev, -ENODEV, "missing platform data\n");
+@@ -979,6 +971,7 @@ static int rga_probe(struct platform_device *pdev)
+ 		of_node_get(core_node);
+ 		component_match_add_release(dev, &match, component_release_of,
+ 					    component_compare_of, core_node);
++		num_cores++;
+ 
+ 		/*
+ 		 * As multi core is not implemented yet,
+@@ -989,6 +982,19 @@ static int rga_probe(struct platform_device *pdev)
  		break;
+ 	}
+ 
++	rga = devm_kzalloc(dev, sizeof(*rga) + num_cores * sizeof(*rga->cores), GFP_KERNEL);
++	if (!rga)
++		return -ENOMEM;
++
++	rga->hw = match_desc->data;
++	if (!rga->hw)
++		return dev_err_probe(dev, -ENODEV, "failed to get match data\n");
++
++	spin_lock_init(&rga->ctrl_lock);
++	mutex_init(&rga->mutex);
++
++	dev_set_drvdata(dev, rga);
++
+ 	return component_master_add_with_match(dev, &rga_master_ops, match);
+ }
+ 
 
 -- 
 2.55.0
