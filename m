@@ -1,95 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCA54BD37E
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 16:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577808; cv=none; b=ivWiQ65+oRUcIAMJMD1woYZcmdoZl7DpQyPxOdcpOUhZPRzQAK4WjaqBm39U0ATi2kQjijmfTCMNVhglSpeDp31xkC/m5I8SZt/sZ57GvDNgd5G47jeoB2ppItIA9vJiIifPL0onF64y8WWV13UIZTNTdl+rtZV59hz653t6vY4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577808; c=relaxed/simple;
-	bh=fuqbMSXmKaVksZQ0mp9Ucbs7t4/StAc7bwI5H6qAaCU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hWk/UfNCfsRWwNXlWCDlEGm804YGuG1JrypgWdiFSUZIuFor76PyT7icYPy3WTsXd/+NquHTiTYekN1opt50gDd7HQIWx9iRpjwjfN6r0YR/ElV6DuhDoQj8qI5ewrrhHZjaWeJkQf4Yt/bUm8eQaC6EMfy7noKAk7xLgqp7Qso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cg/A8+VC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7CC1E0DD8
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 17:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789578484; cv=pass; b=VK9YsMUF8U14tngGHNAlQggz/vdipbRBY0hM2OTiW3uHoV3M4tbgZy3fJ2IC9UJ2K6mU3WyQ7OQOIj3d8nHxJgEuK1WxSfDx5CkOE2Lg2YQbslq7pB2EdRr3nmu1DgFl4E7SqaDUj1iUJcWbzgsDprbdK3MYl00WgfcE5cffxyk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789578484; c=relaxed/simple;
+	bh=kxjCVLD3LjsOhqL0d8VPNaJDf4RDg4aXxoVoBWW7dgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h8pRqGv632aw+k4GuzZk1KvjAFVnixaN+ubXRFmraMSe8PPmbSqlOM7zIqP2RbfPfqgp8qwavSstglKEii5Dhc0SEKqMtYhiPDf8jL7tEGFBRtB//r6Uf1zpxl9b8V6/RntvoeBliBwrXnfzfkOP4yBwqwrmPZ2FlYefJwdBZKE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=gkP2uX/9; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cg/A8+VC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76171F00898
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 16:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577791;
-	bh=fuqbMSXmKaVksZQ0mp9Ucbs7t4/StAc7bwI5H6qAaCU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Cg/A8+VC9E080TzyvTpxu0YnPUmsHYmEPc7xtw8lOlwVWQFVXT213KsByPqqSIU2I
-	 YKezTVvqkqyFj8RCV6X6z796z+cgGL3/V6KKfDg+c71b1lvwwgWiG1EI1uwu/m3Th0
-	 3PiWWmOGjEHneUgz6Si80Fbz7NLf7VJpVq/lxnf4hkRztmLGONXApvwq5Bj6ihxbnh
-	 2DEb0f9/ARGDI62c/9rCPp7kYe7gh6X3Np4O26+gdKgWFKq9/xbV2rRVt1oCMkC32O
-	 lt6rPATnGQ4rlLkFzK27Q7Nts5BzFzoK5WLviocUhwMjzceCEZEyQbrc9KdJxu4ARU
-	 QjSSuos16jzVg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b76ff64d78so1067070e87.1
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 09:56:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzrhI0KM2IUbwBoz9fssGmrTQMMdOUxFlG8z/9XbSXi6TIuzTSA8OogX8EpYo/G1lb/3cp4L7vO+WzuUw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lmWOuvzBklYg+KB2SCzFjrsp7yT1Oi1YM+7+gKW9RcD+WlSb/v
-	amizSxOmvF2luYWTkNdbynrySAgOTvY3SR2odYK8jaVequck8mks0oAIuhi9KdgzFuYa7FPLAoK
-	2OZsUCnZO6HvbsUPBHC1MgzmeL4bvvYQ=
-X-Received: by 2002:a05:6512:3a96:b0:5b6:1a7c:59dc with SMTP id
- 2adb3069b0e04-5b8b66504bdmr1056044e87.54.1789577790547; Wed, 16 Sep 2026
- 09:56:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="gkP2uX/9"
+ARC-Seal: i=1; a=rsa-sha256; t=1789578472; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=k0BblBnTqgf3eygKZEvZmHVSMb0d+OsPJmJmncnY1tCv0G6cCKK9Xi3kJLPkQyxKNT4u3YhODQK9q1hFyJgGpKCQkwC+iLEWZWLzwoyeD8UqBQvCjyaJsTfdZ+wQkmRw1SNUIDO5aVQpey9vrZ3HNsehYAysJWBT4f2wjlF0xr8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789578472; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QzJV4EBZ/ZPPkHNUSlAM078NEu5vA95C97LBNrhtpQo=; 
+	b=Gg9tBQj5e1HefZVI2gNOX4Zzolw+B9VN3VYtEw0vNDdPQkGdyj2ciDHYkExT9ThLujTVNHsyW/lpVja+A0TA0l3AwF8CWam0L5ubPxAu2Q8U1pFFb40E+jZ7VxiwkaiKS2auGYYeOLgSNAsCxELsG0OUsTS2riOWD7tuonSPD90=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789578472;
+	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=QzJV4EBZ/ZPPkHNUSlAM078NEu5vA95C97LBNrhtpQo=;
+	b=gkP2uX/90T+O3XNAR2uvUEEyEA07NRJdkY7yliySTBdM6862FVAs8u3pGxhZbv9b
+	HlIkBUysR9FbTO4d53BCWbb+OV6n0z7b6rRlZVirx5rhfPfv7gCV/IhnoDCGNcA1HOm
+	JEHfMdOx1TUdVnz8i/WW56YyWTCvs6LHeI2hla38=
+Received: by mx.zohomail.com with SMTPS id 1789578470483327.4383597870594;
+	Wed, 16 Sep 2026 10:07:50 -0700 (PDT)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org
+Subject: Re: [PATCH RFC 0/3] utils: Add the v4l2top tool
+Date: Wed, 16 Sep 2026 13:07:49 -0400
+Message-ID: <e_sk-IZPRRGozyk_ZJz9zA@collabora.com>
+In-Reply-To: <20260916173305.00aa071b@localhost>
+References:
+ <20260916-add-v4l2top-v1-0-470629ba5ffa@collabora.com>
+ <20260916173305.00aa071b@localhost>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-12-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:56:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=LM2agPEcCxjtQuCNx4q7zqutFA6oDb61kKEDAADR4Vw@mail.gmail.com>
-X-Gm-Features: AcwNN1Uahpnh6JEjJOB4HtYt7IIRQWlpnYcwXmBiixUkMQ8clPYYJyQ4xy80br8
-Message-ID: <CAD++jL=LM2agPEcCxjtQuCNx4q7zqutFA6oDb61kKEDAADR4Vw@mail.gmail.com>
-Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
-	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
-	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-ZohoMailClient: External
 
-On Wed, Sep 9, 2026 at 3:23=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
+Hi Mauro,
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> This driver was used on the i.MX31 ADS reference board from Freescale
-> and the smdk6410 reference board from Samsung. Both used platform_data
-> based driver probing and are now gone from the kernel.
->
-> Since probing with devicetree has never been supported by wm8350,
-> it is clear that nothing can use the driver on an upstream kernel,
-> and it is unlikely that anyone is still interested in a devicetree
-> conversion, so remove it.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+This is strange, maybe a b4 bug, because the commits have the v4l-utils in the 
+title, it's only missing from the cover-letter, for some reasons. I'll have a 
+look at what b4 is doing.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Detlev.
 
-Yours,
-Linus Walleij
+On Wednesday, 16 September 2026 11:33:05 EDT Mauro Carvalho Chehab wrote:
+> On Wed, 16 Sep 2026 11:20:41 -0400
+> 
+> Detlev Casanova <detlev.casanova@collabora.com> wrote:
+> > Hello !
+> 
+> For consistency (and to help scripts we may use) add "v4l-utils" at
+> the title, e.g.:
+> 
+> Subject: [PATCH RFC v4l-utils 0/3] utils: Add the v4l2top tool
+> 
+> Thanks!
+> Mauro
+
+
+
+
