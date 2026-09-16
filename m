@@ -1,274 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020096.outbound.protection.outlook.com [52.101.225.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE44A3CBE80;
-	Wed, 16 Sep 2026 05:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789535890; cv=none; b=tLEQWxBcadMgufIpjnPAT3ndqi+CjEjop4nBcYHaqCnEW2NcsjRdmlTflmFvB8B808Z/H/8tAjNOELZqwsXWEj7cj//KsvG8rRzBRhWiTo54TxCVhICBsGRA3Gdyn+3JAX9eBmVgBAjvGfLOYlWPTvYoZ5DGDyhEBgnK21mbT5o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789535890; c=relaxed/simple;
-	bh=7K9m8F0mD1KG4TcDKDJKxVH0VueNV6FDVlQ8Ad7+dF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hGPTKHZ92TpuSD2C8TmzSunC+TMvJ7tEfS8K0XnO2qUiqGDZMn81ismRfrDNV2vqYuoqKxeiRX7HuBWtor+MElLUw4JB56naXa7mX29Rro2ZxGFnEYH96UHA/0KIKayl4yaFM0iGVc6DwLnzQH88xMvy0B901cHpwpHTVvmuQ+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pd9w6tb9; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pd9w6tb9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789535885; x=1821071885;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7K9m8F0mD1KG4TcDKDJKxVH0VueNV6FDVlQ8Ad7+dF4=;
-  b=Pd9w6tb9mhG5ljwwppW1v5mbGVRPq9YIWp5wRjCranDIsp2qf99VnspJ
-   NotvAz4FI+Aou1X6o/kNOo+6hBmbu1hiwBrv1yH6xicVwgBrM0DbaHZcR
-   86pqOAblgiYdkPCnKqHGtJwt4wCu4mOgY+y1IJ8Vjp/9vmj7XUh9Hwjka
-   s+FSgvzOMRk2/hJ4eT4TqNkQBThfyOiWTJzECfkN0AhhpIMbUiebzLq8o
-   bt83FzYbcLRKOUAGCeg9LHdofpUrg+pPMUzeguXB5oCI4EFH34wfC/p+1
-   He7ciRQDHyth9MkF0KVipPFcpYLkarIln8tlv43yv90Mjo9XrniApOVJq
-   A==;
-X-CSE-ConnectionGUID: fOMs1mN3TniWtEJI5hn/mA==
-X-CSE-MsgGUID: U3c0mfJNQO+fFbxIzwWH5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107416577"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="107416577"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 22:17:59 -0700
-X-CSE-ConnectionGUID: e4iKesyjTzeod7b1HLHAUQ==
-X-CSE-MsgGUID: i4wUTo/ZSzGY0adSHgPQTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="267017284"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 15 Sep 2026 22:17:56 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x6i1p-000000005X7-0J2U;
-	Wed, 16 Sep 2026 05:17:53 +0000
-Date: Wed, 16 Sep 2026 13:17:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A8C349CD2;
+	Wed, 16 Sep 2026 05:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789538042; cv=fail; b=RAucLh3ZhAu5SsI4rYNppMSmxIMbR9bo5Onew+vCo4QsK5qMQhlZ3Dyafex5lffD734XCiavb5Fc3bZrvvfoPVTf6/oH3twWVeKzBy0pITEC/fqBHI9WQo1wFRHDrYh9j/dNxmCapCyFa2L+ln8/kXZu0sIWdMii8NcxsbkfLeE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789538042; c=relaxed/simple;
+	bh=1/+ACbYpEBng2t4qWNxJZzQ92PJmBdqIggqBak3Qkbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JajyXQfbPNeyFzkeGTryeXLzB87SlC66aiYSxPUn4+wAlxOMvSvEphi5026M+z3kdH8zYtEgXabEQuPbeHrbQkfV+Sb3J8t8agm5rz++KvqW3vU2De2rkNH1xquOpQ6ETOzCHUmrgXGgQMVqG5SNUVQLfytfTuP2VUlxi2nxbNw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Csa7asPPW9CzNVVP30Fk9mK0KHbGcjLHmDO+iT+3UvvSFfgFlI671c7SwtII4sQrLfsb0yQMvPanNap1fYP3UkSQ6h8ILXcUPJx8AfnUNTf7yOu4YnjonbuHC/pBzPqgKjk4+a5zGrqCjGsMKGg8LIQO1tNn2HKEp706TUvotHfpDLaNYOt1FI5Rfj2n8vHTdwjGEkEaILNCdLkaPoTzsRU8FxQDHqtUClI9OcLF8JQLBUZIbLocxIioR9OISBJMcM4y7jreQ4WM4/e9P4WzQEg/KW1UvtLKhLlu5NETv3U1xRysUeBajRPLHJRbHu3QTbCeZShC0iTVvJub5NL+Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PbQOIOZh4WJJ87DhgL1nYOKMZkHNc6sqQvvuGsP+ZB8=;
+ b=m7OBafNKMFkIpAUOYpkQwag21L8A3UZk7KdB//5Zs4GnSdmOefbVXVlAtxxbXgldAC/mpe92IFKDrapf7bAjJwUFoWAkzCLkAGnlRzT+S3Jjczrwvebew+kRlmwasLFJhWjkUvEoPUsisqrpBu1QX8ZORxFTrjBup8TObdUY5jQcOTP6/r586CzuyiHD22lcp3L33rt6mCWvt/ZQEXEkYbZQLq5uraba84uEHj3K6jA2V9MkMJRtSjZ2+8OMMn9BlS1lW3rA3WjqczvUcpw9VNsk2ZuVCfFkyw7V5u/b9ERIYBnHfbts6J8gdyB6nbCVWN1DD4PmmH2wDpXVam1HDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
+ by MA5P287MB4465.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:195::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 05:53:56 +0000
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 05:53:55 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+	Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
 	linux-media@vger.kernel.org,
-	Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] media: venus: avoid HFI resource leak on IRQ request
- failure
-Message-ID: <202609161343.qH6ypqkG-lkp@intel.com>
-References: <20260915123009.2420780-1-lgs201920130244@gmail.com>
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ravi@ebytelogic.com,
+	Hitesh Patel <hitesh@ebytelogic.com>
+Subject: [PATCH v2 0/2] media: qcom: camss: SC7280 fixes for the streams API series
+Date: Wed, 16 Sep 2026 11:23:44 +0530
+Message-ID: <20260916055346.520826-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915121536.19207-1-hitesh@ebytelogic.com>
+References: <20260915121536.19207-1-hitesh@ebytelogic.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYP287CA0104.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2bb::9) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::97)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915123009.2420780-1-lgs201920130244@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MA5P287MB4465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79850c8b-6bc4-41ec-2ee2-08df13b6e4e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|52116014|23010399003|1800799024|366016|10070799003|22082099003|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	xsdLhrBIMH2O4lKoI3omJRTMwEL0G0SyCqakRraf/p7akIzWofPVeUMHHt2Hb3/EmbqlvcQFalqht8F5DIgaKMPgNrE/WmJ2WEa5MzOmX73RxvmLwFqtrbj11409LY4oxpJvyUh+vQu5b5CZCLBE7aO4UOoAHIrvGYuQOQXCfjP/XlonSvtprclyMpNXnHOoJnfUYOSte84KYZAwVHt04n30Kfek4e84NIX9aMwOpKldHDO4PeryvK/L5lqd4hNKCYqSL2eiWfx9vlOd3M4FLPgf8WRQwgAol1zwqmKgMqHKoIqWZtwdziqqd9T5UezkJ0w92XTrZMVB/1p3f69zu3Qy9l14LmngEYKURsmY9FGPm1su+kRpUfam6sXmc3/CDRswDwUveqKhVBrg1ZkDDtrhyL8qpKIviGbQMmt5CcOMPPawFtNylad76XLnfrf/a569xqciZ9XO0CfYU2tBrVa0Ac27OKyYuXUFCI1EeMYSSI4H0EEaYs8TIpwUeimF+W/S8vuY99rvrzF43/nU9if7n4M/7zgjQ+E61Asrsaq6XWe4hFzBIXY5kRVFTTO0GANFV171/wPut+P+tWE1tP3ZxQwxsSpB/aBUg2ObqG+WtMNmARBouaqVlp73AtbBhAXDVwXWOW02ctLZt/BTuK3PjCpinUrtn6LFZVFdbuo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(23010399003)(1800799024)(366016)(10070799003)(22082099003)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?GorVLxtDcP+xsyehkz/VgheF8nqsXFsseZABK1YGpvPH/TlY1HXwWyxKl2KS?=
+ =?us-ascii?Q?GXYXxRoQJzehNFcF2UIjBZ6trH6ytAjslvvF+UzO/lSf8a7GBsDKLv6ly1At?=
+ =?us-ascii?Q?jigDjZh2dKFZ4lbOcpTy9FmAJA3F+k6BpYo6w7UUvcLWNCFKWm8U6DWbWSvK?=
+ =?us-ascii?Q?mPSQs5dN7DPBejycx4kSaJCcM9pRefZ5vEkD8+MvblVdGMoypwSsEUEdiRpZ?=
+ =?us-ascii?Q?q8XtpUeoJD0Gyu9K1QVmZwdCqOif3gp/wN0sB41ksh8M/RO6xao6D1fcx06m?=
+ =?us-ascii?Q?x21Qt5FijeJBNtSm1yXWNP+BnDtSEWQ0QtF+tw/5VfyxkMOa8o5E6FMz6x6R?=
+ =?us-ascii?Q?R0jyrvyjFNWyzCSWjT24LaoYDPZQgNp64n4da0Y8iD/q4opiJlSxMW8gXqsC?=
+ =?us-ascii?Q?pZ5iXzXaF81m/wL6u7JSaQnFGNwcQB7UOQKkteaWm9RD4/7uMtUy1o3wiDJH?=
+ =?us-ascii?Q?XCvQ2JA26K3hgEnYuulZ7IT5r3oH6rS4rWEQEoa57h/yZH7t+WDzff4MP9c3?=
+ =?us-ascii?Q?7d4mlkt41ZQFCxCw3rcQPetGx0OnIMTUUg0NokrSiW7WZTg7LUbjGRLsH70D?=
+ =?us-ascii?Q?g29KWpQGK6Y5X1JNeti0oxuTqwM7fPr2KXucvNi0nLhBDa91CMNAjq6/6Slr?=
+ =?us-ascii?Q?rFwZEwuLodsczqtXL50xMpC1UbNfuMbWjsHQQrvSIhn6SsmJz5ppOzE443c6?=
+ =?us-ascii?Q?49ytdCF6J+xwZRw8g/38bFe87Mva3gHEAgU1uzJQ2QKrpCNiehaR1P5RdyQG?=
+ =?us-ascii?Q?a0PZwCvlbOYregszr9fVC8xm+kdPjNuOCWeWG0Rxpa95mpe5NwtI8YvCnWyb?=
+ =?us-ascii?Q?u0HthquToe9lRMk9Gg7pLj3LkqroGNd+fhPhwkBU7gziPswZMPNNqQKXmht+?=
+ =?us-ascii?Q?/8qy1O33vLzGA9yuA1qDaKMxWXGTr7G1nLF9M3OckjpcuOyx3I/swzpsBuBT?=
+ =?us-ascii?Q?lRvafWWTq2IWTUOwnnq9UGHgQrkSNMZeXrxFR1mUkgkQmO3s9Cjv5XBoXgI0?=
+ =?us-ascii?Q?XkhPa/onfGrsCm1k85on7pXNdAeAsDvE7Tv3mqx6A1O20HuJ2kGFLwR0hDFO?=
+ =?us-ascii?Q?EYbAIrCzSxkwEOG0XuLkJH+ktEUKhtEbLjZLypYv3s020V6XZFDjJK/szyXZ?=
+ =?us-ascii?Q?1M7t1Gz4PWxjrLZWxcYqYYKbUwPOWFc2D9rqKINajhkUSNB7cWKgoTJWFgmh?=
+ =?us-ascii?Q?UCuiyzdDSUx7DW5mWYgEKC06H426xTxF3pB6TMxnTVMrwMqlyUViIn7MxiOg?=
+ =?us-ascii?Q?OFP1aHeluQ226A7PhBsHBW2buXrsstmz9seNLkaqfD8RTA+Dj2brdNq+CPDq?=
+ =?us-ascii?Q?nnE9iTXPPOTfFc3ZQYWh6a227mJPZwQVs1DlQKkSpbbXbGrgzgdPBCSBazRj?=
+ =?us-ascii?Q?h1l9DcU9nwG7HPv1R3Bvlslxw6hgY81BQa6T5QjpFo7XhlEunc0gXbDui8VG?=
+ =?us-ascii?Q?OpipTQB5l6NPDRzk3i4zCKZ4L/NW1dDdi8Yz9jb1z9ASaa/4s/fxphtnVMZr?=
+ =?us-ascii?Q?BRy91wu43F2E2ne+jLxzkMwfgmQcY0WOx64GWalpW7uHu038NNfYfW3x8owW?=
+ =?us-ascii?Q?QuZG5pZ1em+q7wG0r2PNLR1fdS6BCEgLKMS49Q8YjLEc267r3oO6yUtb4OgV?=
+ =?us-ascii?Q?VUivE8xTc4BMq4ynUiS9aNVPvuvphD/HcOwG+2b9hWWsLt0ONaEe216C2L4S?=
+ =?us-ascii?Q?blJl4hl6yAmUW6QRH2FToQjKz/EfALX78eB//TtdRq5RxHK8cS1qZaC74Ob5?=
+ =?us-ascii?Q?MF4FUFcRksB6vblZg5iuSxHqBr3t7iz01ejcHudwT3Ee99CDVVeWNLm7vi5m?=
+X-MS-Exchange-AntiSpam-MessageData-1: lkc7dCkjrXy+pQ==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79850c8b-6bc4-41ec-2ee2-08df13b6e4e4
+X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 05:53:55.8007
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hfEUUALsScoDPDdpYovDeX8Bu9o/whCNeuSIYwWMzrt+ZonIF9ksHjoaiRC2F2FawK+xqaqVbteiCfhP06CHow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB4465
 
-Hi Guangshuo,
+Hi Gjorgji,
 
-kernel test robot noticed the following build warnings:
+these two patches are the ones I sent on top of your "add V4L2 subdev
+streams API support" series [1] yesterday; resent as v2 because the
+Media CI picked them up as a standalone series and, of course, they do
+not build without your series: every error in the CI report is a symbol
+your series adds (streams_enable, csid_hw_ops.configure_rx/enable_stream/
+disable_stream). No code changed, v2 only spells the dependency out in
+the commit messages and in base-commit/prerequisite-patch-id trailers so
+patchwork and the CI apply them onto your series. I will mark v1 as
+superseded on patchwork.
 
-[auto build test WARNING on linuxtv-media-pending/master]
-[also build test WARNING on media-tree/master linus/master v7.3-rc3 next-20260914]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Since patch 1 is a fix to the series itself (every platform that links
+all CSIDs to all VFEs fails to probe once streams_enable is set on a
+non-lite CSID), feel free to fold both into your v2 instead of carrying
+them separately; whichever you prefer.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/media-venus-avoid-HFI-resource-leak-on-IRQ-request-failure/20260915-203009
-base:   https://git.linuxtv.org/media-ci/media-pending.git master
-patch link:    https://lore.kernel.org/r/20260915123009.2420780-1-lgs201920130244%40gmail.com
-patch subject: [PATCH] media: venus: avoid HFI resource leak on IRQ request failure
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20260916/202609161343.qH6ypqkG-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260916/202609161343.qH6ypqkG-lkp@intel.com/reproduce)
+Both tested on RB3 Gen2 (QCS6490/SC7280) with two GMSL cameras behind a
+MAX9296A, as described in my earlier report on this thread.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609161343.qH6ypqkG-lkp@intel.com/
+[1] https://lore.kernel.org/linux-media/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com/
 
-All warnings (new ones prefixed by >>):
+Hitesh Patel (2):
+  media: qcom: camss: Do not link CSID source pads the CSID does not have
+  media: qcom: camss: Enable the streams API on SC7280
 
->> drivers/media/platform/qcom/venus/core.c:446:3: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
-     446 |                 enable_irq(core->irq);
-         |                 ^
-   drivers/media/platform/qcom/venus/core.c:443:2: note: previous statement is here
-     443 |         if (ret)
-         |         ^
-   1 warning generated.
+ drivers/media/platform/qcom/camss/camss.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 
-vim +/if +446 drivers/media/platform/qcom/venus/core.c
-
-   379	
-   380	static int venus_probe(struct platform_device *pdev)
-   381	{
-   382		struct device *dev = &pdev->dev;
-   383		struct venus_core *core;
-   384		int ret;
-   385	
-   386		core = devm_kzalloc(dev, sizeof(*core), GFP_KERNEL);
-   387		if (!core)
-   388			return -ENOMEM;
-   389	
-   390		core->dev = dev;
-   391	
-   392		core->base = devm_platform_ioremap_resource(pdev, 0);
-   393		if (IS_ERR(core->base))
-   394			return PTR_ERR(core->base);
-   395	
-   396		core->video_path = devm_of_icc_get(dev, "video-mem");
-   397		if (IS_ERR(core->video_path))
-   398			return PTR_ERR(core->video_path);
-   399	
-   400		core->cpucfg_path = devm_of_icc_get(dev, "cpu-cfg");
-   401		if (IS_ERR(core->cpucfg_path))
-   402			return PTR_ERR(core->cpucfg_path);
-   403	
-   404		core->irq = platform_get_irq(pdev, 0);
-   405		if (core->irq < 0)
-   406			return core->irq;
-   407	
-   408		core->res = of_device_get_match_data(dev);
-   409		if (!core->res)
-   410			return -ENODEV;
-   411	
-   412		mutex_init(&core->pm_lock);
-   413	
-   414		core->pm_ops = venus_pm_get(core->res->hfi_version);
-   415		if (!core->pm_ops)
-   416			return -ENODEV;
-   417	
-   418		if (core->pm_ops->core_get) {
-   419			ret = core->pm_ops->core_get(core);
-   420			if (ret)
-   421				return ret;
-   422		}
-   423	
-   424		ret = dma_set_mask_and_coherent(dev, core->res->dma_mask);
-   425		if (ret)
-   426			goto err_core_put;
-   427	
-   428		dma_set_max_seg_size(dev, UINT_MAX);
-   429	
-   430		INIT_LIST_HEAD(&core->instances);
-   431		mutex_init(&core->lock);
-   432		INIT_DELAYED_WORK(&core->work, venus_sys_error_handler);
-   433		init_waitqueue_head(&core->sys_err_done);
-   434	
-   435		ret = devm_request_threaded_irq(dev, core->irq, hfi_isr,
-   436						venus_isr_thread,
-   437						IRQF_TRIGGER_HIGH | IRQF_ONESHOT |
-   438						IRQF_NO_AUTOEN, "venus", core);
-   439		if (ret)
-   440			goto err_core_put;
-   441	
-   442		ret = hfi_create(core, &venus_core_ops);
-   443		if (ret)
-   444			goto err_core_put;
-   445	
- > 446			enable_irq(core->irq);
-   447	
-   448		venus_assign_register_offsets(core);
-   449	
-   450		ret = v4l2_device_register(dev, &core->v4l2_dev);
-   451		if (ret)
-   452			goto err_hfi_destroy;
-   453	
-   454		platform_set_drvdata(pdev, core);
-   455	
-   456		pm_runtime_enable(dev);
-   457	
-   458		ret = pm_runtime_get_sync(dev);
-   459		if (ret < 0)
-   460			goto err_runtime_disable;
-   461	
-   462		ret = venus_firmware_init(core);
-   463		if (ret)
-   464			goto err_runtime_disable;
-   465	
-   466		ret = venus_boot(core);
-   467		if (ret)
-   468			goto err_firmware_deinit;
-   469	
-   470		ret = venus_firmware_cfg(core);
-   471		if (ret)
-   472			goto err_venus_shutdown;
-   473	
-   474		ret = hfi_core_resume(core, true);
-   475		if (ret)
-   476			goto err_venus_shutdown;
-   477	
-   478		ret = hfi_core_init(core);
-   479		if (ret)
-   480			goto err_venus_shutdown;
-   481	
-   482		ret = venus_firmware_check(core);
-   483		if (ret)
-   484			goto err_core_deinit;
-   485	
-   486		if (core->res->dec_nodename || core->res->enc_nodename) {
-   487			ret = venus_add_dynamic_nodes(core);
-   488			if (ret)
-   489				goto err_core_deinit;
-   490		}
-   491	
-   492		ret = of_platform_populate(dev->of_node, NULL, NULL, dev);
-   493		if (ret)
-   494			goto err_remove_dynamic_nodes;
-   495	
-   496		ret = venus_enumerate_codecs(core, VIDC_SESSION_TYPE_DEC);
-   497		if (ret)
-   498			goto err_of_depopulate;
-   499	
-   500		ret = venus_enumerate_codecs(core, VIDC_SESSION_TYPE_ENC);
-   501		if (ret)
-   502			goto err_of_depopulate;
-   503	
-   504		ret = pm_runtime_put_sync(dev);
-   505		if (ret) {
-   506			pm_runtime_get_noresume(dev);
-   507			goto err_of_depopulate;
-   508		}
-   509	
-   510		venus_dbgfs_init(core);
-   511	
-   512		return 0;
-   513	
-   514	err_of_depopulate:
-   515		of_platform_depopulate(dev);
-   516	err_remove_dynamic_nodes:
-   517		venus_remove_dynamic_nodes(core);
-   518	err_core_deinit:
-   519		hfi_core_deinit(core, false);
-   520	err_venus_shutdown:
-   521		venus_shutdown(core);
-   522	err_firmware_deinit:
-   523		venus_firmware_deinit(core);
-   524	err_runtime_disable:
-   525		pm_runtime_put_noidle(dev);
-   526		pm_runtime_disable(dev);
-   527		pm_runtime_set_suspended(dev);
-   528		v4l2_device_unregister(&core->v4l2_dev);
-   529	err_hfi_destroy:
-   530		hfi_destroy(core);
-   531	err_core_put:
-   532		if (core->pm_ops->core_put)
-   533			core->pm_ops->core_put(core);
-   534		return ret;
-   535	}
-   536	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+prerequisite-patch-id: 285e8b983e45d4184863e92ae99ebe46bb4f7020
+prerequisite-patch-id: e8dce2cee0678cc20446f3a4a286c4a3c10d19f6
+prerequisite-patch-id: d0bf82158d99863344c206a543d3e381b24a3b51
+prerequisite-patch-id: ddffbfdffba948a608fc556a5ca81b9dabae7e00
+prerequisite-patch-id: dca159c5eecf280ea7ce7c67f5da2364c8449759
+prerequisite-patch-id: 220ee607579892058879cad0ed9344f6696313c8
+prerequisite-patch-id: d7665451d090c8d4684c79736ac517d6c7ddc1fc
+prerequisite-patch-id: f297c801f0254862e4fc8440dbd27473a8b78159
