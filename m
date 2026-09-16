@@ -1,130 +1,214 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3604B1CF4;
-	Wed, 16 Sep 2026 18:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A031B4E50C4
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 19:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584958; cv=none; b=nIC/Ko0kLk4zJlClcwmUP6OehDK5AAo6iOGQ+oT30e28TtfPg9FVbhdBPhe1odZg1PiS1f6OMzci97Bxh0SN2KZe7UxiuL3WJVDLZUJGh9T0fowsA3yXCev+fia1CPkpdhtLglcNQR0y8mu3zK8lol0/AJicVKxWy2+eOKUW4xs=
+	t=1789585618; cv=none; b=WjZScMVmmd46pgxwFITKk96A1BvNc/86ohWHpbQtFq/H6bRmXkzAC2gxyS9seDGXtjTug02+SQtLKm0SCHewnRaxkwhImFU17Tapx39Gvy5XCJqvkWbZWtYtE0xjY6Pr1jefKSwvTxYqsJyy3VPv6fwcKZXUVvC9bi+7e8go1s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584958; c=relaxed/simple;
-	bh=iDDh9rOtsGUyyxFYcXXJCya+hH8rezrq4Xqy4y1T9gQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=EYGRAW/BRjYkINLrTCSmVpOa4qWSqf40xypiKbOkEfD7dxEj6jdWK11Alzfykbgk6yT3BuS9NRr/SMwZrZpMwD5N+umWePd1R31EGgg8OR0OXY5fPOP/0C4JyY5XMrhK6eBuAp9zM6N8BRZVosp7Uj6omWzYE95knJ47PseIKjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=h3TVpbqN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hyeGyjos; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="h3TVpbqN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hyeGyjos"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id CF4731400144;
-	Wed, 16 Sep 2026 14:55:37 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 14:55:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789584937;
-	 x=1789671337; bh=/BtudbvHRu5vzJceqkauvYyu2NJJyTRMpY980kdmrh4=; b=
-	h3TVpbqNxLPGNU1L/6m+55titLaTBtzYGupf2TwfcXj9AKi07zR3NgEAVqClFoUG
-	ecv/bJgRDndO73dqqKu/t6B6a2Q9KxPBoGPOtYZvVazCRUibALhs3r4d++r036wT
-	LtpPkJYS0OYGM6iyrhTv3fWS2AwHoKCTFdqffyTn5un3efpeGh9egItVJaRU8FWI
-	L0BeXz5tXX1iE8F3wJl4itOXdqPgMqdukfbL2MrTgV6ECDkhg3JHwsAcWs8jBFIl
-	l0ekRb2Pw99ECsVap8TzArQC9necHSesFg/xu6qcUalZauh7egeBXIvZicqoMix9
-	lWuhvmgGqSZA+kPv8L54Ow==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789584937; x=
-	1789671337; bh=/BtudbvHRu5vzJceqkauvYyu2NJJyTRMpY980kdmrh4=; b=h
-	yeGyjosr6lxSE48xI5z6OcG2VaQhK53GM03k8CUYk4h1+Wwtzx0xxpXBASO7Rela
-	ikDV+gjP89yVMtuaeapt68cgV+bC3aC1bO9aC7Lpl7BYwirpa8Le859syZhwhbfe
-	ZkwoSokVpsEtYGj1ilgeINo4sGyjZ1GnoAyYS7KSUneiO+WSQd3JwllMAW23eZyD
-	orR0JkNs2t7paWxabqrH0X/ZOhhod+lWZr95UT5UB+XnRf+sLWLMnqK9eDVZv+w1
-	33VA4jJKMFCOQztM3p0EFzn7cPbxGMhjjprhV4iH+DAFqZyebKsBzza4LKsH8lqs
-	OyWVvHWsnjJQ1Mk450Rcw==
-X-ME-Sender: <xms:JeaqaiQIn7mIlX0FWPQ6R6kdYxGjhb-x4tRDw61RFO0BVrR74Xi3wg>
-    <xme:JeaqaimjxX6lLO1LV5kN1zyrdYiz2ukkMAk1hCJxT-Z5LAZZNygF-zWlP1qiAH_u9
-    SSot_MR8pNcsjsd3Lrt4s8qPQ_82akOd0NoAbtI-Fey-VDHGkmtQzQ>
-X-ME-Proxy-Cause: dmFkZTGLyYyUm4JuU/6sohsGxDvYfjBOjcM4ZhfP5vW5Hs9fiAnR0fUKrvHE4IeNGmSPIJ
-    txTc8icooyBZYlby2hI0ys+xENm/ATr0gEPXcrvU/DZ47QA6AnGZxY9AQ/8/wp9yh2HRz3
-    eCJkQ/zjsBaRSOIyB3o1fL+lShjmU7VpINXZNyXbiXazCmJYQezX7kWBUe9apXKb0qpu5f
-    ZZbLJBOi+s/ANO3Be9B1E4PdGS3f8RgbGk6RFpNwHzaa8B+1+YOOISRbMUD0s1IL1Kwp4j
-    JsrkLnlr7RiGyH3brYTkY+CrN2pQoC0EK1/3UimY/IreWhOW+FhhFVay6+q68oLdVyr2jR
-    xVAcvn/ykTRis6p2J868NVQu8PyVoOJ32NxEzNbpaZKcZzaLSubeNIYAS6pUw2l0AoVTDa
-    0d43qKx0CcMhksPmWh7eJe+/JxjNUlqiT9pok4kjww27HVTv8WwErfv77Fgx5z/S95Iu60
-    PTwW+qD93Ug+sRlEvtFx3cnWr7EdDOkylLTwsEAcJm1NdiFZjhn8DQflzHNTjLVJSPpYYe
-    PDYxtNjKLATS8TuFV0lTmtz1nes+bE5HTZgrkDkANzIPmNfuqTkw18CdRj2GQers/qvs7X
-    nwjRpXWvC5aEy4wSRDEhAHXBySZRpn+PrHNJBDGvG6I0uWpq/wm7S4XzJyPw
-X-ME-Proxy: <xmx:J-aqatQxnHI1qyMs6Zmpj0Rv7nfCPRYjUXUF5eEA7BDJeMlib52b3Q>
-    <xmx:J-aqaiytbcnhtYLvEEVdeUDGN5JymtZC2iQRa9VoiKIcz0N_1p4udw>
-    <xmx:J-aqalCUm5xK0prz_pPrtBsySLzZr4V4RgepK6ddllKFIuYqDKL52Q>
-    <xmx:J-aqamHm8cHvnjs-_7epixrtSgfpARnEfdeDR93042MD-2RDOhLcEg>
-    <xmx:KeaqatFn6gsOA3yWNTNvJVgI5dqBUBacHFxZbd0lABS8tuBTleNHTZ6s>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id D987332A0084; Wed, 16 Sep 2026 14:55:33 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789585618; c=relaxed/simple;
+	bh=OI/zLBdcwWqcXJBcsdijqs7A/oYENRcAZRhIyGNfddw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=mISy2ez54O4nWUP7bwuEA4e2xSPlmRToq7zeYf6QtOtMlmc+9VrCI1MI08sFsyZpHwbmJoHM4fISsw5FOZKJpcJhq4NHKpPlh2M41DyK1ZSz7UTKNKUzn9b98mexSMGDPv/BBcSboULDp/j+ZRPXMnaFBr6509N2m361gkIUAHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f5.google.com with SMTP id 46e09a7af769-7f4e2118db8so5682a34.1
+        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 12:06:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789585600; x=1790190400;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XIPY72zdQv/KP29Dl1qeIzc7ZNVmzi1pbkW7l8G4bEo=;
+        b=kxIt1pe2QNfdDvkiX5cIMU3eUnZCaYQwbIJUdeSteoydMyim+Oe5JIg9GIret++plQ
+         OzcDAsXEKXm6Hg37yF/CsVKvG/vKlHwaQ4oU8KvoHql31VhpQE+9+TldpPhagnuq7QhY
+         i73FI/Sl63uwn48A3xJGKYnQqM9B72L7u/cIHfIJrlf6yZu7gwhruzaXZBUjlo3lGqpG
+         thoL6oLXeYSVyXUgxCJ0i7+8gR1tGQKPGqBk+s/VuMy9ktg61/YA010M9SsvrZc5QLfL
+         o+LogmEqwWdoeRPrn/eG4mdGVH3aY4NY0hY4C0Bn0Z4b+/O7KrZFifKYoRhcpjyeNxJx
+         /oXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwH5TQ0etzA0FiriSB/6913hR0AVrzUNS8oGMgQS87EPlWk211iKrVtl3wFtibzqI4hRBadqTnxR7DNNg==@vger.kernel.org
+X-Gm-Message-State: AFuF++mL5PEYrA0mBCoiQZCPH41IkHrjb6NLqZ+Tgemp6KyilDsVe1XY
+	QT8chhVnkp1JB5RNAR1gneg1/mEhXi/o9OVfc8RMmSLGA28ArAF59KsbYCrk8guRPcTbjbl8hsv
+	n34vWbMRfhvnsAyXGRkJjFoJlcTCVrZMk/ZqTzOlJBOwdAm24BCkKQGL34Pc=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AeUjof3PiXZ3
-Date: Wed, 16 Sep 2026 20:55:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Daniel Scally" <dan.scally@ideasonboard.com>,
- "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>,
- "Hans Verkuil" <hverkuil+cisco@kernel.org>,
- "Linus Walleij" <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <3052a817-3188-47b2-a95d-ec26aaa0d24d@app.fastmail.com>
-In-Reply-To: <335cf0a8-4c0e-4c07-8d81-c076ac73d329@arm.com>
-References: <20260915202458.3673504-1-arnd@kernel.org>
- <335cf0a8-4c0e-4c07-8d81-c076ac73d329@arm.com>
-Subject: Re: [PATCH] media: mali-c55: add padding to mali_c55_params_ccm structure
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:f94:b0:4c5:bdb8:e579 with SMTP id
+ 5614622812f47-4ca4ccde595mr6372904b6e.12.1789585599946; Wed, 16 Sep 2026
+ 12:06:39 -0700 (PDT)
+Date: Wed, 16 Sep 2026 12:06:39 -0700
+In-Reply-To: <6a88eb8b.ae6ddae5.3da009.004b.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaae8bf.e91c2013.3bdb06.0002.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] WARNING in vb2_video_unregister_device
+From: syzbot <syzbot+f26bc23e42eeb548dee1@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-usb@vger.kernel.org, m.szyprowski@samsung.com, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com, tfiga@chromium.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2026, at 17:43, Vincenzo Frascino wrote:
->> diff --git a/include/uapi/linux/media/arm/mali-c55-config.h b/include/uapi/linux/media/arm/mali-c55-config.h
->> index 84d8f3901405..9c922290e035 100644
->> --- a/include/uapi/linux/media/arm/mali-c55-config.h
->> +++ b/include/uapi/linux/media/arm/mali-c55-config.h
->> @@ -804,6 +804,7 @@ struct mali_c55_params_ccm {
->>  	__u16 coeffs[3][3];
->>  	__u16 gains[3];
->>  	__u16 offs[3];
->> +	__u16 __pad;
->
-> Does this field need to be explicitly zeroed/validated anywhere the structure is
-> populated? Turning implicit padding into a named member fixes the layout
-> warning, but by itself does not seem to prevent leaking uninitialized data if
-> this structure is ever copied from the kernel to userspace. It might also be
-> worth documenting that __pad is reserved and must be zero.
+syzbot has found a reproducer for the following issue on:
 
-It depends on how the structure is initialized. Depending on the compiler
-version and optimization level, a local variable declared as
+HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=151998c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+dashboard link: https://syzkaller.appspot.com/bug?extid=f26bc23e42eeb548dee1
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11ec93f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17e15bf9580000
 
-   struct mali_c55_params_ccm v = {};
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
 
-may end up with uninitialized stack data in unnamed padding, but if you
-do a memset(), that should always be safe. If the fields are set individually,
-then you also have to set the __pad field, but that's not how you do it here.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f26bc23e42eeb548dee1@syzkaller.appspotmail.com
 
-> I think you already checked that changing the explicit structure layout/size is
-> safe for existing userspace :)
+em28xx 1-1:1.0: Registered radio device as radio2
+usb 1-1: Decoder not found
+em28xx 1-1:1.0: failed to create media graph
+em28xx 1-1:1.0: V4L2 device radio2 deregistered
+------------[ cut here ]------------
+WARNING: drivers/media/common/videobuf2/videobuf2-v4l2.c:1264 at vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264, CPU#1: kworker/1:2/1094
+Modules linked in:
+CPU: 1 UID: 0 PID: 1094 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Workqueue: events request_module_async
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264
+lr : vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264
+sp : ffff800094617a20
+x29: ffff800094617a20 x28: dfff800000000000 x27: 1fffe0001945a826
+x26: ffff800087610300 x25: ffff800087611620 x24: 1fffe00018d04aa1
+x23: ffff0000c6825508 x22: dfff800000000000 x21: ffff0000c6824000
+x20: 0000000000000001 x19: ffff0000c6824f58 x18: 00000000ffffffff
+x17: ffff800083d9271c x16: ffff800083da2fd4 x15: ffff800083a47b40
+x14: 0000000000000001 x13: 0000000000000001 x12: 0000000000000003
+x11: 0000000000000000 x10: 0000000000000001 x9 : 0000000000000000
+x8 : 0000000000000000 x7 : ffff80008048e314 x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff800083b611c0
+x2 : 0000000000000001 x1 : ffff0000c74cbb00 x0 : 0000000000000000
+Call trace:
+ vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264 (P)
+ em28xx_v4l2_init+0x1320/0x247c drivers/media/usb/em28xx/em28xx-video.c:3085
+ em28xx_init_extension+0x10c/0x1b4 drivers/media/usb/em28xx/em28xx-core.c:1248
+ request_module_async+0x24/0x34 drivers/media/usb/em28xx/em28xx-cards.c:-1
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+irq event stamp: 35758
+hardirqs last  enabled at (35757): [<ffff8000804918ac>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
+hardirqs last disabled at (35758): [<ffff8000869841d4>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:445
+softirqs last  enabled at (35698): [<ffff800084c72d48>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:698
+softirqs last disabled at (35696): [<ffff800084c72d30>] local_bh_disable include/linux/bottom_half.h:20 [inline]
+softirqs last disabled at (35696): [<ffff800084c72d30>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:697
+---[ end trace 0000000000000000 ]---
+em28xx 1-1:1.0: V4L2 device video11 deregistered
+INFO: trying to register non-static key.
+The code is fine but needs lockdep annotation, or maybe
+you didn't initialize this object before use?
+turning off the locking correctness validator.
+CPU: 1 UID: 0 PID: 1094 Comm: kworker/1:2 Tainted: G        W           syzkaller #0 PREEMPT 
+Tainted: [W]=WARN
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Workqueue: events request_module_async
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ assign_lock_key+0xcc/0xdc kernel/locking/lockdep.c:1000
+ register_lock_class+0xf8/0x31c kernel/locking/lockdep.c:1315
+ __lock_acquire+0xc0/0x2a6c kernel/locking/lockdep.c:5128
+ lock_acquire+0x150/0x370 kernel/locking/lockdep.c:5908
+ __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
+ _raw_spin_lock_irqsave+0x5c/0x7c kernel/locking/spinlock.c:181
+ __wake_up_common_lock+0x30/0x78 kernel/sched/wait.c:125
+ __wake_up+0x18/0x24 kernel/sched/wait.c:147
+ __vb2_queue_cancel+0x248/0xa78 drivers/media/common/videobuf2/videobuf2-core.c:2244
+ vb2_core_queue_release+0x34/0x13c drivers/media/common/videobuf2/videobuf2-core.c:2677
+ vb2_queue_release drivers/media/common/videobuf2/videobuf2-v4l2.c:943 [inline]
+ vb2_video_unregister_device+0x12c/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1279
+ em28xx_v4l2_init+0x1368/0x247c drivers/media/usb/em28xx/em28xx-video.c:3097
+ em28xx_init_extension+0x10c/0x1b4 drivers/media/usb/em28xx/em28xx-core.c:1248
+ request_module_async+0x24/0x34 drivers/media/usb/em28xx/em28xx-cards.c:-1
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+Unable to handle kernel paging request at virtual address dfff800000000000
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+Mem abort info:
+  ESR = 0x0000000096000005
+  EC = 0x25: DABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x05: level 1 translation fault
+Data abort info:
+  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
+  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+  GCS = 0, Overlay = 0, DirtyBit = 0
+[dfff800000000000] address between user and kernel address ranges
+Internal error: Oops: 0000000096000005 [#1]  SMP
+Modules linked in:
+CPU: 1 UID: 0 PID: 1094 Comm: kworker/1:2 Tainted: G        W           syzkaller #0 PREEMPT 
+Tainted: [W]=WARN
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Workqueue: events request_module_async
+pstate: 034000c5 (nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : __wake_up_common+0xac/0x180 kernel/sched/wait.c:105
+lr : __wake_up_common_lock+0x4c/0x78 kernel/sched/wait.c:126
+sp : ffff8000946178a0
+x29: ffff8000946178a0 x28: dfff800000000000 x27: dfff800000000000
+x26: dfff800000000000 x25: ffff0000c682576c x24: 0000000000000000
+x23: ffff0000c6825800 x22: 0000000000000003 x21: 0000000000000000
+x20: 0000000000000000 x19: 0000000000000000 x18: 00000000ffffffff
+x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000004
+x11: ffff7000128c2f04 x10: ffff7000128c2f04 x9 : 0000000000000003
+x8 : 0000000000000000 x7 : 0000000000000000 x6 : ffff80008048e314
+x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
+x2 : 0000000000000000 x1 : 0000000000000003 x0 : ffff0000c68257c0
+Call trace:
+ __wake_up_common+0xac/0x180 kernel/sched/wait.c:105 (P)
+ __wake_up_common_lock+0x4c/0x78 kernel/sched/wait.c:126
+ __wake_up+0x18/0x24 kernel/sched/wait.c:147
+ __vb2_queue_cancel+0x248/0xa78 drivers/media/common/videobuf2/videobuf2-core.c:2244
+ vb2_core_queue_release+0x34/0x13c drivers/media/common/videobuf2/videobuf2-core.c:2677
+ vb2_queue_release drivers/media/common/videobuf2/videobuf2-v4l2.c:943 [inline]
+ vb2_video_unregister_device+0x12c/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1279
+ em28xx_v4l2_init+0x1368/0x247c drivers/media/usb/em28xx/em28xx-video.c:3097
+ em28xx_init_extension+0x10c/0x1b4 drivers/media/usb/em28xx/em28xx-core.c:1248
+ request_module_async+0x24/0x34 drivers/media/usb/em28xx/em28xx-cards.c:-1
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+Code: f94002f8 eb17031f 54000500 d343ff08 (387b6908) 
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess):
+   0:	f94002f8 	ldr	x24, [x23]
+   4:	eb17031f 	cmp	x24, x23
+   8:	54000500 	b.eq	0xa8  // b.none
+   c:	d343ff08 	lsr	x8, x24, #3
+* 10:	387b6908 	ldrb	w8, [x8, x27] <-- trapping instruction
 
-On all architectures other than m68k, the position of the struct members
-and the struct size are unchanged by my patch. On m68k. there is no
-implied padding at the end of this structure, so this is theoretically
-an ABI change, but nobody has a mali device on m68k, so we know that it
-is safe.
 
-      Arnd
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
