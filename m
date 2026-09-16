@@ -1,154 +1,151 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A48749502C
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 09:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7033DC4B3;
+	Wed, 16 Sep 2026 09:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551007; cv=none; b=CEpqzUcPo2P+rWcNFivNA/lLgu0K/kM2BzudFW25582xDDXT+o98t9ZYhqe9/7FvqKuKzV6/mtnPZBIsCJQkG7VbwqKM6Cw31AtvXmB+Z+FXva7qqp+7NZPSQDQQev695C1v+uUBuZXExFfvACZjepY80zOnL61uFGv21YnE8Zw=
+	t=1789551305; cv=none; b=ghnj9LBLCsde7/1U1OI7hEMPv/F5GjQrRrUnBnZo03FX0XGyOP3qXxy6zyc/ELSYqmRVxs65y0R0gRsmudBk6h4486dI+A/VIkbW1MrmrrTmPl7s5/HGXUsEm6lf7lxVn0Ulv/XG3vv9ajwucVlWMPh1fTDt8pmRD38IyiP5tbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551007; c=relaxed/simple;
-	bh=g/iC+DIqI1xrZJ0xCTu4BStW2wCcnb3D4yhvlUsffN0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NGz4PO2d81Lp0QF713WQoOqxH/QK1W1fm/al2uJk4hRMA+3vRSFnnx6ano/uarC4izdZhrxxA0Romq/Rm69eb+BR20pAGyGh6i6vUlYJ++7p1ogpmhrW5TARFLOEfdS/4JaJtJY4mvSHMG9eL6sTzaIsnhwQbY5ZYiDwj+QK2sM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqKxl7Lr; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789551305; c=relaxed/simple;
+	bh=0oD5ioeqPruUzy3aqf8ovAMYYlDIuCz+XGpp5PFXAsM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P7jQfTZZR4cbMtVazKnyhqV6PiRAR4NJiN3ZDQnwOmAZcgThwo5nIIpBRlL8XRvcP1G7mc+XM1OM6O++BZVRchhDonwj797DduNcqqxRZDnqLMD6LFe3m4p4be1wRduaNfKZ/wpfCg9eRBaXdeAoyw+RxHchjqYlEGzRllihWUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RecnCrCU; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqKxl7Lr"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so3815315e9.1
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 02:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789550994; x=1790155794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=drCB0bFzLSt3iJv3AQNAxjZ5jc1SFYIJv68Mmbr8obI=;
-        b=TqKxl7LrugOFrQrgr8bdk88+4lv6xwiasJTOfStkN5VPSjnmIzv6T/HIKUKB391l8m
-         aP0WS6ji1Q/XPsOSzWynGbp6G3Sqk/TrqGdPwxlP+NPP7z04EpDLifyTLmNpyKjPitul
-         EB9Rkfwh8ymrL4n1jIueyXuEuicoczUb6JmVVr6Ywn6sjH6iyLNAuPuGHRMBurrKQw1r
-         4ZrPpvellJRfv8uBz/Hvs87/BfLCOS4sganTG4pAUCnUPLSPyjBBFaxLvBqNXUXAURG3
-         7JEvragE67izv0WU4XGTUcfR1iYvN1W8CdmHmjmDSfZR8IAkAZA9Dx4kydTrt7X1fSg9
-         yxqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789550994; x=1790155794;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=drCB0bFzLSt3iJv3AQNAxjZ5jc1SFYIJv68Mmbr8obI=;
-        b=PslXENHj/ivUueOW7jO6hYIJPMNtW8d9EatoTWbKFaPrCKh8CYopkQ0bbKDV4m28GV
-         0HvjtPWlvkuKkAAdFaAo8lEP2wkX5CM/X1hyImXUBFWpI8H7p1SwdDksK90/XM7+0YOl
-         65oM258VCkbLKyfvo4FyLZqvxh0Q6410WD82uh0Vn7qzNXhJh5U6tfaFSlEXHwHR8zR4
-         YOiPiobPa2I3LY4EEziQtbk2txU8/QMlfEFX9kZx8jtsNdBMuFecfQ7Vg5zmPPYCyGpY
-         mSYUrDFdVTmIxXxsqvZlUx6PPUeE7Z70cHm8uD5a8Y2L1zzWQnGdAh2w7LFNaxtqIFwb
-         1Kxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAltk7twUS4TNG9Az3ahmWXWNNfVAlk4tXHdP3sGh/haRDJTEpwet1M+4r+zZS/+W0bJeRlQrEguwWRw==@vger.kernel.org
-X-Gm-Message-State: AFuF++nP7IBQ0o0uA4Cn2zvh8rj38T8EIrnSBgEPwd1bglTC8rlcUUEM
-	0gKtaDOqVz0VY6d5fRMOa+cuMNiqWOcJPCJaImIm0bU+zJMlOCQyCx+v
-X-Gm-Gg: AYBFou1OiVi0nnQjWsCO2QmnyjiAeQ0DPsZeR5OjsS13ZVaBjq0jY1Fk3p/Ap1F+Ab8
-	/LtO+Gm4+13jJNhSGDjAmNzM5qo/btL+P/ZScleeM6YtTWH2qZeZTjfjZSOqdu7vpEVtwsK7FgM
-	uQtRECj3BnG8nMfSr9qPlm+Y1PCPbJu0ural0cSQZcndfpXVQ/rvqxzbYsNPvxdPQRa9OcdX8rW
-	A5PYKSiOF5J2m8rQ+io2c1aYkxuS2kKeGxfhcS4x/pBNvboKiFNx0yjGgeZJBHk+hyjZtzq2z6j
-	Ue9XTP0+5tz5Ip4XrCjWEjOlB5tQBs6lSpz9Sz3aSlDARUbaSHz0CXFxcXmPwvJxzBA8du4qIZE
-	CtMLX0doMNyYAz97PX2aw2Lxz6ulXHx3p9ZgClQrI224lPFIN4MLFFGZC2N+2cNo14Uu/GHWssR
-	Vi5pWNMWYZhKTOpFtqsWVtfHpeIAJGhwVR3/mDfxXQ2P0QjzpWUJPeGimEKldXla9tMiGXkPGyH
-	UZ/3tmif/EFUyqVlNYyKXwuG7B1Al5VUYXk
-X-Received: by 2002:a05:600c:4709:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49eac46374bmr21150555e9.7.1789550993497;
-        Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83db9102sm64812065e9.12.2026.09.16.02.29.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:29:51 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, linux-kernel@vger.kernel.org,
- codemender-patching+linux@google.com, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Peter Griffin <peter.griffin@linaro.org>, Linus
- Walleij <linusw@kernel.org>, "Martin K. Petersen" <mkp@kernel.org>, Trond
- Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Jiri
- Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever
- <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown
- <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
- <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Andrew Morton
- <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang
- <yangtiezhu@loongson.cn>, Qiang Ma <maqianga@uniontech.com>, Randy Dunlap
- <rdunlap@infradead.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard
- Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, Thorsten
- Blum <blum@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold
- <johan@kernel.org>, Cen Zhang <zzzccc427@gmail.com>, =?UTF-8?B?Q8Ohc3Np?=
- =?UTF-8?B?bw==?= Gabriel <cassiogabrielcontato@gmail.com>, Rong Zhang
- <i@rong.moe>, linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- devel@lists.orangefs.org, linux-hardening@vger.kernel.org,
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH 01/28] ALSA: ac97: Refactor snd_ac97_get_name() to use
- snprintf()
-Message-ID: <20260916102532.4b881a25@pumpkin>
-In-Reply-To: <202609151134.361FEA04@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
-	<20260915081910.4142719-2-morbo@google.com>
-	<202609151134.361FEA04@keescook>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RecnCrCU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789551303; x=1821087303;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0oD5ioeqPruUzy3aqf8ovAMYYlDIuCz+XGpp5PFXAsM=;
+  b=RecnCrCUC2NSvtXRZI7tDDAhLK9fed8mJoMklnUwzqmu29xx1SQ8E7hI
+   5HZa+Mdt4gH/iD4UbhfPeW1Uk10eVGz1sqYJdh7HHhvDX9ZcQQFTUpzxZ
+   uSW2ExbfTgJAcLqgEir0B4hr/S787LvmoUlzwI0qU0eB7CvTOz3/uaSbr
+   H1V4BOOaoXVCWihN355qmMhojYVZza1W4jGKo6KE8A+LhwmV2sSE3jvdJ
+   A/5sek6XicxBnCnrLos7zTwkjmqrf1LWcFsbJc+1ekl6WkxSOh1SUX+Dj
+   9oseWIwpnCTiaf2PVLzSm5HyGUdCY7u4zIIA8mNsT3Si5j69krv1jI7f/
+   g==;
+X-CSE-ConnectionGUID: tKQVad/6TqivifJJzxc9/g==
+X-CSE-MsgGUID: VTPtSVEEQfebEPHVNwgEuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89947401"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89947401"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:34:59 -0700
+X-CSE-ConnectionGUID: FlqYCv9DRxyA6zu82/JZNg==
+X-CSE-MsgGUID: wwMV4RCFRdunX+LivshwOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1686942"
+Received: from aschende-mobl.amr.corp.intel.com (HELO alaakso-desk) ([10.125.108.234])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:34:56 -0700
+Date: Wed, 16 Sep 2026 12:34:52 +0300
+From: Antti Laakso <antti.laakso@linux.intel.com>
+To: Junjie Cao <junjie.cao@intel.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Kate Hsuan <hpa@redhat.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: cvs: Get the wake IRQ without claiming the
+ GPIO
+Message-ID: <aqpivLIxfxcZSj30@alaakso-desk>
+References: <20260908105717.496232-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908105717.496232-1-junjie.cao@intel.com>
 
-On Tue, 15 Sep 2026 11:39:34 -0700
-Kees Cook <kees@kernel.org> wrote:
-
-(I've just juked a lot of the 'reply to' list - too long to gmail.)
-
-> On Tue, Sep 15, 2026 at 08:18:18AM +0000, Bill Wendling wrote:
-> > --- a/sound/pci/ac97/ac97_codec.c
-> > +++ b/sound/pci/ac97/ac97_codec.c
-> > @@ -1850,10 +1850,12 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigned int id, char *name,
-> >  
-> >  	pid = look_for_codec_id(snd_ac97_codec_ids, id);
-> >  	if (pid) {
-> > -		strlcat(name, " ", maxlen);
-> > -		strlcat(name, pid->name, maxlen);
-> > +		int l = strlen(name);
-> > +
-> >  		if (pid->mask != 0xffffffff)
-> > -			sprintf(name + strlen(name), " rev %u", id & ~pid->mask);
-> > +			snprintf(name + l, maxlen - l, " %s rev %u", pid->name, id & ~pid->mask);
-> > +		else
-> > +			snprintf(name + l, maxlen - l, " %s", pid->name);
-> >  		if (ac97 && pid->patch) {
-> >  			if ((modem && (pid->flags & AC97_MODEM_PATCH)) ||
-> >  			    (! modem && ! (pid->flags & AC97_MODEM_PATCH)))
-> > @@ -1861,6 +1863,7 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigned int id, char *name,
-> >  		}
-> >  	} else {
-> >  		int l = strlen(name);
-> > +
-> >  		snprintf(name + l, maxlen - l, " id %x", id & 0xff);
-> >  	}
-> >  }  
+On Tue, Sep 08, 2026 at 06:57:17PM +0800, Junjie Cao wrote:
+> The wake line is only used as an IRQ source, yet the driver requests
+> it with devm_gpiod_get() before the I2C handshake. Where ipu-bridge
+> does not expose the CSI endpoints, CSI init returns -EPROBE_DEFER and
+> every retry claims the line again for the length of the handshake.
 > 
-> I'd rather not open-code the length math here. Can't we use seq_buf()
-> instead?
+> On the Dell XPS 14 DA14260 (Panther Lake) the four CS35L57 amplifiers
+> read their speaker ID from one GpioIo (DSDT decoded in the second
+> link):
 > 
+>   GpioIo (Shared, PullNone, 0, 0, IoRestrictionInputOnly,
+>           "\_SB.GPI1", 0, ResourceConsumer,,) {20}
+> 
+> A request that lands while another consumer holds the line fails, and
+> cs35l56 does not retry:
+> 
+>   cs35l56 sdw:0:2:01fa:3557:01:2: error -EBUSY: Failed to get spk-id-gpios
+> 
+> All four fail on Fedora 7.1.13, the first Fedora 7.1 kernel with the
+> driver enabled; the same board on 7.1.12 without it creates the card.
+> The second link shows the same failure on openSUSE 7.2.2, whose
+> config also enables the driver.
+> 
+> The INTC10E1 _CRS of this machine has not been decoded. The vendor
+> driver in intel/vision-drivers requests req, resp and rst the same
+> way but maps wake to an IRQ with acpi_dev_gpio_irq_get_by() without
+> requesting it, and on another DA14260 (board 0VRKYR, BIOS 1.8.2) a
+> build of it is bound while the amplifiers probe. The wake entry is
+> the line that differs.
+> 
+> Take the IRQ from the GpioInt entry the same way, as the I2C core
+> does for client->irq; this also applies the trigger type from _CRS.
+> The driver binds as a platform device too, hence the explicit lookup.
+> 
+> Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+> Cc: stable@vger.kernel.org
+> Link: https://bugzilla.redhat.com/show_bug.cgi?id=2529031
+> Link: https://github.com/thesofproject/sof/issues/11152
+> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+> ---
 
-Or just use the length returned by the strscpy() call that wrote the initial
-part of name[].
-The return the name length so the callers don't have to use strcat()
-themselves.
-Replacing strlcat() with strlen() and a copy is just pointless.
+Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
 
-David
+>  drivers/media/i2c/cvs/core.c | 16 ++++++----------
+>  1 file changed, 6 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+> index d4a3b9c3bab1e..8d857bbd8ab51 100644
+> --- a/drivers/media/i2c/cvs/core.c
+> +++ b/drivers/media/i2c/cvs/core.c
+> @@ -725,8 +725,6 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+>  	}
+>  
+>  	if (ctx->res == ICVS_FULLCAP) {
+> -		struct gpio_desc *wake;
+> -
+>  		ctx->rst = devm_gpiod_get(dev, "rst", GPIOD_OUT_HIGH);
+>  		if (IS_ERR(ctx->rst)) {
+>  			ret = dev_err_probe(dev, PTR_ERR(ctx->rst),
+> @@ -734,14 +732,12 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+>  			goto err_put_ipu;
+>  		}
+>  
+> -		wake = devm_gpiod_get(dev, "wake", GPIOD_IN);
+> -		if (IS_ERR(wake)) {
+> -			ret = dev_err_probe(dev, PTR_ERR(wake),
+> -					    "failed to get wake GPIO\n");
+> -			goto err_put_ipu;
+> -		}
+> -
+> -		ctx->irq = gpiod_to_irq(wake);
+> +		/*
+> +		 * Do not request the line: another device's _CRS may list
+> +		 * the same pin, and its driver would then fail with -EBUSY.
+> +		 */
+> +		ctx->irq = acpi_dev_gpio_irq_get_by(ACPI_COMPANION(dev),
+> +						    "wake", 0);
+>  		if (ctx->irq < 0) {
+>  			ret = dev_err_probe(dev, ctx->irq,
+>  					    "failed to get wake IRQ\n");
+> -- 
+> 2.43.0
+> 
+> 
