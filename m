@@ -1,151 +1,98 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9541E44A40B
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 07:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A65C44E67B
+	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 07:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544230; cv=none; b=UWRGI85rrOq4FZEn+4srKYYjur61bpbU708B0wsdEPv9kOkXQL6VCtA1VyNOpfuNUYoL0/1+ZSyqdqZ1X0QZ/IPDB6V3Sb3D1KOnRgq0qgKdawE8qdrRnxBDsME8shj8nM7XU8Ki7DirY6TIOGg0ietQLBliF9u9ccFAQakmhhU=
+	t=1789544251; cv=none; b=PmIxRYZEylMFm9PKCaOUo/sWrhMMa63J7p1h6fV9jX4EobIvCok3abwo2XNHtd1pImek5Kw81e8aP9mjJ8rz8G9SI8qN2GzGWKxJoDSvqoBEUSQLarE2BBB5javNjZ9qjID2024D4f8kvEAjIoClqXezGXLYS7ncd8hgyrKXFQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544230; c=relaxed/simple;
-	bh=1T6G2GdipAuIpsHBWuDFEV6aIj1b93ts1plzYTqBaak=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gap8gNuoY3eMtN8TX8NrVM2ArhB2/J3XfeJBW5T05cwPZL4VrBhPUpKDysumkrJgCtKK/E5C5MoHMV/nqC29IMhqiBu0+ulPoNFqoUJA05107eJctbQBrujLDuuL73g0xsrMmXYA+6CgcQjxpS+dYHvxsJ7FNmgXjpcxwMJiY7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nheQpAlg; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789544251; c=relaxed/simple;
+	bh=3x+6rjHOdFM+ukeG5dKUPQOJLlodagt5Tb/55EQ79lE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NoVdanTgQgKUyrxfVwjKc+p/TfW7p2BXRYJMkJrSYrlkADg+BJt+eFLSQ8XYR/gB9pDT+iORSp9/yaZfMJuorZth2csJX3ry8aJQKoZI/O4rT2CHiEW4G75r7yF4mPwURZOCg3FxKHPnKUaoe/pOtmQiK0eIjR2rT8ujGKswUXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=iKt1psIj; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nheQpAlg"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-86b90133ae8so434345b3a.1
-        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:36:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="iKt1psIj"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f0135fso6081645ad.0
+        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:37:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789544213; x=1790149013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Tks2oyxzxlf1TCNUshxK4sU+kJbcz/yddyURBT1Wps=;
-        b=nheQpAlgUYIc8jFFfHoRPDfbx9XwCH7MxauhCM55JA+l7L9v5vw7iId+F+3C69LWb/
-         be0wPB/lfoUGDrVMmhVNMR5KeN/k4pkGNix7BEJ+lTNEg7TW5qCprqCGGb3kURaH2pOM
-         2ReCKRkLzlfYr6W0FKknEPaIcVrVjjPd5XP2WHpUW+61MxnMBvjPSbeqcOUt7sCZGUfV
-         8wT04n2ftOICA9RXOvSlAOkY7NyU27dKCLboq66Hvx9RLHGLoGaAwragmW2RN7fv59Ch
-         dGxyUpUKkBMNyxxhV0Su29TfDGSmK4y+YCTpftsNZKIrnob0U5KNK4ixAsokom0a9mOx
-         QdhA==
+        d=chromium.org; s=google; t=1789544231; x=1790149031; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3x+6rjHOdFM+ukeG5dKUPQOJLlodagt5Tb/55EQ79lE=;
+        b=iKt1psIjHwqsDRiDCxpviyjCFb5oResLX/C5EEVt740nEVoPaY/sHo6n4pzMOFKh22
+         PBhzXIXGA+5JC1OOPA2TtG4PZxovPs4IiuJMhv1odvFUk+dm4T85S9hPq0sWd33iDZqp
+         nfCY9TPInGyELTfPPzPK8LmwNYzlP527+yW5k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789544213; x=1790149013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1Tks2oyxzxlf1TCNUshxK4sU+kJbcz/yddyURBT1Wps=;
-        b=lPSB/9tDXi1QTZlYQmkv0JQRSdi9YTFS/EkHcf+sekwG0u1zE+9kRfIeymk8nMygAc
-         2edk3etObm8Jj84EOJW/EJ4hW6MYdB6rUNnFebUKpSJhcKMsfotqZ/u2xrmRa3i0H6iB
-         LHTO9EADnrZWCMbRCkmwxVTKjQLD9FCv9PN9VB0N+NQg/PpXzQIe9PRPTflMB7p1jLUm
-         UTUcL9E8guAZbZLA3a7R3OuRXecjnBaW8eqHcFYj7jEKs0U0KHAWhmwTob3XMLHuuCCJ
-         Gj2Z9RlJAtAXelPZSrpMB5syGl0CjVoMhFSWr+G9tdFn2+oH7wkeHquSHDk/4Y9ABaFe
-         vidQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMVJDDUUXVINiV0kz5EgBVlbWtaBZyOnYIO7o4/TVFzOwpbpkDuoYnK++IBiJ2HBfx/yQjK/NEWPQr4Q==@vger.kernel.org
-X-Gm-Message-State: AFuF++mkoQuDc/zJY25q6wl+tVmJDHovGT7n2O1atQ1z1spCZ3IwLpTr
-	glybENA2oPzheUasEdugUC1mEVQWrT/wPUI/dNQQr7PdRtpnEbmJ7btNK1mBEB/8
-X-Gm-Gg: AYBFou1ImRrHRDVdOEY6eWfIxow+fakwTBlbSE04aT+py21ZBzP+h8eg/8w+VodTz1f
-	GYYlUZIjxp4uk4anrUxLSlAWJ/OxZScWzU3KjblaBSLcaIgcN8BF4KlRkNN7CiN81BnCaPJzm06
-	N4c3W2gJQonxb/T6Sq8waLeOBw6dd8+z7Qrbk9sd7pUO2zpn20BSCvX+35dulLH5BKEehk5RyIN
-	uprEfJZWxuHFJneficuhIOnGNv9AhBQAImDEc1LNL5LASuBbe8kh260kjat7bIpJv4UlVFbzPCS
-	Dm9IR47Ihag0JcS6zB9MPwRkOlS5xFKd+zYSbO3WWXBLjlb4uoBW9hYpP9COlsonaKsRdK3zU8c
-	gcK3B/2NNPOqiTYbzF5kgVdoaxOY/GVAofbuFumcN85B4PgB38wnUp2uxxvlpMR8xWGQlVh2ztY
-	OW7G4Q0negT5PuXhVeq20ctkFrTB9imkJ8rK5n8M8QSIvPnnBPJ1GlzvXLuf7igWxiPRbbT67OC
-	yI1jemw8Iwmi+Sze2SL6uD9GmShHtcDsNAbB5Yd7c4h/T7xJA==
-X-Received: by 2002:a05:6a21:b82:b0:3b4:8880:2089 with SMTP id adf61e73a8af0-3dd5f5d9f56mr4321805637.16.1789544213182;
-        Wed, 16 Sep 2026 00:36:53 -0700 (PDT)
-Received: from localhost.cuchdit.in ([45.248.159.10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad6b9dsm5291011eec.21.2026.09.16.00.36.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:36:52 -0700 (PDT)
-From: Punnay Sharma <punnaysharma805@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: atomisp: ov2722: Clean up resources on probe failure
-Date: Wed, 16 Sep 2026 13:06:46 +0530
-Message-ID: <20260916073646.26709-1-punnaysharma805@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915140828.25537-1-punnaysharma805@gmail.com>
-References: <20260915140828.25537-1-punnaysharma805@gmail.com>
+        d=1e100.net; s=20260707; t=1789544231; x=1790149031;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3x+6rjHOdFM+ukeG5dKUPQOJLlodagt5Tb/55EQ79lE=;
+        b=SRFTlrI5gK03a38MwwrRt8+k5oblXp4IkWuOuOoVDQKoxLnps4nByTvR6vgsRDlopB
+         TQyVEPFWft3yWAn5wBhvTX+tzgNEVqM0TOPTCCP6CDxsgwjzWjKSRyH/yOGcZwOBfVY3
+         v0lwXydPx8R7mNfrrauqYH0zjvhRjijuhSxmPYQi4QABSeYm4Qh5nYUhSo6h146G+02K
+         dfAOiZVbdguHceoitnKTYX6/zQjPN3Nu4aSU/rrViB7dmTt+DhSuUSZleEa2SQ/1e1Rn
+         Jv5r5tLm+7DusYoFbVL8rVaeU5voxRs0p/xH/kgs27Pd3vIDwp1bTB9guLbZkQe1tDO2
+         mSGQ==
+X-Gm-Message-State: AFuF++klyJOX7Z9vp6PsPANGG0W9Ts/H2H8NI9qoBg387o/CDS8xjF0v
+	hxLYOIOUtQGmeWQKesn0XDp+2q9kIJtwa16BA5OARtkT+UcTBjMUtvBtmby4JnwnnWkLY/h/MKA
+	MYTRhWw==
+X-Gm-Gg: AYBFou1pTUs5TLexYd76pgj94JXPcnXo2Ezuei/gdjo3aRYGjlqE7fykAuxIuo75IwN
+	8aBePUGC1FI8GbC/KufKpLjC1u4auQUf0m+14fdygvHwaK7MYsTZdSPQgWXxo+8+voXyTKg6v1N
+	dJ6e7dTVvyNXPmRT+B4b4L+MQwfMekjPMHaCdEChil0e5U+xxnrvDa+LJ5sYr5byDsdoCUo6Coz
+	8iDXkFEtYf+BiwQ6emYeTEdJoYAdh2JQAQE8l3q4P/e9NHgSG4+PYztH1jiOYMq7lzmQgg740fz
+	fbKyD6oC1sxhbeVC7V5KLskW4IlGOnqDWj++lcSSL+elWEIwieJBNSpdJOG69wA9X6djroXJawL
+	UfHY14Bu04ZaZWKTdheMKFYv50fhO0Ni4LQE/vYcIdZijg+kXUqWvMOyGTl4Q9ceX7RPwlkwlFX
+	FPWaexzj1msK7T1TabhaCbWLq6jV80Ma5HwE4vMR4QovR8loKh8qENtong5MTEYtvRTvd604uRB
+	31vg9mdE8byCHPAMT7OExJulGxta43lx5hPFQ==
+X-Received: by 2002:a17:903:2308:b0:2dd:1701:3b6e with SMTP id d9443c01a7336-2dd8e73f93amr32322705ad.16.1789544230645;
+        Wed, 16 Sep 2026 00:37:10 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com. [74.125.227.141])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d9007csm6913235ad.5.2026.09.16.00.37.10
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 00:37:10 -0700 (PDT)
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so7184815ad.3
+        for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 00:37:10 -0700 (PDT)
+X-Received: by 2002:a17:90a:e18e:b0:39e:ac:b776 with SMTP id
+ 98e67ed59e1d1-39e1e5187b4mr3432779a91.25.1789544229188; Wed, 16 Sep 2026
+ 00:37:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
+ <CANiDSCsQL_AWPz+spNwFkD=iSuDp5YKuk_0KROvmLNx0rG4tfQ@mail.gmail.com>
+ <t3hEIJz-K9HvqsANa0jwTFis2jKV-LIIUZ3-7AUs-sQnAgSsLZhu2013EUO_AOWgospC7Lvphv7D1iyhJb9vFMxnbtUjaKwTljvmHjUiU8A=@protonmail.com>
+ <CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com>
+ <njQpJCsjie_PEmoIZWXlTHCGW4nqAbpwp0ev50qLl-r5rWkV4mwEK0lSvJ-3w9BOPhvZE04A9O7pFeAdqq6-zKAF6tVIsPN6dPA1dnx86dE=@protonmail.com>
+ <CANiDSCumxDChOj9JyCW3s1nBhpyeicerLyHSZDh=mTNfxbkGUg@mail.gmail.com>
+ <CANiDSCts7TgGB8eVBSw1L8MNioHxD6_KfoW6mBwn9D51crVsvQ@mail.gmail.com>
+ <tzjfIh6x0Uwujqr2ejd12rHu20MI9yIVwFE8AnxwHqGnTy6C1AVK6IzI2TdM-0RUriXVnCBZ9jf8hqbCTwyfg0UegbRSXAMp0bym0gU0vEs=@protonmail.com>
+ <CANiDSCtKAZhWTLmaDXHJVkUXTiik8v2VdTYjPubU8_=SzB6m5g@mail.gmail.com>
+ <JpRUI3y4S8sLw4DG4cIAG-hZh2Kh2eW6jCO_UtqMgui3G1G6y3-a7OzJnqTABPEbFbLaR3H_7BacQSbAqEcOHPUcvX2atXA_eiHYBuIyAbY=@protonmail.com>
+ <mJ1rs8fZIGetLtBq6B0Sk5im9xHBJTGxPQvRnaWh083IOCtUXzEX6HwerzTvu1iiARLKRx8CRHdJfKjtgwb_Zqsvw9GFj5sAwux_bhbDN4o=@protonmail.com>
+In-Reply-To: <mJ1rs8fZIGetLtBq6B0Sk5im9xHBJTGxPQvRnaWh083IOCtUXzEX6HwerzTvu1iiARLKRx8CRHdJfKjtgwb_Zqsvw9GFj5sAwux_bhbDN4o=@protonmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Wed, 16 Sep 2026 09:36:55 +0200
+X-Gmail-Original-Message-ID: <CANiDSCuSy5+aBv6dbW9q9YNfYXPwk8YKbp2txKaVUt2p4X-7OQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Vx5GTpSzKhTG893jypW-FpZRHGk0MD6piRQwZN1HZ43D3QuEzm_yQAR8Q
+Message-ID: <CANiDSCuSy5+aBv6dbW9q9YNfYXPwk8YKbp2txKaVUt2p4X-7OQ@mail.gmail.com>
+Subject: Re: Re : Re: Avermedia GC515 implementation
+To: Edwin Gatier <edwin.gatier@protonmail.com>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-ov2722_probe() mishandles cleanup on three failure paths:
+Hi Edwin
 
-- media_entity_pads_init(): calls ov2722_remove() but falls through
-  to registration with a freed subdevice.
-- atomisp_register_i2c_module(): returns without releasing the device,
-  controls, CSI allocation or platform resources.
-- __ov2722_init_ctrl_handler(): leaves the CSI allocation behind.
-
-Route control-handler, pad initialization and module registration
-failures to out_remove to call ov2722_remove(client) and return ret.
-Keep the separate configuration failure path because ov2722_s_config()
-already unwinds CSI setup.
-
-Fixes: a49d25364dfb ("staging/atomisp: Add support for the Intel IPU v2")
-Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
----
-v2:
-  - Handle cleanup and error return if atomisp_register_i2c_module()
-    fails (Dan Carpenter).
-  - Route __ov2722_init_ctrl_handler() failure to out_remove to clean
-    up CSI resources.
-  - Add missing Fixes tag (Dan Carpenter).
-
- .../staging/media/atomisp/i2c/atomisp-ov2722.c    | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-index 2c41c496daa6..272291e370fd 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-@@ -971,7 +971,7 @@ static int ov2722_probe(struct i2c_client *client)
- 
- 	ret = __ov2722_init_ctrl_handler(dev);
- 	if (ret)
--		goto out_ctrl_handler_free;
-+		goto out_remove;
- 
- 	dev->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
- 	dev->pad.flags = MEDIA_PAD_FL_SOURCE;
-@@ -980,12 +980,17 @@ static int ov2722_probe(struct i2c_client *client)
- 
- 	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
- 	if (ret)
--		ov2722_remove(client);
-+		goto out_remove;
- 
--	return atomisp_register_i2c_module(&dev->sd, ovpdev);
-+	ret = atomisp_register_i2c_module(&dev->sd, ovpdev);
-+	if (ret)
-+		goto out_remove;
- 
--out_ctrl_handler_free:
--	v4l2_ctrl_handler_free(&dev->ctrl_handler);
-+	return 0;
-+
-+out_remove:
-+	ov2722_remove(client);
-+	return ret;
- 
- out_free:
- 	atomisp_gmin_remove_subdev(&dev->sd);
-
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
--- 
-2.55.0
-
+On Sun, 13 Sept 2026 at 16:41, Edwin Gatier <edwin.gatier@protonmail.com> wrote:
+>
+> Looking back at the log I waited a bit too much before dumping dmesg outut in a file, here is a more usefull version.
+Thanks for the logs :)
