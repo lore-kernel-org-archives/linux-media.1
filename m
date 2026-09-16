@@ -1,178 +1,240 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DAF455610
-	for <linux-media@vger.kernel.org>; Wed, 16 Sep 2026 08:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF5D46983C;
+	Wed, 16 Sep 2026 08:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548084; cv=fail; b=YTeu4kPFc6iWCAbQC+JE/meEGhC0WRqpxzEPl+pH4hWTAXfDz7F/w1Cizxa+3T+uY8c1yT0JSpYu1jKYe+FvD27ZW91sOllNc7i9SIEzHUBV7q028uYX3A834cnuXOhtIIm2Sj0pX926hptBfBjuXIkLZrRKOSUlkVdRsYlCpyA=
+	t=1789548952; cv=fail; b=YXeSxVQKwHFMaN7JCQtiq0ksGz8YIo8iTlZoFnz8t4fQ87PV0yFhQYqPb7lfUn080w9qvQBRtqNozdwnR5QBARU2SFgkvRuC3Wxv4iPGMs0MbW0DrUO4QEmuslXvuFpNcuDjesQDA7unn65AUho/vwbwa5DNkxhkRCWf+uTuCM8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548084; c=relaxed/simple;
-	bh=e4OxTX/8Xi9mScSTy6nRGdzajjGMilkxiZtBhKjsbFo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JDIaY8VGRJ2ZywySbGerds8AguFjb/J+YLl9RrCbFhawqHFYihwkzWUtFmBMmzQ+i7WuNxIV/K61zelQHhfL8hwnBqgoB3QFDQnzV7HfkiUN5BGj+zun5POh1rKPnxcwtQBMw2jr827bDvG5oupW+FXQ0W7aAxtz5sIwf7y0bN8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZJ66coFX; arc=fail smtp.client-ip=52.101.201.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789548952; c=relaxed/simple;
+	bh=j4llVGyXInZeNzrm+N2p7/gg3XlNce1XcKF9MOAopPg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=t09swqam+uNundMK+9K/vxVerO9O6lPxmV6OoRz6KxoiwybTPE2LO8hVHf9oBZ+W72ZBtPz3UefHwRlNBZEGL8Bn30BcC1LmtKd6rsLcN5fl0i3VMcRXV28AblkGZcuLunI6LwW4XTFiXX3lSqkoB3jGEErTZEE+QEsEa8PIP8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=eAVXADma; arc=fail smtp.client-ip=52.101.84.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZJ66coFX"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="eAVXADma"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J3Y4+3GdmRAbx6Koo6md8EPHAlWzqGHLy6RYOPlCeJFs9GAwK+KM/r4L3aoLDsKGpGjmwNHOWrjMIgDyp5GieVWz8rwoUMO48q1jy5WhskRHqgaZmv2kBa4EM9SkLDgu6nvr8EaP4xaprXe0UdUCmZ7mSVNuggjzbd628PB0NwoB6bkQ6nc4LaDu5ay8vf5p5PopCG/xPZ0ws3Ri9VHZ6c/cZR0YcyFK0Cajhhzp+iauMPNL241tIbrcig8/iB1JkutxvBU+mxAlxm0hJrlPcUt0YFv/rOVQDRX+LdZpiVEudYFSs+CBj3mlEBiluVQ1mB+ODpgJZIUAELpBBxdERQ==
+ b=fSNmyRrKkADBfm8FRBA/0bV0cOhbgJUXUQ/bN2cgwQKO3IOuKY2OR1tocqLFpmYLTg+1mkpK0R9WbuFd/zipsHzoWOrVGR1fF/2K8qzWLy59Mqd/med8PmjRMQX/L2puNuPrTjp7A+fB60Oou/fFfD6mnPZHeI27v/O8zPNbWeiHgdGxoUIKqIUETeWxkyFSlCVXquabUThsXLCTyRD4lsHotxFY33sjDJ12tuAV7tgo7+H0tiIbGZ5qYoREoBr9ikFbPRfcsOeQw4thpsq7IiELaiezLYiZ72pR2vpM81+AjQ62xQxhU0YdieeNjac4oIcfE3DaRmaaV3ks00qcgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ysBGJL30wYTtmgTjZ3DDb+wymfmS9yr2BlfOOR8VdGs=;
- b=PkyQnwbmMHYTO9JdKIXBCZazVtSQQrN1RzBFwjeoW1gLpEyyZr6cezE67zZjG9XrsKhaf69EUr6a3TuEZAwfYar9R7ajRsN+5gnmATtOZn3BZBh2nlBUCy5k3tHNlhWQQAyp5UoYPRVh1izWPG1BDaP8dU4z5t+QzwQMBlYf4K3YkVErjASHnKppgmxs3S9YgeRi3Svk0dYCTGOmF6F/DGp5cpJRVN0G/kx2+5RoMz2uQQmRvTlwDPaf9hQcF+stN+DY5i+VIuWHE/b7JCI0iJgwJAtXUaJQOKfkvTGvCy6a+kBEgqZb2mmknPtvGkrgDudpIFXJZAhtzme0HpK84g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=3yu5AmusNpNON3i8F109QftsFIXrJ1jZplS02DN1eAs=;
+ b=c9NsKiZ7DehZi0DnumXzdqfLGJR3dwXHtC78JGiRL7V2BB8eL6bem+XCZx2ooUrPK0TPeCdRd19kjZbg66wUtXrmzHED+LIge++SJtHM78BmZdepOLduG1lTIQs0n3aEx3rXYn59Dt1d8OdNLy1fu0dJwbuHPR6RZxPHSAJlNVEnw+M5w4lEZVToYstl6A02b2jueJ0SDOFiNaiYWaUm75rFwokzNtsZWrMAYeQ9dF9HtgD6N/hWnSDS+vHKE0PtZmp1DWu/IH67BgGAa3xDrhnY3/JxoiG8K7i+3pai4ct4vEDmp6pwCYEA6CwZR+ilJIsR5zdFlFsSVblDS+E9FA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=pm.me smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ysBGJL30wYTtmgTjZ3DDb+wymfmS9yr2BlfOOR8VdGs=;
- b=ZJ66coFX84G/JGHDFvLiB2Ve3s6+ALZdIUioRE3H2bUNAzkKJ4AcNmwlY2e7Y23McbiWTckfXsLJVzrZ2xpMvYzlRaD+looJL1DbAef5x+tTvOwZVzOHSzpDpsgFnKWl0HLOcvRe2Zqo1Uj/4ICjRVtDUolSxVbBoc0yJBQQKAA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7321.namprd12.prod.outlook.com (2603:10b6:806:298::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 08:41:15 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 08:41:15 +0000
-Message-ID: <d8d3af91-4f21-44ea-bc90-339fa1adacf9@amd.com>
-Date: Wed, 16 Sep 2026 10:41:10 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
- IOMMU superpages
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
- phasta@kernel.org, benjamin.gaignard@collabora.com, jstultz@google.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260914212258.2657788-1-dave@stgolabs.net>
- <20260914212258.2657788-2-dave@stgolabs.net>
- <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
- <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
- <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
- <CABdmKX1g=wcLHOFkRN6DLPTABrnn2uWmgCKpCtixhiV_b+9J1g@mail.gmail.com>
- <CABdmKX2GU0Eby=SEeALzeEp5ragEjU3Fw468Jv1yykD1Zdrgag@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABdmKX2GU0Eby=SEeALzeEp5ragEjU3Fw468Jv1yykD1Zdrgag@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0081.namprd03.prod.outlook.com
- (2603:10b6:208:329::26) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=3yu5AmusNpNON3i8F109QftsFIXrJ1jZplS02DN1eAs=;
+ b=eAVXADma4mYtdNZ20kKnpNNxpR0YCxZoIIrcUTcmDWuga4MbVSTqHb7pOpNZeosGGubV6EJAX24VEyD823CUjMhjxb/hFBL6sCJlXzyirTAOZvE7TsbR4nadydNOGkFf/Um7C33hsTZ7cpOXluIE/px+JzDUpmduEJcoo3WrBKkK7ek4cBL5ATKcn2roXiwBH5fNchbapKigWq3aoreLVL8prixbhoRtP0PTNlFnql4UXCLyrhNWaNOVE9Nuuh7CNsXBhH6Lan3V5FWLbDG51g7wwVNe4fCn2QbB7xKxi0heXdXa8eo35HjTuKWlLyWoYW9Yjcnkepqh5bX35qQi5w==
+Received: from DU7PR01CA0007.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50f::7) by DU4PR10MB8612.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:10:55c::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
+ 2026 08:55:27 +0000
+Received: from MAD0EPF000008B1.eurprd04.prod.outlook.com
+ (2603:10a6:10:50f:cafe::a1) by DU7PR01CA0007.outlook.office365.com
+ (2603:10a6:10:50f::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 08:55:27 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MAD0EPF000008B1.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 08:55:27 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
+ 2026 11:00:54 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
+ 2026 10:55:23 +0200
+Message-ID: <df4edb95-82e9-4989-be43-7d9cc408d268@foss.st.com>
+Date: Wed, 16 Sep 2026 10:55:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add
+ VD55G0 support
+To: Sergey Lebedev <lsa.uz@pm.me>, Peter Marshall <pm@petermarshall.ca>
+CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>, Daniel Scally
+	<dan.scally@ideasonboard.com>, <linux-media@vger.kernel.org>,
+	<platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260910213308.53429-1-lsa.uz@pm.me>
+ <1070f707-8a23-419e-a0a2-a6f295ceb5a0@foss.st.com>
+ <20260915100722.38504-1-lsa.uz@pm.me>
+ <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
+ <20260915173604.65023-1-lsa.uz@pm.me>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260915173604.65023-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7321:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8540bc3-e69b-43b3-ae78-08df13ce4509
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008B1:EE_|DU4PR10MB8612:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdc3fbfd-d3bb-41c6-6b22-08df13d0410b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|6133799003|4143699003|11063799006|22082099003|10067099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|4143699003|56012099006|5023799004|11063799006|6133799003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	FcYf/0fOklH/YOA8zOhr0NBxIDBdEGKx8YLu7waH3gcbjxhoN5XBzJE1eT2reO8J1kjK73D8GLTYJ8Gtk/YPXQ5b7cxB5vxaWt3rdtvC9CWg+79n/0tA+1zx0ByVbfG2vkWEIBEdf+XIismWQhaKg9vg0CWgNkQUai09iHEN94dtSiX744v3ycxtK6r/ANVYCr8KeiGCcx3FirdNgxTGPynh7c45r5D1JVpJSkjck4yt68y6yZ/Kmd9tA5e7rxHxf8KENwRsuHWAk0sV1v/XJBrlXhvKl9noM+RIrI5fvi0LrOoApnKlR2TiFdF7D4TXsP7K5QkkBQ6tNSRIrZoyr70pmHwl2iEY47m3hzb3XDH2lbMCEEte7iDW1nO7cy1eGC0tRmDsEqlcilp+YTzmUM7IDArWn6o01Vk56LeLzn5IxS8yzuVCQFo5hjE+pZZ4Ooi5HH45eg5E54Trj9kk90PuYPo7sU7oa+qAOrXsts9X69ilNa8bULWzHOViW1WxzsGXdK1sIVE45IpxycfVrfC2/TJEjM1qEseZNGatdsLgNNBlZ/lAysS8xHJUhTUjnMhT2E7AqptkBqOLHOjJ8ixeCAc3SkrB/8WqKQCzoOTapOKcFisQOgnec2ByNIdo
+	OTbLRlvjeXebzb9XMRmKh/qCylQQDdpB+WPSyIzIzB4q8to2/TBN6VkfzTzh3FHpo/tJHiUawnLFQ7sLCeiaisHFZz7rixPugLBFxcXpas2vLaPbcCqNS+icYZHxuur/keN3gjrsIJw8h7KqaEDEo/1ImtwE+sYzCgo05evhORvnk1s3u7uHz8/ZP3FBWuqowIcHlt4JiVmvIf1pjiKSThicbxqPe3zIsvPYfVZYvv9bpduuxdo8rvsBq4v2r1h+lucY+U3fznAO7XsgEm7RwS3ypZ0SAAclgk0sHb+PE8SqVRplshHdH1S1653A0wCNWp0Gwvg7MO/q09NikHcYR9hVnzSm0Wh0oc4zhFY+h4hyNtL2ku26gCP57ug3fJqPfmOKaC3AW/AtD5908Y7qybrxmq4VuEyfSkFST9Z39L9uPV6JaCKEk5HVyhpaBYfOuSJqgvvHy5o+RYeW+wLPi/lPzMNwhh/wUT+OyQ9Qg1ZaoJWbzXNUtCJsfEevrlxKcL/XZNT8O2M3nYUosS528u32TCd3uKaNjD+1Br4eItPLcg/+8Ju6FM7WQ7qT8H4/D2Qnc+OlkqgNsnQP1tv4F7otXwQBKMV5r3yQiue1If8twQwTejss/TOESi43vCLzuC9huiUC27z4GmbWRumV9SHVDK39hpq3zYjNEO4oYd61mIsNK+dXevBqI6t72cnGNg++MeI3PGeQZuVEc+GZUQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(6133799003)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(4143699003)(56012099006)(5023799004)(11063799006)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SGhveFdHWjhmcDgrRDIyU3l1VFkvMVE1OW94SzI3U1gwYjgwZzArMzBMd3Nw?=
- =?utf-8?B?aThVQXNJTmZoWTgzdUVCeGFoUythRVRiTjRnVHdJMi9saDRHMkJSNDJoS3pK?=
- =?utf-8?B?ZDJKSmFQMWlyOWFCeXBhMTI0Y0wwaktyeVVzTlI2S2h2dFZBV0J2aXVFOXZn?=
- =?utf-8?B?UlVId2JsWjhrVHV3OUNBY0ZiZGhhS1RsMTVHOWYwUWJrd1Z0ZUQ4bzhhZk16?=
- =?utf-8?B?dkVBb1FCejN2VlBvYTFOTlhhTWk5QXgwSWFnaS9ySEltU3p6ZTdOYWdmM1lr?=
- =?utf-8?B?Ky9KTm53eE9FRnMraWZWZ3ptY29WNDVMYmM5MmgwMFV1RVpWcXEvWE1GMGph?=
- =?utf-8?B?T0JLdzlOT0EyTDFtY1BhMFBXTnBzNWNIZUdaeU82QjgrYjFBbTNMK1F4aXhS?=
- =?utf-8?B?UktSSmFhaDZFT29kTVhDdFRVaUkwQXFEQzg4TDN6TzhVeXNVYmtKU0laSXR1?=
- =?utf-8?B?Y0I0WWRqZFI4dENTMDZEa212VGJwR3RPeGN0OVk5YitSeVBvWnFqYU1Od0VV?=
- =?utf-8?B?bmVNTjV2bmEwQ1dza3pCSXJ6VElFY2tQb1lyd2hIYjNNL1ppdUxmTWVjUlVR?=
- =?utf-8?B?Z2YzTStzNkNmWnBKdlVRazBpVFprS1dHR2dydFRCbVVCRG1jSTFLbzBIWDZ1?=
- =?utf-8?B?b2M4em1HNU9KeTRFL3VQUERSSUFIc2luMmtKR0hLRVY4cXp3TzQ0TitKZlpR?=
- =?utf-8?B?R01XVlhQUHFjeXZTcmZuS0d0Q21PTHZub2pROVJSVkh2a2ZpeVY5dVFicDNx?=
- =?utf-8?B?bklmNEZyNEcvVlE5RHB3Y1BIOTBUNUxESXlhYi9MbjBZcWpTR1ZRSytZUlpD?=
- =?utf-8?B?cmxiNzFlTml3Zk5sQk9MaTJoMGZLamNxTVRJMlBhOXFyWFEwUlNmTW84RUVa?=
- =?utf-8?B?aUFwSUZuMk1QYlZSMGhvREl5YU1SclFDbkQrZVdiOWEycVZvMldVRnJoT2Qv?=
- =?utf-8?B?MWZrWEs4NXZMSW5FelljU3g1NVlXcVQvSnhTMDFtQ0cwVDBKMldWb0RwR0Fp?=
- =?utf-8?B?TUdUQWhJVUZlL2VqaEIvZWNFK0R0d0JUS0F2ZVh3dzFhaHlLbGFVbTU4MlNJ?=
- =?utf-8?B?TXNRcE1lbXFMb0hOVElDKzNmemRRS3NoV1djZCthcDZ1NFg3TXI0c3EvUVE3?=
- =?utf-8?B?VTFLVTdJaGtyZGowU2dnQXZDN29hdWh1d3cyUUl1NkJxKzIwZkl2VktxY1Fv?=
- =?utf-8?B?TUR0aFEvelk2L204N2Q3NFRLeTR6anVVKzU3eHNET2pZSlB2QU9uY21jWFpQ?=
- =?utf-8?B?UHpzWDg0UExrdlVaL1Z5MHdsemplQVRuYnZFOTJhYVNxdmdIeEtxS25GcGV5?=
- =?utf-8?B?dThRWlpYcS9iU3F4WDQweDFUbDVScWNPK0hEbWkwWkFSK1ZNQy9hMjd6Szdj?=
- =?utf-8?B?bklvVk91S2ltUjlsNWJTSGdMTnZ4YnM0MnJzUktyckhXWWJmNitIdzZIYVR6?=
- =?utf-8?B?VTNGb3pjRzU1OXpUc3BFcGxMZkVBRllMV05GZjdoeGxJeDMvMUorVWx0ekZB?=
- =?utf-8?B?VC9CNW92NjdJTEVCQ3lMZXhDQXdQcDM5Z3N2WkVuOXZ5TlVYdDlYbldXZlVP?=
- =?utf-8?B?YjVXeWRHUDkzdUNndSt0MEsxM3QwMUpuZTFLKzhiTWlhZzN5V1RKNHVLajRn?=
- =?utf-8?B?bXBRd0lxOWduWVJmV1ZDOFlRbGp4NVh4Uno5eFY4MmJpN1RoakUwendwQzE0?=
- =?utf-8?B?M3hJVVRWdHBHUzB5WXQwQW5FOHNaTzhvUnBVa1ZOMzF0Z2VDVWpMZWl6bHl6?=
- =?utf-8?B?LzFpMkJXaW5NMW1FUC9pSFRFaHM0TEc0UTUrSnJSRDNSa21UWlcrY0Myd0xE?=
- =?utf-8?B?SVRRM2wvMnJsY2t2OHpkTWthUDZvNWQ3ckl6d011ZWFQS1VRbG9YaFVPUjI3?=
- =?utf-8?B?ZUlheUtoK013ZWdHTjk0RndUWUxyK3UvWnBQUGtHbFVPY0hrYkZxUzNMYjNW?=
- =?utf-8?B?SzBsYVU3VWZid2R6RGFxQ3N2aDh5SVJ1eGltR0VCcnNzTlRhNCtXQmYySXhE?=
- =?utf-8?B?ZzgvZE10TTJhWUYvQy9nNTRaN3M2QTk1aVVobDBKRHUvYlF5VFlhWUpzUTFK?=
- =?utf-8?B?R3p0Zk9mSzQyT0NkOUNGZ0RoclQ0ZWpNY1pZd2YvN2FUc2hpdGNPWTVxcWF4?=
- =?utf-8?B?ZnJua2s4Y3hMOEhjSHpVRkJPeEkxSSszbFpqQmM5bUI3VDhrZVZCODZtMXBB?=
- =?utf-8?B?TGk3U0ZHUUlFanBMWk1ObjZuTUNuMlBLNEJGOHB4RUZtT1V0S2FqYzBtSUZh?=
- =?utf-8?B?R0oyd1VLcWU1UWw1OHhlT3gyamtLNE5ZSkpYMm1qa0tIcVYrUk9odCtuMDFi?=
- =?utf-8?Q?pHys/ynecy4iZmdnSH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8540bc3-e69b-43b3-ae78-08df13ce4509
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:41:15.4873
+	qnLEih50NNZbAc7QSzE32R/+aNyAbfbZTfOXwMRAZG3L9JaQpWQA1vNsftr+vKQfgTp3bTv+iWudjWya0bvKhIVYgGa+imfdBSnI3YlIYu7E+KN0UcJjPpxqFTHtuP5flItaB4GDntv4gFug4Dmdf0bFyDeWMSuNNkkq+skIqGiSo/Emgewqagit0+KIHEatejMkHHXv0Uor4Gv37OMHReGLI9HgWCST2/TOV42XT0E/IZ7kAg8PYnvAzJ2akyumYUBfcu7VG8c1pfdUcJdFiB8L+arQSHMwgn5CQ3GJFhyzFxfLWujdfoCbLPKuFfRxZJw2nA3KM5tijL4F+gHqxWAy4jqQHRulEUGNqj5eEj36yuEPgZcrzMUXg0tpsEcxvUfBnzUW9fZYO561I3GFx0gS3oemQJ16lA5pN8DRnVaGcq6CHQdN2M4jDAdo5mhT
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:55:27.4042
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wQ0bqOOC60pA/RXaVMPukW53JGT+ZQdtsRhEaEQMc+DKjDm0EGoeOXXyGlrhLRHK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7321
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdc3fbfd-d3bb-41c6-6b22-08df13d0410b
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008B1.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8612
 
-On 9/15/26 19:26, T.J. Mercier wrote:
-> On Tue, Sep 15, 2026 at 9:26 AM T.J. Mercier <tjmercier@google.com> wrote:
->>
->> On Tue, Sep 15, 2026 at 8:44 AM Christian König
->> <christian.koenig@amd.com> wrote:
-...>> Even on arm64 phones free 2M pages aren't likely to be available for
->> very long after boot, but lately we have been doing more proactive
->> reclaim triggered by userspace before launching workflows that desire
->> large dma-buf allocations (and also at other times during application
->> lifecycle in general). That somewhat increases the likelihood that
->> high order pages will be available. I agree there's no guarantee we'll
->> get any, but without __GFP_RECLAIM the attempt is pretty cheap and the
->> payoff can be pretty benficial which Davidlohr's allocation and
->> mapping measurements demonstrate.
+Hi Sergey,
+
+Le 15/09/2026 à 19:36, Sergey Lebedev a écrit :
+> Benjamin,
 > 
-> Oh I forgot to add that this behavior is similar to how slab
-> allocations are done for slabs requiring more than an order 0 page per
-> slab. A large optimal order is attempted first with ~__GFP_RECLAIM,
-> but if that fails a fallback to a smaller min order is done. When the
-> optimal order allocation attempt fails, the cost is just taking the
-> zone lock for a quick peek at the free lists.
+> Thank you - for the explanation, for the link, and for saying where you
+> stand. All three are worth more than an ack would have been.
 > 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/slub.c?h=v7.2#n3373
+> Sorry for the slow reply. I spent the hours reading rather than writing: the
+> repository you pointed at, the two drivers side by side, and the in-tree
+> binding. The checking changed what I have to say, so it seemed better than
+> answering quickly. Three things below, separated so you can take whichever is
+> worth your time.
+> 
+> 1. The licence question, and my mistake
+> ---------------------------------------
+> 
+> Settled, by your link. vd55g0_patches.h carries
+> "SPDX-License-Identifier: GPL-2.0" and "Copyright (C) 2024 STMicroelectronics
+> SA", with cut1 and cut2 arrays. ST published the firmware itself, two years
+> ago, under a licence that answers the question I was asking.
+> 
+> There is nothing for anyone to grant, and the right source to take those
+> bytes from is yours rather than any third-party copy of them.
+> 
+> I should have found that before raising the point twice. Your standalone
+> driver was named to me in this thread and I did not open it. The blocker I
+> reported on 7 September is not a blocker and never was.
 
-Well from a lot of experience with AMDs ROCm stack and Intels XE driver I think that this is a really bad idea.
+That's fine, I'm glad you're unblocked :)
 
-The background is that there are a lot of operation which can fragment memory to a point where only 4k pages are available, e.g. for example storage I/O can do that trivially (the kernel compile is a really good test case for that).
+> 
+> 2. What the work would actually be
+> ----------------------------------
+> 
+> I measured it rather than guessed, so that we are talking about the same
+> thing:
+> 
+>   - twenty-five LINUX_VERSION_CODE guards, all of the form
+>     "#if KERNEL_VERSION(x,y,z) > LINUX_VERSION_CODE", about 180 lines to drop
+>   - s_stream to enable_streams and disable_streams, with vd55g1 in-tree as a
+>     line-by-line reference written by you
+>   - st,vd55g0.yaml, adapted from the 3.3 KB st,vd55g1.yaml
+>   - Kconfig, Makefile, MAINTAINERS
+>   - checkpatch, sparse, builds across configurations, and testing here
+> 
+> That should not take as long as I expected.
+> 
+> 3. The question I cannot answer on your behalf
+> ----------------------------------------------
+> 
+> A 2100-line driver arriving beside a 2100-line sibling by the same author
+> invites "why is this not an extension of vd55g1". If I answer that badly,
+> the third version is a rewrite in the direction you have already rejected.
+> 
+> Reading the two files I can see arguments for your position. vd55g0 is
+> monochrome-first, Y8_1X8 and Y10_1X10, where vd55g1 carries the Bayer codes.
+> vd55g0 has real strobe and flash handling that vd55g1 barely touches. The
+> register namespaces are essentially disjoint.
+> 
+> But those are my inferences from one reading. What I would be repeating to a
+> maintainer is your engineering judgement, and I would rather have it from
+> you.
+> 
+> So: you offered to elaborate. Please do, if you have the time. Not to
+> convince me - I have no stake in either shape. It is so that when Sakari or
+> Hans asks why VD55G0 is not folded into vd55g1, the answer comes from the
+> person who wrote both parts.
 
-Now acceleration HW usually has a very specific sweet spot where it works best. AMDs GPUs for example can work with 1G, 2M and 4k in the L2 and everything between 2M..4k in the L1. On Intel it is only 2M and Nvidia has 1G and 2M (but really don't nail me on that this is just as far as I know).
+I think the fact that the vgxy61, vd56g3 and vd55g1 already coexists as
+separate files in the kernel file structure, all reviewed by Sakari,
+could be seen as an implicit agreement. They all share some common IPs
+but are pretty different. Sakari, if you have anything to add, please do so.
 
-So if reclaim of smaller pages into larger ones isn't requested what you end up with is unstable performance, e.g. if you only run application A everything is fine, if you switch to application B and then run application A you see a performance penalty of up to 30% which eventually doesn't go away over time.
+Sorry for repeating myself but I personally think having everything
+separated is better for code clarity. As the register map is
+fundamentally different, you will need an indirection map pointing to
+each register i2c adress for each sensor, like shown in Peter's serie,
+i.e. :
 
-On the other hand when reclaim is always enabled for multiple different orders you start to see stuttering when allocations are made because the core memory management tries to fulfill all those different orders.
+  expoure_register[vd55g1_sensor_type]
 
-We literally had tons of bug reports regarding those problems and it is one of the major reasons why we doesn't use DMA-buf heaps for HPC use cases. Instead drivers even communicate the sweet spot to for example TTMs allocation backend.
+While I appreciate the idea, IMHO this boilerplate adds unnecessary
+complexity and feels pretty error prone.
 
-I don't have much of a problem when we say that this is just for Android, we never do reclaim here, instead reclaim is triggered solely by userspace on application switch etc... but the general idea of DMA-buf heaps is that it should work for everybody.
+As you mentioned both sensors don't offer the same functionalities, so
+you will also need some kind of :
 
+  if (vd55g1_sensor_type)
+    foorbar();
+
+On top of that, it makes testing a bit more tedious as each change in a
+generalised driver might break the other sensor, which you might not
+want because, well, let's say you made a change for the vd55g0 and don't
+have a vd55g1 to test you didn't break anything on its flow. This issue
+disappear if both files are separated.
+
+I'm also a bit concerned about the history, since an heavy refactoring
+will alter the git history and make git bisect harder. As we already
+have a v55g0 downstream driver, that I think is mature enough. I see it
+as a better idea to use it as a starting point.
+
+This are all the downsides I see while typing, of course I might have
+forgotten some, but you get the idea.
+
+> 
+> If a separate driver is right, I will start and send you something to look
+> at. If the two really should converge, that is worth knowing now too, and
+> Peter's series already points that way.
+
+Thanks a ton, I really appreciate the work you and Peter are doing. If
+you start this journey please add yourself or/and Peter as MODULE_AUTHOR
+and in the maintainers file. Don't hesitate to contact me either.
+
+> 
+> Sergey
+> 
+
+-- 
 Regards,
-Christian.
+Benjamin
 
