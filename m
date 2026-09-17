@@ -1,66 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8C94B5CDB;
-	Thu, 17 Sep 2026 10:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523FE4A4EF3;
+	Thu, 17 Sep 2026 10:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639235; cv=none; b=qA0n9SupkouBBDHyGgzaQ+I5MszcpN1evLvCDSq+K6V0lF9f4qezlComfz1uNK5WYBnwBz1iIorbaZVr1hNzKfW77sTggqWYl3Bkz+gij8bLf1yOVYZmKgMPnASTP/Y2tHI3rDDxFLNGPS7GsQqMWv1HpzX0DRZ4xXHqdnLHEro=
+	t=1789639383; cv=none; b=rgVRokYplwJETpqllbRY0p5Imio8xMZoPYuGArjiifQ43qF0/5eDnU65gEHj7fxQpsk+5/tcpd08gT5PFMLXzHM60WlTBycnmFjnwvuiCTcRvG8afO1r72qkR0ZUNRVCbjc08NSLG5Q+iUeh2ezxlY7ZVT0MQL6u8e29C8ha9Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639235; c=relaxed/simple;
-	bh=+USMjIfNP3uZFioaRcdNSDXepCx2MVhcpY1yM/G+cUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ahye0pGVh8FYQy37c+eHjg97NwF+bTZ1sv8N+s2wnmAkaLDEmZdaF1Mejsw7oGVNx7ZSg7hdvcs5kwwoLuhyLwbGAkzxolZj58xuK+uybq5uJhOw6JYyqn+GsrgP9dld3FmkxbKwovCUncThkk7/dVWynZKpKK5iPvp1R1Ao0mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQTb5ShW; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQTb5ShW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6DA1F000FF;
-	Thu, 17 Sep 2026 10:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789639223;
-	bh=KMtp8Z9WPhLzD88mx0x4QBJhT5sxUdhnq9HfYO1RsoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JQTb5ShW2EGlCHH0KFxi0QSAJa+kywMbKYFjy4+uQ9QEtddjzlHJARjoBmsTdW7pi
-	 BwinW3XkizbE+K/m3puN4wWvEfL7j/c9w1tj9DHe4ponDn72Bb++zLnscoKq2OGogi
-	 PXdtg1S9ktBP4upgBlSfRiS3wlMnono+5FJVYBHl/bFXmDaJC7HWKaoSNgq6pwWCLo
-	 8yjuE/wzXJoYnfpR3u1Zf46sCbpNcE6iPTka/cKeHbMC5FY76GRIJ4RMjOzg0jhejD
-	 c+UUaca+mgy0LXxnal6q1min858S714FzCh21XZ6bOAsJOXbL4vcV9iJXI08+e5M31
-	 igAUXJOgrLZAw==
-Date: Thu, 17 Sep 2026 12:00:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 9/9] arm64: defconfig: Enable CAMSS OPE driver
-Message-ID: <20260917-modern-corgi-of-memory-6d9082@quoll>
-References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
- <20260915-camss-isp-ope-v7-9-77b13d131d3d@oss.qualcomm.com>
+	s=arc-20240116; t=1789639383; c=relaxed/simple;
+	bh=s4v9Rx8zuOAwFntnIIBCe7zSW2ZVhwiwhh8liJIqldQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hFh9vBwZXYDuYWse5BnvkYbCMNZ1WX0rybF+o3ELaUBN42tGmZ9RzhYQBkp4XqewglqVU6JNmYigTZPZRRrz0ECnOE+bp3SqbU/lZofGl0uXIbDY40Ymmb18kA/E4ovld22uCbR6alJA3L8ikyJPKyYU8buZNsa+ffkptfL0hE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnVD_HuqtqiDl+CA--.150S2;
+	Thu, 17 Sep 2026 18:02:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: angelogioacchino.delregno@collabora.com
+Cc: bin.liu@mediatek.com,
+	hverkuil@kernel.org,
+	irui.wang@mediatek.com,
+	kyrie.wu@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	matthias.bgg@gmail.com,
+	mchehab@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mtk-jpeg: Fix runtime PM leak in mtk_jpegdec_worker()
+Date: Thu, 17 Sep 2026 10:02:47 +0000
+Message-Id: <20260917100247.2145872-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915-camss-isp-ope-v7-9-77b13d131d3d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnVD_HuqtqiDl+CA--.150S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr47Ar4UtFWUXFW5CrWfZrb_yoW8GFy3pr
+	W5tFy7ArWDGw45tw48Aw17XFyYk34rGr48uF1xX3WkZ39xXF47t3y5ZFyftFWIkr9Fka45
+	Jr10q3yxGr4qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07j1zuXUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq00+8QAAs7
 
-On Tue, Sep 15, 2026 at 10:11:12AM +0200, Loic Poulain wrote:
-> From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> 
-> Add CONFIG_VIDEO_QCOM_CAMSS_OPE=m to enable the Offline Processing Engine
-> driver for Agatti and Shikra platforms (e.g. Arduino UNO Q).
+pm_runtime_get_sync() leaves the device's runtime PM usage count
+incremented even when it fails.  mtk_jpegdec_worker() jumps to
+dec_end on that failure, which does not call pm_runtime_put(), so
+the reference taken by the failed resume is leaked.
 
-Unfortunately same comment as usually... Samsung Agatti? How anyone
-outside Qualcomm can figure that out?
+Use pm_runtime_resume_and_get() instead, which drops the reference
+again when resuming the device fails.
 
+Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 8c684756d5fc..ed1d5858c942 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1732,7 +1732,7 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 	jpeg_dst_buf->frame_num = ctx->total_frame_num;
+ 
+ 	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
+-	ret = pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
++	ret = pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
+ 	if (ret < 0) {
+ 		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
+ 			__func__, __LINE__);
+-- 
+2.34.1
 
