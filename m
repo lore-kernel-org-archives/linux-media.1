@@ -1,120 +1,151 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013037.outbound.protection.outlook.com [52.101.83.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE7A4E0B76
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 18:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669274; cv=none; b=gPeDrl5id3PeA+UAYwta8sXBRA2Uqa/+J+qsvuM7pKKm/HdGoL9UJkB04JH7kudjJBQsEycNeubjBhD9CYGHCtlLlMQ9PvWtHmxDgBHESmKlByeFO/qXQaKpdbjlCxi6f1vpa6BvVfJR7ElXTa1clPBajhh3mE7Ah1cxnBJLMW0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669274; c=relaxed/simple;
-	bh=6QaB1vCAHPDrZfq2UMtr0C/Dsi8/MZihkvuPXytBOdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kl1ytyXG0kQY0cN0ZmqYaejnlJ/dSPWAVPI12sve8+pdFHRuU8GM5clu8f4SCKbvhxbfDG3+Q2A7ujFDmkC/yKYv2MEetDwizNCgUmV7XUkCmEeUzxSl9KPIpaCt/PF07978LUVtKqJJQcLMN3J8VCFAloYe85nPbCan0uVWMfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hsJyOlk0; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62484ABBCE;
+	Thu, 17 Sep 2026 19:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789671872; cv=fail; b=VNn1YvcqmPQ+nJuPVvwAQQ6CnO53UoGI8jGFIhaqdhjZ2g9KxTvJ6jde8YYalZQYl3zRhZnmMKHipytVxDYeo0KEh0YsFnZr9aqMZReVQ7av+nrbpNTrp6g75wc2yKjeB4BiIQtpIHTHFkSibfqH7/daD1vbsommKFtGChfdCO4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789671872; c=relaxed/simple;
+	bh=ooG/upfDVL4QYQL+NbvpMeknNK+usnxoVYtRj4arsqU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=RRlD1q7d0soC4HX2NXoOQGYjRXTj/JBnbSC/4XcB01mFxBJRrYNAVrgoi9EVBiQuN+pjq5G1DhJNRxT26R7u8ZEi/oBFqvdOmFo6l/tslLzpVzefgDjUVjl6QxOd364pERbBEpdLjpOXjtA7p3lMv4zM4Rvw01qJMbKC2zoS9lQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vRPYykrs; arc=fail smtp.client-ip=52.101.83.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hsJyOlk0"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so9962516d6.3
-        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 11:21:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789669271; x=1790274071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
-        b=hsJyOlk0GVVLp/TJvSOu56tX9ctJP+DNB+uKybx7JFxZmmvpr6c0/U+kKMuPNVG2Y4
-         aAjxscp5NAuG8QiTHHS0ZLCGoF8NIKN+e2u7UzoLXoi5N+Sl0pZQ4Xrw5qsJYfKwBuAS
-         tueGevEmShuRGR+ocbUT4uflEm0V7NTLsRYX27nFUO/NkT/KXZWRM+W1tZa9efWJWvrb
-         pZAhk92jcp6inapGjbjKfPs0gYKE2QzWRMoyp6qRWJH1Ui51FXzmxU4w+LGbrsf0PN/N
-         nU5wwShf22un+trMZTgxa2W+B79efUK3D29fSBlkKVcUpE70q0YCrGNTTQGq51PXnwHG
-         BvJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669271; x=1790274071;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
-        b=TJMdFvR2aCe5yw0wADOc9N0yLBWj/Vc4TGMYCfAkfzaiAHeGnW8iBTZgPCSVatqiu/
-         hFR4ouoTNBDZAkG60+rh2zBvO+TjvR38GpizqKrhodXTZC758ehy+5t78A5UafgxPSev
-         MxalOBlHsb2embD2pDAh81ilhl/le+hQvYsFFQeC804JmP/yhy9es0H1T9CR5XhGkjDa
-         eOauLxkC5j/COw6nR++otkEkwMJgJ754czRGtQlwdLTEzewhufTtClxJj0EagEhf5kig
-         gI0WSg2JJQO6GpdCMLsoKeOvNk0EPpnEOqcFVqAWuR25LrWKckdvDGvxkGHuE2ca5kjx
-         u6LA==
-X-Gm-Message-State: AFuF++mQ3QewS2j+c6h1pEDsozCEfcF9CmcQEYCkUhXBQoFnF+ahQpVG
-	M2hT+IVp11gJJFxzJ2jX9hiz/nrV9ZynAe3ElTHrRj3xTspVg5vNAiA=
-X-Gm-Gg: AYBFou0az5YLudUcPbuMLTzhaSL+Hn7bnYNN0Dv8OZbD4GMJ6QOKvjFemJCCJBXsjzJ
-	HsUxEWQ8iRWVsuH+FocruIVzjVVoB4wWiVJqvdbxT8Ch4T+JLNb1pWDyPCmBFXnKwe5Xf9ktZxF
-	2HYGE3VhafL6hDVIv57IJ7zuF7brSpARI6Om8D8KhpWVU04Oms0xQG0Za8HFO+arkWW9e3++XnQ
-	C4oY0bwq3Sd2IbJLFAyHBRn4h683g4cqpNg4pjZSPQmhyQEGLMAY78WMRjA6g9eXkl+4YKiNV8B
-	8O2kD2KUbbRbFpRucyZPBtnGhbOC1wTQO5eaC3KlemhEtEbnsVf0fJg3r2x3IjQ8f8joQRd3k5d
-	SiU+7FhNaw50cAVsqyecUPSPTsYuKYJ33RFJq8G/A3tM1lj8Z7SeoJ5aPza5O6e1JhG+GNZYiI7
-	FFPfvhMlenVAKrP7hAOqjIhUmA631IhukOZnoGjMfDvUW5TJegIe54LWe5v3a9wV0BKwHUed4Pj
-	G4hRHb4C9I2IRzX5Y+pIe0rZv8K1+NVM91XPILsBPxRvOTP+9Z011k9Hq/Etmj/ou1sidCJ8X2d
-	F+Dqvq/Yv9JPgjt46JaDGDKfItayuzH6TdheM/ZnjwmnRkDB
-X-Received: by 2002:a05:6214:4119:b0:912:3c52:5f34 with SMTP id 6a1803df08f44-91254bd0194mr797506d6.31.1789669270580;
-        Thu, 17 Sep 2026 11:21:10 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.169.225])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cc7ce2sm3684976d6.34.2026.09.17.11.21.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 11:21:09 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: radio-maxiradio: balance PCI device enable on cleanup
-Date: Thu, 17 Sep 2026 14:21:08 -0400
-Message-ID: <20260917182108.32566-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vRPYykrs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iJK9h7T0qghaZcI+SUNm8f5wPcGDg9Azcx5QiPi3JcCz1BWrnJQwd0siwiV6xqYwmZ4M8KfpfxWS3TDkh+cl5lLt7UTpwfo5s4/Ao9FJdv/Qs7SEK9fQ8Y8jSx7BCQPkMcuvJJwQckcDpgqsj9TC+LoT64J5P+ogzgaDOZBHEUWn7Vm6yCLaA0W5HctsShFuNYCCeHZoUITqzV9rqdIfcX9fhKlkKjfqATdEGtQhNEdLOeheHpy6rxiIM/fF+G6wphVgvC7NFytKt+HMfDG37PUV9aFFe2lQgoSXh7AjIG+iBk7TRClGsPrswOAFf4DY15GinYhqsf8LsWdcPppo+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EoO3EquTeFTx0XqB5Vb3BdQ5lY17cCjIzse7O3b7LL8=;
+ b=r/dUjRJiKbbmKZthdI5OMCFZH93CGWaMftQzgYI39CxkyHllrPZZBvK7T7j7RwCAO+cvC7iD9Jmf24uaqPdTGspEge9E3qDKSFJqDAeMcxvl2WwJ4kfXnIVJFJ4MYE7V2UgdxG+k3Ew0uRvVlWCrI8iPVx/YvJFdR16gxh2dI/D/hIrK9392UAMJDTWX1ZxHK8/tGYwatDfOe3doVU4yl5PRt6d2e6i+3Aji5W33iJ3FNS18fMcaGCR5kfHYOtw5rbgBoo+KmaMmRRfGdI75CZsc8J7hE3zamKSGSma68CzF3EMdW70OYZivZS1gn7S2F63I3RVyYQVfIiyNWyuo7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EoO3EquTeFTx0XqB5Vb3BdQ5lY17cCjIzse7O3b7LL8=;
+ b=vRPYykrsLn/JqCH6vlYgAhJEde5gTBqKpPkqMFAjuPkuNBsKIQCQvw8nxBRi+EumfzoDM5mx7tSCzDzISL8uPldizTsIB6pA2947vpucajxrlT0ubbkLkisp9jHHDn5Xdxq8uPdBwe3iJvaeGtdLTbwvwZvzMy74wecqFXFBPpoZKffNVj2iPYhwupR70aqQxIv29l7ivl/OS5nGLX6Lt1lZp5P7xtmQp/21KaYY5KoMRSub/0bJ9QJCmOTFbCGay3zjPAf0LaUTMX8gt6QDtUx2m0jIbCZk3M/HwQriOtcfu/lBGo52tlCusGbSbTvv0WHjb2dulGWnamSlrSizWQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS1PR04MB9698.eurprd04.prod.outlook.com (2603:10a6:20b:481::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.16; Thu, 17 Sep
+ 2026 19:04:28 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Thu, 17 Sep 2026
+ 19:04:27 +0000
+From: Frank.Li@oss.nxp.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Xu Rao <raoxu@uniontech.com>,
+	Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org
+Subject: [PATCH 1/1] media: m2m-deinterlace: replace direct ->device_prep*() calls with standard DMA engine API
+Date: Thu, 17 Sep 2026 15:04:16 -0400
+Message-ID: <20260917190420.1189246-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY5P221CA0142.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:930:6a::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS1PR04MB9698:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e13bc9e-74b7-4a91-5fc8-08df14ee7f16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|23010399003|1800799024|10067099003|56012099006|11063799006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	yGxgGDb2kAdyFbwp2hFd1hO3aeWn1ZBCNBfAygQZqOvt/1SGwOVB84mfyn+hU23uOd/gs5XuOoiEA/QKZ+xV96lxiEOe45iQX8bzfzZg1T+FQWkuUCkV1kbtMRDEDd43CPr4Yu/Ibfq7nEAYxDAFwk7zOR2sunhZaTlAm1UCSU1xuUpyyBFSYH2Q42Dvh8TodEh7lC5+7JXaP/HTZEhX2lT6msMJ7jeIVjf/hEhCNiKSEy4RaZwNY2vFPBFy8pV6FAHk5dXBECZE3NI+l8ZsGw0r2zLNRQ7MqvEDJ7De4oq52rCybvLwHlncQ2omneyAoMdqlPhJRLXun4Yxa2ScaxePI4twAWatf0Cv+IShzfExiX0AFcudVnaAGA0P/qInjAwbiN0s60Sbs6cV3G7FegmXG9CPwIcdPOAjLK96TBeLyOLtMUCQ+eJpGG4ON8bkdtLHeMXSrsWtLhHznhKsajbj5zEs1Sxp4jFojAlBlrzpZWpuMCIwHhjKbgavGnvaJi3SH+nmLXDb2v+gN6I3qpi7m/rBAnFIhMFD6izgCZPVghkY6++gZf5a75rohSQOaFMRtLa8r6Ip3REFaaomnxH7DB4c+0Q4U8qC+q891L8rYdqC0BTgJR+Ubn5YEnj5tBdvjKKcnsIMvDJUWaB3uhiG1YqzuXlj+vbP4Pk1lNM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?W0LjVtc/pWlu5bvy2yT8QdPBzjgK0AGNWQC8eNWsdhRe4mLVRDLIf2CwIQzg?=
+ =?us-ascii?Q?/AwnI6awPWxb+rbAGrO4VX3qlGX5BY3vlP9zJyzqA9cskdPsJgxTPjVomCVF?=
+ =?us-ascii?Q?QRPql8PjL7UZZ25meZGlbNtxHSUo06a/VVe7v+fYQfKAoCZd0aWVQhHEmnQ3?=
+ =?us-ascii?Q?0UpH/Sjd5S/F/5RvnVZrHahg4Fpo0U29Mou4xCHLoMOc/RL0VYzApUPSODNI?=
+ =?us-ascii?Q?0k4Cq2o1+IUTOhP7nAZKyRRcWR9P4tp/UrgDMBlH59wxnhctCtSfqbMUTwke?=
+ =?us-ascii?Q?KNsmCUYYhxUmRSaVUZNQ9PmMtYh03jb8VO/EaGZP3zoAvQLcV9k5Zw7DlbcH?=
+ =?us-ascii?Q?BH9Z7GxW0vFWeYUWoA0MYyjFo/Uuo4u9xraqVdVstbKFSNZO0TnhF8Ifsh77?=
+ =?us-ascii?Q?n3QeXiT7nYchny6QqRM17rylkjO3mVbQR8RW/NU1ac24Wsgq4gJWjAEnNe/P?=
+ =?us-ascii?Q?eqs1IT1jWEkVw2q5R4pmR5aftGX/ofiPJPE6LdLWL6DmdM/fHyklJG/0Mree?=
+ =?us-ascii?Q?Wbw0VYFrE3EL6qM2QC6F/3HH2SLs/3qmhMM51g8lfh95pakVA/kDs4qJngr0?=
+ =?us-ascii?Q?eRBsUvvrQAWOk96uCmkEGQLyBqN0EJtswzUHU6pjrYpfmHq+xMrwr0Vc6Eut?=
+ =?us-ascii?Q?2PuhyxGXLwYaofOUl376ipDiMg6eAXFcZf/GDaxKrNwZDZEGaIJRz8kffQPQ?=
+ =?us-ascii?Q?t3UmbPSeSLUgGYUFdvWmG/iny1zi7tC/AJvcIjVmM9Ci6Hoi40oRkSe3v/MW?=
+ =?us-ascii?Q?BsT3JIKvm7vMTEloxn2MLAu+LaUzfp6V4ZHO7OW8UqV7ytyZ3GRQFbrLgXWl?=
+ =?us-ascii?Q?nffBNkdNxItVmH/kCJkFZS07aCTY0Xw2n7MtH1c43uoDX7MVDrs4cwMQ9FQW?=
+ =?us-ascii?Q?zfRxFY3LL35JBf0kkLA3/09cLjQqwGfCohgeMq/M+lfFz5Jz07SK8UcxyrKD?=
+ =?us-ascii?Q?QexHpsysfJDxIfcjst4nF7UOMEJTqY0zDx7xHbcPcwFdjISEii96LxdAv8Yc?=
+ =?us-ascii?Q?q1EwVmzYAFlnYmid1JZPCaJt6NhHYKTDJZPs0UGivsCk9z7Ink3h99fJMEyq?=
+ =?us-ascii?Q?oFRoAkmMKdwa41wjwSv9n+YMBwcpRI6wdMbI8ORAvjto1IUiZ28OCRoJX/jp?=
+ =?us-ascii?Q?CpkkG+a+1qldjyfNxeDY6Rt1U9Ke3PrsYExgwYk4WiGq3dy7+eB/V/l8KRWg?=
+ =?us-ascii?Q?PJc7vcTbrbRg2RW7+NJzuBx/vex7Pcqakji/SIHDkMmUT+D7JjEpoRhwwKeF?=
+ =?us-ascii?Q?iiuBZYG+248RtN4vN5MW4iOPkzjoIP8uhcvHqABcsFKd2MOE+HLuKR2j+LaX?=
+ =?us-ascii?Q?C1sHTjqdI74Mlg7tQjVD9jVFdH9hq7+2c2ltMZ/Vu9Qo8QiWdXfAuEMnYb24?=
+ =?us-ascii?Q?M4g2JlZr6Q2saVqSsRH4bUVfCSpdk0iFrCg0bCSAKMAbxsOf0JkvR13scO9S?=
+ =?us-ascii?Q?jcieBN8fDdTjCMLydk4w3qGrhqupq7AbJy7JYkdQfAQSuORWmI8pJDPqI1dc?=
+ =?us-ascii?Q?3Os3WMWLaQC85wgVHag/W5/o6wAaBdM8KQaLL0rVWK33fDkGIuGSp5LuEH/r?=
+ =?us-ascii?Q?gPhLB8STaQpIa98B2zqPHP6mHHGo2Y1LAENFDNjNTqDQqa4lH1QiAyDuV85o?=
+ =?us-ascii?Q?RtJylvOk8pvrgXBeaho1C4Hlj2lwsau6/f/pvfbsBfX2ls+YMtXcvuyghZkO?=
+ =?us-ascii?Q?B1OD0oVGMys7WutIMieQZ4L4puspU+JRLNSwADcPJt3/6eHytDLeMyMRFAdq?=
+ =?us-ascii?Q?Ul2mZcmNNTEePQb/RfVnncmED9bV7OFfgKFdoKYb7w1NsA4pcFI5?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e13bc9e-74b7-4a91-5fc8-08df14ee7f16
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 19:04:27.8623
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bK2iolYLIl15A6krMG81Ydh9RGkKMp7bCJhkUXQaEYMJQHIfeZd4Iy8byiH3wbwQI2cAbpfsq59G5bdKxZ44NrK3whpEu9Mp18vkPsK7XOrOQBPdgmE/nQC1VhA9P5OA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9698
 
-The tuner initialization failure and remove paths omit the matching
-pci_disable_device() after a successful pci_enable_device(). Disable
-the device on both paths, after the final hardware access on removal.
+From: Frank Li <Frank.Li@nxp.com>
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+DMA engine consumers must not call the channel's device_prep_*() function
+pointers directly. Use the standard dmaengine wrapper APIs instead.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
-Changes in v2:
-- Add a Fixes tag for the initial Git import, where the PCI enable
-  imbalance is already present. No code changes from v1.
+ drivers/media/platform/m2m-deinterlace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/radio/radio-maxiradio.c b/drivers/media/radio/radio-maxiradio.c
---- a/drivers/media/radio/radio-maxiradio.c
-+++ b/drivers/media/radio/radio-maxiradio.c
-@@ -159,10 +159,12 @@
- 	dev->io = pci_resource_start(pdev, 0);
- 	if (snd_tea575x_init(&dev->tea, THIS_MODULE)) {
- 		printk(KERN_ERR "radio-maxiradio: Unable to detect TEA575x tuner\n");
--		goto err_out_free_region;
-+		goto err_disable_device;
- 	}
- 	return 0;
+diff --git a/drivers/media/platform/m2m-deinterlace.c b/drivers/media/platform/m2m-deinterlace.c
+index 9dcc4bd6cbdd5..57a91ff2269f2 100644
+--- a/drivers/media/platform/m2m-deinterlace.c
++++ b/drivers/media/platform/m2m-deinterlace.c
+@@ -330,7 +330,7 @@ static void deinterlace_issue_dma(struct deinterlace_ctx *ctx, int op,
+ 	ctx->xt->dst_sgl = true;
+ 	flags = DMA_CTRL_ACK | DMA_PREP_INTERRUPT;
  
-+err_disable_device:
-+	pci_disable_device(pdev);
- err_out_free_region:
- 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
- err_hdl:
-@@ -180,6 +182,7 @@
- 	snd_tea575x_exit(&dev->tea);
- 	/* Turn off power */
- 	outb(0, dev->io);
-+	pci_disable_device(pdev);
- 	v4l2_device_unregister(v4l2_dev);
- 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
- 	kfree(dev);
+-	tx = dmadev->device_prep_interleaved_dma(chan, ctx->xt, flags);
++	tx = dmaengine_prep_interleaved_dma(chan, ctx->xt, flags);
+ 	if (tx == NULL) {
+ 		v4l2_warn(&pcdev->v4l2_dev, "DMA interleaved prep error\n");
+ 		return;
+-- 
+2.43.0
+
