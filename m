@@ -1,122 +1,130 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AF6581256
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 14:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04104FB9CF;
+	Thu, 17 Sep 2026 14:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653779; cv=none; b=ZfzF3LkBCBoHL4Thv3NiNC9QAHlZwSB2F7ON6Qh3HvvF5pPyYZyDj2I6gIJZoSRrylPBDJUk5nHb1VbY2Clbs9nk9adlJY/rVnNEEfjq+3CzpzF7dXRmmitCyHTlt+W6UniGAYIbJrXr4YIRXyQKjv1ixKLZqKl1Wg4BWH/hmj8=
+	t=1789654111; cv=none; b=nvRkI3TtSRf3gWv6qPcfj//fJJ3q9EaHjlMqC2+QHOz8OYgRCG4oLlC/yaJNGwJTHHHUDkPLno9m01S66gGeom40eNrSTv0CN4EzdvWtP4QIj0fRReKoISBbYP2TJ1ZdTMIBA0KnoofqAoSY29zjQlb0gJu3t9G0WMeSYXYbI8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653779; c=relaxed/simple;
-	bh=5WF8VcNkm/QhAqH+TgnbaHxVovZYWfwOqxhhljrRvjc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VeTWUgtJVCucOTyQrMXR/v75dyPVjmgidxkYh5w0LEck6uP1jkGm8xnLycX1tkT8ULacklFMaxyeC9OrnOJ9+r2R3Qy/TuvGv6VPRUHKq1WU4RNKJbFflozUbFwa8hQJETTfYnq3+2hx23R4+DrZTL6uyuiNH4ikmvUkkgR4d44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OVEWn/ds; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1789654111; c=relaxed/simple;
+	bh=UXS0gWmIZol8VBZff2wUbE3FNTIji7/ANcODIWLIp8Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sQD4vElYuBwsdCA5URC9/+eCYOJUpnkj8qtPXRRTnx43dfexY9EpCgh3AYO3f3uyOhQz3VW0oEXh+KtXQ69LTLh6sRc23eNdag3QK58BclUHlPFpL+BhJ4P9eBxWdKIwIGflL1kzpULYfbY5GOhYGLTpYDltR3hDDF5MBoMWe4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jA4fd1Pa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OVEWn/ds"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c7bc5bfso234168241.2
-        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 07:02:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789653775; x=1790258575; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5WF8VcNkm/QhAqH+TgnbaHxVovZYWfwOqxhhljrRvjc=;
-        b=OVEWn/dsUGk0Myco3X13NbUxQ2N6DqBM+3t+cl0zpoHxP6xtU+yXBGIcmtWaZAW59F
-         yPlozK/9GLNCzTZ16jyK8rZW54T0IkPSrvLHiFew2qITy1XBgR7SJxcgH6Iuin7S4TDl
-         bSJnKhV8eIhYNUvNdY8qzrTjQU3NHE9fszm8w4B3e/REeJC6jZ7nG300iARqT04ZVJai
-         UOYZzu3RZCp9zHqZHgyJioDFLuiqO255MyFWk1klwJHcB0FP3UDtSChNCxaTuMvm8oFV
-         lnv5UYb5jN0zo+pl5fpPOG2xgvvKOvnZh3AfFvU9txO14Py8ReHD1/Yk/BGr+1H/fCiJ
-         l0LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789653775; x=1790258575;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5WF8VcNkm/QhAqH+TgnbaHxVovZYWfwOqxhhljrRvjc=;
-        b=KVcKBj+Z7vCQfdBYDMEQQ4n+i2fQJg4g9aI+sro7NY1nVp6J4dFYUHvbWoOIs98CmM
-         6Y0KRfKbSmq+XAQokk3KQVqfxmQmTqvEc2IEEXMENdgc5ygW8ta/Mqu9uEq44aaL0od8
-         l8GsBpsB/WuJCcvAZMXglUBFGqz3n7kzRX8jQG/UCEk77iiTw5FPcJg51NC1NDzT0+Nv
-         qqeV1K6L1v/AHHCr36RQIo3NgcJ20iHrs8eeckvhaKTXR8cLpC0IwGmMKgIrVnE++llX
-         2R7BpDHhEgvxtpef/GZnIn6Cli2XNJBDR6Zver5+gxusESqB66qrzITrkZELEhxj1zON
-         Kysg==
-X-Forwarded-Encrypted: i=1; AKwUvByR+DDX3L+wQbXGr1tX7VAZFdlOABdZTtc4pcbBO4aHU9Wp/+whvGH4meqyp2fa/LLnsboMqiBc+NnWBw==@vger.kernel.org
-X-Gm-Message-State: AFuF++k5YZqHEknIQJK7knMhX+3mzePoeIIqqkhmFtmAmcwqZtUmz14k
-	V8XL3MOsCDKQSYle8r3GHA+rkVF7B6+pTzrHE53B1hD2MM/pJDtGwV8wz+4ccovjh88=
-X-Gm-Gg: AYBFou2Z9zsYzsQXOktbp3N1Zdz6rrNoJ3hEcQ9vVHGCZ525cAdK84chJypzhLXK/Ga
-	cndf4wvYCxYQx259+0GxFqbfyztVRNUDvG03xGJbx1nNcGuO2/UyIYwIKCSKSLBk053CQFGYo/n
-	moyBWTpiawIMt9hbckpDJ1Fz4hF3SxUyh/Ur3miwfmruUBjL0QT/QX/JB/aLs5vwt7yItXnFRyu
-	PEstg2bSD1lslLwBjcL+b8SakO1fBn4usHT/ApGy3ueWjW2Y6kY0qI2S5QrWWFr9lpMZWt+Aet6
-	/yfd3HEGBol9cGpf3+l3zBbTalOkl4q+fBcXWmF+rsmqUjey+RTNRo5LCKBdex6Z95Puh+wszPH
-	jlzCxOjf6Si0uyWn5xAZebqEPjHOer14k35MmdanD2siiv+9tHYhyGOaTfoK9TK91j66YaL9WdK
-	ArL4hSUhGyiEuV00X/CvADcTnpRLC5u3UnA8Af5xHBGT3yD32GwFSwXZ4CIT0wcTnvbXn3Gxu3/
-	TgwomC/oTE7yYQIy7HP0OaWTXUQPlHOMXAwDKB1nwKOU5dRE4jW1ewJ
-X-Received: by 2002:a05:6102:a189:20b0:7a2:63d4:3d25 with SMTP id ada2fe7eead31-7a263d44d51mr364707137.32.1789653775451;
-        Thu, 17 Sep 2026 07:02:55 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bec59fasm50600486d6.39.2026.09.17.07.02.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 07:02:54 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x7ChR-0000000Co7R-3O0W;
-	Thu, 17 Sep 2026 11:02:53 -0300
-Date: Thu, 17 Sep 2026 11:02:53 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260917140253.GG3196566@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jA4fd1Pa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 47918C2BCB3;
+	Thu, 17 Sep 2026 14:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789654110;
+	bh=UXS0gWmIZol8VBZff2wUbE3FNTIji7/ANcODIWLIp8Y=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=jA4fd1Pa8CoQ/Vhsj+iEGE5rZz2S2Wfy8VkCpuT73fDx54jpJ6s0ku1m+qtSiyXNu
+	 0hC3ter/Qf7XDjUHyjfWNBBGN8mMg4kRVq5d6qh5j0W9hX4JLWDeAZJBHta/x8BOE3
+	 gtEPCU+hyf++ODpBaM2ygzEC7CMEV/mUx3ExdFimXTS+HGh6qEu+lNnbrC7ZcwkRrp
+	 Yvyh4hkg2C8As2woeSDcjN31gyTrlYBDyNWzfEG7T7Co+FGQgbOb+4HbPZARfH/Y0q
+	 pC6Gnq6OnLePlA4mQZRkh+rkMiUBtZK9w4CpUfwJeLvMw+CEWDhbvzL5uPM4T88odz
+	 hMe7Va5CnILLA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22504C88E72;
+	Thu, 17 Sep 2026 14:08:30 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 17 Sep 2026 16:08:23 +0200
+Subject: [PATCH] media: v4l2: Clear subdev devnode before calling release()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-v4l2-release-fix-v1-1-acbac7f9b78e@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQqDMBCE4avIPrsQg2i3Vyk+xDhtt4iWrEpBv
+ Htj+/gNzL+TISmMrsVOCZuazlNGVRYUn2F6gHXIJu9846RqeatHzwkjgoHv+uGLOKmlafsoA+X
+ bOyHPv+St+9vW/oW4nB06ji/x4DysdAAAAA==
+X-Change-ID: 20260917-v4l2-release-fix-89094967bc9d
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dafna Hirschfeld <dafna.hirschfeld@collabora.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1729; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=5slSMYxuBgDGXyuAtqR9ZCxY1A7kKnqQ6WHaKf7aEdE=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqq/RcWM2WD6KyRB8+zjxUZYzmG1/C75BD4j7aY
+ 9ZhxW9qKxyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqv0XAAKCRBgAj/E00kg
+ cklTD/9No50I3OOiXFPmYckznONdpAqdchnb4ZchY8TRvZGvSVtYUw/GO21RGfsGS0eyb6iLiJe
+ yIxkY/XIuajzv1rkjJFZMyfjukXYMIt0xnX+R6ImsnGazF5jD1CEQrilNtve4tkqARsdPEfeUTR
+ okvTSAS9fWuQsxeOR5NmgKSc2a/sC10NmiSuU9yicYt84IoA5DXqw2qNLa1FM42qZIPDQQe6XEK
+ lWXDiWhJnu+fxiAz+Jb4Ce0I646WA7Qyukp4PTrzAOiWjZuD2tNuKl8mqWrns+AYevzpY6xzBbJ
+ AnWU/F1Dls8AMTVmwBPnDwlYX7u1fAlFLgSdUdQRSdwq00XG7soww6JKcNQtzENye6c5O1ndIeT
+ psO37LfoWqSMGCNv+suTcuQS5Zfhko/gbkzgmtLMRZ8Fi4/h0F/Z1yUKYp5ZuyGKg4kILJgjhEy
+ RQpfXNJYPO/H+3b1UjwaOa65K1BsWC1OJZD92RdzfycqI4I8sab+DpmkOiZDMEHAb/45FPFDj54
+ 6gEWIcEr0o0Ql2N/oPrJnn1SDfi/Uxzw4MO8IylEZbqna8d+CWphxcsLhEiJpqCvSi5dg0nRYN0
+ wUg/5/ayTN1Uh5vZY4o99/8DWc4IJV5ucRXSuUMQnbcCdVglC7ULRJYQgY0QkuuMiicUECVGAMt
+ PYpmPka09zkrzEg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
+From: David Heidelberg <david@ixit.cz>
 
-> That is, a flag to tell the topology check that some transactions
-> *will* take the host-bridge path due to IOVA being used, and that the
-> computations including pci_p2pdma_distance() need to check whether that
-> is possible (checking whitelist etc.) and return the corresponding
-> THRU_HOST_BRIDGE mapping type. Translated transactions taking a short-
-> cut using the bus-address would then be hidden from the driver.
+The subdevice release callback frees the memory that contains the
+v4l2_subdev structure itself, but v4l2_subdev_release() wrote
+sd->devnode = NULL after invoking the callback. Any driver implementing
+the release callback to free its state would leave that write targeting
+already-freed memory.
 
-I imagined it would work by the driver passing in what modes it
-supports and Intel GPU would simply pass in ATS only.
+Clear sd->devnode before calling the release callback so the callback
+runs last, matching its documented purpose of freeing the subdevice
+memory.
 
-Even something like mlx has variation, only some operations can opt
-into ATS, many others are never-ATS.
+Fixes: 6990570f7e0a ("media: v4l2-core: fix a use-after-free bug of sd->devnode")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/media/v4l2-core/v4l2-device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Driver should not make statements like " *will* take the host-bridge
-path" since it has no idea.
+diff --git a/drivers/media/v4l2-core/v4l2-device.c b/drivers/media/v4l2-core/v4l2-device.c
+index 67e3073de1321..b4036105c2d1a 100644
+--- a/drivers/media/v4l2-core/v4l2-device.c
++++ b/drivers/media/v4l2-core/v4l2-device.c
+@@ -171,19 +171,19 @@ int __v4l2_device_register_subdev(struct v4l2_device *v4l2_dev,
+ 	return err;
+ }
+ EXPORT_SYMBOL_GPL(__v4l2_device_register_subdev);
+ 
+ static void v4l2_subdev_release(struct v4l2_subdev *sd)
+ {
+ 	struct module *owner = !sd->owner_v4l2_dev ? sd->owner : NULL;
+ 
++	sd->devnode = NULL;
+ 	if (sd->internal_ops && sd->internal_ops->release)
+ 		sd->internal_ops->release(sd);
+-	sd->devnode = NULL;
+ 	module_put(owner);
+ }
+ 
+ static void v4l2_device_release_subdev_node(struct video_device *vdev)
+ {
+ 	v4l2_subdev_release(video_get_drvdata(vdev));
+ 	kfree(vdev);
+ }
 
-Jason
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260917-v4l2-release-fix-89094967bc9d
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
