@@ -1,113 +1,219 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC92526AA8
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 13:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3193252D2D1
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 13:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651684; cv=none; b=QPZScDIUhwZDvDu8DrIn8mVc5UekyKdggYWTWhOVzTFYMQUAzrn4N6GoX+dRS7qSGCeyny+T68wnnTXb7X93WCXTqlaYTHPMX8k2t+lArkX6Uu4+WDibzCnAU8PfmPenHA/vNtS3fcL6W/pAKdPAGy3YCeIHqXDDvqkW+Z8gGlc=
+	t=1789651917; cv=none; b=pml7gUxNQ07BID2oLtMz/qLP4cQdB7HGRRNt4lQkoqzONHe5cFEhYSxm7Ob7ZYGXtuz6MbK3YV/YvGu2GyFliNhmvbLt+hzhZKUK6MpBPzqx4FBgzhIvwFIb2S6nekYTW/XYAkCxnEdcnADie9HMlpBoAH/9oxBj5JDRIiuxnxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651684; c=relaxed/simple;
-	bh=TX6xhS4Vhis/cVqkO7iD2bmIOPGH7N8MJNCWfFGrVr0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mTdRLj7AISWH/W39hedn7brJTmpFXAoAcsU97iIb7GbqSUcfs6d9x8+K7d8KCpC3uYf9iCS5epm0u2bRVzx8oXvcEMvugYHG371I4YOR4+j21F1c5Ur65LH+wmfyIQJYxHJuigfilkFMmpKPLUGuYl6QbIwEOd+TVCIrGqLhETk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OJPx/VkR; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789651917; c=relaxed/simple;
+	bh=Bvdv0+zm/krMaXE5JC5wv0NoWpGhf3Dxn1zM5T4g7OM=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=aIU01Y+Xcft0irV5fdJMVIO2Wz1KnFbirj1RNuLZTRbTxlxE8FjyJVFsPBjMH2ovXA/qkKDuCFw8OM4tHz1UvyZKgyW5LMk+VxGwO4ZmWG++JJOi3gCAn20KqPqjoBimVNn63w1yWtWcAWuUY27B248xUgZ2IlWVDb47x04T2dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cRjyCnx3 reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OJPx/VkR"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98604f6b4so1315182a12.2
-        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 06:27:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789651676; x=1790256476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rajuo6bzngXrBhLYotQd0SgbFpshLprnWII6O4/hths=;
-        b=OJPx/VkRtQ1fIdASIxegqFHT0i3xYB+awFm099+ZIEeVsYTarq+xHv0polyYdj22JM
-         BHvYD3HpW5LLY1/Aq8nBlVzmuN57UM6PNT5gIDypU8XJwCcRqvqCmU7RAddDDNNjgdrS
-         l+cZxshTdscz6asGb3tqJaQeBOYVFwmuFO0GPKGphIrO9LfQv81y+dlfRDREHa1+jy1Y
-         ALBFDSqNVCwkuWI7zjO2/kwMmxKRnYoe+9z+Ugs8VuwC6HHpsOkYI48vRu0NwfJ1pk75
-         M/AG25D3IuNO7Ftmcd8Oo0IgT18PvFy/PPpoj833Kj7kh8Eil9yogKdpr9WEo8d+BaXY
-         8DpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789651676; x=1790256476;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rajuo6bzngXrBhLYotQd0SgbFpshLprnWII6O4/hths=;
-        b=itQ6tmKcsN/5SQzzA29/AbONW7yXh6ZyzArqMgO+WVBfo/zUp4/O+Su8WqP+6HPosu
-         orxA5zlQOmeA4yj19nyXGRPmANUuQVI7rHh26KI7FeC1QkSu2+bLukyf+feEvUZERkFG
-         3v+n4iEsSDi+EQBdyazQ4sv9bWhp6YtBNyJJLBkFDH+IJnATIWJ5dxrlzP+5HFbJfMnX
-         F7i3npYqCrkCxdwMbIec2GawxfE1t5gAiTHAATqdUM943rHugaHfPSUVnzygpdm9OzC8
-         6PjvEKSbXzZnZMjQdJ1IBlXrbhirIinvS+7S80SRbmnriqM+Nyq6zhXFRBL7MDBftxwC
-         qNng==
-X-Forwarded-Encrypted: i=1; AKwUvBw36GmLOFcxsysHJZM2SPA5vWqJ122udWLldXIxYqkSKjErrssA2/vndWzPgWf6msGJOu/HYcf7ufimSQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++lIQTVqw9ZoJRhp5zymcoYy6yAEqeu3Q3ZJl0B26qJfRCcBkHuq
-	cPcxjSOj7PAHvrnY64EepAGUa4U5/2U6GXUAoKr5yaVypSJvUCK0aZeEzZCMzngU61g=
-X-Gm-Gg: AYBFou2Xq7kqWlPRsIIOZzKIOl8jSSZ4uVt0pIaCON2XUQYEjuodw1fJrJ6WmeWQu2k
-	yxrwqR1NOOtLws5BXEA1+jGvOchVs2E+unr7xQktYDjSH8xk/enphUDrecYjLuL3K+cN0Jzk3dy
-	VpJ02/ZIsVc+4sk71625t/g2MrMG9VZxMx360Ztmxxmud+BdVQH6s+6Zv/A4E6c8h80Brx9Nrzc
-	1uBZ0wxaeGpEzjddwslRG8V/QdwZkwdAL9DTWsS0aUE8fvLlE9vbsQlF9XiIwsDbDtO9ndAGU4a
-	KJadp45BU5GPKZ5si1DwojD9FJAEMYZfMVdnENtcM18cNs6GHvbFnL430BKnlYKIkWRAgVFMo1k
-	UcGXsP3vrr3OiDsLOlcwgbjRNhux2gGbT4jW3wCGUUtzhDr0vPfJOB2z+8J2+yKH5o36zXI9+7L
-	32OL4QEzzcnKWvGoNsWOpCFBY1xPKEqUiUEdafkiB4JtlsTj1Ey5+CUbMMLD/l0+sRJrAl6+BgB
-	oSu10vn5fU=
-X-Received: by 2002:a17:907:d0b:b0:c26:19de:9acd with SMTP id a640c23a62f3a-c29e5308381mr463526666b.37.1789651676039;
-        Thu, 17 Sep 2026 06:27:56 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.29.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de453f04sm293940366b.15.2026.09.17.06.27.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 06:27:55 -0700 (PDT)
-Message-ID: <37f182ad-a137-4066-9e94-b06be2cd03da@linaro.org>
-Date: Thu, 17 Sep 2026 14:27:54 +0100
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cRjyCnx3"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8729E22B;
+	Thu, 17 Sep 2026 15:29:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789651794;
+	bh=Bvdv0+zm/krMaXE5JC5wv0NoWpGhf3Dxn1zM5T4g7OM=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=cRjyCnx33SJQL60iEwdUcFVIxWzyO4tXT5GtJ4lnIw0toKdo1p0O6CdlJXfZj0jhS
+	 JSY+q7R0q41tpMlPlpXAUefMY6BokliPzrqKlxzBO5APTZKsYcIEjath4na3xvcaWj
+	 jrWrPmAG9UrZsc44QcqpmtA7aMIgb4PQrbYs0R5g=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 3/5] phy: core: Add devm_phy_get_by_of_node()
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
- <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-3-f85c9103177e@linaro.org>
- <9e8ae55f-6d95-48a9-bef1-ab653d0f1c7d@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <9e8ae55f-6d95-48a9-bef1-ab653d0f1c7d@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260409201501.975242-57-sakari.ailus@linux.intel.com>
+References: <20260409201501.975242-1-sakari.ailus@linux.intel.com> <20260409201501.975242-57-sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v12 56/86] media: imx219: Add internal pads, routes for common raw sensor model
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: hans@jjverkuil.nl, laurent.pinchart@ideasonboard.com, Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Tommaso Merciai <tomm.merciai@gmail.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, =?utf-8?q?Andr=C3=A9?= Apitzsch <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, "
+ Ng, Khai Wen" <khai.wen.ng@intel.com>, Rishikesh Donadkar <r-donadkar@ti.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+Date: Thu, 17 Sep 2026 19:01:31 +0530
+Message-ID: <178965189125.330213.6064483316758700306@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On 17/09/2026 13:32, Neil Armstrong wrote:
->> -        dev_dbg(dev, "failed to create device link to %s\n",
->> +        dev_err(dev, "failed to create device link to %s\n",
->>               dev_name(phy->dev.parent));
-> 
-> This change belongs in another patch.
+Hi Sakari,
 
-Doh Frank gave me a comment on this and I just changed it without 
-realising this isn't in my series at all.
+Quoting Sakari Ailus (2026-04-10 01:44:31)
+> Support internal pads, routing, formats and selections for the newly added
+> common raw sensor model, with compatibility interface provided for the
+> existing users.
+>=20
+> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Co-developed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  drivers/media/i2c/imx219.c | 230 +++++++++++++++++++++++++++----------
+>  1 file changed, 171 insertions(+), 59 deletions(-)
+>=20
+> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> index 67b02fa338d0..b4aa62cbb826 100644
+> --- a/drivers/media/i2c/imx219.c
+> +++ b/drivers/media/i2c/imx219.c
+> @@ -139,13 +139,19 @@
+>  #define IMX219_DEFAULT_LINK_FREQ_4LANE_UNSUPPORTED     363000000
+>  #define IMX219_DEFAULT_LINK_FREQ_4LANE 364000000
+> =20
+> +/* For compatibility with the old UAPI. */
+> +#define IMX219_COMPAT_VISIBLE_TOP      8U
+>  /* IMX219 native and active pixel array size. */
+> -#define IMX219_NATIVE_WIDTH            3296U
+> -#define IMX219_NATIVE_HEIGHT           2480U
+> +#define IMX219_NON_VISIBLE_HEIGHT      42U
+>  #define IMX219_VISIBLE_LEFT            8U
+> -#define IMX219_VISIBLE_TOP             8U
+> +#define IMX219_VISIBLE_TOP             (IMX219_NON_VISIBLE_HEIGHT + 8U)
+>  #define IMX219_VISIBLE_WIDTH           3280U
+>  #define IMX219_VISIBLE_HEIGHT          2464U
+> +#define IMX219_PIXEL_ARRAY_LEFT                0U
+> +#define IMX219_PIXEL_ARRAY_TOP         IMX219_NON_VISIBLE_HEIGHT
+> +#define IMX219_PIXEL_ARRAY_WIDTH       3296U
+> +#define IMX219_PIXEL_ARRAY_HEIGHT      2480U
+> +#define IMX219_NATIVE_FORMAT           MEDIA_BUS_FMT_SRGGB10_1X10
+> =20
+>  /* Mode : resolution and related config&values */
+>  struct imx219_mode {
 
-I'll drop this altogether
+[...]
 
----
-bod
+>  static int imx219_get_selection(struct v4l2_subdev *sd,
+>                                 const struct v4l2_subdev_client_info *ci,
+>                                 struct v4l2_subdev_state *state,
+>                                 struct v4l2_subdev_selection *sel)
+>  {
+> -       switch (sel->target) {
+> -       case V4L2_SEL_TGT_CROP:
+> -               sel->r =3D *v4l2_subdev_state_get_crop(state, 0);
+> -               return 0;
+> +       if (!(ci &&
+> +             ci->client_caps & V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR)=
+) {
+> +               if (sel->pad !=3D IMX219_PAD_SOURCE)
+> +                       return -EINVAL;
+> +
+> +               switch (sel->target) {
+> +               case V4L2_SEL_TGT_CROP:
+> +                       sel->r =3D *v4l2_subdev_state_get_crop(state,
+> +                                                            IMX219_PAD_I=
+MAGE);
+> +                       sel->r.top -=3D IMX219_VISIBLE_TOP;
+
+This leads to sel->r.top =3D 0, when before this patch it reported 8 to
+userspace.
+
+It caused a segfault in the VC4 IPA's lens shading algorithm when running
+libcamera without CLIENT_CAP_COMMON_RAW_SENSOR because it was trying to set
+cropY =3D -8 and underflowing (not a very fun debug :)
+
+
+> +                       return 0;
+> +
+> +               case V4L2_SEL_TGT_NATIVE_SIZE:
+> +                       sel->r.top =3D 0;
+> +                       sel->r.left =3D 0;
+> +                       sel->r.width =3D IMX219_VISIBLE_WIDTH;
+> +                       sel->r.height =3D IMX219_VISIBLE_HEIGHT;
+> +
+
+Same here, shouldn't TGT_NATIVE_SIZE width/height remain 3296x2480 like it
+was before? The current version makes NATIVE_SIZE smaller than CROP_BOUNDS
+below.
+
+> +                       return 0;
+> +
+> +               case V4L2_SEL_TGT_CROP_DEFAULT:
+> +               case V4L2_SEL_TGT_CROP_BOUNDS:
+> +                       sel->r.top =3D IMX219_COMPAT_VISIBLE_TOP;
+> +                       sel->r.left =3D IMX219_VISIBLE_LEFT;
+> +                       sel->r.width =3D IMX219_VISIBLE_WIDTH;
+> +                       sel->r.height =3D IMX219_VISIBLE_HEIGHT;
+> +
+> +                       return 0;
+> +               }
+
+I have applied the following changes in my local tree:
+
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 9d5479e00886..a30bd4247c8d 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -1287,14 +1287,14 @@ static int imx219_get_selection(struct v4l2_subdev =
+*sd,
+                case V4L2_SEL_TGT_CROP:
+                        sel->r =3D *v4l2_subdev_state_get_crop(state,
+                                                             IMX219_PAD_IMA=
+GE);
+-                       sel->r.top -=3D IMX219_ACTIVE_AREA_TOP;
++                       sel->r.top -=3D IMX219_INACTIVE_AREA_HEIGHT;
+                        return 0;
+
+                case V4L2_SEL_TGT_NATIVE_SIZE:
+                        sel->r.top =3D 0;
+                        sel->r.left =3D 0;
+-                       sel->r.width =3D IMX219_ACTIVE_AREA_WIDTH;
+-                       sel->r.height =3D IMX219_ACTIVE_AREA_HEIGHT;
++                       sel->r.width =3D IMX219_PIXEL_ARRAY_WIDTH;
++                       sel->r.height =3D IMX219_PIXEL_ARRAY_HEIGHT;
+
+                        return 0;
+
+Thanks,
+Jai
+
+> =20
+> -       case V4L2_SEL_TGT_NATIVE_SIZE:
+> -               sel->r.top =3D 0;
+> -               sel->r.left =3D 0;
+> -               sel->r.width =3D IMX219_NATIVE_WIDTH;
+> -               sel->r.height =3D IMX219_NATIVE_HEIGHT;
+> +               return -EINVAL;
+> +       }
+> =20
+> -               return 0;
+> +       if (sel->pad !=3D IMX219_PAD_IMAGE)
+> +               return -EINVAL;
+> =20
+> -       case V4L2_SEL_TGT_CROP_DEFAULT:
+> +       switch (sel->target) {
+>         case V4L2_SEL_TGT_CROP_BOUNDS:
+>                 sel->r.top =3D IMX219_VISIBLE_TOP;
+>                 sel->r.left =3D IMX219_VISIBLE_LEFT;
+>                 sel->r.width =3D IMX219_VISIBLE_WIDTH;
+>                 sel->r.height =3D IMX219_VISIBLE_HEIGHT;
+> -
+>                 return 0;
+> +       case V4L2_SEL_TGT_CROP_DEFAULT:
+> +               sel->r.top =3D IMX219_VISIBLE_TOP;
+> +               sel->r.left =3D IMX219_VISIBLE_LEFT;
+> +               sel->r.width =3D IMX219_VISIBLE_WIDTH;
+> +               sel->r.height =3D IMX219_VISIBLE_HEIGHT;
+> +               return 0;
+> +       case V4L2_SEL_TGT_CROP:
+> +               sel->r =3D *v4l2_subdev_state_get_crop(state, sel->pad);
+> +               return 0;
+> +       case V4L2_SEL_TGT_COMPOSE:
+> +               sel->r =3D *v4l2_subdev_state_get_compose(state, sel->pad=
+);
+> +               return 0;
+> +       default:
+> +               return -EINVAL;
+>         }
+> -
+> -       return -EINVAL;
+>  }
+> =20
+
+[...]
