@@ -1,43 +1,98 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62D058FD20;
-	Thu, 17 Sep 2026 14:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE55921F5
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 14:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654915; cv=none; b=eBn4NMex0nS6gY9xRjis2HXoqOjIU09oQcJsQGoHkD8tbmPf5vmxN5XDBCAWtyeu6VmzX0/NsMFBMfmWHlTvZOCOYLpZjYfXrRLyE+o/EFxTCaEDysW9P5QrxIeZ/jtDBqSsFGm6N0vpAXIAEhfoxgEuYguzP/8U+lBC10Jd4zw=
+	t=1789655293; cv=none; b=pdlC4VG5UXYjlVzI1dxQh8DuJvl56VGTSU6/hbIJt0x8tk4uB9aj/X86pum6EZslnG3+fE1DRlKbk95IgaEW8zPuQNW/2tx5H1vCqZo4XCq/Zn5JheMpEJGal1kz1z6/E505LXksGxE2EholnBJO52nfmk+4K7qztkVun3aXp3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654915; c=relaxed/simple;
-	bh=+vgCc8pndNcFA20Sc3PJPDo3juv2YALtT4MKY1Xd28k=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J67RHeralSsHyyE03Z/YOZLXfVYIEzzbqhdZpZ+We3FuIvumtGfHmT2tmWb5B682ceezF70YdR1LAOLjrHaIKNXKEozn4BL1nzP4t1itwXt4k8ncrNrRGzyOcJZMKWHRIMqqijUcGFKiMLvl7v3mk3aOinUl8am/pfvpgRmZIyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=QmAgfiwL; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789655293; c=relaxed/simple;
+	bh=zD+yqYOk9BEwYrlkE41XIJFd2WjARDFI5ce4WJxm+Ls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XzWOjJcFqFqvLIlmyyXKo+j00pZZ3a9ywWna7CdEN3d0ACqARCaDhfcY2+ZFf7r82fs8YswjC39hfEPKmRZYHNT0bEJGVhln5KQYjIXodgkHxnpqeukwshzYdpUgKKsJbUSFLtEoAOgOtKY00aUZmeAJ5/laDIQVbeT1cHg4KEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jOZBXJLw; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="QmAgfiwL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789654911; x=1789914111;
-	bh=+vgCc8pndNcFA20Sc3PJPDo3juv2YALtT4MKY1Xd28k=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QmAgfiwLZtUbCfpQXIWLluH4XOqAWJA3w/+TJjpJm2eVWUNVUbCPAR4To1F5xwTyk
-	 ZTmg/jRb+UixBqTEDDpVf5C3yiunu+Ft3xmMiSXvY9afmwO8P6trMXY5AHB+eQla5I
-	 tScwz3CDyKqD8RwnFpdyEhqgktLp/mY6829RDgQiHa1vE84lIcHsMbPiV4qwkQ09Vx
-	 bI0yIZQmjvYHWKGRFyI3E1z4Hb7JbkM8jfJyOFcwuMrcgV06LvdeWWM83Ei2DMR9ib
-	 Q7qUdwi/IjI+hWMRS0koDUgSexXLcJS4Cr6ZdFVFFW3EYeiS9k3l6ikAQiqd9/0Yr3
-	 7BdEafwIfpv9w==
-Date: Thu, 17 Sep 2026 14:21:46 +0000
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Renjiang Han <renjiang.han@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: Question about Iris SID override assertion on Yoga Slim 7x
-Message-ID: <OoKudsYPY-u95rP5XMKUybXGVhJkH1D42R8fIGkv5Ls97TUXeuw6SREfrtyuUU52YDHb2msUDr_VsC7OJe_rD9vo-YXJ8tGt7zCta2b7FJk=@pm.me>
-In-Reply-To: <4e4acb29-0b3e-4b76-8179-b49745f53bf5@oss.qualcomm.com>
-References: <20260913194707.91885-1-birk.skyum@pm.me> <4e4acb29-0b3e-4b76-8179-b49745f53bf5@oss.qualcomm.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 59379bcf373598d55c5d90fd821d437f0db316a0
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jOZBXJLw"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148aso6853636d6.2
+        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 07:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789655290; x=1790260090; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jw1k2NAja1Um952Tl85LJupIp0nZbLj8NYpKbR9I6hU=;
+        b=jOZBXJLwf6JP3b19azmsQ5fLkQfodPWKCQ4sDgsm74opbQurokqxNrasGuNyOPVzvE
+         CTVWAdgBhof6iu0XiS8kaZ358Ree3L9tOC68tPaGgk6QmS7dj/CAh2cDH6Ri94YsKWYE
+         zFgjnox0YrTKuN8CziN0SVinO8YFZz6H8x2igaWxvbrgFrudFRNrFyWtefERJIZGn9WM
+         /YRBE5l7nBeTmhMKMbx56N0o1l466lNeHVloV8m2iSh8w9+kxpuV28bJDRjIUAx2mv9y
+         5MOsangOpHqTW06zyEsy1fwdV0ITN+uat3lRUftLj9jAXlHsH37VEcNIWu8qGi0F66Q2
+         koBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789655290; x=1790260090;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Jw1k2NAja1Um952Tl85LJupIp0nZbLj8NYpKbR9I6hU=;
+        b=KeASU1ghzn/ZN1LGVpwgPAl5MAzvC2pQlRpuazsUYosLwAx+mBGhw+FlKIJpgBN1PI
+         KJREKy6H/qPyJDul7ND4AysP1WnDPOwSlOh5ALRLJ9vv3FKqmOXVbPVZ5TwRNuAzLvL/
+         1rcOrq0juiMMIQKrXyumMVvuviH8hMKMHa/yfAAtrR/EtTKZ1ys4cLO4Hf2rMnGYk+CO
+         /kA+9NAKLC3qxQTMjVf4E02g9BZX824vY9l9+68cpCIvvTuTyExZS77YOSsUmuYdsr3V
+         slMzZ6tZR4umm2Dej9NJCW75jHxF9PY7toOLL4eB50MuVSejQ/XunTXXeuTXbT4uK3TU
+         Sr5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxhHFbL1P644PbjDgp/qHAAZ8MBpVW35/TJDZdENM0rfG0B5+R98eshg4ql09qvDXXHSN8hR+1Oj+87kw==@vger.kernel.org
+X-Gm-Message-State: AFuF++ljyPgKwnDqdvr7M2Vwdqs7VjjtiOkybgbI/I22tDcIemmzPuaj
+	XQhppqTj3isQlZszkNQSxyF82Y+88YXHFClY6vecD9swYVJKHoDsbv+uvqYK6BVmDn1MxOC8fr+
+	xcGWU
+X-Gm-Gg: AYBFou1oYhscomitrkXXrckRqEewllzTHC4bkSiIRrUTdjshCg5Ls1OT5kvAYz8o/Ao
+	fggC254nh69cs+NmZ4f4smxJ9HOc1X04SMbiKENp6U9rSbZOOgitJLX4kL9/gKeApafgYf6DTOi
+	yB8Pml44KFIKnbLN157vdGki4ZHrsRxf4YpMZ7uvHGyFLs2sb8Lz49C6RT6S89gvJUvo6pkPceD
+	9FG7W6RZhz7faAOhZFPM8rOVZZjh8ARJ8xH5/SpofJMGxWuE383F9lIP6NkyCTyn3jy8IqNa3kU
+	WUbBTISDLty40qtCN6oZB/pF6k8WWHlX/jZwLl3BW1ih2haXZboxOXIkru4WVYnrd7IVuT78IVu
+	D2p/JG0f36/8wZIs/MP+I82/FQ4wU7u8q7R/ePjuP03TnpEcXkrqlPba2y27TEuCbmbmah0HV0r
+	Un0g9TXME2PfLQM0OC+8utDnPc9qe5mJgzwdoqmw4lOZQihHcxJ1LH406fiK/iW97xP3L14HakV
+	rJb5n/pWKSA82LTGLmJmHlA6QZnP8+v9u4mAg+Hp/v5Wi5swsXmYnCS
+X-Received: by 2002:a05:6214:1316:b0:912:517b:911 with SMTP id 6a1803df08f44-912517b0beamr9926716d6.48.1789655289706;
+        Thu, 17 Sep 2026 07:28:09 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123be9ca82sm51192626d6.32.2026.09.17.07.28.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 07:28:09 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x7D5s-0000000CrE5-25RS;
+	Thu, 17 Sep 2026 11:28:08 -0300
+Date: Thu, 17 Sep 2026 11:28:08 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260917142808.GH3196566@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <f3708893-4760-4157-83a3-313867a94e78@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,45 +100,35 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f3708893-4760-4157-83a3-313867a94e78@amd.com>
 
-Hi Vikash and Renjiang,
+On Thu, Sep 17, 2026 at 04:00:33PM +0200, Christian König wrote:
+> > However, at least for the Intel GPUs, ATS enablement is based on the
+> > PCIe-side enable bit.
+> 
+> Yeah, I can confirm as well that this is something really exotic.
 
-My previous reply was rejected by Qualcomm's mail gateway. I'm resending
-without the attachment and have made the reproducer bundle available here:
+In most datacenter systems it is only the NIC that initiates the P2P
+transfers, so it should not be surprising that NIC HW has more
+optimizations for this. In real systems ATS carries such a perf cost
+that you do need to be selective about it. I would expect every
+serious NIC to have this capability or it will not be perf
+competitive.
 
-https://github.com/birkskyum/iris-sid-reproducer/releases/tag/2026-09-17
+NIC and GPU are using ATS for completely different reasons.
 
-The archive is unchanged from the attachment. Its SHA256 is:
-5b38ccc616d8f1166334896e1840fa5546b59268569d0d226c2986edea64e97f
+> Additional to that the setup that ACS seems to be disabled for some
+> bridges bit not all also sounds extremely uncommon.
 
-It contains the original synthetic VP9 clip, the FFmpeg 9.0.1 patch and
-build options, the test harness, the exact Iris source changes, and the
-first-failure HFI/SFR trace. The files can also be browsed in the repositor=
-y.
+I'm not sure where you saw ACS disabled, you can look rdma-core now
+has a tool to help people get their RDMA NICs working in GPU systems:
 
-The FFmpeg fix requeues empty CAPTURE buffers marked ERROR but not LAST,
-rather than treating them as the end of decoding. The test starts a fresh
-FFmpeg process after each verified 100-second runtime-suspended interval an=
-d
-compares all 120 frames with software decoding. It stops at the first failu=
-re.
+https://github.com/linux-rdma/rdma-core/blob/master/kernel-boot/rdma_topo
 
-On the firmware-logging boot, the warmup and first two idle trials passed.
-The third hit the SID assertion before producing a frame. The separate
-AV1-only partial-buffer guard removed the VP9 warning but did not prevent
-the assertion on another cold boot.
+I would view most of that stuff as completely normal at this point,
+people have been doing versions of this by hand for almost 10 years
+now. Especially the asymmetric translated/untranslated routing.
 
-This still reproduces on the modified stack described in my first mail.
-The bundle separates the baseline and experimental Iris sources and include=
-s
-the camera-kernel configuration and delta, so those differences are explici=
-t.
-
-Thanks for the GDSC lead. I haven't established whether that behavior
-explains this case. Please let me know if there is a particular baseline or
-targeted diagnostic you would prefer me to test next.
-
-Thanks,
-Birk
-
+Jason
