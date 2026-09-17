@@ -1,183 +1,184 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013045.outbound.protection.outlook.com [52.101.83.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA1348C3E8;
-	Thu, 17 Sep 2026 21:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789679972; cv=fail; b=dMplyhfYss1MyQAUxorNhbgQnuJ7f2/7xIRPBzVtqba6Oq2MLT3vu+4afB/qxATABwekUzmtJhsJMgbeQ9t5Uu7S9sF69BzPEzJqPG805KVcm7iCQRAJ4i+hits0Vci7pz/ne23+zBXBO//b6sA0iA+cw64acjGr93or5Zq6RUA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789679972; c=relaxed/simple;
-	bh=IEm1IPJAFR06snsSRYn8Z8R0sUjEAGGQK3PAzongc6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OzspAeCt5J00SvQ6CvfmpK+pgvDJ29gzqBm/VYseEzfrm9GulwLNBXAd79QdQPIk6XUl40fc3TsGdUaQZW3HmlxwTaFtZCTXIHoARU6UWtg9cUVu0lzPWaedYbkOFbm6binwdCD/T1xEVZiP3OwXxf253Pliu9fuznGC+TM/JlI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dUJphUo2; arc=fail smtp.client-ip=52.101.83.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163CC4B7A55
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 21:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789680595; cv=none; b=MzeCgs5KbiwiURySgMEfCtyPasy2q8YuFEof0qadhG2tSstWC3LbSHE+r6oI5XKLzchap3i37OJOCOyQ9io18S8MkUfbV9dZFxhB2e4WdEugEFUJcH+rVbWvWLFfy2lYQ/Fh3dZU051PX7Rvdi2EZ1425KCL7F9EYCnWk5jtxd4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789680595; c=relaxed/simple;
+	bh=ucQye2B+H6wFivyC6OorOnv4UKxi5gKZEXt7bb+u/q4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k9BFr9MFuwdcqGUNBNyQb8WUG6Iyps1bduqQiD0lZXMdI7CH8FoYRI3Guic7y9/HygleGAMB4LWjXZuH8hmlmifj1rYFEaGm6pp9M6NoMtymvx/NMuCl+WvzTbgds/+gkOLdDDo3yAEDRYVb+VKUyPtUelUoNFJSN8SzL0kqCzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BrQFPiBc; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dUJphUo2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IdFmj5zcHMCFC/5PQMPXlnfSDraS/YK3j4FOTEPZG/DCr0ZxSNb/B3n6+O7042A9BFlJW2e6PIJZwUKDMCoQeVv4xFvCm0P9giW6d0RzG7Kgem6VTHMkyf9q+0VLRQy2cccQG10ULw3pPa2TwGuTonk+QHV54w4+Gt90wzIeTMNmPQ0oVwTrS5ZdLjma7ZCAh5ZRlAYDPCi3I1BjbzPwkGODV4stdDXIBxoi4/+7rqnlOCwbWj9ss/fFcl+pQgU4Ol5jJwXLbZaBZWIwKfbm7h4lC90XV29giEr/oFXdVJ0AY609XlAC3gEvbG06nA4bEkYzlAnUlC4oJzLqd4VLZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NvCPnF2UYl/qN/WdjmxU+r8gRbh+iY+v3iXpHUQ63a8=;
- b=RbP28q84O3dZIFelX0wJl3fMyIefgmmmzIDPBv+V6AG/4ovrILnhGnNbhgVDvTZafSeXQ3W8uAxvH9BsKnBjqm6h0iAylcz43azzQaB6m0m+WHPL6/ow6vmrU7MmXB2S7Xxs79J0605kVl/i6ErVwWe70h629ULTmerZjrFEbIMaWWUDTxUVyGtxQez7EY8iRLjGqSiWJWi9qEiEnf72mstlNwMcBuoZt1Jr7ZjFcJUmwbVpfNTvKKjb8JWqrXg+EFDGpWuGi9NdYn76jUjSY274AqKBJ0fof2je8JV7oD0ClL8QN76ZPzRFbmnXOp7tlsk7199puxYll9hkOF7DHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NvCPnF2UYl/qN/WdjmxU+r8gRbh+iY+v3iXpHUQ63a8=;
- b=dUJphUo2fpecUnAl9IGHqNx6tk4Zmec21bgs52IrHTX47tDHnuaNOnkmKA4/O0c7UeipRRnbYAzlWON5HwhngGDFARyfnBIfT5ZtCRuOTIm2fpZVFso+wnOGHXTo4TWclgyFQeHV+mS2eS64Z1AhvtiJA/gn6JUXCmVtdoZ5Y/Bj4L6GYuDTkoHDcKiOqGhOphPFaA+NFfWMcyvjL2IAc0hpth3nlBMd8kC5iPjMaL/jKXZI102Uu9b6Ugs8PqeJzJBAdrFhnLrx2bUxrpnPmAuN3/pUNY8Wmp9y8z3U9rGdgvnwkvFtF801JJrt9GEDq0R7I4SLHzNx59VVgkN2BA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB7927.eurprd04.prod.outlook.com (2603:10a6:20b:2ad::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
- 2026 21:19:25 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 21:19:25 +0000
-Date: Thu, 17 Sep 2026 16:19:17 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>, Xu Rao <raoxu@uniontech.com>,
-	Kees Cook <kees@kernel.org>,
-	"open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)" <linux-media@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
-	vkoul@kernel.org
-Subject: Re: [PATCH 1/1] media: m2m-deinterlace: replace direct
- ->device_prep*() calls with standard DMA engine API
-Message-ID: <aqxZVVcPnPw0vyof@SMW015318>
-References: <20260917190420.1189246-1-Frank.Li@oss.nxp.com>
- <20260917202931.GA59058@killaraus.ideasonboard.com>
- <aqxOtZdsNR03qmqN@SMW015318>
- <20260917203725.GB59058@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917203725.GB59058@killaraus.ideasonboard.com>
-X-ClientProxiedBy: CYZPR12CA0010.namprd12.prod.outlook.com
- (2603:10b6:930:8b::26) To DU4PR04MB11791.eurprd04.prod.outlook.com
- (2603:10a6:10:623::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BrQFPiBc"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so97073a91.2
+        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 14:29:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789680593; x=1790285393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1DANMGqGjQRJK06dbUTcEvdwBQZbNV6u9IBjVo5P9NY=;
+        b=BrQFPiBc6cUL3ZwNU2K+sYgKpqWI8iDeB6o+w6+/Hkaap46VVt9bPp9lfmjqII1hFQ
+         kmpVWkHW+K9a6LkDmcUXVqtRALuHtHDVdg9XIBDqsHlE/VzgAhXdrC3FcTW3uOC4h76Q
+         GMzcmU0czPIUYuvZxIS433ywGrhoC0PkaEeu0hAhFnIWaVlwGfecDz0bNwUFp+ebNYDu
+         0Nk95azZyhcQ7cp+Lhqr+KQbIczgonHTVLcruFR6ykHlq8b/7TQXy46VMu3c8qznKKxQ
+         W+KE1qltd5hSZf3ALdS2QzGHOoqfjkiclbcZc8BaeVXmQv2i34M/z4fHe4rQoJV/JSwj
+         NgWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789680593; x=1790285393;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1DANMGqGjQRJK06dbUTcEvdwBQZbNV6u9IBjVo5P9NY=;
+        b=q61SlnJFdw14mEwLooHIZ0Drh8JRllTp89LCv0ilxwk/bqzx5Ht0nhQS1gdy/fkMYE
+         NLQVw9L/Z09c3g7LjyVpf6wapCW1+tBDZIa4aWYOcZZAuvmEHGhDsoxGNvvR9NdFlUlA
+         SHEzzKOe0Vb9SY+Gq/jWbGU2bzv2d2FVTYX89YhvPQuHBeZI/5ZYIiWdwE6+9DGqEAOK
+         57U1en/iVV6BN+3jppU7IxY2eDLoId4fKc0uBuMaYhUOPVa5CoZbdD/BxcLl4BeH9V8e
+         eGCBc98iCwhG0hwIhty8RVkGPaPSRkWDU9gRyc1oip8pIlKw3J0JUVglqlO2gZBKz7R9
+         +kvg==
+X-Gm-Message-State: AFuF++kXic6cAZsVdz57AWKc+v5wqyoYA70chRBK0/Xk+yoaKf9HHYvj
+	pbIKi3BEDSyObXU0Sv3KRNLeXkE/0P5//wlfaD3hcIw0teqEtKJnUmBK
+X-Gm-Gg: AYBFou3dMNNVqLi1rb4kVOAyl28uV8H8wc7uZWnuuj22+K+3b+i9b1GWw5hr+DZTaps
+	eWdnGG310JjhfNN+nRpqE38jwq/EQ+Efs3C1ntZor7TCS86CrYY2gTnlt+4b1ELeykrjIEjgcUk
+	ZGXwAB3SNRKWY8JpSCAseRqeBpMTLem3/HoHAiq8CmLnpio3mitJMbx9NdVqmTP62WlJuvcTkJ1
+	NVKLighnFYXSf+t4/NdufXGa/9Dgpe9U6EG7Xu3jY4uLx8WYP8lhPqFPlMMF4Y7h9y0ni0m/3lb
+	JqKUrLBa9IecDXRB0/ewR9hNbjRoIIigq6sgAyClIVhWg1oyU8qAKO1Z7Nlrr0CMypxDmgBOqAx
+	QFBlzFGRW6Y1i77ysjt5p4HCxuZ9zu4opPFBi2p7y16ch7vT1jcUt/YpHCe+q/AaY05/zfJ3bgO
+	IodQB3ySomboNCfVPSJROrisXpMkHigHZYeA/lvdeldL6KN2wetlMDw0GlNy/CRmkPkxgLNJ8cg
+	Ph6JJqq9Rr34QbMS2J3+g7qjH/M91dfAJpU7pf14recB6NZa/SKFxnWO4Vaj30tHVcAbdMrpIwD
+	+3Huelvz
+X-Received: by 2002:a17:90b:4c46:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39e54922644mr1317373a91.0.1789680593294;
+        Thu, 17 Sep 2026 14:29:53 -0700 (PDT)
+Received: from localhost.localdomain ([47.156.168.118])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm14551132c88.11.2026.09.17.14.29.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 14:29:52 -0700 (PDT)
+From: Henry Paradiz <henry.paradiz@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
+Date: Thu, 17 Sep 2026 14:29:51 -0700
+Message-ID: <20260917212951.558283-1-henry.paradiz@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB7927:EE_
-X-MS-Office365-Filtering-Correlation-Id: 391ba00d-7058-48c1-2407-08df15015969
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|7416014|376014|1800799024|4143699003|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	hQDQH5rmgmCDzKuFzTKqXCKCc07p8gFwuwcElcDY6KpLsHHXU1hBiz692CSN/wXxKunTpysiUUZjWcUphmIVnatsKu//7UexVpUCkmg7v10XJ8B4w+j5MQ5J6/ow9U1cBqJ/wpNjBemtQApjBc0GHaUJxzn8uxi1Nxb6jYTnf0CYbpz0VWCheFuKt6CyPtTQCzQH8YuXIzC3Vq9O/TXfuKFiccbpF7CyxHOwyunVSUCsTb4GF4apIm7lhJJ9bzBk6MM6mzAsNmNyjxCiKYCyYwsV4RPDHrD4vID5OPakl+HGC+KDx3Z4uB/wQkX9zKgmo2TUzgOIewie748ENh0jotBc1whKESPHzqWLdEf/+Np2EKlvEAsld2qZa6bab2c5oWN3F0n3zhCUs5Dyf6a70Su2n1dQCutCB2hDwIn+E5p5WLvAWdBmG/EMQrP0OuQHQ0dMdZ8Nid+SeTiQ7ZxYGCr8Pf0k24WeQXA3ypG7WZt1go0wrb6ThpSsOn0hpt2D9yu0ZQn69P80P4i5s1103v5xsx0cdoLTTjbTzuS7ZE2kxp/WX9br+h7ecZQy7awj9Ab+r5UShXD+e1ZmS8gAPg0bWzxlQgu2/kSvStZhASsjNlDsR7WPBlps2MULv3qpzIMCVF21eJWVoMDI9uwZK7+iehy7iqGd6XN+D/qAaF4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(7416014)(376014)(1800799024)(4143699003)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0MdUrHDD88j/EDeCfy0eQVq7HJoU7KrmmRRzdnn5r4q8twmPhVYe5RGQGTIs?=
- =?us-ascii?Q?bHuPPs6Q/+K15+lFficPdfd2MfCYPRX582ogIbIeq0tpBqTrOIigklg/EF+k?=
- =?us-ascii?Q?DyPS8jp/c+h4CDekrS84DUAebiSDZJHHZXJgD4XoXhGwP/bJ7gv99dBpQSR8?=
- =?us-ascii?Q?fWmhl+EX0yq/zWXJQw2PEJQ7pFIudbwmOFDiMdIMUYgDqvDtfhipNrJSOkCg?=
- =?us-ascii?Q?OJu1gpd6ut5vqbdeXGfyjrAZ0li5ps0rNkXS5SrqAAkCQzIrAF5NuJOv0tAD?=
- =?us-ascii?Q?y2+tldlbOVvk9Snl4Mx47TPzJ4ToFxPcFmrQVlaCKQ08Ivao3CEgmCtaeLiJ?=
- =?us-ascii?Q?CRCdHSl9rWL1pHlX1vmn8QPmh4k2K0EXZk0IniMkMf157YJuxqZ6xl4E+/rE?=
- =?us-ascii?Q?vMSOoTEeehYw0BH6cyjpwSROtrouAL6GsMOYYHW6abcJolFDRNVPVXPyzjlB?=
- =?us-ascii?Q?JMUDHaeuynXVxfHL1H403/hUjQRE8MJL2t1+kwkXErkQpGkaX/0Yo1BZOeTn?=
- =?us-ascii?Q?2RZrA7odcLIps3XfrK9WJpTriub91r1kTiK5yK4KxRzDhyIBczX04dd2Tu4u?=
- =?us-ascii?Q?WzmwuOb+6aOmiSZk1baYy0EfPjiIiPQ7abONIRWqsb3sUpeP0+w+KoSMiXwN?=
- =?us-ascii?Q?oD0nbJg93PYNFf5X2sazhh50AjKAjWY0jM+WjWeYP/zkVfW5dB19Mx+iSla8?=
- =?us-ascii?Q?iICslUzIrLCVIj94VFa2mWn1gPnS2UqDI0H0lzAe5WBNpeHSXq1UDuwom335?=
- =?us-ascii?Q?lpsCYW4LjPHrLcruiyF/u6gyBNPflucbdnCzKsAx5ENdQUEalifasdUkmHgu?=
- =?us-ascii?Q?KEuA3fRzNbUTpxQStf+pqKISlpkLjol41Nx4ciEoJoDOPk+fJktgGma+Yzl3?=
- =?us-ascii?Q?1QSCVqGctqsbDjRdG1Gw1nc5XAdc5DdFMe+BhsKKckpv0Ce804aOJofSgfyy?=
- =?us-ascii?Q?WPj1HSGanSVAjIjY2rw2n4XZtSVzmbsUU8/rh5BRrPaIoTabaOFZX3wKjnXa?=
- =?us-ascii?Q?EsNKtWtbTRz8GH97l+RcFTrDLsQJd4nxSZWv5SdWKevMuTQhF9pFA8LIN76i?=
- =?us-ascii?Q?qptV7pg/tzgJTF1GPkuB0qFP8pIP/KNQVVZAyxgr/YepU36lYxxYSeEWMXGH?=
- =?us-ascii?Q?O9DPG29YBLVZ9CRk5bKyE19nvc3XbG69u/HOFSDResmC/YaW2WkKMboIzU1e?=
- =?us-ascii?Q?41tFt1Yo8v2MWv3AI7dtU+nmT+UA+bSKpSm8BkIvI4I7lpHMRp6YTKBZHOIw?=
- =?us-ascii?Q?/kJJvVoGq1dHyNQK5y2DO/7nZ+sKFxRyTvo8qnl2GUyw1Pnt6/jZ1MdsO4zb?=
- =?us-ascii?Q?kYfLTlSXimoxNz9MgFUUgOauKUMQ7bEjWvLj9NOadMeGSyEheG0DrCEQWUD5?=
- =?us-ascii?Q?JMX4lije3jouNRWn3AaCSgiIXnLQOGmh0FBtjcEUzFsAXegkmnKyTm8u7F7l?=
- =?us-ascii?Q?wveH12P1jg1wJv8mzwAT31AUg7kygEkcOuMN5BDAi5nUbqfbl78pfrjfyi0C?=
- =?us-ascii?Q?BgpqTJnWfXPvvZkOmIW/3hlCr3ZVtRik1Cl91ShVWay5smuT01q1635a9aMd?=
- =?us-ascii?Q?VMJGBfDvT+7wox7+FYgN6ARpK3T7LioTdyuHIkP4H9k/oKafm0h0ekz1GVd0?=
- =?us-ascii?Q?giu9gIPBQYOapmcxryDVvfPpwp65MEpTCs76RaOaiNNNStNGyzYBRK0tVndN?=
- =?us-ascii?Q?DUoSWAZXfgYORl+fWPJUzkirlciKtaBvhUUrvtSa8YcsbTLQuSXUJvhy20nJ?=
- =?us-ascii?Q?RFJbUqB2dClddy/aEkUfyvNWv+PH64uQh8tOePUjxyBTUY+6L/IK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 391ba00d-7058-48c1-2407-08df15015969
-X-MS-Exchange-CrossTenant-AuthSource: DU4PR04MB11791.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 21:19:25.6831
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a+tQwImsuzQCjTTjTytg1nh8aYr/lfHBlVgpz1Oi2h5HaVUC9//7mb91BVvJ73m3J4erSWv0PFeWOCtHF1CkOXp1L3dCGm0kUT91VAbgtnMwTYZ0EPIln9xUCRxicftS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7927
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 11:37:25PM +0300, Laurent Pinchart wrote:
-> On Thu, Sep 17, 2026 at 03:33:57PM -0500, Frank Li wrote:
-> > On Thu, Sep 17, 2026 at 11:29:31PM +0300, Laurent Pinchart wrote:
-> > > On Thu, Sep 17, 2026 at 03:04:16PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > From: Frank Li <Frank.Li@nxp.com>
-> > > >
-> > > > DMA engine consumers must not call the channel's device_prep_*() function
-> > > > pointers directly. Use the standard dmaengine wrapper APIs instead.
-> > > >
-> > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > >
-> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > >
-> > > I've checked the other DMA operations, and there are a few direct
-> > > callers of .device_prep_dma_memcpy() and .device_prep_slave_sg(). The
-> > > former should be easy to address, as the dmaengine_prep_dma_memcpy()
-> > > wrapper is a drop-in replacement. The latter may be a bit more
-> > > complicated.
-> > >
-> > > Any volunteer to send patches ? :-)
-> >
-> > I already sent out and try to cleanup all.
->
-> Thank you. A patch for checkpatch.pl to warn about new callers may also
-> be interesting.
+The eEver Live Streaming USB Device HDMI capture card (1e4e:7102,
+bcdDevice 1.00) exposes two problems when HDMI is connected but the
+input signal does not lock.
 
-Long term plan to move dmaengine callback to private header, build will
-failure if consumer try to access dmaengine device.
+While idle, the device disconnects shortly after entering USB runtime
+suspend and repeatedly re-enumerates. Keeping it runtime-active stops
+this loop. Enable the existing UVC_QUIRK_DISABLE_AUTOSUSPEND for this
+USB ID to avoid the repeated USB, UVC and USB-audio discovery messages.
+Normal USB disconnect handling is preserved.
 
-Frank
+On each enumeration, VIDIOC_TRY_FMT takes about 920 ms per call because
+uvcvideo negotiates with the device through UVC probe control transfers.
+PipeWire queries nine MJPEG frame sizes for colorimetry on its main loop,
+blocking unrelated audio mute and volume requests for roughly eight
+seconds while audio playback continues on a separate thread.
 
->
-> > > > ---
-> > > >  drivers/media/platform/m2m-deinterlace.c | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/media/platform/m2m-deinterlace.c b/drivers/media/platform/m2m-deinterlace.c
-> > > > index 9dcc4bd6cbdd5..57a91ff2269f2 100644
-> > > > --- a/drivers/media/platform/m2m-deinterlace.c
-> > > > +++ b/drivers/media/platform/m2m-deinterlace.c
-> > > > @@ -330,7 +330,7 @@ static void deinterlace_issue_dma(struct deinterlace_ctx *ctx, int op,
-> > > >  	ctx->xt->dst_sgl = true;
-> > > >  	flags = DMA_CTRL_ACK | DMA_PREP_INTERRUPT;
-> > > >
-> > > > -	tx = dmadev->device_prep_interleaved_dma(chan, ctx->xt, flags);
-> > > > +	tx = dmaengine_prep_interleaved_dma(chan, ctx->xt, flags);
-> > > >  	if (tx == NULL) {
-> > > >  		v4l2_warn(&pcdev->v4l2_dev, "DMA interleaved prep error\n");
-> > > >  		return;
->
-> --
-> Regards,
->
-> Laurent Pinchart
+Add UVC_QUIRK_SKIP_TRY_FMT_PROBE to answer this device's TRY_FMT calls
+using the parsed format and frame descriptors. The advertised frame
+buffer sizes match the observed probe results for all nine resolutions.
+S_FMT continues to negotiate with the hardware, and other devices retain
+their existing TRY_FMT behavior.
+
+Both quirks are enabled by one device-specific entry. The card can still
+provide diagnostic frames without an HDMI signal; HDMI signal recovery
+and capture configuration continue through the normal driver paths.
+
+Signed-off-by: Henry Paradiz <henry.paradiz@gmail.com>
+---
+ drivers/media/usb/uvc/uvc_driver.c |  4 ++++
+ drivers/media/usb/uvc/uvc_v4l2.c   | 19 ++++++++++++-------
+ drivers/media/usb/uvc/uvcvideo.h   |  1 +
+ 3 files changed, 17 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -3055,6 +3055,10 @@
+ 	  .bInterfaceSubClass	= 1,
+ 	  .bInterfaceProtocol	= 0,
+ 	  .driver_info		= (kernel_ulong_t)&uvc_quirk_probe_def },
++	/* eEver Live Streaming USB Device HDMI capture */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x1e4e, 0x7102, USB_CLASS_VIDEO, 1, 0),
++	  .driver_info = UVC_INFO_QUIRK(UVC_QUIRK_SKIP_TRY_FMT_PROBE
++				      | UVC_QUIRK_DISABLE_AUTOSUSPEND) },
+ 	/* The Imaging Source USB CCD cameras */
+ 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+ 				| USB_DEVICE_ID_MATCH_INT_INFO,
+diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
+--- a/drivers/media/usb/uvc/uvc_v4l2.c
++++ b/drivers/media/usb/uvc/uvc_v4l2.c
+@@ -241,7 +241,7 @@
+ static int uvc_v4l2_try_format(struct uvc_streaming *stream,
+ 	struct v4l2_format *fmt, struct uvc_streaming_control *probe,
+ 	const struct uvc_format **uvc_format,
+-	const struct uvc_frame **uvc_frame)
++	const struct uvc_frame **uvc_frame, bool probe_device)
+ {
+ 	const struct uvc_format *format = NULL;
+ 	const struct uvc_frame *frame = NULL;
+@@ -336,10 +336,14 @@
+ 		probe->dwMaxVideoFrameSize =
+ 			stream->ctrl.dwMaxVideoFrameSize;
+ 
+-	/* Probe the device. */
+-	ret = uvc_probe_video(stream, probe);
+-	if (ret < 0)
+-		return ret;
++	/* Some devices stall on probes during idle format enumeration. */
++	if (probe_device) {
++		ret = uvc_probe_video(stream, probe);
++		if (ret < 0)
++			return ret;
++	} else {
++		probe->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
++	}
+ 
+ 	/*
+ 	 * After the probe, update fmt with the values returned from
+@@ -432,7 +436,7 @@
+ 	if (fmt->type != stream->type)
+ 		return -EINVAL;
+ 
+-	ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame);
++	ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame, true);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -649,7 +653,8 @@
+ 	struct uvc_streaming *stream = handle->stream;
+ 	struct uvc_streaming_control probe;
+ 
+-	return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL);
++	return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL,
++		!(stream->dev->quirks & UVC_QUIRK_SKIP_TRY_FMT_PROBE));
+ }
+ 
+ static int uvc_ioctl_enum_input(struct file *file, void *priv,
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -81,6 +81,7 @@
+ #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
+ #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
+ #define UVC_QUIRK_MSXU_META		0x00040000
++#define UVC_QUIRK_SKIP_TRY_FMT_PROBE	0x00080000
+ 
+ /* Format flags */
+ #define UVC_FMT_FLAG_COMPRESSED		0x00000001
