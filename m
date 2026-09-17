@@ -1,152 +1,112 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012067.outbound.protection.outlook.com [52.101.53.67])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA77577E2A;
-	Thu, 17 Sep 2026 16:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661510; cv=fail; b=dxwVxPKGgXLyh3t4uOqzTz6fk57YM1EY0A3H5k+MvQkRtYIYW2dFVDZsA4T+9lUb2t0IMzXJpUAZ6ZVtr3UinAtN58pcETDY2DBfY/b6/0sfKiikYjrkHX/VNHDr3m+nxXymLRdRYp53PnA25/V7glw/ZjIsAic2R72lBNB31Zs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661510; c=relaxed/simple;
-	bh=IwrxGiKlDebP9g7tDfKXkL7z296qTfIk+L4ZUMNhY/k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NPrhvJNQtQjUWA2dT17y8diN1sNfGQ0oS6CKvGeoiTehshRbqIqrzxYZI+tDpzgyjLUivF50CXBrGhDg2KIxl7yxZi6ZYGFB73EbvJ+n/AD3zzeRnl4jDuqRx/ZIfnZW1UTk6JBfj8gtiG2s6CS3bDR41Rm++VEULuINDvv16p4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KjjxMsys; arc=fail smtp.client-ip=52.101.53.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45FF3C7DEB
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 16:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789661874; cv=none; b=BRKlSo20qZ3YFRGF1ytaT3KhuTJNXql0/F0u5wYmJUsL2KXFyLjy7q5N7QtFsqyolx2cDwKGsSprkAjYL8OViAgUfTa2f0psh2qmlomwtfBz4qx4l/M2VtyeiY+XqhbJ3/w45fzZDzG/Z3fdoEwl5JrZRXTN5zkhFJYYKMJBNxY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789661874; c=relaxed/simple;
+	bh=CwCvTzT5/Wjk49sriuF1GcDDnoQBKgV0xYzkwzQNgb8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To; b=Aj9g9SIg1fqqOhhY5ILF3fCE4KGdjNEX0FEJHha9JLFsCQxOpbmyQwbIorTIU/iBjNbag0fFHQu970Z7B74PcuUbw616UBjWcOdYQ98Z8cd4ddjYTQZdk6n0xgacRlu3Cl/33s17T4jKRNHYGRQtBPVrys7/UL4QmLlwEyS5O58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ex58wmMK; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KjjxMsys"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v7HZ9EZT99AE0yJqQHAvkiRjo7hGzlDZ/Q2yY0Npl1xC9TLg5kfqt8b2vpXr9g6hJ2ZJ4rW5p5KZFzaWW2v7yJsBlc+JIfdOmRccrvNKSY7uApGRGtlXqAzmZfpaci+HBsVPKo5K5ccvCeVu+D4FEOPOhQhgZiPADVQd3AUkLTu1oJ4lX0E/RaOi9vVOBrLe+C7cyxMoK51yy4otwbVrV7neEyQgnCFzo4BFrdu8doRlvinwM+wINFvsDDZA09HN9tAykXwNGLyaj7bsUejn+e2E5at81yq+kA+1BcrjHQ92FmK6OW9YhC2/5ZuW/e3M14s8dXBPJGLj5L4/kDJx4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LvV3fNwkaekFWusQIdnggjphaNEofk1gb/P4ImLA8Hk=;
- b=aH+1t6AubtTGad3mSBsxekV08lW9BMxE7RaqpWQPrXfXHQ9jrQj1XORL0y2DfEVfp8Gb+AAbzAWTB4roytW/Ho6RguRWG6QCLYj/uCEjnO18oNCcTpeYWrn7aSCaLyxLXOZ+3ut/nzCISSJDCxLIe/8nLufufbPq3T9iU5tN9++gJNAweNNzDrY/auKue+6uX7Wf4MSmdO+GE8itBuEJ41cDzrgjWCbPcVUXrkAVkH/KvrofgbjV+7WII9iUVLfbaHmpY3uc0UzZcPBGdb+Ir7ZC+nhShkMbqZ0jg7ckWaAzLcuY6WON0O3RSXUCcUDuqtbOoDTiPw0qc49eCfuiPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LvV3fNwkaekFWusQIdnggjphaNEofk1gb/P4ImLA8Hk=;
- b=KjjxMsysXAma+DYrScNcVPUTMMU7JOOaNQXWJqwIs3bdp4pfhTG0FoqK2/pNoLlcDygEV5+SfLH2tetITYSxGMfD7I6+zpv3wFk7VR/TddvQFLXmRbPzkhm51p7C8RQ822Ff0xNAXsz5Yv9SeLEN5fQldCqWlTEpSY3swLhUFNU=
-Received: from SJ0PR05CA0114.namprd05.prod.outlook.com (2603:10b6:a03:334::29)
- by MN0PR12MB6222.namprd12.prod.outlook.com (2603:10b6:208:3c2::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 16:11:40 +0000
-Received: from BY1PEPF00026965.namprd05.prod.outlook.com
- (2603:10b6:a03:334:cafe::8) by SJ0PR05CA0114.outlook.office365.com
- (2603:10b6:a03:334::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Thu, 17
- Sep 2026 16:11:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF00026965.mail.protection.outlook.com (10.167.244.149) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 16:11:37 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 11:11:36 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 11:11:36 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 17 Sep 2026 11:11:35 -0500
-Message-ID: <d0157864-cfe6-a4f3-bc62-3338c04e806b@amd.com>
-Date: Thu, 17 Sep 2026 09:11:35 -0700
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ex58wmMK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789661869;
+	bh=CwCvTzT5/Wjk49sriuF1GcDDnoQBKgV0xYzkwzQNgb8=;
+	h=From:Subject:Date:To:From;
+	b=Ex58wmMKEnEerMU3bg6LP3IabIqqcQhmwU+1nnUM4rFSaSHMlbeECedsXph4Dgo87
+	 4Ko+kcvFuIE9r4wXtJNlHTNQ3t8XIq3WMw9AldRwwnx9W7FcNrvfKplRFBqjSBLCvv
+	 phv0gBy3DO3EIBpY3sgDsSN+kfBKhyi0tWOT4NURpQfdsEn35RINrsOV6civ5eLdEz
+	 E/SBJx5zjHXoAmlqJ1aDQ005oOUzl/r5b8PIazBRhcwEKi0KBlsL9MzoEKEppNyIcV
+	 K8KmmAv+HIpho4DaF+vydOfKUfI44+cHxAjhMhZNl+n6y874qKs3YgnZ58DNXrEHKY
+	 ZeMY32d5mbuXA==
+Received: from [192.168.0.15] (unknown [100.64.0.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: detlev)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 65C3117E0420;
+	Thu, 17 Sep 2026 18:17:49 +0200 (CEST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+Subject: [PATCH RFC v4l-utils v2 0/3] utils: Add the v4l2top tool
+Date: Thu, 17 Sep 2026 12:17:45 -0400
+Message-Id: <20260917-add-v4l2top-v2-0-80970c6210c5@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v5 5/5] accel/amdxdna: do not fail a sync for a BO with no
- debug context
-Content-Language: en-US
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
-	Oded Gabbay <ogabbay@kernel.org>
-CC: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Sumit Semwal
-	<sumit.semwal@linaro.org>, Alex Deucher <alexdeucher@gmail.com>, Max Zhen
-	<max.zhen@amd.com>, Sonal Santan <sonal.santan@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
-References: <20260819224458.257346-1-taimuraz@kaitmazov.com>
- <20260819224458.257346-6-taimuraz@kaitmazov.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260819224458.257346-6-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026965:EE_|MN0PR12MB6222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e6950e6-a195-443e-9698-08df14d659d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|4143699003|10067099003|56012099006|18002099003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3ybaRtic7gNavBFLhcUIaGVVj+JJqMqjWys+fvOJbEquLA/IygW5CKNqr0OVILlNt8yZcSQ8jkZsEvIzK5R60gHdoVBdFbtySKJplnfc90ey4HiPnMXcr7FZjbJ/nydO/NRGTeJ2IRM1RUSP4UU4NjIeAsSyFm3rd8CqNsMg+Xxm6/2iyl1SJ0vtE7M7Go4WjQci7PV88aTl96WJX1nMSYn9L3vpMyNNCpr0mISqDT43bs2BI2GG2ciPqYCOQpln162W7BZM7ukMGTRsdTCUBdbmbgBJiO6akx/5OY/w4nWORcM1tpZjUiWcT77DFk8YGaRcNMwSxDHbSn2hKE47fFIKtsj4wfbqR0jzx6q38YwK5xDasBoqc5tglX0kG5H0MmdiKdqUKz2jvNasr1gnlmObdXdenYchfUttuBGgc75n3TaHvuKLbzgPKKDN+Tm3slZmWWLXhWp3eWpUgwP1HHdDJD68T9cKYucZAbnho3+YatArbBZox/fxzQ8L/R+knxwmtfHTfaX1Qo1v8rwrv3kASMJzDYheYgAq19Hn8WL3qrWPxFsllQlhgSr/j+2uh2eUk/UfWlfmxdRDrFLmtiFS6yyx15IhlNeRntzQPXEr+GFk4iZFEy7QH70tVxAt40lh+UpuA13Ld4thMeFhMBqFlX5XhAFqdJKCwjsqXhrktgkrhxOOgFx514kjmqR9fZ7u+lLHbil7wiV5DsdghA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(4143699003)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DPYUhlS9RDNZmC2MGhpkmhbeDYfwpF93btIcXaxLOFZMotEjSDqDKCa+sMMdZIFCbwHU+lD3WHdw2gGrNiuHW1rsHW/JK/WSI4LzTKLVtOKPJYyay83XYZRp6tP1PqRrKwKEdvp3jqa/DnPVUFY7erJowdLvU8+eLozFok8HJXHkBgkbvq0MOfxoi8bwkJZctDHViiMvoOTOkwi1x83tcNLA3ppROf3tMgBI7K7r2gt6NuD5+jJXwIwjyl+RuiQ71SsGJHTWzEq4hAouKeF54ZwX5YbP5WjZnMBUov9GWN4Wc20D8iZKgHqbPeqa5GVnS8PFhpuNwUJz/ZNwZvF4omFB8O1fsam0eAB6LmLfjtevBajjGhMicWoWNS51ItxqWaBgmgfIGASNvVGXAiVvHmBwoiotZCSaszM1yb+6cX9lBuU1tMz/aPhHq2Cs5rH2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 16:11:37.1534
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e6950e6-a195-443e-9698-08df14d659d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026965.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6222
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQrCMBREr1L+2i9JGlPqShA8gFvpIm1S+yE2J
+ alBKb27sbhx+YaZNwtEG8hGOBYLBJsokh8ziF0B3aDHu0UymUEwoVjNGWpjMEknZj+hqjgvmZZ
+ GlhbyYgq2p9dmu8H1cv5muYvPmVyEJtNAcfbhvd0lvvV+ZvVnThwZyoopUbf60Pf61HnndOuD3
+ nf+Ac26rh8lEro3vAAAAA==
+X-Change-ID: 20260910-add-v4l2top-671130a4d43e
+To: linux-media@vger.kernel.org, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+X-Mailer: b4 0.17-dev-4066f
 
+Hello !
 
-On 8/19/26 15:44, Taimuraz Kaitmazov wrote:
-> amdxdna_drm_sync_bo_ioctl() calls amdxdna_hwctx_sync_debug_bo() for every
-> FROM_DEVICE sync, which answers -EINVAL when the BO's assigned_hwctx names
-> no context. Only a BO attached with ATTACH_DEBUG_BO is ever given one, so
-> an ordinary read-back sync reports failure after its flush has already run.
->
-> Ask for the debug sync only when the BO has a context. An unattached BO
-> carries AMDXDNA_INVALID_CTX_HANDLE and hwctx ids are allocated above it, so
-> the test is exact, -EINVAL keeps meaning that the named context is gone,
-> and the handle is not resolved twice. The field is written under dev_lock
-> and read here without it; the context is still resolved under that lock, so
-> a racing attach only decides whether this sync sees the buffer.
->
-> Suggested-by: Lizhi Hou <lizhi.hou@amd.com>
-> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 4be5298d1062..2613c94dd842 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -1319,7 +1319,8 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
->   	XDNA_DBG(xdna, "Sync bo %d offset 0x%llx, size 0x%llx\n",
->   		 args->handle, args->offset, args->size);
->   
-> -	if (args->direction == SYNC_DIRECT_FROM_DEVICE)
-> +	if (abo->assigned_hwctx != AMDXDNA_INVALID_CTX_HANDLE &&
-> +	    args->direction == SYNC_DIRECT_FROM_DEVICE)
->   		ret = amdxdna_hwctx_sync_debug_bo(client, args->handle);
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   
->   put_obj:
+As we are currently adding support for fdinfo[1] and memory tracking[2]
+in v4l2 drivers, I propose the v4l2top utility to show
+media devices time and memory usage in a nice TUI, much like htop.
+
+The tool is written in Rust and only built when cargo is detected,
+using a wrapper in the meson build system.
+
+Currently, the code has been copied in the tree from my git repository[3],
+but if needed, we can use a submodule or recreate the git history.
+
+As [1] and [2] have not been accepted upstream yet, this should not be
+merged yet and be regarded as an RFC.
+
+Regards,
+Detlev
+
+[1]: https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com/
+[2]: https://lore.kernel.org/all/20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com/
+[3]: https://github.com/cazou/v4l2top # upstream branch
+
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+---
+Changes in v2:
+- Fixed subject tags
+- No code changes
+- Link to v1: https://patch.msgid.link/20260916-add-v4l2top-v1-0-470629ba5ffa@collabora.com
+
+---
+Detlev Casanova (3):
+      v4l-util: Add the v4l2top utility
+      meson: Add meson build file for v4l2top
+      README: Add v4l2top util
+
+ README.md                         |   7 +
+ meson.build                       |   1 +
+ meson_options.txt                 |   2 +
+ utils/meson.build                 |   2 +
+ utils/v4l2top/.gitignore          |   2 +
+ utils/v4l2top/Cargo.toml          |  13 +
+ utils/v4l2top/README.md           |  43 +++
+ utils/v4l2top/cargo-wrapper.sh    |  22 ++
+ utils/v4l2top/meson.build         |  43 +++
+ utils/v4l2top/src/main.rs         |  51 ++++
+ utils/v4l2top/src/renderers.rs    | 593 ++++++++++++++++++++++++++++++++++++++
+ utils/v4l2top/src/v4l2_mem.rs     |  56 ++++
+ utils/v4l2top/src/v4l2_metrics.rs | 148 ++++++++++
+ 13 files changed, 983 insertions(+)
+---
+base-commit: fa05ca502293f65e25930e6321c82eeaccf382ab
+change-id: 20260910-add-v4l2top-671130a4d43e
+
+Best regards,
+--  
+Detlev Casanova <detlev.casanova@collabora.com>
+
