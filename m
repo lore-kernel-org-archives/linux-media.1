@@ -1,88 +1,83 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91BB3A5449;
-	Thu, 17 Sep 2026 09:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF994B048C;
+	Thu, 17 Sep 2026 09:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638900; cv=none; b=ZtxhEorn10zU9iz4dwBnNv1D7nkFqr8+dE4DcDce67EXA05BgIxUi4Z5yCG8jLvvqYwgdqS0FvQEI8IRkJ2vfWL87zAVIyH2vQ6DaUqbJdW9pAppXXR2YRIOlOHYKtQ7dn1FLr7UsyDU/i2BsK1z+pXf1rqlPcnGscyOg/zcQxs=
+	t=1789639063; cv=none; b=mUD5+Sa07sxjeOSxGgtnFmdmmQ4BBDapMHR1BLUoba0BTY2X5KXKidO8XezSF8/jAYsmsajQZBKY+RUbYstCTzaZO0EQo4Yk0iCogXyGTlXPmTLJIzgLiPWtFNreJhzOZzBGXoClhTXgyAxj0l+2vtWyzawTs0C8N2+SKZCj9K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638900; c=relaxed/simple;
-	bh=GcgK0cOP/xsRIMscluwCnFRfGlh4TqqsN6j/q8dZFY4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GHrE8B6eRnhBlcnvVHLZqHkazMazp1MHe4GQujomsMPiJXfcVFlx7wM+AyWc3+kIDNQpcUp9SsASM/zBJY5Y/yNNSFr3H/qJZ5qcNtY2hdxxnmAj+/XaLy7BBsqdS05rPs80E4kCluCX9Dryp3BlR0ur9tCsq8bSNtMiSMvO8P4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnUDvjuKtqyxZ+CA--.40302S2;
-	Thu, 17 Sep 2026 17:54:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: hverkuil@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	shuah@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: au0828: Fix media device leak in au0828_usb_probe()
-Date: Thu, 17 Sep 2026 09:54:43 +0000
-Message-Id: <20260917095443.2145586-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789639063; c=relaxed/simple;
+	bh=PPXAhrphGBXkXO3QqwcKP+Gsm+ljMkF8m6h/0qzzilU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W3GHVmZEKrak4tSluh+dGQhLQahjdOpct/aUgyTsAWS89XPLraUxjhNtEalJyUOFozTTfJNhv8JRiyktIvPwcdiaW6lZrgzl3xXdlqIPFrKMpm7WE2zhIUnJ7kJzojg+bc/RhbBHZ8PtqlmZmH/DBUMYFTrYbl0DpJUNQVXv11Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fIwpftXb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fIwpftXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5321F000FF;
+	Thu, 17 Sep 2026 09:57:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789639049;
+	bh=SyGEDd0vEHpsZvoEaGxGUV1Y4unKkJumKA3uLPfw2Z4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fIwpftXbIchhFRO7Rag7iujxIrMHAetyiY3vEJUmHFrDyWn+infC/GFvcDn/vr+HL
+	 1BHj46ZP7GOcBx/H67gQ66zsLzNjR2tJuLROz/B2kNruQ91stRmRUhUrejNiFt3B72
+	 yi6ip/xxDfcLqm1TYJGGVkRo3THGnKZV7Kg0PxBVUzVTrxhxx3iuBuSgJis7iVMHko
+	 p46sPnxGDaYLypFsk3yuO0e9lAnW2IVNFKyn1vbtBTBc3bjyhY1Op9tbWzGXmncd/F
+	 APHOsrKd4G+nvlfngr6IYrK5TTfsdpw+CVooOFWOBLymAoKegQPFZ7KUcWDI8mVSP7
+	 sBqzvFZLLU9uA==
+Date: Thu, 17 Sep 2026 11:57:25 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v7 3/9] dt-bindings: media: qcom,qcm2290-camss-ope:
+ Document shikra compatible
+Message-ID: <20260917-mellow-benevolent-chimera-2c4df3@quoll>
+References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
+ <20260915-camss-isp-ope-v7-3-77b13d131d3d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnUDvjuKtqyxZ+CA--.40302S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Jr17tFyktw4UWF47XF4UXFb_yoW8JryUp3
-	ykJFy5CrWUJr4q9w4UJ3WUWF15W3ZavrWrCr97Aan3ur1fAa47JrW8Za4jgw4UtayIka4j
-	qr4UtrWrZr4Fkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
-	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
-	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j0rWrUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq003VgABsT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915-camss-isp-ope-v7-3-77b13d131d3d@oss.qualcomm.com>
 
-au0828_media_device_init() takes a reference to a media device with
-media_device_usb_allocate().  When au0828_v4l2_device_register()
-fails right after, the error path only unregisters the entities and
-frees au0828_dev, so that reference is never released.
+On Tue, Sep 15, 2026 at 10:11:06AM +0200, Loic Poulain wrote:
+> From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> 
+> Shikra uses the same Offline Processing Engine hardware as QCM2290,
+> add qcom,shikra-camss-ope compatible string with qcom,qcm2290-camss-ope
+> as the fallback.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml          | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml
+> index f9c31bc88e94b028c241060bbd8e56e0bdc49af5..90b54b9808e5999a4dead404aa2063ab695cdfd6 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml
+> @@ -19,8 +19,11 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,qcm2290-camss-ope
+> -
 
-Release it with media_device_delete() on that path.
+Stray line removal.
 
-Fixes: 812658d88d26 ("media: change au0828 to use Media Device Allocator API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/media/usb/au0828/au0828-core.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/media/usb/au0828/au0828-core.c b/drivers/media/usb/au0828/au0828-core.c
-index 445cbeb7abae..c3826b3b8a2e 100644
---- a/drivers/media/usb/au0828/au0828-core.c
-+++ b/drivers/media/usb/au0828/au0828-core.c
-@@ -697,6 +697,10 @@ static int au0828_usb_probe(struct usb_interface *interface,
- 	retval = au0828_v4l2_device_register(interface, dev);
- 	if (retval) {
- 		au0828_usb_v4l2_media_release(dev);
-+#ifdef CONFIG_MEDIA_CONTROLLER
-+		media_device_delete(dev->media_dev, KBUILD_MODNAME,
-+				    THIS_MODULE);
-+#endif
- 		mutex_unlock(&dev->lock);
- 		kfree(dev);
- 		return retval;
--- 
-2.34.1
+Best regards,
+Krzysztof
 
