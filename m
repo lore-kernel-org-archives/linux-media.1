@@ -1,69 +1,69 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0555293F7
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 13:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B5952B1DA
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 13:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651253; cv=none; b=ATJoON5m1mvDQCJ7NHV55S/kRMk5CwIhESofMAvf4cWT21Qz4V5lCOJJ8DCXx/dwtEoDY34VI318cEllQf6XGnyl7GQS+nWJPIq4A6cWYJdkZybJ2wSeMZBxAGUtqFNAQ/HdofHtObquqXx7DPDnNXjQaC4uWYMN7k38JbQCL3Y=
+	t=1789651254; cv=none; b=L2R8eCLfIomzveeDqMOtxZN59divsn7m79fpEaj/sipw4N58J9ek4g/RllVoF7jtRaYVBDbHAt9ypeI2lxJRBulShrKn1OxLdrlE/SxfLw12bmKHpduwN83e11tPKv5+DVJH8t7ucXXSrHyFQSolIQHjbc6yM5TfqKHdSjfzB3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651253; c=relaxed/simple;
-	bh=Kdzrsn48p3c+3/xWxGlIWoml4os90u5ZTr3ZZeLSiM4=;
+	s=arc-20240116; t=1789651254; c=relaxed/simple;
+	bh=iHBPQ9YkAn6Z8GWpjCTNk1g0MokRmqXQABi16JYNcjk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PTfxp8TUwkeQZ2JahilozzVdBrtBE+l/rcUYGXvI7L4eb5g3B2BRH/w/VVBG9lG9OWoK6cM0BNSvuFmRcTalydYx0IH7L5lZElpAzO9+qkiLb5xpF38bhiagIs3XppJjoRBzDzvQb2VOcEaCjy/n+x+N6HRvqsLdbyoLVgp0Qcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Se1z2g9d; arc=none smtp.client-ip=74.125.228.171
+	 In-Reply-To:To:Cc; b=WJSepgldkwaS7QNfXTZ+SVMRpjFMl7MZ7tAUxicQRDDe1NQzDJrhDLjvZZgqcunr74c40mfZVy+IbKa45eC5JIR2Li58wQ0bv2TLKA5tvxF2QnhVuzOBsGo67dwBCWAW1jEZKyihftAXCQwaDbMI4+brfZ4qUIRBG4vzHLvDUF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SkgF2Oju; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Se1z2g9d"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f9f7db0so121325266b.3
-        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 06:20:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SkgF2Oju"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c264788fd58so132191466b.1
+        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 06:20:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789651245; x=1790256045; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1789651247; x=1790256047; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Aqy2gmC+g19+VnI1b6jHIKWEHPP8Fzt7T1+LG7Ot4U8=;
-        b=Se1z2g9ddyKsqcm0RB0t4WW6iCfd1IKFPM0vKD+ZWfgfF/d7a7sPrefprvX0Y9K0FP
-         2QSGZgdPaxWB5FWczUS9Us8GKMBtA2kDaCgcP3Q+tyCe5+2T9VXpW747yYSY9zbFykOY
-         FoO7ecvnSZUIHZUH2t0UvZeLCsIMmaDTaCVfonHRlm9MvvYwxT+pTjhXfD347nayiSKH
-         6p4q5RAXxOQdm+7o0PJPiZ1EJjEFxEmQlawuVm1LlY6qSwi+3+1vDj8FOC36vYZ/Ozzm
-         j5mCzMhnQVj/SblFb5ntH2A5V39Xxt+vfu+lyjYYIuU7oEfS5CnIHugMKdbqEDkvf/N4
-         SS7A==
+        bh=YJOOEBoowSURD7njEIFc+li3yPh3EiytjgezbPj3cX4=;
+        b=SkgF2OjuSs4d6G7zJvph3U1VuHue5WlDj+4gXc21016fFdl4XPrlp7CAcYZPK94Dwq
+         4fpYZ6L/XepYsbxybf5GkFB/PyPcCJddpnCsDZr5kF9OJ3PkjMPsxFWef38J/XT/muvk
+         VelgYZTjrszwvIFiZ/N1jmqqQp+EJYWVBgZSBvSLEX170me3sxrwSIANfDIAHn1KZf8L
+         fJvhQBD50fQ0nppuChir4+v6jXJZZVmOouuqiz751zF8CAf8HRCHGowuZVEuJh76qycB
+         FXaPNaRv3GqNNW8caG+mzRbDrpYmzz186NGB5BeHOMMgZt8m9UX1sI8/D5k9q1XJ24rD
+         o0Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789651245; x=1790256045;
+        d=1e100.net; s=20260707; t=1789651247; x=1790256047;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Aqy2gmC+g19+VnI1b6jHIKWEHPP8Fzt7T1+LG7Ot4U8=;
-        b=mKNq7HbTFsoq5BInXdYfRZiVAvDhRzhQ/c+PZ1ZJC2nsIPG00V6CzXpYHa1U+KRsuK
-         4Ac3Z79owcvj0KLYXpzT156zy2+7GNsmTyiacYHOmTYQrf2DtCcENEhRbx7mm5ac7DOm
-         933eLVrYwzArErcG/zrQzcb0zpQPTf5wMRBkQmWTyxRMupS+rRvSyb0S0i5nAFMPZVkk
-         hTiWU4cloj5A+YwIXw6PZvhop9bq8oOROaK1hhXeDD5Oy0gUil1kZPAXMreWwpDn9Oke
-         fr6cgygTrBMLOuIndn1tfo6uxOlipULV7uXab6hQxyzdmWQP0nec//1rmMNqlB+E4HAM
-         n+UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0ehxdXs6xyuL7lbYm1RAt9W9GP1SIzjlCRiw/izjfflvFkGw8ujjGl90JAzXYpQsoytsfbC+vgFtI5g==@vger.kernel.org
-X-Gm-Message-State: AFuF++k/e20Dbz8lJB0DaBAbcM3vo3LmraRn44JTngdWE3kkPWk5zBsA
-	NU8Nthwv8f1nAJF+K2VjVyFO3/4mK79LwIQpiAzOblp1gNv1epmfTgaZ0vcypJGqwSM=
-X-Gm-Gg: AYBFou0K91TIAY0JQhYKuwopxRwytOWn12DzzdZO5uxv5x1FWYnc5GYaNu/CKYhz+2C
-	yYQGDmFvxsZHqXWeLCXEEypEGeHJJc4YuvzYXhCyRaZgnhw1ecwVsz2TfsAQT0ocJZ1VSuOed96
-	4FWaLGhV0Km+eZZxX4sAdp3VtRb+AN2NDB7YFVsP1CrHGde/QD3SdiQMSJETdUQhFw5zYJd1vzO
-	MGf2fp+qfGeWstJQrjirqCyKiXDgapylVKKk4hXSMwA1LKyFeXOf9f8uMXhDgFuJNKO0i3Bkb3Q
-	GXGkPPkmnRwQ66k2krsmE5mgFKoE+QvZZX3aaOf4xarXImvzuiMUjK3rtYO/au4Vf1/4V+Lyk9k
-	vDVeeF2GN3/G/PHhhsB37RksHuk6CueJIIgh/H9dtPm1PrS77reM1bxac5cOvVLN0FT00rnTE37
-	evHSvKTWsuxiVnodMfNLeWa9BhZQzVFs243411V2GnKhLsM53XGvEf75eUJ295owNVASroUeYkQ
-	ibCO/2d8A==
-X-Received: by 2002:a17:906:6a23:b0:c29:3c97:c994 with SMTP id a640c23a62f3a-c29e53d4e2cmr421505966b.35.1789651244902;
-        Thu, 17 Sep 2026 06:20:44 -0700 (PDT)
+        bh=YJOOEBoowSURD7njEIFc+li3yPh3EiytjgezbPj3cX4=;
+        b=FxD9ztGtP9xNcSyTBDbAzdY/uPSmiQrU++5YwxGC1UiCNETBZgencJ4ptm7TxTjxwu
+         5UUkUpfglNm+PeybzZY1Tq0weCPWsC4oyd4mdi7Xl5p+//w/Z01rgY7+xp3W8hOSftTh
+         zG56TXM1GcBs9vbdR4aUiySw9qJt+pD1qbls06mGXp/Kqu7RCrR8j8IiURSpVFReJfK6
+         TuuCaWsYsaZ4mzI/ECFSZxJ4muiSLbSfl52WxZ62SDzTw7nc38sLz465eQGUEKHSanMW
+         RdJBXr69uAI3B2ycWHG3VdT1SNAnx7Pl0qTnw3v50ZsVgRz0hBAZgNATqho3PQAdO1Q/
+         rhkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqaGPJuoAsOm8UOdWNXTKLZPiCvub6j8vzYtzC9itCnmTYDzt8qesQvshvUTJgIjWaEoY5mMEJyqguGQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++ldzJ3+5OUrK6FjXStMuuiqagLwTzLYN6rMbGH355l4VNT6rGBy
+	0Xb6QiC/jdV2E2d+2+LZhoJEbpZwITA0/F+sJ6POP0B3w+fOe5n3z1EINWJaEE2pcy8=
+X-Gm-Gg: AYBFou3xqwst4zeXZVtmud4KyrIC9v3FJQt/03FLAF/o9I7f4++Px4AN8C3/pGaQup7
+	70ezjUTVipiU/f7Gw2zKAdivfUF20N6gTdeBi9FRKP0Ii96Y6Evoomvfk5aIRvEP1xtdhJ7Iv1X
+	CGo3ASl4YLgXurJcd9c0Y9OqPk5iB2p6JJKIsB51KRSJMl3ffwfcSsHvT5gDp9pD55n6i0+E2hO
+	TeNBQ6lkjbnR0aoTpdwCmgUu0cPBoZ+U4AYHQ/iBPZLSu0AeczhDjXxgjNWkvPt4b2Z5JKbVaQD
+	+1aM4C1HeIZ2Gam5yqxHEt8minNY0CHq2kP6ly3O0WIMSAueMyXYH3/T2RTcUSrTD35ug0uZ+7E
+	Hw+Je7E5UTPeORxN+cnAPeva3E1VWGnQsn4XrO5zX5vrHG/LV2VgLnFeE5dKWili7UouyA5EsuA
+	bArFgZ3ucGWmQHYQpD5xWBtbCbFiqjLp3QUoOtcCQU255rAs+uOFIjtsGstSUe8asB6l/Iz1COX
+	SkOY5tnT/1r0txt/ynN
+X-Received: by 2002:a17:907:1ca2:b0:c26:19de:9acf with SMTP id a640c23a62f3a-c29e5308b5cmr497616966b.39.1789651247392;
+        Thu, 17 Sep 2026 06:20:47 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.29.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de5e4ca9sm279681166b.42.2026.09.17.06.20.43
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de5e4ca9sm279681166b.42.2026.09.17.06.20.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 06:20:44 -0700 (PDT)
+        Thu, 17 Sep 2026 06:20:46 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Thu, 17 Sep 2026 14:20:32 +0100
-Subject: [PATCH v7 07/12] arm64: dts: qcom: x1e80100-t14s: Add pm8010
- camera PMIC with voltage levels for IR and RGB camera
+Date: Thu, 17 Sep 2026 14:20:34 +0100
+Subject: [PATCH v7 09/12] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x:
+ Add pm8010 camera PMIC with voltage levels for IR and RGB camera
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-x1e-camss-csi2-phy-dtsi-v7-7-1a63eb35838b@linaro.org>
+Message-Id: <20260917-x1e-camss-csi2-phy-dtsi-v7-9-1a63eb35838b@linaro.org>
 References: <20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb35838b@linaro.org>
 In-Reply-To: <20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb35838b@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -84,64 +84,42 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org, 
- Christopher Obbard <christopher.obbard@linaro.org>, 
- Daniel J Blueman <daniel@quora.org>
+ linux-media@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3012;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2299;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=Kdzrsn48p3c+3/xWxGlIWoml4os90u5ZTr3ZZeLSiM4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqq+kgSqyNT0j72udFFTdPDEyD5hSaVZnA45Y/R
- zr96oynFTyJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCaqvpIAAKCRAicTuzoY3I
- OlwpD/wLt4Vwffwz9xjYYEn+kz3p1vnqZWauMLYwmpKzFIZkYFRvSqggx5eztrJAQgyT7aBPtuc
- 58+Dogh2pp4rOzL5Cq+yj9rvQE/jZVMGSuYpwv7E6EOYMJwKJKeiSPPw9nhtDvoBkcaxaa4kr6n
- Mk9DNawl/fPzd8LKf9XSp4w7XsXhtePFzVPXTkX2aO/BvL19rd/dtqb81xVR5hBZjgAtURgM5PU
- areTyJ4y4JzeovE2xuD5ZD2P7w56Y55WPLP+cgWn559hSTGKhRKMDQKhTDikCBR25OTQWGhgkn2
- BY9Q8K9b1aC+s4nP9XE8FNv0v5NYq6UQ1zzX7Rja/z+ygompvazMNxUHE/KCosq2G5/lrvyo32n
- /5cLkvxoGZ3AOIkEedWqNZDgcqH3kPKgwmPku0zwIniRAdt5f6JoYs/wDXIKZloJj5w07Ntu1Y6
- l3Sd43BRrF1tSzZlpMqu34jRtrHjFiUf8RzhiD8aroxVvXNj6khazwGXgF5l5sR8AnjSnRG35eq
- nWG5e8aGwYg8nY8mIhSMvLP3JymFY3s6wKImqOuqqWkWWH+aQB5U87Eb/8v3i0lkBUNObHtYIR/
- yxb5+7VMQwEtWwhe8NQNKkulWvgCAZqnOBKLRsd19N0AZ+70gnIcJpcflV00O1Ocm1n1VhjEjGW
- PKFEi7xT4Hb7JdQ==
+ bh=iHBPQ9YkAn6Z8GWpjCTNk1g0MokRmqXQABi16JYNcjk=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqq+khmnaIFzC7JYVfCpVXkblyEiJr9Su3vzEqm
+ zFXMP7iUgOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCaqvpIQAKCRAicTuzoY3I
+ OsvkD/96KBliKUCsQGfaQgF0covieKNoRp4DwCAd7Poyo18hU6gXDYKIZFiYgnhho3LPGHSijwr
+ nTFD0W+hMRAu3+9Tp4P9VSRh9LbUasQEq69PeWhZl/SpbROPR/36FzvIwJT9vv4S6I/jjmg8o8n
+ WI9QlbpRfrpOcGQMMm5Kcr0jjcV3mT7rB541SWYLqSSz2l0Ec6gtdS80heHpU1u36CVfA4H60zo
+ ra25Wux2DDTfkiUxqaNt9lN/7jE12/iwt/PaCaKrObOJN4sQM5wsZKBKh0Mf38379sHiNhjHwM7
+ KbApFsMkVBBgXJI+HFDrZ6jFZHUFlX2dCeuFEnngbcFLbS+WPIAxec+mI+FecMtq3+JnfIiUaBt
+ f8l8bkP3IHOPUNbJdL3Ra7N6mpCxUQH8Y67e2YYKY5DTRkLHNrBUUoXys5kMCVsNJP9xaxGsMql
+ 96+y3nR1wBOFSrQZ4KfghUCinUN0YeOMdEk07WSVnwR7hqSO+TcT5XHm8/kx9hAn9hGIdXUw2xP
+ 4YwJKxlU7GwYpAyke9FHYnE6NkabfhasqVfIytCT2xNQLA9l89OhgT5nkYx3nxph3APWuqvdIIq
+ D5TLvnk95lImE506xUF0s4W3DHhCbi5mX0FkSL9SOg5Spu2m3A/sy9mnTSswFQB+b9jBBUQmoGE
+ syKz542c9WgOTXw==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add the PM8010 PMIC providing the following voltage rails:
+Add voltage regulators-8 for Camera on slim7x including:
 
-vreg_l1m_r @ 1v2 IR sensor
-vreg_l2m_r @ 1v2 RGB sensor
-vreg_l3m_r @ 1v8 IR sensor
-vreg_l4m_r @ 1v8 RGB sensor
-vreg_l5m_r @ 2v8 IR sensor
-vreg_l7m_r @ 2v8 RGB sensor
+- vreg_l1m_1p2
+- vreg_l3m_1p8
 
-Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
-Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
 Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi    | 59 ++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  | 51 ++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-index 0bee2a3d6e7a9..d2eaabf917f11 100644
---- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-@@ -562,6 +562,13 @@ vreg_l6b_1p8: ldo6 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
-+		vreg_l7b_2p8: ldo7 {
-+			regulator-name = "vreg_l7b_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
- 		vreg_l8b_3p0: ldo8 {
- 			regulator-name = "vreg_l8b_3p0";
- 			regulator-min-microvolt = <3072000>;
-@@ -805,6 +812,58 @@ vreg_l3j_0p8: ldo3 {
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+index 9eb2dfd99f20d..f4064e09d6231 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+@@ -795,6 +795,57 @@ vreg_l3j_0p8: ldo3 {
  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
  		};
  	};
@@ -196,7 +174,6 @@ index 0bee2a3d6e7a9..d2eaabf917f11 100644
 +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
 +		};
 +	};
-+
  };
  
  &gpu {
