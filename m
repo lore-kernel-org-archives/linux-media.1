@@ -1,187 +1,280 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399A13B42E6;
-	Thu, 17 Sep 2026 07:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E506F3CD8B5
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 07:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629122; cv=none; b=LNsTU0hQi9lSKd2OewdyAYFyc2LBIh0bHDbq2Wt4x6Uv1OWb/lNcFeESa52f6tVB+jF4+/aT15tFjuN9xx3BXMeO0SqpY0zmcOvgzZBIcL6k6aYupJ2p59VlDEAob4Eoae5qEHnqGjo6+8++XqgYv/DtmtLZK38bvok2uW1WmqA=
+	t=1789631765; cv=none; b=EwEwQx6KANF/drsEYeMz5yHo9Y82xuuKAfA1Z44S7oo/I01/WPbcOIEjsRmvfT4sqkivaiP1CAWpIZNYNiMeZN+jbIXseXtQsvKzSIJMgZKovnBFPaetImAnYWVBMZgEU1i1n9clPukl94RfsD6AXxzojKgUelenYmE376H+/jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629122; c=relaxed/simple;
-	bh=Xn1OBadHWVaPTEqbMA1foV4rLoLSSPbQZxUyg+8DgOA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=eRb0oCJPV6xf9Cx37YC20tmYCCl7Ff4l5x+gX/W+Z10qx2s8EOVXSMrS56jnDUdnKa1Kmmjc1OmGGmNsWfWpfVyW138OvHshhkpUDL/RxmiBSPyAmGLqKTzMTsjSKqSd+KT1cAGuPfKzzOmRugs5yyknVmQENN3SrGL3FZ7gxpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXmVaRXz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789631765; c=relaxed/simple;
+	bh=HamL13sGqDhUbkcsggfWZn4XtwRtR+Nb7WNAVRS3KWc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VFTrnHkdoTem7ieJeURO8oCM9oq+cyx/TOYJlouFp6x5rm4TbGZfoK6i8ADijhzVOknwfr1bAP437VRhzsoi8egFDRcSLvvmEiGXG3HNGJCvPjFr0SxrMNSz/QzH5mSOqChMGqrwBH3kcUQMUnom0eVhGQAejy0B7xF3Pn3W7zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uwKywFw3; arc=none smtp.client-ip=91.218.175.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXmVaRXz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0805A1F000FF;
-	Thu, 17 Sep 2026 07:11:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789629121;
-	bh=QZWvj0y2qYypNkhqYeG+rMh9NEA31Cl9OJ6XafQCJgo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=KXmVaRXzE1da74MR6oQokswU3bLeCRwAHFedrXabp3UUCO9Kdvx/MeoI9kbDmWQUO
-	 qpEXLyjlVso3sqxxU8Uj72ZMRq2zLWFh5YeIeMy8BKf9sM2EadUMah8Ob5d+k4ewMa
-	 FBZmEdIxskTVIN5zwgQ8XYetPzqONy2GM5a6KuYkpoh3HoYDOXPa+kC6/jlD2lmMzS
-	 +W7K5JLQlqlPXAbxnSZ/BQ6vDZ716L47RkcoGHyRzQ5+rL4srEOOlUO2AnzkYKSSy2
-	 exiINVlRe+lg86z+EmDNHHYRWzJHJLUTZ6XOA4meMGwiSinqXmIoPEGcte+ClYw6tL
-	 KO84VWL75ywoA==
-Message-ID: <ad32f584-ea27-4da9-9397-147b887a7d68@kernel.org>
-Date: Thu, 17 Sep 2026 09:11:50 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uwKywFw3"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HamL13sGqDhUbkcsggfWZn4XtwRtR+Nb7WNAVRS3KWc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789631760; v=1; x=1790236560;
+ b=uwKywFw3PzGwK+BKHwgZmJzb48/BwrzaW876/sQgqbDaogSWabFol/7ihe2rCABAUO7ZTkqo
+ ukFeOQGxNyvrBkEg9iRMeStOwBmZnVdyvpk3BfgVohQSCp+gCr8oO8f+P7fRfP9A+FogK8/dd+t
+ 6FLCBAp4T5KAe4lPeGjF9qm8=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f50246a7211157f5;
+	Thu, 17 Sep 2026 07:55:50 +0000
+X-Mizu-Trace-ID: f50246a7211157f5
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 17 Sep 2026 09:55:45 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <aquan_6JiKkEw-Kp@bombadil>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
+ <aqpYqrtKTY20IW_0@bombadil>
+ <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+ <20260916165244.GB191870@killaraus.ideasonboard.com>
+ <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/9] media: iris: Add support for glymur platform
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
- <20260917-dangerous-illegal-honeybee-cf479a@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260917-dangerous-illegal-honeybee-cf479a@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
 
-On 17/09/2026 09:09, Krzysztof Kozlowski wrote:
-> On Thu, Sep 17, 2026 at 10:30:19AM +0530, Vishnu Reddy wrote:
->> ---
->> Mukesh Ojha (1):
->>       media: iris: Enable Secure PAS support with IOMMU managed by Linux
->>
->> Vishnu Reddy (8):
->>       dt-bindings: media: qcom,glymur-iris: Add glymur video codec
->>       media: iris: Replace enum-indexed clock and power domain tables with per-block structures
->>       media: iris: Add power sequence for glymur
->>       media: iris: Handle CPU_CS_SCIACMDARG3 register write via program bootup registers hook
->>       media: iris: Add support to select core for dual core platforms
->>       media: iris: Add platform data for glymur
->>       arm64: dts: qcom: glymur: Add iris video node
->>       arm64: dts: qcom: glymur-crd: Enable iris video codec node
->>
->>  .../bindings/media/qcom,glymur-iris.yaml           | 218 +++++++++++++++++++++
->>  .../bindings/media/qcom,sm8550-iris.yaml           |   6 +
->>  .../bindings/media/qcom,sm8750-iris.yaml           |   6 +
->>  .../bindings/media/qcom,venus-common.yaml          |  11 +-
->>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi           |  10 +
->>  arch/arm64/boot/dts/qcom/glymur.dtsi               | 120 ++++++++++++
->>  drivers/media/platform/qcom/iris/Makefile          |   1 +
->>  drivers/media/platform/qcom/iris/iris_common.c     |  10 +
->>  drivers/media/platform/qcom/iris/iris_common.h     |   1 +
->>  drivers/media/platform/qcom/iris/iris_core.h       |  32 ++-
->>  drivers/media/platform/qcom/iris/iris_firmware.c   |  69 +++++--
->>  drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
->>  .../platform/qcom/iris/iris_hfi_gen2_command.c     |  19 ++
->>  .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
->>  drivers/media/platform/qcom/iris/iris_instance.h   |   2 +
->>  .../platform/qcom/iris/iris_platform_common.h      |  46 ++---
->>  .../platform/qcom/iris/iris_platform_glymur.c      |  78 ++++++++
->>  .../platform/qcom/iris/iris_platform_glymur.h      |  15 ++
->>  .../platform/qcom/iris/iris_platform_sc7280.h      |  28 ++-
->>  .../platform/qcom/iris/iris_platform_sm8250.h      |  26 ++-
->>  .../platform/qcom/iris/iris_platform_sm8550.h      |  26 ++-
->>  .../platform/qcom/iris/iris_platform_sm8750.h      |  29 ++-
->>  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  20 +-
->>  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  67 ++++---
->>  .../platform/qcom/iris/iris_platform_x1p42100.h    |  27 ++-
->>  drivers/media/platform/qcom/iris/iris_power.c      |  20 +-
->>  drivers/media/platform/qcom/iris/iris_probe.c      | 153 +++++++++++++--
->>  drivers/media/platform/qcom/iris/iris_resources.c  |  81 ++++----
->>  drivers/media/platform/qcom/iris/iris_resources.h  |   8 +-
->>  drivers/media/platform/qcom/iris/iris_utils.c      |  58 ++++--
->>  drivers/media/platform/qcom/iris/iris_utils.h      |   3 +-
->>  drivers/media/platform/qcom/iris/iris_vb2.c        |   4 +
->>  drivers/media/platform/qcom/iris/iris_vidc.c       |   6 +-
->>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 216 +++++++++++++++++---
->>  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 137 ++-----------
->>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 102 ++--------
->>  drivers/media/platform/qcom/iris/iris_vpu_common.h |   3 +
->>  .../platform/qcom/iris/iris_vpu_register_defines.h |  13 ++
->>  38 files changed, 1229 insertions(+), 444 deletions(-)
->> ---
->> base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
->> change-id: 20260917-glymur-627d049900e0
+On Thu, Sep 17, 2026 at 08:18:23AM +0200, Krzysztof Kozlowski wrote:
+> On 16/09/2026 18:52, Laurent Pinchart wrote:
+> > On Wed, Sep 16, 2026 at 03:41:16PM +0200, Krzysztof Kozlowski wrote:
+> >> On 16/09/2026 11:01, Richard Leitner wrote:
+> >>> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
+> >>>> On 16/09/2026 09:33, Richard Leitner wrote:
+> >>>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> >>>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+
+[...]
+
+> >>>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
+> >>>>>>> +
+> >>>>>>> +  vcc-supply:
+> >>>>>>> +    description: Power supply of the module (3.3V)
+> >>>>>>> +
+> >>>>>>> +  '#address-cells':
+> >>>>>>> +    const: 1
+> >>>>>>> +
+> >>>>>>> +  '#size-cells':
+> >>>>>>> +    const: 0
+> >>>>>>
+> >>>>>> No children allowed, so why these two?
+> >>>>>
+> >>>>> Based on your and the bot feedback I would suggest for v2 to change this
+> >>>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
+> >>>>> "$ref: /schemas/i2c/i2c-controller.yaml".
+> >>>>>
+> >>>>> This would better reflect the actual hardware, as there is only this one,
+> >>>>> in firmware hard-coded I2C downstream bus.
+> >>>>>
+> >>>>> Would this be a sane approach?
+> >>>>
+> >>>> If the underlying I2C bus and sensor are important, then yes. But I have
+> >>>> doubts that you need to describe the sensor if it is truly
+> >>>> unadressable/invisible to the OS.
+> > 
+> > To be clear, the sensor *is* addressable from the OS. The FPGA sits in
+> > the middle on the I2C bus instead of being a separate I2C device on the
+> > same bus as the sensor, but it forwards all I2C writes addressed to the
+> > sensor onto the backend I2C bus. This is why the DT binding is modelled
+> > with a child I2C bus. The sensor DT node is located on that node, and
+> > uses the regular DT bindings for the sensor.
 > 
-> Look here:
-> https://lore.kernel.org/all/20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com/
-> change-id: 20260601-glymur-4fcd4d832ecc
+> Thanks, this should be explained in the description of the binding. It
+> does mention "the sensor device reachable through the tunnel" but the
+> rest about optionality of the sensor feels confusing in this case.
+
+Thanks Laurent for the additional clarification!
+
+I will adapt the description accordingly for v2.
+
 > 
-> so now does this work?
-> 	b4 diff '20260917-glymur-v11-1-e0c8bc914742@oss.qualcomm.com'
+> > 
+> >>> Yes, the I2C bus and sensor is important. The device driver of the sensor
+> >>> talks (via the tunneled I2C interface) directly to the sensor.
+> >>>
+> >>> The separate I2C controller/bus description is necessary as the tunneled
+> >>> I2C bus has some quirks unfortunately. Those need to be addressed as 
+> >>> otherwise the sensor drivers do not work.
+> >>>
+> >>> So the idea is to not have a vc-mipi module binding per "sensor variant"
+> >>> of the camera modules, but provide a common controller driver which
+> >>> provides the I2C bus for the sensor driver.
+> >>
+> >> Bindings must accurately describe the device and so far - based on the
+> >> website - there is no device as mipi-module-controller alone.
+> >>
+> >> I don't get why you assume that all of the variants are exactly
+> >> identical, thus sensor variant is not applicable.
+> >>
+> >> If they are identical in all aspects, then why clock-frequency property?
+> >> That's obviously rhetorical question, because they are not identical in
+> >> all aspects and must produce different clock at least.
+> > 
+> > The FPGA has an input clock whose frequency depends on the module. It
 > 
-> No, it does not. You are sending bigger work, multi-version one, part of
-> even bigger work, so please get the process working correct to make
-> reviews easier.
+> There is no "clocks" property in the binding. If there is input, then
+> there is a "clocks".
 > 
+> Then we never describe external oscillators with "clock-frequency"
+> property. ACPI does, but not DT.
 
-And it is getting even better:
-v6 change id was:
-	change-id: 20260515-glymur-6e69bc258fb0
+So how would that be best solved in DT?
 
-https://lore.kernel.org/all/20260515-glymur-v6-0-f6a99cb43a24@oss.qualcomm.com/
+Should there be a "fixed-clock" child node for that external oscillator?
+Something like:
 
-???
+vc_mipi_ctrl: controller@10 {
+  ...
 
-Best regards,
-Krzysztof
+  vc_mipi_clk: clock {
+    compatible = "fixed-clock";
+    #clock-cells = <0>;
+    clock-frequency = <37125000>;
+  };
+
+  i2c-tunnel {
+    ...
+
+    vc_mipi_sensor: camera@60 {
+      ...
+
+      clocks = <&vc_mipi_clk>;
+      clock-names = "inck";
+    };
+};
+
+Or should (as discussed in the other branch of this thread) there be a
+separate compatible for every vc-mipi sensor variant board? Then this
+could also be part of the compatible-dependent driver data.
+
+Or are there any other/better approaches to this?
+
+> 
+> 
+> > uses it for internal purpose, and also to provide a clock to the sensor.
+> > Very roughly speaking, and ignoring power supplies as we focus on the
+> > clocks, the camera module is architectured this way:
+> > 
+> > Connector
+> >    ||                                       +--------+
+> >    || <------------ MIPI CSI-2 ------------ |        |
+> >    ||               +-------+               |        |
+> >    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
+> >    ||               | FPGA  |               |        |
+> >    ||               |       | --- Clock --> |        |
+> >    ||               +-------+               +--------+
+> >                         ^
+> >                         |
+> >                     +-------+
+> >                     | Clock |
+> >                     | Osc.  |
+> >                     +-------+
+> > 
+> > The frequency of the external clock oscillator is what the
+> > clock-frequency models.
+> > 
+> >>>>>>> +
+> >>>>>>> +required:
+> >>>>>>> +  - compatible
+> >>>>>>> +  - reg
+> >>>>>>> +  - '#clock-cells'
+> >>>>>>> +  - clock-frequency
+> >>>>>>> +  - vcc-supply
+> >>>>>>> +  - '#address-cells'
+> >>>>>>> +  - '#size-cells'
+> >>>>>>> +
+> >>>>>>> +unevaluatedProperties: false
+> >>>>>>
+> >>>>>> additionalProperties instead, see writing bindings or writing schema.
+> >>>>>> Unless you miss here some other schema $ref.
+> >>>>>>
+> >>>>>>> +
+> >>>>>>> +examples:
+> >>>>>>> +  - |
+> >>>>>>> +    i2c {
+> >>>>>>> +        #address-cells = <1>;
+> >>>>>>> +        #size-cells = <0>;
+> >>>>>>> +
+> >>>>>>> +        vc_mipi_ctrl: controller@10 {
+> >>>>>>> +            compatible = "vision-components,mipi-module-controller";
+> >>>>>>> +            reg = <0x10>;
+> >>>>>>> +            #clock-cells = <0>;
+> >>>>>>> +            clock-frequency = <37125000>;
+> >>>>>>> +            vcc-supply = <&cam_3v3>;
+> >>>>>>> +
+> >>>>>>> +            #address-cells = <1>;
+> >>>>>>> +            #size-cells = <0>;
+> >>>>>>> +
+> >>>>>>> +            i2c@0 {
+> >>>>>>> +                #address-cells = <1>;
+> >>>>>>> +                #size-cells = <0>;
+> >>>>>>> +
+> >>>>>>> +                vc_mipi_sensor: camera@60 {
+> >>>>>>> +                    compatible = "ovti,ov9281";
+> >>>>>>> +                    reg = <0x60>;
+> >>>>>>
+> >>>>>> Why having the child abstraction if it is completely abstracted? I don't
+> >>>>>> fully get the explanation from description. Completely optional means no
+> >>>>>> benefits, no point in it, no?
+> >>>>>
+> >>>>> I will try to improve the description. The idea behind this device
+> >>>>> driver/devicetree node is to not rely on the sensor abstraction from
+> >>>>> vision components, but to use the upstream sensor specific driver.
+> >>>>
+> >>>> You can use driver even without these nodes... but fine, let's assume
+> >>>> you have them, so driver will talk with OV9281 sensor for example?
+> >>>
+> >>> The vc-mipi driver does not talk to sensor at all. This is done by the
+> >>> dedicated sensor driver. The vc-mipi driver is only controlling the
+> >>> regulator, clock, etc. as described and sets up the "quirk aware"
+> >>> tunneled i2c interface.
+> >>
+> >> I meant, driver for the sensor. So who controls sensor supplies? Not the
+> >> sensor driver? It tells something how the hardware is managed, no?
+> > 
+> > Power supplies are managed in a similar way as the clock in the above
+> > diagram. There's one input supply to the camera module on the connector.
+> > Individual supplies for the sensor are generated from that main supply,
+> > and are controlled by the FPGA which exposes a register over I2C to
+> > enable/disable the supplies from the host (there's a single bit to
+> > enable/disable them all, they can't be controlled individually).
+> > 
+> 
+> Thanks, I see this also shown in the example DTS. I think the sensor
+> node is redundant here, but removing it would require moving all of this
+> to swnodes, so not that much better either. It's fine to keep the sensor
+> subnode for me.
+
+ACK.
+
+Thanks Krzysztof!
+
+regards;rl
+
+> 
+> Best regards,
+> Krzysztof
