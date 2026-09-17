@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C57B299A82;
-	Thu, 17 Sep 2026 06:18:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA09542CB1C;
+	Thu, 17 Sep 2026 06:30:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789625911; cv=none; b=tjg16Z6R4s954jsItRjQQU9yquwhrBSr7rhXTOF5sbC7vRPBJd6VCGARubDrhG4SqoNtwF60va/Z2Jzckig6x1GzAml/KVizS8kn5ZfBoM8v62URl0yWALDFIFxrct9n6AQsV9Zny9v6UEX6hDvhZ5NbhT05ZHmDu7RtqKBMQsg=
+	t=1789626613; cv=none; b=Os2TNliwn3NRU8BMnJLoxYiLLmxcgoxgBe0bArH20Y3xrAv3FW3hS7BTzZVkzFhufy+XJpwfmnOrhtW7CSjA+8sHIUebzjKMPNAQCSNfZmpfQGwweYWrsHyg+/xsLYzNI9PcdvXq7GuVvCnJVePtmG/bdn8VLYcYfqvA9cNlry8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789625911; c=relaxed/simple;
-	bh=y7O26wX2q7o0Uu6xp2XUCZicLzRVqOhSPHPFpiGgWRU=;
+	s=arc-20240116; t=1789626613; c=relaxed/simple;
+	bh=YPFScX46dtVLDesKTpQRZ9ioRFLBFLWabeKMFUo9qbU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F4ryduZN4lqcwYcfRWJndkRo3mUMweZs+lPmsCvkeVPLkOhMVg8dyi1K8pksBZOW03zJQM+ap2Qx1ZkewAGlANky9VltKIW+ctjeGaP4uFeSPIAO1gCJPxql3Oaooo5aMbIamt7JDZQQpsi7XvWXcEaqq+QaXUe8kbI3bTdAct0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WDvTuihE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LIbG0t6T6sZLSLaWhE/5bVHDrh1nj++70kGK81AFJ3CksIQzth3bqqN2uUHg6uyA1CksHryRQV7elz9JnoeJ4n6uKjnZrvQIkU6PL5l+OS9i6lfh14JID8AyDsXKEJsi1GpofVU5Rchfk7PfYeemqPClIrVeiTzCEgyMgdhBihw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oooFHmiv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WDvTuihE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405491F000FF;
-	Thu, 17 Sep 2026 06:18:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oooFHmiv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954FA1F000FF;
+	Thu, 17 Sep 2026 06:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789625909;
-	bh=FNHA/zbG6zwjI2DywQHpJyLTUMHZc4DXRGOAOoHWjvw=;
+	s=k20260515; t=1789626612;
+	bh=oKDdQH52kiSlciqgtYxCmcuJEJK3Y5PtNH05w6trem0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WDvTuihESGPH2aYy4srm9bjIJEMnvuJehmWcY720t1owGFYplyOJBz9Z62huqGjwR
-	 vbdiUuFuVCR+p3GM8Ypn0Uu6yXZynqWJXufm62G7Xq2w15mrIhu1AViP0vdIOnMM7x
-	 0u9nNOuZarEPk5lWwjOU+MqjhrlqWOh+VGqxi13v2o22P2lic4fL3qjpan+whnTMoC
-	 dkjW41csaOJVOdDFqkmtWMzTw4Dn57OB0Zdr822QlM6lWhCxgzqSLTLROvvZd5zkSL
-	 zZxXT7KxfLrExa6I4GiI3fNC/fVGFBhTsUPDgtLRiDg+JmwUopf5uZwI3SOfG5dC94
-	 8YWgTu+gyldDw==
-Message-ID: <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
-Date: Thu, 17 Sep 2026 08:18:23 +0200
+	b=oooFHmivbNrUmmukkNgg8PKnovs1OSWmNvh3STCGeEi/fgjzfaUiY4i22qRdagcg6
+	 KHWHzY+CFlS0R90WWAzWQhYBMV2ODEsO6RTGfaTt/IQEEkAnKfDZJp2ilTEXCH2se0
+	 i4nZjCyhRgjmpkqHAiI/b095BHaRNIud+0jIMj/GoUs0AdO0HYhr3jXM13TXnun90D
+	 iCPW7HvrtUQgOAzpv7KWUaxf8byR8PtYOaimTC8ds8x9Wjb2rOrsM+T2u4keYdx3Mt
+	 rUfeNIKCoHOWyDaK6H2j6ti8362HWHCDr96AG8HxLN91umHWJW9GeOorv1oX6/HjDA
+	 NHtwLpi+OMRNQ==
+Message-ID: <accdb907-67ee-45ee-b06a-173e49a3ca00@kernel.org>
+Date: Thu, 17 Sep 2026 08:30:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,11 +37,11 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
  vision-components,mipi-module-controller
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Richard Leitner <richard.leitner@linux.dev>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Alexander Stein <alexander.stein@ew.tq-group.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org
@@ -49,8 +49,7 @@ References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
  <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
  <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
  <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org> <aqpYqrtKTY20IW_0@bombadil>
- <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
- <20260916165244.GB191870@killaraus.ideasonboard.com>
+ <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org> <aqqtG31q_nNxzme1@bombadil>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,118 +95,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260916165244.GB191870@killaraus.ideasonboard.com>
+In-Reply-To: <aqqtG31q_nNxzme1@bombadil>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/09/2026 18:52, Laurent Pinchart wrote:
-> On Wed, Sep 16, 2026 at 03:41:16PM +0200, Krzysztof Kozlowski wrote:
->> On 16/09/2026 11:01, Richard Leitner wrote:
->>> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
->>>> On 16/09/2026 09:33, Richard Leitner wrote:
->>>>> Hi Krzysztof,
->>>>>
->>>>> thanks for the review!
->>>>>
->>>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
->>>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
->>>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
->>>>>>>
->>>>>>> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
->>>>>>> ---
->>>>>>>  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
->>>>>>>  MAINTAINERS                                        |  7 ++
->>>>>>>  2 files changed, 99 insertions(+)
->>>>>>
->>>>>> This fails tests, so a very brief review / a few comments:
->>>>>
->>>>> Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
->>>>> Will not happen again.
->>>>>
->>>>>>
->>>>>>>
->>>>>>> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
->>>>>>> new file mode 100644
->>>>>>> index 0000000000000..2a031aea68457
->>>>>>> --- /dev/null
->>>>>>> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
->>>>>>> @@ -0,0 +1,92 @@
->>>>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>>>>> +%YAML 1.2
->>>>>>> +---
->>>>>>> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
->>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>>>> +
->>>>>>> +title: Vision Components MIPI Camera Module Controller
->>>>>>> +
->>>>>>> +maintainers:
->>>>>>> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->>>>>>> +  - Richard Leitner <richard.leitner@linux.dev>
->>>>>>> +
->>>>>>> +description: |-
->>>>>>> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
->>>>>>> +  controller found on MIPI camera modules from Vision Components. It abstracts
->>>>>>> +  the camera sensor behind a unified register interface, and controls and
->>>>>>> +  sequences the on-board power supplies and clocks.
->>>>>>> +
->>>>>>> +  The camera sensor abstraction is optional. The controller exposes a tunneled
->>>>>>> +  downstream I2C bus used by the attached image sensor. The controller node
->>>>>>> +  acts as the upstream device on the host bus, while child node below the
->>>>>>> +  controller represent the sensor device reachable through the tunnel.
->>>>>>> +
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    const: vision-components,mipi-module-controller
->>>>>>
->>>>>> There is no model name, no version, nothing identifying it better?
->>>>>> Compatible must be specific to the device (see also writing bindings).
->>>>>
->>>>> There is one FPGA implemenation for all Vision Components MIPI camera
->>>>> modules AFAICT. So I have no idea how it could be more specific, TBH...
->>>>>
->>>>> Adding the FPGA hardware model/type is wrong IMHO as it depends on its
->>>>> configuration/firmware, not the hw.
->>>>>
->>>>> There are different versions of the configuration/firmware. But I think
->>>>> this is also not the correct way to distinguish those, or is it?
->>>>>
->>>>> According to their homepage the vendor calls those modules simply
->>>>> "VC MIPI" modules, which implies this FPGA controller is available on it.
->>>>> So maybe "vision-components,vc-mipi-controller" would be a better fit?
->>>>>
->>>>> Do you have any ideas/feedback on how improve this name?
->>>>
->>>> So there are different modules? I see several different names on:
->>>> https://www.mipi-modules.com/en/mipi-camera-modules/
->>>
->>> Yes, there are different modules, but all feature the same controller.
->>> Which this is basically the device driver binding for. So the idea is to
->>> describe the controller independently from the sensor which is "behind"
->>> it.
->>>
->>> This works because the controller "soft-core" should be the same on all
->>> modules. A downstream implemenation (which I haven't studied in detail)
->>> is available at https://github.com/VC-MIPI-modules/vc_mipi_core if that
->>> helps?
->>>
->>>>>>> +
->>>>>>> +  reg:
->>>>>>> +    maxItems: 1
->>>>>>> +
->>>>>>> +  '#clock-cells':
->>>>>>> +    const: 0
->>>>>>> +
->>>>>>> +  clock-frequency:
->>>>>>> +    description: Frequency of the sensor clock provided by the module
->>>>>>
->>>>>> Drop, implied by the compatible
->>>>>>
->>>>>
->>>>> Do you mean dropping the whole property, or just the "description"?
->>>>
->>>> I meant entire property, but we keep discussing in Laurent's reply.
->>>>
->>>>>>> +
+On 16/09/2026 16:57, Richard Leitner wrote:
 >>>>>>> +  vcc-supply:
 >>>>>>> +    description: Power supply of the module (3.3V)
 >>>>>>> +
@@ -231,19 +123,7 @@ On 16/09/2026 18:52, Laurent Pinchart wrote:
 >>>> If the underlying I2C bus and sensor are important, then yes. But I have
 >>>> doubts that you need to describe the sensor if it is truly
 >>>> unadressable/invisible to the OS.
-> 
-> To be clear, the sensor *is* addressable from the OS. The FPGA sits in
-> the middle on the I2C bus instead of being a separate I2C device on the
-> same bus as the sensor, but it forwards all I2C writes addressed to the
-> sensor onto the backend I2C bus. This is why the DT binding is modelled
-> with a child I2C bus. The sensor DT node is located on that node, and
-> uses the regular DT bindings for the sensor.
-
-Thanks, this should be explained in the description of the binding. It
-does mention "the sensor device reachable through the tunnel" but the
-rest about optionality of the sensor feels confusing in this case.
-
-> 
+>>>
 >>> Yes, the I2C bus and sensor is important. The device driver of the sensor
 >>> talks (via the tunneled I2C interface) directly to the sensor.
 >>>
@@ -265,108 +145,37 @@ rest about optionality of the sensor feels confusing in this case.
 >> That's obviously rhetorical question, because they are not identical in
 >> all aspects and must produce different clock at least.
 > 
-> The FPGA has an input clock whose frequency depends on the module. It
+> From that point of view, of course all variants are different.
+> But the interface towards the host is (according to vision components)
+> stable. This is why I aimed for a separate device.
 
-There is no "clocks" property in the binding. If there is input, then
-there is a "clocks".
+What makes you think that interface is stable and the same? Is the
+stable aspect or its versioning documented anywhere in the docs?
 
-Then we never describe external oscillators with "clock-frequency"
-property. ACPI does, but not DT.
+I can easily imagine that FPGA synthesis actually differs on some
+sensors or they ship a new, updated version, thus at some point the
+interface might change or already changed between models.
 
+> 
+> So what's your suggestion on how to best solve this?
+> Provide a per sensor compatible like e.g. "vc-mipi-ov9281"?
+> 
+> Nonehteless this device must then provide a i2c sub node to place the
+> actual imaging sensor on.
+> 
+> If that's fine with you I'm personally fine with this approach too.
+If you have certainty, like documented spec somewhere telling this, that
+programming interface of FPGA to the OS is the same, then go with a
+generic fallback compatible like you have and add front compatibles
+specific to the sensor.
 
-> uses it for internal purpose, and also to provide a clock to the sensor.
-> Very roughly speaking, and ignoring power supplies as we focus on the
-> clocks, the camera module is architectured this way:
-> 
-> Connector
->    ||                                       +--------+
->    || <------------ MIPI CSI-2 ------------ |        |
->    ||               +-------+               |        |
->    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
->    ||               | FPGA  |               |        |
->    ||               |       | --- Clock --> |        |
->    ||               +-------+               +--------+
->                         ^
->                         |
->                     +-------+
->                     | Clock |
->                     | Osc.  |
->                     +-------+
-> 
-> The frequency of the external clock oscillator is what the
-> clock-frequency models.
-> 
->>>>>>> +
->>>>>>> +required:
->>>>>>> +  - compatible
->>>>>>> +  - reg
->>>>>>> +  - '#clock-cells'
->>>>>>> +  - clock-frequency
->>>>>>> +  - vcc-supply
->>>>>>> +  - '#address-cells'
->>>>>>> +  - '#size-cells'
->>>>>>> +
->>>>>>> +unevaluatedProperties: false
->>>>>>
->>>>>> additionalProperties instead, see writing bindings or writing schema.
->>>>>> Unless you miss here some other schema $ref.
->>>>>>
->>>>>>> +
->>>>>>> +examples:
->>>>>>> +  - |
->>>>>>> +    i2c {
->>>>>>> +        #address-cells = <1>;
->>>>>>> +        #size-cells = <0>;
->>>>>>> +
->>>>>>> +        vc_mipi_ctrl: controller@10 {
->>>>>>> +            compatible = "vision-components,mipi-module-controller";
->>>>>>> +            reg = <0x10>;
->>>>>>> +            #clock-cells = <0>;
->>>>>>> +            clock-frequency = <37125000>;
->>>>>>> +            vcc-supply = <&cam_3v3>;
->>>>>>> +
->>>>>>> +            #address-cells = <1>;
->>>>>>> +            #size-cells = <0>;
->>>>>>> +
->>>>>>> +            i2c@0 {
->>>>>>> +                #address-cells = <1>;
->>>>>>> +                #size-cells = <0>;
->>>>>>> +
->>>>>>> +                vc_mipi_sensor: camera@60 {
->>>>>>> +                    compatible = "ovti,ov9281";
->>>>>>> +                    reg = <0x60>;
->>>>>>
->>>>>> Why having the child abstraction if it is completely abstracted? I don't
->>>>>> fully get the explanation from description. Completely optional means no
->>>>>> benefits, no point in it, no?
->>>>>
->>>>> I will try to improve the description. The idea behind this device
->>>>> driver/devicetree node is to not rely on the sensor abstraction from
->>>>> vision components, but to use the upstream sensor specific driver.
->>>>
->>>> You can use driver even without these nodes... but fine, let's assume
->>>> you have them, so driver will talk with OV9281 sensor for example?
->>>
->>> The vc-mipi driver does not talk to sensor at all. This is done by the
->>> dedicated sensor driver. The vc-mipi driver is only controlling the
->>> regulator, clock, etc. as described and sets up the "quirk aware"
->>> tunneled i2c interface.
->>
->> I meant, driver for the sensor. So who controls sensor supplies? Not the
->> sensor driver? It tells something how the hardware is managed, no?
-> 
-> Power supplies are managed in a similar way as the clock in the above
-> diagram. There's one input supply to the camera module on the connector.
-> Individual supplies for the sensor are generated from that main supply,
-> and are controlled by the FPGA which exposes a register over I2C to
-> enable/disable the supplies from the host (there's a single bit to
-> enable/disable them all, they can't be controlled individually).
-> 
+If you do not have certainty, then I would go only with sensor-specific
+compatibles for both front and fallbacks, so:
 
-Thanks, I see this also shown in the example DTS. I think the sensor
-node is redundant here, but removing it would require moving all of this
-to swnodes, so not that much better either. It's fine to keep the sensor
-subnode for me.
+vc-mipi-ov9281, vc-mipi-imx297
+
+It does feel a bit odd, but that is usual way to handle any future
+differences when two vc-mipi modules turn out not to be compatible.
 
 Best regards,
 Krzysztof
