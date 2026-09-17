@@ -1,173 +1,382 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011021.outbound.protection.outlook.com [52.101.52.21])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD2B3F1643
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 08:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632694; cv=fail; b=H6MQxVEkrxoLpjl+mgeqBQjBRMDyqDBIxKbiuI38RFx/odTRYktb8T6pEITgdSCaP4q4oBI4hCv+V3qs4G6RirBt7L6nPAjg6OxYVhfJY6t5I1yPzo6UIqa+bJ/ekqBBxdBJ39P/DhzXVbOF0ceJ4JuGBna+Btj0yWeZNH36cVU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632694; c=relaxed/simple;
-	bh=5D1HrlSxfKm7ivQYHZBl9fudCkKzLct4AkjGfcCGs10=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=C7lyX0eY5UOHWUqz1StJlZ0OunLxVPYHxtL7Wn9fL7U8dE6PU+gUoSO6m6V+wq3aaF6u/kEtBSpNXrNv/5chDuJUySiY+gp1vzZdfcprwExnNxs+/Ownc+QNKvahjxI78RSZIaqPm4DuJj51yA11mD8Z+iNnn5p/vMUez/qJdZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NR3yqCIC; arc=fail smtp.client-ip=52.101.52.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060783F65FC;
+	Thu, 17 Sep 2026 08:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789633044; cv=none; b=bfPEq96fJkQjM1TA8GDAOPKf4F2LmC05CP7Ef2kS4P/jiXNZXkpLaze3Xfs3LRB9q1gbu78AhWxb/v5DNjKEeqNCfE1eVFpNXIs8ekxWy27QGhZORGFGl/C+wXfntv3NbVC0IQ/27610RIut6Oz6BAaD3p9zzzaHIOXbPiD9EiU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789633044; c=relaxed/simple;
+	bh=1CN6/BjKdB/PphsxjnrqRgi7ywtEPHLssocOEXFeP1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t9qXwUGWxFTtB7vnIA1aVJ+1burc2sO4UZpb7PDn4g4Cu5kTPQvUBnFMr1wLxBrmb32GT35UVZZgIHv8Oco9YH7QyMOTzDIiFt+JEXkehMSpVniDj36b/aqUkRcMF6PFfLXGHsugT+clT+5DP6Sely/dNFbyQYf/8zJt/Hwyrwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bROgTeKh; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NR3yqCIC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pIyk4Fy5tJIkeXYRdn0FFryBl4QBZK9ka/z1usYYM+4q844gfgi/IM+quPELbbiczkz2pBoczREuyYaFgwWW2zrNGcXfwj3Xp4tFp87MW7mDtzf3JJX/1rg6N5P/+tYPnMBqsBsLi1Mz0g+0JGGCHzmnlPoWn71tPeyfi9eaPLjPhONtGM3+eXqYMgbTbcA7MOgZcp82J0f85WmkRT3EerpjJPil7RLU/+CPdp/xrtKqs31vEml9GEXVh9khW3Jbm7T5hLGYs8+xkvbYxEx8u8C+J8024fOuglukB5InqAdhzkMMhRF2FJ6rUNJtowu4NxpxPEaqjr1xNoaLlVfnbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UCga0IpoMR499KvlGY4mjRCgKYEye/e53Eomi+aiD7w=;
- b=iB7BG5V8jz6pLv682cz0762y+4XcZHxlqZmyJ6lD6HWJNTxi1e8QA0YC8MqpS6q2eNrWvACDnSNmDP4GD26JKZLV17ss7NDuxQeIemWcsHdSUJVVqqHp8Z0J56bscsW8cTARDLDJjb930PtVtc0gHV9lYwN5F+szZgP2X1nJy7+HIwswTmQvUrJE6sPw3dhHeN6LmkB+LSe4bJCH1iZAtsaueVbT7yZK8Pzkm6ND1skS+2VuZSSHurAJbibIcwhTnHLxLsJPEPv6BMGTwCd7hwEYXXvHLvGNsduk5YP43phNWcJsg61xFjPuGc70tPmf4TSmwYW6ns9RIyYUUtmM2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UCga0IpoMR499KvlGY4mjRCgKYEye/e53Eomi+aiD7w=;
- b=NR3yqCICrPKxC2OM74Kb8yeFJNILQZERdzwXT2laN4L2GUTVoMI16Tne89kh2N/DfZHfZzp1yokq9syB/eYwtyUZDJdEed/cBjygkVCKykMj2ikbnIIhNTCpi61CRjqnJQw0vVuOdMa62zyc3AG2j5In1cdIb8F8+NlucQFaJXg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB7714.namprd12.prod.outlook.com (2603:10b6:610:14e::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Thu, 17 Sep
- 2026 08:11:29 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 08:11:29 +0000
-Message-ID: <6f31d927-c598-4033-aff9-0f8b2c5590e1@amd.com>
-Date: Thu, 17 Sep 2026 10:11:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
- IOMMU superpages
-To: Davidlohr Bueso <dave@stgolabs.net>, "T.J. Mercier" <tjmercier@google.com>
-Cc: sumit.semwal@linaro.org, phasta@kernel.org,
- benjamin.gaignard@collabora.com, jstultz@google.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260914212258.2657788-1-dave@stgolabs.net>
- <20260914212258.2657788-2-dave@stgolabs.net>
- <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
- <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
- <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
- <CABdmKX1g=wcLHOFkRN6DLPTABrnn2uWmgCKpCtixhiV_b+9J1g@mail.gmail.com>
- <CABdmKX2GU0Eby=SEeALzeEp5ragEjU3Fw468Jv1yykD1Zdrgag@mail.gmail.com>
- <d8d3af91-4f21-44ea-bc90-339fa1adacf9@amd.com>
- <CABdmKX1YtyFM_MoMbPr4JUCXCr8TGPVbXUrAoQRELpp54cK-0w@mail.gmail.com>
- <20260916162255.jv3dqacwtgfiv5kd@offworld>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260916162255.jv3dqacwtgfiv5kd@offworld>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0PR04CA0030.namprd04.prod.outlook.com
- (2603:10b6:208:52d::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bROgTeKh"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE3952EC;
+	Thu, 17 Sep 2026 10:15:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789632927;
+	bh=1CN6/BjKdB/PphsxjnrqRgi7ywtEPHLssocOEXFeP1k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bROgTeKhamSv1iHq9besG8kFZ7cnM6Q09D4oLhSi20ObWIvEP34djouhdlqTIGQQD
+	 JONhI3nDV5IiR+hOxFCkGgib995290vv9GAZmPJHOap77mz3mS2iRY01cM0G/WSgqD
+	 Zq+wCjpue5y6vP5EkExcH8UAlpfRGkIfgG9xBknw=
+Date: Thu, 17 Sep 2026 11:17:08 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <20260917081708.GA21347@killaraus.ideasonboard.com>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
+ <aqpYqrtKTY20IW_0@bombadil>
+ <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+ <20260916165244.GB191870@killaraus.ideasonboard.com>
+ <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
+ <aquan_6JiKkEw-Kp@bombadil>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7714:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab9162aa-06af-4aac-6bd8-08df149346d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	2PjRYw7QUd/M1BCwv/CwPs8sfwIFlBUc9coUlF4IKL5u+nhK7S9l8iCifR45PbGPPb89sgslfDpSnLqi0S84V9L7xAJjTwmbSCX+9wAY4XEYdSWepd38MKXtnNq03vZ1no/bLP8ZGI1zqp2V1nx3IpAS4dnf0R6BED/KwmmKmSzCf8zK1vyL29FhtoNeHiPaO0T+ndSFODzazJVj+gdGUyhDepHOBkggecwbs8o4r/gYzsYVmJ8fCdRPmycLnFYc0FBtNv8FZm8bogQJFCRLuRFALu1rZFtZo9uR8gtp7PiTbin1FrnZ35Rwy9mHDCDohEHT3EOYK0Px5xEuoFnkTLOVy9aA1vBtivcMnfXbqTkhTbI6vUnmZl5XaGwh/PDmcZGddN2/FnKDDB2A+4N7IJKHBi8PlNaHBnnAmtNS7iOLXV5xmuEijBZAp6JehlOXU4bt4hxK4kNozDSnnXg4Q+arKSUYrphWjRbE5WVHCuOMCZ2YYOvK17rEp3PTdHpJ8gpbK9VG1kVV+x/1ufe5bBcUZKKxk7FqycmcvoMepkh72M9UsnL6NGyZZNbU80BmU9LL1u8c7sixZzRiEp9k/ffZOtmBVUtu3rl4niat7a9CPCXwQBIL2uvJYl3MqTUv41PfgSEuX9hGSc+r+UzmwkHxOU6fi9ERy8MS0ieGfOE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QU5LUEo4bjBPa01nKzlvdkpYWmhnU1huWUVEcTlZckQ5cG4xTDdMT1VweXUz?=
- =?utf-8?B?WjBwUmlvNDlqRXc1cnU1OEhJMEE3ai9vVkpvb3QzeU1DOWtQL2JmL0FrVG0y?=
- =?utf-8?B?aDdRYm9heHJHNGkrWU5SRDh5QjJSZGpGV014aURMcHFzSjQ5YjNRakRPYTd5?=
- =?utf-8?B?NEk4cXp4QWE4RUhaalBoQS9zdWxjTW1xWGk3U1ZXUGcxYUpyU0JyNU11Qjhy?=
- =?utf-8?B?N0M2eE5QejRHNzZDQmVsK2xGTXJScjNjZC9XZU1WQ3RIUmdnSWlBbmtmTGhN?=
- =?utf-8?B?L1VDZkQ3TlNFTjEyZXYxbW1YTTdGYkNiWjRvQkFScFNESG4vaGw5SWZucWZX?=
- =?utf-8?B?VGtucE9NUnlTR3dsS1ljNzdmRm5ZblhJNStuWjZ3UzlhdXlZRUxCbS96Wkxn?=
- =?utf-8?B?MHVoSi9mc1VqVGxWN1hRVnhhUXh0SFN6dzcyOEhMeTFwQUJsdVlCVmYzUG01?=
- =?utf-8?B?Z0swa2h1YlB0LzAyYld6d2YyNEJac004dHExcjU0anZjV0ZBU1AyY0RBWXVk?=
- =?utf-8?B?bWg4bG9EWnovNHBGRDlQM3VZY2x2NEJyRXJDK1lTQUZmWnNtU01BNmJORGRs?=
- =?utf-8?B?N25oL3I5YVg2WFg4V1BmcVlKNVFDUy8wTUNrbmpYZEtQV25MVHB4eDJFZnFt?=
- =?utf-8?B?bnB6eWg1MEI5ak1WZVFtL1BCeXBDTVY5QTYxMjRnRHE5S3B2MkpBekZPYkQx?=
- =?utf-8?B?ODhvWkJDK2ZUUVdOR09YMzJsTDlJTFFZRDh0UFhLc1pncmgwSURxUnQ2Ni8y?=
- =?utf-8?B?Q3k3eXkrelYwTkdySDJZb2N5OEd6WkJnb0kwQlozY3F2TVBHWlIwa0dYVk1K?=
- =?utf-8?B?dnlXV3o0VEpNNURwVTkyK1Qzb2ZTMXBKWDJvVm56KzhFb2hvSTV0SUFwR1JK?=
- =?utf-8?B?ZlgyL01FZXZmZXd2TUNlazhDdzJQNmtQYWRLUXhEUk4vMnZOaVczTHpsOWs0?=
- =?utf-8?B?ZGtLNCtaKzJHSnBIUWJ3T1ZpVWs1UWllek5iSHF6ZUlrSUVnblZBYzdVZE9E?=
- =?utf-8?B?bEtCa1ZpcEp0azB0NEFaeFFmNHdrUzBpWWtlOU9ERTE3ci8zbG1SbVZ5S2px?=
- =?utf-8?B?M1lubERudDY1aWNBdm5LZTczc2drQ2swTGlOSWZxVnNCbHhFK3AvNnYybmR5?=
- =?utf-8?B?OUJ1YkVzKytoU1kvUTRic2ZhdlhhNDg3bW90L1h0a3BHc21DYzBaLzNLUlp2?=
- =?utf-8?B?b0dzUVA1RHk3bUcrWjRmK3VwKzV0S3JaTlZpWGNsRHJnSjFDZDNBc01KK1pC?=
- =?utf-8?B?OUhYbGhJWTcxZlVTblNEN2tGNFJVcEFKcXh0Ykx6RGtZclpLMFhUTUdJZDgw?=
- =?utf-8?B?OGpmSVJBREhVTmNMM2RsSmNFcnFrODgwc2J4b2xKRHkvaXorOGFWeTdxSVZ3?=
- =?utf-8?B?Z1NZUjd5aUc0NnBpVmNtMjFVSFdjMlRXVVNMM1lsdE1FOGJtdDhsNGV6RjFu?=
- =?utf-8?B?emRyYS96cFlBSkFadzBaeHlSR05LOEFyZ0lLRHQrYkQ3R3ZtNXBxSTN5ckJu?=
- =?utf-8?B?WEd5MEZQaEFaMEJNODdTNWxjN09zSTdDMnQ0aEhxUklZUjkvemZzeGFzWG9o?=
- =?utf-8?B?VEdWV0NOK3RXS0QxeXAzbGdrc2pOZ2FwR2NoTFpYZ2JXVGZyYkQzeG8xc2RH?=
- =?utf-8?B?bytraVF0VVpxR28xMlA2RnMrbDlUdmRkRkF1N1FpMk0xNDlBZm4wdmNRRmcv?=
- =?utf-8?B?ZXEyOWtHOTVNZDhqNTZGWTBCU3laU0NVQi90blVuMjU3VGRyUVZMeUFkNlhz?=
- =?utf-8?B?MndEcVNieTVwcHd6Smk4QmdPWG05TmdMU045dkxTYk1VcC9TNkdndUpFZnhT?=
- =?utf-8?B?WTNhcUV5bG01aW9DTXNuQkZZWmVGRTY3Mm5LQ2ZMUG8rK21nMVpDc2lHSGFL?=
- =?utf-8?B?aFgyWG1YMFhKK2M5cmw1UVAyRnpzY2w5cW01dTR6L1JlSkQyYkF4em5QUmxO?=
- =?utf-8?B?c1dnTFo0V3d4NkVpMlZZc1NOZ1A1Skg5TjNDdGltS3VIY05Xc3hlZUM2Z1ly?=
- =?utf-8?B?ZUVtZ1ZSRG9UQUxIc3ZLUUE4QlRyc0g4Vm5VQ3RIQk5xVkpWaGRiT3Qya1Uw?=
- =?utf-8?B?bG9xeVpEcjlUWlBpZnZDQ3I5UHkrYnpNbTJrcTYzS3FHSGxkdHFxZkdrQjhr?=
- =?utf-8?B?OXM4WXdBOFJvMVJrWHpvMWh3NUVqU3BJQ2ZudnJQR1RvVndhRm1KUWJ4QmUw?=
- =?utf-8?B?L24wZzhLc0ZGSzhEd2VqV3pNcTAyU2JsYkt5R2RXcllNOTR5QnpHS1QyRTM0?=
- =?utf-8?B?SERaZ3dDNHM2NnpkTmRnRmRmdlNsZVEyVFl5WDlBMDA2Y3huTE1CMFdFMDFM?=
- =?utf-8?Q?apbgf8FpK3AKy4i9f5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab9162aa-06af-4aac-6bd8-08df149346d3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:11:29.2344
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eYQwNmiu8umWQg/y8G1FRD2IB9NP0sv47oooOkP7V9ZGyQCqw8r8/vj+H/qdxRMV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7714
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aquan_6JiKkEw-Kp@bombadil>
 
-On 9/16/26 18:22, Davidlohr Bueso wrote:
-> On Wed, 16 Sep 2026, T.J. Mercier wrote:
+On Thu, Sep 17, 2026 at 09:55:45AM +0200, Richard Leitner wrote:
+> On Thu, Sep 17, 2026 at 08:18:23AM +0200, Krzysztof Kozlowski wrote:
+> > On 16/09/2026 18:52, Laurent Pinchart wrote:
+> > > On Wed, Sep 16, 2026 at 03:41:16PM +0200, Krzysztof Kozlowski wrote:
+> > >> On 16/09/2026 11:01, Richard Leitner wrote:
+> > >>> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
+> > >>>> On 16/09/2026 09:33, Richard Leitner wrote:
+> > >>>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> > >>>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
 > 
->> I'm not sure these patches were motivated by Android (based on x86
->> focus in the commit message), but Davidlohr would have to comment on
->> that. That's just where most of my experience comes from and what I
->> can share details about.
+> [...]
 > 
-> This series was motivated by exploring new use cases for dma-buf (such
-> as kvcache), not really for Android specifically. I was counting on
-> the cheap/one-time 2Mb attempt (current high order semantics) to not be
-> a problem for potential performance gains. As for the x86 I tested here,
-> basically because it's what I have on hand, I had no idea ROCm was a no-no
-> for system heaps.
+> > >>>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
+> > >>>>>>> +
+> > >>>>>>> +  vcc-supply:
+> > >>>>>>> +    description: Power supply of the module (3.3V)
+> > >>>>>>> +
+> > >>>>>>> +  '#address-cells':
+> > >>>>>>> +    const: 1
+> > >>>>>>> +
+> > >>>>>>> +  '#size-cells':
+> > >>>>>>> +    const: 0
+> > >>>>>>
+> > >>>>>> No children allowed, so why these two?
+> > >>>>>
+> > >>>>> Based on your and the bot feedback I would suggest for v2 to change this
+> > >>>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
+> > >>>>> "$ref: /schemas/i2c/i2c-controller.yaml".
+> > >>>>>
+> > >>>>> This would better reflect the actual hardware, as there is only this one,
+> > >>>>> in firmware hard-coded I2C downstream bus.
+> > >>>>>
+> > >>>>> Would this be a sane approach?
+> > >>>>
+> > >>>> If the underlying I2C bus and sensor are important, then yes. But I have
+> > >>>> doubts that you need to describe the sensor if it is truly
+> > >>>> unadressable/invisible to the OS.
+> > > 
+> > > To be clear, the sensor *is* addressable from the OS. The FPGA sits in
+> > > the middle on the I2C bus instead of being a separate I2C device on the
+> > > same bus as the sensor, but it forwards all I2C writes addressed to the
+> > > sensor onto the backend I2C bus. This is why the DT binding is modelled
+> > > with a child I2C bus. The sensor DT node is located on that node, and
+> > > uses the regular DT bindings for the sensor.
+> > 
+> > Thanks, this should be explained in the description of the binding. It
+> > does mention "the sensor device reachable through the tunnel" but the
+> > rest about optionality of the sensor feels confusing in this case.
+> 
+> Thanks Laurent for the additional clarification!
+> 
+> I will adapt the description accordingly for v2.
+> 
+> > >>> Yes, the I2C bus and sensor is important. The device driver of the sensor
+> > >>> talks (via the tunneled I2C interface) directly to the sensor.
+> > >>>
+> > >>> The separate I2C controller/bus description is necessary as the tunneled
+> > >>> I2C bus has some quirks unfortunately. Those need to be addressed as 
+> > >>> otherwise the sensor drivers do not work.
+> > >>>
+> > >>> So the idea is to not have a vc-mipi module binding per "sensor variant"
+> > >>> of the camera modules, but provide a common controller driver which
+> > >>> provides the I2C bus for the sensor driver.
+> > >>
+> > >> Bindings must accurately describe the device and so far - based on the
+> > >> website - there is no device as mipi-module-controller alone.
+> > >>
+> > >> I don't get why you assume that all of the variants are exactly
+> > >> identical, thus sensor variant is not applicable.
+> > >>
+> > >> If they are identical in all aspects, then why clock-frequency property?
+> > >> That's obviously rhetorical question, because they are not identical in
+> > >> all aspects and must produce different clock at least.
+> > > 
+> > > The FPGA has an input clock whose frequency depends on the module. It
+> > 
+> > There is no "clocks" property in the binding. If there is input, then
+> > there is a "clocks".
+> > 
+> > Then we never describe external oscillators with "clock-frequency"
+> > property. ACPI does, but not DT.
+> 
+> So how would that be best solved in DT?
+> 
+> Should there be a "fixed-clock" child node for that external oscillator?
+> Something like:
+> 
+> vc_mipi_ctrl: controller@10 {
+>   ...
+> 
+>   vc_mipi_clk: clock {
+>     compatible = "fixed-clock";
+>     #clock-cells = <0>;
+>     clock-frequency = <37125000>;
+>   };
+> 
+>   i2c-tunnel {
+>     ...
+> 
+>     vc_mipi_sensor: camera@60 {
+>       ...
+> 
+>       clocks = <&vc_mipi_clk>;
+>       clock-names = "inck";
+>     };
+> };
 
-Well the problem is that it does work, but gives you unstable performance and people see that as a bug while it is an intentional design decision made to keep the system heap driver independent.
+Not quite. I think what Krzysztof calls for is along the lines of
+(focussing on the clock, the I2C tunnel handling possibly needs to be
+adapted based on the rest of this mail thread)
 
-So yeah it's a trade off, it should just be properly documented.
-> I am fine dropping this effort.
+&{/} {
+	vc_mipi_clk: clock {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <37125000>;
+	};
+};
 
-It's clearly good that we talked about this.
+&i2c {
+	vc_mipi_ctrl: controller@10 {
+		compatible = "vision-components,mipi-module-controller";
+		reg = <0x10>;
+		clocks = <&vc_mipi_clk>;
+		vcc-supply = <&cam_3v3>;
 
-When something is changed here I would rather say that we have some #ifdef CONFIG_ARM around the existing code and use the PMD_SIZE for all other platforms.
+		#clock-cells = <0>;
 
-If functionality isn't changed I think adding at least some notes that this only works optimal on 4k ARM platforms is clearly a good idea.
+		#address-cells = <1>;
+		#size-cells = <0>;
 
+		i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			vc_mipi_sensor: camera@60 {
+				compatible = "ovti,ov9281";
+				reg = <0x60>;
+
+				clocks = <&vc_mipi_ctrl>;
+				clock-names = "inck";
+
+				avdd-supply = <&vc_mipi_ctrl>;
+				dvdd-supply = <&vc_mipi_ctrl>;
+				dovdd-supply = <&vc_mipi_ctrl>;
+			};
+		};
+	};
+};
+
+Using clock-frequency in the mipi-module-controller node was a shortcut
+that I implemented a long time ago before you attempted to upstream a
+solution. While having a separate fixed clock node is arguably more
+standard, the additional complexity could be avoided in my opinion. As
+clock handling by the FPGA is part of the internal design of the
+modules, I believe we don't need the flexibility that a separate clock
+provider would bring. It would be different if that external clock was
+provided by the user of the module through the connector, in that case
+we shouldn't assume the external clocked has a fixed frequency and no
+means of controlling it.
+
+Note that the FPGA can, and probably does, alter the clock frequency.
+There's no guarantee that the frequency of the clock provided to the
+sensor is the same as the external clock oscillator. The only guarantee
+is that the FPGA provides a fixed clock to the sensor at a frequency
+dependent on the type of module, matching the needs of that particular
+sensor. A separate fixed-clock node is one possible abstraction, but
+it's not guaranteed to match the hardware perfectly. It shouldn't cause
+any issue other than additional complexity though, as the frequency of
+the oscillator and the configuration of the FPGA's internal PLL is not
+observable from the outside. Only the frequency of the clock provided by
+the FPGA to the sensor matters, and that's guaranteed.
+
+Note that we could also model this as
+
+&{/} {
+	vc_mipi_clk: clock {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <37125000>;
+	};
+};
+
+&i2c {
+	vc_mipi_ctrl: controller@10 {
+		compatible = "vision-components,mipi-module-controller";
+		reg = <0x10>;
+		vcc-supply = <&cam_3v3>;
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			vc_mipi_sensor: camera@60 {
+				compatible = "ovti,ov9281";
+				reg = <0x60>;
+
+				clocks = <&vc_mipi_clk>;
+				clock-names = "inck";
+
+				avdd-supply = <&vc_mipi_ctrl>;
+				dvdd-supply = <&vc_mipi_ctrl>;
+				dovdd-supply = <&vc_mipi_ctrl>;
+			};
+		};
+	};
+};
+
+I still prefer the original proposal in your patch, as it lowers the
+complexity of the DT binding and DT overlays but centralizing all
+information in the controller DT node, but I won't make that a casus
+belli.
+
+> Or should (as discussed in the other branch of this thread) there be a
+> separate compatible for every vc-mipi sensor variant board? Then this
+> could also be part of the compatible-dependent driver data.
+> 
+> Or are there any other/better approaches to this?
+> 
+> > > uses it for internal purpose, and also to provide a clock to the sensor.
+> > > Very roughly speaking, and ignoring power supplies as we focus on the
+> > > clocks, the camera module is architectured this way:
+> > > 
+> > > Connector
+> > >    ||                                       +--------+
+> > >    || <------------ MIPI CSI-2 ------------ |        |
+> > >    ||               +-------+               |        |
+> > >    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
+> > >    ||               | FPGA  |               |        |
+> > >    ||               |       | --- Clock --> |        |
+> > >    ||               +-------+               +--------+
+> > >                         ^
+> > >                         |
+> > >                     +-------+
+> > >                     | Clock |
+> > >                     | Osc.  |
+> > >                     +-------+
+> > > 
+> > > The frequency of the external clock oscillator is what the
+> > > clock-frequency models.
+> > > 
+> > >>>>>>> +
+> > >>>>>>> +required:
+> > >>>>>>> +  - compatible
+> > >>>>>>> +  - reg
+> > >>>>>>> +  - '#clock-cells'
+> > >>>>>>> +  - clock-frequency
+> > >>>>>>> +  - vcc-supply
+> > >>>>>>> +  - '#address-cells'
+> > >>>>>>> +  - '#size-cells'
+> > >>>>>>> +
+> > >>>>>>> +unevaluatedProperties: false
+> > >>>>>>
+> > >>>>>> additionalProperties instead, see writing bindings or writing schema.
+> > >>>>>> Unless you miss here some other schema $ref.
+> > >>>>>>
+> > >>>>>>> +
+> > >>>>>>> +examples:
+> > >>>>>>> +  - |
+> > >>>>>>> +    i2c {
+> > >>>>>>> +        #address-cells = <1>;
+> > >>>>>>> +        #size-cells = <0>;
+> > >>>>>>> +
+> > >>>>>>> +        vc_mipi_ctrl: controller@10 {
+> > >>>>>>> +            compatible = "vision-components,mipi-module-controller";
+> > >>>>>>> +            reg = <0x10>;
+> > >>>>>>> +            #clock-cells = <0>;
+> > >>>>>>> +            clock-frequency = <37125000>;
+> > >>>>>>> +            vcc-supply = <&cam_3v3>;
+> > >>>>>>> +
+> > >>>>>>> +            #address-cells = <1>;
+> > >>>>>>> +            #size-cells = <0>;
+> > >>>>>>> +
+> > >>>>>>> +            i2c@0 {
+> > >>>>>>> +                #address-cells = <1>;
+> > >>>>>>> +                #size-cells = <0>;
+> > >>>>>>> +
+> > >>>>>>> +                vc_mipi_sensor: camera@60 {
+> > >>>>>>> +                    compatible = "ovti,ov9281";
+> > >>>>>>> +                    reg = <0x60>;
+> > >>>>>>
+> > >>>>>> Why having the child abstraction if it is completely abstracted? I don't
+> > >>>>>> fully get the explanation from description. Completely optional means no
+> > >>>>>> benefits, no point in it, no?
+> > >>>>>
+> > >>>>> I will try to improve the description. The idea behind this device
+> > >>>>> driver/devicetree node is to not rely on the sensor abstraction from
+> > >>>>> vision components, but to use the upstream sensor specific driver.
+> > >>>>
+> > >>>> You can use driver even without these nodes... but fine, let's assume
+> > >>>> you have them, so driver will talk with OV9281 sensor for example?
+> > >>>
+> > >>> The vc-mipi driver does not talk to sensor at all. This is done by the
+> > >>> dedicated sensor driver. The vc-mipi driver is only controlling the
+> > >>> regulator, clock, etc. as described and sets up the "quirk aware"
+> > >>> tunneled i2c interface.
+> > >>
+> > >> I meant, driver for the sensor. So who controls sensor supplies? Not the
+> > >> sensor driver? It tells something how the hardware is managed, no?
+> > > 
+> > > Power supplies are managed in a similar way as the clock in the above
+> > > diagram. There's one input supply to the camera module on the connector.
+> > > Individual supplies for the sensor are generated from that main supply,
+> > > and are controlled by the FPGA which exposes a register over I2C to
+> > > enable/disable the supplies from the host (there's a single bit to
+> > > enable/disable them all, they can't be controlled individually).
+> > 
+> > Thanks, I see this also shown in the example DTS. I think the sensor
+> > node is redundant here, but removing it would require moving all of this
+> > to swnodes, so not that much better either. It's fine to keep the sensor
+> > subnode for me.
+> 
+> ACK.
+
+-- 
 Regards,
-Christian.
 
-> 
-> Thanks,
-> Davidlohr
-
+Laurent Pinchart
