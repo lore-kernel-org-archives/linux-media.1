@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F76D426D0C;
-	Thu, 17 Sep 2026 08:26:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F5942E400;
+	Thu, 17 Sep 2026 08:26:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633580; cv=none; b=hBvXU1t5eAq/9D4ulLoq2LTtNP8QlNAaA+guuv7/WFSBwyyPcSOVdFwszv7KRLVbp9cY0l+IRrYycGjRZxdgRImrkfz3QdrQAi8s3wePDhvMZf8SCloKAndLY8G0UxRFewVa1wR9FtothBDa78hyhjbqd7Mt09iik4lQ/SwbdAU=
+	t=1789633597; cv=none; b=FWbSkgkLU4anS91CYQdXHYOxboG9DbRtHA3Nqh2dsktJpDz1ATTz9CRY1D6xmbhke9T+5+ZrwNg8Pnli38AXDXZxt99jE8x3RlFKYSJkT+GKmPIejfpwmKUen4d2RWIBXTacoA+mTzK4IypH7D/Szed32dmM2JCOqsFJnRJvmWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633580; c=relaxed/simple;
-	bh=HGpw61OlyqRrCGSdAUvBwJGvASu1hXV3WIhP5pJuNcQ=;
+	s=arc-20240116; t=1789633597; c=relaxed/simple;
+	bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mJZjJt+OOCLI/tt1hkhyQ7hhZ2nvXNv603OLGxOxGZbwTukb0NlYj9sPa9R0dM4bHscOtMahAGT4w+pvQIni+N4YyCQCXfAmVOA+fh8kmY7X7dWeobDhdsxTLATQmtEJ0tmb2wDVC0OUA9J/HHWzitLM91rabKIUMV+d2V5hivg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i+SKV+cu; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=JokvfV6hT5TOdG4TzIUN3HIbfLPS6cLvAnyyTW1kxiyJjSSh2SVMLP7Oay5F38flKE/5pM8LDgJM/XLXoG9s5l8Mp1oL5TES40LlPoXeivzwaJY3EFC6v2m8kPj2eRBGG8+6iac0Anl5h2mfWrKlGDv/U711x5+v7B4RDyLHyLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rSOg4Bro; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i+SKV+cu"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rSOg4Bro"
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B8DC2C51;
-	Thu, 17 Sep 2026 10:23:57 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F2E0C1283;
+	Thu, 17 Sep 2026 10:24:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789633438;
-	bh=HGpw61OlyqRrCGSdAUvBwJGvASu1hXV3WIhP5pJuNcQ=;
+	s=mail; t=1789633443;
+	bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=i+SKV+cuuhRQFEeiVb3nA8RBFwFG710mYBj+f/1p6kGJcLotNvSbzBB7BHYNXLrRk
-	 F1wqupALZURBcYXNL3fVYnm0KJxxsJGQcRlj1eAIX50maZKMZXaUaoR9+n9VQWeWbv
-	 hdU7FM5Z86s2JezSL735VESh3E2tLK0AbzpzDCys=
+	b=rSOg4BroygBgxAl7P2vTrqSr98Tr/7TmE+6wcWMIZEhbEcmQxYQJJogNt2sZHJixd
+	 CKPz2ZkKMSuHlaPO22PKZ275GfP7Sr+SJ/LjYTW6oyhBli5bwcrwf4G3HIJNsoK+gg
+	 2wiZFPg8LWpAAZSWw0QaPuKJXQfC/lgPx+1xRXv4=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 17 Sep 2026 13:53:13 +0530
-Subject: [PATCH v5 07/10] media: videobuf2: Allow exporting of a struct
- dmabuf
+Date: Thu, 17 Sep 2026 13:53:14 +0530
+Subject: [PATCH v5 08/10] media: platform: broadcom: Move unicam driver to
+ subdir
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-vchiq-isp-v5-7-2d8870add2c0@ideasonboard.com>
+Message-Id: <20260917-b4-vchiq-isp-v5-8-2d8870add2c0@ideasonboard.com>
 References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
 In-Reply-To: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -55,161 +55,136 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4777;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5004;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=Cr6kOKE2wSeMf6SN/lh4O5ooGvUto6gq3Zw5IiCRfpw=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PU0276fr7dn1KPrLbJeqYbC+IAgPxgQczt+
- i59PW0d2UGJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj1AAKCRBD3pH5JJpx
- RTB4D/9tbBdVl0xTv6ppE+sXcNslevWiv1KgQzd7gFnGh2S5SrnQhlS9gOPSh4kyGzjkYAublo2
- A1YdeWCIdbE49vF773tOZBlQVjqzWoV2gkecfuz93M5JNL9YU1vvE+TAjZdAg5GGLs5ONbXASTU
- BjGV9boQfQIw3RCFEMs6yUcoQeExPIV+i//V0S4QSsh9z8GtHWFLK0rYzt+y9Rf1MLmGnxaR8nx
- 3w3INCXdivnNXu+91sH/p/shDLoSWcKMaFjDtuFqidZ8D4pDg636I0yaSFyQJTwMRSXqPOjTLkr
- 4ZS36THApUPWocWy+/PNLsfZK2rK9UhVZOqMPh95CcV9bESEGGEfCHCwB8skUSr/wSoVUXaW9Ni
- /djusminQq3RXkR7hN6lnDu0l8xQUAljuQouAxzXI8PIp1ejCryiJitPbCxlwPujve/HiXFeYO3
- ihdZxUcahKR6yN8Tn8skqZIUvf7Pd8bWO/2XO4rXCiC6F1qdCvsd4TZtLXeKah15o+PtjY4E+qj
- nvkLrcwTNVgEIivI037KtBcGWt5L3WEsjACYRVDzdiM9KUXPbv2BP5/GY1e8GoOqGWOdXFib+Up
- vTA3pCsZzr77UxUYHv+PrKB8aUu6rSB6bwl79HTnn4uX8VYMmj1kJoS6d+K0vU9JDtQTPTafu7+
- sn6kfesN3oCKO2Q==
+ bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PV1HtzBG0ew43VacKWIghz06ZOi+Cb0b3KZ
+ IS1eIyYaHOJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj1QAKCRBD3pH5JJpx
+ RbYNEACMnYMhBNiJ4TM3z11jCqTbzEgwYDKftx6F/fZqIgMSC/L2yyTIrBSbZoF6uQIn1iwF4e4
+ 8gFUbwY7yP/gLAYY3U5WMm+GxIn5LPbNOvKTTngyCNelTq6X58iwk+aCchnqB2FpSvCLBjjVL1Q
+ cRqoIVoUI5SgpoibRbZxaMU6i3GBHOzejJxm0JkQxVkpJmnDfa8aJTkS6Wm8A9KeUZ/ngQlCG4R
+ xV1Brs+KYnXy8mxfuMbaXgpCjO1TQCEQh9EzFq46ebDlb+D8UWy480ANRrtTSF327pUBgHwpXT4
+ wVnBUeLG3XLsjxbpidYXaGFEj4lxySQP8Xq130tA0i5cp4Aby4pxZQ3GLEuv4J3PS4iAeyIkYSV
+ wSl17UKChn4MPneH4hiKaFXxRPhQlkZmEWxaeNAeYlX4Wcx2UBrieLtXZ9bAAYeTZCNROxFJf78
+ gOpbJxv/8G6U3/IqHgGUbFxXoyI2UbaAagWYzH5Fjdf0DTaycMjNn/sAU90XsjUoUeQhYsf3f4A
+ 9osU74OW6owwJH2bi1e3Rc6GvNPbNX13Ip4LNiBNV1gzrHy8AG9PROqYn0zy2jI4XpI6M6xociB
+ z9PywuJKWgNSRJoJWTZkd9vREp5O8etRVtVL/6pLq5ZgJYOe7F2s1/0ATw+4J/j10nFtVMrzGFg
+ 82G82iLvAfltRrg==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+The BCM283x/BCM2711x SoCs capture camera frames using CSI-2, and
+optionally process the raw frames using a VC4 firmware-based ISP block.
 
-videobuf2 only allowed exporting a dmabuf as a file descriptor,
-but there are instances where having the struct dma_buf is
-useful within the kernel.
+As the ISP driver will be added subsequently, move the files related to
+the unicam driver to a separate subdirectory to ease distinction between
+the two drivers' files.
 
-Split the current implementation into two, one step which
-exports a struct dma_buf, and the second which converts that
-into an fd.
-
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 Tested-by: Paul Elder <paul.elder@ideasonboard.com>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
-Changes in v5:
-- Update documentation of return type to only ERR_PTR and not NULL
 Changes in v4:
-- Return a pointer to struct dmabuf instead of passing it as a double
-  pointer argument and returning an int for errors (Laurent)
-- Document the return type (Paul)
+- Drop old paragraph in Kconfig that got copied from previous revision
 ---
- drivers/media/common/videobuf2/videobuf2-core.c | 45 ++++++++++++++++---------
- include/media/videobuf2-core.h                  | 16 +++++++++
- 2 files changed, 45 insertions(+), 16 deletions(-)
+ MAINTAINERS                                            |  2 +-
+ drivers/media/platform/broadcom/Kconfig                | 17 ++---------------
+ drivers/media/platform/broadcom/Makefile               |  2 +-
+ drivers/media/platform/broadcom/bcm2835-unicam/Kconfig | 18 ++++++++++++++++++
+ .../media/platform/broadcom/bcm2835-unicam/Makefile    |  3 +++
+ .../{ => bcm2835-unicam}/bcm2835-unicam-regs.h         |  0
+ .../broadcom/{ => bcm2835-unicam}/bcm2835-unicam.c     |  0
+ 7 files changed, 25 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index 5e318165659f..7b99d39d7cb1 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -2419,50 +2419,63 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
- 	return 0;
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0ac9a9d7b215..68ef4b2f9db6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5185,7 +5185,7 @@ M:	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/brcm,bcm2835-unicam.yaml
+-F:	drivers/media/platform/broadcom/bcm2835-unicam*
++F:	drivers/media/platform/broadcom/bcm2835-unicam/*
  
--int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
--		    unsigned int plane, unsigned int flags)
-+struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
-+				       struct vb2_buffer *vb,
-+				       unsigned int plane, unsigned int flags)
- {
- 	struct vb2_plane *vb_plane;
--	int ret;
--	struct dma_buf *dbuf;
-+	struct dma_buf *dmabuf;
+ BROADCOM BCM47XX MIPS ARCHITECTURE
+ M:	Hauke Mehrtens <hauke@hauke-m.de>
+diff --git a/drivers/media/platform/broadcom/Kconfig b/drivers/media/platform/broadcom/Kconfig
+index 93ba565d9a02..cab44885182c 100644
+--- a/drivers/media/platform/broadcom/Kconfig
++++ b/drivers/media/platform/broadcom/Kconfig
+@@ -1,18 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
  
- 	if (q->memory != VB2_MEMORY_MMAP) {
- 		dprintk(q, 1, "queue is not currently set up for mmap\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
+-config VIDEO_BCM2835_UNICAM
+-	tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
+-	depends on ARCH_BCM2835 || COMPILE_TEST
+-	depends on COMMON_CLK && PM
+-	depends on VIDEO_DEV
+-	select MEDIA_CONTROLLER
+-	select V4L2_FWNODE
+-	select VIDEO_V4L2_SUBDEV_API
+-	select VIDEOBUF2_DMA_CONTIG
+-	help
+-	  Say Y here to enable support for the BCM283x/BCM271x CSI-2 receiver.
+-	  This is a V4L2 driver that controls the CSI-2 receiver directly,
+-	  independently from the VC4 firmware.
++comment "Broadcom BCM283x/BCM271x media platform drivers"
  
- 	if (!q->mem_ops->get_dmabuf) {
- 		dprintk(q, 1, "queue does not support DMA buffer exporting\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
+-	  To compile this driver as a module, choose M here. The module will be
+-	  called bcm2835-unicam.
++source "drivers/media/platform/broadcom/bcm2835-unicam/Kconfig"
+diff --git a/drivers/media/platform/broadcom/Makefile b/drivers/media/platform/broadcom/Makefile
+index 03d2045aba2e..33a89bdb0029 100644
+--- a/drivers/media/platform/broadcom/Makefile
++++ b/drivers/media/platform/broadcom/Makefile
+@@ -1,3 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0
  
- 	if (flags & ~(O_CLOEXEC | O_ACCMODE)) {
--		dprintk(q, 1, "queue does support only O_CLOEXEC and access mode flags\n");
--		return -EINVAL;
-+		dprintk(q, 1, "queue supports only O_CLOEXEC and access mode flags\n");
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (plane >= vb->num_planes) {
- 		dprintk(q, 1, "buffer plane out of range\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (vb2_fileio_is_active(q)) {
- 		dprintk(q, 1, "expbuf: file io in progress\n");
--		return -EBUSY;
-+		return ERR_PTR(-EBUSY);
- 	}
- 
- 	vb_plane = &vb->planes[plane];
- 
--	dbuf = call_ptr_memop(get_dmabuf,
--			      vb,
--			      vb_plane->mem_priv,
--			      flags & O_ACCMODE);
--	if (IS_ERR_OR_NULL(dbuf)) {
-+	dmabuf = call_ptr_memop(get_dmabuf, vb, vb_plane->mem_priv,
-+				flags & O_ACCMODE);
-+	if (IS_ERR_OR_NULL(dmabuf)) {
- 		dprintk(q, 1, "failed to export buffer %d, plane %d\n",
- 			vb->index, plane);
--		return -EINVAL;
-+		if (!dmabuf)
-+			dmabuf = ERR_PTR(-EINVAL);
- 	}
- 
-+	return dmabuf;
-+}
-+EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
+-obj-$(CONFIG_VIDEO_BCM2835_UNICAM) += bcm2835-unicam.o
++obj-y += bcm2835-unicam/
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
+new file mode 100644
+index 000000000000..93ba565d9a02
+--- /dev/null
++++ b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
+@@ -0,0 +1,18 @@
++# SPDX-License-Identifier: GPL-2.0
 +
-+int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-+		    unsigned int plane, unsigned int flags)
-+{
-+	struct dma_buf *dbuf;
-+	int ret;
++config VIDEO_BCM2835_UNICAM
++	tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
++	depends on ARCH_BCM2835 || COMPILE_TEST
++	depends on COMMON_CLK && PM
++	depends on VIDEO_DEV
++	select MEDIA_CONTROLLER
++	select V4L2_FWNODE
++	select VIDEO_V4L2_SUBDEV_API
++	select VIDEOBUF2_DMA_CONTIG
++	help
++	  Say Y here to enable support for the BCM283x/BCM271x CSI-2 receiver.
++	  This is a V4L2 driver that controls the CSI-2 receiver directly,
++	  independently from the VC4 firmware.
 +
-+	dbuf = vb2_core_expbuf_dmabuf(q, vb, plane, flags);
-+	if (IS_ERR(dbuf))
-+		return PTR_ERR(dbuf);
++	  To compile this driver as a module, choose M here. The module will be
++	  called bcm2835-unicam.
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Makefile b/drivers/media/platform/broadcom/bcm2835-unicam/Makefile
+new file mode 100644
+index 000000000000..03d2045aba2e
+--- /dev/null
++++ b/drivers/media/platform/broadcom/bcm2835-unicam/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0
 +
- 	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
- 	if (ret < 0) {
- 		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
-diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index feda638d0064..45bfe8a2a12a 100644
---- a/include/media/videobuf2-core.h
-+++ b/include/media/videobuf2-core.h
-@@ -954,6 +954,22 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
-  */
- int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
- 
-+/**
-+ * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
-+ * @q:		pointer to &struct vb2_queue with videobuf2 queue
-+ * @vb:		pointer to &struct vb2_buffer
-+ * @plane:	index of the plane to be exported, 0 for single plane queues
-+ * @flags:	file flags for newly created file, as defined at
-+ *		include/uapi/asm-generic/fcntl.h.
-+ *		Currently, the only used flag is %O_CLOEXEC.
-+ *		is supported, refer to manual of open syscall for more details.
-+ *
-+ * Return: returns a pointer to &struct dma_buf on success; an ERR_PTR otherwise.
-+ */
-+struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
-+				       struct vb2_buffer *vb,
-+				       unsigned int plane, unsigned int flags);
-+
- /**
-  * vb2_core_expbuf() - Export a buffer as a file descriptor.
-  * @q:		pointer to &struct vb2_queue with videobuf2 queue.
++obj-$(CONFIG_VIDEO_BCM2835_UNICAM) += bcm2835-unicam.o
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam-regs.h b/drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam-regs.h
+similarity index 100%
+rename from drivers/media/platform/broadcom/bcm2835-unicam-regs.h
+rename to drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam-regs.h
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam.c
+similarity index 100%
+rename from drivers/media/platform/broadcom/bcm2835-unicam.c
+rename to drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam.c
 
 -- 
 2.55.0
