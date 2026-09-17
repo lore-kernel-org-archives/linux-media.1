@@ -1,165 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A2C45041C;
-	Thu, 17 Sep 2026 11:52:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B989470E85;
+	Thu, 17 Sep 2026 12:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645977; cv=none; b=LfrgehwYfTBXPajjkwJjcbmrZ7Duya+RWCsti+MegzhrdZekszR42ts5rcS4Ht+eAEdsIyPYWK1clqLvbOGMoFTC9hpMdrbjv0IKNdBnDGA7GRa/ozXpMSMsLMeReUJMy/rYi9JAPdGbPM2iJM3SBtJ8C93ZH6QUteTi43A6Kqk=
+	t=1789646719; cv=none; b=pHwRcFweaioW7B485s7XQWzkp6SS8FnCDyvea8WUZlkS30tR7PrfdmBGDhF047dVurNUCXEeFsc3EM2cV4TFhOx6xkJMTSUyRWj5WBVPd0N+nWtrdve0J0CnO3am5OzkD53KTwQBEzE9G5ZappHSBulmdaxCRNsGtKIozh1Zq/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645977; c=relaxed/simple;
-	bh=6DZwOywmLCmxldQCAPmN+CEVBFVbwD8U2OuiFHh+iBY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OsZigX5btOhCWTU40ZbJW1x27z/h0boikdhMDwMem/bnxDFui4pSXvYomtvF6QLxhIXzTTu/rVPhzR0bk3aXnzQCg0gqGRPlwW3Msi7TVwLKRKJG9qgn66mGs9VxRGM/YoqVTd6BwbgERTfLPzBMO9OmJ8MEYpZsGa86ZkNIxSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=boDkEukG; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789646719; c=relaxed/simple;
+	bh=+c6MUVzqCSojvrVGRFKwYwpQJt6UNDpnaDyo08CazqM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QRM/WATDmRHYb/T92YzdevbwOJpykvJfxEzqaJdycOcPdUqJokdPFkXswQ/twztGblYt2qvmj/GjEZrLy2W7kMBbAgsqH1JlIem8SUfrcbhxzPTIO4ZCqjJqk/z/4zVGiOFX+svxqe3vokIaGou8zoCVj7Y0wDxlFcefDn/li+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=v0NC/dCi; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="boDkEukG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789645968; x=1821181968;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6DZwOywmLCmxldQCAPmN+CEVBFVbwD8U2OuiFHh+iBY=;
-  b=boDkEukGY/sNwm6TkyRAFdbEIusk5Sopuq2F/oC5KdrAX3OlbZp+FjLF
-   6F/MXGI5SV5kIC1Uq0x8u0TshWnyOWVzguMVt7TNzzsfJI/xQ8HiEuZmm
-   4xZQkzdqNnAW8Y9NPhppH9sDmAPxfVi/YmdYlEaBLoegRC0sEh9z6JZv2
-   lMcj+IIszQb98FZHONc4gAzfIfV5hAPsS4TRK59MCg4kc1gF4c+Pvx9iU
-   +GjvgpR7r2v7VToiAli0CPBOkeFhXquzK3VWRtkdqvbTYSf4iBvXyOv6c
-   9oUblke5aSz7XCGr3v4ZnCNK8MN2QKcMd/a/1K4pTS2XPqApZdalahmHW
-   w==;
-X-CSE-ConnectionGUID: XNpp9JYoSli0B2vibz0r0Q==
-X-CSE-MsgGUID: ZLiRGNbET9GRMGSBeSWRVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90076778"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90076778"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:52:43 -0700
-X-CSE-ConnectionGUID: wkXVoG4lQUacyzDslXyuFw==
-X-CSE-MsgGUID: CC3aSRjfSSaqXfYvyBBH/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="275691779"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:52:42 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id E578011FB34;
-	Thu, 17 Sep 2026 14:52:38 +0300 (EEST)
-Date: Thu, 17 Sep 2026 14:52:38 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: the Surface Pro 11 rear sensor is
- mounted upside down
-Message-ID: <aqvUhvk22ZZLnhwD@kekkonen.localdomain>
-References: <20260913153526.80287-1-lsa.uz@pm.me>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="v0NC/dCi"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a4f1:7e05:2192:a835])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01EDC2EC;
+	Thu, 17 Sep 2026 14:03:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789646599;
+	bh=+c6MUVzqCSojvrVGRFKwYwpQJt6UNDpnaDyo08CazqM=;
+	h=From:Subject:Date:To:Cc:From;
+	b=v0NC/dCionvRi5La/89prc2TfwM7LKZ+tof0wyQp+2Bn5L0Y6ZsHZ4QnU6AsvnHJL
+	 dsLCxSrQ0N2Fs2m+U6wrlHh1C4uJOIh6dG2EXII+KQoLz+yPT9LWBs9Bijogd4q9Ek
+	 wocfAg4eGwmpgoXhcT+Ei5sunpd4OWqBZv04XFJ8=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Subject: [PATCH 00/10] media: rcar-fcp, vsp1: Enable on R-Car X5H
+Date: Thu, 17 Sep 2026 21:04:39 +0900
+Message-Id: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913153526.80287-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFfXq2oC/x3MQQqDMBAF0KvIrP2QRNtYr1K6iHFSB8SGBIMg3
+ t3Q5du8kzIn4Uxjc1LiIll+W4VuG/KL274MmavJKPNUL23B0e0rikWH5DWOx4KSI4KPGFyYeTK
+ 2V8FSDWLiIMc/f3+u6wbwIMvwbAAAAA==
+X-Change-ID: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-Hi Sergey,
+This series is based on Geert's
+"topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
+branch including this series is available here [1].
 
-On Sun, Sep 13, 2026 at 03:35:32PM +0000, Sergey Lebedev wrote:
-> The Microsoft Surface Pro for Business 11th Edition with Intel mounts its
-> OV13858 rear sensor rotated 180 degrees and declares it in neither the SSDB
-> nor a matching _PLD, so the rotation reads as 0 and every frame arrives
-> inverted with nothing to say so.
-> 
-> Add it to upside_down_sensor_dmi_ids, the table that exists for this class
-> of firmware. Matched on DMI_PRODUCT_NAME as the rest of that table is; the
-> entry only takes effect when the ACPI HID matches too, so a machine of the
-> same model that shipped a different rear sensor is left alone.
-> 
-> Measured on the machine. Before:
-> 
->   camera_sensor_rotation  min=0 max=0 value=0
->   libcamera: Property: Rotation = 0
-> 
-> After:
-> 
->   camera_sensor_rotation  min=180 max=180 value=180
->   libcamera: Property: Rotation = 180
-> 
-> and the front sensor is untouched at 0.
-> 
-> This makes the kernel report the mounting truthfully, and that is all it
-> does. The pixels are unchanged: capturing one static scene through
-> libcamera with the property at 0 and at 180 and correlating the vertical
-> brightness profile gives +0.995 the same way up and -0.781 flipped, so
-> libcamera delivers the same buffer either way. The sensor has no flip
-> controls, so nothing is corrected in hardware either.
-> 
-> An application that reads the property can now rotate; one that ignores it
-> still shows the image inverted. That is a userspace matter and is not
-> addressed here.
+This series enables the FCPV[BI] and the VSP[BI] blocks on the Renesas
+R-Car X5H SoC.
 
-This commit message of a trivial patch is exceedingly long, please shorten
-it. See examples of similar patches, for instance.
+This has been tested on an Ironhide with the vsp-tests test suite [2]:
+148 tests: 142 passed, 0 failed, 6 skipped
 
-> 
-> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-> ---
-> Written 2026-08-31 against a variant of upside_down_sensor_dmi_ids that
-> takes a struct with a match type and an id list. No such variant exists in
-> media/next, so the patch could never have applied and was never sent;
-> rewritten today in the form the table actually uses, and measured.
-> 
-> Applies to media/next on its own and on top of
-> 
->   https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-> 
-> which adds the OVTID858 bridge entry the same machine needs.
-> 
-> A second machine reporting the same DMI product name independently reports
-> the same inverted image, in three different applications:
-> 
->   https://lore.kernel.org/linux-media/20260913144127.17995-1-germanpapulindez@gmail.com/
->   https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulindez@gmail.com/
-> 
-> I have asked its owner to confirm the string and to say whether any of those
-> three applications turns the picture the right way up once the property is
-> set. It would surprise me if they did.
-> 
->  drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 7e65491faf..a5de450284 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -192,6 +192,14 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
->  		},
->  		.driver_data = "OVTI02E1",
->  	},
-> +	{
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
+There was some odd behavior with the clocks, where from what I
+understood was that the clocks for the FCPV[BI] and VSP[BI] are
+always-on, but the tests would hang unless I explicitly enabled...  the
+always-on clock (or fsleep). Then after I removed the patch that
+explicitly enabled the always-on clock everything ran fine. Just
+reporting that this happened just in case it's relevant.
 
-Let's aim to keep these alphabetically ordered.
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
+[1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
+[2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
 
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-> +					"Surface Pro for Business 11th Edition with Intel"),
-> +		},
-> +		.driver_data = "OVTID858",
-> +	},
->  	{} /* Terminating entry */
->  };
->  
-> 
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+---
+Paul Elder (10):
+      dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
+      clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
+      pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
+      arm64: renesas: r8a78000: Add FCPV[BI] nodes
+      arm64: renesas: r8a78000: Add VSP[BI] nodes
+      media: rcar-fcp: Check device revision at probe time
+      media: rcar-fcp: Handle resets
+      media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
+      media: vsp1: Document X5H SoC ID
+      media: rcar-fcp: Add R-Car X5H support
 
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 171 +++++++++++++++++++++++
+ drivers/clk/renesas/r8a78000-cpg.c               |   2 +
+ drivers/media/platform/renesas/rcar-fcp.c        | 162 +++++++++++++++++++--
+ drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  13 +-
+ drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   3 +-
+ drivers/pmdomain/renesas/r8a78000-mdlc.c         |  34 ++++-
+ include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
+ 7 files changed, 372 insertions(+), 15 deletions(-)
+---
+base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
+change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+
+Best regards,
 -- 
-Regards,
+Paul Elder <paul.elder+renesas@ideasonboard.com>
 
-Sakari Ailus
