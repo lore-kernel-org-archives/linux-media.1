@@ -1,38 +1,36 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E7E4B8285;
-	Thu, 17 Sep 2026 10:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71904495526;
+	Thu, 17 Sep 2026 10:07:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639500; cv=none; b=BbXmA6d28VagtEhJBxSjF2/heC7cipffvkP52Hhzjt2+6mjkHyeD863kn3MY7STYWhWMzI5xVJ4ILy04RtGrKM6wjhnCwssG16ZTT3x32cKd/Bn7R1AAm+CIVKXHT43P1xN7Kp+JCYxX6sw8WDy7BRl6kBvSaVLxIRAYreUgf4A=
+	t=1789639656; cv=none; b=G+VHq7U0XWO4kB2FIXkhU29zT9+8Ha/q/fnzBGibqQDa7/UhSkM34Tiv+Ftqt0tcRkkthCp+tQbn+v3NrNZKAm7KA3wRKk75WgmWXTU2JHZoXLYFVxqEdmJHjhb11iJ0ss6hXhgMNeO/zk16xJvwST4ePqaEWk+qaXuV1Uu9szo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639500; c=relaxed/simple;
-	bh=Ak7fvPogaLyU9xIV3FE8AiWefrYMu//zBqTl4UnO6Ck=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s9i3aAlEW9sMqCghOmxoEaCpBS/PT9DCxDnbRzdTA1CE9YSJpoCD15aGBkprI/jMl1IT8TzajxiMm4lionOFIXtpDDFoZ6+B/TYrWQQ5Iaz2p1q8r//ZVIZssZIUsQqU9h1RrSBKuXwbNBJtmyyUfOZNs0S5CVpTfk5rYFKcfUs=
+	s=arc-20240116; t=1789639656; c=relaxed/simple;
+	bh=AeOsnyrO5WmB70Fc90ZRgGrgHk0I4u99uZ3HenVA3Ck=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gye4Q9P1DUDsp+I4BqKlRF2n6H6/r/Mphwjh7mJ817M8OVP4nDGmkpJUSKtOuDie1VM50DWuYrgDXn1m8Lanrt6S/KFPQQ7BbBrPRWusrgDMut1o0kNIGEMloh/73Nd6qQ9T24ah18F3ESrk4O1OTXhvtmv61622cAnR8zkqsUs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAnlT81u6tqx0B+CA--.291S2;
-	Thu, 17 Sep 2026 18:04:37 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowACHuELZu6tqD0t+CA--.353S2;
+	Thu, 17 Sep 2026 18:07:21 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: angelogioacchino.delregno@collabora.com
-Cc: bin.liu@mediatek.com,
-	hverkuil@kernel.org,
-	irui.wang@mediatek.com,
-	kyrie.wu@mediatek.com,
+Cc: hverkuil@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	linux-mediatek@lists.infradead.org,
 	matthias.bgg@gmail.com,
 	mchehab@kernel.org,
+	moudy.ho@mediatek.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: mtk-jpeg: Fix runtime PM leak in mtk_jpegenc_worker()
-Date: Thu, 17 Sep 2026 10:04:37 +0000
-Message-Id: <20260917100437.2145943-1-vulab@iscas.ac.cn>
+Subject: [PATCH] media: platform: mtk-mdp3: Fix device reference leak in mdp_comp_init()
+Date: Thu, 17 Sep 2026 10:07:21 +0000
+Message-Id: <20260917100721.2146044-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -41,10 +39,10 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAnlT81u6tqx0B+CA--.291S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4xtrWfJF47Xry8JrWxCrg_yoW8AFWxpr
-	WYqa4jyrWDWw4Dt3yUAw17XFyYk34Fgr1UWr4fC3WkZws3J3Wft34UZFyxtFWIvr97ua48
-	Jw40q397Gr4jyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:zQCowACHuELZu6tqD0t+CA--.353S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4xCFyUCr15tr15tw1xGrg_yoW8tw1fpF
+	WUKay5ArW8WFsFgF4Yy3WDu3W5Aw1S9ayUWr1xtw1Iy3ZxWrWUGFy0v3WqvrZ5AF9aya43
+	J3W8tryxuayUZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
 	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
 	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
@@ -59,46 +57,69 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4xtrWfJF47Xry8JrWxCrg_yoW8AFWxpr
 	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
 	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
 	vjxUqdHjUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3Y+CQABsg
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkNA2qrq3ZB1gAAsK
 
-pm_runtime_get_sync() leaves the device's runtime PM usage count
-incremented even when it fails, and a failed clk_prepare_enable()
-drops the reference as well.  mtk_jpegenc_worker() jumps to enc_end
-in both cases, which does not call pm_runtime_put(), so the
-reference taken by the successful resume is leaked.
+mdp_comp_init() takes a reference to the component platform device
+with of_find_device_by_node(), but the error path taken when the
+clock array cannot be allocated and the one taken for a component
+without a GCE EOF event return without dropping it.  The caller
+frees the mdp_comp in those cases, so the reference is leaked.
 
-Use pm_runtime_resume_and_get() for the resume failure and release
-the reference explicitly when the clock cannot be enabled, as
-mtk_jpegdec_worker() already does.
+Release the reference on both error paths.
 
-Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
+Fixes: c4320f9721fd ("media: platform: mtk-mdp3: dynamically allocate component clocks")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../media/platform/mediatek/mdp3/mtk-mdp3-comp.c   | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index ed1d5858c942..23691f695b56 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1622,7 +1622,7 @@ static void mtk_jpegenc_worker(struct work_struct *work)
- 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+index 7fcb2fbdd64e..acb2758a7b42 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+@@ -1730,6 +1730,7 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 	struct device *dev = &mdp->pdev->dev;
+ 	struct platform_device *pdev_c;
+ 	int clk_ofst;
++	int ret;
+ 	int i;
+ 	s32 event;
  
- 	mtk_jpegenc_set_hw_param(ctx, hw_id, src_buf, dst_buf);
--	ret = pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
-+	ret = pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
- 	if (ret < 0) {
- 		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
- 			__func__, __LINE__);
-@@ -1633,6 +1633,7 @@ static void mtk_jpegenc_worker(struct work_struct *work)
- 	if (ret) {
- 		dev_err(jpeg->dev, "%s : %d, jpegenc clk_prepare_enable fail\n",
- 			__func__, __LINE__);
-+		pm_runtime_put(comp_jpeg[hw_id]->dev);
- 		goto enc_end;
- 	}
+@@ -1756,8 +1757,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 	comp->clk_num = mdp->mdp_data->comp_data[id].info.clk_num;
+ 	comp->clks = devm_kzalloc(dev, sizeof(struct clk *) * comp->clk_num,
+ 				  GFP_KERNEL);
+-	if (!comp->clks)
+-		return -ENOMEM;
++	if (!comp->clks) {
++		ret = -ENOMEM;
++		goto err_put_device;
++	}
  
+ 	clk_ofst = mdp->mdp_data->comp_data[id].info.clk_ofst;
+ 
+@@ -1782,7 +1785,8 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 		if (of_property_read_u32_index(node, "mediatek,gce-events",
+ 					       MDP_GCE_EVENT_EOF, &event)) {
+ 			dev_err(dev, "Component id %d has no EOF\n", id);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto err_put_device;
+ 		}
+ 	} else {
+ 		event = MDP_GCE_NO_EVENT;
+@@ -1791,6 +1795,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 	comp->gce_event[MDP_GCE_EVENT_EOF] = event;
+ 
+ 	return 0;
++
++err_put_device:
++	put_device(&pdev_c->dev);
++	return ret;
+ }
+ 
+ static void mdp_comp_deinit(struct mdp_comp *comp)
 -- 
 2.34.1
 
