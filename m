@@ -1,89 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E896D3939B1
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 09:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91BB3A5449;
+	Thu, 17 Sep 2026 09:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636709; cv=none; b=BbEwjvHfsMGJSd2wMUVOXp6uSOAlPFHWalzaRKJgKdnMFMfQ6xLfSKZDyNh8+YKVtVZo5Gxp0iKRAhB1+TpxNS+LZhSb6PuOspwfb29dugB2MgR4qaOHAmZKv43c+MW62NUmhRp/Y//DYNMRXiVURnHyolYZcvrk9J0KM/UOZgc=
+	t=1789638900; cv=none; b=ZtxhEorn10zU9iz4dwBnNv1D7nkFqr8+dE4DcDce67EXA05BgIxUi4Z5yCG8jLvvqYwgdqS0FvQEI8IRkJ2vfWL87zAVIyH2vQ6DaUqbJdW9pAppXXR2YRIOlOHYKtQ7dn1FLr7UsyDU/i2BsK1z+pXf1rqlPcnGscyOg/zcQxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636709; c=relaxed/simple;
-	bh=00SPpc3am1+ku+pJpGzLoPo3CXBg65DFSgRcQPaEcIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oIqG64NUBj3UY1mClBM1ogGzLH65qVLoO8o6EPuqszsU/8MW77ul+7dBSSnMrrdkKlReJ4n1Veb2w9rr4++68+TIaCeyzLXEVgm3SqK4deRGwanOoVxz3Esm4CO5bBgSq/6tUIRHKeT7I1Da0gDM97lDC4afeUjh3/e8YR8IKsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XKc+Sjiz; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XKc+Sjiz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789636708; x=1821172708;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=00SPpc3am1+ku+pJpGzLoPo3CXBg65DFSgRcQPaEcIc=;
-  b=XKc+SjizmCQDyXAsMqn0dtDqWNkwilcqyG58Ck0I2NMffy7pHh7ZR6UT
-   L1KxqKPqkT8sEFzIpz8NoT97Rsd9ikka8mTjdX2rzhTzop3R+Z/PAfjJ5
-   8WeFGeGxWsFqA7tUpOutL0YbZG9Yk7Hb0oAUaMs7TqxmgLx+sLfahacLI
-   I8ZCHMdgpj+5WLRIR24kWjvjLHinz0sCCYyvyslDlnFjPImag5lrCaK5K
-   TXdPAsSCrtFcYy2Q8rT64Kt9GSowQTvXoxDm5TZ27KWQ0JklFfHR+ZPzx
-   r9tfg2UwmDAZjxAkvLcbTVuysPQjpOQwzDnlHYWXGktnF8W4jsE3m7AEq
-   Q==;
-X-CSE-ConnectionGUID: teLb4wBkSpO90DyDBxkoKQ==
-X-CSE-MsgGUID: mJuIPtUzSWK00QPg10TJyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89175976"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89175976"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:18:27 -0700
-X-CSE-ConnectionGUID: 6e6Id1a9RPOK9HtSaZh8Eg==
-X-CSE-MsgGUID: Bxem8GA1QQmkwRtyiA7SZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1880129"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:18:25 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 4004B11F894;
-	Thu, 17 Sep 2026 12:18:23 +0300 (EEST)
-Date: Thu, 17 Sep 2026 12:18:23 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Antti Laakso <antti.laakso@linux.intel.com>
-Cc: linux-media@vger.kernel.org, "Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	"Bajpai, Manik" <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: Re: [PATCH 16/21] media: ipu6: Bridge the gap between streams in
- V4L2 and IPU6 firmware
-Message-ID: <aquwX3mpy6AWBJEo@kekkonen.localdomain>
-References: <20260914205358.735307-1-sakari.ailus@linux.intel.com>
- <20260914205358.735307-17-sakari.ailus@linux.intel.com>
- <aqq_P3pGvZCwqkMQ@alaakso-desk>
+	s=arc-20240116; t=1789638900; c=relaxed/simple;
+	bh=GcgK0cOP/xsRIMscluwCnFRfGlh4TqqsN6j/q8dZFY4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GHrE8B6eRnhBlcnvVHLZqHkazMazp1MHe4GQujomsMPiJXfcVFlx7wM+AyWc3+kIDNQpcUp9SsASM/zBJY5Y/yNNSFr3H/qJZ5qcNtY2hdxxnmAj+/XaLy7BBsqdS05rPs80E4kCluCX9Dryp3BlR0ur9tCsq8bSNtMiSMvO8P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDvjuKtqyxZ+CA--.40302S2;
+	Thu, 17 Sep 2026 17:54:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: hverkuil@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	shuah@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: au0828: Fix media device leak in au0828_usb_probe()
+Date: Thu, 17 Sep 2026 09:54:43 +0000
+Message-Id: <20260917095443.2145586-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqq_P3pGvZCwqkMQ@alaakso-desk>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnUDvjuKtqyxZ+CA--.40302S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Jr17tFyktw4UWF47XF4UXFb_yoW8JryUp3
+	ykJFy5CrWUJr4q9w4UJ3WUWF15W3ZavrWrCr97Aan3ur1fAa47JrW8Za4jgw4UtayIka4j
+	qr4UtrWrZr4Fkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j0rWrUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq003VgABsT
 
-Moi,
+au0828_media_device_init() takes a reference to a media device with
+media_device_usb_allocate().  When au0828_v4l2_device_register()
+fails right after, the error path only unregisters the entities and
+frees au0828_dev, so that reference is never released.
 
-On Wed, Sep 16, 2026 at 07:09:35PM +0300, Antti Laakso wrote:
-> > +	input_pin->dt = entry->bus.csi2.dt;
-> >  	input_pin->dt = av->dt;
-> 
-> Old path for dt should be removed for ipu7 too.
+Release it with media_device_delete() on that path.
 
-Thanks, I'll fix this for v2. I'll remote the dt and vc fields in struct
-ipu6_isys_video, too; they're redundant now.
+Fixes: 812658d88d26 ("media: change au0828 to use Media Device Allocator API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/media/usb/au0828/au0828-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
+diff --git a/drivers/media/usb/au0828/au0828-core.c b/drivers/media/usb/au0828/au0828-core.c
+index 445cbeb7abae..c3826b3b8a2e 100644
+--- a/drivers/media/usb/au0828/au0828-core.c
++++ b/drivers/media/usb/au0828/au0828-core.c
+@@ -697,6 +697,10 @@ static int au0828_usb_probe(struct usb_interface *interface,
+ 	retval = au0828_v4l2_device_register(interface, dev);
+ 	if (retval) {
+ 		au0828_usb_v4l2_media_release(dev);
++#ifdef CONFIG_MEDIA_CONTROLLER
++		media_device_delete(dev->media_dev, KBUILD_MODNAME,
++				    THIS_MODULE);
++#endif
+ 		mutex_unlock(&dev->lock);
+ 		kfree(dev);
+ 		return retval;
 -- 
-Terveisin,
+2.34.1
 
-Sakari Ailus
