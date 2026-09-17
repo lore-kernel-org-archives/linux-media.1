@@ -1,92 +1,111 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20274E4305;
-	Thu, 17 Sep 2026 12:06:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5304E2F1F
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 12:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646793; cv=none; b=PVF5VjhiNdgbNMfu8OjDTvYDsCwZcI6yQjb0FuiLPDK5lTXCN1oVKm/s5t+cQWx5S4Cd0/i3aPcwWe2S9BbqcDBhMImozz783GY4A8p2/kZPB0eAy3687GlFOqFAOFbxzu5c1/L0NwACK2nIXexrHoSm60u7AJWsjakRGo2yFIU=
+	t=1789647000; cv=none; b=DRlD+WnBKhKgn9qFjHmFqMVR7B4gehnT7mGSltOmMJYSIjQM6M1ofZPKLmVnniU55xVQvJB9Z7X30pQQ3Y6UXRSs9XsrW2mvat3MHQbSrWr/OAIJYPtxjrxwKK12R7GySaMjPpWGC2e4xES4MRh99rP+URku5DJHq+TcOgvWYpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646793; c=relaxed/simple;
-	bh=qO1XpTH9Xew2pCMV3bSe1ykqSFcIPof1KB8etwavppM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q68zfC+AQBH4OEMkbZMg6tdnd1eN9COV/z7qXhC0Qqe3cNgB7gufQr4+npOBggTmkOsfR58SrYh9mEAoeAi3HNq6mH25Aw/MC8/EL9n/hK4H1vlzEtQ5qhjccCHP9hnPEuYn2CGXRSrtyxhifibovOOgLvHXCJj57HZregdNzH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XS8DG8jo; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1789647000; c=relaxed/simple;
+	bh=YSUw6AYQlpCx82S4qpDEzxcG4DE/YEviLxFC0Ymvx3E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RQyiVSsCGUCitETOSppMcyW03z3LA2CERe4rtMs7vSVnY0y/p5uaRN3eTvLwIJOTL+OILku8e60oEUIyTrW/jA/1Tt8hHaOhXkyb727avjBxi7jbPPkQgYcP30OR5jeezum+S1FxGLnqBmL5wovjMB1NVka8VCBB/LG6DI27rw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=o7G8FZ/h; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XS8DG8jo"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a4f1:7e05:2192:a835])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3A4B626CF;
-	Thu, 17 Sep 2026 14:04:14 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="o7G8FZ/h"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2505726CF;
+	Thu, 17 Sep 2026 14:08:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789646660;
-	bh=qO1XpTH9Xew2pCMV3bSe1ykqSFcIPof1KB8etwavppM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XS8DG8jobsX0cdmIlKqxSY3HF/KOmFgxZ7faHJLVOI/7P2ttg+Y0L0sDMIrV5Gks5
-	 +cahfzh1JgoZtJKCuAMyNqE6pNBQ5iasHbQPY8iQyxEEE4S+iAkOnL69bVhySIUmp2
-	 UN40bJS6HnOdoy4b5VNJE3RN+N+VQe/AmkpijAIg=
-From: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Thu, 17 Sep 2026 21:04:49 +0900
-Subject: [PATCH 10/10] media: rcar-fcp: Add R-Car X5H support
+	s=mail; t=1789646890;
+	bh=YSUw6AYQlpCx82S4qpDEzxcG4DE/YEviLxFC0Ymvx3E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=o7G8FZ/hOwdQOujtMAOm5FePU3dG5oP+IXOFBBhNqaC7ABrSMy/umq4pNzJB+c/K6
+	 Zod4K0czm1r3cdez1i0c8X0OZhOvAslAfXFzIQ3MvHtPgjuKaDBWgEHjVQ7qgHGa1r
+	 NByD4KeT5VtZ6RKIMXbYjDqg+sBSEu5BnT80uebk=
+Date: Thu, 17 Sep 2026 15:09:50 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: arash golgol <arash.golgol@gmail.com>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	yong.deng@magewell.com, paulk@sys-base.io, mchehab@kernel.org,
+	wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org
+Subject: Re: [PATCH v1 0/3] media: sunxi: Resend active-state conversions
+Message-ID: <20260917120950.GA44274@killaraus.ideasonboard.com>
+References: <20260804072630.28745-1-arash.golgol@gmail.com>
+ <CAMxPZkgk4+idrZowJ1z-ddAzaD-hx-NJP+KSj8pUrSfL0HH4aQ@mail.gmail.com>
+ <CAMxPZkhjurfpPvvymamJqTuia8CtFw1gRyYA4KBwFcQoH5jz3A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-10-4c72d4e086dd@ideasonboard.com>
-References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
-In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Ulf Hansson <ulfh@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
- Paul Elder <paul.elder+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMxPZkhjurfpPvvymamJqTuia8CtFw1gRyYA4KBwFcQoH5jz3A@mail.gmail.com>
 
-The FCP instances found in the R-Car X5H v1.0 have a different device
-ID. Add it to the devices list.
+Hi Arash,
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
----
- drivers/media/platform/renesas/rcar-fcp.c | 2 ++
- 1 file changed, 2 insertions(+)
+Your patches have been merged in
+https://gitlab.freedesktop.org/linux-media/media-committers. I'm sorry
+it took so long. I really appreciate the work you've done here.
 
-diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
-index 15bcbbda3b853f71780aae876f6440b33addf193..8d62f07d38b7881270e94331b0564e4665664646 100644
---- a/drivers/media/platform/renesas/rcar-fcp.c
-+++ b/drivers/media/platform/renesas/rcar-fcp.c
-@@ -33,6 +33,7 @@
- #define RCAR_FCP_REG_VCR_REVISION_M3N		(6 << 0)
- #define RCAR_FCP_REG_VCR_REVISION_V3H		(7 << 0)
- #define RCAR_FCP_REG_VCR_REVISION_E3		(8 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_X5H_V1	(12 << 0)
- 
- #define RCAR_FCP_REG_CFG0			0x0004
- #define RCAR_FCP_REG_CFG0_FCPVSEL		BIT(1)
-@@ -223,6 +224,7 @@ static int rcar_fcp_setup(struct rcar_fcp_device *fcp)
- 		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3N, "M3N" },
- 		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3H, "V3H" },
- 		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_E3, "E3" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_X5H_V1, "X5H v1.0" },
- 	};
- 
- 	unsigned int i;
+On Mon, Sep 07, 2026 at 08:15:02AM +0330, arash golgol wrote:
+> On Wed, Aug 12, 2026 at 9:50 AM arash golgol wrote:
+> > On Tue, Aug 4, 2026 at 10:57 AM Arash Golgol wrote:
+> > >
+> > > These three patches convert the sun6i-mipi-csi2, sun8i-a83t-mipi-csi2,
+> > > and sun6i-csi bridge drivers to use the V4L2 subdev active state API.
+> > >
+> > > Each patch has already received review and testing individually in
+> > > previous postings (see the changelog and links within each patch for
+> > > that history), but none have been picked up and none currently have
+> > > a delegate on patchwork. Resending together to make it easier to
+> > > review and apply as a group.
+> > >
+> > > No code changes since the last posted version of each patch.
+> > >
+> > > Arash Golgol (3):
+> > >   media: sun6i-mipi-csi2: Use V4L2 subdev active state
+> > >   media: sun8i-a83t-mipi-csi2: Use V4L2 subdev active state
+> > >   media: sun6i-csi: bridge: Use V4L2 subdev active state
+> > >
+> > >  .../sunxi/sun6i-csi/sun6i_csi_bridge.c        | 155 ++++++++----------
+> > >  .../sunxi/sun6i-csi/sun6i_csi_bridge.h        |   9 -
+> > >  .../sunxi/sun6i-csi/sun6i_csi_capture.c       |  27 ++-
+> > >  .../sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c   | 107 ++++++------
+> > >  .../sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h   |   2 -
+> > >  .../sun8i_a83t_mipi_csi2.c                    | 112 +++++++------
+> > >  .../sun8i_a83t_mipi_csi2.h                    |   2 -
+> > >  7 files changed, 194 insertions(+), 220 deletions(-)
+> > >
+> > > --
+> > > 2.34.1
+> >
+> > I've been trying to get these patches merged for a while.
+> > Multiple pings and followups have been sent, but they haven't
+> > been applied yet. This series is just a collection of my
+> > individual patches.
+> >
+> > All patches have full Reviewed-by/Tested-by coverage from
+> > Laurent Pinchart and Paul Kocialkowski. Current status of all
+> > patches are still New in patchwork, without a delegate.
+> >
+> > Link: https://patchwork.linuxtv.org/project/linux-media/list/?series=28738
+> >
+> > Given the review is complete, would you be able to pick these
+> > up, or let me know if something else is blocking them?
+> 
+> Just following up on this series.
+> Link to series:
+> https://patchwork.linuxtv.org/project/linux-media/list/?series=28738
 
 -- 
-2.47.3
+Regards,
 
+Laurent Pinchart
