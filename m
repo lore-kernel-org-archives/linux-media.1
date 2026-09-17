@@ -1,165 +1,294 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE1B4848A3
-	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 15:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F694379EF5
+	for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 15:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658159; cv=none; b=qMhxPAnSjYa6JQQB+PVLqoJTgCJFxLTwjQHpBoAiU2y3BBpaHyi4Xvn+WqraeSUOIE4wD+cFd16ejBNmBYZX0rfmRddWQSwUwztnwzoqn8eHx1OhN5iHlQ9IPZVjkxMGp+kmvHTZsz4MuGLqRA1BnB8uYCHMvGfRtPmSCgRMxFQ=
+	t=1789658720; cv=none; b=b3mINe94GinDk9zruskQTqnZnXrLRikjEaUhHMSV7dFaf8xS5Wpl9rqyNRu2EcX5XJwps35dDjYJB2b16CMU0sUb77+5y9WPNtuny2s8xeg4+viIFOElxmd36G6S0FFCXIv40CYSS2qnvBxKKf9gWPGe4zBZNMRfAjxZFPDK/9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658159; c=relaxed/simple;
-	bh=jmjcmemHiZ7FQbMcc82ajlGpQ++hpMbdtAMvlMwreUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nvFfX7HrSN7pDtpquqe2biC4Y0FT+JDXxilSOBkWnOtwrCyM85XucGEL9T+rXtcEeYA33QD3afXY+YSSuU5/suCayqwj0PZ0ri4cbXhiSdD9hGXGyFTzTkYQQ07kHzi+2clc8oMoRmGu+GtZwShuaY1/T2REJSxSc7toRaxnKYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=hMnAZyHw; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1789658720; c=relaxed/simple;
+	bh=d98IC8bz/qzZqOoRgoY7KC00p4aOgRN119tjHNyLlDk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HBO3sbB1os5znf30CjBZz5ZI7udccGN8eODFj1J39eIi+uXgOUnF+S8ErddvTvmLo71wwnW1dlp6guRmgwewbiCr54DX6dG8AZZDtLerS9j+8gYdrM9rbcZjcNH9tUakOr/GM8eIqeRsT3ScaXSbOAs3BwF91b4mKwSHiGQRa0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oInOTxn/; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="hMnAZyHw"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910431849a0so7846336d6.3
-        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 08:15:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oInOTxn/"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7db0so150124566b.3
+        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 08:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789658143; x=1790262943; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eNGwdDF4ki7ojFW7+l1TCezZJgsNPf4Ld7gCqIxw2+Y=;
-        b=hMnAZyHwuLe+WK1huXgIHORUDTjlIttYmjLzQO/1mm70XIJ0fXaawEQ6q+Hl6M/zL0
-         McllzMs7MlG//myhlUuaRyedgRG+Lq44IgBsLzPV/Z+CyjT7Gn/bwnMEMZnv0TrAi5V9
-         X0a6fo55wCSL50AupjIqflIqBcyoIh0O6aYHPZD7dcW3GPESP+8eX61F5bQBfQBaMFit
-         +v0E82pwFIxVOAil4E++tBNHe6do82PUt26pHLDa7+zPS1hyaqLEPgZVtgsapeWaN4XR
-         u2hOV/j7lCm6bWbnp5Vp52TNkciiQJFebxiTIzZM0gxMQqE3ioPgwnnnYDqsjAyP4ME/
-         HUsA==
+        d=linaro.org; s=google; t=1789658713; x=1790263513; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AEJ+zdV5VeKxtZ9NMskLi/eRs52AJWTItT2AzvXaS5s=;
+        b=oInOTxn/v3C0SgDWu1FKge1t9tS00IKSMv5N+ywDSPxPDrdmLWuNSK8kEFZN4JivfM
+         GKIMmn3dOTCqMx8YZFapXJnjQuvpVThdgeJ4hKO75UOhIlHywGeJwaflu54mCW+wnuvv
+         URxLN8oqyR1u9Ouf5j388VY3hp3YxNGgVlntPG5eqd5eLA1Rg7cAWfwCE4VyNJPiYvCH
+         oHoQBTZGw9PNBIx2nZTnrnjKEeDrAiU9tbEQ9INkqdcQaxbI0uVTlVQlMoQhoqIKLFo7
+         11+FtYHRAFpIcb5nN4k8JJlFHrPudJkcMQOPROPqoFtRk6L2xvXToiSj2z2u8NA9Br3+
+         jG+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658143; x=1790262943;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eNGwdDF4ki7ojFW7+l1TCezZJgsNPf4Ld7gCqIxw2+Y=;
-        b=DD6IWVrNAhQAlUr7nluQtg50qImiJMJupjP/+e6S5BGfjhmGpnuX2BnlfBX5lIYbQT
-         c74IIlDT/olJfH2J3MQN2g8a1EAHzkKyaTQsRm5NgLolGKne3ZV/utkyBq72ZW1QPCBz
-         B0sBj5vQrW1cjtaHcS8eaG+y7Fq9PBECJbsF9dCtBYSXI8Ge4cdDlsggGBPehXu1zw2t
-         9BTeKCh+aurSgrT4Q3DXh4rVsl21It5nWaBfRfN+mNwY/8Lz/dEWvHWUVApgb7BXaTVt
-         tnYC2GcGIIoVLE7RgFrh9DnEG6KTo0Zz3aUXmhAwNUDRmD+y3/8plsz7YBGtestQadiz
-         coBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkzHEF5HqIPH6+G8Sy9YYIswZocg/07zmrdeCz5LkSHwTX6bWMyqTRFAuKy1O0Q6GuDSoyhoasHIHnUg==@vger.kernel.org
-X-Gm-Message-State: AFuF++mjJmDPESoaUEhgZYryfgD2u2874BOMQA8cgKPANc4R8Upb+Crl
-	OjTIJoW48tQoeLOV6G2lcOV+y7M8ypYHX8O+b6kqOtncBU6YvpcZ9/ot6n0rSpvM7wQ=
-X-Gm-Gg: AYBFou2IPd0PqpR/EiM1aE9NGj7sQt8eHE3aEu5itoFW6GazMvbDZK8bgLje0O/lDUB
-	V17xOUDyUjjDQ+VVGxzG+G52KNqilXez9FiN6TXcdewEaJW/T/8Ug5QFkNJP2zhaIYnPCwcWy0h
-	X1/xz6a0ij9F25dufm0y1UR8tTowrjl3++2jFDijGRJqLzYQSBWjYdvAn8zeIWoev/f9gM76Xh/
-	LJUjv8YU5TssutuWgbzezTlPBD8ixhXPf9O5bvhlwbP+NKA27/FdWIS9se0CQK7/nHRnveRXZhJ
-	FsGfhMrC+MBL96FX0zPe2WaA+m9xPGlEdJY+gPPlFxAORp3b4iIpA0UqwszDVCqQgBRLFwsrRn0
-	NRrfdIK71YhZ3jMpGLSy16mIMUicTurG9Zpur7cyaJncoAGXwPlI/bk7QkeTDxu2HXHulScYibM
-	5l8MEu5O8hceQjfhsoRs1MddiHofMAqdisJZqYCo02UzvSaFfMOpoZL9Ky481X1WWuw2czM/Yzj
-	7X04nKguozzi+J1xoGLmZflFYxYx1iNnCJboeSnQx7PFKQEzgqHQLQk
-X-Received: by 2002:a05:6214:5903:b0:90e:8be9:c384 with SMTP id 6a1803df08f44-9123d7b301dmr139360466d6.27.1789658138557;
-        Thu, 17 Sep 2026 08:15:38 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cb0b52sm26856d6.28.2026.09.17.08.15.37
+        d=1e100.net; s=20260707; t=1789658713; x=1790263513;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AEJ+zdV5VeKxtZ9NMskLi/eRs52AJWTItT2AzvXaS5s=;
+        b=tWkdOYfbJPqY9sRYI5XiJOxNTM/EwZMXBufFOYEVYervUpjv7JBUkxaY065HZTXUw+
+         mRW/XA4WvqqpT4pnx0DMP9uvUhTPOo7Yf+QNJtu1POfcPKhlclfb8JdkGhyxQenocs2o
+         f4sxAG3xGgMxfVbxWsk7DWsxeHMM/PQSBPGPlU3ng1+OOWgFM15mBvtqyx4Jy9/h3jct
+         Jr1jU0u81uF9LTJsFmbD6j2LrlrksR4IQnpTDsTVUrxRzqaNJKT39g09V6YKsoMbD9RH
+         6WcKam6lre7LhN7G6r76PRpg5++61dg3vjCjb4NknhjYmVDnE2vrrRY9U+4N5JKhVg6n
+         Jaig==
+X-Forwarded-Encrypted: i=1; AKwUvBwEKddDV36tLsqBJWESHTuzv9PNC7+6W2dG1YvwmGM0MXtbB4qbn+wyQ124gBb1qgwA0HkjCI2pToFHcw==@vger.kernel.org
+X-Gm-Message-State: AFuF++niWCuOyf0Kob6ScP9/cngc0BcVXWmEfTLngzlUFCPwllOVI0dp
+	vomDg/amHR5wVJyK/hqF3exfQErEjzoQZL8Ump35g5QCVZl171rLWaFUMU32/10P5KM=
+X-Gm-Gg: AYBFou3tAJKNdNrMnu0VozrK48M0PXLW4s+A5oTOAFq3Sr/r/VqHW0zF5zHSls4s+1N
+	QBac5GwYahZr9BnSWBByNs8+pKGgt31y9q1trK4VE7c5L5aObRYtirea42usc1oB/hNCjDA7Nyj
+	LRhxd2MxMx3Mr+Mg6K8ELj83seLkF0KCyNCiPHTWN0tPTkeGMFckgeuLhmsRXoKyioh76NVX3+5
+	4capYw9iPrvMoKtYMU2w2wnOJrOIWfSXkOVvuPzeYrRah+iFXSpU/3rjBW6Ib6NCdbuKbUU0bGN
+	y3GasAAxYGa0rjrOZJMPkaZvSdabjzWEEQsUwz//joaJHb8hhz1WZTAHnYIavZ03WW621A1NSqK
+	POA8Q14Gb5hyNFzkX2s1GIq52Q8D7Sbwvf5HqwhABl3ur3x150T6iYtdcWdnXkVhHOuZehf3PS1
+	te4B0QCmtJPq4Lyn5yETIICOGrS/m3uzdAUm7TtmwQ3HguUGrgCynBvfV5fytG+OzXEAUhW8r9X
+	nL2BnTK4Tg=
+X-Received: by 2002:a17:907:1c1f:b0:c26:2fc8:4e91 with SMTP id a640c23a62f3a-c29e5392cccmr517140166b.29.1789658713014;
+        Thu, 17 Sep 2026 08:25:13 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.29.130])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de48755asm310587366b.24.2026.09.17.08.25.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:15:37 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x7Dpp-0000000CyZf-0zOc;
-	Thu, 17 Sep 2026 12:15:37 -0300
-Date: Thu, 17 Sep 2026 12:15:37 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260917151537.GJ3196566@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <20260917140253.GG3196566@ziepe.ca>
- <7d8118ee06f29b73988108c0892022b3a2626f1d.camel@linux.intel.com>
+        Thu, 17 Sep 2026 08:25:12 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Thu, 17 Sep 2026 16:25:06 +0100
+Subject: [PATCH v19 1/5] phy: core: Fix race-condition between
+ _of_phy_get() and try_module_get()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7d8118ee06f29b73988108c0892022b3a2626f1d.camel@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v19-1-21ad8a76e941@linaro.org>
+References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v19-0-21ad8a76e941@linaro.org>
+In-Reply-To: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v19-0-21ad8a76e941@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Todor Tomov <todor.too@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5374;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=d98IC8bz/qzZqOoRgoY7KC00p4aOgRN119tjHNyLlDk=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqrAZUcpays4h8JXL+XeOMyUq3TXK/VODBXi/Xc
+ 5Ne9QjokSSJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCaqwGVAAKCRAicTuzoY3I
+ OlpSEADC8Wf4hzNm01U+HNiK6W2iuoPHg+0s+ljuihZMu/yjAaIQCJ8cUfdyo2ANBUc6VYwDrZ6
+ d3SZ+56IGDtrjeCJmMWvaPBdwDxK1Y0Kn4u3O/5t5nKnCcKfGSzG6BtrPyd0SvSv0WBanOfuACU
+ SHRjN5bWDTH07xwACU7X2RcImVCizg8aNUOCeEzU/r3zx/mRy3/pAH5uu46LOu3dsNOohbrr36w
+ FMSssMA99++wsIHp5ueR+sR4+5C51bxhCoc0DaLGjIyghjxbyXhDyFj5mlnwMcuF91JyMVc74Xs
+ uT1g7jAaSyUt5vNvEMvv5jkLR1VeEk4fE/5H8uoqokLaJ11hMyXP8oYANSNz6CvtmFvd6n305kI
+ yyy3ADm3h3hA1Q8qEgp7kkHRwMysnpN+iz3bA47AAPoj8wD/xC4iNKZCCb4xjwoOMHTrLDzKwW1
+ yT9gz3Ulnlnh465vLNhAXmpfgNhrDC2B1W0BLA69jcUY/wWQZpRARsYHjqBAv7hNNuciqSjpaRj
+ nAGjnjkua5Y/oIPupUek9jlHF1GrKTtP9lKrtBYC1wW8DWZB3BFdpofhkoKQ1mqwaup5rfGG4pR
+ VlgC/w0eVfslozwyLPNfGbCfCH3BJHzvzcZsiAcUWIHJUxnU0sBgfZ5cEX3NFa26dXkRNYcmRmO
+ JXZkJ6EoRI4XWYw==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Thu, Sep 17, 2026 at 04:16:57PM +0200, Thomas Hellström wrote:
-> On Thu, 2026-09-17 at 11:02 -0300, Jason Gunthorpe wrote:
-> > On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
-> > 
-> > > That is, a flag to tell the topology check that some transactions
-> > > *will* take the host-bridge path due to IOVA being used, and that
-> > > the
-> > > computations including pci_p2pdma_distance() need to check whether
-> > > that
-> > > is possible (checking whitelist etc.) and return the corresponding
-> > > THRU_HOST_BRIDGE mapping type. Translated transactions taking a
-> > > short-
-> > > cut using the bus-address would then be hidden from the driver.
-> > 
-> > I imagined it would work by the driver passing in what modes it
-> > supports and Intel GPU would simply pass in ATS only.
-> > 
-> > Even something like mlx has variation, only some operations can opt
-> > into ATS, many others are never-ATS.
-> > 
-> > Driver should not make statements like " *will* take the host-bridge
-> > path" since it has no idea.
-> 
-> Yes, agreed, but anyway DMA-BUF would then, as part of the
-> dynamic_attach negotiation have an interface that takes an ATS only
-> flag and use it to determine whether P2P is possible at all, and use
-> them at mapping time to set up the correct SG list (IOVA or BUS
-> address).
+Sashiko asked during a patch review if the existing usage pattern had a
+race condition; specifically in of_phy_get() if it was possible between
+returning from _of_phy_get() and running try_module_get() that a module
+might be unbound leading to use-after-free.
 
-Yeah, where I was going with mapping type was to have the core code
-"DMA buf PCI bus mapping type" perform the pci p2p operations,
-(especially the calc distance that has been open coded in GPU
-drivers!!) and I imagined it would take in information from the
-exporter and importer about things like ATS capabilities.
+Looking at the code this appears to be so, there is no linkage between the
+phy and module under a synchronisation primitive.
 
-There is worse coming here soon people are working on multi-path PCI
-and we even already have such systems. Multi-path PCI means you have
-to select the best quality path from a NxM matrix of options and then
-inform both sides which path you picked.
+Using the phy_provider_mutex in phy_get() will ensure there is a link between
+the returned phy pointer and the module_get() bumping the module reference
+count.
 
-> Similarly the dma_map_page() needs to know these flags for p2pdma pages
-> so that it never sets up a BUS_ADDRESS to an ATS-enabled device that
-> didn't explicitly ask for it?
+Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
+same usage pattern.
 
-You don't use dma_map_page() with P2P, use the new interface and then
-the details are visible and the mapper can do the right logic.
+phy_provider_unregister() must take the phy_provider_mutex so amending
+phy_get()/of_phy_get() to take that same mutex guarantees there is no
+use-after-free.
 
-> And this all (and in addition the previous discussion around pcie
-> subsystems calls from within dma-buf, and data-types for mapping
-> information) makes me think that abstracting fast dma-buf interconnects
-> along with our previous discussions is a good thing. Then interconnect
-> details and cross-subsystem dependencies can be hidden in the
-> interconnect implementations, suitably placed in the tree.
+Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
+Cc: stable@vger.kernel.org
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/phy/phy-core.c | 45 ++++++++++++++++++++++++++++++---------------
+ 1 file changed, 30 insertions(+), 15 deletions(-)
 
-Right exactly, I guess Christain will be more comfortable if we have a
-dma-mapping-type-pci.c that has all of this and only PCI drivers use
-that code so it makes logical layering sense with the needs of the
-embedded non-PCI drivers..
+diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+index 21aaf2f76e53e..89addd732bff3 100644
+--- a/drivers/phy/phy-core.c
++++ b/drivers/phy/phy-core.c
+@@ -124,13 +124,13 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
+ 	const char *dev_id = dev_name(dev);
+ 	struct phy_lookup *p, *pl = NULL;
+ 
+-	mutex_lock(&phy_provider_mutex);
++	lockdep_assert_held(&phy_provider_mutex);
++
+ 	list_for_each_entry(p, &phys, node)
+ 		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
+ 			pl = p;
+ 			break;
+ 		}
+-	mutex_unlock(&phy_provider_mutex);
+ 
+ 	return pl ? pl->phy : ERR_PTR(-ENODEV);
+ }
+@@ -624,6 +624,8 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ 	struct phy *phy = NULL;
+ 	struct of_phandle_args args;
+ 
++	lockdep_assert_held(&phy_provider_mutex);
++
+ 	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
+ 		index, &args);
+ 	if (ret)
+@@ -635,11 +637,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ 		goto out_put_node;
+ 	}
+ 
+-	mutex_lock(&phy_provider_mutex);
+ 	phy_provider = of_phy_provider_lookup(args.np);
+ 	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
+ 		phy = ERR_PTR(-EPROBE_DEFER);
+-		goto out_unlock;
++		goto out_put_node;
+ 	}
+ 
+ 	if (!of_device_is_available(args.np)) {
+@@ -653,8 +654,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ out_put_module:
+ 	module_put(phy_provider->owner);
+ 
+-out_unlock:
+-	mutex_unlock(&phy_provider_mutex);
+ out_put_node:
+ 	of_node_put(args.np);
+ 
+@@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+ 	if (con_id)
+ 		index = of_property_match_string(np, "phy-names", con_id);
+ 
++	mutex_lock(&phy_provider_mutex);
++
+ 	phy = _of_phy_get(np, index);
+ 	if (IS_ERR(phy))
+-		return phy;
++		goto out_unlock;
+ 
+-	if (!try_module_get(phy->ops->owner))
+-		return ERR_PTR(-EPROBE_DEFER);
++	if (!try_module_get(phy->ops->owner)) {
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
++	}
+ 
+ 	get_device(&phy->dev);
+ 
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(of_phy_get);
+@@ -786,6 +791,7 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 	struct phy *phy;
+ 	struct device_link *link;
+ 
++	mutex_lock(&phy_provider_mutex);
+ 	if (dev->of_node) {
+ 		if (string)
+ 			index = of_property_match_string(dev->of_node, "phy-names",
+@@ -796,15 +802,18 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 	} else {
+ 		if (string == NULL) {
+ 			dev_WARN(dev, "missing string\n");
+-			return ERR_PTR(-EINVAL);
++			phy = ERR_PTR(-EINVAL);
++			goto out_unlock;
+ 		}
+ 		phy = phy_find(dev, string);
+ 	}
+ 	if (IS_ERR(phy))
+-		return phy;
++		goto out_unlock;
+ 
+-	if (!try_module_get(phy->ops->owner))
+-		return ERR_PTR(-EPROBE_DEFER);
++	if (!try_module_get(phy->ops->owner)) {
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
++	}
+ 
+ 	get_device(&phy->dev);
+ 
+@@ -813,6 +822,8 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 		dev_dbg(dev, "failed to create device link to %s\n",
+ 			dev_name(phy->dev.parent));
+ 
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(phy_get);
+@@ -961,15 +972,17 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 	if (!ptr)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	mutex_lock(&phy_provider_mutex);
+ 	phy = _of_phy_get(np, index);
+ 	if (IS_ERR(phy)) {
+ 		devres_free(ptr);
+-		return phy;
++		goto out_unlock;
+ 	}
+ 
+ 	if (!try_module_get(phy->ops->owner)) {
+ 		devres_free(ptr);
+-		return ERR_PTR(-EPROBE_DEFER);
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
+ 	}
+ 
+ 	get_device(&phy->dev);
+@@ -982,6 +995,8 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 		dev_dbg(dev, "failed to create device link to %s\n",
+ 			dev_name(phy->dev.parent));
+ 
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
 
-Jason
+-- 
+2.55.0
+
