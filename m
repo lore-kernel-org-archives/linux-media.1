@@ -1,39 +1,71 @@
-Received: from out28-76.mail.aliyun.com (out28-76.mail.aliyun.com [115.124.28.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610173822AB;
-	Fri, 18 Sep 2026 03:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0908F33D4E8
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 04:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701882; cv=none; b=grEtKjYXUOP/hDJnIyDHlw4cRQSzoJOLdS/5HsWfGrO27MmKe6hjKZ9eE7QSfFmefxeNko3wIk3c5mPDPd1iVHzmoKMwVJ5ZUmyMKQFxqurXibZU5UzIVYHgyQ/Q6oatOk2vazMrnD/KVZwU85hgU0VRwScU1OCUQN+nJ84ABjg=
+	t=1789705193; cv=none; b=auSrebZV+NLH2Z4HSVVDgfYC5ZWdaTFmYfdsjEEP+tvG3JwC7EBaMgcRclEJwURoh7KC0zEJa1ZITCwTulFmU0Ic0rWC4zWQSJXh60Uqpilt57TI9riVIZZbm2M8KRmPhWi2Ygil/TFLFTWv/kFe9TEZR25z95d+Yj9u5Ycqx8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701882; c=relaxed/simple;
-	bh=tIizFypCeJZYwYT6qcObvyRCdfGYi2RxQcEnBOY/wjU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RB+mdW8CHzY+bqphSrqWy+yLMxhOQC1v8O2ZSqvdZu5M7L/yK6UcJPF24IIZoQXXiJQOVEWBuyU0kVL5D7W+dGn/74wJQQnRO45Hyie4278iR13GaWdHVvgQN4BVLaFJ68Y/XtjxckZDR/zDu2VTlp+dqlt6lsSbUnAX7nvA854=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=b6ped7FA; arc=none smtp.client-ip=115.124.28.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789705193; c=relaxed/simple;
+	bh=N1AlwRqDfstBxsbeWuqXTAcyfuLI5FIG8EWxX9iXMT8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=olhrJsfjnSHYzVyvnlxzGxkZtzXjhlLocLx9TOGvr9ofUNSVkWfSvtl9lT8ECIo+M/nTtzDFkupI5ectQY6k77yQop5RCUN5LIJZwP3URxeatIm89VcM7gw6usJDM1x23mXW5i6waaCCKCXnCeGn4DXXLAUFealD5ZBaplZ3s7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X86iOfTZ; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="b6ped7FA"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789701869; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=TyY1ipN78mPcuxrnHrvagacAsTo5jwWIKhXRPs1+jG8=;
-	b=b6ped7FABVgjj5RK0Sqga+XDU0fu3XnWy1I6Mn3N2W+yhQjxBsRmduPzVVzemgwq5CLqf50UMoWfFZqrx82Z9dAk6K9U1EneDkRxPHxZ9iKux84TpLwh+JL+yJ6N1UVp9gaYJnu8MzOBNMz5Ua3o/MpF0RfbDDPyoO0N+Pka23k=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436685|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0245893-0.00271557-0.972695;FP=11238856706199416049|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGKsNgn_1789701868;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGKsNgn_1789701868 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 11:24:28 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] media: flexcop-i2c: reject a zero length write message
-Date: Fri, 18 Sep 2026 11:24:27 +0800
-Message-ID: <20260918032427.803874-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X86iOfTZ"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so289203a91.0
+        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 21:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789705191; x=1790309991; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dNTXIROgieptOy0szd4N/ZNSXaXFaSCCYk0se+ZjeNI=;
+        b=X86iOfTZJ8g+wVOfWiaTLum0KxGPSNtTjkQjcwaHeTbOD8i8rjJ67puaXbmAZmCUmF
+         cR/qqgepQG5NqzkveCAm91Jm0OOOj6fyrW2Quo+jl5YgbKb/ZjwMdDrKlt5/+sg4Iz2S
+         Rsm/QvdsLRSxJc35m0VNl0HL8sJultV+jif3sj7C8tLZC5Gu/0u3P1x+vXdNp1YS1NBt
+         pH3KFdLC1kDriT9j4ngojB5/jDYtdYtJy4uUiX1d+WO5jTCj99/E+hQnzUpDYCQteNiY
+         8dRRAO/AhsmTNg3sv9d+42O/8OAHqg8rpGZDZULbm0fVxq9xqW5kpm4oD3mGHmT3MaFd
+         X6lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789705191; x=1790309991;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dNTXIROgieptOy0szd4N/ZNSXaXFaSCCYk0se+ZjeNI=;
+        b=RzfaugHnqG/VS/xlU+PZtC+mRm+hZbzqoh+XHLPH/AHW4TkkE2Vsi5PpCrCo7vn+1r
+         5fiYUKPZ0y8mGvQWEcrwyhjsCpwcTWbqmlkFtDR7Zjaooo2jXlaVy/D3UIR+ZbPJJmka
+         ng7gpA/YUnNcksJyKr2EQDIJ/vQm0WTmpq7/hVrAZGmNbPmL+Q0bhGehSuoBsG2O08xV
+         UXWq6L7LjlPUuyyIiHD0QxvUyCkVLpFw42Yb4TAMvr52eldwiLXGvwrQvcHRuaxbaQqd
+         EVZVrNEnd7qpL1AqXyZPv3Vi9CgCeNOvKzjKghBqQ5xAPZyMLR8Zzt09SsXbTSML7ZGc
+         P/DA==
+X-Gm-Message-State: AFuF++mOANYJtjt/203Kdx5KV8Kxeqh4QxkgL9eL5wYjPMY4ftRPWT4y
+	knZu47xn6bw9EIU57GOexMCZ596vUkJ2YOrBVn1MPxfWvGHxrxyp1bnREfHIPpmx3xs=
+X-Gm-Gg: AYBFou1wN6I2xB5ouKhFNpF/DujC4mLvsulQmpHpjy/sQXc/1JbctRpCXikuunORyQy
+	0RtHvTGVDxxKgqTm35F+sm8wFZ8FlA0nVe8rP0GnFS3xj6AofnpIrBoWdGDKV1kT2MfNS8dbcqX
+	DQEBf8aqs+6idZFJsnIGLX61ztbS4xwQDC8AOwlcQe/cF4ZReRVkCoujOAZw7NAY20vA0BpVTb/
+	JM4HJUDcrVZI/qvpSyWRdA+BbJ4vZVtcRpiPVls7waUcIN4Eh+/26QyIScknVIa8UW0S8eovJwb
+	XvbRJCvwHcS24vu556XgC+LGGtpp49pNgNvFMbcp+4L+pGEugorinzicv6hHzgfWXP0SfKCZ0zz
+	pGSFWOJoR4axL/FjUMcdNopZ3csfbV4WXd1aQ9aaM8xcVLol6LB1KOKFY2h9OFXrBgifIGLZSkX
+	Yba/lKP/j0bd+S4IPuXKF2lII4k7vccwDBNoBB5BD8Xl4fvxMY0zqCD6cLi3kv3wDCmdNNog05T
+	uAhX4nniwthqTFqsUC6xtsnNZijICt/wKyxfOApor3NWUrnIDXwB4LKTEAmwPVfSlfZgdWd352w
+	PqZ5hoMLJ9yI1jR+t3vR20CXK3k9YbCITuenUct5smXeqmmV2xs2j5p/QBC8arMnjUU=
+X-Received: by 2002:a17:90b:2d47:b0:39d:f4fd:8075 with SMTP id 98e67ed59e1d1-39e54c9c7b7mr2992472a91.19.1789705191134;
+        Thu, 17 Sep 2026 21:19:51 -0700 (PDT)
+Received: from ethan-latitude5420.. (host-127-24.cafrjco.fresno.ca.us.clients.pavlovmedia.net. [68.180.127.24])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144cddb4ca1sm1190170c88.2.2026.09.17.21.19.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 21:19:50 -0700 (PDT)
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	"Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: [PATCH] media: davinci: vpif: replace GPL headers with SPDX-License-Identifier
+Date: Thu, 17 Sep 2026 21:19:46 -0700
+Message-ID: <20260918041947.620701-1-enelsonmoore@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,79 +74,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-flexcop_master_xfer() passes msgs[i].len - 1 as the transfer length for
-a write, because the byte at buf[0] carries the register address and the
-payload starts at buf[1]:
+The VPIF code uses slightly nonstandard phrasing for its GPL headers,
+which caused them to be missed by previous SPDX-License-Identifier
+conversions. Replace these headers with SPDX-License-Identifier.
 
-        ret = i2c->fc->i2c_request(i2c, FC_WRITE, msgs[i].addr,
-                        msgs[i].buf[0], &msgs[i].buf[1],
-                        msgs[i].len - 1);
-
-msgs[i].len is __u16, so a zero length write wraps the argument around
-to 0xffff. flexcop_i2c_request() takes it as a u16 and copies it into
-an int, so the loop
-
-        while (len != 0) {
-                bytes_to_transfer = len > 4 ? 4 : len;
-                ...
-                p += bytes_to_transfer;
-                len -= bytes_to_transfer;
-        }
-
-then walks 65535 bytes starting at &msgs[i].buf[1], reading past the end
-of the userspace provided message, and issues roughly 16384 transfers to
-the bus.
-
-The zero length case cannot be handled inside flexcop_i2c_request(),
-because the len == 0 branch there is a different operation: with
-no_base_addr set it writes start_addr alone and is reached when the
-caller passes buf = &addr, len = 0. A zero length write message means
-msgs[i].len == 0 and the caller has nothing to send.
-
-Reject it in flexcop_master_xfer() with -EINVAL instead. The else branch
-is the only place that does arithmetic on the message length, so nothing
-else in the function needs the same guard.
-
-No Fixes tag. The len - 1 argument comes from the b2c2 driver
-refactoring in 2add87a95068 (2005) and predates it in the skystar2
-driver that was imported with the initial git history.
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 ---
-A zero length write reaches this code from /dev/i2c-N: the i2c core only
-rejects it when the adapter sets I2C_AQ_NO_ZERO_LEN_WRITE, and
-flexcop-i2c.c does not set it. The same sequence in i2c-core-base.c
-guards I2C_AQ_NO_ZERO_LEN_READ for reads.
+ drivers/media/platform/ti/davinci/vpif.c         | 10 +---------
+ drivers/media/platform/ti/davinci/vpif_display.c | 10 +---------
+ 2 files changed, 2 insertions(+), 18 deletions(-)
 
-The read path one line above is not affected: it forwards
-msgs[i+1].len without arithmetic, so a zero length read stays zero.
-
- drivers/media/common/b2c2/flexcop-i2c.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/common/b2c2/flexcop-i2c.c b/drivers/media/common/b2c2/flexcop-i2c.c
-index 21edf870d..6171f7a2d 100644
---- a/drivers/media/common/b2c2/flexcop-i2c.c
-+++ b/drivers/media/common/b2c2/flexcop-i2c.c
-@@ -187,10 +187,16 @@ static int flexcop_master_xfer(struct i2c_adapter *i2c_adap,
- 					msgs[i].buf[0], msgs[i+1].buf,
- 					msgs[i+1].len);
- 			i++; /* skip the following message */
--		} else /* writing */
-+		} else { /* writing */
-+			if (msgs[i].len == 0) {
-+				deb_i2c("zero-length write message");
-+				ret = -EINVAL;
-+				break;
-+			}
- 			ret = i2c->fc->i2c_request(i2c, FC_WRITE, msgs[i].addr,
- 					msgs[i].buf[0], &msgs[i].buf[1],
- 					msgs[i].len - 1);
-+		}
- 		if (ret < 0) {
- 			deb_i2c("i2c master_xfer failed");
- 			break;
+diff --git a/drivers/media/platform/ti/davinci/vpif.c b/drivers/media/platform/ti/davinci/vpif.c
+index cc0b0b8cdb89..f28d20e587d0 100644
+--- a/drivers/media/platform/ti/davinci/vpif.c
++++ b/drivers/media/platform/ti/davinci/vpif.c
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: GPL-2.0-only
+ /*
+  * vpif - Video Port Interface driver
+  * VPIF is a receiver and transmitter for video data. It has two channels(0, 1)
+@@ -6,15 +7,6 @@
+  * Currently, the driver supports NTSC and PAL standards.
+  *
+  * Copyright (C) 2009 Texas Instruments Incorporated - https://www.ti.com/
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License as
+- * published by the Free Software Foundation version 2.
+- *
+- * This program is distributed .as is. WITHOUT ANY WARRANTY of any
+- * kind, whether express or implied; without even the implied warranty
+- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+  */
+ 
+ #include <linux/err.h>
+diff --git a/drivers/media/platform/ti/davinci/vpif_display.c b/drivers/media/platform/ti/davinci/vpif_display.c
+index 08877ae1513a..e588625c96e2 100644
+--- a/drivers/media/platform/ti/davinci/vpif_display.c
++++ b/drivers/media/platform/ti/davinci/vpif_display.c
+@@ -1,18 +1,10 @@
++// SPDX-License-Identifier: GPL-2.0-only
+ /*
+  * vpif-display - VPIF display driver
+  * Display driver for TI DaVinci VPIF
+  *
+  * Copyright (C) 2009 Texas Instruments Incorporated - https://www.ti.com/
+  * Copyright (C) 2014 Lad, Prabhakar <prabhakar.csengg@gmail.com>
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License as
+- * published by the Free Software Foundation version 2.
+- *
+- * This program is distributed .as is. WITHOUT ANY WARRANTY of any
+- * kind, whether express or implied; without even the implied warranty
+- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+  */
+ 
+ #include <linux/interrupt.h>
 -- 
-2.50.1
+2.43.0
 
