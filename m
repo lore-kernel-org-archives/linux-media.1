@@ -1,551 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC3F4B7A4B;
-	Fri, 18 Sep 2026 08:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721843; cv=none; b=YEFYFBb8ajdmpE20jQg2/iKbXJi/XrA7bXQH1KZCEJhA+IB4KJJ6fJraW7jodT3iIKMjVP8HuKEOSymmStafwf9Q35DyekuPLRIw62tNcmPCnxynK8risXANyGNoYuGSlPUCZFxW1t+8JBVk8/OGEJy/yD8f345Y78FBHnAIFy8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721843; c=relaxed/simple;
-	bh=jR0D4mAue1wzQk7uBeokK8acBS3B7Nsl6JYl7H5zEGI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=a5saBxpZruz5oO9uSrOtyj6esVhNCRwCYwZtodBpND25G/URWytM0CpTGE73M47ihSWGrtcwzpGzHGol6XA0oFYrlkfh9hiv+vAGZYvD5Lg1Kf2PNT+x7x7pb1UxJ4DdMwzbOr9IXSD5kyN4bIA1dtDfr3RDSl3zqIZmp0pDhGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYnfwjop; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FE73403F1;
+	Fri, 18 Sep 2026 09:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789722560; cv=fail; b=esNnxvmdaeYTBTfH9uAdJUb8LfkcgRiu/K8ziSn/xCamFRlWACeilC8U/RR9t2VtHLg6Ix94Js50uF1mndpAM2Lm4VZgvaG06AUF7qmqIMEG4v6zVWLxL2CSeEA+BOwCDhc8lMDKZfUvOCXzpOobyMiFPu+kz7yDxP68ZKyd1Us=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789722560; c=relaxed/simple;
+	bh=/dMfEPuWu0rxrHumph/Xzpo7bBLnfAX2lgIzssSsNRs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=QRCQzShbUg44HGWedW1OxEiIRjuZM1m0w9XwyI6x1jl5utxqKr+cWFh+Uw3S6IKV1rJM7tMEXbynCrb6vI87jFZQLygGUUDC81xDa/3t/kx80T+cL8RtcGNEU6dxMfF8j7CWL0BXXeXfv8ZIes6decIA4TLoopAgV3b4GsHUxLI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Dh4vcLli; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=aCqwJ3Kh; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYnfwjop"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19EEFC4AF09;
-	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789721841;
-	bh=jR0D4mAue1wzQk7uBeokK8acBS3B7Nsl6JYl7H5zEGI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bYnfwjopchWLvru++e0YnV3Pn6pNI+lpw2jEwX16+8SGhFCQN7TP8W7m7a0Hl313j
-	 sKXYx8Isa7RvbLcnO2Kx1TzbZYYsH/QRK26ACmMVOkJD4SiL06isJsN4pGWQXBSbrj
-	 wtLyuzGltbGX19Y9Pmz2DK1vF377VLNJ/bDNznUWeHWpZ6a3sMWdZZtnIjcT8/+kOx
-	 89rqXzGsSDddrI21IiiuVmR/AGKPFz+frERkMYqCFARKdSIiW2omMIKGg6uHPFfzQ1
-	 9Jrac5uuj0m1EjPlgw5h5IwajMpdw3C8ZVNq1FDgR1VDXRZVuf/damepX8KYF8Jw96
-	 dOnS15XKGyfqg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 088F4C982D7;
-	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:35 +0800
-Subject: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Dh4vcLli";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="aCqwJ3Kh"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I74LLj3917819;
+	Fri, 18 Sep 2026 04:09:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=0N3mLnnUVKRe/F2Yr1OmqiWgS23quWIrksUAVGjtS
+	Uw=; b=Dh4vcLli530Q+76CoPxIpa8RXohoXpo8i8R7+5+L1HUZPhyJbGdlP2mr3
+	WMgbq+68L9Fidy/yI+wvdpxUdTjdGKIhfU/adpHEyOS9uLMBhJzMJmLlgBoDX1zW
+	1dZ/tkFi7k4rgLIP1YKicbrQwzDw7GiXXc5sRQZx/ohEHkJrObaW9Toe4yPNNMpu
+	03EhIBeQ6cgdFIiX11ZXdTj7mK8gA8Y9mJxV48QkizmJQslBsydRGwM46cKTudXa
+	0mIEcGsUkPmrQMyJbtChuEEkG8khqYTyorrufsT5MG3gK2Vp2BHpnNODdkK1GnD8
+	BCMiyHQZN9RXDQdjODfwqRil4PUSg==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012023.outbound.protection.outlook.com [40.93.195.23])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gs0k38mgx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 04:09:13 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wKuJGPTzAhHd7QOAmMVi5SeYaOugNpF5lw5jdQA0UNWjkVePLQFyufyCNbG5PxERId14JAhGh5jd28ZpluFDfalBW8EmKr2LMb8UVO0Y6KnrWK3p18tOOGrfX1u7dKMMdjg+h/2IYwRtpJXLXY3vTDKDtQxJg0MXc35ckkL97nWmZTOkJ/9jtvsBHBB/SgbJh8cRLJDlPBzcST/PXpM2c15jZ9ExRtSTjocuujh8zJBLOqQFXla2b4LsNMkF1FiRXrOGBrK26THuddU9BHRkzg5H4iQPBLM36EqUA7bIgyGwBxNSQ8UuYVMLQVVEJOA1i8ecwc3j9fO+ZkbvJHOvXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0N3mLnnUVKRe/F2Yr1OmqiWgS23quWIrksUAVGjtSUw=;
+ b=bxD2fPxW6pqTf6if8uuJVUUDBINCRdBQoXoDJE0Lp6OMqSswLdjHwGUGN029wDDaUg2reENDfWqP0rKXkYwFNas45pbZKDsxLIGjEddqLSIVTQAWPs/gp5BN2g9mNUP4yDk0VAVIvX4860VKorv5kAQiGzWF8LtJguyOYUNV8T5Ci51S9NbAVLrDlB4Aglj3kh9Dwf2/KTrkJUrTG1Y/u9nhKjSlG1c6SNUgT5P3hha5axO8lQT87QR2GBY0atBrDBo2Sob2iv9gZUjQ+oeya4vjyRwdZVsvK61JCEWAJ02eALcIjzp3IF9Ra4nBY/pFhBa7GNx4AU4GlCqi8bCQdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0N3mLnnUVKRe/F2Yr1OmqiWgS23quWIrksUAVGjtSUw=;
+ b=aCqwJ3KhcKX2rkLEY8iTH2N+YYJo+g5AFS+D6wVJeUjNPaKPqX5nGATAAyTtC9sRNGrIAfAqiV/KsSuBpEw+PiJkNIH5qpqMWy/OeSzcVUlda6+7q7ANQGXwoSp+uTR8yTslgVgaMXpiKC+Js22QW1S/t8Ty6VcQL3pZMqSFdD0=
+Received: from DS1P223CA0027.NAMP223.PROD.OUTLOOK.COM (2603:10b6:8:44e::18) by
+ DS0PR10MB6199.namprd10.prod.outlook.com (2603:10b6:8:c1::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.13; Fri, 18 Sep 2026 09:09:11 +0000
+Received: from BN1PEPF00005FFC.namprd05.prod.outlook.com
+ (2603:10b6:8:44e:cafe::2e) by DS1P223CA0027.outlook.office365.com
+ (2603:10b6:8:44e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 09:09:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BN1PEPF00005FFC.mail.protection.outlook.com (10.167.243.228) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 09:09:07 +0000
+Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
+ 2026 04:08:22 -0500
+Received: from DFLE214.ent.ti.com (10.64.6.72) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
+ 2026 04:08:22 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE214.ent.ti.com
+ (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 18 Sep 2026 04:08:22 -0500
+Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I98JOQ500344;
+	Fri, 18 Sep 2026 04:08:20 -0500
+Message-ID: <39a03dcb-bebd-4794-a2bf-ff1b56cb632b@ti.com>
+Date: Fri, 18 Sep 2026 14:38:19 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] media: imagination: e5010: Properly Release
+ m2m_dev if probe fails
+To: Brandon Brnich <b-brnich@ti.com>, <mchehab@kernel.org>,
+        <hverkuil@kernel.org>, <sebastian.fricke@collabora.com>,
+        <benjamin.gaignard@collabora.com>, <linux-media@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: <stable@vger.kernel.org>
+References: <20260831213231.2125544-1-b-brnich@ti.com>
+ <20260831213231.2125544-2-b-brnich@ti.com>
+Content-Language: en-US
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <20260831213231.2125544-2-b-brnich@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
-In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
-To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=17656;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=Od5HPgJWNyxL2zm0GyyKeYfcet7/wwxFCUyEQT7ygdI=;
- b=U9Cmn0qvvBsVpAgvc4As2lO7laWc4GfkWk8MdCMozf9qZFf3v9x8K+0rtOsXEZU9z9I1psOpM
- JBZaPxCmPjOD4QOj1lKIK5ivdZMARbSnKrzzvPhaB69GtiLNHN+iyKG
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
-Reply-To: Hermes.wu@ite.com.tw
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|DS0PR10MB6199:EE_
+X-MS-Office365-Filtering-Correlation-Id: 456470b9-96eb-4eec-bda0-08df15647ed3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|56012099006|10067099003|6133799003|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RmFLcKB6qVcwjlex5G1Mtdk3CzCXaOA5p38HnuOdHiURI9jUuTuGO0x6X6y4eAcOt9CH8ywySLPFhVeAKjxn5o7R7783FKYvcaJMjjq1TRAI5jB22FAAMpjO6UkbIw8KjKxV7DYqqWyPB2YVTb3PTQSNZOzNodscduCe/GJ07p8Rm0jUwZLqgRH3UfjAV65s/Ap4sRpEuTF8JAJbtZvV5rypUs3h1ohXSWt50xCgRI+35P5KrYGS/r9vFMNwI7P3Rwcm6FsW9xMKCCe9GPcTRaXUN1hKDtlEFTTZBAB3kgkQm/OMXQO0Dsk/rnw7e4jmapQYh3GRTaP7AGhcxAQkj5mAPnblOplIKuQJ0eY+AeNftfEduW+JolEFyJGGfxlLOiskNagCa92Sy7/fT5+KQSKhSNniwt2h44yVpWic86z1AxmFoQ564ZGAkVexi8Fgboaegu5fSMa72eRrwcipBwUqL7UrqRhoEBjrv2xqKZ1P6Yam4ocR1/ljtJn9MLPTifSX0jd0sBzwk/8a/nbAzCw6eMRNSlZsLMNFDQxr6hebDDWwQcfhNM27gcUSu+YRJgksIfAnuB6f6/YOiJRAepcr8gHf0k4otphQ8VqsiJcjKiOdfpfwatMe3J97ci6qSyH9LpYXAzau6kfKiGg0jQpKf5C5iBhibVTouIl7jNijh3nSmeMUyms+FIPEycL6UnogNlnlRb8HYvM4kuxorw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(56012099006)(10067099003)(6133799003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ca4aVFKE4r8y88TOwQn1Pvs5CJd1vYTdRsi/yQ4sa2sFY70eXYRjRXVjvJjrLttVLrZRKfXY4KXDNvg0OvJmaAy7QR7/wInRP5oyp4ZGP5oVqZCtb2mruI0J1UoIetb2cNwmYLlmnJ9hnCF2y3PfdpVwv4UteyC4t5qk3TM/EuxWOsPGl7j5qOfcGtHuuoyc3OGG9Rmu6mZ5S/XHdrq1OwfiK91KUvUL9o1XeKF4J7pRmBtgfO4zZ4Eit9IESs6A5KvGpO4v3pB9ds0HviZAmBzQRRF6Z2hhIIeJWM3w6sg5CbqJcrwXSytfkkLhn2D18tEvmEk5l+i/gy3NuAMDcMTX8fC6L05hLCG+yr0Okenx7td/GiAg7upWtD08i+EH2ZYoOytIO6DezcNbivrtT6VR7FPagbd1cAYmyERjUCdTodSjVPGRiPxNDfHbVBMi
+X-Exchange-RoutingPolicyChecked:
+	rVwKulmDiz3YzM1pHE1RqRmjMzSS9BG/060wO/UxLArVBDVPhLRldIGpWgMD8Qsn/ER53PAZccKOidI0sbP5wEQouRmYV8wqBmc7fBAci6eZrGDtKA3//Abt/ioTBMBJRFY9zegkIGSYzWMJI8BY46VQLnvPV/x346ybmr43LJIz5IHh2prheUPF2oXEGSLItuY41aV28V+d+mM+JosWoG+6cox6t3jczf6VdM7pfa8uExdEoobH0M5nTJxGnGULc9kxO5XJ11Rd62f5rMsyVRTrjGbYxxhlwuWFjFKxghJ8Wc+jU0jDuVBXa6l4Uh7S2i61r/t5llKjzJjEZW1dOA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 09:09:07.7514
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 456470b9-96eb-4eec-bda0-08df15647ed3
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00005FFC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6199
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEyNSBTYWx0ZWRfX6EA3cmVxbrPU
+ gFDsaZH9LCp84vxl6R1DOr2J4co17SYcaXOztTukPzfNOM516otPGhmq/y88XDH2ck19wvJFkzj
+ CwbUQbbFbhfm51RvgKi81xzeZUg5Xqo=
+X-Authority-Analysis: v=2.4 cv=K6S3jCWI c=1 sm=1 tr=0 ts=6aacffb9 cx=c_pps
+ a=CfFGriBY15yWSKnMtEY+og==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=iSXspe6crHLR8TXTscMA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEyNSBTYWx0ZWRfX+iW5Tgv4immT
+ 6EEco6eHTLjH5/QtCDpwBdLD4422AasJe+CMq6IZJwXT8+dhaLtVlbscWoPgsUNBt4HR+3/P67B
+ Y6p+LCqd5W8xutavAtKVgjTJM9f4OEcrDQt2UcnFp3NEeEY+S1d+CaNI4qT5BeDpvf2VcUjjAd/
+ oDvR/SdtvyjfIbHbE+383JR59QWDwxj4NdVf7Lw1s8Wvyf5L53+yPTdZWn3I5LjySUXEBJ4Dkmq
+ jXUs342L6TyxCeCdjfkjioZ3tCdL6H0AIBHjgPoiAEzD/wLxZHY9YZ/oQVUaVGR4TPEhaRzSMPF
+ XzzMr5FZMFQSkT8C67YDCQ02X0cuuMb3/RbWcYqtb2YS8vRzHHeChg4SVb3yncFV83D9medR0O5
+ zaseC+df2oMYHxFHa46p1V+zJf7RHy9QCTstzRPWTJcx6svhev7mMPeeptyFbwn3Rpu2AUmfmpz
+ e0LBod+0q5ipF/18jfw==
+X-Proofpoint-GUID: 3xxmSqOCaIkZ9CfcHk74zs4dVElmGKx6
+X-Proofpoint-ORIG-GUID: 3xxmSqOCaIkZ9CfcHk74zs4dVElmGKx6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1011 spamscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180125
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Hi Brandon,
 
-Adopt the subdev active-state model instead of a private driver mutex
-and driver-local format fields:
+Thanks for the patch.
 
- - Share it6625_lock as both sd->state_lock and sd->ctrl_handler->lock
-   (set hdl->lock right after v4l2_ctrl_handler_init(), which resets
-   it, and before any control is created), matching the documented
-   model in Documentation/driver-api/media/v4l2-subdev.rst. Call
-   v4l2_subdev_init_finalize() after media_entity_pads_init() and
-   before any code that touches active state, always before
-   v4l2_async_register_subdev().
+On 01/09/26 03:02, Brandon Brnich wrote:
+> After the call to v4l2_m2m_init() is successful, the following
+> initialization functions should go to fail_after_video_register_device.
+> 
+> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+> ---
+>   drivers/media/platform/imagination/e5010-jpeg-enc.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> index 42ad9ee3993b4..d3c11337c815d 100644
+> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> @@ -1072,14 +1072,14 @@ static int e5010_probe(struct platform_device *pdev)
+>   	if (IS_ERR(e5010->core_base)) {
+>   		ret = PTR_ERR(e5010->core_base);
+>   		dev_err_probe(dev, ret, "Missing 'core' resources area\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_video_register_device;
 
- - Remove csi_format/mbus_fmt_code from struct it6625 and store the
-   complete format -- code, colorspace, and width/height/field derived
-   from the configured DV timings -- in the pad format of each
-   v4l2_subdev_state instead. it6625_set_fmt() now operates directly
-   on the state the core hands it (already locked, and for ACTIVE
-   already sd->active_state) instead of taking it6625_lock itself.
-   it6625_get_fmt() is deleted; .get_fmt is now the core's
-   v4l2_subdev_get_fmt(). it6625_init_state() seeds a state from the
-   current active format when one exists (later TRY-state allocation)
-   or from driver defaults when it doesn't (the very first, pre-
-   assignment call that becomes the active state itself).
+The label naming looks incorrect semantically since 
+video_register_device happens after all this at last actually. Please 
+change it to fail_after_v4l2_m2m_init instead.
 
- - Keep it6625->timings as driver-private DV-timings state, but project
-   its width/height/field onto the active pad format every time it
-   changes (it6625_update_timings_if_changed(), it6625_clear_timings())
-   so VIDIOC_SUBDEV_G_FMT stays consistent with
-   VIDIOC_SUBDEV_G_DV_TIMINGS. it6625_initial_setup() and
-   it6625_log_status() now read the media-bus code from the locked
-   active format instead of the removed fields.
+>   	}
+>   
+>   	e5010->mmu_base = devm_platform_ioremap_resource_byname(pdev, "mmu");
+>   	if (IS_ERR(e5010->mmu_base)) {
+>   		ret = PTR_ERR(e5010->mmu_base);
+>   		dev_err_probe(dev, ret, "Missing 'mmu' resources area\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_video_register_device;
+>   	}
+>   
 
- - Make ACTIVE .set_fmt() transactional: return -EBUSY while streaming,
-   and commit the new code/colorspace to active state only after the
-   MIPI register writes that implement it actually succeed. This
-   requires it6625_enable_stream_locked(), it6625_enable_stream(), and
-   it6625_set_mipi_config_locked() to return int and propagate the
-   first register/config-update failure; all existing callers are
-   updated.
+goto fail_after_v4l2_m2m_init
 
-Every it6625_lock acquisition site was re-audited against the core's
-actual locking contract (which ioctls the core state-locks, what
-v4l2_ctrl_handler_init()/_free() and v4l2_subdev_cleanup() actually
-touch) to confirm none of the driver's own lock-taking helpers are
-reachable from a path where the core already holds it6625_lock, and
-that init/teardown ordering keeps hdl->lock valid whenever
-v4l2_ctrl_handler_free() runs. The full trace is recorded in
-it6625-follow-up-patch/patch19-lock-audit.md (not part of this commit)
-for review -- it is static analysis only, since no IT6625/IT6626
-hardware is available here to exercise this with lockdep enabled.
+>   	e5010->last_context_run = NULL;
+> @@ -1089,14 +1089,14 @@ static int e5010_probe(struct platform_device *pdev)
+>   			       E5010_MODULE_NAME, e5010);
+>   	if (ret) {
+>   		dev_err_probe(dev, ret, "failed to register IRQ %d\n", irq);
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_video_register_device;
+>   	}
 
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
----
- drivers/media/i2c/it6625.c | 220 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 138 insertions(+), 82 deletions(-)
+goto fail_after_v4l2_m2m_init
 
-diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index ec6aaa878471ff210264a35e4aa66dfb1e63ed3b..550eb95c6f74a81fc11cc055b4590159ac50e969 100644
---- a/drivers/media/i2c/it6625.c
-+++ b/drivers/media/i2c/it6625.c
-@@ -255,7 +255,15 @@ struct it6625 {
- 	struct regmap *it6625_regmap;
- 	enum it6625_chip_type chip_type;
- 
--	/* protects concurrent access to the chip's registers and state */
-+	/*
-+	 * Protects concurrent access to the chip's registers and state.
-+	 * Also shared as sd.state_lock and hdl.lock (see
-+	 * Documentation/driver-api/media/v4l2-subdev.rst), so the V4L2
-+	 * core already holds it across .get_fmt/.set_fmt/.enable_streams/
-+	 * .disable_streams and control updates -- callers reached only
-+	 * through those paths must use the *_locked() helpers instead of
-+	 * taking it again.
-+	 */
- 	struct mutex it6625_lock;
- 	/* serializes the complete VIDIOC_S_EDID sequence against itself */
- 	struct mutex edid_lock;
-@@ -291,8 +299,6 @@ struct it6625 {
- 	u8 csi_lanes;
- 	u8 port_num;
- 	enum v4l2_mbus_type bus_type;
--	u8 csi_format;
--	u32 mbus_fmt_code;
- 	/* number of EDID blocks currently loaded, protected by edid_lock */
- 	u8 edid_blocks;
- 
-@@ -911,10 +917,11 @@ static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
- 	return it6625_s_ctrl_audio_present(sd);
- }
- 
--static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
-+static int it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
- {
- 	struct v4l2_subdev *sd = &it6625->sd;
- 	int val;
-+	int err;
- 
- 	lockdep_assert_held(&it6625->it6625_lock);
- 
-@@ -922,27 +929,34 @@ static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
- 		 __func__, enable ? "en" : "dis");
- 
- 	val = enable ? B_MIPI_OUTPUT : 0;
--	it6625_set_bits(it6625, REG_MIPI_CONTROL, B_MIPI_OUTPUT, val);
--	it6625_update_config(it6625);
-+	err = it6625_set_bits(it6625, REG_MIPI_CONTROL, B_MIPI_OUTPUT, val);
-+	if (err < 0)
-+		return err;
-+
-+	return it6625_update_config(it6625);
- }
- 
--static void it6625_enable_stream(struct it6625 *it6625, bool enable)
-+static int it6625_enable_stream(struct it6625 *it6625, bool enable)
- {
- 	guard(mutex)(&it6625->it6625_lock);
--	it6625_enable_stream_locked(it6625, enable);
-+	return it6625_enable_stream_locked(it6625, enable);
- }
- 
--static void it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
-+static int it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
- {
- 	u8 mipi_data_type;
-+	int err;
- 
- 	lockdep_assert_held(&it6625->it6625_lock);
- 
- 	dev_dbg(it6625->dev, "mipi_data_type = 0x%x", cfg_val);
- 
- 	mipi_data_type = cfg_val & 0xFF;
--	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, mipi_data_type);
--	it6625_update_config(it6625);
-+	err = it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, mipi_data_type);
-+	if (err < 0)
-+		return err;
-+
-+	return it6625_update_config(it6625);
- }
- 
- static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
-@@ -957,10 +971,18 @@ static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
- 
- static void it6625_initial_setup(struct it6625 *it6625)
- {
-+	struct v4l2_subdev *sd = &it6625->sd;
-+	struct v4l2_mbus_framefmt *fmt;
-+	int idx;
- 	int val = 0;
- 
- 	guard(mutex)(&it6625->it6625_lock);
- 
-+	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
-+	idx = it6625_csi_mbus_code_idx(fmt->code);
-+	if (idx < 0)
-+		idx = 0;
-+
- 	/*
- 	 * REG_MIPI_CFG[0:2] lane count field: 1 lane -> 0, 2 lanes -> 1,
- 	 * 3 lanes (C-PHY only) -> 3, 4 lanes (D-PHY only) -> 3.
-@@ -984,7 +1006,7 @@ static void it6625_initial_setup(struct it6625 *it6625)
- 		val |= FIELD_PREP(B_MIPI_SPLIT, 1);
- 
- 	it6625_write_byte(it6625, REG_MIPI_CFG, val);
--	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625->csi_format);
-+	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625_formats[idx].csi_format);
- 	it6625_write_byte(it6625, REG_MIPI_CONTROL, 0x00);
- 	it6625_write_byte(it6625, REG_RX_CFG, 0x00);
- 
-@@ -1140,10 +1162,29 @@ static void it6625_get_timings(struct it6625 *it6625,
- 	*timings = it6625->timings;
- }
- 
-+/*
-+ * Project a DV-timings struct's width/height/field onto an active pad
-+ * format. Caller must hold it6625_lock (== the active state's lock).
-+ */
-+static void it6625_fill_timings_format(const struct v4l2_dv_timings *timings,
-+				       struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->width = timings->bt.width;
-+	fmt->height = timings->bt.height;
-+	fmt->field = timings->bt.interlaced == V4L2_DV_INTERLACED ?
-+		     V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
-+}
-+
- static void it6625_clear_timings(struct it6625 *it6625)
- {
-+	struct v4l2_subdev *sd = &it6625->sd;
-+	struct v4l2_mbus_framefmt *fmt;
-+
- 	guard(mutex)(&it6625->it6625_lock);
- 	memset(&it6625->timings, 0, sizeof(it6625->timings));
-+
-+	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
-+	it6625_fill_timings_format(&it6625->timings, fmt);
- }
- 
- static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
-@@ -1362,7 +1403,10 @@ static int it6625_log_status(struct v4l2_subdev *sd)
- 
- 	/* snapshot together so the reported pair was actually configured together */
- 	scoped_guard(mutex, &it6625->it6625_lock) {
--		mbus_fmt_code = it6625->mbus_fmt_code;
-+		struct v4l2_mbus_framefmt *fmt =
-+			v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
-+
-+		mbus_fmt_code = fmt->code;
- 		bt = it6625->timings.bt;
- 	}
- 
-@@ -1415,6 +1459,9 @@ static int
- it6625_update_timings_if_changed(struct it6625 *it6625,
- 				 const struct v4l2_dv_timings *timings)
- {
-+	struct v4l2_subdev *sd = &it6625->sd;
-+	struct v4l2_mbus_framefmt *fmt;
-+
- 	guard(mutex)(&it6625->it6625_lock);
- 
- 	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false))
-@@ -1425,6 +1472,9 @@ it6625_update_timings_if_changed(struct it6625 *it6625,
- 
- 	it6625->timings = *timings;
- 
-+	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
-+	it6625_fill_timings_format(&it6625->timings, fmt);
-+
- 	return 1;
- }
- 
-@@ -1457,8 +1507,7 @@ static int it6625_s_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct it6625 *it6625 = sd_to_6625(sd);
- 
--	it6625_enable_stream(it6625, enable);
--	return 0;
-+	return it6625_enable_stream(it6625, enable);
- }
- 
- static int it6625_enum_mbus_code(struct v4l2_subdev *sd,
-@@ -1586,84 +1635,56 @@ static inline u32 format_to_colorspace(u8 csi_format)
- 	}
- }
- 
--static int it6625_get_fmt(struct v4l2_subdev *sd,
--			  struct v4l2_subdev_state *sd_state,
--			  struct v4l2_subdev_format *format)
--{
--	struct it6625 *it6625 = sd_to_6625(sd);
--	struct v4l2_dv_timings timings;
--
--	if (format->pad != 0)
--		return -EINVAL;
--
--	it6625_get_timings(it6625, &timings);
--	format->format.width = timings.bt.width;
--	format->format.height = timings.bt.height;
--	format->format.field = timings.bt.interlaced == V4L2_DV_INTERLACED ?
--			       V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
--
--	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
--		struct v4l2_mbus_framefmt *fmt;
--
--		fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
--		format->format.code = fmt->code;
--		format->format.colorspace = fmt->colorspace;
--	} else {
--		scoped_guard(mutex, &it6625->it6625_lock) {
--			format->format.colorspace =
--				format_to_colorspace(it6625->csi_format);
--			format->format.code = it6625->mbus_fmt_code;
--		}
--	}
--
--	return 0;
--}
--
- static int it6625_set_fmt(struct v4l2_subdev *sd,
- 			  struct v4l2_subdev_state *sd_state,
- 			  struct v4l2_subdev_format *format)
- {
- 	struct it6625 *it6625 = sd_to_6625(sd);
--	u32 mbus_fmt_code = format->format.code;
-+	struct v4l2_mbus_framefmt *fmt;
-+	u32 colorspace;
-+	int idx;
- 	int ret;
- 
--	ret = it6625_get_fmt(sd, sd_state, format);
--	format->format.code = mbus_fmt_code;
--
--	if (ret)
--		return ret;
--
--	ret = it6625_csi_mbus_code_idx(mbus_fmt_code);
-+	if (format->pad != 0)
-+		return -EINVAL;
- 
--	if (ret < 0) {
-+	idx = it6625_csi_mbus_code_idx(format->format.code);
-+	if (idx < 0) {
- 		v4l2_dbg(1, debug, sd,
- 			 "%s: unsupported format code 0x%x, falling back to default",
--			 __func__, mbus_fmt_code);
--		ret = 0;
--		mbus_fmt_code = it6625_formats[ret].mbus_fmt_code;
--		format->format.code = mbus_fmt_code;
-+			 __func__, format->format.code);
-+		idx = 0;
- 	}
- 
--	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
--		struct v4l2_mbus_framefmt *fmt;
-+	colorspace = format_to_colorspace(it6625_formats[idx].csi_format);
- 
--		fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
--		fmt->code = format->format.code;
--		fmt->colorspace = format_to_colorspace(it6625_formats[ret].csi_format);
--		format->format.colorspace = fmt->colorspace;
-+	/* fmt already carries this state's width/height/field; leave them alone */
-+	fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
-+
-+	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
-+		fmt->code = it6625_formats[idx].mbus_fmt_code;
-+		fmt->colorspace = colorspace;
-+		format->format = *fmt;
- 		v4l2_dbg(1, debug, sd, "%s: try format code = 0x%x",
- 			 __func__, format->format.code);
- 		return 0;
- 	}
- 
--	scoped_guard(mutex, &it6625->it6625_lock) {
--		it6625->csi_format = it6625_formats[ret].csi_format;
--		it6625->mbus_fmt_code = format->format.code;
--		it6625_enable_stream_locked(it6625, false);
--		it6625_set_mipi_config_locked(it6625, it6625->csi_format);
--	}
-+	if (v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
- 
--	format->format.colorspace = format_to_colorspace(it6625_formats[ret].csi_format);
-+	ret = it6625_enable_stream_locked(it6625, false);
-+	if (ret)
-+		return ret;
-+
-+	ret = it6625_set_mipi_config_locked(it6625, it6625_formats[idx].csi_format);
-+	if (ret)
-+		return ret;
-+
-+	/* commit to active state only after hardware programming succeeded */
-+	fmt->code = it6625_formats[idx].mbus_fmt_code;
-+	fmt->colorspace = colorspace;
-+	format->format = *fmt;
- 
- 	return 0;
- }
-@@ -1780,7 +1801,7 @@ static const struct v4l2_subdev_video_ops it6625_video_ops = {
- static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
- 	.enum_mbus_code = it6625_enum_mbus_code,
- 	.set_fmt = it6625_set_fmt,
--	.get_fmt = it6625_get_fmt,
-+	.get_fmt = v4l2_subdev_get_fmt,
- 	.get_edid = it6625_g_edid,
- 	.set_edid = it6625_s_edid,
- 	.enum_dv_timings = it6625_enum_dv_timings,
-@@ -1800,8 +1821,26 @@ static const struct v4l2_subdev_ops it6625_ops = {
- static int it6625_init_state(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_state *sd_state)
- {
-+	struct it6625 *it6625 = sd_to_6625(sd);
-+	struct v4l2_subdev_state *active = v4l2_subdev_get_locked_active_state(sd);
- 	struct v4l2_mbus_framefmt *fmt = v4l2_subdev_state_get_format(sd_state, 0);
- 
-+	/*
-+	 * The very first call initializes what becomes sd->active_state
-+	 * itself, before it's assigned -- active is NULL then, and this
-+	 * state gets the driver's own defaults. Every later call (opening
-+	 * a new file handle) initializes a fresh TRY state while the
-+	 * active state already exists and is locked by the same mutex
-+	 * (state->lock is assigned before init_state() runs), so seed it
-+	 * from the current active format instead of reverting to boot
-+	 * defaults.
-+	 */
-+	if (active) {
-+		*fmt = *v4l2_subdev_state_get_format(active, 0);
-+		return 0;
-+	}
-+
-+	it6625_fill_timings_format(&it6625->timings, fmt);
- 	fmt->code = it6625_formats[0].mbus_fmt_code;
- 	fmt->colorspace = format_to_colorspace(it6625_formats[0].csi_format);
- 
-@@ -1842,6 +1881,8 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
- 			   it6625->csi_lanes == 3;
- 
- 	v4l2_ctrl_handler_init(hdl, 4);
-+	hdl->lock = &it6625->it6625_lock;
-+
- 	it6625->ctrl_5v_detect =
- 		v4l2_ctrl_new_std(hdl, NULL, V4L2_CID_DV_RX_POWER_PRESENT,
- 				  0, 1, 0, 0);
-@@ -2050,8 +2091,6 @@ static void it6625_init_data(struct it6625 *it6625)
- 	static struct v4l2_dv_timings default_timing =
- 			V4L2_DV_BT_CEA_1920X1080P60;
- 
--	it6625->csi_format = it6625_formats[0].csi_format;
--	it6625->mbus_fmt_code = it6625_formats[0].mbus_fmt_code;
- 	it6625->timings = default_timing;
- 	/* firmware ships with a verified 2-block default EDID in EDID RAM */
- 	it6625->edid_blocks = 2;
-@@ -2246,9 +2285,16 @@ static int it6625_probe(struct i2c_client *client)
- 		goto err_clean_work_queues;
- 	}
- 
-+	sd->state_lock = &it6625->it6625_lock;
-+	err = v4l2_subdev_init_finalize(sd);
-+	if (err) {
-+		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
-+		goto err_clean_hdl;
-+	}
-+
- 	err = v4l2_ctrl_handler_setup(sd->ctrl_handler);
- 	if (err)
--		goto err_clean_hdl;
-+		goto err_clean_state;
- 
- 	it6625->cec_adap = cec_allocate_adapter(&it6625_cec_adap_ops,
- 						it6625, dev_name(it6625->dev),
-@@ -2259,7 +2305,7 @@ static int it6625_probe(struct i2c_client *client)
- 	if (IS_ERR(it6625->cec_adap)) {
- 		err = PTR_ERR(it6625->cec_adap);
- 		dev_err(it6625->dev, "%s %d", __func__, __LINE__);
--		goto err_clean_hdl;
-+		goto err_clean_state;
- 	}
- 
- 	err = cec_register_adapter(it6625->cec_adap, &client->dev);
-@@ -2267,7 +2313,7 @@ static int it6625_probe(struct i2c_client *client)
- 		dev_err(it6625->dev, "%s: failed to register the cec device", __func__);
- 		cec_delete_adapter(it6625->cec_adap);
- 		it6625->cec_adap = NULL;
--		goto err_clean_hdl;
-+		goto err_clean_state;
- 	}
- 
- 	it6625_debugfs_init(it6625, client);
-@@ -2294,6 +2340,8 @@ static int it6625_probe(struct i2c_client *client)
- 	v4l2_debugfs_if_free(it6625->infoframes);
- 	debugfs_remove_recursive(it6625->debugfs_dir);
- 	cec_unregister_adapter(it6625->cec_adap);
-+err_clean_state:
-+	v4l2_subdev_cleanup(sd);
- err_clean_hdl:
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(&it6625->hdl);
-@@ -2330,12 +2378,20 @@ static void it6625_remove(struct i2c_client *client)
- 
- 	debugfs_remove_recursive(it6625->debugfs_dir);
- 	cec_unregister_adapter(it6625->cec_adap);
-+
-+	/*
-+	 * v4l2_subdev_cleanup()/v4l2_ctrl_handler_free() take it6625_lock
-+	 * (shared as state_lock/hdl.lock), so they must run before it's
-+	 * destroyed.
-+	 */
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(&it6625->hdl);
-+
- 	mutex_destroy(&it6625->it6625_lock);
- 	mutex_destroy(&it6625->edid_lock);
- 	mutex_destroy(&it6625->if_read_lock);
- 	mutex_destroy(&it6625->if_state_lock);
--	media_entity_cleanup(&sd->entity);
--	v4l2_ctrl_handler_free(&it6625->hdl);
- }
- 
- static const struct i2c_device_id it6625_id[] = {
+>   
+>   	e5010->clk = devm_clk_get(dev, NULL);
+>   	if (IS_ERR(e5010->clk)) {
+>   		ret = PTR_ERR(e5010->clk);
+>   		dev_err_probe(dev, ret, "failed to get clock\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_video_register_device;
+>   	}
 
--- 
-2.34.1
+goto fail_after_v4l2_m2m_init
+>   
+>   	pm_runtime_enable(dev);
 
-
+Regards
+Devarsh
