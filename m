@@ -1,164 +1,137 @@
-Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E417519E16
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 16:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF7C514777
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 17:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750655; cv=none; b=U8jlut4ejG+CKMzlOJTMtPr6tPXahQ+pN8PtanOfyaJWAEl3+Ip36ACd1NS72vDHeSGrEXIwCb7S+k7/EtqWBbcrPyYBad3OqbSHm/bMa4IkMw8l4Qfx4fiV1T5dti4insL+/sBDV+zAyiXdRUEGXfSqEO5VAHd0oKI8qVZFI8I=
+	t=1789751131; cv=none; b=NQQFtr/zz787StHVc6VTIET4cbC14XwT2Stn/zzFURyyHhxIbiqkX/J6JHyZc+eZEL6FtoEAM6KhB0sMMk915TWeVnxrKGxZznWrm9tBUlrP6vo7Fl2U2eoLXSMIoqJO1kiPbK7T7dEjR9Vgnd2rT1I9F8qeLuDsPWUGix4aBpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750655; c=relaxed/simple;
-	bh=P8vIKyBb0blYs8sE6VGyf1YV1PxooPvGc7gMx+bdbr4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=LOEUIhlR2GE9wN80DdCjvpex22HrJlVAIfYfInLr5xPqgUIvNT9891DV2Hp7M00IxOrvwsHFBnmVLtcWNyLqgIXBuFx0G/xVioltSzDnTpa1u4YUw89QeifgMMs8ylUksVf4ux2cME/UXpgRL4qtQ/GByitI/dZyNY0QIWaOeNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f10.google.com with SMTP id 006d021491bc7-6c7150a9098so377438eaf.0
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 09:57:32 -0700 (PDT)
+	s=arc-20240116; t=1789751131; c=relaxed/simple;
+	bh=CJUtrnr9lbLTqP4H/g58GCIz+hH13m2n3S92AYR7A28=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HFSkWnlwdTv5hMPexadgCfhuSVYxrI5RSAb+Slgg4Twx9VNYUjIq5tb+z1k0mVYnpj3lGQs65HHm++ZTvhXDlr79CcNPuzbD5IGEfDZSGfIfZt+yJT09RsSeHXDPXTHbdX4x6blbVIfQNkdQ70KUwb2mmqqWJxzw7Pf+lCJ0Aw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Zz16yMCv; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Zz16yMCv"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-939109fafd7so83344985a.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 10:05:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789751128; x=1790355928; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zQcyEtFjPBr6Six+ddaDb/CoGlSZSKi7ev20pm6BxlM=;
+        b=Zz16yMCvY0iYXnp4qSVkoFqfYheoD9f4m4mpImDpG1lBK5zjAXrDhEED+ZfgtMmKKb
+         jys1jwEN8feW5ojbOVgRO7XgWW2iy67XVyUkEePMk5Xq6LEVrQtxqWBns2aRZejZ6kJU
+         HZ3uRkD5CDOL6CSN2PRfm2xk3H9ERs6jPpBH6GG1MSBQXYB+kTGNA7u/HWhSBwG7Z8Zc
+         1GA+sGz6DLtPsTxDCzbUGJ/rXGjWsZvqLvGOJl6akUaZJu/X9tM8vqjyN91+zujqQvdc
+         QgrytW/wV/mz66H73GTtDWEYG7ooveG8Pea/yxI0TY3AjvDlYVkLOtJPGvN28tqX534d
+         oQLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750651; x=1790355451;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sr0wBaNKXWCurFs3juz+OLUfyJau7b0GUHJIh9y66js=;
-        b=CALHeS+e4kGfjr/Sr4FGKXiCfaohaiu87DntQ8y5zqM9N1OsMjLaYXwoALHrE+RXg8
-         oOOJB1Aj5lPfYkaCf7+BzqiKe/dT7mRrQwVIu7B6a5RgrhVfTKIlBjnr697DoRwGfl6r
-         ssam/ze8tqywMsyWA90Tatg7PwuQrZ/uP6mgYy6BKV90ufCL06ivlc5/h3+fo5xrqGD9
-         +BD5LywzQejx195BEtl6FSHDHtl04R5oXUpxjqQwBlwOmGaTr0sdCON1TMdjHM0eRf6E
-         h4TeM60DVFHrkMEvWKeDSJeZ8dNp/B8nkNdykDHv3PgVfe2+dtxQhT8G9PuBPF9VfAmc
-         ASkA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbxjwiUNp29HMn9pX+535ZmX86WOhaUtgSGiIyl8+1a0f2cVZS1/ZCdXrW8T8OtmlfbIlQlmqsKUFHHQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mDMksJcvQCR4PC0OdH410iXUIWDDpNG9jf/iMikggG3LvQSrg0
-	n4gB0h5m7UsZtj3ItYUNCxjhxw2wA213J8d94HeknX1rgi1lBR7di6a245DV6opZl9kqI7a9HgB
-	FlaJ5kLT+fsSdzHk7JsJ9SiH+KzGfcWhg9fNbKREPjuwz7ZLE5+2NRnSurC4=
+        d=1e100.net; s=20260707; t=1789751128; x=1790355928;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zQcyEtFjPBr6Six+ddaDb/CoGlSZSKi7ev20pm6BxlM=;
+        b=oGm+mAwSULcdrHsHR5LBgxsSYpZNbX0ofG2BMnPnIrcldfdkTxXJEkLoKsIiOBhwfK
+         jGnED6n6QHOQHOtg3OHJNqAzEVDofEifj930PwLsi9+GpeLJxx6ls/nH/uSp+7hDrAMT
+         h4PlBnkHJ/I3/oGtjjqdGk/A1ou8rof78OA9VWDm+H/T9ZPvZzxmWZVAoYxAuhrjLUQw
+         YDK/Xu+O2bqNRc9HsRCnwGWEGcSHFzPCrH4EhNWk2ytmModbtDaV1/eeYh+OA0ZgWop3
+         bIJkpivJGZRELH1pyeRHrkA4ZX9WLdIt+POOMDnr9R/ZoO3WujYKsBPy1DebRCYQZ7Cg
+         ZqYw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5928kKdMKxeUD5Ewvy8dOGwLjrupZ6Mhyu42dwfVyGPdptw4VDih8OVDFeOWgGmN1AmZfL/Znix0b1A==@vger.kernel.org
+X-Gm-Message-State: AFuF++kFntj/reOyZ4VPl+BMxPB9lnlchNSt0fEJ/axZlabn44gOAnsy
+	5UqBh9Tj8jXEn+zV5+xIN5aIn8MkZVZYYVyG+ghiIHRmpk8SOH3kmPgFzScHDiBhv1E=
+X-Gm-Gg: AYBFou0HpXI0cRLxg99rt8nYe0BZT2KvLe86HsI8+HUKRPrgn4M8DSo2Q11p5iiLqyR
+	vSjhP28Ssn1aQApb6m7l/XsnbtMRaKVfc9yXh7rm2L1eZ4B5cB9Plg44SwQxDjGvdBzase+sAb3
+	KIaBRtbhNbXJRXo6Z+n+T3kSr9SAWuY5hQsC2+HLfZ4YTRonBFbhSo0Rr580RFUcoQF8lcanzon
+	vMDgIsapDGT2OYpe5pb5Tlk20KsG0Zzv+Y7Q48hN0/QexlUAYe/51gFnnuTXD1EZD7y7s+oS2wy
+	2rK3PJYjRjmsl/i7C+kZn7G/9OFAvA7bEgDcIPKx+1CH901g6yMh++1i6+5E2FSoJ77/ZTKFt6X
+	UITm9u278u7Dui3bzifTzxMnJaO25cw/31uTwdPazCDTBxBJ8ut7lEj2fcR8FL6MkPixrXm4f8F
+	yggUSjuadR9dyLzOvc4qkL5ceiPdpJSf1mvUPmDcVdj6FBq3Ty2hsTNFfEeJqbYZMAGdc/YnLqI
+	2nRz6bBU1JXm8+pQNigTS42DP5URKoHCiW0lpHIWblWfjgzDlVNilMV
+X-Received: by 2002:a05:620a:440d:b0:93a:83d:1d26 with SMTP id af79cd13be357-93bdc6c7741mr490404585a.32.1789751128040;
+        Fri, 18 Sep 2026 10:05:28 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0cc67e6sm187224885a.5.2026.09.18.10.05.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:05:25 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x7c1c-00000001zVZ-3Nwz;
+	Fri, 18 Sep 2026 14:05:24 -0300
+Date: Fri, 18 Sep 2026 14:05:24 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260918170524.GH11599@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <20260918121500.GV13683@unreal>
+ <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c8e:b0:6b1:a812:9871 with SMTP id
- 006d021491bc7-6ca9a5471b7mr2960164eaf.18.1789750650881; Fri, 18 Sep 2026
- 09:57:30 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:57:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aad6d7a.0c43d342.320d00.0000.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] WARNING in ttusb_start_feed/usb_submit_urb
-From: syzbot <syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
 
-Hello,
+On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
+> 
+> 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
+> path. Then Xe always sets up dma-addresses using dma_map_resource(). 
 
-syzbot found the following issue on:
+Open coding pci_p2pdma_distance() in drivers is a hack. Using
+dma_map_resource() like this was never "allowed".
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11c1e7f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=3caf6a60e5f9be12de08
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13c1e7f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17c1e7f9580000
+We've fixed things so these hacks are not needed, the drivers need to
+move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
+to use the DMA API correctly.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/daf497619736/disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/748fbd82f647/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e61c59099d07/bzImage-50d05c7c.xz
+> 1a) Let's say the importer (Xe) has ATS enabled, and the exporter is
+> supposed to map dma_addresses.
+> In between there is a switch that allows direct traffic.
+> Now with your patch series, How would the exporter know that Xe has ATS
+> enabled and therefore should return IOVA mappings rather than the BUS
+> addresses representing the shortcut.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com
+The thing that does the DMA map must be aware of what PCI TLPs the
+PCIe initiator will use to compute the proper P2P mapping mode.
 
-usb 1-1: BOGUS urb xfer, pipe 0 != type 1
-------------[ cut here ]------------
-usb 1-1: BOGUS urb flags, 202 --> 200
-WARNING: drivers/usb/core/urb.c:533 at usb_submit_urb+0xc9d/0x18b0 drivers/usb/core/urb.c:532, CPU#1: syz.0.17/5856
-Modules linked in:
-CPU: 1 UID: 0 PID: 5856 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:usb_submit_urb+0xd28/0x18b0 drivers/usb/core/urb.c:532
-Code: e8 7d 79 c9 fa 4c 89 f7 4d 8b 6d 00 41 0f b6 04 2c 84 c0 48 8b 54 24 18 0f 85 97 07 00 00 8b 0a 48 8b 34 24 4c 89 ea 45 89 f8 <67> 48 0f b9 3a 4c 8b 6c 24 08 4c 89 ef 48 c7 c6 80 2b b0 8f e8 9f
-RSP: 0018:ffffc90003447918 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff888075636400 RCX: 0000000000000202
-RDX: ffff88802b2ed020 RSI: ffffffff8cc51f20 RDI: ffffffff9087dfb0
-RBP: dffffc0000000000 R08: 0000000000000200 R09: 0000000000000004
-R10: 0000000000000003 R11: 0000000000000000 R12: 1ffff1100eac6c8b
-R13: ffff88802b2ed020 R14: ffff888031879100 R15: 0000000000000200
-FS:  0000000000000000(0000) GS:ffff888124dd2000(0063) knlGS:00000000571d4480
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 0000557bc126bb18 CR3: 000000007579a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- ttusb_start_iso_xfer drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c:829 [inline]
- ttusb_start_feed+0xe19/0x1770 drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c:899
- dmx_ts_feed_start_filtering+0x129/0x220 drivers/media/dvb-core/dvb_demux.c:747
- dvb_dmxdev_start_feed drivers/media/dvb-core/dmxdev.c:658 [inline]
- dvb_dmxdev_filter_start+0x434/0x10d0 drivers/media/dvb-core/dmxdev.c:769
- dvb_demux_do_ioctl+0x48b/0x540 drivers/media/dvb-core/dmxdev.c:1099
- dvb_usercopy+0x199/0x2e0 drivers/media/dvb-core/dvbdev.c:996
- dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
- __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
- __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
- __ia32_compat_sys_ioctl+0x5ea/0x950 fs/ioctl.c:638
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf707f0ec
-Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
-RSP: 002b:00000000fffcedac EFLAGS: 00000206 ORIG_RAX: 0000000000000036
-RAX: ffffffffffffffda RBX: 0000000000000006 RCX: 0000000040146f2c
-RDX: 0000000080000300 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	e8 7d 79 c9 fa       	call   0xfac97982
-   5:	4c 89 f7             	mov    %r14,%rdi
-   8:	4d 8b 6d 00          	mov    0x0(%r13),%r13
-   c:	41 0f b6 04 2c       	movzbl (%r12,%rbp,1),%eax
-  11:	84 c0                	test   %al,%al
-  13:	48 8b 54 24 18       	mov    0x18(%rsp),%rdx
-  18:	0f 85 97 07 00 00    	jne    0x7b5
-  1e:	8b 0a                	mov    (%rdx),%ecx
-  20:	48 8b 34 24          	mov    (%rsp),%rsi
-  24:	4c 89 ea             	mov    %r13,%rdx
-  27:	45 89 f8             	mov    %r15d,%r8d
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	4c 8b 6c 24 08       	mov    0x8(%rsp),%r13
-  34:	4c 89 ef             	mov    %r13,%rdi
-  37:	48 c7 c6 80 2b b0 8f 	mov    $0xffffffff8fb02b80,%rsi
-  3e:	e8                   	.byte 0xe8
-  3f:	9f                   	lahf
+ATS always needs an IOVA but that still doesn't mean the P2P will
+work.
 
+> It seems to me that a pci-device settable flag "ATS always enabled"
+> should be enough to fix both issues?
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+It should be be per-mapping to support the NIC workflow that isn't a
+global operation.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Jason
