@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A7A4CE693;
-	Fri, 18 Sep 2026 10:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9363ABD8F;
+	Fri, 18 Sep 2026 10:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726186; cv=none; b=LOE/XkWyIWPDJ4F5ZZWE/XJLwE9qrTxLJZk2rDuZMtkGjAlNI3cVmSxgwTgt8RHFim5UimGa9nOru1StkuT3n19Y67AH1agOgm4yZ36A733u/TqKUJ28LlgnxHWZPnBkhoQRiTxu2QPkhl6IjuPjQ6or6XyI4zwNDlnKVFy7DE8=
+	t=1789726404; cv=none; b=tetQGybWh6rC20idHuuVh/RYyk6n2LraAEMBttaugAlIuuuXZjHrEEKDwfuMWftMrE44UXYmKCuhsS+jybz4vbjg+SgHPIrJK+EwoYs2Wl+Q/Vho/b50Lakmr1XPchkQYT1HbQxwMSjEGRjEwBgkK4XqWyc91MVyRpwVYZ6IPrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726186; c=relaxed/simple;
-	bh=xnzew9psuZcf5yZ5+8AMSSlsltDwTJFC7fNIWXINm6o=;
+	s=arc-20240116; t=1789726404; c=relaxed/simple;
+	bh=ap1Y8a3oUP+UBdrEdrwyOGF4XZzM4Il2098hOyizWJo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YOjEGStActtNHafJXaNMccMtLw/ao7mkBymRAjGHmAzznDo1+dOyPFsW9X6yMDHWUtv6rZxrs+LKrXBq2Wrw0Spo1Jxqf5Nlt2seSVYZMb1icXMCYTV/GRUgEXtKmyeYiOD7V6MCdsfGvcaGjN3hN03F4/K+IXKX8T1wTkgZQL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XMvpoeLV; arc=none smtp.client-ip=192.198.163.7
+	 Content-Type:Content-Disposition:In-Reply-To; b=PqeJBh+94bkfoTm/mLb+sdCvjRMMcOIBov5B6crr74jc38YNzOnfxdzYw8llDZQwIvQcqwAImfDO9Sz9Q+ob6toDNJuA7N0f2q3f1YGG78vepGfS5GTirCBVGPJzzkUiiQM0a4MGmDsS6+wHFlA4l2Vpiho0tYeSIz1RTrPjMWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V4wMKtX1; arc=none smtp.client-ip=192.198.163.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XMvpoeLV"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V4wMKtX1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789726184; x=1821262184;
+  t=1789726402; x=1821262402;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=xnzew9psuZcf5yZ5+8AMSSlsltDwTJFC7fNIWXINm6o=;
-  b=XMvpoeLVLPS5uQDTRfGL+YFN+5duH//BCnw7GtrNrSkfDEi+cEhJmQcT
-   KDA+xZV90D8H9E+4dHPG+J9wwtVnXPWbUPwLeDEgV8tClfEQ0AoW30Lre
-   NkyjLq8JX5lOxc7kQHt4T3DkMK41pAYI6eq+4zUKxKqC/XP1NFLdFRs7b
-   E6XC0eVgt4MIKGF3ZhtHNEQ/AQEOdweYFRO/1xlhBYIQwKqvLhiydwEyi
-   qVkHNrlRhZSoAVgsee49/xp7hq/toUUuH6u8VtZSeMntBk2DsrhrDbMdU
-   45j0NteTvRgT1yBRFdCUOx6Q1yO2XnTDDjaLKCxPVsimezJlr0huzdbKF
-   Q==;
-X-CSE-ConnectionGUID: T/l0vS4ETIqC1n6jYTXiHQ==
-X-CSE-MsgGUID: 0bqB/aeYTyOw27s7Lm+jZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115754970"
+  bh=ap1Y8a3oUP+UBdrEdrwyOGF4XZzM4Il2098hOyizWJo=;
+  b=V4wMKtX1tU2OhwAUzYdG/D4Ar5rqOti9ift5szJLUvcz5HK2TS167xOF
+   wW6YFMyO32nJLGveCCWup/w72UrYaWtScuYz4W17WIDvMI6RHG2L4c1yk
+   TikC5b69knxCviN54azTd/ApUsnnR+yltie4zylVWC9Nch/GUqy0YrBtl
+   CGINLAR8o/41zPUwLaf+7uDn4Y8GR8w3Ty9YQIvXzeVZJlNKrX1xi+Y7U
+   sjS3ziQCqWkW707nVy7syhy3G0WCnF8RX6C5gplZGUFan+JMXOiVA4Agj
+   eBC1N4siphVuxwTVN1gsBAnEpAvPSmSMOJrQcwqaQAgftTqYOcqOUkwgG
+   A==;
+X-CSE-ConnectionGUID: rg+u4/pkRvC9OuonM3ga9A==
+X-CSE-MsgGUID: vGPoBD2KSP+L2TWWPyZG1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77785751"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="115754970"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:09:43 -0700
-X-CSE-ConnectionGUID: Es40qkYbRMGG2I3cjXjt/Q==
-X-CSE-MsgGUID: ofVW37FJTTuq6aw3Upgfjg==
+   d="scan'208";a="77785751"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:13:18 -0700
+X-CSE-ConnectionGUID: EO9hDx4mTX+u/N0/fa2OXA==
+X-CSE-MsgGUID: Eo0mktPNTa+RSo3R6CrlKQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="279557599"
+   d="scan'208";a="268074483"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.224])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:09:41 -0700
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:13:16 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5C960121BB0;
-	Fri, 18 Sep 2026 13:09:38 +0300 (EEST)
-Date: Fri, 18 Sep 2026 13:09:38 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 936B5121BB0;
+	Fri, 18 Sep 2026 13:13:11 +0300 (EEST)
+Date: Fri, 18 Sep 2026 13:13:11 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Hermes.wu@ite.com.tw
@@ -55,11 +55,11 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 13/21] media: i2c: it6625: decode detected timings via
- typed register structs
-Message-ID: <aq0N4gsslj5WGVUs@kekkonen.localdomain>
+Subject: Re: [PATCH 19/21] media: i2c: it6625: fold subdev initialization
+ into probe
+Message-ID: <aq0Ot1n9q6f_AtpX@kekkonen.localdomain>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-13-78d72d7886a5@ite.com.tw>
+ <20260918-upstream-it6625-follow-up-patch-v1-19-78d72d7886a5@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,105 +68,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-13-78d72d7886a5@ite.com.tw>
+In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-19-78d72d7886a5@ite.com.tw>
 
 Hi Hermes,
 
-Thank you for the patches.
+Overall the patches are nice, thank you. One comment below...
 
-On Fri, Sep 18, 2026 at 04:57:28PM +0800, Hermes Wu via B4 Relay wrote:
+On Fri, Sep 18, 2026 at 04:57:34PM +0800, Hermes Wu via B4 Relay wrote:
 > From: Hermes Wu <Hermes.wu@ite.com.tw>
 > 
-> it6625_get_detected_timings() manually assembled each 16-bit field from
-> raw byte-buffer offsets with a shift-and-add sequence. Define two local
-> structs of __be16 fields matching the contiguous REG_H_ACTIVE_1..
-> REG_V_ACTIVE_0 and REG_H_FP_1..REG_V_BP_0 register layouts, read
-> directly into them, and decode each field with be16_to_cpu(). Guard
-> each struct's size with static_assert() against the expected register
-> range width.
+> it6625_init_v4l2_subdev() split subdev/control-handler/media-entity
+> initialization out of probe(), which made error handling harder to
+> follow across the two functions and forced probe() to normalize every
+> init_v4l2_subdev() failure to -ENOMEM regardless of the real error
+> (e.g. a media_entity_pads_init() failure was reported to the caller as
+> -ENOMEM instead of its actual code).
 > 
-> Every member is 2 bytes wide and naturally aligned, so the struct is
-> laid out with no padding -- this is safe because the struct is the I2C
-> read target itself, not a cast over a pre-existing raw buffer.
+> Inline it into it6625_probe() so initialization and its unwind path
+> are visible together, and propagate the real error from
+> it6625_v4l2_init_controls() instead of replacing it. Cleanup behavior
+> on each failure path is unchanged: it6625_v4l2_init_controls() already
+> frees the control handler internally before returning an error, and a
+> media_entity_pads_init() failure still frees it explicitly before
+> unwinding, so neither path double-frees it through the later
+> err_clean_hdl label.
+> 
+> State finalization (v4l2_subdev_init_finalize()/cleanup()) is
+> deliberately left for a follow-up change, to keep this a pure
+> restructuring and keep the locking-model transition atomic on its own.
 > 
 > Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 > ---
->  drivers/media/i2c/it6625.c | 41 +++++++++++++++++++++++++----------------
->  1 file changed, 25 insertions(+), 16 deletions(-)
+>  drivers/media/i2c/it6625.c | 46 +++++++++++++++++-----------------------------
+>  1 file changed, 17 insertions(+), 29 deletions(-)
 > 
 > diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index 60c79a2277941621c7aa83189244b706a5505d66..90b87dbf54fcfc7ad2a1245d4594beee24a193ca 100644
+> index 40cd413e0ed49c118421ce3dec77bb2df08cf042..ec6aaa878471ff210264a35e4aa66dfb1e63ed3b 100644
 > --- a/drivers/media/i2c/it6625.c
 > +++ b/drivers/media/i2c/it6625.c
-> @@ -769,10 +769,22 @@ static int it6625_get_detected_timings(struct it6625 *it6625,
->  				       struct v4l2_dv_timings *timings)
->  {
->  	struct v4l2_bt_timings *bt = &timings->bt;
-> +	struct {
-> +		__be16 h_active;
-> +		__be16 v_active;
-> +	} active;
-> +	struct {
-> +		__be16 hfrontporch;
-> +		__be16 hsync;
-> +		__be16 hbackporch;
-> +		__be16 vfrontporch;
-> +		__be16 vsync;
-> +		__be16 vbackporch;
-> +	} porch;
-
-The driver accesses many such register areas, I'd define these separate
-from the functions that use them. This isn't the only one case.
-
-Alternatively you could define each register separately, which is what most
-drivers do, albeit the usage pattern in this driver is a bit atypical so I
-think using structs for this indeed could make sense.
-
->  	int val;
-> -	unsigned int width, height;
-> -	u8 buffer[4];
-> -	u8 buffer2[12];
-> +
-> +	static_assert(sizeof(active) == 4);
-> +	static_assert(sizeof(porch) == 12);
+> @@ -2142,33 +2142,6 @@ static int it6625_parse_dt(struct it6625 *it6625)
+>  	return it6625_parse_endpoint(it6625);
+>  }
 >  
->  	if (no_signal(it6625)) {
->  		dev_err(it6625->dev, "no signal detected");
-> @@ -792,24 +804,21 @@ static int it6625_get_detected_timings(struct it6625 *it6625,
->  	bt->interlaced = val & B_INTERLACE ?
->  			 V4L2_DV_INTERLACED : V4L2_DV_PROGRESSIVE;
->  
-> -	if (it6625_read_bytes(it6625, REG_H_ACTIVE_1, buffer, 4) < 0)
-> +	if (it6625_read_bytes(it6625, REG_H_ACTIVE_1, (u8 *)&active, sizeof(active)) < 0)
->  		return -EIO;
->  
-> -	width = ((buffer[0] & 0xff) << 8) + buffer[1];
-> -	height = ((buffer[2] & 0xff) << 8) + buffer[3];
+> -static int it6625_init_v4l2_subdev(struct it6625 *it6625)
+> -{
+> -	struct v4l2_subdev *sd = &it6625->sd;
+> -	int err;
 > -
-> -	bt->width = width;
-> -	bt->height = height;
-> +	bt->width = be16_to_cpu(active.h_active);
-> +	bt->height = be16_to_cpu(active.v_active);
+> -	sd->dev = it6625->dev;
+> -
+> -	v4l2_i2c_subdev_init(sd, it6625->i2c_client, &it6625_ops);
+> -	sd->internal_ops = &it6625_internal_ops;
+> -	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
+> -	if (it6625_v4l2_init_controls(sd)) {
+> -		dev_err(it6625->dev, "Failed to initialize v4l2 controls");
+> -		return -ENOMEM;
+> -	}
+> -
+> -	it6625->pad.flags = MEDIA_PAD_FL_SOURCE;
+> -	sd->entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> -	err = media_entity_pads_init(&sd->entity, 1, &it6625->pad);
+> -	if (err < 0) {
+> -		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
+> -		v4l2_ctrl_handler_free(sd->ctrl_handler);
+> -		return err;
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+>  static int it6625_check_device(struct it6625 *it6625)
+>  {
+>  	static const u8 chip_ids[][2] = {
+> @@ -2254,9 +2227,24 @@ static int it6625_probe(struct i2c_client *client)
+>  	}
 >  
-> -	if (it6625_read_bytes(it6625, REG_H_FP_1, buffer2, 12) < 0)
-> +	if (it6625_read_bytes(it6625, REG_H_FP_1, (u8 *)&porch, sizeof(porch)) < 0)
->  		return -EIO;
+>  	sd = &it6625->sd;
+> -	err = it6625_init_v4l2_subdev(it6625);
+> -	if (err)
+> +	v4l2_i2c_subdev_init(sd, it6625->i2c_client, &it6625_ops);
+> +	sd->internal_ops = &it6625_internal_ops;
+> +	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
+> +
+> +	err = it6625_v4l2_init_controls(sd);
+> +	if (err) {
+> +		dev_err(it6625->dev, "failed to initialize v4l2 controls: %d", err);
+>  		goto err_clean_work_queues;
+> +	}
+> +
+> +	it6625->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +	sd->entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> +	err = media_entity_pads_init(&sd->entity, 1, &it6625->pad);
+> +	if (err < 0) {
+> +		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
+> +		v4l2_ctrl_handler_free(sd->ctrl_handler);
+
+Please add a new label instead of freeing the control handler here.
+
+> +		goto err_clean_work_queues;
+> +	}
 >  
-> -	bt->hfrontporch = ((buffer2[0] & 0xff) << 8) + buffer2[1];
-> -	bt->hsync = ((buffer2[2] & 0xff) << 8) + buffer2[3];
-> -	bt->hbackporch = ((buffer2[4] & 0xff) << 8) + buffer2[5];
-> -	bt->vfrontporch = ((buffer2[6] & 0xff) << 8) + buffer2[7];
-> -	bt->vsync = ((buffer2[8] & 0xff) << 8) + buffer2[9];
-> -	bt->vbackporch = ((buffer2[10] & 0xff) << 8) + buffer2[11];
-> +	bt->hfrontporch = be16_to_cpu(porch.hfrontporch);
-> +	bt->hsync = be16_to_cpu(porch.hsync);
-> +	bt->hbackporch = be16_to_cpu(porch.hbackporch);
-> +	bt->vfrontporch = be16_to_cpu(porch.vfrontporch);
-> +	bt->vsync = be16_to_cpu(porch.vsync);
-> +	bt->vbackporch = be16_to_cpu(porch.vbackporch);
->  
->  	bt->pixelclock = it6625_get_pclk(it6625);
->  	if (bt->interlaced == V4L2_DV_INTERLACED) {
+>  	err = v4l2_ctrl_handler_setup(sd->ctrl_handler);
+>  	if (err)
 > 
 
 -- 
