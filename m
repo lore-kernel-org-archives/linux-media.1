@@ -1,72 +1,39 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-76.mail.aliyun.com (out28-76.mail.aliyun.com [115.124.28.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06483EAC80
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 03:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610173822AB;
+	Fri, 18 Sep 2026 03:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701234; cv=none; b=GycdFSzuaXiIL9nrIl6XMlTTgLRgAzWlzu3WubYHfIxyoPhc1tlHvEyoQ/6alw/qMZp20PxlnJfGg5y1OW8ViWWlXysatk8G03/wQ5nDiePyM72Oa4Ft2H8HkqP0fu6chsVDFX/fdy8Xr88hijXjI2fz8Maw8eICs1HqV0wmnwY=
+	t=1789701882; cv=none; b=grEtKjYXUOP/hDJnIyDHlw4cRQSzoJOLdS/5HsWfGrO27MmKe6hjKZ9eE7QSfFmefxeNko3wIk3c5mPDPd1iVHzmoKMwVJ5ZUmyMKQFxqurXibZU5UzIVYHgyQ/Q6oatOk2vazMrnD/KVZwU85hgU0VRwScU1OCUQN+nJ84ABjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701234; c=relaxed/simple;
-	bh=Igrepa3WvnJSDmQC/5fjbl/UtaJmGwmrx2Bv1bHpAFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QkOZU5fMsoknQC9iZ0lOo+XN3/qgwwdc9PMQgxzGrIBACAxJ8VDaMChzCMmYRjqFnDNOYWMGO+yXmdESsJIapEupRthfIbI9NzJLK1f10cjXdGP86PE/VSuuSiOdGqSflkZn2VoDDILbClZviaLzU7W544+xvDCLdClr7U+8M9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cc+ueTLO; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789701882; c=relaxed/simple;
+	bh=tIizFypCeJZYwYT6qcObvyRCdfGYi2RxQcEnBOY/wjU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RB+mdW8CHzY+bqphSrqWy+yLMxhOQC1v8O2ZSqvdZu5M7L/yK6UcJPF24IIZoQXXiJQOVEWBuyU0kVL5D7W+dGn/74wJQQnRO45Hyie4278iR13GaWdHVvgQN4BVLaFJ68Y/XtjxckZDR/zDu2VTlp+dqlt6lsSbUnAX7nvA854=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=b6ped7FA; arc=none smtp.client-ip=115.124.28.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cc+ueTLO"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d6f9dddd99so1380355ad.0
-        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 20:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789701226; x=1790306026; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kju0TCvvdsRpQXR1OVLSTWdJAe1ni45S1NkZW4DOAK8=;
-        b=Cc+ueTLOGQO4r/7xJwoEjQIKGxu2Nq8KS3N/3N1PDwlJfD/xbo5wwQodZhLWZQIzlR
-         t3AsyzrtD0StpWzia80zS7fTubXfzXAs+WemZ0jcBeWcIMeunCOZUJPNgoZoF9CEAZgf
-         YvMvzXmBKGdsEICw62PgcRcVrnN8puoasx0/m9Xj8riEPJJKhfEgBZYvlP3jQ+gIOlr3
-         V5bGKI3468+03qbY1e5QYmThL/RJLK16DZNcH9rVR7J50QqHlH188vyEojiLxp8DhRK+
-         gxKR9+Hw8u0xTW4Bz8BWHyDBSJNEnhJJ+bzuueoNq132liZUfYDew4+lDJ4YS6dhhQIb
-         +zdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789701226; x=1790306026;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kju0TCvvdsRpQXR1OVLSTWdJAe1ni45S1NkZW4DOAK8=;
-        b=JlbNE3D4tIeqUvGsAQgzh63oIYVTOlOSqnrVHnC05QT1UINf7a/2xE2RHfPUkFKy+o
-         /hjzkPIcvaldMZTDtyDxuoz0ZYNzY5YpLA3OmmDM3MJ0QF/p+g34WCl299OrYrTvkkq4
-         RGYeru8AiNlqhst1WpMygTcN7cok5buV1pQW6vcrIsYdbCxyTK8kNYdWRMTQ6JhAbqv1
-         NXT4FBQu5ex5VhkbOGdSqoCzGlKw2ySVDZ7FjrZDLrmzK011Td58Uab8d3ywxs/FzLjQ
-         Z5qWwN8x4k47oDgLMX8wvruL/vFTqlPBKRx7gIfaXNvGBHgVHF2+5EzfiraClg4czt/O
-         x36w==
-X-Gm-Message-State: AFuF++mF84+dwOXlDS+YcXcIk89s+GQFsMBXU3sUdzKDl483tNaLEvkk
-	GJ+eFxAJ9FtbezXLrS2ea3ejeaM3YgQitajTpK321PBLTxtZlq1H5azHdJaNXC0kFJg=
-X-Gm-Gg: AYBFou0J7I1AvYJSpMxeenqCaytFNa5zBwKU/w31yrmJYK+1gu3pqDhW91NuL58dYJ+
-	onZ5LG1ovGMkPpzwk4O+4c4I3iTKjtlqaocDHcpInQPAJl3EXd4+OMoQhB5MXi5u+K22ZpBhBEU
-	D1JU5Ur0NU8g6AwJeCo53w4DkmktVjBJCLxpVVV9Orf1oFwf58S/ENywT64BdWTEtWyZWXbZssm
-	xGdOtOCQex/efZ7wa4eDOYtRdo6iQP5w5nUQC67OqcD9IDOSBC3+w7A3g+IS+OlatjQZpMPQE79
-	hdUeram1dpfP2GqzlitrqiyjWJ3Ft4G4TJWqjK2ZdAYXUcb79S0E49q1HvWAKBf3xW4K41cT2FE
-	wsYgkc9lVu10htklVU0mWpj+Sh60EoK+rMhvIgL7SaWkjzRKYf93BcXpLS4DlQYKj6+9SuDIJsJ
-	EGzNhY6szzEKaO1J8z1TJsjj76yevBAl1KEkG1XXGBCoXC9OeEvlQqomBbeWF8wKi5JGJB3Y+z+
-	ItcCvoHuOxzb6tYxjk1w51TyN76ebJ0DZguC9EncAA1y0m+7U5Pk3BhBxKWdFh/40psfI8EjAye
-	rjz/YG/VuWXQBGael7pnBu7C5FxRfvz7vWLcG7ES16bLLbIQ815/vArXGZcxaH0AgzFwRpajxgg
-	f
-X-Received: by 2002:a17:903:2443:b0:2dd:792b:302 with SMTP id d9443c01a7336-2ddb1af0da2mr19170635ad.11.1789701225518;
-        Thu, 17 Sep 2026 20:13:45 -0700 (PDT)
-Received: from ethan-latitude5420.. (host-127-24.cafrjco.fresno.ca.us.clients.pavlovmedia.net. [68.180.127.24])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c286dc939sm432672eec.6.2026.09.17.20.13.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:13:45 -0700 (PDT)
-From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	"Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: [PATCH] media: davinci: remove unused <media/davinci/vpfe_types.h> header
-Date: Thu, 17 Sep 2026 20:13:34 -0700
-Message-ID: <20260918031337.436820-1-enelsonmoore@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="b6ped7FA"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789701869; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=TyY1ipN78mPcuxrnHrvagacAsTo5jwWIKhXRPs1+jG8=;
+	b=b6ped7FABVgjj5RK0Sqga+XDU0fu3XnWy1I6Mn3N2W+yhQjxBsRmduPzVVzemgwq5CLqf50UMoWfFZqrx82Z9dAk6K9U1EneDkRxPHxZ9iKux84TpLwh+JL+yJ6N1UVp9gaYJnu8MzOBNMz5Ua3o/MpF0RfbDDPyoO0N+Pka23k=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436685|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0245893-0.00271557-0.972695;FP=11238856706199416049|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGKsNgn_1789701868;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGKsNgn_1789701868 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 11:24:28 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH] media: flexcop-i2c: reject a zero length write message
+Date: Fri, 18 Sep 2026 11:24:27 +0800
+Message-ID: <20260918032427.803874-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -75,60 +42,79 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The last use of <media/davinci/vpfe_types.h> was removed in
-commit 582603a95734 ("staging: media: remove davinci vpfe_capture driver")
-header") but it was left behind. Remove it.
+flexcop_master_xfer() passes msgs[i].len - 1 as the transfer length for
+a write, because the byte at buf[0] carries the register address and the
+payload starts at buf[1]:
 
-Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+        ret = i2c->fc->i2c_request(i2c, FC_WRITE, msgs[i].addr,
+                        msgs[i].buf[0], &msgs[i].buf[1],
+                        msgs[i].len - 1);
+
+msgs[i].len is __u16, so a zero length write wraps the argument around
+to 0xffff. flexcop_i2c_request() takes it as a u16 and copies it into
+an int, so the loop
+
+        while (len != 0) {
+                bytes_to_transfer = len > 4 ? 4 : len;
+                ...
+                p += bytes_to_transfer;
+                len -= bytes_to_transfer;
+        }
+
+then walks 65535 bytes starting at &msgs[i].buf[1], reading past the end
+of the userspace provided message, and issues roughly 16384 transfers to
+the bus.
+
+The zero length case cannot be handled inside flexcop_i2c_request(),
+because the len == 0 branch there is a different operation: with
+no_base_addr set it writes start_addr alone and is reached when the
+caller passes buf = &addr, len = 0. A zero length write message means
+msgs[i].len == 0 and the caller has nothing to send.
+
+Reject it in flexcop_master_xfer() with -EINVAL instead. The else branch
+is the only place that does arithmetic on the message length, so nothing
+else in the function needs the same guard.
+
+No Fixes tag. The len - 1 argument comes from the b2c2 driver
+refactoring in 2add87a95068 (2005) and predates it in the skystar2
+driver that was imported with the initial git history.
+
+Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
- include/media/davinci/vpfe_types.h | 38 ------------------------------
- 1 file changed, 38 deletions(-)
- delete mode 100644 include/media/davinci/vpfe_types.h
+A zero length write reaches this code from /dev/i2c-N: the i2c core only
+rejects it when the adapter sets I2C_AQ_NO_ZERO_LEN_WRITE, and
+flexcop-i2c.c does not set it. The same sequence in i2c-core-base.c
+guards I2C_AQ_NO_ZERO_LEN_READ for reads.
 
-diff --git a/include/media/davinci/vpfe_types.h b/include/media/davinci/vpfe_types.h
-deleted file mode 100644
-index e65c9a48d002..000000000000
---- a/include/media/davinci/vpfe_types.h
-+++ /dev/null
-@@ -1,38 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * Copyright (C) 2008-2009 Texas Instruments Inc
-- */
--#ifndef _VPFE_TYPES_H
--#define _VPFE_TYPES_H
--
--#ifdef __KERNEL__
--
--enum vpfe_pin_pol {
--	VPFE_PINPOL_POSITIVE,
--	VPFE_PINPOL_NEGATIVE
--};
--
--enum vpfe_hw_if_type {
--	/* BT656 - 8 bit */
--	VPFE_BT656,
--	/* BT1120 - 16 bit */
--	VPFE_BT1120,
--	/* Raw Bayer */
--	VPFE_RAW_BAYER,
--	/* YCbCr - 8 bit with external sync */
--	VPFE_YCBCR_SYNC_8,
--	/* YCbCr - 16 bit with external sync */
--	VPFE_YCBCR_SYNC_16,
--	/* BT656 - 10 bit */
--	VPFE_BT656_10BIT
--};
--
--/* interface description */
--struct vpfe_hw_if_param {
--	enum vpfe_hw_if_type if_type;
--	enum vpfe_pin_pol hdpol;
--	enum vpfe_pin_pol vdpol;
--};
--
--#endif
--#endif
+The read path one line above is not affected: it forwards
+msgs[i+1].len without arithmetic, so a zero length read stays zero.
+
+ drivers/media/common/b2c2/flexcop-i2c.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/common/b2c2/flexcop-i2c.c b/drivers/media/common/b2c2/flexcop-i2c.c
+index 21edf870d..6171f7a2d 100644
+--- a/drivers/media/common/b2c2/flexcop-i2c.c
++++ b/drivers/media/common/b2c2/flexcop-i2c.c
+@@ -187,10 +187,16 @@ static int flexcop_master_xfer(struct i2c_adapter *i2c_adap,
+ 					msgs[i].buf[0], msgs[i+1].buf,
+ 					msgs[i+1].len);
+ 			i++; /* skip the following message */
+-		} else /* writing */
++		} else { /* writing */
++			if (msgs[i].len == 0) {
++				deb_i2c("zero-length write message");
++				ret = -EINVAL;
++				break;
++			}
+ 			ret = i2c->fc->i2c_request(i2c, FC_WRITE, msgs[i].addr,
+ 					msgs[i].buf[0], &msgs[i].buf[1],
+ 					msgs[i].len - 1);
++		}
+ 		if (ret < 0) {
+ 			deb_i2c("i2c master_xfer failed");
+ 			break;
 -- 
-2.43.0
+2.50.1
 
