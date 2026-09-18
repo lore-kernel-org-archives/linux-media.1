@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5C34B66E7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80624C10C7;
 	Fri, 18 Sep 2026 08:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721842; cv=none; b=uWNIxzv2JYhFvOEKxsl442FqIA2p8NdCpY5ROHG4QcKz4mSF+Ng6dHP/jwloeyvyvWvTEGvhNWfaGgEIWJaCofdHapVclZTMRvJ70lkGS1xXL985rFTQG5VfzLqMR7go6WoZdqWclErDHnSdfKQFeejzBG6QAwBbXdnnL53Gox0=
+	t=1789721843; cv=none; b=tnzIr2GqSxSfG8M2/zvIPwTymH+HWeLJMY4ZTgUJuGZDARPmkHWhmHdiM5g/ZGVJE2Fz2P1AVYFkBGEZYS5C+bRlb6IhgJv4ZSVthh8w/8Gx5cbrcEYslIFNTnOx8cUXAsfueA5/MiQ9m6zRBelCnIVVvfejjEykPsdpKk87CAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721842; c=relaxed/simple;
-	bh=lKKBM0Z15+Cg7euZBnlCtVNRM9u1vWlpFXjUS8aHLVc=;
+	s=arc-20240116; t=1789721843; c=relaxed/simple;
+	bh=bRrNigDJkW7AZBxFaHxWITPtWA2Rw/thAvAmAhyVF7o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rj4Xub/qWjLu55DPSYi7da6uiNQHAR/OKxCQ5UOcc/V1PgXR7YTAxlFETk4grM7m2wTNc0PCDjDiO0QJ5Q5VDAQwX5lS9xpIc9mzcK/+FrRPwjo58oSJ+25LjJS/8M2PdwSWwHHlyRstvI0kes7+hpwaQaD6T0HX7YZLnfpWxAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qIItvJXH; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=FP4y/kp5YnIQAXc9S7m8SRdAV0HBnaEJduUqj0Q+RIE18Z8Kcru2rVxs/m9cb+XDnv3B3J1sCqsTPCbYL27kNOKKNttAH/tZu/gnnUp3mo2jdVLUKDKn7cnTizhvCGQv/Te491xL9VAjC7+uX/JaTrUifaEjHBmGvSlD7iiosHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOO8Bdqf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qIItvJXH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AFEDCC4AF0D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOO8Bdqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9E69BC4AF0C;
 	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789721840;
-	bh=lKKBM0Z15+Cg7euZBnlCtVNRM9u1vWlpFXjUS8aHLVc=;
+	bh=bRrNigDJkW7AZBxFaHxWITPtWA2Rw/thAvAmAhyVF7o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qIItvJXH4xtvGSrsHpURfQ2k16/srqBTbWY7ZBQT6eoLnY4jqaLarf4OcUUkXhHeo
-	 THQCOmpddwnxdCbrAbju/SEUevACNtsT0hJKdtxXkp04Rt5N2LDVnDaOJsSxzFEJBV
-	 XPSxDX9iryfnVmeyJLlbQLnGqZuBycwFAmF6W/HzVsmA+a/f8o20DUGrEI8uxFWmGg
-	 nUCLSYXxraw07p2PXq7I8kY4P3ejIN3XBBNduKemtmrrGtnQYZ7dQKlFo2YjU1yWlo
-	 xYubegtVZGLVKVOU2exB0UnQzsfqnat+lSAh59GNwECgYFd1kSRrIoyT8VXB7484sc
-	 r2q2j8j1dA3xQ==
+	b=UOO8BdqfHOGSnDnmAk7bl2jqttKyOo5yv0/UIrL63deETX4hjjkGs8Tnlp+9XIxnT
+	 zx30HBIeaHKPh2lez8dOfsWh48ht9h11X5y9nU2Jy9xxBSdAT9N1B3tdnztK5tqa+M
+	 DwyYcTttXu7Dc9fWAqRoNsiMnvzNoxxafxeR/af+IjpGE4fsfJPkUjcKNe0Whropba
+	 ffququtbTFxSAruJRn13q9DMUxZ5QZHjG4kihePI68yoW3zyNKPTzP7rfhN3xU3yih
+	 mP8Z9nXD1JlOKl3tgMjcJ4UKz+w3lQrTN7YAIKzJNEhyXCL5JvVig60Bw2uhLku2U+
+	 lf0Nl+xAwC72A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FB66C982D9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C4E4C982D2;
 	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:30 +0800
-Subject: [PATCH 15/21] media: i2c: it6625: use early returns in
- it6625_update_timings_if_changed()
+Date: Fri, 18 Sep 2026 16:57:29 +0800
+Subject: [PATCH 14/21] media: i2c: it6625: fix link-frequency reporting for
+ one-/two-trio C-PHY
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-15-78d72d7886a5@ite.com.tw>
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-14-78d72d7886a5@ite.com.tw>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -52,11 +52,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1398;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=2869;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=nhYLeOnWUfOr4p9kaFWjpJjBGZeXmu4xl/oIvvdqeOc=;
- b=pVtstrPUw4pFLakci5deW/zW81qVnHiqawNZYO6gByOeaIpB71m9q3FtnfSZy60RhvEFlEMfG
- kWtmxo6iHePDMlPA3aGscJHYw318ej/jcBQn1cJx6XgSJfcSljadHgO
+ bh=Glt5rCqFCDYbF0ZgrcqztJES4wgIaxcox5FrgQZ10+8=;
+ b=73roMt8CkxBrRlrslmG5oZj7S7/jyD2u1BiYkgxfhE29Zt2lvBj1Cb2nQd2C9NhxT0nnieF9s
+ tfvoeg1g4NtCzmNCepCs/kG40qR2/r3qE01b+4VZMFgep0TYyHZTY+a
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -66,49 +66,74 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Convert the if/else if/else chain that only ever assigns a single
-ret value to early returns. guard(mutex)(...) is scoped to the whole
-function body, so an early return still unlocks correctly.
+it6625_v4l2_init_controls() selected the 2.5 Gsym/s link-frequency
+menu entry for any C-PHY configuration, but it6625_get_timings_cap()
+only raises the DV-timings pixel-clock ceiling for three-trio C-PHY,
+matching the actually-tested hardware capability. A one-/two-trio
+C-PHY device was reporting an inflated V4L2_CID_LINK_FREQ.
+
+Split the shared two-entry array into two single-entry arrays and
+select between them with the same condition it6625_get_timings_cap()
+uses (bus_type == V4L2_MBUS_CSI2_CPHY && csi_lanes == 3; C-PHY is only
+ever set for IT6626, so this is equivalent to that function's chip-type
+check as well). Name them for what they actually cover rather than for
+a PHY type alone, since one-/two-trio C-PHY uses the low-rate array
+too, not a "D-PHY" array.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
+ drivers/media/i2c/it6625.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 882eda8b836d655585ba45b0a33d1c068bb3a8ee..db962bc100cad9f4d71fa4156b10ff5b4c952a7c 100644
+index 90b87dbf54fcfc7ad2a1245d4594beee24a193ca..882eda8b836d655585ba45b0a33d1c068bb3a8ee 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -1431,20 +1431,17 @@ static int
- it6625_update_timings_if_changed(struct it6625 *it6625,
- 				 const struct v4l2_dv_timings *timings)
+@@ -317,11 +317,18 @@ struct it6625 {
+ };
+ 
+ /*
+- * Index 0: D-PHY (4-lane). Index 1: C-PHY (3-trio) -- the confirmed
+- * hardware max C-PHY capability, tested single-port/three-trio.
++ * Reported link frequency for every topology except the reference
++ * exception below: D-PHY (any lane count) and one-/two-trio C-PHY.
+  */
+-static const s64 it6625_link_freq[] = {
++static const s64 it6625_link_freq_default[] = {
+ 	445500000,
++};
++
++/*
++ * IT6626 C-PHY, three trios: the confirmed hardware max C-PHY
++ * capability, tested single-port/three-trio.
++ */
++static const s64 it6626_cphy_3trio_link_freq[] = {
+ 	2500000000LL,
+ };
+ 
+@@ -1850,6 +1857,8 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
  {
--	int ret;
--
- 	guard(mutex)(&it6625->it6625_lock);
--	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false)) {
--		ret = 0;
--	} else if (!v4l2_valid_dv_timings(timings, it6625_get_timings_cap(it6625),
--					  NULL, NULL)) {
--		ret = -ERANGE;
--	} else {
--		it6625->timings = *timings;
--		ret = 1;
--	}
+ 	struct it6625 *it6625 = sd_to_6625(sd);
+ 	struct v4l2_ctrl_handler *hdl = &it6625->hdl;
++	bool cphy_3trio = it6625->bus_type == V4L2_MBUS_CSI2_CPHY &&
++			   it6625->csi_lanes == 3;
  
--	return ret;
-+	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false))
-+		return 0;
-+
-+	if (!v4l2_valid_dv_timings(timings, it6625_get_timings_cap(it6625), NULL, NULL))
-+		return -ERANGE;
-+
-+	it6625->timings = *timings;
-+
-+	return 1;
- }
- 
- static int it6625_enum_dv_timings(struct v4l2_subdev *sd,
+ 	v4l2_ctrl_handler_init(hdl, 4);
+ 	it6625->ctrl_5v_detect =
+@@ -1863,10 +1872,9 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
+ 	it6625->ctrl_audio_present =
+ 		v4l2_ctrl_new_custom(hdl, &it6625_ctrl_audio_present, NULL);
+ 	it6625->ctrl_link_freq =
+-		v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ,
+-				       ARRAY_SIZE(it6625_link_freq) - 1,
+-				       it6625->bus_type == V4L2_MBUS_CSI2_CPHY ? 1 : 0,
+-				       it6625_link_freq);
++		v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ, 0, 0,
++				       cphy_3trio ? it6626_cphy_3trio_link_freq :
++						    it6625_link_freq_default);
+ 	if (hdl->error) {
+ 		v4l2_err(sd, "Failed to initialize controls");
+ 		v4l2_ctrl_handler_free(hdl);
 
 -- 
 2.34.1
