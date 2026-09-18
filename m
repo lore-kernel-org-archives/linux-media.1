@@ -1,137 +1,137 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF7C514777
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 17:05:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B524052B5;
+	Fri, 18 Sep 2026 17:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789751131; cv=none; b=NQQFtr/zz787StHVc6VTIET4cbC14XwT2Stn/zzFURyyHhxIbiqkX/J6JHyZc+eZEL6FtoEAM6KhB0sMMk915TWeVnxrKGxZznWrm9tBUlrP6vo7Fl2U2eoLXSMIoqJO1kiPbK7T7dEjR9Vgnd2rT1I9F8qeLuDsPWUGix4aBpk=
+	t=1789751242; cv=none; b=Ukpo4e052OnY5ktqxvk9xXcZJ5kyIS7gC91lNaO3AT7LmmXrixmtNMV4nMT6Ot78dEyxQ88YnRicTZtHR/kT2jr9E198g8g7Lg7SH/HELaTnqmhrIjYGKK6NBNrfPN+kN+oyc+3U+1Ab8S0A1pbKbqyQ9nIieYAkMyMSKI3m0p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789751131; c=relaxed/simple;
-	bh=CJUtrnr9lbLTqP4H/g58GCIz+hH13m2n3S92AYR7A28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HFSkWnlwdTv5hMPexadgCfhuSVYxrI5RSAb+Slgg4Twx9VNYUjIq5tb+z1k0mVYnpj3lGQs65HHm++ZTvhXDlr79CcNPuzbD5IGEfDZSGfIfZt+yJT09RsSeHXDPXTHbdX4x6blbVIfQNkdQ70KUwb2mmqqWJxzw7Pf+lCJ0Aw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Zz16yMCv; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1789751242; c=relaxed/simple;
+	bh=Y6OrJwcqyHL60lTM3DMA24gGOWLdlxDTip5xo+/vHFE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WJ2KFb19+MTTPOMEOtrQfgcRG7QhAzLXaVFMW/lkDicMSNXqfRW8h08AIZb2gJYqVgWyIGwtCs+8lC6AXUd2drtbvCmZxaxQq03voz85iETFeJQfD+yNdqDAXfF+FUhzhQydwmi+iA2iuy2PZfhxL3ZXgIl7xvPUObEUVVYzme8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tRaSOTNv; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Zz16yMCv"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-939109fafd7so83344985a.2
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 10:05:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789751128; x=1790355928; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zQcyEtFjPBr6Six+ddaDb/CoGlSZSKi7ev20pm6BxlM=;
-        b=Zz16yMCvY0iYXnp4qSVkoFqfYheoD9f4m4mpImDpG1lBK5zjAXrDhEED+ZfgtMmKKb
-         jys1jwEN8feW5ojbOVgRO7XgWW2iy67XVyUkEePMk5Xq6LEVrQtxqWBns2aRZejZ6kJU
-         HZ3uRkD5CDOL6CSN2PRfm2xk3H9ERs6jPpBH6GG1MSBQXYB+kTGNA7u/HWhSBwG7Z8Zc
-         1GA+sGz6DLtPsTxDCzbUGJ/rXGjWsZvqLvGOJl6akUaZJu/X9tM8vqjyN91+zujqQvdc
-         QgrytW/wV/mz66H73GTtDWEYG7ooveG8Pea/yxI0TY3AjvDlYVkLOtJPGvN28tqX534d
-         oQLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789751128; x=1790355928;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zQcyEtFjPBr6Six+ddaDb/CoGlSZSKi7ev20pm6BxlM=;
-        b=oGm+mAwSULcdrHsHR5LBgxsSYpZNbX0ofG2BMnPnIrcldfdkTxXJEkLoKsIiOBhwfK
-         jGnED6n6QHOQHOtg3OHJNqAzEVDofEifj930PwLsi9+GpeLJxx6ls/nH/uSp+7hDrAMT
-         h4PlBnkHJ/I3/oGtjjqdGk/A1ou8rof78OA9VWDm+H/T9ZPvZzxmWZVAoYxAuhrjLUQw
-         YDK/Xu+O2bqNRc9HsRCnwGWEGcSHFzPCrH4EhNWk2ytmModbtDaV1/eeYh+OA0ZgWop3
-         bIJkpivJGZRELH1pyeRHrkA4ZX9WLdIt+POOMDnr9R/ZoO3WujYKsBPy1DebRCYQZ7Cg
-         ZqYw==
-X-Forwarded-Encrypted: i=1; AKwUvBx5928kKdMKxeUD5Ewvy8dOGwLjrupZ6Mhyu42dwfVyGPdptw4VDih8OVDFeOWgGmN1AmZfL/Znix0b1A==@vger.kernel.org
-X-Gm-Message-State: AFuF++kFntj/reOyZ4VPl+BMxPB9lnlchNSt0fEJ/axZlabn44gOAnsy
-	5UqBh9Tj8jXEn+zV5+xIN5aIn8MkZVZYYVyG+ghiIHRmpk8SOH3kmPgFzScHDiBhv1E=
-X-Gm-Gg: AYBFou0HpXI0cRLxg99rt8nYe0BZT2KvLe86HsI8+HUKRPrgn4M8DSo2Q11p5iiLqyR
-	vSjhP28Ssn1aQApb6m7l/XsnbtMRaKVfc9yXh7rm2L1eZ4B5cB9Plg44SwQxDjGvdBzase+sAb3
-	KIaBRtbhNbXJRXo6Z+n+T3kSr9SAWuY5hQsC2+HLfZ4YTRonBFbhSo0Rr580RFUcoQF8lcanzon
-	vMDgIsapDGT2OYpe5pb5Tlk20KsG0Zzv+Y7Q48hN0/QexlUAYe/51gFnnuTXD1EZD7y7s+oS2wy
-	2rK3PJYjRjmsl/i7C+kZn7G/9OFAvA7bEgDcIPKx+1CH901g6yMh++1i6+5E2FSoJ77/ZTKFt6X
-	UITm9u278u7Dui3bzifTzxMnJaO25cw/31uTwdPazCDTBxBJ8ut7lEj2fcR8FL6MkPixrXm4f8F
-	yggUSjuadR9dyLzOvc4qkL5ceiPdpJSf1mvUPmDcVdj6FBq3Ty2hsTNFfEeJqbYZMAGdc/YnLqI
-	2nRz6bBU1JXm8+pQNigTS42DP5URKoHCiW0lpHIWblWfjgzDlVNilMV
-X-Received: by 2002:a05:620a:440d:b0:93a:83d:1d26 with SMTP id af79cd13be357-93bdc6c7741mr490404585a.32.1789751128040;
-        Fri, 18 Sep 2026 10:05:28 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0cc67e6sm187224885a.5.2026.09.18.10.05.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 10:05:25 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x7c1c-00000001zVZ-3Nwz;
-	Fri, 18 Sep 2026 14:05:24 -0300
-Date: Fri, 18 Sep 2026 14:05:24 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260918170524.GH11599@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <20260918121500.GV13683@unreal>
- <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tRaSOTNv"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:e327:a298:3a5b:4b08])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 07DEB4E46;
+	Fri, 18 Sep 2026 19:05:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789751135;
+	bh=Y6OrJwcqyHL60lTM3DMA24gGOWLdlxDTip5xo+/vHFE=;
+	h=From:Subject:Date:To:Cc:From;
+	b=tRaSOTNvZYpOyEsBm8LIEnyTV19BTydEQgMun34UAl1Pj91xYwErE12//D2o9LgYv
+	 LGfrD0TZQRnZnh1XBVn8MwtNbqPbKhUDYrM8BiGFmbKA232XkuVjKhgiFc3zo8DM50
+	 I10H6bYQa9ZLMzyaKVDPuKT8pFa8/dgNpcWxtqPM=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Subject: [PATCH DNI v2 00/11] media: rcar-fcp, vsp1: Enable on R-Car X5H
+Date: Sat, 19 Sep 2026 02:06:57 +0900
+Message-Id: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALFvrWoC/43NQQ7CIBCF4asY1o4BrKW68h6mC8oMdhItBJTUN
+ L272BO4/N7if4vIlJiyuOwWkahw5jBV6P1OuNFOdwLGaqGlbuVZGaBo3w8oBo6QnIL5NELJEby
+ L0FmPNGjTSG9EDcREnuctfuurR86vkD7bV1G/9a9sUSChcUZjQ7JrEa+MZHOYhmATHlx4in5d1
+ y9sy0YJywAAAA==
+X-Change-ID: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
-> 
-> 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
-> path. Then Xe always sets up dma-addresses using dma_map_resource(). 
+This series is based on Geert's
+"topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
+branch including this series is available here [1].
 
-Open coding pci_p2pdma_distance() in drivers is a hack. Using
-dma_map_resource() like this was never "allowed".
+This series enables the FCPV{B,I,D} and the VSP{B,I,D} blocks on the Renesas
+R-Car X5H SoC.
 
-We've fixed things so these hacks are not needed, the drivers need to
-move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
-to use the DMA API correctly.
+This has been tested on an Ironhide with the vsp-tests test suite [2].
+VSPI:
+145 tests: 138 passed, 0 failed, 7 skipped
+VSPB:
+115 tests: 104 passed, 0 failed, 11 skipped
+VSPD (a):
+114 tests: 99 passed, 0 failed, 15 skipped
 
-> 1a) Let's say the importer (Xe) has ATS enabled, and the exporter is
-> supposed to map dma_addresses.
-> In between there is a switch that allows direct traffic.
-> Now with your patch series, How would the exporter know that Xe has ATS
-> enabled and therefore should return IOVA mappings rather than the BUS
-> addresses representing the shortcut.
+VSPD (b) hangs on the tests, so that needs some investigation.
 
-The thing that does the DMA map must be aware of what PCI TLPs the
-PCIe initiator will use to compute the proper P2P mapping mode.
+The first couple patches add clocks that are used by the FCP and VSP,
+but as the upstream X5H CPG driver is barebones at the moment and we
+don't yet ensure that the parents are enabled, these are marked as DNI
+for the moment.
 
-ATS always needs an IOVA but that still doesn't mean the P2P will
-work.
+The last patch checks the device revision and prints it, which is useful
+for debugging but is unnecessary processing for driver operation so it
+is marked as DNI as well.
 
-> It seems to me that a pci-device settable flag "ATS always enabled"
-> should be enough to fix both issues?
+There was some odd behavior with the clocks, where from what I
+understood was that the clocks for the FCPV{B,I} and VSP{B,I} are
+always-on, but the tests would hang unless I explicitly enabled...  the
+always-on clock (or fsleep). Then after I removed the patch that
+explicitly enabled the always-on clock everything ran fine. Just
+reporting that this happened just in case it's relevant.
 
-It should be be per-mapping to support the NIC workflow that isn't a
-global operation.
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
+[1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
+[2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
 
-Jason
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+---
+Changes in v2:
+- Add FCPVD and VSPD
+- Fixed author (I mistakenly overwrote a few when I renamed my email)
+- Link to v1: https://lore.kernel.org/r/20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com
+
+---
+Laurent Pinchart (4):
+      arm64: renesas: r8a78000: Add VSP[BI] nodes
+      media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
+      media: vsp1: Document X5H SoC ID
+      [DNI] media: rcar-fcp: Check device revision at probe time
+
+Paul Elder (7):
+      [DNI] dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
+      [DNI] clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
+      pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
+      arm64: renesas: r8a78000: Add FCPV[BI] nodes
+      arm64: renesas: r8a78000: Add FCPVD and VSPD nodes
+      media: vsp1: Add device info entries for VSPD on X5H
+      media: rcar-fcp: Handle resets
+
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 361 +++++++++++++++++++++++
+ drivers/clk/renesas/r8a78000-cpg.c               |   2 +
+ drivers/media/platform/renesas/rcar-fcp.c        | 158 +++++++++-
+ drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  35 ++-
+ drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   4 +-
+ drivers/pmdomain/renesas/r8a78000-mdlc.c         |  54 +++-
+ include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
+ 7 files changed, 601 insertions(+), 15 deletions(-)
+---
+base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
+change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+
+Best regards,
+-- 
+Paul Elder <paul.elder+renesas@ideasonboard.com>
+
