@@ -1,38 +1,38 @@
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
+Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D007449E5DD;
-	Fri, 18 Sep 2026 07:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E5031F9A4;
+	Fri, 18 Sep 2026 07:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715876; cv=none; b=l5t+5fSHmKHA28ZnXQtt8tCXC4Wm9fGLmId1+o05wllqr8Xpvvd+h4lKKSn1HbJGrJUpDVTv8bhm+c1W6Mi3Fny5R9eysfApF1N3qkzSGFGUIYga0tfyb8XR8sl2i+guqQkPDgr+WSGC0h7xfU26Avd9rIdLZ8oBTEaf2NixmAU=
+	t=1789716346; cv=none; b=Hig6rkIs6ma7C4XNxhUQ5s1ol+IbObiQyGmbDmRe0vJDNK5vEOpZVH/uGFzPdaVECYy61TZVJMbihF4icZBIwCCinuZ3w10jHyYYR4p7pPp8kRI0cAYjfpTII9myl/i3Cttic28cRuy1kfJDmtLFMCVKZJ4BGlgi9F3jbImcPco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715876; c=relaxed/simple;
-	bh=S3bIVRfda5fkskfXkh9GQnelODqlcdcd8goD0BFM/Rk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m/P7Tf0cGC3I9IKeFh+LGqbmu2fqPsxNrMmrcwtGfxa8JnOgAfqbr6wN04/eP5fmgLUJCYI6RkZrKz+50Cc+pf5tIXnIQHP6ZYLSvLIMAJzlSXVAR7yO5LuE7FaWwim6GNS9pMfJXz6hCZcFSN7ttS05G2tRm6iy4U0kGXkI1s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=UGeMK+2j; arc=none smtp.client-ip=115.124.28.170
+	s=arc-20240116; t=1789716346; c=relaxed/simple;
+	bh=yueMONiV/Cmb+liEi0wBSz7qlsE84Pw6JtOT63JQ0jg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4QDB5+O48XaJAUcS4S1dZyXSNSdqbvM0Ka6S6hpBvNeljlXj1qcZ8dX8o4HFpYfVc0dOoE11dVRXsbpRXvKVkcsgpcO1Y/XcGg8k/fR2WRBnrV6y03mw7s88FxxgzUVCQwEpDKlPFnloycJCBYiLk5mqo6rnQjDsWCDO+EHj1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=V3r7wrAE; arc=none smtp.client-ip=115.124.28.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="UGeMK+2j"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="V3r7wrAE"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1789715864; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Usux4PNoTA+p6I7UwsuKZwctgiV7/Cb0NtBJVtrFn+A=;
-	b=UGeMK+2jkF/ncnEVu8rzixN6lXHSRf7mJX6hwhpEywAD0Hd8M4OQ8/yX63u6XZHVh0pjiSEdCC5fgnam7v9BQ+efGqON+9uHR7XebgpH8txQfjFHJkzYNYIMrXSA5AmkngalbEBvc53JsRiCgDmr5I1g2B+UvzOGKcgj97clGiE=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07454181|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0864622-0.00212494-0.911413;FP=18308394796047918598|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGbyUxe_1789715863;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGbyUxe_1789715863 cluster:ay29)
+	t=1789716327; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=sll5laKba92JNQbjfcpaT+WqIaDeKOZTZ5DZL3y6kZ8=;
+	b=V3r7wrAESuw+ki2pNpr+cHvcJ/VxxTwqnS5uWa60gb1XBQbY7yMzeEaEhJfw4yj7x8CmAenu17Ix8UhB21+pNluFy2TLYZa49wkxcLdo1yChgRbF3ND58e/okXGC8IqPGB7V+npxWjWtq6Wk0swrM7Ip1eFd22HoJDVOZLmgr8Y=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438509|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0152483-0.000600922-0.984151;FP=16635866275147140262|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGhvVKy_1789716326;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGhvVKy_1789716326 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 15:17:44 +0800
+          Fri, 18 Sep 2026 15:25:26 +0800
 From: Guo Zihao <guozh23@xiaopeng.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] media: saa7146: bound the page table build against its size
-Date: Fri, 18 Sep 2026 15:17:43 +0800
-Message-ID: <20260918071743.2421975-1-guozh23@xiaopeng.com>
+Subject: [PATCH] media: cobalt: bound the dv timings to the descriptor buffers
+Date: Fri, 18 Sep 2026 15:25:26 +0800
+Message-ID: <20260918072526.2478529-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -42,112 +42,90 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-saa7146_pgtable_build_single() writes one entry per page of the DMA
-buffer into the page table, without checking that the table has room for
-them:
+media: cobalt: bound the dv timings to the descriptor buffers
 
-        ptr = pt->cpu;
-        for_each_sg_dma_page(list, &dma_iter, sglen, 0) {
-                *ptr++ = cpu_to_le32(sg_page_iter_dma_address(&dma_iter));
-                nr_pages++;
+The DMA descriptor buffers are sized from the maximum frame the driver
+supports:
+
+        const size_t max_pages_per_line =
+                (COBALT_MAX_WIDTH * COBALT_MAX_BPP) / PAGE_SIZE + 2;
+        const size_t bytes =
+                COBALT_MAX_HEIGHT * max_pages_per_line * 0x20;
+
+With COBALT_MAX_WIDTH 1920, COBALT_MAX_HEIGHT 1200 and COBALT_MAX_BPP 3
+that is 115200 bytes, or 3600 descriptors of 0x20 bytes each.
+
+cobalt_s_dv_timings() however records whatever the subdevice accepts
+without checking it against those maxima:
+
+        err = v4l2_subdev_call(s->sd, pad, s_dv_timings, 0, timings);
+        if (!err) {
+                s->timings = *timings;
+                s->width = timings->bt.width;
+                s->height = timings->bt.height;
+                s->stride = timings->bt.width * s->bpp;
         }
 
-        /* safety; fill the page table up with the last valid page */
-        fill = *(ptr-1);
-        for (i = nr_pages; i < 1024; i++)
-                *ptr++ = fill;
+descriptor_list_create() in cobalt-omnitek.c then walks the whole frame
+and writes one descriptor per scatterlist segment, with no upper bound of
+its own. An HDMI source at 4096x2160 with bpp 3 gives stride 12288 and
+size 26542080, which needs far more than the 3600 descriptors the buffer
+holds, so d[] walks off the end of the coherent allocation.
 
-The table is allocated by saa7146_pgtable_alloc(), which asks
-dma_alloc_coherent() for exactly PAGE_SIZE bytes and records the same
-size in pt->size:
+cobalt_try_fmt_vid_cap() and cobalt_try_fmt_vid_out() already cap width
+and height at 1920x1080, and this patch adds the same bound for the
+timings path plus a stride limit on the pixelformat path.
 
-        pt->size = PAGE_SIZE;
-
-That is 1024 __le32 entries, the number the fill loop already uses as a
-literal. Buffers larger than 1024 pages therefore write past the end of
-the coherent allocation, and the fill loop cannot compensate: by the
-time it runs, ptr has already moved past the end.
-
-The buffer size is reachable from userspace. vidioc_try_fmt_vid_cap()
-accepts any bytesperline below (2 * PAGE_SIZE * depth) / 8 and any height
-below the PAL/NTSC maximum, and derives sizeimage from them:
-
-        if (f->fmt.pix.bytesperline > (2 * PAGE_SIZE * fmt->depth) / 8)
-                f->fmt.pix.bytesperline = calc_bpl;
-
-        f->fmt.pix.sizeimage = f->fmt.pix.bytesperline * f->fmt.pix.height;
-
-With BGR32 (depth 32), bytesperline 32768 and height 576, sizeimage is
-18874368 bytes, or 4608 pages. queue_setup() hands that size to vb2, so
-a 4608 page buffer is allocated and the page table build writes 3584
-entries past its end.
-
-Reject a page table build that would not fit, and reject formats whose
-sizeimage cannot fit in the tables, so the format is refused at
-VIDIOC_S_FMT time rather than during buffer setup.
-
-No Fixes tag. The page table layout and the 1024 entry literal come from
-the original driver; b3b2dd372902 ("media: common: saa7146: use
-for_each_sg_dma_page") only reshaped the loop that fills them.
+No Fixes tag. The descriptor sizing and s_dv_timings() both come from the
+initial driver, 85756a069c55 ("[media] cobalt: add new driver").
 
 Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
 Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
-queue_setup() sets the entry count from sizeimage, so anything that
-passes vidioc_try_fmt_vid_cap() reaches the page table build through
-VIDIOC_REQBUFS and VIDIOC_QBUF. A capture application that asks for a
-large frame, or one that only sets bytesperline generously, is enough.
+The timings come from the subdevice, which for the HDMI inputs is the
+adv7604/adv7842 receiver, so connecting a source above 1080p is enough
+to reach this. That is an ordinary signal, not a crafted one.
 
-The check in saa7146_pgtable_build_single() is the backstop for paths
-that build a page table from a scatterlist without going through
-try_fmt, for example the overlay and VBI queues.
+The stride limit in cobalt_try_fmt_vid_cap() covers the path where
+bytesperline is chosen from userspace rather than derived from the
+timings.
 
- drivers/media/common/saa7146/saa7146_core.c  |  9 +++++++++
- drivers/media/common/saa7146/saa7146_video.c | 11 +++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/media/pci/cobalt/cobalt-v4l2.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/media/common/saa7146/saa7146_core.c b/drivers/media/common/saa7146/saa7146_core.c
-index c297d019f..dfbd4e40f 100644
---- a/drivers/media/common/saa7146/saa7146_core.c
-+++ b/drivers/media/common/saa7146/saa7146_core.c
-@@ -252,6 +252,15 @@ int saa7146_pgtable_build_single(struct pci_dev *pci, struct saa7146_pgtable *pt
+diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
+index 51fd9576c..32d967254 100644
+--- a/drivers/media/pci/cobalt/cobalt-v4l2.c
++++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
+@@ -630,6 +630,13 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+ 	if (vb2_is_busy(&s->q))
+ 		return -EBUSY;
  
- 	ptr = pt->cpu;
- 	for_each_sg_dma_page(list, &dma_iter, sglen, 0) {
-+		/*
-+		 * The page table is exactly PAGE_SIZE large, i.e. it holds
-+		 * PAGE_SIZE / sizeof(__le32) entries. Buffers needing more
-+		 * pages would overflow it.
-+		 */
-+		if (nr_pages >= PAGE_SIZE / sizeof(__le32)) {
-+			pr_err("page table too small\n");
-+			return -EIO;
-+		}
- 		*ptr++ = cpu_to_le32(sg_page_iter_dma_address(&dma_iter));
- 		nr_pages++;
- 	}
-diff --git a/drivers/media/common/saa7146/saa7146_video.c b/drivers/media/common/saa7146/saa7146_video.c
-index 733e18001..c895c90b1 100644
---- a/drivers/media/common/saa7146/saa7146_video.c
-+++ b/drivers/media/common/saa7146/saa7146_video.c
-@@ -410,6 +410,17 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *fh, struct v4l2_forma
- 		f->fmt.pix.bytesperline = calc_bpl;
- 
- 	f->fmt.pix.sizeimage = f->fmt.pix.bytesperline * f->fmt.pix.height;
-+
-+	/*
-+	 * The DMA page tables hold one entry per page and are exactly
-+	 * PAGE_SIZE large. Reject formats whose buffer would need more
-+	 * entries than the tables can hold.
-+	 */
-+	if (f->fmt.pix.sizeimage > PAGE_SIZE / sizeof(__le32) * PAGE_SIZE) {
-+		DEB_D("sizeimage %d too large\n", f->fmt.pix.sizeimage);
++	if (timings->bt.width > COBALT_MAX_WIDTH ||
++	    timings->bt.height > COBALT_MAX_HEIGHT) {
++		cobalt_info("timings %ux%u out of range\n",
++			    timings->bt.width, timings->bt.height);
 +		return -EINVAL;
 +	}
 +
- 	DEB_D("w:%d, h:%d, bytesperline:%d, sizeimage:%d\n",
- 	      f->fmt.pix.width, f->fmt.pix.height,
- 	      f->fmt.pix.bytesperline, f->fmt.pix.sizeimage);
+ 	err = v4l2_subdev_call(s->sd,
+ 			pad, s_dv_timings, 0, timings);
+ 	if (!err) {
+@@ -781,6 +788,14 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
+ 		break;
+ 	}
+ 
++	/*
++	 * The DMA descriptor buffers are sized for at most
++	 * COBALT_MAX_WIDTH x COBALT_MAX_HEIGHT, so limit the line stride
++	 * accordingly.
++	 */
++	if (pix->bytesperline > COBALT_MAX_WIDTH * COBALT_MAX_BPP)
++		pix->bytesperline = COBALT_MAX_WIDTH * COBALT_MAX_BPP;
++
+ 	pix->sizeimage = pix->bytesperline * pix->height;
+ 	pix->field = V4L2_FIELD_NONE;
+ 
 -- 
 2.50.1
 
