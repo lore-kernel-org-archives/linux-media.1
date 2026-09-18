@@ -1,201 +1,382 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A2E4F93D1;
-	Fri, 18 Sep 2026 13:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C484F4CF3;
+	Fri, 18 Sep 2026 13:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738428; cv=none; b=C/DlHPWs29Fk9jSyHMtDS0JYrMVPPQB7gTZ44UxwPFps92abzfejGY3H1wzvEvSfrkbxr2LEexTVAlrEETTQ0rIDY1eYjXSAO8cNv1Z6iXVr1UGX52HIi/PI7njvHWXIUlcg3Ts6PCKilfoAcPbRJkwZEMlhGcOr7ksS9aGjY0Y=
+	t=1789738965; cv=none; b=dF5MSMsiuFGhcUP+TTlxYvcu797fCi6hZqblrV4ZyH/pjdesEkU53Hi7Sg4yzzF1NTgMBotqgnXDOWHMUTY4kR0gMIbpxGQ6x+5Q7eiiypGzCQRHTDkN5u5ZjNAeVfuHRRhTHre/XRod8EQSksw1VJgl/sA0Uek8jYQJec0OzYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738428; c=relaxed/simple;
-	bh=82Mn9uZcABYJuJY9Ja/otiQ81SD5L074KXYkhdIuJ6I=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=c5Gmy+AJUX13j5mSiiQf/6taRQMakU0omPrgseKgEJpWx9tysnWzjylUxcnbMjWiNyFconW0h+UlF4lqCyomkAHd9gt2zxok+w7AkS52XgnYmV1weXtlI4/dXFdUr1UjnJAqZhxT1yhQJSaJEoJ3zkVS+N7nvKgxuZuF5wHhEEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=sSs1i0F9; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789738965; c=relaxed/simple;
+	bh=0oiHFMwARjeya69GcpvyV541pBNfoR0D+boudpmmdkc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=U5oXXZHWXi3T6hhodEV3axqiP2SKAa/JafxXKXQZ8LiHumpqkwKRsc3qO39osZW/lcscLEkUeFLgguijZci6E2/3mQj33lqDT11yBAf6ITlaVHHFBkY9NCmjozjHXFqSH/TlgvujJOFtKcoy3cO5YLqaQunEs/cLikLAr3q8D4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FzGRAyGZ; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="sSs1i0F9"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7AD234F05;
-	Fri, 18 Sep 2026 15:31:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789738313;
-	bh=82Mn9uZcABYJuJY9Ja/otiQ81SD5L074KXYkhdIuJ6I=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=sSs1i0F90LIHx/AZUsiKA+YnwsGpLmBo4KVoj+4PCYr811SKW5YYmJfzvEQ+leTOG
-	 VCaTQT21x5BR83STKDA30U4LByAcaDz/jNhdEjxPUk9zaNjq9ie6lUfcemA34CJvoF
-	 NZ/sE+F0CEFUVp37+OhHkPGXGNYIHHWb0YThntK4=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FzGRAyGZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789738962; x=1821274962;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=0oiHFMwARjeya69GcpvyV541pBNfoR0D+boudpmmdkc=;
+  b=FzGRAyGZT4dNMl9318MqJOyC6PavR9ICN8UEZG4lJhBJxY3LYdtCl+n1
+   DAYYLyOsvGP4EnOzELLsolRHGPcb4JElegPEMXIaqFIQBUryQl1LXoBfl
+   tppfx998Wu6cpyexOKV+IzYIyAbUUrqReBQDGnz9x88Q83gAq9vMiAdG/
+   o85LxoBticOuLgHMJBW9Wsha8ZHXogilca6C+r5ad1eQo8xEvkifDjjBe
+   gHFy5Apmpc9DDioj3o+EuUYWHL2/DHDx9Z+PpagXKQFPuFMOsQxzpy0qc
+   Q9hhlKr0RYkpEXZV4eo5Bw2XXyETEsyWxzmmX5vn0RhpG+I5wAZie+Lo1
+   g==;
+X-CSE-ConnectionGUID: w+VdLg4YSGOGeyTCPi0Y3g==
+X-CSE-MsgGUID: uoULOr0HQjC5e120A5NKuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="89176889"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="89176889"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:42:37 -0700
+X-CSE-ConnectionGUID: nlw35IBKQbaMx6YJ5XUK1g==
+X-CSE-MsgGUID: T2brE3rVRA+7nGvBdijE2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="2601666"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.247]) ([10.245.245.247])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:42:31 -0700
+Message-ID: <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
+ <logang@deltatee.com>,  Chaitanya Kulkarni	 <kch@nvidia.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe	 <axboe@kernel.dk>,
+ Alex Williamson <alex@shazbot.org>, Ankit Agrawal	 <ankita@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Jonathan Corbet	 <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, "Joerg Roedel (AMD)"	 <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>, Randy
+ Dunlap <rdunlap@infradead.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>,
+ linux-pci@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,  Tushar Dave
+ <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Date: Fri, 18 Sep 2026 15:42:28 +0200
+In-Reply-To: <20260918121500.GV13683@unreal>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+	 <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+	 <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+	 <20260918121500.GV13683@unreal>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260918132013.GG59058@killaraus.ideasonboard.com>
-References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com> <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com> <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk> <20260918132013.GG59058@killaraus.ideasonboard.com>
-Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media orientation definitions
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Jacopo Mondi <jacopo@jmondi.org>, Jimmy Su <jimmy.su@intel.com>, Jonathan Hunter <jonathanh@nvidia.com>, Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, Matthias Fend <matthias.fend@emfend.at>, Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Mikhail Rudenko <mike.rudenko@gmail.com>, Paul Elder <paul.elder@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Quentin Schulz <quentin.schulz@theobroma-systems.com>, Richard Acayan <mailingradian@gmail.com>, 
- Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sascha Hauer <s.hauer@pengutronix.de>, Svyatoslav Ryhel <clamor95@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Thierry Reding <thierry.reding@kernel.org>, Tommaso Merciai <tomm.merciai@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Date: Fri, 18 Sep 2026 14:33:34 +0100
-Message-ID: <178973841405.1723501.9051265194315500867@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
 
-Quoting Laurent Pinchart (2026-09-18 14:20:13)
-> On Fri, Sep 18, 2026 at 12:09:51PM +0100, Kieran Bingham wrote:
-> > Quoting Kieran Bingham (2026-09-18 11:44:14)
-> > > From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Hi,=C2=A0Leon,
+
+On Fri, 2026-09-18 at 15:15 +0300, Leon Romanovsky wrote:
+> On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellstr=C3=B6m wrote:
+> > Hi
+> >=20
+> > On Mon, 2026-09-14 at 14:22 +0300, Leon Romanovsky wrote:
+> > > From: Leon Romanovsky <leonro@nvidia.com>
 > > >=20
-> > > The orientation property for video interface devices now has definiti=
-ons
-> > > to prevent hardcoded integer values for the enum options.
+> > > mlx5_umem_needs_ats() enables ATS for any dma-buf whose caller
+> > > asked
+> > > for
+> > > Relaxed Ordering, on the assumption that a switch in the path has
+> > > CR,
+> > > RR
+> > > and DT all set. It also enables it for a buffer already mapped
+> > > with
+> > > the
+> > > peer's bus addresses, which are not translatable at all.
 > > >=20
-> > > Update the users throughout the qualcomm device trees to use the new
-> > > definitions.
+> > > P2PDMA has read the ACS controls, so ask it through
+> > > dma_buf_p2pdma_map_type(): enable ATS only where the path is not
+> > > routed
+> > > directly as it stands, but would be for a Translated Request
+> > > whose
+> > > Completions carry Relaxed Ordering. Exporters that name no
+> > > provider
+> > > keep
+> > > the old assumption, since their ACS settings remain hidden.
 > > >=20
-> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> > > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > > Reviewed-by: David Heidelberg <david@ixit.cz>
-> >=20
-> > Sashiko has noted that there is another new dts added in dts/qcom since
-> > I wrote this patch.
-> >=20
-> > I don't want to invalidate the above reviews by adding another change,
-> > so I will send the single update to the new file separately as the core
-> > definitions are already accepted now.
-> >=20
-> > If someone /really/ wants me to add the change to
-> > arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi in this patch,
-> > please let me know.
-> >=20
-> > it looks like this:
-> >=20
-> > ----------- arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi --=
----------
-> > index 945127dacc82..f86d3e0d51a6 100644
-> > @@ -3,10 +3,11 @@
-> >   * Copyright (c) 2022-2024 Jianhua Lu <lujianhua000@gmail.com>
-> >   */
-> >=20
-> >  #include <dt-bindings/arm/qcom,ids.h>
-> >  #include <dt-bindings/media/video-interfaces.h>
-> > +#include <dt-bindings/media/video-interface-devices.h>
-> >  #include <dt-bindings/phy/phy.h>
-> >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> >  #include <dt-bindings/usb/pd.h>
-> >  #include "sm8250.dtsi"
-> >  #include "pm8150.dtsi"
-> > @@ -571,11 +572,11 @@ camera_front: camera@10 {
-> >               reset-gpios =3D <&tlmm 109 GPIO_ACTIVE_LOW>;
-> >=20
-> >               pinctrl-0 =3D <&cam_mclk3_default &camera_front_active>;
-> >               pinctrl-names =3D "default";
-> >=20
-> > -             orientation =3D <0>; /* Front facing */
-> > +             orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> >               rotation =3D <270>;
-> >=20
-> >               port {
-> >                       ov8856_front_ep: endpoint {
-> >                               data-lanes =3D <1 2>;
->=20
-> I don't mind either way, and I think you can keep the existing R-b tags
-> if you add that hunk.
-
-As noticed by Thierry, it will also impact things depending on who
-applies this patch and where.
-
-It seems like the headers used appear in linux-next already now that
-Sakari has merged them, but this hunk won't apply on
-media-committers/next ... so I'll keep it separate until we can let the
-dust settle.
-
---
-Kieran
-
->=20
-> > > Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.co=
-m>
+> > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 > > > ---
-> > >  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
-> > >  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
-> > >  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
-> > >  3 files changed, 6 insertions(+), 3 deletions(-)
+> > > =C2=A0drivers/infiniband/hw/mlx5/mlx5_ib.h | 36 ++-------------------=
+-
+> > > ----
+> > > ------
+> > > =C2=A0drivers/infiniband/hw/mlx5/mr.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 40
+> > > ++++++++++++++++++++++++++++++++++++
+> > > =C2=A02 files changed, 42 insertions(+), 34 deletions(-)
 > > >=20
-> > > diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arc=
-h/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> > > index f41ad446a39e..e2b7f1bd05ab 100644
-> > > --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> > > +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> > > @@ -13,6 +13,7 @@
-> > >  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
-> > >  #include <dt-bindings/leds/common.h>
-> > >  #include <dt-bindings/media/video-interfaces.h>
-> > > +#include <dt-bindings/media/video-interface-devices.h>
-> > >  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> > >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> > >  #include <dt-bindings/sound/qcom,q6asm.h>
-> > > @@ -701,7 +702,7 @@ camera@10 {
-> > >                 pinctrl-0 =3D <&cam_mclk3_default>;
-> > >                 pinctrl-names =3D "default";
-> > > =20
-> > > -               orientation =3D <0>; /* Front facing */
-> > > +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> > >                 rotation =3D <270>;
-> > > =20
-> > >                 port {
-> > > diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.d=
-ts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> > > index 218573a97785..3b5f6a29e969 100644
-> > > --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> > > +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> > > @@ -11,6 +11,7 @@
-> > >  #include <dt-bindings/input/gpio-keys.h>
-> > >  #include <dt-bindings/input/input.h>
-> > >  #include <dt-bindings/leds/common.h>
-> > > +#include <dt-bindings/media/video-interface-devices.h>
-> > >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> > > =20
-> > >  #include "sc8280xp.dtsi"
-> > > @@ -683,7 +684,7 @@ camera@10 {
-> > > =20
-> > >                 clocks =3D <&camcc CAMCC_MCLK3_CLK>;
-> > > =20
-> > > -               orientation =3D <0>;      /* Front facing */
-> > > +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> > > =20
-> > >                 avdd-supply =3D <&vreg_l6q>;
-> > >                 dvdd-supply =3D <&vreg_l2q>;
-> > > diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arc=
-h/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> > > index b4854801a5f5..7880d85b52fe 100644
-> > > --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> > > +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> > > @@ -9,6 +9,7 @@
-> > >  #include <dt-bindings/gpio/gpio.h>
-> > >  #include <dt-bindings/input/input.h>
-> > >  #include <dt-bindings/leds/common.h>
-> > > +#include <dt-bindings/media/video-interface-devices.h>
-> > >  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> > >  #include <dt-bindings/power/qcom-rpmpd.h>
-> > >  #include "sdm670.dtsi"
-> > > @@ -460,7 +461,7 @@ camera@1a {
-> > >                 pinctrl-names =3D "default";
-> > > =20
-> > >                 rotation =3D <270>;
-> > > -               orientation =3D <0>;
-> > > +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> > > =20
-> > >                 port {
-> > >                         cam_front_endpoint: endpoint {
-> > >=20
+> > > diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > > b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > > index e9ddf2e97a76..ab32742b2180 100644
+> > > --- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > > +++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > > @@ -1646,40 +1646,8 @@ static inline bool rt_supported(int
+> > > ts_cap)
+> > > =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ts_cap =3D=3D
+> > > MLX5_TIMESTAMP_FORMAT_CAP_FREE_RUNNING_AND_REAL_TIME;
+> > > =C2=A0}
+> > > =C2=A0
+> > > -/*
+> > > - * PCI Peer to Peer is a trainwreck. If no switch is present
+> > > then
+> > > things
+> > > - * sometimes work, depending on the pci_distance_p2p logic for
+> > > excluding broken
+> > > - * root complexes. However if a switch is present in the path,
+> > > then
+> > > things get
+> > > - * really ugly depending on how the switch is setup. This table
+> > > assumes that the
+> > > - * root complex is strict and is validating that all req/reps
+> > > are
+> > > matches
+> > > - * perfectly - so any scenario where it sees only half the
+> > > transaction is a
+> > > - * failure.
+> > > - *
+> > > - * CR/RR/DT=C2=A0 ATS RO P2P
+> > > - * 00X=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X=C2=A0=C2=A0 X=C2=A0 OK
+> > > - * 010=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X=C2=A0=C2=A0 X=C2=A0 fai=
+ls (request is routed to root but root
+> > > never
+> > > sees comp)
+> > > - * 011=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 X=C2=A0 fai=
+ls (request is routed to root but root
+> > > never
+> > > sees comp)
+> > > - * 011=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1=C2=A0=C2=A0 X=C2=A0 OK
+> > > - * 10X=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X=C2=A0=C2=A0 1=C2=A0 OK
+> > > - * 101=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X=C2=A0=C2=A0 0=C2=A0 fai=
+ls (completion is routed to root but root
+> > > didn't see req)
+> > > - * 110=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X=C2=A0=C2=A0 0=C2=A0 SLO=
+W
+> > > - * 111=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 0=C2=A0 SLO=
+W
+> > > - * 111=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1=C2=A0=C2=A0 0=C2=A0 fai=
+ls (completion is routed to root but root
+> > > didn't see req)
+> > > - * 111=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1=C2=A0=C2=A0 1=C2=A0 OK
+> > > - *
+> > > - * Unfortunately we cannot reliably know if a switch is present
+> > > or
+> > > what the
+> > > - * CR/RR/DT ACS settings are, as in a VM that is all hidden.
+> > > Assume
+> > > that
+> > > - * CR/RR/DT is 111 if the ATS cap is enabled and follow the last
+> > > three rows.
+> > > - *
+> > > - * For now assume if the umem is a dma_buf then it is P2P.
+> > > - */
+> > > -static inline bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev,
+> > > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ib_umem *umem, int
+> > > access_flags)
+> > > -{
+> > > -	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+> > > -		return false;
+> > > -	return access_flags & IB_ACCESS_RELAXED_ORDERING;
+> > > -}
+> > > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
+> > > *umem,
+> > > +			 int access_flags);
+> > > =C2=A0
+> > > =C2=A0int set_roce_addr(struct mlx5_ib_dev *dev, u32 port_num,
+> > > =C2=A0		=C2=A0 unsigned int index, const union ib_gid *gid,
+> > > diff --git a/drivers/infiniband/hw/mlx5/mr.c
+> > > b/drivers/infiniband/hw/mlx5/mr.c
+> > > index 00e13028762a..286f372e5b0c 100644
+> > > --- a/drivers/infiniband/hw/mlx5/mr.c
+> > > +++ b/drivers/infiniband/hw/mlx5/mr.c
+> > > @@ -38,6 +38,7 @@
+> > > =C2=A0#include <linux/export.h>
+> > > =C2=A0#include <linux/delay.h>
+> > > =C2=A0#include <linux/dma-buf.h>
+> > > +#include <linux/dma-buf-mapping.h>
+> > > =C2=A0#include <linux/dma-resv.h>
+> > > =C2=A0#include <rdma/frmr_pools.h>
+> > > =C2=A0#include <rdma/ib_umem_odp.h>
+> > > @@ -47,6 +48,45 @@
+> > > =C2=A0#include "data_direct.h"
+> > > =C2=A0#include "dmah.h"
+> > > =C2=A0
+> > > +MODULE_IMPORT_NS("DMA_BUF");
+> > > +
+> > > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
+> > > *umem,
+> > > +			 int access_flags)
+> > > +{
+> > > +	struct dma_buf_attachment *attach;
+> > > +
+> > > +	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+> > > +		return false;
+> > > +
+> > > +	/*
+> > > +	 * The Completer decides whether its Completions carry
+> > > Relaxed
+> > > +	 * Ordering, and only a Request that asked for it can
+> > > expect
+> > > them to.
+> > > +	 */
+> > > +	if (!(access_flags & IB_ACCESS_RELAXED_ORDERING))
+> > > +		return false;
+> > > +
+> > > +	attach =3D to_ib_umem_dmabuf(umem)->attach;
+> > > +	switch (dma_buf_p2pdma_map_type(attach, 0)) {
+> > > +	case PCI_P2PDMA_MAP_NONE:
+> > > +		/* Nothing is known about the route, so fall
+> > > back to
+> > > the bet. */
+> > > +		return true;
+> > > +	case PCI_P2PDMA_MAP_BUS_ADDR:
+> > > +		/*
+> > > +		 * The path is routed directly already and is
+> > > programmed with
+> > > +		 * the peer's bus addresses. Those are not
+> > > translatable, so
+> > > +		 * ATS would be wrong as well as pointless.
+> > > +		 */
+> > > +		return false;
+> > > +	default:
+> > > +		break;
+> > > +	}
+> > > +
+> > > +	return dma_buf_p2pdma_map_type(attach,
+> > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PCI_P2PDMA_TLP_TRANSLATED
+> > > |
+> > > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > PCI_P2PDMA_TLP_RELAXED_CPL) =3D=3D
+> > > +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PCI_P2PDMA_MAP_BUS_ADDR;
+> > > +}
+> > > +
+> >=20
+> > It looks like this works well when the device can choose whether to
+> > enable ATS per transaction.=20
+> >=20
+> > However, at least for the Intel GPUs, ATS enablement is based on
+> > the
+> > PCIe-side enable bit.
+> >=20
+> > This means that if p2pdma tells the dma-mapping layer to give an Xe
+> > device a bus address rather than an IOVA, things break, while
+> > pci_p2pdma_distance says everything is OK.
+> >=20
+> > It looks like the infrastructure and solution added in this series
+> > is
+> > targeted at fixing this on the device side by conditionally
+> > enabling
+> > ATS. However I think we need to look also at having the computed
+> > routing assume untranslated transactions using IOVA rather than bus
+> > address.
+> >=20
+> > That is, a flag to tell the topology check that some transactions
+> > *will* take the host-bridge path due to IOVA being used, and that
+> > the
+> > computations including pci_p2pdma_distance() need to check whether
+> > that
+> > is possible (checking whitelist etc.) and return the corresponding
+> > THRU_HOST_BRIDGE mapping type. Translated transactions taking a
+> > short-
+> > cut using the bus-address would then be hidden from the driver.
 >=20
-> --=20
-> Regards,
+> The word *will* puzzles me. As I understand it, if your device has
+> ATS
+> enabled all the time, it should always get THRU_HOST_BRIDGE.
 >=20
-> Laurent Pinchart
+> In the mlx5 case, we can enable or disable ATS on the fly, but what
+> does a
+> device with ATS enabled globally do for different mapping types? Do
+> you
+> simply not use dma_buf_p2pdma_map_type() at all and continue to
+> operate
+> as is?
+>=20
+> I asked some questions my AI tool about XE:
+> ---------------------------------------------------------------------
+> ---------------------------
+> Xe needs THRU_HOST_BRIDGE even with ATS completely disabled.
+> xe_ttm_vram_mgr_alloc_sgt()
+> maps VRAM with dma_map_resource() unconditionally
+> (xe_ttm_vram_mgr.c:450) =E2=80=94 an IOVA under
+> an IOMMU, never a bus address, with no ATS involvement at all. ATS
+> only adds the possibility
+> that some of that traffic short-cuts invisibly. The actual
+> requirement is =E2=80=9Cthis caller cannot
+> program bus addresses=E2=80=9D, which is true of Xe regardless of the ATS
+> Enable bit.
+> ---------------------------------------------------------------------
+> ----------------------------
+>=20
+> Could you please clarify what the expected behavior is here? My
+> series
+> does not change the existing behavior; it only reports the routing
+> more
+> clearly for each TLP class.
+>=20
+> Thanks
+
+So the *current* concerns are these (assuming I haven't misunderstood
+the code).
+
+1) Xe attachment check if pci_p2pdma_distance() returns OK for the
+path. Then Xe always sets up dma-addresses using dma_map_resource(). If
+IOMMU is enabled, that's always the IOMMU VAs. But if the host bridge
+is not whitelisted, and pci_p2pdma_distance() has found a shortcut that
+works using BUS_ADDR, then p2pdma is incorrectly enabled, and will be
+routed using a non-supporting host bridge.
+
+2) If an ATS on/off device (outside of dma-buf) were to map ZONE_DEVICE
+pci_p2pdma pages using dma_map_sgtable(), then again the dma addresses
+returned may be BUS_ADDR addresses, if the topology check finds a
+direct path. But if ATS is on, then this also breaks down.
+
+Now after your patch series, I tried to set up a patch for xe and ran
+into the following:
+
+1a) Let's say the importer (Xe) has ATS enabled, and the exporter is
+supposed to map dma_addresses.
+In between there is a switch that allows direct traffic.
+Now with your patch series, How would the exporter know that Xe has ATS
+enabled and therefore should return IOVA mappings rather than the BUS
+addresses representing the shortcut.
+
+2a) Does your patch series resolve that potential issue?
+
+It seems to me that a pci-device settable flag "ATS always enabled"
+should be enough to fix both issues?
+
+Thanks,
+Thomas
+
+
+>=20
+> >=20
+> > Whether that is best done as a parameter to these functions or
+> > perhaps
+> > as a flag in the PCI device, I'm not sure.
+> >=20
+> > Thanks,
+> > Thomas
+> >=20
+> >=20
+> >=20
+> >=20
+> > > =C2=A0static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
+> > > =C2=A0{
+> > > =C2=A0	if (MLX5_CAP_GEN(dev->mdev,
+> > > umr_extended_translation_offset))
