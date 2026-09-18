@@ -1,125 +1,213 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9700351CF4C;
-	Fri, 18 Sep 2026 20:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D4842885A
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 20:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764859; cv=none; b=NK5R8/TQ94+zt3RjvYvHnfZTmgEKTiXPNmVm86of4iv7IXzp706ldPaoXy4tRu5rFVqYWgkmMbotMFHJUOGqrZoLUywzt3aNkdROcgLLYc0Fh/3DVTZglW5PC0wd4M/k9gWmFxQmE7Y+TSdtkoVs7YuOudZj+x1bCOZH0EETSr0=
+	t=1789765002; cv=none; b=d4CdqlMs1/PPoX/wZvIiINhgLMZK4NLghWvwTDK2IHmE2/0/r0p0ny5fSbItihZKjYQd2+AoqPBDmqty26WimsTm3eMsXm/qm0ZrJtHyA8E4uPbZWet51cnjfy5OLbmfi5ZDs8EF874mpxO8p3w2YLsbMmdJydgZCqbVVtgiLDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764859; c=relaxed/simple;
-	bh=X12mV0iQNA8wD1Jzhx/1YBoYJPHdHf0r9UY86zeKS8Y=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=OON3/0zhZ/P8zMk6CuVdONtYou4jin0Z1O23ikIysPxpzL2YqfYVZLvSfPJnoTfL9liKS81fPXoNQx/KRX0yftQaC58ywOBZfbb40VkDUMOtKEgu8j0rHWkZ4kvxHN3p8AzRA/GE84mIgBHfnrVEewnBrzCstxPTNSvK2Ah/Yco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=LpbRADbv; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1789765002; c=relaxed/simple;
+	bh=UcF+ymJPY2ByG+ja5cUVPdvuZ6GfcFoG4+fBkuNBLkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UYeC4TPU7/RDGJHQmqTWcokdvlwyBg21fTfltl59jpsaXMI9CGjLtWe4AzgZAmVSOryOkktK2E66VTrP29Ark2Z6hQPmG8xzzKmMby5ePXJj7xRn4GFYsV6OYmai4jXtTztDXUb6Ul2neNvWyHKdQpAryFmO4RrMr70Jnqi9To8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FmcqE4Lc; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="LpbRADbv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=+EF6n2UXLQQ4v0vXMKg6Y5r9VaSza1T1e5xKD84icBs=; b=LpbRADbvXs4zcm1gcSJ/IPKA2+
-	8pCG8wQ4vU8xEayNsVIpQtVu2w1Nwg8LQd8duRi1DwAYGFnU0hvPEmG/rSpADy6Q7ZFKWjoJqGXdm
-	rcW8Ccio2xDGOgAp727lrKANRiUkgh47M0eGk0Ugelg5fR3CnP1/jOy7webBXflq5xov3dWxDVVfo
-	NbFqrA/HTjijqZZSECvbpTznw/Jy3lDNQMbZieByyOlbKXY8+dcnCMfxRPIvhz2K1G5dk+iBhIL5p
-	kCAslwv0+dLXAceOJ1kdAYJkC9/Ehq3eceNcR5oJozk6F94tPoFARUO0qwHeNnrsF1XSTvzRiRK3u
-	G+mX4C+A==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x7fam-0000000Csdo-14eH;
-	Fri, 18 Sep 2026 14:54:14 -0600
-Message-ID: <43948cef-5a40-4ff3-8dd5-081d203f6b42@deltatee.com>
-Date: Fri, 18 Sep 2026 14:53:44 -0600
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FmcqE4Lc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789765000; x=1821301000;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UcF+ymJPY2ByG+ja5cUVPdvuZ6GfcFoG4+fBkuNBLkU=;
+  b=FmcqE4Lceye37CROaYtI55srDP2CSlJ55QKwgT9FeAvTXhGDPd0DNOfP
+   EI0sRuADSZcrkP7cUjK2x7byBK0CCmx/UnSRo6hZhxUQs2DVB0V7EVjv0
+   cFmiGeqsTOttiGCtCOkMfSTYvka4kCd5LboqGs1bv86woLEjDEiY1g79A
+   bgq2qshgBwh5VCUayXAFw0KtF0JC7AhI0r+e9LK+3ZID3sO0OndLFxcNE
+   A1u1rPLv0pGVbxJdnvh56xU3f/xCNPso4m6fNxbWAM5SCVD5F8+KVbep4
+   xbBiiTKCvL3VifWm5DSdfDW71Xl/tixgJaRpwJU7Fb1+6WN5x57q44gRS
+   Q==;
+X-CSE-ConnectionGUID: gMOrYgTTRIOFJkkKrTLpfw==
+X-CSE-MsgGUID: mtrBUCXtQJ65HjxOd3PdnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100963491"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="100963491"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 13:56:39 -0700
+X-CSE-ConnectionGUID: Rg+Zwkl8T3yfdb17kpQ0KQ==
+X-CSE-MsgGUID: cF6eGbk4RpWSb1RKgaBRCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="271923681"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.25])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 13:56:37 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3A3FE11F86A;
+	Fri, 18 Sep 2026 23:56:34 +0300 (EEST)
+Date: Fri, 18 Sep 2026 23:56:34 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Nicola Fiorillo <nicfio@gmail.com>
+Cc: linux-media@vger.kernel.org, dongcheng.yan@intel.com,
+	mehdi.djait@linux.intel.com, ong.hock.yu@intel.com,
+	khai.wen.ng@intel.com, antti.laakso@linux.intel.com,
+	manik.bajpai@intel.com, divyamani.tripathi@intel.com
+Subject: Re: [PATCH v2 09/21] media: ipu6: Start streaming once all streams
+ have started, stop when not
+Message-ID: <aq2lgsHkhCYuzInV@kekkonen.localdomain>
+References: <20260917113923.59004-1-sakari.ailus@linux.intel.com>
+ <20260917113923.59004-10-sakari.ailus@linux.intel.com>
+ <178971697984.34231.15295000197727096742@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-6-5ef07ec9ef06@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-6-5ef07ec9ef06@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v6 06/18] PCI/P2PDMA: Document directional ACS routing
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178971697984.34231.15295000197727096742@gmail.com>
 
+Hi Nicola,
 
+Thank you for the review.
 
-On 2026-09-14 05:22, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
+On Fri, Sep 18, 2026 at 09:36:19AM +0200, Nicola Fiorillo wrote:
+> Hi Sakari,
 > 
-> P2PDMA documentation describes ACS controls as path-wide, although Request
-> and Completion controls apply to different transaction directions and only
-> affect peer-versus-upstream decisions at the path divergence.
+> On Thu, Sep 17, 2026 at 02:39:11PM +0300, Sakari Ailus wrote:
+> > +static bool ipu6_isys_csi2_streaming_change(struct ipu6_isys_subdev *asd,
+> > +					    struct v4l2_subdev_state *state,
+> > +					    u32 pad, u8 *vc, bool enable)
 > 
-> Document the fixed client and provider roles, the divergence port checked
-> for each TLP direction, and the conservative handling of unreadable ACS
-> state. Clarify which controls disable_acs_redir changes.
+> Four things in this function, all found by reading it. I cannot build or
+> test a kernel at the moment, so please take this as review and nothing
+> more; none of it is reproduced on hardware.
 > 
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
->  Documentation/admin-guide/kernel-parameters.txt |  9 +++++----
->  Documentation/driver-api/pci/p2pdma.rst         | 13 +++++++++++++
->  2 files changed, 18 insertions(+), 4 deletions(-)
+> 1) The error return does not fit the return type.
 > 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 68647ff4bdd2..43a25f3f94fd 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5291,10 +5291,11 @@ Kernel parameters
->  		disable_acs_redir=<pci_dev>[; ...]
->  				Specify one or more PCI devices (in the format
->  				specified above) separated by semicolons.
-> -				Each device specified will have the PCI ACS
-> -				redirect capabilities forced off which will
-> -				allow P2P traffic between devices through
-> -				bridges without forcing it upstream. Note:
-> +				Each device specified will have the PCI ACS P2P
-> +				Request Redirect, Completion Redirect, and Egress
-> +				Control features forced off. This may allow P2P
-> +				traffic through bridges that would otherwise be
-> +				redirected upstream. Note:
->  				this removes isolation between devices and
->  				may put more devices in an IOMMU group.
+> > +	ret = v4l2_subdev_call(remote_sd, pad, get_frame_desc,
+> > +			       remote_pad->index, &desc);
+> > +	if (ret)
+> > +		return ret;
+> 
+> The function returns bool, so a negative errno from get_frame_desc()
+> becomes true, and both callers read true as "go ahead and change the
+> streaming state". In ipu6_isys_csi2_enable_streams() that starts the
 
-Seems like the new sentence and the following existing note are saying
-very similar things. Maybe we could drop the 'Note' and say something like:
+Right; this needs to be reworked a little. I'll switch the return type to
+int, I probably chose bool before I realised error handling was actually
+required.
 
+> firmware stream and then runs
+> 
+> 	csi2->streaming_vc |= BIT(vc);
+> 
+> with vc still uninitialised: *vc is assigned only at the end of the
+> function, past this early return. ipu6_isys_csi2_disable_streams() does
+> the mirror of it with &= ~BIT(vc). The two "return false" exits are
+> fine, they make the caller skip the change; only this one carries a
+> value.
 
-"This may allow P2P traffic through bridges that would otherwise be
-redirected upstream and thus this removes isolation between devices and
-may cause affected devices to share an IOMMU group."
+vc is actually set if all goes well, so this is related to error handling.
 
+> 
+> 2) media_pad_remote_pad_unique() never returns NULL, so the guard below
+>    it is dead code.
 
-Besides that minor nit:
+Indeed. This is where others have tripped, too. I'll fix this for v3.
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+I think I'll just switch to media_pad_remote_pad_first() as there's just a
+single one. The check also can be removed as the MUST_CONNECT pad flag
+guarantees there's an enabled link there. Let's see what smatch says...
 
+> 
+> > +		struct media_pad *video_pad =
+> > +			media_pad_remote_pad_unique(&asd->sd.entity.pads[route->source_pad]);
+> > +		struct ipu6_isys_video *av = !video_pad ? NULL :
+> > +			container_of_const(video_pad,
+> > +					   struct ipu6_isys_video, pad);
+> > +
+> > +		if (!av) {
+> 
+> It returns ERR_PTR(-ENOLINK) when no enabled link is found and
+> ERR_PTR(-ENOTUNIQ) when there is more than one. !video_pad is therefore
+> never true, the dev_dbg() below is unreachable, and the error pointer
+> goes into container_of_const() instead -- where av->streaming, a few
+> lines further down, dereferences it.
+> 
+> IS_ERR() is what the check wants. This same file already does it that
+> way, in ipu6_isys_csi2_get_link_freq():
+> 
+> 	src_pad = media_pad_remote_pad_unique(...);
+> 	if (IS_ERR(src_pad)) {
+> 		dev_err(&csi2->isys->adev->auxdev.dev,
+> 			"can't get source pad of %s (%pe)\n",
+> 			csi2->asd.sd.name, src_pad);
+> 		return PTR_ERR(src_pad);
+> 	}
+> 
+> 3) The lookup on the sink pad, higher up in the same function, has no
+>    check at all:
+> 
+> > +	struct media_pad *remote_pad =
+> > +		media_pad_remote_pad_unique(&asd->sd.entity.pads[this_route->sink_pad]);
+> > +	struct v4l2_subdev *remote_sd =
+> > +		media_entity_to_v4l2_subdev(remote_pad->entity);
+> 
+> remote_pad->entity is read immediately, so the same error pointer is
+> dereferenced here, with no guard to correct.
 
+Also the MUST_CONNECT pad flag is set for the video device's pad. I'll
+switch to media_pad_remote_pad_first() also here.
+
+> 
+> 4) Unless I am misreading it, the inner lookup in the loop does not
+>    depend on the loop variable:
+> 
+> > +	for_each_active_route(&state->routing, route) {
+> > +		struct v4l2_mbus_frame_desc_entry *entry = NULL;
+> > +
+> > +		for (unsigned int i = 0; i < desc.num_entries; i++) {
+> > +			if (desc.entry[i].stream == this_entry->stream) {
+> > +				entry = &desc.entry[i];
+> > +				break;
+> > +			}
+> > +		}
+> > +
+> > +		if (entry->bus.csi2.vc != this_entry->bus.csi2.vc)
+> > +			continue;
+> 
+> The search key is this_entry->stream, which does not change across
+> iterations, so entry always ends up as this_entry itself and the vc
+> comparison can never differ. The "continue" is never taken and every
+> active route is counted, whatever its virtual channel. Going by the
+> commit message, the key here was meant to be route->sink_stream.
+
+Yes, the frame descriptor entries' streams was compared with wrong stream,
+this needs to come from routing instead. There's also a check missing above
+that an entry is actually found.
+
+> 
+> Finally, a note rather than a request. After the whole series,
+> ipu6_isys_csi2_enable_streams() and ipu6_isys_csi2_disable_streams()
+> still call media_pad_remote_pad_first() on the sink pad and dereference
+> the result unchecked -- and that one does return NULL. It is what my
+> [PATCH v2 1/3] touched. I have dropped that patch and I am not
+> reopening the question of the scenario behind it; I mention it only
+> because if the checks in 2) and 3) go in, that pointer is sitting right
+> next to them.
+
+I guess there are two things to consider here: 1) whether that pointer can
+be NULL in the circumstances of this driver (shouldn't be) and 2) whether
+static analysers are smart enough to determine the pointer cannot be NULL
+(or that there's a bug and we've missed it's actually possible).
+
+I'll reply to the framework patch separately.
+
+-- 
+Kind regards,
+
+Sakari Ailus
