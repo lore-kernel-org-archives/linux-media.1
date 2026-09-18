@@ -1,129 +1,185 @@
-Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913494E36D2;
-	Fri, 18 Sep 2026 11:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F16843A81A;
+	Fri, 18 Sep 2026 11:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729579; cv=none; b=n/y6WZJdhlizUBI40AUEjvjnf0ypMlYl2GEFnDjybMNSfZhD9G02is34S+3n2p0XDNPL46bnc7+HkpyUS2EiMu1LVev/ifwtcYDAtcU7t1esOvXXxQqIQzZqpIpm49ae3ey1l8coja9vsyrjP/1OZzrt3glgnYQfTJI5AiAhBt0=
+	t=1789729800; cv=none; b=exG9LtiuFjBdmLX7+K0Yqlpik5M3rKUKtlOm+Q0V4+ycraQUhG8GiXOYjaGR10PNetJ8jzgcVd6BccIDjZAla43x/5DzNA9bDdzk6Zdl4tby7/+xDtQ0TpGehTSAPS5WDRFoBZa56nMROWvVkdLCsE09GrIMpojgOCDoK2YMFTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729579; c=relaxed/simple;
-	bh=OIJ/fdYmnkAjxvICv2DhvOC1qAPdBabjJ0a4nvAYuDY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=lXRrsXO68zGEC14MnAawJwgh8Bk4GjSB34vLqFOuGVNYDFZomHq4BX16N/OuXJwatGvEsxWOUZhmc9ukPVHiPvBZetwRFpZ20WSPlaAKd+hJ9bEKLqk+ZqQv1b/UojUBT+uGMUoFGNeHk4whMf6uKPGx5QnUJbS1aKRnQBZUSYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=Sn3QUKW1; arc=none smtp.client-ip=219.87.157.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789729800; c=relaxed/simple;
+	bh=pd+OS3tBP8CJ9F0+if3g0L9XTiTjKyDAlPFk7sYS0Cg=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=cgfcFJ9RjRbtnyxrL0qZ1JlMxeIPYy3330KnB3DtTGRVLJcnA+ga71QD811Y/ZLYUywfnQ7Fn/sfv5bAHERFQGCRmB9GNiNTWezJvRlPWwvq6FzuEdeQvUkC8425sHVSY3zAVT9rwG81bbk1pvY1SWSa4i50I/zAAAdxZSxny5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jxOa3RnE reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="Sn3QUKW1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=OIJ/fdYmnkAjxvICv2DhvOC1qAPdBabjJ0a4nvAYuDY=;
-  b=Sn3QUKW1B94HLRtNfM63QsDcvE3XnoN9wcvuXF73Z6a9qZwhrCSPUVR8
-   lnrbuyQFEGRnCM4OpwRbJH+OOe/+KNxQ8AC8UwBQlJpJ1C5uJC3t0GRC8
-   iMDu3R1rwIGgwOgA5IWvkmrO6p7kLBPUZOSgYT68p8VKf3IaQy3XL/1o9
-   g2z4LCFYzOxBVrW1aFCyfOgS1navJT+rMTOpv5l7UhRDQHbVaFU5rb+A5
-   wzR48+PtHQJ1Yf4Ygzlmb1/UhitTXZ/K2RytpXy1TGX2d/hvPuTp/arhg
-   n+WbmC1JKqlAyBBqDZiRZ8EiX22UHC5KJfodPfn7IYCGs/TsffsFKSTvk
-   g==;
-X-CSE-ConnectionGUID: Rwp5urkkQgCy7lS/mkqv1Q==
-X-CSE-MsgGUID: zd0HlQt0R52/Zh+zrCh03w==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 19:06:02 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 68IB60j0025803;
-	Fri, 18 Sep 2026 19:06:00 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 18 Sep 2026 19:05:59 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Fri, 18 Sep 2026 19:05:59 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <sakari.ailus@linux.intel.com>
-CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 02/21] media: i2c: it6625: propagate control-update errors
-Thread-Topic: [PATCH 02/21] media: i2c: it6625: propagate control-update
- errors
-Thread-Index: AQHdR1VJZFJnA5YaVEegIbO9wBw/OLbULHHg
-Date: Fri, 18 Sep 2026 11:05:59 +0000
-Message-ID: <d25be49aa66e49d7a7d58fd2a00e4cf6@ite.com.tw>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-2-78d72d7886a5@ite.com.tw>
- <aq0M7AO3k8Q8CFuo@kekkonen.localdomain>
-In-Reply-To: <aq0M7AO3k8Q8CFuo@kekkonen.localdomain>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: 6CA32D0E7B36A780CF54B26B7A9DCEA2041CC6C23C427BC5C307A65ABDC211052002:8
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jxOa3RnE"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B1D6B1F8;
+	Fri, 18 Sep 2026 13:08:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789729691;
+	bh=pd+OS3tBP8CJ9F0+if3g0L9XTiTjKyDAlPFk7sYS0Cg=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=jxOa3RnEq2/CNxX0bfR1kunUgikbVV//SkHNMNfoRZorxeiHSqlD/OAOpbwivtvav
+	 Ss3ClSRi+SGjDqFsdOHunjq21sBvn+l6vcL7XA4PZJtbw/CIofCZGd9tP3WmyTqmZz
+	 IcBATwYWqSR9FPPPmRwDQmdmq/LgcbVR0zFsmoos=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 68IB60j0025803
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com> <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media orientation definitions
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Jacopo Mondi <jacopo@jmondi.org>, Jimmy Su <jimmy.su@intel.com>, Jonathan Hunter <jonathanh@nvidia.com>, Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Magnus Damm <magnus.damm@gmail.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, Matthias Fend <matthias.fend@emfend.at>, Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Mikhail Rudenko <mike.rudenko@gmail.com>, Paul Elder <paul.elder@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Quentin Schulz <quentin.schulz@theobroma-sy
+ stems.com>, Richard Acayan <mailingradian@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sascha Hauer <s.hauer@pengutronix.de>, Svyatoslav Ryhel <clamor95@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Thierry Reding <thierry.reding@kernel.org>, Tommaso Merciai <tomm.merciai@gmail.com>
+Date: Fri, 18 Sep 2026 12:09:51 +0100
+Message-ID: <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-SGkgU2FrYXJpDQoNClRoYW5rcyBmb3IgcmV2aWV3Lg0KDQo+SGkgSGVybWVzLA0KPg0KPk9uIEZy
-aSwgU2VwIDE4LCAyMDI2IGF0IDA0OjU3OjE3UE0gKzA4MDAsIEhlcm1lcyBXdSB2aWEgQjQgUmVs
-YXkgd3JvdGU6DQo+PiBGcm9tOiBIZXJtZXMgV3UgPEhlcm1lcy53dUBpdGUuY29tLnR3Pg0KPj4g
-DQo+PiBpdDY2MjVfdjRsMl9zZF9jdHJsX3VwZGF0ZSgpIGRpc2NhcmRlZCB0aGUgcmV0dXJuIHZh
-bHVlIG9mIGFsbCB0aHJlZQ0KPj4gdjRsMl9jdHJsX3NfY3RybCgpIGNhbGxzIGl0IG1ha2VzLiBN
-YWtlIGl0IHJldHVybiBpbnQsIHJ1biB0aGUgdXBkYXRlcyANCj4+IHNlcXVlbnRpYWxseSwgYW5k
-IHJldHVybiB0aGUgZmlyc3QgZXJyb3I7IGJvdGggY2FsbCBzaXRlcyBub3cgY2hlY2sgDQo+PiBh
-bmQgbG9nIGl0Lg0KPj4gDQo+PiBOb25lIG9mIHRoZSB0aHJlZSBjb250cm9scyBoYXMgYSBkcml2
-ZXIgLm9wcywgc28gdGhlIG9ubHkgZmFpbHVyZSBwYXRoIA0KPj4gaW4gdjRsMl9jdHJsX3NfY3Ry
-bCgpIGlzIHJhbmdlIHZhbGlkYXRpb24sIGFuZCBldmVyeSB2YWx1ZSB0aGlzIGRyaXZlciANCj4+
-IHBhc3NlcyBpcyBhbHdheXMgaW4gcmFuZ2UgLS0gdGhpcyBpcyBhbiBlcnJvci1oYW5kbGluZyBj
-b3JyZWN0bmVzcyBmaXggDQo+PiByZXNwb25zaXZlIHRvIHJldmlldywgbm90IGEgZml4IGZvciBh
-biBvYnNlcnZlZCBydW50aW1lIGZhaWx1cmUuDQo+PiANCj4+IFNpZ25lZC1vZmYtYnk6IEhlcm1l
-cyBXdSA8SGVybWVzLnd1QGl0ZS5jb20udHc+DQo+PiAtLS0NCj4+ICBkcml2ZXJzL21lZGlhL2ky
-Yy9pdDY2MjUuYyB8IDI1ICsrKysrKysrKysrKysrKysrKystLS0tLS0NCj4+ICAxIGZpbGUgY2hh
-bmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4+IA0KPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvbWVkaWEvaTJjL2l0NjYyNS5jIGIvZHJpdmVycy9tZWRpYS9pMmMvaXQ2NjI1
-LmMgDQo+PiBpbmRleCANCj4+IGRhMTdlNWQ1Y2U5ZTJkZDEwNjBhYmJhMTU5OGIwZTNmNzg4NTdl
-OWMuLjVkMjY3Njc2NjA2ZTM0MGFkMGVlNWFkMmI3OGUNCj4+IDVhY2I1MGEzMjk4MCAxMDA2NDQN
-Cj4+IC0tLSBhL2RyaXZlcnMvbWVkaWEvaTJjL2l0NjYyNS5jDQo+PiArKysgYi9kcml2ZXJzL21l
-ZGlhL2kyYy9pdDY2MjUuYw0KPj4gQEAgLTg4OSwxMSArODg5LDE5IEBAIHN0YXRpYyBpbnQgaXQ2
-NjI1X3NfY3RybF9hdWRpb19wcmVzZW50KHN0cnVjdCB2NGwyX3N1YmRldiAqc2QpDQo+PiAgCQkJ
-CWF1ZGlvX3ByZXNlbnQoaXQ2NjI1KSk7DQo+PiAgfQ0KPj4gIA0KPj4gLXN0YXRpYyB2b2lkIGl0
-NjYyNV92NGwyX3NkX2N0cmxfdXBkYXRlKHN0cnVjdCB2NGwyX3N1YmRldiAqc2QpDQo+PiArc3Rh
-dGljIGludCBpdDY2MjVfdjRsMl9zZF9jdHJsX3VwZGF0ZShzdHJ1Y3QgdjRsMl9zdWJkZXYgKnNk
-KQ0KPj4gIHsNCj4+IC0JaXQ2NjI1X3NfY3RybF9kZXRlY3RfaGRtaV81dihzZCk7DQo+PiAtCWl0
-NjYyNV9zX2N0cmxfYXVkaW9fc2FtcGxpbmdfcmF0ZShzZCk7DQo+PiAtCWl0NjYyNV9zX2N0cmxf
-YXVkaW9fcHJlc2VudChzZCk7DQo+PiArCWludCByZXQ7DQo+PiArDQo+PiArCXJldCA9IGl0NjYy
-NV9zX2N0cmxfZGV0ZWN0X2hkbWlfNXYoc2QpOw0KPj4gKwlpZiAocmV0KQ0KPj4gKwkJcmV0dXJu
-IHJldDsNCj4+ICsNCj4+ICsJcmV0ID0gaXQ2NjI1X3NfY3RybF9hdWRpb19zYW1wbGluZ19yYXRl
-KHNkKTsNCj4+ICsJaWYgKHJldCkNCj4+ICsJCXJldHVybiByZXQ7DQo+PiArDQo+PiArCXJldHVy
-biBpdDY2MjVfc19jdHJsX2F1ZGlvX3ByZXNlbnQoc2QpOw0KPj4gIH0NCj4+ICANCj4+ICBzdGF0
-aWMgdm9pZCBpdDY2MjVfZW5hYmxlX3N0cmVhbV9sb2NrZWQoc3RydWN0IGl0NjYyNSAqaXQ2NjI1
-LCBib29sIA0KPj4gZW5hYmxlKSBAQCAtMTEzNiw5ICsxMTQ0LDEyIEBAIHN0YXRpYyB2b2lkIGl0
-NjYyNV9jbGVhcl90aW1pbmdzKHN0cnVjdCANCj4+IGl0NjYyNSAqaXQ2NjI1KSAgc3RhdGljIHZv
-aWQgaXQ2NjI1X2lycV9oZG1pXzV2X2NoYW5nZShzdHJ1Y3QgaXQ2NjI1IA0KPj4gKml0NjYyNSkg
-IHsNCj4+ICAJc3RydWN0IHY0bDJfc3ViZGV2ICpzZCA9ICZpdDY2MjUtPnNkOw0KPj4gKwlpbnQg
-cmV0Ow0KPj4gIA0KPj4gIAlpdDY2MjVfY2xlYXJfdGltaW5ncyhpdDY2MjUpOw0KPj4gLQlpdDY2
-MjVfdjRsMl9zZF9jdHJsX3VwZGF0ZShzZCk7DQo+PiArCXJldCA9IGl0NjYyNV92NGwyX3NkX2N0
-cmxfdXBkYXRlKHNkKTsNCj4+ICsJaWYgKHJldCkNCj4+ICsJCWRldl9lcnIoaXQ2NjI1LT5kZXYs
-ICIlczogZmFpbGVkIHRvIHVwZGF0ZSBjb250cm9sczogJWQiLCBfX2Z1bmNfXywgDQo+PiArcmV0
-KTsNCj4+ICB9DQo+PiAgDQo+PiAgc3RhdGljIHZvaWQgaXQ2NjI1X2lycV9oZGNwX2NoYW5nZShz
-dHJ1Y3QgaXQ2NjI1ICppdDY2MjUpIEBAIC0yMjk3LDcgDQo+PiArMjMwOCw5IEBAIHN0YXRpYyBp
-bnQgaXQ2NjI1X3Byb2JlKHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQpDQo+PiAgCWl0NjYyNV9k
-ZWJ1Z2ZzX2luaXQoaXQ2NjI1LCBjbGllbnQpOw0KPj4gIA0KPj4gIAlpdDY2MjVfaW5pdGlhbF9z
-ZXR1cChpdDY2MjUpOw0KPg0KPldoYXQgaWYgdGhpcyBmYWlscz8NCg0Kd2lsbCBmaXggaW4gdjIN
-Cj4+IC0JaXQ2NjI1X3Y0bDJfc2RfY3RybF91cGRhdGUoc2QpOw0KPj4gKwllcnIgPSBpdDY2MjVf
-djRsMl9zZF9jdHJsX3VwZGF0ZShzZCk7DQo+PiArCWlmIChlcnIpDQo+PiArCQlkZXZfZXJyKGl0
-NjYyNS0+ZGV2LCAiJXM6IGZhaWxlZCB0byB1cGRhdGUgY29udHJvbHM6ICVkIiwgX19mdW5jX18s
-IA0KPj4gK2Vycik7DQo+DQo+U2hvdWxkbid0IHlvdSByZXR1cm4gYW4gZXJyb3IgaW4gdGhpcyBj
-YXNlPw0KPg0Kd2lsbCBmaXggaW4gdjINCg0KPmRldl9lcnJfcHJvYmUoKSBtaWdodCBiZSBiZXR0
-ZXIgaGVyZSwgdG9vLg0KPg0KPj4gIA0KPj4gIAllcnIgPSB2NGwyX2FzeW5jX3JlZ2lzdGVyX3N1
-YmRldihzZCk7DQo+PiAgCWlmIChlcnIgPCAwKSB7DQo+PiANCj4NCj4tLQ0KPlJlZ2FyZHMsDQo+
-DQo+U2FrYXJpIEFpbHVzDQo+DQo=
+Quoting Kieran Bingham (2026-09-18 11:44:14)
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+>=20
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+>=20
+> Update the users throughout the qualcomm device trees to use the new
+> definitions.
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+
+Sashiko has noted that there is another new dts added in dts/qcom since
+I wrote this patch.
+
+I don't want to invalidate the above reviews by adding another change,
+so I will send the single update to the new file separately as the core
+definitions are already accepted now.
+
+If someone /really/ wants me to add the change to
+arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi in this patch,
+please let me know.
+
+it looks like this:
+
+----------- arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi ------=
+-----
+index 945127dacc82..f86d3e0d51a6 100644
+@@ -3,10 +3,11 @@
+  * Copyright (c) 2022-2024 Jianhua Lu <lujianhua000@gmail.com>
+  */
+
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/phy/phy.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/usb/pd.h>
+ #include "sm8250.dtsi"
+ #include "pm8150.dtsi"
+@@ -571,11 +572,11 @@ camera_front: camera@10 {
+ 		reset-gpios =3D <&tlmm 109 GPIO_ACTIVE_LOW>;
+
+ 		pinctrl-0 =3D <&cam_mclk3_default &camera_front_active>;
+ 		pinctrl-names =3D "default";
+
+-		orientation =3D <0>; /* Front facing */
++		orientation =3D <MEDIA_ORIENTATION_FRONT>;
+ 		rotation =3D <270>;
+
+ 		port {
+ 			ov8856_front_ep: endpoint {
+ 				data-lanes =3D <1 2>;
+
+
+--
+Kieran
+
+
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> ---
+>  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
+>  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
+>  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
+>  3 files changed, 6 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/ar=
+m64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> index f41ad446a39e..e2b7f1bd05ab 100644
+> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> @@ -13,6 +13,7 @@
+>  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+>  #include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include <dt-bindings/sound/qcom,q6asm.h>
+> @@ -701,7 +702,7 @@ camera@10 {
+>                 pinctrl-0 =3D <&cam_mclk3_default>;
+>                 pinctrl-names =3D "default";
+> =20
+> -               orientation =3D <0>; /* Front facing */
+> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+>                 rotation =3D <270>;
+> =20
+>                 port {
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b=
+/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> index 218573a97785..3b5f6a29e969 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> @@ -11,6 +11,7 @@
+>  #include <dt-bindings/input/gpio-keys.h>
+>  #include <dt-bindings/input/input.h>
+>  #include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> =20
+>  #include "sc8280xp.dtsi"
+> @@ -683,7 +684,7 @@ camera@10 {
+> =20
+>                 clocks =3D <&camcc CAMCC_MCLK3_CLK>;
+> =20
+> -               orientation =3D <0>;      /* Front facing */
+> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> =20
+>                 avdd-supply =3D <&vreg_l6q>;
+>                 dvdd-supply =3D <&vreg_l2q>;
+> diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm670-google-common.dtsi
+> index b4854801a5f5..7880d85b52fe 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> @@ -9,6 +9,7 @@
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/input/input.h>
+>  #include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/power/qcom-rpmpd.h>
+>  #include "sdm670.dtsi"
+> @@ -460,7 +461,7 @@ camera@1a {
+>                 pinctrl-names =3D "default";
+> =20
+>                 rotation =3D <270>;
+> -               orientation =3D <0>;
+> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> =20
+>                 port {
+>                         cam_front_endpoint: endpoint {
+>=20
+> --=20
+> 2.52.0
+>
