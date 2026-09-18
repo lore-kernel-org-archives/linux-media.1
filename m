@@ -1,68 +1,52 @@
-Received: from mail-qk2-f6.google.com (mail-qk2-f6.google.com [74.125.230.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D9A3B42E8
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 22:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A5D358368;
+	Fri, 18 Sep 2026 22:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=15.235.45.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789769270; cv=none; b=tYYLCK/ke97EQgE3+2RKNq5wwGICEHvzTCt9bf2+d8zMRtMHJQ/mAHY+BzngUP2yCPbHnWOweHTz6Nm1hcjYMXTl4a7HhcpwtOJSCfYs+XIUt35oYMxyo9a1Ow75cyZBUHxEwKvhHJlKg9AwBKwjwRE99eGnNogf6Da3dRUfO5E=
+	t=1789769884; cv=none; b=tyzHLsjFT43J5yS7h1gwWltDSrdKGEf+lRyAEMvdTyyt2OczD+lZeDKTdLLuYONFDEm71ReCevur8DHOt7sv8UHTwcTUFvNGy7bBCoatLeviYV8z7g8zvGbm97aWzfjKlyaBBIIHRWiptkXzUDEnH45r7CoR5QevZ7quNMaQcKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789769270; c=relaxed/simple;
-	bh=Eigm0fQw2qgUBKDDTtXVjCoe6eTezJyeT/4KdAwHvDw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYnnwX3wWGLW7hGENxKZi3T6ZVaxfMHFOV7pl513ANPBG4H0+z7Kdn0diDtV+uZIpLrwgQkLU/9qkzEZVNdknJ3h88AsRGDRU5PLlmwbJArKvDDZOggowGG5R7x5kINyxAmU6x0n/0HCbpKltYcBCAvgbU/Yh4CwhFLBtZRac1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BidoGuaX; arc=none smtp.client-ip=74.125.230.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789769884; c=relaxed/simple;
+	bh=shx9t1ms8LW/2rlee1GRn6DtexVP9G7WyrfJyXJxiUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=euBRuNR9pbgkZumPXp6AVJZ65DtxAgV9l9MItfywmUdqptsH7bXHp0SHa0QaIU2Cyy1zFk1fJFz54om8uC+l5Gy194+/NxdjxWAGsNiFLVZUj/W9f8p48qVO19IVMi9K90+OsagX2Ya1sX08Zo6EfhFbT7jNQeVsXwfNvZTTDAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca; spf=pass smtp.mailfrom=logotherapy.ca; dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b=NWy5qWzi; arc=none smtp.client-ip=15.235.45.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BidoGuaX"
-Received: by mail-qk2-f6.google.com with SMTP id d75a77b69052e-52fa263dd47so7774981cf.0
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 15:07:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789769268; x=1790374068; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n2bkwkwkaWWCi1cIo9w4jtLW4D49/2kOiQh/YFzTqig=;
-        b=BidoGuaXeBw+NU5KQzrz9t43TptB0EWNgc8eQVAjQIMjCv5aT5BtKdLchXQ42knCHq
-         q8eOcnLPPpwYjIPDCLcPkW69vrSW+J5GG27gSFelHCjDJogeWuo3OFYzJACfbgNQDZi8
-         I9sbvD3DO4dn0AkSUsB61X4rz2qpBpk5Do2XrinHTDSjKBH57RJsz+qyPUc86kfBT1N/
-         kaF+Y5KCbbvZR6YXrM61F+NcoNtmxAaX4k9V261CQteHiIFV9+7AL8DvCMj5tgQ1TdUC
-         Hu8cxz02uTnWxloA5ybo3EcYpzJLKDUMikqNnuEMO0qVu7uc0AQ++46mTSGK0P6gNJ0x
-         dyDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789769268; x=1790374068;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n2bkwkwkaWWCi1cIo9w4jtLW4D49/2kOiQh/YFzTqig=;
-        b=Fwv877ET10pOlIpUAD9S3yVXUte4p47s/vtGdEbyYT7m3JOwWz6dsJ2F/ETJSjcyPP
-         74y2JiKSq6+KGRgg6CrvLM1qInr7/uaBK2NsLhRtNekIb6j3kHOANyFkHti6I/SDPn10
-         sAxUN8KQR6VW4EuvqgomK889WdF8jC2ag955OczVJINDDnEMP9AqMa/UdnJ6pV36Zps3
-         M4hm4CdrP9H5yRJI4JkuyOp2popMKser2VaaJi4oJcjiq0QfHYrj9APBZDdIO3R9FWpM
-         q1bfPOFpTmQRoyCf1VwJCViT3qLfuZyI9+LWAELNNASif1ST2iVtT/iR0MPCeZTUV1i/
-         C2Vg==
-X-Gm-Message-State: AFuF++lkDNSNyYq9eKatG6vYC0vn+MCewJP0MpX29TBHRctwfZwZFAC0
-	Wx9kH7KHzmhwVy8tUOM8QO5D3fXlJDYiY/hgm8AB7keY/Ny11sX5pjWcxl9QEQ83hcAPmQ==
-X-Gm-Gg: AYBFou0OJl/ZNDFsm8LCmUJ7mnLca6RcSGkDMO3bwvDsj4/XhNTFY582dV4IzGqSw4o
-	6e4/rRl0OVO6mGJfzL6eBBoFCzq8TYVhWrEB+xu1NKGgZO9N4U2ncQKhu05zV1z6gxkoE+hYzSy
-	VT6y9PnD4Hv0ZScwW9c092eno9PbNGsgceAb9AIICb5XWEynW3kgKQ+dHvHS+lUc0SfYl70ML22
-	wC0x9HOVYDD0GUwxqocCc2huJvWcqziHOpYO4YTcPDmnTValhUvp+7eXil4XUry0J6M2G9+SzMx
-	DO4i2llIl25UqbcLc4UayiN/nMnKGE1tBwPUuhqSnwxsz+lJVXTNX2HPrJvo1dNuaDgKP6A+N59
-	KshO1wZKCCgTDASTESb/uTOCDZKrfGnBmKrHBm9hZh9KZwPKDQrCZ04M/1pUh4BqpFUjldSo8x+
-	ziOZm3IVUANPIbPo3ED7OrwCWJ2HXS6KF6b8aM+7J7WohPVd1TsL4V2uOt1h0X34iUw8YqTc4cN
-	MtKYAJUjgKRs3XdDwlugPpwD0vujGTVHvdF33z6HimX
-X-Received: by 2002:ac8:7d08:0:b0:51b:ecbb:206f with SMTP id d75a77b69052e-5329e2bf30dmr63462291cf.32.1789769267701;
-        Fri, 18 Sep 2026 15:07:47 -0700 (PDT)
-Received: from Interstice (pool-96-239-109-94.nycmny.fios.verizon.net. [96.239.109.94])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ae5f2643sm6974991cf.6.2026.09.18.15.07.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 15:07:47 -0700 (PDT)
-From: David Wood <d01.devel@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org
-Subject: [PATCH] media: em28xx: complete frames from non-interlaced sources
-Date: Fri, 18 Sep 2026 18:07:42 -0400
-Message-ID: <20260918220743.2043647-1-d01.devel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b="NWy5qWzi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
+	s=mail; t=1789769875;
+	bh=shx9t1ms8LW/2rlee1GRn6DtexVP9G7WyrfJyXJxiUk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=NWy5qWzigp+hZTAjo2t8+8imh2kAPcgooEqG3+zqC4X4axMTONeqs74ezHFBZsBko
+	 wB8ddkzJu8dREiSV1X1yyRQOnJuueVTNVRoGvKI7rQFj3MC/O+3T4zFATCLdgeBced
+	 RC7WHil4fx5UCi88msIfvw7gdvwe69Y6H410N2P2jlXcFLs15hR8recZQsRmslr1mo
+	 bz0IbvaUFZIYGqJjFy/tjbl3gablvv14DzByvwIsGVb+lhxg08eQtbaTAA9XWHwx+B
+	 T+eO07v/AzI8C+OL7Y8HVAbedmfcnK7+cM6CkXqer5cJoQc7CI/dta/oHTqnG5ux9y
+	 K/ksGfk0HYLKA==
+Received: by d2-2-bhs5.logotherapy.ca (Postfix) id 1C02220117;
+	Fri, 18 Sep 2026 22:17:55 +0000 (UTC)
+From: Peter Marshall <pm@petermarshall.ca>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Peter Marshall <pm@petermarshall.ca>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v2 00/11] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
+Date: Fri, 18 Sep 2026 18:16:54 -0400
+Message-ID: <20260918221705.323510-1-pm@petermarshall.ca>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,106 +55,58 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Non-interlaced 60 Hz sources, such as the 240p output of classic game
-consoles, produce 262 lines per field with no half-line offset, so every
-field has the same parity. The TVP5150 tracks such a signal without
-trouble (locked, 60 Hz, vertical line count 524 instead of 525) but
-reports the same field ID for every field, and the em2860 forwards that
-in its field-start header. On an EM2860/TVP5150 reference design
-(eb1a:5051) fed by a NES, 112 of 113 consecutive headers in a 6 s stream
-carry field ID 1 (bottom); the lone top-field header is the first one.
+This patch series refactors the STMicroelectronics VD55G1 and VD65G4 image
+sensor driver (vd55g1) to abstract sensor differences and adds support for
+the VD55G0 monochrome sensor.
 
-finish_field_prepare_next() only completes a buffer and starts the next
-one when a top field arrives, so with such a source no frame is ever
-delivered: streaming starts, the first buffer never finishes, and the
-application sits in select() until it times out. Disturbing the cable
-briefly loses sync, yields a stray top-field header and lets a single
-frame through -- the "one frame, then it freezes" symptom.
+The VD55G0 is used as the IR face ID sensor in devices such as the
+Microsoft Surface Pro 9, where it is found under ACPI HID `SMO55F0`. It
+features a native resolution of 644 x 604 pixels and differs from later
+variants in the family in several ways:
 
-Track the previous field ID. When a header repeats the ID of the field
-before it, give the new field the opposite parity instead of taking the
-ID literally, so consecutive fields are woven into a frame the same way
-a genuine top/bottom pair is. Interlaced streams alternate IDs and are
-unaffected. A dropped field in one now lands two bottom fields in the
-same buffer, which the copy path already tolerates, and the following
-top field starts a new frame as before.
+* It uses a different native resolution and register addresses mapping,
+  requiring specification of generational feature differences.
+* It lacks support for spatial and temporal HDR.
+* It requires an exposure duty cycle limit to keep the illuminator current
+  within safe levels.
 
-With this the NES streams at 29.9 fps with a stable, correctly woven
-picture. Each frame holds two consecutive progressive source frames, so
-an application that wants the source's 60 fps back can bob-deinterlace.
+Tested on a Microsoft Surface Pro 9 (an Intel IPU6 platform with ACPI
+HID "SMO55F0") running kernel 7.2.0 (changes cherry-picked) and libcamera
+0.7.0. Builds successfully on linux-media next.
 
-Signed-off-by: David Wood <d01.devel@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-video.c | 26 +++++++++++++++++++++++--
- drivers/media/usb/em28xx/em28xx.h       |  1 +
- 2 files changed, 25 insertions(+), 2 deletions(-)
+Key changes from the previous series:
+* The vd55g1 module is grown to support the extra hardware instead of
+  replacing it with a completely new driver.
+* The driver now includes a builtin patch array. External firmware loading
+  is no longer required.
+* Lower-level error messages are demoted to the debug level to keep kernel
+  logs clean and actionable.
+* Hardware registers are now fully abstracted, so operational logic never
+  needs to touch a raw CCI address.
+* Changes are broken into logical steps to improve clarity and make
+  bisection possible.
+* Rebased against linux-media next.
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 5f13f63..5b570a9 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -627,6 +627,27 @@ finish_field_prepare_next(struct em28xx *dev,
- 	return buf;
- }
- 
-+/*
-+ * Set the parity of the field that starts with this header.
-+ *
-+ * Non-interlaced sources, such as the 240p output of classic game consoles,
-+ * generate every field with the same parity, so the bridge reports the same
-+ * field ID over and over. A top field never arrives and no frame is ever
-+ * completed. Detect a repeated field ID and alternate the parity instead, so
-+ * consecutive fields are woven into a frame like a genuine interlaced pair.
-+ */
-+static inline void em28xx_set_field_parity(struct em28xx_v4l2 *v4l2,
-+					   int field_id)
-+{
-+	bool top_field = !(field_id & 1);
-+
-+	if (field_id == v4l2->last_field_id)
-+		top_field = !v4l2->top_field;
-+
-+	v4l2->last_field_id = field_id;
-+	v4l2->top_field = top_field;
-+}
-+
- /*
-  * Process data packet according to the em2710/em2750/em28xx frame data format
-  */
-@@ -661,14 +682,14 @@ static inline void process_frame_data_em28xx(struct em28xx *dev,
- 			v4l2->capture_type = 0;
- 			v4l2->vbi_read = 0;
- 			em28xx_isocdbg("VBI START HEADER !!!\n");
--			v4l2->top_field = !(data_pkt[2] & 1);
-+			em28xx_set_field_parity(v4l2, data_pkt[2] & 1);
- 			data_pkt += 4;
- 			data_len -= 4;
- 		} else if (data_pkt[0] == 0x22 && data_pkt[1] == 0x5a) {
- 			/* Field start (VBI disabled) */
- 			v4l2->capture_type = 2;
- 			em28xx_isocdbg("VIDEO START HEADER !!!\n");
--			v4l2->top_field = !(data_pkt[2] & 1);
-+			em28xx_set_field_parity(v4l2, data_pkt[2] & 1);
- 			data_pkt += 4;
- 			data_len -= 4;
- 		}
-@@ -1099,6 +1120,7 @@ int em28xx_start_analog_streaming(struct vb2_queue *vq, unsigned int count)
- 		em28xx_wake_i2c(dev);
- 
- 		v4l2->capture_type = -1;
-+		v4l2->last_field_id = -1;
- 		rc = em28xx_init_usb_xfer(dev, EM28XX_ANALOG_MODE,
- 					  dev->analog_xfer_bulk,
- 					  EM28XX_NUM_BUFS,
-diff --git a/drivers/media/usb/em28xx/em28xx.h b/drivers/media/usb/em28xx/em28xx.h
-index f3449c2..dc732f6 100644
---- a/drivers/media/usb/em28xx/em28xx.h
-+++ b/drivers/media/usb/em28xx/em28xx.h
-@@ -588,6 +588,7 @@ struct em28xx_v4l2 {
- 	/* Capture state tracking */
- 	int capture_type;
- 	bool top_field;
-+	int last_field_id;
- 	int vbi_read;
- 	unsigned int field_count;
- 
+Peter Marshall (11):
+  dt-bindings: media: i2c: st,vd55g1: Move allOf: after required:
+  media: dt-bindings: i2c: vd55g1: Add vd55g0 compatible
+  media: ipu-bridge: Add VD55G0 to the list of supported sensors
+  platform/x86: int3472: Add VD55G0 supply GPIO mapping
+  media: i2c: st-vd55g1: Default to illuminator on GPIO 1
+  media: i2c: st,vd55g1: Handle virtual firmware graph endpoints
+  media: i2c: st-vd55g1: Clean up module error reporting
+  media: i2c: st-vd55g1: Unify frame timing calculations
+  media: i2c: st-vd55g1: Abstract sensor models, revisions, and features
+  media: i2c: st-vd55g1: Use indirect hardware register addressing
+  media: i2c: st-vd55g1: Support VD55G0 global-shutter image sensor
+
+ .../bindings/media/i2c/st,vd55g1.yaml         |   34 +-
+ MAINTAINERS                                   |    1 +
+ drivers/media/i2c/vd55g1.c                    | 1667 +++++++++++++----
+ drivers/media/pci/intel/ipu-bridge.c          |    2 +
+ drivers/platform/x86/intel/int3472/discrete.c |   18 +
+ 5 files changed, 1394 insertions(+), 328 deletions(-)
+
+-- 
+2.55.0
+
