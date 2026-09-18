@@ -1,213 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D4842885A
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 20:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF63942885A
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 20:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765002; cv=none; b=d4CdqlMs1/PPoX/wZvIiINhgLMZK4NLghWvwTDK2IHmE2/0/r0p0ny5fSbItihZKjYQd2+AoqPBDmqty26WimsTm3eMsXm/qm0ZrJtHyA8E4uPbZWet51cnjfy5OLbmfi5ZDs8EF874mpxO8p3w2YLsbMmdJydgZCqbVVtgiLDo=
+	t=1789765020; cv=none; b=flxia46higJm4B94NeVIc5PMyKIr6gTHR8VVdMck8l1GceOAdl3jfd5juhFqcCPnyGVDdJthDovGzWEcWKgUXmzv5BTBzOopm4pO7G49KQ9+0Xh4m9b3V2gh0m70QfCHNCO7QYr2MP4kEbkYWzduhLFrMlq3KlFyOG/uKP+CdiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765002; c=relaxed/simple;
-	bh=UcF+ymJPY2ByG+ja5cUVPdvuZ6GfcFoG4+fBkuNBLkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UYeC4TPU7/RDGJHQmqTWcokdvlwyBg21fTfltl59jpsaXMI9CGjLtWe4AzgZAmVSOryOkktK2E66VTrP29Ark2Z6hQPmG8xzzKmMby5ePXJj7xRn4GFYsV6OYmai4jXtTztDXUb6Ul2neNvWyHKdQpAryFmO4RrMr70Jnqi9To8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FmcqE4Lc; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789765020; c=relaxed/simple;
+	bh=HSptCIBExwtcqPFuzpkLkpMIALhmv4dX8nFOYFbtYTM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B8DmxwMINUls4cDZIAmbmr2EPeTMYd1xYbGPlt/vazLjvjyb4ktwyh5yUDlan23gI28HZP0PEoSf4YY1qF4/wKXMKdS3Oerix0EN290oRWyIeqUntO97BS3FVl+/qlE1si/SrjVTTf1bluNGr29bylZ6uQEWxHufraj47k4sWbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ZPTLOd8V; arc=none smtp.client-ip=209.85.214.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FmcqE4Lc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789765000; x=1821301000;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UcF+ymJPY2ByG+ja5cUVPdvuZ6GfcFoG4+fBkuNBLkU=;
-  b=FmcqE4Lceye37CROaYtI55srDP2CSlJ55QKwgT9FeAvTXhGDPd0DNOfP
-   EI0sRuADSZcrkP7cUjK2x7byBK0CCmx/UnSRo6hZhxUQs2DVB0V7EVjv0
-   cFmiGeqsTOttiGCtCOkMfSTYvka4kCd5LboqGs1bv86woLEjDEiY1g79A
-   bgq2qshgBwh5VCUayXAFw0KtF0JC7AhI0r+e9LK+3ZID3sO0OndLFxcNE
-   A1u1rPLv0pGVbxJdnvh56xU3f/xCNPso4m6fNxbWAM5SCVD5F8+KVbep4
-   xbBiiTKCvL3VifWm5DSdfDW71Xl/tixgJaRpwJU7Fb1+6WN5x57q44gRS
-   Q==;
-X-CSE-ConnectionGUID: gMOrYgTTRIOFJkkKrTLpfw==
-X-CSE-MsgGUID: mtrBUCXtQJ65HjxOd3PdnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100963491"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100963491"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 13:56:39 -0700
-X-CSE-ConnectionGUID: Rg+Zwkl8T3yfdb17kpQ0KQ==
-X-CSE-MsgGUID: cF6eGbk4RpWSb1RKgaBRCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="271923681"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.25])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 13:56:37 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3A3FE11F86A;
-	Fri, 18 Sep 2026 23:56:34 +0300 (EEST)
-Date: Fri, 18 Sep 2026 23:56:34 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
-Cc: linux-media@vger.kernel.org, dongcheng.yan@intel.com,
-	mehdi.djait@linux.intel.com, ong.hock.yu@intel.com,
-	khai.wen.ng@intel.com, antti.laakso@linux.intel.com,
-	manik.bajpai@intel.com, divyamani.tripathi@intel.com
-Subject: Re: [PATCH v2 09/21] media: ipu6: Start streaming once all streams
- have started, stop when not
-Message-ID: <aq2lgsHkhCYuzInV@kekkonen.localdomain>
-References: <20260917113923.59004-1-sakari.ailus@linux.intel.com>
- <20260917113923.59004-10-sakari.ailus@linux.intel.com>
- <178971697984.34231.15295000197727096742@gmail.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ZPTLOd8V"
+Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2dd9ec41bc4so4027655ad.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 13:56:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789765018; x=1790369818;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/Is2lUlBqSGMkpOZkUx2pau6e4D6+5AaH4X9SJHq0Dc=;
+        b=xDrh604WyCQCVtsfavwTGYgyqGieThLFSYEwYfrhVaDd+w0KopRZKMtTIM9R8VevzS
+         FXKvWBcTBicXxzASQVzDVG0dLJzKZmKXcf9oOHRRX/IQiHh0OZRT0F75btTQueP7SPro
+         pwdg4Q9UnMOY0pvuEJ/J5lU2vJ+b3iY0Ag60sk+Qkk+dvE8h54KX2AGRScUrKdCv3otA
+         +wrCCrytYgtx43iJUJgQc5i/dZCnXwXYdq5AY2yxr06FFtUS71k8m5qsbJgYUTYsMQOR
+         39qYrwHZ0bXz9StQkkrsaXqe7mcGAyk8zCTIE7Pb7sZTzd10GR3tYJMZ2G471tCfO4Gn
+         Y3zQ==
+X-Forwarded-Encrypted: i=1; AKwUvByY+zBddjmQClEUWM9OTX1cnkScd28hokanoA5YZ+uCRSUyx6kz/kvb7ftomKYh1EiFm2IQd3Bqmlo2FA==@vger.kernel.org
+X-Gm-Message-State: AFuF++netx0iNPtMMBiAX1vIPPnGdINxNbFKA2t3KJAZrQmc7PrNfLEl
+	TwegvG47XwebmwV91fjB13iyKHQJkNlUpK2ukJpVlqZd+bAO0T109AiFjHPKAjretRa94Tray3I
+	Xr5L45kmaAujKEO9jdLbXREJ5vrzpg41wxZKfJYTyjAYPBckcEnkSBl6YJvjAA6rauY0TRaeqsw
+	lmhGDSusGcPhZkA2xqPUEq/4IqTHdxgCT9Rr0r022pB3lBz+nExOArAWAVw5B1nsi2KL2b7Nm1D
+	cy3SOdF6+zCHnio+KWnGWI=
+X-Gm-Gg: AYBFou2E48JUVBNY/LRl3qk3SGiU1J408QEiC94RNPr0wFutCAKjhu6Tq4t00UYC7S4
+	/LBhEEQvBl+kKIMFHw9082v3VJohfx4U+xB37u9Fq5NdgWsbVRXyygt7fQ/kWUBg5Szd8eTG9SP
+	XtziHaHul63G7l4yRy0DFzluiVEc5sWAQ6pb+RZYbbH1nG4xt7rBDiqkpN4xcNIN7MTJ97vAIdv
+	q12axnERVzFhs3g5iFpErPrXc6ZQ0vQ7bqeXbi2MdU6e/CWgl9jG8j0JPEftwArmmjTpDm62JUG
+	kjU5ER2TmLne79Dk7xwNCW4AzY86z8Ef4ZQ4h8yvfzGp5iFYRPKWT0MAfZ3wfZF2kiLbRnjmUhu
+	1HXx56Qmj0ZTWb2Fyd/s5me7QiJjfQM01NMyG46zaVcD2vTkTfnAeHZXHpJkZjhDhj/+WV6/5Ov
+	4vWEFtXR7p1pHOI9fP5ZSTL/0/DNON3d5TNQBCzuRI
+X-Received: by 2002:a05:6a20:d703:b0:3dd:a196:9079 with SMTP id adf61e73a8af0-3dda196a86dmr1334251637.67.1789765018076;
+        Fri, 18 Sep 2026 13:56:58 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc72af3fa58sm176476a12.10.2026.09.18.13.56.57
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 18 Sep 2026 13:56:58 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb835525b10so1243408a12.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 13:56:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789765016; x=1790369816; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Is2lUlBqSGMkpOZkUx2pau6e4D6+5AaH4X9SJHq0Dc=;
+        b=ZPTLOd8VBt3krpavX0TpqAApx88I+N8iYVNHCT/zhyS6wpS/33LMJDiXvffvUuQ5o6
+         xloN4v/HdcvRZPeAwsRHgdrlJDf7Zew1toTVN0HKe9HZhyk0Q5qjq1WnNFu94kwjuJh9
+         h+lTKSZT+FGyECXbUpkU5rEIwM96566HDyiwQ=
+X-Forwarded-Encrypted: i=1; AKwUvBypv0MTOgSLgfIhB4g7TvEgzr0fR7HiHg6Ootd8CPrBB7k4+PA85XffcSetW9QLE49UJOnjx3KlBIuGBg==@vger.kernel.org
+X-Received: by 2002:a17:90a:da8d:b0:39e:6a81:5a92 with SMTP id 98e67ed59e1d1-39e6a815df2mr1513929a91.38.1789765016264;
+        Fri, 18 Sep 2026 13:56:56 -0700 (PDT)
+X-Received: by 2002:a17:90a:da8d:b0:39e:6a81:5a92 with SMTP id 98e67ed59e1d1-39e6a815df2mr1513914a91.38.1789765015849;
+        Fri, 18 Sep 2026 13:56:55 -0700 (PDT)
+Received: from [10.211.247.235] ([216.221.25.44])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d54b248dsm1235932c88.1.2026.09.18.13.56.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 13:56:55 -0700 (PDT)
+Message-ID: <ac19e380-e93d-470d-841c-7bd3f2b0b86a@broadcom.com>
+Date: Fri, 18 Sep 2026 13:56:59 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178971697984.34231.15295000197727096742@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vmwgfx: Fix GEM_CLOSE returning -EINVAL for
+ PRIME-imported surfaces
+To: Claire DuSoleil <claire.m.dusoleil@gmail.com>,
+ Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Nicola,
+Hi,
+This looks llm generated, can you disclose the llm that you have used?
 
-Thank you for the review.
-
-On Fri, Sep 18, 2026 at 09:36:19AM +0200, Nicola Fiorillo wrote:
-> Hi Sakari,
-> 
-> On Thu, Sep 17, 2026 at 02:39:11PM +0300, Sakari Ailus wrote:
-> > +static bool ipu6_isys_csi2_streaming_change(struct ipu6_isys_subdev *asd,
-> > +					    struct v4l2_subdev_state *state,
-> > +					    u32 pad, u8 *vc, bool enable)
-> 
-> Four things in this function, all found by reading it. I cannot build or
-> test a kernel at the moment, so please take this as review and nothing
-> more; none of it is reproduced on hardware.
-> 
-> 1) The error return does not fit the return type.
-> 
-> > +	ret = v4l2_subdev_call(remote_sd, pad, get_frame_desc,
-> > +			       remote_pad->index, &desc);
-> > +	if (ret)
-> > +		return ret;
-> 
-> The function returns bool, so a negative errno from get_frame_desc()
-> becomes true, and both callers read true as "go ahead and change the
-> streaming state". In ipu6_isys_csi2_enable_streams() that starts the
-
-Right; this needs to be reworked a little. I'll switch the return type to
-int, I probably chose bool before I realised error handling was actually
-required.
-
-> firmware stream and then runs
-> 
-> 	csi2->streaming_vc |= BIT(vc);
-> 
-> with vc still uninitialised: *vc is assigned only at the end of the
-> function, past this early return. ipu6_isys_csi2_disable_streams() does
-> the mirror of it with &= ~BIT(vc). The two "return false" exits are
-> fine, they make the caller skip the change; only this one carries a
-> value.
-
-vc is actually set if all goes well, so this is related to error handling.
-
-> 
-> 2) media_pad_remote_pad_unique() never returns NULL, so the guard below
->    it is dead code.
-
-Indeed. This is where others have tripped, too. I'll fix this for v3.
-
-I think I'll just switch to media_pad_remote_pad_first() as there's just a
-single one. The check also can be removed as the MUST_CONNECT pad flag
-guarantees there's an enabled link there. Let's see what smatch says...
-
-> 
-> > +		struct media_pad *video_pad =
-> > +			media_pad_remote_pad_unique(&asd->sd.entity.pads[route->source_pad]);
-> > +		struct ipu6_isys_video *av = !video_pad ? NULL :
-> > +			container_of_const(video_pad,
-> > +					   struct ipu6_isys_video, pad);
-> > +
-> > +		if (!av) {
-> 
-> It returns ERR_PTR(-ENOLINK) when no enabled link is found and
-> ERR_PTR(-ENOTUNIQ) when there is more than one. !video_pad is therefore
-> never true, the dev_dbg() below is unreachable, and the error pointer
-> goes into container_of_const() instead -- where av->streaming, a few
-> lines further down, dereferences it.
-> 
-> IS_ERR() is what the check wants. This same file already does it that
-> way, in ipu6_isys_csi2_get_link_freq():
-> 
-> 	src_pad = media_pad_remote_pad_unique(...);
-> 	if (IS_ERR(src_pad)) {
-> 		dev_err(&csi2->isys->adev->auxdev.dev,
-> 			"can't get source pad of %s (%pe)\n",
-> 			csi2->asd.sd.name, src_pad);
-> 		return PTR_ERR(src_pad);
-> 	}
-> 
-> 3) The lookup on the sink pad, higher up in the same function, has no
->    check at all:
-> 
-> > +	struct media_pad *remote_pad =
-> > +		media_pad_remote_pad_unique(&asd->sd.entity.pads[this_route->sink_pad]);
-> > +	struct v4l2_subdev *remote_sd =
-> > +		media_entity_to_v4l2_subdev(remote_pad->entity);
-> 
-> remote_pad->entity is read immediately, so the same error pointer is
-> dereferenced here, with no guard to correct.
-
-Also the MUST_CONNECT pad flag is set for the video device's pad. I'll
-switch to media_pad_remote_pad_first() also here.
-
-> 
-> 4) Unless I am misreading it, the inner lookup in the loop does not
->    depend on the loop variable:
-> 
-> > +	for_each_active_route(&state->routing, route) {
-> > +		struct v4l2_mbus_frame_desc_entry *entry = NULL;
-> > +
-> > +		for (unsigned int i = 0; i < desc.num_entries; i++) {
-> > +			if (desc.entry[i].stream == this_entry->stream) {
-> > +				entry = &desc.entry[i];
-> > +				break;
-> > +			}
-> > +		}
-> > +
-> > +		if (entry->bus.csi2.vc != this_entry->bus.csi2.vc)
-> > +			continue;
-> 
-> The search key is this_entry->stream, which does not change across
-> iterations, so entry always ends up as this_entry itself and the vc
-> comparison can never differ. The "continue" is never taken and every
-> active route is counted, whatever its virtual channel. Going by the
-> commit message, the key here was meant to be route->sink_stream.
-
-Yes, the frame descriptor entries' streams was compared with wrong stream,
-this needs to come from routing instead. There's also a check missing above
-that an entry is actually found.
-
-> 
-> Finally, a note rather than a request. After the whole series,
-> ipu6_isys_csi2_enable_streams() and ipu6_isys_csi2_disable_streams()
-> still call media_pad_remote_pad_first() on the sink pad and dereference
-> the result unchecked -- and that one does return NULL. It is what my
-> [PATCH v2 1/3] touched. I have dropped that patch and I am not
-> reopening the question of the scenario behind it; I mention it only
-> because if the checks in 2) and 3) go in, that pointer is sitting right
-> next to them.
-
-I guess there are two things to consider here: 1) whether that pointer can
-be NULL in the circumstances of this driver (shouldn't be) and 2) whether
-static analysers are smart enough to determine the pointer cannot be NULL
-(or that there's a bug and we've missed it's actually possible).
-
-I'll reply to the framework patch separately.
+As for the patch itself, it is too overly verbose for human review.
+Could you just describe the issue you were facing and what is the fix you have done?
+Describing the current behaviour and the overly narrative style is not necessary.
 
 -- 
-Kind regards,
-
-Sakari Ailus
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
