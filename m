@@ -1,116 +1,118 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9685B3B27D4;
-	Fri, 18 Sep 2026 01:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FEF248880;
+	Fri, 18 Sep 2026 02:37:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696237; cv=none; b=NWAEPzDxJRf7bchVKl4zJ7hz16hcTAm3RacGIdoPYa3+grcM56EXgMmYooeK3bsclWy3xTGXJ3BzmWaHITXtJMPgGAherpHoRj1Ad/enP5pj3Wvq4gpDgiDuLNQqEv9ogbUw9CEZ5u47d7tGkQRAx6mCCS5Ff39AcCw2dRq71Ys=
+	t=1789699039; cv=none; b=Fw2r4h/vyw3/X0ZCMqf8NOSRTZgXaY8ZZRSalwXacG94wd0g0kmAxMb2yOtGcwiDEUwxqCN/+HOfLba1rF9T5Kox7qP3rJOXAU+WI/d0XE34wsFofGBvufzx4eFobE8pQcqMU1cmhVOjsiyMmx7hoi9mpkiZ5/+CEyUcjlB9FLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696237; c=relaxed/simple;
-	bh=h2rnnvU1cABd1Qm85kshfAoTaocBNolJoMMn0SOrP2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z7TrRS70NTmvX88sZQWbcD5nG+OLRQDS166szayJAfxbD1iR3qmjN02++ZVPrSofPmCQkAh0w0RmQoeysFpxr5RZIdnVzVOr85Sia54m8E8uVBHX8yfd/fxsO+1WZ5LAehxAbTrIn0FN5qwWf6gu0e5HKasWygI2AO7GA65yq8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WK+s33XW; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789699039; c=relaxed/simple;
+	bh=fG8s2Rbuo1jfWojmNf3RSIRc91piDlgqYy+unMLmx7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LVbMysVFmgKKlEB8kp33C0FvngOYvaC3lLHWwXkRJ1ZCM2E2+q5KEs3Ds7ibusbRTcG1rXO3M2chFMvF8HCpc/KsKOKd2R8PPbhyQX3XV8NnYr2UOdQbEiQsQ/Bz93zdml3GdnOfLrgAlAP0Pji3CAbC/PHCG5G/rVI2n+Yc60o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=p80KohTm; arc=none smtp.client-ip=115.124.28.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WK+s33XW"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8585B4DC;
-	Fri, 18 Sep 2026 03:48:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789696118;
-	bh=h2rnnvU1cABd1Qm85kshfAoTaocBNolJoMMn0SOrP2k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WK+s33XWYcpStYU868v7Jk2/7Ndecv2D71Ut07mRDZxnQnTkoO9IOzSXmEGGMeYye
-	 LXon4+ic+fxFC14w2LXuTacNjGh8IL2L91e/lFlXKbArSTShVemTWEZYAAWKi0xbVs
-	 aYN/RqZ8kMkC25Boz/HugRF6ty2zHyEgX8hO/E8M=
-Date: Fri, 18 Sep 2026 04:50:19 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH 00/10] media: rcar-fcp, vsp1: Enable on R-Car X5H
-Message-ID: <20260918015019.GA736264@killaraus.ideasonboard.com>
-References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="p80KohTm"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789699021; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=oeMHnYZJ6KNxI0SiboJu3JfQeQKWe3PW6bkDrXO2XDw=;
+	b=p80KohTmQTvYjKHTuXfjJGhYxP60WDzNV1Yw+f1Qm44eK0N/jYfPPt+g1JcJX8iZCySmM91Oxy3SCo4e8j76IWtzAfbkVnl53nrAbboF7YJI7zv5eLCrFdMWJ7ro7thoLjQErODmcA/OZyJf0GC8h0AcqcLXvsdX74welM0Z/ao=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07452739|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00963083-0.00484189-0.985527;FP=17220283626844399422|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGJMEY8_1789699020;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGJMEY8_1789699020 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 10:37:00 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH] media: dst_ca: validate the CA message length in ca_set_pmt()
+Date: Fri, 18 Sep 2026 10:36:59 +0800
+Message-ID: <20260918023659.467911-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 09:04:39PM +0900, Paul Elder wrote:
-> This series is based on Geert's
-> "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
-> branch including this series is available here [1].
+ca_set_pmt() takes the payload length from the ASN.1 length field of the
+userspace supplied CA_PMT message and uses it to clear and fill
+hw_buffer->msg, which is a fixed 256 byte array:
 
-The series contains a mix of patches ready for upstream and patches that
-are not. The cover letter should explain this better to avoid wasting
-reviewers' time. Please organize the patches better in v2, mark the ones
-not ready for uptreaming with '[DNI]' or a similar prefix, and explain
-the rationale in the cover letter.
+        length = asn_1_decode(&p_ca_message->msg[3]);
+        debug_string(&p_ca_message->msg[4], length, 0);
 
-> This series enables the FCPV[BI] and the VSP[BI] blocks on the Renesas
-> R-Car X5H SoC.
-> 
-> This has been tested on an Ironhide with the vsp-tests test suite [2]:
-> 148 tests: 142 passed, 0 failed, 6 skipped
-> 
-> There was some odd behavior with the clocks, where from what I
-> understood was that the clocks for the FCPV[BI] and VSP[BI] are
-> always-on, but the tests would hang unless I explicitly enabled...  the
-> always-on clock (or fsleep). Then after I removed the patch that
-> explicitly enabled the always-on clock everything ran fine. Just
-> reporting that this happened just in case it's relevant.
-> 
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
-> [1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
-> [2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
-> 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> ---
-> Paul Elder (10):
->       dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
->       clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
->       pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
->       arm64: renesas: r8a78000: Add FCPV[BI] nodes
->       arm64: renesas: r8a78000: Add VSP[BI] nodes
->       media: rcar-fcp: Check device revision at probe time
->       media: rcar-fcp: Handle resets
->       media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
->       media: vsp1: Document X5H SoC ID
->       media: rcar-fcp: Add R-Car X5H support
-> 
->  arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 171 +++++++++++++++++++++++
->  drivers/clk/renesas/r8a78000-cpg.c               |   2 +
->  drivers/media/platform/renesas/rcar-fcp.c        | 162 +++++++++++++++++++--
->  drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  13 +-
->  drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   3 +-
->  drivers/pmdomain/renesas/r8a78000-mdlc.c         |  34 ++++-
->  include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
->  7 files changed, 372 insertions(+), 15 deletions(-)
-> ---
-> base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
-> change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+        memset(hw_buffer->msg, '\0', length);
+        handle_dst_tag(state, p_ca_message, hw_buffer, length);
 
+asn_1_decode() implements the ASN.1 long form length, so msg[3] = 0x84
+reads four length bytes and can return up to 0xffffffff. Nothing
+compares the result against the size of the destination, so the memset()
+overruns the kmalloc'd hw_buffer.
+
+handle_dst_tag() does reject lengths above 247, but three things make it
+ineffective here:
+
+ - it runs after the memset() has already overflowed the buffer,
+ - it is skipped entirely on the DST_TYPE_HAS_SESSION path,
+ - debug_string() walks the message up to length and is called before
+   any of the checks, so it reads out of bounds as well.
+
+Validate the decoded length against sizeof(hw_buffer->msg) before it is
+used, accounting for the tag that handle_dst_tag() prepends. Messages
+that do not fit are rejected with -EINVAL.
+
+No Fixes tag. asn_1_decode() and the ca_set_pmt() call chain come from
+the original driver import, and the ASN.1 long form handling was last
+touched in 93a14f15d35c (2005). The missing bound has been there since.
+
+Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+---
+Reaching this needs nothing more than a CA device node: open
+/dev/dvb/adapterX/ca0 and issue CA_SEND_MSG with msg[0..2] set to
+0x00 0x9f 0x80 (CA_PMT) and msg[3] = 0x84 followed by four length
+bytes. No CAM has to be present, because the overrun happens before any
+hardware access.
+
+The 247 limit handle_dst_tag() uses is one byte short of what
+sizeof(hw_buffer->msg) - tag_length allows, so the two bounds disagree.
+Removing the check from handle_dst_tag() is not part of this patch, but
+if a single check in one place is preferred, that would be the natural
+follow-up.
+
+cxd2099 bounds its CAM reply length the same way after a comparable
+report (len > ecount || len < 2), so there is precedent in the DVB
+frontend drivers.
+
+ drivers/media/pci/bt8xx/dst_ca.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/pci/bt8xx/dst_ca.c b/drivers/media/pci/bt8xx/dst_ca.c
+index 6da75c6ed..e126afc2f 100644
+--- a/drivers/media/pci/bt8xx/dst_ca.c
++++ b/drivers/media/pci/bt8xx/dst_ca.c
+@@ -401,6 +401,13 @@ static int ca_set_pmt(struct dst_state *state, struct ca_msg *p_ca_message, stru
+ 	u8 tag_length = 8;
+ 
+ 	length = asn_1_decode(&p_ca_message->msg[3]);
++	if (length > sizeof(hw_buffer->msg) - tag_length) {
++		dprintk(verbose, DST_CA_ERROR, 1,
++			" CA Message too long (%u) ! *** Bailing Out *** !",
++			length);
++		return -EINVAL;
++	}
++
+ 	dprintk(verbose, DST_CA_DEBUG, 1, " CA Message length=[%d]", length);
+ 	debug_string(&p_ca_message->msg[4], length, 0); /*	length is excluding tag & length	*/
+ 
 -- 
-Regards,
+2.50.1
 
-Laurent Pinchart
