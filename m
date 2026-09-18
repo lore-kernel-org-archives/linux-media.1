@@ -1,147 +1,121 @@
-Received: from mail-pj2-f18.google.com (mail-pj2-f18.google.com [74.125.227.146])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6FD49739D
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 12:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBF84E4314
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 13:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736388; cv=none; b=UOu0FPXGYxGqTrxcwJxOV+mofSqnssQes9xe6UcGGrNGIFLP6SAYq3XcX0OwhiHtpxlBrA/DE1OB/aEOXLff5WtNgJLf+Jaone53vkLa9B8vKM7sataUbIfMjsUFKi5S1mYdj9VXbnyOLHeU70EL5oAq0IKnVh9NDSpO1jHkg2A=
+	t=1789736764; cv=none; b=dfnxONqzCT0H2b9tBEuyDt1Dm+SO4/lRRX1zjg2huk1ga3+3zdHQjTnZxRmuMC/ULnFuwLdBv8bWJKdfm6DsjbL6VW8uOnig4TQrctQlSjlBbNS9vWAzpq1TVhBBVzvQ5T4CfG26Uy3tuKm01g+aRLZOrls3Cc2ZaDuok1UlHjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736388; c=relaxed/simple;
-	bh=s8+to8b6/VG7HeoYZ/5GPm0QwBM8JYFg2rpjNk6m82E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YTqkuXZm0t31eErlOyTpsbnx79E4P2dpI5ierfQRJqn9e5/wG82cF4RZJkZPLUQ3KbMxFrZRnortqAAnKuMQQXBmb1ekyYKMCOyyD1sqU9tlMjfUtZe9zFjz3LrUHQ+azTOPlTGUQiz1sqLk2cu+HP+ErDnzbv7G+5sYMZZ1riw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TsLYfHnj; arc=none smtp.client-ip=74.125.227.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789736764; c=relaxed/simple;
+	bh=kPgx4cLfFtyea67NwR3E633DUHHI/gx0j+1j/jnDfgM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AFjObpaH1cpznahbcRrflLhCqCd+NLSaiLgjOhBfD0nMn8B94BIoa8iOGAhzA6VqxPGYvkT/snWDwrZG2IHeZfCA8KZsZmyGjpt123Xqq/97uwcOIi6wnGXk6u9pISy4MspATpi8KfHyKJyWa0KoVln1t+L0VOuWnxQxLULk0UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BaM+zbWh; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TsLYfHnj"
-Received: by mail-pj2-f18.google.com with SMTP id d9443c01a7336-2db22383fe8so4271935ad.2
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 05:59:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BaM+zbWh"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so3855455e9.0
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 06:06:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789736386; x=1790341186; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nxzpoScGk5dDKPya4LxeNVRbV4selBUM8DEhCYq8QJg=;
-        b=TsLYfHnj5zvWerid6UaatO/MVaB99tzwOoM14tmWmxFpUtTOkK5adhX+fFiHrCtAiV
-         pb48UqqjLw6HhJnmQifkNrc0tasRFrltV/wkL721iNdNC7WukUO1aV+UqGpGPkcIptf1
-         bZey7nfMhvpOZKIPeEbsGfsOGtYlmUStPgbE4=
+        d=gmail.com; s=20251104; t=1789736757; x=1790341557; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xTtOVPmjJhEY4Y5vNG5Ynui/aIBMd7EqZyB7db6fqik=;
+        b=BaM+zbWhxxwhWSYLmzEFUHYtQgUmSRu9sAU5Hv3c/QwzJ/NtA81nzQ4fzApiQcjpG4
+         tl2bJCfBjS7M6PNQ4uA79Ts/SrSWdOq7HGF315wENDYvIb8ProJUqPThC1GzHhvqflM7
+         AhUmaysR4AVq4Ao3L8vAb5Ga2QGwfK5QPvREVAXpCwW3V5weWfd2yzpeU/d/t3wYXrNB
+         4Vgyo9BiPTPkDB8gWR7tygkbEaYX+ZGgPUsc7HouBDUpr8q/hKJNezcYHuJ/xSKkKLzH
+         BsKauJiNpPMd0N4QDF9RcRtzMAzVI9eQ8HesB4ZRdEhkXfTSQHXBkdrlqh0ku8O1LSyt
+         Txig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789736386; x=1790341186;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nxzpoScGk5dDKPya4LxeNVRbV4selBUM8DEhCYq8QJg=;
-        b=Da8g7ZDWsoq4PPXp0zBBmZOqJiotVeNTDzHFodjlWk8T17XsRzhh8gDkdW0cun7A+i
-         wmg6N81TQerVz+PQGdMFe1ESL19ujJIb0xSrh7XYJneN4Lreuskbi/H/I5lf7LPWkNrK
-         8Dloyi1lFg+H62uYHKun9P1g9RKonW8WXYslsE7LH9sCgC+NJendHzWtWDTYjTVIqHeF
-         DVCcQetbSInFP7Vd9tQ/erFQgnxlGQRAecnp+6aKbj8y2wXzV+nOrNTk5lxUv5/SIQ9n
-         KVDWevJy3LDRvJwPwTmqrWKqar9wdroCCOnHaOXqMjiAXdjtLJmdnUIKEqjGtFODUIRU
-         D9Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwVTIHjmGMyVwf/q4gCuyJBRdXq8yfRAD9KZRsMLS0Q5neJ2SetNRII+K5GCifHh045n4+sart5qvACEA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mRmTnLs4fbkQFfRQlRKjrNLscrI6N3MF4ydfEzHZxHNytCC+hR
-	8kc0jbsdJYclwlY/9Q18UZjd0HrPVJka/1kqLXGoYL8IJ+B/2K8aTkLrc2TI3p7Kd/lVbcOXHD2
-	C75+2Sg==
-X-Gm-Gg: AYBFou1oC7SzPdgI7pB2NtPfFLecfas8sbfSa+dbzktCi751Sxd9xV4JgRA40O1QXOq
-	Z933LgFtf3GVGFasAYoyK/C0+9VQ0EJqwrZKObeN3ozbT4cBCWfO8fxzxNFo9EhS6DeNkFLamG4
-	19XJw7ilibgFWJyQhvGLTgCxrp3gW6FkxL43XUFlyH3aaldnpSS7htaXdt68GBFJZ2as8+wvW5g
-	1Cdj31gSHX8ZTfF+igEMOo1GUfBqLPuhwIFoDt5nfD7eTr3lS52LeWQaWmIZ4JQm37wCqd7vGpI
-	e7KowowT8ANo5gBiHbzQFHLh6vMZOgF/S61mOQ9BLEf51jyWmvnODCESHWYycodX9Z/JUpmtBzC
-	tKwv5cQ+Y64cbJ+mez4vNZ7gH1QTHL8a+uabyUI/MyVi7/hlVHfaVwZ4Q/Ng7jzbi0ypKJzrn86
-	ZKF53sK4J7NGoMfigRzprDMNN8bcLsnKufAA7cGgKsXK5KqH8UYxzu+djbgv1UeDS97EEA0H3y2
-	JnR5AVBkDwvUs3WYMym3LbbuaxXEMBT2rhhWA==
-X-Received: by 2002:a17:903:1a85:b0:2dd:ad73:c987 with SMTP id d9443c01a7336-2ddb1bbc1bamr47618615ad.31.1789736385940;
-        Fri, 18 Sep 2026 05:59:45 -0700 (PDT)
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com. [74.125.228.42])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb7525b2asm7360875ad.19.2026.09.18.05.59.44
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 05:59:45 -0700 (PDT)
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so370191a12.2
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 05:59:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxMFGUeIYAVJhpqrPj9wVBOor953drCS8DlDaKcjka9s/fjWnaS0Wyy0r/PkRU/YndBwQsEDl6AqivIzg==@vger.kernel.org
-X-Received: by 2002:a05:6a20:6a28:b0:3d3:adbf:7782 with SMTP id
- adf61e73a8af0-3dd8c41a46cmr4668333637.23.1789736383919; Fri, 18 Sep 2026
- 05:59:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789736757; x=1790341557;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xTtOVPmjJhEY4Y5vNG5Ynui/aIBMd7EqZyB7db6fqik=;
+        b=lDZXTAxyXryxjnlGzyCvHQHmHdJZs1Jg2oF+SWWTlAwPZPLCbTlLRolxtsGNV1Kilk
+         HxByfJJBRtqM6vp24VSvLqxzc35PuYVFKcgCVw4/bxr1MIZls2j3XOGtInPcvBnz52EK
+         JhRblA8keNHhz1G6WyKj1VTpm8/Lo3A2AOBel0YuiSj8FUUe3JI3wJuOnl6T0nNszdp0
+         hely86el0QlOTH5UBvpWqtmnWNFDC/Yy2fjUjVMrctgFn5+SnSXybv1VnxLJqB9Irctm
+         9UUkV6YGQChbe4GsMcRLP4Is6gKWuX2gfwDaildhi7cRI5R21nhurSbWiIt+1z9CHVrt
+         Fu4A==
+X-Gm-Message-State: AFuF++lZF1ndmqucUsMYT+kTqdrT/d1ZvU1FkZFodFhq9rHhtGasrzSr
+	IIkl7hXcS+gIv5BnnxYDmAuvQ4dHuTbKxeRQVBOuBtVBfuYwaEOJEVa+
+X-Gm-Gg: AYBFou3l1idnzjlDL9E+xtlq+U/QbW8l54BPR5nJm6Mdjag9CcVnmG2HsU8pgqF4Ydc
+	EC8MGSdO7j7Ek397QXSKwjnEYBuGvqX9Cx6VgO3L5h1YS9OqHGHtYp5nPWGPbyIDBIja4Sj1zUb
+	bEAlmE5Ys+KNiehDafZGtKhyg+038uSj3dD5If2oRPBYcc8V9hMHSFgWpuwcLUfQ24s7q7J/OsR
+	jctSm2RnJlSb4OJX21iYl2FLuwWZhPGm305WCHR0wcvETEHfaXzEr2O39+hDYJBCsO1P4iM+7LV
+	xyNWigM3/TIEcDVDKVzKkCWoG1a5Av+02npmABY7b0YIGNBhhuGjZHCi9y21vyi7RuNQinAsStg
+	Vt8hylFc+UuiT7oWxKFywaryYwMG3kruCAYO+BEy2zOCOTcLlC41GLUAdMz142udaLQlGfG/+na
+	1sZq9PQHBsX/EQGbsY3UrR5V/A3l/aveIKL4cFihR1xSLjvF5vSc86rvrCKFZZgzyw+/vK8jGSF
+	HwklSANlWn5orcJKHi7sFzhdpIPmKeOObg1HcIQ7UzBJPgvLArOid3Y4Q==
+X-Received: by 2002:a05:600c:19c6:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49fc5741239mr34035075e9.16.1789736757294;
+        Fri, 18 Sep 2026 06:05:57 -0700 (PDT)
+Received: from [127.0.1.1] (lmontsouris-656-1-83-121.w82-127.abo.wanadoo.fr. [82.127.110.121])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7ce0050sm64995715e9.4.2026.09.18.06.05.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:05:56 -0700 (PDT)
+From: Amin Gattout <amin.gattout@gmail.com>
+Date: Fri, 18 Sep 2026 15:05:40 +0200
+Subject: [PATCH] media: rockchip: rkcif: convert timeout to
+ secs_to_jiffies()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <aq0siVcghDe6x9cs@stanley.mountain>
-In-Reply-To: <aq0siVcghDe6x9cs@stanley.mountain>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 18 Sep 2026 14:59:29 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
-X-Gm-Features: AcwNN1VZ_6ZbCrR1Mp4y7JmQBXOuD4YG-BKylmDeJzSZ3dkgiXG_e6jgcK3ZpuQ
-Message-ID: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in uvc_mapping_get_menu_value()
-To: Dan Carpenter <error27@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-janitors@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-rkcif-secs-to-jiffies-v1-1-110f336750b0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACM3rWoC/yXMQQ5EQBBA0atIrVWihR7tKmJBT5UpkyBdiETcX
+ c9YvsX/JygFIYU6OSHQLirzFGHSBPynmwZCeUdDnuU2c6bC8PXCqOQV1xlHYY45mt5VnbOFLfk
+ FsV0CsRz/b9M+1q0fya+/GVzXDcQtwll5AAAA
+X-Change-ID: 20260918-rkcif-secs-to-jiffies-1b98a96465f7
+To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Amin Gattout <amin.gattout@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789736756; l=1003;
+ i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
+ bh=kPgx4cLfFtyea67NwR3E633DUHHI/gx0j+1j/jnDfgM=;
+ b=pggsFLR06h1pcvdC/nqDIW9ExWwe/rpDAtuNuj4ftZ2dnTT7yl+yPfCBCZSNWi7x/a3d2+q9F
+ RJ1IywmT/tFAYuO0IGq4I2KX34bi0eW6c7CxgTnUEabgIXNiscn45mw
+X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
+ pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-Hi Dan
+Use secs_to_jiffies() to simplify the code.
 
-I believe that for all the uses of uvc_mapping_get_menu_value we are
-already doing bound checks:
+Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+---
+ drivers/media/platform/rockchip/rkcif/rkcif-stream.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
-value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
-BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
+index 3130d420ad55..f82eaf9a37d1 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
+@@ -314,7 +314,7 @@ static void rkcif_stream_stop_streaming(struct vb2_queue *queue)
+ 
+ 	stream->stopping = true;
+ 	ret = wait_event_timeout(stream->wq_stopped, !stream->stopping,
+-				 msecs_to_jiffies(1000));
++				 secs_to_jiffies(1));
+ 
+ 	if (!ret && stream->stop_streaming)
+ 		stream->stop_streaming(stream);
 
-In any case, I think this patch is still worthwhile. It will help us
-avoiding bugs in the future (have you found this with a new test for
-smatch?)
-and if we go that way it is probably a good idea to also "fix"
-uvc_mapping_get_menu_name()
+---
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+change-id: 20260918-rkcif-secs-to-jiffies-1b98a96465f7
 
+Best regards,
+--  
+Amin Gattout <amin.gattout@gmail.com>
 
-On Fri, 18 Sept 2026 at 14:20, Dan Carpenter <error27@gmail.com> wrote:
->
-> The "idx" value is a user controlled u32 so we have to bounds check it
-> before calling test_bit() to avoid reading beyond the end of the bitmap.
-Maybe change the commit message as well to avoid stable cherry picking
-it blindly (sorry seems like I am more picky than usual  :) )
-
->
-> Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
-I believe this should be:
-Fixes: 40140eda661e ("media: uvcvideo: Implement mask for V4L2_CTRL_TYPE_MENU")
-or no Fixes at all.
-
-
-
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83f1d..f157ed99be4e 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -538,7 +538,7 @@ static void uvc_mapping_set_s32(struct uvc_control_mapping *mapping,
->  static int uvc_mapping_get_menu_value(const struct uvc_control_mapping *mapping,
->                                       u32 idx)
->  {
-> -       if (!test_bit(idx, &mapping->menu_mask))
-> +       if (idx >= BITS_PER_LONG || !test_bit(idx, &mapping->menu_mask))
->                 return -EINVAL;
-
-What about using BITS_PER_TYPE(mapping->menu_mask) to be consistent?
-
->
->         if (mapping->menu_mapping)
-> --
-> 2.53.0
->
-
-with those changes:
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
--- 
-Ricardo Ribalda
