@@ -1,38 +1,38 @@
-Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
+Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FEF248880;
-	Fri, 18 Sep 2026 02:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF7C3E2AD7;
+	Fri, 18 Sep 2026 03:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699039; cv=none; b=Fw2r4h/vyw3/X0ZCMqf8NOSRTZgXaY8ZZRSalwXacG94wd0g0kmAxMb2yOtGcwiDEUwxqCN/+HOfLba1rF9T5Kox7qP3rJOXAU+WI/d0XE34wsFofGBvufzx4eFobE8pQcqMU1cmhVOjsiyMmx7hoi9mpkiZ5/+CEyUcjlB9FLE=
+	t=1789700562; cv=none; b=f2rsOIabHJG5L1CUt6ZCFhCxfHSRk05/qLZ/4ygNv0O+MNdKpZ/K9Cg9DlrmngYqK8hgTWQu8C8hEd99M4KRS331T/khtOsIyUCaZQ6SudX7SSO2ACXYF+avalQUsfFAqpwzCQrYHwxoNSD3Za0tsjLCMuxgZud7gH2KmuYC4xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699039; c=relaxed/simple;
-	bh=fG8s2Rbuo1jfWojmNf3RSIRc91piDlgqYy+unMLmx7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LVbMysVFmgKKlEB8kp33C0FvngOYvaC3lLHWwXkRJ1ZCM2E2+q5KEs3Ds7ibusbRTcG1rXO3M2chFMvF8HCpc/KsKOKd2R8PPbhyQX3XV8NnYr2UOdQbEiQsQ/Bz93zdml3GdnOfLrgAlAP0Pji3CAbC/PHCG5G/rVI2n+Yc60o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=p80KohTm; arc=none smtp.client-ip=115.124.28.221
+	s=arc-20240116; t=1789700562; c=relaxed/simple;
+	bh=bGMM5QcTdrKYS7Zph2fOWchXxLN1RGRWWj/xp/ZsTMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YmXZrThrByvn0xw2/kc6YvJsmuq/bDKpH5ggLBOUybCobcQ+OQ6bfhI/YbbW8tFvq3EjQYT+v4UCSc/fm8fx6PF1dJMKGf+P+aRvhZ8IX9Ip9FY6Nd21PK/3u+qqY884lIgahU33MRT/B+T1ou4ltJGWpgTx5036ZCfcoVs3WwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=S8H3Yyl2; arc=none smtp.client-ip=115.124.28.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="p80KohTm"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="S8H3Yyl2"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1789699021; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=oeMHnYZJ6KNxI0SiboJu3JfQeQKWe3PW6bkDrXO2XDw=;
-	b=p80KohTmQTvYjKHTuXfjJGhYxP60WDzNV1Yw+f1Qm44eK0N/jYfPPt+g1JcJX8iZCySmM91Oxy3SCo4e8j76IWtzAfbkVnl53nrAbboF7YJI7zv5eLCrFdMWJ7ro7thoLjQErODmcA/OZyJf0GC8h0AcqcLXvsdX74welM0Z/ao=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07452739|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00963083-0.00484189-0.985527;FP=17220283626844399422|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGJMEY8_1789699020;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGJMEY8_1789699020 cluster:ay29)
+	t=1789700544; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=ZchKATo4SGalM4NsIgxZx/qZNcebZQH3Xqdfka7zIZo=;
+	b=S8H3Yyl2PCy23qSn1lZBsF083HJvFjVbiOsF8FgNPOpBA1JmvXQv9+E+EkHuUALjeyqhgghQi7sZOvOyYZQ1NzVzSuenOfN9NJOkAHGx9T9JQXLp9oheO2tHcS0wCyUwYQtITop+i88hIte+HX3HCM+eYF+r/Wd8aJP80Eh9fyQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.9087309|0.09921987;CH=green;DM=|AD|false|;DS=CONTINUE|ham_system_inform|0.0207302-0.00358289-0.975687;FP=14399330002124975970|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGNq8K8_1789700543;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGNq8K8_1789700543 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 10:37:00 +0800
+          Fri, 18 Sep 2026 11:02:23 +0800
 From: Guo Zihao <guozh23@xiaopeng.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] media: dst_ca: validate the CA message length in ca_set_pmt()
-Date: Fri, 18 Sep 2026 10:36:59 +0800
-Message-ID: <20260918023659.467911-1-guozh23@xiaopeng.com>
+	Fang Xieyan <fangxy@xiaopeng.com>
+Subject: [PATCH] media: dvb_net: reject the pointer field at the cell boundary
+Date: Fri, 18 Sep 2026 11:02:22 +0800
+Message-ID: <20260918030222.638961-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -42,77 +42,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ca_set_pmt() takes the payload length from the ASN.1 length field of the
-userspace supplied CA_PMT message and uses it to clear and fill
-hw_buffer->msg, which is a fixed 256 byte array:
+dvb_net_ule_ts_pusi() checks the ULE payload pointer field before
+skipping to the start of the first SNDU, but the comparison is off by
+one:
 
-        length = asn_1_decode(&p_ca_message->msg[3]);
-        debug_string(&p_ca_message->msg[4], length, 0);
+        if (h->ts[4] > h->ts_remain) {
+                pr_err("%lu: Invalid ULE packet (pointer field %d)\n",
+                        h->priv->ts_count, h->ts[4]);
+                ...
+        }
+        h->from_where = &h->ts[5] + h->ts[4];
+        h->ts_remain -= 1 + h->ts[4];
 
-        memset(hw_buffer->msg, '\0', length);
-        handle_dst_tag(state, p_ca_message, hw_buffer, length);
+ts_remain counts the bytes left in the cell after the four byte TS
+header, so it starts at 184 and acts as an offset from &ts[4]. The
+pointer field is an offset from &ts[5], one byte further along, so it
+has to stay strictly below ts_remain. A value of exactly ts_remain
+passes the test, and then
 
-asn_1_decode() implements the ASN.1 long form length, so msg[3] = 0x84
-reads four length bytes and can return up to 0xffffffff. Nothing
-compares the result against the size of the destination, so the memset()
-overruns the kmalloc'd hw_buffer.
+ - from_where points one byte past the end of the 188 byte cell, and
+ - ts_remain -= 1 + ts[4] wraps around to 255, because ts_remain is u8.
 
-handle_dst_tag() does reject lengths above 247, but three things make it
-ineffective here:
+The wrapped value is what turns this into more than a one byte overread.
+It defeats the ts_remain < 2 check in dvb_net_ule_new_payload(), which
+is the guard that stops the parser from reading the two byte SNDU length
+out of bounds, and every later use of ts_remain in
+dvb_net_ule_handle() works from the wrapped count.
 
- - it runs after the memset() has already overflowed the buffer,
- - it is skipped entirely on the DST_TYPE_HAS_SESSION path,
- - debug_string() walks the message up to length and is called before
-   any of the checks, so it reads out of bounds as well.
+Reject a pointer field of ts_remain as well. Values below it, including
+the largest one that still leaves the length field readable, behave as
+before.
 
-Validate the decoded length against sizeof(hw_buffer->msg) before it is
-used, accounting for the tag that handle_dst_tag() prepends. Messages
-that do not fit are rejected with -EINVAL.
+No Fixes tag. The comparison and the from_where calculation next to it
+were introduced together in 59142330aaea (2005) and have not been
+touched since.
 
-No Fixes tag. asn_1_decode() and the ca_set_pmt() call chain come from
-the original driver import, and the ASN.1 long form handling was last
-touched in 93a14f15d35c (2005). The missing bound has been there since.
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
 Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
-Reaching this needs nothing more than a CA device node: open
-/dev/dvb/adapterX/ca0 and issue CA_SEND_MSG with msg[0..2] set to
-0x00 0x9f 0x80 (CA_PMT) and msg[3] = 0x84 followed by four length
-bytes. No CAM has to be present, because the overrun happens before any
-hardware access.
+The packet arrives through the demux, so a crafted MPEG2-TS stream
+carrying a ULE SNDU with a pointer field of 184 reaches this code with
+nothing else required to be well formed.
 
-The 247 limit handle_dst_tag() uses is one byte short of what
-sizeof(hw_buffer->msg) - tag_length allows, so the two bounds disagree.
-Removing the check from handle_dst_tag() is not part of this patch, but
-if a single check in one place is preferred, that would be the natural
-follow-up.
+Pointer fields of 182 and 183 caused a separate endless loop in this
+same block and were addressed in 29e1fa3565a7 ("dvb-core: Fix DoS bug in
+ULE decapsulation code that can be triggered by an invalid Payload
+Pointer"), which added the resync handling but left the comparison
+operator alone.
 
-cxd2099 bounds its CAM reply length the same way after a comparable
-report (len > ecount || len < 2), so there is precedent in the DVB
-frontend drivers.
+handle_one_ule_extension() in this file got a bound of the same shape
+last February (24d87712727a), so the ULE decapsulation path has taken
+this kind of fix before.
 
- drivers/media/pci/bt8xx/dst_ca.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/media/dvb-core/dvb_net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/bt8xx/dst_ca.c b/drivers/media/pci/bt8xx/dst_ca.c
-index 6da75c6ed..e126afc2f 100644
---- a/drivers/media/pci/bt8xx/dst_ca.c
-+++ b/drivers/media/pci/bt8xx/dst_ca.c
-@@ -401,6 +401,13 @@ static int ca_set_pmt(struct dst_state *state, struct ca_msg *p_ca_message, stru
- 	u8 tag_length = 8;
- 
- 	length = asn_1_decode(&p_ca_message->msg[3]);
-+	if (length > sizeof(hw_buffer->msg) - tag_length) {
-+		dprintk(verbose, DST_CA_ERROR, 1,
-+			" CA Message too long (%u) ! *** Bailing Out *** !",
-+			length);
-+		return -EINVAL;
-+	}
-+
- 	dprintk(verbose, DST_CA_DEBUG, 1, " CA Message length=[%d]", length);
- 	debug_string(&p_ca_message->msg[4], length, 0); /*	length is excluding tag & length	*/
- 
+diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
+index a2159b2bc..604c767e1 100644
+--- a/drivers/media/dvb-core/dvb_net.c
++++ b/drivers/media/dvb-core/dvb_net.c
+@@ -371,7 +371,7 @@ static int dvb_net_ule_ts_pusi(struct dvb_net_ule_handle *h)
+ 		/* Synchronize continuity counter. */
+ 		h->priv->tscc = h->ts[3] & 0x0F;
+ 		/* There is a pointer field here. */
+-		if (h->ts[4] > h->ts_remain) {
++		if (h->ts[4] >= h->ts_remain) {
+ 			pr_err("%lu: Invalid ULE packet (pointer field %d)\n",
+ 				h->priv->ts_count, h->ts[4]);
+ 			h->ts += TS_SZ;
 -- 
 2.50.1
 
