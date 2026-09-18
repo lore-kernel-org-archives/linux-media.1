@@ -1,121 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f18.google.com (mail-pj2-f18.google.com [74.125.227.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9932D3563E1;
-	Fri, 18 Sep 2026 12:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6FD49739D
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 12:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736035; cv=none; b=rX/s4P/OqJQdVQIi12Odf9nhiNOmsAXLuWwwRiTay9ByREx/27LNXXGkiVQLFIfXJJYu3asaxBaI3T6xVws6Wm/hxzV2W4VE0kpozgr7viFaiGD/9195jME+EBajDdn90pbvwWLkOwJlp7KZyXbG7Wxh7Pgd1kqV1NIX1MGZ1J8=
+	t=1789736388; cv=none; b=UOu0FPXGYxGqTrxcwJxOV+mofSqnssQes9xe6UcGGrNGIFLP6SAYq3XcX0OwhiHtpxlBrA/DE1OB/aEOXLff5WtNgJLf+Jaone53vkLa9B8vKM7sataUbIfMjsUFKi5S1mYdj9VXbnyOLHeU70EL5oAq0IKnVh9NDSpO1jHkg2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736035; c=relaxed/simple;
-	bh=rB73sE3JR3O84Z62NqemZbNv/vfm9hqhHWsaEn9tnjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h8bELeprqCJo2r2Ble9V3S7z8E7MzKTxOFEAtTcxY5hN6N0HOIsbJfZ3Ul92WolaTCP6IyMqNVwz94smOe06dUGd2CHShYchIBIkqDizQLVgFu0Qq/OT+sOq5tbHHb0ZuJdm9YKms9JZXaeOihcvo8n+m3Bt7UHMRf+V5/kjlJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOvhNAH9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789736388; c=relaxed/simple;
+	bh=s8+to8b6/VG7HeoYZ/5GPm0QwBM8JYFg2rpjNk6m82E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YTqkuXZm0t31eErlOyTpsbnx79E4P2dpI5ierfQRJqn9e5/wG82cF4RZJkZPLUQ3KbMxFrZRnortqAAnKuMQQXBmb1ekyYKMCOyyD1sqU9tlMjfUtZe9zFjz3LrUHQ+azTOPlTGUQiz1sqLk2cu+HP+ErDnzbv7G+5sYMZZ1riw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TsLYfHnj; arc=none smtp.client-ip=74.125.227.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOvhNAH9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A728C1F00898;
-	Fri, 18 Sep 2026 12:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789736034;
-	bh=IZSVa0g2ztWQ8+r1qgpcbkI2lI4vaWG+BMaMpsWGUjs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eOvhNAH9jJfve68zgfKNDmGY89el9cOkf2NIB06BpJLj53pc9qiqRSzrucRtJzCCp
-	 h2tqnDvQ03aQIYDWbL4nVJObNeOWUZT2GPrI9o4llobNMwAkkyVL4hP66hkLudqA0m
-	 56/0Y4QHnVhrCbfxYWokAaR5NVn+h2zEDZQsf1kOlWgdub1iVzObD4ooMdu6g99ZNb
-	 WikShDV3gpkWy9APDZtbCZ0WqHgW5CdQ4ZVYnYp9bKn4MeLY1jkD0hhlhmHxPam8S6
-	 3Y11SOUY8xQba25BtAaqGIrFJeSnWqMr3dkw1NpngGRLEhhfvCTBQeAjLvt7L9mShC
-	 9+A9gxqAZZtbA==
-Date: Fri, 18 Sep 2026 14:53:52 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
-	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
-	Quentin Schulz <quentin.schulz@theobroma-systems.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Richard Acayan <mailingradian@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH v6 1/6] arm64: dts: freescale: Convert to new media
- orientation definitions
-Message-ID: <aq00WXsI5T7Vjz4K@orome>
-References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
- <20260918-kbingham-orientation-v6-1-5e8b1f01be29@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TsLYfHnj"
+Received: by mail-pj2-f18.google.com with SMTP id d9443c01a7336-2db22383fe8so4271935ad.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 05:59:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789736386; x=1790341186; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nxzpoScGk5dDKPya4LxeNVRbV4selBUM8DEhCYq8QJg=;
+        b=TsLYfHnj5zvWerid6UaatO/MVaB99tzwOoM14tmWmxFpUtTOkK5adhX+fFiHrCtAiV
+         pb48UqqjLw6HhJnmQifkNrc0tasRFrltV/wkL721iNdNC7WukUO1aV+UqGpGPkcIptf1
+         bZey7nfMhvpOZKIPeEbsGfsOGtYlmUStPgbE4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789736386; x=1790341186;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nxzpoScGk5dDKPya4LxeNVRbV4selBUM8DEhCYq8QJg=;
+        b=Da8g7ZDWsoq4PPXp0zBBmZOqJiotVeNTDzHFodjlWk8T17XsRzhh8gDkdW0cun7A+i
+         wmg6N81TQerVz+PQGdMFe1ESL19ujJIb0xSrh7XYJneN4Lreuskbi/H/I5lf7LPWkNrK
+         8Dloyi1lFg+H62uYHKun9P1g9RKonW8WXYslsE7LH9sCgC+NJendHzWtWDTYjTVIqHeF
+         DVCcQetbSInFP7Vd9tQ/erFQgnxlGQRAecnp+6aKbj8y2wXzV+nOrNTk5lxUv5/SIQ9n
+         KVDWevJy3LDRvJwPwTmqrWKqar9wdroCCOnHaOXqMjiAXdjtLJmdnUIKEqjGtFODUIRU
+         D9Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwVTIHjmGMyVwf/q4gCuyJBRdXq8yfRAD9KZRsMLS0Q5neJ2SetNRII+K5GCifHh045n4+sart5qvACEA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mRmTnLs4fbkQFfRQlRKjrNLscrI6N3MF4ydfEzHZxHNytCC+hR
+	8kc0jbsdJYclwlY/9Q18UZjd0HrPVJka/1kqLXGoYL8IJ+B/2K8aTkLrc2TI3p7Kd/lVbcOXHD2
+	C75+2Sg==
+X-Gm-Gg: AYBFou1oC7SzPdgI7pB2NtPfFLecfas8sbfSa+dbzktCi751Sxd9xV4JgRA40O1QXOq
+	Z933LgFtf3GVGFasAYoyK/C0+9VQ0EJqwrZKObeN3ozbT4cBCWfO8fxzxNFo9EhS6DeNkFLamG4
+	19XJw7ilibgFWJyQhvGLTgCxrp3gW6FkxL43XUFlyH3aaldnpSS7htaXdt68GBFJZ2as8+wvW5g
+	1Cdj31gSHX8ZTfF+igEMOo1GUfBqLPuhwIFoDt5nfD7eTr3lS52LeWQaWmIZ4JQm37wCqd7vGpI
+	e7KowowT8ANo5gBiHbzQFHLh6vMZOgF/S61mOQ9BLEf51jyWmvnODCESHWYycodX9Z/JUpmtBzC
+	tKwv5cQ+Y64cbJ+mez4vNZ7gH1QTHL8a+uabyUI/MyVi7/hlVHfaVwZ4Q/Ng7jzbi0ypKJzrn86
+	ZKF53sK4J7NGoMfigRzprDMNN8bcLsnKufAA7cGgKsXK5KqH8UYxzu+djbgv1UeDS97EEA0H3y2
+	JnR5AVBkDwvUs3WYMym3LbbuaxXEMBT2rhhWA==
+X-Received: by 2002:a17:903:1a85:b0:2dd:ad73:c987 with SMTP id d9443c01a7336-2ddb1bbc1bamr47618615ad.31.1789736385940;
+        Fri, 18 Sep 2026 05:59:45 -0700 (PDT)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com. [74.125.228.42])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb7525b2asm7360875ad.19.2026.09.18.05.59.44
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 05:59:45 -0700 (PDT)
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so370191a12.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 05:59:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxMFGUeIYAVJhpqrPj9wVBOor953drCS8DlDaKcjka9s/fjWnaS0Wyy0r/PkRU/YndBwQsEDl6AqivIzg==@vger.kernel.org
+X-Received: by 2002:a05:6a20:6a28:b0:3d3:adbf:7782 with SMTP id
+ adf61e73a8af0-3dd8c41a46cmr4668333637.23.1789736383919; Fri, 18 Sep 2026
+ 05:59:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6wdh2b42vbclylnf"
-Content-Disposition: inline
-In-Reply-To: <20260918-kbingham-orientation-v6-1-5e8b1f01be29@ideasonboard.com>
+References: <aq0siVcghDe6x9cs@stanley.mountain>
+In-Reply-To: <aq0siVcghDe6x9cs@stanley.mountain>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Fri, 18 Sep 2026 14:59:29 +0200
+X-Gmail-Original-Message-ID: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+X-Gm-Features: AcwNN1VZ_6ZbCrR1Mp4y7JmQBXOuD4YG-BKylmDeJzSZ3dkgiXG_e6jgcK3ZpuQ
+Message-ID: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in uvc_mapping_get_menu_value()
+To: Dan Carpenter <error27@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-janitors@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Dan
+
+I believe that for all the uses of uvc_mapping_get_menu_value we are
+already doing bound checks:
+
+index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
+value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
+BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
+
+In any case, I think this patch is still worthwhile. It will help us
+avoiding bugs in the future (have you found this with a new test for
+smatch?)
+and if we go that way it is probably a good idea to also "fix"
+uvc_mapping_get_menu_name()
 
 
---6wdh2b42vbclylnf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 1/6] arm64: dts: freescale: Convert to new media
- orientation definitions
-MIME-Version: 1.0
+On Fri, 18 Sept 2026 at 14:20, Dan Carpenter <error27@gmail.com> wrote:
+>
+> The "idx" value is a user controlled u32 so we have to bounds check it
+> before calling test_bit() to avoid reading beyond the end of the bitmap.
+Maybe change the commit message as well to avoid stable cherry picking
+it blindly (sorry seems like I am more picky than usual  :) )
 
-On Fri, Sep 18, 2026 at 11:44:13AM +0100, Kieran Bingham wrote:
-> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
->=20
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->=20
-> Update the users throughout the freescale/NXP device trees to use the new
-> definitions.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> Reviewed-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+>
+> Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
+I believe this should be:
+Fixes: 40140eda661e ("media: uvcvideo: Implement mask for V4L2_CTRL_TYPE_MENU")
+or no Fixes at all.
+
+
+
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
 > ---
->  .../boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso      |=
- 3 ++-
->  arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi                      |=
- 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
+>  drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 3ca108b83f1d..f157ed99be4e 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -538,7 +538,7 @@ static void uvc_mapping_set_s32(struct uvc_control_mapping *mapping,
+>  static int uvc_mapping_get_menu_value(const struct uvc_control_mapping *mapping,
+>                                       u32 idx)
+>  {
+> -       if (!test_bit(idx, &mapping->menu_mask))
+> +       if (idx >= BITS_PER_LONG || !test_bit(idx, &mapping->menu_mask))
+>                 return -EINVAL;
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+What about using BITS_PER_TYPE(mapping->menu_mask) to be consistent?
 
---6wdh2b42vbclylnf
-Content-Type: application/pgp-signature; name="signature.asc"
+>
+>         if (mapping->menu_mapping)
+> --
+> 2.53.0
+>
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqtNF8ACgkQ3SOs138+
-s6FhoBAAmy8KNMV4HskuU6PSl9pgsRdWX8u79Y1uLeY0OEPdqN8zN04yU9vPBd3j
-gFwQSlydnv11bvR6t4TI96MCj+ywVc+PtdTnyFIXnbj9g/oHFczVj4MuARWOi1F3
-rA1znqZNfPOQrqkXDseRP8h3vrzAsJJcE/3xC7ak15m8gCCjQaY3MJEogRIsqLfj
-Z7IQ1HSaEJyfOfk/HJ2MGzLvgF0eV/EsNOSZaTtjA10WLWeCXffPGocBG6DvsN44
-J9d1NyiMS3GPQiAhwukkDJtS/+qKd7ebtDa/kgKq0vXLRLudY/d73FGAbpmYJjBb
-RDr2fxeK6L/7iuJnhzUd+9hWb3o1wJBehyDQMk1VTQ3cs7kVvmvMFAlIFJaNcIvY
-pZ/UHqmMWO3cZc15hxezUpSD4nwPIXHF3/Rrpu4KpuvQ2qvfQ6Dmo/Si1QNrF3Kw
-iedvIhm6NcO4lXgJ3kwHxS1yh/x8ZKe0Sg42B4X2oR0RfFhPtsDLCL2b0mpyoub9
-fbKcVmleDcA3AUEAX8Q0dipTpyF1uSzNgp9w+3M7UQLfCeXpiVmXoSl0ALqhd/Kb
-O0RmNU/AubW0LVBBDbobrI5TxS7EtdPt2SJP0I+x6JRFFBvd91smEBNSciFoauKO
-L90R0Zfcrac0q8D3mb+pO7zJn1kkzm3j+abTzj3YHJ3FC92Q/xQ=
-=7yvd
------END PGP SIGNATURE-----
-
---6wdh2b42vbclylnf--
+with those changes:
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+-- 
+Ricardo Ribalda
