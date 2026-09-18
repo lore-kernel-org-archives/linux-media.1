@@ -1,191 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466FA4AEBD8
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3833F2BE639
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719485; cv=none; b=ilMr3Pujkt1OPtBArDklChVxrWW3p2kQa8EgY170V7NELkV/0uCgem87kGotQlIep8D65g+7+3gjpnIHXAjikn4PUf17S6+iOqgk3pfyQS7ghNQX12NkHo16PHvU7pdmx4qGUNFDtO3j5anOc1DzAPQ6hwLRcFpQzgOze8EEJUY=
+	t=1789719597; cv=none; b=pZckxFtwgplHhmSvzlh/DF34sOXx8RL/webUCtrFgXFVFqUH4ANvVi0dkzi7N+FAfIHxf0itKC0FShFlNKkUVOES67fXR92Yro1nQITp1J3TqasU7/GW4CszyjvgqLrVL75eA1x6688y4nNIfypJKfqjTkj5yxLQNsc9J9Bs4ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719485; c=relaxed/simple;
-	bh=0TiiXdP0AZgV8wGzlnd+WgWs8luh3QUddKWCiLH6ED8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IDpv+9o5VuuN3tntVLevJLtGUsK8w88ya345AOU7SeBGd9rnwS/v9hW2uMN10kwVDjp9qKuiVVFr8RWo9CZGEmqI3jWm/JZvqHXvFtjOB3OhCBX10M6a40Ehzn5PpDUtz7nL+gPjBKWMllNwXCelVksoPc/puEroqXM6e/3DFPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L92R3hQS; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789719597; c=relaxed/simple;
+	bh=rdD5DFf0CswBRPuluX8/U0n+XrJZbh8ApTW4obbySCI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cTGCaExAZLv9a+8j9SwGS37kkXR4vnXJ00TNiZXMzuEgsKFqDSnZMHcDUbyVlgthe86bsbrRWDkSRftcZNz5oMbLUGdedZ/yRfFlljGX2VB0sdttmCfEqZoy1QBWJxUKm3+tLN8hlPDlkr80yOuwo2Bym4+EY7OxKamUmws4/8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pkQLqgMT; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L92R3hQS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789719482; x=1821255482;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=0TiiXdP0AZgV8wGzlnd+WgWs8luh3QUddKWCiLH6ED8=;
-  b=L92R3hQSfZ4za0x9bkpCIWo3fRWWEuA9zCxnKAbVDJOhEo+5o3GRft63
-   xvmUwGBTQAJ0AeaoXoEL0To079xn27K4gc0pFm4TfST9OqzJNynQPJgOo
-   L3IZHhGAX+TTZ0jmw0fJsF9/nsdtlJvXvZFE2mXOG/lyB0IHPFngr0NNM
-   /dIYYt3KpmRs9bjQt8AnJT0VKDQ1PgJZycxOhAP49y7oZ99DOEf5nyiQ8
-   t2pCKYHrhpEKDYZ01mgm9Vmsawk0Od6boMAlAvep7ApY0DIgzNhU2NY9N
-   dEljp5U0TYPd3bx3HNoo4X8bsBeAxm0BOByM5CHy+UceH9txhrwqqUdW4
-   w==;
-X-CSE-ConnectionGUID: doxjygFUSW6z3Utns/tiig==
-X-CSE-MsgGUID: Aw8WlIQjQLyAdFwiFj35nA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100807361"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100807361"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:18:01 -0700
-X-CSE-ConnectionGUID: Z+mRC8MiSL6dCxZ1Sc6OtA==
-X-CSE-MsgGUID: ePvLPHP1Qpih5kVvn38l0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2511306"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:17:59 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 76F15121BB0;
-	Fri, 18 Sep 2026 11:17:56 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x7Tn9-00000000Gvt-2Taw;
-	Fri, 18 Sep 2026 11:17:55 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manuel Knitza <manuel.knitza@googlemail.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Junjie Cao <junjie.cao@intel.com>
-Subject: [PATCH 1/1] =?UTF-8?q?media:=20Don't=20hide=20I=C2=B2C=20or=20SPI?= =?UTF-8?q?=20drivers=20by=20default?=
-Date: Fri, 18 Sep 2026 11:17:55 +0300
-Message-ID: <20260918081755.65082-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pkQLqgMT"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so454899a91.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789719595; x=1790324395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
+        b=pkQLqgMTgtMMdaRM68lWFGcLo4fqAAmq/MNA2k8fcK12N3cPCZMN59/w/3hJWgptZr
+         jP/gjh2iUou0RKJgGnoICEne4qcuKgI3cE7k/2L/hguT+5xsiJh3YR0Z5VSw2jfHRJni
+         cfBJIbv4baTwrqYa1XxFV2nzwu8z42XOz2h68qXnlFcP5a+zs44xqEUfFiWqwUCOWemi
+         WrFqk5Qg+3jgLgK3OPZKQQXGhfb0HnXuv5be0ufNBZg0sCcC1TV/sMZlgQJtL+te8k+O
+         rIA1lcG2etjYCKAN+9brwdTh493ySUDAUP3dbhfSE3B2S2NXG8CnBfLkXyGJm+qPwBQW
+         NCeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789719595; x=1790324395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
+        b=q8fsCL58J6NQmzVMV8elpzkEuRxqmVaV63yU8PkZ0oRL01jnv1FKi0IAlwgOloyOFM
+         ZboNi/ThL9NnsxiSW7FhnbbFhfLP5iCsqrkhbY5m6DIQYs6bzJK2UZ96JdLmun418Cnp
+         c9a/6DLuM/MxX0mXrkWpgyZcCr8X5+lA0StY/kRfM3KETQCfsR4CMrBwUUQc/pgIO1bZ
+         BPLIoNgc9iL4fMdPJrvGhKXItEI0wMVh8Up9LINiYJJEFWZ20YezC50CAqXTzBT3FAvo
+         KCqDZWcjn8ZPS/wCVPkHimxRFXYxQWhbBksbMvqqcXplMqVcwIIsyDKkeyuiL1WhVDVU
+         Vxng==
+X-Forwarded-Encrypted: i=1; AKwUvBzj2oo4wgxuOdu7GTUUnqxqWFyG6ssK4za8GyJduTfDeiUBhuAWIuLavDmbfzLRFylIVQDm98s0pHvuYQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mmSlVoDgzEZAGOMIg0xaCiY4PPrAdJPkNtXSy0h5xJYzsP4m0D
+	JcztYjI1ZFdQs+HoH++g+sXmCHZmW4cU463qeuhGueElZDN+tLVSiB/f
+X-Gm-Gg: AYBFou2pEY2Opl7p46UEhLy19T7yNFXJ967TGOibEV6yR9Aib+2gD3K8FzU4LVGRfHV
+	X+xg5MkCn6h0RUfdxuQWnukVvtABhHaNxYCyAp61+0hiupykFQHgvf2RYIFQ8Njd4g1lwLLm883
+	x97z7BxRW8VCYuGLK8GNnLU00uwxEibn5NGuyPUTmASqklEK7nlM1I8vuuvRIWcj/yHpWdjU1i5
+	QMviOOJJloBdwbU/3p+Lop3ZWeKkpfLry8R7Ffmce2HVrkCy0R4Jor1u8zEMC7FHdYtvHaGGsRt
+	IPsAbnASon/lZ7FnaVzGBS2Y9zTK6QQeVId0AvbyIhwwixyrDe1iKfJgUZ0ObPO66l0pQurukHE
+	xpUB/rEqxJBC1TZlPe4W+F3uFxfo7qFlyziXMcX3ZBqGfM8g2xJddewUFybmn4L1lRxvDerxaz9
+	6GinQSHH53co/ezbxYsdhjH7K0AU6q9jiJhb4xocRfNRkPtvCxictEv6YzS0BlwN6/jcj4MrBWZ
+	5Uk2t76hA==
+X-Received: by 2002:a17:90b:2f50:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-39e54e3c71emr7234090a91.9.1789719595407;
+        Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+Received: from amd.ban-spse ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce065314sm2947550c88.14.2026.09.18.01.19.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+From: Priyanka Mani <priyankamani2100@gmail.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Robert Mader <robert.mader@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com,
+	Priyanka Mani <priyankamani2100@gmail.com>
+Subject: [PATCH] dma-buf/udmabuf: don't warn on oversized allocation requests
+Date: Fri, 18 Sep 2026 08:19:17 +0000
+Message-ID: <0a3814afb3419bb1106cf0ff1734a6b7a85f9335.1789707887.git.priyankamani2100@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-MEDIA_HIDE_ANCILLARY_SUBDRV Kconfig option was intended for working with
-sub-device and other helper driver autoselection in cases where the
-required drivers are known, e.g. for PCI cards where all the related
-components are mounted. This option, however, applied to e.g. all camera
-sensor and lens VCM drivers that are generally present in systems without
-being mounted on such a card. This leads to easily omitting required
-drivers.
+udmabuf_create() derives the number of pages to allocate directly from
+the size supplied by userspace, bounded only by the size_limit_mb module
+parameter. Since commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size
+limit by default") that parameter defaults to INT_MAX, which puts the
+page count limit at roughly 5.5e11 pages, i.e. no limit in practice.
 
-Drop the MEDIA_HIDE_ANCILLARY_SUBDRV for I²C and SPI devices.
+init_udmabuf() then asks kvmalloc_objs() for pgcnt * sizeof(struct page *)
+bytes. __kvmalloc_node_noprof() refuses any request larger than INT_MAX
+and splats WARN_ON_ONCE(!(flags & __GFP_NOWARN)) on its way out, while
+kvmalloc_objs() defaults to a plain GFP_KERNEL.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+A single UDMABUF_CREATE against /dev/udmabuf with a sufficiently large
+size is therefore all it takes to trigger:
+
+  ------------[ cut here ]------------
+  WARNING: mm/slub.c:7022 at __kvmalloc_node_noprof+0x412/0x5a0
+  Call Trace:
+   udmabuf_create+0x11f/0x540
+   udmabuf_ioctl+0xf1/0x190
+   __x64_sys_ioctl+0x91/0xe0
+   do_syscall_64+0xdd/0x4a0
+
+The size is entirely userspace-controlled and allocation failure is
+already handled by returning -ENOMEM to the caller, so this is not a
+condition the kernel needs to complain about. Pass __GFP_NOWARN and let
+the existing error path do its job.
+
+Note that capping the limit instead would change the error reported to
+userspace from -ENOMEM to -EINVAL and would reintroduce a fixed ceiling
+that the above commit deliberately removed, so __GFP_NOWARN seems the
+more faithful fix.
+
+Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
 ---
- drivers/media/i2c/Kconfig | 11 +----------
- drivers/media/spi/Kconfig |  4 ----
- 2 files changed, 1 insertion(+), 14 deletions(-)
+ drivers/dma-buf/udmabuf.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 4d9946479160..9b28e91b8a67 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -1010,14 +1010,12 @@ endmenu
- # V4L2 I2C drivers that aren't related with Camera support
- #
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..127369e502a3 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -190,11 +190,13 @@ static void unpin_all_folios(struct udmabuf *ubuf)
  
--comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
--	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
-+comment "audio, video and radio I2C drivers"
- #
- # Encoder / Decoder module configuration
- #
+ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ {
+-	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
++	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt,
++				    GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ubuf->pages)
+ 		return -ENOMEM;
  
- menu "Audio decoders, processors and mixers"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+-	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
++	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
++					    GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ubuf->pinned_folios)
+ 		return -ENOMEM;
  
- config VIDEO_CS3308
- 	tristate "Cirrus Logic CS3308 audio ADC"
-@@ -1180,7 +1178,6 @@ config VIDEO_WM8775
- endmenu
- 
- menu "RDS decoders"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_SAA6588
- 	tristate "SAA6588 Radio Chip RDS decoder support"
-@@ -1197,7 +1194,6 @@ config VIDEO_SAA6588
- endmenu
- 
- menu "Video decoders"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_ADV7180
- 	tristate "Analog Devices ADV7180 decoder"
-@@ -1557,7 +1553,6 @@ source "drivers/media/i2c/cx25840/Kconfig"
- endmenu
- 
- menu "Video encoders"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_ADV7170
- 	tristate "Analog Devices ADV7170 video encoder"
-@@ -1656,7 +1651,6 @@ config VIDEO_THS8200
- endmenu
- 
- menu "Video improvement chips"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_UPD64031A
- 	tristate "NEC Electronics uPD64031A Ghost Reduction"
-@@ -1685,7 +1679,6 @@ config VIDEO_UPD64083
- endmenu
- 
- menu "Audio/Video compression chips"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_SAA6752HS
- 	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
-@@ -1701,7 +1694,6 @@ config VIDEO_SAA6752HS
- endmenu
- 
- menu "SDR tuner chips"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config SDR_MAX2175
- 	tristate "Maxim 2175 RF to Bits tuner"
-@@ -1718,7 +1710,6 @@ config SDR_MAX2175
- endmenu
- 
- menu "Miscellaneous helper chips"
--	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- source "drivers/media/i2c/cvs/Kconfig"
- 
-diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
-index 4656afae5bb4..da3e225d420d 100644
---- a/drivers/media/spi/Kconfig
-+++ b/drivers/media/spi/Kconfig
-@@ -1,15 +1,11 @@
- # SPDX-License-Identifier: GPL-2.0-only
- if VIDEO_DEV && SPI
- 
--comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
--	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
--
- menu "Media SPI Adapters"
- 
- config CXD2880_SPI_DRV
- 	tristate "Sony CXD2880 SPI support"
- 	depends on DVB_CORE && SPI
--	default m if !MEDIA_SUBDRV_AUTOSELECT
- 	help
- 	  Choose if you would like to have SPI interface support for Sony CXD2880.
- 
-
-base-commit: aedd77ea8168f00687c1248cdf115071e869cf93
 -- 
-2.47.3
+2.43.0
 
