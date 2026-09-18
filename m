@@ -1,127 +1,98 @@
-Received: from mail-wr2-f38.google.com (mail-wr2-f38.google.com [74.125.225.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A3451475A
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 16:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8984F5187EB;
+	Fri, 18 Sep 2026 16:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748170; cv=none; b=JQ6FZUe6txHaOEZIiPhfCEcy9G+EPQjFiFTohLfuyL0KACXyOGesSS1oeTvfNBd6aqv/Wx14kzZuHSo5F8tY5mvYGBnS/xR3xSkCThVkIKb6OFH7/y+UtQr7FGdyCo+JmOXRFF8R7SFEfK9YDvMyUmJwp6DFKLqUFu8Vhp2XpYQ=
+	t=1789749686; cv=none; b=ZgNBpvkwpfdmWYwQMslokecON2N9rNi8R7IYlae8euEfNO+0AJKtCntcEVL62QbotslH75qJKtuPdFvHZxLokaQ4ZZ52eNvL4rAKVyhoOZs3J6sJVM763gw0iar2VYSRW8YadR4aAVVYGV2a82AU3hugAUjwHpSwD5gMSf54T9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748170; c=relaxed/simple;
-	bh=BgZt53WCvRUv+SYL6NxC16PIrmwhlpA/RGPQ9pKg+mg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ovry1NOY+sUp0N0urI1eZbTTNcqWEN9ufwfbuapPYGBm050hK4kKmTS3CE2fC9iwrnw0bHFHGvj/jjM9qWsMcyqjWewlJsZ3AJHDcq64LCo0AYm1X9By6rEgbE/4r/uLX7sL1754iVMUQdJ6YM1xoW14673hu56R0OrnTiUsasE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6RhnrnQ; arc=none smtp.client-ip=74.125.225.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789749686; c=relaxed/simple;
+	bh=4RloXI9MwBLbkIsa5xfHbhUxUKoOhgvJ9Woqo5A5AOU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=tZkKtpct2ZDVo8gPQPQA/I4IZ/tK/QudT1FZDXprFU9wnC/2zl7oR5TUqEgsv3DWagHOCun0wWeozEVYYslPssnkYpbDHK7l1K4L2QjGleyS55C8NHhqJgj28U0GMlLuCd/bYL3KNCChiQlnDVu1YoaXzXS/R5o2OYq6FFXp0W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYjqYTVE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6RhnrnQ"
-Received: by mail-wr2-f38.google.com with SMTP id ffacd0b85a97d-482f6350f89so615684f8f.3
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 09:15:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789748155; x=1790352955; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6B8E7hz6GF/wCS6O+Kavtr2HQK/zZKBI71HK4pF7l28=;
-        b=W6RhnrnQlYRgpKI8L6tX5vifGm9N/jUjaw+bmCd1h12VFiVZIfbBKVPLLvL4LD5zj8
-         U9W8IdryhSqBLxVyzd3imBwpMHkisPgHz70W1+VXZrXC+hXX5YXkzNw26IbBbVJlLJJE
-         6YVtV1Fjw/ylXwaFDAj1NVKiiUCvfFpdHcouunB4iJ/Qybus7crwxAkoZMxJP27tfVcs
-         44lDAp4T0LL0mWu22PeadWmMjLn/RRaSPKFz/6eoLHO/d/LHzFP24PMNO42ZmN+UfAkM
-         ySPMgPny54Xn7oLoA82lXwoVVaVQ33lLLF+57L44+E0ZpF13faK+zVApJbzhWrC3POp2
-         SEUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748155; x=1790352955;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6B8E7hz6GF/wCS6O+Kavtr2HQK/zZKBI71HK4pF7l28=;
-        b=qRDS917db3dpI2OV2XputCP45uiPQyUrwq/HiVnhB/vZhds1Wr8jreHKXhbmADmNs7
-         MF70WwAUHgR6haGXj5sBL9M3O4ehjTSV+u5ll6feh8LnZwTXqRAREub0PIw+uJBiTaTs
-         UDg54h5e4sbC3gsPh1GTlgUUG842M2BUM6dtqKEvcmeLBi+ZdOMevdXkeKObMaujm+1V
-         CuLr6VZjoMkd4h9R6O088asEPG8qTh2gP6YiqKEbXsE0pVowlMEwVy5iLfjzUgD5wWgE
-         hRCB7nw0U0fvJAadaGS6BWDl+RStybvpLJr+quIEGdlkHhuYIN64pnUZD+Zh62skDnK0
-         hx8g==
-X-Forwarded-Encrypted: i=1; AKwUvBz0QB0PMl2m6ebAEthBVOwc/m74/GVLVkMNzcLldcq5Ty7dujt8B/8Ec3eiPQjtkj6+65uCiiNHnGkgSw==@vger.kernel.org
-X-Gm-Message-State: AFuF++nGaIr1FGGyLe4BguDA5FoBKr9QdHW+KKwj8905MMwlbB4hA6dJ
-	2Tw0kS6rlLVFGcpDR30dPCTaACjMxBaV9epT/Sc/W/71k6rTQaIxF6en
-X-Gm-Gg: AYBFou1y5f+ku0xM6ldxcDTAtK4P7oGzlENrYjfaAB4AdzNMjKi+oXlBpkk3923Xndg
-	GDN5bObQbN4BSltQw4XN6P+eMPWdhrSRHsF58UwM/DpLM9HEzhkJhd0VKREd7P+S8T0Hv6G8rhe
-	eToTBcvyu9cRvM8+AKUii2mp8SY949bcnNAwt6g/BegCJXwkjcvxl36BLj663/z3DvY8Q2MChZb
-	iYcP/4N8EsABTW2J0HueMEUenvjeNIV4/g1ieXbFcdZ80G66an6CiCuouX8KLEivlZHRBgqxs/k
-	Nsk5MeXf/7v3HHGr/EtDWbyHRKft6anjgn1+WPH+VGOM7D49hnEnjLNqzP0N7Ma0WBGpMc2oOLB
-	izejiTnJlXb5eOgvxx94425OUbaKG7K2YdixCLgA9r3w0JrSJ3Iq8WOZq2wXg1QubsEXDYqwRjP
-	O0lEX/xh7Z/5pVx9zw/4winoonft0wkKEbT8GXPUT8mC6XaMaeHODEJL28tAf3Opk/siq9PnRv9
-	xZJOA==
-X-Received: by 2002:a05:600c:354e:b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49fc57226c9mr37347285e9.12.1789748154818;
-        Fri, 18 Sep 2026 09:15:54 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ec1e63sm44136965e9.0.2026.09.18.09.15.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:15:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 19:15:49 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in
- uvc_mapping_get_menu_value()
-Message-ID: <aq1jtSc_7Ad4v4eN@stanley.mountain>
-References: <aq0siVcghDe6x9cs@stanley.mountain>
- <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
- <aq06Kq-3n2R79YZL@stanley.mountain>
- <CANiDSCsVgGsbf0P6000Jgw=yCop580w61_BaVE6OxnBNXXDfSQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYjqYTVE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D23F1F00898;
+	Fri, 18 Sep 2026 16:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789749682;
+	bh=5O5H/6gCgyAd9CwdY7SShygtNyXdOgdSx01FBNicM9I=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=gYjqYTVEEMN2sakWqtf5kvBPykQHxgvoN4kv/6dx9NnJS4P2lFM0WZk7eItTUqnwk
+	 jIRXppcVebBscVUSTZZnjZHA+bxD53EV17DQWekFZPiTDS01Q2ti9pgwF0f5x4hCpq
+	 kutR4tEM5jmIhZOKXwnpxUEoT4G9g3vsSJA5K5BGwaMMPT+MP2gEjOBMxFYWNdN7SS
+	 1pNq6Vngb6VqFxE8QqZbpuqKM4njrisbnzA/j5zMZjobeJn8BD0ohkZ7jERhGoKiCH
+	 yKIPiRuUTvSdtoPCrbqtmVZUCvPYu7Wj3TSYgLNKw0uJzssBjOE+kMsWA7s86axm2a
+	 UWiJAWtBu6HKg==
+Date: Fri, 18 Sep 2026 11:41:21 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiDSCsVgGsbf0P6000Jgw=yCop580w61_BaVE6OxnBNXXDfSQ@mail.gmail.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
+ devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+In-Reply-To: <20260918-add_iris_for_hawi-v1-1-ac60fd15c98b@oss.qualcomm.com>
+References: <20260918-add_iris_for_hawi-v1-0-ac60fd15c98b@oss.qualcomm.com>
+ <20260918-add_iris_for_hawi-v1-1-ac60fd15c98b@oss.qualcomm.com>
+Message-Id: <178974864869.291097.14646474032150425870.robh@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: media: venus,common: relax
+ clock/power-domain/iommu limits for Hawi
 
-On Fri, Sep 18, 2026 at 03:46:11PM +0200, Ricardo Ribalda wrote:
-> Hi Dan
+
+On Fri, 18 Sep 2026 12:28:40 +0800, Wangao Wang wrote:
+> The Hawi Soc Iris5 video codec requires more clocks, power domain
+> entries and IOMMU mappings than the current limits allow. Relax the
+> common schema constraints to accommodate it.
 > 
-> On Fri, 18 Sept 2026 at 15:18, Dan Carpenter <error27@gmail.com> wrote:
-> >
-> > On Fri, Sep 18, 2026 at 02:59:29PM +0200, Ricardo Ribalda wrote:
-> > > Hi Dan
-> > >
-> > > I believe that for all the uses of uvc_mapping_get_menu_value we are
-> > > already doing bound checks:
-> > >
-> > > index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
-> > > value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
-> > > BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
-> > >
-> >
-> > The problematic caller is uvc_set_le_value().
-> >
-> >         value = *(s32 *)v4l2_in;
-> >
-> > Smatch thinks that is called from uvc_mapping_set_xctrl_compound().
-> 
-> uvc_mapping_set_xctrl_compound() are only called if v4l2_type >=
-> V4L2_CTRL_TYPE_RECT and then v4l2_type != V4L2_CTRL_TYPE_MENU. So I
-> think we are safe.
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/qcom,venus-common.yaml        | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
 > 
 
-Yeah...  I have reprimanded ChatGPT and it says it has updated the
-warning review skill.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This is difficult to silence.  But I'm going to ask AI to create
-an tool to automatically rebuild a second temporary database which
-only checks the problematic call tree and points any impossible
-constraints.  That would have flagged this warning as a false
-positive.
+yamllint warnings/errors:
 
-regards,
-dan carpenter
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/media/qcom,sm8550-iris.example.dtb: video-codec@aa00000 (qcom,sm8550-iris): non-pixel:iommu-ranges: [[629145600, 3128950784]] is too short
+	from schema $id: http://devicetree.org/schemas/media/qcom,sm8550-iris.yaml
+Documentation/devicetree/bindings/media/qcom,sm8550-iris.example.dtb: video-codec@aa00000 (qcom,sm8550-iris): Unevaluated properties are not allowed ('#address-cells', '#size-cells', 'dma-ranges', 'non-pixel', 'pixel' were unexpected)
+	from schema $id: http://devicetree.org/schemas/media/qcom,sm8550-iris.yaml
+Documentation/devicetree/bindings/media/qcom,sm8750-iris.example.dtb: video-codec@aa00000 (qcom,sm8750-iris): non-pixel:iommu-ranges: [[629145600, 3128950784]] is too short
+	from schema $id: http://devicetree.org/schemas/media/qcom,sm8750-iris.yaml
+Documentation/devicetree/bindings/media/qcom,sm8750-iris.example.dtb: video-codec@aa00000 (qcom,sm8750-iris): Unevaluated properties are not allowed ('#address-cells', '#size-cells', 'dma-ranges', 'interrupts', 'memory-region', 'non-pixel', 'pixel', 'reg' were unexpected)
+	from schema $id: http://devicetree.org/schemas/media/qcom,sm8750-iris.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260918-add_iris_for_hawi-v1-1-ac60fd15c98b@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
