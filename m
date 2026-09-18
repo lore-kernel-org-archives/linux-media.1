@@ -1,162 +1,219 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42594F93C9
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 13:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC444EC675;
+	Fri, 18 Sep 2026 13:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737524; cv=none; b=uNDKC0Wqu8rgDov+fnaD3cb9dWUPOti5cdCRjUXQP6HadgyOFV6CABULLKR0Jgw3iUnmUEW2Dh++2wR96pxbX3tsPM4VKLHC4WJmsL1t+FIfm0Cu5xtDbH/arUp7AWtXTQ5yhN6wsK3TK4RKd8SGu2Pw7avYhtAKJCnvH/qzxk8=
+	t=1789737621; cv=none; b=DTDmpsJwM8W6IwUpBvDl6xloC0k+C3vJpVFoXVu5A7OtknUubAY/Kn2r1cy7p4j8fm/IQTzLTTQTMrM1AHrKy1z4+EQRmG+SX9MWFm0wtgZIPOrz5O6dahD8r0VqyNIxafNjAdIBPnVHgZmtL1MbqkKLlGvOBlnJOsFWjvIe2LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737524; c=relaxed/simple;
-	bh=MXMecSS5un1Vw5RPUBhc/MQTR/N1uDtr5TFfUDNnDkc=;
+	s=arc-20240116; t=1789737621; c=relaxed/simple;
+	bh=mOT+ZZhGP5ccEcxa5D9560p30Tzgnpb1fQq5rAFNPHQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pJE9dlkLBEIGswWdXDizW1MsDlUjK9SxWVkbg/8EYvagg5Y2o7vs4i1AawF3ZiznBlgGoqMx5XzF9KtTVey3YfndFKRnOEMRPPzAbh1MHN7P9+PPNrG8xamm/ubRdj29U0u4J6yfTlXatxPg95dlOkom/BANs4havEMdssR1MUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMp35hXi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kg9g4YPCpPuNKNb/WXmpSPZe3TaO1JvpLZ6YX68MiRb1KP1Tk5fYTTcWW5gktmg3mS4Q6q1ssJbdsiuF6rpUGbKJd9/WITWYnxOSPyyF1ud/vWKWXW4p20RYf/5ci7rpEZ8QzSrj5YeYm4/PgevQPGK7nWaWwSCVzEwIqiGL+YY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=pVJEF3ze; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMp35hXi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so4241035e9.3
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 06:18:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789737519; x=1790342319; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FSYhKatlju631s2mF43cFtG3PZ8R0OZ445m3aP3hlTo=;
-        b=SMp35hXiJaeVNxYiS6HIgTgEB/vqI1gkvKZ56xzpON6sbNsdZriJw+qSAgJ3MRE77i
-         QudT/8aAVob0I/o06oGLP1KdduYUkzMv9TzJgqw+ua2H1ZS5kEbvxdyjmOW0thayeBGN
-         PwXhOg2FqNZaAs/HQTmG6QIi/Ag1ma56Hr3aJ9wVb8vKLo0hj3xKcxqu0C2bcM5UTxRp
-         SvSLsuj2+kyqHPuHW6eX0L3VWcB2kGshWm6ki3LNZ52lb05hZslT/5RKGiKOBlD37BuM
-         s/MhhDs7/Y4hWSd4GC+hWI5iQK8XV5qULBYcnesbbyceJjZ22PsvgQozbJlRflDIDV/M
-         pa4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737519; x=1790342319;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FSYhKatlju631s2mF43cFtG3PZ8R0OZ445m3aP3hlTo=;
-        b=Kat+RmvLI0Emh2Id93A4AWxqSjr9qJPDhEXNyBNDVWvCANAR03EzvUiGtw5p/TxKzK
-         FcO+Vuij1rcORAXFvdT/XLP5843RPUfqrY4MF5qS+KgV9XMmxXtKy7cpUdmjZ+OIu0Ht
-         cLHBBp105u3Gzv8LiibPIXnkcXnTuVQYPGTw3Do5A6M5SNGnXBR73EXl/r2BhjT7uvZx
-         wKs4fOa2YkIVPhu9yxd2Z0iSa7Lje1knlFS39xh+JhuGKP0G7Q8NMNiY/ES5hN/MDK93
-         7D9o4MYy70J2tfH8XflpfxYUYe6dlsYU4DwBqJ69PbA1+CbX6PzZQ94d7auwhdRSCDDS
-         UEqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkL1KFSjjBvMoag/FJzN1OIn4cW5gx5hd9rOTjhSrguqut4S0dkSHo6qNQA7MPbIpv9kf9otmpobJlHg==@vger.kernel.org
-X-Gm-Message-State: AFuF++lk/nvQlpo0MeozeAFUf6MVhbEQ9K7kF9DivlGnNkl/uJ4gvpj+
-	ha2o4QQ9xmu56Q4fZ1/euvovstU0ueb1OXgxVLbz3a7jJFTm104UnpGN
-X-Gm-Gg: AYBFou3JrNxOEoDf0mEpURz9R3Ib/pKeUkRB+wzT5M8q8LSpFhFCWFzmHXn5hDgq48y
-	Z5b/2/qUBA6NdBWY7WHObJ6S3IIasGheF4Mg0M/THSpzpYTS6QU18NQ4Ifr8fYSUAlcOnsIhb0Q
-	LsAnTHQydMQqv9OBohC3ns/dyZ+EspvZPvxP1HH6zG1nEY8rHCS6bti4H/L0wBeP1eLpB3gvd8x
-	oJ93R8RgaJ5813XJ9DQiEC9DEOdEeoaASuo1UtrTBKJpRjJS903H1lOJXN8bYIQX11u7XvYDbet
-	EIj7SG8qgTGKLH8dl4zvC0lM8nL+wZE2tbfk7q0RgX6jXIO0+iUyrq08N79NA8GLHMh1KqeMm7r
-	UcCF1eUeDPT7SqN6fEUAcjx+omOgZIiKIIoFxa6hm2v4P0pyICWPZ+xMZzEiI/TZaZSLBp+93hL
-	2KrxZG11zeVz8n+LUIi4wx++yk6R4CYDF4FV7KoJGfMDGyRKvVhbcD4shHP38MWBWJzhSQ
-X-Received: by 2002:a05:600c:548c:b0:49e:6e7c:d895 with SMTP id 5b1f17b1804b1-49fc584fee0mr32705835e9.26.1789737518934;
-        Fri, 18 Sep 2026 06:18:38 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008fe3csm4156879f8f.37.2026.09.18.06.18.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:18:38 -0700 (PDT)
-Date: Fri, 18 Sep 2026 16:18:34 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="pVJEF3ze"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AC89E4D7A;
+	Fri, 18 Sep 2026 15:18:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789737511;
+	bh=mOT+ZZhGP5ccEcxa5D9560p30Tzgnpb1fQq5rAFNPHQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pVJEF3zeBamo6zonI09xcQri3fYoyTjGlvpxKQvq8DA1lZUyrBmF3fmlNg0QWBZm6
+	 afftWWvrHEmYx4GaVVvK1jDBAQ+k0yoD15sXk0zXSC/smn8d4sQ8kyFbgMtLr1wyOT
+	 +X88e9xf8szv0kV8lYRCDNVlWSRE0OMtfHSWlm0Y=
+Date: Fri, 18 Sep 2026 16:20:13 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Jacopo Mondi <jacopo@jmondi.org>, Jimmy Su <jimmy.su@intel.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Martin Kepplinger <martin.kepplinger@puri.sm>,
+	Matthias Fend <matthias.fend@emfend.at>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in
- uvc_mapping_get_menu_value()
-Message-ID: <aq06Kq-3n2R79YZL@stanley.mountain>
-References: <aq0siVcghDe6x9cs@stanley.mountain>
- <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+	Michael Riesch <michael.riesch@collabora.com>,
+	Mikhail Rudenko <mike.rudenko@gmail.com>,
+	Paul Elder <paul.elder@ideasonboard.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Quentin Schulz <quentin.schulz@theobroma-systems.com>,
+	Richard Acayan <mailingradian@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	David Heidelberg <david@ixit.cz>
+Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media
+ orientation definitions
+Message-ID: <20260918132013.GG59058@killaraus.ideasonboard.com>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+ <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+In-Reply-To: <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk>
 
-On Fri, Sep 18, 2026 at 02:59:29PM +0200, Ricardo Ribalda wrote:
-> Hi Dan
+On Fri, Sep 18, 2026 at 12:09:51PM +0100, Kieran Bingham wrote:
+> Quoting Kieran Bingham (2026-09-18 11:44:14)
+> > From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> > 
+> > The orientation property for video interface devices now has definitions
+> > to prevent hardcoded integer values for the enum options.
+> > 
+> > Update the users throughout the qualcomm device trees to use the new
+> > definitions.
+> > 
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > Reviewed-by: David Heidelberg <david@ixit.cz>
 > 
-> I believe that for all the uses of uvc_mapping_get_menu_value we are
-> already doing bound checks:
+> Sashiko has noted that there is another new dts added in dts/qcom since
+> I wrote this patch.
 > 
-> index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
-> value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
-> BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
->
-
-The problematic caller is uvc_set_le_value().
-
-	value = *(s32 *)v4l2_in;
-
-Smatch thinks that is called from uvc_mapping_set_xctrl_compound().
-
-drivers/media/usb/uvc/uvc_ctrl.c
-  2772          data = memdup_user(xctrl->ptr, size);
-  2773          if (IS_ERR(data))
-  2774                  return PTR_ERR(data);
-  2775  
-  2776          return mapping->set(mapping, size, data,
-  2777                              uvc_ctrl_data(ctrl, UVC_CTRL_DATA_CURRENT));
-
-But maybe that mapping->set can't point to uvc_set_le_value.
-
-> In any case, I think this patch is still worthwhile. It will help us
-> avoiding bugs in the future (have you found this with a new test for
-> smatch?)
-> and if we go that way it is probably a good idea to also "fix"
-> uvc_mapping_get_menu_name()
+> I don't want to invalidate the above reviews by adding another change,
+> so I will send the single update to the new file separately as the core
+> definitions are already accepted now.
 > 
+> If someone /really/ wants me to add the change to
+> arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi in this patch,
+> please let me know.
 > 
-> On Fri, 18 Sept 2026 at 14:20, Dan Carpenter <error27@gmail.com> wrote:
-> >
-> > The "idx" value is a user controlled u32 so we have to bounds check it
-> > before calling test_bit() to avoid reading beyond the end of the bitmap.
-> Maybe change the commit message as well to avoid stable cherry picking
-> it blindly (sorry seems like I am more picky than usual  :) )
+> it looks like this:
 > 
+> ----------- arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi -----------
+> index 945127dacc82..f86d3e0d51a6 100644
+> @@ -3,10 +3,11 @@
+>   * Copyright (c) 2022-2024 Jianhua Lu <lujianhua000@gmail.com>
+>   */
+> 
+>  #include <dt-bindings/arm/qcom,ids.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/phy/phy.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include <dt-bindings/usb/pd.h>
+>  #include "sm8250.dtsi"
+>  #include "pm8150.dtsi"
+> @@ -571,11 +572,11 @@ camera_front: camera@10 {
+>  		reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
+> 
+>  		pinctrl-0 = <&cam_mclk3_default &camera_front_active>;
+>  		pinctrl-names = "default";
+> 
+> -		orientation = <0>; /* Front facing */
+> +		orientation = <MEDIA_ORIENTATION_FRONT>;
+>  		rotation = <270>;
+> 
+>  		port {
+>  			ov8856_front_ep: endpoint {
+>  				data-lanes = <1 2>;
 
-I mean if uvc_set_le_value() turns out not to be a bug then, of course.
+I don't mind either way, and I think you can keep the existing R-b tags
+if you add that hunk.
 
-> >
-> > Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
-> I believe this should be:
-> Fixes: 40140eda661e ("media: uvcvideo: Implement mask for V4L2_CTRL_TYPE_MENU")
-> or no Fixes at all.
-> 
-> 
-> 
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
+> > Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 > > ---
-> >  drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> > index 3ca108b83f1d..f157ed99be4e 100644
-> > --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> > +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> > @@ -538,7 +538,7 @@ static void uvc_mapping_set_s32(struct uvc_control_mapping *mapping,
-> >  static int uvc_mapping_get_menu_value(const struct uvc_control_mapping *mapping,
-> >                                       u32 idx)
-> >  {
-> > -       if (!test_bit(idx, &mapping->menu_mask))
-> > +       if (idx >= BITS_PER_LONG || !test_bit(idx, &mapping->menu_mask))
-> >                 return -EINVAL;
-> 
-> What about using BITS_PER_TYPE(mapping->menu_mask) to be consistent?
-> 
+> >  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
+> >  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
+> >  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
+> >  3 files changed, 6 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> > index f41ad446a39e..e2b7f1bd05ab 100644
+> > --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> > +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> > @@ -13,6 +13,7 @@
+> >  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+> >  #include <dt-bindings/leds/common.h>
+> >  #include <dt-bindings/media/video-interfaces.h>
+> > +#include <dt-bindings/media/video-interface-devices.h>
+> >  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> >  #include <dt-bindings/sound/qcom,q6asm.h>
+> > @@ -701,7 +702,7 @@ camera@10 {
+> >                 pinctrl-0 = <&cam_mclk3_default>;
+> >                 pinctrl-names = "default";
+> >  
+> > -               orientation = <0>; /* Front facing */
+> > +               orientation = <MEDIA_ORIENTATION_FRONT>;
+> >                 rotation = <270>;
+> >  
+> >                 port {
+> > diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> > index 218573a97785..3b5f6a29e969 100644
+> > --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> > +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> > @@ -11,6 +11,7 @@
+> >  #include <dt-bindings/input/gpio-keys.h>
+> >  #include <dt-bindings/input/input.h>
+> >  #include <dt-bindings/leds/common.h>
+> > +#include <dt-bindings/media/video-interface-devices.h>
+> >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> >  
+> >  #include "sc8280xp.dtsi"
+> > @@ -683,7 +684,7 @@ camera@10 {
+> >  
+> >                 clocks = <&camcc CAMCC_MCLK3_CLK>;
+> >  
+> > -               orientation = <0>;      /* Front facing */
+> > +               orientation = <MEDIA_ORIENTATION_FRONT>;
+> >  
+> >                 avdd-supply = <&vreg_l6q>;
+> >                 dvdd-supply = <&vreg_l2q>;
+> > diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> > index b4854801a5f5..7880d85b52fe 100644
+> > --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> > @@ -9,6 +9,7 @@
+> >  #include <dt-bindings/gpio/gpio.h>
+> >  #include <dt-bindings/input/input.h>
+> >  #include <dt-bindings/leds/common.h>
+> > +#include <dt-bindings/media/video-interface-devices.h>
+> >  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> >  #include <dt-bindings/power/qcom-rpmpd.h>
+> >  #include "sdm670.dtsi"
+> > @@ -460,7 +461,7 @@ camera@1a {
+> >                 pinctrl-names = "default";
+> >  
+> >                 rotation = <270>;
+> > -               orientation = <0>;
+> > +               orientation = <MEDIA_ORIENTATION_FRONT>;
+> >  
+> >                 port {
+> >                         cam_front_endpoint: endpoint {
+> > 
 
-Sure.
+-- 
+Regards,
 
-regards,
-dan carpenter
-
+Laurent Pinchart
