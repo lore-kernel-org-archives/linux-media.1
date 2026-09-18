@@ -1,158 +1,97 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A924F3914FF;
-	Fri, 18 Sep 2026 01:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18452D2488;
+	Fri, 18 Sep 2026 01:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695306; cv=none; b=FoNE9jRUgnHuiiHlr4C9O4LgHEhCEdLTjA9AEL5ALPDm06twKr/xFortZbS5Wy2SXAAP+Oip5Vpy3iaT3zli5G1obGFmzEqW8gWi2qpPJ4SQ/SOfn+QDuBXaPEgaPbcRUp7BZm+3VY5iM5pAco1DfN2XOGz7dQEWkVNev4aB2Nk=
+	t=1789695364; cv=none; b=aqlU+7Ka+x6t3BX9YMj0UIcTtIojtFgzz3gHYaMAQW1mZzXf7bNahZ9jFXZcSsbcLwAWT6aToqZuIa8XWMd7tm/sOjiEXJ9bOfX/1eokqZFeDK+8KY7Sl4xibf7Maw1sVw/AJefLWnqn1otF+mIOWZmXn+9jF+ST9Zjh0YImy/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695306; c=relaxed/simple;
-	bh=pEmjUgm8VkDI4oKc4FwXEMO5xPjzaOIfJAfv+aQvM18=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uozxFExi+dLQyO6+lAavIxY6hvHnySK7FrsJ59Vcul8OCXRmZY1SsRLM33BwVlQRxrIcrD1/hklAR6PBq+JpZmhPWtg5utOfPrdQao8+i3UOjwvN4jlBATLEJx56tO5X1AC3LDjoZLGM6dACzQAukGAmXc+5RqlEeGbEHEml33c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowACnfvIrlaxqB_xECA--.11695S2;
-	Fri, 18 Sep 2026 09:34:35 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: Gerd Hoffmann <kraxel@redhat.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	dri-devel@lists.freedesktop.org
-Cc: Huan Yang <link@vivo.com>,
-	Robert Mader <robert.mader@collabora.com>,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in init_udmabuf()
-Date: Fri, 18 Sep 2026 01:34:34 +0000
-Message-Id: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789695364; c=relaxed/simple;
+	bh=yypjweXNErL1B/GaPeOA5qYKGC2xod71mU7gPTsotck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NLlcwwq6AWqshr2jWR9uTq2tHz1wdg+znRT7D1JW7jDg8IuVjLkE8NxvQoLsjRLGo3IoXnCVMamtnRqxtGGJN5M4cpn1sS22ndRU5YuLza5QuJFI/NBGU6bg/SXkv+gRBli9XccZukK04qZZRuz+OqFYILEjB9Td8WHkHSapTTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vaqXAAv5; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vaqXAAv5"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1B23B4DC;
+	Fri, 18 Sep 2026 03:34:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789695257;
+	bh=yypjweXNErL1B/GaPeOA5qYKGC2xod71mU7gPTsotck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vaqXAAv5+95uztFO9foAS27GLc9+QG1nx9D4be2NYqIXqWnIUVCSExZBX6CLnjV6r
+	 XQPlt/DgZ09KpngOSgkjpjzHvdyjjrBG0DULdjS2ZHRnAUQAinVEfBcKMxEDEeJVvd
+	 7ZBosumjGjIcwY5QOR7YFIMtZKv3puYILlUx7AEA=
+Date: Fri, 18 Sep 2026 04:35:58 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH 10/10] media: rcar-fcp: Add R-Car X5H support
+Message-ID: <20260918013558.GJ145152@killaraus.ideasonboard.com>
+References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+ <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-10-4c72d4e086dd@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfvIrlaxqB_xECA--.11695S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Gw1kKr48GFW7uryxCrWktFb_yoW7Xrykpr
-	4aqr4UCr40qF1DA3WUJFn8Jw1UAa1DAFW7W3y7Gr1kZF1UCw1UZFn7Gry8JryDGw1UZay7
-	tF1DAw40qr1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBq14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
-	64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F
-	4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
-	5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw2
-	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
-	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrw
-	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
-	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
-	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1-txDUUUUU==
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-10-4c72d4e086dd@ideasonboard.com>
 
-init_udmabuf() allocates two pointer arrays with one entry per page of
-the created buffer.  Since commit 1c0844c6184e ("udmabuf: change folios
-array from kmalloc to kvmalloc") these arrays are allocated with
-kvmalloc(), which warns and fails when the requested size exceeds
-INT_MAX bytes.
+On Thu, Sep 17, 2026 at 09:04:49PM +0900, Paul Elder wrote:
 
-With the default size limit of 64 MB the largest possible request was
-far below that threshold, but commit 44e9eb5a7621 ("dma-buf/udmabuf:
-Disable the size limit by default") raised the limit to INT_MAX MB.
-With 4K pages, creating a buffer of more than INT_MAX / 8 pages (about
-1 TB of pinned memory) now makes kvmalloc() hit its "crazy size"
-WARN_ON_ONCE(), which is trivially triggerable from unprivileged users
-through the UDMABUF_CREATE ioctls:
+Same comment about authorship.
 
-  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
-  Call Trace:
-   udmabuf_create
-   udmabuf_ioctl_create_list
-
-Fix it by rejecting buffers whose page count exceeds what the pointer
-arrays can address before calling init_udmabuf(), returning -EINVAL.
-
-Fixes: 1c0844c6184e ("udmabuf: change folios array from kmalloc to kvmalloc")
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
----
- drivers/dma-buf/udmabuf.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd00462423..25984e75d7ff3 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -383,6 +383,14 @@ static long udmabuf_create(struct miscdevice *device,
- 	if (!pgcnt)
- 		goto err_noinit;
- 
-+	/*
-+	 * init_udmabuf() allocates two arrays of pointers, one entry per
-+	 * page, with kvmalloc(), which cannot handle sizes larger than
-+	 * INT_MAX bytes.
-+	 */
-+	if (pgcnt > INT_MAX / sizeof(struct page *))
-+		goto err_noinit;
-+
- 	ret = init_udmabuf(ubuf, pgcnt);
- 	if (ret)
- 		goto err;
--- 
-2.34.1
-
+> The FCP instances found in the R-Car X5H v1.0 have a different device
+> ID. Add it to the devices list.
+> 
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> ---
+>  drivers/media/platform/renesas/rcar-fcp.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
+> index 15bcbbda3b853f71780aae876f6440b33addf193..8d62f07d38b7881270e94331b0564e4665664646 100644
+> --- a/drivers/media/platform/renesas/rcar-fcp.c
+> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+> @@ -33,6 +33,7 @@
+>  #define RCAR_FCP_REG_VCR_REVISION_M3N		(6 << 0)
+>  #define RCAR_FCP_REG_VCR_REVISION_V3H		(7 << 0)
+>  #define RCAR_FCP_REG_VCR_REVISION_E3		(8 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_X5H_V1	(12 << 0)
+>  
+>  #define RCAR_FCP_REG_CFG0			0x0004
+>  #define RCAR_FCP_REG_CFG0_FCPVSEL		BIT(1)
+> @@ -223,6 +224,7 @@ static int rcar_fcp_setup(struct rcar_fcp_device *fcp)
+>  		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3N, "M3N" },
+>  		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3H, "V3H" },
+>  		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_E3, "E3" },
+> +		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_X5H_V1, "X5H v1.0" },
+>  	};
+>  
+>  	unsigned int i;
 
 -- 
-Below is the crash report:
-------------[ cut here ]------------
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-Modules linked in:
-CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
-Tainted: [W]=WARN, [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-PKRU: 80000000
-Call Trace:
- <TASK>
- init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
- udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
- udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
- udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
- vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
- __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
- do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x590d6d
-Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
- </TASK>
----[ end trace 0000000000000000 ]---
----
+Regards,
 
+Laurent Pinchart
