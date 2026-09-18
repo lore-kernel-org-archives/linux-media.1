@@ -1,172 +1,191 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB3B4ABBB2
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466FA4AEBD8
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718905; cv=none; b=UDAhZ+Z2fHXK4+4ignyC4FUD3WxyTyi2Nt7/DSWXPj/ezoazzSMh3unCooOrsCuCE5TmYaJmuYABeFW4yQ6U9D3pND8ZJL6snUAdfoZIMXCSOLYEN70rc6cB5y+tZvOFqwfPz3aQcqnyi6JJ/R2Z8N7TaxAeqWlrhzkBrFMi3lw=
+	t=1789719485; cv=none; b=ilMr3Pujkt1OPtBArDklChVxrWW3p2kQa8EgY170V7NELkV/0uCgem87kGotQlIep8D65g+7+3gjpnIHXAjikn4PUf17S6+iOqgk3pfyQS7ghNQX12NkHo16PHvU7pdmx4qGUNFDtO3j5anOc1DzAPQ6hwLRcFpQzgOze8EEJUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718905; c=relaxed/simple;
-	bh=gn/yrZiK2zbBQT7QtevvoxhynXMbVQs03+RazK8qInA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:References:
-	 In-Reply-To:Content-Type; b=iHbD51Um/XOxDt8740y/gVoQ4GPDOuaBt67ELzv9jOh2pEqVQ1GjE8qnpnNF+Z4y+5xI8MmdgZkkw+x8pX62MLzPJI3qdiRa2b+kkIsK14IS2mJhKP4bsdHw3ahXOfJgHmhGVwNWUcQWCZs3A3TfR50Ooe2EVFjpJfk4ylQnNhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LvG++Loq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g6KG/wWy; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789719485; c=relaxed/simple;
+	bh=0TiiXdP0AZgV8wGzlnd+WgWs8luh3QUddKWCiLH6ED8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IDpv+9o5VuuN3tntVLevJLtGUsK8w88ya345AOU7SeBGd9rnwS/v9hW2uMN10kwVDjp9qKuiVVFr8RWo9CZGEmqI3jWm/JZvqHXvFtjOB3OhCBX10M6a40Ehzn5PpDUtz7nL+gPjBKWMllNwXCelVksoPc/puEroqXM6e/3DFPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L92R3hQS; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LvG++Loq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g6KG/wWy"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I601Cn2660359
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:08:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	99YQ3DQG7uZXx2TCzfhu8/KMoLrbY3OU+4ye4ZavR/c=; b=LvG++Loqd+PIJrAM
-	1F0pWj42Z6efAqzp3Q7SA+LqvX/l8iMYC9Ld6izncjdCRGh+HZcON5CngrH+IMWY
-	a8Ck8Ddnp7AztCHtjZpd9k3k2C0sPCzYLrQicVUY6xfFurMafKGsaOZ1L8UPAwVh
-	EvcGwTriEazaG2EZ3VFoPFpebzqx3RvqZ+gQxN4MUil7FjdruOEGveg1pZSJcAEv
-	uWt+/ADf978n+VtCayCmNGq36Lmh9khui/OmepPhkUhv6e7v/ezpLtZPpy7CXjtC
-	Yx4cVFbvSmaGH4MHWEbM+BUUoUYypsc1WjpFWv7CPiZz+khprEX6NNMx1X7oBnB8
-	JLT0kQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grjttuu9v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:08:22 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939f3426a7cso92487685a.0
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 01:08:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789718901; x=1790323701; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:to:subject:from:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=99YQ3DQG7uZXx2TCzfhu8/KMoLrbY3OU+4ye4ZavR/c=;
-        b=g6KG/wWyZCkU1++FpQTAdIHD+ytBUyOV4j+N+sFaCAaPuU0x1DrjWmNrBLA6WhEnY0
-         ZSWhs4FalygSZ+9pI4k/BxlPo73wtTENJCFmSDGsTkGComE64RXbyB7YdrgQBQ25hGmG
-         QoAZ6+bkv4WY5GVqYCRkUMs8m91oZJXrEzGSvF5KBTPSB1P5yF32ZMThuoTfCrBlctdZ
-         nX2piR7bAmAbIMJpO9hOlRZMZ7T8h+SdFD3bHM1Aem7gxYzaVwHC2tSeAiqtl5VsnPhU
-         4oMMFOGjFslWBs5lT44ogRCiqXGnHSIXe+4+ff0T8aFWqiYqXkEarYW4XwiWS7jNYDh0
-         hQSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789718901; x=1790323701;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:to:subject:from:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=99YQ3DQG7uZXx2TCzfhu8/KMoLrbY3OU+4ye4ZavR/c=;
-        b=lLe2j+CYn30GIdPy5pqGoLtc6CkbhDOVIBMvd00zKPYy7yxkL2rGe7MDnzXzFMdWdJ
-         OUAMrnzgo/QwgtnRnurffwFyUYZ+yWwfEI9TOxoGWNWzFeMcqRHBboo4lCm3mAkB4NTa
-         jp63thFyX8NJehcjbmRH1PQXSppC7zhGwhN67h7JYYbbhDjSlc532HPemqAwOgW5uSDz
-         TDlZTgvN69dGqQ6zoxs7aNZoIkBM3VFm4Mzq5kdc4kJlD9j/0Yn4XR2ymLxXuL76ffA0
-         Swh9/XXOCAHVkxRD/SQiwhVTPOP8FcPO4PnLAR7tvi+XFL2YMmtLHbdAONnVjNbXBZQd
-         q0Tw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Ff4mUAqNWboQ9XUCZ6BFaIAYlsHeBXMXtvzoYUOZyVm0GpBydUVz70JCAXAvGUBmd+dxXPXv4Yrn9w==@vger.kernel.org
-X-Gm-Message-State: AFuF++mmae7ue4xXiIwBGigPfn2WBVy3ikkn7nMKNaYsomox3HqjOs+P
-	DaLgHE0KPzt2mUsPMQA0QkQRnVlkv0mkGTGTrYFOCxNReUsvqQBFK7byyob/P2e/KGnjG4iiVpF
-	P4Bbmgo5NnJPo68F9ST8ombi2YHfs6KEnxQxXdCIanke/nnFEIBbqaKnFV6/YAZoOk2T4Ueumvg
-	==
-X-Gm-Gg: AYBFou126ub727qfki2uowqGL3bfWwlr2kWExUcHgz4wNyzxI8KlZdamLWe1ae1OJjC
-	zNYObwsYAqKb8bu//4xyKB3k8MA0lqPJNLosbmR5RMxVv6552zX7U3ZsclMdm2o+jpcchLanErc
-	fcGHOI5/u0MjKwxcVOJRKyLXtXdg4wNKzCnyr0r51o0LTyLe1vhwdFRhPcA40WBS3YNp3a8f4vw
-	pEIWRjflFpsJejqgAbxeMDlFaEXtHfqldz4aIe3tq/2KHiOJFtu+k2bV7KJDnTrEAIv9g6WNnWq
-	x1/94DUhvIZd60Wz4ZZAGhop6kwP0f9Q+rC/eG5OR/o8OElLeWQUrNEkfd4tK2XWsq6JZd8WU0y
-	v2uoHg6YOduY1afZ9ANHQGVtpcrBT8DFaqLQHXAsHbHeCRS49uZCmf8ubfLs55xvlUAg0MrfH30
-	yNWGlcjX+Tdt38W92pvq1GYuE3Ck/XshAdCeoP9BjExVZxyxMyd5HL0jLJKzm2H33Arp8=
-X-Received: by 2002:a05:620a:648a:b0:939:6dfa:48fd with SMTP id af79cd13be357-93bdc8cae3bmr213647985a.51.1789718901059;
-        Fri, 18 Sep 2026 01:08:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:648a:b0:939:6dfa:48fd with SMTP id af79cd13be357-93bdc8cae3bmr213645885a.51.1789718900634;
-        Fri, 18 Sep 2026 01:08:20 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa597558casm478677a12.22.2026.09.18.01.08.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 01:08:19 -0700 (PDT)
-Message-ID: <e666dbd1-7223-4c6e-b47e-e0023a5d7ca9@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 10:08:19 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L92R3hQS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789719482; x=1821255482;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=0TiiXdP0AZgV8wGzlnd+WgWs8luh3QUddKWCiLH6ED8=;
+  b=L92R3hQSfZ4za0x9bkpCIWo3fRWWEuA9zCxnKAbVDJOhEo+5o3GRft63
+   xvmUwGBTQAJ0AeaoXoEL0To079xn27K4gc0pFm4TfST9OqzJNynQPJgOo
+   L3IZHhGAX+TTZ0jmw0fJsF9/nsdtlJvXvZFE2mXOG/lyB0IHPFngr0NNM
+   /dIYYt3KpmRs9bjQt8AnJT0VKDQ1PgJZycxOhAP49y7oZ99DOEf5nyiQ8
+   t2pCKYHrhpEKDYZ01mgm9Vmsawk0Od6boMAlAvep7ApY0DIgzNhU2NY9N
+   dEljp5U0TYPd3bx3HNoo4X8bsBeAxm0BOByM5CHy+UceH9txhrwqqUdW4
+   w==;
+X-CSE-ConnectionGUID: doxjygFUSW6z3Utns/tiig==
+X-CSE-MsgGUID: Aw8WlIQjQLyAdFwiFj35nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100807361"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100807361"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:18:01 -0700
+X-CSE-ConnectionGUID: Z+mRC8MiSL6dCxZ1Sc6OtA==
+X-CSE-MsgGUID: ePvLPHP1Qpih5kVvn38l0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2511306"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:17:59 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 76F15121BB0;
+	Fri, 18 Sep 2026 11:17:56 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1x7Tn9-00000000Gvt-2Taw;
+	Fri, 18 Sep 2026 11:17:55 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Junjie Cao <junjie.cao@intel.com>
+Subject: [PATCH 1/1] =?UTF-8?q?media:=20Don't=20hide=20I=C2=B2C=20or=20SPI?= =?UTF-8?q?=20drivers=20by=20default?=
+Date: Fri, 18 Sep 2026 11:17:55 +0300
+Message-ID: <20260918081755.65082-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: johannes.goede@oss.qualcomm.com
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-References: <UzpC1s2YnBtZIaRCab_Y8AbCecyauDUO4OC7Nhd1-h4TE21aLSghbwDuOKgdwJQugvPMjM4foPHuL-UKnBLD6A==@protonmail.internalid>
- <20260914233810.GA2796257@killaraus.ideasonboard.com>
- <00cc46b2-0729-46d3-8e3b-ea717ec1675e@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <00cc46b2-0729-46d3-8e3b-ea717ec1675e@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDExMCBTYWx0ZWRfX6p/axeyau1Up
- oIP8/Rfqlv1hm0tR+Y3RkoMfAzlpbWii04dBhX6PIxCrJym+qUgkM2bbPC1NvfEpCAiNupGAO9K
- jS0aVUGnV2AUYtjeZ+FmifHNX30FehpAJWpZgIhvWQmr4HJmzhT638xXkRdR+HWp5qZL03lmZke
- WTiNYboGwvF0VjttrasDpsFeC02zWjW+U7Sl+gla8tY+E1LmLijbAoHftt7Ht66QB8n7TneAXN7
- +INzGo229v2hc5hcU/BP+BGtNSxEDaGm8EebnXo4T1JIjhGDwOSRU168BByy3/vWqiDS/pZBV9d
- 9zQ+sjnuFvfnOprwI9cP4/YP6+oD+P7hwh0KtpzrUqrNWnPgnIOaxdf0PRhmoFmRWZjA+IrXpoj
- ykMLxbxA8J03Q92LHDIpnW51YvRtMZLLdjCTBe2TFd4bFSaDR1woXocBDQOcKpX84bxbGyQEEvz
- deYy2Oy9hcl3S9ugVBg==
-X-Proofpoint-ORIG-GUID: uyixqQFkHS3CpoIn4zqkc3T6IHRYai2Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDExMCBTYWx0ZWRfX+0rsBA2SLydd
- ZgTlvoRN1eQcpiHJzx0b8EeKS9c8jv7fXTUin3cfY2j10+/+Vtul/eUWzjXSAnipK5H661yirjl
- DozAIEt9/8srN6R+5QLfiLk5Pk1tRI4=
-X-Authority-Analysis: v=2.4 cv=IP2XmQvG c=1 sm=1 tr=0 ts=6aacf176 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=Q7h4a8Ryz-xEVX_vn_AA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: uyixqQFkHS3CpoIn4zqkc3T6IHRYai2Q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180110
+Content-Transfer-Encoding: 8bit
 
-Hi,
+MEDIA_HIDE_ANCILLARY_SUBDRV Kconfig option was intended for working with
+sub-device and other helper driver autoselection in cases where the
+required drivers are known, e.g. for PCI cards where all the related
+components are mounted. This option, however, applied to e.g. all camera
+sensor and lens VCM drivers that are generally present in systems without
+being mounted on such a card. This leads to easily omitting required
+drivers.
 
-On 17-Sep-26 15:47, Bryan O'Donoghue wrote:
-> On 15/09/2026 00:38, Laurent Pinchart wrote:
->> We can consider scheduling a third topic. Proposals are welcome.
-> 
-> From my LPC submission:
-> 
-> "Should offline ISPs be implemented in drm/accel"
-> 
-> Where does an offline Camera ISP belong in video4linux or in DRM and why ?
-> 
-> There are two main types of ISP - inline and offline. An inline ISP takes sensor input directly and produces some kind of processed image on the output. This is a natural fit for v4l2.
-> 
-> An offline ISP takes a memory buffer given to it and processes that buffer against supplied parameters. This model can be implemented as a video4linux m2m device but it could also be implemented as a DRM device and included in the DAG.
-> 
-> Taking Qualcomm SoCs as an example the Camera hardware provides two types of ISP. An inline processing engine IFE and an offline processing engine based on firmware ICP/HFI.
+Drop the MEDIA_HIDE_ANCILLARY_SUBDRV for I²C and SPI devices.
 
-Note that one some Qualcomm SoCs the inline-engine can be switched to
-offline mode and then run as a M2M ISP. Also the offline ISPs and
-inline ISPs often have similar processing-blocks with similar or
-identical parameters.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/i2c/Kconfig | 11 +----------
+ drivers/media/spi/Kconfig |  4 ----
+ 2 files changed, 1 insertion(+), 14 deletions(-)
 
-I do not think that splitting this over 2 subsystems is helpful and will
-lead to a lot of duplication of efforts related to ISPs.
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 4d9946479160..9b28e91b8a67 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -1010,14 +1010,12 @@ endmenu
+ # V4L2 I2C drivers that aren't related with Camera support
+ #
+ 
+-comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
+-	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
++comment "audio, video and radio I2C drivers"
+ #
+ # Encoder / Decoder module configuration
+ #
+ 
+ menu "Audio decoders, processors and mixers"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_CS3308
+ 	tristate "Cirrus Logic CS3308 audio ADC"
+@@ -1180,7 +1178,6 @@ config VIDEO_WM8775
+ endmenu
+ 
+ menu "RDS decoders"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_SAA6588
+ 	tristate "SAA6588 Radio Chip RDS decoder support"
+@@ -1197,7 +1194,6 @@ config VIDEO_SAA6588
+ endmenu
+ 
+ menu "Video decoders"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_ADV7180
+ 	tristate "Analog Devices ADV7180 decoder"
+@@ -1557,7 +1553,6 @@ source "drivers/media/i2c/cx25840/Kconfig"
+ endmenu
+ 
+ menu "Video encoders"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_ADV7170
+ 	tristate "Analog Devices ADV7170 video encoder"
+@@ -1656,7 +1651,6 @@ config VIDEO_THS8200
+ endmenu
+ 
+ menu "Video improvement chips"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_UPD64031A
+ 	tristate "NEC Electronics uPD64031A Ghost Reduction"
+@@ -1685,7 +1679,6 @@ config VIDEO_UPD64083
+ endmenu
+ 
+ menu "Audio/Video compression chips"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_SAA6752HS
+ 	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
+@@ -1701,7 +1694,6 @@ config VIDEO_SAA6752HS
+ endmenu
+ 
+ menu "SDR tuner chips"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config SDR_MAX2175
+ 	tristate "Maxim 2175 RF to Bits tuner"
+@@ -1718,7 +1710,6 @@ config SDR_MAX2175
+ endmenu
+ 
+ menu "Miscellaneous helper chips"
+-	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ source "drivers/media/i2c/cvs/Kconfig"
+ 
+diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
+index 4656afae5bb4..da3e225d420d 100644
+--- a/drivers/media/spi/Kconfig
++++ b/drivers/media/spi/Kconfig
+@@ -1,15 +1,11 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ if VIDEO_DEV && SPI
+ 
+-comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
+-	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
+-
+ menu "Media SPI Adapters"
+ 
+ config CXD2880_SPI_DRV
+ 	tristate "Sony CXD2880 SPI support"
+ 	depends on DVB_CORE && SPI
+-	default m if !MEDIA_SUBDRV_AUTOSELECT
+ 	help
+ 	  Choose if you would like to have SPI interface support for Sony CXD2880.
+ 
 
-> A use-case emerges to implement the inline ISP in v4l2 and the offline in drm/accel.
-> > Some tension with this design would exist as user-space would have to be involved to update ISP parameters and process statistics. Another tension is including a firmware based system in dma-fencing including watchdogging and resetting if required.
-> 
-> There are clear benefits to having a loop of NPU/DSP to Offline ISP to Display that drm/accel seems to offer some interesting solutions to.
-
-This sounds to me like we need a way to better integrate drm and v4l2
-subsystems. Other areas like hw-video-decoders might benefit from
-having better integration there too.
-
-Regards,
-
-Hans
-
-
+base-commit: aedd77ea8168f00687c1248cdf115071e869cf93
+-- 
+2.47.3
 
