@@ -1,193 +1,125 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D490E51DAF6
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 20:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9700351CF4C;
+	Fri, 18 Sep 2026 20:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763637; cv=none; b=CbMQ9XnGKJXsPx6UAZDyfnIUdOMMKpaakZlANiMil4xSMjBGPvOFHgVYGA1nKIz21s/JPWI5FeTuWF+mjZTchePCusaBSwrKi2aHzt4V+1+AKLOb0FmNl2m++cjsJHI8E/RzKQoJqc2aBgZBJIM2VAc7ZhNEPgpCkuqOjOx/I4o=
+	t=1789764859; cv=none; b=NK5R8/TQ94+zt3RjvYvHnfZTmgEKTiXPNmVm86of4iv7IXzp706ldPaoXy4tRu5rFVqYWgkmMbotMFHJUOGqrZoLUywzt3aNkdROcgLLYc0Fh/3DVTZglW5PC0wd4M/k9gWmFxQmE7Y+TSdtkoVs7YuOudZj+x1bCOZH0EETSr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763637; c=relaxed/simple;
-	bh=nyQjs6qGtq5QNA/EbyRHoqdZ70kqIUrdwHJqjIjPaf8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KL8JaPI1xLPAfkm8OS1n2LbeWDc35/Mlg5c4kbzU2MZckiys7bvaPoUpQQjFT1TNbZ+FNT7Enou6/hCVuX/wGivSG+SbDZlHxayqnz6ZqnES6/z6CB4upsVqU9OMkExPfiSYKiqAUXmmtNLWoowoO06Dzy+XRbymX1lPdRItBHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBx4w/Wz; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789764859; c=relaxed/simple;
+	bh=X12mV0iQNA8wD1Jzhx/1YBoYJPHdHf0r9UY86zeKS8Y=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=OON3/0zhZ/P8zMk6CuVdONtYou4jin0Z1O23ikIysPxpzL2YqfYVZLvSfPJnoTfL9liKS81fPXoNQx/KRX0yftQaC58ywOBZfbb40VkDUMOtKEgu8j0rHWkZ4kvxHN3p8AzRA/GE84mIgBHfnrVEewnBrzCstxPTNSvK2Ah/Yco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=LpbRADbv; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBx4w/Wz"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso851748f8f.1
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 13:33:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789763633; x=1790368433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aAJIejnvtde5v61mIPnWt2m5isbDctpD+89Zywxo9UU=;
-        b=LBx4w/WzX+sUzZKqAJBEizN7vza/Hy7kkZcV3Jd5Nmde2RojpD8AY79MHUTGQ7Kh9+
-         OSbfeFxJ/OMkuG1Tj6i3b4HoIV2m3KRWcMqm6B90hFrkBzkQgdw22EzXftpYR+7q72wl
-         5fL0brWTRjcWLzjbXujqd/lYlo4b4WVAQvwzCni/c7DuJnEkSwLFanIYjbOLVo8fHQLe
-         udTl4WUrfW9Pf62Nzrmdz0wGyFXgaeqMUh3kCOW1FQM+cqGk64QvirGrfdup9pxvxL3U
-         PoNJMLrdNVxjIFqngRRVu9vES3qjH6hCKU2RaxWf3zzr1yWYehfSv3lwaLIeu+4UDjhJ
-         zKeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789763633; x=1790368433;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aAJIejnvtde5v61mIPnWt2m5isbDctpD+89Zywxo9UU=;
-        b=WEPw3QPWQvC1pgibZ5pR9Tj9sFFHdb7h8vlih4/QOBo2SV/OHyOIVGmRrXnSGE12iZ
-         d+NMB3V8js3WEkZjq073885bW7/e2TlFYKbOScn6kmS4yoE9VgQ9I6PgOlXUGm/Hes0g
-         jUGgFXDVwcSpM/Y64umIJlGBYIaRSgdHTWNj1X49gXcgPD6EE8oHV3S+ry660x8uIPE9
-         kBhjwWkm8B4EAid10a2dYmAkrXwf3eC+gOE0OE21CAy6dnCEIGAt/JtQc5P2R+QpdENE
-         WqXKoHAIeGEDtKgzpcgG6dRmO0GLJ7Q+PMTjT9QkVJuZTI14bhNhVlj4V0GAZi7f0bct
-         y+2A==
-X-Gm-Message-State: AFuF++k0e+iPYBHM9IvkWDM2l0HNHH45s1bXr4ya38tyC/YB+VdqKSm7
-	wf2xsrTXs5w0NAcTfMSSW1VBkT7gL/JGfAaGyXzD5yPws2A3DjPyxB4I
-X-Gm-Gg: AYBFou2IF8q8bh7bejIupTEGYhGHX1TKH7kuxrMcijl/g4beVr8UGlkYS7xrBCFUsdF
-	J1moLcwGrRpLVUfI2eUmTTZo2VE42/Ujjxf+rrpETE1EUIxobnOyAsyyuO7qJq1VbPepqvJeu1r
-	/Uda4AHtH/poqRa6Bqu5xKAAyZjqZ2UWrM1TmBpqxIh3iY/8fkaVcl/3pGtkDRs5ekioxRVOu0E
-	ubk0SXUsCpEMCErQg7DcSe8/9ibeucqhkPhrfKQTGEIwwogn7aoIikfCyMsKB0SSYWx7ybAairu
-	0N2bjbbxG+1IHXwHxrKgT/Dt1A15fGvCEtSpZEQid5PzJBhJYg2e9Zt7JxfOjwpZJepRo9GikJj
-	EmRukc5Na3LnFEUJWFeFE1OQef8X3tGry7A0PKKyCzCHBNgDUYZ8VcvMLXkC/rKwH6OqR1QksM4
-	xN4nbCB38eW5oqaV2vOrCYzjQ2yoSVg9AMqEkkwTlRmL1djSwEpLgicPAjY7TmiNTNpa+HuzvMG
-	uBnVNDPvflYQPylHVBYjBojRXl0tlsJVaXfuM+0c3Um6k+phO3CerptHX520/GFGR1O
-X-Received: by 2002:a05:6000:4021:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-4871e3941f5mr9789385f8f.28.1789763632871;
-        Fri, 18 Sep 2026 13:33:52 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487244608a3sm1239936f8f.8.2026.09.18.13.33.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 13:33:52 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: ttusb-budget: check the endpoints before using them
-Date: Fri, 18 Sep 2026 21:33:46 +0100
-Message-Id: <20260918203350.48218-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="LpbRADbv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=+EF6n2UXLQQ4v0vXMKg6Y5r9VaSza1T1e5xKD84icBs=; b=LpbRADbvXs4zcm1gcSJ/IPKA2+
+	8pCG8wQ4vU8xEayNsVIpQtVu2w1Nwg8LQd8duRi1DwAYGFnU0hvPEmG/rSpADy6Q7ZFKWjoJqGXdm
+	rcW8Ccio2xDGOgAp727lrKANRiUkgh47M0eGk0Ugelg5fR3CnP1/jOy7webBXflq5xov3dWxDVVfo
+	NbFqrA/HTjijqZZSECvbpTznw/Jy3lDNQMbZieByyOlbKXY8+dcnCMfxRPIvhz2K1G5dk+iBhIL5p
+	kCAslwv0+dLXAceOJ1kdAYJkC9/Ehq3eceNcR5oJozk6F94tPoFARUO0qwHeNnrsF1XSTvzRiRK3u
+	G+mX4C+A==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7fam-0000000Csdo-14eH;
+	Fri, 18 Sep 2026 14:54:14 -0600
+Message-ID: <43948cef-5a40-4ff3-8dd5-081d203f6b42@deltatee.com>
+Date: Fri, 18 Sep 2026 14:53:44 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-6-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-6-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 06/18] PCI/P2PDMA: Document directional ACS routing
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-ttusb_setup_interfaces() decides on the endpoint numbers and their
-transfer types up front and never looks at what the device actually
-offered:
 
-	usb_set_interface(ttusb->dev, 1, 1);
 
-	ttusb->bulk_out_pipe = usb_sndbulkpipe(ttusb->dev, 1);
-	ttusb->bulk_in_pipe = usb_rcvbulkpipe(ttusb->dev, 1);
-	ttusb->isoc_in_pipe = usb_rcvisocpipe(ttusb->dev, 2);
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> P2PDMA documentation describes ACS controls as path-wide, although Request
+> and Completion controls apply to different transaction directions and only
+> affect peer-versus-upstream decisions at the path divergence.
+> 
+> Document the fixed client and provider roles, the divergence port checked
+> for each TLP direction, and the conservative handling of unreadable ACS
+> state. Clarify which controls disable_acs_redir changes.
+> 
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  Documentation/admin-guide/kernel-parameters.txt |  9 +++++----
+>  Documentation/driver-api/pci/p2pdma.rst         | 13 +++++++++++++
+>  2 files changed, 18 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..43a25f3f94fd 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -5291,10 +5291,11 @@ Kernel parameters
+>  		disable_acs_redir=<pci_dev>[; ...]
+>  				Specify one or more PCI devices (in the format
+>  				specified above) separated by semicolons.
+> -				Each device specified will have the PCI ACS
+> -				redirect capabilities forced off which will
+> -				allow P2P traffic between devices through
+> -				bridges without forcing it upstream. Note:
+> +				Each device specified will have the PCI ACS P2P
+> +				Request Redirect, Completion Redirect, and Egress
+> +				Control features forced off. This may allow P2P
+> +				traffic through bridges that would otherwise be
+> +				redirected upstream. Note:
+>  				this removes isolation between devices and
+>  				may put more devices in an IOMMU group.
 
-Give it a descriptor where endpoint 2 is an interrupt endpoint and it
-still builds an isochronous pipe for it. ttusb_start_iso_xfer() later
-submits an URB on that pipe with URB_ISO_ASAP set, and usb_submit_urb()
-notices:
+Seems like the new sentence and the following existing note are saying
+very similar things. Maybe we could drop the 'Note' and say something like:
 
-  usb 1-1: BOGUS urb xfer, pipe 0 != type 1
-  usb 1-1: BOGUS urb flags, 202 --> 200
-  WARNING: drivers/usb/core/urb.c:532 at usb_submit_urb+0x863/0x1870
-   ttusb_start_feed+0x819/0xc20
-   dmx_ts_feed_start_filtering+0xf6/0x220
-   dvb_dmxdev_start_feed+0x27c/0x400
-   dvb_dmxdev_filter_start+0x1b9/0xe10
-   dvb_demux_do_ioctl+0xadd/0x13d0
 
-The URB is refused, so nothing is transferred, but the warning alone is
-enough to take down a machine running panic_on_warn, and attaching a USB
-device is not a privileged operation.
+"This may allow P2P traffic through bridges that would otherwise be
+redirected upstream and thus this removes isolation between devices and
+may cause affected devices to share an IOMMU group."
 
-So check first: usb_check_bulk_endpoints() covers the two bulk ones, and
-since there is no isochronous equivalent the altsetting is walked here
-to find the isochronous IN endpoint. Bail out with -ENODEV if either is
-missing. This has to happen after usb_set_interface(), as the endpoints
-we care about are in altsetting 1.
 
-ttusb_probe() was throwing the return value away, so it needs to start
-checking it too, otherwise none of the above makes any difference.
+Besides that minor nit:
 
-Reported-by: syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3caf6a60e5f9be12de08
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
----
- .../media/usb/ttusb-budget/dvb-ttusb-budget.c | 45 ++++++++++++++++++-
- 1 file changed, 43 insertions(+), 2 deletions(-)
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-diff --git a/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c b/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
-index 7a4d28cc3242..9d6e0dfecf56 100644
---- a/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
-+++ b/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
-@@ -915,7 +915,42 @@ static int ttusb_stop_feed(struct dvb_demux_feed *dvbdmxfeed)
- 
- static int ttusb_setup_interfaces(struct ttusb *ttusb)
- {
--	usb_set_interface(ttusb->dev, 1, 1);
-+	static const u8 bulk_ep_addrs[] = { 0x01, 0x81, 0 };
-+	struct usb_host_interface *alt;
-+	struct usb_interface *intf;
-+	bool have_isoc_in = false;
-+	int i, ret;
-+
-+	ret = usb_set_interface(ttusb->dev, 1, 1);
-+	if (ret < 0)
-+		return ret;
-+
-+	intf = usb_ifnum_to_if(ttusb->dev, 1);
-+	if (!intf)
-+		return -ENODEV;
-+
-+	/*
-+	 * The pipes below hardcode endpoint numbers and transfer types, so
-+	 * make sure the device actually has what we are about to assume it
-+	 * has. Otherwise an isochronous URB ends up aimed at, say, an
-+	 * interrupt endpoint and usb_submit_urb() WARNs about it.
-+	 */
-+	if (!usb_check_bulk_endpoints(intf, bulk_ep_addrs))
-+		return -ENODEV;
-+
-+	/* no usb_check_isoc_endpoints() to call, so look for it by hand */
-+	alt = intf->cur_altsetting;
-+	for (i = 0; i < alt->desc.bNumEndpoints; i++) {
-+		struct usb_endpoint_descriptor *desc = &alt->endpoint[i].desc;
-+
-+		if (usb_endpoint_is_isoc_in(desc) &&
-+		    usb_endpoint_num(desc) == 2) {
-+			have_isoc_in = true;
-+			break;
-+		}
-+	}
-+	if (!have_isoc_in)
-+		return -ENODEV;
- 
- 	ttusb->bulk_out_pipe = usb_sndbulkpipe(ttusb->dev, 1);
- 	ttusb->bulk_in_pipe = usb_rcvbulkpipe(ttusb->dev, 1);
-@@ -1618,7 +1653,13 @@ static int ttusb_probe(struct usb_interface *intf, const struct usb_device_id *i
- 
- 	mutex_init(&ttusb->semusb);
- 
--	ttusb_setup_interfaces(ttusb);
-+	result = ttusb_setup_interfaces(ttusb);
-+	if (result < 0) {
-+		dprintk("ttusb_setup_interfaces - failed\n");
-+		mutex_unlock(&ttusb->semi2c);
-+		kfree(ttusb);
-+		return result;
-+	}
- 
- 	result = ttusb_alloc_iso_urbs(ttusb);
- 	if (result < 0) {
--- 
-2.34.1
 
