@@ -1,164 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD6D374E73;
-	Fri, 18 Sep 2026 06:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA35491595
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 06:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714061; cv=none; b=iSeUS80/F0igo/AaWlFuVK2CY+U7EbnpQhM62l0n6tAefcwqFpH6iF0IpC5b3ygGN09dIGTenv1wPXTqa4PA15ki8j+4fT0uM/a4hLwuBN4JxLBWXN5pESA9vtK2Jw2G3U4JbagcyMUaS6+JVevFQ5uIL04Ow7cAr3G8WdLg/zo=
+	t=1789714142; cv=none; b=mC+BjJ1WeNz7fyVap1tb7ZZRrV3/et+EDl4P7E+/mfLwxS6Twpqvz1JJiI9TwgWis09vKG9mSuMV5Bge7uVKul0zkVHRZ7UagohOUxx+VvKU79cwlQCyv4BWVimSKaLviw+WC/TKH0SgaoUvKY8j/YO0jpLVLG7CThX+d6AgCzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714061; c=relaxed/simple;
-	bh=g7ivMlqpgV90jFk2m8nUKBEA2ydpFYXnDGsguWHttL8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BimwKGwgkvgU5/oot/3EDNWBrLRWZtYoK6pLYtNf3iDLDyBrmzsoRv7NZsSVEHQMUrWK/k+ugqf2pOQIr/B+6/HPZ+aTNPl/Vl1RFyfwgNqzs+DrCi5tJo21SaWGCTSwHkiaG1bi/VnKeIJCMYei5vepkAoFcwoKLNBckbWpmoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERc0YHty; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789714142; c=relaxed/simple;
+	bh=7rQrFMtJ55G2Mrb8g+3bc3TGIQwSJ1ztALOvfNmBOuM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pw864PbVW9Sw3F/K3z3XJOYs1TgbQs33FzH4uUryfPRx7HdHcH8PY9nZWTKOR32qoS6lsdrYQqgOUy+767RSjkVKXzAyoeQ2IXCelGelNYmsoUh+WhSgTz23j8Ips78NAfoEdzLu5MiHZ3YNa7nb2RI/FXL9CoXVeHPT11nLK8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iHqYSQyy; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERc0YHty"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646091F000FF;
-	Fri, 18 Sep 2026 06:47:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789714060;
-	bh=+BGxWg2fsybWxSlrAfMoRyi3OL6sdFJawHpb1+w2R8c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ERc0YHtyC9RU8cORTswTDlpfbvAh8G62/IZ7olNQonmoUsc1v8IRiMpD+Bj06dyWq
-	 hHrZRV+LAGgkZ+GZQGKeIsdz7lczX+89k1Y1XnnCfSVNhbAuEXtkZstU7y6gxXDvLi
-	 m4si3tauBnLV85TRk0ZwCN0FRFUkmZXK1m+4nVAW7wBzrTL64RXgaP33t1SVZhAvYK
-	 hoUh45Z2XrvTr6wOAzQqjjoPcO/ojjBHGym6F3gpcUWR5wCF1MCFXKBT8y29IwZ0WK
-	 ZBOIYQb4Adsi3uV77T3EzS+mPjHENHK7URoz7cSK7U0VKmrWUWXTo4p9QnAxB3EaLR
-	 dqT6sX8UvA9sg==
-Message-ID: <f6cb2a51-b385-4203-bd33-4b789cac5616@kernel.org>
-Date: Fri, 18 Sep 2026 08:47:32 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iHqYSQyy"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so389544a91.2
+        for <linux-media@vger.kernel.org>; Thu, 17 Sep 2026 23:48:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789714118; x=1790318918; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z6wREiIJDBBh1DL3Ex8v99bfdwJWaSg/ozdZvFtc4WM=;
+        b=iHqYSQyyXr5OV0WxGbrCjp9ewO6g5Gaf6AaB7+VU43sx5UZhZGsAPRRiEPTeYxn8g9
+         WP3d03fcRt0P4zfcNU8BP8Rau98JR1WBD0uHK0rqQK98OdGtRWlDd7SkIkhDKMeGNOCj
+         kAd53ggo3KRCcP+xSNgQhDvWf4MpRK6UfsnCvgdvuhYJPcMEijkcFIvO4KYqX7Avr63F
+         Ga6qVjrX0j6ftchJ07oake6DOX/Rv0Fbc0LK0ese7nEvYXNB2z1phnowMwm9FqC/6KSW
+         zjq5vORfFiGWtEorKuCmR+uJ82PFy7RQDF2/Jee4EdprGOof4jhLYdUL4usPYBzkus7R
+         P4HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789714118; x=1790318918;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z6wREiIJDBBh1DL3Ex8v99bfdwJWaSg/ozdZvFtc4WM=;
+        b=A41nVbPtjjdHOwmrUJ5cmtw8S5UUa5sKvWW5C/o4zOXLFR3rtsXi40zwm8sSNDJk63
+         gLjz/RJ/0yNK/wMcwB7AWskvlWTsRUVPYurk3fUdUVJ1c2qe+mw8uUlRnZIcrrD5MRom
+         CcDyiKTnsyh2Z0VP9KhLqCtjaVH1oxMgXTOloX8NW2ThoYAEqa2iTQMZP4P7eVg/xuNe
+         chfSGdNLwulO5FxW6Mf2c5BPmoTgMdzEiqtGWO5Tutd8g2pura7gUvbhP2rH3DyhvSk9
+         jjW+9+3qGE2xs2BqqT5ShdhlGagc3j3pDf6TBBGeDmu1RKONshcqhbo3C8c/3J4h7fXK
+         Uz2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz4OGEFNJLF5nppDhKn1GU7vHq33tONtVzsiAMcmO9S7n1Fv/QC+QdDXK8OZTE422vg/5mdiRQybIv5oA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mBE6aLFMo6RQbCrO84jyD/2a/efvKoLeZtnm3LMzLkojLyPWH7
+	5OejUSUab2xQ+D9EG0hoP/RpuqU2h4tAOCA8AkD6v962zucfj2yK9b0=
+X-Gm-Gg: AYBFou2KdcQwVNthwiyqBLf72iXDGVElFp9Elwyv+JKc1J3kJ8JeMHEPubY4z1MOcRx
+	wMAUnLXNkzUrUSsdiaCN5X/P4tre1JjxuwQYLSh3cBaQrP8LySzkjloXa2QqGQstLpkWWhkrebG
+	DYSQeTAyH8ON0X4TFQ+c9dxCBmaeBSvHDGNsck4D4RcaT9AocbnWFK9eif1JL1EemvFh245ATDI
+	6zKbXmXgPQEvHbxIu0HWMnsj2DT70HZGxr0+DpZGa1QVDm37IPZlMmKZzy1KPMETc8L0xX0w/nr
+	+o12qUajMFqeLrbUeBsB3jGu/4Rf/Nn92k1i9rHnRQVTe8w1QZmJwRgXGa99XJbCR439aStrt/O
+	kYKqTWeYXZwEB1TGTWJJvTXtoS49mvPlekF191n6foCy712QbLjEcBabzjp/FvXI7DdOvJXfQqg
+	/ISmk72mlj4tLLbeJSkrVO4MXnPpOh9RKtzoOsyyc6byNyClvxf8Apf9y1JyjOMai1wvZRQg4bF
+	MjbsaenJKs6B6jKO8MJnkE=
+X-Received: by 2002:a17:90b:4a03:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-39e54d38c48mr5637761a91.8.1789714118110;
+        Thu, 17 Sep 2026 23:48:38 -0700 (PDT)
+Received: from DL2XHKPB4.dl.net ([103.63.104.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a50d332sm1578331a91.9.2026.09.17.23.48.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 23:48:37 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+To: tomi.valkeinen@ideasonboard.com
+Cc: kernel-list@raspberrypi.com,
+	mchehab@kernel.org,
+	naush@raspberrypi.com,
+	sakari.ailus@linux.intel.com,
+	linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Triet Hoang <triet.hoang.dev@gmail.com>
+Subject: [PATCH] media: raspberrypi: Fix error handling for media_entity_remote_source_pad_unique()
+Date: Fri, 18 Sep 2026 13:48:32 +0700
+Message-ID: <20260918064832.891339-1-triet.hoang.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: media: Add bindings for qcom,nord-camss
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
- <20260915-nord-v1-1-20db41a7f1ff@oss.qualcomm.com>
- <20260917-active-strong-emu-bf8fbd@quoll>
- <d89a7376-ffab-405a-a3b6-d3633cddd063@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d89a7376-ffab-405a-a3b6-d3633cddd063@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/09/2026 14:37, Wenmeng Liu wrote:
-> Hi Krzysztof,
-> 
-> On 9/17/2026 6:13 PM, Krzysztof Kozlowski wrote:
->> On Tue, Sep 15, 2026 at 05:34:11PM +0800, Wenmeng Liu wrote:
->>> Add bindings for the camera subsystem (CAMSS) on the Qualcomm Nord
->>> platform.
->>>
->>> The Nord platform provides:
->>> - 3 x TPG (Test Pattern Generator)
->>> - 3 x CSID (CSI Decoder)
->>> - 10 x CSID Lite
->>> - 3 x VFE (Video Front End)
->>> - 10 x VFE Lite
->>>
->>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->>> ---
->>>   .../devicetree/bindings/media/qcom,nord-camss.yaml | 393 +++++++++++++++++++++
->>>   1 file changed, 393 insertions(+)
->>
->> A nit, subject: drop second/last, redundant "bindings for". The
->> "dt-bindings" prefix is already stating that these are bindings.
->> See also:
->> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
->>
-> ACK
-> 
->> ...
->>
->>> +        description:
->>> +          Input port for receiving CSI data.
->>> +
->>> +        properties:
->>> +          endpoint:
->>> +            $ref: video-interfaces.yaml#
->>> +            unevaluatedProperties: false
->>> +
->>> +            properties:
->>> +              data-lanes:
->>> +                minItems: 1
->>> +                maxItems: 4
->>> +
->>> +              bus-type:
->>> +                enum:
->>> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
->>> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
->>> +
->>> +            required:
->>> +              - data-lanes
->>> +
->>
->> Missing supplies, altough maybe this is related to some other ongoing
->> work, so would be useful to see explanation in commit msg.
-> 
-> At the moment, the Nord platform only supports TPG. Perhaps I should 
-> remove this part of the change for now and reintroduce it later when 
-> CSIPHY support is available, once the EVK board is ready.
+The media_entity_remote_source_pad_unique() function returns an error
+pointer on failure, not NULL. Fix the check to use IS_ERR() and return
+PTR_ERR() to correctly handle allocation failures.
 
-Hm? So you added hardware for TPG? I do not see how such hardware is
-useful at all, thus I don't think we want the bindings for it. Bring
-real hardware, since the bindings should be complete.
+Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
+Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+---
+ drivers/media/platform/raspberrypi/rp1-cfe/cfe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+index 8375ed3e97b9..91e9fa0341e0 100644
+--- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
++++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+@@ -1779,7 +1779,7 @@ static int cfe_video_link_validate(struct media_link *link)
+ 		link->source->entity->name, link->source->index,
+ 		link->sink->entity->name, link->sink->index);
+ 
+-	if (!media_entity_remote_source_pad_unique(link->sink->entity)) {
++	if (IS_ERR(media_entity_remote_source_pad_unique(link->sink->entity))) {
+ 		cfe_err(cfe, "video node %s pad not connected\n", vd->name);
+ 		return -ENOTCONN;
+ 	}
+-- 
+2.53.0
+
