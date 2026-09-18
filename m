@@ -1,169 +1,189 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFDF38C2D8;
-	Fri, 18 Sep 2026 01:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E992348C5D;
+	Fri, 18 Sep 2026 01:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789694485; cv=none; b=pHGujk1WDOYyQcUk5hkJmSgQXiSedqvCq4uBh9T+gwPrOAiwLmWhqiMWDNet5tuQhRF1Op2A3v7u1yhUVuxmFX+YI3kzyYY1J8GfXF1ms1Ikn8QCcq9ZpgtPwT30D3ciYJyBGa0yoOnk0w0oh7PorpNTMfTeP664vGONmIOYaWY=
+	t=1789694525; cv=none; b=QYQBhbzPUU3rG/P/6ozATBukkHzVBIJWeq6sH5Rh194+Ry7N5M7GHz4kZcJWzUeSg6W8els07T2CL7vEmgeermUzF4WdrxGuVNkZR+iRC/F9bj/xn4DXiq4DUrblrn+ikDdJs7c6qg5gQaxLaEHUZ5PaxHvyJvpCWoXPUkz5dJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789694485; c=relaxed/simple;
-	bh=fUsfNJ6JcRszNFdEqS6aJHvvHbTsUjVbaXDekcad+qU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Es/TLNM5dZdUwP+n0ejKDBKhKsZeZ3R/L9h52AS72m1X3miDkZNwSzI3l33kk5CImdblaZ6SWUDV16IbLWnzVq8MaMAL1qAM31hxWpNkcu5IOpRpvsEsCN0Dii2ISArZ1JiHFThdwzS9lI6bbl9Rp+5UyrBT9YEvbf9w7TA3jxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=ax2Ggqeb; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1789694525; c=relaxed/simple;
+	bh=NprK1WE9s3afYX1CixzE73TQnctfnNwedCGApWOmWMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A2582nnR0ySl3E+D+RTLTK4mDuC99O+NiZIvXj9QrJLNDDLAysAFp7cN15FbktoJD4VwJiUUxnGfeFxJksqZJQC1+toxTfaw5zQ0qHkqEQEeoZb0DD09uhWv//BFoqcvu0Y1Pa3mDFjQG85Frg9SCuVL3UqczgZdOpK+VSY36/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=wEdblEIK; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="ax2Ggqeb"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 76870D0766;
-	Fri, 18 Sep 2026 04:21:14 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 76870D0766
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789694477;
-	bh=69bnCVQM5n3sV/AN5VtraQEwkW0YanBMdQC8pbKcydM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=ax2GgqebXNR2R2lP+6/CijC3VqGvyDb08ILb0eZ6Ema1QmO+nzkiVt/qRo7PjqTGp
-	 omF5ojiR+tFY2fkhlBSOfp1uhXyFE5u1MkIs/42ovtNJ+0FF/txHSbBXiE5YlIqqXz
-	 7ZfxK8+GnM/1UaO/A/wiJz4RukrOPn8ziE+7vEOamYCHnXcUjxPRGUakAtZoryriXd
-	 hzMZ+JCt9n9yC1f1spnVcwlt9shjLNaDYXtF4nrnK/oHV7gCM1A9PdtfQYADHAkmYd
-	 vd+8dsupfkAL9T2QqNdP05m/gXaJ7VZc2W+030SRS9tXyKQrP6cko254BVWIod5kye
-	 4hJvIM4Oow2Kw==
-Message-ID: <2b23ecf7ae8baf0266c3701060858abec901a71c.camel@rendec.net>
-Subject: Re: [PATCH v2 6/6] media: mtk-vpu: rename IPI_MAX to IPI_VPU_MAX
-From: Radu Rendec <radu@rendec.net>
-To: "GUO Ren (XuanTie)" <guoren@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,  Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Anup Patel
- <anup@brainfault.org>,  Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT
- Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong	
- <yunfei.dong@mediatek.com>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
- Houlong Wei <houlong.wei@mediatek.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 17 Sep 2026 21:21:12 -0400
-In-Reply-To: <20260911-ipi_max-v2-6-a77826ff189e@kernel.org>
-References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-	 <20260911-ipi_max-v2-6-a77826ff189e@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wEdblEIK"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 17B2F22B;
+	Fri, 18 Sep 2026 03:20:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789694412;
+	bh=NprK1WE9s3afYX1CixzE73TQnctfnNwedCGApWOmWMI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=wEdblEIKiyuK2mnqAv4nJMPuvyp2wZf+lFda6iKz6tSiS2G+Ql2LdV3P+3S587Pc/
+	 mjgQhunI9jjO6YYOSUBCExS4sALF+WhMbyltG4SltqE5Gq/yRgnPyFZUgWCJwGG98n
+	 hzvOpBDLfHRbQCfR2ZQmLpV+0TesSw5YxPNB2j4M=
+Date: Fri, 18 Sep 2026 04:21:53 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH 05/10] arm64: renesas: r8a78000: Add VSP[BI] nodes
+Message-ID: <20260918012153.GE145152@killaraus.ideasonboard.com>
+References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+ <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-5-4c72d4e086dd@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-5-4c72d4e086dd@ideasonboard.com>
 
-On Fri, 2026-09-11 at 03:27 +0000, GUO Ren (XuanTie) wrote:
-> The last enumerator of this driver's firmware IPI id list is a bound
-> for the VPU mailbox protocol, not a generic host IPI limit. Follow the
-> existing naming in this header: IPI_VPU_INIT already carries a VPU
-> prefix, so the terminator should match.
->=20
-> The same convention is used by the SCP IPI enum, which ends with a
-> prefixed SCP_IPI_MAX rather than a bare IPI_MAX.
->=20
-> Rename IPI_MAX to IPI_VPU_MAX and update the descriptor table bounds
-> and range checks. No functional change.
->=20
-> Link: https://lore.kernel.org/linux-riscv/20260908222349.GA2324870@ax162
-> Cc: Nathan Chancellor <nathan@kernel.org>
-> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+On Thu, Sep 17, 2026 at 09:04:44PM +0900, Paul Elder wrote:
+> Add DT nodes for the VSPB and VSPI IP cores in the R-Car X5H Soc.
+> 
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 > ---
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.c | 12 ++++++------
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.h |=C2=A0 4 ++--
-> =C2=A02 files changed, 8 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
-a/platform/mediatek/vpu/mtk_vpu.c
-> index 8d8319f0cd22..b3e9f8c4ab7a 100644
-> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-> @@ -211,7 +211,7 @@ struct mtk_vpu {
-> =C2=A0	struct vpu_regs reg;
-> =C2=A0	struct vpu_run run;
-> =C2=A0	struct vpu_wdt wdt;
-> -	struct vpu_ipi_desc ipi_desc[IPI_MAX];
-> +	struct vpu_ipi_desc ipi_desc[IPI_VPU_MAX];
-> =C2=A0	struct share_obj __iomem *recv_buf;
-> =C2=A0	struct share_obj __iomem *send_buf;
-> =C2=A0	struct device *dev;
-> @@ -221,7 +221,7 @@ struct mtk_vpu {
-> =C2=A0	struct mutex vpu_mutex; /* for protecting vpu data data structure =
-*/
-> =C2=A0	u32 wdt_refcnt;
-> =C2=A0	wait_queue_head_t ack_wq;
-> -	bool ipi_id_ack[IPI_MAX];
-> +	bool ipi_id_ack[IPI_VPU_MAX];
-> =C2=A0};
-> =C2=A0
-> =C2=A0static inline void vpu_cfg_writel(struct mtk_vpu *vpu, u32 val, u32=
- offset)
-> @@ -296,7 +296,7 @@ int vpu_ipi_register(struct platform_device *pdev,
-> =C2=A0		return -EPROBE_DEFER;
-> =C2=A0	}
-> =C2=A0
-> -	if (id < IPI_MAX && handler) {
-> +	if (id < IPI_VPU_MAX && handler) {
-> =C2=A0		ipi_desc =3D vpu->ipi_desc;
-> =C2=A0		ipi_desc[id].name =3D name;
-> =C2=A0		ipi_desc[id].handler =3D handler;
-> @@ -319,7 +319,7 @@ int vpu_ipi_send(struct platform_device *pdev,
-> =C2=A0	unsigned long timeout;
-> =C2=A0	int ret =3D 0;
-> =C2=A0
-> -	if (id <=3D IPI_VPU_INIT || id >=3D IPI_MAX ||
-> +	if (id <=3D IPI_VPU_INIT || id >=3D IPI_VPU_MAX ||
-> =C2=A0	=C2=A0=C2=A0=C2=A0 len > sizeof(send_obj->share_buf) || !buf) {
-> =C2=A0		dev_err(vpu->dev, "failed to send ipi message\n");
-> =C2=A0		return -EINVAL;
-> @@ -748,7 +748,7 @@ static void vpu_ipi_handler(struct mtk_vpu *vpu)
-> =C2=A0	s32 id =3D readl(&rcv_obj->id);
-> =C2=A0
-> =C2=A0	memcpy_fromio(data, rcv_obj->share_buf, sizeof(data));
-> -	if (id < IPI_MAX && ipi_desc[id].handler) {
-> +	if (id < IPI_VPU_MAX && ipi_desc[id].handler) {
-> =C2=A0		ipi_desc[id].handler(data, readl(&rcv_obj->len),
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 ipi_desc[id].priv);
-> =C2=A0		if (id > IPI_VPU_INIT) {
-> @@ -934,7 +934,7 @@ static int mtk_vpu_probe(struct platform_device *pdev=
-)
-> =C2=A0#ifdef CONFIG_DEBUG_FS
-> =C2=A0	debugfs_remove(vpu_debugfs);
-> =C2=A0#endif
-> -	memset(vpu->ipi_desc, 0, sizeof(struct vpu_ipi_desc) * IPI_MAX);
-> +	memset(vpu->ipi_desc, 0, sizeof(struct vpu_ipi_desc) * IPI_VPU_MAX);
-> =C2=A0vpu_mutex_destroy:
-> =C2=A0	mutex_destroy(&vpu->vpu_mutex);
-> =C2=A0disable_vpu_clk:
-> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.h b/drivers/medi=
-a/platform/mediatek/vpu/mtk_vpu.h
-> index 3951547e9ec5..44ab631ec904 100644
-> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.h
-> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.h
-> @@ -49,7 +49,7 @@ typedef void (*ipi_handler_t) (void *data,
-> =C2=A0 *			 handle VP8 video encoder job,, and vice versa.
-> =C2=A0 * @IPI_MDP:		 The interrupt from vpu is to notify kernel to
-> =C2=A0 *			 handle MDP (Media Data Path) job, and vice versa.
-> - * @IPI_MAX:		 The maximum IPI number
-> + * @IPI_VPU_MAX:	 The maximum VPU IPI number
-> =C2=A0 */
-> =C2=A0
-> =C2=A0enum ipi_id {
-> @@ -60,7 +60,7 @@ enum ipi_id {
-> =C2=A0	IPI_VENC_H264,
-> =C2=A0	IPI_VENC_VP8,
-> =C2=A0	IPI_MDP,
-> -	IPI_MAX,
-> +	IPI_VPU_MAX,
-> =C2=A0};
-> =C2=A0
-> =C2=A0/**
+>  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 99 +++++++++++++++++++++++++++++++
+>  1 file changed, 99 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> index 2f8886f8b6545026397fd83969882f8c62afa9d3..f90b869579d384e3fc13d0a13625b7cddaac2868 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> @@ -1072,6 +1072,105 @@ fcpvb4: fcp@c503c000 {
+>  			resets = <&mdlc_vio 0x106>;
+>  		};
+>  
+> +		vspi0: vsp@c5080000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc5080000 0 0x8000>;
+> +			interrupts = <GIC_SPI 643 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+Same comment as for 04/10.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+> +			power-domains = <&mdlc_vio 0x07 0xfe>;
+> +			resets = <&mdlc_vio 0xfe>;
+> +
+> +			renesas,fcp = <&fcpvi0>;
+> +		};
+> +
+> +		vspi1: vsp@c5088000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc5088000 0 0x8000>;
+> +			interrupts = <GIC_SPI 644 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0xff>;
+> +			resets = <&mdlc_vio 0xff>;
+> +
+> +			renesas,fcp = <&fcpvi1>;
+> +		};
+> +
+> +		vspi2: vsp@c5090000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc5090000 0 0x8000>;
+> +			interrupts = <GIC_SPI 645 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0x100>;
+> +			resets = <&mdlc_vio 0x100>;
+> +
+> +			renesas,fcp = <&fcpvi2>;
+> +		};
+> +
+> +		vspi3: vsp@c5098000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc5098000 0 0x8000>;
+> +			interrupts = <GIC_SPI 646 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0x101>;
+> +			resets = <&mdlc_vio 0x101>;
+> +
+> +			renesas,fcp = <&fcpvi3>;
+> +		};
+> +
+> +		vspb0: vsp@c50c0000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc50c0000 0 0x8000>;
+> +			interrupts = <GIC_SPI 618 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0xf9>;
+> +			resets = <&mdlc_vio 0xf9>;
+> +
+> +			renesas,fcp = <&fcpvb0>;
+> +		};
+> +
+> +		vspb1: vsp@c50c8000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc50c8000 0 0x8000>;
+> +			interrupts = <GIC_SPI 619 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0xfa>;
+> +			resets = <&mdlc_vio 0xfa>;
+> +
+> +			renesas,fcp = <&fcpvb1>;
+> +		};
+> +
+> +		vspb2: vsp@c50d0000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc50d0000 0 0x8000>;
+> +			interrupts = <GIC_SPI 620 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0xfb>;
+> +			resets = <&mdlc_vio 0xfb>;
+> +
+> +			renesas,fcp = <&fcpvb2>;
+> +		};
+> +
+> +		vspb3: vsp@c50d8000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc50d8000 0 0x8000>;
+> +			interrupts = <GIC_SPI 621 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0xfc>;
+> +			resets = <&mdlc_vio 0xfc>;
+> +
+> +			renesas,fcp = <&fcpvb3>;
+> +		};
+> +
+> +		vspb4: vsp@c50e0000 {
+> +			compatible = "renesas,vsp2";
+> +			reg = <0 0xc50e0000 0 0x8000>;
+> +			interrupts = <GIC_SPI 622 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+> +			power-domains = <&mdlc_vio 0x07 0xfd>;
+> +			resets = <&mdlc_vio 0xfd>;
+> +
+> +			renesas,fcp = <&fcpvb4>;
+> +		};
+> +
+>  		mdlc_cmnn: system-controller@ca410000 {
+>  			compatible = "renesas,r8a78000-mdlc";
+>  			reg = <0 0xca410000 0 0x1000>;
+
+-- 
+Regards,
+
+Laurent Pinchart
