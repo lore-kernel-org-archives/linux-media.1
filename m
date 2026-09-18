@@ -1,149 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f99.google.com (mail-vs1-f99.google.com [209.85.217.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D9634104E;
-	Fri, 18 Sep 2026 23:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB4C36C0AB
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 23:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774496; cv=none; b=Gx9HFRPIvQ0SotDBDpzeFKQ6m9Tdu9Q5v59S8ZtBNtLUGV3Vdkad4Fyu5R+ftK2lmSGeJ3T6jAXZMafJihrlTMVGXcnCx8rXoqmmq0QkKhnPnLgQ6fqymJ8ER2oZW0ZLYtZftWmsRiN6zy7rMRK754Nnyo5/RHvK9QG3AL3vk3w=
+	t=1789774567; cv=none; b=GIzIhtclVZK1P4DG4LhbaWNUXSSqNSeLx5aTcFVThxEYE7XQJA9tFhmU++al0cfelv8TsMvhtLKia1uxtYuFGkc8tUIpOZzNacG5cyNSyu6BQDi5zT6ZheFW6xIfNxrV1A/rkAHZwiE3PCVKz7kAuxUtNhoF4KMWsVfjBpG/3mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774496; c=relaxed/simple;
-	bh=+CIDY4tHCBcNN6f3HQI80T/KHLCZoSJvg0NcmfaQzrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H1RNdOYxpEmxc39lxG1r7HEcNF4ZaqENDKRBELmpKqHj3y8+FaAHkdtNQZr9XHI6le5FTNSQSmQ2wesOU4IvVsAFHJSnyIszr14JTfx4A+yDPjDUOAbEz+CHdI86E+N7GhFxu1Z7IXYgoveJNd16blENFWulSWaS9e5EwnKR+T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HbQbUXVZ; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789774567; c=relaxed/simple;
+	bh=G9DM2Of6M5TWxY6xCT2obytznk7tMmjDSD83/pDsXoQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VAIzJ4MZB1gfO94MyALxtwv03Y86VvwRP+QjD2GcupiV+AqEazCbGYno6obX82uulhf3ln9IBDwS9P5h7CyLeavy1bm0BJlB3I9InBLf8VRwuqFgpA8ug9eAR6AIs/zMh7U56yAxmVNhV4yUIcFlHxeLbPjnfFW32hYpAsSuyTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=PYPc7qUX; arc=none smtp.client-ip=209.85.217.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HbQbUXVZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789774494; x=1821310494;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+CIDY4tHCBcNN6f3HQI80T/KHLCZoSJvg0NcmfaQzrk=;
-  b=HbQbUXVZyYArbQBBPDWdHqt+ayc92aV5o6OpC/t4FpsknaH03IxJ9oYf
-   c1gShB+60cYgGAojx5zt5uPiO5lny4ahabNh1EK/AlxyWVs+qcqEdkjp2
-   MmekpxU9r78+zs/ce7CCxoPCQmWVwypdAymYigKfU3nvE2lrcmbccuJ7q
-   0bsGg6bizR6DgY3rz+d6V3Cu9+SaYVcOT84kvpmroTcSGVCXHwJsiAq9I
-   9edl7X6CsI01b9Rs0yZeLjQ2JW2xSwYxcv+1jDkosYYNSdMzSbJg4/P34
-   4tc47Xn4SnYuk2Z2xwh9ZKoCrSmH0/2GVVAAsmfSQ/oIDcYuo3qK/MB87
-   A==;
-X-CSE-ConnectionGUID: Qb94jtGJT6yy3R5Rg736EA==
-X-CSE-MsgGUID: Bi4KPXEMQICZWLeUthpp7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="89240465"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="89240465"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 16:34:53 -0700
-X-CSE-ConnectionGUID: 9nJ7BauOSNyLmg3WxQ3PeQ==
-X-CSE-MsgGUID: DOzcEQl8Q6CsGqwOAV14zQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="271964200"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 18 Sep 2026 16:34:51 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7i6O-00000000ASb-1mkJ;
-	Fri, 18 Sep 2026 23:34:44 +0000
-Date: Sat, 19 Sep 2026 07:34:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guo Zihao <guozh23@xiaopeng.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: Re: [PATCH] media: cobalt: bound the dv timings to the descriptor
- buffers
-Message-ID: <202609190745.z2mFq2RW-lkp@intel.com>
-References: <20260918072526.2478529-1-guozh23@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="PYPc7qUX"
+Received: by mail-vs1-f99.google.com with SMTP id ada2fe7eead31-754ac74c495so89840137.0
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 16:36:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789774565; x=1790379365;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ntk2CWh32Ga1v8+3feA2R++RUDSg5e9QTrLv/pF7Lgk=;
+        b=BCLUsz0JNUV2ebJqJe3HwwTKXCluTkyZe+5Op3hN/smg9CeN/bsjMMJUGeiEN7DkYQ
+         X6ZjRtQkt1v2E7BMtgmGANcWCBbBX8bXcywaWpe+8Cp+whRuWBNalmp4kIIOetzAwCnP
+         fZFfCDeyVtydNPReUlywAcZI5duIK4tTjcARAsiq92c14WxZ6T52YjRlKwjJS5mXZ3Wn
+         0ZHSFV4ytoHTTMno7ZnDwNG0Eii2cC7dZud3EeZpSMjAc3PHE0dgxZ/68TvS+P4hL+6f
+         QpEVSWba9U2U0zDvPjfYApLKVdTFCrowIhhJr/4ZCOi0wF02xVtprqPHX1IMvJjRrZ/U
+         n8UQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWIW81GIj5h3JBigtnSOAAmJ8asey4oBHi9USDXU6uk1SqHNfpUZ2Axsr8W/00SULMH4spptICE2su8w==@vger.kernel.org
+X-Gm-Message-State: AFuF++lUNVCNXfIvyTGHA99AwgIAlcewzstEv/+Z+IGENRqo0+Jq/eYN
+	uwwT8sDZJG8wh1krw4+UHqQ44htc7va8v914F8ZTu9OHGvPyLRq2xILKdL4DM5v4xle30l0NDjL
+	Hr6io+/CYpNHA4C9+5JtRl3t1OZVHXAIYImgr5/5RXjVLVNrv/fgZU0v5NRLZkDfs2c9n8nRMG0
+	ZLyPQ9XYzSsiP1vFMCwym+McXGtw9VESMuk6DZ3XKv1VI3/+PGu1l5n3tSxsqgLt0Ur8wD0uUBN
+	yfO30OqQGVKzXbgtICDMos=
+X-Gm-Gg: AYBFou1TjSMaJ/wrwTMflLIUhH0cyvDFY9N38rRWNX9DB4328s/DX6Nd9Tlvc+RPvHr
+	eRDDu0QD/6/OtsSXvP8E4rMbJ6+uSeamg+EjXLJoARQEZxtWeyLTEzXtWaf3o4/f+Jlytu5ziC/
+	y9ZW0TLIU6BGqr1P4kj0ohatyC0aIbuV/YTWcPuf8LAVQ1J1zfKY0A0+quUGtpfALkZRJMjaLvZ
+	+qiX8eB92dGKmFDSjZ0et20C2M04770gIeaT3kZCj8QhjkyLuTJR+K1SYUloYp7LAxhgiLbuVoA
+	unY09eDR1yMuLU6aMJZ8H+FWWQsr7co3G19dwg6AL1QJz8K1V+kMLIMatWi34pNK978MErj/x83
+	o9aS+kToeKG5gD1A4uqL54LaeBxcOCMcURRt5KEkgQa71m8mfLal1Kt19RtX5XPnskCDqGuKGvF
+	NRIr0J44fBlgpuRJ/06RMvg26dmuJUyk9anKUJvnHC
+X-Received: by 2002:a05:6102:8092:b0:7a1:f7d2:e843 with SMTP id ada2fe7eead31-7a55d7947e2mr1904548137.19.1789774565044;
+        Fri, 18 Sep 2026 16:36:05 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-984b4e96298sm223072241.0.2026.09.18.16.36.04
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 18 Sep 2026 16:36:05 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e087a17dfso2295321a91.3
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 16:36:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789774564; x=1790379364; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ntk2CWh32Ga1v8+3feA2R++RUDSg5e9QTrLv/pF7Lgk=;
+        b=PYPc7qUXlrSRq6O3USzKyKWXUvVXterfuCDQNio/wTQTvmmzZNhW7T7d+YFfW7DMVZ
+         CrTmjWaUN8YYuRkbVwZBE0MmCl24GzSePJDNU9uGmRqE6Qr1N8kwLTJR9QtJ5vt0HjBy
+         3OAjcquzjkhjwpx1gUrdPDpj8ni22W5D9gP/o=
+X-Forwarded-Encrypted: i=1; AKwUvBxzKPcO7t4Hsie3Rxx5/1XkbB6NZddOkEm9VVb0QI4okCXps6ao5N07qSH58ipWfD+tCvmNd1Ky30Dkig==@vger.kernel.org
+X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr7837827a91.6.1789774563811;
+        Fri, 18 Sep 2026 16:36:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr7837811a91.6.1789774563362;
+        Fri, 18 Sep 2026 16:36:03 -0700 (PDT)
+Received: from [10.211.247.235] ([216.221.25.44])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3311ad4esm1741803eec.5.2026.09.18.16.36.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 16:36:02 -0700 (PDT)
+Message-ID: <ac49be70-f10c-442f-a4d8-54075ffcf8d4@broadcom.com>
+Date: Fri, 18 Sep 2026 16:36:06 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918072526.2478529-1-guozh23@xiaopeng.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vmwgfx: Fix GEM_CLOSE returning -EINVAL for
+ PRIME-imported surfaces
+To: Claire DuSoleil <claire.m.dusoleil@gmail.com>
+Cc: Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
+ <ac19e380-e93d-470d-841c-7bd3f2b0b86a@broadcom.com>
+ <CAEcBvW0+SqM2zHbaDS+JycXxc-ztzvixKtHVSVQby9viVH=+eA@mail.gmail.com>
+ <CAEcBvW10sKwD2+Ro6o8Fq_9oLwsedq405f=gjQ+OMbY72=+VFA@mail.gmail.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <CAEcBvW10sKwD2+Ro6o8Fq_9oLwsedq405f=gjQ+OMbY72=+VFA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Guo,
+Disregard my last message, I had not seen Zack's email.
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on linuxtv-media-pending/master]
-[also build test ERROR on media-tree/master sailus-media-tree/master linus/master v7.3-rc3 next-20260918]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Guo-Zihao/media-cobalt-bound-the-dv-timings-to-the-descriptor-buffers/20260918-152526
-base:   https://git.linuxtv.org/media-ci/media-pending.git master
-patch link:    https://lore.kernel.org/r/20260918072526.2478529-1-guozh23%40xiaopeng.com
-patch subject: [PATCH] media: cobalt: bound the dv timings to the descriptor buffers
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20260919/202609190745.z2mFq2RW-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 7252edd9aa82ef1c570ff6694ef7f4763a8a5d2f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609190745.z2mFq2RW-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609190745.z2mFq2RW-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/media/pci/cobalt/cobalt-v4l2.c:635:3: error: use of undeclared identifier 'cobalt'
-     635 |                 cobalt_info("timings %ux%u out of range\n",
-         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     636 |                             timings->bt.width, timings->bt.height);
-         |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/pci/cobalt/cobalt-driver.h:160:45: note: expanded from macro 'cobalt_info'
-     160 | #define cobalt_info(fmt, arg...) v4l2_info(&cobalt->v4l2_dev, fmt, ## arg)
-         |                                             ^~~~~~
-   1 error generated.
-
-
-vim +/cobalt +635 drivers/media/pci/cobalt/cobalt-v4l2.c
-
-   615	
-   616	static int cobalt_s_dv_timings(struct file *file, void *priv,
-   617					    struct v4l2_dv_timings *timings)
-   618	{
-   619		struct cobalt_stream *s = video_drvdata(file);
-   620		int err;
-   621	
-   622		if (s->input == 1) {
-   623			*timings = cea1080p60;
-   624			return 0;
-   625		}
-   626	
-   627		if (v4l2_match_dv_timings(timings, &s->timings, 0, true))
-   628			return 0;
-   629	
-   630		if (vb2_is_busy(&s->q))
-   631			return -EBUSY;
-   632	
-   633		if (timings->bt.width > COBALT_MAX_WIDTH ||
-   634		    timings->bt.height > COBALT_MAX_HEIGHT) {
- > 635			cobalt_info("timings %ux%u out of range\n",
-   636				    timings->bt.width, timings->bt.height);
-   637			return -EINVAL;
-   638		}
-   639	
-   640		err = v4l2_subdev_call(s->sd,
-   641				pad, s_dv_timings, 0, timings);
-   642		if (!err) {
-   643			s->timings = *timings;
-   644			s->width = timings->bt.width;
-   645			s->height = timings->bt.height;
-   646			s->stride = timings->bt.width * s->bpp;
-   647		}
-   648		return err;
-   649	}
-   650	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
