@@ -1,244 +1,587 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010010.outbound.protection.outlook.com [52.101.46.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F72495AE6;
-	Fri, 18 Sep 2026 10:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726673; cv=fail; b=rXz1jo8rlmb2/62ebCz4BtGoiTIpYTi1onB7J4l19Ymo1Z4QEIIPfnois4Q04/AoJr5JS+cXdgagiZXT+rjvGdVKUn+5qcV5oRueq+kN5v10TMisPoF0WGJBbGlVXOuYe8brGf9fkaNosZm6A3pWlW2cgMEK9O8ck9RgEnmEvfU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726673; c=relaxed/simple;
-	bh=b+Qg3yZsVMyJOGfh1Ua0Hp4GDSYecMgE85astY3+V6s=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LS3Qkr3TAROu/EfZKmSRiNj+s+iAtNTUS6CouJseFp3xRfgFDSGrIpRRIl+Aort9pzEOpimMAGfZT3TI247h2VDhVfTEe7mKzh8JSDW0iXQafMMuuHf84k+wo5gE1trCzPnYiyYLPDZ4DdG/TdQkgXdl1bolYF9GXiaaD/Mbxvg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=nEa5kcFA; arc=fail smtp.client-ip=52.101.46.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98215440654;
+	Fri, 18 Sep 2026 10:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789727093; cv=none; b=Lxfpqy0NRPhRi13W891EqSKnXWWJDAMGHkoQXhkHQKZG7Pb46zn/m04Y5x4vOYJEWGZ0Q2i+9WdOqR6vNq1a5RrvjFxN66GHRnPxzsnSTgYQRYQ1obX41qGedd/EMLnODsaY427uYZaxJhe6XHsQ+We4P+GfOBoiRR2tygzC7Hg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789727093; c=relaxed/simple;
+	bh=tTQRRqCwoElAAXf+2z1B4Kz9/RgvOrCiLZMHGqQwHoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H7V2YQdlma0q1N9ruzoe5LDyfkhWM+cMwFTtvm3ffF/04tPC2E24H1bK+E7OfgqiY+Wx30WU+zf35fNiIOkNBDhWSuuU3xgPUesvenisQTFq34DtAgUTus351we+4iMvur4EWzJc5+oeXVydrHrOpjSIqkXYqvDeO54Ll/ANWo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RReDqiiS; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="nEa5kcFA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m8iJ/2a7dv1ihJXU+EhJ28NEidNWpbY7u+Xt1pxf3rBdqIlZdwy/9+TFreH956MCVqg5ycdWOABoAw+1CS+LZduisIfb7psXPwQKV4rCicVJlfS+WjWJ7DKAjYiMXSatBNm11pB88siyaLaezvaSZUJae2WkZIgxLnl5tWqA5zXexiMXmpAamQk5PFTy86fUuxXcYKC6Pp8FQwe11NwqJsg77SWyqnL9ommcZhl9H13cot7vDvpSLs3u1biZEEVtbdfF2CxBQilFAKiC9VfkzIUvgQszcG2my5TZl1xYKRUYiybjsnoOK5AUWlUUEFvi5H+V7c72MgOYz1L5g+gQiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Feqrde7+ggaNMunwruDbVaelRY84nC19U+LFWW7yEZ8=;
- b=EVnkW8YeVxIQRv0GN/XlDtMP/pSoXqNuxtVtVs8cY4dPEdb0P0IwVLZNSGxMtpy2e8Vit/Uv/pa9aBBUjy+TNoZxUVLjlvrWFCB2G+cXIRkMXA56OGZaGpoKCOFS3qs9Ums8grXjzNbnZVTVhh9hPolY8P1YYBdEq/Yk5Wpg8flOqbXDW4r9IkRexvu8nA1cNGgb//oycmAbIDqyQcbvkHmwgdDbogIXcYHqDfbZ+0cDbOQLJ9Cr9UtpxfHZGh3XN8QIXYHHW74wS+hu3332o8IelJJhzxMn9tSL0Te4Ta3M7WIRbqwI32p455Br/tpjNPpPvso79tIUrkVGpnjCyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Feqrde7+ggaNMunwruDbVaelRY84nC19U+LFWW7yEZ8=;
- b=nEa5kcFAB7oW1F42kyB9qCse82LZEE3QiBE9rhL6n6qGMx+7HD60oPXRFQV60KFboFYHUKwxluBsWjr1lEzlzAR5SDdeaLCkVd+ztck3XknEqKkTjTaOuln8lU+BXIxFwKrJOmfobcrZPu9aVeoh78bHQq+yK9en7J1dFe8tBH4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB7016.namprd12.prod.outlook.com (2603:10b6:303:218::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 10:17:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 10:17:33 +0000
-Message-ID: <a35cd398-4e98-4d19-bd6a-3c7ec0feeebe@amd.com>
-Date: Fri, 18 Sep 2026 12:17:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in
- init_udmabuf()
-To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>, Gerd Hoffmann
- <kraxel@redhat.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org
-Cc: Huan Yang <link@vivo.com>, Robert Mader <robert.mader@collabora.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAP220CA0003.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RReDqiiS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789727090; x=1821263090;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tTQRRqCwoElAAXf+2z1B4Kz9/RgvOrCiLZMHGqQwHoU=;
+  b=RReDqiiSNDP1qhp2IzQwY58PwKqdLVeYZNPRrODG6EGW5AGHSE54/2vo
+   BNFWaR4zWdcKksTxOGOqQlJkKank3m1z2AkZw2yTm5drKQ/ZhwbV12jv6
+   6ABWG8rJxlZ3ZXy1ojCqgAoxdodWY7SJM9oifs5UK6pXw2ojoLxVvqSW+
+   N193AcgLdI23o+NzLU6gdqVbZ8wGfUdXv4TIAZo16D+55bfqNpczJy/Xx
+   TQUgcVsEQSskk3ZI7g3L+mL+jZZjOtqR0tvdKkGqr3Qjdi6Vd4h2AlPJD
+   mXbN2MdhSZsxllPFnyP7heCLa8kgVM10CiGRWKXN7dphFHNh4HRqDO7KP
+   A==;
+X-CSE-ConnectionGUID: 3hzEJx6NQ7uHjVyVnyAt6A==
+X-CSE-MsgGUID: BrUx2RruQX20oFnUxtWAXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77786880"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77786880"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:24:46 -0700
+X-CSE-ConnectionGUID: AR9rkLPYQIO2HAoubKMbzw==
+X-CSE-MsgGUID: mZv/B0orToS4m/VFy7Y40w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="268077360"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.224])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:24:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id DFDB011F8CD;
+	Fri, 18 Sep 2026 13:24:40 +0300 (EEST)
+Date: Fri, 18 Sep 2026 13:24:40 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Hermes.wu@ite.com.tw
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Message-ID: <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+ <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f045dcf-f3b9-4889-35e8-08df156e0d87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|10067099003|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	U0Ocr5D/K/duXc/Ovf+X7dPjyxxSq3RtDGlqxWidV13SJFnB3MU9PLhqioc+tqRHJT0N/5wC0UBa5TuuO2sVi9EsPUL4gQmESiK1rkgnjtDDA9ODYYFLE/Q8v5fX5kI+7fVK5CcgYG5bqbua3yZqPBWkYlNNX+KoKNe1mHM1QyJscZX8RPc7rOI1R29BJKmd373eKVBXv+XlUL+fk795mcGeiSwt2RG0QOhKWQr36TUo9tW3YU7xkA2f/XGZqeqdquLVpd2kKEr4yHzQPHohgKwKMv0eTIi+jCJUsHGdQWFIewjLEgoTRi2gn1EDenTwqCgvkOGhd7qnXFSLcxGJmgqx5a+DxTxB6hE+UuNKhugG750HaF8z+4YFpwRnCM+pcKIC3eCMukBv2Jls0AEUg1VbyA3gydY9oi11VddxSdd9zuCTxVkBC1DmwDy0ZmpsxgFF3w3QPqP7G7TnyvGvxtyyjZAaGuhrs7682dR+Kmr3GRMyc0Kct0qYjMQHtxx+evNyCuGr5FefJHXxNfGj9jmrBDZ5Fvulx1/CdmV62xZGvgeYcm4xbZYHKlR34tfohL63CbYMf28fMf8yUuWtVmfmolPWYMgTfgKPeacRyo3c0Q6p3kWEtxkCUnHmTYqdL5grLNlu++I0E+7koeNv+iJ5Fd8LhGczg1GOUX7zaKA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(10067099003)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0puaGJMbmd4SmYwN0YxaXhnZllJNmFPeW1jSlY2dzZZZzVNcDd1V2UvWVRS?=
- =?utf-8?B?K24xOTNCa1hWd1pNTFBWK1lUbFo1L0xLTzcxTlVvWDd4S2tlcWlUZ05pdWw1?=
- =?utf-8?B?bzlSQkZUWVRheEFMbC9nZlFGcDNVMDI1aHpxV3gyNXlmL3l6ZnN1cTkyRmdJ?=
- =?utf-8?B?eExyenNRY25WdEMxdG9rM0hCS2hPNWNWOFFxOUUvRXJaVnRraFFSeWFBNjN0?=
- =?utf-8?B?WU5IRkRNMWh6QmVZUS9hQXgvV2ZqSFFQWlFTYW9YQVJHM3NKMEJZTEZLb1Ix?=
- =?utf-8?B?WFFuMmpEV0xZTE5UTlhLOHV6UWxjb2N5WE1BbUFvb0IvUWl1MGVkS0VLZ3dm?=
- =?utf-8?B?QitjVDVPWXZWWXZaRmVncm44UmpTTy8yZDNZYktyZnNWV2JwQ040c09oZkF2?=
- =?utf-8?B?ZVQ3T0FZS245aytFT3lZcEpZaWR5UDJ4VmtLcHRnVzhLdWUxNFNCYURnZE8v?=
- =?utf-8?B?TXNkejBVU2RLZEM2MGtnaUk3ekZWQTVGU1Mwemk3ak0vdm1ZRjhTMUFTQ2l5?=
- =?utf-8?B?aEU0NTRqTTFYRTFKMS9BRnhoNEM5bUJ6TVhRS0FqM2VzMHkwYXpPaC92M1JQ?=
- =?utf-8?B?VGlQanQ0T3ZTSnJUOEJRUjJIeEFJckN0UVpod05DNkt6US9GdkhOa2pqSUxv?=
- =?utf-8?B?WFF4OHAxQy9EZkNUbGNzMkRHK3lJc2xuaXY2bytpM3N5TGUvOElEbDNEVEhp?=
- =?utf-8?B?SjExNUxCWUVyWEoyd0grRXpTdjkvRkFoZVg2WXRUcnl1TmZtVTVRdXpMVVdx?=
- =?utf-8?B?L25WZGZRaW41SVgybnpqaEJnRFZySE41YmswUmVGRU43NHRKMkJBLzdxWmZj?=
- =?utf-8?B?ZE9KTUVjdzlscDFnWVFMcWg2U0RZL1hncGM5YzVUR1BUeWdSNHlKMmZKbTBV?=
- =?utf-8?B?cmlTYTduUGFlWGVpbm1tTk5yRHlPdjVrTE1KS0ZYMWdESDgxMU9NYy9pL25x?=
- =?utf-8?B?Y1NNSmZaMTRUbXZQSUlseXFFT2NkT3gvV2VIaFpzQUdJb1dxNVZZOHZlVUd0?=
- =?utf-8?B?U0NIOGZPTWs3eVF4QlFRaVJ3bUFFWnpNR3FrQzVlRk5tRFVtYWltMm1rL1BB?=
- =?utf-8?B?cUxxa2pNendBVTlXZ1JTWUN3dmdKbHlSL1Z3MHZKQ0kwbWIrcGIyZHJmbGpz?=
- =?utf-8?B?NnM3SUJiY3loejNoZEpNL0lSelhVcy9SVjFmcmx4d2EwYjh0cHJIODY0aUFZ?=
- =?utf-8?B?QWVMUkxzcUNVRGhWck40YVAra3B5R3E3Vk1BNHJIdlpFN2dXZlVycnVBTHJM?=
- =?utf-8?B?L1pvOEdJZklybGRuNk4yUTU5SlFSL2tHUkErdlFRZnRVQW5Odi82SXN6b0l6?=
- =?utf-8?B?dG0vQWt0M1JTVUs5MEI4dExNSFVlVkQ1SS9WeFZVT21rUERzSEVTbnNIcXQ5?=
- =?utf-8?B?Z1hSdnBBS1VIbzE3K09qREJOb3MwTCtUUXVRR3pFVm9YNC9DaldGTW5wR1Q0?=
- =?utf-8?B?ZVJ0K0VIeVlWRis3RjdEVmN6Y0FaYUlsdEdMeTYwSEJuVUx0VXNYT1NnT0NB?=
- =?utf-8?B?NzNLNjNIb01IbVNFejBGWmwwTFJ5d25mSXgxbjVqYld1elVRN0NHRkUyajlD?=
- =?utf-8?B?MFFUWnVRc0Fya3hiZWRUaStGRk5WRDFWNVk5RExadTBxZkM2cThRU1N6NW9x?=
- =?utf-8?B?M1hlTUVFTUh5Yy9ramJtczMwcFEreHRaWjlQdTc3c1EwYzV5NktGU2ZPNzA0?=
- =?utf-8?B?MXhBVDZsa0VRalVva3AzK2xHTkorYVhvOHh3dnJZc2tuMW0xeUhxK21PVHMz?=
- =?utf-8?B?VFlEQTVzVnNWbHJ2WTdydlRFR1JYRk01ZkZ1NlVZZ2dycW53N0dydC9UbFBp?=
- =?utf-8?B?dmRLVmF2YjhzZzFWWEwyUGsvVkpiNDdjVUxWWENVQkRsZTdBZ25IYlFGR2lz?=
- =?utf-8?B?ekpFNlMxaWNIdElxZW5lZVFYMThCT2xCSkpzclp1N1N1dVY3amc4aGc3clUr?=
- =?utf-8?B?M29LMWdLNUJsb0lmTE92WkorRVlzOWJBbldTZi9Jak1wQWVGZTM1K0dmWUkr?=
- =?utf-8?B?RldhdDFmSVBlTk0zQXp1ZjdzL21hRUlHV2U2ckE0ZDIyMXd1YVkxRE8ra0hs?=
- =?utf-8?B?Vm5URm1VT3FTY0NmSVJnQjVyWlZ3MWtrZWZGMG5lbUc3Ymo0bE15WU1RaDky?=
- =?utf-8?B?SHl3TmlVRTZqdWZiTW11ZXVvQnk0dWRJRzRUWHpBRTE3R29wWTVxdzVlZ2dl?=
- =?utf-8?B?bGhwaUpvS2M5U1N0TjZvazRZTE1sVjN1Z3JKSGZIMktzdTllZGFqV0R1akpZ?=
- =?utf-8?B?aVFsaDYyTUJMQllEU0lnRlBpdVpDdjdoUXlPbkkwb0owZ2FKN2tRczEwYlNJ?=
- =?utf-8?Q?ICytXV4NC7RB1Gys1N?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f045dcf-f3b9-4889-35e8-08df156e0d87
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:17:32.9078
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vrnoLlhA+hhhSScBrJNDuA48aTFNb+TOTglu1Y6T6pX9TdSUrP5mIKm3y5gQStdM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7016
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
 
-On 9/18/26 03:34, Jiakai Xu wrote:
-> init_udmabuf() allocates two pointer arrays with one entry per page of
-> the created buffer.  Since commit 1c0844c6184e ("udmabuf: change folios
-> array from kmalloc to kvmalloc") these arrays are allocated with
-> kvmalloc(), which warns and fails when the requested size exceeds
-> INT_MAX bytes.
-> 
-> With the default size limit of 64 MB the largest possible request was
-> far below that threshold, but commit 44e9eb5a7621 ("dma-buf/udmabuf:
-> Disable the size limit by default") raised the limit to INT_MAX MB.
-> With 4K pages, creating a buffer of more than INT_MAX / 8 pages (about
-> 1 TB of pinned memory) now makes kvmalloc() hit its "crazy size"
-> WARN_ON_ONCE(), which is trivially triggerable from unprivileged users
-> through the UDMABUF_CREATE ioctls:
-> 
->   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
->   Call Trace:
->    udmabuf_create
->    udmabuf_ioctl_create_list
-> 
-> Fix it by rejecting buffers whose page count exceeds what the pointer
-> arrays can address before calling init_udmabuf(), returning -EINVAL.
+Hi Hermes,
 
-I was already wondering if we won't hit some allocation limit when we drop the general limit.
+On Fri, Sep 18, 2026 at 04:57:35PM +0800, Hermes Wu via B4 Relay wrote:
+> From: Hermes Wu <Hermes.wu@ite.com.tw>
+> 
+> Adopt the subdev active-state model instead of a private driver mutex
+> and driver-local format fields:
+> 
+>  - Share it6625_lock as both sd->state_lock and sd->ctrl_handler->lock
+>    (set hdl->lock right after v4l2_ctrl_handler_init(), which resets
+>    it, and before any control is created), matching the documented
+>    model in Documentation/driver-api/media/v4l2-subdev.rst. Call
+>    v4l2_subdev_init_finalize() after media_entity_pads_init() and
+>    before any code that touches active state, always before
+>    v4l2_async_register_subdev().
+> 
+>  - Remove csi_format/mbus_fmt_code from struct it6625 and store the
+>    complete format -- code, colorspace, and width/height/field derived
+>    from the configured DV timings -- in the pad format of each
+>    v4l2_subdev_state instead. it6625_set_fmt() now operates directly
+>    on the state the core hands it (already locked, and for ACTIVE
+>    already sd->active_state) instead of taking it6625_lock itself.
+>    it6625_get_fmt() is deleted; .get_fmt is now the core's
+>    v4l2_subdev_get_fmt(). it6625_init_state() seeds a state from the
+>    current active format when one exists (later TRY-state allocation)
+>    or from driver defaults when it doesn't (the very first, pre-
+>    assignment call that becomes the active state itself).
+> 
+>  - Keep it6625->timings as driver-private DV-timings state, but project
+>    its width/height/field onto the active pad format every time it
+>    changes (it6625_update_timings_if_changed(), it6625_clear_timings())
+>    so VIDIOC_SUBDEV_G_FMT stays consistent with
+>    VIDIOC_SUBDEV_G_DV_TIMINGS. it6625_initial_setup() and
+>    it6625_log_status() now read the media-bus code from the locked
+>    active format instead of the removed fields.
+> 
+>  - Make ACTIVE .set_fmt() transactional: return -EBUSY while streaming,
+>    and commit the new code/colorspace to active state only after the
+>    MIPI register writes that implement it actually succeed. This
+>    requires it6625_enable_stream_locked(), it6625_enable_stream(), and
+>    it6625_set_mipi_config_locked() to return int and propagate the
+>    first register/config-update failure; all existing callers are
+>    updated.
 
-Please don't add any new check, but rather give a reasonable default size limit.
+I don't think all the above is relevant in the commit message.
 
 > 
-> Fixes: 1c0844c6184e ("udmabuf: change folios array from kmalloc to kvmalloc")
-> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+> Every it6625_lock acquisition site was re-audited against the core's
+> actual locking contract (which ioctls the core state-locks, what
+> v4l2_ctrl_handler_init()/_free() and v4l2_subdev_cleanup() actually
+> touch) to confirm none of the driver's own lock-taking helpers are
+> reachable from a path where the core already holds it6625_lock, and
+> that init/teardown ordering keeps hdl->lock valid whenever
+> v4l2_ctrl_handler_free() runs. The full trace is recorded in
+> it6625-follow-up-patch/patch19-lock-audit.md (not part of this commit)
+> for review -- it is static analysis only, since no IT6625/IT6626
+> hardware is available here to exercise this with lockdep enabled.
 
-Two fixes tags usually doesn't make much sense.
+This paragraph could go to the cover letter.
 
-Regards,
-Christian.
-
-> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+> 
+> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 > ---
->  drivers/dma-buf/udmabuf.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/media/i2c/it6625.c | 220 ++++++++++++++++++++++++++++-----------------
+>  1 file changed, 138 insertions(+), 82 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index df6dd00462423..25984e75d7ff3 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -383,6 +383,14 @@ static long udmabuf_create(struct miscdevice *device,
->         if (!pgcnt)
->                 goto err_noinit;
-> 
-> +       /*
-> +        * init_udmabuf() allocates two arrays of pointers, one entry per
-> +        * page, with kvmalloc(), which cannot handle sizes larger than
-> +        * INT_MAX bytes.
-> +        */
-> +       if (pgcnt > INT_MAX / sizeof(struct page *))
-> +               goto err_noinit;
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> index ec6aaa878471ff210264a35e4aa66dfb1e63ed3b..550eb95c6f74a81fc11cc055b4590159ac50e969 100644
+> --- a/drivers/media/i2c/it6625.c
+> +++ b/drivers/media/i2c/it6625.c
+> @@ -255,7 +255,15 @@ struct it6625 {
+>  	struct regmap *it6625_regmap;
+>  	enum it6625_chip_type chip_type;
+>  
+> -	/* protects concurrent access to the chip's registers and state */
+> +	/*
+> +	 * Protects concurrent access to the chip's registers and state.
+> +	 * Also shared as sd.state_lock and hdl.lock (see
+
+This doesn't hold anymore, does it? Typically drivers do without such locks
+as the subdev state lock is used instead -- assigning your own lock also
+has the effect the same lock is used for try states, too.
+
+> +	 * Documentation/driver-api/media/v4l2-subdev.rst), so the V4L2
+> +	 * core already holds it across .get_fmt/.set_fmt/.enable_streams/
+> +	 * .disable_streams and control updates -- callers reached only
+> +	 * through those paths must use the *_locked() helpers instead of
+> +	 * taking it again.
+> +	 */
+>  	struct mutex it6625_lock;
+>  	/* serializes the complete VIDIOC_S_EDID sequence against itself */
+>  	struct mutex edid_lock;
+> @@ -291,8 +299,6 @@ struct it6625 {
+>  	u8 csi_lanes;
+>  	u8 port_num;
+>  	enum v4l2_mbus_type bus_type;
+> -	u8 csi_format;
+> -	u32 mbus_fmt_code;
+>  	/* number of EDID blocks currently loaded, protected by edid_lock */
+>  	u8 edid_blocks;
+>  
+> @@ -911,10 +917,11 @@ static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
+>  	return it6625_s_ctrl_audio_present(sd);
+>  }
+>  
+> -static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+> +static int it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+>  {
+>  	struct v4l2_subdev *sd = &it6625->sd;
+>  	int val;
+> +	int err;
+>  
+>  	lockdep_assert_held(&it6625->it6625_lock);
+>  
+> @@ -922,27 +929,34 @@ static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+>  		 __func__, enable ? "en" : "dis");
+>  
+>  	val = enable ? B_MIPI_OUTPUT : 0;
+> -	it6625_set_bits(it6625, REG_MIPI_CONTROL, B_MIPI_OUTPUT, val);
+> -	it6625_update_config(it6625);
+> +	err = it6625_set_bits(it6625, REG_MIPI_CONTROL, B_MIPI_OUTPUT, val);
+> +	if (err < 0)
+> +		return err;
 > +
->         ret = init_udmabuf(ubuf, pgcnt);
->         if (ret)
->                 goto err;
-> --
-> 2.34.1
-> 
-> 
-> --
-> Below is the crash report:
-> ------------[ cut here ]------------
-> WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full)
-> Tainted: [W]=WARN, [L]=SOFTLOCKUP
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-> RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-> RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-> R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-> FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-> DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-> PKRU: 80000000
-> Call Trace:
->  <TASK>
->  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
->  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
->  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
->  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
->  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
->  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
->  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
->  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x590d6d
-> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-> RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-> R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
->  </TASK>
-> ---[ end trace 0000000000000000 ]---
-> ---
+> +	return it6625_update_config(it6625);
+>  }
+>  
+> -static void it6625_enable_stream(struct it6625 *it6625, bool enable)
+> +static int it6625_enable_stream(struct it6625 *it6625, bool enable)
+>  {
+>  	guard(mutex)(&it6625->it6625_lock);
+> -	it6625_enable_stream_locked(it6625, enable);
+> +	return it6625_enable_stream_locked(it6625, enable);
+>  }
+>  
+> -static void it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
+> +static int it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
+>  {
+>  	u8 mipi_data_type;
+> +	int err;
+>  
+>  	lockdep_assert_held(&it6625->it6625_lock);
+>  
+>  	dev_dbg(it6625->dev, "mipi_data_type = 0x%x", cfg_val);
+>  
+>  	mipi_data_type = cfg_val & 0xFF;
+> -	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, mipi_data_type);
+> -	it6625_update_config(it6625);
+> +	err = it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, mipi_data_type);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return it6625_update_config(it6625);
+>  }
+>  
+>  static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
+> @@ -957,10 +971,18 @@ static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
+>  
+>  static void it6625_initial_setup(struct it6625 *it6625)
+>  {
+> +	struct v4l2_subdev *sd = &it6625->sd;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	int idx;
+>  	int val = 0;
+>  
+>  	guard(mutex)(&it6625->it6625_lock);
+>  
+> +	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +	idx = it6625_csi_mbus_code_idx(fmt->code);
+> +	if (idx < 0)
+> +		idx = 0;
+> +
+>  	/*
+>  	 * REG_MIPI_CFG[0:2] lane count field: 1 lane -> 0, 2 lanes -> 1,
+>  	 * 3 lanes (C-PHY only) -> 3, 4 lanes (D-PHY only) -> 3.
+> @@ -984,7 +1006,7 @@ static void it6625_initial_setup(struct it6625 *it6625)
+>  		val |= FIELD_PREP(B_MIPI_SPLIT, 1);
+>  
+>  	it6625_write_byte(it6625, REG_MIPI_CFG, val);
+> -	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625->csi_format);
+> +	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625_formats[idx].csi_format);
+>  	it6625_write_byte(it6625, REG_MIPI_CONTROL, 0x00);
+>  	it6625_write_byte(it6625, REG_RX_CFG, 0x00);
+>  
+> @@ -1140,10 +1162,29 @@ static void it6625_get_timings(struct it6625 *it6625,
+>  	*timings = it6625->timings;
+>  }
+>  
+> +/*
+> + * Project a DV-timings struct's width/height/field onto an active pad
+> + * format. Caller must hold it6625_lock (== the active state's lock).
+> + */
+> +static void it6625_fill_timings_format(const struct v4l2_dv_timings *timings,
+> +				       struct v4l2_mbus_framefmt *fmt)
+> +{
+> +	fmt->width = timings->bt.width;
+> +	fmt->height = timings->bt.height;
+> +	fmt->field = timings->bt.interlaced == V4L2_DV_INTERLACED ?
+> +		     V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+> +}
+> +
+>  static void it6625_clear_timings(struct it6625 *it6625)
+>  {
+> +	struct v4l2_subdev *sd = &it6625->sd;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+>  	guard(mutex)(&it6625->it6625_lock);
+>  	memset(&it6625->timings, 0, sizeof(it6625->timings));
+> +
+> +	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +	it6625_fill_timings_format(&it6625->timings, fmt);
+>  }
+>  
+>  static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
+> @@ -1362,7 +1403,10 @@ static int it6625_log_status(struct v4l2_subdev *sd)
+>  
+>  	/* snapshot together so the reported pair was actually configured together */
+>  	scoped_guard(mutex, &it6625->it6625_lock) {
+> -		mbus_fmt_code = it6625->mbus_fmt_code;
+> +		struct v4l2_mbus_framefmt *fmt =
+> +			v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +
+> +		mbus_fmt_code = fmt->code;
+>  		bt = it6625->timings.bt;
+>  	}
+>  
+> @@ -1415,6 +1459,9 @@ static int
+>  it6625_update_timings_if_changed(struct it6625 *it6625,
+>  				 const struct v4l2_dv_timings *timings)
+>  {
+> +	struct v4l2_subdev *sd = &it6625->sd;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+>  	guard(mutex)(&it6625->it6625_lock);
+>  
+>  	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false))
+> @@ -1425,6 +1472,9 @@ it6625_update_timings_if_changed(struct it6625 *it6625,
+>  
+>  	it6625->timings = *timings;
+>  
+> +	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +	it6625_fill_timings_format(&it6625->timings, fmt);
+> +
+>  	return 1;
+>  }
+>  
+> @@ -1457,8 +1507,7 @@ static int it6625_s_stream(struct v4l2_subdev *sd, int enable)
+>  {
+>  	struct it6625 *it6625 = sd_to_6625(sd);
+>  
+> -	it6625_enable_stream(it6625, enable);
+> -	return 0;
+> +	return it6625_enable_stream(it6625, enable);
+>  }
+>  
+>  static int it6625_enum_mbus_code(struct v4l2_subdev *sd,
+> @@ -1586,84 +1635,56 @@ static inline u32 format_to_colorspace(u8 csi_format)
+>  	}
+>  }
+>  
+> -static int it6625_get_fmt(struct v4l2_subdev *sd,
+> -			  struct v4l2_subdev_state *sd_state,
+> -			  struct v4l2_subdev_format *format)
+> -{
+> -	struct it6625 *it6625 = sd_to_6625(sd);
+> -	struct v4l2_dv_timings timings;
+> -
+> -	if (format->pad != 0)
+> -		return -EINVAL;
+> -
+> -	it6625_get_timings(it6625, &timings);
+> -	format->format.width = timings.bt.width;
+> -	format->format.height = timings.bt.height;
+> -	format->format.field = timings.bt.interlaced == V4L2_DV_INTERLACED ?
+> -			       V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+> -
+> -	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
+> -		struct v4l2_mbus_framefmt *fmt;
+> -
+> -		fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
+> -		format->format.code = fmt->code;
+> -		format->format.colorspace = fmt->colorspace;
+> -	} else {
+> -		scoped_guard(mutex, &it6625->it6625_lock) {
+> -			format->format.colorspace =
+> -				format_to_colorspace(it6625->csi_format);
+> -			format->format.code = it6625->mbus_fmt_code;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+>  static int it6625_set_fmt(struct v4l2_subdev *sd,
+>  			  struct v4l2_subdev_state *sd_state,
+>  			  struct v4l2_subdev_format *format)
+>  {
+>  	struct it6625 *it6625 = sd_to_6625(sd);
+> -	u32 mbus_fmt_code = format->format.code;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	u32 colorspace;
+> +	int idx;
+>  	int ret;
+>  
+> -	ret = it6625_get_fmt(sd, sd_state, format);
+> -	format->format.code = mbus_fmt_code;
+> -
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = it6625_csi_mbus_code_idx(mbus_fmt_code);
+> +	if (format->pad != 0)
+> +		return -EINVAL;
+>  
+> -	if (ret < 0) {
+> +	idx = it6625_csi_mbus_code_idx(format->format.code);
+> +	if (idx < 0) {
+>  		v4l2_dbg(1, debug, sd,
+>  			 "%s: unsupported format code 0x%x, falling back to default",
+> -			 __func__, mbus_fmt_code);
+> -		ret = 0;
+> -		mbus_fmt_code = it6625_formats[ret].mbus_fmt_code;
+> -		format->format.code = mbus_fmt_code;
+> +			 __func__, format->format.code);
+> +		idx = 0;
+>  	}
+>  
+> -	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
+> -		struct v4l2_mbus_framefmt *fmt;
+> +	colorspace = format_to_colorspace(it6625_formats[idx].csi_format);
+>  
+> -		fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
+> -		fmt->code = format->format.code;
+> -		fmt->colorspace = format_to_colorspace(it6625_formats[ret].csi_format);
+> -		format->format.colorspace = fmt->colorspace;
+> +	/* fmt already carries this state's width/height/field; leave them alone */
+> +	fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
+> +
+> +	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
+> +		fmt->code = it6625_formats[idx].mbus_fmt_code;
+> +		fmt->colorspace = colorspace;
+> +		format->format = *fmt;
+
+Could you rework the code to keep this for active and try paths?
+
+>  		v4l2_dbg(1, debug, sd, "%s: try format code = 0x%x",
+>  			 __func__, format->format.code);
+>  		return 0;
+>  	}
+>  
+> -	scoped_guard(mutex, &it6625->it6625_lock) {
+> -		it6625->csi_format = it6625_formats[ret].csi_format;
+> -		it6625->mbus_fmt_code = format->format.code;
+> -		it6625_enable_stream_locked(it6625, false);
+> -		it6625_set_mipi_config_locked(it6625, it6625->csi_format);
+> -	}
+> +	if (v4l2_subdev_is_streaming(sd))
+> +		return -EBUSY;
+>  
+> -	format->format.colorspace = format_to_colorspace(it6625_formats[ret].csi_format);
+> +	ret = it6625_enable_stream_locked(it6625, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = it6625_set_mipi_config_locked(it6625, it6625_formats[idx].csi_format);
+
+There are a few lines longer than 80; please split unless there's a
+tangible reason to do otherwise.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* commit to active state only after hardware programming succeeded */
+> +	fmt->code = it6625_formats[idx].mbus_fmt_code;
+> +	fmt->colorspace = colorspace;
+> +	format->format = *fmt;
+>  
+>  	return 0;
+>  }
+> @@ -1780,7 +1801,7 @@ static const struct v4l2_subdev_video_ops it6625_video_ops = {
+>  static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
+>  	.enum_mbus_code = it6625_enum_mbus_code,
+>  	.set_fmt = it6625_set_fmt,
+> -	.get_fmt = it6625_get_fmt,
+> +	.get_fmt = v4l2_subdev_get_fmt,
+>  	.get_edid = it6625_g_edid,
+>  	.set_edid = it6625_s_edid,
+>  	.enum_dv_timings = it6625_enum_dv_timings,
+> @@ -1800,8 +1821,26 @@ static const struct v4l2_subdev_ops it6625_ops = {
+>  static int it6625_init_state(struct v4l2_subdev *sd,
+>  			     struct v4l2_subdev_state *sd_state)
+>  {
+> +	struct it6625 *it6625 = sd_to_6625(sd);
+> +	struct v4l2_subdev_state *active = v4l2_subdev_get_locked_active_state(sd);
+
+This function should work the same way independently of whether the state
+is active or not.
+
+>  	struct v4l2_mbus_framefmt *fmt = v4l2_subdev_state_get_format(sd_state, 0);
+>  
+> +	/*
+> +	 * The very first call initializes what becomes sd->active_state
+> +	 * itself, before it's assigned -- active is NULL then, and this
+> +	 * state gets the driver's own defaults. Every later call (opening
+> +	 * a new file handle) initializes a fresh TRY state while the
+> +	 * active state already exists and is locked by the same mutex
+> +	 * (state->lock is assigned before init_state() runs), so seed it
+> +	 * from the current active format instead of reverting to boot
+> +	 * defaults.
+> +	 */
+> +	if (active) {
+> +		*fmt = *v4l2_subdev_state_get_format(active, 0);
+> +		return 0;
+> +	}
+> +
+> +	it6625_fill_timings_format(&it6625->timings, fmt);
+>  	fmt->code = it6625_formats[0].mbus_fmt_code;
+>  	fmt->colorspace = format_to_colorspace(it6625_formats[0].csi_format);
+>  
+> @@ -1842,6 +1881,8 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
+>  			   it6625->csi_lanes == 3;
+>  
+>  	v4l2_ctrl_handler_init(hdl, 4);
+> +	hdl->lock = &it6625->it6625_lock;
+> +
+>  	it6625->ctrl_5v_detect =
+>  		v4l2_ctrl_new_std(hdl, NULL, V4L2_CID_DV_RX_POWER_PRESENT,
+>  				  0, 1, 0, 0);
+> @@ -2050,8 +2091,6 @@ static void it6625_init_data(struct it6625 *it6625)
+>  	static struct v4l2_dv_timings default_timing =
+>  			V4L2_DV_BT_CEA_1920X1080P60;
+>  
+> -	it6625->csi_format = it6625_formats[0].csi_format;
+> -	it6625->mbus_fmt_code = it6625_formats[0].mbus_fmt_code;
+>  	it6625->timings = default_timing;
+>  	/* firmware ships with a verified 2-block default EDID in EDID RAM */
+>  	it6625->edid_blocks = 2;
+> @@ -2246,9 +2285,16 @@ static int it6625_probe(struct i2c_client *client)
+>  		goto err_clean_work_queues;
+>  	}
+>  
+> +	sd->state_lock = &it6625->it6625_lock;
+> +	err = v4l2_subdev_init_finalize(sd);
+> +	if (err) {
+> +		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
+> +		goto err_clean_hdl;
+> +	}
+> +
+>  	err = v4l2_ctrl_handler_setup(sd->ctrl_handler);
+>  	if (err)
+> -		goto err_clean_hdl;
+> +		goto err_clean_state;
+>  
+>  	it6625->cec_adap = cec_allocate_adapter(&it6625_cec_adap_ops,
+>  						it6625, dev_name(it6625->dev),
+> @@ -2259,7 +2305,7 @@ static int it6625_probe(struct i2c_client *client)
+>  	if (IS_ERR(it6625->cec_adap)) {
+>  		err = PTR_ERR(it6625->cec_adap);
+>  		dev_err(it6625->dev, "%s %d", __func__, __LINE__);
+> -		goto err_clean_hdl;
+> +		goto err_clean_state;
+>  	}
+>  
+>  	err = cec_register_adapter(it6625->cec_adap, &client->dev);
+> @@ -2267,7 +2313,7 @@ static int it6625_probe(struct i2c_client *client)
+>  		dev_err(it6625->dev, "%s: failed to register the cec device", __func__);
+>  		cec_delete_adapter(it6625->cec_adap);
+>  		it6625->cec_adap = NULL;
+> -		goto err_clean_hdl;
+> +		goto err_clean_state;
+>  	}
+>  
+>  	it6625_debugfs_init(it6625, client);
+> @@ -2294,6 +2340,8 @@ static int it6625_probe(struct i2c_client *client)
+>  	v4l2_debugfs_if_free(it6625->infoframes);
+>  	debugfs_remove_recursive(it6625->debugfs_dir);
+>  	cec_unregister_adapter(it6625->cec_adap);
+> +err_clean_state:
+> +	v4l2_subdev_cleanup(sd);
+>  err_clean_hdl:
+>  	media_entity_cleanup(&sd->entity);
+>  	v4l2_ctrl_handler_free(&it6625->hdl);
+> @@ -2330,12 +2378,20 @@ static void it6625_remove(struct i2c_client *client)
+>  
+>  	debugfs_remove_recursive(it6625->debugfs_dir);
+>  	cec_unregister_adapter(it6625->cec_adap);
+> +
+> +	/*
+> +	 * v4l2_subdev_cleanup()/v4l2_ctrl_handler_free() take it6625_lock
+> +	 * (shared as state_lock/hdl.lock), so they must run before it's
+> +	 * destroyed.
+> +	 */
+
+This comment is hardly useful; the same applies to pretty much all drivers
+using sub-device state and V4L2 controls.
+
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_ctrl_handler_free(&it6625->hdl);
+> +
+>  	mutex_destroy(&it6625->it6625_lock);
+>  	mutex_destroy(&it6625->edid_lock);
+>  	mutex_destroy(&it6625->if_read_lock);
+>  	mutex_destroy(&it6625->if_state_lock);
+> -	media_entity_cleanup(&sd->entity);
+> -	v4l2_ctrl_handler_free(&it6625->hdl);
+>  }
+>  
+>  static const struct i2c_device_id it6625_id[] = {
 > 
 
+-- 
+Regards,
+
+Sakari Ailus
