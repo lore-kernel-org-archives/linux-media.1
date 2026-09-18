@@ -1,210 +1,284 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010062.outbound.protection.outlook.com [52.101.228.62])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8475C47F773;
-	Fri, 18 Sep 2026 11:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789732051; cv=fail; b=RmVC+YexC3o6mz9sl+V+uT/4GSMi8+GswwXJV7DaksZvhfajEUzyry4YxMcQpbrNayKWdueKhJugydZ9TPzyfhAMM5LFy/tJ7K1ND9s6EmiusHsnLpKUeXBdUUhpQwFw2JqBivJyKT2j036TOZ2cssrCIfN2J4k7o2s0cLPynEo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789732051; c=relaxed/simple;
-	bh=AJBVyKydl4avZlT1RUy7wmn+wYiZxH8gZLF12H6jiyg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=V3sqYM2Q6y/svrzpvagCcXW0/xsTjrBSNkuHql/6QGDBYAe2VXu8aIOGbr4wYXZjrYLxQpi3eRWTf4om2BLpvjjNY5yT+OdoJiZUX50honNUba6TMCq1UTJe5y7j1iMjhr5PQOOmKpNai0mOzw1+rJDUGyIyveq3qTXB1H/ZRHo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=NdLY99H4; arc=fail smtp.client-ip=52.101.228.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9A53909A6;
+	Fri, 18 Sep 2026 12:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789733707; cv=none; b=dKoyRVtEk+Vk3ZkpV24WUKhP0rseuy4ERzdPBR2j8ovU1JOFyfqGjya1sTFMFJsf2ZExu5FU+zZIGM3SN8w3CF1n99uZQDIiCzW3d0uSe2XopNUthWFdBpA4+eH5vADsGioWgza7C9SVZE3mSnSG5dTXm0qHQiPZCoLCEmeb/74=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789733707; c=relaxed/simple;
+	bh=F1W0yb/pBICTbgkVH2INu9VOvJSl1gEVUZOoeEz7gY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UZsw9DTa7gxIeTMAJQHkWREB63vOgh2VHKytunNShSfdgipi2L3Pwm0ijKjbFGPUkCkRnGWKmGC/eko0iOhdxLS4psyDZV+13bLETbfkJu4TqHTEqeKogk0zW6Krd2kIuvTAgUPpM+G8J/11Q+fVFXk5PXflZohK2KbQOkRh//0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2Hvu22q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="NdLY99H4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FHJGw3Y5JceUrUgpO2HvG9oB3JmDTUc3NcDC+SEE8lc1easZAkifMQmPQx2qR1gdiVEjE22xYgjLY+Kc8K2bRHhr9RCEzY16FeoRJANY9h9Ld/bPHhoxKj3DXFy4hOgaaTF2ej9pnEWfxb6jhYdifN9iTfin1TMaHTkuX4E+Y/TQL205ON5+IMEcBhMZTY3JKjofc3qXUGgiDto7nO8y+F3C1HXlN+iNvAMoEfDIlpnFqRWvBE/egrbpy642oC2md9sFoyqeTSksitPhNmgnGoWv17cOD4vgeTAP717cj8OICJloUbzRuQw6KHMyuOYYCSoflj1cn7XjAx+TNJvILA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AJBVyKydl4avZlT1RUy7wmn+wYiZxH8gZLF12H6jiyg=;
- b=zJZS94w6UqHjrs+j+zCEDg20PvhZSuKHC8wINpDYBKayHKxLD/SIQLIqu94ubzX/RwjeqGKM5Tljtv+ApAqfhb0rrv+IqlUlalIrWTwyMmD4wDWCFNw3sO4HHBc9zYWKvPyhQZqtHcr5lj9e0KxWpRQkKJNDcSqRGtQ3Zs78U1yHk1elJ5dcCqIio2DZLDI5O7REQjIdv3wj1L9ignQKYhl/erfAYaqRWS1WmxqXNi3VJLVKfFrBTkFBpuaKlggJPapMa2UqwWf5peXRPXSP7UVHS8d68ocLzw6pBzeoTf/Fsmor1wrkzKkR+iQ1FbFomNgN1GhvdigUWKfGSkd9Fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AJBVyKydl4avZlT1RUy7wmn+wYiZxH8gZLF12H6jiyg=;
- b=NdLY99H4H1ocJnMJBY1+0ysK2qiT7i4md3vH26RRIOvItJ2Xh8LD2/hD3sNCK0m9aVEvWC4ZiMIaJzDYq4eVPJKmQvqbH2kpS9y9Oxu/ZWT3p7qYBmzGeOqAuTbc22ma4c7lgbQlkKtdMIM1iXQfiiVXshx3ijiYg2HEFXHViw0=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYWPR01MB10660.jpnprd01.prod.outlook.com (2603:1096:400:2a1::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 11:47:24 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 11:47:24 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>
-CC: Paul Elder <paul.elder+renesas@ideasonboard.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>, Ulf
- Hansson <ulfh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham
-	<kieran.bingham+renesas@ideasonboard.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: RE: [PATCH 07/10] media: rcar-fcp: Handle resets
-Thread-Topic: [PATCH 07/10] media: rcar-fcp: Handle resets
-Thread-Index: AQHdRp3mCxXFrz2IzU+X9ezmKYJ2XLbUK1MQgAAETYCAAAmpwA==
-Date: Fri, 18 Sep 2026 11:47:24 +0000
-Message-ID:
- <TY3PR01MB11346DA80F07E2FC76110984886872@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References:
- <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
- <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-7-4c72d4e086dd@ideasonboard.com>
- <TY3PR01MB113464309AC8B77BA471A31DC86872@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260918111119.GF59058@killaraus.ideasonboard.com>
-In-Reply-To: <20260918111119.GF59058@killaraus.ideasonboard.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYWPR01MB10660:EE_
-x-ms-office365-filtering-correlation-id: 993da096-ddf7-4d22-0edd-08df157a9b2b
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|10067099003|11063799006|5023799004|18002099003|56012099006|4143699003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- V+lpikGDQTJWlSTdPNMZ90/doMaH+fV0h38tGp3+9KRCXQm6QA/01nGqiFGoiOob+NK5SWQERN+OR/8fqUuW1MmU/B03gkmFreMash6u659VQf8ZN0tFmXuLTQpdHKbilFUSgTAa2O84/9Z/XazuCeEMOXZNV3/c+iFJoUWtV7d3HrdjMoECzpgnccokBbYvOO25J2ex8HKm12yK2DYygDq/4x1l0wO+3os58+5A3SWFrofhfxuv+gsCsISdNqaqqAauPTpG0XkqKmHY2xy4zt7FlreSe8b4KuO4DdICUlfL8qycM9Fo1Sb9IR3C0In+MqXPBrNDUR7YsaPQvuGLM1UP3bkLrF3bWutf73ofJ2QkFakyX6wvuhog7q4jUd8NBBwi/+9aV4PySZQnMOTNdlItZs3gIuXZFOvXLJ3K2fMz5kFVPuU2NJ2nUz2E2L7jqN8ZmQwBFdi5kRua8pZPsi3ay6Km+Zon9s6fk2PjUCAVv1F69D6fM+HzTsgWGJD3pMFisUD+4geftsTovslfYD5RlVE2WM/yupF4v830t92Dn+eqpd55MmlukIwMx+Tvj4WMdzg5pnhdL7VAdd5i8WMEgDEHPaLwYa/PoNU4IW212gHHg8cPvRIAHR5cMoVo31RByFnNAZCjjakmOpX7o8D/DKaK0nkKykC/OrlDecTmZ9egEmANqN6FDDC1Iqw3vYFANxjCmaC73qAza/pZBQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(10067099003)(11063799006)(5023799004)(18002099003)(56012099006)(4143699003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?L01qeDFxUUlJcmpBbzZ3STA2cEJXTlZpK003R2psRFJQTEhmYXRySUpUZ1lW?=
- =?utf-8?B?Y2cwVDVTRjRPWk83M0FqaDlrWjBiNXdrdnpNNFdkbGMwU3dNUVhMUzAxdWFo?=
- =?utf-8?B?eVZKQ1lTMlEwYXVZVTh4SkJOMGFqZnR4eUZpTW50eXdIVG9JSVdrVnBaTnls?=
- =?utf-8?B?dW9qbmtKWm84c0ZDNjJVS0hUamZ6aUZPc01oUitXTmVtcUUxTDc5THI5S281?=
- =?utf-8?B?eXNvdEFwNHFZbTVzUWFvSGRJdE9BM0F5UmUzSmxTeEhUVENJVVZSUnVuODAy?=
- =?utf-8?B?TDY4bHVDcDI4Z09FN01XNi9LblF1dVg4b2hpTjlyT29sKzlaQ2dpMWZWbjFl?=
- =?utf-8?B?OUljcGloRUpuQTh1Z2RvRDAwUTBJYlJ3NDE2TnJDNXJ2MTJoUndlTGs2RVBp?=
- =?utf-8?B?NmpUeVVNMy9hdmsrWlcrZ1loeWhPTit3M1EvNkQ1ckl2VWNGTEcyY2NFWVE4?=
- =?utf-8?B?cnFxRzA1UytCRlVsZ2J0SEZmM0M5MytNNkFnNmVtTmRWR3J6MmRxam5mdkxW?=
- =?utf-8?B?VDJxb0FTS0wyWGZkTEhrZWM1ZkRYTTBKTkdLcFFtOStwQ1R4RldadDY1MGVR?=
- =?utf-8?B?NjNaYWhvcHJhN2VyL0FBeWk0MWdFWTAzOFZyL01XK2J5cU1EWkFFcmN1R1NC?=
- =?utf-8?B?M3pCVGtVWmR1Uy9EY3N4RGc5V3BpNmhqWFdSQWFZU2VlcCtodi9Xd0dxQ3Rs?=
- =?utf-8?B?SE5XZC9IaS8yNFgramRwd2VHamJIY1pQaHYzNS9UM05iTS9zNFZ4MW5NM1RN?=
- =?utf-8?B?MmFtelROK2UzeGRWcDY0VzhleEU0THU3ZDc4RmhEbWlueVIxY1R6dE5lVmxN?=
- =?utf-8?B?RnlBUzcrZ29FZEI2VU14dURtaWt3V0s2OWE1VjVHWkJ2S2sxTzlTNlNBMG1E?=
- =?utf-8?B?c1A2V2l6UHhsT1FjcXhjcE5DRHE5L3VSeGp4cjRyRmxNMEpreUZ6QVgyUmFX?=
- =?utf-8?B?dEZxeW1RRHM5QkorYlZueFpOQ1lHUDhUTnczRHpKc2ZmU0ZXQWM5STdGcjVD?=
- =?utf-8?B?akxkTUhqNnkzS05IaWdtOE1CM3V4dEYzUit0d0hyNWFyUmZ5T1VKWE1qRWR2?=
- =?utf-8?B?dkhzSlE3MHVjZlBUOE1yZVpXSjRyT2ZjWk5BaEdqaW9wOVc0cnl6cFRtV0do?=
- =?utf-8?B?TE81eWJRcEhudGhyYmN3RUtiVFZZM1pyaHg2bVdsdW94WVRLMWlrL0doMURP?=
- =?utf-8?B?UytoQWJ0Sk1zb01OUXp6WEQveEQyL3gvelFlcFBJQ0V0ZmIxS245bjRPTTVm?=
- =?utf-8?B?aXREZk11Zmp3RnNpZStpNGZrOWs4dlo2QkpPTzcwWTRTUkdHaFdJcEdnTWJR?=
- =?utf-8?B?c1RtM3NNSVE1QUNTM0pZZWNUNFc3dkRBS2RqdGZVTzFhc3ordmgrT0JobXhU?=
- =?utf-8?B?OUphaXRES25oK2xnUmw2RHBnRjBhMkdSNXh3T3BzcVQ4TWpDTVl6K1VTTVFx?=
- =?utf-8?B?bVdEcUJXYk9VcWdNUlh6OGI4bHJTQ1VOWEJlQXpSaG9UMDY0Z2x1WGNCdUYv?=
- =?utf-8?B?RzgxdDNFT2RDOTJRS1dvOGJ4YytJaXExOFRXa1VYcUU4K2MzS0JzVllZdlp5?=
- =?utf-8?B?YXRES2hQbzhZMDdyVk13YzVraEpLNE5tdFR0OGNFSng0aUlMaEZEL2pLTnFF?=
- =?utf-8?B?WnpVaUpPR0JFckxKZmdtZXE1ZUZhTnBidDVjZmhBZTFBdGI2eEY5bVN6NDQ0?=
- =?utf-8?B?V3NyY3NPTjFlRitQT2hXdFBXZUpOM0ZGOUxuTXZDMFRUSTVrRHlkQXdLQ0Np?=
- =?utf-8?B?dWU5TWl0bi81TDlXZHBrbEcxY1Uxb0tSY1pIS3hpVUYvU3NZeGtEYWpOQlN2?=
- =?utf-8?B?K2d2TXdWUU9KeWFQR0hjRGFuNGFzb0xMSWZxRmswK09Hb0xta1dTbXZzVUky?=
- =?utf-8?B?U0NtRmsxdTFXQUw1VDh0Q3YyMHZ4a0pGQXg2NzNEL0pxb3ppR2hxWlZ5cUxW?=
- =?utf-8?B?ajFCSzJCWE91SEtFallOSkJvdG9leUY1R0RkUDIrT1UvK1l3SmZJKzlCeHdM?=
- =?utf-8?B?R3huYXQxTzJxR2RNYVJBdVhKcEMrOXFlY2ExUUJ3dml1UXpBdVdramlSSjgy?=
- =?utf-8?B?dW5WTWw0M2hCejJCdDB5ckIzT0p3bTVRRUJHNFMySFoxWkJSWDN3TDZVNG85?=
- =?utf-8?B?MVk0UEtrMEJUTTVzQXZzeVhhZmZ0RU80YWdXQ1hqZEZaOU4xczFvRGhPQXhy?=
- =?utf-8?B?eWVScVN0alN1U1l3NWs0ejVrbE45QjF0NVFUM1U3eWxXUDBiaStPTW9vYVFH?=
- =?utf-8?B?TStlRGtIaUdrcHZGTmFkNVZ3MXZ0U1IvRyt0UEF2QVhDSSttaCtyVjBxZThu?=
- =?utf-8?B?d3JLdzZzd0llbVFLR3psd3RSc0hNVXV6SjZTOTI0YWwvNUsyMWRlUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2Hvu22q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB791F000FF;
+	Fri, 18 Sep 2026 12:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789733705;
+	bh=+8ouL8MHD3D1pD50ird+0r+dFeJQjvvbk3v4ZZQqqXs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l2Hvu22qiDsRKF2dKtyIxq/BuSR7nfYOOeG3+byXlyAoETgK9LqUOuJf3cPOxvCk9
+	 ErhqPvZWMTU0HVQRHUlSoKCVv4TTd/UVGn9MIJc1m0h/cvb5JjTclY7E4W1i4QRSQ/
+	 x9Owc28rL0PF6cQprfFCFa5XAjmbt/JpP7/o3PY2oA2uoLtlTjhBJX4HT1qwc7bwrp
+	 GfkiEtJuhX0PazsalVk64Sr4JjlBI88Y/Upmbe8SPhLHlKOiZIbUJH+CqwwiJvZtAW
+	 JO4jA67c801lRH5V6gEpMjNdTEf1tcR54d2kKhjbRRN2ELDKWA0IuNx68rVtOqC2mw
+	 ooJwoi5T2fIhw==
+Date: Fri, 18 Sep 2026 15:15:00 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260918121500.GV13683@unreal>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 993da096-ddf7-4d22-0edd-08df157a9b2b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 11:47:24.3310
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: us3Fym9PlDhJ62V1/hN4fU30MSyEgW7VDQqXBUg1Qf60sC61EO+ja+o2o0N/pLlrSmrBkx/ZJyFtNmn7mGddS5Ct5+BtAQ/NSyWVr/Z66i0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10660
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
 
-SGkgTGF1cmVudCwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXVy
-ZW50IFBpbmNoYXJ0IDxsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5jb20+DQo+IFNlbnQ6
-IDE4IFNlcHRlbWJlciAyMDI2IDEyOjExDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMDcvMTBdIG1l
-ZGlhOiByY2FyLWZjcDogSGFuZGxlIHJlc2V0cw0KPiANCj4gT24gRnJpLCBTZXAgMTgsIDIwMjYg
-YXQgMTE6MDM6MjVBTSArMDAwMCwgQmlqdSBEYXMgd3JvdGU6DQo+ID4gT24gMTcgU2VwdGVtYmVy
-IDIwMjYgMTM6MDUsIFBhdWwgRWxkZXIgd3JvdGU6DQo+ID4gPg0KPiA+ID4gW1lvdSBkb24ndCBv
-ZnRlbiBnZXQgZW1haWwgZnJvbSBwYXVsLmVsZGVyK3JlbmVzYXNAaWRlYXNvbmJvYXJkLmNvbS4N
-Cj4gPiA+IExlYXJuIHdoeSB0aGlzIGlzIGltcG9ydGFudCBhdA0KPiA+ID4gaHR0cHM6Ly9ha2Eu
-bXMvTGVhcm5BYm91dFNlbmRlcklkZW50aWZpY2F0aW9uIF0NCj4gDQo+IERvbid0IHdvcnJ5LCB3
-ZSBwbGFuIHRvIHdvcmsgb24gVkNPTiBzdXBwb3J0IGZvciBYNUgsIHlvdSB3aWxsIGdldCBtb3Jl
-IGUtbWFpbHMgZnJvbSBQYXVsIDotKQ0KDQpPay4NCg0KPiA+ID4gT24gc29tZSB2ZXJzaW9ucyBv
-ZiB0aGUgRkNQLCBzdWNoIGFzIHRoZSBvbmUgb24gdGhlIFg1SCwgcmVzZXQNCj4gPiA+IGNvbnRy
-b2wgaXMgcmVxdWlyZWQgdG8gb3BlcmF0ZSB0aGUgRkNQLg0KPiA+ID4NCj4gPiA+IEFkZCBzdXBw
-b3J0IGZvciBoYW5kbGluZyByZXNldHMgb3B0aW9uYWxseSwgdG8gY29udGludWUgc3VwcG9ydGlu
-Zw0KPiA+ID4gdmVyc2lvbnMgdGhhdCBkbyBub3QgcmVxdWlyZSBpdC4NCj4gPiA+DQo+ID4gPiBT
-aWduZWQtb2ZmLWJ5OiBQYXVsIEVsZGVyIDxwYXVsLmVsZGVyK3JlbmVzYXNAaWRlYXNvbmJvYXJk
-LmNvbT4NCj4gPiA+IC0tLQ0KPiA+ID4gIGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vcmVuZXNhcy9y
-Y2FyLWZjcC5jIHwgMzQNCj4gPiA+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0NCj4g
-PiA+ICAxIGZpbGUgY2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4g
-PiA+DQo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3Jj
-YXItZmNwLmMNCj4gPiA+IGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3JjYXItZmNw
-LmMNCj4gPiA+IGluZGV4DQo+ID4gPiBkOTliM2ZmOTc2ZTgwZjI3NWFmMTllNWRjMDJjNmUxZGU5
-OGMzOGEzLi4xNWJjYmJkYTNiODUzZjcxNzgwYWFlODc2Zg0KPiA+ID4gNjQ0MGIzM2FkZGYxOTMg
-MTAwNjQ0DQo+ID4gPiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3JlbmVzYXMvcmNhci1m
-Y3AuYw0KPiA+ID4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3JjYXItZmNw
-LmMNCj4gPiA+IEBAIC0xOCw2ICsxOCw3IEBADQo+ID4gPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRm
-b3JtX2RldmljZS5oPg0KPiA+ID4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+DQo+ID4g
-PiAgI2luY2x1ZGUgPGxpbnV4L3Byb3BlcnR5Lmg+DQo+ID4gPiArI2luY2x1ZGUgPGxpbnV4L3Jl
-c2V0Lmg+DQo+ID4gPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4NCj4gPiA+DQo+ID4gPiAgI2lu
-Y2x1ZGUgPG1lZGlhL3JjYXItZmNwLmg+DQo+ID4gPiBAQCAtNjMsNiArNjQsOCBAQA0KPiA+ID4g
-ICNkZWZpbmUgUkNBUl9GQ1BfUkVHX0JBX1JFRl9ZMiAgICAgICAgICAgICAgICAgMHgwMTE4DQo+
-ID4gPiAgI2RlZmluZSBSQ0FSX0ZDUF9SRUdfQkFfUkVGX0MgICAgICAgICAgICAgICAgICAweDAx
-MWMNCj4gPiA+DQo+ID4gPiArc3RydWN0IHJlc2V0X2NvbnRyb2w7DQo+ID4gPiArDQo+ID4gPiAg
-ZW51bSByY2FyX2ZjcF90eXBlIHsNCj4gPiA+ICAgICAgICAgUkNBUl9GQ1BGLA0KPiA+ID4gICAg
-ICAgICBSQ0FSX0ZDUFYsDQo+ID4gPiBAQCAtNzMsNiArNzYsNyBAQCBzdHJ1Y3QgcmNhcl9mY3Bf
-ZGV2aWNlIHsNCj4gPiA+ICAgICAgICAgc3RydWN0IGRldmljZSAqZGV2Ow0KPiA+ID4gICAgICAg
-ICB2b2lkIF9faW9tZW0gKmJhc2U7DQo+ID4gPiAgICAgICAgIGVudW0gcmNhcl9mY3BfdHlwZSB0
-eXBlOw0KPiA+ID4gKyAgICAgICBzdHJ1Y3QgcmVzZXRfY29udHJvbCAqcnN0YzsNCj4gPg0KPiA+
-IFlvdSBjb3VsZCBkcm9wIHRoaXMgZ2xvYmFsIHZhcmlhYmxlLiBQbGVhc2UgU2VlIGJlbG93Lg0K
-PiA+DQo+ID4gPiAgfTsNCj4gPiA+DQo+ID4gPiAgc3RhdGljIExJU1RfSEVBRChmY3BfZGV2aWNl
-cyk7DQo+ID4gPiBAQCAtMjYyLDEyICsyNjYsMTkgQEAgc3RhdGljIGludCByY2FyX2ZjcF9wcm9i
-ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPiA+ID4gICAgICAgICBmY3AtPmRldiA9
-ICZwZGV2LT5kZXY7DQo+ID4gPiAgICAgICAgIGZjcC0+dHlwZSA9IChlbnVtDQo+ID4gPiByY2Fy
-X2ZjcF90eXBlKWRldmljZV9nZXRfbWF0Y2hfZGF0YSgmcGRldi0+ZGV2KTsNCj4gPiA+DQo+ID4g
-PiArICAgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIGZjcCk7DQo+ID4NCj4gPiBUaGlz
-IGNhbiBiZSBtb3ZlZCBhZnRlciB0aGUgdXNlci4NCj4gPiA+ICsNCj4gPiA+ICAgICAgICAgZmNw
-LT5iYXNlID0gZGV2bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlKHBkZXYsIDApOw0KPiA+ID4g
-ICAgICAgICBpZiAoSVNfRVJSKGZjcC0+YmFzZSkpDQo+ID4gPiAgICAgICAgICAgICAgICAgcmV0
-dXJuIFBUUl9FUlIoZmNwLT5iYXNlKTsNCj4gPiA+DQo+ID4gPiAgICAgICAgIGRtYV9zZXRfbWF4
-X3NlZ19zaXplKGZjcC0+ZGV2LCBVSU5UX01BWCk7DQo+ID4gPg0KPiA+ID4gKyAgICAgICBmY3At
-PnJzdGMgPSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0X29wdGlvbmFsKCZwZGV2LT5kZXYsDQo+ID4g
-PiArIE5VTEwpOw0KPiA+DQo+ID4gcnN0YyA9IGRldm1fcmVzZXRfY29udHJvbF9nZXRfb3B0aW9u
-YWwoJnBkZXYtPmRldiwgTlVMTCk7DQo+ID4NCj4gPiA+ICsgICAgICAgaWYgKElTX0VSUihmY3At
-PnJzdGMpKQ0KPiA+ID4gKyAgICAgICAgICAgICAgIHJldHVybiBkZXZfZXJyX3Byb2JlKCZwZGV2
-LT5kZXYsIFBUUl9FUlIoZmNwLT5yc3RjKSwNCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAiZmFpbGVkIHRvIGdldCByZXNldA0KPiA+ID4gKyBjb250cm9sXG4iKTsN
-Cj4gPg0KPiA+DQo+ID4gICAgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIHJzdGMpOw0K
-PiANCj4gSSdkIHJhdGhlciBrZWVwIHRoZSByY2FyX2ZjcF9kZXZpY2Ugc3RydWN0dXJlLiBXaGVu
-IHdlJ2xsIGFkZCBjb21wcmVzc2lvbiBzdXBwb3J0IHRvIHRoZSBGQ1AgZHJpdmVyLCB3ZQ0KPiB3
-aWxsIG5lZWQgdG8gYWNjZXNzIHJlZ2lzdGVycyBhbmQgb3RoZXIgZmllbGRzIG9mIHJjYXJfZmNw
-X2RldmljZS4NCg0KQWNrLg0KDQpDaGVlcnMsDQpCaWp1DQo=
+On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
+> Hi
+> 
+> On Mon, 2026-09-14 at 14:22 +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > mlx5_umem_needs_ats() enables ATS for any dma-buf whose caller asked
+> > for
+> > Relaxed Ordering, on the assumption that a switch in the path has CR,
+> > RR
+> > and DT all set. It also enables it for a buffer already mapped with
+> > the
+> > peer's bus addresses, which are not translatable at all.
+> > 
+> > P2PDMA has read the ACS controls, so ask it through
+> > dma_buf_p2pdma_map_type(): enable ATS only where the path is not
+> > routed
+> > directly as it stands, but would be for a Translated Request whose
+> > Completions carry Relaxed Ordering. Exporters that name no provider
+> > keep
+> > the old assumption, since their ACS settings remain hidden.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/infiniband/hw/mlx5/mlx5_ib.h | 36 ++------------------------
+> > ------
+> >  drivers/infiniband/hw/mlx5/mr.c      | 40
+> > ++++++++++++++++++++++++++++++++++++
+> >  2 files changed, 42 insertions(+), 34 deletions(-)
+> > 
+> > diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > index e9ddf2e97a76..ab32742b2180 100644
+> > --- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > +++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > @@ -1646,40 +1646,8 @@ static inline bool rt_supported(int ts_cap)
+> >  	       ts_cap ==
+> > MLX5_TIMESTAMP_FORMAT_CAP_FREE_RUNNING_AND_REAL_TIME;
+> >  }
+> >  
+> > -/*
+> > - * PCI Peer to Peer is a trainwreck. If no switch is present then
+> > things
+> > - * sometimes work, depending on the pci_distance_p2p logic for
+> > excluding broken
+> > - * root complexes. However if a switch is present in the path, then
+> > things get
+> > - * really ugly depending on how the switch is setup. This table
+> > assumes that the
+> > - * root complex is strict and is validating that all req/reps are
+> > matches
+> > - * perfectly - so any scenario where it sees only half the
+> > transaction is a
+> > - * failure.
+> > - *
+> > - * CR/RR/DT  ATS RO P2P
+> > - * 00X       X   X  OK
+> > - * 010       X   X  fails (request is routed to root but root never
+> > sees comp)
+> > - * 011       0   X  fails (request is routed to root but root never
+> > sees comp)
+> > - * 011       1   X  OK
+> > - * 10X       X   1  OK
+> > - * 101       X   0  fails (completion is routed to root but root
+> > didn't see req)
+> > - * 110       X   0  SLOW
+> > - * 111       0   0  SLOW
+> > - * 111       1   0  fails (completion is routed to root but root
+> > didn't see req)
+> > - * 111       1   1  OK
+> > - *
+> > - * Unfortunately we cannot reliably know if a switch is present or
+> > what the
+> > - * CR/RR/DT ACS settings are, as in a VM that is all hidden. Assume
+> > that
+> > - * CR/RR/DT is 111 if the ATS cap is enabled and follow the last
+> > three rows.
+> > - *
+> > - * For now assume if the umem is a dma_buf then it is P2P.
+> > - */
+> > -static inline bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev,
+> > -				       struct ib_umem *umem, int
+> > access_flags)
+> > -{
+> > -	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+> > -		return false;
+> > -	return access_flags & IB_ACCESS_RELAXED_ORDERING;
+> > -}
+> > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
+> > *umem,
+> > +			 int access_flags);
+> >  
+> >  int set_roce_addr(struct mlx5_ib_dev *dev, u32 port_num,
+> >  		  unsigned int index, const union ib_gid *gid,
+> > diff --git a/drivers/infiniband/hw/mlx5/mr.c
+> > b/drivers/infiniband/hw/mlx5/mr.c
+> > index 00e13028762a..286f372e5b0c 100644
+> > --- a/drivers/infiniband/hw/mlx5/mr.c
+> > +++ b/drivers/infiniband/hw/mlx5/mr.c
+> > @@ -38,6 +38,7 @@
+> >  #include <linux/export.h>
+> >  #include <linux/delay.h>
+> >  #include <linux/dma-buf.h>
+> > +#include <linux/dma-buf-mapping.h>
+> >  #include <linux/dma-resv.h>
+> >  #include <rdma/frmr_pools.h>
+> >  #include <rdma/ib_umem_odp.h>
+> > @@ -47,6 +48,45 @@
+> >  #include "data_direct.h"
+> >  #include "dmah.h"
+> >  
+> > +MODULE_IMPORT_NS("DMA_BUF");
+> > +
+> > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
+> > *umem,
+> > +			 int access_flags)
+> > +{
+> > +	struct dma_buf_attachment *attach;
+> > +
+> > +	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+> > +		return false;
+> > +
+> > +	/*
+> > +	 * The Completer decides whether its Completions carry
+> > Relaxed
+> > +	 * Ordering, and only a Request that asked for it can expect
+> > them to.
+> > +	 */
+> > +	if (!(access_flags & IB_ACCESS_RELAXED_ORDERING))
+> > +		return false;
+> > +
+> > +	attach = to_ib_umem_dmabuf(umem)->attach;
+> > +	switch (dma_buf_p2pdma_map_type(attach, 0)) {
+> > +	case PCI_P2PDMA_MAP_NONE:
+> > +		/* Nothing is known about the route, so fall back to
+> > the bet. */
+> > +		return true;
+> > +	case PCI_P2PDMA_MAP_BUS_ADDR:
+> > +		/*
+> > +		 * The path is routed directly already and is
+> > programmed with
+> > +		 * the peer's bus addresses. Those are not
+> > translatable, so
+> > +		 * ATS would be wrong as well as pointless.
+> > +		 */
+> > +		return false;
+> > +	default:
+> > +		break;
+> > +	}
+> > +
+> > +	return dma_buf_p2pdma_map_type(attach,
+> > +				       PCI_P2PDMA_TLP_TRANSLATED |
+> > +					      
+> > PCI_P2PDMA_TLP_RELAXED_CPL) ==
+> > +	       PCI_P2PDMA_MAP_BUS_ADDR;
+> > +}
+> > +
+> 
+> It looks like this works well when the device can choose whether to
+> enable ATS per transaction. 
+> 
+> However, at least for the Intel GPUs, ATS enablement is based on the
+> PCIe-side enable bit.
+> 
+> This means that if p2pdma tells the dma-mapping layer to give an Xe
+> device a bus address rather than an IOVA, things break, while
+> pci_p2pdma_distance says everything is OK.
+> 
+> It looks like the infrastructure and solution added in this series is
+> targeted at fixing this on the device side by conditionally enabling
+> ATS. However I think we need to look also at having the computed
+> routing assume untranslated transactions using IOVA rather than bus
+> address.
+> 
+> That is, a flag to tell the topology check that some transactions
+> *will* take the host-bridge path due to IOVA being used, and that the
+> computations including pci_p2pdma_distance() need to check whether that
+> is possible (checking whitelist etc.) and return the corresponding
+> THRU_HOST_BRIDGE mapping type. Translated transactions taking a short-
+> cut using the bus-address would then be hidden from the driver.
+
+The word *will* puzzles me. As I understand it, if your device has ATS
+enabled all the time, it should always get THRU_HOST_BRIDGE.
+
+In the mlx5 case, we can enable or disable ATS on the fly, but what does a
+device with ATS enabled globally do for different mapping types? Do you
+simply not use dma_buf_p2pdma_map_type() at all and continue to operate
+as is?
+
+I asked some questions my AI tool about XE:
+------------------------------------------------------------------------------------------------
+Xe needs THRU_HOST_BRIDGE even with ATS completely disabled. xe_ttm_vram_mgr_alloc_sgt()
+maps VRAM with dma_map_resource() unconditionally (xe_ttm_vram_mgr.c:450) — an IOVA under
+an IOMMU, never a bus address, with no ATS involvement at all. ATS only adds the possibility
+that some of that traffic short-cuts invisibly. The actual requirement is “this caller cannot
+program bus addresses”, which is true of Xe regardless of the ATS Enable bit.
+-------------------------------------------------------------------------------------------------
+
+Could you please clarify what the expected behavior is here? My series
+does not change the existing behavior; it only reports the routing more
+clearly for each TLP class.
+
+Thanks
+
+> 
+> Whether that is best done as a parameter to these functions or perhaps
+> as a flag in the PCI device, I'm not sure.
+> 
+> Thanks,
+> Thomas
+> 
+> 
+> 
+> 
+> >  static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
+> >  {
+> >  	if (MLX5_CAP_GEN(dev->mdev,
+> > umr_extended_translation_offset))
