@@ -1,797 +1,865 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE743D3D18
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 14:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F7A4FD29D
+	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 15:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742946; cv=pass; b=q0WrcdS+wic3ccUfSq1r/wp97cLTQcolZrJZAxARAWnvVjYp+pg9bPl3h6svHJ4ApsjXKKaWK5K+0OmbinzVNf57I89B0isTm2isirRQ7aJchLG9B9WDXu5PWh1rLkoQMnjCa1EzGe/kH0nWPwZTKFRdhFRpJ8kIiqguKoAa6Ho=
+	t=1789744272; cv=pass; b=QgMm7t8jVZpOtAh2avGyCbbOnodphUWfWw3XSFbiChCq468K26y+TqmfXtiLqpz5LD9OQd5iS+skiwRvavtJQ016ZEMdcVFkEw3W1sgud41xEscZLFZJA4Wzen4PkpwSXcrMPGeh5wYcUnVZknfEWXIZnZtUAl9V3DQPRLZw5YA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742946; c=relaxed/simple;
-	bh=x/yebZqqN+tRIG8jG2KHZidMMSZsb9AxMrLIFF+xxGU=;
+	s=arc-20240116; t=1789744272; c=relaxed/simple;
+	bh=nAucdYe0uiXwfT0TFxaF+xrGZfzsbpsbO/VguXlbIsE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fNAxVf/Ozq9jFSYxyd6nGKhe/arWiUqg/RT7rC8cJ1LfI1/uQMJHNr5kg3y0eEJKIxxip66WxWWHI6I1aAcWPu+Pf6cVMnrqh+NXPLMJtefOKjpEBHPhAZHN1lSdmzP0+8mkgXTGrZ+sX4KKBy+VEjTtWmt/zdwW6VQz6tL58II=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LLOgrs4D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VkHmycO8; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=D+WV5NWbX1yRnW5BoXUDe9cPSU5y6fX6e19+oNl3+DMp6SbI11BurnglUqS2RoCFUhKnC70dQxFwEEg7SFJBCkKBRyr9CasmLF0OcK3ZawA0BylPo3EnpiToUEjRN0dAzzoXZYiu+lib7aEzkNX5ZyNNfvhuBUIH3ALPqg5P3Hg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ffaHPguV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=a6/wyKPm; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LLOgrs4D";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VkHmycO8"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOS2i1711305
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 14:49:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=; b=LLOgrs4DT+9Vc1vi
-	MNlXr7JfWI8SmDFzOFkc5B8ntgMZ8DjC3vAsuIPm6e04Ou1sRs9/NNeAUNSLl2WN
-	W4GRJPksrRCy2nTxQZoJgUdpWIxYYTaB6U8xajpW6XcJzIsAr8BVd9ZeH348pIy9
-	w9geNSeXForzpPy40YganKlpS+XbFiQ6q0Kj8/eOnzGSTAoajBr7Eo8U0bTvcOoR
-	pmE36av5U5X/U529RT6rnCacu6QomBFO1bAjZGUo8JHQCI5ACkcgAlHVezGzHCmg
-	Lgfm4dMS2lXZM6Gz3xCPC8M20meleyZ82wcMqZg2F6ECF8k2zGz9FnYBSoQgd3ki
-	+mUVTQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grrg43pd6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 14:49:02 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f248907fso85418785a.3
-        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 07:49:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789742941; cv=none;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ffaHPguV";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="a6/wyKPm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789744268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+	b=ffaHPguVSV9Fz3nyUodzQsAhjNFIVZ+z4M6NcgVQu8WHsmIPlQlhqxRErJxiQSd5rViQOC
+	za0BdDKbxU/d6JTd5IlVHGqad+682O5wjzCgj2e8KzngtZ/OvPV7elsuiVfvkBz8OH/bcx
+	Xernu0TM+N+wGcLphH+wm/Rt/KLITtg=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-632-7eeeqRCcOXGTNA-QJST0gw-1; Fri, 18 Sep 2026 11:11:06 -0400
+X-MC-Unique: 7eeeqRCcOXGTNA-QJST0gw-1
+X-Mimecast-MFC-AGG-ID: 7eeeqRCcOXGTNA-QJST0gw_1789744266
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8563c2a53dbso9472197b3.2
+        for <linux-media@vger.kernel.org>; Fri, 18 Sep 2026 08:11:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789744266; cv=none;
         d=google.com; s=arc-20260327;
-        b=sQruWE9ZMFLsaWdfihSs+R/5PWLrllM7kjXpHoGfVFkNW1vkZtLnKaVqPpBULgfVwz
-         /seuYmQpSm2lUqj1H7Rcvf24g1mCdgF+YR872ZNK4YwhucX34rE9TRkK2jAfeML0jLSS
-         7zQcx9X9DweJIcR4PJU89YYRHJCt7nHagqnBE2zPOk/ybhfnOzV8WgVQG3FbERoV+fQJ
-         PZd+XvpMboquzVOjIZAYt1GGvTKjaZmgFHtKp0h9rNH0k0EOGgIG1MQng037q0+ogQ8x
-         tuC0IxTQOaxNF51UaT6qK1RkbzdxZS9onx5NsCOyVjeHwl1f4ElkWNfH333Ethaz3/l8
-         dW4Q==
+        b=H1LvJ5e7Cbm8fNv1H8P2lVc/dgmWB3EIc78m9EZEaW4JULV0u9KTxL/0NKBB2pTfii
+         Yp1NG/iTJFN8Vmnqk61yFqRGMEXfPRH56y7vwsRMbonomJQkV6W82II8WHOYSJO5ExDu
+         pHAH6kBaJmTovCIEXDEWGh91praaW4bcJCb3PM75SinsvE4PpFkySSYmYSlZeEAbXk4s
+         ltIP0DOrUFNxPBKZwMg9bTwVbEkQ3MCYZaRyBse8WWiGsyrVUKOYEZEP4iulboEgSjLI
+         W/8PMR1NUHi+3QA7FIeCytxcbjNREx/AVAGh/tMCKQhyuHS6mXg2xgaaEmrdvsEiIKRN
+         Kdag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=;
-        fh=3MrNE8cty6KfmpZGFSxJ/tVdoPk6PSuSXcYilKsmV6c=;
-        b=UCCwqU30HYdHel5TRMnSvFiii0fQf8L0k/GXASyBc4ZKDliUHQUo/NrddXVjaaojnt
-         PmyKsQ0bSs49XN5jyb0QQxy1JNcgi8QWXeMOtdJq5pJXw1a9sDtH1XRS0UqQmEMN6aKV
-         3Zt+4eW7uCLYNqB72FSaNhw3zwKCoIZFT/mr+scUD/D/qbIQBkTDceDvAfPAKCv0+MKn
-         PNjuKUs4bRDAKnwdbkoESHOJV7y0NUTEQE3mBdoG7fz+IUUaXdiSg9UjjElD9lruwlLW
-         UWiObvkDhrqzbhiTLwzNmLpHm/31srhxAoswqCtJmWfvRdV/nGMIwpMq83uRkR6MhaZQ
-         TPpQ==;
+        bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+        fh=KQV9E5FMalNmapawQxKm4Vt+RnqeFnhC86KnC7iK/hk=;
+        b=c/gjqT/NKjfN3FcFPTcvP7RLUMpZssNbo/GgReSaRMIfUMffpNB36rr0hxDVEeWNIA
+         xi/nAsIiOwtcrombIQN7P19DWqJnMG5LXsw7y5wpURdpMuU4eN9W1fDyf/k6AudlqfHY
+         ZVyZOaxFIJSn2L/17eJHPvIW+w36lpktvRhCxBt56xcUdPJ7piLW/ZUStvd8FayE/3Ly
+         s73gjen+KO+y7Ujbm5+Pa0AlioJvNVrAA7YZTZh6z8WjFpR43eK4W+hWPV2Zn4avKSqC
+         hh74TTV/YlFluPHzRu40l/Ocr6fOZScN+1mCE0gbA1NeeZXe49PYeQ0riQRQiaZoSB7j
+         8rCg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789742941; x=1790347741; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1789744266; x=1790349066; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=;
-        b=VkHmycO8uv3vmP+eywM401ZA6mTL3xcLZB7XAu8mHc88Kb4NQWfxbWLJ97L5jmldEf
-         kEv5fiX53x+kG3t4t+xhIlds3vTvH++2u4QXhlu4huTQ9Wdmq1fK4f2CdiHdXxddGw4k
-         2VSTRtA2G76QEB/PzySyMPRjDWNck8xpgZB4do3KvNDBSd1An8deYkgcUKOtdpzQBSYM
-         m4G1oSvGPVACTPlkPJm7C2CHkFL2T3Wq//ZPiaSzOnFsB8gR1PIJVTC3PIq912o1fMsk
-         aaRieCwihNQpS0hF9VlYo5u8QRj2j0uSesq/mfzqBjDQkklRkJssMMDNFlDOdQg0fFJ/
-         aAEw==
+        bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+        b=a6/wyKPmSUo4+Im0xUhSM2EWHUdB6BXqnD2Q31ZwFKeVD1DEHrTY2475GPWTffw92o
+         wW6j9cHPDI/ZY7ZSFobkHQfb7+9OlpoqkPFoU7XondXF4LEKpcFUNS+14pa+gpt59WJr
+         B/zp+GWNwjkbzSejNYJfN/xgf3K+Hvvh/VCMENncptGArKdsHZEPc1SUgihnCIYwxGtM
+         OqpsoD/xktFcIzyMKBgiH197U/rU/F2191tXdphK5DBf6aL2VAyjmss++YolF8nLL+X3
+         tQrvmtfZHE9i5gYk5kBjYszYT9DTiPeC+GttOtQBVAuzkq6iaDKAceoBucXLW7nqHxbk
+         O4ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742941; x=1790347741;
+        d=1e100.net; s=20260707; t=1789744266; x=1790349066;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=;
-        b=wmuB0+TueYehvS2WTG+Iqa7owobxhTyjtof8a1yfZsVOuqqRC8bBPIml0stvNWixD1
-         KxpdnPlLfTcNTXaBHlzuFi40k5O3RQJQuKe0kul/v3GHNwsIkOaZRsLKR//flmE4sTab
-         697JK+rF3BlgzzJJD55Ue4/Cb4KxFu0TEm8YMajPX7QhgPPT/iwR3g6iwH2/zzgyU8Z9
-         qT0aYIWPHUkpHPHd9YEbPYRcDne5KzKqNlISzhli1MUH2aJpmYRyJQ2X3tP8fdIAxq71
-         xMOIARSfXJeYpaSFq5/VZxE4zSlnyliAqfDQOHRrmoPHiIZu39+hEz4ZcQVMzeI28hq1
-         +euQ==
-X-Forwarded-Encrypted: i=1; AKwUvBykfAKEDc23WHEDVcyNq1pBitSWaL+b2+/bL1s9VdA6glBE+xjVtiof7wkSSMHorLA2NPZf9im7LQ3K3Q==@vger.kernel.org
-X-Gm-Message-State: AFuF++lmYjz0xa+ZKUUsUIph8wpJVh8Tdf6RBGev/768rbASovAE9M2o
-	icVu4JdDF8fP5GX5HRr7vDgcgV1a0iYDBji/MyYW09kc6fL62Bmn36u0+5uuFvqtLR7GbtaAKUM
-	scNXaLeSByA2M4ZBRg1szeu8NDtXlghu0tZ1FCo3pLQwyCuQecy84Z7W2bo2pqZ87gq0Es9NRif
-	FBbhWHISMcPlkBo1FgV7hiW2nPH9tWhnfanl8NaPwp
-X-Gm-Gg: AYBFou1XBcMsiginVW/wQT3DyKSPaV++Ct3iFBzcYPgaQQZSQOseCYfVthgMRnWf6gd
-	s8CZaL8Pwn0NAqXfm/O/SddtsIBKcdIkKNlXJgtR9KxUBvVziRgSKGoHYlwVz7rkfOiydzJV5KE
-	/m7gCKLps2f33JnFouGFOskzzCirig7/OiSLFRVEeDKqobfJd2bBBn3aC2P3qU+RNwRCjb8kkB0
-	zMThhkqIxuZJ0jTbGb0fNSGxMfwkRmf3SP2Mk0rfIjgt0w6Mh/AUxRec5T3GewXL9CAocEmbw==
-X-Received: by 2002:a05:620a:3193:b0:93b:c581:2e16 with SMTP id af79cd13be357-93bdc70a9e2mr380952285a.30.1789742940788;
-        Fri, 18 Sep 2026 07:49:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:3193:b0:93b:c581:2e16 with SMTP id
- af79cd13be357-93bdc70a9e2mr380942685a.30.1789742940098; Fri, 18 Sep 2026
- 07:49:00 -0700 (PDT)
+        bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+        b=S/FU4l3YooTOYeAtLJIJhbpskF5SbkJnkXwt6giKe4MaRlX6IECAw1AtyEOjF5yXPd
+         B5diV1GTTayxGRrpUBO/qo+KW8RsvpMEk286XXAP/qIAnzw0aHWSccsuw39+lucikORw
+         dlws1T2hX3OErIxU1C4vPVTXkgmnDnWClHQAS931yodi07bY4mGjwjC2eFckjlaub7pR
+         WjzCvUYxOAVIfd22Ib8Z2QiflBiqH0brC0ncvbAaJC6HOw94b/j1tQLrsKlfjiiFbjt2
+         ukvaErGWoZZ4+39Vhr5E6z5NXsXDzsMrrFIcc711I1B7x3lt9fncTKwOWpQX+mgT+ESu
+         V9ag==
+X-Forwarded-Encrypted: i=1; AKwUvBykpyEugg3fxtTtGQvLPHxC881tQ+Fsmn4OKLUYfQRPew+z3akqaFZ3qgRq3w7O1HLmS2NseC3GBPRw0g==@vger.kernel.org
+X-Gm-Message-State: AFuF++knVrsY7yHtP3ZKc9nF0hIdJ1cj3k49ur7d/+E/RQb7TLQahnju
+	BljmmQ8T61qO4OstPzfYhf1cbDLs97RWrI4zk1Xn7iXVqHVRFba4kvXB6j+zhcywFfHtM9S/xYo
+	XfeOk5DmWHuIITTT26DUMpn8emN2c54ykHHgkmqQtNnPkVwCfCzbPHy0Dfpx7IUNUJHGJbxUwnt
+	ofICJ0ls25LyKZeuDjJTmyH2U9ai4vCg6lavk36b8=
+X-Gm-Gg: AYBFou2kO3Jex6EWdkYEKUQ3q1IM2OYr3JZMFycwhctI1nfa6LQKPvUhmoEhT/vBwkd
+	aR40nbfbRWimLMhnkWeg1Ib2lWUmVzZj/UmWiLGs2J59HxNALJmrd71l/OdPzU4Y1FbPW4bQT4O
+	3p+XjGH2TdtWgD4n7vXLAbKSSaEB+thr5BzIHiqf5gO9BcAfhZIfRi/w==
+X-Received: by 2002:a05:690c:c61b:b0:887:f24e:cb60 with SMTP id 00721157ae682-8973655013bmr7999557b3.38.1789744265256;
+        Fri, 18 Sep 2026 08:11:05 -0700 (PDT)
+X-Received: by 2002:a05:690c:c61b:b0:887:f24e:cb60 with SMTP id
+ 00721157ae682-8973655013bmr7999157b3.38.1789744264542; Fri, 18 Sep 2026
+ 08:11:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
- <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
-In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 16:48:47 +0200
-X-Gm-Features: AcwNN1VyQc5hTFTyVwqM2V6ETDD0juMD_-9QG-ROfpg2um5lYUHYKTebxcRhbR4
-Message-ID: <CAFEp6-37YmRR147eH_wfnD-eQPpg2Fy-jc3QNx5VyiFLkmzG_g@mail.gmail.com>
-Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Felipe Balbi <balbi@ti.com>, Manivannan Sadhasivam <mani@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Oleg Keri <okerixx@gmail.com>
+References: <20260917171921.2810550-1-briandaniels@google.com> <20260917171921.2810550-2-briandaniels@google.com>
+In-Reply-To: <20260917171921.2810550-2-briandaniels@google.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Fri, 18 Sep 2026 17:10:53 +0200
+X-Gm-Features: AcwNN1WIb7JEZHof9bDPMIMVfa3Th_bdS_mHkAP_e9tJg5d3vCfewTEkcoMdWQk
+Message-ID: <CADSE00++bx4Jn_sGdME5f6qhHURH9phmV9ZNGrWwd82nPvOXrg@mail.gmail.com>
+Subject: Re: [PATCH v9 1/4] media: virtio: Add skeleton virtio-media driver
+To: Brian Daniels <briandaniels@google.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, adelva@google.com, changyeon@google.com, 
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
+	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
+	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
+	dbassey@redhat.com, laurent.pinchart@ideasonboard.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: 76OJV9fcaLpcww4Y1Rh2aCZxA5Lajg00
-X-Authority-Analysis: v=2.4 cv=ZO9CCn7b c=1 sm=1 tr=0 ts=6aad4f5e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=fKnwG9EHs3sFRsC3j0wA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: 76OJV9fcaLpcww4Y1Rh2aCZxA5Lajg00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIxMSBTYWx0ZWRfX/IvFp2RK5nPc
- 36MZomSPslbb47ydIBtpzqyc9AIUmedg/2GjEDKGYQX9LDIQioGV03fu15Y9u06EmK8Zc5fAWd5
- Rb0ZMI2MLPYKcK3Yj7L0xoL6FWFVzCHjbM2kSvtCNdb84f1osgu9rgFmlxi0TqjJwMZ7TIJBCj0
- wTkRtPexbq1dPZw1w8S90KoSn6DmHmj6WnQASSf+XckXjBHwTwGU4JMcGpcjW2VVhgQwWe+xlAY
- R4uXogUbScYIOqpg5pyDygZiRaRNECnX4nkhGaxLJCpUpCXT4oG5/Sc3aquCfXq0mGz2CouR+5D
- IMBSFfOYedPzEUIivdMw6X5vJV6RedAkrMtOTcRUKo+veHsSw9R2uzFd4JDAjU4kiTucr0cyBw2
- qKRunDRgx56okB64FGDd6tScza2lr9N6qUD8ub2cnvdTA/oAzt8U2GJkR2wZ7s8F3W5pXiH47PT
- 95gSfk5oY8OYRqnK/IA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIxMSBTYWx0ZWRfX9CnqVJI55epF
- ylaI/ZqfeWgxblzyaH6IBpV5jeFDgf0/RXoDfmVUn9W49BzYCX39ing++7d2GGF9BRMMNrcIv+f
- mTlO/J3zTVSuNosTQhxnNc+6LQtgXwk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180211
 
-On Fri, Sep 18, 2026 at 3:56=E2=80=AFPM Bryan O'Donoghue
-<bryan.odonoghue@linaro.org> wrote:
+On Thu, Sep 17, 2026 at 7:19=E2=80=AFPM Brian Daniels <briandaniels@google.=
+com> wrote:
 >
-> Add the ability to use a PHY pointer which interacts with the standard PH=
-Y
-> API.
+> From: Alexandre Courbot <gnurou@gmail.com>
 >
-> In the first instance the code will try to use the new PHY interface. If =
-no
-> PHYs are present in the DT then the legacy method will be attempted.
+> This patch adds a minimum viable virtio-media driver that binds to the
+> virtio device and registers a V4L2 device and a video device, but lacks
+> any actual functionality.
 >
-> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Gl=
-ymur)
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-
+> It adds the UAPI header defining the protocol, internal driver headers,
+> Kconfig and Makefile entries, and MAINTAINERS entry. Many of the structs
+> in the protocol add reserved bits. These are present to ensure 64-bit
+> alignment. They are not intended to be used as reserved expansion for
+> the protocol in the future, so more reserved space is not required.
+>
+> The UAPI header includes videodev2.h, which itself does not currently
+> pass UAPI header validation (CONFIG_UAPI_HEADER_TEST=3Dy). I've added
+> virtio_media.h to the same test exception list.
+>
+> Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+> Assisted-by: Antigravity:gemini-3.5-flash
+> Co-developed-by: Brian Daniels <briandaniels@google.com>
+> Signed-off-by: Brian Daniels <briandaniels@google.com>
 > ---
->  drivers/media/platform/qcom/camss/Kconfig        |   1 +
->  drivers/media/platform/qcom/camss/camss-csiphy.c | 200 +++++++++++++++++=
-++++--
->  drivers/media/platform/qcom/camss/camss-csiphy.h |  11 +-
->  drivers/media/platform/qcom/camss/camss.c        | 104 ++++++++++--
->  drivers/media/platform/qcom/camss/camss.h        |   1 +
->  5 files changed, 285 insertions(+), 32 deletions(-)
+>  MAINTAINERS                                |   8 +
+>  drivers/media/Kconfig                      |  13 +
+>  drivers/media/Makefile                     |   2 +
+>  drivers/media/virtio/Makefile              |   7 +
+>  drivers/media/virtio/virtio_media.h        |  95 +++++++
+>  drivers/media/virtio/virtio_media_driver.c | 146 +++++++++++
+>  include/uapi/linux/virtio_media.h          | 288 +++++++++++++++++++++
+>  usr/include/Makefile                       |   1 +
+>  8 files changed, 560 insertions(+)
+>  create mode 100644 drivers/media/virtio/Makefile
+>  create mode 100644 drivers/media/virtio/virtio_media.h
+>  create mode 100644 drivers/media/virtio/virtio_media_driver.c
+>  create mode 100644 include/uapi/linux/virtio_media.h
 >
-> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/pl=
-atform/qcom/camss/Kconfig
-> index 4eda48cb1adf0..1edc5e5a1829e 100644
-> --- a/drivers/media/platform/qcom/camss/Kconfig
-> +++ b/drivers/media/platform/qcom/camss/Kconfig
-> @@ -7,3 +7,4 @@ config VIDEO_QCOM_CAMSS
->         select VIDEO_V4L2_SUBDEV_API
->         select VIDEOBUF2_DMA_SG
->         select V4L2_FWNODE
-> +       select PHY_QCOM_MIPI_CSI2
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/m=
-edia/platform/qcom/camss/camss-csiphy.c
-> index 539ac4888b608..aaed7d0309dd6 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> @@ -13,6 +13,8 @@
->  #include <linux/io.h>
->  #include <linux/kernel.h>
->  #include <linux/of.h>
-> +#include <linux/of_graph.h>
-> +#include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <media/media-entity.h>
-> @@ -131,10 +133,10 @@ static u8 csiphy_get_bpp(const struct csiphy_format=
-_info *formats,
->  }
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d..d6b1e0b30 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28886,6 +28886,7 @@ F:      Documentation/devicetree/bindings/virtio/
+>  F:     Documentation/driver-api/virtio/
+>  F:     drivers/block/virtio_blk.c
+>  F:     drivers/crypto/virtio/
+> +F:     drivers/media/virtio/
+>  F:     drivers/vdpa/
+>  F:     drivers/virtio/
+>  F:     include/linux/vdpa.h
+> @@ -28998,6 +28999,13 @@ S:     Maintained
+>  F:     drivers/iommu/virtio-iommu.c
+>  F:     include/uapi/linux/virtio_iommu.h
 >
->  /*
-> - * csiphy_set_clock_rates - Calculate and set clock rates on CSIPHY modu=
-le
-> + * csiphy_set_clock_rates_legacy - Calculate and set clock rates on CSIP=
-HY module
->   * @csiphy: CSIPHY device
->   */
-> -static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
-> +static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
->  {
->         struct device *dev =3D csiphy->camss->dev;
->         s64 link_freq;
-> @@ -200,7 +202,7 @@ static int csiphy_set_clock_rates(struct csiphy_devic=
-e *csiphy)
->   *
->   * Return 0 on success or a negative error code otherwise
->   */
-> -static int csiphy_set_power(struct v4l2_subdev *sd, int on)
-> +static int csiphy_set_power_legacy(struct v4l2_subdev *sd, int on)
->  {
->         struct csiphy_device *csiphy =3D v4l2_get_subdevdata(sd);
->         struct device *dev =3D csiphy->camss->dev;
-> @@ -219,7 +221,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, i=
-nt on)
->                         return ret;
->                 }
+> +VIRTIO MEDIA DRIVER
+> +M:     Brian Daniels <briandaniels@google.com>
+> +L:     linux-media@vger.kernel.org
+> +S:     Maintained
+> +F:     drivers/media/virtio/
+> +F:     include/uapi/linux/virtio_media.h
+> +
+>  VIRTIO MEM DRIVER
+>  M:     David Hildenbrand <david@kernel.org>
+>  L:     virtualization@lists.linux.dev
+> diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
+> index 6abc9302c..ce7d088e7 100644
+> --- a/drivers/media/Kconfig
+> +++ b/drivers/media/Kconfig
+> @@ -136,6 +136,19 @@ config MEDIA_PLATFORM_SUPPORT
 >
-> -               ret =3D csiphy_set_clock_rates(csiphy);
-> +               ret =3D csiphy_set_clock_rates_legacy(csiphy);
->                 if (ret < 0) {
->                         regulator_bulk_disable(csiphy->num_supplies,
->                                                csiphy->supplies);
-> @@ -254,7 +256,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, i=
-nt on)
->  }
+>           Say Y when you want to be able to see such devices.
 >
->  /*
-> - * csiphy_stream_on - Enable streaming on CSIPHY module
-> + * csiphy_stream_on_legacy - Enable streaming on CSIPHY module
->   * @csiphy: CSIPHY device
->   *
->   * Helper function to enable streaming on CSIPHY module.
-> @@ -262,7 +264,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, i=
-nt on)
->   *
->   * Return 0 on success or a negative error code otherwise
->   */
-> -static int csiphy_stream_on(struct csiphy_device *csiphy)
-> +static int csiphy_stream_on_legacy(struct csiphy_device *csiphy)
->  {
->         struct csiphy_config *cfg =3D &csiphy->cfg;
->         s64 link_freq;
-> @@ -306,11 +308,98 @@ static int csiphy_stream_on(struct csiphy_device *c=
-siphy)
->   *
->   * Helper function to disable streaming on CSIPHY module
->   */
-> -static void csiphy_stream_off(struct csiphy_device *csiphy)
-> +static void csiphy_stream_off_legacy(struct csiphy_device *csiphy)
->  {
->         csiphy->res->hw_ops->lanes_disable(csiphy, &csiphy->cfg);
->  }
+> +config MEDIA_VIRTIO
+> +       tristate "Virtio-media Driver"
+> +       depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || CPU_LITTLE_END=
+IAN)
+> +       select VIDEOBUF2_CORE
+> +       select VIDEOBUF2_MEMOPS
+> +       help
+> +         Enables the virtio-media driver.
+> +
+> +         This driver is used to virtualize media devices such as cameras=
+ or
+> +         decoders from a host into a guest using the V4L2 protocol.
+> +
+> +         If unsure, say N.
+> +
+>  config MEDIA_TEST_SUPPORT
+>         bool
+>         prompt "Test drivers" if MEDIA_SUPPORT_FILTER
+> diff --git a/drivers/media/Makefile b/drivers/media/Makefile
+> index 20fac24e4..357e786cc 100644
+> --- a/drivers/media/Makefile
+> +++ b/drivers/media/Makefile
+> @@ -23,6 +23,8 @@ obj-$(CONFIG_DVB_CORE) +=3D dvb-core/
+>  # There are both core and drivers at RC subtree - merge before drivers
+>  obj-y +=3D rc/
 >
+> +obj-$(CONFIG_MEDIA_VIRTIO) +=3D virtio/
+> +
+>  obj-$(CONFIG_CEC_CORE) +=3D cec/
+>
+>  #
+> diff --git a/drivers/media/virtio/Makefile b/drivers/media/virtio/Makefil=
+e
+> new file mode 100644
+> index 000000000..09d9834da
+> --- /dev/null
+> +++ b/drivers/media/virtio/Makefile
+> @@ -0,0 +1,7 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +#
+> +# Makefile for the virtio-media device driver.
+> +
+> +virtio-media-objs :=3D virtio_media_driver.o
+> +
+> +obj-$(CONFIG_MEDIA_VIRTIO) +=3D virtio-media.o
+> diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/v=
+irtio_media.h
+> new file mode 100644
+> index 000000000..7acb2b842
+> --- /dev/null
+> +++ b/drivers/media/virtio/virtio_media.h
+> @@ -0,0 +1,95 @@
+> +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
+> +
 > +/*
-> + * csiphy_stream_on - Enable streaming on CSIPHY module
-> + * @csiphy: CSIPHY device
+> + * Virtio-media structures & functions declarations.
 > + *
-> + * Helper function to enable streaming on CSIPHY module.
-> + * Main configuration of CSIPHY module is also done here.
-> + *
-> + * Return 0 on success or a negative error code otherwise
+> + * Copyright (c) 2024-2026 Google LLC.
 > + */
-> +static int csiphy_stream_on(struct csiphy_device *csiphy)
+> +
+> +#ifndef __VIRTIO_MEDIA_H
+> +#define __VIRTIO_MEDIA_H
+> +
+> +#include <linux/virtio_config.h>
+> +#include <media/v4l2-device.h>
+> +
+> +#include "uapi/linux/virtio_media.h"
+> +
+> +#define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
+> +
+> +#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
+> +
+> +/**
+> + * struct virtio_media - Virtio-media device.
+> + * @v4l2_dev: v4l2_device for the media device.
+> + * @video_dev: video_device for the media device.
+> + * @virtio_dev: virtio device for the media device.
+> + * @commandq: virtio command queue.
+> + * @eventq: virtio event queue.
+> + * @eventq_work: work to run when events are received on @eventq.
+> + * @mmap_region: region into which MMAP buffers are mapped by the host.
+> + * @event_buffer: buffer for event descriptors.
+> + * @sessions: list of active sessions on the device.
+> + * @sessions_lock: protects @sessions and &struct virtio_media_session.l=
+ist.
+> + * @events_lock: prevents concurrent processing of events.
+> + * @cmd: union of the device commands ``open`` and ``munmap``. The other
+> + *       commands are handled by &struct virtio_media_session
+> + * @resp: union of responses to device commands ``open`` and ``munmap``.=
+ The
+> + *        other responses are handled by &struct virtio_media_session
+> + * @vlock: serializes access to the command queue.
+> + * @wq: waitqueue for host responses on the command queue.
+> + */
+> +struct virtio_media {
+> +       struct v4l2_device v4l2_dev;
+> +       struct video_device video_dev;
+> +
+> +       struct virtio_device *virtio_dev;
+> +       struct virtqueue *commandq;
+> +       struct virtqueue *eventq;
+> +       struct work_struct eventq_work;
+> +
+> +       struct virtio_shm_region mmap_region;
+> +
+> +       void *event_buffer;
+> +
+> +       struct list_head sessions;
+> +       struct mutex sessions_lock; /* protects sessions list */
+> +
+> +       struct mutex events_lock; /* prevents concurrent event processing=
+ */
+> +
+> +       __dma_from_device_group_begin();
+> +       union {
+> +               struct virtio_media_cmd_open open;
+> +               struct virtio_media_cmd_munmap munmap;
+> +       } cmd;
+> +
+> +       union {
+> +               struct virtio_media_resp_open open;
+> +               struct virtio_media_resp_munmap munmap;
+> +       } resp;
+> +       __dma_from_device_group_end();
+> +
+> +       struct mutex vlock; /* serializes command queue access */
+> +       wait_queue_head_t wq;
+> +};
+> +
+> +static inline struct virtio_media *
+> +to_virtio_media(struct video_device *video_dev)
 > +{
-> +       u8 bpp =3D csiphy_get_bpp(csiphy->res->formats->formats, csiphy->=
-res->formats->nformats,
-> +                               csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
-> +       struct csiphy_lanes_cfg *lncfg =3D &csiphy->cfg.csi2->lane_cfg;
-> +       struct phy_configure_opts_mipi_dphy *dphy_cfg;
-> +       union phy_configure_opts dphy_opts =3D { 0 };
-> +       struct device *dev =3D csiphy->camss->dev;
-> +       u8 num_lanes =3D lncfg->num_data;
-> +       s64 link_freq;
+> +       return container_of(video_dev, struct virtio_media, video_dev);
+> +}
+> +
+> +/* virtio_media_driver.c */
+> +
+> +int virtio_media_send_command(struct virtio_media *vv, struct scatterlis=
+t **sgs,
+> +                             const size_t out_sgs, const size_t in_sgs,
+> +                             size_t minimum_resp_len, size_t *resp_len);
+> +void virtio_media_process_events(struct virtio_media *vv);
+> +
+> +/* virtio_media_ioctls.c */
+> +
+> +long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
+> +                              unsigned long arg);
+> +extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
+> +
+> +#endif // __VIRTIO_MEDIA_H
+> +
+> diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/v=
+irtio/virtio_media_driver.c
+> new file mode 100644
+> index 000000000..25f2ceaa6
+> --- /dev/null
+> +++ b/drivers/media/virtio/virtio_media_driver.c
+> @@ -0,0 +1,146 @@
+> +// SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+
+> +
+> +/*
+> + * Virtio-media driver.
+> + *
+> + * Copyright (c) 2024-2026 Google LLC.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/mutex.h>
+> +#include <linux/types.h>
+> +#include <linux/module.h>
+> +#include <linux/virtio.h>
+> +#include <linux/virtio_config.h>
+> +#include <linux/virtio_ids.h>
+> +
+> +#include <media/v4l2-dev.h>
+> +#include <media/v4l2-device.h>
+> +
+> +#include "uapi/linux/virtio_media.h"
+> +#include "virtio_media.h"
+> +
+> +static void commandq_callback(struct virtqueue *vq)
+> +{
+> +}
+> +
+> +static void eventq_callback(struct virtqueue *vq)
+> +{
+> +}
+> +
+> +static const struct v4l2_file_operations virtio_media_fops =3D {
+> +       .owner =3D THIS_MODULE,
+> +       .open =3D v4l2_fh_open,
+> +       .release =3D v4l2_fh_release,
+> +};
+> +
+> +static int virtio_media_probe(struct virtio_device *virtio_dev)
+> +{
+> +       struct device *dev =3D &virtio_dev->dev;
+> +       struct virtqueue *vqs[2];
+> +       static struct virtqueue_info vq_info[2] =3D {
+> +               {
+> +                       .name =3D "command",
+> +                       .callback =3D commandq_callback,
+> +               },
+> +               {
+> +                       .name =3D "event",
+> +                       .callback =3D eventq_callback,
+> +               },
+> +       };
+> +       struct virtio_media *vv;
+> +       struct video_device *vd;
 > +       int ret;
 > +
-> +       dphy_cfg =3D &dphy_opts.mipi_dphy;
+> +       vv =3D devm_kzalloc(dev, sizeof(*vv), GFP_KERNEL);
+> +       if (!vv)
+> +               return -ENOMEM;
 > +
-> +       link_freq =3D camss_get_link_freq(&csiphy->subdev.entity, bpp, nu=
-m_lanes);
+> +       INIT_LIST_HEAD(&vv->sessions);
+> +       mutex_init(&vv->sessions_lock);
+> +       mutex_init(&vv->events_lock);
+> +       mutex_init(&vv->vlock);
 > +
-> +       if (link_freq <=3D 0) {
-> +               dev_err(dev,
-> +                       "Cannot get CSI2 transmitter's link frequency\n")=
-;
-> +               return -EINVAL;
-> +       }
+> +       vv->virtio_dev =3D virtio_dev;
+> +       virtio_dev->priv =3D vv;
 > +
-> +       ret =3D phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num=
-_lanes,
-> +                                                        dphy_cfg);
-> +       if (ret < 0) {
-> +               dev_err(dev, "Invalid config for link frequency %lld\n",
-> +                       link_freq);
+> +       init_waitqueue_head(&vv->wq);
+> +
+> +       ret =3D v4l2_device_register(dev, &vv->v4l2_dev);
+> +       if (ret)
 > +               return ret;
-> +       }
 > +
-> +       ret =3D phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
-> +       if (ret) {
-> +               dev_err(dev, "Failed to set phy mode\n");
-> +               return ret;
-> +       }
+> +       ret =3D virtio_find_vqs(virtio_dev, 2, vqs, vq_info, NULL);
+> +       if (ret)
+> +               goto err_find_vqs;
 > +
-> +       ret =3D phy_configure(csiphy->phy, &dphy_opts);
-> +       if (ret) {
-> +               dev_err(dev, "failed to configure MIPI D-PHY\n");
-> +               goto error;
-> +       }
+> +       vv->commandq =3D vqs[0];
+> +       vv->eventq =3D vqs[1];
 > +
-> +       return phy_power_on(csiphy->phy);
+> +       vd =3D &vv->video_dev;
+> +       vd->v4l2_dev =3D &vv->v4l2_dev;
+> +       vd->vfl_type =3D VFL_TYPE_VIDEO;
+
+vdev->vfl_type is overwritten below with video_register_device(), so
+this is redudant.
+
+> +       vd->fops =3D &virtio_media_fops;
+> +       vd->release =3D video_device_release_empty;
+> +       strscpy(vd->name, "virtio-media", sizeof(vd->name));
 > +
-> +error:
-> +       return ret;
-> +}
+> +       video_set_drvdata(vd, vv);
 > +
-> +/*
-> + * csiphy_stream_off - Disable streaming on CSIPHY module
-> + * @csiphy: CSIPHY device
-> + *
-> + * Helper function to disable streaming on CSIPHY module
-> + */
-> +static void csiphy_stream_off(struct csiphy_device *csiphy)
-> +{
-> +       phy_power_off(csiphy->phy);
-> +}
-> +
-> +/*
-> + * csiphy_set_stream - Enable/disable streaming on CSIPHY module
-> + * @sd: CSIPHY V4L2 subdevice
-> + * @enable: Requested streaming state
-> + *
-> + * Return 0 on success or a negative error code otherwise
-> + */
-> +static int csiphy_set_stream_legacy(struct v4l2_subdev *sd, int enable)
-> +{
-> +       struct csiphy_device *csiphy =3D v4l2_get_subdevdata(sd);
-> +       int ret =3D 0;
-> +
-> +       if (enable)
-> +               ret =3D csiphy_stream_on_legacy(csiphy);
+> +       vd->device_caps =3D virtio_cread32(virtio_dev, 0);
+> +       if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MP=
+LANE))
+> +               vd->vfl_dir =3D VFL_DIR_M2M;
+> +       else if (vd->device_caps &
+> +                (V4L2_CAP_VIDEO_OUTPUT | V4L2_CAP_VIDEO_OUTPUT_MPLANE))
+> +               vd->vfl_dir =3D VFL_DIR_TX;
 > +       else
-> +               csiphy_stream_off_legacy(csiphy);
+> +               vd->vfl_dir =3D VFL_DIR_RX;
 > +
-> +       return ret;
-> +}
->
->  /*
->   * csiphy_set_stream - Enable/disable streaming on CSIPHY module
-> @@ -572,16 +661,16 @@ csiphy_match_clock_name(const char *clock_name, con=
-st char *format, ...)
->  }
->
->  /*
-> - * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resou=
-rces
-> + * msm_csiphy_subdev_init_legacy - Initialize CSIPHY device structure an=
-d resources
->   * @csiphy: CSIPHY device
->   * @res: CSIPHY module resources table
->   * @id: CSIPHY module id
->   *
->   * Return 0 on success or a negative error code otherwise
->   */
-> -int msm_csiphy_subdev_init(struct camss *camss,
-> -                          struct csiphy_device *csiphy,
-> -                          const struct camss_subdev_resources *res, u8 i=
-d)
-> +int msm_csiphy_subdev_init_legacy(struct camss *camss,
-> +                                 struct csiphy_device *csiphy,
-> +                                 const struct camss_subdev_resources *re=
-s, u8 id)
->  {
->         struct device *dev =3D camss->dev;
->         struct platform_device *pdev =3D to_platform_device(dev);
-> @@ -709,6 +798,54 @@ int msm_csiphy_subdev_init(struct camss *camss,
->         return ret;
->  }
->
-> +/*
-> + * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resou=
-rces
-> + * @camss: CAMSS structure
-> + * @port: DT port index
-> + *
-> + * Return 0 on success or absence of link, negative error code otherwise
-> + */
-> +int msm_csiphy_subdev_init(struct camss *camss, u8 port)
-> +{
-> +       const struct camss_subdev_resources *res =3D &camss->res->csiphy_=
-res[port];
-> +       struct csiphy_device *csiphy =3D &camss->csiphy[port];
-> +       struct device *dev =3D camss->dev;
-> +       struct device_node *ep, *remote;
-> +       int ret;
+> +       ret =3D video_register_device(vd, virtio_cread32(virtio_dev, 4), =
+0);
+
+I feel it'd be nicer to pass -1 to the third argument so that the
+'first free' device node number is assigned. With that it would
+support multiple virtio_media devices without warnings.
+
+Also, the virtio_media_config struct is not defined in the series. I
+think defining it would be nice so that it can be imported and used in
+QEMU/other VMMs. And it would allow to do `virtio_cread32(virtio_dev,
+offsetof(struct virtio_media_config, device_type))` here instead of
+hardcoding the offset.
+
+
+> +       if (ret)
+> +               goto err_register_device;
 > +
-> +       ep =3D of_graph_get_endpoint_by_regs(dev->of_node, port, -1);
-> +       if (!ep)
-> +               return 0;
-> +
-> +       remote =3D of_graph_get_remote_port_parent(ep);
-> +       of_node_put(ep);
-> +       if (!remote)
-> +               return 0;
-> +
-> +       if (!of_device_is_available(remote)) {
-> +               of_node_put(remote);
-> +               return 0;
-> +       }
-> +
-> +       csiphy->phy =3D devm_phy_get_by_of_node(dev, remote);
-> +       of_node_put(remote);
-> +       if (IS_ERR(csiphy->phy)) {
-> +               ret =3D PTR_ERR(csiphy->phy);
-> +               goto done;
-> +       }
-> +
-> +       csiphy->camss =3D camss;
-> +       csiphy->id =3D res->csiphy.id;
-> +       csiphy->res =3D &res->csiphy;
-> +
-> +       snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy-=
->id);
+> +       virtio_device_ready(virtio_dev);
 > +
 > +       return 0;
 > +
-> +done:
+> +err_register_device:
+> +       virtio_dev->config->del_vqs(virtio_dev);
+> +err_find_vqs:
+> +       v4l2_device_unregister(&vv->v4l2_dev);
 > +       return ret;
 > +}
 > +
->  /*
->   * csiphy_link_setup - Setup CSIPHY connections
->   * @entity: Pointer to media entity structure
-> @@ -743,8 +880,12 @@ static int csiphy_link_setup(struct media_entity *en=
-tity,
->         return 0;
->  }
->
-> -static const struct v4l2_subdev_core_ops csiphy_core_ops =3D {
-> -       .s_power =3D csiphy_set_power,
-> +static const struct v4l2_subdev_core_ops csiphy_core_ops_legacy =3D {
-> +       .s_power =3D csiphy_set_power_legacy,
-> +};
-> +
-> +static const struct v4l2_subdev_video_ops csiphy_video_ops_legacy =3D {
-> +       .s_stream =3D csiphy_set_stream_legacy,
->  };
->
->  static const struct v4l2_subdev_video_ops csiphy_video_ops =3D {
-> @@ -758,8 +899,13 @@ static const struct v4l2_subdev_pad_ops csiphy_pad_o=
-ps =3D {
->         .set_fmt =3D csiphy_set_format,
->  };
->
-> +static const struct v4l2_subdev_ops csiphy_v4l2_ops_legacy =3D {
-> +       .core =3D &csiphy_core_ops_legacy,
-> +       .video =3D &csiphy_video_ops_legacy,
-> +       .pad =3D &csiphy_pad_ops,
-> +};
-> +
->  static const struct v4l2_subdev_ops csiphy_v4l2_ops =3D {
-> -       .core =3D &csiphy_core_ops,
->         .video =3D &csiphy_video_ops,
->         .pad =3D &csiphy_pad_ops,
->  };
-> @@ -785,10 +931,15 @@ int msm_csiphy_register_entity(struct csiphy_device=
- *csiphy,
->  {
->         struct v4l2_subdev *sd =3D &csiphy->subdev;
->         struct media_pad *pads =3D csiphy->pads;
-> -       struct device *dev =3D csiphy->camss->dev;
-> +       struct camss *camss =3D csiphy->camss;
-> +       struct device *dev =3D camss->dev;
->         int ret;
->
-> -       v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-> +       if (camss->legacy_phy)
-> +               v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
-> +       else
-> +               v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-> +
->         sd->internal_ops =3D &csiphy_v4l2_internal_ops;
->         sd->flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
->         snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
-> @@ -816,9 +967,22 @@ int msm_csiphy_register_entity(struct csiphy_device =
-*csiphy,
->         ret =3D v4l2_device_register_subdev(v4l2_dev, sd);
->         if (ret < 0) {
->                 dev_err(dev, "Failed to register subdev: %d\n", ret);
-> -               media_entity_cleanup(&sd->entity);
-> +               goto media_entity_err;
-> +       }
-> +
-> +       if (!IS_ERR(csiphy->phy)) {
-> +               ret =3D phy_init(csiphy->phy);
-> +               if (ret) {
-> +                       dev_err(dev, "%s init fail %d\n", csiphy->name, r=
-et);
-> +                       v4l2_device_unregister_subdev(sd);
-> +                       goto media_entity_err;
-> +               }
->         }
->
-> +       return 0;
-> +
-> +media_entity_err:
-> +       media_entity_cleanup(&sd->entity);
->         return ret;
->  }
->
-> @@ -828,6 +992,8 @@ int msm_csiphy_register_entity(struct csiphy_device *=
-csiphy,
->   */
->  void msm_csiphy_unregister_entity(struct csiphy_device *csiphy)
->  {
-> +       if (!IS_ERR(csiphy->phy))
-> +               phy_exit(csiphy->phy);
->         v4l2_device_unregister_subdev(&csiphy->subdev);
->         media_entity_cleanup(&csiphy->subdev.entity);
->  }
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/m=
-edia/platform/qcom/camss/camss-csiphy.h
-> index 9d9657b82f748..7a357044b9fdb 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.h
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
-> @@ -12,6 +12,7 @@
->
->  #include <linux/clk.h>
->  #include <linux/interrupt.h>
-> +#include <linux/phy/phy.h>
->  #include <media/media-entity.h>
->  #include <media/v4l2-device.h>
->  #include <media/v4l2-mediabus.h>
-> @@ -97,6 +98,7 @@ struct csiphy_device_regs {
->
->  struct csiphy_device {
->         struct camss *camss;
-> +       struct phy *phy;
->         u8 id;
->         struct v4l2_subdev subdev;
->         struct media_pad pads[MSM_CSIPHY_PADS_NUM];
-> @@ -104,6 +106,7 @@ struct csiphy_device {
->         void __iomem *base_clk_mux;
->         u32 irq;
->         char irq_name[30];
-> +       char name[16];
->         struct camss_clock *clock;
->         bool *rate_set;
->         int nclocks;
-> @@ -118,9 +121,11 @@ struct csiphy_device {
->
->  struct camss_subdev_resources;
->
-> -int msm_csiphy_subdev_init(struct camss *camss,
-> -                          struct csiphy_device *csiphy,
-> -                          const struct camss_subdev_resources *res, u8 i=
-d);
-> +int msm_csiphy_subdev_init_legacy(struct camss *camss,
-> +                                 struct csiphy_device *csiphy,
-> +                                 const struct camss_subdev_resources *re=
-s, u8 id);
-> +
-> +int msm_csiphy_subdev_init(struct camss *camss, u8 port);
->
->  int msm_csiphy_register_entity(struct csiphy_device *csiphy,
->                                struct v4l2_device *v4l2_dev);
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index 2123f6388e3d7..84097d82d99c9 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4799,8 +4799,43 @@ static int camss_parse_ports(struct camss *camss)
->         fwnode_graph_for_each_endpoint(fwnode, ep) {
->                 struct camss_async_subdev *csd;
->
-> -               csd =3D v4l2_async_nf_add_fwnode_remote(&camss->notifier,=
- ep,
-> -                                                     typeof(*csd));
-> +               if (!fwnode_device_is_available(ep))
-> +                       continue;
-> +
-> +               if (camss->legacy_phy) {
-> +                       csd =3D v4l2_async_nf_add_fwnode_remote(&camss->n=
-otifier, ep,
-> +                                                             typeof(*csd=
-));
-> +               } else {
-> +                       struct fwnode_handle *phy_out, *phy_node, *phy_in=
-, *sensor_ep;
-> +
-> +                       phy_out =3D fwnode_graph_get_remote_endpoint(ep);
-> +                       if (!phy_out)
-> +                               continue;
-> +
-> +                       phy_node =3D fwnode_graph_get_port_parent(phy_out=
-);
-> +                       fwnode_handle_put(phy_out);
-> +                       if (!phy_node)
-> +                               continue;
-> +
-> +                       phy_in =3D fwnode_graph_get_endpoint_by_id(phy_no=
-de, 0, 0, 0);
-> +                       fwnode_handle_put(phy_node);
-> +                       if (!phy_in)
-> +                               continue;
-> +
-> +                       sensor_ep =3D fwnode_graph_get_remote_endpoint(ph=
-y_in);
-> +                       fwnode_handle_put(phy_in);
-> +                       if (!sensor_ep)
-> +                               continue;
-> +
-> +                       csd =3D v4l2_async_nf_add_fwnode(&camss->notifier=
-, sensor_ep,
-> +                                               struct camss_async_subdev=
-);
-> +                       fwnode_handle_put(sensor_ep);
-> +                       if (IS_ERR(csd)) {
-> +                               ret =3D PTR_ERR(csd);
-> +                               goto err_cleanup;
-> +                       }
-> +               }
-> +
->                 if (IS_ERR(csd)) {
->                         ret =3D PTR_ERR(csd);
->                         goto err_cleanup;
-> @@ -4819,6 +4854,29 @@ static int camss_parse_ports(struct camss *camss)
->         return ret;
->  }
->
-> +static void camss_detect_legacy_phy(struct camss *camss)
+> +static void virtio_media_remove(struct virtio_device *virtio_dev)
 > +{
-> +       struct device_node *remote;
-> +       struct device_node *ep;
+> +       struct virtio_media *vv =3D virtio_dev->priv;
 > +
-> +       camss->legacy_phy =3D true;
-> +
-> +       /* Find first remote-endpoint and determine if its a PHY */
-> +       for_each_endpoint_of_node(camss->dev->of_node, ep) {
-> +               remote =3D of_graph_get_remote_port_parent(ep);
-> +               if (!remote)
-> +                       continue;
-> +
-> +               camss->legacy_phy =3D !of_node_name_eq(remote, "phy");
-> +               of_node_put(remote);
-> +               of_node_put(ep);
-> +               break;
-> +       }
-> +
-> +       dev_dbg(camss->dev, "legacy phy mode %s\n",
-> +               camss->legacy_phy ? "true" : "false");
+> +       virtio_reset_device(virtio_dev);
+> +       v4l2_device_unregister(&vv->v4l2_dev);
+> +       virtio_dev->config->del_vqs(virtio_dev);
+> +       video_unregister_device(&vv->video_dev);
+
+virtio_reset_device() documents that the caller must already have
+stopped other contexts (syscalls, workqueue...) from using the
+virtqueues. Here reset and del_vqs() run while /dev/video0 is still
+registered, so an open fd can still ioctl/mmap and kick commandq.
+video_unregister_device() only happens afterwards, and sessions are
+freed in remove() even if a file might still be open.
+
+
 > +}
 > +
->  /*
->   * camss_init_subdevices - Initialize subdev structures and resources
->   * @camss: CAMSS device
-> @@ -4832,14 +4890,21 @@ static int camss_init_subdevices(struct camss *ca=
-mss)
->         unsigned int i;
->         int ret;
->
-> +       camss_detect_legacy_phy(camss);
+> +static struct virtio_device_id id_table[] =3D {
+> +       { VIRTIO_ID_MEDIA, VIRTIO_DEV_ANY_ID },
+> +       { 0 },
+> +};
 > +
->         for (i =3D 0; i < camss->res->csiphy_num; i++) {
-> -               ret =3D msm_csiphy_subdev_init(camss, &camss->csiphy[i],
-> -                                            &res->csiphy_res[i],
-> -                                            res->csiphy_res[i].csiphy.id=
-);
-> +               if (!camss->legacy_phy) {
-> +                       ret =3D msm_csiphy_subdev_init(camss, i);
-> +               } else {
-> +                       ret =3D msm_csiphy_subdev_init_legacy(camss,
-> +                                                           &camss->csiph=
-y[i],
-> +                                                           &res->csiphy_=
-res[i],
-> +                                                           res->csiphy_r=
-es[i].csiphy.id);
-> +               }
+> +static unsigned int features[] =3D {};
 > +
->                 if (ret < 0) {
-> -                       dev_err(camss->dev,
-> -                               "Failed to init csiphy%d sub-device: %d\n=
-",
-> -                               i, ret);
-> +                       dev_err(camss->dev, "csiphy %d init fail\n",
-> +                               res->csiphy_res[i].csiphy.id);
->                         return ret;
->                 }
->         }
-> @@ -4917,6 +4982,11 @@ inline void camss_link_err(struct camss *camss,
->                 ret);
->  }
->
-> +static inline bool csiphy_enabled(struct camss *camss, struct csiphy_dev=
-ice *c)
-> +{
-> +       return camss->legacy_phy || c->phy;
-> +}
+> +static struct virtio_driver virtio_media_driver =3D {
+> +       .feature_table =3D features,
+> +       .feature_table_size =3D ARRAY_SIZE(features),
+> +       .driver.name =3D VIRTIO_MEDIA_DEFAULT_DRIVER_NAME,
+> +       .driver.owner =3D THIS_MODULE,
+> +       .id_table =3D id_table,
+> +       .probe =3D virtio_media_probe,
+> +       .remove =3D virtio_media_remove,
+> +};
 > +
->  /*
->   * camss_link_entities - Register subdev nodes and create links
->   * @camss: CAMSS device
-> @@ -4930,6 +5000,9 @@ static int camss_link_entities(struct camss *camss)
->
->         for (i =3D 0; i < camss->res->csiphy_num; i++) {
->                 for (j =3D 0; j < camss->res->csid_num; j++) {
-> +                       if (!csiphy_enabled(camss, &camss->csiphy[i]))
-> +                               continue;
+> +module_virtio_driver(virtio_media_driver);
 > +
->                         ret =3D media_create_pad_link(&camss->csiphy[i].s=
-ubdev.entity,
->                                                     MSM_CSIPHY_PAD_SRC,
->                                                     &camss->csid[j].subde=
-v.entity,
-> @@ -5056,6 +5129,9 @@ static int camss_register_entities(struct camss *ca=
-mss)
->         int ret;
->
->         for (i =3D 0; i < camss->res->csiphy_num; i++) {
-> +               if (!csiphy_enabled(camss, &camss->csiphy[i]))
-> +                       continue;
+> +MODULE_DEVICE_TABLE(virtio, id_table);
+> +MODULE_DESCRIPTION("virtio media driver");
+> +MODULE_AUTHOR("Alexandre Courbot <gnurou@gmail.com>");
+> +MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virti=
+o_media.h
+> new file mode 100644
+> index 000000000..ac3d75c75
+> --- /dev/null
+> +++ b/include/uapi/linux/virtio_media.h
+> @@ -0,0 +1,288 @@
+> +/* SPDX-License-Identifier: ((GPL-2.0+ WITH Linux-syscall-note) OR BSD-3=
+-Clause) */
 > +
->                 ret =3D msm_csiphy_register_entity(&camss->csiphy[i],
->                                                  &camss->v4l2_dev);
->                 if (ret < 0) {
-> @@ -5131,8 +5207,10 @@ static int camss_register_entities(struct camss *c=
-amss)
->
->         i =3D camss->res->csiphy_num;
->  err_reg_csiphy:
-> -       for (i--; i >=3D 0; i--)
-> -               msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       for (i--; i >=3D 0; i--) {
-> +               if (csiphy_enabled(camss, &camss->csiphy[i]))
-> +                       msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       }
->
->         return ret;
->  }
-> @@ -5147,8 +5225,10 @@ static void camss_unregister_entities(struct camss=
- *camss)
->  {
->         unsigned int i;
->
-> -       for (i =3D 0; i < camss->res->csiphy_num; i++)
-> -               msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       for (i =3D 0; i < camss->res->csiphy_num; i++) {
-> +               if (csiphy_enabled(camss, &camss->csiphy[i]))
-> +                       msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       }
->
->         if (camss->tpg) {
->                 for (i =3D 0; i < camss->res->tpg_num; i++)
-> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
-atform/qcom/camss/camss.h
-> index 93d691c8ac63b..ba3d51d9c0bf8 100644
-> --- a/drivers/media/platform/qcom/camss/camss.h
-> +++ b/drivers/media/platform/qcom/camss/camss.h
-> @@ -138,6 +138,7 @@ struct camss {
->         struct device_link *genpd_link;
->         struct icc_path *icc_path[ICC_SM8250_COUNT];
->         const struct camss_resources *res;
-> +       bool legacy_phy;
->  };
->
->  struct camss_camera_interface {
->
+> +/*
+> + * Definitions of virtio-media protocol structures.
+> + *
+> + * Copyright (c) 2024-2026 Google LLC.
+> + */
+> +
+> +#ifndef _UAPI__LINUX_VIRTIO_MEDIA_H
+> +#define _UAPI__LINUX_VIRTIO_MEDIA_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/videodev2.h>
+> +
+> +/*
+> + * Virtio protocol definition.
+> + */
+> +
+> +/**
+> + * struct virtio_media_cmd_header - Header for all virtio-media commands=
+.
+> + * @cmd: one of VIRTIO_MEDIA_CMD_*.
+> + * @__reserved: must be set to zero by the driver.
+> + *
+> + * This header starts all commands from the driver to the device on the
+> + * commandq.
+> + */
+> +struct virtio_media_cmd_header {
+> +       __le32 cmd;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_header - Header for all virtio-media respons=
+es.
+> + * @status: 0 if the command was successful, or one of the standard Linu=
+x error
+> + *          codes as a positive integer.
+> + * @__reserved: must be set to zero by the device.
+> + *
+> + * This header starts all responses from the device to the driver on the
+> + * commandq.
+> + */
+> +struct virtio_media_resp_header {
+> +       __le32 status;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_OPEN - Command for creating a new session.
+> + *
+> + * This is the equivalent of calling ``open`` on a V4L2 device node. Upo=
+n
+> + * success, a session id is returned which can be used to perform other
+> + * commands on the session, notably ioctls.
+> + */
+> +#define VIRTIO_MEDIA_CMD_OPEN 1
+> +
+> +/**
+> + * struct virtio_media_cmd_open - Driver command for VIRTIO_MEDIA_CMD_OP=
+EN.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_OPEN.
+> + */
+> +struct virtio_media_cmd_open {
+> +       struct virtio_media_cmd_header hdr;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_open - Device response for VIRTIO_MEDIA_CMD_=
+OPEN.
+> + * @hdr: header containing the status of the command.
+> + * @session_id: if &struct virtio_media_resp_header.status =3D=3D 0, con=
+tains the
+> + *              id of the newly created session.
+> + * @__reserved: must be set to zero by the device.
+> + */
+> +struct virtio_media_resp_open {
+> +       struct virtio_media_resp_header hdr;
+> +       __le32 session_id;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_CLOSE - Command for closing an active session.
+> + *
+> + * This is the equivalent of calling ``close`` on a previously opened V4=
+L2
+> + * session. All resources associated with this session will be freed and=
+ the
+> + * session ID shall not be used again after queueing this command.
+> + *
+> + * This command does not require a response from the device.
+> + */
+> +#define VIRTIO_MEDIA_CMD_CLOSE 2
+> +
+> +/**
+> + * struct virtio_media_cmd_close - Driver command for VIRTIO_MEDIA_CMD_C=
+LOSE.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_CLOSE.
+> + * @session_id: id of the session to close.
+> + * @__reserved: must be set to zero by the driver.
+> + */
+> +struct virtio_media_cmd_close {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le32 session_id;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_IOCTL - Driver command for executing an ioctl.
+> + *
+> + * This command asks the device to run one of the ``VIDIOC_*`` ioctls on=
+ the
+> + * active session.
+> + *
+> + * The code of the ioctl is extracted from the VIDIOC_* definitions in
+> + * ``videodev2.h``, and consists of the second argument of the ``_IO*`` =
+macro.
+> + *
+> + * Each ioctl has a payload, which is defined by the third argument of t=
+he
+> + * ``_IO*`` macro defining it. It can be writable by the driver (``_IOW`=
+`), the
+> + * device (``_IOR``), or both (``_IOWR``).
+> + *
+> + * If an ioctl is writable by the driver, it must be followed by a
+> + * driver-writable descriptor containing the payload.
+> + *
+> + * If an ioctl is writable by the device, it must be followed by a
+> + * device-writable descriptor of the size of the payload that the device=
+ will
+> + * write into.
+> + *
+> + */
+> +#define VIRTIO_MEDIA_CMD_IOCTL 3
+> +
+> +/**
+> + * struct virtio_media_cmd_ioctl - Driver command for VIRTIO_MEDIA_CMD_I=
+OCTL.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_IOCTL.
+> + * @session_id: id of the session to run the ioctl on.
+> + * @code: code of the ioctl to run.
+> + */
+> +struct virtio_media_cmd_ioctl {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le32 session_id;
+> +       __le32 code;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_ioctl - Device response for VIRTIO_MEDIA_CMD=
+_IOCTL.
+> + * @hdr: header containing the status of the ioctl.
+> + */
+> +struct virtio_media_resp_ioctl {
+> +       struct virtio_media_resp_header hdr;
+> +};
+> +
+> +/**
+> + * struct virtio_media_sg_entry - Description of part of a scattered gue=
+st
+> + *                                memory.
+> + * @start: start guest address of the memory segment.
+> + * @len: length of this memory segment.
+> + * @__reserved: must be set to zero by the driver.
+> + */
+> +struct virtio_media_sg_entry {
+> +       __le64 start;
+> +       __le32 len;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_MMAP_FLAG_RW - Bit position of the VIRTIO_MEDIA_MMAP_FLA=
+G_RW
+> + *                             flag.
+> + */
+> +#define VIRTIO_MEDIA_MMAP_FLAG_RW 0
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_MMAP - Command for mapping a MMAP buffer into the dr=
+iver's
+> + *                         address space.
+> + */
+> +#define VIRTIO_MEDIA_CMD_MMAP 4
+> +
+> +/**
+> + * struct virtio_media_cmd_mmap - Driver command for VIRTIO_MEDIA_CMD_MM=
+AP.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MMAP.
+> + * @session_id: ID of the session we are mapping for.
+> + * @flags: combination of VIRTIO_MEDIA_MMAP_FLAG_*.
+> + * @offset: mem_offset field of the plane to map, as returned by
+> + *          VIDIOC_QUERYBUF.
+> + */
+> +struct virtio_media_cmd_mmap {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le32 session_id;
+> +       __le32 flags;
+> +       __le32 offset;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_mmap - Device response for VIRTIO_MEDIA_CMD_=
+MMAP.
+> + * @hdr: header containing the status of the command.
+> + * @driver_addr: offset into SHM region 0 of the start of the mapping.
+> + * @len: length of the mapping.
+> + */
+> +struct virtio_media_resp_mmap {
+> +       struct virtio_media_resp_header hdr;
+> +       __le64 driver_addr;
+> +       __le64 len;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_MUNMAP - Unmap a MMAP buffer previously mapped using
+> + *                           VIRTIO_MEDIA_CMD_MMAP.
+> + */
+> +#define VIRTIO_MEDIA_CMD_MUNMAP 5
+> +
+> +/**
+> + * struct virtio_media_cmd_munmap - Driver command for VIRTIO_MEDIA_CMD_=
+MUNMAP.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MUNMAP.
+> + * @driver_addr: offset into SHM region 0 at which the buffer has been
+> + *               previously mapped.
+> + */
+> +struct virtio_media_cmd_munmap {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le64 driver_addr;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_munmap - Device response for
+> + *                                   VIRTIO_MEDIA_CMD_MUNMAP.
+> + * @hdr: header containing the status of the command.
+> + */
+> +struct virtio_media_resp_munmap {
+> +       struct virtio_media_resp_header hdr;
+> +};
+> +
+> +/* The values for these events are set by the virtio-media specification=
+. */
+> +#define VIRTIO_MEDIA_EVT_ERROR 0
+> +#define VIRTIO_MEDIA_EVT_DQBUF 1
+> +#define VIRTIO_MEDIA_EVT_EVENT 2
+> +
+> +/**
+> + * struct virtio_media_event_header - Header for events on the eventq.
+> + * @event: one of VIRTIO_MEDIA_EVT_*
+> + * @session_id: ID of the session the event applies to.
+> + */
+> +struct virtio_media_event_header {
+> +       __le32 event;
+> +       __le32 session_id;
+> +};
+> +
+> +/**
+> + * struct virtio_media_event_error - Unrecoverable device-side error.
+> + * @hdr: header for the event.
+> + * @errno: error code describing the kind of error that occurred.
+> + * @__reserved: must be set to zero by the device.
+> + *
+> + * Upon receiving this event, the session mentioned in the header is con=
+sidered
+> + * corrupted and closed.
+> + */
+> +struct virtio_media_event_error {
+> +       struct virtio_media_event_header hdr;
+> +       __le32 errno;
+> +       __le32 __reserved;
+> +};
+> +
+> +/* This is set to VIDEO_MAX_PLANES defined in include/uapi/linux/videode=
+v2.h.
+> + * It is renamed here to match the constant that is defined in the virti=
+o-media
+> + * specification.
+> + */
+> +#define VIRTIO_MEDIA_MAX_PLANES VIDEO_MAX_PLANES
+> +
+> +/**
+> + * struct virtio_media_event_dqbuf - Dequeued buffer event.
+> + * @hdr: header for the event.
+> + * @buffer: &struct v4l2_buffer describing the buffer that has been dequ=
+eued.
+> + * @planes: plane information for the dequeued buffer.
+> + *
+> + * This event is used to signal that a buffer is not being used anymore =
+by the
+> + * device and is returned to the driver.
+> + */
+> +struct virtio_media_event_dqbuf {
+> +       struct virtio_media_event_header hdr;
+> +       struct v4l2_buffer buffer;
+> +       struct v4l2_plane planes[VIRTIO_MEDIA_MAX_PLANES];
+> +};
+> +
+> +/**
+> + * struct virtio_media_event_event - V4L2 event.
+> + * @hdr: header for the event.
+> + * @event: description of the event that occurred.
+> + *
+> + * This event signals that a V4L2 event has been emitted for a session.
+> + */
+> +struct virtio_media_event_event {
+> +       struct virtio_media_event_header hdr;
+> +       struct v4l2_event event;
+> +};
+> +
+> +/* Maximum size of an event. We will queue descriptors of this size on t=
+he
+> + * eventq.
+> + */
+> +#define VIRTIO_MEDIA_EVENT_MAX_SIZE sizeof(struct virtio_media_event_dqb=
+uf)
+> +
+> +#endif // _UAPI__LINUX_VIRTIO_MEDIA_H
+> diff --git a/usr/include/Makefile b/usr/include/Makefile
+> index ee69dd9d9..df106b5d9 100644
+> --- a/usr/include/Makefile
+> +++ b/usr/include/Makefile
+> @@ -37,6 +37,7 @@ no-header-test +=3D linux/usb/audio.h
+>  no-header-test +=3D linux/v4l2-mediabus.h
+>  no-header-test +=3D linux/v4l2-subdev.h
+>  no-header-test +=3D linux/videodev2.h
+> +no-header-test +=3D linux/virtio_media.h
+>  no-header-test +=3D linux/vm_sockets.h
+>  no-header-test +=3D sound/asequencer.h
+>  no-header-test +=3D sound/asoc.h
 > --
-> 2.55.0
+> 2.55.0.1082.g2b9226bbc0-goog
 >
+
