@@ -1,182 +1,153 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EA0380FF5
-	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 16:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5EF2DCBEC
+	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 16:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789835239; cv=none; b=gb7OdMGly4Sv2sP/qM4flxOFyu5fGyVApkHuR7AEfWBnu8VyNeV+24MtwBwXwl1ud6kMNh9RoYSJfd59mXxjl62OJN9phMjYDhEl4NkelpsXNP6RI4d9lZdMwbBqCoCZd38rck/1roVq8V7+LeL3rJlxNcMd7l3EJ0x/KJCXz9g=
+	t=1789836486; cv=none; b=KrGY+HPHrPtXxcOBUujpgB+LDB6cmyBAv9Sj1GUgJEj2u0dxfq69ZtFnTmAojvW0eacGddXPaw/L7xD5Il+wYV86Uxn+47UGgGcfLnmEMwjR7IVEjK0aYqscUrqAkJWbCgwc0VX+QoMIGlcOF0mervqO1VQpDsTtuegOLAYIIw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789835239; c=relaxed/simple;
-	bh=eMFhlR0TS5Kn/tFofe+TMpxutHYTDD8uIlIIph5XMws=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HFZyk7NyIvUOfVEotrdacrA9cG2odxWaImvEDycsmhseX1UR7LeHWuGfSvmed4UYz6OGlnw7rQmJJwJAmPtRHrhyx89J6XaC4jFZmvwi4cKhJQ9iV71L4s6yvc2wfC8hWmZWjEkosSGWLKac/pY98p6SW4iDi862knoPoZmSMp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=szvgrJgI; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789836486; c=relaxed/simple;
+	bh=fnl3dUkFs7+q+6V0hzx11cv+IRpZStzDEBWzl1dyy5I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J7i4GllzDsFc0jN6YEQ85z0qLL6ftLI8qGu7h5PftwsNFfkLY6t5OhfGHs34ikHhSonv3PTUSVhAFFZvevWvu7tBGsxyvt8EBdgOHpkRU1Dj76Gdzw2E1vLBxv4wCbDiHGe0jc1c3j6aPiVNryIc4W51+yZF3BQZfdeqTbLd21o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E1EWFl7Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BXQyoA4n; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="szvgrJgI"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso661736a91.0
-        for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 09:27:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E1EWFl7Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BXQyoA4n"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68JGJvuA4037741
+	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 16:48:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fnl3dUkFs7+q+6V0hzx11cv+IRpZStzDEBWzl1dyy5I=; b=E1EWFl7Q6/J2VyWq
+	DV7F1RuXslQyuP4A1UIyYVpQNh9R+kSVKDustTRYbeWCAcdz+K9P14RIvyqUbkVZ
+	ObrAS/PEWVs2kVZ13x6bJ3Ce+q1d6mleR34YUgdRQ016lR+Rwep9UzQ2BAmLOsDD
+	yYtnFaa24c4z2iM0+vu28m6QPB/IfmzMn/pfPT/Oup3y4LKkZ9kLPvyckn3SJDvB
+	5TfdktayQyjFJ/JsyJr2bFdpg8iI7BYVLTsUxZjO//O9QmbeBUgu0RHcyqaXN+ve
+	oSjqlRsL9pzAfFfC3quP1ZrTbUiYfLnSWOf6GIxfk2ZRPAH2rdLHqHbp1AOJL/Yv
+	x0GQ8w==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gshqfsc5u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 16:48:04 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so1766317a12.1
+        for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 09:48:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789835237; x=1790440037; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0GPztW8MlLhQMli3TwZRtsdRaRgM99w65yRo1wA4KFY=;
-        b=szvgrJgIPAliHmKYhl+PmP32fEJY0A+BygnS9jc7DyXYJyZl0QLl+6q34wTpk2YNsY
-         /w59jg1Zsgm4ZLYvLtGISj8tWknGKeerTClVjZuiZFD6/bnI5T3IKm9jwu5xV191RTBd
-         5Wi7KArs+6ahmQQFtG6kxjAap3JgxvlAmrAVh9hpIhgJgXYiIHF/jxuIv9UxgEEYkwZ6
-         pOCZIJO3b01jWs6UEK+hGfiKFxXPhG2Rbs8Dwv7w0zfehn3+I6s3yesxTY6ehxF0NTT7
-         vJ2Byi//52dIgGphN1FoBR2WkWGPa1sECMv20AIittSHx8BIRB8R7aRkfLLGkXw6hx1K
-         cvyA==
+        d=oss.qualcomm.com; s=google; t=1789836483; x=1790441283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fnl3dUkFs7+q+6V0hzx11cv+IRpZStzDEBWzl1dyy5I=;
+        b=BXQyoA4n7hZn+Ack72QoXEcB50EkG0KeXsDww5HwjtLLeEMoubMN/oQtvT9dZPzF24
+         aK9yZs2+0GfhHSVNIV87fv/g0EDCo4CMZifVya5kZepBGZJUfbirWwgPGzjesLwlXdcK
+         Os8ywcV1u5bM/qfkZlLX9E9JM+4o+1QH8dMV/OiK1bQaguOWOWmMDheSn3T2KSi2K9eG
+         AgFMoAiGpi0km6ws0c18B3YtnUMZIKUNwkhb/QhjWz5XY89KT6RUel0DsUat5keIvGiI
+         SItUxg22g2SzV8zFEEngpn9mr8G5T4ce5lp1PLQHdpVMcRaJhf718w7XGhPVRqUpJIIr
+         SoVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789835237; x=1790440037;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789836483; x=1790441283;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0GPztW8MlLhQMli3TwZRtsdRaRgM99w65yRo1wA4KFY=;
-        b=fyPf//UW2HSa6SrAMo3sRv80eqJpu+kyvbvVh8VDLxXn4ku30mG8TeIcyF6rd/ja+2
-         J/ABnloq4EQnoo15gLjNEZ3DSZFD+BGgWe3qVr9xIYUdl1iJoBwnZ+YequFi1K9js9kO
-         TTDYI7jGzWutlM+dQ873cdQAAETItZ06BwmAdZp1GTUVyYbjP6qx7vBK9PGl0aQc0Frd
-         bj3CpMB6K1mesglDPH6TD8YeDLl8Pl+cocB0D+n07ov0gT0Yo1upGiGpACL8qYzonZ7C
-         G5QQGsYXXVRgnHU8vMe7gUV6pMywciVfDq9GokGzaqHqi0TxZaIjUq5f28VrXwomlYyO
-         MCnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEL7r3RYbZM2CNgz1Dk2VFevGtfQqGGvUzQWbZtk9hfXiyKaC9FqtmWP+FxI1ZxWGglCVpObRf6Vkz3A==@vger.kernel.org
-X-Gm-Message-State: AFuF++lgLVbKuYMSppc4ga02o/uhFehdUCfVdTOVwmHu8kqwDvLUhIJn
-	Q3fgHdqV53xWHW7sUq67lmtkmKmQSIbVjexndFQBi6PjdtzwyqdLfsUB
-X-Gm-Gg: AYBFou3+extOQ5GehqYKf3/rlxn4MmgfUdQJXFqJw0eQ3FM095PH0UtcWSKBIkNNmA2
-	dEaO+7TRgk48jabVS95zYKUrC0iYTuuKIGkYxSmSxaQty9QsilutK1iIn+yF7NuXxexRStOsXST
-	nEbnb/K4ltTrpR6MzLdamgvaEZwR888jHPymquibOsBv4czJVrOe/Pgl+KGxZjxWHklavf8WbGR
-	cFS6qvBGY+/7s1VoCU3UlcpyOye0tccbzGYm2mw+2Lmdsbu5xyft6ClVbNFACQOlO4QxSFsSn+A
-	wRcWaT2FUocGsD6t44UeN9xIVrTtIgx3wbwnmZgk00h43Qq+LCS1wArhs8TnBmiIIjrcAuC1NwR
-	7s+DAtpX6f0Bs5PrWg8nn5SXCEW+vIvYoDQ3a0StjQbwaJ7wWdPor5pGh6YTgVQjb48UrxUmYRo
-	n19DL1u0Bzo2syBNCz01PCerPAU3uWG6TkbnQvpwkJYc7f2vwALe0cNLCM+nbdK5alwP1BqJvnc
-	7jLm+t/fTmYQTM+
-X-Received: by 2002:a17:90a:fc4b:b0:3a0:2900:f55e with SMTP id 98e67ed59e1d1-3a02900f85dmr1166378a91.29.1789835237378;
-        Sat, 19 Sep 2026 09:27:17 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55b83602sm4190789a91.1.2026.09.19.09.27.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 09:27:16 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: v4l2-subdev: fix NULL deref in subdev_open() racing with unbind
-Date: Sat, 19 Sep 2026 23:27:09 +0700
-Message-ID: <20260919162709.314464-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=fnl3dUkFs7+q+6V0hzx11cv+IRpZStzDEBWzl1dyy5I=;
+        b=rKgis6H9IzkZPQrOkodtOEgwtQQCypCdWqEISyJMxjTf7joATV8LM+O74bz3day0Vf
+         k2IRtiF/M+UwOnefY+qHSM4to6pQcvq/48gi9BoACCPZ4rKpHKkTPUG20olV1nG41Yvy
+         tKkyVv7aLpIYk9Jm7I2Hog+wCM3YeMYmJKfyMwqPP+/7DJYQg6NwoNvU6gsnYZL9u/Uy
+         vTUEScNRoJaHNtmtS4OLfChhysVwcK53Czc3JdlRjagNQ6/IB7ut41HRvLZbUoCoLxW0
+         VYfnFWAmv7P6qo3jRH8d3HJmIxEwdLgd2kY2dXBEvtuc8U89nuKrUFKX3id+1xUt5weU
+         FQJA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3PPOwq5H8E8LgE6vOe6qLuNUKQ6ryGBzTSqrvlnHWWHbyj0J/MbWcOfWC/RcpHCMcBnIWxOQCPuJ/Kg==@vger.kernel.org
+X-Gm-Message-State: AFuF++nVjWM8KGJ/lXYUxC39aLWM76+CfBBfYoTp5zbFWB6iyFmerkUt
+	jrqgbeCCmwbpLNsMLLr3efv7aqD8WOHN/NB8n//I1w+FrF4OyswZ+J9LoDW74925kzwWic/BKGG
+	eIxry3n2TW32fzifZJ4DWqflzMwHxtZyo7kyoXw7OzVSRTrbMb19UO7mOk7oghclUUQ==
+X-Gm-Gg: AYBFou0omVnJN5pUn8r/lM+EekW3fMMfttjgAGHxzG59o0Oyg8dXm/VrKjlG5bYv9AZ
+	Mb86/uC02sDw58rAZ/RInH1Db5j/dOCQjG+yNrn1ZX3vP+AeWhBOcybcX1NxVPQ1ksYmQQMFtkR
+	ffRgY5Xx7oKByqu3jr+SM+Il9EDGVEoVV+OS/2yJaNZdYEA0IM4ahj1eda6++ZD9WetTX8Gpk9u
+	6+yWcHeJu2HAed8ZINGSKHsTMgGuQAP36zoTXBJ+ZtGs+QS3h4Gsmud3dnWMhqCMn8dwGVm7/+3
+	fN57vazCqCBRNt/uDVCTXgk/ZvN0R61/ebEn9u7YYOX9BaWZ8p+tks/LJcsPI/zNPF+pwV1dsaq
+	cLLSXHeEKzxxbPhhpSE1wJ+QHeHOufy8=
+X-Received: by 2002:a05:6a20:6a28:b0:3d3:adbf:7782 with SMTP id adf61e73a8af0-3dd8c41a46cmr9475637637.23.1789836483420;
+        Sat, 19 Sep 2026 09:48:03 -0700 (PDT)
+X-Received: by 2002:a05:6a20:6a28:b0:3d3:adbf:7782 with SMTP id adf61e73a8af0-3dd8c41a46cmr9475613637.23.1789836483017;
+        Sat, 19 Sep 2026 09:48:03 -0700 (PDT)
+Received: from [192.168.29.115] ([49.43.227.249])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55bf843sm11231739c88.8.2026.09.19.09.47.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 09:48:02 -0700 (PDT)
+Message-ID: <2ef85ab0-0efd-4a4c-bca2-370bedb36f8c@oss.qualcomm.com>
+Date: Sat, 19 Sep 2026 22:17:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 9/9] arm64: defconfig: Enable CAMSS OPE driver
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
+ <20260915-camss-isp-ope-v7-9-77b13d131d3d@oss.qualcomm.com>
+ <20260917-modern-corgi-of-memory-6d9082@quoll>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <20260917-modern-corgi-of-memory-6d9082@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDI0NCBTYWx0ZWRfX6j5nhn50+70D
+ sb163Iy0Pf69D8RO5PuWxYVqofxiDla7iE7CWwZqaEmzzirQott2AMn2CaPNfm/ybzI7yCEwcQL
+ wsULYTFz+0R6RfGrqQ4AhC5iZQrPYYptLVPHNcznerxxFNrjlpylA9E+IH5bNWI0AlqgMEJcnwp
+ kkbCg/D/9jf/gSIOQ+blSTALQfjyOiRzDoOyv95XLKtV+Q8ltRlxt2TsO7eIUZYLJD1LHnFpB03
+ zOpgs+dMdLrTdzhGq6r/oW3HZI8QNadZ9TgPBKAwQ1ISupwgbdkx0FxWFqHf3wvIDQxiobnzbra
+ QSIrwgSPIFxJXJORZNQLyL0sEp9qnpng/gWvK+WbmF0RHotQrmaob4Jkd9Cchs5fG7+z2ZDu9iE
+ Oc0JnmEn1z5NswOK2a/2xdQyVKy2gt72njt3Nee0Kc4/vWKhIiuOHCrRFaPYQKzAmJC5gDF0gmA
+ +/JCLQ6VTFf/zwL1iNQ==
+X-Proofpoint-GUID: TOtbemAqjyXUv6Ob_gCpK9Rw-pryPhqb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE5MDI0NCBTYWx0ZWRfX10gr0+qinG6s
+ 65aZrCSiniNGEbQ08cHTirt0jgCP3FmcBnkpV86wJXEwa7aXGsJO70vynxw73VxKb5M1uqF0tEn
+ 05IIeGNwg4yd65QFEvhP6vCoxmGa1hk=
+X-Proofpoint-ORIG-GUID: TOtbemAqjyXUv6Ob_gCpK9Rw-pryPhqb
+X-Authority-Analysis: v=2.4 cv=XegcX455 c=1 sm=1 tr=0 ts=6aaebcc4 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ISK6p04Y8w1qFYbiysbuaQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=AGB_TLOESQuI93QLNYYA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-19_05,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 suspectscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609190244
 
-subdev_open() dereferences sd->v4l2_dev->mdev and then
-sd->entity.graph_obj.mdev->dev->driver->owner. v4l2_open() only checks
-that the node is still registered, while
-v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's mdev
-before it unregisters the node. Opening a sub-device node while the
-driver is being unbound (e.g. vimc through sysfs) can therefore see a
-NULL entity mdev, or a NULL dev->driver once remove() has finished, and
-oops:
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: 0010:subdev_open+0x193/0x510 drivers/media/v4l2-core/v4l2-subdev.c:115
-  Call Trace:
-   v4l2_open+0x1d2/0x490 drivers/media/v4l2-core/v4l2-dev.c:433
-   chrdev_open+0x234/0x6a0 fs/char_dev.c:411
 
-Read the entity's mdev once and treat NULL as "no media device". Take
-the driver module reference under device_lock(), which is what unbind
-holds while it clears dev->driver, and fail with -ENODEV if the driver
-is already gone.
+On 17-09-2026 15:30, Krzysztof Kozlowski wrote:
+>> Add CONFIG_VIDEO_QCOM_CAMSS_OPE=m to enable the Offline Processing Engine
+>> driver for Agatti and Shikra platforms (e.g. Arduino UNO Q).
+> Unfortunately same comment as usually... Samsung Agatti? How anyone
+> outside Qualcomm can figure that out?
 
-Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-Fixes: 218bf10e39ed ("media: v4l2-subdev: handle module refcounting here")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Ack, will address in next ver.
+
 ---
-Root cause
-  v4l2_open() checks video_is_registered() and then calls subdev_open().
-  v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's
-  graph_obj.mdev *before* video_unregister_device() on the node, so an open
-  in that window sees a NULL mdev. After remove() returns, dev->driver is
-  also NULL. subdev_open() dereferences both unchecked (v4l2-subdev.c:115).
-
-Fix
-  Snapshot entity mdev once (NULL == no media device), and take the driver
-  module reference under device_lock(dev), the lock unbind holds while it
-  clears dev->driver; return -ENODEV if the driver is gone. Errors go
-  through the existing "err" label.
-
-Testing (QEMU x86_64, KASAN, vimc built in, syzbot's C reproducer:
-16 threads opening /dev/v4l-subdevN vs. one thread doing vimc bind/unbind,
-vivid.n_devs=1 to avoid minor exhaustion at boot):
-  before: 32 x "RIP: subdev_open+0x193/0x510" GPF (same as syzbot report)
-  after : 0 oopses, 0 KASAN reports, reproducer runs to completion
-  (checked with 1 ms and 30 ms bind/unbind period)
-
-Unrelated finding (not addressed here)
-  If the sub-device node registration in vimc_probe() fails (e.g.
-  "videodev: could not get a free minor"), the error path in
-  vimc_register_devices() frees the entities and then
-  v4l2_device_unregister() hits a slab-use-after-free. Easy to trigger
-  with the same reproducer if minors are exhausted. I'll look at it
-  separately.
-
- drivers/media/v4l2-core/v4l2-subdev.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index e9f81b9be9e2..cec63694a658 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -97,6 +97,7 @@ static int subdev_open(struct file *file)
- 	struct video_device *vdev = video_devdata(file);
- 	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
- 	struct v4l2_subdev_fh *subdev_fh;
-+	struct media_device *mdev;
- 	int ret;
- 
- 	subdev_fh = kzalloc_obj(*subdev_fh);
-@@ -112,15 +113,22 @@ static int subdev_open(struct file *file)
- 	v4l2_fh_init(&subdev_fh->vfh, vdev);
- 	v4l2_fh_add(&subdev_fh->vfh, file);
- 
--	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
--		struct module *owner;
-+	/* Unregistration clears the entity's mdev without waiting for open. */
-+	mdev = READ_ONCE(sd->entity.graph_obj.mdev);
-+	if (mdev && mdev->dev) {
-+		struct device *dev = mdev->dev;
- 
--		owner = sd->entity.graph_obj.mdev->dev->driver->owner;
--		if (!try_module_get(owner)) {
-+		/* Unbind clears dev->driver under the device lock. */
-+		device_lock(dev);
-+		if (!dev->driver)
-+			ret = -ENODEV;
-+		else if (!try_module_get(dev->driver->owner))
- 			ret = -EBUSY;
-+		else
-+			subdev_fh->owner = dev->driver->owner;
-+		device_unlock(dev);
-+		if (ret)
- 			goto err;
--		}
--		subdev_fh->owner = owner;
- 	}
- 
- 	if (sd->internal_ops && sd->internal_ops->open) {
--- 
-2.43.0
-
+Regards,
+Nihal Kumar Gupta
