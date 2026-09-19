@@ -1,102 +1,91 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B91472F95
-	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 10:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BA447CC8D;
+	Sat, 19 Sep 2026 11:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789815129; cv=none; b=NM+4Ned96IQnDiva2GIBELJhi+MocRkD923L/ymmePRQYX8zppPukc3DWcSzNqwTi90j+MBjsAW5sif2iSGycoTH+rB1yxpaoL7Ceyf4gpiPuwV0Fg8SlxTZZ1OzMRY6v0ZTL2iX+GoTtnGWDnKfRfYeuetOTCypjX1aHTshhyc=
+	t=1789817163; cv=none; b=pAjxPN2o+xoxcFHw1+OHZ/S4h5M1ZX0SHzAIlLa9LSg0fnB3cw4so/AUWbJWAqjUkybMKnP9ZuZpHGau2WdpuPYOwy72beOIyfyPrX8Fi88muGVgRYHo8grftfo/gb+m89cLUIBQxiq8xXgCwXIiEhzrXtXqfcZy/IwEhh9FEuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789815129; c=relaxed/simple;
-	bh=LIw84W8I9k+LuqPfSmXrRVw8sCdAF6oA5St7rGy1o+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EiBRKRXk1wQQ/gE7eTbkMy3de4gRZhzB4dek2DgRBe3JSCpSz3r5RiIut1x8NcuhNHx8IGvHBo5OJQsX4YTkiyR/i0iSoBJfCfLVOuhknMwO2H6GejJDNxG92nfhct55MnitRMd6R2RZvRlA9NC2pjbud5u1eSxEbzd5dcEWJhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLsWhU4H; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789817163; c=relaxed/simple;
+	bh=nDD77lCUuGPanc1dIg/pQIPYUjWYdkS3J6zyyFNMC8w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=svqfMB9zvWH4WNA0TneA4edhLOfCZs6mD9kU2vebRRTCiB9poGUpO1+o3SD71dONSDaNzpmztF/YYuLhucom6U0eEVEFOWkM/8b9c4y1F9ro6jjgk4RHa5I+iwtLRBxZgVB28CAdNgu35xqszgv1zu9vEa7MG8+Hu2IiJIymKhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sui0KgF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLsWhU4H"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso1192979f8f.0
-        for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 03:52:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789815125; x=1790419925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yBLQW4VRriwtf+wFPBRMNLBW9l69Xiae7tic+lQ/H3g=;
-        b=ZLsWhU4HWRk+4Yzs0yAZvn4brNGHz5Uzaovx5peaD1+COeIXG7PFiCDpjaHJ3cAEKb
-         TzHr8LF47ChslBJpm0g9By5K8FgJfi5uCNvXSNpSW8S7eJCSRdDPK5m00LJkmjWzYsim
-         QPn4uEfEe8aW48Yc/EkCP25nAtfza5y7VUt8MHtxF2naw4iKsguhWWs9S9cnvubBnJJ/
-         rpjT30ldmdNLRzFT3oF1UbvVWJTmJkxj4mN0j8LqcLNc07TOFdX+l+C87yaWVvyVwQ2I
-         tZ6Jjbp3xT0x5vV5Okqg3OYc4F7gc1wNOHqrN4FMSzU9ncwDNQqApytmuJHbk8Vlwufr
-         J+TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789815125; x=1790419925;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yBLQW4VRriwtf+wFPBRMNLBW9l69Xiae7tic+lQ/H3g=;
-        b=NuC+uOelH36ftd15enxjr47ndbael2nwxEkONERfOBXXAJZxJf4aBXaoXIsnoI0/8n
-         Vp8S8HXPcvze9gpeTUJoNnODhnMM7FhqUjK3ceLI6YuygUhywnxIzi7loeaGnXI+Aqyb
-         pjGKa93/odf/QQHxzbHymz3t3hgbDo4TIyu0T+lJsLpg7c+rcreHSZi6odOqAjbaucVZ
-         DyqmWz9h84fwUEgsTghcjuk8yrMy3CArYxsbM/QSuCFJmuPr1pqaWxaOXEwYIpWr+psu
-         RpTIf8MjRMHZMAByPrdw3bdNyBDOXdE6bnUKfb+OcaulAqF6MOsjOds2tX1Z3foxWJRr
-         8G5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwvuDtT5fDa24fvKY1KmTEDhVGe8VJrPhGNfcXaOcrbaHaMTWHSdF5VywhKyb4D+rfWyfOtBZiYfUI1vA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kQMOFfLmeRa3PR4f2l5ciNF+IZm5UX8E0UCMw4GpKgH/pAY/H2
-	i1+ULFkbq36SWbk2cplFbATAzP3xgFWvd3tHSx8QEz7Hcrrn7TLnIyqj
-X-Gm-Gg: AYBFou3mZKFAwKemxcn/fntkQR2UTU8Kf6ZDoRXelRZw8NH54dAAwPKYT+JTT2q0ZQH
-	OIzlpylnlxnfEXneM6k9Mk0fUQyfAxrX4Ml2Auh4Sd+6jYp5KOY46e7qQ+yJL5B91UjpANmFucS
-	wmyFN6OxJEwQuFD/QOtUUvHJHudNsALDf3RnAYsQBDpq40faL9amDA3eKjKlKKqZRgQr7jPZw+6
-	X7UrP2r1KFqmm+AGmjGXKTtv8N6K78iWG1B00JdQWpD/zX0hmaVtDl+eNQl51F1S59eAh+FV/8Y
-	yivHNQEkscunsSECt5EQ3l2TB7+cdbQUwxNCWD83PdT35YDuWYHaCE9yEkWFpKFgFN9ZL5TQ2x/
-	dOAUKccWLffvVvbNJd+Xuh9KTbh63zUO3Lf754kaG2+Sv/POdp3J6bTCwYS6XoT1RvoNFcvFE4B
-	X8pdEONxnpauKC6u6nRjln4snHbkW4aZy76phnFRqDNU6fFz6APw4oQPdQEu8xONF7T+z/6w==
-X-Received: by 2002:a05:6000:26c7:b0:487:f37:7ec4 with SMTP id ffacd0b85a97d-4871e25e47emr7454274f8f.24.1789815125076;
-        Sat, 19 Sep 2026 03:52:05 -0700 (PDT)
-Received: from localhost ([5.83.201.219])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724595289sm6399768f8f.29.2026.09.19.03.52.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 03:52:04 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Tarang Raval <tarang.raval@siliconsignals.io>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] media: i2c: os02g10: Fix spelling mistake "foramt" -> "format"
-Date: Sat, 19 Sep 2026 11:50:00 +0100
-Message-ID: <20260919105000.1875554-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sui0KgF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C851F000FF;
+	Sat, 19 Sep 2026 11:26:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789817161;
+	bh=fCBBvMJ9RrgDcgopr8ESfkQ/nu0fhXNb8XpG2GhGV3I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sui0KgF3V2wTPBaekHDtIyHqVKUojFZmU+nR3zYPd4Qff3fAUw1mGdgQ2cFUX0D0I
+	 InGzWCQ//u4sYwraWmImGSipYxNodKmw9viNFmdga6R89wkkJa5kHmFghWOeMhAbEp
+	 VJgY2LR00tyXPtcMGnjB5oUHQeRY/ObD7gqxpxtnVlwqV1PRNatsiGmUFqix37NyI2
+	 +c1nS9yKklEMhDWGntIWA1dGxa7wrbzihQIU37bPl+8ce7ovJNklkrKtYmu5RSQVxs
+	 oCZVzA0RzhElJEh0/40G2hlT6zbBw/0uXiG9Z0GebhzupLJTpGvRH1fi7cdt8CIadC
+	 b4FjqbEqhQIbg==
+Date: Sat, 19 Sep 2026 14:25:56 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260919112556.GB13683@unreal>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <20260918121500.GV13683@unreal>
+ <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
+ <20260918170524.GH11599@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918170524.GH11599@ziepe.ca>
 
-There is a spelling mistake in a dev_err message. Fix it.
+On Fri, Sep 18, 2026 at 02:05:24PM -0300, Jason Gunthorpe wrote:
+> On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
+> > 
+> > 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
+> > path. Then Xe always sets up dma-addresses using dma_map_resource(). 
+> 
+> Open coding pci_p2pdma_distance() in drivers is a hack. Using
+> dma_map_resource() like this was never "allowed".
+> 
+> We've fixed things so these hacks are not needed, the drivers need to
+> move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
+> to use the DMA API correctly.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/media/i2c/os02g10.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+And this brings us back to my original question: what exactly should I
+change in this series, given that it works as expected for all users of
+the existing DMA and P2P APIs without any additional "hacks"? This
+includes, for example, VFIO, iommufd, and RDMA. In our internal tests,
+the GPU driver converted to use these interfaces also works as expected.
 
-diff --git a/drivers/media/i2c/os02g10.c b/drivers/media/i2c/os02g10.c
-index 141b7cb11fc5..7d3cbf3d6650 100644
---- a/drivers/media/i2c/os02g10.c
-+++ b/drivers/media/i2c/os02g10.c
-@@ -488,7 +488,7 @@ static int os02g10_enable_streams(struct v4l2_subdev *sd,
- 
- 	ret = os02g10_set_framefmt(os02g10, state);
- 	if (ret) {
--		dev_err(os02g10->dev, "failed to set frame foramt\n");
-+		dev_err(os02g10->dev, "failed to set frame format\n");
- 		goto err_rpm_put;
- 	}
- 
--- 
-2.55.0
+IMHO, it is time to update XE too.
 
+Thanks
