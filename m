@@ -1,91 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BA447CC8D;
-	Sat, 19 Sep 2026 11:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AB328CF5F;
+	Sat, 19 Sep 2026 14:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817163; cv=none; b=pAjxPN2o+xoxcFHw1+OHZ/S4h5M1ZX0SHzAIlLa9LSg0fnB3cw4so/AUWbJWAqjUkybMKnP9ZuZpHGau2WdpuPYOwy72beOIyfyPrX8Fi88muGVgRYHo8grftfo/gb+m89cLUIBQxiq8xXgCwXIiEhzrXtXqfcZy/IwEhh9FEuE=
+	t=1789827129; cv=none; b=IZqr0H57synCqSfBUs2udSbYdL38ApBIvN1y0Qzm5AUO/HLOWT7N7PJKqPRZTPINGCC0RjlBIvvXsKgosYoU1BEsKLNfnSWSXt0NTuJ43v/gqgUlytAhQRF+FiWWCWG1eZrDYZa/AB0o7pPJMXncXgUZwQ9Q8HrXebUVxI42/4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789817163; c=relaxed/simple;
-	bh=nDD77lCUuGPanc1dIg/pQIPYUjWYdkS3J6zyyFNMC8w=;
+	s=arc-20240116; t=1789827129; c=relaxed/simple;
+	bh=oiT2W7xC0aeEfU8Ej8FsqhEh28h2sQJqmSzuWMxFGqM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=svqfMB9zvWH4WNA0TneA4edhLOfCZs6mD9kU2vebRRTCiB9poGUpO1+o3SD71dONSDaNzpmztF/YYuLhucom6U0eEVEFOWkM/8b9c4y1F9ro6jjgk4RHa5I+iwtLRBxZgVB28CAdNgu35xqszgv1zu9vEa7MG8+Hu2IiJIymKhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sui0KgF3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rnO17b03z8/nwnimgY2WrrAzTH2WE5f/ukrOm+r53l9peVDTTRQp6goTVQ3vz+/PEtKGoREwOcH1Yjs1lKp2A0PrxuwIaG5L+j5MSPLHev+9KzTuCfzIM5i70r6NkQ9lRWDVfaI6G/KcRBRNRi7n63tbgw05r8S6TEJqSnmN1+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=COlwSANl; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sui0KgF3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C851F000FF;
-	Sat, 19 Sep 2026 11:26:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789817161;
-	bh=fCBBvMJ9RrgDcgopr8ESfkQ/nu0fhXNb8XpG2GhGV3I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sui0KgF3V2wTPBaekHDtIyHqVKUojFZmU+nR3zYPd4Qff3fAUw1mGdgQ2cFUX0D0I
-	 InGzWCQ//u4sYwraWmImGSipYxNodKmw9viNFmdga6R89wkkJa5kHmFghWOeMhAbEp
-	 VJgY2LR00tyXPtcMGnjB5oUHQeRY/ObD7gqxpxtnVlwqV1PRNatsiGmUFqix37NyI2
-	 +c1nS9yKklEMhDWGntIWA1dGxa7wrbzihQIU37bPl+8ce7ovJNklkrKtYmu5RSQVxs
-	 oCZVzA0RzhElJEh0/40G2hlT6zbBw/0uXiG9Z0GebhzupLJTpGvRH1fi7cdt8CIadC
-	 b4FjqbEqhQIbg==
-Date: Sat, 19 Sep 2026 14:25:56 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260919112556.GB13683@unreal>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <20260918121500.GV13683@unreal>
- <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
- <20260918170524.GH11599@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="COlwSANl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789827127; x=1821363127;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=oiT2W7xC0aeEfU8Ej8FsqhEh28h2sQJqmSzuWMxFGqM=;
+  b=COlwSANlB0Gu7ROhe91kuIjBhIQODr7Gotora/MP0VPD26T828d+zkha
+   USvGi+BHd4dSb/7GArK18sOpjT1khBh/vQYlR3a/vh+wM2zv5IZYcLjhC
+   zGK8xOOWJNV0HyPTWoomw4a17Alyq+R4XFIhwOpkYIgdU/UfmS+yCbCPA
+   FKOLwkKygeTi7f0tB/oiUGNWgMmTRhAwmSDGAX0Sd/PIxparmhTq5Qw9/
+   uO2NoyttyUhGu0OE573MMk5InMUcZW2d87SUMGhoSfygzUtcxsGJ0bFX4
+   /4MrsbcJ2GW20RGGainZ/DioExL+CZ8mxrhppyBujXuh+uYHwvPa6d3eq
+   Q==;
+X-CSE-ConnectionGUID: 6FPnSvwZTaaO5QDwh7ACXg==
+X-CSE-MsgGUID: WGems2+BQFyhQkMHiZpQBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="107858045"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="107858045"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 07:12:07 -0700
+X-CSE-ConnectionGUID: 1akxsCysT8a4UURBig5DGQ==
+X-CSE-MsgGUID: CWNV1mhdRZGJmmbfLFmvkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="268521340"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.50])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 07:12:04 -0700
+Date: Sat, 19 Sep 2026 17:12:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
+	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: media: atomisp: remove ia_css_circbuf_t typedef
+Message-ID: <aq6YMsRFmACGZUF-@ashevche-desk.local>
+References: <20260918214132.1135549-1-vladurares@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260918170524.GH11599@ziepe.ca>
+In-Reply-To: <20260918214132.1135549-1-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 18, 2026 at 02:05:24PM -0300, Jason Gunthorpe wrote:
-> On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
-> > 
-> > 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
-> > path. Then Xe always sets up dma-addresses using dma_map_resource(). 
-> 
-> Open coding pci_p2pdma_distance() in drivers is a hack. Using
-> dma_map_resource() like this was never "allowed".
-> 
-> We've fixed things so these hacks are not needed, the drivers need to
-> move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
-> to use the DMA API correctly.
+On Fri, Sep 18, 2026 at 09:41:32PM +0000, RareÈ™-Mihai Vladu wrote:
+> Remove typedef ia_css_circbuf_t and use struct ia_css_circbuf_s
+> directly, as per kernel coding style (chapter 5).
 
-And this brings us back to my original question: what exactly should I
-change in this series, given that it works as expected for all users of
-the existing DMA and P2P APIs without any additional "hacks"? This
-includes, for example, VFIO, iommufd, and RDMA. In our internal tests,
-the GPU driver converted to use these interfaces also works as expected.
+...
 
-IMHO, it is time to update XE too.
+>  void ia_css_circbuf_create(
+> -    ia_css_circbuf_t *cb,
+> +	struct ia_css_circbuf_s *cb,
+>      ia_css_circbuf_elem_t *elems,
+>      ia_css_circbuf_desc_t *desc);
 
-Thanks
+So, this is half baked patch. But even if it was the full one, the problem with
+it that it does nothing useful. The useful change here is to refactor this to
+use either circbuf or kfifo Linux kernel APIs.
+
+...
+
+TL;DR: Try more useful task first, please.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
