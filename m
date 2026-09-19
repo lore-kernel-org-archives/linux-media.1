@@ -1,111 +1,207 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDFF34FF74
-	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 07:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB73637EFE3
+	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 07:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801738; cv=none; b=ayv2+VlB8wJV+1M+cabsxLVCRhUDLcACYO5W5wiWxDcc7SqDvCkIHTy2thYF++YsczQ4pwXgJU3otSMcZ3QRJSWKSJ8oDQGslWEigWfQ4ALt6CUjXXuFZ6vpI/Mrtp/f31MV/HwvwDuWyp2V9p077eFpwlevnMbmNzb/hBOOh50=
+	t=1789801858; cv=none; b=P4epX3C+VXlmWtPX75g1L2on10YqxpL1DfHiY/WjeNO/TnxfK6v6lxpZIWChZlfkuAqj/gEXRov8bOszWz/CEJXXjwj0Ykp6bsV3YSWVsKfPigyFmeh0Cgpg+rxhTqzkS51+BdgNO4ZhjBcnnsWpjevY963ozC+GrJSUaQtjXwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801738; c=relaxed/simple;
-	bh=vwN6BG6lRlunveBc2QdFheFfI69WoVgjH+V04jr7+yU=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=tp1uD3EnZ60WSN40v7dEFpsUb2WQKl4mBIX1HFxsgc/U9V8r2dCd2xa3GUeRSn42yQ2ZsFNju/wwyW4xdHITy7Muw6YMvvENeEoZ+8LCo1fSjScoipVms14xvDTOwKELzKmXblbvL7ZgHAzvqN/vuRCjDpgLvs5rBOW6l7b2lY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=MmUbOqt2; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789801858; c=relaxed/simple;
+	bh=bZdbqV7EtOiC5fBo2XUeutjFyA9EgGuLRhfN0TCWfs4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sz4bnAkzSpmkPtZtf+wIFovAqrDXp0jkUusaEkfgYQVQ/1Uko9zJbavmaKcbzUZ9rbCkWdTEJVPJTTuIEQtvd7eyzr+8Rad4C9FsoMT99V1+DEYYFEuF77npXr0Q3etSrf3zNBiaJtCD80BrBeI+q4cpXdUwMx41G5ppEPBpUFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=Nmjufq/G; arc=none smtp.client-ip=188.68.63.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="MmUbOqt2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789801728; x=1790060928;
-	bh=TQAsvmWL/GXjjYYZ0OeIATjGXy70BfH/u8AoyffHR6I=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=MmUbOqt2SLDd2RBacFflQafeVgTbF7hL9Pahz4cRD33LgJLletWCIro/m0U3R9+Kn
-	 wsfMC9Huq/2iGQapNWrjYm1FoF2+OsTeCOaMAt8uIVCT02eTUVuH2hc08qRStlnJOH
-	 LKNabjAXhRadzYYLUAVlc+UibYKJeIZo8mvNVKdJl3AeaXiYyJ7l4ZQQEVGJzCdKeD
-	 m0SgqPkifY/nSxKpmbExxJ1/YD1YAFbuB9naKzCVmMRzOKRX4muElxn+Zoc/bJv8ik
-	 XoOvybIIJQcFpNjOC6uv4abPUrGrJwa03in6YsIbgGiVDDp1lL+tMsRxu8p0Cx61r8
-	 P0ZAZp/OMqVRg==
-Date: Sat, 19 Sep 2026 07:08:42 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, German Pablo Lindo <germanpapulindez@gmail.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: ipu-bridge: Add OV13858 sensor config
-Message-ID: <20260919070837.92720-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: cbfea0fc3050cc0ff7b65bc487e37baad52707fb
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="Nmjufq/G"
+Received: from mors-relay8204.netcup.net (localhost [127.0.0.1])
+	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4hn0y72CxFz8hFl;
+	Sat, 19 Sep 2026 07:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789801839;
+	bh=bZdbqV7EtOiC5fBo2XUeutjFyA9EgGuLRhfN0TCWfs4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Nmjufq/GaqAPGpGezGdHR+uEGdt1jrrz94XsO+41+ZCHnuaoTiRj/w+bPTcKOgxiu
+	 16KWHh3H20E5/jexdzNNKo0Q6XfjqQhAjjPzmnMICFmXU7+iVFpV2n7j3UI5KMfJtT
+	 7STERaNlTkTfaoGu1Fwq519s1ZeYVYDNw6/wbf5Dr5vymXsakIx0zwYKetIUAlXHHQ
+	 16kVlAiEPBL7GlfMGKzqJ+fgp5hP/Gv5K6kbtJ1VyQ2m7Pb/UVqYwLmO2K+tI0yimQ
+	 /rW0BlSXt8547CqFGqvTEDxWdPEylBVhVyTf/uwOvmhZG36iNEStg9ukOL+SE0xoD2
+	 mPOnu7ewzX1sQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4hn0xw4jZ5z8hgx;
+	Sat, 19 Sep 2026 07:10:28 +0000 (UTC)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hn0xv4bxfz8svb;
+	Sat, 19 Sep 2026 09:10:27 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 2517D5FC18;
+	Sat, 19 Sep 2026 09:10:20 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
+Date: Sat, 19 Sep 2026 09:10:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?Q?Re=3A_=5BPATCH_1/1=5D_media=3A_Don=27t_hide_I=C2=B2C_or_S?=
+ =?UTF-8?Q?PI_drivers_by_default?=
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manuel Knitza <manuel.knitza@googlemail.com>,
+ Antti Laakso <antti.laakso@linux.intel.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>, Junjie Cao
+ <junjie.cao@intel.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260918081755.65082-1-sakari.ailus@linux.intel.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260918081755.65082-1-sakari.ailus@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178980182087.197482.7136352681316898912@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 2517D5FC18
+X-NC-CID: kHE8tIrfWqBYs1xI4ACwJAG1kk729kwNHSaOoRnEio/yhNdas5c=
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-an OV13858 as its rear sensor, enumerated as ACPI device OVTID858. That HID
-is not in ipu_supported_sensors[], so ipu_bridge_connect_sensors() passes
-over it without logging anything and the IPU is left with an empty graph:
+On 9/18/26 10:17, Sakari Ailus wrote:
+> MEDIA_HIDE_ANCILLARY_SUBDRV Kconfig option was intended for working with
+> sub-device and other helper driver autoselection in cases where the
+> required drivers are known, e.g. for PCI cards where all the related
+> components are mounted. This option, however, applied to e.g. all camera
+> sensor and lens VCM drivers that are generally present in systems without
+> being mounted on such a card. This leads to easily omitting required
+> drivers.
+> 
+> Drop the MEDIA_HIDE_ANCILLARY_SUBDRV for I²C and SPI devices.
 
-  intel-ipu7 0000:00:05.0: no subdev found in graph
+Hmmm, just wondering: Junjie's abandoned approach[1] had Fixes: and
+stable tags to ensure it was backported, which sounded wise, as people
+ran into problems that might or might not be considered regressions;
+shouldn't this one ideally have those, too?
 
-Add the entry, with the two link frequencies ov13858 declares. The bridge
-then connects the sensor:
+[1]
+https://lore.kernel.org/all/20260913125345.588586-1-junjie.cao@intel.com/
 
-  intel-ipu7 0000:00:05.0: Found supported sensor OVTID858:00
-  intel_ipu7_isys: bind ov13858 1-0010 nlanes is 4 port is 0
+Also wondering if the "olddefconfig" case on Arch was tested to ensure
+we prevent more people running into problems that Junjie's fix linked to
+(there was another one here:
+https://bugzilla.kernel.org/show_bug.cgi?id=221983 ). But well, maybe
+those were corner cases not worth thinking about to much -- or should we?
 
-This machine needs two further fixes before the sensor streams, neither of
-them a prerequisite for this entry to be correct: "platform/x86: int3472:
-support the POWER1 GPIO type" from Jakob Berg Jespersen, and power
-sequencing the in-tree ov13858 driver does not do on this platform. With
-all three, libcamera streams SGRBG10 at 4224x3136, 29.95 fps.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IP=
-U6 Alder Lake-P (8086:465d)
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
----
-Changes in v3:
- - rebased on media/next; v2 applied only with an offset since
-   "media: ipu-bridge: Match sensor configs per IPU and add config flags"
-   landed and moved the table
- - commit message cut to the length of the neighbouring entries, and three
-   things in it corrected against the machine: a quoted log line carried a
-   parenthesised fwnode the kernel it came from does not print, the capture
-   figures were stale, and only one of the two other fixes this machine
-   needs was named
- - subject follows the convention of those entries
-   ("media: ipu-bridge: Add OV01A1B sensor config"); the diff is unchanged
- - carried Tested-by from Fernando Rimoli and German Pablo Lindo
-
-The entry sits between OV08x40 and OV13B10, where the table's existing
-grouping by part name puts OV13858.
-
-v1: https://lore.kernel.org/linux-media/20260913100932.92087-1-lsa.uz@pm.me=
-/
-v2: https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 952868ad8d5..532a0bfbbbc 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -102,6 +102,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI08A1", 1, 500000000),
- =09/* Omnivision OV08x40 */
- =09IPU_SENSOR_CONFIG("OVTI08F4", 3, 400000000, 749000000, 800000000),
-+=09/* Omnivision OV13858 */
-+=09IPU_SENSOR_CONFIG("OVTID858", 2, 540000000, 270000000),
- =09/* Omnivision OV13B10 */
- =09IPU_SENSOR_CONFIG("OVTI13B1", 1, 560000000),
- =09IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
---=20
-2.54.0 (Apple Git-157)
-
+Ciao, Thorsten
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  drivers/media/i2c/Kconfig | 11 +----------
+>  drivers/media/spi/Kconfig |  4 ----
+>  2 files changed, 1 insertion(+), 14 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 4d9946479160..9b28e91b8a67 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -1010,14 +1010,12 @@ endmenu
+>  # V4L2 I2C drivers that aren't related with Camera support
+>  #
+>  
+> -comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
+> -	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
+> +comment "audio, video and radio I2C drivers"
+>  #
+>  # Encoder / Decoder module configuration
+>  #
+>  
+>  menu "Audio decoders, processors and mixers"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_CS3308
+>  	tristate "Cirrus Logic CS3308 audio ADC"
+> @@ -1180,7 +1178,6 @@ config VIDEO_WM8775
+>  endmenu
+>  
+>  menu "RDS decoders"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_SAA6588
+>  	tristate "SAA6588 Radio Chip RDS decoder support"
+> @@ -1197,7 +1194,6 @@ config VIDEO_SAA6588
+>  endmenu
+>  
+>  menu "Video decoders"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_ADV7180
+>  	tristate "Analog Devices ADV7180 decoder"
+> @@ -1557,7 +1553,6 @@ source "drivers/media/i2c/cx25840/Kconfig"
+>  endmenu
+>  
+>  menu "Video encoders"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_ADV7170
+>  	tristate "Analog Devices ADV7170 video encoder"
+> @@ -1656,7 +1651,6 @@ config VIDEO_THS8200
+>  endmenu
+>  
+>  menu "Video improvement chips"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_UPD64031A
+>  	tristate "NEC Electronics uPD64031A Ghost Reduction"
+> @@ -1685,7 +1679,6 @@ config VIDEO_UPD64083
+>  endmenu
+>  
+>  menu "Audio/Video compression chips"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_SAA6752HS
+>  	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
+> @@ -1701,7 +1694,6 @@ config VIDEO_SAA6752HS
+>  endmenu
+>  
+>  menu "SDR tuner chips"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config SDR_MAX2175
+>  	tristate "Maxim 2175 RF to Bits tuner"
+> @@ -1718,7 +1710,6 @@ config SDR_MAX2175
+>  endmenu
+>  
+>  menu "Miscellaneous helper chips"
+> -	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  source "drivers/media/i2c/cvs/Kconfig"
+>  
+> diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
+> index 4656afae5bb4..da3e225d420d 100644
+> --- a/drivers/media/spi/Kconfig
+> +++ b/drivers/media/spi/Kconfig
+> @@ -1,15 +1,11 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  if VIDEO_DEV && SPI
+>  
+> -comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
+> -	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
+> -
+>  menu "Media SPI Adapters"
+>  
+>  config CXD2880_SPI_DRV
+>  	tristate "Sony CXD2880 SPI support"
+>  	depends on DVB_CORE && SPI
+> -	default m if !MEDIA_SUBDRV_AUTOSELECT
+>  	help
+>  	  Choose if you would like to have SPI interface support for Sony CXD2880.
+>  
+> 
+> base-commit: aedd77ea8168f00687c1248cdf115071e869cf93
 
