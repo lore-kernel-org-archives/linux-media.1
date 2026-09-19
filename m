@@ -1,165 +1,109 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D530349CD8;
-	Sat, 19 Sep 2026 18:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC8D20D4FF
+	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 19:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841765; cv=none; b=Sw3xs4rZaonOJaGhrlGo501dS8ztv1rnsPSGh76e9GLqwTKshsexaoWNlSG45RikRKRORVzPND1sTg9R/OhCn/rnqaBR3lHrzzBSJ9oPKRDzxr5VetRtvSnhP0KO9xkufteoH57YltLnLUDxj2PVE4lHy1vzJ1bR+6VLbRSuWeM=
+	t=1789845821; cv=none; b=pLjjY8zjqpmgzuam+6pSISGCSOE3CDiy8gSudmjf9+8wNs7FVAC4XgC2vrzShSIkAMovOODCGd2upkk3q3FONmPm5JDvKqQIK5Rxa3RuEQxNTSU1r55q4fDZ3LGyY54H+OqdrWfClLaeqypNfKDrNqk5XYPpdRYkPhlOvtjvBp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841765; c=relaxed/simple;
-	bh=wH8Tb4KqRc4VOh6/dbLrwuxzssZnUUFHkjcWJvCsIAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pm8c+p+fiSXDWN8m5gRLK6nG+JvtwRDNUQUS/vCwaDn2q/vFaZPJLlcha8LYsmMg86ZX+dww6qkn85m7+NSi6FjHO5yZIg6h6r7UMehhCUYTQLznJkD/RCuE85osBpBm3rGmfKMbPVhRLPFbX8oaES7MbLUYebsLe+fE+YYQeZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uZ10c8pz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789845821; c=relaxed/simple;
+	bh=IKuWsaJY5APoPhOYXNrJ6Ofun/XWfkcoHsBrnE7/6MY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D8v+o9FedIpJBjhtyAnMpsKew/BMZsSrdQOSZ7Vyn1UmlKqFluL6ppfwYbTEPEe/dk6P2gPCqP3VjgvJxF0MNVnGzY7jhu16BhxmBvugf7WDJY5QTny/Sgd/OqRBEdqdqqadQzGE7I8RnUC5etbWzUiWr/KwEuMVNbG13VyN4FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aGJIvyyS; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uZ10c8pz"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3C502C36;
-	Sat, 19 Sep 2026 20:14:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789841655;
-	bh=wH8Tb4KqRc4VOh6/dbLrwuxzssZnUUFHkjcWJvCsIAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uZ10c8pz/N2zzU7AqCtcuG4Y5uHw/9SgQOpCgF8n0ljm9CDLNkZ1AhCdncdud52hj
-	 nOjGc5OsfdA4Ia5olYwgqz6CgKHItk5HnBnjXZiYQnWY4i6kX42wWMGO1J5hGiEFX1
-	 4NEr+BuZns3VgYrdr4GsV0GBd2zzU4bDGcMbbuFI=
-Date: Sat, 19 Sep 2026 21:15:57 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 10/11] media: rcar-fcp: Handle resets
-Message-ID: <20260919181557.GK1124359@killaraus.ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
- <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aGJIvyyS"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so8565545e9.0
+        for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 12:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789845818; x=1790450618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XuolRd2+0mj4vgNgJerFOuLLsbSMUrRswx//2/7gQLo=;
+        b=aGJIvyySCLGqesumKpez62Bc9Ffyfiqbq95DF6mxOnh9MFtaFU1RTSDccxrpfgtQjx
+         VVzUbOcf2AXGnVqpp8MBfZgPKpsTu9N7okR1Bfkl9s/mVWL95R3J3QvAuLF155TH//YJ
+         rREZYC91wszoRWxrJt3fA+S5xdEQShCG08/NVwUth0wdnAy/HxgA9j8Axw3FERMe68l7
+         WiJHbq7yjuXQ4CqhZq2F4VwJRKxtBVBwEkkTyivqOXBZCCKBZYwEz750wAFHY6pf1Wrm
+         wlcyfm3mEaAFm7fOz4fwJdhcDXAOP62Zv7NlBbrOjR/4xo8Iesp1Bsx/s8AV2ahMGYKT
+         c+YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789845818; x=1790450618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XuolRd2+0mj4vgNgJerFOuLLsbSMUrRswx//2/7gQLo=;
+        b=lvmWyvAV9uKAMkcHkT2MNYYdtZelhNRqpsDqFVzAdJ69qsXA51eBDhaFF3331LfotN
+         HI1A7FnC6GPDdhmVo0GldMb7jIrW06SNKnqrAZq4u//pnLsFo/JWbeLNroJ1Kgn0yc7J
+         jUrUwHhDjWAVKwR/bzLJhS5+ZIS5QIO/tOK0NhGj0YjGECNsDnwThJrIqJuHRkS2jMCK
+         Tr6HNhhgLsPbtDUom392cEQ+iYnRRn3AyU8jEeVQlsmMUwQcZPACysTwElm3RGE3a6Fy
+         XPUXfyllJITS4H0PA7pSz1y7nGiphGOGRycSZ6Oi7AwvyfuRegFnQFSVgnRfdCtgjCUd
+         JvLg==
+X-Gm-Message-State: AFuF++nuHpgPM7AeQlWQzoooeuW4pCjxuSL6CtAtEAbtzI5Nyx/DZCi5
+	13ZnauMaRZLnE6AgaYwsdc1uWET7nCm0rbYJBX/iTpvvLQKfTP02hNV9W6XJ10nmCBHuAMPQfqQ
+	=
+X-Gm-Gg: AYBFou3QJSPmC5jRtVuDScmyERKeeMfD/oniAJDdlZAGobChmGhtqDmN9AZcXCechLX
+	H1Ybka58MrrjHwqn3P2qPLouqMAO6W36yH97DZQoS1CkZYmQlxISk5TXwIp9NYSsqsP8qn3c5bG
+	tfG8/O2hl1ekdcPtwMzAkdpIQa7ObJaQ9EgF+4E1LGz3QPdhLe4mpS8+L33yo76hx6yytzYHc0z
+	FsMLpRZKpuOMc8Qd89geTihFLElc48Uh5E/8GyfR0PGlTH+rOW3uDGk9IvPeiwolAy6Pl1TNJjf
+	zt/KUxkPA5m4qwnCkpvvr7YSWm1M2UBFOtGbKGEK9NGGKks35f9mZkQTSP9mojv3FO0qayWxYxw
+	QAqWhDF74+5AIT418VaZEULyxM0DTid5iUAXZCUzSU8V51G/dFzD7x0OFboKca8anYpNVOJYmV/
+	gJ8cdmLvTX0qnVgK6VtHlmBqNC/4+2+pIoJFhIhQZSHeY+0flJMTE5BdmNnmfIX0Jww36VXyV3O
+	5as635xjva5vL4AG/jHKETzpdfJKRe8vnixooomdhZ36LqhhV1BQfC1TCayMg==
+X-Received: by 2002:a05:600c:4e53:b0:49e:715e:ec1f with SMTP id 5b1f17b1804b1-49fc5757378mr86320335e9.30.1789845818264;
+        Sat, 19 Sep 2026 12:23:38 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456325esm9213088f8f.15.2026.09.19.12.23.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 12:23:37 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] media: dvb_ca_en50221: bail out of write loop on non-positive fraglen
+Date: Sun, 20 Sep 2026 00:23:29 +0500
+Message-ID: <20260919192329.272325-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+dvb_ca_en50221_io_write() derives fraglen from sl->link_buf_size, a
+value negotiated with the CAM in dvb_ca_en50221_link_init() and only
+ever clamped on the high end against HOST_LINK_BUF_SIZE. The loop
+guards against a negative fraglen (link_buf_size < 2) but not against
+fraglen == 0 (link_buf_size == 2 exactly): "fragpos += fraglen" at the
+bottom of the loop then adds zero, so fragpos never reaches count and
+the write() never returns while a positive count remains to be sent.
 
-Thank you for the patch.
+Treat a non-positive fraglen the same as a negative one and stop
+fragmenting, consistent with how the existing check already handles
+link_buf_size < 2.
 
-On Sat, Sep 19, 2026 at 02:07:07AM +0900, Paul Elder wrote:
-> On some versions of the FCP, such as the one on the X5H, reset control
-> is required to operate the FCP. Add support for handling resets
-> optionally, to continue supporting versions that do not require it.
-> 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/media/dvb-core/dvb_ca_en50221.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
-> Changes in v2:
-> - handle errors
-> ---
->  drivers/media/platform/renesas/rcar-fcp.c | 30 ++++++++++++++++++++++++++++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
-> index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b54ad923748df79f6 100644
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
-> @@ -16,6 +16,7 @@
->  #include <linux/mutex.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
->  #include <linux/slab.h>
->  
->  #include <media/rcar-fcp.h>
-> @@ -29,6 +30,7 @@ struct rcar_fcp_device {
->  	struct list_head list;
->  	struct device *dev;
->  	void __iomem *base;
-> +	struct reset_control *rstc;
->  };
->  
->  static LIST_HEAD(fcp_devices);
-> @@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *pdev)
->  
->  	fcp->dev = &pdev->dev;
->  
-> +	platform_set_drvdata(pdev, fcp);
-> +
->  	fcp->base = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(fcp->base))
->  		return PTR_ERR(fcp->base);
->  
->  	dma_set_max_seg_size(fcp->dev, UINT_MAX);
->  
-> +	fcp->rstc = devm_reset_control_get_optional(&pdev->dev, NULL);
-> +	if (IS_ERR(fcp->rstc))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(fcp->rstc),
-> +				     "failed to get reset control\n");
-> +
->  	pm_runtime_enable(&pdev->dev);
->  
->  	mutex_lock(&fcp_lock);
->  	list_add_tail(&fcp->list, &fcp_devices);
->  	mutex_unlock(&fcp_lock);
->  
-> -	platform_set_drvdata(pdev, fcp);
-> -
->  	return 0;
->  }
->  
-> @@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *pdev)
->  	pm_runtime_disable(&pdev->dev);
->  }
->  
-> +static int fcp_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-> +
-> +	return reset_control_assert(fcp->rstc);
-> +}
-> +
-> +static int fcp_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-> +
-> +	return reset_control_deassert(fcp->rstc);
-> +}
-> +
-> +static const struct dev_pm_ops fcp_pm_ops = {
-> +	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
-> +};
-> +
->  static const struct of_device_id rcar_fcp_of_match[] = {
->  	{ .compatible = "renesas,fcpf" },
->  	{ .compatible = "renesas,fcpv" },
-> @@ -202,6 +227,7 @@ static struct platform_driver rcar_fcp_platform_driver = {
->  	.remove		= rcar_fcp_remove,
->  	.driver		= {
->  		.name	= "rcar-fcp",
-> +		.pm = pm_ptr(&fcp_pm_ops),
->  		.of_match_table = rcar_fcp_of_match,
->  		.suppress_bind_attrs = true,
->  	},
-
+diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
+index 1b91ebb8f667..9131f62c1258 100644
+--- a/drivers/media/dvb-core/dvb_ca_en50221.c
++++ b/drivers/media/dvb-core/dvb_ca_en50221.c
+@@ -1487,7 +1487,7 @@ static ssize_t dvb_ca_en50221_io_write(struct file *file,
+ 	/* fragment the packets & store in the buffer */
+ 	while (fragpos < count) {
+ 		fraglen = sl->link_buf_size - 2;
+-		if (fraglen < 0)
++		if (fraglen <= 0)
+ 			break;
+ 		if (fraglen > HOST_LINK_BUF_SIZE - 2)
+ 			fraglen = HOST_LINK_BUF_SIZE - 2;
 -- 
-Regards,
+2.55.0
 
-Laurent Pinchart
