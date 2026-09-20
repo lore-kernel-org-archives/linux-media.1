@@ -1,102 +1,169 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-wr2-f26.google.com (mail-wr2-f26.google.com [74.125.225.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092383E51D4
-	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 17:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789926965; cv=pass; b=Yjj2f1QUXFgWT0Lijv7myOFTgnqFzGN/10XPiznpgCBZPNR0EDGvJt54rSbfrSdG6mRZwhVS2ts1iJTyENcPxH2R9Y7GOqyiNmg1NmwQSEqU/zYrrJoBV2VlRoVu9wuDTCQ75x/yDm8k0eAwHgfNTMMfMEYG9v0ZTG7UML9jDsU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789926965; c=relaxed/simple;
-	bh=te2L0i5Qwv28wF5BUdZAuZILF/MChhmxu0LZb5TMUeA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=BYiDaWK2UobhhdZ8TgT64vRckyYv0U0DVEuo6T1uCkKD5Td5Q3nTC5MXUcJv5TbXYQTIX51szztgc1v3M1ESN1PcDOwo2oQ5lDYe8AO67Ie5EUZbbECE/GfEA4DIrQEQ0wkbJyr0uu5Y4O8fdmTIBhEpnqtJ7aQLqcDTF2xho1s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edDYWnem; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F915472F71
+	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 19:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.90
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789933609; cv=none; b=c1pGwmkr9thEB9dzkYqN5XVF62ABQts4kx7i9wq57YQl+i2ji59v7yP4L1D8y8MyYAxDWWiFvnhmKCG9UWwomuBn8dai3zmMuJ5xunucy+2D5h2QNL8aOaYSS4Rw6MFE9iVVNbTMmztwKx21bTBXyrN2cV/Yl+2GzcMazZMgEU8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789933609; c=relaxed/simple;
+	bh=NGNvEP6R6v24NUCZuXiZGmdcHRDhU/4UlKpXWm/wUe4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L3g6tZYzyQRBGCJMlkv1n+fKm3CJv4Y2u/oZnj7cfzNJuOqhMmISRPkun6HGbmvwAGERYev8e21cinfuk1zn0sD6pY53RGahtUDEit4Nmt+9xt5FwMQn5SWYxmZiUKdwYLi+LJqsRZs36HdasiT/6uSLSsivrVQRBAJIdvJZNk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gqxqNR8V; arc=none smtp.client-ip=74.125.225.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edDYWnem"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f17450so1888395e87.0
-        for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 10:56:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789926962; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BXXm7WdFoZ8hZ1trvTONBnpJQuNEC5qtL1UrtZ9gcD//IxwkXImijSLw0xQD9OECvq
-         ebu5bpj1hChRUkqzOtecD7eN3ZS4m5azSspIYawrReDtMpMdF2N3X2hSe2dZ4JBL2SHv
-         SCkdGv6bIH5U7tNv2BNQb2AVWBVRlxXN0UNFYULWFu2yKyg0K60dEZOHZ3PxGQGEUEoE
-         7YTV5W9S4frgk/iujFKkSrmPL578tKAy8FJyO1CGlywTIb77UF4QKaEIqFOh4U62EYJL
-         L7cUKPTXDgq2WyGsuC/ce6qtCcgUuWPUBbLSHwUyaGelA+wYU7bpEG6qBFJy7g0pw6XH
-         PjWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=te2L0i5Qwv28wF5BUdZAuZILF/MChhmxu0LZb5TMUeA=;
-        fh=RpYxnnRW5A5FvuL86z7f7YWfE0tvaTrs4Vecbev4fLA=;
-        b=mR0pz91rNxJR2q3djbagRHdEoj9POn85roRDs0f6DlIXzTycrKv0RdReiN/ONfnZLH
-         OMefihrcta4NkN1tN/Cck7/pAncBhik+hDUfOz3eefnzI24HnCOzMJ78ea8XAyrrCiUt
-         s/6VG+D2kxusy6Q1m5eYBv0YqU1Ut/3wB+yNrP4ShvRyz9oQacEaCW7dEV/VNVZuYMJs
-         5yzFGNHfbWnHKt293FtVHP7RZIbBtDrs9clGGUEZJAn2MT0Y+fLx4ZpRr+btGBNYnaNU
-         RwTLkoofkcrPsczdkuqNyhypxCWEvt1sysmUufYgoVH4Ocqo1z3e8PoeHTHEhlCHeOcT
-         EMZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gqxqNR8V"
+Received: by mail-wr2-f26.google.com with SMTP id ffacd0b85a97d-4843f22dc83so1630195f8f.1
+        for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 12:46:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789926962; x=1790531762; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=te2L0i5Qwv28wF5BUdZAuZILF/MChhmxu0LZb5TMUeA=;
-        b=edDYWnemhH6hK0U125h/P8ifNPe2rYMntCc2vIC7Bq8N3FGaEqp26elWUoLQJ5fpiU
-         7MjJGvUrnPLnJmS3kyJ4locP+D4awpH4SYybBc5rCv1ffvz3P+izhTetg+DJWmjxBEs0
-         JSlSNWw2zf9aZ9E0JdrTM2+nY9ZECb6Gd+LEp7asK5KFSh/NscouSTmIftKPylkGsiGA
-         81DvPv4Qkxw29B27giTgrlLaQX2wmGLhOHaNADuIu9FX8SSgpzh4DSjk/dPzcUQhCpiP
-         Ev9/pGFHLBgaxLNxthh9IoMOqh/tIbo+n1UPS5a5tW1teG5D+HMekK4pkqxTrX+6lbsS
-         TZJw==
+        d=baylibre.com; s=google; t=1789933605; x=1790538405; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jNAs3l2moedeez3GaXQjJrBDG6B5wQ5RhmPGIelVwHI=;
+        b=gqxqNR8VphUGFB6SCOTjei30jep3SNAwTv/U11vbdagN7A+UUfmKKTcOXIgL23qMV2
+         tL5l6zuPdAYPrsI85YuBmOVRO4t4MfzdiflWHeMml1LkB9Ks0f5uArslV2EYxkEWkB1e
+         UBsHyCm70K4hNrS97NyIscGs+GPtZxdgNKL4xP7wv+E6Ad7gyujuMzgCxLBQJImzKciJ
+         JfFqKYHWbBee3kg1bIcKkOiL6QWDkPvi6efgfxv3GYnZlyQ7ShHNth4TB3IGS18SwdpC
+         V5+leCX7icQ/8EkAXcZxiPt+/t69a/eRb4J1yKnVEKvyX31k/vmttkfWXGiMsuVb5Sw4
+         iqdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789926962; x=1790531762;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=te2L0i5Qwv28wF5BUdZAuZILF/MChhmxu0LZb5TMUeA=;
-        b=oFr3wxu9fl4ZNeW4A7FWbYAcZOlVdpLX9Fd7cRfhlIuAzAmn4BiHkkkhuXjsKR/OHe
-         0Kb0DafhCIU73Bm5KAciM5IBFZlFnw2OMlD4BLVZ1+0DOV+NPFoEUgnewP+5dizG/qOM
-         JH51eqWrigiXzib0l+ngsKurmiW0ltH25vEsUDDTNXsNVoCKfAL7nOIkyIXMyZq5CruT
-         PY9Aq18rDUZyVFCPtUYq2tnumIXDgPSArWy0AID3V7vL+T/tBzD3n4xnh4figwTYxD4W
-         uT8u5kM2uJwlRz8NVfREomLeq6yal85H/7lUgmiahRv6mngh4yV+u5e0r47bAKehYlo8
-         mEQQ==
-X-Gm-Message-State: AFuF++kOqDDorlFvAsaA2NApIhiN4VxTMkzkjs2JatUulkF3PQu1iC+j
-	XPnRDPm5zeAZ2wxC2wPwbEO87X5Bjf/sba+tI+axLWejh42LAiSSGzAUlOl3rBLCbU7DTqtu28Q
-	hymZL3TsxnOJJ2bR17P1dG6mW/BmNJ39NRx5Z
-X-Gm-Gg: AYBFou2rsYQ+yoUHfYczBlYhLkgy2qCxhIrALs6gGA3gdWvMeHlwMS7vo2WmcX8EQEs
-	CqQWEhcWIxpbYEJXuiDwYyawb/BOnXln0KMilbWRyZa6JrC356/nDzYWpH3S/9059cW3K5wO5GS
-	5wW40Mj7r5+SHjGR4uwudcoJitMQ/lRhU8KSZFiBzcDiI4K6h6T37I5VY5p5VuAw0CXQnbix5A3
-	7IRw35b9s40+//CN6eOWF6cogz3eGmdeeoeZkFM9Mc+bDI1q0PC4U28/ocHHg/e+RQqhNkgFjnw
-	UQd6hpgaf5egrHYyIlBEmTcUT9vzevZljBvaIz/tc2HF4ApfdOhs8j8PMA==
-X-Received: by 2002:a05:6512:31c7:b0:5b6:183c:5c96 with SMTP id
- 2adb3069b0e04-5b8c1859816mr2591649e87.52.1789926961570; Sun, 20 Sep 2026
- 10:56:01 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789933605; x=1790538405;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jNAs3l2moedeez3GaXQjJrBDG6B5wQ5RhmPGIelVwHI=;
+        b=IfMw4IaqopHgEFAgqAXed/3t7NeopOEPxH/IZWHpaK5IrdUd6VHM5R6zzV12bOwFVg
+         Ff5u9mxvhH3cWT5VuO85yTU2p3oFofDSA+TD1Zrt9qZBBxJ0cRvGiHw6tKRdUakxurHN
+         YZPoC5IYlLeZ1VSAeUVZAW8cO9VnqljruG7jiPMGNLEj9d7XREprGFL4Qov6T3tVRCYF
+         neXXUHxIIQKjicDJGPCulzIFnGuTcNgnSuhl9IVCYsWZTG/xPcXMJzapbJ1vN2NkiQqp
+         G+QBTB2nqXYoQUfgi6XKvE3Y5SDsqPjYjAU15IdTiq4JPmoAerBihZXNBPCgQIUBc3fO
+         bTaQ==
+X-Gm-Message-State: AFuF++l6J2W0VBKFwQqCIfz1EU04TAfu64Yuw7lmYv2YmAaLEwZjGm3j
+	ZkxlYXBdb7odO4vGO3HMFCMq135o/gNG7b3w5WgfTr4yCkJs+fvt81xMaxt3czoLzlDp8N3ZWu2
+	Q0weF
+X-Gm-Gg: AYBFou2uyYqg5oeh56Dd9c3coCDubse+9iopUAaNiIEcZjEzRbuZ1xq18DxLTQrvBjP
+	elTRShTL0lXgEzt8zv3Aims/cnI1jBxQyd2suWNy8y5h1HtWNNub3bpfUcf+oTM2J/anDsgAGgj
+	MNLxPx15N07ndXTpqw8PY2d+BU+fCvFwLt+PjAGMnbQx7Hs3bTc88A2TRYwj5veEB0jWTjNLj1U
+	5E7G/K5liTLZdfCFPtz9IFioB2lI4T8lVBTdwmtdwUfn3SsoMBgWZM60Ta4T6wMxWN6hHfwR4yA
+	+R1EG+2wBVA65MHtGtIg+kRKTD2pQe1YOQZ9nrFzUzZgewUgRTgsZsZ6V62ohJLUS+MCk681Kk3
+	RBItW3evOYptLMGeJWb9e6XAVRXYRqcnYxx7I2TnJVTTgPrDkkDaH9dbPPPcQ3iGfj9292ki6+z
+	G7svBTyJr98WqAutOtufLGFkNVt4uty+xd25GUoZFXZEun8z5yttf1gwBM389Rwr1AE75QDSi3n
+	i28
+X-Received: by 2002:a05:6000:40c9:b0:483:3695:6ea6 with SMTP id ffacd0b85a97d-4871e25c7dfmr13023830f8f.20.1789933605511;
+        Sun, 20 Sep 2026 12:46:45 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4872446067asm17286003f8f.12.2026.09.20.12.46.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 12:46:44 -0700 (PDT)
+Date: Sun, 20 Sep 2026 21:46:42 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: linux-media@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Bradford Love <brad@nextdimension.cc>, 
+	Kees Cook <kees@kernel.org>, Deepanshu Kartikey <kartikey406@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
+Message-ID: <arA3TaFiFOx7ubjj@monoceros>
+References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
+ <20260804114625.2314430-4-linkmauve@linkmauve.fr>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAD7dHvAH_G16EqApkkCDkj0uCX=tiqTmA=-OYFe+DoXybSJoPg@mail.gmail.com>
-In-Reply-To: <CAD7dHvAH_G16EqApkkCDkj0uCX=tiqTmA=-OYFe+DoXybSJoPg@mail.gmail.com>
-From: Nathaniel Stenzel <nathanielstenzel@gmail.com>
-Date: Sun, 20 Sep 2026 12:55:50 -0500
-X-Gm-Features: AcwNN1XW669q4Q5CKmL5t0Rji5JctakhU5kA6G1eKHyve6MXX785x5Hso--uIko
-Message-ID: <CAD7dHvDjL3dx+08nyy2zQRscSrJV4NcCvpOaCNGdCjwetHJ9Dg@mail.gmail.com>
-Subject: Re: Hauppauge WinTV-HVR-950 page update
-To: linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dfpnyg4nzvnqoewx"
+Content-Disposition: inline
+In-Reply-To: <20260804114625.2314430-4-linkmauve@linkmauve.fr>
 
-https://www.linuxtv.org/wiki/index.php/Hauppauge_WinTV-HVR-950 has
-some outdated information since the
-http://www.steventoth.net/linux/xc5000/HVR-12x0-14x0-17x0_1_25_25271_WHQL.zip
-file and site no longer exist.
 
-The firmware can be found at
-https://github.com/OpenELEC/dvb-firmware/blob/master/firmware/xc3028-v27.fw
+--dfpnyg4nzvnqoewx
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
+MIME-Version: 1.0
 
-On a side note, if using Linux Mint, DO NOT use the amdgpu-install
-video drivers. Use the Mesa drivers instead.
+Hello,
+
+On Tue, Aug 04, 2026 at 01:46:23PM +0200, Link Mauve wrote:
+> diff --git a/drivers/media/dvb-frontends/ts2020.c b/drivers/media/dvb-fro=
+ntends/ts2020.c
+> index 8775083f4dd6..27f096ce522e 100644
+> --- a/drivers/media/dvb-frontends/ts2020.c
+> +++ b/drivers/media/dvb-frontends/ts2020.c
+> @@ -18,7 +18,6 @@
+>  struct ts2020_priv {
+>  	struct i2c_client *client;
+>  	struct mutex regmap_mutex;
+> -	struct regmap_config regmap_config;
+>  	struct regmap *regmap;
+>  	struct dvb_frontend *fe;
+>  	struct delayed_work stat_work;
+> @@ -559,6 +558,12 @@ static int ts2020_probe(struct i2c_client *client)
+>  	u8 u8tmp;
+>  	unsigned int utmp;
+>  	char *chip_str;
+> +	struct regmap_config regmap_config =3D {
+> +		.reg_bits =3D 8,
+> +		.val_bits =3D 8,
+> +		.lock =3D ts2020_regmap_lock,
+> +		.unlock =3D ts2020_regmap_unlock,
+> +	};
+> =20
+>  	if (!pdata) {
+>  		dev_err(&client->dev, "platform data is mandatory\n");
+> @@ -574,12 +579,8 @@ static int ts2020_probe(struct i2c_client *client)
+> =20
+>  	/* create regmap */
+>  	mutex_init(&dev->regmap_mutex);
+> -	dev->regmap_config.reg_bits =3D 8;
+> -	dev->regmap_config.val_bits =3D 8;
+> -	dev->regmap_config.lock =3D ts2020_regmap_lock;
+> -	dev->regmap_config.unlock =3D ts2020_regmap_unlock;
+> -	dev->regmap_config.lock_arg =3D dev;
+> -	dev->regmap =3D regmap_init_i2c(client, &dev->regmap_config);
+> +	regmap_config.lock_arg =3D dev;
+
+If desired you can keep all the assignments here using:
+
+	regmap_config =3D (typeof(regmap_config)){
+		.reg_bits =3D 8,
+		.val_bits =3D 8,
+		.lock =3D ts2020_regmap_lock,
+		.unlock =3D ts2020_regmap_unlock,
+		.lock_arg =3D dev,
+	};
+
+> +	dev->regmap =3D regmap_init_i2c(client, &regmap_config);
+
+With or without that approach:
+
+Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+
+Best regards
+Uwe
+
+--dfpnyg4nzvnqoewx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqwOCAACgkQj4D7WH0S
+/k5tYwf+NSbNp5/ZckU5Y91RbX8TTRaOOsBcTw4N1MEwf5SUk4jb8JbOev/yP0z4
+p57RfINMjHRzsNEMg2HzJHvjoFzIRMd7LitmUMKzk3ZyOgpZL+5wtXBLnBpQV19z
+JrXU9NqKLxNABi543SvBqu24DjltBlVgzh7O0I3ANVrebReaSt7yBRCSSCk8tqWP
+hKKaUR+u/aab1GNJBG39e7JpDg0koBsC+Eg3gYT5OaL4vXNaawEd9r7D8Yw/zNPH
+IvGVh986h5MHHNJXObv4MWR/Md3tRgoSgOgYmENyFz6xklO6jYMoxThFXPxI+XTG
+SP0q29DLk4dPORySDim+62yqVzBxmg==
+=5lJx
+-----END PGP SIGNATURE-----
+
+--dfpnyg4nzvnqoewx--
