@@ -1,292 +1,207 @@
-Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC3B43D50C
-	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 13:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99B83DEFE7;
+	Sun, 20 Sep 2026 14:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789912244; cv=none; b=QbEGXV261rJwsYJ9mkjdasbsO6OqH6yKTm5IvBjoMWEPqphTRTYO6EWkpFuzjf1Yd0SzCabRTDNg/KZqsRYBc6uB6OdybooppMq7cj9WNMfpzIjj3PRQGO9sqdBIY0mqVW31I6F4W2wf9IXVAXVi0mBxCwCeK7LqArzXs6Yp6Mw=
+	t=1789916306; cv=none; b=nKJVb7uIF7eJXOwn0/oUtG+aplfFPWX9KSaEIzID02RYnER8EllsPg7ErDzP7h1CQuxpi/tIky2T8iotf5teukIJ00fEHHQtA7cr4KVJoZcBu/P5RXOXzF4zfQlKhkoY0plrsgfWFbZ8EjH+QeR7X+V6IbfpXFtvNrPJHwOPfMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789912244; c=relaxed/simple;
-	bh=XSgnM9/tTrs2Fbc7ahvU6+D7SlzrKgvkr5L6sZlWc5A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=gTqJouRdLAswVna9rTGOegfnXjnc8Hz8cScs70tcBXU2krd+zeC74bKLn8bZhWCjmGXEpht/rUjnsjvWBrZL0moq91A9OV+OPjGdsFZH0iD+iIfmKwhePU0lAGs9VSHQpM6PTZSG2MrHMU9Gh4haOw2U8zkWU3y3wFYjN8vHoeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=fc4vjR5w; arc=none smtp.client-ip=91.218.175.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789916306; c=relaxed/simple;
+	bh=NlqPdjwrYm9qeKZ1Y9pedbHnRECF6NwU68PEyypH7XY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=D/GQM1STyCLWEUuuskU2prdPvXXA2MJuXSCPk3AfF8g0U0QU7vGTNt1Bo7wgSYtiiUSiS8MKw54umyIq4fYgAjskE6uWSqx3r/uzF28EQIsY0s3f8Ld4A4q2OPWL6fV1ZPFGxkj6smpF3Zri6hwo7WQVMaEv0cGHI6seo25MDfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enuzATKO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="fc4vjR5w"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XSgnM9/tTrs2Fbc7ahvU6+D7SlzrKgvkr5L6sZlWc5A=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789912239; v=1; x=1790517039;
- b=fc4vjR5wg5xOMN+kAi5TjfEff2ZkbsgLeNIZcPkSBAf94BW7llE/vD/KoIWRBwDQ5tMIZ4H7
- 2fK09OW9xSCdN7ayxIG6CEG1JfTZ6JS7Bo+h4WcLrflXnctUGa+wZ42QLlzlJtbr0D8albxenjL
- 9C61UhzCMs7oavRXvDn2d4dP6oRevSQSdjJdVMps41+BKaEQUOEK31NcK+Dq7vHySOBe0mNcAtN
- +5QyQq1W0pO+UN5GF1vNF4w+rJI/hr5MBTh8+NVt4cUJH8xngARIxEdu5YmJU4mYX21BATZ0gnc
- lTn3p8lNGPrUgEEyKVLC6pgoN6ImqLA5twgP0OQc15HsQ==
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9fed9906a7b4c0cf;
-	Sun, 20 Sep 2026 13:50:25 +0000
-X-Mizu-Trace-ID: 9fed9906a7b4c0cf
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enuzATKO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D9A8EC2BCFA;
+	Sun, 20 Sep 2026 14:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789916305;
+	bh=NlqPdjwrYm9qeKZ1Y9pedbHnRECF6NwU68PEyypH7XY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=enuzATKOXqLSkLC8+94ZeWH59bjNubrH8y99Dk5tXtIpI2xwyIvkwhIHiHGToG0Bx
+	 w48j9YBUWcCnE/lC3hLrISOLRshtOtrqNY2MV6C8O7EHzbCYisbI3Jv1TGuUbyjQ1L
+	 GW1brb8wAEl0wadRBAE3hzPV6uNiet1F5C1fvHCwmbUraIBmtdCpoxzfbllcpQaaTk
+	 spzx/LU+Skvua9TW/aE0LpU5YojWPHT/ChyE5SQRXrFHlxgX0Vq86iWErQfWJZu27u
+	 hP6kEvrKYo69NyqpEzVSVGUMxPPX1RwUFH9c3viA4LLFY7bm8egWPK42HgEogP48I6
+	 npfSGIVGXxkMg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B14AFC982E1;
+	Sun, 20 Sep 2026 14:58:25 +0000 (UTC)
+From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
+Date: Sun, 20 Sep 2026 16:58:24 +0200
+Subject: [PATCH 1/2] dt-bindings: media: i2c: Add Samsung S5K3T2 image
+ sensor
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 15:50:24 +0200
-Message-Id: <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
-To: "Detlev Casanova" <detlev.casanova@collabora.com>, "Tomasz Figa"
- <tfiga@chromium.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Nicolas Dufresne"
- <nicolas.dufresne@collabora.com>, "Benjamin Gaignard"
- <benjamin.gaignard@collabora.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Heiko Stuebner" <heiko@sntech.de>, "Ezequiel
- Garcia" <ezequiel@vanguardiasur.com.ar>
-Cc: <kernel@collabora.com>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 0/4] media: Track v4l2 buffers through an allocator
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-24-g39041fd9f179
-References: <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
-In-Reply-To: <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-upstream-s5k3t2-v1-1-d640740f4013@proton.me>
+References: <20260920-upstream-s5k3t2-v1-0-d640740f4013@proton.me>
+In-Reply-To: <20260920-upstream-s5k3t2-v1-0-d640740f4013@proton.me>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Armandas Kvietkus <armandas.kvietkus@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789916304; l=3990;
+ i=armandas.kvietkus@proton.me; h=from:subject:message-id;
+ bh=TgTul2Laa66jNxvryXNeahFMUK33hJQG1mYYZfYNCUM=;
+ b=bQgodQPp+fDoCdxZRZUpPK8WSYJJCDtOKMBe3Y9A7adf2H3LqLku/kmqW/lBp/S9sq7lQe3dL
+ V+c7Y2Wj7a+DKoqjFNdQ2yicCDeJ0LHDJJ+61hGVnEP3KPODomXbYOY
+X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
+ pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
+X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
+ with auth_id=974
+X-Original-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
+Reply-To: armandas.kvietkus@proton.me
 
-Hi Detlev,
+From: Armandas Kvietkus <armandas.kvietkus@proton.me>
 
-On Wed Sep 16, 2026 at 4:25 PM CEST, Detlev Casanova wrote:
-> Hello,
->
-> Currently, the only way to track buffers allocated by v4l2 from usespace
-> is to use the subsystem available debug information (e.g.:
-> /sys/kernel/debug/dma_buf/bufinfo).
-> But that information is generic and cannot be matched to a v4l2 driver or
-> to a userspace application: It is merely information about the allocation=
-.
->
-> Other types of allocations require the developper to find where they are
-> exposed and how to link them to their test.
->
-> This can become hard to track when mutliple drivers are working at the
-> same time.
->
-> To improve that, add a small wrapper around buffer allocations to keep
-> track of them at the video device level so that we can add debug
-> information to them like a name, userspace pid/fd that did the
-> allocation,... and expose them to userspace via a debugfs entry.
->
-> It currently only supports DMA buffer allocations and adds support for
-> VB2 allocations too.
-> Other kind of memory tracking can be added later.
-> The verisilicon and rkvdec drivers have been ported to use the tracked
-> dma alloactions.
->
-> Note that this depends on the ftrace support patch series[1] that
-> provides fd/pid info in the v4l2_fh struct.
-> That series is a bit old, so this is based on an older linux version, but
-> that only changes things for the last 2 commits.
->
-> A v4l2top utility[2] has been made, to be used in parallel with the
-> fdinfo patch series[3], to show the list of active streams with their HW
-> and memory usage.
->
-> With this, debugfs looks like this when decoding a HEVC 1080p stream with
-> rkvdec on rk3588:
->
->   root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem=20
->   created-by                      fd              pid             size   =
-         label
->   -----------------------------------------------------------------------=
---------------
->   gst-launch-1.0                  7               635             39184  =
-         vdpu381-hevc-priv-tbl
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-7
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-6
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-5
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-4
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-3
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-2
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-1
->   gst-launch-1.0                  7               635             4177920=
-         cap-00000000ac34392e-0
->   gst-launch-1.0                  7               635             3133440=
-         out-000000005c0230f6-1
->   gst-launch-1.0                  7               635             3133440=
-         out-000000005c0230f6-0
->   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->   Total size: 39729424
+The Samsung S5K3T2 is a 20 Mpixel CMOS image sensor. It has four MIPI
+D-PHY lanes and an I2C control bus.
 
-I build a kernel with your 3 patch series and I also build the v4l2top util=
-ity.
-Cool tool :-D=20
-Especially after I found out I should build the 'upstream' branch ;-)
-
-There were a couple of things I noticed:
-1) With 'plain' kernel 7.3-rc3 but also with all my patches included, but
-   excluding the patches from this series, I see this:
-
-```
-root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
-total 0
-drwxr-xr-x 3 root root 0 Sep 20 15:10 fdee0000.hdmi_receiver
-```
-
-Which is presumably the reason that with a kernel which also includes this
-patch series, I get the following kernel error:
-``[   10.849405] debugfs: 'v4l2' already exists in '/'``
-
-I don't think this should generate an error/warning/info message at all,
-but just silently dealt with.
-
-Checking v4l2 debug dir again results in this:
-```
-root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
-total 0
-drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb60000.rga
-drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb80000.rga
-drwxr-xr-x 2 root root 0 Sep 20 15:13 fdc38000.video-codec
-drwxr-xr-x 2 root root 0 Sep 20 15:13 fdee0000.hdmi_receiver
-```
-
-I noticed my video-codec address was slightly different from yours.
-
-Playing a 1080p BBB x264 video with a patched ffmpeg+mpv, results in this:
-```
-root@nanopc-t6-plus:~# cat /sys/kernel/debug/v4l2/fdc38000.video-codec/mem
-created-by                      fd              pid             size       =
-     label
----------------------------------------------------------------------------=
-----------
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-10
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-9
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-8
-mpv                             26              2027            16736      =
-     vdpu381-h264-priv-tbl
-mpv                             26              2027            3133440    =
-     out-0000000079002cb1-3
-mpv                             26              2027            3133440    =
-     out-0000000079002cb1-2
-mpv                             26              2027            3133440    =
-     out-0000000079002cb1-1
-mpv                             26              2027            3133440    =
-     out-0000000079002cb1-0
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-7
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-6
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-5
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-4
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-3
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-2
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-1
-mpv                             26              2027            4177920    =
-     cap-00000000205a3b3a-0
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-Total size: 58507616
-```
-
-And looking at the v4l2top utility, I noticed the following:
-1. I see differing indications of the load while it's playing :-D
-2. The ``Clock rate`` is always 750.0MHz (or 786431991Hz) (expected I think=
-?)
-3. The ``Total Memory`` is always 0B and the ``Memory usage details`` colum=
-n
-   is always empty. That's also the case when I press one of the arrow keys
-   which seems to select the entry. Am I missing sth or doing sth wrong?
-
-Cheers,
-  Diederik
-
-> [1]: https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72a=
-c1@collabora.com/
-> [2]: https://github.com/cazou/v4l2top/tree/upstream
-> [3]: https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf3=
-8e@collabora.com/
->
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> ---
-> Detlev Casanova (4):
->       media: Add a v4l2 memory allocations tracker
->       media: Store v4l2_fh in the vb_queue
->       media: verisilicon: Switch to tracked dma allocations
->       media: rkvdec: Switch to tracked dma allocations
->
->  drivers/media/common/videobuf2/Makefile            |   1 +
->  drivers/media/common/videobuf2/v4l2-allocator.c    | 186 +++++++++++++++=
-++++++
->  .../media/common/videobuf2/videobuf2-dma-contig.c  |  27 ++-
->  .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
->  .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
->  .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
->  .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
->  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
->  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
->  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
->  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
->  drivers/media/platform/verisilicon/hantro.h        |   1 +
->  drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
->  drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
->  drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
->  drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
->  .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
->  drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
->  drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
->  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160 +++++++++++----=
+Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
 ---
->  drivers/media/v4l2-core/v4l2-device.c              |   4 +-
->  include/media/v4l2-allocator.h                     |  26 +++
->  include/media/v4l2-device.h                        |   2 +
->  include/media/videobuf2-core.h                     |   3 +
->  25 files changed, 555 insertions(+), 197 deletions(-)
-> ---
-> base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
-> change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
-> prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
-> prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
-> prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
-> prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
-> prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
-> prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
-> prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
-> prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
-> prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
-> prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
->
-> Best regards,
-> -- =20
-> Detlev Casanova <detlev.casanova@collabora.com>
->
->
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+ .../bindings/media/i2c/samsung,s5k3t2.yaml         | 101 +++++++++++++++++++++
+ MAINTAINERS                                        |   7 ++
+ 2 files changed, 108 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
+new file mode 100644
+index 000000000..83b3d55a8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
+@@ -0,0 +1,101 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3t2.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5K3T2 Image Sensor
++
++description:
++  Samsung S5K3T2 (ISOCELL 3T2) image sensor is a 20MP image sensor.
++  The sensor is controlled over a serial camera control bus protocol,
++  the widest supported output image frame size is 5184x3880 at 15 frames
++  per second, data output format is RAW10 transferred over 4-lane
++  MIPI D-PHY interface.
++
++maintainers:
++  - Armandas Kvietkus <armandas.kvietkus@proton.me>
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5k3t2
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: MCLK supply clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active low GPIO connected to RESET pad of the sensor.
++    maxItems: 1
++
++  vdda-supply:
++    description: Analogue voltage supply, 2.8 volts.
++
++  vddd-supply:
++    description: Digital core voltage supply, 1.05 volts.
++
++  vddio-supply:
++    description: Digital I/O voltage supply, 1.8 volts.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++        required:
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++      #include <dt-bindings/gpio/gpio.h>
++
++      i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          camera@10 {
++              compatible = "samsung,s5k3t2";
++              reg = <0x10>;
++              clocks = <&camera_mclk 0>;
++              assigned-clocks = <&camera_mclk 0>;
++              assigned-clock-rates = <19200000>;
++              reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
++              vdda-supply = <&vreg_2p8>;
++              vddd-supply = <&vreg_1p05>;
++              vddio-supply = <&vreg_1p8>;
++
++              port {
++                  endpoint {
++                      data-lanes = <1 2 3 4>;
++                      link-frequencies = /bits/ 64 <448000000>;
++                      remote-endpoint = <&mipi_csi2_ep>;
++                  };
++              };
++          };
++      };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cc3cae2e3..1924dbd20 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24380,6 +24380,13 @@ T:	git git://linuxtv.org/media_tree.git
+ F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3m5.yaml
+ F:	drivers/media/i2c/s5k3m5.c
+ 
++SAMSUNG S5K3T2 CAMERA DRIVER
++M:	Armandas Kvietkus <armandas.kvietkus@proton.me>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media_tree.git
++F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
++
+ SAMSUNG S5K5BAF CAMERA DRIVER
+ M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
+ M:	Andrzej Hajda <andrzej.hajda@intel.com>
+
+-- 
+2.55.0
 
 
