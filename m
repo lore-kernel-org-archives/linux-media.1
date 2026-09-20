@@ -1,132 +1,134 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AECE2DCBFA
-	for <linux-media@vger.kernel.org>; Sat, 19 Sep 2026 22:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904A12BE034;
+	Sun, 20 Sep 2026 01:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856961; cv=none; b=QcaORv58BCw+1BsgXbFf9f4Hb+k8Tr/apa9ta+lui2v24lRd/PVQsUh3Qgs2arOFOe1mzFSmwE3d+YqYesu5kJbb5MENyEhRC4tY2K+adErnGpLvzQ0KLtjW0QLF6p08JQ3SQ+XjHg+pJUMH7OMpriSb1+YBSe2MBBeFzvHj4Dg=
+	t=1789869576; cv=none; b=rh16uRXPrepYfzr+KWLGA21xfXxxCCbizadzkoiohvTtDOCY4RnT/nitmhWtzBsH3Qpvlrph8tj6mRmaCS0WDczuwODoM+91fE9n4TEpex/y87t4qrIB29zV1zDHLML6XTgz5O0OMk6F97Wta+SGbCUpEHAKrXdDndadjn2QgAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856961; c=relaxed/simple;
-	bh=1WuTr3mQ7SAL2N9vqzDYOn2pSPnN7uGbVTtQyj9otlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I6Ew+Y887ITrTql6w5yeTFL07ZiNbfV2szQRyTDfuQ3FLfU3tN7BVx4ERcGeUNJADhmJ/tb4KTNmAlCiXBcrm7EduUroL2pwEunTyOrqNoNSBBkuBd3i/1MI0Wm2BDCf09tZG4F7mlvKnUdthBCFXa1XWJ7idvOLKTLOQZ2D7FE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=AgjbOGct; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789869576; c=relaxed/simple;
+	bh=NicB8UjZ7AhDGYBH43QmJsxIWbyfXeYVZKDgG/p1crQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bDiB0RMtLcvfxtJG8R1CcJ1TK7IU43QkaA8dmMHPQOD5ghzJWt8lqH+lqqOsCMwkfu/xzY2QNywCggRy21vgoS6VfnyCYeDeDzsKxjDS5Eg5AM2Zx8lVp6AETf8ziflBvcC4CJRf/N2cjTBQ7dL2X4bWtu+5o7xH/EXJeSrDOPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lpuZDrPj; arc=none smtp.client-ip=115.124.28.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AgjbOGct"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 316FCB08;
-	Sun, 20 Sep 2026 00:27:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789856853;
-	bh=1WuTr3mQ7SAL2N9vqzDYOn2pSPnN7uGbVTtQyj9otlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AgjbOGctKVzlEaVT+gNi/wAsgMqbPQhu3WpEXorJ7K6BL3TLCQQGa8/aVBAoMMIeT
-	 5niebO2FCqQ82MzK9Fg7mrePEGmfLLA8trGKxCTZqNPEOG9dy5lmWpbpBsJ6T9e2mA
-	 nf1Iz3m8ChB1WNXaAGmGGq9GlHXbmlHCdywJGtfc=
-Date: Sun, 20 Sep 2026 01:29:15 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-Message-ID: <20260919222915.GB1179126@killaraus.ideasonboard.com>
-References: <UzpC1s2YnBtZIaRCab_Y8AbCecyauDUO4OC7Nhd1-h4TE21aLSghbwDuOKgdwJQugvPMjM4foPHuL-UKnBLD6A==@protonmail.internalid>
- <20260914233810.GA2796257@killaraus.ideasonboard.com>
- <00cc46b2-0729-46d3-8e3b-ea717ec1675e@kernel.org>
- <xkoP0dfwjjBYtv2XeWuIvuqK5HAhjNFHul45Rvx8GUs5XTO3O8Mjnbwn4rV7ToCR6aqLrANyfzmKa7ssGAWk4w==@protonmail.internalid>
- <20260918091806.GE59058@killaraus.ideasonboard.com>
- <cadd6ff4-ec70-4ff9-9125-a0c4342261f6@kernel.org>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lpuZDrPj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789869565; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=vpMbT8vuLVxppBLB/RyFsClpUUZNW5nPrPiRCsBnCvc=;
+	b=lpuZDrPjIUimmNJglBhIyZj4oemUbJj/uuisoQ8Tq+J/8Ivb0hbGqp6LVvh7JVw8mqxxeNI+oTh3tHcBex7jvhKGe6ZaMplL4TGBFyo8BpqTtx9oUrB7ivE08owfMzArxVwW6AiSd4B9Aa4cusI7O4jW/r47Qv0Hw4A/ZnJIuN4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436846|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0311594-0.000396556-0.968444;FP=16490625187164439698|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jHmgDtb_1789869564;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jHmgDtb_1789869564 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 20 Sep 2026 09:59:24 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH v2] media: cobalt: bound the dv timings to the descriptor buffers
+Date: Sun, 20 Sep 2026 09:59:23 +0800
+Message-ID: <20260920015924.750499-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cadd6ff4-ec70-4ff9-9125-a0c4342261f6@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 10:45:00PM +0100, Bryan O'Donoghue wrote:
-> On 18/09/2026 10:18, Laurent Pinchart wrote:
-> >> There are clear benefits to having a loop of NPU/DSP to Offline ISP to
-> >> Display that drm/accel seems to offer some interesting solutions to.
-> > What are those interesting solutions ?
-> 
-> The chain I'm interested in is
-> 
-> Inline - V4L2 streaming
-> -> Produces raw or YUV
-> 
-> CVP (&& ||) NPU - Likely implemented as DRM
+The DMA descriptor buffers are sized from the maximum frame the driver
+supports:
 
-Possibly, but that's bit very relevant from a userspace point of view.
-An NPU will be controlled through a userspace stack, likely involving
-Mesa if the stack is open-source, and exposed through higher-level
-frameworks/APIs (TF, ONNX, ...). The fact that the kernel driver lives
-in DRM won't have any impact.
+        const size_t max_pages_per_line =
+                (COBALT_MAX_WIDTH * COBALT_MAX_BPP) / PAGE_SIZE + 2;
+        const size_t bytes =
+                COBALT_MAX_HEIGHT * max_pages_per_line * 0x20;
 
-> -> Produces motion vectors and/or further warps image
-> 
-> Offline - Sharpens, GTM, TNR (could be DRM, or v4lm2m)
-> -> Produces YUV
-> 
-> Display - DRM
+With COBALT_MAX_WIDTH 1920, COBALT_MAX_HEIGHT 1200 and COBALT_MAX_BPP 3
+that is 115200 bytes, or 3600 descriptors of 0x20 bytes each.
 
-So likely OpenGL or Vulkan, involving wayland or X11. In rare cases
-directly interfacing with KMS for embedded devices.
+cobalt_s_dv_timings() however records whatever the subdevice accepts
+without checking it against those maxima:
 
-> V4L2 owning sensor -> inline engine is already supported and won't 
-> change. For subsequent steps though each stage hands off in-kernel 
-> without having to involve userspace.
+        err = v4l2_subdev_call(s->sd, pad, s_dv_timings, 0, timings);
+        if (!err) {
+                s->timings = *timings;
+                s->width = timings->bt.width;
+                s->height = timings->bt.height;
+                s->stride = timings->bt.width * s->bpp;
+        }
 
-That's fences, isn't it ?
+descriptor_list_create() in cobalt-omnitek.c then walks the whole frame
+and writes one descriptor per scatterlist segment, with no upper bound of
+its own. An HDMI source at 4096x2160 with bpp 3 gives stride 12288 and
+size 26542080, which needs far more than the 3600 descriptors the buffer
+holds, so d[] walks off the end of the coherent allocation.
 
-> Given though it depends if you need user-space to "do stuff" at the 
-> offline stage. If the offline stage has a firmware perhaps user-space 
-> doesn't need to be involved much past setup whereas if that offline 
-> stage has no firmware, then user-space really needs to drive it. The 
-> difference between the OPE on-list right now without a firmware and the 
-> ICP which does have a firmware.
+cobalt_try_fmt_vid_cap() and cobalt_try_fmt_vid_out() already cap width
+and height at 1920x1080, and this patch adds the same bound for the
+timings path plus a stride limit on the pixelformat path.
 
-Cases where userspace wouldn't need to be involved exist, but then
-there's even less userspace involvement than you describe above. The
-firmware would control all the components directly (sensor, inline and
-offline stages), exposing only the end result (possibly with the ability
-to additionally capture raw frames).
+No Fixes tag. The descriptor sizing and s_dv_timings() both come from the
+initial driver, 85756a069c55 ("[media] cobalt: add new driver").
 
-> Taking the example of sharing params and stats between Inline and 
-> Offline - in this case you are constructing a single ISP around two 
-> blocks basically in libcamera, whereas what I've described above 
-> traverses several blocks and isn't really an ISP - the ISP is already @ 
-> stage 1 - you have an additional fully offline block with its own 
-> firmware, sessions and runtime context. Stage 1 and stage 3 don't share 
-> kernel-side stats and params; they have their own isolated contexts, in 
-> contrast to TFE/OPE on Agatti where its integrated and must live in a 
-> dedicated libcamera pipeline.
-> 
-> But because you have a functional ISP @ stage 1 - the question is does 
-> the firmware based offline engine provide better overall system 
-> functionality as a DRM device ...
+Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+---
+v2: declare the local struct cobalt pointer in cobalt_s_dv_timings().
+    The cobalt_info() macro expands to v4l2_info(&cobalt->v4l2_dev, ...),
+    so the function needs a variable of that name, which the previous
+    version was missing. Found by the kernel test robot.
 
-I don't see why that would be the case.
+ drivers/media/pci/cobalt/cobalt-v4l2.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-> Its actually the question I'd like to discuss with colleagues in sunny 
-> Prague :)
-> 
-> So I think the tension comes from wanting to have the DRM scheduler but 
-> acknowledging that it is probably only for some use-cases possible.
-> 
-> You implement the device as a DRM device, you are still free to have a 
-> complex user-space context for that if that is your need - whereas if 
-> you have a use-case which can tolerate non-intervention from user-space, 
-> then the DRM scheduler _is_ what you want for complex hand-off from one 
-> device block to the other.
-
-Not quite. It's a matter of fences.
-
+diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
+index 51fd9576c..8ffee8ed6 100644
+--- a/drivers/media/pci/cobalt/cobalt-v4l2.c
++++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
+@@ -617,6 +617,7 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+ 				    struct v4l2_dv_timings *timings)
+ {
+ 	struct cobalt_stream *s = video_drvdata(file);
++	struct cobalt *cobalt = s->cobalt;
+ 	int err;
+ 
+ 	if (s->input == 1) {
+@@ -630,6 +631,13 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+ 	if (vb2_is_busy(&s->q))
+ 		return -EBUSY;
+ 
++	if (timings->bt.width > COBALT_MAX_WIDTH ||
++	    timings->bt.height > COBALT_MAX_HEIGHT) {
++		cobalt_info("timings %ux%u out of range\n",
++			    timings->bt.width, timings->bt.height);
++		return -EINVAL;
++	}
++
+ 	err = v4l2_subdev_call(s->sd,
+ 			pad, s_dv_timings, 0, timings);
+ 	if (!err) {
+@@ -781,6 +789,14 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
+ 		break;
+ 	}
+ 
++	/*
++	 * The DMA descriptor buffers are sized for at most
++	 * COBALT_MAX_WIDTH x COBALT_MAX_HEIGHT, so limit the line stride
++	 * accordingly.
++	 */
++	if (pix->bytesperline > COBALT_MAX_WIDTH * COBALT_MAX_BPP)
++		pix->bytesperline = COBALT_MAX_WIDTH * COBALT_MAX_BPP;
++
+ 	pix->sizeimage = pix->bytesperline * pix->height;
+ 	pix->field = V4L2_FIELD_NONE;
+ 
 -- 
-Regards,
+2.50.1
 
-Laurent Pinchart
