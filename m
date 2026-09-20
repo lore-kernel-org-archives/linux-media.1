@@ -1,39 +1,62 @@
-Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904A12BE034;
-	Sun, 20 Sep 2026 01:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913B42139C9
+	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 02:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869576; cv=none; b=rh16uRXPrepYfzr+KWLGA21xfXxxCCbizadzkoiohvTtDOCY4RnT/nitmhWtzBsH3Qpvlrph8tj6mRmaCS0WDczuwODoM+91fE9n4TEpex/y87t4qrIB29zV1zDHLML6XTgz5O0OMk6F97Wta+SGbCUpEHAKrXdDndadjn2QgAc=
+	t=1789869837; cv=none; b=Yw0Wume+oqC7t4WmBDMtVGh+M3VNevhbQky2KN7AbgN/y7VkPFPYssusSQal8ukqRfxX1ACApJWmj1KuUo6eEJWC0bqadNWX6l98KiV3nLmHyPgUjDn/dFbUAm4EdDzgQOoOK4MGUGxEoaGes36RRUdpTMC0WK8eM0tkbMH7qBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869576; c=relaxed/simple;
-	bh=NicB8UjZ7AhDGYBH43QmJsxIWbyfXeYVZKDgG/p1crQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bDiB0RMtLcvfxtJG8R1CcJ1TK7IU43QkaA8dmMHPQOD5ghzJWt8lqH+lqqOsCMwkfu/xzY2QNywCggRy21vgoS6VfnyCYeDeDzsKxjDS5Eg5AM2Zx8lVp6AETf8ziflBvcC4CJRf/N2cjTBQ7dL2X4bWtu+5o7xH/EXJeSrDOPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lpuZDrPj; arc=none smtp.client-ip=115.124.28.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789869837; c=relaxed/simple;
+	bh=b4N+XawsZW/9NJUYjuLvRt6+7kazXDkmH5hfSMdqLXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kGTwSl4oGQf7LTAAGMSKyNLsGNKXHwvsBFhd/vaGa9OBlq7QNjTpS9sFccragR4UIhytJHcdsyajBbybetccd2wlqbgvpCsZwE8tq6TXA9ctQhf3ztyTOZIIcxz47QU3ioe6lbVQra0HtmFq9NmNAc6bCHvAs3dx4Y4BS9Albis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ifb7IUsK; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lpuZDrPj"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789869565; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=vpMbT8vuLVxppBLB/RyFsClpUUZNW5nPrPiRCsBnCvc=;
-	b=lpuZDrPjIUimmNJglBhIyZj4oemUbJj/uuisoQ8Tq+J/8Ivb0hbGqp6LVvh7JVw8mqxxeNI+oTh3tHcBex7jvhKGe6ZaMplL4TGBFyo8BpqTtx9oUrB7ivE08owfMzArxVwW6AiSd4B9Aa4cusI7O4jW/r47Qv0Hw4A/ZnJIuN4=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436846|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0311594-0.000396556-0.968444;FP=16490625187164439698|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jHmgDtb_1789869564;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jHmgDtb_1789869564 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 20 Sep 2026 09:59:24 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH v2] media: cobalt: bound the dv timings to the descriptor buffers
-Date: Sun, 20 Sep 2026 09:59:23 +0800
-Message-ID: <20260920015924.750499-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ifb7IUsK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789869836; x=1821405836;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=b4N+XawsZW/9NJUYjuLvRt6+7kazXDkmH5hfSMdqLXk=;
+  b=ifb7IUsK44fHIQxIGVqPLJD7ACPxpid20SPYL73XpCxDua0KydwzrwMo
+   wlOUVioH96ibxrWaQIVR7BlcOty7J70eQEj3LqghuMI0TzoWZ6Rvjxdqe
+   znqGo8XDG+fsUwVLGfGJvkmuVVxJqHJIRMG8tFjOp1EZJkd1WS7A6UMSO
+   4ZbmCQ1UpwoJtat7oZ4IWgVuYVETfaF8RuliFwt+amvhzKIzeC3XK6clH
+   d7AIHNWav0lNT5B3d27aNiGJrC26+67K/+Pm4SjBPbDd+pwVTP3hRUVDb
+   +vuvod+YGxsl/HN+7VCv+2P6pevzTALfryDQYjrQKE73Y8WrwMCy54g6U
+   A==;
+X-CSE-ConnectionGUID: eN0vJJ9ESUaSVeKXLhBk7g==
+X-CSE-MsgGUID: AyhaQbK+S2mUxM3pIixudQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="90509615"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="90509615"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:03:56 -0700
+X-CSE-ConnectionGUID: vOcWsVdZRtqZ0ep9Crlp1g==
+X-CSE-MsgGUID: dC1ImFLwRw2FVhs9YtcaBg==
+X-ExtLoop1: 1
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:03:53 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH 1/1] =?UTF-8?q?media:=20Don't=20hide=20I=C2=B2C=20or=20SPI?= =?UTF-8?q?=20drivers=20by=20default?=
+Date: Sun, 20 Sep 2026 10:03:47 +0800
+Message-ID: <20260920020347.709849-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
+References: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,93 +65,16 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The DMA descriptor buffers are sized from the maximum frame the driver
-supports:
+On Sat, Sep 19, 2026 at 09:10:18AM +0200, Thorsten Leemhuis wrote:
+> Also wondering if the "olddefconfig" case on Arch was tested to ensure
+> we prevent more people running into problems that Junjie's fix linked to
 
-        const size_t max_pages_per_line =
-                (COBALT_MAX_WIDTH * COBALT_MAX_BPP) / PAGE_SIZE + 2;
-        const size_t bytes =
-                COBALT_MAX_HEIGHT * max_pages_per_line * 0x20;
+Ran it: this patch on its base-commit, Arch's
+config.x86_64 (7.2.4.arch1):
 
-With COBALT_MAX_WIDTH 1920, COBALT_MAX_HEIGHT 1200 and COBALT_MAX_BPP 3
-that is 115200 bytes, or 3600 descriptors of 0x20 bytes each.
+  olddefconfig, before: no VIDEO_INTEL_CVS line
+  olddefconfig, after:  # CONFIG_VIDEO_INTEL_CVS is not set
 
-cobalt_s_dv_timings() however records whatever the subdevice accepts
-without checking it against those maxima:
-
-        err = v4l2_subdev_call(s->sd, pad, s_dv_timings, 0, timings);
-        if (!err) {
-                s->timings = *timings;
-                s->width = timings->bt.width;
-                s->height = timings->bt.height;
-                s->stride = timings->bt.width * s->bpp;
-        }
-
-descriptor_list_create() in cobalt-omnitek.c then walks the whole frame
-and writes one descriptor per scatterlist segment, with no upper bound of
-its own. An HDMI source at 4096x2160 with bpp 3 gives stride 12288 and
-size 26542080, which needs far more than the 3600 descriptors the buffer
-holds, so d[] walks off the end of the coherent allocation.
-
-cobalt_try_fmt_vid_cap() and cobalt_try_fmt_vid_out() already cap width
-and height at 1920x1080, and this patch adds the same bound for the
-timings path plus a stride limit on the pixelformat path.
-
-No Fixes tag. The descriptor sizing and s_dv_timings() both come from the
-initial driver, 85756a069c55 ("[media] cobalt: add new driver").
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
-v2: declare the local struct cobalt pointer in cobalt_s_dv_timings().
-    The cobalt_info() macro expands to v4l2_info(&cobalt->v4l2_dev, ...),
-    so the function needs a variable of that name, which the previous
-    version was missing. Found by the kernel test robot.
-
- drivers/media/pci/cobalt/cobalt-v4l2.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
-index 51fd9576c..8ffee8ed6 100644
---- a/drivers/media/pci/cobalt/cobalt-v4l2.c
-+++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
-@@ -617,6 +617,7 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-+	struct cobalt *cobalt = s->cobalt;
- 	int err;
- 
- 	if (s->input == 1) {
-@@ -630,6 +631,13 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
- 	if (vb2_is_busy(&s->q))
- 		return -EBUSY;
- 
-+	if (timings->bt.width > COBALT_MAX_WIDTH ||
-+	    timings->bt.height > COBALT_MAX_HEIGHT) {
-+		cobalt_info("timings %ux%u out of range\n",
-+			    timings->bt.width, timings->bt.height);
-+		return -EINVAL;
-+	}
-+
- 	err = v4l2_subdev_call(s->sd,
- 			pad, s_dv_timings, 0, timings);
- 	if (!err) {
-@@ -781,6 +789,14 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
- 		break;
- 	}
- 
-+	/*
-+	 * The DMA descriptor buffers are sized for at most
-+	 * COBALT_MAX_WIDTH x COBALT_MAX_HEIGHT, so limit the line stride
-+	 * accordingly.
-+	 */
-+	if (pix->bytesperline > COBALT_MAX_WIDTH * COBALT_MAX_BPP)
-+		pix->bytesperline = COBALT_MAX_WIDTH * COBALT_MAX_BPP;
-+
- 	pix->sizeimage = pix->bytesperline * pix->height;
- 	pix->field = V4L2_FIELD_NONE;
- 
--- 
-2.50.1
-
+The option has no default, so olddefconfig leaves it
+off. With the patch, oldconfig prompts for it as (NEW)
+and listnewconfig lists it.
