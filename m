@@ -1,121 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF61C42E401;
-	Sun, 20 Sep 2026 11:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BD144064A
+	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 13:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904577; cv=none; b=D25FMImkP2QeSMAMFIC2/RlO3LSXIKUrdydFQ/ULGc7hmy9gElzZ3TE5Pr56k8kVvcHipWBc2Hti70rhdHDbUbm+Z7xLjMowbhMKXAzYBU7VyLYr9qsnJ1cNVsGZ2fy4WUqaeMt1CmPn/UB0x7oZCWSzrtLa1MMDaf3Isbz1/Ac=
+	t=1789909716; cv=none; b=P7MiqGyOyUkqpxqH2ot/jIwmMBWGP+/Sx1eLoweah56SeAY+AxzYz9f+023zff9YJP2asEWPdEDFNVDnypHh6WK3qFbHofV99OqXNSpOJiIr3A7iG1WhrAzPYdZ3tfxWKeWKzkmFM/6kzD2r/vTieFKb8KGXIG1BSSmh9jfAg2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904577; c=relaxed/simple;
-	bh=riGlHG++DL8f0DnvaJ2KRuj/96+VOlrVeHQ7nm4g8CI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Lin2sbAfTYSzb8Y6/dtiEHE0RXTnvKNs7TtI2t4RpcWXaGADw9vQC/g2fCZF4K+OdwDlGjrMG21aAgyZPOSYN9g6g0qkEwJlsJlI7YyAgZv7yIdlmO3E++5MZ12CfmATEjYhNBj9Ac9tp4WQyiJ+nIslX9KZcxKmRNIrtJIyqEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoGh9Arc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789909716; c=relaxed/simple;
+	bh=ZIXgHM7PiqRYHQkQOzZqHLX9M4bZPIUL90nLso2dV24=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gwhym1Ynn1Keh1pLzpHR9ezUv78B8Z4Ay6rrufEtU1LkDRngJoH7ifPF3RiPGFQfYGDO7j1qJm4qby/54KNCHYQ1aTq3TRMsNSmE4g2IVZJdWiAG4/UPOQguzOx32fZOlkwlzmS1fvwOo4QAeix/LGLb0F2IhHk3BLOXa/kWvLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IQowgj2S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UHq8fa8P; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoGh9Arc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CB01F00893;
-	Sun, 20 Sep 2026 11:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789904575;
-	bh=s9hM+k8hMa1R4u6jdfPzKiE4L3rfw69xZAFpd6/U+Zg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PoGh9ArcYHh6zXNr/LygdppEE41Db17kxr5t8DdpKSiAmGcvrNfiIokCmXawiSfgM
-	 Hku+cxQAisaRVymDGpXIo3meEk+bOR2g+Y8aLtNmYxus8IwnLKNDcdCfeOGfpUAhKb
-	 qg3DXxavmZka1Wpk5hk3AzrKJd30UoX4QkJZaYjeiG7YyoC73R736Zf+VPco5sxyqZ
-	 7yyzoTpNQaSFpcz9B8xtmt4zInIak96Jr+dPLsMf3PpVjYkdKBLbKPlS/ZSi2KdJmB
-	 QwQiMhcXSYtwK3//ZBexba+fRUsUAsieD8tve6cl17Yql9bVvOorZZC4N0wazzUl1c
-	 b1Nj4vFiXfdmQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [PATCH v7 18/19] RDMA/uverbs: Hand out the P2PDMA provider behind a dma-buf
-Date: Sun, 20 Sep 2026 14:41:30 +0300
-Message-ID: <20260920-fix-p2p-acs-v4-0-v7-18-ca0828ab697c@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IQowgj2S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UHq8fa8P"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68KBqB4f979449
+	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 13:08:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=+fWQ93GWSWlpqI9jaUvjBtkH
+	zf6rpJ3Yfwxd9B7T2oU=; b=IQowgj2SLqfFWsacIlxcY0XUvAq/uKUiH/jFfU8d
+	BUZb+3AVcMyKBHGvPBKcdlT5uF08XadbMbwHpoo/RJIDMq7G195IJjhSDemAY/m+
+	xrJXJlDefKRjTbp6JOuonrSK5C6oyCcusOGPoS6hs+uz0Km7WkDGtzTLWvWkmuGr
+	6jVKlUgwC/SJ0aGi/slNmoLdBHp9SYp03Fm6gWSKdnAsWr68VsOtX3Vwj4t43NZW
+	HFPEb6yRzbp5r7YYOCLyylki4/Dykx/j+gA0/0mgRuW3z+9S1JckLeG7npnr/Ssk
+	qfhc8s7Di+WM0VLH4TL8PKeYCbcHdtUu9y6G+nC+iShj3g==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gskjk2wgr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 13:08:32 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b6416441eso3771319a91.1
+        for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 06:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789909712; x=1790514512; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+fWQ93GWSWlpqI9jaUvjBtkHzf6rpJ3Yfwxd9B7T2oU=;
+        b=UHq8fa8Pz0XL4Ykv2Pk142BeTpYyrSvZIolyH7W+bcIb7JW5+b9e6HwPhROzIsnUTg
+         7H9Colaw1qxpHIlr1F5fcOilo3Vhap5tjYUoV4Ujwwt5hhkPZ154qVecHHcja9ptDVA5
+         FUcDGLXBYu9yRhSj1vpPB/qSDbCZCto7Dd2yLPq1j77vXsIU4iaJiTkDNSjxU+FZvfdu
+         JMkQQ0g0xFipGD1IFt7AarcafxZ9HCSkQYjgfL2HbKiOBeilO21KP4/R4Unwda1lAXu8
+         3P4REj2IZfrVvYj/ZgzRAg7ivjhrDB3Ym99mU7FUr7jLInuhxnp/kXZvV5bQg1GIxCrz
+         VHng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789909712; x=1790514512;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+fWQ93GWSWlpqI9jaUvjBtkHzf6rpJ3Yfwxd9B7T2oU=;
+        b=cUXWozsEdmBjePg6fcsgaOV2J8QgiFFimFnxk9yER04hXrcUbEQrO1L8gfgdSn8eRH
+         EqfzvdbVEAVaUCkj+EKK4NYX/dXOoBGF5L+J3w50t1ANJTxSwxGctEhxWxkUuesjEeIU
+         cf5GnU+m2MDpy0Gk7aYnoQABpoKS20HADLr6+7ziolvzHhCzwdfiZnG+ZQztuMTiY/Kh
+         z1BR63FL8TYk1pCgpMZsp8CVrW+DNYXmT8USoUXzBjaPulTTAZ4B0GRaGsCLm4dKXrZJ
+         nHGnNA58IRsvLsL2pwX6lckhhAFKn8uF4MuNlFdPu+Nq1DgFTET1MM0TBa760V2FRTab
+         2gMg==
+X-Forwarded-Encrypted: i=1; AKwUvByKJy3BwR8llZplSNYtv8/DXM7s+B4GKAlCTM8U6OpfD8bgxp1Suj9yGZBkMA9MnlDwIjcdMc6TKMTqCg==@vger.kernel.org
+X-Gm-Message-State: AFuF++k0RpXmz2+8M8DYIFa/nw8ryi6CJP52Ywt3H7B3tbziVxx1FVfH
+	cm0sthMYSHpcNKLwniMWiqaDxmM1mJy1blRJQoQ7fG9QrVnyPDeDuVxYf3zZ/vjHMA2CF0DClCf
+	jsBcMW6JGFH3zdOOJ6A5sozBRZp1DLzXug8tmoh4yZQv2bq9iTiO/A2zSJDUABo9USQ==
+X-Gm-Gg: AYBFou05xHg0ibaoy2FDJWEw6FQCeL9vmXlPDFmktGjo2+ptiJaJoDqhB0+w3eLWuz4
+	UuPNrgEZWdhe4R808dzryi5edVUrFgJk4KeUd6uVGQAJth+EvKoOG0Q4HGeZ9FRdwZYiQgqScUY
+	iA1iNWPYRxFPbWeBRw/X78oM/1WKxbXDRgVAsBhf8SlgrUk38Mi6da5+5CQ3Fw0ASl0y0us/8cT
+	zhLr1gUPh+w52tNRxTuEQ61Pxmj76KpS6bt3RBbof8vUEYbwFbv6tynG2PSffjhO6wf1WB673Km
+	/RfNAAtVGBHv/+LkblkeYVAwKErQO4UlmpxD/LLDOIlMaTig5FuDJVkT1CuZlC7ABcRkrHeIbAI
+	9Mzc8rjjnwtBUPn64/guiGwnzcoM4FYBfz6vbiGKlhfw=
+X-Received: by 2002:a17:90b:534d:b0:39e:6c68:c77c with SMTP id 98e67ed59e1d1-39e6c68cad0mr6358943a91.50.1789909711614;
+        Sun, 20 Sep 2026 06:08:31 -0700 (PDT)
+X-Received: by 2002:a17:90b:534d:b0:39e:6c68:c77c with SMTP id 98e67ed59e1d1-39e6c68cad0mr6358903a91.50.1789909711121;
+        Sun, 20 Sep 2026 06:08:31 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144e16a7f71sm2602239c88.8.2026.09.20.06.08.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 06:08:30 -0700 (PDT)
+Date: Sun, 20 Sep 2026 21:08:24 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: media: qcom,nord-iris: Add nord video
+ codec
+Message-ID: <aq_ayLVdWc1Mt0Wu@QCOM-aGQu4IUr3Y>
+References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
+ <20260919-nord-iris-v1-1-94428761ec06@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-nord-iris-v1-1-94428761ec06@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=H6JOUOYi c=1 sm=1 tr=0 ts=6aafdad0 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=bt1g-dDAHYZoXwUorAEA:9 a=CjuIK1q_8ugA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDE5MCBTYWx0ZWRfX0KZUVeeXEIg7
+ 110UBc5YB7JaSKZugd6i9M4PrVyYwdIpIghhPPCAzP4zBbw3tIdzpUjBhymujOMDgvlKiFqcY8Y
+ KST43/zbIaRo93rPi5ntNNkIuohiv4ywOvwefMpcJvLHHrropKkapiaoOq/6kbURroAw4cos7ZL
+ aEbYB5sTkGaS6B0G3bCG/W3xg1PLByAA61GxT9HEC1K5tuz495MCCERd0C6i5MOJM45a0U703rJ
+ Q764THmVeOWuA3Enb7tfYSJEWcIKLeODUT6SDxvacyz9j2jfE5hIPvJaoq8lMHS+q7jTSxxni/m
+ FU57WZht73FZEp1UsSiefp8kJT1z9828T7tRbwpA6mW6u06kLMRj5N+vEvHfXwRyYJQflCaLwuc
+ g3w645vadCKCzX3x4JJiuH3/aqsWY2g/yuBVGs3l3qM/sQUOF/l0yseBWmJzGs2BLSNQDzvKPp8
+ 1tPIpFZjL6Pl8IkKXGA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDE5MCBTYWx0ZWRfX1QNKE+bz+CD2
+ BZ1nt9VL++4RFIBNCApjuSWENLEgi2VR4JTnt96ZlhFMwQy3LGSr1iurtbgx3w9n1Z44tNTgXXJ
+ BkDfynVbvcKfntl3PyWL3ZnkPzCU2dM=
+X-Proofpoint-ORIG-GUID: 7HSa1WP0U-DPGI-PFgdXR8znRu2ZxpQW
+X-Proofpoint-GUID: 7HSa1WP0U-DPGI-PFgdXR8znRu2ZxpQW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-20_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200190
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Sat, Sep 19, 2026 at 10:14:55AM +0530, Vishnu Reddy wrote:
+> The nord platform uses the same dual-core iris video codec hardware as
+> glymur, with matching clocks and power domains. Add a qcom,nord-iris
+> compatible string that falls back to qcom,glymur-iris, allowing nord to
+> reuse the existing glymur iris devicetree schema.
+> 
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> index de4792f3b658..558b85ef9ea0 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> @@ -15,7 +15,11 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,glymur-iris
+> +    oneOf:
+> +      - items:
+> +          - const: qcom,nord-iris
+> +          - const: qcom,glymur-iris
+> +      - const: qcom,glymur-iris
 
-An importer attached to a uverbs dma-buf cannot tell whether its
-peer-to-peer traffic would reach the exported memory directly, because the
-&struct p2pdma_provider describing it stays in ib_uverbs_dmabuf_file.
+It might be a problem of prerequisite change instead of this patch
+itself. But I'm seeing a CHECK_DTBS issue here.
 
-Implement @p2pdma_provider so dma_buf_p2pdma_map_type() can reach it, and
-refuse once the buffer is revoked and the memory it described is gone.
+Documentation/devicetree/bindings/media/qcom,venus-common.yaml: iommu-ranges: missing type definition
+  DTC [C] arch/arm64/boot/dts/qcom/nord-ride-embedded.dtb
+out/arch/arm64/boot/dts/qcom/nord-ride-embedded.dtb: video-codec@aa00000 (qcom,nord-iris): non-pixel:iommu-ranges: [629145600, 3663724544] is too long
+        from schema $id: http://devicetree.org/schemas/media/qcom,glymur-iris.yaml
+out/arch/arm64/boot/dts/qcom/nord-ride-embedded.dtb: video-codec@aa00000 (qcom,nord-iris): Unevaluated properties are not allowed ('#address-cells', '#size-cells', 'dma-ranges', 'firmware-name', 'interrupts', 'memory-region', 'pixel', 'reg' were unexpected)
+        from schema $id: http://devicetree.org/schemas/media/qcom,glymur-iris.yaml
 
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/infiniband/core/uverbs_std_types_dmabuf.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Shawn
 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index 2411ebee69e2..5a6a1ee430a7 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -76,6 +76,17 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	uverbs_uobject_release(&priv->uobj);
- }
- 
-+static struct p2pdma_provider *
-+uverbs_dmabuf_provider(struct dma_buf *dmabuf)
-+{
-+	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
-+
-+	if (priv->revoked)
-+		return NULL;
-+
-+	return priv->provider;
-+}
-+
- static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.attach = uverbs_dmabuf_attach,
- 	.map_dma_buf = uverbs_dmabuf_map,
-@@ -83,6 +94,7 @@ static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.pin = uverbs_dmabuf_pin,
- 	.unpin = uverbs_dmabuf_unpin,
- 	.release = uverbs_dmabuf_release,
-+	.p2pdma_provider = uverbs_dmabuf_provider,
- };
- 
- static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
-
--- 
-2.55.0
-
+>  
+>    clocks:
+>      maxItems: 9
+> 
+> -- 
+> 2.34.1
+> 
+> 
