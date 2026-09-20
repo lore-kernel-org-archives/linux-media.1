@@ -1,102 +1,48 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from outbound.st.icloud.com (st-2003a-snip4-11.eps.apple.com [57.103.77.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D553DDDD2
-	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 07:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6112A3E2ACA
+	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 07:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.77.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789888778; cv=none; b=You3AOnFmeu6LfXh60Rm9UdP0woTJP656QTN+o60yV+l0dEUNyY0QM16kVND2sB1SuYGfY6mqE7M/2f33ZeaM4P6Sjk+gZoJy4TFjkBGsZQbpF0B6QI5SYAE3E8IySewnLRwO2T1dZqRY/Sv/RgPRIwD35/ydOTG1dv8VBpZDas=
+	t=1789890832; cv=none; b=rnDFYoydyvzWUfGDkUQ1J1mZUyN/HgjJbVxjrgEdedxqq26q5pzjad2vVl1jnkRSkIbK9ErIE5rheqLNVk/8Hvfq07DFOFUaqGBAN4ZNjxAu/WD0xVKofHlHTwUhZRoyQXY+WnvTdp6tjY4S3NyhMXKNIMrSY3MLkZtogvewdRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789888778; c=relaxed/simple;
-	bh=1AHr/cZDLYgzWqzLtsRYID/EwEqOKpAqpoxbl9StNXQ=;
+	s=arc-20240116; t=1789890832; c=relaxed/simple;
+	bh=5cEPnyU75Ah5V+nfOTE9fMSfyh2Z4xhjWLVmWJVBdBE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tqSQ+lhN6UqCCAw30hKtppaoCz6aGEI/2Qf6LDqtSlpMjG1K+vT6FeRtwWAkczty3izWBB2X5UvBrYM3ICxBIzp+WElk55Apek4+ZRjeXNsXXvxzHxzNRXBTtvEehYFQ8JCFH8xv0lCi/tZFp6233vlXIJbDmJ5YpaMDrHc3TRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hxq6XZli; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K3nzGc0y; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=GiRIoE+6IO4ZoX95rb/gijEocUtyRL2QSS4lr1xtbSQ4Ert3Q8FXVcqLdnKVJrX468s9L7ws3S6FBofq3aRjbdVnhYeb5uZlA5d8mI+nr8Dnl9EMiyTqrj6aJ2UOG9BxWadL4/OUNnF8KFw4W4SnfvLWdktQSc/Ax92bhdXP4XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=QCFVtEG1; arc=none smtp.client-ip=57.103.77.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hxq6XZli";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K3nzGc0y"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K5519Y1476041
-	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 07:19:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=X6Czf91RlGu4QgdZcqEUbxtU
-	bWcfp1ToKAncC62o/K8=; b=Hxq6XZliJ05+3Kc8PEG2G7SFpszYPuZR+EoPbpQz
-	3nvFbt53Noz8RYQf6fZ7aNXJJ/VGTXlma9j6ho2u/t/HSd/PteE4U0Q1wxUw4i3x
-	K3XxcrQgNTgBbiiw7HZgubolBuu+n105aK/xsddb/NRjOjszd86uUP6Yygq0NoI+
-	L8iVJgnegtMFqy9qkvww8l7YXLzRqYrB7wc7++tetJekgcn6rlc2B3gAkf6zP3e7
-	Yasyp3Y3PxvbYSptiBJEWy4qtOGwF3sXcMwpl62hUmvB9pV//i3gfy28rQVvt8G+
-	nZFCLS5Srge5og1vREgulrXIcAPY1GAZiYUucsSddqWxiA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gsfrntu8p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 07:19:34 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso2876428a12.0
-        for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 00:19:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789888773; x=1790493573; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X6Czf91RlGu4QgdZcqEUbxtUbWcfp1ToKAncC62o/K8=;
-        b=K3nzGc0yLEjICeDODEH2fWJKPVZRqQJqY+JfDh33SHPuNIGN1KugfWex1LlLReMrFH
-         axpjQ//cg94e+c8QjD9oqaHQFT0Rm40Rh0KYIG5COiCbEFktKYm+fqgU3PE37xIWnLFO
-         E9TBoKb68aLt/rsyr/0s1HxnGRlo6kQZxT/cEcrSl8vi5aCZ6cMgRxmo9y9ClOGG5Gbi
-         5jHHwzwNisUT+SU0tC1WEphLgriMEShVhNG/9i7JubkwA95cHAlAjoNJ/Mw8G2rSaG+6
-         v8INNWF3ScPLQIx1T4yJz46DbEBmQAFviBZSwD/88FLKMmAG9OzQo9zSpWBC5qEfvlqC
-         EPZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789888773; x=1790493573;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X6Czf91RlGu4QgdZcqEUbxtUbWcfp1ToKAncC62o/K8=;
-        b=ipR0tOIGr4VlucPkNjgLeiRcWDbOjjs+E2uV0C/TkfJFyONCui0/dTNosvnlFa4Cf2
-         XDHgqUNaCkqeRWV62m3FadtnbCom8CQrGOwqImma660/rN66mavkQJCm01mQyWWJwJJP
-         WKsfYo26/CHW8Pw2k3GHgzHOrb3XhYIXpAmujxKDdp4fe/9Gv0aCevLA3gcPqaX0vxx+
-         CnZ4RWYyefgF4ihCzodyjbpxpYm+y75g0kGhZ295PS4a/qosPox3Q6HvqwkWDO6gKg9O
-         a/O8qvYJnaWEnIbN+AIEJMgZ/pu+5c3BBPRXBXI4ZzI6NJ7tpRgDjdJYij+uCkNcybdj
-         CP6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxxyRVBix+xg8cf1whtR4dqCu0tTjZ5PhsFNM9+esBFASp4BThx6CXMpdDFJubgTBKpAneqX9Z/AQ1ckQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++kardevOhmkij0+EVAJ82ti+RhrVEhaFaPGFu4TUFxrnndaq2CR
-	ayceDYkz+ImUWUOpxerbUUJT6eJmsiLvR+pudLx3iGA7Z/bERxs+VMt8akPL3BnL74cvuwQ4VQF
-	mlCTqZC5Z8Zv2uj2bb7n8nspwnYUvJT9mFQXhIrs7AugjLnhnBjdisI9YFadWNrumsw==
-X-Gm-Gg: AYBFou3Ux6p5IQLolJay1nI1908CA7Oar2m7KhXSeurYTYpxV8CZ2svJrIb0Qp59FsL
-	o8IlpswRxEDXqh7GmROJSK/i49cHhjPVHBzvLW0kT55L5+pT7AKp77UH7oK/tOEdCDdCnReEDLz
-	ntUPEDaXosewrsgZIGptumgbZ9lqfaPFb5ItCnObB8ygDrfKR1x9CIsaJ+e0x6uVls/E/It79Yb
-	6iHHkWw2eIjiZP778ksodhL4hUnbMmuKqB1aDzAuWNwLHRcY0ucuMAd9sPoQEq05dUCjALcbuMs
-	8j5+cBFQztjcfBmqnfNGMv64hseOoE2ASZvauwdfpOMTHKIyGw0l/+9tk42WUxqPNl22c1X2zFC
-	czczRRMw9WH4dbLrTRHD1DU9ulWuDXWgrDg4QPKOdTg==
-X-Received: by 2002:a05:6a21:178a:b0:3dd:85a8:4c58 with SMTP id adf61e73a8af0-3dd8c57a4f5mr11492524637.31.1789888773418;
-        Sun, 20 Sep 2026 00:19:33 -0700 (PDT)
-X-Received: by 2002:a05:6a21:178a:b0:3dd:85a8:4c58 with SMTP id adf61e73a8af0-3dd8c57a4f5mr11492511637.31.1789888772891;
-        Sun, 20 Sep 2026 00:19:32 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55e29absm16867920c88.12.2026.09.20.00.19.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 00:19:32 -0700 (PDT)
-Date: Sun, 20 Sep 2026 15:19:26 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-Subject: Re: [PATCH 3/6] media: qcom: camss: vfe: Add support for VFE gen4
-Message-ID: <aq-I_nDC_ua3elhY@QCOM-aGQu4IUr3Y>
-References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
- <20260915-nord-v1-3-20db41a7f1ff@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="QCFVtEG1"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPS id 437E6180018B;
+	Sun, 20 Sep 2026 07:53:48 +0000 (UTC)
+X-ICL-RepId: 01a0bdce-97ac-79a0-a605-840ad6523340
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJCldTARQqcRh4PEA4bEgEHW84ch0KRhMZThtXTVAbXwJCDw==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789890830; x=1792482830; bh=DXZPtUyU9s9mMrfe78UMcGtXrJp17csOpzh6GOS48Q8=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=QCFVtEG182IXgVBxAKY7nnZCiPlBZRHpplCiaF6ihECKi14jcF0o1m5sCrk2FYwjXQqRn1sTOYU6PwDFHrYzivkaFLkD1w/yx0xzJ20tDTrwApKuoKzrcTsEIFM64AlzqtL+LSCuJXwQO/B/znPpDOC/E1T5tikt1AJNp5Hagx4Bj0eCJTC4nvjK1ziFJU3zaSiVS6HFFPZyBu7ds69JITA0a9DwIDHyrRojCbRl2l7gS18SWcRCYeqCGJatyCf3NSnRPdk+Lg18iGTPc+sZNaDgaB3eJ6oxmxDgaTnOJmJrxm3ciDugM+4lrLHVvrei66u6+ZUSk5T4VHdvDX5rUg==
+Received: from m3 (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPSA id 8602A18000A1;
+	Sun, 20 Sep 2026 07:53:45 +0000 (UTC)
+Date: Sun, 20 Sep 2026 09:53:42 +0200
+From: Sofus Forstreuter <sofus.c@icloud.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 02/14] dt-bindings: media: add apple,avd
+Message-ID: <aq-RBuOWrHU07pXS@m3>
+References: <20260918-avd-v1-0-49977931f455@icloud.com>
+ <20260918-avd-v1-2-49977931f455@icloud.com>
+ <c8d25275-3c45-4e9a-826c-cf856938d60e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -105,63 +51,176 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-nord-v1-3-20db41a7f1ff@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=W9mtxhWk c=1 sm=1 tr=0 ts=6aaf8906 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=l4MyZbu1PlRJkBM_CE0A:9 a=CjuIK1q_8ugA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDEwNCBTYWx0ZWRfX8fEOJI0kWFzs
- YIV3ZBJri3sbrjKeo8t6XoCqLtmNSQfJuun+0Gp5pEH5Qcc3RwbNL75hynk55AeefeZgcnDCo9U
- rCp2gDTA3W+fgxR+/noP3orIWqbGp1Q=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDEwNCBTYWx0ZWRfX5M6XxQw2xXs7
- MK7+ZrTRt7Z16n6ojjUHeII2eui53CiP51cQXjFowuzQwDudCUeevbGzaCtM/elM9PaL1SITEpS
- 1ynRO1+Y/9UGOYQQ6W9RvqvZrZoPCSQddw93mFIt4AihY1OkwdqjXwBbOCz+2sV2dJeeChR8cEq
- LYhKfWG0gb4U8XDMlEIGV3+npBKc0tdgcIb0bhcE9JWVFdBYJOcscg+Mh06f7niktWBLvPZI5EU
- icjamz0JN5bnXBdWEIkvpvJVk3xViwWRwqzU+h5krI4Q3YwJHyHf+5rALigRjaOkvTOGi85avr/
- VYzUfeogpmiKKGTnFibEwR3bOfjKUA9uLeuqVbYK4adEXWY1h/danhRXt5BcIlaPzWMfBjTes68
- s2KRlblj3i/LJD/Z2Ol317HCwrOI4RwtM2fifLsUulkH49bzDoipRiCeIjCvP3aksVjWql1ucc2
- sT8PCWUDBZL56679R3Q==
-X-Proofpoint-ORIG-GUID: 7p088mlQrgpI6T2lFzgWR72TKKYkXb3q
-X-Proofpoint-GUID: 7p088mlQrgpI6T2lFzgWR72TKKYkXb3q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-20_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200104
+In-Reply-To: <c8d25275-3c45-4e9a-826c-cf856938d60e@kernel.org>
+X-Proofpoint-GUID: S6e61XuDsmK33ipxJAJUc3U2l_BzDx8T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDExMiBTYWx0ZWRfX66J5KzOfJs2q
+ 1a8B4E/MxpTpFX277QX4b/b72REyTW3BCVALxCdqtA7uFe8/6nnpXPVDWGcJN1Hq27AI8s7KQ4d
+ XigJEBUxqigohz0HEjMO98zT14nCpx35jdkY+XFMJ4sIiUOdf6VHzTUP14b528zMRkMP+h9TqvK
+ 6KcIw/Vrd1ltAi/g2KTwLufAhGQeUrYeTtD5tHm3pW+R244yvAhBKWClpe0jgzLm+W1EG7AG3zL
+ lL8R9f0HynC8yiNvDlDDSYOSa8XtGS/M1+r/JOM2ckHWxcc+fu7SQzh/ZRLP+O8doyPKHlk9t3c
+ 6UN+z+Vc+GHPyqn6LWcwU5Gisywj9VhOKOtRquKk8qAhH1WI9SUecYhup9KZLE=
+X-Authority-Info-Out: v=2.4 cv=bdRmkePB c=1 sm=1 tr=0 ts=6aaf910d
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
+ a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=gEfo2CItAAAA:8 a=UXIAUNObAAAA:8 a=v3ZZPjhaAAAA:8 a=uNVY81mLXwUjaPPEvSoA:9
+ a=CjuIK1q_8ugA:10 a=sptkURWiP4Gy88Gu7hUp:22 a=a1s67YnXd6TbAZZNj1wK:22
+X-Proofpoint-ORIG-GUID: S6e61XuDsmK33ipxJAJUc3U2l_BzDx8T
+X-JNJ: AAAAAAABh2Ju8KJ8gttMZDPbI8BBILSbRiIsMboAJb0CbhsvCLsTv+PP2ZG7K7lphsDv6u96pQ9fxQj9KeqmYI+KNGwjGDnPxR8ImYypsja/+aL1Yq5gCD1pab6QkLiPb7IMuPGBfC7cJoYqSxigkSv3ixoD7cVw29wB7rwrEKc4physV7n7p92lSKrID1E7wXJi+mI4xZfq7ZyiwMeP4BYYAqsuTEOn5CSZHPuWhVL5WcdFkZgC2jZR4r2YSyeEuWzn/trSRmEbiVhLP0AZ1m02IZf/o89Z60avwzkjsSfzhSlulL+2YWEEsYmj0hy1275qmSxc1K/jotixKi/CuuWbW35H6rfgtd6EEBBtrD2FsLgWdMskd1GTXtCnfxkmSsKDAHLGSejxhVRsfwJqXWRq4ufGD/3Dqz5an1DS7vYVeI5NwjGYYD0ybwnByOIjNHxbsstCJCO03dyo9M1z7ZQ/d0qjAunYBVJDeNc5pdgwREE0RmNxRc295lqOPz/WSZVOVV5Bzcx+yAWqbqtlv+KLpyPsUofhFNfUYpSJ2lmKXOmFEy1g2oiZ3bnxo6frB6Q0TgR/ksSZarDuDwOfbSIjpfO3DBTh1OMO4h8JW8TaoyB/Eu9uTSHJbEdHJcMlVEfI/ZcZWZyRKrACY0iP6Q6Zk2rpNGFqpFZQLsP1/LIZqEzrfW2/C8tMqzC5Bv49DwENK1iArZvQ3Al8b9b9ZvfhhhPD0EhfJKzhIbZhZpQOyjx8+OXSDjBaiYPW1i1GaWHh0OfD3tiqJ0GVx7OjVKyENYcAB4mhAXSy2jcJyoztjJEAtYp4YXW14z4U2jcAsaPgjKZym+A6X1It442CLrFt6RIILydpD5Re95VnX1NqSDBzPgFdcsMxP2/SJZxYciu2cIZ8VQK9v9C4yz8AmnL7KgZ53q/I72hAmPzPuCzsmXeBdq+KpwLCKjuOpkFjqHU+u64aCj0duc6apNSJ7TA42bEPFtC
+ UxmoNV4oh6LtbD2+LeuoxpzS/koLZBKdJ4FL5zap4cOVDP1UkBdE9iU3zluZ0FWWu3kFdYXdFPN9dxMGRy4j6QiUh4bW4ZZuWMzkmmvyzjpeClPAx7UIFuQZGV48pDQzF/Mbs+fV6v4iF6L+0oYfGTFcg8G0G6iO0MacbeceUbhhhHGlh8rzOOdw1MLwkf73+uRuuqC+bAOoRcK1FDztMY91q7nPydNUZ1i3Jw3LKXZVUSkrbcdHzpuepsw7pmsInKEpPfAphuc+0HbPap0Rwy1YAdUBdAlMc3fYfAUXMKdS96TB8Hcnd0wR13GXSJU746A9+EPzG3/Ap+mw17K9MIRIo32IvrFVhHwXRrZGRD7BvuGAnaCDQ9QllDFEhyli2nVPe1zyKJ+EJNIUuMKZG34SBKwhGGdAR0pExIdB4Liv7pMHEJKjiJUE1bg==
 
-On Tue, Sep 15, 2026 at 05:34:13PM +0800, Wenmeng Liu wrote:
-> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> 
-> Add support for the VFE (Video Front End) Gen4 found on Kaanapali SoC.
-> 
-> In the Kaanapali camera subsystem, the front-end blocks are referred to
-> as TFEs (Thin Front Ends). This driver continues to use the VFE naming
-> in some places to preserve consistency with the existing code and avoid
-> unnecessary renaming. Support is currently limited to three output lines,
-> matching the constraints of the CAMSS framework.
-> 
-> Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
-> CSID configuration has completed. In addition, the number of AUP_UPDATE
-> requests must match the number of buffers queued to the write master
-> while it is being enabled.
-> 
-> Although real-time TFE traffic is routed through RT_CAMNOC, both
-> camnoc_rt_axi and camnoc_nrt_axi clocks must be enabled. This ensures
+Hi Krzysztof,
 
-Neither the binding's clock-names nor vfe_res_nord seems to have
-camnoc_nrt_axi.
+Thanks for your review and time!
 
-Shawn
-
-> that the PDX_NOC, which sits downstream of both RT and NRT NOCs, exits
-> reset in a fully idle state.
+On Sat, Sep 19, 2026 at 08:46:31AM +0200, Krzysztof Kozlowski wrote:
+> On 18/09/2026 15:15, Sofus Forstreuter wrote:
+> > Document the Apple Video Decoder. A hardware video decoder present on
+> > Apple hardware.
+> > 
+> > Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
+> > ---
+> >  .../devicetree/bindings/media/apple,avd.yaml       | 112 +++++++++++++++++++++
+> >  MAINTAINERS                                        |   1 +
+> >  2 files changed, 113 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/apple,avd.yaml b/Documentation/devicetree/bindings/media/apple,avd.yaml
+> > new file mode 100644
+> > index 000000000000..34a4129d6a46
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/apple,avd.yaml
+> > @@ -0,0 +1,112 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/apple,avd.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Apple Video Decoder (AVD)
+> > +
+> > +description: |
+> > +  AVD is a stateless video decode IP block present on Apple devices.
+> > +  Notably it includes an ARM Cortex-M3 and associated DMA controller.
+> > +  AVD is capable of decoding H264, H265, VP9 and AV1 on never SoCs.
+> > +
+> > +  The IP does not change much, with changes being mostly the CM3 having more
+> > +  memory and interrupts.
+> > +
+> > +maintainers:
+> > +  - Sofus Forstreuter <sofus.c@icloud.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - enum:
+> > +              - apple,t6030-avd
+> > +              - apple,t6031-avd
+> > +          - const: apple,t8122-avd
+> > +      - enum:
+> > +          - apple,t8103-avd
+> > +          - apple,t8112-avd
+> > +          - apple,t8122-avd
+> > +          - apple,t6000-avd
+> > +          - apple,t6020-avd
+> > +
+> > +  reg:
+> > +    minItems: 4
+> > +    items:
+> > +      - description: Cortex-M3 code (unsigned)
+> > +      - description: Cortex-M3 sram
+> > +      - description: Mailbox
+> > +      - description: Video decode control
+> > +      - description: DMA control
+> > +
+> > +  reg-names:
+> > +    items:
+> > +      - const: code
+> > +      - const: sram
+> > +      - const: mbox
+> > +      - const: ctrl
 > 
-> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> Sashiko comments are valid.
+> 
+
+Ack
+
+> > +
+> > +  iommus:
+> > +    minItems: 1
+> > +    maxItems: 3
+> > +    description: |
+> > +      The block contains 3 iommus, one for decode operations, one the DMA
+> > +      controller can use and the last for decoding drm-protected content.
+> 
+> List the items with description with minItems instead.
+> 
+
+Ack, i will drop the third iommu as its unlikely that will ever be used.
+
+> > +
+> > +  power-domains:
+> > +    maxItems: 1
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    minItems: 2
+> > +    items:
+> > +      - description: mailbox 0
+> > +      - description: mailbox 1
+> > +      - description: mailbox 2
+> > +      - description: mailbox 3
+> > +      - description: flag 0
+> > +      - description: flag 1
+> > +      - description: DMA status
+> > +    description: |
+> > +      Notably there are no decode related interrupts. All decode related
+> > +      interrupts are sent to the CM3.
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - reg-names
+> > +  - iommus
+> > +  - power-domains
+> > +  - resets
+> > +
+> 
+> Why properties are unconstrained per each variant? Why are they flexible?
+> 
+
+There is no reason for this. I will remove the unused interrupts.
+
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/apple-aic.h>
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +
+> > +    soc {
+> > +        #address-cells = <2>;
+> > +        #size-cells = <2>;
+> > +
+> > +        avd: avd@289080000 {
+> 
+> Drop unused label
+> 
+> Node names should be generic. See also an explanation and list of
+> examples (not exhaustive) in DT specification:
+> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+> If you cannot find a name matching your device, please check in kernel
+> sources for similar cases or you can grow the spec (via pull request to
+> DT spec repo).
+> 
+> Don't use custom names, like apple. Codecs are usually video-codecs. Or
+> isp if this is ISP.
+> 
+
+Ack
+
+Best regards,
+Sofus
