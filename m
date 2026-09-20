@@ -1,62 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913B42139C9
-	for <linux-media@vger.kernel.org>; Sun, 20 Sep 2026 02:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA363ACF04;
+	Sun, 20 Sep 2026 03:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869837; cv=none; b=Yw0Wume+oqC7t4WmBDMtVGh+M3VNevhbQky2KN7AbgN/y7VkPFPYssusSQal8ukqRfxX1ACApJWmj1KuUo6eEJWC0bqadNWX6l98KiV3nLmHyPgUjDn/dFbUAm4EdDzgQOoOK4MGUGxEoaGes36RRUdpTMC0WK8eM0tkbMH7qBg=
+	t=1789875624; cv=none; b=I2SWpNrYNag+KDKkaskibfzttNRygXCwR9mlNrnrO+UBHlt9eK7QuElX5WkluqNVD0djQGeYwsCPJNSeKyIM8M15GehRQmLpIfATPe8KaRn2WEDZy5QCpJzTFc1885uo/RchO54uNUwjAOZyHqu5hgYiSwaLYZhhIQTvid+3ZwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869837; c=relaxed/simple;
-	bh=b4N+XawsZW/9NJUYjuLvRt6+7kazXDkmH5hfSMdqLXk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kGTwSl4oGQf7LTAAGMSKyNLsGNKXHwvsBFhd/vaGa9OBlq7QNjTpS9sFccragR4UIhytJHcdsyajBbybetccd2wlqbgvpCsZwE8tq6TXA9ctQhf3ztyTOZIIcxz47QU3ioe6lbVQra0HtmFq9NmNAc6bCHvAs3dx4Y4BS9Albis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ifb7IUsK; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789875624; c=relaxed/simple;
+	bh=sJ8GO7iO32v65BhxKHidpqg4vsjwUSBGRmnVHvyBBoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E6Rp/3w0MHChQeGiAb5v1ddUATD+WiOzUBXfj5uDMOF78523VUCScaaIY0oA+ef29f9t6Bg+csmQzMn9JJ0kjbNtP8E5a00vuM5+nlAdzdRe8aIyrCVdMKR9gIurHclJg1bQvAPpzWNq+9c0RRCDX67Dc2fh8CG8NriXj8oxj+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mAHq7ihv; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ifb7IUsK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789869836; x=1821405836;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=b4N+XawsZW/9NJUYjuLvRt6+7kazXDkmH5hfSMdqLXk=;
-  b=ifb7IUsK44fHIQxIGVqPLJD7ACPxpid20SPYL73XpCxDua0KydwzrwMo
-   wlOUVioH96ibxrWaQIVR7BlcOty7J70eQEj3LqghuMI0TzoWZ6Rvjxdqe
-   znqGo8XDG+fsUwVLGfGJvkmuVVxJqHJIRMG8tFjOp1EZJkd1WS7A6UMSO
-   4ZbmCQ1UpwoJtat7oZ4IWgVuYVETfaF8RuliFwt+amvhzKIzeC3XK6clH
-   d7AIHNWav0lNT5B3d27aNiGJrC26+67K/+Pm4SjBPbDd+pwVTP3hRUVDb
-   +vuvod+YGxsl/HN+7VCv+2P6pevzTALfryDQYjrQKE73Y8WrwMCy54g6U
-   A==;
-X-CSE-ConnectionGUID: eN0vJJ9ESUaSVeKXLhBk7g==
-X-CSE-MsgGUID: AyhaQbK+S2mUxM3pIixudQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="90509615"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="90509615"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:03:56 -0700
-X-CSE-ConnectionGUID: vOcWsVdZRtqZ0ep9Crlp1g==
-X-CSE-MsgGUID: dC1ImFLwRw2FVhs9YtcaBg==
-X-ExtLoop1: 1
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:03:53 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manuel Knitza <manuel.knitza@googlemail.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mAHq7ihv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=eS
+	jqrhAxmhRkD+fLHj9BVqvfyKRvI/XQ1Qo/8Er9tsk=; b=mAHq7ihv7+ATfWGJSd
+	6xCVgDk+gVEU5FIbxIB862RtH0cLoMdu4GbO3ClxSWLs9gegpwWET1uFuwEFbYaG
+	+CJwqBpw0hJBKqHym1niIkgPHKBz9WANbGMZS7RvtSEyX6m4jdlHT50NLpR1Yx6k
+	cwmI9mEMdgSU3N7Z1EFL6TnqM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X+qcVa9qN0J0Bg--.1052S2;
+	Sun, 20 Sep 2026 11:40:12 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: hverkuil@kernel.org
+Cc: mchehab@kernel.org,
 	linux-media@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH 1/1] =?UTF-8?q?media:=20Don't=20hide=20I=C2=B2C=20or=20SPI?= =?UTF-8?q?=20drivers=20by=20default?=
-Date: Sun, 20 Sep 2026 10:03:47 +0800
-Message-ID: <20260920020347.709849-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
-References: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
+	linux-kernel@vger.kernel.org,
+	hverkuil+cisco@kernel.org,
+	hppiscas@163.com
+Subject: [PATCH v2] media: cec: extron: clear response tail before dispatch
+Date: Sun, 20 Sep 2026 11:40:10 +0800
+Message-ID: <20260920034010.15060-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -64,17 +42,54 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X+qcVa9qN0J0Bg--.1052S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1UXr4fWw1xKFWrury8Zrb_yoW8uryfpF
+	Z5W34DK348Crn2k3ykKan5X3W5Xws7XFWUWry3Ga1kur45X3WxuF9akryjga1YyFZ5JFnx
+	Jw1UtFy3uFs5GFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U5739UUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7hwDy2qvVZyVTgAA3t
 
-On Sat, Sep 19, 2026 at 09:10:18AM +0200, Thorsten Leemhuis wrote:
-> Also wondering if the "olddefconfig" case on Arch was tested to ensure
-> we prevent more people running into problems that Junjie's fix linked to
+The serial receive buffer is reused between responses. Terminating a
+short response with one NUL leaves bytes from the previous response
+behind it, while the dispatcher also checks fixed offsets beyond some
+prefixes. Those checks can consume stale tail bytes.
 
-Ran it: this patch on its base-commit, Arch's
-config.x86_64 (7.2.4.arch1):
+Clear up to ten bytes at the end of each completed response, limited by
+the remaining array capacity. This includes the terminator and covers
+the dispatcher's fixed-offset tests without adding a separate length
+condition to every prefix branch.
 
-  olddefconfig, before: no VIDEO_INTEL_CVS line
-  olddefconfig, after:  # CONFIG_VIDEO_INTEL_CVS is not set
+The issue was found by our static-analysis tool.
 
-The option has no default, so olddefconfig leaves it
-off. With the patch, oldconfig prompts for it as (NEW)
-and listnewconfig lists it.
+Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+https://lore.kernel.org/all/20260830130356.159-1-pengpeng@iscas.ac.cn/
+Use the bounded tail clearing suggested by Hans instead of per-prefix
+guards; preserve the existing nonempty-line and receive-buffer limits.
+
+ .../extron-da-hd-4k-plus/extron-da-hd-4k-plus.c    |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+index 3c6ce6f3d93e..1f8ed7ff31e5 100644
+--- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
++++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+@@ -847,7 +847,9 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 			return IRQ_HANDLED;
+ 		memcpy(extron->data, extron->buf, extron->idx);
+ 		extron->len = extron->idx;
+-		extron->data[extron->len] = 0;
++		/* Keep fixed-offset response tests from using stale tail bytes. */
++		memset(extron->data + extron->len, 0,
++		       min_t(size_t, 10, sizeof(extron->data) - extron->len));
+ 		if (debug)
+ 			dev_info(extron->dev, "received %s\n", extron->data);
+ 		extron->idx = 0;
+
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+-- 
+2.50.1 (Apple Git-155)
+
