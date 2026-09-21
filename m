@@ -1,100 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3C332B99F
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 08:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C039345348A
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 08:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978954; cv=none; b=ZF+q/3NJiz2ZgaD7LDh6dZpfUB1HFkZwfeUPT0YCsdziaSV0tsCXtmZiQ/zsYlbVhivCG5v0jKSVPN/QvopJjh2+k8Hh6Vv3FaM8OWXmgQslOba+hWevpFjPtLlw/nLifcbkZFNEPKb2QvjtuASPgBeXq91ZiY2N5FGbz2QjPHc=
+	t=1789979184; cv=none; b=AIQDHRMg5Ntezmb12BpVlAwKAK3Qtha9Dh8jQMyUwbDpWcHbSh8bynYmRu6CqXN9q/ALYw+S8vgAcub2pbSNvMKSE2IyBiitWRvNoPzALPtBKE1C38842cmOa8nosw7ACsWX+FJIa9AJFhkFAywe4CjqWfRRTY/beLyahKE2UuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978954; c=relaxed/simple;
-	bh=py/OqFzZ0bDAm9ZbZXZsm7yrimiSHhSM0G93nxmOReE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JwDC92JA11ogJmR5Otoww394l/y1/Ra0IuBDtjGNF0IyLUsmwtaDhefj9a68DKZenxIoldbCdUvD6R4BhgCiF/iemCBIBgb/8PGY+ZPJmsl/lny2t6Vrb5c/gZZ9M+62CL5Lp/mfNd54Jltmr/CucLnhN06sWa59DBJ05+ZbTFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlSlOAsF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789979184; c=relaxed/simple;
+	bh=wzcmtUfyeEuXc9BS6y2gBpkkwrs5XyOwnK8a1ltB08U=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=cYOcAkRtQBp3O0wzLf5Gw02F62yJ06VCWlJMPpK5m3F/vgjGeDKPq+aoIpzHus1jkMUeIrfVFdQYiZes2Qn3yZYO+YKvbobbTtVB9LcPtReSHoO1gnWhZkSCqVjaSCkCyKe6HP9aVmnwZV4/LOGDfIzWl+aOhuzOjuYM1jcNFPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Wo62Jhse; arc=none smtp.client-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlSlOAsF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8279C1F000FF;
-	Mon, 21 Sep 2026 08:22:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789978953;
-	bh=udOkCa12CkFVhK1oEuS7LvgqHitDqg/oRA1JCIYk0Kg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=UlSlOAsFzcvLcQDIstxCIGpeQS2sHmKL/UaHtJQ0jT38/bwMBulXihuM03T1WeQv1
-	 eTR8XZvGTagUk4pdwN6gwdzKHw/j+NQq2z8bcTQebNx6Kd7wwqzVDcV2VNkmcs6sga
-	 KbnwWY6+xY8KNS+M3ntaaS8qFqbxYHLh/FFoemURfClomug+ZqSeW4+e1ESBI5jDVK
-	 QiSwCPGstiztFW2iTXvU+fVToJQTvPlNxi4dBZsKCQwHeJSjLYL9tEx04fvV0rxy2c
-	 bIqAfhV+8RvCFN2mP0b037t0zPwJZr9DnTcnYHIdDqWI8HM1PzRC52sj6Qu1EqZawh
-	 9fUcKIWnCNhTA==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Cc: laurent.pinchart@ideasonboard.com, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: Re: [PATCH v3 00/29] Rework frame descriptors
-In-Reply-To: <f37bf06a-3563-46fd-b864-b196ffbecc23@ideasonboard.com>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <8733w1nqxr.fsf@kernel.org>
- <f37bf06a-3563-46fd-b864-b196ffbecc23@ideasonboard.com>
-Date: Mon, 21 Sep 2026 10:22:30 +0200
-Message-ID: <xhkdbjyofrp2x.fsf@mkorpers-koolstof.csb>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Wo62Jhse"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789979179; x=1790238379;
+	bh=ete9+J/GkxRQyhzSkSmUxwkpgWOxVOXwPTe0aK7ytNQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Wo62Jhseh/p8wGX/Ta5WAPFyVUxUFB21Yk54oRShovNlDPZjx2UefroVLeciiqYiH
+	 MdSTVknTBlK2hKw5C97v1LZtpO8JbiUF8vxf+iN5HpZcf+cGfAEgCn7RgHTyjx27rr
+	 IM8f4a2uamxFFly4sxuehsvynwSu/IyeOZd1tOE9nygLVYZMahsRobo1mwnN32QTwW
+	 LdpW6VfS749WI9qqrzkBOSOoWnTgo2ocb4jKPflHpvzkFPoasHkoj79TNK2K+rerui
+	 ZZLu7G7+y3lFSUE53orE092GDCy9WuDBdDEkWVVuzyQIvUt3RUIWWy3JowrjsaV24f
+	 IXmXrhyH0AMxg==
+Date: Mon, 21 Sep 2026 08:26:14 +0000
+To: linux-media@vger.kernel.org
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
+Message-ID: <20260921082609.30830-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: eeb5249ba19618b7438e8d3b33b0d35f73af15be
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Tomi,
+The driver programs OV13858_REG_FORMAT1 (0x3820) from its mode tables and
+never exposes the readout direction, so a module mounted rotated cannot be
+corrected.
 
-On Thu, Sep 17, 2026 at 11:04, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor upside
+down, and ipu-bridge now says so - b238116ccd4b ("media: ipu-bridge: Add
+upside-down quirk for Surface Pro 11"). libcamera reads that rotation and
+tries to compensate with sensor flips, finds neither control, and falls
+back to Rot0, so the quirk on its own names a rotation nothing can undo.
 
-> Hi Mattijs, Sakari,
->
-> On 26/08/2026 12:58, Mattijs Korpershoek wrote:
->> Hi Sakari,
->> 
->> Thank you for the series.
->> 
->> On Mon, Aug 24, 2026 at 15:14, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->> 
->>> Hi folks,
->>>
->>> This smallish set makes frame descriptors dynamically allocated and
->>> implements a single-entry frame descriptor based on the device's format,
->>> using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
->>> do not obtain their frame descriptor from upstream are converted. The
->>> helper also obtains a frame descriptor for the desired type (parallel or
->>> CSI-2) and checks there's at least one entry there. These checks are
->>> removed from drivers that currently perform them. (Some drivers also check
->>> there's exactly a single frame descriptor entry but I think in most cases
->>> this check could be loosened. That could be done after this set.)
->>>
->>> More formats can be added to df-to-mbus conversion as needed. These are
->>> meant to be initial formats that are enough for typical raw sensors (and
->>> one RGB format, too).
->>>
->>> In the long run this information should probably reside in sub-device
->>> state. This set however avoids having all receiver drivers to work with
->>> sub-device drivers (~ 100 of such exist) that have a single stream and so
->>> do not implement get_frame_desc() op.
->> 
->> With this series, I could sucessfully run a capture using a TI AM69-SK
->> with the Arducam FPD V3Link[1] using the following device tree overlays:
->>      ti/k3-am68-sk-v3link-fusion.dtbo ti/k3-v3link-imx219-0-0.dtbo
-> I haven't tested, but I'm a bit surprised if it works. The series misses 
-> converting ds90ub960.c, which has custom frame desc code, passing 
-> uninitialized v4l2_mbus_frame_desc to the callee, and never freeing 
-> anything.
->
-> I guess the leak doesn't happen with "normal" number of streams, and the 
-> uninitialized fields don't happen to hit anything.
+ov13b10 has the same two controls, but it is a different part and its bit
+assignments do not carry over. There is no public datasheet for this one,
+so these were found by experiment on a single sample: single bits written
+over i2c mid-stream, each captured frame correlated against the flipped
+baseline. Of every bit in 0x3820 through 0x3823 exactly two move the
+image: 0x3820 BIT(4) set flips vertically, and BIT(3) cleared mirrors
+horizontally. 0x3821, where the mirror sits on several other OmniVision
+parts, has no effect here.
 
-I guess I've been lucky then, in my testing.
-I used a single stream, and captured 10 frames.
+Verified through the controls against a static scene, as correlation with
+the flipped reference and, as a control, with the unflipped one:
 
->
->   Tomi
+  vflip  +0.994 / +0.629    hflip  +0.973 / -0.141    both  +0.975 / -0.178
+
+The mirror bit is active low and every mode table already sets it, so the
+defaults write back what the mode list just wrote.
+__v4l2_ctrl_handler_setup() runs after that list and before MODE_SELECT,
+so the read-modify-write here sees the value the mode just programmed.
+
+The Bayer order at the output does not change with either flip: per-channel
+means over the four states agree to 0.2 counts in 70, and all four frames
+demosaic correctly against one fixed pattern. Unlike imx219 and imx258,
+whose flips select a different media bus code, these controls therefore do
+not need V4L2_CTRL_FLAG_MODIFY_LAYOUT.
+
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+ drivers/media/i2c/ov13858.c | 44 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+
+diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
+index de2b79a9a0..1bf21ffbc7 100644
+--- a/drivers/media/i2c/ov13858.c
++++ b/drivers/media/i2c/ov13858.c
+@@ -76,6 +76,15 @@
+ #define OV13858_DGTL_GAIN_DEFAULT=091024=09/* Default gain =3D 1 X */
+ #define OV13858_DGTL_GAIN_STEP=09=091=09/* Each step =3D 1/1024 */
+=20
++/*
++ * Readout direction. Neither flip changes the Bayer order at the output, =
+so
++ * no window offset compensation is needed. The mirror bit is active low: =
+the
++ * value the mode tables program already has it set.
++ */
++#define OV13858_REG_FORMAT1=09=090x3820
++#define OV13858_FORMAT1_VFLIP=09=09BIT(4)
++#define OV13858_FORMAT1_HFLIP_N=09=09BIT(3)
++
+ /* Test Pattern Control */
+ #define OV13858_REG_TEST_PATTERN=090x4503
+ #define OV13858_TEST_PATTERN_ENABLE=09BIT(7)
+@@ -1042,6 +1051,8 @@ struct ov13858 {
+ =09struct v4l2_ctrl *vblank;
+ =09struct v4l2_ctrl *hblank;
+ =09struct v4l2_ctrl *exposure;
++=09struct v4l2_ctrl *hflip;
++=09struct v4l2_ctrl *vflip;
+=20
+ =09/* Current mode */
+ =09const struct ov13858_mode *cur_mode;
+@@ -1208,6 +1219,30 @@ static int ov13858_enable_test_pattern(struct ov1385=
+8 *ov13858, u32 pattern)
+ =09=09=09=09 OV13858_REG_VALUE_08BIT, val);
+ }
+=20
++static int ov13858_update_flips(struct ov13858 *ov13858)
++{
++=09u32 val;
++=09int ret;
++
++=09ret =3D ov13858_read_reg(ov13858, OV13858_REG_FORMAT1,
++=09=09=09       OV13858_REG_VALUE_08BIT, &val);
++=09if (ret)
++=09=09return ret;
++
++=09if (ov13858->vflip->val)
++=09=09val |=3D OV13858_FORMAT1_VFLIP;
++=09else
++=09=09val &=3D ~OV13858_FORMAT1_VFLIP;
++
++=09if (ov13858->hflip->val)
++=09=09val &=3D ~OV13858_FORMAT1_HFLIP_N;
++=09else
++=09=09val |=3D OV13858_FORMAT1_HFLIP_N;
++
++=09return ov13858_write_reg(ov13858, OV13858_REG_FORMAT1,
++=09=09=09=09 OV13858_REG_VALUE_08BIT, val);
++}
++
+ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ =09struct ov13858 *ov13858 =3D container_of(ctrl->handler,
+@@ -1254,6 +1289,10 @@ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
+ =09=09=09=09=09ov13858->cur_mode->height
+ =09=09=09=09=09  + ctrl->val);
+ =09=09break;
++=09case V4L2_CID_HFLIP:
++=09case V4L2_CID_VFLIP:
++=09=09ret =3D ov13858_update_flips(ov13858);
++=09=09break;
+ =09case V4L2_CID_TEST_PATTERN:
+ =09=09ret =3D ov13858_enable_test_pattern(ov13858, ctrl->val);
+ =09=09break;
+@@ -1619,6 +1658,11 @@ static int ov13858_init_controls(struct ov13858 *ov1=
+3858)
+ =09=09=09  OV13858_DGTL_GAIN_MIN, OV13858_DGTL_GAIN_MAX,
+ =09=09=09  OV13858_DGTL_GAIN_STEP, OV13858_DGTL_GAIN_DEFAULT);
+=20
++=09ov13858->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
++=09=09=09=09=09   V4L2_CID_HFLIP, 0, 1, 1, 0);
++=09ov13858->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
++=09=09=09=09=09   V4L2_CID_VFLIP, 0, 1, 1, 0);
++
+ =09v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov13858_ctrl_ops,
+ =09=09=09=09     V4L2_CID_TEST_PATTERN,
+ =09=09=09=09     ARRAY_SIZE(ov13858_test_pattern_menu) - 1,
+--=20
+2.54.0 (Apple Git-157)
+
+
