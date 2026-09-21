@@ -1,119 +1,143 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83A74F4D00
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 18:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7674FDA6B
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 18:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790013910; cv=none; b=J36Ei7QvKIohxnqKHoxDPrZkkKgwIB/hlbR752v8VcptZXxe6KlkoopLER+WuAhHBm10mfMEAeKQrAPgzLMNqwLhJeziCnrJP0jTAvKwIHbIh7emyJDdwC/ER4S2hc3/X6fkX+X/83/Rp4ycwN9P+mbks8b69dy0XKlchWvSdZQ=
+	t=1790016356; cv=none; b=tWcwr0cK/A3fT0RGGdlvFCJdjq5H3ytQJjmSQhNoR7sE87cj+ytQpBziE11IpzkgKsksVfd+xm06J7qg2TSuJCIrVUR5r6QGX6MB0kEFGW8GoOGsTU5hxClwuQ11WUgr5WWSv8xfFfJnOuiGwqrk20uUJORp6ICWBcs2AwkOphI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790013910; c=relaxed/simple;
-	bh=TtGA8FAwyVtKQU6ihgcUHLNc6TfPrbRYp5zBdV15gjw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=jwQtGiIKdItIr9iE0+FC82T6Ll8E9wPqHmNL6WotkuyY/FX0ocg5nEbIT0YxNdsf3zzE526OjnEKMFKnsMXKqPqKKKc6TPgAO0xwWVvkdnh9FXB7vJze7Y1HqXkYtFVzZwcix8I9NnVQjibs+RHAHy0CUiYzaxlCuhU2VnqYqZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldSc8iWA; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790016356; c=relaxed/simple;
+	bh=mU3SJQj/Ljuf4rusWj3TAk8ojCBaQTagmgHF5316+EQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MyndekmUOkpucdDfEn4lITVPKG6R41B4dJLcM6qvolfen7hmh3V03HuKXjHpSVqqLyY20CqfPpXdirFI+RdrDJqnUBtqYd2l05P43WE3Dzt49yxtUxQhot2SphM7odXqrROhzrBLm/3JJAkh75IialjQTam/SxTN9KlkcGCTNxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Xb47BrxU; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldSc8iWA"
-Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-78565b4db77so1694894137.0
-        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 11:05:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Xb47BrxU"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so2563414f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 11:45:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790013905; x=1790618705; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3q5Pn8PVukD7VgmCNiRaWY+I+xY+HmDF82DkgaI6sqs=;
-        b=ldSc8iWA0jR9mXQ6MkvFRmFVzc94d9Y/4jOcf0KmPtui36ERwQ2k7wwwg7wmSxrdF0
-         gthI3ddsJ19mD8QXe1/sEVq2XIUUEPvxyi4ww66lTIHu7kdGX9TtDG7keOrJRjBJ7W6l
-         6UGOO64XX6uY7hAIhkrI0k3sLbB9jLn1I6N4FzoMcv5MuG+DvAGtNxRF37R5+HJPIWeN
-         1y7GqWEGQoxBVzbhkyNgH+V5Ex4AuocLrRf2B54ywUqr0rUL4J4Hbt0JedY+oneOPnij
-         EBQiILnWEXxZmYLMI9sN34D7Nj88kZ++phy7yMyM1A8OiYnvmHRt73ZQNZRhM0ht83Yc
-         mOwQ==
+        d=baylibre.com; s=google; t=1790016352; x=1790621152; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=STMR9cPkSJS6c7hhUU9aRGO6TIwHhxC6csGMBSs/0OA=;
+        b=Xb47BrxUvpSucOSOwf9eZK1Av+rUwagEHsQk1s0QxGqVImIuipls+pQvlT4MgfJMKC
+         LL37RSXkQ/2lCphsvvWRRDXz+BN6HAr2dldJ9ac6xZ40SW2+HzOx3JjJbkY01GLVhOq+
+         qqLd9M/LQ9qKZcO2qxVq/DgWpUxWRj0ls7EdykXgUpyIIiy3kgfejXeiIF5r9V7oRMqp
+         fDAI+gFa3UsN3JhHSJ+uOapJ/WPDPATn9nbSL7e1/LP+s15q7ope4nZ0N0Fi/lEdGENJ
+         7SRYSQ5wFvQd2fIz0ZpHGpHgez7HJoEOXa7H2ziULm2w2fQDL8ONdKwPtPBUmy0ggaB1
+         lGGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790013905; x=1790618705;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3q5Pn8PVukD7VgmCNiRaWY+I+xY+HmDF82DkgaI6sqs=;
-        b=gUCp8ovEUsxjv4MjHwzV4xNKbvzJUFKkH5gaQewWyQvlh9OMxg/ObJ/w7uTAY1Qq4Q
-         c8F6QWG/7DDQGFM34lwRJxMpbbr4aZxXqG9Gyd7ZAPoBQU+9KL9o5F2g/jzhVS0ivcWT
-         C6rkhWdJ9FOfjauRyPrQVNth2WV2+X0uPFU6CpSQvtdEfTMDH26co6DjtMZWroyk4GxT
-         sUHoiMFhd4xh48ArWw/kFXvsGy2QeD6FV4gW9RUjrbzdt9PuTFGIds7yW7+rY5o2rYGd
-         4SjEOwHfDRi8t/I7g8x10L4dQfvyluMVLHlO/WrktoUzwG9PrLBFqXZOo/nYUbzNUF7X
-         Tg1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwDCy2VA6cfZhoTmL1/ppKpLauDwxtsSwEio1r/PrDYb7iP1yrSFcru+ba9zek08n5R7GyO/sjduajN+A==@vger.kernel.org
-X-Gm-Message-State: AFuF++l5UMAkRpJACv5ct+AVwtqmb1dUrY0hDRPncrnlwUc9wkPDDtCp
-	M7KpeEUHpS/t3o2Wx+Qlhb4Eg+I138cKEapYbya7ddl3CNbJRblhXWGl
-X-Gm-Gg: AYBFou0mQ9tghnqAwz2Cdr7Q19/niwtTiXvXXrwwSFmtI4+dDpKBsZIdRJT0FqDgXjE
-	SoMWQm3cKR4IrQWcoMpfQGhXhdQsXEot/8+gbmyjK0biajUDMkJzAmgLMoePjFHD8agEZ0CPVq1
-	SLzYsFwtvoE8QqLIDZOHIFUF0du3UFto4/d/kiaLYXZ6Kf8ffbC2SD0eE614ap2Y2iXNvg6Nd9E
-	/fiWHD0UA3Y1VVtfPJNwP7s69IYKfjdmHFjM7Ypz/AqYpAGV+XIHW8lgXQbutIYtMqalI7R/3TL
-	LPcT2tRDw2op+Z7+mixKRNRrbfy0gl809LLrebCFLwiHseSh2tz2ETPOI03gArLq3TSfJCgLIi8
-	saKGnHB0NHYgtuxecL+8Nu+RItN73XZfgaTYobvCIyRVhvg4M8CcwLfPFt98JasDGaXyYes+ZaU
-	Pd+7cpcFD4c+I0dpVlUuIRzmLtN+aOoBMgcKrFTw/Hw9QlucTRTiDNSwyr86Giu4FeO7L0/s917
-	R4PHd0qGePJNoA=
-X-Received: by 2002:a05:6102:4192:b0:7a1:f7c3:3a45 with SMTP id ada2fe7eead31-7a55c886d2emr6384562137.18.1790013904968;
-        Mon, 21 Sep 2026 11:05:04 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7aa86b4efefsm736826137.0.2026.09.21.11.05.01
+        d=1e100.net; s=20260707; t=1790016352; x=1790621152;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=STMR9cPkSJS6c7hhUU9aRGO6TIwHhxC6csGMBSs/0OA=;
+        b=yn5+YEqS/JqsQJrh27Rk32gWXLzRub4r2hk5MWPDK3aPnzCTGZWFNINwfG5yCK0BVT
+         +3wqIcjoBqRhwLtPzNlz8pLAooI30JxIopwm50d0xzd7Ku4/+c9KZ3fxH9WjW4Vbz8FQ
+         R1NxAwAQ5TcLH0BpsM05dWXFnoiKwW36KHHuAF3+874BM6yesQSu62qAGcsfwRpvYkIk
+         7EjNNOW4eXZIVk8Cau7LpAL4uST+W6SGoSQO4vKu8VBU98rfKp37L9e+Vc2Qkcu5Wg4M
+         RxoDspwsGMjJpKDq1UIICChIZxTCiIvS/GbUPB9ce3uxChOvxYah9VbX1Acl0MJ5hi+4
+         Jcew==
+X-Gm-Message-State: AFuF++nSvICcqltlW8LiiwyPFY7yZcFQFPPoflPyrlFq8M2Gc5mlClHy
+	o99+leXv8/Bh83ADPNLtAeNcy/KwZTui/KkQswQaDyE+16o/KwbPbCJjPGL2FCJpTMCL7FKTOW3
+	rw3Yd
+X-Gm-Gg: AYBFou3rN1WUaHZW2flcYdai+f7n+yEV5nGWkzTgLtTxz+hc1QlKOwdL9SYEI7r+cuj
+	kHNsWBujJFJvq/LpA0koB/aBJyxqAlckpRux9CVzn3fivsLa1gJVXcr2xF3EipCs13uq/2Oyhl1
+	NdgUzo851ezMy01dl1ziWjxUNBYEYHOsYEBeP9cOvrobWBpOKC6KPdzk9CT6sjNwRnNjy/zoaLE
+	NmCVZhYcxSkog7j3q9LdgFlLSH1FjZ5Opkrfu9eDkhbjRlLKUGjb/H9z4fM7MX5+7rgnDOi6ywx
+	txvfQ45HVL/gC9mFMDJYZeQV/W8I6v6n6Llk6XIn5oBRa8FN8sb6ZF+6qy4spn9oBothdCgwQH8
+	uMVk4VyES/pViIcSsh3LSd/eSFqHiOZRB1C1ZfCgftowMwIDvu9/bbnwjw73XO1cJ1u4AgKQUXu
+	m5aPpQdJpClPgJPL59TpeKdsKUmyb4XE8T4onY/oB7f1sSkwfc+jo15fzHSet11zufEP8m3z7Gm
+	OESFDPGLuYC/QU=
+X-Received: by 2002:a05:600c:8b35:b0:49c:fc6c:be0d with SMTP id 5b1f17b1804b1-49fc573602fmr153846395e9.19.1790016351932;
+        Mon, 21 Sep 2026 11:45:51 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fc585920fsm660931585e9.4.2026.09.21.11.45.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:05:04 -0700 (PDT)
-Date: Mon, 21 Sep 2026 15:04:59 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Steve Longerbeam <slongerbeam@gmail.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Frank Li <Frank.li@oss.nxp.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	leonardo.costa@toradex.com
-Subject: [RFC] media: i2c: ov5640: Implement get_mbus_config
-Message-ID: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
+        Mon, 21 Sep 2026 11:45:50 -0700 (PDT)
+Date: Mon, 21 Sep 2026 20:45:49 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: linux-media@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Bradford Love <brad@nextdimension.cc>, 
+	Kees Cook <kees@kernel.org>, Deepanshu Kartikey <kartikey406@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
+Message-ID: <arF61V7vW3EWZxG8@monoceros>
+References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
+ <20260804114625.2314430-4-linkmauve@linkmauve.fr>
+ <arA3TaFiFOx7ubjj@monoceros>
+ <arFixwvATR2hkp68@desktop>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bnkrf5vqwa353ko3"
 Content-Disposition: inline
+In-Reply-To: <arFixwvATR2hkp68@desktop>
 
-Hi all,
 
-Some time ago, we had sent a patch that implemented the .get_mbus_config
-function for the OV5640 camera. This change was necessary for the camera to
-work with the i.MX6 after the v5.18 release.
+--bnkrf5vqwa353ko3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
+MIME-Version: 1.0
 
-    https://lore.kernel.org/all/20230306063649.7387-1-marcel@ziswiler.com/T/#u
+Hello,
 
-The patch stirred some discussion, since .get_mbus_config wasn't supposed to be
-implemented on drivers that don't have dynamic lane configuration. There were
-proposals of implementing it in other points of the camera pipeline, but no
-conclusion was reached.
+On Mon, Sep 21, 2026 at 07:00:55PM +0200, Link Mauve wrote:
+> On Sun, Sep 20, 2026 at 09:46:42PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> > If desired you can keep all the assignments here using:
+> >=20
+> > 	regmap_config =3D (typeof(regmap_config)){
+> > 		.reg_bits =3D 8,
+> > 		.val_bits =3D 8,
+> > 		.lock =3D ts2020_regmap_lock,
+> > 		.unlock =3D ts2020_regmap_unlock,
+> > 		.lock_arg =3D dev,
+> > 	};
+> >=20
+> > > +	dev->regmap =3D regmap_init_i2c(client, &regmap_config);
+>=20
+> I think I still prefer my approach, there is very little usage of the
+> typeof() pattern in the kernel, the only benefit would be to keep
+> lock_arg in the same location as the rest of the initial values.
 
-We are planning to send the overlays for this camera for the Apalis iMX6, but
-we verified that this patch is still needed for the camera to work on the
-current mainline. Below are the commands to configure the pipeline, which
-explicitly require a .get_mbus_config from the camera driver.
+If it's just the typeof you don't like, you can also use:
 
-    root@apalis-imx6-11367581:~# media-ctl -l "'ov5640 1-003c':0 -> 'imx6-mipi-csi2':0[1]"
-    root@apalis-imx6-11367581:~# media-ctl -l "'imx6-mipi-csi2':2 -> 'ipu1_csi1':0[1]"
-    root@apalis-imx6-11367581:~# media-ctl -l "'ipu1_csi1':2 -> 'ipu1_csi1 capture':0[1]"
-    root@apalis-imx6-11367581:~# media-ctl -V "'ov5640 1-003c':0 [fmt:UYVY8_1X16/1920x1080 field:none]"
-    root@apalis-imx6-11367581:~# media-ctl -V "'imx6-mipi-csi2':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
-    [   47.438237] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
-    [   47.438265] ipu1_csi1: failed to get upstream media bus configuration
-    root@apalis-imx6-11367581:~# media-ctl -V "'ipu1_csi1':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
-    Unable to setup formats: Inappropriate ioctl for device (25)
-    [   62.616177] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
-    [   62.616204] ipu1_csi1: failed to get upstream media bus configuration
+	regmap_config =3D (struct regmap_config){
+		.reg_bits =3D 8,
+		...
+	};
 
-I am not very familiar with this subsystem, and it's been years since this
-discussion took place, so I wanted to know what are your thoughts about this
-patch and what the correct approach would be here. Was there any change that
-would make this patch ok to be applied today? Do you think this still should
-be included somewhere else on the pipeline?
+=F0=9F=A4=B7
 
-Kind regards,
-Leonardo
+Best regards
+Uwe
+
+--bnkrf5vqwa353ko3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxe1IACgkQj4D7WH0S
+/k5gJgf8DOeDLdq5H+KaWBbvCYrLvFFtm262RF24rQw0QA48ypLMv2avfJ+JvYVI
+IILIVFl82+x/PUKioml6DEpGoeRMQkr/BTCeMFOrKUBgxaoUjt5pCrtkelvfwMAu
+gJxqT4sI/68tmGqiQ5ArCaEwPySjnKxDdhEGSBXBhyUmFNgf9BsPeKpPrw6hPL/f
+rQf2SsDlbeNm2FJvGejmwlYuZT/51+/TtQmlzuZbBakKann13BiHs0AbRXPhy9xW
+8qxzD3iIBd6wA9bKY4NNpYL0WCjw1z5z3ZEvD4qwGZ2gDr0vIydPeSmSrhZqGi/f
+6UpNlgAcqxLN7HmTgjuRrJzeXHcaaA==
+=b5nS
+-----END PGP SIGNATURE-----
+
+--bnkrf5vqwa353ko3--
