@@ -1,74 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7F484238;
-	Mon, 21 Sep 2026 11:29:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFADE346E74;
+	Mon, 21 Sep 2026 11:33:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990157; cv=none; b=Ts3r1L8eVO81Tn1hrFJ5xkc5v7xfp9oZ/KUY622GbDvbY/DBHteessNHqy+/HpxRgGqEV96x9qyFFngO9ZcPZFr9swDOvj3CjUQ9Z2QiKb+6mHcgg0Wk6jp1SF/DygKRk2tu4tIcTWRvh5K8p6GEvCYQiD2ISqBijz0loAXVGMM=
+	t=1789990438; cv=none; b=lYqk2hUXOaAP+GJIIl6msViXK+7sb2sPSfS59G6/238in+1TJn4yGYM9CFflCt2s92NAI+N/5gKh/TuvXp7D/mMmi2HjrnLG2j2/KTdlZgvbEu5bWSnYAPn37Cpu2ggp4NP8Z8+VMpRsE22Ql1/cjpgOwEp60xgFHd0HAppECDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990157; c=relaxed/simple;
-	bh=2LOrNaGQ5mj1zA9I9cLkssiYpHQbuUlvMHtAVgfZL7o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MebAw2BQxEl9y4mm5K0C5ECcfaEJ4uEYyl0DbX/UNuT5XYN5KXfnOsG+V/5WO2ly/Cl9fB2LKfnof304VuLxkKillAIN5nG4Cw5vu1a8JWe0PHM+MLBFgBJgXJg4hgRKS7COacLTvFXrc14QdOgjznfrUYyzS4E6TiCB6sfBWM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjdGLSf0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789990438; c=relaxed/simple;
+	bh=4PgdLDiKIVXTWGTu2jsrSR6qx/gSsOj410WrI/Vadek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OqOefsOEeP0lVegW0x3DXBFeMCSfvFq57+TnQfepKzt5swUN+8I4zNep4JcIxobzLVxkBMLWipANI2mcZcgUF8WLcAwp4gYiiPKZPl7M2XKzpKBGjPxdt6b3Zwt9nO1SHzaoyTJa9xPhEx+u6L9wedxjXEhRtIMamO/kDDbJY+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdJ1QI3y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjdGLSf0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4444E1F000FF;
-	Mon, 21 Sep 2026 11:29:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdJ1QI3y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3B591F000FF;
+	Mon, 21 Sep 2026 11:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789990155;
-	bh=ytrNY/dXC+o9MsksDs8zljUzXO8YO7DW51E9SEVgNHE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MjdGLSf0pnoFhBwFlwXKcoZ4RH6OhswMlzB+ca+LLAi4BVBhJF0Ii+BUxLGyWaY+y
-	 miWNElchQPLZ5c5juVsDDLHGHtw7kELk/QG/SjyoKE5OmS8wgREk/xYBJqq4ztOCqN
-	 +PfouMSQ6nLARjnmV29YoWBN/S3gJhXEPVPslTbTJciXPdB676gdo5Q1ElTvxKzgJp
-	 3ZUAJOfcWaP69qmZRiJOwFGoE08t86wajDcB3k9SktFzlYryVdKaUtXKumDnjwQmJ6
-	 cHnCvjpcWzZI8OI09GeuN6x8usPirLR+3K5gm6A+dZuTmKBWTcTwk0oIbh1ETFge8M
-	 vKgOW3oDLaFow==
-Message-ID: <367c1fac-a665-48c8-bc28-98b0cb6e6f5c@kernel.org>
-Date: Mon, 21 Sep 2026 13:29:12 +0200
+	s=k20260515; t=1789990436;
+	bh=MDIUNnJTr3U0Ey9p4etc55PGRbEZi0JsFTUGlPBKo5M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MdJ1QI3yp0m4W6wPjnpOlP/LuYDBBHyHtO6Zn5chWqo6r8O56zfzdu30oPxNYD7eA
+	 6NGIwnlNi7nbYAUpTe1nB9kvVWEiGBLoBvhjAHsDR6BvGuOtqTHJcPSCEiap+Uxct0
+	 XCeDFQD0PyS9iZgRDiVsh2TcunDaQiBgZY/9kjfjGSJr7L8n5Hmu9QWXs9J+wkqaLD
+	 OQSjmUuvVqsmZx1mUngxnmaYWwePogbProrqJV/yU2encACF0F3DNiP/Z86Sez1sve
+	 3bQh5KztIL9br8JUjHdDnn67RbY+tci0wjl5CYZnvUkpF+gfVLiTLCjAdHzsfTJzui
+	 Wb+6X6UdDhHpQ==
+Date: Mon, 21 Sep 2026 13:33:54 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Paul Elder <paul.elder@ideasonboard.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+	Tommaso Merciai <tomm.merciai@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
+	Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	David Heidelberg <david@ixit.cz>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+Message-ID: <arEVs0FDleyHeeLj@orome>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <CAMuHMdWWOB48AUCbXh=9ZGCK2qZyVH06kJ2paRY-wxkq5NC16A@mail.gmail.com>
+ <CAMuHMdVhK0vm_Ksze_=jG8D_=8Q45v+ezNbxwL7JntTt_v_fkg@mail.gmail.com>
+ <20260921073538.GA1466037@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Henry Paradiz <henry.paradiz@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260917212951.558283-1-henry.paradiz@gmail.com>
- <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
- <CAMfFSnDa-nGr-mxzuK9FibOCJGFFCBjB_HiLBwGJ3btuFR=WVw@mail.gmail.com>
- <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rscvpqrbalagvufr"
+Content-Disposition: inline
+In-Reply-To: <20260921073538.GA1466037@killaraus.ideasonboard.com>
 
-Hi,
 
-On 21-Sep-26 12:52 PM, Ricardo Ribalda wrote:
-> Hi Henry
-> 
-> Thanks for the extra info. I still do not get why the device keeps
-> suspending if you have the UVC_QUIRK_DISABLE_AUTOSUSPEND. Are you sure
-> that you do not have some kind of daemon in the system doing any kind
-> of aggressive powersaving?
+--rscvpqrbalagvufr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+MIME-Version: 1.0
 
-Good point, a typical candidate for causing issues like this would
-be the TLP scripts which are somewhat popular:
+On Mon, Sep 21, 2026 at 10:35:38AM +0300, Laurent Pinchart wrote:
+> On Mon, Sep 21, 2026 at 09:07:01AM +0200, Geert Uytterhoeven wrote:
+> > On Mon, 21 Sept 2026 at 09:05, Geert Uytterhoeven wrote:
+> > > On Fri, 18 Sept 2026 at 12:55, Kieran Bingham wrote:
+> > > > Add a new dt-bindings/media/video-interface-devices.h header that
+> > > > initially supports the Orientation types and convert existing users
+> > > > throughout the code base.
+> > >
+> > > Just noticed these are already in since commit 6ab5acfb8dd38729
+> > > ("dt-bindings: media: Add macros for video interface devices") in
+> > > media/master (next-20260903 and later)?
+> > >
+> > > > v3 collects tags, and fixes the typo, but drops all hunks that do n=
+ot
+> > >
+> > > [...]
+> > >
+> > > > v2:
+> > >
+> > > Interesting changelog order ;-)
+> > >
+> > > [...]
+> > >
+> > > > v3:
+> > >
+> > > [...]
+> > >
+> > > > -v4:
+> > >
+> > > [...]
+> > >
+> > >
+> > > > -v5:
+> > > >  - Definitions now accepted in linux-media, rebased to get conversi=
+ons in.
+> > >
+> > > Oh, you say so here ;-)
+> > >
+> > > >       arm64: dts: renesas: Convert to new media orientation definit=
+ions
+> > >
+> > > So it's been safe for me to pick this up since v5?
+> >=20
+> > No it's not, there is a hard dependency.
+>=20
+> The whole series needs to be postponed by one kernel cycle :-/ It's not
+> urgent so it's not a big deal. Kieran will have the priviledge of
+> rebasing and sending a v7 :-)
 
-https://linrunner.de/tlp/index.html
+If all platform maintainers Ack this series, they could go through the
+media tree where the shared include was already merged. Alternatively
+the media maintainers could provide a shared branch for everyone to pull
+into their platform trees.
 
-Henry, if you are using TLP please try disabling it, or at least
-opting out the camera of TLP's management.
+But given that this is simply replacing a literal with a preprocessor
+macro, maybe not worth the extra hassle.
 
-Regards,
+Thierry
 
-Hans
+--rscvpqrbalagvufr
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxFiIACgkQ3SOs138+
+s6HA/BAAlTOuxN7hAGKsy7dYRPGn5XonD1CL3PrwL+ma3OlyhbTXIVe+Io6RW7J5
+zKfOah30Mnvem2LLH7Sg0m4pfm8rTX/nF7tQQihKyk5IU0/9OgH8/2J5VeB6WRmb
+7ekKOnFAQw9YQs1vcpGn4Jm1JvkIz1ari2ZXHx2qf3gfSi43gDwZ5ZLZSnL2NyTG
+ZaSMB+Sqiao0Q8YuY0UYuEi4jqGJr6qV0fpJKMaG+LHrPS42UG0PYDSbwLkkXALN
+GOz3A9wsFz58L3s92t3+L030Jl/WJEzrg9b6HzfbuS1YKX0mcG1FWRQB3k6waSQM
+lSVq/HZ2fzW31WglB118JZFVqyBGH8cHxXumpsOkOcPiga0dkUIkfCIdOm1GWP1J
+Q/CMLKNu3phGaXej8wIlhtZxUbhP1DYJmAWtYNSAbOg/Zgomo1Q4y+m2qxkO2VWr
+fq/UoozCz2rYlLcTDYB/ML7e2KZHsh7OTNwIGaJ3eIretaKyI+K9jOfOxLZ83SuJ
+yvkNTOAq9sRKiSQod41cgN4UWLsSEdLn6399hyFGHpcwazrebRKfnnfMUauRflSq
+sLokqJGJrk/Ck2uecD/pNXlBGztCR5Czxyf+R4CHNMKMa8HqYQS9OFvU32QnyD26
+6Nb3cTM0bMwTrWMTJVQnV+SVmqld3xVL6f9i1vImIvJAiEcxJQg=
+=n1ZD
+-----END PGP SIGNATURE-----
+
+--rscvpqrbalagvufr--
