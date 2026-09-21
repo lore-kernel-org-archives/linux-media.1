@@ -1,85 +1,101 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7D9547066;
-	Sun, 20 Sep 2026 23:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163202571A0;
+	Mon, 21 Sep 2026 02:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789946021; cv=none; b=Gi1sYIGh+bgDTc9BLMu81fWBgf4MWCKmQf7DsXs9UTdrmSUNYcg3UETD09qsnbbEudlq44yMZlRBWX1/Ph03btL5ux5RtfnE78QJuCik/8EldnjLnYPfj6uWs8Dr+I/y0itXO+Z67OmjsrJuCNLLXRrNxbrHoC3RIsyHJksSS58=
+	t=1789957487; cv=none; b=FXl1xv9FQGIImglEGJ/0OQYf67zbEPhle2k4K/AMn5sHtJT08BXA7abW1LtfT7r6pbLlYbt79/tiQqKncprjZMogvVY9Cb4OifOwF/C3gU0CXIRyOWAkn4+Rjsl7CPfCbgo0h/GM7DNi6mchZD6CqHXJNA2zsEt3V5urZ+Fv8iE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789946021; c=relaxed/simple;
-	bh=ac0PDjx2CF9tr/x+wiRBEjO0MaCdDwRbdhwCEBHROfY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sQxzbmKOf3kZ/SCZu6IsK/L1AXsi56Wxb/wAkJSOVLzhPCd+0npyJpBgvQ61Jz7y39xs285K+SP9qJBjMzyMPD3xwD2rjnagTX71tEgxIAt9zhoTgYOCE0oJZrd7nWw0BqbtNkckDLeMHkoDfMV9Y5dC/bL8mM6mDNvlYUOaGKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Zzo2IZ+7; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789957487; c=relaxed/simple;
+	bh=Bx3bVDSoEaUOQGKKulxNrXFCUXbXQIBNeBlIAuHrhzs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=biesGt43/ozmeQPx4vnLDtQmKKLKq+tglNa1s4UK5pkd49EtcLbuwx2PPWPg59eXl9pqqMW2YYTWNE4ze0FlAN42A3UFLULnNMCs9Gu3l1p/V4gPj+tAUJaJTOeZCdJwLsinMKW6uLiulj4w69wksLLnK9Rc+luzUlykbnLN2pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=OxqAJFmU; arc=none smtp.client-ip=60.251.196.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Zzo2IZ+7"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hp2Gk6LC4zMl2c;
-	Mon, 21 Sep 2026 01:13:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789946014;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PYh/AD6nS8laDFlVoK9osQ5yY8ZdUZ4VHdWngoSYgg0=;
-	b=Zzo2IZ+7qi6H7xWvC3tFER2/ngqV5p+JrH/HN5SMSwbt+09kAzn4P0waANcyPWJIe/GXvG
-	HbN2h2ZC+R77nXVxhx1usLtN/2DzB1fy6e44dj/6u2/8ckLgWPGpr18J6iipSxr8XRbx24
-	DJWcp14c+bg2jeR3xUE1d3Q4h5irBl4S8qwuYYEugG4P6xrSOXqR2OfM1CS6Ef3bM8PtWK
-	Q2p3eEg1O8lhSNtKRDlc3Wt6wk3BHd5qk4dugourPKZwz9+nvc5Sgw9aV6HTq4f88rwwC3
-	DNaDQhg1wrJ0lM8YHwz8fYTvt59+gMPv+YjXqzwV++Xc8yJMWfWiCnRQDCPWOg==
-Message-ID: <797c63bc-b759-459c-99f2-d5c3146cbe67@mailbox.org>
-Date: Sun, 20 Sep 2026 19:17:09 +0200
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="OxqAJFmU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Bx3bVDSoEaUOQGKKulxNrXFCUXbXQIBNeBlIAuHrhzs=;
+  b=OxqAJFmUEpfFU85mx+KtQpkPenU4TzI+wxFveMv3qAZ0y2k68B6Tdefw
+   P3ZjiV2gRE9FesKZ2FlJV/HnOEVmB2+VAS/1SjnHxw3cI2Z1QTPhZUgK1
+   A4GZUJwOOmPrmXVcj6Ag6JW4A6DlyQRX7oUXaXprYNglRoZN2A/DMdZcU
+   BVJ5CjdkGO7ljybuy0KsQnlE9CMucBwIG6vhlWnmHIHWQ5WDNrcbL4Nz2
+   bDVokyi5yILIeziLvsimw2xNQ9EnBjPOfbX2NeacWre9BnQvMfilMpZF3
+   tGFlK/yS57lV1I3rmLoHkF3LTtrqwN7XPvOJn/iPo09QoE1EEl0tpSP+O
+   w==;
+X-CSE-ConnectionGUID: OrqzpHi9TKmaZx4Xmrf9MQ==
+X-CSE-MsgGUID: VqIqdJifRHCrt+prwNmnRQ==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 21 Sep 2026 10:24:35 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 68L2OUNj055813;
+	Mon, 21 Sep 2026 10:24:30 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 21 Sep 2026 10:24:29 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Mon, 21 Sep 2026 10:24:29 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <sakari.ailus@linux.intel.com>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Thread-Topic: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Thread-Index: AQHdR1f0JNOGacAb70SRmiTIS7Nox7bUME/g//+/pQCABF7e0A==
+Date: Mon, 21 Sep 2026 02:24:29 +0000
+Message-ID: <f2c5479e4d0d4d89a030698f34a277e3@ite.com.tw>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+ <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
+ <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+ <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+ <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
+In-Reply-To: <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 6CF4E9D0941117F4C5CE57440F963E5C40A890500F52DAF2A694B800A3650CF72002:8
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] media: dt-bindings: raspberrypi,pispbe: Fix example
- indent
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org
-References: <20260917002554.362516-1-marek.vasut+renesas@mailbox.org>
- <20260918-amusing-rat-of-nirvana-cda3f9@quoll>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260918-amusing-rat-of-nirvana-cda3f9@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 2c0fc8c46b5874c426e
-X-MBO-RS-META: m9q3hrijtsm5o47hjkr9iw4k9kpo396q
+X-MAIL:mse.ite.com.tw 68L2OUNj055813
 
-On 9/18/26 12:44 PM, Krzysztof Kozlowski wrote:
-> On Thu, Sep 17, 2026 at 02:25:18AM +0200, Marek Vasut wrote:
->> Fix two spaces before { in example. No functional change.
->>
->> DT checker reports this as follows:
->> "
->> ./Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml:56: example 0 [redundant-whitespace] extra whitespace before {
-> 
-> I already posted this for more files:
-> https://lore.kernel.org/all/20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> And doing such changes file-per-file is quite a churn, so better to
-> combine commits.
-All right, please just apply yours, thanks !
-
-I noticed it while running the DT checker, so I fixed it and sent a 
-patch, hence single file change.
+SGkgU2FrYXJpLA0KDQpUaGFuayB5b3UgZm9yIHRoZSBjbGFyaWZpY2F0aW9uLg0KDQo+IElzIHRo
+aXMgQUktZ2VuZXJhdGVkPw0KDQpJIHVzZWQgQUkgYXNzaXN0YW5jZSB0byBoZWxwIHVuZGVyc3Rh
+bmQgdGhpcyByZXZpZXcgY29tbWVudCBhbmQgZHJhZnQgcGFydHMNCm9mIHBhdGNoZXMgMjAvMjEg
+YmVjYXVzZSBJIHdhcyBub3QgY2VydGFpbiBhYm91dCB0aGUgZXhwZWN0ZWQgbG9ja2luZyBtb2Rl
+bC4NCkkgcmV2aWV3ZWQgdGhlIHJlc3VsdCBiZWZvcmUgc2VuZGluZyBpdCwgYnV0IG15IGNvbmNs
+dXNpb24gYWJvdXQgdGhlIHN0YXRlDQpsb2NrIHdhcyBpbmNvcnJlY3QuIEkgc2hvdWxkIGhhdmUg
+YXNrZWQgZm9yIGNsYXJpZmljYXRpb24gaW5zdGVhZCBvZiBtYWtpbmcNCnRoZSBjbGFpbSBhYm91
+dCB3aGF0IG1vc3QgZHJpdmVycyBkby4gU29ycnkgYWJvdXQgdGhhdC4NCg0KPiBQbGVhc2UgdXNl
+IHRoZSBjb250cm9sIGhhbmRsZXIncyBsb2NrIGFzIHRoZSBzdGF0ZSBsb2NrLCB0b28uIFRoaXMg
+aXMNCj4gd2hhdCBtb3N0IG1vZGVybiBkcml2ZXJzIGRvLCB0b28uDQoNCkRvIHlvdSBtZWFuIHRo
+YXQgSSBzaG91bGQgbGVhdmUgdGhlIGNvbnRyb2wgaGFuZGxlciB1c2luZyBpdHMgb3duIGludGVy
+bmFsDQpsb2NrIGFuZCBhc3NpZ24gdGhhdCBsb2NrIHRvIHRoZSBzdWJkZXYgc3RhdGUgYmVmb3Jl
+IGNhbGxpbmcNCnY0bDJfc3ViZGV2X2luaXRfZmluYWxpemUoKSwgYXMgZm9sbG93cz8NCg0KCXNk
+LT5zdGF0ZV9sb2NrID0gc2QtPmN0cmxfaGFuZGxlci0+bG9jazsNCg0KSSBhbSBhbHNvIHN0aWxs
+IHVuc3VyZSBhYm91dCB0aGUgc2VwYXJhdGUgaXQ2NjI1X2xvY2suIFRoZSBjaGlwJ3MgTUNVDQpw
+cm9jZXNzZXMgb25lIHJlZ2lzdGVyLWRyaXZlbiBjb21tYW5kIGF0IGEgdGltZSwgYW5kIG9wZXJh
+dGlvbnMgc3VjaCBhcw0KaXNzdWluZyBhIGNvbW1hbmQgZm9sbG93ZWQgYnkgcG9sbGluZyBmb3Ig
+Y29tcGxldGlvbiBtdXN0IG5vdCBiZQ0KaW50ZXJsZWF2ZWQuIFRoaXMgbG9jayBhbHNvIHNlcmlh
+bGl6ZXMgQ0VDLCBJUlEvcG9sbGluZywgRURJRCBhbmQgZGVidWdmcw0KcGF0aHMgdGhhdCBkbyBu
+b3QgcnVuIHVuZGVyIHRoZSBjb250cm9sL3N0YXRlIGxvY2suDQoNClNob3VsZCBpdDY2MjVfbG9j
+ayB0aGVyZWZvcmUgcmVtYWluIGFzIGEgc2VwYXJhdGUgTUNVIHRyYW5zYWN0aW9uIGxvY2ssIHdp
+dGgNCnRoZSBjb250cm9sL3N0YXRlIGxvY2sgYWNxdWlyZWQgZmlyc3Qgd2hlbmV2ZXIgYm90aCBs
+b2NrcyBhcmUgbmVlZGVkPw0KDQpSZWdhcmRzLA0KSGVybWVzDQo=
