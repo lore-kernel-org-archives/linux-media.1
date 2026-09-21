@@ -1,69 +1,69 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B983F49F131
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 13:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC25E4A2623
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 14:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999042; cv=none; b=d1qWQrgObpezlozIJ8dH3eOVeZK1dBuAX0EigKkLnDtpcg0nQfBhpQqMJ0/iRizsCv3i6HPbMhZrr/YZjiPhbnYXip/arZso6FsRZKSvi9pYk8pzqASrcLufJhK2zX7ro97NXfEYUHeE77iQl1D3iOu/5mnY8oLFWxpqXK19jkk=
+	t=1789999240; cv=none; b=r/HR3PJ+1gnkcKNaH6OIVkkFMT+x5RK+xXYCTFvtRUYadNKEqCX/i4DAmNeYqLQbF8R8IeYXlqw6TBv7M7lL1OFqHPubfoz1v9RUO6m90tDCEE62sPJzCUmqJP46FhQWWBDLTJ7Vr944tIE8t+ZTC9y8ul1/KX8/JJRYgMS5fzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999042; c=relaxed/simple;
-	bh=05nQQn1fD5gOEpF/ULLHdZqTcDXLkNhHu9x2ubpJqaw=;
+	s=arc-20240116; t=1789999240; c=relaxed/simple;
+	bh=OeyvfHgi0AM3S4WMT38BkWK6VSxmsJwFB/n9ks+exd0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QoRh/g2I4kUk6Gcm6UZcsrFYf3P31GjII7OmAPCGGyaH01HTpIMyvEfHOR/KazLuPG4FBlk771iJgEgmK6E2b+czvCwB0HKiymFfaUJEmJbtVSRDFdWuPfHBfxnRbaTSZb5lefV34+qKkV8CqITAZKleO9XkSCiRAk4LAhRQXVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mzWI9N2G; arc=none smtp.client-ip=74.125.228.76
+	 In-Reply-To:Content-Type; b=b+4mNXwGoJhMVU3LmgiQBlBDXVRJnCtMENKzfliObenM9xWTvQ8mC3V5/5JBUbDfTcpzwDiAlOonOPo3TId88kqIRj/3ebuIbKxsS7rTVRx545yWm/oB37pc1noxoK8EuOu3XBMAWGPno7x2xyRQhu04PEXNxmaAT/JJ8SaIGQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fy3lm4mW; arc=none smtp.client-ip=74.125.228.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mzWI9N2G"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso5615493a12.0
-        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 06:57:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fy3lm4mW"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa22408406so4510060a12.3
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 07:00:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789999037; x=1790603837; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789999236; x=1790604036; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ofpT4h/xZOk97T1LnY16xox+YwsLCtjUsNXPXQGc7Q0=;
-        b=mzWI9N2GG3yCh33wQMPJzyAje6/w1azTh4oUjAdlzJOreyc1TK6YMNTV/hQZ9TK3Gd
-         CEyFT6JaVuVjed/fVn+ehu8kPa8HNUOBbo0dKThcMYqAxQ33Sj3C6fOg7tWRzo9WCdYB
-         CgktU7m3qHBLqKFnkA5IBAlERt+FmUYJlBApJNKVhbQFFUR5JGgAq2NbcjsWbRyg6SFr
-         8Cqy4Q2D+SN+vgDtmn38CUCnH3wPIvBSzJNJo61M9aWxru9kd6n65Lm/HaoGXxtsYsZY
-         9ms6vbHcQFg4jHmo+4f1jqR7dpXme2eRW7XmPC1nlYjnriBkw/EB1U5QYlSftufCNk/N
-         jkGA==
+        bh=YF4hTPZsf1CzF+RjsRJpL1NqJMDoLq3jkvr85glNVqI=;
+        b=fy3lm4mWVVfxCbiB/3/idnBoWiGR7Ak2D36Mzxp6PBr2+Q8laVBrWpIRYVMTFrcp/0
+         jFF0hAEuenju7k/fW2j0/C1Jli1UP8WnHH/Of94Gvk1sgDsM7fWI2uyyOZHUsjkVJJPb
+         0JtH6BP+SVZlH0HMjkU4m57nlQhEUE2RAVPRXvprm0BKQC1hQgaD4/dvBt4EOAFUDnL8
+         rpAJY91Fcg/OygM5CEK/CUumLCPykTEC3z5vkEPe3zTfIl3UWEN1JSUp6/FvaR+dRraE
+         jovk046obSWMIph957RrWPJMVfeJ6kFVMrFj0Hqvcqs0jI8QC8TubZvfnFnAJXJHjE1h
+         Ikjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999037; x=1790603837;
+        d=1e100.net; s=20260707; t=1789999236; x=1790604036;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ofpT4h/xZOk97T1LnY16xox+YwsLCtjUsNXPXQGc7Q0=;
-        b=zm4ftSkTQhHeH2S5koZhHP2A5KTEw1Hn7/fmFtQYnRLAGSY66N61/Sb8fFIT3JAePZ
-         63ej0rh5dq0hk3HQLK9l/LJ1K0uHuBHn0tWG3tjRgU2KAQ1zMbszRvluU7GndZJ9CcuT
-         0aoSZJdJLx0jSCehu49fILJyuAVRhPO3qYkH8dYZUgtXM56SitRzmq/qejWKfpBXwHrv
-         e/fpZ5zuZvxD/TstIqGUN5FeFoirXMCHbdofhG95SexhZid7nVBcr7XpgxTQeN9v0hdf
-         vEe3jxRmOztDKIsn89h64gjPUQhvFqKI387gUd5IlENLK0fpdiVH+EzAujjG59RBtNp+
-         M+8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxixNg6O34miT32Wwn1UA2VoJlcE5iaGtUlo0WupQPgeU8fvZ3dPk2it0FlUBYMXTLFUtPJ4cgxMLZuTA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lcxczXCvI0kL8zUHKakPmjz27xp67yvao5dNL/3/rk+aBVpFAO
-	AgZbkImmr5tpiKCIspd+h8yI5NoH9Aiu9/S60D/4fLk5whtU5Q532h/i
-X-Gm-Gg: AYBFou027T2NPoQeFfAR/fEhLFAe5Wrk857iLMMKNaNHj3fN5GqRoFoMHanARYRGePy
-	eez3kn8CUlLlJRtprwpuQcoxASGkQffzLVV9lYPgnOpWsJNAkQOTqLsgoTYDHb0zkTF/kn243WQ
-	MNCSdqh9c0xXj06YybMZKdmAu2Evwmo/cZCc9od8ErH0bCkgQ8YuNlmaPpe1rfd5Jtr6boMdWGT
-	C+V2DEx39XEK9Vr9XW0cZK5GjZAWWpJWXGdygYopyetdb20RpIHzH6OwSVerr1Pb2MN0wPJ8h6O
-	4l5xS+7xUCEGw0RnQJPL5DTXmbYkeTxZIlkxMRkpCCiWUEY8a4n01c4JeRgMQBqmiPY9iFUYl4E
-	rc81pt4dUvNsWfHw41RiEzo2Sng4AbiSLf/Mvh2vja7nD1L2v8WXjvsp9L1Ids0nxW/+N6GTUPJ
-	9zfW0OKX1+WqeMDEJrVV9y4AW8M9g2r7OvOVZ6ga/MmmdAYN4Ctvpf7MAXfTvfz2Kwwi94Y0ge4
-	m1JCRQZKe+v/WmuF3PUMAKmNrUePt7MTg6+urpohaFwLWbWVhx6mkbNWAwwBYAJ5vbctEBPUU9l
-	HG2yohQv9clGEG5rnrmXIUmnanKeIKYRiXCR
-X-Received: by 2002:a05:6402:210f:b0:6a9:aead:4e98 with SMTP id 4fb4d7f45d1cf-6aa577f5cfdmr8215865a12.1.1789999036894;
-        Mon, 21 Sep 2026 06:57:16 -0700 (PDT)
+        bh=YF4hTPZsf1CzF+RjsRJpL1NqJMDoLq3jkvr85glNVqI=;
+        b=KirxaFgQ8qIorri3bPy/jmWAcErv0uKorz3p9BUVRlbrTyTC3AHrEBt9NhvbDtDN5Y
+         9PvEDfqajs/wNxLBUNKrEaAuGld+AZt282e4VSathHoCIvYKPXlbkobKfwNw0ZgXChAn
+         Gyaiyud079frvtVOnEMv4IM7ug6BjPnZA+C/Ji2wMKdgelBMfKN+C7M69HAJSPhDN0iM
+         xxslQCr016U8PN9GJk0nCETWBb4GUqYiUDF+df6K7f+KXg+QqeT/Rtn1zp2FTUL1o3pA
+         klfakAYPCLwYX7LGomId6Q3ci2pQ41QZ/mcjE4CA67h5sF9HZfATd11+ACmybL4f3d0B
+         fRXg==
+X-Forwarded-Encrypted: i=1; AKwUvByNRpuDK1kvtRbDgdWmZSNdaHNbB/45+nDri8jK7lRT4GL5AA3labmxMz6Ax+hOjXTvMuKtHzx+5X8wtA==@vger.kernel.org
+X-Gm-Message-State: AFuF++nC7oL14U/P8aHaWYX3UyKpA0EvDWoUxcCrGkS37p22nbRHmuyI
+	xxai06rPkMAXJIXQfoQvODUeo7zKvIp9356Q0hQ8Mu41AfAxnm5oB5vy
+X-Gm-Gg: AYBFou0BnJuYhgYq/oXBI3IpmA/kMgE7FEjCnLUR5k6gfhkYTWSI5FV+DmkRhZ7jHOk
+	pti4p2Bxm3rGnaSaNSuY/LQwbIqipXvesS7dZMYEWyiqmOaLdmXGu1K7TEZZCN6fmmEgu58zSp2
+	dzep4rvIXTmSnPIhwsAQp3uLtKEXg7V/Qn27Ov9UP7IZof/KpBHSgom4zY7222b+crl5H7L5XdP
+	ua1vKI1Bp9iyTHKiPc0VxrtZmoxcUQ5JOlexU7jRQzuDNDKaMtll6Ra5J+hNnTt2H7nS+adYfx3
+	HR6nvLYzZslSwJIAm6ip4vcYh9ZOsD4cmQilsCJbXGsA9tAishaC6RdtmnmvgjYGs38NZ6KGvTD
+	DE7931tmTWONLQ0V7i0ZdEAOhJ955/jpuLECDaOi1BovXmxmk65jupwJZN/JV8HSISFgVKTphUT
+	1kqfam3LX/yUTIJOCNkYX/BqQZ+a54R6C9XWWLzwfaKT8knglGIzfjxHnYlw/lrUJijNQVtNayT
+	Jiof6sER7xcHRKGyh/sbphHhtJg1qc5XCHLK7XnPfx+iSwUbIVA7HKCl10rXIfRlauLDd5ncX+Q
+	73uWVe87/bpDT2LRfKjbEyGuCg==
+X-Received: by 2002:a05:6402:210f:b0:6a9:aead:4e98 with SMTP id 4fb4d7f45d1cf-6aa577f5cfdmr8223981a12.1.1789999236010;
+        Mon, 21 Sep 2026 07:00:36 -0700 (PDT)
 Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e0d3c5sm4446691a12.22.2026.09.21.06.57.09
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e1a45esm4427483a12.25.2026.09.21.07.00.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 06:57:14 -0700 (PDT)
-Message-ID: <a8b01e56-bc86-412b-862c-d6a3efef2e6d@gmail.com>
-Date: Mon, 21 Sep 2026 14:57:05 +0100
+        Mon, 21 Sep 2026 07:00:35 -0700 (PDT)
+Message-ID: <14db93d0-b41b-43c6-8934-82d10cc50168@gmail.com>
+Date: Mon, 21 Sep 2026 15:00:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,16 +71,17 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/14] dma-buf: introduce initial file I/O
- infrastructure
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+Subject: Re: [Linaro-mm-sig] Re: [PATCH v4 01/14] dma-buf: introduce initial
+ file I/O infrastructure
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
  Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
  linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
  io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Sumit Semwal <sumit.semwal@linaro.org>, Nitesh Shetty
@@ -98,71 +99,84 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
 References: <cover.1785274111.git.asml.silence@gmail.com>
  <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
  <181b08be-04bc-4ae9-bb88-15321a82440f@amd.com>
- <8285ede8-bebb-403a-8a37-b9987cd37a8f@gmail.com>
- <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
+ <anPlbjhpPmj2VZxm@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
 From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
+In-Reply-To: <anPlbjhpPmj2VZxm@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 8/6/26 08:29, Christian König wrote:
-> On 8/5/26 12:59, Pavel Begunkov wrote:
->> On 8/5/26 09:27, Christian König wrote:
-> 
->>>> +
->>>> +    dma_resv_lock(dmabuf->resv, NULL);
->>>> +    ctx->dev_ops->unmap(ctx, map);
->>>> +    dma_resv_unlock(dmabuf->resv);
->>>> +
->>>> +    dma_fence_put(&fence->base);
->>>
->>> You should probably set map->fence to NULL after that.
+On 8/6/26 02:37, Matthew Brost wrote:
+> On Wed, Aug 05, 2026 at 10:27:49AM +0200, Christian König wrote:
+>> On 7/28/26 23:29, Pavel Begunkov wrote:
+...>>> +	/*
+>>> +	 * There are no more requests using the map, we can signal the fence.
+>>> +	 * It should be done before taking the resv lock as someone could be
+>>> +	 * waiting for the fence while holding the lock.
+>>> +	 */
+>>> +	dma_fence_signal(&fence->base);
 >>
->> The map is freed two lines below, but I can add it as
->> a defensive measure.
-> 
-> In that case it's ok, I've just haven't seen the kfree(map) below.
-> 
->> ...
->>>> +    ret = dma_resv_reserve_fences(dmabuf->resv, 1);
->>>> +    if (WARN_ON_ONCE(ret)) {
->>>> +        struct dma_fence *fence = &map->fence->base;
->>>> +
->>>> +        dma_fence_get(fence);
->>>> +        percpu_ref_kill(&map->refs);
->>>> +        dma_fence_wait(fence, false);
->>>> +        dma_fence_put(fence);
->>>> +        return;
->>>> +    }
->>>> +
->>>> +    dma_resv_add_fence(dmabuf->resv, &map->fence->base,
->>>> +               DMA_RESV_USAGE_KERNEL);
->>>
->>> That sequence is clearly incorrect!
->>>
->>> The fence must be created after dma_resv_reserve_fences(), otherwise you definately have an illegal memory operation here.
+>> Signaling fences has a whole bunch of very strict rules associated with it. E.g. you can't alocate memory for example.
 >>
->> I'm not sure what you mean, can you elaborate? I only cared about
->> pre-allocating it to avoid allocations here. We add / signal the fence
->> only once, no reuse. The map is going to be killed here, and if we
->> create a new map, it'll have its own fence.
+> 
+> Yes, and the rules around signaling fences from worker threads become
+> interesting as well. In practice, the entire workqueue (or any work item
+> scheduled on that workqueue) effectively becomes part of the fence
+> signaling and reclaim path.
+> 
+>> Are you sure you actually need and want a dma_fence here?
 >>
->> I can move the dma_fence_init() call here if that makes a difference?
+>>> +
+>>> +	dma_resv_lock(dmabuf->resv, NULL);
 > 
-> Yeah that is a good start, but you might need a bit more.
+> So this is illegal because code is allowed to hold dma-resv locks while
+> waiting on dma-fences. See dma_resv_lockdep / __dma_fence_might_wait /
+> dma_fence_begin_signalling.
 > 
-> Here is a summary of the usual procedure you need to follow when implementing a dma_fence backend:
+>>> +	ctx->dev_ops->unmap(ctx, map);
+>>> +	dma_resv_unlock(dmabuf->resv);
+>>> +
+>>> +	dma_fence_put(&fence->base);
+>>
+>> You should probably set map->fence to NULL after that.
+>>
+>>> +	percpu_ref_exit(&map->refs);
+>>> +	kfree(map);
+>>> +
+>>> +	if (refcount_dec_and_test(&ctx->refs)) {
+>>> +		/*
+>>> +		 * Destruction needs to wait for I/O and dma fences. Defer it to
+>>> +		 * simplify locking.
+>>> +		 */
+>>> +		INIT_WORK(&ctx->release_work, dma_buf_io_ctx_destroy_work);
+>>> +		queue_work(system_wq, &ctx->release_work);
+>>> +	}
+>>> +}
+>>> +
+>>> +static void dma_buf_io_map_refs_release(struct percpu_ref *ref)
+>>> +{
+>>> +	struct dma_buf_io_map *map = container_of(ref, struct dma_buf_io_map, refs);
+>>> +
+>>> +	/* might sleep, use a worker */
+>>> +	INIT_WORK(&map->release_work, dma_buf_io_map_release_work);
+>>> +	queue_work(system_wq, &map->release_work);
 > 
-> 1. Allocate your operation object, in this case here it's your mapping I think.
-> 2. Prepare your operation, including all memory allocations.
-> 3. Call dma_resv_reserve_fences() to reserve a fence slot.
-> 4. Allocate and init your dma_fence object.
+> You can't guarantee that a GFP_KERNEL allocation won't be performed from
+> a system worker thread, so you can't safely signal a fence from one. The
+> pathological case is when all threads in system_wq are running work
+> items that perform GFP_KERNEL allocations, enter reclaim, and then wait
+> on a fence that is signaled by another work item queued on system_wq.
+> Since all worker threads are occupied, the signaling work item cannot be
+> scheduled, resulting in a deadlock. We actually hit this exact deadlock
+> early in Xe.
+> 
+> So, as Christian says, think carefully about whether you really need a
+> dma-fence here. If you do, then you need to play by the rules.
 
-Looks I forgot it reply here, sorry for that. I killed dma fences in
-v6 in favour of synchronous waiting, it turned to be less trouble even
-outside of these fencing rules as I can rely on dma-resv lock less in
-the code.
+I started with moving it out of wq, which was a good idea anyway,
+but as mentioned in another email, in the end I just got rid of
+fences as I believe Christian was suggesting / hinting on. I cc'ed
+you on v6 if you'd be curious.
 
 -- 
 Pavel Begunkov
