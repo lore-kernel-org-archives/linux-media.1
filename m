@@ -1,94 +1,108 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C5040B0EC;
-	Mon, 21 Sep 2026 20:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AE24334A5;
+	Mon, 21 Sep 2026 20:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790022010; cv=none; b=fAfsvBT+8O/mbj174NsYh4bSaJq77dotdcfmDFKNG5LIJDp5qzXy/19gDaL/oDEI4oRmUxRm+08mFPUjk6UnCZV7fNoVzLG714LWvTEORaDZdwbvv5FCKM8SpuWsZnq0hiAuVkn2nDKKoF0/sTNVYMj7v84Xm1qKmaRlUHAoHgQ=
+	t=1790022024; cv=none; b=cmC9xtedv6SkaVfy8pBeDNqHZxaOT9NIuD5RS7A1d1376CAlfS2UbEITvKQU5P2zVUun4bOJlBy4MKeUX6k4CK9ruh6/YZqyvH1YEfUA0wLej8aR0I0PyjkC+Dt/Maji+uwFM/VkWyzdIkgBNEPDbcM9OEZlwuXx9nzqfs/brZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790022010; c=relaxed/simple;
-	bh=ULL2sCfVDm6zc7ankviblB2XQp/aT+4WTaCaV0sJlaw=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=eDcUrMPElDptb2Al+8iigZIYmR828zM7+g1zRpu1qMbMAeRH3hI1zTEzDs8SxPN7YasJJ0X5NLmalb7TK5qc/a3GdsSF7CDL3OukDuiaSZqQ7lnErH4Zxioc+dYyTZLTk4RL5QKvuyoAODKmyd358L3k1Ggg1+w7pEf6QkiBLE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=hBugeAc7; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1790022024; c=relaxed/simple;
+	bh=t56rUUwRmXd5Bwozpjc5KFkjkkSuskX8gA5Flws04pw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PxnxFy8H08R5hJPQ/cPrUiQLBV3zMER48tb7H3VlSFjJP66GtHAzijnqTzt+UZTBAgWaw+L1pbDHu+N/jq7KfwfnaKHjk9WpS9seQC2SBSEYn1tBe9NLfenpfCqYIewNY/AJwC0OzIi87Cfo0QlLADfF5rKvdyN9rCznxiuLwvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=0YgOTHuR; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="hBugeAc7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=/kI6oW2E5j3Q5O4fdEa3eYERY9JobvSzq1pyfLPXvP8=; b=hBugeAc7MrRyOU4zBBCUqtS5XS
-	6+RXvhBejB2Fpn0eyZquoh0extXUkJ3cSiML7q4kcs+2HZShy/FLhx3xDR8ERnzuxkkOygY4Dyxp/
-	cxBNa2IKbP7A7czer0QQNdwZVLcrB8Qgjf4BUS1DyXjVpeDFvB9EaO6JLg1TRi3xb2RiKmH5JI+uC
-	EQsgw3q1T+FeczuwLQHEDxk6luELJbNOfCyzAOuDwobdL3t7hEyxq6eX141qiHY38qeDbDgUgWpHL
-	GZH9fnTofY1KboZF0j5B6HBoFPFWZMuwg2fmN+7+TaxYsyuurMOSpMH4wlQjZ2oNNOAv6NSrY9w6I
-	cStzuOnA==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x8kUe-0000000F4dP-3Hw8;
-	Mon, 21 Sep 2026 14:20:05 -0600
-Message-ID: <dada3ea0-61e7-479b-96c4-241eb3420542@deltatee.com>
-Date: Mon, 21 Sep 2026 14:20:02 -0600
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="0YgOTHuR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=t56rUUwRmXd5Bwozpjc5KFkjkkSuskX8gA5Flws04pw=; b=0YgOTHuRfrXx1uFY1wMgE/U3e0
+	+dw/SC2Xa43f3HhGb4BANiW7jobFbsqgyg+H+OHB+9velcZTPQP3OLgQRcZfL3ZuFMhwbsfoU5LpQ
+	KscCXVeHleND2dk4DeIMrIyRmDqEd8x0S2W14yqzbij1R0tY0zrPzqENhXhxgQ/oBN/6abHZa0jsm
+	5xtYyleOrUyi4tvI1qjEATxfxEhUWURulNBpTFmXcQNpeI6XMz77ZsMBHl59H4Fe1nSDbBEACMs0s
+	R9vl+SbDHSNLxIZbf9boY17c+SpCWINR8BSudWHYfoTZz/fQGUOw/ergGpgsnhGaGG8tvgzRk6wau
+	8gIKa2bg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jacopo Mondi <jacopo@jmondi.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>,
+ Matthias Fend <matthias.fend@emfend.at>,
+ Mikhail Rudenko <mike.rudenko@gmail.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Paul Elder <paul.elder@ideasonboard.com>,
+ Martin Kepplinger <martin.kepplinger@puri.sm>,
+ Quentin Schulz <quentin.schulz@theobroma-systems.com>,
+ Tommaso Merciai <tomm.merciai@gmail.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>,
+ Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>, David Heidelberg <david@ixit.cz>
+Subject:
+ Re: [PATCH v6 4/6] arm64: dts: rockchip: Convert to new media orientation
+ definitions
+Date: Mon, 21 Sep 2026 22:19:14 +0200
+Message-ID: <4535025.ejJDZkT8p0@phil>
+In-Reply-To:
+ <20260918-kbingham-orientation-v6-4-5e8b1f01be29@ideasonboard.com>
+References:
+ <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <20260918-kbingham-orientation-v6-4-5e8b1f01be29@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
- <20260920-fix-p2p-acs-v4-0-v7-7-ca0828ab697c@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-7-ca0828ab697c@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v7 07/19] PCI/P2PDMA: Answer routing per TLP class
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+
+Am Freitag, 18. September 2026, 12:44:16 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Kieran Bingham:
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+>=20
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+>=20
+> Update the users throughout the rockchip device trees to use the new
+> definitions.
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de> # PP-1516 and
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+
+Same thing Thierry said, applies for the Rockchip change, if someone
+wants to apply (parts of) the series to the media tree, that is fine
+with me.
+
+Otherwise I'll just pick "mine" after the next merge-window.
 
 
+Heiko
 
-On 2026-09-20 05:41, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> calc_map_type_and_dist() returns one mapping type per provider and client,
-> valid only for strictly ordered Requests carrying an Untranslated address.
-> Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
-> do with their traffic.
-> 
-> Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
-> to ask about one. The topology walk and the ACS Control reads do not depend
-> on the class, so decide all of them from the one walk and cache them
-> together, four bits each. Every class still answers alike; the controls
-> that tell them apart come next.
-> 
-> Tested-by: Tushar Dave <tdave@nvidia.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-Ok, this makes more sense to me after a fresh review:
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
