@@ -1,213 +1,152 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACA445C704;
-	Mon, 21 Sep 2026 08:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08CB46AF03
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 09:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981128; cv=none; b=Hbk84G1HkNf1f8YYx8N+6kg4hHwn/lAdWWz9Cnd/DXVLQExsfrBtrMSfeWVI1RLlmEfSz17QU9IyxgjUqAC3/WRJy/uPLwtTKn/aYkzsrXMOVLLTOrc4kWjsGm8iPjNftV2Nu6+VKFLZSG5N3aNtAeCfuM59KyTQoq1wrbUi550=
+	t=1789981494; cv=none; b=buXCEgte0ML5fo3I1VJb7me9QOz5E0CwDyOwTGUlpExwkHVfKg1i17hwuyuSpGU5X0CGrt6w0Z3lF6FeTvPLiSbLvVElFbguJ+BR89Fr6Wyv3seGAqaA25XYwoWSnI5oc/6jdYsYQniecEnW3uBmybdXpCS7tQqlp4Frv71Wxy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981128; c=relaxed/simple;
-	bh=WpOr3csztkRtov9yqk6fRyk6eDyoY72F8Ujbrz8dTBk=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=XRK2ffKQKlV1pfTFptmx3KPgXsaAC3Eb9BAJqCeBzAcT+uO+9lPx4nbKxOWY5lw8TFDp67IpZbDOIrZqRnXTeSwzQnlBjAwDwHUeDJgDM7zorPMAvGN2JZmT8Szo6s8DLKXwTxV77FDKbje895qIfQ718JfJ4NY4q3cU10vyDPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Qk1puQMH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789981494; c=relaxed/simple;
+	bh=jEBYADh6Pm/QgGCjfLduaVA9Ni9fajnnIW9LNWroBjk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k2df7FIDvi9xy8WcI9+LTeHtcopQ3PvqMhdycI/FMA9AdnqASYce+sio0sfBVlWPvkSiOnE0d9b1Oapiv/rEWyg5RDomTaFQQmafrB49hJdhPmBhaQA2DBH86Xt9ONYqyJcjTSoq6U7NY8abL/xxrQ9O7o0ebh3nGzVYtU7XiTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XkPtMe/d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OQQLsGhJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Qk1puQMH"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 522F114C7;
-	Mon, 21 Sep 2026 10:56:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789981019;
-	bh=WpOr3csztkRtov9yqk6fRyk6eDyoY72F8Ujbrz8dTBk=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=Qk1puQMH+MADQWQVwVoS5w5Iy0NqugdnVf5+U1Ys3Piuy3UTKB/lfolE3Whse8who
-	 8DOG+VMHNKuj4Wjohpb/1qE02Tb/WUJSTj3TE+P+RbzCCjznG8ZoFXPpmiH0xJIZrR
-	 9YA2aaIUy/FAvLSTXonyOeZVZXhDB6d0UGGVqb2w=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XkPtMe/d";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OQQLsGhJ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7F39J957083
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 09:04:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yUUrFoUQtlt0KsTR6YssW33mXsm3wZKqvH/mh1SHp2M=; b=XkPtMe/d/BiFeryy
+	Il9alrrYeU2wH2poyyiJrM1J6Km/mExrhoJgepvenBnFyjgzLdjtyPHH3af1DdR0
+	woqDvDDxIs3VC+M4RiCXdrlBcSeggXfDU4aBEw2RVlV+/YrXp9NLe6N8jUInoPXO
+	nIOxW+BKOe32boAdTgd7wWpEcqddsEUeHSbLTj5wn1I372XCXf+JoxeWcgAAUjXg
+	W3ulbYIBYSp4ymoGzri2i4Z5iMxF9isRJoISg54oN0/1GSIhAphxOYavaqpndDR3
+	qQ8OdUul5S3pkHoLcVjrMtUy33rNzPurjuaqVNKyzZLiYHnWWKVGEl1f8CzhSyLi
+	JrZ3aw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01d0due-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 09:04:51 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530e0def61aso4825401cf.1
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 02:04:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789981491; x=1790586291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yUUrFoUQtlt0KsTR6YssW33mXsm3wZKqvH/mh1SHp2M=;
+        b=OQQLsGhJpBZpbc47+2aHj1S475Tgy4iJKULjTZnqTEchz/reGsi1PrBU0lWEf1/cMR
+         Nr6Yi6tyGlH1x0FjuEVrlk9Y24c1uoDxGA953O/T2XwHrUfDfxXMcdmQPfflOdM1tkC5
+         W7zZfuDQwtebVC8ZIJc0rEBAFbg5fGC2PDHNBFirGksryKWKt4yvgatvrXaeCq9LC+o/
+         V9Lf7W8eKVk2dNBSSHAjOL4qJOY9u+AXQ/5WhRwD3RLPH72HrKHh15rvPdoPDxlSEwkX
+         k5E2/a27dnYsrZ0rysO5ME2Y4QpfR8sNNPnJrQzwOMHnFEOHjLNLK4inwQpICpPc4oi0
+         CDKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789981491; x=1790586291;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yUUrFoUQtlt0KsTR6YssW33mXsm3wZKqvH/mh1SHp2M=;
+        b=XOTtlhmh2DrWyvU+/fabV67Zf3x+4V1hvSpLpyznoU3VHjnSxsid+gH9EB7bKlCOL0
+         mFzcWgQ1F+nZV9aU8LlkEXDUUi8/KSTI5lX3z+orJYOo1SG2/FV71uqZy/X1jEyhyLn8
+         SfQ7gWm6bXUCXgv5yWuWAhem093YfbjfCyQ7cxAmB9Z9zTUKkn4iToEmsqq0uBt+oKtT
+         Qw/kgrb+XyYSpJ25zr0q3nRVEPNWimadUPlSJKBm4OE2x2PcDjYNTfaixKwBmAImKfYi
+         YgArWIPRTZcEBUW1DovHoPGDI2MVmyE7hZ3S0vKqi6OtdK+o3TnhMtVmwUjoQKUNyznt
+         LCyg==
+X-Forwarded-Encrypted: i=1; AKwUvBymuz1H71kUNiW2PBeTMh2anVVEro9esZsVSVHWnB4p5WIlAtzl6AAO64FCXO4Oyh5aBY/pyAeCBAPV2A==@vger.kernel.org
+X-Gm-Message-State: AFuF++lw1+ihdFmpsAHSACNyiipPdQ3WsrsfhizPk/KbuLRRxTY/IXO2
+	Qm5A9Mc+fBsMyV+ITKgmQlZgeG0A6iCYvKnjwXr8w8LiNytA1VGLlDyTOiGppWpZwt10u//hY8C
+	n9mKKWA1FWvGUrRYjwylk1pUL04Ndomg7Q1ihcWt86t+bFwKwYDNo7DDIhvLR0AV4EA==
+X-Gm-Gg: AYBFou18h/+eBOMAOz76MHiACDnzcOswFbqr64POyOePAVenLAD78wkdRQdm0HzS6im
+	AXamUur6t0DmwuCuVcolMmzbGcWdRbdQ9jmkSbpzHGr9irn0RgiKRS2mfOO29Zqdv/voUocTLiu
+	FFO30aPv3z3zsG+N8pXnuPw2ECEHlB2+wt99gSWDc4uwkWVnwFEp1i91qv/dxP0BbTwCpqAs5Kb
+	t7oDKvVB0Urz4Q/DAoRBjiriejz8l0Vm155nlSzQoXzOwyxgdGoJPmei2vVdk+9gfdZ5BSabG/y
+	tb8M8CDPw4bVjQlehzQX88jg+8QtD8RHgfPsJLBKLLg8DIC5pMWUkxe1p7lDhQz1f+1W/mxoMZj
+	5wtpqH1oFd6GMHoi/uFi9Mw==
+X-Received: by 2002:a05:6214:43c9:b0:910:2f02:8c4a with SMTP id 6a1803df08f44-9129152c8fbmr111423326d6.0.1789981490887;
+        Mon, 21 Sep 2026 02:04:50 -0700 (PDT)
+X-Received: by 2002:a05:6214:43c9:b0:910:2f02:8c4a with SMTP id 6a1803df08f44-9129152c8fbmr111422786d6.0.1789981490390;
+        Mon, 21 Sep 2026 02:04:50 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a355eab75sm273091266b.14.2026.09.21.02.04.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 02:04:49 -0700 (PDT)
+Message-ID: <4fdb234f-4c8a-4719-ae11-96da45d1fdb4@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 11:04:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260921082609.30830-1-lsa.uz@pm.me>
-References: <20260921082609.30830-1-lsa.uz@pm.me>
-Subject: Re: [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-To: Sergey Lebedev <lsa.uz@pm.me>, linux-media@vger.kernel.org
-Date: Mon, 21 Sep 2026 09:58:42 +0100
-Message-ID: <178998112223.1723501.7946524742858282804@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: iris: Fix runtime PM imbalance in
+ iris_enable_power_domains()
+To: Wentao Liang <vulab@iscas.ac.cn>, abhinav.kumar@linux.dev
+Cc: bod@kernel.org, dikshita.agarwal@oss.qualcomm.com, hverkuil@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, mchehab@kernel.org,
+        stefan.schmidt@linaro.org, vikash.garodia@oss.qualcomm.com,
+        stable@vger.kernel.org
+References: <20260917095741.2145688-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260917095741.2145688-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 8MmAPQjQZSvxh59RlAXQuUpnBBoUri_H
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEzMCBTYWx0ZWRfX6IgUx0HoRMJK
+ HbQcN0NoEYkKa8ZOIyk9cXy8MrBs3aSfxi8wm0V5cajNa4smNOyrQD3FJi8pWFB6LmIWLWoiMew
+ 6ISHAi0sPs4A/sh76F+VPEvIHAy+Xv4=
+X-Proofpoint-GUID: 8MmAPQjQZSvxh59RlAXQuUpnBBoUri_H
+X-Authority-Analysis: v=2.4 cv=Ht7jiETS c=1 sm=1 tr=0 ts=6ab0f333 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=JcJ8pZWeGoTqregMEaQA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEzMCBTYWx0ZWRfX8yzcvHkXMOTc
+ Sy0USyU8t5VKzt9RS5dqZsTsrA0NvNBIWkHBFcNXK1EYk2ExFrjEiQ0g3kZglzdOevETcNUcPo4
+ WVpP/KhZ+Kowq6VRz9wTh4ckMhXA0v2dLx69OHOnQLXPLW7Ru4NZq5P0BSzoSTPNjMV3Vfgb3k/
+ WHVNhmjIfTevsOzxBZmIM7uflRYtrqZBf4a+yhu28QbO3hauC7+UJYfXYuxvlUUIQy6uKxbD2NW
+ bHeXbEHyexFKh/vQMhTlkQDD6LqJA6msrTaDIVISyOUFAjsj3OEYmIBGX/9eGk4B7r2CZrODJrs
+ 45kma96xlLyTjSeQotdnX1N9KYGgMQO0P8DPG04oQ/rT19NRiWiloyqMQF23/W7kzKmHb3rKBSt
+ 3FNgho6D3mb3IKskIDVvoiSpgMOSJ6y49ykHNOmOw1Xqk81YsfscT8re8gFxur7yjrkdZrh6r90
+ 4OqOvazSb8Z4Seut3SA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210130
 
-Quoting Sergey Lebedev (2026-09-21 09:26:14)
-> The driver programs OV13858_REG_FORMAT1 (0x3820) from its mode tables and
-> never exposes the readout direction, so a module mounted rotated cannot be
-> corrected.
->=20
-> The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor upsi=
-de
-> down, and ipu-bridge now says so - b238116ccd4b ("media: ipu-bridge: Add
-> upside-down quirk for Surface Pro 11"). libcamera reads that rotation and
-> tries to compensate with sensor flips, finds neither control, and falls
-> back to Rot0, so the quirk on its own names a rotation nothing can undo.
->=20
-> ov13b10 has the same two controls, but it is a different part and its bit
-> assignments do not carry over. There is no public datasheet for this one,
-> so these were found by experiment on a single sample: single bits written
-> over i2c mid-stream, each captured frame correlated against the flipped
-> baseline. Of every bit in 0x3820 through 0x3823 exactly two move the
-> image: 0x3820 BIT(4) set flips vertically, and BIT(3) cleared mirrors
-> horizontally. 0x3821, where the mirror sits on several other OmniVision
-> parts, has no effect here.
->=20
-> Verified through the controls against a static scene, as correlation with
-> the flipped reference and, as a control, with the unflipped one:
->=20
->   vflip  +0.994 / +0.629    hflip  +0.973 / -0.141    both  +0.975 / -0.1=
-78
-
-What do these numbers mean ?
-
-Flips are 100% flips. They're not 90% flipped... or 90% correlated to
-something which might be flipped.
-
-=20
-> The mirror bit is active low and every mode table already sets it, so the
-> defaults write back what the mode list just wrote.
-> __v4l2_ctrl_handler_setup() runs after that list and before MODE_SELECT,
-> so the read-modify-write here sees the value the mode just programmed.
->=20
-> The Bayer order at the output does not change with either flip: per-chann=
-el
-> means over the four states agree to 0.2 counts in 70, and all four frames
-
-What does this mean ? (what's 0.2?)
-
-> demosaic correctly against one fixed pattern. Unlike imx219 and imx258,
-> whose flips select a different media bus code, these controls therefore do
-> not need V4L2_CTRL_FLAG_MODIFY_LAYOUT.
-
-
-It sounds like ... you've found the right bits to handle flips. That's
-great.
-
-But please just use a human to verify, and skip the almost maybe
-probablys.
-
-A flip is either flipped or it isn't. A 95% correlation that something
-might be flipped, probably, maybe ... isn't quite the same as "Oh look  I
-can see it's mirrored and I'm 100% certain of this because I'm a real
-person and I can tell when I look at something from left to right or
-right to left."
-
-If we know this flips correctly - lets say so clearly.
-
-> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+On 9/17/26 11:57 AM, Wentao Liang wrote:
+> pm_runtime_get_sync() leaves the runtime PM usage count of pd_dev
+> incremented even when resuming the device fails, and
+> iris_enable_power_domains() returns immediately in that case, so
+> the reference is never dropped.
+> 
+> Roll the usage count back with pm_runtime_put_noidle() on the error
+> path.
+> 
+> Fixes: bb8a95aa038e ("media: iris: implement power management")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/i2c/ov13858.c | 44 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
->=20
-> diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-> index de2b79a9a0..1bf21ffbc7 100644
-> --- a/drivers/media/i2c/ov13858.c
-> +++ b/drivers/media/i2c/ov13858.c
-> @@ -76,6 +76,15 @@
->  #define OV13858_DGTL_GAIN_DEFAULT      1024    /* Default gain =3D 1 X */
->  #define OV13858_DGTL_GAIN_STEP         1       /* Each step =3D 1/1024 */
-> =20
-> +/*
-> + * Readout direction. Neither flip changes the Bayer order at the output=
-, so
-> + * no window offset compensation is needed. The mirror bit is active low=
-: the
-> + * value the mode tables program already has it set.
-> + */
-> +#define OV13858_REG_FORMAT1            0x3820
-> +#define OV13858_FORMAT1_VFLIP          BIT(4)
-> +#define OV13858_FORMAT1_HFLIP_N                BIT(3)
-> +
->  /* Test Pattern Control */
->  #define OV13858_REG_TEST_PATTERN       0x4503
->  #define OV13858_TEST_PATTERN_ENABLE    BIT(7)
-> @@ -1042,6 +1051,8 @@ struct ov13858 {
->         struct v4l2_ctrl *vblank;
->         struct v4l2_ctrl *hblank;
->         struct v4l2_ctrl *exposure;
-> +       struct v4l2_ctrl *hflip;
-> +       struct v4l2_ctrl *vflip;
-> =20
->         /* Current mode */
->         const struct ov13858_mode *cur_mode;
-> @@ -1208,6 +1219,30 @@ static int ov13858_enable_test_pattern(struct ov13=
-858 *ov13858, u32 pattern)
->                                  OV13858_REG_VALUE_08BIT, val);
->  }
-> =20
-> +static int ov13858_update_flips(struct ov13858 *ov13858)
-> +{
-> +       u32 val;
-> +       int ret;
-> +
-> +       ret =3D ov13858_read_reg(ov13858, OV13858_REG_FORMAT1,
-> +                              OV13858_REG_VALUE_08BIT, &val);
-> +       if (ret)
-> +               return ret;
-> +
-> +       if (ov13858->vflip->val)
-> +               val |=3D OV13858_FORMAT1_VFLIP;
-> +       else
-> +               val &=3D ~OV13858_FORMAT1_VFLIP;
-> +
-> +       if (ov13858->hflip->val)
-> +               val &=3D ~OV13858_FORMAT1_HFLIP_N;
-> +       else
-> +               val |=3D OV13858_FORMAT1_HFLIP_N;
 
-Why is VFLIP set to flip, and HFLIP set to not flip. This sounds very
-odd to me.
+Already fixed in:
 
+f87d7eda07fc ("media: qcom: iris: fix runtime PM reference leaks")
 
-
-> +
-> +       return ov13858_write_reg(ov13858, OV13858_REG_FORMAT1,
-> +                                OV13858_REG_VALUE_08BIT, val);
-> +}
-> +
->  static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
->  {
->         struct ov13858 *ov13858 =3D container_of(ctrl->handler,
-> @@ -1254,6 +1289,10 @@ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
->                                         ov13858->cur_mode->height
->                                           + ctrl->val);
->                 break;
-> +       case V4L2_CID_HFLIP:
-> +       case V4L2_CID_VFLIP:
-> +               ret =3D ov13858_update_flips(ov13858);
-> +               break;
->         case V4L2_CID_TEST_PATTERN:
->                 ret =3D ov13858_enable_test_pattern(ov13858, ctrl->val);
->                 break;
-> @@ -1619,6 +1658,11 @@ static int ov13858_init_controls(struct ov13858 *o=
-v13858)
->                           OV13858_DGTL_GAIN_MIN, OV13858_DGTL_GAIN_MAX,
->                           OV13858_DGTL_GAIN_STEP, OV13858_DGTL_GAIN_DEFAU=
-LT);
-> =20
-> +       ov13858->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-> +                                          V4L2_CID_HFLIP, 0, 1, 1, 0);
-> +       ov13858->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-> +                                          V4L2_CID_VFLIP, 0, 1, 1, 0);
-> +
->         v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov13858_ctrl_ops,
->                                      V4L2_CID_TEST_PATTERN,
->                                      ARRAY_SIZE(ov13858_test_pattern_menu=
-) - 1,
-> --=20
-> 2.54.0 (Apple Git-157)
->=20
->
+Konrad
