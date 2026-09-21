@@ -1,148 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA99F48F82F;
-	Mon, 21 Sep 2026 11:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7F484238;
+	Mon, 21 Sep 2026 11:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988809; cv=none; b=AwI6pXfEy0b73egX9YR5xRgCfYv5VXpHwvvriCb7zcMN+16tctTrVaUF5etSTOyaxkESvQJEyaEfBuQs0gE362yaFo3jRxsZXVYgA1CadKt2df8p5awq3t6HgXRMOH8HkmBeJk1T0+a/KYO8oap84AN2yVBXzbUseZTGSqDtOhk=
+	t=1789990157; cv=none; b=Ts3r1L8eVO81Tn1hrFJ5xkc5v7xfp9oZ/KUY622GbDvbY/DBHteessNHqy+/HpxRgGqEV96x9qyFFngO9ZcPZFr9swDOvj3CjUQ9Z2QiKb+6mHcgg0Wk6jp1SF/DygKRk2tu4tIcTWRvh5K8p6GEvCYQiD2ISqBijz0loAXVGMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988809; c=relaxed/simple;
-	bh=4QIULEO63K1mGw6Hdn2wHigLQbtDy2PuwdlMdPjUiz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pz0LWdlU3R2K4tb0jpruHG59YEEkvsCsee44YOExX2oHGF9P2xA91wnHM11bJedcu8f5LftSQW7icVEQlEHX/Nt0MPwS2eDF1/xcnxVZ1zys+zWuwaW1QFQ+te9CLW8snuKI/4i52Vz7/NQS8bw1+eMonoXQCwVr+w5S7r3NzvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LkNVoZm1; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789990157; c=relaxed/simple;
+	bh=2LOrNaGQ5mj1zA9I9cLkssiYpHQbuUlvMHtAVgfZL7o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MebAw2BQxEl9y4mm5K0C5ECcfaEJ4uEYyl0DbX/UNuT5XYN5KXfnOsG+V/5WO2ly/Cl9fB2LKfnof304VuLxkKillAIN5nG4Cw5vu1a8JWe0PHM+MLBFgBJgXJg4hgRKS7COacLTvFXrc14QdOgjznfrUYyzS4E6TiCB6sfBWM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjdGLSf0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LkNVoZm1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789988802; x=1821524802;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4QIULEO63K1mGw6Hdn2wHigLQbtDy2PuwdlMdPjUiz4=;
-  b=LkNVoZm1j2FpAY3+EidFWn/CODAGspF6jvUM6pE+SHZ6WpvCmNn7Ukrk
-   AQOqQAm+g6x9cI2Qal7G16XqP7GL5eSSVJ7JPCiAGqkvx78nmDCT8GtWG
-   wzvte4rIonJxSbiVgbUtIHrtkzzD6+x6BEWsB6lX+wJjKtRSPACHUSSvc
-   xhrKq3ErJ7XhiEgsjU4i9uwAtv2ULZqr2Mg3iubVaqEadReYLe2KIJBmv
-   3utc9mOZ77ejMA68vibykKUQ2NjGoHRYVfjDQle13r2itrYC5I4/yYCTK
-   ZVoHVGJgA9d85v6XRmDbWFRvm6C2MwPITCD0wqgFuvkv6ePjxEJ+5R5XO
-   w==;
-X-CSE-ConnectionGUID: rpBdEzqrRJmVlIuQDi9YRA==
-X-CSE-MsgGUID: //I79/0zQkGekYEAkJzWXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="107994563"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="107994563"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 04:06:37 -0700
-X-CSE-ConnectionGUID: J+QpXSgzRqetvGJz62064g==
-X-CSE-MsgGUID: 0uPSoY8TTxOkrnfxEcKcbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="298849514"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.157])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 04:06:35 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 98CED120370;
-	Mon, 21 Sep 2026 14:06:35 +0300 (EEST)
-Date: Mon, 21 Sep 2026 14:06:35 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Sergey Lebedev <lsa.uz@pm.me>, linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov13858: add horizontal and vertical flip
- controls
-Message-ID: <arEPu__kIs1SJbg5@kekkonen.localdomain>
-References: <20260921082609.30830-1-lsa.uz@pm.me>
- <178998112223.1723501.7946524742858282804@ping.linuxembedded.co.uk>
- <CAPY8ntCLhQH+8nT4jGxnOEWNhnn3=ESPnkip-6Y=zfkaHP5gvw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjdGLSf0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4444E1F000FF;
+	Mon, 21 Sep 2026 11:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789990155;
+	bh=ytrNY/dXC+o9MsksDs8zljUzXO8YO7DW51E9SEVgNHE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MjdGLSf0pnoFhBwFlwXKcoZ4RH6OhswMlzB+ca+LLAi4BVBhJF0Ii+BUxLGyWaY+y
+	 miWNElchQPLZ5c5juVsDDLHGHtw7kELk/QG/SjyoKE5OmS8wgREk/xYBJqq4ztOCqN
+	 +PfouMSQ6nLARjnmV29YoWBN/S3gJhXEPVPslTbTJciXPdB676gdo5Q1ElTvxKzgJp
+	 3ZUAJOfcWaP69qmZRiJOwFGoE08t86wajDcB3k9SktFzlYryVdKaUtXKumDnjwQmJ6
+	 cHnCvjpcWzZI8OI09GeuN6x8usPirLR+3K5gm6A+dZuTmKBWTcTwk0oIbh1ETFge8M
+	 vKgOW3oDLaFow==
+Message-ID: <367c1fac-a665-48c8-bc28-98b0cb6e6f5c@kernel.org>
+Date: Mon, 21 Sep 2026 13:29:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntCLhQH+8nT4jGxnOEWNhnn3=ESPnkip-6Y=zfkaHP5gvw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Henry Paradiz <henry.paradiz@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260917212951.558283-1-henry.paradiz@gmail.com>
+ <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
+ <CAMfFSnDa-nGr-mxzuK9FibOCJGFFCBjB_HiLBwGJ3btuFR=WVw@mail.gmail.com>
+ <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Dave, others,
+Hi,
 
-On Mon, Sep 21, 2026 at 11:57:07AM +0100, Dave Stevenson wrote:
-> Hi Sergey and Kieran
+On 21-Sep-26 12:52 PM, Ricardo Ribalda wrote:
+> Hi Henry
 > 
-> On Mon, 21 Sept 2026 at 10:02, Kieran Bingham
-> <kieran.bingham@ideasonboard.com> wrote:
-> >
-> > Quoting Sergey Lebedev (2026-09-21 09:26:14)
-> > > The driver programs OV13858_REG_FORMAT1 (0x3820) from its mode tables and
-> > > never exposes the readout direction, so a module mounted rotated cannot be
-> > > corrected.
-> > >
-> > > The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor upside
-> > > down, and ipu-bridge now says so - b238116ccd4b ("media: ipu-bridge: Add
-> > > upside-down quirk for Surface Pro 11"). libcamera reads that rotation and
-> > > tries to compensate with sensor flips, finds neither control, and falls
-> > > back to Rot0, so the quirk on its own names a rotation nothing can undo.
-> > >
-> > > ov13b10 has the same two controls, but it is a different part and its bit
-> > > assignments do not carry over. There is no public datasheet for this one,
-> > > so these were found by experiment on a single sample: single bits written
-> > > over i2c mid-stream, each captured frame correlated against the flipped
-> > > baseline. Of every bit in 0x3820 through 0x3823 exactly two move the
-> > > image: 0x3820 BIT(4) set flips vertically, and BIT(3) cleared mirrors
-> > > horizontally. 0x3821, where the mirror sits on several other OmniVision
-> > > parts, has no effect here.
-> 
-> Intel's ipu6 driver for ov13858 confirms this -
-> https://github.com/intel/ipu6-drivers/blob/master/drivers/media/i2c/ov13858_intel.c
-> 
-> > > Verified through the controls against a static scene, as correlation with
-> > > the flipped reference and, as a control, with the unflipped one:
-> > >
-> > >   vflip  +0.994 / +0.629    hflip  +0.973 / -0.141    both  +0.975 / -0.178
-> >
-> > What do these numbers mean ?
-> >
-> > Flips are 100% flips. They're not 90% flipped... or 90% correlated to
-> > something which might be flipped.
-> >
-> >
-> > > The mirror bit is active low and every mode table already sets it, so the
-> > > defaults write back what the mode list just wrote.
-> > > __v4l2_ctrl_handler_setup() runs after that list and before MODE_SELECT,
-> > > so the read-modify-write here sees the value the mode just programmed.
-> > >
-> > > The Bayer order at the output does not change with either flip: per-channel
-> > > means over the four states agree to 0.2 counts in 70, and all four frames
-> >
-> > What does this mean ? (what's 0.2?)
-> >
-> > > demosaic correctly against one fixed pattern. Unlike imx219 and imx258,
-> > > whose flips select a different media bus code, these controls therefore do
-> > > not need V4L2_CTRL_FLAG_MODIFY_LAYOUT.
-> 
-> Just as a note, if the driver supported get_selection then the crop
-> should move by one pixel in the relevant direction with the flips.
-> 
-> Moving the crop to preserve the Bayer order isn't that unusual in
-> sensors now (most of the Sony Starvis and Starvis2 sensors do this, as
-> do some OnSemi sensors I'm aware of), so it's not really worth stating
-> in the commit text.
+> Thanks for the extra info. I still do not get why the device keeps
+> suspending if you have the UVC_QUIRK_DISABLE_AUTOSUSPEND. Are you sure
+> that you do not have some kind of daemon in the system doing any kind
+> of aggressive powersaving?
 
-It'd still be better to do this by using set_selection() to select the crop
-rectangle, which is a bit awkward before we have the common raw sensor
-model patches merged.
+Good point, a typical candidate for causing issues like this would
+be the TLP scripts which are somewhat popular:
 
-On the other hand, if this is all the sensor supports, there's little we
-can do about it I guess.
+https://linrunner.de/tlp/index.html
 
--- 
+Henry, if you are using TLP please try disabling it, or at least
+opting out the camera of TLP's management.
+
 Regards,
 
-Sakari Ailus
+Hans
+
