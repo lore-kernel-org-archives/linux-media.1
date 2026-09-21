@@ -1,117 +1,185 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0793B38AD
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 07:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5893E42885A
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 07:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974992; cv=none; b=PJpDCFOfMDjQl3skUjYrqNp73Nsj3QQoXgpGbjaLy9d7lEQrl7nKwQeOEUTzFYvUK2fmXnsPdnSaMrEPz1oP+E2qD99KFXz4MmfNWHLEnjMykNM5J8bC6yOJQslbS/pk9Ldq4APrqmYX9tlKhBcGXPcdWaVUOa14RwXznNqwLN0=
+	t=1789976058; cv=none; b=vFgkyeBEnTfAjMBidNNWIa2RbLfIy47IS6XDRMEK+yWw3Bu0C+JRmbaX5Slxfzp+LtXnNid+S0SAMs94AFa83LaMiaj5reHSWl4kIkOvGoDHztTBKtbcw0UjlqVFN4JvVSo+7uubXBn+TUUN9rjnyAYegByspx14mE5ZumXvlNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974992; c=relaxed/simple;
-	bh=VLcJk4lsf28RYu4j18sXeKy2fu6/7WckQGZEdCmD4L0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t17IuINehx/6yfzMwyfNT73GLi1Hbtdr4hKxuuaLD/bvWBMLq3OvZkN2Q4hHbJKi0UJzBaM7+JIPJWcaN2vLEkAOAuhI7x8Z3JcrB9vli0uid/RMQiluXG3RkZRu3v35JNf0iWxxH84Q0x4xUWpUwT4OFLURWTcYTLtDXZ+tFXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=GW6ab6xa; arc=none smtp.client-ip=188.68.61.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789976058; c=relaxed/simple;
+	bh=UVE7R9BB99XXJOqEeXYlbB1DFFirdbSX88LtuA3dPWA=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=gMfXA4R3d5HAarcqjKKVEAsev2cdk/3b11EndxOVXXB/dQcsEJG/aCbQaTEcY3NXCCfKN2imjroxX42RUOtmzwJ4XIH9TxdMlh3YRtVTRrsuCGpKQ2ueR9UZf7RRfA0BC9NqjpFn9hX2dukP+CErsmXYz8Jo869I+O3jUf7pPt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=TI3qO780; arc=none smtp.client-ip=79.135.106.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="GW6ab6xa"
-Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hpDzn58RVz8L7T;
-	Mon, 21 Sep 2026 09:16:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789974981;
-	bh=VLcJk4lsf28RYu4j18sXeKy2fu6/7WckQGZEdCmD4L0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GW6ab6xaJLXrH8FCdm6aVwErELN8WaGmzc28jzMEzvepjSMDOWZa/jrfo8+K/+fd5
-	 iFpUFA0LxIRGlMgFWc4BCCam2e7HzCEDgdSgKgBp3sV70ouv2WQ9sXCpGtmNkh+FEQ
-	 N//GxweZxaNMJL/ga8teb2/Tu7lJM/FFxyTcNjkaZnPS9QvR9kO1XOaK5Wl92ZMiwP
-	 vBkoRpBLp5fZqTNUP4dKH8JXtFtFlFp7hxERoUPYZQDjxOMqjAD3G+BOl0YPZaiKN+
-	 N3VlEnqR2TjhrktDgtlKX1e5yg38VU/pm+0+sDgsEzRZjwPKsWpuS3vgC9sjM9lVkS
-	 BwuGqFEga8xEg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hpDzn4RkMz8Jk7;
-	Mon, 21 Sep 2026 09:16:21 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hpDzk3b0Kz8tjc;
-	Mon, 21 Sep 2026 09:16:18 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 9DB515F96B;
-	Mon, 21 Sep 2026 09:16:13 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <2b067a4a-6da8-4948-ab50-46f1c6193ed1@leemhuis.info>
-Date: Mon, 21 Sep 2026 09:16:12 +0200
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="TI3qO780"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789976048; x=1790235248;
+	bh=9r3qo3RhW1eT6npY6O91FnLiaqgITql2u6tc4bU4a1o=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=TI3qO780+896QkaRcWVu+n6mwn/ISxwXax7O2mqBo25mKCvCDTvemoTXTYgdHNP7t
+	 1B2pNEuQr/gw+hG05yZ88evybtY/pLzvpgOWUo4GdvbsA2uH82huoJd08S/B3FJ9Hh
+	 F/kH1D5RdQsmtWRrl4oIAFZsE9TFcQYQyFzDo66FAGJW7yaOX3nJ4bdwkad0HZLR8z
+	 2tBHbh1MsW/lcrZ72J7DpSoGtQB+xLsEt7xTalNgiakVhN5ixnXCEFahGUDD2Bu/kR
+	 QvtCkFD2vTxvvw81dMDQ9QdeukYfAfWrDshDae9U65SG5IIjSh/Yi+yDq7lLB110Yp
+	 Zj5dNaJV0IgYg==
+Date: Mon, 21 Sep 2026 07:34:02 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20260921073352.86357-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 5085e3fc67cf7216ef12953b6bcbbeb01184b320
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?Q?Re=3A_=5BPATCH_1/1=5D_media=3A_Don=27t_hide_I=C2=B2C_or_S?=
- =?UTF-8?Q?PI_drivers_by_default?=
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Junjie Cao <junjie.cao@intel.com>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Manuel Knitza <manuel.knitza@googlemail.com>,
- Antti Laakso <antti.laakso@linux.intel.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>, linux-media@vger.kernel.org,
- regressions@lists.linux.dev
-References: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
- <20260920020347.709849-1-junjie.cao@intel.com>
- <arDUk1RugOuxI74d@kekkonen.localdomain>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <arDUk1RugOuxI74d@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178997497407.4020315.9293366670673163166@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 9DB515F96B
-X-NC-CID: l45LT0zxPGE1gi+htJ9sasPQxjOdQH+lJUOUkTmjDmREU1K2dBM=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/21/26 08:54, Sakari Ailus wrote:
-> On Sun, Sep 20, 2026 at 10:03:47AM +0800, Junjie Cao wrote:
->> On Sat, Sep 19, 2026 at 09:10:18AM +0200, Thorsten Leemhuis wrote:
->>> Also wondering if the "olddefconfig" case on Arch was tested to ensure
->>> we prevent more people running into problems that Junjie's fix linked to
->>
->> Ran it: this patch on its base-commit, Arch's
->> config.x86_64 (7.2.4.arch1):
->>
->>   olddefconfig, before: no VIDEO_INTEL_CVS line
->>   olddefconfig, after:  # CONFIG_VIDEO_INTEL_CVS is not set
->>
->> The option has no default, so olddefconfig leaves it
->> off. With the patch, oldconfig prompts for it as (NEW)
->> and listnewconfig lists it.
-> 
-> Generally drivers are unselected by default and cvs is no exception.
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
+or
+Business (Intel Lunar Lake, IPU7), enumerated as ACPI device SONY0681. With=
+out
+a driver the camera does not appear at all - not as a degraded device, not =
+at
+all.
 
-Yup, sure, but it seems we here due to some oddity (details don't matter
-much) ran into a situation that users perceive as regression (which
-matters a lot).
-> What I think we could possibly do is to add to cvs Kconfig:
-> 
-> 	default VIDEO_INTEL_IPU6
-> 
-> As the cvs driver is (at least right now) used with ipu6 driver only.
+  1/3  dt-bindings: media: Add Sony IMX681            (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre Gilerson's)
+  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
 
-Due to what I wrote above I'd say: this sounds like a good solution that
-has no significant downsides -- and avoids a problem for everyone that
-manually configures their kernel in the future, which is a good thing,
-too. And we can easily drop the default later if there is a strong need
-(and then likely should add a hint to the help text which other symbols
-are needed in case it doesn't have one already; didn't check)
+The driver is Andre's work, reverse-engineered from I2C traces taken under
+Windows. I am carrying the submission, not the code: his Signed-off-by is o=
+n
+2/3 with mine beneath it as the person passing it on.
 
-Ciao, Thorsten
+Changes in v4
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+All three are Krzysztof Kozlowski's, from his review of v3 on 11 September.
+
+  - MAINTAINERS: the T: line is gone. He is right that neither Andre nor I
+    have commit rights to that tree, and the line was ours rather than his =
+-
+    the MAINTAINERS hunk went in with v2.
+
+  - dev_err() followed by a return is now dev_err_probe(). He flagged one
+    site, at the CCI init. The same shape was in twelve others on the probe
+    path, so all thirteen are converted rather than only the one he quoted.
+    Seven further sites are left alone, in imx681_start_streaming(),
+    imx681_stop_streaming() and imx681_power_on(): dev_err_probe() is wrong
+    outside probe, and power_on() is reached from runtime-PM resume as well
+    as from probe, so it is not a probe path even though probe calls it.
+
+  - The clock-rate dev_dbg is gone. clk_summary says it.
+
+Nothing else changed. No behaviour changes except that the converted sites
+now return the error through dev_err_probe() instead of beside it.
+
+Trailers, and a correction I owe
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+
+Krzysztof's Reviewed-by is on 1/3, and on 1/3 only.
+
+German Pablo Lindo's Tested-by is on 2/3 and never on 1/3, per Krzysztof's
+"Just remember that Tested-by does not apply here".
+
+The correction, in the open because the error was: the v3 cover letter call=
+ed
+the tester by a surname I had taken from his email address rather than from
+him. It was wrong. His name is German Pablo Lindo, and the Tested-by below =
+is
+his own wording.
+
+Andre, and why this goes out before your ack
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Krzysztof asked that Andre ack the binding, since it names him as maintaine=
+r.
+That is properly his and he is away until 28 September, so this version doe=
+s
+not have it.
+
+It goes now anyway, for a reason that is about the tags rather than about
+impatience: patchwork.linuxtv.org populates its tags field for nobody on th=
+is
+instance - not for our two patches and not for four accepted ones I checked
+against today - so a maintainer applying from patchwork picks up neither
+trailer.
+They exist in the lore archive and in these commit messages, and nowhere el=
+se.
+A v4 is the only thing that carries them.
+
+Andre - the ack is yours whenever you are back, and nothing here needs it i=
+n
+order to be read or reviewed.
+
+Not addressed by this version: nobody has commented on 2/3 or 3/3 yet, and
+the mirroring question raised against v3 is still open with Sakari, Dan and
+Hans. If any of that lands, it lands in v5.
+
+Checked
+=3D=3D=3D=3D=3D=3D=3D
+
+checkpatch --strict, sparse and W=3D1 are all clean on 2/3 and 3/3. 1/3's o=
+nly
+checkpatch warning asks whether MAINTAINERS needs updating, which 2/3 does.
+
+Built and run on the machine rather than only compiled: the driver probes,
+ipu-bridge binds it at 3844x2640 over two lanes at 969.6 MHz per lane, and
+captured frames render as a coherent image rather than as noise.
+
+Limitations
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+  error paths       The regulator get succeeds here because INT3472 hands o=
+ut
+                    dummies for dvdd and dovdd, so the fatal path is reason=
+ed
+                    rather than exercised.
+
+  IVSC              None of the IVSC HIDs is present on this machine, so
+                    sensor->csi_dev is NULL and ipu-bridge never enters tho=
+se
+                    paths.
+
+  one machine       One Surface Pro 11 and one sensor sample. German has th=
+e
+                    same HID on another machine but reaches IPU7 through th=
+e
+                    staging driver, which is a second path rather than a
+                    second test of this one.
+
+  one mode          3844x2640 SGRBG10 at 969.6 MHz per lane is the only
+                    configuration the driver has, and the only one measured=
+.
+
+  no sanitisers     Not built with KASAN or lockdep. That is a kernel rebui=
+ld
+                    here rather than a problem, so ask if it would help.
+
+Based on media/next at aedd77ea8168 ("media: qcom: camss: use
+fwnode_graph_for_each_endpoint_scoped() to simplify code"). That branch
+rewinds - v3's declared base is no longer in it either - so if this does no=
+t
+apply where you are, say so and I will rebase rather than guess.
+
+German reported this HID as a bug on this list on 3 September and has had n=
+o
+reply since; he is on Cc here.
+
+  https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulind=
+ez@gmail.com/
+--=20
+2.54.0 (Apple Git-157)
+
+
