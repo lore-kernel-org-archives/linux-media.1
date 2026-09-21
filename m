@@ -1,150 +1,92 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013025.outbound.protection.outlook.com [40.107.159.25])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3E94E0B72
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 21:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790025047; cv=fail; b=fA6IEeJzlXLC21wbdVl5wjLgrk3WbHAFF1+XN5PKrJ3S/+TXAm55ZUijp9r3roCyWkrtR+Kv9/FN5hcYA77CtCtxp20VWVxJVD2uqBFLwnn/DV/p+1dW2PlPxZB9Fm0AL32FTmxKW37AJnrEOsgNj17FvxfVQDEGrWnRnz5KYxw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790025047; c=relaxed/simple;
-	bh=1hPQ5xLpA6gj27onwNbGciuRGJlVReBKkV+hRVwsI5U=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=orvcWKadR1fvzP3Y3oImqH7WDH6awz+CAIhcOd3qi1PMNPITHIKweey2wKho3MNX56ZxuQQEjq9OyksrXGCeGCVAYcGVxsyE/cL6u6QfT0EqXTblr2sEcTsPjwL2G3tlE1PMtimrq0YmjHQneYknbfDsAqpBInhjzz8bmfVaecM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cy0CCimI; arc=fail smtp.client-ip=40.107.159.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F232F501290;
+	Mon, 21 Sep 2026 21:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790025599; cv=none; b=WyVsvtz+9FBp/ixmQS3KGY876R6hYMTbtNXphNikyyRMdTI+O6vcGt780BCdt+8JcATWorYBMODNd0BpKI9fOJ+YLgcQIEEVsbgprcPWV0IrzHikbmwzvjqQuGiwgzwaxiiBu9DjB6EP6NNZWBjoxtPYkOX/kikNaP4ZXeFPzBE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790025599; c=relaxed/simple;
+	bh=pVFVNpryK/50omAZCNkcvjfe5nFPxxjWqY4zKIS+Wco=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=eQm8JtdEPGsZ/eMSa1ZK4vI3BVhsdakB6+C5CskiDr35W9xD8Oi0ESayWUYXSYBj0fFDOlAjM44WS7TxISJpE0rB6uKU+nna8/m5DPCFxOfZB5XSzzeEbFBU4yQfr+qgedL0iZXrgYmIBRSw61RsQNegVt0Qytnwhsr0QRJ0dlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=ErRE0zur; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cy0CCimI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OVJKzmzkBw1hHV9jSX2EGYY5d9/i/gpCulGDQZEBTbyqiebE4j/QIAvq5OvQnBvZP9jBaYkVg8Yzrd3OYLGxYKwtyBWpeknjvlkRRUkY81q7dzNK/3D76t0NbpsbQ0sFTDjQhdhNLpnLkq4+wEczQIMMAxyt52rMdwwvsInw8VkNwH5uFcdli2G2rkKSrYKS7w4XcywhmeU71iLEOw0LEBtG07L7nd7En4EAdw/G1FClZUwM3QpRVPdOdScZAwkfSFNWauKJbdgr7eEuV4fhLkV5yltW3i0M37XBeSPJIW1/efSIf1P2CcwIFwWTxzftTMqZrvRE1CfZuOJQOOkzVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CvoEs2MQG2E2YKFgVwcyiinBBUMNmnsDVSa034/6kXA=;
- b=nQWJ6ZkX1phvG2++5l12XLOVJxdRNmUhDUBWSZ0vXegZkZgwz0nsi43iD2GiJV4sdhP4JqNNAzRLu4+cVixuij8YyjdEwq50rMhIUNQjunEZGXULANzE3l5VCQ6mPYg4jjPEQdyzSSfkjxnmTYOsK8oDAlkulnbovMK1dTrHTIRLq9RCdIXOfcg9efesWLSdSjYlRRRbSQivSE9qv9dfNtVpIPCHOxNshQxIme287KDUd/tpKLZADi2HQP3U6y2s2ct8tnZuwMSqidAjXdp1aw9KxQvyR1YO1lXpsEcPng7UcMm7jI3jZWHzfO+6EgIGaadJp2evzRRE/iiwOLcliA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CvoEs2MQG2E2YKFgVwcyiinBBUMNmnsDVSa034/6kXA=;
- b=cy0CCimIH3Kh/3Oz4JpboUIdMiRkcbdcojXKmnMvyt8nPtEIegHtTc0D7KQDCaFvHQdSKs0TvTIRCfj5akdHVLEe3AD6DY6SETjUe+gGF9LaH4KGtY2IFaLFzf3CMz2NgcTnRtpzTikZ/CvMYApYGvS5UFbVPxmrnfOqHeKb0m8v+TN9iUEBOAmxL87ebCCoeANIOoBjubnLlakXmiiIi5epDcPMsKgQJV0Iks6JFRn+/RyIAakFGGYHWPar+q8H55RZk/DX5Sj6XKYnRf1fS+jQ/W2X2WPOgXwF1MwQCKkphnd+KMiVruTjOrtTq7fSACeMV+onMAIVNyL2/2mzxQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10218.eurprd04.prod.outlook.com (2603:10a6:800:22b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 21:10:41 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 21:10:41 +0000
-From: Frank.Li@oss.nxp.com
-To: Hans Verkuil <hans@jjverkuil.nl>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Frank.Li@oss.nxp.com,
-	linux-media@vger.kernel.org,
-	imx@lists.linux.dev
-Subject: [GIT PULL FOR v7.4] i.MX NXP stage driver for changes
-Date: Mon, 21 Sep 2026 17:10:29 -0400
-Message-ID: <20260921211031.1408910-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH8PR20CA0018.namprd20.prod.outlook.com
- (2603:10b6:510:23c::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="ErRE0zur"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=g1ST6U2BpQn/s3D8UpgYd2KCtTjj3ldN0h2dyB/bZ1Q=; b=ErRE0zursoMY+UMyjDwlvee3Ni
+	KA0G6w/m3ydbimYpQQUck96YqgySKBEOmHmVTKRDnOSBjXwLk823Iyzn19FH5wIRNyOd8lHCcCOKF
+	P4e0/xf7B99zvFBls/UtyMwxWMPlkopEgNqDz2HBzZ+BN0XiC2bQLmA9ey2luseNU9pagmqqvcRBg
+	X5WL28iC9i3rfIjgzKuHTOMbAZBQXwEdIErvGXDZfX/f15ftDFp1bId1GIvg6+M9qgvuceibqnwk3
+	gV7hSE5AohGjlJ+NEsDquVHADVHT9YX5Kzbjm+P60e79A2ZT0irlax3JIJfDcRd7sn2BOJDrjfqsg
+	6x4VUOpQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x8lQX-0000000F5FQ-0Kc5;
+	Mon, 21 Sep 2026 15:19:54 -0600
+Message-ID: <9e868c06-be53-436c-a78d-790ed2b91c3e@deltatee.com>
+Date: Mon, 21 Sep 2026 15:19:40 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10218:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16f4bc17-804a-49c1-a068-08df1824cadd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|19092799006|23010399003|1800799024|366016|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	z+bOtBtUCg/m4u8FDcmUwnqM0AooLWN3pvRBQO7e0OYQZ/Y6q1pfjPjDqQiVMatZNQ+aDZqC6kR2YGkapm1y3VgjSaeOwffZWRO4pwZ7bPNr81rq09MI6j97SKh1fw+szvzDLyRX80/rokTw4Tg03VCdI7LvF7xl0x6TjGcKA/E4tzVntC5p0wPJLbx7Cm2H6IuLXorZDDD35KQsssbccipFh2Iy10/2za1XYR/wQKl8e1EEYxpEfCXpVarZAbtiyEJY56H28oUNKwLCzio+MjVFk0lBF93xPgj5GOwdmg2RSOeyrWkDjlLB/FitKg59VMB90V7IgvNajy7BttwHV8A5CGyJDAbafKks50Mc+IH+VZ70jbefay3mLLiTPtcDc/rrXp5G9nsjeox34W45ejH1/+BzHPVYc++yKx/gcLgHpXe8W2eIhpixyDq57GBTwyxLIiA3Z1z1kkEqjSrKKmtlYa+1azWxnd4egZQ2v6rUxWZNNmwOoCAUYzZ6+iXjFRVOK/PIdkH9rGXHxEVl85I41RcuFkoUXyrzdN++ef0hA9V5t9ttmUGXJc4fWrqdpH6ZiUstoOm5mFYj1HSAA8JggAz86/YxmPA8XdQfFw2fuNhxG7PxspOkUoHqdvWx
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(23010399003)(1800799024)(366016)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3gWHmBr3NSjAkV7Pwebqf3j7MjZI45oCe4s0HW7EHeYO4+/OwO+KdVR1djAa?=
- =?us-ascii?Q?fCA7vbNuWmevLJkKUfdFRzFJQpXmaxJjDs+y2bP5U6NHA/TYJvwZ/b84KKgy?=
- =?us-ascii?Q?vhwaOFyImchEH0XNfgmMbylw/o1Bt94vQsgm5eW0K4hAnz9MfLQgSDc6Zsm6?=
- =?us-ascii?Q?QpfDwu1z6pwdCdk0bqTkskNWvMT8sImaW0rHF6oh/SIJmkGEdcq2zytkA0IZ?=
- =?us-ascii?Q?v0qXnxDrnEGwyr0pVjHIl24glawsM0zGESX67eSs7a3M/RvjVvrbSGKHQWNT?=
- =?us-ascii?Q?QFOmNaXq/SP0AyDyemY2Rxs22EyuUQXWc65QaKrUR8lMsLtcSIVmts5/XkYY?=
- =?us-ascii?Q?9bdjHex58SWLcDDDKdmLo7c2zmmKhRhP2jk4BuoCVWKJRzevVFPQ+8Mh7WEo?=
- =?us-ascii?Q?RFf5ZkxxJ/niRpamUPJOlZmyBsg6i8ko8a12pFJfphkgm3Iv1fYnrb/P3qdU?=
- =?us-ascii?Q?X2jrGQ2+UjIPAGh/uPilKvBShOz8itDxSd6UKcUpTnEkvf9NsV0c+4Oeu+Qd?=
- =?us-ascii?Q?yoviSmhFW+Nf6JTPM1kDIDviueWdKSRdn5OJRT+NYDo4EqSxCShjFm9RLqFm?=
- =?us-ascii?Q?dCXLgb9DjiSt+ICKZuv2tEDIs1bx1qsyN7vkp6suivCpGrahU63ukwaNEOD+?=
- =?us-ascii?Q?XpN3xD/oojDqyB6fw2ESHgJfrby6bh3D6q5yZmJDYA/Zmdca9afNLmtT3ndC?=
- =?us-ascii?Q?6stJb2S/QS8xtWFjiZhXlWkMARulhAfD6IOSUCsslL5Xki4T/lGxrun0cqwn?=
- =?us-ascii?Q?DRINJKOC8QeYWEKMMm2K474hQWvoW7btxSfrk7haHm4Rd6jfWX7cW7FPwN8R?=
- =?us-ascii?Q?xE3Tk29jPE4CmY0HjGgVfR+XntpiPIcEXCTCUITMLagd/52/fygNslMncXRG?=
- =?us-ascii?Q?CFFmrnRMAuk0797wKe5mm5iKzwKiPkxbSFmkICTpL/7Iz4bdYKhozA7RxxOp?=
- =?us-ascii?Q?WWltDzxlIbWU8qAyUisNrcWWoJSUy75EYZSPgN6NGvVtMVGrZL64xYe/gU75?=
- =?us-ascii?Q?OTCwcOb9JCAh4Bxr9OH78vh3gO/3mPW+/fc3+kwye3urHyRDynMH/27xXlYH?=
- =?us-ascii?Q?00AwbByMzFhq5eFRe184fVVmA6U5rGEZScn5/qOATo10qzlWN/aVg/15Vndi?=
- =?us-ascii?Q?21ggkuK/KqDCMIKFLn8JXil22uA+wOl4UCVnJkqvleaTAXmAynOMHXs0MpX+?=
- =?us-ascii?Q?7iboCVx2NA5gaa0S+Dh/aseJHM6aYZOw+KiKBgu2H2Hw3Lxj7HsHvUGtyc0G?=
- =?us-ascii?Q?Q0sB2t5KLhnM2z8/0uN1A6UHLOpD1isF9QNZEMWWb2Dl6EnRwGzRS/cddJ7j?=
- =?us-ascii?Q?l+gSIHUOp9VykeDkAAKXYxzUmR7pDWxXxBE6SdqWbbe6MalpMBQJYscoSv+W?=
- =?us-ascii?Q?gT6m99lxY9FZ7iGz3pYAJr6Jm2wwrRdC84WTIe2JMgibO6b60lgDKyxI2ahk?=
- =?us-ascii?Q?cnXhYq4SMa508nPO8U6KU9+GGqur0Hz6dFHJnePfGLel8eMX4kUZvnBODmqJ?=
- =?us-ascii?Q?r6Z7dL+Q8vFkB+GW7jj1QkDpCMucJHtYiNvWAvL2K1OTJFOcbe59Ly5+XvLG?=
- =?us-ascii?Q?A1vWLEldrs9flTqcaivhnO2m5x7nqqNi74MpG6ODArTZd/t7fZq1RFYEsKf5?=
- =?us-ascii?Q?YzMMHkQM5WRxoTkgaIY/d9S1qmfVcKmf5F7MXO3YoPzv2VIqc58+sG2KeHDx?=
- =?us-ascii?Q?oQ71JHlN9TrcAx6nWUSU5CLyM7pLSoNJ1cCeANOOYOGdMeMCZX92kd6jVtML?=
- =?us-ascii?Q?pOPuYj0EACFYWtFwiTl5WrSsRY4z3Yfl6hLd3OZMBl5og3gur3k3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16f4bc17-804a-49c1-a068-08df1824cadd
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 21:10:41.3403
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CbF/FHm98IQ999bCBj9CeSLgii2B/BsHVx1xh8MjEKimjsFiU9cpPQG/GeE9zudcraNHiGxps8A/EPMiImLi4Vy728MctLKHnSNQtgkjr0pyLBo93/VS72LhD4Ii7IAN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10218
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+ <20260920-fix-p2p-acs-v4-0-v7-11-ca0828ab697c@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-11-ca0828ab697c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v7 11/19] PCI/P2PDMA: Log detailed ACS routing diagnostics
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-The following changes since commit aedd77ea8168f00687c1248cdf115071e869cf93:
 
-  media: qcom: camss: use fwnode_graph_for_each_endpoint_scoped() to simplify code (2026-09-17 22:58:08 +0300)
 
-are available in the Git repository at:
+On 2026-09-20 05:41, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> When P2PDMA rejects a mapping, existing warnings identify only the final
+> ACS or host-bridge result. They omit topology, live controls, divergence
+> ports, cache state, and intermediate routing decisions.
+> 
+> Emit debug-level messages for verbose calculations and cache lookups.
+> Report both paths, decoded ACS controls, directional decisions, host
+> fallback, and the final mapping. This keeps incidental unsupported probes
+> quiet while allowing the diagnostics to be enabled when needed.
+> 
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-  https://gitlab.freedesktop.org/linux-media/users/frankl.git tags/media-stage-nxp-20260921
+Looks good to me:
 
-for you to fetch changes up to d8292d32467c55941f1e515b94b1c5bf119574df:
-
-  staging: media: imx: remove unused header includes (2026-09-21 15:37:20 -0400)
-
-----------------------------------------------------------------
-NXP i.MX staging media updates for v7.4
-
-- Fix memory leak in csc-scaler device_run().
-- Remove unused header includes.
-
-----------------------------------------------------------------
-Cong Nguyen (1):
-      staging: media: imx: csc-scaler: fix ipu_image_convert_run leak on queue error
-
-Rajveer Chaudhari (1):
-      staging: media: imx: remove unused header includes
-
- drivers/staging/media/imx/imx-ic-prp.c           | 1 -
- drivers/staging/media/imx/imx-ic-prpencvf.c      | 3 +--
- drivers/staging/media/imx/imx-media-capture.c    | 1 -
- drivers/staging/media/imx/imx-media-csc-scaler.c | 3 +--
- drivers/staging/media/imx/imx-media-dev.c        | 1 -
- 5 files changed, 2 insertions(+), 7 deletions(-)
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
