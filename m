@@ -1,43 +1,100 @@
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4C348EC8F
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 13:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E9B49B5AA
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 13:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995676; cv=none; b=FdZF54+SToW+GUtQUcbf9R6xQgNffOP4B0UMEl443wVPKOHh45gn2q5fdgvin9zRKAe2ODSeNO+VqeLoeZfax7PLL+ypdAWolf3WrXWoKZ7pXgdsuF3D2AF/sMTuQCkXPC5TcG5v0DLz65ipKoSw2DDqacgT4qt5Rtn7R1+5FkE=
+	t=1789996144; cv=none; b=H40re5BRL3ieClvWdt7Ydru1QKuE6j8tQzXuYA4sfldu3s74ioXvdHTE8xSz1MKj56vKlJIlosBdH5FZ5oceN1qhX5kQe1qq2sC9poubSxdsci7+bDX96s6larDjP/4zWO6h7giOEezb1MuCD1CmlV4j+vpYmosuxy04GO2zToM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995676; c=relaxed/simple;
-	bh=+UwjiZrchWMNmc9IYXnFU9yFxXs1bhtYuw6HbaPEMBo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=heVS5r7hUgtIIo9qjmdlDbgtpJxLppJ7cqyr4Y4S7UedqGSMwidgReYYKvjjKdXRIm5gLON05BWPfKgf2VYvyOHJroKbpJKhoww5Cdrgy2OhYSvvP0CZtK6qjFqYqjR+EKED4lN+ftEFePqOJopODLZ9yvTH1rPr0gh8cFYkTF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Xr1ZySUT; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789996144; c=relaxed/simple;
+	bh=7iRzAcHHARKyQ+ATaMDpW4DruCrP6jplXNxnuj7OqwM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WW3twCjgUv3cg+6eMoBGPKMQb5u39H6NKGV8eaJmxF2B7AncR+nC3GbDRV2SeAso3HjfIaL2xOWoIMd1qcZTeSThkEcprKMgAql2SO2iw0e8GZUd8PTZJg/sOuS/X/gIm+SrZBOcxiqTStM7S4l0b02A9kZTiRqAF8t79rGQXdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OVbP23qH; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Xr1ZySUT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789995659; x=1790254859;
-	bh=z9lx7/98NMh4Z1OM2zipNmgn2bDt5PWUnV9/wJKsrDU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Xr1ZySUTHdMyd/JhSA0Ee6xJwg80DvD77zS/Coti7uJNWesDzbj3rmPB6cCg0BrDh
-	 EVB78TZvWG4N3ROrfkmvSkjG/+I17H+0S0cWiyLDYlxUPqSfNUkYURS/zEuzbZ5x4Z
-	 7L2Bv572+5SBE5VUt1iWu8oOk66maZuHbs95z4P8yGAzx0TPc7uM/9Zwo9qFZxoiEa
-	 m47Fv43Mlc2pn4Pdz+dQV700YVOA018c71WdKh/1HyCSlyiEPGvU9AycngPS8MZ1eA
-	 qpy8fAy4I/HNnNIr49z2qyNPPtJp6Q+vCmT20gZHqa8pBFlrRVYP6RipyzK5128JtN
-	 crXXq6kA1ZGpQ==
-Date: Mon, 21 Sep 2026 13:00:53 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
-Message-ID: <20260921130046.80552-1-lsa.uz@pm.me>
-In-Reply-To: <arEPu__kIs1SJbg5@kekkonen.localdomain>
-References: <20260921082609.30830-1-lsa.uz@pm.me> <178998112223.1723501.7946524742858282804@ping.linuxembedded.co.uk> <CAPY8ntCLhQH+8nT4jGxnOEWNhnn3=ESPnkip-6Y=zfkaHP5gvw@mail.gmail.com> <arEPu__kIs1SJbg5@kekkonen.localdomain>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: a99a1ccaa8ce3360abb74f32e46771aaa89bc807
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OVbP23qH"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-6713d20d375so2486967d50.0
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 06:09:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789996141; x=1790600941; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
+        b=OVbP23qHxpA1f0E25xNKG0Utb4qY1pci7lNk1dz9kSCfiFs84khz7O89QkedKxGdF/
+         0BgGqFlTDcjyoq1EhB62Hs1JbrYZYD8S5vHBJOhauPNXuaX1nb3pv3wtsBQTIyaxKlHH
+         W5RPLjfQVDytPLMyAVNbHYDlUMwBER/D7KO1XAs4nvgPFc7AW8QN2S5fU7XQBgbrQklV
+         mea3UtzB/mAP5ERVg1OpKwyibQEtCEHIyAnlL9kblIObxvClWKjATxcupqTIfL8HDbgJ
+         DArpRHVstouE13CeyOaGnHw7CHAQLXfCxKjIZToSseuODn/RSEXWdw31uTLaznBIBhdH
+         ujIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789996141; x=1790600941;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
+        b=AGSjsucNwlnp+k8MYjrk8OnSuetJRfcUeBX+Evs/gHm+Ynsqx4K0VYtkHZ9DNIPwiq
+         gmWuxAhdjW1/s4GxyMSpGQB2kA7o2N5korX0L6PzN1QVW46dm/u/sJmT8BHDEI6RK6mN
+         5sj68BaRSbJ99MVN3Jk2bc6ZdUP6GXCklQn3KmG4ul5MF1Qra9sYVw3+XkO/FDcSAymh
+         bzJS8aXUHu6fWwt0lAHtjRg+9WX1edBjbjAa9oKFlg/JpPi+2Ot542PNv2WDkXprbGHF
+         Yegn1R651Q+seWT51tjZv8vjhq6G7MPyVMsAycWNGQs9oZauelWofspYCoRf9NZnarfU
+         Rjdg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRGDKTPz5jM3n3cduWWVttD86tBxJ383ArkyTBYojLr3DX6bEz60Epeot21U0rx8XGX4VNywQk3cDvhg==@vger.kernel.org
+X-Gm-Message-State: AFuF++l/Lqfz1rvns+XqgWU9NlH5o7+Jazf9LzuAmh3PEwZ0U5r5ZWab
+	gYDbSM5zLlK4kK2EY4KpJAK/RutathJRd0CWi1OqbL2aAs3CLjoA3VXOs12ub3CEN9U=
+X-Gm-Gg: AYBFou0jZY0FHnd9AY4P8iCPPEa1Rw2P6HvY+GhD9vHBP93TDZNCp8KkBWKckdg2si1
+	p4/STWq+zIM4+zhXA23vuIaDSRSpPwCG+r7DFVoCEV2nE8ENc85d5zl1JTjryqLidgHXF/Nd4Au
+	CZXr1zpnYyUzuNBaBfdgOuWQLTBonpe62lmZ4yCiVf2Qc7p5msVxhv9DiKGGkrAeG2P33iyg7j2
+	OSFNK+Q4XNpQ0udzpMfIBqPoNWZe++z29fxnqg2OaFvmJFHwa7ZYxIaKN1qkmiFqwqicgoF12kH
+	cS02kJinB4yITQGvStTsgR7TkKajXgsf9XRlVlIrxRBxFYPURPMEHwccKMPDNQCijy5MWXaOF89
+	WcFnLrnn+wzIDdLQ7y6+uClZrROubZSxqT8tB/5zhqj1n0JOtYvQaAjCte7lGL+L9pw+kbq7jVO
+	oQQX04PF6v2alvuRwtjBtVHG12+mDjdU9CZxmvkw1jfFZhmBREwufHEphgssBIrUOCdDarIXDLp
+	WkfXTbCL/3XnWui7hufnblNiWFFXoUkyDWzQwEw+g4dJok2uB7Kvm+c
+X-Received: by 2002:a05:690e:11ca:b0:672:a52c:db25 with SMTP id 956f58d0204a3-672a52ce30bmr1843524d50.109.1789996140490;
+        Mon, 21 Sep 2026 06:09:00 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa1db7sm67720106d6.44.2026.09.21.06.08.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:08:59 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x8dlS-00000006Jlj-41LR;
+	Mon, 21 Sep 2026 10:08:58 -0300
+Date: Mon, 21 Sep 2026 10:08:58 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Christoph Hellwig <hch@lst.de>, Leon Romanovsky <leon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260921130858.GO11599@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <20260918121500.GV13683@unreal>
+ <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
+ <20260918170524.GH11599@ziepe.ca>
+ <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,20 +102,110 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
 
-v2 is posted, as its own thread:
+On Mon, Sep 21, 2026 at 08:43:49AM +0200, Christian König wrote:
+> On 9/18/26 19:05, Jason Gunthorpe wrote:
+> > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
+> >>
+> >> 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
+> >> path. Then Xe always sets up dma-addresses using dma_map_resource(). 
+> > 
+> > Open coding pci_p2pdma_distance() in drivers is a hack. Using
+> > dma_map_resource() like this was never "allowed".
+> > 
+> > We've fixed things so these hacks are not needed, the drivers need to
+> > move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
+> > to use the DMA API correctly.
+> 
+> That is a completely broken approach as well since it limits the
+> exported resources to addresses the CPU can reach.
 
-  https://lore.kernel.org/all/20260921124444.79396-1-lsa.uz@pm.me/
+Yes, of course it does. The DMA API only works on phy_addr_t. If you
+have a struct p2pdma_provider * then you have a phys_addr_t for it.
 
-Sakari - it does not do the set_selection() part, and the changelog says
-why at length. The short of it: ov13858 has no get_selection or
-set_selection at all, so there is no crop rectangle for the flips to
-move, and ov13b10 writes its window offsets register-side without
-exposing one either. Glad to add selection support as its own patch if
-you would like it here.
+If the exporter knows it is working with a MMIO mapping on a PCI
+device it gets to acquire a p2pdma_provider and use the helper.
 
-Kieran, Dave - everything you both raised is in v2.
+None of this is suposed to solve your "resources the CPU cannot reach"
+problem, that has nothing to do with DMA API or P2P. It is not broken
+just because it doesn't solve every problem.
 
-Sergey
+> Christoph Hellwig is right that drivers should never use that stuff
+> directly, not even through that dma_buf_phys_vec_to_sgt() function.
 
+Hellwig's point was that the subsystem needs a mapping helper that
+goes from the subsystem address representation to the HW
+representation and hides these details from the drivers.
+
+Look at what he built in nvme around biovec.
+
+The dma_buf_phys_vec_to_sgt() is the dmabuf version of the same idea,
+the subystem provides the mapping helper. We can try to do better, but
+better is not making the exporters touch the mapping algorithm.
+
+Ultimately I want to see something in lib/ handle this with a
+non-scatterlist datastructure, but there is a huge gulf between where
+dmabuf is now and it being able to work with a non-scatterlist
+datastructure.
+
+Look, it is easy to complain you don't like how it looks, but this
+stuff is hard there are lots of competing concerns, if you have a
+better idea now is a good time to present it. Maybe if you look
+closely you will appreciate how much work has gone into even getting
+things this far.
+
+> >> It seems to me that a pci-device settable flag "ATS always enabled"
+> >> should be enough to fix both issues?
+> > 
+> > It should be be per-mapping to support the NIC workflow that isn't a
+> > global operation.
+> 
+> I just realized what you guys are doing and I'm not sure if the
+> Linux PCI subsystem should support such hacks at all.
+
+I don't know how to respond to that. It is spec complaint, it is
+shipping in enormous volumes, of course Linux needs to support the HW
+that exists.
+
+> Basically from the point of view of the TA the NIC has ATS enabled
+> all the time, but has a per request option to use translated
+> addresses directly without previously translating and caching them
+> using ATS, correct?
+
+Yep. Very few devices in the world can use ATS for every single
+operation. Many have this split operating model. Some even only use
+ATS for DMA flows that are faultable.
+
+Mostly the OS can't tell what the device is doing and doesn't
+care. The P2P routing is the main issue and we have hacked around it
+in our systems till now. Leon is trying to fix it. Thomas needs it
+fixed too for Xe. So what's the issue here?
+
+DMABUF needs to learn how to do interconnect specific behaviors. PCI
+is an interconnect, it has lots and lots of crazy rules. An
+importer/exporter that chooses to use PCI for their DMA should have a
+way to exchange PCI specific information.
+
+So should UALink and all the other zoo of options we have now. It
+cannot be completely generic and meet everyones needs.
+
+Can we focus on that instead of arguing if the PCI craziness should
+exist or not?
+
+> If yes than that is extremely questionable behavior, I'm not sure if
+> that is covered by the PCIe spec.
+
+Spec doesn't say anything about when a device has to translated vs
+untranslated. The ATS flags only say translated is allowed to be used.
+
+> ATS is meant to be an optimization which moves the TLB from the root
+> complex (TA) into the devices at the cost of TLB invalidation
+> complexity. But what you do here is abusing that functionality as
+> far as I can see.
+
+ATS is for alot more than that, and there is no abuse here.
+
+Jason
