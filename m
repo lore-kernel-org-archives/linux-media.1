@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B773ED5DA;
-	Mon, 21 Sep 2026 15:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1D5492E56;
+	Mon, 21 Sep 2026 15:08:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003143; cv=none; b=sVstznZ+G7X/J+wyIPxWjzr1BoPyoxzcq14K77XtcK3uolZOFm5ZMtQfCo8cwrshsZQilC0ztX59aWMeDVhUOK5UJJu7EXMeloKJaOYRrlSBUTW5UEdhTpOADBhRMCKnH6k7qk+ru1LYBZR2TuXZ2QBmaW95idzxW1Xu0HrclM4=
+	t=1790003309; cv=none; b=lJtzaOcsS8j15RdmgLX+8dle58Mo7/zFkTIALHfcuvbVFxW+TKtATK4OPYxkjmK2pQOJMYKJC5Rg1qcIpPjg6m4V3mlO8k+h3/vCu+jw0tqbtfm0ygWiSVa2vczSsnjBmHyrzuV6sXjlvHj/TCo6ZjA/l0pPzBASmGDG+0nHNbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003143; c=relaxed/simple;
+	s=arc-20240116; t=1790003309; c=relaxed/simple;
 	bh=jSVQo5DDclGhv2d/2izRZByPafPsF9Fn20U+7ZJLgpk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kOtmoU9E56eP5K0lcMHGAqoP6pmHKZ+MGv60+hvk8MYyDdsa5STHNQuUWg0hNKmOmjRibIhiAXftS/Bsb1P6vqr2qDcFBMqM89cq0S3vj2K9sXoJLrZ1ZA12WSvc24kc23EU3MBwP8hqA+XDlbv5i0eOXOrvUZuf3mQ0oiZdX7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHEqKpiI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AEvApqG+ZwF+2DRGye79iQwI8/GxDwD3R7x91LItWLeBqOjMLQ+Tryf1jdU+6EOk1HEsVuKPZXqLJdyASSAzUUueseX1ZF1ZmZqOVYHtRZ3uvlRY0ZISot0pu9sjjgyOagSE5k7IwBvJ7cPwhS/VQAdevMppxIOYnMmF/ssFH1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxM/za30; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHEqKpiI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9BC51F000FF;
-	Mon, 21 Sep 2026 15:05:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxM/za30"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571691F000FF;
+	Mon, 21 Sep 2026 15:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003127;
+	s=k20260515; t=1790003308;
 	bh=+We2JHXqjpmgc9MfUSu76xwsivNV11yVUPFPYqsRgIo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lHEqKpiINNhSk0wbTjApXgaWaU8HFg74k2pDkzx2KMg0S2wEWX7XOAjckfJCJkoMN
-	 wSKf6YASyRLhwZMEgIe2MvkmU6irQVRfD4DfjAen9nqg2tSrrqJz2Zr4hve5qxyFXw
-	 zkSD58a9Y4ptmamcR3Gf9pUB7Z9ck5JFLfILhK2ch8n9YQXvxthEoJERy5BMcE/49x
-	 hzQi+RU38OfVK+NxJmTuEBtyWcyB89x5h6ltRXLfexl8PdtRqEpV/k1Hb7Y/VBLmlE
-	 UFO//e9/vM8UgwMbeG9+HVPsG1efj55wWPSlIzUYNhWb22X8fKHApr5LYCce0bdrWa
-	 D5YFyhilT4G5w==
-Date: Mon, 21 Sep 2026 17:05:24 +0200
+	b=VxM/za30iBmA2gyhTw21dpk7kX3LGDWfOwHTrgyqj8V7JlzQR2gzLLi9dutB6e84C
+	 2M/qfZkiqxW2q+HpKRGVTXVoU1IKxU+tWlqfGXI0qWlqdSdybySEQutN5WWRNyg/eh
+	 RSSPtVU5sMsr/kk4StnJQ2+918LNXe9MOHwUm9zsofyfVjAUDjICvNmzeli7hvxRm4
+	 bjKpfBEAxZ7LmYrKBzC1ikywlyBMPCEd34tKdDSDSes5XIMk4d3qD4ltlD6A1oSRcc
+	 5b4yjPLIVXlhmtHVnthgy4+2z9Nobi8MGoaQiCt5SrbXSZEZuPMqs5W+XCXNeQB4XF
+	 uh7Ygza9oJRfQ==
+Date: Mon, 21 Sep 2026 17:08:24 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, stable@vger.kernel.org, 
-	Antti Palosaari <crope@iki.fi>
+Cc: stable@vger.kernel.org, linux-media@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Antti Palosaari <crope@iki.fi>, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
-Message-ID: <arFHsuGjlu1NnLkA@quoll>
+Message-ID: <arFIZ1e3P2KOzdh2@quoll>
 References: <20260921081542.210151-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
