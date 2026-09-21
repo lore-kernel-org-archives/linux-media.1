@@ -1,110 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC60338E8C6;
-	Mon, 21 Sep 2026 06:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194A03AE6E4
+	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 07:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973865; cv=none; b=lKpsVjhpaywN1mOGpIkkZZze+UUgmYaCXIBuhScrx2UM7Esy2fI73Pi1aBaYuxxonF7DwXM8EQwBT3KbpC0EYMixBx6yKBDTzoHxP6854DQTjpqc38kl8yU3Mk+M4odQ9SiY0zC89kPxZ85DUARX7Tac5gYdm2GwzQb1oQUdDvU=
+	t=1789974817; cv=none; b=gy08iXB9ajPRMfm2NkO6jH0pqXRVmScZNba8+GaNBYRdHyg67m5hvZuqhfuu5UdAOfG874tH0yqog0dWfyfyVQtgVZ+jcbxaZ4qecyOU0EHmRk/oMd333r5PoTlcRSxUtn9i3anjwURxf1tG+sQbAAjJ2c/0Yv4jCNHc0i7AH1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973865; c=relaxed/simple;
-	bh=P59r4FNY1nRj1bsYjyaGQcIz1iJ9xQL0uv3I+7eHlhA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Cuy1BZUbmZRfkDgLEwxG76GgdjKeDo3Cm3nc9/r6riCN61UVsB2yPjzbdQTB56ixj029N7PBLys4i1XY9oFpXwihx3Yk3wN84o20FQB2dX6vJ8aSEoQT9kYuxcaiqa8fWSBWZY9qzXT3PvXlNRz5KbDgtpPFKkU4TEpisxdepZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Cl/xZgJP; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Cl/xZgJP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789973864; x=1821509864;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=P59r4FNY1nRj1bsYjyaGQcIz1iJ9xQL0uv3I+7eHlhA=;
-  b=Cl/xZgJPmkgfVs9Lg4G+JVjFy4DY2BWrV5npadkuglGLgX4tNc3NPf7M
-   I+h6UQMGeJEzBt/KBnAnmoANuBixkFBnsFQ1NQZSa5CE0/GsL0dzQkIEA
-   WZTNH9l7DV+ykh4IeFZv5v4NzDyinUr2qjtBvDou3zALaVffYZZzd+90L
-   IFz9aTE7fLt0NgjGhzBFI74cpbnaNpv8+EkQXOJHgYZDc/eCVRDJyx125
-   C3UVm3eXKd6ajqOmKg3N2fydwbLdru6gnQKpBMLJFVQWXzXlh4XRasbE8
-   WUP1jlhmAj3KyElChButwSV42Nrb6P9AfSSPaygWiMTlybwIGtl5HoExB
-   w==;
-X-CSE-ConnectionGUID: x6K0Ya5+TfyCkc1cDG3ASw==
-X-CSE-MsgGUID: ki85AVokRVOh9pSHNGNqCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="90484962"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="90484962"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:57:42 -0700
-X-CSE-ConnectionGUID: pgydRxgNSECLINbB4qVCSQ==
-X-CSE-MsgGUID: smtR3yD1Rx+3kxBejKlTcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="3829648"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.155]) ([10.245.244.155])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:57:37 -0700
-Message-ID: <e80dc629b90d5284ace6f84643616f352f25cb57.camel@linux.intel.com>
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Jason
- Gunthorpe <jgg@ziepe.ca>, Christoph Hellwig <hch@lst.de>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Logan Gunthorpe <logang@deltatee.com>, Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson	 <alex@shazbot.org>, Ankit Agrawal
- <ankita@nvidia.com>, Jonathan Corbet	 <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, "Joerg Roedel (AMD)"	 <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>, Randy
- Dunlap <rdunlap@infradead.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- linux-pci@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,  Tushar Dave
- <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Date: Mon, 21 Sep 2026 08:57:31 +0200
-In-Reply-To: <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
-	 <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
-	 <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
-	 <20260918121500.GV13683@unreal>
-	 <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
-	 <20260918170524.GH11599@ziepe.ca>
-	 <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	s=arc-20240116; t=1789974817; c=relaxed/simple;
+	bh=IWy4s88MhDwNpHOdGe3jP1qXGMxg1e08ypz8dpiL9Dc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XK22DqU7pxjZI5lGBOmrdKjbB/C3cgGANE5IP6f7ZNVzpeaRElBVr0tM1kWS1SMBoHPwx+cH/JUOQPD6Dzr13ehLmJGPIC6uadL/hATFqQ+GfXTKd0MGCbD+0tduy3c+COBE1st1dFBlYBCJS0EsR2RNbawqHI5x6QMbiei3UFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb767cc71so25503431cf.1
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 00:13:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789974814; x=1790579614;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kOgPfCklfblv+g6nVV8jDyWvhZtKrbscHFmS476/ss4=;
+        b=xCEkbiGAFP3AUacCbt3qATXDDIF+3TOJujIKvfnNX7JHdR4mQlGbkjz46+oWBQk1Es
+         ivxBN09cmpaAPJCcc9rIm2lg1MYUW8zp4ac8L/y5jyQEB6bi13zrVqQaYNDje2mwLMgv
+         lda2fZg1soaAC9xpBdmx8GviYEMUpLC46wBdzNcLBGSrUxo/ZoQz1KKV80cPhjTwPvqg
+         z+t3Rh+dOIvOiqy3PCTU4Q93CDcJIUcOh8464viZ4sdvOqU5rhfhxEKTVudf8OZClTJ2
+         NF2/cUwes5hzAkI+iblQycIWEshTYQP6zji9e2nbnHNyPmmBgK4Y8LEQGUQ/IAPJVda1
+         R90g==
+X-Forwarded-Encrypted: i=1; AKwUvBxEW4CXY4OReHpZZ3DP9U2TDzd1HSwxT6+tFx6FSQM52GYocbxD6z/oe0XeirE2SATfIFJWdA/unm20+A==@vger.kernel.org
+X-Gm-Message-State: AFuF++kLJ7YT71wJuApTnE18mBRRksWGTHH75mn6SsGpmaF0o8VoQUMS
+	cJmgH57fau+N161ixspfbCJEAZfTEd4VT2Vah2Zr6KtME6qR1UUHvd5vneSX/454
+X-Gm-Gg: AYBFou2cIZpn05SXuABlCeKFqnNAIalxZKC/SKwO6m80ACfDf0t6t+2zUUL/ytf64m7
+	TkcKzHD7ZaSeeOX+ja2YrLmrl83SYk2ND7Lm5OQ3BS3tGhVXwKU2Gcao40YQsmtL8rvMfqy8nl1
+	CYU6UxMUxdNRm4uzIbPXMSCivwrleLC21c8PdbJkiMTvLxkRaC+BO7E8g6RTw6fYCyH1qDuZRxm
+	RsAxA5/O6BLTVd4F/L5zPuTPgLiazcVhLny+yp2/g6TTJFfMsTkRSTadc3a1+0JqIFeeo+t3s4D
+	co/2bndz5nYvtOpHZG8golY2PQ7ttcIgv7gPYjMlQV/fK3at188c5lEA6tQ8xD4YtNqxfGadtVA
+	Gvk29AMnMiJS0+8XL18KCIdGUrhbFEgrMe2pHxafAV2v3vgxIQGznQO5wkeWeWyfddiTPvs2aXD
+	0KhRJqkQO28gMxCN7gTlQX1dzZUXwDba9DhuPIZXZO8wJAcEY2PJUaHzIFNlUGJP95s7Yt0MeSm
+	vCr2rtn7NyUg0zt5c5n2Wa1/2aSU1vpecE0BQ==
+X-Received: by 2002:a05:622a:1804:b0:532:d328:152c with SMTP id d75a77b69052e-532d328176bmr9017301cf.43.1789974813671;
+        Mon, 21 Sep 2026 00:13:33 -0700 (PDT)
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com. [74.125.230.140])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ae610702sm56309061cf.11.2026.09.21.00.13.33
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 00:13:33 -0700 (PDT)
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9104649a5dcso24718206d6.3
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 00:13:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxkYPoUOZOIFRH78obe18I7UR/uCwZp2vygeC/VCyAHCmIlRCVcvNNsiNBTEjCNJ4XuIoBd/sD43Po/+g==@vger.kernel.org
+X-Received: by 2002:a05:6102:c4f:b0:7a7:198b:674e with SMTP id
+ ada2fe7eead31-7a7198b70eemr2080779137.35.1789974354429; Mon, 21 Sep 2026
+ 00:05:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+In-Reply-To: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 21 Sep 2026 09:05:42 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWWOB48AUCbXh=9ZGCK2qZyVH06kJ2paRY-wxkq5NC16A@mail.gmail.com>
+X-Gm-Features: AcwNN1WjYVMR8LtQc9Hk29H2mvcKQfYOy_09b_XHHWkw76vwCkEFuElZphsH01o
+Message-ID: <CAMuHMdWWOB48AUCbXh=9ZGCK2qZyVH06kJ2paRY-wxkq5NC16A@mail.gmail.com>
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jacopo Mondi <jacopo@jmondi.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
+	Mikhail Rudenko <mike.rudenko@gmail.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, 
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
+	Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+	Tommaso Merciai <tomm.merciai@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
+	Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-tegra@vger.kernel.org, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, David Heidelberg <david@ixit.cz>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Quentin Schulz <quentin.schulz@cherry.de>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 2026-09-21 at 08:43 +0200, Christian K=C3=B6nig wrote:
-> On 9/18/26 19:05, Jason Gunthorpe wrote:
-> > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellstr=C3=B6m wrote:
-> > >=20
-> > > 1) Xe attachment check if pci_p2pdma_distance() returns OK for
-> > > the
-> > > path. Then Xe always sets up dma-addresses using
-> > > dma_map_resource().=20
-> >=20
-> > Open coding pci_p2pdma_distance() in drivers is a hack. Using
-> > dma_map_resource() like this was never "allowed".
-> >=20
-> > We've fixed things so these hacks are not needed, the drivers need
-> > to
-> > move over to things like dma_buf_phys_vec_to_sgt() and the hmm
-> > helpers
-> > to use the DMA API correctly.
->=20
-> That is a completely broken approach as well since it limits the
-> exported resources to addresses the CPU can reach.
+Hi Kieran,
 
-And this would be OK for pcie_p2p, but not for other fast
-interconnects, right? Or is this problematic also for pcie_p2p?
+On Fri, 18 Sept 2026 at 12:55, Kieran Bingham
+<kieran.bingham@ideasonboard.com> wrote:
+> Add a new dt-bindings/media/video-interface-devices.h header that
+> initially supports the Orientation types and convert existing users
+> throughout the code base.
 
-Thanks,
-Thomas
+Just noticed these are already in since commit 6ab5acfb8dd38729
+("dt-bindings: media: Add macros for video interface devices") in
+media/master (next-20260903 and later)?
+
+> v3 collects tags, and fixes the typo, but drops all hunks that do not
+
+[...]
+
+> v2:
+
+Interesting changelog order ;-)
+
+[...]
+
+> v3:
+
+[...]
+
+> -v4:
+
+[...]
+
+
+> -v5:
+>  - Definitions now accepted in linux-media, rebased to get conversions in.
+
+Oh, you say so here ;-)
+
+>       arm64: dts: renesas: Convert to new media orientation definitions
+
+So it's been safe for me to pick this up since v5?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
