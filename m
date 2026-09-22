@@ -1,188 +1,154 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011067.outbound.protection.outlook.com [52.101.70.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF54D37702C
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 08:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064693; cv=none; b=g8G17UmYKQvEEmR2vCpHbjrbT4rkfTtFl0PbKW6LrSndNeEh+tSie/T7wvOi3AvPIx6VbyO6WCa9Tsh1Z6NSRXPiqyk+ldWW4M9Y+1T6oZL+8d7oV1SGxRTCGbeyAggNu0Xs0tatH+z3GMz0EQnlz9fLXVF7Fd2A/9Qt/RaFY+U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064693; c=relaxed/simple;
-	bh=ovvgoW84bYMqBcH/iPQR2UqipmA1FYNlLt4hbJKQL0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:In-Reply-To:
-	 Content-Type:References; b=BFCGr0oQ8LE9VsVY21YDIgad6KBiFtIzTCVx8MLgN7T4rV8vu23KPd/RgPhAvsuWfb8oXEpvWVoZRQ2yOekDuZ1DWUAmefCJu1+ZrBtRv9tGYF/siosJYufqmKSllfDYD5EzJHtoQIiC0bUqmNu2Va2ukN0FZerE8dGCC2DXQ/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bWymhEoA; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370EB3B8BC4;
+	Tue, 22 Sep 2026 08:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064982; cv=fail; b=YJhWPN6E2lOX339gioTkTQfp62OpyaliEy9Qa7b8zy/laCGE7I/dgPqbwCuLQRRu4ZGOtnHI+b3VB4cltmC/0LDbzRt6lLvMoVc+E/OjLft357lGFiSYIHwjEKc0eEpWxnXIJYjR9xzw1Felf+UbkOKH5LV9eLBFQ3UVY2NA20o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064982; c=relaxed/simple;
+	bh=qLvIaPpgEaSJCH+R8dIDq5ck9PLw1pWpFpAYDrE7oig=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=q+l1Afp/NUk/IsmdFVjRJfI9q2FUNJOCarAXaVAVtyCuuPIpfPBKWUNcpXoRMhaCDdGRPi/YI8fwo84/21ZDE2EqSDyuiH5VbocA3cQOmjvke3krEeM6R8gUuDBBMILBSNthTIqn2eiPvVkMVv2EERlrlI/qnduEblRMczYqyXQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=CiKy7JZg; arc=fail smtp.client-ip=52.101.70.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bWymhEoA"
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260922081119epoutp049dc3b8a10f4e119043a53296c44c6d4b~Xlldx42yI2932629326epoutp04z
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 08:11:19 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260922081119epoutp049dc3b8a10f4e119043a53296c44c6d4b~Xlldx42yI2932629326epoutp04z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790064679;
-	bh=ppb5NdBs58x4r+h1AiWGI65C0tz0hajebc59pJdtVVc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=bWymhEoAbXtMJqxPf+9fH0OCAuU1sL6J65djBskJZ5xl5XsgNwYDQM0O4pf0F9023
-	 oS/t8w4ur7A/VSkeP71iTgqCQS0otXuu+9pMnuJFEGKVrJg4HJRwtyCAhBu12eD23Y
-	 PLEmbliDWWmf4uuYlrLcuH3Le7/aCOK+8ZQmU3eo=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20260922081118epcas2p48387828cf8cdea44e389d9b98ab5d0aa~XlldX3Q_n2333523335epcas2p4h;
-	Tue, 22 Sep 2026 08:11:18 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.38.199]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4hpt8k2zyFz2SSKg; Tue, 22 Sep
-	2026 08:11:18 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260922081117epcas2p1cf1d6776edabec5931a622c385accc24~XllcgHZFi1436814368epcas2p1l;
-	Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
-Received: from KORCO090182.samsungds.net (unknown [12.80.211.164]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260922081117epsmtip24ae96a6810c6b9b73c7ba684ea9201e7~Xllcb-Xjs2973429734epsmtip2z;
-	Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
-Date: Tue, 22 Sep 2026 17:11:14 +0900
-From: Janghyuck Kim <janghyuck.kim@samsung.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: sumit.semwal@linaro.org, phasta@kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: don't WARN_ON_ONCE() on a failing
- dmabuf->ops->vmap()
-Message-ID: <arI4IlBCtaIgirFs@KORCO090182.samsungds.net>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="CiKy7JZg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B+3Vl47lf3AMXFoCIJJ2t6Z/GUqF4ARUQv1qEDSurTGODI3BLPy+HH4B1MdjZ1x3FoOchCJ76bBqGIJ7SVj2/iepVhFRl2m3O49YMMv7FyNtmUEBksraNzB2haGN3jcEYhCBFtgI5JXoqrUMZ0EWJYh7zwoqoz7hLxCipN23RXsiiNxkQMn+cKglCxvfxbFhob7glw8Tt4RKbeqkgxleftQWJfRN1pc1c7q3m1F79zC/KvhngE1ahfzfY7kkf8+mYy4JiJdw0f/OlKfO90AdQedudiGEk5tVfH44QdptEBwtLxoE9nDdj3aUzzdcOxO26pKaYYDMgZO2b2buS+MWFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C4UXtHLK5FAk8BLOvt2xHDnk4lsAil0puPmrfGhCSjU=;
+ b=mzfDQgelvToDbfxEtz/y6ilLD572ESCQx6T+not3bMCthiOP6p7edbNto8ZcAHDfCFFy2AU34ig7MFp87JsvZcVUhy+eB3cDRoXkirzIWwKJVhsYR7dQ0RTpJZNB5UJcOHOf+8rZWsa5rvFW8nzwTshOSMQt3asjJIUmEP8MAo2AJHSofb8wMY13iZ766Mgp6wLmpUlKqZRz28eLVdVGn4W627xmwR7fUukEyzzCnSHttH1/rxmg1iBf/zbjHYvZczDczCgGfrrCyxe5nFPS/88Vw4XoSrHDy89LXLla9w9CoCg/CjfrSD9olcQz3K65iyhAUfaHuQSfzYNfV49Qzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=xiaopeng.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C4UXtHLK5FAk8BLOvt2xHDnk4lsAil0puPmrfGhCSjU=;
+ b=CiKy7JZgUq9nT1z/3Hndtxv5Z8pfL7otRGToopV/iM0nHyJBeOLnUkpMmqqALW18ik6xEsn0p5qHIuvK0xG7KJLrvGgxIBvZ50pgbKHY0zKRm35lOFizAY0hE1Xg172AYrRl5T6978YkmqhVudhWFDVVddFsMVuXUMo11Oxj+WWAddmUCbOn96Pblw4ztKCq58h7i3Bvoxvnt8Us1N8WFKbaWtfBHGiLPKl1wgAViR+bGJNjdzSUK10u/I9mrSudOot4GJsyzqFspu3OoqnaT9NHyu7ixaMco49PqRGRiVVpz/+0d9QDCvescHJYMEkgDoez65PXCtZx7jQFaY6EUg==
+Received: from DB9PR05CA0005.eurprd05.prod.outlook.com (2603:10a6:10:1da::10)
+ by DU0PR10MB6779.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:478::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Tue, 22 Sep
+ 2026 08:16:14 +0000
+Received: from DU2PEPF00028D0A.eurprd03.prod.outlook.com
+ (2603:10a6:10:1da:cafe::40) by DB9PR05CA0005.outlook.office365.com
+ (2603:10a6:10:1da::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Tue,
+ 22 Sep 2026 08:16:14 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU2PEPF00028D0A.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 08:16:14 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 22 Sep
+ 2026 10:22:41 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 22 Sep
+ 2026 10:16:13 +0200
+Message-ID: <6c95cadf-c73a-4b2b-8d21-97753087b372@foss.st.com>
+Date: Tue, 22 Sep 2026 10:16:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
-X-CMS-MailID: 20260922081117epcas2p1cf1d6776edabec5931a622c385accc24
-X-Msg-Generator: CA
-Content-Type: multipart/mixed;
-	boundary="----2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d
-References: <CGME20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d@epcas2p3.samsung.com>
-	<20260921100946.353521-1-janghyuck.kim@samsung.com>
-	<1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
-
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
-Content-Type: text/plain; charset="iso-8859-1"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: vgxy61: reject out of range MIPI CSI-2 lane
+ numbers
+To: Guo Zihao <guozh23@xiaopeng.com>
+CC: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	<hverkuil@kernel.org>, Sylvain Petinot <sylvain.petinot@foss.st.com>, "Sakari
+ Ailus" <sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Liu Chao <liuc63@xiaopeng.com>
+References: <20260918060352.1879381-1-guozh23@xiaopeng.com>
+ <0729208e-e1ab-4960-aa03-810bd4915001@foss.st.com>
+ <20260922064604.847150-1-guozh23@xiaopeng.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260922064604.847150-1-guozh23@xiaopeng.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Disposition: inline
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0A:EE_|DU0PR10MB6779:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5d3b195-8b92-4ec6-8bbc-08df1881c51d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PZ6px9xk8LAxurrEsYCDV2GiWkalkN/3WUR3X+0BPcBj7ljQ6aG8KynCkt9KiaMOPCzxTRN/QEGbSgYBj8FO8Uu2Cx/BFgbnNAMfUTSM8SLCJ+Xlwvtt/5pu18LuWIl1FG+j03fPao75hEqfVoMs6GRH+eFaDZEU1HP8NSKovAjJJsm7H/F0dfFT4Zw7mWoUPCGWuKEYvyC4jxBEjLP1g3NZuwlGzJo94Xm1uYeuWcYHmXoXMeSvWNvOgPVrtdpX+jjKb8sfKoNaClkmtmmFdwfM4tQ7CGMwlsvCqf5yYXxNhuUGKN7/Unq5V3teLzBaKGkDTW/XRX3cjXb1nxHIzDhqReSmzYelMgC6b6ix7VhQgVFMP9NAMj4J6vb5IJHl5/pEZCjUgKuH6lQ/X++rRF+GEZ4ZS6DrxmMs2svj6wVVkJ7Jxu1yD+G0hjsUdnHw9K3SqzDsvKEpz71jRz2R08dRqsvPW0sCfJiymoEfWoQ2/3vzzEE2uhVhzey2r2M6kWgFXxlKk/k70SRInHgEdqLNRbCbyJUVprQCl9VgTwNM3DxgaRJijNXZCgYpuTk4D2F4WMICWy0AION9Eumgr28OZ/PdjvyquYGl94fxHXBJUBruzKn0QtNfzILkCsl+Odpaifv5dtHj20M0mIJVIJb5TocgzID/14ACZQVNbOh/GhrbYNcadaWqnXQQgmv6s8OsGjJp7MKkeQxPyWKw9Q==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/RGLGlaKagYB7iUhHgdW6LxHyTBBmej+jllzZPfqeL3tFVgaxGjBnbyoIA/GtT8wDcjpVTy/Elg48bDUeNcoqQu9FPhY1667KtY1gPCQJvAHSUI6E4sgqkHxIAxyE3Jlo7Ax6AMfn8r14CXjovfuuAvXol0oI3gnw2dGBr3c1qNjWtd5pnULVgV2d1AVgCU5tSt+nAiT3/eyZqWHWUeyhw2+NF+3skxOOaGunY7kdASE0yHT4Ds8MUO+jf8XxLNAB6/z/aoNJmZQbVlNmYlTogWEPzbdaFU97pX7HuVpgcm/brRbs64CYb28vsRnC3SU+uImD/s/Y6a15nd3h7XKmhQw73bmdbWqtUU7YnkqFnLaGLvc4fNRyrQkQr7uQhEJGrxfgLK70VsozPol8Sy7ccc534RRlC3SbIHVIsXA9roZDz826vUGuRuYFyBiMPts
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:16:14.5569
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5d3b195-8b92-4ec6-8bbc-08df1881c51d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D0A.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6779
 
-On 2026-09-21 13:39, Christian K�nig wrote:
-> On 9/21/26 12:09, Janghyuck Kim wrote:
-> > dma_buf_vmap() escalates any non-zero return from dmabuf->ops->vmap()
-> > into a WARN_ON_ONCE(). But a failing vmap() is not, by itself,
-> > evidence of a violated invariant or a driver bug -- it's an ordinary
-> > runtime failure of a fallible operation, no different from any other
-> > allocation-shaped kernel API that can return an error. The dma-buf
-> > core has no visibility into what a given exporter's vmap()
-> > implementation considers a normal failure versus an internal bug;
-> > that distinction, if it matters at all, belongs to the exporter, not
-> > to this generic passthrough.
-> 
-> Well not quite, apart from some not so relevant HW workarounds the vmap callback is mostly used for fbdev emulation.
-> 
-Fair point about fbdev being the historical motivation. However,
-->vmap() is not limited to fbdev; for example, the mainline CMA dma-buf
-heap calls vmap() and explicitly returns -ENOMEM when the mapping cannot
-be established.
+Hi,
 
-More generally, ->vmap() is a fallible callback whose API allows it to
-return an error. The exact reason for failure is exporter-specific, so I
-don't think the dma-buf core should treat every ->vmap() failure as an
-exporter bug and unconditionally WARN on it.
-
-The fatal_signal_pending() case is simply one concrete example of how
-vmap() can fail under memory pressure without indicating a driver bug.
-> > -ENOMEM is a concrete, easily reproduced example of this. Page
-> > allocation on the vmap()/vmalloc() path can fail purely because the
-> > calling task has a fatal signal pending: should_reclaim_retry() in
-> > mm/page_alloc.c intentionally gives up reclaim and returns false
-> > once fatal_signal_pending(current) is true, so that a task that is
-> > already being killed (e.g. by a userspace low-memory killer) isn't
-> > stuck retrying reclaim on its way out. The resulting -ENOMEM from
-> > dmabuf->ops->vmap() is expected behaviour in that case, not a bug in
-> > the exporter -- and it is far from the only way ops->vmap() can
-> > legitimately fail (an exporter may just as well refuse to vmap a
-> > buffer for other, unrelated reasons of its own).
-> > 
-> > This is exactly the kind of condition Documentation/process/coding-style.rst
-> > warns against for WARN*():
-> > 
-> >     WARN*() must not be used for a condition that is expected to
-> >     trigger easily, for example, by user space actions.
-> > 
-> > A failing vmap() is reachable purely by driving the system into low
-> > memory and then issuing an ioctl that happens to map a dma-buf -- no
-> > driver misbehaviour required. Turning that into a WARN_ON_ONCE(),
-> > and on panic_on_warn kernels into an outright panic, doesn't help
-> > debugging; it just turns an otherwise-recoverable error into a fatal
-> > one.
+Le 22/09/2026 à 08:46, Guo Zihao a écrit :
+> Hi Benjamin,
 > 
-> WOW STOP! A driver allowing to vmap() through an IOCTL is a major no-go!
+> Thanks for the review. The maintainers are in copy now.
 > 
-> vmap() on a DMA-buf has very very limited use cases which should mostly only be trigger able as superuser.
+> On the lane checking: l_nb is the number of lanes, while clock_lane and
+> data_lanes[] are the lane indices. The check at line 1453 accepts
+> num_data_lanes being 1, 2 or 4, but an endpoint such as
 > 
-> At least on 32bit system you can otherwise trivially exhaust the vmap area of the kernel and that is even worse than a simple WARN_ON_ONCE().
-Fair point. To be clear, I'm not arguing that an unprivileged ioctl
-should be allowed to trigger vmap() without appropriate access control.
-If a driver exposes that, I agree that it should be addressed in the
-driver.
+>         data-lanes = <1 2 3 99>;
+> 
+> has a valid count of 4 and an out of range index in the last entry. The
+> indices are stored as unsigned char in struct v4l2_mbus_config_mipi_csi2,
+> so an endpoint value of 99 arrives as 99, and anything from 5 up writes
+> past the five element phy2log array.
 
-My point is separate: even a legitimate, one-off vmap() may fail under
-memory pressure, and such a failure does not by itself indicate driver
-misbehaviour. The fatal_signal_pending() case is one example where
-memory allocation may give up rather than continue reclaim.
+Ah you're right, my mistake. I'll review v2.
 
-I'll drop the "no driver misbehaviour required" wording, since I agree
-it could be read as endorsing unrestricted ioctl-triggered vmap, which
-wasn't my intention.
+> 
+> For clock_lane the write to phy2log[clock_lane] at line 1461 happens
+> before the log2phy[0] != 0 check at line 1480. vd55g1 and vd56g3, which
+> build the same kind of map from the same properties, check clock_lane
+> before the map is built rather than after.
+> 
+> v2 keeps both checks.
+> 
+> On the tooling question: yes, this was written with the help of an LLM,
+> and v2 carries the Assisted-by tag as the process documentation asks. I
+> went through the code and the reasoning myself before sending it.
 > 
 > Regards,
-> Christian.
-> 
-> > 
-> > Drop the WARN_ON_ONCE() and simply propagate the error, consistent
-> > with how other allocation-failure paths in the kernel are handled.
-> > The dma_buf_vmap_unlocked()/dma_buf_vmap() contract is unchanged:
-> > both still return the negative errno from dmabuf->ops->vmap() to the
-> > caller. Only the WARN_ON_ONCE() splat (and, transitively, the panic
-> > on panic_on_warn kernels) is removed.
-> > 
-> > Signed-off-by: Janghyuck Kim <janghyuck.kim@samsung.com>
-> > ---
-> >  drivers/dma-buf/dma-buf.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index 36cdc342627e..252495761a21 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -1670,7 +1670,7 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
-> >         BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
-> > 
-> >         ret = dmabuf->ops->vmap(dmabuf, &ptr);
-> > -       if (WARN_ON_ONCE(ret))
-> > +       if (ret)
-> >                 return ret;
-> > 
-> >         dmabuf->vmap_ptr = ptr;
-> > --
-> > 2.34.1
-> > 
-> 
-> 
+> Guo
 
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
-Content-Type: text/plain; charset="utf-8"
+-- 
+Regards,
+Benjamin
 
-
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_--
