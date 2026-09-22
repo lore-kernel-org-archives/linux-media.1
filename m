@@ -1,171 +1,162 @@
-Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com [115.124.28.52])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3016F521204;
-	Tue, 22 Sep 2026 07:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E620C522F0C;
+	Tue, 22 Sep 2026 08:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063685; cv=none; b=RuIUtg0elzx3XcMCE9lU+GX8EPwcsaHcWC3haZdNizBJ1HKnMNoLhpJqC6loXjK4QESpt2OZ8bJKNScOONc7gyOzO2rHhN+twuqWAIS7V6Gr1/itKPMsX67ytJpUc2iJG0Ya02/JgtRfuOHt0xAk+AIMRHRGE4yYmY7jAMW9VJA=
+	t=1790064106; cv=none; b=gUXuZGymRosyWB9L9fFZMIJrZpj12dGUN4NX0laGt0uRIHsiQ/D1kcwQevg3N9MIb3awj+o/udLLRVtMX+uqzPmhVh3+HVNJTJBLzuQsxp7k35CyhhXWNrtlYuQbwhIBDQpxP0CI+batbNN5xB739kGkUh7T9LiOHi5ArYTAnE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063685; c=relaxed/simple;
-	bh=pBafSgCnUiYFLdgAXKnRhBiqSwDUOAgem5tI4RZ1hLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j2Ac6Mhi+WRNvWDkfW4zZA/JwphttdnYBHw8/eHQ3QRC5E9Yt6rjLvIA3e1TDTDq462ULUDONg5XJ1/PK9MoJbpxw3m29bEjx746UYA/vsl/rTtbf1RmTJ3YFgdqOCV1jA7MVp9pcAJytgYAJ87syn0LFR9oO8p9L8WRwjGpkek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=KnV0owlH; arc=none smtp.client-ip=115.124.28.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1790064106; c=relaxed/simple;
+	bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EpaE+j2t/dhuFCe0sNCbKljgC57oVNDWIHP7fyBuOmX02gpQ7dVq7eyW9K/hqhgfuyBOltP3fJm5iudB0pKsF62TEd80pJ2LUhBbvYCuzceTbYmwj2a5QQOXL+4ijQgdr8V7Ts35IfVOz9Z8GhQMPybuGa8PlnKak+gKXUFKGzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=anf4GRXt; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="KnV0owlH"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790063662; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=R/X3OD8Nby/QSTgWlm2KLdCBm1FvXrQ8pE8PyW5ZCy0=;
-	b=KnV0owlH+NEp7OHMHGB8E86mtXipmcZSwqO3ypX/CTmAVgsy9kMn6/m1ZssF31LYrFx1yKxFHFQ1EyDjzxzdWeznq+wI8C4Qh26cPfnHMHdpFsp1mAguPHFQMve5EsQHT21DO+lLFxivrm1DyP7Oto6mkR+iIL1HDT/nPBepW7g=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07443159|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0396591-0.00202204-0.958319;FP=13502539487106581925|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jJpRiGY_1790063660;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jJpRiGY_1790063660 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 15:54:21 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH v2] media: cxd2880: avoid a division by zero in the BER period setup
-Date: Tue, 22 Sep 2026 15:54:20 +0800
-Message-ID: <20260922075420.1347279-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="anf4GRXt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790064096; x=1821600096;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
+  b=anf4GRXtUUM6gy+axzR233QhhAhWSvVL6BSWjVxywiIHVW1re7vBslAc
+   ejbuSgFlbgY2bk3HhflJOeXdj9+bQhjQ707RluOuO8rszJqXb0SDegpKz
+   d4KIjKZue0UTBUHNaVGZ09gzzL54TXyqxDEMi9lJoMsF/zlNa3gorf00U
+   83nLNeilRCUKt1FS9X8btCPe7X+lh7YlRMog9xxEhHdNqcuSoS/dd6kbA
+   opB6OmJIr5jlPT8ADlnYoZoY9J3VOSaUVPQIYVtbnImjlYYLWwsPtjJq7
+   +MeB3wbhUvNmk1THukdEgFdkCkQCozAn4p48PTYQPlCuSWjbIAua3Wrj+
+   w==;
+X-CSE-ConnectionGUID: mKucwaTTRtKRxBozCkk7BA==
+X-CSE-MsgGUID: PY1zd84IQKSM+qfsS5g/1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89565767"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="89565767"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:27 -0700
+X-CSE-ConnectionGUID: v4hnpuodQz2oQna5x2atZw==
+X-CSE-MsgGUID: 89ebydLZStGlxUgM+WBClg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="273192073"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:26 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 4C6BE121B9F;
+	Tue, 22 Sep 2026 11:01:25 +0300 (EEST)
+Date: Tue, 22 Sep 2026 11:01:25 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov5647: fix power cleanup on remove
+Message-ID: <arI11VsxaiJ8v4Ye@kekkonen.localdomain>
+References: <20260915090457.2342778-1-lgs201920130244@gmail.com>
+ <CAPY8ntA2h_ChCWJbAmCVygYiviTdsd9TA2LcVh5ffto__LgZAg@mail.gmail.com>
+ <aqz4fLrtW3f7OoYk@kekkonen.localdomain>
+ <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
 
-cxd2880_set_ber_per_period_t2() computes the BER measurement intervals
-from the number of blocks the demodulator reports, and uses the result
-as a divisor:
+Hi,
 
-        pre_ber_rate =
-                (plp.num_blocks_max * 1000000 + (denominator / 2)) /
-                denominator;
+On Tue, Sep 22, 2026 at 03:45:13PM +0800, Guangshuo Li wrote:
+> Hi Dave, Sakari,
+> 
+> Thanks for the clarification.
+> 
+> On Fri, 18 Sept 2026 at 16:45, Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> >
+> > Hi Dave,
+> >
+> > On Thu, Sep 17, 2026 at 02:27:30PM +0100, Dave Stevenson wrote:
+> > > Hi Guangshuo
+> > >
+> > > On Tue, 15 Sept 2026 at 10:05, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> > > >
+> > > > ov5647_remove() disables runtime PM without powering off the sensor if
+> > > > it is still runtime active or updating the runtime PM state to
+> > > > suspended.
+> > > >
+> > > > pm_runtime_disable() prevents further runtime PM callbacks and waits for
+> > > > pending operations, but it does not force the runtime suspend callback
+> > > > to run. If the sensor is active when the driver is removed, the external
+> > > > clock and regulators can remain enabled and the power-down GPIO can
+> > > > remain deasserted.
+> > > >
+> > > > After disabling runtime PM, call ov5647_power_off() if the device is not
+> > > > already runtime suspended, and then mark the runtime PM state as
+> > > > suspended. Checking the runtime status avoids disabling the hardware
+> > > > resources a second time when runtime PM has already powered off the
+> > > > sensor.
+> > > >
+> > > > This issue was found by manual code inspection.
+> > > >
+> > > > Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > > > ---
+> > > >  drivers/media/i2c/ov5647.c | 3 +++
+> > > >  1 file changed, 3 insertions(+)
+> > > >
+> > > > diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+> > > > index 3facf92b3841..d42d009772ac 100644
+> > > > --- a/drivers/media/i2c/ov5647.c
+> > > > +++ b/drivers/media/i2c/ov5647.c
+> > > > @@ -1271,6 +1271,9 @@ static void ov5647_remove(struct i2c_client *client)
+> > > >         v4l2_ctrl_handler_free(&sensor->ctrls);
+> > > >         v4l2_device_unregister_subdev(sd);
+> > > >         pm_runtime_disable(&client->dev);
+> > > > +       if (!pm_runtime_status_suspended(&client->dev))
+> > > > +               ov5647_power_off(&client->dev);
+> > > > +       pm_runtime_set_suspended(&client->dev);
+> > >
+> > > I was unsure whether pm_runtime_set_suspended can be unconditional or
+> > > should be in the if clause. There are numerous drivers doing each.
+> > >
+> > > As it happens, Sakari's just answered that in [1] that it should be
+> > > conditional, so I'd take that as gospel. It looks like he's given a
+> > > similar answer on your ov2740 patch.
+> >
+> > Runtime PM is a bit mystical in some places. pm_runtime_set_suspended()
+> > appears to be setting the device's Runtime PM state disabled as it name
+> > implies, but it may also e.g. increment dev->power.disable_depth. I'm not
+> > fully certain if this is by design or not.
+> >
+> > --
+> > Sakari Ailus
+> 
+> Would this be the right way to change it?
+> 
+> -       if (!pm_runtime_status_suspended(&client->dev))
+> +       if (!pm_runtime_status_suspended(&client->dev)) {
+>                 ov5647_power_off(&client->dev);
+> -       pm_runtime_set_suspended(&client->dev);
+> +               pm_runtime_set_suspended(&client->dev);
+> +       }
 
-        post_ber_rate = pre_ber_rate;
+Correct.
 
-        mes_exp = intlog2(pre_ber_rate) >> 24;
-        priv->pre_ber_interval =
-                ((1U << mes_exp) * 1000 + (pre_ber_rate / 2)) /
-                pre_ber_rate;
+> 
+> If so, I can send a v2 with this change.
 
-With num_blocks_max zero the numerator is denominator / 2, which is
-smaller than denominator, so integer division gives zero and the
-division below it traps. That is a normal state for the register, not a
-corrupt one: num_blocks_max comes from
-cxd2880_tnrdmd_dvbt2_mon_active_plp() reading the demodulator, and the
-field is zero before the demodulator has locked.
+Please!
 
-intlog2() is called on the same value and warns for a zero argument
-before returning, so the warning is reached first and the division
-follows.
-
-Clamp the rates to 1 before the divisions, in both functions, so that a
-zero derived from the registers produces a large interval instead of a
-trap.
-
-No Fixes tag. Both functions came in with the driver, 9593810cd42a
-("media: cxd2880: Add top level of the driver").
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Assisted-by: LLM
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
-v2: add the CXD2880 maintainer to the recipients.
-
-    The previous version also claimed the DVB-T function
-    (cxd2880_set_ber_per_period_t()) reaches zero the same way. Its rate
-    is computed from cr_table[] and denominator_tbl[], and the smallest
-    value those produce is well above zero, so that claim is dropped.
-    The clamp is still applied there, because the input comes from the
-    demodulator in the same way, but the DVB-T2 path is the one with a
-    case that reaches zero.
-
-    Add the Assisted-by tag.
-
-The values come from the demodulator registers, so the rates depend on
-the state of the tuner rather than on anything userspace supplies.
-Reachable through FE_READ_BER / FE_READ_UNCORRECTED_BLOCKS.
----
- .../media/dvb-frontends/cxd2880/cxd2880_top.c | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c b/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
-index 0d058b59a..1a1c58613 100644
---- a/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
-+++ b/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
-@@ -764,6 +764,12 @@ static int cxd2880_set_ber_per_period_t(struct dvb_frontend *fe)
- 		}
- 	}
- 
-+	/*
-+	 * A zero rate can be derived from bogus or not yet locked
-+	 * demodulator registers. Avoid dividing by it below.
-+	 */
-+	if (!pre_ber_rate)
-+		pre_ber_rate = 1;
- 	mes_exp = pre_ber_rate < 8192 ? 8 : intlog2(pre_ber_rate) >> 24;
- 	priv->pre_ber_interval =
- 		((1U << mes_exp) * 1000 + (pre_ber_rate / 2)) /
-@@ -772,6 +778,8 @@ static int cxd2880_set_ber_per_period_t(struct dvb_frontend *fe)
- 			       CXD2880_TNRDMD_CFG_DVBT_VBER_PERIOD,
- 			       mes_exp == 8 ? 0 : mes_exp - 12);
- 
-+	if (!post_ber_rate)
-+		post_ber_rate = 1;
- 	mes_exp = intlog2(post_ber_rate) >> 24;
- 	priv->post_ber_interval =
- 		((1U << mes_exp) * 1000 + (post_ber_rate / 2)) /
-@@ -780,6 +788,8 @@ static int cxd2880_set_ber_per_period_t(struct dvb_frontend *fe)
- 			       CXD2880_TNRDMD_CFG_DVBT_BERN_PERIOD,
- 			       mes_exp);
- 
-+	if (!ucblock_rate)
-+		ucblock_rate = 1;
- 	mes_exp = intlog2(ucblock_rate) >> 24;
- 	priv->ucblock_interval =
- 		((1U << mes_exp) * 1000 + (ucblock_rate / 2)) /
-@@ -886,6 +896,13 @@ static int cxd2880_set_ber_per_period_t2(struct dvb_frontend *fe)
- 
- 	post_ber_rate = pre_ber_rate;
- 
-+	/*
-+	 * A zero rate can be derived from bogus or not yet locked
-+	 * demodulator registers (e.g. plp.num_blocks_max == 0).
-+	 * Avoid dividing by it below.
-+	 */
-+	if (!pre_ber_rate)
-+		pre_ber_rate = 1;
- 	mes_exp = intlog2(pre_ber_rate) >> 24;
- 	priv->pre_ber_interval =
- 		((1U << mes_exp) * 1000 + (pre_ber_rate / 2)) /
-@@ -894,6 +911,8 @@ static int cxd2880_set_ber_per_period_t2(struct dvb_frontend *fe)
- 			       CXD2880_TNRDMD_CFG_DVBT2_LBER_MES,
- 			       mes_exp);
- 
-+	if (!post_ber_rate)
-+		post_ber_rate = 1;
- 	mes_exp = intlog2(post_ber_rate) >> 24;
- 	priv->post_ber_interval =
- 		((1U << mes_exp) * 1000 + (post_ber_rate / 2)) /
-@@ -929,6 +948,8 @@ static int cxd2880_set_ber_per_period_t2(struct dvb_frontend *fe)
- 		goto error_ucblock_setting;
- 	}
- 
-+	if (!ucblock_rate)
-+		ucblock_rate = 1;
- 	mes_exp = intlog2(ucblock_rate) >> 24;
- 	priv->ucblock_interval =
- 		((1U << mes_exp) * 1000 + (ucblock_rate / 2)) /
 -- 
-2.50.1
+Regards,
 
+Sakari Ailus
