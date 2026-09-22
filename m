@@ -1,117 +1,158 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC5C525A98
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 08:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B943B8922;
+	Tue, 22 Sep 2026 08:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066421; cv=none; b=jmPhULSswCSzgZq0xR8cO3m3FKNdKmnEde7STIuoGjTZQhcbxITJA87jcKLn0TAPPzghHY7A/1Zwnvm8ldlOQ5g9p9JRexiZJwXTV0afep86kG7o3KvzoX94h4WuaiMlbiya+8qM5e6q3DN1xyh1WyMPEfhJWtmP4jRcIGC1g9g=
+	t=1790067052; cv=none; b=MVVg6D7+x5np6enO5ZuqxAvz+izRFHFCOjIEK0ngY9VCRhsAFpNyFvhZjml+NaaBmKsALLQwPRNwzwEQ+0uboMFgSe4sxMSmEpwjm/OS39e31JsR9wz2A5d7H9bBjB2BnKIPoh0XwguomvIEXguF1UUvC+Z1swqcIk7Rey4Kd2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066421; c=relaxed/simple;
-	bh=7ddEEDYiWcRGK/WOOFx/dsbsKYz9W7gultIVoWDHN8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4t4gagrnawZvXkzicnEl/ZzdMXTv1Hpcht/EYWrL1g/jATBxBYkd6bktjkOExl3rDF82RxVBQZDhj7LHzr1mFZmoyU/Eak0nhdGXF/gRZ+8Kz8XFAgWIUO5OAn5IU3wzcIFk0dKMdmXXucdfV+2GqjE2lACaE1TcDsoRnpKf2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S7b5jlVL; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790067052; c=relaxed/simple;
+	bh=4HhU68DVh7t1JbSaNh8DWkWsHhDgqu1TBQnZj3bzDUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bqW9lE4DbRfcDGK/W3FbYRMy8slY42heovVfufPY4/n1f744TI3P8xxMD7gWwM+yQE2E5/O5G4RAKrd4ga3yvxQL+V4FTg9mVmspME5C0fC+BntwsPBi1LMM+LvvK/MgbafmiSLxZ50nAEaw7aD1fQboIIcASmVZqvO/10UN7DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=YJp1MjoR; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S7b5jlVL"
-Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50d1b048eso3020442a12.1
-        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 01:40:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790066419; x=1790671219; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v7Fu3Ae5XFkGmOXs4h7NOUGECaveVKHxHBmx2pZiZGA=;
-        b=S7b5jlVLzBu9WYNvC2D1P5pR9P/PxA7kHhvtH8tQSIGdN91mXnimQhGG4bpFDnLlMt
-         J7uq7sRwGYGvocTijBN4hmrP0AookObkCYffirveEu8/1pzxlaTOkt6HTOi/h8hyfp2S
-         3LiGXGCU+vNBYHdhI+7cRg9qOSN4MAXR0oHPY8PJmUOx2DjWjDsjGtqmO552Xn/TDOMb
-         X6vFH9HD7ajeWdBPlznHFSag0FqueokTdPto7vOuIwHMZ5oounjlOmYrit8a6Rw/E6w0
-         rreeZ51P57EACr88qUebw77qEpiTlyGoSjagn2vjsF3d7jAJvloZDw7jeMKdZiKjWb4P
-         kk0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066419; x=1790671219;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v7Fu3Ae5XFkGmOXs4h7NOUGECaveVKHxHBmx2pZiZGA=;
-        b=XCPkjAw2PTMr3lGN8cCZ0Khj+g4q144je59nCljXEZWGXs7nMgtNCjwdS/v/3j8axM
-         m3SWN2Q188WKqPOIpHtM4rnkDuzNLYlCU9CpO2NQLT9k3aNaoVd00GIrlUsDyQdLE1pQ
-         fkqBu7sO8xd81OdOV3EB8t0iQGmPsH6o4R3xd0L+RwVebrqjAUPgLIYaqNK3vVQuPpRR
-         Sh54M8Cy9qNYmeCff1qQwsnE4w4/ZhMq+JJoISeOKKZoMBiYk4M61L9K32FXrwixqjvY
-         v59SH3dKrIW6WZRmxrA30DtlXOVRWtnLElLp53W6d99SGeSmDHMKBcZBDLo6Ojduhq9I
-         glFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhLQ3Fl46N2B8bfD4ETj1fnAf3wXY1mPUz0pqZzLM8wz0/RS2QSESaKGMxFFqee7lm9gAMITSl2jKMwQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++m42DlQ0QdmynVYQ6VwFtsqTgGsEKfG4VdZaQ6bp/irvzuh4Yfv
-	Q95nt3bnUxhn/52Azz/+p3dX0ybctHotsY0vS2S1d5b1tNvAcrHgxxsj
-X-Gm-Gg: AYBFou3tuNKdLvmmsMIksV+iqddVMlOp3f6bk8WHuj9lsqAqNeHivBIkI1/rQfmbbiJ
-	8Kv4oZ2Yp5dp7uMRiJKLFp/0lDt+aBcSWy4BY4qDkyDPFacKn0s+cJ32ekn/jceWdk9mApO3k8I
-	amKq6tjVTJtUYLXWXOhLb0GYzXS0OTIoWwBgUHGohy0brboCDGvPU0tqzM5Si+OufOiai5v0imD
-	Rl832N+AsgMJj5FSIlA1kn1c0KjhJ0QBd2xdheFtiMGalBqQ4I8WvPQRGhuil8dVLiPjkKom4wv
-	l5gD8yaVQ6MgidKl1V87dYVQdEssN3tGTkTn5lAq3o227DDibLC5bNKPy0Smk5KBAWNZc+hxjon
-	9UIz2eAzerYsCg3ljnY5Vl1PHVNmsn+AMGjcVzwmWM+NgA1up5F4Dw0/KY5ZKwEAmIxIU4QGDNW
-	6Ji+LfDI2QtS1TsfKNxA2tm8gN2m40nOp+T8hko7aPQrqbzVx0IGcQU40=
-X-Received: by 2002:a17:90b:55cd:b0:39e:4c80:44bd with SMTP id 98e67ed59e1d1-3a0731eca18mr446217a91.32.1790066419395;
-        Tue, 22 Sep 2026 01:40:19 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f294e4acsm3380134c88.1.2026.09.22.01.40.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:40:18 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="YJp1MjoR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1790067040; x=1790326240;
+	bh=E9NNd/hqIo8h2Ae3BVu7MmGQh7O49JFHokGLTTnK7vI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=YJp1MjoRNPPRgAwoDey61j7Tk7iOXvFdgrIAqisfsLJlSfdQ3M73MN0hiSPliLZLl
+	 x97UT5usS4+82v2KvPvPVoRV/Z/ppuv7r4Xpi2Ywg99v6A8l2ayTfvH9+ApmJroxmW
+	 r57QVUc6643QnFWNuuR/LOb5fzXn8rMQmU23e5ezTa0h3gT9QRdRspMwLHo0/VA0Yq
+	 S/wzC/ccTpR2Nmlz4ZlFHGBeRERW1bpRT0LjZW0LJ1qjCnn1btuX4WEnp+U5Df7dZP
+	 6/ZIZ3WVP4ezTFrOfg2qFagqa96iYHv06bA6WFS91QyAkYHSzWNW0mcMaDmp2k3E5j
+	 y6kuB/ePWcLoA==
+X-Pm-Submission-Id: 4hpv235Vj3z2ScdY
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: i2c: ov5647: fix power cleanup on remove
-Date: Tue, 22 Sep 2026 16:40:09 +0800
-Message-ID: <20260922084009.506362-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dri-devel@lists.freedesktop.org,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH] rust: DmaFence: Remove static lifetime
+Date: Tue, 22 Sep 2026 11:50:32 +0300
+Message-ID: <20260922085033.57008-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260922083631.444614-2-phasta@kernel.org>
+References: <20260922083631.444614-2-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-ov5647_remove() disables runtime PM without powering off the sensor if
-it is still runtime active. pm_runtime_disable() does not invoke the
-runtime suspend callback, so the sensor can remain powered on.
-
-If the device is not already runtime suspended, call ov5647_power_off()
-and mark the runtime PM state as suspended.
-
-This issue was found by manual code inspection.
-
-Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2 :
-  - Move pm_runtime_set_suspended() into the conditional so it is only
-    called when the sensor is explicitly powered off.
-
- drivers/media/i2c/ov5647.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-index 3facf92b3841..3b3e5653a0c6 100644
---- a/drivers/media/i2c/ov5647.c
-+++ b/drivers/media/i2c/ov5647.c
-@@ -1271,6 +1271,10 @@ static void ov5647_remove(struct i2c_client *client)
- 	v4l2_ctrl_handler_free(&sensor->ctrls);
- 	v4l2_device_unregister_subdev(sd);
- 	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		ov5647_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
- }
- 
- static const struct dev_pm_ops ov5647_pm_ops = {
--- 
-2.43.0
-
+On Tue, 22 Sep 2026 10:36:32 +0200=0D
+Philipp Stanner <phasta@kernel.org> wrote:=0D
+=0D
+> A FenceCallbackRegistration can stem from another party than the one=0D
+> that has created a Fence. Should that party forget the registration=0D
+> object (for example through a refcount cycle) and then unload the=0D
+> module, a fence signaling would run into the unloaded module, causing=0D
+> UAF bugs.=0D
+> =0D
+> So far, this has been solved by demanding that the payload data of the=0D
+> registration object demanding static lifetime.=0D
+> =0D
+> It turns out, however, that this is harmful because the static lifetime=0D
+> bubbles up to all users, ultimately potentially causing a large amount=0D
+> of driver data to be static, which renders the lifetime obsolete.=0D
+> =0D
+> Solve this issue instead through an unsafe requirement which demands=0D
+> that the user does not forget the registration object. This is also the=0D
+> solution chosen by ScopedWork.=0D
+=0D
+Makes sense.=0D
+=0D
+Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+=0D
+> =0D
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>=0D
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>=0D
+> ---=0D
+>  rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----=0D
+>  1 file changed, 12 insertions(+), 4 deletions(-)=0D
+> =0D
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs=0D
+> index 18a43e1bb442..c3fa68c4df86 100644=0D
+> --- a/rust/kernel/dma_buf/dma_fence.rs=0D
+> +++ b/rust/kernel/dma_buf/dma_fence.rs=0D
+> @@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {=0D
+>  ///     }=0D
+>  /// }=0D
+>  /// ```=0D
+> -pub trait FenceCallback: Send + 'static {=0D
+> +pub trait FenceCallback: Send {=0D
+>      /// Called when the fence is signaled.=0D
+>      ///=0D
+>      /// This is called from the fence signaling path, which may be in in=
+terrupt=0D
+> @@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {=0D
+>  /// When this object is dropped, the callback is automatically removed i=
+f it=0D
+>  /// hasn't been called yet.=0D
+>  #[pin_data(PinnedDrop)]=0D
+> -pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {=0D
+> +pub struct FenceCallbackRegistration<T: FenceCallback> {=0D
+>      #[pin]=0D
+>      callback_foreign: Opaque<bindings::dma_fence_cb>,=0D
+>      callback: ManuallyDrop<T>,=0D
+> @@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> =
+{=0D
+>      /// On success the callback is pinned in place and will fire when th=
+e fence=0D
+>      /// signals. On `AlreadySignaled` the callback is returned to the ca=
+ller so=0D
+>      /// that owned resources can be reclaimed.=0D
+> -    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, =
+CallbackError<T>> + 'a=0D
+> +    ///=0D
+> +    /// # Safety=0D
+> +    ///=0D
+> +    /// `callback` must not be forgotten.=0D
+> +    pub unsafe fn new<'a>(=0D
+> +        fence: &'a Fence,=0D
+> +        callback: T,=0D
+> +    ) -> impl PinInit<Self, CallbackError<T>> + 'a=0D
+>      where=0D
+>          T: 'a,=0D
+>      {=0D
+> @@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
+extOps> {=0D
+>  ///=0D
+>  /// let cb_data =3D CallbackData { };=0D
+>  /// let waiting_fence =3D ARef::from(fence.as_fence());=0D
+> -/// let cb_reg =3D FenceCallbackRegistration::new(&waiting_fence, cb_dat=
+a);=0D
+> +/// // SAFETY: `cb_data`'s content is not forgotten.=0D
+> +/// let cb_reg =3D unsafe { FenceCallbackRegistration::new(&waiting_fenc=
+e, cb_data) };=0D
+>  /// let cb_reg =3D KBox::pin_init(cb_reg, GFP_KERNEL)?;=0D
+>  ///=0D
+>  /// // TODO signalling guards=0D
+> -- =0D
+> 2.55.0=0D
+> =0D
