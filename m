@@ -1,81 +1,81 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30129492E4D
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 18:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231784908DC
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 18:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102035; cv=pass; b=GMYpRgmwQSDwc2TW03mWepk651s2Du2JMN0rcJMMCBPqrvABi6uQ0AwWO9aUL3xgCpWRySr2OKuS2MZbp/f5MjxhJaLGxWO6KqEzBkVCNbKBv5Wgrf1Za/BxRM+BYcXrBghxXI3YO1517tTHApsJAQEzqATydYXW2pEX2vgfNbA=
+	t=1790102234; cv=pass; b=m1ZaYQUqNbEntQ4hPbbA0fpMonj4ElpheEZkc9WZbmx0q+CcL46fUoRxjO5pT7PD+3mfw/Bn6FZwXqC7S5YCfVB1R58snEV8DSNqbzH5sHBL0JHk1kh7oMgUn1rEI0OHoAPPUGvG74BYsF1/NfRvZwiwhcY1jFB1aemtJetV9eQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102035; c=relaxed/simple;
-	bh=xgqp5FtMTyOcWRlq1vTHqDHXERP/UnZZ9RWhxwLeOQs=;
+	s=arc-20240116; t=1790102234; c=relaxed/simple;
+	bh=rnHVfxRLkxrfC2X/JrRH7SXq33Nyv/9lZ/llakOoOJ8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rBM8I9H77db4z+RnqiViX7CdUs+CJPuW+ntpyYijImJwVI2+eD3pcLAkPmbt9Ag9cSB/NV79cesXDHFE/tS73VsNligTGvZhgXoBBD7K/p8ndoRrajK1aAH25z0E/+ArpAKYiXtDz21xKgqhUG9D3eV16Qhfi7IIDpmN3sXf5WY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aOi5YQ0h; arc=pass smtp.client-ip=209.85.214.177
+	 To:Cc:Content-Type; b=uRth7gnVX2kSkgCq4GL7iwyH8aaiKFG1IpK9lZnmkKIQNhJWvjypuykdPS+1ldiZ+0C/IcEyRxKGZ9F3I0SO+IlYNrpG5Fb+NUUaW3KbJhRRIaFFDHjDylI3gKcTugBxV5AU7oEM483j7UxfJDwsNbFoeBlRQzvzdG0ZB+5ljGs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mRAM14nQ; arc=pass smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aOi5YQ0h"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d3b445a84fso10485ad.1
-        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 11:33:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790102031; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mRAM14nQ"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d8facae850so13655ad.0
+        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 11:37:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790102231; cv=none;
         d=google.com; s=arc-20260327;
-        b=CuRUoChM9dkyEkxl4Dg+mvWLpd/j1TZbhtNup3LjZqMUHL2CrTMaWz+mrbnDgxLXoi
-         jrLVbVqOTYet1YufX9s4Jhsq6WxDjO4uUVBXT+xMyDZm6aRa2p9zYnwpbK9RIrKY6lZu
-         a8qo0kZzni9e6/c8aQ9eKQ4sLnYt6WsdVP37YZQrnMrhBKPd8uuMIepwU0r7VioH0QM8
-         m6ZlOGYwPlIKlTyH/8eXopQuVZjTjbfw9DEYkD8AzaUPxwnhUG4V8/h+OkbWQ4PIRE1k
-         mwy4TZbakSFNRfIWs7mITXVcwG2xggUORw+h5tsPfgR+9oTSKw781f4IIzN6kskrwbHv
-         6Rrg==
+        b=bf49zMg7Q0lnUznALZ6XlOkp5Jg0HqcCzffVtkofwaYUpB+07RoDL2Ep8GsIbLFv+b
+         FLCywSU4NslbU+2jk6TsooBkuIGhPQEvCKK/RG0PfxMPpy7G6fiN4Otc0iap1CYicbVK
+         P5nKIBAaXefU6uxnhP8pyL5IZi5OXq9SvoW3FojCC1WBy44dU3bMoJkr88wVW472l6Ud
+         /kE8K2QbbeCbzX+g7cLggcKVZjtYRo5ICS036JZqk46d9h02uawBRxOnfVxZ3sEye2aw
+         8WYEGaQr6ioosBr2ihXfUXAb7DkMgJsrz0Qe5gptDiK5UntqSjuUUmsWMuLULOFRDexe
+         Ol7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=sqSvUmvywswAOE6fxaj1MZy7synAW9lVIfsjinCoqZ8=;
-        fh=16UW3TDsnJEIzF1Qg3iR/2/oV3r4c5Xw2wHGCCfR7BE=;
-        b=DbsDo7r724CqArTboacz62NSgbGbQZQ34PRVkWNWs16LfnWdx2RPC6rak31FKDWJTJ
-         YzzV6lnd9pbV7b2oHJXAiWSWC9/v0ttMeqalsYcc4p+zbaZBQ3nU6tvYZY1FkuhI6VV3
-         LXPczehGF11JOUXaFObGM3sodwlq3+mQlGPPpTlIRZbYUPACH/VBSYfn3I2hC2W5PpuF
-         oJrXSJ6h42iqYt4Xwvmr0PIpCOSpo2H7TikzOVsITposoHHj/ptnBzqZ5ouCWsTkxJ0u
-         /yOCPFvps8aTkg0MUyS/dDQWGsjFmkc60En6v0al0I/8qHBfmUQTQ2dQ3PuWFyH34jNs
-         cPqA==;
+        bh=lpala58T80XtNEXVFk/kyfJQMDM4aNUtQaSa/5dA71o=;
+        fh=YAkd5cvRxGk6VYkXjQVNlDv3t4+kgp9TELbOhIeOiGo=;
+        b=KWMdShAU2GkRlR8IBrgvNbOfnkFWvuP2StQB0pUvn0c7OlGAh8SnOggVAAe7Vm7rkO
+         4AeKyIL5RWsGW3EEUxhCA8Sr8VYVVQ2zpHsQVEn2aLEpkhxZkQ8Onc38tgDyhMqBXmsT
+         qL7VJXrrOrx2R98McPP46tIFNp9l9Nr3j9ar9XNU5UsmagR1W/ZUYpKWdiWSQ9Z38tbi
+         1yzKe2wb+of2bXFX2LNmA/82BKENdqey1moI5Ln42q+zwRoowiXzq74ulzepK31mdlFz
+         Vb45aQL7MTLPj/8tqirrH0dKZgYav1R1Xu9LN5kQAOPeoCWVTwqq7M9n6H+BIY9Njf4N
+         gnuA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790102031; x=1790706831; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790102231; x=1790707031; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sqSvUmvywswAOE6fxaj1MZy7synAW9lVIfsjinCoqZ8=;
-        b=aOi5YQ0hxl48wTys+E1KMZWhe73GkSVpnAkRksWLe29QBY8hH4Wu5o1hyrRbhGeS9e
-         9VBAKvO4brLjM6UV3UoqDsu283Z0iNkJ46nFHSYKlNyhz8pesFEG5J/JyicrKs+RquW1
-         BDGA7wPWdKGBHaAuntAXMzUrdCSTlFqhjcPRAgpkspQBygJCe03bb1KRCAr+j1CRqytb
-         FvYTkgxRS32HLbUFE8NG7taHmQh6Op6q118GwDJtwq/gZzAho3nwAdxkUmLM0ke/VkqH
-         9A+LlVMgWHRtmBs/rgdqBE0faYrGMT95qmYUOxgDsOsCuVfZaL7mG7+qaJdZB7emsmY2
-         k+Og==
+        bh=lpala58T80XtNEXVFk/kyfJQMDM4aNUtQaSa/5dA71o=;
+        b=mRAM14nQJMogL3mlHtvh3XUzwxpWp/UcD3FPKiDVt6cHtYqpFFkJb9lYUTC0jiwfQ9
+         l9gQlp/S9MuloJcImI8NN9DMAJcW1cOmPyfgppdUCrQd0XDHoUFLsi++T3zhEbEp/X/D
+         DkKkuKk7KH93Ex9f3JFVZfhUPpm8Go7A0DAmL9BiHTVSyQUwCah7EP/EoIGiUdgTPQOm
+         9it7CU5Jw6rkykzoCgkRRAvBacwk9M7+ZeH+SGcBWfNK98yirDji7YbC5k3J6QQvVov1
+         +35H36tdG/Kxt0eMQIikuNCP1MyZOJFICyN4sAptrIcPzRqmcul0pBXPy71riG6sttzu
+         Obpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790102031; x=1790706831;
+        d=1e100.net; s=20260707; t=1790102231; x=1790707031;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sqSvUmvywswAOE6fxaj1MZy7synAW9lVIfsjinCoqZ8=;
-        b=xdu9aI6QektO+KHXvzvyVY35amuIVoUimNR1iT+EC0IQhIBw8bcc47ksDcCWjRKF5h
-         ZjOtSIIRb4BjwNFOcqEyVRP0N6UMwzmIM/SCfeVm695OGDKAVRjrwBPfQuNPiMYyvBRU
-         io0ELCtT3Dwz9WbYziZ0Ym9Yz7JcHZCQdY/O6lUWjOuMlk0UkKRGCUNKs4amDXQIAIcr
-         rIB8KzbMMiCp1sKlU17y1LWZpjQACnQ311iRvna71a42EgOqSyUEJ0pKnlMgpQYcWUUM
-         U/1ZCVBV7QofTZaLxmF3So9+0lo9p2/qgc8VDkwZ+dxGWNcvQevYQRUsa6S428waGw9v
-         5Saw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAWU6bO3g8RtI9XO5AMfKKy0VvtXgB6KzGKiGqNpgoxaNtQ2/SsNRFI97cjdM06jP5Ju31YCPe3Pz+lA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lYceSud3pWf17i008WGQHwqScbizhW+mKmwgOGNvdHO3KzAjBK
-	fO1HIDIYTZbcCN0pxIrCf1pMIrlObFy5SGCSAZIcDWYPtHoKxXYkvIDQfbRLzHupxKE4UBh9EYx
-	3XHnRA+P9PQxSmIfrkT1tFSvdpTcXJHKkoNlNd6M=
-X-Gm-Gg: AYBFou1S64Kta9x4WtlVqeb7JJ9TTPbkL42EK6AqbOfT7fuTgmu6FaeqW0mY8zzC/Et
-	XqBg7WZa27A3cymaf0h/JukYIIIqkYceHySFIRzaiFgjQBrC32YC5T7iUAdvlfot20Jbdwo+Sl4
-	vCJBVWoAoYsAoy/D7ywDWVlaVF7D2AHXZkHrz4hUJHc7gXeoRig0h9O2ted4ZLaxVvqBDNXPjCd
-	PF8yxjH3Vah6Kl7cG7ur+kajCs/n887y4MwpQAO2I9ePrsvAAoVDeckz+6no2WMqAN67n+/8XPL
-	q2RdldFkAMB/v8hI84YBRD2vmzb6u4ImZBl45oisWZ+PymYs+OTkYA==
-X-Received: by 2002:a17:902:d58a:b0:2cf:9ec1:ea6e with SMTP id
- d9443c01a7336-2df69d9c68dmr749185ad.8.1790102030179; Tue, 22 Sep 2026
- 11:33:50 -0700 (PDT)
+        bh=lpala58T80XtNEXVFk/kyfJQMDM4aNUtQaSa/5dA71o=;
+        b=sqXJzoY4o1K86p9Zhv7mXpXBbz+gJ2aPg/N7Ff9eL/OVmGA0bVi/E8aC2ASYAAh+Ul
+         rAJ85rz6XSwvqgTvWW09jdwLsLR5arScc8xC5hmNgltx5MqtfEWVGTGdD9R1Iq4pjvd1
+         tCa4zPFOy7mF1Z5fH3BBBbn/IbzEIzUS6zkLdepAe8C4M/lh4W8iiYcuUAUc4NnRROSx
+         b724x46JmL+UDhwHkpIj7Z7VIUg2UuAvurbe28iX5Kd/2FNG3JsSRamt8sNbgLwAogDN
+         HTHz0wgv8WNXYsireAbnUP5B6nmhgs2HX1Eu9mlFkj2Z4kj3Yk/lIKP4eoibpN+LZ2xQ
+         LFEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPuFLRLn7fxadU0mUECtjNrpcnNKp7lIP8OaHCEBkKFLm9Cm+DdxSA8fmi8lOwxM6opZ6nPOSLSuhKLw==@vger.kernel.org
+X-Gm-Message-State: AFuF++lewKSvJw8ohQQ6ZPYqggs3dYAAnM+2apNrf3DLmYsYP3fRdju8
+	DDz/bRBNuH9h9iudRTT0L08dBVke3tcXiKdxkiU6BwE2OmnlgCFtjZm3m7xmJ41sgNVBGPEXNPs
+	/Feandx8ILVTYjwIk4yO9TyqNgaDjzViSxvYz4FA=
+X-Gm-Gg: AYBFou2PJ2clnnfyZIk2lFZXuKhvEn0lJ/ZQ/qqSxNIndgwzi1/gH7zUgmyImyPDX/A
+	IsfpiNjezS012dlnFLOgCESq7XNup33EZmWFv50VjEAvu+itjN6ml6t/GOiWxLQNiQiZSmTTgBA
+	smKNArWWbHRj6vWii5+IsQSDHnSl/cSvOgXHgVgzlye9uoCGgqBJufQ0YgyvmJxktp0VI6lHHWr
+	8JvdWHes6shqI7qxiQ9G9fPdzPGY46CnLmGlSOAPbkv7W8MzkouOn5D18dJlkfU0Emz+lm4txz3
+	ZVjwCiwbWRhyK1xSwEV8YU4Qil/3KF09vRfU6R9XB5hi+1d1nB28EeY=
+X-Received: by 2002:a17:902:e80c:b0:2d3:153d:acae with SMTP id
+ d9443c01a7336-2df69b92393mr958145ad.0.1790102230685; Tue, 22 Sep 2026
+ 11:37:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -83,29 +83,28 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260917171921.2810550-1-briandaniels@google.com>
- <20260917171921.2810550-2-briandaniels@google.com> <CADSE00++bx4Jn_sGdME5f6qhHURH9phmV9ZNGrWwd82nPvOXrg@mail.gmail.com>
-In-Reply-To: <CADSE00++bx4Jn_sGdME5f6qhHURH9phmV9ZNGrWwd82nPvOXrg@mail.gmail.com>
+ <20260917171921.2810550-2-briandaniels@google.com> <20260919154110-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20260919154110-mutt-send-email-mst@kernel.org>
 From: Brian Daniels <briandaniels@google.com>
-Date: Tue, 22 Sep 2026 14:33:37 -0400
-X-Gm-Features: AcwNN1U5UuJZcI9LIex7vg6k0BnHLvbO_5l1kLu1QgN8r2etlxhp7yt_v-sXc1M
-Message-ID: <CAD4i_GSM0+5siAvWQyND1JA2Q37yNn8mKf5-ESJshHmN1aL6SA@mail.gmail.com>
+Date: Tue, 22 Sep 2026 14:36:58 -0400
+X-Gm-Features: AcwNN1VaOVuGEw8P3BG9MLi-fRb7W9KpK1nDZUD5qmMHTW4L28mo84TJwjh7dK8
+Message-ID: <CAD4i_GR9p0x+6wgecspf-kQ6gvHSiJzEr4NYHebM5usf2QU7pQ@mail.gmail.com>
 Subject: Re: [PATCH v9 1/4] media: virtio: Add skeleton virtio-media driver
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, adelva@google.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
-	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
-	dbassey@redhat.com, laurent.pinchart@ideasonboard.com
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, adelva@google.com, aesteve@redhat.com, 
+	changyeon@google.com, daniel.almeida@collabora.com, eperezma@redhat.com, 
+	gnurou@gmail.com, gurchetansingh@google.com, hverkuil@xs4all.nl, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	nicolas.dufresne@collabora.com, virtualization@lists.linux.dev, 
+	xuanzhuo@linux.alibaba.com, dbassey@redhat.com, 
+	laurent.pinchart@ideasonboard.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 11:11=E2=80=AFAM Albert Esteve <aesteve@redhat.com>=
+On Sat, Sep 19, 2026 at 3:52=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
  wrote:
 >
-> On Thu, Sep 17, 2026 at 7:19=E2=80=AFPM Brian Daniels <briandaniels@googl=
-e.com> wrote:
-> >
+> On Thu, Sep 17, 2026 at 01:19:17PM -0400, Brian Daniels wrote:
 > > From: Alexandre Courbot <gnurou@gmail.com>
 > >
 > > This patch adds a minimum viable virtio-media driver that binds to the
@@ -146,55 +145,54 @@ s
 > > index 3a19da74d..d6b1e0b30 100644
 > > --- a/MAINTAINERS
 > > +++ b/MAINTAINERS
-> > @@ -28886,6 +28886,7 @@ F:      Documentation/devicetree/bindings/virti=
-o/
-> >  F:     Documentation/driver-api/virtio/
-> >  F:     drivers/block/virtio_blk.c
-> >  F:     drivers/crypto/virtio/
-> > +F:     drivers/media/virtio/
-> >  F:     drivers/vdpa/
-> >  F:     drivers/virtio/
-> >  F:     include/linux/vdpa.h
-> > @@ -28998,6 +28999,13 @@ S:     Maintained
-> >  F:     drivers/iommu/virtio-iommu.c
-> >  F:     include/uapi/linux/virtio_iommu.h
+> > @@ -28886,6 +28886,7 @@ F:    Documentation/devicetree/bindings/virtio/
+> >  F:   Documentation/driver-api/virtio/
+> >  F:   drivers/block/virtio_blk.c
+> >  F:   drivers/crypto/virtio/
+> > +F:   drivers/media/virtio/
+> >  F:   drivers/vdpa/
+> >  F:   drivers/virtio/
+> >  F:   include/linux/vdpa.h
+> > @@ -28998,6 +28999,13 @@ S:   Maintained
+> >  F:   drivers/iommu/virtio-iommu.c
+> >  F:   include/uapi/linux/virtio_iommu.h
 > >
 > > +VIRTIO MEDIA DRIVER
-> > +M:     Brian Daniels <briandaniels@google.com>
-> > +L:     linux-media@vger.kernel.org
-> > +S:     Maintained
-> > +F:     drivers/media/virtio/
-> > +F:     include/uapi/linux/virtio_media.h
+> > +M:   Brian Daniels <briandaniels@google.com>
+> > +L:   linux-media@vger.kernel.org
+> > +S:   Maintained
+> > +F:   drivers/media/virtio/
+> > +F:   include/uapi/linux/virtio_media.h
 > > +
 > >  VIRTIO MEM DRIVER
-> >  M:     David Hildenbrand <david@kernel.org>
-> >  L:     virtualization@lists.linux.dev
+> >  M:   David Hildenbrand <david@kernel.org>
+> >  L:   virtualization@lists.linux.dev
 > > diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
 > > index 6abc9302c..ce7d088e7 100644
 > > --- a/drivers/media/Kconfig
 > > +++ b/drivers/media/Kconfig
 > > @@ -136,6 +136,19 @@ config MEDIA_PLATFORM_SUPPORT
 > >
-> >           Say Y when you want to be able to see such devices.
+> >         Say Y when you want to be able to see such devices.
 > >
 > > +config MEDIA_VIRTIO
-> > +       tristate "Virtio-media Driver"
-> > +       depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || CPU_LITTLE_E=
-NDIAN)
-> > +       select VIDEOBUF2_CORE
-> > +       select VIDEOBUF2_MEMOPS
-> > +       help
-> > +         Enables the virtio-media driver.
+> > +     tristate "Virtio-media Driver"
+> > +     depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || CPU_LITTLE_END=
+IAN)
+> > +     select VIDEOBUF2_CORE
+> > +     select VIDEOBUF2_MEMOPS
+> > +     help
+> > +       Enables the virtio-media driver.
 > > +
-> > +         This driver is used to virtualize media devices such as camer=
-as or
-> > +         decoders from a host into a guest using the V4L2 protocol.
+> > +       This driver is used to virtualize media devices such as cameras=
+ or
+> > +       decoders from a host into a guest using the V4L2 protocol.
 > > +
-> > +         If unsure, say N.
+> > +       If unsure, say N.
 > > +
 > >  config MEDIA_TEST_SUPPORT
-> >         bool
-> >         prompt "Test drivers" if MEDIA_SUPPORT_FILTER
+> >       bool
+> >       prompt "Test drivers" if MEDIA_SUPPORT_FILTER
 > > diff --git a/drivers/media/Makefile b/drivers/media/Makefile
 > > index 20fac24e4..357e786cc 100644
 > > --- a/drivers/media/Makefile
@@ -274,60 +272,58 @@ er
 > > + * @wq: waitqueue for host responses on the command queue.
 > > + */
 > > +struct virtio_media {
-> > +       struct v4l2_device v4l2_dev;
-> > +       struct video_device video_dev;
+> > +     struct v4l2_device v4l2_dev;
+> > +     struct video_device video_dev;
 > > +
-> > +       struct virtio_device *virtio_dev;
-> > +       struct virtqueue *commandq;
-> > +       struct virtqueue *eventq;
-> > +       struct work_struct eventq_work;
+> > +     struct virtio_device *virtio_dev;
+> > +     struct virtqueue *commandq;
+> > +     struct virtqueue *eventq;
+> > +     struct work_struct eventq_work;
 > > +
-> > +       struct virtio_shm_region mmap_region;
+> > +     struct virtio_shm_region mmap_region;
 > > +
-> > +       void *event_buffer;
+> > +     void *event_buffer;
 > > +
-> > +       struct list_head sessions;
-> > +       struct mutex sessions_lock; /* protects sessions list */
+> > +     struct list_head sessions;
+> > +     struct mutex sessions_lock; /* protects sessions list */
 > > +
-> > +       struct mutex events_lock; /* prevents concurrent event processi=
-ng */
+> > +     struct mutex events_lock; /* prevents concurrent event processing=
+ */
 > > +
-> > +       __dma_from_device_group_begin();
-> > +       union {
-> > +               struct virtio_media_cmd_open open;
-> > +               struct virtio_media_cmd_munmap munmap;
-> > +       } cmd;
+> > +     __dma_from_device_group_begin();
+> > +     union {
+> > +             struct virtio_media_cmd_open open;
+> > +             struct virtio_media_cmd_munmap munmap;
+> > +     } cmd;
 > > +
-> > +       union {
-> > +               struct virtio_media_resp_open open;
-> > +               struct virtio_media_resp_munmap munmap;
-> > +       } resp;
-> > +       __dma_from_device_group_end();
+> > +     union {
+> > +             struct virtio_media_resp_open open;
+> > +             struct virtio_media_resp_munmap munmap;
+> > +     } resp;
+> > +     __dma_from_device_group_end();
 > > +
-> > +       struct mutex vlock; /* serializes command queue access */
-> > +       wait_queue_head_t wq;
+> > +     struct mutex vlock; /* serializes command queue access */
+> > +     wait_queue_head_t wq;
 > > +};
 > > +
 > > +static inline struct virtio_media *
 > > +to_virtio_media(struct video_device *video_dev)
 > > +{
-> > +       return container_of(video_dev, struct virtio_media, video_dev);
+> > +     return container_of(video_dev, struct virtio_media, video_dev);
 > > +}
 > > +
 > > +/* virtio_media_driver.c */
 > > +
 > > +int virtio_media_send_command(struct virtio_media *vv, struct scatterl=
 ist **sgs,
-> > +                             const size_t out_sgs, const size_t in_sgs=
-,
-> > +                             size_t minimum_resp_len, size_t *resp_len=
-);
+> > +                           const size_t out_sgs, const size_t in_sgs,
+> > +                           size_t minimum_resp_len, size_t *resp_len);
 > > +void virtio_media_process_events(struct virtio_media *vv);
 > > +
 > > +/* virtio_media_ioctls.c */
 > > +
 > > +long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
-> > +                              unsigned long arg);
+> > +                            unsigned long arg);
 > > +extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
 > > +
 > > +#endif // __VIRTIO_MEDIA_H
@@ -371,152 +367,134 @@ ist **sgs,
 > > +}
 > > +
 > > +static const struct v4l2_file_operations virtio_media_fops =3D {
-> > +       .owner =3D THIS_MODULE,
-> > +       .open =3D v4l2_fh_open,
-> > +       .release =3D v4l2_fh_release,
+> > +     .owner =3D THIS_MODULE,
+> > +     .open =3D v4l2_fh_open,
+> > +     .release =3D v4l2_fh_release,
 > > +};
 > > +
 > > +static int virtio_media_probe(struct virtio_device *virtio_dev)
 > > +{
-> > +       struct device *dev =3D &virtio_dev->dev;
-> > +       struct virtqueue *vqs[2];
-> > +       static struct virtqueue_info vq_info[2] =3D {
-> > +               {
-> > +                       .name =3D "command",
-> > +                       .callback =3D commandq_callback,
-> > +               },
-> > +               {
-> > +                       .name =3D "event",
-> > +                       .callback =3D eventq_callback,
-> > +               },
-> > +       };
-> > +       struct virtio_media *vv;
-> > +       struct video_device *vd;
-> > +       int ret;
+> > +     struct device *dev =3D &virtio_dev->dev;
+> > +     struct virtqueue *vqs[2];
+> > +     static struct virtqueue_info vq_info[2] =3D {
+> > +             {
+> > +                     .name =3D "command",
+> > +                     .callback =3D commandq_callback,
+> > +             },
+> > +             {
+> > +                     .name =3D "event",
+> > +                     .callback =3D eventq_callback,
+> > +             },
+> > +     };
+> > +     struct virtio_media *vv;
+> > +     struct video_device *vd;
+> > +     int ret;
 > > +
-> > +       vv =3D devm_kzalloc(dev, sizeof(*vv), GFP_KERNEL);
-> > +       if (!vv)
-> > +               return -ENOMEM;
+> > +     vv =3D devm_kzalloc(dev, sizeof(*vv), GFP_KERNEL);
+> > +     if (!vv)
+> > +             return -ENOMEM;
 > > +
-> > +       INIT_LIST_HEAD(&vv->sessions);
-> > +       mutex_init(&vv->sessions_lock);
-> > +       mutex_init(&vv->events_lock);
-> > +       mutex_init(&vv->vlock);
+> > +     INIT_LIST_HEAD(&vv->sessions);
+> > +     mutex_init(&vv->sessions_lock);
+> > +     mutex_init(&vv->events_lock);
+> > +     mutex_init(&vv->vlock);
 > > +
-> > +       vv->virtio_dev =3D virtio_dev;
-> > +       virtio_dev->priv =3D vv;
+> > +     vv->virtio_dev =3D virtio_dev;
+> > +     virtio_dev->priv =3D vv;
 > > +
-> > +       init_waitqueue_head(&vv->wq);
+> > +     init_waitqueue_head(&vv->wq);
 > > +
-> > +       ret =3D v4l2_device_register(dev, &vv->v4l2_dev);
-> > +       if (ret)
-> > +               return ret;
+> > +     ret =3D v4l2_device_register(dev, &vv->v4l2_dev);
+> > +     if (ret)
+> > +             return ret;
 > > +
-> > +       ret =3D virtio_find_vqs(virtio_dev, 2, vqs, vq_info, NULL);
-> > +       if (ret)
-> > +               goto err_find_vqs;
+> > +     ret =3D virtio_find_vqs(virtio_dev, 2, vqs, vq_info, NULL);
+> > +     if (ret)
+> > +             goto err_find_vqs;
 > > +
-> > +       vv->commandq =3D vqs[0];
-> > +       vv->eventq =3D vqs[1];
+> > +     vv->commandq =3D vqs[0];
+> > +     vv->eventq =3D vqs[1];
 > > +
-> > +       vd =3D &vv->video_dev;
-> > +       vd->v4l2_dev =3D &vv->v4l2_dev;
-> > +       vd->vfl_type =3D VFL_TYPE_VIDEO;
+> > +     vd =3D &vv->video_dev;
+> > +     vd->v4l2_dev =3D &vv->v4l2_dev;
+> > +     vd->vfl_type =3D VFL_TYPE_VIDEO;
+> > +     vd->fops =3D &virtio_media_fops;
+> > +     vd->release =3D video_device_release_empty;
+> > +     strscpy(vd->name, "virtio-media", sizeof(vd->name));
+> > +
+> > +     video_set_drvdata(vd, vv);
+> > +
+> > +     vd->device_caps =3D virtio_cread32(virtio_dev, 0);
 >
-> vdev->vfl_type is overwritten below with video_register_device(), so
-> this is redudant.
-
-Thanks, I'll take out the assignment.
-
-> > +       vd->fops =3D &virtio_media_fops;
-> > +       vd->release =3D video_device_release_empty;
-> > +       strscpy(vd->name, "virtio-media", sizeof(vd->name));
-> > +
-> > +       video_set_drvdata(vd, vv);
-> > +
-> > +       vd->device_caps =3D virtio_cread32(virtio_dev, 0);
-> > +       if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_=
-MPLANE))
-> > +               vd->vfl_dir =3D VFL_DIR_M2M;
-> > +       else if (vd->device_caps &
-> > +                (V4L2_CAP_VIDEO_OUTPUT | V4L2_CAP_VIDEO_OUTPUT_MPLANE)=
-)
-> > +               vd->vfl_dir =3D VFL_DIR_TX;
-> > +       else
-> > +               vd->vfl_dir =3D VFL_DIR_RX;
-> > +
-> > +       ret =3D video_register_device(vd, virtio_cread32(virtio_dev, 4)=
-, 0);
+> please use offsetof device_caps not hard coded "0".
 >
-> I feel it'd be nicer to pass -1 to the third argument so that the
-> 'first free' device node number is assigned. With that it would
-> support multiple virtio_media devices without warnings.
+> Also, the spec says:
+>
+>
+>   struct virtio_media_config {
+>       le32 device_caps;
+>       le32 device_type;
+>       le8 card[32];
+>   };
+>
+>
+> you (and v4l) should define them as le32 and use virtio_cread_le.
 
-Agreed!
-
-> Also, the virtio_media_config struct is not defined in the series. I
-> think defining it would be nice so that it can be imported and used in
-> QEMU/other VMMs. And it would allow to do `virtio_cread32(virtio_dev,
-> offsetof(struct virtio_media_config, device_type))` here instead of
-> hardcoding the offset.
-
-Looks like Michael left similar comments, I'll add that to the next version=
-.
+Albert left similar comments, I'll be sure to do this in the next
+revision, thanks!
 
 >
-> > +       if (ret)
-> > +               goto err_register_device;
+>
+> > +     if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MP=
+LANE))
+> > +             vd->vfl_dir =3D VFL_DIR_M2M;
+> > +     else if (vd->device_caps &
+> > +              (V4L2_CAP_VIDEO_OUTPUT | V4L2_CAP_VIDEO_OUTPUT_MPLANE))
+> > +             vd->vfl_dir =3D VFL_DIR_TX;
+> > +     else
+> > +             vd->vfl_dir =3D VFL_DIR_RX;
 > > +
-> > +       virtio_device_ready(virtio_dev);
+> > +     ret =3D video_register_device(vd, virtio_cread32(virtio_dev, 4), =
+0);
+> > +     if (ret)
+> > +             goto err_register_device;
 > > +
-> > +       return 0;
+> > +     virtio_device_ready(virtio_dev);
+> > +
+> > +     return 0;
 > > +
 > > +err_register_device:
-> > +       virtio_dev->config->del_vqs(virtio_dev);
+> > +     virtio_dev->config->del_vqs(virtio_dev);
 > > +err_find_vqs:
-> > +       v4l2_device_unregister(&vv->v4l2_dev);
-> > +       return ret;
+> > +     v4l2_device_unregister(&vv->v4l2_dev);
+> > +     return ret;
 > > +}
 > > +
 > > +static void virtio_media_remove(struct virtio_device *virtio_dev)
 > > +{
-> > +       struct virtio_media *vv =3D virtio_dev->priv;
+> > +     struct virtio_media *vv =3D virtio_dev->priv;
 > > +
-> > +       virtio_reset_device(virtio_dev);
-> > +       v4l2_device_unregister(&vv->v4l2_dev);
-> > +       virtio_dev->config->del_vqs(virtio_dev);
-> > +       video_unregister_device(&vv->video_dev);
->
-> virtio_reset_device() documents that the caller must already have
-> stopped other contexts (syscalls, workqueue...) from using the
-> virtqueues. Here reset and del_vqs() run while /dev/video0 is still
-> registered, so an open fd can still ioctl/mmap and kick commandq.
-> video_unregister_device() only happens afterwards, and sessions are
-> freed in remove() even if a file might still be open.
->
-
-The sashiko-bot left similar comments, so yes it looks like the
-ordering here needs to be addressed. I'll take a closer look and
-address it in the next version.
-
-
+> > +     virtio_reset_device(virtio_dev);
+> > +     v4l2_device_unregister(&vv->v4l2_dev);
+> > +     virtio_dev->config->del_vqs(virtio_dev);
+> > +     video_unregister_device(&vv->video_dev);
 > > +}
 > > +
 > > +static struct virtio_device_id id_table[] =3D {
-> > +       { VIRTIO_ID_MEDIA, VIRTIO_DEV_ANY_ID },
-> > +       { 0 },
+> > +     { VIRTIO_ID_MEDIA, VIRTIO_DEV_ANY_ID },
+> > +     { 0 },
 > > +};
 > > +
 > > +static unsigned int features[] =3D {};
 > > +
 > > +static struct virtio_driver virtio_media_driver =3D {
-> > +       .feature_table =3D features,
-> > +       .feature_table_size =3D ARRAY_SIZE(features),
-> > +       .driver.name =3D VIRTIO_MEDIA_DEFAULT_DRIVER_NAME,
-> > +       .driver.owner =3D THIS_MODULE,
-> > +       .id_table =3D id_table,
-> > +       .probe =3D virtio_media_probe,
-> > +       .remove =3D virtio_media_remove,
+> > +     .feature_table =3D features,
+> > +     .feature_table_size =3D ARRAY_SIZE(features),
+> > +     .driver.name =3D VIRTIO_MEDIA_DEFAULT_DRIVER_NAME,
+> > +     .driver.owner =3D THIS_MODULE,
+> > +     .id_table =3D id_table,
+> > +     .probe =3D virtio_media_probe,
+> > +     .remove =3D virtio_media_remove,
 > > +};
 > > +
 > > +module_virtio_driver(virtio_media_driver);
@@ -562,8 +540,8 @@ e
 > > + * commandq.
 > > + */
 > > +struct virtio_media_cmd_header {
-> > +       __le32 cmd;
-> > +       __le32 __reserved;
+> > +     __le32 cmd;
+> > +     __le32 __reserved;
 > > +};
 > > +
 > > +/**
@@ -579,8 +557,8 @@ he
 > > + * commandq.
 > > + */
 > > +struct virtio_media_resp_header {
-> > +       __le32 status;
-> > +       __le32 __reserved;
+> > +     __le32 status;
+> > +     __le32 __reserved;
 > > +};
 > > +
 > > +/**
@@ -600,7 +578,7 @@ OPEN.
 > > + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_OPEN.
 > > + */
 > > +struct virtio_media_cmd_open {
-> > +       struct virtio_media_cmd_header hdr;
+> > +     struct virtio_media_cmd_header hdr;
 > > +};
 > > +
 > > +/**
@@ -613,9 +591,9 @@ ontains the
 > > + * @__reserved: must be set to zero by the device.
 > > + */
 > > +struct virtio_media_resp_open {
-> > +       struct virtio_media_resp_header hdr;
-> > +       __le32 session_id;
-> > +       __le32 __reserved;
+> > +     struct virtio_media_resp_header hdr;
+> > +     __le32 session_id;
+> > +     __le32 __reserved;
 > > +};
 > > +
 > > +/**
@@ -639,9 +617,9 @@ _CLOSE.
 > > + * @__reserved: must be set to zero by the driver.
 > > + */
 > > +struct virtio_media_cmd_close {
-> > +       struct virtio_media_cmd_header hdr;
-> > +       __le32 session_id;
-> > +       __le32 __reserved;
+> > +     struct virtio_media_cmd_header hdr;
+> > +     __le32 session_id;
+> > +     __le32 __reserved;
 > > +};
 > > +
 > > +/**
@@ -680,9 +658,9 @@ _IOCTL.
 > > + * @code: code of the ioctl to run.
 > > + */
 > > +struct virtio_media_cmd_ioctl {
-> > +       struct virtio_media_cmd_header hdr;
-> > +       __le32 session_id;
-> > +       __le32 code;
+> > +     struct virtio_media_cmd_header hdr;
+> > +     __le32 session_id;
+> > +     __le32 code;
 > > +};
 > > +
 > > +/**
@@ -691,7 +669,7 @@ MD_IOCTL.
 > > + * @hdr: header containing the status of the ioctl.
 > > + */
 > > +struct virtio_media_resp_ioctl {
-> > +       struct virtio_media_resp_header hdr;
+> > +     struct virtio_media_resp_header hdr;
 > > +};
 > > +
 > > +/**
@@ -703,9 +681,9 @@ uest
 > > + * @__reserved: must be set to zero by the driver.
 > > + */
 > > +struct virtio_media_sg_entry {
-> > +       __le64 start;
-> > +       __le32 len;
-> > +       __le32 __reserved;
+> > +     __le64 start;
+> > +     __le32 len;
+> > +     __le32 __reserved;
 > > +};
 > > +
 > > +/**
@@ -732,10 +710,10 @@ MMAP.
 > > + *          VIDIOC_QUERYBUF.
 > > + */
 > > +struct virtio_media_cmd_mmap {
-> > +       struct virtio_media_cmd_header hdr;
-> > +       __le32 session_id;
-> > +       __le32 flags;
-> > +       __le32 offset;
+> > +     struct virtio_media_cmd_header hdr;
+> > +     __le32 session_id;
+> > +     __le32 flags;
+> > +     __le32 offset;
 > > +};
 > > +
 > > +/**
@@ -746,9 +724,9 @@ D_MMAP.
 > > + * @len: length of the mapping.
 > > + */
 > > +struct virtio_media_resp_mmap {
-> > +       struct virtio_media_resp_header hdr;
-> > +       __le64 driver_addr;
-> > +       __le64 len;
+> > +     struct virtio_media_resp_header hdr;
+> > +     __le64 driver_addr;
+> > +     __le64 len;
 > > +};
 > > +
 > > +/**
@@ -766,8 +744,8 @@ D_MUNMAP.
 > > + *               previously mapped.
 > > + */
 > > +struct virtio_media_cmd_munmap {
-> > +       struct virtio_media_cmd_header hdr;
-> > +       __le64 driver_addr;
+> > +     struct virtio_media_cmd_header hdr;
+> > +     __le64 driver_addr;
 > > +};
 > > +
 > > +/**
@@ -776,7 +754,7 @@ D_MUNMAP.
 > > + * @hdr: header containing the status of the command.
 > > + */
 > > +struct virtio_media_resp_munmap {
-> > +       struct virtio_media_resp_header hdr;
+> > +     struct virtio_media_resp_header hdr;
 > > +};
 > > +
 > > +/* The values for these events are set by the virtio-media specificati=
@@ -791,8 +769,8 @@ on. */
 > > + * @session_id: ID of the session the event applies to.
 > > + */
 > > +struct virtio_media_event_header {
-> > +       __le32 event;
-> > +       __le32 session_id;
+> > +     __le32 event;
+> > +     __le32 session_id;
 > > +};
 > > +
 > > +/**
@@ -806,9 +784,9 @@ onsidered
 > > + * corrupted and closed.
 > > + */
 > > +struct virtio_media_event_error {
-> > +       struct virtio_media_event_header hdr;
-> > +       __le32 errno;
-> > +       __le32 __reserved;
+> > +     struct virtio_media_event_header hdr;
+> > +     __le32 errno;
+> > +     __le32 __reserved;
 > > +};
 > > +
 > > +/* This is set to VIDEO_MAX_PLANES defined in include/uapi/linux/video=
@@ -831,9 +809,9 @@ e by the
 > > + * device and is returned to the driver.
 > > + */
 > > +struct virtio_media_event_dqbuf {
-> > +       struct virtio_media_event_header hdr;
-> > +       struct v4l2_buffer buffer;
-> > +       struct v4l2_plane planes[VIRTIO_MEDIA_MAX_PLANES];
+> > +     struct virtio_media_event_header hdr;
+> > +     struct v4l2_buffer buffer;
+> > +     struct v4l2_plane planes[VIRTIO_MEDIA_MAX_PLANES];
 > > +};
 > > +
 > > +/**
@@ -845,8 +823,8 @@ e by the
 .
 > > + */
 > > +struct virtio_media_event_event {
-> > +       struct virtio_media_event_header hdr;
-> > +       struct v4l2_event event;
+> > +     struct virtio_media_event_header hdr;
+> > +     struct v4l2_event event;
 > > +};
 > > +
 > > +/* Maximum size of an event. We will queue descriptors of this size on=
@@ -871,5 +849,4 @@ qbuf)
 > >  no-header-test +=3D sound/asoc.h
 > > --
 > > 2.55.0.1082.g2b9226bbc0-goog
-> >
 >
