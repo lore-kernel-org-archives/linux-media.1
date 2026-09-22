@@ -1,122 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4093444781A;
-	Tue, 22 Sep 2026 08:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22DD44781A;
+	Tue, 22 Sep 2026 08:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066133; cv=none; b=J7r/EgriI7XsYYDNIc0rxJ//sLLI3MEe6XonCSZ9T73coE+tdCSm0OUSIPOs95HFPAZk01WBfPBPTzt4wyXw6YBIaJubpjjbLZ58Lcw1JjqxaznzyCAO08w9XYK/IGgqa8lKQp/vqXviHRc5jqW/iwP32O6sTfh9icv/Mv+yatE=
+	t=1790066309; cv=none; b=KwHwAlUG8F25eeh8YN6gQu6G9zQT6zyUZJAFJLJ3ZCPAAhBP2jsBy/x/9Id+9ec1o9epucV6S0aeM8Xnm6ZjNxPaOKSpbp3FMU9RM39nA3yiF99lBYlRMhOA7bmyVhU+aDKS3nLU6Suzq693y+G/3VecAwdAikj4WA7K4XLYsPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066133; c=relaxed/simple;
-	bh=PFJ5cbvBhuGbsuvIYuwyIRmkF4QP1dZIQIUdAft9dTc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NUTAqU40fwiePNRRhbI2KiTuhE7QbKRXnMxAM676oCOVg76ksyQm8cCNk0HAkVdalf3qG2KseSROQC+XF7ROQCYSMeTgOf8abPeCQqICbYmjdx5qUCNDkPyI+J/Xj7u0us9ZLokyVT6iEZGjQB9zJ2fndBL5fkaOGWLLmfpMFG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=COl+MM23; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790066309; c=relaxed/simple;
+	bh=Quu5JpjsqB31b31e9ok9qojvyEBty9pRwvRIr3LlWL4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rYMG21XKhp+vzR/ZxQk1vmCWF4jMTjhmvQwDxs8plzEwTGJkc6Y8L1bHpId9ikL53q0DxhxDWBXQvTBxFdK4s4yFu/ztMJQGXhksSy1C/zlVt6i+82vuhCscCkxPwAVI9bkKQ34ApDGVdaByLUdcVgDB9IyRBVylP8raci9MNYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIiJO9AK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="COl+MM23"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790066131; x=1821602131;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=PFJ5cbvBhuGbsuvIYuwyIRmkF4QP1dZIQIUdAft9dTc=;
-  b=COl+MM23YwsG4rL8tLclADRaTBDfZ134VaXlxKgfTiLyyNl1YJvzoSs8
-   V51pdBKMN4zCXfl4id3maHp+BjI0fVhEVeACe8OUmsyYoHmTaykJDz9Mk
-   AyIZGcIGQ1+4jjaFI/sFr+0Lda13h5xDNmJ2yIBCjXntYUeB9zYCZwvlW
-   fyjIg6AvI4h69zceaygajO/F8/YQsvDsSHUS/Ya7d7hHccbPw05h+LohE
-   CCfJen7wuD/aTtlCIribVArZdg1rHTFtBTnzc0wC9by3c3dO0i38CmaeH
-   vNQHcZccWSV2868WKRwToMlVbAsz2MI5xEMmRJAJs/vxQjzGZZGJK+v7+
-   w==;
-X-CSE-ConnectionGUID: Db9l3tI/S/qU7hoaQd1kdA==
-X-CSE-MsgGUID: mBOzyx42SsSOh6nGXq4H9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="94479754"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="94479754"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:35:30 -0700
-X-CSE-ConnectionGUID: dJFIMR0nRIyf76s2CH9EyA==
-X-CSE-MsgGUID: XIQgx+JzTmuPswixge7KWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="271580943"
-Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:35:28 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 64336121B9F;
-	Tue, 22 Sep 2026 11:35:28 +0300 (EEST)
-Date: Tue, 22 Sep 2026 11:35:28 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, david@ixit.cz,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: imx355: reuse existing CCS defines
-Message-ID: <arI90AxJJ2zHK3AT@kekkonen.localdomain>
-References: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
- <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
- <178850538534.11722.13162391406704193341@freya>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIiJO9AK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0C41F000FF;
+	Tue, 22 Sep 2026 08:38:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790066307;
+	bh=/0PJ1Y0fdVdEdVlkEBVy6/bOil5nzH/MclyCeJ0MOyg=;
+	h=From:To:Cc:Subject:Date;
+	b=DIiJO9AKQSIhY95QfmUBDsITyFavLwZ05MHS+SSVN/tkFtADbFcb5B033hW53njGs
+	 QG2r+EuwXHg3DBDA+w6Ek7SiCmKT5XGsaHvdS/si0o8Y8ItrVRbKyWUuiMIzuw/x5r
+	 XdHjTcAHA/cvvg0IgL8D5Mkhc5GwX9oM557Lwpkeyyj0qFryDq5BH4RCG0Fb0WAWpa
+	 KCV/bI12MprrZ2F8DCDrF0cCJrJTdjlphVfKKL3pVhjn7a3tkORtzT41UNAQeRhy7t
+	 B+gqQk9IlQNAkhY4GjJEulgAYBe2+BKBvrO5p4kj5D7FTQeoe+NPniRluY7V9AGxgr
+	 cTzC5/g27oKsg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH] rust: DmaFence: Remove static lifetime
+Date: Tue, 22 Sep 2026 10:36:32 +0200
+Message-ID: <20260922083631.444614-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <178850538534.11722.13162391406704193341@freya>
 
-Hi Jai,
+A FenceCallbackRegistration can stem from another party than the one
+that has created a Fence. Should that party forget the registration
+object (for example through a refcount cycle) and then unload the
+module, a fence signaling would run into the unloaded module, causing
+UAF bugs.
 
-On Fri, Sep 04, 2026 at 12:33:05PM +0530, Jai Luthra wrote:
+So far, this has been solved by demanding that the payload data of the
+registration object demanding static lifetime.
 
-> the datasheet's recommendations at more than one occasion.
-> 
-> Do note that IMX708 and I assume this one too is not *actually*
-> CCS-compliant, just similar enough. The CCS_R_MIPI_CCS_VERSION register
-> reads 0x0. So we should take other limit registers with a grain of salt.
+It turns out, however, that this is harmful because the static lifetime
+bubbles up to all users, ultimately potentially causing a large amount
+of driver data to be static, which renders the lifetime obsolete.
 
-Indeed. As I wrote to David, the limit and capability registers are often
-where the errors are and this is one of the primary reasons why we have CCS
-static data: it avoids having to put the information to registers, which
-cost time and (€ || $ || £ || ¤). (The last one is obviously a squirrel
-skin, which was used as a currency in Finland in historic times. It's very
-nice we have a character for it in ASCII.)
+Solve this issue instead through an unsafe requirement which demands
+that the user does not forget the registration object. This is also the
+solution chosen by ScopedWork.
 
-> 
-> > >  
-> > > -#define IMX355_REG_LLP                 CCI_REG16(0x0342)
-> > >  #define IMX355_LLP_MAX                 0xffff
-> > >  
-> > > -#define IMX355_REG_X_ADD_START         CCI_REG16(0x0344)
-> > > -#define IMX355_REG_Y_ADD_START         CCI_REG16(0x0346)
-> > > -#define IMX355_REG_X_ADD_END           CCI_REG16(0x0348)
-> > > -#define IMX355_REG_Y_ADD_END           CCI_REG16(0x034a)
-> > > -#define IMX355_REG_X_OUT_SIZE          CCI_REG16(0x034c)
-> > > -#define IMX355_REG_Y_OUT_SIZE          CCI_REG16(0x034e)
-> > > -
-> > 
-> > But when a whole block comes out like this - that makes me think perhaps
-> > the crop control or fmts might just be a common function ?
-> > 
-> 
-> Indeed common helpers should be possible for typical ops for crop, formats,
-> bit depth etc. I've already started working on something like this for the
-> common raw sensor framework, but it should be possible to also handle the
-> register writes for a whole "class" of sensors like CCS, Sony-CCS-similar
-> (like this one, IMX708, IMX576, IMX519, IMX219?) and Starvis series etc.
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-The imx519 can be controlled using the CCS driver, probably quite a few
-others, too. If you need dynamic control of something that doesn't exist in
-CCS (I'm talking about semantics, not register address), then that possibly
-requires quirks in CCS driver.
-
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index 18a43e1bb442..c3fa68c4df86 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {
+ ///     }
+ /// }
+ /// ```
+-pub trait FenceCallback: Send + 'static {
++pub trait FenceCallback: Send {
+     /// Called when the fence is signaled.
+     ///
+     /// This is called from the fence signaling path, which may be in interrupt
+@@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {
+ /// When this object is dropped, the callback is automatically removed if it
+ /// hasn't been called yet.
+ #[pin_data(PinnedDrop)]
+-pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {
++pub struct FenceCallbackRegistration<T: FenceCallback> {
+     #[pin]
+     callback_foreign: Opaque<bindings::dma_fence_cb>,
+     callback: ManuallyDrop<T>,
+@@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> {
+     /// On success the callback is pinned in place and will fire when the fence
+     /// signals. On `AlreadySignaled` the callback is returned to the caller so
+     /// that owned resources can be reclaimed.
+-    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
++    ///
++    /// # Safety
++    ///
++    /// `callback` must not be forgotten.
++    pub unsafe fn new<'a>(
++        fence: &'a Fence,
++        callback: T,
++    ) -> impl PinInit<Self, CallbackError<T>> + 'a
+     where
+         T: 'a,
+     {
+@@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///
+ /// let cb_data = CallbackData { };
+ /// let waiting_fence = ARef::from(fence.as_fence());
+-/// let cb_reg = FenceCallbackRegistration::new(&waiting_fence, cb_data);
++/// // SAFETY: `cb_data`'s content is not forgotten.
++/// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
+ /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
+ ///
+ /// // TODO signalling guards
 -- 
-Regards,
+2.55.0
 
-Sakari Ailus
