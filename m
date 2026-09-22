@@ -1,106 +1,187 @@
-Received: from mail-oi2-f43.google.com (mail-oi2-f43.google.com [74.125.231.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BECD577E4C
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 17:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F327386562;
+	Tue, 22 Sep 2026 17:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098008; cv=none; b=s9DVpX9PK+Ca+8CIK7tTPBcpo94WqTuNRE4ES5yWZNWkT7qdjMF242Pidtl4BaTtEHHYXbU36nogw9ZaW2dozhWYSplzUB9RvKAm7qXcs5eGJIMni6tYN6ChnMYrfxlkVV5FF9ul904WBaOHUXS51PbnQBkjBadQcXvUf2TuCOI=
+	t=1790099172; cv=none; b=AwRC8q7jOumQbq6eqKxsfe0V8HeRbuJxGj+iXicER6b8wmblh/38VVOOzETSTVtBgTGqvw52SZL/6pu+v+RazQRMv4U/AelChJn303pDNrB6OMJjm8WRKCoHqxdidmcq4cSdOkSU0xIP/0Rql6DWGOsjaCXArdbOAIVIiyBLBVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098008; c=relaxed/simple;
-	bh=ZsMda0uwAQyf/r755/L9LfI3ibTlAaDp5ifNzI89+Ro=;
+	s=arc-20240116; t=1790099172; c=relaxed/simple;
+	bh=tqqKL3MiY3dTHB7Hnlj1GNEzosXblE2ZBz6uATwkqy4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RZYYI27691CP4Z8jvW3jHlWoDbX85QObxH7m1s7ZtFc1EKs45TCphNSUkj5j9UalY1gXIjQe0EdwK2xdpVyxVy+hOy75RCDJYiOiY3e6LUOxaUDx3cTiA2oLz8sBoH6n/SPBSNAZRuRrueUZ4WyUsR88StCAf9KLcJf+RCbKL2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=nO0jjZKj; arc=none smtp.client-ip=74.125.231.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=GwmzC6LUf2QsVrBSnDkR+jevHch8KUz94h/JLAuZVtwIdheF/zfcgDER7w7WcP74a5Zki1n96OpchYt5AuwMxehCDdgRr7NE+IeZZbUEVCO1Cqpm5tHsFxOTdbcB8QPMED2oGXyPmMQ0Nn+7n+PRPro7MLY19ruaaAQvyV4E410=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tyLx5zTp; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="nO0jjZKj"
-Received: by mail-oi2-f43.google.com with SMTP id 46e09a7af769-8137b129131so138452a34.2
-        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 10:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790098005; x=1790702805; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZsMda0uwAQyf/r755/L9LfI3ibTlAaDp5ifNzI89+Ro=;
-        b=nO0jjZKjDmw1JP0Rn0SyIsCUKuK6bDVhqqm4Sn0eYFvuk6Ys5Qt/qKNDAwAvDISuQo
-         Hrbs9OfKzh5IltehgwisuXsHOWcGLyKaCelru1MTjWlLcJWHIQdbEox4JR2wxZyixupB
-         Ri7MtsbsueygkLdPC1igR1kX5IJdYSe3xwjT+25snNyYCQH3rLrJCboIbXa7EV/19tEg
-         WDrqCrX3esVBcmAQ7Y4Bbm6XHaMOmTNj4Ze6JoNeR+Gh71nsloqvETqewCHRbD5nO6gZ
-         GXOMFiXKaUFao4rp862MDO4hVl/SWcV0B/dnz60lI5J0/+GyPFQSdokK0BEBCp9Y1all
-         +0Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790098005; x=1790702805;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZsMda0uwAQyf/r755/L9LfI3ibTlAaDp5ifNzI89+Ro=;
-        b=hN1P9DQ9LCoNRi2Ayuzo5tCiNsPBL1tIoY2YA0lhcznzSATQ7h3d8v+k0cF2DPIHP8
-         5eEcUiRxDE5LgMHcR96EZVJtEoRkg7mAFJJD67tI231tszh+bfijrlEgqMd2359ofjfS
-         IgRFsO3yezPEtc1Dj9AEqvHU9t/KqKGkz95cT1lHxlbBOmX0YWaIrH+N3uTfuv/+js7z
-         KmWlxjH4BGxJbojbRrBCgpjKtdhdnjsh/O/Yl7QnU8cIywEAJJI6yQgKPKtjGJA8+S1O
-         PrOlOaz/lCa/v0JhFZ2JzVSJP7CLb3RVDiGt/qzi89z8c/zIi1REAtB3Kp1fBgjzU2Wd
-         Ki6w==
-X-Forwarded-Encrypted: i=1; AKwUvByIkSgKqwoc700I2idS6Y8KjaCPwKZVcougUuH6kzkSjZZSj8xxY8N1Q/mJfmPcPv8ZN46D1cxyiIkKMw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lLatwLbZFwcpHzYToyRAAKj6jLhSG+fEpHb/KWwYDa8HXxZMFU
-	QAAYOXjKRy0zBewWixDvWMslr4oJ130tOfuPWYOsjdeVx1fEo6sTvDVgjoeY0iucjrc=
-X-Gm-Gg: AYBFou22z1Vy2bNWRKi0hc23YCd4l7bYPkZ6zSc3sdgDku6JL/zBSekC9MEs1P88sTt
-	qo5YqnKGD0PHPZmlQAbp4GXS1kZEbbx6W5Ezh02ydoQW5CEnUhLrIA0mqMRSob7x+2jo5mBdvGm
-	fYR+U5vD1fkxa2wTJ8w6uy4FU3kj/TKFbQqD/ArfykFW4PY76IQOuAo5sozkk7fiNYwpUIvxHq3
-	a2FmwUn2l3CEqkFFZF1BGJpUPI247qpXDAh00QJWvsc9CEi+9+xZMZVfhxPKL9CcJUqdNtLZhO6
-	Ub4bMtf/xIJmd/HsBzr5MaFe1WTvhgJfc0E1NdZ1VXXfCgzCLLFQg11p8Yu713Ztjpco03GBSFA
-	Dl3QHzM3sNUMjbVSwfJr8F7GJUnYUCMglCN7Qq2ukOzmlc7iUO9wkz0N0R+OFylBUDzymLIHE4E
-	24aHc9YIkS/tj7E1lSYidgx7UGYd6kjiIWAQdNMt/Afwip
-X-Received: by 2002:a05:6830:82ee:b0:7e9:e488:3bce with SMTP id 46e09a7af769-815f0071c0bmr324985a34.6.1790098005310;
-        Tue, 22 Sep 2026 10:26:45 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81603fc79dcsm103564a34.14.2026.09.22.10.26.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:26:44 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x93id-0000000AWlt-1Oeu;
-	Tue, 22 Sep 2026 13:51:47 -0300
-Date: Tue, 22 Sep 2026 13:51:47 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-Message-ID: <20260922165147.GD1540250@ziepe.ca>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
- <20260921144847.501151-3-aneesh.kumar@kernel.org>
- <arKsFofudnTYpXj1@arm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tyLx5zTp"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 47B47C25;
+	Tue, 22 Sep 2026 19:44:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790099059;
+	bh=tqqKL3MiY3dTHB7Hnlj1GNEzosXblE2ZBz6uATwkqy4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tyLx5zTpqLBskYOMUczqyVWwaPhwVs6Hwc6EyH44GXpkBfnUxtQnQj6LiUg185WlH
+	 ui6OP/7+Asxh0hCbfGIWGGOPNIDAzEbTDryyt+X197o98Ka08Fw4ruIlF2iDpaZuoy
+	 BVrkosYSnm7NpfW89mWlndKo/ZsCbe0FyYtMzy6c=
+Date: Tue, 22 Sep 2026 20:46:03 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Leonardo Costa <leoreis.costa@gmail.com>,
+	"G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>,
+	"Robby Cai (OSS)" <robby.cai@oss.nxp.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Steve Longerbeam <slongerbeam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	leonardo.costa@toradex.com
+Subject: Re: [RFC] media: i2c: ov5640: Implement get_mbus_config
+Message-ID: <20260922174603.GB2333087@killaraus.ideasonboard.com>
+References: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
+ <arGNRTpmYwB2_gLk@kekkonen.localdomain>
+ <hufoatx76dnto4w3f33lx3gr7efwgcmkj3x7nzofofpzm5f3hn@pvuswzm5ielf>
+ <arKo_e-3vWC4aqKD@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <arKsFofudnTYpXj1@arm.com>
+In-Reply-To: <arKo_e-3vWC4aqKD@SMW015318>
 
-On Tue, Sep 22, 2026 at 05:25:58PM +0100, Catalin Marinas wrote:
-> Does the memset() post sharing logic work for pKVM as well? If nothing
-> clears it, we have a small window where guest data is leaked to the
-> host.
+On Tue, Sep 22, 2026 at 11:12:45AM -0500, Frank Li wrote:
+> On Tue, Sep 22, 2026 at 09:32:41AM -0300, Leonardo Costa wrote:
+> > On Mon, Sep 21, 2026 at 11:02:13PM +0300, Sakari Ailus wrote:
+> > > On Mon, Sep 21, 2026 at 03:04:59PM -0300, Leonardo Costa wrote:
+> > > > Hi all,
+> 
+> Add G.N zhou and Cai Robby.
+> 
+> > > > Some time ago, we had sent a patch that implemented the .get_mbus_config
+> > > > function for the OV5640 camera. This change was necessary for the camera to
+> > > > work with the i.MX6 after the v5.18 release.
+> > > >
+> > > >     https://lore.kernel.org/all/20230306063649.7387-1-marcel@ziswiler.com/T/#u
+> > > >
+> > > > The patch stirred some discussion, since .get_mbus_config wasn't supposed to be
+> > > > implemented on drivers that don't have dynamic lane configuration. There were
+> > > > proposals of implementing it in other points of the camera pipeline, but no
+> > > > conclusion was reached.
+> > > >
+> > > > We are planning to send the overlays for this camera for the Apalis iMX6, but
+> > > > we verified that this patch is still needed for the camera to work on the
+> > > > current mainline. Below are the commands to configure the pipeline, which
+> > > > explicitly require a .get_mbus_config from the camera driver.
+> > > >
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'ov5640 1-003c':0 -> 'imx6-mipi-csi2':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'imx6-mipi-csi2':2 -> 'ipu1_csi1':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'ipu1_csi1':2 -> 'ipu1_csi1 capture':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'ov5640 1-003c':0 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'imx6-mipi-csi2':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     [   47.438237] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+> > > >     [   47.438265] ipu1_csi1: failed to get upstream media bus configuration
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'ipu1_csi1':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     Unable to setup formats: Inappropriate ioctl for device (25)
+> > > >     [   62.616177] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+> > > >     [   62.616204] ipu1_csi1: failed to get upstream media bus configuration
+> > > >
+> > > > I am not very familiar with this subsystem, and it's been years since this
+> > > > discussion took place, so I wanted to know what are your thoughts about this
+> > > > patch and what the correct approach would be here. Was there any change that
+> > > > would make this patch ok to be applied today? Do you think this still should
+> > > > be included somewhere else on the pipeline?
+> > >
+> > > My objection to the approach was about adding code that does very little or
+> > > nothing to potentially a rather large number of drivers.
+> > >
+> > > Since that we've gotten v4l2_get_active_data_lanes() that however seems to
+> > > be used by the imx-mipi-csis driver only. Could using that solve the
+> > > problem you have?
+> >
+> > Hmm, looking at the implementation of v4l2_get_active_data_lanes it
+> > seems to actually still use .get_mbus_config, and falls back to a
+> > maximum value passed as an argument.
+> >
+> > Furthermore, the error comes from imx-media-csi.c, and it doesn't seem
+> > to be reading the number of lanes in the config, but rather the type of
+> > the mbus (all the uses of the gotten mbus_cfg boil down to checking the
+> > value of mbus_cfg.type). The receiver (imx6-mipi-csi2.c) actually seems
+> > to get the number of lanes statically, and handle well the case where the
+> > camera doesn't implement .get_mbus_config.
 
-Same question for RMM? Or did they define that the RMM zeros on these
-transitions?
+On a side node, the CSI-2 receiver driver should be decoupled from the
+rest of the imx6-media-csi driver.
 
-Jason
+Replacing the two helpers it uses (imx_media_init_mbus_fmt() and
+imx_media_init_state()) is the easy part.  The imx_media_init_mbus_fmt()
+call should actually be dropped, as the csi2_dev.format_mbus field
+should be dropped too and replaced by usage of the subdev active state
+API.
+
+The harder part is to drop usage of grp_id. It will require some
+research and experimentation.
+
+> > To test this, I hard-coded mbus_cfg->type = V4L2_MBUS_CSI2_DPHY inside
+> > csi_get_upstream_mbus_config(), and the test above worked with that. So
+> > as far as I understand it, imx-media-csi.c really only needs to know
+> > what the type of the bus is.
+
+There's also a test of mbus_cfg->bus.parallel.bus_width in
+is_parallel_16bit_bus().
+
+> > The csi_get_upstream_mbus_config function already identifies whether
+> > it's connected directly to the receiver or the mux, see the switch
+> > statement below. If I understand correctly, in the case where it's
+> > connected to the receiver directly, this is already known to be CSI-2,
+> > so (I think) we can set the type value directly in this case.
+> >
+> > For the mux I am not entirely sure. From the "Figure 19-1. CSI2IPU
+> > gasket connectivity" figure in the IMX6DQRM TRM [1] (the same one Jacopo
+> > referenced on the other thread), the mux's possible inputs seem to be
+> > well defined to be either the receiver itself or the parallel interface.
+> > Given this, maybe we could similarly infer the bus type from the
+> > sd->grp_id gotten from the mux.
+> >
+> > static int csi_get_upstream_mbus_config(struct csi_priv *priv,
+> > 					struct v4l2_mbus_config *mbus_cfg)
+> > {
+> >     ...
+> > 	switch (sd->grp_id) {
+> > 	case IMX_MEDIA_GRP_ID_CSI_MUX: // <------ Mux
+> > 		sd = imx_media_pipeline_subdev(&sd->entity,
+> > 					       IMX_MEDIA_GRP_ID_CSI2,
+> > 					       true);
+> >         ...
+> > 		break;
+> > 	case IMX_MEDIA_GRP_ID_CSI2: // <------- Receiver
+> > 		break;
+> > 	default:
+> > 		...
+> > 		break;
+> > 	}
+> > ...
+> > }
+
+As I wrote above, we need to drop setting grp_id in the CSI-2 receiver
+driver. Given that the mux inputs are well known, I would prefer
+inferring the source type from the mux's routing configuration. The
+upside is that it will remove two out of the three locations that test
+for IMX_MEDIA_GRP_ID_CSI2, easing removal of IMX_MEDIA_GRP_ID_CSI2.
+
+> >
+> > [1] https://www.nxp.com/webapp/Download?colCode=IMX6DQRM
+> >
+> > What are your thoughts on this?
+
+-- 
+Regards,
+
+Laurent Pinchart
