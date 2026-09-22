@@ -1,76 +1,120 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEC055C30F
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 15:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BBA37B011
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 15:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092522; cv=none; b=CIu816N+acB3TiGHPqoIzuWdloU+RfxugzWxqsZCDCP4/fFqq140/scK84xUZq+1cJLh9KnC0qvwZlFiOL5YgNDRYW2TNX2vqNCpca5NsEZQDjTkIVZbF6zuLaLQ7pwAIQIL8O67J7++UugqRqW0PpumyGdQh4dj5s/qRjISDMo=
+	t=1790092747; cv=none; b=N4fB7rNDkaVOd2fPqQfiUxXx5evCN5ajLufkOuk+NVd0qA0JRXMPKEooPF1m+/2R6lSxryWsRMxktkzHvnJyUTxg3MpDhASEtcwxwl5CYiCzyHu8Oq8HjGD2r8Nas8MCOKjgnYeGSXWuItUmQwETG3yVrT3+sEEO7GKOF3mXbI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092522; c=relaxed/simple;
-	bh=O/XKhBPSPw8VpToldZQDC9S0W/Ab6wH3IAI+SN9L3Kg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j5eFxfK/0MjyYqqUTAQwIJ9Hi3EYNf7PY3TOfyNm9YzAFt8BVxODgYfRYTWtRx+UJ83W8u66hYCNAXLsj3FQrthPaw1d1zySzK54NkdZusWeR+f+2Y3VA1EX7Ztavd42vjXDEolTvnUuCi7UpYhq7WFTALsRNRtiRdqL9KjClCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JLjS4i+S; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790092747; c=relaxed/simple;
+	bh=DBGBG3iZyu0NQwkFQvdP/TmvC+LApjysEWaV18qOKrQ=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=Hy9z2yS2zcbtt6hd5BbHxEcIO7xOvcfJz1OSZW3yutyOLyRGJhvP/Ux23LM8yX6ypjRCXC0rklDTwaj7Pkvo43WGbc3ZM0rway/zia9bb0hrgb6akNrZ7tI3unoCLnFsCcWkyKgES+mOXPCl3LBOy+s/teRNwcBA/eoxAtSKl2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Evl9sUZO; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JLjS4i+S"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C81BEC25;
-	Tue, 22 Sep 2026 17:53:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790092405;
-	bh=O/XKhBPSPw8VpToldZQDC9S0W/Ab6wH3IAI+SN9L3Kg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JLjS4i+S5EGH+aE/RijRpsH0Bk0ZSyO/wn4mJcoAt6vyiaodlVJmff18ibdhISukE
-	 ZzjsxMiLAhNY4s5JRCwHtkMX4V9/kWAssvxSli71fBzk0Kx6i2SAeVCdsp3+9Qo6an
-	 B6g4JyoKQYV51qaJ/dYR5uP7Q9IHKUraAR57dl80=
-Date: Tue, 22 Sep 2026 18:55:09 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: RFC: Remove gspca and old ISA radio drivers
-Message-ID: <20260922155509.GA2471124@killaraus.ideasonboard.com>
-References: <8d8203ba-a406-4730-9493-dbab8b3ec831@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Evl9sUZO"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso55971a91.3
+        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 08:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1790092745; x=1790697545; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Hznwk34J9OCTjEzC99z8hQq8YeZFlpKU/C+qK1zz2eM=;
+        b=Evl9sUZOmNrJq1uvEaqaGR0/7Y0yAlEFB8t+OJ5LadmyC66ncmgaeMSyJ5eV2t/kzk
+         yhrl092vSk6LBPkaSX7iuAT6T2kktPyOEFwAaN2TTmSLp+80xATu6pp8h5NlR0Jns3yB
+         6kFiTUzjWR7DDxosl5X5PrwIk4KlTCht0Wnf1vh5a+pRcnaO0dLAjMSqNA40yg2o/Jm+
+         YVQy8ZllxD6tQyWZOVATVFqH3UTVRbORGPmw7prnHqauIO3piQgfNXrUyrguavPFE05E
+         ore1CIqXjrH6Ixi5Ul7maPzUf3Tjmvi7LQ8VTKlGZxm+Gf7Eq+lHqveZJK2UgbruE/Vz
+         Exyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790092745; x=1790697545;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hznwk34J9OCTjEzC99z8hQq8YeZFlpKU/C+qK1zz2eM=;
+        b=idmMEJW9ArBVlRjcW2Ln+v3Eb/qtD/zDNvVaUev83DVanDoKBt8zp0zkTpfH6ldhhB
+         U0W/nk+5gQ2rG38E98DlyUxOw6Y3nNRobmxcbNK/3cB8PSHlVmgsELU94V0YiZ7dUEIR
+         gyYhxDTwMkd6HDtAv5xaXFXRGj1kgCzsx3cmzshJNmS7MA51ZzCELxe+fd5ppXDzVh+5
+         aC63Fu5MMsYYZVG7QF415ebOs1B+RKprjQ7XE5GcI8cTFwZB319YqoDK2LFCivNNLaq+
+         WJdicf4umtUYi4RhT5H9DLhVhHbQVy0wYwuYqOIuho/SJSZ0OlW7eI7I9GiyTcolksfy
+         /tkA==
+X-Gm-Message-State: AFuF++ksVd01XgaejQwqNyREjXZbo6XK5SnHTqPF+DRNRUDobieii7V4
+	5HkpoxE8O/1zq5/BCBv/ah8X8bjMvTsuuukp9SJfcr5DnZfSbYYUU33tv0ppNR+sxEN/frAyR73
+	R15CI
+X-Gm-Gg: AYBFou3L9PLrIZFv/SSzYN6fmOZswolSe9qQGnSTTi7v8urNZvllQYfg6A5V0XL5oAB
+	nY+jXR49oDFhdUwyQykZfAef+PHlggh8BPL0UmBwRcFwAH0egDBT7RN1NyzwqY4qg2LEIWf1mHp
+	6H72YcZlfbJQvxsUaEKZH7rPoE7OtE+00JtdfSTAqLcWV57X51ugkSW8Tt7rvYmiKLBzpWe7x4z
+	N9auQCxyiDgBaBgMQ1ksPuU9dTgZLE9ELGrqBfQp57pL2UTVIqmUddS/vgkGNyM1a8DVWDdCRsC
+	QuGKHfEJ/vKA9l06WGHuRtX7uRWTiBV+bwklQ9GFZz/WB8usHlN3yXKctzR8E/A5wOUW05LigPW
+	EqJNFSC0p8ryLv3FymV53M0hXsQrjlrKU9t8AkzaQCoPSzmAJeqjNSHgIwwn09Qz1JE6O0y4opq
+	oTi/KkgES1gcZbMRsKSXY6km7v6tsXfOOoWTMoxXX9ZUEnwFjkAa/k4vODhcHhBqIEGt3O6mg93
+	g==
+X-Received: by 2002:a17:90b:4e88:b0:3a0:309d:5549 with SMTP id 98e67ed59e1d1-3a0730cdea1mr1702562a91.8.1790092744598;
+        Tue, 22 Sep 2026 08:59:04 -0700 (PDT)
+Received: from ec7b70f3a45c ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e61270bfesm5285423eec.9.2026.09.22.08.59.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8d8203ba-a406-4730-9493-dbab8b3ec831@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?W1JFR1JFU1NJT05dIG1lZGlhLWNvbW1pdHRlcnMvbmV4dDogKGJ1aWxkKeKAmHN0?=
+ =?utf-8?b?cnVjdCByY19kZXbigJkgaGFzIG5vIG1lbWJlciBuYW1lZCDigJhsaXJjX2Rldg==?=
+ =?utf-8?b?4oCZIGluIGRyaXZlcnMvbWVkaWEvcmMvLi4u?=
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: linux-media@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Tue, 22 Sep 2026 15:59:03 -0000
+Message-ID: <179009274303.413027.3158173373538711991@kernelci.org>
 
-Hi Hans,
+New build issue found on media-committers/next:
 
-On Tue, Sep 22, 2026 at 05:37:03PM +0200, Hans Verkuil wrote:
-> Hi all,
-> 
-> Would there be any objection to removing the gspca driver for all those old
-> webcams with horrible quality and that nobody should be using anyway, and
-> for the old ISA radio drivers where I am pretty sure I'm the only one that
-> can actually test them (and even that is questionable).
-> 
-> I could move them to staging/deprecated for a kernel cycle, but to be honest
-> I think we should just kick them out.
+---
+‘struct rc_dev’ has no member named ‘lirc_dev’ in drivers/media/rc/rc-main.o (drivers/media/rc/rc-main.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-No objection from me. gspca doesn't bother me though, as it's quite
-self-contained. I would be happier to see the em28xx driver go when it
-will be time, as it's one of the few users of some legacy subdev APIs I
-would like to drop. As far as I understand, that driver is however more
-widely used.
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/media/rc/rc-main.c:2021:38: error: ‘struct rc_dev’ has no member named ‘lirc_dev’
+ 2021 |         if (device_is_registered(&dev->lirc_dev))
+      |                                      ^~
 
-> It also allows me to throw away a lot of old hardware and make some room for
-> new hardware :-)
+=====================================================
 
-I wonder if some computer science museums would have an interest in
-those. I suppose they're not the most interesting devices.
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
--- 
-Regards,
+Reported-by: kernelci.org bot <bot@kernelci.org>
 
-Laurent Pinchart
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:36a247467120212cd254d542ecb5b613b84fe664
+- giturl: https://gitlab.freedesktop.org/linux-media/media-committers.git
+- commit HEAD:  05d9c515cf13056875abbf73adb4a19dd7ba32eb
+
+# Builds where the incident occurred:
+
+## defconfig+arm64-chromebook+kcidebug+kcidebug-arm64+lab-setup on (arm64):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ab2965dd96a8203de802a23
+
+#kernelci issue maestro:36a247467120212cd254d542ecb5b613b84fe664
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
