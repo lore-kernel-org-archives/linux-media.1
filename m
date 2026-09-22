@@ -1,40 +1,40 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C19D53CA69;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440DC3AC0E4;
 	Tue, 22 Sep 2026 11:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077211; cv=none; b=C1ECBJrRh0syCe067ahicHN0TLBa63qSG57F6FZ4LaEjv4ngiWG22azpVrD1hSoxfLIKSHGzP1ovUPoYbJiiMLmQh4peGayz6X322DXY9qVlSeKoJzZTBsmUlnir3kBZzXK/nkQ+EV4Wd5+9Bt7FsFIyft8AN+yzWej7pQy7JwM=
+	t=1790077214; cv=none; b=GFnZHA4uS6t3uCS5uSl6h5eDVwtVVUhqRBsAPPv2tEMKYU6+wVcq5SfpjM8z8p7cq6SJok539FE3ICIIkyHwLBaG61wCwuhgytqw55U00Djfj0M0WmGWirtDnwpbwDrgUiVWyCuTYBYlDQXr7WWmIAfrSIEUwKIonWaYHYsGtCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077211; c=relaxed/simple;
-	bh=wXBz31YYAqZAgxYBge5P36ysNsF9WzmlFm5K4PaRbgE=;
+	s=arc-20240116; t=1790077214; c=relaxed/simple;
+	bh=bSFP9C9XjARx/dNNgNrfSYeFoPgGa+k9SPVPrwMzPcg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ol6ksCx4dEnEv+Y9uBw8sPSC91RGhx4TjLYfpFVq4TSKWydSDjVUH+UdGEF5rDEX0/XiEYs51v9RI5JR3PGX6j6he99ScFGdbbSNj5tejSV1AdDv/hLR6kFQm1KWNVA3Md98jOklxdwHVnLkO16HQOuIdLxOrvUPhLttcnh41t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oE1ydEiX; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:Content-Type; b=laEe6kYCqzMFK7t7u87aODAZcx23BleM3WzIrTN6O4oUzAzO/uzM3OZEJ5L6MQFPo+MefE8LPjZhWoqJW4ucsEUvm4Gys1+y6pSbAfkmXEaK7oWTJo2Qe4CcE6clJBDteKVkPPxxPBl6T6obqHtdTduAVJ/Cn2qdAHPt72zVaS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Us3mJDQT; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oE1ydEiX"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Us3mJDQT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790077199;
-	bh=wXBz31YYAqZAgxYBge5P36ysNsF9WzmlFm5K4PaRbgE=;
+	s=mail; t=1790077201;
+	bh=bSFP9C9XjARx/dNNgNrfSYeFoPgGa+k9SPVPrwMzPcg=;
 	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=oE1ydEiXT0YFVSwwKAwRK1QjdOU8PyAEzxmKSShu5U0YKqp1bvu1S5Vbm69pIoR5k
-	 SvId+xQbBPwc5wb5EhWDvjmP0RneGeoIbNs3X+n8S5yVjF1avpa0wXFk/yWeaZTkjx
-	 fGMLlUz1vSjcaL6jN1Z8cNv6Lbtp4TY2ZHkUjClNTtdeigTh0/hPWFuBWljNce1z4L
-	 8ZLVj1nG31VxEjFnlmxzn6rSGzq9x1S3xQGeSyZ0bd+KQHMr+3y0dMf9IofL3HtR0u
-	 aegtKGbtJ+EcxdHw0+/fxlr96ICWP7wlPpocoRWBroUExx6fJCOSSYzQUIoPZLbbbE
-	 u2tfVvONXUlbA==
+	b=Us3mJDQTlFuo/LamL+FrEDlGp2GUp6RetzX1uEuUXGI2Z07wV8GwgJQYoIGs4wou6
+	 x6PHTe9IvfbpyvaThgcWyi0aeWRj4jjEY7zPTZqZxmd27Iz21mBDqBBOFC1w5dNHVS
+	 j/8XY7ZPKPPv38WDqkSzKOE6J/jKg6+bUJw+sVOjsGmOWCFw5H65Qp8Aw8oECguXe3
+	 UKu9v+d62dk6IcuHWPyJ/9HHkfPtjAXUFj3CO4+BHaX1C52AfNDhIkn6Mt3250eKtG
+	 WtnbxgazIraZ3+KTNuCw7feZJaXgFRZDP2IUCgmAOcYibqyKveWNpjn2hopxwtvkEd
+	 uivI8lovJ8ocQ==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DB4B817E0E01;
-	Tue, 22 Sep 2026 13:39:58 +0200 (CEST)
-Message-ID: <3d056e8f-2d03-4356-b205-f7c1fd47d713@collabora.com>
-Date: Tue, 22 Sep 2026 13:39:58 +0200
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 63AA817E0EA9;
+	Tue, 22 Sep 2026 13:40:00 +0200 (CEST)
+Message-ID: <9a40a5e2-ed21-4727-927c-ab4a1779bb19@collabora.com>
+Date: Tue, 22 Sep 2026 13:40:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,8 +42,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 08/12] media: mediatek: jpeg: fix remove buffer
- removal timing for multi-core
+Subject: Re: [PATCH v17 07/12] media: mediatek: jpeg: fix resolution change
+ event handling in decoder
 To: Kyrie Wu <kyrie.wu@mediatek.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -56,20 +56,25 @@ To: Kyrie Wu <kyrie.wu@mediatek.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org
 References: <20260922091530.241762-1-kyrie.wu@mediatek.com>
- <20260922091530.241762-9-kyrie.wu@mediatek.com>
+ <20260922091530.241762-8-kyrie.wu@mediatek.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <20260922091530.241762-9-kyrie.wu@mediatek.com>
+In-Reply-To: <20260922091530.241762-8-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/22/26 11:15, Kyrie Wu wrote:
-> Move calls to v4l2_m2m_src/dst_buf_remove() inside of the spinlock
-> protected scope to ensure all necessary operations are performed
-> before buffers are removed from their queues and ensure proper
-> synchronization of buffer handling to avoid buffer lost.
+> This patch refines the handling of resolution change events within
+> JPEG decoder worker. The `mtk_jpeg_set_queue_data` function is now
+> called to set up queue data before signaling a source change through
+> `mtk_jpeg_queue_src_chg_event`. By reorganizing these calls, the
+> patch ensures that necessary queue information is updated prior to
+> transitioning the context state to `MTK_JPEG_SOURCE_CHANGE`.
+> A condition is added to exit early if the context is already in the
+> `MTK_JPEG_SOURCE_CHANGE` state, preventing redundant operations and
+> improving processing efficiency.
 > 
-> Fixes: 86379bd9d399 ("media: mtk-jpeg: Fixes jpeg enc&dec worker sw flow")
+> Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
 > Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 > Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
