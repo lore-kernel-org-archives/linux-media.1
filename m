@@ -1,33 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44DE314D1F;
-	Tue, 22 Sep 2026 13:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7038E54CF5B
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 13:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084177; cv=none; b=eoTFNPskchzMphfdQMrRfRX81xa9U7QxHBUslGKnipm1c4R6Qm/sRGg7KQKHl0E19XD4sqpF0TGo0sZKBBmhi2Rhn/fFx84r27m+vwdrZoqlD1rjBjzl1xGp17dqVcQXxUx9FhTnYHGXhpTGu3YDs4O3+ogXfMXruQ2ACMgS0NY=
+	t=1790084239; cv=none; b=Iun2hwPvSP/icgBuBMS1k096hPW7wgqd3eMKvNJn/BLdxh7ozkX273V9F5T2ldJnEb4rGrMDArDCPucnyO+IQjlv+xOLRc/HwFUOaTB9CHN4J2YV2ouOFLrjWGkn4PdntFDuF/q0Q0sq625LPeL3g2deLww/AulVYD55m8OUO9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790084177; c=relaxed/simple;
-	bh=9I3JAYVyFY+vxxTTOrUnMofRkEOgw46B9OyiszK/WCg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=k1cezSLnTKKEyREujm6jg7oTaen/QAq1L5QUlwSsY9LDh2asyfzo3NAW00tig7rOA5TsVkJnPAxGeN/mx9eqyRMpYyveUrTS/aErZfK37q+86NLEuKjQ9UJmoYiD2n71J6vD2eWnJx0qwx2r1JbnrfDset1IdA56x1/ZsaJNbBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4SxMuqy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790084239; c=relaxed/simple;
+	bh=HQWVBZQ3a3dF/DEyKoutDX9guSe4Idp8wVDepJLrORk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jb6ASFiTbAa3WVRx5pCU9L55ggaupsl1nInOq2upA5XZo4N4FQHlmv+kLMmjxd7pcNUcP4L7VwgAm4/Ev+8oSJjH8Qj+r4pI+QBXSpgT38YPj1cJT1lAOL3ZCNhKIzXAlL1/rQKqMDQfpdeq23fnQILamu2Mv4pseX+J3OE5eqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y9bkKHtw; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4SxMuqy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B13A1F00893;
-	Tue, 22 Sep 2026 13:36:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790084175;
-	bh=cXSyuOB9bQOU1bE2UbkHeTifAOp/12fZtgw/FWOm+UA=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=M4SxMuqy6gnQ2FZeRSHfSUthE7lVYD2KJuAp9aiyCltDYjd36UO/MIiVk2ktyc2pu
-	 b1S5j1sPVm+Wxu0zp7G1faPLXFpDc/Gkk/Qw4Uxt1v1WtGq9nnZe495UmE/ow5MmMn
-	 jR2XIQTUM4oNRBcjrqP2Ap5W0YFr5qPx9LzFYROc7xfcihRYr/EvkQnbACrzVcCYVg
-	 Rg//ID/nuYNiO/O0B8Kffprx0Oc+8cqOXicEC5UQeNcENhWUTEZYdsrPgrwtIIxn1y
-	 HyZgPtPgIp5nv8zTntUFxCNt7H4v6+BdCnmrncmhKR8sLoO3z+44x2YQiGgZghFZzb
-	 rcpstu9faUVMQ==
-Message-ID: <d9a03faa-3df9-478e-aa73-fa6e7840b3b8@kernel.org>
-Date: Tue, 22 Sep 2026 15:36:12 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y9bkKHtw"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa22408406so6356830a12.3
+        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 06:37:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790084236; x=1790689036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3SSB6/4UTXtVP9h0KYT7VpnYQgkILrKgn1VnZQd7YA4=;
+        b=Y9bkKHtw4enwyqHTeubDc/hx54OJBxkeUi0FqlJAnpEf91s27PXl+tasxyNLFbyoYC
+         jXUWVQ9sCr+9/vROmsNXwRmAPdfxZ4OVE0PwaoEwT/ZD28DT1Ajfppy+TwEwPDpTJ5Wd
+         8cHthTZQGvZl6HjcGPRhluw6PreSdfWmx90Epw+BhOD08wxmnBhFSvLNDefwhuD/a9LO
+         RPe57iVuZNtHqtFh8yPsPEO/Y6CvsN96wnniPDAlT9eaIGd7gSUsPbL/aHTrif98/2Fr
+         LL64vsXgF32RaTvf8BVtlGYT6IkRsiRBD4EsCr77NQzcoP8C7xS+XR639uPQ/73UojlP
+         hUuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790084236; x=1790689036;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3SSB6/4UTXtVP9h0KYT7VpnYQgkILrKgn1VnZQd7YA4=;
+        b=b3d43WgXTrYP+odQkwjTxH9XG2s45xCTHQSu78M2+7wZmTg385xsUDQa8tjhtl/0CG
+         Hm+WjxAjfUx0p9GrtS/paxq+7y/yvM8DjgwxnJZVqhCfuCl46L8WnIcubq+OalqkvP2z
+         i8dI7FlJq+PwZn7vymhdDVbg8Gu+8tcayqF4G3s+npyfvwsdOULWW9zdUF+c5umhMtZJ
+         bM3OsmtduS0W0UD/bDL63IG6PexyAj3cj3v6RIqSKnYdMop/5pobH5f05EqtPAdSaWzE
+         gHr6a7b4FjKFY2bfbCYaM5pydUhkU3CynkEsp3H7ZTAnbEO8US4eACpNvGC1Nx6yVIJ/
+         OjiA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4KaF0I7ocoM6ykQql0mKqP2tsjVOqcBhAdeFt1eKqqDEGodf0wpCLdansillUkkXK2cHwR3Yfz/Gi2g==@vger.kernel.org
+X-Gm-Message-State: AFuF++l3imGvJxJd6lxBzFyGJsYrbu9ke4LrVj2dbpR8ZPQ73aj799jF
+	n/jJ9qkVVv0Ap4BG2UjtZwTQzM4hu9yhJ8J8nWJgyNKqxxjHBfiFeuDJ
+X-Gm-Gg: AYBFou3FyVjLmWvSDlvYM8AoVcS2PAZZFAxKRc0+9Vk6wXkD6zH+GoNJ+Jqmje/XcZf
+	xWCDf58fLb/qDbLPHL6OCTe+HAiajvSBJgB5BurnNcgcdCIf0yaHTZ8Dd/s/LGnFpvc0mK4DQ8V
+	J0PyR75E15mrD4PEkQQS3ut5t2Pi8CffVcKbAkXe5WPIqMUE8G3VHMfqHnkLCVgow7knOxIYI3v
+	joTmYg4K8AdtJj5mLcZoEoqSDgHIPCW+26SZr6RvMyJfakZnywjbeZb3rPSAtX3wubPZg90s0g5
+	ad/l43QB17EmZXMhZZHo+TWHgMEGQg10+XAlRquWsfFVgI5KewYGhtxVdQX/m075T4wSuLzIxpG
+	hKw0QrvNnYuUsXSiNVscXVExt/JJutkKIDpBqE7WxarrgjcibEG8HfyqZeFTsfaXg5nlbNAy4Oy
+	wrX9UUsZ7/kGBAu72cVIqaReGrnAI9KWdVGhWVwQFYKUuatR7k/ZNUZamEl3YZrV3OQkjjC4tEe
+	sjqRJfoeUHCM+M254iFciN+T6WTMbWxG3vY+nUKZMncKLHcq5/372pAOlR8EVsZBLEjN4RefKCt
+	IX9jO5zb7X4Bx5vNN6Lc/iUAEZFM
+X-Received: by 2002:a17:907:6d18:b0:c29:448b:f5d0 with SMTP id a640c23a62f3a-c2a15b86ed4mr1180156066b.33.1790084235477;
+        Tue, 22 Sep 2026 06:37:15 -0700 (PDT)
+Received: from [10.54.182.141] (82-132-213-196.dab.02.net. [82.132.213.196])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aa9b14925sm14081966b.19.2026.09.22.06.37.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 06:37:14 -0700 (PDT)
+Message-ID: <d39a6dd7-cb5a-43d6-8dcb-16eb9fc95b4d@gmail.com>
+Date: Tue, 22 Sep 2026 14:37:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,78 +71,57 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 0/3] media: hws: fix shared IRQ and video quiesce handling
-To: Ben Hoff <hoff.benjamin.k@gmail.com>, linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, hverkuil@kernel.org, linux-kernel@vger.kernel.org
-References: <20260915010111.101551-1-hoff.benjamin.k@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260915010111.101551-1-hoff.benjamin.k@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v6 06/13] nvme-pci: implement dma-buf backed requests
+To: Christoph Hellwig <hch@lst.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+References: <cover.1789997898.git.asml.silence@gmail.com>
+ <e80c3b1e0de004eaca6c51a2a86115ac9ed36381.1789997898.git.asml.silence@gmail.com>
+ <20260922132016.GA30684@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260922132016.GA30684@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Ben,
+Hi Christoph,
 
-On 15/09/2026 03:01, Ben Hoff wrote:
-> HWS quiescence currently disables a shared IRQ descriptor and calls
-> vb2_streamoff() without the queue's state mutex. This can prevent other
-> devices on the interrupt line from being serviced and race userspace
-> capture operations during suspend or shutdown.
+On 9/22/26 14:20, Christoph Hellwig wrote:
+> On Mon, Sep 21, 2026 at 02:38:50PM +0100, Pavel Begunkov wrote:
+>> Enable BIO_DMABUF_MAP backed requests. On registration we map the
 > 
-> Remove diagnostic register accesses first, then restrict IRQ quiescence
-> to the HWS function and serialize monitor and queue transitions. Runtime
-> readiness checks report an unready core without resetting shared hardware
-> while capture buffers may still be owned by another channel.
-> 
-> Based on media-next/next at b38d06ad1e13 ("media: ipu6: Fix up missing
-> IWYU issue"). Apply the three patches in order.
-> 
-> AI assistance: OpenAI Codex using GPT-6 assisted with this submission.
-> Each patch includes Assisted-by: Codex:GPT-6 to identify the agent and model.
+> This is now REQ_DMABUF.
 
-So I'm marking this series as Changes Requested.
+Will change
 
-It is not so much the code, but the awful AI generated commit messages.
-For example. patch 1/3 makes lots of changes, but the commit message doesn't
-even say why this is needed. It tells you it keeps code, but obviously
-you can't see what that code is in the patch because it is, well, kept :-)
+> Sashiko had a few comments, which I think are correct - if we use
+> dma_map_sg to map the data, we need to use the sync_sg APIs to
+> transfer ownership.  That only matters on non-coherent architectures
+> with MMU, but we need to get it right.
 
-To me this patch just looks like a big cleanup patch, ditching old debug
-code that is no longer needed. Which sounds like a perfectly find commit
-log message.
+I've seen that and fixed everything locally that should be fixed,
+apart from the sync. I wonder what we can do about that? I can
+somehow replace it with the sg variant for now, but sync'ing the
+entire possibly multi-GB mapping for, let's say, a 512B I/O, sounds
+not wise. And I can think of another place that does mix sync_single
+with sgs.
 
-I suggest deleting the commit messages and rewriting them yourself in
-words that a human would use ('serialize video quiesce with queue state':
-really? What the heck does that even mean?)
-
-Remember that AI can be very useful, but in the end it is a human (i.e.
-me) that has to review it.
-
-Regards,
-
-	Hans
-
-> 
-> Validation:
-> - Applied and built every patch boundary as an external module with W=1
->   against the prepared x86_64 kernel, with CONFIG_PM_SLEEP=y.
-> - Strict checkpatch and git diff --check pass.
-> - Hardware capture and system-sleep tests have not been run for this
->   extracted series.
-> 
-> Ben Hoff (3):
->   media: hws: remove debug controls and lifecycle tracing
->   media: hws: quiesce interrupts without disabling shared IRQ
->   media: hws: serialize video quiesce with queue state
-> 
->  drivers/media/pci/hws/hws.h            |   2 +
->  drivers/media/pci/hws/hws_irq.c        |  84 +-----------
->  drivers/media/pci/hws/hws_pci.c        | 181 ++++---------------------
->  drivers/media/pci/hws/hws_v4l2_ioctl.c |  14 --
->  drivers/media/pci/hws/hws_video.c      | 144 ++------------------
->  5 files changed, 44 insertions(+), 381 deletions(-)
-> 
-> 
-> base-commit: b38d06ad1e13c32970d58039c154f009b81a3368
-> 
+> And the reset deadlock also looks plausible.
+-- 
+Pavel Begunkov
 
