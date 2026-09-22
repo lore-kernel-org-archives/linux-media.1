@@ -1,142 +1,127 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56024E2F0E
-	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 06:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F243FB7E5
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 06:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058936; cv=none; b=Ps/mmLZykDFvBxdlywWkCdHWRQK8oHV6BETIJQ0gFtbLdsJLvXU21d2depUmhkKoyVyIr9KKlTvHS/w9LKkzEXBt0DC7CINPYaRaKqzi+WUfci6xdwCd44l69L0TW6gspgkkZwNZb12jQ8TnEljCbpFNe3YjULMcMRcmSLYHapE=
+	t=1790059085; cv=none; b=BHzxI62yTdzXz/kxMxg+msYNfyidAGfR7RNnTUeWOx4UCHuTfxh4CipvEaLlRb/6qLHh0jMq6nYxvHEQxLaxMhO6Oji1G0HCWnbGGOADSS5XuDpdHa910XiQpWCp5TC3387tym5/l7v980QoLzvCjVXCSNCIsbxsep1b40TivP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058936; c=relaxed/simple;
-	bh=Vu+R/47nvA6CsyN0t24dTNOwXGk/oELWg6WxHC1bXbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ERGJRD0gG6+V2ogM3XbEhB0JSlSx25t3XHhHXytCLMyo7QrCFs7kZqZ4yRVqkqoC76+mV2oLRVvuHlLF+GoCS9Cu8jGBjhgREkiQ2lGtpuBvgGyigU26i3v2/G1/J/h5zgnIYN8scIz9IQ+iNAkAGWfvYSuEPIFh6UsoX15QbCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVPLMb4u; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790059085; c=relaxed/simple;
+	bh=4lUPLsg5I3bh+zUa0H81Qd4p9sE3VFEPRyJY7214MxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T1XMnIiLe5QCHZKYJFIQf5De3aLclMfC1qbKXMfSBeV2IWfM9iXRIGdhn30vMTEPN8j4OjEocbiCuPA2aEgil54DfUI7FGgihIsvKvlK7tDjn0Ww8wzR3bE+wJwM6zFYcqxZBk/s/EAGj+P0e0lKSIiuA6nbo88tPzchpqO9+VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AqQQry6t; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVPLMb4u"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so28106685e9.3
-        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 23:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790058930; x=1790663730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sKab2b7lNX+8P0jbeNZOEIpA84gtvKGXxFn+uJOJkUg=;
-        b=BVPLMb4ujhxO1Wcj3jVFcOgHrsyMCSPRKR8XXr+7CpJ3CnZSritiDShWuBD8VUYSWW
-         3vk9XFdC4gBLjN+MewcW/K/Dt/0xsaZQexVZfcEK1f+OqhWmzted8Xv30ucWHPXs+JrY
-         CGNE1+CP3VDj3eEPP9CZGxrCov7LcdvcfupjkFYo80DGMk04hHcHPqX74i7IcfOabIxq
-         TJiBvybnKhPSDw2taf0sHRfPDNerrRI/091eSpT76KIbYcTPrX9e0O2QG4jX/xHJI6gi
-         aVjJ4BvlTifQuG9ouq1ACLVlMQeNfNYBFPdcnNeK1UNMxMDvPa2HE40FaRoeYkpfi7H2
-         y3TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790058930; x=1790663730;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sKab2b7lNX+8P0jbeNZOEIpA84gtvKGXxFn+uJOJkUg=;
-        b=Wxokbp1ACEF1dEd20W/Bm9iZTe9iG1GIo5oXKEPCWBdGePApAWE3G7ZizWmzLDtexk
-         G0t0zoP98rW+NNULz5tDtlGNIVddWIXFufp+DNNfAWB2/pMLJYuPCB2c318jIxUaVsyj
-         8M+UDmciIZ5+wDZ5ZAuIxDgoLB3x9fx7BGFDYX6PwJeMd59pMPr3+VZhpoZi71hUbcU4
-         TqalaNJ7fAEJH6CKL8OMmBP/eVoi8LAqBTBnEo1dWE0LpEH0DkNxFBWQo2cEPTlByd+6
-         TVq0QrBbddP0uEt5jdQIGAUYH9Gj4CPyJlJ+7c4BSTvZVNEilKTg7puZnKgiMqDv7j/d
-         K0dQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwseU1f4EVlHPcbwPHXwLfk4DJWIKpNZIMDHt5i1feUIXmgjVoGcKNv1lzGCiLFrc39RiYxIVEh+8Iziw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mnzakgkPOIkMRjMebVC114DtBEFynR2w+R09p0yeUS9ocokx6a
-	MyJupOCcNGG05fqQODE+zQMZE01DkdfzpZoLJM0WbVUilbUyP2si6z3w
-X-Gm-Gg: AYBFou1GFTftZtdSVMxj09ceHHhvtOOhJEaIZ9dovFaQdrztydF8XVnIEY5A+o8Zz9Q
-	DLuvfL9N8bJtkqtA1knq/Gy397MxBLKoy5nKfzk1SMLVNx/QCgUlU0isMKqew7BU4cQFvhTwYYY
-	7emOlI+bfnhS2Rx3GY8qQUHRA0WDU07sP6iJlxcwS+46c4uQ+bsdA0ath+o0r5qMm9ujKcRUBxH
-	56p1ct1V18CPJh/d6uS0zvLpepHecAaMVK/2XzJIRlLTpTpf/TmCuHUVqY3sh6wm7V7Vgd2pdYC
-	Soj0eYDJ8SZYRrk46Z7s6wQ5csYZyC7yZ5kB5rNy7TTqlOh9Pe1HaJNLZ2FgqISDRIRjPYRVKoi
-	xCsUucm0BimKjlJAPoSkGHypPMhI/DjMuNsuaqjgUxpLJrHk7HDVyaQnb3Eb2RWAKq9SjTAtvMo
-	kGN20OZd7Labko8cNcHUrR/Na7DblLWrQoicteUH4bAD2ngE2R3G1Pz2bZux/gcFKFvTFnlFEuC
-	jjakYsuglxErGyhu64gqIh2qYXy0FU9jjQpRfc=
-X-Received: by 2002:a05:600c:3ba4:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49fc57414c4mr230924765e9.27.1790058929804;
-        Mon, 21 Sep 2026 23:35:29 -0700 (PDT)
-Received: from TMOROL-MAD.sanjose.local ([192.67.141.100])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad3669fsm28551575e9.8.2026.09.21.23.35.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:35:29 -0700 (PDT)
-From: Tomas Moro <tmorolias@gmail.com>
-To: calliarifelipe@gmail.com
-Cc: bod@kernel.org,
-	hansg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	Mars-Wave <tmorolias@gmail.com>
-Subject: Re: [PATCH 3/3] media: ov02c10: Accept a 26 MHz external clock
-Date: Tue, 22 Sep 2026 08:35:07 +0200
-Message-ID: <20260922063507.690-1-tmorolias@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20260905030732.39196-3-calliarifelipe@gmail.com>
-References: <20260905030732.39196-3-calliarifelipe@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AqQQry6t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790059085; x=1821595085;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=4lUPLsg5I3bh+zUa0H81Qd4p9sE3VFEPRyJY7214MxE=;
+  b=AqQQry6tmfJonAEI/sKs9Xb3W1OpZEy5gBNveZzFJEWpAgJGniFEOPWC
+   +737FEF9KZGfAK1BD9lxpeahOaE/8RF5u16q1mRNkScRLpegIpMzWlXS+
+   FdMsE25dm4CME9Ja/NWyQID0EuTZo+GgFdBZ84A8fybabf3re4E0gblGC
+   lSDVMtCKUzhD1bbQdWqtTqYIifPaxaklwbjsSct7wNW6pB8kC5jqzZuB0
+   v1Tc3kg4sfU4YLsIPnJ0FTsYKtabVxqSdJiWRvouAWJiVj4A9geA9bt8/
+   9uX/oHVftBtDT58CO/zpLyDu2JnIh9j7YDvT/I1e0TeWb1dn19wwkdCS2
+   g==;
+X-CSE-ConnectionGUID: dAlezluxTVa3JZBWD0cUIQ==
+X-CSE-MsgGUID: 0Tqi705+SaOdSMUBhjAmjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116154987"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="116154987"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 23:38:04 -0700
+X-CSE-ConnectionGUID: 1GJDPbnaS9mZehoppmS0YQ==
+X-CSE-MsgGUID: dGR8BpCdR+SvPZAl8nSd5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="273166702"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 23:38:01 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 3384B121BA5;
+	Tue, 22 Sep 2026 09:38:01 +0300 (EEST)
+Date: Tue, 22 Sep 2026 09:38:01 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Junjie Cao <junjie.cao@intel.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	linux-media@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [PATCH 1/1] media: =?iso-8859-1?Q?Don'?=
+ =?iso-8859-1?Q?t_hide_I=B2C?= or SPI drivers by default
+Message-ID: <arIiSTLWYwELJqvU@kekkonen.localdomain>
+References: <598cd300-dbec-44fc-a670-f575310e6a43@leemhuis.info>
+ <20260920020347.709849-1-junjie.cao@intel.com>
+ <arDUk1RugOuxI74d@kekkonen.localdomain>
+ <2b067a4a-6da8-4948-ab50-46f1c6193ed1@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2b067a4a-6da8-4948-ab50-46f1c6193ed1@leemhuis.info>
 
-Hi Felipe,
+Hi Thorsten,
 
-First of all, thank you for the good work on this. 
-I tested this series (v1, all three patches) on a Samsung Galaxy Book3
-Pro, whose board feeds the sensor 26 MHz. Without the series the sensor
-does not probe:
+On Mon, Sep 21, 2026 at 09:16:12AM +0200, Thorsten Leemhuis wrote:
+> On 9/21/26 08:54, Sakari Ailus wrote:
+> > On Sun, Sep 20, 2026 at 10:03:47AM +0800, Junjie Cao wrote:
+> >> On Sat, Sep 19, 2026 at 09:10:18AM +0200, Thorsten Leemhuis wrote:
+> >>> Also wondering if the "olddefconfig" case on Arch was tested to ensure
+> >>> we prevent more people running into problems that Junjie's fix linked to
+> >>
+> >> Ran it: this patch on its base-commit, Arch's
+> >> config.x86_64 (7.2.4.arch1):
+> >>
+> >>   olddefconfig, before: no VIDEO_INTEL_CVS line
+> >>   olddefconfig, after:  # CONFIG_VIDEO_INTEL_CVS is not set
+> >>
+> >> The option has no default, so olddefconfig leaves it
+> >> off. With the patch, oldconfig prompts for it as (NEW)
+> >> and listnewconfig lists it.
+> > 
+> > Generally drivers are unselected by default and cvs is no exception.
+> 
+> Yup, sure, but it seems we here due to some oddity (details don't matter
+> much) ran into a situation that users perceive as regression (which
+> matters a lot).
 
-  ov02c10 i2c-OVTI02C1:00: error -EINVAL: external clock 26000000 is not supported
-  ov02c10 i2c-OVTI02C1:00: probe with driver ov02c10 failed with error -22
+It was really about this option being hidden by default so you couldn't
+even select it. (It's no wonder: I had enabled EXPERT in my own .config,
+quite possibly more than 10 years ago, to select things without much
+thinking about it!)
 
-Hardware
-  DMI: SAMSUNG ELECTRONICS CO., LTD. / 960XFG / NP960XFG-KC2IT
-  BIOS P07RGU.330.240529.ZQ, i7-1360P, IPU6 [8086:a75d]
-  sensor ACPI HID OVTI02C1, clock 26 MHz (clk_summary)
+> > What I think we could possibly do is to add to cvs Kconfig:
+> > 
+> > 	default VIDEO_INTEL_IPU6
+> > 
+> > As the cvs driver is (at least right now) used with ipu6 driver only.
+> 
+> Due to what I wrote above I'd say: this sounds like a good solution that
+> has no significant downsides -- and avoids a problem for everyone that
+> manually configures their kernel in the future, which is a good thing,
+> too. And we can easily drop the default later if there is a strong need
+> (and then likely should add a hint to the help text which other symbols
+> are needed in case it doesn't have one already; didn't check)
 
-Software
-  7.2.6 (linux-cachyos, clang + ThinLTO). ov02c10.c there is identical
-  to v7.2.6 stable, the three patches applied. Only ov02c10
-  was rebuilt (out of tree). In-tree intel_ipu6 + intel_ipu6_isys.
-  libcamera 0.7.2, simple pipeline, GPU soft ISP.
+I can post a patch. I think what also made a difference was that the CVS
+chip was in a different menu because it's an I²C device.
 
-Results
-  probe            OK
-  controls         link_frequency 541666667, pixel_rate 216666666,
-                   2 lanes; get_selection bounds 1928x1092,
-                   crop 1920x1080
-  streaming        1920x1092 at 40.70 fps, steady, no drops over
-                   several 400-frame runs. That is ~35 % above 30 fps,
-                   which matches the link frequency. Raw SGRBG10 1928x1092 capture works too.
-  stream start     one "csi2-0 error: Frame sync error" every time
-  first buffer     the first dequeued buffer is always empty
-  orientation      image is rotated 180 degrees. This model is not in
-                   the ipu-bridge upside-down DMI list; strings above.
-  s2idle           7 cycles (rtcwake -m freeze), idle and right after
-                   streaming: all resumed, sensor still bound, capture
-                   works.
-  s2idle while     refused by isys, not a hang becuse the running stream is
-  streaming        wedged afterwards, a new open works:
+-- 
+Regards,
 
-  intel_ipu6_isys.isys intel_ipu6.isys.40: PM: dpm_run_callback(): isys_suspend [intel_ipu6_isys] returns -16
-  intel_ipu6_isys.isys intel_ipu6.isys.40: PM: failed to suspend: error -16
-  PM: Some devices failed to suspend, or early wake event detected
-  PM: suspend exit
-  intel_ipu6_isys.isys intel_ipu6.isys.40: stream stop time out
-  intel_ipu6_isys.isys intel_ipu6.isys.40: stream close time out
-
-Same tests with out-of-tree intel-ipu6-psys loaded and bound
-(intel/ipu6-drivers 71bddb5, built unmodified against this kernel):
-identical results, 4 more s2idle cycles all resumed. The s2idle hang from
-intel/ipu6-drivers#381 does not reproduce here on 7.2.6.
-
-Footnote, unrelated to this series: I saw one hard lockup (no trace) on
-the first stream after rmmod of intel-ipu6-psys. I think that taking it out 
-might have given me a corrupt state, had to reboot. 
-
-Happy to test v2.
-
-Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
+Sakari Ailus
