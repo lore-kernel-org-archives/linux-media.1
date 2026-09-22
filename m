@@ -1,176 +1,176 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF92279DCC;
-	Tue, 22 Sep 2026 01:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FC2395AC3
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 03:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790040248; cv=none; b=JE3vPugWT34STGkGxYDR/kaqDquJLlMf0DqguqC/T4jhhrz9Jo/xWaL0Qtj4y8Iixe0W7OYzzObgCstUNZLD2QLt+2+KLGUjQvgq2uNFrhJ/FhYicsm5h42Pavl0BhmQbAYvrF28XB6kLBRmQWkaZXquPjNzuha1541FHu4AjzE=
+	t=1790047498; cv=none; b=WklbP1UNkEkQAdqkpWWS6lfsIjXjj1fgT+o1XUfzNAHRpxAFCzNbz7F4DIcy44PEUCFc27qK9DNDh5p0v14Iqe33adjhnQsDpvvHEOIew1HTeLjR8zd8YNEE7JR2niByLHuhwqjxZ92OOvgAJy6J/BPfvmOm01Z1a48mcDkPmgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790040248; c=relaxed/simple;
-	bh=PBFUiwymBJ1z2cMqKe/ItOB/JNQKLwxzEwlbOSk5YpQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=oA+bBCLpd+l2Ho65kXJzFAFl9gTHVxYsHJtmX3dRVCE/OEfAC0gnbrEHw+bJuPsx2dqSTwZW/yUkMY8i+bQiv+kGAyhQaauiBsPPJ7K15NSHhwGipppVFIu+z9Z71FZuQpaRqlSCYOwfTDV/5nd3ZGSiegjAuhAnVxcRjsrI3p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAD3AkGg2LFqZ79VCA--.18880S2;
-	Tue, 22 Sep 2026 09:23:44 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: kraxel@redhat.com,
-	vivek.kasireddy@intel.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com
-Cc: robert.mader@collabora.com,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: [PATCH] dma-buf/udmabuf: reinstate a reasonable default size limit
-Date: Tue, 22 Sep 2026 01:23:41 +0000
-Message-Id: <20260922012341.367268-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790047498; c=relaxed/simple;
+	bh=KGqJvyschyivMcCpwVaFi8h8Gh2XUT/8AidhRo6fonE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UniToVaI0c0JDACnna38XUaratEh6Ua/9yND4hM9BP1mfpT3z6c1D2Trg3a1W3NwOJEFHbV1OCsszezzHAswfXTSfzG7XHH2uL0gmtcQpv8DSJgsp11W5PrTK9cJrF56X0J6sIa6zwSeq7tIRXHdqi5Q9qPZQZnMoqo9mdFeDgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ejwvETQE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cwk0Cvvv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ejwvETQE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cwk0Cvvv"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M2sVuk3675351
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 03:24:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=QdSFLnOc1c4KMeMBQmdCIS
+	7pmnYBgQXqRrl5gflD2tc=; b=ejwvETQEcG6lD6lqkE9MnqqiNpyWc3E1moI/hc
+	aYuGPuIHoDwITF/yZegYgDZemxkG72TeWQVD/R3w5rOVQn94pWclNlI8RPpomenL
+	cVsRKD1K0+K1yh16du3bfGfkopmxSmO1r/pHv7go7IA7iKFfF6de+wL+t9iLpdde
+	n8alevDYu92J8rGlnW2YktEb1JltiRB9J05eBPpOWEwfgl5Q/m4Uy+FZ/VqFhFcA
+	evzWrLWMeDPysB2Wuyv1M1yZvEcej7BlhlFdaw/IzBfKYUuUrrG8GyvXFT0y8ZKn
+	6HDX7TCtnCIV8rJZncJI4iL+fmrV3Mu1gsaXXenE464hGUMg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guha5r3sb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 03:24:55 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc4b524ce78so2513801a12.2
+        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 20:24:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790047494; x=1790652294; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QdSFLnOc1c4KMeMBQmdCIS7pmnYBgQXqRrl5gflD2tc=;
+        b=Cwk0CvvvOgz6bWXtn24ap5viMEqH6ZLHFfFAlymUzk8kXPl2pM66ZTGarSDD+2PDUY
+         KuUFNV9hr2ShUV3/3LbliSyQeRLgEs1PB7QsB4ZHlk8AQ+WE2T/NfbeyrZC+4kq9Fvvv
+         ukvAMVzy3t15H/9G7TcYJBwYxnUwM9UUrvjCQO8CeAkTWqADdcaA1FAPpxDe3Z/xAWt2
+         gpoO7c+eY1svBPWaX0vfBeaqreUMFO/xsboP2XSdpju8ylvGoocdRC9tK0A8sR7+Qtf+
+         FWB6YGhvD1ZaTgbLzP8Dw7f8M/YOViIcwcWRoZAJH16B1Rlhfykbb8R+9o+5cfJRloDj
+         zVrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790047494; x=1790652294;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QdSFLnOc1c4KMeMBQmdCIS7pmnYBgQXqRrl5gflD2tc=;
+        b=ULmOaTj54D02AuZSRX/S8JnotGFpBhWvAZpeOsQahJ4CG1whDdBJvDO8lqzOoPuDGT
+         1se+tscTsDfkJBQ8gPrEyFN9t8/lV04ngHIZ6wYBNCI9jkHJY8SznTLIVLuiU4mDjYZt
+         17tkGR/NqSyLbPUY83PZj3Nbvaq18mABMkSsJF/krCPJP1vnpJRQ1wYeeA7tEq3AKB1u
+         UipWEzgey1GRB7+LJkXbs6kau0VQBOn91UifTPbBhYpQowQ7iE26RbiZiNYvsRk7+5hT
+         sR6s0scm6Z3sjdNjj137XXEdmZ5C3Dzu93GPor+6FsNLLj8T3f1gjgKdVR0ApQD7n6c+
+         Oi4w==
+X-Gm-Message-State: AFuF++ms3XKFWIc2jwvPzrilTLnDZpodai88PCsWS1bNRJlDEFrEoGtr
+	ODBRRYrC+r7sjYDVPiRvKZbcViHZaehvEHb8JvTlv7EvKUSTRDdFdU1NTfGs7n5eETfkGrWStuh
+	HBXr9+q0Vbfi3NF/+fK8cg3p0el2igkhQkYXP+C6n1FiFriEf5+RtNrZ3kvoaRsYrlw==
+X-Gm-Gg: AYBFou3C4AIV9dilpKQNtCtV1ngYuV0wARR26CDWxSsKbq2TxGATdhTRNfj4EmmHEVl
+	j2ur8k1yycf+kfRu6taRo4KSl11BW1WKPRS/WaUqz7DandJ0G+xvtQ8/xKCs/KV3W0L3GD9XcC1
+	/1JMs1bavL0xdSEBUWaNoTL8Imkcxs1vQ0XsA0v1gmQ4Mcf92NVxaHdV+sp1XC3eTiQWLM2hrS5
+	Wk4Fbpxqi7thFrEb4BnwIuJVG2QXmWfA87OLc5nMIwm4WU8zRHr07cmvJ965JyQfiRk6hl3tWxs
+	fODlwFuw5TgVE+i4ie626YZKkG3K9l8mrwuenAZDJ6ppiCP0mo0i6GvnM0Ub/EDLZWEhGzL8+cV
+	2nSJbe+gkviEVUZRL7kECY8EvUC/vns1t88uyL+g1BXSz/6+0Lj6GU+dSOWTi9o/jjkeSLgtLX1
+	Q=
+X-Received: by 2002:a17:90b:2681:b0:39e:6c69:f482 with SMTP id 98e67ed59e1d1-39e6c69f55fmr12762636a91.65.1790047494439;
+        Mon, 21 Sep 2026 20:24:54 -0700 (PDT)
+X-Received: by 2002:a17:90b:2681:b0:39e:6c69:f482 with SMTP id 98e67ed59e1d1-39e6c69f55fmr12762617a91.65.1790047493966;
+        Mon, 21 Sep 2026 20:24:53 -0700 (PDT)
+Received: from WANGAOW-LAB01.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0674a5ae4sm2082452a91.12.2026.09.21.20.24.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 20:24:53 -0700 (PDT)
+From: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 11:24:48 +0800
+Subject: [PATCH] media: iris: fix VPSS line buffer width and height order
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAD3AkGg2LFqZ79VCA--.18880S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Gw4xZFyDXr45ArW3Gry7GFg_yoWxJrW8pr
-	43Wr4UCr40qF1UJF1UJrn8Ar1UAa1UAFWUWrWxGwn7ZF15Cw1UZFn7GrW8tryDG34UZa47
-	tF4DAw1Fgr1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBS14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr
-	1j6F4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
-	5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw2
-	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
-	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrw
-	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI
-	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
-	80aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUrb18DUUUU
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-vpu4x_buffer_fix-v1-1-d1b6f1c24285@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAP/0sWoC/yWMWw6DIBQFt2Lud0kQkIJbaYyR66Xlw0dBjIlx7
+ yX178wkZ05IFAMlaKsTIu0hhWUuUD8qwM8wv4mFsTAILjS3QrB9zeroXfaeYu/DwQxHp2zjjVc
+ aym2NVPQ/+epujvTNpbzdEtyQiOEyTWFrqwbVqGptNVdOygalcQ6f1mHtkUuuhDVlaQ/ddf0A+
+ Q/DPq4AAAA=
+X-Change-ID: 20260922-vpu4x_buffer_fix-80cb495f8f46
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Wangao Wang <wangao.wang@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790047490; l=1599;
+ i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
+ bh=KGqJvyschyivMcCpwVaFi8h8Gh2XUT/8AidhRo6fonE=;
+ b=llB+r3EnyxT4K1K/9bCp1rfwU+khDYnyQ3VdsAamtfybduCk0pleuOFPvlab6C80BsPQwRcd8
+ +Scfv0ABMxAA/qUWxKGeQ9LOhE9jpsskbnTaAK7qXkLH9uLlWlN/+J2
+X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
+ pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
+X-Proofpoint-GUID: CgeYJRdCT35pKr1Fs8UI9zmG7tDuCkZY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA0NSBTYWx0ZWRfX6UZMmpR144o8
+ xZjJNh5hfXw81xAUINWSPImypm/sJA+iL6g3iefHc3AK4crFvpG1svtJlh9bTVuutc1VYWLWxQB
+ hn04Abp6IP/Ryp+0UIydMUezyevhpCw=
+X-Authority-Analysis: v=2.4 cv=U+4Hnuru c=1 sm=1 tr=0 ts=6ab1f507 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=pJ5EbSc5xwiXHrCt9wcA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: CgeYJRdCT35pKr1Fs8UI9zmG7tDuCkZY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA0NSBTYWx0ZWRfXyMjcb46T1xcu
+ 5gIJPIkYzgC3fITqpRaleot3c87FQtiKFcy5UftuQZ5IET7dwAG8dpFxRrNijPLu5nFqpXO/5Uu
+ sbbFdasvrDcWkTcVrVxouLdaT2Xbw+XFARDwVLwwtEaX0IRhYbNxZE1nAOZur+lSmXgKsqxz3AJ
+ uq2IgHHGhM6zb3/5VAXICPy65exCy4V50cn/N0GN2wcthuBj00liAaDXtvoNTp+ay0I9CgiqBb7
+ DJaQcLwuI9pzmz3OVp7FnNGyooXDYWiNupwcIRaMlKzH5HdvMEobE4PGowVXhGrGULzJ4z3x8ZR
+ 7+Cudp1DyR+OLR7tklwV1GAJn/00VX5GJs6FE+XbhWOVTMf0MQ97rDRN04/KsO7PnP4EU1db/nc
+ wY7xxyAe6dBX2uXDYu2yxZG50BaKgE9uD6mOe5UcqA3kCLPhm89j4mkwaxqHgRCWUOiON0ozSaT
+ Zn+rgB9oFpSmKopkVZA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220045
 
-Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-default") raised the default size_limit_mb from 64 to INT_MAX.
+size_vpss_line_buf_vpu33() expects (num_pipes, height, width) but was
+called with width and height swapped, miscalculating VPSS line buffer
+size for non-square resolutions.
 
-With 4 KiB pages on a 64-bit system, creating a buffer larger than
-about 1 TiB makes the two per-page pointer arrays in init_udmabuf()
-exceed what kvmalloc() can handle.  __kvmalloc_node_noprof() warns and
-fails when the requested size exceeds INT_MAX bytes, which is
-trivially triggerable by unprivileged users through the UDMABUF_CREATE
-ioctls:
+Fixes: df816dce1b01 ("media: iris: Introduce buffer size calculations for vpu4")
 
-  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
-  Call Trace:
-   udmabuf_create
-   udmabuf_ioctl_create_list
-
-Instead of using a fixed megabyte value, derive the default limit from
-the kvmalloc() threshold:
-
-  (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT
-
-On a 64-bit system with 4 KiB pages, this evaluates to 1044480 MB
-(1020 GiB), allowing buffers a little below 1 TiB while keeping the
-per-page pointer array allocations below INT_MAX bytes.
-
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Assisted-by: OpenCode:DeepSeek-V4-Flash
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
 ---
-V2 -> V3:
-- Replace the fixed 256 MB default with a limit derived from the
-  kvmalloc() INT_MAX threshold, as suggested by Christian König.  On
-  64-bit systems with 4 KiB pages, this allows buffers just below
-  1 TiB.
+ drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-V1 -> V2:
-- Instead of adding a pgcnt check in udmabuf_create(), restore a
-  reasonable default size limit (256 MB), as suggested by Christian
-  König.
-- Drop the second Fixes tag; the regression is solely due to
-  44e9eb5a7621.
-- Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
-  not shipped in any released kernel yet.
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
+index faebb54728660cc621f8822dabf2e44ce8c55c58..3bafdee7f23ba99d9cea4b809b953053275459d9 100644
+--- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
++++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
+@@ -2031,8 +2031,8 @@ static u32 hfi_vpu4x_buffer_line_enc(u32 frame_width, u32 frame_height,
+ 	u32 dma_opb_lb_size = size_dma_opb_lb(num_vpp_pipes_enc, frame_width_coded,
+ 					      frame_height_coded);
+ 	u32 dse_lb_size = ALIGN((256 + (16 * (frame_width_coded >> 4))), DMA_ALIGNMENT);
+-	u32 size_vpss_lb_enc = size_vpss_line_buf_vpu33(num_vpp_pipes_enc, frame_width_coded,
+-							frame_height_coded);
++	u32 size_vpss_lb_enc = size_vpss_line_buf_vpu33(num_vpp_pipes_enc, frame_height_coded,
++							frame_width_coded);
+ 
+ 	return se_lb_size + te_lb_size + fe_lb_size + md_lb_size + dma_opb_lb_size +
+ 		dse_lb_size + size_vpss_lb_enc;
 
-V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
-V2: https://lore.kernel.org/all/20260919015731.2077604-1-xujiakai24@mails.ucas.ac.cn/
 ---
- drivers/dma-buf/udmabuf.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+change-id: 20260922-vpu4x_buffer_fix-80cb495f8f46
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd00462423..7ec269809fb49 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -20,9 +20,10 @@ static int list_limit = 1024;
- module_param(list_limit, int, 0644);
- MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
- 
--static int size_limit_mb = INT_MAX;
-+static int size_limit_mb = (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT;
- module_param(size_limit_mb, int, 0644);
--MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
-+MODULE_PARM_DESC(size_limit_mb,
-+		 "Max size of a dmabuf, in megabytes. Default is derived from the kvmalloc() limit.");
- 
- struct udmabuf {
- 	pgoff_t pagecount;
+Best regards,
 -- 
-2.34.1
-
-
-Below is the crash report:
-
-------------[ cut here ]------------
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-Modules linked in:
-CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
-Tainted: [W]=WARN, [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-PKRU: 80000000
-Call Trace:
- <TASK>
- init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
- udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
- udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
- udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
- vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
- __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
- do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x590d6d
-Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
- </TASK>
----[ end trace 0000000000000000 ]---
+Wangao Wang <wangao.wang@oss.qualcomm.com>
 
