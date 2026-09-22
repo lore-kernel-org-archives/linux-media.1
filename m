@@ -1,40 +1,40 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA9E53B5F3;
-	Tue, 22 Sep 2026 11:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0EF53CA6F;
+	Tue, 22 Sep 2026 11:40:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077220; cv=none; b=KtCe+0+c6+rsGr386dKcvG1kBlB7mbj8XD7JjAMgY2RtE700uZWdKAIDVjIGcSbdbu8A/2NSk+TY+lyLf6dqdnLns4g2Z9EITZDfVk+JqENm9v94hc7d1Z9MM0U9j8x6FDm9n+QlzM9o18iA+jj9G5q3WJl4U467JkeW2ZFX1TQ=
+	t=1790077218; cv=none; b=XKwqy0P+YsOnMGpaJcY/c45HCI/o0SO6G0NORfTTWfWjZk8h0kZl4s/vcYLNOsKKHTDfkTd02rkwz7YbIxM/AReo3JcRMzAQ4724XVnNNqfaL6DzeHYFBxHYlVCnpmUUThJvLsh3t23e5ctuE3gjcPuP5GTlUSdpxZNk2Zg9M4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077220; c=relaxed/simple;
-	bh=IFfZ70kjB90+zj0QtAAYEQEl82esnuhwlzrSu2ntQMk=;
+	s=arc-20240116; t=1790077218; c=relaxed/simple;
+	bh=fJ5W03CdrVHqnQmqgbVhhu5CXlxZnw6kNwoOjKn9RAs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=EyG7ptH5olOTDTWlc3TxWZe+1UWb1jqF9ynKi+rBZi9bPuiR4Bp2AYKeBvAErEPwYTrLM7MnqYJ6Qt9X9FY1V1mMMZaSAZnfPHW5+n1upP8qojH3RSSgdQkH7aqwkzphw/ZDxrMKvrQF4yNdHugZzhPzC6Qvp0HSMxIVWSjxnM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XGB5oRF3; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:Content-Type; b=Q3Ue8c4HciDQyp/6mrgbT42rPBHZ1ULAS8de4efL+KaofBRpF10LXgY9W4eUMkBvQ8FFKSYQojuCsUznQxuNs5sIUJPErMhc0iuyEz95VZ9oK2YRcZcsdJYa2Rmi4UyJEuFO5g4DTh65ZT2+eZVXjmZyEbZQ7otXv5G0eOi5JJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PqgcwSVs; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XGB5oRF3"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PqgcwSVs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790077208;
-	bh=IFfZ70kjB90+zj0QtAAYEQEl82esnuhwlzrSu2ntQMk=;
+	s=mail; t=1790077206;
+	bh=fJ5W03CdrVHqnQmqgbVhhu5CXlxZnw6kNwoOjKn9RAs=;
 	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=XGB5oRF3+j++jbJ96WMoP4+lbPftpA7nKnIh6w74Ou5RlNua15wDD5eOZrRcopdPQ
-	 GFaknc/DSCXWjmVoiRqPMqqxgfTVMQAEPUjlprskzJGXkv+Au7gfT0HHhf9/24pwLi
-	 gyRqasPj4lwcUtPkjo/u9gql6EFCI2MSIkre+j192Ir1v/35qcThA0G3QReCDgdJSa
-	 kppQ7EOHKLOssNjDMYdt9P4kFvFUF1nBC7SGik0jBdTccmXxup+CJVtsacJrTqFzr9
-	 3ZzL5/EYwj5Mn7eIclrsREP3orDNHYhDWRjd34I6YvqXFDZtUM7b7p0U02eJv7BOkN
-	 Ao7/62ai5wUFA==
+	b=PqgcwSVshNgexOhnXxSdiccsCSNKYe2WU5oqhvZlrRO5ooSPjfXAum5Ty7r73KUlF
+	 jMW8YVYirzlHevEEm9uwDpbRdN81CqTHUv96Wp1hKfpJwJGmswxrXb8X/r0gPy2bXE
+	 Me2Hi7HLPawytPLNupBnwvZucRxF6ttVon2uGkBZNRGbwFf4caMrhOVaABLmB4bOj1
+	 ONV5GKcwTTYtJ36wMQi3TK4X3sVJ8Fhc4hVK4+3PJLztzKh0x+M5rmcG84gR9sSt5S
+	 6mQobtoOneOOJNeojbw5FFbrTR5cf+Vht4f9DuLRh1CKWFp1JZBwz/6iY8iG4K8QbQ
+	 5+bi6CB0YNOaQ==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9ECFE17E05F4;
-	Tue, 22 Sep 2026 13:40:07 +0200 (CEST)
-Message-ID: <99fc3209-ec8a-414d-9838-3a92e133d63f@collabora.com>
-Date: Tue, 22 Sep 2026 13:40:07 +0200
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7BEC617E0A66;
+	Tue, 22 Sep 2026 13:40:05 +0200 (CEST)
+Message-ID: <14ca0af6-0c5e-47ff-b7e1-08144eb338a2@collabora.com>
+Date: Tue, 22 Sep 2026 13:40:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,8 +42,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 03/12] media: mediatek: jpeg: fix buffer structure
- size and layout
+Subject: Re: [PATCH v17 02/12] media: mediatek: jpeg: fix jpeg buffer payload
+ size setting
 To: Kyrie Wu <kyrie.wu@mediatek.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -56,25 +56,23 @@ To: Kyrie Wu <kyrie.wu@mediatek.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org
 References: <20260922091530.241762-1-kyrie.wu@mediatek.com>
- <20260922091530.241762-4-kyrie.wu@mediatek.com>
+ <20260922091530.241762-3-kyrie.wu@mediatek.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <20260922091530.241762-4-kyrie.wu@mediatek.com>
+In-Reply-To: <20260922091530.241762-3-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/22/26 11:15, Kyrie Wu wrote:
-> Updates the `buf_struct_size` in the JPEG driver to use the correct
-> structure `mtk_jpeg_src_buf` instead of `v4l2_m2m_buffer`, ensuring
-> proper handling of source buffers. The previous buffer size led to
-> mismatches and potential issues during video buffer handling.
+> For multi-core jpegdec, if one core gets resolution change event,
+> the payload size, representing the size of Y/C data, needs to change.
+> But others are decoding at the same time and it can not be changed
+> immediately, which results in the payload size not matching the real
+> buffer length.
+> The payload size must be less than the real buffer length to avoid
+> warning logs.
 > 
-> Moves `frame_num` in the `mtk_jpeg_src_buf` structure to align with
-> other members appropriately. The first field of the driver-specific
-> buffer structure must be the subsystem-specificstruct
-> (vb2_v4l2_buffer in the case of V4L2).
-> 
-> Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
+> Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
 > Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 > Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
