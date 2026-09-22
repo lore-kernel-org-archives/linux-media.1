@@ -1,248 +1,176 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9FB3E49F3
-	for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 23:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF92279DCC;
+	Tue, 22 Sep 2026 01:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790032872; cv=none; b=XG1oTABPBCLjmCxxOZFvW2+0RXeYwqC4bIhcX58bQddxRvTPo7RXTkTYeNICJC8jx7daKCDIjXXkgRXd2bnGcvYAiib/bkFOSXG2QUalu+eOrdloeyHVQhrxL34ekI+efYDPOhoJt1yWPN75iS744ixHh19mWGLUv0hLV+AoCkM=
+	t=1790040248; cv=none; b=JE3vPugWT34STGkGxYDR/kaqDquJLlMf0DqguqC/T4jhhrz9Jo/xWaL0Qtj4y8Iixe0W7OYzzObgCstUNZLD2QLt+2+KLGUjQvgq2uNFrhJ/FhYicsm5h42Pavl0BhmQbAYvrF28XB6kLBRmQWkaZXquPjNzuha1541FHu4AjzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790032872; c=relaxed/simple;
-	bh=hneA8emYYiRXoZbJJlrVD/+gmI7SNk7yPQQRATcBuVw=;
-	h=Content-Type:Message-ID:Date:MIME-Version:From:Subject:To; b=ennEYnCoiqGZ9zFrV1PGsAlfbUzv54uHKAHYcPospciEy25C5YXTPvQWi2obZ4Leu/JvTLnAwPVolLpHMXGQqQd2ABt2h7b+ewlcAEUwx8pGWWxmwCZI2A1+g8Y/cVDrivfW1BhueqCygBUmHzDn2u/T4zVxxi5lbU92qoyYwOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wwybyjgq; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wwybyjgq"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so29769745e9.3
-        for <linux-media@vger.kernel.org>; Mon, 21 Sep 2026 16:21:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790032868; x=1790637668; darn=vger.kernel.org;
-        h=to:subject:content-language:from:user-agent:mime-version:date
-         :message-id:content-type:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UkXOduerSbHBir/xUWjIIhaIfFQJxl0+Dnupke3qy+I=;
-        b=WwybyjgqevcLb8V7/fHKoxo1B6v2MFhIUBAk1IVnr5y+l3VdE3GP0X9BvuPpgNyPmg
-         wa2b37ZgOh6QUJSXjWZnc+cuosyNbksryLnYkXOm46TsDk9rGylc02sj8x/AKHh/S2eF
-         qU7Fn+KtDW1CCxixURjdiWjwARrjm1vz4R31SBnLK6q2ayoVT1D8esnqJ2ymx12Z1P6j
-         +PShRwaW0d1wvjIxwwqdFA1701QM5H9rVyjUNmEe5q7AQgFZ2MHPTLc6ERLSxUyX8lKk
-         ISACDQaHW/bubsGTdryLJWNmhJq+5feznvibz+dFlYy4PphW+8ablS3JZ+E6iR73yaBa
-         PSBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790032868; x=1790637668;
-        h=to:subject:content-language:from:user-agent:mime-version:date
-         :message-id:content-type:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UkXOduerSbHBir/xUWjIIhaIfFQJxl0+Dnupke3qy+I=;
-        b=BXEdvquXh4i0fqxlaKlMvdkt90QIAWp7meb2E0A5za4HG3RYxdEeKvch4FQmeVsRY1
-         dLjW7Er2Nlv71TZMqst/XuLrq0XR1wqfSCoPnuJUsd/3YD7n33tVf1YgXu5pY73cB7Ro
-         GKqmFRh/FggyRHdb/NrOc4R2LpboT1xbrf9FGdDPO4Py/OeVePjOFIHc6yOc1mP7mLeK
-         C1CgeQmgefpDp1euXzi+97qfRwWfmQIjsp0+nPBmlB0XzU+hrpRm76WBx+TU7se1qQ5V
-         7yckZlviVXq2J3hp/LMN6F1Vzu1K1Ui3r9HH9ds8IYxkF1Vv7G0ULeNRAFO9vTiFRd6r
-         W5Vg==
-X-Gm-Message-State: AFuF++m57Bdp+libjrIlwDFM1838SZ9IbwmQusRFGfTDsnb42UlL5SMN
-	Baja8FIIiDgkk7KT0KoMAWDj/VVoEdUCfXQSvW43Pkwu45j6clL5PQWJAqztaQ==
-X-Gm-Gg: AYBFou0B5g8fyZcPBNMiYTgawTuM+9MEE80cxDT/dHb8flGuwILMeU/H2J4zf3gF4ZW
-	3ZmsLncjfk4+nv/8xELk+YpO3/abIeoBG97yUsW7VECRosGhUiDWYm0c0lECDcyi9EVDdYr3Uh9
-	hHdk1pY3C+ooORbzf+ERiD0QLqb9vdspFkSmYVwsH1HYFmiVvDgi07+pz0jHmy74veCBnRr6Xdr
-	KQu9cXbjT4PtjCxgf4IvHbY9M1jfOMRdzpoVnQFPQ2q19EI+ytT+SjnWKZedFK2vzZ4oYDk0y6e
-	B5bK7Pz0SJbJLH4ReXPejEE66qf5SNka3UiquhetA7295MQ/itA6Nsoy0DFWOHQ61jWGk+VYccw
-	XX3GFEUCzoiR6xbsqjkaBj//U4eYIHLYptcOF5Jpng4sGPv6E9y9npffcP2zkjrIkxUg4kF4UuA
-	XodGFzU+wial1aJNsp3znZhKCDDpZvQ6K9i7xv3/1xmO/Au79kTNHd19bxN/CyT5NCULmExveHY
-	Cweq5CdLTgcGcAlQ9E=
-X-Received: by 2002:a05:600c:34cc:b0:49e:6c27:d093 with SMTP id 5b1f17b1804b1-49fc56dbafdmr168535395e9.15.1790032868129;
-        Mon, 21 Sep 2026 16:21:08 -0700 (PDT)
-Received: from ?IPV6:2a12:26c0:4981:e202::1ec? ([2a12:26c0:4981:e202::1ec])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad40c03sm2223025e9.11.2026.09.21.16.21.06
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 16:21:06 -0700 (PDT)
-Content-Type: multipart/mixed; boundary="------------9ftbpf6IckOyLBa8a8IDcsI8"
-Message-ID: <76e95dae-1eda-46dc-a2c9-9c43028203b3@gmail.com>
-Date: Tue, 22 Sep 2026 00:21:06 +0100
+	s=arc-20240116; t=1790040248; c=relaxed/simple;
+	bh=PBFUiwymBJ1z2cMqKe/ItOB/JNQKLwxzEwlbOSk5YpQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=oA+bBCLpd+l2Ho65kXJzFAFl9gTHVxYsHJtmX3dRVCE/OEfAC0gnbrEHw+bJuPsx2dqSTwZW/yUkMY8i+bQiv+kGAyhQaauiBsPPJ7K15NSHhwGipppVFIu+z9Z71FZuQpaRqlSCYOwfTDV/5nd3ZGSiegjAuhAnVxcRjsrI3p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from fric.. (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAD3AkGg2LFqZ79VCA--.18880S2;
+	Tue, 22 Sep 2026 09:23:44 +0800 (CST)
+From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+To: kraxel@redhat.com,
+	vivek.kasireddy@intel.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: robert.mader@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Subject: [PATCH] dma-buf/udmabuf: reinstate a reasonable default size limit
+Date: Tue, 22 Sep 2026 01:23:41 +0000
+Message-Id: <20260922012341.367268-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: JP Moitinho de Almeida <jpmoitinho@gmail.com>
-Content-Language: en-US
-Subject: [PATCH dtv-scan-tables] Frequencies for free to air dvb-t in Portugal
-To: linux-media@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3AkGg2LFqZ79VCA--.18880S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gw4xZFyDXr45ArW3Gry7GFg_yoWxJrW8pr
+	43Wr4UCr40qF1UJF1UJrn8Ar1UAa1UAFWUWrWxGwn7ZF15Cw1UZFn7GrW8tryDG34UZa47
+	tF4DAw1Fgr1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBS14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr
+	1j6F4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
+	5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw2
+	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
+	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrw
+	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI
+	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+	80aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUrb18DUUUU
+X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-This is a multi-part message in MIME format.
---------------9ftbpf6IckOyLBa8a8IDcsI8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
+default") raised the default size_limit_mb from 64 to INT_MAX.
 
-Please find attached a patch updating the file with the frequencies for 
-dvb-t in Portugal.
+With 4 KiB pages on a 64-bit system, creating a buffer larger than
+about 1 TiB makes the two per-page pointer arrays in init_udmabuf()
+exceed what kvmalloc() can handle.  __kvmalloc_node_noprof() warns and
+fails when the requested size exceeds INT_MAX bytes, which is
+trivially triggerable by unprivileged users through the UDMABUF_CREATE
+ioctls:
 
-The changes (to release frequencies for 5G - 
-https://www.anacom.pt/render.jsp?categoryId=410664 ) occurred between 
-2019 and 2020, but never made into dtv-scan-tables.
+  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
+  Call Trace:
+   udmabuf_create
+   udmabuf_ioctl_create_list
 
-I have not changed the reference to the official site where the table of 
-transmission stations is available, which is the same as before: 
-https://tdt.telecom.pt/emissores
+Instead of using a fixed megabyte value, derive the default limit from
+the kvmalloc() threshold:
 
-Hope everything is OK with the format of the patch (just in case the new 
-file is also attached) and thanks for everything.
+  (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT
 
-JP Moitinho
+On a 64-bit system with 4 KiB pages, this evaluates to 1044480 MB
+(1020 GiB), allowing buffers a little below 1 TiB while keeping the
+per-page pointer array allocations below INT_MAX bytes.
+
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Assisted-by: OpenCode:DeepSeek-V4-Flash
+Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+---
+V2 -> V3:
+- Replace the fixed 256 MB default with a limit derived from the
+  kvmalloc() INT_MAX threshold, as suggested by Christian König.  On
+  64-bit systems with 4 KiB pages, this allows buffers just below
+  1 TiB.
+
+V1 -> V2:
+- Instead of adding a pgcnt check in udmabuf_create(), restore a
+  reasonable default size limit (256 MB), as suggested by Christian
+  König.
+- Drop the second Fixes tag; the regression is solely due to
+  44e9eb5a7621.
+- Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
+  not shipped in any released kernel yet.
+
+V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
+V2: https://lore.kernel.org/all/20260919015731.2077604-1-xujiakai24@mails.ucas.ac.cn/
+---
+ drivers/dma-buf/udmabuf.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd00462423..7ec269809fb49 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -20,9 +20,10 @@ static int list_limit = 1024;
+ module_param(list_limit, int, 0644);
+ MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+ 
+-static int size_limit_mb = INT_MAX;
++static int size_limit_mb = (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT;
+ module_param(size_limit_mb, int, 0644);
+-MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
++MODULE_PARM_DESC(size_limit_mb,
++		 "Max size of a dmabuf, in megabytes. Default is derived from the kvmalloc() limit.");
+ 
+ struct udmabuf {
+ 	pgoff_t pagecount;
+-- 
+2.34.1
 
 
---------------9ftbpf6IckOyLBa8a8IDcsI8
-Content-Type: text/x-patch; charset=UTF-8; name="pt-All.patch"
-Content-Disposition: attachment; filename="pt-All.patch"
-Content-Transfer-Encoding: base64
+Below is the crash report:
 
-ZGlmZiAtLWdpdCBhL2R2Yi10L3B0LUFsbCBiL2R2Yi10L3B0LUFsbAppbmRleCA4ZDhmOGIy
-MC4uODJhZGMzNTIgMTAwNjQ0Ci0tLSBhL2R2Yi10L3B0LUFsbAorKysgYi9kdmItdC9wdC1B
-bGwKQEAgLTIsNyArMiw3IEBACiAKIFtDSEFOTkVMXQogCURFTElWRVJZX1NZU1RFTSA9IERW
-QlQKLQlGUkVRVUVOQ1kgPSA2MjYwMDAwMDAKKwlGUkVRVUVOQ1kgPSA1MzAwMDAwMDAKIAlC
-QU5EV0lEVEhfSFogPSA4MDAwMDAwCiAJQ09ERV9SQVRFX0hQID0gQVVUTwogCUNPREVfUkFU
-RV9MUCA9IE5PTkUKQEAgLTEyLDkgKzEyLDEwIEBACiAJSElFUkFSQ0hZID0gTk9ORQogCUlO
-VkVSU0lPTiA9IEFVVE8KIAorCiBbQ0hBTk5FTF0KIAlERUxJVkVSWV9TWVNURU0gPSBEVkJU
-Ci0JRlJFUVVFTkNZID0gNjQyMDAwMDAwCisJRlJFUVVFTkNZID0gNTQ2MDAwMDAwCiAJQkFO
-RFdJRFRIX0haID0gODAwMDAwMAogCUNPREVfUkFURV9IUCA9IEFVVE8KIAlDT0RFX1JBVEVf
-TFAgPSBOT05FCkBAIC0yNiw3ICsyNyw3IEBACiAKIFtDSEFOTkVMXQogCURFTElWRVJZX1NZ
-U1RFTSA9IERWQlQKLQlGUkVRVUVOQ1kgPSA2NjYwMDAwMDAKKwlGUkVRVUVOQ1kgPSA1NzAw
-MDAwMDAKIAlCQU5EV0lEVEhfSFogPSA4MDAwMDAwCiAJQ09ERV9SQVRFX0hQID0gQVVUTwog
-CUNPREVfUkFURV9MUCA9IE5PTkUKQEAgLTM2LDkgKzM3LDEwIEBACiAJSElFUkFSQ0hZID0g
-Tk9ORQogCUlOVkVSU0lPTiA9IEFVVE8KIAorCiBbQ0hBTk5FTF0KIAlERUxJVkVSWV9TWVNU
-RU0gPSBEVkJUCi0JRlJFUVVFTkNZID0gNjc0MDAwMDAwCisJRlJFUVVFTkNZID0gNTc4MDAw
-MDAwCiAJQkFORFdJRFRIX0haID0gODAwMDAwMAogCUNPREVfUkFURV9IUCA9IEFVVE8KIAlD
-T0RFX1JBVEVfTFAgPSBOT05FCkBAIC00OCw5ICs1MCwxMCBAQAogCUhJRVJBUkNIWSA9IE5P
-TkUKIAlJTlZFUlNJT04gPSBBVVRPCiAKKwogW0NIQU5ORUxdCiAJREVMSVZFUllfU1lTVEVN
-ID0gRFZCVAotCUZSRVFVRU5DWSA9IDY4MjAwMDAwMAorCUZSRVFVRU5DWSA9IDU4NjAwMDAw
-MAogCUJBTkRXSURUSF9IWiA9IDgwMDAwMDAKIAlDT0RFX1JBVEVfSFAgPSBBVVRPCiAJQ09E
-RV9SQVRFX0xQID0gTk9ORQpAQCAtNjAsOSArNjMsNDkgQEAKIAlISUVSQVJDSFkgPSBOT05F
-CiAJSU5WRVJTSU9OID0gQVVUTwogCisKIFtDSEFOTkVMXQogCURFTElWRVJZX1NZU1RFTSA9
-IERWQlQKLQlGUkVRVUVOQ1kgPSA2OTAwMDAwMDAKKwlGUkVRVUVOQ1kgPSA1OTQwMDAwMDAK
-KwlCQU5EV0lEVEhfSFogPSA4MDAwMDAwCisJQ09ERV9SQVRFX0hQID0gQVVUTworCUNPREVf
-UkFURV9MUCA9IE5PTkUKKwlNT0RVTEFUSU9OID0gUUFNLzY0CisJVFJBTlNNSVNTSU9OX01P
-REUgPSBBVVRPCisJR1VBUkRfSU5URVJWQUwgPSBBVVRPCisJSElFUkFSQ0hZID0gTk9ORQor
-CUlOVkVSU0lPTiA9IEFVVE8KKworCitbQ0hBTk5FTF0KKwlERUxJVkVSWV9TWVNURU0gPSBE
-VkJUCisJRlJFUVVFTkNZID0gNjAyMDAwMDAwCisJQkFORFdJRFRIX0haID0gODAwMDAwMAor
-CUNPREVfUkFURV9IUCA9IEFVVE8KKwlDT0RFX1JBVEVfTFAgPSBOT05FCisJTU9EVUxBVElP
-TiA9IFFBTS82NAorCVRSQU5TTUlTU0lPTl9NT0RFID0gQVVUTworCUdVQVJEX0lOVEVSVkFM
-ID0gQVVUTworCUhJRVJBUkNIWSA9IE5PTkUKKwlJTlZFUlNJT04gPSBBVVRPCisKKworW0NI
-QU5ORUxdCisJREVMSVZFUllfU1lTVEVNID0gRFZCVAorCUZSRVFVRU5DWSA9IDYyNjAwMDAw
-MAorCUJBTkRXSURUSF9IWiA9IDgwMDAwMDAKKwlDT0RFX1JBVEVfSFAgPSBBVVRPCisJQ09E
-RV9SQVRFX0xQID0gTk9ORQorCU1PRFVMQVRJT04gPSBRQU0vNjQKKwlUUkFOU01JU1NJT05f
-TU9ERSA9IEFVVE8KKwlHVUFSRF9JTlRFUlZBTCA9IEFVVE8KKwlISUVSQVJDSFkgPSBOT05F
-CisJSU5WRVJTSU9OID0gQVVUTworCisKK1tDSEFOTkVMXQorCURFTElWRVJZX1NZU1RFTSA9
-IERWQlQKKwlGUkVRVUVOQ1kgPSA2MzQwMDAwMDAKIAlCQU5EV0lEVEhfSFogPSA4MDAwMDAw
-CiAJQ09ERV9SQVRFX0hQID0gQVVUTwogCUNPREVfUkFURV9MUCA9IE5PTkUKQEAgLTcyLDkg
-KzExNSwyMyBAQAogCUhJRVJBUkNIWSA9IE5PTkUKIAlJTlZFUlNJT04gPSBBVVRPCiAKKwor
-W0NIQU5ORUxdCisJREVMSVZFUllfU1lTVEVNID0gRFZCVAorCUZSRVFVRU5DWSA9IDY0MjAw
-MDAwMAorCUJBTkRXSURUSF9IWiA9IDgwMDAwMDAKKwlDT0RFX1JBVEVfSFAgPSBBVVRPCisJ
-Q09ERV9SQVRFX0xQID0gTk9ORQorCU1PRFVMQVRJT04gPSBRQU0vNjQKKwlUUkFOU01JU1NJ
-T05fTU9ERSA9IEFVVE8KKwlHVUFSRF9JTlRFUlZBTCA9IEFVVE8KKwlISUVSQVJDSFkgPSBO
-T05FCisJSU5WRVJTSU9OID0gQVVUTworCisKIFtDSEFOTkVMXQogCURFTElWRVJZX1NZU1RF
-TSA9IERWQlQKLQlGUkVRVUVOQ1kgPSA2OTgwMDAwMDAKKwlGUkVRVUVOQ1kgPSA2NTAwMDAw
-MDAKIAlCQU5EV0lEVEhfSFogPSA4MDAwMDAwCiAJQ09ERV9SQVRFX0hQID0gQVVUTwogCUNP
-REVfUkFURV9MUCA9IE5PTkUKQEAgLTg0LDkgKzE0MSwxMCBAQAogCUhJRVJBUkNIWSA9IE5P
-TkUKIAlJTlZFUlNJT04gPSBBVVRPCiAKKwogW0NIQU5ORUxdCiAJREVMSVZFUllfU1lTVEVN
-ID0gRFZCVAotCUZSRVFVRU5DWSA9IDczODAwMDAwMAorCUZSRVFVRU5DWSA9IDY1ODAwMDAw
-MAogCUJBTkRXSURUSF9IWiA9IDgwMDAwMDAKIAlDT0RFX1JBVEVfSFAgPSBBVVRPCiAJQ09E
-RV9SQVRFX0xQID0gTk9ORQpAQCAtOTYsOSArMTU0LDEwIEBACiAJSElFUkFSQ0hZID0gTk9O
-RQogCUlOVkVSU0lPTiA9IEFVVE8KIAorCiBbQ0hBTk5FTF0KIAlERUxJVkVSWV9TWVNURU0g
-PSBEVkJUCi0JRlJFUVVFTkNZID0gNzQ2MDAwMDAwCisJRlJFUVVFTkNZID0gNjY2MDAwMDAw
-CiAJQkFORFdJRFRIX0haID0gODAwMDAwMAogCUNPREVfUkFURV9IUCA9IEFVVE8KIAlDT0RF
-X1JBVEVfTFAgPSBOT05FCkBAIC0xMDgsOSArMTY3LDEwIEBACiAJSElFUkFSQ0hZID0gTk9O
-RQogCUlOVkVSU0lPTiA9IEFVVE8KIAorCiBbQ0hBTk5FTF0KIAlERUxJVkVSWV9TWVNURU0g
-PSBEVkJUCi0JRlJFUVVFTkNZID0gNzU0MDAwMDAwCisJRlJFUVVFTkNZID0gNjc0MDAwMDAw
-CiAJQkFORFdJRFRIX0haID0gODAwMDAwMAogCUNPREVfUkFURV9IUCA9IEFVVE8KIAlDT0RF
-X1JBVEVfTFAgPSBOT05FCkBAIC0xMTksMyArMTc5LDMxIEBACiAJR1VBUkRfSU5URVJWQUwg
-PSBBVVRPCiAJSElFUkFSQ0hZID0gTk9ORQogCUlOVkVSU0lPTiA9IEFVVE8KKworCitbQ0hB
-Tk5FTF0KKwlERUxJVkVSWV9TWVNURU0gPSBEVkJUCisJRlJFUVVFTkNZID0gNjgyMDAwMDAw
-CisJQkFORFdJRFRIX0haID0gODAwMDAwMAorCUNPREVfUkFURV9IUCA9IEFVVE8KKwlDT0RF
-X1JBVEVfTFAgPSBOT05FCisJTU9EVUxBVElPTiA9IFFBTS82NAorCVRSQU5TTUlTU0lPTl9N
-T0RFID0gQVVUTworCUdVQVJEX0lOVEVSVkFMID0gQVVUTworCUhJRVJBUkNIWSA9IE5PTkUK
-KwlJTlZFUlNJT04gPSBBVVRPCisKKworW0NIQU5ORUxdCisJREVMSVZFUllfU1lTVEVNID0g
-RFZCVAorCUZSRVFVRU5DWSA9IDY5MDAwMDAwMAorCUJBTkRXSURUSF9IWiA9IDgwMDAwMDAK
-KwlDT0RFX1JBVEVfSFAgPSBBVVRPCisJQ09ERV9SQVRFX0xQID0gTk9ORQorCU1PRFVMQVRJ
-T04gPSBRQU0vNjQKKwlUUkFOU01JU1NJT05fTU9ERSA9IEFVVE8KKwlHVUFSRF9JTlRFUlZB
-TCA9IEFVVE8KKwlISUVSQVJDSFkgPSBOT05FCisJSU5WRVJTSU9OID0gQVVUTworCisK
---------------9ftbpf6IckOyLBa8a8IDcsI8
-Content-Type: text/plain; charset=UTF-8; name="pt-All"
-Content-Disposition: attachment; filename="pt-All"
-Content-Transfer-Encoding: base64
+------------[ cut here ]------------
+WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
+Modules linked in:
+CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
+Tainted: [W]=WARN, [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
+Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
+RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
+RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
+RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
+RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
+R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
+R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
+FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+PKRU: 80000000
+Call Trace:
+ <TASK>
+ init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
+ udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
+ udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
+ udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
+ vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
+ __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
+ do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x590d6d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
+RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
+RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
+R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
+ </TASK>
+---[ end trace 0000000000000000 ]---
 
-IyBHZW5lcmF0ZWQgZnJvbSBodHRwczovL3RkdC50ZWxlY29tLnB0L2VtaXNzb3JlcwoKW0NI
-QU5ORUxdCglERUxJVkVSWV9TWVNURU0gPSBEVkJUCglGUkVRVUVOQ1kgPSA1MzAwMDAwMDAK
-CUJBTkRXSURUSF9IWiA9IDgwMDAwMDAKCUNPREVfUkFURV9IUCA9IEFVVE8KCUNPREVfUkFU
-RV9MUCA9IE5PTkUKCU1PRFVMQVRJT04gPSBRQU0vNjQKCVRSQU5TTUlTU0lPTl9NT0RFID0g
-QVVUTwoJR1VBUkRfSU5URVJWQUwgPSBBVVRPCglISUVSQVJDSFkgPSBOT05FCglJTlZFUlNJ
-T04gPSBBVVRPCgoKW0NIQU5ORUxdCglERUxJVkVSWV9TWVNURU0gPSBEVkJUCglGUkVRVUVO
-Q1kgPSA1NDYwMDAwMDAKCUJBTkRXSURUSF9IWiA9IDgwMDAwMDAKCUNPREVfUkFURV9IUCA9
-IEFVVE8KCUNPREVfUkFURV9MUCA9IE5PTkUKCU1PRFVMQVRJT04gPSBRQU0vNjQKCVRSQU5T
-TUlTU0lPTl9NT0RFID0gQVVUTwoJR1VBUkRfSU5URVJWQUwgPSBBVVRPCglISUVSQVJDSFkg
-PSBOT05FCglJTlZFUlNJT04gPSBBVVRPCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9
-IERWQlQKCUZSRVFVRU5DWSA9IDU3MDAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJ
-Q09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9
-IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFV
-VE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURF
-TElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDU3ODAwMDAwMAoJQkFORFdJRFRI
-X0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9O
-RQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFS
-RF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8K
-CgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDU4NjAw
-MDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09E
-RV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01P
-REUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlO
-VkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZS
-RVFVRU5DWSA9IDU5NDAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRF
-X0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJ
-VFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJB
-UkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZ
-U1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDYwMjAwMDAwMAoJQkFORFdJRFRIX0haID0gODAw
-MDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxB
-VElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZB
-TCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5F
-TF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDYyNjAwMDAwMAoJQkFO
-RFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQ
-ID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRP
-CglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9
-IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9
-IDYzNDAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVU
-TwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNT
-SU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5P
-TkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERW
-QlQKCUZSRVFVRU5DWSA9IDY0MjAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09E
-RV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFB
-TS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8K
-CUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElW
-RVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDY1MDAwMDAwMAoJQkFORFdJRFRIX0ha
-ID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJ
-TU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9J
-TlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpb
-Q0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDY1ODAwMDAw
-MAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9S
-QVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUg
-PSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVS
-U0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFV
-RU5DWSA9IDY2NjAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQ
-ID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJB
-TlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNI
-WSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RF
-TSA9IERWQlQKCUZSRVFVRU5DWSA9IDY3NDAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAw
-MAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElP
-TiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9
-IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFVVE8KCgpbQ0hBTk5FTF0K
-CURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDY4MjAwMDAwMAoJQkFORFdJ
-RFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJQ09ERV9SQVRFX0xQID0g
-Tk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9OX01PREUgPSBBVVRPCglH
-VUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUKCUlOVkVSU0lPTiA9IEFV
-VE8KCgpbQ0hBTk5FTF0KCURFTElWRVJZX1NZU1RFTSA9IERWQlQKCUZSRVFVRU5DWSA9IDY5
-MDAwMDAwMAoJQkFORFdJRFRIX0haID0gODAwMDAwMAoJQ09ERV9SQVRFX0hQID0gQVVUTwoJ
-Q09ERV9SQVRFX0xQID0gTk9ORQoJTU9EVUxBVElPTiA9IFFBTS82NAoJVFJBTlNNSVNTSU9O
-X01PREUgPSBBVVRPCglHVUFSRF9JTlRFUlZBTCA9IEFVVE8KCUhJRVJBUkNIWSA9IE5PTkUK
-CUlOVkVSU0lPTiA9IEFVVE8KCgo=
-
---------------9ftbpf6IckOyLBa8a8IDcsI8--
