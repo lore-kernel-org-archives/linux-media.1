@@ -1,113 +1,188 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03B83BCD14;
-	Tue, 22 Sep 2026 08:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF54D37702C
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 08:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064340; cv=none; b=FjHylTBu7Ofr4he7d2rhMcFgHc71FayvfvYwmn5g8jrI05hRKvmpx2ObABzZQD5sTiq8z0UbfLnLuYWK3G7HKg99YJL5urSqt5ZiGjSogyvQXMSXXEZujgJmC3O47cicl0iucBIcBlsrkj2pHv7+e1gZTFtX3e7nAb7QrLMS6z4=
+	t=1790064693; cv=none; b=g8G17UmYKQvEEmR2vCpHbjrbT4rkfTtFl0PbKW6LrSndNeEh+tSie/T7wvOi3AvPIx6VbyO6WCa9Tsh1Z6NSRXPiqyk+ldWW4M9Y+1T6oZL+8d7oV1SGxRTCGbeyAggNu0Xs0tatH+z3GMz0EQnlz9fLXVF7Fd2A/9Qt/RaFY+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064340; c=relaxed/simple;
-	bh=0QwTIdmwCAxvjrZEHrfWv1cVOZ8G4PCuA+3ZQIX9KSQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t7ezQK2kmJkfabHZaCUXBEJD5p+ne77fUPbtVF/jdAocaGWsNE8DAWbD2zComgvnbTu4trNueCDKjok4Q0/J7DuPFcSFt2F1nikhaeXO5StZ124IZR5t4cKaZ0DypOJpPaBR7aCPFA8Gc6pVpv9beyfaNlfOvIm4Ywrtw9Yp4mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iC7CqQ4N; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790064693; c=relaxed/simple;
+	bh=ovvgoW84bYMqBcH/iPQR2UqipmA1FYNlLt4hbJKQL0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:In-Reply-To:
+	 Content-Type:References; b=BFCGr0oQ8LE9VsVY21YDIgad6KBiFtIzTCVx8MLgN7T4rV8vu23KPd/RgPhAvsuWfb8oXEpvWVoZRQ2yOekDuZ1DWUAmefCJu1+ZrBtRv9tGYF/siosJYufqmKSllfDYD5EzJHtoQIiC0bUqmNu2Va2ukN0FZerE8dGCC2DXQ/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bWymhEoA; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iC7CqQ4N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790064336; x=1821600336;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=0QwTIdmwCAxvjrZEHrfWv1cVOZ8G4PCuA+3ZQIX9KSQ=;
-  b=iC7CqQ4NBGbaWjFBI85ISESFPhSEYkRhXhSVOLNpaKxTtDzZZdJnxkZz
-   i+yjPflWKppgjr3KiLebYf8uATc8PYSwH6okOep/r98sPznlyt03nbqYZ
-   M9+KIzlEKxG6fQHiAxWL/zSrm8dxkl0OB5+KIPqBZxUEo01LZNa/V12jw
-   kpDPhXWu+jMwxWFoLiVADUSDxEf17unelvC2Cfv0za3XD3pjrNvNYsVBe
-   XeZuLtZ6d5sXwWQrTv175sV5w3dg5BfxjK5ilDoX78/CxrVSBapVmBbmu
-   wrH65zmKJ79J5SfrgzqpholvK/mGd3PMo4R5xOVtDoeX3kyIoDHv/TvNc
-   Q==;
-X-CSE-ConnectionGUID: L+dlR9VBR2iyo11B4kf4/A==
-X-CSE-MsgGUID: ne3JFkstQwyvBA287ptbXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1147823"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1147823"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:05:31 -0700
-X-CSE-ConnectionGUID: ihG1UuFzTt6RZGn+QptutQ==
-X-CSE-MsgGUID: Lf3IxN49Sy2777xOVRpMZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="272228362"
-Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:05:29 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5719C121B9F;
-	Tue, 22 Sep 2026 11:05:28 +0300 (EEST)
-Date: Tue, 22 Sep 2026 11:05:28 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Link Mauve <linkmauve@linkmauve.fr>, linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bradford Love <brad@nextdimension.cc>, Kees Cook <kees@kernel.org>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bWymhEoA"
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260922081119epoutp049dc3b8a10f4e119043a53296c44c6d4b~Xlldx42yI2932629326epoutp04z
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 08:11:19 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260922081119epoutp049dc3b8a10f4e119043a53296c44c6d4b~Xlldx42yI2932629326epoutp04z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790064679;
+	bh=ppb5NdBs58x4r+h1AiWGI65C0tz0hajebc59pJdtVVc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=bWymhEoAbXtMJqxPf+9fH0OCAuU1sL6J65djBskJZ5xl5XsgNwYDQM0O4pf0F9023
+	 oS/t8w4ur7A/VSkeP71iTgqCQS0otXuu+9pMnuJFEGKVrJg4HJRwtyCAhBu12eD23Y
+	 PLEmbliDWWmf4uuYlrLcuH3Le7/aCOK+8ZQmU3eo=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260922081118epcas2p48387828cf8cdea44e389d9b98ab5d0aa~XlldX3Q_n2333523335epcas2p4h;
+	Tue, 22 Sep 2026 08:11:18 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.199]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hpt8k2zyFz2SSKg; Tue, 22 Sep
+	2026 08:11:18 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260922081117epcas2p1cf1d6776edabec5931a622c385accc24~XllcgHZFi1436814368epcas2p1l;
+	Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
+Received: from KORCO090182.samsungds.net (unknown [12.80.211.164]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260922081117epsmtip24ae96a6810c6b9b73c7ba684ea9201e7~Xllcb-Xjs2973429734epsmtip2z;
+	Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
+Date: Tue, 22 Sep 2026 17:11:14 +0900
+From: Janghyuck Kim <janghyuck.kim@samsung.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: sumit.semwal@linaro.org, phasta@kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-Message-ID: <arI2yHgu5S6GFJb2@kekkonen.localdomain>
-References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
- <20260804114625.2314430-4-linkmauve@linkmauve.fr>
- <arA3TaFiFOx7ubjj@monoceros>
- <arFixwvATR2hkp68@desktop>
- <arF61V7vW3EWZxG8@monoceros>
+Subject: Re: [PATCH] dma-buf: don't WARN_ON_ONCE() on a failing
+ dmabuf->ops->vmap()
+Message-ID: <arI4IlBCtaIgirFs@KORCO090182.samsungds.net>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
+X-CMS-MailID: 20260922081117epcas2p1cf1d6776edabec5931a622c385accc24
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+	boundary="----2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d
+References: <CGME20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d@epcas2p3.samsung.com>
+	<20260921100946.353521-1-janghyuck.kim@samsung.com>
+	<1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
+
+------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <arF61V7vW3EWZxG8@monoceros>
+Content-Disposition: inline
 
-On Mon, Sep 21, 2026 at 08:45:49PM +0200, Uwe Kleine-König wrote:
-> Hello,
+On 2026-09-21 13:39, Christian König wrote:
+> On 9/21/26 12:09, Janghyuck Kim wrote:
+> > dma_buf_vmap() escalates any non-zero return from dmabuf->ops->vmap()
+> > into a WARN_ON_ONCE(). But a failing vmap() is not, by itself,
+> > evidence of a violated invariant or a driver bug -- it's an ordinary
+> > runtime failure of a fallible operation, no different from any other
+> > allocation-shaped kernel API that can return an error. The dma-buf
+> > core has no visibility into what a given exporter's vmap()
+> > implementation considers a normal failure versus an internal bug;
+> > that distinction, if it matters at all, belongs to the exporter, not
+> > to this generic passthrough.
 > 
-> On Mon, Sep 21, 2026 at 07:00:55PM +0200, Link Mauve wrote:
-> > On Sun, Sep 20, 2026 at 09:46:42PM +0200, Uwe Kleine-König wrote:
-> > > If desired you can keep all the assignments here using:
-> > > 
-> > > 	regmap_config = (typeof(regmap_config)){
-> > > 		.reg_bits = 8,
-> > > 		.val_bits = 8,
-> > > 		.lock = ts2020_regmap_lock,
-> > > 		.unlock = ts2020_regmap_unlock,
-> > > 		.lock_arg = dev,
-> > > 	};
-> > > 
-> > > > +	dev->regmap = regmap_init_i2c(client, &regmap_config);
+> Well not quite, apart from some not so relevant HW workarounds the vmap callback is mostly used for fbdev emulation.
+> 
+Fair point about fbdev being the historical motivation. However,
+->vmap() is not limited to fbdev; for example, the mainline CMA dma-buf
+heap calls vmap() and explicitly returns -ENOMEM when the mapping cannot
+be established.
+
+More generally, ->vmap() is a fallible callback whose API allows it to
+return an error. The exact reason for failure is exporter-specific, so I
+don't think the dma-buf core should treat every ->vmap() failure as an
+exporter bug and unconditionally WARN on it.
+
+The fatal_signal_pending() case is simply one concrete example of how
+vmap() can fail under memory pressure without indicating a driver bug.
+> > -ENOMEM is a concrete, easily reproduced example of this. Page
+> > allocation on the vmap()/vmalloc() path can fail purely because the
+> > calling task has a fatal signal pending: should_reclaim_retry() in
+> > mm/page_alloc.c intentionally gives up reclaim and returns false
+> > once fatal_signal_pending(current) is true, so that a task that is
+> > already being killed (e.g. by a userspace low-memory killer) isn't
+> > stuck retrying reclaim on its way out. The resulting -ENOMEM from
+> > dmabuf->ops->vmap() is expected behaviour in that case, not a bug in
+> > the exporter -- and it is far from the only way ops->vmap() can
+> > legitimately fail (an exporter may just as well refuse to vmap a
+> > buffer for other, unrelated reasons of its own).
 > > 
-> > I think I still prefer my approach, there is very little usage of the
-> > typeof() pattern in the kernel, the only benefit would be to keep
-> > lock_arg in the same location as the rest of the initial values.
+> > This is exactly the kind of condition Documentation/process/coding-style.rst
+> > warns against for WARN*():
+> > 
+> >     WARN*() must not be used for a condition that is expected to
+> >     trigger easily, for example, by user space actions.
+> > 
+> > A failing vmap() is reachable purely by driving the system into low
+> > memory and then issuing an ioctl that happens to map a dma-buf -- no
+> > driver misbehaviour required. Turning that into a WARN_ON_ONCE(),
+> > and on panic_on_warn kernels into an outright panic, doesn't help
+> > debugging; it just turns an otherwise-recoverable error into a fatal
+> > one.
 > 
-> If it's just the typeof you don't like, you can also use:
+> WOW STOP! A driver allowing to vmap() through an IOCTL is a major no-go!
 > 
-> 	regmap_config = (struct regmap_config){
-> 		.reg_bits = 8,
-> 		...
-> 	};
+> vmap() on a DMA-buf has very very limited use cases which should mostly only be trigger able as superuser.
+> 
+> At least on 32bit system you can otherwise trivially exhaust the vmap area of the kernel and that is even worse than a simple WARN_ON_ONCE().
+Fair point. To be clear, I'm not arguing that an unprivileged ioctl
+should be allowed to trigger vmap() without appropriate access control.
+If a driver exposes that, I agree that it should be addressed in the
+driver.
+
+My point is separate: even a legitimate, one-off vmap() may fail under
+memory pressure, and such a failure does not by itself indicate driver
+misbehaviour. The fatal_signal_pending() case is one example where
+memory allocation may give up rather than continue reclaim.
+
+I'll drop the "no driver misbehaviour required" wording, since I agree
+it could be read as endorsing unrestricted ioctl-triggered vmap, which
+wasn't my intention.
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Drop the WARN_ON_ONCE() and simply propagate the error, consistent
+> > with how other allocation-failure paths in the kernel are handled.
+> > The dma_buf_vmap_unlocked()/dma_buf_vmap() contract is unchanged:
+> > both still return the negative errno from dmabuf->ops->vmap() to the
+> > caller. Only the WARN_ON_ONCE() splat (and, transitively, the panic
+> > on panic_on_warn kernels) is removed.
+> > 
+> > Signed-off-by: Janghyuck Kim <janghyuck.kim@samsung.com>
+> > ---
+> >  drivers/dma-buf/dma-buf.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 36cdc342627e..252495761a21 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -1670,7 +1670,7 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+> >         BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
+> > 
+> >         ret = dmabuf->ops->vmap(dmabuf, &ptr);
+> > -       if (WARN_ON_ONCE(ret))
+> > +       if (ret)
+> >                 return ret;
+> > 
+> >         dmabuf->vmap_ptr = ptr;
+> > --
+> > 2.34.1
+> > 
+> 
 > 
 
-It's also possible to declare it here and so avoid the cast. The current
-patch seems fine though, albeit the variable declarations don't remotely
-look like a reverse Christmas tree (not that they did before it).
+------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
+Content-Type: text/plain; charset="utf-8"
 
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
--- 
-Sakari Ailus
+------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_--
