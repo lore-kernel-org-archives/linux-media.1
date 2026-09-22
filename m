@@ -1,207 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2582C3932E1;
-	Tue, 22 Sep 2026 11:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD3124E016
+	for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 11:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076154; cv=none; b=J6i5okOp3sEPhQdCH9VP361c4AOhY/EdjKLS8oO7b9VjYWJ0g4XwxnlnozrqmTiRFx2+2y52IYRiPjX/u7Yb0o3y6/awuIvSgdjgHTKG0IzJJTfmT1cOoz9c16iDgG4ASQ0lfkz0ItthscsLHNAjF1XuXX42QSmavZSXGw3Lvks=
+	t=1790076797; cv=none; b=bA93lWm14ltyGu9pz4VEso2aTDSO1K/IK5zEyV4CeQHppjXsjZSyqk1PYjgXfEF1P5i0ltPAgzZ992vBEw8TMfn/bATDZzY6Q/H5ROC6CVvjesSO6b1sRP+qjDvmrqAItg2fq/8SBiAF20dIDKRb6JKmmAQhYsZnh9CK4SMveGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076154; c=relaxed/simple;
-	bh=vGhE/XSASvxXZdTUjPbgbquNbUpYbaQ/lLuBauojj/s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SrT8HtzAPlF5u/LQ9/eVbKq8YG3pjqIwEalVLw85b2GRk2DGjBkPhUHzCttphJckQ19GQ1cReeENbSTQwEep0kI53NkI6cUw3DYZa/IT88HMUwume7YoKPZvUa4UbmfYQyQJaEpW9+ydVw0QWrfK6/nPLqQ5dtgDna2zDKLGBHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sw/7LRVq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790076797; c=relaxed/simple;
+	bh=vAqHJkJK8NybKzUEyFkNm7wHMeyR870vyueLoGzt3yE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gGQkvlSlmyngTVnewSsHIYkEvQ1qgT4ZfhS8eQJah2ogmA4h/vMRuGyo+Wc4WhoiQPb20azwPJu38x+PArkOxekwfvaRf+qzAqXRF6B50bRXTGDhDKficbErFAtXYbNwy12Wi+jQQpSJy1tY2P2kaguQTN8uRiDXPwi4q1NG1Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ErGNUSgi; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sw/7LRVq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC89C1F000FF;
-	Tue, 22 Sep 2026 11:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790076152;
-	bh=fHkLOnz8tVHZVz6Gya/0gPv+0vLoHxjMIXNdeFar0fY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Sw/7LRVqD3vnxdmhjOwnQRszQpVxQDDh9LI3T88M/pogSuIAFg8E04Asqz+Qwb0nz
-	 3U7CBlyaRK4xQIXWtvRZ9ouQ3JW1es38lMmaGF3LnY+s56dODc8eONHdPlcxGUuM3k
-	 gxN6cC+0mH+WoIcGQiHGFlGZakmJvqEJsVAV2BTw32H0aZml+KGcJS/QztWyXrmR4W
-	 B+fuIi3UcNjr/yLWcqT2YsgeXs7hsS4jB8+Tauig/sdeIUFA97LY+7fZP2k9zoqNVT
-	 rCfNuZK46xovVAHke0t5mjJPCaupqNYG9kNoZjM8MDcoy1vFrtdMfRr6lq4F9LGTgE
-	 Gje9JCKwpBZWA==
-Message-ID: <1885a637-54c9-4478-8ff1-6d01caaf603a@kernel.org>
-Date: Tue, 22 Sep 2026 13:22:30 +0200
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ErGNUSgi"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc515bef69dso2636052a12.2
+        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 04:33:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790076792; x=1790681592; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSk3TeVnQVuy0Nz0PmBxSCcv2Duz1teV8o735BciAQA=;
+        b=ErGNUSgi2MhgMyDMjtDVVexgYwceHiiENTDdsMMRp58BbzshXjUz04+6jeBvq6kprL
+         HCCKO8Wi9Ejel+IeivQYEczNbOUDNhLHAJ+XbVa9VPfP62GbeZK79xRF1W8TqiyDR6ym
+         kPhX8TKnw+HDsM3CCLiaBwbJsPUwzjR0bsbNw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790076792; x=1790681592;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fSk3TeVnQVuy0Nz0PmBxSCcv2Duz1teV8o735BciAQA=;
+        b=K9o9Synn1T/ItyKDggnYsM5vISdkB55xsSXWW60Lc/BV6/t89PO7bqFduP5GE9LPkp
+         7iZ7Pu60F+Sh7EENweBAtazvhfX9wftEb5OWQIJs5VO3REMXGlrUpE/G/ePa/nNdEKo/
+         6B87//nXcsrQHJ4S8VRuCEGNreWNdpXbb0Y7VaENuqD/QquyeAo6hoTATceQ9hDlMxus
+         F8JeJv9rQwOFfdGQOxau7unCvSQdlJg22yAh2tQrouUnmuhRtqxKM19984IeAjYHWtzx
+         j7qawWRQufKd0MzbyBGKbJfRSacSWUU0d6iLVVV6B6ak69WkQ0L59j7YE7b4/zrwhlP3
+         SvpA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5Oov+iU6UnfgP8noQNzAeH9bwQzxRPBa6usqD3VnQYT6jN3QYcAqL1PIfdOmvYdSRM7BWk52cg3LZSg==@vger.kernel.org
+X-Gm-Message-State: AFuF++mhP+xmXwDqgEtqQYcnrsxtSZqgkV6vktyTw+5gWnc9J1P/BRry
+	kEICz+RgoWuAsQi8nvyH2TT7bBdMbNOTEpiyob8Faim1Wl9Gk24D4VHBnh/E4WoquXk0f2epUdC
+	mi+ohZw==
+X-Gm-Gg: AYBFou26vaoZUGdgelAj41MfeENQMe9IFRmbfG6X6ocK6t2HBbBdykVz1LxzObeKppO
+	tCKTiUcmu0rjay3ed8q7RJfIDbiQwMDqbVsc/GPZ/9xNTPmRZA2m6XkL51y//aNYh6TeB/New52
+	zCh5NoCwCENHngANZDsmnqin75meTvwOoyanrcGowq/GfmnuvC/z/1ml9RIlzc9+rXG46Dbwvqk
+	NvlOHD4vi0l23zTrnKgJnG3ZwClLE52UG2ktN48qasY0Qc50YMHZMc3aCyWP33yep/61EbZwAe3
+	MZfH3G7k2SRXN0rq9SrDi5bS93zGN04By9C4C1JAJ7JerKA0LCikAxNDDqO8YkHzq3aDS5+S7FG
+	3xiNoJkptJ6Ig6znttETfi95Q2PATY2eyhXKP2ljyqSXUb5K9LbNVrHZfYXCtfoNyVkDxczmvXq
+	R2HuyLRGNod/xikCx2+E86Dt7kGJugHrqilNhaS4vmXR0Jpn7pHswb+J07gDufZTtmcnB03f8dv
+	89JJtjKOCYy4w2xzIOtluNKehgDoyc9SiJl
+X-Received: by 2002:a17:90b:4e:b0:39e:6c6a:2099 with SMTP id 98e67ed59e1d1-3a073284adamr964797a91.58.1790076791093;
+        Tue, 22 Sep 2026 04:33:11 -0700 (PDT)
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com. [74.125.228.12])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5a5f6esm3014169a91.12.2026.09.22.04.33.10
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 04:33:10 -0700 (PDT)
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so2213660a12.1
+        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 04:33:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBysM78kXMQAx5ELtrcJUmFvQM07vhnN2dvF9FpBvYlBfug7dPx2xA3JQbMw93tN2bCFpkzvuO82esp76g==@vger.kernel.org
+X-Received: by 2002:a17:90a:e183:b0:39e:6c6a:209b with SMTP id
+ 98e67ed59e1d1-3a0732aab47mr857626a91.60.1790076789532; Tue, 22 Sep 2026
+ 04:33:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
- keymap
-To: Sean Young <sean@mess.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-References: <cover.1789460680.git.sean@mess.org>
- <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
- <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
- <aqlcj9xXNRURA5iJ@extorris.mess.org> <aqlnsiUas27yhKHi@extorris.mess.org>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US
-In-Reply-To: <aqlnsiUas27yhKHi@extorris.mess.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <apqGlTiybdvQX3Ao@kekkonen.localdomain> <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
+ <aqU5QFGmYlCtbdiE@kekkonen.localdomain> <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
+ <aqfyYSagcejWb4xD@stanley.mountain> <CANiDSCtEmAZippX45kaxjWAHs+cd+vpFFtxOnnz00nmVnkgqzQ@mail.gmail.com>
+ <arJjxjiWVlnHhioR@kekkonen.localdomain>
+In-Reply-To: <arJjxjiWVlnHhioR@kekkonen.localdomain>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 22 Sep 2026 13:32:56 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsD_OO_7_ZQ0NvWHXRN4jo2Aqr-XGZamn3bCzwnZ6gmZQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XSEqnhRqXFFRQlQKzrgp_us5KopVV821iFq_cxHFRxG_Sd7N3TpS2PoSA
+Message-ID: <CANiDSCsD_OO_7_ZQ0NvWHXRN4jo2Aqr-XGZamn3bCzwnZ6gmZQ@mail.gmail.com>
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dan Carpenter <error27@gmail.com>, Ceclan Dumitru <mitrutzceclan@gmail.com>, 
+	dumitru.ceclan@analog.com, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+	Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu <Adrian.Suciu@analog.com>, 
+	Cosmin Tanislav <demonsingur@gmail.com>, Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/15/26 17:43, Sean Young wrote:
-> On Tue, Sep 15, 2026 at 03:56:15PM +0100, Sean Young wrote:
->> On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
->>> On 9/15/26 10:32, Sean Young wrote:
->>>> Replace some ugly code with open coded krealloc() and remove
->>>> superfluous member of struct rc_map.
->>>>
->>>> Signed-off-by: Sean Young <sean@mess.org>
->>>> ---
->>>>  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
->>>>  include/media/rc-map.h     |  2 --
->>>>  2 files changed, 22 insertions(+), 25 deletions(-)
->>>>
->>>> diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
->>>> index d4baaae3a834..53e39b7a489a 100644
->>>> --- a/drivers/media/rc/rc-main.c
->>>> +++ b/drivers/media/rc/rc-main.c
->>>> @@ -17,9 +17,8 @@
->>>>  #include <linux/module.h>
->>>>  #include "rc-core-priv.h"
->>>>  
->>>> -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
->>>> -#define IR_TAB_MIN_SIZE	256
->>>> -#define IR_TAB_MAX_SIZE	8192
->>>> +#define IR_TAB_MIN_ENTRIES	32
->>>> +#define IR_TAB_MAX_ENTRIES	1024
->>>
->>> This is better...
->>>
->>>>  
->>>>  static const struct {
->>>>  	const char *name;
->>>> @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
->>>>  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
->>>>  			   const char *name, u64 rc_proto, size_t size)
->>>>  {
->>>> +	unsigned int alloc;
->>>>  	rc_map->name = kstrdup(name, GFP_KERNEL);
->>>>  	if (!rc_map->name)
->>>>  		return -ENOMEM;
->>>> +	alloc = roundup_pow_of_two(size);
->>>>  	rc_map->rc_proto = rc_proto;
->>>> -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
->>>> -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
->>>> -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
->>>> +	rc_map->len = 0;
->>>> +	rc_map->size = alloc;
->>>
->>> ...but this still says 'size'...
->>
->> struct rc_map_table has a len and size member. I agree that size is not
->> a good name. How about capacity or cap]? I am not sure that entries is much
->> clearer that entries tbh, because what's the difference between len and
->> entries?
-> 
-> Turns out this is a bit of a mess. All the keymaps in
-> drivers/media/rc/keymaps/ set the size member for the number of entries they
-> have - which really should be len. So, renaming this member of struct
-> rc_map_table will mean patching all the keymap entries. Nothing too complex
-> but maybe this is something for the next patch series.
-> 
-> It would be useful to hear what you think of I'm proposing though:
-> 
-> 1. Rename size to cap in struct rc_map_table (so it will have a len and cap)
-> 2. Rename newsize to newcap in ir_resize_table() and related functions
-> 3. In every keymap, replace:
-> 	.size     = ARRAY_SIZE(empty),
->    With
-> 	.len      = ARRAY_SIZE(empty),
+On Tue, 22 Sept 2026 at 13:17, Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+>
+> Hi Ricardo, Dan,
+>
+> On Tue, Sep 15, 2026 at 05:56:43PM +0200, Ricardo Ribalda wrote:
+> > Hi Dan, Hi Sakari
+> >
+> > On Mon, 14 Sept 2026 at 15:11, Dan Carpenter <error27@gmail.com> wrote:
+> > >
+> > > On Mon, Sep 14, 2026 at 02:10:10PM +0200, Ricardo Ribalda wrote:
+> > > > Hi Sakari
+> > > >
+> > > > On Sat, 12 Sept 2026 at 13:36, Sakari Ailus
+> > > > <sakari.ailus@linux.intel.com> wrote:
+> > > > >
+> > > > > Hi Dumitru, Dan, Ricardo,
+> > > > >
+> > > > > On Tue, Sep 08, 2026 at 01:35:05PM +0300, Ceclan Dumitru wrote:
+> > > > > > > Can you check this
+> > > > > > > <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
+> > > > > > > please? If there's a single patch that needs to be modified, I can squash a
+> > > > > > > patch into that, otherwise v17 it is.
+> > > > > > >
+> > > > > >
+> > > > > > These are the same warns reported by Niklas in V13. Dan fixed them in
+> > > > > > smatch in devel branch but fix is not in master. Testing with smatch on
+> > > > > > that branch yields no warnings.
+> > > > >
+> > > > > Dan: any plans to merge these things to master some time soon? Or:
+> > > > >
+> > > > > Ricardo: could we use devel branch of smatch for some time?
+> > > >
+> > > > Do you know what patch fixes it? If it is easy to cherry pick I can
+> > > > add it to our list of smatch patches
+> > > > https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/third_party?ref_type=heads
+> > > >
+> > >
+> > > Commit d12183645a31 ("precedence: silence some false positives")
+> > >
+> > > Sorry, I felt like I was close to merging devel but then I started
+> > > another major surgery to the core and got stuck.
+> >
+> > Thanks for the pointer. I have added the patch to media-ci
+> > https://gitlab.freedesktop.org/linux-media/media-ci/-/merge_requests/351
+> >
+> > Now that I have your attention ... :P
+> >
+> > May I ask you to look int
+> > https://lore.kernel.org/all/20260914-unqual-v2-0-60a1407a0cd4@chromium.org/
+> > in case you have missed it?
+>
+> I understand the required commit is there and I tried to push the Maxim
+> serdes driver again but I'm still getting
+> <URL:https://gitlab.freedesktop.org/linux-media/users/sailus/-/jobs/110822240/artifacts/file/junit/test-smatch.log.txt>.
+>
+> I wonder if we could have the devel branch there or some more commits...?
 
-The problem with 'size' and 'len' is that it is not obvious what they refer to:
-bytes? Number of elements in an array? Most commonly size and len refer to number of
-bytes.
+I managed to reproduce it also in my computer, so I do not think that
+it is an issue in media-ci.
 
-For the number of array elements I would typically use 'elems' or possibly 'entries'.
-Or sometimes nr_of_'something'.
+I would prefer using only tagged versions in media-ci.
 
-> 
-> This will be part of next series for rc-core, probably for the next release
->  cycle.
+Dan, how far are you from making a release?
 
-Of course, that doesn't belong in this series.
+>
+> --
+> Regards,
+>
+> Sakari Ailus
 
-In any case, for the series:
 
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-Regards,
-
-	Hans
-
-> 
-> 
-> Thanks,
-> Sean
-> 
->>
->>>> +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
->>>>  	if (!rc_map->scan) {
->>>>  		kfree(rc_map->name);
->>>>  		rc_map->name = NULL;
->>>>  		return -ENOMEM;
->>>>  	}
->>>>  
->>>> -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
->>>> -		rc_map->size, rc_map->alloc);
->>>> +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
->>>> +		alloc, alloc * sizeof(struct rc_map_table));
->>>>  	return 0;
->>>>  }
->>>>  
->>>> @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
->>>>  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
->>>>  			   gfp_t gfp_flags)
->>>>  {
->>>> -	unsigned int oldalloc = rc_map->alloc;
->>>> -	unsigned int newalloc = oldalloc;
->>>> -	struct rc_map_table *oldscan = rc_map->scan;
->>>> +	unsigned int newsize = rc_map->size;
->>>>  	struct rc_map_table *newscan;
->>>>  
->>>>  	if (rc_map->size == rc_map->len) {
->>>>  		/* All entries in use -> grow keytable */
->>>> -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
->>>> +		if (newsize >= IR_TAB_MAX_ENTRIES)
->>>>  			return -ENOMEM;
->>>>  
->>>> -		newalloc *= 2;
->>>> -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
->>>> +		newsize *= 2;
->>>> +
->>>> +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
->>>>  	}
->>>>  
->>>> -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
->>>> +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
->>>
->>> ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
->>> are mixed.
->>>
->>> This is not important for this series, so you can go ahead with it.
->>>
->>> But personally I would prefer to rename rc_map->size to rc_map->entries and
->>> ditto for newsize to newentries. That way it is clear that these variables
->>> deal with the number of entries and not the size in bytes.
->>
->> How about newcapicity or newcap? 
->>
->>> I mention it only because when I reviewed v4 it confused me.
->>
->> Thanks,
->>
->> Sean
-> 
-
+-- 
+Ricardo Ribalda
