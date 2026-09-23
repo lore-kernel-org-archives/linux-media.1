@@ -1,81 +1,157 @@
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2FD360EC5;
-	Wed, 23 Sep 2026 21:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5096B3EC81B
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 23:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198336; cv=none; b=Bym42As4swJ80bNESc4AgHnP3FGWChP/KrKmsfp3hdK1NDzHwQeBmi0QoNhFj/FOMBhuaE3A5HLqRgZwEMd1iweJW/b+bwdpE49mChZEHI+1MfAeEcBZyVoMeFvVKpNIeIjkHPOi6i1mPHbVeskAq8osNJL/T/yp4ybfkEW2GQY=
+	t=1790206917; cv=none; b=nbk8sNt0KmcBuudNykMWL6oh0hkuei3GrplHFrThblI1pXkFyIUwDatj1fVzOxUOLEHuyesIuGVuSx9j9sZUoDz8DTbVwzX7iCzCrKpSOeCAJTBf2wNlXsEs2ZxAnaNcGtsCWdkjcqZAVMO/5z4idfUSxkAinYafOmEClV43h1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198336; c=relaxed/simple;
-	bh=/c4aAsyg4wk9o6KE/BZZp42wDVt5nAVLd6jz/4l5Tc4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kfgrMFm0WzvLC+QXQmGScmoVnL+zKdCdwBuL4SWNsvH1b8sw88ylT5MZdir+W9z0n7OngQoXuvAGolMGIRW3QnpHAsCeQq40jOot0lWIVgGmYPJO5o1ahMYOg80CMVTNNVQ3hutsLH7UP+puJgR27fgvR7yKVjC1L+jdhlYXxWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=CZ4qEioO; arc=none smtp.client-ip=79.135.106.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790206917; c=relaxed/simple;
+	bh=NIrzuAInzsj2sYociheA3JTrwufIGgyVll09+vFspTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QFE4rc08qVJjowXf4qAv9WWhvHKanvAKROwG+gBYd0N+YSBp+ZyTt/sS2fyXOIyTaG/6H5eP+W3i/xfRqi1o8m6HdLxyrqaCYXkabcSR3pLHLHUNPEz8p8xua3AejDpMvNYA390U15BsOnN1la0srfuR/TV4OpP7iPUoxySVcPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFOlgPeP; arc=none smtp.client-ip=74.125.229.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="CZ4qEioO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790198327; x=1790457527;
-	bh=/c4aAsyg4wk9o6KE/BZZp42wDVt5nAVLd6jz/4l5Tc4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=CZ4qEioOK3qJwt6N+okpS+DIwZddjjXEYYZ0XN9DUfC9X6X6KBHZF51IOlSHqyyxs
-	 PmmYQkrq0K2rGKI5ltogNl/C9FDkHqn/C6OHpBzi8zkwLbSKoOkI1IpEtdoEcGR5lb
-	 e6SLBong9eemrUupANHxQiPI6qkm82Ia5qeEapNGQMI8PQNiD0XjQYnTGrxH48vScE
-	 B3AJVJQ1CN5SgGytXvUncEwFQDPXgRqbg43OcAaryWft/N/jefSz8MhdErhl6QCZyl
-	 ukUkzlmKjB2hxfV5mdMhpUAt3t672jy/tipTH9SEeJeq0gfPc701lV88O1CjsaME4h
-	 i33E6EmgZ+1Jw==
-Date: Wed, 23 Sep 2026 21:18:42 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20260923211816.89954-4-lsa.uz@pm.me>
-In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
-References: <20260923211816.89954-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: a55b593134d28a821f351b023e80d3e1aa2fec1e
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFOlgPeP"
+Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so1494109c88.2
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 16:41:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790206915; x=1790811715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PdOsqo/iziUsxrRxdJAZK/HE+PMHIxiZ0e+DSZHPK1Y=;
+        b=AFOlgPePOHdTP+RZjFdY4gUpeehfoiCKqCxEgdBSDEkl6sj4w3hjx6cWHGavsQM4EU
+         DEJ/EgS5QArnVQLHRGyTyJp1zc4Uk+xsfQY9yIz5KVNqF1HfkrsPvKBKrbjCKDyLBfEa
+         ocj1nhiS8RPVU0BOS/eijZC1TrbxrUJDzA0PZXIiARUO63vsSa4PyrqZ4CibVazNNlZ/
+         iCxW9bWuWrzkCCsGjU3s22vORvw1fbgDdfqL4CWhU68Tj4MDqDg2UdTtZrFCtePF9kLe
+         Gpe535zxF+aInL7p8Ey7lcJso1JV6HnTXVInS9clEXcV+URtmQeZxUBc/GtYD7/S4V+d
+         i8/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790206915; x=1790811715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PdOsqo/iziUsxrRxdJAZK/HE+PMHIxiZ0e+DSZHPK1Y=;
+        b=wNTWwonkT2B4iezNmkMqCxxj7aibSuZka/eugcHRBLmIHTDlSheHcANTfdFPmPmyH6
+         Nbdc2Rh+P4856kRP7S8txn7iFG9CGXikeETwyoQGqYioAXNZeGQFTv6jmV/jhYiI8WtU
+         Trcq4NOu/l8fD4D80xwtUWwpDsv32uktBfF99y/EltMyiHTtXDPbYJ++nsBHXPshPEis
+         nFqeZWmfKnqfPPwDPzqUQeHhno9GdORtFDNTxGnD7B5xJCqgvgf4EtWDodY1w1pkna7M
+         P2ZMF+1PFlYsjr2ZaIhIwhGRnaWczDFlKXF4Bh7k6dOsG7vKTCxI0oZRogLIbJ9ztuZw
+         fO2Q==
+X-Gm-Message-State: AFuF++l5hbQ1beJIP3GScTPQ7kFLQzXQ89zh9fLNHXOhUWumbCCE1jxM
+	4wWi7ifqw+lpoP+LGj9mjYx/JKdMrjzONJjLP1AvMegmMNyOaTyJAVLMSX1GNdYA
+X-Gm-Gg: AYBFou1PD/40CrNddbaXq6qloLZkGdMSvBGZHt+KrK6Rf2j0gkOnYE5esoDtnwjdzpB
+	4z3Q/oyx4eLhycxTEQQW2bfb3NBR3gbAac1BFKAed8VPG4mfv8FRMlX/wKaeg7JTGKvqbeJPik4
+	aEWylEbm/JY7HDKGfSdhTLyurHviFBs66xhhKEcCog+Bq7bhYGrc/vzjnLRYW4EuCGbfk6RYvIA
+	id0Mm1mYm5GRjNiEQxjiMo6Kt0iMnHODD2PsLnRi3Zp7ftkH2KTWwbpWnaGaIxqukV2JF6onSOv
+	ee1Msy/WRnxj5Bu8FanahjktndcG14QqwQW1tc1i+hMkb5HC+tvPZeiIVA59S2sLjsFlys272H0
+	GHeoL/SwcsT5WkvN6rWIdvehz3xHKmu+xmtRf322Sruercx/BrNseytQvgNoaIMVX4d68A40MGZ
+	vPwBhfLXDHbE01tv1q/zuRiQiGFRWqvH1knN+dJ+cCgdwgCMcm01BLRXvifu6wpWEqv49IxFVhp
+	UsdvejSPoporB1qVUbjmbTV/6aQrVhiYNha
+X-Received: by 2002:a05:701b:4247:10b0:13b:9d10:4fd2 with SMTP id a92af1059eb24-14503fc80fcmr486501c88.22.1790206915130;
+        Wed, 23 Sep 2026 16:41:55 -0700 (PDT)
+Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.41.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 16:41:54 -0700 (PDT)
+From: Felipe Calliari <calliarifelipe@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Tomas Moro <tmorolias@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Felipe Calliari <calliarifelipe@gmail.com>
+Subject: [PATCH v3 0/5] media: ov02c10: get_selection and 26 MHz clock support
+Date: Wed, 23 Sep 2026 20:40:55 -0300
+Message-ID: <20260923234100.318151-1-calliarifelipe@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923144257.119076-1-calliarifelipe@gmail.com>
+References: <20260923144257.119076-1-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+Some Raptor Lake laptops, e.g. the Samsung Galaxy Book3 series, feed the
+OV02C10 a 26 MHz external clock, which the driver rejects at probe
+today. This series adds support for it, together with two small changes
+found along the way.
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+Patches 1 and 2 are unchanged from v2, apart from a corrected commit
+message in patch 2. Patch 3 splits the PLL registers off the mode
+tables, with no functional change. Patch 4 adds the 26 MHz link
+frequency to the ipu-bridge. Patch 5 adds a 26 MHz PLL table and picks
+the PLL table and the link frequency from the external clock rate.
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+With the other PLL registers left as for 19.2 MHz, the link frequency is
+mclk * M / 19.2 MHz, M being the OP and VT PLL multipliers, which are
+set to the same value. The 19.2 MHz tables use M = 400. At 26 MHz an
+exact 400 MHz would need M = 295.38, so patch 5 uses M = 295 (0x0127):
+399.479167 MHz, advertised as such, with a pixel rate of 159.791666 MHz
+on two lanes. M = 296 would give 400.833333 MHz. Getting exactly 400 MHz
+from 26 MHz needs a divider with a factor of 13. I have no PLL
+documentation for this sensor. Sweeping 0x0301, 0x0303, 0x0313 and
+0x031c around their table values only gave coarse steps, no output or no
+change, so I don't think such a divider is available.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 77257311d1d..a1a4023f813 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -116,6 +116,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
---=20
-2.54.0 (Apple Git-157)
+Tested on a Samsung Galaxy Book3 Ultra (Raptor Lake, two CSI-2 lanes,
+26 MHz clock):
 
+ - link_frequency reads 399479167 and pixel_rate 159791666.
+ - I rewrote VTS over i2c while streaming and fitted the frame period,
+   from buffer timestamps, against four VTS values from 2360 to 4600
+   lines. That gives a line time of 14268.73 ns for an HTS of 2280,
+   i.e. a pixel rate of 159.7899 MHz, 11 ppm below the advertised
+   value. The intercept is -0.02 lines.
+ - At the default VTS, a 60 s capture runs at 30.014 fps. No frames are
+   dropped, apart from sequence number 1, which is skipped at every
+   stream start with or without this series. 30.014 fps is below the
+   30.105 fps that hblank, vblank and pixel_rate describe. The cause is
+   not the PLL: with the exposure at its maximum (VTS - 8) the sensor
+   stretches the frame to exposure + 15 lines. That is a separate issue,
+   which I'll look at on its own.
+ - A single CSI-2 "Frame sync error" is logged at stream start, as it is
+   with the unmodified tables.
+
+The 19.2 MHz path is untested, as I have no such hardware. It ends up
+with the same register values. Only the write order changes, and two
+writes that the per-lane tables used to override are gone.
+
+Changes in v3:
+- Patch 2, commit message only: the crop is centred in the output size
+  (0x3808-0x380b), not taken from the readout window.
+- New patch 3, splitting the PLL registers off the mode tables (Sakari).
+- Advertise the 26 MHz link frequency, 399.479167 MHz, as a second menu
+  entry and derive the pixel rate from it (Sakari). New ipu-bridge
+  patch 4 lists it in the fwnode.
+- Patch 5: short commit message, dev_dbg() dropped, no 0x0315 write.
+
+v2: https://lore.kernel.org/linux-media/20260923144257.119076-1-calliarifelipe@gmail.com/
+v1: https://lore.kernel.org/linux-media/20260905030732.39196-1-calliarifelipe@gmail.com/
+
+Felipe Calliari (5):
+  media: ov02c10: Drop duplicate register write
+  media: ov02c10: Implement get_selection
+  media: ov02c10: Split the PLL registers off the mode tables
+  media: ipu-bridge: Add the OV02C10 26 MHz link frequency
+  media: ov02c10: Add support for a 26 MHz external clock
+
+ drivers/media/i2c/ov02c10.c          | 134 +++++++++++++++++++++++----
+ drivers/media/pci/intel/ipu-bridge.c |   2 +-
+ 2 files changed, 116 insertions(+), 20 deletions(-)
+
+
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+-- 
+2.55.0
 
