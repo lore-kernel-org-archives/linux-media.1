@@ -1,63 +1,63 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A842D5412
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 23:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CFD433BAC
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 23:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790206932; cv=none; b=bvxAqqSHyAulN9dCG8UgGzb2ObCeb6LL7knGk74kgunQuOWIdcMGub4trtFxvdu4XUU7RwN559RPBjmTVhAfKiANZrvocos9dbpB2PNRqZe/Ym55wlU4qMdOgkJ7aTRbxAzv+Bf/1z8E3vlrUMAAeXVdtcTQD/WvB5ZqudVdlHE=
+	t=1790206938; cv=none; b=jav3RA8qjCmXeZgwhascjQqiLfr8G9NLzk0qVwCocxPMwOP7tJBPGO2iD5OWu9bHZIJ+e/oG5LLek2kRBd+LUJZvSbMNcWgV6pWCCVec/LGYyYuSKK0zu415O9Lcdk5OucXOfxVrbYdukGfjTHlBLJQwZY+/h107FwkBkBcwLIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790206932; c=relaxed/simple;
-	bh=pYjeim6rkRmaxSpwPitBNprXWpSBnwzEpUPN7fveHIc=;
+	s=arc-20240116; t=1790206938; c=relaxed/simple;
+	bh=97h0On+O0nndVypk+vYrkeIaPpouAICFd+eAnPIi2Bc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uiFEUD9XvvL7okPfU3kJEjMz5VXPh29ZNETe9QJLZmTIDN+SdB4IViOB2NnpQWehIYbkonto5jTMkkwSTN0wj+RgAAcEoMtrOo8Btz+F7qq7QeWaZEadH4wD0aiIPAaWcQxRFUnZBOmIs4lkD8hCPbkiw6xsKR9of6pTKgwnFPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J4hM865a; arc=none smtp.client-ip=74.125.229.170
+	 MIME-Version; b=k505r2b5KLJcB8J19c8pxbjwhP0V+W47Zghc+IpPNsqvl4/GeGvNtz8C4syO6LR8F7iUbejUlk9mJva0TRYWyFy9CaxaLX+JcyipMC+jL7gdvPrkeyArVJxyk++5oxn9M/NtPLvuZ+YkJ2p3vn8320jKeCyBL/AM2CcTzyW0MWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e/97QmeZ; arc=none smtp.client-ip=74.125.229.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J4hM865a"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so1574219c88.2
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 16:42:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e/97QmeZ"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd04edb5so2562358c88.2
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 16:42:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790206927; x=1790811727; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790206930; x=1790811730; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FrUy8lEwXCvnZORNFDyE8boY4XaJRyADxOjRdBxHQ6Q=;
-        b=J4hM865aVfy3DxSvThXVmoTUP9BSh84SLYtYPV/Imv71Ch+wtVeyeMpZE8tqKgsuhv
-         rZD3JsV8nKormNgIbPO18UGJfYm1LzwgYrD80QkxMpuvmJWI4eq3gWjr/MVoMiJjLD2n
-         WnC12Aso5dzMCuG6zKYWNJFzKR0CCKEcXDcPt/lZsUlt++HpRWDQwhlX4esFqdLEZ4Nl
-         4czuu5XPkoCtxpAQXyd40mcO4hNT8FZ7lBKoMS6EiDrjGWagazlG/YmNCXOO4kISs3TK
-         JJ0BPzHxPAnmL92CtalPA/+Mwt+MN93sn6Shsz96U8rDqz2GU6M9KH8mg4+bvnfRslsr
-         wzAw==
+        bh=sJrIoM3AOwboDtTyaYjUbHslev/bmdfBymxr2132i/U=;
+        b=e/97QmeZGuFa92Uuk4FHPd7EjkrZiVjU77Z+DVNb0xT2mOauJc5U/1Anx0sNcYzHlk
+         4ejT7YJrIaur1iyaRDM0+y1rpazvHfJenRIBiI4CpRac+pKRHuaO7PDl0nOV3rTSTAT9
+         YnjxS2LwGkdQ1h49XKLllWvt62uts6Y55PTcfu7xv4ViyEP5YgDcpQf0f6GACIzDKux+
+         0kl36RZApU41LVd0MR0IiEg+lwrOcPiO1b59781CPVy7YLyxc47mrdusCx1DKYbZKtaV
+         gmTgI9XPqgq9KDKNSqMMMh0kJEVxHHjLMzBrMeYEvIqb6AL1QVbSY0ADdsw+Tcp3kZS7
+         hvkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790206927; x=1790811727;
+        d=1e100.net; s=20260707; t=1790206930; x=1790811730;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FrUy8lEwXCvnZORNFDyE8boY4XaJRyADxOjRdBxHQ6Q=;
-        b=F4nbDW9c4DemwpIWb4CvsBWWKtl2+PlODnporFyGDOqzW2ujBPN2POGeqmtl6ASmjr
-         uoU3cF8TL8XqsLGZLI24eDUySIxGgXgxuYAP1sIbJ+tMCSPpyZWwlEM4oJBb44Suj70/
-         OHE6PEd0h2SMJn/rNB5tnHF0Pj1qjyFulmQHDJ+QeWGYpsQfAqNuy3KnEwyfnG4ZRFUh
-         VQs8UvY80VdV+3qWI0fhu4/208LO8zlk8JTCdC+Gh578Oqbu8329dV7m/amLVxqKqCnU
-         EQPo9Sc0HoiQIScd8KAOAjvH5Jv0x3doFN13FzosQ1MLaP+8tSyfuP6AVg6qYGao3AM8
-         f4xA==
-X-Gm-Message-State: AFuF++lTLSGF/OpD0GOoa+zPbrHHQUwh0iPq+Iqpevlk0tdyqXSbKo++
-	qDStvWaFQrWNW9hzftO0HFg5i7dbWcbbiuEyjHzPo+C8ZpGQ1YEWDDQPHv3p3YT1
-X-Gm-Gg: AYBFou1GBiTNfnDLNY/+g5o0kfCjWMtTrzQMWu8HY5MQeC36x85Ln6/cUnS9oZTBFM4
-	NcPToL2kIABU7twya9PWrzmGWhvzGOk2RNZR37INkxi7DnEKrM9qrN4LAtV4lOx5+SPzG4u9mg5
-	YEwpaVxqLkOczaxKyM1oO00JeCJhv6lqaeBAVFCITfXDqbXrGEutFLWnOasTE8kCAGqs7mO8ejZ
-	bCCEmwgzTW/2j5aBdo8BJvqBMAuWZHxyM20WX4VRvBEzidRiA8NYQA7+2voa0Sc4ffY0ZLrJ9uh
-	DDYrU4XnkmmZ1NvEkJVm4Nw/GzngHs2edAcpS1PjPLZLo+yLV9jIZ8bYcOZEBe7KP6wlq/1Uw5Y
-	CkCbIsi2R+DOWENsNWRxu/um0vqboSMDEcwmMC3+nZGoBDq+co7u50mugh8kMKiA5wnZtTziJUz
-	Yi7Pz/DUwucU2+aCeupM+UPCzjgbhd2OvH+mFTTFWjT9vUfk+sM/rMQKGBI/IJ5iINkY0gXZVvu
-	bv+zklDXe57JN7Iphhzm/RcVt+1gzGEY6Br
-X-Received: by 2002:a05:7022:b058:20b0:130:7246:10aa with SMTP id a92af1059eb24-1450404d324mr444369c88.12.1790206927261;
-        Wed, 23 Sep 2026 16:42:07 -0700 (PDT)
+        bh=sJrIoM3AOwboDtTyaYjUbHslev/bmdfBymxr2132i/U=;
+        b=XxSMQr3CwD2U4PKY+UyfNHOU8aAJv28EW8W7WEtA2Gvl7fH14uyiZb8KvlknuhScFg
+         F7H1+aOvMWz9bMfyWdbjRPgnzjVTesrsnRt9g8yzP7LoVdXfygblJDOijVAnVuXKcsTL
+         QSMrxMNhMVnBEn4KZXgZkL+1Ag8QXu/MwglRYvJKfgY4dDag2h5/XxzjqJAeaQ4pi0+1
+         2ZePT5N0s7lpVT6v6dl25E1nlsK3M78O3I75gL/Wrxws7hcjjNdtGn/zLYc/qHDR68GH
+         IV52AD25SOCBT0/QBIj+clLD3I9f0eCaexFzQVw+UYoqDrqiO9g+lj0oGQ5NmY7qX9Mn
+         jAJg==
+X-Gm-Message-State: AFuF++n1UZCu1q6ckN568ipj3aypXrG9mR08FOnqHhqjOdmVd2gUIre+
+	mBhkO5NLdmFBmN6y/Tfn8CQWp92QWomT0ZETetznKakLNx3dwQXyBffuhfgCx9lG
+X-Gm-Gg: AYBFou1iBpf7SEy1Gbj5RMQ0POy46/PeK4tyfPGokvtgnpYWpLZ/VR2ObK/cIwo2fCw
+	x0qlikGFy+x/i9aPf5CL0TyT0dTZXi/qTA3Dk8NfjYmqf1JuJzDz2YD7FxmpAeerN1s9SeqeZIP
+	WAMcQGXoEii+2PHZ5LTwiPivW81rp5DClFh64N/ODmvZKldJkjBR5pH7XjZBv5Z80y87pj/JvSV
+	cE8JySHO+lGklFKu/bLNPhDxhltu/GJquSr1afB4/91BE3ys9lXELL2RhjLHXC2tip2YKeVu5xE
+	Blxz+k9k0Ne2s93+Z8fCuHR1viwvr9vG4sTsfLLXfCHTigZLtqh8BwEdfgGvZfyK/9foURAhnhi
+	yeCwuGEhcZ6xSGK46fRwo5vjxZ/e/+7ql6FTp5ib4vklmVDwoNYkaVLRq0UThnQHwEgFG82TGEr
+	QZbpte9b1hmLBX/kQtqMBhkq8ZeXC0eBi4TyYLQEDM7y6WtIFoe0I7YfV3K1mVDWYYMmmRCXFlB
+	PSSUS/pDX7verdbjQDyD2qDiS8ZDLhIWJLL
+X-Received: by 2002:a05:7022:b055:10b0:144:f47d:c2d9 with SMTP id a92af1059eb24-1450402286dmr503259c88.38.1790206929803;
+        Wed, 23 Sep 2026 16:42:09 -0700 (PDT)
 Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.42.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.42.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 16:42:07 -0700 (PDT)
+        Wed, 23 Sep 2026 16:42:09 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -68,9 +68,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Tomas Moro <tmorolias@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH v3 4/5] media: ipu-bridge: Add the OV02C10 26 MHz link frequency
-Date: Wed, 23 Sep 2026 20:40:59 -0300
-Message-ID: <20260923234100.318151-5-calliarifelipe@gmail.com>
+Subject: [PATCH v3 5/5] media: ov02c10: Add support for a 26 MHz external clock
+Date: Wed, 23 Sep 2026 20:41:00 -0300
+Message-ID: <20260923234100.318151-6-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923234100.318151-1-calliarifelipe@gmail.com>
 References: <20260923144257.119076-1-calliarifelipe@gmail.com>
@@ -83,34 +83,182 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With a 26 MHz external clock the OV02C10 runs its CSI-2 link at
-399.479167 MHz instead of 400 MHz. Add that link frequency to the
-OVTI02C1 entry so the sensor driver can use it.
+Some Raptor Lake laptops, e.g. the Samsung Galaxy Book3 series, feed
+the OV02C10 a 26 MHz external clock, which the driver rejects today.
+
+Add a PLL configuration for a 26 MHz clock, with the OP and VT PLL
+multipliers at 0x0127 instead of 0x0190. This yields a link frequency
+of 399.479167 MHz, which is added as a second link frequency. Select
+the PLL configuration and the link frequency, and thus the pixel rate,
+based on the external clock rate.
+
+While at it, terminate the unsupported-clock error message with a
+newline.
 
 Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 ---
 
 Notes:
     Changes in v3:
-    - New patch. The ov02c10 now advertises the 26 MHz link frequency
-      on its own (Sakari), so the bridge has to list it.
+    - Advertise 399.479167 MHz as a second link frequency instead of
+      relying on it being close to 400 MHz. The pixel rate follows
+      from it: 159.791666 MHz on two lanes (Sakari).
+    - Choose between two PLL tables, split off in patch 3, from the
+      external clock rate (Sakari). Fail probe if the firmware does
+      not list the matching link frequency.
+    - Make the last menu item the LINK_FREQ control's maximum and the
+      selected frequency its default.
+    - Stop writing 0x0315. Its reset value, 0x01, is what both tables
+      need.
+    - Drop the dev_dbg() and move the test details to the cover letter
+      (Sakari).
 
- drivers/media/pci/intel/ipu-bridge.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/ov02c10.c | 75 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 67 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 77257311d..6548691b2 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -93,7 +93,7 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTI01AB", 1, 400000000),
- 	IPU_SENSOR_CONFIG("OVTI01AS", 1, 400000000),
- 	/* Omnivision OV02C10 */
--	IPU_SENSOR_CONFIG("OVTI02C1", 1, 400000000),
-+	IPU_SENSOR_CONFIG("OVTI02C1", 2, 400000000, 399479167),
- 	/* Omnivision OV02E10 */
- 	IPU_SENSOR_CONFIG("OVTI02E1", 1, 360000000),
- 	/* Omnivision ov05c10 */
+diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
+index 0e5010303..c7a9f5da1 100644
+--- a/drivers/media/i2c/ov02c10.c
++++ b/drivers/media/i2c/ov02c10.c
+@@ -16,7 +16,9 @@
+ #include <media/v4l2-fwnode.h>
+ 
+ #define OV02C10_LINK_FREQ_400MHZ	400000000ULL
+-#define OV02C10_MCLK			19200000
++#define OV02C10_LINK_FREQ_399MHZ	399479167ULL
++#define OV02C10_MCLK_19_2MHZ		19200000
++#define OV02C10_MCLK_26MHZ		26000000
+ #define OV02C10_RGB_DEPTH		10
+ 
+ #define OV02C10_NATIVE_WIDTH		1928
+@@ -333,6 +335,22 @@ static const struct reg_sequence sensor_pll_19_2mhz_setting[] = {
+ 	{0x031c, 0x4f},
+ };
+ 
++/*
++ * With the other PLL registers as for 19.2 MHz, the link frequency is
++ * mclk * M / 19.2 MHz, M being the OP (0x0304/0x0305) and VT (0x0315/0x0316)
++ * PLL multiplier.  400 MHz would need M = 295.38 at 26 MHz; M = 295 = 0x0127
++ * gives 399.479167 MHz.
++ */
++static const struct reg_sequence sensor_pll_26mhz_setting[] = {
++	{0x0301, 0x08},
++	{0x0303, 0x05},
++	{0x0304, 0x01},
++	{0x0305, 0x27},
++	{0x0313, 0x40},
++	{0x0316, 0x27},
++	{0x031c, 0x4f},
++};
++
+ static const char * const ov02c10_test_pattern_menu[] = {
+ 	"Disabled",
+ 	"Color Bar",
+@@ -343,6 +361,32 @@ static const char * const ov02c10_test_pattern_menu[] = {
+ 
+ static const s64 link_freq_menu_items[] = {
+ 	OV02C10_LINK_FREQ_400MHZ,
++	OV02C10_LINK_FREQ_399MHZ,
++};
++
++struct ov02c10_clk_config {
++	/* External clock rate, Hz */
++	u32 mclk;
++	/* Index into link_freq_menu_items[] */
++	u32 link_freq_index;
++	/* PLL register settings for this clock rate */
++	const struct reg_sequence *pll_settings;
++	int pll_settings_length;
++};
++
++static const struct ov02c10_clk_config ov02c10_clk_configs[] = {
++	{
++		.mclk = OV02C10_MCLK_19_2MHZ,
++		.link_freq_index = 0,
++		.pll_settings = sensor_pll_19_2mhz_setting,
++		.pll_settings_length = ARRAY_SIZE(sensor_pll_19_2mhz_setting),
++	},
++	{
++		.mclk = OV02C10_MCLK_26MHZ,
++		.link_freq_index = 1,
++		.pll_settings = sensor_pll_26mhz_setting,
++		.pll_settings_length = ARRAY_SIZE(sensor_pll_26mhz_setting),
++	},
+ };
+ 
+ static const struct ov02c10_mode supported_modes[] = {
+@@ -389,6 +433,8 @@ struct ov02c10 {
+ 	struct gpio_desc *reset;
+ 	struct regulator_bulk_data supplies[ARRAY_SIZE(ov02c10_supply_names)];
+ 
++	const struct ov02c10_clk_config *clk_config;
++
+ 	/* MIPI lane info */
+ 	u32 link_freq_index;
+ 	u8 mipi_lanes;
+@@ -503,7 +549,8 @@ static int ov02c10_init_controls(struct ov02c10 *ov02c10)
+ 	ov02c10->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
+ 						    &ov02c10_ctrl_ops,
+ 						    V4L2_CID_LINK_FREQ,
+-						    ov02c10->link_freq_index, 0,
++						    ARRAY_SIZE(link_freq_menu_items) - 1,
++						    ov02c10->link_freq_index,
+ 						    link_freq_menu_items);
+ 	if (ov02c10->link_freq)
+ 		ov02c10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+@@ -598,8 +645,8 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
+ 		return ret;
+ 
+ 	ret = regmap_multi_reg_write(ov02c10->regmap,
+-				     sensor_pll_19_2mhz_setting,
+-				     ARRAY_SIZE(sensor_pll_19_2mhz_setting));
++				     ov02c10->clk_config->pll_settings,
++				     ov02c10->clk_config->pll_settings_length);
+ 	if (ret) {
+ 		dev_err(ov02c10->dev, "failed to write PLL settings\n");
+ 		goto out;
+@@ -878,8 +925,13 @@ static int ov02c10_check_hwcfg(struct ov02c10 *ov02c10)
+ 	if (ret)
+ 		goto check_hwcfg_error;
+ 
+-	/* v4l2_link_freq_to_bitmap() guarantees at least 1 bit is set */
+-	ov02c10->link_freq_index = ffs(link_freq_bitmap) - 1;
++	ov02c10->link_freq_index = ov02c10->clk_config->link_freq_index;
++	if (!(link_freq_bitmap & BIT(ov02c10->link_freq_index))) {
++		ret = dev_err_probe(dev, -EINVAL,
++				    "link frequency %lld Hz is not supported\n",
++				    link_freq_menu_items[ov02c10->link_freq_index]);
++		goto check_hwcfg_error;
++	}
+ 
+ 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
+ 	    bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
+@@ -916,6 +968,7 @@ static int ov02c10_probe(struct i2c_client *client)
+ {
+ 	struct ov02c10 *ov02c10;
+ 	unsigned long freq;
++	unsigned int i;
+ 	int ret;
+ 
+ 	ov02c10 = devm_kzalloc(&client->dev, sizeof(*ov02c10), GFP_KERNEL);
+@@ -930,9 +983,15 @@ static int ov02c10_probe(struct i2c_client *client)
+ 				     "failed to get imaging clock\n");
+ 
+ 	freq = clk_get_rate(ov02c10->img_clk);
+-	if (freq != OV02C10_MCLK)
++	for (i = 0; i < ARRAY_SIZE(ov02c10_clk_configs); i++) {
++		if (freq == ov02c10_clk_configs[i].mclk) {
++			ov02c10->clk_config = &ov02c10_clk_configs[i];
++			break;
++		}
++	}
++	if (!ov02c10->clk_config)
+ 		return dev_err_probe(ov02c10->dev, -EINVAL,
+-				     "external clock %lu is not supported",
++				     "external clock %lu is not supported\n",
+ 				     freq);
+ 
+ 	v4l2_i2c_subdev_init(&ov02c10->sd, client, &ov02c10_subdev_ops);
 -- 
 2.55.0
 
