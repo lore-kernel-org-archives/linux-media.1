@@ -1,86 +1,63 @@
-Received: from mail-wr2-f29.google.com (mail-wr2-f29.google.com [74.125.225.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA93476CE7
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 09:00:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C889C46EC7C;
+	Wed, 23 Sep 2026 09:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154056; cv=none; b=SylpZIfw0t3vm6Eze02qMAel3UxOhjfUcc8SGI89uVW0NWMrfKR5YK6LzUTtyoewrsRjwUmM5fJnJH1aDtzDDPquyLTrVgkPQEWogUuqGnOYmdK7JUz6SyG6hsADQXwoZgY8nyVYE+OQq649u1Ce7/P2WXT6Q3W7pFdPEuBffwU=
+	t=1790154197; cv=none; b=KoqZsDxqYdI5JhjGEawhWHwWiGrzvkwL9kJB6T3f+wbbp79wHEk9ZK4fde6PEVluLsqwi3PuVYo8Eaagr7vDH0PQkCa3l2siCdcAm7dzfoHJsrgQiSLYgdU4RBM/NDsMxzI+S8sFeKKAil9S7Y6ioTzY+R30kIQcdYLNKC67yl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154056; c=relaxed/simple;
-	bh=y+jlf8HC0jzi0HPwewqu9aTCsp5Qe3C5F4r8ZihI4BA=;
+	s=arc-20240116; t=1790154197; c=relaxed/simple;
+	bh=lwOsIlMSIMMhxLqlYday9G0StXwsB4a3fRxpMnydcCQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u77pTqDuJq3fy/bVbVOLTNdf7TxQPH7uo+qHktsntRb2jgQ362nL1o8aSUKnFR/irYgwa9PPlV8u2S2yKkJIXgNeZSahExmIuiu+iB0kxl7IdVAJjS1RTuPvgUUUYokEmGtlv6/Nbl8Fn4cUtwRZEXamtX3cfXinAFNOPkmVMyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DmHTxM6N; arc=none smtp.client-ip=74.125.225.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=CpESfbgzup2BWyx+MVHlV/zVE/kMMO6tvisblRkFGnL8E0ikdcPYncRrQnlDyAtLU8F31rxCPw+SMOPWA13ibj65TfLyQ3mwuWLTehmGd1u9YN/u4S00qW450FLFPBz2qAodqs1zjwlIBfi7nnqwmVVdUeQW/H/qjysVGjy9CwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=R1EC5uSH; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DmHTxM6N"
-Received: by mail-wr2-f29.google.com with SMTP id ffacd0b85a97d-482e1b30c94so110852f8f.1
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 02:00:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790154044; x=1790758844; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y+jlf8HC0jzi0HPwewqu9aTCsp5Qe3C5F4r8ZihI4BA=;
-        b=DmHTxM6NN5gNwGhjAByyJ5yPvK8n+kfdw3dXZ7BI0HB3GM3EIR/wFIBBcocOuOI+0U
-         qbr5FhP5m81nua/tDx5zZC/nGtBV+JvEKnNA3ZN4Zj0uv5yIJswWqIPupJbwn+aE6x0x
-         B5fxcYMCc7jzJN8BjhdI7Xiu9xUF6Zs7ZgSeovP3cTL1pNjkvIV2cnu4sYYGhdleaxQf
-         GE0YCCrPxjCxxGN8l3Xhovj3+DyHKQ6uM3ppKbElYLFIA45cSEcru+YSGinnsVxSlk4f
-         g2vMHdFF40yaa4C73DMm23Vfg/UmGnDe/LtsyZ6K8JPDoLoz9S0Kc9+0n3WEhjFuldUA
-         nQZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790154044; x=1790758844;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y+jlf8HC0jzi0HPwewqu9aTCsp5Qe3C5F4r8ZihI4BA=;
-        b=GyO3QLmQ9Z9NULYM52P4MQZjm7s6yOCaDKc8DzP5MpRDw1ZsmKu3Mmu32FKiQataxd
-         qbOse14vrJ7z3k35WFB4rywXhKqo7JqWvVAdTSnOOmj+vgy7HmGCpfkVtjHKXTaaWzsU
-         OaUW0msft+pnD6GI0p5BcJZQCHVt8rxzLjb2Jir1hqdONENpcJaAnbWUAyKr/HB5OPfh
-         BV2lFW/pNHVArym76TK/y6YhGgOSz7Lqi3J2dMTzOc52/5YBDxV5Qch/xrnIEO1JNRT2
-         qMfdcsZRkx1Y45/dw2+HAm8dHq97CgCYlOXL+QAR3oHFU4ASEHADK7H0VjBsisEmUTTd
-         GxgA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoV3FhDKpTUR10wVMEkZERAfkO9c/gtRsC/hBgeYWhPvTUJDFYuao2xVW0lf1bxO7yvS/iz85UcmGZZA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kuCijweIYpuEwXxrGgdCU0M2+sEPS+IqN3kiXmEmlpgH9sFSCO
-	JVD8fqHT367zmIX95TndIGoe+6rj3nRjMGF/FV0Kfb7xt6dhcpX8xo5k
-X-Gm-Gg: AYBFou2d8aNZ6kxeZmp/maGQlN4bsJTVxGk5/NzdQeAvvEZVn1j1Hxibsjm1ebK350p
-	Qv65/SZygXphTrBiTM7RmqRNIi3McC6gYuXExEZ1afWSO2RhxMWWRO4oTvov0VR/krjaijBcx84
-	Nac3+eoqmVy1j37CITCKRkYdhFUo6dxexVhZ+0j2M2bL5nIrZU/It+u51fYFzxUU9boclfb/4sd
-	Qjt0UH3dB6CNsr7D6rHGtbG77MMOv8vBK/hFCZaQRL1NcFMiHIvaokKWs8v2f+6KUF98PkyDOqW
-	a5lFBSFsIB02Q545TTgSzcRmQfOz0KAwt+5ufz7RdRnW5VEETAl+kdXg0ceKKAuvSY5ibI9oFJO
-	qGVxG+GmEME19/kulHmZxlsSDKvlA1fpFOjfJJBnzct7iBhqDOhiu7xBSCT2qJ6yM8vIO0DGppm
-	5rvnVizIu7k1ybQvIfqMlzIgAvmt50RL6yb0DfFG5DpdjeVIUP/VTOlwt/mTHMBKXYvdRv8iUlE
-	3XUsLhHVGRo97Kij8h0GSeHHzUTkYSCATKKgCMWZyfvZGlxt87DSd0eVzhned8RkcR2QnzeObyI
-	JzU=
-X-Received: by 2002:a05:6000:4a17:b0:487:803:ba34 with SMTP id ffacd0b85a97d-488670c9e54mr2673656f8f.6.1790154044255;
-        Wed, 23 Sep 2026 02:00:44 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8F4500D949869966507951.dsl.pool.telekom.hu. [2001:4c4e:1b8f:4500:d949:8699:6650:7951])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688893a0sm5538990f8f.32.2026.09.23.02.00.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:00:43 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="R1EC5uSH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790154194;
+	bh=lwOsIlMSIMMhxLqlYday9G0StXwsB4a3fRxpMnydcCQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=R1EC5uSHoYqOk5zNTXJ8bxduiHuBK+/d4+xOGnoy8giM/8T4YjSj+ZHNkRkUNC9HK
+	 ZY/QHa9itCoVDvxd5K2SDyMC6KdGDYPzb36xsj7zFtmHViX3PzTE6qUQQjeWdtxrT4
+	 Pzc1lXa4W/7e0URmfbAmywtR/EY+pfc7zmeJy3/OmjloSxEfy1/2XbmlpXJKr2ndKl
+	 TPCFC5LvjezZc4rflRxUEQWST+dBdRhbJvCGqEjCTWUToeYABmohLg4aLudOVmuWL8
+	 mYtQvQbT+g6uLSedXwhu2DK0iGQSJ9ao1rcjHP3QBTnzI+suSaG5zeUWmZ0CHgcgc7
+	 1yTD4y2YzKGUw==
+Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A73CC17E09ED;
+	Wed, 23 Sep 2026 11:03:13 +0200 (CEST)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	benjamin.gaignard@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: linux-media@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/4] media: synopsys: hdmirx: add HDMI audio capture support
-Date: Wed, 23 Sep 2026 11:00:32 +0200
-Message-ID: <20260923090033.16539-1-royalnet026@gmail.com>
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH 2/2] media: verisilicon: Remove useless internal fields
+Date: Wed, 23 Sep 2026 11:03:07 +0200
+Message-ID: <20260923090307.49959-3-benjamin.gaignard@collabora.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721064115.64809-1-royalnet026@gmail.com>
-References: <20260721064115.64809-1-royalnet026@gmail.com>
+In-Reply-To: <20260923090307.49959-1-benjamin.gaignard@collabora.com>
+References: <20260923090307.49959-1-benjamin.gaignard@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,18 +66,94 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Heiko,
+No more variants are using multiple registers regions.
+Remove the useless fields and simplify driver code.
 
-patches 1/4 (binding) and 2/4 (driver) of this series are queued in
-the media tree (media-committers next, ee6a964dca65 and d667a3c4d003)
-and are in linux-next. 3/4 and 4/4 both carry Reviewed-by from
-Sebastian and Dmitry, and both still apply to your for-next (4/4 with
-an offset).
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+---
+ drivers/media/platform/verisilicon/hantro.h   |  8 ++------
+ .../media/platform/verisilicon/hantro_drv.c   | 20 +++++--------------
+ 2 files changed, 7 insertions(+), 21 deletions(-)
 
-Could you pick up 3/4 and 4/4, or would you rather wait for the
-binding to reach mainline? I can resend them at that point if that is
-easier.
+diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
+index ffc214ff3438b..fc4eb2ae01430 100644
+--- a/drivers/media/platform/verisilicon/hantro.h
++++ b/drivers/media/platform/verisilicon/hantro.h
+@@ -75,8 +75,6 @@ struct hantro_irq {
+  * @num_irqs:			number of irqs in the array
+  * @clk_names:			array of clock names
+  * @num_clocks:			number of clocks in the array
+- * @reg_names:			array of register range names
+- * @num_regs:			number of register range names in the array
+  * @double_buffer:		core needs double buffering
+  * @legacy_regs:		core uses legacy register set
+  * @late_postproc:		postproc must be set up at the end of the job
+@@ -100,8 +98,6 @@ struct hantro_variant {
+ 	int num_irqs;
+ 	const char * const *clk_names;
+ 	int num_clocks;
+-	const char * const *reg_names;
+-	int num_regs;
+ 	unsigned int double_buffer : 1;
+ 	unsigned int legacy_regs : 1;
+ 	unsigned int late_postproc : 1;
+@@ -187,7 +183,7 @@ hantro_vdev_to_func(struct video_device *vdev)
+  *			dev_ macros.
+  * @clocks:		Array of clock handles.
+  * @resets:		Array of reset handles.
+- * @reg_bases:		Mapped addresses of VPU registers.
++ * @reg_base:		Mapped address of VPU registers.
+  * @enc_base:		Mapped address of VPU encoder register for convenience.
+  * @dec_base:		Mapped address of VPU decoder register for convenience.
+  * @ctrl_base:		Mapped address of VPU control block.
+@@ -207,7 +203,7 @@ struct hantro_dev {
+ 	struct device *dev;
+ 	struct clk_bulk_data *clocks;
+ 	struct reset_control *resets;
+-	void __iomem **reg_bases;
++	void __iomem *reg_base;
+ 	void __iomem *enc_base;
+ 	void __iomem *dec_base;
+ 	void __iomem *ctrl_base;
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 70de47ddb023b..f418b04279856 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -1080,7 +1080,6 @@ static int hantro_probe(struct platform_device *pdev)
+ {
+ 	const struct of_device_id *match;
+ 	struct hantro_dev *vpu;
+-	int num_bases;
+ 	int i, ret;
+ 
+ 	vpu = devm_kzalloc(&pdev->dev, sizeof(*vpu), GFP_KERNEL);
+@@ -1137,21 +1136,12 @@ static int hantro_probe(struct platform_device *pdev)
+ 	if (IS_ERR(vpu->resets))
+ 		return PTR_ERR(vpu->resets);
+ 
+-	num_bases = vpu->variant->num_regs ?: 1;
+-	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
+-				      sizeof(*vpu->reg_bases), GFP_KERNEL);
+-	if (!vpu->reg_bases)
+-		return -ENOMEM;
++	vpu->reg_base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(vpu->reg_base))
++		return PTR_ERR(vpu->reg_base);
+ 
+-	for (i = 0; i < num_bases; i++) {
+-		vpu->reg_bases[i] = vpu->variant->reg_names ?
+-		      devm_platform_ioremap_resource_byname(pdev, vpu->variant->reg_names[i]) :
+-		      devm_platform_ioremap_resource(pdev, 0);
+-		if (IS_ERR(vpu->reg_bases[i]))
+-			return PTR_ERR(vpu->reg_bases[i]);
+-	}
+-	vpu->enc_base = vpu->reg_bases[0] + vpu->variant->enc_offset;
+-	vpu->dec_base = vpu->reg_bases[0] + vpu->variant->dec_offset;
++	vpu->enc_base = vpu->reg_base + vpu->variant->enc_offset;
++	vpu->dec_base = vpu->reg_base + vpu->variant->dec_offset;
+ 
+ 	/**
+ 	 * TODO: Eventually allow taking advantage of full 64-bit address space.
+-- 
+2.53.0
 
-An LLM assistant helped with these checks and with this mail.
-
-Igor
