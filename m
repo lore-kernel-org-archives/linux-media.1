@@ -1,375 +1,163 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83955383F9;
-	Wed, 23 Sep 2026 13:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171138; cv=pass; b=Fa81cQ73PjTVjdMC0SZxbThJQUlE8veCz22199awWf4jKU3K44kxJXbZjlQ0/3Pf5pd1l4VmkPw5ZjjBIG4LlVcarb95WngvKr5TT1wk7BX8Mf/vfTYrXvGjvn58VdKdhlmSf+B9LCB9BDOwjf8b6eaDzkECwkhBs69y/0u9tvs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171138; c=relaxed/simple;
-	bh=pRkiTAC2G8aBEOjf8f5ZCU7GlO+mB3s5SEVhscg/uEM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nHxeM1FFRmrjEeUqwLFV9uz3nl8XSs1M6/gnOqQsUK6hZWF1dA9FTqzNo4MoXirqGzSdwkPn4XciRf4RZSvykDNCmTMo3FyYfSWRDr/ErC4jtMFPyLFqPghtUybiaNX/5EV1Unf1WAHcKn8379WfGfp6Xk0WohBK9aqqjLzYajs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Rh6W0k6z; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C79C47DD65
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 13:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171272; cv=none; b=qmxVM+//I3RzPlyC5gdPfKpruzGiHdZ2/Lpf+RJZP5/+wMQCouG0oXOhVn/lHvNtA4PF0/3ByrGqXMXZQpgNBCJYZzUy8m8LOF9uQwZ/CLQNgwEsJOD+B7mAwElIWqRFLTwGCAf9fMeTNGykZ/MXOHTvE2jISGk794jpoZQPz/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171272; c=relaxed/simple;
+	bh=6TDPy8HiYvIK8BLqW2Do+y5gjPAR8+4NGldT85qKbrU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z7iqNHMA+DGT1htq20MaLyvLDBNbaefP66Vcw8PN4a7Te4rh9zaiXJmZazRoFfMKTpi/3lB5lCmMTCnX7tz9lBmpLBKJ2WkI9giW29j/VISe8lZJraUkZwZctnEsC9OUXq4pAjgR6z8dp7AjOjX/nIUqtsCFklK5fGQryYQPs04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ouz0sEQ5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ahqJL2sH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Rh6W0k6z"
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7EB6D201A8D;
-	Wed, 23 Sep 2026 15:45:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790171129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6rr9w3URUQ0TGCGXkjnhXsYr1YK45zhyOjaHeo1XL4A=;
-	b=Rh6W0k6z5YYwWHyIJnFeR9zs3MVh6KtQEiZYhVnmp/Xwj00hLnVpwsdLQAorsvpV6iCznq
-	78nKdqXp7qdAbVVvwb6qy3PCz0nG8x2vgRk1YLOZXk0zxVk6F549LScD5hmj72LD1rEH2H
-	ZllXUhrxY2B7J+T8JivAaEBlsDmQQW2FUnniMeXT9Xp8X7AuXZkCStObt4BjcNbcZyjk3p
-	GNz54f2lSTHT9Q0tU1yqwmIuz+thHIABukz7e13X3v44NcMI18aUhtGI3lT6KNeoyWpe09
-	ImoDPVtfLPjJo0GxhtvckADRSnLeGZXg48YWYJrJmoINok16WQ5GEHJsUKuTHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790171129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6rr9w3URUQ0TGCGXkjnhXsYr1YK45zhyOjaHeo1XL4A=;
-	b=XBWKIYCDBcIFU5WTfsSV4vI+1ezibVH+Zay7y9CHGdIDsoqxSFhtzyelJYT26k+MPDpzWS
-	cauD3o4SHeePe6+/RSJDdG/aSbKHiHghWikXvaHtKERYANl7lLl9uvcuSYhRN1RqOOAw1i
-	x/lwc/ngAJoHYkE6Y1AaJKkdLMWGGWX9VyZLKVGhim1YmdDkBG+/jq9RBB4ns0oV+0zH+l
-	25js9qIs8Zc0sjDJyae02Pjosx/Ew5KL6jtA8ANrWyRMuEoWycphQKPm7jfPZbZF3cY7DA
-	O6UImxSH882Oi48XlCAvZNcCTd88Kmh1S0BAB1sTalHtvPafqxCudig2uorh/w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790171129; a=rsa-sha256;
-	cv=none;
-	b=ZtJSQLT+HPXqekhCgKmK7dlsOIBzYFUeM6/KCgTslJAhRcxW4smuVuvZG1+IK9XovhJHJ6
-	iGnMRFlQXiqXbcLai5/oWjK5xcyoroL1qpNk1takoMGLauIKevpGbvzSWK/WlROSwhlP4r
-	NUE3CNOu8LLxsQsNTxSbibxs9pJRBxpd5jiKMEBNB3ihpZdtnASDvh/K68TcXql+K8yZPa
-	jv4bX7ZHdbu+mjF2M7CalrCOdVI2bGKe3VEDwFP/nl8Lm4Uiz1k4Ilmf4xhVlUziu9K273
-	PtYJCIY4Dlmlc8lkZfS0vRQaua4ftOJTxmRru/TJwD350qC3NZnD9y62MZ1ezA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Wed, 23 Sep 2026 15:44:48 +0200
-Subject: [PATCH 9/9] media: synopsys: hdmirx: get the 5V state from the
- upstream subdev
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ouz0sEQ5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ahqJL2sH"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBc7Nw2639478
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 13:47:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=f6RI1UfnbG6hFkuz5mrr0mPm
+	fiG6vQKcsGj0ghcQRnw=; b=Ouz0sEQ5Z1EzgpA+sBFnsAqN+AmCuuWpBraGa0ZX
+	Zq3FTOOluaUz2Vgun9HijmHwHaFW4q9TIAwiRhOCAoxv7ymtmOTC1D2O+J4uqT36
+	WzkpTDUWY0JY4npF/lv2+lz/B8W6NJRCVf04y4OLypidoYWTijt5+iDJ3rAujRLh
+	MfixR9i0FMFNf2qHCo4XEhORisXX/oWv34j+OmDLk9Nfdaxvn2s6mwltomwpRo0q
+	cp3uFv2ue8vwYWPyVdcQKUElkDT+N4EyvtXv7RQLB7d8p5RetSLnhLpFqMrMvwp3
+	1bTGZZTKJXfpF1NMfH5NQ8Ymc4kEsChlUGGwDR+kkASZsQ==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv9bqhuuw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 13:47:50 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45e6091d8a1so916864fac.1
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 06:47:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790171269; x=1790776069; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f6RI1UfnbG6hFkuz5mrr0mPmfiG6vQKcsGj0ghcQRnw=;
+        b=ahqJL2sHPxJLX1HZuvlbuhM0ud5MGPsxkqoLKXvLeOqC/z7q9x8LmSF+h4uK12oVx1
+         z7Xxp9LZt0sOU1kN9XjUUw1KxuZrUohaTN3MST/GmpvLlgVK7OHq5XzZb08dcKvdWD2X
+         UqGxo/yipCACCCO8fdCuPkAzFvCMCWrKNc7ydp2t0mA2PIX3frSw4AuJff4XRBXSiU2G
+         cnYSTyoqF02J1U8NBb0gPj9+wmAQSU2o32srshqMoIfFRLiONvzPWs2Mn8y+gcWckjqU
+         GPr0R4+DIiuSm03n5QjDpHAT4dfK4RkEGw9836sY/iP2kjqr3VMpp1BPFhsyeG3pZkU3
+         3eXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790171269; x=1790776069;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f6RI1UfnbG6hFkuz5mrr0mPmfiG6vQKcsGj0ghcQRnw=;
+        b=qiK3NWETtjqP08HJ/bLQY4QaN5QM7Gi78DeeZGFFdc4BM3UKeYZ0pDiu6arBGkH85V
+         lrcP6FTPmNsj+3eFpFgq0CUOnn40ASTR9E78MYQIjmOElISe2K1b/pgIf8hXzi2YTg6V
+         DhV+xHKlMQ5nw+C2emxSLG01NxTXrcY5toxmJrdP0KTBOgW5XtpgFTy6mkkxzUJQUU/3
+         yPL74FQD4znTVGg/ExfdQ+y2FdzJZdU5ZljR5wHhzyUtFu+OD/s61g/yT/PXHxDO5buk
+         NmDcrjUItvicmaNIHuToQuGMavc13iXH2p4kCCdLrfneIlQr6hHAOgHpRf/JMtsoE4BB
+         24DA==
+X-Forwarded-Encrypted: i=1; AKwUvBwxRz7YETOO+qb7WROpzQZtf8kWy9//7jyet/yiTFx/nOfQA8Es5B5h/6UXsQGRNbViJWTEOxG7TJmd3Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++lUZObj0ofA67agVzBeTeKHAGqGV4k9M/3cCDNOHm8UnWvlDxBb
+	ig6D/IvJ9LIhX893PVa2npbs2mXFlIDLkIVB2zzjytIraL7rXskHOmX1RtvU9vDyCdFOIr3Y8Ba
+	sAXx5EteTogDFmLsoDKTQ8vZMFtav1p1/mepFC7Qq+E/APdAXV5bC5hYZdjPHU/Y6Mw==
+X-Gm-Gg: AYBFou1z9WMMblIC2FMayU0+i2no6X+EePAc17WRFtN4WwkPTv5xV6Pm0YSqzvIuU1q
+	GqEsHtyVzAmOhUbirWRi8lN/ndGTcFAwncBhxsZ14lAmtT2x/UPfQJFqx/QKE7F9ptr5NWODu+k
+	0VuAVqSW2UEokjY9JtlfinbfTDVGahSD+BMH4/lwlR7dJRK/TYieyPGhWYwQWA1iXnQUSMrOhlA
+	Tp627vYdZQJzkIcMXB7hDWkYP1l7n0C0emK3UccQ6SQGifywTFHmBr/SRSwGluqylNl96k/5qmR
+	BooDn6kR+5faVBzJHD0k5DEe4XaPRCGD0S+HGmQxd8ZG8wQU/DCIRz3/8C/Yj3vdcyvvta+c84E
+	tcF0m8X11K6K26o1XzbcA9LADzEB8bqBy2BsbBjkmTA==
+X-Received: by 2002:a05:6870:3806:b0:483:67d7:e03a with SMTP id 586e51a60fabf-49089d5da63mr2560966fac.11.1790171269633;
+        Wed, 23 Sep 2026 06:47:49 -0700 (PDT)
+X-Received: by 2002:a05:6870:3806:b0:483:67d7:e03a with SMTP id 586e51a60fabf-49089d5da63mr2560957fac.11.1790171269214;
+        Wed, 23 Sep 2026 06:47:49 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908eba2f0csm1710925fac.14.2026.09.23.06.47.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 06:47:48 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:47:41 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] media: iris: Add support for nord platform
+Message-ID: <arPYfVPIWblIayxl@QCOM-aGQu4IUr3Y>
+References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hdmirx-media-v1-9-ea3d77d4a5f3@pengutronix.de>
-References: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
-In-Reply-To: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>, 
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790171091; l=10805;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=WWCYpRiNYOounjsFxLI57fqzPdh5k5Xh1Z5Ea/U8Xck=;
- b=QXrlwe+E0uXhrCBjE+ikCsJ2wAyGoElfHb5xSAuzXpG25JPeeqj0JXmLhbUYF6RblIPCLxb6H
- SImkePSoz9+B5AEv63uvPhXT0WLgdpnlXtQy9K+BiZRggzRfQC0KC7B
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
+X-Proofpoint-GUID: CkosypiwlwTdSqSVLX25TwgvCJujuUKF
+X-Proofpoint-ORIG-GUID: CkosypiwlwTdSqSVLX25TwgvCJujuUKF
+X-Authority-Analysis: v=2.4 cv=WZuZ+EhX c=1 sm=1 tr=0 ts=6ab3d886 cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=2wm1sE6lh8PoynkbDlcA:9 a=CjuIK1q_8ugA:10 a=y8BKWJGFn5sdPF1Y92-H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfXzukFWtqwwNo2
+ xsRqbzdgbWD/hFZy2HXntWZaI1cEM/WkWOIWZPhBRH1/G9oxWMjC1Ug3X2kYEEhPfkGLG2vNHsy
+ KGAuaReAjfSfYMeo/eTNN537Uh+dJgg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfX0HJ52BbWfsCF
+ 3uo5vcQEh18tu+tuGTDrlAfmXSjdedRQ2aI7ZHFEBFwkBT5shpS2Wfok4l0752LilhH6HhPog+e
+ pJq8S4FAAUQfOg+m2sd9dUAMnabpvC4BsAWiKFiabZkN1BD3Y9QFGmmH+SbXpfxZctfsq85zs4F
+ NE69xOfjOE/kMzMB0Nb94g9yhH6yJ5YzTxVEiMcYzTdfNe0IN/W1o1UocCcGwdCTX3u763e5FkF
+ Y33kQf5aYIazwk/hlm9tS9eW88Hp+b9UP+HZdtnkWYiBuYUTYCNwJQ33T6YUGpTv8JShY+30opp
+ Nhkvj0GCtVUc5VZZ9FW4EsANi1B39UdIX6D5gr+I6R1/6Wuz/X0jbgHWgnWhy8shUV9QZ0tJ3Kg
+ N4GaW7JOutDhjaWmI87N+zozqwLQL/uWsojFb6FUCsjS2+cAouoOs12Ug/hHQqv9VIRY13Gn8JH
+ ljslK/UC5iH/8QwMrCw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230054
 
-From: Gerald Loacker <gerald.loacker@wolfvision.net>
+On Sat, Sep 19, 2026 at 10:14:54AM +0530, Vishnu Reddy wrote:
+> The nord platform integrates the Qualcomm iris video codec hardware,
+> which is compatible with the glymur based iris implementation.
+> 
+> This series reuses the glymur DT schema to accommodate nord iris
+> support and adds the required iris device tree node to the relevant
+> nord device tree.
 
-On a board whose HDMI connector belongs to a device in front of this
-receiver, the connector's +5V line goes to that device and hpd-gpios is
-absent. tx_5v_power_present() then reads a NULL descriptor, which
-gpiod_get_value_cansleep() reports as zero, so the receiver never sees a
-source and hdmirx_plugin() never runs.
+[...]
 
-Have the device in front tell us. Once it is bound through our async
-notifier its sd->v4l2_dev is ours, so v4l2_subdev_notify() lands in the
-callback installed here, and V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT stands
-in for the 5V interrupt this board does not have. Remember what arrives
-in source_5v, which tx_5v_power_present() returns when there is no GPIO
-of our own, so everything else carries on unchanged and no pointer into
-the other device is kept.
+> Vishnu Reddy (4):
+>       dt-bindings: media: qcom,nord-iris: Add nord video codec
 
-A notification is an edge, so it says nothing about a source that was
-connected all along. Ask g_input_status() once at bind and take
-V4L2_IN_ST_NO_POWER as the answer. A subdev without that op is bound
-anyway: a receiver that sees no source beats one that refuses to probe.
+The binding should go through media subsystem. That said, this series
+should be named with "arm64: dts: qcom: ..." and only contain the 3 DTS
+patches.
 
-Without a det_irq there is nothing to disable_irq() across the cancel in
-hdmirx_disable_irq(), so a notification can arm the hotplug work right
-afterwards - including from hdmirx_suspend(), on its way to gating the
-clocks. Gate both workers on hotplug_on under work_lock instead. It
-starts clear, which also keeps them off the hardware during probe, where
-hdmirx_fwnode_bound() can arm the work well before the EDID is written.
+Shawn
 
-The flag is not enough on the way out. The worker still has to reach
-work_lock to read it, and hdmirx_fwnode_unbind() arms the work once more
-from inside v4l2_async_nf_unregister(), after hdmirx_disable_irq() has
-already cancelled it. hdmirx_dev is devm allocated, so by the time the
-worker runs it can be gone. Cancel the work again once the notifier is
-unregistered, in hdmirx_remove() and in the probe error path.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 121 ++++++++++++++++++++-
- 1 file changed, 118 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 23b4dd853be57..43d7857b4458b 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -142,6 +142,7 @@ struct snps_hdmirx_dev {
- 	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
- 	struct mutex stream_lock; /* to lock video stream capture */
- 	struct mutex work_lock; /* to lock the critical section of hotplug event */
-+	bool hotplug_on; /* under work_lock: the hardware is up, workers may run */
- 	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
- 	struct clk_bulk_data *clks;
- 	struct regmap *grf;
-@@ -160,6 +161,7 @@ struct snps_hdmirx_dev {
- 	bool hpd_trigger_level_high;
- 	bool tmds_clk_ratio;
- 	bool plugged;
-+	bool source_5v; /* 5V as last reported by the subdev in front of us */
- 	int num_clks;
- 	u32 edid_blocks_written;
- 	u32 cur_fmt_fourcc;
-@@ -237,6 +239,15 @@ static bool tx_5v_power_present(struct snps_hdmirx_dev *hdmirx_dev)
- 	int val, i, cnt = 0;
- 	bool ret;
- 
-+	/*
-+	 * Without a GPIO of our own the connector belongs to the subdev in
-+	 * front of us and there is no line here to sample, so sampling is
-+	 * reading back what that subdev last told us. Nothing to debounce:
-+	 * it did that on its side of the connector.
-+	 */
-+	if (!hdmirx_dev->detect_5v_gpio)
-+		return READ_ONCE(hdmirx_dev->source_5v);
-+
- 	for (i = 0; i < 10; i++) {
- 		usleep_range(1000, 1100);
- 		val = gpiod_get_value_cansleep(hdmirx_dev->detect_5v_gpio);
-@@ -2227,6 +2238,11 @@ static void hdmirx_delayed_work_hotplug(struct work_struct *work)
- 				  delayed_work_hotplug.work);
- 
- 	mutex_lock(&hdmirx_dev->work_lock);
-+	if (!hdmirx_dev->hotplug_on) {
-+		mutex_unlock(&hdmirx_dev->work_lock);
-+		return;
-+	}
-+
- 	plugin = tx_5v_power_present(hdmirx_dev);
- 	v4l2_ctrl_s_ctrl(hdmirx_dev->detect_tx_5v_ctrl, plugin);
- 	v4l2_dbg(1, debug, &hdmirx_dev->v4l2_dev, "%s: plugin:%d\n",
-@@ -2249,6 +2265,11 @@ static void hdmirx_delayed_work_res_change(struct work_struct *work)
- 				  delayed_work_res_change.work);
- 
- 	mutex_lock(&hdmirx_dev->work_lock);
-+	if (!hdmirx_dev->hotplug_on) {
-+		mutex_unlock(&hdmirx_dev->work_lock);
-+		return;
-+	}
-+
- 	plugin = tx_5v_power_present(hdmirx_dev);
- 	v4l2_dbg(1, debug, &hdmirx_dev->v4l2_dev, "%s: plugin:%d\n",
- 		 __func__, plugin);
-@@ -2272,17 +2293,39 @@ static void hdmirx_delayed_work_res_change(struct work_struct *work)
- 	mutex_unlock(&hdmirx_dev->work_lock);
- }
- 
--static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-+/*
-+ * A 5V edge. Neither source of one says more than "look again": the
-+ * hotplug worker samples tx_5v_power_present() and acts on what it finds.
-+ */
-+static void hdmirx_5v_edge(struct snps_hdmirx_dev *hdmirx_dev)
- {
--	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
--
- 	queue_delayed_work(system_dfl_wq,
- 			   &hdmirx_dev->delayed_work_hotplug,
- 			   msecs_to_jiffies(10));
-+}
-+
-+static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
-+
-+	hdmirx_5v_edge(hdmirx_dev);
- 
- 	return IRQ_HANDLED;
- }
- 
-+/*
-+ * The same edge from a subdev in front of us, on a board where the
-+ * connector is its and not ours. It has no line here to leave asserted for
-+ * the worker to sample, so remember what it saw on its side.
-+ */
-+static void hdmirx_5v_source_edge(struct snps_hdmirx_dev *hdmirx_dev,
-+				  bool present)
-+{
-+	WRITE_ONCE(hdmirx_dev->source_5v, present);
-+
-+	hdmirx_5v_edge(hdmirx_dev);
-+}
-+
- static const struct hdmirx_cec_ops hdmirx_cec_ops = {
- 	.write = hdmirx_writel,
- 	.read = hdmirx_readl,
-@@ -2525,6 +2568,17 @@ static void hdmirx_disable_irq(struct device *dev)
- {
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Disabling det_irq is what stops the work being armed again, but
-+	 * there is no det_irq when the 5V state comes from a subdev: it can
-+	 * notify us into hdmirx_5v_source_edge() right after the cancel
-+	 * below. Have the workers bail out instead. They take work_lock
-+	 * first thing, so anything queued from here on sees this.
-+	 */
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	hdmirx_dev->hotplug_on = false;
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
- 	if (hdmirx_dev->det_irq > 0)
- 		disable_irq(hdmirx_dev->det_irq);
- 	disable_irq(hdmirx_dev->dma_irq);
-@@ -2538,6 +2592,15 @@ static void hdmirx_enable_irq(struct device *dev)
- {
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Also the first time the workers are let in: hdmirx_fwnode_bound()
-+	 * can arm the hotplug work from within hdmirx_probe(), well before
-+	 * the EDID is written and HDCP is registered.
-+	 */
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	hdmirx_dev->hotplug_on = true;
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
- 	enable_irq(hdmirx_dev->hdmi_irq);
- 	enable_irq(hdmirx_dev->dma_irq);
- 	if (hdmirx_dev->det_irq > 0)
-@@ -2673,6 +2736,18 @@ static int hdmirx_register_cec(struct snps_hdmirx_dev *hdmirx_dev,
- 	return 0;
- }
- 
-+static void hdmirx_notify(struct v4l2_subdev *sd, unsigned int notification,
-+			  void *arg)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(sd->v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
-+
-+	if (notification != V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT || !arg)
-+		return;
-+
-+	hdmirx_5v_source_edge(hdmirx_dev, !!*(unsigned int *)arg);
-+}
-+
- static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 			       struct v4l2_subdev *subdev,
- 			       struct v4l2_async_connection *asc)
-@@ -2680,6 +2755,7 @@ static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 	struct snps_hdmirx_dev *hdmirx_dev =
- 		container_of(notifier, struct snps_hdmirx_dev, notifier);
- 	int source_pad;
-+	u32 status;
- 	int ret;
- 
- 	source_pad = media_entity_get_fwnode_pad(&subdev->entity,
-@@ -2699,6 +2775,23 @@ static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 		return ret;
- 	}
- 
-+	if (hdmirx_dev->detect_5v_gpio)
-+		return 0;
-+
-+	/*
-+	 * Changes arrive through hdmirx_notify(). Ask once for the state a
-+	 * source connected before we bound is already in.
-+	 */
-+	ret = v4l2_subdev_call(subdev, video, g_input_status, &status);
-+	if (ret) {
-+		dev_err(hdmirx_dev->dev,
-+			"%s did not report the input status and there is no hpd-gpios, no source will be detected: %d\n",
-+			subdev->name, ret);
-+		return 0;
-+	}
-+
-+	hdmirx_5v_source_edge(hdmirx_dev, !(status & V4L2_IN_ST_NO_POWER));
-+
- 	return 0;
- }
- 
-@@ -2710,8 +2803,24 @@ static int hdmirx_fwnode_complete(struct v4l2_async_notifier *notifier)
- 	return v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
- }
- 
-+static void hdmirx_fwnode_unbind(struct v4l2_async_notifier *notifier,
-+				 struct v4l2_subdev *subdev,
-+				 struct v4l2_async_connection *asc)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(notifier, struct snps_hdmirx_dev, notifier);
-+
-+	/* With a GPIO of our own the connector is ours and stays put. */
-+	if (hdmirx_dev->detect_5v_gpio)
-+		return;
-+
-+	/* The source went with it. */
-+	hdmirx_5v_source_edge(hdmirx_dev, false);
-+}
-+
- static const struct v4l2_async_notifier_operations hdmirx_async_ops = {
- 	.bound = hdmirx_fwnode_bound,
-+	.unbind = hdmirx_fwnode_unbind,
- 	.complete = hdmirx_fwnode_complete,
- };
- 
-@@ -2806,6 +2915,7 @@ static int hdmirx_probe(struct platform_device *pdev)
- 		goto err_pm;
- 	}
- 	hdmirx_dev->v4l2_dev.ctrl_handler = hdl;
-+	hdmirx_dev->v4l2_dev.notify = hdmirx_notify;
- 
- 	ret = v4l2_device_register(dev, &hdmirx_dev->v4l2_dev);
- 	if (ret < 0) {
-@@ -2890,6 +3000,8 @@ static int hdmirx_probe(struct platform_device *pdev)
- 	v4l2_async_nf_unregister(&hdmirx_dev->notifier);
- err_cleanup_notifier:
- 	v4l2_async_nf_cleanup(&hdmirx_dev->notifier);
-+	/* Binding and unbinding both arm the hotplug work. */
-+	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
- err_unreg_media:
- 	media_device_unregister(&hdmirx_dev->mdev);
- err_unreg_video_dev:
-@@ -2926,6 +3038,9 @@ static void hdmirx_remove(struct platform_device *pdev)
- 	v4l2_async_nf_unregister(&hdmirx_dev->notifier);
- 	v4l2_async_nf_cleanup(&hdmirx_dev->notifier);
- 
-+	/* The unbind above arms the hotplug work again. */
-+	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
-+
- 	media_device_unregister(&hdmirx_dev->mdev);
- 
- 	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
-
--- 
-2.47.3
-
+>       arm64: dts: qcom: nord: Add iris video node
+>       arm64: dts: qcom: nord-ride-embedded: Enable iris video codec node
+>       arm64: dts: qcom: nord-rrd: Enable iris video codec node
+> 
+>  .../bindings/media/qcom,glymur-iris.yaml           |   6 +-
+>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi        | 114 +++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/nord-ride-embedded.dts    |   6 ++
+>  arch/arm64/boot/dts/qcom/nord-rrd.dts              |   6 ++
+>  4 files changed, 131 insertions(+), 1 deletion(-)
