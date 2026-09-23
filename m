@@ -1,90 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B795443E5E
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 06:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2B0418353;
+	Wed, 23 Sep 2026 06:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145008; cv=none; b=mrSM37weKBtXZOGfIuI6yKqKZvkVReDM2lrou8Zq5DlS3a3xuGWbuYTeKtS7/+WqoFmFmJTf1PIMalF8llS0q4tXlJm0/IkOt2zEOjwNjuqHHrX+LScgEH85BcNj64t9Xd8JnOk6b8Y9mGA2cQ+wuma6F51Nceoml86tmarBClI=
+	t=1790145305; cv=none; b=VlAsIecK+V+A7vUBGtrQkSe3cMnJeIuCQc9zMBAumvsaOd6aOg8hHgbdojVIMItq1S5lLoyYM5EoamEs0RKWQcvQIJuBJf3cb1WGn3xdHB0FdIKo+0QaxlySGmtc5HEn1SFzl1FIZ5Eo0Y++A8j8p1fboN7aj1BPGvnzOYte6Do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145008; c=relaxed/simple;
-	bh=2YpYB+A/Bp+mnoyPS7FX+nmsmXarx23M4ztmEAqb3kw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nj1fd2jUQkR9/YlXRlhaXUURtLNpAS8vL8t47r/IQzhZ4RR5GzZabNnL3OoHn2FHgiUrX4HyDFNO2dYLzQT773ZZqQ4R8qjMr0PSZRnp+4g/L8ugTPI2j5ydUa1tbe0c+s5aclvrTgTfB1uxycGB85fpzJudZN2lmuuQ71jzP+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrJOPrms; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790145305; c=relaxed/simple;
+	bh=GWYsgKK1XWP4mP4XbwohBZs+CPoI7Mu3Lzvr7Bc+R8M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=baXzB/yv2XN8O7q0fiBqPU81jZZuEnbsQdbr0/AXTdOr488iOcZc1vSE+79GKGQAGRYqhDPIQC8r6ElfDgbA5uPbPjIpoZA+y9/HVQGFD7holnsIvmgB1WqOk6Zd4QKuXPPvXzeJpG2+vSCGj2WneU7kc34kKYvBF4DCYSTA6zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CBZo47nS; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrJOPrms"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2EEC1F000FF;
-	Wed, 23 Sep 2026 06:30:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790145002;
-	bh=TCgqusoGl0Zo3wQEpeN4NyfmEFfvAwa1DCGMuENxbnw=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=OrJOPrmsdd3EiPsP4EMxErUQ14DGHWeODQjiMH4I8HJKuv9y0FyzIdzZcIviz1iOT
-	 mtcl6/96ecc+/NgWF+YJqbQUj4M6NwCSynmKY/F8EBV0sdw+k5dnr/IOxRgFvdIP/v
-	 SbCjqKiuoV4CrAfQ+qFCQr2azY6XKqeUzTAXJ2odjMFZIpBgyYu3EwPIkEQakqQ8ba
-	 6eSEmve4b9ALcu9T8ZKaG3UKLBwplDWMkJme4KWAAYDuTLFVynmP6P8hr22ITyoTyZ
-	 Lkv/ZJuxBTYsAXfZ9s2oiMiQI2/YrfgA6KZhuCxhkxj2EaZbpjnI0VXGFblDxkZq3s
-	 XMKvZpJ4PDS/Q==
-Message-ID: <7be9601a-cd2e-43b8-abd3-96dd2cc8a38f@kernel.org>
-Date: Wed, 23 Sep 2026 08:29:58 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CBZo47nS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790145302; x=1821681302;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=GWYsgKK1XWP4mP4XbwohBZs+CPoI7Mu3Lzvr7Bc+R8M=;
+  b=CBZo47nS67maDYbTxqy4dbU2InO8SRerp/y8revrnMfyQ4nh2wO5ZaXw
+   pFCAMBfurXsLKnFAlnH8gOYnDsjihZ2O3P+Sn29hZtlTx/+CBUSvkZab4
+   8Cp1DjCZWt63r81M5U+eBCz2JILSaZkVrVnZdOmWIG/Z5rOG6+2HmuxaX
+   qOqll1FDAhxMC05biXwYtfd3U3AyghXen9i5SIeB9QA7dPKD8Kmkn9svw
+   L1CuYNZDz9mp/ra/10tRUdHEYkMSwNE7ldxxR5XsFnViByFhuh7bi76zs
+   yNEWuQMSmglptc5kIkH8M4thlCB72pNwIpRoKAYC5UhU7OgETz/pCufKW
+   w==;
+X-CSE-ConnectionGUID: A1LpSN3kQNy04vUnA8g6Hg==
+X-CSE-MsgGUID: 2KlHMvENQdeZQ1GYFqHOQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="94629195"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="94629195"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 23:34:56 -0700
+X-CSE-ConnectionGUID: n+bhhXS0RYid28BphX9BBw==
+X-CSE-MsgGUID: 8ORw50uaTlyKY5/lJYxudg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="4758762"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 23:34:54 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 1C34A120370;
+	Wed, 23 Sep 2026 09:34:54 +0300 (EEST)
+Date: Wed, 23 Sep 2026 09:34:54 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: =?iso-8859-1?Q?C=E9dric?= Bellegarde <cedric.bellegarde@adishatz.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	kieran.bingham@ideasonboard.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [PATCH] media: v4l2-async: link ancillary device runtime PM to
+ the sensor's
+Message-ID: <arNzDkG8JmIWedwF@kekkonen.localdomain>
+References: <20260922-sensors_pm-v1-1-05adf2098b5e@adishatz.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: RFC: Remove gspca and old ISA radio drivers
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
-References: <8d8203ba-a406-4730-9493-dbab8b3ec831@kernel.org>
- <20260922155509.GA2471124@killaraus.ideasonboard.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260922155509.GA2471124@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922-sensors_pm-v1-1-05adf2098b5e@adishatz.org>
 
-On 22/09/2026 17:55, Laurent Pinchart wrote:
-> Hi Hans,
+Hi Cédric,
+
+On Tue, Sep 22, 2026 at 09:39:12PM +0200, Cédric Bellegarde wrote:
+> When a sensor's fwnode references an ancillary lens or flash device
+> (e.g. via the "lens-focus" or "flash-leds" properties),
+> v4l2_async_create_ancillary_links() already creates a media controller
+> link between the two entities, but their runtime PM states remain
+> independent.
 > 
-> On Tue, Sep 22, 2026 at 05:37:03PM +0200, Hans Verkuil wrote:
->> Hi all,
->>
->> Would there be any objection to removing the gspca driver for all those old
->> webcams with horrible quality and that nobody should be using anyway, and
->> for the old ISA radio drivers where I am pretty sure I'm the only one that
->> can actually test them (and even that is questionable).
->>
->> I could move them to staging/deprecated for a kernel cycle, but to be honest
->> I think we should just kick them out.
+> This is a problem for devices such as VCM lens actuators, which are
+> typically spring-loaded: holding a position away from the spring's
+> rest point requires continuous power, and the position is not retained
+> once power is cut. If such an actuator is allowed to runtime-suspend
+> independently of the sensor, the lens can drift back to its rest
+> position during an otherwise active capture session.
 > 
-> No objection from me. gspca doesn't bother me though, as it's quite
-> self-contained. I would be happier to see the em28xx driver go when it
-> will be time, as it's one of the few users of some legacy subdev APIs I
-> would like to drop. As far as I understand, that driver is however more
-> widely used.
+> Add V4L2_SUBDEV_FL_PM_LINK to allow an ancillary subdevice to request
+> that its runtime PM state be linked to the associated sensor.
 
-That's still in use, and quite a lot too. I still get patches adding support
-for new em28xx products. If you want to get rid of legacy in that driver,
-then it is best to get em28xx based hardware and make patches. This driver
-won't go away any time soon.
+Interesting idea.
 
-> 
->> It also allows me to throw away a lot of old hardware and make some room for
->> new hardware :-)
-> 
-> I wonder if some computer science museums would have an interest in
-> those. I suppose they're not the most interesting devices.
-> 
+The IPU bridge has created such a device link between the VCM and the
+sensor as on some ACPI systems the VCM is in fact relying on the power
+resources of the sensor. But to do this everywhere?
 
-Not old enough, and not special enough.
+VCMs traditionally have been powered through opening their sub-device node
+and that hasn't been exactly neat API-wise. It has been practical still,
+AFAIK, as in order to control the VCM, you have to have a sub-device node
+open.
 
-Now, I also have one of the first consumer webcams (Connectix QuickCam,
-parallel port, grayscale), that one might indeed be of interest for a museum.
+This change also does mean that if the sensor is powered, even for
+always-on use cases that generally consume very little power, the VCM is
+powered on as well. VCMs still typically consume very little power if the
+current is configured to zero. Maybe this won't be an issue? Backtracking
+from such a change wouldn't be simple, and might not be possible at all.
 
-Regards,
+There wouldn't be a need for a sub-device flag and this would be done for
+all VCMs based on the ancillary link.
 
-	Hans
+I wonder what others think.
+
+Cc Laurent and Hans as well.
+
+-- 
+Kind regards,
+
+Sakari Ailus
