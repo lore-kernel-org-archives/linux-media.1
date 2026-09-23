@@ -1,160 +1,204 @@
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D953A3E4113;
-	Wed, 23 Sep 2026 19:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D119566C6A;
+	Wed, 23 Sep 2026 19:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191506; cv=none; b=A6VCk2nOsbAxwiPQ7wy1Q2S7+mZMJii17lwvfD1TQXAa3Wa5iXnAiz1liSskLI1eXoWofx/RhNkZyVEmkiqKh2RSdtTA8jvhdrEjPEDe8r5z9alMkIjxvZWikxnIEG2NhhL2XHY/6N9G8cgEnTCcytLB6UdrJ8pSCRilRd+bBm0=
+	t=1790192307; cv=none; b=iAopKzKlTFMNGisG2KhicVQexw9gu5h29TWi57gICzoqeMNb3i50xjrk6l1ffPgBFytEtVLV9RXLs35zLhdsbI24OcllGus70ahBkV3W81gH5Lzkl5s0Mzt+I2cg2W+m02UkhoFdQbSwwM4x9cXfs7OTZrm8yW9Iy2jBL0KCWeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191506; c=relaxed/simple;
-	bh=CbucsJ+3HVCo+fnBVTshq59m5J/OWoM++tK/0t2rhGc=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=cSVM6ON1EGWiy50Z6JFQtu0sRMTTRuxI0FsCaCCk/QwvBJX9RE+fUEd8nilX5bg4xbSqtMSYCD0xFJVEXDpdatUg3r4FWBFm6ReyrIdQtqZh11WFnj3/ujhxWpWf5cqgS9QQ/0w8mQLn0l/i4J4ZtWg+CgcFCQBduRGnCL1W5pQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=DRPibJSX; arc=none smtp.client-ip=217.72.192.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1790192307; c=relaxed/simple;
+	bh=BsVuZG2c0C92SgB1NvIbQETdqp6iPstt+5m3J+PF/V0=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=gIii2OUkRQ4T4RMFFsXkyuLfmbWDHzFM+QHY2JstH6yHV0N8QPocw9AKcToG+mRjcklKLJ69ZKeUaBpVcBSebLEGvSIlHIzBFKGXEJS8DJ/DaFP2LmhoNbeuJEBmjWjdH3gCNhJgtNVErTFT8nONVWHdLdPHCkJA+8dNlgD4yZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=aUFKbE68; arc=none smtp.client-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="DRPibJSX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1790191490; x=1790796290; i=markus.elfring@web.de;
-	bh=CbucsJ+3HVCo+fnBVTshq59m5J/OWoM++tK/0t2rhGc=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=DRPibJSXlNIWxEZ9ayFdaJs15bJfm//UfiiS3OtWOi4/JgCUMc3BOuW6T7umWA7P
-	 txyksBDDwLThyvo4bjkAsyzBm24fSXkYGTmFeBCrVOzcUbjJQixq9IeXGnegjqZG4
-	 HzXmMcg7APR5vhpPPiFAgnC23SKjx/wYCL85lzacU0qvDqzK8K4eujfax4+AFoFk7
-	 ObtfRzFlTOpcXYl7EExdOXdfM5oJ+q/tYe7mHYcrjSsVL+rynokst+gYLHm19zyXz
-	 BKfXpkyfcBIX2yYguPNC69duezcNCoh4zFeL4lzlcw/fbZZhJjNAigJHQGOmWYPXZ
-	 fqZF8BY2w7ZQ91b6TA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N01ds-1wn80y1bLq-00qrVf; Wed, 23
- Sep 2026 21:24:50 +0200
-Message-ID: <fd2d47a1-b85a-4fd2-89db-fbf3a126d730@web.de>
-Date: Wed, 23 Sep 2026 21:24:48 +0200
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="aUFKbE68"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790192303; x=1790451503;
+	bh=ZodIG2fPXJElfR7q3j6yicmN2/cFeHNbtwStwyUSoFE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=aUFKbE68Ao3hzzmi0PYQLwo1ct902DcyaMSeJtALMLGhIXWTfXGbT+RS1m7irime0
+	 fJUs6P79QFexJEPoPsXX7iO9/mqDLYm/S6iQcIck2HHhrqbdOjxjeb2g2e7V1QUcNZ
+	 LBoChmhzxHpeEQozoh/LO4GOLNI3Bp625KuJoKRQjLlvuhdKT7K0ysgKHuGLICYhT4
+	 vHweAoePBRhkcM5Vd98ORlow2K0qwSFAjz6wwvdAyIzX0P5iT1Jl/ViVrgPLqh4mBG
+	 ULqAJt1NA7hfEWzx4roT7xB+XU0cfAE3Qc3ICUfF3gVm8jkaZkkMraI2qs+gmmH24t
+	 bFTxyBQ4jocig==
+Date: Wed, 23 Sep 2026 19:38:15 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20260923193805.83998-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 22dfcc20cebb33191449d07f72a4c9ae15ad9c38
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Ginger Li <ginger.jzllee@gmail.com>, linux-media@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Cc: LKML <linux-kernel@vger.kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>
-References: <20260923083729.64831-1-ginger.jzllee@gmail.com>
-Subject: Re: [PATCH] media: exynos4-is: Fix a race between s_stream(0) and the
- interrupt handler
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260923083729.64831-1-ginger.jzllee@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:Br3p51EyQNHCsR2s6TbApZmppOtvtxGqVAB2IiMUg4yoD5C9opm
- OR3l6RHOAjvpg/NSI3MU5WtHdP2tIvpkF/vHmexQ1uQWA6Rr6ln2JO3DQR9Ekg7IzqOLHON
- O/VVXAJS7fd9rZ9bIXhuGD4HdQrRtvv1ZMQvGwVT5kWm9Ib9EEayq/COoB4vbKvS/xTsc4F
- il94z7D6A4AYgxyih5Kng==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:1WiTbawrvgg=;lxJd+wE5pYB0/HlzhV0JW8FHa4e
- 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
- ToWS
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> Fixes: 6319d6a ("[media] fimc-lite: Add ISP FIFO output support")
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
+or
+Business (Intel Lunar Lake, IPU7), ACPI device SONY0681. Without a driver t=
+he
+camera does not appear at all.
 
-Why did you specify a short hash for such a tag?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?h=v7.3-rc4#n157
+  1/3  dt-bindings: media: Add Sony IMX681            (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre Gilerson's)
+  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
 
-Regards,
-Markus
+The driver is Andre's work, reverse-engineered from I2C traces taken under
+Windows. I am carrying the submission, not the code.
+
+Changes in v6
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Sakari Ailus's review of v5 2/3, all of it bar two points I have answered i=
+n
+that thread instead of applying.
+
+The pixel rate is measured now, not computed. He saw that the part runs two
+PLLs, so a rate taken from the CSI-2 link describes the wrong clock: the ol=
+d
+value implied 16.16 fps against a cover claiming thirty. The sensor times a=
+t
+29.95 fps, which at LINE_LENGTH_PCK x FRAME_LENGTH_LINES is 720,000,000.
+Deriving it from the video-timing PLL instead does not work either: its
+dividers are at the CCS addresses without the CCS meaning, and the formula
+gives 180 MHz for a part running at thirty frames a second. So v6 carries
+the measurement, and a comment saying why there is no formula.
+
+The CCS registers are named for what ccs-regs.h calls them, which turned up
+two more partial writes: 0x0307 is the low byte of the 16-bit PLL_MULTIPLIE=
+R
+and 0x030d the low byte of OP_PRE_PLL_CLK_DIV, each right only while its hi=
+gh
+byte held the reset value - the same fault the crop registers had in v5. Bo=
+th
+are written whole now, after reading them back to confirm nothing moves.
+imx681_init_regs[] keeps only what is the vendor's.
+
+Blanking, orientation and the first exposure come from controls rather than
+that list: HBLANK and VBLANK give line and frame length, both flips drive
+IMAGE_ORIENTATION and the media bus code. Group hold is gone - it wrapped
+single-register writes and bought nothing. The exposure maximum is a margin
+below the frame length, so a dynamic frame length works. The rest follows h=
+is
+list: the runtime-PM shape in probe and remove, endpoint parsing by id, the
+debug prints, the error paths.
+
+2/3's commit message was rewritten to describe the patch; what it used to
+carry is here.
+
+Two changes are not from that review. Both are things the driver told
+userspace that were not true, and both were found by asking the part.
+
+imx681_get_selection() answered all four targets with the same rectangle at
+the origin, while the init sequence puts the window at (100, 256) - which
+became obvious once the CCS registers were named. The part settles it:
+X_ADDR_MIN, X_ADDR_MAX, Y_ADDR_MIN and Y_ADDR_MAX read 8, 4039, 64 and 3087=
+,
+so 4032x3024 of readable array at (8, 64) with the 3844x2640 window inside
+it. CROP and CROP_DEFAULT now report the window, CROP_BOUNDS the readable
+area, and NATIVE_SIZE the smallest rectangle containing that, since what li=
+es
+beyond is undocumented. libcamera stops defaulting PixelArraySize and
+PixelArrayActiveAreas as a result.
+
+And the test-pattern menu offered two modes that cannot work. "Solid Colour=
+"
+shows TEST_DATA_RED and its three neighbours, which reset to zero and which
+nothing ever wrote, so the mode could only ever produce a black frame; the
+four V4L2_CID_TEST_PATTERN_* controls are added, defaulting to white as
+imx219 does, and the mode now shows what it is asked for. PN9 produced a
+black frame where modes 2 and 3 produced their patterns, and
+TEST_PATTERN_CAPABILITY reads zero on this part so it cannot be asked, so
+that entry is dropped rather than advertised.
+
+Checked
+=3D=3D=3D=3D=3D=3D=3D
+
+Built into a kernel from this series and booted on the machine. 2/3's
+imx681.c and the file that built the running module hash to the same bytes.
+That kernel also carries the vd55g0 and ov13858 work in flight on this list=
+,
+so the numbers below come from a build with all of it in - and imx681.c in
+that build is byte for byte what 2/3 adds.
+
+  v4l2-compliance 1.32.0 on the sensor subdev:
+  Total for device /dev/v4l-subdev5: 46, Succeeded: 46, Failed: 0, Warnings=
+: 0
+
+400 frames at 29.97 fps, and the sensor's own eight-bar test pattern reads
+mean 124.1 of 255 with eleven distinct values across a row. A live frame
+takes longer than that to arrive: from a cold boot the exposure starts at
+the minimum, and libcamera's generic AGC needs about four hundred frames to
+open up - at three hundred it is still at exposure 136 of 3173 and the fram=
+e
+is black. After that it renders as the room. Runtime PM reads suspended wit=
+h
+usage 0 after probe, active with usage 1 while streaming, and back after.
+
+checkpatch --strict, sparse and W=3D1 are clean on 2/3 and 3/3; 1/3's only
+warning asks whether MAINTAINERS needs updating, which 2/3 does.
+
+Also built with KASAN, PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and DEBUG_OBJECTS
+and exercised on that kernel: compliance again 46 of 46, then streaming,
+start and stop four times over, every control including the new ones,
+unbind and rebind, and an s2idle suspend and resume with a capture after
+it. No splat from this driver in any of it. The one the boot does produce
+is a circular locking dependency in iwlmld's thermal zone, which is not
+ours.
+
+The three control laws came off the Windows traces and had never been
+checked against the part, so they were measured on it - raw V4L2 off the
+ISYS node with the IPA out of the way, since libcamera's AGC otherwise
+overwrites exposure and gain. Analogue gain follows 1024/(1024-code) to
+within 0.5% over eleven codes, and code 960, the cap, is 16.008x. Digital
+gain follows value/256 to within 0.5% from 1x to 16x. Exposure fits
+0.043814 x lines + 0.045, an intercept worth 0.10% of the signal at a
+thousand lines, with residuals inside 0.14% from 400 lines upward.
+
+Limitations: one machine, one sensor sample, one mode
+(3844x2640, SRGGB10 by default and following the flips, 969.6 MHz per lane)=
+,
+dummy dvdd and dovdd from INT3472 so the fatal regulator path is reasoned
+rather than exercised, and no IVSC HID present.
+
+Still open: Andre Gilerson's ack on the binding, which Krzysztof asked for =
+and
+which is properly his. He is back from 28 September and is on Cc.
+
+Based on media/next at aedd77ea8168 ("media: qcom: camss: use
+fwnode_graph_for_each_endpoint_scoped() to simplify code"), still the tip o=
+f
+that branch today.
+
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       |  107 ++
+ MAINTAINERS                                   |    7 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx681.c                    | 1003 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |    2 +
+ 6 files changed, 1130 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
+
+--=20
+2.54.0 (Apple Git-157)
+
+
