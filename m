@@ -1,75 +1,74 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71425223DE7
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 00:14:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B943D233944
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 00:14:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122476; cv=none; b=DUfBh56iOnsoJOzOw5RmBlPjxoaw3CI/lAABd24vlu43sk40qW20G6LRKt2x3giXCvL+aQ0JD2Lh/fLD/LA11TH85qOlcFpC1P7jlqpJ3vHzL5KEuUJQ9hFfpG4KzhkOVmcgslxlN2pgzfKM0aQM0kkxxelg0/talnSSi2xpcH8=
+	t=1790122479; cv=none; b=A+M7pH3dAASV+ARftFKB1zEox0WXnWp9Jrc4lIziuJHb+rC1OrmtQy0Bmx3KbEgyvjmpfT0x/kme0OdunRxcAWPUilWrMeNxHFf+V00epB7G5LNx7YYwUQ6HL6+V++0v1Sx2MUISigBW+sCezNWRbm9QHuznpB5R+AfIEZA542g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122476; c=relaxed/simple;
-	bh=V8p7f+anGnSoL+KBB359kqfJ1ldhGnObhu2HYkCbO4o=;
+	s=arc-20240116; t=1790122479; c=relaxed/simple;
+	bh=kKxpjMyiHK9lV9OtcBaphCHIS0puTCLcWrgvqpO3mqs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JZQEEA/BQfRJ578X/GIkqVybfvtJ0FZ8SIc1JfbUOcEfL6cvKMM2Zm2x1nnn3bN6B1X1bP94gud/Rf32KX3aByqAIEMIWM9o36pjA3x1W1w6hoQrRjy+npxdKqZ9SdypK8teQQnX/k1GAlAFY8M2IZ1utNCieoJ8/n75ho0dFX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNg7j1ua; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=kGeFYieE/ws1mYWkfEg/WE2RpYL4ea/kQWpNJ/DWwsTnGskOyLVjR0tsV+It20TZHV9njvT8QnUF7fTUk2mUHevtQggbxsyCBg2s4ixH9B1WCca+Lo7EaaE1UMLLkfGWNrk02zLyg9en+tyOvOy5MEAmu4DeIjZ4hA3OzYBZ2e8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M1jBLwA7; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNg7j1ua"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so3503595e9.1
-        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 17:14:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M1jBLwA7"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so1031515e9.1
+        for <linux-media@vger.kernel.org>; Tue, 22 Sep 2026 17:14:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790122472; x=1790727272; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790122476; x=1790727276; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yr4Xk59A6nBEe9AXu0gZsAXZVCEOldu1UBAKss+kKik=;
-        b=QNg7j1uaGJNTgGrKq3IfIhTNSoWGpTa+9sPXhG8Dj8tVDHDfmxvFlL8cF2TxhJTzS9
-         YzvuOIsPwqkHjeNKsmfSDxOBRtrJm9RGPpFBi9WZ28wHznC4quLOZyerDD8tgsZakUmQ
-         HAhBo1pXSsMxIVZDEUZ63WfEXD9l9DVpTvWeimJJP2zYGAiolmiFGgqQ61J6YmYq8jxh
-         jjRrmcBF/ZtFZnGAJpqWinANuN2mqY5IkslVDOQSh33UaMr9V2aJ89EBuCj2q5TGVMsx
-         C8y0cIW0jh44ppb94B5SszGzltuoswkhUWj4XS7OcFxerbXcOIZQHCYKZZPGMe+/g9Vf
-         ePzw==
+        bh=/lwakMGT3g+t2lkoiIlXbmB0IFTfs1dS2fNYFlIz4+A=;
+        b=M1jBLwA7BqUBWNgeep3mnrL7hq3utgb5eWlkQ1TUK9mVpJUTud4KlxJ/7VcTH1Gndr
+         Pdb/icbgeYg9xBYnJsbfy8jfbl8q5hL3TkAbm/VfzX/cGZWZcn2EDk4U8zVPygMxYkl9
+         f4rkbPCsQGHKx6ct1tVlticB4XVMw8aewdvJSx0rW2kNYsfsTO4myJUoe6BJAZOaDEXp
+         GTT+ENDUqRNBcGhl+r41P9HgUivb3rZLVB2aKvgPgsAK9w2bnU/Ghc6kwVHCKG7efLOx
+         ev8z82cYCPFAjE+/mvK585uH/LQg5y1pZ+59Me7e1s06Tqfef8RwxbeOxB6/sbxwZ/fx
+         fx5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790122472; x=1790727272;
+        d=1e100.net; s=20260707; t=1790122476; x=1790727276;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yr4Xk59A6nBEe9AXu0gZsAXZVCEOldu1UBAKss+kKik=;
-        b=xnHXUc9eyYYE86sIqYAmSUxVzQh6L9I2z78DuQ5JEPwp76sboCyrHtCeS4MQY5LQIx
-         ZFQmLo9HjUsXjpMjL1nxkae/KmJY57DA12jdLFd7QivYA2OyPWf+w2LfWSH82GlI6IMM
-         I4ettL/bupmVbJvNevo1VH5ThDsHxSPdxsVE49+8M2kFa1LBm4CPVeLNOIoPNAwckH9Z
-         FYExKa4eVKQHoiSuM2diZZYQJZsgQbGTSw0B0/Z2ME3jqY7JX8EaheH7I1p1diUBTVtV
-         5NBepdrDWfR3wGNyf/Li3/U97617DsOwfT0IsuXflg93M7tBX1EIK9BA4Za9x1Wnx4cW
-         0Jog==
-X-Gm-Message-State: AFuF++lUk4kamsZR8HDzu085HrA6aC6x87Dh7AgTOEjvQfoSYpLNHNTU
-	oFt3MWrNFssc2Xs6V9DnUa/kwqPX8mtu8ZLMMjIShQlP3z7z1B+JKtXvlnbbISKU2JE=
-X-Gm-Gg: AYBFou1ksS2M8ho3XmhKRd7QVXtebRWmMqWp82gvgoFIoloBGDZdU1z3ADbutSVGZWj
-	2fKq8VAItJ7w/dPZPvA0nnc1ep50csle6GLJ/PpPzMC6QGxOBV44wW9Wr6laghEPXw6J+gI0h+V
-	HHu9h0PuQR6gE3xq2scoiWPf123YejplQoIywfeGjQFrWM0EW/8bk3LAeo9XS7QElSngGpxFqsX
-	35MzucXMw4vdjc3o4xr2y4IL9e9triy9G+Vi9efrkkDOSY9PHJIcwtWYCwoAma2yRCfzGUCYTOr
-	cxMMPkukUWITELmeQhRNsFo3L/QY+D/LlIIlgfPEw/PBt+NK5YpQ5V9UD7ErKiz8FD51+KmSCa3
-	uUWfxTwjqRTpe4btET7gR+USaND0+/Q0AV1HyS30BdPttye2xcEa6Kbn2CoDCQECRLgNZ/CnmQa
-	Kp22lcGAh5/vIzaEyg/fMyF0lgV8+dWMviLCw2h0/GGiU3U5675nP9KII1moxmSE1rM+RJP1YZn
-	xoBL86uJ3dx0O4mb+PQzy49w5kyV6jp5XxzK1zUtQiK0KwE5Ct8GAt4CbtgJv1Ycw8xKZbipWdf
-	baKjDEbx3rCYJYB2di0RmMMWKzSqa1gUiZixX0IIvoCW8UbBXNLrWtxaeHlKT6W0yYNvTZpLe8w
-	tP3hhhzAPbPHxj/yLNqYRPkmwV9GIDDfB
-X-Received: by 2002:a05:600c:8b86:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49fdeffe2bemr9153455e9.12.1790122472466;
-        Tue, 22 Sep 2026 17:14:32 -0700 (PDT)
+        bh=/lwakMGT3g+t2lkoiIlXbmB0IFTfs1dS2fNYFlIz4+A=;
+        b=0U7C4Aylk2UAlJ5TFmcJ48W4j1EnoJZouI4XI3cBjCJyZ2s0TzVb6jKXWxvXaisQYi
+         5olNuSdqHOIThmSVFu52b3WhnaUZqMez00TmwdnRduZ3ZFImJTz5+BsCS+ruUZ1Zd3tn
+         YrBTBjQMCKpoquVg6JDtRVV3gqR1koN3HIuBFKjrn7L9YcoQVPx+stM8VVyQAV6Wx0Eq
+         N8diQgVESiDDjfkIUWZBWSxJA7X54sFM3JnBV4oooRKqG6rvlyGOWk0dcfoS9UtbHdCB
+         I4XLjsnlaYzH7LhYRrE75faC3EV6scQuswVBd2S0kBxmWcTHEKvJhpqpq/DErM+xHjsh
+         R09g==
+X-Gm-Message-State: AFuF++ldtz8gsTEaeLZ929j+jSWntdRnt7wSYWmqwIoFTeSrMEVAGX11
+	pOboHBiAC1HuLxO0vmiZRimFUFZkx1cl9MsA4skRum1r7+zmX+2Ahf1k
+X-Gm-Gg: AYBFou3AKIC+3fivRlsQf17YpMoRmI+7txSGozMQlucEcApwuqgHC8GyY5w9sKcXGSn
+	iqXSM4m0sEMMTLbBmPXbZc0ElWJPCsp8l/w7Xz7GYgGICxqaH3/y65NzJYJQTwRkb254TDrwvp1
+	5ejH0ZmoitcppLm53AfhgjmYgTrbMNNOSeOUFUsGbtRIJHjvChmT3KEZ9/gha8W10zkoJ0i+rFt
+	7kH8C4T+ETF893R/eyG7z6/+00PLFB7B7uR8JbXhRKVXwHO6lxYM7ItHHWr+AxYiS856Ce1dj8I
+	H5AHQPjNeyHmIzeiOGfeHIFXhcwttud7/rSbsMe+cbSEz3FNysNZXfyAsEZ2ukgp3F511cMz+Z1
+	xyhqNSKcX2sV3vpiPlE3GTbNwARI+TuYXyL1tTBBN3PGRKotmbRgNkBwjCE1qd1K8g8XWSCjCLB
+	JdJFXYDR0dEKiUFFfBOsBiEnoHHWOdexaX85Hk43ViLxGdyMYM2Y6aGTUE2/NEYC/AF0p/G0SZB
+	XMmkot2fEU0WH0IWaZdtfNRIqmy84tVBddM2GfMr+8seizCtkoOoDK66Whu01T2byFmy45beXgO
+	qHVErQiFRkbqGbD8uYBDWmv8lAl3HQ1oeUrrbXk6f4DuAh75xDj+iT74ZEtKPDnUvEuNuOZ9T88
+	pLf+tDQadFkgoNTjAGIvcLg==
+X-Received: by 2002:a05:600c:6087:b0:49d:2936:8ad1 with SMTP id 5b1f17b1804b1-49fde360163mr16064825e9.1.1790122475827;
+        Tue, 22 Sep 2026 17:14:35 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-8c68-4a09-6ad6-6324.ipv6.o2.cz. [2a00:1028:c000:ddf:8c68:4a09:6ad6:6324])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.32
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 17:14:31 -0700 (PDT)
+        Tue, 22 Sep 2026 17:14:34 -0700 (PDT)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hyunwoo Kim <v4bel@theori.io>,
-	Josef Schlehofer <pepe.schlehofer@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/6] media: az6007: fix CAM status polling after disconnect
-Date: Wed, 23 Sep 2026 02:14:05 +0200
-Message-ID: <20260923001410.30297-2-pepe.schlehofer@gmail.com>
+	Josef Schlehofer <pepe.schlehofer@gmail.com>
+Subject: [PATCH 2/6] media: az6007: propagate USB errors from I2C transfers
+Date: Wed, 23 Sep 2026 02:14:06 +0200
+Message-ID: <20260923001410.30297-3-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
 References: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
@@ -81,67 +80,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-az6007_ci_poll_slot_status() returns -EIO when the status request fails.
-dvb_ca_en50221 treats the return value as a bitmask, so -EIO is
-interpreted as CAM_PRESENT|CAM_CHANGED. The CA state machine then
-handles a CAM change for every failed poll, without sleeping in between.
+__az6007_read(), __az6007_write() and az6007_i2c_xfer() currently map
+usb_control_msg() failures to -EIO. After disconnect, USB reports
+-ENODEV, but drxk cannot distinguish a gone device from a transfer
+error.
 
-After an unplug, every poll fails this way and the CA thread can spin
-forever in dvb_ca_en50221_thread_state_machine(), preventing the USB
-disconnect from completing. This happened when unplugging a TechniSat
-CableStar Combo HD CI with a CAM inserted, and rcu_sched reported a
-stall.
+Propagate the error reported by usb_control_msg() instead. Keep short
+transfers mapped to -EIO as before.
 
-Report no CAM when the status request or buffer allocation fails, and
-only inspect the status byte when the request returned data. A read
-error while a CAM is present is then treated as a removal and the CAM is
-reinitialised after the next successful poll.
+This lets drxk stop retrying and accessing the device after disconnect.
 
-Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
-Cc: stable@vger.kernel.org
 Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 ---
- drivers/media/usb/dvb-usb-v2/az6007.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/media/usb/dvb-usb-v2/az6007.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
-index 65ef045b74ca..4ce1afe01c3b 100644
+index 4ce1afe01c3b..5449ceda87e8 100644
 --- a/drivers/media/usb/dvb-usb-v2/az6007.c
 +++ b/drivers/media/usb/dvb-usb-v2/az6007.c
-@@ -526,7 +526,7 @@ static int az6007_ci_poll_slot_status(struct dvb_ca_en50221 *ca, int slot, int o
+@@ -109,7 +109,7 @@ static int __az6007_read(struct usb_device *udev, u8 req, u16 value,
+ 			      value, index, b, blen, 5000);
+ 	if (ret < 0) {
+ 		pr_warn("usb read operation failed. (%d)\n", ret);
+-		return -EIO;
++		return ret;
+ 	}
  
- 	b = kmalloc(12, GFP_KERNEL);
- 	if (!b)
--		return -ENOMEM;
-+		return 0;
- 	mutex_lock(&state->ca_mutex);
+ 	if (az6007_xfer_debug) {
+@@ -163,7 +163,7 @@ static int __az6007_write(struct usb_device *udev, u8 req, u16 value,
+ 			      value, index, b, blen, 5000);
+ 	if (ret != blen) {
+ 		pr_err("usb write operation failed. (%d)\n", ret);
+-		return -EIO;
++		return ret < 0 ? ret : -EIO;
+ 	}
  
- 	req = 0xC5;
-@@ -535,16 +535,18 @@ static int az6007_ci_poll_slot_status(struct dvb_ca_en50221 *ca, int slot, int o
- 	blen = 1;
- 
- 	ret = az6007_read(d, req, value, index, b, blen);
--	if (ret < 0) {
-+	if (ret < 0)
- 		pr_warn("usb in operation failed. (%d)\n", ret);
--		ret = -EIO;
--	} else
--		ret = 0;
- 
--	if (!ret && b[0] == 1) {
-+	/*
-+	 * The return value is a mask of DVB_CA_EN50221_POLL_* flags, not an
-+	 * error code, so report no CAM when the status cannot be read.
-+	 */
-+	if (ret > 0 && b[0] == 1)
- 		ret = DVB_CA_EN50221_POLL_CAM_PRESENT |
- 		      DVB_CA_EN50221_POLL_CAM_READY;
--	}
-+	else
-+		ret = 0;
- 
- 	mutex_unlock(&state->ca_mutex);
- 	kfree(b);
+ 	return 0;
+@@ -782,8 +782,9 @@ static int az6007_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[],
+ 			if (ret >= len) {
+ 				for (j = 0; j < len; j++)
+ 					msgs[i + 1].buf[j] = st->data[j + 5];
+-			} else
++			} else if (ret >= 0) {
+ 				ret = -EIO;
++			}
+ 			i++;
+ 		} else if (!(msgs[i].flags & I2C_M_RD)) {
+ 			/* write bytes */
 -- 
 2.54.0 (Apple Git-157)
 
