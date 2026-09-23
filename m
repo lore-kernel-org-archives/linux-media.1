@@ -1,85 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C1546982D
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 12:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCAA38330A;
+	Wed, 23 Sep 2026 12:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167501; cv=none; b=RJNpjEGuzRuCTAIzCythDZXSpPNfbNxYUtfvXnH0i6OO7wnHrDmUNSBG9KNuNbUwP3BhVSdyz/U7DUA4AVQpzWJf+KNEOsshqqXcbkpmAkg8HRXXFjpvKBADY6SUlaTLVWcQLCtp9ccfBGAVIs0gGVQ66vtzD9TG3rR/qMVz29U=
+	t=1790167672; cv=none; b=PKhxYAnLCDymHBEZTICK2eqAzBhqHe52l/iOvo4tUT47XMCxj02NUlkPwaDHP+R6sYoV6RPfcxv1+Tg2N/sPICwlikaJ5Hg5zSgIpZWcZYE6Xbscf06TmCt2LY4cHn24kUXvsO/7llz8DxMi3zn1yLkWleJTKJqb5ysr9b5Y+qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167501; c=relaxed/simple;
-	bh=plefyBgqMCRYDWCZtKif3JD3zNFTc2d7WQvOUDurc7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B/61VspiFsoFbMzlgcSLJqFCNph/HJ8Q4IQkT1XcN8zTfQ8jmgPHim/elsvT/HQ+z2Dd/bWY96oeo/SCKQFa5qyJkXV6tRzF5vJB6A/8orWOXV2hYwLUhGhTIXuLapMfbdbjbq9wsgzbePVOhv7OSRQgdb5XNHHdNa5tE72qJpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Npl1F0B+; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790167672; c=relaxed/simple;
+	bh=PR+nkjgFdt8KW6rr8XD5p6NJuf14I9FUk5rQR1VxrDM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sozX3gt/YRnhBHtCPRrWbdFlF+2qX9HXF2HLu0igQLf/1bDXUAH7Jfh8i2bAAhcRQuZoAFFEfhQ/86FSd+2LMAmAWIgFwonOm1ZBNJEXMD5lO2BscFWiOuKPZTKYqQyuZyPyer0qKj3sj7xPFKrumYDP55GTxpBO9fc5FoD98Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=b3gao8F5; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Npl1F0B+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790167500; x=1821703500;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=plefyBgqMCRYDWCZtKif3JD3zNFTc2d7WQvOUDurc7U=;
-  b=Npl1F0B+dfsxE6WDzh2n00ntdgxxNNyCe8VsDlXuzM6/fLBdeuZbVXmg
-   +1K83VghOMseoRfJMYyu5Olh/XZsh/7eBlP6ZTCxqQ0esEs3p+IgVokjE
-   5lzD6f4i4f7ga21Fk7xE62C7kijBysq1x7ClsPDr4wTb6YS0PgYpYDTTp
-   SOKsdY1pt7WxvakmnIQRMvM5srgTyvyQd0wKzgWRseyBAEz3mtV17EwUH
-   YTVs7ASUz/Ls0FMoO6iHjMlJku7p3o60hUPeUnWZ+489Rkozla3IwnGCz
-   VrZ7NnxATVN19JNDMaHRW/W122fuqf7bQIFOKODc9dBLBFncbnIERNyU9
-   A==;
-X-CSE-ConnectionGUID: 50rEKRrcSTy3gELSmGVx/Q==
-X-CSE-MsgGUID: uIIIGKdZT72GtZm35RS0Bw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101447409"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="101447409"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:44:59 -0700
-X-CSE-ConnectionGUID: sOOhZKr6QK2wCz1rFN50bg==
-X-CSE-MsgGUID: IQV8N+8vQPiT+1BDiNsB0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="301521238"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:44:57 -0700
-Date: Wed, 23 Sep 2026 14:44:47 +0200
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, 
-	Thorsten Leemhuis <regressions@leemhuis.info>, Junjie Cao <junjie.cao@intel.com>, 
-	Miguel Vadillo <miguel.vadillo@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Manuel Knitza <manuel.knitza@googlemail.com>, Antti Laakso <antti.laakso@linux.intel.com>, 
-	regressions@lists.linux.dev
-Subject: Re: [PATCH 1/1] media: cvs: Default selection to VIDEO_INTEL_IPU6
-Message-ID: <arPIqZNMC98jPL3B@mdjait-mobl>
-References: <20260922064017.371437-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="b3gao8F5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790167660; x=1790426860;
+	bh=h208NgNTT6F/Gu/lzps/mjSZZNGTomju5YIHK8oJk1I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=b3gao8F5lXrdkoHz5AaD2qyn5ogR39ZHBdHOUuJG9PznVchBHL7aJIVWLVuRZ9BTz
+	 hGZ0/SsbwwSSn5WW+r0sqRjH7kajM1YUwxcocqOOlg+8eZBiUc6uY1QR3FA7Qi4sr1
+	 VSUL9VS6sw26e3afQ4DzASMTGmObC73/v8VWpCgSlRNZQWqYXfsN9ErTKDBAme3EW8
+	 g7cnDmwGUIpGnNi5wbQRmDhF/WCzdp/F3jz4Tu5kNmyW/spRDITbcIyIyqBfqR1Asc
+	 GENnCymBUSuCDr6z9hrSmyMDk8w16AHFjbWA6ti/CFXOfw1BiWIbnzQuqeB1l+cGD8
+	 X+clPUXcvxO5g==
+Date: Wed, 23 Sep 2026 12:47:36 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] media: i2c: ov13858: add regulator, clock and reset GPIO handling
+Message-ID: <20260923124728.73609-1-lsa.uz@pm.me>
+In-Reply-To: <20260831130312.26296-1-lsa.uz@pm.me>
+References: <20260831130312.26296-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 2af9a1462b0c1966d6ffaf05df5b540a8953904a
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922064017.371437-1-sakari.ailus@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello Sakari,
+A ping, two weeks on:
 
-Thank you for the patch!
+  https://lore.kernel.org/linux-media/20260831130312.26296-1-lsa.uz@pm.me/
 
-On Tue, Sep 22, 2026 at 09:40:17AM +0300, Sakari Ailus wrote:
-> The cvs driver is only usable with the Intel ipu6 driver and is commonly
+It still applies to media/next at aedd77ea81, checked today, and builds
+there clean under W=3D1. Nothing in the patch itself has changed.
 
-I don't know about this statement. Do you mean the ipu6 with the ipu7
-support merged ?
+One line below the scissors has gone out of date, in the patch's favour. It
+says this needs POWER1 GPIO support in int3472 to be useful on this machine=
+.
+That landed: discrete.c now maps INT3472_GPIO_TYPE_POWER1 to "dvdd", so the
+rail is a registered regulator here rather than a dummy, and the dependency
+the patch declared is no longer open.
 
-I write this because I use the cvs with the ipu7 driver from staging on
-one my dell laptops. No ipu6 on that system.
+With the patch applied the sensor identifies, the driver binds, and
+v4l2-compliance reports 46 of 46, 0 failed. That run carried this patch, th=
+e
+gain cap and the flip controls together, since all three touch this driver.
 
-> required for the ipu6 driver to function. Make the default of the cvs
-> driver the same as what was selected for the ipu6 driver.
+Sergey
 
---
-Kind Regards,
-Mehdi Djait
