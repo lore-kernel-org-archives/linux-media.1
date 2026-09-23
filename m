@@ -1,289 +1,171 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8516253162C;
-	Wed, 23 Sep 2026 13:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169873; cv=none; b=Q3RvU62LDmmSoYK8GBOESTw5q1AZ9trY7VSPhzvCezWAqFaHRrUQOBarReQ7T1t6ZyH5Zz7QIoqxOO+MsGZ+oaeQMCpM6pk6xcATJGczwfK75sRHrZML9QbBQdWKk0wPxr7gDxK4CYF8Ab3xEEvjyRV/PJXw3FInmgUluYHmtSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169873; c=relaxed/simple;
-	bh=URbHuBN1x3lnU7r2lPBY+8SE2ajxprvZwtLU8pUXMyQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pNcGWL0JffXiKH6VN9SVM+XZN0QkSZTEIAXTWNaq+G5sNjbyixT82MJL6QypHV007V0X5RGEN1/31LXwKNcQkU0ayKktg69U2hD9y9EZHiUq93vsTC/EdXuHowyNYGJzQlxnuqZN8DDQlwWBUCgLRcDvuOmaD1CDGbJLERnJViQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uyNliMsS; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF3439891F;
+	Wed, 23 Sep 2026 13:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171101; cv=pass; b=dI7Qjri71yejjYX6xnHOwsJruZNS2Ww656NzcFRhKZI5dG+n8DWAWpmuvlIN8ez6ATMGfmjfx/ZhD0qpsaVZSkjysZLdtLcosG6BKHDz0AwaKCeVMqvOMBzjaAbSRyp1LnwdFfYBENBHDvulw7J8luxxbInoulRXZUAN3KTOTVE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171101; c=relaxed/simple;
+	bh=/DM/ED6y4O2U6WiK4esE4YX5QVGn6Wr7jyvfJGqndyI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XhVtdfeOEj20ojdKoZSQDNkJv6UxQvTac+FeSFeoJVa8c3sqpnkToVRS5jz9FLECSqQsCnLlM4K20clxq9l/wjlVWSQs9IR5AXG01uWDW1XUzjMYaGOHCbcPZeF6nWvSPIM9dEPN8EQz3yCg+g9v6bH0AonqHX7/w3NiLd6EeDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=RB+Tafy1; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uyNliMsS"
-Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDA3F1F8;
-	Wed, 23 Sep 2026 15:22:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790169751;
-	bh=URbHuBN1x3lnU7r2lPBY+8SE2ajxprvZwtLU8pUXMyQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uyNliMsSV32J0xy+hrtym18PbYPfxjp8OJV2rDH0mUlYaCETmkBVUhgVczCiRlu04
-	 MpSmmyI8ZmW3ww2bNV+lm4p7NRwAMvrKMKmhOizKAFRK7cVpuCBh2zzRp0P4lqsRAk
-	 N5Uzp3krtWAa6eu++gY9cPXk680wqLHrs2b/BswA=
-Date: Wed, 23 Sep 2026 15:24:14 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
-Message-ID: <arPNMr1NV2vWjHMP@zed>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
- <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
- <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
- <ap_0yL-JatdVDaXG@zed>
- <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
- <aqEJk6dKWuyMLLRt@zed>
- <aqEUTAAhwI09JOuR@kekkonen.localdomain>
- <aqEsceb73f5ysKmK@zed>
- <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="RB+Tafy1"
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 645D5201F09;
+	Wed, 23 Sep 2026 15:44:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790171091;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zjP5YpQfh5eBZHqwpO7i1HdYtCXcDxLbRCkwNgxPz6o=;
+	b=RB+Tafy1DSPruWBLQO8cLnlZ8lAV2c31V7jHE5MnIFrjWgnluJGPQw8sDrV9eNT3l8FTBV
+	jbCRGkbiZ6Fd8pIcLTXqOXkWsfEhM02b0ynHYfPBvNbHlAsSvmyyIDOk5AXOTvt4Gk4VUe
+	H8iOyOIXDJl9yvg9cZ7pUCxCK/FGsr4qIR54/jKerK62l3a4OoHp8QR19yh2q65eaT2QlS
+	F3jLJZbRzRSPY7CX3sVbSrlchu1AsmzmzGa0UbKsMb9ozmDkh1Ig30LfnQRuorc0r4PNw2
+	KFA5I1lNlxqB+IISozWLCJdJRJcSXjJGXwpGgmb4eRgBOW1+6fl9hXO99IxhkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790171091;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zjP5YpQfh5eBZHqwpO7i1HdYtCXcDxLbRCkwNgxPz6o=;
+	b=YwyZ14yOn7V1cjbJnOSKduGVmN/n4djBuLq3xvrcmLUKi1ycnEn1WCndUBGqnSFCC02HcA
+	lXgPqnhArNwU5fmysHtuwctWUEDGXYD3OfjX0nSoHbdi+uGnc/RhdkVGogKiBKtTff2sjd
+	GvDgJX7Nnkz46U9SmiuP5lTqBHmKBSYLdQTlA5Bt5p/+giEbKIujycrsn+DZwCv1OzgkW/
+	rTxoE82QW+F6dW71fpCDger7uXJdSC4XrqM/jhvOvQNY5EFyb9m2/rYSEQvZOmRlWs3TOX
+	WVHIHRw2giZgKGAWsP7nR1rgfPSy7XU+k2HAbIt+KwRzNI9QS0VjsLdQXrEWYw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790171091; a=rsa-sha256;
+	cv=none;
+	b=GvVjS35xpThnfUD/i1R2a1HuRDRzQ7uDj2lnsJQa0FUBbYOBxgVXXXln48vPKdKW6NZbPI
+	DVwxn3KRC33X6XeSXyPc2fyIKNW4wdvhGlP+iwgftt3b3XncIM02HB/oV8ZDlU9nwDoY8b
+	PsdiATRLj6vou5QrW/VyEM9TnLzp+4sNKngk565frm1rlbe4NcGw3Ni57Hl80oVYgy+ZGY
+	AKO9MPDa0ADyNjxwmn/HAzmE1S7wloTLYwN1XC+j9JvFW+iZV67uFaEKFhvan2nm1/qAFz
+	KfdUbjg6pe8nC1V/0e+bkh+1Pa0UrKxFI3gVRvv6Q7nXJCWNb08Pboufnp+5ag==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH 0/9] media: synopsys: hdmirx: support an HDMI bridge in
+ front of the receiver
+Date: Wed, 23 Sep 2026 15:44:39 +0200
+Message-Id: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMfXs2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMT3YyU3MyiCt3c1JTMRN20VPPUJEtToySjpFQloJaCotS0zAqwcdG
+ xtbUA5JT9U14AAAA=
+X-Change-ID: 20260904-hdmirx-media-fe7eb952b2be
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>, 
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790171091; l=4342;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=/DM/ED6y4O2U6WiK4esE4YX5QVGn6Wr7jyvfJGqndyI=;
+ b=7PoAZ7ad0l98kP3rXIxbbxhzXQ5wgTYsVKCp8l/6XYQprjQEl0IP8RrPoxEQG28bj66wGHxg0
+ RiPvf/wU8bjBgW5YOpZRl17x1pIx/BSqYf2EkiSTHZ8Eem7YTJ2I4CW
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Hi Sakari
+The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
+it: the connector's +5V line arrives on hpd-gpios, and there is nothing
+between the source and the receiver. On the board this series comes from
+that is not the case. An HDMI bridge owns the connector, the receiver
+sits behind it, and the two are described by an OF graph endpoint.
 
-On Sat, Sep 12, 2026 at 02:40:32PM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
->
-> On Wed, Sep 09, 2026 at 11:56:27AM +0200, Jacopo Mondi wrote:
-> > Hi Sakari
-> >
-> > On Wed, Sep 09, 2026 at 11:09:48AM +0300, Sakari Ailus wrote:
-> > > Hi Jacopo,
-> > >
-> > > On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
-> > > > Sakari,
-> > > >
-> > > > On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
-> > > > > Hi Jacopo,
-> > > > >
-> > > > > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
-> > > > > > Hi Sakari
-> > > > > >
-> > > > > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
-> > > > > > > Hi Jacopo,
-> > > > > > >
-> > > > > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
-> > > > > > > > Add bindings for the ams OSRAM Mira016 image sensor.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > > > > > > ---
-> > > > > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
-> > > > > > > >  MAINTAINERS                                        |  7 ++
-> > > > > > > >  2 files changed, 104 insertions(+)
-> > > > > > > >
-> > > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > > > > > new file mode 100644
-> > > > > > > > index 000000000000..49a606fca6cb
-> > > > > > > > --- /dev/null
-> > > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > > > > > @@ -0,0 +1,97 @@
-> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > > > > > +%YAML 1.2
-> > > > > > > > +---
-> > > > > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-> > > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > > +
-> > > > > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
-> > > > > > > > +
-> > > > > > > > +maintainers:
-> > > > > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
-> > > > > > > > +
-> > > > > > > > +description:
-> > > > > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-> > > > > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
-> > > > > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-> > > > > > > > +  physical layer specifications to transmit the image data to the host
-> > > > > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-> > > > > > > > +
-> > > > > > > > +allOf:
-> > > > > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > > > > > > +
-> > > > > > > > +properties:
-> > > > > > > > +  compatible:
-> > > > > > > > +    const: ams,mira016
-> > > > > > > > +
-> > > > > > > > +  reg:
-> > > > > > > > +    maxItems: 1
-> > > > > > > > +
-> > > > > > > > +  clocks:
-> > > > > > > > +    maxItems: 1
-> > > > > > > > +
-> > > > > > > > +  vdd28-supply:
-> > > > > > > > +    description:
-> > > > > > > > +      I/O voltage supply, 2.8 volts
-> > > > > > > > +
-> > > > > > > > +  vdd11-supply:
-> > > > > > > > +    description:
-> > > > > > > > +      I/O voltage supply, 1.1 volts
-> > > > > > > > +
-> > > > > > > > +  reset-gpios:
-> > > > > > > > +    description: Sensor reset (RST_N) GPIO
-> > > > > > > > +    maxItems: 1
-> > > > > > > > +
-> > > > > > > > +  port:
-> > > > > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
-> > > > > > > > +    additionalProperties: false
-> > > > > > > > +    description:
-> > > > > > > > +      Video output port
-> > > > > > > > +
-> > > > > > > > +    properties:
-> > > > > > > > +      endpoint:
-> > > > > > > > +        $ref: /schemas/media/video-interfaces.yaml#
-> > > > > > > > +        unevaluatedProperties: false
-> > > > > > > > +
-> > > > > > > > +        properties:
-> > > > > > > > +          data-lanes:
-> > > > > > > > +            items:
-> > > > > > > > +              - const: 1
-> > > > > > >
-> > > > > > > The device obviously supports non-continuous clock mode (and that's what
-> > > > > > > the driver also only does right now) but as the continous clock mode is
-> > > > > > > required by CSI-2, I presume the device can do both.
-> > > > > > >
-> > > > > > > So I think you should have
-> > > > > > >
-> > > > > > >              clock-noncontinuous: true
-> > > > > > >
-> > > > > > > here.
-> > > > > > >
-> > > > > >
-> > > > > > Maybe I'm confused (again, after 10 or so years of doing this) by the
-> > > > > > usage of unevaluatedProperties/additionalProperties, but if I read
-> > > > > > Documentation/devicetree/bindings/writing-schema.rst right
-> > > > > >
-> > > > > >   * unevaluatedProperties: false
-> > > > > >       Used when this binding references other schema whose all properties
-> > > > > >       should be allowed.
-> > > > > >
-> > > > > > Means all properties from video-interfaces.yaml are accepted (which is
-> > > > > > imho very wrong, but it's a battle with dt maintainers I don't want to
-> > > > > > start again).
-> > > > >
-> > > > > I guess you should have
-> > > > >
-> > > > > 		additionalProperties: false
-> > > > >
-> > > > > too?
-> > > > >
-> > > >
-> > > > Where exactly do you mean ?
-> > > >
-> > > > I don't think I can have additionalProperties: and
-> > > > unevaluatedProperties: in the same node, do I ?
-> > >
-> > > Yes, these are mutually exclusive.
-> > >
-> > > >
-> > > > It's been a long time ago when we discussed with dt-maintainers what
-> > > > the policy should have been for endpoints that reference
-> > > > video-interfaces.yaml.
-> > > >
-> > > > To me, the most sensible thing was to use "additionalProperties: false"
-> > > > and explicitly allow the supported properties, instead of allowing all
-> > > > of them. However dt maintainers had a different opinion (for reasons I
-> > > > honestly can't remember) and I think we have stabilized on the
-> > > > following pattern
-> > > >
-> > > >         port:
-> > > >           $ref: /schemas/graph.yaml#/$defs/port-base
-> > > >           additionalProperties: false
-> > > >
-> > > >           properties:
-> > > >             endpoint:
-> > > >               $ref: /schemas/media/video-interfaces.yaml#
-> > > >               unevaluatedProperties: false
-> > > >
-> > > >               properties:
-> > > >                 ...
-> > > >
-> > > > All the most recently merged bindings in media/i2c have this pattern
-> > > >
-> > > > 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
-> > > > 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
-> > > > 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
-> > > >
-> > > > I feel like I'm missing something obvious, otherwise I don't see why
-> > > > this binding should be different ?
-> > >
-> > > Good question. Perhaps there was no specific thought given on
-> > > non-contiguous clock support? I guess most of the above should probably
-> > > specify it, even if the driver doesn't support it.
-> >
-> > Maybe I'm still missing something, but using
-> > 'unevaluatedProperties: false' and referencing video-interfaces.yaml
-> > means you can include all properties from there (which, again, I think
-> > it's wrong, but allows you to specify continous/non-continuous clock
-> > support).
-> >
-> > >
-> > > There's a good example of doing this in
-> > > Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
-> > > as the maintainer there. :-)
-> >
-> > eheh, that binding has 'additionalProperties: false' which means you
-> > have to list properties you accept.
-> >
-> > This would be my preferred approach, but if my recollection is
-> > correct, we stabilized on using 'unevaluatedProperties: false' after
-> > discussing it with dt maintainers.
-> >
-> > Does anyone have a different recollection ?
->
-> I don't have such a recollection albeit I'm not sure I recall more than
-> this was probably discussed at some point. :-) What I do prefer however is
-> to be able to say what is relevant for a given device. There are lots of
-> properties there in video-interfaces.yaml that aren't for nearly every
-> device (node).
+Three things follow from that, and the series is arranged in that order.
 
-I totally agree this would be more correct.
+Patches 1-2 give the driver a media device and register the video device
+as an entity with a sink pad. On their own they add a graph with one node
+in it; they exist so that there is somewhere for the bridge to appear.
 
-I thought we had a policy in place where we had agreed with
-dt-maintainers to use "unevaluatedProperties: false", and I feel we
-had this discussion many times already.
+Patches 3-4 add the endpoint to the binding and bind the remote subdev
+through a v4l2 async notifier, linking its source pad to the receiver's
+sink pad. Without an endpoint in the device tree the driver keeps working
+exactly as before, so boards wired straight to the connector are
+unaffected.
 
-After quite some archeology I found this:
-https://lore.kernel.org/all/Y9Tz8AWds51vGgsM@valkosipuli.retiisi.eu/
-where the discussion didn't seem to end anywhere.
+Patch 5 is fallout from the wait for signal lock, which was bounded by an
+iteration count whose duration came from the 5V debounce it called
+each time round. That debounce goes away on a board with no hpd-gpios
+later in the series, so the wait gets a real timeout first.
 
-I value consisenticy above correctness for minor things like this,
-both for sake of the code base sanity, both as a measure to avoid
-pulling contributors in too many directions depending on who does the
-review.
+Patches 6-9 are the 5V state itself. Such a board cannot provide
+hpd-gpios, so the property becomes optional and probe stops requiring an
+interrupt for it. Patch 8 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT, and
+patch 9 has the receiver set v4l2_dev.notify and take the state from
+whatever is bound in front of it, with g_input_status() read once at bind
+for a source that was connected all along. Patch 9 also gates the two
+hotplug workers on a flag taken under work_lock, and cancels the hotplug
+work once more after the async notifier is unregistered: without a
+det_irq there is nothing to disable across the cancel already there, so
+a notification can arm the work again behind it.
 
-All the recently upstreamed bindings use "unevaluatedProperties:
-false" meaning all properties from video-interfaces.yaml are optional
-and accepted.
+V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
+published - adv7604, adv7842, tc358743 and tda1997x all set that control
+from their cable detect interrupt and stop there - while a format change
+already gets an in-kernel notification through v4l2_subdev_notify_event().
+An earlier version of this series hooked the control with
+v4l2_ctrl_notify() instead. That reaches into another device's control
+handler, and the only thing it bought was working with those four
+drivers unmodified, which turns out to be worth nothing: they are HDMI
+sinks, so none of them could sit in front of an HDMI receiver anyway.
 
-If we want to change this we should make a clear policy (a comment in
-video-interface.yaml might be enough) and align all bindings,
-shouldn't we ? Otherwise this will repeat over and over, depending
-which bindings a submitter use as reference and who does the review.
+Nothing in tree sends the new notification yet. The driver for the device
+on this board does, and the alternative was a mechanism that no in-tree
+driver could have used either.
 
->
-> (It's been in my plan to better separate these based in physical interfaces
-> etc. but so far it's been just a plan. Even that won't make this issue go
-> entirely away though.)
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+There is no in-tree device tree using the new port yet: the board is not
+upstream, and the device in front of the receiver, a Lontium LT86102UXE
+1:2 HDMI splitter, has no driver upstream either. I would rather send the
+infrastructure for review now than sit on it until the board lands.
+
+Tested on that board, and build tested for arm64 at each patch with W=1.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+Gerald Loacker (6):
+      media: synopsys: hdmirx: add media device infrastructure
+      media: synopsys: hdmirx: add media entity for video capture device
+      media: synopsys: hdmirx: add async subdevice support
+      media: synopsys: hdmirx: give the signal lock wait a real timeout
+      media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
+      media: synopsys: hdmirx: get the 5V state from the upstream subdev
+
+Sascha Hauer (3):
+      dt-bindings: media: snps,dw-hdmi-rx: add the source port
+      dt-bindings: media: snps,dw-hdmi-rx: make hpd-gpios optional
+      media: v4l2-subdev: notify the bridge when the source power changes
+
+ .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  16 +-
+ drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 318 ++++++++++++++++++---
+ include/media/v4l2-subdev.h                        |   8 +
+ 4 files changed, 309 insertions(+), 34 deletions(-)
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260904-hdmirx-media-fe7eb952b2be
+
+Best regards,
+-- 
+Sascha Hauer <s.hauer@pengutronix.de>
+
