@@ -1,108 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54B039D6E5
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 21:06:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3498C3C819B;
+	Wed, 23 Sep 2026 21:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197607; cv=none; b=ZW0OqnPv/HJx/YYrdO5tRI/cLLId8hma8XCkma1l5NjnRdP7m+W+6LJhYzVJVPXEkqT8KERkeLc89E+T/w4L7yAhRv6l2kSCROpkus6AMvyIVJhzZWif+DXb75PSeLp+j68goNXyr7NcoOZZ/MD6HglGPzLnpXk5aoXMX1hoV1w=
+	t=1790197717; cv=none; b=euNzqlAjg8khj+R2u3OZ1cO5TSzzA4PQ1zJaIcPZfc+R0qNevYTPRr0prIfzpIKIl9oiwdKwBBwiBafW7HfOf3u5hspD5KZH1rPLMzAGPksYYIfD61kGcmjfXiqw8Obk2M1VbmyQHKHe0dTCpK5tZXE5a62Bd+8DM8MvcyJRilo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197607; c=relaxed/simple;
-	bh=P1ZyYdZbyAPQNTSIgSushjr7qCn3n2ElWueqeWiV44E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GicYf1bVEt8vJ9v/huFP2SXx9CsiVnD+XiW0IhgHEx1sF6WnUAghbWqoYDO/Fb3DI2r0Welx+A/RT830TFsOFmeRNquNpIlCDEEwQ9qVmvHWmotkjrrFImN4woIJD+XiAH5n1XS82odJbmLdcwIbScrjyO6W1+GJkN4V5EwByno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YCKFJYzk; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790197717; c=relaxed/simple;
+	bh=u9vyTnfDdTrmd9y7fzOYI9Chf27iTNx4Gu6KyxRoDT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RuXtoYZGpv/zZwNyyxNU0qkQCOvqjUWycU7RWBLbZp0hf7pq2/zW8B+53c+KU9xBZ3WuilBZ3G0Kg3ignOU6krv2kNiK5zZbTWZJaLExIr5dOO5wk5KzuAhPZOMYzGOlfuEVhCj2Ug7QVR89RTfJIl9MXbmgtXpuYNU72dkcZis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFfLk5F+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YCKFJYzk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790197604; x=1821733604;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P1ZyYdZbyAPQNTSIgSushjr7qCn3n2ElWueqeWiV44E=;
-  b=YCKFJYzklhFgV6CTZPraE6Efdci/2oDdg7paNQ9sPWXgIR89fsjwQCXs
-   TGvLlw4wbIoqFDJOmoy6lSSZzC6cqi31ft80DVRh9oNEyxejzRviYSgt3
-   YDZ9aqY5aLpdupcbY+EedImmIYEhHTAdE1dH1wqrwShg9P5FVfyEiWY6i
-   7fS4T1lJ+xJXxXQKntJ/coBjchScSh9v6QTcGhawB/SJJZ7o/WXZ+ShQ2
-   QmxtKotUM18MqCgNjOE3MpZVfwMab9nMAvKI0Qy3o5qBdIRAUOjeWUhm/
-   sw6AIfyBDTFF/eT9CrnfyzO3xMBSzhfeeDzI+qykezvjAjyHflJNTFW39
-   w==;
-X-CSE-ConnectionGUID: D7mVCeivSE6CfyZj5E8m1A==
-X-CSE-MsgGUID: EyKDQDdYToqpg4Ixad20jA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90962085"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="90962085"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:06:41 -0700
-X-CSE-ConnectionGUID: SzT+HmZNTr+WmXe4JPJ37g==
-X-CSE-MsgGUID: SFkifHzsQB+2aVK8MxnQAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="281863230"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.83])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:06:39 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3419E11F9B7;
-	Thu, 24 Sep 2026 00:06:38 +0300 (EEST)
-Date: Thu, 24 Sep 2026 00:06:38 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "Vadillo, Miguel" <miguel.vadillo@intel.com>
-Cc: linux-media@vger.kernel.org,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	Junjie Cao <junjie.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manuel Knitza <manuel.knitza@googlemail.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH 1/1] media: cvs: Default selection to VIDEO_INTEL_IPU6
-Message-ID: <arQ_Xl6Oibg4qRR0@kekkonen.localdomain>
-References: <20260922064017.371437-1-sakari.ailus@linux.intel.com>
- <c1046170-b820-4767-804a-55d95421f6e2@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFfLk5F+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16721F00893;
+	Wed, 23 Sep 2026 21:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790197711;
+	bh=oYRyYQ7jGFmso8AY6dUwDwpqY0QEPIOZBmqP3y/+Wjw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IFfLk5F+vPh8IZNhqF0jC6aiB53HDZvSF2VK2z8f7otoMhT2JY81X0DRgu4kSZy1c
+	 joRyiJr0iXdIujrsXvmcilGrrlkhEL9YLIUEvmzKixvjEeFJ8vxgxkwXlAMImcgbz5
+	 ObT2M39E9XWkmhhoICbrZZTEJIdLs70sQZ7CLs85nDdlrYvQI58UEG0MV2Zli3ORfN
+	 qEGaY7uobvyPgkqQYN9MxRINi7FLvSkgqHtmHbwFsTDaPMYxN2sV8xdrPRQjkvGaFE
+	 AUROK5OvdNxX5Jpjfb4/VhakF9Jk6w7yYiqjrfNKsr4mXgTRJosRSZ3QC2bAL67QYd
+	 6F00ow4Wk2EBQ==
+Message-ID: <49153dff-b4e0-43ac-aa82-15175fea6445@kernel.org>
+Date: Wed, 23 Sep 2026 22:08:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c1046170-b820-4767-804a-55d95421f6e2@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] firmware: qcom: scm: pass qcom_scm through the
+ exported API
+To: Albert Esteve <aesteve@redhat.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Russell King
+ <linux@armlinux.org.uk>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jeff Johnson <jjohnson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Brian Norris <briannorris@chromium.org>,
+ Govind Singh <govinds@codeaurora.org>,
+ Niklas Cassel <niklas.cassel@linaro.org>, Kalle Valo <kvalo@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, Maxime Ripard <mripard@kernel.org>
+References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
+ <bRb6NzJiFvNGB0X3BeiVytgZNlRv88LFlcaBwwFIFa3GtVZhn5bh9EoRRDliRtgsnlQNMddvcIPK-5HK9x7z9Q==@protonmail.internalid>
+ <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Miguel,
-
-On Wed, Sep 23, 2026 at 11:10:55AM -0700, Vadillo, Miguel wrote:
-> Hi Sakari,
+On 14/09/2026 13:41, Albert Esteve wrote:
+>   static int spm_cpuidle_drv_probe(struct platform_device *pdev)
+>   {
+> +	struct qcom_scm *scm = qcom_scm_get();
+>   	int cpu, ret;
 > 
-> On 9/21/26 11:40 PM, Sakari Ailus wrote:
-> > The cvs driver is only usable with the Intel ipu6 driver and is commonly
-> > required for the ipu6 driver to function. Make the default of the cvs
-> > driver the same as what was selected for the ipu6 driver.
-> > 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > ---
-> >   drivers/media/i2c/cvs/Kconfig | 1 +
-> >   1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/drivers/media/i2c/cvs/Kconfig b/drivers/media/i2c/cvs/Kconfig
-> > index 4309d20dd726..f482f1ccc38a 100644
-> > --- a/drivers/media/i2c/cvs/Kconfig
-> > +++ b/drivers/media/i2c/cvs/Kconfig
-> > @@ -4,6 +4,7 @@ config VIDEO_INTEL_CVS
-> >   	tristate "Intel CVS CSI-2 bridge support"
-> >   	depends on I2C && ACPI && VIDEO_DEV
-> >   	depends on IPU_BRIDGE || !IPU_BRIDGE
-> > +	default VIDEO_INTEL_IPU6
-> 
-> Would this be affected once the IPU6 and 7 are somehow merged?
+> -	if (!qcom_scm_is_available())
+> +	if (!scm)
+>   		return -EPROBE_DEFER;
 
-It's unrelated. Mehdi asked about the ipu7 driver, too, and I think I'll
-send v2 that takes that into account in the commit message.
+Is this equivalent code ?
 
--- 
-Regards,
+Its also a bit confusing to me that the next patch adds a .available 
+field to the qcom_scm struct.
 
-Sakari Ailus
+I see where you do get drvdata but I haven't managed to find in the 
+series where the data gets set - haven't asked an LLM either - I think 
+the logic to associate the scm pointer and get it should live together 
+in one patch so that the logic is easier to find and reason about.
+
+---
+bod
