@@ -1,189 +1,146 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB942F8EBE
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 17:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40043A784E
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 17:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183767; cv=none; b=NSyr88z1PauVsmZK+6gNXWjquVvW28Ky9xTNT0w2Isly55xP+64itK6eWl1oH+b6eN5Xn9+e7khijl6fTsKTeHY2dpuMJWdWF8dmYlWxGBE7b5nJLb4CXM3VMhV1Zxft4ogVUG5Ydf5QTi/JJ5DGuqm8yFYJ/4KGuQNupdqx9BA=
+	t=1790184218; cv=none; b=NESRsA6LZRwW4cP7ZrT4imw9yuEljzIFsQDPl9Z3AX9jGOa1a5FL0a44gvK13tHTNKblXjiyreIP1ABLJNAA5Gdq88AEL/oRGOh7cxlEGvDNEI7pcWnLAnYVlfgkdpyYpko4jRhmR1Z+Gapb3e4p5NavZxfvggGz3VFNFDk+GWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183767; c=relaxed/simple;
-	bh=s3VoHPfdGXRS6MChYVrimL6jd8QOiYICb6vP73NM4BQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Fzj2njE9WgObf9ye9GjNKqWMKsLM4qL9K8ena/SLVqMjsRC9wmwLOUqHySB9yEU3xxEf4aZTmjhXrENqPTvkmaZ5HCGi92wAGcnrXQql/lJA7muv/BxcyVLx4L4NKtW54wfhFl4qRPapxx14/xwk/V2zjJhJQU/u72n3O85Q/88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=CkWNvJ5U; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790184218; c=relaxed/simple;
+	bh=t2TgzO8nwUEwjRZhrCgeKf9S8CRIcvO43oc+9yu4/Wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tbT8BO0eZbqbr3/TWBEX9aucTLlU3mLcppNCpqVphMD5yWH/PnGRt9PHv8m1sZuFeLtpETIp0qfCkR6alYQdKSqPrjZY4H0IKpQVkWnzw0cRbZELYQcjGEyBesANhvHuxAI9ZhfoVH6+E6xRPdBoAFv1f5DuRhaRaVeCvV4FlMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=gQQYiOFm; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="CkWNvJ5U"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e512ee9so504593e0c.0
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 10:16:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="gQQYiOFm"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4b37a2c0356so798323b6e.2
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 10:23:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790183759; x=1790788559; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=ziepe.ca; s=google; t=1790184215; x=1790789015; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5Tnw0WBB0ykL71IZQC44P5CqwYSfWV4ItBvg5nSQyIs=;
-        b=CkWNvJ5UR4gUnewigAHE0GNEDdeALBO5YjU7io0RqPC9l+duWuH3LbyDz8Gnh5S+Kb
-         PHznbywUpDTBpG28ZKCrUxa6R2bGKzzjxwkTUYkoiTGX4RK5cKpjkbzS7MZ+MdpltcAs
-         S51jrdt69j0zBGu1+fC0JW+IJncIpIERx532A1uiO8MZZam+ZsUA3pH8N0A+HXdTJ3Nr
-         jv9M6rIitBcfqgvWtGZC8h3bVHh2wqXaJY8PlnHLF8yXpfuqIDGNBEqYCz4RnEnO0kST
-         mLgy0w6zrH147SLFjgm/ZdXVmsL7IfoWECDMnrIRL/xfANH7qDWEFzDiCdnB1WP8/Twv
-         YWtA==
+        bh=1FwE1NfmDw+YKo1XdhlQDW5TQG+slKv16o9ht1shLNo=;
+        b=gQQYiOFmc7T264uw2eL6O0Ld54Bs4WlWK3nhBNV4ht6i3oNVhRmEbtKPm7uSxIDcpW
+         LscrUKn9cn212x5D1YuKkEONgt9ZUD9eYtM6cT/vqlOrs2jwYeA3WRlNOcjyWfSvSdvW
+         hmUtzoXFsQG0z+mYfyjcdG4XsrD7hsCTMi+uwKJdLkoPL//Nolt5nv0YZKwWcTtKHa5v
+         /8lqfFF/K1UL6nK4FBPU3CxbN80Zx6oVNUAhPq5wMOWaGxB4JhV9B1m/N8A5Q8tO++t2
+         uFDV+Ek9+g4V8oCVDkceiLzgjcwsHHna+UHQ2Ee3cfq+nKgtF5sMozOklRmwvzMeMcVT
+         jd3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790183759; x=1790788559;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1790184215; x=1790789015;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5Tnw0WBB0ykL71IZQC44P5CqwYSfWV4ItBvg5nSQyIs=;
-        b=TwXrTXsQS/wG3B9hSDfJ1RDG+F4CjrFFp1IWndYfYxPXFCaFED5x3MPpXRfJktr7N2
-         gYtKcoU+iU22hcxhmZHzjcSZ4B4lSnilfz4TXPAOrdPt+/xVBGVGTtzCxIMqzKanIZlB
-         iH+t7prQP+rVDmBv5xXxM82oTBj6x3hF4RuGIFxkSEOi0EZQFZD5vkKv0LRfD6zaWiKG
-         Nmk3My+5GmGHFBXEKNSTRxJ5m5yK4w4u//G/JmDSPfCTUZY+jRK3zT6FL2z51/rZRODp
-         tVPdsitHreVNlV2rcwHH2kDaRpwnJwsIDWd/49oaQ3WBxscmAgWxng4pqMUCUlkle0/s
-         tXIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQgTKT5PkbOu5UMMb93bSOmTWi1eieAr+ojx0ukVy2lIPPBsDngjL2qJKX48/sKcEfcc6W7c4b8RDu6w==@vger.kernel.org
-X-Gm-Message-State: AFuF++le8TMO1Zfd5XAzhTAFpICCWHuKg7Of15Dk8r4gQIPVXRcGPZ1/
-	Uh+3MdHmgvJr7PgLB+bf/JOhSpbTNk+oMl37lh2nl2nGFh2sP7uS/RTVBG/BQM86uMxFRWHozm1
-	oD6j+
-X-Gm-Gg: AYBFou2hwR13mJ9VNPM7xne/PETky5mUiQ8bFC9zyewi2C6UtPx76le4QYTQkiC3n+g
-	/97vGfBj+Y2usQq+JqwJpHUXIvvZjFL7Wk6SM7jFb4JcF+ez6tawfikihrw2IwZNNKyYiTHPS9b
-	/lc8FuPpMoVlTbocBUdfTgVJjY27HGGBcDdqzgUiHrN7SlewKN+cANMMhe/w4m36fNLOPYopqTg
-	HCTgxBc+eUq4cXvY89QRwFP50nOtVBoK4foiWf+qOdbItRgdvHSyQbyI0ihg3AOk/M4mpmkgHCK
-	g9d536d3tv7pW3G/1Xuo+kOEJTgR5qbBc2vAW0Nyv3Au9o+Id96vnUasSgWArW9sTpOuF2aDdNj
-	VaecucwdEn3GtQJOBnsjhT9JSWPgerl07lSuuaU6ej/Z+NO+mBxixolcTAYvkNlTsERsC8mIwB5
-	vhvIP3WGA9pR+YkIBOeqf6/VgrnKRYWmsqj5HtYSQ0vLH35C67zgouJ2KzB1nea2p2hTRcnOtmo
-	ZlOWsJR/uP8Dn/O6uiPnSTnokOyIeglv5itJ6TEhrEn2RapZ1u69FCZVT2iwsJHRXRNNA==
-X-Received: by 2002:a05:6122:e148:b0:5c7:a3a3:a4bd with SMTP id 71dfb90a1353d-5c9f157c88fmr3579854e0c.4.1790183758932;
-        Wed, 23 Sep 2026 10:15:58 -0700 (PDT)
-Received: from [192.168.0.187] (modemcable086.138-200-24.mc.videotron.ca. [24.200.138.86])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ca2876229dsm2214244e0c.3.2026.09.23.10.15.57
+        bh=1FwE1NfmDw+YKo1XdhlQDW5TQG+slKv16o9ht1shLNo=;
+        b=BpyGl1Sky/hMoDg+K+QXdx1IPAIfIbgpSWV5g0q/d1CMPP+9zGM8876Fyd7pKHWLGZ
+         oGd/OEtkiB4ubhXWK42k98mAoMnG7qE6Glr/U6rCnD0V509A5+Zu/tmO4vYBr75mMtOj
+         94wC4WRT+djylLZHTkVDCDq5Y/CZy4o2oFvWD1VX+/ecTgZpAJlFtOje0ZbdiDBmlBIS
+         oESAGEWRzIYoRwfbWpe3KsYwhOZfnZDfW6Ibl3Pho3t94AkOjlutJTSrRpvSYuLqVMTI
+         TakD7Fr6mWm3+OWq0GqKQUeFlUQT34tQ6G+Rr1M58Bbt7MIAaf8npCOVWYhQIy5SDZ2/
+         /OpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlQOSB8l2FAuDrdPOKZ+Q0HX9mKqkDhlqWgGs3OkclAg+SrTvAXXLdwVUcwIgU7uRrjNl8lNxsSXBOOA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mARsrXh8JWIHGqgEVbNbNgsdBvHm5q/ZHWGF3vMlabGKqCh2w3
+	J/9d6ESlD5ylfLhwGi5Do+ROrxU8Bt2YNLCzKR8WBoDJV7Ni4zkHLPXh8AQ9WEvBjfE=
+X-Gm-Gg: AYBFou3uvU6DPGcY3Ex8/rAV83DPp1GVBKzQpqyixDxEOY+ewwNXjL3Tdu7VtwgM/LU
+	AUYnDm8bXasNcTENsJdaq0xFfDTYWgOof+UwwrpP29JMNJmmieTgoimt4LlcpniSicLGIc2Ouzy
+	CLd+Xm8thAN/O4pBdDbxIzQlTfrWn2NseydO3uujd397UKPFCbuQbHFLAcsmyhVIpJCjF3wgrRS
+	f+4yeITEBI2g5HWygLNyOwvZsiULmLQBbuWwWp6yexn8l3hspo+QthtKFP9S/4DsBBwpquG6+vf
+	oAkgHiwa1BNPrFKL0304AMTnFVgKihr23V++pc5I0GbW2JoyXTuI1eHc+tsPanAlkf8RRmfccl8
+	fe2VhUvuv48b7DNBhuLsmGkD/ujfsaC72rf+RlUf/9xDMhI8QUruVO8OwQhii0sHAKx3cdYHqmP
+	aPnS9VQqyEfUMuq5oeYvmU0n6gKDwSK9OUU0+cvCEoMEDQ
+X-Received: by 2002:a05:6808:1313:b0:4b5:5bfd:518f with SMTP id 5614622812f47-4d5b85af4d4mr3232472b6e.21.1790184214658;
+        Wed, 23 Sep 2026 10:23:34 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c522604asm2686648b6e.15.2026.09.23.10.23.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 10:15:58 -0700 (PDT)
-Message-ID: <f3b50572e116cd82c518e013961f980121686e00.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: v4l2-ioctl: zero the ext control built for
- VIDIOC_{G,S}_CTRL
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Nick Rogers <nick@getfieldwork.ai>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@xs4all.nl>, Brian Daniels
- <briandaniels@google.com>,  Alexandre Courbot	 <gnurou@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 13:15:55 -0400
-In-Reply-To: <20260923160936.33445-1-nick@getfieldwork.ai>
-References: <20260923160936.33445-1-nick@getfieldwork.ai>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-QpuVmG4o+y4nZvyD+Tip"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Wed, 23 Sep 2026 10:23:34 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x9Qgv-0000000E9nH-0xvE;
+	Wed, 23 Sep 2026 14:23:33 -0300
+Date: Wed, 23 Sep 2026 14:23:33 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Kameron Carr <kameroncarr@linux.microsoft.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, mhklinux@outlook.com,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+Message-ID: <20260923172333.GM1540250@ziepe.ca>
+References: <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com>
+ <yq5aik3w344o.fsf@kernel.org>
+ <arOfD6syXOgQhZYA@arm.com>
+ <yq5a5wzw2ree.fsf@kernel.org>
+ <arOspFxWZ1DjgcAr@arm.com>
+ <20260923130611.GF1540250@ziepe.ca>
+ <yq5atsng10b2.fsf@kernel.org>
+ <20260923152124.GG1540250@ziepe.ca>
+ <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
 
+On Wed, Sep 23, 2026 at 09:28:54AM -0700, Kameron Carr wrote:
+> On 9/23/2026 8:21 AM, Jason Gunthorpe wrote:
+> > On Wed, Sep 23, 2026 at 08:28:57PM +0530, Aneesh Kumar K.V wrote:
+> > 
+> >> I'm also considering requiring the address passed to cc_make_shared() to
+> >> be in the linear map. This is currently required by both TDX and CCA,
+> >> while AMD SNP appears to support vmalloc addresses. The only user of
+> >> that vmalloc support is Hyper-V VMBus GPADL setup
+> >> (vmbus_establish_gpadl()). How should the generic CoCo shared-memory
+> >> allocator handle this?
+> > 
+> > vmbus_establish_gpadl() is the the same wrong abstraction as the arch
+> > code. Get rid of it and use vmbus_establish_gpadl_caller_decrypted():
+> > 
+> > 		pdata->recv_buf = vzalloc(RECV_BUFFER_SIZE);
+> > 		if (!pdata->recv_buf) {
+> > 			ret = -ENOMEM;
+> > 			goto fail_free_ring;
+> > 		}
+> > 
+> > 		ret = vmbus_establish_gpadl(channel, pdata->recv_buf,
+> > 					    RECV_BUFFER_SIZE, &pdata->recv_gpadl);
+> > 
+> > 
+> > So you made an allocator that returns folios, now you just need to
+> > use that allocator to implement a kvzalloc wrapper. ARM can call vmap
+> > on decrypted memory with pgprot_decrypted(), right?
+> > 
+> > Or maybe this can use vmbus_alloc_buffer(), it already does it.
+> 
+> Michael Kelley recently proposed [1] moving all ring buffer allocations
+> to use vmbus_alloc_buffer(). If we move forward with this, it should
+> remove the dependency on vmalloc support.
 
---=-QpuVmG4o+y4nZvyD+Tip
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Even better vmbus_alloc_buffer() can use the new allocator API
+directly so it doesn't need to open code the set_memory_decrypted arch
+call.
 
-Hi,
+Lets do it!
 
-Le mercredi 23 septembre 2026 =C3=A0 17:09 +0100, Nick Rogers a =C3=A9crit=
-=C2=A0:
-> When a driver implements the extended control ioctls but has no control
-> handler, v4l_g_ctrl() and v4l_s_ctrl() pass VIDIOC_G_CTRL and
-> VIDIOC_S_CTRL on as a single struct v4l2_ext_control built on the stack.
-> Only its id and value are set, and check_ext_ctrls() clears reserved[0]
-> and reserved2[0]; the control's size and the rest of both structures are
-> left uninitialized.
->=20
-> A driver that forwards the controls rather than handling them through
-> the control framework sees that stack garbage. The virtio-media driver
-> under review takes a nonzero size as a payload to copy from userspace,
-> so VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL through it whenever
-> the stack is dirty. GStreamer's V4L2 encoders set their profile with
-> VIDIOC_S_CTRL, and cannot negotiate against such a device.
->=20
-> Zero-initialize both structures.
->=20
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
-
-One may argue that it could have been fixed in the unique driver not using =
-the
-ctrl framework, but I personally like the simplicity of the fix.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
-> Found running the virtio-media v9 series [1] in a VMM with a host-side
-> stateful encoder: GStreamer's v4l2h264enc fails to negotiate because
-> VIDIOC_S_CTRL returns -EINVAL. Tested on 6.18 with that series applied:
-> VIDIOC_G_CTRL and VIDIOC_S_CTRL now reach the device intact, and
-> v4l2-compliance 1.30.1 reports the same results with and without this
-> patch. Build-tested on media.git next (arm64, W=3D1, no new warnings).
->=20
-> [1] https://lore.kernel.org/all/20260917171921.2810550-1-briandaniels@goo=
-gle.com/
->=20
->  drivers/media/v4l2-core/v4l2-ioctl.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-co=
-re/v4l2-ioctl.c
-> index 17ba1ae70..b7d248ab7 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -2357,8 +2357,8 @@ static int v4l_g_ctrl(const struct v4l2_ioctl_ops *=
-ops, struct file *file,
->  	struct video_device *vfd =3D video_devdata(file);
->  	struct v4l2_control *p =3D arg;
->  	struct v4l2_fh *vfh =3D file_to_v4l2_fh(file);
-> -	struct v4l2_ext_controls ctrls;
-> -	struct v4l2_ext_control ctrl;
-> +	struct v4l2_ext_controls ctrls =3D {};
-> +	struct v4l2_ext_control ctrl =3D {};
-> =20
->  	if (vfh && vfh->ctrl_handler)
->  		return v4l2_g_ctrl(vfh->ctrl_handler, p);
-> @@ -2388,8 +2388,8 @@ static int v4l_s_ctrl(const struct v4l2_ioctl_ops *=
-ops, struct file *file,
->  	struct video_device *vfd =3D video_devdata(file);
->  	struct v4l2_control *p =3D arg;
->  	struct v4l2_fh *vfh =3D file_to_v4l2_fh(file);
-> -	struct v4l2_ext_controls ctrls;
-> -	struct v4l2_ext_control ctrl;
-> +	struct v4l2_ext_controls ctrls =3D {};
-> +	struct v4l2_ext_control ctrl =3D {};
->  	int ret;
-> =20
->  	if (vfh && vfh->ctrl_handler)
-
---=-QpuVmG4o+y4nZvyD+Tip
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarQJSwAKCRDZQZRRKWBy
-9FaIAQDWFRB/8K9U0kUK3lCh8LBxGAXbkQRJHHQaVr9enrpbkwEA28VLadXOqMoR
-KqXQ3JeT7nnOx2yl6iqY/8biyela0wA=
-=IRRl
------END PGP SIGNATURE-----
-
---=-QpuVmG4o+y4nZvyD+Tip--
+Jaon
