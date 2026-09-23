@@ -1,106 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBD234BA5B;
-	Wed, 23 Sep 2026 21:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113523A1A3F
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 21:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197218; cv=none; b=fjChbBzCZ/XmWUOFh3sBIYRkMB+Nxhi3gJibCy405T4T9v7CWo6ZmYpaj4s6Bd5RGH8jcJ79Jhtj8K1PiWV5wjTkvNfjjxtbVEbcJ1LrprCBqdHOuHlKP/zRCcqqxFdutlkJYRUOBTVKp6PXktDZPlpZ6loDcRdqFNM3SafQqdU=
+	t=1790197489; cv=none; b=jChuSA0puLtA0UnAmcXZK7C/WKq9fvSqROj9ut4N2IIYScFZz+qsOquBVva5v5t3URss83GBQdTLqx+U2aQlZ331E9ci2l9YHKO7U7nfrZ1QOo+E4f7peGXltcBO/N2Y4Q7SoswP2mriUSCBcuF7ApU62jKllAi+fBGbDWejvlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197218; c=relaxed/simple;
-	bh=ccQz9YvjRV9nNKuWS/TlWg8SWDYqOPJmHdP9RIhMSUY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k+74p+jxc23Ei45KM9hDwStLJumySJJikhfpl2M2/NdFHZt86q0mnUfNnl6l0I8KcccRUo/4YZKiRn0NPCY4KhNt0UV+xbee2PPROeHBjnUOzFFqwGMPPObztoMF3ktfACpKyTBf6JTdD4TyLWiwFehRgbWh2W/ewTQnZZQfLrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j12baXkZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790197489; c=relaxed/simple;
+	bh=VFyjCNgeGGEMs58DDzNTOPPFDTAJYsdNHUpgJTVZ4oA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bpkV3K3D90x+BjO8SVdQWZgXtDBWJDvDxKtjuOPCLfJXX0KN1WD9u/CsLQ2Ma58FaTttUc70jrjM3j+5CZv3ay76FQfqx1C4iVOkKo0gXHv7CD6PRjC00nHxG1qEiFlbgC7xMoTIYGxk1nMSa9K0Adk/Kaezq8xE2lQ20RVbZs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jr4sJYa6; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j12baXkZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A831F000FF;
-	Wed, 23 Sep 2026 21:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790197216;
-	bh=gopMSo0mzfjrUmtaCVKnC5i427RNBJMYYN+bfD5UTH4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j12baXkZU6VWzbYrJ0+NzEVS/CfB8Rh8M798lc+51zoz+KwjyW3gRw6z7EbYzEKEt
-	 ZvK0X4S2aRfw3cy98PCg798VnCw2rE7bfIYDt0xAL3U971Y+q8VpPNSApFBWoOB/KT
-	 GYT2UyxeQI99pJh0d6zdMidf9LV8/FqeIZJtB0pCSDN+mByRuB8vFuwtybfAlOxXz5
-	 Emh6muuBBbpxRkqAdRwCwdcgzHCg2AkyVLFkGW5mRTdrDHfNbeedm2Zedp/LbGYsw9
-	 HH+YBEKk6Hr2IUcRUjHJrynTu5TcVnQd3Gg0SAZBacZirPA9pv1eDsGDNBQUY5X6UD
-	 eqECMtzKo5Dig==
-Message-ID: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
-Date: Wed, 23 Sep 2026 22:00:01 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jr4sJYa6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790197487; x=1821733487;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VFyjCNgeGGEMs58DDzNTOPPFDTAJYsdNHUpgJTVZ4oA=;
+  b=Jr4sJYa6VaOGokPhWpvVfJEtnxZI1oFtr8EhKwSVDjDM6O+EkEuZOF6n
+   F+2RMKGORSzSPsBh6pkbjRNvuTWU1i+Wf+N6rXKXrxTMZBiO4mRmG3YyV
+   111QOLDM5dgldo/yFX5BeMxmp0tTFby2vKev67Ct/hh06IZs6COR/uxGb
+   rmz09fAHf6ZTage5DHXrJaNZXEp070iZ/0d9tlugJlgdHsPhRt//SM0iJ
+   nNF06sobUehEjWMGGY4k4vu47+sEVbq5H0zxn21GeUaxgkR6ZuKDt05qk
+   bwHATRJpE9qXnay0OsMgx7LPjd1YVlzpTUBPrheTfsN64ObM9oED1IWSK
+   g==;
+X-CSE-ConnectionGUID: Jq5Ee7TnSA62OUj616KElw==
+X-CSE-MsgGUID: sWeOFvDqQaqdizbcLBtZJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="116461032"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="116461032"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:04:46 -0700
+X-CSE-ConnectionGUID: 3baDfRXBRVKjAUBipcD8sg==
+X-CSE-MsgGUID: 83M+AXU+Tymf+wMG2ZuLwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="270283995"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.83])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:04:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 40C5F11F9B7;
+	Thu, 24 Sep 2026 00:04:43 +0300 (EEST)
+Date: Thu, 24 Sep 2026 00:04:43 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Junjie Cao <junjie.cao@intel.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH 1/1] media: cvs: Default selection to VIDEO_INTEL_IPU6
+Message-ID: <arQ-67Lr18CFv8Mx@kekkonen.localdomain>
+References: <20260922064017.371437-1-sakari.ailus@linux.intel.com>
+ <arPIqZNMC98jPL3B@mdjait-mobl>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal
- helpers
-To: Albert Esteve <aesteve@redhat.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Russell King
- <linux@armlinux.org.uk>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Christian Loehle <christian.loehle@arm.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jeff Johnson <jjohnson@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Brian Norris <briannorris@chromium.org>,
- Govind Singh <govinds@codeaurora.org>,
- Niklas Cassel <niklas.cassel@linaro.org>, Kalle Valo <kvalo@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, Maxime Ripard <mripard@kernel.org>
-References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
- <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
- <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arPIqZNMC98jPL3B@mdjait-mobl>
 
-On 14/09/2026 13:41, Albert Esteve wrote:
->   int qcom_scm_pas_auth_and_reset(u32 pas_id)
->   {
-> -	return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
-> +	struct qcom_scm *scm = __scm;
-> +
-> +	return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
->   }
->   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
+Hi Mehdi,
 
-Why make this change at all though ?
+On Wed, Sep 23, 2026 at 02:44:47PM +0200, Mehdi Djait wrote:
+> Hello Sakari,
+> 
+> Thank you for the patch!
+> 
+> On Tue, Sep 22, 2026 at 09:40:17AM +0300, Sakari Ailus wrote:
+> > The cvs driver is only usable with the Intel ipu6 driver and is commonly
+> 
+> I don't know about this statement. Do you mean the ipu6 with the ipu7
+> support merged ?
+> 
+> I write this because I use the cvs with the ipu7 driver from staging on
+> one my dell laptops. No ipu6 on that system.
 
-It takes a pointer to the file static _scm
+Right, this will hold true once the ipu7 staging driver will be gone.
 
-The reset of the patch looks straight-forward to me but this change 
-caught my eye.
+I can add a note about this in v2.
 
----
-bod
+-- 
+Regards,
+
+Sakari Ailus
