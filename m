@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5724C651A;
-	Wed, 23 Sep 2026 11:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987663EFFA9;
+	Wed, 23 Sep 2026 11:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164341; cv=none; b=LplDoqo3wqrgyQeJ6YYNxv2eXv2kSITtXetaEVBdOABSuGFKFWAiHLpI4iofcKszg8GXrpUdHg51YhbJ6TqMkxBw99pmGua7h5TFzxA/U14GSE/LXNXsIT+4g9zn+9fT4KmxAy/s4kd4YTukFMU76R/QYgC60KeUZmF2HlRoiB8=
+	t=1790164420; cv=none; b=tmC6JqQXARdi5wvGDSdiRWBz5Zhd8/K6KWxO00Yzy/nxZauIQUkqSyIC9yO3csZL00ELNsymHOePqEGXNXF9ydJ0IfYuExVW2rUXSsjSac3XevbcbBukL7nNg3i7YauZwYIaO6tr/kHZW6jCMP5QSpdrvKEHMBj5iFVhx/HYXMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164341; c=relaxed/simple;
-	bh=Y9ZYBdMXfaMdcf+8XEdZDizqTOczxotesl2556vHz0k=;
+	s=arc-20240116; t=1790164420; c=relaxed/simple;
+	bh=HxNV3e9FWyXrPxPlTc4b9sItq0dV9FJY1WwT+PFt2hs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dU1d9h7ZkiI/QCs4OjIxi8H9tOdWA6KQRtjfvazBVNjR5fy9o+A6echLQS4/fGYGCYSJqvCDD6uHs/sF+Da0sAFnLfhZlwHI0xNb15kbNvCslhPWP68tGexeVZ027EmDe8VA/QA0nEXd9jtzHDxGlfIN5Wp01QCvY7ksRCQjlhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlI5GGP2; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=T0hPub7hgB28UwteMsSE5sSDV1bH0YdrRAQlS2izjPeE08K71Csk9Y0kkkfiMlAI7JkT3QIIDoAAhPklVD8apbvTxFzFhSfsRyS4+5MbSxWXW5ZRNcxYxrrNcMI6w6lTanTSbgTiS8oXDwIGFWj+r99BojRzAM9bMzWLNcx4W9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWJGWyX4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlI5GGP2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B0541F000FF;
-	Wed, 23 Sep 2026 11:52:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWJGWyX4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048191F000FF;
+	Wed, 23 Sep 2026 11:53:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164330;
-	bh=Ltd0iFxeEgXCHootaIL+uLOVqz8Tw6zB7ny0MXqjoM0=;
+	s=k20260515; t=1790164406;
+	bh=gGyo6Eb0jT42lGzTz4kJcOSvoayimItz3MEoCgBysnQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BlI5GGP2G2T08oCdruDc1Gnl5QrmY2cv7Ma3AGuSUVVQSK8CUCKK6MDjAhuklGYYt
-	 cGqhZxs8U1eBnDMU4qb/+0hYXwi8EnMUPeytAS/9k9NxZ3ohuyZDVIyZi98UZVH3qC
-	 x3o32W91dl8QDcm6A7esB28Tl67E9TdFfv+bg5HB4XmtA5QD1yAQHi9DGd9Z6LPl/p
-	 uNtTpVr6Ha2z4gAnJtNwfLsBmb/ZMHOYTZDZmEAbNt4crF1lpGgCsw5j7Bd/iD2FtO
-	 +PxIF/h/yB7f+60req2O6tIxosjSqgmt2XaiqlBbpv8VtG3dLBXvkhhCoinDIry5KT
-	 csaQMgLJH5c/Q==
-Message-ID: <7923c064-e869-4fa0-8b3d-ee1bc73aae53@kernel.org>
-Date: Wed, 23 Sep 2026 13:52:01 +0200
+	b=BWJGWyX4HY70wsPo4+lxHMr6LaBKE5+9mCvYEIbzfsweyZVyxM0EnFo9aWYnnGaBg
+	 OzMs/4iAfmI5wGPjlppUjReUGeliYbzZg+v+vAlzaSIud39QZJmCgidmLZRRMIn2oX
+	 X8jRvhONrzuHxDHtH2TM1hXgR1hgyjnew/dqjCWo8JggbUrXQ6h+1ITqJuBwme6c75
+	 n1+Jsl+MUCm9WFcKa6QYm8VVErT5++5F9aFLDN/lMesmo8K6dGiSB8wMbQEhAr+xW2
+	 GlwqahlVUo9b5qVweX/hNZpS+CXxCDJDr33IU5sWzz9cM/eV1UibTvjImFXL3tZ76V
+	 ysZp/r/8584SA==
+Message-ID: <8f2fe9d2-13c9-42aa-a326-58a48917a215@kernel.org>
+Date: Wed, 23 Sep 2026 13:53:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Glymur compatible
+Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
+ CAMSS
 To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
  Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,7 +54,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  Suresh Vankadara <svankada@qti.qualcomm.com>,
  Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
+ <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,16 +100,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
+In-Reply-To: <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07/09/2026 10:13, Nihal Kumar Gupta wrote:
-> Glymur integrates the same CSI2 PHY IP as X1E80100. Add
-> qcom,glymur-csi2-phy falling back to qcom,x1e80100-csi2-phy.
+> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
+> Glymur uses only the new PHY API via standalone phy@ child nodes,
+> so per-CSIPHY clocks, interrupts and supplies are absent here.
 > 
+> X1E80100 has four CSIPHY instances while Glymur has three
+> (CSIPHY0, CSIPHY1, CSIPHY4), expressed entirely in DT.
+> 
+> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 > Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
 
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
