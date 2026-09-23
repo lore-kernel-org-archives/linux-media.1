@@ -1,300 +1,218 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011033.outbound.protection.outlook.com [52.101.57.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B43530E82D
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 07:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149921; cv=none; b=Vaxo7vQDECKnzWZ2U4w9GmYqOCohJ+j3iDA6OLPAINgl/EwTqfmr2wnWyHqGcpvnssRRWihBPx8SVM5VhyLvMcP7t4ikuhcb5w0T6avaf4c5v6cRVkG2ZZnvX3qyZlgDu2/vv9B3tBkKdwX+Fie+YaZxbf0etPBvfPvdP+wBWaY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149921; c=relaxed/simple;
-	bh=+RUwTKZ7gTtOpVMGwphb+nkgvCNB3J1wVek0TtgUpVg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D4SOM/Wefva1A5JWp9TK569qt+aADTI1s9fudSXn7NCuv2xqsHSQLKmh0aWgJDEYCvQJF5u/RD7Pwk9EJgnGF9J6o+iOrhemMcqQeqCvkA00apD+C7iCtwXsF4UV1ghFKHZkcfPtR9Cb5BUhktgC0nCucn71YfPagvBVQFGVfo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Ol8584YT; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3144455635;
+	Wed, 23 Sep 2026 08:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790150618; cv=fail; b=QdP90L/QWxugEnuzsmk5VnKajXrgvCtfVu45I0trCTi9b+ufJZ87a5+iaRbg0nrf+jYf90m5H1vqswVvAh103YyJsIXHe1ohJyaZsCp7xniM4qbXQtEHukZTWlAd7wqpmMoWLCDOD0moocPcxpvSDw1xHMsMRmC/J5oCFCzBLQk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790150618; c=relaxed/simple;
+	bh=iNcigU8SKKS4UCAyTgtwdz9vnKIHgAnymJ3icWIyHUs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=OxW1nviFcybtTQHD8JlV7JL9eQWJiUDNov6CgRPdMv6TA3IWb+VgnEG1mU09aR+uFE/m5+G+lHrp0QCT28/MyLaJAfv/CXTd2Uzc8vVBwvl3I6ncKey3tr8Zst0doorLg6bS0VeUPS5qw2CfjUNIafgMULvMx2CAyD7LPd3rqec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4COAFWss; arc=fail smtp.client-ip=52.101.57.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Ol8584YT"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C052524A;
-	Wed, 23 Sep 2026 09:50:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790149812;
-	bh=+RUwTKZ7gTtOpVMGwphb+nkgvCNB3J1wVek0TtgUpVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ol8584YT1+iwcoaAm7ImUW+i0o3Vd5vy+eFyECB3QT6oxumt9+Tu1dSMMdfsoOOYM
-	 hlmDLW40isRvQQd8Q8xmZM9bX189Riw/LIvqB4PyxhsgUId0t0cl0CJ22YxWrFqXdJ
-	 fawuaym47dzRCYnE7RyYRytWWylIPoDPEiBDkUPM=
-Date: Wed, 23 Sep 2026 10:51:56 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Frank Zago <frank@zago.net>, Olivier Lorin <o.lorin@laposte.net>,
-	Erik Andren <erik.andren@gmail.com>,
-	Brian Johnson <brijohn@gmail.com>,
-	Leandro Costantino <lcostantino@gmail.com>
-Subject: Re: [RFC PATCH] media: usb: gspca: remove driver for old webcams
-Message-ID: <20260923075156.GB3532@killaraus.ideasonboard.com>
-References: <6e63b180-d6c6-41e9-a2a2-78cced514f7e@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4COAFWss"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lenqgBmgwcLfp/Ogk9ZF8wJsIP3SEvyoLJTqWwzjYTaRiNRitcc6RBo0zQ4gP2ko1js+7acrlxdpva2QQLpaab75A5CDqOsCVfFTgJi4YvS3jktpXMxWtve+8ZMEkXK6po6lS9x+DW6b98SGSFLOJbDyz+YWosGMuObAkLBlH352nKuGB4rsIUdvxRH/T+SL3K/7jbuOVT+C3egJGD0XgrC4axcHaZlYJlJMrWyo4w2kyz4czQevUg2scXQDPpY8WJ2bWeiqSM6gSyw/mKOYhEcvVO4eSATLUbnkIxPq7tTv1597WBszxdgFFBOykmow2PAXeOC6Ak4CQUO2zUbSSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xwJHULXrUqe3nJ1D9ShD1Iz5v9mjdwj9roFfAm9+b5k=;
+ b=MqdqFSPUAOBmgy1bbvmiVmSKCO04OszTeoIRv34NY6EwAQRCHE0PxsfaV/RiOOYRlxzAKlrudAl3hXAbepQTs5Uo+TJDBU4TNzkTdr099P2cNh2eOmZLGWbirvI3rqlrfnSXo0bXDHJGtkF/AzLwTaewSVKolTnD/2GFITS+Q2yZMGu0Dwd9CGPm5AOnapXWTfoqZTOqICCi0LaGkhhYNAsnHj9kV3wHYr91du3jRIaSknc6bZip/P7SEiURdomNz8XfpON7BQtnZoFgBPwvB++8Wg2kctP99MZgfmPqUQ829PYJmHfdYsGkL27OAcBeV5pNT19uM/leaCQgVcPUCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xwJHULXrUqe3nJ1D9ShD1Iz5v9mjdwj9roFfAm9+b5k=;
+ b=4COAFWss5kIw03jr4Ir5xjq/h3xyTV1oiUto3aDEymFLNXeO4uuiSXq9mRA9NZu3I9yGHnnIrgJBGT1V9UwsfA2HOZq+CbcROu4mdQqpklGvRgXXVfJTr+qJas+0mWkMbOH/Lf4n1+XNxZeprxLEhbC0Gq0DQF6dFlY2Inh5yGI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.16; Wed, 23 Sep
+ 2026 08:03:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 08:03:26 +0000
+Message-ID: <fe3a4297-f300-451d-9763-0b3016706111@amd.com>
+Date: Wed, 23 Sep 2026 10:03:21 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
+To: Jianfeng Liu <liujianfeng1994@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Karl Mehltretter <kmehltretter@gmail.com>
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
+ <20260923074256.9357-2-liujianfeng1994@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260923074256.9357-2-liujianfeng1994@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0315.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <6e63b180-d6c6-41e9-a2a2-78cced514f7e@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8419:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ea54156-8de6-4d0d-aecf-08df194925c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|5023799004|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	9ekffflhBCx6uxh/xf32orR1uAdoiEaRJnv4FtnS+cxx520OdoACxIT2m0Gu1eradp/ABYHHXdldoUKP0P57c6Y8MCSXh6ysBHrUaazBJKeVAjuIukwKhB1uMqT80PdtMo7xq9cXVyk5/JKqBJZqfbICAmn7NAREWeTgBdKZP6AmLHpxro1oeg38DuSeoxcu4nT2S8/mVxms8cEJfN7Iop9XAGZpGwIGoGEj6pNK+fy+Iu+sd+wvhNF2B5hO+h2jzH6GhSApH/0nHxvUHcBotfb0EB6fjIMjDBnqRQtVnjjbalbO/ttz4i3qaI+fLKw029JYeaQxyL2opJeJsPN+q0FAQaX1nbucgzL/AJnlZx5Qy6fkX5L+xDy4fKTVwi6Uhf+YW0WNBQVB4Dhpa6hsq7ca9dk5+n4kXvcFCLDYhTcQGLhK5ZlMgI2T132WznwuOApSnOdBT9X4E2UCSTBdPVz+frX5y6KkDDs/yjy4o5m6ms+aey5g2HdDlH9QibPyUaejCy+2Xn19X8M4d9D9RL2AHSmaBOxk13A6vvBzZdeH7cRWjfGL1j8o9MV2kA2qdi8KKTjLUeQLA85Pcs/OgDhOBoE5q5619jkcfGsRfN2VO/nS2/svO3OxJ4AsPDmdyNAnHn2mWSbUU7+irnZDMiHwiRwt5E8HZ3P/D0GGwTs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cGRidzVMOTBkZjNvWDcwSGliZXVyRVBiL3RLWTJkL1FmczNia1NuTjRTbjcx?=
+ =?utf-8?B?U1g2RVRuUjNXZ21kRDJRQms1c01EU3VSTzFkVEoyNUZVZDl0WGthRlBrY2tu?=
+ =?utf-8?B?WVkzeWFUOTNNUnZ3Y0x5Mk8wZDUrMzR6UWs0N09QTjlGZktRU0NlYSszZWlY?=
+ =?utf-8?B?QjVoeEFHcG91dURZMDcvWklZeDR5cXZ4OHkrLzFoTU5mQkpnd1ZseURWakdK?=
+ =?utf-8?B?MnRrMi9QdDM5cXNwQzlCTmh0TlhGbkJsRU1Pd0RFTCs5VVBrVmxtNHdWczFJ?=
+ =?utf-8?B?L3hVVFRoVEQyZU5kMTVkSDNtZmZmS1ZRVFN1YWZkVUhQYWJtNnFYQVJHQWRY?=
+ =?utf-8?B?R1ZSY0RoQ0ROeHhZcERMYkVmSTkrSUNpNk83VjgrWHl5M05Ed2RSQmc3Wmlh?=
+ =?utf-8?B?TndROUx5OSs0ckVZREJtNG1GMlBTdThvbWs5eFlYSE15SFRFQnJZTXJpVU5o?=
+ =?utf-8?B?K2tKVHVqK0VPOWhaZDlwb1ZSOUxjWEdZcldGenFNbVkzclFnVjBOb0MycUhT?=
+ =?utf-8?B?OFdXa1d3ZUF4bytIbG9qeVdMRkljTS9YTzI0MS90NmpKYVBtL3pMbVdCYXh1?=
+ =?utf-8?B?L2R4UFRNbzBPMkVUSjdhQjI3MkVBZHFmbnp2ME1LVXlWYUtoZEpLTGhxZVdJ?=
+ =?utf-8?B?QWxsd3J3bHl3ZDluZkNUajI2d3prZ1MxTUM3dnBTVUVyK0NhVDZueHdnRHJ2?=
+ =?utf-8?B?bjR5eFdSNmNHMkFUbkdOeEpNVlYvVkVWcWNvcU9wR3IyenlxS0QyUTVUaTdO?=
+ =?utf-8?B?dFlZVUU2cmdWQXc1SlY1UlE0NmI1NENtbDNNaUdiKzhtTG1rM0RhRDBMWTBB?=
+ =?utf-8?B?TzlKVG1HV2YwM1NpbzNIY2pqRk9iaGpsaFNDdkFDdzlPdndVb1Avd05UVkNk?=
+ =?utf-8?B?aVh2enI1Y1UrQkN2djhuSHEybWxKK3R1UW1tMzZRWHAyOUVQbWF2VDdMd3hZ?=
+ =?utf-8?B?UkFyZnViSFk4VUcvcWovSnhhQU1jakVGYXFvbnNUaWJWVVcxQXRIbVZLTUh2?=
+ =?utf-8?B?Y2RzTlZLT2FxZWhtTUlJUlROZUNPNTVGZ0R1MlB3VXRMbVFoN2ZrdkRJNHBp?=
+ =?utf-8?B?Qlh2Vmt1ZTZqN0s0a0I2UFJHYTloa0kyWk50a0Q2RXcrZ0NwOU1iYkU2UWFW?=
+ =?utf-8?B?TENWUEgxSGgwak1HaktXbUlUNXNOempid2FFUFdSNkxuZEF0N1hROUZBTWtN?=
+ =?utf-8?B?UXlrTWhzaEtia2pKREdMc0s5ai9SeTR4VjlqaXVtMkFYRnQzeTdka29DNjlF?=
+ =?utf-8?B?Z004eUZqbXFiYVRaTkhjVzNGSlBSbXlWV0hjcTFkZGszYjk2L2syeWtJTUtV?=
+ =?utf-8?B?UTFTTzl1bU9aZWttNE9jUUVEdmxITS9mbGpGYk9lbkpIQ0trWjE3K0RmUmtQ?=
+ =?utf-8?B?ZDd0UDE1S1RucHc4WFlmS0FFUzd3RFFLYVRBYUZhV2ZIY1dHZlhZcEJjdE5k?=
+ =?utf-8?B?UG9VT0psRDJYa3I3YXJkRGhzV09uOVB1TU1xdUdhK2ZZaFBSL0h6VnFTMUVN?=
+ =?utf-8?B?QktEWElZalZnZ3JWMW1XTDgzWkRaK0JNcDhuTU9OLzI1Q1VwRkpZaFNPYzdS?=
+ =?utf-8?B?THY5NTFZcmVObEo0dlFldUpvMUtPaWoyWHVaL20rZFBLZWQ5UENEbjg4NWRw?=
+ =?utf-8?B?ZHJRWFZseGZ4OHl1RDlGRk4yNGE5bTlFV0o1cDNSZjljN1RRc2NQVitGUm9x?=
+ =?utf-8?B?TXBzcmRuT1NNQWVpR1JEUEFBZk1tcEsydEZ0N3hwZFFCcFZ3c2lab1ZpTkEz?=
+ =?utf-8?B?QVd2L2pJRkhsTTdCZzVRZkpLbWR3bEpucEI0YmJ2MWdlYTVhZGRFbFJIb3l4?=
+ =?utf-8?B?QTZSbUlEb2p3aTBVVDk5VGV0N21NS2pvcUJqMCtoTTRxaWVINy9iRVd0TDUx?=
+ =?utf-8?B?enN3VHU1YjN2TDdRVTYvVUc0MzUzNkJMUFlLN0dvNkFxS1JoYU5KVWUvSWZz?=
+ =?utf-8?B?RWxGTWtzcmg2QUlGS3dNMFIvNE1DcGxZWTdXRDJxQWMwVXRoNHB2dlArQlUx?=
+ =?utf-8?B?eU40eGlST2ZTQjVtK3VSaWc1MUVJQXRNQWR6NERUbXpEMWx5MzNDcEtKUmJ5?=
+ =?utf-8?B?SUtSM2dxUTdtRjd2VzU4bEg1U3IrbG5KQ3JkWTA5Z1plUForYjNJUmpKMGJh?=
+ =?utf-8?B?YkhlNDhuTEp2YXpmSEVvb0tZS1JQN0U2WU9yOUdBR25xcGZranlobCt2Y3Zr?=
+ =?utf-8?B?dGJDOXlLdzdqekFsSkoxNWJJQXhYSzYvSkQ0d1VVa0EvbDRuOFJZbkZ1Y0I2?=
+ =?utf-8?B?S3RndUxrS21uNGV3MGZSVHg5cThjazJrbEpMR0RjL1dLZXFpNGE3QUFqRjRw?=
+ =?utf-8?Q?tUAreIR3hLYCCAjWRE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea54156-8de6-4d0d-aecf-08df194925c4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 08:03:26.8371
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JEMman8ulaQugxz95TQ0xYcyHXIDpICzT/FxljpBxoqrlJfyFQ6pMqIAeCLcRF2R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
 
-Hi Hans,
+On 9/23/26 09:42, Jianfeng Liu wrote:
+> [Sie erhalten nicht häufig E-Mails von liujianfeng1994@gmail.com. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+> DEBUG_KERNEL kernels") fixed a dangling reference in the DMABUF_DEBUG
+> default, which had the side effect of enabling the option (and with it
+> the page-stripping sg_table wrapper handed to importers) on every
+> kernel with DEBUG_KERNEL=y - i.e. virtually every distro kernel.
+> 
+> drm/msm is broken by this: it maps imported dma-bufs into the GPU's
+> own pagetables with iommu_map_sgtable(), which needs the struct page
+> of the attachment sg_table, and it fills the GEM object's page array
+> through drm_prime_sg_to_page_array().  With the debug wrapper in
+> place both silently produce garbage (the wrapper zeroes sg->length,
 
-On Wed, Sep 23, 2026 at 09:32:54AM +0200, Hans Verkuil wrote:
-> The gspca driver supports a large number of old non-UVC webcams that use
-> proprietary formats.
-> 
-> These webcams are poorly maintained, have very poor image quality, and
-> there is no use-case for them anymore since even the cheapest UVC webcam
-> will be better than these.
-> 
-> The last time there was a 'real' change to gspca was in 2021, one in
-> 2019 and one in 2018.
-> 
-> We see an uptick in the number of suspected AI patches in this driver,
-> and I really don't want to waste time on that.
-> 
-> So let's remove this driver.
-> 
-> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> ---
-> I CC-ed this to several maintainers of gspca webcams listed in the MAINTAINERS
-> file. It would not surprise me if at least some of these emails are obsolete.
-> 
-> This is an RFC for now, and if we do this then it will be for kernel 7.5.
-> 
-> Regards,
-> 
-> 	Hans
-> ---
->  .../admin-guide/media/gspca-cardlist.rst      |  451 --
->  .../admin-guide/media/usb-cardlist.rst        |    6 -
->  .../media/v4l/pixfmt-reserved.rst             |   32 +-
+Interesting point, we should probably change that.
 
-There are other mentions of gspca in the following files:
+> so the page iterator yields nothing and an uninitialized array is
+> kept).  The VM_BIND map job then fails asynchronously after userspace
+> has already enqueued GPU work referencing the mapping, which shows up
+> as an arm-smmu translation fault from UCHE, e.g.:
+> 
+>   gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
+>   type=TRANSLATION source=UCHE
+> 
+> This breaks hardware video decode (clapper, chromium) on Adreno
+> systems; bisected on a Snapdragon laptop as v7.3-rc3 good,
+> v7.3-rc4 bad, culprit 143755bdabaa9.
+> 
+> Revert the default until importers that legitimately need to build
+> phys-based mappings have been converted.
 
-- Documentation/.renames.txt
-- Documentation/admin-guide/bug-hunting.rst
-- Documentation/translations/zh_CN/admin-guide/bug-hunting.rst
+Well that won't work like this, pointing those things out is exactly what DMABUF_DEBUG is made for.
 
-arch/arm/configs/tegra_defconfig also needs to be updated to drop
-CONFIG_USB_GSPCA=y.
+What MSM is doing here is not allowed at all and can break badly. We gave drivers 5 years to get that fixed and I'm now pushing for completely deprecating that hack.
 
-Should we move the gspca-specific pixel formats in
-include/uapi/linux/videodev2.h to a separate section with a header that
-documents them as deprecated ? I think we can also drop them from
-v4l_fill_fmtdesc() if nothing uses them in the kernel any more.
+See patch 84335675f2223cbd25d0de7d38ecc7d40b95bd4a:
 
->  MAINTAINERS                                   |   49 -
->  drivers/media/usb/Kconfig                     |    1 -
->  drivers/media/usb/Makefile                    |    1 -
->  drivers/media/usb/gspca/Kconfig               |  455 --
->  drivers/media/usb/gspca/Makefile              |  100 -
->  drivers/media/usb/gspca/autogain_functions.c  |  165 -
->  drivers/media/usb/gspca/benq.c                |  274 -
->  drivers/media/usb/gspca/conex.c               |  953 ---
->  drivers/media/usb/gspca/cpia1.c               | 1898 -----
->  drivers/media/usb/gspca/dtcs033.c             |  430 -
->  drivers/media/usb/gspca/etoms.c               |  782 --
->  drivers/media/usb/gspca/finepix.c             |  293 -
->  drivers/media/usb/gspca/gl860/Kconfig         |    9 -
->  drivers/media/usb/gspca/gl860/Makefile        |   11 -
->  drivers/media/usb/gspca/gl860/gl860-mi1320.c  |  551 --
->  drivers/media/usb/gspca/gl860/gl860-mi2020.c  |  793 --
->  drivers/media/usb/gspca/gl860/gl860-ov2640.c  |  477 --
->  drivers/media/usb/gspca/gl860/gl860-ov9655.c  |  373 -
->  drivers/media/usb/gspca/gl860/gl860.c         |  730 --
->  drivers/media/usb/gspca/gl860/gl860.h         |   93 -
->  drivers/media/usb/gspca/gspca.c               | 1700 ----
->  drivers/media/usb/gspca/gspca.h               |  243 -
->  drivers/media/usb/gspca/jeilinj.c             |  537 --
->  drivers/media/usb/gspca/jl2005bcd.c           |  519 --
->  drivers/media/usb/gspca/jpeg.h                |  156 -
->  drivers/media/usb/gspca/kinect.c              |  474 --
->  drivers/media/usb/gspca/konica.c              |  478 --
->  drivers/media/usb/gspca/m5602/Kconfig         |   10 -
->  drivers/media/usb/gspca/m5602/Makefile        |   12 -
->  drivers/media/usb/gspca/m5602/m5602_bridge.h  |  161 -
->  drivers/media/usb/gspca/m5602/m5602_core.c    |  446 --
->  drivers/media/usb/gspca/m5602/m5602_mt9m111.c |  600 --
->  drivers/media/usb/gspca/m5602/m5602_mt9m111.h |  125 -
->  drivers/media/usb/gspca/m5602/m5602_ov7660.c  |  468 --
->  drivers/media/usb/gspca/m5602/m5602_ov7660.h  |  105 -
->  drivers/media/usb/gspca/m5602/m5602_ov9650.c  |  784 --
->  drivers/media/usb/gspca/m5602/m5602_ov9650.h  |  155 -
->  drivers/media/usb/gspca/m5602/m5602_po1030.c  |  623 --
->  drivers/media/usb/gspca/m5602/m5602_po1030.h  |  166 -
->  drivers/media/usb/gspca/m5602/m5602_s5k4aa.c  |  759 --
->  drivers/media/usb/gspca/m5602/m5602_s5k4aa.h  |   84 -
->  drivers/media/usb/gspca/m5602/m5602_s5k83a.c  |  576 --
->  drivers/media/usb/gspca/m5602/m5602_s5k83a.h  |   60 -
->  drivers/media/usb/gspca/m5602/m5602_sensor.h  |   69 -
->  drivers/media/usb/gspca/mars.c                |  427 -
->  drivers/media/usb/gspca/mr97310a.c            | 1077 ---
->  drivers/media/usb/gspca/nw80x.c               | 2105 -----
->  drivers/media/usb/gspca/ov519.c               | 5030 ------------
->  drivers/media/usb/gspca/ov534.c               | 1608 ----
->  drivers/media/usb/gspca/ov534_9.c             | 1821 -----
->  drivers/media/usb/gspca/pac207.c              |  475 --
->  drivers/media/usb/gspca/pac7302.c             |  951 ---
->  drivers/media/usb/gspca/pac7311.c             |  687 --
->  drivers/media/usb/gspca/pac_common.h          |  119 -
->  drivers/media/usb/gspca/se401.c               |  730 --
->  drivers/media/usb/gspca/se401.h               |   76 -
->  drivers/media/usb/gspca/sn9c2028.c            |  963 ---
->  drivers/media/usb/gspca/sn9c2028.h            |   48 -
->  drivers/media/usb/gspca/sn9c20x.c             | 2409 ------
->  drivers/media/usb/gspca/sonixb.c              | 1469 ----
->  drivers/media/usb/gspca/sonixj.c              | 2981 -------
->  drivers/media/usb/gspca/spca1528.c            |  438 -
->  drivers/media/usb/gspca/spca500.c             |  979 ---
->  drivers/media/usb/gspca/spca501.c             | 2036 -----
->  drivers/media/usb/gspca/spca505.c             |  791 --
->  drivers/media/usb/gspca/spca506.c             |  599 --
->  drivers/media/usb/gspca/spca508.c             | 1526 ----
->  drivers/media/usb/gspca/spca561.c             |  911 ---
->  drivers/media/usb/gspca/sq905.c               |  428 -
->  drivers/media/usb/gspca/sq905c.c              |  330 -
->  drivers/media/usb/gspca/sq930x.c              | 1156 ---
->  drivers/media/usb/gspca/stk014.c              |  434 -
->  drivers/media/usb/gspca/stk1135.c             |  676 --
->  drivers/media/usb/gspca/stk1135.h             |   44 -
->  drivers/media/usb/gspca/stv0680.c             |  339 -
->  drivers/media/usb/gspca/stv06xx/Kconfig       |   10 -
->  drivers/media/usb/gspca/stv06xx/Makefile      |   11 -
->  drivers/media/usb/gspca/stv06xx/stv06xx.c     |  647 --
->  drivers/media/usb/gspca/stv06xx/stv06xx.h     |  103 -
->  .../media/usb/gspca/stv06xx/stv06xx_hdcs.c    |  532 --
->  .../media/usb/gspca/stv06xx/stv06xx_hdcs.h    |  193 -
->  .../media/usb/gspca/stv06xx/stv06xx_pb0100.c  |  432 -
->  .../media/usb/gspca/stv06xx/stv06xx_pb0100.h  |  131 -
->  .../media/usb/gspca/stv06xx/stv06xx_sensor.h  |   74 -
->  .../media/usb/gspca/stv06xx/stv06xx_st6422.c  |  273 -
->  .../media/usb/gspca/stv06xx/stv06xx_st6422.h  |   38 -
->  .../media/usb/gspca/stv06xx/stv06xx_vv6410.c  |  265 -
->  .../media/usb/gspca/stv06xx/stv06xx_vv6410.h  |  242 -
->  drivers/media/usb/gspca/sunplus.c             | 1073 ---
->  drivers/media/usb/gspca/t613.c                | 1041 ---
->  drivers/media/usb/gspca/topro.c               | 4972 ------------
->  drivers/media/usb/gspca/touptek.c             |  712 --
->  drivers/media/usb/gspca/tv8532.c              |  365 -
->  drivers/media/usb/gspca/vc032x.c              | 3838 ---------
->  drivers/media/usb/gspca/vicam.c               |  353 -
->  drivers/media/usb/gspca/w996Xcf.c             |  569 --
->  drivers/media/usb/gspca/xirlink_cit.c         | 3149 --------
->  drivers/media/usb/gspca/zc3xx-reg.h           |  250 -
->  drivers/media/usb/gspca/zc3xx.c               | 7029 -----------------
->  102 files changed, 16 insertions(+), 78186 deletions(-)
->  delete mode 100644 Documentation/admin-guide/media/gspca-cardlist.rst
->  delete mode 100644 drivers/media/usb/gspca/Kconfig
->  delete mode 100644 drivers/media/usb/gspca/Makefile
->  delete mode 100644 drivers/media/usb/gspca/autogain_functions.c
->  delete mode 100644 drivers/media/usb/gspca/benq.c
->  delete mode 100644 drivers/media/usb/gspca/conex.c
->  delete mode 100644 drivers/media/usb/gspca/cpia1.c
->  delete mode 100644 drivers/media/usb/gspca/dtcs033.c
->  delete mode 100644 drivers/media/usb/gspca/etoms.c
->  delete mode 100644 drivers/media/usb/gspca/finepix.c
->  delete mode 100644 drivers/media/usb/gspca/gl860/Kconfig
->  delete mode 100644 drivers/media/usb/gspca/gl860/Makefile
->  delete mode 100644 drivers/media/usb/gspca/gl860/gl860-mi1320.c
->  delete mode 100644 drivers/media/usb/gspca/gl860/gl860-mi2020.c
->  delete mode 100644 drivers/media/usb/gspca/gl860/gl860-ov2640.c
->  delete mode 100644 drivers/media/usb/gspca/gl860/gl860-ov9655.c
->  delete mode 100644 drivers/media/usb/gspca/gl860/gl860.c
->  delete mode 100644 drivers/media/usb/gspca/gl860/gl860.h
->  delete mode 100644 drivers/media/usb/gspca/gspca.c
->  delete mode 100644 drivers/media/usb/gspca/gspca.h
->  delete mode 100644 drivers/media/usb/gspca/jeilinj.c
->  delete mode 100644 drivers/media/usb/gspca/jl2005bcd.c
->  delete mode 100644 drivers/media/usb/gspca/jpeg.h
->  delete mode 100644 drivers/media/usb/gspca/kinect.c
->  delete mode 100644 drivers/media/usb/gspca/konica.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/Kconfig
->  delete mode 100644 drivers/media/usb/gspca/m5602/Makefile
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_bridge.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_core.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_mt9m111.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_mt9m111.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_ov7660.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_ov7660.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_ov9650.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_ov9650.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_po1030.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_po1030.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_s5k4aa.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_s5k83a.c
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_s5k83a.h
->  delete mode 100644 drivers/media/usb/gspca/m5602/m5602_sensor.h
->  delete mode 100644 drivers/media/usb/gspca/mars.c
->  delete mode 100644 drivers/media/usb/gspca/mr97310a.c
->  delete mode 100644 drivers/media/usb/gspca/nw80x.c
->  delete mode 100644 drivers/media/usb/gspca/ov519.c
->  delete mode 100644 drivers/media/usb/gspca/ov534.c
->  delete mode 100644 drivers/media/usb/gspca/ov534_9.c
->  delete mode 100644 drivers/media/usb/gspca/pac207.c
->  delete mode 100644 drivers/media/usb/gspca/pac7302.c
->  delete mode 100644 drivers/media/usb/gspca/pac7311.c
->  delete mode 100644 drivers/media/usb/gspca/pac_common.h
->  delete mode 100644 drivers/media/usb/gspca/se401.c
->  delete mode 100644 drivers/media/usb/gspca/se401.h
->  delete mode 100644 drivers/media/usb/gspca/sn9c2028.c
->  delete mode 100644 drivers/media/usb/gspca/sn9c2028.h
->  delete mode 100644 drivers/media/usb/gspca/sn9c20x.c
->  delete mode 100644 drivers/media/usb/gspca/sonixb.c
->  delete mode 100644 drivers/media/usb/gspca/sonixj.c
->  delete mode 100644 drivers/media/usb/gspca/spca1528.c
->  delete mode 100644 drivers/media/usb/gspca/spca500.c
->  delete mode 100644 drivers/media/usb/gspca/spca501.c
->  delete mode 100644 drivers/media/usb/gspca/spca505.c
->  delete mode 100644 drivers/media/usb/gspca/spca506.c
->  delete mode 100644 drivers/media/usb/gspca/spca508.c
->  delete mode 100644 drivers/media/usb/gspca/spca561.c
->  delete mode 100644 drivers/media/usb/gspca/sq905.c
->  delete mode 100644 drivers/media/usb/gspca/sq905c.c
->  delete mode 100644 drivers/media/usb/gspca/sq930x.c
->  delete mode 100644 drivers/media/usb/gspca/stk014.c
->  delete mode 100644 drivers/media/usb/gspca/stk1135.c
->  delete mode 100644 drivers/media/usb/gspca/stk1135.h
->  delete mode 100644 drivers/media/usb/gspca/stv0680.c
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/Kconfig
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/Makefile
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx.c
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx.h
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.h
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.h
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_sensor.h
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_st6422.h
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c
->  delete mode 100644 drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.h
->  delete mode 100644 drivers/media/usb/gspca/sunplus.c
->  delete mode 100644 drivers/media/usb/gspca/t613.c
->  delete mode 100644 drivers/media/usb/gspca/topro.c
->  delete mode 100644 drivers/media/usb/gspca/touptek.c
->  delete mode 100644 drivers/media/usb/gspca/tv8532.c
->  delete mode 100644 drivers/media/usb/gspca/vc032x.c
->  delete mode 100644 drivers/media/usb/gspca/vicam.c
->  delete mode 100644 drivers/media/usb/gspca/w996Xcf.c
->  delete mode 100644 drivers/media/usb/gspca/xirlink_cit.c
->  delete mode 100644 drivers/media/usb/gspca/zc3xx-reg.h
->  delete mode 100644 drivers/media/usb/gspca/zc3xx.c
+Author: Simona Vetter <simona.vetter@ffwll.ch>
+Date:   Fri Jan 15 17:47:39 2021 +0100
 
--- 
+    dma-buf: Add debug option
+
+When MSM needs the struct page then it must import a shmemfd and not a DMA-buf. What we could do is to either fix MSM or mark it as broken.
+
 Regards,
+Christian.
 
-Laurent Pinchart
+> 
+> Fixes: 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels")
+> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+> ---
+> 
+>  drivers/dma-buf/Kconfig | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index e4f078a326a41..b3c581ef4c987 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -43,7 +43,14 @@ config UDMABUF
+>  config DMABUF_DEBUG
+>         bool "DMA-BUF debug checks"
+>         depends on DMA_SHARED_BUFFER
+> -       default y if DEBUG_KERNEL
+> +       # NOTE: keep this default n.  The page-stripping sg_table wrapper that
+> +       # this option installs for importers breaks drivers that build a
+> +       # second-stage IOMMU mapping (phys -> iova) from the attachment sg_table
+> +       # and therefore still need the struct page, e.g. drm/msm with its
+> +       # per-process GPU pagetables.  Until those importers are fixed, making
+> +       # this default y breaks hardware video decode and GPU workloads out of
+> +       # the box on affected systems.
+> +       default n
+>         help
+>           This option enables additional checks for DMA-BUF importers and
+>           exporters. Specifically it validates that importers do not peek at the
+> --
+> 2.47.3
+> 
+
