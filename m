@@ -1,61 +1,63 @@
-Received: from mail-dy2-f19.google.com (mail-dy2-f19.google.com [74.125.229.19])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DB8283FDC
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 23:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3AF3E7621
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 23:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790206966; cv=none; b=O9tscl1HSzhW7JYlqBY2VgX/HlSwY1R/s6cC6Dpb8JrjXs1YYnh72ignYpWe6YFEp3yX/Xd3KRQLtPKiNjuzLN78YwKbfEdvTdO/jaVgLq7xzYDkgprVxAqvbDsiOAWD0FS/UXdE8ca5KAMDY0qelhNXL9+U/xok3hYe/OliVKo=
+	t=1790206969; cv=none; b=Ql9wk3TB40vgQOaFpKhls/TckD5X59JRIJsMA+ncZJHd/AyDXwC/0+f8sKz/zXCCjKO4ei8VIfK9gvcEn677iwfVW14PrE86rz3KlSFdVDDAUOMi6G0Mt81nnCv6CaGNvbdkXYE3w0p+6c4vedoAw1sv9wIyx2QrBBU7wi8whoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790206966; c=relaxed/simple;
-	bh=lzQSvJQXyJUSHZj0VmY6KW4purjQ6O7lMQKui0U2+bA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hapmjKmdMNDLlnp/FL3yk3vkOzl6KDqjQg31lEEYaH25myvF13VOdx1ZwSNP/00Ag8AMMSQR2PUoo75NQz6625//liT2gFv2QMpvJsIg0faOEaq2lntJPwPvpVHCQQFks1pCyQw5GSFaUX8Uj1QjFXW3sro1xRQnzulka9qBBfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qLTwbLbC; arc=none smtp.client-ip=74.125.229.19
+	s=arc-20240116; t=1790206969; c=relaxed/simple;
+	bh=uflvYHIp0CZCGULSPkFw++aiEt8uJY1nRxYvfR7lPmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zw1p2i2Esvuk6+UKpDfvr1d2QBp3mt8+o8Du5Vxxn2FYrATWpXvHfVJi1k0m/NuJuJjV1TmV42BRfsael9d8D7ODpDEGHOFWgZlHlJT1RVOT3rpJbvOQWSnzYadDO9L2+ZSM6/Q6u9cBYSvTNA52HM2n0r/FFfD7+0J682cgcU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=om50hVJe; arc=none smtp.client-ip=74.125.229.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qLTwbLbC"
-Received: by mail-dy2-f19.google.com with SMTP id 5a478bee46e88-3286624d194so1037411eec.3
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 16:42:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="om50hVJe"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd025d07so1277491c88.2
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 16:42:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790206964; x=1790811764; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UvIt9N1agAOmkmensATC3Jkr52Z4pbhXqZihbGknxDM=;
-        b=qLTwbLbCEayDO8kbGvHOdLRlQalsKcmCg3n8aqq31EdpQVuHBcNOzkUqw3lOWuXqRm
-         XxfVSPge2Fu8xqBqHl6nWjHXxoqN6jCPVKgfblwMilQyVmNfs6s+cGw6PPkuAFJLuNXF
-         hKZAGSOyc7oGKcK9OvBoSppbB1+c4KXu+5Mgv/i5QFxk0Nehs4/TPDiYs9apbCIN0HQM
-         nifDrhfvhwuG41SFaT1upp7I/e019Uy0dy3ZsgUSMefauAxkmEJOiTzgFcV8TSdC6nMd
-         z57+AYVb9nhqZ/Fa9oc2zxQG1UUT1JLbP4Iy1TaPM3Vpfigc5G6DRv4i9vaXa2SRdrS/
-         2PMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790206964; x=1790811764;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790206967; x=1790811767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UvIt9N1agAOmkmensATC3Jkr52Z4pbhXqZihbGknxDM=;
-        b=ZbXb8gFbB6AGbgYz3D9BJzHHbTlJjR/qk8a9StBW+nUydmW/74hJTz6BmzayWS7GNr
-         XAc/nGkgOUzS6haYlwW02Wo4kyIFtEBug2n360CR8qT+wRVW52n+KVv/DMRaobnOaVwh
-         9xEd4cLQQDJV6yD+Af+VsX4phlEO7oDrz4uoFDc69xkCMxpNdLN/ek+vPLiMc64ngUp1
-         PGNABmTG19wRF2seiaIgWU6UXj6sIMI9O5DQJfa21e+PxoTa7N0T7t3pLS2F+IsVdU61
-         ISph1I5MkkhINiOkKxxJkF0IK/yomH/LowH3B38DDa/6hefcax6RKI5lM6KsTwRbN4Kd
-         rN0Q==
-X-Gm-Message-State: AFuF++kedIkVDpMvysyUDMx+s+H0MFeBDCP09a488DvNKYncpx5XnriF
-	2kO2T111nOy62fC1RleMQ6laIEheIVjCfO/BQuwICnIziQUE8JtCOe1chRn12iS+
-X-Gm-Gg: AYBFou2ozzMRnIlTIjRUE4RBK6tVyLy/g4ZRB5wZZIXYk0WLWk4sb45snaJPDGM/9ab
-	rAcnAwRD9F92AVZOkHup3n3VVh8gyI+RZ02C6jOoJ5+l1OWcgK7DLd82kdvNgL2q4NXoaeiMRbE
-	3C6N0jVzqsM5QuU2Ar3Lj3jxiCai1ehVV6uOiw5v4jDkoL4sjd61hS0k2FVENOHrA1xfixzyqML
-	PSRQo3PVOcBN7iDpFlIvqChuz3ijBF14nUIu4oq6CoGs1o0zyeITyOAi415N7DbwjLnaLVs8WW2
-	2B+UcUwR9iZQAK33rvhgGmQLccbAuONGWvFv57pGhXSDZrlPxrSyTImz2WR70V2iKwBwIAKo/BC
-	aGwtBOqQu0id32q87pdtkTFb/ra+DwlN3vqqBZFSzOPcVUyyoeQAoqNNlklx6fN88a8aK3JrFTG
-	mkHtA8K41J260UpunDUSNSlsygiDINXudb+21SmhgcFtMuTecOz7oZF9vWRaTFd6yL9n6ZtYkIk
-	TYZwbZv7af3tebHfIvE882VqgYaNfZ46/5j
-X-Received: by 2002:a05:693c:66cd:20b0:33b:d8b2:8fba with SMTP id 5a478bee46e88-34002be4d40mr458187eec.7.1790206963865;
-        Wed, 23 Sep 2026 16:42:43 -0700 (PDT)
+        bh=XLfwo4y4R0vmCrnrfTBSoXmDYXNUSOGgS3Hjd3uog28=;
+        b=om50hVJeCm9+19MkiovuzAVDv4aOhmZ2b2hPEepnA6GJjfR6E6Nn1BPsjocfFM2TFB
+         29TclM/Qr+UvmirH6vYJBpXVZohIQAHteOQZEHrpUveyzf50Bf/IydrCih8b/chaft4h
+         a+m7mZyoGBa9AsylWToQoFpaaPvHzur7KRTphr2Rqcs1QB7nJSzmYLX1NkCRxtDkHboo
+         k27Sk59lFwKsp9iBUcP8jObLo8v0/28L8bY2umHUqvrBKliiQ7y28iaUBVjZDhZMYSnp
+         a5k7KW0H5yJ9wgh+SNrVaBI3HvVSPpZ9aUobnekBNYh/ZuG1P+3U4F0LB+weVelaoaDJ
+         nQhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790206967; x=1790811767;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XLfwo4y4R0vmCrnrfTBSoXmDYXNUSOGgS3Hjd3uog28=;
+        b=hJvOjSiuii7yMhhFQ6NeSYHgQPbDXQ1cA8qSoiba1MD9OFYzsepYHeuhygUdA8MNXi
+         2OqnU8JDy4mRkYqatKNOj+CqH8N/hRFm8nFxAbt2judog2EmI12F6QCPCmLmb1OdZab7
+         YUkHtdSaSRyVIK51rIpxjNwgZKuXnbPju+lQHW10Checmp/WGx8lipIWJWmm2S2Q91jV
+         BRY17gPAqY9Fx2q6qxyoeiu3mox3q8TjKP0N7eQttBcsIln26A0QYLd65jpi1RQmnkGR
+         OQwzVbcxyk6IzXIbK6RvmUwLtJ0icPYmmgBIef33OIDRHjE9N4kjUlpgc2tte+A/CH/g
+         ktjw==
+X-Gm-Message-State: AFuF++mV5xbeR3Td3IeDr3Ao18TfYC/sIeWHTD8+Eue5C29r3cdDmdW2
+	BdWmJQ3pLZFovmsKZY/OooAg5Kx48R+OrtDP+0PDZjNVzYThQ21wImjyCb952T1Y
+X-Gm-Gg: AYBFou1MSRG6ndGYax3j9KzceYpEszkeszzYw+TnLR8bse7dNQSUE8dUELRYK/4BLWa
+	tI5SWzaKjYXPNnV4FN5Xt0M+vPnkirvH+NU0BxrpNbp1jBjZqeRQk5xvVbVOJTX5YDla59o2Bq/
+	ngSGFlvOwNP4xR26klr3hbRP/pPOn22QRy3RpYo09lK9hFBI+88wDJgAUhSuV9o6hYZrgmwqNpN
+	cP1Wf8xAovc/HOe/OKqwSrflrcpTmtCFKheKJk/JMxAC0ZHvtcBX8Fx6NUkz2Dv+AXEIXckPx9J
+	d4nfDk1AC4FkBzZCsr84qyaOuvEK2fkGY0bUdUzkK/T10faX42oQZz2eY5hE2JfMa9SPWpERy3i
+	5HDG2o8c6i5j6rFQM1Cpnt+wRFN5eKE3t1RM1kki0yscqJDrXStnxzSZxZlW2Sbw3xiqvWJen5M
+	fkudg/SlbVbsxNB2Sb8/D/oVvMEVDEPRDJlz18pGGZIYhrDPx0eZxrJnkuQ6s9NgspPGMYmwWrk
+	5Zhjo8MPWI09EUAr5EyK8jyDfDFSOtBvY1Y
+X-Received: by 2002:a05:7301:6199:20b0:33b:e74c:e43e with SMTP id 5a478bee46e88-34004b8cd97mr452859eec.19.1790206967392;
+        Wed, 23 Sep 2026 16:42:47 -0700 (PDT)
 Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e90ec54d8sm9088502eec.0.2026.09.23.16.42.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e90ec54d8sm9088502eec.0.2026.09.23.16.42.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 16:42:42 -0700 (PDT)
+        Wed, 23 Sep 2026 16:42:46 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -64,11 +66,14 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Tomas Moro <tmorolias@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH 0/2] media: ipu6: Stop calling ISR hooks of unloaded drivers
-Date: Wed, 23 Sep 2026 20:42:22 -0300
-Message-ID: <20260923234224.325504-1-calliarifelipe@gmail.com>
+	Felipe Calliari <calliarifelipe@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] media: ipu6: Clear the isys ISR hooks when the isys driver goes away
+Date: Wed, 23 Sep 2026 20:42:23 -0300
+Message-ID: <20260923234224.325504-2-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923234224.325504-1-calliarifelipe@gmail.com>
+References: <20260923234224.325504-1-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,48 +82,150 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The buttress interrupt handler calls the isys and psys ISRs through
-adev->auxdrv_data. The isys and psys drivers set it at probe, and
-nothing clears it when they go away. Two paths lead from that to calls
-into an unloaded module:
+isys_probe() points adev->auxdrv and adev->auxdrv_data at data in the
+isys module, and the buttress interrupt handler calls the isys ISR
+through them. Neither isys_remove() nor the probe error path clears
+them. Once intel_ipu6_isys is unloaded, any buttress interrupt
+dereferences memory of the unloaded module.
 
- - Patch 1: after "rmmod intel_ipu6_isys", "rmmod intel_ipu6" can oops
-   in ipu6_buttress_isr() when free_irq() runs the handler (shared IRQ,
-   CONFIG_DEBUG_SHIRQ) with an interrupt status bit pending. It clears
-   the isys hooks on remove and on the probe error path.
+One way to hit this: the IRQ is shared, so with CONFIG_DEBUG_SHIRQ
+free_irq() runs the handler once more. If a buttress interrupt status
+bit is pending at that point, "rmmod intel_ipu6" after
+"rmmod intel_ipu6_isys" oopses:
 
- - Patch 2: the buttress ISR calls both ISRs before checking whose
-   interrupt it is. After the out-of-tree psys driver is unloaded, every
-   isys interrupt goes through the stale psys hooks. A user reported a
-   hard lockup with no trace on the first stream after
-   "rmmod intel-ipu6-psys" [1]. It checks the status bit first.
+  BUG: unable to handle page fault for address: ffffffffc8a00560
+  RIP: 0010:ipu6_buttress_isr+0x19b/0x370 [intel_ipu6]
+  Call Trace:
+   free_irq+0x16b/0x360
+   devres_release+0x37/0x80
+   devm_free_irq+0x42/0x70
+   ipu6_pci_remove+0x52/0xd0 [intel_ipu6]
 
-To test both, backported to v7.2.6 on a Samsung Galaxy Book3 Ultra
-(Raptor Lake, IPU6EP), I added a module notifier that records a hook
-left pointing into a module going away, plus an ISR check that skips
-such a hook and logs it instead of calling it:
+This happened on a Samsung Galaxy Book3 Ultra. A module notifier added
+for testing confirmed that after "rmmod intel_ipu6_isys" the hook still
+points into the unloaded module, and that it is NULL with this change.
 
- - rmmod intel_ipu6_psys, then 60 frames: at least ten calls through the
-   stale psys hook without patch 2, none with it, all frames captured.
- - rmmod intel_ipu6_isys: the isys hook still pointed into the module
-   without patch 1, and was NULL with it.
+Set the hooks only after the last early return of isys_probe(). Clear
+them on the probe error path and at the end of isys_remove(), then
+synchronize_irq(). In the buttress handlers, read auxdrv_data once, so
+that a hook cleared concurrently is seen as NULL rather than
+dereferenced.
 
-The psys driver in intel/ipu6-drivers has the same missing cleanup in
-its remove path. Patch 2 keeps isys interrupts away from it, but that
-driver should clear its own hooks too.
-
-[1] https://lore.kernel.org/linux-media/20260922063507.690-1-tmorolias@gmail.com/
-
-Felipe Calliari (2):
-  media: ipu6: Clear the isys ISR hooks when the isys driver goes away
-  media: ipu6: Only call the isys and psys ISRs for their own interrupts
-
- drivers/media/pci/intel/ipu6/ipu6-buttress.c | 19 +++++++++++-----
+Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
+---
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c | 15 ++++++++-----
  drivers/media/pci/intel/ipu6/ipu6-isys.c     | 23 +++++++++++++++++---
- 2 files changed, 33 insertions(+), 9 deletions(-)
+ 2 files changed, 30 insertions(+), 8 deletions(-)
 
-
-base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+index 105de1744..63197f746 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+@@ -315,15 +315,20 @@ ipu6_buttress_ipc_send(struct ipu6_device *isp,
+ 
+ static irqreturn_t ipu6_buttress_call_isr(struct ipu6_bus_device *adev)
+ {
++	const struct ipu6_auxdrv_data *drv_data;
+ 	irqreturn_t ret = IRQ_WAKE_THREAD;
+ 
+-	if (!adev || !adev->auxdrv || !adev->auxdrv_data)
++	if (!adev || !READ_ONCE(adev->auxdrv))
+ 		return IRQ_NONE;
+ 
+-	if (adev->auxdrv_data->isr)
+-		ret = adev->auxdrv_data->isr(adev);
++	drv_data = READ_ONCE(adev->auxdrv_data);
++	if (!drv_data)
++		return IRQ_NONE;
++
++	if (drv_data->isr)
++		ret = drv_data->isr(adev);
+ 
+-	if (ret == IRQ_WAKE_THREAD && !adev->auxdrv_data->isr_threaded)
++	if (ret == IRQ_WAKE_THREAD && !drv_data->isr_threaded)
+ 		ret = IRQ_NONE;
+ 
+ 	return ret;
+@@ -436,7 +441,7 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(adev) && adev[i]; i++) {
+-		drv_data = adev[i]->auxdrv_data;
++		drv_data = READ_ONCE(adev[i]->auxdrv_data);
+ 		if (!drv_data)
+ 			continue;
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index 08f29b678..15254e3e3 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -13,6 +13,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+ #include <linux/firmware.h>
++#include <linux/interrupt.h>
+ #include <linux/io.h>
+ #include <linux/irqreturn.h>
+ #include <linux/list.h>
+@@ -989,6 +990,18 @@ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, struct isys_fw_msgs *msg)
+ static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data;
+ static const struct ipu6_auxdrv_data ipu7_isys_auxdrv_data;
+ 
++/*
++ * The buttress interrupt handler calls into this driver through
++ * adev->auxdrv_data, which points into this module. Clear it once the
++ * device is torn down, and wait for a running handler to finish.
++ */
++static void isys_unset_auxdrv(struct ipu6_bus_device *adev)
++{
++	WRITE_ONCE(adev->auxdrv, NULL);
++	WRITE_ONCE(adev->auxdrv_data, NULL);
++	synchronize_irq(adev->isp->pdev->irq);
++}
++
+ static int isys_probe(struct auxiliary_device *auxdev,
+ 		      const struct auxiliary_device_id *auxdev_id)
+ {
+@@ -1006,9 +1019,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
+ 	if (!isys)
+ 		return -ENOMEM;
+ 
+-	adev->auxdrv_data = IS_IPU7(isp) ? &ipu7_isys_auxdrv_data :
+-					   &ipu6_isys_auxdrv_data;
+-	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
+ 	isys->adev = adev;
+ 	isys->pdata = adev->pdata;
+ 	csi2_pdata = &isys->pdata->ipdata->csi2;
+@@ -1037,6 +1047,10 @@ static int isys_probe(struct auxiliary_device *auxdev,
+ 
+ 	dev_set_drvdata(&auxdev->dev, isys);
+ 
++	adev->auxdrv_data = IS_IPU7(isp) ? &ipu7_isys_auxdrv_data :
++					   &ipu6_isys_auxdrv_data;
++	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
++
+ 	isys_stream_init(isys);
+ 
+ 	cpu_latency_qos_add_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
+@@ -1065,6 +1079,7 @@ static int isys_probe(struct auxiliary_device *auxdev,
+ free_fw_msg_bufs:
+ 	free_fw_msg_bufs(isys);
+ out_remove_pkg_dir_shared_buffer:
++	isys_unset_auxdrv(adev);
+ 	cpu_latency_qos_remove_request(&isys->pm_qos);
+ 
+ 	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
+@@ -1094,6 +1109,8 @@ static void isys_remove(struct auxiliary_device *auxdev)
+ 	isys_iwake_watermark_cleanup(isys);
+ 	mutex_destroy(&isys->stream_mutex);
+ 	mutex_destroy(&isys->mutex);
++
++	isys_unset_auxdrv(auxdev_to_adev(auxdev));
+ }
+ 
+ static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
 -- 
 2.55.0
 
