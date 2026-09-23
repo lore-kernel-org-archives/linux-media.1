@@ -1,120 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3234838838B;
-	Wed, 23 Sep 2026 08:29:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65DE1C695;
+	Wed, 23 Sep 2026 08:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152185; cv=none; b=co7hZxWGSQRB2tmGcJLNwe4yN5SPdxguT4CI0qVjDLNI7Nf33cZLFs6iOKPN0Iya1P3yCgE1Lg6nu3tPsE6ficPi/0+oeegFlttSzSIYEtYQMM171BnKYF2KwSUgfV8pA87FmkGq1EXIPyfOfoTKVDWY38G2Wq8OtS/5kR47SM0=
+	t=1790152283; cv=none; b=mmvoUaD+W8DBkHSTKIFmMCzLcnHvy1aoO0/aavdEU6HONEKFB4IBIE56d3RfI0CidWd3mZMRMxwTYA9E1GuqDghKglwx4Z6Z9dhQA0VCq9UlpvSobkr7IFzq1kac6geJINBD7RkjAZQGyui5yY49l+26yKsJf+RB4Tx15SYJeck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152185; c=relaxed/simple;
-	bh=wbXCWbU0fgABPMYK7v6FClur4UqAQBuPyZuN58zzA1I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QUPyw8HYIAf01pTa//eGQQRsp4KMNDB07UVVpIgt6HyjR7P6sqUlmzUTyfMrIDjO5ShaueSCfeHRI2lGjn5WtmF8WOW4mVdo7zxUHIi5MeQZDlH975ZLMpB15HUk8uiPQnVE/Elo+W7llv7DrUhk8blkhCOl7RVac7eHFlPrMP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AHcawEQQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790152283; c=relaxed/simple;
+	bh=paNO5eY1DEgK8W03rG7sbOrBlMZLVg8sLc5gM/Q+wQQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EdzOMN9n7DHG/EbxEX47/MWsGC+a6HOtaEegg/Lj+7XJ03H/GSYzmGUsNMYYcVEU2n4fqluH3tYhV70+7IDwM8O8ZfWmH/irM+mrqF/F7b65PKp4rBUJ0X7P9biJ77pWMFm+QmEzpyyZpR7v2xBJ/r8NIPsmdvyhdW2vXPsyTZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OTkYlM77; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AHcawEQQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFAA1F000FF;
-	Wed, 23 Sep 2026 08:29:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OTkYlM77"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62941F000FF;
+	Wed, 23 Sep 2026 08:31:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790152183;
-	bh=x8yZpBS8Ds8UdFLAdGZ025C9NuwFvuaCGnOgPYEguX4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AHcawEQQgtkIk9jPDKhWizCzja/Z/Cj4qxOf3wJqZ8fnDlUeISvh5jgL5sKy/mm9L
-	 kjPOZzuWIo4OUPQBdTkJsMNxkWus/WlFaG3aotptDXG5vFktz+DGeaFXe6iua7JqI5
-	 1d0JdJFVJianEaZ2S3BNM+xJ2sSwEbX1d1BDNiGLmrWApoRllTH7hoFxPG3yCRcpZF
-	 kGYvw57zvXQVmcTDq5vfVVyiyuT1C5adIYgfwYWWb/IJGItbML2hYsHdZqbIxZONhh
-	 vtB82RKOGnjpmKgyoVxA8NXRQwlvsYwekPzhWPvG7iGgUsqSh92XqeuWj5QJUd4f8Z
-	 HhUhnQ3Nii6Mw==
-Message-ID: <51903a8e-52fc-4209-9103-ce466924d1e6@kernel.org>
-Date: Wed, 23 Sep 2026 10:29:37 +0200
+	s=k20260515; t=1790152278;
+	bh=XxmbCQ7HTgeDaajizNY6/YBNTKC18nSpZXzsHrNVM84=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=OTkYlM77Ug42qVxwfxT90vI8uqJaGZuINeDuY7JZQ7999GuMgboyvG3xtQK4xUOl6
+	 zd/wjFpIioagBtMBTbIRO4+LWzQDIAK3I7vBM0rpdAp3+D48idK6/rLGv/wp810wau
+	 kBIp+Yuzbff5wJbTofP8TTmKYmwVjL0T+CpHEPlOh1dCtBCBbY6Li6SfZcSRBy1ZqV
+	 6HKD6TB9iq8dr86QgVxPCe/DU6JyTmmONL36429SSJxW5oOsL1SHztUpZ/FQDboYkM
+	 lciZ4ZYh3Nxzy1apRUyFKvXJd6RsZiuZRR7Ov/HZwLWG+HsGzKjqSxB30w84hYznIo
+	 wOWxilA16da9A==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+In-Reply-To: <yq5aik3w344o.fsf@kernel.org>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com> <yq5aik3w344o.fsf@kernel.org>
+Date: Wed, 23 Sep 2026 14:01:08 +0530
+Message-ID: <yq5afqz02wtv.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org>
- <20260917-x1e-csi2-phy-v18-1-6515b5255fa9@linaro.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260917-x1e-csi2-phy-v18-1-6515b5255fa9@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 17/09/2026 01:58, Bryan O'Donoghue wrote:
-> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
-> supports both DPHY and CPHY operation. A special mode of DPHY operation -
-> called variously split-mode or combo-mode also allows for two sensors to be
-> connected to one PHY.
-> 
-> The schema supports both the D-PHY and C-PHY bus types.
-> 
-> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 209 +++++++++++++++++++++
->  1 file changed, 209 insertions(+)
+Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
+
+> Catalin Marinas <catalin.marinas@arm.com> writes:
+>
+>> On Mon, Sep 21, 2026 at 08:18:36PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>>> +int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
+>>> +		size_t requested, struct cc_shared_pages *mem)
+>>> +{
+>>> +	struct cc_shared_layout layout;
+>>> +	struct page *page;
+>>> +	unsigned int order;
+>>> +	bool zero = gfp & __GFP_ZERO;
+>>> +	int ret;
+>>> +
+>>> +	if (!mem)
+>>> +		return -EINVAL;
+>>> +
+>>> +	ret = cc_shared_calc_layout(requested, &layout);
+>>> +	if (ret)
+>>> +		return ret;
+>>> +
+>>> +	order = get_order(layout.shared_size);
+>>> +	if (order > MAX_PAGE_ORDER)
+>>> +		return -EINVAL;
+>>> +
+>>> +	/*
+>>> +	 * State transitions require a linear-map address and may modify memory.
+>>> +	 * Allocate from low memory and defer requested zeroing until afterwards.
+>>> +	 */
+>>> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
+>>> +	if (nid == NUMA_NO_NODE)
+>>> +		page = alloc_pages(gfp, order);
+>>> +	else
+>>> +		page = alloc_pages_node(nid, gfp, order);
+>>> +	if (!page)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	ret = cc_make_shared(page_address(page), layout.shared_size);
+>>> +	if (ret) {
+>>> +		if (!cc_make_private(page_address(page), layout.shared_size))
+>>> +			__free_pages(page, order);
+>>> +		else
+>>> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
+>>> +					    layout.shared_size);
+>>> +		return ret;
+>>> +	}
+>>> +
+>>> +	if (zero)
+>>> +		memset(page_address(page), 0, layout.shared_size);
+>>
+>> Does the memset() post sharing logic work for pKVM as well? If nothing
+>> clears it, we have a small window where guest data is leaked to the
+>> host.
+>>
+>> Is there a case where we *do not* need the memory cleared? If not, maybe
+>> we can move the logic in the arch set_memory_decrypted().
+>>
+>
+> I don't think every architecture or platform can unconditionally zero
+> memory in set_memory_decrypted(). Some callers may need to share valid
+> contents with the host.
+>
+> Also, if zeroing is added only to the CCA implementation, the allocator
+> must retain __GFP_ZERO for platforms such as pKVM. This would cause the
+> memory to be zeroed twice on CCA.
+>
+> How about extending cc_make_shared() with a flag indicating that the
+> memory must be zeroed, and passing that requirement down to the
+> architecture-specific implementation? The implementation could then zero
+> the memory at the appropriate point: before sharing for pKVM and after
+> the destructive transition for CCA.
+>
+> The allocator could derive this flag from __GFP_ZERO, remove __GFP_ZERO
+> before calling alloc_pages(), and let the sharing operation perform the
+> requested zeroing with the correct ordering.
+>
+
+I was pointed to this email thread:
+
+https://lore.kernel.org/all/c25502d3-35c6-4281-a9ec-856f789fb1b4@arm.com
+
+This makes a stronger case for having a CoCo shared memory allocator
+that captures all these restrictions. It also means that
+alloc_cc_shared_pages_node() needs:
+
+	if (WARN_ON_ONCE(!gfpflags_allow_blocking(gfp)))
+		return -EINVAL;
+
+	might_sleep();
+
+I guess this also requires the VPE L1 tables to be preallocated from a sleepable context.
+
+-aneesh
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
