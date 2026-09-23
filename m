@@ -1,147 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211404ADD8F;
-	Wed, 23 Sep 2026 12:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467FB47F3D0
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 12:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165484; cv=none; b=FvBIKNvkKUxn/ty6EmqTCai7uaudNGdLDdH0ZlQiEnlG6tTZ50sdNdzaDapOlGwjzYAaN9DFRrD5Wy4bMW8NMY/Rj4BjMYRFrpfbUqxS5Zz/PW6ybgFe33lj92SzqPPJnA1k+pjjpekZRAPB20vjXV1z0+S95nqwrmh/LqG12uQ=
+	t=1790165526; cv=none; b=kYh4AsxHFCCzR2RcYscD/upn5g4WL5XND3geZI32t7c+aWnT7G1vmIiPVRyHUChyp0lR+g/dJNpZoloD1T3hzLO/R3KNt8gCHk3tHTmm839Tg2pgkIGq3x3/FfSudjpsJ/M3azJjC1sHG8F8gTgZwi0wXk2gzmWrBxyWKff7F1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165484; c=relaxed/simple;
-	bh=mXLobxmGtI3ksGO4btON2esJ1RfyrrglQF9P2VAOvBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LoSulOFQvkfRw0q5V8ZydUdnOV/MWnnSsauRb1kCbJTODmLlrd4JV7baGY43NqW81rQOo0TrEWopHGBz1Hfv42J0HHHxdPYMBeQrXN7SnjuNf2uwK9L0XYG2fivMv/U0NpP2H4dXgA04iir8Ozhro5/jLSF4g/Do35ZJBT1mNx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mOxgLYvA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790165526; c=relaxed/simple;
+	bh=jbcf4PInueH6euHIFurAdQd9+Erhm7gjayc/48I+lyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ff7yw3d6g5S2Y/Sw/oj6SaS6TVzI6Avmm0iKosOoPGoguDkDyx7/13BI0jNjirElZ8mzAt1MwWlcjVF7Jz2vM9ZxDC+vRAPX/SkHXw/mh9qrO6O2R/2V4J3qPD4h+OXanI9bRN9KvvexKhPUQ0Qr5KgPmx0Out9QemRg3NcZWXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Tu1dx6v8; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mOxgLYvA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDE31F000FF;
-	Wed, 23 Sep 2026 12:11:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790165479;
-	bh=+DzgaCMiha0jugPhYih7prKXf2sWPS0BDooC/KPd08Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mOxgLYvA9syLr27Z5GKKcKY5QY/qvxbl1rSkw344nK9+x4h8utOlYU6CJytvUIB9J
-	 RQgJxZqxc4RjLZhD0U43JdQRitixZxjMpcBnvUCGitmgjUvlxRnP06lHxFjiepKCi1
-	 MUztzv3NUr458mrlpgTTWMEg+k2XiFrUqrH/PkluLUKNyD65l9+Ku8GlDpFDFZb77D
-	 tobEYvrEAMjj5ktdNiKdDJGr6CebYJYbg+lWLetwSMl8Q1aghyMLn/MPJRlIXLjAJT
-	 kTQibl9+cfrvq6r5MkOmPw5zX1F5r4mSMKV0AcjaKwQPp3y0rHPcaZhIdWgayax/qM
-	 WKYp2Mcnzq83A==
-Message-ID: <b48796e3-4ff3-464f-98e3-738360f7e692@kernel.org>
-Date: Wed, 23 Sep 2026 13:11:14 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Tu1dx6v8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790165523; x=1821701523;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=jbcf4PInueH6euHIFurAdQd9+Erhm7gjayc/48I+lyM=;
+  b=Tu1dx6v896Ktc4Wyl1Kn1jcGGKY9LENIfo9fZE2Iw9VwjduknmwPOel1
+   JZS1xs0dotVrzqDanho0O17gf1K3iuzM0OKDIuDrAC6lA8NTli6dVxKjv
+   iplhtoFqcIGv/whWT/dghKvTxIdNslQXWVERKWjW8D1kw9NatbbC9Qmww
+   avbHYFRN5FUWwwjaokqtF0fVb3MfVPsxKgDsihJEddnccoN8hg4XySp/9
+   OiS6ldDOLK+jsx6TYyBVLOjZv9pNljaUn84OP73eWnEvbdkRGk32OH8Nw
+   CUX8UgThHwd7davjCVuSlbyOCVSvxUacE6/F7JLLNPoBWmOUXItC4Av3t
+   g==;
+X-CSE-ConnectionGUID: M00gnpkCQy+T0F1f7CVLPQ==
+X-CSE-MsgGUID: 0+cNoPpVTsKToKYFxzFcmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90968229"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="90968229"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:12:02 -0700
+X-CSE-ConnectionGUID: 9J5MyHBcTxyV7Klq+12SNA==
+X-CSE-MsgGUID: 9XLDllDeRhqheNsyZYZHUw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="270100316"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:12:00 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id A5A4912080C;
+	Wed, 23 Sep 2026 15:11:59 +0300 (EEST)
+Date: Wed, 23 Sep 2026 15:11:59 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: Re: [PATCH v3 05/29] media: v4l2-subdev: Allow allocating frame
+ descriptors based on the need
+Message-ID: <arPCD2WzFyT0GSNx@kekkonen.localdomain>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-6-sakari.ailus@linux.intel.com>
+ <CAD++jLnruxXqtgm2ckQQhKvuNQvawH0xZpq8ipYSjFLKDbpnyQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 02/15] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Hawi and Maili compatibles
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <00feVjuDXWEOH5KMhsF9lGceYtMFLwd4P3FB3h8yL5Q-OX0Vz5uMHweweoh-OSnW2nmB9KgqD7grIPRggpsHsA==@protonmail.internalid>
- <20260923-hawi-maili-camss-v1-2-cbbb42e534ef@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260923-hawi-maili-camss-v1-2-cbbb42e534ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLnruxXqtgm2ckQQhKvuNQvawH0xZpq8ipYSjFLKDbpnyQ@mail.gmail.com>
 
-On 23/09/2026 12:02, Nihal Kumar Gupta wrote:
-> Hawi and Maili integrate the same CSIPHY IP as Kaanapali with an
-> identical register interface. Add qcom,hawi-csi2-phy and
-> qcom,maili-csi2-phy falling back to qcom,kaanapali-csi2-phy.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml      | 12 +++++++++---
->   1 file changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> index 24ca06b97656077cf168e72b2a32f493d9c06af2..84d70e3e5783980bc76807869f00e7d112a046ae 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> @@ -16,9 +16,15 @@ description:
-> 
->   properties:
->     compatible:
-> -    enum:
-> -      - qcom,kaanapali-csi2-phy
-> -      - qcom,x1e80100-csi2-phy
-> +    oneOf:
-> +      - enum:
-> +          - qcom,kaanapali-csi2-phy
-> +          - qcom,x1e80100-csi2-phy
-> +      - items:
-> +          - enum:
-> +              - qcom,hawi-csi2-phy
-> +              - qcom,maili-csi2-phy
-> +          - const: qcom,kaanapali-csi2-phy
-> 
->     reg:
->       maxItems: 1
-> 
-> --
-> 2.34.1
-> 
+Hej Linus,
 
-I don't think you should depend on kaanapali unless you have a good 
-reason to.
+On Mon, Aug 31, 2026 at 03:18:50PM +0200, Linus Walleij wrote:
+> Hi Sakari,
+> 
+> thanks for your patch!
 
----
-bod
+Tack för kritiken!
+
+> 
+> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> 
+> > Frame descriptors entries require a small amount of memory per entry (20
+> > bytes), but if the number of entries in a frame descriptor is large, an
+> > unreasonably large amount of memory would need to be allocated in the
+> > stack. Therefore the number of entries has been limited to 8.
+> >
+> > Support larger frame descriptors by making the entry field a pointer that
+> > by default points to a pre-allocated array while the get_frame_desc() pad
+> > o may allocate as much memory as required, up to V4L2_FRAME_DESC_ENTRY_MAX
+> > which is changed to 64.
+> >
+> > The caller is also responsible for releasing the allocated memory by
+> > calling v4l2_subdev_free_frame_desc().
+> >
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> (...)
+> 
+> > @@ -63,10 +63,6 @@ static bool v4l2_subdev_enable_streams_api;
+> >  /*
+> >   * Maximum stream ID is 63 for now, as we use u64 bitmask to represent a set
+> >   * of streams.
+> > - *
+> > - * Note that V4L2_FRAME_DESC_ENTRY_MAX is related: V4L2_FRAME_DESC_ENTRY_MAX
+> > - * restricts the total number of streams in a pad, although the stream ID is
+> > - * not restricted.
+> >   */
+> >  #define V4L2_SUBDEV_MAX_STREAM_ID 63
+> >
+> > @@ -354,6 +350,7 @@ static int call_set_frame_interval(struct v4l2_subdev *sd,
+> >  static int call_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >                                struct v4l2_mbus_frame_desc *fd)
+> >  {
+> > +       unsigned int type;
+> 
+> This is again an enum, right?
+
+Yes, seems so...
+
+> 
+> > @@ -362,16 +359,26 @@ static int call_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >                 return -EOPNOTSUPP;
+> >  #endif
+> >
+> > -       memset(fd, 0, sizeof(*fd));
+> 
+> So passing an unititialized or re-used struct v4l2_mbus_frame_desc foo
+> used to be fine...
+> 
+> > +       type = fd->type;
+> > +       memset_after(fd, 0, type);
+> 
+> ...and is not fine anymore.
+> 
+> I guess later patches in this series fixes up all users so no-one
+> passes in some garbage here?
+
+After the set, we have all drivers converted to use
+v4l2_subdev_get_frame_desc(), so this means some amount of inter-set
+breakage. I wouldn't see this as a serious issue but if someone thinks so,
+then we may need to introduce an intermediate wrapper that sets the type
+for this.
+
+I'll also include patches for the recently merged drivers calling
+get_frame_desc() in v4.
+
+> 
+> > +               if (desc->num_entries > desc->len_entries) {
+> > +                       dev_dbg(sd->dev,
+> 
+> When you get to this check, isn't that after this loop:
+> 
+> for (i = 0; i < fd->num_entries; i++) { (...)
+> 
+> so you should check num_entries agains len_entries before this
+> loop?
+> 
+> (I might be misreading the patch, maybe I should actually apply
+> it and inspect the result.)
+
+The earlier arrangement was that the caller made the allocation but that's
+no longer the case, so this is a fatal error now. Still, if num_entries
+exceeds len_entries, the access of unallocated memory has probably already
+been committed, so this check would still take effect retrospectively even
+if moved to call_get_frame_desc(). I'll do that now in any case, the other
+sensible option would be just removing it.
+
+-- 
+Med trevliga hälsningar,
+
+Sakari Ailus
