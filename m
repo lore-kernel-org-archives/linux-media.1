@@ -1,123 +1,89 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB4D53E2FE
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 14:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E2E53C3B9;
+	Wed, 23 Sep 2026 14:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175174; cv=none; b=uFFUg/kalw4r0yaY5xXKwWoPvLhiURpQPKXEHcL+w1Hk6PR5q2+9Hkp26UnZOUGWTksWnkYGsv6MB7s0k/X986fmqlkT3IjSbe5QBvzKKUf5u7O+q4208FqAVTQsVJimLpdzLO3YvmFayWmH2uPBcfuKQwFm7HhylXHrX7BH6Yo=
+	t=1790175218; cv=none; b=hHm50Ki3iWlHAj5i7GIDIQodRPw/484kqVaLj6KeWAVpFi4u3oCfrkOufyAEQBqOl0qOw8JoANg2lZvfgH26apWQj0RMrXof/lt/IDaxppX3Oczi2bFi8Fyt9xtMJUwafw1NwC/t3wvXBQGz6mut+6coww3vbFKO5F/3S34zXrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175174; c=relaxed/simple;
-	bh=GCJCQzce5DiM5qYStXL0Q3uMZ491Exb+QH/XNbI6OUs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X0pyK6N3+J5y050A17EbEWI4mm3vv8YDmulH4tNSzVp40pO3T2n5LMpdmNqWMUCosjBsUC/uV5qAumX6CcZ8yd3P+jjs5C26naEVWvTxT3GHAf3NUm1scTv/12yzbAWspCzitd/FN2VDFkxNn4Nc+TQwOGF/amSnHT8ikBoA3ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfpPCwOC; arc=none smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790175218; c=relaxed/simple;
+	bh=rtgRXOJibX/Ng8wRfBILO1C3FM5qnu9zYTXLpzgUldw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p/iJIolLJ+Uxfet93f1p6QqltZI/SbCgIEqOx76nqG4JKBDzzjGdS+Dv3Lrl8jzfIxOrnCTZX+Y+GmVHd5w19paEROg36q5/NjCj4cg+xsT0wNhahVEvmisqqgMOcJCpg+I6q45lvvlbLQkau2yjYoUKAEfUQc1CucumvhogAX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=brgbl4OF; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfpPCwOC"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-895eaf31683so15619597b3.0
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 07:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175168; x=1790779968; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xQxUkaSVOKcYNkgbiO5qE5fns00cj/jkq6VJz32ZsPk=;
-        b=AfpPCwOCK069mzi1Hi8LCSjEFDHyCQkV1o39dsghzNRde/X/gmNePbTuXe0uBd5wG8
-         3ZtqtKnAVcJ8Ffl7F3hHLoa1F/XQkHxgKUTNNqTWBqlXZW8jG+i0z0KAUPh7EsaGyrDC
-         /JmlEPpH0y+97Rx3P/VrjOu8oMaZ1H3tdHyTuAIFOLecU5x2FZQTGEZojPOHbZpCop89
-         JYcLQWxYx8vjV8UKWVNHPfUCXAm4MSCIwXDO7wbi6gVzKIeRirwuee43wRRIRyi5GbEw
-         NOO1y51lIMNEkiio1uGDXAZW8vEmG2e/carhLh/uEd28EoN7yxtDVY8JglPrDbBGo7tu
-         wjzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175168; x=1790779968;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xQxUkaSVOKcYNkgbiO5qE5fns00cj/jkq6VJz32ZsPk=;
-        b=RE6969v/hXZ/DhK1f3/Joy5HDGRNmGUUnhgHU/W+tCfFF/XtoWosZhHzkKG2vccHIi
-         H467Q+e9B4fDHaCGOr+6JFCElXM0eFThFebQHxTExCP/FseQTvlyKd+FfMYyWgSDE7co
-         8Lc2cI7VGieOXocAqVqC/vArJYf7qhdoffDH5epzUeKCNLB+UFnCOkQOBkz2W1+pqeZ9
-         iUfNBrDsSvzJDBNz9OGQjmQRmO7vOPmKeuFOtTX7iVvLFl4d/6gGOEx+AwVeZ0Y0QRYh
-         FGMixoRFDPb12StP/Z8aDRnUQCT+yHJ19tGNysON6i1BnlP4xBJgIDZzuVL3pqouL3M3
-         j3TQ==
-X-Gm-Message-State: AFuF++n5fw3FgJ5BDvd9WI/kJzdvfyjsmP6AlEG8S8WWzuaRpDng01rF
-	Ug2G4wVURZULgE8jOUjpGGQ57wpDBtUhwVhAKovDySjrA4ble3lbS7/6y1ZLz3wE
-X-Gm-Gg: AYBFou2ZFUwEy524TXVCAoyur4pEOADO+7Wp+qB+5osna1N2KywICqXgvqtLdHqnZzq
-	IJ/5PVFC6rPAgjYr9jkB1R+4NVITdtgErpI7lf5+wH0DLSh/VSNv4zRaXUlNCQjQ9L0zzOKvhja
-	T7j+XuePw2zyK0iK72kVuOHlftwQhXchaVirSwt50n4L1Fp7/Hv+D5uyPkmC5Naqmm70krxWtJo
-	y/QFoH/FJTkXtvcqs64KLNayp5p5R9+9ikoKcLRs9QJLB49QPDeAPOSsCdsCqFEJDwwHa9l+TB3
-	f61njn/DmZuGp2SRZ1EgCdVNS8DZbJm5AEqWZQiQdDFXaXYgy+mmXssChi+AkQtcOVdzBxLxGei
-	DTK26iAHZDPzAL9M8Xy3kjhW7FhXQ2ivLqIyBP//elmkfcTG7G3CP7mDHEO1uKWM0EAkeK53Ccj
-	FY1be00CjJrE4jI7ALfqEvwv2Ur8zRbRmkxjTsJ0oaO37E0xlsfqnQ9nEqpnGhxYuFvWumf+A=
-X-Received: by 2002:a05:690c:e3cd:b0:81f:238a:1709 with SMTP id 00721157ae682-8a45afa5cfcmr14471707b3.34.1790175167674;
-        Wed, 23 Sep 2026 07:52:47 -0700 (PDT)
-Received: from archsung ([139.82.178.10])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a466bc4ce0sm10314207b3.45.2026.09.23.07.52.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:52:47 -0700 (PDT)
-From: Felipe Calliari <calliarifelipe@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tomas Moro <tmorolias@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH] media: ipu-bridge: Add upside-down sensor DMI quirk for Samsung Galaxy Book3 Pro
-Date: Wed, 23 Sep 2026 11:52:19 -0300
-Message-ID: <20260923145219.177368-1-calliarifelipe@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="brgbl4OF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790175217; x=1821711217;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rtgRXOJibX/Ng8wRfBILO1C3FM5qnu9zYTXLpzgUldw=;
+  b=brgbl4OFOitCQ/VGGww7u59VfBahH3vVT16+dXPN93JCLa70e+cUL843
+   L4P4/c71mRuokFTEE53AwhNAjTcgU3AguPq3j3KOaPcSEf7QFOEMcQKEE
+   D/ZO8YUYi//yTZXCQmA9/FMe7H9FhSTAxsu0m4nmLm1JCpDB3KTcNmEBB
+   Tp9TAjQJ2gCfrLm1JRazFab+noFWDssTC9LDW22DgYQY+DexbYNRqH88U
+   GM9VFN3/e71FncNY/euUwK/o264NGNc78haw9pcGaGJmFnVOPtRJ9mCHO
+   vj4JD0oXmuegi8uHnyzOvhlRkLwWU1LKXTXsZ7hWdsusScUcY4VxPhdCH
+   A==;
+X-CSE-ConnectionGUID: JO+2eQj+QfqPb4HrUlJTfA==
+X-CSE-MsgGUID: N/bZLWHuTBObYCsOfESbBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101541362"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="101541362"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 07:53:36 -0700
+X-CSE-ConnectionGUID: AICcPkvZQO+s+aSZ5YkSDw==
+X-CSE-MsgGUID: Twm0/f/ERxSynu2tD3NGbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="272251112"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.54])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 07:53:33 -0700
+Date: Wed, 23 Sep 2026 16:53:26 +0200
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Amin Gattout <amin.gattout@gmail.com>
+Cc: Michael Riesch <michael.riesch@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/5] media: rockchip: rkcif: add a callback for the
+ MIPI ID_CTRL1 register
+Message-ID: <arPnvi6y5j-xPO_U@mdjait-mobl>
+References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
+ <20260921-vicap-rk3576-v2-3-0a4582e20c72@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-vicap-rk3576-v2-3-0a4582e20c72@gmail.com>
 
-The Samsung Galaxy Book3 Pro (960XFG) has the same problem as the
-Galaxy Book3 Ultra (960XFH): its OV02C10 sensor is mounted upside-down,
-but neither the SSDB nor the _PLD reports the 180 degree rotation, so
-ipu_bridge_parse_rotation() assigns a "rotation" property of 0 to the
-sensor fwnode and the image is rendered upside-down in userspace.
+Hello Amin,
 
-Add a DMI quirk entry for this laptop so that the sensor fwnode gets a
-"rotation" property of 180 and userspace (e.g. libcamera) can
-compensate.
+Thank you for the patch!
 
-The DMI strings (sys_vendor "SAMSUNG ELECTRONICS CO., LTD.",
-product_name "960XFG") and the upside-down image come from a report
-against the ov02c10 26 MHz clock series.
+On Mon, Sep 21, 2026 at 05:29:59PM +0200, Amin Gattout wrote:
+> The contents of the MIPI ID_CTRL1 register differ between variants. The
+> RK3568 and RK3588 hold the capture size there, while the RK3576 uses it
+> for the virtual channel and data type filter.
+> 
+> Let each variant provide a callback that builds the register value, in
+> preparation for the RK3576 support. Variants that do not provide one
+> keep writing the capture size, so their behavior is unchanged.
+> 
 
-Reported-by: Mars-Wave <tmorolias@gmail.com>
-Closes: https://lore.kernel.org/linux-media/20260922063507.690-1-tmorolias@gmail.com/
-Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 77257311d..8fab2f9d3 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -241,6 +241,14 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
- 		},
- 		.driver_data = "OVTI02C1",
- 	},
-+	{
-+		/* Samsung Galaxy Book3 Pro */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "960XFG"),
-+		},
-+		.driver_data = "OVTI02C1",
-+	},
- 	{} /* Terminating entry */
- };
- 
+> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 
-base-commit: 0c795849fd70d6bdb99aea5dd08d9b43128612f6
--- 
-2.55.0
-
+--
+Kind Regards
+Mehdi Djait
