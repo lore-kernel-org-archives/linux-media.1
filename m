@@ -1,161 +1,154 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E43F3998AE
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 11:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A04949B21D
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 11:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790161913; cv=none; b=hlCE+0aAO3CmSIP5DPOr+4AFTHcBDfR03Ye9HkV809h6BQSY/fLkmdaXnEn/mFkMHw5QYkqS/2NW1xdLAFOV0T7Po/seqQ4hr+5F7P3xiSkWPrdUTbUYbf9KxLd6Cj6aVP/KWMXiEw50ASweky5S6485WLax7TNHIgr2qtBjMU8=
+	t=1790162869; cv=none; b=uG4FODblXWfXXD/0jgx8Kw2rB85MdT167RmKaSsolj71s+FSRy2AGMzVAelJ8gNJtOpSvqgkkgwATyltvoe2nqjUjRTFHf3pKX2LCrBqYDBYBOJXfUlpR/5QjhLlASoPYZQMl7kHesTXnnKVfDKuUBtVlWOOzKvGvTG4DewwygU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790161913; c=relaxed/simple;
-	bh=712VJTrhRjWyawggAv5BwpI1HWm8an6QzbFo1+kwTBw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=AW8ZoP8ore0srmkY0BEzA1jty/gL2lnHxcJu0gqq6qt0LsGtQO1PFeCU/d5GLNGkdDk2QeQkrfZk4pbE4fTFi9fNbBJRgWvjAf/LXNRWpBYOWkB1EnAtyJTZRQT/GPqkdwqB7iDDF9FCgSajSt1ck3MVVyZZaiyX2dt+EboN0V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CgzqY+tG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BWtNRIXA; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790162869; c=relaxed/simple;
+	bh=baRxkTEPeQvB44RF7rkxpB7ol7wuaumLy8U7pR4DmjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vFB86Qb/5QBPTlCjckCHKK2zIt+XPfH0uhd6NuUQTPGALfxD2jk3RV/YOzsL0ScnV4m5mHCD8fp8fwNvwhvp1/NPhqBsfJ/Ah7H5HsyHmHYNu6m4cUTs0+0W6Auiq7WK4yYqwNsuSjTZNfKE/wzxGJqUWnXFgHym7NOj9u/i6Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hjLxULql; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CgzqY+tG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BWtNRIXA"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA317H4088041
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 11:11:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	K6BhKP9QpCX/PwI4kb4Filcl2CHH4CD7BRg1MvIHfgQ=; b=CgzqY+tGCY02wBiJ
-	fAPq0wU7ZPtaf8PRkgnGfuIzE4HuC/DURFIy+KyssTg2rE1v2bxGJ4prGDObXNth
-	s5klDNXaDz+3IM1fUWnuBRMOCxrouhLyzPDP0mPubVrH7kPOMA8KONo9jJK4b/i0
-	kewWmkVqQesML+1SxLWOIV2cvGS517ZemRC6wAm4781sS18a/RVaweZhtfymMBnX
-	03Ri10tPyy8z/YJvUn+TwP0I3gyg8FKo9vARlbzcFO4BGBoIYVRWgQ5Ph+66/KUJ
-	Spku3kQPWpVPRodz6sLEhrRKi4yPqR9Ogb0Q0qUnGpTPNUhjLj6TY5Y4p47YoLlC
-	Xisv2g==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux8c41y2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 11:11:51 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-334f782d1abso2723050eec.0
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 04:11:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790161910; x=1790766710; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K6BhKP9QpCX/PwI4kb4Filcl2CHH4CD7BRg1MvIHfgQ=;
-        b=BWtNRIXA3g35GcyvICY/XTJ2bzprjSKN6cz0hI/qaqkL8zZRTaPzwPGjLVYJUi3zUJ
-         Te4HfhqBQfrn5ggXDG2vpZnhKDZt738/EiQl3C/3cjUiMc/m4C/rsPhAG9ge5xZQOg61
-         HgRGPcWjKsG6ckv2JIq4DFGPdFQoxspbyxWQ8r5J/1Y16Bszk13ZW2a8O7qUpJcz7MId
-         m74UbYUV8b02hFFB+8myE7IkixqWEB6xprhtVzz72bzsDQV21CbkOEQdCT+yVf6AHvGv
-         ivBDTf8KTJZ/VRp4Xani+znlDRz2ZBX53ePimJuWFrXtExiULeq5R+2wZOWLZsLJHVie
-         uk1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790161910; x=1790766710;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K6BhKP9QpCX/PwI4kb4Filcl2CHH4CD7BRg1MvIHfgQ=;
-        b=gC0vIzdooD6ffDmDcbijEoA6D3loGzSD2OPrweFBKeVOYELnk/DRN4taXhG7bdetyB
-         uDWLWXEJov9emTdzKAwZNsLgwc/395wDNTkcvVAcckugidk4id25RJ4C1n3uzCydmpjr
-         saj3rCGqhf2MJR00mIoDMdIXpwtj/E05WOYVIRIxZxlQQW5fpNrw5dyDNzzsnfYJ+CRC
-         yELAebmtLY4FTWUSY35jCoS3m1TgmyGD+6YOAwuz0dtMKXt9rhirWzp6ZxAoaDFKmLBc
-         mXtmgpSXAVtKZD6I9avscnhszUTrSGGoqCMl2hGGLS2qbMYz7jVFw4wWWOrFZqZgNrNd
-         o/6Q==
-X-Gm-Message-State: AFuF++mpB9gcLtNmlVuJ55Fw7Q/shFXUTgZ+zhfKnugE5nloX3tjWyge
-	dHocIfaY+jhSS0EOLxpIldEqgDWXP1GrFLD4EC1xFVkJYP/SuXNHSwv3C2+wVrZyq/RFdJhlM8v
-	YVn8Py1e07o/lQAGnRYitT6sVkpf5LZqDXYvIl6cMhVfC2mHeEE0Ytu6JYdBqvKk1pA==
-X-Gm-Gg: AYBFou3nbf4WSBTD1lKrCcmUWfGqLQniZMdNL7902tPB8rDsK2XXi6J2sRATj98tBlm
-	lpmtwqS57j1ZQp+eetZUdBQnFiwTlv7ZzXevFqKWPZ1/ZegJ2fVfXD+0sAVqYUCULF7oP+ChQWf
-	S6VxcHQYT34Z4KcYuJoagHhj4Zuk2Ic8HkD+6kt460b2UKNky5OMNdSWUSDx/Merb6Huvw8eMiC
-	pq+B0vJbUPevU2TeIxtTEzL8UajKuQLDyvi/TRQ19l+CtiuOusx1isWQaXLk9ksZo1MFccU0zKq
-	4j/3hE3zFO+fxm2HsOWnlMaGgo/abfGICaK8nuf2jSyXCMe9jB+i/+qnrlEuEI/hrp5YlNRJf7r
-	Tut8881YULb/X/gxD1ZOinH4mV7A=
-X-Received: by 2002:a05:7301:7bc4:b0:333:f2a3:5517 with SMTP id 5a478bee46e88-33e8d9cdb24mr3305865eec.26.1790161910304;
-        Wed, 23 Sep 2026 04:11:50 -0700 (PDT)
-X-Received: by 2002:a05:7301:7bc4:b0:333:f2a3:5517 with SMTP id 5a478bee46e88-33e8d9cdb24mr3305840eec.26.1790161909758;
-        Wed, 23 Sep 2026 04:11:49 -0700 (PDT)
-Received: from [10.206.111.19] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e972395f9sm5368121eec.30.2026.09.23.04.11.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 04:11:49 -0700 (PDT)
-Message-ID: <f653e9e3-6426-4e20-a095-5e2490afbbb4@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 16:41:44 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hjLxULql"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790162866; x=1821698866;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=baRxkTEPeQvB44RF7rkxpB7ol7wuaumLy8U7pR4DmjQ=;
+  b=hjLxULqliqUL96BufC2+eahw5u5o5OQVQF2vgE2hMH8YhvLvN9niA6SL
+   wgXcFXMSw446FU+AN+r1pt4aOFYxVbePZkE5gOBIuUZnNo1vWWeyCcU9n
+   zBFWCj883HDl40J2hZknMZNCFi1LbAZwEfcZnKAmDEaKOYZzpd+aD/r71
+   8kVgRMVX1j/VaS7qvIXdFi0pLaoLQ8b+K/lhlyseSLzUFrJXq4He/BWeX
+   URirUEpCcScAFZOFLR6QCUQhuG78NYYxcbvXmfTzmX2PiEqTFBCkgs3aC
+   DaZrfpaR529WnOjJ4ymfeoNtNyqm9EbMBX6+jPJI3K1dLr/2+xDjxFkaF
+   g==;
+X-CSE-ConnectionGUID: y5JV2jo9RbKxLdXz9XKk9Q==
+X-CSE-MsgGUID: z0JEgdgBTxKkT/aDREQM0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102202995"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="102202995"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 04:27:45 -0700
+X-CSE-ConnectionGUID: ThnTeHcnTEW5Jna6cOanKQ==
+X-CSE-MsgGUID: BG5HuZxHQPKqH/adJ5ewDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="299808263"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 04:27:43 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E4E4B12080C;
+	Wed, 23 Sep 2026 14:27:41 +0300 (EEST)
+Date: Wed, 23 Sep 2026 14:27:41 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: Re: [PATCH v3 01/29] media: v4l2-common: Add helper function
+ media_bus_fmt_to_csi2_(bpp|dt)()
+Message-ID: <arO3rTf4vRD4OfxC@kekkonen.localdomain>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-2-sakari.ailus@linux.intel.com>
+ <CAD++jL=kHg-rMyQJ5_Rb0RKMq8dM4yt4HRkMG5qZ5A2J=wAQLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/2] media: i2c: Add Samsung S5KJN5 image sensor driver
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org
-References: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
- <20260914-sk5jn5-v4-2-386e84cfb2b3@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260914-sk5jn5-v4-2-386e84cfb2b3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0NCBTYWx0ZWRfX6RqY5a6rKlPa
- 7oQtFVgBVSP6mEQkwx5ONDgJm7hxv3QNGcsPTko0ceJVQU6LpI0mizyEFw5P5NRA3tCAJLNyylx
- gGjWLEJdalZxxGkOOj3YOM3MCv+ht3AHvf5z80AMikQcUrCx2A8OBVHxTy1WKC+FH4Z14G3ptMu
- A4Zk6SwJcdD7+v6ACOg9B3Q/2839KrTdvV26BthG3snOxri8XIkVvCBY4r+G9HA/wWlggglkM6Z
- fZpFruJK/wpQaanOuFSg18ZrCuj2JLl81xuvIaeI2Y5JLnHs4EwThiOMJGK/oXupO4WlFyX/YCZ
- lcoWkdtpgobvd8lfZ6fxHr11GfFPn2rnGFPc6r+DjjSYfj8ZxZGSBPtMf1I6iL5A9wfyKQQeIOB
- KLU9vFjgQ2TXqKGg7mcTYMiMqRQoZ4UG1DNyuHWWrPOrt/Yw19bXkCoJnYrTvpqqkq8zTPCnGQ/
- Zf0vEYN6CMZOcxMQSgQ==
-X-Authority-Analysis: v=2.4 cv=P9evFSAu c=1 sm=1 tr=0 ts=6ab3b3f7 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=NEAyEa2pAaJLIrQk-qUA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: iioYckhOkAgGI9w0lJ83Zt1IX02NDMFm
-X-Proofpoint-GUID: iioYckhOkAgGI9w0lJ83Zt1IX02NDMFm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0NCBTYWx0ZWRfX/2BctGZ9ZB8p
- HZM0KH6+sc7FybRDzygRNzPdzS12/v32/tp24XrzuglI0rqA6jVNeZvWuWwo5xiB3xRK7QitUoz
- 8kpvgaPUarbaB3LYThKKtdOjs+w/Q9g=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230044
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jL=kHg-rMyQJ5_Rb0RKMq8dM4yt4HRkMG5qZ5A2J=wAQLw@mail.gmail.com>
 
+Hej Linus,
 
-
-On 14-09-2026 16:40, Wenmeng Liu wrote:
-> Add a V4L2 sub-device driver for the Samsung S5KJN5, a 50 MP 10-bit
-> RAW MIPI CSI-2 image sensor. The driver supports the 4096x3072 mode and
-> exposes the standard controls (exposure, gain, vblank/hblank, test
-> pattern).
+On Fri, Aug 28, 2026 at 12:29:36AM +0200, Linus Walleij wrote:
+> Hi Sakari/Frank,
 > 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->  MAINTAINERS                |    1 +
->  drivers/media/i2c/Kconfig  |   11 +
->  drivers/media/i2c/Makefile |    1 +
->  drivers/media/i2c/s5kjn5.c | 2861 ++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 2874 insertions(+)
-Hi Wenmeng,
+> one more thing which might be a rookie mistake on my side though:
+> 
+> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> 
+> In this example:
+> 
+> > CSI2 data type is defined by MIPI Camera Serial Interface 2 Spec Ver4.1.
+> > See section 9.4.
+> >
+> > Add helper function media_bus_fmt_to_csi2_dt() to convert media bus fmt to
+> > MIPI defined data type and avoid below duplicated static array in each CSI2
+> > drivers.
+> >
+> >         {
+> >                 .code = MEDIA_BUS_FMT_UYVY8_1X16,
+> >                 .data_type = MIPI_CSI2_DT_YUV422_8B,
+> >         }
+> 
+> The way I read the CSI-2 spec YUV422 8bit has this byte order: U Y V Y
+> (this is in section 11.2.4 in my copy of the spec, figure and all)
+> so this looks correct if you just look at that string: UYVY no problem.
+> 
+> I tried to understand the MEDIA_BUS_FMT_* conventions...
+> I looked here:
+> https://docs.kernel.org/next/userspace-api/media/v4l/subdev-formats.html
+> 
+> And in the table in the docs:
+> 
+> Word 1: bit 15..8 is U, bits 7..0 is Y
+> Word 2: bit 15..8 is V, bits 7..0 is Y
+> 
+> I *think* 1X16 should be understood as 2x16bit words (samples?) where
+> each 16bit word is in LSB, MSB ("little endian") order, i.. bits 7..0 (Y)
+> are transmitted *first* then bits 15..8 (U) correct me
+> if I misunderstood!
+> 
+> Then UYVY8_1X16 becomes the *byte* order Y U Y V.
+> 
+> But YUYV on the other hand becomes U Y V Y !
+> 
+> Isn't this then MEDIA_BUS_FMT_YUYV8_1X16 ?
+> 
+> I'm reading the spec and Linux format codes until my eyes fall out...
 
-This series fails to build against linux-next(20260922) after:
+Good question. The practice has been to use mbus codes ending _xXy, where y
+is the pixel depth, to denote MIPI CSI-2 data types. Presumably, if a
+driver uses these formats with CSI-2, then this is the MIPI CSI-2 data type
+employed, even if the pixel order is different.
 
-7eef49c16461 ("media: v4l2-subdev: Add struct v4l2_subdev_client_info pointer to pad ops")
+The entries are used to convert the mbus codes to MIPI CSI-2 data types, so
+I expect no issues even if we have a data type for an mbus code that
+doesn't have an exact match with the MIPI spec pixel order-wise.
 
-s5kjn5_set_fmt() and s5kjn5_get_selection() need to be updated to
-include the new 'const struct v4l2_subdev_client_info *ci' parameter.
+> 
+> It's there in the code though:
+> 
+> > +       { .code = MEDIA_BUS_FMT_UYVY8_1X16, .dt = MIPI_CSI2_DT_YUV422_8B, .bpp = 16 },
+> > +       { .code = MEDIA_BUS_FMT_VYUY8_1X16, .dt = MIPI_CSI2_DT_YUV422_8B, .bpp = 16 },
+> > +       { .code = MEDIA_BUS_FMT_YUYV8_1X16, .dt = MIPI_CSI2_DT_YUV422_8B, .bpp = 16 },
+> > +       { .code = MEDIA_BUS_FMT_YVYU8_1X16, .dt = MIPI_CSI2_DT_YUV422_8B, .bpp = 16 },
+> 
+> all four of the related encodings, I don't know if this works in practice
+> but it seems off. Three of them must be wrong since MIPI_CSI2_DT_YUV422_8B
+> is very determined?
+> 
+> Obviously I didn't check the entire table like this, but if there is something
+> to what I'm saying then we have to...
 
----
-Regards,
-Nihal Kumar Gupta
+-- 
+Med trevliga hälsningar,
+
+Sakari Ailus
