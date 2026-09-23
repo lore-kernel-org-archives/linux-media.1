@@ -1,416 +1,122 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f35.google.com (mail-dy2-f35.google.com [74.125.229.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CE34AB1DC;
-	Wed, 23 Sep 2026 12:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F31B5237B8
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 13:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168330; cv=none; b=ZWd2DW91yQKImINIS0xin1BkmUKGmbDQxKKWX/xamzlzV8FKz334U+Hts/xBXKMZiq2A20RbWvzC6Lr+tr8j9CgN5gN9QKMlnYVerCEF0dSqyNoev3qeQMw7Y0JgwffcWlYX6TqyVBu4kDVtvsOGauBt4FrODF7gzLrKfA84Y0k=
+	t=1790168437; cv=none; b=mMIt/tpN/s3WEm6PlnZ96Jq4C91N+Lc2os7msaFdWyllysP/bj5dVrdb3T5OaL3bvGUiGPP3yXa5fyZawCSHR9q7pTKjsMMMw5Ji3EhRf10L1eUpCFH3CozuD0C1beceXGb8SOK7etLuZSVIle5lOgSFEt73AJvkj5mogvru6Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168330; c=relaxed/simple;
-	bh=23Q6u9e1s0ujH196mTFhAEPLmaFH5KUkv9aZwmOm89c=;
+	s=arc-20240116; t=1790168437; c=relaxed/simple;
+	bh=3lvjhy1fcuALXtgW37aXB9csFPun7VRHCuWT7ETMTgM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qjjZ/7HDac8Giq+ya7E7LA/rdthwOsS+bepfg5QqtJJOTAM5vht7NPpBe13yID2pdQ8eY30LvbPznUHoiIqffdqdZhQeSvkFo78PWlE9hwG2gsp0XrJfK3gpj4+z/wO8sPU4gn7tmNXzkMpB4dzZaBPlQXOLs8I9A81sT9N2QqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=M+DZ2JSF; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hwSA8JlJHTxxHO1MUmdeNGngpi4GmQ7ZPZgTPOMo8+pp+N9CUCrt4r37GXZA8kW0WWoxdTJ5+HAp1AvdFyqZ6Yur8LcGTkZlxmpywnYX74P57VLwIBc/MMI9BwHEDpE2248K2nkvMhgGXpdf6usulvY1715qWKvlrygp+6EYroA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=K0rLcy+D; arc=none smtp.client-ip=74.125.229.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="M+DZ2JSF"
-Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 569BA1F8;
-	Wed, 23 Sep 2026 14:56:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790168218;
-	bh=23Q6u9e1s0ujH196mTFhAEPLmaFH5KUkv9aZwmOm89c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M+DZ2JSFjhD4j0kc2IG6L/OI2AzGvZGLfB5PUFWU3raiSpNk8pf2EhJ5jdjQThRs4
-	 3wDBNRfgs8kpokaWVYt0fd0UMKBccX/YGqy3TscVXNf6NgH6G+QjaBqQzGXyVmEgwq
-	 W6EzS9wl0MSqzN2uOvbl/MCWpGo6n6rbfIurtlKg=
-Date: Wed, 23 Sep 2026 14:58:42 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Message-ID: <arPJ_-yKVMXE-Gav@zed>
-References: <20260731-mira220-v11-0-1295fe17021d@ideasonboard.com>
- <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
- <aqvb_n-aPcXLnEa7@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="K0rLcy+D"
+Received: by mail-dy2-f35.google.com with SMTP id 5a478bee46e88-3381a6a05c9so342724eec.1
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 06:00:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1790168434; x=1790773234; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3lvjhy1fcuALXtgW37aXB9csFPun7VRHCuWT7ETMTgM=;
+        b=K0rLcy+DlzzEesXx+1vxOWulNr43O3q6RGFjO8P04UiZI6AlA/8TljTXjqxLrhn19Z
+         BDpGfboZLhqfK1E1xzOmHlq8fyZE2xdGZiWQrViB+mFWE1RuP2tbxSp7aiWg3RilhYJX
+         8AIlV/5xYx0eU5nZ0Gsng2MmAwJ7orLExwsAIQYXHju22RHmK981rAkEkVHs7wtJs4d6
+         O1B0D4+imxEgt0/YUb9+GCPxV6QFXzHknYrurBSsu2Z0DQTgQM76rPYepCkbmgUVtj79
+         bYhwrO2CcztKvlcgNNL9WqitImH5C6JD9/PItwJzihcIGK45CTw0ToqigYg6xP4A2bUW
+         pZsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790168434; x=1790773234;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3lvjhy1fcuALXtgW37aXB9csFPun7VRHCuWT7ETMTgM=;
+        b=upNCKQt8hOh5QnUm5mjBzcUhpgdETrW5/GHko9I+OUfA8ZRszQcY7VenVZatJl8PLo
+         DmW8FXQ2jct41FudhSptb3NctBqsrAxG0f/DU1X8A6wpVj+jpHYj42nfY3NPb5xnM3be
+         iYchTUZ5FrIT52idytJyK8VdZ/R90TOP89NXvwbcyAKtRsDYou9I5RgZ5ZkiTJc4Kmy+
+         a53UFHkSu2wkml9XaRk/uDr9keSvRIRcil8jVQQOc0Em88UTsKgqowfM8KAPGURPNa2K
+         KWFq52RsEN53L3AxfrLyNCVgtKhx6yR3U82RdxQzV+nIvmyKKYBmqFVhClqYAnBeNXsp
+         WuOA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDoK4pKBm6ANmiXjPUxteIg8eAWAFb5lr4BNdfp/oq7uHKWqdGFG+KWcdpdVMp0nreQI68oGfCQC76oA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mka0q8pz3zLPjIgcwv4wIqHuXkpkxrPOzisThSHmmaVzWpZPzd
+	Qv5NWUj8NPB9NKywZ6jeQOOr7pr1mXMdlT/xomJOBSwfoxVon8GLiSbwMmYcO7E9XVY=
+X-Gm-Gg: AYBFou3pYGJZkNHcAYK8iAAvwQm/Ee91ifdLz5mqYrDIAUUMGL1EX3QQbIn/8HmWGwg
+	94qFwmuovpKLCKIkpWwwr5lPmbU71OMYMIvnc9ff4IIyEXzSqgnEtScfvr8a9xW/00BrYz61U+A
+	d+NHDaEMWVIrJaotkh0cgP2gwTpJffjc0dZ4YKAkPgfyloYWueBY5oZV0U6oBf3fT9NFvFXq3WA
+	racW8f986w93revWLqn9BFJPgY7aX3syjrGC4EScFgOw/mEdt+eygZefScLC7XIOYwvjA49qP7/
+	EgDa9rnkGXrCBaoh/lf2do+9WNq9O1wkWcIVS7kP216bu3Ys9lKkVx5fKD9rBm1qXxEx0wbA30O
+	v9144yuOSYAwuoveEXFMYmloM0XModtGCZm7tGZQLo4hzuC+q8n1OEwAU/htEnpB6xFRPYqB1Oc
+	H4QcXIwyXfN++3Ot//JnIeUEFTQhmW7A088KusQC47cSS8m8rDnnoR+N0=
+X-Received: by 2002:a05:7300:7949:b0:31e:b832:be with SMTP id 5a478bee46e88-33e8c24a34bmr2627336eec.10.1790168434062;
+        Wed, 23 Sep 2026 06:00:34 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96358e2bsm6859478eec.16.2026.09.23.06.00.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 06:00:33 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x9MaO-0000000DYPQ-01dr;
+	Wed, 23 Sep 2026 10:00:32 -0300
+Date: Wed, 23 Sep 2026 10:00:31 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+Message-ID: <20260923130031.GE1540250@ziepe.ca>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com>
+ <yq5aik3w344o.fsf@kernel.org>
+ <arOfD6syXOgQhZYA@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqvb_n-aPcXLnEa7@kekkonen.localdomain>
+In-Reply-To: <arOfD6syXOgQhZYA@arm.com>
 
-Hi Sakari
+On Wed, Sep 23, 2026 at 10:42:39AM +0100, Catalin Marinas wrote:
 
-On Thu, Sep 17, 2026 at 03:24:30PM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
->
-> Just a few comments...
->
-> On Fri, Jul 31, 2026 at 05:28:20PM +0200, Jacopo Mondi wrote:
-> > From: Philippe Baetens <philippebaetens@gmail.com>
-> >
-> > Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
-> > sensor.
-> >
-> > Mira220 is a global shutter image sensor with a resolution of 1600x1400
-> > pixels.
-> >
-> > The driver implements support for mono and RGB 12, 10 and 8 bits
-> > formats. The output data-rate per lane is 1500Mbit/s, with a maximum
-> > frame rate up to 90 fps.
-> >
-> > Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
->
-> Should there be Co-developed-by: tag here?
+> On pKVM, we want set_memory_decrypted() to zero the buffer
+> before the host can access it (I guess currently relying on __GFP_ZERO
+> allocations). Since no cryptographic encryption takes place, there's not
+> much point in memset'ing again after the operation as the content was
+> already zeroed.
 
-I don't mind. I've refined the existing driver rather than
-co-developing it..
+It sounds like this a pkvm unique thing, since RMM always makes the
+memory hidden, pkvm flow should do it too. Either inside its guest
+set_memory_decrypted() or inside the hypervisor like RMM.
 
->
-> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> >
->
-> ...
->
-> > +/* Initialize control handlers */
-> > +static int mira220_init_controls(struct mira220 *mira220)
-> > +{
-> > +	struct i2c_client *client = v4l2_get_subdevdata(&mira220->sd);
-> > +	struct v4l2_ctrl_handler *ctrl_hdlr;
-> > +	struct v4l2_fwnode_device_properties props;
-> > +	struct v4l2_ctrl *link_freq;
-> > +	struct v4l2_ctrl *hblank;
-> > +	u32 max_exposure = 0;
-> > +	u32 min_vblank;
-> > +	u32 hblank_val;
-> > +	int ret;
-> > +
-> > +	ctrl_hdlr = &mira220->ctrl_handler;
-> > +	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* By default, PIXEL_RATE is read only */
-> > +	v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops, V4L2_CID_PIXEL_RATE,
-> > +			  MIRA220_PIXEL_RATE, MIRA220_PIXEL_RATE, 1,
-> > +			  MIRA220_PIXEL_RATE);
-> > +
-> > +	min_vblank = mira220_calc_min_vblank(mira220);
-> > +	mira220->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > +					    V4L2_CID_VBLANK,
-> > +					    min_vblank, MIRA220_MAX_VBLANK, 1,
-> > +					    min_vblank);
-> > +
-> > +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-> > +					   0, 0, &mira220_link_freqs[0]);
-> > +
-> > +	/*
-> > +	 * Scale hblank according to the number of enabled data lanes to match
-> > +	 * row_length.
-> > +	 */
-> > +	hblank_val = MIRA220_LLP_1600x1400_304 * (2 / mira220->lanes)
-> > +		   - MIRA220_PIXEL_ARRAY_WIDTH;
-> > +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, hblank_val,
-> > +				   hblank_val, 1, hblank_val);
-> > +
-> > +	/* Max exposure is determined by vblank + vsize and Tglob. */
-> > +	max_exposure = mira220_calc_exposure(mira220,
-> > +					     MIRA220_PIXEL_ARRAY_HEIGHT,
-> > +					     min_vblank);
-> > +	mira220->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > +					      V4L2_CID_EXPOSURE,
-> > +					      MIRA220_EXPOSURE_MIN,
-> > +					      max_exposure, 1,
-> > +					      MIRA220_DEFAULT_EXPOSURE);
-> > +
-> > +	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_ANALOGUE_GAIN,
-> > +			  MIRA220_ANALOG_GAIN_MIN, MIRA220_ANALOG_GAIN_MAX,
-> > +			  MIRA220_ANALOG_GAIN_STEP,
-> > +			  MIRA220_ANALOG_GAIN_DEFAULT);
-> > +
-> > +	mira220->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
-> > +
-> > +	mira220->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
-> > +
-> > +	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &mira220_ctrl_ops,
-> > +				     V4L2_CID_TEST_PATTERN,
-> > +				     ARRAY_SIZE(mira220_test_pattern_menu) - 1,
-> > +				     0, 0, mira220_test_pattern_menu);
-> > +
-> > +	v4l2_fwnode_device_parse(&client->dev, &props);
-> > +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &mira220_ctrl_ops,
-> > +					&props);
-> > +
-> > +	if (ctrl_hdlr->error) {
-> > +		ret = ctrl_hdlr->error;
-> > +		goto error;
-> > +	}
-> > +
-> > +	mira220->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> > +	mira220->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> > +	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > +	hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > +
-> > +	mira220->sd.ctrl_handler = ctrl_hdlr;
-> > +
-> > +	return 0;
-> > +
-> > +error:
-> > +	v4l2_ctrl_handler_free(ctrl_hdlr);
-> > +	return ret;
->
-> You can return ctrl_hdlr->error here and omit assigning ret.
+Hypervisor doing it is the right place, hypervisor always needs to
+ensure guest memory is cleansed whenever the guest gives it up. Either
+via a private to shared, unmap or just exiting.
 
-ok
+> I don't think cc_make_shared() has the right information on how to
+> safely and efficiently do the zeroing. That's only known to the
+> set_memory_* backend. So you'd have to propagate the flag down.
 
->
-> > +}
-> > +
-> > +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mira220)
-> > +{
-> > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> > +	struct v4l2_fwnode_endpoint ep_cfg = {
-> > +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> > +	};
-> > +	unsigned long bitmap;
-> > +
-> > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
-> > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
-> > +
-> > +	/* Non-continuous mode not implemented. */
-> > +	if (ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK) {
-> > +		v4l2_fwnode_endpoint_free(&ep_cfg);
->
-> I recall I've commented about this before -- please do switch to goto-based
-> error handling when you need to unwind something in more than one case.
++1
 
-And I thought I had clarified that mixing cleanups and gotos is a
-no-no (see <ap_fLLHSEmw0J8yN@kekkonen.localdomain>).
-
-You there replied that you didn't ask to mix the two, but then you
-keep asking me to add a label, which effectively mixes uses of goto
-and cleanups in the same function.
-
-Now, I understand here specifically this should be harmless, but why
-contradict the usage notes for such a minimal gain of avoid 2
-repetitions of v4l2_fwnode_endpoint_free() ?
-
-
->
-> These probably apply to the mira016 driver, too. How much do these two have
-> in common btw.?
-
-Very few things. Support for thhe next mira sensor driver that I'm
-planning to upstream (050) will be added to the 016 driver, as the two
-sensors are very similar, but 020 and (016/050) do not share much.
-
->
-> > +		return dev_err_probe(dev, -EINVAL,
-> > +				     "clock non-continuous mode not supported\n");
-> > +	}
-> > +
-> > +	/*
-> > +	 * Link frequencies: the driver supports a single link frequency,
-> > +	 * no need to check bitmap after this call.
-> > +	 */
-> > +	if (v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
-> > +				     ep_cfg.nr_of_link_frequencies,
-> > +				     mira220_link_freqs,
-> > +				     ARRAY_SIZE(mira220_link_freqs),
-> > +				     &bitmap)) {
-> > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	/* Check the number of MIPI CSI2 data lanes */
-> > +	if (ep_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
-> > +	    ep_cfg.bus.mipi_csi2.num_data_lanes != 2) {
-> > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > +		return dev_err_probe(dev, -EINVAL,
-> > +				     "%u data lanes are not supported\n",
-> > +				      ep_cfg.bus.mipi_csi2.num_data_lanes);
-> > +	}
-> > +
-> > +	mira220->lanes = ep_cfg.bus.mipi_csi2.num_data_lanes;
-> > +	v4l2_fwnode_endpoint_free(&ep_cfg);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int mira220_probe(struct i2c_client *client)
-> > +{
-> > +	struct device *dev = &client->dev;
-> > +	struct mira220 *mira220;
-> > +	int ret;
-> > +
-> > +	mira220 = devm_kzalloc(&client->dev, sizeof(*mira220), GFP_KERNEL);
-> > +	if (!mira220)
-> > +		return -ENOMEM;
-> > +
-> > +	v4l2_i2c_subdev_init(&mira220->sd, client, &mira220_subdev_ops);
-> > +	mira220->sd.internal_ops = &mira220_internal_ops;
-> > +
-> > +	ret = mira220_parse_endpoint(dev, mira220);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	mira220->regmap = devm_cci_regmap_init_i2c(client, 16);
-> > +	if (IS_ERR(mira220->regmap))
-> > +		return dev_err_probe(dev, PTR_ERR(mira220->regmap),
-> > +				     "failed to initialize CCI\n");
-> > +
-> > +	/* Get system clock (xclk) */
-> > +	mira220->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> > +	if (IS_ERR(mira220->xclk))
-> > +		return dev_err_probe(dev, PTR_ERR(mira220->xclk),
-> > +				     "failed to get xclk\n");
-> > +
-> > +	mira220->xclk_freq = clk_get_rate(mira220->xclk);
-> > +	if (mira220->xclk_freq != MIRA220_SUPPORTED_XCLK_FREQ) {
-> > +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
-> > +			mira220->xclk_freq);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	ret = mira220_get_regulators(mira220);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> > +
-> > +	mira220->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-> > +						      GPIOD_OUT_HIGH);
-> > +	if (IS_ERR(mira220->reset_gpio))
-> > +		return dev_err_probe(dev, PTR_ERR(mira220->reset_gpio),
-> > +				     "failed to get reset gpio\n");
-> > +
-> > +	ret = mira220_power_on(dev);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Enable runtime PM and power on the device */
-> > +	pm_runtime_set_active(dev);
-> > +	pm_runtime_enable(dev);
-> > +
-> > +	ret = mira220_identify_module(mira220);
-> > +	if (ret)
-> > +		goto error_power_off;
-> > +
-> > +	ret = mira220_init_controls(mira220);
-> > +	if (ret)
-> > +		goto error_power_off;
-> > +
-> > +	/* Initialize subdev */
-> > +	mira220->sd.internal_ops = &mira220_internal_ops;
-> > +	mira220->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> > +	mira220->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> > +
-> > +	/* Initialize source pads */
-> > +	mira220->pad.flags = MEDIA_PAD_FL_SOURCE;
-> > +
-> > +	ret = media_entity_pads_init(&mira220->sd.entity, 1, &mira220->pad);
-> > +	if (ret) {
-> > +		dev_err_probe(dev, ret, "failed to init entity pads\n");
-> > +		goto error_handler_free;
-> > +	}
-> > +
-> > +	mira220->sd.state_lock = mira220->ctrl_handler.lock;
-> > +	ret = v4l2_subdev_init_finalize(&mira220->sd);
-> > +	if (ret < 0) {
-> > +		dev_err_probe(dev, ret, "subdev init error\n");
-> > +		goto error_media_entity;
-> > +	}
-> > +
-> > +	ret = v4l2_async_register_subdev_sensor(&mira220->sd);
-> > +	if (ret < 0) {
-> > +		dev_err_probe(dev, ret,
-> > +			      "failed to register sensor sub-device\n");
-> > +		goto error_subdev_cleanup;
-> > +	}
-> > +
-> > +	pm_runtime_set_autosuspend_delay(dev, 1000);
-> > +	pm_runtime_use_autosuspend(dev);
-> > +	pm_runtime_idle(dev);
-> > +
-> > +	return 0;
-> > +
-> > +error_subdev_cleanup:
-> > +	v4l2_subdev_cleanup(&mira220->sd);
-> > +error_media_entity:
-> > +	media_entity_cleanup(&mira220->sd.entity);
-> > +error_handler_free:
-> > +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-> > +error_power_off:
-> > +	pm_runtime_disable(dev);
-> > +	mira220_power_off(dev);
-> > +	pm_runtime_set_suspended(dev);
-> > +	return ret;
-> > +}
-> > +
-> > +static void mira220_remove(struct i2c_client *client)
-> > +{
-> > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> > +	struct mira220 *mira220 = to_mira220(sd);
-> > +
-> > +	v4l2_async_unregister_subdev(sd);
-> > +	v4l2_subdev_cleanup(&mira220->sd);
-> > +	media_entity_cleanup(&sd->entity);
-> > +
-> > +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-> > +
-> > +	pm_runtime_disable(&client->dev);
-> > +	if (!pm_runtime_status_suspended(&client->dev))
-> > +		mira220_power_off(&client->dev);
-> > +	pm_runtime_set_suspended(&client->dev);
->
-> This needs to be conditional to the device not being suspended.
->
-
-Ack, I've read the discussion on the ov5647 driver.
-
-> > +}
-> > +
-> > +static const struct dev_pm_ops mira220_pm_ops = {
-> > +	SET_RUNTIME_PM_OPS(mira220_power_off, mira220_power_on, NULL)
-> > +};
-> > +
-> > +static const struct of_device_id mira220_dt_ids[] = {
-> > +	{ .compatible = "ams,mira220" },
-> > +	{ /* sentinel */ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, mira220_dt_ids);
-> > +
-> > +static struct i2c_driver mira220_i2c_driver = {
-> > +	.driver = {
-> > +		.name = "mira220",
-> > +		.of_match_table	= mira220_dt_ids,
-> > +		.pm = pm_ptr(&mira220_pm_ops),
-> > +	},
-> > +	.probe = mira220_probe,
-> > +	.remove = mira220_remove,
-> > +};
-> > +
-> > +module_i2c_driver(mira220_i2c_driver);
-> > +
-> > +MODULE_AUTHOR("Philippe Baetens <philippe.baetens@ams-osram.com>");
-> > +MODULE_DESCRIPTION("ams MIRA220 sensor driver");
-> > +MODULE_LICENSE("GPL");
-> >
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+Jason
