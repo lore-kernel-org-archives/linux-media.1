@@ -1,148 +1,224 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99BF485924
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 12:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165064; cv=none; b=k5S4v3fT8yzsqUJIWIY6Cmp23+ExhawDBb0TVB/Dr8PcuGzShm6zJT0wanG5JjOXNZQG1LNsa6bP9+M4gLYjnYkofJGrbD7bvyz7Si+2j9Z1cXNqmQWYR+T6kE7XH/l/u73Pbr28AGlsP7pimK4kJTfHON6bIu+gJAtBdraomYo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165064; c=relaxed/simple;
-	bh=ru2rdN4kCK5Nlc42ov0F8nre+hIU16qP/i8GSzwWTIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KL7P0P+98HkeHnpLyk2D0Bevjo2JFXwwOeGyEGkhd8SuCZWCkQ4DaMfxJrRoSdBaASILYRjEjucG4/+iMjxDG0icqfEE7+Q1iLiMxRhuvRBpYWu3lpyNKWGjbnGV03sry40LZZFBaZLOWYLssuywsVBQnebcLbwxajPtL+RrRmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wu9P1wrr; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A4B48551E
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 12:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790165477; cv=pass; b=hExaMmG3fe7z26J316wqeK7hfQ6XZl+n6pQhz8TiZoKGHxIWIh8s2HOtoV/07AZkkse5ZDeYbWhHECnScJE55gKhE9f/7+JcIc1wLrcg+5TfcQIeniPodNF07QmzVC53hNevgPZL8VRUYEqnKAbA9AQWG8C8arFdu/BV59rifYY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790165477; c=relaxed/simple;
+	bh=o9ESTc8AilBu3NYkC+X8HMlQp3tCaNfUdjSt8pFWTNk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Al6PhZnxdG+zfFf7ZxiJuWZII1QRltlv/+tQhE0okqB+GXjA9C0UXvuO37wK9TPUbC5t3rnB3Y4HHaoDY5WM+nbbTfoPVtc+lMaJckONysAzGJowNE3dgWYX7dA15PhI4aAdxGcieKnZibIHv1uS8564ayp1mT0L3T+XMfYQDEg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=GZcG+Bfr; arc=pass smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wu9P1wrr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790165061; x=1821701061;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ru2rdN4kCK5Nlc42ov0F8nre+hIU16qP/i8GSzwWTIc=;
-  b=Wu9P1wrrlZj5XCoiTAmxl9zDTPedySDYWUZeDOIbthkFjJbi3LbXMEnI
-   r1WTX9Op71FZCt0va4tfPndLwPzQj7imLhTXuFxdQofB9gMqPwuKsLm+h
-   TN61l/cA+jnFTqpoPoDj/b0w/x2yryDhDR9pFJeZmJxTNCFhKxZeYsWpB
-   oPzpSEfLSrG8e/DhQ92sBEtLwdx7G2qlNlFu7nRV7SkJ7GFYTGgjwNAFd
-   K9Mxy3YfDiWhtk26pNfHmYWuX5P09yf+agUZ6rFVlsoFprPFuEEedX11S
-   uCkCJTQo0W5tQMe8WzdY9rkHtQxYeLNEMSm5ccp1MbIWDn0l6aXcu4UTI
-   Q==;
-X-CSE-ConnectionGUID: qf1bLJErRH2SGZmKKVGluw==
-X-CSE-MsgGUID: VL1Ar0fKTMyrbE41IA0q5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102207960"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="102207960"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:04:21 -0700
-X-CSE-ConnectionGUID: no5VAYpPQcuNgjiS4sxDUg==
-X-CSE-MsgGUID: kMM+n84eTAyxsQWc33SKyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="273760084"
-Received: from bradocaj-mobl.ger.corp.intel.com (HELO alaakso-desk) ([10.125.110.99])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:04:18 -0700
-Date: Wed, 23 Sep 2026 15:04:14 +0300
-From: Antti Laakso <antti.laakso@linux.intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, "Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	"Bajpai, Manik" <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Nicola Fiorillo <nicfio@gmail.com>
-Subject: Re: [PATCH v3 00/21] IPU6 multi-stream and metadata support
- preparation
-Message-ID: <arPAPjKrkqOHYS5L@alaakso-desk>
-References: <20260922120538.896684-1-sakari.ailus@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="GZcG+Bfr"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so830597eec.3
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 05:11:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790165469; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ateKs0YXQEQfE67Sbsk1RRTrXqPLUyT2jc0Czf8s5M3Nrux8doWLeL7gJp9BvkFStO
+         AkAPlC1ja41yrxQXvlE0phmBLwyoCYTw1lGfBR2n96KEZIK/oPsrYgzyXJZs433HgFO8
+         vYTc8irhC1cEWvYOlXkqnbPE1vtPK9ou97RhH9ZSGbHADdIpAUuxCWtInCg90F6zs66m
+         dGv8Xqzfi3Z4L1ULWZuljgbQdnhdO/y3swt6vpEd+yTKzTFEPTMNVEJb1q3hdcVSqMGh
+         j0/o3OJ5/KKVTwXlRm5f364DsucBbU99H6+Ucfqg2xXUTRGl3vFFKmm8mhRATGTVo3+y
+         hjpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=D+sAs6/yZPqQPCCjoSh/yVQa4eqK/t0Brk5AQsTggYw=;
+        fh=vP0r0bcdb4ZRA4M+e944SMpEVc8nxYjiv9fbbyqOXSM=;
+        b=b6GdOJObBr5tnioJCCvp7SpCEayMOM+QtlzCr+6W0cUWzWfi44If5aV9hy6G21NLzK
+         l2sklu3lw0nfv/Z1sfLCQBFa7IzPs4yXikx6mRQNcCLwV1YX4N5yqFvPLKB15z2R24Hh
+         gEiy/6dlTfc6FXXojqd0cFRZl1sxXtIS3weB2Bk5vHcreWxVv6ARyjAVj41OKVVIm0I2
+         a2NTZykwMLwTx2CTdEqIfNSM67QfBHM0ugjvETehQ9uu+j5FDK9RYm0IheoEbCNVdRD3
+         tDvUqa2IL9sWZ6In0dZhZmNQiZCdFd18bE24C3l8vJ7FJkx17QQEhsiVEeCvuiBosNK7
+         /aYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1790165469; x=1790770269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D+sAs6/yZPqQPCCjoSh/yVQa4eqK/t0Brk5AQsTggYw=;
+        b=GZcG+Bfrctp90SgnaW2005h4KSGeXknsgAXHqcDiNpcEcYbov1jNVuX3GmtsYG3pes
+         Jores8Ppn0OeG++B359bJDC+xZSyc7AMmua133RaAFNTlDSH5FQ42EJpu881IIcB+cMg
+         oMzbmLDEMrwYyfL+quIY35sOCkjkCzYT0KK5E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790165469; x=1790770269;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D+sAs6/yZPqQPCCjoSh/yVQa4eqK/t0Brk5AQsTggYw=;
+        b=GdECWKUuQQxmDjZYELNd7JgyWYQuxuOmhNpggd4+0ok4wibo/foQuvrH3RxPYiAmJu
+         h2m5NRI7zUDS5ZqJy3m4+I74pH757PHIrRw6R4rt5ktUBKH/UuZFiF4ATFHjgAIM40Nc
+         6edvEwQCBCuSnXAtkfhmGnFs3clxG2uXx311CJV1+nuFqe1lYsA27O0QCDcOobUuAU+d
+         j9ZV10o+H6sxQ+C0jIrLnS00STOz9vrM6NUCKMvX1tGfo/K4o6ZZJBfb0SQUmdJM+xir
+         mEudNJ33BmdKLVyoHPCaQGL1QNJli/tUzRlme7I3o09dfWADFSlEOX0NdA0yhI6Ob3zZ
+         C37g==
+X-Forwarded-Encrypted: i=1; AKwUvBzdn/lW4IcmYfn3/UB/IoYyl8Ao30yqx3Q/IdizFXNSIVDNFHkkhfCMNDN0LY6/Md2yV5TO70qkdtamxA==@vger.kernel.org
+X-Gm-Message-State: AFuF++leG4r9Lt/0oCjx1CiOmDmhCWzruNgorFOKr8kVe1AAzeZqNcZk
+	u+CglvCMiIIaYgucqcXJFsEo7uUr3uU7hEH3Dcir+n//BCITgSdKpHuOKOoZSgG3nR9KWjH0qf0
+	bUsYzHhxpmrb93+74DPPeOAGSt3Mh0eeHo1CiMPyV5Q==
+X-Gm-Gg: AYBFou1qCgoJ/iM6gSeD5QeJy0IVawFdDIaFwyB3l+N6vp9IwJ7NVQvrFFIU06xrATe
+	eOSualhEs8DgR28kcH9n5njHRm25PktzaYsoQ7Ps5ieXW6HGWRScPJb9z7ynL0V53YN63ZI0Ncv
+	1oha0BL44aut85KjYuOyjfMYGkucV21xkFfMroCFFNEXo6GZMKGYH7ayVz4ZVkEvW4jB+EKStrc
+	PMCB0GrWdVv6Igv6Cao6xRHqIw1EGxFxvcaJeSFojpADGLwpB7vHAzs1r6qV+vlGeTYftP+wfj0
+	/lebJJQa8sW3/r4nqHLGWfn/Mk66qwS++pwtksCMIstlP0JJnHo+IGde0L8hGaSMgsuR+1DEGrE
+	t4m5e9rKF
+X-Received: by 2002:a05:7300:c7c8:b0:315:9d54:6bf with SMTP id
+ 5a478bee46e88-33ea4d875damr2193402eec.10.1790165464415; Wed, 23 Sep 2026
+ 05:11:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922120538.896684-1-sakari.ailus@linux.intel.com>
+References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+In-Reply-To: <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
+Date: Wed, 23 Sep 2026 14:10:52 +0200
+X-Gm-Features: AclHuK-84lPkb8p5nYwdkesZrMKYeKl0UBKC7sQ4h-YVRpCrvvaQQCitxdpuwrs
+Message-ID: <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Paul Kocialkowski <paulk@sys-base.io>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
+	Michael Tretter <m.tretter@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
-On Tue, Sep 22, 2026 at 03:05:17PM +0300, Sakari Ailus wrote:
-> Hi folks,
-> 
-> I split this set off of the metadata series as it seems it can be merged
-> early. Basically, it prepares the ipu6 driver for streaming multiple
-> streams from a single source, when the rest of the necessary patches are
-> merged.
-> 
-> All the patches in the set can be found in my metadata branch. This set
-> possibly depends on the metadata preparation series
-> <https://lore.kernel.org/linux-media/20260914114145.574791-1-sakari.ailus@linux.intel.com/T/#t>
-> I posted earlier today.
-> 
-> since v2:
-> 
-> - Fixed handling failed streamon, i.e. propagate the error in that case.
-> 
-> - Rework return values for ipu6_isys_csi2_streaming_change() in patch 9.
-> 
-> - Fix inner loop stream check in ipu6_isys_csi2_streaming_change(), in the
->   same patch.
-> 
-> since v1:
-> 
-> - Fix intra-set use of v4l2_subdev_get_frame_desc().
-> 
-> - Address Antti's comment on assigning dt for a pin (fw term) from struct
->   ipu6_isys_video. Remove vc and dt fields from the same struct, too; they
->   were redundant.
-> 
-> Sakari Ailus (21):
->   media: ipu6: Fix releasing resources at failing streamon
->   media: ipu6: Move streaming control to CSI-2 receiver driver
->   media: ipu6: Stream number on CSI-2 receiver source pads is always 0
->   media: ipu6: Rename misnamed out_free_watermark label in video init
->   media: ipu6: Always request a capture ack
->   media: ipu6: Clean up link frequency calculation
->   media: ipu6: Get watermark configuration directly from ipdata
->   media: ipu6: Collect IPU streams into CSI-2 receiver sub-device
->     context
->   media: ipu6: Start streaming once all streams have started, stop when
->     not
->   media: ipu6: Add lockdep checks for CSI-2 streaming enable and disable
->   media: ipu6: Remove nr_queues and nr_streaming fields in
->     ipu6_isys_stream
->   media: ipu6: Collect enabled stream IDs
->   media: ipu6: Avoid accessing av->streams before streaming
->   media: ipu6: Rework watermark calculation
->   media: ipu6: Rework watermark setting
->   media: ipu6: Bridge the gap between streams in V4L2 and IPU6 firmware
->   media: ipu6: Drop {get,put}_streams_opened()
->   media: ipu6: Serialise access to stream pointers by isys stream_lock
->   media: ipu6: Move firmware init/cleanup to RPM callbacks
->   media: ipu6: Don't track power status, rely on runtime PM
->   media: ipu6: Support upstream sub-devices without get_frame_desc()
-> 
->  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   | 103 ++-
->  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 380 +++++++++--
->  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |  13 +-
->  .../media/pci/intel/ipu6/ipu6-isys-queue.c    | 130 +---
->  .../media/pci/intel/ipu6/ipu6-isys-queue.h    |   2 +
->  .../media/pci/intel/ipu6/ipu6-isys-subdev.c   |  22 +-
->  .../media/pci/intel/ipu6/ipu6-isys-subdev.h   |   2 +
->  .../media/pci/intel/ipu6/ipu6-isys-video.c    | 642 +++++-------------
->  .../media/pci/intel/ipu6/ipu6-isys-video.h    |  61 +-
->  drivers/media/pci/intel/ipu6/ipu6-isys.c      | 212 +++---
->  drivers/media/pci/intel/ipu6/ipu6-isys.h      |  52 +-
->  drivers/media/pci/intel/ipu6/ipu7-fw-isys.c   |  78 ++-
->  12 files changed, 743 insertions(+), 954 deletions(-)
-> 
+Hi
 
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+On Fri, May 22, 2026 at 4:55=E2=80=AFPM Nicolas Dufresne
+<nicolas.dufresne@collabora.com> wrote:
+>
+> Hi Paul,
+>
+> Le vendredi 22 mai 2026 =C3=A0 12:16 +0200, Paul Kocialkowski a =C3=A9cri=
+t :
+> > This series introduces support for the V4L2 H.264 stateless encode uAPI=
+,
+> > core and support in the hantro driver for the Verisilicon VC8000E.
+> >
+> > While this is a first version that will likely need some level of rewor=
+k,
+> > it is already usable for most common use-cases and supports constant
+> > bitrate rate-control.
+> >
+> > A GStreamer tree can be used to test the series at:
+> > https://github.com/paulkocialkowski/gstreamer/tree/v4l2codecs/h264enc
+> > And an example pipeline would look like:
+> > gst-launch-1.0 videotestsrc pattern=3Dsmpte num-buffers=3D25 ! video/x-=
+raw,width=3D640,height=3D480 ! v4l2slh264enc rate-control=3Dcbr bitrate=3D8=
+000000 qp-min=3D8 qp-max=3D42 ! h264parse ! matroskamux ! filesink location=
+=3Dencode.mkv
+> >
+> > Note that documentation for the new uAPI is intentionally left out of
+> > this series since it has not yet received approval.
+>
+> The unfortunate part is that the spec is important for the actual review =
+and
+> interops analyses. That omission qualify this submission as RFC from my p=
+oint of
+> view. Any chances you can reply to this cover filling the blank for the f=
+ew
+> important bit (something similar but non spec style of:
+>
+> https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/dev-statel=
+ess-decoder.html#initialization
+>
+> - Querying capabilities
+> - Initialization
+> - Encoding
+> - Dynamic Resolution Changes**
+>
+> The other sections are just going to be the same imho. The ** for the DRC=
+ is
+> because H.264 is not that complicated, its intra only, so you can reset t=
+he
+> encoder (use the drain flow). So that's probably something for future us
+> (VP9/AV1). Adding your view on these topics (or just matching what you ha=
+ve
+> implemented) will make review more constructive.
+>
+> cheers,
+> Nicolas
+>
+> >
+> > Marco Felsch (2):
+> >   media: hantro: use hantro_decoded_buffer only for dst_vq
+> >   arm64: dts: imx8mp: add VC8000E encoder node
+> >
+> > Paul Kocialkowski (12):
+> >   media: h264: Add a more generic reflist builder init
+> >   media: uapi: Add H.264 stateless encode support
+> >   media: h264: Add SPS video definitions
+> >   media: h264: Add stateless encode core
+> >   media: h264: Add stateless encode rbsp
+> >   media: h264: Add stateless encode reference management
+> >   media: h264: Add stateless encode rate control
+> >   media: verisilicon: Report default pixel coding for non-JPEG and fix =
+JPEG case
+> >   media: verisilicon: Cancel job with runtime pm put/clk disable on fai=
+lure
+> >   media: verisilicon: Add common encoder parm and frameintervals ioctls
+> >   media: verisilicon: Add support for the VC8000E H.264 encoder
+> >   media: verilisicon: imx8m: Add support for the VC8000E on i.MX8MP
+> >
+> >  arch/arm64/boot/dts/freescale/imx8mp.dtsi     |   11 +
+> >  drivers/media/platform/verisilicon/Kconfig    |    1 +
+> >  drivers/media/platform/verisilicon/Makefile   |    2 +
+> >  drivers/media/platform/verisilicon/hantro.h   |   17 +
+> >  .../media/platform/verisilicon/hantro_drv.c   |  180 +-
+> >  .../media/platform/verisilicon/hantro_h264.c  |    6 +-
+> >  .../media/platform/verisilicon/hantro_hw.h    |   28 +
+> >  .../media/platform/verisilicon/hantro_v4l2.c  |  123 +-
+> >  .../platform/verisilicon/hantro_vc8000e.c     |   68 +
+> >  .../verisilicon/hantro_vc8000e_h264_enc.c     |  883 +++++++
+> >  .../verisilicon/hantro_vc8000e_regs.h         | 2129 +++++++++++++++++
+> >  .../media/platform/verisilicon/imx8m_vpu_hw.c |  113 +
+> >  drivers/media/v4l2-core/Kconfig               |    4 +
+> >  drivers/media/v4l2-core/Makefile              |    2 +
+> >  drivers/media/v4l2-core/v4l2-ctrls-core.c     |   62 +
+> >  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |    4 +
+> >  drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c  | 1173 +++++++++
+> >  drivers/media/v4l2-core/v4l2-h264-enc-rc.c    |  558 +++++
+> >  drivers/media/v4l2-core/v4l2-h264-enc.c       | 1322 ++++++++++
+> >  drivers/media/v4l2-core/v4l2-h264.c           |   69 +
+> >  include/media/v4l2-ctrls.h                    |    2 +
+> >  include/media/v4l2-h264-enc-rbsp.h            |   72 +
+> >  include/media/v4l2-h264-enc-rc.h              |  108 +
+> >  include/media/v4l2-h264-enc.h                 |  135 ++
+> >  include/media/v4l2-h264.h                     |  146 ++
+> >  include/uapi/linux/v4l2-controls.h            |   33 +
+> >  include/uapi/linux/videodev2.h                |    1 +
+> >  27 files changed, 7231 insertions(+), 21 deletions(-)
+> >  create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000e.c
+> >  create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000e_h=
+264_enc.c
+> >  create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000e_r=
+egs.h
+> >  create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c
+> >  create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc-rc.c
+> >  create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc.c
+> >  create mode 100644 include/media/v4l2-h264-enc-rbsp.h
+> >  create mode 100644 include/media/v4l2-h264-enc-rc.h
+> >  create mode 100644 include/media/v4l2-h264-enc.h
 
-> 
-> base-commit: aedd77ea8168f00687c1248cdf115071e869cf93
-> -- 
-> 2.47.3
-> 
+I tested on px30 and achieved working H.264 encoding with some small change=
+s
+
+Michael
