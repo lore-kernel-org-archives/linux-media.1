@@ -1,124 +1,289 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56D54EE85B
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 13:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8516253162C;
+	Wed, 23 Sep 2026 13:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168776; cv=none; b=VKMq3Eo3nUFg2XYR71z1c4PcdimNXE7TQzCALOZcoOdt2nb0WOpyLWfgBUg9hSGDNoxyOJZfm1OasxFHxNMjQxyR+nOUVZWYmYIiXhaHApR9spCgSv5JYafmSFVasys87qUxuG72qgDTUUsX54qDR8HPqKuOtJa/3hlqAMLqwWc=
+	t=1790169873; cv=none; b=Q3RvU62LDmmSoYK8GBOESTw5q1AZ9trY7VSPhzvCezWAqFaHRrUQOBarReQ7T1t6ZyH5Zz7QIoqxOO+MsGZ+oaeQMCpM6pk6xcATJGczwfK75sRHrZML9QbBQdWKk0wPxr7gDxK4CYF8Ab3xEEvjyRV/PJXw3FInmgUluYHmtSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168776; c=relaxed/simple;
-	bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
+	s=arc-20240116; t=1790169873; c=relaxed/simple;
+	bh=URbHuBN1x3lnU7r2lPBY+8SE2ajxprvZwtLU8pUXMyQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L8ZowKXtLOuMFFERxvY7dG6IeItPutozM0WvQcf7RCdnvkSq96kF3mh7Gk8e1d4sfqfK6p9f6QEwPgiXcu+kwZ36dIAUsR6zVb2PyaSxxIeBjIO2IQ3SVYthhbxe+V9eKVhPuk4y9rXESpGYSSyoB93YpDpCSuv+nzeFYHsFWco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=QM9H8Zrv; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=pNcGWL0JffXiKH6VN9SVM+XZN0QkSZTEIAXTWNaq+G5sNjbyixT82MJL6QypHV007V0X5RGEN1/31LXwKNcQkU0ayKktg69U2hD9y9EZHiUq93vsTC/EdXuHowyNYGJzQlxnuqZN8DDQlwWBUCgLRcDvuOmaD1CDGbJLERnJViQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uyNliMsS; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="QM9H8Zrv"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dce6e237so662098c88.3
-        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 06:06:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790168774; x=1790773574; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
-        b=QM9H8Zrv8Qmtd8Cu2xViSORcsFrwLAZf52EqWpWEtiHi8IegetYozpX7YhBWxshiK+
-         0eePIPj8nFGp6fC0i75hE012I0FgQNa0KlOJQg1v1B0Lws2vu3AN5GEWRB+K195I33qz
-         rZYIMavFkLl5Yir/QCKXtDmlsV54UurB/VWu5BBfQOB8Mo159L60rNy8Ual6/V65aKzV
-         8fkm97uBbww1JBl6qLUOmGSyiWsMPsLk+vLPG0zBoLldzAELihvhnI690O3s9sa/9KkU
-         pXeeIE5pC4zejHf1ozeCT0tivhA8Eb+AbtjbanonYyXV5kdavqPndSGgbtn71gLrg/iD
-         vfTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790168774; x=1790773574;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
-        b=fVijNAIiTyIW1+MazMNpgsLs1cQ5Xa6ayO9K1hnMCeyOSiE8SofKx+GOHeuh0WyRon
-         RZQOHgw72+PhT9l35oHE9UULW1orXpB20hyzrUshm8SN6aGPNUODTAYc+ct0n+ZxdG7c
-         s7049bV8PSLep1X/gh4HeB7jfV1E7ZXt+7GbCxrb6x/JnUYccjYXDfhY9GKXlzRZiZaK
-         FuUslZ37fr5a8e9ZNbsJ9fLj0HXp776JAzvmF1zlj/a7zdwXqjuwu+95CYEHpdsDtpou
-         RdN5TYC08aRhNZK4cMhvmYB432qit4o28QkLhJPitEFzmxDtL0e7Zlye1UqSwIpgkSD1
-         cDUg==
-X-Forwarded-Encrypted: i=1; AKwUvBxszzxEMqdyk4T2i8Fi7N2buBb1T05tNTUw1OFrbhNg0/p1+hDn779ytPlqX7j5QvjJ68upt7sH2Mk7YA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mX2KyyZRzIkZL54CQLBihietmelRbLrDRtf9P8U6+gxosjYFBR
-	fcBm9ISljRtVt4ofrAhklFvHrwPIJqD98/RD1EXuxd5Qo4qukbxu/Nf+TSuEe6IORBo=
-X-Gm-Gg: AYBFou2YnP+ywAY5ia0Xj7OjmyzKPcmkriVWhfvY9VoYiJBJwjG4JlE7Cmx77kij7Zd
-	FI81ZlBLQqPgnVfsSsC02sOb6sk2YVkb5fVOYpOV1GEQTKdYY4g3DWGK107IwKFWnUU9s/MseaJ
-	Of7oTMHTRtHsw5QVu0qPqNUYrY2YEwtshL3Hv0hDaU0et0eJW0kiTg4i1xY/LznOAIaNVi7EoCk
-	u2bMpN+YWTQJD+0wr5p+tONktO2/HUp+0qrvVrPY4Bm+zT3bNlrCfxq9VcHK5nBm5lU3dwl9Iuz
-	LDUeBOR2u9kg6x2c9LDgvPE8rbRQTCSnPERYzbxqJRy7FJsaa1YXr9Sa9DBaDOPmIoi7loD2ClN
-	iiltuXQRplmggmmMGS1I8EEo15WyogNiXsgFxnnGzeiXcuWlKVefLiwYx4TWP6ewuV8NKD1TMuA
-	odcz5ZOCKmAsjAkBuPDwx0bAOmMYagEty6K5DZDSYTRoWL
-X-Received: by 2002:a05:7022:1402:b0:143:2719:566c with SMTP id a92af1059eb24-144f9198b49mr2872815c88.40.1790168773123;
-        Wed, 23 Sep 2026 06:06:13 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm10833873c88.13.2026.09.23.06.06.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 06:06:12 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x9Mfr-0000000DZ6d-2NEP;
-	Wed, 23 Sep 2026 10:06:11 -0300
-Date: Wed, 23 Sep 2026 10:06:11 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-Message-ID: <20260923130611.GF1540250@ziepe.ca>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
- <20260921144847.501151-3-aneesh.kumar@kernel.org>
- <arKsFofudnTYpXj1@arm.com>
- <yq5aik3w344o.fsf@kernel.org>
- <arOfD6syXOgQhZYA@arm.com>
- <yq5a5wzw2ree.fsf@kernel.org>
- <arOspFxWZ1DjgcAr@arm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uyNliMsS"
+Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDA3F1F8;
+	Wed, 23 Sep 2026 15:22:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790169751;
+	bh=URbHuBN1x3lnU7r2lPBY+8SE2ajxprvZwtLU8pUXMyQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uyNliMsSV32J0xy+hrtym18PbYPfxjp8OJV2rDH0mUlYaCETmkBVUhgVczCiRlu04
+	 MpSmmyI8ZmW3ww2bNV+lm4p7NRwAMvrKMKmhOizKAFRK7cVpuCBh2zzRp0P4lqsRAk
+	 N5Uzp3krtWAa6eu++gY9cPXk680wqLHrs2b/BswA=
+Date: Wed, 23 Sep 2026 15:24:14 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+Message-ID: <arPNMr1NV2vWjHMP@zed>
+References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
+ <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
+ <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
+ <ap_0yL-JatdVDaXG@zed>
+ <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
+ <aqEJk6dKWuyMLLRt@zed>
+ <aqEUTAAhwI09JOuR@kekkonen.localdomain>
+ <aqEsceb73f5ysKmK@zed>
+ <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <arOspFxWZ1DjgcAr@arm.com>
+In-Reply-To: <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
 
-On Wed, Sep 23, 2026 at 11:40:36AM +0100, Catalin Marinas wrote:
+Hi Sakari
 
-> The simplest is probably to always zero in the backend and ignore
-> __GFP_ZERO to the allocator. But it's probably only marginally smaller
-> than passing a CC_SHARED_ZERO flag down. Get codex to try this as well
-> and compare the diffstat.
+On Sat, Sep 12, 2026 at 02:40:32PM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
+>
+> On Wed, Sep 09, 2026 at 11:56:27AM +0200, Jacopo Mondi wrote:
+> > Hi Sakari
+> >
+> > On Wed, Sep 09, 2026 at 11:09:48AM +0300, Sakari Ailus wrote:
+> > > Hi Jacopo,
+> > >
+> > > On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
+> > > > Sakari,
+> > > >
+> > > > On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
+> > > > > Hi Jacopo,
+> > > > >
+> > > > > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
+> > > > > > Hi Sakari
+> > > > > >
+> > > > > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
+> > > > > > > Hi Jacopo,
+> > > > > > >
+> > > > > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
+> > > > > > > > Add bindings for the ams OSRAM Mira016 image sensor.
+> > > > > > > >
+> > > > > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > > > > > > ---
+> > > > > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
+> > > > > > > >  MAINTAINERS                                        |  7 ++
+> > > > > > > >  2 files changed, 104 insertions(+)
+> > > > > > > >
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > > > > new file mode 100644
+> > > > > > > > index 000000000000..49a606fca6cb
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > > > > @@ -0,0 +1,97 @@
+> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > > > > > +%YAML 1.2
+> > > > > > > > +---
+> > > > > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
+> > > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > > > +
+> > > > > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
+> > > > > > > > +
+> > > > > > > > +maintainers:
+> > > > > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
+> > > > > > > > +
+> > > > > > > > +description:
+> > > > > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
+> > > > > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
+> > > > > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
+> > > > > > > > +  physical layer specifications to transmit the image data to the host
+> > > > > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
+> > > > > > > > +
+> > > > > > > > +allOf:
+> > > > > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
+> > > > > > > > +
+> > > > > > > > +properties:
+> > > > > > > > +  compatible:
+> > > > > > > > +    const: ams,mira016
+> > > > > > > > +
+> > > > > > > > +  reg:
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  clocks:
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  vdd28-supply:
+> > > > > > > > +    description:
+> > > > > > > > +      I/O voltage supply, 2.8 volts
+> > > > > > > > +
+> > > > > > > > +  vdd11-supply:
+> > > > > > > > +    description:
+> > > > > > > > +      I/O voltage supply, 1.1 volts
+> > > > > > > > +
+> > > > > > > > +  reset-gpios:
+> > > > > > > > +    description: Sensor reset (RST_N) GPIO
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  port:
+> > > > > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
+> > > > > > > > +    additionalProperties: false
+> > > > > > > > +    description:
+> > > > > > > > +      Video output port
+> > > > > > > > +
+> > > > > > > > +    properties:
+> > > > > > > > +      endpoint:
+> > > > > > > > +        $ref: /schemas/media/video-interfaces.yaml#
+> > > > > > > > +        unevaluatedProperties: false
+> > > > > > > > +
+> > > > > > > > +        properties:
+> > > > > > > > +          data-lanes:
+> > > > > > > > +            items:
+> > > > > > > > +              - const: 1
+> > > > > > >
+> > > > > > > The device obviously supports non-continuous clock mode (and that's what
+> > > > > > > the driver also only does right now) but as the continous clock mode is
+> > > > > > > required by CSI-2, I presume the device can do both.
+> > > > > > >
+> > > > > > > So I think you should have
+> > > > > > >
+> > > > > > >              clock-noncontinuous: true
+> > > > > > >
+> > > > > > > here.
+> > > > > > >
+> > > > > >
+> > > > > > Maybe I'm confused (again, after 10 or so years of doing this) by the
+> > > > > > usage of unevaluatedProperties/additionalProperties, but if I read
+> > > > > > Documentation/devicetree/bindings/writing-schema.rst right
+> > > > > >
+> > > > > >   * unevaluatedProperties: false
+> > > > > >       Used when this binding references other schema whose all properties
+> > > > > >       should be allowed.
+> > > > > >
+> > > > > > Means all properties from video-interfaces.yaml are accepted (which is
+> > > > > > imho very wrong, but it's a battle with dt maintainers I don't want to
+> > > > > > start again).
+> > > > >
+> > > > > I guess you should have
+> > > > >
+> > > > > 		additionalProperties: false
+> > > > >
+> > > > > too?
+> > > > >
+> > > >
+> > > > Where exactly do you mean ?
+> > > >
+> > > > I don't think I can have additionalProperties: and
+> > > > unevaluatedProperties: in the same node, do I ?
+> > >
+> > > Yes, these are mutually exclusive.
+> > >
+> > > >
+> > > > It's been a long time ago when we discussed with dt-maintainers what
+> > > > the policy should have been for endpoints that reference
+> > > > video-interfaces.yaml.
+> > > >
+> > > > To me, the most sensible thing was to use "additionalProperties: false"
+> > > > and explicitly allow the supported properties, instead of allowing all
+> > > > of them. However dt maintainers had a different opinion (for reasons I
+> > > > honestly can't remember) and I think we have stabilized on the
+> > > > following pattern
+> > > >
+> > > >         port:
+> > > >           $ref: /schemas/graph.yaml#/$defs/port-base
+> > > >           additionalProperties: false
+> > > >
+> > > >           properties:
+> > > >             endpoint:
+> > > >               $ref: /schemas/media/video-interfaces.yaml#
+> > > >               unevaluatedProperties: false
+> > > >
+> > > >               properties:
+> > > >                 ...
+> > > >
+> > > > All the most recently merged bindings in media/i2c have this pattern
+> > > >
+> > > > 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
+> > > > 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
+> > > > 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
+> > > >
+> > > > I feel like I'm missing something obvious, otherwise I don't see why
+> > > > this binding should be different ?
+> > >
+> > > Good question. Perhaps there was no specific thought given on
+> > > non-contiguous clock support? I guess most of the above should probably
+> > > specify it, even if the driver doesn't support it.
+> >
+> > Maybe I'm still missing something, but using
+> > 'unevaluatedProperties: false' and referencing video-interfaces.yaml
+> > means you can include all properties from there (which, again, I think
+> > it's wrong, but allows you to specify continous/non-continuous clock
+> > support).
+> >
+> > >
+> > > There's a good example of doing this in
+> > > Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
+> > > as the maintainer there. :-)
+> >
+> > eheh, that binding has 'additionalProperties: false' which means you
+> > have to list properties you accept.
+> >
+> > This would be my preferred approach, but if my recollection is
+> > correct, we stabilized on using 'unevaluatedProperties: false' after
+> > discussing it with dt maintainers.
+> >
+> > Does anyone have a different recollection ?
+>
+> I don't have such a recollection albeit I'm not sure I recall more than
+> this was probably discussed at some point. :-) What I do prefer however is
+> to be able to say what is relevant for a given device. There are lots of
+> properties there in video-interfaces.yaml that aren't for nearly every
+> device (node).
 
-For patch ordering I would convert to use the allocator first
+I totally agree this would be more correct.
 
-The semantics of the new API should be clear
+I thought we had a policy in place where we had agreed with
+dt-maintainers to use "unevaluatedProperties: false", and I feel we
+had this discussion many times already.
 
-If you pass GFP_ZERO then the resulting allocated memory is zero
+After quite some archeology I found this:
+https://lore.kernel.org/all/Y9Tz8AWds51vGgsM@valkosipuli.retiisi.eu/
+where the discussion didn't seem to end anywhere.
 
-Otherwise the allocator does Whatever The Arch Needs to not leak
-private data out.
+I value consisenticy above correctness for minor things like this,
+both for sake of the code base sanity, both as a measure to avoid
+pulling contributors in too many directions depending on who does the
+review.
 
-Once places are converted to the allocator lets go see what is left
-and ask why it is left and what API it actually needs.
+All the recently upstreamed bindings use "unevaluatedProperties:
+false" meaning all properties from video-interfaces.yaml are optional
+and accepted.
 
-I think HCH was right that nobody should be calling this in driver
-code, lets aim to unexport set_memory_decrypted as an ideal goal
+If we want to change this we should make a clear policy (a comment in
+video-interface.yaml might be enough) and align all bindings,
+shouldn't we ? Otherwise this will repeat over and over, depending
+which bindings a submitter use as reference and who does the review.
 
-Jason
+>
+> (It's been in my plan to better separate these based in physical interfaces
+> etc. but so far it's been just a plan. Even that won't make this issue go
+> entirely away though.)
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
