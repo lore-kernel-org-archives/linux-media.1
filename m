@@ -1,58 +1,57 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E08456DF3
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 07:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B43530E82D
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 07:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149415; cv=none; b=IxLoTYHusFrvVsi11fu3UNyJCoIC+ryQ75Nw26YkCpNy9RWMGk1NnVXLbmkAsQ5YVoH376mk2pHaqDh5mnA5bZ15+vLA+cFL5PG814PygrWfslFvClsBTXTbc+gs1sIroF7SyxDgF6HPeAQevbIh36cgiY9lvqE1bm6twdxSLYE=
+	t=1790149921; cv=none; b=Vaxo7vQDECKnzWZ2U4w9GmYqOCohJ+j3iDA6OLPAINgl/EwTqfmr2wnWyHqGcpvnssRRWihBPx8SVM5VhyLvMcP7t4ikuhcb5w0T6avaf4c5v6cRVkG2ZZnvX3qyZlgDu2/vv9B3tBkKdwX+Fie+YaZxbf0etPBvfPvdP+wBWaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149415; c=relaxed/simple;
-	bh=04+V0KY268ybJ7j8dcIdXeuFMQ/6M4jhcUaJ29VEftg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=HEGsPpoLvzQ9MIi4tQcLbjIredqePjanPXw2M7gelgOZvdEZXl5WWFDBJbpeF5nJf970gWRi9YwnyNiL9B+1LkHoxfAKIBgzsugBASoHOZc312EGkDpql1PqSuP27Ql2l8KvLGLevzHTUgXc0iFi6IV3nRWUZ0+aK0C5//OLzMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZo9m2fk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790149921; c=relaxed/simple;
+	bh=+RUwTKZ7gTtOpVMGwphb+nkgvCNB3J1wVek0TtgUpVg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D4SOM/Wefva1A5JWp9TK569qt+aADTI1s9fudSXn7NCuv2xqsHSQLKmh0aWgJDEYCvQJF5u/RD7Pwk9EJgnGF9J6o+iOrhemMcqQeqCvkA00apD+C7iCtwXsF4UV1ghFKHZkcfPtR9Cb5BUhktgC0nCucn71YfPagvBVQFGVfo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Ol8584YT; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZo9m2fk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA7F1F000FF;
-	Wed, 23 Sep 2026 07:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790149409;
-	bh=JTKgTVdv4w8j/kxRCE2w3vdByGuIFl9J6wWkYExvYfY=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=oZo9m2fkjYhliRh9bhpwQ8JUV1K0dwBHFNr5d35n8h8ZtKM7xETIRRTA6JOpImwzz
-	 aBmcyg4RRfnOqen6C9FWK/zrZ9UXajr3sQXBEQWY9PFKak9gsOG8ZTf6ggW2VZ1mBs
-	 aoWfXhekga5avvctnjBVSUJKCfQA6/16bU+OHFjvgQUjifTCtNRSL9Ksh7qb4TkGMa
-	 Lbo+Of7f3vQDfzzFBThM3pt9bxkyBH3oc+UU/uLsqxW4sAmw0V6bOnQilmGeynNK1d
-	 3SMi988dU8h4lfRfpsPFgOKQxzZXHwp8VmTe/jwfNed3TC3lIj3pyYk5So7OC9MxZe
-	 SYmYmr6KHg4Pg==
-Message-ID: <ec022db8-583b-4e29-8696-6a130a4ce861@kernel.org>
-Date: Wed, 23 Sep 2026 09:43:25 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Ol8584YT"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C052524A;
+	Wed, 23 Sep 2026 09:50:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790149812;
+	bh=+RUwTKZ7gTtOpVMGwphb+nkgvCNB3J1wVek0TtgUpVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ol8584YT1+iwcoaAm7ImUW+i0o3Vd5vy+eFyECB3QT6oxumt9+Tu1dSMMdfsoOOYM
+	 hlmDLW40isRvQQd8Q8xmZM9bX189Riw/LIvqB4PyxhsgUId0t0cl0CJ22YxWrFqXdJ
+	 fawuaym47dzRCYnE7RyYRytWWylIPoDPEiBDkUPM=
+Date: Wed, 23 Sep 2026 10:51:56 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Frank Zago <frank@zago.net>, Olivier Lorin <o.lorin@laposte.net>,
+	Erik Andren <erik.andren@gmail.com>,
+	Brian Johnson <brijohn@gmail.com>,
+	Leandro Costantino <lcostantino@gmail.com>
+Subject: Re: [RFC PATCH] media: usb: gspca: remove driver for old webcams
+Message-ID: <20260923075156.GB3532@killaraus.ideasonboard.com>
+References: <6e63b180-d6c6-41e9-a2a2-78cced514f7e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [RFC PATCH] media: usb: gspca: remove driver for old webcams
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>, Frank Zago <frank@zago.net>,
- Olivier Lorin <o.lorin@laposte.net>, Erik Andren <erik.andren@gmail.com>,
- Brian Johnson <brijohn@gmail.com>, Leandro Costantino
- <lcostantino@gmail.com>, Hans de Goede <hansg@kernel.org>
-References: <6e63b180-d6c6-41e9-a2a2-78cced514f7e@kernel.org>
-Content-Language: en-US, nl
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 In-Reply-To: <6e63b180-d6c6-41e9-a2a2-78cced514f7e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-+ Hans de Goede, since he was the previous gspca maintainer
+Hi Hans,
 
-On 23/09/2026 09:32, Hans Verkuil wrote:
+On Wed, Sep 23, 2026 at 09:32:54AM +0200, Hans Verkuil wrote:
 > The gspca driver supports a large number of old non-UVC webcams that use
 > proprietary formats.
 > 
@@ -82,6 +81,21 @@ On 23/09/2026 09:32, Hans Verkuil wrote:
 >  .../admin-guide/media/gspca-cardlist.rst      |  451 --
 >  .../admin-guide/media/usb-cardlist.rst        |    6 -
 >  .../media/v4l/pixfmt-reserved.rst             |   32 +-
+
+There are other mentions of gspca in the following files:
+
+- Documentation/.renames.txt
+- Documentation/admin-guide/bug-hunting.rst
+- Documentation/translations/zh_CN/admin-guide/bug-hunting.rst
+
+arch/arm/configs/tegra_defconfig also needs to be updated to drop
+CONFIG_USB_GSPCA=y.
+
+Should we move the gspca-specific pixel formats in
+include/uapi/linux/videodev2.h to a separate section with a header that
+documents them as deprecated ? I think we can also drop them from
+v4l_fill_fmtdesc() if nothing uses them in the kernel any more.
+
 >  MAINTAINERS                                   |   49 -
 >  drivers/media/usb/Kconfig                     |    1 -
 >  drivers/media/usb/Makefile                    |    1 -
@@ -279,520 +293,8 @@ On 23/09/2026 09:32, Hans Verkuil wrote:
 >  delete mode 100644 drivers/media/usb/gspca/xirlink_cit.c
 >  delete mode 100644 drivers/media/usb/gspca/zc3xx-reg.h
 >  delete mode 100644 drivers/media/usb/gspca/zc3xx.c
-> 
-> diff --git a/Documentation/admin-guide/media/gspca-cardlist.rst b/Documentation/admin-guide/media/gspca-cardlist.rst
-> deleted file mode 100644
-> index e3404d1589da..000000000000
-> diff --git a/Documentation/admin-guide/media/usb-cardlist.rst b/Documentation/admin-guide/media/usb-cardlist.rst
-> index 5f5ab0723e48..d17f4f6a8883 100644
-> --- a/Documentation/admin-guide/media/usb-cardlist.rst
-> +++ b/Documentation/admin-guide/media/usb-cardlist.rst
-> @@ -33,9 +33,6 @@ listed below\ [#]_.
->  .. [#]
-> 
->     some of the drivers have sub-drivers, not shown at this table.
-> -   In particular, gspca driver has lots of sub-drivers,
-> -   for cameras not supported by the USB Video Class (UVC) driver,
-> -   as shown at :doc:`gspca card list <gspca-cardlist>`.
-> 
->  ======================  =========================================================
->  Driver                  Name
-> @@ -82,7 +79,6 @@ dvb-usb-vp702x          TwinhanDTV StarBox and clones DVB-S USB2.0
->  dvb-usb-vp7045          TwinhanDTV Alpha/MagicBoxII, DNTV tinyUSB2, Beetle USB2.0
->  em28xx                  Empia EM28xx USB devices
->  go7007                  WIS GO7007 MPEG encoder
-> -gspca                   Drivers for several USB Cameras
->  hackrf                  HackRF
->  hdpvr                   Hauppauge HD PVR
->  msi2500                 Mirics MSi2500
-> @@ -106,8 +102,6 @@ zd1301                  ZyDAS ZD1301
->  	em28xx-cardlist
->  	siano-cardlist
-> 
-> -	gspca-cardlist
-> -
->  	dvb-usb-dib0700-cardlist
->  	dvb-usb-dibusb-mb-cardlist
->  	dvb-usb-dibusb-mc-cardlist
-> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst b/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
-> index 1cf6c59f4bc4..66ba10d7548e 100644
-> --- a/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
-> +++ b/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
-> @@ -53,7 +53,7 @@ please make a proposal on the linux-media mailing list.
-> 
->        - ``V4L2_PIX_FMT_CPIA1``
->        - 'CPIA'
-> -      - YUV format used by the gspca cpia1 driver.
-> +      - YUV format used by the obsolete gspca cpia1 driver.
->      * .. _V4L2-PIX-FMT-JPGL:
-> 
->        - ``V4L2_PIX_FMT_JPGL``
-> @@ -64,62 +64,62 @@ please make a proposal on the linux-media mailing list.
-> 
->        - ``V4L2_PIX_FMT_SPCA501``
->        - 'S501'
-> -      - YUYV per line used by the gspca driver.
-> +      - YUYV per line used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-SPCA505:
-> 
->        - ``V4L2_PIX_FMT_SPCA505``
->        - 'S505'
-> -      - YYUV per line used by the gspca driver.
-> +      - YYUV per line used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-SPCA508:
-> 
->        - ``V4L2_PIX_FMT_SPCA508``
->        - 'S508'
-> -      - YUVY per line used by the gspca driver.
-> +      - YUVY per line used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-SPCA561:
-> 
->        - ``V4L2_PIX_FMT_SPCA561``
->        - 'S561'
-> -      - Compressed GBRG Bayer format used by the gspca driver.
-> +      - Compressed GBRG Bayer format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-PAC207:
-> 
->        - ``V4L2_PIX_FMT_PAC207``
->        - 'P207'
-> -      - Compressed BGGR Bayer format used by the gspca driver.
-> +      - Compressed BGGR Bayer format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-MR97310A:
-> 
->        - ``V4L2_PIX_FMT_MR97310A``
->        - 'M310'
-> -      - Compressed BGGR Bayer format used by the gspca driver.
-> +      - Compressed BGGR Bayer format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-JL2005BCD:
-> 
->        - ``V4L2_PIX_FMT_JL2005BCD``
->        - 'JL20'
-> -      - JPEG compressed RGGB Bayer format used by the gspca driver.
-> +      - JPEG compressed RGGB Bayer format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-OV511:
-> 
->        - ``V4L2_PIX_FMT_OV511``
->        - 'O511'
-> -      - OV511 JPEG format used by the gspca driver.
-> +      - OV511 JPEG format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-OV518:
-> 
->        - ``V4L2_PIX_FMT_OV518``
->        - 'O518'
-> -      - OV518 JPEG format used by the gspca driver.
-> +      - OV518 JPEG format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-PJPG:
-> 
->        - ``V4L2_PIX_FMT_PJPG``
->        - 'PJPG'
-> -      - Pixart 73xx JPEG format used by the gspca driver.
-> +      - Pixart 73xx JPEG format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-SE401:
-> 
->        - ``V4L2_PIX_FMT_SE401``
->        - 'S401'
-> -      - Compressed RGB format used by the gspca se401 driver
-> +      - Compressed RGB format used by the obsolete gspca se401 driver
->      * .. _V4L2-PIX-FMT-SQ905C:
-> 
->        - ``V4L2_PIX_FMT_SQ905C``
->        - '905C'
-> -      - Compressed RGGB bayer format used by the gspca driver.
-> +      - Compressed RGGB bayer format used by the obsolete gspca driver.
->      * .. _V4L2-PIX-FMT-MJPEG:
-> 
->        - ``V4L2_PIX_FMT_MJPEG``
-> @@ -144,17 +144,17 @@ please make a proposal on the linux-media mailing list.
-> 
->        - ``V4L2_PIX_FMT_SN9C20X_I420``
->        - 'S920'
-> -      - YUV 4:2:0 format of the gspca sn9c20x driver.
-> +      - YUV 4:2:0 format of the obsolete gspca sn9c20x driver.
->      * .. _V4L2-PIX-FMT-SN9C2028:
-> 
->        - ``V4L2_PIX_FMT_SN9C2028``
->        - 'SONX'
-> -      - Compressed GBRG bayer format of the gspca sn9c2028 driver.
-> +      - Compressed GBRG bayer format of the obsolete gspca sn9c2028 driver.
->      * .. _V4L2-PIX-FMT-STV0680:
-> 
->        - ``V4L2_PIX_FMT_STV0680``
->        - 'S680'
-> -      - Bayer format of the gspca stv0680 driver.
-> +      - Bayer format of the obsolete gspca stv0680 driver.
->      * .. _V4L2-PIX-FMT-WNVA:
-> 
->        - ``V4L2_PIX_FMT_WNVA``
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 4cc4a2dc6d30..bc88af071e4c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -11367,55 +11367,6 @@ S:	Maintained
->  T:	git git://linuxtv.org/media.git
->  F:	drivers/media/spi/gs1662.c
-> 
-> -GSPCA FINEPIX SUBDRIVER
-> -M:	Frank Zago <frank@zago.net>
-> -L:	linux-media@vger.kernel.org
-> -S:	Maintained
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/finepix.c
-> -
-> -GSPCA GL860 SUBDRIVER
-> -M:	Olivier Lorin <o.lorin@laposte.net>
-> -L:	linux-media@vger.kernel.org
-> -S:	Maintained
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/gl860/
-> -
-> -GSPCA M5602 SUBDRIVER
-> -M:	Erik Andren <erik.andren@gmail.com>
-> -L:	linux-media@vger.kernel.org
-> -S:	Maintained
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/m5602/
-> -
-> -GSPCA PAC207 SONIXB SUBDRIVER
-> -M:	Hans Verkuil <hverkuil@kernel.org>
-> -L:	linux-media@vger.kernel.org
-> -S:	Odd Fixes
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/pac207.c
-> -
-> -GSPCA SN9C20X SUBDRIVER
-> -M:	Brian Johnson <brijohn@gmail.com>
-> -L:	linux-media@vger.kernel.org
-> -S:	Maintained
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/sn9c20x.c
-> -
-> -GSPCA T613 SUBDRIVER
-> -M:	Leandro Costantino <lcostantino@gmail.com>
-> -L:	linux-media@vger.kernel.org
-> -S:	Maintained
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/t613.c
-> -
-> -GSPCA USB WEBCAM DRIVER
-> -M:	Hans Verkuil <hverkuil@kernel.org>
-> -L:	linux-media@vger.kernel.org
-> -S:	Odd Fixes
-> -T:	git git://linuxtv.org/media.git
-> -F:	drivers/media/usb/gspca/
-> -
->  GTP (GPRS Tunneling Protocol)
->  M:	Pablo Neira Ayuso <pablo@netfilter.org>
->  M:	Harald Welte <laforge@gnumonks.org>
-> diff --git a/drivers/media/usb/Kconfig b/drivers/media/usb/Kconfig
-> index 813171d25ac5..ba0dc7bb6cb6 100644
-> --- a/drivers/media/usb/Kconfig
-> +++ b/drivers/media/usb/Kconfig
-> @@ -13,7 +13,6 @@ if MEDIA_USB_SUPPORT
->  if MEDIA_CAMERA_SUPPORT
->  	comment "Webcam devices"
-> 
-> -source "drivers/media/usb/gspca/Kconfig"
->  source "drivers/media/usb/pwc/Kconfig"
->  source "drivers/media/usb/s2255/Kconfig"
->  source "drivers/media/usb/usbtv/Kconfig"
-> diff --git a/drivers/media/usb/Makefile b/drivers/media/usb/Makefile
-> index 6d171beea20d..979704fd4cdb 100644
-> --- a/drivers/media/usb/Makefile
-> +++ b/drivers/media/usb/Makefile
-> @@ -17,7 +17,6 @@ obj-y += ttusb-dec/
->  # (e. g. LC_ALL=C sort Makefile)
->  obj-$(CONFIG_DVB_AS102) += as102/
->  obj-$(CONFIG_USB_AIRSPY) += airspy/
-> -obj-$(CONFIG_USB_GSPCA) += gspca/
->  obj-$(CONFIG_USB_HACKRF) += hackrf/
->  obj-$(CONFIG_USB_MSI2500) += msi2500/
->  obj-$(CONFIG_USB_PWC) += pwc/
-> diff --git a/drivers/media/usb/gspca/Kconfig b/drivers/media/usb/gspca/Kconfig
-> deleted file mode 100644
-> index 9c1939ce6be4..000000000000
-> diff --git a/drivers/media/usb/gspca/Makefile b/drivers/media/usb/gspca/Makefile
-> deleted file mode 100644
-> index a35c45006130..000000000000
-> diff --git a/drivers/media/usb/gspca/autogain_functions.c b/drivers/media/usb/gspca/autogain_functions.c
-> deleted file mode 100644
-> index 7ae7c43951cd..000000000000
-> diff --git a/drivers/media/usb/gspca/benq.c b/drivers/media/usb/gspca/benq.c
-> deleted file mode 100644
-> index 25c40fb1ba43..000000000000
-> diff --git a/drivers/media/usb/gspca/conex.c b/drivers/media/usb/gspca/conex.c
-> deleted file mode 100644
-> index 8b2691243f8a..000000000000
-> diff --git a/drivers/media/usb/gspca/cpia1.c b/drivers/media/usb/gspca/cpia1.c
-> deleted file mode 100644
-> index 14aaf36cde6e..000000000000
-> diff --git a/drivers/media/usb/gspca/dtcs033.c b/drivers/media/usb/gspca/dtcs033.c
-> deleted file mode 100644
-> index 671b205c0059..000000000000
-> diff --git a/drivers/media/usb/gspca/etoms.c b/drivers/media/usb/gspca/etoms.c
-> deleted file mode 100644
-> index c99fd9a1dd21..000000000000
-> diff --git a/drivers/media/usb/gspca/finepix.c b/drivers/media/usb/gspca/finepix.c
-> deleted file mode 100644
-> index bc6133b525e3..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/Kconfig b/drivers/media/usb/gspca/gl860/Kconfig
-> deleted file mode 100644
-> index e5a35ca72b60..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/Makefile b/drivers/media/usb/gspca/gl860/Makefile
-> deleted file mode 100644
-> index 7bcfa36f12ac..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/gl860-mi1320.c b/drivers/media/usb/gspca/gl860/gl860-mi1320.c
-> deleted file mode 100644
-> index d6a540ed378c..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/gl860-mi2020.c b/drivers/media/usb/gspca/gl860/gl860-mi2020.c
-> deleted file mode 100644
-> index 9e7a29154d45..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/gl860-ov2640.c b/drivers/media/usb/gspca/gl860/gl860-ov2640.c
-> deleted file mode 100644
-> index 928c1eaf9a87..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/gl860-ov9655.c b/drivers/media/usb/gspca/gl860/gl860-ov9655.c
-> deleted file mode 100644
-> index 766677ebcb34..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/gl860.c b/drivers/media/usb/gspca/gl860/gl860.c
-> deleted file mode 100644
-> index ce4ee8bc75c8..000000000000
-> diff --git a/drivers/media/usb/gspca/gl860/gl860.h b/drivers/media/usb/gspca/gl860/gl860.h
-> deleted file mode 100644
-> index a8a5d6450a66..000000000000
-> diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-> deleted file mode 100644
-> index 4185c9047241..000000000000
-> diff --git a/drivers/media/usb/gspca/gspca.h b/drivers/media/usb/gspca/gspca.h
-> deleted file mode 100644
-> index a6554d5e9e1a..000000000000
-> diff --git a/drivers/media/usb/gspca/jeilinj.c b/drivers/media/usb/gspca/jeilinj.c
-> deleted file mode 100644
-> index 20b2468d065b..000000000000
-> diff --git a/drivers/media/usb/gspca/jl2005bcd.c b/drivers/media/usb/gspca/jl2005bcd.c
-> deleted file mode 100644
-> index 4988fbf5005e..000000000000
-> diff --git a/drivers/media/usb/gspca/jpeg.h b/drivers/media/usb/gspca/jpeg.h
-> deleted file mode 100644
-> index 660081dcb852..000000000000
-> diff --git a/drivers/media/usb/gspca/kinect.c b/drivers/media/usb/gspca/kinect.c
-> deleted file mode 100644
-> index 57ea65863591..000000000000
-> diff --git a/drivers/media/usb/gspca/konica.c b/drivers/media/usb/gspca/konica.c
-> deleted file mode 100644
-> index 53db9a2895ea..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/Kconfig b/drivers/media/usb/gspca/m5602/Kconfig
-> deleted file mode 100644
-> index d616408b67d9..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/Makefile b/drivers/media/usb/gspca/m5602/Makefile
-> deleted file mode 100644
-> index 95c9db6dc59c..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_bridge.h b/drivers/media/usb/gspca/m5602/m5602_bridge.h
-> deleted file mode 100644
-> index 4d63a9d24048..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_core.c b/drivers/media/usb/gspca/m5602/m5602_core.c
-> deleted file mode 100644
-> index 852ee6cce4b8..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_mt9m111.c b/drivers/media/usb/gspca/m5602/m5602_mt9m111.c
-> deleted file mode 100644
-> index bf1af6ed9131..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_mt9m111.h b/drivers/media/usb/gspca/m5602/m5602_mt9m111.h
-> deleted file mode 100644
-> index 480afd4c9fc3..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_ov7660.c b/drivers/media/usb/gspca/m5602/m5602_ov7660.c
-> deleted file mode 100644
-> index fadad530f721..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_ov7660.h b/drivers/media/usb/gspca/m5602/m5602_ov7660.h
-> deleted file mode 100644
-> index 6146e8ef17c0..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_ov9650.c b/drivers/media/usb/gspca/m5602/m5602_ov9650.c
-> deleted file mode 100644
-> index 82a698052255..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_ov9650.h b/drivers/media/usb/gspca/m5602/m5602_ov9650.h
-> deleted file mode 100644
-> index 929a7568c418..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_po1030.c b/drivers/media/usb/gspca/m5602/m5602_po1030.c
-> deleted file mode 100644
-> index 8fd99ceee4b6..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_po1030.h b/drivers/media/usb/gspca/m5602/m5602_po1030.h
-> deleted file mode 100644
-> index af4a7d836820..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c b/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
-> deleted file mode 100644
-> index c022265db3aa..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_s5k4aa.h b/drivers/media/usb/gspca/m5602/m5602_s5k4aa.h
-> deleted file mode 100644
-> index 1789cd0514c4..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_s5k83a.c b/drivers/media/usb/gspca/m5602/m5602_s5k83a.c
-> deleted file mode 100644
-> index 8ef010a87445..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_s5k83a.h b/drivers/media/usb/gspca/m5602/m5602_s5k83a.h
-> deleted file mode 100644
-> index 851e651561f2..000000000000
-> diff --git a/drivers/media/usb/gspca/m5602/m5602_sensor.h b/drivers/media/usb/gspca/m5602/m5602_sensor.h
-> deleted file mode 100644
-> index 46b7297fb115..000000000000
-> diff --git a/drivers/media/usb/gspca/mars.c b/drivers/media/usb/gspca/mars.c
-> deleted file mode 100644
-> index eb9342ee32af..000000000000
-> diff --git a/drivers/media/usb/gspca/mr97310a.c b/drivers/media/usb/gspca/mr97310a.c
-> deleted file mode 100644
-> index 3553788e8542..000000000000
-> diff --git a/drivers/media/usb/gspca/nw80x.c b/drivers/media/usb/gspca/nw80x.c
-> deleted file mode 100644
-> index 0f5f2464ac7a..000000000000
-> diff --git a/drivers/media/usb/gspca/ov519.c b/drivers/media/usb/gspca/ov519.c
-> deleted file mode 100644
-> index 57219a738c73..000000000000
-> diff --git a/drivers/media/usb/gspca/ov534.c b/drivers/media/usb/gspca/ov534.c
-> deleted file mode 100644
-> index bdff64a29a33..000000000000
-> diff --git a/drivers/media/usb/gspca/ov534_9.c b/drivers/media/usb/gspca/ov534_9.c
-> deleted file mode 100644
-> index 91efc650cf76..000000000000
-> diff --git a/drivers/media/usb/gspca/pac207.c b/drivers/media/usb/gspca/pac207.c
-> deleted file mode 100644
-> index 34127114c99b..000000000000
-> diff --git a/drivers/media/usb/gspca/pac7302.c b/drivers/media/usb/gspca/pac7302.c
-> deleted file mode 100644
-> index 608be0d64f94..000000000000
-> diff --git a/drivers/media/usb/gspca/pac7311.c b/drivers/media/usb/gspca/pac7311.c
-> deleted file mode 100644
-> index f6addb29f8f0..000000000000
-> diff --git a/drivers/media/usb/gspca/pac_common.h b/drivers/media/usb/gspca/pac_common.h
-> deleted file mode 100644
-> index acd1be93649d..000000000000
-> diff --git a/drivers/media/usb/gspca/se401.c b/drivers/media/usb/gspca/se401.c
-> deleted file mode 100644
-> index e087cfb5980b..000000000000
-> diff --git a/drivers/media/usb/gspca/se401.h b/drivers/media/usb/gspca/se401.h
-> deleted file mode 100644
-> index b0271409faf6..000000000000
-> diff --git a/drivers/media/usb/gspca/sn9c2028.c b/drivers/media/usb/gspca/sn9c2028.c
-> deleted file mode 100644
-> index dbd1d6da37f1..000000000000
-> diff --git a/drivers/media/usb/gspca/sn9c2028.h b/drivers/media/usb/gspca/sn9c2028.h
-> deleted file mode 100644
-> index beb5d2a5de75..000000000000
-> diff --git a/drivers/media/usb/gspca/sn9c20x.c b/drivers/media/usb/gspca/sn9c20x.c
-> deleted file mode 100644
-> index da916127a896..000000000000
-> diff --git a/drivers/media/usb/gspca/sonixb.c b/drivers/media/usb/gspca/sonixb.c
-> deleted file mode 100644
-> index f251a886024f..000000000000
-> diff --git a/drivers/media/usb/gspca/sonixj.c b/drivers/media/usb/gspca/sonixj.c
-> deleted file mode 100644
-> index 2e1bd2df8304..000000000000
-> diff --git a/drivers/media/usb/gspca/spca1528.c b/drivers/media/usb/gspca/spca1528.c
-> deleted file mode 100644
-> index ccc477944ef8..000000000000
-> diff --git a/drivers/media/usb/gspca/spca500.c b/drivers/media/usb/gspca/spca500.c
-> deleted file mode 100644
-> index b9ce5e35f52f..000000000000
-> diff --git a/drivers/media/usb/gspca/spca501.c b/drivers/media/usb/gspca/spca501.c
-> deleted file mode 100644
-> index f7c75d7535c4..000000000000
-> diff --git a/drivers/media/usb/gspca/spca505.c b/drivers/media/usb/gspca/spca505.c
-> deleted file mode 100644
-> index 0e8cccbb6d80..000000000000
-> diff --git a/drivers/media/usb/gspca/spca506.c b/drivers/media/usb/gspca/spca506.c
-> deleted file mode 100644
-> index 0886587dc89c..000000000000
-> diff --git a/drivers/media/usb/gspca/spca508.c b/drivers/media/usb/gspca/spca508.c
-> deleted file mode 100644
-> index 754ab1dbba83..000000000000
-> diff --git a/drivers/media/usb/gspca/spca561.c b/drivers/media/usb/gspca/spca561.c
-> deleted file mode 100644
-> index 431527ed602b..000000000000
-> diff --git a/drivers/media/usb/gspca/sq905.c b/drivers/media/usb/gspca/sq905.c
-> deleted file mode 100644
-> index 32504ebcfd4d..000000000000
-> diff --git a/drivers/media/usb/gspca/sq905c.c b/drivers/media/usb/gspca/sq905c.c
-> deleted file mode 100644
-> index 6ca947aef298..000000000000
-> diff --git a/drivers/media/usb/gspca/sq930x.c b/drivers/media/usb/gspca/sq930x.c
-> deleted file mode 100644
-> index c3610247a90e..000000000000
-> diff --git a/drivers/media/usb/gspca/stk014.c b/drivers/media/usb/gspca/stk014.c
-> deleted file mode 100644
-> index aa9e921e7cef..000000000000
-> diff --git a/drivers/media/usb/gspca/stk1135.c b/drivers/media/usb/gspca/stk1135.c
-> deleted file mode 100644
-> index 1a602af7310f..000000000000
-> diff --git a/drivers/media/usb/gspca/stk1135.h b/drivers/media/usb/gspca/stk1135.h
-> deleted file mode 100644
-> index 9a77500cc805..000000000000
-> diff --git a/drivers/media/usb/gspca/stv0680.c b/drivers/media/usb/gspca/stv0680.c
-> deleted file mode 100644
-> index b23988d8c7bc..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/Kconfig b/drivers/media/usb/gspca/stv06xx/Kconfig
-> deleted file mode 100644
-> index 59373659ae4d..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/Makefile b/drivers/media/usb/gspca/stv06xx/Makefile
-> deleted file mode 100644
-> index c4d7206e0c92..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx.c b/drivers/media/usb/gspca/stv06xx/stv06xx.c
-> deleted file mode 100644
-> index d9bc2aacc885..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx.h b/drivers/media/usb/gspca/stv06xx/stv06xx.h
-> deleted file mode 100644
-> index f6bafa982e32..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c b/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c
-> deleted file mode 100644
-> index bd0c62a926b9..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.h b/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.h
-> deleted file mode 100644
-> index 326a6eb68237..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c b/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c
-> deleted file mode 100644
-> index d30a76df52cf..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.h b/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.h
-> deleted file mode 100644
-> index c5a6614577de..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_sensor.h b/drivers/media/usb/gspca/stv06xx/stv06xx_sensor.h
-> deleted file mode 100644
-> index 67c13c689b9c..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c b/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c
-> deleted file mode 100644
-> index aac19d449be2..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.h b/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.h
-> deleted file mode 100644
-> index 68ba01c5a8d4..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c b/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c
-> deleted file mode 100644
-> index dde1950bdc68..000000000000
-> diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.h b/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.h
-> deleted file mode 100644
-> index 343ddc30401f..000000000000
-> diff --git a/drivers/media/usb/gspca/sunplus.c b/drivers/media/usb/gspca/sunplus.c
-> deleted file mode 100644
-> index 971dee0a56da..000000000000
-> diff --git a/drivers/media/usb/gspca/t613.c b/drivers/media/usb/gspca/t613.c
-> deleted file mode 100644
-> index 33b37ccf1090..000000000000
-> diff --git a/drivers/media/usb/gspca/topro.c b/drivers/media/usb/gspca/topro.c
-> deleted file mode 100644
-> index aee444042f60..000000000000
-> diff --git a/drivers/media/usb/gspca/touptek.c b/drivers/media/usb/gspca/touptek.c
-> deleted file mode 100644
-> index 734644d928ab..000000000000
-> diff --git a/drivers/media/usb/gspca/tv8532.c b/drivers/media/usb/gspca/tv8532.c
-> deleted file mode 100644
-> index c31baa72c02c..000000000000
-> diff --git a/drivers/media/usb/gspca/vc032x.c b/drivers/media/usb/gspca/vc032x.c
-> deleted file mode 100644
-> index e7a534be061d..000000000000
-> diff --git a/drivers/media/usb/gspca/vicam.c b/drivers/media/usb/gspca/vicam.c
-> deleted file mode 100644
-> index 91e177aa8136..000000000000
-> diff --git a/drivers/media/usb/gspca/w996Xcf.c b/drivers/media/usb/gspca/w996Xcf.c
-> deleted file mode 100644
-> index 700c39fe307c..000000000000
-> diff --git a/drivers/media/usb/gspca/xirlink_cit.c b/drivers/media/usb/gspca/xirlink_cit.c
-> deleted file mode 100644
-> index acfb9a195106..000000000000
-> diff --git a/drivers/media/usb/gspca/zc3xx-reg.h b/drivers/media/usb/gspca/zc3xx-reg.h
-> deleted file mode 100644
-> index ab8f44a4f3d4..000000000000
-> diff --git a/drivers/media/usb/gspca/zc3xx.c b/drivers/media/usb/gspca/zc3xx.c
-> deleted file mode 100644
-> index 5bcbf0d40147..000000000000
 
+-- 
+Regards,
+
+Laurent Pinchart
