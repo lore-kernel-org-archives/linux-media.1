@@ -1,103 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7043C456F
-	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 21:14:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F36E360EC5
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 21:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198111; cv=none; b=IhOf36K/GVkdF0bc4VH5Tdrdzml2GHX4Mkjn+odIMqXCd8DOTEr2iKL5GiVlDl3mOJYRLiI7fgSXOUU5ZM4XzEDOUvHX/i6XE1XEuSJR8fsCId6QX+ywZTgFtM5i200a3D3812s0v0bjTWfQ170xJNwqTTuDtv0SBzCOG79FxaY=
+	t=1790198322; cv=none; b=mx63/CcPRMjlcQSH4ZelmTQw0zYgypmdSAsx5R/MnZcpfXIAI7AMUUR1awjYbD9cOHLmwVEo/FINkG9pVh1dAIWEwJpqkiuRtfe3R8dgD8WsvuSYPJVte85coiBG3lwqPbDrA80IyQ2EQ9HtFCqjTvm3VFSUvMt77j6wRh6bQlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198111; c=relaxed/simple;
-	bh=/bMnIwV9D+4P5fFt2ddL/c1m1MS6UgDFjxX3GAe3zTs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lpxcf9BqWEgmyht1bfuzyABmAB1ITg34rg90qpWiTgriiT/W84ncnCvIXDDOKxqChmTSW3PGFY7q+Bw8G5+hirTWL998STItoPnuSjXmxz+1IxhhqdEtvKuksheRbZ9sCULsQVVWkZEMgbWESTmHp1pqW/T/d5K86fExxYMkYjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZvylHr/m; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790198322; c=relaxed/simple;
+	bh=j/lDzBjN2rAc1lI4kJqKG6iCbBX0dO4INeVVU1Y+riQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QNGcXfw0/SVCUuZb7Rv4iWH1bi3xkHhYi++leP7rmwo3JkNMDx35jOmM3p+6F89mO7LGutlHvT86uwtVOFgqSO3TBvLuDeWlJDHZ8PEx6wfjwr1UxwVqJB0hjGFk2gR89l2jc32ayGwTcgqCKmgAvlcWc/CLYn8AshexkCX51rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ODfmvCfM; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZvylHr/m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790198102; x=1821734102;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=/bMnIwV9D+4P5fFt2ddL/c1m1MS6UgDFjxX3GAe3zTs=;
-  b=ZvylHr/m1W28JkPa+BDtFuPiz1Lve0qJPScF07kbGcDnZVIj3x+ZNPxe
-   HmKjvsiYHoFLqf+HhFj1JWJsDRLH4543cXSNXKqzcsZ7Q90SmxnP2gX4l
-   vW0CZEdUAdPLRMVzxyYn6bg1BCexDa+J96ZBmZSA/472fb9SWYxvD+X9S
-   8AIDXBfoU3t52iYsrHROYHTsSRHCfrmHYNq8aDq4YamST3uMESZ3Ysy35
-   XDFrABgnAkS87piry/sMkL8KXi/eX7Jkle01gTN14Qs6DC+7bUgaD9CH/
-   dTYFFb4pKJRGyymZhwMNRi+GA0JPdzXRuV1euFt7cHffksgTIxFHzO2JH
-   Q==;
-X-CSE-ConnectionGUID: lfBuX6XsS6+vIJ8H+34Qag==
-X-CSE-MsgGUID: hJjp/vUSRfCzVVecE+pMBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90806505"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="90806505"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:14:54 -0700
-X-CSE-ConnectionGUID: x7nTLt1jRkatvU9X58UZYQ==
-X-CSE-MsgGUID: 5u9pxeDVRHuOWSzBL03VgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="273965632"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.83])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:14:53 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id DA32D11F9B7;
-	Thu, 24 Sep 2026 00:14:51 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x9UIj-00000003nDM-44HQ;
-	Thu, 24 Sep 2026 00:14:49 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
-	Junjie Cao <junjie.cao@intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manuel Knitza <manuel.knitza@googlemail.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	regressions@lists.linux.dev
-Subject: [PATCH v2 1/1] media: cvs: Default selection to VIDEO_INTEL_IPU6
-Date: Thu, 24 Sep 2026 00:14:49 +0300
-Message-ID: <20260923211449.904157-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ODfmvCfM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790198315; x=1790457515;
+	bh=SL3XhxBzEFXiNAg2QPAIXN4w3WwM/gjEaFs3ld7y99s=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ODfmvCfMWRYEjMaX2yOLmhlEi5+Lb0cKn5LGRbXclO43Pbu9kz5RkXjp6YdXtU3ng
+	 Lm1ERROOvxMI2nX7Rhrr64CGVHWDiVg9F8/QyOnaggmqnV0VzLiHx99lR/G3nahkCY
+	 t7kvWCUXYY0FcT2/C+z/5oXd5k7b7JiqjMrnipkH8kzA2yFrq3BkSPzaPR2aawru9Y
+	 nr2q7PcxoiS5LBflcC87k2Oz+y8GXVsrrCtn5A2rgIgL3phSAcAdysyt1CMPORNGVu
+	 dhEXKAOnASaRlR6Z220QrEGjiv80GepftLaszqHQP6s8wWISRrSdbEIBtPVt4UCWM6
+	 oNBFl39jvT3LQ==
+Date: Wed, 23 Sep 2026 21:18:32 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v7 1/3] dt-bindings: media: Add Sony IMX681
+Message-ID: <20260923211816.89954-2-lsa.uz@pm.me>
+In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
+References: <20260923211816.89954-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: d73c076f56e59b623e12fb6bf308246d03d2d3b8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The cvs driver is only usable with the Intel ipu6 driver (as well as the
-ipu7 staging driver, as long as it exists in the staging tree) and is
-commonly required for the ipu6 (or ipu7 staging) driver to function. Make
-the default of the cvs driver the same as what was selected for the ipu6
-driver.
+The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
+several Microsoft Surface devices. It operates from analog 2.8 V, digital
+1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
+10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/media/i2c/cvs/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/media/i2c/sony,imx681.yaml       | 107 ++++++++++++++++++
+ 1 file changed, 107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
 
-diff --git a/drivers/media/i2c/cvs/Kconfig b/drivers/media/i2c/cvs/Kconfig
-index 4309d20dd726..f482f1ccc38a 100644
---- a/drivers/media/i2c/cvs/Kconfig
-+++ b/drivers/media/i2c/cvs/Kconfig
-@@ -4,6 +4,7 @@ config VIDEO_INTEL_CVS
- 	tristate "Intel CVS CSI-2 bridge support"
- 	depends on I2C && ACPI && VIDEO_DEV
- 	depends on IPU_BRIDGE || !IPU_BRIDGE
-+	default VIDEO_INTEL_IPU6
- 	select MEDIA_CONTROLLER
- 	select VIDEO_V4L2_SUBDEV_API
- 	select V4L2_FWNODE
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b=
+/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+new file mode 100644
+index 00000000000..6d2e4ddcee9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX681 CMOS Image Sensor
++
++maintainers:
++  - Andre Gilerson <andre.gilerson@gmail.com>
++
++description:
++  The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
++  array, used as the user-facing camera on several Microsoft Surface devic=
+es.
++  It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V suppli=
+es,
++  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
++  MIPI CSI-2 D-PHY interface.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx681
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (19.2 MHz)
++    maxItems: 1
++
++  avdd-supply:
++    description: Analog power supply (2.8 V)
++
++  dvdd-supply:
++    description: Digital power supply (1.05 V)
++
++  dovdd-supply:
++    description: Interface power supply (1.8 V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO, active low
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dvdd-supply
++  - dovdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        camera-sensor@10 {
++            compatible =3D "sony,imx681";
++            reg =3D <0x10>;
++            clocks =3D <&clock_cam>;
++            avdd-supply =3D <&vcc2v8_cam>;
++            dvdd-supply =3D <&vcc1v05_cam>;
++            dovdd-supply =3D <&vcc1v8_cam>;
++            reset-gpios =3D <&gpio 4 GPIO_ACTIVE_LOW>;
++            orientation =3D <0>;
++            rotation =3D <0>;
++
++            port {
++                imx681_ep: endpoint {
++                    data-lanes =3D <1 2>;
++                    link-frequencies =3D /bits/ 64 <969600000>;
++                    remote-endpoint =3D <&csi_in>;
++                };
++            };
++        };
++    };
++...
+--=20
+2.54.0 (Apple Git-157)
 
-base-commit: 8fef4162ebd9936f540f026edb76ec120cd6ffde
--- 
-2.47.3
 
