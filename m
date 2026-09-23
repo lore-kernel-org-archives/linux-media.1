@@ -1,100 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C1D3ADBA7;
-	Wed, 23 Sep 2026 14:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588B0426D2E
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 14:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174273; cv=none; b=dBWU+OZ+t0iBEoXUAHh5M0h8/G35+4zPBO91TYXuCKqjgNbqKHVl0Q4udZN4BuPL7M+Sa9y/t5PmAJ2OJ6+rsIjFipgaXuvfSeD2S2UiY6cL5vzdPRuKSZVvICz6FdXAQm+4WH1kU58zva9bIaBOBf5sHP9XzXJ+ByOBYHYPv3g=
+	t=1790174617; cv=none; b=JJrcq7S5P2AfWrl5AY/tXFU3MgfN/s/gJYtlZ/5HAaAT5peEGFSXsItEANPUBFmG2konCmxhDxyhXLeMj6cutNk3XmS8TIwaiekfFypJlt9u8n7X5VCFyiNI9XnqmenWix4vf7AMvSOszEHhRUYZh3T7jr8s/Daw8TWOYPT5/X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174273; c=relaxed/simple;
-	bh=dsl1YCwoDeYP9QmGMRAGNj+aPB82/2DMvVDC0LuLiqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JGQKPInEyCSWuTR1FkZxkayEZ9RHorYiet1OEkyUynm0D/EY4EWT+dSp4TTaYOpjXkAXPaNpddsNocKABBsVVO6BeOdn+0+xcMmMW2LJ+oY8ZOFkKhXaUlaRXpF55wVu0YhSy+xqqO5GMbhuRV9CMRdd9PX4aKJ8D5yHqbS0guE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MGhGqc7P; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790174617; c=relaxed/simple;
+	bh=k8wXZsiBZahd4YB/jFxIlwwwkrcy/Xge/EYWHanyKAM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sTmcIYtRmFifq7KtT7V8BFZgy9oKKk1qsuLwfy0f9mNeBo5BUN7kMD1lGRAah4IWDmQigvLII1cZbtdz+8CbO6KQIpIW31YcTQvyynvAhclqM0DGoRImjwoSAIKu+RUdD52Bss+K5Od4QwsGX337nKwFT00u+dBZowlsIlOVeZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K3Z6t+Pu; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MGhGqc7P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790174271; x=1821710271;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dsl1YCwoDeYP9QmGMRAGNj+aPB82/2DMvVDC0LuLiqU=;
-  b=MGhGqc7P7/Sl0BFrJp60gMzU1f9i6sStS13MY4OQY8fbhYrgC92/sg/c
-   ZlQ0b93vazPNG0IxcvIVWge+YGYqu+4xcFaPkfmvYuUgG2RdWXf38kDSm
-   LU2W1VkWQ0rmLXV2LvYwTQKM93uhiCral8ibZj9lEUKzh9uWXD3E/wFIR
-   OJgZAd1Wwn5QcFJ0mM6opJBDnoJtqv9/5rONUgpxkRMI6pJ06TZ0lIA15
-   K1F1m44sY4YIEUHNlcl58oJGmb7RjHm8NXaJD5wqnWmLoCiM6p4KRr2q9
-   4QR8zv4KsIrt4oIW4ZpiD9KuP/KTmwUEEs0SMSQNsj0+LLRQ8U5DijYzJ
-   Q==;
-X-CSE-ConnectionGUID: kyJcDSn5TxSqZFI8NkwERg==
-X-CSE-MsgGUID: e4vXZWAFQKOCHDYrUN3e3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="93375529"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="93375529"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 07:37:50 -0700
-X-CSE-ConnectionGUID: xIdu7W2RTAeaQNWHbrwklg==
-X-CSE-MsgGUID: ubVJ2sRKQLKW38djxC7DEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="273116363"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.54])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 07:36:05 -0700
-Date: Wed, 23 Sep 2026 16:35:56 +0200
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Amin Gattout <amin.gattout@gmail.com>
-Cc: Michael Riesch <michael.riesch@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 0/5] media: rockchip: add support for the RK3576 Video
- Capture unit
-Message-ID: <arPiz67nCQRPXdh3@mdjait-mobl>
-References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K3Z6t+Pu"
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c83be8db39so661618e0c.3
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 07:43:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790174615; x=1790779415; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mKXoFYw7/SjH6xvEvMhY/oZycn/zJvALe61FS8iJ6eQ=;
+        b=K3Z6t+PuhM1dMHoYt8wTecLOt00RqjJJNv4e0e2XdkjzRJl29lbAvj3k/qBXbAtzva
+         KCB9t7L9Ty4leUri69Jd4+J7RIa3fdFv4xZiSAcdlc3e1DH1Irph7wUdq22FnBWhObTX
+         /Kcm1bVaJu/2WpY2F3CVAenfI0d9unq2baKKdJlN79nj6kkq0gKQOmZL9+d+txMRa+SH
+         UpkuVfoEZNbl7XsVu0VCSGmldpMW1asFlFNU4WHnxlecUu9Rmak6IbK/Cm0bXxXQDrw6
+         XmYZ5rtVseUpFH95I97SCwE3z85SFME040Q6sDZmvnds7qLIQZ0xxHanggkElajY6bf1
+         fwJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174615; x=1790779415;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mKXoFYw7/SjH6xvEvMhY/oZycn/zJvALe61FS8iJ6eQ=;
+        b=sqHGCpEeYL9O7v9Iiy3V5fEnP713IOkxHqsDlvOSSlxSkvKTHu0hXWdGvucYI5hMQb
+         2i19XN0rSmCVGDdBlEdjAQuOczOUT6k4IiifcmYOOtH/qXHFTVAi2BmPN7dVb9urhVA/
+         1X2657CWPgeyzEywMrflAkGozDQH5FdNeOCt5fi4gF79UXX9t5Che8XRE+fA4hfx1rRY
+         ksywA8Yyu/RjRkHwWGY+lL3l9NjUzVx6lqHORyQptCUQi6CorRpOgG54e8SMwtwaUmE3
+         3/eAEuWmbm9Jk+a+mPDbpZYc5Xk7x+WcCeuQkKqrcjIdsa7QNNunWtLWQNGbovQ5j2uk
+         eMGA==
+X-Gm-Message-State: AFuF++nLHiIB8dNGK7dXYI103bviRjovHH051DL1+//WzJ4TqDKKb8Jq
+	hLaP9XUSHaGI3XJCwpEVY3l4Gs1rmnbsG2Jcr8HFpiYg9qwL9p4JiHDf7FyOD/yn9FQ=
+X-Gm-Gg: AYBFou231+OKN+/TgYnzfUtWU/I1Gha10t5xC4MSkIf2G60HKQLxojaf9/TbyVEL7hp
+	fR6e69acn3/uJicTTNgARKfRMOVKBHgnQpJpmJ1JzHVBeYDyTJJftrUkJnkZIlrYM071bE5PuqQ
+	0bJ+0JVMmgSzlwAX93YYtEpw3tyhqoTwgEEUr5jpoLzYZ2E2JIwjbzmLv2MMo4rLtm3c7rZYgds
+	1ksKUveFx/KRcMZkEvRTbL9JlXYlP2tInELQ1jKXFn5WOUJxOg73YePYMDamBYvdj8BPjEsjfCP
+	L8AwzVz3Ou7SLNsD0M17bH5qBW+FBXweTnw9UuCQKMrtU8y9EYrx1ROr9Vsx6GA93HpE4MEXLe1
+	IX9ogtjSuyWf7V+rrOga4tPcI3psg1F9M284ps1d365hSce+NXX7Hh15cZi+ZR1Dy1NFXuSSD+Q
+	WXXDLUSNlAen3EzeleriNLlbMXOHuL0JKrFRibYcizlrsbOIWp9o4zb/mc/IByPH6LBK4pMBM=
+X-Received: by 2002:a05:6122:1b10:b0:5c9:b5ba:135 with SMTP id 71dfb90a1353d-5c9f16b490amr3259073e0c.22.1790174615155;
+        Wed, 23 Sep 2026 07:43:35 -0700 (PDT)
+Received: from archsung ([139.82.178.10])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04fb621sm3566169e0c.9.2026.09.23.07.43.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:43:34 -0700 (PDT)
+From: Felipe Calliari <calliarifelipe@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tomas Moro <tmorolias@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Felipe Calliari <calliarifelipe@gmail.com>
+Subject: [PATCH v2 0/3] media: ov02c10: get_selection and 26 MHz clock support
+Date: Wed, 23 Sep 2026 11:42:54 -0300
+Message-ID: <20260923144257.119076-1-calliarifelipe@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905030732.39196-1-calliarifelipe@gmail.com>
+References: <20260905030732.39196-1-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hello Amin,
+Some Meteor Lake / Lunar Lake laptops (e.g. the Samsung Galaxy Book3/4
+series) wire the OV02C10 to a 26 MHz external clock, which the driver
+rejects at probe today. This series adds support for it, together with
+two small changes found along the way.
 
-Thank you for the series!
+Patch 1 drops a duplicated register write, patch 2 implements
+.get_selection so libcamera can query the sensor geometry, and patch 3
+accepts a 26 MHz clock and re-programs the OP and VT PLL multipliers so
+that the MIPI link stays at the nominal 400 MHz.
 
-On Mon, Sep 21, 2026 at 05:29:56PM +0200, Amin Gattout wrote:
-> This series adds support for the Video Capture (VICAP) unit of the
-> Rockchip RK3576 to the rkcif driver.
-> 
-> The RK3576 VICAP features a digital video port (DVP) and five MIPI
-> CSI-2 capture interfaces. Compared to the RK3588 variant, the MIPI
-> register blocks are laid out differently, the ID_CTRL0 bit layout has
-> changed, the VC/DT filter has moved from ID_CTRL0 to ID_CTRL1, and the
-> capture size is configured in the new ID_SET_SIZE register. In
-> addition, the pixel clock of each MIPI port enters the VICAP through a
-> dedicated gate in the clock and reset unit, so the VICAP claims five
-> interface clocks and five interface resets.
+Tested on a Samsung Galaxy Book3 (two CSI-2 lanes, 26 MHz clock):
+capture runs at a steady 30.01 fps by buffer timestamp, against ~40 fps
+with the unmodified register tables. v1 was also tested on a Galaxy
+Book3 Pro; that Tested-by is carried on patches 1 and 2 only, since
+patch 3 was rewritten.
 
-[..]
+Changes in v2:
+- Rebased onto media next; patch 2 takes the new
+  const struct v4l2_subdev_client_info * argument of .get_selection.
+- Patch 3: re-program the PLL multipliers instead of advertising a
+  scaled 541.667 MHz link frequency (Sakari), and drop the second
+  V4L2_CID_LINK_FREQ entry. No ipu-bridge change is needed any more.
 
-> Amin Gattout (5):
->       media: dt-bindings: add rockchip rk3576 vicap
->       media: rockchip: rkcif: add a register index for the MIPI capture size
->       media: rockchip: rkcif: add a callback for the MIPI ID_CTRL1 register
->       media: rockchip: rkcif: add support for rk3576 vicap mipi capture
->       arm64: dts: rockchip: add vicap node to rk3576
+v1: https://lore.kernel.org/linux-media/20260905030732.39196-1-calliarifelipe@gmail.com/
 
-For the series:
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Felipe Calliari (3):
+  media: ov02c10: Drop duplicate register write
+  media: ov02c10: Implement get_selection
+  media: ov02c10: Accept a 26 MHz external clock
 
---
-Kind Regards
-Mehdi Djait
+ drivers/media/i2c/ov02c10.c | 78 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 74 insertions(+), 4 deletions(-)
+
+base-commit: 0c795849fd70d6bdb99aea5dd08d9b43128612f6
+-- 
+2.55.0
+
