@@ -1,125 +1,109 @@
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADD55616BB;
-	Wed, 23 Sep 2026 19:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5080957D201;
+	Wed, 23 Sep 2026 20:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790192804; cv=none; b=XOT+7VjXXpTYKG/x+PEh4ZuT9k9czrLrYqOhdHHYG9pZpGLioe/7aV4QpVFX/30RNU1CT8AdCwofzNu6Uq1vmYVzlfW4aLTH0/lAA7/pGIHVmZT55mrm1xUi1ajBKvOYcR3GNWg7I9xAAaU1asZwLGwA3Yx/9OLSzWRP9RenUMU=
+	t=1790194513; cv=none; b=WQBowlv38f2JWd0ERRIIucSxFVFzZBTSbHrByQy/hY0fftNAi+8XLoIUVgxOdEsLmFO+mo9DZzx2yeNk2mbOLrDzGsZS2oHjqXyJJGb7/ITx+MCjIsn+tZsujWINBxB6ZMIqyUyKN9QYYPw0uV16hgWU6d3PQ3O7WVe3huoab0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790192804; c=relaxed/simple;
-	bh=l1gEqX+9pjOkKyPeqJpGEn8NGf4UA4O5d9Z/8HmdnQM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bbe5fgiNngaBfZII6nwOx3JRAj/s9pdO3YLbdJS02cfGSLPt4GfduDJbGPUUdHoTggZtmLd27HuL+0qPj0ikMyPk+qmHQTOWP227ufr6vUrHHXCcZQFqzzwXpWFK5vY+W49VF0DYD79RWziN36eP0djLB1yJg25PFkmHPIrXc3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=cO/4MOeY; arc=none smtp.client-ip=109.224.244.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="cO/4MOeY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790192787; x=1790451987;
-	bh=l1gEqX+9pjOkKyPeqJpGEn8NGf4UA4O5d9Z/8HmdnQM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=cO/4MOeYBMx9XH7RqmG0Yvy/LyNWVxmHsB2B1TgJBbSt3iArpeLHxcqd26Fc6djkO
-	 gYs1m9URDcohpYR4hF3biMzPd4SbYKe3fKGtxg2DSJrmUbqQP79adqdwdtQsfKkcBG
-	 kLDiT5361VJp75sjzFGZv0AMtJSHd1TBOYXbYiwTlCjXmkfP3hop+tCD3g6MfwkGnu
-	 WAINKjQgO6lbLDHFJvuJZpiqvWrhCH/HP7MCxXFtU39uAuFwyxOGS2pfeG3pgxruON
-	 fOAHq4JZBheFXUeKaEww3pV0TpbwfD/L9pE/ccIZ97PlGurN60SnaOBDdGYAk6SVao
-	 JhU/MyPqgaMqQ==
-Date: Wed, 23 Sep 2026 19:46:23 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] media: i2c: Add Sony IMX681 sensor driver
-Message-ID: <20260923194617.84480-1-lsa.uz@pm.me>
-In-Reply-To: <arJElIQgkq2uqwQT@kekkonen.localdomain>
-References: <20260921192450.21811-1-lsa.uz@pm.me> <20260921192450.21811-3-lsa.uz@pm.me> <arJElIQgkq2uqwQT@kekkonen.localdomain>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: ec45274f7d401d650dd3866fd0302dd9fd86defb
+	s=arc-20240116; t=1790194513; c=relaxed/simple;
+	bh=JmYOP4c+ppHWZuCNjkFN4BLZ0XGCSmx7SrEAzuxj6XM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QK5pLfhfi8owWvGFubOeDfCnfxnG5SqRC3Njv17bwdCChM4/RwvF85/lckgFBJNmnethyoekZZmqBRyShgOmLeF7BAr9bHB/y1xZaJ32XKKx4JGHbleg1LP1kHbi5jvYECe39Hc6Kv2juKPDfQ3U+034NMJIbZcLc2EjhyKz3H4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id F3E453700EDA;
+	Wed, 23 Sep 2026 20:05:37 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id CE404B648F1; Wed, 23 Sep 2026 20:05:35 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 821CCB648ED;
+	Wed, 23 Sep 2026 20:05:34 +0000 (UTC)
+Date: Wed, 23 Sep 2026 22:05:32 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Michael Tretter <m.tretter@pengutronix.de>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E
+ support
+Message-ID: <arQxC3DmDyVIGdqq@collins>
+References: <20260522101653.2565125-1-paulk@sys-base.io>
+ <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+ <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YpsFhTt6LiRNuQKC"
+Content-Disposition: inline
+In-Reply-To: <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
+
+--YpsFhTt6LiRNuQKC
 Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+Hi Michael,
 
-Thank you. v6 is on the list with all of this in it bar two points, below.
+Le Wed 23 Sep 26, 14:10, Michael Nazzareno Trimarchi a =C3=A9crit :
+> I tested on px30 and achieved working H.264 encoding with some small chan=
+ges
 
-The dual PLL was the remark that mattered, and the driver contradicted
-itself in a way I could have caught without you (sorry): the link frequency
-is taken off the output PLL and IMX681_PIXEL_RATE was then taken off the sa=
-me
-side, giving 387,840,000, which is 16.16 fps against a cover letter claimin=
-g
-thirty. Rather than pick the arithmetic that lands on thirty, I read the
-part. At its operating point the video-timing chain is PRE_PLL_CLK_DIV 2 an=
-d
-PLL_MULTIPLIER 225, so a 2160 MHz VCO, then VT_SYS_CLK_DIV 2 and
-VT_PIX_CLK_DIV 6 - by the CCS formula 180 MHz, which would be 7.5 fps. It
-runs at 30. Those registers are at the CCS addresses without carrying the
-CCS meaning, so the second derivation is no better than the first, and v6
-states the rate as measured: LINE_LENGTH_PCK x FRAME_LENGTH_LINES x 29.95
-fps is 720,000,000, with a comment saying why it is not derived.
+That is a bit surprising, the Rockchip PX30 should come with a Hantro H1
+(using a modified register layout) while this driver is for the
+Hantro VC8000E, which is a newer generation with very different registers.
 
-Naming the CCS registers, which your imx355 pointer prompted, turned up two
-you had not flagged: 0x0307 is the low byte of the 16-bit PLL_MULTIPLIER an=
-d
-0x030d the low byte of OP_PRE_PLL_CLK_DIV. Same partial-write fault as the
-crop registers, one block further along. Both are whole in v6.
+Maybe you ended up using CPU-based decoding when testing?
 
-It also settled the shape of the map, which the driver had never stated:
-geometry, both PLLs, the external clock and the signalling mode are at thei=
-r
-CCS addresses, while exposure and frame length are 24-bit at 0x0229 and
-0x033d. 0x0229 falls inside CCS's SHORT_ANALOG_EXPONENTIAL_GAIN_GLOBAL, so =
-I
-checked it on the part - with the blanking raised, exposure reads 6636 in
-both the control and 0x0229, frame length 6640 in both, while 0x0340 reads
-zero and 0x0202 does not follow the control.
+All the best,
 
-Two I have not applied.
+Paul
 
-.set_fmt stays. Dropping it and making the bus code follow the flips cannot
-both hold: init_state() runs once, so after a flip the stored format still
-names a code the sensor has stopped delivering and the pipeline rejects it
-with EPIPE at stream on. I found that by applying both. Every driver in the
-tree that picks its Bayer code from the flips keeps set_fmt - fourteen of
-them, imx219 and imx355 among them - and thirteen carry MODIFY_LAYOUT on
-both flips as this one does. imx219 recomputes the code inside set_fmt,
-which is what v6 does too.
+--=20
+Paul Kocialkowski,
 
-The comment above pm_runtime_get_if_active() stays, if you will have it. It
-is there because getting that three-valued return wrong cost a regression i=
-n
-v2 that v3 had to undo - the -EINVAL case, where runtime PM is absent, the
-device is powered from probe and the write must still go out with no
-reference to drop. gc08a3, gc05a2 and imx283 all comment that call site
-too, though about a different thing - when controls reach the part rather
-than what the return value means.
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
 
-One number on the exposure default, which is applied. With it at the minimu=
-m,
-libcamera's generic AGC needs more than a hundred frames to leave it: a
-hundred-frame capture ends at exposure 42 of 3173 and a black frame, three
-hundred at 136 and still black, four hundred reaches an image. imx219 and
-imx283 default mid-scale; ov08x40, imx415 and gc05a2 default to the maximum=
-.
-None of them starts at the minimum. Your reasoning holds - userspace does
-set it - so v6 has the minimum, and the number is here in case it changes
-your mind.
+Expert in multimedia, graphics and embedded hardware support with Linux.
 
-The "Uh-oh." is mine (sorry again): I converted thirteen sites to
-dev_err_probe() in v4 and left a `ret =3D` standing above one of them.
+--YpsFhTt6LiRNuQKC
+Content-Type: application/pgp-signature; name=signature.asc
 
-Andre Gilerson wrote this driver and is on Cc. And the binding ack Krzyszto=
-f
-asked for is properly his.
+-----BEGIN PGP SIGNATURE-----
 
-Sergey
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmq0MQsACgkQhP3B6o/u
+lQzbyw/+JH2RNX4Kk6NdjJGNFdRjLhYBLJnKUnz2uM6eXMwFt15zNIpFBI0ZT4bq
+zCuPHz7SWLYYx5ZZw4svtA/I5qKT6rCXL5YkoO68/vdPg6g2lMqi+4ebUh50MtUg
+il1jhBcRPKEIm/J3WwdPj0KWgV4TCiOU2jOqzHHADtPsec1nMw2pswsE7Y8F84tK
+P0gBcsej7mQ52N/hoKBIFIqA76jgHv8WhdueJAQ+KN2miFQsLFh6BgdZKATAK7uL
+131FKYzgkZlFAcgPUxVOCS8jJ34D5S9T+tkcgzDOFM5GcwpDOXyXBwtPe9q/CgEA
+KXN+h/fAiQAUrQsIS1s7C1JQYT5c6Ax3dTqMzMkVusd464Az6fyy/JNpEKLjblou
+T4u2oLA0dW/kBDUzmMle0IS/d3DJ+IoGkrjy4OaViVXtK3t0FmT3RhNbmbDssrzy
+NciorGD2EhSmyrCTS2JKSyXHXGM2Q9jFsSe0LBsmSBHEkMEvA/aTHcl8Jvo3hv29
+QzMCH4UeWzDSQKAEgQb+Rv0NnWQjpNJq5w8gRyomdHiPzReaPy3DpA2DVXoNkxq1
+g8+QEVaDWo4Ov1D/+TzIsqw8kG5CbgcuhfmACnD9UHt8sOvR6rQD5cTghJcUHKrd
+J1WCWIcYp88yfa7ayCxI5jfpRofBO5OsFxsyHOGbi+c9/w9n6I0=
+=Plja
+-----END PGP SIGNATURE-----
 
+--YpsFhTt6LiRNuQKC--
