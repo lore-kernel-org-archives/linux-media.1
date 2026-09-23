@@ -1,42 +1,86 @@
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB9FF44780D;
-	Wed, 23 Sep 2026 09:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
+Received: from mail-wr2-f29.google.com (mail-wr2-f29.google.com [74.125.225.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA93476CE7
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 09:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.93
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154028; cv=none; b=V9sauNNS+Y6I5bjHnr2pAWlwoaXJ8fNR6IwTKH/7xlHLrB+/XCWRWTNYuNoJHmvSbpv72pETdoGdoJsZuJFkB5Mr+jRuzHPl6vKEZq8s2yaslyCH1NfRZRoHCRCXJiqF9vQTtJp8eCtlb/eVQyBiq3Fzav7INFBbsix8CYk8xcM=
+	t=1790154056; cv=none; b=SylpZIfw0t3vm6Eze02qMAel3UxOhjfUcc8SGI89uVW0NWMrfKR5YK6LzUTtyoewrsRjwUmM5fJnJH1aDtzDDPquyLTrVgkPQEWogUuqGnOYmdK7JUz6SyG6hsADQXwoZgY8nyVYE+OQq649u1Ce7/P2WXT6Q3W7pFdPEuBffwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154028; c=relaxed/simple;
-	bh=STUYC7n0BZKIPyHery0gssByxhR0+hlp8CbmBx/FWTk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=emsQ4yyJeubBS4w8gMI2yWCXVoD4LIfLQfaGjY3LyV7UyyZHmgfk1B7cxOdAWiAPCuJJJAtgGcdxhL9iqxGR2uB9FggabzcgTHuX8/EHbhdZZrqjdtyDRy32xoNSuZRJUGiYkZOAkCQz1cV9RqMByFCByw9mVkD7fnpzZacev3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnLzQhlbNqKS4xAQ--.6797S3;
-	Wed, 23 Sep 2026 17:00:17 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBHt8whlbNq02CWBA--.45849S2;
-	Wed, 23 Sep 2026 17:00:17 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-	Houlong Wei <houlong.wei@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	s=arc-20240116; t=1790154056; c=relaxed/simple;
+	bh=y+jlf8HC0jzi0HPwewqu9aTCsp5Qe3C5F4r8ZihI4BA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u77pTqDuJq3fy/bVbVOLTNdf7TxQPH7uo+qHktsntRb2jgQ362nL1o8aSUKnFR/irYgwa9PPlV8u2S2yKkJIXgNeZSahExmIuiu+iB0kxl7IdVAJjS1RTuPvgUUUYokEmGtlv6/Nbl8Fn4cUtwRZEXamtX3cfXinAFNOPkmVMyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DmHTxM6N; arc=none smtp.client-ip=74.125.225.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DmHTxM6N"
+Received: by mail-wr2-f29.google.com with SMTP id ffacd0b85a97d-482e1b30c94so110852f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 02:00:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790154044; x=1790758844; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y+jlf8HC0jzi0HPwewqu9aTCsp5Qe3C5F4r8ZihI4BA=;
+        b=DmHTxM6NN5gNwGhjAByyJ5yPvK8n+kfdw3dXZ7BI0HB3GM3EIR/wFIBBcocOuOI+0U
+         qbr5FhP5m81nua/tDx5zZC/nGtBV+JvEKnNA3ZN4Zj0uv5yIJswWqIPupJbwn+aE6x0x
+         B5fxcYMCc7jzJN8BjhdI7Xiu9xUF6Zs7ZgSeovP3cTL1pNjkvIV2cnu4sYYGhdleaxQf
+         GE0YCCrPxjCxxGN8l3Xhovj3+DyHKQ6uM3ppKbElYLFIA45cSEcru+YSGinnsVxSlk4f
+         g2vMHdFF40yaa4C73DMm23Vfg/UmGnDe/LtsyZ6K8JPDoLoz9S0Kc9+0n3WEhjFuldUA
+         nQZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790154044; x=1790758844;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y+jlf8HC0jzi0HPwewqu9aTCsp5Qe3C5F4r8ZihI4BA=;
+        b=GyO3QLmQ9Z9NULYM52P4MQZjm7s6yOCaDKc8DzP5MpRDw1ZsmKu3Mmu32FKiQataxd
+         qbOse14vrJ7z3k35WFB4rywXhKqo7JqWvVAdTSnOOmj+vgy7HmGCpfkVtjHKXTaaWzsU
+         OaUW0msft+pnD6GI0p5BcJZQCHVt8rxzLjb2Jir1hqdONENpcJaAnbWUAyKr/HB5OPfh
+         BV2lFW/pNHVArym76TK/y6YhGgOSz7Lqi3J2dMTzOc52/5YBDxV5Qch/xrnIEO1JNRT2
+         qMfdcsZRkx1Y45/dw2+HAm8dHq97CgCYlOXL+QAR3oHFU4ASEHADK7H0VjBsisEmUTTd
+         GxgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoV3FhDKpTUR10wVMEkZERAfkO9c/gtRsC/hBgeYWhPvTUJDFYuao2xVW0lf1bxO7yvS/iz85UcmGZZA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kuCijweIYpuEwXxrGgdCU0M2+sEPS+IqN3kiXmEmlpgH9sFSCO
+	JVD8fqHT367zmIX95TndIGoe+6rj3nRjMGF/FV0Kfb7xt6dhcpX8xo5k
+X-Gm-Gg: AYBFou2d8aNZ6kxeZmp/maGQlN4bsJTVxGk5/NzdQeAvvEZVn1j1Hxibsjm1ebK350p
+	Qv65/SZygXphTrBiTM7RmqRNIi3McC6gYuXExEZ1afWSO2RhxMWWRO4oTvov0VR/krjaijBcx84
+	Nac3+eoqmVy1j37CITCKRkYdhFUo6dxexVhZ+0j2M2bL5nIrZU/It+u51fYFzxUU9boclfb/4sd
+	Qjt0UH3dB6CNsr7D6rHGtbG77MMOv8vBK/hFCZaQRL1NcFMiHIvaokKWs8v2f+6KUF98PkyDOqW
+	a5lFBSFsIB02Q545TTgSzcRmQfOz0KAwt+5ufz7RdRnW5VEETAl+kdXg0ceKKAuvSY5ibI9oFJO
+	qGVxG+GmEME19/kulHmZxlsSDKvlA1fpFOjfJJBnzct7iBhqDOhiu7xBSCT2qJ6yM8vIO0DGppm
+	5rvnVizIu7k1ybQvIfqMlzIgAvmt50RL6yb0DfFG5DpdjeVIUP/VTOlwt/mTHMBKXYvdRv8iUlE
+	3XUsLhHVGRo97Kij8h0GSeHHzUTkYSCATKKgCMWZyfvZGlxt87DSd0eVzhned8RkcR2QnzeObyI
+	JzU=
+X-Received: by 2002:a05:6000:4a17:b0:487:803:ba34 with SMTP id ffacd0b85a97d-488670c9e54mr2673656f8f.6.1790154044255;
+        Wed, 23 Sep 2026 02:00:44 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8F4500D949869966507951.dsl.pool.telekom.hu. [2001:4c4e:1b8f:4500:d949:8699:6650:7951])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688893a0sm5538990f8f.32.2026.09.23.02.00.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:00:43 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] media: mediatek: vpu: free IRQ before destroying watchdog workqueue
-Date: Wed, 23 Sep 2026 08:59:21 +0000
-Message-Id: <20260923085921.496767-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	kernel@collabora.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/4] media: synopsys: hdmirx: add HDMI audio capture support
+Date: Wed, 23 Sep 2026 11:00:32 +0200
+Message-ID: <20260923090033.16539-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260721064115.64809-1-royalnet026@gmail.com>
+References: <20260721064115.64809-1-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -44,60 +88,19 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBHt8whlbNq02CWBA--.45849S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?SW2ZXAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2Rv7UHILkiL+vVQcy0p0DsKJ3OEr1dpUAe2S/uPJ3WWKA1
-	XoHu+JNxgo1UfABGDN6p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Zw1xXr4ktrWxCr1UJr45CFX_yoW8XF1kpr
-	s5Kayjyry8Ga1UXw47Aw1UWF15AF1fWFW7uw13uw1fZwnIvFs8XryFyayqyrZ3ArykZa4a
-	yF90g343CFZ0vFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aQ6JUUUUU==
 
-mtk_vpu_remove() destroys the watchdog workqueue while the interrupt
-handler requested with devm_request_irq() is still registered: the
-devres core frees the interrupt only after remove() has returned. If
-the VPU watchdog fires in that window, vpu_irq_handler() queues
-vpu->wdt.ws on the already destroyed vpu->wdt.wq.
+Hi Heiko,
 
-Fix this by calling devm_free_irq() before destroy_workqueue(), which
-releases the interrupt and waits for a running handler, so no new work
-can be queued while the workqueue is drained and freed.
+patches 1/4 (binding) and 2/4 (driver) of this series are queued in
+the media tree (media-committers next, ee6a964dca65 and d667a3c4d003)
+and are in linux-next. 3/4 and 4/4 both carry Reviewed-by from
+Sebastian and Dmitry, and both still apply to your for-next (4/4 with
+an offset).
 
-This issue was found by an in-house static analysis tool.
+Could you pick up 3/4 and 4/4, or would you rather wait for the
+binding to reach mainline? I can resend them at that point if that is
+easier.
 
-Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
- 1 file changed, 1 insertion(+)
+An LLM assistant helped with these checks and with this mail.
 
-diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-index 8d8319f..b6bd80b 100644
---- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-+++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-@@ -962,6 +962,7 @@ static void mtk_vpu_remove(struct platform_device *pdev)
- #ifdef CONFIG_DEBUG_FS
- 	debugfs_remove(vpu_debugfs);
- #endif
-+	devm_free_irq(&pdev->dev, vpu->reg.irq, vpu);
- 	if (vpu->wdt.wq)
- 		destroy_workqueue(vpu->wdt.wq);
- 	vpu_free_ext_mem(vpu, P_FW);
-
+Igor
