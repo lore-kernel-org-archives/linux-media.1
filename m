@@ -1,98 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B880D51E44D;
-	Wed, 23 Sep 2026 14:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762D0397922;
+	Wed, 23 Sep 2026 15:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175553; cv=none; b=LZPqw4GTknIBOQCpPCRiw7TC6kFZ93X5eFkalQg5TuSGPEf5O3k3GkMXadMvQ1nVBQzXM9DdIeSNImAiho9KLxdC8yUzqxNQKAuHtSTs4liR+RRyaPWDn9qfHoRuy+1MxRxP0gO+SrskEDnIpBw4CffOzJ1/p+NQjbZQbsxNvMU=
+	t=1790175818; cv=none; b=ILw7E7eCD8y5vpEeykta0XHGkNtbd12iBWMyLKusZGk+TC7+pbfkGrSJ0GzDadWG8gpg1X9SCY8E234qpmUmFCNYgZ6L0VSzWhCeulmGRlCLCebTHQ/7N3UfjaysCmgzc9/DF8opFVYFVnhMZkG9upmp4IW0YttIGNf+GczYkxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175553; c=relaxed/simple;
-	bh=gswDY1mG66Lwu8tE7+G4+W7L5mN7cWkxPfHU3SkDVKo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=OPfMESd0I8G4+upEcPcV3X4s26+5E1zSFUywTf+eDkVB82vnMjw4WvyuWiAlMJVc5E6k7Zu/9ifIOvO2Bn6QZku0GqZAWCaTPAgRhWzocQI3LZRh4ilnLLPKRwBMqv10DyER6nEVeySTvsjK1+A62mBHWW32ggQb2jf5iVFGPHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxODoNb7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790175818; c=relaxed/simple;
+	bh=1by2RPILGG+qUCPAi1J8cJb+ZFN3V11ia8Zn2+oTLTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c7QB/qzYwjvEOVnFIuXVZnAYxELC57N6ctUI02A7W1M63Iprb6PhrqTwg+7Dg/l/kaJ7y9YOj4RbanJoFWgZMsEHvnFRax1rwYVhNAXOo+GkcoM4f4DdUPiHYTGAR1u1NvbxY54sG1PqCK09AxOBEhPUko8TYW3ZdtihdtTlnaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPo5UBcT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxODoNb7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79AFD1F000FF;
-	Wed, 23 Sep 2026 14:59:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPo5UBcT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484271F000FF;
+	Wed, 23 Sep 2026 15:03:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790175547;
-	bh=gswDY1mG66Lwu8tE7+G4+W7L5mN7cWkxPfHU3SkDVKo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=gxODoNb72NWn9YPpDe8KLIfANsjCxo5gtqjTs0tVjyVQLSUt7VjxY4odyO7h2T0nC
-	 o4xeysn4SqbjBbrzO/k8BC6P1zv9vl39VCVI9ZQ7IOhYkLNyT6sllXj5fSpyE5qyVe
-	 kAe4GlZ84iDl0ZDLt9081Bf44hBYpqnANogB3sSSAe4bYi6Nt71WpYEqApRXHNHQFV
-	 lsW/OSUjSOhCaTupqB/rAoBRuvGlM5KaAA6S7fHWuC1YeKSSi9S9ZLdoFOi0P4jEFP
-	 SY9nq/2ZAJRRqMiLkoe+vZrhbLNj0eg7oSntaVwEl+MhSA8FXaTng/Ah83KmnM661J
-	 SANvHw/6tOcAA==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-In-Reply-To: <20260923130611.GF1540250@ziepe.ca>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
- <20260921144847.501151-3-aneesh.kumar@kernel.org>
- <arKsFofudnTYpXj1@arm.com> <yq5aik3w344o.fsf@kernel.org>
- <arOfD6syXOgQhZYA@arm.com> <yq5a5wzw2ree.fsf@kernel.org>
- <arOspFxWZ1DjgcAr@arm.com> <20260923130611.GF1540250@ziepe.ca>
-Date: Wed, 23 Sep 2026 20:28:57 +0530
-Message-ID: <yq5atsng10b2.fsf@kernel.org>
+	s=k20260515; t=1790175815;
+	bh=lp7IcoO641wUtqngZtznzQ1y0Hc8tGtKJpxgcvn6F6Y=;
+	h=From:To:Cc:Subject:Date;
+	b=CPo5UBcTylNx2+RcvNXcqJH8wRxFkBOuwcA6tuiNjVMHdOG2bOENDUZ8AOt3+eUgA
+	 Dm0T6EHwSDbHQmQAVckjkWQtFd81C+gMIz7f2TYTOhENavcdb2kzVNeqKVDwumCZMd
+	 n5ioWSKF45w7Wa71yHsOvJVa+XuZ/qTnCKlHKbN/liGwzPNA/4RMrcBaXYO0ZzNlGE
+	 nX+/z38gb1lVGv9puGteSvyQuR2kkAx7g/u5eqiXZydS16s+AFEn5PSzL7IA4okdLn
+	 hoMUGUTet07UUw6PklQhHGitLfH6VD4QWv2jXfjjXO0MZZTC/bxa832YbPykRepLxj
+	 JuLqbJe3OjjOg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+Date: Wed, 23 Sep 2026 17:03:09 +0200
+Message-ID: <20260923150308.1294592-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+dma_fence's backend_ops functions ops->wait() and ops->release() are
+problematic because they prevent fence producers from unloading.
+Moreover, they can easily be implemented through simpler means more
+aligned with the dma_fence contract.
 
-> On Wed, Sep 23, 2026 at 11:40:36AM +0100, Catalin Marinas wrote:
->
->> The simplest is probably to always zero in the backend and ignore
->> __GFP_ZERO to the allocator. But it's probably only marginally smaller
->> than passing a CC_SHARED_ZERO flag down. Get codex to try this as well
->> and compare the diffstat.
->
-> For patch ordering I would convert to use the allocator first
->
-> The semantics of the new API should be clear
->
-> If you pass GFP_ZERO then the resulting allocated memory is zero
->
-> Otherwise the allocator does Whatever The Arch Needs to not leak
-> private data out.
->
+Since the declared goal of dma_fence is to move towards an
+implementation that supports driver-unload in all circumstances, we must
+prevent more parties from implementing those callbacks.
 
-ok
+Deprecate ops->release() and ops->wait() and document what users should
+do instead.
 
->
-> Once places are converted to the allocator lets go see what is left
-> and ask why it is left and what API it actually needs.
->
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ include/linux/dma-fence.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-I'm also considering requiring the address passed to cc_make_shared() to
-be in the linear map. This is currently required by both TDX and CCA,
-while AMD SNP appears to support vmalloc addresses. The only user of
-that vmalloc support is Hyper-V VMBus GPADL setup
-(vmbus_establish_gpadl()). How should the generic CoCo shared-memory
-allocator handle this?
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..59af0159cd25 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -220,6 +220,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @wait:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Custom wait implementation, defaults to dma_fence_default_wait() if
+ 	 * not set.
+ 	 *
+@@ -236,6 +238,10 @@ struct dma_fence_ops {
+ 	 * Implementing this callback prevents the fence from detaching after
+ 	 * signaling and so it is necessary for the module providing the
+ 	 * dma_fence_ops to stay loaded as long as the dma_fence exists.
++	 *
++	 * Deprecated for the reason mentioned above. No new users must be
++	 * implemented. Consumers of a fence can instead notify themselves by
++	 * registering a callback on the fence.
+ 	 */
+ 	signed long (*wait)(struct dma_fence *fence,
+ 			    bool intr, signed long timeout);
+@@ -243,6 +249,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @release:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Called on destruction of fence to release additional resources.
+ 	 * Can be called from irq context.  This callback is optional. If it is
+ 	 * NULL, then dma_fence_free() is instead called as the default
+@@ -254,6 +262,12 @@ struct dma_fence_ops {
+ 	 *
+ 	 * If the callback is implemented the memory backing the dma_fence
+ 	 * object must be freed RCU safe.
++	 *
++	 * Deprecated because it prevents the producer of a fence from
++	 * unloading. No new users must be implemented. Parties with a
++	 * hypothetical need for this callback can instead simply and directly
++	 * perform their custom release operations one RCU grace period after
++	 * they have signaled the fence.
+ 	 */
+ 	void (*release)(struct dma_fence *fence);
+ 
 
--aneesh
+base-commit: 2302669bb4b52d581cc2589b90b3af7bb3783a28
+-- 
+2.55.0
+
