@@ -1,148 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DC73A1E8C;
-	Wed, 23 Sep 2026 08:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D9E44237D
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 08:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152548; cv=none; b=GOoPXhFShVB+umiIyz4pULshx2hXwr9Jjiui3DLmyBwjkJ3bOnPA1JReN9KvWHc/il4LghvWe/z0BjQh3B+4ld48kqMz11FBbRLx6n+npzgaAlb2wDA0PzDwdYHYfTYXAN2wuEF7ujdFMxdM0Zx7QsEQyms8cqvJoWGAHj/9v5Q=
+	t=1790152671; cv=none; b=vCV86VXrcAv9Z2V/97DwVDJiaOUw5ROg+WED9YQwul3hYD8gzlLKAs7umtU+B0OO0McKtYBnUz0wU3dSpvKCnyXAe7CoUiLaXzRSLGNKotGrekzFDCAJ+PoNwJ7buWi8I+E6miH+6QtKSoVXAJEaraUd9rdme5qA2sH8R6JwV2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152548; c=relaxed/simple;
-	bh=Kr/Xd9LH8Gk6I5VgZgmbq6oEqKwBzvwrjbCo2r0lK3c=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UKeONcx87YW+4h9ogVpwkxNU46/qtjrYXWl8NqhsnqQIyew+/+WygV66dO0PteM5YZRkwJ9yb2j9YfZ10L4BRk/d5Zp4BmK9NgcQ5zD/TdZTYPM3aASKFSjLKk7p+ROkSnBRxtEPl7eouxxFtHzaomfMvvSzSeC+o2c8Txoci3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdoPLl0T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790152671; c=relaxed/simple;
+	bh=qSILxap1uKVhTX57p7J/ogsFNjwWmTdF6dSR+ZntbEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nqRj7VIiKe7+X21Wj59xgTrlpk0zy51vLlQz2zIb40vwOK2veocYQN4YeXOKUTHQMbQzOE9rCsZh/q0JVO/tImqx8QrNy8HBWixBJv2rZemY0cRCTqBTdy/74Tcz5dKZ1eg0esvEEj6zQPVZjLnJuMNYNBxvzbrVn2KHgt9FRoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNjB6zx0; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdoPLl0T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB3E1F000FF;
-	Wed, 23 Sep 2026 08:35:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790152535;
-	bh=xcHmeC4HtsHnBaEvav6MT+VojyrSYCAIvDipmUfuBXE=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=hdoPLl0TqYLXQqCvf5YBTiDSDJIKXQdaVG4e4sLHTX71A2ba6BQnmYaNi+EpLma2j
-	 /3AzJw2IhmaXW5iOryUiGXHVoUIqfss11tG0e5KVEYi3K65SBjUv9Yml2EcWDXPgJr
-	 JOXbecpveSagsBvHtHKVE3kTqcvQbgXGfjkTdpdzY723aJsPouMaOzphc/6muaRyd6
-	 EticdiAgJF5GkSdhOQUmCqiIpzDWKozTM9y8ZuLB2x4uPvovDtogoMEw1MUz+TMrJZ
-	 /5rCfZCS3NWYPMMDJV93nnq9QGFcaSoWHg8s6UQraWHViyBjhV8dlo5KkFKI/G/pJT
-	 zKKGxFt9gbZxQ==
-Message-ID: <55649a1b-a3f1-4e4f-a07d-416fbc0edfe0@kernel.org>
-Date: Wed, 23 Sep 2026 10:35:32 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNjB6zx0"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so466485a91.2
+        for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 01:37:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790152658; x=1790757458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+bqb+VtEm4AKhCFkz+jnSq4qU2iI/9v5eFR8nmksBac=;
+        b=bNjB6zx0VsxUK8cW7lnz2tkr2AVo8fhSJU3+OczMf+S2+GDnNqwIjY+hO94u9EJxM7
+         PS9Y+2gRtXLFOebu2ClQwHiK2AlUGMZQ0uvpj8HOM/eK0bZXH1cPFUmESUZYgGnl4Y0i
+         ZNw7nL8CiRAs0f6sVHBnfDSkHMg45ad2oFJ9vxiUdffQiPbzAZANU+f5BXZM6UKM+BB3
+         M58cVsHNJk0XWY3IKQcSW95cQAeG085dPtdLak8nx21g1lUC8QVjhuqQM9eky6zo1C+K
+         PnF/aRVqfDE+BflpXJGI6ykex51RC+QcffHvALlX8QkBEOpxXQpXC5+CV/M/GRtUXVq3
+         vnzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790152658; x=1790757458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+bqb+VtEm4AKhCFkz+jnSq4qU2iI/9v5eFR8nmksBac=;
+        b=KFr4w4WLXnlLF+DH/syubssH/lQXLAql9/kZCdEuqpXzPqYEW5nI1rtpZkuucG0cs/
+         3b7PVQm2Suf7bJl1uYskJ4PBAKYg8C46PN+ZZngF9uJs5K2tJFPpUiVmCDYbgSBuY5AD
+         X4BFjd5G50M4PmzGucuy+9DSX/mK9Lw6yCNGlOtyu9+X6fuwyQCqZuimc+VwxmL/iwEN
+         q4A/XO/TQfL7kv08OFcC7Br/4hatIlGDFVG9kSOmZJ06Hn6YXXedz3OphqCPyBq1thsd
+         Gpl1xEn8D9GExvUGbn7ykQoKMJX1MDuEX3Ksx+AQaQiXnfOittHJixZ7EqkoPs1pQWEF
+         dRJA==
+X-Gm-Message-State: AFuF++ny45En34yeIVtbMI3Fbdz8hrQ07lQWw3IH29CSYmLaIUIUqzVq
+	0ODKnpBCwUab/5xrda5RQCWZrws4b79Z+jxb6tCol1jl6zjzBMSAGjE7
+X-Gm-Gg: AYBFou202FNVrgjPTs7xQ5JOfuXbD+t96m4XyRFCeuB3Py4VQl8B8NoKD6BaJlBI/he
+	aYZG8t/n0oXLbHbp3OAmKKFoNOCj3PMM7EJboIgOlSbEUr1J0359F8/Oz+MwRL0IExeBcfX6Sh3
+	6CAp23G5St1w0R+z+DvZZYtEvRWSZ2ZftANUpeLAZcoPILo3mDse3RbW26dueJhgoJ9ZArWNEDF
+	Hf6oiPQEFiKTO1X6OlZfIkbMTcb3PRRu9DU5A6/S4f0kL0odGXEeU7TTBJcb7biZqNKVouyHeHx
+	9QBbwuRaztWIZedA3O6cZtanDIOZK/H1KyhzesAChS9ASfKOC/oREE3u2X97OnTUZItmKHnkRC/
+	yy6r4vkWRsAMM6zabsvrOj/tndPQruOirVfweSEDfcWPoOnmCLlOi+8ekmV+Lw2u7Fa25G29F7U
+	eHqyayQK+ESAi4Odxfz2jJG306NizC96Dh/hjaqqUQFlAFjdnZRENwoKuA0WgEgGMUJvou/8EFm
+	vjpyWCh0dKWDO7TdodeTBg8vtsbAldyUEHE9+eRPfq+/xHHWDbwjElTwAeKCWlyaWP3FUsr1RZT
+	UVyhlJYKWmhN
+X-Received: by 2002:a17:90a:e704:b0:39e:6c6a:6579 with SMTP id 98e67ed59e1d1-3a07e695391mr1778896a91.60.1790152657874;
+        Wed, 23 Sep 2026 01:37:37 -0700 (PDT)
+Received: from localhost.localdomain (ec2-13-212-242-176.ap-southeast-1.compute.amazonaws.com. [13.212.242.176])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07db883b5sm4314751a91.2.2026.09.23.01.37.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 23 Sep 2026 01:37:37 -0700 (PDT)
+From: Ginger Li <ginger.jzllee@gmail.com>
+To: s.nawrocki@samsung.com,
+	alim.akhtar@samsung.com
+Cc: linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: exynos4-is: Fix a race between s_stream(0) and the interrupt handler
+Date: Wed, 23 Sep 2026 16:37:29 +0800
+Message-ID: <20260923083729.64831-1-ginger.jzllee@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: vivid: check for NULL dev in vivid_probe() control
- setup
-To: Rohinthan <rokinthanp03@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
-References: <20260922125434.19361-1-rokinthanp03@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260922125434.19361-1-rokinthanp03@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/09/2026 14:54, Rohinthan wrote:
-> In vivid_probe(), after creating instances, the driver iterates
-> through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
-> 'Connected To' controls. However, it dereferences dev->has_vid_out
-> without verifying that dev is non-NULL.
-> 
-> If an instance fails during creation (or if devices race during
-> probe/remove), vivid_devs[i] remains NULL, causing a general
-> protection fault:
-> 
->     Oops: general protection fault
->     KASAN: probably user-memory-access in range
->     [0x0000000000005f38-0x0000000000005f3f]
->     RIP: 0010:vivid_probe+0x579/0x10d0
-> 
-> Add NULL pointer checks in both loops in vivid_probe() before accessing
-> vivid_devs[i]. Also set .suppress_bind_attrs = true on
-> vivid_pdrv.driver to prevent concurrent sysfs bind/unbind operations
-> from triggering races.
-> 
-> Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
-> Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
-> Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
-> ---
->  drivers/media/test-drivers/vivid/vivid-core.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
-> index 62cfb5f..31a90ec 100644
-> --- a/drivers/media/test-drivers/vivid/vivid-core.c
-> +++ b/drivers/media/test-drivers/vivid/vivid-core.c
-> @@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
->  	for (int i = 0; i < n_devs; i++) {
->  		struct vivid_dev *dev = vivid_devs[i];
->  
-> +		if (!dev)
-> +			continue;
+fimc_lite_subdev_s_stream(on = 0) sets ST_FLITE_OFF outside of the
+fimc->slock protected region and only then stops the capture in the hardware.
+flite_irq_handler() runs under fimc->slock and clears ST_FLITE_OFF, so an
+interrupt can be handled in between: the handler finds ST_FLITE_OFF already
+set, clears it and wakes up fimc->irq_queue before the capture has actually
+been stopped.  The wait_event_timeout() right after it then returns
+immediately and the driver continues as if the capture had stopped.
 
-This can never happen, vivid_devsis always not-NULL for indices up to n_devs - 1.
+Set ST_FLITE_OFF in the same critical section that stops the capture, as
+fimc_lite_stop_capture() already does.
 
-If there is a crash, then it is caused by something else.
+Fixes: 6319d6a ("[media] fimc-lite: Add ISP FIFO output support")
+Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+---
+ drivers/media/platform/samsung/exynos4-is/fimc-lite.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
->  		if (!dev->has_vid_out)
->  			continue;
->  		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
->  			if (dev->output_type[j] == HDMI) {
-> -				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
-> +				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
->  				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
->  			}
->  		}
->  		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
->  			if (dev->output_type[j] == SVID) {
-> -				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
-> +				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
->  				vivid_ctrl_svid_to_output_index[svid_count++] = j;
->  			}
->  		}
-> @@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
->  	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
->  	svid_count = min(svid_count, MAX_MENU_ITEMS);
->  	for (int i = 0; i < n_devs; i++) {
-> -		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
-> -			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
-> +		struct vivid_dev *dev = vivid_devs[i];
-> +
-> +		if (!dev)
-> +			continue;
-> +		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
-> +			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
->  
->  			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
->  		}
-> -		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
-> -			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
-> +		for (int j = 0; j < dev->num_svid_inputs; j++) {
-> +			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
->  
->  			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
->  		}
-> @@ -2240,6 +2246,7 @@ static struct platform_driver vivid_pdrv = {
->  	.remove		= vivid_remove,
->  	.driver		= {
->  		.name	= "vivid",
-> +		.suppress_bind_attrs = true,
+diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-lite.c b/drivers/media/platform/samsung/exynos4-is/fimc-lite.c
+--- a/drivers/media/platform/samsung/exynos4-is/fimc-lite.c
++++ b/drivers/media/platform/samsung/exynos4-is/fimc-lite.c
+@@ -1209,9 +1209,8 @@ static int fimc_lite_subdev_s_stream(struct v4l2_subde
+ 			spin_unlock_irqrestore(&fimc->slock, flags);
+ 		}
+ 	} else {
+-		set_bit(ST_FLITE_OFF, &fimc->state);
+-
+ 		spin_lock_irqsave(&fimc->slock, flags);
++		set_bit(ST_FLITE_OFF, &fimc->state);
+ 		flite_hw_capture_stop(fimc);
+ 		spin_unlock_irqrestore(&fimc->slock, flags);
+ 
+-- 
+2.43.0
 
-Nack. We WANT vivid to be unbound. It is part of the regression tests.
-
->  	},
->  };
->  
-
-Rejecting this patch.
-
-Regards,
-
-	Hans
