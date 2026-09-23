@@ -1,118 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180C94A6885;
-	Wed, 23 Sep 2026 12:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C1546982D
+	for <linux-media@vger.kernel.org>; Wed, 23 Sep 2026 12:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167462; cv=none; b=BpDuPePvyixasFnO2fewMdcjYa22yZRZzO50Z1hPMcUdNxe9XASgBOFP+3UdK1L8UnCjVA1wHAeWYj0TgzAxjaa1R6gYx5tiUh05+i7XzQh1q+H8uIxpnoe/gAQjZgIdviv4R5Dab43w+/EgkPg4JhxxcsN5tQAJ2MUciRcNiYI=
+	t=1790167501; cv=none; b=RJNpjEGuzRuCTAIzCythDZXSpPNfbNxYUtfvXnH0i6OO7wnHrDmUNSBG9KNuNbUwP3BhVSdyz/U7DUA4AVQpzWJf+KNEOsshqqXcbkpmAkg8HRXXFjpvKBADY6SUlaTLVWcQLCtp9ccfBGAVIs0gGVQ66vtzD9TG3rR/qMVz29U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167462; c=relaxed/simple;
-	bh=RdEmR/J83fMmalS7pjZ26QsqKkj6VKIAOShFe/+OsZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hjy9lHOe+B0a69/jK0uhElN2qa3McWh7cHrBPegPjMz4mE2S+1Js2qxBnCBJlLhcvw1fsMBliI1ZE/oLgyM268G2zJUNW5w+04zKweCX9mZAqfQSixcXqqIvpDwh98QGj9bj/70YrXI9AMmuW2YsTBS0Q1nanxP08YDJEEePa6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYwUTTRq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790167501; c=relaxed/simple;
+	bh=plefyBgqMCRYDWCZtKif3JD3zNFTc2d7WQvOUDurc7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B/61VspiFsoFbMzlgcSLJqFCNph/HJ8Q4IQkT1XcN8zTfQ8jmgPHim/elsvT/HQ+z2Dd/bWY96oeo/SCKQFa5qyJkXV6tRzF5vJB6A/8orWOXV2hYwLUhGhTIXuLapMfbdbjbq9wsgzbePVOhv7OSRQgdb5XNHHdNa5tE72qJpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Npl1F0B+; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYwUTTRq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57111F000FF;
-	Wed, 23 Sep 2026 12:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790167460;
-	bh=Mg2st3LNG8MVlxrzkdcxLihCw9xVJQuxSEi+n326UAs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DYwUTTRqGsrqhxTTYvIshXfJUE3EpQvQU/SaveOLJ4T5WWcMA1ZXpEHwKsQzTymYZ
-	 bxgidTf+oq6kMpCpIiSjsgav7LJRcwcNCB2ufLOujzKbHhydB2S+J/HkYeuWySzNLs
-	 Vj7kIw8T0aq0ixa9P1A+jMMmR+o43ydcXYvLr+mEsYMrasjW3/L3QZ9nsscJnfs+nx
-	 M6rXJ4w+ZdJs+nPOT26Q9HZbZK4rRIHwi/BEdQZ0UGWxStCUesgPcNEB09xxZK9OE3
-	 VLLhllg0BntKpv3EKuMgKLcnWOCd7EjQ/Ga8Rac3v46ry3YAlr/QbCVxgdUgfWTJH9
-	 FOrrjpNavpCgA==
-Message-ID: <78dd7850-5957-4a09-9628-f2ad3fab93d4@kernel.org>
-Date: Wed, 23 Sep 2026 13:44:15 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Npl1F0B+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790167500; x=1821703500;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=plefyBgqMCRYDWCZtKif3JD3zNFTc2d7WQvOUDurc7U=;
+  b=Npl1F0B+dfsxE6WDzh2n00ntdgxxNNyCe8VsDlXuzM6/fLBdeuZbVXmg
+   +1K83VghOMseoRfJMYyu5Olh/XZsh/7eBlP6ZTCxqQ0esEs3p+IgVokjE
+   5lzD6f4i4f7ga21Fk7xE62C7kijBysq1x7ClsPDr4wTb6YS0PgYpYDTTp
+   SOKsdY1pt7WxvakmnIQRMvM5srgTyvyQd0wKzgWRseyBAEz3mtV17EwUH
+   YTVs7ASUz/Ls0FMoO6iHjMlJku7p3o60hUPeUnWZ+489Rkozla3IwnGCz
+   VrZ7NnxATVN19JNDMaHRW/W122fuqf7bQIFOKODc9dBLBFncbnIERNyU9
+   A==;
+X-CSE-ConnectionGUID: 50rEKRrcSTy3gELSmGVx/Q==
+X-CSE-MsgGUID: uIIIGKdZT72GtZm35RS0Bw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101447409"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="101447409"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:44:59 -0700
+X-CSE-ConnectionGUID: sOOhZKr6QK2wCz1rFN50bg==
+X-CSE-MsgGUID: IQV8N+8vQPiT+1BDiNsB0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="301521238"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.29])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:44:57 -0700
+Date: Wed, 23 Sep 2026 14:44:47 +0200
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, 
+	Thorsten Leemhuis <regressions@leemhuis.info>, Junjie Cao <junjie.cao@intel.com>, 
+	Miguel Vadillo <miguel.vadillo@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Manuel Knitza <manuel.knitza@googlemail.com>, Antti Laakso <antti.laakso@linux.intel.com>, 
+	regressions@lists.linux.dev
+Subject: Re: [PATCH 1/1] media: cvs: Default selection to VIDEO_INTEL_IPU6
+Message-ID: <arPIqZNMC98jPL3B@mdjait-mobl>
+References: <20260922064017.371437-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 10/15] arm64: dts: qcom: hawi-mtp: Enable camera
- subsystem for Hawi MTP
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <xqgw4uxpnI5Usu5MyKqNpZThqk9mUKoh0iZ4oLLBtSL0zNd6sU1fm6TtTrJAjTNfzJURTyj4dU1oGNVCDJ8NzQ==@protonmail.internalid>
- <20260923-hawi-maili-camss-v1-10-cbbb42e534ef@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260923-hawi-maili-camss-v1-10-cbbb42e534ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922064017.371437-1-sakari.ailus@linux.intel.com>
 
-On 23/09/2026 12:02, Nihal Kumar Gupta wrote:
-> +
-> +&csiphy2_in_ep {
-> +	bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +	clock-lanes = <0>;
-> +	data-lanes = <1 2 3 4>;
-> +	remote-endpoint = <&s5kjn5_ep>;
-> +};
-> +
+Hello Sakari,
 
-Drop the clock-lanes part its not current.
+Thank you for the patch!
 
----
-bod
+On Tue, Sep 22, 2026 at 09:40:17AM +0300, Sakari Ailus wrote:
+> The cvs driver is only usable with the Intel ipu6 driver and is commonly
+
+I don't know about this statement. Do you mean the ipu6 with the ipu7
+support merged ?
+
+I write this because I use the cvs with the ipu7 driver from staging on
+one my dell laptops. No ipu6 on that system.
+
+> required for the ipu6 driver to function. Make the default of the cvs
+> driver the same as what was selected for the ipu6 driver.
+
+--
+Kind Regards,
+Mehdi Djait
