@@ -1,264 +1,158 @@
-Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB57C252917
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 13:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257886; cv=none; b=dblwPhDwgHfk+F/cp3z5jmWO4n5dqQQSEqMSVw1LVpATI20ZJ3tV69wSZSzKPijYkrzEADrPnPRlXoslyvqY22o2PTS8CA7ezpCx3mQnf3Ho5U16hf4p2UKgyig4PrR9QUgl+7DXaYrx3RjSHs/JTWsM9dxSjVBNFL8qi9bubB4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257886; c=relaxed/simple;
-	bh=sSph9Jsw8F14AbnX84MTaIdC6tQYWQmd5qT/kg2mMDo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=nHq48dSXhzCjxgAr5FH9IK12kqj2jsBmZyoaiAJXO6z8PdnNLHJTfgTUJqSlJsobF/elQx3/FGtepS0VjRlsgcijUWtrUSoWdU5xoc0J6z/HPOLdiLtdf5QQNvKXlCLB7XX2gzoxaSW6dqC4/wTx340PIni11jbFuDjtkCxrywM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=A+kS+nYw; arc=none smtp.client-ip=95.215.58.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D64B363C59
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 13:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790257979; cv=pass; b=aVMN0EqwE9jHHJU5ibR5EoUyFySfnM4F7l58qd9739njojY4aY/c16qsFXUmizIQo6wnWfA8xKpOegU8IMiJH/VrsHEhcwZyYgUBebArGrtaqH4dJTEmvRPupTqEZaBcIVP79iBaHzUZmyYD11RE2X8+9C36CkClfsYvI2/Weeo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790257979; c=relaxed/simple;
+	bh=QoUAEYmTjcom/GYw9KMesKKHysm5dGsVufGYG8k4VHI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h7uD7ygHlLbPul7KspqaQKpFZ+ct0SgLMTFUufC/dlQi5mNX2HLDW19qyLcoJ7YQWbEC6BVW8VzhOZrEkws2gtTb/CLiPUFDrj0+8k2pVowLI+/vy4dQ2yZ/fP8akxOeRJpsNzk254xf7BI/R5Rf3qXE60ZJtThhK8LG1oHHLcs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okzYmvPA; arc=pass smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="A+kS+nYw"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sSph9Jsw8F14AbnX84MTaIdC6tQYWQmd5qT/kg2mMDo=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790257881; v=1; x=1790862681;
- b=A+kS+nYwX94TxKs3bBgpA7GTCH3rob7GlGN6wTJq0/ad/eIxHcjzS+UysYgPqHE/1wzVXX/V
- p5w3giM/Pob9eoLU+4H+vX9JJB6ejVttV8RXlw1jM4sPoaI4pvHHl5gIdKwYM3LS1VuLH3PlhCJ
- 0WkLhWS4eVUx5/uBPhN25doTKDkWGKQL5n9vyRF/7+FPAHSTEIKo0kPqQiDqoiDqLLA4KqYzuVj
- T1aqgMHsjrMdz3sxrOwmgXV2acQuus30m4FuOv6R8xiB6CnGXlNbo5RormAGuYXjw8CBx3h240V
- 3dO2bdg93RlKdZ1UVVGO18Njfdl5rzvG1wRTifX98/mGw==
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c2b77ebc62d259c3;
-	Thu, 24 Sep 2026 13:51:21 +0000
-X-Mizu-Trace-ID: c2b77ebc62d259c3
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okzYmvPA"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-6737f134de1so262605d50.2
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 06:52:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790257977; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oAFp0ekOh0E5AH0y+qyb9T4CDI05qzqDuOtJ02ZQIqdNDkyGCjd1HH2PR9wrREfu0T
+         XhI4qoToEOnym024kOMqAa72rQ7Oz5CsXxRZ84ZghU5XOqdgv3Z/0tSsmZdue4VfGJQf
+         8nKIx4ilX2nyb1SQYdVrGJAB0VJS1yuiOLEH6r4bbhczfLXj5AqQxyUM49rlKAq2p+6Y
+         U67oxjBd8OlCUEaLWohYFipnBREEJexxJqb9FAs9HQxcv7/9yYJAkPGzyt1cuQ5MD2MS
+         +nWetjTEAmHA0VJNNjBzgKdpqdYKZU/tP3CvrDrim0xPMi1cqxRfqMzcAgvRkH7DcPf7
+         5KoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
+        fh=gXNOSfBwJTCT0d++igKEFUqq5O2WrXL06Wxt7xnY3F4=;
+        b=cGKOeaSEHYHd/WV0aPWNB1Rbb47ORToovqPBHIHrJ63IGklg2wM1LSvlkRPP7nS9P4
+         6psbf4GsduZR4EVf2ysSxgN+73UCNWUk2FkWfguFrMvJUV+l7xQHQWTil6sLyqc9WXG9
+         6D8jhxKoq6bBpX2K5JnMt6cx+bMnJQ7toDdrRse33cX4hxX/eSB7HcqUsN+WVMUIRcvy
+         YNxG2bWjtopTF2fPzAu5q4+HshQ7BdPuFOYrV2gXMg5WT0mudL4UE5h6FHZ8KbC/VCkg
+         DJK0S3hxuQTu4fuxmIZjyjtnBQpf86zSIeL8hhJdZN7boJNGFo/NbbR09ZsIgvh7XcBJ
+         QEWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790257977; x=1790862777; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
+        b=okzYmvPAdFwte5RiXCjZPKI3wRK7XZ1K/axg1eTutifrX6fBR3oMBUqDvU8Die3E2C
+         uc/dZv9pYWcz4Qcw1kDs1koxSQHhU5YCCMailImMaciVKjn1vGYh1ebbEcuFfrUfwEt+
+         GLDwsOnMQWugbQqOk5B/o6wcRNflh4xaSlC86VzLycBdUEcixERGE4NW0+u4zODoebsg
+         s/wAsoDSzLXvbbI/B48tsKZAnXFuhu4QLu1ubcAImBHL2XaS+ElbcyGPLaHsoTj8sENh
+         bRjrF+ymlIIhACBSUBAUoaX7OHqy7ud03MGTrOQkJpy/g+lAqMT1+7VpgV3j0i+gDwZI
+         dbZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790257977; x=1790862777;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
+        b=qrlNb3Glf2Fm5E/nLvvENNJnJqlH8bKOXUg+imq1Niq5CT/LQFbocgLUfbD1+L9jyq
+         ZYt0NWB70JEpxeVMYELtWqa+V5kt0em881yEL59Xfh901yYc1GUinwuLoEIg7OzGFfJi
+         go4U0+BMo+RAJmdPLuxvWMBmG11mwZDLnIP1/x27TJgPcFoKp86MdjVaqy/oD67IzzDJ
+         P7loiI1NMNItek6hmwfbsOKRxsyN3h40mVf03NxZJPRvOQJoeMrpn7E8Css7pQNGsons
+         /pS3VMMdLCeTpIYQNdDxwlOOTyFpWjNP0bdXiOZIGJDOWjw5krm95/jitsmPEQVuJ8JW
+         wlng==
+X-Forwarded-Encrypted: i=1; AKwUvBwWIqD/ei4+eggSK9BdFahy0NE5gTv++Bw/bUinwA9tlCx1LADHQnutILRTDEdhv+IoMeO4lkqX/3vYaA==@vger.kernel.org
+X-Gm-Message-State: AFuF++k9g9Wi9y+Skl+DXMFElqUvPX6akViMB1sRTpLIawmtptfHpB74
+	FCX54pKtARkxvnKl57NLf8CWCp7op1vrop2WpON5w9feyFGvpPPDnhw0MbZALTUYM/koBNtDIM0
+	1Cbr+/oTAiVNkZAizj/zvfVG9INm9frM=
+X-Gm-Gg: AYBFou37WqDxMB2Ebz+XeIqA0S/ip674xfQGrAsffkrv7Q9aUGXVILDm0ahtM5VrUGl
+	nudf6xm866YOigpJpN+MGB4lTnK7zJNXaNcn9zZHIvqRLbLVl/h+YTIMzBuid/dYTAQNqYmHVlw
+	90ivEr2vd7j1QFRgs4x3iLyWFqm/UFHFjz/RZRwdETJWrTSlx0FManuhxlESwz2nqaoz980BPAm
+	2+71MBjyqKGWjX6FC3P0/Aa9+bPSLuY1xWmQXyhMVyHtzJuGFoubeCD/KHTb9U9LXb7d9o14b4a
+	BHXMWBCTAdlvrj2Y4b9ruk0gk2aM7uC+2Wz9lKN5D4DDPYxmJK17/vFTOQ+++torC2fR
+X-Received: by 2002:a05:690e:1186:b0:672:9f72:7c04 with SMTP id
+ 956f58d0204a3-672ed4db57cmr1036006d50.102.1790257977028; Thu, 24 Sep 2026
+ 06:52:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 15:51:13 +0200
-Message-Id: <DLNLG9AJ5GB2.36BYH3TC0FF45@cknow-tech.com>
-Cc: <kernel@collabora.com>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 0/4] media: Track v4l2 buffers through an allocator
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Detlev Casanova" <detlev.casanova@collabora.com>, "Tomasz Figa"
- <tfiga@chromium.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Nicolas Dufresne"
- <nicolas.dufresne@collabora.com>, "Benjamin Gaignard"
- <benjamin.gaignard@collabora.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Heiko Stuebner" <heiko@sntech.de>, "Ezequiel
- Garcia" <ezequiel@vanguardiasur.com.ar>, "Diederik de Haas"
- <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-24-g39041fd9f179
-References: <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
- <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
- <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
-In-Reply-To: <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
+MIME-Version: 1.0
+References: <20260921081542.210151-1-lgs201920130244@gmail.com> <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
+In-Reply-To: <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Thu, 24 Sep 2026 21:52:47 +0800
+X-Gm-Features: AclHuK_HbB37PieMjxtn1FtalUB9H4Cp6DfldwgllWBkEcccv9StBhgni5Up5C4
+Message-ID: <CANUHTR8xJ9DGMyadCuhGo1Hw30+VSn0Ko4O3uyR=ofC4OfW2+g@mail.gmail.com>
+Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Antti Palosaari <crope@iki.fi>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hi Hans,
 
-On Thu Sep 24, 2026 at 2:36 PM CEST, Detlev Casanova wrote:
-> On Sunday, September 20, 2026 9:50:24=E2=80=AFa.m. Eastern Daylight Time =
-Diederik de=20
-> Haas wrote:
->> On Wed Sep 16, 2026 at 4:25 PM CEST, Detlev Casanova wrote:
->> > Currently, the only way to track buffers allocated by v4l2 from usespa=
-ce
->> > is to use the subsystem available debug information (e.g.:
->> > /sys/kernel/debug/dma_buf/bufinfo).
->> > But that information is generic and cannot be matched to a v4l2 driver=
- or
->> > to a userspace application: It is merely information about the allocat=
-ion.
->> >=20
->> > ...
->> >=20
->> > Note that this depends on the ftrace support patch series[1] that
->> > provides fd/pid info in the v4l2_fh struct.
->> > That series is a bit old, so this is based on an older linux version, =
-but
->> > that only changes things for the last 2 commits.
->> >=20
->> > A v4l2top utility[2] has been made, to be used in parallel with the
->> > fdinfo patch series[3], to show the list of active streams with their =
-HW
->> > and memory usage.
->> >=20
->> > With this, debugfs looks like this when decoding a HEVC 1080p stream w=
-ith
->> >=20
->> > rkvdec on rk3588:
->> >   root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem
->> >   created-by                      fd              pid             size=
-   =20
->> >          label
->> >   --------------------------------------------------------------------=
----
->> >   ...
->>=20
->> I build a kernel with your 3 patch series and I also build the v4l2top
->> utility. Cool tool :-D
->> Especially after I found out I should build the 'upstream' branch ;-)
->>=20
->> There were a couple of things I noticed:
->> 1) With 'plain' kernel 7.3-rc3 but also with all my patches included, bu=
-t
->>    excluding the patches from this series, I see this:
->> ...
->>=20
->> Checking v4l2 debug dir again results in this:
->> ```
->> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
->> total 0
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb60000.rga
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb80000.rga
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdc38000.video-codec
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdee0000.hdmi_receiver
->> ```
->>=20
->> I noticed my video-codec address was slightly different from yours.
+On Wed, 23 Sept 2026 at 16:49, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
 >
-> Yes, mine is on rk3588. A different SoC will have a different device regi=
-ster=20
-> address.
-
-That's why I noticed/mentioned it as mine is rk3588 too. Maybe this commit?
-b481c11cd20a ("arm64: dts: rockchip: Update vdec register blocks order on R=
-K3588")
-
->> Playing a 1080p BBB x264 video with a patched ffmpeg+mpv, results in thi=
-s:
->> ...
->>=20
->> And looking at the v4l2top utility, I noticed the following:
->> 1. I see differing indications of the load while it's playing :-D
+> On 21/09/2026 10:15, Guangshuo Li wrote:
+> > rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
+> > if registration succeeds without a bound driver, it breaks out without
+> > unregistering the device.
+> >
+> > dev->platform_device_sdr is assigned only after a driver is bound, so
+> > rtl28xxu_tuner_detach() cannot unregister the unbound device later.
+> > This leaves the registered platform device and its associated resources
+> > allocated.
+> >
+> > Split the registration failure and driver binding checks. Unregister
+> > the successfully registered platform device when no driver is bound
+> > before leaving the switch.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
+> > index 487c6ab784ab..3603d0cf638b 100644
+> > --- a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
+> > +++ b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
+> > @@ -1391,8 +1391,12 @@ static int rtl2832u_tuner_attach(struct dvb_usb_adapter *adap)
+> >                                                    "rtl2832_sdr",
+> >                                                    PLATFORM_DEVID_AUTO,
+> >                                                    &pdata, sizeof(pdata));
+> > -             if (IS_ERR(pdev) || pdev->dev.driver == NULL)
+> > +             if (IS_ERR(pdev))
+> >                       break;
+> > +             if (!pdev->dev.driver) {
+> > +                     platform_device_unregister(pdev);
+> > +                     break;
+> > +             }
 >
-> \o/
-
-Just did another quick test (for 3.) and noticed sometimes green 'lines' an=
-d
-sometimes red 'lines'. Any significance to the color?
-There also seems to be some kind of 'delay' when stopping a video and playi=
-ng
-another one (can be the same video). It looks like it's 'flatlining' until =
-the
-line of the previous video is scrolled off ...  and then it seems to 'repai=
-nt'
-itself as the 'flatline' comes back alive :-P
-
-But this is REALLY minor and not bothersome at all.
-
->> 2. The ``Clock rate`` is always 750.0MHz (or 786431991Hz) (expected I
->> think?)
+> Looking at other drivers, I think this is incomplete.
 >
-> Yes, the clock won't change, for now at least. Some decoders could adapt =
-their=20
-> clocks depending on the work. The frequency value will also be used to=20
-> determine exact core usage for those that expose a used cycle count after=
- each=20
-> job (I did not implement that yet in v4l2top)
+> drivers/media/usb/dvb-usb-v2/zd1301.c, line 142, does it correct. Note the
+> try_module_get() call that is missing in rtl28xxu.c.
 >
->> 3. The ``Total Memory`` is always 0B and the ``Memory usage
->> details`` column is always empty. That's also the case when I press one =
-of
->> the arrow keys which seems to select the entry. Am I missing sth or doin=
-g
->> sth wrong?
+> Regards,
 >
-> My guess would be that you didn't run it as root (this is usually needed =
-to=20
-> access the debugfs*). But if you did, we will have to dig a little.
-
-I did indeed not run it as root the first time around. But just did another
-test and with root the memory data is displayed :-)
-
-Cheers,
-  Diederik
-
-> *: Note that later, we'd like to report global memory usage through fdinf=
-o, so=20
-> that the metric is accessible as a user, with buffer details still from t=
-he=20
-> debugfs (so that'd need root access)
+>         Hans
 >
-> Detlev.
+> >               dev->platform_device_sdr = pdev;
+> >               break;
+> >       default:
 >
->>=20
->> > [1]:
->> > https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1=
-@co
->> > llabora.com/ [2]: https://github.com/cazou/v4l2top/tree/upstream
->> > [3]:
->> > https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e=
-@co
->> > llabora.com/
->> >=20
->> > Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
->> > ---
->> >=20
->> > Detlev Casanova (4):
->> >       media: Add a v4l2 memory allocations tracker
->> >       media: Store v4l2_fh in the vb_queue
->> >       media: verisilicon: Switch to tracked dma allocations
->> >       media: rkvdec: Switch to tracked dma allocations
->> > =20
->> >  drivers/media/common/videobuf2/Makefile            |   1 +
->> >  drivers/media/common/videobuf2/v4l2-allocator.c    | 186
->> >  +++++++++++++++++++++ .../media/common/videobuf2/videobuf2-dma-contig=
-.c=20
->> >  |  27 ++-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
->> >  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
->> >  drivers/media/platform/verisilicon/hantro.h        |   1 +
->> >  drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
->> >  drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
->> >  drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
->> >  drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
->> >  .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
->> >  drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
->> >  drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
->> >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160
->> >  +++++++++++-------
->> >  drivers/media/v4l2-core/v4l2-device.c              |   4 +-
->> >  include/media/v4l2-allocator.h                     |  26 +++
->> >  include/media/v4l2-device.h                        |   2 +
->> >  include/media/videobuf2-core.h                     |   3 +
->> >  25 files changed, 555 insertions(+), 197 deletions(-)
->> >=20
->> > ---
->> > base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
->> > change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
->> > prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
->> > prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
->> > prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
->> > prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
->> > prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
->> > prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
->> > prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
->> > prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
->> > prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
->> > prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
->> >=20
->> > Best regards,
->> > --
->> > Detlev Casanova <detlev.casanova@collabora.com>
->> >=20
->> >=20
->> > _______________________________________________
->> > Linux-rockchip mailing list
->> > Linux-rockchip@lists.infradead.org
->> > http://lists.infradead.org/mailman/listinfo/linux-rockchip
 
+Thanks for pointing that out. I'll follow the zd1301.c pattern, add the
+missing try_module_get()/module_put() pair, and include it in v2.
 
+Thanks,
+Guangshuo
