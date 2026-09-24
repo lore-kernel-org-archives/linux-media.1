@@ -1,172 +1,177 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F2149DBB4
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261685; cv=none; b=WXIQAjq77Z3WPIxlaK7EcjcrHN6bTDcspTQP7chS0fnuv4Nr5ah7t/dFNBcZmM/LKXSp2e5Xs8VYo41fyOvnwBTKsv+TpO47gOvddznlmVTX03vTHOykzS5pG36cAWXRnis02+AAE2n5kxbI8DhuPANInycqOO7UPI0u4R1oDCY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261685; c=relaxed/simple;
-	bh=p1DkMVivDdOboeJjqnejcRbxNjlkIEsanEsxvOaX7h8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r1x3HLVDec1BCj264L/avsJPLfN9G7Wp+RZaIOQgygAjxaDPqFQ+QtDjhO0g8ZI3a9ouefGNzEvoXdN/oaOJM9066FomFdHStvb1C3OxCg4/YGCDt85nmpOoR3qOTUCIf7cg8kKlLoyvGuAWc/lN2rDEMnJk/WZAM49d3WjO1TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aTaJmED1; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B6049F129
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 15:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790262045; cv=pass; b=XfrWx0w+fDveyJEnrsfMduwVPFEGsQD61EtFNRpk+xyMMvY6Vm8LYxHGYXXFVUg3dw7rVH822RnvwqbOsd7FYqFYuvKH65POWtualR3mmEBPloyP2HaU+6DWOck6LBC5cGruPFeCtpUf0o/dj5YR6YA6ATEk4LXsBckQUhalpFY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790262045; c=relaxed/simple;
+	bh=iuUfA02SH2tSSicml2K0I3xqm9pZO7ThoY25b+dKE6c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JnDJT+bVdTFFw6ztg4a38MoiN7SKcGPn5kJvSNp9eLJ2a9XLM70ntP6/M85KuUkh0ltg4qCw2x6GJCI0qSv62fjRsh8OA5RM366ZtfwhhJjr1Z4AVon2MhCealUNeWtnWwwzokXvcJXRmN9allR+JD6+N1+Z731hjmotK2VSny0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h/tUKF+G; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MVDl+InI; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aTaJmED1"
-Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2db425c8ff1so682405ad.0
-        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 07:54:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h/tUKF+G";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MVDl+InI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790262042;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+	b=h/tUKF+GjUa0Y1mVfe+yVQYzqWASfzm5/7k9EnciidAxox34sO54UF/voll/xmfgUGq8aH
+	2EuBMW79l/Z623eXVcIWgACtfc3pUpSLhU2X0CCIjiSoAnZNr0R9gBnRC0wKqcY3lHBoz7
+	YK/Z34l3bpo15gnKhX3liV6LGOef2uo=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-517-lsZ5kuTVNHuUj8-oL9i4wg-1; Thu, 24 Sep 2026 11:00:40 -0400
+X-MC-Unique: lsZ5kuTVNHuUj8-oL9i4wg-1
+X-Mimecast-MFC-AGG-ID: lsZ5kuTVNHuUj8-oL9i4wg_1790262040
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8461ade272bso18335857b3.1
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 08:00:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790262040; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DVgB/aeuPqBC9NQuM0kclvWLyg/StJ3rJkT4MFaWz6CQIOIBu9JnD6N1IsSOGeG03C
+         yWEiHnlNDn0MvbliOTdPuRNk1rIkquLI8oJHh+9grPYVMbAlYRPc4sw/OaHG6LaCyK5a
+         IQyUVMM1dP37E2rPwxodkJg0EIGbTMSeGbbvdsfscPwThLrCU2s2e72M1G2p7KzdCGm+
+         OeQiuwnmWAX6+riRapwd+JJi+8NB+Ao4fFaL3rHafWIeq9zh4qnmSpayc4Q1CWchj9RZ
+         IVFxOmjhPDha27bRte2x8WZD3NSseHyWbe8t/YtS70gvs06+slcOr2qHnoxdtAqwPBD5
+         IC8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+        fh=FGQu8MTO/p9/gXBAoNvBApUD+Nhv06pbAqyXhGWpyHs=;
+        b=tDnLS6JFDYXt09wfVCnU5p14FaL9JxngiYRa2g8rviJX5g3N1FMJPtObueMyoCRj1t
+         Wa8u2RKX/ybvr/Oosz6K/iSKQg6VWhBKHReVliGbsoaXmRHWnORrKBs8mAyTwpSwdXIv
+         T8PEhmZwC82bKi3IK1ZcHtlMdHc4CYFcLp/sc0hJOyuM6gIVLz9/13Pg2/Uk2d+rA13j
+         fTrc/YL4sPhemKyoz4euRBhRrbihlTKmc+F0uLEr3BDE3KtrM/8BoNpMuxj/4U3ZiAVI
+         Y6sbMIscqNXdxwGelx5iCOzsQwovhGyxs0LPplZ9BoifOcJivYV5CQbjRpgdCLTi7qLa
+         u5wA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790261670; x=1790866470; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=redhat.com; s=google; t=1790262040; x=1790866840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Mo3TPVdoCkIHw8PshUsF9i8x4gaS6XMSbTsYHmyLH0k=;
-        b=aTaJmED178NrdcjrazvolNjDT1PUb8sis1r+R+5xUDrH2U4QdOlVto2NIWCo0mOYuV
-         LqgmlYoZFVx6TH4YLPTB15xvrbrnSdETfJ6nTwPpIG3O0esevUDcAJr935zLGE1kuwix
-         DUGjUAWotnylm5lN/jYRGezXgLIN8g5ECD5N/ClUUAO8InuwftJNz92niW+n2XPAGhGo
-         5dHR5wS47BBdOvMITlb8swtNy3iIAzLzy2ntrYINar/p0daMMhpIr4e4URSMowmfLnfK
-         /7l3NkMQF2i7plMHK373CUqb5pipQdeBGlBTrF3BdEPsTElCoQ2OSiA6sFW5Lq763Bi9
-         bJXQ==
+        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+        b=MVDl+InINlRiSWNoJ+zSo3dPDLpLFAx8rHOQcJPrFcrb0dFjn331QV2IRGTQ7mSLf2
+         FzOGnMoq9jW909FTyZADgpBVLgDHXWeUVGIDkPw+aeVry1O2IqecYbQhdHv53moD09Gd
+         M6/R10IHRh/oSqPNOZRSalRoelc2p/FUbgk8NWsvk10oj8K0P0i/+6Kb2SJNz7+VGtS3
+         EHiUnog1bSJUloT5Ezfcd6Fbhr/4NApXO579lYUqr0j5S8iaQ1FgRSVlUokp15A2kalc
+         H92GZLmjxY5Dvm/8H/oqzwnBKNx9aSsXGI80NbQvadYeVqffYhdBjfmMsucgQUH6nslq
+         hc9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261670; x=1790866470;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790262040; x=1790866840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mo3TPVdoCkIHw8PshUsF9i8x4gaS6XMSbTsYHmyLH0k=;
-        b=XcfvI5bfL+EwHp00N4CZhA46kV6gTV+wS1LYEpxcGFlyn3twr4+4IWHu8KB8cmRHfM
-         uWTGf/MglHyDWWB4UpZHjo97ed7x3YOI13QJ+km+j2Y91qvBwIRBQzcEK27yks2tREME
-         X3/qeNK/U3d9cFDVdGKDPWA4NNpgFFOWp6oJ4izZVWkAnnRWgvi+ekVJ5wg/9t6QRnHX
-         9eboLBXf84NWcdEa5jyNKXKG5n2R6WxrOdNb94NpndX81j4IX+7gChsFqcryZCiV/goS
-         K5iaI9wTzy+WrZpIX4PjqO31EaLLQr4XeF0GYOCTJXnkYb+puGifet5OMlKPxdm7bnw0
-         E8IA==
-X-Forwarded-Encrypted: i=1; AKwUvBzg02luD2fI/FSo72zAr622mLSS7P1OU+gGvZTo2H26u4iyR0NHhkENkq3SmUuI1nmnvYEAK/BaC1IliA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nYVk12++5zlSG18NPn8bSvF7w6Uu1nUuewwiP/skoFvrScU3V9
-	e/OEvT3BKqtgYBk4hJJ9SxnDOJiYOIWho8vy4UNfIsQtczrLl8/n58kT
-X-Gm-Gg: AYBFou2BXcyFbIOtS+KvllNoi/p7l5rjnQuW0L11gWOx6s7j8Rn0UkJIpxgl3YJcYJz
-	p+iRlSyLyEtBhz2cW1qNK50jjYUmzhvKX0yLpCfh/1POEYnSJdqdMUgSYTOspyzlAj5j5DZLnb6
-	mW09lcMr56F0gFWeQSq5Zgbzj+rcSmLVaLVgk3q0WiWS7h/nbNfMkrdFSy77J7vEFxazCSS+u9I
-	eImh7XnpKTJcBvhI8/c15fkaIZ3ULNj0gYX4riTRDDNZn3fOII9ShPxkQSoQn/OZTn0JTuamUd2
-	YL4rwHMsTUxnbNwYZLlfg6VtZQeMHsRuztImfyT2i38pEtj6a8htStMt9/20J87p8jxVTFoQfdF
-	BGqx1B7R9FU/3NoBoyxBj/LRx3mTRd/EfRX6ahWyScP7un/vHoI+RR0cBU52h1iJybD2Iwf4wua
-	FrAnaCI8gC9dJ0vWWoX7IWsyCofs0hmKUrZiv1PkhP6KZKTVXpol0JZO1B0O92iWIAVwq6aDE8p
-	PdpZwc94ZvOJg==
-X-Received: by 2002:a17:902:e542:b0:2d6:3c1a:85ef with SMTP id d9443c01a7336-2df7dfc93c6mr35028765ad.4.1790261669688;
-        Thu, 24 Sep 2026 07:54:29 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5c3a3dsm28629285ad.43.2026.09.24.07.54.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 07:54:29 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod.linux@nxsw.ie>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
-Date: Thu, 24 Sep 2026 22:54:18 +0800
-Message-ID: <20260924145419.47354-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CACSVV01NZROH9U5Qjd1TSDu+BPyyPLC9pFByqSfrxXrPJV+wZQ@mail.gmail.com>
-References: <20260923074256.9357-1-liujianfeng1994@gmail.com> <fe3a4297-f300-451d-9763-0b3016706111@amd.com> <CACSVV01NZROH9U5Qjd1TSDu+BPyyPLC9pFByqSfrxXrPJV+wZQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+        b=F8rf+Qo2SMDrMvIBZy6y63BPxAfnWhfdrJJ4/uI/iLR65TTs7ye6PHx12aYhkDLqs4
+         N10nGQpzUH48mcciliWRKdMHCD03Ac6//1FQkLbanZp0NyQHFrz8j8gs7f3TpQALFqjY
+         x2Y7JuGHomDrA2g82uzOFwTqq3ktfu6cdP/fsygSbc8g03ZU+rnelZ9+hdKHBx7sunff
+         ECKj3DyEe3RlDjT4E9HeP2VJzbpt7NV4HqtEJuVc471zMIHjTPqrsSjbkUytGYlQWvw3
+         fHhjjpnoDyXyLmHiUo5mY+m4o7nGV5HwfYs2j39KOxjo0q2ZEXM0Xm3Pr2bkjW0E4ly6
+         aPqg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6XHJiIhhLHJwg+D1DqJBf2wn9XHc88PG/0BLUsePrExOrcltZRsATwbPTHM1GZAuskBFVT4ihWX+rJQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nJsaIJ/b5M6LjC2rqhDd8+2H21EzC6z9G7UzRY1xxboPORc4z2
+	koWZB+QsAEnYztAZb2zN0hYUgjHglk6fZWiuBPqxMxeS0sJZWUDNsfUDJksxDqSkPi+GHtHbc0N
+	QJ6r9/+tdcH8rCTwW7a1rAaojhWWgWdfHuB8ZV9jhLqCZRMmagjcOmVVCG0twiE8YAZE5CKCbZp
+	guNQmUVdhE+lRCtWWqg02MdT6ddO+OrxwUWP/fbLs=
+X-Gm-Gg: AYBFou1y7ND+pZeaXvcNtsywJPC82zxVT4Gem9vsNg6iMz0sMExW2Y0lRvMGBLFqeVv
+	Eerd/bg0xFN1GryLailIzaAxBaSHy4IW/UdmtBQShJeknFbgGCf7diSJDJmwQZuyqPWazWoL/wW
+	T3mPbLXUgc7BLfB/TkkHrm+M6Fbzk3sn1AEf/r95OkD2My3vnGhi7aGw==
+X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id 00721157ae682-8a64e5d7328mr16132417b3.20.1790262039834;
+        Thu, 24 Sep 2026 08:00:39 -0700 (PDT)
+X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
+ 00721157ae682-8a64e5d7328mr16131377b3.20.1790262038827; Thu, 24 Sep 2026
+ 08:00:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
+ <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
+ <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com> <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+In-Reply-To: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Thu, 24 Sep 2026 17:00:27 +0200
+X-Gm-Features: AclHuK_S1nrFMWot6v8DC6klfULfaNk07isgmJtfP7BYAekyrR84kzWx2Uw9qhE
+Message-ID: <CADSE00JhFYhDV2cuVxZwVTX6LTe8zH0-BR=-Fhv+6UXeFxq_Zw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal helpers
+To: "Bryan O'Donoghue" <bod@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Maximilian Luz <luzmaximilian@gmail.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jeff Johnson <jjohnson@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>, Jens Wiklander <jenswi@kernel.org>, 
+	Sumit Garg <sumit.garg@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Brian Norris <briannorris@chromium.org>, 
+	Govind Singh <govinds@codeaurora.org>, Niklas Cassel <niklas.cassel@linaro.org>, 
+	Kalle Valo <kvalo@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, iommu@lists.linux.dev, 
+	linux-media@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	ath10k@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+	Maxime Ripard <mripard@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Rob,
-
-On Thu, Sep 24, 2026 at 7:01 AM Rob Clark wrote:
-> So the assessment of what is going wrong looks pretty wrong..  VM_BIND
-> should never lead to iommu_map_sgtable() (which is never used for gpu
-> per-process pgtables), for example.. but is used for mapping for
-> scanout.  And pages are never used for mapping in either path.
+On Wed, Sep 23, 2026 at 11:00=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> =
+wrote:
 >
-> However there are a few places where sg->length is used (in iommu code
-> and msm).. AFAICT dma_buf_wrap_sg_table() zeroing out sg->length is
-> what the actual problem here is, rather than any use of struct page.
-
-Thanks for the correction - you're right, I mis-traced the GPU path.
-The per-process pgtable mapping goes through
-msm_iommu_pagetable_map(), which walks the sg_table with sg->length
-and sg_phys(). With the wrapper zeroing sg->length it iterates the
-entries, maps nothing at all and still returns 0 - which explains
-the UCHE translation faults without any error anywhere, and is a
-nastier failure mode than the async-bind-failure story I wrote in
-the commit log.
-
-With that corrected picture, DMABUF_DEBUG=y breaks msm in the map
-paths themselves: msm_iommu_pagetable_map() for the GPU and
-iommu_map_sg() for scanout both consume sg->length, and
-dma_buf_wrap_sg_table() zeroes it, so every mapping of a
-page-stripped sg_table silently maps nothing. On top of that msm
-also uses sg_phys() in those paths and
-drm_prime_sg_to_page_array() for the page array, so even with
-sg->length preserved, page-less entries would map garbage
-physical addresses instead of failing loudly.
-
-So it looks like this needs work on both sides:
-
- - dma-buf: preserve sg->length in the debug wrapper, so
-   sg->length consumers at least fail loudly instead of silently
-   mapping nothing. I think that is what both Christian's "we
-   should probably change that" and your "zeroing out sg->length
-   is what the actual problem is" are pointing at.
-
- - msm: stop consuming struct page and sg->length of imported
-   sg_tables, i.e. build the GPU and scanout mappings from the DMA
-   addresses, plus the drm_prime_sg_to_page_array() cleanup.
-
-Is that the right split, and is there a preferred direction for
-the msm side?
-
-> (And yeah, I should get rid of use of drm_prime_sg_to_page_array()..
-> but that cleanup that I haven't found time for shouldn't be the
-> problem here.)
-
-Agreed on it not being what produced the faults - but it is part
-of the same contract problem, see below.
-
-Also answering Bryan's review of patch 2, which is in a different
-branch of this thread:
-
-On Thu, Sep 24, 2026 at 10:36 AM Bryan O'Donoghue wrote:
-> Why is the fix Adreno specific ?
+> On 14/09/2026 13:41, Albert Esteve wrote:
+> >   int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> >   {
+> > -     return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
+> > +     struct qcom_scm *scm =3D __scm;
+> > +
+> > +     return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
+> >   }
+> >   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
 >
-> Shouldn't this function be ammended with
+> Why make this change at all though ?
 >
->  > +    if (filled != npages)
+> It takes a pointer to the file static _scm
 >
-> instead ?
+> The reset of the patch looks straight-forward to me but this change
+> caught my eye.
 
-It isn't meant to be - msm_gem_import() is the shared GPU/DPU
-import path. And putting the fill-count check into
-drm_prime_sg_to_page_array() itself would indeed be the better
-generic version of that guard; I checked the other callers
-(etnaviv, omapdrm, vmwgfx, xen) and none of them expects a
-partial fill either. But with the corrected analysis above, the
-page array isn't what produced the GPU faults, so neither variant
-is a real fix. I'm not asking for either patch to be merged - the
-series is a bug report with code attached, sent to get exactly
-this discussion going, which is also why it carries the RFC
-prefix.
+Yeah, this change isn't useful. I aimed to avoid passing __scm to
+function calls but it does nothing in this patch, it'd be better to
+change it directly in the next patch that changes the signature.
 
-> This very much looks like an LLM generated patch - the commit log, the
-> large comment in the code and TBH the solution too.
+BR,
+Albert
 
-Sorry about that - the patches were drafted with LLM assistance
-and I should have declared that up front. Any later version will
-carry a proper declaration.
+>
+> ---
+> bod
+>
 
-Thanks all!
-Jianfeng
