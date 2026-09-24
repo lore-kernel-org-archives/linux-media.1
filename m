@@ -1,158 +1,94 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476D9488D86;
-	Thu, 24 Sep 2026 20:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6080D371D1F
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 21:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282810; cv=none; b=Fc3JrKqAfzUnkfvqV0vYaW38K6iMjelWDvTGOcQr3eKQC5EwyNe1lAgDTjg72s+Qx1UrLrJ2KSEVoWLXOzw7hus6rPqZgPATu6UxJMWdzXBWwtymPXbn0/0YT2wS/+dvcXMgTDTixMKD7y+nGpVnov7w0exfdvO35PXaSAUvORU=
+	t=1790284315; cv=none; b=jnZQredBCeqaCAugSNnEG2A8ZU0OTzvbPw6cVOMBrV4kFagKWii5xHiAPC4Jl+llkDR93fwBtgyRVYX+nfvvBuSf82hRgm8ThqtBj0o/H+UsE/CCHIJXs+IFszPdeKN4AHPMm8sC6uAuR67zIMSagi/9swgQGL0HMK+n2QDK8zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282810; c=relaxed/simple;
-	bh=ZxkrPL30PUD8vP5ntlrp+qcubhHME4v9ZvuZDwUuoSE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sR4ZZlzhAQxMRZNhF8hrcML+t6D4j26w0o53CLX/C1wY4BHUWFTntoe1fCCAM52vy6kprNDK2taXmgFnmBbCXoeOPpPk2CiB1cDAg60l7J/59/eTu5Eq4zGKAltOIrUH2jsojC+S5PrUK272FYJMrSSLTPiIAvE+BZRVmoDYrJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GCLkaPvw; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790284315; c=relaxed/simple;
+	bh=w8TV2FMwsNJ4NwI4g+tBQXy4aYGJ6lAIGTiwpJ98/64=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZXVuwugBe3tRF9ysBO6ZeRasFojPJOV3NbnD6MfJGWGW0myfVPxyrjj7Qw58odIVfvF3cRWA6rNLJwTl5o2rH4dk60SypR7F2SXpWSXOvkO64aw1k+yjUJBnIvYpyXvI28VPYLuaDEui/O36BBykqF5u1kOrXh3QoNfSPKotU/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OW9LLJcv; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GCLkaPvw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790282807;
-	bh=ZxkrPL30PUD8vP5ntlrp+qcubhHME4v9ZvuZDwUuoSE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=GCLkaPvwThqg/tLIC1YahbDhGK2z+k4HSMwRd2ltI+5QxU/yAI0gRUgJLu+DwrPYe
-	 IKFD/Zggp6EBBDYZ2vMEe9g/QroSDDSO2CMZvQ1mUazBS+QIA4Pw9zNspISP0I9jJ5
-	 n9RhqQEWIJ9aPeYhc4SLCAnTmqzM0JNGrfibrLU5FzpaELewDs1mzGGsPdfjxussD7
-	 g43P+fb7LQkWGzrfAwVdpt31cm7XS4PgfAgPON+d/uAtldU3NkeTA/kHdjazBy/f3b
-	 m54YznAUNrLqq/4OKayvzkK/v1pC71aiJ3sbwHacNebmNQSqanWxchPcIoC2z7T4SB
-	 l/wYliqk171UA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E4D917E01C5;
-	Thu, 24 Sep 2026 22:46:45 +0200 (CEST)
-Message-ID: <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and
- VC8000E support
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, devicetree	
- <devicetree@vger.kernel.org>, "open list:FREESCALE IMX / MXC FEC DRIVER"	
- <imx@lists.linux.dev>, linux-arm-kernel
- <linux-arm-kernel@lists.infradead.org>,  LKML
- <linux-kernel@vger.kernel.org>, linux-media <linux-media@vger.kernel.org>,
- Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley	 <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer	 <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>,  Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab	 <mchehab@kernel.org>, Hans Verkuil
- <hverkuil@kernel.org>, Marco Felsch	 <m.felsch@pengutronix.de>, Michael
- Tretter <m.tretter@pengutronix.de>
-Date: Thu, 24 Sep 2026 16:46:43 -0400
-In-Reply-To: <arWIcrSFkEA4GMTY@collins>
-References: <20260522101653.2565125-1-paulk@sys-base.io>
-	 <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
-	 <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
-	 <arQxC3DmDyVIGdqq@collins>
-	 <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
-	 <arVnQmik-CveaAkY@collins>
-	 <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
-	 <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
-	 <arWIcrSFkEA4GMTY@collins>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-RZqRkCQcXHsSV3m7pcT/"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OW9LLJcv"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664e051fso200836eec.1
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790284313; x=1790889113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w8TV2FMwsNJ4NwI4g+tBQXy4aYGJ6lAIGTiwpJ98/64=;
+        b=OW9LLJcvJFBBEDgwlyNSd/52UFJJC0M34+EWz02F6qRmm9/opNoJG9HolDTX/E3sQm
+         Sk7hop/eRRe02UY6bilMCxKxQiPvsBM3QSqPkVXFKB+goNsEshHRj4qXIj0ekIkr82oF
+         xFK9MGLCpUBVPCgTKBhsPn8UuIQhyTtXjVGRGG5mJkfMCH4MZTxBMp1XFeRCs7ywmIf0
+         LXp31MF9ruwePvR9JaGL151Dayg05gXzrGwgqrJRTXO5kKlmtRimgKXOPLmSopbV1VRq
+         XzEamgz1k+4acgK61uQ3ED0xVYxGN6SKgUnmFwWAxkrQZ0jYePN8LVYsr8lidcEZBKur
+         5rUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790284313; x=1790889113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w8TV2FMwsNJ4NwI4g+tBQXy4aYGJ6lAIGTiwpJ98/64=;
+        b=vjxQ92Z7ww2VlRS+PgwqlFzS0sziCRj39hyVjQceWOoXaMf5qsjRupPt30cV25YSrL
+         zdOx/EilOkjxMQ8yoy2NC2wp0K1hJRWyBBs2xdR5GJncPyOl7rzFAuOsDTmBWgCaGxCY
+         26JNQf+GcXv/Tu/gzyVMDmTu0kMVJ7UbwtyfX3s191u1fwqvN6EAoBc7MvKqcm2gNBVu
+         Dv+scXdEm8fby7uAkthVEn1jmWTICs4tKi7frwNHCBYriF41DFhneVKTTKSCu/hW6iEo
+         Q7hsZ3jnhCs5JJXgjo+GD5aneaJZEYqB5zRCONUwLJUAjc7lAwwswfxTZCg4G7zf9a6u
+         RTxw==
+X-Forwarded-Encrypted: i=1; AKwUvBxB1FAiV8KShIWFZQ1R5edeEZCwvrB8++hdC3t8wXhYz8oAmfMK/tQ1lGShSRGKjqOhQRUUSJ0Jm9bC5g==@vger.kernel.org
+X-Gm-Message-State: AFuF++lDRemJMpgsqw/khw6VAqeY87mT9y3F+y/9kWb5eeovTgwfZwe3
+	CJhZWv4lVc87ejsVGd+xscV+pA1Kj/kipwxMvHv7tAnwPeBB/fiJfaQF
+X-Gm-Gg: AYBFou1Feu5Qws2OEj7s7YSUY1o8ILeDRJ5WiOIOGwpOt44A5GXiDk86YgVfG3C/d86
+	WuqQsHE0+q7W+NLYtY791FpTQg7LvS0vxldDab2U+5/HHru0BNOEH2LozKmgEIFT2pFYS8UF672
+	fKfoqTHGt/etUO6SPMCfqAVmBuqH8eKqnQOGD4RMZFr/RZGN8Eiz8H5s7XJkQeN9t1hP32BnEha
+	/AYG3tv5QmvatK3lsFzR7u4Dfl6LldFZwC1jWz13yOsc0SjIZROck2LmZ4jXHuOrHN1j8AL+hQr
+	dvHlnxPmD07XOjcUSZPPzJpd9/XpBIKPId9hjpUNbPF7dvGHKcalfVPVWFxmwVe0xQ9jhJKGFel
+	4v1WtAzubU2SbY8noD92r2mqHO6EZagklEJb9q4/ZzlnMvkG56nCREiw2OtmiVNzC/tT76xTPGs
+	1QCtwEKh+uBqhIAOYS2lT4300E8WCbqVgNP7H5G2PdzJBA/qqnMPrCyMKiINS6YCsp0GQRd9pgk
+	Nc1HHkODZa12gg=
+X-Received: by 2002:a05:693c:829b:10b0:33b:e21e:4a3a with SMTP id 5a478bee46e88-3400439b178mr3764277eec.40.1790284313380;
+        Thu, 24 Sep 2026 14:11:53 -0700 (PDT)
+Received: from alessandro-rzn2024 ([2804:ebc:9128:3400:2680:233c:7520:a2b6])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144e4a6b9sm999537eec.18.2026.09.24.14.11.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 14:11:52 -0700 (PDT)
+From: Alessandro Menezes <alessandroasm@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	ye xingchen <ye.xingchen@zte.com.cn>
+Subject: Re: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
+Date: Thu, 24 Sep 2026 17:11:44 -0400
+Message-ID: <20260924211146.2921657-1-alessandroasm@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260830172330.3395671-1-alessandroasm@gmail.com>
+References: <20260830172330.3395671-1-alessandroasm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Hi Hans, Mauro,
 
---=-RZqRkCQcXHsSV3m7pcT/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Gentle ping on this one. Sasha noted on the stable side that it looks
+right but needs to land in mainline first, so it's waiting on media.
+Patchwork still has it as New:
+https://patchwork.linuxtv.org/project/linux-media/patch/20260830172330.3395671-1-alessandroasm@gmail.com/
 
-Hi Paul
+Happy to respin if you'd prefer a different shape.
 
-[...]
-> By the way if you have ideas about specific problems with the stateful
-> API that should not be reproduced in the stateless one, feel free to
-> mention them.
-
-Few things:
-
-- Drain flow should be as simple as for stateless decoder, there is no
-reordering, and so no holding on frames.
-
-- Capability query should mimic the stateless decoders (but up-side down).
-Basically, we don't add a pseudo unset state, that was bogus.
-V4L2_FMTDESC_FLAG_ENUM_ALL could be made mandatory, this is only partially
-implemented decoders today :-S
-
-- Capture/Output S_PARM, maybe review/revisit, but likely still needed,
-otherwise the rate controller can't know the rate.
-
-- S_SELECTION, maybe make it mandatory for codec with a conformance window =
-?
-
-- Of course, encoding process requires a request
-
-- Anything about keyframe insertion can be dropped, since frame type is exp=
-licit
-and per codec.
-
-One ambiguity we have in all decoders at least is weather or not the enumer=
-ate
-sized are coded or display resolution. I believe technically, all stateless
-decoder exposes constraints in coded resolutions, and display resolutions a=
-re
-not easily enumerated. Not a blocker, just a remark.
-
-Hope this is helpful,
-Nicolas
-
->=20
-> > A second implementation, not just a variant of the same brand would als=
-o be
-> > nice.
->=20
-> I still have it in mind to add support for the Allwinner encoder based
-> on my earlier stateful-ish attempt. Hopefully that work can be funded.
->=20
-> All the best,
->=20
-> Paul
-
---=-RZqRkCQcXHsSV3m7pcT/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarWMMwAKCRDZQZRRKWBy
-9NqWAP42EmwEZYXkDrrIHimfO2YkL1gxjjiSxbQmMV+aniWsxQEApmExmBL7mmz6
-RyLWV0kcepV0pLiYo5RAuCDOTzACyQA=
-=26C6
------END PGP SIGNATURE-----
-
---=-RZqRkCQcXHsSV3m7pcT/--
+Thanks,
+Alessandro
