@@ -1,162 +1,84 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFF6481255;
-	Thu, 24 Sep 2026 13:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8325305699
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 13:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255107; cv=none; b=r8aw965M/vxNa8u4PE+WxAZs/BOF4euqL5J9umumFkvkzolrMpCES6Rqplc5cKp9qK5B2Ih1jRT803rXhp+quimQIGD0wHr7yWX6XK35aT/LKLKk6xHFyVRUUQkrhG72EvPs/fcOD5iABq9mHCMtCs7KbtFJSN/41d+WjYDo0sw=
+	t=1790257587; cv=none; b=qPpZy6frPqCfkBT+VTJMotI2BevGtEsyUIe52NWCyGkGDVtqa2DOKkWmXOxSJsdTqiozHFx5+d8tbdA3x37BZfWzG7RaM8ehn995raNZWwzSP0UiDRlkfl3FydwHHsbHmZIclAV6MNQlq3fSmotRrnJ9SNoCqvZ3mvZxuKSNZH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255107; c=relaxed/simple;
-	bh=v94DbVQw+05Ntmjd28VMwMgCPVXvis86MvU9154Zke4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ubDKXIQOd7pXuDpdo5BbUnA+rcj5vyY+PYfzNRsjG4DmHNsd95oSr6vc7bpNWzrMi2o1i45ouG7VyfGD9M+R8fa0yZ/99MWZR87W4MGyO3jyWyLERYgr6wVMsigHpdV16Vw5nX4JZ7pAWWYYDe8+dKkl5cpgzlcQNJdQVrtJjhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Rp0Slkn+; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790257587; c=relaxed/simple;
+	bh=wRjjNukvTBiQHnt5Oc6/TYwacV0y7pyOBe1+DHqRgqY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ju7X1ooV/HZeH7kNLr+ZGlcg2vq0lsa+3vRVWx4XneXAzoljbq1V6Jr6nzWBBz7kJFJN+vnPx/pOxBK+S9zve1pfybTvTy8ga7crs+SIyUy+hpbYSL9k8W7gefq3dNI6Du873DYqWmGvRi3miGvHY74qitFdXnhrY0ePHMOEU7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f+lNE5m0; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Rp0Slkn+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790255101;
-	bh=v94DbVQw+05Ntmjd28VMwMgCPVXvis86MvU9154Zke4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Rp0Slkn+RwOD1u871FiNkc312zlBUzdL7toPFbg04Q4W1WnMbOq6wDcg3Jfn5peM6
-	 vhd+3Enhg9ayT+PqjWf8KSxrpIt+Wzm+LhfUFm9ocuL2vsqQ5AZvKfYyauy1TCHAxz
-	 1qibfcRTNK1AxZy6YaNFx9x+EPNYi6Ok2tQJLILBx6WiZrWdIKs0MTRSu0La/eF2y/
-	 r7+hHB0+98SCUqRNHhjJrMa9ZDILYqeGTgo7pH5uDmCHe8HQ4eC3bjK4U0ydho/h7N
-	 58W/OkJgpdwHE33CSM+VROGPzkzDeNyVP44sbFLZ2qELBGFxrz38y/DhNphwM+JfFD
-	 v8zBZqeZLP4WA==
-Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6F8A217E0A68;
-	Thu, 24 Sep 2026 15:05:01 +0200 (CEST)
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: nicolas.dufresne@collabora.com,
-	benjamin.gaignard@collabora.com,
-	p.zabel@pengutronix.de,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com
-Cc: linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: [PATCH v3 3/3] media: verisilicon: Remove useless internal fields
-Date: Thu, 24 Sep 2026 15:04:53 +0200
-Message-ID: <20260924130453.196299-4-benjamin.gaignard@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
-References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f+lNE5m0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790257585; x=1821793585;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wRjjNukvTBiQHnt5Oc6/TYwacV0y7pyOBe1+DHqRgqY=;
+  b=f+lNE5m0phAkFgR1th0AaAE21Dy55YekTZ9WZ5o2qE+FoWfIDXB5IKhC
+   MyPXVb1VyqmLDxrvxBkieQVpq/wNIEck5Sfq9+V2TRx0YBKp3TkJa/cgW
+   pHJb1iX0b2hdaDsq1HjWUyD+CD6HYZHWJdBCenn56i18O0V4ycLLi9O5F
+   kdRUgB94nPoAr8h4jD0uR5Oq7KrBIJ5nsHkJX33LxePDjAiLQrOObkrhc
+   wX28w5AoqzDydQtt7ecdPoGdu967XH04GchNfaeRxA3kVX9PwFJr6xeC5
+   RdOK5JHdKNtYBKhV/z0WepUaUhstosAr7VAS/gha/G9fm/N1n1+y6MmKu
+   g==;
+X-CSE-ConnectionGUID: W5Yue65nRh6xiSQ0bV5wxA==
+X-CSE-MsgGUID: BF+AV0/fQiK87fP8BfEm8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="102387027"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="102387027"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:46:19 -0700
+X-CSE-ConnectionGUID: W5U+41DET7O2p1K6guFqOw==
+X-CSE-MsgGUID: RwcBPw9zTdOA/cS51BxWtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="300301319"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.230])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:46:17 -0700
+Date: Thu, 24 Sep 2026 15:46:09 +0200
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, 
+	Thorsten Leemhuis <regressions@leemhuis.info>, Junjie Cao <junjie.cao@intel.com>, 
+	Miguel Vadillo <miguel.vadillo@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Manuel Knitza <manuel.knitza@googlemail.com>, Antti Laakso <antti.laakso@linux.intel.com>, 
+	regressions@lists.linux.dev
+Subject: Re: [PATCH v2 1/1] media: cvs: Default selection to VIDEO_INTEL_IPU6
+Message-ID: <arUpZmST2clIWDSf@mdjait-mobl>
+References: <20260923211449.904157-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923211449.904157-1-sakari.ailus@linux.intel.com>
 
-No more variants are using multiple registers regions.
-Remove the useless fields and simplify driver code.
+Hi Sakari,
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
----
- drivers/media/platform/verisilicon/hantro.h   |  9 ++-------
- .../media/platform/verisilicon/hantro_drv.c   | 20 +++++--------------
- 2 files changed, 7 insertions(+), 22 deletions(-)
+On Thu, Sep 24, 2026 at 12:14:49AM +0300, Sakari Ailus wrote:
+> The cvs driver is only usable with the Intel ipu6 driver (as well as the
+> ipu7 staging driver, as long as it exists in the staging tree) and is
+> commonly required for the ipu6 (or ipu7 staging) driver to function. Make
+> the default of the cvs driver the same as what was selected for the ipu6
+> driver.
+> 
 
-diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 0353de154a1e..ca03bc690fbf 100644
---- a/drivers/media/platform/verisilicon/hantro.h
-+++ b/drivers/media/platform/verisilicon/hantro.h
-@@ -72,8 +72,6 @@ struct hantro_irq {
-  * @num_irqs:			number of irqs in the array
-  * @clk_names:			array of clock names
-  * @num_clocks:			number of clocks in the array
-- * @reg_names:			array of register range names
-- * @num_regs:			number of register range names in the array
-  * @double_buffer:		core needs double buffering
-  * @legacy_regs:		core uses legacy register set
-  * @late_postproc:		postproc must be set up at the end of the job
-@@ -97,8 +95,6 @@ struct hantro_variant {
- 	int num_irqs;
- 	const char * const *clk_names;
- 	int num_clocks;
--	const char * const *reg_names;
--	int num_regs;
- 	unsigned int double_buffer : 1;
- 	unsigned int legacy_regs : 1;
- 	unsigned int late_postproc : 1;
-@@ -184,7 +180,7 @@ hantro_vdev_to_func(struct video_device *vdev)
-  *			dev_ macros.
-  * @clocks:		Array of clock handles.
-  * @resets:		Array of reset handles.
-- * @reg_bases:		Mapped addresses of VPU registers.
-+ * @reg_base:		Mapped address of VPU registers.
-  * @enc_base:		Mapped address of VPU encoder register for convenience.
-  * @dec_base:		Mapped address of VPU decoder register for convenience.
-  * @ctrl_base:		Mapped address of VPU control block.
-@@ -204,10 +200,9 @@ struct hantro_dev {
- 	struct device *dev;
- 	struct clk_bulk_data *clocks;
- 	struct reset_control *resets;
--	void __iomem **reg_bases;
-+	void __iomem *reg_base;
- 	void __iomem *enc_base;
- 	void __iomem *dec_base;
--	void __iomem *ctrl_base;
- 
- 	struct mutex vpu_mutex;	/* video_device lock */
- 	spinlock_t irqlock;
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 12c804dcc669..6e3a24156a69 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -1080,7 +1080,6 @@ static int hantro_probe(struct platform_device *pdev)
- {
- 	const struct of_device_id *match;
- 	struct hantro_dev *vpu;
--	int num_bases;
- 	int i, ret;
- 
- 	vpu = devm_kzalloc(&pdev->dev, sizeof(*vpu), GFP_KERNEL);
-@@ -1128,21 +1127,12 @@ static int hantro_probe(struct platform_device *pdev)
- 	if (IS_ERR(vpu->resets))
- 		return PTR_ERR(vpu->resets);
- 
--	num_bases = vpu->variant->num_regs ?: 1;
--	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
--				      sizeof(*vpu->reg_bases), GFP_KERNEL);
--	if (!vpu->reg_bases)
--		return -ENOMEM;
-+	vpu->reg_base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(vpu->reg_base))
-+		return PTR_ERR(vpu->reg_base);
- 
--	for (i = 0; i < num_bases; i++) {
--		vpu->reg_bases[i] = vpu->variant->reg_names ?
--		      devm_platform_ioremap_resource_byname(pdev, vpu->variant->reg_names[i]) :
--		      devm_platform_ioremap_resource(pdev, 0);
--		if (IS_ERR(vpu->reg_bases[i]))
--			return PTR_ERR(vpu->reg_bases[i]);
--	}
--	vpu->enc_base = vpu->reg_bases[0] + vpu->variant->enc_offset;
--	vpu->dec_base = vpu->reg_bases[0] + vpu->variant->dec_offset;
-+	vpu->enc_base = vpu->reg_base + vpu->variant->enc_offset;
-+	vpu->dec_base = vpu->reg_base + vpu->variant->dec_offset;
- 
- 	/**
- 	 * TODO: Eventually allow taking advantage of full 64-bit address space.
--- 
-2.53.0
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+
+--
+Kind Regards
+Mehdi Djait
