@@ -1,148 +1,175 @@
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8CD4AA584;
-	Thu, 24 Sep 2026 17:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097234B2057;
+	Thu, 24 Sep 2026 17:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271534; cv=none; b=Xy/I07BiOIDK+6pYcdRG4z0a1tyC1PRmWG2p14DFHHHgTkIPYWtk8d71Ex8kJZ1eyOdsPGeaG38OupFGjwKocAFjqAQ2OYyyYH6pBmR8llx/OC/cF2d/3TDVH8FwtUWP8OdG9SEX/jyoI5iNSv/gaUqpS25vFgQLzDgoKLdeq2g=
+	t=1790272281; cv=none; b=PKLlF+6LkdBNH8FtkthKTp1CuRL7W77xEw/Mlf7sRca1oJ8J+GHq1c+kpQwHrI0RCSACRqbx/Kim2hut+mW3e4WDWqQaK6ZOHxZZIbupu4tvZg/6yPQHA8wp0/BSQtNFLsVylIWj6JmK1W/gCyjgN/MWfXQIeRKthRmNRhioGgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271534; c=relaxed/simple;
-	bh=rJGQhScDlm4viXbVZ7shrmQ3zSbjwRLrRCBRfunXrfg=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lJMdgnWDs/lcGAmrtDRtwagk6UXpltEuUKmZyn8yUagA6ugOZDrts/+rhXlwu9O3Dlspy5y1njA0aT3jQmA0w0DaXkArRq/HRZR03n83JVH4UXATWyIw1iJ+9D3iWOQStKbNHyyETP/i02kvYt85oM288n2KzI3D8LHQZdfF64E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=gZ9ucYdQ; arc=none smtp.client-ip=67.231.145.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1790272281; c=relaxed/simple;
+	bh=E5sOGZv4PsnQ9lebGLSxJFxuo51klyzvMHE8CDz7Q9Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=j2dZwIdI3M58T4gu37EJM7/wGMPYQpkPDZGVxVyAOfPIHi0mjEWekzhAW48MzXu3R7SplpZrsstcTDfOVIidoZsF0wJs/z7R7AjmSHOBMB+QKwUHQfZrstKFd0cqSU+XYUh0zuP2LlHW2LD37L20ctkev8q3a9buXC+eXq7Ypio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kE0AuB1U; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="gZ9ucYdQ"
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OHbefX4067247;
-	Thu, 24 Sep 2026 10:38:10 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=Sefxfty+V4i
-	m33wCDgAoUq/8QqcJdthnNfNfWvLoo4E=; b=gZ9ucYdQWtAYNRopvqTwpqnLSU0
-	WmEcrgSsEq/Az0a9wxHyh4xTkfsDmJsGXgLXhKBJzc5NSWTZdt0v36zl5yxsKuzH
-	5Pq2jLBkZBud9aQfOMpzFhqEmie8HKD5RMmJnvzbnUHpEkVbd8kYRX1JEPt9QHm6
-	MBEAqKcN8S0TOUfIUW4qC/vHY/LNUL+jZU0VWGnOK7ztO5B/g2qcqD595qQvhyzM
-	R6FWZNSgrPS5MjsPfKyz3J7nD5w1HyahjAFROjpPYVGt99SEWq3lN6AVXKgYmZ5R
-	bXnE83Apv1/JmSdJH4Ouu4DhOg7mH79arq/d5n67a10aSocQgVlT/7CDlxw==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gw2rak5es-4
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 24 Sep 2026 10:38:07 -0700 (PDT)
-Received: from devgpu015.cco6.facebook.com (2620:10d:c0a8:1b::30) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Thu, 24 Sep 2026 17:37:00 +0000
-Date: Thu, 24 Sep 2026 10:36:55 -0700
-From: Alex Mastro <amastro@fb.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-CC: Leon Romanovsky <leon@kernel.org>,
-        Christian =?iso-8859-1?Q?K=F6nig?=
-	<christian.koenig@amd.com>,
-        Matt Evans <matt@ozlabs.org>, Alex Williamson
-	<alex@shazbot.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Logan Gunthorpe
-	<logang@deltatee.com>,
-        Kevin Tian <kevin.tian@intel.com>,
-        Pranjal Shrivastava
-	<praan@google.com>,
-        Longfang Liu <liulongfang@huawei.com>,
-        Mahmoud Adam
-	<mngyadam@amazon.de>,
-        David Matlack <dmatlack@google.com>,
-        =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-        Sumit Semwal
-	<sumit.semwal@linaro.org>,
-        Ankit Agrawal <ankita@nvidia.com>,
-        Alistair Popple
-	<apopple@nvidia.com>,
-        Vivek Kasireddy <vivek.kasireddy@intel.com>,
-        <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
-        <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
-        <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Message-ID: <arVft6rx/229Wpzi@devgpu015.cco6.facebook.com>
-References: <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
- <20260921132208.GA1507824@nvidia.com>
- <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
- <20260921134924.GB1507824@nvidia.com>
- <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
- <20260922124137.GD1507824@nvidia.com>
- <20260922124637.GG563127@unreal>
- <20260922125421.GE1507824@nvidia.com>
- <arMBqyI4XNfD+q1W@devgpu015.cco6.facebook.com>
- <20260922225747.GB2545495@nvidia.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kE0AuB1U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790272277;
+	bh=E5sOGZv4PsnQ9lebGLSxJFxuo51klyzvMHE8CDz7Q9Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=kE0AuB1UulmjZhIOgwAwnOV/ZisIZPnLZDoiyztMOMVPai48Y0BDuo/TRzky24oKV
+	 BlU9BEI4mZqG1Zlw1mVvQIYMrua6m3+ZB4SMpqjomLxLwKxRnKZD1aJegtjVBwx6+z
+	 CbIEHai48Yp7bNY3Wlw8r8I7ChBrePh90mWCOnUqe1hGHc0NEZpFj2u4M8Xuv35hKu
+	 nV4vHYIOyCRKaJw/bW5OtsrBhJZSmMtHVTM+IQYaLzYHuLYpQNSOD16EHKVWFW4+fe
+	 2Jm8pc6q3POOIqco4Mrd2T6Z8VABOLfb10GpZzShkUCYPUDWri0vL3v/ckrSFN85F8
+	 XqipsgWgav70A==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2567017E0082;
+	Thu, 24 Sep 2026 19:51:15 +0200 (CEST)
+Message-ID: <518ec010db104f6f0e7c85607a97af408da44eed.camel@collabora.com>
+Subject: Re: [PATCH v3 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
+ Remove nxp,imx8mq-vpu
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Conor Dooley <conor@kernel.org>, Benjamin Gaignard
+	 <benjamin.gaignard@collabora.com>
+Cc: p.zabel@pengutronix.de, mchehab@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+ s.hauer@pengutronix.de, 	kernel@pengutronix.de, festevam@gmail.com,
+ linux-media@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Date: Thu, 24 Sep 2026 13:51:13 -0400
+In-Reply-To: <20260924-compare-useable-3e2863b66924@spud>
+References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+	 <20260924130453.196299-3-benjamin.gaignard@collabora.com>
+	 <20260924-compare-useable-3e2863b66924@spud>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ufgeUgCb5bgTB+Z5csz7"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260922225747.GB2545495@nvidia.com>
-X-Proofpoint-GUID: 8_KIxvJ0Xh6Md9vvXsM8iI1MtB2e0u6D
-X-Authority-Analysis: v=2.4 cv=RPsmjIi+ c=1 sm=1 tr=0 ts=6ab56000 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=8elwO82fXORLTBIkMd32:22 a=VwQbUJbxAAAA:8
- a=Ikd4Dj_1AAAA:8 a=JAa8dMmPYHYnztAqrSEA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA3MSBTYWx0ZWRfX3etaKYOhjUnb
- ZasjvyWE6UTsxvvjfFlXYr2xAM01fizk7c52wCw05iTDYA3kb+N43QzOlATtS2Hdm7ETaj4TqYS
- RGKrRBUTptoPenVLNhdZCqif+dSkLHuxCZxHb/auJJvnJ0/eLKoyxoDABar3MB+ZB2GscRXvYWj
- uGfBQxd16gKYZsr99ukT4l59Uj7EIERcjmyRyhI5A/O5RWJ8b9leXlpzwjjCmXoZ1v9CFk8591g
- 7+Ms9RwR3SwPBTLMXushiu72eAT1lH+hAiYrarWQHf2XcJHkZSnf3lzCK3k6rfbO9n9Sqa/BXkK
- rGbJKNg5BMx/+5sEIQMZlyskUCw0D1NBMU50b1jvolLMRjFtnNBgkuRMOXlId8ELDKczizSO9Hb
- MophUmKRqh0QII6J2FQKqn91e5kZEUpFsMke4PBcS+kWRvxejFfcVAPuio0Do/vTFBNeksGoW79
- Lk48Vsyw99Z0pvTMQMw==
-X-Proofpoint-ORIG-GUID: 8_KIxvJ0Xh6Md9vvXsM8iI1MtB2e0u6D
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA3MSBTYWx0ZWRfX7llY4wR9jH14
- s1jlQ7kO+TqzFeq9qvEhfxgQPNTEGvLAu1fEKoS3CUPDpmCsPRYLqHH395o/SyP7EtVq4t1zCq9
- NCF7AVmOZvSITRSOrwR9LWRwZ1KYyco=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_04,2026-09-21_02,2025-10-01_01
 
-On Tue, Sep 22, 2026 at 07:57:47PM -0300, Jason Gunthorpe wrote:
-> On Tue, Sep 22, 2026 at 03:31:07PM -0700, Alex Mastro wrote:
-> 
-> > So I empathize with Matt's contention that the _existing_ behavior that the
-> > priv->revoked flag represents is actually "temporarily revoked": the importer
-> > can use the same dma-buf again, later, without having to re-import
-> > it!
-> 
-> mlx5 isn't a revoking importer, it is move capable. So the above
-> sequence isn't a revoke, it is a move with an unmapped placement for a
-> while.
 
-Ok, this is the key point I was missing, thank you.
+--=-ufgeUgCb5bgTB+Z5csz7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> This is why "temporarily revoked" is a confusing phrase.
-> 
-> The API is such that move and revoke importers can co-exist like this
-> but they experiance a different version of things..
-> 
-> We probably should not have made it have this move compatible
-> restoration and had things more consistent. User space can't know if
-> the importer is move capable or not so it has to assume revoke and it
-> has to go and unmap things before resetting/etc.
+Hi Conor,
 
-This feels related to "vfio/pci: Handle PCI error recovery and report state to
-userspace" [1]. I guess in the QEMU case, the only importer of vfio dma-buf is
-iommufd, which makes the move-capable importer concerns moot there. Is there a
-plan to have QEMU re-import these dma-buf into iommufd as part of some recovery
-flow? (yes, we can probably move this discussion to that thread).
+Le jeudi 24 septembre 2026 =C3=A0 17:55 +0100, Conor Dooley a =C3=A9crit=C2=
+=A0:
+> On Thu, Sep 24, 2026 at 03:04:52PM +0200, Benjamin Gaignard wrote:
+> > nxp,imx8mq-vpu has been tagged has deprecated since a while.
+> > After driver clean up it is time to remove it.
+>=20
+> No users in linux doesn't mean no users, but I am guessing that there's
+> genuinely no users elsewhere and anyone using out of tree devicetrees
+> should have updated due to the warning at runtime?
 
-But outside that, I cannot imagine that we'd want move-capable importers to
-resume using these dma-buf after events userspace didn't initiate, such as AER
-recovery. Userspace doesn't get the chance to intervene before a reset in that
-case.
+I've checked the vendor DT before they moved to the mainline driver, and th=
+ey
+never used this binding (actually they never made bindings).=20
+Here's what the DT was:
 
-[1] https://lore.kernel.org/all/20260901093217.8539-1-skolothumtho@nvidia.com/
+		vpu: vpu@38300000 {
+			compatible =3D "nxp,imx8mq-hantro";
+			reg =3D <0x38300000 0x200000>;
+			reg-names =3D "regs_hantro";
+			interrupts =3D <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 8 IRQ_TYPE_LEVE=
+L_HIGH>;
+			interrupt-names =3D "irq_hantro_g1", "irq_hantro_g2";
+			clocks =3D <&clk IMX8MQ_CLK_VPU_G1_ROOT>, <&clk IMX8MQ_CLK_VPU_G2_ROOT>,=
+ <&clk IMX8MQ_CLK_VPU_DEC_ROOT>;
+			clock-names =3D "clk_hantro_g1", "clk_hantro_g2", "clk_hantro_bus";
+			assigned-clocks =3D <&clk IMX8MQ_CLK_VPU_G1>, <&clk IMX8MQ_CLK_VPU_G2>, =
+<&clk IMX8MQ_CLK_VPU_BUS>;
+			assigned-clock-parents =3D <&clk IMX8MQ_VPU_PLL_OUT>, <&clk IMX8MQ_VPU_P=
+LL_OUT>, <&clk IMX8MQ_SYS1_PLL_800M>;
+			assigned-clock-rates =3D <600000000>, <600000000>, <800000000>;
+			power-domains =3D <&pgc_vpu>;
+			status =3D "disabled";
+		};
 
-Alex
+I've not aware of any other OS or booloader that offers media capabilities =
+using
+Linux mainline DT. The now deprecated nxp,imx8mq-vpu compatible had a short=
+ live
+in the Linux tree if my memory is correct. Hope this is enough justificatio=
+n.
+
+regards,
+Nicolas
+
+>=20
+> >=20
+> > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> > ---
+> >  .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
+> >  1 file changed, 4 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yam=
+l b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> > index 19528262810a..69619d2c86fa 100644
+> > --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> > +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> > @@ -14,12 +14,10 @@ description:
+> > =20
+> >  properties:
+> >    compatible:
+> > -    oneOf:
+> > -      - const: nxp,imx8mq-vpu
+> > -        deprecated: true
+> > -      - const: nxp,imx8mq-vpu-g1
+> > -      - const: nxp,imx8mq-vpu-g2
+> > -      - const: nxp,imx8mm-vpu-g1
+> > +    enum:
+> > +      - nxp,imx8mq-vpu-g1
+> > +      - nxp,imx8mq-vpu-g2
+> > +      - nxp,imx8mm-vpu-g1
+> > =20
+> >    reg:
+> >      maxItems: 1
+> > --=20
+> > 2.53.0
+> >=20
+
+--=-ufgeUgCb5bgTB+Z5csz7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarVjEQAKCRDZQZRRKWBy
+9C4tAQD1qA+Ux1mXqgQgjzQg11/HgxYGtNNRdQM1ljOMoDXTQgD+IP4kVkw14aJT
+a6/hPh+9+Z/YwRaFTKestaGBrvZAkgI=
+=UaxT
+-----END PGP SIGNATURE-----
+
+--=-ufgeUgCb5bgTB+Z5csz7--
