@@ -1,217 +1,138 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43508418355
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 10:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E82443E2F;
+	Thu, 24 Sep 2026 10:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790246206; cv=none; b=jc/B8OhMFilYinAhSZsBkrNIG8J7I5JNVg2v+2FKEYAWjyG8KhVbXKFMgxxjETpvQaG8u+WaanhZpZuMtGw0Ykr/VtXqqh6Cn8ycqPnF/bTcW2hO4Doc8Rzms10VXxvrEVtFz+MCHk0V3SnC/SFmm+ZaZqKpGwF1awEg5SWA83A=
+	t=1790246809; cv=none; b=uvO19ZBrMaj4GSdgKLJTR5ISPxuyV4fejz7iI1xO3OfRoELyBnwEXBvmXAYFneJchCjgMti2Qxm8NUs8pJ7mLBj2AhTlulH0IJXlBfm3sUdEYbNN3z2IfbRGLRXBCbZvTLmBnnWJmzPApWzC/wG8TraqBdo2eJYYRoxXCGZh44c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790246206; c=relaxed/simple;
-	bh=sIaQCM/zVQP8UahTCWbTCOaVnjUb1AGHtQ8usqmu1Ho=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jKnM2uZlIyN6hwZMz6okFxqiCdd0WTBtTAnHGy7YIjZ2ETtck+JrRrZwajTLFNvaqrmm6Giid5Oay9j8547+QPBUG3SFZmvgGsTtFhARUBX9362ojRwo1uEOk2n7ir4FH9L5CHuIOJvtHWUK+lNdKVUQge03ULG1oHic8LEW3dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie; spf=pass smtp.mailfrom=nxsw.ie; dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b=PPSFoIhA; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
+	s=arc-20240116; t=1790246809; c=relaxed/simple;
+	bh=eaWL2h8Hpmi30o6OOQtUlx/jxVxVoJEHENQby8iP7PE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h8OlVEBXckbeFzWjJ4dfYn5QGG1xC1348pJ8MIg8fcUbYjgQKdCwzIGrQHs04Vqoye6PjA+jdOZD8GFn/b6EszIwtl6cM85r9ZMC2uBnqvm6W7nGuAamp4Tuv4BlzzGydDXsuZb8XwoFZYo25i5no6XHC7+AeE2PblrOYzYlipI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F5iVS+Ma; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b="PPSFoIhA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
-	s=protonmail2; t=1790246194; x=1790505394;
-	bh=F/ZACrV0aO4tIi1yz6r8avu0F7Wz4cAKOEl6OlC0s8M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=PPSFoIhAHCReWnNEt/yAkqwhMU4gOeJGrRwd/T5v1b/abU2dTq79+izGTsXdrVqxF
-	 LHxR8f7LDAVZh5X07ZY2qrfmQA7LTN4ufjJFpWVg+RRWKpxpMrBM9OdujSDzTIuUFg
-	 bQNOX4PmLowms8RYAMU+B37XZL8aKeRfi4aJ5lfpXwIZpo1bEEOyNud+UOzIrh0N7G
-	 SOwL98xWljNdYX/R1oIVj05NIBoA/DuqwKDAWCjaPLwcEWqYMZKufQAsdsaoxEVxd/
-	 5ysghwseELMjho+iQA8F5uhHm2ZbIot/05lXqS3N0UQBUhFv0Zxi+ag8KTt/0M6k5d
-	 78eqpEcda6SJA==
-Date: Thu, 24 Sep 2026 10:36:28 +0000
-To: Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Bryan O'Donoghue <bod.linux@nxsw.ie>
-Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org, Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>
-Subject: Re: [RFC PATCH v1 2/2] drm/msm: reject dma-buf imports without struct page info
-Message-ID: <bfd744b0-c51a-4b9a-9f30-0d5aa9c79512@nxsw.ie>
-In-Reply-To: <20260923074256.9357-3-liujianfeng1994@gmail.com>
-References: <20260923074256.9357-1-liujianfeng1994@gmail.com> <20260923074256.9357-3-liujianfeng1994@gmail.com>
-Feedback-ID: 136405006:user:proton
-X-Pm-Message-ID: 43bcfb19f2be4ecc4f397510c6eb20c44cd61e73
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F5iVS+Ma"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790246807; x=1821782807;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eaWL2h8Hpmi30o6OOQtUlx/jxVxVoJEHENQby8iP7PE=;
+  b=F5iVS+MasSoTZ6ibuiMrxUoImNR6NBxgqEAKhbyTxinrOawEu2ZEPQvD
+   qYXh7ECywA17OYfjoJjC+KNDY9zgBFAXClqGLb1O/nETfEL+xUNhlQYjg
+   CebRL0wPBq4DjPtAgI4ZMdOFIH6vzA9eM5P7zYay1You0zYlWORjaJF/D
+   9gcgBNVEDZtaUgdOYfwuWgZFigsLOivxlrRP0gvdlYtzsnwSkcuBArFxq
+   mETHjA03uFhBEqITY/ahVogz9TQSQB2pgjdAzgfa1u1UPLStUpfXPxQCA
+   ys7dHm+oiR8kTdoZKJGYtoArblFzLml2oTIQuF0K4AChn1muV7pi9nu4z
+   A==;
+X-CSE-ConnectionGUID: AVbiwCT2QlqTKqo+otU8hA==
+X-CSE-MsgGUID: FMgvTI/sSu2Su8NvttWO4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="78566118"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="78566118"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 03:46:46 -0700
+X-CSE-ConnectionGUID: feHLpaJxTX6z44I2xgF1CA==
+X-CSE-MsgGUID: X2M2W33FQICBHhwctdspWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="282081457"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.155])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 03:46:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 7C28E11F9B7;
+	Thu, 24 Sep 2026 13:46:44 +0300 (EEST)
+Date: Thu, 24 Sep 2026 13:46:44 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Felipe Calliari <calliarifelipe@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	"Sapre, Sarang" <sarang.sapre@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tomas Moro <tmorolias@gmail.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: ipu6: Only call the isys and psys ISRs for
+ their own interrupts
+Message-ID: <arT_lPROASv1Ps8l@kekkonen.localdomain>
+References: <20260923234224.325504-1-calliarifelipe@gmail.com>
+ <20260923234224.325504-3-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923234224.325504-3-calliarifelipe@gmail.com>
 
-On 23/09/2026 08:42, Jianfeng Liu wrote:
-> msm_gem_import() fills the GEM object's page array with the deprecated
-> drm_prime_sg_to_page_array() and stores the attachment sg_table for
-> later mapping into the GPU's own pagetables via iommu_map_sgtable().
-> Both need the struct page of the sg_table:
->=20
->   - iommu_map_sg() maps sg_phys() of each entry, and
->   - drm_prime_sg_to_page_array() iterates with for_each_sgtable_page,
->     which walks sg->length.
->=20
-> When CONFIG_DMABUF_DEBUG=3Dy, dma_buf_map_attachment() hands importers
-> a copy of the sg_table with the page pointers stripped and sg->length
-> zeroed.  In that case drm_prime_sg_to_page_array() "succeeds" while
-> filling zero entries, leaving msm_obj->pages uninitialized garbage
-> (kvmalloc_objs() does not zero).  The buffer is imported anyway, and
-> the first VM_BIND map of it fails asynchronously in the scheduler job
-> run - after userspace has already enqueued GPU work referencing the
-> mapping.  Userspace then observes arm-smmu translation faults from
-> UCHE, e.g. hardware video decode in clapper/chromium:
->=20
->    gpu fault: ttbr0=3D000000088a889000 iova=3D000000010741c000 dir=3DREAD
->    type=3DTRANSLATION source=3DUCHE
->=20
-> Replace the deprecated helper with an explicit loop so that a missing
-> or short page list is detected at import time and rejected with
-> -EINVAL.  This turns the silent memory corruption into a clean import
-> error, letting userspace fall back instead of crashing the GPU.
->=20
-> Note that msm fundamentally cannot map a page-less sg_table into its
-> per-process GPU pagetables (it needs the physical addresses), so
-> imports of such buffers can never work until msm is converted to
-> build its GPU mappings from the attachment's DMA addresses.
->=20
-> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
->=20
+Hi Felipe,
+
+Thanks for the patch.
+
+On Wed, Sep 23, 2026 at 08:42:24PM -0300, Felipe Calliari wrote:
+> ipu6_buttress_isr() calls the isys and psys ISRs on every buttress
+> interrupt, and only afterwards checks whether the interrupt was theirs.
+> So each isys interrupt also runs the psys ISR, and each psys interrupt
+> runs the isys ISR, only to have the result discarded.
+> 
+> Beyond the wasted work, this makes an interrupt for one device
+> dereference the other device's hooks. After intel_ipu6_psys is unloaded,
+> its adev->auxdrv_data still points into the unloaded module, and every
+> isys interrupt, e.g. on the next stream, calls through it. This matches
+> a hard lockup without a trace reported on the first stream after
+> unloading the psys driver. On a Samsung Galaxy Book3 Ultra,
+> instrumenting the ISR showed that a 60-frame capture after
+> "rmmod intel_ipu6_psys" would have made at least ten calls through the
+> stale psys hooks. The same capture made none with this change, and
+> captured all 60 frames.
+
+The problem here is a dangling pointer. Can you also post a patch to set
+that drvdata to NULL?
+
+The above paragraph isn't relevant in the context of this patch.
+
+> 
+> Check the interrupt status bit before calling the ISR.
+> 
+> Reported-by: Mars-Wave <tmorolias@gmail.com>
+> Closes: https://lore.kernel.org/linux-media/20260922063507.690-1-tmorolias@gmail.com/
+> Fixes: ab29a2478e70 ("media: intel/ipu6: add IPU6 buttress interface driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 > ---
->=20
->   drivers/gpu/drm/msm/msm_gem.c | 31 ++++++++++++++++++++++++++++---
->   1 file changed, 28 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.=
-c
-> index c4cff3d53d81b..0d5a91181d05b 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -1307,7 +1307,8 @@ struct drm_gem_object *msm_gem_import(struct drm_de=
-vice *dev,
->   =09struct msm_gem_object *msm_obj;
->   =09struct drm_gem_object *obj;
->   =09struct dma_buf *dmabuf =3D attach->dmabuf;
-> -=09size_t size, npages;
-> +=09struct sg_page_iter piter;
-> +=09size_t size, npages, filled =3D 0;
->   =09int ret;
->=20
->   =09size =3D PAGE_ALIGN(dmabuf->size);
-> @@ -1333,8 +1334,32 @@ struct drm_gem_object *msm_gem_import(struct drm_d=
-evice *dev,
->   =09=09goto fail;
->   =09}
->=20
-> -=09ret =3D drm_prime_sg_to_page_array(sgt, msm_obj->pages, npages);
-> -=09if (ret) {
-> +=09/*
-> +=09 * Fill the page array ourselves instead of using the deprecated
-> +=09 * drm_prime_sg_to_page_array(), so that we can detect sg_tables
-> +=09 * that carry no struct page at all.  Those must be rejected:
-> +=09 * msm maps imported buffers into the GPU's own pagetables with
-> +=09 * iommu_map_sgtable(), which needs the physical pages, so an
-> +=09 * import without page information could never be mapped.  The
-> +=09 * most prominent case is the page-stripping sg_table wrapper that
-> +=09 * dma_buf_map_attachment() hands out when CONFIG_DMABUF_DEBUG=3Dy.
-> +=09 *
-> +=09 * drm_prime_sg_to_page_array() would "succeed" with zero entries
-> +=09 * filled in that case and leave msm_obj->pages uninitialized,
-> +=09 * which later blows up as arm-smmu translation faults from UCHE.
-> +=09 */
-> +=09for_each_sgtable_page(sgt, &piter, 0) {
-> +=09=09if (WARN_ON(filled >=3D npages)) {
-> +=09=09=09ret =3D -EINVAL;
-> +=09=09=09goto fail;
-> +=09=09}
-> +=09=09msm_obj->pages[filled++] =3D sg_page_iter_page(&piter);
-> +=09}
-> +=09if (filled !=3D npages) {
-> +=09=09DRM_DEV_ERROR(dev->dev,
-> +=09=09=09      "import of dmabuf from '%s' rejected: sg_table has no/mis=
-aligned struct page info\n",
-> +=09=09=09      dmabuf->exp_name ?: "?");
-> +=09=09ret =3D -EINVAL;
->   =09=09goto fail;
->   =09}
->=20
-> --
-> 2.47.3
->=20
->=20
+>  drivers/media/pci/intel/ipu6/ipu6-buttress.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> index 63197f746..74c191d72 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> @@ -369,11 +369,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+>  		writel(irq_status, isp->base + regs->irq_clear);
+>  
+>  		for (i = 0; i < ARRAY_SIZE(adev_irq_mask); i++) {
+> -			irqreturn_t r = ipu6_buttress_call_isr(adev[i]);
+> +			irqreturn_t r;
+>  
+>  			if (!(irq_status & adev_irq_mask[i]))
+>  				continue;
+>  
+> +			r = ipu6_buttress_call_isr(adev[i]);
+> +
 
-This very much looks like an LLM generated patch - the commit log, the=20
-large comment in the code and TBH the solution too.
+No need for this newline.
 
-Why is the fix Adreno specific ?
+>  			if (r == IRQ_WAKE_THREAD) {
+>  				ret = IRQ_WAKE_THREAD;
+>  				disable_irqs |= adev_irq_mask[i];
 
-Shouldn't this function be ammended with
+-- 
+Regards,
 
- > +=09if (filled !=3D npages)
-
-instead ?
-
-/**
-  * drm_prime_sg_to_page_array - convert an sg table into a page array
-  * @sgt: scatter-gather table to convert
-  * @pages: array of page pointers to store the pages in
-  * @max_entries: size of the passed-in array
-  *
-  * Exports an sg table into an array of pages.
-  *
-  * This function is deprecated and strongly discouraged to be used.
-  * The page array is only useful for page faults and those can corrupt=20
-fields
-  * in the struct page if they are not handled by the exporting driver.
-  */
-int __deprecated drm_prime_sg_to_page_array(struct sg_table *sgt,
-                                             struct page **pages,
-                                             int max_entries)
-{
-         struct sg_page_iter page_iter;
-         struct page **p =3D pages;
-
-         for_each_sgtable_page(sgt, &page_iter, 0) {
-                 if (WARN_ON(p - pages >=3D max_entries))
-                         return -1;
-                 *p++ =3D sg_page_iter_page(&page_iter);
-         }
-         return 0;
-}
-EXPORT_SYMBOL(drm_prime_sg_to_page_array);
-
-All the LLM seems to have done here is copy the code out of=20
-drm_prime_sg_to_page_array() and then add a check for filled !=3D npages
-
-But if that is a valid check for Adreno - then it is a valid check for:
-
-  grep drm_prime_sg_to_page_array drivers/* -r
-drivers/gpu/drm/vmwgfx/vmwgfx_blit.c:=09=09ret =3D=20
-drm_prime_sg_to_page_array(src->ttm->sg, src_pages,
-drivers/gpu/drm/vmwgfx/vmwgfx_blit.c:=09=09ret =3D=20
-drm_prime_sg_to_page_array(dst->ttm->sg, dst_pages,
-drivers/gpu/drm/omapdrm/omap_gem.c:=09=09ret =3D=20
-drm_prime_sg_to_page_array(sgt, pages, npages);
-drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c:=09ret =3D=20
-drm_prime_sg_to_page_array(sgt, etnaviv_obj->pages, npages);
-drivers/gpu/drm/drm_prime.c: * drm_prime_sg_to_page_array - convert an=20
-sg table into a page array
-drivers/gpu/drm/drm_prime.c:int __deprecated=20
-drm_prime_sg_to_page_array(struct sg_table *sgt,
-drivers/gpu/drm/drm_prime.c:EXPORT_SYMBOL(drm_prime_sg_to_page_array);
-drivers/gpu/drm/msm/msm_gem.c:=09ret =3D drm_prime_sg_to_page_array(sgt,=20
-msm_obj->pages, npages);
-drivers/gpu/drm/xen/xen_drm_front_gem.c:=09ret =3D=20
-drm_prime_sg_to_page_array(sgt, xen_obj->pages,
-
-and should live in the helper function with an appropriate Fixes: tag=20
-for backporting...
-
----
-bod
-
+Sakari Ailus
