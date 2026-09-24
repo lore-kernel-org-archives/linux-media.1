@@ -1,169 +1,191 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563402673AA;
-	Thu, 24 Sep 2026 13:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258359; cv=none; b=QfysT13vs5PVGfVfGxQ1KUIsvqDNLWMOQ4ktTRGr0EnYun6Rfni0si7QN5N998/KJQbgsxl0Vb6RE3rZAZrZ04l6UQYHIEUK91ilAjHJ9t0ih8FAZvj4xN7q/VeDD9TFN/FYXNDW2szrPuceUYkHHt3oAw12xMu7tqEB5aQ2RyM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258359; c=relaxed/simple;
-	bh=8KMJp4l5scS6ux5Pa9OBYN91E878i428O2BdSDBLFVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GSpcm/yWsbd+e+elUNTJiwTA4m4mfSeMmbPgZccPlOnvHtc9MRlQrnWBS5i8wzkbrBlDbmyhJXddOVCSbtiNW3Vdbwq7z02cM+uxI9QRoq3wEqc7r2XsLtMjpXHqsuK7gp9bWR0luVaMUsjhcplilwfJF2yy3DX+4ZkLarNaho0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lMt+eMLs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED60E37FF40
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790258520; cv=pass; b=BnCK5rL8Cy8saQ3aTwaXYObM8q6sVYHdSR9jGdNsNTWPyiytuRNJHeuRTxAfGv6xtnjlnTgGwa0EUuX4kuA5pFCqaH/0Y6oT49fkxUc9GZirUMsuwCQc7WjiLSxf6Lc+Gk0uEdPoVmKyhIKd0ZGvVPE8R8UoVV0NzSO58NXjai8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790258520; c=relaxed/simple;
+	bh=tdJyJTnBDHp4ZjjlmGWLTbMPtruRmMD9xWxDu8H5VaI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZbJrFB7WGyJT7869bM+0GSdlY0Btoz9+RBwPmJB/NVcckf2rBTcIbrphgc5BEBgdqKoFX5F7sIzHi3I49bFJ1XtwsGVz95IeSPt9Kvw2a/+cRoWQbqR5cNRhA/5MeasaofeC0Z19xb7XHhFUEYDOBZ1VHryPTzvhGoC7JXMhkNI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BlgJG9IT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cqPf2Ee5; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lMt+eMLs"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE6CFC23;
-	Thu, 24 Sep 2026 15:57:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790258247;
-	bh=8KMJp4l5scS6ux5Pa9OBYN91E878i428O2BdSDBLFVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lMt+eMLs1r5yHIJANFw4QjdwgZK1CFv+1yYIrzAAcAu+9sy4ct2q5mY04rWFSODDH
-	 wv9jcKWEoYQpWLqgeidOe3mIZ2CbNqkkp+a7uSR6BZOc+9jYiO/jW6IXxupb9CHIVq
-	 dr6NutuwWyTvNNcu3n6TUg1OrFiMMI9U6/T448I0=
-Date: Thu, 24 Sep 2026 16:59:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hongbing Hu <huhb04@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, kieran.bingham@ideasonboard.com,
-	ribalda@chromium.org, linux-media@vger.kernel.org,
-	linux5-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] media: uvcvideo: defer cancelled buffer completion
- until copies finish
-Message-ID: <20260924135913.GB135998@killaraus.ideasonboard.com>
-References: <20260903131141.6368-1-huhb1@xiaopeng.com>
- <20260917144630.16923-1-huhb04@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BlgJG9IT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cqPf2Ee5"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC4bHV3134162
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:01:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=Y+5dXl8x9fmntpeFxM19iIhvgt0k/LL7dD1+C5hddi8=; b=Bl
+	gJG9ITL1KLa26czRDWH5FL6HTQZiUh4Aayd7GRzDH2YRHWbWFm1y19lHI2EbF023
+	PKSHxZgkQPGZ57OxZ1T2cL7yOcpxC6JnLtFYMvh6/ls22YixeU2YCkFaYt+J7OHt
+	qyhMk+nOQMnDctXoHdlUT62K/omXSESpdyysD7EglnJND1UBo3YfbZ5MJXq5tq/3
+	ec7Q2Q7dP+7rIvVXBFG9wHD6NQnDxGrFfqfPAf9cSzMhPMgAL13rZomlnjTtklEV
+	YlRQXY198PYemdgOzz0CQZyy26LPjGK/RjQfb0wflZ5jYjkB+xdgfRjXyPJLhyio
+	kCBh18+ANf6JOpdp9uvg==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1ragxte-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:01:57 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6bfcf73dcd5so2722898eaf.0
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 07:01:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790258517; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XJjjcgz/VEKy2KQBBuO2BzCVgiABNAbQqPMy2c1CMRgs7loX+FqVZTSFgHLzKP5BUM
+         eKi5vtR3b3GuP/vwnTAGAAzrNaQSKuiXeFulQQ9Y5cDPjsEKeg+2+COzBDd1UFGETKqH
+         DSNH7ci8jMDgbWl6QGai0MqsC3TDbaAjm1y0zo65LLdFc+ZI8pvHkFA2YAf580Vd6f6a
+         kKGDEuDW4cITLgmALh110ZquiVF0fVRVfCATXIMKGyuAhzQ1vgGWxXIITKooPP+bCscS
+         Y0EIJXC5OOGss3XPRagitXbYTmbp1zFjtQdHaSFQ39TT2pXDKWleT46zIgFMrUokD+nm
+         VtXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=Y+5dXl8x9fmntpeFxM19iIhvgt0k/LL7dD1+C5hddi8=;
+        fh=H4s8/ypVQyinMO991crn/hiwBiGFC4c6GxAOrlowmVM=;
+        b=d6s+chwOkRj+L0tTO7rtd8UGGijkdn0abxzhLmDocAUZUdaO8PcGPbVptIUeaqn37k
+         SKNGc+fRGAkL1wEWiPc7GOKsjfZesEStR0ript2tem6YceQSQ892/MZSVp4+BA89CWpt
+         A4pzEt/8+X20PrU2TcW4hsFPDDZRv07HWaYoA5dV7G+kUEcc5nPsjhvgEJOXLn2Uflop
+         xV5Xekwk0CNhicAs/37QZES4K5PbzvbF5ATpgRW28GLHIpaXzxumE4L+a43o8jqayapQ
+         bk98Px6ynqnzaDuDYIcXJol9TI0FXn/vD76WD+dJUykGTEnhUQII6uW8xeAWxLEElRYa
+         AAKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790258517; x=1790863317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y+5dXl8x9fmntpeFxM19iIhvgt0k/LL7dD1+C5hddi8=;
+        b=cqPf2Ee5+CLD9+TxVVClg7Awkyd4kUp2oDi49jWs86Xq2JV3U4qKjTmbIwovazPs1t
+         2OfNaAP0pD0dwTmfoSu879bXaT97NQspOBKilL1BCVsPO5zIe8Oa4+ERuH8ONxFHxDwv
+         OUcPBoi+vgLkbD5I16Bgpx6Ky54HsndDZJ1lmKX+MiRtCBobhzKHQhZf+3RDCpAx5DP+
+         fjflEtFC35Cjk2iHt3ijqsWMHnPOpVqnIvYtRtLb30HAXMK/nTgyF/Em4cpf0TTci+zJ
+         /D2qDXJBX9pJ4q+vJgWv1iCwRq/1GilMyRp/vkp4onNGfehEpvC/0rvZqYYf1UJLvKiN
+         HjJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258517; x=1790863317;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y+5dXl8x9fmntpeFxM19iIhvgt0k/LL7dD1+C5hddi8=;
+        b=NXiH+aPPc1Q6heg01igsVOnV1NnBiShHy9dPe+P6EPMpvShsZze1gKM+WK1tG6SW45
+         x0oOU7Qj3gN6RQflst9yhz08Y9LWjnOeZbarqrRltm5CG5P0FCQQ7kWUljQKF6EfpBIK
+         Pcz+rXT11dEofBM12aD45sxF5xpdDM1plpeFXjgOWudgXSWGdL1ERp+XAesJC5AoSZOZ
+         X1qFWaKCN1UEMGyDcAjfNUaYrDHiIExcaskv92wc7N326rZiboPT4j1UZSULLmgdJ+qt
+         3ExhJlXQXRmiuKR+yzG4O3610vrQBLPIZMFAd19U1djpAGZq7Te+fNDfz4PNJbApzvW3
+         b2SA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5qKSUPf8r3N15Q7XJmiWQD0a1CJrrf+6wn2ufrJraIYxP2+z8xiVWk7D64gs8QWIl7ydvQRMVzPBYMw==@vger.kernel.org
+X-Gm-Message-State: AFuF++mTdxwfQ5itQhRKZjdoJ1NQRKcuoCv6uvOgYkaKcKTKEEIMJt4C
+	U4VXjh9/F0nXNTJouSEe6gOhu55DfLfXc9f9oUu+1eVY1zbZAU9ssrnghAMr48VRDCLeDQ0OTTe
+	ft8Jyn828uNQtx42h4pygolxedf3t1BPTLZNO2fD6X9Wfah4OYzzklA1iMlNIgTyoQ4H9aZ/JuP
+	Gyox7+6O0mJOBPKLc8FYDqojKuTar69ne4vxpWjy/O
+X-Gm-Gg: AYBFou3rRJHhCSNtpr0K/zvwtvUyM1PbecdCVVMnnXZKB/ToGl4A28zIhLlRok8GUka
+	Mabiw4B9aNpJFzRgTf+73lrYXFOpIxJiJ0ir8O10yQS7fzT8LRZwI5wB6IsadqwB9NE3SIwlOnn
+	uZaaJ4DFJ2QRjk5Nb9e9/Y4MN48PbgG7ly1tdGO1fHjVfY3hYQviROicdc
+X-Received: by 2002:a05:6820:180a:b0:6cd:3fec:de81 with SMTP id 006d021491bc7-6d441e6d077mr2471542eaf.87.1790258516928;
+        Thu, 24 Sep 2026 07:01:56 -0700 (PDT)
+X-Received: by 2002:a05:6820:180a:b0:6cd:3fec:de81 with SMTP id
+ 006d021491bc7-6d441e6d077mr2471495eaf.87.1790258516334; Thu, 24 Sep 2026
+ 07:01:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917144630.16923-1-huhb04@gmail.com>
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
+ <20260923074256.9357-2-liujianfeng1994@gmail.com> <fe3a4297-f300-451d-9763-0b3016706111@amd.com>
+In-Reply-To: <fe3a4297-f300-451d-9763-0b3016706111@amd.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 07:01:44 -0700
+X-Gm-Features: AclHuK8PCKMtH5RJ_KGTSVVtHj2pbRynhRsLbl6BgMXL5O4KYIi_8g5-kxz9ApI
+Message-ID: <CACSVV01NZROH9U5Qjd1TSDu+BPyyPLC9pFByqSfrxXrPJV+wZQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+        Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
+        freedreno@lists.freedesktop.org,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Karl Mehltretter <kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NyBTYWx0ZWRfX8nLNiF4KZOjR
+ zBxgGoRS5Y4CklVuGnU3P1KtDz5cHtjQ+0N2bhzgQo/Hpii9xumUtXCHJkmf4I3+lxOrEsPzYQF
+ LzDipcKOja/XcrCcKkaUoM7+UzNaBHqDb4xhfWD4Ok06jtjOF7pX+UfhdQFwwZo1WX3Z8/eQCVZ
+ n7JF3FwOOOMWyQ/0BD0GGuyVAvrjtmW8TCAzuFlLofWuwn6EMLvHcuDzAXsKKjIHlZ456taN9TH
+ MZ5yqD+2MmCFjfb9gNXKQWTJWpJirC1QN3xSUVsfMHros7LMlgljA2JD0bqT1+HCdtXZ4knFuZL
+ tZafREj4hxmaSO238ZscdvIb/ABDFSIBPlK+SUEvo5L2/Fxntq1J+BEHTEF8aHe0AiTsIrR2LCD
+ brfr9qLEr/IvULS497l/GhndSIPnqaHSROwY6C5MapzuTmHgy8sWYj1HNOgd+d8WGVT1gJj7y1f
+ 3tTjSX0iFfBk43ywjdQ==
+X-Proofpoint-ORIG-GUID: 277SLPcHwS63PtfbK0AS0oI9DZTtkvlU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NyBTYWx0ZWRfX0qscwrmUh4wJ
+ DKwS8i/ygeSwVhfrUNvXo/TTXoxexO+E8wgj7D/I7uM0H/J/GRxmUPmBvCAOrUyh1n26UbSivma
+ 0ZauM/ZEwYAPg5Uj3/BwY8f+e0hom5E=
+X-Authority-Analysis: v=2.4 cv=fvpJ914f c=1 sm=1 tr=0 ts=6ab52d56 cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=_EeEMxcBAAAA:8 a=zd2uoN0lAAAA:8 a=pGLkceISAAAA:8
+ a=KFY_g6KMpv9GzmgDfC4A:9 a=QEXdDO2ut3YA:10 a=ejeoeQMvoq0A:10
+ a=czjwGCTIUPoA:10 a=rBiNkAWo9uy_4UTK5NWh:22
+X-Proofpoint-GUID: 277SLPcHwS63PtfbK0AS0oI9DZTtkvlU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ adultscore=0 spamscore=0 malwarescore=0 clxscore=1015 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240057
 
-On Thu, Sep 17, 2026 at 10:46:30PM +0800, Hongbing Hu wrote:
-> uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-> vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-> still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-> run, userspace can dequeue and requeue the buffer while the old worker is
-> still running, leading to the same list_head being inserted into irqqueue
-> twice and corrupting the list.
-> 
-> The crash manifests in two ways depending on the drop-corrupted-frames
-> module parameter:
-> 
-> 1. With the default (drop corrupted frames enabled), the old worker's
->    final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
+On Wed, Sep 23, 2026 at 1:03=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 9/23/26 09:42, Jianfeng Liu wrote:
+> > [Sie erhalten nicht h=C3=A4ufig E-Mails von liujianfeng1994@gmail.com. =
+Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka=
+.ms/LearnAboutSenderIdentification ]
+> >
+> > Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+> > DEBUG_KERNEL kernels") fixed a dangling reference in the DMABUF_DEBUG
+> > default, which had the side effect of enabling the option (and with it
+> > the page-stripping sg_table wrapper handed to importers) on every
+> > kernel with DEBUG_KERNEL=3Dy - i.e. virtually every distro kernel.
+> >
+> > drm/msm is broken by this: it maps imported dma-bufs into the GPU's
+> > own pagetables with iommu_map_sgtable(), which needs the struct page
+> > of the attachment sg_table, and it fills the GEM object's page array
+> > through drm_prime_sg_to_page_array().  With the debug wrapper in
+> > place both silently produce garbage (the wrapper zeroes sg->length,
+>
+> Interesting point, we should probably change that.
 
-What sets buf->error in that case ?
+So the assessment of what is going wrong looks pretty wrong..  VM_BIND
+should never lead to iommu_map_sgtable() (which is never used for gpu
+per-process pgtables), for example.. but is used for mapping for
+scanout.  And pages are never used for mapping in either path.
 
->    and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
->    buf->queue even though userspace has already QBUF'd the same buffer and
->    added it to irqqueue.
-> 
-> 2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
->    second time. If userspace has already dequeued and requeued the buffer,
->    the second completion exposes it to userspace again, and the next
->    DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
->    time.
-> 
-> Both cases produce the kind of list_del corruption seen here:
-> 
->     list_del corruption. next->prev should be ..., but was ...
->     kernel BUG at lib/list_debug.c:64!
-> 
-> Fix the cancel path to remove buffers from irqqueue and drop the queue's
-> reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-> VB2 completion then only happens from uvc_queue_buffer_complete() once the
-> last async reference is released, so userspace cannot reuse the buffer
-> while an old worker still accesses it.
-> 
-> Introduce a dedicated bool cancelled flag in struct uvc_buffer,this keeps
-> the cancellation semantics explicit regardless of any later state updates
-> from the packet decoder.
-> Cancelled buffers are forced to complete as errors; normal malformed frames
-> continue to be requeued or dropped as before.
-> 
-> Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongbing Hu <huhb04@gmail.com>
-> ---
-> v3:
-> - invoke uvc_queue_buffer_release() while holding the spinlock to keep it simple
-> - Set/clear the new cancelled flag in uvc_queue_cancel() and
->   uvc_buffer_prepare() instead of overloading buf->state. 
-> - Force cancelled buffers to complete as errors,
->   so the returned buff->state is UVC_BUF_STATE_ERROR.
-> 
->  drivers/media/usb/uvc/uvc_queue.c | 17 +++++++++++++++--
->  drivers/media/usb/uvc/uvcvideo.h  |  1 +
->  2 files changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-> index 3c002c8f44..1026d7def3 100644
-> --- a/drivers/media/usb/uvc/uvc_queue.c
-> +++ b/drivers/media/usb/uvc/uvc_queue.c
-> @@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
->  
->  	buf->state = UVC_BUF_STATE_QUEUED;
->  	buf->error = 0;
-> +	buf->cancelled = false;
->  	buf->mem = vb2_plane_vaddr(vb, 0);
->  	buf->length = vb2_plane_size(vb, 0);
->  	if (vb->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
-> @@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
->   */
->  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
->  {
-> +	struct uvc_buffer *buf;
->  	unsigned long flags;
->  
->  	spin_lock_irqsave(&queue->irqlock, flags);
-> -	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-> +	while (!list_empty(&queue->irqqueue)) {
-> +		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-> +		list_del(&buf->queue);
-> +		buf->error = 1;
-> +		buf->cancelled = true;
-> +		uvc_queue_buffer_release(buf);
-> +	}
->  	/*
->  	 * This must be protected by the irqlock spinlock to avoid race
->  	 * conditions between uvc_buffer_queue and the disconnection event that
-> @@ -356,7 +364,12 @@ static void uvc_queue_buffer_complete(struct kref *ref)
->  	struct vb2_buffer *vb = &buf->buf.vb2_buf;
->  	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
->  
-> -	if (buf->error && !uvc_no_drop_param) {
-> +	/*
-> +	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-> +	 * errors. They must not be requeued by the corrupted-frame policy even
-> +	 * when buf->error is set.
-> +	 */
-> +	if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
->  		uvc_queue_buffer_requeue(queue, buf);
->  		return;
->  	}
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4a22..1b611715fa 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -317,6 +317,7 @@ struct uvc_buffer {
->  
->  	enum uvc_buffer_state state;
->  	unsigned int error;
-> +	bool cancelled;
->  
->  	void *mem;
->  	unsigned int length;
+However there are a few places where sg->length is used (in iommu code
+and msm).. AFAICT dma_buf_wrap_sg_table() zeroing out sg->length is
+what the actual problem here is, rather than any use of struct page.
 
--- 
-Regards,
+(And yeah, I should get rid of use of drm_prime_sg_to_page_array()..
+but that cleanup that I haven't found time for shouldn't be the
+problem here.)
 
-Laurent Pinchart
+BR,
+-R
