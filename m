@@ -1,101 +1,99 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57AB01386C9;
-	Thu, 24 Sep 2026 08:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53B61FC0;
+	Thu, 24 Sep 2026 09:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238321; cv=none; b=IWPFN5tA4qg+DBiUghQ6SVhQxIcdIlIvGc50tOzNyqBah0kY0VO47xBXGNjA61IlFJ7g3i1+iPcZ7KFt9aygAALxoyy3x4JJAobwzMHLpKSDWTckCPbeMGSeDiZGb7eCb2fAPeWTLvLu218ebfUVo8jWsUlZYI0otYsRZISisKI=
+	t=1790241381; cv=none; b=g5gL4SjwQ4MdaEzg4Gy7hphFSeYOiKURj58+myrZogTux/KbN/aUXa5i0vPRSZiZIjNsgqHJVOWfwDWPQU44UKUIYwDez6vVSKB4eQ/d/eq+rgtYZgY5Kz8psPlgk4pjjB0i3rzAbJ3p6TsFYJgVaJR8kTcw75b1p3jCLafR1yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238321; c=relaxed/simple;
-	bh=JHdQhmT1l6sixRFZxBZewAAo4nmvaPftOIPTX/2GUtk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PvaNZU+YxYRY+qWFcXzcdKZdFl75klICpn+nOdBalt2ghy3ibQicYakxObjCYiBZegVnlfeSY20zv54V/vTfTyk8kA36V4k4WKAqAe4WtWcnrGltEmquNrrW5GWE/Cz5hRoTPHA6k8RCYFY9P79lMh5dqmIIlORZpp75pTPu/Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=e4unAcEB; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1790241381; c=relaxed/simple;
+	bh=mxDJacuipcRiB7b2yV1gYeeEIRh0C90gctrM/wdJWZ0=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=ukkLNL4Tv+cWOXGvAydH3r1nmD0ghz2/hvLq10z5ymJpqj+IwDbpokVyvtSnlXI29mf+kIel7ga5BJommnDw4qaBCxbHMptLq6MsP9a7TBBKEWOG8FWVkVpyb7zQgRw9gm6kA10QfNs9J+cY/88W9d11IlSVCnIpRBk3vqH4z30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JVNLgL24; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="e4unAcEB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1790238316; bh=JHdQhmT1l6sixRFZxBZewAAo4nmvaPftOIPTX/2GUtk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=e4unAcEBEFUB/Rfln7h8wodxevq0fK+R4aRz2sp389m804OFmsMO4nRiBJ6UO5SrJ
-	 jEv0sIXClmKP8CBfAM0/xHdfJHd+x/APcZHkloiWnkT402gXzZYxeAS4qaFDxdCfOf
-	 /wL5Bc0uzoKrdvtKINl9bLg0zqAY0kcyL73gqfvSLGqGoSrRhTGXdadGRsgEltbDDm
-	 pR8LEY5doyXf2q5pA+OsJ/T56qRzZyTy1d+b+HGKWZCAWK5y/vXyDYYYMF7T8Bg7PE
-	 ZfnvNFbMbmqETSrBr5m7+bcdI4eWTrUbiukKh7d8QNexB+skMniZtJ5bpDCSGy3M+K
-	 8ss/upS0COZ4Q==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id CB31340B86; Thu, 24 Sep 2026 09:25:16 +0100 (BST)
-Date: Thu, 24 Sep 2026 09:25:16 +0100
-From: Sean Young <sean@mess.org>
-To: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: mchehab@kernel.org, oneukum@suse.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] media: rc: igorplugusb: quiesce callbacks before
- unregister
-Message-ID: <arTebGLt_KKQiiud@extorris.mess.org>
-References: <20260924025351.122-1-25031212351@stu.xidian.edu.cn>
- <20260924025351.122-2-25031212351@stu.xidian.edu.cn>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JVNLgL24"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:b6d6:9a4a:6c9b:2322])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 1976AC23;
+	Thu, 24 Sep 2026 11:14:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790241269;
+	bh=mxDJacuipcRiB7b2yV1gYeeEIRh0C90gctrM/wdJWZ0=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=JVNLgL24Phmm4TXO/Yx/6FgzOsmLX4iLoW5gt7CDyCPOceJEJjcwQG3wA/P13O6nJ
+	 B7e+GA0e0gnSOh0gigY97UqHkWaQv2WLO3s6bWfHUxT/3MdiWbIc2QL0/x7fNTxWoS
+	 YmgKiandddEjs4mD/BI47VsI/MEu7ivy4VSTATq4=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924025351.122-2-25031212351@stu.xidian.edu.cn>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260919175851.GI1124359@killaraus.ideasonboard.com>
+References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com> <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-8-dbe9236bfd22@ideasonboard.com> <20260919175851.GI1124359@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v2 08/11] media: vsp1: Document X5H SoC ID
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Paul Elder <paul.elder+renesas@ideasonboard.com>
+Date: Thu, 24 Sep 2026 18:16:10 +0900
+Message-ID: <179024137074.2882041.17628313046085880585@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-On Thu, Sep 24, 2026 at 10:53:51AM +0800, Yuanzhe Liu wrote:
-> igorplugusb_disconnect() unregisters the rc device before poisoning its
-> URB. rc_unregister_device() stops the raw-IR kthread, but a completion
-> callback that is already running can still call ir_raw_event_handle().
-> This makes wake_up_process() dereference the kthread's freed task_struct
-> and triggers a KASAN use-after-free in try_to_wake_up().
+Quoting Laurent Pinchart (2026-09-20 02:58:51)
+> On Sat, Sep 19, 2026 at 02:07:05AM +0900, Paul Elder wrote:
+> > From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> >=20
+> > The R-Car X5H uses 0x09 as the SoC ID in the version register. Document
+> > is with a macro, as done for other R-Car SoCs.
+> >=20
+> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.=
+com>
+> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> > ---
+> > Changes in v2:
+> > - Fix the version register number: s/0x04/0x09/
+>=20
+> Thanks for the fix.
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>=20
+> But I think we can squash this with patch 09/11.
+>=20
+> > ---
+> >  drivers/media/platform/renesas/vsp1/vsp1_regs.h | 1 +
+> >  1 file changed, 1 insertion(+)
+> >=20
+> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_regs.h b/drivers/=
+media/platform/renesas/vsp1/vsp1_regs.h
+> > index 4c0315656e9f81a9656b58fb6f0233f8a22ac0e1..8abf39bac6c2f333696ebf5=
+5de87586d2df3bed0 100644
+> > --- a/drivers/media/platform/renesas/vsp1/vsp1_regs.h
+> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_regs.h
+> > @@ -816,6 +816,7 @@
+> >  #define VI6_IP_VERSION_SOC_E3                (0x04 << 0)
+> >  #define VI6_IP_VERSION_SOC_V3U               (0x05 << 0)
+> >  #define VI6_IP_VERSION_SOC_V4H               (0x06 << 0)
+> > +#define VI6_IP_VERSION_SOC_X5H               (0x09 << 0)
 
-This is problem with the framework rather than the driver. The
-media-committers tree already contains a fix for this issue:
+Do we need to add an X5H1 (0x09) and X5H2 (0x07)? Or whatever 0x07 is becau=
+se
+that's what the bsp is referencing for X5H. I've personally observed 0x09 f=
+or X5H1.
 
-https://gitlab.freedesktop.org/linux-media/media-committers/-/commit/3ae19773168104fa57d2a2ec57731e89df54175f
 
-> Poison the URB and delete the timer before unregistering the rc device.
-> Poisoning drains any active callback and prevents resubmission, while
-> deleting the timer stops the other URB producer. No callback can then
-> reach rc-core after its raw-IR kthread has been stopped.
+Paul
 
-Stopping all the urbs before calling rc_unregister_device() isn't really an
-option for all drivers. Users can still do various ioctl/write on the lirc
-chardev which could bring various URBs back into flight. For receive-only IR
-devices like igorplugusb this might not be an problem.
-
-Thanks,
-
-Sean
-
-> 
-> Fixes: b1c97193c643 ("[media] rc: port IgorPlug-USB to rc-core")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
->  drivers/media/rc/igorplugusb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/rc/igorplugusb.c b/drivers/media/rc/igorplugusb.c
-> index b5117ee..42e05b9 100644
-> --- a/drivers/media/rc/igorplugusb.c
-> +++ b/drivers/media/rc/igorplugusb.c
-> @@ -241,9 +241,9 @@ static void igorplugusb_disconnect(struct usb_interface *intf)
->  {
->  	struct igorplugusb *ir = usb_get_intfdata(intf);
->  
-> -	rc_unregister_device(ir->rc);
->  	usb_poison_urb(ir->urb);
->  	timer_delete_sync(&ir->timer);
-> +	rc_unregister_device(ir->rc);
->  	usb_set_intfdata(intf, NULL);
->  	usb_unpoison_urb(ir->urb);
->  	usb_free_urb(ir->urb);
-> -- 
-> 2.45.1.windows.1
-> 
+> >  /* RZ/G2L SoCs have no version register, So use 0x80 for SoC Identific=
+ation */
+> >  #define VI6_IP_VERSION_SOC_RZG2L     (0x80 << 0)
+> > =20
+>=20
+> --=20
+> Regards,
+>=20
+> Laurent Pinchart
