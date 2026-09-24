@@ -1,236 +1,172 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA2F3A0B36
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F2149DBB4
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260887; cv=none; b=HCcfKey8qQhRkRh8HTuNv7NSvTiSxNZ0cYU1L6/6sTs7j8DamXtx2vnBLQhKq45i+eCOgn4FzkkeGT20YCwQSqNlNg/57N0Rf/eurjCaodHBwMRTaib9lW/ECCn+0hq1/4FGua0k8hg9lmD8O8fF7fkXUft5s772u0NWrFindac=
+	t=1790261685; cv=none; b=WXIQAjq77Z3WPIxlaK7EcjcrHN6bTDcspTQP7chS0fnuv4Nr5ah7t/dFNBcZmM/LKXSp2e5Xs8VYo41fyOvnwBTKsv+TpO47gOvddznlmVTX03vTHOykzS5pG36cAWXRnis02+AAE2n5kxbI8DhuPANInycqOO7UPI0u4R1oDCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260887; c=relaxed/simple;
-	bh=hUyEIoiQwZWr0yJPPlPLuqMUSBteihl7VfFpS8WcvLo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=KuOozDkYNpOdbfin2h64ALMB1h6FiuKB08xfSC/0NcTmUNNrQigjEvIzckcF7jjgweCp2LQfxM5LGESRC8AOz8SnrblF6/20hcRJOWpQp2pwxi2s9K3jMBLq70ZIiCsJRcPCLfRKwOYDAzxbf03X2JCAYgUHfjra6BF4kW5YLBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K847fW/d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dJ0JREOh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790261685; c=relaxed/simple;
+	bh=p1DkMVivDdOboeJjqnejcRbxNjlkIEsanEsxvOaX7h8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=r1x3HLVDec1BCj264L/avsJPLfN9G7Wp+RZaIOQgygAjxaDPqFQ+QtDjhO0g8ZI3a9ouefGNzEvoXdN/oaOJM9066FomFdHStvb1C3OxCg4/YGCDt85nmpOoR3qOTUCIf7cg8kKlLoyvGuAWc/lN2rDEMnJk/WZAM49d3WjO1TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aTaJmED1; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K847fW/d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dJ0JREOh"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OClIOw2224912
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:41:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+lr6vawuvhxJ0yMF+gj2DOgkJvDeGRr1NaIe25+zaE4=; b=K847fW/d3C2ge4bX
-	O+Qi33KUGjenW09Pb7UUmgxyv6WOYBV3E+I1XWJgCGZ0dyTbzdkb7pzirKQvu9XQ
-	ys0L80F+TeH3vdJNkJn1CGDoMfkWBVXygR7WTrZJowB3tR0gJTNkY3vKSYGYfQXZ
-	LupyBjj7kPju04jg1NyirvlqNsM5QQRpSbyQPK3xFlNrEVPWHCF2heT/RTHqPHXv
-	mTzGFE0scXbLXVT/souyIe6BuGNuk5e9CvkvTVlgzVFOBFk0oN3HG7nSx9GH58Jq
-	drhYtQY1kib0aUwEFJREUbRjwOPX7t6wk2ULWZAlzM4soIFAzgCe3A9mBADOjva4
-	jfeLWA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw4650ewk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:41:23 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd8920c132so29926625ad.0
-        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 07:41:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aTaJmED1"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2db425c8ff1so682405ad.0
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 07:54:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790260883; x=1790865683; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+lr6vawuvhxJ0yMF+gj2DOgkJvDeGRr1NaIe25+zaE4=;
-        b=dJ0JREOhoOt0+Xf7jvhCbG5jwbOAyKsIdwpEE1JeUo0pWOdTYKY22sc2OEANmmPQXI
-         dL1wcQou7/GjBlQYZ5KY7JgEMNhSHunpvWrCWtjBbjG3dtMZG080/x6wY8XJ94fCe5/H
-         /vDEgaQ2FDOYFiag5hS94M4Xt4nBm7mhb2kNiFdtXPGmarZJwK7BE9P/sYLY9FsxT+lm
-         RNgsJDYoOalh2vhQ/bm7OkBAp5GUmnhH+AOshLvtzTgypRcYDfhap+o2M85X86TqgzTB
-         DRhIXIIexSnCdeDlP/vOMmWnpREXLy74+2KzEbzMwE07/bPOQoTzTPphAvzSf2fa9KQW
-         p0uA==
+        d=gmail.com; s=20251104; t=1790261670; x=1790866470; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mo3TPVdoCkIHw8PshUsF9i8x4gaS6XMSbTsYHmyLH0k=;
+        b=aTaJmED178NrdcjrazvolNjDT1PUb8sis1r+R+5xUDrH2U4QdOlVto2NIWCo0mOYuV
+         LqgmlYoZFVx6TH4YLPTB15xvrbrnSdETfJ6nTwPpIG3O0esevUDcAJr935zLGE1kuwix
+         DUGjUAWotnylm5lN/jYRGezXgLIN8g5ECD5N/ClUUAO8InuwftJNz92niW+n2XPAGhGo
+         5dHR5wS47BBdOvMITlb8swtNy3iIAzLzy2ntrYINar/p0daMMhpIr4e4URSMowmfLnfK
+         /7l3NkMQF2i7plMHK373CUqb5pipQdeBGlBTrF3BdEPsTElCoQ2OSiA6sFW5Lq763Bi9
+         bJXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790260883; x=1790865683;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+lr6vawuvhxJ0yMF+gj2DOgkJvDeGRr1NaIe25+zaE4=;
-        b=VANwLr44fMc8jRdoEoJwbIhQ01Gr/2BSStDLi1DdsxNt/jDRAPj4hlcoFsPYJ/UGix
-         HcXJmfVM+zRaR/gP7yJwMZk716dfYaf84fd7HO0GLeNVja9ySsXTtrVu/uC47/FaCJFd
-         VIJrkpz60QvVWFq6TjWE9ekyq6PTQyfSAIKHu3VnAy86bkKzONZxI80UULG/Ltiowcai
-         1QzHrkNUA5kYhpEUf0IJWbp55pzKHOvS8bYmYzDMoTmVk/3muRWgPR3AUrdJX2i30bp1
-         ZHIg1e63N68neoX2qOipC85EgKnrxofB4njihz4BkMD+Idk2e8X7mELETGlwttx9GfQK
-         2oCg==
-X-Gm-Message-State: AFuF++k7UHR9kq2dgGXezKww/06ssUEOgtMgvHRG7TcpYPw97AS5lbUn
-	1Vpj1ufJ7BsMBhSQZeNQNxuGxUrZYBdgEjeLuMU9W2WwQyV2mHbRIBolWSNSLxInfBspbUB+Hi1
-	HYTOkED5jBWM1MdkBaXXAr1xcbnlAfmimw7j3cqZoOjbUVN6x6acBfIxRk0S46ox/Yg==
-X-Gm-Gg: AYBFou0ivDVm/RKSHfr8mcXwawcT+SL/K7KoJsqK0BSeihRnh7eXBe2HP0A1GcAoVJq
-	6ESIw4r7d13c1J1nd26m/kPcwmKbyYRwNCk/YI0K0kOMcqhipMJdM4piLSExmwgSTuk2NrVoQfi
-	E1LnupUzJUHp/ONyqOra7lE+1pbxdphRFet1/G0SsAHecZ0vJ44lOrkF6Purz1SmctiT/qxv90h
-	7L0oGFeMquRgXBj4iAsHw24OqoIyEouJtCsl205FerejA3GAydn+NKOast9PRX8R1EpKUC5K21y
-	qhNQO33r1/qsi2PjPJcHPs+m/1/qQSDoTy2UTchxOJuhhckLpg4KVNJQPIMJ4xq28YJm7KkgDBU
-	+P21eS7PdsoafB20EFiLKkPCsi/6QhoFp7Q==
-X-Received: by 2002:a17:903:4405:b0:2dd:c100:3133 with SMTP id d9443c01a7336-2df7e23684dmr21196845ad.47.1790260882830;
-        Thu, 24 Sep 2026 07:41:22 -0700 (PDT)
-X-Received: by 2002:a17:903:4405:b0:2dd:c100:3133 with SMTP id d9443c01a7336-2df7e23684dmr21196615ad.47.1790260882340;
-        Thu, 24 Sep 2026 07:41:22 -0700 (PDT)
-Received: from [10.204.101.119] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a517069sm28885125ad.3.2026.09.24.07.41.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 07:41:21 -0700 (PDT)
-Message-ID: <e167a249-54da-4f1c-9285-a439776c4897@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 20:11:17 +0530
+        d=1e100.net; s=20260707; t=1790261670; x=1790866470;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mo3TPVdoCkIHw8PshUsF9i8x4gaS6XMSbTsYHmyLH0k=;
+        b=XcfvI5bfL+EwHp00N4CZhA46kV6gTV+wS1LYEpxcGFlyn3twr4+4IWHu8KB8cmRHfM
+         uWTGf/MglHyDWWB4UpZHjo97ed7x3YOI13QJ+km+j2Y91qvBwIRBQzcEK27yks2tREME
+         X3/qeNK/U3d9cFDVdGKDPWA4NNpgFFOWp6oJ4izZVWkAnnRWgvi+ekVJ5wg/9t6QRnHX
+         9eboLBXf84NWcdEa5jyNKXKG5n2R6WxrOdNb94NpndX81j4IX+7gChsFqcryZCiV/goS
+         K5iaI9wTzy+WrZpIX4PjqO31EaLLQr4XeF0GYOCTJXnkYb+puGifet5OMlKPxdm7bnw0
+         E8IA==
+X-Forwarded-Encrypted: i=1; AKwUvBzg02luD2fI/FSo72zAr622mLSS7P1OU+gGvZTo2H26u4iyR0NHhkENkq3SmUuI1nmnvYEAK/BaC1IliA==@vger.kernel.org
+X-Gm-Message-State: AFuF++nYVk12++5zlSG18NPn8bSvF7w6Uu1nUuewwiP/skoFvrScU3V9
+	e/OEvT3BKqtgYBk4hJJ9SxnDOJiYOIWho8vy4UNfIsQtczrLl8/n58kT
+X-Gm-Gg: AYBFou2BXcyFbIOtS+KvllNoi/p7l5rjnQuW0L11gWOx6s7j8Rn0UkJIpxgl3YJcYJz
+	p+iRlSyLyEtBhz2cW1qNK50jjYUmzhvKX0yLpCfh/1POEYnSJdqdMUgSYTOspyzlAj5j5DZLnb6
+	mW09lcMr56F0gFWeQSq5Zgbzj+rcSmLVaLVgk3q0WiWS7h/nbNfMkrdFSy77J7vEFxazCSS+u9I
+	eImh7XnpKTJcBvhI8/c15fkaIZ3ULNj0gYX4riTRDDNZn3fOII9ShPxkQSoQn/OZTn0JTuamUd2
+	YL4rwHMsTUxnbNwYZLlfg6VtZQeMHsRuztImfyT2i38pEtj6a8htStMt9/20J87p8jxVTFoQfdF
+	BGqx1B7R9FU/3NoBoyxBj/LRx3mTRd/EfRX6ahWyScP7un/vHoI+RR0cBU52h1iJybD2Iwf4wua
+	FrAnaCI8gC9dJ0vWWoX7IWsyCofs0hmKUrZiv1PkhP6KZKTVXpol0JZO1B0O92iWIAVwq6aDE8p
+	PdpZwc94ZvOJg==
+X-Received: by 2002:a17:902:e542:b0:2d6:3c1a:85ef with SMTP id d9443c01a7336-2df7dfc93c6mr35028765ad.4.1790261669688;
+        Thu, 24 Sep 2026 07:54:29 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5c3a3dsm28629285ad.43.2026.09.24.07.54.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 07:54:29 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod.linux@nxsw.ie>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
+Date: Thu, 24 Sep 2026 22:54:18 +0800
+Message-ID: <20260924145419.47354-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CACSVV01NZROH9U5Qjd1TSDu+BPyyPLC9pFByqSfrxXrPJV+wZQ@mail.gmail.com>
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com> <fe3a4297-f300-451d-9763-0b3016706111@amd.com> <CACSVV01NZROH9U5Qjd1TSDu+BPyyPLC9pFByqSfrxXrPJV+wZQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Question about Iris SID override assertion on Yoga Slim 7x
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-To: Birk Skyum <birk.skyum@pm.me>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Renjiang Han <renjiang.han@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260913194707.91885-1-birk.skyum@pm.me>
- <4e4acb29-0b3e-4b76-8179-b49745f53bf5@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <4e4acb29-0b3e-4b76-8179-b49745f53bf5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Wrq+otfv c=1 sm=1 tr=0 ts=6ab53693 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_f_NTwuWuVAfArxx4pYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: We0fnBng-k-PZ9IMI7OvFjX78cuUcxjP
-X-Proofpoint-GUID: We0fnBng-k-PZ9IMI7OvFjX78cuUcxjP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2MCBTYWx0ZWRfX6caOzl3lFool
- ue9uTIggRTQPMY40d3K/bHdigp4otTAncSPXnje+TH1wF5vRYP0+s+hq1nwoIZ8S62mt2tmcS6w
- dHuyOmS9j7Zx0en1EYMuYWWzepwX6SKsqt4YRHGR5UZyYlYcsCjHJ2UKR+y5xvAcNg/2pGs9+1F
- /S18QQW1RrBe1/iJmSyBlkAF6Ql3t2buFmyENPUqHgaeCanF5SbihTPKnB8ZwMxvwfRylGVM6ER
- NrsA/DbcCEt9s64IZbBPqMzj1hAr39Trzo8P9E3BBcF9miFEDrElMYt3NCVZdLJcuG7UGpkzMgr
- nwQWki7bLArzddTJqO8Sesmh/UEVlIitS7odP27xlO+igeLPQf+1A60o37KtVRYN2cqNGcEqZux
- hctxtAOddUYEXuHSt+8R7v+4OXPebH1H8pkT960m0hSvaQEVOtGRBy8vcYUxmX+M6+tOieLXpbS
- UvvZ0U8vwr2PpTWmblg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2MCBTYWx0ZWRfX/aOfj/jIsf4o
- 16sFTCccDnZHIXCsIdF2Z2POYvWsqLhPib5hyr0Z+ZmbYKbN04u7F0zBtz9XH2y37lXkpcD3S82
- D1998epnqPcOtsQcywoMVz6ToLKHT9Y=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240060
 
+Hi Rob,
 
-On 9/17/2026 4:50 PM, Vikash Garodia wrote:
-> Hello Birk,
-> 
-> On 9/14/2026 1:17 AM, Birk Skyum wrote:
->> Hi Vikash and Dikshita,
->>
->> I'm testing Iris video decoding on a Lenovo Yoga Slim 7x (83ED, 
->> X1E80100).
->> This is a request for guidance on a firmware assertion. It currently
->> reproduces on a modified test stack, and I'm working on reducing it to
->> an unmodified-driver reproduction.
->>
->> After repeated runtime-suspend/resume cycles, VP9 startup intermittently
->> hits this firmware assertion before initial stream settings or CAPTURE 
->> START:
->>
->>    VenusCoreCtrl_InitSS(506): un-expected SID override configuration
->>    WaitForHWidle(462): VENUS is idle, no HW is running
->>    assert_loop(500): FW Assertion - venusCoreController.c:507
+On Thu, Sep 24, 2026 at 7:01 AM Rob Clark wrote:
+> So the assessment of what is going wrong looks pretty wrong..  VM_BIND
+> should never lead to iommu_map_sgtable() (which is never used for gpu
+> per-process pgtables), for example.. but is used for mapping for
+> scanout.  And pages are never used for mapping in either path.
+>
+> However there are a few places where sg->length is used (in iommu code
+> and msm).. AFAICT dma_buf_wrap_sg_table() zeroing out sg->length is
+> what the actual problem here is, rather than any use of struct page.
 
-Could you please try the usecase with the fix
+Thanks for the correction - you're right, I mis-traced the GPU path.
+The per-process pgtable mapping goes through
+msm_iommu_pagetable_map(), which walks the sg_table with sg->length
+and sg_phys(). With the wrapper zeroing sg->length it iterates the
+entries, maps nothing at all and still returns 0 - which explains
+the UCHE translation faults without any error anywhere, and is a
+nastier failure mode than the async-bind-failure story I wrote in
+the commit log.
 
-https://lore.kernel.org/all/20260924-vpu_hwmode_fix-v1-1-531498f3499a@oss.qualcomm.com/
+With that corrected picture, DMABUF_DEBUG=y breaks msm in the map
+paths themselves: msm_iommu_pagetable_map() for the GPU and
+iommu_map_sg() for scanout both consume sg->length, and
+dma_buf_wrap_sg_table() zeroes it, so every mapping of a
+page-stripped sg_table silently maps nothing. On top of that msm
+also uses sg_phys() in those paths and
+drm_prime_sg_to_page_array() for the page array, so even with
+sg->length preserved, page-less entries would map garbage
+physical addresses instead of failing loudly.
 
-Regards,
-Vikash
+So it looks like this needs work on both sides:
 
->>
->> The first HFI error is 0x05000003. The SFR names the same source line.
->> Later venus_c2_parsing.c:1550 assertions follow automatic recovery; they
->> are not the original failure.
->>
->> Could you clarify what the SID override check expects on X1E80100, and
->> whether there is a known firmware, secure-firmware, or resume-sequencing
->> requirement I should check? Which diagnostics would help distinguish a
->> driver sequencing problem from a firmware requirement? I can test a
->> targeted diagnostic or patch.
-> 
-> Same failure was seen once in windows based X1E80100, and i was informed 
-> that doing an explicit GDSC (vcodec) power on before doing a warm boot 
-> i.e iris_vpu_boot_firmware() helped the case in windows. I have checked, 
-> in iris, iris_vpu_power_on() would get the vcodec GDSC on before 
-> iris_vpu_boot_firmware().
-> 
-> I am gathering more info on SID override configuration part.
-> 
-> +ing Renjiang who is helping to debug this issue along with me.
-> 
->>
->> The firmware is qcom/x1e80100/LENOVO/83ED/qcvss8380.mbn from
->> linux-firmware-qcom 20260810-2:
->>
->>    video-firmware.3.1-e5aea20c64cb6df9a1c9be99e206053b36424939
->>    PROD, build May 9 2024
->>    SHA256 
->> 3456a15e01528c2ba2957ef2b78daefd875841b262dc02f0c3bb03c33cba657f
->>
->> That hash matches the current linux-firmware main file. The BIOS is
->> NHCN62WW, dated 12/02/2025. The device tree lists qcom,x1e80100-iris with
->> the qcom,sm8550-iris fallback.
->>
->> The test repeatedly decodes the same synthetic 1280x720 VP9 clip, 120
->> frames at normal speed, closes the decoder, verifies runtime_status is
->> suspended for 100 seconds, then starts again. FFmpeg is 9.0.1 with a 
->> local
->> fix to requeue empty non-LAST ERROR capture buffers. Successful runs
->> match every decoded frame against software decoding.
-> 
-> Could you please share details on the FFmpeg test and the local fix ? We 
-> will repro this locally to get better insight of this issue.
-> 
->>
->> On one cold boot, three 100-second idle trials with power/control=on
->> passed. After restoring auto, two suspended-idle trials passed and the
->> third failed. On another boot with auto throughout, two passed and the
->> third failed. A separate codec guard removed an unnecessary AV1-only
->> partial buffer from VP9; its warning disappeared, but the fourth
->> suspended-idle trial still hit the same SID assertion. These comparisons
->> do not establish runtime PM as the cause or keeping power on as a fix.
->>
->> This is a modified test stack, not a pristine-mainline reproduction. The
->> kernel is 7.2.0-1.1-aarch64-ARCH-camera1, with camera patches. The in- 
->> tree
->> Iris and video-clock sources were built as external modules. Iris also
->> has experimental initial-CAPTURE deferral and pre-start buffer ownership
->> changes, a bounded HFI/SFR diagnostic, and Renjiang Han's firmware- 
->> logging
->> patch with an early debug-queue drain to retain the pre-assertion 
->> messages.
->> The failing session receives OPEN acknowledgement and its first 
->> compressed
->> input before the fatal error. No looping or seek is reached.
->>
->> Testing stops at the first failure and resumes only after a clean 
->> shutdown
->> and physical power-on. No clock-module reloads are involved. I can 
->> provide
->> the synthetic clip, exact source changes and filtered HFI trace if 
->> useful.
->>
->> Thanks,
->> Birk
-> 
-> Regards,
-> Vikash
+ - dma-buf: preserve sg->length in the debug wrapper, so
+   sg->length consumers at least fail loudly instead of silently
+   mapping nothing. I think that is what both Christian's "we
+   should probably change that" and your "zeroing out sg->length
+   is what the actual problem is" are pointing at.
 
+ - msm: stop consuming struct page and sg->length of imported
+   sg_tables, i.e. build the GPU and scanout mappings from the DMA
+   addresses, plus the drm_prime_sg_to_page_array() cleanup.
+
+Is that the right split, and is there a preferred direction for
+the msm side?
+
+> (And yeah, I should get rid of use of drm_prime_sg_to_page_array()..
+> but that cleanup that I haven't found time for shouldn't be the
+> problem here.)
+
+Agreed on it not being what produced the faults - but it is part
+of the same contract problem, see below.
+
+Also answering Bryan's review of patch 2, which is in a different
+branch of this thread:
+
+On Thu, Sep 24, 2026 at 10:36 AM Bryan O'Donoghue wrote:
+> Why is the fix Adreno specific ?
+>
+> Shouldn't this function be ammended with
+>
+>  > +    if (filled != npages)
+>
+> instead ?
+
+It isn't meant to be - msm_gem_import() is the shared GPU/DPU
+import path. And putting the fill-count check into
+drm_prime_sg_to_page_array() itself would indeed be the better
+generic version of that guard; I checked the other callers
+(etnaviv, omapdrm, vmwgfx, xen) and none of them expects a
+partial fill either. But with the corrected analysis above, the
+page array isn't what produced the GPU faults, so neither variant
+is a real fix. I'm not asking for either patch to be merged - the
+series is a bug report with code attached, sent to get exactly
+this discussion going, which is also why it carries the RFC
+prefix.
+
+> This very much looks like an LLM generated patch - the commit log, the
+> large comment in the code and TBH the solution too.
+
+Sorry about that - the patches were drafted with LLM assistance
+and I should have declared that up front. Any later version will
+carry a proper declaration.
+
+Thanks all!
+Jianfeng
