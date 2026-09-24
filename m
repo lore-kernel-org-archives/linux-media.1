@@ -1,133 +1,718 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4207049F118
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 15:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C13E45C701
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 16:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265232; cv=none; b=Oc9cCuoctoewDDR/zmDRL2UHEQndNR22i7CPNUXhtc8qViI3dyX7m1HX96plWKDLWuFBnF1SFsJTXMIS5RLJOZ8IlmRoq5GtxtL7ZXqTpa1ZTByzsehq5lGJVx8v0OBv9iRLMZWBc8bTNS+vhD4TbwrVJ8tAVdkejwTjUrV94KQ=
+	t=1790265916; cv=none; b=PpGl5cnQpIpIGCiBF4Af3tozhBLhh52oDIf5fwvjDiOP6I1LD9yV1ydZsxZj+CT47p96CdskOygF9nj8yNMXU6Wt38XFzisBVXMiKrm0wuimU8+l4nq7DrTtIKVaB+IunxOCeZ2YPzSCGzWyhaMPol2dF395hwaBpB+Zbb9fmqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265232; c=relaxed/simple;
-	bh=wMUbxl5vt/9aakHALUb0wzH/L2TqRFPYLffnV8Cgl4g=;
+	s=arc-20240116; t=1790265916; c=relaxed/simple;
+	bh=uZNPHyqL27dejjSkahYNap3DJ0JwPlt3RiFRbHCdnzY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kwndrKopoTJjAXi1a8yXiAbzzKBM1iH/S/ocoq9wplhCwRbiSawPXXzOMVF5ARvK8rtrWfBNa/tDrOsxjhi+9zla0urQAIDMjmJ89443mqlgbLns5lGSNcTKf+sj9SHzrfpR5nhficPvfe5f2EpWX3tS+CE5RoNMoR+nS2kO9tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bCGQz2eS; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=J/DK9N5sY5AaWg22G9rjfqS9W/jjlm6bk3emY3pQwfHZ6ghQipx+lLfGmctcc/Nn7IGgcOZW8NBFq5EWciU3uE4ncpvqCYXETgQWbD8jUCKJdPZ5BsehgZ2/AWAyzXnkrjU5pW/E6YSqw6L8vO97V9phIvNvtxP7sdCXiEBXQPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T/bXbus/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SwiOG02H; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bCGQz2eS"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso1978667a12.0
-        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 08:53:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T/bXbus/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SwiOG02H"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OFeMZd2469586
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 16:05:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qJnFJpYYu47DkAQeVaBF4H28IHpF6G2UM5ZDzC+zgNk=; b=T/bXbus/aRKX4mZI
+	Tazw4DLxF8Cq++tZQ6mgJL5kDC/uh9ItlhjPTtc5n4pSPepvxeLwN+kh5c0/wc0u
+	0rZQhI36w2nYO+EbeU2KdDF2PxfXZa6vq0YoQ3bloEg7Xh7iMy5peePoQ5bUUu9r
+	CRit7YqkTKFQ7D7EhvlCnnjrQcfDu7x/XPvQVtlHngU7vv9mTLEoU23SS65bgRhK
+	NGoLP3Uy2r8jquegtJ25bfm3whDKpj9n9t2qW0kV6WQ878vZ/Y7SyCLO4PSgKFOa
+	Db88Snze5NzV5h2KmyUaw0gWvFZArTCnkRWzb/NwzEQSpNmuSrzxIkOBI6YZU/3S
+	ddEZKg==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw5q8rdmp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 16:05:12 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cb254da90eso79091b6e.0
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 09:05:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790265228; x=1790870028; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GNmm9vpoKogbEkGqMdf9XAhWMEnJbsDsb3NN6zmWdWA=;
-        b=bCGQz2eSkcQYMSbQNfLYFZiq45HlXMpEwZjtjh5ha94/5vOF0qLHpu9X/lZmf/vZXK
-         DeUHu394OYCJ6Lj32I9RPjdNdKveIfOpfEWorZhCfIEYywR+cRALMykbVEFtub5oDS2O
-         MpV7RU+rbkuShz+jA3asVlrDJ23iFlQ4iSPCrgC2ETXrn5yuRl21vE7rVYDSB5jygVhZ
-         dyoViXu0rSJrHzN+ecwAoQ1pkTwqCTYP8kzclXNL+9EdUyS7bNOcgcXqSJPkcGLBQzc8
-         HLItADMdjRIEMYD5rCPdt6ykQwa731k1tcla8CM/ahBbW8iD8Wx9Jtw/dlD8gEdJRYNb
-         Lqvg==
+        d=oss.qualcomm.com; s=google; t=1790265912; x=1790870712; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qJnFJpYYu47DkAQeVaBF4H28IHpF6G2UM5ZDzC+zgNk=;
+        b=SwiOG02HZzZlssxXO7XkvPNkmJG3miRFfr0ksz4W4z7aID4nMX82fcRWa9BaE/SeQB
+         evwUmO2WSlV50P2dSD2lR0SAfz5b25OweGMR69YxfZu+Jkae1x+SqGqqds9INL9Q4HbQ
+         XLVujS19mvpgmtJ2NKsyqs6MLd87vF8ltBVGKnE2CJ++o8NXb7ZTKqIIfOUyaGXJTmGQ
+         +C6cEbzVXQSVusj5gKQAuo6luRiuQAWgrWnYlz6ushMaF8NaRWz15o+in/a6zq6SV1qj
+         FFRchQZ7JMbpDtqGmAEYH0MPkTNgL3FUl+tkCGvx/XvxsDWbhOq3gG7u34KJT3K+ST+D
+         c5lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790265228; x=1790870028;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790265912; x=1790870712;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GNmm9vpoKogbEkGqMdf9XAhWMEnJbsDsb3NN6zmWdWA=;
-        b=tOcnGOiHw2oHWlUCef4idGSkG5zJstKtFtEiI9duw0JUbXFm2ZlSi3X+q31MaluBGH
-         gdHT+P96o9tMdhs1g0UMKjZnEQTu4JYeDz0ECegkAtq0Se7Uz3zw8AUdnlkmAlIoRPHh
-         LxQks3WTIPSBH1cgfrN/1OWaJYPAikgTPtSRyJGALbZDmCBppxZZVjqKcZBGTUpxsvgs
-         U0yFOeoHpd2ShcWqvruVdnGweAkCk7PV6+by/bTX7WKvcGNFxlwXp3oNhWh8vljnq/Q7
-         sidfblcWKS9jrNw80m1lOzmZitkS8lhwEv+MctuRcUBOTqQlnd3CLAMRcppbVeznQlo9
-         T6nw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhBlkg05BBFtEiwmAESxQKjzmAVqDx5IY9Oehr8Eingczwtq3s42JXnchPngdo9KygrCM2R+OT2xn1Ig==@vger.kernel.org
-X-Gm-Message-State: AFuF++lMcl8+jbnYZWbhxW7xJdXjF1QC/0dQOJ1jRwrGm8QoEqfMqSGt
-	AQnsCXDb7E2V7WAWbmv+VELGwJUiuMzTd8wtjSsPfjQv0T+OhP6NBpAkQ8LxvQ==
-X-Gm-Gg: AYBFou0DuinwRvegakzgiKND5MyU9L4Tw/zt1EXQRjYMPcxjnPAfV/Yv4a1LgyXSUoU
-	sIS2kkKlLHqy082ZSd5nG31qBMAoe9UjAnl7TyQg7d0+6zkOyHpIW7vXRCbduLA0uLHSyd4o5sK
-	W2UMqtTsRTyMW2MC8825i0B46iinVQcTN2Ua3pzM5iLRLcFsnEihq9FNzjTFYOZPqSIKrGFm2Qg
-	6cEaKam5v/HJKFsyjqO10eqIDvn1Q22fdh0Fw8TNgsqEQcQuvckx3wo1L6HQolzYD15SFCFF2dK
-	cRLsTozrAywxqdB5t4vPx0ODD8NF8nTp3/2xIU97BStq9PFkYrUJLeubgo4VYht3yVmzUkz4D8L
-	67y/XPAlEJjiFJySBIcfNzksR6pBicT7DPDlQckNmt/9bMuU8QlU0Qqdiu7rq0iVkUQ/oka151I
-	tXOs9rMLXW+CwGYRLN5smNyyJnUTiOipkX05ChGZN1h4EsdCj3cq3RmUkctXRYaCw97G+YCSIN7
-	c4EmxtM9IJKWPJD86QueG2yEzLpaqACHZHVnWHxYaYfWb8AlwlzoU4JPGK6y99ZC4YGhfAl8RIa
-	Soh2AhJ7v90y3/YJ5tZ9rVMX2KHQEmeCGG8+gFfNgU8Ib/wh9g==
-X-Received: by 2002:aa7:d94b:0:b0:6a9:c9d8:b3b6 with SMTP id 4fb4d7f45d1cf-6aac8f0ae7emr1949690a12.6.1790265228473;
-        Thu, 24 Sep 2026 08:53:48 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab38b2fc5sm3815784a12.27.2026.09.24.08.53.43
+        bh=qJnFJpYYu47DkAQeVaBF4H28IHpF6G2UM5ZDzC+zgNk=;
+        b=Ekg1PBme91/1zvl3TAviWHzwlUbDT7sKj96O95yEKJlww8axT/PPYVjbIKTWQwB0Ag
+         rrkvGzVTg9tflUVC+V82Ter4paUA2KDc/EEjKIItSzIjhIv3JDKnxMgizeHNu0lgisuh
+         sd8+N5TT4OFnlUjs26NExKm9bJ8aq14MdHtO4ZeO+i5xKHpnn8tk6nlgoNAx/etiOnSq
+         LpYsRzChiwluZwRaHsDpbyZ22n82Wjp2HMZ4kGgn5MdWk7ImdVeWAN1lDWgof3Pv0mNr
+         E2RLaJjmVufqiMXYfu9b13LZULzM4OznRWm6StXVvRRl7jwJrxoFXa7XokrTyTOAQVhe
+         80Mw==
+X-Forwarded-Encrypted: i=1; AKwUvBybq4mGtfx/8V9D0kk6JfsSpBM8RwkL3CYEOCIQ+cujjq8ZLnvUb0jHvQZ2O2nzaV9DOXqKCCZHTF0J4w==@vger.kernel.org
+X-Gm-Message-State: AFuF++nmmP7hZoY4WIZF8pp3KCVXNzeyTYlQi2fBmREnLhi7ImH8M955
+	M9s7M+pa8kQeXgHyJzuld0nInzdDwkwXSXoZNBLnC8L5Y7DShkIwGNpHoBgQ4z5OhNvAhoUgAHj
+	jTQJde0alhbKOF1dVFQZCb+4neONgM3OjniYLAbtXA9ipBhMMFvmxCpnlNt/OQeDZEA==
+X-Gm-Gg: AYBFou3nUm8ZCKqtO9Hm5Q1VmtEni2/DdjySE9WAl3yJGfGSlXyYbtIqX74fw0w91dv
+	FergotJhBPC2ptw+VwvOjU5mw1NF58lVO/TpqdJz+VOb42swq4vi/Qa7/kH1CxVExtnkE/6UnY5
+	Pkh3o3aASM++BYvMbKtyA7S3ZWEhq33Bbu8rrCxCrLUZJ602d6TcA6vL36PfXn2ieHqKuherMCJ
+	dB/2i5LGaYVb9EuNsrxh9WvR2pTjI+1E2ojNDQzZRBlpeXX7BEjsIBlWmMCIALmrjMxlvwC5mA5
+	xIgZyOJUf10flmD030PQmUvWyqqQRhTLX8OIgFyPe122YwIL0HRNXrBMdb39WHUnkYend6MaWVz
+	LOcqeziW4EDnmJ5HzwSRVc/FwY/jOJJI=
+X-Received: by 2002:a05:6808:1993:b0:4d6:90d3:e185 with SMTP id 5614622812f47-4d72e670404mr3997482b6e.46.1790265911509;
+        Thu, 24 Sep 2026 09:05:11 -0700 (PDT)
+X-Received: by 2002:a05:6808:1993:b0:4d6:90d3:e185 with SMTP id 5614622812f47-4d72e670404mr3997417b6e.46.1790265910832;
+        Thu, 24 Sep 2026 09:05:10 -0700 (PDT)
+Received: from [192.168.0.15] ([183.83.142.107])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c4ae6056sm5509078b6e.13.2026.09.24.09.05.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 08:53:45 -0700 (PDT)
-Message-ID: <6d538f3d-dd83-4dfb-b091-9b84acf47c62@gmail.com>
-Date: Thu, 24 Sep 2026 16:53:40 +0100
+        Thu, 24 Sep 2026 09:05:09 -0700 (PDT)
+Message-ID: <465e121a-51ef-4043-702d-d90493c7e89e@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 21:35:03 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/13] nvme-pci: implement dma-buf backed requests
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1789997898.git.asml.silence@gmail.com>
- <e80c3b1e0de004eaca6c51a2a86115ac9ed36381.1789997898.git.asml.silence@gmail.com>
- <20260922132016.GA30684@lst.de>
- <d39a6dd7-cb5a-43d6-8dcb-16eb9fc95b4d@gmail.com>
- <20260923045505.GB26231@lst.de>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 1/2] media: qcom: iris: add firmware debug logging
+ support
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260923045505.GB26231@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Renjiang Han <renjiang.han@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Wangao Wang <wangao.wang@oss.qualcomm.com>
+References: <20260911-media-qcom-iris-fw-log-v2-0-6c46288f3ffb@oss.qualcomm.com>
+ <20260911-media-qcom-iris-fw-log-v2-1-6c46288f3ffb@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260911-media-qcom-iris-fw-log-v2-1-6c46288f3ffb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2NiBTYWx0ZWRfXzvbfEBHLLmoL
+ 9uhreT9EXKbpI/E6nai8qxEWvgdaq228BgnF0VQrfbC/0LhjXB/5WOJGX+OylX5dwnAnRovsRH4
+ zZXe5ctXpc37G0nYjomYnypP6t87kmg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2NiBTYWx0ZWRfX3sVglDshPic4
+ Lz6IEbxzoHhoxQYraGxxb4QfyNMYed2Z9Pv9TsxwMk5xCy7WsKKUdh9YKIbdHWZjnFFSOqk+Ru9
+ MkE1Ru9htNPzgJk27khoubbA/tmpiM4TpNwUYpPpTMHYe3jhz4/vTGuVZjQFtklk1tOCaSro5zV
+ Z40/F/zUoL3aRYzFjenr+vYhzTwVGG407su97yNh7PlPHF/zIec/Fonc+ouijicuIqIoBN4K6rL
+ MZ69kZiaNv3T/pqbU8tBgyjjQEaVNztWVdAVhLqQOOCRBc6i0SnHPSKbH9hehK3Pb0BN8MDgljq
+ 6GtiDR4o844b4JgRJzvKuJZTrJoStlZgGCGSPQNReZntQTNqM2ed4UzlgDrbnaiQ6ILKnMCQsGN
+ DnsjsXOKeYTZj1HY7NNPC1Cw+iflkDhntN/RVQ+Q8/xkyVD6i2jNisaqY7l8yy4wfagixeFiiUc
+ msml4vq40wynF41jC/A==
+X-Authority-Analysis: v=2.4 cv=SYRi5fRu c=1 sm=1 tr=0 ts=6ab54a38 cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=BUSZCRnG/G6/Li3ahCSwQA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=GH8Jsq3s-oVR-5dVUdMA:9 a=QEXdDO2ut3YA:10
+ a=pF_qn-MSjDawc0seGVz6:22
+X-Proofpoint-GUID: fyOvbfUcOfMwOqlw6Vw19LGdPA-sI_HF
+X-Proofpoint-ORIG-GUID: fyOvbfUcOfMwOqlw6Vw19LGdPA-sI_HF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240066
 
-On 9/23/26 05:55, Christoph Hellwig wrote:
-> On Tue, Sep 22, 2026 at 02:37:08PM +0100, Pavel Begunkov wrote:
->>> Sashiko had a few comments, which I think are correct - if we use
->>> dma_map_sg to map the data, we need to use the sync_sg APIs to
->>> transfer ownership.  That only matters on non-coherent architectures
->>> with MMU, but we need to get it right.
->>
->> I've seen that and fixed everything locally that should be fixed,
->> apart from the sync. I wonder what we can do about that? I can
->> somehow replace it with the sg variant for now, but sync'ing the
->> entire possibly multi-GB mapping for, let's say, a 512B I/O, sounds
->> not wise.
-> 
-> If we'd want to fix this for real we'd need to add an offset to the
-> sync by sg methods.  Or move away from scatterlists in dma-buf, given
-> that they are a horrible API.  All of these are bigger projects,
-> though.  So for now I think you'd want to do the sync all, and have
-> the people who run high-performance io_uring code on non-coherent
-> platforms suffer.
-> 
->> And I can think of another place that does mix sync_single
->> with sgs.
-> 
-> Which one?
 
-All the recent networking zero-copy / dma-buf apis.
+On 9/11/2026 8:09 AM, Renjiang Han wrote:
+> Iris does not provide runtime control for firmware debug logging, which
+> makes firmware-side failures harder to diagnose without rebuilding or
+> reloading the driver.
+>
+> Add a debugfs fw_level file under the Iris debugfs directory so the
+> firmware debug log mask can be configured at runtime. Keep the default
+> mask limited to firmware error and fatal messages to avoid enabling
+> verbose logging by default.
+>
+> Store the mask per Iris core and normalize values written through
+> debugfs so userspace reads back the same mask that is sent to firmware.
+> Program the firmware debug configuration during core initialization,
+> runtime resume, and before opening a new session. This allows a
+> fw_level value written before session start to take effect without
+> requiring a driver reload, and preserves the setting after firmware is
+> reinitialized.
+>
+> Add HFI Gen1 and Gen2 support for sending the firmware debug
+> configuration, and flush firmware debug messages from the debug queue.
+> Emit firmware error and fatal messages with dev_err_ratelimited(), and
+> use dev_dbg() for other firmware debug messages. Bound firmware log
+> printing by the packet size so messages do not need to be NUL
+> terminated by firmware.
+>
+> Treat failures to configure firmware debug logging as non-fatal, since
+> they should not prevent video sessions from running.
+>
+> Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> Signed-off-by: Renjiang Han <renjiang.han@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/Makefile          |  1 +
+>  drivers/media/platform/qcom/iris/iris_core.h       |  7 +++-
+>  drivers/media/platform/qcom/iris/iris_debugfs.c    | 42 +++++++++++++++++++++
+>  drivers/media/platform/qcom/iris/iris_debugfs.h    | 14 +++++++
+>  drivers/media/platform/qcom/iris/iris_hfi_common.c | 43 ++++++++++++++++++++++
+>  drivers/media/platform/qcom/iris/iris_hfi_common.h | 10 +++++
+>  .../platform/qcom/iris/iris_hfi_gen1_command.c     | 30 +++++++++++++++
+>  .../platform/qcom/iris/iris_hfi_gen1_defines.h     |  8 ++++
+>  .../platform/qcom/iris/iris_hfi_gen1_response.c    | 31 +++++++++++++---
+>  .../platform/qcom/iris/iris_hfi_gen2_command.c     | 21 +++++++++++
+>  .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  3 ++
+>  .../platform/qcom/iris/iris_hfi_gen2_packet.c      | 29 +++++++++++++++
+>  .../platform/qcom/iris/iris_hfi_gen2_packet.h      |  1 +
+>  .../platform/qcom/iris/iris_hfi_gen2_response.c    | 12 ++++--
+>  drivers/media/platform/qcom/iris/iris_probe.c      |  6 +++
+>  drivers/media/platform/qcom/iris/iris_vb2.c        |  7 +++-
+>  16 files changed, 253 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+> index 48e415cbc4390bc596f6239fefa2a2ad2cd3a2bb..105a66e1b0af44f010730a899be26cae23d76c73 100644
+> --- a/drivers/media/platform/qcom/iris/Makefile
+> +++ b/drivers/media/platform/qcom/iris/Makefile
+> @@ -2,6 +2,7 @@ qcom-iris-objs += iris_buffer.o \
+>               iris_common.o \
+>               iris_core.o \
+>               iris_ctrls.o \
+> +             iris_debugfs.o \
+>               iris_firmware.o \
+>               iris_hfi_common.o \
+>               iris_hfi_gen1.o \
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+> index 24da60448cf24820af7947b85eb7208555ab7786..a8e34c456ce3f3f178ca66a278d06d1ab50dafc4 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.h
+> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+> @@ -31,6 +31,7 @@ enum domain_type {
+>  };
+>  
+>  struct qcom_ubwc_cfg_data;
+> +struct dentry;
+>  
+>  /**
+>   * struct iris_core - holds core parameters valid for all instances
+> @@ -65,7 +66,9 @@ struct qcom_ubwc_cfg_data;
+>   * @command_queue: shared interface queue to send commands to firmware
+>   * @message_queue: shared interface queue to receive responses from firmware
+>   * @debug_queue: shared interface queue to receive debug info from firmware
+> - * @lock: a lock for this strucure
+> + * @root: debugfs root directory
+> + * @fw_debug: firmware debug log mask
+> + * @lock: a lock for this structure
+>   * @response_packet: a pointer to response packet from fw to driver
+>   * @header_id: id of packet header
+>   * @packet_id: id of packet
+> @@ -110,6 +113,8 @@ struct iris_core {
+>  	struct iris_iface_q_info		command_queue;
+>  	struct iris_iface_q_info		message_queue;
+>  	struct iris_iface_q_info		debug_queue;
+> +	struct dentry				*root;
+> +	u32					fw_debug;
+>  	struct mutex				lock; /* lock for core related operations */
+>  	u8					*response_packet;
+>  	u32					header_id;
+> diff --git a/drivers/media/platform/qcom/iris/iris_debugfs.c b/drivers/media/platform/qcom/iris/iris_debugfs.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..6122b994ad0aa70c0c4f26ea4ce076f1b025f810
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/iris/iris_debugfs.c
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +#include <linux/debugfs.h>
+> +
+> +#include "iris_core.h"
+> +#include "iris_debugfs.h"
+> +
+> +static int iris_fw_level_get(void *data, u64 *val)
+> +{
+> +	struct iris_core *core = data;
+> +
+> +	*val = READ_ONCE(core->fw_debug);
+> +
+> +	return 0;
+> +}
+> +
+> +static int iris_fw_level_set(void *data, u64 val)
+> +{
+> +	struct iris_core *core = data;
+> +
+> +	WRITE_ONCE(core->fw_debug, (u32)val & IRIS_FW_DEBUG_LOGMASK);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(iris_fw_level_fops, iris_fw_level_get,
+> +			 iris_fw_level_set, "0x%08llx\n");
+> +
+> +void iris_debugfs_init(struct iris_core *core)
+> +{
+> +	core->root = debugfs_create_dir("iris", NULL);
+> +	debugfs_create_file("fw_level", 0600, core->root, core,
+> +			    &iris_fw_level_fops);
+> +}
+> +
+> +void iris_debugfs_deinit(struct iris_core *core)
+> +{
+> +	debugfs_remove(core->root);
+> +}
+> diff --git a/drivers/media/platform/qcom/iris/iris_debugfs.h b/drivers/media/platform/qcom/iris/iris_debugfs.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..aa3cb97eb2b2e71dfe6a0db6ccfd430256cdb6fa
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/iris/iris_debugfs.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +#ifndef __IRIS_DEBUGFS_H__
+> +#define __IRIS_DEBUGFS_H__
+> +
+> +struct iris_core;
+> +
+> +void iris_debugfs_init(struct iris_core *core);
+> +void iris_debugfs_deinit(struct iris_core *core);
+> +
+> +#endif
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.c b/drivers/media/platform/qcom/iris/iris_hfi_common.c
+> index 8769ec61f11769e004945063381d9baddb302b06..706a4d321ee2899aadc9f650d0d9a864fdc6769b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_common.c
+> @@ -87,9 +87,44 @@ int iris_hfi_core_init(struct iris_core *core)
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (hfi_ops->sys_set_debug) {
+> +		ret = hfi_ops->sys_set_debug(core);
+> +		if (ret)
+> +			dev_warn(core->dev,
+> +				 "failed to configure firmware debug logging: %d\n",
+> +				 ret);
+> +	}
+> +
+>  	return hfi_ops->sys_interframe_powercollapse(core);
+>  }
+>  
+> +int iris_hfi_set_debug(struct iris_core *core)
+> +{
+> +	const struct iris_hfi_sys_ops *hfi_ops = core->hfi_sys_ops;
+> +	int ret = 0;
+> +
+> +	if (!hfi_ops->sys_set_debug)
+> +		return 0;
+> +
+> +	ret = pm_runtime_resume_and_get(core->dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	mutex_lock(&core->lock);
+> +	if (core->state != IRIS_CORE_INIT) {
+> +		ret = 0;
+> +		goto unlock;
+> +	}
+> +
+> +	ret = hfi_ops->sys_set_debug(core);
+> +
+> +unlock:
+> +	mutex_unlock(&core->lock);
+> +	pm_runtime_put_autosuspend(core->dev);
+> +
+> +	return ret;
+> +}
+> +
+>  irqreturn_t iris_hfi_isr(int irq, void *data)
+>  {
+>  	disable_irq_nosync(irq);
+> @@ -163,6 +198,14 @@ int iris_hfi_pm_resume(struct iris_core *core)
+>  	if (ret)
+>  		goto err_suspend_hw;
+>  
+> +	if (ops->sys_set_debug) {
+> +		ret = ops->sys_set_debug(core);
+> +		if (ret)
+> +			dev_warn(core->dev,
+> +				 "failed to configure firmware debug logging: %d\n",
+> +				 ret);
+> +	}
+> +
+>  	ret = ops->sys_interframe_powercollapse(core);
+>  	if (ret)
+>  		goto err_suspend_hw;
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.h b/drivers/media/platform/qcom/iris/iris_hfi_common.h
+> index a27447eb2519962cb958b0e330a6d018310c3450..d8bc0862c54bd229d575113752526d51e863e303 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_common.h
+> @@ -105,9 +105,18 @@ struct iris_hfi_prop_type_handle {
+>  	int (*handle)(struct iris_inst *inst, u32 plane);
+>  };
+>  
+> +#define IRIS_FW_DEBUG_LOW	0x00000001
+> +#define IRIS_FW_DEBUG_MEDIUM	0x00000002
+> +#define IRIS_FW_DEBUG_HIGH	0x00000004
+> +#define IRIS_FW_DEBUG_ERROR	0x00000008
+> +#define IRIS_FW_DEBUG_FATAL	0x00000010
+> +#define IRIS_FW_DEBUG_PERF	0x00000020
+> +#define IRIS_FW_DEBUG_LOGMASK	0x0fffffff
+> +
+>  struct iris_hfi_sys_ops {
+>  	int (*sys_init)(struct iris_core *core);
+>  	int (*sys_image_version)(struct iris_core *core);
+> +	int (*sys_set_debug)(struct iris_core *core);
+>  	int (*sys_interframe_powercollapse)(struct iris_core *core);
+>  	int (*sys_pc_prep)(struct iris_core *core);
+>  
+> @@ -153,6 +162,7 @@ u32 iris_hfi_get_v4l2_color_primaries(u32 hfi_primaries);
+>  u32 iris_hfi_get_v4l2_transfer_char(u32 hfi_characterstics);
+>  u32 iris_hfi_get_v4l2_matrix_coefficients(u32 hfi_coefficients);
+>  int iris_hfi_core_init(struct iris_core *core);
+> +int iris_hfi_set_debug(struct iris_core *core);
+>  int iris_hfi_pm_suspend(struct iris_core *core);
+>  int iris_hfi_pm_resume(struct iris_core *core);
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
+> index f6e9cbfccd09e4013e842c92c8272ddeb1b166d3..55e2fade62e0450b8ce5e5c928b746dcb6ef8387 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
+> @@ -53,6 +53,35 @@ static int iris_hfi_gen1_sys_image_version(struct iris_core *core)
+>  	return iris_hfi_queue_cmd_write_locked(core, &packet, packet.hdr.size);
+>  }
+>  
+> +static int iris_hfi_gen1_sys_set_debug(struct iris_core *core)
+> +{
+> +	struct hfi_sys_set_property_pkt *pkt;
+> +	struct hfi_debug_config *hfi;
+> +	u32 fw_debug;
+> +	u32 packet_size;
+> +	int ret;
+> +
+> +	packet_size = struct_size(pkt, data, 1) + sizeof(*hfi);
+> +	pkt = kzalloc(packet_size, GFP_KERNEL);
+> +	if (!pkt)
+> +		return -ENOMEM;
+> +
+> +	hfi = (struct hfi_debug_config *)&pkt->data[1];
+> +
+> +	pkt->hdr.size = packet_size;
+> +	pkt->hdr.pkt_type = HFI_CMD_SYS_SET_PROPERTY;
+> +	pkt->num_properties = 1;
+> +	pkt->data[0] = HFI_PROPERTY_SYS_DEBUG_CONFIG;
+> +	fw_debug = READ_ONCE(core->fw_debug) & IRIS_FW_DEBUG_LOGMASK;
+> +	hfi->config = fw_debug;
+> +	hfi->mode = fw_debug ? HFI_DEBUG_MODE_QUEUE : 0;
+> +
+> +	ret = iris_hfi_queue_cmd_write_locked(core, pkt, pkt->hdr.size);
+> +	kfree(pkt);
+> +
+> +	return ret;
+> +}
+> +
+>  static int iris_hfi_gen1_sys_interframe_powercollapse(struct iris_core *core)
+>  {
+>  	struct hfi_sys_set_property_pkt *pkt;
+> @@ -1149,6 +1178,7 @@ static struct iris_inst *iris_hfi_gen1_get_instance(void)
+>  static const struct iris_hfi_sys_ops iris_hfi_gen1_sys_ops = {
+>  	.sys_init = iris_hfi_gen1_sys_init,
+>  	.sys_image_version = iris_hfi_gen1_sys_image_version,
+> +	.sys_set_debug = iris_hfi_gen1_sys_set_debug,
+>  	.sys_interframe_powercollapse = iris_hfi_gen1_sys_interframe_powercollapse,
+>  	.sys_pc_prep = iris_hfi_gen1_sys_pc_prep,
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h
+> index 275f3fea3d2aabe26a2a0498c78c09ec28765b24..887f96c5623809beb1c8e911949b314b9bd029da 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_defines.h
+> @@ -80,6 +80,14 @@
+>  #define HFI_BUFFER_INTERNAL_SCRATCH_1			0x7
+>  #define HFI_BUFFER_INTERNAL_SCRATCH_2			0x8
+>  
+> +#define HFI_DEBUG_MODE_QUEUE				0x01
+> +
+> +struct hfi_debug_config {
+> +	u32 config;
+> +	u32 mode;
+> +};
+> +
+> +#define HFI_PROPERTY_SYS_DEBUG_CONFIG			0x1
+>  #define HFI_PROPERTY_SYS_CODEC_POWER_PLANE_CTRL		0x5
+>  #define HFI_PROPERTY_SYS_IMAGE_VERSION			0x6
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> index bfd7495bf44f064091afb3245ec53cd18d323068..903b60a7380559f4711b0907fb1de405fe1707f3 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> @@ -674,16 +674,35 @@ static void iris_hfi_gen1_handle_response(struct iris_core *core, void *response
+>  
+>  static void iris_hfi_gen1_flush_debug_queue(struct iris_core *core, u8 *packet)
+>  {
+> -	struct hfi_msg_sys_coverage_pkt *pkt;
+> +	struct hfi_msg_sys_debug_pkt *pkt;
+> +	struct hfi_pkt_hdr *hdr;
+> +	u32 log_size;
+> +	u8 *log;
+>  
+>  	while (!iris_hfi_queue_dbg_read(core, packet)) {
+> -		pkt = (struct hfi_msg_sys_coverage_pkt *)packet;
+> +		hdr = (struct hfi_pkt_hdr *)packet;
+>  
+> -		if (pkt->hdr.pkt_type != HFI_MSG_SYS_COV) {
+> -			struct hfi_msg_sys_debug_pkt *pkt =
+> -				(struct hfi_msg_sys_debug_pkt *)packet;
+> +		if (hdr->size <= sizeof(*hdr))
+> +			continue;
+> +
+> +		if (hdr->size > IFACEQ_CORE_PKT_SIZE)
+> +			continue;
+> +
+> +		if (hdr->pkt_type != HFI_MSG_SYS_COV) {
+> +			pkt = (struct hfi_msg_sys_debug_pkt *)packet;
+> +
+> +			if (hdr->size <= sizeof(*pkt))
+> +				continue;
+> +
+> +			log = pkt->msg_data;
+> +			log_size = hdr->size - sizeof(*pkt);
+> +			if (pkt->msg_size < log_size)
+> +				log_size = pkt->msg_size;
+>  
+> -			dev_dbg(core->dev, "%s", pkt->msg_data);
+> +			if (pkt->msg_type & (IRIS_FW_DEBUG_ERROR | IRIS_FW_DEBUG_FATAL))
+> +				dev_err_ratelimited(core->dev, "%.*s", (int)log_size, log);
+> +			else
+> +				dev_dbg(core->dev, "%.*s", (int)log_size, log);
+>  		}
+>  	}
+>  }
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+> index 388a36ff2b07b7bcd8db21d4345bc900356b4ec3..cca3c2e8668802d45ff309928a731b04a78a1bcc 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+> @@ -17,6 +17,9 @@
+>  #define SYS_IFPC_PKT_SIZE (sizeof(struct iris_hfi_header) + \
+>  	sizeof(struct iris_hfi_packet) + sizeof(u32))
+>  
+> +#define SYS_DEBUG_PKT_SIZE (sizeof(struct iris_hfi_header) + \
+> +	2 * (sizeof(struct iris_hfi_packet) + sizeof(u32)))
+> +
+>  #define SYS_NO_PAYLOAD_PKT_SIZE (sizeof(struct iris_hfi_header) + \
+>  	sizeof(struct iris_hfi_packet))
+>  
+> @@ -54,6 +57,23 @@ static int iris_hfi_gen2_sys_image_version(struct iris_core *core)
+>  	return ret;
+>  }
+>  
+> +static int iris_hfi_gen2_sys_set_debug(struct iris_core *core)
+> +{
+> +	struct iris_hfi_header *hdr;
+> +	int ret;
+> +
+> +	hdr = kzalloc(SYS_DEBUG_PKT_SIZE, GFP_KERNEL);
+> +	if (!hdr)
+> +		return -ENOMEM;
+> +
+> +	iris_hfi_gen2_packet_set_debug(core, hdr);
+> +	ret = iris_hfi_queue_cmd_write_locked(core, hdr, hdr->size);
+> +
+> +	kfree(hdr);
+> +
+> +	return ret;
+> +}
+> +
+>  static int iris_hfi_gen2_sys_interframe_powercollapse(struct iris_core *core)
+>  {
+>  	struct iris_hfi_header *hdr;
+> @@ -1391,6 +1411,7 @@ static struct iris_inst *iris_hfi_gen2_get_instance(void)
+>  static const struct iris_hfi_sys_ops iris_hfi_gen2_sys_ops = {
+>  	.sys_init = iris_hfi_gen2_sys_init,
+>  	.sys_image_version = iris_hfi_gen2_sys_image_version,
+> +	.sys_set_debug = iris_hfi_gen2_sys_set_debug,
+>  	.sys_interframe_powercollapse = iris_hfi_gen2_sys_interframe_powercollapse,
+>  	.sys_pc_prep = iris_hfi_gen2_sys_pc_prep,
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+> index f43aea10090d8f1d6ae5c20547e5f6321b2ca203..1d4ded82ecdac6e4af9fdd11460158682d27fbf3 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+> @@ -39,6 +39,9 @@
+>  #define HFI_PROP_UBWC_BANK_SWZL_LEVEL2		0x03000007
+>  #define HFI_PROP_UBWC_BANK_SWZL_LEVEL3		0x03000008
+>  #define HFI_PROP_UBWC_BANK_SPREADING		0x03000009
+> +#define HFI_PROP_DEBUG_CONFIG			0x0300000a
+> +#define HFI_PROP_DEBUG_LOG_LEVEL		0x0300000b
+> +#define HFI_DEBUG_CONFIG_DEFAULT		0x00000000
+>  #define HFI_PROP_CODEC				0x03000100
+>  #define HFI_PROP_COLOR_FORMAT			0x03000101
+>  #define HFI_PROP_BITSTREAM_RESOLUTION		0x03000103
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+> index 0d05dd2afc07d830cc8502ab5f28001312991ba8..2dbe57b87fd3c3198d183c32be912797cf36de39 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+> @@ -226,6 +226,35 @@ void iris_hfi_gen2_packet_image_version(struct iris_core *core, struct iris_hfi_
+>  				    NULL, 0);
+>  }
+>  
+> +void iris_hfi_gen2_packet_set_debug(struct iris_core *core, struct iris_hfi_header *hdr)
+> +{
+> +	u32 fw_debug;
+> +	u32 payload;
+> +
+> +	iris_hfi_gen2_create_header(hdr, 0, core->header_id++);
+> +
+> +	payload = HFI_DEBUG_CONFIG_DEFAULT;
+> +	iris_hfi_gen2_create_packet(hdr,
+> +				    HFI_PROP_DEBUG_CONFIG,
+> +				    HFI_HOST_FLAGS_NONE,
+> +				    HFI_PAYLOAD_U32_ENUM,
+> +				    HFI_PORT_NONE,
+> +				    core->packet_id++,
+> +				    &payload,
+> +				    sizeof(u32));
+> +
+> +	fw_debug = READ_ONCE(core->fw_debug) & IRIS_FW_DEBUG_LOGMASK;
+> +	payload = fw_debug;
+> +	iris_hfi_gen2_create_packet(hdr,
+> +				    HFI_PROP_DEBUG_LOG_LEVEL,
+> +				    HFI_HOST_FLAGS_NONE,
+> +				    HFI_PAYLOAD_U32_ENUM,
+> +				    HFI_PORT_NONE,
+> +				    core->packet_id++,
+> +				    &payload,
+> +				    sizeof(u32));
+> +}
+> +
+>  void iris_hfi_gen2_packet_session_command(struct iris_inst *inst, u32 pkt_type,
+>  					  u32 flags, u32 port, u32 session_id,
+>  					  u32 payload_type, void *payload,
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
+> index 25b9582349ca1a0ce6efc0b146a3abb798485c45..aff025fbf5eadbedbf0108b41b6f9bf418d4f779 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
+> @@ -111,6 +111,7 @@ u32 iris_hfi_gen2_get_color_info(u32 matrix_coeff, u32 transfer_char, u32 primar
+>  
+>  void iris_hfi_gen2_packet_sys_init(struct iris_core *core, struct iris_hfi_header *hdr);
+>  void iris_hfi_gen2_packet_image_version(struct iris_core *core, struct iris_hfi_header *hdr);
+> +void iris_hfi_gen2_packet_set_debug(struct iris_core *core, struct iris_hfi_header *hdr);
+>  void iris_hfi_gen2_packet_session_command(struct iris_inst *inst, u32 pkt_type,
+>  					  u32 flags, u32 port, u32 session_id,
+>  					  u32 payload_type, void *payload,
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> index 8c2644c7f6e85983d7ad7584fc0cb570e4813ae4..e8dc8751ea939bd544699f464a831736fcc10b7f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> @@ -991,20 +991,24 @@ static int iris_hfi_gen2_handle_response(struct iris_core *core, void *response)
+>  static void iris_hfi_gen2_flush_debug_queue(struct iris_core *core, u8 *packet)
+>  {
+>  	struct hfi_debug_header *pkt;
+> +	u32 log_size;
+>  	u8 *log;
+>  
+>  	while (!iris_hfi_queue_dbg_read(core, packet)) {
+>  		pkt = (struct hfi_debug_header *)packet;
+>  
+> -		if (pkt->size < sizeof(*pkt))
+> +		if (pkt->size <= sizeof(*pkt) + 1)
+>  			continue;
+>  
+> -		if (pkt->size >= IFACEQ_CORE_PKT_SIZE)
+> +		if (pkt->size > IFACEQ_CORE_PKT_SIZE)
+>  			continue;
+>  
+> -		packet[pkt->size] = '\0';
+>  		log = (u8 *)packet + sizeof(*pkt) + 1;
+> -		dev_dbg(core->dev, "%s", log);
+> +		log_size = pkt->size - sizeof(*pkt) - 1;
+> +		if (pkt->debug_level & (IRIS_FW_DEBUG_ERROR | IRIS_FW_DEBUG_FATAL))
+> +			dev_err_ratelimited(core->dev, "%.*s", (int)log_size, log);
+> +		else
+> +			dev_dbg(core->dev, "%.*s", (int)log_size, log);
+>  	}
+>  }
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index e4acf4a74f944bcae83089ef5489f204d4b0078e..8bc94acc4f58ce7792ddaeaad036475c476d5c36 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/reset.h>
+>  #include <linux/soc/qcom/ubwc.h>
+>  
+> +#include "iris_debugfs.h"
+>  #include "iris_core.h"
+>  #include "iris_ctrls.h"
+>  #include "iris_vidc.h"
+> @@ -207,6 +208,8 @@ static void iris_remove(struct platform_device *pdev)
+>  
+>  	v4l2_device_unregister(&core->v4l2_dev);
+>  
+> +	iris_debugfs_deinit(core);
+> +
+>  	mutex_destroy(&core->lock);
+>  }
+>  
+> @@ -230,6 +233,7 @@ static int iris_probe(struct platform_device *pdev)
+>  	if (!core)
+>  		return -ENOMEM;
+>  	core->dev = dev;
+> +	core->fw_debug = IRIS_FW_DEBUG_ERROR | IRIS_FW_DEBUG_FATAL;
+>  
+>  	core->state = IRIS_CORE_DEINIT;
+>  	mutex_init(&core->lock);
+> @@ -298,6 +302,8 @@ static int iris_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto err_vdev_unreg_enc;
+>  
+> +	iris_debugfs_init(core);
+> +
+>  	return 0;
+>  
+>  err_vdev_unreg_enc:
+> diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
+> index a2ea2d67f60d05bc0dceb097f94a4f80199b0618..3761987a62e1daabc02a0fd28342c108eec02a19 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vb2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+> @@ -127,7 +127,10 @@ int iris_vb2_queue_setup(struct vb2_queue *q,
+>  		goto unlock;
+>  
+>  	if (!inst->once_per_session_set) {
+> -		inst->once_per_session_set = true;
+> +		ret = iris_hfi_set_debug(core);
+> +		if (ret)
+> +			dev_dbg(core->dev,
+> +				"failed to set firmware debug level: %d\n", ret);
+>  
+>  		ret = inst->hfi_session_ops->session_open(inst);
+>  		if (ret) {
+> @@ -136,6 +139,8 @@ int iris_vb2_queue_setup(struct vb2_queue *q,
+>  			goto unlock;
+>  		}
+>  
+> +		inst->once_per_session_set = true;
+> +
+>  		ret = iris_inst_change_state(inst, IRIS_INST_INIT);
+>  		if (ret)
+>  			goto unlock;
 
--- 
-Pavel Begunkov
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
