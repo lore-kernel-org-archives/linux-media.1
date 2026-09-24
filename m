@@ -1,144 +1,158 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2581A40B0E6;
-	Thu, 24 Sep 2026 20:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476D9488D86;
+	Thu, 24 Sep 2026 20:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281868; cv=none; b=ljWnRpW/ck6SOVWGUtmxiRWoglcGTpVcy9kgGBRIKSuzd93n1GoeXRlR23Q8kQgWCE1+IOkkaLDThVHl0AT+8/y8uZPiymJezMIo8ysIiJ8T96EUI58ohzdXltQJj2oWa1iClg0a9169dgt2I62XYC26qiQjfb9k6rbiBzLTxPU=
+	t=1790282810; cv=none; b=Fc3JrKqAfzUnkfvqV0vYaW38K6iMjelWDvTGOcQr3eKQC5EwyNe1lAgDTjg72s+Qx1UrLrJ2KSEVoWLXOzw7hus6rPqZgPATu6UxJMWdzXBWwtymPXbn0/0YT2wS/+dvcXMgTDTixMKD7y+nGpVnov7w0exfdvO35PXaSAUvORU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281868; c=relaxed/simple;
-	bh=gaE1BmC4n2x2Lh1ImjKqdSqbm/A7A2CKpyIc70AL+BY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hfY44EmeShjZCkTpzCJCtZzYMOobHZ47GfEJENJwqTwmDAXVREEPxIea8fr4n1lgIldyDfOxhHd3+bOA6Wj9Qodki4qIOq4BGD658+7qhTDDDyGdaM6qhfobtyhCz2bfiwipxX2o6ZQD2DpJkV4/8KXtaPDi5whAWLS60Pvh5jU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 003EC3700EDB;
-	Thu, 24 Sep 2026 20:30:47 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 5A2C5B64AC3; Thu, 24 Sep 2026 20:30:46 +0000 (UTC)
-X-Spam-Level: 
-Received: from collins (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id C9838B64AC3;
-	Thu, 24 Sep 2026 20:30:44 +0000 (UTC)
-Date: Thu, 24 Sep 2026 22:30:42 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>,
-	devicetree <devicetree@vger.kernel.org>,
-	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>,
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-media <linux-media@vger.kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Michael Tretter <m.tretter@pengutronix.de>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E
- support
-Message-ID: <arWIcrSFkEA4GMTY@collins>
+	s=arc-20240116; t=1790282810; c=relaxed/simple;
+	bh=ZxkrPL30PUD8vP5ntlrp+qcubhHME4v9ZvuZDwUuoSE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sR4ZZlzhAQxMRZNhF8hrcML+t6D4j26w0o53CLX/C1wY4BHUWFTntoe1fCCAM52vy6kprNDK2taXmgFnmBbCXoeOPpPk2CiB1cDAg60l7J/59/eTu5Eq4zGKAltOIrUH2jsojC+S5PrUK272FYJMrSSLTPiIAvE+BZRVmoDYrJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GCLkaPvw; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GCLkaPvw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790282807;
+	bh=ZxkrPL30PUD8vP5ntlrp+qcubhHME4v9ZvuZDwUuoSE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=GCLkaPvwThqg/tLIC1YahbDhGK2z+k4HSMwRd2ltI+5QxU/yAI0gRUgJLu+DwrPYe
+	 IKFD/Zggp6EBBDYZ2vMEe9g/QroSDDSO2CMZvQ1mUazBS+QIA4Pw9zNspISP0I9jJ5
+	 n9RhqQEWIJ9aPeYhc4SLCAnTmqzM0JNGrfibrLU5FzpaELewDs1mzGGsPdfjxussD7
+	 g43P+fb7LQkWGzrfAwVdpt31cm7XS4PgfAgPON+d/uAtldU3NkeTA/kHdjazBy/f3b
+	 m54YznAUNrLqq/4OKayvzkK/v1pC71aiJ3sbwHacNebmNQSqanWxchPcIoC2z7T4SB
+	 l/wYliqk171UA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E4D917E01C5;
+	Thu, 24 Sep 2026 22:46:45 +0200 (CEST)
+Message-ID: <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and
+ VC8000E support
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, devicetree	
+ <devicetree@vger.kernel.org>, "open list:FREESCALE IMX / MXC FEC DRIVER"	
+ <imx@lists.linux.dev>, linux-arm-kernel
+ <linux-arm-kernel@lists.infradead.org>,  LKML
+ <linux-kernel@vger.kernel.org>, linux-media <linux-media@vger.kernel.org>,
+ Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley	 <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer	 <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>,  Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab	 <mchehab@kernel.org>, Hans Verkuil
+ <hverkuil@kernel.org>, Marco Felsch	 <m.felsch@pengutronix.de>, Michael
+ Tretter <m.tretter@pengutronix.de>
+Date: Thu, 24 Sep 2026 16:46:43 -0400
+In-Reply-To: <arWIcrSFkEA4GMTY@collins>
 References: <20260522101653.2565125-1-paulk@sys-base.io>
- <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
- <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
- <arQxC3DmDyVIGdqq@collins>
- <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
- <arVnQmik-CveaAkY@collins>
- <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
- <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
+	 <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+	 <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
+	 <arQxC3DmDyVIGdqq@collins>
+	 <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+	 <arVnQmik-CveaAkY@collins>
+	 <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
+	 <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
+	 <arWIcrSFkEA4GMTY@collins>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-RZqRkCQcXHsSV3m7pcT/"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZGRlYrwE/Jnn6ady"
-Content-Disposition: inline
-In-Reply-To: <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
 
---ZGRlYrwE/Jnn6ady
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+
+--=-RZqRkCQcXHsSV3m7pcT/
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Paul
 
-Le Thu 24 Sep 26, 15:44, Nicolas Dufresne a =C3=A9crit :
-> Le jeudi 24 septembre 2026 =C3=A0 21:38 +0200, Michael Nazzareno Trimarch=
-i a =C3=A9crit=C2=A0:
-> > I would like to ask about the status of the entire proposal and uapi ch=
-ange.
+[...]
+> By the way if you have ideas about specific problems with the stateful
+> API that should not be reproduced in the stateless one, feel free to
+> mention them.
 
-By the way (in case you missed it Michael), this topic was discussed
-at the 2026 Linux Media Summit and you can find my slides at:
-https://www.paulk.fr/talks#2026-linux-media-summit-v4l2-stateless-video-enc=
-oding-uapi-progress-update
+Few things:
 
-The discussion helped clarify a number of points and expectations for
-the next iteration of the proposal, which I am currently working on.
-It involves some rework of core support and helpers but the technical
-side remains rather similar.
+- Drain flow should be as simple as for stateless decoder, there is no
+reordering, and so no holding on frames.
 
-> From my perspective, the main part missing the the V4L2 m2m stateless enc=
-oder
-> spec. We made one for stateful decoder/encoder and stateless decoder, and=
- that
-> made a huge different in interoperability.
+- Capability query should mimic the stateless decoders (but up-side down).
+Basically, we don't add a pseudo unset state, that was bogus.
+V4L2_FMTDESC_FLAG_ENUM_ALL could be made mandatory, this is only partially
+implemented decoders today :-S
 
-Yes adding the spec is part of the ongoing work for v2. It will be a mix
-of what is already done for stateful encoders with more flexibility and
-specific aspects for the stateless aspect.
+- Capture/Output S_PARM, maybe review/revisit, but likely still needed,
+otherwise the rate controller can't know the rate.
 
-By the way if you have ideas about specific problems with the stateful
-API that should not be reproduced in the stateless one, feel free to
-mention them.
+- S_SELECTION, maybe make it mandatory for codec with a conformance window =
+?
 
-> A second implementation, not just a variant of the same brand would also =
-be
-> nice.
+- Of course, encoding process requires a request
 
-I still have it in mind to add support for the Allwinner encoder based
-on my earlier stateful-ish attempt. Hopefully that work can be funded.
+- Anything about keyframe insertion can be dropped, since frame type is exp=
+licit
+and per codec.
 
-All the best,
+One ambiguity we have in all decoders at least is weather or not the enumer=
+ate
+sized are coded or display resolution. I believe technically, all stateless
+decoder exposes constraints in coded resolutions, and display resolutions a=
+re
+not easily enumerated. Not a blocker, just a remark.
 
-Paul
+Hope this is helpful,
+Nicolas
 
---=20
-Paul Kocialkowski,
+>=20
+> > A second implementation, not just a variant of the same brand would als=
+o be
+> > nice.
+>=20
+> I still have it in mind to add support for the Allwinner encoder based
+> on my earlier stateful-ish attempt. Hopefully that work can be funded.
+>=20
+> All the best,
+>=20
+> Paul
 
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---ZGRlYrwE/Jnn6ady
-Content-Type: application/pgp-signature; name=signature.asc
+--=-RZqRkCQcXHsSV3m7pcT/
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmq1iHIACgkQhP3B6o/u
-lQxMCg//Tj9pel13OVA8fHs5ZlH1ab/S9YFp4smIT5v7toqV1qkvsXw6zEUPUAX2
-gy+C+KQnzRTiALU96ISEnvgwbxzqb51+hbuy8wMBu9aqC9lxdqAWA4rlTbDG4mVY
-MTzp+swHJoNFQmQZb3JTBsXU+HLi3girzdHR6tG46vfv43Ppd96dsBropo/zYXsv
-IrRRWcKKtpt/4WARpUSPi0YBMRwFOn7+g6ePJIFQze1FuDzdEJHktiRFw0BBEAHB
-eGZeDS1Sv/3Lj7b/ozF9ilgtyh2gPO0oQNrjQvVScjUF8k8d1NxOpTXYG5m/aykS
-0WYcTjrRGyLvtzdtNri1WnnD1wfZKRsYCR1d08/i7kwAFS6TqsKO+HdA9V1nFBbM
-6H8L7wN6vMM3PZ9iMjj1/Y5v4ug/P6EnfMPW1FqzEZJBkVsXyLhvfKA7SFGSR9Pr
-zV9EdQhdDjZtwh5/oMgPsEuJhJ3DIJKT+TTAhQLD/JioPKoPTKPWALvDOx40QvgN
-c2E7LdQAV79+86G5UaFSB2gEmnrcE+H9g3WlyWcXN8hgUEimU8AYc3yu6jMXZ49K
-Mv0loazwv/fPjahTvm56qqPl6chc7hxyq3qU8EvnhNseV/Z7Y6N0nnIi7DUqZoYU
-t9da7fZJu56RF8xMtZjTMk1MyYjYExZVVQ3QELL1kgJsJWcs99s=
-=Mn69
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarWMMwAKCRDZQZRRKWBy
+9NqWAP42EmwEZYXkDrrIHimfO2YkL1gxjjiSxbQmMV+aniWsxQEApmExmBL7mmz6
+RyLWV0kcepV0pLiYo5RAuCDOTzACyQA=
+=26C6
 -----END PGP SIGNATURE-----
 
---ZGRlYrwE/Jnn6ady--
+--=-RZqRkCQcXHsSV3m7pcT/--
