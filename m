@@ -1,109 +1,131 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from toucan.tulip.relay.mailchannels.net (toucan.tulip.relay.mailchannels.net [23.83.218.254])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4703C9EF8;
-	Thu, 24 Sep 2026 14:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5D33B5F63
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 14:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.218.254
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260727; cv=none; b=WMCL5edMWT0th6AcJzzoBbBb7kpXzMbGPkmlFOa0swn1/M672Lr9axQLjm7NLjTG4S6QNRDyB3I1uwMEPThclz3dM7I4pOAp57MRshSmwoFsyuOz72nDJSWadjK55Mt/xrJTZaxo6yU4hq709LQ+/k5sxO9zHBQl45E1rHac81A=
+	t=1790260817; cv=none; b=flhIfqFyifG2dk87CEegNufo7170Agrp0c0wqInUpwWH7GA47wUmBbSNiL59cm/lGC5ZpaxXOS10iON5rvdEUSvrXA46nF7XKbZezcnDHUpnJxQLMpZ337t7tBIxBZOAycpVjtc59IY3D2y37tMu/Oyp0DrXdl95yhWh+K3XgbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260727; c=relaxed/simple;
-	bh=B7L+GN8EOMrfe62BtJNrbN4w2aX8t7lKA7UWYMth/QU=;
+	s=arc-20240116; t=1790260817; c=relaxed/simple;
+	bh=fFTgQxpLRMyIDkGRkEct8M3mBmUVlPAFnBwTTUnIXGs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IszkbdzTesjd2KEMstrBSbcxEhWnJwhCOLiP73uAAYjRR2qRhjTfWXfSmRflsdK8n29y19mUo+3onGM1CDan/zyEw55lsbu0M0aD4uMy6J4/m9EzaAN1ZiV78c0Af8/vDo2AGuYfpGpeSMdF55A7v8PKOvYfrxs8VQADh1/gXhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lKHwjV9m; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DhobDxnN0Cxf1x64xXlygnCjxHWf9Hx7z4eNdHF+LTulZc17DTQ595VzSNk47wIjP14AF79X9udbzDAT1ZqXTZtzO75eOcO7tn0Qt1rbYNKPrfCloTKFRPQG39687j3Np3BMAxXhLm2hQv2NDdf23AZY594eItkzh0e4ZMuOOj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=m6YuM63d; arc=none smtp.client-ip=23.83.218.254
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lKHwjV9m"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DAB7BD0;
-	Thu, 24 Sep 2026 16:36:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790260615;
-	bh=B7L+GN8EOMrfe62BtJNrbN4w2aX8t7lKA7UWYMth/QU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lKHwjV9m5LTQ5EiY6WzBz9pgzaoNw7/t8Xf9M28MaUx21IG6tm32irCHIx7EPyMAQ
-	 7KcZGhKt/DjeAiOzwUkDXZkjgmgtFRu7OytINlmNQSpeLbWeqJvtXOTKTQqmFNK9vX
-	 QuPwtAHeu8EsoqTEQxXVmz8q9kAhA2ssnDnPiXbU=
-Date: Thu, 24 Sep 2026 17:38:41 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 08/11] media: vsp1: Document X5H SoC ID
-Message-ID: <20260924143841.GE135998@killaraus.ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
- <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-8-dbe9236bfd22@ideasonboard.com>
- <20260919175851.GI1124359@killaraus.ideasonboard.com>
- <179024137074.2882041.17628313046085880585@neptunite.rasen.tech>
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="m6YuM63d"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id E8CFB7A2A19;
+	Thu, 24 Sep 2026 14:02:03 +0000 (UTC)
+Received: from pdx1-sub0-mail-a243.dreamhost.com (trex-green-6.trex.outbound.svc.cluster.local [100.100.66.64])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 6E5847A16F2;
+	Thu, 24 Sep 2026 14:01:59 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Hysterical-Glossy: 29b8471a5dd85187_1790258523717_3377842951
+X-MC-Loop-Signature: 1790258523717:1375064299
+X-MC-Ingress-Time: 1790258523716
+Received: from pdx1-sub0-mail-a243.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.100.66.64 (trex/8.0.2);
+	Thu, 24 Sep 2026 14:02:03 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a243.dreamhost.com (Postfix) with ESMTPSA id 4hrFrQ5jghzymg;
+	Thu, 24 Sep 2026 07:01:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1790258519;
+	bh=fFTgQxpLRMyIDkGRkEct8M3mBmUVlPAFnBwTTUnIXGs=;
+	h=Date:From:To:Cc:Subject:Content-Type:Content-Transfer-Encoding;
+	b=m6YuM63d9hvA/ou0smxfrqjU4Ap8q2U+SErlE9SmUt9iP0IoPTmJMyhVUGB7PgVTU
+	 abYoc4Uea1pZ3CymH3YrwgagHABHpj95OrheemWbnqFy/ULEMzzbpjB94RO/XU6jDY
+	 nJHyEMCi7oSRxEODHjlDDrI7gLVg1kCBhSePEijnCZ7LJ5UIlxAjqUaz3yfrdNtc3I
+	 1igs/MuchL3sRntmvMSUym0uQNREqJghoUlxZqHeAMy0gkK7vI14vjR2KTNuzyqCTn
+	 g8E3RHrIK86S0aHF3KRUPEvDmSlYdwQm0JWVMPZNEl6XbYjV2ghtHbuetswpLFV8uz
+	 p4W2yeRJPfnCA==
+Date: Thu, 24 Sep 2026 07:01:56 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Christian =?utf-8?B?S8Ovwr/CvW5pZw==?= <christian.koenig@amd.com>
+Cc: "T.J. Mercier" <tjmercier@google.com>, sumit.semwal@linaro.org,
+	phasta@kernel.org, benjamin.gaignard@collabora.com,
+	jstultz@google.com, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
+ IOMMU superpages
+Message-ID: <20260924140156.howlrcf4gaab6kdx@offworld>
+References: <20260914212258.2657788-2-dave@stgolabs.net>
+ <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
+ <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
+ <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
+ <CABdmKX1g=wcLHOFkRN6DLPTABrnn2uWmgCKpCtixhiV_b+9J1g@mail.gmail.com>
+ <CABdmKX2GU0Eby=SEeALzeEp5ragEjU3Fw468Jv1yykD1Zdrgag@mail.gmail.com>
+ <d8d3af91-4f21-44ea-bc90-339fa1adacf9@amd.com>
+ <CABdmKX1YtyFM_MoMbPr4JUCXCr8TGPVbXUrAoQRELpp54cK-0w@mail.gmail.com>
+ <20260916162255.jv3dqacwtgfiv5kd@offworld>
+ <6f31d927-c598-4033-aff9-0f8b2c5590e1@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Disposition: inline
-In-Reply-To: <179024137074.2882041.17628313046085880585@neptunite.rasen.tech>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <6f31d927-c598-4033-aff9-0f8b2c5590e1@amd.com>
+User-Agent: NeoMutt/20220429
 
-On Thu, Sep 24, 2026 at 06:16:10PM +0900, Paul Elder wrote:
-> Quoting Laurent Pinchart (2026-09-20 02:58:51)
-> > On Sat, Sep 19, 2026 at 02:07:05AM +0900, Paul Elder wrote:
-> > > From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > > 
-> > > The R-Car X5H uses 0x09 as the SoC ID in the version register. Document
-> > > is with a macro, as done for other R-Car SoCs.
-> > > 
-> > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> > > ---
-> > > Changes in v2:
-> > > - Fix the version register number: s/0x04/0x09/
-> > 
-> > Thanks for the fix.
-> > 
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > 
-> > But I think we can squash this with patch 09/11.
-> > 
-> > > ---
-> > >  drivers/media/platform/renesas/vsp1/vsp1_regs.h | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > > 
-> > > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_regs.h b/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-> > > index 4c0315656e9f81a9656b58fb6f0233f8a22ac0e1..8abf39bac6c2f333696ebf55de87586d2df3bed0 100644
-> > > --- a/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-> > > +++ b/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-> > > @@ -816,6 +816,7 @@
-> > >  #define VI6_IP_VERSION_SOC_E3                (0x04 << 0)
-> > >  #define VI6_IP_VERSION_SOC_V3U               (0x05 << 0)
-> > >  #define VI6_IP_VERSION_SOC_V4H               (0x06 << 0)
-> > > +#define VI6_IP_VERSION_SOC_X5H               (0x09 << 0)
-> 
-> Do we need to add an X5H1 (0x09) and X5H2 (0x07)? Or whatever 0x07 is because
-> that's what the bsp is referencing for X5H. I've personally observed 0x09 for X5H1.
+On Thu, 17 Sep 2026, Christian K=EF=BF=BDnig wrote:
 
-I'd add 0x09 for now, and 0x07 later when we'll be able to test X5H2.
+>On 9/16/26 18:22, Davidlohr Bueso wrote:
+>> On Wed, 16 Sep 2026, T.J. Mercier wrote:
+>>
+>>> I'm not sure these patches were motivated by Android (based on x86
+>>> focus in the commit message), but Davidlohr would have to comment on
+>>> that. That's just where most of my experience comes from and what I
+>>> can share details about.
+>>
+>> This series was motivated by exploring new use cases for dma-buf (such
+>> as kvcache), not really for Android specifically. I was counting on
+>> the cheap/one-time 2Mb attempt (current high order semantics) to not be
+>> a problem for potential performance gains. As for the x86 I tested here,
+>> basically because it's what I have on hand, I had no idea ROCm was a no-=
+no
+>> for system heaps.
+>
+>Well the problem is that it does work, but gives you unstable performance =
+and people see that as a bug while it is an intentional design decision mad=
+e to keep the system heap driver independent.
+>
+>So yeah it's a trade off, it should just be properly documented.
+>> I am fine dropping this effort.
+>
+>It's clearly good that we talked about this.
+>
+>When something is changed here I would rather say that we have some #ifdef=
+ CONFIG_ARM around the existing code and use the PMD_SIZE for all other pla=
+tforms.
 
-> > >  /* RZ/G2L SoCs have no version register, So use 0x80 for SoC Identification */
-> > >  #define VI6_IP_VERSION_SOC_RZG2L     (0x80 << 0)
-> > >  
+Just able to circle back to this, sorry for the delay.
 
--- 
-Regards,
+I will go ahead then and add the ifdefiry for arm to leave it alone, and ad=
+d the PMD size otherwise.
 
-Laurent Pinchart
+>
+>If functionality isn't changed I think adding at least some notes that thi=
+s only works optimal on 4k ARM platforms is clearly a good idea.
+
+(will also comment the situation).
+
+Thanks,
+Davidlohr
