@@ -1,177 +1,189 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B6049F129
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 15:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262045; cv=pass; b=XfrWx0w+fDveyJEnrsfMduwVPFEGsQD61EtFNRpk+xyMMvY6Vm8LYxHGYXXFVUg3dw7rVH822RnvwqbOsd7FYqFYuvKH65POWtualR3mmEBPloyP2HaU+6DWOck6LBC5cGruPFeCtpUf0o/dj5YR6YA6ATEk4LXsBckQUhalpFY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262045; c=relaxed/simple;
-	bh=iuUfA02SH2tSSicml2K0I3xqm9pZO7ThoY25b+dKE6c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JnDJT+bVdTFFw6ztg4a38MoiN7SKcGPn5kJvSNp9eLJ2a9XLM70ntP6/M85KuUkh0ltg4qCw2x6GJCI0qSv62fjRsh8OA5RM366ZtfwhhJjr1Z4AVon2MhCealUNeWtnWwwzokXvcJXRmN9allR+JD6+N1+Z731hjmotK2VSny0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h/tUKF+G; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MVDl+InI; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8843B27F3
+	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 15:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790262437; cv=none; b=VGAqTk8Yklh26yd0CN7XaWF4MKQ8mfjejf11SPGk355NPfzRa3D3SeLciuc3PorQQ5Cf4ReWHgUtm1qF+bcRPo0jaQx7WVWjXPSwj3Cg4DG7kri96hFH0I24AydGcObJVoZHIMr/z2FMNPJhq+TPNG4rGMyNaxw6XfzShPWO6lI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790262437; c=relaxed/simple;
+	bh=5xft8eJa0QNMzpd90BhGrxG8kedqaG3IPDTXHPrs6lo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mH0oS0JmZMBjVXAoVzumKgNVKV4T6+frB3tmtJkg+T+0y5s77F4Ml+odDuZ5M4w9HJLEss3hu8cOaCdrACzfkinbyzmJ3XHMVXWSQ1lqxwzkRJz4ZW+oopZbWWp+/WEY5wGol5eie52LzYfhbm1lJzI/AUlmMMdpJMKAO1ngkQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=m5an5Bmk; arc=none smtp.client-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h/tUKF+G";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MVDl+InI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790262042;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
-	b=h/tUKF+GjUa0Y1mVfe+yVQYzqWASfzm5/7k9EnciidAxox34sO54UF/voll/xmfgUGq8aH
-	2EuBMW79l/Z623eXVcIWgACtfc3pUpSLhU2X0CCIjiSoAnZNr0R9gBnRC0wKqcY3lHBoz7
-	YK/Z34l3bpo15gnKhX3liV6LGOef2uo=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-517-lsZ5kuTVNHuUj8-oL9i4wg-1; Thu, 24 Sep 2026 11:00:40 -0400
-X-MC-Unique: lsZ5kuTVNHuUj8-oL9i4wg-1
-X-Mimecast-MFC-AGG-ID: lsZ5kuTVNHuUj8-oL9i4wg_1790262040
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8461ade272bso18335857b3.1
-        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 08:00:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790262040; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DVgB/aeuPqBC9NQuM0kclvWLyg/StJ3rJkT4MFaWz6CQIOIBu9JnD6N1IsSOGeG03C
-         yWEiHnlNDn0MvbliOTdPuRNk1rIkquLI8oJHh+9grPYVMbAlYRPc4sw/OaHG6LaCyK5a
-         IQyUVMM1dP37E2rPwxodkJg0EIGbTMSeGbbvdsfscPwThLrCU2s2e72M1G2p7KzdCGm+
-         OeQiuwnmWAX6+riRapwd+JJi+8NB+Ao4fFaL3rHafWIeq9zh4qnmSpayc4Q1CWchj9RZ
-         IVFxOmjhPDha27bRte2x8WZD3NSseHyWbe8t/YtS70gvs06+slcOr2qHnoxdtAqwPBD5
-         IC8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
-        fh=FGQu8MTO/p9/gXBAoNvBApUD+Nhv06pbAqyXhGWpyHs=;
-        b=tDnLS6JFDYXt09wfVCnU5p14FaL9JxngiYRa2g8rviJX5g3N1FMJPtObueMyoCRj1t
-         Wa8u2RKX/ybvr/Oosz6K/iSKQg6VWhBKHReVliGbsoaXmRHWnORrKBs8mAyTwpSwdXIv
-         T8PEhmZwC82bKi3IK1ZcHtlMdHc4CYFcLp/sc0hJOyuM6gIVLz9/13Pg2/Uk2d+rA13j
-         fTrc/YL4sPhemKyoz4euRBhRrbihlTKmc+F0uLEr3BDE3KtrM/8BoNpMuxj/4U3ZiAVI
-         Y6sbMIscqNXdxwGelx5iCOzsQwovhGyxs0LPplZ9BoifOcJivYV5CQbjRpgdCLTi7qLa
-         u5wA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790262040; x=1790866840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
-        b=MVDl+InINlRiSWNoJ+zSo3dPDLpLFAx8rHOQcJPrFcrb0dFjn331QV2IRGTQ7mSLf2
-         FzOGnMoq9jW909FTyZADgpBVLgDHXWeUVGIDkPw+aeVry1O2IqecYbQhdHv53moD09Gd
-         M6/R10IHRh/oSqPNOZRSalRoelc2p/FUbgk8NWsvk10oj8K0P0i/+6Kb2SJNz7+VGtS3
-         EHiUnog1bSJUloT5Ezfcd6Fbhr/4NApXO579lYUqr0j5S8iaQ1FgRSVlUokp15A2kalc
-         H92GZLmjxY5Dvm/8H/oqzwnBKNx9aSsXGI80NbQvadYeVqffYhdBjfmMsucgQUH6nslq
-         hc9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790262040; x=1790866840;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
-        b=F8rf+Qo2SMDrMvIBZy6y63BPxAfnWhfdrJJ4/uI/iLR65TTs7ye6PHx12aYhkDLqs4
-         N10nGQpzUH48mcciliWRKdMHCD03Ac6//1FQkLbanZp0NyQHFrz8j8gs7f3TpQALFqjY
-         x2Y7JuGHomDrA2g82uzOFwTqq3ktfu6cdP/fsygSbc8g03ZU+rnelZ9+hdKHBx7sunff
-         ECKj3DyEe3RlDjT4E9HeP2VJzbpt7NV4HqtEJuVc471zMIHjTPqrsSjbkUytGYlQWvw3
-         fHhjjpnoDyXyLmHiUo5mY+m4o7nGV5HwfYs2j39KOxjo0q2ZEXM0Xm3Pr2bkjW0E4ly6
-         aPqg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6XHJiIhhLHJwg+D1DqJBf2wn9XHc88PG/0BLUsePrExOrcltZRsATwbPTHM1GZAuskBFVT4ihWX+rJQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nJsaIJ/b5M6LjC2rqhDd8+2H21EzC6z9G7UzRY1xxboPORc4z2
-	koWZB+QsAEnYztAZb2zN0hYUgjHglk6fZWiuBPqxMxeS0sJZWUDNsfUDJksxDqSkPi+GHtHbc0N
-	QJ6r9/+tdcH8rCTwW7a1rAaojhWWgWdfHuB8ZV9jhLqCZRMmagjcOmVVCG0twiE8YAZE5CKCbZp
-	guNQmUVdhE+lRCtWWqg02MdT6ddO+OrxwUWP/fbLs=
-X-Gm-Gg: AYBFou1y7ND+pZeaXvcNtsywJPC82zxVT4Gem9vsNg6iMz0sMExW2Y0lRvMGBLFqeVv
-	Eerd/bg0xFN1GryLailIzaAxBaSHy4IW/UdmtBQShJeknFbgGCf7diSJDJmwQZuyqPWazWoL/wW
-	T3mPbLXUgc7BLfB/TkkHrm+M6Fbzk3sn1AEf/r95OkD2My3vnGhi7aGw==
-X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id 00721157ae682-8a64e5d7328mr16132417b3.20.1790262039834;
-        Thu, 24 Sep 2026 08:00:39 -0700 (PDT)
-X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
- 00721157ae682-8a64e5d7328mr16131377b3.20.1790262038827; Thu, 24 Sep 2026
- 08:00:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="m5an5Bmk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790262427; x=1790521627;
+	bh=qwBKf29VcuHB7HKuSWQx1q6Apu9zfSijrijhMuM7/Tg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=m5an5BmkaqqyqKyNY2rOpxXBJWEK54I1vFu9elYbrBOIhHE56pXfk43AUv1JnWj3+
+	 sP9igcSNS0IpW1GbZPqz8k9bZJ2ZZg+qrJ6eSj3XaHQ31Urgvlf+CbwcUN9fvUm7gY
+	 WiNPKGEr6KZpMxuDf3V1oCxMgU+7+3AsMQNvq+dztFItJ49e/TLNQ7iC75mRcfMDVi
+	 6S7f5c/B4BAPeP2MrqweOWDoDKXAb/mHEYq63iAiAJLsJzQm6gjCBKPwaziWhRnhg3
+	 FCFGVrd+ITiANGh1NLXUYAgSZdx7O6yq7CQQi2LaROrfkXXtcd8Ob248JDCWuuWjOq
+	 B/LbbW9SzkPHQ==
+Date: Thu, 24 Sep 2026 15:07:02 +0000
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Renjiang Han <renjiang.han@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: Question about Iris SID override assertion on Yoga Slim 7x
+Message-ID: <L_J1jOdE8Ng2gXPC9_ZA3WKXcPoIjuQ0FdeKF4SQwh-T3AZ5knRZJBIg9ZT-B2oajnx13oh_X66-dDEInmvP1qeakD6RvHckUocQeaLCsDY=@pm.me>
+In-Reply-To: <e167a249-54da-4f1c-9285-a439776c4897@oss.qualcomm.com>
+References: <20260913194707.91885-1-birk.skyum@pm.me> <4e4acb29-0b3e-4b76-8179-b49745f53bf5@oss.qualcomm.com> <e167a249-54da-4f1c-9285-a439776c4897@oss.qualcomm.com>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: a25912f61411e0dd7eda8682116ef7fd98033ecd
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
- <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
- <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com> <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
-In-Reply-To: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 24 Sep 2026 17:00:27 +0200
-X-Gm-Features: AclHuK_S1nrFMWot6v8DC6klfULfaNk07isgmJtfP7BYAekyrR84kzWx2Uw9qhE
-Message-ID: <CADSE00JhFYhDV2cuVxZwVTX6LTe8zH0-BR=-Fhv+6UXeFxq_Zw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal helpers
-To: "Bryan O'Donoghue" <bod@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Maximilian Luz <luzmaximilian@gmail.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jeff Johnson <jjohnson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>, Jens Wiklander <jenswi@kernel.org>, 
-	Sumit Garg <sumit.garg@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Brian Norris <briannorris@chromium.org>, 
-	Govind Singh <govinds@codeaurora.org>, Niklas Cassel <niklas.cassel@linaro.org>, 
-	Kalle Valo <kvalo@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, iommu@lists.linux.dev, 
-	linux-media@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath10k@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
-	Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 11:00=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> =
-wrote:
->
-> On 14/09/2026 13:41, Albert Esteve wrote:
-> >   int qcom_scm_pas_auth_and_reset(u32 pas_id)
-> >   {
-> > -     return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
-> > +     struct qcom_scm *scm =3D __scm;
-> > +
-> > +     return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
-> >   }
-> >   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
->
-> Why make this change at all though ?
->
-> It takes a pointer to the file static _scm
->
-> The reset of the patch looks straight-forward to me but this change
-> caught my eye.
+Thanks! This fixes the SID override assertion I reported on the
+Lenovo Yoga Slim 7x (X1E80100).
 
-Yeah, this change isn't useful. I aimed to avoid passing __scm to
-function calls but it does nothing in this patch, it'd be better to
-change it directly in the next patch that changes the signature.
+I applied it to the same Iris build that hit the assertion, with the
+same kernel and firmware, and reran the same test: decode a 720p VP9
+clip, let the device runtime-suspend for 100 seconds, and decode
+again. All 9 trials passed, every frame matched software decoding, and
+there was no firmware assertion or system error. Without the patch,
+this test failed on the third or fourth trial.
 
-BR,
-Albert
+This was on the modified test stack from my report, not a pristine
+mainline build.
 
->
-> ---
-> bod
->
+Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x
 
+
+
+
+On Thursday, September 24th, 2026 at 16:41, Vikash Garodia <vikash.garodia@=
+oss.qualcomm.com> wrote:
+
+>=20
+> On 9/17/2026 4:50 PM, Vikash Garodia wrote:
+> > Hello Birk,
+> >
+> > On 9/14/2026 1:17 AM, Birk Skyum wrote:
+> >> Hi Vikash and Dikshita,
+> >>
+> >> I'm testing Iris video decoding on a Lenovo Yoga Slim 7x (83ED,
+> >> X1E80100).
+> >> This is a request for guidance on a firmware assertion. It currently
+> >> reproduces on a modified test stack, and I'm working on reducing it to
+> >> an unmodified-driver reproduction.
+> >>
+> >> After repeated runtime-suspend/resume cycles, VP9 startup intermittent=
+ly
+> >> hits this firmware assertion before initial stream settings or CAPTURE
+> >> START:
+> >>
+> >>    VenusCoreCtrl_InitSS(506): un-expected SID override configuration
+> >>    WaitForHWidle(462): VENUS is idle, no HW is running
+> >>    assert_loop(500): FW Assertion - venusCoreController.c:507
+>=20
+> Could you please try the usecase with the fix
+>=20
+> https://lore.kernel.org/all/20260924-vpu_hwmode_fix-v1-1-531498f3499a@oss=
+.qualcomm.com/
+>=20
+> Regards,
+> Vikash
+>=20
+> >>
+> >> The first HFI error is 0x05000003. The SFR names the same source line.
+> >> Later venus_c2_parsing.c:1550 assertions follow automatic recovery; th=
+ey
+> >> are not the original failure.
+> >>
+> >> Could you clarify what the SID override check expects on X1E80100, and
+> >> whether there is a known firmware, secure-firmware, or resume-sequenci=
+ng
+> >> requirement I should check? Which diagnostics would help distinguish a
+> >> driver sequencing problem from a firmware requirement? I can test a
+> >> targeted diagnostic or patch.
+> >
+> > Same failure was seen once in windows based X1E80100, and i was informe=
+d
+> > that doing an explicit GDSC (vcodec) power on before doing a warm boot
+> > i.e iris_vpu_boot_firmware() helped the case in windows. I have checked=
+,
+> > in iris, iris_vpu_power_on() would get the vcodec GDSC on before
+> > iris_vpu_boot_firmware().
+> >
+> > I am gathering more info on SID override configuration part.
+> >
+> > +ing Renjiang who is helping to debug this issue along with me.
+> >
+> >>
+> >> The firmware is qcom/x1e80100/LENOVO/83ED/qcvss8380.mbn from
+> >> linux-firmware-qcom 20260810-2:
+> >>
+> >>    video-firmware.3.1-e5aea20c64cb6df9a1c9be99e206053b36424939
+> >>    PROD, build May 9 2024
+> >>    SHA256
+> >> 3456a15e01528c2ba2957ef2b78daefd875841b262dc02f0c3bb03c33cba657f
+> >>
+> >> That hash matches the current linux-firmware main file. The BIOS is
+> >> NHCN62WW, dated 12/02/2025. The device tree lists qcom,x1e80100-iris w=
+ith
+> >> the qcom,sm8550-iris fallback.
+> >>
+> >> The test repeatedly decodes the same synthetic 1280x720 VP9 clip, 120
+> >> frames at normal speed, closes the decoder, verifies runtime_status is
+> >> suspended for 100 seconds, then starts again. FFmpeg is 9.0.1 with a
+> >> local
+> >> fix to requeue empty non-LAST ERROR capture buffers. Successful runs
+> >> match every decoded frame against software decoding.
+> >
+> > Could you please share details on the FFmpeg test and the local fix ? W=
+e
+> > will repro this locally to get better insight of this issue.
+> >
+> >>
+> >> On one cold boot, three 100-second idle trials with power/control=3Don
+> >> passed. After restoring auto, two suspended-idle trials passed and the
+> >> third failed. On another boot with auto throughout, two passed and the
+> >> third failed. A separate codec guard removed an unnecessary AV1-only
+> >> partial buffer from VP9; its warning disappeared, but the fourth
+> >> suspended-idle trial still hit the same SID assertion. These compariso=
+ns
+> >> do not establish runtime PM as the cause or keeping power on as a fix.
+> >>
+> >> This is a modified test stack, not a pristine-mainline reproduction. T=
+he
+> >> kernel is 7.2.0-1.1-aarch64-ARCH-camera1, with camera patches. The in-
+> >> tree
+> >> Iris and video-clock sources were built as external modules. Iris also
+> >> has experimental initial-CAPTURE deferral and pre-start buffer ownersh=
+ip
+> >> changes, a bounded HFI/SFR diagnostic, and Renjiang Han's firmware-
+> >> logging
+> >> patch with an early debug-queue drain to retain the pre-assertion
+> >> messages.
+> >> The failing session receives OPEN acknowledgement and its first
+> >> compressed
+> >> input before the fatal error. No looping or seek is reached.
+> >>
+> >> Testing stops at the first failure and resumes only after a clean
+> >> shutdown
+> >> and physical power-on. No clock-module reloads are involved. I can
+> >> provide
+> >> the synthetic clip, exact source changes and filtered HFI trace if
+> >> useful.
+> >>
+> >> Thanks,
+> >> Birk
+> >
+> > Regards,
+> > Vikash
+>=20
+> 
