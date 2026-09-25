@@ -1,233 +1,220 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013050.outbound.protection.outlook.com [40.107.159.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF403909B5;
-	Fri, 25 Sep 2026 15:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BD44C6EEE
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 15:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348783; cv=fail; b=uM+cL1WMQ7FPEy4FJWa7c6tivKUvYyfmOB1kK4uLdRl3vEZBHLvEf3VLVikgigJG4hW4RizCt94VJwCTPrg8I7kbRtbNg0p8xRS358/+tHeu8UeTDDOtQUHQtKebG2m6ImLbUhLxXU7S/l+8CtoAYEWqlduUBuyQZSQSI3W3HCM=
+	t=1790350214; cv=pass; b=CeUjIbJeri77sjBBCJ/535w8j2ZucbQRO6BDWe6ZMyXv4MfFWKcPKZOZwfmYgyYQ94F+7w71BpPBm82eqN7SwDziVoz6rZbZGCe3/yhCUIo/4PYQm4QtFpvLvN7E/LadhR9hksbJE9MIqqdSM+XMLGkFe6jd2XVDYO9umi3leFg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348783; c=relaxed/simple;
-	bh=0lTLEkpQFzj9/iX2zQmG+Pl5eo1ImEetJKAm47x6SmI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TVF8U7vml6MFuANe/WoJRiSUsHroSss4ZToqyR8adqpNco2rO7oKkKzLrh2Wkbp8WCxF3p5s6qDrkkTZPP+Ff9bxHdRyylHs0CX15tp4dYtrwxlu6IYXuQGHBtzS/MO4VEeMDWPuHSs0sYDWywHOFJIcusEmzSkPCcnrukwCVnQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=d33yMXrb; arc=fail smtp.client-ip=40.107.159.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790350214; c=relaxed/simple;
+	bh=n4954fXz02c4Oj5+YdOqhp+44wJpR+Hr4ZJmBOKkwVU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qYjoYTcZMz+YyJ7nA4po3lAV/HPhUNKFMtmsTh+N6yWWTFOpoBHEr9TmJZfNi2Q/or112LyMWZekVReoQkVjXYQRLNLsepCP4WLjgeihl7siikxzXhnM2cMcIrRHqyLRUm6PTwViCp7G8oFls1mbSD2r17EI5kfnQ+ekqluw47A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JfYXZeRK; arc=pass smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="d33yMXrb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rab5uVJChRhWXDraaALVIyp+oUpOrv9gZoFatZ1NEZ7efBakgsQU1Un8BEBos/GF+zWcn/MPuBXlpZ4CtPrTGURy9R6wQBe4cLUYmZqWr4XUSLFfDZNPmOPUizekWV9ToO88K9rZGXLFoGVTvGpZkkGL+B20x4ldsfU/91WY7QAGftEHUhBREqHRucaiLTrnhTPa46hnecD452mC1c2xOTuJfdOD6cBTToLEX/aWYHe5zuOzuG6/gyJyVkUuE1sd0jTlyHUj0APBNVNtWB68jHzgtEOEudJK/R1p7d5NXnFYKE1vcPeeqGorgJ62+YAoew/yLfZBDz5I9cKvY9qUIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oDf4fRv22RPZqQV/m2PYAk90MFWNIhb7qs3TxYULo+Q=;
- b=c7z2EmD15m7QMydld5GiCAjZo1HAWEhQ/ptoSMCLSmoLV+ldB+B6+WMAQ5xwtgVkb0mdZvNs9QQH0LDPCXKHOCYaPQlFMofSdbOiww2zUxPD76eSbrJoP7u3NcQM+7cCb2XcroJJPH+414vmxrLoSA3EW1qOw47RSgQvJqKwJVBuodMPLi06u4ZVjURz7IL1/6ZRcLVk0NDAFIVx2MB4E64NrRdY+2CquJJVbIW68GCXrGKYKI8L6i2Kp0hKLKfIFsV6a9T2roJ4z/uXw5sdU2xjIvfyB0uKZjpnjyJZXLOLFSvH6kgZfTXi87L2ai5cyocUjgsQJSl46ph6dJX43w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oDf4fRv22RPZqQV/m2PYAk90MFWNIhb7qs3TxYULo+Q=;
- b=d33yMXrb5RWVwHIi9kGPYYPrlVfjeOVYIkBzdRawHLHscoTQhAfICsD32OLKqyuiLRc7WezEEty2IoSKxZ/DKebKmVXu6bJhG6RiVg46GDXWIo4ab3/9WCD26vo4QZXzgVf1l/V/tGI6sRRk/USE+dNFqxVAsYk0WXanLGYKfjOaweOGnmvYH5c79xiT6rSbLVB/OrUs1b0AcsND0LvL7m4JbBpXGw87Z6uzzBJLIoENuMhYVPKfy2OQfE1g7nMszFIjfeSOKCseeWkp36dkD8Sv9wYugg43M3APEjKbjAr0bsmSV3/3DucvqqDzCYHl7ZQYc2rRQqe59osNApoLWA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8834.eurprd04.prod.outlook.com (2603:10a6:20b:42d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 15:05:53 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 15:05:53 +0000
-Date: Fri, 25 Sep 2026 10:05:42 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, conor@kernel.org,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v4 3/3] media: verisilicon: Remove useless internal fields
-Message-ID: <araNxsUtc_nfiSO_@SMW015318>
-References: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
- <20260925085152.41852-4-benjamin.gaignard@collabora.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925085152.41852-4-benjamin.gaignard@collabora.com>
-X-ClientProxiedBy: CYXPR02CA0046.namprd02.prod.outlook.com
- (2603:10b6:930:cc::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JfYXZeRK"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso58135e9.1
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 08:30:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790350211; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KKbOqISlECUvkrTPuaOejSu+SRknPVyc+6YWv3ZagZ43l/1gSwrCFIygkmy1R4QJVP
+         y9HpEm7sB4KDwfksMk1cCG+xSgQkwaxO8ARv0TWynhYfzes+qi3yi7TuEHLz5DlR09VV
+         F+3ze0VPpAfK1p8W3ZKF46iGxwqE4uaTIU3g6U74lOSZS+LHvp3iEx3UE2QuObzf5rbe
+         ndP5qogJ4CTKs/u/7ezyU46HfsgxTxxJEGT5BgufnScJIE2O02A9oobuNFoZSQEa3cqi
+         JNPBodOp25Ne9awAexN0WYE/a4rk0u3d0YZyGrMensgqBtmPDYoxGUCEx9kyGeqR2i58
+         DkHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+        fh=0Rx+rxuutNFPeRnrz2nXFItNf4fgnFXdZtij8iiSSUM=;
+        b=fJB/h6OJnfbvVJHsWFLAcrbSg/bnaFbvgftfECfW2j1+5uUAkKGlKLk3Hs2jHp3VUw
+         zaDx0nwUMf2TRFXLX6xQBREkQY6xN4n8xxqOnDTFwQX9kEP3xrU0W42B317AuEYWUC0u
+         3AH1uP9ZozJhwGOoTKoQAa6gDsc7GYF60jsx9ySTp5dCxhjmNS1lgdRFMX18i5sevzN4
+         NwK9kwA1LzkY5HaAtpobtWyQ635Q+85+ESFayZloiqzI+N1WATxpPgRzlMk+CQCigH6S
+         Ln2JiNYoQONUNNV60oAuHdrWWWP61ARH8yzo8bB3DIn1aYLFjf5ke920Xk2JvNGmRL9F
+         C8SA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790350211; x=1790955011; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+        b=JfYXZeRKk+uo+6AtZ+rfAZ977i9l1p0mBf9rBbX/kWrI5TcybcuIR4Gf522f/5UTPB
+         fDbzEwsEZcha+MJhIV2JKoIBFYARrvbYspiMSsa3rRKytjZs3gby81jzxx8toUGeiisF
+         dGvZU+yC0u74Cv6qmCGyY7Rue4sVx9ZR0UAhj0cXyYgNGxI5r5li1AuMQq9W0dH9I2oT
+         jpyXTJYC2EWY1IhacHEtrPyfTwDsZU73rjEZwnAj2asGOkVJnd6VpYcjXvxEgJ/TT0LR
+         MXhacQBFV+kxg4M+YGXqE1K+NFirslVqtfMvawzo3dCRuKEteH+eT07u5hymiyxMFlRr
+         AscA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790350211; x=1790955011;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+        b=RPNetpTOjoGevXCpqIKOAZVor31xNJIg++ekQzjyVboPZxof0509BHhDXyCGlXdaMW
+         Nfow7tNVgUzfL5pmaqFeNHiH0FPgH8fUh5zq6/HbedGnbzq6Upfy2XdCUW66BLpBvm67
+         DsGJ3CPa1YN3obzfTKgKn9f574dLkTxeEbYUp9INnRYIfalzmEOm9yNBozu12iGrCUqL
+         DzV70engIJ0tZMWyaLPODsKvL/T4scdhnD2J+ZBzrveZxWak027diOlPuiEdsJVflgyY
+         sjkCONfyfoBjE4HDPvvZ5pGWIc8CKtTzGVuobJkOpE3aGA9yXCiET7YAqTjayhDTqVoL
+         93Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBxFTgDdy+8BUUR6hlilEip/dgNcW4NShqjLRLzitl5N7jMWf5sOFDR42varp1HZlC3BskDF3u8SEQ0SLQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nk616RBmWzddLS9lFDjnt6VNXXI6Yf8wS2ZkdWy5pY9Zry+Lg8
+	mzTl+R36ZBFfRcLr3XVWQWxjeufeaDjf68jjZrj1oCOtTqi6k7Xc3FubDgSKd1ptrIkGiJZG2D6
+	rMLgMNKQ/cKng33wTqarHes64jZ1Zh5QhASKIoaM/
+X-Gm-Gg: AYBFou1rDcworiqu3hDhrzXgxc06OmGDJl6w34yz85od3i0zG6VQGQduOny7BQ29zyb
+	xi/zVNp866RdRMP2L+Bho/9Olucv95OJqh+JQ0CRuQ6O4LkOe3jBsx10YRGMfI5KD4P5uhrvm7t
+	/t3tMSmj+IdW0JqNPMdqlyzgWd97kLB37WHtipTZX2SmEBMQGLHe1YdZ19y8GRTgPI6A3Rab5L3
+	vev2PSoixXHkBW0s/NzBOCrcPh9IiR9t05ZyZcwOJhWTGA1gMWRNsd/MM+MPKUgIevDFd8hZPeU
+	mBWa41I7bOJkSLmn7h5sOmsRp8eu/SxC1CjsfkZIYxvMG/6+Yyk1FxrIKxn3VZiBHxbS5VZYqvL
+	pEHBBNrGt34DACw==
+X-Received: by 2002:a05:600c:3014:b0:49f:e12d:1a60 with SMTP id
+ 5b1f17b1804b1-49ff638a87fmr227415e9.4.1790350210427; Fri, 25 Sep 2026
+ 08:30:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8834:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90e1e0ca-534b-4f7a-07be-08df1b167e26
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|19092799006|366016|23010399003|11063799006|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	LBU9G90VMK06yJrS8sLojx8kVVP9x3c+fmkEMLPevBQkphkwlfPitKAS/8NCmLxd8yY8aNo3S65KNu2QXiUZ00pAJBbiSqAU3dIVx0N0pmfLYiqkEaku7AePVUiio5g94WxZlqz/JuZpA7EEF/fpcejgwz9t+IDB5JGzSBiKoVXCcE4kASQQG8ZShKLbO1Wc36mUJuhhJoR+3mwcHj1v8kOuHdIoTq5gslE70BtuAx8nucmFtCdMkQ+S3OTGqy7mR7YGDA6n2kokWVaNxVbXtKIjY2u295VwM/pp4p+YPerMzDIhhBR7wxBDk0Yq5XUXVUnzB1EYK7oZoy5lt4LsY+0k1dgHS2S7ypHunZHy1AvkFG8rrbE9CvQSf7mJOXIgA7HaWzdzzZISKMce1sSo2dHxlRRTnYR97XSFAJzcIHfY0TzYFgOleCwx4FxgCLD9QcrCwr1MsKRYqXumDNr9SkxChUqvh7Jnnqor72+MsSla88v9QvVusjW+CSEPYyDpRHD583p7DQMlqsaNeEr5V5JRZAyBGDKu9+NhSkU2y4RljNT11ThqE5P7SW01r1RzZcF2IGoUgM3I9cHg7JXPyFBOVvSRe6ArMtPAxgNt4Kwk6xOt2VBFrt+Hrtf46uW8HPrUGdeesYwORQPNI8gIU7sJH6Osx3jkX0QtokO9mVw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(19092799006)(366016)(23010399003)(11063799006)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Jtid8gVLnBOH7eIjS8sTV7FUxqt4al96l1wpmkOntH++lkaCfCdrx2Bqo2yp?=
- =?us-ascii?Q?wRxDnDGnPKXKDfqhbguvX+jYNPJ83++n/2EQjc7fsjzWxndT9xAFqlgluTmM?=
- =?us-ascii?Q?MoXq7TdPXROUzCGVzD74OGnQR74EfOr5Jcpc1j2f4KBNsarjSb25AtANeDlf?=
- =?us-ascii?Q?BueFYmnFEycBkiaPbiTx4VzNRFXSWEefzdLkTYG/4FkT8qEJYYA/oxEvj8FB?=
- =?us-ascii?Q?rFH5uvKJvMWdL9xpkKdm1P3+uUzF7HFteFHvjqDYZ07Vc+KWOP0NgLmW6w8C?=
- =?us-ascii?Q?WbmViPdwJQmnZsRJZeEGv9SS36Eb1CSZUIqatCMvqSemGdSATlnN+d7Tv8rU?=
- =?us-ascii?Q?0J9cNQMSuHpBVNAd6Scxs9hi7r90jXRwoIA/Hqky3MiJbyAGquGSwCGuVbWn?=
- =?us-ascii?Q?hJNZGpl1FpnjfBEhjHSa5NtYbwT3O5nik97fQUxKN8VRh+g3sonJ1SEV4N7u?=
- =?us-ascii?Q?5lhr2JWkcBonECN2rdBZZfaPoJN3dYgzkiISXOmExXGdzPGSK3tZNjPwmWwx?=
- =?us-ascii?Q?QqNOo5XjjTIKnCqMg0eFkyAzHgoM3aUsXA0QIYevXVx0qhmItTb8KEYP7y5q?=
- =?us-ascii?Q?utxYOQhM2NuId/w34CZ6y0MVc1Sl9uF69T9UMahCw7wd3CGOjV6WDyE8BTmK?=
- =?us-ascii?Q?Jz9XVULvfJnMk3p+cwM/KRM++GJSg42ufv0mDOq5fSfGfukwJn/TqVCHyayF?=
- =?us-ascii?Q?jD+ZY64egIg2uRmFuYepAi0vFD1veroc/hb57ss7xfAMqOUViv1e2c6NEhwb?=
- =?us-ascii?Q?ksQtK2SllFZu7LCbCItf7vSSHFmRz+md/4mTgfj4ph3iRmBXUnsydaX5gSky?=
- =?us-ascii?Q?eUZBObe2ugOguWVD0Bb6RoG2RN/potGpq1up/A26KGKeWSaUprvMBGG8kkNB?=
- =?us-ascii?Q?+l8ljk11VMw6hCGYulW3aA5W65r8GiK47ebqQKpGYQa4hAh8OxBbWjtYeBVM?=
- =?us-ascii?Q?8dwjYCzIdVrGL8eKNE7vltJEC00kHsmRTJwrYGmxglw6rACtg+o4SvdCFuBq?=
- =?us-ascii?Q?MoC+KHvNS/yFSu1sDLt80wi6bScwvUpwceQKYto1aK5ZsuhvK/mTFSWtHIMh?=
- =?us-ascii?Q?Quj2WmwRiCs36KZjvqfs4xVLkAqTq78vvzPFUWRYYlvrjWBU8drXYA1XIhne?=
- =?us-ascii?Q?5U+zcr9tbhOknxnB+aHaGaFSraUqh6Os4gtCKvglVBRTm/Wb2xI/SxYcu6Vq?=
- =?us-ascii?Q?InLBgMLs0q1sGR/pcdMe7BpOPk0i3McH9EWZfnAjGENtW5lEpZMoJgDY+Ptv?=
- =?us-ascii?Q?Bz/84azxPlgRBXe9MRdd4HYuaJYsJ/byhOjHsjtjE5fmL6699y6rhkKftMgh?=
- =?us-ascii?Q?KGcifqenzJo2NscNHcAJoqeFg1ubqcLjkfbygl5juwalEcuwbxmJzr++uRCs?=
- =?us-ascii?Q?v4BYTZjysR4eqyu35WZCeTO7dHucsGRGpTxWSPmzJWuiRzy1L5uwhVMgJQ19?=
- =?us-ascii?Q?s6I5PZS4nPs3H8lDbKMjIosBUjcp2pSXoe/1iD2p8MSMCBbdIiR7ggnqh+n0?=
- =?us-ascii?Q?5zVo76Satp4xlPqb6IEQscIrpfRU6UzK5dk1fbwTfBLQ+iicDpxLbepdLw+N?=
- =?us-ascii?Q?4sIj9QjV44Hkf43L+YXidv+E10p1tfNpa5hbYkZChV1otC551f0EgixxHkWh?=
- =?us-ascii?Q?53F6OBWBkgA8FihdhBj7xyPa/5vEZ1NF9iMPsVLEGXTpUfxE8fxdYOcX/1rp?=
- =?us-ascii?Q?/P6LADVN8JGDecVan8zdY/3v9+WzVUHMEjELt4v71mb9uy82+1d64f5LtOTT?=
- =?us-ascii?Q?h2oCSw0bzCROnS2YyxI5bpzBYb74pU6NRIgW95Cd3J//EnuFoKIO?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90e1e0ca-534b-4f7a-07be-08df1b167e26
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 15:05:53.2231
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AIVLfYtG2gRzYMhWiMN8iaqswC1Kmb44KkjuafuiLX1FySszPO59vkNHxGuoi0gf8RVoK84WcQFw7tnPD/Rnb5DrRGclioMdFlL9GgaoL/VJ5AxI8TembcFzPi3kTmFJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8834
+References: <20250417201913.2393655-1-jyescas@google.com> <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+In-Reply-To: <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+From: Juan Yescas <jyescas@google.com>
+Date: Fri, 25 Sep 2026 08:29:58 -0700
+X-Gm-Features: AclHuK91aA7NHqV433GteBTggY1TVKYNnE0__wEQzOG6MTG22gothUdiDWS_u9I
+Message-ID: <CAJDx_rhLvcWV2-qzwVNG1DHnh2G4i26FgusebATLDj9zGg166g@mail.gmail.com>
+Subject: Re: [PATCH v3] dma-buf: system_heap: Set allocation orders for larger
+ page sizes
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	baohua@kernel.org, dmitry.osipenko@collabora.com, jaewon31.kim@samsung.com, 
+	surenb@google.com, kaleshsingh@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 10:51:52AM +0200, Benjamin Gaignard wrote:
-> No more variants are using multiple registers regions so rename
-> reg_bases to reg_base.
+On Tue, Sep 22, 2026 at 5:11=E2=80=AFAM Pankaj Patil
+<pankaj.patil@oss.qualcomm.com> wrote:
+>
+> On 4/18/2025 1:49 AM, Juan Yescas wrote:
+> > This change sets the allocation orders for the different page sizes
+> > (4k, 16k, 64k) based on PAGE_SHIFT. Before this change, the orders
+> > for large page sizes were calculated incorrectly, this caused system
+> > heap to allocate from 2% to 4% more memory on 16KiB page size kernels.
+> >
+> > This change was tested on 4k/16k page size kernels.
+> >
+> > Signed-off-by: Juan Yescas <jyescas@google.com>
+> > Acked-by: John Stultz <jstultz@google.com>
+> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> > ---
+> >
+> > Changes in v2:
+> >   - Add John's Acked-by tag.
+> >   - Add TJ's Reviewed-by tag
+> >   - Use dma-buf: system_heap: in the subject since this is specific to =
+the
+> >     system heap, as per TJ.
+> >   - Remove extra space in if statement.
+> >
+> > Changes in v3:
+> >   - Remove defines for the orders as per Christian.
+> >   - Update the order array for 64k page sizes as per TJ
+> >
+> >  drivers/dma-buf/heaps/system_heap.c | 21 ++++++++++++++++++---
+> >  1 file changed, 18 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heap=
+s/system_heap.c
+> > index 26d5dc89ea16..8c10c0f2b473 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -18,6 +18,7 @@
+> >  #include <linux/mm.h>
+> >  #include <linux/module.h>
+> >  #include <linux/scatterlist.h>
+> > +#include <linux/sizes.h>
+> >  #include <linux/slab.h>
+> >  #include <linux/vmalloc.h>
+> >
+> > @@ -44,14 +45,28 @@ struct dma_heap_attachment {
+> >  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+> >                               | __GFP_NORETRY) & ~__GFP_RECLAIM) \
+> >                               | __GFP_COMP)
+> > -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> >  /*
+> >   * The selection of the orders used for allocation (1MB, 64K, 4K) is d=
+esigned
+> >   * to match with the sizes often found in IOMMUs. Using order 4 pages =
+instead
+> >   * of order 0 pages can significantly improve the performance of many =
+IOMMUs
+> >   * by reducing TLB pressure and time spent updating page tables.
+> > + *
+> > + * Note: When the order is 0, the minimum allocation is PAGE_SIZE. The=
+ possible
+> > + * page sizes for ARM devices could be 4K, 16K and 64K.
+> > + */
+> > +#if (PAGE_SIZE =3D=3D SZ_64K)
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> > +/* 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE=
+ =3D 1MiB */
+> > +static const unsigned int orders[] =3D {20 - PAGE_SHIFT, 0};
+> > +#else
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> > +/*
+> > + * 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE=
+ =3D 1MiB
+> > + * 64KiB allocs are calculated with (2 ^ (16 - PAGE_SHIFT)) * PAGE_SIZ=
+E =3D 64KiB
+> >   */
+> > -static const unsigned int orders[] =3D {8, 4, 0};
+> > +static const unsigned int orders[] =3D {20 - PAGE_SHIFT, 16 - PAGE_SHI=
+FT, 0};
+> > +#endif
+> > +
+> >  #define NUM_ORDERS ARRAY_SIZE(orders)
+> >
+> >  static struct sg_table *dup_sg_table(struct sg_table *table)
+> > @@ -318,7 +333,7 @@ static struct page *alloc_largest_available(unsigne=
+d long size,
+> >       int i;
+> >
+> >       for (i =3D 0; i < NUM_ORDERS; i++) {
+> > -             if (size <  (PAGE_SIZE << orders[i]))
+> > +             if (size < (PAGE_SIZE << orders[i]))
+> >                       continue;
+> >               if (max_order < orders[i])
+> >                       continue;
+>
+> Hello Juan,
+> I've posted a respin of the patch by extending upon your work,
+> Can you please review?
+> Aplogies for adding signed-off by, will drop it in v2.
+>
+> Link -
+> https://lore.kernel.org/all/20260921-dma_buf_improvement-v1-1-23d82e771de=
+c@oss.qualcomm.com/
+>
 
-Nit: add empty line between paragraph
+Hi Pankaj,
 
-> Remove the useless fields and simplify driver code.
->
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> ---
+There is another change that fixes the problem and adds the 2MiB
+order. It has already been
+reviewed the Christian K=C3=B6nig:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+https://lore.kernel.org/all/20260914212258.2657788-3-dave@stgolabs.net/
 
-> changes in v4:
-> - rework commits messages
-> - add r-b tag
->
->  drivers/media/platform/verisilicon/hantro.h   |  9 ++-------
->  .../media/platform/verisilicon/hantro_drv.c   | 20 +++++--------------
->  2 files changed, 7 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-> index 0353de154a1e..ca03bc690fbf 100644
-> --- a/drivers/media/platform/verisilicon/hantro.h
-> +++ b/drivers/media/platform/verisilicon/hantro.h
-> @@ -72,8 +72,6 @@ struct hantro_irq {
->   * @num_irqs:			number of irqs in the array
->   * @clk_names:			array of clock names
->   * @num_clocks:			number of clocks in the array
-> - * @reg_names:			array of register range names
-> - * @num_regs:			number of register range names in the array
->   * @double_buffer:		core needs double buffering
->   * @legacy_regs:		core uses legacy register set
->   * @late_postproc:		postproc must be set up at the end of the job
-> @@ -97,8 +95,6 @@ struct hantro_variant {
->  	int num_irqs;
->  	const char * const *clk_names;
->  	int num_clocks;
-> -	const char * const *reg_names;
-> -	int num_regs;
->  	unsigned int double_buffer : 1;
->  	unsigned int legacy_regs : 1;
->  	unsigned int late_postproc : 1;
-> @@ -184,7 +180,7 @@ hantro_vdev_to_func(struct video_device *vdev)
->   *			dev_ macros.
->   * @clocks:		Array of clock handles.
->   * @resets:		Array of reset handles.
-> - * @reg_bases:		Mapped addresses of VPU registers.
-> + * @reg_base:		Mapped address of VPU registers.
->   * @enc_base:		Mapped address of VPU encoder register for convenience.
->   * @dec_base:		Mapped address of VPU decoder register for convenience.
->   * @ctrl_base:		Mapped address of VPU control block.
-> @@ -204,10 +200,9 @@ struct hantro_dev {
->  	struct device *dev;
->  	struct clk_bulk_data *clocks;
->  	struct reset_control *resets;
-> -	void __iomem **reg_bases;
-> +	void __iomem *reg_base;
->  	void __iomem *enc_base;
->  	void __iomem *dec_base;
-> -	void __iomem *ctrl_base;
->
->  	struct mutex vpu_mutex;	/* video_device lock */
->  	spinlock_t irqlock;
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-> index 12c804dcc669..6e3a24156a69 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1080,7 +1080,6 @@ static int hantro_probe(struct platform_device *pdev)
->  {
->  	const struct of_device_id *match;
->  	struct hantro_dev *vpu;
-> -	int num_bases;
->  	int i, ret;
->
->  	vpu = devm_kzalloc(&pdev->dev, sizeof(*vpu), GFP_KERNEL);
-> @@ -1128,21 +1127,12 @@ static int hantro_probe(struct platform_device *pdev)
->  	if (IS_ERR(vpu->resets))
->  		return PTR_ERR(vpu->resets);
->
-> -	num_bases = vpu->variant->num_regs ?: 1;
-> -	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
-> -				      sizeof(*vpu->reg_bases), GFP_KERNEL);
-> -	if (!vpu->reg_bases)
-> -		return -ENOMEM;
-> +	vpu->reg_base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(vpu->reg_base))
-> +		return PTR_ERR(vpu->reg_base);
->
-> -	for (i = 0; i < num_bases; i++) {
-> -		vpu->reg_bases[i] = vpu->variant->reg_names ?
-> -		      devm_platform_ioremap_resource_byname(pdev, vpu->variant->reg_names[i]) :
-> -		      devm_platform_ioremap_resource(pdev, 0);
-> -		if (IS_ERR(vpu->reg_bases[i]))
-> -			return PTR_ERR(vpu->reg_bases[i]);
-> -	}
-> -	vpu->enc_base = vpu->reg_bases[0] + vpu->variant->enc_offset;
-> -	vpu->dec_base = vpu->reg_bases[0] + vpu->variant->dec_offset;
-> +	vpu->enc_base = vpu->reg_base + vpu->variant->enc_offset;
-> +	vpu->dec_base = vpu->reg_base + vpu->variant->dec_offset;
->
->  	/**
->  	 * TODO: Eventually allow taking advantage of full 64-bit address space.
-> --
-> 2.53.0
->
 >
