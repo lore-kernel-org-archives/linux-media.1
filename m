@@ -1,121 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF0F3B14D6;
-	Fri, 25 Sep 2026 16:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295663DDB03
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 17:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790355091; cv=none; b=N5LtX11HH76KgeMEKbLbcOK7wOc/Or8j6zukJzktohHU4y7NpD8iAM9wSqw4MMzA90Evk/JWc2yNYtWjIJ/rLRsXmdk2TnDrentqN9r5QxX8wZ2RQzftiwAWOaGJPy+ilHOMg6lZUWiesOi+zBVZH4bsVeZrCs9uj+PWHfL+AsY=
+	t=1790356052; cv=none; b=e48vZ7Ra/YBmWkhDX035wBx3JRx1hiVbn9BvhcjVwnrtgdG/eKMPbR+KYV7x1gnVmGlX9AMydCQIebJhDMAKv/kxH9KwMuFSMwVKkStmTGzGrVIG4+jYsEFpDcX7AhDDER7RBLZ7n0Ys3p9rK5y359gHpfx7UOyGWlha1g4Dqrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790355091; c=relaxed/simple;
-	bh=Z3fUZTE3iejd1JSQJvpyR4fIcnwo5FtiwrpLJ4h08/4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TFoZ8bTuYJ61kcijzNiSNKvR/EMiZUyWrGhEqorc2ylWcZE+/NHdH/gzM89x2ogNcHPAWhuJXCyjzEznacrr6SgXkwTmFSF8duckKwV8cQrDM8Z340hUpB6o42SanUt7InhYexINpGmdCp4gR+QaZ2xsCWxi2DZj9Eh3OKayCCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ff4ROM4K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790356052; c=relaxed/simple;
+	bh=3POjkudjwJ6EJxTxrfVNUQfMbWObNEMuI07xROIvu0E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OIdjXCFfRWuiFv1unEgvDaMMK6GEPZCffzIayrV7mQEgSXdzJOwvnx0Eb+R2utauN/xc+sIViEMQ8dRMbZM6fUqrYOv+aBhjlgH5+Z+B5JWKLgMIT7aUKESXCmgCiPRWskyaSzbTY7rvBuXI9xkMSp3tBEwJ+PpYxVJEGVSA4FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ls12/Usw; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ff4ROM4K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F3F1F00893;
-	Fri, 25 Sep 2026 16:51:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790355082;
-	bh=uTN2gUGLfjEmLI+kfBb4qKSBquVXwsBhaTfbpY2NRrY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ff4ROM4KRn94F3daBy8gUc+QsXb8btPOPmOKC3Kv/YBuIY+QMg624xqfPAFN3I33m
-	 t6SIDlDUtS2ifLCzs4Pi9sCZ03jW1xYlboCpY+JFD7BkO7P9At90Alwz3kQFDla8GL
-	 JmN/1pvjr9C4zEqapYWo5EvdFYdNuBC7LREsNebx3fD/NFAQZ+PZjOB8lH2d2kmc4x
-	 BhBbYyxRSXazwrYJ2ycjkxDVxR9w2cwGvK8OU5JNb/cPY87FDgxsmsnSWG+PK1IKuz
-	 WHO4RJ1IWJ2FNakGrl34eJUYtq2UOa3xiswvAbGEbazt9+0GmcePAmkaSeW5KWDFFP
-	 EjW22VqTYhlHg==
-Date: Fri, 25 Sep 2026 17:51:17 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	p.zabel@pengutronix.de, mchehab@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v3 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
- Remove nxp,imx8mq-vpu
-Message-ID: <20260925-generous-overbill-e5fa75aec1e7@spud>
-References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
- <20260924130453.196299-3-benjamin.gaignard@collabora.com>
- <20260924-compare-useable-3e2863b66924@spud>
- <518ec010db104f6f0e7c85607a97af408da44eed.camel@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ls12/Usw"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc78e1a94b8so503003a12.0
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 10:07:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790356037; x=1790960837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jU0uuuuRr+p5OKNIYAUGPnmlCF9GOux6FtDbWrmbBmY=;
+        b=ls12/UswfmD2c8TY3P+N3aZZ1F73eYVSjDZwmKy7n6iORAnUk8PG8zUtJ2YyxUZNj8
+         lcMI6hcTMH5X6etUWqlx1FkET6L4FsYMgo15eQpdbX4yyeTmG9NNnd9mrQEm8Z0SpQuc
+         kQRUQPVBGEO4mBCyuSR7cH7ilV/j9NNTdYBSrB5yjmH4rHy2qx1IaqbrMYb+DKzs96YI
+         mHra2QeI0TGQzulnT2pUO/OVcCGzybgNvDcfwHJnspnaDE2Vbfk/e/45KNZjnT6PV53x
+         WP1QbkdYEiLoO3w4yzQVdf88I9w7BlkONi6TVrBhwMiR39r/GCT6c7v760g9RdIzVOO3
+         mZLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790356037; x=1790960837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jU0uuuuRr+p5OKNIYAUGPnmlCF9GOux6FtDbWrmbBmY=;
+        b=iZObKOfZOEzvlsAl76KzLul23WHEP9kzP2jLMGNP2tDLeYDVRSx0DqZcfnoUm0uKQw
+         gBqk9dYH157WbQ1BHFe5ccLjG/OlwLP8kwVek5LN+bmaGcHfT8KYrvRWf40NTxDCHlJM
+         m5VAWQrMmxsl/q5z6HBZscMGye5JC6QYiZgQuZ7uGkSYIBNgivO/of/iEJA3MR9qxv6t
+         NYLYX1peseWpnANVATzW7Q/2XbeLpBKo5lUqUQ7X9q/eKSQq1c7Ue97Zkt3/TYE+lBns
+         nlTa3YBBUZCO38gupsP3GZyd8JSl7kobuSJPkIHd5V3Olxau3feH8+AdRKnhY20Zn6Tc
+         pd7w==
+X-Gm-Message-State: AFuF++mk5iKsAri0t4GqSekXxXTZ6BEDdMoDSrcHcMSSU+fY5R/V3438
+	ChgqFZieHnFfJW0PWKyTdpeD5+VEQfR8qsEDvyK3m4MLxe7iPZS2Ibod
+X-Gm-Gg: AYBFou0CXqFtl74teNSDFlYJD2qh+nuos/LP/+YHE5WWHw75czhSwdOnhhKs4JJ3Lvu
+	ZTzGH+oXkD48MowYAqvisgUr4TbnSSUgxVhcbvD1Q4SyiFWIxXuxV8o/hEOWDDOp/GJn90SB1re
+	GfJt11E19wUn5B3zDv2HyDZEN8L9yPu9RB6gsofdKpZcc3CyrpgTPXVwU88g5OH+lRCR4jxHQyM
+	bZPaDJxIwIyqKajHcBZc8BkaXmdnWEnhUJMXSCU8ep7DkwegiaCZT6phlAK/pTa5Ly8KYeIOQK2
+	n/ug0CN8TBIFQHbkf3yxD7tbnembgraAP3nJivcjOM0ejW0YOyz0zVYEELMyKPt2CKH73G3zITk
+	VBNMLkKGTE9Z4JKXEY68fMK0lsrVMANYxrU2jcHA0jZhpHIIcdsGkKnsoD9jU4TVXKZLGjvkK1r
+	stZgCUYQbpt0zI3dhb296ejtc0ltYd29XOH2ddMhamTrTAB0tsmsqt5xbJ8KOynFT83ZBObXtOu
+	clMviBgnIb5UFUkC2EH3NNbwKE=
+X-Received: by 2002:a05:6a21:e93:b0:3dd:a196:53a4 with SMTP id adf61e73a8af0-3de0e97b9camr6669562637.70.1790356037407;
+        Fri, 25 Sep 2026 10:07:17 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:6850:49fe:a642:bbf3])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8811c94d5d1sm285987b3a.21.2026.09.25.10.07.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:07:16 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] media: redrat3: unregister the rc device when probe fails
+Date: Sat, 26 Sep 2026 00:07:11 +0700
+Message-ID: <20260925170711.22447-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mC0ZFJQ+JqSh31eF"
-Content-Disposition: inline
-In-Reply-To: <518ec010db104f6f0e7c85607a97af408da44eed.camel@collabora.com>
+Content-Transfer-Encoding: 8bit
 
---mC0ZFJQ+JqSh31eF
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+redrat3_dev_probe() registers the rc device, whose input device points
+its name and phys at strings embedded in struct redrat3_dev, and only
+then calls redrat3_enable_detector(). If that fails, the error path
+frees rr3 but leaves the rc device registered and leaks it. Reading its
+"uevent" attribute afterwards dereferences the freed name/phys:
 
-On Thu, Sep 24, 2026 at 01:51:13PM -0400, Nicolas Dufresne wrote:
-> Hi Conor,
->=20
-> Le jeudi 24 septembre 2026 =E0 17:55 +0100, Conor Dooley a =E9crit=A0:
-> > On Thu, Sep 24, 2026 at 03:04:52PM +0200, Benjamin Gaignard wrote:
-> > > nxp,imx8mq-vpu has been tagged has deprecated since a while.
-> > > After driver clean up it is time to remove it.
-> >=20
-> > No users in linux doesn't mean no users, but I am guessing that there's
-> > genuinely no users elsewhere and anyone using out of tree devicetrees
-> > should have updated due to the warning at runtime?
->=20
-> I've checked the vendor DT before they moved to the mainline driver, and =
-they
-> never used this binding (actually they never made bindings).=20
-> Here's what the DT was:
->=20
-> 		vpu: vpu@38300000 {
-> 			compatible =3D "nxp,imx8mq-hantro";
-> 			reg =3D <0x38300000 0x200000>;
-> 			reg-names =3D "regs_hantro";
-> 			interrupts =3D <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 8 IRQ_TYPE_LE=
-VEL_HIGH>;
-> 			interrupt-names =3D "irq_hantro_g1", "irq_hantro_g2";
-> 			clocks =3D <&clk IMX8MQ_CLK_VPU_G1_ROOT>, <&clk IMX8MQ_CLK_VPU_G2_ROOT=
->, <&clk IMX8MQ_CLK_VPU_DEC_ROOT>;
-> 			clock-names =3D "clk_hantro_g1", "clk_hantro_g2", "clk_hantro_bus";
-> 			assigned-clocks =3D <&clk IMX8MQ_CLK_VPU_G1>, <&clk IMX8MQ_CLK_VPU_G2>=
-, <&clk IMX8MQ_CLK_VPU_BUS>;
-> 			assigned-clock-parents =3D <&clk IMX8MQ_VPU_PLL_OUT>, <&clk IMX8MQ_VPU=
-_PLL_OUT>, <&clk IMX8MQ_SYS1_PLL_800M>;
-> 			assigned-clock-rates =3D <600000000>, <600000000>, <800000000>;
-> 			power-domains =3D <&pgc_vpu>;
-> 			status =3D "disabled";
-> 		};
->=20
-> I've not aware of any other OS or booloader that offers media capabilitie=
-s using
-> Linux mainline DT. The now deprecated nxp,imx8mq-vpu compatible had a sho=
-rt live
-> in the Linux tree if my memory is correct. Hope this is enough justificat=
-ion.
+  BUG: KASAN: slab-use-after-free in string+0x4a9/0x4f0
+  Read of size 1 at addr ffff8880272bf758 by task repro/4968
+   add_uevent_var+0x183/0x3a0
+   input_dev_uevent+0x162/0x900
+   dev_uevent+0x2f1/0x870
+   uevent_show+0x1ca/0x3a0
+   ...
 
-Yeah, and this kind of detail (plus the fact that the driver emitted a
-warning) are very helpful in the commit message for patches like this.
-Hint hint Benjamin!
+Unregister and free the rc device on that path, mirroring
+redrat3_dev_disconnect(): stop the URBs first, since their handlers use
+the rc device, and only then unregister it.
 
---mC0ZFJQ+JqSh31eF
-Content-Type: application/pgp-signature; name=signature.asc
+Reproduced with a raw-gadget RedRat3 that reports detector status 0.
 
------BEGIN PGP SIGNATURE-----
+Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+2a123f6269da57ffefaa@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ drivers/media/rc/redrat3.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaramhQAKCRB4tDGHoIJi
-0vuwAP97l8f+kng/LRWQUycXlp59bH1E1WLY6HcLhXhNVw5eZQD+M4FadnRs+7cb
-V/japjgTQ7Y+cGI9P1+T2PE+6OiOpgA=
-=dwjl
------END PGP SIGNATURE-----
+diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
+index 3f828a564e19..e9dd563e9cb3 100644
+--- a/drivers/media/rc/redrat3.c
++++ b/drivers/media/rc/redrat3.c
+@@ -1111,13 +1111,19 @@ static int redrat3_dev_probe(struct usb_interface *intf,
+ 	/* might be all we need to do? */
+ 	retval = redrat3_enable_detector(rr3);
+ 	if (retval < 0)
+-		goto led_free;
++		goto rc_unreg;
+ 
+ 	/* we can register the device now, as it is ready */
+ 	usb_set_intfdata(intf, rr3);
+ 
+ 	return 0;
+ 
++rc_unreg:
++	/* URB handlers use rc */
++	usb_kill_urb(rr3->narrow_urb);
++	usb_kill_urb(rr3->wide_urb);
++	rc_unregister_device(rr3->rc);
++	rc_free_device(rr3->rc);
+ led_free:
+ 	led_classdev_unregister(&rr3->led);
+ redrat_free:
+-- 
+2.43.0
 
---mC0ZFJQ+JqSh31eF--
