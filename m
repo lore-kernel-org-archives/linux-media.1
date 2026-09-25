@@ -1,182 +1,268 @@
-Received: from mail-ej2-f36.google.com (mail-ej2-f36.google.com [74.125.228.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E296F1A704B
-	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 00:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294977; cv=pass; b=NXGcY+T5BZWxX12HTQPqZImoEQMTwrPDK2M+6+OUb11o6vhBJF/1tY6ZoHuGmNmallzOmqDYb80BPRavPm5vrp1SpC0ylbNYSzx0IepS4vF/gOSBsui6JNR+RvMEkEajivRWlUUc9M8jZhKa2/R+ArQ/IyUTYDYdduX3t3Okjko=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294977; c=relaxed/simple;
-	bh=iPGTdM+eHv5ZH8W6go2pTrN14Dr3emCgNgRX+uNwDgI=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XZiGyFKmjovw27L6uO+OzVNwcns9O89+oYV4ltMoyFP4RYxG2csxTXlIHNcD67BRlYy+Bb5+9R+djMebIqFDRtrcUlhNkq1sB7pZzxEd26rQiZZBseTlHX+7YjY/3lHfvl1PhDzk16LsYyQAoOkygPpaiOk4aU7aCmD5gzLOQFA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q6qH+mWx; arc=pass smtp.client-ip=74.125.228.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA9E15350B
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 00:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790296091; cv=none; b=tCgkbMB9IPdwISBWQarN74aGuM5bo9XjD8erLrOZe/mgsbGJAQ9Fzks2REbV0y2rxuiRsTgYqTQZFFLs5UN/JiHSMJEG2qKgji//2/JY/ekCP0iywLKra+t5dfJGi39jSbI2U9+i2ZnqbFQDoyFj5/UuwuHpKElIxtGxKAAQfY8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790296091; c=relaxed/simple;
+	bh=soE8lT07CzBv6xf5EGPSJ5lUSOE/f7Y80sMTtzO0Ue0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Bj9pI1e+P3a+y0QB/xnD7vW4/c+LGyIFyihhhmY+6KdDZ3//r3mT/B2dFYqQpas2v9513EdMJq0vMGJfDz7F/aOsaPo8ISns35w1LdgLwLA04viPerF02UsR7ESV2ZKFUPj+BHyiEX75d3rBHIGIZJH/IzwT8G9gkRc0awJ/9fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LWiYl+uq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jnx4+6zU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q6qH+mWx"
-Received: by mail-ej2-f36.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso51724666b.1
-        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 17:09:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790294972; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EpIeiD3dgkAqoquNIZMjk3hEmsqP9ry7TnEWq0QHsedTv/SJoaP08a897R7h5c9AWW
-         qJGWb/QcqcSVRRmptnltOibEn8QvDHWzYVydbr3VoWJMKZ8PMZNVEP2DTmIDYGnqkAEK
-         UPy2a12xsTEpoKlXh4z03nLKycGlls/5t+G31acbmvbEXfJasxyWv98LTCRewZ1njA9e
-         KIix2d8uE8ZYZyAitmgeq22D4tSO+95y3jUIEW0cf4XbiqSLDZ4cWpAp3l+ncaklVext
-         +1EhTX5v4bcrCeBD+sXcXmEPhqfJFKpFsX0uBM2iEcdNYgt3Y31MmoQiZJq0j4TCsKGm
-         Whrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=O4dAZO8mqeKSgi5fN23me6gyxeqZrfrP7G0J/UeuOtU=;
-        fh=oLU3jk5xKpF9zgpb/3yLllaf4VxnoaQyAwOJsJPAX3Q=;
-        b=ipJVjg1yaiqJ0eCM9Q5ZfaxAdFt+hB/fsH3g1XBpvkIMCik3NunOvejlixK1fNpkbw
-         4HjkrB/9mpU5AQ+ziL2NQKrf8uCJvZCCIz2NwZj+g3PYPOZ82LaFKbhOZNlqmpR0TdrL
-         zBdeukwGkheK8VUYrZ7EFI1Xdx+6WO3QSDbEy8t2OPJrriC9Yz6fNeRVRsX3bbaqEeIB
-         +fvSGDJrwPcrdz5GXkSKEbZrLkctljMMGnt//1UEvm+BNgyCZs9MSRw+3nlvX/QV+tUF
-         zHOZ9wHvN1IXUTaphxqatm+lxyYzsyvdmdeVkaWuZZaZ3W5nEcDoZjMMuEYzCj8SQ8Aj
-         bR+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LWiYl+uq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jnx4+6zU"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMP8fh3718223
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 00:28:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=tQY/WVLhioFprULWzgT2UV
+	fTL4zMmOg14rfE/6nm174=; b=LWiYl+uqcmfEOl0ehMuXh08P4EOHG+Qd9BuDb0
+	juWvUQk+cScPep+39pJ5DrquUDLReknucxA1VKITMt56eSFBspMqTuNiOZOSPRoC
+	og4HgMpcGxIpp6m0nWerZLlqxr/yqT22AlA4j2Nf9Eu9bsDPt+UQSXuq4NK4Ms39
+	i6jd9cutver4V7Vhp9ZoLcQVjM604cf5PkJKGtOcSrPKr5r2yKCwHW0gemhOI+56
+	/d0jL1RiX7JJ/HaJRCXxcHapQnj7NDjJHVPdFSyKTo7SLjX+lR1QreiA0NhifTo/
+	oyONkug9G3JZCYOORtJYpmBTdIBeRFkmHQN5Fe+QiYBfTJBg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw881scm7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 00:28:08 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30f1bc68d47so26817eec.0
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 17:28:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790294972; x=1790899772; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O4dAZO8mqeKSgi5fN23me6gyxeqZrfrP7G0J/UeuOtU=;
-        b=Q6qH+mWxZJaJvAv1KW0FTxI9BCsH5OsOQ96JvEmAoR3w3vc8IQxSumZclnWkA1RP+7
-         AJDXlon9ahImHv8ruO7cvK86d9m4/Ox/zZgTCcgGzmORa5Ct00FHS2Bwy6wcaw6EXlv9
-         c40Ycn+5OxI67+YX/58BlFWv6DXGGvh3R+hgUZRCcMrrxrvIbU6xSEMUBU+qggGc403u
-         AsThGV1i5PGJkbkKycKHmB3W7emoLC3A4GapCLJrgWYV7SlenxvbWdbcmGFXROBFh3Kr
-         0M3DTw8YmCLW8syU1+OfZ7RbZDR6zs+izNzmoEl6HgwHFz2fOnw617c/CvxtpghuL6YM
-         zYYQ==
+        d=oss.qualcomm.com; s=google; t=1790296087; x=1790900887; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tQY/WVLhioFprULWzgT2UVfTL4zMmOg14rfE/6nm174=;
+        b=Jnx4+6zU4c+QWbIAQkiAwFnFbdcMeKqD7wW7+ehMxx6uOLNyGPEvdzrb2y4zCbwgBS
+         fLOnWZlzWd2njGFH/hbB4m0BccmUOxCoqm5eocYI3rChNgBBZi4op4vaIoud7+2pohXU
+         GzE3QH5vc2dyIcqExoSzu4BhbaxlzgDEaYnyV1Pvok4RHrJWZumChPeWKKilFiE2cjuw
+         kL+KLe1WDAKzkWkD4EaDiGXz13yZwoVr60TvDdvwu5bSfep8faDoBkNI1yB69khaZmR2
+         ehfsWRoze9+w36ga9wJjSokUeAgd11VQNd2bjiy9aqtKGT/HTS5v+SdHjwH1NRXMPquC
+         rzgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790294972; x=1790899772;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O4dAZO8mqeKSgi5fN23me6gyxeqZrfrP7G0J/UeuOtU=;
-        b=GlI+SLqgPvrC0r8dUWazm4GS1hEk5dpQ0X42+KqVtj40Qb54JGKXDF3JTKZqhGNsI7
-         EruZce+9Yf3FGlc54bOwy+3jnkpEjpcugf7O0nfU5Gt8+E/aw6wII1B1UaKi3Sq31A04
-         xDJwzcvc/v2aMZRRuiRTNWecse9ZYvAg/Bgy4t9iG7drRReCcSqvgPAOO+7Hz+jamdeM
-         ApQ4lt1e8fAPV6AheCd7b+HrYspmknFWt8/VKUFs+txoR3i567gBSHlsb192TCjhVcQ0
-         RYAC+4mDAy2esqJ4Kg/uZLEEN91lJcWtcivETUMXVwhxMgdSGv6xVftLml0l+HAp4ZKF
-         Hhhw==
-X-Forwarded-Encrypted: i=1; AKwUvBzW97E8EHf+t/wpol1ddzYwbT5XGMuFwHw7olIcVaqy/3VpPlPKkvbzZ4v+quEbn/crvDvssltNpbmS+A==@vger.kernel.org
-X-Gm-Message-State: AFuF++lSODcgYx9TmX6cFavyE+Cve0EBerYSjSN0jPignjloc0raNwAf
-	KajUIywJSig4P0i6VmCUrZB3aUcQI3Ux7TV7V5GDWfnIhZ/4yOtXidPzh0pcrDecfL+Fj3qyg/x
-	5GPZIiBcKlIEhhOjnPTuwrlvXvz/z9Q==
-X-Gm-Gg: AYBFou3Y15NvaafcmUHsKq9V+c1/o9xwkQInD+edXVT+WqN2WiBtOno5g4BClz/bz16
-	TzjRtXuNGX/Sgdy7+qL/+s2I9BnKLrcUKsp07JzxGpqJXtnGK7YNeZE+i2x2rFfNMAuRDARr4fJ
-	TFZwtQnutlrh7lpv0ePTuu2dI46qqQ3lPFsB15DHPLUm8y/VP4WxNePtzeAln9so6bztN78f5X9
-	zp/QylwoCrRv2jRn4g95IMaPP5M1IwFKpkwWxfjvrBj1dfebZ1j0wF5cPgUO6prCaptYrMq0s22
-	77uYy+ZyJuKNdTlrn7vix6g8ql4tZRwak8y5CnI1HEC2JaUuGRb5PnHjx+4jAH1GBkRbYJYXsw+
-	rvF6DM4EI4MCjlBQRkvM5sIwosEKF0pUNy1X2wuntMcmh+t43BfYHvv5VBAPCHdB5
-X-Received: by 2002:a17:906:dc90:b0:c2a:85:5c01 with SMTP id
- a640c23a62f3a-c2ac22cabd1mr365869266b.41.1790294971950; Thu, 24 Sep 2026
- 17:09:31 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 00:09:31 +0000
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 00:09:31 +0000
+        d=1e100.net; s=20260707; t=1790296087; x=1790900887;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tQY/WVLhioFprULWzgT2UVfTL4zMmOg14rfE/6nm174=;
+        b=BmCcn3UdpYyGPs9VpwEEp/m4rhd2YDzgzsE25gf4qsgoWLJSOwEEnaOpO8sB9p5MWB
+         iFuqom98q1QIrNkHL49f9HH4IdiNmFdwR2ACey2Fpf3KVlbBC4ejnk2kb1zJxU0VRnUw
+         31ljtYY1rmBbnt7jFWnkHp4lHJu5VAJBh46VXrlIE/g7gNKPDi7DT0dzjWP7SAAqITiN
+         7NkzcpBHHNdjwS63fRugdS+E+gvEof06BlcUujr2orya3+gffjlBZ5yVD/2H0d5ArUAf
+         hXWY/vd7NSlblj8y0jx9D/YqoUpettKEqtJt0mssTXjz/6S5Rk/zRkjuRHVsm47MTks/
+         HcfQ==
+X-Gm-Message-State: AFuF++lS/jfKPYiUNmAY5BgEpG4+NYBfLRKJOlUO2FtmePHFkjxlSDFf
+	0wfItuYkTe9xmh+A7M3dsJJ4L8CHaOhKqL+4B/PDpQXt07tQnKqUbAuUoIOkKsnw1276vRUAhp4
+	wC3I/pMG+pyYsxb31HABfAZxkwqrHaQI9U7jTLhfDUfTHkLAF/9vsvkjmzrGQke8qVA==
+X-Gm-Gg: AYBFou0qKZtWW5DqE9/1hrZh4guD6gwuj4+yWMMV6KRWA3TyFsACNc58bd3jslqzaUg
+	1TxQ1Is+O6VNPJGVRUJFwdqHjXg8hxkGXoPAvAoufA06t4PKbyMRDHZKx5ykOm/TMtpZoZ8RSUc
+	SH/EovIamiwi2D1SAM06kq+7MvusxaKh2q63ZBKoWcFxLCPc4NxobtXrl1AXy1LhiNopu/iAzt4
+	6ul0Q1jEejzbBDAaeuIbnszYkuuDxgoF9KMZjHfc+Ro03ps7YHQYfzJ0vTaoz8Oqqgb5hJ+qZZe
+	0fIsbL/O+A1uL7DMDqPdkE7/EE+QQCB+wmQ9Yb2YbC6mm3YHrY2NjwmnUIvK61Hg5reJq3MeK9p
+	vCXP71fR/LTr33QboMB+42vud8HCCB3mOA+u+g1325NtoMnkDgoFYvq845IAF
+X-Received: by 2002:a05:7301:4d04:b0:33e:4e49:d08d with SMTP id 5a478bee46e88-34149bdd0bamr1158805eec.1.1790296087101;
+        Thu, 24 Sep 2026 17:28:07 -0700 (PDT)
+X-Received: by 2002:a05:7301:4d04:b0:33e:4e49:d08d with SMTP id 5a478bee46e88-34149bdd0bamr1158782eec.1.1790296086466;
+        Thu, 24 Sep 2026 17:28:06 -0700 (PDT)
+Received: from gu-dmadival-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3414485a9cdsm1873736eec.16.2026.09.24.17.28.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 17:28:06 -0700 (PDT)
+From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+Subject: [PATCH v7 0/5] Implement Region of Interest(ROI) support
+Date: Thu, 24 Sep 2026 17:28:01 -0700
+Message-Id: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: mhun512@gmail.com
-In-Reply-To: <CAGEsz8GkK7ZZoweuoR0DwA=CaDzJtQnmTWasEW=wPRv-yBeKew@mail.gmail.com>
-References: <CAGEsz8GkK7ZZoweuoR0DwA=CaDzJtQnmTWasEW=wPRv-yBeKew@mail.gmail.com>
-Date: Fri, 25 Sep 2026 00:09:31 +0000
-X-Gm-Features: AclHuK8Qhl5-EGC4HUcDq0yD-vI60rrYH2FFCNerdpeXKUT00izorJWy0kVNFrQ
-Message-ID: <CAGEsz8ENFnYSCS3w7zLnkVbG4FEVG04WoptROY21mn+PnnJ7NQ@mail.gmail.com>
-Subject: [PATCH 2/2] media: venus: disable recovery work before HFI teardown
-To: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com
-Cc: bod@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mhun512@gmail.com, sashiko-bot@kernel.org, stable@vger.kernel.org, 
-	ae878000@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABHAtWoC/3XPzWrDMAzA8VcpPi/FH4rt9LT3GKPYsrwa2niLt
+ 7BR8u5ze0kh9UXwF+gHurJCU6LCDrsrm2hOJeWxhnnZMTy58YO6FGozyaXmWuiORjxOOR1pdP5
+ MHQRlewRjlSNWjz4niun3Dr691z6l8p2nv7s/i9u2Sc2i412kiAhkdFTqNZey//pxZ8yXy74Od
+ hNnuSpGwEaRVdFKWxWH4JFiQ1GrYvlWUVUhrryW0skAtqHAgyLERoGqCBzISeC99y2lf1T6jdJ
+ XJVAYACKPaFof6VUZnii6KnIIAdB6xPhMWZblH57QGAURAgAA
+X-Change-ID: 20260616-enc_roi_enable-4d385c4783ae
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+        kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790296085; l=6259;
+ i=deepa.madivalara@oss.qualcomm.com; s=20250814; h=from:subject:message-id;
+ bh=soE8lT07CzBv6xf5EGPSJ5lUSOE/f7Y80sMTtzO0Ue0=;
+ b=WjZxbipMwAwYUfmdBZXr5tJRWleRDJnSimJOnJYNUHE43f6DFYDfDttzUXTSqXrNu2YjWSRl2
+ W+kotKvTU7RC1FvNnfvwk42A3xRw08Px6NIH5+9ZPLl5yx1b5jWq9JI
+X-Developer-Key: i=deepa.madivalara@oss.qualcomm.com; a=ed25519;
+ pk=MOEXgyokievn+bgpHdS6Ixh/KQYyS90z2mqIbQ822FQ=
+X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6ab5c018 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=DKkvS2Dz--9TOQqJK7AA:9
+ a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAwMSBTYWx0ZWRfX+Ya1LqLR8r8G
+ HCNqAX7kcLVWsq5iIW4AHQh5eDiIvTeRKSFKW9TZ27M0BvpIf30TPAcvkvZzgkdF9AzoUknuuho
+ Alc8eMjNzXVfpvmAgMgXR7qRkBZa1GimMqIrDjIeDSDPYX6eCZqQnqzL8OtUUB/qQPgnCOBaQxp
+ DRCnCBGr3SEFRXKPgT5aCbfREmELws9oJVdjCTl7gr17epiWUfrftfyCeNmXMNBCsR9WK+wJFfP
+ lhMHQEZSIgMdSiFRhHyD+EPa5pqFO8F9wvXvSpS5B83eSu+6o2M6tThp5UC8NW6ceZguvnw3zsi
+ 0+tW4aWN3E0LzL1nHyN3/PWZus2JH4k59abN2qawBJgm8vVLMiCw69CBA+oA3ou23P4I+TrJWQi
+ bmXzBFmH0i6TglATY/uIeiin7H1ptuiWjNcpaqBTQlVhCAHRaxIwIOHHaiqUnY8RT7oMDY4zRWM
+ 7HtQMPgmodnk9EsB0Bg==
+X-Proofpoint-ORIG-GUID: D8UwXiPm0YBwPgSJvryNRG1CY0cH2oUx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAwMSBTYWx0ZWRfXwdjgI8sBz8Za
+ DxVU3xDYgdt+0uJp0OXhli+zMP2xett1t/yUeBbC1o083SFbtOJm5z1dIOBGlNVKR6MPCwyBaiY
+ No8/FkT4HDLQJhO+mWUoJJ8jD6eBSCw=
+X-Proofpoint-GUID: D8UwXiPm0YBwPgSJvryNRG1CY0cH2oUx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250001
 
-venus_remove() cancels core->work before the IRQ is disabled. An IRQ
-thread can queue the work again after cancellation. The work can then
-access HFI state after venus_hfi_destroy() frees it. The work also
-requeues itself when recovery fails, so cancelling an already running
-instance alone does not close the race.
+Hi all,
 
-Disable and drain the work at the start of remove, before other resources
-are dismantled. Do the same in venus_hfi_destroy() for paths that bypass
-remove, including probe unwind. Disabling the work prevents both IRQ
-handlers and the work itself from requeuing it. Drain the work before
-disabling the IRQ so an active recovery can finish any IRQ based
-completion waits. Then synchronize the IRQ before freeing HFI state.
+This patch set implements region of interest(ROI) support for
+video encoder to be configured as a MB based delta_qp for
+the whole frame. Custom controls V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP
+and V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE are implemented to achieve this. 
+Corresponding support is added in iris encoder to implement this
+feature.
 
-Fixes: af2c3834c8ca ("[media] media: venus: adding core part and
-helper functions")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+This submission and design is based on the feedback received
+from community for the RFC[1] series posted earlier. 
+Initial testing is done by adding support to v4l2-ctl[2] to test this
+control setting and its functionality.
+
+[1]https://lore.kernel.org/linux-media/20260113-iris_enc_roi-v1-0-6c86eba38587@oss.qualcomm.com
+[2]https://lore.kernel.org/linux-media/20260616-enc_roi_enable-v1-1-252792d27894@oss.qualcomm.com
+
+Results:
+
+v4l2-ctl -d /dev/video1 --list-ctrls
+...
+enc_mb_roi_delta_qp 0x00990b92 (s8)     : min=-31 max=30 step=1 default=0 dims=[139264] flags=has-payload
+        roi_mb_size 0x00990b93 (u8)     : min=16 max=32 step=1 default=16 value=16 flags=has-payload
+
+v4l2-compliance -d /dev/video1
+...
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK
+        test Requests: OK (Not Supported)
+        test blocking wait: OK
+
+Total for iris_driver device /dev/video1: 48, Succeeded: 48, Failed: 0, Warnings: 0
+
+./v4l2-ctl --verbose -d /dev/video1 --set-fmt-video-out=width=176,height=144,pixelformat=NV12 --set-fmt-video=pixelformat=H264 --set-ctrl=enc_mb_roi_delta_qp=-20,-2,-22,9,-16,-2,14,-9,-19,3,-26,19,-23,30,1,0,-6,-7,7,2,-2,15,-15,-24,-24,-26,-26,5,-1,-1,9,-11,15,-25,-11,26,-11,7,-26,-27,-8,-18,7,-4,-12,-23,-11,22,-7,7,-14,24,6,-8,-7,2,7,-26,2,-25,-1,-3,-4,-6,-26,-11,7,16,-30,-22,-15,30,-14,-29,-11,-8,8,6,19,15,-17,21,-27,30,-17,-28,-10,-20,1,22,29,-19,-2,28,10,12,-10,7,-4 --stream-mmap --stream-out-mmap --stream-from=/media/foreman_qcif_nv12.yuv --stream-to=roi_try.h264 --stream-count=10
+
+Validated on SM8550 MTP.
+
+Thanks,
+Deepa
+
+Signed-off-by: Deepa Guthyappa Madivalara
+<deepa.madivalara@oss.qualcomm.com>
+
+Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/venus/core.c      | 2 +-
- drivers/media/platform/qcom/venus/hfi_venus.c | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Changes in v7:
+- Add V4L2_CTRL_TYPE_S8 to v4l2_ctrl_type_op_validate and check_range (Hans)
+- Rebased onto media-committers next.
+- Link to v6: https://lore.kernel.org/r/20260915-enc_roi_enable-v6-0-29dd4c8bccff@oss.qualcomm.com
 
-diff --git a/drivers/media/platform/qcom/venus/core.c
-b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae7..94d4b8688ac2 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -538,7 +538,7 @@ static void venus_remove(struct platform_device *pdev)
- 	struct device *dev = core->dev;
- 	int ret;
+Changes in v6:
+- Update documentation from custom to array, __s8 to __s8 array (Hans)
+- Update documentation and handling for non MB Size aligned frame resolution (Hans)
+- Rework patch 1 and 2 to add V4L2_CTRL_TYPE_S8 type first followed by ROI control (Hans)
+- Simplify handling for V4L2_CTRL_TYPE_S8 in v4l2-ctrls-core.c (Hans)  
+- Link to v5: https://lore.kernel.org/r/20260815-enc_roi_enable-v5-0-ded944f0fc7f@oss.qualcomm.com
 
--	cancel_delayed_work_sync(&core->work);
-+	disable_delayed_work_sync(&core->work);
- 	ret = pm_runtime_get_sync(dev);
- 	WARN_ON(ret < 0);
+Changes in v5:
+- Fix Media CI errors.
+- Rebase onto media-committers next.
+- Link to v4: https://lore.kernel.org/r/20260811-enc_roi_enable-v4-0-1c9ea2405bb8@oss.qualcomm.com
 
-diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c
-b/drivers/media/platform/qcom/venus/hfi_venus.c
-index e7e4e78a186a..20b8ba1e62f1 100644
---- a/drivers/media/platform/qcom/venus/hfi_venus.c
-+++ b/drivers/media/platform/qcom/venus/hfi_venus.c
-@@ -1689,6 +1689,7 @@ void venus_hfi_destroy(struct venus_core *core)
- {
- 	struct venus_hfi_device *hdev = to_hfi_priv(core);
+Changes in v4:
 
-+	disable_delayed_work_sync(&core->work);
- 	disable_irq(core->irq);
- 	core->priv = NULL;
- 	venus_interface_queues_release(hdev);
+- Updated Documentaion, clean stray lines (Bryan)
+- Use BIT(16) for header version (Bryan)
+- Split patch3 in the series to reflect enumeration of
+  the platform and adding metadata support and implementation (Bryan)
+- Link to v3: https://lore.kernel.org/r/20260804-enc_roi_enable-v3-0-e03b622a2d48@oss.qualcomm.com
+
+Changes in v3:
+- Updated Documentation (Hans) 
+- Reuse ROUND_TO_RANGE_RANGE for p_s8 (Hans)
+- Rebase onto media-committers next.
+- Link to v2: https://lore.kernel.org/r/20260714-enc_roi_enable-v2-0-63683f9dbcef@oss.qualcomm.com
+
+Changes in v2:
+- Fix issues detected by Media CI robot and kernel test robot.
+  Reported-by: kernel test robot <lkp@intel.com>
+  Closes: https://lore.kernel.org/oe-kbuild-all/202606171554.03yt9utn-lkp@intel.com/
+- Rebase onto media-committers next.
+- Update to handle p_s8 in std_validate_elem correctly. 
+- Link to v1: https://lore.kernel.org/r/20260616-enc_roi_enable-v1-0-fefcc4e76f33@oss.qualcomm.com
+
+---
+Deepa Guthyappa Madivalara (5):
+      media: v4l2-core: add new control type V4L2_CTRL_TYPE_S8
+      media: uapi: Introduce new control for video encoder ROI
+      media: iris: Add ROI delta QP control support for HFI Gen2 encoders
+      media: iris: Add HFI metadata buffer delivery support for Gen2 encoders
+      media: iris: Add BUF_ROIMB_DELTAQP metadata buffer for ROI delta QP
+
+ .../userspace-api/media/v4l/ext-ctrls-codec.rst    |  26 +++++
+ .../media/v4l/videodev2.h.rst.exceptions           |   1 +
+ .../userspace-api/media/v4l/vidioc-g-ext-ctrls.rst |   4 +
+ .../userspace-api/media/v4l/vidioc-queryctrl.rst   |   6 +
+ drivers/media/platform/qcom/iris/iris_buffer.c     | 114 +++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_buffer.h     |  22 ++++
+ drivers/media/platform/qcom/iris/iris_ctrls.c      | 123 ++++++++++++++++++++-
+ drivers/media/platform/qcom/iris/iris_ctrls.h      |   2 +
+ drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |  14 +++
+ .../platform/qcom/iris/iris_hfi_gen2_command.c     |  63 +++++++++++
+ .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   3 +
+ .../platform/qcom/iris/iris_hfi_gen2_packet.c      |   6 +-
+ .../platform/qcom/iris/iris_hfi_gen2_packet.h      |   3 +
+ .../platform/qcom/iris/iris_hfi_gen2_response.c    |  29 +++++
+ .../platform/qcom/iris/iris_platform_common.h      |   5 +
+ drivers/media/platform/qcom/iris/iris_venc.c       |   4 +
+ drivers/media/platform/qcom/iris/iris_vidc.c       |   2 +
+ drivers/media/v4l2-core/v4l2-ctrls-api.c           |   1 +
+ drivers/media/v4l2-core/v4l2-ctrls-core.c          |  19 ++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c          |  10 ++
+ include/media/v4l2-ctrls.h                         |   2 +
+ include/uapi/linux/v4l2-controls.h                 |   2 +
+ include/uapi/linux/videodev2.h                     |   2 +
+ 24 files changed, 460 insertions(+), 4 deletions(-)
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260616-enc_roi_enable-4d385c4783ae
+
+Best regards,
 -- 
-2.53.0
+Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
 
-
-On Fri, 25 Sep 2026 00:09:06 +0000, mhun512@gmail.com wrote:
-> As part of our ongoing static-analysis research, we reviewed the Venus
-> teardown path and confirmed the race reported by Sashiko.
->
-> This series fixes two HFI lifetime races during teardown. The first patch
-> waits for the hard and threaded IRQ handlers before releasing HFI state.
-> The second disables and drains recovery work so it cannot be requeued
-> while HFI state is being torn down.
->
-> The later Sashiko report also identifies a separate resource leak when IRQ
-> registration fails during probe. That issue is outside this series.
->
-> Myeonghun Pak (2):
->   media: venus: hfi: disable IRQ before freeing HFI device
->   media: venus: disable recovery work before HFI teardown
->
->  drivers/media/platform/qcom/venus/core.c      | 2 +-
->  drivers/media/platform/qcom/venus/hfi_venus.c | 3 ++-
->  2 files changed, 3 insertions(+), 2 deletions(-)
->
-> --
-> 2.53.0
