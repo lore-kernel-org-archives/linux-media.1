@@ -1,73 +1,149 @@
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1814562BA;
-	Fri, 25 Sep 2026 20:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203D43EB810;
+	Fri, 25 Sep 2026 21:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367745; cv=none; b=fK0HtJtuIQyqns2JHoy4ShZsU2xXXJ6R1GVNEQxHH4C3BRSgWLYT2y3rZHlHbL28lQWOLme2TcMQedHsH5BBGBm/3Dh5WLPy6vVVcCsPxMMSR9qYngUoNSvsT83+6LlWY9A051ickf3D37wjM/y99ojfhfhf6o4r/F/jWC8EXFM=
+	t=1790373043; cv=none; b=VTL9/StyOlHLXCiYugKdCRqQ+JZh928dHsdaUNvQH1k9UZD47pcsSsi+TYCVfsSL7iQ7Yuj2Wu9BxKyoXtTv+afTpIx+rL2h3oz4eFw7wSDKvFeV6A751KJWLEpBmUCUu78478Bc4RWn6cRIYZFkmZC/siKnH5EyxL1xY+duNV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367745; c=relaxed/simple;
-	bh=5ZNPASRplPy2DuNlOipZy+jH3w6z894WaScclxbZsNk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GIWVlrRdd3rMxF5rfdoh+VKoqVpb7HtLhKiKbD1WYkYw9RYHcsu/5VBWqmCcJtm0IG8iXeH/dQCFDxxMBk+nMlgKKWKCGFE2n6+5J+G1QNMMlEW3KWFKcKkQfIQi8dGfeo8ghJj+Bb1yqX4uX0mZSUN9Ps+pBeo1Qif5WM0I3XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=dxzaKklI; arc=none smtp.client-ip=79.135.106.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790373043; c=relaxed/simple;
+	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Z/TlVe/fWeMwd2QbSwhZy4WHdS8mhNA/jWTIpZe6GovxVC8hvo2osJPr/VzIAmIKbVSi3adDtKIeGRBxh3ARnrivKorUwWNDQV6us5or6XkC6YLYHIhUgJ318TwTB3Jiljj8OqXRbtV3Ft/aYSOLsOBIJvOOHS7jxTEwWyVODO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JJL1E4UH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="dxzaKklI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790367735; x=1790626935;
-	bh=5ZNPASRplPy2DuNlOipZy+jH3w6z894WaScclxbZsNk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=dxzaKklIphPKsA4AVpWEZigj+ahbr06UWkNj8XSMPtZrSonofHwnMbWKoHXlcvCT5
-	 tJvUD3NkDqrojzLZDTQA8lPcyqqCpUYFHnIYIcOp0y84aXyY2dOS0LmMwX3WXEPKW3
-	 Bkl+XZbGcG4AE5xH4sZeRpm9dpc+As9cy8nsVN12+tVcFB8tb8q/vMNZFFnprSbF7Z
-	 nq8AcGbWoYsxNVAXI3eqlFof1+8IMAtt4w+4UgWeq28ZNrKc8PlKcDHiOk2FtAZkY1
-	 QKb1geBVjq+CMUbpfLq3qXjIAAuSxHtjHIH6qb8UlQ2wRRF8QOGT2oj0LhgZYQ3U+5
-	 PBBrrPk2QCQJQ==
-Date: Fri, 25 Sep 2026 20:22:11 +0000
-To: German Pablo Lindo <germanpapulindez@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Compilation error in [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
-Message-ID: <20260925202158.37878-1-lsa.uz@pm.me>
-In-Reply-To: <20260925200238.12765-1-germanpapulindez@gmail.com>
-References: <20260923211816.89954-1-lsa.uz@pm.me> <20260925200238.12765-1-germanpapulindez@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 6fb356f62dc1c560621033441b11388730fbdf09
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JJL1E4UH"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6031EBE;
+	Fri, 25 Sep 2026 23:48:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790372930;
+	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JJL1E4UHXlyRcybG3UO9G/5N58HHVUFRGd+D8wJnyk5XQjdPVFRnWfdE1NfuOlOF8
+	 AFJirjZCk5kOPEqBq7OYhMoVLUsfE5ePZB8h4434kchxzR/2RS42WUaKr2454NO5Dr
+	 vJLkLeTKnkFBpWPnAshh3SF0SQHAQ/l+BiFubdxE=
+Message-ID: <4bedfdf97c0bdcf3ad00020eee7a1eb1@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liu Weibin <liuwb@xiaopeng.com>
+Subject: Re: [PATCH v2] media: i2c: thp7312: bound the focus lookup against
+ the table size
+Date: Sat, 26 Sep 2026 00:50:24 +0300
+In-Reply-To: <20260922075246.1319707-1-guozh23@xiaopeng.com>
+References:  <20260922075246.1319707-1-guozh23@xiaopeng.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-German,
+Hello,
 
-Thanks for isolating it to 2/3. The patch is fine on the base it was
-written for; v7.3-rc4 is missing one media commit it depends on.
+This is an automated reply.
 
-The series is against media/next, as the cover letter says
-(aedd77ea8168). There, 7eef49c1646 ("media: v4l2-subdev: Add struct
-v4l2_subdev_client_info pointer to pad ops") gave .set_fmt,
-.get_selection and .set_selection a new argument, and imx681 is written
-to it. -rc4 does not have that commit, so the driver's two pad ops no
-longer match the fields they are assigned to, and the kernel builds
-with -Werror=3Dincompatible-pointer-types.
+You have sent a patch that appears to have been generated by an LLM. The
+commit message and/or code show little to no real understanding of the
+changes being proposed.
 
-Checked both ways today with the same config and compiler. On
-aedd77ea8168 the series applies and imx681.o builds with W=3D1 and no
-warnings. On v7.3-rc4, git apply refuses the Makefile context; applied
-with patch(1), the build fails with exactly two errors, at the .set_fmt
-and .get_selection initialisers. linux-next already carries the change.
+Such patches require a large amount of work to review. They rely on the
+maintainer to propose - and often even implement - a proper design. The
+probability that the author will learn from the experience to improve
+their future contributions is close to zero.
 
-For testing on -rc4 in the meantime I have sent you a two-line change
-off-list.
+As a result, to make good use of maintainer time and keep the kernel
+development process sustainable, your patch has been rejected.
 
-Sergey
+If you believe the change you proposed is important, take time to study
+the problem, learn, and develop a solution without AI assistance.
+Answering this e-mail or generating a new version of the patch by
+feeding this reply to an LLM will only result in your e-mails being
+ignored.
 
+Please note that if your patch attempted to address an important
+problem, maintainers or other contributors can submit and merge a
+similar or entirely different fix without crediting you.
+
+Your contributions to the Linux kernel will be welcome if you genuinely
+desire to invest your time and learn.
+
+Thank you,
+
+Laurent's mail bot
+
+On Tue, 22 Sep 2026 15:52:46 +0800, Guo Zihao <guozh23@xiaopeng.com> wrote:
+> thp7312_set_focus() indexes thp7312_focus_values[] with the value of the
+> V4L2_CID_FOCUS_ABSOLUTE control:
+>=20
+>         if (thp7312->focus_absolute->is_new) {
+>                 unsigned int value;
+>=20
+>                 value =3D thp7312_focus_values[thp7312->focus_absolute->val=
+];
+>=20
+> The control is registered with the table size as its maximum:
+>=20
+>         v4l2_ctrl_new_std(hdl, &thp7312_ctrl_ops,
+>                           V4L2_CID_FOCUS_ABSOLUTE,
+>                           0, ARRAY_SIZE(thp7312_focus_values),
+>                           1, 0);
+>=20
+> The table has 19 entries, so the valid indices are 0 to 18, but the
+> maximum passed to the control is 19. The control framework does not
+> reject the bound itself for an integer control: std_validate_elem() only
+> rounds the value into [minimum, maximum] through ROUND_TO_RANGE() and
+> returns 0, whereas a menu control returns -ERANGE for a value outside the
+> range. So a value of 19 is accepted and the lookup reads one entry past
+> the end of the array. That value is then written to the sensor through
+> cci_write(THP7312_REG_MANUAL_FOCUS_POSITION).
+>=20
+> Reject a value that is not a valid index before the lookup. The control
+> range is the safer place for the bound, but leaving the lookup guarded
+> keeps the table and its only user consistent with each other; narrowing
+> the control is a follow-up that does not affect this fix.
+>=20
+> No Fixes tag. The table, its registration and the lookup all come from
+> the initial driver import, 7a52ab415b43 ("media: i2c: Add driver for
+> THine THP7312"), and have not been touched since.
+>=20
+> Reviewed-by: Liu Weibin <liuwb@xiaopeng.com>
+> Assisted-by: LLM
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> ---
+> v2: add the THP7312 maintainers to the recipients, and say that the value
+>     read out of range is written to the sensor.
+>=20
+>     The previous version said the read was of a value next to the table
+>     and left it at that. The read result goes into cci_write() for
+>     THP7312_REG_MANUAL_FOCUS_POSITION, so the description now follows the
+>     value to where it is used.
+>=20
+>     Add the Assisted-by tag.
+> ---
+>  drivers/media/i2c/thp7312.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
+> index 775cfba18..20698b7a1 100644
+> --- a/drivers/media/i2c/thp7312.c
+> +++ b/drivers/media/i2c/thp7312.c
+> @@ -931,6 +931,11 @@ static int thp7312_set_focus(struct thp7312_device *th=
+p7312)
+>  	if (thp7312->focus_absolute->is_new) {
+>  		unsigned int value;
+> =20
+> +		if (thp7312->focus_absolute->val < 0 ||
+> +		    thp7312->focus_absolute->val >=3D
+> +		    ARRAY_SIZE(thp7312_focus_values))
+> +			return -EINVAL;
+> +
+>  		value =3D thp7312_focus_values[thp7312->focus_absolute->val];
+> =20
+>  		ret =3D cci_write(thp7312->regmap,
