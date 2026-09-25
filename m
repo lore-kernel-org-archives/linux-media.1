@@ -1,91 +1,158 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25C8477998;
-	Fri, 25 Sep 2026 08:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C4D47C10B;
+	Fri, 25 Sep 2026 08:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325736; cv=none; b=UpV4eRRZpiFI8TsBUX3yQ9kf9tMQfJcOjqVqS9f66wcg1phetdKdcK4MCHaQ3mWb0Fi6tUAh8SwEHc8XeqWuOC0Kj9fxay5dYxgyCyn8QKi3BYrcwuW+LVBiHwhzm/egP2K9W7tN4O4JjC3z1uPtCmAwmUXTulJnL2jmOLPakXk=
+	t=1790326226; cv=none; b=lJzfbvdVW+b0XiIMiJJrwdABlAw4brQo8g5BxGOt9VPv6jeNPirreqmj8yaS3gEeXXCJ2nPRh93onzfMS28+ghb+A7qKnbRcmT6oHpOhbNltUPHOymcJcOzALbzuPmsVwvwpO5Z5ECQQD+Bfw5nyUV1WShT+2awnVGSnuMyqQq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325736; c=relaxed/simple;
-	bh=vRvOW5NrkIUrw9dWfkyAdujFBwy7oebVmERVFMWai8Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RPam7IialPCyLMdhDoY7C9yew1jnJXXuvpfVL6jx6q5vgoLyOpaLoL3lp4tvqZFZ+scbb2p0qFDptM+OVzz1qp+Ra67sJgCVSDou9AcfUVDZQUcQ8/SWxvTSJWBe9nc+EAOx7Nd7+50ekZ5nf+uAIZgJOZmOXTfylqNcsYHitR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jzhL2YVu; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790326226; c=relaxed/simple;
+	bh=ZrqQea9QfkZIfeOp+G1ykf1/KoVZrNbjpHZRRBgZypo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MKs1mSXa6Aj0vhbQcbYSLD4CRmliHuNxMh1aFx2t0r69K2l1RWoiArlV/k8XR3JOdBqtScRPUr60BXzK0wFSEu/OaUZjGQd6gnVS3ZaQ9KLaAHyk6vsLSZLYQ3m9GNT+a31mLTOv1BYfW7myjFLXduJh5xR8vNI7/rqEatkaRdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bmprr1Yw; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jzhL2YVu"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hrkhq5Kd5zMlN2;
-	Fri, 25 Sep 2026 10:42:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790325723; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vRvOW5NrkIUrw9dWfkyAdujFBwy7oebVmERVFMWai8Y=;
-	b=jzhL2YVuv3ff2aE5LMGqBShNaDSCXIjidBG3CC124ceWlQZjbfOxQpIScjA50TNl3dqdVY
-	0b3Axa6oJwQ3KRSpeBzN30pqPEqMDvJDbainpz/6fUDS/FKz3Ouf+NslWP5vacyPJ1e3rB
-	pUvYgomNYXd2DXp0CJ26SVHPk269eSCAtOhqfBb8PH7E8Q3opP2NgWjtQhCc1Z+K+koXYX
-	xgJ9JmRX8HkpXTxQZwwlpvx1EW4L9Kvenop9L1AVDDN7NrBrgSmlYZiHjkLj6hV9bgk4D5
-	M0gi/cvf2jxsSlZB14XuCGpWMO2PiYgrgTJ5BzEzkijkhxdpFf698Ql2jUs8eg==
-Message-ID: <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
-Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 10:42:01 +0200
-In-Reply-To: <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
-References: <20260923150308.1294592-2-phasta@kernel.org>
-	 <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
-	 <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
-	 <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
-	 <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
-	 <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bmprr1Yw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790326222; x=1821862222;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZrqQea9QfkZIfeOp+G1ykf1/KoVZrNbjpHZRRBgZypo=;
+  b=Bmprr1YwnQZRRgwpJpURgtrJQJ8jTJe6L0UDKEn6ztUnGh62jMYyirph
+   /c5L44pg1L62zjNf5m+VbiJgPDTbW6u90D4cVFdtZdVm6PiVsNQyUx46N
+   aRG4UbLENbkzFe73VgovtN/yLJFoKbiiUokfAdIdOhlP+SIcJgJDhENxS
+   ifDBc80VLZMvzVlwuBk2L5vGyJX3UuFYxZJzy7FLHumgikYqcREhHtapB
+   qbDwJrX9n0fGKIecoTbzaW7324zD8bFuIQgS3wfNvkOBtBQkQGWLEv4Vf
+   PXdrLot3sPBsdckFm6ujNuXfV/R9PS5+tl9kN2nKjccwPxa9deWsQvRtZ
+   w==;
+X-CSE-ConnectionGUID: zy88QQKYQema1TACp1DC9A==
+X-CSE-MsgGUID: LwLGJ/ePQ/eQEUtOwO42nQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107490046"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="107490046"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:50:19 -0700
+X-CSE-ConnectionGUID: +tmOa1deSK6kvpaIvTS51Q==
+X-CSE-MsgGUID: Eip1mKhXQWyde3+uEpgK1A==
+X-ExtLoop1: 1
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.84])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:50:16 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 29189121BA5;
+	Fri, 25 Sep 2026 11:50:16 +0300 (EEST)
+Date: Fri, 25 Sep 2026 11:50:16 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ruslan Koreev <koreev.r@gmail.com>
+Cc: benjamin.mugnier@foss.st.com, sylvain.petinot@foss.st.com,
+	dan.scally@ideasonboard.com, mchehab@kernel.org, hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Peter Marshall <pm@petermarshall.ca>
+Subject: Re: [PATCH 3/4] media: i2c: vd55g1: Add ACPI support for the Lenovo
+ TBE20A1 HID
+Message-ID: <arY1yBWSAD-6IkQD@kekkonen.localdomain>
+References: <20260924171820.1179823-1-koreev.r@gmail.com>
+ <20260924171820.1179823-4-koreev.r@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 7c07fbf7874eee8c257
-X-MBO-RS-META: ysrckashgmocyszoea99kqe6zsniwgxt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924171820.1179823-4-koreev.r@gmail.com>
 
-On Fri, 2026-09-25 at 10:21 +0200, Christian K=C3=B6nig wrote:
-> Some problems like the locking design are still WIP, but we are
-> slowly moving towards that.
+Hi Ruslan,
 
-The question will be whether we can reach common ground with that one.
+Thanks for the set.
 
->=20
-> But some problems like parts of the dma_fence uAPI are unfixable
-> without time travel.
+On Thu, Sep 24, 2026 at 08:18:19PM +0300, Ruslan Koreev wrote:
+> The IR camera of the Lenovo ThinkPad X1 Carbon Gen 14 is an ST VD55G1
+> enumerated by ACPI as TBE20A1, connected to the Intel IPU7 with one
+> CSI-2 lane and powered through an INT3472 discrete device. Match the
+> HID and take the sensor version from the match data, as for OF. Only
+> the analog supply is switchable on this platform; vcore and vddio are
+> always on and fall back to dummy regulators.
+> 
+> On these platforms the CSI-2 endpoint is a software node that
+> ipu-bridge attaches to the sensor device when the IPU driver probes,
+> which can happen after the sensor driver has been bound. Defer probing
+> instead of failing when there is no endpoint yet, as the other sensor
+> drivers used with the IPU bridge do and as v4l2_fwnode_endpoint_parse()
+> itself does for a missing endpoint.
+> 
+> Tested on a ThinkPad X1 Carbon Gen 14 (Core Ultra X7 358H, IPU7),
+> streaming 804x704 through libcamera.
 
-I would be especially interested in learning about who the party is
-that apparently is spinning on dma_fence_is_signaled(), supposedly
-preventing us from getting the memory ordering right.
+Please describe here what the patch does; most of the above goes to the
+cover letter.
 
-Also learning more about the users that definitely *need* ops-
->signaled() and ops->enable_signaling() would be interesting. drm_sched
-users cannot make use of these, since the sched-fence does not pass the
-request through to the hardware fence.
+I'd split the endpoint handling changes into a separate patch, too.
 
-So who are the users? Parties like Nouveau implement these callbacks,
-but it's not clear whether they actually need them.
+> 
+> Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
+> ---
+>  drivers/media/i2c/vd55g1.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index 6f458f611..64889c35d 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+> @@ -1903,10 +1903,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
+>  
+>  	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(sensor->dev),
+>  						   0, 0, 0);
+> -	if (!endpoint) {
+> -		dev_err(sensor->dev, "Endpoint node not found\n");
+> -		return -EINVAL;
+> -	}
+> +	if (!endpoint)
+> +		return dev_err_probe(sensor->dev, -EPROBE_DEFER,
+> +				     "waiting for fwnode graph endpoint\n");
 
-(btw, funnily enough, with the Rust-fence design we finally have the
-ability to fully support all callbacks with or without a scheduler,
-since the need for an intermediate fence disappeared)
+I'd drop the check here and return v4l2_fwnode_endpoint_alloc_parse()'s
+return value in vd55g1_check_csi_conf(). Then -EPROBE_DEFER is returned
+when appropriate.
 
+>  
+>  	ret = vd55g1_check_csi_conf(sensor, endpoint);
+>  	fwnode_handle_put(endpoint);
+> @@ -2084,6 +2083,13 @@ static const struct of_device_id vd55g1_dt_ids[] = {
+>  };
+>  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
+>  
+> +static const struct acpi_device_id vd55g1_acpi_ids[] = {
+> +	/* Lenovo ThinkPad X1 Carbon Gen 14 IR camera, Intel IPU7 */
 
-P.
+No need for such a comment here, I think it's enough it's documented in the
+IPU bridge.
+
+> +	{ "TBE20A1", (kernel_ulong_t)&vd55g1_versions[0] },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, vd55g1_acpi_ids);
+> +
+>  static const struct dev_pm_ops vd55g1_pm_ops = {
+>  	SET_RUNTIME_PM_OPS(vd55g1_power_off, vd55g1_power_on, NULL)
+>  };
+> @@ -2092,6 +2098,7 @@ static struct i2c_driver vd55g1_i2c_driver = {
+>  	.driver = {
+>  		.name  = "vd55g1",
+>  		.of_match_table = vd55g1_dt_ids,
+> +		.acpi_match_table = vd55g1_acpi_ids,
+>  		.pm = &vd55g1_pm_ops,
+>  	},
+>  	.probe = vd55g1_probe,
+
+-- 
+Kind regrds,
+
+Sakari Ailus
