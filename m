@@ -1,84 +1,117 @@
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7AA424D65
-	for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 21:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287150; cv=none; b=Y3SXB/w8su0qQIZGZbtrOf+S5vPv2x8PSF9aprDacnRRJ9YGdaiYjzpRemMhzTIlGNw0ts3kaqpeQp3lvircu+bKGie7Ef1hjVjr7g/MoFec/JFVJORbq2W+PZ9en3BxnL0IiAEgFMySzzplHvh8ouTXLQganqvxbtzPqBtWBhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287150; c=relaxed/simple;
-	bh=rzRCEZsMmCVlK/LMyzVxVRKyYG2em2Z1VWAEwHTALnY=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=F64DwV1/XL5nv96nQuKnQnsaGIHXDhSna9yiO+9tIlcHn6054GoE8zv/Q+HQhTFD6qe95ZDTGqmlUKL8NpcrjIRvpL4Cz//11Nqe55A2PEyJo8HpvGKTmOoTaieZS5edvoq4Dww5rQD2RGgfN7K35r87veP54P31WsfNZh5Uq8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fHVj+sYX; arc=none smtp.client-ip=185.70.43.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EC8171BB
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 00:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790294951; cv=pass; b=RE2Pe/FDRTQLiM2CQVdbjjVCONVZIfTJESEDkdRYses5EZNF1Du6mwQs2Y5VBf62X0yYXkQ8ceqrlsemOoR9ra/9UHKNTxC8fZS2JdCEQFCltN0xueu0dG0YMbo56eXAFQKmh+fpQF+Ztqzk0S1qh72CZaQklJpeYKu4x70clj8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790294951; c=relaxed/simple;
+	bh=CECXwz9NVJRqM1zgzja4MxTHWcCU82DN3pcsUZd/76I=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=HCQ1bB/oT7f22o0RImDhjGccnPumwh6+zxuPE/r5rzcEigvQUtzBstMnX8kci7TUfpZbgNxQsEuo8uR6wYQR9YNM3nGxeYu4kAfMYLTb1tF47PLaropdVMYrA0Wku6wgscivg/Mh4JUGGJFeRpCwMPcmuwzAqtqd8Tzhcza9YTw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iYP5aIVy; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fHVj+sYX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790287145; x=1790546345;
-	bh=+b066clVZKYPoHgBigF10Ti/RDxGiDr6ng9vRHCN0GM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=fHVj+sYXY7yq8YEpNthJ2rt7vZwUZI3JDjUpL7MWHGJy0rWR3qe1/+V9If4xcS9ws
-	 mrALQ7wuPgwItsjv3A8hioYZAERVlwlf369M2y7h84X8x8bpY62zNPjZ0MPKJtwncT
-	 vfdBo8fhOGSmyKsaADE49cKIrR94mYLdGJuT7a5ODO14vvR7oocx499VWew8rM6AM+
-	 +I3+79ToDE/p+BlAtgcMf8aatKTKf/nQJK3LBm/p5ihgQ4H8WsWmpAHFhKaDy+Ru8F
-	 w1IXj8sbcTiAu3QenVTQMoi/vbIW4mGnOecfFCpZ6S6vqessXZO/9UKPuW1HXEyu/8
-	 zrRn2vZMgGi+w==
-Date: Thu, 24 Sep 2026 21:59:02 +0000
-To: Hans de Goede <hansg@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-media@vger.kernel.org
-Subject: [RFC] ipu-bridge: supplying a vendor-prefixed property
-Message-ID: <20260924215857.48545-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 310ae9fab3f9e6dfc188073491d6c7f754f0c9ca
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iYP5aIVy"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so37057566b.2
+        for <linux-media@vger.kernel.org>; Thu, 24 Sep 2026 17:09:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790294948; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ACX8FCblAoTf8nB4ZwTQh/6HBTDsvvgn52VPFlZnK9y2QnvSpCCiLn3dlymBzEeNHe
+         fM/jodaMaNKGDOO6sH203LMMFeEwCswlGgIMdsdmQzEdkaeBoYKQsncp0U5mA3tC8pS0
+         MoXJdcYXwAllLdh9d7kiX2A/opvGwTOPmg6sPGoK5xNF5GjkjqvzD1/jCedMF1fLp6RE
+         LnyMuJhY+rcYa2kQd8PdNAzTrvlsDb9+OlSIyBxeHj9O+3iHZjwmZTNdiIo/vDjHQr4Q
+         ZjtPAiJ4zolakz8BhPCfrirLbU9TAeIZORS69XF6HpR0fWKHSHU/up3j9SquviAEWBgz
+         T7QQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=JvVb1ppKBUi1pgXwEpUrjpuTGibjVjV3ESWoiV2gIGo=;
+        fh=LBVaSjPQXGf+yg8A9T6WgWUKGSdFJChrMex2591+6w0=;
+        b=rpHWhAqBE2AlC9Gsj5Y80asDPjM9t33Ni0nMY1Crndibsf1UXOg0j1CYOzDmwmLATX
+         V8mIFB78Hw6U/KoYRrfWHoMoD73otVrxfGtkJg/taQgtsDxYV26r0L9xbExmw/jk+zrj
+         W0uuNDelGGy+G5tdk6WEvVbKbkc3jdmNvdwpvu2jVaGyFaGAyFsN6V/OtM+ov3oLU90V
+         Ekc+m/UlJikSQzBmaGeOoZs3o/weq/qyVY7JsDLFn+82K0dIylQR2MCjIUlrIHNWCrUT
+         SODA5jNNq/WbiMT9LboAAk9bB7mDED+WdJiLLD2USUwR1UlCrwG/A3NUShNS8jYFyLar
+         GlWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790294948; x=1790899748; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JvVb1ppKBUi1pgXwEpUrjpuTGibjVjV3ESWoiV2gIGo=;
+        b=iYP5aIVyIeeS1wxy0RrhItS7i7zqc16eXkOgnFkJjoUNC/uyPZ+Yz1nI5FISpHqyET
+         DZ7gGonG9YtPmxlKQVGoSykkEKghqLCJPEHZKCv3ZCaDsg/ceH+LGcY8mmiu1Q3YZxep
+         MVCbh9Y1umWemrFjuN9suStgzII0kccsWFi9MZjuP+i4WlFlDeSwQhZfkGSoVtaTf9bs
+         4WLlS13TQXIIseuxOHINovaI/4h1aZzpMCzhMtmFB1Aumna8Y/YHeUvRYzu5iqD3RJUS
+         74bdH2QMbdZPuDJ9AmHfTcuqnw1rUlKOV9AqATiWV1W6hLbHpZGU23SMkz/v7bY0aHaD
+         puWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790294948; x=1790899748;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JvVb1ppKBUi1pgXwEpUrjpuTGibjVjV3ESWoiV2gIGo=;
+        b=edWTDxeF2JIVqmGB5aSIWZdB0vopLsWy8TpVi3j2Iw6yPkGysiNW2Hsvc99BoGDHER
+         H1QLALjOkrrxQ0dkYU2BLSrHjOn00Lnl0b6MY5QtM8/Z0Y2XpzNYF/tVs+1F8tNyXN3Y
+         hpm4xsdsuLadbHclkCJcM4d0UVfSF1LUp2Es4lB422HPenGKqxE3hv4YGVVXGsPlUo9I
+         8IjdwC+z+gt75r1swurYEwnAp7e9LkAW5UW1/eDeJ+DYiV500KShITnJ3miVedOWPu48
+         O+TvPEIzAhs2zQkhljclQ4jfixQxe7Ow0Ywr1zuJqKbvXTO1AnpAl+GyWEJ3zopId0+M
+         YtQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxXo3mOOHUmbH2HcH9SFgPZ51b9gW82ucd17v6QGHzDGPJ4a6jqgzaoW83IXGthbrHylLAC9XuPA8S3YQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mBXdeHO6cwq6vdKwU5lwod9N0y9+K8jdDMQ0GGIxuJBMr0tlje
+	5HhD9KxMmDZlNINpEIsgeRcPLHvByNa7iF4sYQaFENHuMN6XzqmbQq8caycSwSJnSp4vDR3LXVJ
+	txiq9spYQQVAe01RiJBj2SQ+uY871pA==
+X-Gm-Gg: AYBFou25sTJc3OoeE8lPm9UftXnbzOQbI0DsAo678u/Fqp3dMh9+tf34J1eZKlJjY4A
+	PWhClRQQYeQSCmtSSzZCrkZ+seZpRoqoa70vPvUyCjcowLNwmTDj5LF6PPhlvGiZ4rv5o6snR8a
+	1Q4Qnha2vuuHhQAEVhtbbBb+gc6aNQDNbaqGsP0tSRgSJwitD3Gd74UlKSSHYgaA6QeS+lVEw/b
+	dUaCIG2M8zlzSn8I6TqhvpygnTMepE3TefHQJeOsVpnKkRYADSnNpFwIDFEF96KxAM/V5sl01hj
+	hElaiQq71+acE37ilniu04H3rcNK6sml8HJGCeabaBhKKLZfnpaZconcyOjXB/Pj/X7FBD/xMkE
+	Zjxd852LUvWZmn+jk6bagZqHm38HguFq9qKNF26co+D5VtD16HJdDH+1I2SH5F8bC
+X-Received: by 2002:a17:907:97c3:b0:c25:9102:ed with SMTP id
+ a640c23a62f3a-c2ac2311b07mr339426566b.5.1790294947745; Thu, 24 Sep 2026
+ 17:09:07 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 25 Sep 2026 00:09:06 +0000
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 25 Sep 2026 00:09:06 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: mhun512@gmail.com
+Date: Fri, 25 Sep 2026 00:09:06 +0000
+X-Gm-Features: AclHuK_ad8LwT8kuVDl63QDbO1AN6EHbYByYWzU8WNbNKdgNeemyDEcExbIrb2Q
+Message-ID: <CAGEsz8GkK7ZZoweuoR0DwA=CaDzJtQnmTWasEW=wPRv-yBeKew@mail.gmail.com>
+Subject: [PATCH 0/2] media: venus: fix HFI teardown races
+To: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com
+Cc: bod@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mhun512@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Hans, Sakari,
+As part of our ongoing static-analysis research, we reviewed the Venus
+teardown path and confirmed the race reported by Sashiko.
 
-One design question before I post a sensor driver, because the answer
-decides what the driver looks for.
+This series fixes two HFI lifetime races during teardown. The first patch
+waits for the hard and threaded IRQ handlers before releasing HFI state.
+The second disables and drains recovery work so it cannot be requeued
+while HFI state is being torn down.
 
-I am porting ST's VD55G0 to x86/ACPI - the IR camera in a Surface Pro 11.
-The sensor has four GPIOs; on this board one of them drives the IR
-illuminator. ST's driver learns which one from a device property,
-"st,leds", read as a u32 array. On device tree that prefix is not
-optional: a custom property has to carry a vendor one.
+The later Sashiko report also identifies a separate resource leak when IRQ
+registration fails during probe. That issue is outside this series.
 
-Under ACPI nothing supplies it, and ipu-bridge is where the rest of this
-board's facts already come from - it builds bus-type, data-lanes,
-link-frequencies, clock-frequency, orientation and rotation, and where
-the SSDB is wrong it takes rotation from a DMI table instead
-(upside_down_sensor_dmi_ids). Adding the LED index the same way looks
-like the shape that already exists.
+Myeonghun Pak (2):
+  media: venus: hfi: disable IRQ before freeing HFI device
+  media: venus: disable recovery work before HFI teardown
 
-The one thing that stops me: every property ipu-bridge supplies today is
-a generic name, and "st,leds" is not. The two ways I can see are
+ drivers/media/platform/qcom/venus/core.c      | 2 +-
+ drivers/media/platform/qcom/venus/hfi_venus.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-  - a vendor-prefixed property is fine in a software node ipu-bridge
-    builds, and I add it beside rotation; or
-  - it is not, and the driver learns a second, generic name that only
-    ACPI uses, which means two names for one fact.
-
-but I would rather have your answer than my shortlist - if the property
-belongs somewhere else entirely, that is the useful reply.
-
-That GPIO 1 is the illuminator here is measured, not inferred: mean pixel
-value 117.95, 115.60, 117.71 with it driven against 21.51, 22.06, 24.43
-without, on the sensor's own frames.
-
-The series itself is in pre-review with Benjamin Mugnier, who maintains
-ST's sensor drivers and suggested I put this to you; it is not on the
-list yet, and this is the only part of it the subsystem has to arbitrate.
-
-Sergey
-
+-- 
+2.53.0
