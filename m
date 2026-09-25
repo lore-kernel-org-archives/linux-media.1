@@ -1,143 +1,143 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021137.outbound.protection.outlook.com [40.107.51.137])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8809037C0EC;
-	Fri, 25 Sep 2026 11:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B67446D0BD;
+	Fri, 25 Sep 2026 11:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336727; cv=fail; b=c+rYpkwqvWaoti8HS5STskIFkScuu3Y9BhEVtQ+qABq8pRrQjTfNt8u/osdsTs7CHl9p6ejJ34p33Wr0kUb6KpVx7yUot0CT9Q2m0yFHecC3mgHj6PN4jhoUTHcMdU4p5nguYmL4qTUHdYtA4fLJA5PLFCL7Y0vjqTWe3zYGlV8=
+	t=1790336731; cv=pass; b=dxJmKCLWE8PKI6nk0HfxmmUsx32QVC2Bvk01r7UgtFzRFiQAqJFhCol12k17A1QumKlTvvGVdoBLEDVbAG1WkoGLpcH1JcchNf5CIcn1xw/a3+kyhGgKCZ8fFsWGxYlPBSYdRvDNmrFef1bXNrK6rXEsao2E2/xHhPDLhAdb5x0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336727; c=relaxed/simple;
-	bh=IO4S2UaAPFQMRW7m5z/cUXPWJsbEltejwnPr+Bf7+m4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ic2HURHOJ10tLFlbqczVY2OaH5VyeAVFSg04TNm/0BFiJlCsx/xySHz4C0kfmSOPeVX2OsI5zAdmj2HG8Nt/uUr5+d0/BgUZ54Muv1IYD3hYJ9B1g0GtDbpIGdEI1ID3qUERCYFsaIaZqagZF+53qgGxqM6Oa6463qt5T7cxmBU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iUuomlvtOEYGL0zvO+4ha0MIDWYWI5iMi6h9kJSAQJPzhgABfiT68cnjcfMqWuwH3yVIj9/zXTgV6ekpuN6UDzsMguOPwGIfQbgnTjwkcsvKDkCnbqBV6zVAhkaEF1WbDwEWClIUTSIkPXUM7FNS7QJmFjCiUvoiqYL1ek+E+UtNCXUHCyE5N6JtwPaU5vaUZV+5JXHXOJnSU8NDWAmdHiVatNk+QP6gYcyN80gadQmk6bwIYiCK0Gn0mYK1mmAIBqUTZ/CGR6IVlzcnkZz/CCW4UyV2Ulu4pDvONKqVhf65OuCqJIiCuaveoaIpBj6xNRYimHzSV/RVQT4Bz4yW1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=80bGJBd17qkxxQlcRd5A/s8w70S4j16OJADI9nOoo5E=;
- b=KB7amVmibLyS1lYygjks8C4pQD9vrtR2GaepfTToc1f8Z8N9ziruEh3oBpAoI6LC2IBswMsTN58XeTYLyWbOYKi9jkFVDvw9lx9Lri649rE/N6e3S8LsqgaQ1JrXSqIP/zcAZrGqHzAgkjqy1X7Uks3kdIiGOYFGelkkYR6bfo2gVUbkOcqufi7bx5Mog/FpMjd9wzxcz6UMkrsqyMrGvE+folPa2vK1aEigDQlsd6zsS4nAf3e0h5mZDlnx1mfKN7mMdmiQGIVjCUiT7y4NgZLjKhUynnnRqA1nZihxdlURAHcQydpAYs4hLkum+neplbvfjS99N5w1cLi2nmmuow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PN2P287MB1024.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:134::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 11:45:20 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 11:45:20 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com
-Subject: Re: [PATCH v2 0/5] media: qcom: camss: fixes for several cameras behind a CSI-2 bridge
-Date: Fri, 25 Sep 2026 17:15:11 +0530
-Message-ID: <20260925114511.2228661-1-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915121557.20910-1-hitesh@ebytelogic.com>
-References: <20260915121557.20910-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN5P287CA0032.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:263::13) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	s=arc-20240116; t=1790336731; c=relaxed/simple;
+	bh=dd9ZB+DgEvJG+UhAAEoJPAdb4Iq3fKUiQVJjo25/3KI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UoniJhxvjEpLtr+yUY5grpe2qWAPWs33MIEaqxOPvZQ8XGH5sukIUrIMNvPIDJ2l2Fx+P34L8nvq047RT5ERX0mWq3KwqFYKWshUmchAc/GHEqQzwNq2h7CnNEwO/9SLm7l2r6n7TJwjgy/w587e2AcRqaygtZxXLzVUDdyamjE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=NXKu3rZe; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="NXKu3rZe"
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6CEB4201E6E;
+	Fri, 25 Sep 2026 13:45:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790336726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MC47sMHNRJ/nvzIcP+t6YwsT76ZT+zbTX932PFJH7lE=;
+	b=NXKu3rZeFQl0D15h/4KyhMZkLkSGragapw0iZpP42KgQK/NCotv3+6gf/0PvWOIRDM09Jz
+	7sJ3UGuho6SkOsm/W5aWwJXCBeGQe+HUP3q/GhhjfFOGRdurG0GPHi21fGp8B4XEnA08A6
+	zSl4OPCjVXkvr9mGw+HFKpn0a7IK0mTcJ+FdGjt2qAFn8x+fQwkP5NcuEidTXniNpuSq3w
+	Tz1lF5KLH/Y0Umy6E3LjjzecRZSkGQR4HCHCIVKVSf8YdCIRdXb1N4r2lRgdBkI5l7Qgcp
+	ip04c00wSg39Tbr8PoJgfXWv0dRTNHjYhIcOIQX2hil1+ajQojqzz8yd2Uqcrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790336726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MC47sMHNRJ/nvzIcP+t6YwsT76ZT+zbTX932PFJH7lE=;
+	b=M9d/CE2XJ+95H+MVM7qgy3ZdE0aZUVtA76sFHWxhhVdxaMVqc5/xzN4PgrW48dHsb7srgB
+	irWA7K777uTXQfq5Lq+FAm0rdm9zZCNQPanGrQyxxtSOD/QZEx0eLDAfH5mbOOq7WI5LVb
+	3aaFGU/Dyqe+4r3uslC76O+Fst151UU/Db6+Q3aMHpAyeSZQMkCPrMHeaOhA7Nku3HzliH
+	kwJjybPjbcNZazcOqBKritkuL0vyv0ph4vfoK4FbAE9K0VJCEdZFYbfrPi4AvLkDasDGRq
+	iUEj9lfiDT9NzwdRP64KX4NJG6r9GKaqRjmBPFEZJQPL5fOTu82NOAXu32P4mg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790336726; a=rsa-sha256;
+	cv=none;
+	b=N/I0pd1F1Hc90wgbNJXlwtXFGHIYHgOCdS3ISce0ZGZcj/y+xJBhsrpbs2M0Wn4uUSWHxp
+	kJXrPbxge2wnilTxDQ5Oo1DRIlcaxSgwbHILkyjj5tkT8eczgTGJ4eeLJ0MvmS5AQLAL+m
+	rZhxEm/qYGKaNJswsp3MR/CH/OiUfJ8tLGK07jogJifICuje7LZKlKqMzpsEIjacLpfr+t
+	k6bcK2YXZzsNMPWwDOau2wATxog6oVHM6tV/HZsKBDE+DiT6I3Hy3+RZMsaR1a6Rh3HQt+
+	hAcExV4k1jiSSoAEuKY8X6MLC5HuDot3K9NlyBxib8V8BNspK04NOVjbt/1wgA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Fri, 25 Sep 2026 13:45:27 +0200
+Subject: [PATCH v5 3/4] arm64: dts: rockchip: rk3588: Add JPEG decoder node
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN2P287MB1024:EE_
-X-MS-Office365-Filtering-Correlation-Id: b04389cf-2a0d-468b-e05d-08df1afa7a12
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|10070799003|23010399003|52116014|1800799024|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	eqbrG9kjkPWJJ7yj1Zbi+cHPoHQvdoZU2HXnsE4SpM+bAr2279eYKLVUDt44DcgGKUVeknzaWTon8DVBPi/ShyaTzSkgsFCQayyhMF/CKRc/W0yaG0C0JGdSiUdg8IICTS79qyDCjHk+kKqF9fPV72FXXQb3AUqdU4eibDLW129aFKNOKGRexzUT7aRvYxixNmy80slvAvLLQLG7keudo0htUJh5HEAuH8XE2CiOTw2Ji9ARmDTX5TMarUf8sEzFAHZyRbNpBYsK0abaKB+fiEVIWcKMuHHWbI78j1td/c4i3zJvhghYbLeCJloHTXzLn/WTBY5To/Q2ffT3m9DnarAuwKbUFihnMHH6Yspf23dM9s81tAdbd1y1t3z30jXgprCprarurUG8PAD553erKjB612Ea/kSDD9ZyFADtbDl26umBQ9V5KZd5JAUMcjUAluUly2IRCMz7unnTMDnw2O5JqXweYDzeMhkgTVIXJEVfd6I4LD5bBlRlTpsmlq3Xd1bRz0PDnD7bODQKyR5ndHYNnFsBlsGzAv3foBa+zOmpsWTQHeDq03gNBZCyvgLq9dOLc+hZ2zNU9kqVPVFy8ziQs1Nu7U8zMls7g87owPA6m6SSVCilD6dTrNvp/msanR6pFF4weleW2Sr3Ca0PxtLCjO40syUuyvq1EIdPwhI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(10070799003)(23010399003)(52116014)(1800799024)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1j7o24yamQQ6yuSQ6fVnfgMbL9vG7g342K/Oi4QjmFnJdxfFK46m9ZD11PSR?=
- =?us-ascii?Q?LzoMpH4X7HcnfnAl/BICUr0vUMgW4B7LmeJEo2jqN4yP0Bg5M4BvwGViDn2L?=
- =?us-ascii?Q?SRiOZru6CIiQSaGNlGHaleSokOda7txzOI60fJ7jbV4L8x1Pc05rxVcXTRUh?=
- =?us-ascii?Q?1GCGrEfnTcrlINH/f59XJwIX+DA2fg8jANuVP1z3w/iiaOqA8HqFOQYSUUFR?=
- =?us-ascii?Q?YIDI4eY/db5HkDUKaklTQHqDKIls7xwLtxVJQJkDnlaUDc6gvLiL0kprKImC?=
- =?us-ascii?Q?7zHXW+mq5zbwGhE1i436AWaA1uc+OJyEaycFtJ6XBP4RVcVnQSOWgigqWgcR?=
- =?us-ascii?Q?o7d8CH+I0wkpU7P3mgLpOftmnZpEAFyMHDJMylT9tl9AHMZ/gMXx17owhK8i?=
- =?us-ascii?Q?aU2UK8kvXudbPN273Q9ovnUm9328VlGHLAvVgUgszgzqiWfCMVau1k4bjZBk?=
- =?us-ascii?Q?oa1ryUL+/zYUefIqpQPOQbxuZmqM2NUmhZey8uKWDq9ADAAWwvRLxQRzwvow?=
- =?us-ascii?Q?JCY0Cjm1FJpBJulQ6V/pbODQ2QNyAoGmI66yfroLnn9pbGRcx8CPbSEWPDno?=
- =?us-ascii?Q?Y4igCoyH/nrbH4fBKX/1UPa382iIRI74KGVowEyBB1RkVJ4hcStC+tBUJzT8?=
- =?us-ascii?Q?dnxB41iPgDsBDGPO4G8N7kKO7NSFk58bPhk48msv6CbBBQUlf/LSzie4YYWn?=
- =?us-ascii?Q?sFjWH0xHNoBQuqbmvZbYfYjAsZsWF73xm2B4EWI381Gc1++M2ApJyUFLH9lG?=
- =?us-ascii?Q?BdLXbyClitB0lzk+53PAJxJ25wmZ2VY+h1UAjwwCVKGvUsPHC+RAOLsDRd9S?=
- =?us-ascii?Q?J3yxTyObMxfQ9XCoxPjxLtr2ViCLwXLuqLEVR2pRROlonzXl5cITzm42kBjy?=
- =?us-ascii?Q?CuGD2w/NLfQEQ/4y2HShSBrNYcob82sp29Pr9CjKK4tiVy5IsLAI2cy57noE?=
- =?us-ascii?Q?fKgxTp/Rc8WUrpgi4iWb8aIX586IuSUfQoMykkhzSImMzgY+brSZlejj3o7T?=
- =?us-ascii?Q?mjXOyfRmIkYjjdlBA7srP7phSLbT61znAS7EpnkNJX5adazR+2AcbXRxrxqO?=
- =?us-ascii?Q?w6U0I0z8aU9PfOpD9AM/3y7+94WN9+oDZaadgegme4NKwVM7aKPZ+DzIWgHX?=
- =?us-ascii?Q?1naGjqeuYozYsVbRErqdnLM7Huak+lJq3OJmqalcjBwmAFz+d+k9lixdJf6C?=
- =?us-ascii?Q?n0JKkAfpJBCNdis0saFZd2tqkMKixN98bUX/WTh2IJQMuvzORuiflEf76QRz?=
- =?us-ascii?Q?hVp83TrmVaAQ+JasRMDOCdcTYiKU9eIfEi7c+sG8rEWar5XRNiKoTwZnorF6?=
- =?us-ascii?Q?x9/YxV6HUqr8g0fOeY1JXj9FU9mfG3pkZ9XcSMyeC6Sspw7W+iPD2pHkZERy?=
- =?us-ascii?Q?tWvObAwI4U5LNyiCzdz10m+YzkixCHtfgVOBSiv+VyBUjnBao/Oirxcm5qHh?=
- =?us-ascii?Q?zl10+S5AiXLCXiMnzaJYVw2YYzi//0Q2kiEdJUEWxM1RlwwYONKI68oJjA1E?=
- =?us-ascii?Q?RTKIWa08QFa2wTGjvZIYA9Fo5Fg5dbZj8yLw/sXwK3sNSkG+pHkp2RBgjOOs?=
- =?us-ascii?Q?fF0E1mOYxnNWOYyXonp5uDWNj2Z7Pswh8f55OraxtjYzCFUCUV2ceL2E8EXJ?=
- =?us-ascii?Q?wuTRR/ebbrqqHF7MGBd1iYuLVYimCoqevUg8IuJ4wDQXbe/uLESy8Jy04adj?=
- =?us-ascii?Q?MNxYyeKEOn1B61XybpVZB1QcBYpeD5fJuYeA1svDVyIPGf1nyX8T6y4HlV9w?=
- =?us-ascii?Q?PmeiDr6hmfhUuKViaR15NW7OZjbgNY+y032N2NJSlsj+8wUYjrRltEZgwJTK?=
-X-MS-Exchange-AntiSpam-MessageData-1: ftesdYXQFVpd3w==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b04389cf-2a0d-468b-e05d-08df1afa7a12
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 11:45:20.4962
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nwFm6Q4hbrsjjQxvtlD0VlVeMn1x/bJVQh/WvSmv8CcrEUABbZgsxeKYTSZBjJOQy9ci8ZMNOTggYTn2qwlaWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1024
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-rockchip-jpegdec-v5-3-30658833cb68@pengutronix.de>
+References: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+In-Reply-To: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790336726; l=2122;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=dd9ZB+DgEvJG+UhAAEoJPAdb4Iq3fKUiQVJjo25/3KI=;
+ b=H6CYZJo3AadXM8dV7CpzAcYKV3TvuUHYK8JfZrgNYlh5zBA49LIDiKArC5msK8hvacTus9Bhb
+ yg/nCK4/R0hD/hGr5lAI8fxyk6WdoNGzreZP6DhPXVBTnReLWg4nKpW
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Hi all,
+Add device tree nodes for the Rockchip JPEG hardware decoder and its
+IOMMU on the RK3588.
 
-Patchwork has just moved all five patches of this series from Under
-Review to Superseded, but there is no newer version: v2 is the latest
-one I sent, and I have not posted a v3.
+The decoder is at 0xfdb90000 with its MMU at 0xfdb90480.  It takes the
+AXI and AHB clocks and resets, and sits in the VDPU power domain.  The
+AXI clock is pinned to 600 MHz, which is the rate the downstream BSP
+runs it at; it is a dedicated clock, not shared with another block.
 
-I re-checked the series against next-20260924 today:
+Both blocks are entirely on-SoC and have no board dependency, so they are
+enabled unconditionally like the other codec blocks in this file.
 
-  - git am applies all five cleanly, no fuzz and no 3-way fallback
-  - each patch builds on its own with W=1 (arm64 defconfig +
-    CONFIG_VIDEO_QCOM_CAMSS=m), so the series is bisectable
-  - checkpatch --strict is clean on all five
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-so as far as I can tell the series is still current. 5/5 carries
-Bryan's Reviewed-by; 1/5 to 4/5 have not been reviewed yet.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e07869..cc53878502898 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1317,6 +1317,30 @@ rga: rga@fdb80000 {
+ 		power-domains = <&power RK3588_PD_VDPU>;
+ 	};
+ 
++	jpegd: video-codec@fdb90000 {
++		compatible = "rockchip,rk3588-jpegd";
++		reg = <0x0 0xfdb90000 0x0 0x400>;
++		interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++		clock-names = "axi", "ahb";
++		assigned-clocks = <&cru ACLK_JPEG_DECODER>;
++		assigned-clock-rates = <600000000>;
++		resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
++		reset-names = "axi", "ahb";
++		iommus = <&jpegd_mmu>;
++		power-domains = <&power RK3588_PD_VDPU>;
++	};
++
++	jpegd_mmu: iommu@fdb90480 {
++		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
++		reg = <0x0 0xfdb90480 0x0 0x40>;
++		interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++		clock-names = "aclk", "iface";
++		power-domains = <&power RK3588_PD_VDPU>;
++		#iommu-cells = <0>;
++	};
++
+ 	vepu121_0: video-codec@fdba0000 {
+ 		compatible = "rockchip,rk3588-vepu121";
+ 		reg = <0x0 0xfdba0000 0x0 0x800>;
 
-Was the state change intentional? If you would like a resend rebased on
-current media master I will send a v3 right away; otherwise, could the
-patches be put back to Under Review so they stay in the queue?
+-- 
+2.47.3
 
-Thanks,
-Hitesh
