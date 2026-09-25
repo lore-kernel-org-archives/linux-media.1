@@ -1,161 +1,144 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79FA4E430C
-	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 18:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361752; cv=pass; b=cEvZb2yJFj0jEscaJXncF1RLqxlGGKWpv9zaS0ys14piDDYwpNSfQQIo8RopA1DTOLA+PeGkx1xlRyfXb12sDoTesObmkp1ybs8A2tAZF0dPZ4e1cBNz1f9BgGTqMCiIklZ9PCsexdsDspRMrRraVrCuzEvuJeXU2abk9J0PXG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361752; c=relaxed/simple;
-	bh=DlEudOypjlT0UT2XU/5WL96WZISmA/ECBN7ByCN7TWo=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PRxo58h/HHtGOw2rmuLuT0xkrXOmrCVthXrlnb+nj0qd6PCY+n/NLEzVwQ9kuCHl3i/sKSw6JxMZfjPhE7Hx1xn5K4Qv8ACieYtdxlbGeQSAC7A0cMKfZQhxvkAH6Sf99XIaoTj2PAy70IZffjIqNYV9i/KjON9Jj+IJmS5u5LY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOTkTZBP; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C06F40F743;
+	Fri, 25 Sep 2026 18:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790362048; cv=none; b=aBPNIbk4V0AUttU4a6RP0c+wQjICv8eusCMCjaoXjTkG4r/GXibtGssovdJcgiHmY9ypTfEiyCdwchEX1o6Mmoi6MeA9K/wRHTJwZaHbyupnof+h8N3wKbRSZMbwwyFiLbI4KOjVA3+ygIkdecbMMl9YgEz92yp+x3RZnI3Q79w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790362048; c=relaxed/simple;
+	bh=uUthPR+U6yJR5NV/uG+qPvhxGRWz9fJMEqlA47VF0KI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qKpY2xr/lFhZrIdq1d06I3oE6lMq6EryDqgMj9N5Yded/YMWsHF3waR8lxi3qu1aKSiR42/umjbPNdWZvmAb+AHLRVFcLBLgU5D6V06rab/bNr4CVFhdb1hwWiRNjjqHOO+lZ2VuzZdhWgt7ZIfPgFbqTa4+VV4eYV73yzIYS6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6GZWdu/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOTkTZBP"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294af0caa8so178660766b.1
-        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 11:42:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790361749; cv=none;
-        d=google.com; s=arc-20260327;
-        b=prFImKSjc1af1uP1JhnsY83c+57OUls1DPzOkVmCbyy1MNgGfSBA/3fG6YweGT/GAq
-         +4qoxYVj+W61+ezARFu307TIQVjwgrYSVeB+rWbSiR36Z5IkdO0ZNwHvp4eMf+TmY1+t
-         5DSiE1mDYUzfi3pNZrpdds4YwGUumoIh9soXmfeMLW0/7eJ3JfnxA0orJfXJBYdYCOON
-         CH5yKf6Ix6thHe8ZTXXSllMhwwhQRDBPQK5oK9qc7pUYC6JPllZKGIisypo+Q3GolSzB
-         TtWocRyTayL7mGDmDNsFOGqwUdD/5D8cewdAFhrRx8QfUegtZTwnIcsqZTMYeMCzDoDE
-         aTvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=vaQh9agvQKXu5WYBVA5rNUeh6UbMXv22v7ZPcWcdZXE=;
-        fh=Q0eZz3vhqRA83bTAI+dmlItxCVzibyZcLXaZC/3vJjo=;
-        b=OHGmXka72eZixZ54lRMHnQtKVvlCImeXJIHs8GjUHKXk8Gd7SucJ9F4Q7jMsVobmta
-         e9Oe5wjmfBXCQdXzalesOWqn6iTTcXJK3+CyBKbR2GCifA4Nxq9q2BKXazziuRmQW5Nb
-         E1fhlqxUkKiM/j9UX2cOotDJwD46fw7OVoblo74pBHlT+lDN8oLOAcXzoAlT2eS/dLnr
-         HyIteQSgI2ZJnARooLOU3/+U2ZT5/b8SAXCBl4r17BWkGDIZ9/HK+a7U8tHTwKmEVsY+
-         Hn6HPbHZpG9upD9XOC/Tp6g2SOasbu0fXYfLgP+N8nbjPsmNNuNuuG5T90lsZeRjBdYR
-         leKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790361749; x=1790966549; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vaQh9agvQKXu5WYBVA5rNUeh6UbMXv22v7ZPcWcdZXE=;
-        b=iOTkTZBP/Lm7/AH6yWxrX3SzvVDy5ZLkhrQLnMoZBIv1nK4dGfrCAPMwWofw7kDqLk
-         00bthYyZ5+B/ATTa0fFrzJDHxzgRbcGyUZ/xsLCy1YHZ9LMx4LDEOVB5YZikAIlBO74B
-         7WWltWBTfBNUgICa9vB/ElUGNY+Ftp5q3bmHDiCqfzfUCA4sFs/m0xobtgERqJFsKP6e
-         r8cheojJXlT3BC2JhAE78FzKaoxv7x8tLhFvJ+8JQZWNW6pTfF46NnH5VQmyqBcsNz91
-         VY4ZGtQOU4ZMZp8RkdmEPLX+mDja/J1fAC0GbmxGhx5mTas0muLBe5s2dc1CEm72G9jk
-         jOvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790361749; x=1790966549;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vaQh9agvQKXu5WYBVA5rNUeh6UbMXv22v7ZPcWcdZXE=;
-        b=dSG92PkdirG12a/7c3sdBNWvuUj/5Iez8ufiJgDpba+2drwkwVYVob84VXErvmjLHN
-         DzNNsWfosY8Nr3R/O/8nD5LvQx2Ty/UiQkO8EZGbGlIGY9ItLeZoPDh8WXaHKx7QQz9p
-         VzvQJs05+zuL4n8AWqNcQ9/yDGQQ7g45W5unuJNJG+0Wtle1pQ2u0Op4WH7wAy5sO/bn
-         2owEs26lCSdj6SxrfsZANlkKjdAGKliwb/DOFoQYMjQvmaYZntxjRvLQAzDwf0CJzRHO
-         iQ8NdBd9lnT4lptkQmMpDXHY01azgWzMGAYq29wxDYhOpWib6DHINuZ5GgcKbbVZh2Ir
-         QhHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzvPBQjQYVDRFdVJQEcIv8H/oqw7QzAMnv0kQko2sQWqdQPaTObpZgatQYerIurqYqjo0htZLD/nOFSIw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lqKz+J2cVhGPyW9y/Bc4ScGV8BQ/anNXtqNr5BK2Wave3e0p3q
-	1n65gR5S39XLKDfQwQ1HYRGHllItUFkzVOgEIXTgAQtr8y+W4yrEtNpEBJpOSIGNnQio/dHQTp2
-	5ZnH/UnpyDN0rKGLRziy+8zWv8iPARQ==
-X-Gm-Gg: AYBFou1tuAdhU8SztOZHuEtpZKo1e2Kfx6RFlm51qOzrSMepQ6qqWg2F9YGRAS4AgnT
-	w4o9/ZSmgcyz4D4y375YU/tIEuECRWO6/Gx7JBMwaaKyCYWSvDrcaNV3LKH8/nsDnwgCAR45+dd
-	CesJnThFNG8NhtUmkxiEhzS32psAOejFutCAYu31oX2PaBfkcKQaw85cRFtGGg2aiup1yoq+3JU
-	2jc3/wG/1ehgwdLj6J576Kodlbn5OGluF70u3Gq9JmsWCvi/vfkUW0ve/fqYqgB8NRGKMfd670o
-	UWIswz+YRY24oxXmXvK6AEwDIFmCoVhb62O79a22dNZhwBw8ZxX+trLAPjY+pz7RPvLrzoOHIoA
-	+AWEwIZE7ZCQYzBiWkSJ9KwjfUtCtZDNtJqLgHblqQlCzH8YC8ED8tIPH0gezBPi4
-X-Received: by 2002:a17:906:dc90:b0:c29:57c4:cb92 with SMTP id
- a640c23a62f3a-c2ac228849fmr621819666b.0.1790361748717; Fri, 25 Sep 2026
- 11:42:28 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 11:42:27 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 13:42:06 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 18:41:38 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6GZWdu/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC66F1F00893;
+	Fri, 25 Sep 2026 18:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790362047;
+	bh=4Lp1TuV2qHhnQwElR/zZ3qZXtrPpXya5hITUNnZh9oo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=U6GZWdu/kbN3OPRr+vVywjONhy+gTbyF89gpBMfOdbbDEzGAGQOQW7fDRup0P7smB
+	 F0Q53CVL/jHBG2o4FzW2W6vGeVCPf32Tzge6bx+zOA6F3d1cMlBRnVrocxkKJHyCG6
+	 gNurIhfITbC9QC94hTQeMPGi00AZBi5894BvDl5MC8cbCw+kzo95CVnFDX/vKtR0iV
+	 84Eac/SHOP6HW97fnS0iwWvRXFdo6UHJuKNdQ9X0z7KBbB7IxNAiHW72bh8E6Kd4iv
+	 MUWD2tvt65xDpSZVeeB0mvWz0jG+ocM3Y9SDjM+eD2Pkmw0Tf+Lpk8FPMEKdPQO8SP
+	 u0VY3f81dFEog==
+Message-ID: <08bca12d-1587-4b9d-9f60-2e1057705ba0@kernel.org>
+Date: Fri, 25 Sep 2026 20:47:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: mhun512@gmail.com
-In-Reply-To: <CAGEsz8HtRE-sAM2YfC0_Vzcq9OeuMiRVc0cMTpWogt0Uwc4-1g@mail.gmail.com>
-References: <CAGEsz8HtRE-sAM2YfC0_Vzcq9OeuMiRVc0cMTpWogt0Uwc4-1g@mail.gmail.com>
-Date: Fri, 25 Sep 2026 11:42:27 -0700
-X-Gm-Features: AclHuK_62Txs1R6aJpFVtyE2f4h_5eO8zVZDoQklxyOE6uOg6AtGXwg5pp6EdGo
-Message-ID: <CAGEsz8GWLwXjNKo-9RpR=sGWqoqiaW-bmT9o+fYsTJSkymiqNA@mail.gmail.com>
-Subject: [PATCH v2 2/2] media: venus: disable recovery work before HFI teardown
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Cc: "Bryan O'Donoghue" <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/13] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, iommu@lists.linux.dev
+References: <20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com>
+ <20260914-vpu_iommu_iova_handling-v4-1-9b9074a73c41@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-1-9b9074a73c41@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-venus_remove() cancels core->work before the IRQ is disabled. An IRQ
-thread can queue the work again after cancellation. The work can then
-access HFI state after venus_hfi_destroy() frees it. The work also
-requeues itself when recovery fails, so cancelling an already running
-instance alone does not close the race.
+On 13/09/2026 20:49, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>     +-----------------------------------------------------------+
+>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>     | 0x25800000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+>     | pixel stream addressable range (0 - 3.5 GB)               |
+>     | 0x00000000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+> that boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> Given that the address range restriction is for specific VPU stream, it
+> should be ideally be moved to that stream. To achieve the same, a subset
+> of streams is now represented as subnodes, so that each can be
+> associated with its respective addressable range. The design was
+> discussed and agreed by mainatiners here
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+> 
+> In the past, this limitation was addressed with an iommu-map approach,
+> with the iris driver dynamically creating the devices. That approach was
+> later concluded to be a hack to avoid having subnodes, and was NAKed by
+> the iommu maintainers. It was discussed in detail here:
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
 
-Disable and drain the work at the start of remove, before other resources
-are dismantled. Do the same in venus_hfi_destroy() for paths that bypass
-remove, including probe unwind. Disabling the work prevents both IRQ
-handlers and the work itself from requeuing it. Drain the work before
-disabling the IRQ so an active recovery can finish any IRQ based
-completion waits. Then synchronize the IRQ before freeing HFI state.
 
-Fixes: af2c3834c8ca ("[media] media: venus: adding core part and
-helper functions")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/qcom/venus/core.c      | 2 +-
- drivers/media/platform/qcom/venus/hfi_venus.c | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/media/platform/qcom/venus/core.c
-b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae7..94d4b8688ac2 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -538,7 +538,7 @@ static void venus_remove(struct platform_device *pdev)
- 	struct device *dev = core->dev;
- 	int ret;
-
--	cancel_delayed_work_sync(&core->work);
-+	disable_delayed_work_sync(&core->work);
- 	ret = pm_runtime_get_sync(dev);
- 	WARN_ON(ret < 0);
-
-diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c
-b/drivers/media/platform/qcom/venus/hfi_venus.c
-index e7e4e78a186a..20b8ba1e62f1 100644
---- a/drivers/media/platform/qcom/venus/hfi_venus.c
-+++ b/drivers/media/platform/qcom/venus/hfi_venus.c
-@@ -1689,6 +1689,7 @@ void venus_hfi_destroy(struct venus_core *core)
- {
- 	struct venus_hfi_device *hdev = to_hfi_priv(core);
-
-+	disable_delayed_work_sync(&core->work);
- 	disable_irq(core->irq);
- 	core->priv = NULL;
- 	venus_interface_queues_release(hdev);
--- 
-2.53.0
+Best regards,
+Krzysztof
