@@ -1,71 +1,80 @@
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18622495AD9
-	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 10:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA8A44062F;
+	Fri, 25 Sep 2026 11:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332545; cv=none; b=Pe0A/oSCevC14TjumZ092ssXKbdvolCDGrFLVbD94RAGd5PXtV6pLx0mpIUqvyEYXf8a/KFWC1C94xUvSmps1R+1pPtXG1BNqJL0jAtHxrbhw3HuYhJStJPsUzWtFRtC44GmL+1hzD1dbDuG+nj6brcVzUbN4xQOYq+Ui4WNHYI=
+	t=1790334108; cv=none; b=KQUfl2I03ybj4kKWgSwaCRqugMYzXD7w1qlzmRhAfrE8So0S+8OZohQznjGMf2teyRt1MrPuoW4zOSe1BcZ55iDGsHrKCPiahfofBs6Btm7xHhwqw/F2ugX2/3YWDubhsqvfYdUPxBWofy6P/7Ku3zdp3BVYRA23o4d6bTSkeXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332545; c=relaxed/simple;
-	bh=mh/tZm/7r1sWbU/QfhkzIcpXaUFczxlorzW2SvJSOq0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cJ5q/ackQtZJlvwy/5d6CN/70oGwFomIqJJKtP+P+H0m+igZxwEWu+t2FOfNVFbx0XJkwiANdnlXR7lvgqljnBkg4rAKdtes12+GKTHpkqM+R5pX0fb9+SHFZi39+qarQ5hOxAon4rlFNVBhJOzDYSLWv+zgB+5TRV6iIROfKf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=PvGGEcEy; arc=none smtp.client-ip=185.70.43.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790334108; c=relaxed/simple;
+	bh=U2NW6+6rMBKtAViC0vcsVHJyw7UjYvFnlrO/aBdcUf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HyUVw/yCVkZHVez790rSclM4X6wMSAuzBaNRiB0Ak3Km++1Wy3ef1iu/RNi6+56dDGfpXASaey2Q1ruNaYDOEjQ/Z4HHBD8r98OHyeEi9xTKcPDuGDf2NEuIB4ECRyn17uWRb5lzGflubpD0psApuyhcrRjJ6+3S3l92VgUpDOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JGKlod2r; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="PvGGEcEy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790332541; x=1790591741;
-	bh=mh/tZm/7r1sWbU/QfhkzIcpXaUFczxlorzW2SvJSOq0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=PvGGEcEyG0wuIpxFbepP2VDxc53/W5xuooKuRXemd9133Zo4S3L6PLznr/vZzFu+x
-	 sejT5S8QBDBICVqT2QnXU08bt61qqxVNDY38luWO+RNL+WDE2q703aGbW4vpIDTodV
-	 639/dZn5nZ2dY7SYYZb6EDW6n8b1rxV3nqQXjYQ+oZxEeBODiiVD3468Ub/wuXcS/4
-	 t4nA+DFZSSFTDp4zqT2CCrG60pM7q/1cJkJiBW6OIkjm2d6cQrzb3XghNOMtO1lIas
-	 3eenE4n23NY+VBPDrhNiiN4JWzbKD77z+qTlC+HBkZVgZ7N6db166FTQ1AZo6mYV2M
-	 kaSI33ltVq69g==
-Date: Fri, 25 Sep 2026 10:35:35 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Hans de Goede <hansg@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-media@vger.kernel.org
-Subject: Re: [RFC] ipu-bridge: supplying a vendor-prefixed property
-Message-ID: <20260925103523.14665-1-lsa.uz@pm.me>
-In-Reply-To: <arY4HDSQZYAGJwYR@kekkonen.localdomain>
-References: <20260924215857.48545-1-lsa.uz@pm.me> <arY4HDSQZYAGJwYR@kekkonen.localdomain>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: ecbe3ae9c421236c7719c24a382a2dd6de8cf5e6
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JGKlod2r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790334101; x=1821870101;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U2NW6+6rMBKtAViC0vcsVHJyw7UjYvFnlrO/aBdcUf4=;
+  b=JGKlod2rLEjShtdxQAyDdJaytcOJwi/DHGimn5COcR2PXrG+IJBivF/R
+   XKLj8sBhSQNookYUmVPtVxQtCUo3R+B2sqpwlMmSGuILI5h+qQVI3uWbE
+   cdXCmqv5gnuC90olvg9Stuh1VrLH74jsDlfVyejsrKBCmU5JBraZNQOfv
+   0hSzaJGTMMiyNta1mgx6waVDySIKmGQhDCtSpkMvK1MyWSP7AGN9kj6lC
+   GAgBXLWaaY7AJmEz1ni0+2R1YmT5VneHesJSixo7kv/3ZEjoH1HqT/xWw
+   fZWj5+7tVM1nj8nVKnjJi1j5u/6mr8TgYgxbz/rRTju8kgqI2c5ZjFa+n
+   Q==;
+X-CSE-ConnectionGUID: Ntjtkv8PRsWv020TU3eozA==
+X-CSE-MsgGUID: wmniU+AYTmyqlW6JdJljuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93613830"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="93613830"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:01:34 -0700
+X-CSE-ConnectionGUID: mR3ksB0vTmu/dmSpubYufg==
+X-CSE-MsgGUID: Xw8t09+mSaCjEL3Z/aa70w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="273540301"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.84])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:01:33 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 15E6B121BA9;
+	Fri, 25 Sep 2026 14:01:33 +0300 (EEST)
+Date: Fri, 25 Sep 2026 14:01:33 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ginger Li <ginger.jzllee@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov5648: Fix a data race on state->streaming
+Message-ID: <arZUjd5QIs85m_Wh@kekkonen.localdomain>
+References: <20260923015631.44973-1-ginger.jzllee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923015631.44973-1-ginger.jzllee@gmail.com>
 
-Sakari,
+Hi Ginger,
 
-Thank you - and the reason is better than the question. One ipu-bridge agai=
-nst
-a hundred sensor drivers is a weighing I had not made.
+On Wed, Sep 23, 2026 at 09:56:31AM +0800, Ginger Li wrote:
+> ov5648_s_stream() updates state->streaming after it has released
+> sensor->mutex, while ov5648_resume() reads that field with sensor->mutex
+> held.  A concurrent resume can therefore observe a stale streaming state and
+> leave the sensor in standby while the software believes that it is streaming,
+> or the other way around.
 
-So: st,leds at the end of the list, from a DMI match on the board. Same sha=
-pe
-as the upside-down quirk already in media/next for this machine, b238116ccd=
-4.
+Please wrap at 75 characters next time, I've fixed it this time.
 
-Not yet, though. SMO55F0 is in no ipu-bridge list, and the sensor driver is
-still in pre-review with Benjamin. It comes to linux-media with his review
-applied, the bridge entry follows it, and this property is third. Fair warn=
-ing
-that the driver is coming rather than arriving unannounced.
-
-Benjamin, Sylvain - that closes the one question I had left open in your tr=
-ee.
-
-Sergey
-
+-- 
+Sakari Ailus
