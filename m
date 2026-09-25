@@ -1,115 +1,182 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9273672A8;
-	Fri, 25 Sep 2026 18:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361095; cv=none; b=ZX3BoPM5idI7R05GVIPVOfcP04xvgUytNGz0byc9lc6FqylG/HTkwsDF0icfNPjQbABq1u/md0j21NQ5HI+3RbvLANsSk7X6FdSPmpdhgC6KrpxS4wtPg26cbUZJcd8q0UAMNKMddBumGT6CIr+DietwLxOe9nIhF634Y948SZc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361095; c=relaxed/simple;
-	bh=GhWSGXgb6ez4OOrQiFVWLTGHIi3aVeLSqI5fxtUPyJs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fjm0D0sJFXEUKt9/LFUZyUOlyfeI61kTGXKiNzt4MVXxcuqK6tEKoRQpi/rZ6oIkq+FAcp4av94tEqRb7tfgR38bMtfdPUBCPFnU4ORFGCkkGGAr6Ker1aRzcXFnsVRhay9AiPAGLn2mMKWcyMlWzBn8HI7o/JagOAWNwl+OuV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=OfYHt7Ka; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE16313547
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 18:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790361639; cv=pass; b=DUvL8KEQc/WocAWFPMYUm73D3qoYnYICbXaIBfWl/v/o4M21wI671cF1Dd3IQYjCIraPJ0K7WeRmeY1R9/1fQ+Z0No8+VV0LHor2TKV8ZbRiYUDHcTJDuLiJBxwbEZoQ/Al4F3gPuSPB7iIUi3WNPPIqB2AokY9QT3D7lG0nTFY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790361639; c=relaxed/simple;
+	bh=FiNejKGRyiUCwe8R1xxJKX2+wQwmNmn+OzfcvY/4MWg=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ULNE+Kb1znYRsiV14CjJfPOtaD2j8Iz32Dkr2kCXxAwcgrzONVC/cAHdOi7zSl3bLalRZDxKpSVpTbFh97tZ00ysxLH74MdCEkeCWLNCH0OfXdWQfJOfEkNTRC6ewY+mfsG5y5QqkFRDMTri4wdneTIo4pKVpjyjPSqanXOO99I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CufmY5sY; arc=pass smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="OfYHt7Ka"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1790361084; bh=GhWSGXgb6ez4OOrQiFVWLTGHIi3aVeLSqI5fxtUPyJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OfYHt7KaVKjMMMuMCiLtQ8+0J0j7VXGxdimP72otOLHqJA2GE1h4EA0QIMVcJp12B
-	 8jhRMbCgfK1XszzV/UuHfMHxq0tLGq8LPGOSjhemOHwj1yZV6a0jC6zl089dzxxZ9L
-	 Qn6rwNj1XZEdpGcUw8i7dLpb0X1QGJkv4iCvzFfcI3aOVX79ZPUFOedQrXn+OAcB5z
-	 FOIBrviUFrIv5YbrPVDxXnLOxjE4VMfflEBNaxIJOuo9cSoNTknqTo6VL41MtrCapo
-	 OWVZcKEy8H9WaVL7kGtKE8S6eDjOrdqcmUQgW/WWv91nm8iE4knkVNcbrLmzYNgdQv
-	 9k9mOW9GYzBXQ==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 4D67740B86; Fri, 25 Sep 2026 19:31:24 +0100 (BST)
-Date: Fri, 25 Sep 2026 19:31:24 +0100
-From: Sean Young <sean@mess.org>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: redrat3: unregister the rc device when probe
- fails
-Message-ID: <ara9_KQVA4qPK37y@extorris.mess.org>
-References: <20260925170711.22447-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CufmY5sY"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2cd04e72f6so6116666b.1
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 11:40:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790361635; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rSijl6yBukhrQPR0Pza4Y+7PJ+5koe8u8dJk2SkE1gJam79mTHb266nV++Yr0ETrlR
+         sUHJBlfqy70Xk1D8rVuXpt7C/Ij1TT6X+BMZidoztqR+18BNI4+MlNivKS7zhutPqq0N
+         QNOnerUH8sR73Giqniq8pJ5EGEl651gDVjhmyhY07LnFxzJqO0HWA5s/3w7+1u9m+1EF
+         4VcKmVLTyTiUKl2/hqYg2E89AmgDAJBNqRQq+M00WZJxSP/rd+jlerITF4eZb0gY8z0v
+         9e19N2V8E0ASS3Czv7D2t7XKDde8ZUNTFnpVvCXOSymCjAofJ4U5T2G4+cMxk8+YzG3W
+         r3Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=NhrI3eqIB0Kaock84/1UscB/KDuXvfgtiOh5Tg0ePhk=;
+        fh=3djSe6YSEmYukk8wskaCiaVPzWG1nDFnFEHlOVuj7eY=;
+        b=BRXAALXz70VCpJNMGUt0lvKB6KiL/z6+sLAmepaT5xMkpGyc8UJEMcHd7gXO2oPmJ/
+         cdmiD5es04mWU0j4V28y0586Woygo110YK9ZAGvHyTkfYkUA5syD01t30rANexST4koC
+         pgfd7B6DfnyXa7W4oNkKIOi40OFs2gjzoj9/d0js6fiq0ri9J35Kjr35xtmd0F4bC9Oc
+         r9PxhacZFzFZJbZjX4SqW9h2T2xIBY4leHOJdyoc+KbYRtH4s/hV7ie7O2B32u9NyBtt
+         O1McpYS/ADk34i2Kc9pxuktfMFOFDkDI5+UOmq2iLs81LxPtePG51F7XmdhC+HFjK0+r
+         hr6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790361635; x=1790966435; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NhrI3eqIB0Kaock84/1UscB/KDuXvfgtiOh5Tg0ePhk=;
+        b=CufmY5sYnj+7bUq02ubUVBiyAQQNpytHXusGXiCFXpbMngNdieVfRvs7hVU7UlAgPR
+         dj1XMq7g3UCkXrkw0LHb3SnhRTrC/IiqYobSeSdNVZa/UHRPgfjNN2ToElGdTEqRky+r
+         xxatY2Y1ZIMi7xEHsQcgjCJdRoKdfAyp4NOoD5F3ypgRNzroI5Lqwo2w8sfXU8hoGUOU
+         y3NuDyEYZUIyNOZR1YizYfQjhGqIvRx1BLPiH7ddHaxxY5HT2GLR6MC2F8aFqaYBSaQd
+         2ZKYQb2FUV7I/VeUucetQzxA3sJOlfZAx0lLcg/7Ux02YS7g4LLhFwjkEA/OSZDtV9EA
+         3HNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790361635; x=1790966435;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NhrI3eqIB0Kaock84/1UscB/KDuXvfgtiOh5Tg0ePhk=;
+        b=V7Qm2Zg4ePWIKuMbTX4NohK5eLZzceiiqde8j2gMOpgRNjUGuWzvy/JZ72OhKWEygP
+         OwMk+pB0gMqN3kMeR9K3CIp8bdNTzffB2Ql70ERkeb+g7MsP7AF4X081SLqJMi0g9/b6
+         /oqE9nlSIszHPIZ+NAHnBufL0zCnYJVVOrWhgR01ghBCeSh04MCfpqscqvtoLna/88Ix
+         g8hYMBCzpvhENXYt+LoRByrFPVHZ+3SNkeIGavVx/jXJGmViaYNJ/MM0bWtwojRdnsno
+         qxffslH11CqQ6hUmKpGYS1kWQTI5cugBvURtO3C20qATEudZK3GqCbWw8z28BMLFOEZ3
+         uycg==
+X-Gm-Message-State: AFuF++mS6/ZlF7Umdmem1+wpgzib7s2Uu0eJslgCJZV0TTXL0KXZH8W2
+	dGEKJzvA7sUJq4Ak47JWU8kuReSUjwjdo+GVEUFfxDF/X0Lt/gEbxIv3vDaIM09i0+D/Siqb47t
+	+Bf5i5dV0xvgOg5vNfpPFH5Tx13bcfWVs
+X-Gm-Gg: AYBFou2nVamhz7JhooICUr311/xYnr5B4PPUAZ0NuJ30f7uMyTcSqPGeT8iquHzOuz0
+	A2als4TSspmTym2BlK9sidRpXlUEfA7jVCLUeGkhGMO7qzFi6gm5AwNW3NFfW3R7ugVTIVrjlta
+	IoR9DO5N5NTyuaU984LQPgWQO7yFYyvN0AZfwW1UjYWP8X8bQYLQtjledWjFwy7Ngz/oBbUv0b7
+	L+uV7kPwc9qsDI/514NiZI0tINCLsnpTAVhsm5/jg6XuBoYufbMUdfFCFe7eE5M68TkhqDlmA40
+	xbEZsZn+PFVNr8F8YIzYr6eKhl8rbAzogPTG0JImmrr6HtBpAGGgklZGgS4yJvHGwJivZCflJq0
+	BlbD5Mnncdxb8RxeKCC3oIKMjiTq3Hdr7p86fkJLGH25T/3CH7sTxRkCW4NB/Y1hW
+X-Received: by 2002:a17:907:c49a:b0:c25:68c2:7b94 with SMTP id
+ a640c23a62f3a-c2ac2374dfamr590694466b.8.1790361635379; Fri, 25 Sep 2026
+ 11:40:35 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 25 Sep 2026 11:40:33 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 25 Sep 2026 13:40:08 -0500
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925170711.22447-1-ngocthang2710.1999@gmail.com>
+From: mhun512@gmail.com
+Date: Fri, 25 Sep 2026 11:40:33 -0700
+X-Gm-Features: AclHuK-JxneS-0asoCU3ZT5yM4k7_2whDc5-gQBYj97HQ2HfJZC4wvnWIgixeeE
+Message-ID: <CAGEsz8E4t-Gk9AEN6UTSZT4ncCSKCLsXtEEBYTLpVw-d=BdDOg@mail.gmail.com>
+Subject: [PATCH v2] media: ti: cal: drain WDMA IRQ before freeing contexts
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Sep 26, 2026 at 12:07:11AM +0700, Nguyen Ngoc Thang wrote:
-> redrat3_dev_probe() registers the rc device, whose input device points
-> its name and phys at strings embedded in struct redrat3_dev, and only
-> then calls redrat3_enable_detector(). If that fails, the error path
-> frees rr3 but leaves the rc device registered and leaks it. Reading its
-> "uevent" attribute afterwards dereferences the freed name/phys:
-> 
->   BUG: KASAN: slab-use-after-free in string+0x4a9/0x4f0
->   Read of size 1 at addr ffff8880272bf758 by task repro/4968
->    add_uevent_var+0x183/0x3a0
->    input_dev_uevent+0x162/0x900
->    dev_uevent+0x2f1/0x870
->    uevent_show+0x1ca/0x3a0
->    ...
-> 
-> Unregister and free the rc device on that path, mirroring
-> redrat3_dev_disconnect(): stop the URBs first, since their handlers use
-> the rc device, and only then unregister it.
+cal_remove() unregisters the video devices but does not release their vb2
+queues. An active stream can therefore keep WDMA IRQs enabled while the
+contexts are freed. The managed IRQ is released only after .remove()
+returns, so a handler already in flight can access a freed context through
+cal->ctx[i].
 
-This is already fixed in:
+Use vb2_video_unregister_device() to release each queue and stop any active
+stream while the IRQ is still available for DMA stop completion. Then
+release the managed IRQ explicitly before destroying the contexts, which
+synchronizes any in-flight handler before the context memory is freed.
+Drain the IRQ on the probe error path before destroying partially created
+contexts too.
 
-https://gitlab.freedesktop.org/linux-media/media-committers/-/commit/af452b9e01331b5338a1e5141624f17607239207?anubis_answer=mango
+Fixes: 343e89a792a5 ("[media] media: ti-vpe: Add CAL v4l2 camera
+capture driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Changes in v2:
+- Resend the unchanged diff without mail client line wrapping.
 
-Thank you for reporting and writing a patch, it's appreciated.
+ drivers/media/platform/ti/cal/cal-video.c |  2 +-
+ drivers/media/platform/ti/cal/cal.c       | 11 +++++++----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
-Sean
+diff --git a/drivers/media/platform/ti/cal/cal-video.c
+b/drivers/media/platform/ti/cal/cal-video.c
+index d40e24ab1127..0310dba0c810 100644
+--- a/drivers/media/platform/ti/cal/cal-video.c
++++ b/drivers/media/platform/ti/cal/cal-video.c
+@@ -1036,7 +1036,7 @@ void cal_ctx_v4l2_unregister(struct cal_ctx *ctx)
+ 	ctx_dbg(1, ctx, "unregistering %s\n",
+ 		video_device_node_name(&ctx->vdev));
 
-> 
-> Reproduced with a raw-gadget RedRat3 that reports detector status 0.
-> 
-> Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+2a123f6269da57ffefaa@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
->  drivers/media/rc/redrat3.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-> index 3f828a564e19..e9dd563e9cb3 100644
-> --- a/drivers/media/rc/redrat3.c
-> +++ b/drivers/media/rc/redrat3.c
-> @@ -1111,13 +1111,19 @@ static int redrat3_dev_probe(struct usb_interface *intf,
->  	/* might be all we need to do? */
->  	retval = redrat3_enable_detector(rr3);
->  	if (retval < 0)
-> -		goto led_free;
-> +		goto rc_unreg;
->  
->  	/* we can register the device now, as it is ready */
->  	usb_set_intfdata(intf, rr3);
->  
->  	return 0;
->  
-> +rc_unreg:
-> +	/* URB handlers use rc */
-> +	usb_kill_urb(rr3->narrow_urb);
-> +	usb_kill_urb(rr3->wide_urb);
-> +	rc_unregister_device(rr3->rc);
-> +	rc_free_device(rr3->rc);
->  led_free:
->  	led_classdev_unregister(&rr3->led);
->  redrat_free:
-> -- 
-> 2.43.0
-> 
+-	video_unregister_device(&ctx->vdev);
++	vb2_video_unregister_device(&ctx->vdev);
+ }
+
+ int cal_ctx_v4l2_init(struct cal_ctx *ctx)
+diff --git a/drivers/media/platform/ti/cal/cal.c
+b/drivers/media/platform/ti/cal/cal.c
+index b7e77b6b8950..d332a05facce 100644
+--- a/drivers/media/platform/ti/cal/cal.c
++++ b/drivers/media/platform/ti/cal/cal.c
+@@ -1151,7 +1151,6 @@ static int cal_probe(struct platform_device *pdev)
+ 	bool connected = false;
+ 	unsigned int i;
+ 	int ret;
+-	int irq;
+
+ 	cal = devm_kzalloc(&pdev->dev, sizeof(*cal), GFP_KERNEL);
+ 	if (!cal)
+@@ -1186,9 +1185,9 @@ static int cal_probe(struct platform_device *pdev)
+ 	cal_dbg(1, cal, "ioresource %s at %pa - %pa\n",
+ 		cal->res->name, &cal->res->start, &cal->res->end);
+
+-	irq = platform_get_irq(pdev, 0);
+-	cal_dbg(1, cal, "got irq# %d\n", irq);
+-	ret = devm_request_irq(&pdev->dev, irq, cal_irq, 0, CAL_MODULE_NAME,
++	cal->irq = platform_get_irq(pdev, 0);
++	cal_dbg(1, cal, "got irq# %d\n", cal->irq);
++	ret = devm_request_irq(&pdev->dev, cal->irq, cal_irq, 0, CAL_MODULE_NAME,
+ 			       cal);
+ 	if (ret)
+ 		return ret;
+@@ -1268,6 +1267,8 @@ static int cal_probe(struct platform_device *pdev)
+ 	return 0;
+
+ error_context:
++	devm_free_irq(&pdev->dev, cal->irq, cal);
++
+ 	for (i = 0; i < cal->num_contexts; i++)
+ 		cal_ctx_destroy(cal->ctx[i]);
+
+@@ -1298,6 +1299,8 @@ static void cal_remove(struct platform_device *pdev)
+ 	for (i = 0; i < cal->data->num_csi2_phy; i++)
+ 		cal_camerarx_disable(cal->phy[i]);
+
++	devm_free_irq(&pdev->dev, cal->irq, cal);
++
+ 	for (i = 0; i < cal->num_contexts; i++)
+ 		cal_ctx_destroy(cal->ctx[i]);
+
+-- 
+2.53.0
