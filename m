@@ -1,79 +1,85 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C183C454E
-	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 19:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7233B27F3
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 20:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364493; cv=none; b=m03c6HrTrbJFKGIaOMOWqwy4YtNLJhb1rXva4BdNcLM11bHpasmE5iOsLShZvqSpOyZmJ/Dl5oiUQsjnGyvZlsPMSa0pnUW7UYPUsiQwSeSB2LEuiavYuz8gGSIRKfSQIzkIqqpT7N28MeOLtpsejsa+rrijlUbqwIKdWZ8+p4Y=
+	t=1790366563; cv=none; b=Xsx3eog5+CdxQe9t7F9xua2T6d/0ByLhPnG7keRdhoMu/JkEqbu+Xgm77QG8sAwgxNnf6nJI5c+zrWGSkAf65VHNywoO0S43EfG+ufNHI9UgOMAUh6L2LXR4kB20UuJqV2F+OL3SGXqC2eafB5ExFefSeT1SikfDTShoeRfa2GE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364493; c=relaxed/simple;
-	bh=kxURIRZzgPTJfdLg5CzkMpeoAgOAG8CcHM4nRKTEVRQ=;
+	s=arc-20240116; t=1790366563; c=relaxed/simple;
+	bh=fH/v0xQwVL8zAl8eE3jm1Pxc6yiD7bQawrdos1k8S/4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LtJQwYC7XZEj+TS6zAboB7uL1K1tCB1OMLs2QCu1NSgonlsp/1citILEs2zGOINjHt/uhGHky0PxHo7FsONyl/8GbCMrSishDdiX1JTaZse1agY606Zd/yPx7EAP1CQdSwd/W1pABUGuymrAPJfNyA/257/JsKUIB0KobwUrDNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QC+1nhFS; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=pzDJW/kSBlCObZx0iqJ3d3t4d0oWvPsV++GFqnwioBf5BhTL44FwwRpECn0ymXnjfEKr4KuB8dzJwXWAQdlx804Xozh0lKz44QEO6adJRi2dPybYue3gRZVi817TXklNltvCXTpKDeugsn2tjEALoQ6M91yvMr14oXSCkzCQl4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZZL8YUY7; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QC+1nhFS"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488780459e2so1244194f8f.2
-        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 12:28:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZZL8YUY7"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso13597015e9.1
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 13:02:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790364490; x=1790969290; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790366560; x=1790971360; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nLkp8tKPyA53T/OKC2x3SgMSN2485FWk3XxTVjLfsT4=;
-        b=QC+1nhFS+BzkrCUK7Wskk7yNFQpF9SqmWt1XUVkSfT3bwa1jYwGQimUnFeP+2JrRHo
-         sesnXt5ftg0+lT2sZiWjre1N+DYI2dccYG1cQWCdLzmC7YHWcVDoFCmMxNeIzfTzwZJd
-         IWbUCFU1bqk6wT9v8OByF9YKBCso1lM0CzC3VyN1jvUWrLFCnHtPbsGN1qPagMRsfvH8
-         qPJAzGJLeehg44XU5k1I68vnH7Yyj+z6JwQHV/GsO9oApMuHIl+ZfsX7gaAeNeSD4ImZ
-         GJVejEcoBbmhPurDBP5wNxD7OT9A+pwkul5CpbybRYXyr3HE8S/77YbuzfmXPst8ePyP
-         Kxaw==
+        bh=fH/v0xQwVL8zAl8eE3jm1Pxc6yiD7bQawrdos1k8S/4=;
+        b=ZZL8YUY7cE/Q1bL3JIJA2gll/9AL2xJwPx5aYDtxYgFQezHmUeXpQWAsuMkRyNfWkS
+         yBpo45ZCUItUwwnj8hF4Qw0UgCsAwjVX+qkzEG8JWbDP3Z9UcpHGxQ64+X50MAXSL2xK
+         Kdk311uvKQRGIsNdQaBpaBOeDBgP5dn4PahwYas6pT4JsZJESAn9xT2HSWCaKd1GYL3O
+         hTM/5/PziFQmq7T7jlDlMFI8lsS/ZneLulEuwfYRt+4N/QU3NOu5U4kawwZhxdT8w85C
+         5jiXN2UrU3SnxFMHiZOKyv/hpavRyDAKtz8LsgEnxcg/kShec1L2Bbupd7LGIuPY4H0o
+         2/KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790364490; x=1790969290;
+        d=1e100.net; s=20260707; t=1790366560; x=1790971360;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nLkp8tKPyA53T/OKC2x3SgMSN2485FWk3XxTVjLfsT4=;
-        b=fB447JS+FcNbteQbhfOIyLsWLVRN6okdEN+845Drv0hRTPf6YmhAy3fc/rdPSrJUI6
-         liIQHrf4mubeea9Bua7wSYglOHd73SnwN9TBt3MdICSv7a/Q/Dqm4FiSWMUBrhStxdeG
-         T/y8QSQ+zDwuLTieMVIKieYzPz8zYGe6bqdXpDvd8VD0RfELE7FLEvQLkxYsuq2IbPtT
-         dvEzJrP7TQeXVQCIN+tdvWboAP25v77lou1+D0au2+Ay6zAXW4YjdmvizVASrUzM81+P
-         mOITcPdqXo5Q8YXe8N5B55+iWtq/arWuHFVZWLLfWjd552kV9ji0OY7MSf2qtFmGMhEN
-         JSHA==
-X-Forwarded-Encrypted: i=1; AKwUvBznxLXLWZmT4tBNQ7XpR8UkiRKaHnlHhe8F8Zj9YOXykz8FrllLHKj9+z3nnMLbgJ6Hk0aKycVsRdPTgg==@vger.kernel.org
-X-Gm-Message-State: AFuF++lDB2ndP9FL67A58mf6TfK1p9EU55hg17pfiSoHTeyFpegkUDiH
-	KlJuHPiIHOtU6Z/7cdRLFLqGwwlIC+4fFimewEmGQnga48+/XmfPJae7
-X-Gm-Gg: AYBFou3ZeamnMbw4IODfXy+Si502HUKLXkn5YBJQpPJy2SnyOKQIdNk82wK1mdnXvPZ
-	nKxgWS4ovs3i913ssXowmixVVJrzpanWcZTQo0mPugok4B18j9v4zW8b8qiLjaHlgQ9FEvAoWa6
-	mcauXLY3kK/aFL4SWFdJ9vNe5f7F6Vkx51wpuazetd049l+Y43otvR9dw+/YQ/L96fZeLWtbki0
-	B/1GztB8ngPtb3gRTZ+7hFzDN3jy9L5b0TAC6dChWJqfoYLbBDogyti3nbEDqssn0s333vK5VLM
-	4X4u46GckBxJeQS4wySi0FMo7aiEwTrCd3Mmvpt0lJ7S60r8FUD7uCQbqPdyveRz/tj6kg9r3mL
-	fESSvnRqbjHE/gTmKu7ndQZt1x9TFVOox/CtcAFfnNjiDSGj2+QlPLM7sd7uM06Z6i4dv8bPrtw
-	PDMEsBQsVCO8L4iJ3MGTP1dIo4ZzVX8flu2bfmrVKPzILn6EdFmFhG0pcRvf+gxRmNnjl9WIpX6
-	6sIBuMF055brrRzUH8lR7c7UTScOZ9b38qv4QYYWhsO6p5DEZMJBQ==
-X-Received: by 2002:a05:600c:8b71:b0:49f:dd6d:79a1 with SMTP id 5b1f17b1804b1-49fe6701ee2mr106024745e9.26.1790364489603;
-        Fri, 25 Sep 2026 12:28:09 -0700 (PDT)
+        bh=fH/v0xQwVL8zAl8eE3jm1Pxc6yiD7bQawrdos1k8S/4=;
+        b=RYmG52Ciw4KismjIQz7a9LgLXsi97NLIZx9n40bgENPIC//zKtRtxXBz3li/2g9Fd8
+         uT3A/ho1yy2kF6AyZ5D4iez1mVQEc1w4Ze0a6tzNrWtHo4TmI0ML8zO1+YumEEuIpYPg
+         YJVRip0jqJe8wsJdls3nNBl1j48+nc3qZWRv5XCYNCYv//+lDZuK4tzzruCZcREavhbH
+         OVGRXTVYz52rWL1WxdyhghiFVIcZ404cr9kpYqtKDvjQwhE+bymOd1bTGIBcdBUOUBq+
+         VJyG0M57C3AIAsgDOGRXg0pC0CjwcRgiLkIyEonBRa4HqlgXyjy33lAtTodEfVXuJFDd
+         KBZw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9A/3vuVN3OCl43E+25BB1C6d+FYc3HBMgT1E36hhqqfb6A52FoHwB8GUU538OEbx/m8k7fAsmQaoBYA==@vger.kernel.org
+X-Gm-Message-State: AFuF++m/SY2y8NBDbggRhBl7MFJfLWNNnK1xxsgAab/XSzI9MLr9CjlY
+	as6RgMsaLJezNxOh8/YFkPJrUP5YvIQZyCa9UQPTjUSiqPcOkF1foxEQ
+X-Gm-Gg: AYBFou01kDn92uDAJPEawNU1DWqaM75f1TAsApVSzb4pjK2RPPwwmRpHzqPLJojlBLV
+	f2sIQSRlecW8eVE5tkzVimL0mSmkR3GhDBtsW8H6GYDeKJ0nHSEEUTqFehSeS9R52hWV5K6w1Ji
+	/1Z/f2dvUOu+rsTn6V7pD8NC482LwePX1kKEmF2bmNbpFBVlSyVcAYRmSd2O6F23mWF5dJjd+/1
+	ziFf3rHwlb6V06IEvP269EmtnpDe+nx+SUfqxug4U9eex84dmsE4Lhk+3sqlRTaw2EK/QmYlHG9
+	82o/TTgtklnApE15S1sPdrxxjWKWsIdHnoJqyHhMi+Yf7XjkDhMryi0PgEWg1elRVc13wmgl+JY
+	S9Pwkcs3dPoewnCZMcNLLzJSQ9JyKskQCmGK7N5jfV+ZU3HKPMW1ZTo2+DNqQDAjfXmuKDw0dpc
+	98zQG4LLN8hrD3lyAWk2MisJ2eAB+tcU6Z0b6EkgcojBgIn7p8QDSf2VYwcrL05iLMDXpF4TvhF
+	Rg6nowh4rXfTGTzNX8abY7LENrzY2LsUeEUTu1ZsqthnlneQmTYh+6mL2cQ+693
+X-Received: by 2002:a05:600c:46cb:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49fe7b52f06mr110563725e9.2.1790366559601;
+        Fri, 25 Sep 2026 13:02:39 -0700 (PDT)
 Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff21c38a4sm39369075e9.2.2026.09.25.12.28.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff285550asm51693255e9.3.2026.09.25.13.02.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:28:09 -0700 (PDT)
+        Fri, 25 Sep 2026 13:02:39 -0700 (PDT)
 From: German Pablo Lindo <germanpapulindez@gmail.com>
 To: lsa.uz@pm.me
-Cc: dave.stevenson@raspberrypi.com,
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
 	germanpapulindez@gmail.com,
-	kieran.bingham@ideasonboard.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Test for [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
-Date: Fri, 25 Sep 2026 21:28:08 +0200
-Message-ID: <20260925192808.8114-1-germanpapulindez@gmail.com>
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com,
+	sashiko-bot@kernel.org
+Subject: Compilation error in [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
+Date: Fri, 25 Sep 2026 22:02:38 +0200
+Message-ID: <20260925200238.12765-1-germanpapulindez@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921124444.79396-1-lsa.uz@pm.me>
-References: <20260921124444.79396-1-lsa.uz@pm.me>
+In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
+References: <20260923211816.89954-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,10 +88,8 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As stated in https://lore.kernel.org/linux-media/20260913185735.6607-1-germanpapulindez@gmail.com/ a previous patch involved in the correction of the orientation of the camera, didnt manage to correcly flip the camera specifically in qcam. This patch seems already upstream (or at least in linux-next) and solves part of the problem, but not entirely
+For this patches i used Cachy os with the kernel 7.3-rc4 both for compilation and applying the patches
 
-After applying the patch, the orientation was the expected and the same as previous test with firefox and gnome snapshot, i also tested both apps again and no new bug or error ocured apart from the debayer bug not related to this series of patches
+After applying this set of patches, a make error popped up every time this patches where used, after testing i isolated the problem to the 2/3 patch, this problem seems also present in v4, v5, v6, v7 and other camera-related patches as https://lore.kernel.org/linux-media/20260918221705.323510-1-pm@petermarshall.ca/ that adds support for an IR camera
 
-   Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
-
-
+I do not know the cause of the problem and may be fixed in the future, until then, i wont be able to test this drivers
