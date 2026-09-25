@@ -1,117 +1,286 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f9.google.com (mail-vs2-f9.google.com [74.125.227.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40E7426429;
-	Fri, 25 Sep 2026 13:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF76A3AFD05
+	for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 13:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341700; cv=none; b=nw7CVRmuHZAsXJmJp8VStafN/k/Wo6YOcR/cwHaLLs/xdGpuNgccRmf48H/IUbi7lFYF7hNMDwG8nxLiQ/SeW2xHCg9p3Invy2bY8tc3KfI1a8tLg7idpyqoEmA8/tGwst4k8yU3NYw9QqMqTDPEG8ykdG/aRePgFqZp4oXIeH4=
+	t=1790342642; cv=none; b=ZE6Qnsi3AlK/03CPevbfmSIqIAgRnW52wKwXzzz4/aa8wiZvPVJYaDgi3iGbtFmLjjKYJjBNIL2gokSHfjyQ4nLNnsJlLHBBeX5JblpTgK/mVXnEwRUQKhsoTXjzMRE9W3Q3yRvMpeRcDhmgyXH5vzz19Q8gsLycBh/C6nUTUIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341700; c=relaxed/simple;
-	bh=ONHK6in2QFugTZAdE+WlBVZjzs5/SaRPqlOjW5r82d0=;
+	s=arc-20240116; t=1790342642; c=relaxed/simple;
+	bh=e9ZaZSx3eDGIv/mDx4R9ViuSXheyDD4PNUjRvfCbEXA=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r86YeWKBP7vSONBo/D1Y1B3WzSemLDTDoO22oJ3YDWmMW4ZI1V+7vuSRDc6YuOico6XFjxkjS4JpTtF0FNhmrN+TKOXgWZ5nZ6y6G4sPHnsS5w5EcmUrKy9v0niPj2BcmzV9jDE3goQnR/D//EET6vAnDcale6B37HLevdNpwBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=VJvFRdzm; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 Content-Type:MIME-Version; b=dmgWgdmKThc/tb/UJiT2WAiL5vLmAWRVd4exW7JiSv4iPTxU8ulo8TMg5KJqDper/bQ4MMPXUS6QWD6XDjxD5a4kOnFefBwBnJOTTdtTWS6NCOr11GNx/hlU/Y74y3yufM8QAasIG/IpakpoB5TZnN18GQRCCjNvSpUk3TBtshw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ivIRzSKS; arc=none smtp.client-ip=74.125.227.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="VJvFRdzm"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hrrbw0hB5z8tb6;
-	Fri, 25 Sep 2026 15:08:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790341692; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ONHK6in2QFugTZAdE+WlBVZjzs5/SaRPqlOjW5r82d0=;
-	b=VJvFRdzmjasGynjExD+5PDmk22sTHro/QyZxhGQWYqt0lxEugNgqvj/m3YEVmDzrFhnbZX
-	lz8cIzjEiLThuScQ4227h1Z003PNsshSx75JzOfJeDjHL/I+No8gr/jSP+gAVgAupXqIsh
-	oXUryIjzA6DtmGUYKJ+jPNBXAGiAAsaXyYCqIrHqMTd4F/OqBBItzMlOPtMz1Q3KSFkOVk
-	9iyNonnsfhwNhPPj/JGLmzIaF2F0qCpBps55l7mYVwFpgd6lhnKIcA8dkhNp35LNWp058o
-	/VFMOWLHWURnaxC57nXjUVXPyrb1DuVUJWekcR0VZjoxtC19A/fwe9ekHs378Q==
-Message-ID: <f0248d1529378ab8be957009a93a0a73ee74bafb.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
- reference
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: Philipp Stanner <phasta@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 15:08:05 +0200
-In-Reply-To: <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
-References: <20260925081958.3048112-2-phasta@kernel.org>
-	 <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
-	 <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ivIRzSKS"
+Received: by mail-vs2-f9.google.com with SMTP id ada2fe7eead31-78fb3801712so1017448137.1
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 06:23:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790342629; x=1790947429; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QXjgWoYM5yLRvHw6p4AZW2Tr6Hu5WyVowGNfLEc6J8s=;
+        b=ivIRzSKSKcjtQBIQ7S6xQp11/vmtKCT+dXkhWrM98do6Zl+hbnVWEoen8nZbDFVstC
+         TA8AdYNAnvRFUMqTlz/bm9mpMwu2iFnAQcmFC1MXgK7wTuuykPKceFN0pK5uap4YGfkU
+         REAWRIAv+lUvSN8CaEHHvyC3oHd199ZIlRYmynL/SnkSdsolBVCDVRHR2BVYeBXMJGKE
+         D7auChKUsD8bbJ3FLO67derR7CCBP8EbfYlouoYSXwpPyTZssZH5IenjGyCVEUEQfNs1
+         mf+m6oqK5aPgJ7i970JEpGT8pyPDXOhrjkhy/8fX8bG1gBkd/5I5TwHo2TDD7DcNxlos
+         QXlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790342629; x=1790947429;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QXjgWoYM5yLRvHw6p4AZW2Tr6Hu5WyVowGNfLEc6J8s=;
+        b=KWRYA0juXXPxfjVyNvr8gWErKVeFwNVyXTEpPP4AmobRVgNp9Y1fNQ/0AYejFXhZ0O
+         NiXVmrEHoBCF33t3qMtf54S5wX0H1uJ8N02UvND3c4P6aDNhk813htM4vyXL/ish0mPn
+         RIS0Ls7+MhQoAfa6pFMahYx5FUoaH0Mg3dH5wTlZflqSG8QIbyxZj9sTr0WT9JaQnobB
+         6s4Vxb0iEhsCq1yVBd7WT5oRXO72GPGw4stEb1id84Qvzl8sqi0DuUKSnKpmU/eQjEAB
+         6xwqBJyfYeTW2NzVSsHkfNLWGaLqmy5KvOJ89BBDNlxN4ffNhJ1WUiN5e9/3plvsgv8y
+         4tlQ==
+X-Gm-Message-State: AFuF++mkibNYIe6gb5fe2qz45vSFV1ACKFlHHwFXXVPwFWQYaKjYe+lt
+	de/ksoWpBnZQZ0bOOQCAsUX17UFBao7hRjK+I+KQ3eu4XCh7uACnTk5H6AEakeJos2k=
+X-Gm-Gg: AYBFou1QBhVPl8/4pR6AbsGNsa6RMKmDZ8DY+TwOdRjhAdIBwR2Tvd5DD+wh7td5xij
+	G3fxkix/B4ZTg1JG9GJhfnUXuOX5NvOv8/DVwZl2w8qUKp1O7x5VWwntzU+VIPJv+5oU/OuKI+E
+	zwpUQJUGfM9LfMn+qDD73eN5fWkuhZ5On5CO4+kzyFKZALr7F1nlU/YcG6t/o3IN1Kodgze+55d
+	rK+8IEBuoxfBUjfksm4wHbdRXuuH7Tnuv/yR8TE97Sc4f9kUxsZglp4bBQJXLSosQN+fVf7od00
+	f4GQmarhNUedwj+qsyXufQCbCj2+sGkYpW3BbWU9qy9uNGd2JZiJ4pS9xMslaSIBsHIErlWNqnW
+	AzimasprpQxBjIAiB+PLBTqraqIOqU0n3QqZDxCRDm8tW7kfdeIQQjXENOQM+ZPt3YwgZtxDxH2
+	4P2mWzDDBwaHzD9mIRKE/OtkTbjo2M9kva+xETE+FvqGpR5Tmhp/PrKZ+tMyO52Bhth5X6G6aXY
+	wpad7dodVd1CQ==
+X-Received: by 2002:a05:6102:38ce:b0:7a3:3d26:5c67 with SMTP id ada2fe7eead31-7af1e4f2ddamr2548068137.24.1790342628512;
+        Fri, 25 Sep 2026 06:23:48 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9860de80b19sm2585556241.1.2026.09.25.06.23.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 06:23:47 -0700 (PDT)
+Message-ID: <7505fe152db1f5e0794f9618aa617ce8379bf0d4.camel@ndufresne.ca>
+Subject: Re: [PATCH v5 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sascha Hauer <s.hauer@pengutronix.de>, Lucas Sinn	
+ <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley	 <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel	 <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski
+	 <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 09:23:46 -0400
+In-Reply-To: <20260925-rockchip-jpegdec-v5-1-30658833cb68@pengutronix.de>
+References: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+	 <20260925-rockchip-jpegdec-v5-1-30658833cb68@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-oDsWKzBqRCet+Qvriej0"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: b787db3ca691950e030
-X-MBO-RS-META: 8c6mfob1m1qd7hgqm67bx3qp9g1rki55
 
-On Fri, 2026-09-25 at 14:30 +0200, Danilo Krummrich wrote:
-> On Fri Sep 25, 2026 at 12:26 PM CEST, Gary Guo wrote:
-> > On Fri Sep 25, 2026 at 9:19 AM BST, Philipp Stanner wrote:
-> > > Replace the warning print with a dev_warn!(). To do so, have the
-> > > FenceContext carry a reference to a Device, protected by the already
-> > > present lifetime.
-> >=20
-> > Add a lifetime just to do this a print doesn't sound ideal. You could u=
-se
-> > `ARef<Device>` instead?
+
+--=-oDsWKzBqRCet+Qvriej0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le vendredi 25 septembre 2026 =C3=A0 13:45 +0200, Sascha Hauer a =C3=A9crit=
+=C2=A0:
+> Add a devicetree binding schema for the JPEG hardware decoder Rockchip
+> integrates into a number of its SoCs.  Documents the single register
+> window (task registers plus the LLP link-table block at offset 0x300),
+> the decode interrupt, the AXI and AHB clocks and resets, the IOMMU and
+> the power domain.
 >=20
-> Yes, that's what I recommend in general.
-
-Weren't you super opposed to refcounting wherever it's avoidable?
-
-
-[=E2=80=A6]
-
-> That said, we can also use WARN_ON() instead, which avoids the device dep=
-endency
-> to begin with and still provides enough information to find the "offender=
-".
-
-WARN_ON() is fine by me.
-
+> The core is not tied to one SoC.  Downstream it is known as the VDPU720
+> and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
+> RV1126B, with only the clocks, the resets and the power domain differing,
+> none of which this schema constrains.  A compatible per SoC is all it
+> takes to cover them; the RK3568 and the RK3588 are the two that have been
+> tested and are enabled here.
 >=20
-> But as I mentioned previously, I don't consider this that bad of a condit=
-ion in
-> the first place. Signaling with ECANCELED on drop() seems perfectly reaso=
-nable:
+> The resets and the power domain are required.  The block cannot be
+> reached with its domain off, and the driver falls back to pulsing the
+> reset lines when a frame times out and the in-block soft reset does not
+> complete, which a node without them would leave with no way to recover.
 >=20
-> When a driver does a teardown of the channel (or more generically the exe=
-cution
-> context) it will follow the RAII pattern, so it will be very natural to j=
-ust
-> drop the Jobqueue, which will drop all jobs and hence all DriverFence obj=
-ects.
+> The IOMMU stays optional.  The driver never refers to it, it is a platfor=
+m
+> integration detail, and rockchip-vpu.yaml does not require it for the
+> other codec blocks on these SoCs either.
 >=20
-> IOW, driver will likely invent a new type that does the same thing on dro=
-p, just
-> without the warning. :)
+> Assisted-by: Claude:claude-opus-5
 
-The driver can avoid dropping half-forgotten stuff by calling
-jobqueue.complete_all_jobs(ECANCELED) immediately before dropping,
-which allows us for having the warning without false-positives.
+nit: Apparently the guidelines are to abstract the model, just lurned that
+today.
 
+  Assisted-by: LLM
 
-P.
+[1] https://docs.kernel.org/process/coding-assistants.html#attribution
+
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+>  .../bindings/media/rockchip,rk3568-jpegd.yaml      | 92 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  8 ++
+>  2 files changed, 100 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-jpeg=
+d.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
+> new file mode 100644
+> index 0000000000000..27d85f17922ec
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/rockchip,rk3568-jpegd.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rockchip JPEG Decoder
+> +
+> +maintainers:
+> +  - Lucas Sinn <lucas.sinn@wolfvision.net>
+> +  - Sascha Hauer <s.hauer@pengutronix.de>
+> +
+> +description:
+> +  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as t=
+he
+> +  VDPU720.  The same core is integrated into a number of Rockchip SoCs, =
+which
+> +  differ only in the clocks, resets and power domain they are wired to. =
+ A
+> +  dedicated Link List Processor (LLP) register block, located at offset =
+0x300
+> +  within the same register window, allows the hardware to decode a chain=
+ of
+> +  frames autonomously ("link mode").
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - rockchip,rk3568-jpegd
+> +      - rockchip,rk3588-jpegd
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      The decoder register window.  It covers both the task (function)
+> +      registers at offset 0x000 and the LLP (link table) registers at
+> +      offset 0x300.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: AXI clock
+> +      - description: AHB clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: axi
+> +      - const: ahb
+> +
+> +  resets:
+> +    items:
+> +      - description: AXI reset line
+> +      - description: AHB reset line
+> +
+> +  reset-names:
+> +    items:
+> +      - const: axi
+> +      - const: ahb
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - power-domains
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/rk3588-power.h>
+> +    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
+> +
+> +    video-codec@fdb90000 {
+> +        compatible =3D "rockchip,rk3588-jpegd";
+> +        reg =3D <0xfdb90000 0x400>;
+> +        interrupts =3D <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
+> +        clocks =3D <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
+> +        clock-names =3D "axi", "ahb";
+> +        resets =3D <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER=
+>;
+> +        reset-names =3D "axi", "ahb";
+> +        iommus =3D <&jpegd_mmu>;
+> +        power-domains =3D <&power RK3588_PD_VDPU>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cc3cae2e378b3..290c3a1452ea0 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23699,6 +23699,14 @@ F:	Documentation/userspace-api/media/v4l/metafmt=
+-rkisp1.rst
+>  F:	drivers/media/platform/rockchip/rkisp1
+>  F:	include/uapi/linux/rkisp1-config.h
+> =20
+> +ROCKCHIP JPEG DECODER DRIVER
+> +M:	Lucas Sinn <lucas.sinn@wolfvision.net>
+> +M:	Sascha Hauer <s.hauer@pengutronix.de>
+> +L:	linux-media@vger.kernel.org
+> +L:	linux-rockchip@lists.infradead.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
+> +
+>  ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
+>  M:	Daniel Golle <daniel@makrotopia.org>
+>  M:	Aurelien Jarno <aurelien@aurel32.net>
+
+--=-oDsWKzBqRCet+Qvriej0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarZ14gAKCRDZQZRRKWBy
+9DtgAQDKorbZ3yVoy1keHMtODtaPz7ukHI2vc/aP4LDE1Ag8CgEAxqNFjwQPXKNx
+1eI8N4euRZt0b9/sLPQ+Ez6vqDQQ/QY=
+=kQh1
+-----END PGP SIGNATURE-----
+
+--=-oDsWKzBqRCet+Qvriej0--
