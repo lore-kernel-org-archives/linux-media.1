@@ -1,104 +1,124 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBF0224AF2
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 09:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CB23D88F7
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 09:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790414912; cv=none; b=pUc3nkCl95oR8GEI4xh7jFEl9GPNQaEbKmf97VD+OM1/ZTHFSEC5fiq3PZBXxZldG6FWFrOgP0AbzkVj297EJKYfLhOouDBXds08BrX5h5+BIhZEW5omHcvZRVVj2nCU+ErGLrz3u/eIKTGDJa23it3hPQLLZxrKR4x4vmB+PNI=
+	t=1790416141; cv=none; b=jDy0N8fMkmvOSbm9ZIwLnRK4kFGFttiEtbBPEY/JfxrNSazwTt38+uTiOOPvmifQo6mekzAg6/cEP6R74PkRPvWcPlOXREQPCFsUEG1QKfbS+gG9WVgow6aCx8V7Xmhcw+zTaScT9ebXWEZhluSpu3wRZWGdXtKiGbHHWwY+xpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790414912; c=relaxed/simple;
-	bh=o5Ux2irjn8CnbdS0GzElZsQZ2UL8xMm7/EvCYiFy3L0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jhJjO5KWJBbeMm8tCzOv1RIwAIJ0B4lwr2fsiYPHFENmOydgVGpfLnoKCucUXKYHHuwTgPcotD7AVBIUdo3bjKY84g1EpnitI23gBgJ4eoAU0JDCV/zHkIwtNjE+tIIASEJt5dHTETGeoh8qd4PvNcSdlSCMR6SL58mIbkizuWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RnNRalzA; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790416141; c=relaxed/simple;
+	bh=v/V8ct7TOae2Ur01kAqamHgQFG4Ncm169q/vVbvSBT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Fa7hulqJx3ixStQQQboHnmOQWvn8CkKscHsAwMOY+h8UAs6U0VDRA8RI2waiJylhPJyOdilrwgF4dE5hy/SlMDqE7E/cLI/P1a/rKavCPMbUA+QeW/m5oSFQZ9klcIP3AollnVQE1YthjtGc9wBs7QSPqy3ur7WKp4X/irLNhVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=j28rcUog; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RnNRalzA"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so9209625e9.2
-        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 02:28:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="j28rcUog"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so2306465e9.0
+        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 02:48:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790414910; x=1791019710; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/sASaYvsZRpd1tn0RL89dSce6GPhVNOMoBLXnwjXq9w=;
-        b=RnNRalzA2ceYyeTvP7hHSbQE6LpjBNL4TmHqnuTSlRs8hmRCyvPst8/5OWrspio3MQ
-         VWMf9TFI3qrhDa7XC71andGlCI2lXdzHRJftz54SI47zn29eTfKu1pCAs5Mw05dair/A
-         p+/0vBkTqi46yFCchsh4aeSSXwE2wNe6bWFiAEwQPic6aHH4VR58/YW47LEPEdevSbaJ
-         RpsthIoS1O24gGp9EAc1Nq7Qj1BnxWzVocZ1dpn4L1ZR9zf5QMLTUQTRE0bHi5j/qUsE
-         y8W0kPtEXg/2oq3IAOVL0VnnQyfLn/Agt6HC0XRaKY4qVUP1fUiJ0I+BgOPA1/UVlQA/
-         LztQ==
+        d=linaro.org; s=google; t=1790416138; x=1791020938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M/m7H+YAcykbCH5LdCzTmsHgpKE8tCQEwcEavkDXZfU=;
+        b=j28rcUoghxg90ewTNM8oGB4t1Ey5IyWEHC5+vI0eHtlRwIKYaKpvdBUrIOASeCSpeN
+         Z7FjHcctV1adj1RAR+hJ2W/Kmrnwf3VfQAVdQ+QpLnCug6y279C8lAsmPFeEY5b/R6/z
+         ldtuG5DFskV6ebN8SjTOifEpDZXUP10wnZi6AfYINs14iZzSCjHS6yLrNc+1xHJNI+nY
+         frk7QSL3EkZSHaUKatX31/7H0Oug5xCgwx77QFYAVhSGs3gFRX4tsV+mB7bKbz+G6/mu
+         v6mhoKZw2D0xW8JmYJzftV5hQhUyuyYp8gsfbh5NWs70otpD4uDgs4Be4BH1Jc7bGX/D
+         YH1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790414910; x=1791019710;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/sASaYvsZRpd1tn0RL89dSce6GPhVNOMoBLXnwjXq9w=;
-        b=hNcQS/vdPn4oJYsQ1LBQD+TkQJeHv7+FY7DLxIS24ZFmJRiiuhOBdLX2MhYkTwK1cq
-         BWPd+D0gsv0mdmh2VtGxDKrEZpJyrsJwSNiA9+2yxEZg5Q/R2Mhe5Ev5vY+Pmu7tLsYT
-         czPFFWLQ8QLBegM9F6l/VZiLkqTLgrQnBSr3exX1wMWu/G8mbgpcSDYvy1IgiY5fNEeh
-         VGxLlTMMgqgF3NwDOuOpbDXW9dRcIQKRtJEWSes7iDnapp2wsXkEFXdWp3A2NQkIAnc9
-         JUTtkN70jSabIm/nN0iPmWPxsvGSJ49jdYBgVwEW7ngOniYCBoWbcuudsXn6VTSCi7fA
-         56Aw==
-X-Forwarded-Encrypted: i=1; AKwUvBytk3esLjqCFh1dd66CFMQSXq1i2EuRgjn+Gn5jQfA/zFJab0JJkO2TOHiBTqVyudW+ialCMsKbsnGYKQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++m+xk9QTdEHmwEeY/hVthQ7C7J6WBzA7M1aY2MyHe/9YTAxYbIn
-	hDzMJiHhG2xmBcINGSXn1APYNLelLkepMN66a9dC2ilEvvErtwzt6Ewb
-X-Gm-Gg: AYBFou1tRnxHprG9JtJwsDCZKMVkUzJXTlH+APJfNPY1StHGXBTsyNVYSxoU9nM1eZl
-	XuLxgIjNS0VQx5ZaK2+vQuW7nj+AQx+/Ko2vWLElieKHC0+3h/7ZIXGr7dgB4wW8dD6TTrcWngv
-	h3Da0rk62kYatfyOvLb58wO0UhRHBg8EVcOI8c6PCYt2dOk25ctiOF9ByZaqMpc7Olc7FjuJn7c
-	1yrMhFiF/UEXuow5HqXWF7jtDEZY+Qzc9+tSnsdihUdpREsvVCdPFurqLBHqFA/CxCL8o0PxwGE
-	9q8d7ziUNagkTRZal+vNY1IYtJZPam0q5OY3qdwTG1e9cZTX1bhHELnUm0WPKVXdc+AqkHh6X7c
-	oUB90Lf35kYapVlHE+zLk1SjXpeGaYEv2gdEAVIp4OTQ7Tf9RAKsp7EMuhE4fNzGfgJ7IGiQIDY
-	9s+vaA2lrLxAqZYcJjnniGmlblkmXLZKd2wI70Rc+NC4Ikl/+f1l9+I6f2sPII2nm/SpqN94MxF
-	kJzhdhYfK5kmgCL6h05yQPD48aty++KzsGfHUrO/pMmafsXbD9aQQ==
-X-Received: by 2002:a05:600c:348e:b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49ff06b2ef6mr85011295e9.5.1790414909583;
-        Sat, 26 Sep 2026 02:28:29 -0700 (PDT)
-Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0658747sm140014735e9.1.2026.09.26.02.28.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 02:28:29 -0700 (PDT)
-From: German Pablo Lindo <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: andre.gilerson@gmail.com,
-	conor+dt@kernel.org,
-	dan.scally@ideasonboard.com,
-	devicetree@vger.kernel.org,
-	germanpapulindez@gmail.com,
-	hansg@kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	sakari.ailus@linux.intel.com,
-	sashiko-bot@kernel.org
-Subject: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
-Date: Sat, 26 Sep 2026 11:28:27 +0200
-Message-ID: <20260926092828.11675-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
-References: <20260923211816.89954-1-lsa.uz@pm.me>
+        d=1e100.net; s=20260707; t=1790416138; x=1791020938;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M/m7H+YAcykbCH5LdCzTmsHgpKE8tCQEwcEavkDXZfU=;
+        b=KcFnt3WplxppdH+UvokZcJuxMGWDYjTYf7og+Nwi/qPnIBR4FGyhdTqo2SosReXBBy
+         /BkZQiPsYJZYIM+zBKbQNWzGEKRYopyCWKl0vmikNQXxrtju2cQ5AB/QP/BNENo9iFZr
+         gDO9iUuQJnouOgYprzr5l6hRJehn+7J3JQczNo7Cvx/vg4wkY9Yaf9t42rOFzpOpjSni
+         XeCREb7zkJpjPjoPACZgdzWRN8e63ASRRfDtbeM8XTl8yIUHD+nhyiAPnnZ2+NRg/rNc
+         rE/K/8IK7B8/mP+0Ve55C/5iWpYk6cDHZmO/RJl0rL+HOTgTLgDXvIW7XcAcg+a4wtYT
+         qQKA==
+X-Forwarded-Encrypted: i=1; AKwUvByn+XmAg5eqjsvExt38o4UpeVpHXn1kEN9G5w2iIRmNAzphnQeSC+mJG832iYFT4Fc4EH238ZIUmaknKw==@vger.kernel.org
+X-Gm-Message-State: AFuF++n+bGQS1SOnBVNDjqVVuYi1xoXnAiW99manmuSM1GRQEfkpuLfy
+	f/knph8VFK4x6ECpATChE7+symvyyaUc2omcxJKZg52Ql0nnDu9fKwzxqd/UB/huN9k=
+X-Gm-Gg: AYBFou0M4W3pFvjOhY+0Z3qzSqTNd9ydVEka8DyjyOtNE2syMwb1+llp5wycHSc5PJV
+	dX33b/4ksl6stzTcZ0Jv9ukPFpluS5jr77pJe5Vuv0GE2ppBkQrMt1jxgCya9kZLuYKWEc7I6tG
+	lOR2O1+o6IszGBaNjrClhH9IePIDpwHznzrTXJlFwX5B1i+hbAFrAwABI+rO9CHEv06+NdqhFiM
+	Cf0KdNASL60q0RvPmsRobJ+s+qhz6oQk5I1J4ANgtebskQlyoTeoNqhlAqgP6M83skHWlsKBzzi
+	rYEynqN0M1Z8Rzo4e0Tc627B14L7MsUkdtbfVpcCAAQoN4daEkNNXm5Ath1HXxePDkwPfOGw+UN
+	PSvp5FYos1GpdsmSwpD6/Wh9EoGb9SSzhFqWmZ/BXclmTz1ZHk72lURBVc/UDfbvfqW0Kqzt3fR
+	Ui0jbDpxXC+9+Vb7dbjpxgJvRa+wCJFbS2GiUvpDAUHDnFCF9KAYs5XoM0A8g6MG/5GEXVZw2cX
+	TwMrQEmzRw=
+X-Received: by 2002:a05:600c:4f42:b0:49f:bd3c:bc1b with SMTP id 5b1f17b1804b1-49fe66f5ddemr180741955e9.22.1790416137942;
+        Sat, 26 Sep 2026 02:48:57 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.79.156])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a354c47sm13800799f8f.15.2026.09.26.02.48.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 02:48:57 -0700 (PDT)
+Message-ID: <88f8d5ec-5e3d-4867-bb7e-0f242250f4dc@linaro.org>
+Date: Sat, 26 Sep 2026 10:48:56 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] media: qcom: camss: fixes for several cameras
+ behind a CSI-2 bridge
+To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ravi@ebytelogic.com
+References: <20260915121557.20910-1-hitesh@ebytelogic.com>
+ <20260925114511.2228661-1-hitesh@ebytelogic.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260925114511.2228661-1-hitesh@ebytelogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-For this test im using every component and program used to its latest version available in the stable chanel (the only exception is the kernel, wich is 7.3-rc4): mesa 3:26.2.3-1 libcamera 0.7.2-4.1
+On 25/09/2026 12:45, Hitesh Patel wrote:
+> Hi all,
+> 
+> Patchwork has just moved all five patches of this series from Under
+> Review to Superseded, but there is no newer version: v2 is the latest
+> one I sent, and I have not posted a v3.
+> 
+> I re-checked the series against next-20260924 today:
+> 
+>    - git am applies all five cleanly, no fuzz and no 3-way fallback
+>    - each patch builds on its own with W=1 (arm64 defconfig +
+>      CONFIG_VIDEO_QCOM_CAMSS=m), so the series is bisectable
+>    - checkpatch --strict is clean on all five
+> 
+> so as far as I can tell the series is still current. 5/5 carries
+> Bryan's Reviewed-by; 1/5 to 4/5 have not been reviewed yet.
+> 
+> Was the state change intentional? If you would like a resend rebased on
+> current media master I will send a v3 right away; otherwise, could the
+> patches be put back to Under Review so they stay in the queue?
+> 
+> Thanks,
+> Hitesh
 
-After applying the necesarry patch that deletes the line "const struct v4l2_subdev_client_info *ci,", the kernel compiled correctly whith the patch applyed
+OK, sending a series as a response to an existing series is not clear 
+what is the intent - particularly when the other series about 
+multi-stream had inline patch responses to Gjorgi's patches.
 
-I made a thorough investigation of the camera and came accross the following problems that affect the camera using the CPU or GPU
- 1) The first startup uf the camera is somewhat slow, it starts from a grey image and then slowly starts to recover the color of the room
- 2) The camera is horizontally mirrored in qcam and Firefox but not in Gnome Snapshot ¿maybe the camera has a mecanism that Gnome Snapshot uses for the correct horientation?
- 3) There seems to exist a bug in wich, if there is an object that moves fast in the capture zone (like for example, a hand or a person), blue and yellow lines appear in the area in wich the object moves. This problem does not only affect the front camera (IMX681), but also the rear camera (OV13858). This issue is present both in GPU and CPU mode, but the error seems more prominent if the object exits and reappears in the capture zone and while the camera is starting up in the first use, This error is also visible if the GPU is used and if you put an objet close to the camera (for example, a white sheet of paper) ¿Maybe is caused by the ligth the camera recieves?
- 
- The GPU debayer is still broken but i do not have the knowledge or time to identify the root cause, make a solution, create the report and send it to the corresponding place
- 
-   Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+If you intend for this to be evalulated as a series, send it as a series 
+not as a response to an existing series.
+
+Too confusing.
+
+---
+bod
