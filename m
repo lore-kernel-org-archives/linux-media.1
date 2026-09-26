@@ -1,185 +1,150 @@
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+Received: from mail-pz2-f23.google.com (mail-pz2-f23.google.com [74.125.228.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A3C2AEE1
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 00:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36ED563CB
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 02:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790381344; cv=none; b=OjgREAC8gkyE2rg79jSisyG4HkT8CxeYQ2+YkZ/k6AiO+vV9UQS1gzBIe9PQ/tpcTCdO1LhpNy0kyRzZO3997Lv+dLSgzun7TXnb7ro7VqXwMBqc5SPz2HXAFwDgcjNyCfsCeuc+mfkVUvLwoP59dgHNIKewxXOlFJ7fHQypOE0=
+	t=1790389237; cv=none; b=GqtRGqql19ydlmEI+7pY9zaSvU1jiNR38wWPicpxV1J7C8GOQ26IK0iqTBp5uP/hOdxmn6LOMcx90sK8WBcrBn4PtsJYmpsjg0mdyx+enHWNqscZuBGjNZ2QnTh6zLqwp3jdFtmvPnQmTeOOy2zAV83QR12BsSvxB5fw/DJyxfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790381344; c=relaxed/simple;
-	bh=pImOuPqMckVKMPaILETUz1VCf8WYMf3u8DsEjE8GF4g=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=YMRWC4Rr6PrSzUas15YF0IfgCue/jWD42757M07gfftYVkfwCinCQa+KoRKPdGlHRCsKF8Eoa8SJMb9qJR+8zgKnMfZCFI7h78a0aXeFl6zr78DKFh/AjbbcxB23KNjsUejTxHl41W3Aez0HeTnYquSSpRmFUf58qoEjFbNSgeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MDWyLC7/; arc=none smtp.client-ip=74.125.229.167
+	s=arc-20240116; t=1790389237; c=relaxed/simple;
+	bh=jg7+FemWVFBVpRrvIizD8nTkz/V6UqciTlpbBKfXenw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nEjr5ubcprIMqnwBRSCmQWd0iwXrZJAJ8m7wBu8eQw4mbQ/WbjG0C0A7kGVJgUbimU3BzQJSRHitJ8L72FLWzNdMQJmDAskU9xVNl4hbXFAsYNAFSG49oHqhUGTIySw5QbiSgPgY40zieGGFpSuYBjx0ghCjs6zIAjf/NC4ITQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EHuDUt/Z; arc=none smtp.client-ip=74.125.228.23
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MDWyLC7/"
-Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so1011872c88.2
-        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 17:09:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EHuDUt/Z"
+Received: by mail-pz2-f23.google.com with SMTP id 41be03b00d2f7-cc792ffdfc7so28146a12.2
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 19:20:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790381341; x=1790986141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kEyD+JH+7OnLIHOwxBPzzmfEJuyMZruDiusO3LIwY4Q=;
-        b=MDWyLC7/pChlP8ujc/W/T6a50sFIP/8xF3+BxCilbEWrTOLAz9IFs/XnX02v3sjukF
-         SCpZFcH+G5IKp08A84I6MpOcSeEBeeh3J5sENIobZWlQLKRRyouiOBrlEj2rLGgoNRLg
-         tLltAevpt4QhbrNh/gdMUvDCj8T50Afw5lkGxD8tSlGSPayue4WAIzRP7CaGX34AiF86
-         c+5xMv0h9kup+jTUtGooNqgZ3DBrU6gvbph/WamRu2OlJYHmrKJMzBhq19maRcBq50xw
-         6UQ2VqAj6ikzeRtHZAOZBfhg1k4/gbXdwcnTmGP0j94k1jciZyoVMrQCJnSRBqIIbjFl
-         GZFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790381341; x=1790986141;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790389235; x=1790994035; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kEyD+JH+7OnLIHOwxBPzzmfEJuyMZruDiusO3LIwY4Q=;
-        b=LJufofYLIxUPPd/h4sISp8lU+FM3J2UOK3Ch4oLVPuQlkOyo9oS8ysMfzewokMwIbY
-         ZLA1D940cz0UVG1ZoCr9SafOqDA1Z4zprTkxJvIX0OtQmJ1Vvd5Spkg9h8MvuVRiqRrR
-         6lAklP5pdsAAucQ+rATyYM+5v9PJgtdYfPcFZiQ3HrGNyhuzPOAHQ7nGmFkPJk8/zurs
-         N68ht3vVSXocGd1V0Rfw0LZrDE0xLNlMlPXf6hMAbulXm9oP7pRJZh/K2G6+kBhhVAqJ
-         4QiM5f5CIq08S38Eir/yg4uytk5rdVxPP4aP35jii5I2Rr70rTWnqS4dlrEZxBCIfJ01
-         YSHA==
-X-Gm-Message-State: AFuF++kIVN33Gfq5SorBtRnbgSyZEcmAx1jXFoDWpAt+6DN1S+QdhRHQ
-	FjKrJ21042Pjj06xlfIAHsmuk28U9mc2Eq+iAovojByWVnoLzbKomMRtT+QZX1vN
-X-Gm-Gg: AYBFou0mY6EyWCm0VbRWVlvLNnsuS4rIqklT5k3da+blE2jU80pH9EOr8zNGbeo+IUz
-	X8B0BdWeEiiiBQNnPhhC4BVSYH0K+xTT7a+pSSLE9Co0lfvK3k9Dt//hO9XYfs2d5kFsKa3Dd43
-	ckGIXSoT5ibwI4kxWV7CHSlsXqwhBcwtEQ3/54EpJPpfijkLGJ6nmSO0TVGKFzfSWUxtuLuKd6T
-	g3KvkXx8UVZCrWcpWj/F+7tSKJvXecsiCdJkxgSuuxbZYxjBznTPFHP+fnaoVFJBGlWGnKglrug
-	9hzXAb7IVSkGNwjC+DzuXdO5O46KuXXG3KHvzzJJNaG5gotCLVtdPHsmacMHvV5vRtStnZ7ta76
-	JF/VB5oVUTZ44rgEwexssY8RRIiltvwTsyVVAhlNCe8B9AvqFZEbbo7/A5miUws3dDsIAdB//XY
-	qlOoOlBuZkpiD/1BgeY3o/oqjeO0gSuiDOtaGBvO1nZnP7JupRxmG6gr5oPkeB/VYxTW4fkNEF9
-	vHLIrpr05K0rGHM39ZmMhWPQlTQJpWmNRvUhtrh6J73ir3v7J07Y2Lof+sXJLAUSyFZ2gQbGdAI
-	JTgK+9r51VpsT+KNAJ7n/fLadP3YYyC2O/ND
-X-Received: by 2002:a05:701b:4305:b0:144:c12d:c6a3 with SMTP id a92af1059eb24-146d0c5087cmr1404884c88.45.1790381341436;
-        Fri, 25 Sep 2026 17:09:01 -0700 (PDT)
-Received: from [10.156.142.234] ([23.144.160.253])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm8112055c88.15.2026.09.25.17.09.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 17:09:00 -0700 (PDT)
-Message-ID: <40385855-cb42-43b4-bee4-ca8cccbb279b@gmail.com>
-Date: Fri, 25 Sep 2026 17:08:59 -0700
+        bh=A35dxfOiF0vku1a8AiorVl5ekNNXinTf80Wsr1D60yQ=;
+        b=EHuDUt/ZBWEjyfij3XI/E3UAqcKeMYA+ZocKWN/eC19pbXFhhxdZeV6cVVs0upGTZy
+         jijebJbLJ3I2+CJilum1ZgEEW/ZQQdX7hdZuj8x5QN2ndU8Zzgy1jU9mIKlthqkR43M7
+         usmzLItap8UseMSD7Lp08Swss2D35sKCNU6U/1DubELH8ok2IXRs7eK20K1v7ZWhVfoO
+         oTSukA7SqvrwZLdEyeo8c5Jl5tRh+MlZsADvv0nMSw/VzJCIgj4uYwAZvsJrcRMJ4Zfr
+         BPMD0agC6Y8lts+GfAVV4lptV93Dme6bbuo5dlY0d1d2SI6D5oyEautbw3n4WFlAE7kl
+         vWHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790389235; x=1790994035;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A35dxfOiF0vku1a8AiorVl5ekNNXinTf80Wsr1D60yQ=;
+        b=RcopLlzqVLu24sQOBLRRpWX4ABsPrbF4C1yWgDPNw27flmtnZdiGgGlS3T6PAhzyXy
+         +P7qSlhVbrkYZf99xG29Wkb11F/hPGC3TIUOaNYYw69TQ1HGdUpN6re/y7PAWd8txzu1
+         Q5Ntmwr6QnrBC6jTrO8ky16l2KM7qCHp6UhlZs87X4TsEyE7D9VmrMcIwRw+FFOPgwlM
+         /TIReTS1Qz0SRcGkdZqk+Nyo11o3x4CyjnPQKOBfnvEsq0o8KxpGBtDFhBxBmOABhUEA
+         VIy+3AtIiarINhguqZc08DRZ5Lni853J/m1mBuxe5meewX4m4apnL5J2fyrYA2KV2Poh
+         MyoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSAVBurnIYRSOLmUDmt4DoGdYjEK+kuNFlSWveChb4unHtAwhNa2L7JqXA+7NKW5QD+VmHOLToa/xHZw==@vger.kernel.org
+X-Gm-Message-State: AFuF++mKNHLcU1kN5NSU+mjkWz7J0h/qP+uJ782SpueripeFKHgsT2/U
+	wqK3275V3Nd55iNCvraEc2+UwYK1MoujgWXGNUmM2NA7keDxgxXWki0n
+X-Gm-Gg: AYBFou2uRQb/HJ36X7z6AHY4WkpjI0xmWK5ZtnAbNsfmXZQkufN6KNNnh3H8NZV8y42
+	ru9okafNrrqRMrTqiBuZOOIs69IedZ93hE+aGiTQqtjM/EfyFt1I5bK9P2MsY9X88oIpyQLcH6k
+	Sxrm7tRYgtJ5KAcg8CtXA8pcotdW3W46JQFSIPBVo77MI1vx+TDOlpXc0gs9TXWQKfRNDUAEune
+	W/GQvSHP5W0JUycbIVHG3/LZ0lXOCuzxtADsF54D1rU8ZKpPqugMJpS2TdhktBqyHILzwZokeJw
+	ivGl1VO/9dmvy277z5EXDwYtaAVOBXbw6OQEawAlBOBtXTP2fl34N+hrkKIpgkgfNavxm01cuxj
+	E4fog5llMysy6JiwMQDrntWc9DBxGS4SfKvm4ykD0BTjg6biqPYe4PXt3BN7hHu0vMf7Zcr1o0S
+	UUHLp6ZnERwhI70CRigc1VPFdKnKKg4ptTTGJrkeYRGKuaAMWmV8Xl/8/TNqBtYFaf9rqE1mdHP
+	ecQ6CjO/NT/+g==
+X-Received: by 2002:a17:902:c94c:b0:2db:2846:ce3c with SMTP id d9443c01a7336-2df8e59a4e9mr65359735ad.1.1790389235476;
+        Fri, 25 Sep 2026 19:20:35 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbac49sm17687415ad.3.2026.09.25.19.20.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 19:20:34 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Bryan O'Donoghue <bod.linux@nxsw.ie>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>
+Subject: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels"
+Date: Sat, 26 Sep 2026 10:20:17 +0800
+Message-ID: <20260926022026.10539-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Hans Verkuil <hverkuil@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Kanav Gupta <email.kanavg@gmail.com>
-From: Kanav Gupta <email.kanavg@gmail.com>
-Subject: [PATCH] media: gspca: Fix crash in sonixj driver
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Fix a race condition in the sonixj driver where if the last byte of the
-previous packet was 0xff, but the new packet doesn't start with 0xff00 or
-0xffff, it would subtract -1 from length (effectively +1) and add -1 to
-data (effectively -1) which caused it to read one byte early in
-gspca_frame_add which led to a crash when running memcpy.
+This reverts commit 143755bdabaa96776c24f878014608e9cb44f930.
 
-Kernel logs of the crash:
+That commit fixed a dangling reference in the DMABUF_DEBUG default
+and thereby enabled the option - and with it the page-stripping
+sg_table wrapper that dma_buf_map_attachment() hands to importers -
+on every kernel with DEBUG_KERNEL=y, i.e. virtually every distro
+kernel.
 
-[  344.258380] #PF: supervisor read access in kernel mode
-[  344.258388] #PF: error_code(0x0000) - not-present page
-[  344.258395] PGD 100000067 P4D 100000067 PUD 1002dd067 PMD 10f21a067 PTE 0
-[  344.258413] Oops: Oops: 0000 [#1] SMP NOPTI
-[  344.258425] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.4-arch1-2 #1 PREEMPT(full)  ceab5b7eb60a89a58d616500ee9fef4aad8789ba
-[  344.258440] Hardware name: Dell Inc. Inspiron 16 5625/08HCFW, BIOS 1.23.0 04/22/2025
-[  344.258448] RIP: 0010:memcpy+0xc/0x30
-[  344.258464] Code: 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 48 89 f8 48 89 d1 <f3> a4 e9 98 2d b7 fe 66 90 66 66 2e 0f 1f 84 00 00 00 00 00 90 90
-[  344.258472] RSP: 0018:ffffcde8c0003e08 EFLAGS: 00010286
-[  344.258481] RAX: ffffcde8cb7163e1 RBX: ffff8bf8128bf000 RCX: 0000000000000385
-[  344.258487] RDX: 0000000000000385 RSI: ffffcde8cb78ffff RDI: ffffcde8cb7163e1
-[  344.258492] RBP: ffff8bf82122f000 R08: ffffcde8cb78ffff R09: 0000000000000385
-[  344.258497] R10: ffff8bf8128bf000 R11: fefefefefefefeff R12: ffff8bf8128bf000
-[  344.258503] R13: 0000000000000002 R14: 0000000000000385 R15: ffffcde8cb78ffff
-[  344.258509] FS:  0000000000000000(0000) GS:ffff8bfb7492d000(0000) knlGS:0000000000000000
-[  344.258515] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  344.258521] CR2: ffffcde8cb78ffff CR3: 0000000105e22000 CR4: 0000000000f50ef0
-[  344.258527] PKRU: 55555554
-[  344.258532] Call Trace:
-[  344.258538]  <IRQ>
-[  344.258544]  gspca_frame_add+0xd0/0x290 [gspca_main 5a055b32c806e417235e8d5e2742e9a578ee2b8a]
-[  344.258559]  ? __queue_work+0x16c/0x570
-[  344.258573]  ? __pfx_sd_pkt_scan+0x10/0x10 [gspca_sonixj 9778522355db5c2cbeafad6bd503d60db422b3ff]
-[  344.258586]  isoc_irq+0xd2/0x170 [gspca_main 5a055b32c806e417235e8d5e2742e9a578ee2b8a]
-[  344.258600]  __usb_hcd_giveback_urb+0xa0/0x120
-[  344.258613]  usb_giveback_urb_bh+0xc0/0x140
-[  344.258625]  process_one_work+0x19f/0x370
-[  344.258636]  bh_worker+0x1d2/0x1f0
-[  344.258644]  ? sched_clock_cpu+0xf/0x1f0
-[  344.258655]  tasklet_hi_action+0x13/0x30
-[  344.258664]  handle_softirqs+0xe8/0x2a0
-[  344.258675]  __irq_exit_rcu+0xb0/0x100
-[  344.258680]  common_interrupt+0x85/0xa0
-[  344.258687]  </IRQ>
-[  344.258690]  <TASK>
-[  344.258693]  asm_common_interrupt+0x26/0x40
-[  344.258699] RIP: 0010:cpuidle_enter_state+0xbb/0x400
-[  344.258704] Code: 00 00 e8 68 b3 e8 fe e8 23 ee ff ff 48 89 c5 0f 1f 44 00 00 31 ff e8 54 3e e6 fe 45 84 ff 0f 85 48 01 00 00 fb 0f 1f 44 00 00 <45> 85 f6 0f 88 9f 01 00 00 44 89 f1 48 2b 2c 24 48 6b d1 68 48 89
-[  344.258708] RSP: 0018:ffffffff89003e18 EFLAGS: 00000246
-[  344.258712] RAX: ffff8bfb7492d000 RBX: 0000000000000003 RCX: 0000000000000000
-[  344.258716] RDX: 0000005027642b7f RSI: fffffffb85bb9d7d RDI: 0000000000000000
-[  344.258719] RBP: 0000005027642b7f R08: ffffffff89219480 R09: 000000000000000f
-[  344.258722] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8bf801221c00
-[  344.258725] R13: ffffffff89219480 R14: 0000000000000003 R15: 0000000000000000
-[  344.258733]  ? cpuidle_enter_state+0xac/0x400
-[  344.258740]  cpuidle_enter+0x31/0x50
-[  344.258748]  do_idle+0x1cc/0x2e0
-[  344.258757]  cpu_startup_entry+0x29/0x30
-[  344.258762]  rest_init+0xcc/0xd0
-[  344.258768]  start_kernel+0xa56/0xa70
-[  344.258778]  x86_64_start_reservations+0x24/0x30
-[  344.258786]  x86_64_start_kernel+0xda/0xe0
-[  344.258792]  common_startup_64+0x13e/0x151
-[  344.258805]  </TASK>
+drm/msm is broken by the wrapper.  Both of msm's map paths consume
+sg->length and sg_phys() of the attachment sg_table:
+msm_iommu_pagetable_map() for the per-process GPU pagetables, and
+iommu_map_sg() (via iommu_map_sgtable()) for scanout.  The wrapper
+zeroes sg->length and strips the page pointers, so mappings of
+imported dma-bufs silently map nothing, and userspace observes
+arm-smmu translation faults from UCHE, e.g. during hardware video
+decode (clapper, chromium) on Adreno systems:
 
-Sorry if it isn't perfect, this is my first 
+  gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
+  type=TRANSLATION source=UCHE
 
-Signed-off-by: Kanav Gupta <email.kanavg@gmail.com>
+Bisected on a Snapdragon X1E78100 laptop as v7.3-rc3 good,
+v7.3-rc4 bad, culprit 143755bdabaa9.
+
+Switching msm to sg_dma_address()/sg_dma_len() is not a trivial fix
+either: those fields are only valid for sg_tables that msm has
+dma-mapped itself, which native non-MSM_BO_WC objects' sg_tables
+are not, so the conversion needs more work.  The msm maintainer has
+therefore requested restoring the previous default for v7.3, to be
+revisited once msm no longer consumes struct page and sg->length of
+imported sg_tables.
+
+Link: https://lore.kernel.org/linux-arm-msm/20260923074256.9357-1-liujianfeng1994@gmail.com/
+Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+
+Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
 ---
- drivers/media/usb/gspca/sonixj.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/usb/gspca/sonixj.c b/drivers/media/usb/gspca/sonixj.c
-index 2e1bd2df8..03f40575a 100644
---- a/drivers/media/usb/gspca/sonixj.c
-+++ b/drivers/media/usb/gspca/sonixj.c
-@@ -2695,18 +2695,19 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
- 	i = sd->short_mark;
- 	if (i != 0) {
- 		sd->short_mark = 0;
--		if (i < 0	/* if 'ff' at end of previous packet */
--		 && data[0] == 0xff
--		 && data[1] == 0x00)
--			goto marker_found;
- 		if (data[0] == 0xff && data[1] == 0xff) {
- 			i = 0;
- 			goto marker_found;
- 		}
--		len -= i;
--		if (len <= 0)
--			return;
--		data += i;
-+		if (i < 0) {	/* if 'ff' at end of previous packet */
-+			if (data[0] == 0xff && data[1] == 0x00)
-+				goto marker_found;
-+		} else {
-+			len -= i;
-+			if (len <= 0)
-+				return;
-+			data += i;
-+		}
- 	}
- 
- 	/* search backwards if there is a marker in the packet */
+ drivers/dma-buf/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+index e4f078a326a41..7efc0f0d07126 100644
+--- a/drivers/dma-buf/Kconfig
++++ b/drivers/dma-buf/Kconfig
+@@ -43,7 +43,7 @@ config UDMABUF
+ config DMABUF_DEBUG
+ 	bool "DMA-BUF debug checks"
+ 	depends on DMA_SHARED_BUFFER
+-	default y if DEBUG_KERNEL
++	default y if DEBUG
+ 	help
+ 	  This option enables additional checks for DMA-BUF importers and
+ 	  exporters. Specifically it validates that importers do not peek at the
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+branch: revert-dmabuf-debug-for-7.3
+
 -- 
 2.47.3
 
