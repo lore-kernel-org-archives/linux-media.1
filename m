@@ -1,98 +1,214 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB003515F7
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD55374E6C
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790442224; cv=none; b=AS7ykyQzL5a6DZ7BJRxcdD/SfCvXiH7JpoFQ22QfECGNEWpbrevh7ksPAwL9vZ27OpfLOAYLCdRf4quI+fWc20iC6l7t1JzJubvtsTzv+ubD6w5o5NS2MkZmh08JR89uMPgNU7egMc20uiPk5zLWZhAOq889C3Jx7ZM21LafH88=
+	t=1790442597; cv=none; b=klAnmh+T+eDZaFmR3bMwpTqUNt+PzRVnwBVD2S2k/OJg6g+FYeec0B4fkbHQSbsCKYoPRYlOzMN/yqYoq4fBLf/ZkMv45qBkFzO8DUvkWJgiNqDBHLMVyTr6QIvLghG9LYdRM2Z25RHI3Jb98+DeV0odfI/EJp4weis8/jM342s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790442224; c=relaxed/simple;
-	bh=aoUcH8q6R4+eyNaifFoH2Aor4f8mjT4hXKCOfkY4BSc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NxtCT+rZA4PzB9TJwwZpVduiK5wGxs6aPsEhetD2yfPGVFgulVxXuTwXi2pyygWQjE7nuM41waVn11SzliIorZIIabHENzRLPe0++BxhM6qqczjWnThyCOM1k6oSaQpzt0utqGtuKpzJnCVvX4fL4Clcl/ZytZ5UcZj6QejPMyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=a2EG3wDb; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790442597; c=relaxed/simple;
+	bh=STiVZUpT+s3vPJexpbqT3xv1Uo/tXIYN5dxNlOT7nDU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 In-Reply-To:References:To:Cc; b=lL4PMNKNPmEv5ivbPMRF4uMHJqbOT9z/CtF+azFr0aZyzw3mJ/f1vweRawifHvIsR2kFrH+2QYDqObidrOWBCaAAkE3LtoMgR8ndPnjzwwfaaAqWKJajYjwyfXVxD11bj+vsViof1WOE4FPkCH2Nyox899u7gK1a+gr4mblFMd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=myX6I7iG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ayQkQRaK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="a2EG3wDb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790442219; x=1790701419;
-	bh=qRKBBHzxeQEyTEnSiATT4uABiyIjz34v74Z/J4pJSPU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=a2EG3wDbE9/OUkViBeHIr0LOf1PFP7Lc5MMFLPbfIl01u6pODfVyzB9Nd6LRjCB3K
-	 xcuoKq2U0bO/JGx8fOK1rSBE/PtyJiYplHAx+ljfRfj/57RP2Tv3bD4u8dsB8YXNwE
-	 r2sTKmeWzFOPEu6LoAv4hfqSg4QJ8+GIyty94AEq4jzda60UreOPQla8DALNeJsHn1
-	 FFDqrTJk3OS7cRpaVDTaxzY0VvKc6y5QfecgHodJkHxq4hpwDKj88NTXN7nVYFWRVI
-	 bkNydKl1FbO/pnGgUjlWLUQSRyGIVcIelvR+/vdviuuFQIILeCGlEvw6XwBQCyQPNW
-	 Ln9vCnwYB4TWg==
-Date: Sat, 26 Sep 2026 17:03:35 +0000
-To: German Pablo Lindo <germanpapulindez@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
-Message-ID: <20260926170327.60895-1-lsa.uz@pm.me>
-In-Reply-To: <20260926092828.11675-1-germanpapulindez@gmail.com>
-References: <20260923211816.89954-1-lsa.uz@pm.me> <20260926092828.11675-1-germanpapulindez@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 9196d4447cd0c8e3597aa7400bc62f11c2160366
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="myX6I7iG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ayQkQRaK"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QGxQjl4013820
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:09:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LiQkd4IOjtl3nJ9t+N0G9gteEttX4XPMATGJn+gizq8=; b=myX6I7iGHzzQRlhD
+	edo/7gASVjd3xCjlDgxewAfq1uD+BtiWbarcnaSuAv2K97FBWnz2DTcUkwXjFCAE
+	CMTGM9r32mUtjv3X2q/dRNGTViEIZcaam0hw6OY/i5Xg0Md97YCNFO5MFHOmw6Kc
+	DpSLfe/FUoBonJlRP0Ug5kkLWvPbFWyhAqMy1KUwTEcmGxrc2WPwyWigxbkyPF7X
+	dO5onXUJUcwLmUxsZSGNhE6MVa2iNvRXABajkb3MPVdOM1qyzt7ENYi6YeVxmmt0
+	MTg3vnaiaULxGOo0z4uzY7h+mMhuVLGcMUIxmoPTT6j2QM7fgE8RATPmqFGv1KBS
+	litoPw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx6teh91e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:09:55 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-313d1015161so6643647eec.1
+        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 10:09:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790442595; x=1791047395; darn=vger.kernel.org;
+        h=cc:to:references:in-reply-to:content-transfer-encoding:content-type
+         :mime-version:message-id:date:subject:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LiQkd4IOjtl3nJ9t+N0G9gteEttX4XPMATGJn+gizq8=;
+        b=ayQkQRaKZ59s/WGzirnehB03wrT0oT3qAll90Osbk/uRLeG9kZjD/knAU4FT8Kz/T4
+         H0gYSqIxRAoKnGj3yx6PmAT17Nwr+meDgMGV1Mr4bwIqTiSTR91Fuh6ljA2pYjcbo8pL
+         U1uCCvsrJ6pr/t8zCzMsIp+hnCKsObnDsZ32Y0rOxCmT6JfKnvI3XHyg+9VQrAMePMxn
+         TzJeExJI/Z8tHWIm+BJAjRS91nRCRJG+pb1KzDxDxeN7kpWRCfIGBN2okeOqg5mOUt0n
+         FwYguzc4FPFP1snCNLjh+g8l1T4bUDatHvG4FhIF91Z9n3sPoGSJTIzXUxGcRzKkmAx8
+         zytw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790442595; x=1791047395;
+        h=cc:to:references:in-reply-to:content-transfer-encoding:content-type
+         :mime-version:message-id:date:subject:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LiQkd4IOjtl3nJ9t+N0G9gteEttX4XPMATGJn+gizq8=;
+        b=NA32Rjtb8xm37VAS+45Q9gUIX4ORXAZFYqphSQMh5hvoni6OU3942B2RKd8k0CbrXs
+         RZYrWQ8MwEG0G3Di4ewyXrrMj0C3dCIDFAen9Cvk3/H/1hfXmygtM6lsTenidhVYQnX1
+         BIpvmwzBLE1DSvCxMI44eN5fJEquGkGvPURKTw99aDKN9w2e6m41qLqTCtxJudnqgA1K
+         0gl+IMv6mfbljgQhIxgiBctq9nRTMbVdEZCAtaN0opwGoN9KRWTh0QzzVMAk9Rj4gRUz
+         KcwVGz3uULhVY/zEPEjFAonXNAsvT5SG0gNCKhQOJ41E6FYtn4LBPWoVKCUdnCtI2o4k
+         CBEg==
+X-Gm-Message-State: AFq9FYKLaVS//hne8rMBEvg2JIP7luJHLZ1WYOAu0+z9v+4AycXxyEAE
+	LcBuQthVjsbElWb83dqqW3LVXGtsHbdu0vqlFuEJuDM1BGkzMgdxf2oaArgjlOU+sIkqw+4LRmg
+	w4CsjaK2qPtwBZbft5BqXfnVsdR3lmybymbeP+QiTows/fPpHn3UNJSoDR9u7Z1FaUg==
+X-Gm-Gg: AYBFou3XK3T1Zhwg2V0SpehWi7eEcWkHRx/VkLRY5AWEQyg31ChwdcTTmiRfMJdma/Y
+	FKUKtOuoKR9xTKubaVigl5iMp9uTv9AqoPQbS9C2PCYSJERupOjnzItfvgUCjHhdC8eeWv4cTOL
+	xbu69wmqmOtTYQOiQNhJLeQSZ6L0JacqdFQX78h2pW1av35ryjYrW5YyocmzW9m5XWbWMk4CfKd
+	aYWKCqG81rsYWHMAVB3wg4poCoqc+kJTvY2H21QAhegrfVHjb4MC8k5tiae93XlGZn1RySD30X1
+	XS5r9pe3tTytYmKTUyuDnzWx03433EH2MYg9L4owQnAkPe987WGqsBcADNbFT6BsRFz/ktD38Qw
+	zS7DbjOggmH1uJrwMZvTTreuH4bwopQ==
+X-Received: by 2002:a05:7300:a498:b0:33e:4e63:5d80 with SMTP id 5a478bee46e88-342703c084fmr5279627eec.11.1790442594654;
+        Sat, 26 Sep 2026 10:09:54 -0700 (PDT)
+X-Received: by 2002:a05:7300:a498:b0:33e:4e63:5d80 with SMTP id 5a478bee46e88-342703c084fmr5279584eec.11.1790442593935;
+        Sat, 26 Sep 2026 10:09:53 -0700 (PDT)
+Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343539989casm7382231eec.14.2026.09.26.10.09.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 10:09:53 -0700 (PDT)
+From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] media: iris: add vbv delay support
+Date: Sat, 26 Sep 2026 22:39:40 +0530
+Message-Id: <20260926-iris_vbv_delay-v3-0-d6894f117be5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFX8t2oC/3XMQQ6CMBCF4auQri0pLVBw5T2MIaUdZBKg2mojI
+ dzdwsaFupnkn+R9C/HgEDw5JgtxENCjnWKIQ0J0r6YrUDSxCWe8ZFIwig59E9rQGBjUTEUuDO+
+ UYFXOSRzdHHT42sHzJXaP/mHdvPsh275/qZBRRmVbKFkXotWmO1nv0/tTDdqOYxoP2cTAP0rNy
+ y+FR6USxlRMloUB+KGs6/oGjhGw3vkAAAA=
+X-Change-ID: 20260730-iris_vbv_delay-343d2fa30842
+In-Reply-To: <20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com>
+References: <20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790442590; l=3542;
+ i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
+ bh=STiVZUpT+s3vPJexpbqT3xv1Uo/tXIYN5dxNlOT7nDU=;
+ b=0AcClfDZj0jyfJgRc+SmBX0NiiZDs+Ax/t3/uw1bDK7DzcrZKSAiXUTvwyyRoBubs21vUlo3X
+ uZZcJpiuX0gBvdIOrVkXIJLkGgtb7dmecALljBwA84rGqxOBg5jMO52
+X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
+ pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA2OCBTYWx0ZWRfX1AUTSdcSJp/s
+ VUmJ6Mn6CgwIL2QzehE8lsKB3M+3TfxKbN3afQMTgr2frpg2qoAU5MjDd7VaHUkWzZUpH2M+m81
+ 239+OeeXHOL0uRYHRFE1UgbDAI3iJoznXkFT8TREknqKnpS3nvvQARKqZovUy+kJ4gEMRxmQvss
+ xaXhsfT32DdJenrerT6rmqO7yIvHIjnXWDnymxLFA3nn4TQ3u0cPpKm68Zenrxh6B7N9QuW0mU/
+ NpXOZb+dOtyirPMR4igfYATtqKQsNmfQrBCg2Ca770LdybfkD1arNd/r+UIP1kWYOVTkFV1H7Ky
+ owLTLMb3KmtZ58rx7K/RBSxrykgZCMckJRdoXswVKTpRLAbFZhtj/zE3GCBH3CvFW/tUrczq1yZ
+ SWcroKUaEzykWrF2mI+4+z1JQrjyji2wjLNTn+xffhyXqR1uaEzXiwys2qEYDNHtSvOeSQYOPk7
+ /ybzoWLe6ltDWVK4ByQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA2OCBTYWx0ZWRfXy0r6AKI1Xc2w
+ k4u/mtbitzh3lWjXVVrF8p71785wkdmq+jrNEHh5yfcTPIYehUFL5TqgoKkKVvRU+PmbpuddiO1
+ wLo8OkoBXSguOnKmT66OZtgcaWECcFc=
+X-Proofpoint-ORIG-GUID: sEWrEpn80UcCG7Cnn5axNR9_Vzf0BMzY
+X-Authority-Analysis: v=2.4 cv=X9LHu2Te c=1 sm=1 tr=0 ts=6ab7fc63 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=C5IDlBnpNeGhfuk2CuwA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: sEWrEpn80UcCG7Cnn5axNR9_Vzf0BMzY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260068
 
-German,
+This series adds VBV_DELAY (V4L2_CID_MPEG_VIDEO_VBV_DELAY) support
+for Qualcomm iris encoder sessions, allowing users to configure the
+initial VBV (Video Buffer Verifier) delay for CBR-encoded streams.
+This is useful for latency-sensitive encoding use cases (e.g.
+low-latency streaming) where the client needs explicit control over
+the encoder's buffering delay.
 
-Thank you - for building v7 on 7.3-rc4 with the two-line change, for
-putting it through qcam, Firefox and Snapshot on the CPU and the GPU,
-and for the Tested-by.
+Patch 1 is a prerequisite for patch 2. The PIPE capability (control
+over the number of VPP hardware pipes used for a session) was
+previously only wired up for decoder sessions. Achieving low VBV delay
+values (34-100 ms) requires the encoder to be constrained to a single
+VPP pipe, so patch 1 enables the PIPE capability on the encoder path as
+well, which patch 2 then relies on to force single-pipe operation when
+VBV delay falls in that low-latency range.
 
-I rebuilt libcamera 0.7.2, your version, with its stock tuning, and
-checked your three points on it.
+Patch 2 adds the VBV_DELAY capability: it registers HFI_PROP_VBV_DELAY,
+wires up the V4L2_CID_MPEG_VIDEO_VBV_DELAY control for the gen2
+encoder, and only applies the property when rate control is set to CBR
+since VBV delay is only meaningful for constant-bitrate encoding.
+It adds vbv_delay support for iris HFI Gen2 based targets (qcs8300,
+sm8550, sm8650, sm8750, x1p42100). Support for HFI Gen1 targets will
+be added in a follow-up series.
 
-1. The slow start is real, and it is two things. Since v6 the driver
-   starts at the minimum exposure, four lines, as Sakari asked in review,
-   and 0.7.2's AGC climbs from there in small steps: 0.7 ms after 6 s,
-   17 ms after 13.5 s, and on the GPU the picture stays grey for about
-   the first ten seconds. And libcamera has no helper for this sensor, so
-   it takes the gain code for the gain - a code of 17 is 1.02x on this
-   sensor, not 17x. I sent libcamera a helper on 31 August, which also
-   gives it the black level; it has not been reviewed yet:
-   https://patchwork.libcamera.org/patch/28155/
+This series has been verified with GST level testing.
+Command used:
+gst-launch-1.0 -v videotestsrc ! video/x-raw,format=NV12, \
+width=1280,height=720,framerate=30/1 ! v4l2h264enc output-io-mode=4 \
+capture-io-mode=4 extra-controls="controls,video_bitrate_mode=1, \
+initial_delay_for_vbv_control=300;" ! filesink location=/opt/test_enc.h264
 
-2. The mirroring is the reverse of what you saw on v3 on the 10th, when
-   Snapshot was the odd one out, and it is the driver that changed. Up to
-   v5 it mirrored every frame in its register list; since v6 it delivers
-   the image as the lens forms it and leaves mirroring to HFLIP and
-   VFLIP. Whether a front camera's preview is shown mirrored is then up
-   to the application, and the three you tried decide differently.
+Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+---
+Changes in v3:
+- iris_set_pipe(): check fw_caps[BITRATE_MODE].value directly instead of
+  inst->hfi_rc_type, which is stale here since BITRATE_MODE is applied
+  after PIPE in platform_inst_fw_cap_type order.
+- Link to v2: https://lore.kernel.org/r/20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com
 
-3. The lines are there on 0.7.2, on both cameras, and only on the GPU
-   path: the front camera's GPU output carries blue and yellow stripes
-   about 25 pixels apart across the whole frame, the rear camera's blue
-   lines at fixed rows (311 and 791 of 1920x1080). The CPU path shows
-   none of it, on either camera, same scenes. The pattern is fixed in
-   the frame, so anything moving across it shows it. It is libcamera's
-   GPU debayer, not the drivers - its issue #351:
-   https://gitlab.freedesktop.org/camera/libcamera/-/issues/351
+Changes in v2:
+- iris_set_pipe(): use inclusive VBV_DELAY bounds (>= 34 && <= 100 ms)
+  matching the documented range.
+- iris_set_pipe(): only force single-pipe under CBR rate control so
+  a stale in-range VBV_DELAY no longer affects non-CBR streams.
+- iris_set_pipe(): read fw_caps[VBV_DELAY].value once instead of
+  twice in the same condition, and derive the default work_route from
+  the immutable fw_caps[PIPE].max instead of the self-mutated .value,
+  writing the final decision back into .value so frequency scaling
+  picks up the corrected pipe count instead of a stale one.
+- iris_set_vbv_delay(): drop the dev_err() logged for non-CBR rate
+  control; that is an expected, valid configuration, not an error.
+- Link to v1: https://lore.kernel.org/r/20260730-iris_vbv_delay-v1-0-7b5a7953bcdf@oss.qualcomm.com
 
-   The shader fix proposed in that issue removes both here. Measured on
-   0.7.2 with and without it, same scene: the stripes and the fixed rows
-   are gone and the GPU output is as clean as the CPU's; only the
-   frame's first rows stay off. It is a one-file patch against 0.7.2,
-   linked from the issue - if you can rebuild libcamera, it would be
-   good to know whether it clears the lines on your machine as well.
+---
+Sachin Kumar Garg (2):
+      media: iris: enable pipe for hfi gen2 encoder
+      media: iris: add support for vbv delay
 
-   You saw them on the CPU as well. Snapshot, and Firefox through the
-   camera portal, run libcamera inside PipeWire, which does not see
-   LIBCAMERA_SOFTISP_MODE set in a shell - could that test have run on
-   the GPU? qcam started with the variable set is certain to be the CPU.
+ drivers/media/platform/qcom/iris/iris_ctrls.c      | 52 ++++++++++++++++++++--
+ drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 19 +++++++-
+ .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
+ .../platform/qcom/iris/iris_platform_common.h      |  1 +
+ 5 files changed, 69 insertions(+), 5 deletions(-)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260730-iris_vbv_delay-343d2fa30842
 
-Sergey
+Best regards,
+-- 
+Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
 
