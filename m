@@ -1,150 +1,141 @@
-Received: from mail-pz2-f23.google.com (mail-pz2-f23.google.com [74.125.228.23])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36ED563CB
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 02:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322643002AB
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 05:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790389237; cv=none; b=GqtRGqql19ydlmEI+7pY9zaSvU1jiNR38wWPicpxV1J7C8GOQ26IK0iqTBp5uP/hOdxmn6LOMcx90sK8WBcrBn4PtsJYmpsjg0mdyx+enHWNqscZuBGjNZ2QnTh6zLqwp3jdFtmvPnQmTeOOy2zAV83QR12BsSvxB5fw/DJyxfQ=
+	t=1790401779; cv=none; b=fjOLNss9R6NbMMpG2JN/mA5MRSfaGS9XSUveXh0cuc8JWvCfRVSesMl6uGpM1Y0GSxDWRv0I/hVDS+Jn969Xt2GXQnYkuFWAcLglBOWi0bcMTkiGn2J2kgRWdpQdCPysfyN1xGSRO4klOQO3IPj4j6RZPaYZkeM5ZV4JmBp0xI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790389237; c=relaxed/simple;
-	bh=jg7+FemWVFBVpRrvIizD8nTkz/V6UqciTlpbBKfXenw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nEjr5ubcprIMqnwBRSCmQWd0iwXrZJAJ8m7wBu8eQw4mbQ/WbjG0C0A7kGVJgUbimU3BzQJSRHitJ8L72FLWzNdMQJmDAskU9xVNl4hbXFAsYNAFSG49oHqhUGTIySw5QbiSgPgY40zieGGFpSuYBjx0ghCjs6zIAjf/NC4ITQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EHuDUt/Z; arc=none smtp.client-ip=74.125.228.23
+	s=arc-20240116; t=1790401779; c=relaxed/simple;
+	bh=+hev5PH2vhYwXtrJnyBZNH9uDaSD97Y4xwd4MuE8gWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aoX/YQeHJDj+H1C2tKaC8xgi9Blg+/K2YmGdrfuuWPFT1HKuTKCGmpnTso2EwW6Am1C0xxKvfh+XK9XdSbLluulVlqMuLGrldc9SXJvTKkpR6tn7idPiBMGfOgFPmIaKLmx9bHs//RsrP3o/u9N93ZutXdOjs9S0ygn8lPpC4Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUiKK8e6; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EHuDUt/Z"
-Received: by mail-pz2-f23.google.com with SMTP id 41be03b00d2f7-cc792ffdfc7so28146a12.2
-        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 19:20:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUiKK8e6"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b43b20bso6637975ad.1
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 22:49:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790389235; x=1790994035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A35dxfOiF0vku1a8AiorVl5ekNNXinTf80Wsr1D60yQ=;
-        b=EHuDUt/ZBWEjyfij3XI/E3UAqcKeMYA+ZocKWN/eC19pbXFhhxdZeV6cVVs0upGTZy
-         jijebJbLJ3I2+CJilum1ZgEEW/ZQQdX7hdZuj8x5QN2ndU8Zzgy1jU9mIKlthqkR43M7
-         usmzLItap8UseMSD7Lp08Swss2D35sKCNU6U/1DubELH8ok2IXRs7eK20K1v7ZWhVfoO
-         oTSukA7SqvrwZLdEyeo8c5Jl5tRh+MlZsADvv0nMSw/VzJCIgj4uYwAZvsJrcRMJ4Zfr
-         BPMD0agC6Y8lts+GfAVV4lptV93Dme6bbuo5dlY0d1d2SI6D5oyEautbw3n4WFlAE7kl
-         vWHQ==
+        d=gmail.com; s=20251104; t=1790401777; x=1791006577; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bc4lPfWuVIP6LimbcOmRnoo1k4uOtFv6epL7v0d1oMA=;
+        b=VUiKK8e6tIS7foLpC6IVFDbVAmtu59V+rh1fn2c3CT116iKlO4aoAHUjw0CXW/nesA
+         07Mh1xbD/AI45EegQe0I/fHFQTGeUNXNaiW5SGp5sg+PlASwAyc8h65BDqsitiinix9Q
+         vAslAoHGy6sho0ZCyRYVwViSXYF3mKt2RJsnVvyHtyVWHIfBHKC24mHpFzTl1IDrIGV3
+         Vs1G5qYDn7sGSWSukcb6nKRAnBPX7/weFkczHyyYvigFrmH5AYVKddGAXUO+bJbVhKGK
+         OILOSqlVKQpTN33nXW9eEOCpSgv+clyuwDzdOtUDTxN6/3CtzhF/iJQ5786ljwYmhyuz
+         5E1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790389235; x=1790994035;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A35dxfOiF0vku1a8AiorVl5ekNNXinTf80Wsr1D60yQ=;
-        b=RcopLlzqVLu24sQOBLRRpWX4ABsPrbF4C1yWgDPNw27flmtnZdiGgGlS3T6PAhzyXy
-         +P7qSlhVbrkYZf99xG29Wkb11F/hPGC3TIUOaNYYw69TQ1HGdUpN6re/y7PAWd8txzu1
-         Q5Ntmwr6QnrBC6jTrO8ky16l2KM7qCHp6UhlZs87X4TsEyE7D9VmrMcIwRw+FFOPgwlM
-         /TIReTS1Qz0SRcGkdZqk+Nyo11o3x4CyjnPQKOBfnvEsq0o8KxpGBtDFhBxBmOABhUEA
-         VIy+3AtIiarINhguqZc08DRZ5Lni853J/m1mBuxe5meewX4m4apnL5J2fyrYA2KV2Poh
-         MyoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSAVBurnIYRSOLmUDmt4DoGdYjEK+kuNFlSWveChb4unHtAwhNa2L7JqXA+7NKW5QD+VmHOLToa/xHZw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mKNHLcU1kN5NSU+mjkWz7J0h/qP+uJ782SpueripeFKHgsT2/U
-	wqK3275V3Nd55iNCvraEc2+UwYK1MoujgWXGNUmM2NA7keDxgxXWki0n
-X-Gm-Gg: AYBFou2uRQb/HJ36X7z6AHY4WkpjI0xmWK5ZtnAbNsfmXZQkufN6KNNnh3H8NZV8y42
-	ru9okafNrrqRMrTqiBuZOOIs69IedZ93hE+aGiTQqtjM/EfyFt1I5bK9P2MsY9X88oIpyQLcH6k
-	Sxrm7tRYgtJ5KAcg8CtXA8pcotdW3W46JQFSIPBVo77MI1vx+TDOlpXc0gs9TXWQKfRNDUAEune
-	W/GQvSHP5W0JUycbIVHG3/LZ0lXOCuzxtADsF54D1rU8ZKpPqugMJpS2TdhktBqyHILzwZokeJw
-	ivGl1VO/9dmvy277z5EXDwYtaAVOBXbw6OQEawAlBOBtXTP2fl34N+hrkKIpgkgfNavxm01cuxj
-	E4fog5llMysy6JiwMQDrntWc9DBxGS4SfKvm4ykD0BTjg6biqPYe4PXt3BN7hHu0vMf7Zcr1o0S
-	UUHLp6ZnERwhI70CRigc1VPFdKnKKg4ptTTGJrkeYRGKuaAMWmV8Xl/8/TNqBtYFaf9rqE1mdHP
-	ecQ6CjO/NT/+g==
-X-Received: by 2002:a17:902:c94c:b0:2db:2846:ce3c with SMTP id d9443c01a7336-2df8e59a4e9mr65359735ad.1.1790389235476;
-        Fri, 25 Sep 2026 19:20:35 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbac49sm17687415ad.3.2026.09.25.19.20.32
+        d=1e100.net; s=20260707; t=1790401777; x=1791006577;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bc4lPfWuVIP6LimbcOmRnoo1k4uOtFv6epL7v0d1oMA=;
+        b=jfC37oH/+JpWfsl32kfv898T+OU5EFmloRm1/jx9rrWg73TxjTTicv8gDxvN/JPUq+
+         aZbVrUHJHAtTBIzbK0Qcb0qXx3DkK6mrgcVbqJp0MmuhUujxrEze1enEHlchFr5AbtKV
+         u6lojHQrPYSbl7k9FUW4gv38uX9sd/0mm+4R/hc/oWNTDd8q/eNtsbvSqOb5P3MqIl83
+         H58gAIIu0LzZynwZH+sisdJYvqLw+H5eDEd2LTNBuzld89oT7fK4byfXf3ZbfQapJq3I
+         xdYokoiCFLp4uvgQni/OUb6UgSYLgzQdbjwHO9Em9m/uBB4mW6Cev2p0c1Bt8MBz1TMV
+         H8Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBwuheiwrM/dxVa5lVvXU6ji23V3lti0zl3hg4KeAvlOyLYgvuoKjZbLTMyyzI9mjYEnIRBpzIm+2jvj5A==@vger.kernel.org
+X-Gm-Message-State: AFuF++njn5+AcCa57X11OdNKdm6P2Q/CEsEJlUkiqMz09IE/+spwA2sC
+	uMv6hPNM0HGffx3SH9jYrC1JFGo3Fbp2hlSNs0rhC20QS36RF+/OZQXz
+X-Gm-Gg: AYBFou12YmyW13BqBkhnTA4LJ8+OHXI84EPv2tOUAKDHSDsvxfIJCj77MBVfO/5SWtx
+	5zSvtDifEe8QQutgtZo2L77wcwKNj8gSGpi9AaWqIpc1qFQ+F+pr72opS5ofwG/lfNmGCaUpVCc
+	v7PWCH+l8NAeUrrmbJLvnHwHAcMhvvyR8spHF3OjezfdANh4+ubbiW8hEaC2CWCPR/SFV+CydCu
+	gmqiQo9krmYOPkoBqsOMpBTuOqX/oIjDXjt4T1CaSC0Q9MIfnIBe6KywaQQw4Q76UFhnAtHNbgJ
+	aVp6xUpe21I2nbtSHz7bREqCjrxi3EqpsT268H6kjoQL++TN6scdGAyDKfuesZR1WtHvjQCTBBm
+	tvKJfPd7E8n//lHOIl4LDFUSUo5s7ECdECQPvgZ2a7FGRmRJwcDD/3rPRnx54K5ncf6JY2n/W1x
+	j1V4CFKV0rlGUXyClhunFokpdruNXDCF2ZAiPPbI0uKKwmEN3DJXhlMWhKceq/EtlXnlKEVOgaJ
+	OvLYEzMTxoBvVYMoFQIzet2RmOCHgNWPXHr8s4SkTTlb9tdKEbF6m2SqM6MjwSZkLfHwZeHJ9ug
+	YIrXyMTmeToVVhcakFB4s4zDw52uuA4O8GlOdw==
+X-Received: by 2002:a17:903:19cd:b0:2dd:c100:4249 with SMTP id d9443c01a7336-2df7e13fc47mr65469735ad.45.1790401777482;
+        Fri, 25 Sep 2026 22:49:37 -0700 (PDT)
+Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df914024c4sm18622805ad.31.2026.09.25.22.49.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 19:20:34 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: dri-devel@lists.freedesktop.org,
+        Fri, 25 Sep 2026 22:49:36 -0700 (PDT)
+From: Weigang He <geoffreyhe2@gmail.com>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Bryan O'Donoghue <bod.linux@nxsw.ie>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>
-Subject: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels"
-Date: Sat, 26 Sep 2026 10:20:17 +0800
-Message-ID: <20260926022026.10539-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	linux-kernel@vger.kernel.org,
+	Weigang He <geoffreyhe2@gmail.com>
+Subject: [PATCH] media: rc: fintek-cir: process a full RX buffer instead of overflowing it
+Date: Sat, 26 Sep 2026 15:49:29 +1000
+Message-ID: <20260926054929.2686772-1-geoffreyhe2@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 143755bdabaa96776c24f878014608e9cb44f930.
+fintek_get_rx_ir_data() drains the CIR RX FIFO into fintek->buf[], which
+holds RX_BUF_LEN (32) bytes, for as long as CIR_STATUS reports pending
+RX data:
 
-That commit fixed a dangling reference in the DMABUF_DEBUG default
-and thereby enabled the option - and with it the page-stripping
-sg_table wrapper that dma_buf_map_attachment() hands to importers -
-on every kernel with DEBUG_KERNEL=y, i.e. virtually every distro
-kernel.
+	do {
+		sample = fintek_cir_reg_read(fintek, CIR_RX_DATA);
+		...
+		fintek->buf[fintek->pkts] = sample;
+		fintek->pkts++;
+		...
+	} while (status & rx_irqs);
 
-drm/msm is broken by the wrapper.  Both of msm's map paths consume
-sg->length and sg_phys() of the attachment sg_table:
-msm_iommu_pagetable_map() for the per-process GPU pagetables, and
-iommu_map_sg() (via iommu_map_sgtable()) for scanout.  The wrapper
-zeroes sg->length and strips the page pointers, so mappings of
-imported dma-bufs silently map nothing, and userspace observes
-arm-smmu translation faults from UCHE, e.g. during hardware video
-decode (clapper, chromium) on Adreno systems:
+Nothing bounds fintek->pkts. If the hardware reports data for more than
+RX_BUF_LEN reads in one interrupt, the loop writes past the end of
+buf[], starting with the pkts counter that follows it in struct
+fintek_dev.
 
-  gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
-  type=TRANSLATION source=UCHE
+Hand a full buffer to fintek_process_rx_ir_data(), which parses the
+samples and resets fintek->pkts, before storing the next sample. This
+keeps the parser state consistent and drops no samples. The loop still
+relies on the status register to terminate.
 
-Bisected on a Snapdragon X1E78100 laptop as v7.3-rc3 good,
-v7.3-rc4 bad, culprit 143755bdabaa9.
+The driver does not document the hardware FIFO depth, so it is not
+known whether a working device can trigger this.
 
-Switching msm to sg_dma_address()/sg_dma_len() is not a trivial fix
-either: those fields are only valid for sg_tables that msm has
-dma-mapped itself, which native non-MSM_BO_WC objects' sg_tables
-are not, so the conversion needs more work.  The msm maintainer has
-therefore requested restoring the previous default for v7.3, to be
-revisited once msm no longer consumes struct page and sg->length of
-imported sg_tables.
+Found by static analysis tool CodeQL.
 
-Link: https://lore.kernel.org/linux-arm-msm/20260923074256.9357-1-liujianfeng1994@gmail.com/
-Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>
-
-Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+Fixes: 9bdc79ea07d9 ("[media] fintek-cir: new driver for Fintek LPC SuperIO CIR function")
+Assisted-by: LLM codeql
+Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 ---
 
- drivers/dma-buf/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Notes:
+    Compile-tested only (ARCH=x86_64 allmodconfig, W=1). Not tested on
+    hardware, and there is no reproducer.
+    
+    The CodeQL query behind this report was synthesized with LLM assistance,
+    and the fix and changelog were drafted with LLM assistance; I have
+    reviewed them.
 
-diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-index e4f078a326a41..7efc0f0d07126 100644
---- a/drivers/dma-buf/Kconfig
-+++ b/drivers/dma-buf/Kconfig
-@@ -43,7 +43,7 @@ config UDMABUF
- config DMABUF_DEBUG
- 	bool "DMA-BUF debug checks"
- 	depends on DMA_SHARED_BUFFER
--	default y if DEBUG_KERNEL
-+	default y if DEBUG
- 	help
- 	  This option enables additional checks for DMA-BUF importers and
- 	  exporters. Specifically it validates that importers do not peek at the
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-branch: revert-dmabuf-debug-for-7.3
+ drivers/media/rc/fintek-cir.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
+diff --git a/drivers/media/rc/fintek-cir.c b/drivers/media/rc/fintek-cir.c
+index c196ee923ecd3..ce9c4eb4514e4 100644
+--- a/drivers/media/rc/fintek-cir.c
++++ b/drivers/media/rc/fintek-cir.c
+@@ -340,6 +340,10 @@ static void fintek_get_rx_ir_data(struct fintek_dev *fintek, u8 rx_irqs)
+ 		sample = fintek_cir_reg_read(fintek, CIR_RX_DATA);
+ 		fit_dbg("%s: sample: 0x%02x", __func__, sample);
+ 
++		/* Process a full buffer before storing the next sample. */
++		if (fintek->pkts >= RX_BUF_LEN)
++			fintek_process_rx_ir_data(fintek);
++
+ 		fintek->buf[fintek->pkts] = sample;
+ 		fintek->pkts++;
+ 
+
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 -- 
-2.47.3
+2.43.0
 
