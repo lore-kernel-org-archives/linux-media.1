@@ -1,290 +1,310 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E860631E85B
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93CC3876CD
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 18:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790442605; cv=none; b=pKLr2nawiW9gcLGrBia/HQWME37B5vabnqUoJeGVW9ikwo+5M4QK6f+DSsarNtYRLviWcSwxJp8bxojjSF89d5vTb1Hje00hqxINTmSbO2/3DG8oMlvHMU9xM+SJcP8xN/fmObVa2t/juszaelI6YKrw5J7wvrPIMUeD5cvFbVI=
+	t=1790447164; cv=none; b=P/WPgwmRdkJKOVRypcdPfImNua4SO+X/DaD14p0jtARXxD/6F0weWX1JHxvRAKg7z/qkwbeIVyIHMNNuX2yuCBKpegKpkiJTWV+da0ox29iQHocKvhWEyzYeDGv0bCWSKvUJn9ULGjphZKHh4WEquZgp4ZN58+pGHKLc8ZZPTpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790442605; c=relaxed/simple;
-	bh=LrdXHFJqyUNm+G2gfbAXDOKiuPKuxYq/976bs4bpRKg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IowNopM+2Ws9KlFQC826w4a1+tG0pbq6P5iiBsO9BkEVNwzjqbvMQxztWDW+UR9bw8dzFaV1W9siP+yHidnx169sKLBS0aY+XWvNGQ54qVP+G/PiWJM/XeJ/Y9wrlqhZL2iSSMmg/+BGAV1P0zu4RzkmQ/KatQ0XxXO1YA6N2HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BHSM3aRS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RARs5cQh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790447164; c=relaxed/simple;
+	bh=9A0R40e9BQpcc6Fn+BdHKjTUkwOGMNPbJez47hbp+ec=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F+gIH9pB720/eIwI/x0+WC5/TgLCPAPsEi0vx00+gPjhYhMcFj20iO70TB1/pJuxIJdkb90AYD5XXqOLPNh6OzsT2AaIgeoWusdROHo/rrdQf5LaQmaYVv8qJt59AaWBpxBD1UPJdNmLzOnVH8No+zeZ0A1Ki4bmcoKXRI5XS1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CKYx4a+v; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BHSM3aRS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RARs5cQh"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QGxPb5474659
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:10:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	I+xNBwq6y/fX9g9QKY3W4mheJRwsVjSOY7iRDZdcBco=; b=BHSM3aRSMLfMsAF6
-	a7hLa/9D0bzMRJbEZEeNRuQmNVFKOUvVAxSsBG6FRSBDJwk435X4Q7I7nsbkL009
-	2rRo5IIYChEcHzG7S5lZVOLAf0m2IykUDxoDE/CbblPAYwl848QUXV90AxwLxvbF
-	vmIzYqADU6mDTjleHFsS2sJuIkJ9ELgBJ3B2XAXX4XaLzbWPs0Yxg6yElnVgUW8/
-	E63NWSjcupXAcjBAVXs8nyKih6+84rf9qAD4r/s3Na/xX3buOuFWbe99BwxtK7W1
-	MTGaYyIBNVcLUe0+lnyciXPcldHbh1pruq5Rbi7X0g9S+fECecKDHPEKaqXrrZty
-	e4Z1Mg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx6939cad-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:10:02 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so3959784eec.1
-        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 10:10:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790442602; x=1791047402; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I+xNBwq6y/fX9g9QKY3W4mheJRwsVjSOY7iRDZdcBco=;
-        b=RARs5cQh3s7pPuhBMYkFClc6cDmij7HlfTaucdKm0aCSUJDVSIKDBW6bBR68qKcipS
-         jZjkuG1cS6BUCrI8mL0SGYKyvv/hkeZFWfWM0fmSFSQrF216z3crYqGg0E+6+nZ2RLYT
-         VKos5e/JMTl9ij76fDb8V1n0k4uPkiND19Yus/uZBbG6C4vBuDClm/6Jefm+zsroa88U
-         DueGH3nxgtr5TIodX3tyNQc8MSgQq06rdJLNLTKnsZGCiaTXUjnpGQ1lqucZttf7pgNr
-         /cg1UR/px/dC4vnGwkErVhKTTXubpW/UdpwABRj+rKPGEGEat5LzBu7/yGQp7r0xZa2f
-         yv7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790442602; x=1791047402;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I+xNBwq6y/fX9g9QKY3W4mheJRwsVjSOY7iRDZdcBco=;
-        b=PftzTX457OLCIpu7OqGqVLgLJOneV9QvfpcO/Vn6dZrN2BQ2DGEL/mvEMjdzLdUeyl
-         UAbeT7Bd4Sv5GFmO94FVEsclY0JEOnVbYeBZ1MeAPkHknR78ebNgKNmsmlyRinGcK4mJ
-         sf6IOxid0WlWULpJT4sCpVoK2X3q8dyAAGzc5BJyTJ8bGt5Ha5s7EIAVNMe/siDzEBkv
-         XtYm2I1P5c5MTq78bgFNp4nqqx7bZuwW9G0jubcWz43rzt5f4HvGcW/XaqTUdXa5+3WY
-         GUqwBz8aahCCxWeTD7qKcZUzPEZHUcAmun/ajiTZWOkafDbdFfDdOM1qGwDCf9dhBgvx
-         CLfg==
-X-Gm-Message-State: AFq9FYLwM3fLOnNs7Yd2+DErVdfjvSYY4rU+CZrNu2kBNlGLtcyQGDJ/
-	GcmoK1V8gbq7gTia2rKB18/HN3k8KgsNQ4YXNyVP/dAoklKZHZA5XkjiqY4aoXZu1ZsCMppV5ou
-	SEz5f4/3QXtg4jHjO/y50ckkmVWqvIwYniayDMhNkHUr/6Ilycorotx+TGkfcW2aTZg==
-X-Gm-Gg: AYBFou3a2rpo6+c9UghDrrGxtQixsSv0F8eeJhm6Cn3uyQ4iCNUzpMo1OfqFLsLUxqB
-	54ymyvAeSqajK7d4Vt+APsO+7qW2UsZ384RgU1mLJzbHw5qSY5odSnioMVss9mLnJmfm6rN/axw
-	pb5DfbvfKMfuhTKcfIzsPkUjITV+kgv10li9l+j5pQp8+1EHVD3oVhUnehJOH77NH30s+S5kf8/
-	pSFwC/FvHKdM+z1EbP5Hkh3PDQh5MTMtrIstOJAdNU/CATeBrF3y7koDpXqRljLpC3j66oFbUsp
-	qth9RKaFWVCTJaTzzFiHKS05N2U/VUPRmok8FNrHK//PJOBs+LWYacvd6X3jMhZAlNMDqMWKgRQ
-	4HNsBibQSK3a1RDSmwsRTt/Imw14X4A==
-X-Received: by 2002:a05:7301:618c:10b0:341:33a0:2930 with SMTP id 5a478bee46e88-34272b4861dmr3321252eec.29.1790442601733;
-        Sat, 26 Sep 2026 10:10:01 -0700 (PDT)
-X-Received: by 2002:a05:7301:618c:10b0:341:33a0:2930 with SMTP id 5a478bee46e88-34272b4861dmr3321223eec.29.1790442601011;
-        Sat, 26 Sep 2026 10:10:01 -0700 (PDT)
-Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343539989casm7382231eec.14.2026.09.26.10.09.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 10:10:00 -0700 (PDT)
-From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-Date: Sat, 26 Sep 2026 22:39:42 +0530
-Subject: [PATCH v3 2/2] media: iris: add support for vbv delay
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CKYx4a+v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790447162; x=1821983162;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=9A0R40e9BQpcc6Fn+BdHKjTUkwOGMNPbJez47hbp+ec=;
+  b=CKYx4a+vFFcKzJt5hbgaKJ39YhE9H6ltffE23HZ73qXFZfdmcxu04Um3
+   PdOIN/4uc6/90wWhiRjexa3EPOZY5AJ4QU+KP1Z3J3XiG8+gSmkctkTwN
+   D6MxvlHFk2AKX0ZAa2D/BcwOkLBe+Sy03kAeTzNpp/TBaECPbpLAMM7oi
+   IXolnhU1D/AEnEeK/DGuLEXT+UklZqB/vD9JlWHsYJ/h23p69WNjYYz5w
+   dO4e7ukyLprvXHi+OVku4+O+D4/SG+DoVJT8tbYTAjBglO8vkc+tXARkN
+   lbNCe8QKDzO0zD85qx+rO8ivrIWrENJDXcnFyg5v1VliosvblwZS+OjXo
+   Q==;
+X-CSE-ConnectionGUID: poDMEbDaTcapFR3isoVmAg==
+X-CSE-MsgGUID: 5gAuNwJJSoK5rKEf7VUK1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="116732959"
+X-IronPort-AV: E=Sophos;i="6.27,124,1787036400"; 
+   d="scan'208";a="116732959"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 11:26:01 -0700
+X-CSE-ConnectionGUID: aRPeCRn+RBeZJoyleW+NKw==
+X-CSE-MsgGUID: V9khXwLjTr6qcju6Apj61Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,124,1787036400"; 
+   d="scan'208";a="274171591"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.223])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 11:25:58 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9A05A121BA1;
+	Sat, 26 Sep 2026 21:25:59 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xAX5x-00000005R76-2m2k;
+	Sat, 26 Sep 2026 21:25:57 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	"Bajpai, Manik" <manik.bajpai@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Nicola Fiorillo <nicfio@gmail.com>
+Subject: [PATCH v4 1/1] media: ipu6: Start streaming once all streams have started, stop when not
+Date: Sat, 26 Sep 2026 21:25:57 +0300
+Message-ID: <20260926182557.1295857-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260922120538.896684-10-sakari.ailus@linux.intel.com>
+References: <20260922120538.896684-10-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-iris_vbv_delay-v3-2-d6894f117be5@oss.qualcomm.com>
-References: <20260926-iris_vbv_delay-v3-0-d6894f117be5@oss.qualcomm.com>
-In-Reply-To: <20260926-iris_vbv_delay-v3-0-d6894f117be5@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790442590; l=6261;
- i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
- bh=LrdXHFJqyUNm+G2gfbAXDOKiuPKuxYq/976bs4bpRKg=;
- b=GNaUAQSV/3OCZoGto//MLR81vvhbginZLSQ1aJj70FSWNCUVbpcpomYBAU8q9GrgIvBMHL6pU
- o2Ivp5HTiFWD0QJO+/zEX0pZ92UmN+TDnY+boWSOgUaAQ262Ti0B/gz
-X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
- pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA2OCBTYWx0ZWRfXwMa+V9AIMfUO
- +Y97I825n+LSH3dmE6tcYjKLwMM1MmyneGgzjwZucQOURufBqgsKchecjgdO08r9ccdkxO0KtRE
- 4hmJxwQYpuqp30d8ija35G6bbD8Urgo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA2OCBTYWx0ZWRfXwbgC7VUvmXPn
- +gx5or1BP7IcBtMd2APVKKqVx0OL6iR8vne6ZZiDa3Ls8gcqVBv94kK760I1j832i4C+nAsZHrs
- fwCjbMSJYDzFmo9NTBJEXwFNjd50MlZ2b1rGaKkhXuM1POkZdN3s2YeOcnxkbdadrBAmMEt4Ihb
- uTdwq4Ij4Z1+e1dgyWZV6H5YiCTDmoLKqrrKMxzZIem4m7cYva23sK6d7Y55vmAJxcVOZw8KiSP
- Bku9khAixLfvjogTSjWwy3tUtIkZvY8MCPTOGhFd5O8bPps1IYnxxvRNRK3jjGRP6D9+dmBy/qE
- +u9jcpYF0W2yISC4QUQKCOAGB+lHF+i+42js4Qb4yT0925DArpcAal3g8XfxY2WGjrHGVitAR2V
- oyglX+0Afhh/8QPKKU9b74B0rmc/jXgZCDauehaeFab0hKKlrjxhHuc6zbqG64pKof7lF12WeRn
- KpKhqF4Wjhpueyxqrkg==
-X-Proofpoint-GUID: 4L2gjkMqf3H5L997pm8EmrkDPVDAm8w7
-X-Authority-Analysis: v=2.4 cv=f6Pdl+yM c=1 sm=1 tr=0 ts=6ab7fc6a cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=LxCXOOee5f-Gq9OeXmIA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: 4L2gjkMqf3H5L997pm8EmrkDPVDAm8w7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 malwarescore=0
- clxscore=1015 bulkscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260068
+Content-Transfer-Encoding: 8bit
 
-Add the VBV_DELAY instance capability for the HFI Gen2 encoder,
-exposed to userspace via V4L2_CID_MPEG_VIDEO_VBV_DELAY and mapped to
-HFI_PROP_VBV_DELAY through a new iris_set_vbv_delay(). The property
-is only meaningful for CBR rate-control modes.
+For each virtual channel, start streaming once all buffer queues connected
+via enabled routes have been set streaming, similarly stop when the first
+queue is stopped.
 
-Low VBV delay values (34-100 ms) require the encoder to run
-with a single video pipe, so extend iris_set_pipe() to force
-work_route to 1 whenever the configured VBV_DELAY falls in that
-range.
-
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 ---
- drivers/media/platform/qcom/iris/iris_ctrls.c      | 36 +++++++++++++++++++++-
- drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
- drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 12 +++++++-
- .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
- .../platform/qcom/iris/iris_platform_common.h      |  1 +
- 5 files changed, 49 insertions(+), 2 deletions(-)
+since v3:
 
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-index 33114d80aa68..de216661a477 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-@@ -154,6 +154,8 @@ static enum platform_inst_fw_cap_type iris_get_cap_id(u32 id)
- 		return LAYER4_BITRATE_HEVC;
- 	case V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR:
- 		return LAYER5_BITRATE_HEVC;
-+	case V4L2_CID_MPEG_VIDEO_VBV_DELAY:
-+		return VBV_DELAY;
- 	default:
- 		return INST_FW_CAP_MAX;
- 	}
-@@ -297,6 +299,8 @@ static u32 iris_get_v4l2_id(enum platform_inst_fw_cap_type cap_id)
- 		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L4_BR;
- 	case LAYER5_BITRATE_HEVC:
- 		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR;
-+	case VBV_DELAY:
-+		return V4L2_CID_MPEG_VIDEO_VBV_DELAY;
- 	default:
- 		return 0;
- 	}
-@@ -541,8 +545,18 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
- int iris_set_pipe(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
- {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
--	u32 work_route = inst->fw_caps[PIPE].value;
-+	u32 work_route = inst->fw_caps[PIPE].max;
- 	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
-+	u32 vbv_delay;
-+
-+	if (inst->domain == ENCODER &&
-+	    inst->fw_caps[BITRATE_MODE].value == V4L2_MPEG_VIDEO_BITRATE_MODE_CBR) {
-+		vbv_delay = inst->fw_caps[VBV_DELAY].value;
-+		if (vbv_delay >= 34 && vbv_delay <= 100)
-+			work_route = 1;
-+	}
-+
-+	inst->fw_caps[PIPE].value = work_route;
+- Check video_pad isn't NULL in ipu6_isys_csi2_streaming_change().
+
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 112 +++++++++++++++++-
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |   1 +
+ .../media/pci/intel/ipu6/ipu6-isys-queue.c    |   7 +-
+ 3 files changed, 110 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+index f92577054d89..3c0df92bc6c7 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+@@ -12,6 +12,7 @@
+ #include <linux/io.h>
+ #include <linux/minmax.h>
+ #include <linux/sprintf.h>
++#include <linux/string_choices.h>
  
- 	return hfi_ops->session_set_property(inst, hfi_id,
- 					     HFI_HOST_FLAGS_NONE,
-@@ -1487,6 +1501,26 @@ int iris_set_layer_bitrate(struct iris_inst *inst, enum platform_inst_fw_cap_typ
- 					     &bitrate, sizeof(u32));
+ #include <media/media-entity.h>
+ #include <media/v4l2-ctrls.h>
+@@ -435,6 +436,91 @@ static int ipu7_isys_csi2_stream_enable(struct ipu6_isys_csi2 *csi2)
+ 	return 0;
  }
  
-+int iris_set_vbv_delay(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
++static int ipu6_isys_csi2_streaming_change(struct ipu6_isys_subdev *asd,
++					   struct v4l2_subdev_state *state,
++					   u32 pad, u8 *vc, bool enable)
 +{
-+	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-+	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
-+	u32 rc_type = inst->hfi_rc_type;
-+	u32 hfi_val;
++	struct v4l2_mbus_frame_desc_entry *this_entry = NULL;
++	struct v4l2_subdev_route *route, *this_route = NULL;
++	u32 streams_enabled = 0, nodes_streaming = 0;
++	struct v4l2_mbus_frame_desc desc = { 0 };
++	int ret;
 +
-+	if (rc_type != HFI_RC_CBR_VFR &&
-+	    rc_type != HFI_RC_CBR_CFR)
++	for_each_active_route(&state->routing, this_route)
++		if (pad == this_route->source_pad)
++			break;
++	if (!this_route) {
++		dev_dbg(asd->sd.dev, "no route found for pad %u\n", pad);
 +		return -EINVAL;
++	}
 +
-+	hfi_val = inst->fw_caps[cap_id].value;
++	struct media_pad *remote_pad =
++		media_pad_remote_pad_first(&asd->sd.entity.pads[this_route->sink_pad]);
++	struct v4l2_subdev *remote_sd =
++		media_entity_to_v4l2_subdev(remote_pad->entity);
++	ret = v4l2_subdev_call(remote_sd, pad, get_frame_desc,
++			       remote_pad->index, &desc);
++	if (ret)
++		return ret;
 +
-+	return hfi_ops->session_set_property(inst, hfi_id,
-+					     HFI_HOST_FLAGS_NONE,
-+					     iris_get_port_info(inst, cap_id),
-+					     HFI_PAYLOAD_U32,
-+					     &hfi_val, sizeof(u32));
++	for (unsigned int i = 0; i < desc.num_entries; i++) {
++		if (desc.entry[i].stream == this_route->sink_stream) {
++			this_entry = &desc.entry[i];
++			break;
++		}
++	}
++	if (!this_entry) {
++		dev_dbg(asd->sd.dev,
++			"no frame descriptor entry found for stream %u\n",
++			this_route->sink_stream);
++		return -EINVAL;
++	}
++
++	for_each_active_route(&state->routing, route) {
++		struct v4l2_mbus_frame_desc_entry *entry = NULL;
++
++		for (unsigned int i = 0; i < desc.num_entries; i++) {
++			if (desc.entry[i].stream == route->sink_stream) {
++				entry = &desc.entry[i];
++				break;
++			}
++		}
++
++		if (!entry) {
++			dev_dbg(asd->sd.dev, "cannot find stream %u from frame descriptor\n",
++				route->sink_stream);
++			return -EINVAL;
++		}
++
++		if (entry->bus.csi2.vc != this_entry->bus.csi2.vc)
++			continue;
++
++		struct media_pad *video_pad =
++			media_pad_remote_pad_first(&asd->sd.entity.pads[route->source_pad]);
++		if (!video_pad)
++			return -EINVAL;
++
++		struct ipu6_isys_video *av =
++			container_of_const(video_pad, struct ipu6_isys_video,
++					   pad);
++
++		streams_enabled++;
++		if (av->streaming || (enable && pad == route->source_pad))
++			nodes_streaming++;
++	}
++
++	*vc = this_entry->bus.csi2.vc;
++
++	if (streams_enabled == nodes_streaming) {
++		dev_dbg(asd->sd.dev,
++			"changing streaming state to %s on \"%s\":%u\n",
++			str_enabled_disabled(enable), asd->sd.entity.name, pad);
++		return 1;
++	}
++
++	return 0;
 +}
 +
- int iris_set_properties(struct iris_inst *inst, u32 plane)
- {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-index 3c462ec9190b..16939e31c784 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-@@ -47,6 +47,7 @@ int iris_set_layer_type(struct iris_inst *inst, enum platform_inst_fw_cap_type c
- int iris_set_layer_count_gen1(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_layer_count_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_layer_bitrate(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
-+int iris_set_vbv_delay(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_properties(struct iris_inst *inst, u32 plane);
+ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 					 struct v4l2_subdev_state *state,
+ 					 u32 pad, u64 streams_mask)
+@@ -450,6 +536,7 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 	struct ipu6_isys_buffer_list bl;
+ 	u64 sink_streams;
+ 	int ret;
++	u8 vc;
  
- #endif
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-index 45a418fde7e9..716947f256f1 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -944,7 +944,17 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
- 		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
- 			CAP_FLAG_DYNAMIC_ALLOWED,
- 		.set = iris_set_layer_bitrate,
--	}
-+	},
-+	{
-+		.cap_id = VBV_DELAY,
-+		.min = 34,
-+		.max = 300,
-+		.step_or_mask = 1,
-+		.value = 300,
-+		.hfi_id = HFI_PROP_VBV_DELAY,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+		.set = iris_set_vbv_delay,
-+	},
+ 	ret = ipu6_isys_buffer_list_get(av->stream, &bl);
+ 	if (ret < 0) {
+@@ -459,6 +546,10 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 
+ 	list_add(&av->csi2_entry, &csi2->av_head);
+ 
++	ret = ipu6_isys_csi2_streaming_change(asd, state, pad, &vc, true);
++	if (ret <= 0)
++		return ret;
++
+ 	ret = ipu6_isys_start_stream_firmware(av, &bl);
+ 	if (ret) {
+ 		dev_err(sd->dev, "start stream of firmware failed\n");
+@@ -472,16 +563,20 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
+ 						&streams_mask);
+ 
+-	ret = IS_IPU7(isp) ? ipu7_isys_csi2_stream_enable(csi2) :
+-			     ipu6_isys_csi2_stream_enable(csi2);
+-	if (ret)
+-		goto err_stop_stream_firmware;
++	if (!csi2->streaming_vc) {
++		ret = IS_IPU7(isp) ? ipu7_isys_csi2_stream_enable(csi2) :
++				     ipu6_isys_csi2_stream_enable(csi2);
++		if (ret)
++			goto err_stop_stream_firmware;
++	}
+ 
+ 	ret = v4l2_subdev_enable_streams(remote_sd, remote_pad->index,
+ 					 sink_streams);
+ 	if (ret)
+ 		goto err_stop_stream_csi2;
+ 
++	csi2->streaming_vc |= BIT(vc);
++
+ 	return 0;
+ 
+ err_stop_stream_csi2:
+@@ -514,6 +609,14 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
+ 	struct ipu6_device *isp = asd->isys->adev->isp;
+ 	struct v4l2_subdev *remote_sd;
+ 	u64 sink_streams;
++	int ret;
++	u8 vc;
++
++	ret = ipu6_isys_csi2_streaming_change(asd, state, pad, &vc, false);
++	if (ret <= 0)
++		goto out_del_csi2_entry;
++
++	csi2->streaming_vc &= ~BIT(vc);
+ 
+ 	sink_streams =
+ 		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
+@@ -533,6 +636,7 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
+ 
+ 	ipu6_isys_close_streaming_firmware(av);
+ 
++out_del_csi2_entry:
+ 	list_del(&av->csi2_entry);
+ 
+ 	return 0;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
+index 7c936154691e..a98a60e443c6 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
+@@ -49,6 +49,7 @@ struct ipu6_isys_csi2 {
+ 	unsigned int port;
+ 	u32 legacy_irq_mask;
+ 	unsigned int phy_mode;
++	u32 streaming_vc;
  };
  
- static const u32 sm8550_vdec_input_config_params_default[] = {
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-index 776b21cd11b2..19d04981cdb9 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-@@ -127,6 +127,7 @@ enum hfi_flip {
- #define HFI_PROP_BUFFER_MARK			0x0300016c
- #define HFI_PROP_WORST_COMPRESSION_RATIO	0x03000174
- #define HFI_PROP_WORST_COMPLEXITY_FACTOR	0x03000175
-+#define HFI_PROP_VBV_DELAY			0x03000176
- #define HFI_PROP_RAW_RESOLUTION		0x03000178
- #define HFI_PROP_TOTAL_PEAK_BITRATE		0x0300017C
- #define HFI_PROP_AV1_FILM_GRAIN_PRESENT	0x03000180
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index c9256f2323dc..a533740ced7c 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -183,6 +183,7 @@ enum platform_inst_fw_cap_type {
- 	LAYER3_BITRATE_HEVC,
- 	LAYER4_BITRATE_HEVC,
- 	LAYER5_BITRATE_HEVC,
-+	VBV_DELAY,
- 	INST_FW_CAP_MAX,
- };
+ struct ipu6_isys_csi2_timing {
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+index 35cfd7a10882..f70c6f926229 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+@@ -533,14 +533,10 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
+ 	ipu6_isys_configure_stream_watermark(av, source_pad->entity);
+ 	ipu6_isys_update_stream_watermark(av, true);
+ 
+-	if (stream->nr_streaming != stream->nr_queues)
+-		goto out;
+-
+ 	ret = ipu6_isys_stream_start(av);
+ 	if (ret)
+ 		goto out_stream_start;
+ 
+-out:
+ 	mutex_unlock(&stream->mutex);
+ 
+ 	return 0;
+@@ -574,8 +570,7 @@ static void stop_streaming(struct vb2_queue *q)
+ 	ipu6_isys_update_stream_watermark(av, false);
+ 
+ 	mutex_lock(&av->isys->stream_mutex);
+-	if (stream->nr_streaming == stream->nr_queues)
+-		ipu6_isys_video_set_streaming(av, 0);
++	ipu6_isys_video_set_streaming(av, 0);
+ 	list_del(&aq->node);
+ 	mutex_unlock(&av->isys->stream_mutex);
  
 
+base-commit: d27f7ea737cec914b92e1952ba47f384d2989f08
 -- 
-2.34.1
+2.47.3
 
