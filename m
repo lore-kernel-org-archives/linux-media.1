@@ -1,211 +1,160 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF632931F0;
-	Sat, 26 Sep 2026 08:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63C9286A4
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 08:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790409785; cv=none; b=kHDkH+nooVUiVOSipLaLuHZSjPcMRyIr064Qpod6JCJNBKZ8p214y/pI7QN6kBLxoKb1nO64M40xCcQZo/9g4k0VY/mASIyaTJAP4xbPIWIa8yWEm3tUS0ihiTf4Ult7kkMRdAAO50ixeZwJZQI9qOgpIRG60eFMoViBCsYgSPA=
+	t=1790412211; cv=none; b=K4oVNSxswpLsOD0k7TyoTSTwMVmU8RC5ig0yQLFFSgBEVpohsEKZgn9bt3pciArEsv/ImPXUtVp3sdLdL5ZFmHbyJA3L6XaaSKckRFekzrJUNSVU+CDLBU/A3bQOcdcR1Mipj+k0Kavzvf5dCk5a0JORtuRkF4O+KMgvOsokyPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790409785; c=relaxed/simple;
-	bh=meX05x/qb+aTrfX8PdfJ8kPS9GwY7+R4mHjgfNEduQo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jQ9GKQC8Hdup/s/dz6vSgO71eBR3QNOzEIBxFBcNsgGRDYEbK8COlWGL+A4kGu8PylR7VF7a0NEANUWrXQ3lPZ5323I0aC51qgSSa8bMGqsuobCL4O3+krLyl85f0JtEmTXiWX1mRDkcDr8a/TXuAlRYcQVrLuThLFVOc/Cf/FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lXCQQ4e6; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790412211; c=relaxed/simple;
+	bh=FXZ/O9NxkMPrU9h+reZfFy89Tqxxb60b+xqI2ZJbDKw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pxqv93glthR8Z/UqG4PtP/EveRGjTFURQHjy8f3N81EH2NLiDDAgZtVmjGAdYlb9kpgak3K4inzsKS/FnSTCOwKKc8VTmX7meqqO+TLqifjqkj1eUqSUtvIkAOfA1xthgcMBHPfa8TfAJ5dGqCkm+LxihjG2lnDjNDg5tNHwmDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sLt5gyoP; arc=none smtp.client-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lXCQQ4e6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790409772; x=1790668972;
-	bh=y3QtTJM5zi6YAYgx277/9ll1wtOMyFdmMR3MXGN0KcA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=lXCQQ4e6cC1QFio+E23dIfyBIgtWC2/NhT2mmsafgIuxNqgWW0fIcucV+R/lAQBz7
-	 XzgqqRSpKCF5WPezO3U4mOsAxSMobi2bNRuV9lAxmzZniLTDCWZ80eFSxjWRmY3Z2W
-	 5twDfL5xPxXx1FJxQ1hwRZ/Q8V8LbUAF+RJoSaSzuOx3gH8gRQfixXbyXXqrFVWtEz
-	 /+Usf1rh8e1YxZnBLBKmB3PXCWU9EJw83vUFlIGB3FGiqT8J8i1r4jW+Lqq4o90gtA
-	 PNuQFFP47YE3E0XkA+MvzBIeyLP2yMVVCJWNx5b+BK/OTo7+BCanPfZvyDv2zPY1WX
-	 ZwdeDnHsVJVWA==
-Date: Sat, 26 Sep 2026 08:02:48 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: i2c: ov13858: add horizontal and vertical flip controls
-Message-ID: <20260926080242.93628-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: b1c0ea2ed939e8f532f28fd12e143d7e0664dc13
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sLt5gyoP"
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-32ee2d032f8so487228eec.1
+        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 01:43:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790412209; x=1791017009; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yjxGTnd2mKbbrlmpZXTSuvBmHY+YigrHR6jMxFwo5ms=;
+        b=sLt5gyoPv7Iwgw7Qc2IIUh+/AXu33GpkrRb6iVoodfs3zlX+1RWj9u72g8RThtvsTN
+         XXVSiCcIg7N7UizidnD0qBDn4ZNJ8XSPFYubSu0cHFW9RmmhpjsuB0h9bWzctovxgMG9
+         39hCjTMeq0BpluKkPrKl3Xis5GS/+L56aZjtX7wUQL1R/jA0TvFG4X3lfEdg6OrYq+dO
+         qOmRXIImykzPDI2AhGWIQbPWWvwyCUKcnBXCMNgqyoVdhbXMR1zNfrZ9C7MYUshwCyyW
+         13jAcENpYxLPMzvl6RaKjIe1e//kvOQjJ2Tv3hX1SMmmFNW3RxlpDRKpaEVGrPTnJCtT
+         J9zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790412209; x=1791017009;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yjxGTnd2mKbbrlmpZXTSuvBmHY+YigrHR6jMxFwo5ms=;
+        b=GCTBgeeZ09Edi49yUiQRGnrITak5Q4RLTqQOvvep7HVoa8AW5ATYER6z3XdFMl1KHs
+         hNDyB0FjVF78j+aUK5nsfcPBL3MQESdmTVlOzBo4kvcnI8bBZXTknL9YOlz2hic7R80Q
+         8Ct49kAVYyVqr9ZZ/lvsk8w/dRnAEamnhoWL0eYRN+f7xGEcGdKl2DTeElN0Jd7A41Y+
+         FdUmGNT6qEbLxVEtl66RupaJFVzmIMmJ96HRfNvnEpZQFpsWbtxnR/ciWB8xeMLigylo
+         BlZUxR9eZEuz7rkJJdw63pyQS2ju6R0KRK0OuMeA9JL4PTTclT55mw3PChfnbOzDSf6T
+         LHgQ==
+X-Gm-Message-State: AFuF++mUVO6vefwvEUsXgq0mgEnzfqmueoVxltQHdgfJsyeVCbsDjWxK
+	1/kbP5CsPTS5WvC8iB81N8AFzAvLGAJFfRSfa0Q+FVmUPtjnDK/edRcE
+X-Gm-Gg: AYBFou2v20UD9esfain6/qG0kcSqzTXOFUU+mGTAoYnjPXSWTxYFAIr6po9EehwhJv4
+	IkDg8/RIuhg8NDRLfW3ljZea8bc1G6QF/Zim+35gLI+gbreHUkuD3Fh8UvwinOcPV0GcdUWus56
+	kFInsmX5gq3krca4hmx0k4PNPQnZESmvLBaiVSeSXD64+h+/rtaOq5o1DPZdlxfU1Th/YtxPXAH
+	IxEuHB42jbGS3exOIyOillcVQChs9DOdWriK0XwHXmUr4hS/Cp603AKVubYMZQ3VHfcGZXrHcdj
+	PVhW7XiHjW9t/en6MREItlqtcqmHyMUrxs1fSyFw+Qcpf2rGeuXc617WG5tNQl+2uHKhiAt9+Ai
+	y4E+5z8cfZLIFvj6mRP/qzgYJumJBpqNx+C/DpfTzD1ubHblbsFEzug9MPAncznhI3xxK8TAPmE
+	DZ/PkTZXOdihztqb7951c8hoP+SILIzI/vFUnpwN2lz9vAiyVchaKrF3ybd3S82c8T0nIWSV00A
+	AiOGIP8OvXI65xFl7oZuxqPFtYQJUNoBrFsnEnKao24zqAeRUj8IGQ=
+X-Received: by 2002:a05:7301:f10:b0:33b:c69b:7074 with SMTP id 5a478bee46e88-342700be120mr2225602eec.4.1790412208861;
+        Sat, 26 Sep 2026 01:43:28 -0700 (PDT)
+Received: from Raccoon ([157.51.160.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm8463086eec.10.2026.09.26.01.43.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 01:43:28 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
+Subject: [PATCH v2] media: vivid: check for NULL dev in vivid_probe() control setup
+Date: Sat, 26 Sep 2026 14:13:18 +0530
+Message-ID: <20260926084318.12161-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260922125434.19361-1-rokinthanp03@gmail.com>
+References: <20260922125434.19361-1-rokinthanp03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The driver programs OV13858_REG_FORMAT1 (0x3820) from its mode tables and
-never exposes the readout direction, so a module mounted rotated cannot be
-corrected.
+In vivid_probe(), after creating instances, the driver iterates
+through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
+'Connected To' controls. However, it dereferences dev->has_vid_out
+without verifying that dev is non-NULL.
 
-The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor upside
-down, and ipu-bridge now says so - commit b238116ccd4b ("media: ipu-bridge:
-Add upside-down quirk for Surface Pro 11"). libcamera reads that rotation
-and tries to compensate with sensor flips, finds neither control, and falls
-back to Rot0, so with the quirk alone the picture stays upside down in any
-application that does not rotate it itself.
+If an instance fails during creation, vivid_devs[i] remains NULL,
+causing a general protection fault:
 
-In 0x3820, BIT(4) set flips vertically and BIT(3) cleared mirrors - the
-mirror is active low, which is ordinary for the family. There is no public
-datasheet, so the bits were found by experiment: every bit of 0x3820
-through 0x3823 written singly mid-stream, and exactly two move the image.
-Two existing drivers agree. Intel's out-of-tree ov13858 declares 0x3820 as
-a bitfield with "hflip: 0 enable, 1 disable" at BIT(3) and "vflip: 0
-disable, 1 enable" at BIT(4), and writes !ctrl->val for the mirror;
-ov13b10 clears BIT(3) and sets BIT(4) of the same register in tree.
+    Oops: general protection fault
+    KASAN: probably user-memory-access in range
+    [0x0000000000005f38-0x0000000000005f3f]
+    RIP: 0010:vivid_probe+0x579/0x10d0
 
-Both controls were checked by eye, one static scene in all four states:
-unflipped the image is upside down, vflip alone stands it up, hflip alone
-mirrors it, and the two together give the view this machine needs. The
-Bayer order at the output is the same in all four, so unlike imx219 and
-imx258, whose flips select a different media bus code, these controls do
-not need V4L2_CTRL_FLAG_MODIFY_LAYOUT.
+Add NULL pointer checks in both loops in vivid_probe() before accessing
+vivid_devs[i].
 
-Every mode table already sets the mirror bit, so the defaults write back
-what the mode list just wrote. __v4l2_ctrl_handler_setup() runs after that
-list and before MODE_SELECT, so the read-modify-write here sees the value
-the mode just programmed.
-
-The two are clustered, so a combined S_EXT_CTRLS costs one register
-read-modify-write rather than two, and grabbed while streaming: nothing
-here documents a mid-stream flip as safe, and imx290 and imx219 grab
-theirs because on those parts it is not.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
+Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
 ---
-v3, commit message only:
+Changes in v2:
+- Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
+  remains supported as required by the test-media test suite.
+- Update author name to "Rohinthan P".
 
- - Cites b238116ccd4b in the "commit <sha> (...)" form checkpatch asks
-   for; the Media CI flagged v2 for it.
- - v2 said the quirk on its own "names a rotation nothing can undo".
-   Snapshot and Firefox do undo it - they rotate the picture themselves -
-   and qcam, which does not, shows it upside down. The sentence now says
-   that.
- - Tested-by from German Pablo Lindo, on a second Surface Pro 11: qcam
-   upright with this patch, Snapshot and Firefox unchanged.
+ drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-The code is v2's, byte for byte. Sakari's set_selection() point is
-answered in v2's notes, and nothing here changes it.
-
-v2: https://lore.kernel.org/all/20260921124444.79396-1-lsa.uz@pm.me/
-v1: https://lore.kernel.org/all/20260921082609.30830-1-lsa.uz@pm.me/
-
- drivers/media/i2c/ov13858.c | 52 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
-
-diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-index de2b79a9a0e..d870d2edb4f 100644
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -76,6 +76,14 @@
- #define OV13858_DGTL_GAIN_DEFAULT=091024=09/* Default gain =3D 1 X */
- #define OV13858_DGTL_GAIN_STEP=09=091=09/* Each step =3D 1/1024 */
-=20
-+/*
-+ * Readout direction. The mirror bit is active low, and the value every mo=
-de
-+ * table programs already has it set.
-+ */
-+#define OV13858_REG_FORMAT1=09=090x3820
-+#define OV13858_FORMAT1_VFLIP=09=09BIT(4)
-+#define OV13858_FORMAT1_HFLIP_N=09=09BIT(3)
+diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+index 62cfb5f..1860ad6 100644
+--- a/drivers/media/test-drivers/vivid/vivid-core.c
++++ b/drivers/media/test-drivers/vivid/vivid-core.c
+@@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
+ 	for (int i = 0; i < n_devs; i++) {
+ 		struct vivid_dev *dev = vivid_devs[i];
+ 
++		if (!dev)
++			continue;
+ 		if (!dev->has_vid_out)
+ 			continue;
+ 		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
+ 			if (dev->output_type[j] == HDMI) {
+-				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
++				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
+ 				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
+ 			}
+ 		}
+ 		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
+ 			if (dev->output_type[j] == SVID) {
+-				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
++				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
+ 				vivid_ctrl_svid_to_output_index[svid_count++] = j;
+ 			}
+ 		}
+@@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
+ 	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
+ 	svid_count = min(svid_count, MAX_MENU_ITEMS);
+ 	for (int i = 0; i < n_devs; i++) {
+-		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
+-			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
++		struct vivid_dev *dev = vivid_devs[i];
 +
- /* Test Pattern Control */
- #define OV13858_REG_TEST_PATTERN=090x4503
- #define OV13858_TEST_PATTERN_ENABLE=09BIT(7)
-@@ -1042,6 +1050,8 @@ struct ov13858 {
- =09struct v4l2_ctrl *vblank;
- =09struct v4l2_ctrl *hblank;
- =09struct v4l2_ctrl *exposure;
-+=09struct v4l2_ctrl *hflip;
-+=09struct v4l2_ctrl *vflip;
-=20
- =09/* Current mode */
- =09const struct ov13858_mode *cur_mode;
-@@ -1208,6 +1218,31 @@ static int ov13858_enable_test_pattern(struct ov1385=
-8 *ov13858, u32 pattern)
- =09=09=09=09 OV13858_REG_VALUE_08BIT, val);
- }
-=20
-+static int ov13858_update_flips(struct ov13858 *ov13858)
-+{
-+=09u32 val;
-+=09int ret;
-+
-+=09ret =3D ov13858_read_reg(ov13858, OV13858_REG_FORMAT1,
-+=09=09=09       OV13858_REG_VALUE_08BIT, &val);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09if (ov13858->vflip->val)
-+=09=09val |=3D OV13858_FORMAT1_VFLIP;
-+=09else
-+=09=09val &=3D ~OV13858_FORMAT1_VFLIP;
-+
-+=09/* The mirror bit is active low, as it is on ov13b10. */
-+=09if (ov13858->hflip->val)
-+=09=09val &=3D ~OV13858_FORMAT1_HFLIP_N;
-+=09else
-+=09=09val |=3D OV13858_FORMAT1_HFLIP_N;
-+
-+=09return ov13858_write_reg(ov13858, OV13858_REG_FORMAT1,
-+=09=09=09=09 OV13858_REG_VALUE_08BIT, val);
-+}
-+
- static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- =09struct ov13858 *ov13858 =3D container_of(ctrl->handler,
-@@ -1254,6 +1289,10 @@ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
- =09=09=09=09=09ov13858->cur_mode->height
- =09=09=09=09=09  + ctrl->val);
- =09=09break;
-+=09case V4L2_CID_HFLIP:
-+=09case V4L2_CID_VFLIP:
-+=09=09ret =3D ov13858_update_flips(ov13858);
-+=09=09break;
- =09case V4L2_CID_TEST_PATTERN:
- =09=09ret =3D ov13858_enable_test_pattern(ov13858, ctrl->val);
- =09=09break;
-@@ -1481,6 +1520,13 @@ static int ov13858_set_stream(struct v4l2_subdev *sd=
-, int enable)
- =09=09pm_runtime_put(ov13858->dev);
- =09}
-=20
-+=09/*
-+=09 * Do not let the flips change while streaming. ov13858->mutex is the
-+=09 * control handler's own lock and is held here, hence the __ form.
-+=09 */
-+=09__v4l2_ctrl_grab(ov13858->hflip, enable);
-+=09__v4l2_ctrl_grab(ov13858->vflip, enable);
-+
- =09mutex_unlock(&ov13858->mutex);
-=20
- =09return ret;
-@@ -1619,6 +1665,12 @@ static int ov13858_init_controls(struct ov13858 *ov1=
-3858)
- =09=09=09  OV13858_DGTL_GAIN_MIN, OV13858_DGTL_GAIN_MAX,
- =09=09=09  OV13858_DGTL_GAIN_STEP, OV13858_DGTL_GAIN_DEFAULT);
-=20
-+=09ov13858->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-+=09=09=09=09=09   V4L2_CID_HFLIP, 0, 1, 1, 0);
-+=09ov13858->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-+=09=09=09=09=09   V4L2_CID_VFLIP, 0, 1, 1, 0);
-+=09v4l2_ctrl_cluster(2, &ov13858->hflip);
-+
- =09v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov13858_ctrl_ops,
- =09=09=09=09     V4L2_CID_TEST_PATTERN,
- =09=09=09=09     ARRAY_SIZE(ov13858_test_pattern_menu) - 1,
---=20
-2.54.0 (Apple Git-157)
-
++		if (!dev)
++			continue;
++		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
++			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
+ 
+ 			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
+ 		}
+-		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
+-			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
++		for (int j = 0; j < dev->num_svid_inputs; j++) {
++			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
+ 
+ 			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
+ 		}
+-- 
+2.53.0
 
