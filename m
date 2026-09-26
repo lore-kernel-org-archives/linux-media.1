@@ -1,149 +1,185 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203D43EB810;
-	Fri, 25 Sep 2026 21:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A3C2AEE1
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 00:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373043; cv=none; b=VTL9/StyOlHLXCiYugKdCRqQ+JZh928dHsdaUNvQH1k9UZD47pcsSsi+TYCVfsSL7iQ7Yuj2Wu9BxKyoXtTv+afTpIx+rL2h3oz4eFw7wSDKvFeV6A751KJWLEpBmUCUu78478Bc4RWn6cRIYZFkmZC/siKnH5EyxL1xY+duNV0=
+	t=1790381344; cv=none; b=OjgREAC8gkyE2rg79jSisyG4HkT8CxeYQ2+YkZ/k6AiO+vV9UQS1gzBIe9PQ/tpcTCdO1LhpNy0kyRzZO3997Lv+dLSgzun7TXnb7ro7VqXwMBqc5SPz2HXAFwDgcjNyCfsCeuc+mfkVUvLwoP59dgHNIKewxXOlFJ7fHQypOE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373043; c=relaxed/simple;
-	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z/TlVe/fWeMwd2QbSwhZy4WHdS8mhNA/jWTIpZe6GovxVC8hvo2osJPr/VzIAmIKbVSi3adDtKIeGRBxh3ARnrivKorUwWNDQV6us5or6XkC6YLYHIhUgJ318TwTB3Jiljj8OqXRbtV3Ft/aYSOLsOBIJvOOHS7jxTEwWyVODO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JJL1E4UH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790381344; c=relaxed/simple;
+	bh=pImOuPqMckVKMPaILETUz1VCf8WYMf3u8DsEjE8GF4g=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=YMRWC4Rr6PrSzUas15YF0IfgCue/jWD42757M07gfftYVkfwCinCQa+KoRKPdGlHRCsKF8Eoa8SJMb9qJR+8zgKnMfZCFI7h78a0aXeFl6zr78DKFh/AjbbcxB23KNjsUejTxHl41W3Aez0HeTnYquSSpRmFUf58qoEjFbNSgeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MDWyLC7/; arc=none smtp.client-ip=74.125.229.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JJL1E4UH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6031EBE;
-	Fri, 25 Sep 2026 23:48:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790372930;
-	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JJL1E4UHXlyRcybG3UO9G/5N58HHVUFRGd+D8wJnyk5XQjdPVFRnWfdE1NfuOlOF8
-	 AFJirjZCk5kOPEqBq7OYhMoVLUsfE5ePZB8h4434kchxzR/2RS42WUaKr2454NO5Dr
-	 vJLkLeTKnkFBpWPnAshh3SF0SQHAQ/l+BiFubdxE=
-Message-ID: <4bedfdf97c0bdcf3ad00020eee7a1eb1@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guo Zihao <guozh23@xiaopeng.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Liu Weibin <liuwb@xiaopeng.com>
-Subject: Re: [PATCH v2] media: i2c: thp7312: bound the focus lookup against
- the table size
-Date: Sat, 26 Sep 2026 00:50:24 +0300
-In-Reply-To: <20260922075246.1319707-1-guozh23@xiaopeng.com>
-References:  <20260922075246.1319707-1-guozh23@xiaopeng.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MDWyLC7/"
+Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so1011872c88.2
+        for <linux-media@vger.kernel.org>; Fri, 25 Sep 2026 17:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790381341; x=1790986141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kEyD+JH+7OnLIHOwxBPzzmfEJuyMZruDiusO3LIwY4Q=;
+        b=MDWyLC7/pChlP8ujc/W/T6a50sFIP/8xF3+BxCilbEWrTOLAz9IFs/XnX02v3sjukF
+         SCpZFcH+G5IKp08A84I6MpOcSeEBeeh3J5sENIobZWlQLKRRyouiOBrlEj2rLGgoNRLg
+         tLltAevpt4QhbrNh/gdMUvDCj8T50Afw5lkGxD8tSlGSPayue4WAIzRP7CaGX34AiF86
+         c+5xMv0h9kup+jTUtGooNqgZ3DBrU6gvbph/WamRu2OlJYHmrKJMzBhq19maRcBq50xw
+         6UQ2VqAj6ikzeRtHZAOZBfhg1k4/gbXdwcnTmGP0j94k1jciZyoVMrQCJnSRBqIIbjFl
+         GZFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790381341; x=1790986141;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kEyD+JH+7OnLIHOwxBPzzmfEJuyMZruDiusO3LIwY4Q=;
+        b=LJufofYLIxUPPd/h4sISp8lU+FM3J2UOK3Ch4oLVPuQlkOyo9oS8ysMfzewokMwIbY
+         ZLA1D940cz0UVG1ZoCr9SafOqDA1Z4zprTkxJvIX0OtQmJ1Vvd5Spkg9h8MvuVRiqRrR
+         6lAklP5pdsAAucQ+rATyYM+5v9PJgtdYfPcFZiQ3HrGNyhuzPOAHQ7nGmFkPJk8/zurs
+         N68ht3vVSXocGd1V0Rfw0LZrDE0xLNlMlPXf6hMAbulXm9oP7pRJZh/K2G6+kBhhVAqJ
+         4QiM5f5CIq08S38Eir/yg4uytk5rdVxPP4aP35jii5I2Rr70rTWnqS4dlrEZxBCIfJ01
+         YSHA==
+X-Gm-Message-State: AFuF++kIVN33Gfq5SorBtRnbgSyZEcmAx1jXFoDWpAt+6DN1S+QdhRHQ
+	FjKrJ21042Pjj06xlfIAHsmuk28U9mc2Eq+iAovojByWVnoLzbKomMRtT+QZX1vN
+X-Gm-Gg: AYBFou0mY6EyWCm0VbRWVlvLNnsuS4rIqklT5k3da+blE2jU80pH9EOr8zNGbeo+IUz
+	X8B0BdWeEiiiBQNnPhhC4BVSYH0K+xTT7a+pSSLE9Co0lfvK3k9Dt//hO9XYfs2d5kFsKa3Dd43
+	ckGIXSoT5ibwI4kxWV7CHSlsXqwhBcwtEQ3/54EpJPpfijkLGJ6nmSO0TVGKFzfSWUxtuLuKd6T
+	g3KvkXx8UVZCrWcpWj/F+7tSKJvXecsiCdJkxgSuuxbZYxjBznTPFHP+fnaoVFJBGlWGnKglrug
+	9hzXAb7IVSkGNwjC+DzuXdO5O46KuXXG3KHvzzJJNaG5gotCLVtdPHsmacMHvV5vRtStnZ7ta76
+	JF/VB5oVUTZ44rgEwexssY8RRIiltvwTsyVVAhlNCe8B9AvqFZEbbo7/A5miUws3dDsIAdB//XY
+	qlOoOlBuZkpiD/1BgeY3o/oqjeO0gSuiDOtaGBvO1nZnP7JupRxmG6gr5oPkeB/VYxTW4fkNEF9
+	vHLIrpr05K0rGHM39ZmMhWPQlTQJpWmNRvUhtrh6J73ir3v7J07Y2Lof+sXJLAUSyFZ2gQbGdAI
+	JTgK+9r51VpsT+KNAJ7n/fLadP3YYyC2O/ND
+X-Received: by 2002:a05:701b:4305:b0:144:c12d:c6a3 with SMTP id a92af1059eb24-146d0c5087cmr1404884c88.45.1790381341436;
+        Fri, 25 Sep 2026 17:09:01 -0700 (PDT)
+Received: from [10.156.142.234] ([23.144.160.253])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm8112055c88.15.2026.09.25.17.09.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 17:09:00 -0700 (PDT)
+Message-ID: <40385855-cb42-43b4-bee4-ca8cccbb279b@gmail.com>
+Date: Fri, 25 Sep 2026 17:08:59 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Kanav Gupta <email.kanavg@gmail.com>
+From: Kanav Gupta <email.kanavg@gmail.com>
+Subject: [PATCH] media: gspca: Fix crash in sonixj driver
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Fix a race condition in the sonixj driver where if the last byte of the
+previous packet was 0xff, but the new packet doesn't start with 0xff00 or
+0xffff, it would subtract -1 from length (effectively +1) and add -1 to
+data (effectively -1) which caused it to read one byte early in
+gspca_frame_add which led to a crash when running memcpy.
 
-This is an automated reply.
+Kernel logs of the crash:
 
-You have sent a patch that appears to have been generated by an LLM. The
-commit message and/or code show little to no real understanding of the
-changes being proposed.
+[  344.258380] #PF: supervisor read access in kernel mode
+[  344.258388] #PF: error_code(0x0000) - not-present page
+[  344.258395] PGD 100000067 P4D 100000067 PUD 1002dd067 PMD 10f21a067 PTE 0
+[  344.258413] Oops: Oops: 0000 [#1] SMP NOPTI
+[  344.258425] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.4-arch1-2 #1 PREEMPT(full)  ceab5b7eb60a89a58d616500ee9fef4aad8789ba
+[  344.258440] Hardware name: Dell Inc. Inspiron 16 5625/08HCFW, BIOS 1.23.0 04/22/2025
+[  344.258448] RIP: 0010:memcpy+0xc/0x30
+[  344.258464] Code: 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 48 89 f8 48 89 d1 <f3> a4 e9 98 2d b7 fe 66 90 66 66 2e 0f 1f 84 00 00 00 00 00 90 90
+[  344.258472] RSP: 0018:ffffcde8c0003e08 EFLAGS: 00010286
+[  344.258481] RAX: ffffcde8cb7163e1 RBX: ffff8bf8128bf000 RCX: 0000000000000385
+[  344.258487] RDX: 0000000000000385 RSI: ffffcde8cb78ffff RDI: ffffcde8cb7163e1
+[  344.258492] RBP: ffff8bf82122f000 R08: ffffcde8cb78ffff R09: 0000000000000385
+[  344.258497] R10: ffff8bf8128bf000 R11: fefefefefefefeff R12: ffff8bf8128bf000
+[  344.258503] R13: 0000000000000002 R14: 0000000000000385 R15: ffffcde8cb78ffff
+[  344.258509] FS:  0000000000000000(0000) GS:ffff8bfb7492d000(0000) knlGS:0000000000000000
+[  344.258515] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  344.258521] CR2: ffffcde8cb78ffff CR3: 0000000105e22000 CR4: 0000000000f50ef0
+[  344.258527] PKRU: 55555554
+[  344.258532] Call Trace:
+[  344.258538]  <IRQ>
+[  344.258544]  gspca_frame_add+0xd0/0x290 [gspca_main 5a055b32c806e417235e8d5e2742e9a578ee2b8a]
+[  344.258559]  ? __queue_work+0x16c/0x570
+[  344.258573]  ? __pfx_sd_pkt_scan+0x10/0x10 [gspca_sonixj 9778522355db5c2cbeafad6bd503d60db422b3ff]
+[  344.258586]  isoc_irq+0xd2/0x170 [gspca_main 5a055b32c806e417235e8d5e2742e9a578ee2b8a]
+[  344.258600]  __usb_hcd_giveback_urb+0xa0/0x120
+[  344.258613]  usb_giveback_urb_bh+0xc0/0x140
+[  344.258625]  process_one_work+0x19f/0x370
+[  344.258636]  bh_worker+0x1d2/0x1f0
+[  344.258644]  ? sched_clock_cpu+0xf/0x1f0
+[  344.258655]  tasklet_hi_action+0x13/0x30
+[  344.258664]  handle_softirqs+0xe8/0x2a0
+[  344.258675]  __irq_exit_rcu+0xb0/0x100
+[  344.258680]  common_interrupt+0x85/0xa0
+[  344.258687]  </IRQ>
+[  344.258690]  <TASK>
+[  344.258693]  asm_common_interrupt+0x26/0x40
+[  344.258699] RIP: 0010:cpuidle_enter_state+0xbb/0x400
+[  344.258704] Code: 00 00 e8 68 b3 e8 fe e8 23 ee ff ff 48 89 c5 0f 1f 44 00 00 31 ff e8 54 3e e6 fe 45 84 ff 0f 85 48 01 00 00 fb 0f 1f 44 00 00 <45> 85 f6 0f 88 9f 01 00 00 44 89 f1 48 2b 2c 24 48 6b d1 68 48 89
+[  344.258708] RSP: 0018:ffffffff89003e18 EFLAGS: 00000246
+[  344.258712] RAX: ffff8bfb7492d000 RBX: 0000000000000003 RCX: 0000000000000000
+[  344.258716] RDX: 0000005027642b7f RSI: fffffffb85bb9d7d RDI: 0000000000000000
+[  344.258719] RBP: 0000005027642b7f R08: ffffffff89219480 R09: 000000000000000f
+[  344.258722] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8bf801221c00
+[  344.258725] R13: ffffffff89219480 R14: 0000000000000003 R15: 0000000000000000
+[  344.258733]  ? cpuidle_enter_state+0xac/0x400
+[  344.258740]  cpuidle_enter+0x31/0x50
+[  344.258748]  do_idle+0x1cc/0x2e0
+[  344.258757]  cpu_startup_entry+0x29/0x30
+[  344.258762]  rest_init+0xcc/0xd0
+[  344.258768]  start_kernel+0xa56/0xa70
+[  344.258778]  x86_64_start_reservations+0x24/0x30
+[  344.258786]  x86_64_start_kernel+0xda/0xe0
+[  344.258792]  common_startup_64+0x13e/0x151
+[  344.258805]  </TASK>
 
-Such patches require a large amount of work to review. They rely on the
-maintainer to propose - and often even implement - a proper design. The
-probability that the author will learn from the experience to improve
-their future contributions is close to zero.
+Sorry if it isn't perfect, this is my first 
 
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your patch has been rejected.
+Signed-off-by: Kanav Gupta <email.kanavg@gmail.com>
+---
+ drivers/media/usb/gspca/sonixj.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of the patch by
-feeding this reply to an LLM will only result in your e-mails being
-ignored.
+diff --git a/drivers/media/usb/gspca/sonixj.c b/drivers/media/usb/gspca/sonixj.c
+index 2e1bd2df8..03f40575a 100644
+--- a/drivers/media/usb/gspca/sonixj.c
++++ b/drivers/media/usb/gspca/sonixj.c
+@@ -2695,18 +2695,19 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
+ 	i = sd->short_mark;
+ 	if (i != 0) {
+ 		sd->short_mark = 0;
+-		if (i < 0	/* if 'ff' at end of previous packet */
+-		 && data[0] == 0xff
+-		 && data[1] == 0x00)
+-			goto marker_found;
+ 		if (data[0] == 0xff && data[1] == 0xff) {
+ 			i = 0;
+ 			goto marker_found;
+ 		}
+-		len -= i;
+-		if (len <= 0)
+-			return;
+-		data += i;
++		if (i < 0) {	/* if 'ff' at end of previous packet */
++			if (data[0] == 0xff && data[1] == 0x00)
++				goto marker_found;
++		} else {
++			len -= i;
++			if (len <= 0)
++				return;
++			data += i;
++		}
+ 	}
+ 
+ 	/* search backwards if there is a marker in the packet */
+-- 
+2.47.3
 
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
-
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
-
-Thank you,
-
-Laurent's mail bot
-
-On Tue, 22 Sep 2026 15:52:46 +0800, Guo Zihao <guozh23@xiaopeng.com> wrote:
-> thp7312_set_focus() indexes thp7312_focus_values[] with the value of the
-> V4L2_CID_FOCUS_ABSOLUTE control:
->=20
->         if (thp7312->focus_absolute->is_new) {
->                 unsigned int value;
->=20
->                 value =3D thp7312_focus_values[thp7312->focus_absolute->val=
-];
->=20
-> The control is registered with the table size as its maximum:
->=20
->         v4l2_ctrl_new_std(hdl, &thp7312_ctrl_ops,
->                           V4L2_CID_FOCUS_ABSOLUTE,
->                           0, ARRAY_SIZE(thp7312_focus_values),
->                           1, 0);
->=20
-> The table has 19 entries, so the valid indices are 0 to 18, but the
-> maximum passed to the control is 19. The control framework does not
-> reject the bound itself for an integer control: std_validate_elem() only
-> rounds the value into [minimum, maximum] through ROUND_TO_RANGE() and
-> returns 0, whereas a menu control returns -ERANGE for a value outside the
-> range. So a value of 19 is accepted and the lookup reads one entry past
-> the end of the array. That value is then written to the sensor through
-> cci_write(THP7312_REG_MANUAL_FOCUS_POSITION).
->=20
-> Reject a value that is not a valid index before the lookup. The control
-> range is the safer place for the bound, but leaving the lookup guarded
-> keeps the table and its only user consistent with each other; narrowing
-> the control is a follow-up that does not affect this fix.
->=20
-> No Fixes tag. The table, its registration and the lookup all come from
-> the initial driver import, 7a52ab415b43 ("media: i2c: Add driver for
-> THine THP7312"), and have not been touched since.
->=20
-> Reviewed-by: Liu Weibin <liuwb@xiaopeng.com>
-> Assisted-by: LLM
-> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
-> ---
-> v2: add the THP7312 maintainers to the recipients, and say that the value
->     read out of range is written to the sensor.
->=20
->     The previous version said the read was of a value next to the table
->     and left it at that. The read result goes into cci_write() for
->     THP7312_REG_MANUAL_FOCUS_POSITION, so the description now follows the
->     value to where it is used.
->=20
->     Add the Assisted-by tag.
-> ---
->  drivers/media/i2c/thp7312.c | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
-> index 775cfba18..20698b7a1 100644
-> --- a/drivers/media/i2c/thp7312.c
-> +++ b/drivers/media/i2c/thp7312.c
-> @@ -931,6 +931,11 @@ static int thp7312_set_focus(struct thp7312_device *th=
-p7312)
->  	if (thp7312->focus_absolute->is_new) {
->  		unsigned int value;
-> =20
-> +		if (thp7312->focus_absolute->val < 0 ||
-> +		    thp7312->focus_absolute->val >=3D
-> +		    ARRAY_SIZE(thp7312_focus_values))
-> +			return -EINVAL;
-> +
->  		value =3D thp7312_focus_values[thp7312->focus_absolute->val];
-> =20
->  		ret =3D cci_write(thp7312->regmap,
