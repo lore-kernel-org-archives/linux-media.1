@@ -1,86 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from outbound.mr.icloud.com (mr-2001h-snip4-11.eps.apple.com [57.103.68.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD2B43CE7B
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 13:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D43A24886A
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 13:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.68.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790428109; cv=none; b=N8VZ0SBRI4ZreM85wneCCmx1DusWSiZBaXJ8EqqciFRA/FKrZkvKOWSGPTKa4qLeGAtzOEC5UD+gRuUz5lRGiTSqZG0B6P3iJiMqv0j8jQgKHiTyZrzV7U8aSsT4DxTWcYtwZWHz8fx5NDCKSwiGFXnmXA+xdJO5SFCGCYWYPXg=
+	t=1790428564; cv=none; b=SzXXkoJKLilJqQm93901kqIbXJ+bMuNBVE/CGuV4LKHT/fdSs8+ddqP7i12t4yGcqUQq2LZOaQbZbw/CpXCm3/UX7x3eZv6t0yuXg3wToGkNz7xgyYzLBKt9zuqoFJRY+8fUjA2m0EwyeHEhub1oiAjvyllxoIQdNSd0NYCxggA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790428109; c=relaxed/simple;
-	bh=PZoMF8gWJCSH77YTSwfWuV+8y9UuZEH/lx9+Q8vWLBw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PYy9JAsBexDtib5XtHSgt7UzzJCeJePhVQMXXCtiCOklZjj6DSd8dlUqH0uf9fypYKJEe0HqVk7H3Oeu+Nlwthy7Xl75tNrr1pDh6m9LDCe1zLvv/ZP75C7sEncQTs7Nr8oVQrA/7bodAotrFUjxUFkooBclAHumMce6bTFgwok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b1uQ1AmK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c4IOJ7zF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790428564; c=relaxed/simple;
+	bh=y4NcqXu4fmxJw4BlAyjwpfyQ+mUjiUdCKPAwSGZwHD8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qIKvNRzMTt0ZUtMyBEs37Biw+VLWayUAE9xkEHyyvQ78iAzXxmKL/w98/+te91wXcWVZSX4Y47Dc8mgzJ5izV6ubovAeDbdMiKSbgHOKqVzGEOvT+INFcChurrP+BZHwNkDROCNhvK1n7yEnloSIJZ6YnLwG3jCfVP+j4AYwWq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=WiUwkdiK; arc=none smtp.client-ip=57.103.68.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b1uQ1AmK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c4IOJ7zF"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QCuW18264646
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 13:08:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MA1d+PoQ5SjxL2ektTDtKFc48tzaXNE538IYG5SBxHg=; b=b1uQ1AmKmgzjxGmR
-	ajn1dYJ8yvYNdGU3HlCadcKZcBMOfqxoZ2Ay/yiHQ5LdqIsu1+eySATZKjQukayz
-	I0t4cU36q/BPSMvQLL/7vuxRr1NYVjVwA1AslXE8SuXxEH1dzZdLkzURsAUZWnTm
-	hfsJ1iAehh73sykojjYc0c4PAMkpKiCmLEhUsVk6zj4xfsUCcPn0IoYbomc0S/3a
-	0lawrlV7hoEwz/Eqhs3Yb8fWFO6VPltxy2hresaYuNocQB9pbXAMfqMQoPCGvoTY
-	iwO7XgDvP8Ky51fSQHnXROgSvrtW8v7wk4p1E1OCw7DyzGS2Yizw6qaz/fHHgoR3
-	lX1tqQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx526h0nr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 13:08:26 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3282d5302ffso2516719eec.1
-        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 06:08:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790428106; x=1791032906; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MA1d+PoQ5SjxL2ektTDtKFc48tzaXNE538IYG5SBxHg=;
-        b=c4IOJ7zFlS7QxW5G8bfnWy4fsWdszwKEJrF9mbjFFZVBgUr8VaMqWF6KSffN/x5JQk
-         LKb4tGgKU0P/1b2JfjEghjbmifA7fFk60+Ci7qSUYx3kyBUsK8rTory2cLv7qjhKPn7M
-         MvANc+fzcT+X6azdwLUHOnGLziHE5Wp57AjWwPWQ9fRDu0JZLjGJIJYvKtbvBrJB1EBg
-         HRip/SwZmBWufv/PZHu9tL37TxjV/vfdjU1ESFuqy5nH/CfgRalnjOWu9O//NpYxvTRT
-         pwa+yldp82Atmx1jgFiX/zxpDkH4cqXqnK/CkZq2S4gn/yWoQp/ne/m1u8Oh5ucwR8MH
-         lMnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790428106; x=1791032906;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MA1d+PoQ5SjxL2ektTDtKFc48tzaXNE538IYG5SBxHg=;
-        b=OZfpq6ic5jfBaF0ZzXaf6Et3NTxqQe6T6wVV37w/Ie0ocGkRcIAmLLd+Y306kt0Y2h
-         nHCs01STFaD8cvYX5U4bj3xRMPSwSR/t7zmyUkDwU1YEn1dyGsjuB62HNo0vUtMwNecX
-         cH5wDW/VxkpzvTyKVUaj+yhbf23cg60emHw4YRPUqHV8RQVim24j0cxeYlpPL+KInU/V
-         gKIS5dyVVgbv6YVIBWFvwzgCcOwUY1tLIxFcOyOzcChRQtWdAiB9wFuFnJ8/4AeP1tgR
-         fseGn18Qok9sYHXeyO1nx2d2qRy1yzTTS0YuQXg6i14gl4V55d/fHKjlTdc28TLbK9a4
-         zV0A==
-X-Gm-Message-State: AFq9FYJ6ZeEWLAUYeriu608wsO6BWm654pTcUaFmwO9xrv1qlb5sUBQM
-	XzTuhyYMjkPRLTaWNcsF8/48PIVRBPQqzIW8PG3mm6anSVqIIbhxnq5IMNEe4Lg6bE9MQFkUQ5W
-	jN+u7KaOZnvQoTerwIqd+WZ197nHCji/4RbJu/qEmA1ufdwtzTfZsml5lXddkt8JfdA==
-X-Gm-Gg: AYBFou0Otm8pj4vUOCHFdHHx97B9d9z6urar1zxNYCExs77ca65ELCnJtwY3NLfjor8
-	tShT0W/kO2dhffqzaU19Xb/tBPga1cXrv4ZSuIIGAi65F8coYlJYEuHvUuECUEWN3FWsxTzt+7W
-	C57mDOC7zGqafA9xoC3mJmYpos3HZDapN0d+sM3BbenbuTXlr/wnyNHsrgDRDYfnAA2jMyIBnfQ
-	+sUOT0TZSypgvK86orXz65aDAagku4G30lZKh69eK+TB/0e5Sj7P0zesdfQjfim8uJNuerrt/HH
-	C1r4w2c4FUpVIXB3QR4qpL8sspMOvh6Sh0SPpT8TNf1RGwEbjZREjqhYIRThRN5eGQrEMQ6jsti
-	bL6fdlkkw5uSrjFCyNBtKFbCnkqIeI6E=
-X-Received: by 2002:a05:7300:e785:b0:33b:ecf4:7f80 with SMTP id 5a478bee46e88-3427334b05amr3561949eec.22.1790428105436;
-        Sat, 26 Sep 2026 06:08:25 -0700 (PDT)
-X-Received: by 2002:a05:7300:e785:b0:33b:ecf4:7f80 with SMTP id 5a478bee46e88-3427334b05amr3561918eec.22.1790428104866;
-        Sat, 26 Sep 2026 06:08:24 -0700 (PDT)
-Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341460f5166sm15356614eec.29.2026.09.26.06.08.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 06:08:23 -0700 (PDT)
-From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-Date: Sat, 26 Sep 2026 18:38:07 +0530
-Subject: [PATCH v2 2/2] media: iris: add support for vbv delay
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="WiUwkdiK"
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-2 (Postfix) with ESMTPS id BFBF118019F2;
+	Sat, 26 Sep 2026 13:16:00 +0000 (UTC)
+X-ICL-RepId: 01a0dddb-bd65-7ef8-ab6a-19eca2026e38
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QFXR8RTxweGwVGAl1cG1YPUl1TQw9MCwh3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1790428562; x=1793020562; bh=6Ye/NaLuBknhmOQtXuZUKPosIFvKEUkt9bpcl1xaD+g=; h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:x-icloud-hme; b=WiUwkdiKp592Zm8r23Yr0Y/aofxQsA0feMaYQRVhmbI6tIxzbeav+dR9OnJjlH5cfnekqf9Xff+Ig96bW9llWf6zoD7T5tybrUNxkjlVOIAF5QRbO8M6LQwcaT/8K4gk4Ou2pfi5A4KsEEdNbBVlVVbOw+KHbRFkDGP/T2NpBGy9fleUBcFWv8373nYL39yZIuR8Bbr0xpjMiWCZZJixSvHjrhLUzKlBW3+LY8ROm0XKjktc9uJTbh0kr0+3agi2FXDZKMZK78F0w5E1DiuqOfO6z0n7ptbFFWP7LB4tWusjycjK1n7U37aNiuZjPYRsUrNbBsjN4s/8pCv2z2o3Eg==
+Received: from [127.0.0.1] (unknown [17.156.200.36])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-2 (Postfix) with ESMTPSA id A2D9F18019F5;
+	Sat, 26 Sep 2026 13:15:57 +0000 (UTC)
+From: Sofus Forstreuter <sofus.c@icloud.com>
+Subject: [PATCH v2 00/17] media: apple: add avd driver
+Date: Sat, 26 Sep 2026 15:14:39 +0200
+Message-Id: <20260926-avd-v2-0-ecebe6a3648e@icloud.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,202 +36,189 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-iris_vbv_delay-v2-2-83dd80765dee@oss.qualcomm.com>
-References: <20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com>
-In-Reply-To: <20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790428092; l=6268;
- i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
- bh=PZoMF8gWJCSH77YTSwfWuV+8y9UuZEH/lx9+Q8vWLBw=;
- b=wu1XcoYmusK004t5XPwehLOQfy3oXLBgeSFdCoSM/xhpd6bxYlNYy8qtOEdQ81uVs5G20fiVL
- WAoWdvxi3DBDRwkDSchZ/TnhY1upX/UeGc6hwwj8aCZ0QWAi7LlJvTg
-X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
- pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
-X-Authority-Analysis: v=2.4 cv=VvS2kO2n c=1 sm=1 tr=0 ts=6ab7c3ca cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=LxCXOOee5f-Gq9OeXmIA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: Zxqsfw1_Ful4bNT5AJb4dWgWIqSL9xAW
-X-Proofpoint-ORIG-GUID: Zxqsfw1_Ful4bNT5AJb4dWgWIqSL9xAW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA1MiBTYWx0ZWRfX/9rTDwPQxFO/
- VBeGVl9GcgON1sNKn6vutHJGtcyeLW6sPhrrbjAtPrRsSf6UtJ/x25K1t3dcRjjmFSREaDCJGyV
- Y7UbQFgmwWXmVQ/eyq6XQSx5Eb2SlPVcX+j5ixPN0SPRLXcf2j/e+W5yuL+aB2mhUGXcp7hKXZV
- LDL+Vz/GYm7P5QgxjDBEaPXNaOLUQS2md90aeEaAXkSMFg2JkIdV9MMgD867B9zC5PuOjOwtKPi
- M9TPArxBtLe9qEFbdYTlEvynkjNm1Ee0VZpxPOr1jWKHdd85XHCNBWK4IhROL10RCK5j/7jfmFW
- xRGRTinbs+8IBJeK+vZePZgXW8vvigKnCN4dcxy+aJNvTarHzVIBImog6KXWkBSDUp/5D7Z6ZfU
- emKOoSN7qCOYQsxEhpbJSnh+4xoBSpcFRGIuRDBdX40OiFhN22zIGKpfHCCQgGU/4jbXCsuCmoh
- B0Jx3sODpswLGlDwnPQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA1MiBTYWx0ZWRfX2hxDZIjP677y
- daHJBQXAyBTiePLsK7JbP9U4Xatpz4Glc48uxrP/WB8whj4lE1eHfXs6GaMtwFmhPKP1HzPGkQm
- 3k9qpZLhzboTRIrbUVbutbn1RDpvTTU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260052
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNwQ6CMBAFf4Xs2RpaC6We/A/DAdpF1ig1LTQa0
+ n8XajxOMm/eCgE9YYBzsYLHSIHctIE4FGDGbrohI7sxiFLUpeaKddEyhVhJJXtZNwY28+VxoHe
+ uXNsfh6W/o5n36W6MFGbnP/km8t37F5tcjJyVTGqtlD7xQVbVhczDLfZo3BPalNIXkKJLTakAA
+ AA=
+X-Change-ID: 20260917-avd-7ee5474b468c
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sofus Forstreuter <sofus.c@icloud.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: qLH5h3CH5f4NReoJdHgu3vQ3lGpCw_hO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA1MiBTYWx0ZWRfX8w3gITNlMfQZ
+ 4nenGojk19ugBJ+TyYrNjkclGipL0+laUczsmz4i4KJdCzz0ygNfOI15AWFmWt/ekiIFxh+XLPo
+ NrVuutvh0b1RcygKl30btYOoGsFNw6orublk4tdohfwBErzAmCOceQv4LVi6lg/cMWGskrdZpHM
+ 4zNlAZLV/8r8YFXeAw6mKZazjT2aAsvlZpwClraNdk7O/g1xBUKWeLM9AzRAoqiK6uMXI5uZ6q3
+ Jkj3kpQBmrNnrylCfTRI27aZed46kTyqN9mD69xIx8OEPcOxdeS607lTNzFPE7MWoUl2jitSsDj
+ CI7fVdJDHWHWfXJk8BNBdy6H95SuCrHi308gD5AwwoBHnoLsO4ILWxnNc1RhHI=
+X-Proofpoint-GUID: qLH5h3CH5f4NReoJdHgu3vQ3lGpCw_hO
+X-Authority-Info-Out: v=2.4 cv=J6enLQnS c=1 sm=1 tr=0 ts=6ab7c591
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=NEAV23lmAAAA:8 a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8 a=v3ZZPjhaAAAA:8
+ a=VwQbUJbxAAAA:8 a=dOLNmq4gAAAA:8 a=JfrnYn6hAAAA:8 a=jHwbcGeO01bA_06mPPQA:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=_m6CO-mWuQdSFutSHjXj:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-JNJ: AAAAAAABhPT3xgwkHYNBpTTg4Yg4VppZVD/leoZorA8/6JCyKzUhp6liLcApoEoeedTuzLYDY4UJwWWh/qT0yzJUm1H3ooCtOe8qJr3mxQAde3eOOehl4/7+6kFX4jf/zLWQmOa9sLtAE6v5BvL2sLCNMhH6bB2KoRNpWtRn/cQ9h0IjCBe8vlQfrqjL+57RR+lDrKw3le5ntFoBZfIBJQh/zdqpgK22ove6vbybJ5wxFHakv+mmXAO+/AF80WpJhVD+bRJPhqQSDEo2410/D0w8E+M3yuMSz+aTKbl670H3pxC1YoN+pKs2Tme2ENYNiqlLRxbKlCQrdIzByTd5zAE4lUgzTfMi4mghhedNMshzLuw4eUqKIgMKJbW/W95vY7jlYQjNxiVzjwVjh2sr7SWAtYx9uqLYq9QobYu8LPidSGE0mlN4mKpvGxw+asR0zPSLZzBC6EbDgkQ0X8mWiX7cqS6wCQPO4u0lMKcEPGL7mnMYEwbYh+ofV4aftIorkB4/238gXsS85aG8MIpJhfq562sWd8m5cIeLV/ro9IGr8XQrrVtGb+l0isZ7MFwYwcT7Lco3FZ4wRQ5fxVCu+tbAkYbUY3TXCxlfT17aAb7mDqVp8FKUEfEACZDuCNyVkpzmHdizf6579p9mSNLW/8t61dga/SserbyUyZpr86MxO2os+cng/zZcE7IJzK2VMVTrkZpD71stjTD+zI/4rpfTl4vbpLgjldM9his/yjxLhJtMv4xHM2+k49v7aOHDdXGsMjOt+j/MzTZr1s4eXaM9dJ4rWfWiZP3L+jVceKuGHEL7HDN7oxQNmYjmKUWYTw+pwee9+ckapoSy6VkKz29LVrxPq9G7r4X6Onu4UvCDRsqxKpZrJedbMTj51lzGdNoH4BZSBpz8WIgMauWQPn3lFv3QcKxkfMV8QHGYW8Ivc2Rw0Dvwj5QSag/3dnzLo0zdGW2RsFLtNc9lc0jn8gr5jHDiIaN
+ 5nLYASTG7HTQy7nj+KhLtXC7TnUCwwEb0Fu1i5bfijlnWraElbtri6InUa47A92Eeaf/0jyiRdIxBRQHi9JNCV1/ghqq0Fm19SwGZvMmHcR6uxUKEcEtTo+xcwHiwEq1cei1h5k723ySUFuaht8DP5l9rIOMsQZLhLE9t7C+dimn/1mfpZoXYGRS8DhuZBJdwIx4OZLi5gNHjia8hsYIN0JVUIYtU4aUaY12vYI3ED8Awmb7ExiMP9cIH8gKz6nj/HU53i7jn4bWnhWMc3/gmd18XIDMtopisnooLnIoXAQ7EHUyfV8QYUX/Ps+OTG7XlSSJ5QHrojLp3k8kZQn3IPc6UMP7ST9WX4X4Qoz5w8q0kfvnYW8dqo/d41n2RhVyoOFTQcs3sWlaP2PVsHbASFpvVtV7+J7sfbNk=
 
-Add the VBV_DELAY instance capability for the HFI Gen2 encoder,
-exposed to userspace via V4L2_CID_MPEG_VIDEO_VBV_DELAY and mapped to
-HFI_PROP_VBV_DELAY through a new iris_set_vbv_delay(). The property
-is only meaningful for CBR rate-control modes.
+Hi,
 
-Low VBV delay values (34-100 ms) require the encoder to run
-with a single video pipe, so extend iris_set_pipe() to force
-work_route to 1 whenever the configured VBV_DELAY falls in that
-range.
+This series enables hardware video decoding on Apple Silicon M1, M2 and
+M3 SoCs. It adds support for all the codecs AVD (Apple Video Decoder)
+supports, which is H264, H265, VP9 and AV1 (only on M3+).
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+The AVD is a bit unique both as a video decoder and an IP block on Apple
+Silicon SoCs. Instead of following the normal "a register for each
+parameter", AVD is programmed through one single register. This means
+the order of the writes are important, but its also important to ensure
+we dont write faster than the hardware can process. To solve this, we
+use the included Cortex-M3 co-processor. The CM3 accepts unsigned code,
+which we take advantage off [1].
+The driver prepares the instructions and writes them into segments,
+which are submitted to the CM3. The CM3 then programs the hardware and
+notifies the AP when the job is done or if an error occurred.
+
+The driver implements the V4L2 M2M stateless decoder API. The driver's
+framework is based very heavy on rkvdecs driver. It therefore comes as
+no suprise that `v4l2-compliance` reports no errors:
+Total for avd device /dev/video0: 49, Succeeded: 49, Failed: 0, Warnings: 0
+
+The fluster scores are:
+JVT-AVC_V1: 77/135
+JVT-FR-EXT: 42/69
+VP9-TEST-VECTORS: 216/305
+VP9-TEST-VECTORS-HIGH: 1/6
+JCT-VC-HEVC_V1: 143/147
+AV1-TEST-VECTORS: 238/242
+
+Since not all unsupported H264 streams are rejected, the scores
+depend on the reset working, this only works with a patch to the
+apple-dart driver so that the IOMMU attach/detach trick works.
+
+All codecs support 4:2:2, 4:2:0, in 10 and 8 bit. By default, AVD
+outputs in NV12, NV16, P010 and P210. Support for 4:4:4 and 12 bit
+formats has not been added yet.
+
+Internally the AVD uses an Apple specific compressed and tiled format
+called Interchange to store reference image data. This is stored after
+image data across all codecs. Apple Interchange is used for sharing
+buffers with other hardware blocks (GPU, display controller), support
+for this is on its way [2].
+The V4L2 pixel formats have been added to help with calculating sizes.
+
+This driver has been tested on most Apple Silicon SoCs in our downstream
+tree [3]. Its expected this driver will work on M4, M5, M6 and the Neo,
+with firmware already being written for all except the M6 SoCs [4].
+
+The groundwork for this was laid many years ago by Jamie, R and Eileen,
+who through a combined effort managed to reverse engineer many core
+parts of the AVD block.
+This driver would not have been possible without the work done by
+Eileen, who wrote initial support for H264, H265, VP9 and excellent
+tooling [5], allowing me to reverse engineer AV1 and make the driver
+conformant.
+
+[1] https://github.com/sofus13/avd-fw/tree/avd-next-fw
+[2] https://patch.msgid.link/20260917-apple-interchange-modifier-v1-1-875294689c48@gmail.com
+[3] https://github.com/AsahiLinux/linux
+[4] https://github.com/AsahiLinux/avd-fw
+[5] https://github.com/eiln/avd/tree/main
+
+Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 ---
- drivers/media/platform/qcom/iris/iris_ctrls.c      | 36 +++++++++++++++++++++-
- drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
- drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 12 +++++++-
- .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
- .../platform/qcom/iris/iris_platform_common.h      |  1 +
- 5 files changed, 49 insertions(+), 2 deletions(-)
+Changes in v2:
+- Patch order
+- Fixed dt-bindings by constraining all properties
+- Fixed dts, add interrupts, iommus and regs. Drop labels, fix names
+- Add Apple Interchange format
+- Add more av1 and vp9 validation to v4l2-ctrls
+- Validate more codec parameters
+- Use the new CM3 firmware (drop avd-hw, drop submission loops)
+- Updated cover to reflect changes
+- Link to v1: https://patch.msgid.link/20260918-avd-v1-0-49977931f455@icloud.com
 
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-index 33114d80aa68..53d8b1ba15fe 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-@@ -154,6 +154,8 @@ static enum platform_inst_fw_cap_type iris_get_cap_id(u32 id)
- 		return LAYER4_BITRATE_HEVC;
- 	case V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR:
- 		return LAYER5_BITRATE_HEVC;
-+	case V4L2_CID_MPEG_VIDEO_VBV_DELAY:
-+		return VBV_DELAY;
- 	default:
- 		return INST_FW_CAP_MAX;
- 	}
-@@ -297,6 +299,8 @@ static u32 iris_get_v4l2_id(enum platform_inst_fw_cap_type cap_id)
- 		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L4_BR;
- 	case LAYER5_BITRATE_HEVC:
- 		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR;
-+	case VBV_DELAY:
-+		return V4L2_CID_MPEG_VIDEO_VBV_DELAY;
- 	default:
- 		return 0;
- 	}
-@@ -541,8 +545,18 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
- int iris_set_pipe(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
- {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
--	u32 work_route = inst->fw_caps[PIPE].value;
-+	u32 work_route = inst->fw_caps[PIPE].max;
- 	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
-+	u32 vbv_delay;
-+
-+	if (inst->domain == ENCODER &&
-+	    (inst->hfi_rc_type == HFI_RC_CBR_VFR || inst->hfi_rc_type == HFI_RC_CBR_CFR)) {
-+		vbv_delay = inst->fw_caps[VBV_DELAY].value;
-+		if (vbv_delay >= 34 && vbv_delay <= 100)
-+			work_route = 1;
-+	}
-+
-+	inst->fw_caps[PIPE].value = work_route;
- 
- 	return hfi_ops->session_set_property(inst, hfi_id,
- 					     HFI_HOST_FLAGS_NONE,
-@@ -1487,6 +1501,26 @@ int iris_set_layer_bitrate(struct iris_inst *inst, enum platform_inst_fw_cap_typ
- 					     &bitrate, sizeof(u32));
- }
- 
-+int iris_set_vbv_delay(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
-+{
-+	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-+	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
-+	u32 rc_type = inst->hfi_rc_type;
-+	u32 hfi_val;
-+
-+	if (rc_type != HFI_RC_CBR_VFR &&
-+	    rc_type != HFI_RC_CBR_CFR)
-+		return -EINVAL;
-+
-+	hfi_val = inst->fw_caps[cap_id].value;
-+
-+	return hfi_ops->session_set_property(inst, hfi_id,
-+					     HFI_HOST_FLAGS_NONE,
-+					     iris_get_port_info(inst, cap_id),
-+					     HFI_PAYLOAD_U32,
-+					     &hfi_val, sizeof(u32));
-+}
-+
- int iris_set_properties(struct iris_inst *inst, u32 plane)
- {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-index 3c462ec9190b..16939e31c784 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-@@ -47,6 +47,7 @@ int iris_set_layer_type(struct iris_inst *inst, enum platform_inst_fw_cap_type c
- int iris_set_layer_count_gen1(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_layer_count_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_layer_bitrate(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
-+int iris_set_vbv_delay(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_properties(struct iris_inst *inst, u32 plane);
- 
- #endif
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-index 45a418fde7e9..716947f256f1 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -944,7 +944,17 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
- 		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
- 			CAP_FLAG_DYNAMIC_ALLOWED,
- 		.set = iris_set_layer_bitrate,
--	}
-+	},
-+	{
-+		.cap_id = VBV_DELAY,
-+		.min = 34,
-+		.max = 300,
-+		.step_or_mask = 1,
-+		.value = 300,
-+		.hfi_id = HFI_PROP_VBV_DELAY,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+		.set = iris_set_vbv_delay,
-+	},
- };
- 
- static const u32 sm8550_vdec_input_config_params_default[] = {
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-index 776b21cd11b2..19d04981cdb9 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-@@ -127,6 +127,7 @@ enum hfi_flip {
- #define HFI_PROP_BUFFER_MARK			0x0300016c
- #define HFI_PROP_WORST_COMPRESSION_RATIO	0x03000174
- #define HFI_PROP_WORST_COMPLEXITY_FACTOR	0x03000175
-+#define HFI_PROP_VBV_DELAY			0x03000176
- #define HFI_PROP_RAW_RESOLUTION		0x03000178
- #define HFI_PROP_TOTAL_PEAK_BITRATE		0x0300017C
- #define HFI_PROP_AV1_FILM_GRAIN_PRESENT	0x03000180
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index c9256f2323dc..a533740ced7c 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -183,6 +183,7 @@ enum platform_inst_fw_cap_type {
- 	LAYER3_BITRATE_HEVC,
- 	LAYER4_BITRATE_HEVC,
- 	LAYER5_BITRATE_HEVC,
-+	VBV_DELAY,
- 	INST_FW_CAP_MAX,
- };
- 
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Sofus Forstreuter <sofus.c@icloud.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: asahi@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-rockchip@lists.infradead.org
 
--- 
-2.34.1
+---
+Sofus Forstreuter (17):
+      dt-bindings: media: add apple,avd
+      media: v4l2: Add P210 pixel format
+      media: v4l2: Add Apple interchange pixel formats
+      media: v4l2-ctrls: validate av1 tile info
+      media: v4l2-ctrls: validate vp9 tile_rows_log2
+      media: apple: add avd driver
+      media: apple: avd: add h264 support
+      media: apple: avd: add vp9 support
+      media: apple: avd: add hevc support
+      media: apple: avd: add av1 support
+      arm64: dts: apple: t8103: add avd nodes
+      arm64: dts: apple: t8112: add avd nodes
+      arm64: dts: apple: t8122: add avd nodes
+      arm64: dts: apple: t600x: add avd nodes
+      arm64: dts: apple: t602x: add avd nodes
+      arm64: dts: apple: t6030: add avd nodes
+      arm64: dts: apple: t6031: add avd nodes
+
+ .../devicetree/bindings/media/apple,avd.yaml       |  127 +
+ .../userspace-api/media/v4l/pixfmt-yuv-planar.rst  |   14 +-
+ MAINTAINERS                                        |    2 +
+ arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |   32 +
+ arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |   32 +
+ arch/arm64/boot/dts/apple/t6030.dtsi               |   32 +
+ arch/arm64/boot/dts/apple/t6031-dieX.dtsi          |   32 +
+ arch/arm64/boot/dts/apple/t8103.dtsi               |   32 +
+ arch/arm64/boot/dts/apple/t8112.dtsi               |   32 +
+ arch/arm64/boot/dts/apple/t8122.dtsi               |   32 +
+ drivers/media/platform/Kconfig                     |    1 +
+ drivers/media/platform/Makefile                    |    1 +
+ drivers/media/platform/apple/Kconfig               |    5 +
+ drivers/media/platform/apple/Makefile              |    3 +
+ drivers/media/platform/apple/avd/Kconfig           |   18 +
+ drivers/media/platform/apple/avd/Makefile          |    5 +
+ .../media/platform/apple/avd/avd-av1-entropymode.c | 4698 ++++++++++++++++++++
+ .../media/platform/apple/avd/avd-av1-entropymode.h |  284 ++
+ drivers/media/platform/apple/avd/avd-av1.c         | 1432 ++++++
+ drivers/media/platform/apple/avd/avd-drv.c         |  776 ++++
+ drivers/media/platform/apple/avd/avd-h264.c        |  862 ++++
+ drivers/media/platform/apple/avd/avd-hevc.c        | 1340 ++++++
+ drivers/media/platform/apple/avd/avd-inst.h        |  210 +
+ drivers/media/platform/apple/avd/avd-v4l2.c        |  992 +++++
+ drivers/media/platform/apple/avd/avd-vp9.c         | 1054 +++++
+ drivers/media/platform/apple/avd/avd.h             |  299 ++
+ drivers/media/v4l2-core/v4l2-common.c              |    8 +
+ drivers/media/v4l2-core/v4l2-ctrls-core.c          |   17 +-
+ drivers/media/v4l2-core/v4l2-ioctl.c               |    7 +
+ include/uapi/linux/v4l2-controls.h                 |    2 +-
+ include/uapi/linux/videodev2.h                     |    9 +
+ 31 files changed, 12386 insertions(+), 4 deletions(-)
+---
+base-commit: 4efa625593e1e9c76346232413997556dea1d89f
+change-id: 20260917-avd-7ee5474b468c
+
+Best regards,
+--  
+Sofus Forstreuter <sofus.c@icloud.com>
 
