@@ -1,118 +1,98 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26AF3803CC
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 16:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB003515F7
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 17:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439919; cv=none; b=fz8Fck07R9437lat67DKEoYCTBsVFwKOdkn00nKDctMl/gmhOa8k+DyQSpcL4Az0hdRaMKoS0U5MDqBJAURYE4Gwcs79F+QEtp+PDujBC3AwPx336rr2n2O0klwYfWkcHKV2e1viy4FCr7CaGM6G9pJtk0M8/mXBYqHnyJtxjWw=
+	t=1790442224; cv=none; b=AS7ykyQzL5a6DZ7BJRxcdD/SfCvXiH7JpoFQ22QfECGNEWpbrevh7ksPAwL9vZ27OpfLOAYLCdRf4quI+fWc20iC6l7t1JzJubvtsTzv+ubD6w5o5NS2MkZmh08JR89uMPgNU7egMc20uiPk5zLWZhAOq889C3Jx7ZM21LafH88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439919; c=relaxed/simple;
-	bh=qyVsTrI0lYDk/H9djXYnt6XVAaCOyj13Bdyjnjxd95g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B1/T3H4mj0Xuid5kenHQNHJsgdTmtIW5jRtfcutzvfF81EYsSkLMlCiA3ZLV1VohE2jq+ppPOSPaxgR/tSCl9fqKvx01J2kN57kFukc0Wls39fMonsHWXqgvU6eNOlpT0MID0xA71JrTyYg2pCcWzYTWOJ8AnDK7D2QX8IOzyUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3IeyBkD; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790442224; c=relaxed/simple;
+	bh=aoUcH8q6R4+eyNaifFoH2Aor4f8mjT4hXKCOfkY4BSc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NxtCT+rZA4PzB9TJwwZpVduiK5wGxs6aPsEhetD2yfPGVFgulVxXuTwXi2pyygWQjE7nuM41waVn11SzliIorZIIabHENzRLPe0++BxhM6qqczjWnThyCOM1k6oSaQpzt0utqGtuKpzJnCVvX4fL4Clcl/ZytZ5UcZj6QejPMyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=a2EG3wDb; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3IeyBkD"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb1so22614586d6.1
-        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 09:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439911; x=1791044711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sr/EPY03GpOHmQzo/zUfA0mc4dSwT2ZOrZjnEj21b/o=;
-        b=b3IeyBkDeAqGYDDbPeKhDmyepPE9R6BThat0ztsOFTjDvcCiHP0AILE1zO17TavJIb
-         6gC9ZhURHXlUwvstDkC8jVDHdgRNB5IUW/KS7WO40yBIy9yvxeyLX697ULGlQL+xtP3/
-         ngZp6HYVt5Tt0WB21hLEqNEYfEW5QmTCdhfVweJjBNrBFRXWkFRmHhdtjGeKuSZUN5MW
-         fWnwCtELcMg8X4lcTrQku6tPebesNSsswok7xe3+SM+EsFwc+INgfY3r8QroZoJeEDFU
-         DtgoJg8+tYg0VE4zk3vfVFGAytdHuVP9VaLwrgC4Wm4SQt4h45OWbplzIG5wziyY55Wa
-         vEnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439911; x=1791044711;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sr/EPY03GpOHmQzo/zUfA0mc4dSwT2ZOrZjnEj21b/o=;
-        b=GOI8UYJ7Sqn3vSPa1iOX6TZou2MMYmtlyADGAUmg7f4FNI8x2e7KzWaSG5Ck+S48Qq
-         vvJgrg1qmWmWnwbGJZil4nhfRbLPHufG/u6GaJURmqBhNrwTocRcYOnNwHkqZ9merTl+
-         bnPuUfhDXI9OvR86Cf+0YvWcdQHa/Ia2prPTV7dge1Vaq7/QJUsxRDYnA7JBsg1i8H2L
-         Pkzn+RA8H8uchql8x4z1pSH5utVSnVzE9WYlNo9hb7MSp9p6WzVqa0CDGDmySMuJ6Z+J
-         whg7enyaxbKKH3C5wjMuI0Q0FnK41i3b1C4ukxRIJ4HfVbVEf4JYyoMmR9D/mN0Y6Hkn
-         hiKQ==
-X-Gm-Message-State: AFq9FYLnOtTgOzvIKx9qQeaFDV40RWTl66P/GnNHW/55tdxdoygeZ29R
-	jPo4RP7e5anUf/Btf5auT6MvGL+JOZWnIwLMXBGnySi/aimte56FeiYk
-X-Gm-Gg: AYBFou0y1eTNWwmOu27Eb860UKxboaAs7kFo67UZZPBgdP5SKPCXQvyQZJJWaM3r2Zx
-	Pp8n/gXooTyxjDIFJxBnhd8A+33CKFuH+GrEn8G3/sfpsDanWssTkOs+nsXoRZL7uj+dK8SvZfL
-	Z6MLOaT2lr/L6ZAQa4vetmXMlZviyU+b1O7qncl4FfbasKAQcPAkW0lFYEkLClnyWFTbE7HHXX8
-	VZYA2eZEg6Dw8nrTQXKElWOXnTsKnRSeoQQQc0AXzYHYZw51VPKviWSM+P6Hr2NVOiscfChiLh2
-	HgjtZRZeSWII6ffDU54pTb7tko6MyJOMRfV+KT1M+NHMTf1myBms4OnmoZxm6pIIhxYpXy8URXI
-	8KOpuQ7Y473lYr/fH6PRkxTyiFpGN/XZkZFEHYo/CukPLyRy0xWyEBwRNb0F96b4skN+IIkCtz0
-	+qGDTgXUzZW6F1i0UjMNrmqrXAFc2224N2UceWC8A7mFMRv0uL8tjgNneWpoNLZZQ5HcNjjUD3c
-	Or10EnTOwc//o5Vfa6u+dunGapRo6+NjF61PeQMWPtGd+E/
-X-Received: by 2002:ad4:5dec:0:b0:912:6380:fe12 with SMTP id 6a1803df08f44-914321eca0emr97986826d6.8.1790439911488;
-        Sat, 26 Sep 2026 09:25:11 -0700 (PDT)
-Received: from zaina.localdomain ([172.56.198.134])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430dabed8sm43015606d6.12.2026.09.26.09.25.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:25:11 -0700 (PDT)
-From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: technisat-usb2: remove unused EEPROM dump debug helper
-Date: Sat, 26 Sep 2026 12:25:07 -0400
-Message-ID: <20260926162507.25238-1-zainaboobacker33@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="a2EG3wDb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790442219; x=1790701419;
+	bh=qRKBBHzxeQEyTEnSiATT4uABiyIjz34v74Z/J4pJSPU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=a2EG3wDbE9/OUkViBeHIr0LOf1PFP7Lc5MMFLPbfIl01u6pODfVyzB9Nd6LRjCB3K
+	 xcuoKq2U0bO/JGx8fOK1rSBE/PtyJiYplHAx+ljfRfj/57RP2Tv3bD4u8dsB8YXNwE
+	 r2sTKmeWzFOPEu6LoAv4hfqSg4QJ8+GIyty94AEq4jzda60UreOPQla8DALNeJsHn1
+	 FFDqrTJk3OS7cRpaVDTaxzY0VvKc6y5QfecgHodJkHxq4hpwDKj88NTXN7nVYFWRVI
+	 bkNydKl1FbO/pnGgUjlWLUQSRyGIVcIelvR+/vdviuuFQIILeCGlEvw6XwBQCyQPNW
+	 Ln9vCnwYB4TWg==
+Date: Sat, 26 Sep 2026 17:03:35 +0000
+To: German Pablo Lindo <germanpapulindez@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20260926170327.60895-1-lsa.uz@pm.me>
+In-Reply-To: <20260926092828.11675-1-germanpapulindez@gmail.com>
+References: <20260923211816.89954-1-lsa.uz@pm.me> <20260926092828.11675-1-germanpapulindez@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 9196d4447cd0c8e3597aa7400bc62f11c2160366
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-technisat_usb2_eeprom_dump() is compiled out with #if 0 and has no
-callers. Remove the dead code.
+German,
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
----
- drivers/media/usb/dvb-usb/technisat-usb2.c | 21 ---------------------
- 1 file changed, 21 deletions(-)
+Thank you - for building v7 on 7.3-rc4 with the two-line change, for
+putting it through qcam, Firefox and Snapshot on the CPU and the GPU,
+and for the Tested-by.
 
-diff --git a/drivers/media/usb/dvb-usb/technisat-usb2.c b/drivers/media/usb/dvb-usb/technisat-usb2.c
-index 1e43aab2bc27..16bf3c99ddfc 100644
---- a/drivers/media/usb/dvb-usb/technisat-usb2.c
-+++ b/drivers/media/usb/dvb-usb/technisat-usb2.c
-@@ -384,27 +384,6 @@ static int technisat_usb2_power_ctrl(struct dvb_usb_device *d, int level)
- }
- 
- /* mac address reading - from the eeprom */
--#if 0
--static void technisat_usb2_eeprom_dump(struct dvb_usb_device *d)
--{
--	u8 reg;
--	u8 b[16];
--	int i, j;
--
--	/* full EEPROM dump */
--	for (j = 0; j < 256 * 4; j += 16) {
--		reg = j;
--		if (technisat_usb2_i2c_access(d->udev, 0x50 + j / 256, &reg, 1, b, 16) != 0)
--			break;
--
--		deb_eeprom("EEPROM: %01x%02x: ", j / 256, reg);
--		for (i = 0; i < 16; i++)
--			deb_eeprom("%02x ", b[i]);
--		deb_eeprom("\n");
--	}
--}
--#endif
--
- static u8 technisat_usb2_calc_lrc(const u8 *b, u16 length)
- {
- 	u8 lrc = 0;
--- 
-2.53.0
+I rebuilt libcamera 0.7.2, your version, with its stock tuning, and
+checked your three points on it.
+
+1. The slow start is real, and it is two things. Since v6 the driver
+   starts at the minimum exposure, four lines, as Sakari asked in review,
+   and 0.7.2's AGC climbs from there in small steps: 0.7 ms after 6 s,
+   17 ms after 13.5 s, and on the GPU the picture stays grey for about
+   the first ten seconds. And libcamera has no helper for this sensor, so
+   it takes the gain code for the gain - a code of 17 is 1.02x on this
+   sensor, not 17x. I sent libcamera a helper on 31 August, which also
+   gives it the black level; it has not been reviewed yet:
+   https://patchwork.libcamera.org/patch/28155/
+
+2. The mirroring is the reverse of what you saw on v3 on the 10th, when
+   Snapshot was the odd one out, and it is the driver that changed. Up to
+   v5 it mirrored every frame in its register list; since v6 it delivers
+   the image as the lens forms it and leaves mirroring to HFLIP and
+   VFLIP. Whether a front camera's preview is shown mirrored is then up
+   to the application, and the three you tried decide differently.
+
+3. The lines are there on 0.7.2, on both cameras, and only on the GPU
+   path: the front camera's GPU output carries blue and yellow stripes
+   about 25 pixels apart across the whole frame, the rear camera's blue
+   lines at fixed rows (311 and 791 of 1920x1080). The CPU path shows
+   none of it, on either camera, same scenes. The pattern is fixed in
+   the frame, so anything moving across it shows it. It is libcamera's
+   GPU debayer, not the drivers - its issue #351:
+   https://gitlab.freedesktop.org/camera/libcamera/-/issues/351
+
+   The shader fix proposed in that issue removes both here. Measured on
+   0.7.2 with and without it, same scene: the stripes and the fixed rows
+   are gone and the GPU output is as clean as the CPU's; only the
+   frame's first rows stay off. It is a one-file patch against 0.7.2,
+   linked from the issue - if you can rebuild libcamera, it would be
+   good to know whether it clears the lines on your machine as well.
+
+   You saw them on the CPU as well. Snapshot, and Firefox through the
+   camera portal, run libcamera inside PipeWire, which does not see
+   LIBCAMERA_SOFTISP_MODE set in a shell - could that test have run on
+   the GPU? qcam started with the variable set is certain to be the CPU.
+
+Sergey
 
