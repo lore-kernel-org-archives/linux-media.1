@@ -1,72 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93CC3876CD
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 18:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3221136AB56
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 18:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790447164; cv=none; b=P/WPgwmRdkJKOVRypcdPfImNua4SO+X/DaD14p0jtARXxD/6F0weWX1JHxvRAKg7z/qkwbeIVyIHMNNuX2yuCBKpegKpkiJTWV+da0ox29iQHocKvhWEyzYeDGv0bCWSKvUJn9ULGjphZKHh4WEquZgp4ZN58+pGHKLc8ZZPTpA=
+	t=1790447509; cv=none; b=jXpszF0Wgqtj6anzGao05iDjM9gAxp58JXtcDjpTa0Q3MHLLs176KcZz6xMI8wDehu+EvhreLCZ65gywYH8bZ5HGuUOZ6FrxlT/7CNe6JrJUB3OTHIlGBk/MsFEzLtAtQPkl+pUx5+W2PFNQ2dFczp6onpqa34gQSKBkMe6ztdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790447164; c=relaxed/simple;
-	bh=9A0R40e9BQpcc6Fn+BdHKjTUkwOGMNPbJez47hbp+ec=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F+gIH9pB720/eIwI/x0+WC5/TgLCPAPsEi0vx00+gPjhYhMcFj20iO70TB1/pJuxIJdkb90AYD5XXqOLPNh6OzsT2AaIgeoWusdROHo/rrdQf5LaQmaYVv8qJt59AaWBpxBD1UPJdNmLzOnVH8No+zeZ0A1Ki4bmcoKXRI5XS1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CKYx4a+v; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790447509; c=relaxed/simple;
+	bh=cRx5VRxvC0xJFx7V+AKfA1cxeBj5yF/qE+7MJz/4H4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TloYHk9KdQ3i9VjChbPB9zS4qdvcWBre1WiiAIgso2xViKce2av0EPeQrEBtFIEJjFSZ2n+1zzDVm2Eu7Jw+NchsFQGD13qdFjNV9DzTeCMEI/Xa/YINdsxnCpj7I5bE7Y9l1+PU2a0/iWGFm7aVdG+uDgy/oEZJr4C1gwAX8M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eOYiwH9/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YuZyDRrC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CKYx4a+v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790447162; x=1821983162;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=9A0R40e9BQpcc6Fn+BdHKjTUkwOGMNPbJez47hbp+ec=;
-  b=CKYx4a+vFFcKzJt5hbgaKJ39YhE9H6ltffE23HZ73qXFZfdmcxu04Um3
-   PdOIN/4uc6/90wWhiRjexa3EPOZY5AJ4QU+KP1Z3J3XiG8+gSmkctkTwN
-   D6MxvlHFk2AKX0ZAa2D/BcwOkLBe+Sy03kAeTzNpp/TBaECPbpLAMM7oi
-   IXolnhU1D/AEnEeK/DGuLEXT+UklZqB/vD9JlWHsYJ/h23p69WNjYYz5w
-   dO4e7ukyLprvXHi+OVku4+O+D4/SG+DoVJT8tbYTAjBglO8vkc+tXARkN
-   lbNCe8QKDzO0zD85qx+rO8ivrIWrENJDXcnFyg5v1VliosvblwZS+OjXo
-   Q==;
-X-CSE-ConnectionGUID: poDMEbDaTcapFR3isoVmAg==
-X-CSE-MsgGUID: 5gAuNwJJSoK5rKEf7VUK1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11917"; a="116732959"
-X-IronPort-AV: E=Sophos;i="6.27,124,1787036400"; 
-   d="scan'208";a="116732959"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 11:26:01 -0700
-X-CSE-ConnectionGUID: aRPeCRn+RBeZJoyleW+NKw==
-X-CSE-MsgGUID: V9khXwLjTr6qcju6Apj61Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,124,1787036400"; 
-   d="scan'208";a="274171591"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.223])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 11:25:58 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9A05A121BA1;
-	Sat, 26 Sep 2026 21:25:59 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xAX5x-00000005R76-2m2k;
-	Sat, 26 Sep 2026 21:25:57 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Bajpai, Manik" <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Nicola Fiorillo <nicfio@gmail.com>
-Subject: [PATCH v4 1/1] media: ipu6: Start streaming once all streams have started, stop when not
-Date: Sat, 26 Sep 2026 21:25:57 +0300
-Message-ID: <20260926182557.1295857-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260922120538.896684-10-sakari.ailus@linux.intel.com>
-References: <20260922120538.896684-10-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eOYiwH9/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YuZyDRrC"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QGxQrK1329820
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 18:31:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=JdPUDZZT+WDdxEtZZi5YPAJFXhlxmleL6Az
+	h39mMkvM=; b=eOYiwH9/nH5zEcu5AbSDDatmiUr7DM0jTc/7EkEJNb5TIl/U0Dr
+	s80SOJGcovzGB4yz2VymtbjxC14QJ/58dAb4+kUQXhUUiebYAz277Nkx4BjlTlGX
+	o09YKucrnSQ1nLB7XwI4XyU8U2XS/kv/88tSWgvmhkHX5mTMD4RJ8K6ltHhZzk01
+	QQK38mqxGrSIhaOCI+99pL7pfiEaezV0UdIMd1PKIekUOiVYEAT2Pze5re/nlKcn
+	g25ON3hnOT30fQT6OGnjBtkD10KUdYpl9CP5mWOTVii74Hhcb3VHxs5usyjuGVMz
+	O0ri7I9IzGA567m007xDePtqrOyS5oYxiCg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx50s9mav-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 18:31:46 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso1011542a12.0
+        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 11:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790447506; x=1791052306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JdPUDZZT+WDdxEtZZi5YPAJFXhlxmleL6Azh39mMkvM=;
+        b=YuZyDRrC7e3GAFAh8wC0l13t0T92PkKo8LYjsUoySpbtcV7mIrpJKJFP3QB3LAbtu+
+         6tSBPgR3MLG/Q38uqSb/RvyGlKzzAKnfhexeren+pyLqTsNqGi2cnb1f7+5MkWbGWpGT
+         wnyQnCRkYoVRFUW57GqUuWVGjKdus3kb8+STaarNx0Goz+5CtTadYYCSg1L0C9ZHrKqn
+         UIA3fg259wKImj7QfrOt+GaOc5Y1U6YmZpUe5WP6G2dbmdQw45rOvhqgN8yHAHXNhKQg
+         6uKahou3y/7BwBtrJfnqUGK2M6JiDFRAAl/FClNxM4tKR3WQwu2fqkqm8LMIRmYaMY6j
+         CJ3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790447506; x=1791052306;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JdPUDZZT+WDdxEtZZi5YPAJFXhlxmleL6Azh39mMkvM=;
+        b=bbQCgAm1wIKrKlFHtVvMXKX03Tx5ZtYRTGYvwR/KDKxBxxNe4XekvuN8AWtQNr3uSW
+         0/96xGm7STnITfJQ3GKGekotWNyPvLs0BV3vmatnq6x6jxQfFIdTixQKnk15bLV9Jrkf
+         NT0UlLjxb7egnmmx3T63cgn/vazkCX86rz2FE1up/d34/cMES+GJGp/hn/ayUAkr9s6e
+         XzP9Bj8WXKCdso01hsYNTrPrjhNxGThHTjGDTDqck0eQW+zxfCyorH89VxaGUhXvHKMh
+         zTKphKJNcVNZweVEck8fdS1DgPZa+QlPa+RbF5Gwb7io9LhbxEu4aZV5Y83LKGYSjmB7
+         4miQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0DfLoBjSMofeDnZXrCTLC3fA1XOGpnMWzPIjvPfajfGtd0JCaRfhmSTs7ElHX5efyv6whufsmQAJVGQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++m8M8pbmHp5F7ldiJm5INoDqLTZRrKpQdMeHC+2mB1ZgmnK/xoD
+	2YGUD6RG0LpINEtlL8DkGGEh1OnYdM/6XPM069f4UICMXHBbQsvvMIaP8su9END1W2AIyyVkSwD
+	QS+UknM8AHAfb7/MdLD7kJjOmFaapmC6hwynh2YuqHjJ5S3bffvISqf522ELFK4TU8w==
+X-Gm-Gg: AYBFou3T44F9OTUVa1fGcMcJqkUH8R5wizslAdkjZ4B+lx44NwF6zJtWQBqXpM8Abm3
+	h2ef5GwsM3AoGigw15zp8h7LsLOXQQrfXSPbHxOrMpegrZIV//HMXxw6+2ja0wAWDUiWy1OaGVc
+	2J0p62vtzwFis18RglLvnfAWL8thqU9uJNsi3g9XxpbQ3Ow9PwhufQAanDATGk9ah9hXb3eK1iG
+	41xSuPIP9VrHFF5id7jwwHUh4/arOhJYsBhrxDHRzuzMekvXCuMFFrtMOWdccsr7Ee8Uxnq8kii
+	0n1Y6Oz8Buk0iTNROhg+LUi2xU8X7QbeK34uDVyhDMdmZRK+MyU62KHc6+DcvAeWanZw+20rIva
+	9r04Rweiq4nHChooveVh3F9MTsLllpRm1j53CRLitVzx2lrk=
+X-Received: by 2002:a05:6a20:3d09:b0:3da:bea4:6219 with SMTP id adf61e73a8af0-3de0e75e925mr7709826637.20.1790447505793;
+        Sat, 26 Sep 2026 11:31:45 -0700 (PDT)
+X-Received: by 2002:a05:6a20:3d09:b0:3da:bea4:6219 with SMTP id adf61e73a8af0-3de0e75e925mr7709807637.20.1790447505363;
+        Sat, 26 Sep 2026 11:31:45 -0700 (PDT)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78791c680sm2539983a12.16.2026.09.26.11.31.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 11:31:44 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Jianfeng Liu <liujianfeng1994@gmail.com>,
+        =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Andrei Kuchynski <akuchynski@chromium.org>,
+        Benson Leung <bleung@chromium.org>,
+        "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>,
+        David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Hsin-Te Yuan <yuanhsinte@chromium.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Johan Hovold <johan@kernel.org>,
+        linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
+        linux-kernel@vger.kernel.org (open list),
+        linux-media@vger.kernel.org (open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
+        linux-usb@vger.kernel.org (open list:USB TYPEC CLASS),
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Pooja Katiyar <pooja.katiyar@intel.com>, Sean Paul <sean@poorly.run>,
+        Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH 0/6] drm/msm/gem: Drop use of pages for imported dma-bufs
+Date: Sat, 26 Sep 2026 11:30:40 -0700
+Message-ID: <20260926183051.25754-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,237 +111,65 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA3MyBTYWx0ZWRfX5Y2MYnDeUmoy
+ fZczxFnz4++/Jm1bUtCXltJrgAR1HYMGE6fSCymr4l3CgQ8+dVGUxEo5SthpTWVHYYavYvVadR1
+ GPv0GY3MZ+uUSM2bWAp/se3geiG6+PQ=
+X-Proofpoint-ORIG-GUID: -KExNg4hHADi8aPDzCaREMTlsXKBlbCE
+X-Authority-Analysis: v=2.4 cv=WuK+otfv c=1 sm=1 tr=0 ts=6ab80f92 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=tIciJ6vaqEqC_qAMQbIA:9
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA3MyBTYWx0ZWRfXwfsWlJcU49z2
+ GXijqOAOoi9zpoJ8wfmKrDj6CXH2wzbPaUZtHSm55Nd7AWGTQpWFDyMMkxSUp30TE8nBVUkteX9
+ m1HU85FpWb7Ey5Sdx8QzpKBq10Bcb0EjXuduqnvH/zWikHa0c7LkxxhbVSooKXafF/OAMRp2ff9
+ +Cb6Nn/5O17KHl7ZLPjfpjRAT5gI60I6SosGwpUkFfIQltR4dHsEbl74Mvjese5SycXNhcGi5HQ
+ u4n8gRF3++usnUXFhOiBM/m5JX7tGrLVaVjdT3Rt6AB03JAPYIEjJS9NDci/sNkXTBah8T3hd7S
+ Za0I32K6tTxy25eISf1OigQa+vvjUVmaLwmaDwR3cOXWRuMArHWAyRySblZz0hPDYNuvD8v2Die
+ mspAMeKpwf3w+uZDhVtEvEJv3syc0LpWzmLdlQYJRy2XCjl0U4Fhg3OwVQ6Rbx7RtbHVXdRqw2b
+ zkQ6RT/PbDOu99brpIw==
+X-Proofpoint-GUID: -KExNg4hHADi8aPDzCaREMTlsXKBlbCE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260073
 
-For each virtual channel, start streaming once all buffer queues connected
-via enabled routes have been set streaming, similarly stop when the first
-queue is stopped.
+The use of msm_obj->pages _mostly_ served to mark that the obj is
+resident in memory.  Mapping to the GPU, etc, all works in terms of
+the sgt.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
----
-since v3:
+The exception was the fault path.  Resolve this by using dma_buf_mmap()
+for mmap'ing imported buffers, like we are supposed to.  With that and
+a bit more cleanup we can drop the use of drm_prime_sg_to_page_array().
 
-- Check video_pad isn't NULL in ipu6_isys_csi2_streaming_change().
+This doesn't solve the issues with DMABUF_DEBUG, mapping to the GPU,
+either via iommu_map_sgtable() (display, and TTBR1 for GPU, aka the
+kernel managed mappings), or msm_iommu_pagetable_map() (userspace
+managed mappings), still requires pages under the hood.  That will
+be harder to solve.  But this is a step along the way.
 
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 112 +++++++++++++++++-
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |   1 +
- .../media/pci/intel/ipu6/ipu6-isys-queue.c    |   7 +-
- 3 files changed, 110 insertions(+), 10 deletions(-)
+Lightly tested.. in that I don't actually have a good way to test
+importing buffers that weren't first exported by drm/msm.  And I'm
+headed to XDC soon.
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-index f92577054d89..3c0df92bc6c7 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-@@ -12,6 +12,7 @@
- #include <linux/io.h>
- #include <linux/minmax.h>
- #include <linux/sprintf.h>
-+#include <linux/string_choices.h>
- 
- #include <media/media-entity.h>
- #include <media/v4l2-ctrls.h>
-@@ -435,6 +436,91 @@ static int ipu7_isys_csi2_stream_enable(struct ipu6_isys_csi2 *csi2)
- 	return 0;
- }
- 
-+static int ipu6_isys_csi2_streaming_change(struct ipu6_isys_subdev *asd,
-+					   struct v4l2_subdev_state *state,
-+					   u32 pad, u8 *vc, bool enable)
-+{
-+	struct v4l2_mbus_frame_desc_entry *this_entry = NULL;
-+	struct v4l2_subdev_route *route, *this_route = NULL;
-+	u32 streams_enabled = 0, nodes_streaming = 0;
-+	struct v4l2_mbus_frame_desc desc = { 0 };
-+	int ret;
-+
-+	for_each_active_route(&state->routing, this_route)
-+		if (pad == this_route->source_pad)
-+			break;
-+	if (!this_route) {
-+		dev_dbg(asd->sd.dev, "no route found for pad %u\n", pad);
-+		return -EINVAL;
-+	}
-+
-+	struct media_pad *remote_pad =
-+		media_pad_remote_pad_first(&asd->sd.entity.pads[this_route->sink_pad]);
-+	struct v4l2_subdev *remote_sd =
-+		media_entity_to_v4l2_subdev(remote_pad->entity);
-+	ret = v4l2_subdev_call(remote_sd, pad, get_frame_desc,
-+			       remote_pad->index, &desc);
-+	if (ret)
-+		return ret;
-+
-+	for (unsigned int i = 0; i < desc.num_entries; i++) {
-+		if (desc.entry[i].stream == this_route->sink_stream) {
-+			this_entry = &desc.entry[i];
-+			break;
-+		}
-+	}
-+	if (!this_entry) {
-+		dev_dbg(asd->sd.dev,
-+			"no frame descriptor entry found for stream %u\n",
-+			this_route->sink_stream);
-+		return -EINVAL;
-+	}
-+
-+	for_each_active_route(&state->routing, route) {
-+		struct v4l2_mbus_frame_desc_entry *entry = NULL;
-+
-+		for (unsigned int i = 0; i < desc.num_entries; i++) {
-+			if (desc.entry[i].stream == route->sink_stream) {
-+				entry = &desc.entry[i];
-+				break;
-+			}
-+		}
-+
-+		if (!entry) {
-+			dev_dbg(asd->sd.dev, "cannot find stream %u from frame descriptor\n",
-+				route->sink_stream);
-+			return -EINVAL;
-+		}
-+
-+		if (entry->bus.csi2.vc != this_entry->bus.csi2.vc)
-+			continue;
-+
-+		struct media_pad *video_pad =
-+			media_pad_remote_pad_first(&asd->sd.entity.pads[route->source_pad]);
-+		if (!video_pad)
-+			return -EINVAL;
-+
-+		struct ipu6_isys_video *av =
-+			container_of_const(video_pad, struct ipu6_isys_video,
-+					   pad);
-+
-+		streams_enabled++;
-+		if (av->streaming || (enable && pad == route->source_pad))
-+			nodes_streaming++;
-+	}
-+
-+	*vc = this_entry->bus.csi2.vc;
-+
-+	if (streams_enabled == nodes_streaming) {
-+		dev_dbg(asd->sd.dev,
-+			"changing streaming state to %s on \"%s\":%u\n",
-+			str_enabled_disabled(enable), asd->sd.entity.name, pad);
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
- static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 					 struct v4l2_subdev_state *state,
- 					 u32 pad, u64 streams_mask)
-@@ -450,6 +536,7 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 	struct ipu6_isys_buffer_list bl;
- 	u64 sink_streams;
- 	int ret;
-+	u8 vc;
- 
- 	ret = ipu6_isys_buffer_list_get(av->stream, &bl);
- 	if (ret < 0) {
-@@ -459,6 +546,10 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 
- 	list_add(&av->csi2_entry, &csi2->av_head);
- 
-+	ret = ipu6_isys_csi2_streaming_change(asd, state, pad, &vc, true);
-+	if (ret <= 0)
-+		return ret;
-+
- 	ret = ipu6_isys_start_stream_firmware(av, &bl);
- 	if (ret) {
- 		dev_err(sd->dev, "start stream of firmware failed\n");
-@@ -472,16 +563,20 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
- 						&streams_mask);
- 
--	ret = IS_IPU7(isp) ? ipu7_isys_csi2_stream_enable(csi2) :
--			     ipu6_isys_csi2_stream_enable(csi2);
--	if (ret)
--		goto err_stop_stream_firmware;
-+	if (!csi2->streaming_vc) {
-+		ret = IS_IPU7(isp) ? ipu7_isys_csi2_stream_enable(csi2) :
-+				     ipu6_isys_csi2_stream_enable(csi2);
-+		if (ret)
-+			goto err_stop_stream_firmware;
-+	}
- 
- 	ret = v4l2_subdev_enable_streams(remote_sd, remote_pad->index,
- 					 sink_streams);
- 	if (ret)
- 		goto err_stop_stream_csi2;
- 
-+	csi2->streaming_vc |= BIT(vc);
-+
- 	return 0;
- 
- err_stop_stream_csi2:
-@@ -514,6 +609,14 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
- 	struct ipu6_device *isp = asd->isys->adev->isp;
- 	struct v4l2_subdev *remote_sd;
- 	u64 sink_streams;
-+	int ret;
-+	u8 vc;
-+
-+	ret = ipu6_isys_csi2_streaming_change(asd, state, pad, &vc, false);
-+	if (ret <= 0)
-+		goto out_del_csi2_entry;
-+
-+	csi2->streaming_vc &= ~BIT(vc);
- 
- 	sink_streams =
- 		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
-@@ -533,6 +636,7 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
- 
- 	ipu6_isys_close_streaming_firmware(av);
- 
-+out_del_csi2_entry:
- 	list_del(&av->csi2_entry);
- 
- 	return 0;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-index 7c936154691e..a98a60e443c6 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-@@ -49,6 +49,7 @@ struct ipu6_isys_csi2 {
- 	unsigned int port;
- 	u32 legacy_irq_mask;
- 	unsigned int phy_mode;
-+	u32 streaming_vc;
- };
- 
- struct ipu6_isys_csi2_timing {
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 35cfd7a10882..f70c6f926229 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -533,14 +533,10 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
- 	ipu6_isys_configure_stream_watermark(av, source_pad->entity);
- 	ipu6_isys_update_stream_watermark(av, true);
- 
--	if (stream->nr_streaming != stream->nr_queues)
--		goto out;
--
- 	ret = ipu6_isys_stream_start(av);
- 	if (ret)
- 		goto out_stream_start;
- 
--out:
- 	mutex_unlock(&stream->mutex);
- 
- 	return 0;
-@@ -574,8 +570,7 @@ static void stop_streaming(struct vb2_queue *q)
- 	ipu6_isys_update_stream_watermark(av, false);
- 
- 	mutex_lock(&av->isys->stream_mutex);
--	if (stream->nr_streaming == stream->nr_queues)
--		ipu6_isys_video_set_streaming(av, 0);
-+	ipu6_isys_video_set_streaming(av, 0);
- 	list_del(&aq->node);
- 	mutex_unlock(&av->isys->stream_mutex);
- 
+Rob Clark (6):
+  drm/msm/gem: Add helper to check if resident
+  drm/msm/gem: Mmap imported dma-bufs via the exporter
+  drm/msm/gem: Use get_pages() directly in vmap path
+  drm/msm/gem: Stop exposing a page array
+  drm/msm/gem: Stop calling get_pages() for imported dma-bufs
+  drm/msm/gem: Drop use of drm_prime_sg_to_page_array()
 
-base-commit: d27f7ea737cec914b92e1952ba47f384d2989f08
+ drivers/gpu/drm/msm/msm_gem.c       | 107 +++++++++++++++++-----------
+ drivers/gpu/drm/msm/msm_gem.h       |  10 ++-
+ drivers/gpu/drm/msm/msm_gem_prime.c |   5 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c   |   8 +--
+ 4 files changed, 78 insertions(+), 52 deletions(-)
+
 -- 
-2.47.3
+2.55.0
 
