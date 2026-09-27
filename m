@@ -1,323 +1,261 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6526B3E3163
-	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 12:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE32B39F168
+	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 13:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790512238; cv=none; b=dlPMBGJKiBFdZ+NZE+2C7gDx22g+QJYkPKAkUyp8JdFmTY18ocwoOATiQHKfqzx2iIOeQa/WrGsSd0D2lLumKtAyhgnMspM83lcTNAnuLjmIDEzYgFpnUhnZ/wGN9xQsknElBUdn4SHf3s8PXc0wKoC2I0he9ktpz5cfXRBqHwc=
+	t=1790517448; cv=none; b=Ck7vsU/qJZM5N4GJCmWXc1tokaLFF/mLYLLgCAWwYTyk+UQqojglx4OBTu1849norbtc3t0XG2AQH9xiRluNMfstIeIpD0u9s1PMYMZAqeiDlGwuEsdcEaw3zLmj8h6c4Y39lK0lHodcZjgaXaoFJQcR0De3/oDgoTT+Aa9vMMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790512238; c=relaxed/simple;
-	bh=I1JojoliVZ7dbxqzLD60Qem68nACXrC4eiPgXhbdmfg=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bSEfkLkRJXHTWq7lGJcAjTVEVzP+UOvRoKzPxPnJuWVTxGvCQFOUYvWpdB7kqTQ3u52chUWAf/ZB8TXYSGsaWRmAYK55ZCqK+96forozYBI7lg8fLZGfk9+YUq4l8sPWnK161IDDxXJrSXBy8RDnI02WzT/I2oc9VUc//No72yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45e6091d8a1so1956293fac.1
-        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 05:30:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790512235; x=1791117035;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ViMrSrXqw2ls7q7hRsMQQIpu/+3B5pvy6SWUrtUFxr4=;
-        b=FGyE8s6mms/bq74zj4EIgeDTvnzGCU+40ofc7q5+Sjdd8DfwFbna9jB7P8xg+zmTUh
-         xL94LGv+rl/SF1zzu+vJqXo+rwdmv9IG8vx/b/wX9HY+3SY25W7iNIxIFfOU3cfamVNb
-         0qllncek+gRI7vOTQqt45pxR2MzJAfHKM6CRM3lCUlG5i40/vKTiWT5XtfyfK0MgyipJ
-         pdHo+jKynmvRbU82ODHY/tv3u02dSoKplZeTCqRYx/6ye3V8cSGOpZa/K4zw9waBeOBV
-         iPb5zLOXmQssJb4Fxm4IRHCJAt7dH0GiAsz9MMnK+UYHXLBNYdKuehBSzl6xMdTTIxuK
-         zxgg==
-X-Forwarded-Encrypted: i=1; AKwUvBweN4Oe9P9r9KIpbnE36VDIbSJyi0o8XlEwjR9V3s6puP7A+j5P32J+S/iDwtPaNU7wF80lwIpcUCyY4Q==@vger.kernel.org
-X-Gm-Message-State: AFuF++lL/shtXG0OoV3MJgRDKbpogFpkl+btttOfQQjHapFiH/8h9j6Z
-	ip3WcVHw7A7FjGSGUHN8NdNrMCO/4XV8y8W1zR83C8IerSO3PHfDKS4nQbPnNkIrcy/jqYHW/w1
-	mYi+obNERYwp2sG0dvpqZ6woe/UzLkCtsO5usslxYTTWbxbCztX3RkmEpNzo=
+	s=arc-20240116; t=1790517448; c=relaxed/simple;
+	bh=wVfCiyuNTM475LVEFFXsEk7D2KqFlcE4JltR7j94Ljk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Yy5yz+hhk3Z/iiQlQM+VOv9MvyZPhbCXQoy1DMWoUQw7kxgS26QciR1ak6SOodM3JRfhn9vXFwKCmVrqSHQvNn6WljFrggQ9swduq2DtY7oyph+HZhSmomZqW1b7U4nWdFLdZjLM1/N9S2gSiCSSrBKj4G27PudyOVXSO9Dzf0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V++nMwo4; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V++nMwo4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790517447; x=1822053447;
+  h=date:from:to:cc:subject:message-id;
+  bh=wVfCiyuNTM475LVEFFXsEk7D2KqFlcE4JltR7j94Ljk=;
+  b=V++nMwo4ckSUK7a+pUn1mwODZRPzHB6f4uSnup6geBvkqKxGR3PkSr4y
+   QJvw2/88705OS1MINs0M8k9cgjXmBvN0Qc/4uJKIBkK9jBbcUkcJhe83I
+   fdTAR4v1LmiCHoIG4d4Lq+NZDk3GKGjInhfoFA4JKcw8NvBaAbVXBxHgT
+   Vv8YMzOD27kxZRCzzwd0wDAtSXV+zQOh9CPKpNg6TxKZlH/LtiyKPGcdn
+   BhR3Pab+xMXUFxvJpECImSQ4gXnLDi48Sbti2h7j2cuk2WDL675BsY2QS
+   6DT2SmT/RASGc/dqxG6IMC2Jz82MNyPLNm+lkVIsnuOUXeMrjeoqhr1yX
+   Q==;
+X-CSE-ConnectionGUID: yo3QHTk2TNGOYZmAPLNuOg==
+X-CSE-MsgGUID: onndaZL5T0CTVbiBSq9+Hw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90135810"
+X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
+   d="scan'208";a="90135810"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 06:57:26 -0700
+X-CSE-ConnectionGUID: wwHZJlcsSwmVhCbAak0/1Q==
+X-CSE-MsgGUID: yxDfKv9pQSi1rpcXxC1Jsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
+   d="scan'208";a="282892966"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 27 Sep 2026 06:57:25 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xApNa-00000000Mvl-3d5r;
+	Sun, 27 Sep 2026 13:57:22 +0000
+Date: Sun, 27 Sep 2026 21:57:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Subject: [linuxtv-media-pending:next] BUILD SUCCESS
+ 4efa625593e1e9c76346232413997556dea1d89f
+Message-ID: <202609272103.90UTez0i-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c410:b0:4b9:a88b:8887 with SMTP id
- 5614622812f47-4d72b14b989mr10898805b6e.29.1790512235321; Sun, 27 Sep 2026
- 05:30:35 -0700 (PDT)
-Date: Sun, 27 Sep 2026 05:30:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab90c6b.dc2998a4.2261f5.0067.GAE@google.com>
-Subject: [syzbot] [media?] WARNING: held lock freed in device_release_driver_internal
-From: syzbot <syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+tree/branch: https://git.linuxtv.org/media-ci/media-pending.git next
+branch HEAD: 4efa625593e1e9c76346232413997556dea1d89f  dt-bindings: media: i2c: himax,hm1246: Use video-interface-devices
 
-syzbot found the following issue on:
+elapsed time: 1801m
 
-HEAD commit:    fe2ec83746e5 Merge tag 'hid-for-linus-2026092202' of git:/..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=13f1e515580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11ab4d25580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1177f4c9580000
+configs tested: 184
+configs skipped: 8
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/de0feed7b17d/disk-fe2ec837.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/d88be67f06a3/vmlinux-fe2ec837.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/88ea650392d6/bzImage-fe2ec837.xz
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+arc                               allmodconfig    clang-24
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    gcc-16.1.0
+arc                                  defconfig    gcc-16.1.0
+arc                  nsimosci_hs_smp_defconfig    gcc-16.1.0
+arc                   randconfig-1000-20260927    gcc-11.5.0
+arc                   randconfig-1001-20260927    gcc-11.5.0
+arm                                allnoconfig    gcc-16.1.0
+arm                               allyesconfig    clang-24
+arm                          assabet_defconfig    gcc-16.1.0
+arm                                  defconfig    gcc-16.1.0
+arm                   randconfig-1000-20260927    gcc-11.5.0
+arm                   randconfig-1001-20260927    gcc-11.5.0
+arm                   randconfig-1002-20260927    gcc-11.5.0
+arm                   randconfig-1003-20260927    gcc-11.5.0
+arm                           sp7021_defconfig    gcc-11.5.0
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20260927    clang-17
+arm64                 randconfig-1001-20260927    clang-17
+arm64                 randconfig-1002-20260927    clang-17
+arm64                 randconfig-1003-20260927    clang-17
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20260927    clang-17
+csky                  randconfig-1001-20260927    clang-17
+hexagon                           allmodconfig    gcc-16.1.0
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20260927    gcc-11.5.0
+hexagon               randconfig-1001-20260927    gcc-11.5.0
+i386                              allmodconfig    clang-22
+i386                               allnoconfig    gcc-16.1.0
+i386                              allyesconfig    clang-22
+i386        buildonly-randconfig-1000-20260927    clang-22
+i386        buildonly-randconfig-1001-20260927    clang-22
+i386        buildonly-randconfig-1002-20260927    clang-22
+i386        buildonly-randconfig-1003-20260927    clang-22
+i386        buildonly-randconfig-1004-20260927    clang-22
+i386        buildonly-randconfig-1005-20260927    clang-22
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20260927    clang-22
+i386                  randconfig-1001-20260927    clang-22
+i386                  randconfig-1002-20260927    clang-22
+i386                  randconfig-1003-20260927    clang-22
+i386                  randconfig-1004-20260927    clang-22
+i386                  randconfig-1005-20260927    clang-22
+i386                  randconfig-1006-20260927    clang-22
+i386                  randconfig-1007-20260927    gcc-14
+i386                  randconfig-1008-20260927    gcc-14
+i386                  randconfig-1009-20260927    gcc-14
+i386                  randconfig-1010-20260927    gcc-14
+i386                  randconfig-1011-20260927    gcc-14
+i386                  randconfig-1012-20260927    gcc-14
+i386                  randconfig-1013-20260927    gcc-14
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch                            defconfig    clang-24
+loongarch             randconfig-1000-20260927    gcc-11.5.0
+loongarch             randconfig-1001-20260927    gcc-11.5.0
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    clang-24
+m68k                                 defconfig    clang-24
+m68k                        m5208evb_defconfig    gcc-11.5.0
+m68k                            sun3_defconfig    gcc-16.1.0
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    clang-24
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                         bcm47xx_defconfig    gcc-11.5.0
+mips                   cavium_octeon_defconfig    gcc-16.1.0
+mips                          db1xxx_defconfig    gcc-16.1.0
+mips                           eyeq6_defconfig    gcc-16.1.0
+mips                      eyeq6lplus_defconfig    gcc-16.1.0
+mips                        lemote2f_defconfig    gcc-16.1.0
+nios2                             alldefconfig    gcc-11.5.0
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                                defconfig    clang-24
+nios2                 randconfig-1000-20260927    gcc-11.5.0
+nios2                 randconfig-1001-20260927    gcc-11.5.0
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+openrisc                     or1ksim_defconfig    gcc-16.1.0
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20260927    clang-24
+parisc                randconfig-1001-20260927    clang-24
+parisc64                             defconfig    clang-24
+powerpc                            allnoconfig    clang-24
+powerpc               randconfig-1000-20260927    clang-24
+powerpc               randconfig-1001-20260927    clang-24
+powerpc                      tqm8541_defconfig    gcc-11.5.0
+powerpc                      tqm8541_defconfig    gcc-16.1.0
+powerpc                      tqm8548_defconfig    gcc-11.5.0
+powerpc                      tqm8555_defconfig    gcc-11.5.0
+powerpc                      tqm8560_defconfig    gcc-16.1.0
+powerpc64             randconfig-1000-20260927    clang-24
+powerpc64             randconfig-1001-20260927    clang-24
+riscv                              allnoconfig    clang-24
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20260927    gcc-16.1.0
+riscv                 randconfig-1001-20260927    gcc-16.1.0
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                           debug_defconfig    gcc-16.1.0
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20260927    gcc-16.1.0
+s390                  randconfig-1001-20260927    gcc-16.1.0
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                                   defconfig    gcc-14
+sh                           polaris_defconfig    gcc-16.1.0
+sh                           r7780mp_defconfig    gcc-16.1.0
+sh                    randconfig-1000-20260927    gcc-16.1.0
+sh                    randconfig-1001-20260927    gcc-16.1.0
+sh                             titan_defconfig    gcc-16.1.0
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20260927    clang-24
+sparc                 randconfig-1001-20260927    clang-24
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20260927    clang-24
+sparc64               randconfig-1001-20260927    clang-24
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                allyesconfig    gcc-16.1.0
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20260927    clang-24
+um                    randconfig-1001-20260927    clang-24
+um                            x86_64_defconfig    gcc-14
+x86_64                            allmodconfig    clang-22
+x86_64                             allnoconfig    clang-24
+x86_64                            allyesconfig    clang-22
+x86_64      buildonly-randconfig-1000-20260927    gcc-14
+x86_64      buildonly-randconfig-1001-20260927    gcc-14
+x86_64      buildonly-randconfig-1002-20260927    gcc-14
+x86_64      buildonly-randconfig-1003-20260927    gcc-14
+x86_64      buildonly-randconfig-1004-20260927    gcc-14
+x86_64      buildonly-randconfig-1005-20260927    gcc-14
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20260927    clang-22
+x86_64                randconfig-1001-20260927    clang-22
+x86_64                randconfig-1002-20260927    clang-22
+x86_64                randconfig-1003-20260927    clang-22
+x86_64                randconfig-1004-20260927    clang-22
+x86_64                randconfig-1005-20260927    clang-22
+x86_64                randconfig-1006-20260927    clang-22
+x86_64                randconfig-1007-20260927    clang-22
+x86_64                randconfig-1008-20260927    clang-22
+x86_64                randconfig-1009-20260927    clang-22
+x86_64                randconfig-1010-20260927    clang-22
+x86_64                randconfig-1011-20260927    clang-22
+x86_64                randconfig-1012-20260927    clang-22
+x86_64                randconfig-1013-20260927    clang-22
+x86_64                randconfig-1014-20260927    clang-22
+x86_64                randconfig-1015-20260927    clang-22
+x86_64                randconfig-1016-20260927    clang-22
+x86_64                randconfig-1017-20260927    clang-22
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    gcc-14
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20260927    clang-24
+xtensa                randconfig-1001-20260927    clang-24
+xtensa                     smp_lx200_defconfig    gcc-11.5.0
 
-usbtv 1-1:3.223: Fushicai USBTV007 Audio-Video Grabber
-usb 1-1: USB disconnect, device number 2
-=========================
-WARNING: held lock freed!
-syzkaller #0 Not tainted
--------------------------
-kworker/0:2/190 is freeing memory ffff8880222f6000-ffff8880222f67ff, with a lock still held there!
-ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
-ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
-ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
-locks held by kworker/0:2/190: 5, last CPU#0:
- #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff888029c621d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #2: ffff888029c621d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
- #3: ffff8880226851d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #3: ffff8880226851d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
- #4: ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #4: ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
- #4: ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 190 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_freed_lock_bug kernel/locking/lockdep.c:6789 [inline]
- debug_check_no_locks_freed+0x149/0x170 kernel/locking/lockdep.c:6824
- slab_free_hook mm/slub.c:2676 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x12b/0x650 mm/slub.c:6801
- device_release+0xc4/0x1f0 drivers/base/core.c:-1
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x222/0x550 lib/kobject.c:737
- v4l2_device_disconnect+0x79/0xd0 drivers/media/v4l2-core/v4l2-device.c:83
- usbtv_video_free+0x25/0x30 drivers/media/usb/usbtv/usbtv-video.c:967
- usbtv_disconnect+0x5c/0xa0 drivers/media/usb/usbtv/usbtv-core.c:140
- usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-==================================================================
-BUG: KASAN: slab-use-after-free in usb_unbind_interface+0x2c2/0x9f0 drivers/usb/core/driver.c:464
-Read of size 8 at addr ffff8880222f6008 by task kworker/0:2/190
-
-CPU: 0 UID: 0 PID: 190 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- usb_unbind_interface+0x2c2/0x9f0 drivers/usb/core/driver.c:464
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 190:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x321/0x600 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- usb_set_configuration+0x3cc/0x2180 drivers/usb/core/message.c:2096
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2708
- hub_port_connect drivers/usb/core/hub.c:5580 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 190:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6801
- device_release+0xc4/0x1f0 drivers/base/core.c:-1
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x222/0x550 lib/kobject.c:737
- v4l2_device_disconnect+0x79/0xd0 drivers/media/v4l2-core/v4l2-device.c:83
- usbtv_video_free+0x25/0x30 drivers/media/usb/usbtv/usbtv-video.c:967
- usbtv_disconnect+0x5c/0xa0 drivers/media/usb/usbtv/usbtv-core.c:140
- usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff8880222f6000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 8 bytes inside of
- freed 2048-byte region [ffff8880222f6000, ffff8880222f6800)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x222f0
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801b042000 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801b042000 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 3789322522
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x39b/0x600 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- acpi_add_single_object+0xde/0x1b60 drivers/acpi/scan.c:1870
- acpi_bus_check_add+0x2b7/0x8a0 drivers/acpi/scan.c:2175
- acpi_ns_walk_namespace+0x273/0x700 drivers/acpi/acpica/nswalk.c:-1
- acpi_walk_namespace+0x125/0x190 drivers/acpi/acpica/nsxfeval.c:606
- acpi_bus_scan+0x465/0x4f0 drivers/acpi/scan.c:2725
- acpi_scan_init+0x1b1/0x470 drivers/acpi/scan.c:2866
- acpi_init+0x130/0x1f0 drivers/acpi/bus.c:1499
- do_one_initcall+0x250/0x870 init/main.c:1362
- do_initcall_level+0x10a/0x1a0 init/main.c:1424
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff8880222f5f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8880222f5f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff8880222f6000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                      ^
- ffff8880222f6080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff8880222f6100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
