@@ -1,111 +1,123 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8503BF684;
-	Sun, 27 Sep 2026 14:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E317392C34
+	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 15:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790518759; cv=none; b=a3yUi+XsyYl5hAxqW+TVUzNGZKHZFP0MsAHS3ZrR0UqCCFsUR4PSuTut2FKXGNcrRRkx6XYzHLV1ML+n8nb87tJVX1bkt2mdfFQAH7cawTEDgoxVBIuY/uncMxmqkS1nkbIUP/Lz+UfQbEtZuC4iWJ1c7XTBNB8taYrgo/9WDSA=
+	t=1790523166; cv=none; b=EdvOeDH2bUWHAy2b6qNC4udfgYPKAEXG2OfOOrmvUltBjQAVnhgKnJ4OVRL/GNCBvZCxkDLgeZ2zSNh6cH12XQaTcdzKZ+TLSEjo1pV3zON5XbxdAgpg8pGH0tvfuKpP3vTGZ4cnOkvivL4a+7FRuJzosSU35IsdzxrXOKvsfCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790518759; c=relaxed/simple;
-	bh=XuV1pUSSKMp45rUiY7+W9cj7hDLqz3FCd/AFGxCjcKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V3AsI6ZrtAkt+KgwdZcbMIpNRrvbm3/jHbG30NW8/gCFX7BV+jouqIT0C5rvYyzDNSBbzM1tSi91BPGvSCnExCGI/1jxpGQICWomM7cdqCFCJVZD22dfn9hzI0sRPyTOIblW2wRs3IcqTtcqCVfdPRJn/MhCVn4XmUsA65Cb3uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tmX4gfNu; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790523166; c=relaxed/simple;
+	bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dWop7DAdlbYuZDFtu//SGUv+9ItwNl2DJq8LA35MgzQibevUlu1E+U24CPIUE9Mqr78KJNQHRbgr4hES4c9nFWv/qibbIWAFTC9d144eaCafgEfzsONCmysCEbjyHEyVuzP/8L/JCIMZwqSrJBhY+1yMsh/PY05j47W2xMuUAS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=Bko8XzRm; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tmX4gfNu"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3CA75FBE;
-	Sun, 27 Sep 2026 16:17:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790518644;
-	bh=XuV1pUSSKMp45rUiY7+W9cj7hDLqz3FCd/AFGxCjcKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tmX4gfNuT1kMtkv1BJjzUol4CGIpJX8+OyjH+SP2ichnX7Ziz3RLC7YjAbSCkKoi/
-	 w7U536Qw7zDaZwUjagSV0ECUl4S5c56QTZMxVKTwZ17IZ4ky7TsMUK1lBbpbMTsQy2
-	 sVn+m52iSpsMceuB5mLlunK1n/GBAoa2tqgB7SK4=
-Date: Sun, 27 Sep 2026 17:19:12 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, sakari.ailus@linux.intel.com,
-	mripard@kernel.org, jai.luthra@linux.dev,
-	jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, mirela.rabulea@nxp.com
-Subject: Re: [RFC PATCH 4/8] media: cadence: csi2rx: Add RAW10 RGBIr formats
-Message-ID: <20260927141912.GA4406@killaraus.ideasonboard.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-5-r-donadkar@ti.com>
- <20260926145242.GD764757@killaraus.ideasonboard.com>
- <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="Bko8XzRm"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-533245fd18dso9172031cf.0
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 08:32:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790523162; x=1791127962; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+        b=Bko8XzRmxrxhB1yOjvyzWxL6fsflbVvF3cb+Jb0W1u854XoEEpOv1UgUywBedNTSG2
+         f+9AuKYYMyxONsYCe8nY5+U3FhhMpvrwJL5tUtRRXQFpVfI7sgXMLKuqftBxvV+e5NWP
+         tTQDTedpcQDJeJdgK+m6C38pvKZybvdzSrAKG/fn3r02D3ijRLNBDPH+rwhUrsQKR+jf
+         irZaO7g9CxOF2fynph5lJO7/0MR3r5822IqdiHkpId98lewlIZF5N0u4A7bGSX7Hbm2/
+         3+YJhCX01z1RxIPf8UDhMQ8Bo9J1+U0t/ZM0QAOvfNt0ZctALzDCZ52mLtvELG3J6Ek8
+         l0EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790523162; x=1791127962;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+        b=WUlCNSHL0IE5i1fQhSdXfBBRYbt+3YvhyNcvh+9be4wjDxdqyNpTiKTQdYfW8uFOhQ
+         KG2SpJDnRZEcemxxbzkkqfKeO3mh72RftVIEybaDqDTdsttU8Jdq2nHRpvLhdgTZb1mY
+         RJUkYVvL4tz2k7lGKVTIoaKDGnnW2NCjq/8ahT1TShgAfTSvfySGnS3Z5o8+/0Rqr7ox
+         +lYi3qSa/zypCawed0QWPtULltCzbd0i6zvAWkTacM4JxrV1+zKGAc47n/GyTOqh/oCy
+         /nV/UT1W88YTmw9TBLrceVAhK+zmGqed0PCZWaQqx0UuU+PWSu8rLgzOcPoTwx3ULjmL
+         4IFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzB6YtmrgHiN++pU3Pa4yum1YNnoyKLp5zaBpVKytxVtPENZIGzqfvffTPoNIH7+FoeUtgp86cusrV6g==@vger.kernel.org
+X-Gm-Message-State: AFuF++lgh0havXfDc2Zx9OKCjo09lIv7xfM6L9ePeC2P2mWKqSdhAzjh
+	HRbhgXyKV2/wugDTbpfajnSBQWUwPwej5oiNSM3H6qEVXAyWnejmgaC0g8SKhqq0O/4=
+X-Gm-Gg: AYBFou3LJ6277gCY2TUuOPkZPngQz93a/XkluQf+xhjOMjiVNZLte9PkyIQKZy3DsHW
+	oMgFt0kO8Zpmpfk2AJJH1zGYScps/HHk08OYheMKJvnXED4ytWnIMooRVc5SCMzZV0ZMMxf2bfA
+	d6UAmM0fhKdQwsX+zl2VRJVO8DV2g01b5UNxn88rrMtMzINVyFJ4haP10rbqpFxV0HqbZwPgIZH
+	yDQjGzKWFLSt49GwtsXhNGkehlCMPwHRAYcDN2wsZB0yNfAQqNQQAUtzOOiEU1L5iQWJsi0zTrq
+	jdjlFL7RYn/FRua+yJA7+PfQUHdcyu04qJhihUmsfa5D5S1S+DXisXDLm1DsrKW880DbftktDwQ
+	t5G010A6ExUzFeCjTi/yAS8RZtKls8uqFft4I+Cc/MfSoBgaK86sI5Vw1jxiN9DzzP7HpQWHTPn
+	iILrBi5zPKVrFscQmqrW6x8wIrFK2HPEoTlJSJWEDSOzDiFrI=
+X-Received: by 2002:a05:622a:4d9a:b0:533:33c6:e636 with SMTP id d75a77b69052e-53333c6feb6mr56127141cf.6.1790523162378;
+        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::2])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322020e91sm43319281cf.1.2026.09.27.08.32.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Felipe Balbi <balbi@ti.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	johannes.goede@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Oleg Keri <okerixx@gmail.com>
+Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
+Date: Sun, 27 Sep 2026 11:32:36 -0400
+Message-ID: <20260927153236.2727-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
+References: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
 
-On Sun, Sep 27, 2026 at 10:50:30AM +0530, Rishikesh Donadkar wrote:
-> On 26/09/26 20:22, Laurent Pinchart wrote:
-> > On Fri, Sep 25, 2026 at 06:59:57PM +0530, Rishikesh Donadkar wrote:
-> >> From: Jai Luthra <j-luthra@ti.com>
-> >>
-> >> Add 10-bit RGBIr formats to the table to allow capturing them.
-> >>
-> >> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> >> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> >> ---
-> >>   drivers/media/platform/cadence/cdns-csi2rx.c | 8 ++++++++
-> >>   1 file changed, 8 insertions(+)
-> >>
-> >> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> index de7cce76397a..8ed730452d3c 100644
-> >> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> @@ -173,6 +173,14 @@ static const struct csi2rx_fmt formats[] = {
-> >>   	{ .code	= MEDIA_BUS_FMT_RGB565_1X16,  .bpp = 16, .max_pixels = 1, },
-> >>   	{ .code	= MEDIA_BUS_FMT_RGB888_1X24,  .bpp = 24, .max_pixels = 1, },
-> >>   	{ .code	= MEDIA_BUS_FMT_BGR888_1X24,  .bpp = 24, .max_pixels = 1, },
-> >> +	{ .code	= MEDIA_BUS_FMT_SRGGI10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGRIG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SBGGI10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGBIG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGIRG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SIGGR10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGIBG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SIGGB10_1X10, .bpp = 10, .max_pixels = 2 },
-> > 
-> > Raw formats will allow supporting all possible CFA patterns without
-> > having to extend each driver every time a new pattern is added.
-> 
-> Yes, makes sense !
-> 
-> I noticed that patches for RAW format support are present here
-> 
-> https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata
-> 
-> Is there a plan to merge these into media tree in the near future?
-> If they are still under review and need more time to get merged, I’ll 
-> plan to cherry-pick them and rebase my work on top of them.
+On Sun, 27 Sep 2026 10:40:33 +0200, Hans de Goede wrote:
+> It would be great if you can post your DT bits for this upstream soon,
+> then we can add them to:
+>
+> https://github.com/linux-msm/laptops-kernel/commits/qcom-laptops/
+>
+> and more people can test.
 
-Jai is working on the userspace implementation in libcamera to test out
-the API. Once that completes, we'll update the API is issues are found,
-and then merge it.
+They are posted; v3 is the current version, with Bryan's Reviewed-by:
 
-> >>   };
-> >>   
-> >>   static void csi2rx_configure_error_irq_mask(void __iomem *base,
+https://lore.kernel.org/all/20260926122533.8200-1-lnicoara@thinkoid.org/
 
--- 
-Regards,
+It also links the sensor to the privacy LED. It applies to
+qcom-laptops as of 3e45da63f61e, which already carries its
+dependencies (the x1e camera DT v7 and v20 5/6 and 6/6).
 
-Laurent Pinchart
+Thanks,
+Liviu
