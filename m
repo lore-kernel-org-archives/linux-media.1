@@ -1,57 +1,57 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE32B39F168
-	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 13:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B463D1AA4
+	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 13:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790517448; cv=none; b=Ck7vsU/qJZM5N4GJCmWXc1tokaLFF/mLYLLgCAWwYTyk+UQqojglx4OBTu1849norbtc3t0XG2AQH9xiRluNMfstIeIpD0u9s1PMYMZAqeiDlGwuEsdcEaw3zLmj8h6c4Y39lK0lHodcZjgaXaoFJQcR0De3/oDgoTT+Aa9vMMU=
+	t=1790517569; cv=none; b=f04yCiCsDlPeJmgxbUv7e4ZTVMaR54D5lc4sKSBe6zmpnMeTNmXCPc8ru7Om01MFJGbs+agVBiLcTXINYqSpsZYGmNCnnawUcRQfVtqAm/gc07v8xhTNDQiOn72a3xQfQd3O4M+4p3Hq0bv0GnZs7MNbUjdKDkSs2/Le2p1oePc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790517448; c=relaxed/simple;
-	bh=wVfCiyuNTM475LVEFFXsEk7D2KqFlcE4JltR7j94Ljk=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Yy5yz+hhk3Z/iiQlQM+VOv9MvyZPhbCXQoy1DMWoUQw7kxgS26QciR1ak6SOodM3JRfhn9vXFwKCmVrqSHQvNn6WljFrggQ9swduq2DtY7oyph+HZhSmomZqW1b7U4nWdFLdZjLM1/N9S2gSiCSSrBKj4G27PudyOVXSO9Dzf0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V++nMwo4; arc=none smtp.client-ip=192.198.163.19
+	s=arc-20240116; t=1790517569; c=relaxed/simple;
+	bh=Wkr/ceHQ5lC7Zqgy8ycghiHWDBZZ6KQpVfA1egFbA7g=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ZkqON6oDjsUqJLOeEhD9cesovGdA+ywNbAbA1IS4f/SeO8nKRa3Pg28+V4mSgpWrCg+23oaUpTyf6Y971NZTlEwAKkXAFGfo+GXWgU1/JvlEEnXh/NwYNQipqJ7C5PFzLF+cjn3t/OIm2q8nyWSTNNPc7JhM0kN2yh5I0aaeFSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nCVugAtm; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V++nMwo4"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nCVugAtm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790517447; x=1822053447;
+  t=1790517568; x=1822053568;
   h=date:from:to:cc:subject:message-id;
-  bh=wVfCiyuNTM475LVEFFXsEk7D2KqFlcE4JltR7j94Ljk=;
-  b=V++nMwo4ckSUK7a+pUn1mwODZRPzHB6f4uSnup6geBvkqKxGR3PkSr4y
-   QJvw2/88705OS1MINs0M8k9cgjXmBvN0Qc/4uJKIBkK9jBbcUkcJhe83I
-   fdTAR4v1LmiCHoIG4d4Lq+NZDk3GKGjInhfoFA4JKcw8NvBaAbVXBxHgT
-   Vv8YMzOD27kxZRCzzwd0wDAtSXV+zQOh9CPKpNg6TxKZlH/LtiyKPGcdn
-   BhR3Pab+xMXUFxvJpECImSQ4gXnLDi48Sbti2h7j2cuk2WDL675BsY2QS
-   6DT2SmT/RASGc/dqxG6IMC2Jz82MNyPLNm+lkVIsnuOUXeMrjeoqhr1yX
-   Q==;
-X-CSE-ConnectionGUID: yo3QHTk2TNGOYZmAPLNuOg==
-X-CSE-MsgGUID: onndaZL5T0CTVbiBSq9+Hw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90135810"
+  bh=Wkr/ceHQ5lC7Zqgy8ycghiHWDBZZ6KQpVfA1egFbA7g=;
+  b=nCVugAtm+1UOVgbPV8Bjri+ANYfdo8BMgwRR8Wy5dXcbZAgYRIU3b2du
+   HuDL+E06hRusPhgdhCuGf7stuBxinCae7jJ9fWrs5Nyx5deJieutHXioR
+   Lymzv4GsBBuMoXJJnAZlm4KlRaVXUwy7Et4ZPpNhxfeeuYZKTLmdbLQ8C
+   vntQymH1/j2gHqb2hT+OlLTfQPajEd13gM/MPa0/p0/+UOexl9c/gv4tg
+   Y8aYguvgc0W6HjS6pOwAqxQWapv6efAOXcm/mvJsK/3lalV8650ryBW+8
+   Ut+3s4/uNC3u/tzTUpf3X55eTWHjjqDqihjzIBQaLSTh0nwJq6QGWmLrF
+   A==;
+X-CSE-ConnectionGUID: C5MAwyewTcae3aZqoVca4Q==
+X-CSE-MsgGUID: OriGAByuQSGsYLZNKrucTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90276310"
 X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
-   d="scan'208";a="90135810"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 06:57:26 -0700
-X-CSE-ConnectionGUID: wwHZJlcsSwmVhCbAak0/1Q==
-X-CSE-MsgGUID: yxDfKv9pQSi1rpcXxC1Jsw==
+   d="scan'208";a="90276310"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 06:59:27 -0700
+X-CSE-ConnectionGUID: lZkG8DRITF+HUa7sQAfh7A==
+X-CSE-MsgGUID: BHHk4OXyRreoRlAXGaqOQQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,126,1787036400"; 
-   d="scan'208";a="282892966"
+   d="scan'208";a="274875422"
 Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 27 Sep 2026 06:57:25 -0700
+  by orviesa009.jf.intel.com with ESMTP; 27 Sep 2026 06:59:26 -0700
 Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xApNa-00000000Mvl-3d5r;
-	Sun, 27 Sep 2026 13:57:22 +0000
-Date: Sun, 27 Sep 2026 21:57:06 +0800
+	id 1xApPX-00000000MwN-1AZQ;
+	Sun, 27 Sep 2026 13:59:23 +0000
+Date: Sun, 27 Sep 2026 21:58:59 +0800
 From: kernel test robot <lkp@intel.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org
-Subject: [linuxtv-media-pending:next] BUILD SUCCESS
- 4efa625593e1e9c76346232413997556dea1d89f
-Message-ID: <202609272103.90UTez0i-lkp@intel.com>
+Subject: [sailus-media-tree:metadata] BUILD SUCCESS
+ 15a06b56b0f8b0075c4721692680111064e39433
+Message-ID: <202609272156.igRQK05a-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -59,10 +59,10 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-tree/branch: https://git.linuxtv.org/media-ci/media-pending.git next
-branch HEAD: 4efa625593e1e9c76346232413997556dea1d89f  dt-bindings: media: i2c: himax,hm1246: Use video-interface-devices
+tree/branch: git://linuxtv.org/sailus/media_tree.git metadata
+branch HEAD: 15a06b56b0f8b0075c4721692680111064e39433  Documentation: media: Reword blanking control documentation
 
-elapsed time: 1801m
+elapsed time: 1764m
 
 configs tested: 184
 configs skipped: 8
