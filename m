@@ -1,264 +1,323 @@
-Received: from ssl01.alldomains.hosting (ssl01.alldomains.hosting [213.145.224.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3413D668B
-	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 11:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.145.224.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6526B3E3163
+	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 12:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790508205; cv=none; b=djqG74k5TDXX73aij7E1veetlwLUd3ePYLOwZZjgFsy3MFEYq0FffL8yZmmIjXR6KeA3Dv7R3nUgfk3aUBvHq8G0uqcQHifIkr8dxGjwok0/YjkbAVWfjfvuLBibr4guiqoVPztZdvALmCqfhcpKjzSMbRFmoYzYLgMAEYtJ0kM=
+	t=1790512238; cv=none; b=dlPMBGJKiBFdZ+NZE+2C7gDx22g+QJYkPKAkUyp8JdFmTY18ocwoOATiQHKfqzx2iIOeQa/WrGsSd0D2lLumKtAyhgnMspM83lcTNAnuLjmIDEzYgFpnUhnZ/wGN9xQsknElBUdn4SHf3s8PXc0wKoC2I0he9ktpz5cfXRBqHwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790508205; c=relaxed/simple;
-	bh=DxZL8r3PrRS/DBPiEsg+58B6+Al37ZGmxOmVx20nk6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mECbHlkkeH6shxamLOuJ9hMq6sCHUnVuRfxCojjmWHqZjYjZ0fUirBRX1JE2DxnLeIAiqLus3K3NlLQ7BtDLB4IzdgtH4IGOEJ7bfbf1hzz/Y85VbnVEvhMldtLMyM2BkJYqnWZlkWvqux/AMt0YFTYBGziH/YFhZwBcN3yU7Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dittrich.top; spf=none smtp.mailfrom=dittrich.top; dkim=pass (2048-bit key) header.d=ssl01.alldomains.hosting header.i=@ssl01.alldomains.hosting header.b=dbfJMRve; arc=none smtp.client-ip=213.145.224.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dittrich.top
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dittrich.top
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ssl01.alldomains.hosting header.i=@ssl01.alldomains.hosting header.b="dbfJMRve"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ssl01.alldomains.hosting; s=dkim; h=From:Sender:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Type:X-Mailer:Thread-Index:
-	Content-Language; bh=So/I9qdJpn+DgDEEaJYn2VQ234TGG34OAGlHMi/cQt4
-	=; b=dbfJMRvexlWZ/nC26g+xpOY7y4Rj4knBgMpJwqKOb7OAGU2CYw+RYjjlSB8
-	iKaAXGrYUvpLMB7Ip42LwQPV1b+YOL3YRhRojWH+ZCm/YoiLmnVbnH6IVJT78zMN
-	WvQ15bhXvojDrr7rVhCmBDFTIpC2u1gwcgnX0z0mo31oY5GZC5AVjefnDy7Coih6
-	Vz0IxWX4H14mwGVdAqXjPdIfTHcR/gRhFcP9MPeyenzjJuwbZ/uvZD8pKAh75vER
-	SVgiYYrcmH93I6GAWfkFIT47PxPY0HE0lxbMw4LT5weciWB39f8GEVUODngeqtpK
-	WYXyZ7+smdSOm7XtXgDeM3JJDpg==
-Received: (qmail 2148569 invoked by uid 7799); 27 Sep 2026 13:16:35 +0200
-Received: by simscan 1.4.0 ppid: 2148553, pid: 2148564, t: 0.1007s
-         scanners: clamav: 1.4.3/m:63/d:28136
-Received: from unknown (HELO ROG) (michael@dittrich.top@94.31.113.139) by ssl01.alldomains.hosting with SMTP [4848]; 27 Sep 2026 13:16:35 +0200
-From: <linux-media@dittrich.top>
-Sender: "Michael Dittrich" <michael@dittrich.top>
-To: <linux-media@vger.kernel.org>
-Cc: <mchehab@kernel.org>,
-	<nibble.max@gmail.com>
-Subject: [BUG] media: smipcie: panic on DVB feed restart
-Date: Sun, 27 Sep 2026 13:16:34 +0200
-Message-ID: <000001dd4e71$a853ad30$f8fb0790$@dittrich.top>
+	s=arc-20240116; t=1790512238; c=relaxed/simple;
+	bh=I1JojoliVZ7dbxqzLD60Qem68nACXrC4eiPgXhbdmfg=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bSEfkLkRJXHTWq7lGJcAjTVEVzP+UOvRoKzPxPnJuWVTxGvCQFOUYvWpdB7kqTQ3u52chUWAf/ZB8TXYSGsaWRmAYK55ZCqK+96forozYBI7lg8fLZGfk9+YUq4l8sPWnK161IDDxXJrSXBy8RDnI02WzT/I2oc9VUc//No72yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45e6091d8a1so1956293fac.1
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 05:30:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790512235; x=1791117035;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ViMrSrXqw2ls7q7hRsMQQIpu/+3B5pvy6SWUrtUFxr4=;
+        b=FGyE8s6mms/bq74zj4EIgeDTvnzGCU+40ofc7q5+Sjdd8DfwFbna9jB7P8xg+zmTUh
+         xL94LGv+rl/SF1zzu+vJqXo+rwdmv9IG8vx/b/wX9HY+3SY25W7iNIxIFfOU3cfamVNb
+         0qllncek+gRI7vOTQqt45pxR2MzJAfHKM6CRM3lCUlG5i40/vKTiWT5XtfyfK0MgyipJ
+         pdHo+jKynmvRbU82ODHY/tv3u02dSoKplZeTCqRYx/6ye3V8cSGOpZa/K4zw9waBeOBV
+         iPb5zLOXmQssJb4Fxm4IRHCJAt7dH0GiAsz9MMnK+UYHXLBNYdKuehBSzl6xMdTTIxuK
+         zxgg==
+X-Forwarded-Encrypted: i=1; AKwUvBweN4Oe9P9r9KIpbnE36VDIbSJyi0o8XlEwjR9V3s6puP7A+j5P32J+S/iDwtPaNU7wF80lwIpcUCyY4Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++lL/shtXG0OoV3MJgRDKbpogFpkl+btttOfQQjHapFiH/8h9j6Z
+	ip3WcVHw7A7FjGSGUHN8NdNrMCO/4XV8y8W1zR83C8IerSO3PHfDKS4nQbPnNkIrcy/jqYHW/w1
+	mYi+obNERYwp2sG0dvpqZ6woe/UzLkCtsO5usslxYTTWbxbCztX3RkmEpNzo=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-	boundary="----=_NextPart_000_0001_01DD4E82.6BDCF260"
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: Ad1Obl5mHQPklEXOQI2DPPVnqRTjOA==
-Content-Language: de
+X-Received: by 2002:a05:6808:c410:b0:4b9:a88b:8887 with SMTP id
+ 5614622812f47-4d72b14b989mr10898805b6e.29.1790512235321; Sun, 27 Sep 2026
+ 05:30:35 -0700 (PDT)
+Date: Sun, 27 Sep 2026 05:30:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab90c6b.dc2998a4.2261f5.0067.GAE@google.com>
+Subject: [syzbot] [media?] WARNING: held lock freed in device_release_driver_internal
+From: syzbot <syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-This is a multipart message in MIME format.
+Hello,
 
-------=_NextPart_000_0001_01DD4E82.6BDCF260
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+syzbot found the following issue on:
 
-Hi,
+HEAD commit:    fe2ec83746e5 Merge tag 'hid-for-linus-2026092202' of git:/..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=13f1e515580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11ab4d25580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1177f4c9580000
 
-Restarting VDR 2.8.2 with two DVBSky S952 V3 cards (1ade:3038,
-4254:0552) caused this panic on Debian 6.12.107-1, x86-64:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/de0feed7b17d/disk-fe2ec837.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d88be67f06a3/vmlinux-fe2ec837.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/88ea650392d6/bzImage-fe2ec837.xz
 
-  #PF: supervisor read access in kernel mode
-  RIP: dvb_dmx_swfilter_packets+0x5d/0x90 [dvb_core]
-  Call Trace:
-   smi_dma_xfer+0x154/0x210 [smipcie]
-   process_one_work+0x177/0x330
-   bh_worker+0x17b/0x1a0
-  Kernel panic - not syncing: Fatal exception in interrupt
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
 
-The kernel was not tainted; smipcie was unmodified. VDR has local
-userspace changes. A redacted panic trace is attached. The diagnostic
-restart script is
-available on request; there is no standalone mainline reproducer.
+usbtv 1-1:3.223: Fushicai USBTV007 Audio-Video Grabber
+usb 1-1: USB disconnect, device number 2
+=========================
+WARNING: held lock freed!
+syzkaller #0 Not tainted
+-------------------------
+kworker/0:2/190 is freeing memory ffff8880222f6000-ffff8880222f67ff, with a lock still held there!
+ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
+locks held by kworker/0:2/190: 5, last CPU#0:
+ #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff888022aaa140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc9000301fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff888029c621d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff888029c621d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff8880226851d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff8880226851d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
+ #4: ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ #4: ffff8880222f61a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
 
-In drivers/media/pci/smipcie/smipcie-main.c, smi_start_feed() queues
-work with the previous _int_status. This may process a stale completion
-on restart; the exact IRQ sequence was not captured. smi_dma_xfer()
-also accepts lengths exceeding its 192,512-byte buffer. A zero length
-register is interpreted as 4 MiB and passed to the demux unchecked.
+stack backtrace:
+CPU: 0 UID: 0 PID: 190 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_freed_lock_bug kernel/locking/lockdep.c:6789 [inline]
+ debug_check_no_locks_freed+0x149/0x170 kernel/locking/lockdep.c:6824
+ slab_free_hook mm/slub.c:2676 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kfree+0x12b/0x650 mm/slub.c:6801
+ device_release+0xc4/0x1f0 drivers/base/core.c:-1
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x222/0x550 lib/kobject.c:737
+ v4l2_device_disconnect+0x79/0xd0 drivers/media/v4l2-core/v4l2-device.c:83
+ usbtv_video_free+0x25/0x30 drivers/media/usb/usbtv/usbtv-video.c:967
+ usbtv_disconnect+0x5c/0xa0 drivers/media/usb/usbtv/usbtv-core.c:140
+ usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+==================================================================
+BUG: KASAN: slab-use-after-free in usb_unbind_interface+0x2c2/0x9f0 drivers/usb/core/driver.c:464
+Read of size 8 at addr ffff8880222f6008 by task kworker/0:2/190
 
-The change below clears the saved status, enables work before IRQ/DMA,
-and rejects oversized lengths. The same logic, built for the Debian
-kernel, passed ten service restarts and a reboot. A stubbed function
-test over all 22-bit lengths passed without oversized demux calls;
-it does not test IRQ concurrency.
+CPU: 0 UID: 0 PID: 190 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ usb_unbind_interface+0x2c2/0x9f0 drivers/usb/core/driver.c:464
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-The diff is against mainline fd179f8a05be3ccae366b9b96e176b51fbe54aab,
-where both paths remain. This mainline adaptation has not been built
-or hardware-tested.
+Allocated by task 190:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x321/0x600 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ usb_set_configuration+0x3cc/0x2180 drivers/usb/core/message.c:2096
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2708
+ hub_port_connect drivers/usb/core/hub.c:5580 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Assisted-by: LLM
+Freed by task 190:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6801
+ device_release+0xc4/0x1f0 drivers/base/core.c:-1
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x222/0x550 lib/kobject.c:737
+ v4l2_device_disconnect+0x79/0xd0 drivers/media/v4l2-core/v4l2-device.c:83
+ usbtv_video_free+0x25/0x30 drivers/media/usb/usbtv/usbtv-video.c:967
+ usbtv_disconnect+0x5c/0xa0 drivers/media/usb/usbtv/usbtv-core.c:140
+ usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-diff --git a/drivers/media/pci/smipcie/smipcie-main.c
-b/drivers/media/pci/smipcie/smipcie-main.c
---- a/drivers/media/pci/smipcie/smipcie-main.c
-+++ b/drivers/media/pci/smipcie/smipcie-main.c
-@@ -310,8 +310,15 @@
- 				"DMA CH0 engine complete length mismatched,
-finish data=%d !\n",
- 				finishedData);
- 		}
--		dvb_dmx_swfilter_packets(&port->demux,
--			port->cpu_addr[0], (finishedData / 188));
-+		/* Reject lengths exceeding the DMA buffer. */
-+		if (finishedData > SMI_TS_DMA_BUF_SIZE)
-+			dev_warn_ratelimited(&dev->pci_dev->dev,
-+					     "DMA CH0 invalid length %u,
-dropping completion\n",
-+					     finishedData);
-+		else
-+			dvb_dmx_swfilter_packets(&port->demux,
-+						 port->cpu_addr[0],
-+						 finishedData / 188);
- 		/*dvb_dmx_swfilter(&port->demux,
- 			port->cpu_addr[0], finishedData);*/
- 	}
-@@ -333,8 +340,15 @@
- 				"DMA CH1 engine complete length mismatched,
-finish data=%d !\n",
- 				finishedData);
- 		}
--		dvb_dmx_swfilter_packets(&port->demux,
--			port->cpu_addr[1], (finishedData / 188));
-+		/* Reject lengths exceeding the DMA buffer. */
-+		if (finishedData > SMI_TS_DMA_BUF_SIZE)
-+			dev_warn_ratelimited(&dev->pci_dev->dev,
-+					     "DMA CH1 invalid length %u,
-dropping completion\n",
-+					     finishedData);
-+		else
-+			dvb_dmx_swfilter_packets(&port->demux,
-+						 port->cpu_addr[1],
-+						 finishedData / 188);
- 		/*dvb_dmx_swfilter(&port->demux,
- 			port->cpu_addr[1], finishedData);*/
- 	}
-@@ -821,9 +835,11 @@
- 	if (port->users++ == 0) {
- 		dmaManagement = smi_config_DMA(port);
- 		smi_port_clearInterrupt(port);
-+		/* Clear stale status; let the IRQ queue work. */
-+		port->_int_status = 0;
-+		enable_work(&port->bh_work);
- 		smi_port_enableInterrupt(port);
- 		smi_write(port->DMA_MANAGEMENT, dmaManagement);
--		enable_and_queue_work(system_bh_wq, &port->bh_work);
- 	}
- 	return port->users;
- }
+The buggy address belongs to the object at ffff8880222f6000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 8 bytes inside of
+ freed 2048-byte region [ffff8880222f6000, ffff8880222f6800)
 
-------=_NextPart_000_0001_01DD4E82.6BDCF260
-Content-Type: text/plain;
-	name="panic.txt"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
-	filename="panic.txt"
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x222f0
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801b042000 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801b042000 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 3789322522
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x39b/0x600 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ acpi_add_single_object+0xde/0x1b60 drivers/acpi/scan.c:1870
+ acpi_bus_check_add+0x2b7/0x8a0 drivers/acpi/scan.c:2175
+ acpi_ns_walk_namespace+0x273/0x700 drivers/acpi/acpica/nswalk.c:-1
+ acpi_walk_namespace+0x125/0x190 drivers/acpi/acpica/nsxfeval.c:606
+ acpi_bus_scan+0x465/0x4f0 drivers/acpi/scan.c:2725
+ acpi_scan_init+0x1b1/0x470 drivers/acpi/scan.c:2866
+ acpi_init+0x130/0x1f0 drivers/acpi/bus.c:1499
+ do_one_initcall+0x250/0x870 init/main.c:1362
+ do_initcall_level+0x10a/0x1a0 init/main.c:1424
+page_owner free stack trace missing
 
-Redacted netconsole excerpt. Host model/BIOS, UID/PID and the=0A=
-unrelated module inventory are omitted. Fault registers and trace=0A=
-are preserved; the original capture is retained locally.=0A=
-=0A=
-[   97.726900] VDR_DIAGNOSTIC_SERVICE_RESTART_BEGIN=0A=
-[  101.991897] BUG: unable to handle page fault for address: =
-ffffcbce408e4000=0A=
-[  101.991940] #PF: supervisor read access in kernel mode=0A=
-[  101.991955] #PF: error_code(0x0000) - not-present page=0A=
-[  101.991968] PGD 100000067 P4D 100000067 PUD 1001f5067 PMD 107ec0067 =
-PTE 0=0A=
-[  101.991993] Oops: Oops: 0000 [#1] PREEMPT SMP PTI=0A=
-[  101.992010] CPU: 3 UID: [omitted] PID: [omitted] Comm: vdr Not =
-tainted 6.12.107+deb13-amd64 #1  Debian 6.12.107-1=0A=
-[host model and BIOS omitted]=0A=
-[  101.992046] RIP: 0010:dvb_dmx_swfilter_packets+0x5d/0x90 [dvb_core]=0A=
-[  101.992089] Code: 49 8d 6d ff eb 24 66 66 2e 0f 1f 84 00 00 00 00 00 =
-66 66 2e 0f 1f 84 00 00 00 00 00 90 48 81 c3 bc 00 00 00 48 83 ed 01 72 =
-1d <80> 3b 47 75 ee 48 89 de 4c 89 e7 48 81 c3 bc 00 00 00 e8 7c f9 ff=0A=
-[  101.992110] RSP: 0018:ffffcbce401a0ea8 EFLAGS: 00010002=0A=
-[  101.992125] RAX: ffff897c034505c8 RBX: ffffcbce408e4000 RCX: =
-0000000000000000=0A=
-[  101.992139] RDX: ffff897c034505c8 RSI: ffffcbce408e3f44 RDI: =
-ffff897c03450418=0A=
-[  101.992152] RBP: 0000000000005325 R08: 0000000000000000 R09: =
-0000000000000000=0A=
-[  101.992165] R10: 0000000000000001 R11: 0000000000000000 R12: =
-ffff897c03450418=0A=
-[  101.992178] R13: 0000000000005726 R14: 0000000000000246 R15: =
-ffff897c034506c8=0A=
-[  101.992192] FS:  00007fc3fe66bf40(0000) GS:ffff897d17b80000(0000) =
-knlGS:0000000000000000=0A=
-[  101.992207] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033=0A=
-[  101.992221] CR2: ffffcbce408e4000 CR3: 0000000106388003 CR4: =
-00000000001726f0=0A=
-[  101.992236] Call Trace:=0A=
-[  101.992250]  <IRQ>=0A=
-[  101.992264]  smi_dma_xfer+0x154/0x210 [smipcie]=0A=
-[  101.992283]  process_one_work+0x177/0x330=0A=
-[  101.992308]  bh_worker+0x17b/0x1a0=0A=
-[  101.992327]  tasklet_action+0x10/0x30=0A=
-[  101.992343]  handle_softirqs+0xcf/0x280=0A=
-[  101.992358]  ? __pfx_read_tsc+0x10/0x10=0A=
-[  101.992373]  do_softirq.part.0+0x3b/0x60=0A=
-[  101.992387]  </IRQ>=0A=
-[  101.992396]  <TASK>=0A=
-[  101.992405]  __local_bh_enable_ip+0x60/0x70=0A=
-[  101.992420]  fpu_clone+0xf8/0x400=0A=
-[  101.992440]  copy_thread+0x14d/0x2a0=0A=
-[  101.992457]  copy_process+0x1c47/0x2740=0A=
-[  101.992476]  ? __alloc_pages_noprof+0x16b/0x310=0A=
-[  101.992494]  kernel_clone+0xbd/0x440=0A=
-[  101.992511]  __do_sys_clone3+0xe4/0x130=0A=
-[  101.992532]  do_syscall_64+0x87/0x1b0=0A=
-[  101.992549]  ? handle_mm_fault+0x1bb/0x2c0=0A=
-[  101.992566]  ? do_user_addr_fault+0x36c/0x620=0A=
-[  101.992582]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0=0A=
-[  101.992598]  entry_SYSCALL_64_after_hwframe+0x76/0x7e=0A=
-[  101.992617] RIP: 0033:0x7fc3fe22c529=0A=
-[  101.992654] Code: 90 b8 01 00 00 00 b9 01 00 00 00 eb ec 0f 1f 40 00 =
-b8 ea ff ff ff 48 85 ff 74 28 48 85 d2 74 23 49 89 c8 b8 b3 01 00 00 0f =
-05 <48> 85 c0 7c 14 74 01 c3 31 ed 4c 89 c7 ff d2 48 89 c7 b8 3c 00 00=0A=
-[  101.992674] RSP: 002b:00007ffeca7f25e8 EFLAGS: 00000202 ORIG_RAX: =
-00000000000001b3=0A=
-[  101.992691] RAX: ffffffffffffffda RBX: 00007fc3fe1ae620 RCX: =
-00007fc3fe22c529=0A=
-[  101.992705] RDX: 00007fc3fe1ae620 RSI: 0000000000000058 RDI: =
-00007ffeca7f2640=0A=
-[  101.992717] RBP: 00007fc3d0ff96c0 R08: 00007fc3d0ff96c0 R09: =
-00007ffeca7f2737=0A=
-[  101.992730] R10: 0000000000000008 R11: 0000000000000202 R12: =
-fffffffffffffe90=0A=
-[  101.992743] R13: 0000000000000000 R14: 00007ffeca7f2640 R15: =
-00007fc3d07f9000=0A=
-[  101.992760]  </TASK>=0A=
-[module inventory omitted]=0A=
-[  101.993088] CR2: ffffcbce408e4000=0A=
-[  101.993101] ---[ end trace 0000000000000000 ]---=0A=
-[  101.993113] RIP: 0010:dvb_dmx_swfilter_packets+0x5d/0x90 [dvb_core]=0A=
-[  101.993146] Code: 49 8d 6d ff eb 24 66 66 2e 0f 1f 84 00 00 00 00 00 =
-66 66 2e 0f 1f 84 00 00 00 00 00 90 48 81 c3 bc 00 00 00 48 83 ed 01 72 =
-1d <80> 3b 47 75 ee 48 89 de 4c 89 e7 48 81 c3 bc 00 00 00 e8 7c f9 ff=0A=
-[  101.993166] RSP: 0018:ffffcbce401a0ea8 EFLAGS: 00010002=0A=
-[  101.993180] RAX: ffff897c034505c8 RBX: ffffcbce408e4000 RCX: =
-0000000000000000=0A=
-[  101.993193] RDX: ffff897c034505c8 RSI: ffffcbce408e3f44 RDI: =
-ffff897c03450418=0A=
-[  101.993206] RBP: 0000000000005325 R08: 0000000000000000 R09: =
-0000000000000000=0A=
-[  101.993219] R10: 0000000000000001 R11: 0000000000000000 R12: =
-ffff897c03450418=0A=
-[  101.993232] R13: 0000000000005726 R14: 0000000000000246 R15: =
-ffff897c034506c8=0A=
-[  101.993245] FS:  00007fc3fe66bf40(0000) GS:ffff897d17b80000(0000) =
-knlGS:0000000000000000=0A=
-[  101.993260] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033=0A=
-[  101.993272] CR2: ffffcbce408e4000 CR3: 0000000106388003 CR4: =
-00000000001726f0=0A=
-[  101.993286] Kernel panic - not syncing: Fatal exception in interrupt=0A=
-[  101.993374] Kernel Offset: 0x34400000 from 0xffffffff81000000 =
-(relocation range: 0xffffffff80000000-0xffffffffbfffffff)=0A=
-[  101.993395] Rebooting in 30 seconds..=0A=
+Memory state around the buggy address:
+ ffff8880222f5f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8880222f5f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff8880222f6000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                      ^
+ ffff8880222f6080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff8880222f6100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
 
-------=_NextPart_000_0001_01DD4E82.6BDCF260--
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
