@@ -1,100 +1,77 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E317392C34
-	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 15:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1647C3A1684
+	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 18:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790523166; cv=none; b=EdvOeDH2bUWHAy2b6qNC4udfgYPKAEXG2OfOOrmvUltBjQAVnhgKnJ4OVRL/GNCBvZCxkDLgeZ2zSNh6cH12XQaTcdzKZ+TLSEjo1pV3zON5XbxdAgpg8pGH0tvfuKpP3vTGZ4cnOkvivL4a+7FRuJzosSU35IsdzxrXOKvsfCE=
+	t=1790532506; cv=none; b=lDheCE+3G2ssVhb3hzOFudZ+V12oW0aF1hjCMdEv9xk0rHb/tx3n32p9Ok1534LywRlbPhsQolmaxzLsuXYJabG3wcUYbcsizOVrVs4ooLAfwL5IPKXsFuxzKz3mSfoNCVQHenEBbunH3fZ9rPEAp/HHt2NiaPJEJhNoRfwuMsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790523166; c=relaxed/simple;
-	bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dWop7DAdlbYuZDFtu//SGUv+9ItwNl2DJq8LA35MgzQibevUlu1E+U24CPIUE9Mqr78KJNQHRbgr4hES4c9nFWv/qibbIWAFTC9d144eaCafgEfzsONCmysCEbjyHEyVuzP/8L/JCIMZwqSrJBhY+1yMsh/PY05j47W2xMuUAS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=Bko8XzRm; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790532506; c=relaxed/simple;
+	bh=WMAskwOoSPJaG6PGflXZnl/uFZqcsTJlZwP3XmFA5D4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BPk5Zghorv7jjZ0AizxdbUJiSFu0EIMMDaHs5HOB3BaxV0D6coSmhPVtzifmdM1QnVoZkhfI8XXEJ2B3dfCDsNjuzotmASFoVA5MLEJPPMyMDQk3eSuMIXcUgwEgzw759kInR628rZ3lEgd98jiQeTkSVC+pv5LSMHijMDJ0N+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S95mVt9j; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="Bko8XzRm"
-Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-533245fd18dso9172031cf.0
-        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 08:32:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S95mVt9j"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af43c5b0cso258334666b.1
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 11:08:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790523162; x=1791127962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-        b=Bko8XzRmxrxhB1yOjvyzWxL6fsflbVvF3cb+Jb0W1u854XoEEpOv1UgUywBedNTSG2
-         f+9AuKYYMyxONsYCe8nY5+U3FhhMpvrwJL5tUtRRXQFpVfI7sgXMLKuqftBxvV+e5NWP
-         tTQDTedpcQDJeJdgK+m6C38pvKZybvdzSrAKG/fn3r02D3ijRLNBDPH+rwhUrsQKR+jf
-         irZaO7g9CxOF2fynph5lJO7/0MR3r5822IqdiHkpId98lewlIZF5N0u4A7bGSX7Hbm2/
-         3+YJhCX01z1RxIPf8UDhMQ8Bo9J1+U0t/ZM0QAOvfNt0ZctALzDCZ52mLtvELG3J6Ek8
-         l0EA==
+        d=gmail.com; s=20251104; t=1790532503; x=1791137303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=okA5mOg4kYRrGG25qz2brfl+VKSTjiCYOxROXsfXqhc=;
+        b=S95mVt9j4fB10/oLUa3cN3JPYI8Tt19qr4dUY4aQmWv5wyabNam5xRFYAOltkwRuQc
+         juIohcLeYyaFXgoIjjQQ03tkFgVibqnHw/hS7bV1doAwCR/gRRbDk0P+nx1h5GDjiq4t
+         qh9e42Fzwr+Lbz59nNgGHs2iHnNHfTOa22up1cFi2/4I7XAC1Grag0mkqNUKdqml6jEo
+         AXZAjnEtgzaHwzZXM8t2QqDvkhgM9lbGTfv686or9I9/v1FFan5AWT6/p5DB149C4QaF
+         sChkuBZ4pXfGKyPTlWFoOqTm4Fk+dcdKkICX3KQWxEQk2AVBRDrBLXKeKUtd2dYVeMqc
+         loCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790523162; x=1791127962;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-        b=WUlCNSHL0IE5i1fQhSdXfBBRYbt+3YvhyNcvh+9be4wjDxdqyNpTiKTQdYfW8uFOhQ
-         KG2SpJDnRZEcemxxbzkkqfKeO3mh72RftVIEybaDqDTdsttU8Jdq2nHRpvLhdgTZb1mY
-         RJUkYVvL4tz2k7lGKVTIoaKDGnnW2NCjq/8ahT1TShgAfTSvfySGnS3Z5o8+/0Rqr7ox
-         +lYi3qSa/zypCawed0QWPtULltCzbd0i6zvAWkTacM4JxrV1+zKGAc47n/GyTOqh/oCy
-         /nV/UT1W88YTmw9TBLrceVAhK+zmGqed0PCZWaQqx0UuU+PWSu8rLgzOcPoTwx3ULjmL
-         4IFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzB6YtmrgHiN++pU3Pa4yum1YNnoyKLp5zaBpVKytxVtPENZIGzqfvffTPoNIH7+FoeUtgp86cusrV6g==@vger.kernel.org
-X-Gm-Message-State: AFuF++lgh0havXfDc2Zx9OKCjo09lIv7xfM6L9ePeC2P2mWKqSdhAzjh
-	HRbhgXyKV2/wugDTbpfajnSBQWUwPwej5oiNSM3H6qEVXAyWnejmgaC0g8SKhqq0O/4=
-X-Gm-Gg: AYBFou3LJ6277gCY2TUuOPkZPngQz93a/XkluQf+xhjOMjiVNZLte9PkyIQKZy3DsHW
-	oMgFt0kO8Zpmpfk2AJJH1zGYScps/HHk08OYheMKJvnXED4ytWnIMooRVc5SCMzZV0ZMMxf2bfA
-	d6UAmM0fhKdQwsX+zl2VRJVO8DV2g01b5UNxn88rrMtMzINVyFJ4haP10rbqpFxV0HqbZwPgIZH
-	yDQjGzKWFLSt49GwtsXhNGkehlCMPwHRAYcDN2wsZB0yNfAQqNQQAUtzOOiEU1L5iQWJsi0zTrq
-	jdjlFL7RYn/FRua+yJA7+PfQUHdcyu04qJhihUmsfa5D5S1S+DXisXDLm1DsrKW880DbftktDwQ
-	t5G010A6ExUzFeCjTi/yAS8RZtKls8uqFft4I+Cc/MfSoBgaK86sI5Vw1jxiN9DzzP7HpQWHTPn
-	iILrBi5zPKVrFscQmqrW6x8wIrFK2HPEoTlJSJWEDSOzDiFrI=
-X-Received: by 2002:a05:622a:4d9a:b0:533:33c6:e636 with SMTP id d75a77b69052e-53333c6feb6mr56127141cf.6.1790523162378;
-        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322020e91sm43319281cf.1.2026.09.27.08.32.41
+        d=1e100.net; s=20260707; t=1790532503; x=1791137303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=okA5mOg4kYRrGG25qz2brfl+VKSTjiCYOxROXsfXqhc=;
+        b=sEZRVLd2Fm4Jd97kyjMjbCKHgaoV8epOKKYAZLf40c+qiJfq76tw0aoRe6KzGWchcv
+         exvZ7fJq1fOPEJsJ48D9BabZKVPiQWdUkR38GbFCnWEHGur2R+extzl0817FDfSSnIyc
+         9RngCuP7O/opuhMXDoLRLwXn7Hrr2i3is7T9NRMHuCN2yIwfbf0BTi9fPhCn0dUxhZDl
+         drc9lHQKfJtfPXJPjXIOzPqvPiiZkt8SfDR8lTnpvj/IdYGG3r0t57dX70WCmKznPOPM
+         UH4gVp2ySawbnOaahr39dDxcxK8NSambxJX6Lgsew1LqRc15AlCw10yQmxvW/ge5KzWt
+         nwtg==
+X-Gm-Message-State: AFuF++majWaOdw8cF+EOhaX84zgTjcjILjUjR1wp2D4hukJtNqUwyKLk
+	OpXIG8EnISvhzbg3mp7Ki+JV5jDwa34bCA0mVc1OAUdLInK6cMcwi2ov
+X-Gm-Gg: AYBFou224n7JE1BUJof/mNxy3TqUQzL6g9Cdh4jT+p0AtluStOqswlj4OISqfpnzQv/
+	sVPqAQc7bhvdpVLqo2N1KwLTnHWrxjfHSoficSaB6eafBL+oGeFEBTo8PIbZg+DZqFT0ubr3KgK
+	bYsvkZAuKKZlNyc/pjx/qfFD+Kc4n1QqFpzDYB8CdfgphS5A1Un+3DW0cHOdDTG6kmJO/2wcH1p
+	ryCvXtyc2RqzWY1fjlvrg2jkGHK4Ne4KDkHmCUFgXq25Z8fLPuPR3KbxRnAYVzS+bXVsQ8eGa3o
+	dvxxZWQD4FIYOdYiy4NmaA+WjfPTzwwnDrcx5NTA9PrBd9v/LeRNi2cIVAJBf+RFqq36xU5sgkq
+	0BGVgbzUSJ+XPEH0mhvYKUJu8S8yaI4sxQiwHxSLZ2NoIVy8ItYcALOP/GJRvKaQxZ49Mtp1ZH9
+	+tGKb+HSM63G4lG2zYB/SK7uwbA80vPj+p2Z60TnbpJejxaWOzqiyRsGoJvNzy7peU0I4cR/WwZ
+	FB3wlMZm1eK7MKM
+X-Received: by 2002:a17:907:d08:b0:c29:d31f:7d73 with SMTP id a640c23a62f3a-c2ac238632amr981234766b.9.1790532503139;
+        Sun, 27 Sep 2026 11:08:23 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3a0424sm168206666b.70.2026.09.27.11.08.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Felipe Balbi <balbi@ti.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	johannes.goede@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Sun, 27 Sep 2026 11:08:22 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
-Date: Sun, 27 Sep 2026 11:32:36 -0400
-Message-ID: <20260927153236.2727-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
-References: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
+	hverkuil+cisco@kernel.org,
+	johan@kernel.org,
+	lgs201920130244@gmail.com,
+	kees@kernel.org,
+	fsimonce@redhat.com,
+	lkundrak@v3.sk,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
+	syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+Subject: [PATCH] media: usbtv: fix use-after-free and lockdep panic on unbind
+Date: Sun, 27 Sep 2026 21:07:45 +0300
+Message-ID: <20260927180745.2721-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -103,21 +80,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 27 Sep 2026 10:40:33 +0200, Hans de Goede wrote:
-> It would be great if you can post your DT bits for this upstream soon,
-> then we can add them to:
->
-> https://github.com/linux-msm/laptops-kernel/commits/qcom-laptops/
->
-> and more people can test.
+When a usbtv device is unplugged or unbound, a lockdep panic and
+use-after-free occurs in the driver core.
 
-They are posted; v3 is the current version, with Bryan's Reviewed-by:
+The sequence of events leading to the crash is:
+1. device_release_driver_internal() acquires dev->mutex.
+2. usbtv_disconnect() is called, which in turn calls usbtv_video_free().
+3. usbtv_video_free() prematurely calls v4l2_device_disconnect() and
+   v4l2_device_put().
+4. This drops the final reference on the parent USB device (intf->dev),
+   triggering synchronous device deletion while the USB core is still
+   holding dev->mutex.
+5. When the core attempts to unlock dev->mutex, it operates on freed
+   memory, causing a lockdep panic.
 
-https://lore.kernel.org/all/20260926122533.8200-1-lnicoara@thinkoid.org/
+Furthermore, usbtv_disconnect() continues to access usbtv->udev after
+usbtv_video_free() returns, leading to a direct use-after-free.
 
-It also links the sensor to the privacy LED. It applies to
-qcom-laptops as of 3e45da63f61e, which already carries its
-dependencies (the x1e camera DT v7 and v20 5/6 and 6/6).
+Fix this by removing the manual v4l2_device_disconnect() and
+v4l2_device_put() calls from usbtv_video_free(). This allows
+usbtv_video_free() to safely unregister the video node without destroying
+the underlying structures. The final v4l2_device_put() at the end of
+usbtv_disconnect() will now correctly trigger usbtv_release()
+asynchronously, safely dropping the parent device reference only after all
+system locks are released.
 
-Thanks,
-Liviu
+As a result of this cleanup, the dummy v4l2_device_get() previously used
+to prevent premature deletion in the usbtv_probe() error path is no longer
+needed and has been removed.
+
+Fixes: a3550ea665ac ("[media] usbtv: split core and video implementation")
+Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
+Tested-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+ drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
+ drivers/media/usb/usbtv/usbtv-video.c | 3 ---
+ 2 files changed, 6 deletions(-)
+
+diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+index 4f10f6613bc4..8a68bc0aa884 100644
+--- a/drivers/media/usb/usbtv/usbtv-core.c
++++ b/drivers/media/usb/usbtv/usbtv-core.c
+@@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
+ 	return 0;
+ 
+ usbtv_audio_fail:
+-	/* we must not free at this point */
+-	v4l2_device_get(&usbtv->v4l2_dev);
+-	/* this will undo the v4l2_device_get() */
+ 	usbtv_video_free(usbtv);
+ 
+ usbtv_video_fail:
+diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+index 92bc7a2509c3..9e02038c3ff7 100644
+--- a/drivers/media/usb/usbtv/usbtv-video.c
++++ b/drivers/media/usb/usbtv/usbtv-video.c
+@@ -964,7 +964,4 @@ int usbtv_video_init(struct usbtv *usbtv)
+ void usbtv_video_free(struct usbtv *usbtv)
+ {
+ 	vb2_video_unregister_device(&usbtv->vdev);
+-	v4l2_device_disconnect(&usbtv->v4l2_dev);
+-
+-	v4l2_device_put(&usbtv->v4l2_dev);
+ }
+-- 
+2.47.3
+
