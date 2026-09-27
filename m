@@ -1,174 +1,168 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5855637B02E
-	for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 22:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6052E17C211
+	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 03:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790461413; cv=none; b=s82iWHsmoBAnPy4BYJ74Y6+ABMXQXGV678TLQMIO/u2aYeT0WD61qnP98o7I6S5VyYDKxjngSw5Heabno7CBjVqx3922vXYAPWeT9SJ53FqE8Kb5bF0SKELUZNYo3et2Y1s+abRV3n68+gu8q2U0O4j019ubDXN9tvFNxHs6SL4=
+	t=1790480018; cv=none; b=h0LSAzL5uN1WkWuBSWLvFUlyF+4UnG2syLLpcDZtb/bAkVLs8jSDR6VQf7lJN4IjQJ3zmVsHIbjtUnKvqXVJdCV8ZJeEe5ThvyLMklBXgXztMEGNeMHWGIP+ovDnhahnKQSnzT+rSn24zD0ZpBkV0Wawe4/sMZ5+MeG1yawCzDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790461413; c=relaxed/simple;
-	bh=/R+QVqr3aAgIHoKL9XnLG4r1x5KOKm9X430DAmdgfVo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=YU5xyY4hGFoC430MLD2d6u79ZtxWU080Awk5E6Zt32OhpAmOjsrX0h7arGDfB84jky8nPxrz3p6DfxazwUZi+HavjSxU+2EygmmYiMrMrWWXiVIB0+psSuA+jmHVFP74+ipmNlkog6OJEfYDv4h0Z1h4bJo+sVuZSzLU63DkAsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc691d106fso3068130b6e.1
-        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 15:23:31 -0700 (PDT)
+	s=arc-20240116; t=1790480018; c=relaxed/simple;
+	bh=e/EAw6/IQ7mM/L+HlUNAqUw/O+rqmMNCqI/jXY+8juE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qOckTL31c8EKqSaY6dqpvOzsSwp0en6sKt2UEE2QOFlOfylyU4d83Q+3KMM1ZjZ+htvA3dbMbb/Nvjt8J5zycw/yqmIOwJQiMoLxfa4B9b04x0VdPSyDyYmg0iEUj1F23jcvojgO0KwBzU3I1iAkU+3eNaQ5HCNLWFf2yKzwfKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXb4UoYg; arc=none smtp.client-ip=74.125.229.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXb4UoYg"
+Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so2674422eec.0
+        for <linux-media@vger.kernel.org>; Sat, 26 Sep 2026 20:33:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790480015; x=1791084815; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kdYuYpwE4cvE2mw1XKxLJsRdT/oc4T7/0BTKkcilQOk=;
+        b=HXb4UoYgTzv65eR/Mh/UwUIXQNLl/Jp2uDksCkS7xyxDKfMuJl/rzPZ0sNUYUl/GrR
+         x52j6OfZ7CHs+BLGFNatzEKH4vA2tX1E6l4aLkQ28svOBiaV+JZBd9E5xvaTU98bf8VC
+         DhLu26/NrGQfCOkjV+l0IHZpjO1msx7VPkaR+2ahK4g9yDVAPKGESq5MW1pZMTxqj5Gf
+         p5Kp13xApWn6yRslHtPS8JTMvviiTqr4LJfGtk4LuKhsA7lvbPd3ViqMemxm/JDGF4T3
+         8lvdoiqAdinEloc16BgNs3N7TsuXqLXjzE0rbCYkCkpfr7kZvQlxk80fHATZ4cCaQ+2U
+         CJkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790461410; x=1791066210;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ddSBLIw73d/Y9INkuZNrFEgdyDpyN4p2NvVyq+7XVwo=;
-        b=bRhl1ZnwbvOx7XqtREfq10qFGqnWwynbi3OznsXw6B2SmGWD82ZVBf0XCgKIrq0zlP
-         IBwkrEcBFnNxoL13PkwByO/9HGPgwqdq9attvw6YC9xaD7A8JTxTMhmoX/WKHQL+LL8o
-         Y8ZY1Vu/7iJU4NN4T9QMHWh0cmx0OIJDKmqDDGBytp3ehwJLh5A2uRCG9j2JgSjX7X2u
-         O6mad0C7XRPpx4ubJP3tgFt3ctkCmH5G1OYrICFGI3nB+HwSD500itsbScBJFfbj0JUu
-         SPG2jVE+a/WxIJfq08PuBD7Cv1VHUOwM9HRQE8w9VmGSyX1e+aCeg6sYZP3jGAAEHAZh
-         lbrw==
-X-Forwarded-Encrypted: i=1; AKwUvBysJgPT10xEmJMdDTVJL+44GCJ1xFca5ZrKdtAX7xKlvEhe6jtrGTn2PXOSlmnKbHrLjpJwaFJdGzHZHA==@vger.kernel.org
-X-Gm-Message-State: AFuF++ll9rr8Uypr0D22yvJ1Rc78CGPwubyGw4MM/HR24ltxi+vjYB3r
-	Gm7bOaOLvhRwxACvcGs8RsBwvATSubvPLavyxA9secadUZOhvnqCUvHFRxgR8aNjWII0vd3D1xW
-	ObwIFqYSAJXEwjJxq5M+Ldq5kYjKLrRmElwpoYJwezgXVIdjgPJyxS2JYH9w=
+        d=1e100.net; s=20260707; t=1790480015; x=1791084815;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kdYuYpwE4cvE2mw1XKxLJsRdT/oc4T7/0BTKkcilQOk=;
+        b=BHdFnK9D70vKQ2pNqFTcVR6VVnfY46ROrAm21epNfxiRSjzN+12hh3J3Bqp3GePWC7
+         /GAlSvKAp8h5agFU8AjWcoA3nxyXR2TYowXU2/Vg1Zbhc2/1wh2f8ZfjB5paPWCKLGOf
+         3plV/dMpFnUmiIf1/1pdsNXcKD0lcZ40w/q94iMhOO2P3hFKFC9pcKsLcpInAX0yewP8
+         yadgRDfv4SvfpJDL7OtKm7awNTiCCCaar/0hpDCb7OZSagnja8zr+QuxzSCjliZ9yYMz
+         rTVcw37XoXXcD7xzjKsYG+uwtNGhn8idMDRmUYX39/rJZF70AwrizQIThnxl2rxCbTAV
+         eiUQ==
+X-Gm-Message-State: AFq9FYK72LtaEiViZYPNnepyRflZy9OBooq3eoFarjAY73yiGMsaSQoH
+	wocM+b6vWql0fXzJChKp27M1Rvn/riCw3wXqpGkxi4MukyMO6HnIkZgvnbRlVJP6
+X-Gm-Gg: AYBFou3sXDm8HmGjx74szSx1sGAF55cUBGMs/NHvQA+iqAVuSzWQ3Fzz3Nye/FdIN6j
+	KJyCz9F/bWNER0l9zL675Nus6hRrTYMkHL52XZdaTUp0Vx6MZzTpYKbkFGi5etCSyqcZULNBBAy
+	a7fcKfQN6W7noWn4BP6m7KkhWbI4hc8WKLnx4i0CIylsDH8zmorNfoJwPKO/LzKeoTSS4hAaxAl
+	63va59h3QcalSx6hLwqCBfcLeVaCYi/izqFLXx34adn6I3qIhf+CyI7ejNd3Odt1OBrlluxrE/o
+	PwUEGxADq3lB8H2LqfiJM0eu0MIoDuf2hgsfEioeB09vVzolbvaH08GG2JR4U3G8NaDF0Mo6eIW
+	I2iZ7ZEaBAokH/Lap0gZ172RyDi0FWQN0bFs22Dw/4D3KAQBN3HeB8rx+B63CNndIRqaOt4PPdw
+	FVa1f48cO6GLYCDcW446Di5GgSkMJ82fmOoiAr8wxah6BlE8qGVUkP3N2Grsjx+gOPYhCmy61uz
+	hipp9fkPOYivT/UchhhuCg1tx1qqVTl3BXdN3Lc5Wsl+bDwZH/GyL6lUhFOwPY=
+X-Received: by 2002:a05:7301:fc11:b0:33e:904f:9832 with SMTP id 5a478bee46e88-3426febb10emr4832959eec.8.1790480015308;
+        Sat, 26 Sep 2026 20:33:35 -0700 (PDT)
+Received: from Raccoon ([2409:408d:3296:6184:5a54:7918:9f72:6043])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm18559891eec.27.2026.09.26.20.33.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 20:33:34 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH fixes v3] media: vivid: check for NULL dev in vivid_probe() control setup
+Date: Sun, 27 Sep 2026 09:03:06 +0530
+Message-ID: <20260927033306.14125-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260926084318.12161-1-rokinthanp03@gmail.com>
+References: <20260926084318.12161-1-rokinthanp03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6712:b0:4b9:e6ab:d07c with SMTP id
- 5614622812f47-4d72cb41489mr9816168b6e.28.1790461410322; Sat, 26 Sep 2026
- 15:23:30 -0700 (PDT)
-Date: Sat, 26 Sep 2026 15:23:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab845e2.e548f532.1ca396.0033.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] general protection fault in mxl111sf_ep6_streaming_ctrl
-From: syzbot <syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+In vivid_probe(), after creating instances, the driver iterates
+through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
+'Connected To' controls. However, it dereferences dev->has_vid_out
+without verifying that dev is non-NULL.
 
-syzbot found the following issue on:
+If an instance fails during creation, vivid_devs[i] remains NULL,
+causing a general protection fault:
 
-HEAD commit:    6812ce4e4379 Merge tag 'drm-fixes-2026-09-26' of https://g..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=133dc605580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=c35815bad054e6ad396e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12c77a05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14d05a05580000
+    Oops: general protection fault
+    KASAN: probably user-memory-access in range
+    [0x0000000000005f38-0x0000000000005f3f]
+    RIP: 0010:vivid_probe+0x579/0x10d0
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/75990baa24e4/disk-6812ce4e.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/bc9afcf309d7/vmlinux-6812ce4e.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/35a3beb2ec93/bzImage-6812ce4e.xz
+Add NULL pointer checks in both loops in vivid_probe() before accessing
+vivid_devs[i].
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
-
-usb 1-1: dvb_usb_v2: could not submit urb no. 0 - get them all back
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-CPU: 0 UID: 0 PID: 5651 Comm: syz-executor908 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:348
-Code: 55 41 57 41 56 41 54 53 89 f5 49 89 fe 49 bc 00 00 00 00 00 fc ff df e8 10 62 93 f9 49 8d 9e 08 03 00 00 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 53 66 03 fa 48 8b 1b 48 83 c3 38
-RSP: 0018:ffffc900036b7b30 EFLAGS: 00010212
-RAX: 0000000000000061 RBX: 0000000000000308 RCX: ffff88807faf0000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: 0000000000000001 R08: ffffc900036b7647 R09: 1ffff920006d6ec8
-R10: dffffc0000000000 R11: ffffffff883479d0 R12: dffffc0000000000
-R13: ffff8880798113b8 R14: 0000000000000000 R15: ffff8880798108d8
-FS:  000055558749c400(0000) GS:ffff888124cca000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fbf685aaa20 CR3: 0000000020716000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- dvb_usb_start_feed+0x57a/0xc70 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:308
- dmx_ts_feed_start_filtering+0x129/0x220 drivers/media/dvb-core/dvb_demux.c:747
- dvb_dmxdev_start_feed drivers/media/dvb-core/dmxdev.c:658 [inline]
- dvb_dmxdev_filter_start+0x434/0x10d0 drivers/media/dvb-core/dmxdev.c:769
- dvb_demux_do_ioctl+0x48b/0x540 drivers/media/dvb-core/dmxdev.c:1099
- dvb_usercopy+0x199/0x2e0 drivers/media/dvb-core/dvbdev.c:996
- dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fbf6855bcf9
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff0240de98 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fbf6855bcf9
-RDX: 0000200000000100 RSI: 0000000040146f2c RDI: 0000000000000004
-RBP: 00000000000f4240 R08: 0000000000000000 R09: 0000000000000009
-R10: 0000000000000000 R11: 0000000000000246 R12: 00000000000140fe
-R13: 00007fff0240deac R14: 00007fff0240dec0 R15: 00007fff0240deb0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:348
-Code: 55 41 57 41 56 41 54 53 89 f5 49 89 fe 49 bc 00 00 00 00 00 fc ff df e8 10 62 93 f9 49 8d 9e 08 03 00 00 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 53 66 03 fa 48 8b 1b 48 83 c3 38
-RSP: 0018:ffffc900036b7b30 EFLAGS: 00010212
-RAX: 0000000000000061 RBX: 0000000000000308 RCX: ffff88807faf0000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: 0000000000000001 R08: ffffc900036b7647 R09: 1ffff920006d6ec8
-R10: dffffc0000000000 R11: ffffffff883479d0 R12: dffffc0000000000
-R13: ffff8880798113b8 R14: 0000000000000000 R15: ffff8880798108d8
-FS:  000055558749c400(0000) GS:ffff888124dca000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff0240ce50 CR3: 0000000020716000 CR4: 0000000000350ef0
-----------------
-Code disassembly (best guess):
-   0:	55                   	push   %rbp
-   1:	41 57                	push   %r15
-   3:	41 56                	push   %r14
-   5:	41 54                	push   %r12
-   7:	53                   	push   %rbx
-   8:	89 f5                	mov    %esi,%ebp
-   a:	49 89 fe             	mov    %rdi,%r14
-   d:	49 bc 00 00 00 00 00 	movabs $0xdffffc0000000000,%r12
-  14:	fc ff df
-  17:	e8 10 62 93 f9       	call   0xf993622c
-  1c:	49 8d 9e 08 03 00 00 	lea    0x308(%r14),%rbx
-  23:	48 89 d8             	mov    %rbx,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	48 89 df             	mov    %rbx,%rdi
-  34:	e8 53 66 03 fa       	call   0xfa03668c
-  39:	48 8b 1b             	mov    (%rbx),%rbx
-  3c:	48 83 c3 38          	add    $0x38,%rbx
-
-
+Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Changes in v3:
+- Add "fixes" branch prefix to subject and base-commit info targeting
+  media-committers.git fixes branch to satisfy media-ci test-valid-ancestor check.
+- Add Cc: stable@vger.kernel.org for media-patchstyle check.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Changes in v2:
+- Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
+  remains supported as required by the test-media test suite.
+- Update author name to "Rohinthan P".
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+ drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+index 62cfb5f..1860ad6 100644
+--- a/drivers/media/test-drivers/vivid/vivid-core.c
++++ b/drivers/media/test-drivers/vivid/vivid-core.c
+@@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
+ 	for (int i = 0; i < n_devs; i++) {
+ 		struct vivid_dev *dev = vivid_devs[i];
+ 
++		if (!dev)
++			continue;
+ 		if (!dev->has_vid_out)
+ 			continue;
+ 		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
+ 			if (dev->output_type[j] == HDMI) {
+-				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
++				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
+ 				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
+ 			}
+ 		}
+ 		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
+ 			if (dev->output_type[j] == SVID) {
+-				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
++				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
+ 				vivid_ctrl_svid_to_output_index[svid_count++] = j;
+ 			}
+ 		}
+@@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
+ 	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
+ 	svid_count = min(svid_count, MAX_MENU_ITEMS);
+ 	for (int i = 0; i < n_devs; i++) {
+-		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
+-			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
++		struct vivid_dev *dev = vivid_devs[i];
++
++		if (!dev)
++			continue;
++		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
++			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
+ 
+ 			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
+ 		}
+-		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
+-			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
++		for (int j = 0; j < dev->num_svid_inputs; j++) {
++			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
+ 
+ 			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
+ 		}
+-- 
+2.53.0
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+base-commit: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
