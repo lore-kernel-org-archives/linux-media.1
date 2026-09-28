@@ -1,177 +1,254 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8B34BF920
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EF54C33C0
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602360; cv=none; b=nAxVCL6p80Lo+Dp8Hc1LaIldDihatfpTeRHC2AB5wiwk35DGkh/xjnF96kHafIl5JaVAWft0Ta0Zhg3xLtpfEyxy5bhn71IXs1tFweTXbAEm813Cz3ga8HXaWrtNu47eQEeWPhWYzFCc2vmd+nOPJtjQQC6Y08tI1FXwQ/MWihQ=
+	t=1790602368; cv=none; b=nGxmggdzfZCYb9gu1jdli8xcIAfjCLFtmWeoMaAJRqORqbdHBz1leqNbME/W/CvCFINE3kNB0+kF/3csDKOVkizdJ4wvk/16FaKCnuTpKxz5fVmisEHW9nSv2OsTai7xWoiieBehJ4CNqm5XknGpJNeDG2oxhE+hsffUWQN/p2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602360; c=relaxed/simple;
-	bh=MVXQTin4/5A0iVla6oq+dFiBBhZi9Q2530/0uafB2Eg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tl7A4XhW5yqt4pMng0KLszIiqKp1KObHclpOiAWnqAtSPE+9AeoZF3WhJZLipnKcozwlTA/c4BcAIETZJwB+L8mIADH8PCqEYys9cAqocqbu0VqidzaS2Oq77lh8W0rtCzamPlbiCMcaFSrAQtMFrY5vze2BXNPEYHWhzawkqr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YjEEIvPe; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790602368; c=relaxed/simple;
+	bh=7bSpI+UlKJeavw95eq5lp71WLeCCxaCV8VTeA6M6pM0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LoR3209BZiZukBccct7LjXJwmjyu94or4kWedZs1OkZiOPz/86ywbYqYIwe9m0rT7zRqsgkHEfh4wZo00Jk9zmNw+8pjNfMq4k4CZTSH81vh/W2RCP7Me+BcvnFGHxvIeeKxdWYGtcLQ1Au3PYHjqtx+l9xBxA+axX1NZByXfiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OWr6s1R5; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YjEEIvPe"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso676097a91.2
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OWr6s1R5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so1826282f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790602358; x=1791207158; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kjW5WSrKHWZBlf6PacnfszCDiPshVdQjSexGrtbbzg8=;
-        b=YjEEIvPeS1rTTM7TH5ZRNvjHR0ZyrZPuJv1W3H1Kmz8MiE7rxYmXrjotuHciOE8i/Z
-         SyCFt1/4k5Gen49wE0ILTduyFFEHzqgertljQszaXZr90WxuAtwxf/ryuhBXiTgZ1j/x
-         zt3FJBl2/g3bTgJIG+9++NPNP0njfTltBnDS0=
+        d=gmail.com; s=20251104; t=1790602364; x=1791207164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rDgWSkzXb9T2f2eSv4f8loR9LBdnnTqRZoSNaSt6PRU=;
+        b=OWr6s1R5vg68Vk0EAPRxrqoeKPiQgRgpjQHWSBDZnziKm3MF9VauEOFqJG5wouh2kj
+         ZE2K+QTpAGsj7Ry5mNbB3EfQfiZcRcLriFL4Vg3bNvd3/97g8GBjsyvjkp3PtYsDtF9a
+         rUJeBiu9VdAWIqGuxXImicDQ6TFnuWSuvgAou3raX1YIJddYPA0WhPKZ+ElA02aMtc5C
+         Yo6rbiFjcna54oFvqMKCSPzCVbQmxt4aeiFScSHLnjXQIGL/zWqJhBq7XlbgzDAQb/NK
+         EbYpUm7o6/6ns657dhVcthvkK8hnD/jHe92jW6ZtAP0fePPcbWM3ZiNHYUzHvEzB5nhm
+         jrtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602358; x=1791207158;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kjW5WSrKHWZBlf6PacnfszCDiPshVdQjSexGrtbbzg8=;
-        b=gym06E+HwA6J+6+8MXdeBI7NZHd8ZceyuLVnhgRWb4u8PfVnQhXiuueyN+oxrwS8ZX
-         fNYY2u9ADBonlq3X8UVEWw5cQIjF04NYbLW7NCC/4uTcl77D+nnX0tIpJbLbAisqLNPV
-         Kkcarcil6jvA4iUXFu/JBUFSnruhKolfnFTK41Rrlly1DkAQh10zBjSfR6FSoLM0MpCu
-         0aWITPIUum9haj2P84xmFKGFG/+eBLOzVCUlUesIZyM300LaaZMs85yYCXbG6AZ5Y426
-         A8oPC5sqbnj38HZ5fX7cURLI8XEm+dNh48mahYMxe+z4Qm2t6M+YmBVJZEt0S0LtIJvS
-         FMSA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFt3xJVMuTLqjSlZc4o2qumlPB277FC8Rof9jtSrKODIcGm4HZPLAyrOIFBPUbp0ZcNUl2y2V8W5gvNg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIspQw3j/3j+HRSUiuvtHwlbq5RdiQSAyBFd938awm1j9T/3IFU
-	aq9jhBAIMgzuzjX3CR3imPFYmBewwFZ84A8jLC6HmUXMWqlc/m/cSf7fqb8mQi5vXy6PjPqJA5o
-	bbRE=
-X-Gm-Gg: AYBFou2hxrjoqiJMmMUcQqpnLttcr0vt0UqzC4zofjZEMfleStMXxeS2J0g48UZWYpG
-	HQEx6NJOhZHcVv2f5qXNUL9j2KgUF1HISp+K2XI/Dq/1qHPweZJqD9j7CD6GgLAo09ot09uxFQj
-	lCXD7yK6bZLyNRRWb8MYW3TcUxhBpeIKGJox3XH2J0WEmRB2WSUOtnL2re6bGzsgmLgmq9l7tAo
-	37gVfavqzJTwgm49QLnCkH/F/ch41EcJmwhZqx3XEc8aT+J3HAMe+kPFkvD8afXUhkYDV+Q61cf
-	IBoHBIrN0v0NkR7DQM0+5a5O6voYK/jrU6LlJ8b3z25hEuHdLfe3uWBIpjwyB3Kw72EDQBbNgw7
-	wG7d+D+QK/iJlOsIkuITHO7r3yDDBT6fb0PvQq4DBS78X/HQVHRmu5IwROwmvLM4NsLiOW1li91
-	MhAMRD4qUywGJhg4aykBBK5tIxTTo/pnViAPOFQyHm2N+WJnIRPB2KKiDq4c4HpIDb7gp8fYOIx
-	hXSZ0Zsfywcp5Di3oZKHO26zdA4CNkK37N3Yg==
-X-Received: by 2002:a17:903:2f50:b0:2dd:c0ff:e72a with SMTP id d9443c01a7336-2df7dff64ffmr95316545ad.60.1790602358057;
-        Mon, 28 Sep 2026 06:32:38 -0700 (PDT)
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com. [74.125.229.171])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9144b527sm41771185ad.66.2026.09.28.06.32.35
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 06:32:37 -0700 (PDT)
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1438f55921fso770457c88.1
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByURgaKD5n/vd1+0TWFXHcVvXjp8m1VAN7toNsTnDoHhE9f4NouTxcDkqv4j/S7SI0IpaaTBRqXxf5FsA==@vger.kernel.org
-X-Received: by 2002:a05:701b:428a:20b0:144:c128:4c4b with SMTP id
- a92af1059eb24-146d077b8afmr9195740c88.36.1790602354542; Mon, 28 Sep 2026
- 06:32:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790602364; x=1791207164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rDgWSkzXb9T2f2eSv4f8loR9LBdnnTqRZoSNaSt6PRU=;
+        b=yEk1Dh53TKV9KU3rf+TC5HsyoEHSJ0XDwzvb6vmcwGQaQ7IOZkVHGwmmqgmfcSr9ca
+         N1e2n43KTU2ej7d3MEcmJK+ak8gTg6PsoKXABkyREFMTzWdltkxz+z070rp6Ty7syCoc
+         28nYeLTfC6Hvs0lKUy8/y097jHbwy4xFqPGmVJUSBPYccpKHRg1cnznuc+TGQuwkacvK
+         KlpbHlqgYdzN800BsX4L8U7c7Ylyz3XTF7EevGd3Yhlk1kQa726zB/pobM8qZQziVz1F
+         ofJvObafKsw85WoralAgmJMH6OcqoAQZ/YrJgBf0BPWuuztUkxorsPiHyThNguTrhtKG
+         2cYw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0dz8JanSXHF15sJzLhsqDKtDmDXb/VYMiRhylkvdfbK63u4Syx53AlS/cxCr9t2CzqzoASaRZajyBbQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdSf0hdfmfp/h0AhgI9NaTBM5IXncQYMQ8TkSotyD2VauFfWJk
+	eKANSfWRAPiCnhMRmnpV6ycNEQFYj/RFvFvQHl93oWngHNeA/sekgUyk
+X-Gm-Gg: AYBFou2l4KahjwrTt3kfKaUh8/bevaEN2P3/pDsAPfBz/lr6XRpBRL2LdbzVgK5cUUw
+	cNleGFqCw28Nqw7jLAS2JCe4+tmUUbnKNzB9RsF8mOKn6IJuKfbTWXDRQZeFuIJOT8tM5yJ+LX7
+	IzAUWB3c6h6TktJ5hCjYrrDkAbEpN5AWtcB9kox0Qb4uIuiycrxqRmNf2SwdacuTxVwOQAGCEkh
+	AHV40dFK8j4kgnnxtKEfRHFjBEt/DxCEeVNgHWNws2zmvU6VUVRcdkpILRIjm2IioRYC5niEneh
+	0OcVUoGU8luqqj13En1XmBvB0t6+zVuwBEXIJbuL8HIygil+82IDEjen/S1nVnXt1EKMEWyLN3t
+	p/v8b1K314gfEqVHC6CAt4YUOMTkPJesWlyILhoNmImm/ep2WPrhzfdo1TqB8s10W8FwbswoBkK
+	kzltSJ5hohJkE3i6It1tf2nCfdAEwO4R5VuvGE453YygE9ZcC2KDNO7D/hhOkdnkTvqQcn4Sue1
+	C4A5Ol1FoW0CAJDxq4ZLQ1suE5Aya7Dmmig1tKdL6iMOU3Xd0nvnN7SwW9VnODmKZ5xpFO68AIM
+	OC7xHfHje5hZ
+X-Received: by 2002:a05:6000:4693:b0:487:342:d141 with SMTP id ffacd0b85a97d-488774f4f02mr13825713f8f.23.1790602364016;
+        Mon, 28 Sep 2026 06:32:44 -0700 (PDT)
+Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 06:32:43 -0700 (PDT)
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: linux-block@vger.kernel.org
+Cc: asml.silence@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-nvme@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Tushar Gohad <tushar.gohad@intel.com>,
+	William Power <william.power@intel.com>,
+	Phil Cayton <phil.cayton@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	dm-devel@lists.linux.dev
+Subject: [PATCH v7 00/13] Add dmabuf read/write via io_uring
+Date: Mon, 28 Sep 2026 14:32:16 +0100
+Message-ID: <cover.1790602223.git.asml.silence@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903081145.8382-1-rh_king@163.com> <CANiDSCsqZzFY+KMKGBg06vm6rGR4FMy63hd0HShiHfb+vpqyqg@mail.gmail.com>
- <20260928132407.GG4406@killaraus.ideasonboard.com>
-In-Reply-To: <20260928132407.GG4406@killaraus.ideasonboard.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 15:32:20 +0200
-X-Gmail-Original-Message-ID: <CANiDSCt8kntjSh4TWFb4N-DxwEpsbqtUUTtNJ-hOuGRofz791A@mail.gmail.com>
-X-Gm-Features: AclHuK-PdmlYvMLhbLcHdOUIGOFXJv-QPERf5awH97_XGN5zm6QhE19yXB4erPY
-Message-ID: <CANiDSCt8kntjSh4TWFb4N-DxwEpsbqtUUTtNJ-hOuGRofz791A@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Add quirk for Luxvisions RGB Camera (30c9:0122)
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Kean Ren <rh_king@163.com>, linux-media@vger.kernel.org, 
-	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent
+The patch set allows to register a dmabuf to an io_uring instance for
+a specified file and use it with io_uring read / write requests. The
+infrastructure is not tied to io_uring and there could be more users
+in the future. A similar idea was attempted some years ago by Keith [1],
+from where I borrowed a number of changes. Later it was brough back up
+to life by Tushar and Vishal.
 
-On Mon, 28 Sept 2026 at 15:24, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Fri, Sep 04, 2026 at 11:15:15AM +0200, Ricardo Ribalda wrote:
-> > On Thu, 3 Sept 2026 at 10:58, Kean Ren <rh_king@163.com> wrote:
-> > >
-> > > The device binds cleanly but delivers no image data; USB autosuspend is
-> > > suspending the streaming endpoint. Disable autosuspend for it.
-> > >
-> > > Issue found on Lenovo ThinkPad X13 (codename Zelda, Intel); confirmed
-> > > working with this quirk.
-> > >
-> > Link: https://lore.kernel.org/linux-media/20260904090751.1814783-1-rh_king@163.com/T/#mf5306ef689ce38ed331a3098272cb0ac2588ed79
->
-> When linking to the original thread on lore, the patch.msgid.link domain
-> is preferred (see Documentation/process/maintainer-tip.rst). That would
-> be
->
-> Link: https://patch.msgid.link/linux-media/20260904090751.1814783-1-rh_king@163.com/
->
-> Did you mean to specifically link to the descriptors though ? As they're
-> in the same mail thread, I think the link to the patch itself should be
-> enough. Do you prefer otherwise ?
+It's an opt-in feature for files, and they need to implement a new
+file operation to use it. Only NVMe block devices are supported in this
+series. The user API is built on top of io_uring's "registered buffers",
+where a dmabuf is registered in a special way, but after it can be used
+as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+requests. It's created via a new file operation and the resulted map is
+then passed through the I/O stack in a new iterator type. There is some
+additional infrastructure to glue it together, count requests, manage
+lifetime and implement invalidation.
 
-I wanted to link the usb descriptors. I'd rather have them copy pasted
-in to the commit message or with a link to lore
-(For the usb descriptors I think the doc says that we have to use lore )
+Tushar, William, Phil did a lot of testing and experimentation on various
+devices with previous versions of the patch set, and I've received lots
+of help from Anuj, Kanchan and Nitesh with investigations, testing, and
+patching. Earlier benchmarks by Anuj for IOMMU optimisations with udmabuf
+showed:
 
+STRICT: before = 570 KIOPS, after = 5.01 MIOPS
+LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
+PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
 
->
-> > > Tested-by: Kean Ren <rh_king@163.com>
-> >
-> > nit: I think we do not usually add the Tested-by: tag for authors. We
-> > expect that it has been tested :)
->
-> Maybe we shouldn't :-) We merge plenty of code that hasn't been tested
-> by the author, a prime example being API refactoring. Actually, reading
-> Documentation/, I can't see anything that explicitly approves or forbids
-> a Tested-by tag from the author.
->
-> This being said, for driver patches like these I would certainly expect
-> the author to have tested the change.
->
-> > > Signed-off-by: Kean Ren <rh_king@163.com>
-> > > ---
-> > >  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
-> > >  1 file changed, 9 insertions(+)
-> > >
-> > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > index e289cc71ba98..32bf353013a1 100644
-> > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > @@ -3216,6 +3216,15 @@ static const struct usb_device_id uvc_ids[] = {
-> > >           .bInterfaceSubClass   = 1,
-> > >           .bInterfaceProtocol   = 0,
-> > >           .driver_info          = UVC_INFO_META(V4L2_META_FMT_D4XX) },
-> > > +       /* Luxvisions Innotech Integrated RGB Camera (Lenovo laptops) */
-> > > +       { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
-> > > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> > > +         .idVendor             = 0x30c9,
-> > > +         .idProduct            = 0x0122,
-> > > +         .bInterfaceClass      = USB_CLASS_VIDEO,
-> > > +         .bInterfaceSubClass   = 1,
-> > > +         .bInterfaceProtocol   = 0,
-> > > +         .driver_info          = UVC_INFO_QUIRK(UVC_QUIRK_DISABLE_AUTOSUSPEND) },
-> >
-> > The quirks are sorted by vid:pid. Sorry I did not notice this before.
+# Patch set structure:
+- Patches 1-2 introduce internal API and infrastructure mediating
+  io_uring and target subsystem / devices
+- Patches 3-5: block layer support + prep patches
+- Patches 6-8 implement NVMe support
+- Patches 9-13 add io_uring support and uapi.
 
-Can we please add this to the CI? It is a bit of a waste of time to
-manually verify that they are properly sorted
+There are some liburing tests that can serve as an example:
+git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v5
+url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v5
 
->
-> I can handle this when applying.
->
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->
-> > >         /* Intel Realsense D435i depth camera */
-> > >         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
-> > >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
->
-> --
-> Regards,
->
-> Laurent Pinchart
+The patches are based on Jens' for-next. Also available as a branch:
+git: https://github.com/isilence/linux.git rw-dmabuf-v7
+url: https://github.com/isilence/linux/tree/rw-dmabuf-v7
 
+[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
 
+v7: - refcount *_io_ctx 
+    - wait rcu grace period for ctx->map before freeing maps
+    - increment map counters under dma resv lock
+    - more comments about bio splitting
+    - make ->unmap responsible for freeing maps to match ->map
+    - replace dma_sync_single* with full table sync
+    - detach dma-buf on nvme reset after cancel nvme_cancel_tagset
 
---
-Ricardo Ribalda
+v6: - remove fences and wait on invalidation synchronously
+    - report all map requests are detached earlier, outside of wq
+    - handle nvme removal
+    - gate nvme_free_descriptors() on iod->nr_descriptors 
+    - fix error handling in nvme_rq_setup_dmabuf_map() 
+    - fix iov_iter_alignment()
+    - relax the 1G io_uring registered dma-buf limit
+    - fix type overflow issue in bio split
+    - allocate struct dma_buf_io_ctx inside the dma-buf-io code
+    - harden block checks against dma-buf + buffered io
+
+v5: - Reject dma-buf with buffered IO for raw bdev
+    - Add lim->max_segments bio splitting
+    - Add bio_iov_iter_set() helper
+    - Fix io_uring uapi validation
+    - Other minor changes
+    NVMe:
+    - Rename nvme_pci_sgl_set_data() to nvme_pci_dma_iter_set_sgl(), split 
+      into its own prep patch.
+    - Convert segment walk loops to do-while.
+    - Drop adjacent segment coalescing logic.
+    - Drop first_dma/first_len from nvme_pci_dmabuf_sgl_nents()
+    - Remove entries > NVME_MAX_SEGS bailout; moving to the block layer.
+    - Factor SGL vs PRP decision making into a helper.
+
+v4: - https://lore.kernel.org/all/cover.1785274111.git.asml.silence@gmail.com/
+    - Add sgl support from Anuj
+    - Move it under drivers/dma-buf/ and rename
+    - Fix mis-sized allocations
+    - Fix io_uring re-import mishandling
+    - Drop map before io_uring "task work"
+    - Move blk-mq callback to block_device_operations
+    - Convert bio flag to REQ_OP*
+    - Other small changes
+
+v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
+    - Rework io_uring registration
+    - Move token/map infrastructure code out of blk-mq
+    - Simplify callbacks: remove a separate blk-mq table, which was
+      mostly just forwarding calls (to nvme).
+    - Don't skip dma sync depending on request direction
+    - Fix a couple of hangs
+    - Rename s/dma/dmabuf/
+    - Other small changes
+
+v2: - Don't pass raw dma addresses, wrap it into a driver specific object
+    - Split into two objects: token and map
+    - Implement move_notify
+
+Anuj Gupta (2):
+  nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
+  nvme-pci: add SGL support for the dmabuf path
+
+Pavel Begunkov (11):
+  dma-buf: introduce initial file I/O infrastructure
+  iov_iter: add iterator type for dmabuf maps
+  block: always adjust bi_offset on bio_advance_iter
+  block: introduce dma map backed bio type
+  block: add dma-buf support for raw bdev
+  nvme-pci: implement dma-buf backed requests
+  io_uring/rsrc: introduce buf registration structure
+  io_uring/rsrc: extend buffer update
+  io_uring/rsrc: add uncloneable regbuf flag
+  io_uring/rsrc: add regbuf import flags
+  io_uring/rsrc: add dmabuf backed registered buffers
+
+ block/bio.c                    |  15 +-
+ block/blk-merge.c              |  50 ++++
+ block/fops.c                   |  27 +-
+ drivers/dma-buf/Makefile       |   2 +-
+ drivers/dma-buf/dma-buf-io.c   | 230 ++++++++++++++++
+ drivers/md/dm-io-rewind.c      |   6 +-
+ drivers/nvme/host/core.c       |  12 +
+ drivers/nvme/host/nvme.h       |   2 +
+ drivers/nvme/host/pci.c        | 467 ++++++++++++++++++++++++++++++++-
+ include/linux/bio.h            |  21 +-
+ include/linux/blk-mq.h         |   7 +
+ include/linux/blk_types.h      |  14 +-
+ include/linux/blkdev.h         |   2 +
+ include/linux/bvec.h           |   3 +-
+ include/linux/dma-buf-io.h     | 117 +++++++++
+ include/linux/fs.h             |   2 +
+ include/linux/io_uring_types.h |   5 +
+ include/linux/iov_iter.h       |   2 +
+ include/linux/uio.h            |  11 +
+ include/uapi/linux/io_uring.h  |  31 ++-
+ io_uring/io_uring.c            |   3 +-
+ io_uring/rsrc.c                | 275 ++++++++++++++++---
+ io_uring/rsrc.h                |  45 +++-
+ io_uring/rw.c                  |   6 +-
+ lib/iov_iter.c                 |  29 +-
+ 25 files changed, 1304 insertions(+), 80 deletions(-)
+ create mode 100644 drivers/dma-buf/dma-buf-io.c
+ create mode 100644 include/linux/dma-buf-io.h
+
+-- 
+2.54.0
+
