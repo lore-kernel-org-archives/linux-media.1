@@ -1,107 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CD24A92DF;
-	Mon, 28 Sep 2026 11:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F414AE8A9;
+	Mon, 28 Sep 2026 11:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595203; cv=none; b=SheTuhxdAg4VGPBv/YYu2jqQ0EK6MuwZLlr5vhnTd8KYUVKFNgRgCVejqA7Rmch0LZqe6iQRuYVu2EJxisRYX8O8PMozVu555EoAFgcdUI/4N2fLHHsqEsE95AlbrHpwGwzSoWWWgUpqJjctAS4Lj4wzLxrhk86onFQes1QT4j4=
+	t=1790595870; cv=none; b=NHLLFzWdgBWhrGucnGpzlqUuFhHApcsjKOZaWw4MgxW1o1Tq56IwR+ge3+CnIYDUVfAAa2+w+FFIhDs3g0Hf4VgxEwbfzKw7ZTiK0pYfd3b8f4F+PZilF/d4OvnPDaNnFZnnOqAildrVxfrQJDPPdlKy/4h+SRJ2a9ioY3QYHZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595203; c=relaxed/simple;
-	bh=v/PlDSqTFONWylnxTRDwCMzFJYe24WF91onEl0USYc4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XfWdxXiuCDtd81Py2HA/Odz22y0mHzcKldTAuUCcLpDuNJWbzuj66i1OdQmW9BPoxXvk+bugMYcx5vnULFiEpv/jDHYMRuFceYAg0/T8GTckQdcPT24qtVTczffykHNbsDxrSZgLlZAl1wj5Hp7R7bCx2IZovEobxJkZnDsZWzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvqzSNxG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790595870; c=relaxed/simple;
+	bh=hA3C+SE4gTmuEA2wSp6ivN7V1PdWDili25FnhTiFZZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MBzIg1+AVC8CvA5xHuOc04MeB/5KpT1HdH6Cua79qVnqDuxxu1uwRBjMO9SeRYtGIKwALFL0bYm4mAAOHB4zX8JIUB4bWaqCYbhtKCRjXQjkaK3txAElBcZeL68N/stygh+TtFe68wMnZ4snIaU5Gb6xOn9cvJydZgeAqLMpfvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bqOlIj0Y; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvqzSNxG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF91F000FF;
-	Mon, 28 Sep 2026 11:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790595202;
-	bh=MEn2qOFsUitkYJQilaVJgyMN2FnlykwebahY3dRB+B4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JvqzSNxGJwtWtuIDki8UTCKrxrFWAAqRHKz07+scX8scMJ4yEPSAKDj9s6TetnlMj
-	 YjFjiom/mup+haINQtfE2XdNu4qe8itQwUSbc7DuYk8cejZi1rrpk8iW/M+sONMVKp
-	 yzdNQSJc/5/t6d8osOBN/lyZUZ5R4LLWE/63xZrlypCQ+Fn0NoL0abXrIerokawnQa
-	 Uu0wGgpNThUj8Qrzu9NoH1nLYEmJvNz1eQjcoXp2Gi3etdOnGn7N4iOCNjtXKh9Bhx
-	 6RGY/UQ9vijAj9a3tUJsLRKgC7JJWsCNRUUzwbtbdjqf3q7ac/mhcEYC/bOMnXWsh1
-	 sZvn8+HwXcNww==
-Message-ID: <5ad6b296-a336-457b-bcbd-31680c79c6d2@kernel.org>
-Date: Mon, 28 Sep 2026 13:33:19 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bqOlIj0Y"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 05369B07;
+	Mon, 28 Sep 2026 13:42:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790595755;
+	bh=hA3C+SE4gTmuEA2wSp6ivN7V1PdWDili25FnhTiFZZA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bqOlIj0YIiqJFcyGvFO2E4UU5UFH7p9QP4cReaFKZIzu4kFyKDxXYMpzSmk2SUqO1
+	 /njT9hqi/hPINFWT8R79F1j/0KLz0QYwkpaldwQP35naMuxY/7yflSpOvHWAGqP7a1
+	 J7zNLR94mEcd8SVo944mHjf4wnrE68y0Qd3WwFQg=
+Date: Mon, 28 Sep 2026 14:44:23 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Michael Jordan <jordan.mymail@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] media: uvcvideo: generalise the XU flags fixup to
+ all controls
+Message-ID: <20260928114423.GB157191@killaraus.ideasonboard.com>
+References: <20260902002553.34839-1-jordan.mymail@gmail.com>
+ <20260902002553.34839-3-jordan.mymail@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] media: uvcvideo: Do not parse bmVideoStandards
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-4-604328d8a0dd@chromium.org>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260911-uvc-version-v3-4-604328d8a0dd@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260902002553.34839-3-jordan.mymail@gmail.com>
 
-Hi,
-
-On 11-Sep-26 15:22, Ricardo Ribalda wrote:
-> bmVideoStandards is write only, so there is no need to parse it.
+On Tue, Sep 01, 2026 at 08:25:52PM -0400, Michael Jordan wrote:
+> uvc_ctrl_fixup_xu_info() holds a per-device table of controls whose
+> GET_INFO reply is wrong, and overrides the flags for them. It only runs
+> from uvc_ctrl_fill_xu_info(), so it can only correct extension unit
+> controls, but standard controls suffer from the same class of firmware
+> bug: a device can report a wrong capability byte for a Camera Terminal
+> or Processing Unit control just as easily.
 > 
-> Remove it.
+> Rename it to uvc_ctrl_fixup_flags() and call it at the start of
+> uvc_ctrl_get_flags(), where the flags are derived from GET_INFO for
+> every control, standard and XU alike. The fixup replaces the flags
+> wholesale, so when the table covers a control there is no point in
+> querying a device we already know gives a wrong answer: return early
+> and skip the GET_INFO request altogether. The call in
+> uvc_ctrl_fill_xu_info() is dropped, as uvc_ctrl_get_flags() now handles
+> the fixup for XU controls too.
 > 
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> No functional change for the devices already in the table: their
+> entries are XU controls, matched by entity and selector before as they
+> are now, and their flags come from the table either way. The only
+> difference is one GET_INFO request no longer issued per fixed-up
+> control.
 
-Thanks, patch looks good to me:
+That's a long commit message for such a simple change. Is it
+LLM-generated ? If so, you need an Assisted-by tag on this patch series.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
+>  1 file changed, 50 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index aceb26310..64c90c380 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
+>   * Dynamic controls
+>   */
+>  
+> +static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
+> +				 const struct uvc_control *ctrl,
+> +				 struct uvc_control_info *info)
+> +{
+> +	struct uvc_ctrl_fixup {
+> +		struct usb_device_id id;
+> +		u8 entity;
+> +		u8 selector;
+> +		u8 flags;
+> +	};
+> +
+> +	static const struct uvc_ctrl_fixup fixups[] = {
+> +		{ { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
+> +			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +			UVC_CTRL_FLAG_AUTO_UPDATE },
+> +		{ { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
+> +			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +			UVC_CTRL_FLAG_AUTO_UPDATE },
+> +		{ { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
+> +			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +			UVC_CTRL_FLAG_AUTO_UPDATE },
+> +	};
+> +
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
+> +		if (!usb_match_one_id(dev->intf, &fixups[i].id))
+> +			continue;
+> +
+> +		if (fixups[i].entity == ctrl->entity->id &&
+> +		    fixups[i].selector == info->selector) {
+> +			info->flags = fixups[i].flags;
+> +			return true;
+> +		}
+> +	}
 
+The O(n*m) complexity isn't nice, but it's not a new issue. It can be
+addressed separately.
+
+The code change looks fine.
+
+> +
+> +	return false;
+> +}
+> +
+>  /*
+>   * Retrieve flags for a given control
+>   */
+> @@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
+>  	u8 *data;
+>  	int ret;
+>  
+> +	/*
+> +	 * Some devices report bogus capabilities through GET_INFO. If the
+> +	 * fixup table covers this control, take the flags from the table and
+> +	 * skip the query altogether.
+> +	 */
+> +	if (uvc_ctrl_fixup_flags(dev, ctrl, info))
+> +		return 0;
+> +
+>  	data = kmalloc(1, GFP_KERNEL);
+>  	if (data == NULL)
+>  		return -ENOMEM;
+> @@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
+>  	return ret;
+>  }
+>  
+> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
+> -	const struct uvc_control *ctrl, struct uvc_control_info *info)
+> -{
+> -	struct uvc_ctrl_fixup {
+> -		struct usb_device_id id;
+> -		u8 entity;
+> -		u8 selector;
+> -		u8 flags;
+> -	};
+> -
+> -	static const struct uvc_ctrl_fixup fixups[] = {
+> -		{ { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
+> -			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -			UVC_CTRL_FLAG_AUTO_UPDATE },
+> -		{ { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
+> -			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -			UVC_CTRL_FLAG_AUTO_UPDATE },
+> -		{ { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
+> -			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -			UVC_CTRL_FLAG_AUTO_UPDATE },
+> -	};
+> -
+> -	unsigned int i;
+> -
+> -	for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
+> -		if (!usb_match_one_id(dev->intf, &fixups[i].id))
+> -			continue;
+> -
+> -		if (fixups[i].entity == ctrl->entity->id &&
+> -		    fixups[i].selector == info->selector) {
+> -			info->flags = fixups[i].flags;
+> -			return;
+> -		}
+> -	}
+> -}
+> -
+>  /*
+>   * Query control information (size and flags) for XU controls.
+>   */
+> @@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
+>  		goto done;
+>  	}
+>  
+> -	uvc_ctrl_fixup_xu_info(dev, ctrl, info);
+> -
+>  	uvc_dbg(dev, CONTROL,
+>  		"XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
+>  		info->entity, info->selector, info->size,
+
+-- 
 Regards,
 
-Hans
-
-
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 7 -------
->  drivers/media/usb/uvc/uvcvideo.h   | 1 -
->  2 files changed, 8 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index ca75f8d1ec46..adec9d1aa653 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -1187,13 +1187,6 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
->  		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
->  		memcpy(unit->processing.bmControls, &buffer[8], n);
->  
-> -		/*
-> -		 * We are not using bmVideoStandards, so there is no need to
-> -		 * warn the user if it is missing.
-> -		 */
-> -		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
-> -			unit->processing.bmVideoStandards = buffer[9+n];
-> -
->  		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
->  
->  		list_add_tail(&unit->list, &dev->entities);
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index 8d99e857a69f..65f232de7821 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -228,7 +228,6 @@ struct uvc_entity {
->  			u16 wMaxMultiplier;
->  			u8  bControlSize;
->  			u8  *bmControls;
-> -			u8  bmVideoStandards;
->  		} processing;
->  
->  		struct {
-> 
-
+Laurent Pinchart
