@@ -1,230 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F360F4718CA;
-	Mon, 28 Sep 2026 08:49:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F913CFF49
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585366; cv=none; b=uWufQQuIKqEu/CRGFSr6CtStXI8SGq5Ouh+4//0TtzxxxPw2Kll8X93IRz0RzoI7+Q2xLtV0oGzapiySYnvk4QNOUEI04jL5HkYu8agevWobBvdPTykLjS2hQgdAi3SYo8LDGKLGz9jrmYuhVNiK/7sBkLUEQHxQgD78o4p47Qo=
+	t=1790585801; cv=none; b=WylIxv9H+y7E1rm5Bn7eb+ZQYqV8qnOITu/kx+O6J7WH6QGM6HtxLf8BiQJeu44gEG+IULeENFImNkk33bPHxKbP3viVwGmKyrzzFzZkNxaFJuJunxH9HW72roJjuyZK2EpmULpteylLFeoZJ1sullWMecL+mDWF8a51JUzJyPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585366; c=relaxed/simple;
-	bh=OfCLiohuhbyWMPoHKaQlg2T1gfW+pDj5nssHyA2+2pg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Irt04mTxW0krQcQRh8H94YhQ757ygCXY82zj81YaFbcFWDicAf0xuL9K0d1d5MpDxVppxFG5cnbxs4On/lfW7OH31aq+7vNKgPE8+9hZtNiQQOQHEodoXKSCPdOPjS3ApdQp4/N2WAre87tSc1ZSR+toymySfb42JeKBFgn/pqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnudo0Q1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790585801; c=relaxed/simple;
+	bh=blYRBATe5OLMMPPnDBP8RVp9MnZuuZr7DVaMOXLfCOg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hrtQeWHRIRX7y0fE3xXNE/v7GA4ArA2T3qvr3qjOgb/L6zEZWYYVvRD0P58VzQMXNfeIkEIMhXXRODBUufWkJWr+Hn1mQLbIVbtEW8UilP/QGFhWuROInUDknhe0kixoKqFwfmzWDf/hpWTyy9ByNne6mchZLUZZzZrns7l0a8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o03E5lYB; arc=none smtp.client-ip=95.215.58.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnudo0Q1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59811F000FF;
-	Mon, 28 Sep 2026 08:49:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790585364;
-	bh=L8DvlVON08rYuMFKT7B6LMBAAtrayUN7D5me5i20LPQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gnudo0Q1D/3j8j4/Jrc6CKrcxqLAdyJiiFu5/e6bOj2FkNNZDoGBNSGHjG0EfOABq
-	 CkhyvzEyDnCApeXo0eUD0QxlsHvZiTAjduHo/naqNQ7cD4mU7xAwXZWXXp500xWqRX
-	 rDnznmfUEbtOe4NonHkv6E+tdDF9F6yjxqoJ8pygiw6vjBK3+TbLBNXCd3XuFvrTYG
-	 /T7FdCLartfdsBNeG7AKGCCzOgYQtVOW69bfr+1+d7AX7v+qTcRExZArDZCtR72cpR
-	 oxXDOlg/rbquAPQSIOeNZfwdu8QjJXY5SHf9WV/6lfN8KdD8oE3px1djZcesui1Jgf
-	 KXlKfGqMdiQew==
-Message-ID: <cd778fa5-6382-4378-af18-1e19cf0d6c9b@kernel.org>
-Date: Mon, 28 Sep 2026 09:49:20 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o03E5lYB"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=blYRBATe5OLMMPPnDBP8RVp9MnZuuZr7DVaMOXLfCOg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790585797; v=1; x=1791190597;
+ b=o03E5lYBXzk39nECo1YLzIkDQIFZEbQfuJWYVbKtoTgYYYFqupfuTqCt/wZnyi31RNDOho/B
+ 4tFVXx/afcs5xmrZkTx6kW+4fkdtMKpBEahUWhWleXWeFcUSqYQHfFsDnzPKPccvgmKdX7OCuYv
+ StWTmXJIQHL3KDHPBnji9S6M=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id add109b2092b6c53;
+	Mon, 28 Sep 2026 08:56:37 +0000
+X-Mizu-Trace-ID: add109b2092b6c53
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 10:56:35 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure
+ time calculation
+Message-ID: <aronEaoCLJo0h2Ni@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
+ <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] media: qcom: camss: vfe: Fix VFE reset while
- another line is streaming
-To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- ravi@ebytelogic.com
-References: <20260928064336.272659-1-hitesh@ebytelogic.com>
- <AUWm6RUt4wq08tOrslf5-YmXeE35IBXGTF7WiyDDUpoCGUj31vjn73KkU_G12myMNA_akchIV_gtQmW3RN8QKw==@protonmail.internalid>
- <20260928064336.272659-4-hitesh@ebytelogic.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260928064336.272659-4-hitesh@ebytelogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
 
-On 28/09/2026 07:43, Hitesh Patel wrote:
-> @@ -814,6 +814,7 @@ static int vfe_disable_output(struct vfe_line *line)
->   	struct vfe_output *output = &line->output;
->   	unsigned long flags;
->   	unsigned int i;
-> +	bool last;
+Hi Dave,
+
+thanks for your feedback!
+
+On Wed, Sep 23, 2026 at 03:16:27PM +0100, Dave Stevenson wrote:
+> Hi Richard
 > 
->   	spin_lock_irqsave(&vfe->output_lock, flags);
->   	for (i = 0; i < output->wm_num; i++)
-> @@ -821,6 +822,13 @@ static int vfe_disable_output(struct vfe_line *line)
->   	output->gen2.active_num = 0;
->   	spin_unlock_irqrestore(&vfe->output_lock, flags);
+> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > ov9282_exposure_to_us() divided the line length by the pixel rate control,
+> > which is the MIPI rate and not the clock HTS is counted in.
 > 
-> +	mutex_lock(&vfe->stream_lock);
-> +	last = vfe->stream_count == 1;
-> +	mutex_unlock(&vfe->stream_lock);
-> +
-> +	if (!last)
-> +		return 0;
-> +
+> It really shouldn't be. PIXEL_RATE is the pixel array and LINK_FREQ is
+> the MIPI rate. Many drivers do conflate the two.
+> 
+> However I did notice a couple of weeks back that pixel_rate is
+> incorrect for 8bit readout on ov9282 [1]. (It's correct for 10bit
+> readout).
+> 
+> <quote> Actually I see the problem. In the hardware the pixel rate for 8 bit
+> is scaled by the change of PLL2 multiplier from 0x50 to 0x60 = x1.2.
+> The pixel rate control is scaled from /10 to /8 or x1.25. 1.2/1.25 =
+> 0.96, so my 96% of speed would be spot on. The use of link frequency
+> in computing pixel rate is totally bogus as they are on independent
+> PLLs </quote>
 
-NAK.
+So I guess I should also get rid of the pixel rate pre-processor
+calculation which depends on the link frequency?
 
-This can't be correct, in fact its very racy and will break. Here is the 
-existing code.
+Is it OK with you to just hard-code them?
 
-static int vfe_disable_output(struct vfe_line *line)
+#define OV9282_PIXEL_RATE_10BIT   160000000
+#define OV9282_PIXEL_RATE_8BIT    192000000
+
+AFAICT it should be possible to calculate the PLL1 pix clk from the input
+clock (inclk or XVCLK in the datasheet) provided in the dts. But tbh I
+would prefer to not add this to this series. If it's desired and possible
+from your point of view, I can tackle this in a future series.
+
+> 
+> If you correct OV9282_PIXEL_RATE_8BIT to being 192000000 (instead of
+> the current 200000000), does that solve your problem without
+> recomputing things?
+
+Thanks for the explanation above. I guess you're right, the link freq/mipi
+rate should not be in there. I've just ran a quick test and it should be
+fine with that change.
+
+As i would like to keep the ov9282_line_time_ns() function, what's your
+take on the following implementation? Would that be OK for a v2?
+
+static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
 {
-         struct vfe_device *vfe = to_vfe(line);
-         struct vfe_output *output = &line->output;
-         unsigned long flags;
-         unsigned int i;
-
-         spin_lock_irqsave(&vfe->output_lock, flags);
-         for (i = 0; i < output->wm_num; i++)
-                 vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm_idx[i]);
-         output->gen2.active_num = 0;
-         spin_unlock_irqrestore(&vfe->output_lock, flags);
-
-         return vfe_reset(vfe);
+	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+	return div_u64(hts * NSEC_PER_SEC, ov9282->pixel_rate->val);
 }
 
-/*
-  * vfe_disable - Disable streaming on VFE line
-  * @line: VFE line
-  *
-  * Return 0 on success or a negative error code otherwise
-  */
-int vfe_disable(struct vfe_line *line)
-{
-         struct vfe_device *vfe = to_vfe(line);
-         int ret;
+thanks!
 
-         ret = vfe_disable_output(line);
-         if (ret)
-                 goto error;
+regards;rl
 
-         vfe_put_output(line);
-
-         mutex_lock(&vfe->stream_lock);
-
-         vfe->stream_count--;
-
-         mutex_unlock(&vfe->stream_lock);
-
-error:
-         return ret;
-}
-
-Here's how
-
-stream_count = 2;
-
-thread0:
-   vfe_disable()
-	vfe_disable_output()
-	mutex_lock();
-	last = stream_count == 1; //false
-	mutex_unlock();
-	return;
-
-thread1:
-   vfe_disable()
-	vfe_disable_output()
-	mutex_lock();
-	last = stream_count == 1; //false
-	mutex_unlock();
-	return;
-
-thread0:
-   vfe_disable()
-	mutex_lock();
-	stream_count--; // => stream_count = 1;
-	mutex_unlock();
-
-thread1:
-   vfe_disable()
-	mutex_lock();
-	stream_count--; // => stream_count = 0;
-	mutex_unlock();
-
-vfe_reset() is never called.
-
-this->
-
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c 
-b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 34e4319d8f80c..3dafd5d778630 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -828,7 +828,7 @@ static int vfe_disable_output(struct vfe_line *line)
-         output->gen2.active_num = 0;
-         spin_unlock_irqrestore(&vfe->output_lock, flags);
-
--       return vfe_reset(vfe);
-+       return 0;
-  }
-
-  /*
-@@ -850,7 +850,8 @@ int vfe_disable(struct vfe_line *line)
-
-         mutex_lock(&vfe->stream_lock);
-
--       vfe->stream_count--;
-+       if (--vfe->stream_count == 0)
-+               ret = vfe_reset(vfe);
-
-         mutex_unlock(&vfe->stream_lock);
-
----
-bod
+> 
+>   Dave
+> 
+> [1] https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
+> The original reporter did come back to me and acknowledge he was using
+> the downstream Rockchip driver which is doing the wrong thing.
+> 
+> > The right
+> > clock is PLL2's system clock. With the PLL2 dividers left at their reset
+> > values the chain
+> >
+> > SYS_CLK = XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sys_div
+> >         =    24  /    1     /    3    * loop_div /     4       /    2
+> >
+> > collapses to SYS_CLK = loop_div MHz.
+> >
+> > Fix this by introducing a new static function to calculate the current
+> > line time and use it in ov9282_exposure_to_us().
+> >
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  drivers/media/i2c/ov9282.c | 46 +++++++++++++++++++++++++++++++++++++---------
+> >  1 file changed, 37 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > index c10b2e205834e..3f83a6cf338d8 100644
+> > --- a/drivers/media/i2c/ov9282.c
+> > +++ b/drivers/media/i2c/ov9282.c
+> > @@ -10,10 +10,12 @@
+> >  #include <linux/delay.h>
+> >  #include <linux/i2c.h>
+> >  #include <linux/math.h>
+> > +#include <linux/math64.h>
+> >  #include <linux/module.h>
+> >  #include <linux/pm_runtime.h>
+> >  #include <linux/regmap.h>
+> >  #include <linux/regulator/consumer.h>
+> > +#include <linux/time64.h>
+> >
+> >  #include <media/v4l2-cci.h>
+> >  #include <media/v4l2-ctrls.h>
+> > @@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
+> >         return container_of(subdev, struct ov9282, sd);
+> >  }
+> >
+> > +/**
+> > + * ov9282_line_time_ns() - Calculate duration of one sensor line.
+> > + * @ov9282: pointer to ov9282 device
+> > + *
+> > + * The line time and therefore OV9282_REG_TIMING_HTS and the strobe frame span
+> > + * are counted in PLL2's system clock. We assume the PLL2 dividers are at their
+> > + * reset values, so the formula reduces to SYS_CLK = loop_div MHz.
+> > + *
+> > + * Return: line time in nanoseconds.
+> > + */
+> > +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+> > +{
+> > +       u32 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> > +       u32 sclk_rate_mhz = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ?
+> > +               OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
+> > +
+> > +       /*
+> > +        * OV9282_REG_TIMING_HTS counts 2-pixel units
+> > +        */
+> > +       return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_rate_mhz);
+> > +}
+> > +
+> > +/**
+> > + * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
+> > + * @ov9282: pointer to ov9282 device
+> > + * @exposure: exposure register value to convert
+> > + *
+> > + * Return: microsecond represenation of the given exposure register value.
+> > + */
+> > +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+> > +{
+> > +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
+> > +                      NSEC_PER_USEC);
+> > +}
+> > +
+> >  /**
+> >   * ov9282_update_controls() - Update control ranges based on streaming mode
+> >   * @ov9282: pointer to ov9282 device
+> > @@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >                                         mode->vblank_max, 1, mode->vblank);
+> >  }
+> >
+> > -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+> > -{
+> > -       /* calculate exposure time in µs */
+> > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> > -       u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
+> > -
+> > -       return exposure * trow_us;
+> > -}
+> > -
+> >  /**
+> >   * ov9282_update_exp_gain() - Set updated exposure and gain
+> >   * @ov9282: pointer to ov9282 device
+> >
+> > --
+> > 2.53.0
+> >
+> >
