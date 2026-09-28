@@ -1,53 +1,82 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F2148CD46;
-	Mon, 28 Sep 2026 21:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A9C4848A8
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 21:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630487; cv=none; b=TSW7BuYVMg32uQ7/2ZS7nxhu/qkKzlS1hykCYMJh+Ik4dGR0mONx/6hSZx21e1hzlqMqH8sHwzTxUuCVGJ7v0Fr1kNuYg5CsuAzssUMMQzeWeUYVLWF8YTI8hhVhtVr4XppHE1+c8ocmy60bc7xfsJemIdxomZhfilm/hFCJI6g=
+	t=1790630618; cv=none; b=OWPesBKpzw9PCE/g2i4jIIN3FlzfXDZ45H71LANrmNHgcpvh5CPDFRPOmTsU7QaEYIkJfveH32umeMQ1A/2LW4+O+A/UsYgZ/OOdeExBJxIZ2Rpjw4FoISAnNu/e6apbgvZKPXCZP6esDq2aDzRHZ8fVoMCM9MYo8uzNvARlZJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630487; c=relaxed/simple;
-	bh=uyZUJGIZ2MuHEU6KxAsdueiYQmlWjL4xh12qBYELzKo=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kV6z7omnXjRIPTzUubu/sTf74XwLOOigfx5egZ+Fj8rWm7C3dFmcfcj8GuVd7TXCBz8f+gGv46C9v3af1wulXyQgyn2LiajbDQPm0TSOHRYDHwSmDeDYI1CP/nzNgeBg/16+d+ZwIophnwkOoZlD6hgvKohcanixf/Xf6Fi+3x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FC/rsACH; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790630618; c=relaxed/simple;
+	bh=txZ+W3WrXqBtZJWtNxXgFfwlJBDsgURZPhOGfwegrBI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=W0N4KDXDpoJrz6Zr8GCHUDAVGPA5K5FFNJcgiTSN+fGrccZ+YqqmVgEWeFDsIl5R3QZQg9U8kYRVB1DPXTQykgBs2STpPgjkcUSjVrmrJjxGHQWFICf70TzUqoeKzgbmO4f8MuQ0dZpl2Ve/0SO5hf+ffUPNMe1yUerQkLsjlng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=AVUUcAce; arc=none smtp.client-ip=74.125.230.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FC/rsACH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790630484;
-	bh=uyZUJGIZ2MuHEU6KxAsdueiYQmlWjL4xh12qBYELzKo=;
-	h=Subject:From:To:Date:In-Reply-To:References:From;
-	b=FC/rsACHFDqg/czoPqYzHMTaEssax/0DGnDaSyo3wDdcpzPHYBJDRQ3meolX7iTQf
-	 4ivj9vVtP8D3Pt/2ZE5EpI45vQ8SwR5D7MB3Es220blhsySpeCNB5M48q4+hbgfYM9
-	 dfEkdh4RWfyAMna0WoRqq681xminS+4Qcl5OZULn0A5sH4gtrPuXP6zAg3w6VM2oEs
-	 kNJ/kfqnRVmCxgO7oCVvCVjvdWXSWlz35NhYK5+/oxHO9BoFqUdG9BNa9q/E720/ln
-	 nVAMQm0rvitmkYCWvNoHuZ+p1J8JnwRTuOMJHylJUSpvwbvMT3hhhIUTXXbipBWrCO
-	 y+xviDk9fGS1Q==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7536517E0074;
-	Mon, 28 Sep 2026 23:21:23 +0200 (CEST)
-Message-ID: <700f89155d390d4fc9695440f5105d2ade57f8b1.camel@collabora.com>
-Subject: Re: [PATCH v2 2/2] media: chips-media: wave5: Check decoder runtime
- resume errors
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Nas Chung
-	 <nas.chung@chipsnmedia.com>, Jackson Lee <jackson.lee@chipsnmedia.com>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 17:21:22 -0400
-In-Reply-To: <1c34bc88f347384568438058ab69e4d0bc7bb9ca.camel@collabora.com>
-References: <20260718130037.3306626-1-lgs201920130244@gmail.com>
-		 <20260718130037.3306626-3-lgs201920130244@gmail.com>
-	 <1c34bc88f347384568438058ab69e4d0bc7bb9ca.camel@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="AVUUcAce"
+Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-9144169108dso5598066d6.0
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790630614; x=1791235414; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IaYLtQdPOAs5MVg3mEQ2w8dEl9KRvDeu2m3mohc4wFA=;
+        b=AVUUcAce+7bWnnR2DA5v4Uem4kzS2CHHAAvm+7ayonEqnKRMokTc9YCC8lgVCCvpW7
+         M+87A/f7vpAhWcn4AfPvYJk7hVygLvesZf0Qd+gTQA7VZQ5ZKQB7i3DVbc114TC/9mPU
+         pVXJJ2ScXhzLPfgIy/eSJESYjDKtol2jryqJf2n1Ll5TEJJXDCzNUIEtD5rTkY2p126x
+         8YdmiOMLCwaS6eWKTSpGL17k5mzKvVXJB0erllFPhYJl4qbC6fWNT7L6QLxDRYAvdrBr
+         t5eqD/rlmJzqkS23oOxmDA+4ukJCOf5ylCruEYROalhHSyYi4m8T6n4891wdyMJLOlVx
+         slvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790630614; x=1791235414;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IaYLtQdPOAs5MVg3mEQ2w8dEl9KRvDeu2m3mohc4wFA=;
+        b=uSJy7h/QG6yFGPvUtS9EHK7+J8EnzbVMDv6F8JsCB3sONCiS/qnLcfKJSNoymUd52t
+         4/V+Fqy147N7YI+hCKdvAVs73w+dDRs6Rzd++j3oypcQp5pVBcSM/dI0tpYhIYUqYtaC
+         Izzg+3EGsiRCvvD5k/Zn/38qnzYl4Xmzj8YpqcwCXjZ89TFpe3QzLDbvksThPko8Yb2D
+         HGArBCzXAa0E3rD1CFXRJPk7vbviODbG7wKa0a3+89fgGgEEv2y/2KmFUQlw4qn7UaTN
+         YMEAr+Wu/aq6JeZnjHyg2SdP2kO2fqAFTYfFj75XbQ68f3QPHQ4qOBGdiIqfqp7Pqd9m
+         8mFg==
+X-Forwarded-Encrypted: i=1; AKwUvByYKYhx1U29qCbm9CAVNuqtQSsrbAtB99EuqilJBpobinVzjSGN90Qbq/zPM6E7XkPL3WR0QnIu+TSDkg==@vger.kernel.org
+X-Gm-Message-State: AFuF++nemXtU5B+gN9w7d/e43Q/2ErUDeQYBiwvkWUatPHzrhdyJFZg/
+	OGl2QyDKTfRjCLfZHzgpx3Na1057cF4e9efvN1Q/QsfYJncjhA+0+8K257KqSJinki0=
+X-Gm-Gg: AYBFou3s/H/RGqDbzGMzWy6u3Npg4hesHZitBJLhebmp8zKdTQxkDvlmnaR5nNkJdmP
+	CEocu2lzH6aXDIj28LIZIub19+gkwSyTUJRnAdJgh/hVyLDQmF2/awEwhEV6EdZlB7JKPy02DpB
+	Dk/InEJOT0XFqXhpCogRoNi7+98f81zdqLx0j7ohv+ngFCNY2Mq1Gy60vg3P0ImfyDYJw7kbIRP
+	5jUUYnyDyaM3V8VwshCZrsOsajwYAZRDSWj5qW1/QGzcJxSjMqoCQ5Z7xi2NC0nfCehPzEJ+8TU
+	bGuiSyu0/EM8Ac8e51EhGnV71boM/3rYRNj2KM1x/so9/W2K924HhFfxemn/zhhbu42folcr5yj
+	vb2GCqC/QJpGSgc1k5HQHF+O7uKIFEdFfz3dUc1Z7CMEARP+MHOt2Bt4BZIY1Lp0uW6+uBFMMwX
+	7WIVbpJ6LnDjXcsjHSArd5OO3x7oTFJ8MMp3puFEhrIRfIrQ/yzd40XX9OufT5stWBmlgag2Uqh
+	vqu7/d+LVV24Q==
+X-Received: by 2002:a05:6214:1308:b0:90e:9aa2:5169 with SMTP id 6a1803df08f44-9142f6440e0mr233721456d6.7.1790630614149;
+        Mon, 28 Sep 2026 14:23:34 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9144e8c132bsm58091816d6.41.2026.09.28.14.23.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 14:23:33 -0700 (PDT)
+Message-ID: <1cf92b98383885f2e58431ab520efb242bcb311a.camel@ndufresne.ca>
+Subject: Re: [PATCH v10 3/3] media: mediatek: jpeg: add compatible for
+ MT8189 SoC
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Jianhua Lin <jianhua.lin@mediatek.com>, mchehab@kernel.org,
+ robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, 	angelogioacchino.delregno@collabora.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, 
+	Project_Global_Chrome_Upstream_Group@mediatek.com,
+ sirius.wang@mediatek.com, 	vince-wl.liu@mediatek.com, jh.hsu@mediatek.com
+Date: Mon, 28 Sep 2026 17:23:31 -0400
+In-Reply-To: <20260720062829.7343-4-jianhua.lin@mediatek.com>
+References: <20260720062829.7343-1-jianhua.lin@mediatek.com>
+	 <20260720062829.7343-4-jianhua.lin@mediatek.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
  cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
@@ -60,9 +89,8 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-o3TfNheptSAEs7rYlj9F"
+	protocol="application/pgp-signature"; boundary="=-XXMA3sGS6EjACn9YD7p9"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -72,130 +100,111 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-o3TfNheptSAEs7rYlj9F
+--=-XXMA3sGS6EjACn9YD7p9
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 28 septembre 2026 =C3=A0 17:13 -0400, Nicolas Dufresne a =C3=A9cri=
-t=C2=A0:
-> Le samedi 18 juillet 2026 =C3=A0 21:00 +0800, Guangshuo Li a =C3=A9crit=
-=C2=A0:
-> > The decoder start_streaming, stop_streaming and device_run callbacks
-> > resume the VPU before accessing hardware, but do not check the return
-> > value from pm_runtime_resume_and_get().
-> >=20
-> > If runtime resume fails, continuing can access the VPU while it remains
-> > suspended. Since pm_runtime_resume_and_get() does not retain a runtime =
-PM
-> > usage reference on failure, the later unconditional
-> > pm_runtime_put_autosuspend() can also drop an unmatched reference.
-> >=20
-> > Check the return value in all three callbacks. Return queued buffers as
-> > required by vb2 when start_streaming fails, clean up buffers without
-> > touching hardware when stop_streaming fails, and finish the current
-> > mem2mem job when device_run cannot resume.
-> >=20
-> > Only call pm_runtime_put_autosuspend() after a successful runtime
-> > resume.
-> >=20
-> > Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspen=
-d/resume")
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Le lundi 20 juillet 2026 =C3=A0 14:28 +0800, Jianhua Lin a =C3=A9crit=C2=A0=
+:
+> Compared to the previous generation ICs, the MT8189 uses a 34-bit IOVA
+> address space (16GB) and requires a single clock configuration.
 >=20
-> Reviewed-by: Nicolas Dufresne =C5=86icolas.dufresne@collabora.com>
+> Therefore, add new compatible strings ("mediatek,mt8189-jpgenc" and
+> "mediatek,mt8189-jpgdec") along with their specific driver data to
+> support the JPEG encoder and decoder of the MT8189 SoC.
 >=20
-> Picked, ty
+> Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
 
-Spoken too fast, I picked the first, please rebase and resubmit this one, i=
-t has
-conflicts that are non trivial to fix.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Nicolas
-
+> ---
+>  .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 +++++++++++++++++++
+>  1 file changed, 44 insertions(+)
 >=20
-> > ---
-> >  .../chips-media/wave5/wave5-vpu-dec.c         | 36 +++++++++++++++++--
-> >  1 file changed, 33 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b=
-/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-> > index 03d108b808ba..bb59bc962603 100644
-> > --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-> > +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-> > @@ -1380,7 +1380,11 @@ static int wave5_vpu_dec_start_streaming(struct =
-vb2_queue *q, unsigned int count
-> >  	int ret =3D 0;
-> > =20
-> >  	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
-> > -	pm_runtime_resume_and_get(inst->dev->dev);
-> > +	ret =3D pm_runtime_resume_and_get(inst->dev->dev);
-> > +	if (ret < 0) {
-> > +		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
-> > +		return ret;
-> > +	}
-> > =20
-> >  	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
-> > =20
-> > @@ -1544,9 +1548,29 @@ static void wave5_vpu_dec_stop_streaming(struct =
-vb2_queue *q)
-> >  	struct v4l2_m2m_ctx *m2m_ctx =3D inst->v4l2_fh.m2m_ctx;
-> > =20
-> >  	bool check_cmd =3D TRUE;
-> > +	int ret;
-> > =20
-> >  	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
-> > -	pm_runtime_resume_and_get(inst->dev->dev);
-> > +	ret =3D pm_runtime_resume_and_get(inst->dev->dev);
-> > +	if (ret < 0) {
-> > +		struct vpu_src_buffer *vpu_buf;
-> > +
-> > +		v4l2_m2m_update_stop_streaming_state(m2m_ctx, q);
-> > +
-> > +		if (q->type =3D=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
-> > +			inst->retry =3D false;
-> > +			inst->queuing_num =3D 0;
-> > +			while ((vpu_buf =3D inst_src_buf_remove(inst)) !=3D NULL)
-> > +				;
-> > +			inst->eos =3D false;
-> > +		}
-> > +
-> > +		wave5_return_bufs(q, VB2_BUF_STATE_ERROR);
-> > +		inst->empty_queue =3D false;
-> > +		inst->sent_eos =3D false;
-> > +		return;
-> > +	}
-> > +
-> >  	inst->empty_queue =3D true;
-> >  	while (check_cmd) {
-> >  		struct queue_status_info q_status;
-> > @@ -1659,7 +1683,13 @@ static void wave5_vpu_dec_device_run(void *priv)
-> >  	int ret =3D 0;
-> > =20
-> >  	dev_dbg(inst->dev->dev, "%s: Fill the ring buffer with new bitstream =
-data", __func__);
-> > -	pm_runtime_resume_and_get(inst->dev->dev);
-> > +
-> > +	ret =3D pm_runtime_resume_and_get(inst->dev->dev);
-> > +	if (ret < 0) {
-> > +		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
-> > +		return;
-> > +	}
-> > +
-> >  	if (!inst->retry) {
-> >  		ret =3D fill_ringbuffer(inst);
-> >  		if (ret < 0) {
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index d147ec483081..14f2991a4053 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1868,6 +1868,10 @@ static struct clk_bulk_data mt8173_jpeg_dec_clocks=
+[] =3D {
+>  	{ .id =3D "jpgdec" },
+>  };
+> =20
+> +static struct clk_bulk_data mtk_jpeg_dec_clocks[] =3D {
+> +	{ .id =3D "jpgdec" },
+> +};
+> +
+>  static const struct mtk_jpeg_variant mt8173_jpeg_drvdata =3D {
+>  	.clks =3D mt8173_jpeg_dec_clocks,
+>  	.num_clks =3D ARRAY_SIZE(mt8173_jpeg_dec_clocks),
+> @@ -1899,6 +1903,38 @@ static const struct mtk_jpeg_variant mtk_jpeg_drvd=
+ata =3D {
+>  	.multi_core =3D false,
+>  };
+> =20
+> +static const struct mtk_jpeg_variant mtk8189_jpegenc_drvdata =3D {
+> +	.clks =3D mtk_jpeg_clocks,
+> +	.num_clks =3D ARRAY_SIZE(mtk_jpeg_clocks),
+> +	.formats =3D mtk_jpeg_enc_formats,
+> +	.num_formats =3D MTK_JPEG_ENC_NUM_FORMATS,
+> +	.qops =3D &mtk_jpeg_enc_qops,
+> +	.irq_handler =3D mtk_jpeg_enc_irq,
+> +	.hw_reset =3D mtk_jpeg_enc_reset,
+> +	.m2m_ops =3D &mtk_jpeg_enc_m2m_ops,
+> +	.dev_name =3D "mtk-jpeg-enc",
+> +	.ioctl_ops =3D &mtk_jpeg_enc_ioctl_ops,
+> +	.out_q_default_fourcc =3D V4L2_PIX_FMT_YUYV,
+> +	.cap_q_default_fourcc =3D V4L2_PIX_FMT_JPEG,
+> +	.support_34bit =3D true,
+> +};
+> +
+> +static const struct mtk_jpeg_variant mtk8189_jpegdec_drvdata =3D {
+> +	.clks =3D mtk_jpeg_dec_clocks,
+> +	.num_clks =3D ARRAY_SIZE(mtk_jpeg_dec_clocks),
+> +	.formats =3D mtk_jpeg_dec_formats,
+> +	.num_formats =3D MTK_JPEG_DEC_NUM_FORMATS,
+> +	.qops =3D &mtk_jpeg_dec_qops,
+> +	.irq_handler =3D mtk_jpeg_dec_irq,
+> +	.hw_reset =3D mtk_jpeg_dec_reset,
+> +	.m2m_ops =3D &mtk_jpeg_dec_m2m_ops,
+> +	.dev_name =3D "mtk-jpeg-dec",
+> +	.ioctl_ops =3D &mtk_jpeg_dec_ioctl_ops,
+> +	.out_q_default_fourcc =3D V4L2_PIX_FMT_JPEG,
+> +	.cap_q_default_fourcc =3D V4L2_PIX_FMT_YUV420M,
+> +	.support_34bit =3D true,
+> +};
+> +
+>  static struct mtk_jpeg_variant mtk8195_jpegenc_drvdata =3D {
+>  	.formats =3D mtk_jpeg_enc_formats,
+>  	.num_formats =3D MTK_JPEG_ENC_NUM_FORMATS,
+> @@ -1938,6 +1974,14 @@ static const struct of_device_id mtk_jpeg_match[] =
+=3D {
+>  		.compatible =3D "mediatek,mtk-jpgenc",
+>  		.data =3D &mtk_jpeg_drvdata,
+>  	},
+> +	{
+> +		.compatible =3D "mediatek,mt8189-jpgenc",
+> +		.data =3D &mtk8189_jpegenc_drvdata,
+> +	},
+> +	{
+> +		.compatible =3D "mediatek,mt8189-jpgdec",
+> +		.data =3D &mtk8189_jpegdec_drvdata,
+> +	},
+>  	{
+>  		.compatible =3D "mediatek,mt8195-jpgenc",
+>  		.data =3D &mtk8195_jpegenc_drvdata,
 
---=-o3TfNheptSAEs7rYlj9F
+--=-XXMA3sGS6EjACn9YD7p9
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarraUgAKCRDZQZRRKWBy
-9JELAP98PhMzGQE7Kd4kRGg5wydxhztHMXMRB3xPM0ABTgIMXwD/ZTB11zTbixvW
-QREg7qD2B4DDTaMyAi013wBWHqvGEgs=
-=hWLh
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarra1AAKCRDZQZRRKWBy
+9PgyAP90ID6nr8DXz9EU9G9cUMSWNsFKmJUohZ0RKC19B7xjVwD/WygXzFMIdb/P
+AAfRq3LMsOABefslze2ZwSqMr6V7Vgs=
+=UgZf
 -----END PGP SIGNATURE-----
 
---=-o3TfNheptSAEs7rYlj9F--
+--=-XXMA3sGS6EjACn9YD7p9--
