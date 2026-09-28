@@ -1,171 +1,114 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992263D9674
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597921; cv=pass; b=RmFMoDo0lRNeVOtlYJp4Hf0kMBal8M9C4TNnD6o+PUPFhJDG2J2zcW33ydzO7WrkhRUe6l98Y4tsd1zYsHton8/F1esPPjttam2x1n3JYItlSGqSJHOg4wLqxeZE7zy5/qfEPelscxq7+d9D0nO37sS6V7NsHS0kYWy6dd8bE8A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597921; c=relaxed/simple;
-	bh=TijKxK+nK3xx//VQ9rSkkM6WufIlRHmW8yc3Q92XXuI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eirEz/edKxCVxM9hlsQIWICsEVIKXia1b1WOVVN96xVm9nMPGAf9fn7a9DiV3UT21idLJv0+FNZT/ebl9qENKkmkIRsERqYPILVGoBZhKlF3JhxGMOxxUKi2MYwCTNWD9TRYT+0QmwfXyR69J4UticHx1GmP7XrMHtEXZ6t0cBg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMe7q+kr; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEBC3C5DD4;
+	Mon, 28 Sep 2026 12:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598117; cv=none; b=QChRMw72An8VTnMrL6pdvmeSmeTdWWWAMA0rmJzm8O36RoEc0MiMPbNdtenfkKR29lYCOEsrkAH6Za01RXimCzlkiUeMg/VDfh/u5NqNXghL/YqYRNvMUxYU/sWYEeS2zYk10Ou06iFr7U/ET2A1WmYQZiwkXwVeMwZy4EmhzrI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598117; c=relaxed/simple;
+	bh=KZItNTdX8NQtHbADSM1BT9zXePaN3sOIUQDC+3Yua6U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=difdgTpj+VMjh5mcZg5OFLXDbuNknNZJfZkEwBCLmfRHQSa0I0h6EbZZsbQtHnJfwBlmD9kgPYB7XYcj2mmw1eNNKcJ0GMoAbac9Y401IoWpn9RgLugWRGwTPk0FwVEHJv7LyE0AgfD73hq2LOv44vvGQd1Lsc7UonLo23QOOoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIWqck5p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMe7q+kr"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66f7a9afe43so2357522d50.1
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 05:18:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790597918; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RvLssdA2s3RqZ5/WxpXDw9ebgm7MNvNtd7rm7LqK1C3oN0s5Rc3aoILO4Mfoc1pOMb
-         gXW7OG+lTZ4m7z+KYYoRSGaq9ga3LSinUQIrBTK09mEQg5azaX5/5bisnE2JJNqBqYnZ
-         ek/kullZziCQG2fL72bUFUKYN9yYs9golQ6mNlugtvltMzJS68xxgaH+ZBZNG1dxeztG
-         Uc1nuF4setS7mxb8Q1zag1/gKg/S1SRlkplWdUEyr56z6rXd188XbngqRsnLdNdZ9+Rr
-         ProOtgeZaKd8alS4RX4ygviw7wvkwWZGcY1LtLKaZyxpNgvDD3Y87f0hlZ1II7h8NS0h
-         /2Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mL7XzunHpqYpnOMoylkNx9LH6Y253aowfuldXMm2MNA=;
-        fh=Hu+LIEf85Hyqfghj1nmoaFeY6Gu2qrKTflfhPPvbs3w=;
-        b=e6NdJAV80hbtBi5culH7kga8cJ2/JY+7Ia3jDUmcxkUr8pn/prgwNT/fCyoL/ooOB+
-         6/yMTGY9vZcRLAlodkZu1Z6UGf1IWNVoFx5FROsR47irpGt8u0yNg854ROhvVSB5nxTd
-         YWje3hy1UyzMmnwBQVZjTcq0bcDWTq9EqxKewZYlgPckpvrgkWDXlKtLOspOKe7D8hBy
-         pPkJKoSdd2oPAb67RmqzHy53LTzv394vWKlzsUf8kbSRPEyEreBRTIqE/ZYsL1fviQ06
-         3Kp1N/QMLSukKI0vzjviPjBPXRPVvDHFWk3jut8Oryi43nnW66zEjui2W2tWqIkMb3jm
-         mX4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790597918; x=1791202718; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mL7XzunHpqYpnOMoylkNx9LH6Y253aowfuldXMm2MNA=;
-        b=aMe7q+krHZT5jfGanu6pqnmHEhYF/VajLq9iHFSn69rjtntsEn+eoUrqSz7fTsN9Df
-         B4I/wwoDgitHtf9jiDtrA8y8B3lIeINYP0eCtEbavwD8CtkdVDiBWciJll8vI+kqxxss
-         sD3WQtAn4QtdMvHkkXtRimuVpbIFR44/ntg89+HeNp4Is5ZDs/sE/kTagn/pm8EQYY7C
-         EWhWa5c22WGX8NpPkDXToMzC7sieIMuKtEqrcRC3ZMRnfQxuCdTYetXN9HIhLdB0dSDr
-         nyeNOxUowbkXZDV/hPQlyGNAbFTO2KhWGdmTpzJwd3wi0tnm9R2BrOIU9taBz9htQq7X
-         8WJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790597918; x=1791202718;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mL7XzunHpqYpnOMoylkNx9LH6Y253aowfuldXMm2MNA=;
-        b=d/Zou/gZhdQ7s6TTOlcdcsaBHsamvonGpGYsu/0V2AvwrcbeRzW1/cGKtcnAPX8qTG
-         QWwot8jkiqB64OPqyDwhwiAaRNgoVuycppIKBue3cgQvbZKmut6NlAWEHi5ZQ1MLFLRj
-         CLdtDZi1ZBS8iqVEQjDLTdQTaBzy2I/IhBd56k2HOWSNSARZAk3GSVvQRI9W+50LZLBC
-         2KIuZ3ynhcj7zcn4YmmpnXct57db2foCybzFvfN4wk/IfaMqoFbA1Qt7Xs6L8kczg/oz
-         tPYE2lCJqNh//xcf1WDAkgRkiM5+DJYib7o/+xsypAOCiMooVsJ/SoA0XuueG1XxtGns
-         xicw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsQ3U3de7meAyZpmyouudZD6fJaJyOcnGTaEg7sYc7NVl8YjPqtA8QFX+n7cTvw7plGKCRhS/P7reoFA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYITE7uvnsGKVIVVeR3N0BLwe0A/FQ9IDI4XzUOpthK+Zwz68S+k
-	7dndn5nq6O/+GNCVNnJnfvDSKJsed1G/y0CA2uOGg6aEt19/2DDCyenFRv3t332ycxryblTQeYT
-	1PHLaOchUDiAH313fRtiqPrFR5eXbPBw=
-X-Gm-Gg: AYBFou2W2urzWzPYCGgBtAk86975NsvE/dcXo0qA3E1mzUXMCrfSsgombHABCiCg1Ew
-	vMLSQqbSOSQyeWupAwFv5Pzt/mcW7rHm3ZeOhB/ySkxLly9QK8eybr5VFwcmYtq8dhlxVfEImAL
-	XtDx/QF0AwUAiU5qzngJp3YW1fW5+mKbOqMdvwYh0zuEzH1MNVhuwXdrxNw0QISp9zygCja2/pL
-	qpisFa3MM+IYUZN8X+PMUtE7VyzeIWtd7VY7M1rd0m7q5PeHy3VMf0pf2WX7r7MPH1VUeSaZMUY
-	Yki/taDbBlLWylEvHSXI33uBeEYuHB7v3nGnQ8OdPb/wB4wRRGC9uc2YttePrMIOnbUJ8FGCyRG
-	wDtILR8tzFhyfxBg/9doIHxg/gZ/uG/2Ltz1V2nHGt3w=
-X-Received: by 2002:a05:690e:12cd:b0:675:13fb:ef4f with SMTP id
- 956f58d0204a3-67513fbfdccmr1784360d50.93.1790597917899; Mon, 28 Sep 2026
- 05:18:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIWqck5p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68371F000FF;
+	Mon, 28 Sep 2026 12:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790598114;
+	bh=dQSSxDoUuWwKJ5+sJZf7yKzcmls88alEZ1yxQyhiNDk=;
+	h=From:Subject:Date:To:Cc;
+	b=EIWqck5pA59MuuDSCUnUXJBfF25+N89Pw5rXTM4vTHHzSGtKU/uEdNN5k+fQMVrm4
+	 9xcWjKFuKtc25wbElE334ZLkNpC0r3TfOz31+Tl8z9Lefu8/quN3IlVgLNivRSHwxv
+	 S4UobDLqaQOuQQQwYc6L0pbYsz7XdHWBy1MXvPG+0bdMRpw1OQIbRHX4H1oMPOtWhX
+	 oyJMwdJhlHkv3OdMmoQXcB5QDLGms2qZfKB1vMEqyOEBXhv0xB6y4jYa+RJ5uXn4TR
+	 7igEsbwOdoWse2NXLlyHYGaiqsqVT2QmiDzVLbP7tHqmHPLhSlSPxSk1RlHKl5ljZb
+	 SQx+n60BrvYVQ==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v3 0/5] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H
+ EVK
+Date: Mon, 28 Sep 2026 14:21:46 +0200
+Message-Id: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928121230.35359-1-kartikey406@gmail.com>
-In-Reply-To: <20260928121230.35359-1-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Mon, 28 Sep 2026 17:48:26 +0530
-X-Gm-Features: AclHuK8HSa-2KM0ooi_5xiqzSTVbPS3E0wHbBsge4xM3DW_Ub-G1EbMualq28Oo
-Message-ID: <CADhLXY434wAdf9s-_3xh4WZj5A26yaP7LPj1JqvNaPaVJWQqyw@mail.gmail.com>
-Subject: Re: [PATCH v2] media: imon: fix use-after-free in display_close via dev_dbg
-To: sean@mess.org, mchehab@kernel.org
-Cc: jarod@redhat.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNwQ6CMBAFf4X0bE1ZWiqe/A/jobQLVBFMF4mG8
+ O8WvOjBeJzkvZmJEQaPxPbJxAKOnnzfRcg2CbON6Wrk3kVmICAXBQC/mtZzqxQP2CEZ4m4grqW
+ TGnSlClQsXm8BK/9YtcfTm+lentEOi2tZNJ6GPjzX7pguuz+JMeWCW5dn1pUqFVl2uGDosN32o
+ WZLY4RPi/phgWjJi0rDzkgtDXxZ5nl+AaKKdNwRAQAA
+X-Change-ID: 20260922-mali-c55-renesas-dts-74d4727f59e5
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
 
-On Mon, Sep 28, 2026 at 5:42=E2=80=AFPM Deepanshu Kartikey
-<kartikey406@gmail.com> wrote:
->
-> ictx->dev is a raw pointer to the usb_interface's embedded device,
-> cached in imon_init_intf0() without taking a reference. On
-> disconnect, usb_disconnect() can drop the last reference on the
-> interface and free it while a userspace fd for /dev/lcd0 is still
-> open. When that fd is later closed, display_close() dereferences
-> the now-freed ictx->dev via dev_dbg(), causing a use-after-free.
->
-> Fix by pinning the device with get_device() when ictx->dev is
-> assigned, and releasing it with put_device() when ictx is freed.
->
-> Also drop the dev_dbg() in free_imon_context(), which only printed
-> a debug message and is no longer needed.
->
-> Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
-> Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D9bfac891bdd42eb708fc
-> Link: http://lore.kernel.org/all/20260918054851.26083-1-kartikey406@gmail=
-.com/T/ [v1]
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> v2:
-> - Remove the dev_dbg() in free_imon_context(), as suggested by
->   Sean Young.
-> ---
->  drivers/media/rc/imon.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-> index 049a73b5f882..562a70186db4 100644
-> --- a/drivers/media/rc/imon.c
-> +++ b/drivers/media/rc/imon.c
-> @@ -501,7 +501,7 @@ static void free_imon_context(struct imon_context *ic=
-tx)
->         usb_free_urb(ictx->rx_urb_intf1);
->         kfree_rcu(ictx, rcu);
->
-> -       dev_dbg(dev, "%s: iMON context freed\n", __func__);
-> +       put_device(dev);
->  }
->
->  /*
-> @@ -2253,7 +2253,7 @@ static struct imon_context *imon_init_intf0(struct =
-usb_interface *intf,
->
->         mutex_lock(&ictx->lock);
->
-> -       ictx->dev =3D dev;
-> +       ictx->dev =3D get_device(dev);
->         ictx->usbdev_intf0 =3D interface_to_usbdev(intf);
->         ictx->rx_urb_intf0 =3D rx_urb;
->         ictx->tx_urb =3D tx_urb;
-> @@ -2314,6 +2314,7 @@ static struct imon_context *imon_init_intf0(struct =
-usb_interface *intf,
->  find_endpoint_failed:
->         mutex_unlock(&ictx->lock);
->         usb_free_urb(tx_urb);
-> +       put_device(ictx->dev);
->  tx_urb_alloc_failed:
->         usb_free_urb(rx_urb);
->  rx_urb_alloc_failed:
-> --
-> 2.34.1
->
+Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
+interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect their
+video endpoints, and enable both blocks on the RZ/V2H EVK.
 
-Please disregard this patch.
+After these patches, and enabling the right Linux drivers, we get
+this in the console:
+mali-c55 16080000.isp: Detected Mali-C55 ISP 9000043.31032022.0
 
-Thanks
+This was done in order to enable booting mainline with mainline
+device trees.
 
-Deepanshu
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v3:
+- Correct the ISP video and register clock/reset mappings by swapping
+  vclk/hclk and vresetn/hresetn.
+- Add an optional ISP power-domain binding and attach the RZ/V2H ISP
+  to the CPG power domain.
+- Link to v2: https://patch.msgid.link/20260925-mali-c55-renesas-dts-v2-0-69f728a474a2@kernel.org
+
+Changes in v2:
+- Add separate IVC and ISP binding patches describing the optional IVC
+  frame-start/frame-stop completion and ISP DMA line-tick IRQs.
+  Show all six IRQs in the examples using consecutive mock numbers.
+- Add the IVC frame-start/stop and ISP DMA line-tick interrupt lines
+  using the confirmed SPI assignments, addressing Geert's IRQ review.
+- Correct the IVC and ISP register sizes to 64 KiB and 512 KiB,
+  respectively, as requested by Geert. GPV_VIDEO0 is a separate bus
+  interconnect region.
+- Compact the clock and reset properties and remove blank lines between
+  properties, following Geert's review.
+- Link to v1: https://patch.msgid.link/20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org
+
+---
+Daniel Scally (2):
+      arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+      arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add ISP and IVC nodes
+
+Linus Walleij (3):
+      dt-bindings: media: renesas,r9a09g057-ivc: Describe additional interrupts
+      dt-bindings: media: arm,mali-c55: Describe DMA line-tick interrupts
+      dt-bindings: media: arm,mali-c55: Add power domain
+
+ .../devicetree/bindings/media/arm,mali-c55.yaml    | 15 ++++++--
+ .../bindings/media/renesas,r9a09g057-ivc.yaml      | 11 ++++--
+ arch/arm64/boot/dts/renesas/r9a09g057.dtsi         | 42 ++++++++++++++++++++++
+ .../boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts    |  8 +++++
+ 4 files changed, 72 insertions(+), 4 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260922-mali-c55-renesas-dts-74d4727f59e5
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
