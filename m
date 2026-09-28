@@ -1,103 +1,188 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B96F4BD790
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA694E2F34
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606106; cv=none; b=rXgCfQjTUZ0qkIUFKHmWBdJ8JYL9rVzgatlLep7AYvpRvugQufwoSQ7sHzxxgj5yjaixpilYCzDaR90Wg+1fla0QHd/T6yMWHoHEEOx7G51HY1Ao6buBov26PBTqGhd/HowVFQrYLmVZvjv+q0GcDcESq0uMYgL1VODzJv8AfwQ=
+	t=1790606388; cv=none; b=qqzO2PkHr50xhQ6MsGi91kjT4xH9TbkDbJXYF+Q5kFnjo1mZiwioI+oMMNWmq8SeplPTg2saUw6yKkOQ28QD8gP5OpYFl/izLit3h1BFV7mv3DmBYAdzWBnIwQo/nqIUYYb8IkmSio3aldd9IX66kv/zr7Odr4uEliBwmo1d4lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606106; c=relaxed/simple;
-	bh=96+TdOqZAkRS/23bGnYj2WIeluw3dPCFqis+zSJPgEU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WQ4DITOz6lZ1/677mzIeGs7ijR/096wPr+oiwR/kJyDJgFg3kwFOGfXym7Ns4SsFOtHJFcIERapd1/ksa4z1jnH7k1HIdoAcIcxPFFjf/DK4j7iBAEU+HalypAudnXR+owkYyDZvr3Rgqbkne/P2QQjTDnwWD+nphOjbjHhKFIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hUi4gaoD; arc=none smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790606388; c=relaxed/simple;
+	bh=vsJoLw3liF0VvtO4oyMxsqzwveZcsfmhBHB3j0jOmrI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=obT/BrztWG41WT2nwleyuiQNrm7tEuQX13kgYXNz3DHq8W9XjHRxWZwbZxJ0f+fLVqIWaOBZzatLRfkc2UWmGLJ044b8VNskjiZsZOqUUfikKA4lcWdMeX8URQpV4+phnhrERrrNL/pg2Enh+UiwAgKk/Y8+dVvFJORoZMYbjBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=G2y4fPE6; arc=none smtp.client-ip=91.218.175.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hUi4gaoD"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8a894197c96so22076237b3.3
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:34:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790606094; x=1791210894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=96+TdOqZAkRS/23bGnYj2WIeluw3dPCFqis+zSJPgEU=;
-        b=hUi4gaoDgdkI6810Z4BmPeBBwB6bZPMxmh4qE+r2uUwsVlWTrjqdBTJ54ajoSGU211
-         ohvdesZUTryTswuOO2MLEk7iZPe9AwtyaEt/iJJlwSc1VOZ2jkM8yIv36IndmLnuq0j8
-         F3AENkifCB4O+MgrbevrcQMNjt03cTtB2I1Lla+zhviTxCuqifmI4QpnhFvXg879Ansy
-         C4kdKcJPh+ZWv+7dvAQ/b9LAlS8As6yjbWO4IfG4kFnGWNzXtqH12Al3SeHWvWtJaMBz
-         9znI7/CE/0aywQz8TwtBoF7/YcAIXNI+ZcOPQvi6uVWZjGPPxrh373soE3PHEvEdGPcB
-         WORw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790606094; x=1791210894;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=96+TdOqZAkRS/23bGnYj2WIeluw3dPCFqis+zSJPgEU=;
-        b=uq0QMwLu2EvGTl2yLrBptQJVGnJWgrpopc1OWxPXbZJCbicyXzCM2CyA0EnGpv2F8C
-         C4k5UVnXuHj8nQLPFUvvdS9N16ymFL521l/f1jfvdKQ6yyQyon+MVNsTRYVGe/gzufVy
-         mTHAbcdzTmGutKEbj4M4bsWxv4AToATLm5cl0sVvFetkKHgMV02Eatgy9yoo5E63LTZG
-         dlCKrugwf8nSF6bsCt716wGtUL+YOTm5rzoaA6IW8zIgfmmOkffSPzwSbMGqyh1O0TyJ
-         IgZEtGlCrl0uop8YYPNdinkV7eTGFeRjbbccX8pDo4KiZUppN/BD8XdjX+UZo4QgFvdj
-         6hMw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCJ69GiJeZw8RynfF8TTc4S3PuLdlZo5OJzYKesd5FS9wEqwkPmr+CS667fAgu+ezfTFsXKZdkWtcaHg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDseokhksLlTy8uUfk6JP3pGrREJSgRaKZ8+R0lT5XY1XF32Qh
-	R17XWPs2jstNUsJbQQe0tSId8ZuVqGrRG6s+UGQ2uk9NJF53VuhpTUJC
-X-Gm-Gg: AYBFou0rJCMjCMoBfDXCZrbaDwSaMcgK4fu/3TSpJC4lVFzm+IKpHY1X1pXvOLHx/Im
-	G0Wv+BRBj2+fNV5Is+NJPG0VFy2rQgGhkc5nNfspufs/N+oNdMNzaGimMs7nc3YvqTTRnUAxreY
-	sdSfH0zRJu7h7+ze98sDrrT075qWl1Q5201zONtu8MaPts2Vs14aH4XqpBeyemZuZKdpXTvdpHj
-	kLNtdfhRInskZsVgyTVgTdj91/cbe3ohktN80jA2rjkJRi+HyjAjI00RFuhsLsisRtFvVfIkoib
-	1Hemic2NhBgQ1IzA9kEjcjcFY/Qi/So0LAX0rsOBII5puhJ4OQcDpjPHJMyQ4Pj8wICSQ1BqcSx
-	SPb/L3GTHzgCa/TeTQsk0JcgwhTrUMkNccL6NTneMIKPnVeWnlW0QBGdvYN12eSw4qCt07M+GHr
-	RCP6MxZT/Q22XkShVIPEdcb5eR0f8ljFjBxH1xVWe7Go3b3fivEFgfvQw0XJqyAkHAR6FEzbcyz
-	yqW6FZsWrc5x8GwMhjZigSPX+8m9LLrtF30q4skP5otjxh13ZjaHTo=
-X-Received: by 2002:a05:690c:c4f1:b0:8a8:719c:e4ed with SMTP id 00721157ae682-8a8719ce5b7mr33125107b3.34.1790606093575;
-        Mon, 28 Sep 2026 07:34:53 -0700 (PDT)
-Received: from llmbox.. ([38.81.85.65])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860325fbesm45609627b3.5.2026.09.28.07.34.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:34:53 -0700 (PDT)
-From: Michael Jordan <jordan.mymail@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Michael Jordan <jordan.mymail@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
-Date: Mon, 28 Sep 2026 10:34:52 -0400
-Message-ID: <20260928143452.757713-1-jordan.mymail@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANiDSCuNubuJ1RyTT4g4PORoJzEorwH6CFmcPnXrkRYccz5deg@mail.gmail.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com> <20260902002553.34839-4-jordan.mymail@gmail.com> <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com> <20260927220625.629672-1-jordan.mymail@gmail.com> <CANiDSCsBbns32PGir2JCZ8Ofv9CpXgjV50k-vszmFY-jT-2WNg@mail.gmail.com> <CANiDSCuNubuJ1RyTT4g4PORoJzEorwH6CFmcPnXrkRYccz5deg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="G2y4fPE6"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vsJoLw3liF0VvtO4oyMxsqzwveZcsfmhBHB3j0jOmrI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790606374; v=1; x=1791211174;
+ b=G2y4fPE6GDs09jOD3+ZXJRrMHqz06/Ph4nhvPoYnSw++On0H7NK1q9Gd0qwT0r7riMwKTxCF
+ siaEy1TqPZDPko2XFrgjyKBeMl0sU4iilRrVnfwSI9JE/RguigBV0az7hhf4X41ykv3UZtDZxhO
+ HqB47vMbLLpUfjiq6D75r5jQ=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2e8acd8450d3c992;
+	Mon, 28 Sep 2026 14:39:24 +0000
+X-Mizu-Trace-ID: 2e8acd8450d3c992
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 16:39:20 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 05/10] media: i2c: ov9282: add refresh of missing ranges
+ on a mode change
+Message-ID: <arp7GM4KZZZF6zN2@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-5-f520af59df1b@linux.dev>
+ <CAPY8ntB6hoUMCr7v6E5soWzh+CDuSsdy_bJPStxk=b8mfEzN5w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntB6hoUMCr7v6E5soWzh+CDuSsdy_bJPStxk=b8mfEzN5w@mail.gmail.com>
 
-Hi Ricardo,
+On Mon, Sep 28, 2026 at 02:15:05PM +0100, Dave Stevenson wrote:
+> Hi Richard
+> 
+> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > ov9282_update_controls() updates the pixel rate, hblank and vblank, but
+> > currently misses the exposure range and flash_duration. Both are dependent
+> > on the line time and therefore the pixel format.
+> 
+> The exposure control is dependent on vblank / frame height, not the line time.
 
-On Mon, 28 Sep 2026 13:18:18 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
-> Since Hans is going to merge your series today into the uvc tree you
-> should do c) instead.
+Sure. You're right. Thanks for the catch!
 
-Will do: the Tail 2 entries will follow as a separate patch once the
-series is applied.
+> 
+> > Refresh both, and commit cur_mode and code in ov9282_set_pad_format()
+> > before the call so the refresh and any nested s_ctrl see the incoming
+> > format.
+> >
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  drivers/media/i2c/ov9282.c | 39 ++++++++++++++++++++++++++++++++++-----
+> >  1 file changed, 34 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > index 4c88de1965171..e64d8343c18e9 100644
+> > --- a/drivers/media/i2c/ov9282.c
+> > +++ b/drivers/media/i2c/ov9282.c
+> > @@ -557,6 +557,8 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >  {
+> >         u32 hblank_min;
+> >         s64 pixel_rate;
+> > +       u32 exposure_us;
+> > +       u32 lpfr;
+> >         int ret;
+> >
+> >         ret = __v4l2_ctrl_s_ctrl(ov9282->link_freq_ctrl, mode->link_freq_idx);
+> > @@ -577,8 +579,22 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >         if (ret)
+> >                 return ret;
+> >
+> > -       return __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
+> > -                                       mode->vblank_max, 1, mode->vblank);
+> > +       ret = __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
+> > +                                      mode->vblank_max, 1, mode->vblank);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       lpfr = ov9282->vblank_ctrl->val + mode->height;
+> > +       ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl, OV9282_EXPOSURE_MIN,
+> > +                                      lpfr - OV9282_EXPOSURE_OFFSET,
+> > +                                      OV9282_EXPOSURE_STEP,
+> > +                                      OV9282_EXPOSURE_DEFAULT);
+> 
+> I would have expected that this should be handled by the first clause
+> in ov9282_set_ctrl where if vblank is changed it updates exp_ctrl.
+> That's how many drivers handle it.
+> 
+> Looking closer they tend to set an explicit vblank on mode change
+> though, and it is that which triggers the set_ctrl.
+> There has been previous debate as to whether changing mode should
+> reset blanking to give a defined frame rate. Memory says that Sakari
+> was in favour of doing that, but I can't find the thread.
+> Sashiko also flagged on a previous patchset of mine that if the
+> previous mode happened to have had vblank adjusted to be the same as
+> the new default value that the new mode selects, then the control
+> handler framework won't call set_ctrl(VBLANK), and so the exposure
+> range (depending on mode height and VBLANK) won't get updated.
 
-> BTW, I am curious, did you hear anything back from OBSBOT?
-> Could you also report this to them?
+Thanks for the explanation!
 
-Nothing beyond the automatic confirmation; the ticket has been awaiting
-a reply since 2026-08-04. Their support channel is the only way I have
-found to reach them, so I will report the Tail 2 there as well. To be
-honest my confidence that they will respond is low: both cameras work
-fine on Windows and macOS, so I suspect this is not a priority for them.
+If resetting vblank and hblank on a mode change is the "preferred" or
+"usual" implementation, then I'm of course fine with that. Either in
+this series or in a future one ;-)
 
-Michael
+> 
+> All a little messy, so I can be persuaded that there are enough holes
+> in the current driver that the easiest solution is just to update the
+> control ranges here if you say that set_ctrl(VBLANK) doesn't get
+> called in this case.
+
+Regarding the vblank set_ctrl on mode change: I will do another testing
+round and either add a comment on the behaviour or remove that
+modify_range call.
+
+thanks!
+
+regards;rl
+
+> 
+>  Dave
+> 
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > +       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, exposure_us,
+> > +                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> >  }
+> >
+> >  /**
+> > @@ -855,10 +871,23 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
+> >                 framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+> >                 *framefmt = fmt->format;
+> >         } else {
+> > +               const struct ov9282_mode *old_mode = ov9282->cur_mode;
+> > +               u32 old_code = ov9282->code;
+> > +
+> > +               /*
+> > +                * Commit before refreshing the ranges. ov9282_update_controls()
+> > +                * and the nested ov9282_set_ctrl() calls it triggers derive the
+> > +                * frame length and the line time from cur_mode and code, so
+> > +                * they have to describe the incoming format, not the outgoing
+> > +                * one.
+> > +                */
+> > +               ov9282->cur_mode = mode;
+> > +               ov9282->code = code;
+> > +
+> >                 ret = ov9282_update_controls(ov9282, mode, fmt);
+> > -               if (!ret) {
+> > -                       ov9282->cur_mode = mode;
+> > -                       ov9282->code = code;
+> > +               if (ret) {
+> > +                       ov9282->cur_mode = old_mode;
+> > +                       ov9282->code = old_code;
+> >                 }
+> >         }
+> >
+> >
+> > --
+> > 2.53.0
+> >
+> >
