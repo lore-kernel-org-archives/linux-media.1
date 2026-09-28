@@ -1,183 +1,188 @@
-Received: from aye.elm.relay.mailchannels.net (aye.elm.relay.mailchannels.net [23.83.212.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A076C4F96C0
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 20:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.212.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283A9346A15
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 20:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626142; cv=none; b=GNvfE70fCwHPOLju7DLQfMCNJZ08iS/F5gbZgGgsAP90uWgU0TIlczNNer9fZ0q4jGoVzod2y77TLgzlvExga5+20HGBoUmt8r3lndv/qXxphI1h0kofXPaU4gX35CM2h8HmLMDfjsx0Ra8d+kH6wuWEEdrlp13d3mRjT4zNmKU=
+	t=1790626692; cv=none; b=OcBKlBLxTc4wTppaoM+mBvl/RJD+/zaFOPYx7dN4AcEthA/TBqcURVqw9IddZl67LOa5F+KX94G1V1zidoJSelfALR4GV0UBEgJXHfNyueJTusxrnvuA950kMTfFZg9WJyh1L1VaBAYxRFS3/uWcI1PTUoGeBRe9TbLST+C2bIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626142; c=relaxed/simple;
-	bh=8+86gebBwNTgXEc1cOiWsA+rhL8g7dvLrEudCMIUJic=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=giPiOV9qj4AG1SD6BzFWdQXS0/MHEPJ6HSVMxwALVa8c26/x/NiCrLRU1z5l6KwcNlLVWOZcw5ktW2flruUARrDDK3iGZlPoKxEeudHCDL+fMYLi7tJfA3emT4gF1Gzg+UHqy7HQ+SoaraRPmrlxWp4vntPYrgfNPR+Ki4EBA2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=VgQSPCWn; arc=none smtp.client-ip=23.83.212.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	s=arc-20240116; t=1790626692; c=relaxed/simple;
+	bh=CgZhHGj1pW6833JwW53EB4b6tZGAvoRHquleruZAoaY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P4DXcv/fxXfxi7cXabSBINBMB5JQxFBrAn9PY9BvS8PJbvPqHrvgqgjtQ8BLZlyOyhg7gZ/V2+uoyLVoZski4DY9WIrR9Zupku57pc6NOPVGgQdDF/pn2E7D2vj99xDqQtLnEqj5rA7nKqthIC4/mhZ7rcQP0uwfScTS4tiZgkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=dyBCZ3ra; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="VgQSPCWn"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 4AF014C0A8A;
-	Mon, 28 Sep 2026 19:58:55 +0000 (UTC)
-Received: from pdx1-sub0-mail-a209.dreamhost.com (100-96-3-213.trex-nlb.outbound.svc.cluster.local [100.96.3.213])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 0A9D74C0981;
-	Mon, 28 Sep 2026 19:58:55 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Stop-Madly: 12e05b0e4599c17b_1790625535215_161803816
-X-MC-Loop-Signature: 1790625535215:1035580471
-X-MC-Ingress-Time: 1790625535215
-Received: from pdx1-sub0-mail-a209.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.3.213 (trex/8.0.2);
-	Mon, 28 Sep 2026 19:58:55 +0000
-Received: from offworld.lan (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a209.dreamhost.com (Postfix) with ESMTPSA id 4htsZQ2Rs1z1Pr;
-	Mon, 28 Sep 2026 12:58:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1790625534;
-	bh=jaBMsr2o3eEt85eYJWBiqf5Zi50lGEnm38IUJ3i3Vr8=;
-	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
-	b=VgQSPCWn22b4R3Th1g5qGbqptLabrvu23tx3QF+pjqTg+ZQA/1KBf97rRi4aMFTqF
-	 Kihbc1YgCjXgZOKdOdJwG1VsqIhe4WyeyWs7jpHf5UiBi1nCRZEjqx6KH+lyKPMxIj
-	 ICX7hjN7AMffny272TNHn1fj2ersMtiX+lZo5KJMj9YNPCmK1gYoiiZjTULhGTkesM
-	 6iBXPgE3xBoAh6jPM/YCp/ljBM86xx3s5D4wi4jYn9gh9cJ8hzA8o/JAQTM3nMeR+T
-	 AyggRBAb4UZ0CNIhd/+/9eAYULeo12f9obpfKOpxoAgBX1A2moGL8dI4z/bdsChhAX
-	 ma3ZInaxOUtdQ==
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	phasta@kernel.org
-Cc: benjamin.gaignard@collabora.com,
-	jstultz@google.com,
-	tjmercier@google.com,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	dave@stgolabs.net
-Subject: [PATCH v2 2/2] dma-buf: system_heap: allocate 2MB chunks on x86
-Date: Mon, 28 Sep 2026 12:58:50 -0700
-Message-Id: <20260928195850.1982569-3-dave@stgolabs.net>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260928195850.1982569-1-dave@stgolabs.net>
-References: <20260928195850.1982569-1-dave@stgolabs.net>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="dyBCZ3ra"
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cd63c192b9so1191505e0c.0
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:18:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790626688; x=1791231488; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
+        b=dyBCZ3radDp8NPPuky5lRIVeEStjDLSxCR/fe0QOxD3GJKsM7UztGPRF3CyZWb25BL
+         GQkb90LA0Ew0NGGK7fgAoHJcVeqhqsm59g5UbrTQZtQDbGGZMzuNJ7wSK9U9TgihRIae
+         Hb1OPh+2gyW47mHGuDMfYl5yILeUGDfK8ONLgV9IHO3P45f7VroRGCtZWwEpYVWpcGnw
+         rO6N0PAeU2R//L77bnSjGRnl18G8pvaGypsMQ2tJP6zcVs4+UjV8u9j8NE9Q9AwTI/Ia
+         /cLpSG2R7UmXGLgZPx15SLlqKYwcicvLIb8/MIV0PttZ1JfRBQZSD3kuyoDUeRaza/a6
+         2Ctw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790626688; x=1791231488;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
+        b=XvuhwZRpKsnaHUJhcdIdmXAKVcSfzVZmbFTz6WDvbPPjuUGSoy8cegWCSx31orzbBo
+         JQ2Q9oBrYHbCeQg8v0cJMktAQdjSGGMDki+w8xUuBuR8BW7VbOpBjhznd8dcbE4tCCB5
+         tGv03Ntd/rIdOPCuipMa8PiXqFD6uEO46AhXVbtknJqnZl0JbydwF9xATHLKDDfpB1vt
+         goOvi1GlLkodQcNfGctiaJZTmef/3C1vIeHdFOvbyQbRjDrd3mNmHD4diyXrGwUw+vge
+         ZaXrUiTfggbURdXrqBxrrCpeYrPyAIlE0D2Nnq5XAUrHNRqzZeyJ/NA1SFDfdHPuO94x
+         doXg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/99mULl4J+iSmpeQUWABjHsZy6o6O4xVx6OgdJXWzPB7n0pzFohTXKlCzaHGZImMOppFUJuKv+al6HA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYINOHm+Zn5SbdMnVVq5wWpRSgSAizy1OZuz6Eskq7g17CXbVBVL
+	xZx5Gw2vgN0jG2n9FWoMAlh6tnouEtnpVvbefAnAsgGF9UncT3d3ULkitBu9oxhkr4A=
+X-Gm-Gg: AYBFou3SiYpA2dpQoDP2qW3FVZUfmw8JuBEiXSqNaTFNcdoXgECCILBx+x41Rm/XXl/
+	KGv8XKv1P3Fj0gklOTe3K/l1vj0cXtqGD0a2zLX3C4GOdNRNNGldNyA9nUmlN01DtwcUl+GzOGP
+	FJhvlQMnFxRn4zDaJ8eApxBwRBzYd7IE+NQq1edhCGth4KvNuQUFsH0H7/iqksVtsvJtHCzFP0L
+	f1mQRt38ADkGNlZRwk7M0eeP6sT7V5NbVq8OHF9pio6XTdSyozEfaOCAQBWwEwPINxPZUkeu752
+	O1uqB92zdgNh/RPc1XAfSF0a2uZ+oFG2LJpApsvq3GBmcVypxJHy3o7MdX3U6p33UbFp5riuzaJ
+	c8wRwRcODq596WxNmz5Ogeph60wwtRdOuVbeX8dEU0wiF7pKzD2UFWxbBki9boQy4UDimvmOIKQ
+	8q+EhVxrPfZ2od0rPTfDFz8+dTgFNaE/JhrHT9m+dKCvbyV9Mc8ai/b/w/WB3M6RxDr1iuB48Sx
+	2U2ahRFldNn87TKHFydFnHs
+X-Received: by 2002:a05:6102:4497:b0:7af:4a46:4c12 with SMTP id ada2fe7eead31-7b1c4a2ca24mr2719387137.2.1790626687873;
+        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b6a6272sm10681972137.7.2026.09.28.13.18.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
+Message-ID: <c5bb16dec180576cb7e68221880b5e36b7cb689b.camel@ndufresne.ca>
+Subject: Re: [PATCH v2] media: rockchip: rga: quiesce IRQ before releasing
+ m2m state
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Fan Wu <fanwu01@zju.edu.cn>, jacob-chen@iotwrt.com, 
+	ezequiel@vanguardiasur.com.ar, Sven =?ISO-8859-1?Q?P=FCschel?=
+	 <s.pueschel@pengutronix.de>
+Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 16:18:05 -0400
+In-Reply-To: <20260704084659.612221-1-fanwu01@zju.edu.cn>
+References: <20260704084659.612221-1-fanwu01@zju.edu.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-39ovF+b+wtIn04/R/uu7"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
-and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v2
-page-table formats, and Arm SMMU's 64-bit long-descriptor format with
-a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
-mappings, but no 1MB leaf. A 1MB chunk requires 256 4KB leaf
-entries unless it can be combined with adjacent chunks into a
-suitably aligned larger mapping.
 
-Adding a 2MB allocation order provides naturally aligned, physically
-contiguous chunks matching the 2MB leaf size, without relying on this
-being accidental for separate smaller allocations. The new cost
-is one failed order-9 attempt (keeping current large allocation semantics)
-per buffer when 2MB pages are exhausted.
+--=-39ovF+b+wtIn04/R/uu7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Only x86 gets the new order. The existing orders are optimized for
-4K-page Arm platforms, so they are left as they are. Document the
-current differences and the effect of fragmentation.
+Hi,
 
-Two benchmarks, measured on an AMD EPYC 7313P.
+Le samedi 04 juillet 2026 =C3=A0 08:46 +0000, Fan Wu a =C3=A9crit=C2=A0:
+> rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
+> devm-managed and is only released once rga_remove() returns, so rga_isr()
+> can still run while the m2m device state is being torn down.
+>=20
+> Store the IRQ number in struct rockchip_rga, unregister the video device
+> first, and free the IRQ before releasing the m2m state so the handler
+> cannot run against the freed state.
+>=20
+> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-(i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
-measuring map/unmap, with the v1 page table restricted to 4K/2M/1G
-(amd_iommu=v2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks,
-only one of whose 2MB windows was superpage-mappable in that run, to
-512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
-decrease by ~16x on average with ~32x for the worst cases. Unmapping
-that buffer drops from ~500 us to 1.25 us.
+Again, I don't know if this is a real issue, but seems fair.
 
-(ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+close
-across various thread counts decreases by factors of ~3-7x alleviating
-allocator's zone->lock contention by being PMD order and so pcpu list
-eligible. Once the buffer size is large enough then the cost of the
-zeroing takes over.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
----
- Documentation/userspace-api/dma-buf-heaps.rst |  4 ++++
- drivers/dma-buf/heaps/system_heap.c           | 24 ++++++++++++++-----
- 2 files changed, 22 insertions(+), 6 deletions(-)
+Picked, ty
 
-diff --git a/Documentation/userspace-api/dma-buf-heaps.rst b/Documentation/userspace-api/dma-buf-heaps.rst
-index f56b743cdb36..03452b653b7c 100644
---- a/Documentation/userspace-api/dma-buf-heaps.rst
-+++ b/Documentation/userspace-api/dma-buf-heaps.rst
-@@ -15,6 +15,10 @@ A heap represents a specific allocator. The Linux kernel currently supports the
- following heaps:
- 
-  - The ``system`` heap allocates virtually contiguous, cacheable, buffers.
-+   They are assembled from the largest free page blocks the heap can get
-+   without reclaiming or compacting memory, so the physical layout of a
-+   buffer, and with it how efficiently an IOMMU can map it, depends on how
-+   fragmented free memory is at allocation time.
- 
-  - The ``system_cc_shared`` heap allocates virtually contiguous, cacheable,
-    buffers using shared (decrypted) memory. It is only present on
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index c8959eadc71d..07721c136c71 100644
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -55,14 +55,26 @@ struct dma_heap_attachment {
- #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
- 				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
- 				| __GFP_COMP)
--static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
- /*
-- * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
-- * to match with the sizes often found in IOMMUs. Using order 4 pages instead
-- * of order 0 pages can significantly improve the performance of many IOMMUs
-- * by reducing TLB pressure and time spent updating page tables.
-+ * The selection of the orders used for allocation is designed to match with
-+ * the sizes often found in IOMMUs. Using large order pages instead of order 0
-+ * pages can significantly improve performance by reducing TLB pressure and
-+ * time spent updating page tables.
-+ *
-+ * x86 uses 2MB, 1MB, 64K and 4K. VT-d and AMD-Vi v2 have no 1MB leaf and
-+ * AMD-Vi v1 encodes one as 256 replicated 4K entries, so 2MB is the smallest
-+ * chunk that installs a single entry. 1MB stays as a fallback for when 2MB
-+ * blocks are gone but 1MB ones are not.
-+ *
-+ * Everywhere else uses 1MB, 64K and 4K, which is optimized for 4K-page Arm
-+ * platforms. Here stable performance is preferred to keep the system heap
-+ * driver independent, and be less susceptible to fragmentation.
-  */
-+#ifdef CONFIG_X86
-+static const unsigned int orders[] = {9, 8, 4, 0};
-+#else
- static const unsigned int orders[] = {8, 4, 0};
-+#endif
- #define NUM_ORDERS ARRAY_SIZE(orders)
- 
- static int system_heap_set_page_decrypted(struct page *page)
-@@ -387,7 +399,7 @@ static struct page *alloc_largest_available(unsigned long size,
- 			continue;
- 		if (max_order < orders[i])
- 			continue;
--		flags = order_flags[i];
-+		flags = orders[i] ? HIGH_ORDER_GFP : LOW_ORDER_GFP;
- 		if (mem_accounting)
- 			flags |= __GFP_ACCOUNT;
- 		page = alloc_pages(flags, orders[i]);
--- 
-2.39.5
+>=20
+> ---
+> Changes in v2:
+> - Rebased onto media-committers/fixes (Linux 7.2-rc1) so the Media CI
+>   valid-ancestor check passes. The rga driver was rewritten upstream
+>   (rga3 support, external IOMMU, clk_bulk, cmdbuf moved to rga_ctx), so
+>   this is a re-port rather than a pure rebase: the resource freed during
+>   removal is now rga->m2m_dev.
+> ---
+>  drivers/media/platform/rockchip/rga/rga.c | 4 +++-
+>  drivers/media/platform/rockchip/rga/rga.h | 1 +
+>  2 files changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index b3cb6bf8eb86..fbc99462dce2 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
+>  		ret =3D irq;
+>  		goto err_put_clk;
+>  	}
+> +	rga->irq =3D irq;
+> =20
+>  	ret =3D devm_request_irq(rga->dev, irq, rga_isr,
+>  			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+> @@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
+> =20
+>  	v4l2_info(&rga->v4l2_dev, "Removing\n");
+> =20
+> -	v4l2_m2m_release(rga->m2m_dev);
+>  	video_unregister_device(rga->vfd);
+> +	devm_free_irq(rga->dev, rga->irq, rga);
+> +	v4l2_m2m_release(rga->m2m_dev);
+>  	v4l2_device_unregister(&rga->v4l2_dev);
+> =20
+>  	pm_runtime_disable(rga->dev);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index bd431534d0d3..7bcdf36c11b4 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -73,6 +73,7 @@ struct rockchip_rga {
+>  	struct device *dev;
+>  	struct regmap *grf;
+>  	void __iomem *regs;
+> +	int irq;
+>  	struct clk_bulk_data *clks;
+>  	int num_clks;
+>  	struct rockchip_rga_version version;
 
+--=-39ovF+b+wtIn04/R/uu7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrLfQAKCRDZQZRRKWBy
+9KCPAPwM1fyw7fD5QEP3/mMmZg+7cHaUSSeU24SoTWd1bUpA9AEA7xkB7orTNjBo
+jdc9UGf06pEwlRtqhefYvUSz8x45Rgg=
+=QwDi
+-----END PGP SIGNATURE-----
+
+--=-39ovF+b+wtIn04/R/uu7--
