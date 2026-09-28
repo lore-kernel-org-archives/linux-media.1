@@ -1,63 +1,65 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EF54C33C0
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21654C8FFC
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602368; cv=none; b=nGxmggdzfZCYb9gu1jdli8xcIAfjCLFtmWeoMaAJRqORqbdHBz1leqNbME/W/CvCFINE3kNB0+kF/3csDKOVkizdJ4wvk/16FaKCnuTpKxz5fVmisEHW9nSv2OsTai7xWoiieBehJ4CNqm5XknGpJNeDG2oxhE+hsffUWQN/p2s=
+	t=1790602372; cv=none; b=ZEj1NV3NmlQ0PpETKthNkGYWDZ4Ux1v/kubkXPeu5BzJj5UIjLyxyyeJntVGPOZuPhl8z6lqdOusce0NStg1qdoXzk8YyleM3Hc/hMS6A1zuDXX1dk4TDCscsGzTOtBRqB+PGZCjAeSOm8wH5hx8/FXc1jo0dnS/Y6GS5qs4kdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602368; c=relaxed/simple;
-	bh=7bSpI+UlKJeavw95eq5lp71WLeCCxaCV8VTeA6M6pM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LoR3209BZiZukBccct7LjXJwmjyu94or4kWedZs1OkZiOPz/86ywbYqYIwe9m0rT7zRqsgkHEfh4wZo00Jk9zmNw+8pjNfMq4k4CZTSH81vh/W2RCP7Me+BcvnFGHxvIeeKxdWYGtcLQ1Au3PYHjqtx+l9xBxA+axX1NZByXfiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OWr6s1R5; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790602372; c=relaxed/simple;
+	bh=r0p2adqwMj/5lT7C+TYVmZHcVYZ+gdU2HSJ4o7+sSAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Hf21CHiXZTwiibFSbecRcAm2O0C5Qtyg3B+LS/K8pqH/KeGy1ewn+4iLci9q/bq7PIluf8gXospBUt69i5wpckc9VdhTP3rm3oKGBVITg3z7im25Zscuhi8ZtUGwKaOtn9dczgoKftuKGzfhMvuPfTQ8J8otSGq5gw7Gw12cWd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EFxPyctB; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OWr6s1R5"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so1826282f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EFxPyctB"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b926f0so1856242f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602364; x=1791207164; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rDgWSkzXb9T2f2eSv4f8loR9LBdnnTqRZoSNaSt6PRU=;
-        b=OWr6s1R5vg68Vk0EAPRxrqoeKPiQgRgpjQHWSBDZnziKm3MF9VauEOFqJG5wouh2kj
-         ZE2K+QTpAGsj7Ry5mNbB3EfQfiZcRcLriFL4Vg3bNvd3/97g8GBjsyvjkp3PtYsDtF9a
-         rUJeBiu9VdAWIqGuxXImicDQ6TFnuWSuvgAou3raX1YIJddYPA0WhPKZ+ElA02aMtc5C
-         Yo6rbiFjcna54oFvqMKCSPzCVbQmxt4aeiFScSHLnjXQIGL/zWqJhBq7XlbgzDAQb/NK
-         EbYpUm7o6/6ns657dhVcthvkK8hnD/jHe92jW6ZtAP0fePPcbWM3ZiNHYUzHvEzB5nhm
-         jrtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602364; x=1791207164;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790602367; x=1791207167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rDgWSkzXb9T2f2eSv4f8loR9LBdnnTqRZoSNaSt6PRU=;
-        b=yEk1Dh53TKV9KU3rf+TC5HsyoEHSJ0XDwzvb6vmcwGQaQ7IOZkVHGwmmqgmfcSr9ca
-         N1e2n43KTU2ej7d3MEcmJK+ak8gTg6PsoKXABkyREFMTzWdltkxz+z070rp6Ty7syCoc
-         28nYeLTfC6Hvs0lKUy8/y097jHbwy4xFqPGmVJUSBPYccpKHRg1cnznuc+TGQuwkacvK
-         KlpbHlqgYdzN800BsX4L8U7c7Ylyz3XTF7EevGd3Yhlk1kQa726zB/pobM8qZQziVz1F
-         ofJvObafKsw85WoralAgmJMH6OcqoAQZ/YrJgBf0BPWuuztUkxorsPiHyThNguTrhtKG
-         2cYw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0dz8JanSXHF15sJzLhsqDKtDmDXb/VYMiRhylkvdfbK63u4Syx53AlS/cxCr9t2CzqzoASaRZajyBbQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdSf0hdfmfp/h0AhgI9NaTBM5IXncQYMQ8TkSotyD2VauFfWJk
-	eKANSfWRAPiCnhMRmnpV6ycNEQFYj/RFvFvQHl93oWngHNeA/sekgUyk
-X-Gm-Gg: AYBFou2l4KahjwrTt3kfKaUh8/bevaEN2P3/pDsAPfBz/lr6XRpBRL2LdbzVgK5cUUw
-	cNleGFqCw28Nqw7jLAS2JCe4+tmUUbnKNzB9RsF8mOKn6IJuKfbTWXDRQZeFuIJOT8tM5yJ+LX7
-	IzAUWB3c6h6TktJ5hCjYrrDkAbEpN5AWtcB9kox0Qb4uIuiycrxqRmNf2SwdacuTxVwOQAGCEkh
-	AHV40dFK8j4kgnnxtKEfRHFjBEt/DxCEeVNgHWNws2zmvU6VUVRcdkpILRIjm2IioRYC5niEneh
-	0OcVUoGU8luqqj13En1XmBvB0t6+zVuwBEXIJbuL8HIygil+82IDEjen/S1nVnXt1EKMEWyLN3t
-	p/v8b1K314gfEqVHC6CAt4YUOMTkPJesWlyILhoNmImm/ep2WPrhzfdo1TqB8s10W8FwbswoBkK
-	kzltSJ5hohJkE3i6It1tf2nCfdAEwO4R5VuvGE453YygE9ZcC2KDNO7D/hhOkdnkTvqQcn4Sue1
-	C4A5Ol1FoW0CAJDxq4ZLQ1suE5Aya7Dmmig1tKdL6iMOU3Xd0nvnN7SwW9VnODmKZ5xpFO68AIM
-	OC7xHfHje5hZ
-X-Received: by 2002:a05:6000:4693:b0:487:342:d141 with SMTP id ffacd0b85a97d-488774f4f02mr13825713f8f.23.1790602364016;
-        Mon, 28 Sep 2026 06:32:44 -0700 (PDT)
+        bh=u2SC7dcI1Y+PPMkABrALMaBjWk253olXayI/6F0cq90=;
+        b=EFxPyctB6X5CY4qSFxOSKFZlariS+3VnxLnN6w9RS8ECTZOb/SNS8v0OhrbJJPGa5L
+         DS3+rrFGTsZvoF+Tz4tgMjnHrIuolgEL/2wMv74eJPeWf5R4kY6PpO7YrpQ1K/KZMjWl
+         UisDGpg//bE5Y4ZifA5M0HM6M8+E5xWBLBhU/bOwulbguqtnYnOiRhUomP74wmEaDNO9
+         SSdJQGI+KuJ+3Ez2VHuhPityGsgIcQ+cKJEc+c8DEhU34DCGwI1crl2oK9gWNQaMOJgZ
+         4IKyGlsiMWA3UijWHm1/xtRm/eHz22nJCj6/3EVUV1hcYsAVI39WyOugsMWCdv0Uve96
+         xHlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790602367; x=1791207167;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u2SC7dcI1Y+PPMkABrALMaBjWk253olXayI/6F0cq90=;
+        b=WjndtT6E3L/uwXvuc9EOSUk5TE3/5RY6ognyQDs5rKZQ2+3Ucgkw8wMrMpehiONPdD
+         kNXjKtpVYFxApE/+diJmAYiRA6RufIa+HJFOBtkIceYf65UMmK/j6Zj4iHK+Ut2ruxw5
+         ZkXvbdUWPpUa1Pu8/pRa53k7ub2D0og1TcujTgJv9Md3QBjSYWUGYkfsAaTuNlDpZZ0G
+         g6NeeCwiATmbDsFhVA71MXMWeSr1Gu7/NkdajeZUNVScw+i8QVLS29UUt8qJApzkj1sX
+         qbUegf/SFfb1ItCj2CGRLNKsb0NE7vT1sBN+B0uN1h0z8D8XPzi23sNjHtz032+cq7zN
+         M5bA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzW931S9zsr22r9ADTxA2RG2OJjBiLBLyi9UtcIls+07xx5Ks3fxsr0frvCZ/lGTrjefzZMZjy6Azvsg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvF+7pyYNIXR4FBScX7mc8I/TlaaCdUFU6eoowGgYmHmbPvkOQ
+	NFiBDXsjHY8kiXthi2Dw9HHc/6lwu1CiwZ0ul2R993ChVBcHQHZeuNAu
+X-Gm-Gg: AYBFou3iCHQFfhfeVF810kWkd3sg0PZbvveAV+jsVYCGv87+fg/9jc5R9j+vOysSw2U
+	SzxcpAsFMh3cR/ElWK5ww5IgMIJ0lN7/s7lxHBU8XN4AWbpaVCkTEjpyBjlOtypSBB5+nkMujnk
+	+WSX5ZKTDp1V+0+pn5kOUk0ePeBCIf+oj31FbJEQNl35mLls6M++mo6oylh2DEn/+nd18bLvtZq
+	2hIpipkQq0PjWvxMlcGRCXLqahJLp9GbRo2FPep0S2lFv4NkuHJIER9s3OMHGziTcU+RtqlfW8+
+	lNmJID767aN8+xohV9uSmLoSCzVVgkLLmlxhUBACxAqGqL4vTxEmh5hYZF/kXb1FjNJZyZjr2aG
+	HXKg3WFqf8HRxfR7zmPCkoCZsK/TOJtnjsEH2TF4WJwDc9bGVfntlfeV1pl0bAz4z1qykFYQNab
+	tdMO8NRbiRU4xHpXLyfvc5d8JXtzGR7hFbABgycIZXBjFotXOEJoqFHACGWlnBI7aYAQCeg1PZ8
+	uWVbzjOEpe6ZImyIYjCwcnaW8aIumTASnbspXnvVnpw86QKxsxcUaNyKrYotrjl5r+L1F8Vy4O+
+	uvhLiJx0RYQ=
+X-Received: by 2002:a05:6000:2083:b0:488:5c28:94d0 with SMTP id ffacd0b85a97d-4887172596fmr24595420f8f.19.1790602366822;
+        Mon, 28 Sep 2026 06:32:46 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:32:43 -0700 (PDT)
+        Mon, 28 Sep 2026 06:32:46 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com,
@@ -90,10 +92,12 @@ Cc: asml.silence@gmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel@lists.linux.dev
-Subject: [PATCH v7 00/13] Add dmabuf read/write via io_uring
-Date: Mon, 28 Sep 2026 14:32:16 +0100
-Message-ID: <cover.1790602223.git.asml.silence@gmail.com>
+Subject: [PATCH v7 02/13] iov_iter: add iterator type for dmabuf maps
+Date: Mon, 28 Sep 2026 14:32:18 +0100
+Message-ID: <74a9d65f5c4f9acce5f57ad5921a9fadc6eda712.1790602223.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1790602223.git.asml.silence@gmail.com>
+References: <cover.1790602223.git.asml.silence@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -102,153 +106,163 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch set allows to register a dmabuf to an io_uring instance for
-a specified file and use it with io_uring read / write requests. The
-infrastructure is not tied to io_uring and there could be more users
-in the future. A similar idea was attempted some years ago by Keith [1],
-from where I borrowed a number of changes. Later it was brough back up
-to life by Tushar and Vishal.
+Introduce a new iterator type for dmabuf maps. The map in an opaque
+object with internals and format specific to the subsystem / driver, and
+only it can use that subsystem / driver for issuing IO. The task of the
+middle layers is to pass the map / iterator further down, maybe doing
+basic splitting and length checking. The iterator can only be used by
+operations of the file the associated map was created for.
 
-It's an opt-in feature for files, and they need to implement a new
-file operation to use it. Only NVMe block devices are supported in this
-series. The user API is built on top of io_uring's "registered buffers",
-where a dmabuf is registered in a special way, but after it can be used
-as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
-requests. It's created via a new file operation and the resulted map is
-then passed through the I/O stack in a new iterator type. There is some
-additional infrastructure to glue it together, count requests, manage
-lifetime and implement invalidation.
+Suggested-by: Keith Busch <kbusch@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+---
+ include/linux/iov_iter.h |  2 ++
+ include/linux/uio.h      | 11 +++++++++++
+ lib/iov_iter.c           | 29 +++++++++++++++++++++++------
+ 3 files changed, 36 insertions(+), 6 deletions(-)
 
-Tushar, William, Phil did a lot of testing and experimentation on various
-devices with previous versions of the patch set, and I've received lots
-of help from Anuj, Kanchan and Nitesh with investigations, testing, and
-patching. Earlier benchmarks by Anuj for IOMMU optimisations with udmabuf
-showed:
-
-STRICT: before = 570 KIOPS, after = 5.01 MIOPS
-LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
-PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
-
-# Patch set structure:
-- Patches 1-2 introduce internal API and infrastructure mediating
-  io_uring and target subsystem / devices
-- Patches 3-5: block layer support + prep patches
-- Patches 6-8 implement NVMe support
-- Patches 9-13 add io_uring support and uapi.
-
-There are some liburing tests that can serve as an example:
-git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v5
-url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v5
-
-The patches are based on Jens' for-next. Also available as a branch:
-git: https://github.com/isilence/linux.git rw-dmabuf-v7
-url: https://github.com/isilence/linux/tree/rw-dmabuf-v7
-
-[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
-
-v7: - refcount *_io_ctx 
-    - wait rcu grace period for ctx->map before freeing maps
-    - increment map counters under dma resv lock
-    - more comments about bio splitting
-    - make ->unmap responsible for freeing maps to match ->map
-    - replace dma_sync_single* with full table sync
-    - detach dma-buf on nvme reset after cancel nvme_cancel_tagset
-
-v6: - remove fences and wait on invalidation synchronously
-    - report all map requests are detached earlier, outside of wq
-    - handle nvme removal
-    - gate nvme_free_descriptors() on iod->nr_descriptors 
-    - fix error handling in nvme_rq_setup_dmabuf_map() 
-    - fix iov_iter_alignment()
-    - relax the 1G io_uring registered dma-buf limit
-    - fix type overflow issue in bio split
-    - allocate struct dma_buf_io_ctx inside the dma-buf-io code
-    - harden block checks against dma-buf + buffered io
-
-v5: - Reject dma-buf with buffered IO for raw bdev
-    - Add lim->max_segments bio splitting
-    - Add bio_iov_iter_set() helper
-    - Fix io_uring uapi validation
-    - Other minor changes
-    NVMe:
-    - Rename nvme_pci_sgl_set_data() to nvme_pci_dma_iter_set_sgl(), split 
-      into its own prep patch.
-    - Convert segment walk loops to do-while.
-    - Drop adjacent segment coalescing logic.
-    - Drop first_dma/first_len from nvme_pci_dmabuf_sgl_nents()
-    - Remove entries > NVME_MAX_SEGS bailout; moving to the block layer.
-    - Factor SGL vs PRP decision making into a helper.
-
-v4: - https://lore.kernel.org/all/cover.1785274111.git.asml.silence@gmail.com/
-    - Add sgl support from Anuj
-    - Move it under drivers/dma-buf/ and rename
-    - Fix mis-sized allocations
-    - Fix io_uring re-import mishandling
-    - Drop map before io_uring "task work"
-    - Move blk-mq callback to block_device_operations
-    - Convert bio flag to REQ_OP*
-    - Other small changes
-
-v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
-    - Rework io_uring registration
-    - Move token/map infrastructure code out of blk-mq
-    - Simplify callbacks: remove a separate blk-mq table, which was
-      mostly just forwarding calls (to nvme).
-    - Don't skip dma sync depending on request direction
-    - Fix a couple of hangs
-    - Rename s/dma/dmabuf/
-    - Other small changes
-
-v2: - Don't pass raw dma addresses, wrap it into a driver specific object
-    - Split into two objects: token and map
-    - Implement move_notify
-
-Anuj Gupta (2):
-  nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
-  nvme-pci: add SGL support for the dmabuf path
-
-Pavel Begunkov (11):
-  dma-buf: introduce initial file I/O infrastructure
-  iov_iter: add iterator type for dmabuf maps
-  block: always adjust bi_offset on bio_advance_iter
-  block: introduce dma map backed bio type
-  block: add dma-buf support for raw bdev
-  nvme-pci: implement dma-buf backed requests
-  io_uring/rsrc: introduce buf registration structure
-  io_uring/rsrc: extend buffer update
-  io_uring/rsrc: add uncloneable regbuf flag
-  io_uring/rsrc: add regbuf import flags
-  io_uring/rsrc: add dmabuf backed registered buffers
-
- block/bio.c                    |  15 +-
- block/blk-merge.c              |  50 ++++
- block/fops.c                   |  27 +-
- drivers/dma-buf/Makefile       |   2 +-
- drivers/dma-buf/dma-buf-io.c   | 230 ++++++++++++++++
- drivers/md/dm-io-rewind.c      |   6 +-
- drivers/nvme/host/core.c       |  12 +
- drivers/nvme/host/nvme.h       |   2 +
- drivers/nvme/host/pci.c        | 467 ++++++++++++++++++++++++++++++++-
- include/linux/bio.h            |  21 +-
- include/linux/blk-mq.h         |   7 +
- include/linux/blk_types.h      |  14 +-
- include/linux/blkdev.h         |   2 +
- include/linux/bvec.h           |   3 +-
- include/linux/dma-buf-io.h     | 117 +++++++++
- include/linux/fs.h             |   2 +
- include/linux/io_uring_types.h |   5 +
- include/linux/iov_iter.h       |   2 +
- include/linux/uio.h            |  11 +
- include/uapi/linux/io_uring.h  |  31 ++-
- io_uring/io_uring.c            |   3 +-
- io_uring/rsrc.c                | 275 ++++++++++++++++---
- io_uring/rsrc.h                |  45 +++-
- io_uring/rw.c                  |   6 +-
- lib/iov_iter.c                 |  29 +-
- 25 files changed, 1304 insertions(+), 80 deletions(-)
- create mode 100644 drivers/dma-buf/dma-buf-io.c
- create mode 100644 include/linux/dma-buf-io.h
-
+diff --git a/include/linux/iov_iter.h b/include/linux/iov_iter.h
+index f9a17fbbd398..2f91884d733b 100644
+--- a/include/linux/iov_iter.h
++++ b/include/linux/iov_iter.h
+@@ -310,6 +310,8 @@ size_t iterate_and_advance2(struct iov_iter *iter, size_t len, void *priv,
+ 		return iterate_folioq(iter, len, priv, priv2, step);
+ 	if (iov_iter_is_xarray(iter))
+ 		return iterate_xarray(iter, len, priv, priv2, step);
++	if (WARN_ON_ONCE(iov_iter_is_dmabuf_map(iter)))
++		return 0;
+ 	return iterate_discard(iter, len, priv, priv2, step);
+ }
+ 
+diff --git a/include/linux/uio.h b/include/linux/uio.h
+index fe2e985d74d2..638c1116e912 100644
+--- a/include/linux/uio.h
++++ b/include/linux/uio.h
+@@ -12,6 +12,7 @@
+ 
+ struct page;
+ struct folio_queue;
++struct dma_buf_io_map;
+ 
+ typedef unsigned int __bitwise iov_iter_extraction_t;
+ 
+@@ -29,6 +30,7 @@ enum iter_type {
+ 	ITER_FOLIOQ,
+ 	ITER_XARRAY,
+ 	ITER_DISCARD,
++	ITER_DMABUF_MAP,
+ };
+ 
+ #define ITER_SOURCE	1	// == WRITE
+@@ -71,6 +73,7 @@ struct iov_iter {
+ 				const struct folio_queue *folioq;
+ 				struct xarray *xarray;
+ 				void __user *ubuf;
++				struct dma_buf_io_map *dmabuf_map;
+ 			};
+ 			size_t count;
+ 		};
+@@ -155,6 +158,11 @@ static inline bool iov_iter_is_xarray(const struct iov_iter *i)
+ 	return iov_iter_type(i) == ITER_XARRAY;
+ }
+ 
++static inline bool iov_iter_is_dmabuf_map(const struct iov_iter *i)
++{
++	return iov_iter_type(i) == ITER_DMABUF_MAP;
++}
++
+ static inline unsigned char iov_iter_rw(const struct iov_iter *i)
+ {
+ 	return i->data_source ? WRITE : READ;
+@@ -300,6 +308,9 @@ void iov_iter_folio_queue(struct iov_iter *i, unsigned int direction,
+ 			  unsigned int first_slot, unsigned int offset, size_t count);
+ void iov_iter_xarray(struct iov_iter *i, unsigned int direction, struct xarray *xarray,
+ 		     loff_t start, size_t count);
++void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
++			struct dma_buf_io_map *map,
++			loff_t off, size_t count);
+ ssize_t iov_iter_get_pages2(struct iov_iter *i, struct page **pages,
+ 			size_t maxsize, unsigned maxpages, size_t *start);
+ ssize_t iov_iter_get_pages_alloc2(struct iov_iter *i, struct page ***pages,
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index 2072c04e99d0..6831a5d9396e 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -575,7 +575,8 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
+ {
+ 	if (unlikely(i->count < size))
+ 		size = i->count;
+-	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i))) {
++	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i)) ||
++	    unlikely(iov_iter_is_dmabuf_map(i))) {
+ 		i->iov_offset += size;
+ 		i->count -= size;
+ 	} else if (likely(iter_is_iovec(i) || iov_iter_is_kvec(i))) {
+@@ -631,7 +632,8 @@ void iov_iter_revert(struct iov_iter *i, size_t unroll)
+ 		return;
+ 	}
+ 	unroll -= i->iov_offset;
+-	if (iov_iter_is_xarray(i) || iter_is_ubuf(i)) {
++	if (iov_iter_is_xarray(i) || iter_is_ubuf(i) ||
++	    iov_iter_is_dmabuf_map(i)) {
+ 		BUG(); /* We should never go beyond the start of the specified
+ 			* range since we might then be straying into pages that
+ 			* aren't pinned.
+@@ -775,6 +777,20 @@ void iov_iter_xarray(struct iov_iter *i, unsigned int direction,
+ }
+ EXPORT_SYMBOL(iov_iter_xarray);
+ 
++void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
++			 struct dma_buf_io_map *map,
++			 loff_t off, size_t count)
++{
++	WARN_ON(direction & ~(READ | WRITE));
++	*i = (struct iov_iter){
++		.iter_type = ITER_DMABUF_MAP,
++		.data_source = direction,
++		.dmabuf_map = map,
++		.count = count,
++		.iov_offset = off,
++	};
++}
++
+ /**
+  * iov_iter_discard - Initialise an I/O iterator that discards data
+  * @i: The iterator to initialise.
+@@ -856,7 +872,7 @@ unsigned long iov_iter_alignment(const struct iov_iter *i)
+ 		return iov_iter_alignment_bvec(i);
+ 
+ 	/* With both xarray and folioq types, we're dealing with whole folios. */
+-	if (iov_iter_is_folioq(i))
++	if (iov_iter_is_folioq(i) || iov_iter_is_dmabuf_map(i))
+ 		return i->iov_offset | i->count;
+ 	if (iov_iter_is_xarray(i))
+ 		return (i->xarray_start + i->iov_offset) | i->count;
+@@ -872,7 +888,7 @@ unsigned long iov_iter_gap_alignment(const struct iov_iter *i)
+ 	size_t size = i->count;
+ 	unsigned k;
+ 
+-	if (iter_is_ubuf(i))
++	if (iter_is_ubuf(i) || iov_iter_is_dmabuf_map(i))
+ 		return 0;
+ 
+ 	if (WARN_ON(!iter_is_iovec(i)))
+@@ -1469,11 +1485,12 @@ EXPORT_SYMBOL_GPL(import_ubuf);
+ void iov_iter_restore(struct iov_iter *i, struct iov_iter_state *state)
+ {
+ 	if (WARN_ON_ONCE(!iov_iter_is_bvec(i) && !iter_is_iovec(i) &&
+-			 !iter_is_ubuf(i)) && !iov_iter_is_kvec(i))
++			 !iter_is_ubuf(i) && !iov_iter_is_kvec(i) &&
++			 !iov_iter_is_dmabuf_map(i)))
+ 		return;
+ 	i->iov_offset = state->iov_offset;
+ 	i->count = state->count;
+-	if (iter_is_ubuf(i))
++	if (iter_is_ubuf(i) || iov_iter_is_dmabuf_map(i))
+ 		return;
+ 	/*
+ 	 * For the *vec iters, nr_segs + iov is constant - if we increment
 -- 
 2.54.0
 
