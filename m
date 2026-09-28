@@ -1,222 +1,182 @@
-Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F913CFF49
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E111C46D085
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585801; cv=none; b=WylIxv9H+y7E1rm5Bn7eb+ZQYqV8qnOITu/kx+O6J7WH6QGM6HtxLf8BiQJeu44gEG+IULeENFImNkk33bPHxKbP3viVwGmKyrzzFzZkNxaFJuJunxH9HW72roJjuyZK2EpmULpteylLFeoZJ1sullWMecL+mDWF8a51JUzJyPw=
+	t=1790585839; cv=none; b=fhRePOWyjLtmftbxxjlrbG09mLsQunI1IKl7pUQGvyTmv220U9bE00Pwlaeq5Mot/9qFjLNLCbaX+h3jKsEDlLaQKg5c7xX54Z8EFzIWDhfTsOqdqvFYePZnLa7Yjp2U5vEp5e1cv/Jq9YLau8ztqLoGBw5jGQgpmBf8GlsyME4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585801; c=relaxed/simple;
-	bh=blYRBATe5OLMMPPnDBP8RVp9MnZuuZr7DVaMOXLfCOg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hrtQeWHRIRX7y0fE3xXNE/v7GA4ArA2T3qvr3qjOgb/L6zEZWYYVvRD0P58VzQMXNfeIkEIMhXXRODBUufWkJWr+Hn1mQLbIVbtEW8UilP/QGFhWuROInUDknhe0kixoKqFwfmzWDf/hpWTyy9ByNne6mchZLUZZzZrns7l0a8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o03E5lYB; arc=none smtp.client-ip=95.215.58.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790585839; c=relaxed/simple;
+	bh=ywhs0A8VVPPgEXAcqlbYq3IyT2BY2s2GCEBqNIZTVHI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eJFEMPVFC3QauOtUe+oLYwAOlvQx959Ljmv8igy70c6xGvkb9yEJjmjcSNqRjgx/mikSoz4Gl0yksXRM9c3QMhEtfpf9x//frBGbBQnC7pp3RSACTUgoxeUGn26dS2xWSfpmxgBewc3V9JDA+JVb+8P7HRGOpdDFCNnHVVSsbHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MapNTc3k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jPhho/AM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o03E5lYB"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=blYRBATe5OLMMPPnDBP8RVp9MnZuuZr7DVaMOXLfCOg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790585797; v=1; x=1791190597;
- b=o03E5lYBXzk39nECo1YLzIkDQIFZEbQfuJWYVbKtoTgYYYFqupfuTqCt/wZnyi31RNDOho/B
- 4tFVXx/afcs5xmrZkTx6kW+4fkdtMKpBEahUWhWleXWeFcUSqYQHfFsDnzPKPccvgmKdX7OCuYv
- StWTmXJIQHL3KDHPBnji9S6M=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id add109b2092b6c53;
-	Mon, 28 Sep 2026 08:56:37 +0000
-X-Mizu-Trace-ID: add109b2092b6c53
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 10:56:35 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure
- time calculation
-Message-ID: <aronEaoCLJo0h2Ni@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
- <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MapNTc3k";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jPhho/AM"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S80EEC1262842
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:57:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=hLl6opzy1FjtILgm0cJnfp
+	JTxlPqrJFv9/oKOyux9ac=; b=MapNTc3kUkNdE2kPBYC/vKKkGB2HoOWbqFRrrN
+	JAHZhJmvgagg3c6JHfzJlbi0Xd1eaBG3uT13nr9BuD2Mf3PnWiuNrVpYOyZL5+KO
+	KqJm5wf8PVa3m0AKLCqMt3ycUaWS5qaZF9wkGZSiZvd5znvlXmd7c2SmXrJ7QuZu
+	Hb5eBsz4etFFsr8YJqW4CdgUGD6pDMFTmzDHbuGlXQEUVFmMWNwO6TY1DQ8y4vTX
+	ub8zC+et1s3XT34mCoEXKLLuG6fopnq8cLKk3VrJ7WKooyxrDbfX2/2fpA+nfcLW
+	2jZ8fRZdCMaOIr9iDSLXsRC4U2rIcE4NCLYGImPgPe+tflXg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx526nemn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:57:16 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c5ab5c136so288474285a.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 01:57:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790585836; x=1791190636; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hLl6opzy1FjtILgm0cJnfpJTxlPqrJFv9/oKOyux9ac=;
+        b=jPhho/AMJq6jIXKaOsOuotZAJqNKV2qV/9wgkuV5ORhHvgkBD9OjgpWiDW63nVzTCQ
+         6Rn5LoNveEEtrXkSgdQO7IROSCndHjvzLzXc14d38EiRye6te+lJO4Tpm8NHAbH++9p9
+         giFxgBkgJ+Uw9AjAeFxyqI0ZEmzzld6e4pBm1gkz+TeeVDYl1yF+i3GMy07rwXCzc7HK
+         CNLj5QZZ05Vh3kg+QpcCXmAEqfim8K001ojck27G96Wn3hiTnFfh77JwuRLaN6vThDGG
+         yVuEABIGjrUa+rlk0XTmrnjRF9sz1RkLMRSvnZpa5dwdat3HF16/AivlzzFjP6eXoJP0
+         KIFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790585836; x=1791190636;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=hLl6opzy1FjtILgm0cJnfpJTxlPqrJFv9/oKOyux9ac=;
+        b=BYhLY2FwSbRDG9veMuFXvyUcgN0q/6iYHMecwc/0oF9sAhU7FPDFSC8M9sYf/iIoI+
+         cgPFOuUBRyhSXnBdw6joWctqVcikiCtMIRd5cTVe6hSSytI6ApocHqPvxG9SaOFMg05b
+         LOa7AvYjyBgaOZIi9Ity6jLmnbmCUhd3tYLrN3Tx9F6Z74etyfrBy5IHKUjd7W0QeaSf
+         NbqiOf6tEwxFZvz1rdnEOELp/cGxs6XHdQsCQDhyQcSI7atqJFhLQlVh5wj4DSsV/DdT
+         U3233G34Up28H980TskMDmqwRvuWkMGsApSD8Inc7H6OIYjbVvOXpWKchKtwYJSKT4as
+         P2sw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHYEsHGkD6jK2eNfomyiXriUbmyJ8/ZYMD4VOOW/yODWAk2hEsexmTFFOQ5Q3j0oiuVh3B964L0kQu5g==@vger.kernel.org
+X-Gm-Message-State: AFuF++kE6xMxJ9nNWWmVexbAqMlDalZdanDUPy+P4hpCn5oJT2HXmF03
+	2z0vL/34FNaocTMPG2iiknMzmCQLxHJzvI/os/JO4Wvk0EF4ApUQ5a54ADcikHfSMj5ayaxySnt
+	6GmNIsSZ9tEGWbCSwUd/GtdYMuMRYFfpuI1jrmPDYVNZBm5gX4ijcA5tmd5mB/HtPsw==
+X-Gm-Gg: AYBFou2UsXxWNCr8bZIV018oYWHA2OrcMm76NDh/DyogsjIyKRIw3hdAZEWBbsAbQeF
+	ZuCEJWFX0XjjJuuZaHVTwvOPiFJQPPQTAbT1sbAf63xOIWrrL0V0DC8KLjkTNRg50j5wac3OulH
+	lBNNkyUy2mszXaI8o+LdWCsW+jlb0CfZPXU78J//1DJysxWVcfqknNYKDKIayCSliKJjwAJ5ZY5
+	vNetsb8Zhp6PFJG6FZjJAbR/lbqitUrYbdfm2YIeLw+/ERK1p2R2xO6WrGEDvkb48k/Lud4z/bL
+	eywKj8SSM+1rNaBBFiPlsCFmJyZf65TebT04uSDrUgt220dEGScUDtGFEzOWM+jpumdeqGfmgSa
+	ek30Jqjp0kYZ5AoIX0uqpqzmsuY7mja+VFD2+0ijhfk08ykNNEzb4sWCK54gTaH3nJaNjA21AXt
+	nRX4SyQij36UGKALLupBxDc1dfMzTulEumvCTJsI1NeKmA7TU3OKs=
+X-Received: by 2002:a05:620a:4611:b0:936:69dc:aedf with SMTP id af79cd13be357-93c43bc93e3mr2002929885a.16.1790585835966;
+        Mon, 28 Sep 2026 01:57:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:4611:b0:936:69dc:aedf with SMTP id af79cd13be357-93c43bc93e3mr2002928385a.16.1790585835549;
+        Mon, 28 Sep 2026 01:57:15 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5c1f:3897:a4a1:99e1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a36189bsm25130232f8f.21.2026.09.28.01.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 01:57:14 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 10:57:13 +0200
+Subject: [PATCH] media: qcom: camss: vfe: Remove unused frame-skip
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-camss-misc-fixes-v1-1-3e0155af6df5@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAOgrumoC/x3LTQqAIBBA4avIrBswqcyuEi3UxppFPzgQQXT3p
+ OXH4z0glJkEBvVApouFj72grhTE1e8LIc/FYLTptDM9Rr+J4MYSMfFNgrGlJgVrZ3IBynZm+kO
+ 5xul9P2OplNxiAAAA
+X-Change-ID: 20260928-camss-misc-fixes-c5e4fb77de9b
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: hitesh@ebytelogic.com, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=VvS2kO2n c=1 sm=1 tr=0 ts=6aba2bec cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=5IcyVcEOo5CG-yeLfe4A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: oF5EJMHaNu4EAEjCXwxe4OcCWLQ6XE6L
+X-Proofpoint-ORIG-GUID: oF5EJMHaNu4EAEjCXwxe4OcCWLQ6XE6L
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNSBTYWx0ZWRfX34lhbi7a8fL3
+ ntHs0Ornemo2bgWWJCgDIrUUNeavM8kcjVfHxtAyqOUirJGnbKA/mU2X0duA97MSZ81xV4pr4Sd
+ WMKRg2FiED1eiGKLohzBJoW5bl+U189hdCJ+DXgS6mGlOOffDiBcwSn4DKZTCr84bZih4fET7vz
+ IuteBfHV4VK2Z2GZ5amq7bRz6qmrXBPIjE1Lot6l9yU61Ykr7VCr6A4OyJhQWsE/p7M9HWGg6x7
+ OpL4OtN2uoUscneYLw6QowtizCZI/lBisUxwGlH3zUOZl89TDhZ7ZYYpy4w/ZMFpP1RUxJSzShc
+ HczIqtDu8grNDxEp6uCiyoJURLQMdyTG000WYuiuD3Jub89eRmxLROYnqazKOLTW2f8+387iczo
+ s4+81JAT8XGGB+HR/ztc5gDk8/KIhzzE0CDHdZBMFPd9Uk3QCCD8Jg4/vuBbJ9bf97zYVFK91Es
+ mk+H3QnfRNFoTi2pgWQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNSBTYWx0ZWRfX8VK4K+h4mlC0
+ pdEzdpFxwkw5zgQJ8gus1j0FEJONQLk3ww0/95gTU11Y1+nFao2MmZAeL4A91FM1yODTrfbcS29
+ +5/pEXhSizFN3qIv0JMjSsHIP4SbxDo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280035
 
-Hi Dave,
+The frame_skip logic originates from older VFE implementations where it
+was used to program the hardware frame-drop mechanism during stream
+startup. The Gen2 path neither consumes the returned value nor programs
+any corresponding frame-drop configuration, making the sensor lookup and
+g_skip_frames() useless.
 
-thanks for your feedback!
+Remove the unused code and associated local variables.
 
-On Wed, Sep 23, 2026 at 03:16:27PM +0100, Dave Stevenson wrote:
-> Hi Richard
-> 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > ov9282_exposure_to_us() divided the line length by the pixel rate control,
-> > which is the MIPI rate and not the clock HTS is counted in.
-> 
-> It really shouldn't be. PIXEL_RATE is the pixel array and LINK_FREQ is
-> the MIPI rate. Many drivers do conflate the two.
-> 
-> However I did notice a couple of weeks back that pixel_rate is
-> incorrect for 8bit readout on ov9282 [1]. (It's correct for 10bit
-> readout).
-> 
-> <quote> Actually I see the problem. In the hardware the pixel rate for 8 bit
-> is scaled by the change of PLL2 multiplier from 0x50 to 0x60 = x1.2.
-> The pixel rate control is scaled from /10 to /8 or x1.25. 1.2/1.25 =
-> 0.96, so my 96% of speed would be spot on. The use of link frequency
-> in computing pixel rate is totally bogus as they are on independent
-> PLLs </quote>
+Furthermore, startup frame filtering is generally better handled in
+userspace camera stacks, which can discard unstable frames as needed
+without relying on driver-specific mechanisms.
 
-So I guess I should also get rid of the pixel rate pre-processor
-calculation which depends on the link frequency?
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+ drivers/media/platform/qcom/camss/camss-vfe.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-Is it OK with you to just hard-code them?
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 319d191589884777bced456867e5a2a4211a2770..9d125d005c3bbbbd56bf61307e3b85e7e0e0f885 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -507,22 +507,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 	struct vfe_device *vfe = to_vfe(line);
+ 	struct vfe_output *output = &line->output;
+ 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+-	struct media_pad *sensor_pad;
+ 	unsigned long flags;
+-	unsigned int frame_skip = 0;
+ 	unsigned int i;
+ 
+-	sensor_pad = camss_find_sensor_pad(&line->subdev.entity);
+-	if (sensor_pad) {
+-		struct v4l2_subdev *subdev =
+-			media_entity_to_v4l2_subdev(sensor_pad->entity);
+-
+-		v4l2_subdev_call(subdev, sensor, g_skip_frames, &frame_skip);
+-		/* Max frame skip is 29 frames */
+-		if (frame_skip > VFE_FRAME_DROP_VAL - 1)
+-			frame_skip = VFE_FRAME_DROP_VAL - 1;
+-	}
+-
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 
+ 	ops->reg_update_clear(vfe, line->id);
 
-#define OV9282_PIXEL_RATE_10BIT   160000000
-#define OV9282_PIXEL_RATE_8BIT    192000000
+---
+base-commit: f49a343b305c0b6c19a3b50c0bbf10bcd0e2e8fd
+change-id: 20260928-camss-misc-fixes-c5e4fb77de9b
 
-AFAICT it should be possible to calculate the PLL1 pix clk from the input
-clock (inclk or XVCLK in the datasheet) provided in the dts. But tbh I
-would prefer to not add this to this series. If it's desired and possible
-from your point of view, I can tackle this in a future series.
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-> 
-> If you correct OV9282_PIXEL_RATE_8BIT to being 192000000 (instead of
-> the current 200000000), does that solve your problem without
-> recomputing things?
-
-Thanks for the explanation above. I guess you're right, the link freq/mipi
-rate should not be in there. I've just ran a quick test and it should be
-fine with that change.
-
-As i would like to keep the ov9282_line_time_ns() function, what's your
-take on the following implementation? Would that be OK for a v2?
-
-static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-{
-	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-	return div_u64(hts * NSEC_PER_SEC, ov9282->pixel_rate->val);
-}
-
-thanks!
-
-regards;rl
-
-> 
->   Dave
-> 
-> [1] https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
-> The original reporter did come back to me and acknowledge he was using
-> the downstream Rockchip driver which is doing the wrong thing.
-> 
-> > The right
-> > clock is PLL2's system clock. With the PLL2 dividers left at their reset
-> > values the chain
-> >
-> > SYS_CLK = XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sys_div
-> >         =    24  /    1     /    3    * loop_div /     4       /    2
-> >
-> > collapses to SYS_CLK = loop_div MHz.
-> >
-> > Fix this by introducing a new static function to calculate the current
-> > line time and use it in ov9282_exposure_to_us().
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 46 +++++++++++++++++++++++++++++++++++++---------
-> >  1 file changed, 37 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index c10b2e205834e..3f83a6cf338d8 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -10,10 +10,12 @@
-> >  #include <linux/delay.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/math.h>
-> > +#include <linux/math64.h>
-> >  #include <linux/module.h>
-> >  #include <linux/pm_runtime.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/regulator/consumer.h>
-> > +#include <linux/time64.h>
-> >
-> >  #include <media/v4l2-cci.h>
-> >  #include <media/v4l2-ctrls.h>
-> > @@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
-> >         return container_of(subdev, struct ov9282, sd);
-> >  }
-> >
-> > +/**
-> > + * ov9282_line_time_ns() - Calculate duration of one sensor line.
-> > + * @ov9282: pointer to ov9282 device
-> > + *
-> > + * The line time and therefore OV9282_REG_TIMING_HTS and the strobe frame span
-> > + * are counted in PLL2's system clock. We assume the PLL2 dividers are at their
-> > + * reset values, so the formula reduces to SYS_CLK = loop_div MHz.
-> > + *
-> > + * Return: line time in nanoseconds.
-> > + */
-> > +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-> > +{
-> > +       u32 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> > +       u32 sclk_rate_mhz = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ?
-> > +               OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
-> > +
-> > +       /*
-> > +        * OV9282_REG_TIMING_HTS counts 2-pixel units
-> > +        */
-> > +       return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_rate_mhz);
-> > +}
-> > +
-> > +/**
-> > + * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-> > + * @ov9282: pointer to ov9282 device
-> > + * @exposure: exposure register value to convert
-> > + *
-> > + * Return: microsecond represenation of the given exposure register value.
-> > + */
-> > +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> > +{
-> > +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-> > +                      NSEC_PER_USEC);
-> > +}
-> > +
-> >  /**
-> >   * ov9282_update_controls() - Update control ranges based on streaming mode
-> >   * @ov9282: pointer to ov9282 device
-> > @@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
-> >                                         mode->vblank_max, 1, mode->vblank);
-> >  }
-> >
-> > -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> > -{
-> > -       /* calculate exposure time in µs */
-> > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> > -       u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
-> > -
-> > -       return exposure * trow_us;
-> > -}
-> > -
-> >  /**
-> >   * ov9282_update_exp_gain() - Set updated exposure and gain
-> >   * @ov9282: pointer to ov9282 device
-> >
-> > --
-> > 2.53.0
-> >
-> >
