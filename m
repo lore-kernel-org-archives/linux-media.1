@@ -1,185 +1,306 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E0B29ACC6;
-	Mon, 28 Sep 2026 12:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3968B2EEE8A;
+	Mon, 28 Sep 2026 12:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599482; cv=none; b=j9mwfYjpOI4XYbqfjVdpQoTl4c1Gz4UqGsltG58S/et4y3v163K9rpqkLf9ESSs3ZfZLTXkfVyWm4xoqQfKdbIum+HAH5ngpe0CB76N9+bha6o6oLK2x7P6LHKCEf0RDzYptlmXU72VpJWz9DSFbRuXkqU38OZpqfj6JEuzYchQ=
+	t=1790599967; cv=none; b=HUx59egTdum6XoLUsbwN/TF+yxdzM2YTYHS82ZMt6wZaj3aBOZoYSX/2VZzDdLYaDw9UqslugD9Ppl17tVLlmwC/y8AUa6NPSzIaldfsXWfgQbGK+7jpLhNYXSsYUsF74A1ZIqVRWEU/JTI2Ko2qOKe4oJa7J2rCgf6CyA+ibDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599482; c=relaxed/simple;
-	bh=ZXNlI+RAX+nTm0DvvNRSw2dlsVY/sr/atGTezTTinoY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M1+zuDoHUzHqHkJpNKoneraeuxwl0Yzfo/NtVJuHulFzZMpxs9aRg2GSGpWKquS5BXtqbZuXv1PfjeW946cbtnNpU354VonARC13PJopM0xm85s4K4C7GAgyZ+gnl1Rb2UlvrDozgSOgxz+mVsu7VzE+zLhzvVjoC+om3FOeyCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KJiDs8xD; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790599967; c=relaxed/simple;
+	bh=GkJjQKg8hcVtsAG7lum0KyCiRNRP66Ky5RW4z1/dyig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NIdObtBrR/2KqHzZe5RkBfidqC+iQTMZdpHuCm1Af7ShR4AIzu60hYurUVEae8f43wPMUQceatDKGLZzCsLXflSnSDAnn1P/WFQ0zdIrDgQkZ4sw1mOGY1jQCT/BtoCPVsRyAlkOG5x4IPtJHP3AS1mAcxYTX9NWwj3KiWFkyoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vnjGYG2M; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KJiDs8xD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790599481; x=1822135481;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=ZXNlI+RAX+nTm0DvvNRSw2dlsVY/sr/atGTezTTinoY=;
-  b=KJiDs8xDJPEjb9oGMBn9jCsVPTYFalvEsCjsybq6zcDSYhjBJf4AQK9E
-   b2HQjicrqIrSd/c7G6ZwXY9DBboJe7zjT+7tP1273EfMfNT+GOs4AZzRd
-   5kJimaiaHFcAxsBjpoXQ9MMlCDtHFYslLGaLGoFgPV4XXrEBXZrw0pHXH
-   rzJilWIESiEbLKDum4D1cpxdjQsDErsu+ENbEM78zEW7T/b3jH4oUcvFk
-   KdVLKAevI0GM2EU2lAEYeXhJWO1E7JPDgZWl1khiWGIGU3wMlYW99lS1V
-   V8kKB3T4jTX+F+lOi5r0vTKCkrp1VOhaJ/Q1s5H/B9oph59uc8auhmX5T
-   A==;
-X-CSE-ConnectionGUID: wceG/DgvQVmWT/3vcbQE5g==
-X-CSE-MsgGUID: JGgB9U/WQqm03VgsSC41iA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101465243"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="101465243"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:44:40 -0700
-X-CSE-ConnectionGUID: fFRMilzCTkWSkFZj16NO1w==
-X-CSE-MsgGUID: h6+JZbPHRayLtVxz/h87ig==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.73]) ([10.245.244.73])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:44:35 -0700
-Message-ID: <417b4032fd106c6730558759fd02e67e2fdc1c82.camel@linux.intel.com>
-Subject: Re: [PATCH v8 20/23] PCI/P2PDMA: Let a client declare that it
- selects ATS per mapping
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Logan Gunthorpe <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,  Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev, Tushar Dave
- <tdave@nvidia.com>, 	linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,  Chaitanya Kulkarni	
- <kch@nvidia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens
- Axboe	 <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>, Ankit Agrawal
-	 <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Sumit
- Semwal	 <sumit.semwal@linaro.org>
-Date: Mon, 28 Sep 2026 14:44:32 +0200
-In-Reply-To: <20260928-fix-p2p-acs-v4-0-v8-20-404453b9c435@nvidia.com>
-References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
-	 <20260928-fix-p2p-acs-v4-0-v8-20-404453b9c435@nvidia.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vnjGYG2M"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3A5238FD;
+	Mon, 28 Sep 2026 14:50:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790599853;
+	bh=GkJjQKg8hcVtsAG7lum0KyCiRNRP66Ky5RW4z1/dyig=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vnjGYG2MeVmSxk4O+CsnoAgb8Aa6HpUu4Uk9XN+vC2NCuF2SR90y1Rk5gGxL6RjFB
+	 qWOOWaEhwckhDeZgyg8F7SRbNB6FT5GT13GXEFlGC+8Rj9FYYMt9ZK1Ehrq0lBwDUX
+	 xL0oUh0PMXSl4wEQBjiPKqB1LJDM1QP4wz7aMJSI=
+Date: Mon, 28 Sep 2026 15:52:42 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Edwin Gatier <edwin.gatier@protonmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH v3 3/5] media: uvcvideo: Automatically handle cameras
+ with invalid uvc_version
+Message-ID: <20260928125242.GE4406@killaraus.ideasonboard.com>
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+ <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org>
 
-On Mon, 2026-09-28 at 14:19 +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
->=20
-> The PCIe ATS Enable bit covers the whole device, so P2PDMA cannot
-> tell
-> from it whether a client will translate a given address. Most devices
-> translate any address once ATS is enabled, but some choose ATS per
-> DMA
-> mapping and can still use bus addresses for the rest.
->=20
-> Add pcim_p2pdma_set_ats_per_mapping() so the driver of such a device
-> can
-> declare that before P2PDMA starts treating clients with ATS enabled
-> as
-> translating everything. Keep it in the device's P2PDMA state, which
-> already ends with the driver binding.
->=20
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+On Fri, Sep 11, 2026 at 01:22:27PM +0000, Ricardo Ribalda wrote:
+> Currently, the driver expects that cameras properly implement the spec
+> version that they announce, and if they fail to do so, we do not continue
+> probing the driver.
+> 
+> To make drivers more fun, some vendors decided to announce that they are
+> a UVC version that they are not. Until now, we handled those cameras via
+> quirks.
+> 
+> Unfortunately, reality has shown us that there are more cameras out
+> there with an invalid uvc_version than we initially predicted.
 
+As far as I understand, this was triggered by the Avermedia GC515. Have
+you received other reports ?
+
+> This patch tries to handle these cameras with an identity crisis
+> automatically. We still shame them in dmesg. But now they will work.
+
+If the vendors ignored the fact that those cameras didn't work at all on
+Linux, do you think they will read dmesg ?
+
+Jokes aside, UVC version override was added in November 2020, and the
+Avermedia GC515 is the fourth device we list in nearly 6 years. Let's
+see if there are any drawbacks in the implementation below that can be
+justified by such a small number of devices.
+
+> Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 > ---
-> =C2=A0drivers/pci/p2pdma.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 27 +++++=
-++++++++++++++++++++++
-> =C2=A0include/linux/pci-p2pdma.h |=C2=A0 4 ++++
-> =C2=A02 files changed, 31 insertions(+)
->=20
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 1f4bf0125a5c..ae676509f9f3 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -26,6 +26,7 @@
-> =C2=A0struct pci_p2pdma {
-> =C2=A0	struct gen_pool *pool;
-> =C2=A0	bool p2pmem_published;
-> +	bool ats_per_mapping;
-> =C2=A0	struct xarray map_types;
-> =C2=A0	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
-> =C2=A0};
-> @@ -1568,6 +1569,32 @@ void pci_p2pmem_publish(struct pci_dev *pdev,
-> bool publish)
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
-> =C2=A0
-> +/**
-> + * pcim_p2pdma_set_ats_per_mapping - Declare per-mapping ATS for a
-> client
-> + * @pdev: PCI device that initiates peer-to-peer DMA
-> + *
-> + * Declare that @pdev issues Translated Requests only for the DMA
-> mappings its
-> + * driver sets up to use ATS, rather than for any address once ATS
-> is enabled.
-> + * P2PDMA then takes the Address Type of this client's Requests from
-> the TLP
-> + * flags its callers pass.
-> + */
-> +void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
-> +{
-> +	struct pci_p2pdma *p2p;
+>  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
+>  drivers/media/usb/uvc/uvc_video.c  | 40 +++++++++++++++++++++++++-------------
+>  drivers/media/usb/uvc/uvcvideo.h   |  2 ++
+>  3 files changed, 35 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..ca75f8d1ec46 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+>  
+>  	case UVC_VC_PROCESSING_UNIT:
+>  		n = buflen >= 8 ? buffer[7] : 0;
+> -		p = dev->uvc_version >= 0x0110 ? 10 : 9;
+> -
+> -		if (buflen < p + n) {
+> +		if (buflen < 9 + n) {
+>  			uvc_dbg(dev, DESCR,
+>  				"device %d videocontrol interface %d PROCESSING_UNIT error\n",
+>  				udev->devnum, alts->desc.bInterfaceNumber);
+> @@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+>  		unit->processing.bControlSize = buffer[7];
+>  		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+>  		memcpy(unit->processing.bmControls, &buffer[8], n);
+> -		if (dev->uvc_version >= 0x0110)
 > +
-> +	p2p =3D rcu_dereference_protected(pdev->p2pdma, 1);
-> +	if (!p2p)
 > +		/*
-> +		 * ats_per_mapping is a performance optimization,
-> +		 * if pcim_p2pdma_init() didn't set pdev->p2pdma
-> pointer
-> +		 * for some reason, let's simply use ATS global
-> settings.
+> +		 * We are not using bmVideoStandards, so there is no need to
+> +		 * warn the user if it is missing.
+
+There's value in warning the user about UVC non-compliance though. I'd
+like to see a warning that indicates the device reports an incorrect UVC
+version.
+
+If I'm not mistaken, the Avermedia GC515 includes the bmVideoStandards
+field. This change is therefore not needed for any devices we know
+about, right ?
+
 > +		 */
-> +		return;
+> +		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+>  			unit->processing.bmVideoStandards = buffer[9+n];
+>  
+>  		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index 2a3b7431cc68..2f3daa920ffa 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+>  	}
+>  }
+>  
+> +#define UVC_VIDEO_CTRL_MIN_SIZE 26
 > +
-> +	p2p->ats_per_mapping =3D true;
-> +}
-> +EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
+>  static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+>  {
+>  	/*
+> @@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+>  	 * on the protocol version.
+>  	 */
+>  	if (stream->dev->uvc_version < 0x0110)
+> -		return 26;
+> +		return UVC_VIDEO_CTRL_MIN_SIZE;
+>  	else if (stream->dev->uvc_version < 0x0150)
+>  		return 34;
+>  	else
+> @@ -290,7 +292,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+>  static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+>  	struct uvc_streaming_control *ctrl, int probe, u8 query)
+>  {
+> -	u16 size = uvc_video_ctrl_size(stream);
+>  	u8 *data;
+>  	int ret;
+>  
+> @@ -298,13 +299,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+>  			query == UVC_GET_DEF)
+>  		return -EIO;
+>  
+> -	data = kmalloc(size, GFP_KERNEL);
+> +	data = kmalloc(stream->ctrl_size, GFP_KERNEL);
+>  	if (data == NULL)
+>  		return -ENOMEM;
+>  
+>  	ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
+>  		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+> -		size, uvc_timeout_param);
+> +		stream->ctrl_size, uvc_timeout_param);
+>  
+>  	if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
+>  		/*
+> @@ -319,7 +320,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+>  		ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
+>  		ret = 0;
+>  		goto out;
+> -	} else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
+> +	} else if (query == UVC_GET_DEF && probe == 1 &&
+> +		   ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+>  		/*
+>  		 * Many cameras don't support the GET_DEF request on their
+>  		 * video probe control. Warn once and return, the caller will
+> @@ -330,15 +332,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+>  			"Enabling workaround.\n");
+>  		ret = -EIO;
+>  		goto out;
+> -	} else if (ret != size) {
+> +	} else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+>  		dev_err(&stream->intf->dev,
+>  			"Failed to query (%s) UVC %s control : %d (exp. %u).\n",
+>  			uvc_query_name(query), probe ? "probe" : "commit",
+> -			ret, size);
+> +			ret, stream->ctrl_size);
+>  		ret = (ret == -EPROTO) ? -EPROTO : -EIO;
+>  		goto out;
+>  	}
+>  
+> +	if (ret != stream->ctrl_size) {
+> +		uvc_warn_once(stream->dev, UVC_WARN_CTRL_SIZE,
+> +			      "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
+> +			      uvc_query_name(query),
+> +			      probe ? "probe" : "commit", ret,
+> +			      stream->ctrl_size);
+> +		stream->ctrl_size = ret;
+> +	}
+
+There are two other locations where uvc_version is used:
+
+- In uvc_fixup_video_ctrl() to implement a workaround for pre-1.10
+  devices that don't report dwMaxVideoFrameSize
+
+- In uvc_ctrl_filter_plf_mapping() to stkip the power line frequency
+  control on pre-1.50 devices
+
+None of those are handled in this patch. Furthermore, more usage of
+uvc_version may be needed in the future. This patch seems a bit fragile
+to me in that regard. Could we instead detect the version and update the
+uvc_version field ?
+
+Another option, given the small number of affected devices, is to just
+merge 5/5 (as well as 1/5 and 2/5 that are nice small improvements).
+
 > +
-> =C2=A0/**
-> =C2=A0 * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA
-> transfers
-> =C2=A0 * @provider: P2PDMA provider structure
-> diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-> index 36045b1b730c..543a09426a11 100644
-> --- a/include/linux/pci-p2pdma.h
-> +++ b/include/linux/pci-p2pdma.h
-> @@ -109,6 +109,7 @@ struct scatterlist *pci_p2pmem_alloc_sgl(struct
-> pci_dev *pdev,
-> =C2=A0					 unsigned int *nents, u32
-> length);
-> =C2=A0void pci_p2pmem_free_sgl(struct pci_dev *pdev, struct scatterlist
-> *sgl);
-> =C2=A0void pci_p2pmem_publish(struct pci_dev *pdev, bool publish);
-> +void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev);
-> =C2=A0int pci_p2pdma_enable_store(const char *page, struct pci_dev
-> **p2p_dev,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 bool *use_p2pdma);
-> =C2=A0ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
-> @@ -166,6 +167,9 @@ static inline void pci_p2pmem_free_sgl(struct
-> pci_dev *pdev,
-> =C2=A0static inline void pci_p2pmem_publish(struct pci_dev *pdev, bool
-> publish)
-> =C2=A0{
-> =C2=A0}
-> +static inline void pcim_p2pdma_set_ats_per_mapping(struct pci_dev
-> *pdev)
-> +{
-> +}
-> =C2=A0static inline int pci_p2pdma_enable_store(const char *page,
-> =C2=A0		struct pci_dev **p2p_dev, bool *use_p2pdma)
-> =C2=A0{
+>  	ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
+>  	ctrl->bFormatIndex = data[2];
+>  	ctrl->bFrameIndex = data[3];
+> @@ -351,7 +362,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+>  	ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
+>  	ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
+>  
+> -	if (size >= 34) {
+> +	if (ret >= 34) {
+>  		ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
+>  		ctrl->bmFramingInfo = data[30];
+>  		ctrl->bPreferedVersion = data[31];
+> @@ -381,11 +392,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+>  static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+>  	struct uvc_streaming_control *ctrl, int probe)
+>  {
+> -	u16 size = uvc_video_ctrl_size(stream);
+>  	u8 *data;
+>  	int ret;
+>  
+> -	data = kzalloc(size, GFP_KERNEL);
+> +	data = kzalloc(stream->ctrl_size, GFP_KERNEL);
+>  	if (data == NULL)
+>  		return -ENOMEM;
+>  
+> @@ -401,7 +411,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+>  	put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
+>  	put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
+>  
+> -	if (size >= 34) {
+> +	if (stream->ctrl_size >= 34) {
+>  		put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
+>  		data[30] = ctrl->bmFramingInfo;
+>  		data[31] = ctrl->bPreferedVersion;
+> @@ -411,11 +421,11 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+>  
+>  	ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
+>  		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+> -		size, uvc_timeout_param);
+> -	if (ret != size) {
+> +		stream->ctrl_size, uvc_timeout_param);
+> +	if (ret != stream->ctrl_size) {
+>  		dev_err(&stream->intf->dev,
+>  			"Failed to set UVC %s control : %d (exp. %u).\n",
+> -			probe ? "probe" : "commit", ret, size);
+> +			probe ? "probe" : "commit", ret, stream->ctrl_size);
+>  		ret = -EIO;
+>  	}
+>  
+> @@ -2231,6 +2241,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+>  
+>  	atomic_set(&stream->active, 0);
+>  
+> +	stream->ctrl_size = uvc_video_ctrl_size(stream);
+> +
+>  	/*
+>  	 * Alternate setting 0 should be the default, yet the XBox Live Vision
+>  	 * Cam (and possibly other devices) crash or otherwise misbehave if
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index abcafd929c9e..8d99e857a69f 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -461,6 +461,7 @@ struct uvc_streaming {
+>  	struct usb_interface *intf;
+>  	int intfnum;
+>  	u32 maxpsize;
+> +	unsigned int ctrl_size;
+
+That should be called video_ctrl_size, ctrl_size is ambiguous.
+
+>  
+>  	struct uvc_streaming_header header;
+>  	enum v4l2_buf_type type;
+> @@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+>  #define UVC_WARN_PROBE_DEF	1
+>  #define UVC_WARN_XU_GET_RES	2
+>  #define UVC_WARN_QUERY_CTRL	3
+> +#define UVC_WARN_CTRL_SIZE	4
+>  
+>  extern unsigned int uvc_clock_param;
+>  extern unsigned int uvc_no_drop_param;
+
+-- 
+Regards,
+
+Laurent Pinchart
