@@ -1,72 +1,71 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD0E4D37A2
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12984CC61B
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603906; cv=none; b=ghjSfXzDBU+H85KJY9Jwhv6kb+LMGUfQ+KtjWIcCsVKoShSuoLs905PHmchza6VN5YRU/ZFbOlmP+uekGzTcaeLCxXKnoLZQd+rwYagO99Dk0VHy//g7LIv9a+du8CZYjKNv+MGlg/znvhz7CrpErrTv8FXHBsG8lb5ZVjFDLK0=
+	t=1790604146; cv=none; b=Ci8hAY0x/muKhmpMNYVnc/Xc8Hu3MVVuT/LQCT7UxNMNQoYS+Ogt5z8XgmQx15ksNTM5xYSEB7XLB+MI8Yioic9vxQvz81YYJLQDBO3Ye5ixw07nFrj+3U1QLpSe6AL4M6dZoaLjyzaeNd/NR2ldi894tppxgeI7DHG8F6i0zLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603906; c=relaxed/simple;
-	bh=GU6rru0i0s02icKiHw7kTQykJ0rwnxsY2s22aKjWk1M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HdJUtQAPr2v5wuLDhxWL+3vYuGIHRah8H+4JLxGHaQKj6BYjTCaEQ188cPmQG4EErmD8BSqH5k/5e1A6PWJoa7WSq9JToYMlk7a7tXjWCm2qfgbES9mT7TFHEMeLEDXh5JUbSD6+HaJeTnE1ImjmQw23C1dDAuSecXGwlTiaGYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWCRZG3B; arc=none smtp.client-ip=74.125.227.168
+	s=arc-20240116; t=1790604146; c=relaxed/simple;
+	bh=sDcYZUlaCQrODWTDQOdoGAqUtZJ63zUW+u7kJeDf6WY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bB2Zr8xfF8d3io7KvY+E8LZyXS29R2zZEE2J3wy5uBQUwEnCL8J4S5keGwuWQGZk68Pk66j/CKNBbcs8NODiHd2C6QeaAIVR6wdI5bCnkbE5aWvTtVjkuc1oLNn0jobT2bMciWWQNFXtCF0e2DmJup3szFj566WeArmPsPe023Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F9GzQdFL; arc=none smtp.client-ip=74.125.227.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWCRZG3B"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0d31bda43so1575459a91.1
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:58:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F9GzQdFL"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a47d5764feso406929a91.2
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:02:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790603904; x=1791208704; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790604144; x=1791208944; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bn4hX6mT9hKK5rs7jV7LPfxAez/GODV4ZuwmMfHS/FE=;
-        b=KWCRZG3BH/xMxDzhFuzu5LJD8N6OoUPJ01NzQLdgF6pc5vyN3Kl77uK3SbzUIu1sRh
-         J/3hTOv+96FEe+npci/1JQ7kvDraY2zAFj9W1I9/CFombAhvcBxPRWfgTHzOX+Gvzg3W
-         Is5m5LgH+KoNIZDT/wreas8xMhatSNtVmHbjvNmFwcRJh1BqcknzTto9dhlKVuA95e0J
-         j8/xyIX1nRfRVtBH99BTkfx2nUdR/yJtK5YUQS9OJsqKGBHrCVxrTAt1mBXoMUbR0Mrq
-         eQPOZFSnogHRg1yv5JqpHR5MsrzQ9QQ9SFw+PUK74H9WAj3G4AxXuBKtmVLdLNhNqZYZ
-         GI/g==
+        bh=J7dh01dzLOouMVphsrFlQ6d9OZfrgH3444PU6KYEKGI=;
+        b=F9GzQdFLr0cMvWe3TzPB2irprc87cGJhoD7ayjes1TfRZfqm3l8NcUN9vaqp3bZcqk
+         WGAjXtEEIVwePDIg1XVOsePtQkKdz9HtT+KbVHK8b3q3r1zufijwxKvmZVi1ZY11gAS4
+         QcWLCT9/R3v6MsyRcPwFf+dOmShTgLlGqFetBcEPfHIVLpqY+csdp0rL7vdSYaqdwyw3
+         /On5Yp7QH4igcBnjZoPOG14o8XYPFyfgZ92ZNRE4ouc81E1UtfecSbL0EpnRruQUFo39
+         8RM0iANOprBn8+9oaXQ5YGka2ZPlk1Ec/Hah3e33uBHsaR4QQUN5zX+gwJO2Na14r/PK
+         QFdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790603904; x=1791208704;
+        d=1e100.net; s=20260707; t=1790604144; x=1791208944;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bn4hX6mT9hKK5rs7jV7LPfxAez/GODV4ZuwmMfHS/FE=;
-        b=ETPRqtXEBOArVKXJkzhTfxHJ0M0pwQ47yTbIejcwpVr69W3Yo6P7GsXljvyS/Gk+6N
-         m+G6wzLwwHzG3WI7+EoBnWm7bWb3rwR+/9bOGwAWZhBviq2NZ3VYatF7F6F2Z7QNwk2u
-         OXnsBfcf6gVkzrWLh6bllFgycCv4UL0ES9QCBN4CXuEURPeO3Iqx93aB0JCWn8lcrz9e
-         1tWgMN9u4xdDgMmE2G99d7yezSPEak7TGiKUwDtdFKfefodbvXwRosIN+aGs1VfHhDLQ
-         qJ70bM2J3FTnWmRAE9k53Y/gdpy0gNXOT2Hfj3RSjPOshUaW9vN+6uBptUvTiqJbqUAx
-         CD5w==
-X-Forwarded-Encrypted: i=1; AKwUvBy+7ENYiQt/3RKB6tZNg/09JF5TyztE7PmWGKXyEb/8aunxfO2yzlADqipSBURFqSWyNM4hD6Ox846qqQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUdos2ng9EY7vTX7lBJLh+1UeehV7e6lvyu0s04e2RCmqliaIU
-	0gQWxfJdTSqZzJQedp8q4iKmmJpu4e73TUL9D0m+4YbygSta0FQf7kg5
-X-Gm-Gg: AYBFou1NThsRBV7TW0Q6jqfBVF7DBXzir+xdrIr21up0LmkiVVvUjOt38ixxLFwKjB9
-	JWgsZgd+fhl1B/nWRhuetLUVejTv1theQoy7gx/o9VZ+VLxD4u1X+b6dX/8i7lT/HWMplrhNwE+
-	UuDdJzogUwdfURMpruCJrbZJH8mwX+fo2m1uD3rez+xLyOLJ1ZmkDVDrUJOU6iCHeektvYT66kl
-	65GAp7rxmvArtO2+eBrEcO+pSXeQUhgGG9FOcrEyyLQrA5ibOSKZqKlLwy13nxUm97yDaQp0EVh
-	+WICLNCry3fqvjqog1AgUJar9ESW6wTZ2ozXu1a5JQpt/Sma4aWne3V9CAXEjNQS/2Krw23mndL
-	0T2mRvO+ZsCEzB9ZIh7wNnj0lEYg1qm3CSIZe1z8bUAP76z89hB0zewt1f0k6vcgydc+E+7WnmM
-	tk8PS/3jdzrLSPPdP/jDIREzFqeq82ppdIf1/LBP2yCvNwxMpUnO0gUSGl8E5ksZwDSdPhV/uF9
-	Unlw4R+w0zYB5M7
-X-Received: by 2002:a17:90b:3c91:b0:3a4:7a81:e6ad with SMTP id 98e67ed59e1d1-3a47a81e754mr1375128a91.11.1790603903568;
-        Mon, 28 Sep 2026 06:58:23 -0700 (PDT)
+        bh=J7dh01dzLOouMVphsrFlQ6d9OZfrgH3444PU6KYEKGI=;
+        b=FZU8KSHJYn/Ye14XVxAICIgEJyBya5UZf/jK872md9p38R7UKME5yWwp2T8tNgHoJV
+         jekHlQvfjs/WCuZGDGc/6HRddKwS35XUQznEuamtbd3LUg0JF+KjQ1P+A1ug6MmvD7i5
+         jm5elxD+BzP7rjKlI8u6mZUzEulPtlyagF1VHxJ3goYDZw3k0U4tj+XjaGXrhWzJ053Z
+         y5Pb2CKz8o0kckjSofU+s2jQfrTFajDhu2THE4gCo1P0PCsnEU7AFqfklawhRpr7g/m0
+         sfS+lC/4uqki2jdKnMk5MGauD0Bf3MuRBPmQnYvRrBfT/tAFPLSrEFz0yARQtV1Nl0kd
+         +1yg==
+X-Forwarded-Encrypted: i=1; AKwUvBztSsDoGK8kpLBVumCK8Bnr83VLBeHdxmq6upy9siU/xuiNwEPXc+zN0rNHv6Q86Is2Wm8PHs9G7uKfmA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1wx+gTsk9pOVwMIj4Bq8et5n4Vg+cptj3FFSEibg8T0ScHshX
+	LKGXmeGNDVOL5T6ow9VYfJb+1Nty+muyMbFTDyFPQzJucRqSfvEQHaES
+X-Gm-Gg: AYBFou3eKj3GPzhmF5T/rMmiDoAlYdrttkQJSJAUDrGVkd9cPPPPzt2CaKpMpzcpdSh
+	vueRcEgQ2+01C2/CnUxQk742riBZZ/V/jNKo7dsgChRQC9QZFAAu3SF1SWIW9U2mALd1ezvMa8m
+	/jw82IOLd0iBbJItJrRT3bE70mN8nKuqWxMcVwQkKYdXxPz7ZFBr3OmHSYVIHqoiwZhnvdauDB+
+	BSlIzH9zw7hw/Ty/u4rIM9pxazMw0Vl1PCfgK2jAy9P6LVjzrhmSUdx0eVd6gVfT91ad49tiJtw
+	DDu4earsyZ3qPyq+26CwEcxjeMGzlsMxey2sbzJrLxycW/+ROyZrlvLJDAgNUSh18d41wEYlVUf
+	4uwoS8QNc8QVnp9+YzDA4Aij9wHKBSbalva9QZ74Ewlo0+tMl5t/uhG1CtcfZ0bq7k2lLHT/O8Y
+	s+wgh/PU8QL2ss3je3p03zXL8TfSpsr4dVb+rXKROJwyAXmJTYC1ixEmFmos9ptgMxxdIafFejK
+	Z2A8/nfI+LLsX4tAOVWLbifP6I=
+X-Received: by 2002:a17:90b:5806:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-3a098ae706bmr11448998a91.1.1790604143869;
+        Mon, 28 Sep 2026 07:02:23 -0700 (PDT)
 Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc79219db77sm4204205a12.14.2026.09.28.06.58.21
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm20657073a91.2.2026.09.28.07.02.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:58:23 -0700 (PDT)
+        Mon, 28 Sep 2026 07:02:22 -0700 (PDT)
 From: Cong Nguyen <congnt264@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Tianshu Qiu <tian.shu.qiu@intel.com>,
+Cc: Arec Kao <arec.kao@intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@intel.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: ak7375: fix regulator leak on remove while runtime-active
-Date: Mon, 28 Sep 2026 20:58:16 +0700
-Message-Id: <20260928135816.2383130-1-congnt264@gmail.com>
+Subject: [PATCH] media: i2c: ov13b10: fix power leak on remove while runtime-active
+Date: Mon, 28 Sep 2026 21:02:16 +0700
+Message-Id: <20260928140216.2396160-1-congnt264@gmail.com>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -76,68 +75,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ak7375_remove() calls pm_runtime_set_suspended(), but that's pure
-bookkeeping -- it doesn't call ak7375_vcm_suspend() or otherwise
-disable the regulator. ak7375_open()/close() hold a resume_and_get()/
-put() pair for as long as a /dev/v4l-subdevX fd stays open, and
-nothing requires userspace to close it before unbind -- so removing
-the driver with an fd still open leaves the regulator on with no code
-path left to ever disable it.
+ov13b10_remove() calls pm_runtime_set_suspended(), but that's pure
+bookkeeping -- it doesn't call ov13b10_suspend() (which actually
+deasserts reset, disables the regulators, and disables/unprepares the
+clock via ov13b10_power_off()).
 
-Call ak7375_vcm_suspend() in that case, guarded by
+If unbound while ov13b10_set_stream() is holding an outstanding PM
+reference (removed while actively streaming), the device stays
+genuinely active with regulators/clock enabled forever after.
+
+Call ov13b10_suspend() in that case, guarded by
 pm_runtime_status_suspended() so the common already-suspended case
 isn't suspended twice -- same guard sibling imx412.c's remove() uses.
 
-Moved remove() after suspend()/resume()'s definitions since it now
-calls them directly.
-
-Fixes: 90ee26fb2f50 ("media: ak7375: Add ak7375 lens voice coil driver")
+Fixes: 7ee850546822 ("media: Add sensor driver support for the ov13b10 camera.")
 Assisted-by: LLM
 Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
- drivers/media/i2c/ak7375.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/media/i2c/ov13b10.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/i2c/ak7375.c b/drivers/media/i2c/ak7375.c
-index 9a2432cea3ff..79327440f0b5 100644
---- a/drivers/media/i2c/ak7375.c
-+++ b/drivers/media/i2c/ak7375.c
-@@ -229,16 +229,6 @@ static int ak7375_probe(struct i2c_client *client)
- 	return ret;
+diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+index b0d34141a13a..ab5cf9af2e85 100644
+--- a/drivers/media/i2c/ov13b10.c
++++ b/drivers/media/i2c/ov13b10.c
+@@ -1688,6 +1688,8 @@ static void ov13b10_remove(struct i2c_client *client)
+ 	ov13b10_free_controls(ov13b);
+ 
+ 	pm_runtime_disable(ov13b->dev);
++	if (!pm_runtime_status_suspended(ov13b->dev))
++		ov13b10_suspend(ov13b->dev);
+ 	pm_runtime_set_suspended(ov13b->dev);
  }
  
--static void ak7375_remove(struct i2c_client *client)
--{
--	struct v4l2_subdev *sd = i2c_get_clientdata(client);
--	struct ak7375_device *ak7375_dev = sd_to_ak7375_vcm(sd);
--
--	ak7375_subdev_cleanup(ak7375_dev);
--	pm_runtime_disable(&client->dev);
--	pm_runtime_set_suspended(&client->dev);
--}
--
- /*
-  * This function sets the vcm position, so it consumes least current
-  * The lens position is gradually moved in units of ctrl_steps,
-@@ -328,6 +318,18 @@ static int __maybe_unused ak7375_vcm_resume(struct device *dev)
- 	return 0;
- }
- 
-+static void ak7375_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct ak7375_device *ak7375_dev = sd_to_ak7375_vcm(sd);
-+
-+	ak7375_subdev_cleanup(ak7375_dev);
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev))
-+		ak7375_vcm_suspend(&client->dev);
-+	pm_runtime_set_suspended(&client->dev);
-+}
-+
- static const struct of_device_id ak7375_of_table[] = {
- 	{ .compatible = "asahi-kasei,ak7345", .data = &ak7345_cdef, },
- 	{ .compatible = "asahi-kasei,ak7375", .data = &ak7375_cdef, },
 -- 
 2.25.1
 
