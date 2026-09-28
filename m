@@ -1,106 +1,91 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15D24B827A;
-	Mon, 28 Sep 2026 12:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132BC4ACC61
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:08:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596978; cv=none; b=Wv3CKhyobObRYIJlSDTAUD46K6dF+AEXn1+4lBrO4WvWZYRRf38bo9xTlrVT/gvF66EPcINALZdaY45/ELIHHt260Xezy7wIRyYknh4Il7azPNSJ+1iXepffbsHFB6AMSb6yW9YibLxqk0MW6e+PtHgWqFz6WTAEoGttXRAGv1M=
+	t=1790597308; cv=none; b=S7gbAhlVTkVF8nFMfu5IV3oyb/CHd+qtOaeKusNWCuYUDQMmKfZk65VvQgtcrboTFijRa+AhOhJY1st265L4ub0ZFjvwc8apxtjJvMMWisLFF5Sxw7k8iPgIn6J6+bbPfWR7DG3tAOnsUJ+hpMFzM5Qv37auilofzUS8vAsy+pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596978; c=relaxed/simple;
-	bh=sHiFuAgIrzDmApValHknsaNy8FJJYWo/uqBLxF0S+/g=;
+	s=arc-20240116; t=1790597308; c=relaxed/simple;
+	bh=IsNVdutoJNzV9P4x6uy/hpCuTjZ19JmkQgTV2u4yYW8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jbsRax37jvC8gDM3eivSfdv9gO9HqMqsUJVAn1UTEeK939qdQsWievpJtg0jihxb5yDQE7b7zRYTnsTm/QjLSdHtXvVtmoMZ/o8rB7XmLXIJysvxtgEMT17hRX2tGB0dSv2K9nkriVZQB6ZjCC04XffFEnKo3JBH/NfGHqdTyTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=srdDpZO3; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=q88cM3106+NbhGQUiDZtFm1o8mizG+Nb/q6/IVHRxovme8h5GYFrzow+nLM8zC+xo3+JQjr/bh6uxnJfehSg8wLPJJZSSzU2wZDF1Doj+sTRvZAOdhbqEeB+a2ob2wck8+qinsow8Q2lNB7pU2xQJESjDlpYkuME4yMZAiPBKhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PtJ/qT5U; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="srdDpZO3"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0C6E413D9;
-	Mon, 28 Sep 2026 14:01:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790596864;
-	bh=sHiFuAgIrzDmApValHknsaNy8FJJYWo/uqBLxF0S+/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=srdDpZO3SCn8FcDmnMxNdyNCL5bEPjxJSh3PQOR7zXP60gyfUkwfyQohWA8D07fhM
-	 ICzVjFd33rzWZqz0G3YDFxshOdB3WeTer5PlFHN/0J1XPse5lmEEo/lrV1D00H0295
-	 z9dd3sUQ9yjfTUX/BeHbPJNjOsjUb36MFl2GWLpw=
-Date: Mon, 28 Sep 2026 15:02:52 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@skynet.be>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
-Message-ID: <20260928120252.GB4406@killaraus.ideasonboard.com>
-References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PtJ/qT5U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790597307; x=1822133307;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IsNVdutoJNzV9P4x6uy/hpCuTjZ19JmkQgTV2u4yYW8=;
+  b=PtJ/qT5UUiRt/ZASQTvOvU0Mahdmkr8Pg9sx6PVOmAGWVJHOOZEARZv7
+   y7UXg0IZMbMPK0kGTKNvgk1Z/6vrhmACWXxBH8sfQy9MwVvd+TuP2j8jC
+   wf59+zVHUHccglFHU6RoJVQjSUZRbro4Y97EPV8913rK5fB3foFqth0ET
+   qCWfNCnwe58TAcjJGTp4EAwXMLXmlKqPHkdLhUsnLGokunA2Ds0fVs7fU
+   B9IQGpeqwp0b/CN1qpLlQ2vztJ1bbDnfXaZ/RanImjJTdV8UF4bbzoowJ
+   IYweX9D+KRozXpNhLZ//YsueGb8GQ2m6mE2hebdW4sco/SiZjqfU2z9yH
+   Q==;
+X-CSE-ConnectionGUID: /E3vsUPUTH6IY9uizjt8eQ==
+X-CSE-MsgGUID: 32TjkAIARMmBe59tnUR8Bw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="94174737"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="94174737"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:08:27 -0700
+X-CSE-ConnectionGUID: qyjHwViCTqq6UMqXYnNFWg==
+X-CSE-MsgGUID: KZw8OQNtSBGm0JvuWPAAoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="274157345"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.65])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:08:26 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 864C2121B96;
+	Mon, 28 Sep 2026 15:08:27 +0300 (EEST)
+Date: Mon, 28 Sep 2026 15:08:27 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Manik Bajpai <manik.bajpai@intel.com>
+Cc: linux-media@vger.kernel.org, antti.laakso@linux.intel.com,
+	sarang.sapre@intel.com
+Subject: Re: [PATCH v1 4/4] media: ipu6: Fix NULL deref in
+ ipu6_mmu_iova_to_phys()
+Message-ID: <arpYuzb0yJinlDyH@kekkonen.localdomain>
+References: <20260928115646.77399-1-manik.bajpai@intel.com>
+ <20260928115646.77399-5-manik.bajpai@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+In-Reply-To: <20260928115646.77399-5-manik.bajpai@intel.com>
 
-Hi Ricardo,
+Hi Manik,
 
-Thank you for the patch.
+On Mon, Sep 28, 2026 at 05:26:46PM +0530, Manik Bajpai wrote:
+> ipu6_mmu_iova_to_phys() looked up the L2 page table for the given iova
+> and dereferenced it immediately, without checking whether the
+> corresponding L1 entry is actually mapped. l2_map() and l2_unmap()
+> already guard the equivalent lookup by checking the L1 entry against
+> mmu_info->dummy_l2_pteval before touching l2_pts[].
+> 
+> An unmapped iova (e.g. a stale address passed from a debug path)
+> would dereference an invalid pointer and crash.
+> 
+> Add the same "is this L1 entry mapped" check used by l2_map()/
+> l2_unmap(), returning 0 for an unmapped iova instead of crashing.
 
-On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
-> uvc_parse_control() passes descriptor by descriptor to
-> uvc_parse_standard_control() with the number of bytes remaining in the
-> buffer, not the number of bytes of that descriptor.
-> 
-> Because of this, malformed descriptors could leak over the next
-> descriptor, leaving malformed data in our structures.
-
-What issue does this fix in practice ?
-
-> Change the code so we pass the actual length of the descriptor to the
-> parser.
-> 
-> Note that this makes the existing check more strict and some devices
-> that are wrongly parsed today will not be probed now.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..429f1ab19a2a 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
->  	 */
->  
->  	while (buflen > 2) {
-> -		if (uvc_parse_vendor_control(dev, buffer, buflen) ||
-> +		if (buflen < buffer[0] || buffer[0] < 3)
-> +			return -EINVAL;
-> +
-> +		if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
->  		    buffer[1] != USB_DT_CS_INTERFACE)
->  			goto next_descriptor;
->  
-> -		ret = uvc_parse_standard_control(dev, buffer, buflen);
-> +		ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
->  		if (ret < 0)
->  			return ret;
->  
-> 
-> ---
-> base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+Have you observed this somewhere? I guess it shouldn't happen, but if it
+has happened, I think we should add a Fixes: tag and Cc: stable here.
 
 -- 
 Regards,
 
-Laurent Pinchart
+Sakari Ailus
