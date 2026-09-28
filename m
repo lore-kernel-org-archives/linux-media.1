@@ -1,149 +1,171 @@
-Received: from mail-yx2-f21.google.com (mail-yx2-f21.google.com [74.125.224.149])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F01A392C3A
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992263D9674
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597888; cv=pass; b=tPFlRjc8wMS2/LcybsCBkwirj/2o+oLY4TdtZAgoZdldUgLMiIM4Rl+zX3yWbDKd+pQrpnFl0p706QhgtujWsP0JvT2c3r6/nWDrpX+lI9yf+zyzXhg7QiQf/I/KZ1CWKG100cQfdt57QA7ViIYjIijDk8Fr/SF0ePPzSo3v7yQ=
+	t=1790597921; cv=pass; b=RmFMoDo0lRNeVOtlYJp4Hf0kMBal8M9C4TNnD6o+PUPFhJDG2J2zcW33ydzO7WrkhRUe6l98Y4tsd1zYsHton8/F1esPPjttam2x1n3JYItlSGqSJHOg4wLqxeZE7zy5/qfEPelscxq7+d9D0nO37sS6V7NsHS0kYWy6dd8bE8A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597888; c=relaxed/simple;
-	bh=rYxzzzNY1AdcrXh0ozl1mR8qkdvj5gJ0d5Mjvk9s7Ps=;
+	s=arc-20240116; t=1790597921; c=relaxed/simple;
+	bh=TijKxK+nK3xx//VQ9rSkkM6WufIlRHmW8yc3Q92XXuI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eMHY3w1czJLia1Qd7u9oS8cBh1QfFqkpBxAV9bDvWR5XbBrFyhmAQ7/2PZ3YlNvFSlOrZ512ZsafbUcKeidQpe1SNeaCXR/r88LSgrZlARV6blV6JLpUaRpCjQYXUXQkv4kPONLfqMeAWzDwj7g3WtjZktTIEADKJu4UljsLczQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWFaSmDt; arc=pass smtp.client-ip=74.125.224.149
+	 To:Cc:Content-Type; b=eirEz/edKxCVxM9hlsQIWICsEVIKXia1b1WOVVN96xVm9nMPGAf9fn7a9DiV3UT21idLJv0+FNZT/ebl9qENKkmkIRsERqYPILVGoBZhKlF3JhxGMOxxUKi2MYwCTNWD9TRYT+0QmwfXyR69J4UticHx1GmP7XrMHtEXZ6t0cBg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMe7q+kr; arc=pass smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWFaSmDt"
-Received: by mail-yx2-f21.google.com with SMTP id 956f58d0204a3-6730c3bdb35so1773378d50.1
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 05:18:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790597886; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMe7q+kr"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66f7a9afe43so2357522d50.1
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 05:18:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790597918; cv=none;
         d=google.com; s=arc-20260327;
-        b=lsUt0Ph89w0FnE/8bctoyNYJc3RoxxrL9q6M/KIIqpSfbadS1eJ80kfIBKvNeY+4XU
-         cBFJImKkaTNRexKHP5ahUp+WUjY/xjLCx9+HgmLYmGbGyx0lG3PM5fe8N6tMIQMt4VZh
-         7XMA8NpXSDhsDl1odlgMuwqMi0dvZaPxjuFmSixEeVl/BrF0vh+j1M6fV8sol/9WOq8x
-         oq7G0PJiM/kw9jQ2XY4JYVnVFl41Cj1oGxG7Me91+uXG9Hs7RLwJoQgjhO3foYkiLDcu
-         UiJF5eJXy554sKZpe4XBF6TmjdMSK59Cd54KXVfL+leBoSBaNIPPxqD1zF/EJHS4dRL8
-         KgMg==
+        b=RvLssdA2s3RqZ5/WxpXDw9ebgm7MNvNtd7rm7LqK1C3oN0s5Rc3aoILO4Mfoc1pOMb
+         gXW7OG+lTZ4m7z+KYYoRSGaq9ga3LSinUQIrBTK09mEQg5azaX5/5bisnE2JJNqBqYnZ
+         ek/kullZziCQG2fL72bUFUKYN9yYs9golQ6mNlugtvltMzJS68xxgaH+ZBZNG1dxeztG
+         Uc1nuF4setS7mxb8Q1zag1/gKg/S1SRlkplWdUEyr56z6rXd188XbngqRsnLdNdZ9+Rr
+         ProOtgeZaKd8alS4RX4ygviw7wvkwWZGcY1LtLKaZyxpNgvDD3Y87f0hlZ1II7h8NS0h
+         /2Cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=3eARHhkh9oYsXbPpbvCkfwu69vuTuYl2b/LL/+ePPlw=;
-        fh=PJ85cYuepXFfcUj+CN49m+4R0dWI0IYwf5DhgzilPGw=;
-        b=JX8zLtsFVi16ivxkxTDux2zmZB7a2vJTLep/3LSE2Vo6yT1x6X88dVxzYDY/Mq2MYM
-         iSmIO6VuuO7q7FB19EZ2X6/jOcdRO37Oyk8UXiPD5Ge1fDYb6axDOnxHLPYVCHo1BVk3
-         WdUbIREoVePQcgZBQK2iTNJyICnDRH0Wq8hDhGwKkn1WLusep48qI+9YBo2xh7MAiPtt
-         kRDLiesonhrpXSDCYMDlEJYmieZe4ejZMX+WCkdS8hKcCHw+BkuB5liTrLRP/uWx9nTq
-         yaBJChwcB8JV+Z+pRz/opw0SvDs6tYqYNIXuAHxENYRTOnHk4kkzu0b1A3jI9BgCHU+7
-         whgQ==;
+        bh=mL7XzunHpqYpnOMoylkNx9LH6Y253aowfuldXMm2MNA=;
+        fh=Hu+LIEf85Hyqfghj1nmoaFeY6Gu2qrKTflfhPPvbs3w=;
+        b=e6NdJAV80hbtBi5culH7kga8cJ2/JY+7Ia3jDUmcxkUr8pn/prgwNT/fCyoL/ooOB+
+         6/yMTGY9vZcRLAlodkZu1Z6UGf1IWNVoFx5FROsR47irpGt8u0yNg854ROhvVSB5nxTd
+         YWje3hy1UyzMmnwBQVZjTcq0bcDWTq9EqxKewZYlgPckpvrgkWDXlKtLOspOKe7D8hBy
+         pPkJKoSdd2oPAb67RmqzHy53LTzv394vWKlzsUf8kbSRPEyEreBRTIqE/ZYsL1fviQ06
+         3Kp1N/QMLSukKI0vzjviPjBPXRPVvDHFWk3jut8Oryi43nnW66zEjui2W2tWqIkMb3jm
+         mX4w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790597886; x=1791202686; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790597918; x=1791202718; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3eARHhkh9oYsXbPpbvCkfwu69vuTuYl2b/LL/+ePPlw=;
-        b=eWFaSmDtXggX2AKjWrH+ThjoFOTE0Nfr35+yO7vDDasQwgE6Y4Vqn7MvPnkGJ30ngb
-         BJMn3PHcdSBX8qCd+0qAcaRmzAgatWyIeDGKh0dQOZpNDGnl21I9kwAl8N9EmBBQEqLj
-         bx9AXlNtFEiCG1cDUbKtBYLwUzIohXOfG6SxO9dMNOGTtgcfimWFp7Nn+umyefdwhkdO
-         8DYwZmYY9nkyt+T/srEcQsI7bu2YXrJ8wLLTJppvuY0mS7+aI1kzNJL9QyIm1xlsdwRv
-         vXePt2oK+lCyRAYQx+ccX7y01TgRWwPM2b4SjZ3Sjt+tJckUsKStsHus3fxQCjmlknlH
-         Wm+Q==
+        bh=mL7XzunHpqYpnOMoylkNx9LH6Y253aowfuldXMm2MNA=;
+        b=aMe7q+krHZT5jfGanu6pqnmHEhYF/VajLq9iHFSn69rjtntsEn+eoUrqSz7fTsN9Df
+         B4I/wwoDgitHtf9jiDtrA8y8B3lIeINYP0eCtEbavwD8CtkdVDiBWciJll8vI+kqxxss
+         sD3WQtAn4QtdMvHkkXtRimuVpbIFR44/ntg89+HeNp4Is5ZDs/sE/kTagn/pm8EQYY7C
+         EWhWa5c22WGX8NpPkDXToMzC7sieIMuKtEqrcRC3ZMRnfQxuCdTYetXN9HIhLdB0dSDr
+         nyeNOxUowbkXZDV/hPQlyGNAbFTO2KhWGdmTpzJwd3wi0tnm9R2BrOIU9taBz9htQq7X
+         8WJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790597886; x=1791202686;
+        d=1e100.net; s=20260707; t=1790597918; x=1791202718;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3eARHhkh9oYsXbPpbvCkfwu69vuTuYl2b/LL/+ePPlw=;
-        b=2B/kSXbGXmLNBVhnOaOXxe1n1MleaOF0R658Of9HovOPStGg/ykK5E3oUu20m4MwHr
-         c/g9djEPbx+1MlFe3c7+lm5Ti766EhCvbBZkDpBpj3ps5pNE5bNWRWumax7qECsfcTpH
-         79IX3IYO9jpXWOtcrNhdAzVOeebxTc8kyOBAejGwFvrZFdEVO3IzZkdr/GbBEA/96mlx
-         6cHMV+TSRWM/Wr+momrOTNjrweydxrPc5I4STClVTPU0vyz4tfj4w4ntLOUK4S9kbDGk
-         s8xmP0voCUlAelVysThjhrjEFeM07HCIew4VrcfDiOAeGQwBKYqHSCefs/qZ04YWaoQo
-         dohQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzeU2oqO02iDVkKguCEd6DJHU9dW+uvJuOyfZPhuvBF1vjzHoMqdm64twwwDHlcsjMATG1yglkIb8i/UA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mgwv6s7xkv9jXhAfeqqCaaLf7BczRq3xtTgndRiCg6EtxNFlMn
-	ac59wy/6H6uF0jnEv6zrlh45stp1VraWMWUiFpNY9TZ01jzhB/n1axfhPksek73PU9+NZjQ4x71
-	ueMNfMRkXOPU7bjp+P1k8DJH8XbEmTRI=
-X-Gm-Gg: AYBFou3TfjIW/1lXmlwW0D7okBceVSkvE8Gnu5SYyULoXXR385e+6HUDjaIhzpgoTC1
-	/avLeN+SLUU/gM3iwuaf+7W65ZvZzPrt/lZnWevlX7yFJc3Fmg+cb7KtalfnCtiO4LXxc89isl7
-	LJMKsyW8JrBTPxshujthwVohiYfsyNsuQ4iSf2NsfBrDuMyAkNpgts0/wRIusNaxnxNE+zQ3TkN
-	APqLokw1hCwZhlI+r8eLygUaD4PGfS355cKy0ZzD23XZoIaE/zdk6bwPNPeNPyjlRkIRUUzZfDp
-	zYTNWdNy6EYV7Kos4SLzktTyEhkhlQQnRPtKRrQnN3WFiRqBwKYD3hXhgGqnzQzz3hY0MiQgNE5
-	gVaYVCGtfOmCm9EIzXKRb8fYk+bl7Q1FEn395FKiW89Q=
-X-Received: by 2002:a05:690e:1c1a:b0:675:449d:3d72 with SMTP id
- 956f58d0204a3-675449d48eamr1275888d50.32.1790597886319; Mon, 28 Sep 2026
- 05:18:06 -0700 (PDT)
+        bh=mL7XzunHpqYpnOMoylkNx9LH6Y253aowfuldXMm2MNA=;
+        b=d/Zou/gZhdQ7s6TTOlcdcsaBHsamvonGpGYsu/0V2AvwrcbeRzW1/cGKtcnAPX8qTG
+         QWwot8jkiqB64OPqyDwhwiAaRNgoVuycppIKBue3cgQvbZKmut6NlAWEHi5ZQ1MLFLRj
+         CLdtDZi1ZBS8iqVEQjDLTdQTaBzy2I/IhBd56k2HOWSNSARZAk3GSVvQRI9W+50LZLBC
+         2KIuZ3ynhcj7zcn4YmmpnXct57db2foCybzFvfN4wk/IfaMqoFbA1Qt7Xs6L8kczg/oz
+         tPYE2lCJqNh//xcf1WDAkgRkiM5+DJYib7o/+xsypAOCiMooVsJ/SoA0XuueG1XxtGns
+         xicw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsQ3U3de7meAyZpmyouudZD6fJaJyOcnGTaEg7sYc7NVl8YjPqtA8QFX+n7cTvw7plGKCRhS/P7reoFA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYITE7uvnsGKVIVVeR3N0BLwe0A/FQ9IDI4XzUOpthK+Zwz68S+k
+	7dndn5nq6O/+GNCVNnJnfvDSKJsed1G/y0CA2uOGg6aEt19/2DDCyenFRv3t332ycxryblTQeYT
+	1PHLaOchUDiAH313fRtiqPrFR5eXbPBw=
+X-Gm-Gg: AYBFou2W2urzWzPYCGgBtAk86975NsvE/dcXo0qA3E1mzUXMCrfSsgombHABCiCg1Ew
+	vMLSQqbSOSQyeWupAwFv5Pzt/mcW7rHm3ZeOhB/ySkxLly9QK8eybr5VFwcmYtq8dhlxVfEImAL
+	XtDx/QF0AwUAiU5qzngJp3YW1fW5+mKbOqMdvwYh0zuEzH1MNVhuwXdrxNw0QISp9zygCja2/pL
+	qpisFa3MM+IYUZN8X+PMUtE7VyzeIWtd7VY7M1rd0m7q5PeHy3VMf0pf2WX7r7MPH1VUeSaZMUY
+	Yki/taDbBlLWylEvHSXI33uBeEYuHB7v3nGnQ8OdPb/wB4wRRGC9uc2YttePrMIOnbUJ8FGCyRG
+	wDtILR8tzFhyfxBg/9doIHxg/gZ/uG/2Ltz1V2nHGt3w=
+X-Received: by 2002:a05:690e:12cd:b0:675:13fb:ef4f with SMTP id
+ 956f58d0204a3-67513fbfdccmr1784360d50.93.1790597917899; Mon, 28 Sep 2026
+ 05:18:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918054851.26083-1-kartikey406@gmail.com> <arey7Lyzlb2lq09P@extorris.mess.org>
-In-Reply-To: <arey7Lyzlb2lq09P@extorris.mess.org>
+References: <20260928121230.35359-1-kartikey406@gmail.com>
+In-Reply-To: <20260928121230.35359-1-kartikey406@gmail.com>
 From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Mon, 28 Sep 2026 17:47:54 +0530
-X-Gm-Features: AclHuK8LDR3Ng5m5rYWshr-m-9JpiY_F01Ux4P8GgnE55sFSsBNXD1fPs72yo1g
-Message-ID: <CADhLXY4j4hFhhf0Kd8xPKha0mnb-H9bNYjMrXjGBoSeH5Jt70g@mail.gmail.com>
-Subject: Re: [PATCH] media: imon: fix use-after-free in display_close via dev_dbg
-To: Sean Young <sean@mess.org>
-Cc: mchehab@kernel.org, jarod@redhat.com, linux-media@vger.kernel.org, 
+Date: Mon, 28 Sep 2026 17:48:26 +0530
+X-Gm-Features: AclHuK8HSa-2KM0ooi_5xiqzSTVbPS3E0wHbBsge4xM3DW_Ub-G1EbMualq28Oo
+Message-ID: <CADhLXY434wAdf9s-_3xh4WZj5A26yaP7LPj1JqvNaPaVJWQqyw@mail.gmail.com>
+Subject: Re: [PATCH v2] media: imon: fix use-after-free in display_close via dev_dbg
+To: sean@mess.org, mchehab@kernel.org
+Cc: jarod@redhat.com, linux-media@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, 
 	syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 26, 2026 at 5:26=E2=80=AFPM Sean Young <sean@mess.org> wrote:
+On Mon, Sep 28, 2026 at 5:42=E2=80=AFPM Deepanshu Kartikey
+<kartikey406@gmail.com> wrote:
 >
-> On Fri, Sep 18, 2026 at 11:18:51AM +0530, Deepanshu Kartikey wrote:
-> > ictx->dev is a raw pointer to the usb_interface's embedded device,
-> > cached in imon_init_intf0() without taking a reference. On
-> > disconnect, usb_disconnect() can drop the last reference on the
-> > interface and free it while a userspace fd for /dev/lcd0 is still
-> > open. When that fd is later closed, display_close() dereferences
-> > the now-freed ictx->dev via dev_dbg(), causing a use-after-free.
-> >
-> > Fix by pinning the device with get_device() when ictx->dev is
-> > assigned, and releasing it with put_device() when ictx is freed.
-> >
-> > Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
-> > Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D9bfac891bdd42eb708fc
-> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> > ---
-> >  drivers/media/rc/imon.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-> > index 049a73b5f882..9341dbe03b57 100644
-> > --- a/drivers/media/rc/imon.c
-> > +++ b/drivers/media/rc/imon.c
-> > @@ -502,6 +502,7 @@ static void free_imon_context(struct imon_context *=
-ictx)
-> >       kfree_rcu(ictx, rcu);
-> >
-> >       dev_dbg(dev, "%s: iMON context freed\n", __func__);
+> ictx->dev is a raw pointer to the usb_interface's embedded device,
+> cached in imon_init_intf0() without taking a reference. On
+> disconnect, usb_disconnect() can drop the last reference on the
+> interface and free it while a userspace fd for /dev/lcd0 is still
+> open. When that fd is later closed, display_close() dereferences
+> the now-freed ictx->dev via dev_dbg(), causing a use-after-free.
 >
-> The dev is only referenced in dev_dbg() here.
+> Fix by pinning the device with get_device() when ictx->dev is
+> assigned, and releasing it with put_device() when ictx is freed.
 >
-> The debug statement is pretty pointless anyway so why don't we remove
-> that instead.
+> Also drop the dev_dbg() in free_imon_context(), which only printed
+> a debug message and is no longer needed.
 >
+> Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
+> Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D9bfac891bdd42eb708fc
+> Link: http://lore.kernel.org/all/20260918054851.26083-1-kartikey406@gmail=
+.com/T/ [v1]
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+> v2:
+> - Remove the dev_dbg() in free_imon_context(), as suggested by
+>   Sean Young.
+> ---
+>  drivers/media/rc/imon.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 >
-> Sean
+> diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
+> index 049a73b5f882..562a70186db4 100644
+> --- a/drivers/media/rc/imon.c
+> +++ b/drivers/media/rc/imon.c
+> @@ -501,7 +501,7 @@ static void free_imon_context(struct imon_context *ic=
+tx)
+>         usb_free_urb(ictx->rx_urb_intf1);
+>         kfree_rcu(ictx, rcu);
+>
+> -       dev_dbg(dev, "%s: iMON context freed\n", __func__);
+> +       put_device(dev);
+>  }
+>
+>  /*
+> @@ -2253,7 +2253,7 @@ static struct imon_context *imon_init_intf0(struct =
+usb_interface *intf,
+>
+>         mutex_lock(&ictx->lock);
+>
+> -       ictx->dev =3D dev;
+> +       ictx->dev =3D get_device(dev);
+>         ictx->usbdev_intf0 =3D interface_to_usbdev(intf);
+>         ictx->rx_urb_intf0 =3D rx_urb;
+>         ictx->tx_urb =3D tx_urb;
+> @@ -2314,6 +2314,7 @@ static struct imon_context *imon_init_intf0(struct =
+usb_interface *intf,
+>  find_endpoint_failed:
+>         mutex_unlock(&ictx->lock);
+>         usb_free_urb(tx_urb);
+> +       put_device(ictx->dev);
+>  tx_urb_alloc_failed:
+>         usb_free_urb(rx_urb);
+>  rx_urb_alloc_failed:
+> --
+> 2.34.1
+>
 
-I misunderstood your last message.
-
-The reported crash is in display_close(), and
-ictx->dev is also passed to dev_dbg() in display_open() and lcd_write(),
-which can run after disconnect. Removing only the dev_dbg() in
-free_imon_context() would not fix the bug.
-
-
-Do you want me to replace dev_dbg from all over the place ?
+Please disregard this patch.
 
 Thanks
+
+Deepanshu
