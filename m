@@ -1,192 +1,141 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845FF4F4746
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8E84DA9C3
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:28:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.247
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623729; cv=none; b=pYTWm6eRzpd3kKTEmhxh2NSo1jbWTQObMC4qFZZIv5xg5lCjQf7Y1yI/5XqUYYBtMbrXgQHZleIf9pzcjk38vJzfzosPfkfCR6yJqdWU8khEmwe3XGKVcWprShFA9+tDYrH+UT1mi1B2aMxA1iWogeTSwdgiwew4jq6WC79lBBI=
+	t=1790623740; cv=none; b=nZMerqPTv6joAA8bU+ho6nQ/qJVV8pwr4DJdHqvVW63YtUB2vwN3mIOkQw1xqSEeZsyCCUO50HiGbtc4phWnEOrNG1X8VeYaQc7GbXMIp6DEYiTJ5atw8gVCKppZnf5kdoh/QJuIowE1XxIO9xZg40wdfhG70xuOB2zGrjcIt78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623729; c=relaxed/simple;
-	bh=O4uIi9qgIMnPjsFpze9OgXjJoOKWfAVoaOQ1MDw6W24=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qHDa+emtlEh0muHICswRGWcyDDjPKb9fKUN/+9PYKmW2TgB6EnzQeIH1qdqGO0BqGke9v+mAJv3xEFCdD0PkHE8rR279GXVq6zoT4dP4i9p3nHl/MkmxFaOAGZNB8RdEwPE2URxb0s0sWJsSgpiSO2g+eDnJqI4bExIYrbCOZnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ujeAHZXC; arc=none smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790623740; c=relaxed/simple;
+	bh=6GdeS5J1nAEzAADIZpXQl1fwy/uaoTDl+7jyHikSKZc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=cbi7LHmeXg+fOYqwXkf6OTLckGvd2iE86ivg1pOgcN9gbfLRc4VwI5o6ztl+N0bwxdM8Tcn/b1iKS9aHJCQXIU2lyVDbRS7DdY4fFQ8gscTb5DxCeBwZJazzWCkswzLmv60jIFRtAqCRyA5Ngl/qiJLRmuLvUzhjL3qRMO8Ty44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=YcUpAmOf; arc=none smtp.client-ip=95.215.58.247
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ujeAHZXC"
-Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cdb9cb7feeso1012671e0c.2
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:28:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790623726; x=1791228526; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
-        b=ujeAHZXCofuwKgAeICLb9kvV1n9E+r47D8VgVObLOyXqxCqTWKsnzm29wo6zstlAEb
-         oQnquVN2ifqow7e3G0NZgZWL2bvGI3Daavmgj7IgOOZbjp/B2aOvc70ysTztAIwx4X/X
-         uhoYlK0KP5JYbo3VE/5SPmHOv/ww/x4cckykcKfVQNOy25xJXfg6mAaMXyshTqWvj/+P
-         BW8htB6UCgewzAPuRJfvs3A/soDKRsZNWs5K2SFAv7DpV4ZhJgzxLhgz4hiJgjtHfzwr
-         QMo6NWZjjXJXHG9QC2r1AmirOCJoqXNv/c6F2zP6I16Shtm9h4eYZ8OElq1bNRxZSv55
-         P5Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790623726; x=1791228526;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
-        b=Cz9ZoQHuCsjj4mMF9FCTmKV3B522IQciwq6EWSZid2rmGPuF5X3Odk9WhEuphntytB
-         5WqX/VMxYGEskt4GnEXVIrGlnWUZT+ajRh0zWTlxpbOkx0RRezfe7IEeFj6QhBfskzKE
-         fqDKrD4KBfRVOa3rjYixP7TiQw3dhrXHuPykXtiEGyotdmoOxd1NDomfgTE/rFoTYlNp
-         pTqxap804QCSj6yGRgTM1m31bGUiRG4CkUA2C5s9Ywd1jnV0doe1P86qIGLsjDzTh8lJ
-         H2ZKgz5AxaPVZCRyzKkB7VuXAHZIXzdbeJxqkITCdjuTmylA2BhvbycWFgSlgVLkaS2c
-         LHTg==
-X-Gm-Message-State: AFq9FYI9DgD1yEwFDCJB0Uz5l9Bj551gDB/4Dn1xL9qFBDrZY3GRaRkv
-	44jG/9tme9DAqGuIRHabCfgSGjA4duyDsWXlWxVRs2ojw1ku/BQPR31xgAf0yiHDVTo=
-X-Gm-Gg: AYBFou0fSQajT3z7Fs8ycMaqlGous889dXpQZ5KXibqYEoa1i8SbZzEjnde6eR2G8+F
-	HWh8Whle+JsgmuCKUYtUtZz0I6xaDhrqOe/CIM355kDT7hGRMeO67hkXHuaej5ejrOhrmaGpYbz
-	5qv93lCUJ9HnoF+nHPmd83bjN42p6vU2DY3UkTAodQULXHwxqQGsL/g4/blpWHChTOfNTi8uH0G
-	V2P3P68KgV9zFiT99fHStT3LjO9yZkja+EjRi0tYAHnnHp4eP/BrrZiWCvPmAmhBkF2N5iLLXf/
-	yS2WSOjS/ZBX9UPy7uEJ2hwOVZnzkEeNNDsk88Py2DuhUwvTNyO7JJcGhrUF75QZnw8Kh2QmUZx
-	kjbemSgd2uq7aOYNAE64D+Kxwr+gNwTXZnYopK2FMTgPJxrr4xO8fAnm+cpdNOQLWQMU5L4xdvK
-	P8JduZrkmO4jAPjErRHaCHD/6SF0mJPWbc2kpK561rdcLYz58jlySXOhuwX6pAEtFg6EtkcFFzs
-	9BvrXreSfoD0Q==
-X-Received: by 2002:a05:6122:25ca:b0:5d1:b41c:8ff1 with SMTP id 71dfb90a1353d-5d1b42bdce3mr337088e0c.15.1790623726416;
-        Mon, 28 Sep 2026 12:28:46 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde664c06esm9993095e0c.16.2026.09.28.12.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:28:45 -0700 (PDT)
-Message-ID: <59097bca6ad101c160c1d519556fbee378801dcd.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: imagination: e5010: release m2m device on probe
- failure
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: =?UTF-8?Q?=EB=B0=95=EB=AA=85=ED=9B=88?= <mhun512@gmail.com>, Devarsh
- Thakkar <devarsht@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Mon, 28 Sep 2026 15:28:44 -0400
-In-Reply-To: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
-References: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-voi74w9GheclbzmAzMR6"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="YcUpAmOf"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6GdeS5J1nAEzAADIZpXQl1fwy/uaoTDl+7jyHikSKZc=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790623731; v=1; x=1791228531;
+ b=YcUpAmOfqJTgUK4bL0o44Iu2boLVx6GhQYzm07LXlkz2rycFcrmJ22DcFH84h/YoWVOl+sDP
+ kriEwplZF7XaDfIH9/VV5f+LxhtCUwIoOUWmtSVhCfRerSXsfH7DBfjEK56FLCICOndgGx0shE0
+ +AEx7x5L5NjgeAeYR2/3c7qqTpajrl83ow6UqyFfln+DwhIdLr2zS8ZDsZ8btojS/sJGaE3F/4A
+ WsPcoTptlXR2F/CDYGhcQ+Fwvp9AT0vVi4sJQEa/yc9X3NKtN2GyNhyZ9z/XId/v9/WVUQof25g
+ lR1GAA+cNlqpzkiSgqKi8U85tTkFN/34zzYPB9FVCfVMg==
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a3187ec75891e86d;
+	Mon, 28 Sep 2026 19:28:51 +0000
+X-Mizu-Trace-ID: a3187ec75891e86d
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-
-
---=-voi74w9GheclbzmAzMR6
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 21:28:47 +0200
+Message-Id: <DLR74W1U9YPC.375IK0HOYHDIG@cknow-tech.com>
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, "Sandy Huang" <hjc@rock-chips.com>,
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
+ <andy.yan@rock-chips.com>, <linux-rockchip@lists.infradead.org>, "Detlev
+ Casanova" <detlev.casanova@collabora.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>
+Subject: Re: [PATCH] dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL
+ kernels
+X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
+References: <20260907020015.24719-1-kmehltretter@gmail.com>
+In-Reply-To: <20260907020015.24719-1-kmehltretter@gmail.com>
 
-Hi,
+On Mon Sep 7, 2026 at 4:00 AM CEST, Karl Mehltretter wrote:
+> Commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG
+> kernels") changed the default of DMABUF_DEBUG to "y if DEBUG", but no
+> Kconfig symbol DEBUG exists, so the option has had no default since.
+>
+> Use DEBUG_KERNEL, the Kconfig symbol for a debug kernel.
 
-sorry for the long delay, finally getting to this one, comment below...
+I wondered why since 7.3-rc4 when playing videos I got a WHOLE lot of the
+following error messages, which weren't there with 7.3-rc3:
 
-Le samedi 25 avril 2026 =C3=A0 01:58 +0900, =EB=B0=95=EB=AA=85=ED=9B=88 a =
-=C3=A9crit=C2=A0:
-> From: Myeonghun Pak <mhun512@gmail.com>
->=20
-> The probe path allocates the mem2mem device with v4l2_m2m_init(),
-> but several later failures jump directly to the v4l2_device_unregister()
-> unwind path. Since the driver core does not call .remove() after a failed
-> probe, those paths leak the m2m device.
->=20
-> Route post-v4l2_m2m_init() failures through the existing m2m release step
-> before unregistering the v4l2 device.
->=20
-> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+  [drm:rockchip_gem_iommu_map [rockchipdrm]] *ERROR* failed to map buffer: =
+size=3D0 request_size=3D3956736
+  [drm:rockchip_gem_prime_import_sg_table [rockchipdrm]] *ERROR* failed to =
+import sg table: -12
+
+Both come from ``drivers/gpu/drm/rockchip/rockchip_drm_gem.c``.
+
+The value of request_size varies sometimes; I see ``request_size=3D8294400`=
+`
+the most. When playing a video (with mpv with v4l2request functionality, bu=
+t
+I think that doesn't matter), I see a whole bunch of these errors and then
+it stays 'silent', but I get another stream of them when I resize the windo=
+w
+(ie I'm toggling between windowed and full-screen).
+It doesn't take long before dmesg only consists of these errors.
+
+The 'playing video' is likely important; when I just start sway I don't see
+those errors. It's only when I start a video that those pop up.
+
+My kernel (config) is based on Debian's and that has ``DEBUG_KERNEL=3Dy`` a=
+t
+least since 2008 and due to this patch/commit, ``DMABUF_DEBUG`` got turned =
+on.
+When I explicitly disable ``DMABUF_DEBUG``, I no longer see those errors.
+
+Whether that fixes or just hides a problem, I'll leave that for others to
+decide.
+
+> Fixes: 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG ke=
+rnels")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->  drivers/media/platform/imagination/e5010-jpeg-enc.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/driver=
-s/media/platform/imagination/e5010-jpeg-enc.c
-> index 42ad9ee399..4c250e2275 100644
-> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> @@ -1072,14 +1072,14 @@ static int e5010_probe(struct platform_device *pd=
-ev)
->  	if (IS_ERR(e5010->core_base)) {
->  		ret =3D PTR_ERR(e5010->core_base);
->  		dev_err_probe(dev, ret, "Missing 'core' resources area\n");
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	e5010->mmu_base =3D devm_platform_ioremap_resource_byname(pdev, "mmu");
->  	if (IS_ERR(e5010->mmu_base)) {
->  		ret =3D PTR_ERR(e5010->mmu_base);
->  		dev_err_probe(dev, ret, "Missing 'mmu' resources area\n");
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	e5010->last_context_run =3D NULL;
-> @@ -1089,14 +1089,14 @@ static int e5010_probe(struct platform_device *pd=
-ev)
->  			       E5010_MODULE_NAME, e5010);
->  	if (ret) {
->  		dev_err_probe(dev, ret, "failed to register IRQ %d\n", irq);
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	e5010->clk =3D devm_clk_get(dev, NULL);
->  	if (IS_ERR(e5010->clk)) {
->  		ret =3D PTR_ERR(e5010->clk);
->  		dev_err_probe(dev, ret, "failed to get clock\n");
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	pm_runtime_enable(dev);
-> @@ -1113,6 +1113,7 @@ static int e5010_probe(struct platform_device *pdev=
-)
->  	return 0;
-> =20
->  fail_after_video_register_device:
-> +fail_after_m2m_init:
+> This enables the dma-buf debug checks on every CONFIG_DEBUG_KERNEL
+> configuration, which is what 646013f513f3 set out to do. If that is too
+> broad today, the alternative is to restore the previous
+> "default y if DMA_API_DEBUG".
 
-Can't you simply use fail_after_video_register_device label ?
+My 0.02:
+That change landed in 7.0-rc1 albeit it didn't have the effect it intended
+to achieve. An -rc1 version seems like the right version to land such a cha=
+nge.
 
-Nicolas
+I'm not in favor of this just popping up in 7.3-rc4 while -rc3 did NOT have
+that affect. With an -rc1 you'd expect major changes, but in this case I
+accidentally stumbled upon it while trying out something else.
 
->  	v4l2_m2m_release(e5010->m2m_dev);
->  fail_after_v4l2_register:
->  	v4l2_device_unregister(&e5010->v4l2_dev);
+Cheers,
+  Diederik
 
---=-voi74w9GheclbzmAzMR6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+>  drivers/dma-buf/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index 7efc0f0d0712..e4f078a326a4 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -43,7 +43,7 @@ config UDMABUF
+>  config DMABUF_DEBUG
+>  	bool "DMA-BUF debug checks"
+>  	depends on DMA_SHARED_BUFFER
+> -	default y if DEBUG
+> +	default y if DEBUG_KERNEL
+>  	help
+>  	  This option enables additional checks for DMA-BUF importers and
+>  	  exporters. Specifically it validates that importers do not peek at th=
+e
+>
+> base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarq/7AAKCRDZQZRRKWBy
-9IZmAP0VR6bu6gTm5GrW5zPbMo2MHKgY6EAy04h+kue45wO+HwD+LGwAIVFAH7ri
-2jBuZaTDoCNv7kwXXm6c9LckfqoGjgM=
-=S2RM
------END PGP SIGNATURE-----
-
---=-voi74w9GheclbzmAzMR6--
