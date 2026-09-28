@@ -1,95 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2784A4582F3;
-	Mon, 28 Sep 2026 10:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E29F49D591;
+	Mon, 28 Sep 2026 11:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593115; cv=none; b=abTeuQD86s0Xb1WxZ+Sl8q4Mux5izmIXnChABpPlycbBBh5B3aFxrbWY8HJw+/4d+U9vDi7tqDZ39ai1YXcBs+TQNui4FYpeqcnfl8rZt2AXIROBqoNbKHt6UdbDQYSGwvtX+5WQBW2nNoPt6YkIvT7+ZXTgnzECLfqthYTgiDQ=
+	t=1790593276; cv=none; b=HwZUyc+Q++EZg2SYT9GNNCJJBAJNVJ37gWLRZV2PZEFeai/4Hm+ULsfW2PiNngnJ2lubT/8m39XbJT8xmfH0lVfgftL1+FXYjxtHVKZfXxS7JKlAOwiLxmdOdNqjWIv7rhhaZZNWvyWsFRw26I6qIO21iVAvYoPwsMMK6YiD+6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593115; c=relaxed/simple;
-	bh=c3bOooEGMlvg9xPHTnVJky5x+llKM22NeXmtLbOOyO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cdUR38Btf0gqUaN1nNICVmuCSohIRF3A+LTNzPIOhOxmUn69g9PWxFemrHXqg8IFoezzO0VYXN8PwZe2JCMB4zwStz8k0GOWvgxOBVHDCekowtd1f590QaNA0sKd84/WiIt0aUxMgJf2/2UyzqrHX4SISGBboeHB8tpXcIj60DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ns+HJAuX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790593276; c=relaxed/simple;
+	bh=H5GJo30dYhNz75snjmBEb0ElTlWtvvb4awXplYQPNAE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oHO7zoKPRgUHdnRlfhPpRtYDEn0m3kCUCb4jcxu4NdlPg1bSjwNXMZ/2eQ2v7gQKC9btaq31a4ZlfLDKWXlmjn8JrQsT9JSD+ST5BLpazP9KIXRNmlcjiGoK9Ka1kqgPCWvVYJQmLBCiN+/j8k2Qkx+phCA8fGL3RW/wcTcMKsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeOkvjpU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ns+HJAuX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95101F0089C;
-	Mon, 28 Sep 2026 10:58:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeOkvjpU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92861F000FF;
+	Mon, 28 Sep 2026 11:01:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593113;
-	bh=X6BqH/yZqqamfLVukmDf/rY/Qu5OyQBwyrHbGMFypLk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ns+HJAuX8MZW2S8YIT3Le/zJN+nCV8ge55j9YedS41I99A+PRZUK6XvaZlLSyjC+8
-	 JU8YRnfm082rBhoRP7YHW6ngTNMi8IARYyvLtBDsj6O5HnKesAnfg+huj010/ndQDZ
-	 ylgLp/WSGZCTmgwonyDVpaKaKL4PvgoEl8+0oIYkL5FiL6HOIfxXIHpi6Oqb+k6OAR
-	 lH+jQdrjtPwNbHEJbGirAXXNZGPuYe1mIK+qKmZVCALDw0cO5kiOVxVifuUwQwEzMm
-	 Nt5J1/ZnwytNKmrt7kUiCIgoB04VZ0q1VpzbhGOlfcW90j6ByErEShHlCxSJc2Lqlw
-	 5Q8c2JE6hJGYA==
-Date: Mon, 28 Sep 2026 12:58:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zhentao Guo <zhentao.guo@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
- decoder
-Message-ID: <20260928-efficient-secret-manatee-2fcca6@quoll>
-References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
- <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+	s=k20260515; t=1790593275;
+	bh=Z1dV9FCQly0CWHqQuaTSa7O+l6RmeTF0onjzPx6pDUo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oeOkvjpU6728sz4DkNmIeIls8bKV/Ws+XCVHOy5FHbvZ+RwxW+gF8gqG8ecYdiPjh
+	 IUjl66/weJ/BQ+Comj1vyA0bjwBJ9ER9GYVlmMRxbcwUmdlB+f8BESu/w1nilUt49t
+	 Qg3v4xzeX0W03fkT3AwjD4vQKuCej2rfoHO9BP0swe0+hTeZXpEHdU1Uv4k3Zl3zDg
+	 7vcaWCrSru2MznYWgqWRPu3HJCHACZ93O0t7IjIaABAciH0niMVc5K99BUKFlOWZ/d
+	 gYzYbnhsus52iiGp5spQUzA6Pvn4A1i/tskOeaAeN1Ux0VLVU6rUysNUyPb7MOzeB2
+	 vD7w0NbkpbU3w==
+Message-ID: <f8134f74-9f32-4c98-96b3-ceeb978abb11@kernel.org>
+Date: Mon, 28 Sep 2026 13:01:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] media: uvcvideo: live pan/tilt/zoom readback on
+ the OBSBOT Tiny 2
+To: Michael Jordan <jordan.mymail@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Ricardo Ribalda <ribalda@chromium.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260902002553.34839-1-jordan.mymail@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260902002553.34839-1-jordan.mymail@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
-> Add bindings for Amlogic hardware decoder accelerator.
+Hi All,
+
+On 2-Sep-26 02:25, Michael Jordan wrote:
+> The OBSBOT Tiny 2's GET_INFO strips the AUTOUPDATE bit from its pan,
+> tilt and zoom controls, so uvcvideo caches them and userspace can never
+> observe the actuator's live state. This series reports AUTO_UPDATE
+> controls as volatile to userspace, generalises the existing XU flags
+> fixup table to all controls, and adds entries for the three affected
+> controls on this camera.
 > 
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> ---
->  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->  1 file changed, 114 insertions(+)
+> Changes in v2 (following Ricardo's review of v1 [1]):
 > 
-> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> new file mode 100644
-> index 000000000000..751043c3d9cc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> @@ -0,0 +1,114 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic Video Decode Accelerator
-> +
-> +maintainers:
-> +  - Zhentao Guo <zhentao.guo@amlogic.com>
-> +
-> +description:
-> +  The Video Decoder Accelerator present on Amlogic SOCs.
-> +  It supports stateless h264 decoding.
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,s4-vdec
-> +
-> +  reg:
-> +    minItems: 2
+> - Patch 1: unchanged; picked up Ricardo's Reviewed-by.
+> - Patch 2: uvc_ctrl_fixup_flags() now returns bool and runs at the
+>   start of uvc_ctrl_get_flags(), before the allocation, skipping the
+>   GET_INFO query entirely for controls the table covers (Ricardo).
+> - Patch 3: as asked, I checked whether the camera's other
+>   AUTO_UPDATE-flagged controls suffer the same bug. Two more do:
+>   CT_PANTILT_RELATIVE and CT_ZOOM_ABSOLUTE, both verified on hardware
+>   to change autonomously and report live values on GET_CUR; entries
+>   added for both. Exposure, white balance and focus turned out to be
+>   write-only on this firmware (their autos work, but GET_CUR echoes the
+>   last SET_CUR), so they gain nothing from AUTO_UPDATE and were left
+>   alone; details in the commit message. The commit message also no
+>   longer claims the capability byte is the same for every control --
+>   probing every control showed it is computed per control, just wrong
+>   for the PTZ ones. Dropped Ricardo's Reviewed-by since the patch
+>   changed materially.
+> 
+> The full lsusb -v output was posted in reply to v1's patch 3, in the
+> thread at [1].
+> 
+> [1] https://lore.kernel.org/linux-media/20260828152557.653475-1-jordan.mymail@gmail.com/
 
-What is happening here? Previous version was different.
+Michael, thank you for the patch. Patches 1/2 look good to me:
 
-Best regards,
-Krzysztof
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Ricardo (and Michael, I wonder, in the light of Michael already having
+found a second camera with the same issue and also in the light of your
+"media: uvcvideo: Automatically handle invalid uvc_versions" series
+if it would not be better to try to fix this up automatically instead
+of relying on device quirks?
+
+Specifically the UVC_CTRL_FLAG_AUTO_UPDATE flag is already there
+in the default flags for these controls (and a bunch of others)
+in uvc_ctrls[].
+
+I wonder if we should simply always honor UVC_CTRL_FLAG_AUTO_UPDATE
+from uvc_ctrls[] even when we do get a valid GET_INFO request and
+simply or in the UVC_CTRL_FLAG_AUTO_UPDATE from uvc_ctrls[] if it
+is there?
+
+That avoids needing to adding more and more quirks for this.
+
+Regards,
+
+Hans
+
+
+
+
+> Michael Jordan (3):
+>   media: uvcvideo: report AUTO_UPDATE controls as volatile
+>   media: uvcvideo: generalise the XU flags fixup to all controls
+>   media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
+> 
+>  drivers/media/usb/uvc/uvc_ctrl.c | 122 ++++++++++++++++++++-----------
+>  1 file changed, 81 insertions(+), 41 deletions(-)
+> 
 
