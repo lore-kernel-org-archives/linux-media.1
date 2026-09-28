@@ -1,134 +1,205 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF0E43C7A4;
-	Mon, 28 Sep 2026 19:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D2C4D7D54;
+	Mon, 28 Sep 2026 19:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624367; cv=none; b=i/M5uhxnn+inip8LXrXX9WaZtoaESO5vABWmmSs/rFRjqFFywMM/ZbrgbdefaHz2DKLMq2k1guhWMtVBLUXCW8n70DJlH8XF8Z0qEMlFe8KsAGUEOQOZLl6ELeyozj9eknujeJOC1WJsW6lkviVO5f1FiHV3RE5/qCoikjakNlc=
+	t=1790624705; cv=none; b=Z9lOa7IrWtMcht1TmgT3WMOmwWVYNk1jFvBcWg9Mf1GZvJU03pt8U5b01MBe3rgZ4iGFzmRZHThdVfsvnvimO27ubfyAI3oiDCYOqXAR+BCfe/dyQ0NlxNT7elpBS/W/w221RyqY2pcwPjox7a2MCo6j3ImuG16mA2wZbmsl4D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624367; c=relaxed/simple;
-	bh=+AAewgXDMIVVNyVEa+zV6e/mgsri0skjz0hNShpnhDg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G5DXESqhkYNgCIN4uTBHAzkXcqDxBin51QGCuNJMmo1xuCYzcNFv3VobZz+U0VFvIGjx86ZEWp7E1yVY1kfGooL5lAukzauS/wkSHSLmvuGrAj1dGlcGwjwWFdC08I7BF1RIYLKPR4CiEl+IZc9JSIq7n3NU5CPvE5YYGY/jdjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HYVBYBjj; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790624705; c=relaxed/simple;
+	bh=hCvew7md2wIV0ECyy4McQ/lsCTk4EqOcyRtTij05xfQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qjbrTUmf2w2XuVDHPksf9BqG90+UmIWPZDKumYPnDJeqGjtkE/tiVRR+gWRh0Fkuzk3zAoUXabtdybstIu7cH9m1Q+FxjkxAwFmw0cSpfT1C7FgKQCHHKEGwzwUnHY+tf3r/TAk+4noTrDzJ6de749ensKDVibb1OOVRXl00GtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=g9p7R7QU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HYVBYBjj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790624364;
-	bh=+AAewgXDMIVVNyVEa+zV6e/mgsri0skjz0hNShpnhDg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=HYVBYBjjuj9EqjMBnBn4CvDnQ58LVJvWBlOUfJS1Ga/XmiCzQJDRrqHtTBbH3g3bB
-	 2zrWFStAS9/v8fF5tm/gQHvEBv7QN5xyAZfce7OBPvXFdgpRc6E2y/jnW//3APo897
-	 nXBHYrmArPHcRhS9vYbSxBUreSMfOT+t5yZ2bPw2H4ybgiKIlYkiqzqM4uuyPVoG6I
-	 rd1WC5Ocb5NWg7bOGzl3zpcNvxh8kFp7ZqJEEONrCkn+zqjQ/JqW/p4RuNerQUxb46
-	 bHVJfFTAzvvhqjjLsIpysgPNDaA0U0qg6Nd2KKESaFBQwXdzS+gy5LLEr9Z2BOIC+b
-	 XfbyD8kw2EsWw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D049D17E006F;
-	Mon, 28 Sep 2026 21:39:22 +0200 (CEST)
-Message-ID: <54bdf44f368e90bce879dab51475230726a630e0.camel@collabora.com>
-Subject: Re: [PATCH RFC 2/2] media: amphion: Add
- V4L2_FMT_FLAG_DYN_RESOLUTION for VC1L
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Ming Qian <ming.qian@oss.nxp.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Zhou Peng <eagle.zhou@nxp.com>, Elliot Chen <elliot.chen@nxp.com>, Frank
- Li	 <Frank.Li@nxp.com>, linux-imx@nxp.com, imx@lists.linux.dev, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 15:39:21 -0400
-In-Reply-To: <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
-References: <20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com>
-	 <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-M4XvjIAAQre3ge1Vefte"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="g9p7R7QU"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 91288B07;
+	Mon, 28 Sep 2026 21:43:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790624590;
+	bh=hCvew7md2wIV0ECyy4McQ/lsCTk4EqOcyRtTij05xfQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=g9p7R7QU4hq68nKGF89plMhaDxFtRRBK8CGzDRi/zzJNZhmMqVl19k0d1TNTh58M1
+	 mCckzKdKgd4TfO+0zj3kpVO1H2WZJpftALWzwbQbMQC9ielJRiGE9VI6DCbTixF8i0
+	 9/cHlf6JDxitffi57ZW2kSEnSXDuOm1yJrMXusPE=
+Date: Mon, 28 Sep 2026 22:44:59 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@skynet.be>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+Message-ID: <20260928194459.GH210522@killaraus.ideasonboard.com>
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+ <20260928120252.GB4406@killaraus.ideasonboard.com>
+ <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+ <20260928122450.GA166131@killaraus.ideasonboard.com>
+ <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
+ <20260928124109.GF157191@killaraus.ideasonboard.com>
+ <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
+ <20260928184429.GE210522@killaraus.ideasonboard.com>
+ <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
 
+On Mon, Sep 28, 2026 at 09:03:41PM +0200, Ricardo Ribalda wrote:
+> On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart wrote:
+> > On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
+> > > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
+> > > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
+> > > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
+> > > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
+> > > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
+> > > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > > > > > > > > uvc_parse_control() passes descriptor by descriptor to
+> > > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
+> > > > > > > > > buffer, not the number of bytes of that descriptor.
+> > > > > > > > >
+> > > > > > > > > Because of this, malformed descriptors could leak over the next
+> > > > > > > > > descriptor, leaving malformed data in our structures.
+> > > > > > > >
+> > > > > > > > What issue does this fix in practice ?
+> > > > > > >
+> > > > > > > Look into uvc_parse_standard_control().
+> > > > > > > Let's take the UVC_VC_HEADER
+> > > > > > >
+> > > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
+> > > > > > >
+> > > > > > > buffer[0] = 3
+> > > > > > > buffer[2] = UVC_VC_HEADER
+> > > > > > > buffer[3] => Beggining of next control
+> > > > > > >
+> > > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+> > > > > > >
+> > > > > > > What does it fix in practice? It avoids that data outside the controls
+> > > > > > > is parsed as part of the control.
+> > > > > >
+> > > > > > I understand that, but what does it fix in practice ? And have you
+> > > > > > encountered a device that exhibits such a problem ?
+> > > > >
+> > > > > I have not encountered such devices, but even if they do not exist
+> > > > > they are easy to emulate and use for escalation.
+> > > >
+> > > > That's what I'd like to understand, can this be used for any kind of
+> > > > escalation ?
+> > >
+> > > It is very difficult (impossible?) to prove that something is not
+> > > exploitable, especially as the code evolves.
+> >
+> > Regardless of whether or not all the bytes parsed by the
+> > uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
+> > part of the control descriptor or are split across multiple descriptors,
+> > they all come from the USB descriptors buffer and are all ultimately
+> > under device control.
+> >
+> > As far as I can tell, all this patch does it add a check on buffer[0]
+> > but has no impact on anything else. If a device can supply USB
+> > descriptors data with an invalid buffer[0] that currently causes any
+> > type of issue in the driver, the same device could supply the exact same
+> > USB descriptors with buffer[0] set to a value that will be accepted and
+> > still cause the same issue. Am I missing something ?
+> >
+> > > We could spend hours trying to craft a payload, plus extra time in
+> > > future reviews whenever uvc_parse_vendor_control() changes. It is much
+> > > safer to just enforce the correct bounds now.
+> >
+> > So is your concern only about introducing issues in the future without
+> > noticing ?
+> 
+> My main concerns are that the function's API looks wrong and yes, it
+> could introduce bugs in the future.
 
---=-M4XvjIAAQre3ge1Vefte
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I agree there's a quite small risk of introducing future bugs. This is
+what I wanted to know, if there was an actual issue today (as in
+exploitable bugs), or if it was only a forward-looking change.
 
-Hi,
+> we basically have:
+> parse_field(void *data, size_t total_length)
+> 
+> instead of:
+> parse_field(void *data, size_t field_length)
+> 
+> btw: in parse_field we are ignoring the field_legth in most of the cases.
+> 
+> I am happy to drop the cc and fixes tags if you want to consider this
+> just a boring cleanup
 
-Le lundi 08 juin 2026 =C3=A0 12:56 +0900, Ming Qian a =C3=A9crit=C2=A0:
-> The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
-> event after parsing the resolution from the stream header for VC1 Annex
-> L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
-> GStreamer) cannot determine that the driver will signal the initial
-> resolution, causing it to skip waiting for the event and fail to set up
-> the CAPTURE queue properly.
->=20
-> Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
-> indicate that the decoder will emit the source change event during
-> initialization, consistent with other coded formats supported by this
-> driver.
->=20
-> Fixes: e670f5d672ef ("media: amphion: only insert the first sequence star=
-tcode for vc1l format")
-> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+As it stands, I think the risk of introducing regressions is likely
+smaller. bLength can't be completely off or the USB core would fail
+parsing descriptors. It could be smaller than needed while still
+pointing to the next descriptors, with the control parsing then using
+the first few bytes of the next descriptor, but the chance that would
+result in values that don't cause observable weird effects are slim.
 
+So I think we can merge this change. I'd drop the backport as we're not
+fixing any existing issue. And maybe avoid "Fix" in the subject, to
+avoid autosel being triggered ?
 
-Can you send a non RFC version of this.
+> > > As you said, the risk to break current hardware is low. If it happens
+> > > tis change is small enough to make it easy to revert.
+> > >
+> > > > > We add minimal code and solve a family of bugs. Do you think that it
+> > > > > is a better pattern that uvc_parse_vendor_control() and
+> > > > > uvc_parse_vendor_control() have visibility beyond the control that
+> > > > > they are parsing?
+> > > >
+> > > > I'm concerned that some devices may stop working. The risk is likely
+> > > > small though, but I'd like to understand what we get from this patch to
+> > > > see if it's worth the risk.
+> > > >
+> > > > > > > > > Change the code so we pass the actual length of the descriptor to the
+> > > > > > > > > parser.
+> > > > > > > > >
+> > > > > > > > > Note that this makes the existing check more strict and some devices
+> > > > > > > > > that are wrongly parsed today will not be probed now.
+> > > > > > > > >
+> > > > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > > > > > > > ---
+> > > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> > > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > > > > > > > >
+> > > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
+> > > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> > > > > > > > >        */
+> > > > > > > > >
+> > > > > > > > >       while (buflen > 2) {
+> > > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > > > > > > > > +                     return -EINVAL;
+> > > > > > > > > +
+> > > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> > > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
+> > > > > > > > >                       goto next_descriptor;
+> > > > > > > > >
+> > > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> > > > > > > > >               if (ret < 0)
+> > > > > > > > >                       return ret;
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > ---
+> > > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+-- 
+Regards,
 
-> ---
->  drivers/media/platform/amphion/vdec.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platfo=
-rm/amphion/vdec.c
-> index a9f0521f2e1a..75808482d090 100644
-> --- a/drivers/media/platform/amphion/vdec.c
-> +++ b/drivers/media/platform/amphion/vdec.c
-> @@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] =3D {
->  		.mem_planes =3D 1,
->  		.comp_planes =3D 1,
->  		.type =3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
-> -		.flags =3D V4L2_FMT_FLAG_COMPRESSED
-> +		.flags =3D V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
->  	},
->  	{
->  		.pixfmt =3D V4L2_PIX_FMT_MPEG2,
-
---=-M4XvjIAAQre3ge1Vefte
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrCaQAKCRDZQZRRKWBy
-9CYCAPsFveAaWChcZQDCXyLHHs+vulfT1yzF5GrpP/nbumEvAwD+PIpjMxcHbLmi
-mmV7vNw7LQoqmoTk7u/pflIvWwXjfwk=
-=8PXW
------END PGP SIGNATURE-----
-
---=-M4XvjIAAQre3ge1Vefte--
+Laurent Pinchart
