@@ -1,65 +1,66 @@
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CEB4DEC0C
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847664DE717
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605945; cv=none; b=n/QAryrq08Jg0wlL3mWb39FXxih6KVWyJlYI0r1VUYN8Ieivct1zBWhN4dQd9lye4gp2pI8AV+aswQHBzzY7lt7GpZi8ZJjDikpfAM1wGtqJs4cthlxRo23IlyAIGbFkxlFTQcJvb+ueh72leSKTM7ES1eWZnFtkj0mZm232tBo=
+	t=1790605943; cv=none; b=sM6JaTLJu2kizeby01DdaPzVLpXs6zmBkV45prZMpQrF9b0qM1sHYJUOX/m2RVEb8+m8tltcrr4wWFt4Tq5XL8FBalDaoB3Pwa/laDwgdKIIw4wDSp5+m57RxF50g6y3OpV5AUOYPZysqzx7NrVYBSPEnu+cR1olOavKYpUpM6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605945; c=relaxed/simple;
-	bh=gKklwbA4xHxFTf9zhcCzZo69mp0IYH2X3pCyg+sJRTo=;
+	s=arc-20240116; t=1790605943; c=relaxed/simple;
+	bh=vTx2xmq1OWfz+8T6HSxU27AUGa2mZ0TcP8GSl6lUKJk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kVNsQ5QiyE3qkfCYmyC3celgOmZdBM8pfP8W6pWAgK3ZkiLNJ25cHau2v05gxXlgJtH4iSRsrC1g7RfvxB4GujzWaNxIYIkUO0Asf5gPwHfLj5tYlRsz97tbYKFHcMl9+uRMZreky/yZm9UbNZatY3AifeamF6666IFleyH8J6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=e7BOorU1; arc=none smtp.client-ip=209.85.208.175
+	 In-Reply-To:To:Cc; b=Jleu4NPF2LqArey6pKDSbW74IlsQ5FLFYxKqSz6Gci+3lLTOwwWXv8uIKz9NGVHFgTiWMJKCXYnoc58GCQ86vlS9qtwdCkbFPzwCctpMT7Jkt2ch2iXngYYJ2aMVCHeH8tlER8QCGgbEzPiQ/fIDJ6SJ9IkTRkorqCg3dHKL5HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=PZs5oXqS; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="e7BOorU1"
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so1330531fa.1
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:32:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="PZs5oXqS"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f80e3f72so1454370e87.0
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:32:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790605937; x=1791210737; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1790605933; x=1791210733; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lmW+RN8xwTQxYTKqM/f709I/w308mfcjTNfdEIlVobs=;
-        b=e7BOorU1K701wmoxdS9/UDcwiDpl+iRy1twC+ndf9yRBy74n1xyjJyNuaZ6K3T84ho
-         oJmwSVJDHRVx/q1xrNQKpwSSIeVpYR7BZvIk016BoqOfe2nodhg+1SdkC4Sky04UHmoy
-         p2PyTP3FPzRdNjm+m79qDeOm1S4CynJlsBjog=
+        bh=pZmOc8wc9+wz/uutYCALFKqsDrQBIXPS9oyyY3WIPdc=;
+        b=PZs5oXqS62eIUAe1AeULcvzt1ZSqIaPh6PKrvzGYPZMDlgyWmxfXtWDBAckc1k5yUf
+         h/wO2Eu0EHEssxwfLJ0N97OLLDvg1Jc4NuDhgOzXDK5Eba3RtWWTELYhzaMR/ANhacLN
+         4rb0Dr8Ts0nqRkIUAUKHIc4YtycBt5SVVJlWA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605937; x=1791210737;
+        d=1e100.net; s=20260707; t=1790605933; x=1791210733;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lmW+RN8xwTQxYTKqM/f709I/w308mfcjTNfdEIlVobs=;
-        b=DTwqHzGJ8E+gU16BfP3cPBdVWw4p1XIZoLfI8P7PoCpEzx7ycEoJswoev9Pv4O/BBM
-         F54zUtyu+5vhpObwq+OBa4t6r+zsRYFjgdDjjG7fQLPh3ZBb17nr+E8yUVbkOGv73nlq
-         WBpp6yc1oz9Ppoiu5QkT5meeZRDWbnSusAZyvr3kxZLSqH84BnLOf6kCLJqneNnmzdTU
-         +lCFX8XSqmPUceEklECOy/ou/38uoE1pH00RUj7yjzhlJ053IbmBzIR1f8xe0Hv5tZrW
-         xlcQ5040jKGh31gU56dXK8VOG97L7sutEszIcumxOXXfweLPUgv3kuPi2N3KN7ehLZVd
-         VS0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzupoOisovJMekAisOu9DrMZj15cAXVfK7xoswkyzhhn8LET5LW/Bb34KUEwmAGuZjhINhIRIWXSfdPYw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuwrzs908js22EmV9NmrjB5+2SXhtKDqekDUqcQhlLpnW0Dkrs
-	7OvbSa9vnwsEi4BJV2EHDbzkNR9cGAVzc3LzFmpS+NNLNof+NkYxvUpNhPbZESdTlA==
-X-Gm-Gg: AYBFou0mOz7j1bctpv9laiwWmh0nJ8h2XAPod4+mnDXJF58kc+Tz7ArqzkEElLN9pym
-	nkSqrFC2vxaNF7cXCypNY9vzm9RlwrdCJeAnFHbSDVulbDMYQGqAUO0N0Ev23uXk5SfWH16L8jn
-	qeANNZcVycQoYf47TY4RdyTzIiRdWk7RbkawQBFj3pv6OTEiETABwv4n44z19SofM6FTUuv+GL1
-	Z84GXMwti6q9HVHhTmGKRR6cUyozzwNJkZbsGbVrZfIMBAkW601TuGK5BcI7Kxlq2kqxMQEgMn4
-	GC8jfnqY+TNd8GPuL4jdWTmHE+pPqDD6gKbu211Yul7VRhdyRUV/3Morvxc18x50KBKoLyRj+oV
-	MKDfUu3xb/jgdQm6kpnPTkohtnani5DZ+FWA9ozrzSyg1jUXwGzGGn0COXHp7ERyydhk4/Pw7Ze
-	xNV5sZH1WZ2zeOa548P7LwQ0HkYM0m1cNcJWxnzQ9QJMiKWrlh8o8awGQereGJpOLoIeuTJeujE
-	pXvxT0TiimYNQyVfHcBmeGULXtzCDlUyjpQa7/3gZEeL50eoQ==
-X-Received: by 2002:a05:651c:18c6:b0:3a6:5c8f:857 with SMTP id 38308e7fff4ca-3a65c8f13e8mr15887011fa.8.1790605936912;
-        Mon, 28 Sep 2026 07:32:16 -0700 (PDT)
+        bh=pZmOc8wc9+wz/uutYCALFKqsDrQBIXPS9oyyY3WIPdc=;
+        b=sL7VBB760+J+P8kPIMFOSltCxXRk5ZH4lmkm0ujzfzg0O+mJnFlc7xLbzANj5Vsm0B
+         9FA7SvkySjx+NTWSmX0blWk3Dlp6KGMxU4a23NrZFGQhGXR8xL8sjl/Y61X0BhisWCVl
+         DyD84j9BGlP+rnnb0EKSVYhdU3aNeLLlTKJLGt0TWgRk0S1y8mhUe22IKFxNWWqJJRPR
+         3gGEE003cEgVMQHw8hEcSl79Jq94Vk3jnZXXOmRjaaeHpVaum8p0Yu5DtFDeW+GSkh3i
+         AYC305bJHtQdEW3HjY/aRhoyTXfwTZobDIAZVoqkgW7eIjqV9WDdq6Lu6tjpADrlh2zY
+         cz8w==
+X-Forwarded-Encrypted: i=1; AKwUvBx39o60vxK1SDbfdbusXOYlvGKdDKMVQzBgoKMUP4h4NC/KoLKNqkVNVVLphoMoQFZmGG2QbBeuE+yv2w==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK18K5OHtblu5S4Q7v2BSDEb5am4lEIVoUyXMtfAevFFFRTLP8J
+	ppYTm6r4a2QC9+QsVbVPWTj0X5SkYglhuuFbiZ8Eg5oLMCLUdpHnY33WrZUp1u7+hg==
+X-Gm-Gg: AYBFou3TIPxZA5bMAj6GThnVYqg6UQlsryKmhloCNd+AfJOm8UUduH4r37GIslHoTYD
+	P6+lR8ey5ps9basohDc83EqQy6cp0oTKG6lZRH+LPjTwu4v20RfLydeZBqeLZiNJFQCA2fraF/W
+	tbd9a8Egrwi7dqjW9Kxp6nJ7/hk+IWwneIEuPAFdIZfp3ZJBMXrKEvrKGCzr/ER2hIEMUO6j5p5
+	P83jdakQNrXFmQs8+V3ufAMO2kAqJzHTLufeJ+3Ox5cYDB1RhcaIur/Faz2pO3cC66tEJCryKrL
+	Jjy3lL7OmeuLGpXsMuD4Uq/VOqXC/mKQ9oYPR+sQNmxfNnVUloCAELGcgqsnVdq8Fpzr4YZCZGo
+	NpZIR3gg4GuxH6HC3zBTbeYSZF4X9x+CZ890V/MMqDSULlkW0PqkXfszVddHqhgTc+eOHsMUqe2
+	X2a3RiIWHwwVciMCRBR32tFlSnAtrHSJT4ytOAsnBXfqbeTwNT9linMK+fJiB9qjoKkb0ETemW9
+	0w55qBDd4Rh3U+BHP3HrveRJlltSHbzLtaVPbeh/1F1yWMa0g==
+X-Received: by 2002:a05:6512:1313:b0:5b4:74a2:cf2e with SMTP id 2adb3069b0e04-5b8df0db4damr4119015e87.21.1790605933233;
+        Mon, 28 Sep 2026 07:32:13 -0700 (PDT)
 Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.14
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:32:15 -0700 (PDT)
+        Mon, 28 Sep 2026 07:32:12 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 14:32:03 +0000
-Subject: [PATCH v4 4/5] media: uvcvideo: Do not parse bmVideoStandards
+Date: Mon, 28 Sep 2026 14:32:01 +0000
+Subject: [PATCH v4 2/5] media: uvcvideo: Use uvc_warn_once when it make
+ sense
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,7 +69,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-uvc-version-v4-4-da0e983fcb95@chromium.org>
+Message-Id: <20260928-uvc-version-v4-2-da0e983fcb95@chromium.org>
 References: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
 In-Reply-To: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -81,47 +82,44 @@ Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org,
  Hans de Goede <johannes.goede@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
 
-bmVideoStandards is write only, so there is no need to parse it.
+If there are multiple cameras in the system affected by a compliance
+error now we only show an error message for one of them.
 
-Remove it.
+Use uvc_warn_once() to print an error message per device.
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/uvc/uvc_driver.c | 7 -------
- drivers/media/usb/uvc/uvcvideo.h   | 1 -
- 2 files changed, 8 deletions(-)
+ drivers/media/usb/uvc/uvc_video.c | 2 +-
+ drivers/media/usb/uvc/uvcvideo.h  | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index ca75f8d1ec46..adec9d1aa653 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1187,13 +1187,6 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
- 		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
- 		memcpy(unit->processing.bmControls, &buffer[8], n);
- 
--		/*
--		 * We are not using bmVideoStandards, so there is no need to
--		 * warn the user if it is missing.
--		 */
--		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
--			unit->processing.bmVideoStandards = buffer[9+n];
--
- 		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
- 
- 		list_add_tail(&unit->list, &dev->entities);
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index fc3536a4399f..2a3b7431cc68 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -95,7 +95,7 @@ int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
+ 	 */
+ 	if (ret > 0 && query != UVC_GET_INFO) {
+ 		memset(data + ret, 0, size - ret);
+-		dev_warn_once(&dev->intf->dev,
++		uvc_warn_once(dev, UVC_WARN_QUERY_CTRL,
+ 			      "UVC non compliance: %s control %u on unit %u returned %d bytes when we expected %u.\n",
+ 			      uvc_query_name(query), cs, unit, ret, size);
+ 		return 0;
 diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index b41ce01dc21c..0b2c05f6d381 100644
+index a80406f20beb..abcafd929c9e 100644
 --- a/drivers/media/usb/uvc/uvcvideo.h
 +++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -228,7 +228,6 @@ struct uvc_entity {
- 			u16 wMaxMultiplier;
- 			u8  bControlSize;
- 			u8  *bmControls;
--			u8  bmVideoStandards;
- 		} processing;
+@@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+ #define UVC_WARN_MINMAX		0
+ #define UVC_WARN_PROBE_DEF	1
+ #define UVC_WARN_XU_GET_RES	2
++#define UVC_WARN_QUERY_CTRL	3
  
- 		struct {
+ extern unsigned int uvc_clock_param;
+ extern unsigned int uvc_no_drop_param;
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
