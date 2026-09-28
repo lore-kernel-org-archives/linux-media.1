@@ -1,157 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8375397935;
-	Mon, 28 Sep 2026 21:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3963F397E73
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 21:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790631760; cv=none; b=DZb/EU2uyYfVKsVBy1JS+G5pcwEN4kmdqzLI8qDDi/jolbmaMlD67boly6jODJmNW7pdJK38YEgyFD3/TX7/mW4fSMG83UGBLUqYH1SNu9IC5kK2oH1fgLYc4Y7TfyYWaItBKgfZG/cvRsVKyXOMqH/fxvbC9zduNmQO1vekPFA=
+	t=1790632225; cv=none; b=Hk6sVpDUaLuoLaUD2/8gASCwFm5ob+9jv1pmQ8OSD/ruyuG9fcKYEgfm4E7lbQN9VWcPG9kd/ZSCnlAKv5MaJCXHLjZDnXZOEUWU/P5fkMK0eEWHPJxWr4HGbTBOqkpoze2T3Aiin2wXAm6bUm1hwKZt0owaQoYbNXFubGLBxVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790631760; c=relaxed/simple;
-	bh=4VB9v04bJL+PlFYsbzdEYOrFIWgouYSbyR4VTShgUrk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GgPjH7vuqmsrDc01mVaMha9nqP92M3v5356E58k3GGDnDoMA+wLuNJhoq+imKDC8KTI2YXD/++4yyDgtu3cmCZm39AsS3XE0Ubk2kIOKjjWbit2jroFzQMyLp51yk/wbAHccN5MI8Cn1PsaDGFLmNkgfWvidV/x32hK115PtAGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZz+ww/S; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790632225; c=relaxed/simple;
+	bh=Z3pSnbFRdpYgVgDelEoK69oaCCB2XC4FufzHN2BmXHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QQ1fGxAw5ZXUURVHyE9lvoVMUlA9n2kyb2TZQqzRDCHGmtB/pS/qAylYTYQlyv/YaQ/hA72533vydq6yocZeXD3ZY7SX8GAGAQyR/034hoq0ny8byQxUf4mECdIAZVU5nOM2dx7PQg3QlAHoDLgbDb9aU7sT0dU+Z350aUGaWUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IyCvMsul; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZz+ww/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6F222C2BCB3;
-	Mon, 28 Sep 2026 21:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790631760;
-	bh=4VB9v04bJL+PlFYsbzdEYOrFIWgouYSbyR4VTShgUrk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kZz+ww/SJr9iWwJcHuL5Qi7SSQSNew6v9ltumHFf3P/wTeRkmKPVBXCwrIE2mQOVr
-	 gulvIizTpJbsmkQ8ak+ch4uA61HD3nmjI6sFZ7oc1ziCTY+j2w8ifZF8imBeHu1NV6
-	 foiWKTiGkD9HHDljcWVF02KKznB/Qd+5cCC3P4uGoQ5i1qxliXDcM0fzwUK2+nGxrx
-	 l+CAiv82bC2VPyalgjGcUVmNqI7HQcbLA8a9WFjKpbbiheoaEBNc05Ml+03GYZ7NVU
-	 nriD5n27zK/gyUrb/Wvd7lXQAmbKJncv6dfBSpHjEmPKpRb93XxQejU2AkwuHdrNrd
-	 8DTPZ0DQSRS3w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BDC3CA5FA1;
-	Mon, 28 Sep 2026 21:42:40 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 28 Sep 2026 23:42:39 +0200
-Subject: [PATCH] media: venus: core: look up static codec nodes among
- children only
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IyCvMsul"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8a8f3f7ff7cso27288467b3.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:50:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790632223; x=1791237023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=blPdWqjXZLfoA1+E6rg9xXLBNaq8pEshwmFOonEUnxA=;
+        b=IyCvMsulVQ/T3V7wroloNh9JcJ48v2rHPpADL0dLjtoXl5fFylB5cARTyxiYVY1ldH
+         zPKXLD7CvBQ+T9tZCYJrWIp6PlJuqs4A3jsSQsI43QalspoQEXsvYwIPFw8wcaTl/gHc
+         rKDIl9XsK9KHGQznJY+K28x7kfudmMe8isx+DXui4IRNxZvUeJh3Rv+18JrG90vm5kM4
+         FMR2sqMd96AjTOdrUATy5pwZvo9Rndsgfgp67XrxTCA7GIpnlvWPsu8eP77FvJ0IBcOg
+         dyEmCRSR/IXTPaarPQvVTdNzq6Xa1EHa0PYmNjDc0aYkiYuNAhC7hZO/AAHh/FIVgKnh
+         9Pqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790632223; x=1791237023;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=blPdWqjXZLfoA1+E6rg9xXLBNaq8pEshwmFOonEUnxA=;
+        b=a0w6S40zXa6cC+W7oENoQSPjAlOXyQAiYzEDBAxghp5V1TsYM/1bL9Tg0ZFuI8R64a
+         kGOqGZqjuuYmuSnq8U+kH0sWgL5JVJSU1XVAXqoWRDJETNPH4MzICCacN4WfIqUGWH8G
+         ZoGnBgis01jQCeDj0+Gi8OSdIPWjpoFYonVs/YWYwxxmR+4ffE2+awFLJ64AyhkrEInb
+         kLgsaPS2z2pkk6TULB226khOyVa3SBDIYTcHHfS/5sMN/irkrkNKwnKYrkBwLXlR0FrC
+         fSLU/EQQQtOK6LcYB5IZ6BGZoRx2DATEpNplVyhZQH0mmgWOBnUlC4CdV/nQLo0RyCKC
+         HITQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzWQeGdS67lpOPfhi4LP2rXTJ+Q4n9rpIp3zmwqkuXn7jgYM1/W+JTQkkIqLI1WcHQIIiCWivYJUho7Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnS9Zg+q9IHkk1AlW6G29loyAEmc4CE24wV+Z2b4XmRr2OHQAf
+	DWnT9lfjdMVhR+4vedK25O/M6FfG9nraRYmzlEC/Bl7eMHd7txFLsWhjo53GD2mPflY=
+X-Gm-Gg: AYBFou28KAQYWBCv/XLtkchgaxKFDmO3TpLb7Au92bxosZ34KhvbBBj/M6bqqKbveb+
+	pdts69ezpdLZG2awE3HVRq3Ag1e2SpET63u5UfwgXre/tHg6RpW8EEMybib4fdV/cME/Xsi/D/v
+	VsHDQ8KwmaaDlPb8/qw6eOMRy32A1Zl3BI6c55Ze5InbIzae4IDBnNPkugIHghBEFaJMWAhwERb
+	ZNGGaCHfv8ym62GEJZlU8uZS0NRDxba4Pzzu866R86/GR4PdrA42tMZ/O36wAuIkUKP6Dj3f5ge
+	eZQI3e4BrrrMGEDu213SEUD7jlr2Aw3972IltFbDAhPf+P+D9ftMuk2iduug8rg9OifxypgbVEv
+	5PAHvGo86XaeoB78dMIemjJ75vgErMB33QFBF3HiHTsmpTxx2O09kWRZ35eIGjf03m2QzKPvXqe
+	Z8XTn7o+MXuo+RRaLSSvivz+6+oapQlNKrs3pyh1cz04lA+m5oLatkixKOkjOf1RM+bzJXBTMzD
+	d09e9PvSJtN7x07cCpFnPwzvRhdaKLETtNy3TkyHg6hnnLQSTZQOQ==
+X-Received: by 2002:a05:690c:dc8:b0:871:bc3:9844 with SMTP id 00721157ae682-8a6461b9be1mr78062277b3.7.1790632223183;
+        Mon, 28 Sep 2026 14:50:23 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a861012f4dsm50897647b3.37.2026.09.28.14.50.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 14:50:22 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Jordan <jordan.mymail@gmail.com>
+Subject: [PATCH v4 0/4] media: uvcvideo: live pan/tilt/zoom readback on OBSBOT Tiny 2 and Tail 2
+Date: Mon, 28 Sep 2026 17:50:17 -0400
+Message-ID: <20260928215021.819064-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-venus-of-node-ref-v1-1-7579fb84445a@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqEMAyF4VeRrCegUby9yuBCazrGRSuNiiC+u
- 9VZfgfOf4JyEFZokxMC76LiXUT2ScBMvfsxyhgNlFKZNlTjzm5T9BadHxkDWxzKpirI2p5MDvG
- 3xFGOt/nt/tZtmNmsTwiu6wZ1+qSNdQAAAA==
-X-Change-ID: 20260928-venus-of-node-ref-b69742ffa2c3
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Dan Carpenter <error27@gmail.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2898; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=RcEQpaG3qjApty1CwkPYZ1bGIKgYZo3g8YmCYVk3/4g=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqut9PZoi6wYMcLOhfMI1e5kaNX46iKGzyTx1nP
- /n41g8T/veJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarrfTwAKCRBgAj/E00kg
- cpIfD/9JrB03HWtW4Pd/RAJ2kwg5SKWnrlnqaHQI0mzpYp1J5FWrh+/c2hXbsgOVsdErI/zBmhL
- hhYx4dpZ6wzxj2bHf7w/1NxxCoYavZL2ghxwFT9Qpo6b9qCA0uwARacGTn2Lx9qzEthgnc07I3m
- 5MGKYnZp9zDvTlWFf3tN6WtPrNkOoPoAQonOdcI3SsBPvOMq+Qlj6Sj3chZCG/pu436lbwSKGiV
- e1Bc9VVxEJd/FJDz1C4SsLWDvod4EKgb98nz9HAaFvBwdP+cMDjQv1tUxMl7+nzqvqZP4mjqDCX
- 2nk3iKR4BQFX0PwDZlEAtC5nu3GLWoPlZLFNDCetVxsIA1z/DkRVxgeHxLNa3vxs2/H+s6bv9G7
- 7aM3ziOiBt/OaC55UW+SaA5qluyvbkMOW46q02GebeCZGNrDpuuGl+ph2l5F66XzBEqihyXynyT
- 2t4zIU8jRg4QT9OpTNht2U9r2qYip4TiDvyP6bP8uu1etzn86pmV6iXoFFf56RrC2OqAIfntn/7
- jwRX1jN47BrdUe5Pu6aNYlIpFATh349Y5aTOEzAMc5royKIcVJDinwlB+FpR+Uyr4sxH32OUzUm
- QdRVyOihfNK5iyBGYEOZi6kLMjvxEH5M2Qt4VYRE5Ro3ApooRp28mZaii9YI8IGKH5h4sojBb9t
- xq+UNf3NU4IryNA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+The OBSBOT Tiny 2 and Tail 2 do not set AUTOUPDATE in GET_INFO for their
+pan/tilt and zoom controls, so uvcvideo returns cached values for them.
+This series marks AUTO_UPDATE controls as volatile, applies the flags
+fixup table to all controls, and adds entries for the two cameras.
 
-venus_add_video_core() checks whether the decoder or encoder node is
-already present in the device tree with of_find_node_by_name(). That
-function drops a reference on the node it starts from and searches the
-rest of the whole tree rather than the children of that node, so every
-probe drops two references on the video-codec node that the driver
-never took.
+Changes in v4:
+- Shorten the commit messages (Laurent).
+- Use "Assisted-by: LLM" (Ricardo).
+- No code changes.
 
-Once the node's refcount reaches zero, which on SDM845 happens on the
-first unload of venus_core, of_node_release() complains about a bad
-of_node_put() and the node's sysfs directory is gone; the next probe
-then crashes while attaching the dynamic child nodes:
+v3: https://lore.kernel.org/linux-media/20260928152416.766957-1-jordan.mymail@gmail.com/
 
-  OF: ERROR: of_node_release() detected bad of_node_put() on /soc@0/video-codec@aa00000
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-  ...
-  kernfs_find_and_get_ns+0x24/0x80
-  safe_name+0x48/0xd8
-  __of_attach_node_sysfs+0x58/0x118
-  __of_attach_node+0x8c/0x170
-  __of_changeset_entry_apply+0xe8/0x178
-  __of_changeset_apply_entries+0x50/0x1e0
-  of_changeset_apply+0x54/0xc0
-  venus_add_dynamic_nodes+0xb4/0xe0 [venus_core]
-  venus_probe+0x2f4/0x3c0 [venus_core]
+Michael Jordan (4):
+  media: uvcvideo: report AUTO_UPDATE controls as volatile
+  media: uvcvideo: generalise the XU flags fixup to all controls
+  media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
+  media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tail 2
 
-Use of_get_child_by_name(), which only looks at the direct children,
-where static codec nodes live, and leaves the parent's refcount alone.
+ drivers/media/usb/uvc/uvc_ctrl.c | 126 +++++++++++++++++++++----------
+ 1 file changed, 85 insertions(+), 41 deletions(-)
 
-Assisted-by: LLM
-Fixes: 687bfbba5a1c ("media: venus: Add support for static video encoder/decoder declarations")
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Closes: https://lore.kernel.org/all/aAuqgiSxrh24-L-D@stanley.mountain/
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Unloading and reloading venus_core crashes on SDM845: every probe drops
-two references on the video-codec node through of_find_node_by_name().
-
-Tested on Pixel 3 (SDM845) with ten unload/reload cycles, decoding after
-each one.
----
- drivers/media/platform/qcom/venus/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae75..3e69fc7ea3c79 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -301,17 +301,17 @@ static int venus_add_video_core(struct venus_core *core, const char *node_name,
- 	struct of_changeset *ocs = core->ocs;
- 	struct device *dev = core->dev;
- 	struct device_node *np, *enp;
- 	int ret;
- 
- 	if (!node_name)
- 		return 0;
- 
--	enp = of_find_node_by_name(dev->of_node, node_name);
-+	enp = of_get_child_by_name(dev->of_node, node_name);
- 	if (enp) {
- 		of_node_put(enp);
- 		return 0;
- 	}
- 
- 	np = of_changeset_create_node(ocs, dev->of_node, node_name);
- 	if (!np) {
- 		dev_err(dev, "Unable to create new node\n");
-
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260928-venus-of-node-ref-b69742ffa2c3
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
+-- 
+2.43.0
 
