@@ -1,316 +1,206 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021109.outbound.protection.outlook.com [40.107.51.109])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDDB39061D
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 05:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790573968; cv=none; b=NIsma3XpNHc7AZTuHNv9rL2rf+Aolxppk0Y1xUWuPB+UmJB3/4y0W72YKw/nm04SChpBLcdqLcGDZldJoGARZf2u27VcxN99ZCZbuNbUD4g69m54KgnfOMM2ArkOpJfiW+vLlfBCyfiJL54CpbTCOxjkb2KOpZXltROJjmMiGA4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790573968; c=relaxed/simple;
-	bh=vU3G+Dpf20aZ+9WW19yBDyvOCi9xmow7DgGMoyE68S0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UNPsLWzSpdgu12IDfmx7EysNqWoZwB4kri96vGfmXgj0GZst6tqgVV0a8auUUUAqH1tXJLJcPSWPcq1ZeyWiqTOO5PAiURcNt8mPBXFY/EgctmXHTXI4kbHK7Mu+u72RFvAcCWxs+JF0t3XzyKRy+auc0+jwcWS6OdKgHiAeVCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+TNqcIU; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+TNqcIU"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc7661e6333so196738a12.3
-        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 22:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790573959; x=1791178759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x+ooTTX9f0Dee2MM//tZyofUwOPATbbov9mICSl7hdg=;
-        b=N+TNqcIUeslpBd6SZHB0o3v/bYT9mKWQBC4J8LS0j+fHA7YwK1zMZsO+e4wmxjGSYG
-         SfEsPD69g6KjE94zcv9GPhmx8rnD5POErVStUKRvA5MA7xkKaklmKAdRrB7N4vX1G5cF
-         tDVKBSvTgLD2UUKlzFxrURm21k8YL3uJkdQ0gNiTvLowGYrOrN+xVCtP84KR2ta3Z0nu
-         CqSnMY9g1WkDXgRUR1e8gRTPiavSsoEMSwqNM+IFzMgDSK3FIw8Ii3OcwLdNyAQm175i
-         W48CGSVzDmw48ELcl0MK0iNNMws9U3NTM91lAeW/1hIoYnlU+mwO/A2dm24vSBLDLC2W
-         JZVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790573959; x=1791178759;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x+ooTTX9f0Dee2MM//tZyofUwOPATbbov9mICSl7hdg=;
-        b=xKTJb8DW9exCLgkNb14tcU8A5wcZUsBfo2IQIi18gSZ6Fx1CUqvYuxm+cUomw89XL/
-         8O77kTRWXKGMhqTSyaOrYN38Xk3OqFtRzdUq3iyu3k+FE9PW3qAg2idzkmxn4q3//X0N
-         fputr9dmWGRmobIYK2RBGAMAM/5QsRQumF6TTZKPf9zCYi8QYG/VdvT1exw9XfayZgY3
-         AKFoK9yJLoGmYmH/vIdTxZ2wvraPm4tE/ifo/PwyvB/4D5eLDQl45HaUZbmmP7gzS/1W
-         PC44GTW/tLgqz/tdDpd++7Q57kc6LlpjjGFj3lTqqJejiwd8saFf1LXDWI0Ie08Bk+iK
-         S2xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzccCxM7fk0pL5zRGpUw4RvMjGIBBZclg1lw0Ytb0bA222Wp/PFi6XXl6lD0w4IlvBiak5qU/IevE9Wag==@vger.kernel.org
-X-Gm-Message-State: AFuF++mEyPmDhGdDQfu2rxOHZl+pthMoHYBZelav53F01pZk+mtjx2Rg
-	JuyiV5k+ok4BDbBtGQlLY+F9pT+RZhn/JwxeXPO51CuVY1buy0d5Glk6
-X-Gm-Gg: AYBFou0d8yvGaGuhLxBz/Ef39QaQmx2ZXB/ZsdMKo/FT0JIpvqPME9Bs6+GXMOVP2+4
-	OToT4a5kQU2yFy0WWsxnfV3f/U1Gnt37T2nIBQWcDuYOFKAn5Xb2I9k38QqfgHI3Zj9kI3XjAgj
-	8zunAX6SoOhLjnOo5cLl+dpJmB1T3IgxHCpWhIIrfJJdfjc8uW092SReuv7UFPxgf0pSh43USOr
-	q05eyS2x/C+rJC1lw8l5CVDLZ/Kz9+0u7QAwE2R8+WaCmPkFcEaNb4HZc4pM2YrhdiY9ZChzDJH
-	HG54DkPz9qhhQMh8uAsV/a20KTqaygZVV1FkBK8oSdNWw+v30Y8WvaGk8vhdx+D3gfoyca9iLCx
-	ud3Sikr0TWCwmA0WpA5MMpnGkDYjTl7oBdBGnawjsKoUNy1Gu6voZzYrxXKwO4fPw7JS+Wdmzdi
-	Bkx/82paBM7saMaU3wLrFfxGBaH40Arbj8LRqCrusJGknbctW73Hl1LP5SEFjOrLFpVAVpBnVaW
-	bZbIKaeDLZYvw==
-X-Received: by 2002:aa7:9193:0:b0:880:4b51:af11 with SMTP id d2e1a72fcca58-8804b51b2e5mr8040887b3a.2.1790573959042;
-        Sun, 27 Sep 2026 22:39:19 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87febb82357sm3591121b3a.61.2026.09.27.22.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 22:39:18 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: dri-devel@lists.freedesktop.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7594457AF;
+	Mon, 28 Sep 2026 06:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790577835; cv=fail; b=FE6dAAb8fb6YB68tjnfv683HyNUp82coXoSe12szoo7fUpY/6I1dKd/z7qQNCufjluAZMA10rRhA/1nMiMu4m3o1uwYFLmFpsONliXOA33ldXKIuaxNgUWtrGNJBeBOvaze/ldbhKgbG+nuMCYvHVte82gn6b3/bylcWpjSLy6w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790577835; c=relaxed/simple;
+	bh=tjMP/MVcvWpMAn1khK+jT4V/hoPbIXJBbaP7SBTGVFk=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=qneWRVJyDcoQKrFf2UKo70cBk4mJlafyfKVSok3rGO5dAych/3pUov1nayXlJ00ttlau++O7QJQmSUmmus9OjGT3RYJq32NbZd3IX8g7FliBm3+1dOcMt9zuzRmFDvrRNWhktpqE/JyI2x4DPfI4z0XbhCPq/5U69AjEn0ZAn48=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=J/GmT3ILH/iLpfk/GOe/RJ2sLUs1qeRwI8tOXMHJnPy3UoWyEHp9tKsernfFN7HJn3F0RPv/s7awB6a8QnHUnGZf5pKCod/u3QjCEcFrPRekr202UGxRk/FnafELEDl2XLlLu1hrKwjHGERxGBxJurELQGZ8RZnwS6eanvGbxPEP/xslaz6DG54cYwxLzxbyyj3p5M7GJag/O83TNihIMRgoKqxitdZIBYsqKUP6S7sYA1jSFwxvdd7bW4+jLm20fDRRKwmnjLpo0KwH3FnYlmnP0SDIQ+rSReuA3pOosn8fw37rv9cQ5ebHguRk+ybrZufOrOyk8Os8eBTwxOEC8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fxdt2couFiSAnXO/ferrAGmdVjCrdteqGGMHHqbADKU=;
+ b=U84q2eTy13ZHS72eHdxMZwL4JVn7slVVGFa7X3/24Cv1BbcterKSFnCvXOvDBdWjsqPpReZ/mEFk9scjYyJXjX//cEM0nBJs5DgzVVA6zEh31SrOD8mN6t3MmKZ3uOIFqY/4wcpWFdpjrV+p41zj0eHh0HSHa5e3xfxJxTzOVMGUWHOX7kT220Q2tyjKzAmFISg6s6GjM+ipbJ1TbfU845BHeo20kXEDRTOdj0KN+2dTgM7FuAMNmAtyt+fJ3pZZGC5PqZ8sy1hfpGXAMwqrRi5Nkz8ESvm29D+vA7F2R5dbfOpcyN5bNpLxg/SWvbv7aQjHHk2DG+Q0Pfq1IEb5FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
+ by PN0P287MB0963.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:147::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 06:43:47 +0000
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 06:43:46 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: linux-media@vger.kernel.org
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	freedreno@lists.freedesktop.org,
-	iommu@lists.linux.dev,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	linux-media@vger.kernel.org,
-	Bryan O'Donoghue <bod.linux@nxsw.ie>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	David Airlie <airlied@gmail.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Sean Paul <sean@poorly.run>,
-	Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v1 2/2] drm/msm: map page-less imported sg_tables from their DMA addresses
-Date: Mon, 28 Sep 2026 13:38:51 +0800
-Message-ID: <20260928053901.7270-3-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260928053901.7270-1-liujianfeng1994@gmail.com>
-References: <20260928053901.7270-1-liujianfeng1994@gmail.com>
+	linux-kernel@vger.kernel.org,
+	ravi@ebytelogic.com,
+	Hitesh Patel <hitesh@ebytelogic.com>
+Subject: [PATCH v3 0/5] media: qcom: camss: fixes for several cameras behind a CSI-2 bridge
+Date: Mon, 28 Sep 2026 12:13:31 +0530
+Message-ID: <20260928064336.272659-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYP287CA0048.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:23e::19) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::97)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN0P287MB0963:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbee2582-f2a7-48ac-6193-08df1d2bd869
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|10070799003|1800799024|376014|52116014|5023799004|56012099006|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	XoYFS7T/jlufggdZAUn7zUjd5oxRZNnGu7Vv4csdEPyZoINvWr56PLKeFvswfaR/iQLHcOMGIoTzx5uIvB7PcBG2MVjFCE5KRfc2fSxom25joO4nGm1GBKH8udT41nhmHU9gqrTdAhkFRY19N2SqCFGQVg5bVBO9nWWFja/V6dzalM02h/mx5FwJ8hL7VG3n7vQYtVteepxrYBT5D6Un3oDpMoEm9SlIPokqIYByQf89/89h9FpG6Ah3pptRW2za8p6e6Kb9v5bQ6w28GA5QCFs+OYBzLmBUbgZJI64tLGrki/39D1gdJ3vlRXRYJ2rxZwRYQalMepHem75YG6u5O4gtseC/6hBVqc6+tnhc3qvJ0bVSTW8HvxuT7BmTgpaKMT6ClvpXp9pQPtYVP5mSY7Q/tzxWIR87Y4rNYfSzzWMlPFNpAU9rV1k3UGtKSnVB8PYuepHFHX7AH94GsAY7VmE6WeKc8336mednSrkIERAhWjxGM8wqdcZfG9RZs2xHHeS2s6P1pG511GEOCUzsRrbUxYA3aDmmRFgwYXYZzo1h7SMvH1dZs8OCSZxvrHn6P5bRJhXvx+XENvunODAb8Jczw5LMBwapa8dXURfP1KLOj6NwaFMLnadeIu4Gnwcj
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(1800799024)(376014)(52116014)(5023799004)(56012099006)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6K7Qmh8FV8hvwUiYOy7T/gIFS1uDtaSelGyMI7lXbNalFurqESWW3yT8XOjE?=
+ =?us-ascii?Q?0yCNZdOqAzM/3kYBnR702Hm4zihpp/Dt97zDxjprUIHOE0Ev7df2B0D8YyKh?=
+ =?us-ascii?Q?8/r/wiwln1ZyA+hhu6qqeRTP0Jg0JnyU6WtBhcO5XVm5UgOC2OxkjbfcmnqG?=
+ =?us-ascii?Q?pYeblGM1Oi/4J7lVejUDVPXab2NDMWBScC+8DZHDu+951Caricq6A0jdwbNv?=
+ =?us-ascii?Q?cojYEEPvrT3GtLYoivnbJzx1BZ1RvhP3l4EeenRgWg3iZRz1i0dN6hItDkxS?=
+ =?us-ascii?Q?7syuu7j8N9LUPPBPsFaxF/HMgokUmQIWpNbp1+u01y3DxZdGoDtU1RFAaa8H?=
+ =?us-ascii?Q?Say14oqDtKtHJcOu1tC6tKPim245HKqq7gM9ELKQbk1xIqYoLUDTD18ly67M?=
+ =?us-ascii?Q?vAlqhYwIzt29swSGKGoK9QK1QIJplBxoD0QnQW+GGdQb5sOyGYArddiPXOGe?=
+ =?us-ascii?Q?UDhM0q93mV1LiBb/n+uoiUv9KlyW1+9SNmNIe7O0IdAcn0ugC1iEzG411T3m?=
+ =?us-ascii?Q?3wbRqYdWG8TqIG0jdvyZoXO07pKLpPrOk756RBKe9JFuOpV0focOubHntxuI?=
+ =?us-ascii?Q?lYNRLhaZwnIqArGrhy/AYs3+uRHczkMm+L9dr6yzFY+eETPJObKotHDQ6FPW?=
+ =?us-ascii?Q?ehvLIMcSdACx/aK2e4iShRJl0B4f98w3ImSZzjbGFxgoqLvsVe/5uLfrND5K?=
+ =?us-ascii?Q?ZbkrwZOBtPPnh8rCKJJwtCIMB+UcJl6GkmlZ8oGw9idRFJ/Bi4y5a3Kk4NTJ?=
+ =?us-ascii?Q?R+BL4MbCuFUtc3AVzctvdH2Ec1QSW7Mu0fH3qLKOHPRt1AJ6gm61LSk5WHed?=
+ =?us-ascii?Q?QSsk/kBtnswZ/IZgnZDwl+vAkd4WMGj2zhC/m24IiDVazxYjQc6kuQG5srgr?=
+ =?us-ascii?Q?+wPZBDhhVog4c1s3xbZ10R0uhSox2EqxiYZWAWPRWRuhf1hepVB5FMWd3kzv?=
+ =?us-ascii?Q?scSQZFvGw/LPFGZIEiMTyZeCeuoCpXqHqCOeyj3Y8Mj1uwK0XOfhs8riNJA8?=
+ =?us-ascii?Q?53lFwkjjTTD1q7Wo6zDSeGkCrTW0LcQzeHjbBiOjhqvUyk3Vex/4QHoeN3we?=
+ =?us-ascii?Q?0I/pWTNtY//jdSjYwMtiFDK5vU72SurES6vV4OUcOvnB6A70yI2REx+La3+G?=
+ =?us-ascii?Q?Vv/BmhYEA8tHMpwjW0T/s1ggPTFVjpQNhGpPyna4QrmRKWjoMDHJOEY5EhEl?=
+ =?us-ascii?Q?rKwmWyLvLESaifsDD/zh84eSXmgdDvk6hSvP7yxLYJlmrAbzn6vDzmP180Ca?=
+ =?us-ascii?Q?xwJWS6Sbo1VNLIfkBsQQp2G92KBMrokekoQtJJ9VIKQlxNysz61uWaoBmTRn?=
+ =?us-ascii?Q?R0bFpWgc0fQNBQBJrtju0oWCZLN09XXLPjtw4b5UbKf1stxcuqKjxfxzo1RP?=
+ =?us-ascii?Q?LBMRNjWUphF4R488qNoSAOTCy6d+WZPLtMJm0uZ4QL+wQ939zMBQqaHHZUNN?=
+ =?us-ascii?Q?WpDy7SASJregPflV4XxfOXmWGtBh9a7Li0DbHWLRxwUwXHTV3ppmW3CsJkuO?=
+ =?us-ascii?Q?/L5AmfiqwMcxEP99haozmAk1v59m1Hbq5bsYvmnCYWdsDMDCS9RTqfnr19fa?=
+ =?us-ascii?Q?5BLG6dqxj1FuwFZkloUUG2Vx4tpiFGwuhjqpPYz7yHucqPIRgLLsR9wsAgFv?=
+ =?us-ascii?Q?g80/g9bb7fHwXhvyKJO7XyPQklXiIYBZGQzR60CiPjOvbZLeJ6gAH7HIUdLt?=
+ =?us-ascii?Q?T4Sd2E5vDcF8W5wpqwX/W7dnJJhdqjCiUC3nUiEseymarZKFJnXloUJUXfnu?=
+ =?us-ascii?Q?pDqFrmQASfNjx3fWzSawL3eRsm08+2utuW1Xwbip7crhJbeRJCgEJC26gBIr?=
+X-MS-Exchange-AntiSpam-MessageData-1: zm120wSesNhK5w==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbee2582-f2a7-48ac-6193-08df1d2bd869
+X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:43:46.4130
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oUsuX9tEBGxUHudEbfh5sNhFmDKmaKOVqKsG0J2uWmOMJKEBivpoppjjCxFxVOUdafp9qY04NM2a77L7UcxQ+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0P287MB0963
 
-With CONFIG_DMABUF_DEBUG=y, dma_buf_map_attachment() hands importers a
-copy of the attachment sg_table with the struct page pointers stripped
-and sg->length zeroed; only sg_dma_address()/sg_dma_len() are carried
-over.  msm consumes sg->length and sg_phys() in both of its map paths:
+This series contains the CAMSS changes needed to run two GMSL cameras
+on the RB3 Gen2 (QCS6490 / SC7280) vision mezzanine, where a MAX9296A
+deserializer sits between the sensors and the SoC. The deserializer and
+serializer drivers (the out-of-tree maxim-serdes work for MAX9296A and
+MAX96717) and the AR0234/IMX900 sensor drivers are out of tree and not
+part of this submission; only the SoC side is here.
 
- - msm_iommu_pagetable_map() (userspace managed, per-process GPU
-   pagetables) walks the sg_table with sg->length and sg_phys()
+Patches 1-3 are fixes for two RDI lines streaming on the same VFE, hit
+by any configuration in which the CSID demultiplexes several virtual
+channels, not only by a bridge: the VFE 17x interrupt handler drops
+write master buffer done events, VFE 17x hands the second line the
+wrong write master, and stopping one line resets the VFE underneath
+the other.
 
- - msm_iommu_map() (kernel managed mappings: display, and TTBR1 for the
-   GPU), via iommu_map_sgtable(), which consumes sg->length and
-   sg_phys() as well
+Patch 4 addresses the assumption that the sensor is the CSI-2
+transmitter: the rate the receiver has to be programmed for belongs to
+whatever drives the bus, and v4l2_get_link_freq() already knows how to
+ask it. Patch 5 lets one transmitter with several CSI-2 outputs link
+each output to its own CSIPHY.
 
-With a page-stripped sg_table both paths silently map nothing and
-return success.  Userspace then observes arm-smmu translation faults
-once the GPU first touches the mapping, e.g. during hardware video
-decode:
+v2 was sent in reply to the v1 thread, which made it unclear whether it
+was a series or a comment on v1 [1]. This v3 is the same series posted
+as its own thread; there are no code changes since v2.
 
-  gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
-  type=TRANSLATION source=UCHE
+The v1 patches 6-8 (shared CSIPHY/CSID refcount and the streams API
+handling in camss-video) remain dropped. Gjorgji's "add V4L2 subdev
+streams API support" series [2] covers that ground properly: tested on
+RB3 Gen2 with streams enabled for SC7280, both cameras stream and start
+and stop independently without them.
 
-and __arm_lpae_unmap() WARNs for the never-mapped ranges when the GEM
-handles are closed (a WARN storm of ~470 traces within a minute of
-video playback on my x1e78100 laptop).
+A CCI fix found during the same bring-up, enabling SCL clock stretching,
+has been sent separately to linux-i2c [3]. It is independent of this
+series.
 
-For sg entries that still carry a struct page (native objects, and
-imports without the DMABUF_DEBUG wrapper) keep using sg_phys(), so
-native objects which msm never dma-maps itself (non-MSM_BO_WC) are
-unaffected.  For page-less entries, recover the physical address from
-the DMA address instead: dmabuf attachments are dma-mapped against
-the msm drm device, so the dma_addr -> phys lookup can be done with
-iommu_iova_to_phys() in that device's DMA-API domain, cached per VM
-in struct msm_mmu::dma_domain at msm_gem_vm_create() time.  If the
-drm device is direct mapped the DMA address already is a physical
-address and the lookup degenerates to the identity.
+Tested on RB3 Gen2 with AR0234 and IMX900 cameras on MAX96717
+serializers, on the vendor 6.18 tree and on the qualcomm-linux qcom-next
+branch (v7.2 based): both cameras streaming concurrently on the two
+CSI-2 ports, and each camera started and stopped repeatedly while the
+other keeps streaming, without interference. The CSID test pattern
+generator was exercised after patch 4 as well.
 
-Applied on top of "drm/msm/gem: Drop use of pages for imported
-dma-bufs" [1], which removes the remaining struct page consumers for
-imported buffers.  With both, hardware video decode works with
-DMABUF_DEBUG=y, tested with clapper and chromium on x1e78100
-(Snapdragon X1E78100): zero arm-smmu faults, zero io-pgtable WARNs,
-correct frames.  Without this patch, the same system logs a WARN
-trace per unmap and falls back to a copy path for video playback.
+Re-checked against next-20260925: the series applies cleanly, every
+patch builds on its own with W=1 for arm64 (defconfig plus
+CONFIG_VIDEO_QCOM_CAMSS=m) and checkpatch --strict is clean.
 
-[1] <20260926183051.25754-1-robin.clark@oss.qualcomm.com>
+Changes in v3:
+- Resend as a standalone series rather than a reply to the v1 thread
+  (Bryan); no code changes
+- Rebased on next-20260925
 
-Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
+Changes in v2:
+- Fixes first, with Fixes: tags and "Fix" titles, commit logs rewritten
+  (Bryan)
+- 1/5: no PIX special case, plain removal of the IRQ_STATUS_0 gate
+  (Bryan)
+- 2/5: use vfe_get_output_v2() on 17x like the other gen2 VFEs instead
+  of a 17x-only mapping; no PIX special case (Bryan)
+- 3/5: commit log rewritten without part names and with the affected
+  line spelled out (Bryan)
+- 4/5: camss taken from the entity's media device instead of an extra
+  argument, so the callers are unchanged; multi-line clause split
+  (Bryan)
+- 5/5: Reviewed-by added (Bryan)
+- v1 6-8 dropped in favour of [2] (Loic, Bryan)
 
-Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
----
+[1] https://lore.kernel.org/linux-media/20260915121557.20910-1-hitesh@ebytelogic.com/
+[2] https://lore.kernel.org/all/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com/
+[3] https://lore.kernel.org/linux-i2c/20260921131954.1690578-1-hitesh@ebytelogic.com/
 
- drivers/gpu/drm/msm/msm_gem_vma.c |  9 ++++
- drivers/gpu/drm/msm/msm_iommu.c   | 90 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/msm_mmu.h     | 13 +++++
- 3 files changed, 110 insertions(+), 2 deletions(-)
+Hitesh Patel (5):
+  media: qcom: camss: vfe-17x: Fix write master buffer done being
+    dropped
+  media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
+  media: qcom: camss: vfe: Fix VFE reset while another line is streaming
+  media: qcom: camss: Take the link frequency from the CSI-2 transmitter
+  media: qcom: camss: Create the source to CSIPHY link per endpoint
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index f687a629629d3..322b96e0e07ec 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -840,6 +840,15 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
- 		goto err_free_vm;
- 	}
- 
-+	/*
-+	 * dma-buf imports attach against the msm drm device, and their
-+	 * sg_dma_address() lives in that device's DMA-API domain.  Keep it
-+	 * so the map paths can translate page-less sg_table entries (the
-+	 * DMABUF_DEBUG wrapper) back to physical addresses.
-+	 */
-+	if (device_iommu_mapped(drm->dev))
-+		mmu->dma_domain = iommu_get_dma_domain(drm->dev);
-+
- 	if (!managed) {
- 		struct drm_sched_init_args args = {
- 			.ops = &msm_vm_bind_ops,
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index da6782fca6bd2..8407a37f9efee 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -140,6 +140,24 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
- 	return ret;
- }
- 
-+/**
-+ * msm_mmu_dma_to_phys() - recover the physical address of a dma address
-+ *
-+ * dma-buf attachments are dma-mapped against the msm drm device, so the
-+ * DMA domain of that device (msm_mmu::dma_domain) holds the mapping.
-+ * For a direct-mapped drm device the DMA address already is a physical
-+ * address.
-+ */
-+static phys_addr_t msm_mmu_dma_to_phys(struct msm_mmu *mmu, dma_addr_t dma_addr)
-+{
-+	struct iommu_domain *dma_domain = mmu->dma_domain;
-+
-+	if (!dma_domain)
-+		return (phys_addr_t)dma_addr;
-+
-+	return iommu_iova_to_phys(dma_domain, dma_addr);
-+}
-+
- static int msm_iommu_pagetable_map_prr(struct msm_mmu *mmu, u64 iova, size_t len, int prot)
- {
- 	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-@@ -184,8 +202,35 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
- 		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
- 
- 	for_each_sgtable_sg(sgt, sg, i) {
--		size_t size = sg->length;
--		phys_addr_t phys = sg_phys(sg);
-+		size_t size;
-+		phys_addr_t phys;
-+
-+		if (sg_page(sg)) {
-+			/* CPU-view entry: native objects, and imported
-+			 * sg_tables that still carry struct page
-+			 */
-+			size = sg->length;
-+			phys = sg_phys(sg);
-+		} else {
-+			/*
-+			 * Page-less entry, e.g. the sg_table wrapper
-+			 * that dma_buf_map_attachment() hands out when
-+			 * CONFIG_DMABUF_DEBUG=y (page pointers stripped,
-+			 * sg->length zeroed, only the DMA fields carried
-+			 * over).  Recover the physical address by
-+			 * translating the DMA address through the drm
-+			 * device's DMA-API domain.
-+			 */
-+			size = sg_dma_len(sg);
-+			phys = msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
-+
-+			if (!size || !phys) {
-+				dev_err(mmu->dev,
-+					"cannot map page-less sg entry: dma=%pad len=%zu\n",
-+					&sg_dma_address(sg), size);
-+				return -EINVAL;
-+			}
-+		}
- 
- 		if (!len)
- 			break;
-@@ -697,6 +742,47 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
- 	if (iova & BIT_ULL(48))
- 		iova |= GENMASK_ULL(63, 49);
- 
-+	/*
-+	 * With CONFIG_DMABUF_DEBUG=y, imported sg_tables carry no struct
-+	 * page and sg->length is zeroed; iommu_map_sgtable() would consume
-+	 * zero length and silently map nothing.  Map from the (translated)
-+	 * DMA addresses instead.
-+	 */
-+	if (!sg_page(sgt->sgl)) {
-+		struct scatterlist *sg;
-+		size_t mapped = 0;
-+		unsigned int i;
-+
-+		for_each_sgtable_dma_sg(sgt, sg, i) {
-+			phys_addr_t phys =
-+				msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
-+			size_t size = sg_dma_len(sg);
-+
-+			if (!phys || !size) {
-+				ret = -EINVAL;
-+				goto err_unmap;
-+			}
-+
-+			ret = iommu_map(iommu->domain, iova + mapped, phys,
-+					size, prot, GFP_KERNEL);
-+			if (ret)
-+				goto err_unmap;
-+
-+			mapped += size;
-+		}
-+
-+		if (mapped != len) {
-+			ret = -EINVAL;
-+			goto err_unmap;
-+		}
-+
-+		return 0;
-+
-+err_unmap:
-+		iommu_unmap(iommu->domain, iova, mapped);
-+		return ret;
-+	}
-+
- 	ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
- 	if (ret < 0)
- 		return ret;
-diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-index 8915662fbd4d0..116daf6ce47cb 100644
---- a/drivers/gpu/drm/msm/msm_mmu.h
-+++ b/drivers/gpu/drm/msm/msm_mmu.h
-@@ -64,6 +64,19 @@ struct msm_mmu {
- 	 * msm_gem_vm::mmu_lock.
- 	 */
- 	struct msm_mmu_prealloc *prealloc;
-+
-+	/**
-+	 * @dma_domain: DMA-API domain of the msm drm device
-+	 *
-+	 * dma-buf attachments are dma-mapped against the msm drm device,
-+	 * so this domain holds the mapping dma_addr -> phys for imported
-+	 * buffers.  Used to recover the physical address of sg_table
-+	 * entries which carry no struct page (e.g. the page-stripped
-+	 * sg_table wrapper that dma_buf_map_attachment() hands out when
-+	 * CONFIG_DMABUF_DEBUG=y).  NULL if the drm device is direct
-+	 * mapped, in which case DMA addresses are physical addresses.
-+	 */
-+	struct iommu_domain *dma_domain;
- };
- 
- static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
+ .../media/platform/qcom/camss/camss-vfe-17x.c |  46 +------
+ drivers/media/platform/qcom/camss/camss-vfe.c |   8 ++
+ drivers/media/platform/qcom/camss/camss.c     | 121 ++++++++++++------
+ 3 files changed, 93 insertions(+), 82 deletions(-)
+
+
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
 -- 
-2.47.3
+2.43.0
 
