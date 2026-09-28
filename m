@@ -1,64 +1,64 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DAF4C9DF4
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1D84D0CE0
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602387; cv=none; b=rOJ/cHx7485XVumKAjfieSdGQY8IeApuj0ZzGjZ/W7n+F3cc7rshIW6Rk8orfzk+SrFS314vzLqrRXxLVL6mcDPqsRomu/QP44cOiUQnzxMjVDRQLBxe2+KZK9RZMGrN1eqR9w0GkKZz4/OsIZVCWnZJzIMKVDCaxXrwBfC5b/A=
+	t=1790602390; cv=none; b=t2rovvsINiefa9OanERTHx5vBZasRs6IbCJyAtVxg5w2jrXPUUmHiy4GDsVpsTNzzJXP0nTEmrcs6tvj7IhAGQ5nZoUbRJiANU8Kzct683ASb9RiNX3N0Mbh/b0bkzndpquDO4389wC9ZpPrgQkcwWSC/Xk7VeT7z/Bj8yE4R04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602387; c=relaxed/simple;
-	bh=Z4vOxks9qTIFK+TCf+DcsECaWrDahRJWHvnK/Oy0YsE=;
+	s=arc-20240116; t=1790602390; c=relaxed/simple;
+	bh=dp8A9m21F4Z6vnwVaB36/IYEFqc7xZs52MFL03Y1vS8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UtEGoNndgjQ30LIWXl2rh0WZHC+DY1UYkPYh1LWlkVFno9LuALSi5jPOIc6mUFiQqno0iExZIkxUJjMCiPIpcl7yCa+8gkT+r2W9TTHydFQfjYygdBDUqA0ba2O3LttLATCIVevUX5WvTQF3s2bLQrf35lWZku887OCP/dGh+d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UY3RrCwh; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=LQ6fdJirUk8fzIYKcDc9284D3e4Uikp7oSoy0qdlOK/8s59fGHQtLXRAqE+1OyaVmZ99ilFi9eHV7UVGwUzpKhpfnESPol7JRCMUQrRi2Y6nuvyZHC9MWgkFvmv5WuJ1lmcV5vVOFIZUF90YMVn8H6b4BSidveys79U/Y8EldAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n0Vea775; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UY3RrCwh"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso1839474f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:33:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n0Vea775"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so18796895e9.0
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:33:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602379; x=1791207179; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790602382; x=1791207182; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/RT09IM6iAPFk2VI7P8d4NpW1v04uxG67FoGdSGxGhI=;
-        b=UY3RrCwhYnPhXr8AkzcnPeNEkbrBMyA04UBKWmnTDBNGELNHpkWH7w5fS5Txp1Huc8
-         hC1amO1hXCloFTtcV/9kThFy3Bah+Qxa+4sLYJxvNT912FKfzrPTDu2CsboIvPFtheT6
-         XTMjl+eaf1MgkmjSuG01yKrsGrVGSpCEQvbjClfptMxRdTrYa+me8F24MROwh0iMp8QJ
-         cbBfbnKppGaxfMKLM67XEjEjnwUjshA35fxgjnfoDMIzSi+OejtxQ1xTgEOL42yMhm6G
-         z37g0kLzqiJ59alYwznS+6643oEu1CyPgllnqMcNN5uzzh30t3+1QVR4upyxq6tlX/3J
-         d5kA==
+        bh=raEDt673oWsC7HjzDuokLb4yrdGb5LOQuk6WNjaexbY=;
+        b=n0Vea775koJUlSUtF5+MNAJGT1aIZ2lp/MSZJl83hA2FW9hBK4FWdZHONhBVtNhryr
+         j63EZ2n7a7ro0iSl7+VsBVaiLUwPniO15bfIH7dhdUd8pHcLQViQh3xyM5n+KMsTVAgZ
+         MUjIUrThxu6h5r/3C0RvK4lr/TP/WwXPCJM7pc+8SXbjDAV5JL83DOXh0DmyVJRExuUl
+         0+gVrhXT4/xfoanMnKt7zpikee0YYBJrAot+UKHgG3vGVGsplXPPHBFyV8x8Fv/VCY6H
+         TzDfRVOU7HyRc9NbZsQ/TU9+/E1QT4d4YNlVmI1ce1q0q/vKSLbzf2KWIAt26nDT6pq3
+         CJWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602379; x=1791207179;
+        d=1e100.net; s=20260707; t=1790602382; x=1791207182;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/RT09IM6iAPFk2VI7P8d4NpW1v04uxG67FoGdSGxGhI=;
-        b=dZc4Q8YJPi7A/GU3G9SfPHIcMZsCRzpKn2BjWDOhSV4yAXZr8GcN236iXzXiZBw6d7
-         QItt5OlESmuxepfrPAahMUKWCkq547D4Y7VODTkccSASe4nvZzmomZQ29Gmyamqigy1t
-         tMCYas/qRtI3C4Fn8+MqXcHhGSoNOZQghuTPqRzQ68IyDUiAPS1oIdR8Fpcj9DQ8sytI
-         VkhkFabs0bxGDNeCkQbod5YMMA5Im3ASz6fyUKhJqHnzreNN4Lj6NsuDyZ/rO/dwy0Yy
-         iz8PNiS3uPxHRVeHjET9oVvmQRsU3akOaOGeUxDv3HUNXZ5UIS70d5BIMBgV95B3ZZI+
-         C/Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBy6H6p5/ZPSRoWGzUN/TQy6hW0jfGgLJYgQ4BqaJJDenYHV+2Fh7LpcEQ+BY3Vy1CbH6KP9AX0cu/fUUA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRsBs1QbX6PdlgH+ka5y6wW03IHxAhYZYIEi6LbTyw7QRF6clf
-	jVnh+v8xQNiWE1JsVlK6DQsPs/TEywsjBWUe3OnoccRQwdZQsJLohyk+YlM3EgQb
-X-Gm-Gg: AYBFou2MaKYb2Mgo79GXVUOp1D/ahBP1JZubMRuSry9WH/iU9Zlh4MHEde4XYLNq17e
-	QQOaot1VAk5XXZWGhlT3C/e9w7K9MoOJ+KsJv8MV2TJln3+YONbrXbhtuq3OQkaCkZvLrfQtYBD
-	cuOwqC3WAhksRX9YpDcbniupCCggQ2GVCm/RqMVtn/aPcvcBUw1s20jG5kgQs5s5KzmkDgDpSKL
-	swZEMwfWYBV8R+uoPfTGoByk+OVQsBkXkqN88ij0Y0blOQsDcyC5zyehB+GrxumRWX9rrnVCSwA
-	Zb6LTwlmGZoeLWDT8DKd0wV10m8bhJm5ouvczBixhCxIjQ441dx2W7owJYGGorfHzO8w8t+gYTr
-	ohZSSLPtIrTWvv3UW2yStV/zQ8gSzE8eucVahh/GEXKaP0uVeCGipH0TiAIBwmosCAI6tn7Ehrs
-	YVslPhSZtjTlAuaCBo5CbN3X4DswJG+SpikDcjoQM4jo3NovowSqIK3EjiduSfSG0d5Boe/yIa3
-	X59O8rkejw1DR0ZBf+jv8q4iWEFPxN4qUUCSqXisxeAkx5QX8pNjZB+0zV9sMYS9FACeCoBUsNQ
-X-Received: by 2002:a05:6000:1887:b0:486:f4ae:72a2 with SMTP id ffacd0b85a97d-4887170dd0dmr23900440f8f.1.1790602378210;
-        Mon, 28 Sep 2026 06:32:58 -0700 (PDT)
+        bh=raEDt673oWsC7HjzDuokLb4yrdGb5LOQuk6WNjaexbY=;
+        b=VNt0LkBrLZklHN38k8i88bZ33OHqP+XO6tMjv5XZKeTt/MxT/A2FRqYOilU0WrgV68
+         57KwoDXiEqImyhQnGyl9V5VBMAgEIr4JWTmqSgs2Ucqq5n7mVqnwn4KUrfb9k0heUS8s
+         kHgeImjemwUWIAZsZs07o2q457OW7EJalkznRW2ihhO1DkiNlC1KwLuOrb50vQ4488Nq
+         8+ifqHQCRDEidH0E2WqyARtmr/MQ4RiI59x4It1qtNUwfR1BSippugR1bTY7KUhHF3QD
+         mollkfUII8k9v1+SxvaNGhTs2RwWzI8vECULDJDd+/LsX6PC+sNAm9kEqZozzTMn3tlz
+         O0Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9A7PJnn6ojoqfuJCwpjT8OqsDrhkCNLK5AyXAeyUDZaiV+jUQoMwjMw+62FWsT2MLRjseoXLLe2N1PQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mFw5aKIkPm3/FoxbcO+OEpVkbRnlg8LP5qf++66xbxquVLESYB
+	LjDzNMMEmaNoMUbN7QFhhqGNzNwquDa754UGU6ublAfJpnSbymyCs0WX
+X-Gm-Gg: AYBFou0TPwq/o9idvKQSwPX6jRI1IQbuzSQFsGbjRA+3Calldk0+a0/xqlTCeIlFF+e
+	jVJpZcOe6vGvoidvhWc6ADTLjlmpwFOPPpldTw6pqytxKWQHYl41w+qHVEKJ0PSHH48epDDpfOp
+	uxoJt5SlwdI6aXd6KfCp/Dy1WIth9a8EP88qSDyo/f2lSoqzI4Lqe4BReeh9OWSSIYW/ToeNw03
+	tbPw9TuU3Gd8bycaiZGKbDFkBqeeRn4P+EIDGyAk6E/74B93uxy6SmKDqIwzcNw7hkdetc9kjXg
+	mIb5Kn+PAa3td4thc5AAsehaH6S8sHxl+U+7zjaM/xNGZAEfWkPFkk9MVm14M4aoWkaw64ZVZBg
+	z2y3eugc5aF6D+u2zzttf9cRa4VF8cjea4k3boDvlCsk1GgYHw4njYy3rJSPdUrZiYaX3GfH0ud
+	pj46A+4Jreo+UwDzy4tXZlCe9Ti9VFiX4/O2X1ayR4mmjndbZ3OZO6KlXaPXW4ozoi1z4kqMMav
+	ifay9OV0KDmtSYbcCKxk1YjxdmzJL5pB6wBRfY6pCl+kbymJ4WcQ4yUux89n0e4d1bgbQCtpKLM
+X-Received: by 2002:a05:600c:c3cb:20b0:49f:fc13:189d with SMTP id 5b1f17b1804b1-49ffc131a3bmr73381205e9.1.1790602381298;
+        Mon, 28 Sep 2026 06:33:01 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:32:57 -0700 (PDT)
+        Mon, 28 Sep 2026 06:33:00 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com,
@@ -91,9 +91,9 @@ Cc: asml.silence@gmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel@lists.linux.dev
-Subject: [PATCH v7 09/13] io_uring/rsrc: introduce buf registration structure
-Date: Mon, 28 Sep 2026 14:32:25 +0100
-Message-ID: <f0305198380997a88a3ed020fd6e69246992220d.1790602223.git.asml.silence@gmail.com>
+Subject: [PATCH v7 11/13] io_uring/rsrc: add uncloneable regbuf flag
+Date: Mon, 28 Sep 2026 14:32:27 +0100
+Message-ID: <6bb81fd0941222a30477dc849684d47333d1e4ce.1790602223.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1790602223.git.asml.silence@gmail.com>
 References: <cover.1790602223.git.asml.silence@gmail.com>
@@ -105,152 +105,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation to following changes, instead of passing an iovec for
-buffer registration introduce a new structure. It'll be moved to uapi
-later, but for now it's initialised early from a user provided iovec.
+It's hard to implement cloning if the internal structure needs to be
+mutable and/or relies on other ring resources. In preparation to such
+buffer types, add a flag indicating that the buffer can't be cloned. It
+might be possible to add cloning in the future for them, but that would
+likely need reallocating the structure and reacquiring resources in case
+by case manner.
 
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- io_uring/rsrc.c | 47 ++++++++++++++++++++++++++++++++---------------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ io_uring/rsrc.c | 5 +++++
+ io_uring/rsrc.h | 3 ++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 51b46e624ddd..da767b34eb55 100644
+index 83a7ad9f5bc7..65d6cf7201ce 100644
 --- a/io_uring/rsrc.c
 +++ b/io_uring/rsrc.c
-@@ -27,8 +27,13 @@ struct io_rsrc_update {
- 	u32				offset;
+@@ -1434,6 +1434,11 @@ static int io_clone_buffers(struct io_ring_ctx *ctx, struct io_ring_ctx *src_ctx
+ 		if (!src_node) {
+ 			dst_node = NULL;
+ 		} else {
++			if (src_node->buf->flags & IO_REGBUF_F_UNCLONEABLE) {
++				io_rsrc_data_free(ctx, &data);
++				return -EOPNOTSUPP;
++			}
++
+ 			dst_node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
+ 			if (!dst_node) {
+ 				io_rsrc_data_free(ctx, &data);
+diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
+index 9ef88383b363..73d7b1ebf0b6 100644
+--- a/io_uring/rsrc.h
++++ b/io_uring/rsrc.h
+@@ -26,7 +26,8 @@ struct io_rsrc_node {
  };
  
-+struct io_uring_regbuf_desc {
-+	__u64 uaddr;
-+	__u64 size;
-+};
-+
- static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
--						   struct iovec *iov);
-+						   struct io_uring_regbuf_desc *desc);
+ enum {
+-	IO_REGBUF_F_KBUF		= 1,
++	IO_REGBUF_F_KBUF		= 1 << 0,
++	IO_REGBUF_F_UNCLONEABLE		= 1 << 1,
+ };
  
- static int hpage_acct_ref(struct io_ring_ctx *ctx, struct page *hpage,
- 			  bool *acct_new)
-@@ -81,6 +86,15 @@ static bool hpage_acct_unref(struct io_ring_ctx *ctx, struct page *hpage)
- 
- #define IO_CACHED_BVECS_SEGS	32
- 
-+static void io_iov_to_regbuf_desc(const struct iovec *iov,
-+				  struct io_uring_regbuf_desc *desc)
-+{
-+	*desc = (struct io_uring_regbuf_desc) {
-+		.uaddr = (u64)(uintptr_t)iov->iov_base,
-+		.size = iov->iov_len,
-+	};
-+}
-+
- int __io_account_mem(struct user_struct *user, unsigned long nr_pages)
- {
- 	unsigned long page_limit, cur_pages, new_pages;
-@@ -381,6 +395,7 @@ static int __io_sqe_buffers_update(struct io_ring_ctx *ctx,
- 		return -EINVAL;
- 
- 	for (done = 0; done < nr_args; done++) {
-+		struct io_uring_regbuf_desc desc;
- 		struct io_rsrc_node *node;
- 		u64 tag = 0;
- 
-@@ -394,7 +409,9 @@ static int __io_sqe_buffers_update(struct io_ring_ctx *ctx,
- 			err = -EFAULT;
- 			break;
- 		}
--		node = io_sqe_buffer_register(ctx, iov);
-+
-+		io_iov_to_regbuf_desc(iov, &desc);
-+		node = io_sqe_buffer_register(ctx, &desc);
- 		if (IS_ERR(node)) {
- 			err = PTR_ERR(node);
- 			break;
-@@ -853,26 +870,26 @@ bool io_check_coalesce_buffer(struct page **page_array, int nr_pages,
- }
- 
- static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
--						   struct iovec *iov)
-+						   struct io_uring_regbuf_desc *desc)
- {
-+	unsigned long uaddr = (unsigned long)desc->uaddr;
-+	size_t size = desc->size;
- 	struct io_mapped_ubuf *imu = NULL;
- 	struct page **pages = NULL;
- 	struct io_rsrc_node *node;
- 	unsigned long off;
--	size_t size;
- 	int ret, nr_pages, i;
- 	struct io_imu_folio_data data;
- 	bool coalesced = false;
- 
--	if (!iov->iov_base) {
--		if (iov->iov_len)
-+	if (!uaddr) {
-+		if (size)
- 			return ERR_PTR(-EFAULT);
- 		/* remove the buffer without installing a new one */
- 		return NULL;
- 	}
- 
--	ret = io_validate_user_buf_range((unsigned long)iov->iov_base,
--					 iov->iov_len);
-+	ret = io_validate_user_buf_range(uaddr, size);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-@@ -881,8 +898,7 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 		return ERR_PTR(-ENOMEM);
- 
- 	ret = -ENOMEM;
--	pages = io_pin_pages((unsigned long) iov->iov_base, iov->iov_len,
--				&nr_pages);
-+	pages = io_pin_pages(uaddr, size, &nr_pages);
- 	if (IS_ERR(pages)) {
- 		ret = PTR_ERR(pages);
- 		pages = NULL;
-@@ -904,10 +920,9 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 	if (ret)
- 		goto done;
- 
--	size = iov->iov_len;
- 	/* store original address for later verification */
--	imu->ubuf = (unsigned long) iov->iov_base;
--	imu->len = iov->iov_len;
-+	imu->ubuf = uaddr;
-+	imu->len = size;
- 	imu->folio_shift = PAGE_SHIFT;
- 	imu->release = io_release_ubuf;
- 	imu->priv = imu;
-@@ -917,7 +932,7 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 		imu->folio_shift = data.folio_shift;
- 	refcount_set(&imu->refs, 1);
- 
--	off = (unsigned long)iov->iov_base & ~PAGE_MASK;
-+	off = uaddr & ~PAGE_MASK;
- 	if (coalesced)
- 		off += data.first_folio_page_idx << PAGE_SHIFT;
- 
-@@ -969,6 +984,7 @@ int io_sqe_buffers_register(struct io_ring_ctx *ctx, void __user *arg,
- 		memset(iov, 0, sizeof(*iov));
- 
- 	for (i = 0; i < nr_args; i++) {
-+		struct io_uring_regbuf_desc desc;
- 		struct io_rsrc_node *node;
- 		u64 tag = 0;
- 
-@@ -992,7 +1008,8 @@ int io_sqe_buffers_register(struct io_ring_ctx *ctx, void __user *arg,
- 			}
- 		}
- 
--		node = io_sqe_buffer_register(ctx, iov);
-+		io_iov_to_regbuf_desc(iov, &desc);
-+		node = io_sqe_buffer_register(ctx, &desc);
- 		if (IS_ERR(node)) {
- 			ret = PTR_ERR(node);
- 			break;
+ struct io_mapped_ubuf {
 -- 
 2.54.0
 
