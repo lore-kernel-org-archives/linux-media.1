@@ -1,121 +1,81 @@
-Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FDB43CE71
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E545247141C
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583362; cv=none; b=a3z82W3OYIpmuTSjSh3EQV8786JBrkfPEsCZhiEt/ED8G6170q1g5azI35UsC67wjLgxD2nDnj943zEg0pU26r1ZRACgzoce9cbBq9tJWGCisrIO0L7HP11enp7ABKq6ChwLZ2LPITtP9DPZn4iHABbP1r6TZ2AcRy8wkENP93A=
+	t=1790583504; cv=none; b=BA34X+Dxp2oZf5cAi8keTbhTW9cwlBIeAVEsRQBj5tHNH37Bl+5c+Th8YSbljqlsh7zqfo4nPTnbhCP8/FLNEvybKmLOZ2YNp9/rkQKo6qTYkpv54GErCJUDavC3iTkZZnn4DekzphivUUO1I1+D4gyUF6r0eweRtTJ4Esde+6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583362; c=relaxed/simple;
-	bh=1+1pzpa0q6S/v+kHZbTelj4mj9dMK2c/dk7EmtAq5Ps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UsyB/Wtb4gWJRRBC/L+TxufXesTWC2+mpg+kj332RvVny+PLB+7/q+Obcg0jROlECQHoOaHDRpa3L+15rEOdqiUMW5K5iIYajGU986jAD2mOlXBABOCQ95kz6L9CtgrL7XQGBtTI2HSGfF6fz5IbpjGcPt6QyGYar4WCwexddlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FRv7Te/u; arc=none smtp.client-ip=91.218.175.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790583504; c=relaxed/simple;
+	bh=HUMvEp0GsnnDenYqpEFIIFZlpP3VQa8nGaEXPGFIkIA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:References:
+	 In-Reply-To:Content-Type; b=itdjnqynwTTEErQsMVn+4bYLb1+V3ge+crr2HD6Opvdeaam5wTAOV20I7FZppW7gxCb5MLmpNjwFtBpoMSPVsyzs8wrG1pkVsqmVpN2y2ZSudKgJdmQ3ILPYtq7LzdMkquv6aBIxPqylwxFJlxbVIQK/BBT4ShW+rxJwOhaSKrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CrQbwaJ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FRv7Te/u"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1+1pzpa0q6S/v+kHZbTelj4mj9dMK2c/dk7EmtAq5Ps=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790583357; v=1; x=1791188157;
- b=FRv7Te/u7WeJJHwXvpy/9qbq0pMfH7gUvlj+F0p8xpp9hTj2dOu6ArS27NgsP/XZ0svZGfCI
- sNQMdxOMcqZhV6YWcrZyN7tbhtozVODyTDwBjFuG7pOugOTyNtjCmo63LrmH9kvjqOzk4pHdKM6
- NFy484NbOLhk9zSDZ2kGHUN0=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c054dc8d3abe4858;
-	Mon, 28 Sep 2026 08:15:55 +0000
-X-Mizu-Trace-ID: c054dc8d3abe4858
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 10:15:49 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 06/10] media: i2c: ov9282: refresh flash_duration range
- on an HBLANK write
-Message-ID: <arog6lbEoA5qjqNG@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-6-f520af59df1b@linux.dev>
- <CAPY8ntCaRiA8MjVUU1V1KxGYRhA-oZsefM9rw0i5Us1ybVHWDQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CrQbwaJ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB31F1F00893;
+	Mon, 28 Sep 2026 08:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790583502;
+	bh=mw9KujkbxMyfkew/BSQVSyqipPHx+VtdQeONjEIbOkI=;
+	h=Date:From:Subject:To:References:In-Reply-To;
+	b=CrQbwaJ9l3vCqd3wB3eYqFsuxjBn/xTGjLiDSewqfqL/wkM+Z9LmoG45tQvw03+me
+	 9BrLt4pR9/8NDWk+Fywmc6VallmubqyklCv0kjmsRvRyJUEAwq+3XIBTCfr+7T3yL1
+	 d/Q7ti10a/zEgwFluYBRf16nRbZeGZPlnxK3xS6xdNThl5xCWNKjZdkrSBPvc4ZIyC
+	 EaGS5JXBUacDHVll0vMjr8+e90f3R1KZPVJTujvGD4IVD4GTMVUdHFraFcolcwgh72
+	 Wt7d/EJCUztWzAvVts8ORi7KP8F06wGc+EyWHgjnDrpYAoyY+7n3/5eazP1Qg3w6TB
+	 oQ5mqmdbH8MKA==
+Message-ID: <e9e171d1-9449-4d4d-bf65-efaf9133e0e0@kernel.org>
+Date: Mon, 28 Sep 2026 10:18:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntCaRiA8MjVUU1V1KxGYRhA-oZsefM9rw0i5Us1ybVHWDQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: edid-decode doesn't understand first block of secondary display
+To: Daniel Silva <danieltsilva83@gmail.com>, linux-media@vger.kernel.org
+References: <CAL6sztoxrwJtz-QptWnN13S6JGncihHk-61DaQ3YFhadEb5k8Q@mail.gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <CAL6sztoxrwJtz-QptWnN13S6JGncihHk-61DaQ3YFhadEb5k8Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+Hi Daniel,
 
-thanks for your feedback!
-
-On Wed, Sep 23, 2026 at 04:09:25PM +0100, Dave Stevenson wrote:
-> Hi Richard
+On 28/08/2026 20:42, Daniel Silva wrote:
+> Hello,
 > 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > The strobe ceiling is the exposure time in microseconds, so it follows
-> > the line time, and the line length sets the line time. Writing HBLANK moves
-> > it and nothing recomputes the flash_duration ceiling.
-> >
-> > Therefore add the missing flash_duration range update when HBLANK is set.
-> >
-> > The exposure range is counted in lines, so it is unaffected and does not
-> > need refreshing here.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index e64d8343c18e9..632184e76b9bd 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -674,6 +674,19 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
-> >                 if (ret)
-> >                         return ret;
-> >                 break;
-> > +       case V4L2_CID_HBLANK:
-> > +               /*
-> > +                * HBLANK affects the line time, which then affects the flash
-> > +                * duration. Therefore recalculate the flash duration range
-> > +                * here.
-> > +                */
+> I was troubleshooting an issue along with one of the devs at OSMC and
+> while using my laptop with edid-decode they mentioned something they
+> noticed what seemed like a bug in edid-decode:
 > 
-> Except for the comment, this clause is identical to that for
-> V4L2_CID_EXPOSURE that you added in patch 4. No need for the
-> duplication.
-
-That's true. I will merge the two switch arms to get rid of the
-duplicated code. Thanks!
-
-regards;rl
-
+> "edid-decode is reading the EDIDs for both the Mac internal display
+> and the HDMI attached display, then it says it doesn’t understand the
+> first block of the HDMI EDID"
 > 
->   Dave
+> You can see the whole forum thread here for context:
+> https://discourse.osmc.tv/t/nothing-will-play-on-vero-v/112768/22
 > 
-> > +               exposure = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > +               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
-> > +                                              exposure, 1,
-> > +                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +               if (ret)
-> > +                       return ret;
-> > +               break;
-> >         }
-> >
-> >         /* Set controls only if sensor is in power on state */
-> >
-> > --
-> > 2.53.0
-> >
-> >
+> I just figured the devs of edid-decode might be interested and wanted
+> to report it.
+
+Apologies for the late reply, I only just found this email.
+
+The main question is how the EDID was read.
+
+Looking here: https://paste.osmc.tv/melucavigu.vhdl I see basically two
+EDID interleaved. So there must be something wrong in how the EDID itself
+was read. edid-decode just parses the EDID, it doesn't read it (unless you
+use the -a and --i2c-edid options).
+
+edid-decode could be a bit smarter, i.e. if it encounters an extension
+block starting with '00 ff ff ff ff ff ff 00' it should just say that the
+EDID data is corrupt.
+
+Regards,
+
+	Hans
