@@ -1,189 +1,112 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B224B7A4A;
-	Mon, 28 Sep 2026 11:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596638; cv=none; b=soEi/JQRVeC/V87DkelVbLGW0eAO+AklkeTqkrA9ElDJKj4fU74iD1+MLALi6VXshoqUZziPrSPohb/XT2Eo4xbyDmR8uYzOcdCXejPvRAqWyStbWMmB8K+Yd2Iy7zcHe6KLqtBZiGGJPXnfAxat38YSLCUgY2td3pWdQIGihvo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596638; c=relaxed/simple;
-	bh=+M7TscWUN5UeQ7Nu4hIt+KoBPgO1Y9PqXzblGG5u1jg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FfSoW1bqhWNEHF/2H+Eykja0RpZe/PJYF8Jd2WyO95fIPG6U+zIa2BJrR0+iVtceku0MnagQw5P9IKQA4Pi8fwq2/kPkXUgo2AUatGdkFxDug0en3wE27C2fYgLKLEtkuhVmHUCA3Mhi98lQ/2fesxiHR0CvZPqNIqWwIddMprM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vLOibIK6; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B28C4AC163
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:01:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790596918; cv=pass; b=ViBRdvNjIPdODWoUu72y9sXLE5cICpAmuGtPbXZlypFTEd+1xPU2Ndb+ulWECM+DgQUYrKUS5d6vFABYHLBLaKC4uUJzw/0Vq/ogNHl99Czc0/fAVgOxZuf68+ePg3fKvrzslmnxfbkzsY8K9eiaiy7smQ+S6ZqNLHzUBZkbWQQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790596918; c=relaxed/simple;
+	bh=gA7wkBUxcv/CfOVMRSoZHWpisowbgGaWVMz60ApuciE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pMBYf2yGccgp2uKFaKq0E7jseIAj0av3iH374ga8rh9ij/d7llCDgeccGiMwkps9CVs9G5j+Ae4aQaDVxH585MJZ4gSBh6sE0wQVmUKOo/RuTrDnpZz0YuckB5fi/c7jiQ6HFwYTm2PECoc/8O7UIsH9+zTaQ5qg4qGxtwhiAGk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nrq2lmcs; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vLOibIK6"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 89DDEB07;
-	Mon, 28 Sep 2026 13:55:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790596524;
-	bh=+M7TscWUN5UeQ7Nu4hIt+KoBPgO1Y9PqXzblGG5u1jg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vLOibIK67YftPZBWITN3XEbV/RH34RhIJClXn9Ui/0ohd5DZzs/ZAtbySVdytYlTr
-	 JZD/u1OtOZEPyKtp04118SxBaZx1DtwH8szy6KwO3PUG9HjJnrJjYUf+cKsNAJQEqT
-	 gYa6bjsQu+jUA/ARdeCiRMjhmeednh3wXbtg7BNs=
-Date: Mon, 28 Sep 2026 14:57:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on
- the OBSBOT Tiny 2
-Message-ID: <20260928115713.GD157191@killaraus.ideasonboard.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <20260902002553.34839-4-jordan.mymail@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nrq2lmcs"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66f7a9afe43so2340405d50.1
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 05:01:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790596915; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HL/xqV1YAWMYeaeNXKbRYpP8IBbqUksH9uKRei+sWbgYakcZ3dhymhrUmeJKOqg2M5
+         5W/ZYMG29Rxze76/HSN6ZL+GijU7QWztC2E+eWm62ZGIgTJEeqA9Iwjy0ZzjAfsGkIK4
+         WufSNbi1DZtbtUd4KktQ4kADROmEa3uO6ut9OK+QQol0ZA+EmTVYNVwyJhHHJVMsbY4i
+         fyHFpDZcZ3axSKbH+PYYSQ4CVuWjEzvl8zHQcJRKHkdCL1ENibL1S0GXlkBJlSfIir3S
+         Eh/1tZiUUA3uR1pPZmXfNGc4RrtTwbB0lVWYS26/YVt078xoyHUKPtdzwonCNg4kN1Vp
+         6MZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gA7wkBUxcv/CfOVMRSoZHWpisowbgGaWVMz60ApuciE=;
+        fh=ETrOcHwQ58SyLvzGb4JHKQwCU2L0lWzdsCnRWBxhxDw=;
+        b=Wxd7sPxgpxadFC364d8wCBupVjL2HWbmrjlD4voVuGAkse8fwfWW+1c9SdPsn5gIjb
+         UI8zN6ilL3gvgOhugP45UjaqhZHKZ/BHAI9sNWyGlHx0VsX7/KEejMA/bzmudHCtm0QW
+         w75UuKGJkGlXCD+MBj/rVdZ/AomXmP3lcg9MxPDXFs+rVP+5S7LPg61K+7akT4jkp3Cp
+         3BdkWzHB0A4R4c+EZvdOR3sLWVmFYPEWq2jFE/1XMbG1XJsNHNE5Imq0hFPoEEaoZl/u
+         qoS9nTTFGNjGFSWTQ4CZRMsPCJVaHIrn3WDImTdwUERkWbjo4NWIgU7DC1po76WSmIfE
+         qDeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790596915; x=1791201715; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gA7wkBUxcv/CfOVMRSoZHWpisowbgGaWVMz60ApuciE=;
+        b=Nrq2lmcsxmCdjnPgCHG9KquqJ8QgDJDLeN7+qgTfVB8B0U4V9n4q5gmT5cQJm8YKcd
+         J/PrQpF/EmjTwa5up0y6JDgoYVWHrH3qpsZdIDCYO4Zk+MCIJfDUS7Aw47aDR7ZHcJpV
+         P+0OoRRcdDi0jaBnb/JwV7D+zpctPDSp4xMQwsKQvMep2hTQ2UWVZ1uL4i1c6Zlzv8Id
+         1He0aXE5JHsj1/2lu2fHMRaSZsrp6OhpklYtNSrwpnnjyKrr/Yde6DXtaFWYK5HmOcUo
+         AFbr542PEcbwkH6n3qj/u57M8F+YvN26LD6D392APlr0e9mSIfwtdfj6ujGqvqXWdPS4
+         EJ0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790596915; x=1791201715;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gA7wkBUxcv/CfOVMRSoZHWpisowbgGaWVMz60ApuciE=;
+        b=FwSmqHy9h0aEve9WmH7msGARBU8DTeqQBeRLMNTymXHZ6XnbQtKvzDvSEaYJmUWWrt
+         /GhrRh1Y04q17J4rL/LclYckxThpUO/esMWmW5LhoSndkR/fUk+7nJxbRrCSCPiepia0
+         gKtqdhD4ORUNyqlUvgeTuiwaF/dXem1AJJ5YhoczfiZz8kkg5QaUdOFVVR3hAVQNhFXL
+         nVVHpSRuDndPkXBDogN4dUes2oULB8lG6lrMutId43GU/wnrb4EhSmq3VogWdoHtFxUd
+         Z9oJhlabeSiltI57XgIrblaVG7hhTZBA9DQqbYUk3TorMhAESMFbHVS3PTDh2dBZWEn4
+         GXEg==
+X-Forwarded-Encrypted: i=1; AKwUvByoDEFf4lC6NkS2hy3A74Z0oKiUXvp9d6/ddMBHoEwViU0KE/m7U6sw481DPoZ+pNvRNAt4snm+kNTL2w==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIal3KdOMpChBv+4UOdkE2L4CK6I0rmgqg76MFs4y0aw0JiHe+G
+	vvr02TVUskdYNaePuHj4oZM6TXqZP4n6zrD8IAKboXbL8Utg3jGZOGTnrlHfjSIGPSyp0wS5KUV
+	NdWfM20eQwvBPn45PMknwuvD1pFn8iefoYA==
+X-Gm-Gg: AYBFou0sLnpZZGBKQ5BfpCwpeTL92DHsMe/wCtXfMpdwznrZ+vPo2O5w/65C4Rv+wzc
+	A/vfinM6uvv+g8adZefZ8tQvgiV/4d9Ig5KXswn9jwp1NQQtYGPSThXi6RxaxW/6ERFH4ngVUhB
+	FlH8asojJJeg9bStsHadJTa08U5aoNqpWMpXbTPiv81uRe1fAMtoZZ6dL00s9h72pYh+lPYkZkY
+	FtXeOPPDoGqimvBOKbab5qseuZYaV5qaS2nmV8sLmhbJQHvMKqtfmaDSsQrBWOlxstImmS638jl
+	T4TWLnGQreg9YqgLeQFO65JbtdmVCnTRtPQl3c0TGczKagZVWZ8VLd59bYMDl/HIBfcZPy5K/iV
+	dm9xY/4W7EHH+Ddsow97kfhe39Lz06d5d/Phmap58txxe
+X-Received: by 2002:a05:690e:4104:b0:66f:c1bc:c084 with SMTP id
+ 956f58d0204a3-672ed46f22amr4346039d50.76.1790596914854; Mon, 28 Sep 2026
+ 05:01:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902002553.34839-4-jordan.mymail@gmail.com>
+References: <20260918054851.26083-1-kartikey406@gmail.com> <arey7Lyzlb2lq09P@extorris.mess.org>
+In-Reply-To: <arey7Lyzlb2lq09P@extorris.mess.org>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Mon, 28 Sep 2026 17:31:42 +0530
+X-Gm-Features: AclHuK_DElKr2bW_YcTnR1z3WAtVyL-4qOXaLC7wBY2eg2tywusqgjLLtA0gkzk
+Message-ID: <CADhLXY6CZkmhMqVDDf=u=EgPC7ni8M9Oc7WxpwVai-jxUh+f0g@mail.gmail.com>
+Subject: Re: [PATCH] media: imon: fix use-after-free in display_close via dev_dbg
+To: Sean Young <sean@mess.org>
+Cc: mchehab@kernel.org, jarod@redhat.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 08:25:53PM -0400, Michael Jordan wrote:
-> The OBSBOT Tiny 2 (3564:fef8) computes its GET_INFO capability byte per
-> control, but gets it wrong for the controls that matter most on a
-> motorised PTZ camera: CT_PANTILT_ABSOLUTE, CT_PANTILT_RELATIVE and
-> CT_ZOOM_ABSOLUTE all answer 0x03 -- GET and SET capable, with the
-> AUTOUPDATE bit clear. (The byte is not a constant stub: CT_ZOOM_RELATIVE
-> correctly reports 0x0f, CT_ROLL_ABSOLUTE reports 0x01.)
-> uvc_ctrl_get_flags() takes the flags from that byte, so it clears the
-> UVC_CTRL_FLAG_AUTO_UPDATE that the static uvc_ctrls[] entries set for
-> all three controls. Without AUTO_UPDATE nothing clears ctrl->loaded
-> after the first read, so uvcvideo serves them from its cache
-> indefinitely: VIDIOC_G_CTRL returns the last value the host commanded,
-> never the live one.
-> 
-> All three controls were verified on the hardware to change autonomously
-> and to report the live value on GET_CUR:
+On Sat, Sep 26, 2026 at 5:26=E2=80=AFPM Sean Young <sean@mess.org> wrote:
+>
+>
+> The debug statement is pretty pointless anyway so why don't we remove
+> that instead.
+>
+>
 
-The device implements an interrupt endpoint. Does it report control
-change events for those controls ?
+Sure, I will remove this and send patch v2
 
-> - pan/tilt position keeps changing for the seconds a commanded gimbal
->   move takes, and changes on its own under the camera's autonomous
->   subject tracking;
-> - zoom follows the subject under the camera's AI framing (observed
->   0-71% with the host issuing no zoom request, matching the vendor
->   status protocol's zoom report);
-> - the pan/tilt speed control reports the actual current speed during a
->   relative move (a commanded 80 reads back as 78, then the deceleration
->   ramp, then 0 once the gimbal reaches the end stop). Without
->   AUTO_UPDATE the cache would report the written speed forever.
-> 
-> Add fixup entries restoring AUTO_UPDATE, alongside the flags each
-> control already has in uvc_ctrls[], for these three controls. The fixup
-> replaces info->flags wholesale rather than OR-ing, so each entry spells
-> out the full flag set.
-> 
-> The camera's other AUTO_UPDATE-flagged controls were checked and
-> deliberately left alone: exposure, white balance and focus have working
-> autos, but their GET_CUR just echoes the last SET_CUR (the firmware
-> never reports the auto-chosen value), so AUTO_UPDATE would add USB
-> traffic for no benefit; there is no auto-hue; CT_ZOOM_RELATIVE already
-> reports AUTOUPDATE; CT_ROLL_ABSOLUTE is read-only and unmapped.
-> 
-> The vendor has been asked to fix the firmware (support ticket #8220,
+Thanks
 
-Any public link ?
-
-> 2026-08-04); no fix is available at the time of writing.
-> 
-> lsusb -v (device descriptor and the Camera Terminal):
-> 
->   Bus 003 Device 006: ID 3564:fef8 Remo Tech Co., Ltd. OBSBOT Tiny 2
->   Device Descriptor:
->     bLength                18
->     bDescriptorType         1
->     bcdUSB               2.10
->     bDeviceClass          239 Miscellaneous Device
->     bDeviceSubClass         2 [unknown]
->     bDeviceProtocol         1 Interface Association
->     bMaxPacketSize0        64
->     idVendor           0x3564 Remo Tech Co., Ltd.
->     idProduct          0xfef8 OBSBOT Tiny 2
->     bcdDevice            4.09
->     iManufacturer           1 Remo Tech Co., Ltd.
->     iProduct                2 OBSBOT Tiny 2
->     iSerial                 0
->     bNumConfigurations      1
->   [...]
->       VideoControl Interface Descriptor:
->         bLength                18
->         bDescriptorType        36
->         bDescriptorSubtype      2 (INPUT_TERMINAL)
->         bTerminalID             1
->         wTerminalType      0x0201 Camera Sensor
->         bAssocTerminal          0
->         iTerminal               0
->         wObjectiveFocalLengthMin      0
->         wObjectiveFocalLengthMax      0
->         wOcularFocalLength            0
->         bControlSize                  3
->         bmControls           0x00023e3e
->           Auto-Exposure Mode
->           Auto-Exposure Priority
->           Exposure Time (Absolute)
->           Exposure Time (Relative)
->           Focus (Absolute)
->           Zoom (Absolute)
->           Zoom (Relative)
->           PanTilt (Absolute)
->           PanTilt (Relative)
->           Roll (Absolute)
->           Focus, Auto
-> 
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 64c90c380..74f6e8039 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2876,6 +2876,26 @@ static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
->  			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
->  			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
->  			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		/*
-> +		 * OBSBOT Tiny 2: GET_INFO reports GET|SET without AUTOUPDATE
-> +		 * for the pan/tilt and zoom controls, clearing the AUTO_UPDATE
-> +		 * the driver's own control table sets for them. The device
-> +		 * moves all three on its own (gimbal moves take seconds, and
-> +		 * its autonomous subject tracking pans, tilts and zooms with
-> +		 * no host involvement) and reports the live values on GET_CUR.
-> +		 */
-
-This belongs to the commit message.
-
-> +		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
-> +			UVC_CT_PANTILT_ABSOLUTE_CONTROL,
-> +			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-> +			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
-> +			UVC_CT_PANTILT_RELATIVE_CONTROL,
-> +			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-> +			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
-> +			UVC_CT_ZOOM_ABSOLUTE_CONTROL,
-> +			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-> +			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
->  	};
->  
->  	unsigned int i;
-
--- 
-Regards,
-
-Laurent Pinchart
+Deepanshu
