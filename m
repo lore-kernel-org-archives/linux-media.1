@@ -1,250 +1,133 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51B24E01E7
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 17:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2217B3750A9;
+	Mon, 28 Sep 2026 18:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617821; cv=none; b=HPAGaOXiwUBWYlTsnfhvEWoLHge3aTsMTucwbuNwzeXjYeLu5VS+EIT4N2ONEV0JS6NQJUXq7/JWOnKEC+1BLqg9tEH77DbevnJxsH0Cf5UrWkRcWEHR47Z/gxitZ404kmaLHBkYG64PB0DjmjtLvcZ23TvhjgREV/VGn476Grw=
+	t=1790618443; cv=none; b=K7snflS7F/8IzyNnTmVt5Z7QiHXun0gxR7Ms0cXNHwxqWKcwX1TXG0m3HPw3IXDd4k6afC4JcCCekpp+lqokTG1t1KQKDxwBdj/Jk5suhCiHEzjsML9UaX2MsKtOlH2ezQ57EQkg4XR4PeuFTwmqp7Ds0Z+OrGvU6py4aoqIvFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617821; c=relaxed/simple;
-	bh=Vo7tiaS4qd/hQI2D/pUUMf1JmeMr8vHttgciIKPZ3t0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LIk+arA4aGaNdeE3UW0MWMY7WaRfWQZx/93OuzrEm9K7riKU/s6eBIaojxMo830GJ1rgiY26oSUSkIOW5UfP8JM6wDBwcX29dM2aGyea/o+MvXbU6kPcyIyERiViGFThHYiRa2+0k/VkvaaeEh+pGZS2oDpk7Kkbxo/TIZSfEJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LeIbOH1m; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790618443; c=relaxed/simple;
+	bh=DrV29lL9cL1NQXPk/MG3/cXxxQzYFgynM2Iuq5wjAWM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gzenyYRxN/wqdzICEAj4MXzhVQV04Kbk8NWc9ngsaqhdtr5jz9uVw0+ZAMCcPIomLvw6SPCzJMkgE/Qh4jbWnAiiva9nSSTfVI+Sb4DnItcgtE4UMHigyeMUZx8Mp5eoIJLLvqzWnRARqUdNS1kdUBvrB3lDmS5jJk1LBKKpgWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=kAUaIAMl; arc=none smtp.client-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LeIbOH1m"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a48e359e0fso375548a91.3
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 10:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790617819; x=1791222619; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kUOcs/vLJRWuvXVgcchrSjRSXVJyt3AuDbAQ0AxA9eE=;
-        b=LeIbOH1mJLd7K8xq17V1Nb8ISWjQ7/imlcR6yI3oiBzxS5yZROzhAE4Bqa213zhnj2
-         J/hIUQv2E6nBcSoKpX6HL7AbsBVsO/qrIpCxPQsCdccBwvRJIyPBoWx0eRzxpUMkS4Im
-         r/VEt0W4YyAxRC0MMvpmyfiub7eTh3xBM1zOA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617819; x=1791222619;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kUOcs/vLJRWuvXVgcchrSjRSXVJyt3AuDbAQ0AxA9eE=;
-        b=x8+PSrCS+j122TvXm3md4Ln9WIe49ABpn8zjN5zM8VfYYquJR9pbIXLAV9U/JFOjWx
-         6mnAwlb4CA7EYkDdWMOrCPE0Z4A39mGhk874rXCDjqDwoUA0lENgEnAqhKXgydJggnDR
-         q2/E093V0ipj0hu5pJWhu1r0hYromzawt1Asf1edetRULt4JvyzzhHI8HmkKViVK8ufK
-         f/Kuj7Zo9ujziHamq35gYU2NIo/zD57KPSNRRkVoPHdiCDhL25KU+GJPdgu+mB3NfSWq
-         vOJTv4RqXbg6ocqrBLzcLCR+pu29f809chRz7sBaZJlhtxf0nXvGBtwAf7A5+Jlozlbp
-         Qcmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzAz1JdNwBpKE3aBBeKTy5kOlGBo+7Wq/i0A3QGSOrpeHPVvCCi4qe1iKg4lZOYVUO3F1Zn+0pNO2umPw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2W5x15ItjCkQO7QKIE5dTmfoN0KmPFYfjsAEHJuyg5LrvMw4q
-	cgMkZwzKUUl2tc6uHEK4MBNycE353Pe99yb/olDdi+1AdiF1OzkbZrQvRB11dumIjLIYrfINDCw
-	OcP0Mbw==
-X-Gm-Gg: AYBFou0oiWaH1Yvz/NTEl1MV9JtV1pax44hGn3SFKAvCnWB34B27RvtvWs5uEemDXtc
-	3uNddzfh+9w2spnJ6pI0yGQdvUcBgocyB5uOTTDkTtxHYdZ8NVUa2EnYr92ymr8nedXqh/XxqSd
-	LoLYthDjZJncPDuoWZ3fC8Yvp/ji9Q3g7eA/GLc8GNmSY6Ly9AXx4yVra5fkjgbyXyd2nz9eOJv
-	tL0VRQHVUoinR4mOoankTIxgZhD3YFcb6T9cQhjnFIKASaTRgX4P/Cjj8uvulMucLaD2DntRllT
-	Cx4YUNXix2YZEAGzfhHP4Mixi/uHnuLIt6EsgmuI8qvKrXMQCVk6c4HL5am+asM2ZKbgaSIN2FG
-	3RtErRSUBXMXJj+ry3+TlDtdDpQXafPF+Pm0wZ5YlAfvbt0KuJnKKsHaVw+cts6mG39o8rHe0jp
-	OqZ1+5GPca0ZB7sqpdhPAsxd6UJql2gzQkYzL1IqYHbFGmYWJT8pOvrHyL4XKloFJe6jbd+jfSA
-	3X3hX3bFLyZ4aaTI8bW4PS+XTxBGDjGoJ/J
-X-Received: by 2002:a17:90b:39a6:b0:3a0:c0f0:9a96 with SMTP id 98e67ed59e1d1-3a0c0f0ab36mr8150185a91.62.1790617818981;
-        Mon, 28 Sep 2026 10:50:18 -0700 (PDT)
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com. [74.125.229.42])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498d8ee5esm184747a91.2.2026.09.28.10.50.17
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 10:50:18 -0700 (PDT)
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-34182b58d00so2317110eec.2
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 10:50:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwr5JL/ZXlW3fmxyjh6HuXjTDa71JFF6KB1wJk48fJJK1gBND9bdjoc6vlgAACFVaQLF50GXnaKYh0Y4A==@vger.kernel.org
-X-Received: by 2002:a05:7022:5f08:b0:143:2982:1043 with SMTP id
- a92af1059eb24-146d039e75bmr8017356c88.36.1790617816308; Mon, 28 Sep 2026
- 10:50:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="kAUaIAMl"
+Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SHwukK3561556;
+	Mon, 28 Sep 2026 10:59:49 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=pEF+FSbGC0I
+	yV+m+oO1hZz2RvMreBEf6ik/hQ9tP7DA=; b=kAUaIAMlccHRfXvCHNx9HLLgSvS
+	zUzXCppBo+HK8nIQev08VJ7mlkiwJOEAcPTfsYzBN9RLvoTu2Xa+Ae9hDz4riYAi
+	M4973+1KiZJOsPV8xEmrqIiege4V4D7UrEEKIYWiAepty/5n5O7KZX/133LwhcVf
+	QgnaxN4pqXyGz5gh0YbxVnYzi6Ik4wD0nDpA20s7CkHfC2TH0enbggx2LA5Pq7hX
+	Gg3K9R9fD4YfYlw9OVoHQl2pd90I6DX2ru/4DCzqXM72aJvgYJnXRbQa7rKud2N2
+	QGfT5GnzUUQNoalo6bif1GZHDKTvCN0XIAzJgHAiWktYCHfG9bG3eae8hmQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gxymj8skw-10
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 28 Sep 2026 10:59:49 -0700 (PDT)
+Received: from devgpu015.cco6.facebook.com (2620:10d:c0a8:1b::2d) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Mon, 28 Sep 2026 17:59:10 +0000
+Date: Mon, 28 Sep 2026 10:59:05 -0700
+From: Alex Mastro <amastro@fb.com>
+To: Matt Evans <matt@ozlabs.org>
+CC: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+        Jason Gunthorpe <jgg@nvidia.com>,
+        Christian =?iso-8859-1?Q?K=F6nig?=
+	<christian.koenig@amd.com>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Logan
+ Gunthorpe <logang@deltatee.com>,
+        Kevin Tian <kevin.tian@intel.com>,
+        Pranjal
+ Shrivastava <praan@google.com>,
+        Longfang Liu <liulongfang@huawei.com>,
+        Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+        =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+        Sumit Semwal
+	<sumit.semwal@linaro.org>,
+        Ankit Agrawal <ankita@nvidia.com>,
+        Alistair Popple
+	<apopple@nvidia.com>,
+        Vivek Kasireddy <vivek.kasireddy@intel.com>,
+        <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+        <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+        <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v7 6/9] vfio/pci: Convert BAR mmap() to use a DMABUF
+Message-ID: <arqq6VXW8Rif59BL@devgpu015.cco6.facebook.com>
+References: <20260924152159.49702-1-matt@ozlabs.org>
+ <20260924152159.49702-7-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928152416.766957-1-jordan.mymail@gmail.com> <20260928152416.766957-3-jordan.mymail@gmail.com>
-In-Reply-To: <20260928152416.766957-3-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 19:50:01 +0200
-X-Gmail-Original-Message-ID: <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
-X-Gm-Features: AclHuK-Ewb6GQzGWa58AXBEImlBnO_UZyyEBA5b-FDYbjUaORX1kCvkIJxuHdec
-Message-ID: <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] media: uvcvideo: generalise the XU flags fixup to
- all controls
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hans de Goede <johannes.goede@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260924152159.49702-7-matt@ozlabs.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA3MSBTYWx0ZWRfXwkixo5mFwJL+
+ 3HxVttVUw+QY1JoVP6q/63ZuKC1iNj+c/kiuAoI/m0mErc4e+ALmZ+sdLPtiu5xXfpLVL1H5sw1
+ KoQeyUON47ZXxYfTn/Brx09PCPtLkJk=
+X-Proofpoint-GUID: wtQ7mSHJGALMv_7s4tdWeER5WmOUv9o1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA3MSBTYWx0ZWRfXz7SjoAw7WbsZ
+ 0rw1WR/kQSLSd+1v8o5N+oHGO7nv54+PqYN6mxhHQ/CwrRq+y7emYcDWXrwym0zCeMMMa2FCMCr
+ BgTsqJWofCMKDD/BC1iVgqGdG8iuKaxUQlHgXPSVhLmVjo32uo4XDVPvOfkAJsE6l0QuDm3w6VE
+ r31kXYppLEsgTWVzeJAaNWssShBQ9jlnBI+0vZyyvl2QIQ+D5ATJFvqVcgq0h20cR4TvBkYmq0M
+ M8o2mx94ripun1SkUw+MKHWcBV2azAbayTjK4wGG4TjCpk2vdsJr4a0jBMRq3F91qr0MejGDxNu
+ av0w7LR5mviJeRXJ1g0VKYHCFm6bp9VnvAoCaFbTm6XDRiJ562qJsky0FcUzLFfpQxNh9IICMTx
+ xnF9zDKglBN9URMpMjFlJYCN+0uNXYvcUvUqCn0+YjDXn6PkNL2MQsovuF2qwuRx9WWfFbGbhyz
+ obwvwrEB9L0mFhnvAZQ==
+X-Authority-Analysis: v=2.4 cv=Hp3jiETS c=1 sm=1 tr=0 ts=6abaab15 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22 a=NEAV23lmAAAA:8
+ a=wdxqxBYYAAAA:20 a=FOH2dFAWAAAA:8 a=RDIsNprFJan8OBN3x1YA:9 a=CjuIK1q_8ugA:10
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-ORIG-GUID: wtQ7mSHJGALMv_7s4tdWeER5WmOUv9o1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_05,2026-09-21_02,2025-10-01_01
 
-Hi Michael
+I used [1] to validate that the problematic sequence that deadlocks
+in v5 is resolved by this v7 series.
 
+The test stands up a spoofed nvgrace device [2] in QEMU and runs a test [3]
+which:
 
-On Mon, 28 Sept 2026 at 17:24, Michael Jordan <jordan.mymail@gmail.com> wrote:
->
-> uvc_ctrl_fixup_xu_info() overrides the flags of controls whose GET_INFO
-> reply is known to be wrong, but is only called for extension unit
-> controls. Standard controls can have the same problem.
->
-> Rename it to uvc_ctrl_fixup_flags() and call it from
-> uvc_ctrl_get_flags(), which handles all controls. When an entry
-> matches, skip the GET_INFO request, as its result would be overridden.
->
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Assisted-by: Claude:claude-fable-5
+1. Launch reader thread: pread() from vfio device fd into a userfaultfd-managed
+   page.
+2. Wait until the uffd fires, but do not resolve the fault. Now pread()
+   from 1. is blocked, holding memory_lock(R) inside nvgrace_gpu_read_mem().
+3. Launch writer thread: pwrite() the PCI command word, queuing for
+   memory_lock(W) inside vfio_basic_config_write().
+4. Launch mmap thread: mmap() on the vfio device fd, taking mmap_lock(W)
+   and triggering the internal dma-buf export that backs the mapping.
+5. Resolve the uffd fault.
+6. Join the threads.
 
-nit: I think that the current way is to not mention the model version
+On v5 the dma-buf export in step 4 takes memory_lock(W) and blocks behind the
+reader and the queued writer. The reader's fault path nests mmap_lock(R) inside
+memory_lock(R), while the mapper holds mmap_lock(W) across the mmap handler and
+waits on memory_lock (lockdep reports the cycle).
 
-Assisted-by: LLM
+On v7 the export takes only the new dmabuf_lock, which neither the reader nor
+the writer holds, so step 4 completes while the uffd fault is unresolved.
 
-https://docs.kernel.org/process/coding-assistants.html#attribution
+Tested-by: Alex Mastro <amastro@fb.com>
+Reviewed-by: Alex Mastro <amastro@fb.com>
 
-If you need to respin please fix it, but maybe Hans or Laurent fix it for you.
+[1] https://github.com/opsound/vfio-dmabuf-lab.git
+[2] https://github.com/opsound/qemu/commit/349f0b12ca633fc42532aeda33273079b2b8e5d4
+[3] https://github.com/opsound/vfio-dmabuf-lab/blob/cfe762123076c4543fdc4e8d5e9b62ad6bf998d9/tests/nvgrace_uaccess_test.c#L309
 
-Regards!
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
->  1 file changed, 50 insertions(+), 41 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index aceb263103e9..64c90c380d3d 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
->   * Dynamic controls
->   */
->
-> +static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
-> +                                const struct uvc_control *ctrl,
-> +                                struct uvc_control_info *info)
-> +{
-> +       struct uvc_ctrl_fixup {
-> +               struct usb_device_id id;
-> +               u8 entity;
-> +               u8 selector;
-> +               u8 flags;
-> +       };
-> +
-> +       static const struct uvc_ctrl_fixup fixups[] = {
-> +               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +       };
-> +
-> +       unsigned int i;
-> +
-> +       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> +               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> +                       continue;
-> +
-> +               if (fixups[i].entity == ctrl->entity->id &&
-> +                   fixups[i].selector == info->selector) {
-> +                       info->flags = fixups[i].flags;
-> +                       return true;
-> +               }
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  /*
->   * Retrieve flags for a given control
->   */
-> @@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->         u8 *data;
->         int ret;
->
-> +       /*
-> +        * Some devices report bogus capabilities through GET_INFO. If the
-> +        * fixup table covers this control, take the flags from the table and
-> +        * skip the query altogether.
-> +        */
-> +       if (uvc_ctrl_fixup_flags(dev, ctrl, info))
-> +               return 0;
-> +
->         data = kmalloc(1, GFP_KERNEL);
->         if (data == NULL)
->                 return -ENOMEM;
-> @@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->         return ret;
->  }
->
-> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
-> -       const struct uvc_control *ctrl, struct uvc_control_info *info)
-> -{
-> -       struct uvc_ctrl_fixup {
-> -               struct usb_device_id id;
-> -               u8 entity;
-> -               u8 selector;
-> -               u8 flags;
-> -       };
-> -
-> -       static const struct uvc_ctrl_fixup fixups[] = {
-> -               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -       };
-> -
-> -       unsigned int i;
-> -
-> -       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> -               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> -                       continue;
-> -
-> -               if (fixups[i].entity == ctrl->entity->id &&
-> -                   fixups[i].selector == info->selector) {
-> -                       info->flags = fixups[i].flags;
-> -                       return;
-> -               }
-> -       }
-> -}
-> -
->  /*
->   * Query control information (size and flags) for XU controls.
->   */
-> @@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
->                 goto done;
->         }
->
-> -       uvc_ctrl_fixup_xu_info(dev, ctrl, info);
-> -
->         uvc_dbg(dev, CONTROL,
->                 "XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
->                 info->entity, info->selector, info->size,
-> --
-> 2.43.0
->
+Alex
 
-
--- 
-Ricardo Ribalda
