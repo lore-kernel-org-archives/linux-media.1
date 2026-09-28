@@ -1,105 +1,106 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31AC1172E
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 04:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9493C1C861D
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 05:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790569862; cv=none; b=vB46Tx5SEV+qochwL6BCAxaM5bEPm1i8/GlGcxf+TpxUhXUZj9QWQGRSujSdMuu2KusOH6Uu2Xf06eGlfdJJx4J5+cY7CJdMmkg9NwCc5L89WPaBLgA+4IIfqDVqvpmCfaXASpc9nOg+drI7yUG88WfELhcuy8BfTHBHV8IqKOE=
+	t=1790572052; cv=none; b=HRovTAjO9PKb0q67lu4pD3pNn2foaif60ORYtCAuZaWLWBrv/77XkO+9Si/WbrGj0y+fcfp/S305P8jP9BMQcWw4rZsv1ohq92oslAt0LQ7yy8EohJSOCOrbuoxsHqmZ9EFwkPdc+ZC1htjZu4TAVs1RAu7+5+Ji01d7nPdLwxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790569862; c=relaxed/simple;
-	bh=2KIiz6iGLxRFIVVJFBxG4zc9wLGsSqHTSc5A+eLla0M=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=O7MvEiMv9Kje4UcDiP58DC6TMuQKmEOvQsl4cNOpzuMH42O53TeGGAvstBSbX+n7ov0b7LYXqc3nFIY2wiSCLElQ3h7n9j90sPEh37/1xyhApnrA4hPFEYjocO+TW3k54bDhLYdif38L51hrTv9F36qvqgCnXY/TeaRx+tQR7G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GmrfNZ+b; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1790572052; c=relaxed/simple;
+	bh=cBbmgWLkTygFI2uRkgGE78CRY5thYY1pH6OrLNgGW6k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SUOWriRgMvAEOddL1fzw8wJ8dFtTt6tOOrCesDSJfjz1Uyab7ZlGQsQh6+PTkVwK995VIcQ/wYo2QlxPF4Kpnj7iPsV1OMM+tU4/MC/o0F9pqSgQZAUZUh0jfGsVdK1nQhkPXQ3QzWervP7kyxD9ehnvFdRh7YwtmPGfY1+ewNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr; spf=pass smtp.mailfrom=korea.ac.kr; dkim=pass (2048-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b=AwKPLFLI; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GmrfNZ+b"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39e3c10ac70so3824617a91.2
-        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 21:30:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b="AwKPLFLI"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc74520b20bso601981a12.1
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 22:07:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790569859; x=1791174659; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F4a/2U6MDyhfh6OctZetk7ga+hEdDkfQe/jf3hv28p0=;
-        b=GmrfNZ+bAySqQzM3dC1Y9PJWS8Tb52nVM24iWDQgRS++8tj1S49rDot22RI4c7h0Jo
-         /rTNzxFKHigi4PAOfXWbT2i191V+PoaN+6DPSKzT/A625zbPVNUjz0gdLL+AS3i02zVD
-         98tRRMmD+Hox0CdWC0V83ETcEzS+gjdnAeL3cUrtSB2cNsyazI4iA4UfaHwCUlTwA9tx
-         LdibilKWxB7wUisBd/MhgkgwuGPYWQzGe7U9/V7pt3RZ0dnw79a6TkYmn+VPmTsI0Jne
-         KKjgW01js8PajIUFmpTVSj9wU6orRre2uRSAxLq5D7yeGb56Pop0nf8ltj8/Fm3S63D7
-         6lww==
+        d=korea.ac.kr; s=google; t=1790572049; x=1791176849; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qsssqQqsH/k0kClUG0kGbGA89DoV1qMemL3yMlvJcq8=;
+        b=AwKPLFLILepeIex/i3EGlDc+KhEMu/bDOwM0UE2/KsX8GLk9X/BsWMpz9Lw2Lt4c+N
+         JIkUvlWVmetqAy1C+ociejnKlsBzLiwAHGqW3ChfZ/zLv8rSvHJN8HnneqF6HKpI2mWp
+         /W0C+IdXnH2TZu8vpDQ3Pmh25Aj8aOCwZhch8WV7cIdCFro/px/rx3C42FTbg6XEBYjz
+         FHY7bYE6EUht8/5/b7fz41Fy+InQkfDETfVlozA2faJlK3gLssXx7lQn8v2jjWMztm0Y
+         tYmm1b1b7CymLQJwGf60F3lnaHCmSPGxEJBCUBvEJYmNXfzzAPirqNjLS0n19RS3qx+3
+         1awA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790569859; x=1791174659;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F4a/2U6MDyhfh6OctZetk7ga+hEdDkfQe/jf3hv28p0=;
-        b=ESlZjYJaMpOeuHUmQAbUCCZNDB05AOgAXZcWiYilmsmaCyXh9XjGjhP2zZ6hiG9z1M
-         nfqm5lbAzBKuRl3MFRcVVZHJt2om0EwTZcKi75afO7q9ygfe/Y6Dzmjtr8ANmz56VtTR
-         HzSZN/wA0iSEj0+fB3hAQC01ZfBfpleh8T/D8rE8FizUuaKBMFme6nCn02ZKfp9uz730
-         V9YHdipuESuOE3/jqyLuTNJMEUdybIm+dS1/dMJgXj/DA7rGSvRxF4vCj6LZDoELztcx
-         vTNU3R30Ev2XC/FMZwsblmo0jmJsUcgJ9bQn7+CNNA97e9xsuU/yKrjolfW09DsfpBJO
-         R2GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx71HorgFLLAaeDmI3SGdn67jj8PX3nqmTsqN1yXNhKnhSuUQMCgKYFcVkab1DY2AyxbFZZ6h8n9a/ehA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLY1qi/PmrevDgoNwetye1BRSxGBW4HpvfMFv9M8IkgcaMF912n
-	t4/Gp5NU3UB5skl5baLno9WbSMqwtN+dgW8NSbWRsNCM0zx8IXqXcQQIhV3ySSv01RospwCYK5g
-	Q
-X-Received: from pjqo14.prod.google.com ([2002:a17:90a:ac0e:b0:3a0:70aa:2cef])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c2cb:b0:3a4:7a96:5209
- with SMTP id 98e67ed59e1d1-3a47a966299mr377611a91.33.1790569858850; Sun, 27
- Sep 2026 21:30:58 -0700 (PDT)
-Date: Mon, 28 Sep 2026 04:30:56 +0000
+        d=1e100.net; s=20260707; t=1790572049; x=1791176849;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qsssqQqsH/k0kClUG0kGbGA89DoV1qMemL3yMlvJcq8=;
+        b=DGVCfAnXd6m1vhlZib9ZeRrxxUjtVDRqeIUpMdLxs2Yc8qCq5/+jbnsKyKhBpAtGwy
+         F/Yi3t5Ju7Kej55F8VS1OIl1AvqrMOmih1OLn3xPq8XhGoFldUqz0miAE4RRbswZxHuh
+         dXSfgsngLst++9QAZ1jJCIhwLLu+j/ukcSL/uldTegvQ5jt2/yeWtheJLVyGGQLAn6Aj
+         CXsm1wBQjdM50yJeCJmNn4h7qOVYy8iitJCbTrgmwkPMk4+kAUwmtqamgdAd/Bh6TGs2
+         ObOsBANTVuZvFjZRBnZ2V42YoJTOjr5dexQTC9yeBXBnkBFvlvAJGMbyM3E0hd94/8PE
+         Ad4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwbMK1Q9fRY5/xzYpMynKyBvGA5V+BUCs9RQ2b3UOTWtnbZlNZh6MheKTtMbDD+J5TaxpIr7U42zcmRWQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW8TIvpqlZVwjpESYZELOYhotaS3pBX7SZzLp3KlozHCxpUy/V
+	WPUnL1nvYB3Q2DZU9ht4CKjtb1DZZaDkr7i5yx1pHdblelZUl/6XzuhSR8B22RFCAVw=
+X-Gm-Gg: AYBFou2hTyDcf/hn+91oDK/B7IGZMCyfT1zFXqcwFdcF8xIh9ZrefAJCTlNEL2W9thZ
+	9I+Rh37gaFpJiFR3zUARhkwaDsRDQ/TeAj4eYSiGqNq5cZG2+PvCEM4NxTa1Pvk94YR2J5FMfVv
+	XCpsvKhUTnDLHJP4xN5lPukJ1ZUjOfCBs/bazyZ2nPUNWqoAZ5HzSOtKC5hxuvwT2nXGzOM/PVl
+	SfukgjqLPLrQMs0V6JygtWRU3+BhYCyf6W11DE+hhrDs2ZhRCmBwd9VxLLfJCsVxrz8lKfw63k2
+	kRm/zqbWmKSuQWy74yZm4NkQKa+E2sh+z8Z4R3VPq6obJzrc83naDnPD0tqwK3adSxITQWvAr4r
+	Imkf1YA60yrm+v9OwDghxflU7xTxwoAhBKzUwbVxM5SGJJK56t2YoZznNTDpw9ce9BhawuCwF9n
+	FL4rmhqlacrfTnZhT1z5erJmbIP4JK6BanliEEF63AZhChC64+LtZP9loCu1zjfUZEBVurFTWzt
+	mKWgzSFBajJcw==
+X-Received: by 2002:a17:90a:dfcc:b0:3a0:cca0:4a8c with SMTP id 98e67ed59e1d1-3a0cca04bf4mr3730718a91.7.1790572048813;
+        Sun, 27 Sep 2026 22:07:28 -0700 (PDT)
+Received: from icps5-ESC8000-E11.. ([163.152.219.23])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b499a772sm6281182a91.0.2026.09.27.22.07.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 22:07:28 -0700 (PDT)
+From: Hohyun Sim <tlaghgus0425@korea.ac.kr>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Abylay Ospan <aospan@amazon.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: netup_unidvb: set the vb2 queue lock
+Date: Mon, 28 Sep 2026 14:07:22 +0900
+Message-Id: <20260928050722.274052-1-tlaghgus0425@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260910063826.112147-1-tlaghgus0425@korea.ac.kr>
+References: <20260910063826.112147-1-tlaghgus0425@korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928043056.1324568-1-morbo@google.com>
-Subject: [PATCH] dma-buf/dma_fence_array: Annotate fences with __counted_by_ptr
-From: Bill Wendling <morbo@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The 'struct dma_fence_array' holds a pointer field 'fences' that points
-to an array of 'dma_fence' pointers, and its element count is stored in
-the 'num_fences' field within the same structure.
+Hi Hans, Mauro,
 
-Annotate 'fences' with the '__counted_by_ptr' attribute to allow
-compilers supporting this attribute to perform runtime bounds checking
-via KASAN and '__builtin_dynamic_object_size'.
+Gentle ping on this patch, sent on 2026-09-10. It is still marked "New"
+in the linux-media patchwork with no replies so far:
 
-The structure is allocated in 'dma_fence_array_alloc()' which
-initializes all fields, including 'fences' and 'num_fences', to zero.
-The structure is initialized in 'dma_fence_array_init()'.
+  https://patchwork.linuxtv.org/project/linux-media/patch/20260910063826.112147-1-tlaghgus0425@korea.ac.kr/
 
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
----
- include/linux/dma-fence-array.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hans, I have added you since this is fallout from your commit
+c780d01cf1a6 ("media: vb2: vb2_core_queue_init(): sanity check lock and wait_prepare/finish"):
+netup_unidvb sets neither q->lock nor wait_prepare/wait_finish, so since
+v6.13 vb2_queue_init() fails in probe and the error path then NULL-derefs
+dma->ndev.
 
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index 0c49d7ccefb6..85e5879e8a1e 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -39,7 +39,7 @@ struct dma_fence_array {
- 
- 	unsigned num_fences;
- 	atomic_t num_pending;
--	struct dma_fence **fences;
-+	struct dma_fence **fences __counted_by_ptr(num_fences);
- 
- 	struct irq_work work;
- 
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+One correction to the commit message: the paragraph saying that atomisp,
+pwc, msi2500, hackrf, airspy, rcar_drif and video-i2c were fixed for
+having "no queue lock and no wait ops" is only right for atomisp, which
+got the missing ops in cf738cc7cfe0. The other six already had
+wait_prepare/wait_finish and only set the lock after vb2_queue_init(),
+so the check did not reject them. That paragraph can simply be dropped
+when applying, or I can send a v2 without it if you prefer.
 
+The patch still applies to current mainline.
+
+Thanks,
+Hohyun
