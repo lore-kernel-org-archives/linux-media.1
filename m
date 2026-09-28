@@ -1,64 +1,64 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908324E73DC
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 15:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDB34E77F3
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 15:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609062; cv=none; b=ZfmWm4YLgj9ntNIlnvblCiiSjaxdS1aUJ/BPyEiaimxGMD0M4K32A5zutaV3QYUbOGlzrSOFcNV8GlGpEXIcfY+k45j0msjdFRk6gvRSUfsqILlbC3SD8nBfOEXFK0pxUsfPy7SxuOj1EmiIhzCR7jFP3wquECXEyn0xZ+PYBGk=
+	t=1790609063; cv=none; b=P53wduz6iyG2PO9BIMfn/BZ52NlYhC4XU6lhg9keDn8Pewajcqx3OZK2t6lH3cV5NZmvuK8Ax1Rsop8zeiAPUHV95XlZ4xnsXZWZ7AGiuZPON9EL8z/8Gjoq9kejgjVuAy8xoyHaFla9NVjnAQEMMiBdYK5BlwUlxRIHtXO3xsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609062; c=relaxed/simple;
-	bh=RuP//N9uzjxTyT9JdGxXhEyQ148US8+ujiI2RhXbwhs=;
+	s=arc-20240116; t=1790609063; c=relaxed/simple;
+	bh=Vg1lr7DZN3CZimWgNvaHKZuHREsCrdc2TfUIOcM8wzA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SqRLjr/ZC/VvAN10W1Fwgk4d8wy7qdU0/Knnr0NyFKVUkx+aSttyC6JCcfzJE01Xs/F127CTXmg/k2mYyTBWaNyO6I8xcqE2qmuEHEDdJos9tN6KuiS/epsthEWm79LNJsG0tYx1fvpQ2FZyHwzbc+aKdhwws56eul/M5kbyjDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dlv+EuF2; arc=none smtp.client-ip=74.125.224.168
+	 MIME-Version; b=WWVEcZAijncLjay8BlCPmn3KDA9xqYbaU7xqwgYMtEjyko4PReWV3AJIyCv+i8n3neWRCBYukcTbzUaoYnaOgME8bwvH4w0fc7U84Z7xFIGX/dLpDuLo53n4H2vS5wt2Bq2mv7xmAt8KRq2VvXBhGS/YK7wg8JRt77u47F8uhGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptZbcaQ9; arc=none smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dlv+EuF2"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8a8878695e8so9966647b3.0
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:24:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptZbcaQ9"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-86382f10801so14676647b3.1
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 08:24:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790609059; x=1791213859; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790609060; x=1791213860; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rQJBEt5F+3g1IlMrcS29eqi3x1TK5IX1o1gGax0D0no=;
-        b=Dlv+EuF2ZatQQkd9qVkxfBrqB4IvAB8L9gz1GbT3AcLdnBqzRfnzRjlHuoXMFchtI2
-         bimDS2/q+60SQlvQuYWUDy0x8vSykvLdcPzG1ClsbpEoDEiNVc2NJy5kZvFXawrlk9Mj
-         6gHUuMAT4cWIAU/V+TVBgOUroH14PkNCv+TOkzOEcR0fsPH9JAaWdhKECa6ndKDD6HLw
-         nPCpadiu0vPtExODlD+ZLyYwDeuyuO8HuRLhxz6sNY1uw6YEc1OE3QPP+1hJ5pxoTrNF
-         irHmik9FQCa98sINEOh72W2k+Sy3Q65csgA0v7cIBYg+yfkK/XHaN25ka/r3QA+agIaT
-         GEtg==
+        bh=gC6G+EntBmwmRW+R7tG2BBUtzviDX/dQF9SXy8xgEDg=;
+        b=ptZbcaQ9uTEOk9SVIwdkyXRf0BKu/1OQMclSE9PJKabSuytNvDsYyDgKZZ8G4sg0v+
+         dfk0oV3aN8+DHwIkiiQB2geBYRinNooBfIiCtkMjMJFHQsrVietlL9a+TTdcGu3xm/Io
+         pXd+hXY7D0pZrroU8SwIwEam/YkdEeptTDaSsCY5SzGwyX7RAaTmkpIgNzRbmskJiN5m
+         3CDmZoQwfCt0HzHHMsION+/WPIJASWFtm85XnWEQ42NELBSBUvUuUiugQ8tevnq4FcoZ
+         +SLiE/Y9oj0mMvQlyd6eOm6GX+O1g/L+7i8uRbHIz2OcLutea6PVsvcrO8novfeSPIX1
+         qfBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609059; x=1791213859;
+        d=1e100.net; s=20260707; t=1790609060; x=1791213860;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rQJBEt5F+3g1IlMrcS29eqi3x1TK5IX1o1gGax0D0no=;
-        b=vUfB8hO954KPZI6mS2hrVf2AbO5e0lhnIsW1E01YoEJzQVjS30puCndNoF3pqmc3nl
-         z6VRq00s1lZENsOs9kxxMiSxKtdej9mEyoCxvbU2Wj5TJyt8+YT5UYiurjDq9K4Y07NL
-         GEym32ahDgY6qAXn5+rPZJHVWhtlQQ/eOASHOro+xK6EwwlJxrRvmdanUX1MUj4QbZxW
-         qY9b+zYL5TE/Y7Zg2M5tgRzlobLV0Tw5P5QAYuZxTUiQuMl4eRdrVI59oNGxYFXMLo7L
-         fgZIrEiAdrFevGq7ivNuXmssA290su5OA6hAYKUZPku1InKdsoaSkZwNrseHyg5cuAu8
-         5FEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWuCpxzyDYE0tK7JxWI35ZrLP9hQAth59zeK/yh8WC8CcEY/sS8xs+SCoo2qxZ/Br2CPM8XM9JVywHqA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+1UnUFA0nOOgkYWLJIF+Lyc8rJCKu3HoUNsNrOktdYAXhzdbH
-	MalE3nVNOR6fffAfKASnZxFCoXpdXXGfPMDb/Rea3+3GSe3tID8r9EYu
-X-Gm-Gg: AYBFou0jw1EWgZtyS5llLABoIyIWl5ynYAKqVwFV+HniNCykesAROC+Y2Xl/QC1ofZ7
-	BDY4ERiLLZj3bG6T5xIQRzRnI3B97hfshE9Xx7YvwEHjnvLpAi0i3knBULNsjVwtkQZhtYZRZSP
-	nOzw+lEnxVm8ahmOyimoghW9hRQdwrtRkN3AnXvbraARKgOb0iMhEAPDR/OENUbDFF7rIZUf3A4
-	FaKsleNY0NT58Og/CG9UplL73OD02tBHH0TqnQ7EnlPRwxD7j6P3AL8Qt9BpQE4IAtBhPwfJOiz
-	ra3V3CM/TUc+2iyDX3LpCFHGWIVG9gH978gf6INoGd10Q3es5WH2a+zVq0PjcmI+NXZ95VhXdTX
-	5cyhg0oYzvL9t49ygM764KDz7FAMpiyWca2Rfon5XVxsFCzkb+mMqDLAfjoxvRDDOPXgFqZ42lm
-	g6WU9AYsjU76jb8KMP3hj9TTzBV9Oxx+JUzIo9KBh5IrDKkQYzTV7uj53sz+Ih6LO7qjF5vTwHa
-	/WpzJ/znvFnXG1HS4Bx7CLDWOEYh1rcU0f6ogYiunvpbeVDWfEH3Q==
-X-Received: by 2002:a05:690c:386:b0:892:63a4:15dc with SMTP id 00721157ae682-8a64f2cf5cfmr66722717b3.32.1790609059514;
-        Mon, 28 Sep 2026 08:24:19 -0700 (PDT)
+        bh=gC6G+EntBmwmRW+R7tG2BBUtzviDX/dQF9SXy8xgEDg=;
+        b=j4+u3rX+LKBEVPoGQeq6sgZyymLwLmaT9nWypeaB5lQnyudjA3sfurOZ1vezRwmDvx
+         FlXnYseFPAaETGkR6S99ZAhYWEAX01Pd9eLMm94aSZDJGJg6fBqCcYId1zX9UxUrAG4S
+         PW1sgiq7VgbmX/si3NRTjGbawo5jAXVLNfQ1jfAPvOdGgeV0OnVaxSUvUtJn8lvi64J2
+         YhXidfkyhUZc/cdaRjq3yjWKBuluqs3go4SH15oacXJoWlv0NjK7tsCbUrth3rd+6wYY
+         TfHNdSZWAaWnLRpcVCqa2DaxO7wfPt/sob7t0V1A1UQgIrd8mH2b8KNI0YqlrxCEzc//
+         QWPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSXENiDWhdnt+0xR2e7rn9a5HauXp3iDAini1qL+ZXYH+B9qLWhpWxKZqOGb7lWQ5FGMK6hBVfNSEy+g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnhZ+Y8oZst44PaOujLnoQ71zwc9vxBcA+XmbQWbkONGqALvFF
+	FYuOli2YWQlP2wxQay+rw7V57xXPOpCkIdMhKWY24S21Vqrx+VayXQed
+X-Gm-Gg: AYBFou2gMHnKu5VlQGbOM29EYHtDzKgRiWwa/vMmafCMuzr/0a0t2nyw0ZRDfO9mAfD
+	LJvDxBxA5lidaQp+SdTl21lspr9WicVg+Skq+VfnqflZH5IBjlW4MFl6MI7tyXv3waamRPfxf3F
+	hq/DoZ4RddLsxMCFQyqwl1sH9lry9cQ9qczda8OO8cC3644djZrEUjgBun91xaK0p7UkdYPN0+B
+	qsY7rvOMPvPvjZYoYLdea1wMfQVy7ML9XM19VU4JruU0XE5oGZ51Q+bpcVgH3YFuH1d7IHvfqNT
+	8e/t0qKKohQ8PGZ7DO/aGeTENKVxJn7u1wu2AXID6dOD9g3PUGdVKqnZZ89+0VGEIDUrTF+ud/K
+	i4jmPsSZcEdxUbq+OQc8k39bquUSIaJ1xC318axERYvx5ANvVqhzZBiqizc8eVQcganf0bl7Efs
+	bznYi9CD7NPRobrWCOMKTzZ9d8jopdJxdFusNdPIJbOCpbqzgxTIUSuCj04YPsVGUVrgvT/fbYH
+	E1fmubL2CoOQmql8HMJ5HvZjAz6a3DcnWfCNSgmjCSyBIk8mnYYdg==
+X-Received: by 2002:a05:690c:6e84:b0:8a9:693a:326 with SMTP id 00721157ae682-8a9693a0d81mr28243677b3.7.1790609060361;
+        Mon, 28 Sep 2026 08:24:20 -0700 (PDT)
 Received: from llmbox.. ([38.81.85.65])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f882ddsm45777777b3.21.2026.09.28.08.24.18
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f882ddsm45777777b3.21.2026.09.28.08.24.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:24:18 -0700 (PDT)
+        Mon, 28 Sep 2026 08:24:19 -0700 (PDT)
 From: Michael Jordan <jordan.mymail@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -67,11 +67,10 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Michael Jordan <jordan.mymail@gmail.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: [PATCH v3 2/4] media: uvcvideo: generalise the XU flags fixup to all controls
-Date: Mon, 28 Sep 2026 11:24:14 -0400
-Message-ID: <20260928152416.766957-3-jordan.mymail@gmail.com>
+	Michael Jordan <jordan.mymail@gmail.com>
+Subject: [PATCH v3 3/4] media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
+Date: Mon, 28 Sep 2026 11:24:15 -0400
+Message-ID: <20260928152416.766957-4-jordan.mymail@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260928152416.766957-1-jordan.mymail@gmail.com>
 References: <20260928152416.766957-1-jordan.mymail@gmail.com>
@@ -83,146 +82,102 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uvc_ctrl_fixup_xu_info() overrides the flags of controls whose GET_INFO
-reply is known to be wrong, but is only called for extension unit
-controls. Standard controls can have the same problem.
+The OBSBOT Tiny 2 (3564:fef8) reports a GET_INFO of 0x03 (GET and SET,
+no AUTOUPDATE) for CT_PANTILT_ABSOLUTE, CT_PANTILT_RELATIVE and
+CT_ZOOM_ABSOLUTE. uvc_ctrl_get_flags() then clears the
+UVC_CTRL_FLAG_AUTO_UPDATE set in uvc_ctrls[], and uvcvideo returns the
+last value written by the host instead of the current one.
 
-Rename it to uvc_ctrl_fixup_flags() and call it from
-uvc_ctrl_get_flags(), which handles all controls. When an entry
-matches, skip the GET_INFO request, as its result would be overridden.
+The device changes all three controls on its own: gimbal moves take
+seconds, and its subject tracking pans, tilts and zooms without host
+involvement. GET_CUR reports the live values, including the current
+speed for CT_PANTILT_RELATIVE, but the device sends no control change
+events on its interrupt endpoint.
+
+Add fixup entries restoring AUTO_UPDATE for the three controls. The
+fixup replaces the flags, so each entry lists the full set.
+
+Exposure, white balance and focus are left alone: their GET_CUR echoes
+the last SET_CUR even while the auto mode is active.
+
+The vendor has been asked to fix the firmware (support ticket #8220)
+and has not responded.
+
+lsusb -v (device descriptor and Camera Terminal):
+
+  Bus 003 Device 006: ID 3564:fef8 Remo Tech Co., Ltd. OBSBOT Tiny 2
+  Device Descriptor:
+    bLength                18
+    bDescriptorType         1
+    bcdUSB               2.10
+    bDeviceClass          239 Miscellaneous Device
+    bDeviceSubClass         2 [unknown]
+    bDeviceProtocol         1 Interface Association
+    bMaxPacketSize0        64
+    idVendor           0x3564 Remo Tech Co., Ltd.
+    idProduct          0xfef8 OBSBOT Tiny 2
+    bcdDevice            4.09
+    iManufacturer           1 Remo Tech Co., Ltd.
+    iProduct                2 OBSBOT Tiny 2
+    iSerial                 0
+    bNumConfigurations      1
+  [...]
+      VideoControl Interface Descriptor:
+        bLength                18
+        bDescriptorType        36
+        bDescriptorSubtype      2 (INPUT_TERMINAL)
+        bTerminalID             1
+        wTerminalType      0x0201 Camera Sensor
+        bAssocTerminal          0
+        iTerminal               0
+        wObjectiveFocalLengthMin      0
+        wObjectiveFocalLengthMax      0
+        wOcularFocalLength            0
+        bControlSize                  3
+        bmControls           0x00023e3e
+          Auto-Exposure Mode
+          Auto-Exposure Priority
+          Exposure Time (Absolute)
+          Exposure Time (Relative)
+          Focus (Absolute)
+          Zoom (Absolute)
+          Zoom (Relative)
+          PanTilt (Absolute)
+          PanTilt (Relative)
+          Roll (Absolute)
+          Focus, Auto
 
 Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
 Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Assisted-by: Claude:claude-fable-5
 Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
 ---
- drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
- 1 file changed, 50 insertions(+), 41 deletions(-)
+ drivers/media/usb/uvc/uvc_ctrl.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index aceb263103e9..64c90c380d3d 100644
+index 64c90c380d3d..49ea6a6bcf57 100644
 --- a/drivers/media/usb/uvc/uvc_ctrl.c
 +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
-  * Dynamic controls
-  */
- 
-+static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
-+				 const struct uvc_control *ctrl,
-+				 struct uvc_control_info *info)
-+{
-+	struct uvc_ctrl_fixup {
-+		struct usb_device_id id;
-+		u8 entity;
-+		u8 selector;
-+		u8 flags;
-+	};
-+
-+	static const struct uvc_ctrl_fixup fixups[] = {
-+		{ { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-+			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-+			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+@@ -2876,6 +2876,18 @@ static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
+ 			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+ 			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+ 			UVC_CTRL_FLAG_AUTO_UPDATE },
++		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
++			UVC_CT_PANTILT_ABSOLUTE_CONTROL,
++			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
++			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
++		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
++			UVC_CT_PANTILT_RELATIVE_CONTROL,
++			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
 +			UVC_CTRL_FLAG_AUTO_UPDATE },
-+		{ { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-+			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-+			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-+			UVC_CTRL_FLAG_AUTO_UPDATE },
-+		{ { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-+			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-+			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-+			UVC_CTRL_FLAG_AUTO_UPDATE },
-+	};
-+
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-+		if (!usb_match_one_id(dev->intf, &fixups[i].id))
-+			continue;
-+
-+		if (fixups[i].entity == ctrl->entity->id &&
-+		    fixups[i].selector == info->selector) {
-+			info->flags = fixups[i].flags;
-+			return true;
-+		}
-+	}
-+
-+	return false;
-+}
-+
- /*
-  * Retrieve flags for a given control
-  */
-@@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
- 	u8 *data;
- 	int ret;
++		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
++			UVC_CT_ZOOM_ABSOLUTE_CONTROL,
++			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
++			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
+ 	};
  
-+	/*
-+	 * Some devices report bogus capabilities through GET_INFO. If the
-+	 * fixup table covers this control, take the flags from the table and
-+	 * skip the query altogether.
-+	 */
-+	if (uvc_ctrl_fixup_flags(dev, ctrl, info))
-+		return 0;
-+
- 	data = kmalloc(1, GFP_KERNEL);
- 	if (data == NULL)
- 		return -ENOMEM;
-@@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
- 	return ret;
- }
- 
--static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
--	const struct uvc_control *ctrl, struct uvc_control_info *info)
--{
--	struct uvc_ctrl_fixup {
--		struct usb_device_id id;
--		u8 entity;
--		u8 selector;
--		u8 flags;
--	};
--
--	static const struct uvc_ctrl_fixup fixups[] = {
--		{ { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
--			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
--			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
--			UVC_CTRL_FLAG_AUTO_UPDATE },
--		{ { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
--			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
--			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
--			UVC_CTRL_FLAG_AUTO_UPDATE },
--		{ { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
--			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
--			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
--			UVC_CTRL_FLAG_AUTO_UPDATE },
--	};
--
--	unsigned int i;
--
--	for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
--		if (!usb_match_one_id(dev->intf, &fixups[i].id))
--			continue;
--
--		if (fixups[i].entity == ctrl->entity->id &&
--		    fixups[i].selector == info->selector) {
--			info->flags = fixups[i].flags;
--			return;
--		}
--	}
--}
--
- /*
-  * Query control information (size and flags) for XU controls.
-  */
-@@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
- 		goto done;
- 	}
- 
--	uvc_ctrl_fixup_xu_info(dev, ctrl, info);
--
- 	uvc_dbg(dev, CONTROL,
- 		"XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
- 		info->entity, info->selector, info->size,
+ 	unsigned int i;
 -- 
 2.43.0
 
