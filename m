@@ -1,121 +1,105 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CF2320A14
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 02:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31AC1172E
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 04:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790561224; cv=none; b=HNn9stU2osewtmv/1YJbEODmnuQqOQjZRIxSqJLd8bklbrvoaei9ZHQ7EHWxmM6E0ZGEYM8YlEd2AhcrQELXlPjAeMxLd86kDyEL4ZT/qAMPd1wQXX5VP03ZW0uROQ/7Bvey9DPEUberYRJHnaa2IXBEaSGJtCYnu90Fa45vZEc=
+	t=1790569862; cv=none; b=vB46Tx5SEV+qochwL6BCAxaM5bEPm1i8/GlGcxf+TpxUhXUZj9QWQGRSujSdMuu2KusOH6Uu2Xf06eGlfdJJx4J5+cY7CJdMmkg9NwCc5L89WPaBLgA+4IIfqDVqvpmCfaXASpc9nOg+drI7yUG88WfELhcuy8BfTHBHV8IqKOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790561224; c=relaxed/simple;
-	bh=XUsXFTxheSAFdTW8aK0D0SPzfyf0t3peqPWWVm/0jkA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GROi/KaSIfIJbwSkfcd7A2mjIi1lVfYuvztnIwr9LID6PfeUWn0H+Xo89bu2cAyH0zeffjfiOo23VpqM2W5TCzhbBTM+QOWg1YNtsLoYRbYaTybhxoi6IjWYiaOrvJx5jTTesm9SPxfVLffy31EPAPzbluBPjhaMJ0uIMQSPGbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVSxc0p4; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790569862; c=relaxed/simple;
+	bh=2KIiz6iGLxRFIVVJFBxG4zc9wLGsSqHTSc5A+eLla0M=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=O7MvEiMv9Kje4UcDiP58DC6TMuQKmEOvQsl4cNOpzuMH42O53TeGGAvstBSbX+n7ov0b7LYXqc3nFIY2wiSCLElQ3h7n9j90sPEh37/1xyhApnrA4hPFEYjocO+TW3k54bDhLYdif38L51hrTv9F36qvqgCnXY/TeaRx+tQR7G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GmrfNZ+b; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVSxc0p4"
-Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c67e5059f8so755489e0c.1
-        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 19:07:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GmrfNZ+b"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39e3c10ac70so3824617a91.2
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 21:30:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790561222; x=1791166022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8qMGexpSEkGHJZ/D2Lbg3IHJlRXuYl7WSvOPqKWER44=;
-        b=UVSxc0p4Ozwx2tujQg10gc5rrih0jjWnkx5eywzXnqRagza94MKAH2byryMb7NErYa
-         3HFKExzw9SD9YQphP+A3fvATrlTsryMh0Bad7agZxfz/7b5nf2CMignQ6sDK1U/RMHAl
-         Ml4Wv66J5ePwpWjYt3Hk/FR9q4/Rs/QiUEYJDGBYi77RJUAyii8BEtJrzANkVaqAvj9E
-         HiB/4ZwT7tMEdq+kq0oLgQkw1djk9wXZ9H0iR9kdWOVn+t0yTU/QTJlJ2E8oaGMEnbQJ
-         NnzuYuPUGIba/FySnXTE7rpCfoYSWqwdyoA74iYwcq6STPOGy+bWG7m4QDLZAtMHREAQ
-         jj/A==
+        d=google.com; s=20251104; t=1790569859; x=1791174659; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F4a/2U6MDyhfh6OctZetk7ga+hEdDkfQe/jf3hv28p0=;
+        b=GmrfNZ+bAySqQzM3dC1Y9PJWS8Tb52nVM24iWDQgRS++8tj1S49rDot22RI4c7h0Jo
+         /rTNzxFKHigi4PAOfXWbT2i191V+PoaN+6DPSKzT/A625zbPVNUjz0gdLL+AS3i02zVD
+         98tRRMmD+Hox0CdWC0V83ETcEzS+gjdnAeL3cUrtSB2cNsyazI4iA4UfaHwCUlTwA9tx
+         LdibilKWxB7wUisBd/MhgkgwuGPYWQzGe7U9/V7pt3RZ0dnw79a6TkYmn+VPmTsI0Jne
+         KKjgW01js8PajIUFmpTVSj9wU6orRre2uRSAxLq5D7yeGb56Pop0nf8ltj8/Fm3S63D7
+         6lww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790561222; x=1791166022;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1790569859; x=1791174659;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8qMGexpSEkGHJZ/D2Lbg3IHJlRXuYl7WSvOPqKWER44=;
-        b=Q7+UHIVSmm90NAhurTRkt01bGJShvZcMbzdcaFE3kkLskXCFwS9l9RsIdFXN3/KTeu
-         TN4cpH5ZDqN1LdTEukBKDyHiXo1Ai37QMd601xHCLLp7DFpcz/b7KKvb3j+tVox2LM54
-         dOx67dTB94NhTx59W9QIxlbvEs800B7u0gMD/8LMpTXyOLdr7CzXsjvuxTAjJyjDVWu+
-         8nYWqXpHoE9kkxRfoKU2HUpBct1XH+XV2l/4eOrVEaO6abE5rcPXHI59rIgE1NlJGlva
-         52d46PIYuEFK1jCNXL+tfm0KFlw4udGon68Npnyq9EBdAL4sXxvSlONhC4W0G0BTuQyE
-         dXhg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+RZCjIkYdJ4Ng5nMrcqG0bX6x2nUTTaEyXpf7B10VSJ2DAZMb+9/NnZLfmBuqQ2YlyRe2pH3zLpi/EA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqYjYXDxtbUYOXSGvngzQMnAGuxCqGIiLGm6meCgqgF5mymhSa
-	afyhXJcBw0eico+baZ6mC9fODnuV4dJJ/8PjdwhXlRiLlhmp+TF/vJQW
-X-Gm-Gg: AYBFou28Grt9+3tnWK3yw+nsOeqi2InOEpmpgsennt4GHrEevUf6MoAl8DAmNS7gjVr
-	+V8rO8dLQoDVFbFee0ca+fQcVSmbNU0oTj12VNuDrhl9cxdrah3DOzAndQPuH/iLk852JfB7sfS
-	dJuPdvJ75vON+w4U/vu9zovTC/wkCzxUs/mw0WVmrg9/TP1sh5hRPL9rcSa4ob3a9Gv3Axq4rU8
-	8llpL+iKYQJPRlxW4QsNceua/U0VR/TFljjAVzQ50DS2H0hBpfay+9JeYRrkiFSG/Joc1am4jKa
-	7ho+6r5zzkPWBBwLogTUjlY3I+6uCbJyiGEYxsNv8icHHvt4hqcpiPzeY3I/75bauvszlaieU9p
-	InpUW96MNRP1czpscLKNuj9dLptJKHGM/J1/1yuVDf0FLTPJUl/6/AlyL841z0/J/0vWL+2XTX2
-	Z3Hh5irWn0vrxYjKaKq7S4Tjexfl7AHOjwke1/bvrenZ6goDOwhudRvtdKNyRITYAI1ViobpawJ
-	1sBVxhUyPuMHhRGym4BSQXZJ5relDvYmuRJBtyJLlU02ltoR+2Dy+5+MPvoDzaLCtOJ07Aw8+Sl
-	Mx+sJAFVySNwlrOFZaT4ye0=
-X-Received: by 2002:a05:6122:1d47:b0:5cf:1982:abc0 with SMTP id 71dfb90a1353d-5cf1982ad6amr837911e0c.11.1790561221818;
-        Sun, 27 Sep 2026 19:07:01 -0700 (PDT)
-Received: from fedora.tail004876.ts.net (modemcable164.224-80-70.mc.videotron.ca. [70.80.224.164])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde6b43916sm7597363e0c.18.2026.09.27.19.07.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 19:07:01 -0700 (PDT)
-Sender: Arthur Girard <arthgira@gmail.com>
-From: arthgirard <mailarthurgirard@gmail.com>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
-Date: Sun, 27 Sep 2026 22:03:55 -0400
-Message-ID: <20260928020355.86012-1-mailarthurgirard@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
-References: <20260915-og0va1b-v7-0-3a4b6d7360ec@oss.qualcomm.com> <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
+        bh=F4a/2U6MDyhfh6OctZetk7ga+hEdDkfQe/jf3hv28p0=;
+        b=ESlZjYJaMpOeuHUmQAbUCCZNDB05AOgAXZcWiYilmsmaCyXh9XjGjhP2zZ6hiG9z1M
+         nfqm5lbAzBKuRl3MFRcVVZHJt2om0EwTZcKi75afO7q9ygfe/Y6Dzmjtr8ANmz56VtTR
+         HzSZN/wA0iSEj0+fB3hAQC01ZfBfpleh8T/D8rE8FizUuaKBMFme6nCn02ZKfp9uz730
+         V9YHdipuESuOE3/jqyLuTNJMEUdybIm+dS1/dMJgXj/DA7rGSvRxF4vCj6LZDoELztcx
+         vTNU3R30Ev2XC/FMZwsblmo0jmJsUcgJ9bQn7+CNNA97e9xsuU/yKrjolfW09DsfpBJO
+         R2GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx71HorgFLLAaeDmI3SGdn67jj8PX3nqmTsqN1yXNhKnhSuUQMCgKYFcVkab1DY2AyxbFZZ6h8n9a/ehA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLY1qi/PmrevDgoNwetye1BRSxGBW4HpvfMFv9M8IkgcaMF912n
+	t4/Gp5NU3UB5skl5baLno9WbSMqwtN+dgW8NSbWRsNCM0zx8IXqXcQQIhV3ySSv01RospwCYK5g
+	Q
+X-Received: from pjqo14.prod.google.com ([2002:a17:90a:ac0e:b0:3a0:70aa:2cef])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c2cb:b0:3a4:7a96:5209
+ with SMTP id 98e67ed59e1d1-3a47a966299mr377611a91.33.1790569858850; Sun, 27
+ Sep 2026 21:30:58 -0700 (PDT)
+Date: Mon, 28 Sep 2026 04:30:56 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928043056.1324568-1-morbo@google.com>
+Subject: [PATCH] dma-buf/dma_fence_array: Annotate fences with __counted_by_ptr
+From: Bill Wendling <morbo@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Arthur Girard <mailarthurgirard@gmail.com>
+The 'struct dma_fence_array' holds a pointer field 'fences' that points
+to an array of 'dma_fence' pointers, and its element count is stored in
+the 'num_fences' field within the same structure.
 
-Hi Wenmeng,
+Annotate 'fences' with the '__counted_by_ptr' attribute to allow
+compilers supporting this attribute to perform runtime bounds checking
+via KASAN and '__builtin_dynamic_object_size'.
 
-On Tue, Sep 15, 2026 at 02:54:14PM +0800, Wenmeng Liu wrote:
-> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+The structure is allocated in 'dma_fence_array_alloc()' which
+initializes all fields, including 'fences' and 'num_fences', to zero.
+The structure is initialized in 'dma_fence_array_init()'.
 
-The OG0VA1B is also the IR sensor on some x86 laptops with Intel IPU6.
-I tried this series on an HP Spectre x360 14-eu0xxx (Meteor Lake),
-where the sensor is ACPI device OVTI00AB: 1 lane, 19.2 MHz clock, same
-as your og0va1b_data. On top of v7 applied to 7.2.7 it needed three
-small things to work:
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+ include/linux/dma-fence-array.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-1. An ACPI match for OVTI00AB pointing at og0va1b_data.
+diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
+index 0c49d7ccefb6..85e5879e8a1e 100644
+--- a/include/linux/dma-fence-array.h
++++ b/include/linux/dma-fence-array.h
+@@ -39,7 +39,7 @@ struct dma_fence_array {
+ 
+ 	unsigned num_fences;
+ 	atomic_t num_pending;
+-	struct dma_fence **fences;
++	struct dma_fence **fences __counted_by_ptr(num_fences);
+ 
+ 	struct irq_work work;
+ 
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-2. An ipu-bridge entry, IPU_SENSOR_CONFIG("OVTI00AB", 1, 480000000),
-   so the IPU6 creates the graph endpoint.
-
-3. -EPROBE_DEFER instead of -EINVAL in og0ve1b_check_hwcfg() when
-   fwnode_graph_get_next_endpoint() returns NULL. The driver can probe
-   before ipu-bridge has created the endpoint, and on one boot out of a
-   handful it lost that race and failed for good.
-
-With those, the 640x480 Y10 mode streams fine through the IPU6 ISYS and
-the images look right. I've been using it for face authentication.
-
-None of this is needed for your DT use case, so I don't want to hold the
-series up. I can send the three as follow-up patches once it's merged,
-unless you'd rather fold the ACPI match and the deferral into v8.
-
-Thanks,
-Arthur
