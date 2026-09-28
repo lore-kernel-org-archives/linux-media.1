@@ -1,64 +1,64 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4520A4CE67F
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:32:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F324CEE6A
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602382; cv=none; b=XqYfFbHjShFqk4EQ3IcwnMwMRoSHObR+Fraj8xZHxHBXIeddhRVeLVxfqc9bc5QWlHTVrF4xpm3JRBKcnVGkag1VWfXkiwYcGVITPglZhGCFp0nNlA0g7LtLVcBIVt7iQKwFKxkEuzyhaSVF8LtdGVlSk5cEO4rFiUtjpASZjjQ=
+	t=1790602383; cv=none; b=Aq8AKcSIgGH0rzd/Gb0zDEFaJk3ipyJirciM5J2kN9sUuR9kSgXXIJQ7qHA1/I6EAEeAmsOolFxhB8W8XQJckzOlK8NbAaHIdDmotEqMaxbMUTU2/QTh/79wDqRpWB6jrKEZcYHtRCi0unUpEBfJ9t9sNujXW+nU7lk66o5VGs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602382; c=relaxed/simple;
-	bh=wiOPOVzZkfrXRxbFz1UgU3+Xbr5CbqnKoLrDHMr2xo4=;
+	s=arc-20240116; t=1790602383; c=relaxed/simple;
+	bh=M6hLYVFKnXK9dPYxl8iRzXzPnel4ScDW0eLjXw//xzo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uOFesXhrn5Z5wNo6JwSgBY09APSje2FYjuUKzx2sn/yF3gi/8rA3lR0eecALrobpP8qUflAR/bj5jrgF0fncUaIqUk7WWG0nl1Yfmdxhl1gse50zTGk6z64T+8ga4YtJe8xZw7LUx27q4EKsp51oasSczi/1ZWutJmDkjuB9lhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A103FaSb; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=F2rs7hc3eqW4IkbGKuoTt+InEdWGAILEm/RTnJgb88OfTrmcIe0cY6nnktPzqWds0Bs1jTGhxcE44J/pE10L4BwjGFK+g53w2mXsLy2FDXd3xGkxsoqF9n9LZx8DMc9gRwQf7SqZDMWcpL9wWXKuBDNkXBf6RNYbpGCQAwBWICY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pfJTwi5J; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A103FaSb"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so1770952f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pfJTwi5J"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1793978f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:32:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602375; x=1791207175; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790602377; x=1791207177; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z28dlsJTIpkqTAOZ5w69VF46XysVuY21MZeRZQmbEno=;
-        b=A103FaSb31zfTZFdiyeg1rlVNhV/Y0mSzi1pmQMEVhQ8h5MmC+LzF6Loh5BR9R33Nu
-         cJa0QpNtbiOq+814q1zyA2vrH/3JT8bXxDuJ0liEcR6uz3vAIPvzV3lKF6t+z+kRYepk
-         AxFsfktwN0mRy1zjKsAIsUdKrBraHkOnIdqEokmBv4DzlbM6ctZiGT0tLs8xUp2jcIRq
-         Tw4fTzJA9EB6nlXzd80bMpQk44iyuYjdQ2HrqXOQUH3yz85QDVbgMgwL7Z7waULl7lwz
-         SFB7QL4L0BB0On9OuWfhYBapzspB5/8MCoMzobna0Wf3GetL1lEtETI5ccEXEybzOjE0
-         9ARg==
+        bh=j1oj1dAJP0I40+o8SeAXsOmkZXs4Z4JZibo2wpFxfPw=;
+        b=pfJTwi5Jb+sUYXxCKXsLpBOKROssfPu+SPm7Czp5pLeo/kFI5c/eDS6w4kDL9TzeZb
+         g0r00s3kijsscpbbZmZHvNn8l4JoRss/Z2Cc4dYCtuZwbJ8NM9KEmnRFGcWK8kDduNh+
+         JN4AfvhMZQ0ovq7LF1G3ferf3wyOddQg5y1VwbAqp2sXJYojw5R06363LQkl8G4wo38i
+         rulIiggA8v++DbAyT2tavxtXpppBOm+8lsPg4rZx4SiM2EewNPAW0VGz9y5QGZUVpmR+
+         CN6yO1R498UYvQ2DhUFX0kCIHf0oBRFs3AEAiVMlz1ueRfXKZ56HSsDkDv8wUGU/gVC+
+         i63g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602375; x=1791207175;
+        d=1e100.net; s=20260707; t=1790602377; x=1791207177;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z28dlsJTIpkqTAOZ5w69VF46XysVuY21MZeRZQmbEno=;
-        b=hMsP3ySLe/e1+KPvOfkt9Wgoe6KfRAazdYEPRLfHbqQ9PBpd2ySw1Tkgwj6Di4OOof
-         MVB+nwhgQEmlvbC5WUI4OiSnPpTN45iAikjDTbzhexkdzwEOOwJm4k8/FQuv10g1Bfhb
-         OUuZc/4RctTBhZXWMhO2JQwypONPYi99nueFUZ4XQjzYRfvCKxVqMxj8ryyO60dj7ngz
-         lGOsn0HVFoOk1nt1d7nr8YsXjvhV9GnXGvTLutHM39iR/NkmoXYUYGuiBfRs3dWfhD0A
-         TXDSSCZfZryDniW23OZCPqVtztHPmP4TJiNhrS0OPRN4NK1JUJTST4ftsiUOxY9bgYsk
-         /8+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzPYU1VE2hrhR6+dX5ih4ZCNol9PccWedhm10bukZdteIk1LqUTbpo0X9QZeqzu+aej3r0zimbSs6Amgg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyPjX04+otLaBoIck/es436Ml3ctflakVdJVgmi8qwpEgYRXO5
-	H8rpuCNPnTGro6tMiKTLDKMOEdBlOCyJ0iEWqw/IROMqi2+6JS61ALMu
-X-Gm-Gg: AYBFou0Soyl5VPtSzgqOZ8lgyMz8CGk5T7ufKp2p98jkUul17f9EiLi+8KxifFxAa6F
-	SHzCi9EyEzN47GMFXC6nRp9CWslc2Ra7+cJuQazPRGHeH39WS/TrZsvRfrMpSPysgBmFnPQ95Bo
-	85dc2uup33zWbo4w2tQMuewfeJqWQpedS037mgKkZGc2T3fWNHjwhvjSJU0pi5dg2blY7sV9Ftg
-	6eIJcnNcf6u++a8hzXJjmkZCiz3GrGkRmZG4j0yciYcQICy4T/Ys9EjxzPx7FDqgr97AErVT2OR
-	I7TRwVk5RUV+eXhlIoyPVYDz+CUNXEGJ0jSjp1DNriC4V3V8w5NZRR5JirverB7+wJzDYv0fGdk
-	6TnkFNzMXMJ+lRXoyk/0qhk/rDyDpZkXaVM/NclqKMHOgxgs7AjCZbDNknSoQ2S+hF1iIZIithx
-	Kzb69ywdb4C1aBO+xlKoTiSPS958W2VWX0qqhT3nerQo9pE+aSXTa7dKLDFHAuofSe+xPGuiYMo
-	LmH9FqXOtNZTfpuy9Sc26k3Bn3onq/sw8j3yEue2F2i4/jOPvMYIXf64IzyTxVc/CpH+ymTT3GX
-X-Received: by 2002:a5d:5d87:0:b0:487:342:d147 with SMTP id ffacd0b85a97d-4887db39b7fmr20252053f8f.39.1790602374884;
-        Mon, 28 Sep 2026 06:32:54 -0700 (PDT)
+        bh=j1oj1dAJP0I40+o8SeAXsOmkZXs4Z4JZibo2wpFxfPw=;
+        b=gaJI9sGN+Mrts3lnOxih3svE/KFJfBT99wLENFSHM6bFosu0ruPYoN2IVtYNZV57r4
+         CM5+J+JKX71zl5yiKFdT4vRootUp31DdQ7aRnDxVia+trWl2XRnCs2FY7CQ6Xt+4mXw4
+         2gxem8vmIarZ2QIRAn0tkGm/q+swS0ZjAkG74EqYHb8si4vgfgrUi6f7v4fU3j0uBW+T
+         MapvObWHUN41adIoRH6sKjuCtGCFOWNMUOLzV9xtR+uTWfsI6V44X56pDX6GIfrlxB6J
+         OuWI2IOLDMFfTYLquozP1V5eduYwHIUVFAgFhPlX9hxZo4sqmrkLMHIgThTwySCPB0Xp
+         QZ6A==
+X-Forwarded-Encrypted: i=1; AKwUvBy0Kfac3DNB4MDgMk1htC5aPWeHrJ6/20znbiapr45kLXncJFAjOpm0MDvMUVFX/CFfq1Xofcql5pZVSg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIU5BvvkCjbK85Q4IdmlIKLfjHMrvpqUsYnEC5Kc/W9akXaAhg7
+	0CGOvTR/mIMfPaGyAG27hmSwRgDyMLvPHDSoP+nc5PozXqoHlSICir3R
+X-Gm-Gg: AYBFou1svaT9OdxaiO6RHY1aQnHsFjIB0YT/aAMo56SnXUUNA6aJjymCtgTbRF1+zc7
+	FWg2taFYhEHMCI6QeFexY14fO0N1vX0PVq/5OLfOAoLFHGYLpWhDKzRG/YZsjP9XN66rCJowAia
+	MiQK0BAgMYWjZUKVJQgFCVh2fokHCkFdgtoA/LcH0rsboEjmKnM3mxIRDUKB4zP93gbmhjqUMgE
+	ad56VhNsqaZKbplTMWLZS0Yy8HHS4+6Tceg7UDvV/5+uHk5fhHPogQK8psWFFt90zSYPA7ZgQ5o
+	j8vCJuLJw/BZ6/tiIaJjplM7tSOuUMKBT8SwCJBhxbthuP3lx76GWeb6POk7dkv3yFKA6FHEDo1
+	JJAXpfikpl4dRCGEJO3oxdoPWt8luT83QY8AmlkF7M4QKpJosUjUe9Dx/84HFSKuRqpqfM8170G
+	xviZ+jpds/yUe056RLBt76ZDuZoy+PMklFEzpuvsPOWJqWU9wvzkZ4NcyPPAxQFEJ+VtN3dkzrL
+	RMUG/8lnlGRaSx1sEXPhQ99fybpn1E6Dv0lDfgb5DCorMWtiVnFlxGOypsKqCXF2V8Be4fTDofA
+X-Received: by 2002:a5d:5f53:0:b0:488:8b07:f3fc with SMTP id ffacd0b85a97d-48aeddea01dmr1376199f8f.17.1790602376733;
+        Mon, 28 Sep 2026 06:32:56 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:32:54 -0700 (PDT)
+        Mon, 28 Sep 2026 06:32:55 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com,
@@ -91,9 +91,9 @@ Cc: asml.silence@gmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel@lists.linux.dev
-Subject: [PATCH v7 07/13] nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
-Date: Mon, 28 Sep 2026 14:32:23 +0100
-Message-ID: <f950827b5805d13f08f0060df0eebc4ed56814fc.1790602223.git.asml.silence@gmail.com>
+Subject: [PATCH v7 08/13] nvme-pci: add SGL support for the dmabuf path
+Date: Mon, 28 Sep 2026 14:32:24 +0100
+Message-ID: <9d09ba51f1335a17576f3b92f0e93230c39751d2.1790602223.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1790602223.git.asml.silence@gmail.com>
 References: <cover.1790602223.git.asml.silence@gmail.com>
@@ -107,64 +107,197 @@ Content-Transfer-Encoding: 8bit
 
 From: Anuj Gupta <anuj20.g@samsung.com>
 
-Rename the blk_dma_iter based nvme_pci_sgl_set_data() to
-nvme_pci_dma_iter_set_sgl().
+Add SGL support in addition to PRP for dmabuf-backed requests,
+building the descriptor list from the mapping's sg_table.
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- drivers/nvme/host/pci.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/nvme/host/pci.c | 153 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 149 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index e58bdd9a4098..bb8051c62926 100644
+index bb8051c62926..36d8987bb28d 100644
 --- a/drivers/nvme/host/pci.c
 +++ b/drivers/nvme/host/pci.c
-@@ -1277,7 +1277,7 @@ static blk_status_t nvme_pci_setup_data_prp(struct request *req,
+@@ -1277,12 +1277,18 @@ static blk_status_t nvme_pci_setup_data_prp(struct request *req,
  	return BLK_STS_IOERR;
  }
  
--static void nvme_pci_sgl_set_data(struct nvme_sgl_desc *sge,
-+static void nvme_pci_dma_iter_set_sgl(struct nvme_sgl_desc *sge,
++static void nvme_pci_sgl_set_data(struct nvme_sgl_desc *sge,
++		dma_addr_t addr, u32 len)
++{
++	sge->addr = cpu_to_le64(addr);
++	sge->length = cpu_to_le32(len);
++	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
++}
++
+ static void nvme_pci_dma_iter_set_sgl(struct nvme_sgl_desc *sge,
  		struct blk_dma_iter *iter)
  {
- 	sge->addr = cpu_to_le64(iter->addr);
-@@ -1307,7 +1307,7 @@ static blk_status_t nvme_pci_setup_data_sgl(struct request *req,
- 	iod->cmd.common.flags = NVME_CMD_SGL_METABUF;
+-	sge->addr = cpu_to_le64(iter->addr);
+-	sge->length = cpu_to_le32(iter->len);
+-	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
++	nvme_pci_sgl_set_data(sge, iter->addr, iter->len);
+ }
  
- 	if (entries == 1 || blk_rq_dma_map_coalesce(&iod->dma_state)) {
--		nvme_pci_sgl_set_data(&iod->cmd.common.dptr.sgl, iter);
-+		nvme_pci_dma_iter_set_sgl(&iod->cmd.common.dptr.sgl, iter);
- 		iod->total_len += iter->len;
- 		return BLK_STS_OK;
- 	}
-@@ -1329,7 +1329,7 @@ static blk_status_t nvme_pci_setup_data_sgl(struct request *req,
- 			iter->status = BLK_STS_IOERR;
- 			break;
- 		}
--		nvme_pci_sgl_set_data(&sg_list[mapped++], iter);
-+		nvme_pci_dma_iter_set_sgl(&sg_list[mapped++], iter);
- 		iod->total_len += iter->len;
- 	} while (blk_rq_dma_map_iter_next(req, nvmeq->dev->dev, iter));
+ static void nvme_pci_sgl_set_seg(struct nvme_sgl_desc *sge,
+@@ -1293,6 +1299,145 @@ static void nvme_pci_sgl_set_seg(struct nvme_sgl_desc *sge,
+ 	sge->type = NVME_SGL_FMT_LAST_SEG_DESC << 4;
+ }
  
-@@ -1492,13 +1492,13 @@ static blk_status_t nvme_pci_setup_meta_iter(struct request *req)
- 	iod->cmd.common.metadata = cpu_to_le64(sgl_dma);
- 	if (entries == 1) {
- 		iod->meta_total_len = iter.len;
--		nvme_pci_sgl_set_data(sg_list, &iter);
-+		nvme_pci_dma_iter_set_sgl(sg_list, &iter);
- 		return BLK_STS_OK;
- 	}
++static unsigned int nvme_pci_dmabuf_sgl_nents(struct request *req)
++{
++	struct bio *bio = req->bio;
++	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
++	struct scatterlist *sg;
++	unsigned long tmp;
++	size_t offset = bio->bi_iter.bi_offset;
++	size_t remaining = blk_rq_payload_bytes(req);
++	unsigned int nents = 0;
++
++	for_each_sgtable_dma_sg(map->sgt, sg, tmp) {
++		size_t sg_len = sg_dma_len(sg);
++
++		if (!remaining)
++			break;
++		if (offset >= sg_len) {
++			offset -= sg_len;
++			continue;
++		}
++
++		sg_len -= offset;
++		offset = 0;
++
++		do {
++			size_t chunk = min(remaining, sg_len);
++
++			nents++;
++			sg_len -= chunk;
++			remaining -= chunk;
++		} while (sg_len && remaining);
++	}
++
++	if (unlikely(remaining))
++		return 0;
++
++	return nents;
++}
++
++static blk_status_t nvme_rq_setup_dmabuf_sgl(struct request *req,
++		struct nvme_queue *nvmeq, unsigned int entries)
++{
++	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
++	struct bio *bio = req->bio;
++	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
++	size_t length = blk_rq_payload_bytes(req);
++	struct nvme_sgl_desc *sg_list = &iod->cmd.common.dptr.sgl;
++	bool pooled = entries > 1;
++	dma_addr_t sgl_dma = 0;
++	unsigned int mapped = 0;
++	unsigned long tmp;
++	struct scatterlist *sg;
++	size_t offset = bio->bi_iter.bi_offset;
++	size_t remaining = length;
++
++	if (!entries)
++		return BLK_STS_IOERR;
++
++	iod->cmd.common.flags = NVME_CMD_SGL_METABUF;
++	iod->total_len = length;
++
++	nvme_dmabuf_map_sync_for_device(nvmeq->dev, req);
++
++	/* entries == 1 fits in the inline descriptor; more needs a pool. */
++	if (pooled) {
++		if (entries <= NVME_SMALL_POOL_SIZE / sizeof(*sg_list))
++			iod->flags |= IOD_SMALL_DESCRIPTOR;
++
++		sg_list = dma_pool_alloc(nvme_dma_pool(nvmeq, iod), GFP_ATOMIC,
++					 &sgl_dma);
++		if (!sg_list)
++			return BLK_STS_RESOURCE;
++		iod->descriptors[iod->nr_descriptors++] = sg_list;
++	}
++
++	for_each_sgtable_dma_sg(map->sgt, sg, tmp) {
++		size_t sg_len = sg_dma_len(sg);
++		dma_addr_t addr = sg_dma_address(sg);
++
++		if (!remaining)
++			break;
++		if (offset >= sg_len) {
++			offset -= sg_len;
++			continue;
++		}
++
++		addr += offset;
++		sg_len -= offset;
++		offset = 0;
++
++		do {
++			u32 chunk = min_t(size_t, remaining, sg_len);
++
++			if (WARN_ON_ONCE(mapped == entries))
++				goto err_free;
++			nvme_pci_sgl_set_data(&sg_list[mapped++], addr, chunk);
++
++			addr += chunk;
++			sg_len -= chunk;
++			remaining -= chunk;
++		} while (sg_len && remaining);
++	}
++
++	if (unlikely(remaining))
++		goto err_free;
++
++	if (pooled)
++		nvme_pci_sgl_set_seg(&iod->cmd.common.dptr.sgl, sgl_dma,
++				     mapped);
++	return BLK_STS_OK;
++err_free:
++	if (pooled) {
++		iod->nr_descriptors--;
++		dma_pool_free(nvme_dma_pool(nvmeq, iod), sg_list, sgl_dma);
++	}
++	return BLK_STS_IOERR;
++}
++
++static blk_status_t nvme_rq_setup_dmabuf(struct request *req,
++		struct nvme_queue *nvmeq, enum nvme_use_sgl use_sgl)
++{
++	unsigned int entries;
++	size_t avg_seg;
++
++	if (use_sgl == SGL_UNSUPPORTED)
++		return nvme_rq_setup_dmabuf_map(req, nvmeq);
++
++	entries = nvme_pci_dmabuf_sgl_nents(req);
++
++	if (use_sgl == SGL_FORCED)
++		return nvme_rq_setup_dmabuf_sgl(req, nvmeq, entries);
++
++	avg_seg = entries ?
++		DIV_ROUND_UP(blk_rq_payload_bytes(req), entries) : 0;
++	if (sgl_threshold && avg_seg >= sgl_threshold)
++		return nvme_rq_setup_dmabuf_sgl(req, nvmeq, entries);
++
++	return nvme_rq_setup_dmabuf_map(req, nvmeq);
++}
++
+ static blk_status_t nvme_pci_setup_data_sgl(struct request *req,
+ 		struct blk_dma_iter *iter)
+ {
+@@ -1388,7 +1533,7 @@ static blk_status_t nvme_map_data(struct request *req)
+ 	blk_status_t ret;
  
- 	sgl_dma += sizeof(*sg_list);
- 	do {
--		nvme_pci_sgl_set_data(&sg_list[++i], &iter);
-+		nvme_pci_dma_iter_set_sgl(&sg_list[++i], &iter);
- 		iod->meta_total_len += iter.len;
- 	} while (blk_rq_integrity_dma_map_iter_next(req, dev->dev, &iter));
+ 	if (blk_mq_rq_is_dmabuf(req))
+-		return nvme_rq_setup_dmabuf_map(req, nvmeq);
++		return nvme_rq_setup_dmabuf(req, nvmeq, use_sgl);
  
+ 	/*
+ 	 * Try to skip the DMA iterator for single segment requests, as that
 -- 
 2.54.0
 
