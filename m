@@ -1,133 +1,92 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65DD4B4051;
-	Mon, 28 Sep 2026 11:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE2D4B7A48
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 11:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596146; cv=none; b=B7Q3oSNbSWM/LQZYFL+TMOIakNFtu4EednGDjN475jZJWay55u7quhnsN93lnQGvDc1J7gulWulGTM8/jSClz0U6Wy8tgul7Jtc482n+jNfJy2OA/UPsVygLizWmwQ4B7flT6L5Nfk66QV5p4jd9ATegQoJaDASvjsYy+KC49Y8=
+	t=1790596626; cv=none; b=I7YCYCfRnNQVM3Sd6jopkZBWuOdXIlEnRVcAuBU7e5+19220Fpmv4UVMSuSZ5rfsl9MdNfs/m1o2g/KFRkm0KRwnE2B43EeGn+tWavARF9OG8CS6NwfpKs6Yy+kNTxxwgPojJVQCMEwAxiIENye+g1GXApx+PJ/2V1ABra6Q2Kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596146; c=relaxed/simple;
-	bh=q6PoaKN9iIEau/KmRPHWF51XnmHHGgWe/7tgT8DwTrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UMPXmjf/5XjF2yDMPqOyajOKTVM0SuqVVUPjKxlSPH3MAt5qXx9nYgvrq/VuSGo81wpQIYODthmGQ6uysTiRRtTa6g2DSUx8hOpYWfOTJ8G55IySsdM05sfGnJdlT7roYQIiiphrX+hzDQrdnVsBFZgY1DyjDh4lJcm/o9Mybzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jfQcEwF9; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790596626; c=relaxed/simple;
+	bh=QGoWAs8w9fksEcjX8a8hOl1ZgFZLdCtGBv1H8vAp3FI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mUJ66DI/AfAZTL7xc9LbRrOES4HKC+VQ3Htd4Erf1mVMdQ8BpFDg6JHqafDQHr/Y0ZI5cvlang4eVviF9aWfTdxNiOkY3H4as7xsrubiN0UkKqxuDo2u0f5OBPf62RPkjhdpc/8KyocHr/+7VKIupDECHSS9PeoHu55MRUHPRks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DgJfa/ZM; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jfQcEwF9"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 198D9B07;
-	Mon, 28 Sep 2026 13:47:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790596032;
-	bh=q6PoaKN9iIEau/KmRPHWF51XnmHHGgWe/7tgT8DwTrY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jfQcEwF9OMkqUc8jl7A4WzuJ6FX2m0CKE/F67+V1gLWzvyGl4Z0hv6dcP1AYcW5Qv
-	 elNfY3Od2uuA611rECdOmhxzkw13E5LeBAOQ3nI9EEjSlNbv+f3h4wB75wySt0QVuu
-	 sWACo92byoTwpg7fG8QPaUFJyF572E9Pc7EoZwuE=
-Date: Mon, 28 Sep 2026 14:49:00 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Michael Jordan <jordan.mymail@gmail.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: uvcvideo: live pan/tilt/zoom readback on
- the OBSBOT Tiny 2
-Message-ID: <20260928114900.GC157191@killaraus.ideasonboard.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <f8134f74-9f32-4c98-96b3-ceeb978abb11@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DgJfa/ZM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790596624; x=1822132624;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=QGoWAs8w9fksEcjX8a8hOl1ZgFZLdCtGBv1H8vAp3FI=;
+  b=DgJfa/ZMqnaK502SXi1WMlSnW9iofGt7WMZ6/TZyZG8HbPnS3eyVCBIS
+   M/0Idb1eXDt0G6IHMHKw2tYqreN8YLENZObJNIuEehIznLx5ZPl7YVvso
+   nu5heKqQAPkSjuk2jziitSmGBs5lN5PDiSOOW1RX1BaB2JaGi7cCsVTV8
+   0IvOAwGFWsikpezIpfjxZk2kI/QdPGArX0MB6QRskJNKNTVGVv2BgYEc7
+   hXBmRMBR3gc52Fn/yaxQZJ+sf91Qxj2u3qffhFwgY98TlhN1iLBtGRBl4
+   L6+7OeYVAWnl1IQY9M97c5RggUAx/8rjoFSS6r24vVMfkDiv6wGCgsCJU
+   w==;
+X-CSE-ConnectionGUID: 3XBUlpZSQdK4BONYJx41tQ==
+X-CSE-MsgGUID: SP9MLOP3TGKrA1MPGnyyTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90059353"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90059353"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:56:56 -0700
+X-CSE-ConnectionGUID: C0tgyXoSQROQVKVb5vZeCQ==
+X-CSE-MsgGUID: o3VgCDjdS5yTPyxQcPK+WQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="302981345"
+Received: from unknown (HELO pepper.iind.intel.com) ([10.223.20.54])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:56:54 -0700
+From: Manik Bajpai <manik.bajpai@intel.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	antti.laakso@linux.intel.com,
+	sarang.sapre@intel.com
+Subject: [PATCH v1 0/4] media: ipu6: A few defensive fixes for ipu7 buttress, fw-com and mmu paths
+Date: Mon, 28 Sep 2026 17:26:42 +0530
+Message-ID: <20260928115646.77399-1-manik.bajpai@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f8134f74-9f32-4c98-96b3-ceeb978abb11@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 01:01:11PM +0200, Hans de Goede wrote:
-> Hi All,
-> 
-> On 2-Sep-26 02:25, Michael Jordan wrote:
-> > The OBSBOT Tiny 2's GET_INFO strips the AUTOUPDATE bit from its pan,
-> > tilt and zoom controls, so uvcvideo caches them and userspace can never
-> > observe the actuator's live state. This series reports AUTO_UPDATE
-> > controls as volatile to userspace, generalises the existing XU flags
-> > fixup table to all controls, and adds entries for the three affected
-> > controls on this camera.
-> > 
-> > Changes in v2 (following Ricardo's review of v1 [1]):
-> > 
-> > - Patch 1: unchanged; picked up Ricardo's Reviewed-by.
-> > - Patch 2: uvc_ctrl_fixup_flags() now returns bool and runs at the
-> >   start of uvc_ctrl_get_flags(), before the allocation, skipping the
-> >   GET_INFO query entirely for controls the table covers (Ricardo).
-> > - Patch 3: as asked, I checked whether the camera's other
-> >   AUTO_UPDATE-flagged controls suffer the same bug. Two more do:
-> >   CT_PANTILT_RELATIVE and CT_ZOOM_ABSOLUTE, both verified on hardware
-> >   to change autonomously and report live values on GET_CUR; entries
-> >   added for both. Exposure, white balance and focus turned out to be
-> >   write-only on this firmware (their autos work, but GET_CUR echoes the
-> >   last SET_CUR), so they gain nothing from AUTO_UPDATE and were left
-> >   alone; details in the commit message. The commit message also no
-> >   longer claims the capability byte is the same for every control --
-> >   probing every control showed it is computed per control, just wrong
-> >   for the PTZ ones. Dropped Ricardo's Reviewed-by since the patch
-> >   changed materially.
-> > 
-> > The full lsusb -v output was posted in reply to v1's patch 3, in the
-> > thread at [1].
-> > 
-> > [1] https://lore.kernel.org/linux-media/20260828152557.653475-1-jordan.mymail@gmail.com/
-> 
-> Michael, thank you for the patch. Patches 1/2 look good to me:
-> 
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> 
-> Ricardo (and Michael, I wonder, in the light of Michael already having
-> found a second camera with the same issue and also in the light of your
-> "media: uvcvideo: Automatically handle invalid uvc_versions" series
-> if it would not be better to try to fix this up automatically instead
-> of relying on device quirks?
-> 
-> Specifically the UVC_CTRL_FLAG_AUTO_UPDATE flag is already there
-> in the default flags for these controls (and a bunch of others)
-> in uvc_ctrls[].
+This series fixes several bugs found while reviewing the ipu7 buttress
+power on/off, fw-com and mmu paths: a boot-config leak on a queue memory
+allocation failure, a skipped cleanup step on a buttress power on/off
+timeout, unchecked firmware-supplied queue indices used in pointer
+arithmetic in ipu7_fw_com_get_token(), and a missing "is this iova mapped"
+check in ipu6_mmu_iova_to_phys() that could dereference an invalid pointer
+for an unmapped iova.
 
-The UVC_CTRL_FLAG_AUTO_UPDATE flag in uvc_ctrls indicates which control
-*may* be auto-update controls. In many devices, lots of those will not
-be auto-update controls. For instance, UVC_PU_HUE_CONTROL may only
-auto-update when auto-hue is enabled. Devices that implement manual hue
-only will not update this control.
+A related fix for a missing NULL check on the output pin queue in the ipu7
+isr was dropped from this series, since an equivalent patch is already on
+the list:
 
-We use the flags in uvc_ctrls as a fallback if getting control info from
-the device fails (in uvc_ctrl_get_flags()). I think that's the right
-thing to do.
+https://lore.kernel.org/linux-media/20260927201631.153126-2-devnexen@gmail.com/
 
-> I wonder if we should simply always honor UVC_CTRL_FLAG_AUTO_UPDATE
-> from uvc_ctrls[] even when we do get a valid GET_INFO request and
-> simply or in the UVC_CTRL_FLAG_AUTO_UPDATE from uvc_ctrls[] if it
-> is there?
-> 
-> That avoids needing to adding more and more quirks for this.
-> 
-> Regards,
-> 
-> Hans
-> 
-> > Michael Jordan (3):
-> >   media: uvcvideo: report AUTO_UPDATE controls as volatile
-> >   media: uvcvideo: generalise the XU flags fixup to all controls
-> >   media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
-> > 
-> >  drivers/media/usb/uvc/uvc_ctrl.c | 122 ++++++++++++++++++++-----------
-> >  1 file changed, 81 insertions(+), 41 deletions(-)
+Manik Bajpai (4):
+  media: ipu6: Free boot config on queue memory alloc failure
+  media: ipu6: Always run cleanup in ipu7 power on/off on timeout
+  media: ipu6: Validate fw-com queue indices before use
+  media: ipu6: Fix NULL deref in ipu6_mmu_iova_to_phys()
+
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c | 24 ++++++++++++--------
+ drivers/media/pci/intel/ipu6/ipu6-mmu.c      | 11 ++++++++-
+ drivers/media/pci/intel/ipu6/ipu7-boot.c     |  1 +
+ drivers/media/pci/intel/ipu6/ipu7-fw-com.c   | 14 +++++++++++-
+ drivers/media/pci/intel/ipu6/ipu7-fw-com.h   |  5 +++-
+ drivers/media/pci/intel/ipu6/ipu7-fw-isys.c  |  7 +++---
+ 6 files changed, 47 insertions(+), 15 deletions(-)
 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
