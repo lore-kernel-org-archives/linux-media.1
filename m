@@ -1,151 +1,188 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7215A397323;
-	Mon, 28 Sep 2026 20:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4A914F70;
+	Mon, 28 Sep 2026 20:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628641; cv=none; b=WlPKZAY2X3mXuiMuSj70S2FZRyxkuQOzqA/ZWFrjELQCLf+yGMylTTaadlv374bFg1QgXs2+JpYp0pGmxo1C2TqZzK5lx9QmQA8L2ZEKjprOgwE3MQN2Tm3CkfPcslwvzT1KhtZ/I8N5Mm14ly3djq7zQf9EwYKIQPN2bD57SeU=
+	t=1790628691; cv=none; b=bXsJi31EAv0AUUIR4Ki72Zdz8YPwAY2DPBxZqkhdNfCQvv2/h0e1VpxTUlsb0mxhleh/kNW2Gu/Twz+mg8jlU+5ZqntykitjFbQlMx+ntoJaEpFLg+kuPbnK3d6HmZWexurRwH/vocY7DCKHvyzFnWF+wKEmRVljYDP2GxOD2dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628641; c=relaxed/simple;
-	bh=MZA1dbr5+LVqky/KZLVsDh+83myNtmHWdMgcla6pXEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBlcfbIt+hdYrrq/7SswVTvv1h8U4zaNn0F2L4kcV2IhiUuD1rw5Yws1uzz+e+SCniPnEuHBRMdRymhl+eNQLYevMo1hxQN7eD5sbqIuYJJt2xuzSvYllkXzkEdn1rNj9Dhd37xcEpgYoyrC1T78qg4VhUQ6iTtk1m/koMyGLi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=B9N0Az4x; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790628691; c=relaxed/simple;
+	bh=HcyHPIiOyBZkiy+sc6OPimTzrLV8TN+Fvr0ebe0MhWg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KzHS3DpB9hdfZ9WbIHVSEKpLNggkZQxZRs9uQ5lSZYS7WNdcVkYlsA5Lb+x/tylz0f3mN4o9u3AZq7kYgOOc7TN2PiiPUcmT40BTac6s9mk8FsQsYHlVBgU8BuKNB5dPeof5Ec/DMvYgn5fCRC9FeWOWCD9iEaDO/C98PGQMKXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cexoM8G8; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="B9N0Az4x"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2C236B07;
-	Mon, 28 Sep 2026 22:48:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790628528;
-	bh=MZA1dbr5+LVqky/KZLVsDh+83myNtmHWdMgcla6pXEQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=B9N0Az4x4KH6QlYUYYoHCDEEowrRb2zeb7u4biGcju/avhD9uxsbiiWfjFTKtfSdT
-	 W22BKs2qzkS6KH95uU6CK2tDhfBB9J7+GIYXUu+Isgpb1V/ZflsyCeYZtpu4sCzO8d
-	 HMpDsyn+APK76XMPb4hz2AY3Zj325A2TTzJttT8A=
-Date: Mon, 28 Sep 2026 23:50:37 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, ribalda@chromium.org,
-	noambs2999@gmail.com, david.laight.linux@gmail.com,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] media: uvcvideo: Let uvc_parse_frame() report a
- skipped frame
-Message-ID: <20260928205037.GL4406@killaraus.ideasonboard.com>
-References: <20260820111556.232652-1-natalie.klaus@runtimeverification.com>
- <20260820111556.232652-2-natalie.klaus@runtimeverification.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cexoM8G8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790628688;
+	bh=HcyHPIiOyBZkiy+sc6OPimTzrLV8TN+Fvr0ebe0MhWg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=cexoM8G8BhliZ5Dr9PeDw601OTs6/fxP9Mzz5lfdvj5hjHa2/grTBkEgHxNz29Lpx
+	 JbWEc+MPUmK/dmYkHhHKOB9yTfnpwREbYwqAlQgUikvesO3kstSOSTI9lCu44g9T9r
+	 gA63Q8qlJ/IKpsdPio4t1TD27K2SiHugFXhlY/6cTDl/J60m62iaSvXqVyH4wmMZYW
+	 Z0dJhvhxHRdKEtJTc3UMoLBdd521DcgGqa5HZaAnRPxnce7QKOCGvCJqJGkckSmBsk
+	 JWN4IoroqIkkzIoSBGNNk9KVqLZjmUa7ZUeY30sE+vExHKDvQBitjx664mOfDCb6ST
+	 fH36ld02FNAIg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C965F17E006F;
+	Mon, 28 Sep 2026 22:51:26 +0200 (CEST)
+Message-ID: <c1a5c4b339077cb6ecb0e7727eabdc2039fdfb03.camel@collabora.com>
+Subject: Re: [PATCH v2] media: v4l2-ctrls: validate AV1 ref_frame_idx and
+ primary_ref_frame
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Doruk Tan Ozturk <doruk@0sec.ai>, hverkuil@kernel.org, mchehab@kernel.org
+Cc: sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com, 
+	detlev.casanova@collabora.com, kees@kernel.org,
+ michael.bommarito@gmail.com, 	linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 28 Sep 2026 16:51:25 -0400
+In-Reply-To: <20260709131211.44425-1-doruk@0sec.ai>
+References: <20260709131211.44425-1-doruk@0sec.ai>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-oYN2ZyRHmX5ZnXRpMqxM"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260820111556.232652-2-natalie.klaus@runtimeverification.com>
 
-On Thu, Aug 20, 2026 at 02:15:54PM +0300, Natasha Klaus wrote:
-> uvc_parse_frame() returns the descriptor length on success and a
-> negative error code on failure, and uvc_parse_format() treats every
-> negative value as fatal for the whole streaming interface. There is no
-> way for the parser to say "this frame descriptor is unusable, but the
-> rest of the format is fine".
 
-On what device have you seen this occurring ? How did you test this
-patch ?
+--=-oYN2ZyRHmX5ZnXRpMqxM
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Change the return convention so it can. Return 0 on success and let the
-> caller advance by buffer[0], which is the value the function returned
-> anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
-> and leave every other negative value to mean "skip this frame descriptor
-> and carry on with the next one".
-> 
-> -ENODATA is currently the only error the function can return, so the
-> skip path is unreachable until later patches add checks that use it. The
-> one behavioural change is the truncated-descriptor diagnostic, which
-> moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
-> without the DESCR debug flag. That leaves the local alts variable
-> unused, and the kernel builds -Wunused-variable as an error, so it goes
-> too.
-> 
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
-> Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Le jeudi 09 juillet 2026 =C3=A0 15:12 +0200, Doruk Tan Ozturk a =C3=A9crit=
+=C2=A0:
+> The stateless AV1 frame control V4L2_CID_STATELESS_AV1_FRAME carries
+> ref_frame_idx[V4L2_AV1_REFS_PER_FRAME] (signed, -128..127) and
+> primary_ref_frame (__u8), both copied from userspace. validate_av1_frame(=
+)
+> already checks flags, quantization, segmentation, loop filter, CDEF, loop
+> restoration and superres, but never bounds these reference indices.
+>=20
+> Decoders use them directly as array subscripts. In the MediaTek decoder
+> vdec_av1_slice_setup_ref() does:
+>=20
+> 	int ref_idx =3D ctrl_fh->ref_frame_idx[i];
+> 	pfc->ref_idx[i] =3D ctrl_fh->reference_frame_ts[ref_idx];
+> 	slot_id =3D frame->ref_frame_map[ref_idx];
+>=20
+> indexing reference_frame_ts[8] and ref_frame_map[8] with an attacker
+> controlled signed value. In the Rockchip/verisilicon decoder the CDF setu=
+p
+> does:
+>=20
+> 	rockchip_av1_get_cdfs(ctx,
+> 		frame->ref_frame_idx[frame->primary_ref_frame]);
+>=20
+> indexing ref_frame_idx[7] with the unbounded primary_ref_frame. Both are
+> out-of-bounds reads driven by unvalidated userspace input.
+>=20
+> Validate in the core, like the other AV1 frame fields, so every decoder i=
+s
+> covered: reject ref_frame_idx entries outside
+> [0, V4L2_AV1_TOTAL_REFS_PER_FRAME) and primary_ref_frame >=3D
+> V4L2_AV1_TOTAL_REFS_PER_FRAME. The upper bound still permits the value 7
+> (PRIMARY_REF_NONE), which decoders handle explicitly.
+>=20
+> Found by 0sec's autonomous vulnerability analysis (https://0sec.ai).
+> Found by static analysis; not yet runtime-reproduced (Rockchip/MediaTek S=
+oC
+> hardware required).
+>=20
+> Fixes: 9de30f579980 ("media: Add AV1 uAPI")
+> Assisted-by: 0sec:claude-opus-4.8
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 > ---
-> The Cc: stable line is present without a Fixes: tag because this patch is
-> a prerequisite for 2/3 rather than a fix in its own right. Stable needs
-> both or neither: backported alone, 2/3's -EINVAL would revert to meaning
-> "discard the whole streaming interface".
-> 
-> The caller checks -ENODATA before counting the frame, per Ricardo's review.
-> Behaviour is unchanged either way, since -ENODATA is non-zero, but the fatal
-> case reads better first.
-> 
->  drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..b94fe5366e55 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
->  			   u32 **intervals, u8 ftype, int width_multiplier,
->  			   const unsigned char *buffer, int buflen)
+> v2: wrap a quoted decoder line in the commit message to satisfy checkpatc=
+h
+>     (<=3D75 cols); no code change from v1.
+> v1: https://lore.kernel.org/linux-media/20260628134105.21001-1-doruk@0sec=
+.ai/
+>=20
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
+l2-core/v4l2-ctrls-core.c
+> index ba047d7d8601..5096c48ea402 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -793,6 +793,7 @@ static int validate_av1_film_grain(struct v4l2_ctrl_a=
+v1_film_grain *fg)
+>  static int validate_av1_frame(struct v4l2_ctrl_av1_frame *f)
 >  {
-> -	struct usb_host_interface *alts = streaming->intf->cur_altsetting;
->  	unsigned int maxIntervalIndex;
->  	unsigned int interval;
->  	unsigned int i, n;
-> @@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
->  	n = n ? n : 3;
->  
->  	if (buflen < 26 + 4 * n) {
-> -		uvc_dbg(dev, DESCR,
-> -			"device %d videostreaming interface %d FRAME error\n",
-> -			dev->udev->devnum, alts->desc.bInterfaceNumber);
-> -		return -EINVAL;
-> +		dev_warn(&streaming->intf->dev,
-> +			 "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
-> +			 buflen, 26 + 4 * n);
-> +		return -ENODATA;
->  	}
->  
->  	frame->bFrameIndex = buffer[3];
-> @@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
->  
->  	*intervals += n;
->  
-> -	return buffer[0];
-> +	return 0;
+>  	int ret =3D 0;
+> +	u32 i;
+> =20
+>  	ret =3D validate_av1_quantization(&f->quantization);
+>  	if (ret)
+> @@ -836,6 +837,14 @@ static int validate_av1_frame(struct v4l2_ctrl_av1_f=
+rame *f)
+>  	if (f->superres_denom > GENMASK(2, 0) + 9)
+>  		return -EINVAL;
+> =20
+> +	for (i =3D 0; i < ARRAY_SIZE(f->ref_frame_idx); i++)
+> +		if (f->ref_frame_idx[i] < 0 ||
+> +		    f->ref_frame_idx[i] >=3D V4L2_AV1_TOTAL_REFS_PER_FRAME)
+> +			return -EINVAL;
+
+This is likely a breaking changes, and since you didn't test it I'm being v=
+ery
+cautious. Through code inspection, I see that GStreamer will fill the
+ref_frame_idx to value -1 when reference is unused. This happens notably on
+every keyframe.
+
+> +
+> +	if (f->primary_ref_frame >=3D V4L2_AV1_TOTAL_REFS_PER_FRAME)
+> +		return -EINVAL;
+
+As per spec, this shouldn't be bigger then AV1_PRIMARY_REF_NONE (7). But it=
+ does
+seems that passing values above can cause issues in
+rockchip_vpu981_av1_dec_set_prob() notably.
+
+Nicolas
+
+> +
+>  	return 0;
 >  }
->  
->  static int uvc_parse_format(struct uvc_device *dev,
-> @@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
->  			ret = uvc_parse_frame(dev, streaming, format, frame,
->  					      intervals, ftype, width_multiplier,
->  					      buffer, buflen);
-> -			if (ret < 0)
-> +			if (ret == -ENODATA)
->  				return ret;
-> -			format->nframes++;
-> -			buflen -= ret;
-> -			buffer += ret;
-> +			if (!ret)
-> +				format->nframes++;
-> +			buflen -= buffer[0];
-> +			buffer += buffer[0];
->  		}
->  	}
->  
+> =20
 
--- 
-Regards,
+--=-oYN2ZyRHmX5ZnXRpMqxM
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Laurent Pinchart
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrTTQAKCRDZQZRRKWBy
+9K/4AQDEtImR1HUZlnmldYWQyt3Lse8HfBk8+qofHR8m3MnsVgD/QHAHc045l9HB
+OYVANutGlADEFCbZEwFnNGNr8HRN1w0=
+=Do2d
+-----END PGP SIGNATURE-----
+
+--=-oYN2ZyRHmX5ZnXRpMqxM--
