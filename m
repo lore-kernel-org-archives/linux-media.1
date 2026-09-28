@@ -1,66 +1,66 @@
 Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847664DE717
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F1C4E06DF
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605943; cv=none; b=sM6JaTLJu2kizeby01DdaPzVLpXs6zmBkV45prZMpQrF9b0qM1sHYJUOX/m2RVEb8+m8tltcrr4wWFt4Tq5XL8FBalDaoB3Pwa/laDwgdKIIw4wDSp5+m57RxF50g6y3OpV5AUOYPZysqzx7NrVYBSPEnu+cR1olOavKYpUpM6w=
+	t=1790605950; cv=none; b=Ek/gy5Lav3Upn19Xga3mxYFvL+0Lt1sdiv/tRumZRVgx0Z2KGpMWhC/eFdWdMcSc4KtBvNpSn4cND1nuBceXTJmOabQNc/fltGbpk4VmLyO/7VJIY4vfTVpKJR6V/hX4ArFNoh8l7pq7MxjurqRFayDlsuZMMAMRfskPAoc4VDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605943; c=relaxed/simple;
-	bh=vTx2xmq1OWfz+8T6HSxU27AUGa2mZ0TcP8GSl6lUKJk=;
+	s=arc-20240116; t=1790605950; c=relaxed/simple;
+	bh=dXkENPo2wVumyHDmzXwLjWgH3JP+mqFSzaQO0/K8fYs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jleu4NPF2LqArey6pKDSbW74IlsQ5FLFYxKqSz6Gci+3lLTOwwWXv8uIKz9NGVHFgTiWMJKCXYnoc58GCQ86vlS9qtwdCkbFPzwCctpMT7Jkt2ch2iXngYYJ2aMVCHeH8tlER8QCGgbEzPiQ/fIDJ6SJ9IkTRkorqCg3dHKL5HA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=PZs5oXqS; arc=none smtp.client-ip=74.125.229.204
+	 In-Reply-To:To:Cc; b=Ue3TxLhYGH63viUvAiWzZ54IOZsrgfZeCETDE/lMAwRMTlagdtifsI5m0eSRxjc6OPjFrhAAvuAMe66FQOWQe4TsrRLQP7TiUiTUgK15KKekzrKxG4uifFFd8hACUM4kIeEW7pfjVM7HTDGl64MoGABsD157ZHA83EUtFSHyg3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=L6gtY7Sk; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="PZs5oXqS"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f80e3f72so1454370e87.0
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:32:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="L6gtY7Sk"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8eacb7c8fso2546164e87.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:32:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790605933; x=1791210733; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1790605935; x=1791210735; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pZmOc8wc9+wz/uutYCALFKqsDrQBIXPS9oyyY3WIPdc=;
-        b=PZs5oXqS62eIUAe1AeULcvzt1ZSqIaPh6PKrvzGYPZMDlgyWmxfXtWDBAckc1k5yUf
-         h/wO2Eu0EHEssxwfLJ0N97OLLDvg1Jc4NuDhgOzXDK5Eba3RtWWTELYhzaMR/ANhacLN
-         4rb0Dr8Ts0nqRkIUAUKHIc4YtycBt5SVVJlWA=
+        bh=y/3sa9/J1OWP4CmhUpz/yxw8bRZqT4L863BARaR7FIk=;
+        b=L6gtY7SkOZkWH9Tjfj4NUS8LzD7Xgqdqo5Pvd6zcn5whk+ulPPE6diGIVsDcF1Zz+T
+         UaI8Ln3XuPNFlrryyAt8Nuel0cMzmGVkgAJrV+tdbOKZHiMCiAQi9VO+tpVKpRfSzKkO
+         djrI5sWH2PxxiV7wLxb6RKNxzwd9wZwarI50E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605933; x=1791210733;
+        d=1e100.net; s=20260707; t=1790605935; x=1791210735;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pZmOc8wc9+wz/uutYCALFKqsDrQBIXPS9oyyY3WIPdc=;
-        b=sL7VBB760+J+P8kPIMFOSltCxXRk5ZH4lmkm0ujzfzg0O+mJnFlc7xLbzANj5Vsm0B
-         9FA7SvkySjx+NTWSmX0blWk3Dlp6KGMxU4a23NrZFGQhGXR8xL8sjl/Y61X0BhisWCVl
-         DyD84j9BGlP+rnnb0EKSVYhdU3aNeLLlTKJLGt0TWgRk0S1y8mhUe22IKFxNWWqJJRPR
-         3gGEE003cEgVMQHw8hEcSl79Jq94Vk3jnZXXOmRjaaeHpVaum8p0Yu5DtFDeW+GSkh3i
-         AYC305bJHtQdEW3HjY/aRhoyTXfwTZobDIAZVoqkgW7eIjqV9WDdq6Lu6tjpADrlh2zY
-         cz8w==
-X-Forwarded-Encrypted: i=1; AKwUvBx39o60vxK1SDbfdbusXOYlvGKdDKMVQzBgoKMUP4h4NC/KoLKNqkVNVVLphoMoQFZmGG2QbBeuE+yv2w==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK18K5OHtblu5S4Q7v2BSDEb5am4lEIVoUyXMtfAevFFFRTLP8J
-	ppYTm6r4a2QC9+QsVbVPWTj0X5SkYglhuuFbiZ8Eg5oLMCLUdpHnY33WrZUp1u7+hg==
-X-Gm-Gg: AYBFou3TIPxZA5bMAj6GThnVYqg6UQlsryKmhloCNd+AfJOm8UUduH4r37GIslHoTYD
-	P6+lR8ey5ps9basohDc83EqQy6cp0oTKG6lZRH+LPjTwu4v20RfLydeZBqeLZiNJFQCA2fraF/W
-	tbd9a8Egrwi7dqjW9Kxp6nJ7/hk+IWwneIEuPAFdIZfp3ZJBMXrKEvrKGCzr/ER2hIEMUO6j5p5
-	P83jdakQNrXFmQs8+V3ufAMO2kAqJzHTLufeJ+3Ox5cYDB1RhcaIur/Faz2pO3cC66tEJCryKrL
-	Jjy3lL7OmeuLGpXsMuD4Uq/VOqXC/mKQ9oYPR+sQNmxfNnVUloCAELGcgqsnVdq8Fpzr4YZCZGo
-	NpZIR3gg4GuxH6HC3zBTbeYSZF4X9x+CZ890V/MMqDSULlkW0PqkXfszVddHqhgTc+eOHsMUqe2
-	X2a3RiIWHwwVciMCRBR32tFlSnAtrHSJT4ytOAsnBXfqbeTwNT9linMK+fJiB9qjoKkb0ETemW9
-	0w55qBDd4Rh3U+BHP3HrveRJlltSHbzLtaVPbeh/1F1yWMa0g==
-X-Received: by 2002:a05:6512:1313:b0:5b4:74a2:cf2e with SMTP id 2adb3069b0e04-5b8df0db4damr4119015e87.21.1790605933233;
-        Mon, 28 Sep 2026 07:32:13 -0700 (PDT)
+        bh=y/3sa9/J1OWP4CmhUpz/yxw8bRZqT4L863BARaR7FIk=;
+        b=Rjtfu7TABtqdHg3ecPUhGcJtvn5ntYDDtqzTNoINd2BQAbySHvQgHZWKaXH4V2WKpo
+         rAiPLMTK4A03JgGxkSSaKyjai7nvBUNNvFSOAjtevVSMvUgJRfF79VrFlMwerG2+IBLJ
+         3TgKVMQL19JvtZHgZaDgwM1F4fUECIRmA0Jel38zB9s2IN3Fth9h/6xj5hJKMJYkL6Ux
+         jjZZTHNvBS3cHPZPbDeSICj+eSkFpilOpF/+yn8TzwTKzXdjfaMqVOS7YhfHPBK6hF6L
+         qdJAUvNUbDGX6tLrkdIqksgKuJ1zLyRYf3JbDwGX+v7C9qnnBFxPHM59sH0v+PLKIrYr
+         Uu7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxl2ERHhR0qBx7FoGP6rzNHqRm6EinEpqCvGkmY7QMCmDCmSU7fMvurgXFm+72KhQQIrWYcAwfnc4GRDA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGZW7cAD8QS3+R8tbns24qBpkOeXz/LUvs7+izVjN//Ov48TeY
+	+yLp4gsZ3tEu97ZVDMIG1KkzHsrAkeUVg02bsMlePLW3a6iSlCUv1U6Ofclfi5XQ6Q==
+X-Gm-Gg: AYBFou3SDh+EY7qkJMEMFCEKcyhEvCAx4KRcl+veXvk9brrLc52q8pkjIHgLaZkGRZU
+	+QYCUhBdKMOq1AO6ZU7HEb88wliapOkNOpVbEvDOYmwBN2gcxvKOVFKmfAe6bGRiTKtvpF0Tyma
+	EIxWw5P4Z62WbJP4729L2699QMBY6g4j0BhzrhqaPj4pAYIxRowFIMXoIVbi/1nvMQAKlP0q/6c
+	U/Hy0AFrsNZUv9UfoM70GsoMXrrC71s2A7Lm7486SqAUxAQdfI+e3bDiCeXkRVCM/9jbkgxFHnV
+	zfM2EzuvpBXn3GoVIa9WsIfUhzog5dPVKqcP/7ZmfLfF5fCK77XKfUIP6rkVICpjBJMLqPgRT4m
+	pvK5kd/37hkNvxeJDtydEG25GiXBtBYnLB2bG3a4eigNH085AKSk8iZaDr6bExezU3yG02Ijscf
+	Xkv4B1F2s0xwQrfjT0tdj12hraDKMBplMGjWDxPm4a83CbVxR6ZEL1+mrdgXPdaoPZbkp4ZrWKd
+	8XNo/JOIL+JTeNmbS0sZavBJ0phb1VdWJ1z4mMl/2N/8kN5hQ==
+X-Received: by 2002:a05:6512:15a0:b0:5b8:c6f6:ab0b with SMTP id 2adb3069b0e04-5b8e6de10c3mr3442042e87.55.1790605934647;
+        Mon, 28 Sep 2026 07:32:14 -0700 (PDT)
 Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.11
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:32:12 -0700 (PDT)
+        Mon, 28 Sep 2026 07:32:13 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 14:32:01 +0000
-Subject: [PATCH v4 2/5] media: uvcvideo: Use uvc_warn_once when it make
- sense
+Date: Mon, 28 Sep 2026 14:32:02 +0000
+Subject: [PATCH v4 3/5] media: uvcvideo: Automatically handle cameras with
+ invalid uvc_version
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-uvc-version-v4-2-da0e983fcb95@chromium.org>
+Message-Id: <20260928-uvc-version-v4-3-da0e983fcb95@chromium.org>
 References: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
 In-Reply-To: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -82,41 +82,234 @@ Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org,
  Hans de Goede <johannes.goede@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
 
-If there are multiple cameras in the system affected by a compliance
-error now we only show an error message for one of them.
+Currently, the driver expects that cameras properly implement the spec
+version that they announce, and if they fail to do so, we do not continue
+probing the driver.
 
-Use uvc_warn_once() to print an error message per device.
+To make drivers more fun, some vendors decided to announce that they are
+a UVC version that they are not. Until now, we handled those cameras via
+quirks.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Unfortunately, reality has shown us that there are more cameras out
+there with an invalid uvc_version than we initially predicted.
+
+This patch tries to handle these cameras with an identity crisis
+automatically. We still shame them in dmesg. But now they will work.
+
+Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
 Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/uvc/uvc_video.c | 2 +-
- drivers/media/usb/uvc/uvcvideo.h  | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/usb/uvc/uvc_driver.c | 11 +++++---
+ drivers/media/usb/uvc/uvc_video.c  | 54 ++++++++++++++++++++++++--------------
+ drivers/media/usb/uvc/uvcvideo.h   |  2 ++
+ 3 files changed, 44 insertions(+), 23 deletions(-)
 
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..ca75f8d1ec46 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 
+ 	case UVC_VC_PROCESSING_UNIT:
+ 		n = buflen >= 8 ? buffer[7] : 0;
+-		p = dev->uvc_version >= 0x0110 ? 10 : 9;
+-
+-		if (buflen < p + n) {
++		if (buflen < 9 + n) {
+ 			uvc_dbg(dev, DESCR,
+ 				"device %d videocontrol interface %d PROCESSING_UNIT error\n",
+ 				udev->devnum, alts->desc.bInterfaceNumber);
+@@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 		unit->processing.bControlSize = buffer[7];
+ 		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+ 		memcpy(unit->processing.bmControls, &buffer[8], n);
+-		if (dev->uvc_version >= 0x0110)
++
++		/*
++		 * We are not using bmVideoStandards, so there is no need to
++		 * warn the user if it is missing.
++		 */
++		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+ 			unit->processing.bmVideoStandards = buffer[9+n];
+ 
+ 		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
 diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index fc3536a4399f..2a3b7431cc68 100644
+index 2a3b7431cc68..a69608666f66 100644
 --- a/drivers/media/usb/uvc/uvc_video.c
 +++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -95,7 +95,7 @@ int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
+@@ -211,11 +211,14 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+ 	if (frame == NULL)
+ 		return;
+ 
+-	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED) ||
+-	     (ctrl->dwMaxVideoFrameSize == 0 &&
+-	      stream->dev->uvc_version < 0x0110))
+-		ctrl->dwMaxVideoFrameSize =
+-			frame->dwMaxVideoFrameBufferSize;
++	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
++		ctrl->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
++	} else if (!ctrl->dwMaxVideoFrameSize) {
++		ctrl->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
++		if (stream->dev->uvc_version >= 0x0110)
++			uvc_warn_once(stream->dev, UVC_WARN_VERSION,
++				      "UVC non compliance: Missing dwMaxVideoFrameSize from video_ctrl\n");
++	}
+ 
+ 	/*
+ 	 * The "TOSHIBA Web Camera - 5M" Chicony device (04f2:b50b) seems to
+@@ -273,6 +276,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+ 	}
+ }
+ 
++#define UVC_VIDEO_CTRL_MIN_SIZE 26
++
+ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ {
+ 	/*
+@@ -280,7 +285,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ 	 * on the protocol version.
  	 */
- 	if (ret > 0 && query != UVC_GET_INFO) {
- 		memset(data + ret, 0, size - ret);
--		dev_warn_once(&dev->intf->dev,
-+		uvc_warn_once(dev, UVC_WARN_QUERY_CTRL,
- 			      "UVC non compliance: %s control %u on unit %u returned %d bytes when we expected %u.\n",
- 			      uvc_query_name(query), cs, unit, ret, size);
- 		return 0;
+ 	if (stream->dev->uvc_version < 0x0110)
+-		return 26;
++		return UVC_VIDEO_CTRL_MIN_SIZE;
+ 	else if (stream->dev->uvc_version < 0x0150)
+ 		return 34;
+ 	else
+@@ -290,7 +295,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 	struct uvc_streaming_control *ctrl, int probe, u8 query)
+ {
+-	u16 size = uvc_video_ctrl_size(stream);
+ 	u8 *data;
+ 	int ret;
+ 
+@@ -298,13 +302,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 			query == UVC_GET_DEF)
+ 		return -EIO;
+ 
+-	data = kmalloc(size, GFP_KERNEL);
++	data = kmalloc(stream->video_ctrl_size, GFP_KERNEL);
+ 	if (data == NULL)
+ 		return -ENOMEM;
+ 
+ 	ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
+ 		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+-		size, uvc_timeout_param);
++		stream->video_ctrl_size, uvc_timeout_param);
+ 
+ 	if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
+ 		/*
+@@ -319,7 +323,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 		ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
+ 		ret = 0;
+ 		goto out;
+-	} else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
++	} else if (query == UVC_GET_DEF && probe == 1 &&
++		   ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		/*
+ 		 * Many cameras don't support the GET_DEF request on their
+ 		 * video probe control. Warn once and return, the caller will
+@@ -330,15 +335,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 			"Enabling workaround.\n");
+ 		ret = -EIO;
+ 		goto out;
+-	} else if (ret != size) {
++	} else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		dev_err(&stream->intf->dev,
+ 			"Failed to query (%s) UVC %s control : %d (exp. %u).\n",
+ 			uvc_query_name(query), probe ? "probe" : "commit",
+-			ret, size);
++			ret, stream->video_ctrl_size);
+ 		ret = (ret == -EPROTO) ? -EPROTO : -EIO;
+ 		goto out;
+ 	}
+ 
++	if (ret != stream->video_ctrl_size) {
++		uvc_warn_once(stream->dev, UVC_WARN_VERSION,
++			      "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
++			      uvc_query_name(query),
++			      probe ? "probe" : "commit", ret,
++			      stream->video_ctrl_size);
++		stream->video_ctrl_size = ret;
++	}
++
+ 	ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
+ 	ctrl->bFormatIndex = data[2];
+ 	ctrl->bFrameIndex = data[3];
+@@ -351,7 +365,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 	ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
+ 	ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
+ 
+-	if (size >= 34) {
++	if (ret >= 34) {
+ 		ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
+ 		ctrl->bmFramingInfo = data[30];
+ 		ctrl->bPreferedVersion = data[31];
+@@ -381,11 +395,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 	struct uvc_streaming_control *ctrl, int probe)
+ {
+-	u16 size = uvc_video_ctrl_size(stream);
+ 	u8 *data;
+ 	int ret;
+ 
+-	data = kzalloc(size, GFP_KERNEL);
++	data = kzalloc(stream->video_ctrl_size, GFP_KERNEL);
+ 	if (data == NULL)
+ 		return -ENOMEM;
+ 
+@@ -401,7 +414,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 	put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
+ 	put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
+ 
+-	if (size >= 34) {
++	if (stream->video_ctrl_size >= 34) {
+ 		put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
+ 		data[30] = ctrl->bmFramingInfo;
+ 		data[31] = ctrl->bPreferedVersion;
+@@ -411,11 +424,12 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 
+ 	ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
+ 		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+-		size, uvc_timeout_param);
+-	if (ret != size) {
++		stream->video_ctrl_size, uvc_timeout_param);
++	if (ret != stream->video_ctrl_size) {
+ 		dev_err(&stream->intf->dev,
+ 			"Failed to set UVC %s control : %d (exp. %u).\n",
+-			probe ? "probe" : "commit", ret, size);
++			probe ? "probe" : "commit", ret,
++			stream->video_ctrl_size);
+ 		ret = -EIO;
+ 	}
+ 
+@@ -2231,6 +2245,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+ 
+ 	atomic_set(&stream->active, 0);
+ 
++	stream->video_ctrl_size = uvc_video_ctrl_size(stream);
++
+ 	/*
+ 	 * Alternate setting 0 should be the default, yet the XBox Live Vision
+ 	 * Cam (and possibly other devices) crash or otherwise misbehave if
 diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index a80406f20beb..abcafd929c9e 100644
+index abcafd929c9e..b41ce01dc21c 100644
 --- a/drivers/media/usb/uvc/uvcvideo.h
 +++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
- #define UVC_WARN_MINMAX		0
+@@ -461,6 +461,7 @@ struct uvc_streaming {
+ 	struct usb_interface *intf;
+ 	int intfnum;
+ 	u32 maxpsize;
++	unsigned int video_ctrl_size;
+ 
+ 	struct uvc_streaming_header header;
+ 	enum v4l2_buf_type type;
+@@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
  #define UVC_WARN_PROBE_DEF	1
  #define UVC_WARN_XU_GET_RES	2
-+#define UVC_WARN_QUERY_CTRL	3
+ #define UVC_WARN_QUERY_CTRL	3
++#define UVC_WARN_VERSION	4
  
  extern unsigned int uvc_clock_param;
  extern unsigned int uvc_no_drop_param;
