@@ -1,109 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4CF4E06EC;
-	Mon, 28 Sep 2026 14:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87604DEC26
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606019; cv=none; b=TwVOFAKZSMtKuCu9I6NQkRuaobpdOanrx75qolua7QhFILh85W9rEwaPHy07jRrovM26bE6T9ryMlOgeAuDa3kV1BXm9BstfvMCNII3AIBHsx7pwnLa3kWyN/E2ZKe/TR/RjFDawfzhd0z1K1eLuqly8ScsUlEuMW3ks2k67b5s=
+	t=1790606103; cv=none; b=oq1R4SdYG4C6LmEUF565PkbaJaydkgj8ot0+pPbuQhr0Vph1wpUJpuxo4xhlP+eGHmqtkeqn2INKfpoaNaP2TcPjAYQo3MN2Dr/PlsFd6SZqQnHzBvZBJdeXaGrOoHducsu4U+h0vTL0ibtOrp2UrNNnYQiHHQJnWgENXPlH2Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606019; c=relaxed/simple;
-	bh=HPS5uK+ZJd3KQXIVlhPORKHhKQtshiOTXo/yHj3VgMQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ujsHfmJpvtspCEZfZ5QbYglABjqXhJyOGZdhthjz8mN1U83rIKfG9UNMx2LQ21p3+IWE+43+hg32VMHrXU4IF+xvgEwjBR7F91xT1Gg9EojN97kDs3FYMEn+F/F0lJ+VDXvEDAuIF3iJGxMdLfzqdoPr5KcCLpsoGtuZLnBQ9Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QXepms0e; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790606103; c=relaxed/simple;
+	bh=btxyB/WLVckW2FMnL9chr+o0X+NcLEk/lDCNp3gdG18=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fcsAeh/2oAUP1eWECVZJiaAh3s7+tEE7shMjdbw88g4sxDayA0wRLSTkBRu0sMFUcEZHFunhDXLRWl48a2ViFXjIiV21uGwy16mCKxjxoHgihylMmZ7FlYU8uHKoAAJoU359fBu8WfcomXNNHqPUqwzPG7I6rVbtHpO6i4ROd9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYTZ52o8; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QXepms0e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790606008; x=1822142008;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HPS5uK+ZJd3KQXIVlhPORKHhKQtshiOTXo/yHj3VgMQ=;
-  b=QXepms0eaaJySR3FWTOd3c0OxlJv65vEmEdzkkcY51icv86Z9iuoH5pD
-   4q8wleZ4ZPaICdVHKM1lmjyhTf1EOHzcZaQMrE2oKtQvbzs3QcPpN1bBN
-   6hLN8b0rQtgHCfwjljKOBAHrOfxfnd8COJf8L8GBxrf1+Q6KvkA5uOW0N
-   rQCjiVjNC9dVH5AaH7MDjhYphEf/NZjCxDZhzA3Ws+au9fAc0VBSDzb93
-   vjXA9rzsPv34KRTZrjDrRE5rvbwq1d7PbcFTOzV6oFoFUtJ4ZFjwn2X0u
-   YehC6+AYxYDukQ1t643xjiAakwl0/4qrih2sJlncdqxuf86W8hw+V2lIF
-   A==;
-X-CSE-ConnectionGUID: RJN0P+YuTmKK2UkK8OOtHA==
-X-CSE-MsgGUID: dD2SW+qNS++j4RcYiX//lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="113091583"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="113091583"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:33:22 -0700
-X-CSE-ConnectionGUID: hDklSZ8nRUmIdMTETvtOqQ==
-X-CSE-MsgGUID: hbENvKVRTAy71HqqFUt4vg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="273215947"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.134])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:33:20 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 53393121840;
-	Mon, 28 Sep 2026 17:33:23 +0300 (EEST)
-Date: Mon, 28 Sep 2026 17:33:23 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shawn Tu <shawnx.tu@intel.com>, linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYTZ52o8"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-6730c3bdb35so1918653d50.1
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:34:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790606090; x=1791210890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=btxyB/WLVckW2FMnL9chr+o0X+NcLEk/lDCNp3gdG18=;
+        b=VYTZ52o8AeC5jdJBK4QvmB6nZJLiz3H9J1E8O5C6Ofua450fRG5tuspTappes8IkL3
+         PE3h33grNeuRI8na5tkBPwOhPtZFY1LYqMSD9BAXnySdYfXPe/p+vGH6x5ejUpKPDyi9
+         7wB/Yj5Gh0uEi5SdJHMJ7BjG7JXWLZS+jRHzo8eFvtMBB4g5sW5leAM/6B6D840icXOD
+         uvAasCC75geNJv2XMe3htQ+R6He3zUU0MUgz51o9AP86ZTACOx7P2FWlTHybct3SnVqy
+         cKbvs58yBQcdamp0wxYkw8sYtm5U8zg3vQI4XfSwBf6knj1O4PyDrsKTXK5qHfl+jfGg
+         vP7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790606090; x=1791210890;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=btxyB/WLVckW2FMnL9chr+o0X+NcLEk/lDCNp3gdG18=;
+        b=seheaz0vGhdshPBQCULUfTDXygx7gQQlx4NbBg1izgv8AMlTyItX/5Xwa2d5FHipLG
+         +dYmXxmRH3p2XyXBE2HYWxuJGarlQQ6jMpvbzCyvdVcimMNYP/cVnubn/+QKRYe7ND78
+         Nyas+FtU+1soyYW78vz2AUazz0rC5xGxBXM7XqAOs0YxOEppQaez6u4KroqA1Deq9Ev1
+         kMXXYaOgMfJkNUgf/+nHeSRuHod0xL6J3f8zQja6UPNvtJ1XUSnvFeO45HQZTbmet+l9
+         rHt0xhNtHTeUbPuFOC0qAT6najvohbqFnL8hroRCv9WkvHUKJBzkorUBC1SYkNXsw4yr
+         tmZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKvOZisvAu9qNiJHOVJRYzVFPCuXeIskDcR0SSsHaxixR1xDkHSUxvHgP1NxbudOqZFcU2DVqPeq8G0g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyCmw56/l8fuw5byYmMmBpLENNPnRCHcuT22R6j3q5cASPdpxl
+	6sBvlMZBuLZvy8nRlyHFujEyAHe6dmdkson3aywWq78o71k6khjmhrjz
+X-Gm-Gg: AYBFou3sItORlJD0aO8NZ1ymvNew+GmVr/cAc+bCbwLRwEaOr3JOKsYwQc8bTymcYnC
+	QZ7NRHPrnbLzDH1Q6zqYiLtF0XaYmcoZyvc1O3FroyuYZLiif7ozSVwnEmZVv8wa/xfASjc4rCw
+	JBbBltpy80XhgItMuGoOWmh5VqGysceql1KWyYF008nAYkgAwNcoLLJqo4pL/Zp67t//chUMiqk
+	2YYazNPw1Dnp4MlFKW1Om3EjZQ9pUaRqr63UXmzGM3d+QsdCO0ejYDjUyKy2QgNtQSUw/3orSoc
+	j6pHg6wSCAbWE1vNjf2tttCqmQ3XhReWk2/Gc5L1rGJNpTiQGl7tehC7NzX6BkqBQxacWUI3AwZ
+	gbleUWW/8fHIq0vaYh5xPLEVQPsvxRFUR2gug2BAxtt9iA8tlE2YmR3iz1qGnTaGWXXDGfsHZEA
+	IQlzMuxmJ61SN2AehqkpY12NfwMzTKfIFJUe9td2wpyVVdMwYOV59EyXUnTs3Ul1D76zX66u4cb
+	pyTsuS8lm1W2m4c7zoQsUqHnUSkt52Og4FE1tP2WxJ//KWw4/r+RQ==
+X-Received: by 2002:a05:690e:d0b:b0:674:13a6:4d15 with SMTP id 956f58d0204a3-67413a64e76mr2852568d50.3.1790606090098;
+        Mon, 28 Sep 2026 07:34:50 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740efc941csm4577404d50.20.2026.09.28.07.34.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:34:49 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Michael Jordan <jordan.mymail@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: hi556: fix power leak on remove while
- runtime-active
-Message-ID: <arp6s_vpgXx9RTMY@kekkonen.localdomain>
-References: <20260928135140.2354361-1-congnt264@gmail.com>
+Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
+Date: Mon, 28 Sep 2026 10:34:48 -0400
+Message-ID: <20260928143448.757683-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928115713.GD157191@killaraus.ideasonboard.com>
+References: <20260902002553.34839-1-jordan.mymail@gmail.com> <20260902002553.34839-4-jordan.mymail@gmail.com> <20260928115713.GD157191@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928135140.2354361-1-congnt264@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Cong,
+Hi Laurent,
 
-Thanks for the patches.
+On Mon, 28 Sep 2026 14:57:13 +0300, Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
+> The device implements an interrupt endpoint. Does it report control
+> change events for those controls ?
 
-On Mon, Sep 28, 2026 at 08:51:40PM +0700, Cong Nguyen wrote:
-> hi556_remove() calls pm_runtime_disable() but never hi556_suspend().
-> pm_runtime_disable() only blocks future auto suspend/resume, it
-> doesn't force a final one -- if unbound while hi556_set_stream() is
-> holding an outstanding PM reference (removed while still streaming),
-> the device stays genuinely active with regulators/clock enabled
-> forever after.
-> 
-> probe()'s own error path already shows the right pairing (calls
-> hi556_suspend() when powered on). Do the same in remove(), guarded by
-> pm_runtime_status_suspended() so the common already-suspended case
-> isn't suspended twice -- same guard sibling imx412.c's remove() uses.
-> 
-> Moved remove() after suspend()/resume()'s definitions since it now
-> calls them directly.
+No. I checked today on both the Tiny 2 and the Tail 2, with the uvcvideo
+status trace enabled (trace=0x200) and a stream running so the status
+URB was submitted. Neither camera sent a single status packet during
+commanded pan and zoom moves, or while its subject tracking changed
+pan/tilt and zoom on its own. GET_CUR reported the live values
+throughout.
 
-A few notes on this as the rest:
+> > The vendor has been asked to fix the firmware (support ticket #8220,
+>
+> Any public link ?
 
-- The quality of this commit message needs to be improved.
+No, sorry. It is a private ticket filed through OBSBOT's support
+channel, which is the only way I have found to contact them. I have the
+confirmation email showing it was received and is awaiting a reply, and
+can forward it if that is useful, but there has been no response since
+2026-08-04.
 
-- When you're sending a bunch of similar patches, please send them in a
-  single patchset.
+> This belongs to the commit message.
 
-- When moving functions around and then making changes to them, please do
-  this in two separate patches.
+Agreed, I will move it there.
 
-- If the device's PM runtime status isn't SUSPENDED in remove(), it needs
-  to be set SUSPENDED using pm_runtime_set_suspended(). Please do this
-  while making other PM runtime changes to the remove functions.
+With the Assisted-by tags and the shorter 2/3 message, that makes a v3.
+Hans, let me know whether you would like me to send one, or would
+rather fix these up when applying.
 
-I'm marking these as "changes requested".
-
--- 
-Kind regards,
-
-Sakari Ailus
+Michael
