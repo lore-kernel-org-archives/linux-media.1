@@ -1,79 +1,84 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CD63C1D63
-	for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 22:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CF2320A14
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 02:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546790; cv=none; b=pyoXrBrUw4KVxpcLcf+cevHU1gV7EYDYEMhsEmrrrgmKcWQy/nO8OLnXvgu2ALQLJWuxSY1afFgzZ2lLmxJITx92ND4aNlD+z2sOcNbvpMTM79F64LqrCNaGwr4TRjSHNpiFANiCrehcE3M7UdRhdFrLvSAYcFYm9bwXnSWDmiU=
+	t=1790561224; cv=none; b=HNn9stU2osewtmv/1YJbEODmnuQqOQjZRIxSqJLd8bklbrvoaei9ZHQ7EHWxmM6E0ZGEYM8YlEd2AhcrQELXlPjAeMxLd86kDyEL4ZT/qAMPd1wQXX5VP03ZW0uROQ/7Bvey9DPEUberYRJHnaa2IXBEaSGJtCYnu90Fa45vZEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546790; c=relaxed/simple;
-	bh=5zMxkl5qoDM8tk4xKszlW3nl/4Sd8tCv0cm3DMXhqUM=;
+	s=arc-20240116; t=1790561224; c=relaxed/simple;
+	bh=XUsXFTxheSAFdTW8aK0D0SPzfyf0t3peqPWWVm/0jkA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kCzjFdu5BuFreMirByw9kmeghrSnNJC2r6Tz5WLvp9y3KxUDDAKd8/pOANgpWZuvQpcQCjHjEeIo4qaDPw0klYGMvWj2uDd9OBpCDGBYD++fv49vwzUKCRXUJTG4THSUHpczF+/LJkRLg242FVLjQ2WKPZ++5rR9ogTydOlK6zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oEF3TCLY; arc=none smtp.client-ip=74.125.224.168
+	 MIME-Version; b=GROi/KaSIfIJbwSkfcd7A2mjIi1lVfYuvztnIwr9LID6PfeUWn0H+Xo89bu2cAyH0zeffjfiOo23VpqM2W5TCzhbBTM+QOWg1YNtsLoYRbYaTybhxoi6IjWYiaOrvJx5jTTesm9SPxfVLffy31EPAPzbluBPjhaMJ0uIMQSPGbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVSxc0p4; arc=none smtp.client-ip=74.125.227.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oEF3TCLY"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8a88d23a5a4so19767347b3.1
-        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 15:06:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVSxc0p4"
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c67e5059f8so755489e0c.1
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 19:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790546787; x=1791151587; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790561222; x=1791166022; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h7d1QPvHoe0OYjIP5fGv8TGSJAJOD/Qga/OWoQgh/Rc=;
-        b=oEF3TCLYLbbmeDeItJ4FwENkALHNF3gmbid1KkLa8Up0eZtGxNlOx5jUolAh8Ng+nD
-         frLzWiI67sn9GLF3A05W3ljeDNxCdO9f81PPhrkcmJWZQZW67/yT2qCrHPkHaOaMXxKg
-         LeiAiX/9m0obiI5uxHjW7YoT1MDqjIfOcg9xWO0K+f6LQdcvR8DQg4eB+GoZIZGtzL2B
-         nyFEAwy1ZK0AkCm3BEfznXB1LXaARBSCcv/vi+Zu8fPevFr6jdWQs+DRkpaDj+pMVu3i
-         HQtl4CFRWSeZxOs1mMYrdNjkfchFtqXt84k9zVd8Fp3aJWc++n700vCM0LxYppPg8hJ2
-         cj6w==
+        bh=8qMGexpSEkGHJZ/D2Lbg3IHJlRXuYl7WSvOPqKWER44=;
+        b=UVSxc0p4Ozwx2tujQg10gc5rrih0jjWnkx5eywzXnqRagza94MKAH2byryMb7NErYa
+         3HFKExzw9SD9YQphP+A3fvATrlTsryMh0Bad7agZxfz/7b5nf2CMignQ6sDK1U/RMHAl
+         Ml4Wv66J5ePwpWjYt3Hk/FR9q4/Rs/QiUEYJDGBYi77RJUAyii8BEtJrzANkVaqAvj9E
+         HiB/4ZwT7tMEdq+kq0oLgQkw1djk9wXZ9H0iR9kdWOVn+t0yTU/QTJlJ2E8oaGMEnbQJ
+         NnzuYuPUGIba/FySnXTE7rpCfoYSWqwdyoA74iYwcq6STPOGy+bWG7m4QDLZAtMHREAQ
+         jj/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790546787; x=1791151587;
+        d=1e100.net; s=20260707; t=1790561222; x=1791166022;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h7d1QPvHoe0OYjIP5fGv8TGSJAJOD/Qga/OWoQgh/Rc=;
-        b=WvmripIHZAgHCkObUgrO056InAD9RnEVyEpkkgrYGjoILdpIytsrX1Ow8mG6sCLZFc
-         AOWugRv8zqMk6hChNrPBqhm8aZGyMZHxSyQLGTeuYI4EHDnJv3TTky3GEtS6LxrC5EtB
-         OL85egHOd1DdMhsTZBhMVky4be8JSlwhjQ1SOB5bo/ahXrtYK4K94h3lwugoZmd4NEkt
-         Y3G9YUwmU9W4l2LnEv2WL09WlDQEHR8sdnG7yJVLf68QfsdsrKA67tY79oFrznZ3OooB
-         66abS8oWp568rr04FwWozOcrVuseTov1jXjVRrSnIuG4kmFY/r0SEwfVx5Sf4p/3NWiE
-         6lig==
-X-Forwarded-Encrypted: i=1; AKwUvBxsKXflFE/R1TUTXyNa1r8dRPwi4g0tFpLhEDybRl6pH5IlwxVIQqesFz8ZP8sYUkWIi5fbksRVapjOYQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRC/dFtcrkK+m3KvDVIs3t58mk8AV7BoWlRBKyZ+xXPm5qbJ12
-	FeDLHUmgQPXbWpzowpW1cz4DiRi0E6GOHuF89ghBuMwghEkkg0szZ4Ct
-X-Gm-Gg: AYBFou3wEAc5LG8jbR8B/K7BHzbienksp+wmDGIcHcCvdfAtHu/Aea7BA5pcEwGY1GO
-	oPnBGlmu3snwr9BRNSxBpgVaemw6zQB6qLS8MaQaAJdiKg3ypl9LkFlQW45oQi/uTyx9jEaPHF7
-	dWriOz5jNTPwkzMYvBpuUgo56WyDNpGarHF05rMk3SLZBcJaOkDZM6jsu/wImAV04elHkvffINj
-	fq3gUWDYQqAHQGPmse2rG/j335Xq2F2OHgCvtOZqL6mX/F8Lha+qaABfkwM+gIq3ryceU1Y8O5r
-	VZVgrlZ0qMJy6YBQW/jQVVmHfjZ5TjNFeZnXHxZeMnnA4vmYUj29SgHfY1ZGM6lsUHvV6rEdq8k
-	fD2mpaLN8z3V0iAmTniOEQYN4yvDqyiVAHcSo63xHiC/ZjYUlAqgnLHf8f8a9ns528JReP4vTCk
-	79ZIOG00NVCqwLA370jt4ItSMaIhwgDj1PgSu/4YtZc/SaAmJq6PcyWjsiBkf0WmFcCJVB1NRp7
-	NOXnoSgCM9fUDAnv6SJrzvbB+zM4FpmjjItjahkFF+z4bcMUspwJw==
-X-Received: by 2002:a05:690e:1689:b0:675:3585:243a with SMTP id 956f58d0204a3-67535852855mr1111549d50.3.1790546787526;
-        Sun, 27 Sep 2026 15:06:27 -0700 (PDT)
-Received: from llmbox.. ([38.81.85.65])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740efc941csm3634057d50.20.2026.09.27.15.06.25
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8qMGexpSEkGHJZ/D2Lbg3IHJlRXuYl7WSvOPqKWER44=;
+        b=Q7+UHIVSmm90NAhurTRkt01bGJShvZcMbzdcaFE3kkLskXCFwS9l9RsIdFXN3/KTeu
+         TN4cpH5ZDqN1LdTEukBKDyHiXo1Ai37QMd601xHCLLp7DFpcz/b7KKvb3j+tVox2LM54
+         dOx67dTB94NhTx59W9QIxlbvEs800B7u0gMD/8LMpTXyOLdr7CzXsjvuxTAjJyjDVWu+
+         8nYWqXpHoE9kkxRfoKU2HUpBct1XH+XV2l/4eOrVEaO6abE5rcPXHI59rIgE1NlJGlva
+         52d46PIYuEFK1jCNXL+tfm0KFlw4udGon68Npnyq9EBdAL4sXxvSlONhC4W0G0BTuQyE
+         dXhg==
+X-Forwarded-Encrypted: i=1; AKwUvBz+RZCjIkYdJ4Ng5nMrcqG0bX6x2nUTTaEyXpf7B10VSJ2DAZMb+9/NnZLfmBuqQ2YlyRe2pH3zLpi/EA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqYjYXDxtbUYOXSGvngzQMnAGuxCqGIiLGm6meCgqgF5mymhSa
+	afyhXJcBw0eico+baZ6mC9fODnuV4dJJ/8PjdwhXlRiLlhmp+TF/vJQW
+X-Gm-Gg: AYBFou28Grt9+3tnWK3yw+nsOeqi2InOEpmpgsennt4GHrEevUf6MoAl8DAmNS7gjVr
+	+V8rO8dLQoDVFbFee0ca+fQcVSmbNU0oTj12VNuDrhl9cxdrah3DOzAndQPuH/iLk852JfB7sfS
+	dJuPdvJ75vON+w4U/vu9zovTC/wkCzxUs/mw0WVmrg9/TP1sh5hRPL9rcSa4ob3a9Gv3Axq4rU8
+	8llpL+iKYQJPRlxW4QsNceua/U0VR/TFljjAVzQ50DS2H0hBpfay+9JeYRrkiFSG/Joc1am4jKa
+	7ho+6r5zzkPWBBwLogTUjlY3I+6uCbJyiGEYxsNv8icHHvt4hqcpiPzeY3I/75bauvszlaieU9p
+	InpUW96MNRP1czpscLKNuj9dLptJKHGM/J1/1yuVDf0FLTPJUl/6/AlyL841z0/J/0vWL+2XTX2
+	Z3Hh5irWn0vrxYjKaKq7S4Tjexfl7AHOjwke1/bvrenZ6goDOwhudRvtdKNyRITYAI1ViobpawJ
+	1sBVxhUyPuMHhRGym4BSQXZJ5relDvYmuRJBtyJLlU02ltoR+2Dy+5+MPvoDzaLCtOJ07Aw8+Sl
+	Mx+sJAFVySNwlrOFZaT4ye0=
+X-Received: by 2002:a05:6122:1d47:b0:5cf:1982:abc0 with SMTP id 71dfb90a1353d-5cf1982ad6amr837911e0c.11.1790561221818;
+        Sun, 27 Sep 2026 19:07:01 -0700 (PDT)
+Received: from fedora.tail004876.ts.net (modemcable164.224-80-70.mc.videotron.ca. [70.80.224.164])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde6b43916sm7597363e0c.18.2026.09.27.19.07.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 15:06:26 -0700 (PDT)
-From: Michael Jordan <jordan.mymail@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Michael Jordan <jordan.mymail@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Sun, 27 Sep 2026 19:07:01 -0700 (PDT)
+Sender: Arthur Girard <arthgira@gmail.com>
+From: arthgirard <mailarthurgirard@gmail.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
-Date: Sun, 27 Sep 2026 18:06:24 -0400
-Message-ID: <20260927220625.629672-1-jordan.mymail@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com> <20260902002553.34839-4-jordan.mymail@gmail.com> <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com>
+Subject: Re: [PATCH v7 3/3] media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
+Date: Sun, 27 Sep 2026 22:03:55 -0400
+Message-ID: <20260928020355.86012-1-mailarthurgirard@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
+References: <20260915-og0va1b-v7-0-3a4b6d7360ec@oss.qualcomm.com> <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,53 +87,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Ricardo,
+From: Arthur Girard <mailarthurgirard@gmail.com>
 
-On Wed, 2 Sep 2026 08:34:34 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
-> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Hi Wenmeng,
 
-Thanks for the reviews on v2.
+On Tue, Sep 15, 2026 at 02:54:14PM +0800, Wenmeng Liu wrote:
+> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
 
-I have a question about how to handle a second device. I now have an
-OBSBOT Tail 2 (3564:fefc) and it has the same defect as the Tiny 2.
+The OG0VA1B is also the IR sensor on some x86 laptops with Intel IPU6.
+I tried this series on an HP Spectre x360 14-eu0xxx (Meteor Lake),
+where the sensor is ACPI device OVTI00AB: 1 lane, 19.2 MHz clock, same
+as your og0va1b_data. On top of v7 applied to 7.2.7 it needed three
+small things to work:
 
-Its GET_INFO bytes match the Tiny 2 control for control:
+1. An ACPI match for OVTI00AB pointing at og0va1b_data.
 
-  CT_PANTILT_ABSOLUTE   0x03
-  CT_PANTILT_RELATIVE   0x03
-  CT_ZOOM_ABSOLUTE      0x03
-  CT_ZOOM_RELATIVE      0x0f
-  CT_ROLL_ABSOLUTE      0x01
+2. An ipu-bridge entry, IPU_SENSOR_CONFIG("OVTI00AB", 1, 480000000),
+   so the IPU6 creates the graph endpoint.
 
-Without a fixup entry, pan_absolute reads back the commanded target the
-moment it is written. With entries for 3564:fefc on top of v2, all three
-controls report the live value on GET_CUR, both during a commanded move
-and when the camera changes them on its own:
+3. -EPROBE_DEFER instead of -EINVAL in og0ve1b_check_hwcfg() when
+   fwnode_graph_get_next_endpoint() returns NULL. The driver can probe
+   before ipu-bridge has created the endpoint, and on one boot out of a
+   handful it lost that race and failed for good.
 
-- pan/tilt position and pan/tilt speed follow the gimbal under the
-  camera's subject tracking, with the host issuing no requests;
-- zoom follows a zoom change made at the camera.
+With those, the 640x480 Y10 mode streams fine through the IPU6 ISYS and
+the images look right. I've been using it for face authentication.
 
-I checked the other AUTO_UPDATE controls the same way as for the Tiny 2.
-White balance and focus only echo the last SET_CUR. Exposure time reports
-live values until the host writes a manual exposure once, and from then
-on echoes that value, across a power cycle. I would leave all of those
-alone, as on the Tiny 2.
-
-So the change is three more table entries, identical to the Tiny 2 ones
-apart from the product ID. v2 still applies cleanly to media/next as of
-2dcdfb625c3b, so nothing else forces a respin.
-
-Which would you prefer?
-
- a) a v3 with the Tail 2 entries folded into 3/3;
- b) a v3 with the Tail 2 entries as a new 4/4, leaving 1-3 as reviewed;
- c) leave v2 as it is, and send the Tail 2 entries as a follow-up patch
-    once v2 is applied.
-
-I lean towards (c), so that a reviewed series is not disturbed, but I am
-happy to do whichever is easiest for you and Laurent. In any of the three
-I will include the Tail 2 lsusb -v output.
+None of this is needed for your DT use case, so I don't want to hold the
+series up. I can send the three as follow-up patches once it's merged,
+unless you'd rather fold the ACPI match and the deferral into v8.
 
 Thanks,
-Michael
+Arthur
