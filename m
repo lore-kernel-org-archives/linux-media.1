@@ -1,252 +1,215 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qv2-f10.google.com (mail-qv2-f10.google.com [74.125.230.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F0839184A
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E5D3C3C06
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624964; cv=none; b=QcdLlEyteITn3jkuixY+SOo1bg4SPrFQnhw4E2DIIAjfHnkcFFMNdV0Jdv7pduEU0ONclpvWiU6lLUGx8Lx6HKvkI7+23o1nsNOaWWCfZKfGjpwr5lPfjCcOAM5ScceIBWw8eN4BgiOQ226t3TtJNu8ltfsjQccUngO17yCr9SA=
+	t=1790624992; cv=none; b=YZ76ZQhd/0P1UKS8wm6XYV15j5qzZWyzFJ/DFqzE5waZV3gvKsrQIRi3NUCWIB5zjCegBq5pV+/XurbAKgy5HvEocte7ie6aosL2GV0RYWGMNYv/I5ib26Sujyos0+cy5dTpx7fwrjEQ2BkFWfmiNinWUgpEvVhdFIZ4bkJQ0/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624964; c=relaxed/simple;
-	bh=LXDoVcg81MiG1sQyzMH6pbErIfy13ilp/6xeL+JZsqo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BsOzq5I8aWxDvkVvYC/Pv4AIqRayr28TnQrdUFFlc/GHjp06r0K4+MiWoLPvqKFtVh9RzoAgKuO1ZHbZeYwOUumXUiJnAcMb7f1e0TRFElt5AVgHLa3pCGRFI51J49pnXtfIaXruwaAPOzvHuNBIUqDk+hRzAwcMs+4tYJzQsPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=D5URFPQb; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790624992; c=relaxed/simple;
+	bh=fMONoEBgG4nLBh7c5SXZ6poRJnWQ2qCJel9Yj+ssiBQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=n4IZCIj3mUOQpLoMSiE86/b1EJp7PzYSUqucxmmS+DesGrn/MBTLvTB+tpuRbNptmOwxkGXx7dgbD8qxDNWsnhxPMlH6Faxb90th6pct5h/psEeVRi/UzCXc3b4JGl3efpHmIeKY69S8md7dAf4Np8AaccGY253IRTQaSz8Jq/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=A+vixkb4; arc=none smtp.client-ip=74.125.230.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="D5URFPQb"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so1838241a91.2
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:49:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="A+vixkb4"
+Received: by mail-qv2-f10.google.com with SMTP id 6a1803df08f44-91055adb192so22099546d6.0
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:49:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790624963; x=1791229763; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DIzIH4sC3j48Y/7JpNE/XdjFo0EqRvLt2ihZhDXSe3Q=;
-        b=D5URFPQb08Rqsc2EHxfJ15vQHoYdjlVQ7WMgzlF2gakMw4IsdCAM9qpn3lPVnWz4dW
-         WhHBnMmKLgdJwg+E9smyWjKPCMCpmiUJZkuWJNhpBDHx+MFnELi3jjRnWbL0Xun0o6pp
-         5Zpoe0Kdu5rbmm783fSIFh1cf2JAjW3uDrqig=
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790624989; x=1791229789; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lk8F8JKc1EoPYwR92nVb2I5Z7QuoWCCQFi9uhIFiIbw=;
+        b=A+vixkb4RnSw7D3rDVd8b6wTgkd1ns/MTNOB4Kl8QN+9Wr5wrEqhG9AoJSVnErhhMa
+         DkPNvpM670ffLLL3HorCu1KRf1isT0PcFespsWetlbkFTWfl2bull/4TRL0iPRD3C4uq
+         MdHzHsZCFhgDPtef0ErPC6PPW4D36pzg8bvE5UhfXtp37FWW2pz1jcCKKQWJ8ORoVaim
+         zeWUOeUdRsieoBetVIdQSV9oi1biF+kZX0ulX/3VaYGBkchMop1GLXMtah6qe8HvZvYM
+         YiNw4rObn+gGWvgdIdzkhRcHH7hzD1TKJH0cqEYORbCh8+3T6PIoHvUQLGmNbD8k2mMt
+         HQNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790624963; x=1791229763;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DIzIH4sC3j48Y/7JpNE/XdjFo0EqRvLt2ihZhDXSe3Q=;
-        b=T9//yvcxFQQR9S9gA3Je9+FCH8fnzZF2tzr1qLSGCgL3U4MUKEHwUF/Q5zcyyquYog
-         WGOK4qzZkFY/VObSn49PRyICtWHqr/v4zVbSdrXKkDgMdOvNWWyQWBMbaVlsrdxeAAzl
-         bhRFYmf1QLdi8rxF60e2z45RA8RI1LfTVFyUdHe4tUGQP3O2AC/INnacmqAEKm8QOUpy
-         in3KA43TYvuBkdupNYkAK9yVSoCkml+dQNg/zuwPGumZ0cZWcXsbwBDPGIKmP5vcS+iU
-         FIUZo9iiGLqzsxSu0vnnQERNg/lKxGMisp7xozXQN+wjd2BEdOwmfoVPHvP+nGcorKhm
-         CNaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxi5I+rQIwaBujlWCx5qlERPfLKGdk9UabLG535jr0aRFg40sEKSc+tjAWZF2ItXefjjHmEw7gw2vzTJA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpf9Zq417OwtGtX+hi4e4nNsSihxdg10SsVHQWzL2Rt95+E3SA
-	p9GELrbgY6OhT/an5HaBStwVJ93llug+7wncVouX6ipqjmBHkIxFGzXxvQZifXoFdaNiW12tQYa
-	VbMzXPNNt
-X-Gm-Gg: AYBFou0icYb0Zg5KZAL3p+NX3nrpVvnObV3ZnsYRHt+Y+JYuvVBOPJERvXtJyXf6QAU
-	W9A4ALlRlvs3iDdheoWv6qeVpyaAuiXoykTwTftTSEWwVio2vfDq6mMqWfCGrBYgFDpBGK9dc/y
-	w/lcU7wYuSLTC24HAMnlfgkiIDLNSN3um5VO5MTnK8brhy5mderlTc3luSgoNqw6VGQZNBpH6dX
-	P6agIYdtodngDIMT6VPROakKbj0FVkXEH86Q5P/X0ugxpmgc/hdE61lY8NHN2hS5ibvUxb76Wl0
-	iZ5OODJB9O4ypJw2W0H2EUvn6DKQOrvCxpWLzQJA3S2GOljS65zmSCuJW4OU9LrBpPCCVQXteDb
-	IMiZ9QckiwYvKvkiyEQ5OzfKPc58j61ZiLEbglhgy1lcCRF6RdNoLpZ72X/JhS47GiZfDNE4wNA
-	l4zWN9YbF1tzrsu98MuuNiYpNTHuy1+p08/oB2NetELUj/gdwnPwBBLrGovoDABVkoO9JqK1igC
-	dXTy6DN0dbkVrHAIlPpA3EADjImv6mJZ0I5Dg==
-X-Received: by 2002:a17:90b:3d92:b0:3a0:f0a1:b45a with SMTP id 98e67ed59e1d1-3a0f0a1b93amr4873175a91.65.1790624962338;
-        Mon, 28 Sep 2026 12:49:22 -0700 (PDT)
-Received: from mail-dl2-f31.google.com (mail-dl2-f31.google.com. [74.125.229.159])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a497604d60sm1084189a91.0.2026.09.28.12.49.22
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 12:49:22 -0700 (PDT)
-Received: by mail-dl2-f31.google.com with SMTP id a92af1059eb24-149d5ec8e96so333705c88.3
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:49:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz32di+WlzohUKrfKiwUn5sb43s5VYZQM6TXFyBos90h7J6uDuetHmjtPILsQGcv99RPFJL5eHsEcQYnA==@vger.kernel.org
-X-Received: by 2002:a05:701b:2301:b0:12d:f0e8:9696 with SMTP id
- a92af1059eb24-146ce1a9a9fmr12914251c88.4.1790624959572; Mon, 28 Sep 2026
- 12:49:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790624989; x=1791229789;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lk8F8JKc1EoPYwR92nVb2I5Z7QuoWCCQFi9uhIFiIbw=;
+        b=QMyVttijjqWJqn4XXM1c9QNdQSTa6rWX3P28AugpxWYu/cGSgpXCEjXttaCqoWPMHK
+         ox4DvWvccolrEqFzSvmOj9IFcRrvlbJzyEMFOK/2R0bidanM4z9PYJ2rsAD6raTOW8SY
+         u2GRef0w/htPEYlQylcrACqRDmhOabGcP4tXWHF66/9BHpLNX0efEdw19pnkwiNTgN0x
+         odbB1BgcgJ2CGY5Ij5y0/3ILDyd5/RiZsCgW12KOej5qSNdRWvj+/hRtVz16HoNhng3D
+         4MfjxImqzMTSMcFr9TRY7lLBsr2bB7tVi9c8og8ZC98xX26itVwso/muNLcdOyQTiQBz
+         92TA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrx+CZtoqMz12Fqgzeiwa1+jp1KQxZCqZIo7fMlx093qe8m0vGPoU1nOeBOgbvLnEolwwee1PS27648Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++lBC1mRhmUk5E53I2MWVo3Z92BL1HRM0AvYH2LG/cE1WhSBPFxY
+	6noZWdWiuULJHKGlzIelJwThbKdvKfnNV8B8gOuwV/fEGShfpfNf6q8cPx90HLoJWCw=
+X-Gm-Gg: AYBFou3FBE9GUrr0/DGap0NRWdR6X7XirZyqfACrshGFVjwo3bXT8gtKjHTR5s8KdFz
+	8yiRrwQoe7UGZvLOz9oxM55uPOjueHOutTqvYTfsVYoSHbUgb4eRhpTD078QEoVhG5BRh2dinm7
+	ooE+PRkekF6ztdnz1vpB3BiB+feAglT6pcazNMAylxh5S2Rj+RuksoW6SpTsgfbzZBS+lLus/R2
+	IncvR8kWRuearlppOYW4hc6hzxfknbaqDh0gM71jgM2n9ZLHHCjqXcMw2XAlu5cIY9/+TMz2ORG
+	tbbQx/EdKwcbAjlGRW1zCfIYvdh7heg1xnlm0Or/ytuqMHUFtfuD8ArSG0QqCReCG7EXkz+gkCA
+	e7mFcZv5rAwk3/iQwG7XqhGOOhukfsWDWCoM7bmB5WeyssNwVIpeYd+YoUi+GD9ub3OkDXeOXeL
+	o0Zbj1la8lb+C+OdtacXgV68rJFEABOgw2K3IGtKvZLYfIqIlRL+Zmygz6+ijPxgCVADvD2tfr2
+	UsYIhLkrF66u5wkplGCHVlH
+X-Received: by 2002:a05:620a:2628:b0:93b:beb3:5898 with SMTP id af79cd13be357-93c43ce7bfcmr2220308485a.49.1790624989158;
+        Mon, 28 Sep 2026 12:49:49 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813dca59sm227347285a.22.2026.09.28.12.49.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 12:49:48 -0700 (PDT)
+Message-ID: <b4666dae3ded36f157d77f839f692a19a3ad9d06.camel@ndufresne.ca>
+Subject: Re: [PATCH v2] media: meson: vdec: fix use-after-free of in-use
+ frames in codec_vp9_rm_noshow_frame()
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Doruk Tan Ozturk <doruk@0sec.ai>, Neil Armstrong
+ <neil.armstrong@linaro.org>,  Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <error27@gmail.com>, Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Kevin Hilman	
+ <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-media@vger.kernel.org, 	linux-amlogic@lists.infradead.org,
+ linux-staging@lists.linux.dev, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 28 Sep 2026 15:49:46 -0400
+In-Reply-To: <20260627063905.79363-1-doruk@0sec.ai>
+References: <20260627063905.79363-1-doruk@0sec.ai>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ZDhsxysEA1cWoT9Xmzeg"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
- <20260928120252.GB4406@killaraus.ideasonboard.com> <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
- <20260928122450.GA166131@killaraus.ideasonboard.com> <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
- <20260928124109.GF157191@killaraus.ideasonboard.com> <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
- <20260928184429.GE210522@killaraus.ideasonboard.com> <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
- <20260928194459.GH210522@killaraus.ideasonboard.com>
-In-Reply-To: <20260928194459.GH210522@killaraus.ideasonboard.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 21:49:05 +0200
-X-Gmail-Original-Message-ID: <CANiDSCs4WOB7jpyXHEAjGOGYf4_69OmUW3LdpB_cxQDmfHr-_Q@mail.gmail.com>
-X-Gm-Features: AclHuK9OfvkWCsRZx0tpuXdlH0HC2GbUT_-WgGorjcgEWP_YAcO-2ScTCE4VM3Y
-Message-ID: <CANiDSCs4WOB7jpyXHEAjGOGYf4_69OmUW3LdpB_cxQDmfHr-_Q@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@skynet.be>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+
+
+--=-ZDhsxysEA1cWoT9Xmzeg
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Sept 2026 at 21:45, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Mon, Sep 28, 2026 at 09:03:41PM +0200, Ricardo Ribalda wrote:
-> > On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart wrote:
-> > > On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
-> > > > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
-> > > > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
-> > > > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
-> > > > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
-> > > > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
-> > > > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
-> > > > > > > > > > uvc_parse_control() passes descriptor by descriptor to
-> > > > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
-> > > > > > > > > > buffer, not the number of bytes of that descriptor.
-> > > > > > > > > >
-> > > > > > > > > > Because of this, malformed descriptors could leak over the next
-> > > > > > > > > > descriptor, leaving malformed data in our structures.
-> > > > > > > > >
-> > > > > > > > > What issue does this fix in practice ?
-> > > > > > > >
-> > > > > > > > Look into uvc_parse_standard_control().
-> > > > > > > > Let's take the UVC_VC_HEADER
-> > > > > > > >
-> > > > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
-> > > > > > > >
-> > > > > > > > buffer[0] = 3
-> > > > > > > > buffer[2] = UVC_VC_HEADER
-> > > > > > > > buffer[3] => Beggining of next control
-> > > > > > > >
-> > > > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
-> > > > > > > >
-> > > > > > > > What does it fix in practice? It avoids that data outside the controls
-> > > > > > > > is parsed as part of the control.
-> > > > > > >
-> > > > > > > I understand that, but what does it fix in practice ? And have you
-> > > > > > > encountered a device that exhibits such a problem ?
-> > > > > >
-> > > > > > I have not encountered such devices, but even if they do not exist
-> > > > > > they are easy to emulate and use for escalation.
-> > > > >
-> > > > > That's what I'd like to understand, can this be used for any kind of
-> > > > > escalation ?
-> > > >
-> > > > It is very difficult (impossible?) to prove that something is not
-> > > > exploitable, especially as the code evolves.
-> > >
-> > > Regardless of whether or not all the bytes parsed by the
-> > > uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
-> > > part of the control descriptor or are split across multiple descriptors,
-> > > they all come from the USB descriptors buffer and are all ultimately
-> > > under device control.
-> > >
-> > > As far as I can tell, all this patch does it add a check on buffer[0]
-> > > but has no impact on anything else. If a device can supply USB
-> > > descriptors data with an invalid buffer[0] that currently causes any
-> > > type of issue in the driver, the same device could supply the exact same
-> > > USB descriptors with buffer[0] set to a value that will be accepted and
-> > > still cause the same issue. Am I missing something ?
-> > >
-> > > > We could spend hours trying to craft a payload, plus extra time in
-> > > > future reviews whenever uvc_parse_vendor_control() changes. It is much
-> > > > safer to just enforce the correct bounds now.
-> > >
-> > > So is your concern only about introducing issues in the future without
-> > > noticing ?
-> >
-> > My main concerns are that the function's API looks wrong and yes, it
-> > could introduce bugs in the future.
->
-> I agree there's a quite small risk of introducing future bugs. This is
-> what I wanted to know, if there was an actual issue today (as in
-> exploitable bugs), or if it was only a forward-looking change.
->
-> > we basically have:
-> > parse_field(void *data, size_t total_length)
-> >
-> > instead of:
-> > parse_field(void *data, size_t field_length)
-> >
-> > btw: in parse_field we are ignoring the field_legth in most of the cases.
-> >
-> > I am happy to drop the cc and fixes tags if you want to consider this
-> > just a boring cleanup
->
-> As it stands, I think the risk of introducing regressions is likely
-> smaller. bLength can't be completely off or the USB core would fail
-> parsing descriptors. It could be smaller than needed while still
-> pointing to the next descriptors, with the control parsing then using
-> the first few bytes of the next descriptor, but the chance that would
-> result in values that don't cause observable weird effects are slim.
->
-> So I think we can merge this change. I'd drop the backport as we're not
-> fixing any existing issue. And maybe avoid "Fix" in the subject, to
-> avoid autosel being triggered ?
+Hi,
 
-sgtm. Do you need a v2 or can you modify it locally when merging?
+Le samedi 27 juin 2026 =C3=A0 08:39 +0200, Doruk Tan Ozturk a =C3=A9crit=C2=
+=A0:
+> codec_vp9_rm_noshow_frame() frees the first non-shown reference frame on
+> ref_frames_list without excluding frames that are still in use. When the
+> previously decoded frame was a non-show (alt-ref) frame and the current
+> frame is a non-show inter frame, the freed object is the one
+> vp9->prev_frame still points to; codec_vp9_set_mpred_mv() then
+> dereferences the stale pointer (use_prev_frame_mvs and
+> codec_vp9_get_frame_mv_paddr()), a use-after-free. Freeing a frame that
+> is still an active reference (codec_vp9_is_ref()) or the current frame
+> has the same in-use-then-free shape and additionally desyncs the
+> reference bookkeeping in codec_vp9_sync_ref().
+>=20
+> The sibling cleanup codec_vp9_show_frame() already guards exactly these
+> cases before freeing:
+>=20
+> 	if (codec_vp9_is_ref(vp9, tmp) || tmp =3D=3D vp9->prev_frame)
+> 		continue;
+>=20
+> rm_noshow_frame() simply omits the same check. Add it, also skipping
+> cur_frame, so both cleanup paths agree on which frames are safe to free.
+>=20
+> The fields that drive this path (show_frame, frame_type, intra_only) are
+> parsed from the VP9 bitstream, so a crafted stream fed to the stateless
+> decoder can trigger the free-then-use.
+>=20
+> Found by 0sec's autonomous vulnerability analysis (https://0sec.ai).
+> Found by static analysis; not yet runtime-reproduced (Amlogic Meson
+> hardware required).
+>=20
+> Fixes: 00c43088aa68 ("media: meson: vdec: add VP9 decoder support")
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 
-Thanks!
+I can't really do anything about this patch without an actual Tested-by. Pe=
+rhaps
+try and ping someone with the hardware to let this patch progress, meanwhil=
+e
+I'll pass.
 
->
-> > > > As you said, the risk to break current hardware is low. If it happens
-> > > > tis change is small enough to make it easy to revert.
-> > > >
-> > > > > > We add minimal code and solve a family of bugs. Do you think that it
-> > > > > > is a better pattern that uvc_parse_vendor_control() and
-> > > > > > uvc_parse_vendor_control() have visibility beyond the control that
-> > > > > > they are parsing?
-> > > > >
-> > > > > I'm concerned that some devices may stop working. The risk is likely
-> > > > > small though, but I'd like to understand what we get from this patch to
-> > > > > see if it's worth the risk.
-> > > > >
-> > > > > > > > > > Change the code so we pass the actual length of the descriptor to the
-> > > > > > > > > > parser.
-> > > > > > > > > >
-> > > > > > > > > > Note that this makes the existing check more strict and some devices
-> > > > > > > > > > that are wrongly parsed today will not be probed now.
-> > > > > > > > > >
-> > > > > > > > > > Cc: stable@vger.kernel.org
-> > > > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> > > > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > > > > > > > > > ---
-> > > > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
-> > > > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
-> > > > > > > > > >
-> > > > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
-> > > > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
-> > > > > > > > > >        */
-> > > > > > > > > >
-> > > > > > > > > >       while (buflen > 2) {
-> > > > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
-> > > > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
-> > > > > > > > > > +                     return -EINVAL;
-> > > > > > > > > > +
-> > > > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
-> > > > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
-> > > > > > > > > >                       goto next_descriptor;
-> > > > > > > > > >
-> > > > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
-> > > > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
-> > > > > > > > > >               if (ret < 0)
-> > > > > > > > > >                       return ret;
-> > > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > ---
-> > > > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> > > > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
->
-> --
-> Regards,
->
-> Laurent Pinchart
+This is also a staging driver that is likely to be removed in few cycles
+considering it not being maintain and there is several competing drivers be=
+ing
+developed.
 
+Nicolas
 
+> ---
+> v2: Per Dan Carpenter's review, also skip active reference frames
+>     (codec_vp9_is_ref()) and cur_frame, matching codec_vp9_show_frame()
+>     exactly =E2=80=94 freeing an in-use altref/reference frame here also =
+caused a
+>     codec_vp9_sync_ref() desync, not just the prev_frame UAF.
+>=20
+>  drivers/staging/media/meson/vdec/codec_vp9.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>=20
+> diff --git a/drivers/staging/media/meson/vdec/codec_vp9.c b/drivers/stagi=
+ng/media/meson/vdec/codec_vp9.c
+> index 8e80ecf84193..dad75950933c 100644
+> --- a/drivers/staging/media/meson/vdec/codec_vp9.c
+> +++ b/drivers/staging/media/meson/vdec/codec_vp9.c
+> @@ -1238,6 +1238,8 @@ static void codec_vp9_show_existing_frame(struct co=
+dec_vp9 *vp9)
+>  	pr_debug("showing frame %u\n", param->p.frame_to_show_idx);
+>  }
+> =20
+> +static bool codec_vp9_is_ref(struct codec_vp9 *vp9, struct vp9_frame *fr=
+ame);
+> +
+>  static void codec_vp9_rm_noshow_frame(struct amvdec_session *sess)
+>  {
+>  	struct codec_vp9 *vp9 =3D sess->priv;
+> @@ -1247,6 +1249,18 @@ static void codec_vp9_rm_noshow_frame(struct amvde=
+c_session *sess)
+>  		if (tmp->show)
+>  			continue;
+> =20
+> +		/*
+> +		 * Mirror codec_vp9_show_frame(): never free an active
+> +		 * reference frame, the previously decoded frame, or the
+> +		 * current frame here. prev_frame is still dereferenced by the
+> +		 * MV predictor in codec_vp9_set_mpred_mv(), and freeing an
+> +		 * in-use altref/reference also desyncs codec_vp9_sync_ref();
+> +		 * either is a use-after-free of an in-use frame.
+> +		 */
+> +		if (codec_vp9_is_ref(vp9, tmp) || tmp =3D=3D vp9->prev_frame ||
+> +		    tmp =3D=3D vp9->cur_frame)
+> +			continue;
+> +
+>  		pr_debug("rm noshow: %u\n", tmp->index);
+>  		v4l2_m2m_buf_queue(sess->m2m_ctx, tmp->vbuf);
+>  		list_del(&tmp->list);
 
--- 
-Ricardo Ribalda
+--=-ZDhsxysEA1cWoT9Xmzeg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrE2gAKCRDZQZRRKWBy
+9BjOAQCcJJZ7xjpltnqzUdi6P6d2itMrbhl41cjmeE/c74heSQD/fIwpHsmavr36
+/iKd8Y6urOm/Xeb/2/lPx2ob8TKg3gQ=
+=dr9M
+-----END PGP SIGNATURE-----
+
+--=-ZDhsxysEA1cWoT9Xmzeg--
