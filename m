@@ -1,228 +1,188 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020132.outbound.protection.outlook.com [52.101.225.132])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0291B453A4F;
-	Mon, 28 Sep 2026 06:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.132
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577844; cv=fail; b=UH3N4Vwx3RS4LpMPlfKFBqIW7j2qz2D0o/BOZIn80tWXDgQKCzz6trQm13xKRUQFJzPAag2LD43jnSJYgt3Y3SnDGD7fQOMibDCsjnUE4GAh76sPNz4E97C704yDftoDNxRiWxu8pjsDuPcQVfiI0Zz235Nt6hTPm2Fv8LuV4Sw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577844; c=relaxed/simple;
-	bh=0RNemxBr1PDb3U7J8o+YKizI91dHt/DXL6Z9AvqXkxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ifdxbc+8ZuVoP4M2b1fIXxEkGf+ohp9MENYC4CNNPDvtSYlgS2RdVFeSRSmmR+SOD6JGPs/cWCO3fIn7rdKHGkPZQJ/uemRLjafXSei6MOZI5bnln/9aab4IZPFZroNpEKMJZ/hUq//WgB0NYYWI11zgVmG9cYz47N8cvgP34Ss=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wQS3X2zKgpMdwsO004A2X68IchEpkzBQUcHUW9X2Nw/MWFd+M121akEIbitN+ybz/Pgvkw41Mi4DdfOEjp7yjImjyvLQDs/KfXGNKs2xqCllo+wtZidx2gIg5jXCSwoFqsjZPM47XJzKbf1V/yzCam4RyTP+NrGPi4B3Ew9tlkxkM7EDPQexwdidJxL5ZNqbMErqYfV2EjzmZp/pso6XaLbVFdMr6av6iRwsSkxwhhoepwov3uEARk8coLOXQcx526LhjXzJgo9yd6P+5ky5t2/Xqv/7LGbPwrOZJd07RwszJIi++l2DaU4yaBN5xsyXvnmc0HPNNjPE3x8DBER/WA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EcqVma6JmGYMMdXuV/0/KoR6ja2SZgU+Mypid0YDvRY=;
- b=ix8/pnRfWaaTNUPJFVfjXjSoKOOBEoAHium0toL0UB+78emHwpCczVHrLEThhHXTHMizb8Rl5leJvrRoO9jczBMQKJcaRtvt5TMAzOCRww13866MFXIBPlsN/DkwpnsOS/BWPivUMDSf3yO/TFwQtD3HB6QML12q6t0gCw9/TpyuqlnsahreQos9h36HQw/pbPk0fEFNytjqnhobrneyDXSKQJ1zvJMh6fkbIcn4G5/O8/5D4q/gWfOYUpKHrzL9MAtScwTcFvnmYqM+dmGe0lYekTeA04yKuo7LIkr+faruOZ1J0M28ULEnQNfd9Tjv2sOML9lZURMQmgameo/fBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PNWP287MB6163.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:333::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Mon, 28 Sep
- 2026 06:43:58 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 06:43:58 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v3 5/5] media: qcom: camss: Create the source to CSIPHY link per endpoint
-Date: Mon, 28 Sep 2026 12:13:36 +0530
-Message-ID: <20260928064336.272659-6-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928064336.272659-1-hitesh@ebytelogic.com>
-References: <20260928064336.272659-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0048.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::19) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074D13F483C
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790578078; cv=none; b=KayWSQO0Wd58WDSCS9+DXQzQJtzhqKoHnoDmwjpev+vhLJMh1gIaheoNmRtpj9Y5ej41Pp45shlZo3IurITc+K5gqXC7IP39iIjbBMNJK5CqBnPjRtRDhoxCR4uZnt6cLlqcKOVlJ2MS38ZVeCH5iRWqAv9tR+18ppyMCaG3Iw8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790578078; c=relaxed/simple;
+	bh=Fr4ebETLMZgjwwgGkKxz9glNEMFGLumMxiYB0XlQAkE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e84MIpjWJ61h2Dl2KcUQmpjcrchwHRhHRbny1kKJZJ6zOc8zA8g2JeZzQDJ9xpWLb0LykmHr6JXSpBpi3JFfzTTeGo9r4colQQ44QnoxWK+gHSvNMuyhQ8LT0iQBYsRu1wi+ZohK1fZxz7NybEvFG6ywHljRc/rY9Q02fJ8AG0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WGYC41qi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JkE6JsNo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WGYC41qi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JkE6JsNo"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S1BCCG3455877
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:47:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gbYFA+1BkYtOZzx1tyomDBYy3XmO5Z4hiRS5GgzngGA=; b=WGYC41qiMRMlZyng
+	SDz6ia3skH/hVKVHEdbc9A2EdE+ukSfMgiJtSs9Mhoyl1E2dGF2pxDWkPj2PT+B4
+	HqBsOxb6C7X9qlqYv8lgu8v/pfkTo2oAEUGFcpbv4GzkBHizrB60nXF0mC7TkIuU
+	FmDgKVeK9H+znK/3Avsmayy4PYUuf5VRl3wkPyAUU3ExRL4F3pmnjQA44oKCp7mx
+	TOBHSIIDQB3CAU74XFoHDanFgBsl6I1AeN89oedo31NprKGPrCrwG46VEpuXFh/P
+	zd50UHPGyBLNlkj5aOIj8dwcX+6cCnurqtdZ9g3oU1/1bMXQ0tXLRp0O29n/NyCX
+	tI7hRg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq0v5m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:47:55 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91431adf55eso53861986d6.0
+        for <linux-media@vger.kernel.org>; Sun, 27 Sep 2026 23:47:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790578075; x=1791182875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gbYFA+1BkYtOZzx1tyomDBYy3XmO5Z4hiRS5GgzngGA=;
+        b=JkE6JsNotZM6ErV2Il89roBK1ZEslzm0qDxyI6ukbo0eOlSHs53P48VsNcR/up58YF
+         BOxa5cUaRKI7uX2H2xcHdyP7g0RPuWDiu01ietahAv+KE1cV5u9BQtdNRdfhUTpGX8m0
+         e37pM/Yz2VSXjid1Xb+iGxetD++jvM5nB8J5C+nr78tjre4MLn/TzRBBLYX7Dv5eImgz
+         7YWJb7KNPaymQm6GkNqgQDPtBIhHVffo4xIa1Fev23Lk0wooZQ56WMLwgnDO3PAs8gBN
+         PoQRZ8wI0jcHLlW95t8MUtql3XCezeg92VgJbzBoka3aOKWwTRCUVSaXAh5JO4j4uk/z
+         xnqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790578075; x=1791182875;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gbYFA+1BkYtOZzx1tyomDBYy3XmO5Z4hiRS5GgzngGA=;
+        b=lXrilLrYhMLi92MKdsMQe5hFQcrBMN/lyYNLd5ySmn+GlPD/BLanqLZYIt4vzWj5Vm
+         3nFGi+o/EqVO0W2ps6gGRBNJ9oWCRrqdarTuBOITLk2mbfI9KPgo+p9EiiXO/xHXT2n3
+         pUwAPmCPxy4Ra1huQhD2eau0HSgppZe/xFDhsAbta74fk/Ghw31Sw0GOT2Kkj9tObNZx
+         8jRFiuAHdnM4HPkPNbLUdiXZjdb16rr87pc6JSQ71k8Ze3+t51f+VDtHt63dI5SCNodI
+         ASMRaqVX1nw3fTbVGbYHlBIvdsc2I0npfe+yOFDGJ/H9UDadVnPlOP97OzLXds6AJ4vN
+         VlUg==
+X-Forwarded-Encrypted: i=1; AKwUvBzk8lKufXPLAoLwxLN2dOS8becpCVpXnyLP0zTo7dAbQ64FtYcQ2Vd3mnq46gNGN5FitbhASMMS/L+hIw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGZSAwuOOknfCbPX7P+Bu5RqLsWIcMbOwmBHsil5mOZ0whpksE
+	S+mnYmS+D6eGmzEbUFz1mj4eivwqwThBxWdyDaLNZs6d6dW/jtNTjZqwLpXcpjEAqvtD/CXqBjO
+	gQUw2ir01DVkx9UjtWiiCoWA54ExGWqOuVCFjn4/x7jbk1CqFQEQy9Ks/y98NpEO1MA==
+X-Gm-Gg: AYBFou2exLEbCNcKAcosQlNtunEDXvcxPM4b4lOW7++Dljgh+X55IRJT/Zj3WfFWcRh
+	f228EIvSOrOOGB+aqepW0bcPKpkTIgf26JCDeEGojn9q/StMB0eQUVCkRdY3s7X8MiatIMa02SH
+	RlI7GpgtEz2xG72PICfUZOxBFzet3KQOA7B/i0mayjhLOeYSNp5oK1DSPSOKBA2yZw3e8RuFH4e
+	1t9YTKmmj4YnhzQefPeaA3J/TP6pl3som6VEZrJ7HixOJ1+ugloUThbsrBubWXcuNESo/RQQvu8
+	moKw4MzOpEdlA9KfViBrWwRkEZKva5+gOgLE9pw3eacHpZuwWuFbiRmj0OYIym1FKKfbytS74a3
+	nCVIqpjv8jGhHsOSCXiUIJarsL/H75YpjxFS/xeeIaAKUuZIpdfuk4xwYq85hnius
+X-Received: by 2002:a05:6214:19ca:b0:912:db2:8b1b with SMTP id 6a1803df08f44-9142f640517mr195914976d6.9.1790578074886;
+        Sun, 27 Sep 2026 23:47:54 -0700 (PDT)
+X-Received: by 2002:a05:6214:19ca:b0:912:db2:8b1b with SMTP id 6a1803df08f44-9142f640517mr195914766d6.9.1790578074378;
+        Sun, 27 Sep 2026 23:47:54 -0700 (PDT)
+Received: from [10.111.171.191] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9143d30b437sm61592196d6.38.2026.09.27.23.47.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 23:47:53 -0700 (PDT)
+Message-ID: <989fbae4-5faa-4731-9cf2-1ea3d8e5e0a3@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 14:47:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNWP287MB6163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ffc102a-89c5-40ca-ce19-08df1d2bdfd6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|366016|52116014|376014|23010399003|3023799007|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gktmIanFwmW/CL9FlRFmjfrj5W7k5pjnz/RRSMAx6eA8mssDQiTJidhyIqSr8pxdPOxD5vu/cJ3fTqog8sLnm0egTgdMIUB6aFO+PCfRmXurGd87Sj8ahSLM75t/EWXVRIsF1eT2trz8J3YqiOtl3II6TE0EKmTEFuU/NoZ8elyI0sb5B5aKZSrR32xMmAmrqsHmDdClLwUByZmkQwa6irZuAL2A8Gn3n4SgQWGRVGdXc4qslcBrmL66RRM4QCj8XBIk2DlL+25cc2/VQgsAFQ1v7o0B0DK/c1g6j1wQg8IhbOS59hQyMzynqaXP6BCSkJzXDA0y9lQEA28EiIQWQutCgC96Tdak/aK/bqS7W+oA2fqj2Rn5SMLkltHxCBPCj+T/aeLC7716sFiuTYN/MkyMsRLrXJngYzJjHQOTmoC8ZeIn6hde/Ms/2m7/y2lflTTi7r3oElSCAKx+odREZghKxlMz+6nvZZDi+HbPjuHoB+ew1LEy9AggX7Qt6uHyrUz+86QUvJ9OWJaKeP2Wk9wlScDK02rMAPJjD7KMM228OlyiXuHfTUnpzro+eBrNG4yWYCAS2XLH16YWk21fzmErdCb2T+PuA28fPD3or1xl7VHg0rPnnqtuXoZXHZKWzlWRnHKexpPo+TVF0rkaArepwdbMwSjnMU4/2FeO5hI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(52116014)(376014)(23010399003)(3023799007)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?y7w0QejetIvBfDfWDo9sN/IC8OW9ieTdg7rfeN6QwdDHrX7VCL21aVgI0JQX?=
- =?us-ascii?Q?jMGru6EKgKABj2mL2UbAF+FgyPNpFlVFEobS1pIUDkNcEuw4vB/bLqPhKtAH?=
- =?us-ascii?Q?Fem1GWgkC+fh2JJ8jdb7vSGqg2l+VwDMWWhEm1qteYqmHMG95LfdIUSSg+OC?=
- =?us-ascii?Q?dWmfG7OILAa51QoliUQvaGuvPV37L8qA5V7dG7e2zTagDk3C7vkoIyJB3N0p?=
- =?us-ascii?Q?ycSTXEAeMccSrxGGiy9r1W6ZOqVq4uF/pk2yDAVTLObEVz/gJuy/ppCy4AEv?=
- =?us-ascii?Q?cOlmhMX4ULCuHyChlutCPc8VVcu5tXr6agCr5jwptZdSOqXYozX7pJzSUcQK?=
- =?us-ascii?Q?rCvDFe7iWDSwbHSmFdRti3l49JtGx0RANO+bQitVuDjubGe+yx4mawlIdIg6?=
- =?us-ascii?Q?1s33Cw6vzbLd+u0l7I7mOvba8FFG+aZ+9tAYb/WLBX1sGxU9dXFYxex9I9Rq?=
- =?us-ascii?Q?8cHa86fIqETakwKgZ/knpOmUN2wHlAKvq4BW+mGKj2ppM4pKfG5NGWlsJJWk?=
- =?us-ascii?Q?9MpaXe4X7ZA0Dmsj+zkEzq0ui0VLpIy94MY1AkVFK3oIs7Me2doYkJTd/cYT?=
- =?us-ascii?Q?rAjYDAINxoNgeHx1STx/4/0r9ConrknZnSnfNv2kLEK6zk1YWqClUNjCn/O7?=
- =?us-ascii?Q?2VzCT2G8ztpQnEKE6oyJrs4XXBOoCSpr/iLeVX/CVTYsmDfIgEdtBDyKFFlX?=
- =?us-ascii?Q?FKD+7XStOg2va66L3uqHHAQI690WY3t7PU2CMTzBAqbjCtMeMOTapAQcqA2f?=
- =?us-ascii?Q?4WQvZMz8D/8EmxDBe1OU2YVpR5uWADol5Kz3mWjPGmt4Z8p6N7R9VghXfRnE?=
- =?us-ascii?Q?0YyQ/K3VzsSlHvGt0aLw9diU0p05ga0tnrcWqvbbllq0moETOf/B5Jufl5mn?=
- =?us-ascii?Q?zHbpgxG4tBo4UB/EkNOgTYIo4MYx575LrXC3hW5YdKfKAPbj4Pe/pNSdsQ0b?=
- =?us-ascii?Q?LeGW2H6nHc9SN7nJQFYWX8bka/7nCrt1XRdQdE9DBJp877oQR02n1fSPWTXA?=
- =?us-ascii?Q?v2fXQOPqWsMjtQYlpMPFlcM/gmgpNxq1hI3zq1OVO3F3RYpB3EbPwpqk3STm?=
- =?us-ascii?Q?+PWl2n/BgOUK4d/vX+hj7KLU60sO9TwTqhycXW3wAP3+UJw9iVNM2tA0QgPI?=
- =?us-ascii?Q?Vg+vrft8Y9eDMsIwykJYyd9YCnC30laBBdEGqdXt4MIBYlQbtrCs7YssH6NI?=
- =?us-ascii?Q?3UoWLVvJ1Pgt4K7B3rtG3sTOEsE//bhEKzmU9pyjxjiYzbB5A1e4nJ0m2Tu2?=
- =?us-ascii?Q?YlqDm+b/Hy6tVnONYkmgqaSQulAaVD29xEzvaiN5gpD4WZ4pj3/W4LLBxB7Y?=
- =?us-ascii?Q?uYy7vrADzXdP2M9KAzefFp0D3CnFHLlgAAWg3a9tcMGANjgt0sp6V9t/i1Ku?=
- =?us-ascii?Q?A3GRymNdvt9GndQmX+JCemFvbIO2V9taxPXH9X5vLiWH+w8e5WswPwIDwkgB?=
- =?us-ascii?Q?sRxyw67QIQD5bPvl5If5q9HEYzrRXk8H/Hez9W7cCMmWnzYqkAkhCrIfUzeJ?=
- =?us-ascii?Q?NiJ5quFi0r33dJa1rABX9a5aAEAwMyqHQvnnWj2C70z+G1df04nogrlQdyH1?=
- =?us-ascii?Q?9//J/NX7psY1p4OUSXhetqNpQ/Rclu0OGDVy05I1p0xcwpK1JUOfR9XWBI9B?=
- =?us-ascii?Q?WR0qG4g1G+MBT0mQz2b/w/A3jXZLu0W+mvuZPK2kMGGvpjckcZ94HTIiGizA?=
- =?us-ascii?Q?t3emyDFiiv3XUSi3y2Gl8ywWhMEBj/x8qg5dMEKrsW4KYK+wkr+CxlKMk4g9?=
- =?us-ascii?Q?NTRQjojjrQx4bAI0ZTh3SSJFgkUw+74JJZ6egTTYZ7SRQP3PyPMk0Bn8gR+J?=
-X-MS-Exchange-AntiSpam-MessageData-1: MV/omkN4uALMHg==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffc102a-89c5-40ca-ce19-08df1d2bdfd6
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:43:58.8861
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xc81R6aYKgnobvoUESMSKC0wJ+lvxDXHTdZLmCeOkMKA6MgvZGX0JfnQMF7z62OZ95/+/Rz9ZkL5qepI6qhf4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6163
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/3] media: i2c: og0ve1b: Add support for OmniVision
+ OG0VA1B
+To: arthgirard <mailarthurgirard@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260915-og0va1b-v7-0-3a4b6d7360ec@oss.qualcomm.com>
+ <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
+ <20260928020355.86012-1-mailarthurgirard@gmail.com>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <20260928020355.86012-1-mailarthurgirard@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: VYpRskae67eE5udZFnpqleCVHGjGImu4
+X-Proofpoint-GUID: VYpRskae67eE5udZFnpqleCVHGjGImu4
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyNiBTYWx0ZWRfX93LKms1gjUTm
+ 2i60cqTHTQPglA/8d5D18v+Qpdu9MgPqIUTDZYlTuhRJxaewR3wYrpYR1pqJTyMx2e3UEp8TlsM
+ 7wG/GgKyVthmL9FmX4lVbGs74K4AKUI=
+X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6aba0d9b cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=pGLkceISAAAA:8 a=VgBCoK-8VLnKacG1t_kA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyNiBTYWx0ZWRfX8cC7teYbn8ad
+ u2/6wBn9kDPo01NxH2PedN4ZdVi7rh0GMNZ6gtrMvlL2vi1xE5qGuoEoTysnmH5VngBQaRysdSx
+ vUhGPk+Xidcty6yNKR5yl/GZVmrKTqtx3VxIc5A5QRLfX57ZM/1fQf8y8+lY/O8trlsAcGn9xfM
+ ekqFH8Qmy+kCmPCRdLcqXtAy3S9zEk967HQgQAVUd5go1gZAW7ZnvfOfqY2KaTK6u8uD/zSRB1Y
+ wyB716vr41oNPYwxLYc/hxqvf9MzOTNnpmhskWbVLX8IrfVxpUDTWP6ZNeG2eIO+DNW+c0OfWvL
+ Lb6vDiTnQZM2cSzFod82BE/VGVkfITaMgusz4gcHSWeQcIINsbCTGln8pFwKAMUTSPiWcNtrDQ7
+ LlE1nORjgwzAv8jFjfyo3m1Y5jK/GijDFYUMHylHpSzJnbUT2lof5z0Sh2f591LtXjUIwWrdOkx
+ B3e1hRTvXz6mvD9QT3Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280026
 
-The link from the external CSI-2 transmitter to the CSIPHY is created
-in the notifier .complete() callback by walking every registered
-subdev, reading the CSIPHY it was bound to from sd->host_priv and
-linking the subdev's first source pad to that CSIPHY.
+On 9/28/2026 10:03 AM, arthgirard wrote:
+> From: Arthur Girard <mailarthurgirard@gmail.com>
+> 
+> Hi Wenmeng,
+> 
+> On Tue, Sep 15, 2026 at 02:54:14PM +0800, Wenmeng Liu wrote:
+>> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+> 
+> The OG0VA1B is also the IR sensor on some x86 laptops with Intel IPU6.
+> I tried this series on an HP Spectre x360 14-eu0xxx (Meteor Lake),
+> where the sensor is ACPI device OVTI00AB: 1 lane, 19.2 MHz clock, same
+> as your og0va1b_data. On top of v7 applied to 7.2.7 it needed three
+> small things to work:
+> 
+> 1. An ACPI match for OVTI00AB pointing at og0va1b_data.
+> 
+> 2. An ipu-bridge entry, IPU_SENSOR_CONFIG("OVTI00AB", 1, 480000000),
+>     so the IPU6 creates the graph endpoint.
+> 
+> 3. -EPROBE_DEFER instead of -EINVAL in og0ve1b_check_hwcfg() when
+>     fwnode_graph_get_next_endpoint() returns NULL. The driver can probe
+>     before ipu-bridge has created the endpoint, and on one boot out of a
+>     handful it lost that race and failed for good.
+> 
+> With those, the 640x480 Y10 mode streams fine through the IPU6 ISYS and
+> the images look right. I've been using it for face authentication.
+> 
+> None of this is needed for your DT use case, so I don't want to hold the
+> series up. I can send the three as follow-up patches once it's merged,
+> unless you'd rather fold the ACPI match and the deferral into v8.
+> 
 
-This assumes one transmitter feeds exactly one CSIPHY. A GMSL
-deserializer such as the MAX9296A has two independent CSI-2 output
-ports which, on the RB3 Gen2 vision mezzanine, are wired to two
-different SoC CSIPHYs. The same subdev is then bound once per CAMSS
-port endpoint, the second .bound() overwrites host_priv, and
-.complete() creates a single link from source pad 0 to the last
-CSIPHY. The second output port is left with no link at all, so a
-second camera can never be routed to the SoC.
+Hi Arthur,
 
-Move the link creation into .bound(), where both the endpoint and
-the CSIPHY are known, and resolve the transmitter's source pad from
-the endpoint fwnode with media_entity_get_fwnode_pad(). Each
-endpoint then gets its own link between the right source pad and
-the right CSIPHY.
+Thanks for testing this on real hardware, and for tracking down the
+probe ordering issue.
 
-For a subdev that does not implement .get_fwnode_pad,
-media_entity_get_fwnode_pad() falls back to the first pad matching
-the requested direction, which is exactly what the .complete() loop
-did, so ordinary single-output sensors keep the same link as before.
+All three points are specific to ACPI support, which I can't test
+locally. Point 3 isn't reachable on its own either -- the driver only
+has an OF match table, so it can't bind to OVTI00AB until point 1 is
+in place. That makes 1 and 3 one logical change rather than two.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
----
- drivers/media/platform/qcom/camss/camss.c | 51 ++++++++---------------
- 1 file changed, 18 insertions(+), 33 deletions(-)
+So I'd prefer to keep the ACPI support as a follow-up after this series
+is merged.
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 327ac7b280..cd9b66f265 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5224,49 +5224,34 @@ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
- 		container_of(asd, struct camss_async_subdev, asd);
- 	u8 id = csd->interface.csiphy_id;
- 	struct csiphy_device *csiphy = &camss->csiphy[id];
-+	struct media_entity *input = &csiphy->subdev.entity;
-+	struct media_entity *sensor = &subdev->entity;
-+	int pad, ret;
- 
- 	csiphy->cfg.csi2 = &csd->interface.csi2;
- 	subdev->host_priv = csiphy;
- 
-+	pad = media_entity_get_fwnode_pad(sensor, asd->match.fwnode,
-+					  MEDIA_PAD_FL_SOURCE);
-+	if (pad < 0) {
-+		dev_err(camss->dev, "No source pad in external entity %s: %d\n",
-+			sensor->name, pad);
-+		return pad;
-+	}
-+
-+	ret = media_create_pad_link(sensor, pad, input, MSM_CSIPHY_PAD_SINK,
-+				    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
-+	if (ret < 0) {
-+		camss_link_err(camss, sensor->name, input->name, ret);
-+		return ret;
-+	}
-+
- 	return 0;
- }
- 
- static int camss_subdev_notifier_complete(struct v4l2_async_notifier *async)
- {
- 	struct camss *camss = container_of(async, struct camss, notifier);
--	struct v4l2_device *v4l2_dev = &camss->v4l2_dev;
--	struct v4l2_subdev *sd;
--
--	list_for_each_entry(sd, &v4l2_dev->subdevs, list) {
--		struct csiphy_device *csiphy = sd->host_priv;
--		struct media_entity *input, *sensor;
--		unsigned int i;
--		int ret;
--
--		if (!csiphy)
--			continue;
--
--		input = &csiphy->subdev.entity;
--		sensor = &sd->entity;
--
--		for (i = 0; i < sensor->num_pads; i++) {
--			if (sensor->pads[i].flags & MEDIA_PAD_FL_SOURCE)
--				break;
--		}
--		if (i == sensor->num_pads) {
--			dev_err(camss->dev,
--				"No source pad in external entity\n");
--			return -EINVAL;
--		}
--
--		ret = media_create_pad_link(sensor, i, input,
--					    MSM_CSIPHY_PAD_SINK,
--					    MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED);
--		if (ret < 0) {
--			camss_link_err(camss, sensor->name, input->name, ret);
--			return ret;
--		}
--	}
- 
- 	return v4l2_device_register_subdev_nodes(&camss->v4l2_dev);
- }
--- 
-2.43.0
+Hi Sakari,
+is there anything else you would like addressed, or is it OK to apply?
 
+
+Thanks,
+Wenmeng
