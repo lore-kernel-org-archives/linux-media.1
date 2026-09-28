@@ -1,104 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5183D367297;
-	Mon, 28 Sep 2026 19:28:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845FF4F4746
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623726; cv=none; b=iorEF1YXS4bepXkxGJcM3cyeO9AMRGxO1zwg9195+Br9yNKFLQQgIp3a7Z2A+CCbuTgYaFyPJ2hWTdtmZeobJ4DmzXZCp/VE3oXAWesVeplhB93F1Pj1Dslg3sQVA8WQMs6Kj6lOJYzUPOOMllNqwwFmyTLYspaa2D6ZQ67kJb8=
+	t=1790623729; cv=none; b=pYTWm6eRzpd3kKTEmhxh2NSo1jbWTQObMC4qFZZIv5xg5lCjQf7Y1yI/5XqUYYBtMbrXgQHZleIf9pzcjk38vJzfzosPfkfCR6yJqdWU8khEmwe3XGKVcWprShFA9+tDYrH+UT1mi1B2aMxA1iWogeTSwdgiwew4jq6WC79lBBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623726; c=relaxed/simple;
-	bh=ZDJNExJRM9O6+KpmYCYXxYVEAy0CTZChUW37EUGTtGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pK0Dl+c6qk7yeO4pIQSjDJRTJ3wCON6+qLuRJ7OzROv0U7t4qS9Ynu7yvLKa+TtBSMAkdkkKyQlnQ0W3unOuVIS7Tb44+qUNWgxFMuEBfJOD0vvSigh8eDf/iImpoNygeksKknxBXitrMri2AbOaZMSrbdKdn1N+t07tD2TignU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FV1vBIsy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790623729; c=relaxed/simple;
+	bh=O4uIi9qgIMnPjsFpze9OgXjJoOKWfAVoaOQ1MDw6W24=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qHDa+emtlEh0muHICswRGWcyDDjPKb9fKUN/+9PYKmW2TgB6EnzQeIH1qdqGO0BqGke9v+mAJv3xEFCdD0PkHE8rR279GXVq6zoT4dP4i9p3nHl/MkmxFaOAGZNB8RdEwPE2URxb0s0sWJsSgpiSO2g+eDnJqI4bExIYrbCOZnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ujeAHZXC; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FV1vBIsy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F39C1F000FF;
-	Mon, 28 Sep 2026 19:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790623724;
-	bh=cJHzxKXVtIY3P2yIJggYlartU1XE0ipq+eGOK0t1wt0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FV1vBIsy+SJMPxhCKAU3fAvonyUNNwCFv27Vmyk/SuURYrycGycfXXiana4254/1E
-	 18ekcOUMpDcFVSI6uHiDLIGH6ewct+bqrjzOLXHajDpk0FM4hRyc5YP36qT9z5c5G6
-	 AQTP8XhFgWc/fu9vMHuyl/wYjEc1CFHp60HYtmEk914pJD8xS4Y7CayARzmQ42gTfK
-	 EQaii28pFUn5lRFDdlCGzb0GrrAxASWFHYl+VHZl70eJPM2zSCgBFD4SW+9+JuohSG
-	 YV+bpPHCDU2zlgP6SYgiKtdtXiBJM5xJ19u9OLh9EaM0DZRjFMa+wU0mLXpnR/Ry0E
-	 6TClnNMxJzzVA==
-Date: Mon, 28 Sep 2026 14:28:43 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-rockchip@lists.infradead.org,
-	Martin Kepplinger <martin.kepplinger@puri.sm>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Matthias Fend <matthias.fend@emfend.at>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux@ew.tq-group.com, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Quentin Schulz <quentin.schulz@theobroma-systems.com>,
-	imx@lists.linux.dev, Michael Riesch <michael.riesch@collabora.com>,
-	devicetree@vger.kernel.org,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Richard Acayan <mailingradian@gmail.com>,
-	linux-tegra@vger.kernel.org,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	linux-arm-msm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Paul Elder <paul.elder@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>, Heiko Stuebner <heiko@sntech.de>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jimmy Su <jimmy.su@intel.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Mikhail Rudenko <mike.rudenko@gmail.com>
-Subject: Re: [PATCH v6 6/6] dt-bindings: media: i2c: himax,hm1246: Use
- video-interface-devices
-Message-ID: <179062371908.398635.9659405053425999054.robh@kernel.org>
-References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
- <20260918-kbingham-orientation-v6-6-5e8b1f01be29@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ujeAHZXC"
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cdb9cb7feeso1012671e0c.2
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:28:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790623726; x=1791228526; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
+        b=ujeAHZXCofuwKgAeICLb9kvV1n9E+r47D8VgVObLOyXqxCqTWKsnzm29wo6zstlAEb
+         oQnquVN2ifqow7e3G0NZgZWL2bvGI3Daavmgj7IgOOZbjp/B2aOvc70ysTztAIwx4X/X
+         uhoYlK0KP5JYbo3VE/5SPmHOv/ww/x4cckykcKfVQNOy25xJXfg6mAaMXyshTqWvj/+P
+         BW8htB6UCgewzAPuRJfvs3A/soDKRsZNWs5K2SFAv7DpV4ZhJgzxLhgz4hiJgjtHfzwr
+         QMo6NWZjjXJXHG9QC2r1AmirOCJoqXNv/c6F2zP6I16Shtm9h4eYZ8OElq1bNRxZSv55
+         P5Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790623726; x=1791228526;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
+        b=Cz9ZoQHuCsjj4mMF9FCTmKV3B522IQciwq6EWSZid2rmGPuF5X3Odk9WhEuphntytB
+         5WqX/VMxYGEskt4GnEXVIrGlnWUZT+ajRh0zWTlxpbOkx0RRezfe7IEeFj6QhBfskzKE
+         fqDKrD4KBfRVOa3rjYixP7TiQw3dhrXHuPykXtiEGyotdmoOxd1NDomfgTE/rFoTYlNp
+         pTqxap804QCSj6yGRgTM1m31bGUiRG4CkUA2C5s9Ywd1jnV0doe1P86qIGLsjDzTh8lJ
+         H2ZKgz5AxaPVZCRyzKkB7VuXAHZIXzdbeJxqkITCdjuTmylA2BhvbycWFgSlgVLkaS2c
+         LHTg==
+X-Gm-Message-State: AFq9FYI9DgD1yEwFDCJB0Uz5l9Bj551gDB/4Dn1xL9qFBDrZY3GRaRkv
+	44jG/9tme9DAqGuIRHabCfgSGjA4duyDsWXlWxVRs2ojw1ku/BQPR31xgAf0yiHDVTo=
+X-Gm-Gg: AYBFou0fSQajT3z7Fs8ycMaqlGous889dXpQZ5KXibqYEoa1i8SbZzEjnde6eR2G8+F
+	HWh8Whle+JsgmuCKUYtUtZz0I6xaDhrqOe/CIM355kDT7hGRMeO67hkXHuaej5ejrOhrmaGpYbz
+	5qv93lCUJ9HnoF+nHPmd83bjN42p6vU2DY3UkTAodQULXHwxqQGsL/g4/blpWHChTOfNTi8uH0G
+	V2P3P68KgV9zFiT99fHStT3LjO9yZkja+EjRi0tYAHnnHp4eP/BrrZiWCvPmAmhBkF2N5iLLXf/
+	yS2WSOjS/ZBX9UPy7uEJ2hwOVZnzkEeNNDsk88Py2DuhUwvTNyO7JJcGhrUF75QZnw8Kh2QmUZx
+	kjbemSgd2uq7aOYNAE64D+Kxwr+gNwTXZnYopK2FMTgPJxrr4xO8fAnm+cpdNOQLWQMU5L4xdvK
+	P8JduZrkmO4jAPjErRHaCHD/6SF0mJPWbc2kpK561rdcLYz58jlySXOhuwX6pAEtFg6EtkcFFzs
+	9BvrXreSfoD0Q==
+X-Received: by 2002:a05:6122:25ca:b0:5d1:b41c:8ff1 with SMTP id 71dfb90a1353d-5d1b42bdce3mr337088e0c.15.1790623726416;
+        Mon, 28 Sep 2026 12:28:46 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde664c06esm9993095e0c.16.2026.09.28.12.28.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 12:28:45 -0700 (PDT)
+Message-ID: <59097bca6ad101c160c1d519556fbee378801dcd.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: imagination: e5010: release m2m device on probe
+ failure
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: =?UTF-8?Q?=EB=B0=95=EB=AA=85=ED=9B=88?= <mhun512@gmail.com>, Devarsh
+ Thakkar <devarsht@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 15:28:44 -0400
+In-Reply-To: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
+References: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-voi74w9GheclbzmAzMR6"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-kbingham-orientation-v6-6-5e8b1f01be29@ideasonboard.com>
 
 
-On Fri, 18 Sep 2026 11:44:18 +0100, Kieran Bingham wrote:
-> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> 
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
-> 
-> Update the example binding documentation.
-> 
-> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> 
+--=-voi74w9GheclbzmAzMR6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+sorry for the long delay, finally getting to this one, comment below...
+
+Le samedi 25 avril 2026 =C3=A0 01:58 +0900, =EB=B0=95=EB=AA=85=ED=9B=88 a =
+=C3=A9crit=C2=A0:
+> From: Myeonghun Pak <mhun512@gmail.com>
+>=20
+> The probe path allocates the mem2mem device with v4l2_m2m_init(),
+> but several later failures jump directly to the v4l2_device_unregister()
+> unwind path. Since the driver core does not call .remove() after a failed
+> probe, those paths leak the m2m device.
+>=20
+> Route post-v4l2_m2m_init() failures through the existing m2m release step
+> before unregistering the v4l2 device.
+>=20
+> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
-> v6:
->  - Actually use the correct orientation!
-> ---
->  Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
+>  drivers/media/platform/imagination/e5010-jpeg-enc.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/driver=
+s/media/platform/imagination/e5010-jpeg-enc.c
+> index 42ad9ee399..4c250e2275 100644
+> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> @@ -1072,14 +1072,14 @@ static int e5010_probe(struct platform_device *pd=
+ev)
+>  	if (IS_ERR(e5010->core_base)) {
+>  		ret =3D PTR_ERR(e5010->core_base);
+>  		dev_err_probe(dev, ret, "Missing 'core' resources area\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	e5010->mmu_base =3D devm_platform_ioremap_resource_byname(pdev, "mmu");
+>  	if (IS_ERR(e5010->mmu_base)) {
+>  		ret =3D PTR_ERR(e5010->mmu_base);
+>  		dev_err_probe(dev, ret, "Missing 'mmu' resources area\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	e5010->last_context_run =3D NULL;
+> @@ -1089,14 +1089,14 @@ static int e5010_probe(struct platform_device *pd=
+ev)
+>  			       E5010_MODULE_NAME, e5010);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "failed to register IRQ %d\n", irq);
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	e5010->clk =3D devm_clk_get(dev, NULL);
+>  	if (IS_ERR(e5010->clk)) {
+>  		ret =3D PTR_ERR(e5010->clk);
+>  		dev_err_probe(dev, ret, "failed to get clock\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	pm_runtime_enable(dev);
+> @@ -1113,6 +1113,7 @@ static int e5010_probe(struct platform_device *pdev=
+)
+>  	return 0;
+> =20
+>  fail_after_video_register_device:
+> +fail_after_m2m_init:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Can't you simply use fail_after_video_register_device label ?
 
+Nicolas
+
+>  	v4l2_m2m_release(e5010->m2m_dev);
+>  fail_after_v4l2_register:
+>  	v4l2_device_unregister(&e5010->v4l2_dev);
+
+--=-voi74w9GheclbzmAzMR6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarq/7AAKCRDZQZRRKWBy
+9IZmAP0VR6bu6gTm5GrW5zPbMo2MHKgY6EAy04h+kue45wO+HwD+LGwAIVFAH7ri
+2jBuZaTDoCNv7kwXXm6c9LckfqoGjgM=
+=S2RM
+-----END PGP SIGNATURE-----
+
+--=-voi74w9GheclbzmAzMR6--
