@@ -1,166 +1,136 @@
-Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128E74F4CF7
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF563E40FB
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 19:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624077; cv=none; b=u/T8N8NAnZ7gz+Xraf7nvDxdIxY/I/Y6kaM5xcoT8rVTczIIRH5KsOae8XGYJub86MEQSy5hEUrDqhEZj6SJlexG3eHKYOEj6pHLhqwGBpJXMN6+CaOwAJZfnzKrbKOAmxmICwsbOVtl8Ft7hfRjC/R239AaDLSxDUX/5JFB8NI=
+	t=1790624353; cv=none; b=k3RrHlPGO8ztUddj8iziWWPq9/G+Fi/cSTyye+yJgMdDQkyc+DL8m/L9dp7W2U8eMWA1FeKQd8Z91dQw0gh3wZH7PvHdsuRar533Ss5y1DH7mjLBPiWmZhOWQd4t7SjElI0t2pNGodvp9Y/Tv+UXb+AmZlG8n2SE39J5XkCxhhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624077; c=relaxed/simple;
-	bh=24LYI7ixiqJFkmTEKu7EMW+aQKI7xkdI9mRWWLKa1xE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ORR42MpR398xlnsNhWfkBriUc+gk4o59vamuOcZfJ1CgtpMclQbgvPppaOtAQmwAgyF3eKVykOUFDzG3HRQ8ahQ1etuVOEhAs3Z2ilrcrhO2jorfXyD0Q1e3WxleDugxuj4fsdzonmqzrvSWYNVuN8/MmEGfN5wWim58ExuQ9jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=cVR2jVq/; arc=none smtp.client-ip=74.125.227.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790624353; c=relaxed/simple;
+	bh=gKwT7S4M/cDKQNhW4/ej6WZYopzIgCAgm7ZN76dmvxk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKbjNlyHOUrzcFd8Q9X0hoFgY/cIJkpdriKP1VAypvnNSAqZLalOwW43oWN1p4iygq6FIc0yduTJOBY+1jzR6vROLmyzVDEqiT+wpx4+ryEJPB9UgSTSLVERsEVoIpDOreX7u/7NFaK/zKBVTQuYY0nX+3Pq53i1U04/BlsUaCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWVd8RZA; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="cVR2jVq/"
-Received: by mail-vs2-f39.google.com with SMTP id ada2fe7eead31-7b240d1d786so1727043137.2
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:34:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWVd8RZA"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so2605809f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 12:39:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790624074; x=1791228874; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6eqac1h8irF+zeWRR8Dm7dn5WwgpsnMLx6CDzc6fVO0=;
-        b=cVR2jVq/s2dZlCIMff4lLDqOhJwCsg1vWqFV2c0CxEcVoWSeuxtv2dXby3526eXQeV
-         snfWR+7+erKprchJTUWM2AzgRqir0XG1Cs7rP48NtfRBylM0JSFFYeYfpLRj7w57agNb
-         Fes+l2BYSp+bkgLsL1pLv6fqmly6LhDdMWMJmvWI1gVscnPZz3LNDJx9tv0GczopFupM
-         P0ZBbNHg84u7w82WzEdk+sfj0kYcmhl8/WXLXZIhI2shMyBwTIouIqS1gtzNViig+klj
-         Daqeyy1YWBTsBm23tklKsxKQloFRRcJp8zdhk68DMEm442fn9aMNK463QJEzVUoFhV5b
-         00cg==
+        d=gmail.com; s=20251104; t=1790624349; x=1791229149; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
+        b=dWVd8RZAwK07BgHovpIEtRipSeTKwAFsGsx3PC1Oxblfd6F0tXGBNThm8jsXXMQF1f
+         mbX9IweCyk6n40FE5HlqAb2mayw+hT0dIQ6ObzGZJYh4PPsXj6AUo6iA3mBl58zG2MuS
+         9XmKe6Iev37AztI/HwUvBeDjj5+f1XfjfOJW8LR6ptNgkMskj77IFG1X0sFPyp8DS74I
+         5Xd7iNUn9v7/J8zHIdMfzz8g6clQi1ExoTSGQ+N5yu2/Qij5qzuaBi+4T4/myq/LF2B8
+         drJ832SZzCSkVJiAbnLNFEO15k4QcML3cJXMuimSOkVId5ZdMDInxSNV8e9uzvwBxQjw
+         mgdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790624074; x=1791228874;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6eqac1h8irF+zeWRR8Dm7dn5WwgpsnMLx6CDzc6fVO0=;
-        b=fykYG/MYCAVRltUHEYo+mrU7/CFHjeyNlCVmCFqMFe7Oa3WEu++vz/pzxfQDPlZALe
-         r3BJ06Pm8xrU40crV7dXywmDxq8i7w7LxYMclm/RgQLevXmmeIF5bmS40ko3eLfm9ukF
-         NBw8of3dRm3Z4in+9vhtI1Ih0cXrozkTnwOgiqNDknDlrJsAno4OT13u04mhLm3P8kkm
-         sOZW+IS1GYhB5zDjRf7l6vfprlhGn4GCKRl+vz2Lhi+FaWkvfINUyclw9KQkESLg8Cby
-         EYHABtmUORpKkBYZDvUNutYpP3XlsCrFDRiNBU1HFx2Orkt0SpJpDpgmzLjJ/h9R0A8Y
-         EkQA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9+CpMCgOi3INI9uJsiOl4gCJ77xAk9bEmQxkiBeMMOR+XD/Z28frtudNE+cxIsQz0xHBvMSFNHbJkVw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9NiBKaOiPu67vWM+dJ7xUXpJZhAJPJVLW++Cjj0IRvlwpqjJW
-	4AS4Wq+lcO9NIuI/7Q9JlEh4vCQ+o8T19cyV9cXKgkBKZ4fLI2YH9po66MNmSXf/ruY=
-X-Gm-Gg: AYBFou06J06IzVtGwS/lgoJYtl/+vqXrS1eV6bRVpMCSSZaft5S7b69Ng2Cj426CBXl
-	Lb/6ybIDRFCFV7pdUKOHsxR4rM8AAV9N8rAKmGo6KRb/A9+++/xnUjM9ZEKeWMc64cGe2PBk964
-	gS8M9B6YLaK1dJ18DzNWKypCg8w4eS85x0+Zv7NTv5t81Z1Q8IjLAvF3QhbEZ4MDOz1GEF6X13u
-	lPyVrLUYgnrPmgmGygUZV5rOgYdUfe7xBu03YZvy7gLUsA9hIWRBoPkQsKuXpUkUWzT2Xr5wuOU
-	irSexygVo7r72A9RYLBh8w8zLU9jgnXr0oULCiwuwC2LrjnnhajSpzDJgeC/h+Y77OmLMx8CzHy
-	gggG8NP6vWZqvKfxuPjWS/V3nsQJB4A+w4PMiSWk2wymWk27fLY6K3KLxAsY7FiAwCAWJKTU6KI
-	vrM1iJQmzAqytWSWeH37p5MN5YSRt2jSK6gb/C9kRjW76X5hoCD1lBGHTlzL47alypkj1qMlIwE
-	VzvZLMCJ4IXxA==
-X-Received: by 2002:a05:6102:c94:b0:7b5:4700:3a5e with SMTP id ada2fe7eead31-7b547006f20mr1391763137.11.1790624073763;
-        Mon, 28 Sep 2026 12:34:33 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde6b43916sm10558755e0c.18.2026.09.28.12.34.32
+        d=1e100.net; s=20260707; t=1790624349; x=1791229149;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
+        b=QnM2Ck6POdN9zldletE5VoSmeg2ItXu+G7N1t1EC5C8pqlOf+PpkL4XTueV+KLK63b
+         51jdiGrbiIIERZUDXgX9kPVZ7FQCWd5FmgUBngNe6xgvOTcqgu+CMlYFO3Ft2ViykRVC
+         17R5InA06TKG56g0ueGhVSZ/SveM8vKANvcPEAWiNd3DlKGYHVh4jRANLd5+answIl59
+         3+cxwRsw1eM+AfSJVM9wKHb1N2xpbuchDsdZluiIwdtAcy0HnN8JKaAgKfWFMZNwvUAq
+         itO1txhGJaIuIGDoDNtyHhALzOvI9fBzw1pXSxF7oH/bSqZs7Z3f+oQEFFQ5yZTv8mNh
+         3Skw==
+X-Forwarded-Encrypted: i=1; AKwUvBzUO1A4VOcnxMfCIBqtzbuQ/G1p+j1MDsY2cRIfQO1srQE4pkOHCaNsdN13Zu1MpI0Qr8ngaPCxVYKNhA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwv7r6+b3ttLGmPwlsppeXsi4CLOPmE15ysBA5w+TicUwzFjCx
+	9S3KCTtVlSjNDUgxchQGxL6BpNZPbLy5725XMzdTyjVSuetgqQEKmHZg
+X-Gm-Gg: AYBFou2dLLKxLYQJm5ipH4W3uYTwK07yuGucQhB29S1PLn+ivLHtsWR0RyrkAkvBrdt
+	6nNk0nXh/b0g71z3IbItQFmIANUOzfxVvDRCFqbk30BPQOMsGYHPRYAjH1Zs1wSHfaCzzFnqXR2
+	F75TL8yZJwVPavS/gh3aEsKEE+syYXh+Gvb3jeLqng/wdjtGlf28yQwunuLcXL2YgZN/XWtAjqa
+	ngnzC8OLSza850TBo6ui5zfLUmVV+/S/aRVKcebfdL8FJ/Lyhvz32q7+40Qq9PcEroYcejEPUMg
+	DVD8+gOqLJ296j98vs5qRJeSfkja99Ez297QsiH8w6Ha4vcyyyDqbXCenlTVregQW4Ag9R0dKEz
+	OXvTEkYJ2x9fGSqcvOIuF3xfi9pN/X0odWED9cHi8YEWQQsl+wesf+KpvKJ/YyX5ktgjOTgdm23
+	vYtHqzmvBKPNxrTMntpwLVusUThSKQGzYFZSV+uBGLdivOfj4/BSaecjsghT7NA6ovY47dcWHDN
+	JfBXf4HcE3UDeCtGCqmnRfIiUvFTM20hNGLJHLIvt0WQIEIy6+ZbIzyscJ8K1iqBoyF44tnSkyY
+	BlTtdlCfPuPAediox7znlzD3BPu/BO0ZBAN4h3yu67Iay7X3sRABAS9J/fKqXOc8VEEBLao7sg=
+	=
+X-Received: by 2002:a05:6000:3104:b0:48a:eff0:c31d with SMTP id ffacd0b85a97d-48aeff0c6e7mr1174394f8f.38.1790624348461;
+        Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6456f8sm29487793f8f.26.2026.09.28.12.39.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:34:33 -0700 (PDT)
-Message-ID: <4f6f3ba03cc3520505a3af8a259bb1db4fc68e19.camel@ndufresne.ca>
-Subject: Re: [PATCH] staging: media: meson: fix typo in codec files
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Maha Maryam Javaid <mahamaryamjavaid@gmail.com>, 
-	neil.armstrong@linaro.org, gregkh@linuxfoundation.org
-Cc: mchehab@kernel.org, khilman@baylibre.com, jbrunet@baylibre.com, 
-	martin.blumenstingl@googlemail.com, linux-media@vger.kernel.org, 
-	linux-amlogic@lists.infradead.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	hverkuil+cisco@kernel.org
-Date: Mon, 28 Sep 2026 15:34:31 -0400
-In-Reply-To: <20260508055731.19784-1-mahamaryamjavaid@gmail.com>
-References: <20260508055731.19784-1-mahamaryamjavaid@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ioRvVvCQ5XFlC4aqFG8O"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
+Date: Mon, 28 Sep 2026 21:39:05 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Bryan O'Donoghue <bod.linux@nxsw.ie>, Dmitry Baryshkov <lumag@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on
+ DEBUG_KERNEL kernels"
+Message-ID: <arrAvk4aYQ4sDEzN@gmail.com>
+References: <20260926022026.10539-1-liujianfeng1994@gmail.com>
+ <17bf71c6-2442-4eaa-847d-29ef625870bd@amd.com>
+ <CACSVV02WCQwQy9BpUUqziQTtKV7QyJruiM+iTiLE_SEVKtpVNQ@mail.gmail.com>
+ <50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com>
+ <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
 
+On Mon, Sep 28, 2026 at 04:21:41AM +0100, Rob Clark wrote:
+> On Mon, Sep 28, 2026 at 3:48 AM Christian König
+> > What I can offer is to set it to default N for another few month to give you more time to fix things.
+> 
+> If it is disabled by default in distro kernels, that sounds fine.
 
---=-ioRvVvCQ5XFlC4aqFG8O
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Another option is to restore the earlier DMABUF_DEBUG default for now,
+although off by default is also fine with me:
 
-Hi,
+	default y if DMA_API_DEBUG
 
-subject should have been "[PATCH v3] ...", already picked but wanted you kn=
-ow
-know.
+I would like to help fix the affected importers, and have started work
+on several of them. Beyond msm, my LLM agent found paths that use the
+page or CPU-length fields of imported attachment tables in:
 
-Nicolas
+  - rockchip, tegra, rcar-du/VSP, omapdrm and xen_drm_front;
+  - tegra-vde, staging ipu3, pxa_camera and sur40;
+  - fastrpc's SECUREMAP path;
+  - the IIO dmaengine buffer, USB FunctionFS and UVC gadget DMABUF paths.
 
-Le vendredi 08 mai 2026 =C3=A0 10:57 +0500, Maha Maryam Javaid a =C3=A9crit=
-=C2=A0:
-> Fix spelling mistake: substracted -> subtracted
->=20
-> Signed-off-by: Maha Maryam Javaid <mahamaryamjavaid@gmail.com>
-> ---
-> Changes in v2:
-> - Combined both meson typo fixes into a single patch
->=20
->  drivers/staging/media/meson/vdec/codec_h264.c   | 2 +-
->  drivers/staging/media/meson/vdec/codec_mpeg12.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/staging/media/meson/vdec/codec_h264.c b/drivers/stag=
-ing/media/meson/vdec/codec_h264.c
-> index 89e0f8624e5b..a6074de15118 100644
-> --- a/drivers/staging/media/meson/vdec/codec_h264.c
-> +++ b/drivers/staging/media/meson/vdec/codec_h264.c
-> @@ -16,7 +16,7 @@
->  #define SIZE_SEI	(8 * SZ_1K)
-> =20
->  /*
-> - * Offset added by the firmware which must be substracted
-> + * Offset added by the firmware which must be subtracted
->   * from the workspace phyaddr
->   */
->  #define WORKSPACE_BUF_OFFSET	0x1000000
-> diff --git a/drivers/staging/media/meson/vdec/codec_mpeg12.c b/drivers/st=
-aging/media/meson/vdec/codec_mpeg12.c
-> index 76e9ca7191ab..ab4374e3b2ef 100644
-> --- a/drivers/staging/media/meson/vdec/codec_mpeg12.c
-> +++ b/drivers/staging/media/meson/vdec/codec_mpeg12.c
-> @@ -12,7 +12,7 @@
->  #include "vdec_helpers.h"
-> =20
->  #define SIZE_WORKSPACE		SZ_128K
-> -/* Offset substracted by the firmware from the workspace paddr */
-> +/* Offset subtracted by the firmware from the workspace paddr */
->  #define WORKSPACE_OFFSET	(5 * SZ_1K)
-> =20
->  /* map firmware registers to known MPEG1/2 functions */
+The host1x imported-buffer gather path also looks susceptible. There
+are less severe cases too: amdxdna rejects the affected import, while
+mali-dp loses MMU prefetch.
 
---=-ioRvVvCQ5XFlC4aqFG8O
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+For sur40, IIO, FunctionFS and UVC gadget, I have reproduced failures
+and tested local fixes in QEMU using local device models. The other
+entries above are findings from source inspection, not hardware tests.
+Some failures depend on the architecture and configuration, in
+particular whether NEED_SG_DMA_LENGTH is enabled.
 
------BEGIN PGP SIGNATURE-----
+Unfortunately, I don't have hardware for most of these drivers...
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrBRwAKCRDZQZRRKWBy
-9LQxAQDbhfzAoaDPMzDhwB/2BfSnHFrathZiFBRY73XPw8V60wD/cj3/gXBOsU2H
-IXhvc2D00xxNhwhw9hEzo1JUkC370Ak=
-=AYIv
------END PGP SIGNATURE-----
+I think the drivers managing their own IOMMU mappings also need a
+clearer supported path here. Simply switching from physical addresses
+to DMA addresses is not generally sufficient, since the latter belong
+to the attachment device's address space.
 
---=-ioRvVvCQ5XFlC4aqFG8O--
+I also have a draft warning-only mode for DMABUF_DEBUG that I can post
+as an RFC. It preserves the CPU fields and logs suspect accesses
+instead of deliberately breaking importers. Coverage is incomplete
+and the underlying bugs still need fixing; strict mode would remain
+available.
+
+Thanks,
+Karl
