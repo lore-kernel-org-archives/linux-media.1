@@ -1,264 +1,110 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7064DE712
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A7A4E06ED
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 14:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605931; cv=none; b=EWay2qM3kXzq7VHPvOPCkiSStuWVa66e5XG/bE19fTtCq+Bgj3ROz/Vl3kAjBWKft1pH3DT8aDAt6CrbWZQKgMO5XHMqgvZ/ZCR8eZRK1jqnGZ2ynPbU3z5eAbXUhzWPIA8S7BSu6+fY3lBCIgD7MNpYSRumTjUKx7fNZsMSsz8=
+	t=1790605939; cv=none; b=U2Em/WE9dQgYmjX8W6l3sTWiSh3t6RJ+Lg/n2Pe9ID3u8LAJaAKQ3ZeYqdtc1bMFGUIorXSGmm5Q0YDog6adpOBsryE6yRD+om2IgXGFWOuG4Zi+sAs9Kew8owHqBa/kAMQUyZaJSwMJKurgvoikk3QzxasbqKoR1YfqRfN8Z30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605931; c=relaxed/simple;
-	bh=PlUKL150dn2du9L3IVzBI7wLkDXJFZiENeb7jzv74sw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D1hnY/hDxMkdIFpJiXqhOssu89LsTAFa00mwwJjMIjfPlsXdlIZpV+GXpolmR3VN4UAXywb6dO4kgeu2z8ZDXSazbHskA+qh7rCwragQ2EV42Fn0Lrchovi7xd9FkLOgAYgtaYWzeSgB7gqzyrLEsnIQa7YABMSzqLVbYzhHDHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=qL1QSMre; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790605939; c=relaxed/simple;
+	bh=C32WIKcMjSufDQSgpLE112ID2RGi2wFW4Rq4I0PGvBo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mXf0LWFkA6zTLOC3zjvq4ckKWpg/+3B6IRQCvECOj1SYY43Yp9tcMsE5qIQrM4FIlW8CmjeTrZuIoVMCR/rjnkjgXUyIkLCf9ESodTS87OZyhFpJIU/jG5I1WQDib3JwZYxCMEIlT9DoB78lu5raiNrh5p0/WR3SCXZmhHM9r7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=dv9UnCIJ; arc=none smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="qL1QSMre"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c6d6660191so1583592b6e.2
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:32:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="dv9UnCIJ"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a66f8bc23bso10384351fa.2
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 07:32:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790605923; x=1791210723; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wplymnUDmIm0BRSXdlFUTBVv5g6UzG2wi49zmSLRRpU=;
-        b=qL1QSMrek7nWRhd6mafQbAxpI0T2f/A5trFhlnK6Z53ZVIzUfhv8sNyl/uP4LmKee8
-         DF6HDXOOWtuOaZBM8C+epFLQJZFfS10sF4mfTDDtCJbFRDwno9+nMw4NIMQ+e3+t1b4W
-         ws45jkx0q19kJ7Kf+dRG/pNcvD3zBy1YXu1i1u4R0UN4PmGI8uH3laVtTgEpBtKc/ad3
-         vWJqM7Xp9xXtDpZ261wAC/LTJSRAmz5C/0Xr5FMrOQUce0qnXPMgKi79Eu6uVGq8zFbY
-         DQbG8ZvujFc+VqwoIMEMHPykE2Lya9hJa+O4veajCecxmS41ltG+QanBu9odg8Jg/hoI
-         5tGQ==
+        d=chromium.org; s=google; t=1790605931; x=1791210731; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BUwHGqWdEKrWnZJi1cFZbi/odoLBr8uhXk783Ds9z2g=;
+        b=dv9UnCIJgK7VNQ8ImE8+as/IZTNeuiAWwR6OnJgYpugLUdZWLJ47ZKNa6nUue8xSJS
+         kkLSf8wTHFC4aNk0vvBx5yz3Hej0mSKAAho1hqUBItxkrJmlVWibJTsLhOq5+IcNjR2I
+         SisD1UqhC5PqtXAnD+l2g3He5E5rlN0xOmJP4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605923; x=1791210723;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1790605931; x=1791210731;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wplymnUDmIm0BRSXdlFUTBVv5g6UzG2wi49zmSLRRpU=;
-        b=HNZN09HLrYF62r3yqNQqikOsfbJsr0XfHXe0IORxfVWGFPAld8u4+ucYNbLPevObmq
-         Gjm9HBIrDnOeA78MbVLKmcGFidmVJuyNINr1FJdqTAkOhn0L5QC7VfzSHYKwapLyxpBv
-         bdGMzmITkiWfWUV1jLI+T+ImYoiIUfJuW3UnBIuoibJy4G2KmgR71O71mPa5hAxEB+ap
-         4zGRZF2ekWoWL0LxWaHkVp4EH70/DQT11v5N/Z7yn3e0bgqRrmX5PEgLGH+u22uovN93
-         51YtFi3ApbLS8VuRW8XCbgz23fsqeoDh77LvyPZtnNd0XWz2iuVtMX9i471WiI/VVQZC
-         BFOQ==
-X-Gm-Message-State: AFuF++nzG7UvrRKuLCd+1IoSuIHj+UPqIl7wMjxdLu9ytI8OpfbWQN4n
-	Q21u5PEBxocdjO7mdFG7/wP+0r45IKU2WTG45JEuFJ1oRKEO//5vzgr40lyrIrxP+ho=
-X-Gm-Gg: AYBFou0K8aRoFIGxKo9IfeA8RAYKJ8DxCDadJfFtBXQpp1pwkAM5U45Ck83C908yZG9
-	paOExc059GqPendPtgkKp79Sek+6fzFRGfd+g6kcEn57sfk1dFgD0cOxXAeCRpPv8XTYCue8sQ2
-	gVMABtgaYHMjMp789qRMRVmwcBQqxgdWdfoF5pe5WR4mtUTCflul1+F70m2bB0BIYAqUkjMT2If
-	prbgTl3AnFFK+j8R5a90gm65d0XZpVek3ZyZo74nl+gR4MXhbiMJqr9XAaAJK+6M6u3O/oJ5eSX
-	GkxdmiyoyXCFFPHV0SXpIU7iqkLrv9Fjc9l2qdDWu3fxDdnk3j9jHPMzS5nql9TYEE1FJe2NmCK
-	a3LIlY5t4kGfWBsWQdY1GbERfqjU4wJ7XZ0GVmT+ftHgKegnjdPyBX8R9OjHZ/FZR8fIgrr6/3f
-	5qKlj7jA0TpJhEwItlNYn7YSgbVpykEGz+v6Guwiw2rL0IPSe8kpk3B4jrY8Y/31TFdiaYBCEf7
-	3TbjjBkFK4u5mqFmMGCqhfI
-X-Received: by 2002:a05:6808:10c7:b0:4d6:48c4:a819 with SMTP id 5614622812f47-4d72cb41616mr12356739b6e.29.1790605923559;
-        Mon, 28 Sep 2026 07:32:03 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ebbaf87920sm1581461b6e.3.2026.09.28.07.32.01
+        bh=BUwHGqWdEKrWnZJi1cFZbi/odoLBr8uhXk783Ds9z2g=;
+        b=wT66raAX/In7Ks3/uufuRuw3lmFpfgTiot/00zMi9rQ96WkkwQT0hHQaYHv0RkgPvL
+         k56Powh2w0le1U7FuedR32Plyh4b2GFaYdFdZnr/kgjEXJ+08vBxQZ6c+3Cy7GldAV8V
+         Iv3kF/oyTITl2FFoFfNXkjGzysi3r2HcQ+x9FOirxRGVp/PxnbJ7hd5kPZslF+azZcZ1
+         kDi1UzOITOFGi4E557SrFiG2jfBNJdX90mK4Roz69dLPsKAlxaJ66USa72A4QOTmlPMD
+         tiMDdh4ox4sVuLXjLkpyUWpUGF5F8Nb2p62hgpT+aUXK9qrCnfMuxRSNdVCQEHyWdgp2
+         xsSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9Do3YCpd37BdjUscCrEypqf7BuGyyZb044RDt8vEkpdd/7FMbsrW06RPHpAJR358ThXV8oawzkw3bVQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNdhdUzjBHRBPzf8vh+N1BxD8tiNIWb+ozroDyAgcDBEzCXK68
+	UJlV0WNXP/yUvT/dPO8+y7qhGhrdrJm1um+e7d+LFVjV41CbU/nnm8bEQsjMO6uHag==
+X-Gm-Gg: AYBFou1UgcCXfkPass5VAVzIbV2kX7lDIlz66/Xe34oImCb4oXlrUq+TY47LGY+Zv23
+	SE1JUJ1n2hSPZybFYRTXbE26zoDEqoGyO2i9qOeELNDieeYeHQ8JxJknfkvpV7SReUSuVJspUf4
+	gR0LMjhZhWIhy5I+L3yublt3nMBtBMu/e5oj+Lb83B9eHUnFkLjD0gPjX2iY3fzipnkAY/s3YdJ
+	T5p+T8zvo1b9cwpJelGaXHIWMywscDhi1l1eFJIY1sGxDKlCSzQRF4UmQ3wfCJvQMSPvKrJVl0G
+	mfqeIEGd4Co6DiIGShSBGj1smek4wo5RC831365ft9ltr7dpreppRr42UHClJx9AYyRT+AGguxI
+	RhzVQOmbTsGFOkE8Br+dt+4ps037O32TcjO69ynotP5kEJtkdDFCwFeiKRXhUwqnhq+13+nenge
+	3sr1UeMO1jxDqvsNVz9Btp0qg71ngQFchOpMOzegIv5tmZLEgrluqUBCCyfemb5+FGdi78/Ig7A
+	TtZyQqjILoiTEmAKvrz7IdmTgKEDfV9L9hJUQS4XcW7Io523w==
+X-Received: by 2002:a2e:bc06:0:b0:3a7:60f3:40b2 with SMTP id 38308e7fff4ca-3a760f34514mr2414141fa.7.1790605931661;
+        Mon, 28 Sep 2026 07:32:11 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:32:02 -0700 (PDT)
-Message-ID: <0235d9d9418c998b6fe18c51db4e7ff308cc2282.camel@ndufresne.ca>
-Subject: Re: [PATCH v7 2/5] media: uapi: Introduce new control for video
- encoder ROI
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Vikash Garodia
- <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
- <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,  Bryan O'Donoghue	 <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
-Date: Mon, 28 Sep 2026 10:32:00 -0400
-In-Reply-To: <20260924-enc_roi_enable-v7-2-6fa7413af23c@oss.qualcomm.com>
-References: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
-	 <20260924-enc_roi_enable-v7-2-6fa7413af23c@oss.qualcomm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-EGki3gnESU+nfIDZ1ISo"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Mon, 28 Sep 2026 07:32:10 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 14:32:00 +0000
+Subject: [PATCH v4 1/5] media: uvcvideo: uvc_warn should warn not info
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-uvc-version-v4-1-da0e983fcb95@chromium.org>
+References: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
+In-Reply-To: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Ricardo Ribalda <ribalda@chromium.org>, 
+ Hans de Goede <johannes.goede@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
 
+Now the uvc_warn_once macro triggers a info message. Use the correct
+level.
 
---=-EGki3gnESU+nfIDZ1ISo
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvcvideo.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Le jeudi 24 septembre 2026 =C3=A0 17:28 -0700, Deepa Guthyappa Madivalara a=
- =C3=A9crit=C2=A0:
-> Add array control, V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP for
-> video encoder Region of Interest to allow applications to specify
-> different quality levels for specific regions in video frames. Define
-> V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE to retrieve supported MB size based on
-> codec from the hardware encoder and set the corresponding ROI MB delta_qp
-> map that adjusts quantization relative to the frame QP's base value.
->=20
-> This enables use cases like prioritizing quality for faces in video
-> conferencing or important objects in surveillance footage while reducing
-> bitrate for less critical areas.
->=20
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.=
-com>
-> ---
->  .../userspace-api/media/v4l/ext-ctrls-codec.rst    | 26 ++++++++++++++++=
-++++++
->  drivers/media/v4l2-core/v4l2-ctrls-core.c          |  3 +++
->  drivers/media/v4l2-core/v4l2-ctrls-defs.c          | 10 +++++++++
->  include/uapi/linux/v4l2-controls.h                 |  2 ++
->  4 files changed, 41 insertions(+)
->=20
-> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst b/=
-Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst
-> index ab865a1a6ba929f1725ce2ab0fd3aeee4a69329a..a02ec20ec18f0e684973964d2=
-de1759ad179b819 100644
-> --- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst
-> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst
-> @@ -1674,6 +1674,32 @@ enum v4l2_mpeg_video_h264_hierarchical_coding_type=
- -
->      Codecs need to always use the specified range, rather then a HW cust=
-om range.
->      Applicable to encoders
-> =20
-> +``V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP (__s8 array)``
-> +    This control is a dynamically sized 1-dimensional array,
-> +    V4L2_CTRL_FLAG_DYNAMIC_ARRAY flag must be set when using it.
-> +    This array control is used to set ROI MB map delta_Qp for the whole =
-frame.
-> +    The frame is divided into a grid of MB Size by MB Size pixels (MB Si=
-ze is
-> +    obtained from querying ``V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE``). Each bl=
-ock
-> +    is configured with delta_Qp in raster order. The valid range for del=
-ta_Qp
-> +    is encoder dependent.
-> +    Applicable to encoders.
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index b6bcee4a222f..a80406f20beb 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -685,7 +685,7 @@ do {									\
+ #define uvc_warn_once(_dev, warn, fmt, ...)				\
+ do {									\
+ 	if (!test_and_set_bit(warn, &(_dev)->warnings))			\
+-		dev_info(&(_dev)->intf->dev, fmt, ##__VA_ARGS__);	\
++		dev_warn(&(_dev)->intf->dev, fmt, ##__VA_ARGS__);	\
+ } while (0)
+ 
+ /* --------------------------------------------------------------------------
 
-Since there is no manue to enable/disable this. Can you define in the spec =
-how
-one should disable this feature ?
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-> +
-> +``V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE`` (integer)
-> +    A read-only control that reports the MB Size used for the ROI delta_=
-QP map.
-> +    The supported MB Size depends on the encoder codec.
-> +    Only square MBs are supported. The value returned represents the
-> +    width and height of each block in pixels. The ROI delta_QP map provi=
-ded
-> +    through the ROI control must use the MB Size reported by this contro=
-l.
-> +    The number of entries in the ROI delta_QP array is determined by the
-> +    frame resolution and the reported MB Size. If frame_width or frame_h=
-eight
-> +    is not MB Size aligned, they must be ceiled using ceil(frame_width/M=
-B Size)
-> +    ceil(frame_height/MB Size) for calculating the array size.
-> +    For example, for a QCIF frame if reported MB Size is 16,
-> +    the delta_QP array must contain 99 entries, ceil(176/16) * ceil(144/=
-16) =3D 99.
-> +    For frame resolutions that are not aligned to the MB size, for examp=
-le
-> +    1920x1080, if the reported MB size is 32, the delta_qp array
-> +    must contain ceil(1920/32) * ceil(1080/32) =3D 2040 entries.
-> +
->  .. raw:: latex
-> =20
->      \normalsize
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-core.c
-> index c5df0e0a54f81c73975f427957b7c99fd421d5ad..2318a548f16ebc1ec582f829c=
-7945a8998b96708 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> @@ -1410,6 +1410,9 @@ static int std_validate_compound(const struct v4l2_=
-ctrl *ctrl, u32 idx,
->  			return -EINVAL;
->  		break;
-> =20
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
-> +		break;
-> +
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-defs.c
-> index e062f2088490470c42d6c579ff7675be454a29b0..8f895060799ea13443143edd3=
-98dfb97f4ba0085 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> @@ -974,6 +974,8 @@ const char *v4l2_ctrl_get_name(u32 id)
->  	case V4L2_CID_MPEG_VIDEO_AVERAGE_QP:			return "Average QP Value";
->  	case V4L2_CID_FWHT_I_FRAME_QP:				return "FWHT I-Frame QP Value";
->  	case V4L2_CID_FWHT_P_FRAME_QP:				return "FWHT P-Frame QP Value";
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:		return "Encoder ROI MB Delta=
- QP";
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:			return "Encoder ROI MB Size";
-> =20
->  	/* VPX controls */
->  	case V4L2_CID_MPEG_VIDEO_VPX_NUM_PARTITIONS:		return "VPX Number of Par=
-titions";
-> @@ -1622,6 +1624,14 @@ void v4l2_ctrl_fill(u32 id, const char **name, enu=
-m v4l2_ctrl_type *type,
->  	case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
->  		*type =3D V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
->  		break;
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
-> +		*type =3D V4L2_CTRL_TYPE_S8;
-> +		*flags |=3D V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-> +		break;
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:
-> +		*type =3D V4L2_CTRL_TYPE_U8;
-> +		*flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
-> +		break;
->  	default:
->  		*type =3D V4L2_CTRL_TYPE_INTEGER;
->  		break;
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2=
--controls.h
-> index d17e41d51d2ec1ccb9e8ceb3ccc89ebc4381a4cd..be484156ed35a19229be23ad2=
-4fd224cb5a8a0cc 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -941,6 +941,8 @@ enum v4l2_mpeg_video_av1_level {
->  };
-> =20
->  #define V4L2_CID_MPEG_VIDEO_AVERAGE_QP  (V4L2_CID_CODEC_BASE + 657)
-> +#define V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP  (V4L2_CID_CODEC_BASE + 658)
-> +#define V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE  (V4L2_CID_CODEC_BASE + 659)
-> =20
->  /*  MPEG-class control IDs specific to the CX2341x driver as defined by =
-V4L2 */
->  #define V4L2_CID_CODEC_CX2341X_BASE				(V4L2_CTRL_CLASS_CODEC | 0x1000)
-
---=-EGki3gnESU+nfIDZ1ISo
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarp6YAAKCRDZQZRRKWBy
-9PLZAQDqqutEjxJKBF4aX4VidB8wRkgp5wKrCMvgAzo3hEozvwEAgMiLNzE2wCcL
-zJPflDm0uNaEu8cgQxyhN3K/CJspfAc=
-=+3eK
------END PGP SIGNATURE-----
-
---=-EGki3gnESU+nfIDZ1ISo--
