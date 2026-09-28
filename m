@@ -1,133 +1,98 @@
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f34.google.com (mail-yx2-f34.google.com [74.125.224.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2217B3750A9;
-	Mon, 28 Sep 2026 18:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2D22FD1AA
+	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 18:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618443; cv=none; b=K7snflS7F/8IzyNnTmVt5Z7QiHXun0gxR7Ms0cXNHwxqWKcwX1TXG0m3HPw3IXDd4k6afC4JcCCekpp+lqokTG1t1KQKDxwBdj/Jk5suhCiHEzjsML9UaX2MsKtOlH2ezQ57EQkg4XR4PeuFTwmqp7Ds0Z+OrGvU6py4aoqIvFE=
+	t=1790618542; cv=none; b=NQBTG5clWS9BkY/E8AeoeFb9PK1UDeOjozmwkdQM+LHVN0g2xj3IhhJJTOhmJI2IjFuRqjwbpOrBQnCjIq7ywyGrU48CXvIlz2QwJWdryUsJipohvOS0WDu6qa6HxwqqNUmDg7+wl7o9zplzfqPsuq8jOaJ3luJNHE2m3lHPhe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618443; c=relaxed/simple;
-	bh=DrV29lL9cL1NQXPk/MG3/cXxxQzYFgynM2Iuq5wjAWM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gzenyYRxN/wqdzICEAj4MXzhVQV04Kbk8NWc9ngsaqhdtr5jz9uVw0+ZAMCcPIomLvw6SPCzJMkgE/Qh4jbWnAiiva9nSSTfVI+Sb4DnItcgtE4UMHigyeMUZx8Mp5eoIJLLvqzWnRARqUdNS1kdUBvrB3lDmS5jJk1LBKKpgWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=kAUaIAMl; arc=none smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1790618542; c=relaxed/simple;
+	bh=KZQA10YBDq1AylwXHXUOFyKjs1PPXoqJzVaib0gTfd0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H07gBQYxhNfm8ndP1J7wD4NAwVGWWNZfcbV3n1ZajpT6O7mfoTZflNBHedaQf+sljv0UGvSltcXUF6OMGKMepWskhZoJYks6lZ7shlL1KuLOKKsZJoCkQYNxGoZBFym+bK1b/bJT+g3emlaWJa5sprVbBu5Xd+9GfZuCb6qPrgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BDf1yXCU; arc=none smtp.client-ip=74.125.224.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="kAUaIAMl"
-Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SHwukK3561556;
-	Mon, 28 Sep 2026 10:59:49 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=pEF+FSbGC0I
-	yV+m+oO1hZz2RvMreBEf6ik/hQ9tP7DA=; b=kAUaIAMlccHRfXvCHNx9HLLgSvS
-	zUzXCppBo+HK8nIQev08VJ7mlkiwJOEAcPTfsYzBN9RLvoTu2Xa+Ae9hDz4riYAi
-	M4973+1KiZJOsPV8xEmrqIiege4V4D7UrEEKIYWiAepty/5n5O7KZX/133LwhcVf
-	QgnaxN4pqXyGz5gh0YbxVnYzi6Ik4wD0nDpA20s7CkHfC2TH0enbggx2LA5Pq7hX
-	Gg3K9R9fD4YfYlw9OVoHQl2pd90I6DX2ru/4DCzqXM72aJvgYJnXRbQa7rKud2N2
-	QGfT5GnzUUQNoalo6bif1GZHDKTvCN0XIAzJgHAiWktYCHfG9bG3eae8hmQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gxymj8skw-10
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 28 Sep 2026 10:59:49 -0700 (PDT)
-Received: from devgpu015.cco6.facebook.com (2620:10d:c0a8:1b::2d) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Mon, 28 Sep 2026 17:59:10 +0000
-Date: Mon, 28 Sep 2026 10:59:05 -0700
-From: Alex Mastro <amastro@fb.com>
-To: Matt Evans <matt@ozlabs.org>
-CC: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
-        Jason Gunthorpe <jgg@nvidia.com>,
-        Christian =?iso-8859-1?Q?K=F6nig?=
-	<christian.koenig@amd.com>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Logan
- Gunthorpe <logang@deltatee.com>,
-        Kevin Tian <kevin.tian@intel.com>,
-        Pranjal
- Shrivastava <praan@google.com>,
-        Longfang Liu <liulongfang@huawei.com>,
-        Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
-        =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-        Sumit Semwal
-	<sumit.semwal@linaro.org>,
-        Ankit Agrawal <ankita@nvidia.com>,
-        Alistair Popple
-	<apopple@nvidia.com>,
-        Vivek Kasireddy <vivek.kasireddy@intel.com>,
-        <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
-        <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
-        <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v7 6/9] vfio/pci: Convert BAR mmap() to use a DMABUF
-Message-ID: <arqq6VXW8Rif59BL@devgpu015.cco6.facebook.com>
-References: <20260924152159.49702-1-matt@ozlabs.org>
- <20260924152159.49702-7-matt@ozlabs.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BDf1yXCU"
+Received: by mail-yx2-f34.google.com with SMTP id 00721157ae682-8961cca9193so47623287b3.3
+        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 11:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790618540; x=1791223340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KZQA10YBDq1AylwXHXUOFyKjs1PPXoqJzVaib0gTfd0=;
+        b=BDf1yXCU/sxH6HRS/FLfjGwWB6YAcICtMpov/2QewguXMK6GGd8o++p2zrJZ1ZiquA
+         LiqW2Gs6fgv8j47No8Lp04Xrrmy/bhZJskltmREudKNabO1u7fa/+HSBiE7zksyK8rNa
+         ie/TXxQiP57GYrwzcl6YEwn+hdeM3SwO7OkmPKddgaNbVVk9EFOlV+jbjvoqIO9c+7T6
+         IL9FR8mkLTb7iXDQxTUIViv0W9BgZde5pn3n7yeiu3qgUom19fpIKzk8ax1+edcbC02u
+         0XP0W9+5pd/bpwten93iSTw0tPMMd4ST6hN3+AngOirgrUajf74fGK85RTc3H1kD1t1s
+         56BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790618540; x=1791223340;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KZQA10YBDq1AylwXHXUOFyKjs1PPXoqJzVaib0gTfd0=;
+        b=pThRJrhjaHyajWjbqXYebgjYfdERyNlb2gKEN5YarMH/AMq7po1SYJmiHevAgbgrD1
+         g0qgZRAgVAL8ohwLfdS3/E0/OYNP/4qqNAs2XFY0JT0pFsyQlsO3bVMjiG12FiDhsh5y
+         oejgAh22Jk4cySvPK+G1BVYRfGzAtDfkhe1TBEUiIdQyQK5UbVmcRCR5xzDByE+j7D4A
+         mKB3x2RxOCnsRv1o5w1vxl6yl6hVteQ9ZXGoI/hkLYuiuW++km0JrfIm1VGNTx9PEZga
+         cfpxknHNY+32uC5m0mwMMff6yURUQMWq8uDg5skyIprrTgvgfi775KrJPBfGIAqlMBIZ
+         c1pw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/yUKZ2dRYXKdCL2ZR8tdD45ySqcADWDRCFQCQLpPHvubLVoNvb0SsDvpKK/GsR+KAHE6gc5GFKJrNMw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKB3QC+jxnBzXHoY59SxRh1Rddkw4yPUju1OJeGnQz3Ns9avR6K
+	8WJ5iR06Koe7OMf0ASI+l2TNfNzHWnU1nNaDN4BG8aukbDBYXaR7WgQj
+X-Gm-Gg: AYBFou2JLv/+A8fqySzbf2DNYlbe8fAfwjaJBa3EPjuuwwGp82JZDbNLC2s8oLI+Zsv
+	i0ZoBJEwft/ZQHbSah4DNLX3mvqWPM2T+MXkGFp2rBjxM11V+pSi0rxquTnGr62WvSO50OFRHCF
+	SjI+2dvILiZyDq6BUshtsjI6CFsGaT/rWA9b+toHffDy+PZcXWRw4R3BFysgj08wGrWfsc6AryO
+	+qTMWhPXbmztVzRrwuJ/XRrZuBr0VojSJWygRA2bpSPuxUN8U5cvH0WIK2lL3OKiEXKH9vuCyud
+	/Ym17rA9eDS47o2vNEViCoytl3XFiq+RyO/0h5abntP2SyyuolTdcS/+jZfO3XbendBaxIDp9r+
+	6Y9S5qHT3AKKyoYROZSq4ZLh2F+mLXD36fjj6KKv0hRvWf8bYUUkS9ZwDpiEABm4TuX1CJ276hY
+	UYEYAIJ9ndeOSSIdyHxbsbC3HNu/OVT9P9Qk+CdEHD63mxwmu1wx3BATYFHbFv8KkZLFZ/lN0oF
+	MPQtqCY96FMcw0/ethwYzxZkv8h+TBjnici9fa+jdsmGBTxf4V3HQ==
+X-Received: by 2002:a05:690c:e3e1:b0:854:b86b:d206 with SMTP id 00721157ae682-8a6461b8773mr74828367b3.12.1790618539927;
+        Mon, 28 Sep 2026 11:02:19 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860326244sm47122057b3.6.2026.09.28.11.02.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 11:02:19 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Michael Jordan <jordan.mymail@gmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: uvcvideo: generalise the XU flags fixup to all controls
+Date: Mon, 28 Sep 2026 14:02:18 -0400
+Message-ID: <20260928180218.788643-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
+References: <20260928152416.766957-1-jordan.mymail@gmail.com> <20260928152416.766957-3-jordan.mymail@gmail.com> <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260924152159.49702-7-matt@ozlabs.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA3MSBTYWx0ZWRfXwkixo5mFwJL+
- 3HxVttVUw+QY1JoVP6q/63ZuKC1iNj+c/kiuAoI/m0mErc4e+ALmZ+sdLPtiu5xXfpLVL1H5sw1
- KoQeyUON47ZXxYfTn/Brx09PCPtLkJk=
-X-Proofpoint-GUID: wtQ7mSHJGALMv_7s4tdWeER5WmOUv9o1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA3MSBTYWx0ZWRfXz7SjoAw7WbsZ
- 0rw1WR/kQSLSd+1v8o5N+oHGO7nv54+PqYN6mxhHQ/CwrRq+y7emYcDWXrwym0zCeMMMa2FCMCr
- BgTsqJWofCMKDD/BC1iVgqGdG8iuKaxUQlHgXPSVhLmVjo32uo4XDVPvOfkAJsE6l0QuDm3w6VE
- r31kXYppLEsgTWVzeJAaNWssShBQ9jlnBI+0vZyyvl2QIQ+D5ATJFvqVcgq0h20cR4TvBkYmq0M
- M8o2mx94ripun1SkUw+MKHWcBV2azAbayTjK4wGG4TjCpk2vdsJr4a0jBMRq3F91qr0MejGDxNu
- av0w7LR5mviJeRXJ1g0VKYHCFm6bp9VnvAoCaFbTm6XDRiJ562qJsky0FcUzLFfpQxNh9IICMTx
- xnF9zDKglBN9URMpMjFlJYCN+0uNXYvcUvUqCn0+YjDXn6PkNL2MQsovuF2qwuRx9WWfFbGbhyz
- obwvwrEB9L0mFhnvAZQ==
-X-Authority-Analysis: v=2.4 cv=Hp3jiETS c=1 sm=1 tr=0 ts=6abaab15 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22 a=NEAV23lmAAAA:8
- a=wdxqxBYYAAAA:20 a=FOH2dFAWAAAA:8 a=RDIsNprFJan8OBN3x1YA:9 a=CjuIK1q_8ugA:10
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: wtQ7mSHJGALMv_7s4tdWeER5WmOUv9o1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_05,2026-09-21_02,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 
-I used [1] to validate that the problematic sequence that deadlocks
-in v5 is resolved by this v7 series.
+Hi Ricardo,
 
-The test stands up a spoofed nvgrace device [2] in QEMU and runs a test [3]
-which:
+On Mon, 28 Sep 2026 19:50:01 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> nit: I think that the current way is to not mention the model version
+>
+> Assisted-by: LLM
 
-1. Launch reader thread: pread() from vfio device fd into a userfaultfd-managed
-   page.
-2. Wait until the uffd fires, but do not resolve the fault. Now pread()
-   from 1. is blocked, holding memory_lock(R) inside nvgrace_gpu_read_mem().
-3. Launch writer thread: pwrite() the PCI command word, queuing for
-   memory_lock(W) inside vfio_basic_config_write().
-4. Launch mmap thread: mmap() on the vfio device fd, taking mmap_lock(W)
-   and triggering the internal dma-buf export that backs the mapping.
-5. Resolve the uffd fault.
-6. Join the threads.
+You are right, thanks. It should be "Assisted-by: LLM" on all four
+patches.
 
-On v5 the dma-buf export in step 4 takes memory_lock(W) and blocks behind the
-reader and the queued writer. The reader's fault path nests mmap_lock(R) inside
-memory_lock(R), while the mapper holds mmap_lock(W) across the mmap handler and
-waits on memory_lock (lockdep reports the cycle).
+Hans, feel free to change the tag when applying. If you would rather
+have a v4 with it fixed, let me know and I will send one right away.
 
-On v7 the export takes only the new dmabuf_lock, which neither the reader nor
-the writer holds, so step 4 completes while the uffd fault is unresolved.
-
-Tested-by: Alex Mastro <amastro@fb.com>
-Reviewed-by: Alex Mastro <amastro@fb.com>
-
-[1] https://github.com/opsound/vfio-dmabuf-lab.git
-[2] https://github.com/opsound/qemu/commit/349f0b12ca633fc42532aeda33273079b2b8e5d4
-[3] https://github.com/opsound/vfio-dmabuf-lab/blob/cfe762123076c4543fdc4e8d5e9b62ad6bf998d9/tests/nvgrace_uaccess_test.c#L309
-
-Alex
-
+Michael
