@@ -1,492 +1,366 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0264D2EE1
-	for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 13:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B955C4C10E8;
+	Mon, 28 Sep 2026 13:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602398; cv=none; b=aapWRrOMGRG1mvCpWC94LIImVTXTEqlT6dX431/ANaZsqRf7C6buKN21+GJYfgaT2VwaeT0EdecHiSasMOg2cVULx24dbuqO8r9dx013cYEkLm0sYEecSb4wLp/MJYS8GsBGdazfe4S42I9ymqZ1yDGaIcaFZyQgOGlrQvjkKio=
+	t=1790602537; cv=none; b=S+naq5GxQnq6/xR+D+BeIvPIEf+ohhA8XJOqSIzRtdK6hTmElwYbwFKm1auzQmKtqFdbyZik3fjr/vzMNbWDivLVsYtvMn+yF8dflIb1K/X24G1CgfPM+NWritfh80j+dCF0QRXln5ufd+BZs+QOBpnAdXPnvF1Jpnck96HhD2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602398; c=relaxed/simple;
-	bh=+TFUZF24zR90EzHuFN3/Z4BUjLDYP5TSG6Dr2rhm9r0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AEJcAVGPjciALr75r7zQlwKCxvJcARVedYha8sJ5IczPuFxHs2NNJn+xZmkWZBzRKnVb6fAmqhzSXDcxMveVeJV0rjczXrj6BagRfxuPZLAaeUSns81JFwBp7t7lTAm1TU6vtqfij8JTYHs1plYaIxqLwjaUPihlY68oOLxMocg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yt7Xr6TA; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790602537; c=relaxed/simple;
+	bh=x4oGipWQcl/7PjvCjm0VIb8vWQvvk9oVz8GXsWvq74Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EmX27C/R6D47Jj6zEIrO+fErXspuUlSxt0eVA0tA2LZHleYktgqlhUcewmbiM9fshuVjIhom5MUcZemTJM/yu+Jdg4zSXUV+IjDPMme6xkNpqaZlQoAEZlYhIr4vvw0/FgmEOw8R7iuM+GtZxtORFJxJaZl4ohLfnWst2FKTYlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=J+7Nmpv/; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yt7Xr6TA"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso2437199f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 06:33:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602384; x=1791207184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S4++bv7VkupLTBlegq9bDur2NZ+d8zmcops2rZn7Th0=;
-        b=Yt7Xr6TAM88UoZqbLa6e1T/A3BVhyLkeYj7LN38sD3jiFjyLMppbXMPNKj/gLa7M5L
-         JUC+n7NSUOy7HiovAEhHwFYP1j+ADv45TlV8DTynQG1iDjYC4CLy2j9XBX/1Z9RkSXxG
-         210LQxXVfcEU2D420jLQLBXIL30Kvy3vs2B8yvAujkua5qkHyIaofHqkhORxNYS4ijQZ
-         TC+Wrv9k0pmubltDZ38Quw/zI/r1fJz/N6FTt9HtCQM6Xr4Zj5K3Dkzl/XgH5aX6DQVZ
-         xMqdLGl14CZdBd7eW20VG5O4IUK51AsEvFTojg+g+/kL+pnzFnSepy5z8/VML3ZijIO7
-         mPDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602384; x=1791207184;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S4++bv7VkupLTBlegq9bDur2NZ+d8zmcops2rZn7Th0=;
-        b=v5R3TKuhQgBhquV0kytRe//9Ks1eLU5TpeZNXV1DvM4654wFx36xl4uUAZ4r/ZLNsA
-         wlnH6WR5x54pJjkvyZ4QGlJHLyCFqwJj4bUsTnSwdm/lNzE7/5nFBDFtOF6aWDPbYYGa
-         JN5qV4c9mu2doLVdDWIzXqVGsV3PEGtwuquuCIeswMKs45tttmcdvxpnc8b5X+M2/Kax
-         XcmwmtzTB+zRql9bkciACAQalmBsFROYwIcdhaKP7oH5iFXnkYuhpjlDiM7gMhNLnFA/
-         Z6xMtj/620y0KRA9/bPPG6fg8EwYHQQGzo1xX7f0aIIh3lKayBYUdhrMVbi7Wu79Xxdd
-         BXCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/aSYssDzv0qvH34zKpjnrvBiDoDG+OsLR5A4IBqfFCxxZsfGs8fCFxX/ldxpFN/UcIDx6pElvdlL9Hw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTPBtC1Ic/1JvNwQSghtq4R6fdctdnNIElQizONC+lst+d9/cg
-	3iQjvu4PDk17vIkzHlIyDzBAJZMnKukug25VvzBwlsih8uCpLA7kW21w
-X-Gm-Gg: AYBFou35CQ47RIW+r68zdv+7cGp81+thmAkrqTW3hY+AEPBO50tneraEY65SuIxYLvT
-	bGGTh4fYt1pv5v+ztUVeNUb9SBKN6owmgVD73v5/X2akjwgu+xm3jKr6B7wZG8j1yz/RrWtD6SG
-	1u3GNpHW6S0Fo8XIeDlHBOeDIqM8cXgip95uHwRAKrA0KXUV3B3OS+nqoSghpqI3WHIDa/AV5yo
-	iP2QBeUdUNcMZKv6mqtm/i1f2iDo105CmENlKx6nF3w/SDzxSmrpqhNfkFtd/UPb6gi2VF+MOwg
-	lwWQErWKZeLNEVQbKoa+8bAnC65lQX0HRvstG1rBYpCLb56jtGl90EXokhDskZHcqEPKNFdc+La
-	J1dKU+FSqLNf8hn/FDiJECtWmI6l4bG3zzos7xNc9ubNv/Ls+esFKU8USRdNsjPf8sYSXB9zKfG
-	h+zwmw6vdRoefAPdK8tXhrMXk+LqkGrkevcv5K13MBnRrdtVtGid5su2SSP+4KKECbj/oA4EM5k
-	QGHSqKsbEwymSiPLj4tORfOtapv8ccCIMXB/jQkoKewjQLsScevev3q+vzoJRu0+CsTS9AElbCw
-X-Received: by 2002:a05:6000:2608:b0:488:84ba:ae2e with SMTP id ffacd0b85a97d-48884baaf4emr12983113f8f.0.1790602384178;
-        Mon, 28 Sep 2026 06:33:04 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.33.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:33:03 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: linux-block@vger.kernel.org
-Cc: asml.silence@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-nvme@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel@lists.linux.dev
-Subject: [PATCH v7 13/13] io_uring/rsrc: add dmabuf backed registered buffers
-Date: Mon, 28 Sep 2026 14:32:29 +0100
-Message-ID: <f51f95d2e5e2f8c0c4fe0e17364b2b333b6e6cd6.1790602223.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1790602223.git.asml.silence@gmail.com>
-References: <cover.1790602223.git.asml.silence@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="J+7Nmpv/"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9A79BB07;
+	Mon, 28 Sep 2026 15:33:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790602422;
+	bh=x4oGipWQcl/7PjvCjm0VIb8vWQvvk9oVz8GXsWvq74Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J+7Nmpv/mjmvjBlYuWTqZJrjkLplA+Bn3jb+zwtfZzliOwzsambXvjRVRcJG5Xx4/
+	 mzGKvaUFwLHy862VBLZpdq2615mv5kVz41HB3D4jTae6hS4AHT8Zj2VExQ3cGw2450
+	 x7fyxLsA+U7vG55qJr5f1kiVqDArmrOLLdHEyB34=
+Date: Mon, 28 Sep 2026 16:35:31 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Edwin Gatier <edwin.gatier@protonmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH v3 3/5] media: uvcvideo: Automatically handle cameras
+ with invalid uvc_version
+Message-ID: <20260928133531.GH4406@killaraus.ideasonboard.com>
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+ <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org>
+ <20260928125242.GE4406@killaraus.ideasonboard.com>
+ <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
 
-Implement dmabuf backed registered buffers. To register them, the user
-should specify IO_REGBUF_TYPE_DMABUF for the regitration and pass the
-desired dmabuf fd and a file for which it should be registered.
+On Mon, Sep 28, 2026 at 03:22:15PM +0200, Ricardo Ribalda wrote:
+> On Mon, 28 Sept 2026 at 14:52, Laurent Pinchart wrote:
+> > On Fri, Sep 11, 2026 at 01:22:27PM +0000, Ricardo Ribalda wrote:
+> > > Currently, the driver expects that cameras properly implement the spec
+> > > version that they announce, and if they fail to do so, we do not continue
+> > > probing the driver.
+> > >
+> > > To make drivers more fun, some vendors decided to announce that they are
+> > > a UVC version that they are not. Until now, we handled those cameras via
+> > > quirks.
+> > >
+> > > Unfortunately, reality has shown us that there are more cameras out
+> > > there with an invalid uvc_version than we initially predicted.
+> >
+> > As far as I understand, this was triggered by the Avermedia GC515. Have
+> > you received other reports ?
+> 
+> I have not, but we can agree that not that many people does the extra
+> mile to report to this mailing list.
+> 
+> If multiple cameras, from different ISPs have this issue it makes me
+> think that Windows is handling this uvc_version more naively than us,
 
-From there, it can be used with io_uring read/write requests
-IORING_OP_{READ,WRITE}_FIXED) as normal. The requests should be issued
-against the file specified during registration, and otherwise they'll be
-failed. The user should also be prepared to handle spurious -EAGAIN by
-reissuing the request.
+That's likely a fair assumption. Who would have thought that we would
+still suffer from Microsoft's bad design decisions today ?
 
-Internally, dmabuf registered buffers is an optin feature for io_uring
-request opcodes and they should pass a special flag on import to use it.
+> and unfortunately it is what most vendors use to validate their
+> cameras.
+> 
+> I'd rather support more cameras than fewer.
+> 
+> > > This patch tries to handle these cameras with an identity crisis
+> > > automatically. We still shame them in dmesg. But now they will work.
+> >
+> > If the vendors ignored the fact that those cameras didn't work at all on
+> > Linux, do you think they will read dmesg ?
+> 
+> They wont, but distros might look into logs and keep track of warnings/logs.
 
-Suggested-by: David Wei <dw@davidwei.uk>
-Suggested-by: Vishal Verma <vishal1.verma@intel.com>
-Suggested-by: Tushar Gohad <tushar.gohad@intel.com>
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- include/linux/io_uring_types.h |   5 +
- include/uapi/linux/io_uring.h  |   6 +-
- io_uring/io_uring.c            |   3 +-
- io_uring/rsrc.c                | 162 ++++++++++++++++++++++++++++++++-
- io_uring/rsrc.h                |  18 ++++
- io_uring/rw.c                  |   6 +-
- 6 files changed, 192 insertions(+), 8 deletions(-)
+It was meant as a joke.
 
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index 90fea94ad202..3d41ca622114 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -11,6 +11,7 @@
- 
- struct iou_loop_params;
- struct io_uring_bpf_ops;
-+struct dma_buf_io_map;
- 
- enum {
- 	/*
-@@ -610,6 +611,7 @@ enum {
- 	REQ_F_IMPORT_BUFFER_BIT,
- 	REQ_F_SQE_COPIED_BIT,
- 	REQ_F_IOPOLL_BIT,
-+	REQ_F_DROP_DMABUF_BIT,
- 
- 	/* not a real bit, just to check we're not overflowing the space */
- 	__REQ_F_LAST_BIT,
-@@ -705,6 +707,8 @@ enum {
- 	REQ_F_SQE_COPIED	= IO_REQ_FLAG(REQ_F_SQE_COPIED_BIT),
- 	/* request must be iopolled to completion (set in ->issue()) */
- 	REQ_F_IOPOLL		= IO_REQ_FLAG(REQ_F_IOPOLL_BIT),
-+	/* there is a dma map attached to request that needs to be dropped */
-+	REQ_F_DROP_DMABUF	= IO_REQ_FLAG(REQ_F_DROP_DMABUF_BIT),
- };
- 
- struct io_tw_req {
-@@ -827,6 +831,7 @@ struct io_kiocb {
- 	/* custom credentials, valid IFF REQ_F_CREDS is set */
- 	const struct cred		*creds;
- 	struct io_wq_work		work;
-+	struct dma_buf_io_map		*dmabuf_map;
- 
- 	struct io_big_cqe {
- 		u64			extra1;
-diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
-index 98b259901185..c39297e8beb6 100644
---- a/include/uapi/linux/io_uring.h
-+++ b/include/uapi/linux/io_uring.h
-@@ -810,6 +810,7 @@ enum io_uring_rsrc_reg_flags {
- enum io_uring_regbuf_type {
- 	IO_REGBUF_TYPE_EMPTY,
- 	IO_REGBUF_TYPE_UADDR,
-+	IO_REGBUF_TYPE_DMABUF,
- 
- 	__IO_REGBUF_TYPE_MAX,
- };
-@@ -819,7 +820,10 @@ struct io_uring_regbuf_desc {
- 	__u32 flags;
- 	__u64 size;
- 	__u64 uaddr;
--	__u64 __resv[7];
-+
-+	__s32 dmabuf_fd;
-+	__s32 target_fd;
-+	__u64 __resv[6];
- };
- 
- /* Skip updating fd indexes set to this value in the fd table */
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index a67b2adeda36..267b2a43131a 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -109,7 +109,7 @@
- 
- #define IO_REQ_CLEAN_SLOW_FLAGS (REQ_F_REFCOUNT | IO_REQ_LINK_FLAGS | \
- 				 REQ_F_REISSUE | REQ_F_POLLED | \
--				 IO_REQ_CLEAN_FLAGS)
-+				 IO_REQ_CLEAN_FLAGS | REQ_F_DROP_DMABUF)
- 
- #define IO_TCTX_REFS_CACHE_NR	(1U << 10)
- 
-@@ -1134,6 +1134,7 @@ static void io_free_batch_list(struct io_ring_ctx *ctx,
- 				io_queue_next(req);
- 			if (unlikely(req->flags & IO_REQ_CLEAN_FLAGS))
- 				io_clean_op(req);
-+			io_req_drop_dmabuf(req);
- 		}
- 		io_put_file(req);
- 		io_req_put_rsrc_nodes(req);
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 6f6860d6ca03..c22bc374b1cd 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -10,6 +10,7 @@
- #include <linux/compat.h>
- #include <linux/io_uring.h>
- #include <linux/io_uring/cmd.h>
-+#include <linux/dma-buf-io.h>
- 
- #include <uapi/linux/io_uring.h>
- 
-@@ -881,6 +882,94 @@ bool io_check_coalesce_buffer(struct page **page_array, int nr_pages,
- 	return true;
- }
- 
-+struct io_regbuf_dma {
-+	struct dma_buf_io_ctx		*ctx;
-+	struct file			*target_file;
-+};
-+
-+static void io_release_reg_dmabuf(void *priv)
-+{
-+	struct io_regbuf_dma *db = priv;
-+
-+	fput(db->target_file);
-+	dma_buf_io_ctx_release(db->ctx);
-+	kfree(db);
-+}
-+
-+static struct io_rsrc_node *io_register_dmabuf(struct io_ring_ctx *ctx,
-+						struct io_uring_regbuf_desc *desc)
-+{
-+	struct io_rsrc_node *node = NULL;
-+	struct io_mapped_ubuf *imu = NULL;
-+	struct io_regbuf_dma *regbuf = NULL;
-+	struct file *target_file = NULL;
-+	struct dma_buf *dmabuf = NULL;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (ctx->flags & IORING_SETUP_IOPOLL)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (desc->uaddr || desc->size)
-+		return ERR_PTR(-EINVAL);
-+
-+	ret = -ENOMEM;
-+	node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
-+	if (!node)
-+		return ERR_PTR(-ENOMEM);
-+	imu = io_alloc_imu(ctx, 0);
-+	if (!imu)
-+		goto err;
-+	regbuf = kzalloc(sizeof(*regbuf), GFP_KERNEL);
-+	if (!regbuf)
-+		goto err;
-+
-+	ret = -EBADF;
-+	target_file = fget(desc->target_fd);
-+	if (!target_file)
-+		goto err;
-+
-+	dmabuf = dma_buf_get(desc->dmabuf_fd);
-+	if (IS_ERR(dmabuf)) {
-+		ret = PTR_ERR(dmabuf);
-+		dmabuf = NULL;
-+		goto err;
-+	}
-+	ret = io_validate_user_buf_range(0, dmabuf->size);
-+	if (ret)
-+		goto err;
-+
-+	ret = dma_buf_io_ctx_create(target_file, dmabuf, DMA_BIDIRECTIONAL,
-+				    &regbuf->ctx);
-+	if (ret)
-+		goto err;
-+
-+	regbuf->target_file = target_file;
-+	imu->nr_bvecs = 0;
-+	imu->ubuf = 0;
-+	imu->len = dmabuf->size;
-+	imu->folio_shift = 0;
-+	imu->release = io_release_reg_dmabuf;
-+	imu->priv = regbuf;
-+	imu->flags = IO_REGBUF_F_DMABUF;
-+	imu->dir = IO_BUF_DEST | IO_BUF_SOURCE;
-+	refcount_set(&imu->refs, 1);
-+	node->buf = imu;
-+	dma_buf_put(dmabuf);
-+	return node;
-+err:
-+	kfree(regbuf);
-+	if (imu)
-+		io_free_imu(ctx, imu);
-+	if (node)
-+		io_cache_free(&ctx->node_cache, node);
-+	if (target_file)
-+		fput(target_file);
-+	if (dmabuf)
-+		dma_buf_put(dmabuf);
-+	return ERR_PTR(ret);
-+}
-+
- static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 						   struct io_uring_regbuf_desc *desc)
- {
-@@ -899,6 +988,12 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 	if (!mem_is_zero(&desc->__resv, sizeof(desc->__resv)) || desc->flags)
- 		return ERR_PTR(-EINVAL);
- 
-+	if (desc->type == IO_REGBUF_TYPE_DMABUF)
-+		return io_register_dmabuf(ctx, desc);
-+
-+	if (desc->dmabuf_fd || desc->target_fd)
-+		return ERR_PTR(-EINVAL);
-+
- 	if (desc->type == IO_REGBUF_TYPE_EMPTY) {
- 		if (uaddr || size)
- 			return ERR_PTR(-EFAULT);
-@@ -1223,9 +1318,59 @@ static int io_import_kbuf(int ddir, struct iov_iter *iter,
- 	return 0;
- }
- 
--static int io_import_fixed(int ddir, struct iov_iter *iter,
-+void io_drop_dmabuf_node(struct io_kiocb *req)
-+{
-+	struct io_mapped_ubuf *imu;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (WARN_ON_ONCE(req->buf_node->type != IORING_RSRC_BUFFER))
-+		return;
-+	imu = req->buf_node->buf;
-+	if (WARN_ON_ONCE(!(imu->flags & IO_REGBUF_F_DMABUF)))
-+		return;
-+	dma_buf_io_map_drop(req->dmabuf_map);
-+	req->flags &= ~REQ_F_DROP_DMABUF;
-+}
-+
-+static int io_import_dmabuf(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
-+			   struct io_mapped_ubuf *imu,
-+			   size_t len, size_t offset,
-+			   unsigned issue_flags)
-+{
-+	bool nowait = issue_flags & IO_URING_F_NONBLOCK;
-+	struct io_regbuf_dma *db = imu->priv;
-+	struct dma_buf_io_map *map;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return -EOPNOTSUPP;
-+	if (!len)
-+		return -EFAULT;
-+	if (req->file != db->target_file)
-+		return -EBADF;
-+
-+	if (req->flags & REQ_F_DROP_DMABUF) {
-+		map = req->dmabuf_map;
-+		goto init_iter;
-+	}
-+
-+	map = dma_buf_io_get_map(db->ctx, nowait);
-+	if (unlikely(IS_ERR(map)))
-+		return PTR_ERR(map);
-+	req->dmabuf_map = map;
-+	req->flags |= REQ_F_DROP_DMABUF;
-+init_iter:
-+	iov_iter_dmabuf_map(iter, ddir, map, offset, len);
-+	return 0;
-+}
-+
-+static int io_import_fixed(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
- 			   struct io_mapped_ubuf *imu,
--			   u64 buf_addr, size_t len)
-+			   u64 buf_addr, size_t len,
-+			   unsigned issue_flags,
-+			   unsigned import_flags)
- {
- 	const struct bio_vec *bvec;
- 	size_t folio_mask;
-@@ -1245,6 +1390,12 @@ static int io_import_fixed(int ddir, struct iov_iter *iter,
- 
- 	offset = buf_addr - imu->ubuf;
- 
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		if (!(import_flags & IO_REGBUF_IMPORT_ALLOW_DMABUF))
-+			return -EFAULT;
-+		return io_import_dmabuf(req, ddir, iter, imu, len, offset,
-+					issue_flags);
-+	}
- 	if (imu->flags & IO_REGBUF_F_KBUF)
- 		return io_import_kbuf(ddir, iter, imu, len, offset);
- 
-@@ -1307,7 +1458,8 @@ int __io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 	node = io_find_buf_node(req, issue_flags);
- 	if (!node)
- 		return -EFAULT;
--	return io_import_fixed(ddir, iter, node->buf, buf_addr, len);
-+	return io_import_fixed(req, ddir, iter, node->buf, buf_addr, len,
-+				issue_flags, import_flags);
- }
- 
- static int io_buffer_acct_cloned_hpages(struct io_ring_ctx *ctx,
-@@ -1729,7 +1881,9 @@ int __io_import_reg_vec(int ddir, struct iov_iter *iter,
- 	iovec_off = vec->nr - nr_iovs;
- 	iov = vec->iovec + iovec_off;
- 
--	if (imu->flags & IO_REGBUF_F_KBUF) {
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		return -EOPNOTSUPP;
-+	} else if (imu->flags & IO_REGBUF_F_KBUF) {
- 		int ret = io_kern_bvec_size(iov, nr_iovs, imu, &nr_segs);
- 
- 		if (unlikely(ret))
-diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
-index 351995b61e68..8e36a954169e 100644
---- a/io_uring/rsrc.h
-+++ b/io_uring/rsrc.h
-@@ -28,6 +28,11 @@ struct io_rsrc_node {
- enum {
- 	IO_REGBUF_F_KBUF		= 1 << 0,
- 	IO_REGBUF_F_UNCLONEABLE		= 1 << 1,
-+	IO_REGBUF_F_DMABUF		= 1 << 3,
-+};
-+
-+enum {
-+	IO_REGBUF_IMPORT_ALLOW_DMABUF		= 1 << 1,
- };
- 
- struct io_mapped_ubuf {
-@@ -170,4 +175,17 @@ static inline void io_alloc_cache_vec_kasan(struct iou_vec *iv)
- 		io_vec_free(iv);
- }
- 
-+void io_drop_dmabuf_node(struct io_kiocb *req);
-+
-+static inline void io_req_drop_dmabuf(struct io_kiocb *req)
-+{
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (!(req->flags & REQ_F_DROP_DMABUF))
-+		return;
-+	if (WARN_ON_ONCE(!(req->flags & REQ_F_BUF_NODE)))
-+		return;
-+	io_drop_dmabuf_node(req);
-+}
-+
- #endif
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 755166e90746..9867ae2905e3 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -367,8 +367,8 @@ static int io_init_rw_fixed(struct io_kiocb *req, unsigned int issue_flags,
- 	if (io->bytes_done)
- 		return 0;
- 
--	ret = io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
--				issue_flags);
-+	ret = __io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
-+				  issue_flags, IO_REGBUF_IMPORT_ALLOW_DMABUF);
- 	iov_iter_save_state(&io->iter, &io->iter_state);
- 	return ret;
- }
-@@ -583,6 +583,8 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
- 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
- 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
- 
-+	io_req_drop_dmabuf(req);
-+
- 	/* ring owner may block in freeze_super() before task_work runs */
- 	if (kiocb->ki_flags & IOCB_WRITE)
- 		io_req_end_write(req);
+> > Jokes aside, UVC version override was added in November 2020, and the
+> > Avermedia GC515 is the fourth device we list in nearly 6 years. Let's
+> > see if there are any drawbacks in the implementation below that can be
+> > justified by such a small number of devices.
+> >
+> > > Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
+> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > ---
+> > >  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
+> > >  drivers/media/usb/uvc/uvc_video.c  | 40 +++++++++++++++++++++++++-------------
+> > >  drivers/media/usb/uvc/uvcvideo.h   |  2 ++
+> > >  3 files changed, 35 insertions(+), 18 deletions(-)
+> > >
+> > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > index e289cc71ba98..ca75f8d1ec46 100644
+> > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > @@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+> > >
+> > >       case UVC_VC_PROCESSING_UNIT:
+> > >               n = buflen >= 8 ? buffer[7] : 0;
+> > > -             p = dev->uvc_version >= 0x0110 ? 10 : 9;
+> > > -
+> > > -             if (buflen < p + n) {
+> > > +             if (buflen < 9 + n) {
+> > >                       uvc_dbg(dev, DESCR,
+> > >                               "device %d videocontrol interface %d PROCESSING_UNIT error\n",
+> > >                               udev->devnum, alts->desc.bInterfaceNumber);
+> > > @@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+> > >               unit->processing.bControlSize = buffer[7];
+> > >               unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+> > >               memcpy(unit->processing.bmControls, &buffer[8], n);
+> > > -             if (dev->uvc_version >= 0x0110)
+> > > +
+> > > +             /*
+> > > +              * We are not using bmVideoStandards, so there is no need to
+> > > +              * warn the user if it is missing.
+> >
+> > There's value in warning the user about UVC non-compliance though. I'd
+> > like to see a warning that indicates the device reports an incorrect UVC
+> > version.
+> >
+> > If I'm not mistaken, the Avermedia GC515 includes the bmVideoStandards
+> > field. This change is therefore not needed for any devices we know
+> > about, right ?
+> 
+> We do not know if it includes the bmVideoStandards or not.
+
+Don't we ? The descriptors show a 13-bytes PU with bControlSize set to
+3, so there's 10 bytes for the fixed parts, compatible with UVC 1.10 and
+newer.
+
+> Wihout
+> https://lore.kernel.org/linux-media/20260928124109.GF157191@killaraus.ideasonboard.com/T/#t
+> it might leaking the next control.
+
+It would then use the next byte of the next control, which is the
+bLength field, equal to 0x29. lsusb reports bmVideoStandards 0x00.
+
+> (this is how I started working on
+> the other patch).
+
+It makes sense now :-)
+
+> Luckily for us bmVideoStandards is not used.
+> 
+> > > +              */
+> > > +             if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+> > >                       unit->processing.bmVideoStandards = buffer[9+n];
+> > >
+> > >               uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
+> > > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> > > index 2a3b7431cc68..2f3daa920ffa 100644
+> > > --- a/drivers/media/usb/uvc/uvc_video.c
+> > > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > > @@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+> > >       }
+> > >  }
+> > >
+> > > +#define UVC_VIDEO_CTRL_MIN_SIZE 26
+> > > +
+> > >  static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+> > >  {
+> > >       /*
+> > > @@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+> > >        * on the protocol version.
+> > >        */
+> > >       if (stream->dev->uvc_version < 0x0110)
+> > > -             return 26;
+> > > +             return UVC_VIDEO_CTRL_MIN_SIZE;
+> > >       else if (stream->dev->uvc_version < 0x0150)
+> > >               return 34;
+> > >       else
+> > > @@ -290,7 +292,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+> > >  static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> > >       struct uvc_streaming_control *ctrl, int probe, u8 query)
+> > >  {
+> > > -     u16 size = uvc_video_ctrl_size(stream);
+> > >       u8 *data;
+> > >       int ret;
+> > >
+> > > @@ -298,13 +299,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> > >                       query == UVC_GET_DEF)
+> > >               return -EIO;
+> > >
+> > > -     data = kmalloc(size, GFP_KERNEL);
+> > > +     data = kmalloc(stream->ctrl_size, GFP_KERNEL);
+> > >       if (data == NULL)
+> > >               return -ENOMEM;
+> > >
+> > >       ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
+> > >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+> > > -             size, uvc_timeout_param);
+> > > +             stream->ctrl_size, uvc_timeout_param);
+> > >
+> > >       if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
+> > >               /*
+> > > @@ -319,7 +320,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> > >               ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
+> > >               ret = 0;
+> > >               goto out;
+> > > -     } else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
+> > > +     } else if (query == UVC_GET_DEF && probe == 1 &&
+> > > +                ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+> > >               /*
+> > >                * Many cameras don't support the GET_DEF request on their
+> > >                * video probe control. Warn once and return, the caller will
+> > > @@ -330,15 +332,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> > >                       "Enabling workaround.\n");
+> > >               ret = -EIO;
+> > >               goto out;
+> > > -     } else if (ret != size) {
+> > > +     } else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+> > >               dev_err(&stream->intf->dev,
+> > >                       "Failed to query (%s) UVC %s control : %d (exp. %u).\n",
+> > >                       uvc_query_name(query), probe ? "probe" : "commit",
+> > > -                     ret, size);
+> > > +                     ret, stream->ctrl_size);
+> > >               ret = (ret == -EPROTO) ? -EPROTO : -EIO;
+> > >               goto out;
+> > >       }
+> > >
+> > > +     if (ret != stream->ctrl_size) {
+> > > +             uvc_warn_once(stream->dev, UVC_WARN_CTRL_SIZE,
+> > > +                           "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
+> > > +                           uvc_query_name(query),
+> > > +                           probe ? "probe" : "commit", ret,
+> > > +                           stream->ctrl_size);
+> > > +             stream->ctrl_size = ret;
+> > > +     }
+> >
+> > There are two other locations where uvc_version is used:
+> >
+> > - In uvc_fixup_video_ctrl() to implement a workaround for pre-1.10
+> >   devices that don't report dwMaxVideoFrameSize
+> >
+> > - In uvc_ctrl_filter_plf_mapping() to stkip the power line frequency
+> >   control on pre-1.50 devices
+> >
+> > None of those are handled in this patch. Furthermore, more usage of
+> > uvc_version may be needed in the future. This patch seems a bit fragile
+> > to me in that regard. Could we instead detect the version and update the
+> > uvc_version field ?
+> 
+> Will send a follow-up to fix dwMaxVideoFrameSize.
+> 
+> uvc_ctrl_filter_plf_mapping properly handes devices with invalid
+> uvc_version. It automatically probes the control.
+> 
+> I though about parsing the uvc_version, but then I realised that some
+> devices might implement video_ctrl_size correctly but not filter_plf
+> (or the other way around).
+> So I decided that this was better.
+
+So you're thinking that the driver should implement some sort of hybrid
+version support ? That makes me fear for security as such a scheme is
+much more difficult to reason about.
+
+> > Another option, given the small number of affected devices, is to just
+> > merge 5/5 (as well as 1/5 and 2/5 that are nice small improvements).
+> 
+> I'd argue that 4/5 is also a nice to have.
+> 
+> > > +
+> > >       ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
+> > >       ctrl->bFormatIndex = data[2];
+> > >       ctrl->bFrameIndex = data[3];
+> > > @@ -351,7 +362,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> > >       ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
+> > >       ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
+> > >
+> > > -     if (size >= 34) {
+> > > +     if (ret >= 34) {
+> > >               ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
+> > >               ctrl->bmFramingInfo = data[30];
+> > >               ctrl->bPreferedVersion = data[31];
+> > > @@ -381,11 +392,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+> > >  static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+> > >       struct uvc_streaming_control *ctrl, int probe)
+> > >  {
+> > > -     u16 size = uvc_video_ctrl_size(stream);
+> > >       u8 *data;
+> > >       int ret;
+> > >
+> > > -     data = kzalloc(size, GFP_KERNEL);
+> > > +     data = kzalloc(stream->ctrl_size, GFP_KERNEL);
+> > >       if (data == NULL)
+> > >               return -ENOMEM;
+> > >
+> > > @@ -401,7 +411,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+> > >       put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
+> > >       put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
+> > >
+> > > -     if (size >= 34) {
+> > > +     if (stream->ctrl_size >= 34) {
+> > >               put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
+> > >               data[30] = ctrl->bmFramingInfo;
+> > >               data[31] = ctrl->bPreferedVersion;
+> > > @@ -411,11 +421,11 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+> > >
+> > >       ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
+> > >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+> > > -             size, uvc_timeout_param);
+> > > -     if (ret != size) {
+> > > +             stream->ctrl_size, uvc_timeout_param);
+> > > +     if (ret != stream->ctrl_size) {
+> > >               dev_err(&stream->intf->dev,
+> > >                       "Failed to set UVC %s control : %d (exp. %u).\n",
+> > > -                     probe ? "probe" : "commit", ret, size);
+> > > +                     probe ? "probe" : "commit", ret, stream->ctrl_size);
+> > >               ret = -EIO;
+> > >       }
+> > >
+> > > @@ -2231,6 +2241,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+> > >
+> > >       atomic_set(&stream->active, 0);
+> > >
+> > > +     stream->ctrl_size = uvc_video_ctrl_size(stream);
+> > > +
+> > >       /*
+> > >        * Alternate setting 0 should be the default, yet the XBox Live Vision
+> > >        * Cam (and possibly other devices) crash or otherwise misbehave if
+> > > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> > > index abcafd929c9e..8d99e857a69f 100644
+> > > --- a/drivers/media/usb/uvc/uvcvideo.h
+> > > +++ b/drivers/media/usb/uvc/uvcvideo.h
+> > > @@ -461,6 +461,7 @@ struct uvc_streaming {
+> > >       struct usb_interface *intf;
+> > >       int intfnum;
+> > >       u32 maxpsize;
+> > > +     unsigned int ctrl_size;
+> >
+> > That should be called video_ctrl_size, ctrl_size is ambiguous.
+> 
+> Ack
+> 
+> > >
+> > >       struct uvc_streaming_header header;
+> > >       enum v4l2_buf_type type;
+> > > @@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+> > >  #define UVC_WARN_PROBE_DEF   1
+> > >  #define UVC_WARN_XU_GET_RES  2
+> > >  #define UVC_WARN_QUERY_CTRL  3
+> > > +#define UVC_WARN_CTRL_SIZE   4
+> > >
+> > >  extern unsigned int uvc_clock_param;
+> > >  extern unsigned int uvc_no_drop_param;
+
 -- 
-2.54.0
+Regards,
 
+Laurent Pinchart
