@@ -1,134 +1,148 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B302A5293EB
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 13:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF7A522EEA;
+	Tue, 29 Sep 2026 13:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688384; cv=none; b=gjxncWBvXFkKD/cbiP+AMZ+/JIFlMBf+lKTi8/qyvcHHMC9Oq7XUBRiU45WfvzqR4oP6WvmezrCxuCvZ9u2VlFlgklV3U/hW/lA9SPxrpOZFgFDKzwYKVheqsKqh3ZITXdZwyG51Q5G+BWq0qKy/NmLmIEnbtxYV2vVefiCD99Y=
+	t=1790688676; cv=none; b=VAas1z4cygyyT+rOntH+JzXx1uShoMKGCiNIHnwcuqcgfCzcRNoh4d/5kY5oLqZgDR1wlKkaxTx5w0Q0IORCQ7z6TTv67pS6eh45Tiwq7K17MuqBu3WUGRkL+Oou8TNLDdv0tEnVDDdbsgg8Xz76KfFSnqZET0caVIb6LiWybzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688384; c=relaxed/simple;
-	bh=XYJ121tcwt8Pk1Ea6bO06cIMEmOF6Tdyk1jKVmV1gKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkSfiHHOOjj9GL7I6SXPk5ArO8hyDIt6vFRBe0lrUiGLILUUn+zkC/f0iZ6QAyxBkDIEHPh1DP89PG8CB2Vrkl9IK51Gw9LjKjc/NNmcelN1Q08LtlP6ZvDDBWt2H450GliwI/2ZBamd64tYb90CinCBK4aWICHHkM68hIg1nn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VJx2ml2M; arc=none smtp.client-ip=74.125.229.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790688676; c=relaxed/simple;
+	bh=VjHeBljt2CDSsJAWfzAzTdo5B0hkvQTyMqqc3a8SMKk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Wvy5xxRxpIF05rydkyj10wIpEgzDCQUdRcrLSmmQt7sNgVaGzD5EjA5/h16pqE7i12lPPryw8O8mO/RVd2/9+4WfloSLq50nabMnEsf2Ji2jbu/PO5Az9BV+1u4MlHeGBRkdrGAZBok7OcsIUF3Zl406NZXfD+FZoz9GhnJ+ubo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vm48OB8D; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VJx2ml2M"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so1438191eec.0
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 06:26:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790688382; x=1791293182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UhyYRQHQ87I5M5mEOfyWjhfFcg5NiKnh4Prr6HH1V6Y=;
-        b=VJx2ml2M5MLLT03X6MeyYhi7+NcPtYO2AA9TCsrl9gQg2d9AUfUwb3LnN+OJLCzp8Q
-         zojc80/3Dkw0EWr4Z/nWVPU6uZAZ/O8UGOzIKD/yXPd6CQ5r6yPAUGWh7I9p6XZbdf8T
-         WsKdAkffyp9Ca1uaA0iTLcxXnqxmo4Y+c5M+rDhL0sg1FlAn3ei15KnrJJdTrx9F0xSO
-         G69hr8ScGM9sKe4/c7PSR6FqSeiZ18ns92tl6io4f1NNNVbKbLcsY5IZKIRaR8/veg3T
-         X6rDlGVSGLfn5iE1L3HX/lVRKyAP5sPBW1VPyfo88a+T+8SruUAeByyijhVct+kfyrB/
-         XpLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790688382; x=1791293182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UhyYRQHQ87I5M5mEOfyWjhfFcg5NiKnh4Prr6HH1V6Y=;
-        b=CoxUcLq9KXzjkTuzHjTCzU0zHpOFE+iCdHTwQpIcpdDn73LwBguHf3LjICiLE28yKc
-         dp1lgn6+6TzUIR+aDK9a3uHHaWgJj9eFbG+Yv39n6wiETtM48bqgo3cErGVagj83N3Z4
-         bt+dOgKxC4762HCFLmdH4UQVkmpoiwbdzECje7pChqKzZPCzn9MRX15uoKS+a/lmllXi
-         RsE/jhBDUlMO4Y/wm7DkxdkvimNYg3FuBGl9S1LMqEyZVwI+OtOlu6gAafS/4VxFiyS1
-         9zpPgX5uuTy76zywuBaT8vwxRuXOdh367ufYJcuteDG13ErMOvIB53fMKKGkBQOyBOEu
-         2o4A==
-X-Forwarded-Encrypted: i=1; AKwUvBw/grXSXPFF1k8oafGtHta+m5Zo/Og8Wd87nRvSIdJ3gckiZ9HAZZSpfkGtI5sJpOdJbxwPjywTS7BjXw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mdTZohEZON2wJrNCCqMA7mhP1tCUFXK6xFkDywpXJmi1TSl+J/
-	mKIqRuuARCE5As+shxe7eNsq9KOQpGcUzURfJCKbgl3Y21w/+qFcsPpx2DlD/+yF5go=
-X-Gm-Gg: AYBFou3Tkx5xORbteCNZD11QYNefu224AaKoRcgC50+GCtfd1MBaEQgAEaBkHykxeTA
-	HizW72SPMsQjxXul1Si+6whn6Bh6rMjG5+CtrqnWBVtrTM4NNqaG4TwdeMVEw8jTSVGGm16D+p5
-	PVRzUUM8/YVt9C1hAuvRtx4aTioV6KqZqMhdIG/Dh6jUqIYKPJ5nWNBHLcLqGYO0s3STaKBG48S
-	Ycilz0dReNoYpG+LRezLPH08okBHBhfoevky+Y3qQIfzHxbe2fB++dUkggk6klbzij9HDoag5qE
-	SWZx2nzfXtqOl5hag32NN2tO5ug1FNZE+kz9u18WJhggdY6mcNAHv4sVxpsmA5r6jX8uESXQbKu
-	2ZeITjKgxnuDMGghV1M84ReUOiG7tZ2ax5Mi0x8LBKYXPzCiO9CQkNT7DolygZxDD4+pPTBmqJp
-	J0rL4JJuJoiVRkKc4pLq7KKdDMWiHk1PQIwm/rsOwJNbwcb3Gh7orswM+5Q+DrX6eS3uMi5FRto
-	ucvkCSs
-X-Received: by 2002:a05:7301:4d0f:b0:34b:8832:8706 with SMTP id 5a478bee46e88-34b883287ebmr1521357eec.35.1790688366426;
-        Tue, 29 Sep 2026 06:26:06 -0700 (PDT)
-Received: from ThinkPad ([192.220.23.71])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144f4eb9esm36468431eec.19.2026.09.29.06.26.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:26:06 -0700 (PDT)
-Date: Tue, 29 Sep 2026 21:25:39 +0800
-From: Qiling Zhu <kmatzkaczor244@gmail.com>
-To: Ruslan Koreev <koreev.r@gmail.com>
-Cc: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
-	sylvain.petinot@foss.st.com, dan.scally@ideasonboard.com, mchehab@kernel.org, 
-	hansg@kernel.org, ilpo.jarvinen@linux.intel.com, gregkh@linuxfoundation.org, 
-	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, pm@petermarshall.ca
-Subject: Re: [PATCH 4/4] media: staging/ipu7: Add monochrome pixel formats
-Message-ID: <aru5-aq_sPUDy8dq@ThinkPad>
-References: <arY2CULvwXGyVvH_@kekkonen.localdomain>
- <20260929092238.1765758-1-koreev.r@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vm48OB8D"
+Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6CFA55B3;
+	Tue, 29 Sep 2026 15:29:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790688560;
+	bh=VjHeBljt2CDSsJAWfzAzTdo5B0hkvQTyMqqc3a8SMKk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=vm48OB8D8gzKeAZ31DRR9OUfv6BB/OsPleSkO7/aD4mkr+nGIauhVw07NaEv9zQ7I
+	 Z4GnvlSb4cdMwP1AAhdrTYM9pThmP08M/p6araB4NIr9qdFhI9F8QxQphhFdM1kX3a
+	 JFTWJS2Bo1MCOKPQo0qXODkKSLTGJcHTnRTKAfgw=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [PATCH v1] media: rcar-isp: ispcore: Fix inconsistent step sizes
+Date: Tue, 29 Sep 2026 15:30:21 +0200
+Message-ID: <20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929092238.1765758-1-koreev.r@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ruslan,
+`risp_io_{input,capture}_enum_framesizes()` sets the horizonal and vertical
+step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
+to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
 
-On Tue, Sep 29, 2026 at 12:22:38PM +0300, Ruslan Koreev wrote:
+So move these constants into macros to avoid the repetition, and with that,
+use 4 as the step size everywhere.
 
-> I wasn't aware the ipu6 driver had grown IPU7 support, my base was
-> 7.3-rc5. Tested now on next-20260924 with the ipu6 driver and patches
-> 1-3, the vd55g1 one reworked as you suggested: the sensor probes,
-> ipu-bridge connects both cameras, libcamera streams Y8 804x704 at 58 fps
-> from the VD55G1, and Y10 and Y10P stream with plain V4L2. So this patch
-> is not needed there; I'll drop it in v2.
-> 
-> Ruslan
+Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+---
+ .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
+ 1 file changed, 24 insertions(+), 16 deletions(-)
 
-I tested patches 1-3 from v1 on another ThinkPad X1 Carbon Gen 14
-(21V8A028CD, Panther Lake, IPU7 PCI 8086:b05d) using the ipu6 driver on
-next-20260928. I did not apply patch 4.
+diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+index 820af506f896c..b60b91f43d42d 100644
+--- a/drivers/media/platform/renesas/rcar-isp/core-io.c
++++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+@@ -15,6 +15,12 @@
+ 
+ #include "risp-core.h"
+ 
++#define RISP_MIN_WIDTH 128
++#define RISP_MAX_WIDTH 5120
++#define RISP_MIN_HEIGHT 128
++#define RISP_MAX_HEIGHT 4096
++#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
++
+ #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
+ 
+ static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
+@@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
+ {
+ 	unsigned int bpp = 0;
+ 
+-	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+-			      &pix->height, 128, 4096, 2, 0);
++	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
++			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
++			      0);
+ 
+ 	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
+ 		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
+@@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
+ 
+ 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+ 
+-	fsize->stepwise.min_width = 128;
+-	fsize->stepwise.max_width = 5120;
+-	fsize->stepwise.step_width = 2;
++	fsize->stepwise.min_width = RISP_MIN_WIDTH;
++	fsize->stepwise.max_width = RISP_MAX_WIDTH;
++	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+ 
+-	fsize->stepwise.min_height = 128;
+-	fsize->stepwise.max_height = 4096;
+-	fsize->stepwise.step_height = 2;
++	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
++	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
++	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+ 
+ 	return 0;
+ }
+@@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
+ static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+ 				       struct v4l2_pix_format_mplane *pix)
+ {
+-	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+-			      &pix->height, 128, 4096, 2, 0);
++	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
++			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
++			      0);
+ 
+ 	pix->field = V4L2_FIELD_NONE;
+ 	pix->colorspace = V4L2_COLORSPACE_SRGB;
+@@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
+ 
+ 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+ 
+-	fsize->stepwise.min_width = 128;
+-	fsize->stepwise.max_width = 5120;
+-	fsize->stepwise.step_width = 2;
++	fsize->stepwise.min_width = RISP_MIN_WIDTH;
++	fsize->stepwise.max_width = RISP_MAX_WIDTH;
++	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+ 
+-	fsize->stepwise.min_height = 128;
+-	fsize->stepwise.max_height = 4096;
+-	fsize->stepwise.step_height = 2;
++	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
++	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
++	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+ 
+ 	return 0;
+ }
+-- 
+2.55.0
 
-Patches 1-3 applied cleanly without local changes. The VD55G1
-probes successfully, TBE20A1 is discovered by ipu-bridge, and the
-media topology is established as:
-
-  vd55g1 1-0010
-    -> Intel IPU6 CSI2 2
-    -> Intel IPU6 ISYS Capture 16
-    -> /dev/video16
-
-The sensor reports Y10_1X10/804x704, and /dev/video16 enumerates
-GREY, Y10 and Y10P. Setting Y10 at 804x704 succeeds with:
-
-  Bytes per Line : 1664
-  Size Image     : 1173120
-
-However, VIDIOC_STREAMON returns EPIPE for Y10, Y10P and GREY,
-and no frames are captured.
-
-Since you reported successful plain-V4L2 Y10/Y10P streaming on
-next-20260924, could you share the exact media-ctl/v4l2-ctl commands
-and any setup performed before STREAMON? I'd like to reproduce the
-same sequence before looking for differences between the two
-linux-next snapshots.
-
-My test base before applying the series was:
-
-  6375e61c01e93e35ee7acd336a689ac1fae4b509 (next-20260928)
-
-Hardware: ThinkPad X1 Carbon Gen 14, 21V8A028CD
-Kernel: 7.3.0-rc5-next-20260928-x1c14ir
-
-Thanks,
-Qiling Zhu
