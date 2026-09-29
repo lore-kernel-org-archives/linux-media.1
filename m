@@ -1,56 +1,56 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDB63BD63C
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 08:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643243469FA
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 08:31:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670704; cv=none; b=awDKIiuBYQ65zlH5MQz21K6vSZOCeexECah/nhV2adVfXmPffneN9voElI6JoMrFkoH7Rqh1oDkxKFsnbDg/0wBY9WDqJ/5VdQSvW/AyGXbhsi7SMMnqYAhTdDZSDAdzpxf6Wh7+qcorfTj25FlCPtmoNg9pWhTpxAXceHuXmqs=
+	t=1790670706; cv=none; b=cTysloKgj0v2uymDGiCsI08DfIW7lB/oSw0mrw281iD9MkjcyD2i/1/2dmmF4nGUy+kzpu9Ti8AUqihMDbrdCYS1Xd1NPLMqlkrTur8UKbTBaJRu4xE31Gf/2f1XJORCupNQtSgsYLL8LPd8Dvg/yxhq4l9nXEeXPP8A7B7cMiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670704; c=relaxed/simple;
-	bh=CyWNB5RJcc0/DqQz74hVbcTLsADU9lRVHC+06vINoEI=;
+	s=arc-20240116; t=1790670706; c=relaxed/simple;
+	bh=KmMZQ2IfNf0nd1yGJkCTM4DS5eJjeRYJx+jj1IUow6k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kc/HKpSMK8LeSbZJoK/Ra6j6TwN/3rphqZoyQ5gqhUNTQ7361GCl/oUepZeAq49y3Na+IztlLZcg/q5JUkO+xxTAMHejjGFUCvUEbvSHqkBDF+e+zWPthk/P7cEX3pnccBuWqIpclLM5Pw93JyQHHEzQ9sjVzQ4Ic7xbnb2dp3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oGv0B6HX; arc=none smtp.client-ip=198.175.65.13
+	 MIME-Version; b=qlIz1+g5/Hy/TLtLjkyOiALheYi3usU4ubjOtJ6nzGldxXy3Txz9ADK/WoCNytc0yO3usIMoGM8kyp41Tqph0cpW09IPecwgeVaa63ogVOE5ExfWt/cctnUAr8nSMBXfjNH3lvJHoUs5gvrrBlMilP3sDji5vTXPoIED8ZiCFRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kbpQMVGt; arc=none smtp.client-ip=198.175.65.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oGv0B6HX"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kbpQMVGt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790670702; x=1822206702;
+  t=1790670704; x=1822206704;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=CyWNB5RJcc0/DqQz74hVbcTLsADU9lRVHC+06vINoEI=;
-  b=oGv0B6HXlsQHUThbfdsTpOZGch87pjo5SQxq/A76roeS214D1g3LrY+R
-   3yeQcenOahSrC7qloP0rcdbtLjpENvWcWHAP6T8WR1c9JZguCOH/Qy3+p
-   W5gln6TYpS1Uw6M58YGY6RbVwtYBqv0DhKdA6Ku5Iugb+dF0dWXhe3Ga4
-   2kU9j8bOLH4ym1ELxz1EGV6KLVXCGpDOzxneMaXMYDQwN2AuLz4RPNgqq
-   8z1ByenZuDpGyGxqjqByePmJXRSm+q4vJpmWLQ0X5OzTWipsS8RE3QPkt
-   CBcbXnv7GmrZLOUcL8ZyqSb9Qm7SLBtkrV7SDfa7aYuOq1ZaZGO3eqo7F
+  bh=KmMZQ2IfNf0nd1yGJkCTM4DS5eJjeRYJx+jj1IUow6k=;
+  b=kbpQMVGtAWrkk2F+K6zMtubDXg4qd48N1aMb90gQUoRr9QMXrguwaeMs
+   P3IgFEEm3TlneTbrgGitO/qLRxPbJdzgoB+RtMIf6S5L9wtmftqAZgT+B
+   GS5xEzVuVFel1azKv4kbk8rai3hXVcOMp6DVpz80edWAcssu85zCxryv5
+   e06Zc5ZTtUGxx9jIPwl+3ieuK/t1g2JyXLUlfdyTzogqttLSlM979nm5S
+   /Qwrgts03k6O8OX98PfDUAZZCQl4OMDE0nIjgZbZ7AIQnNT3yym6EYnvn
+   uht4t7KkOwgyDtmHQ9kPLKFPtRs6I9sLMEmHeg6kOgq7ioQWFrU4lHFFZ
    Q==;
-X-CSE-ConnectionGUID: Ti/ayOS+RA26VDt22J4AFQ==
-X-CSE-MsgGUID: YKOOtPdBS8q89b6ujQdE2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101548900"
+X-CSE-ConnectionGUID: r1jgmt7sTaGnBk2zGFZDSQ==
+X-CSE-MsgGUID: WJZ9euESTpO51CTDdqs1JQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101548902"
 X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="101548900"
+   d="scan'208";a="101548902"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:31:42 -0700
-X-CSE-ConnectionGUID: c4t9jPRhSNOnJ9T8MmxPxA==
-X-CSE-MsgGUID: iRfYTJEvQMO8Ur+Ka3VfTA==
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:31:44 -0700
+X-CSE-ConnectionGUID: hhV6vc7ETIm6oR8gScX0fA==
+X-CSE-MsgGUID: dzaRy0NRQe67A1u3dYvZog==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="275339419"
+   d="scan'208";a="275339425"
 Received: from unknown (HELO pepper.iind.intel.com) ([10.223.20.54])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:31:41 -0700
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:31:42 -0700
 From: Manik Bajpai <manik.bajpai@intel.com>
 To: sakari.ailus@linux.intel.com
 Cc: linux-media@vger.kernel.org,
 	antti.laakso@linux.intel.com,
 	sarang.sapre@intel.com
-Subject: [PATCH v2 2/4] media: ipu6: Always run cleanup in ipu7 power on/off on timeout
-Date: Tue, 29 Sep 2026 14:01:28 +0530
-Message-ID: <20260929083130.88381-3-manik.bajpai@intel.com>
+Subject: [PATCH v2 3/4] media: ipu6: Validate fw-com queue indices before use
+Date: Tue, 29 Sep 2026 14:01:29 +0530
+Message-ID: <20260929083130.88381-4-manik.bajpai@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260929083130.88381-1-manik.bajpai@intel.com>
 References: <arpYuzb0yJinlDyH@kekkonen.localdomain>
@@ -63,86 +63,121 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__ipu7_power_on() and __ipu7_power_off() both return early when the
-pwr_status readl_poll_timeout() call times out, skipping cleanup that
-was previously done only on the success path:
+ipu7_fw_com_get_token() reads read_index/write_index directly from
+firmware-shared memory and uses them unchecked in pointer arithmetic
+to compute a token address:
 
- - __ipu7_power_on() left the clock-ownership override bit set in
-   SLEEP_LEVEL_CFG instead of clearing it, which could break
-   subsequent power transitions.
+	token = queue_params->token_array_mem +
+		read_index * queue_params->token_size_in_bytes;
 
- - __ipu7_power_off() skipped D2D power-down and NDE-disable, leaving
-   those subsystems powered despite reporting a failure.
+If firmware ever writes a corrupted or out-of-range index into that
+shared memory, this computes a pointer outside token_array_mem.
 
- - Additionally, the return value of ipu7_isys_d2d_power() in
-   __ipu7_power_off() was discarded, silently masking D2D power-down
-   failures.
-
-Always run the clock-override clear / D2D-NDE teardown regardless of
-whether the status poll timed out, and propagate a D2D power-down
-failure through the return value when the poll itself succeeded.
+Reject indices that are not smaller than max_capacity before doing any
+pointer arithmetic.
 
 Assisted-by: Claude:claude-sonnet-5
 Signed-off-by: Manik Bajpai <manik.bajpai@intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-buttress.c | 24 ++++++++++++--------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu7-fw-com.c  | 14 +++++++++++++-
+ drivers/media/pci/intel/ipu6/ipu7-fw-com.h  |  5 ++++-
+ drivers/media/pci/intel/ipu6/ipu7-fw-isys.c |  7 ++++---
+ 3 files changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-index 105de1744dff..06a773b5b66b 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-@@ -530,16 +530,15 @@ static int __ipu7_power_on(struct device *dev,
- 	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
- 				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
- 				 100, BUTTRESS_POWER_TIMEOUT_US);
--	if (ret) {
-+	if (ret)
- 		dev_err(&isp->pdev->dev,
- 			"Change power status timeout with 0x%x\n", val);
--		return ret;
--	}
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-com.c b/drivers/media/pci/intel/ipu6/ipu7-fw-com.c
+index 7dd1e683aa92..3d0a8fcac15e 100644
+--- a/drivers/media/pci/intel/ipu6/ipu7-fw-com.c
++++ b/drivers/media/pci/intel/ipu6/ipu7-fw-com.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2026 Intel Corporation
+  */
  
-+	/* Always drop the clock override, even if the poll above timed out. */
- 	slp = readl(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
- 	writel(slp & ~ovrd_clk, isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
++#include <linux/device.h>
+ #include <linux/io.h>
  
--	return 0;
-+	return ret;
+ #include "ipu7-fw-com.h"
+@@ -13,7 +14,8 @@ static void __iomem *ipu7_fw_com_get_indices(struct ipu7_fw_com_context *ctx,
+ 	return ctx->queue_indices + (q * sizeof(struct ipu7_fw_com_queue_indices));
  }
  
- static int __ipu7_power_off(struct device *dev,
-@@ -555,18 +554,25 @@ static int __ipu7_power_off(struct device *dev,
- 	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
- 				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
- 				 100, BUTTRESS_POWER_TIMEOUT_US);
--	if (ret) {
-+	if (ret)
- 		dev_err(&isp->pdev->dev,
- 			"Change power status timeout with 0x%x\n", val);
--		return ret;
--	}
+-void *ipu7_fw_com_get_token(struct ipu7_fw_com_context *ctx, int q)
++void *ipu7_fw_com_get_token(struct device *dev, struct ipu7_fw_com_context *ctx,
++			    int q)
+ {
+ 	struct ipu7_fw_com_queue_config *queue_params = &ctx->queue_configs[q];
+ 	void __iomem *queue_indices = ipu7_fw_com_get_indices(ctx, q);
+@@ -25,6 +27,16 @@ void *ipu7_fw_com_get_token(struct ipu7_fw_com_context *ctx, int q)
+ 					read_index));
+ 	void *token = NULL;
  
-+	/* Always release D2D/NDE, even if the power status poll timed out. */
- 	if (ctrl->subsys_id == IPU_ISYS) {
--		ipu7_isys_d2d_power(isp, false);
-+		int d2d_ret;
++	/* Indices come from firmware-shared memory; don't trust them blindly. */
++	if (read_index >= queue_params->max_capacity ||
++	    write_index >= queue_params->max_capacity) {
++		dev_err_once(dev,
++			     "ipu7-fw-com: bad queue %d index (r=%u w=%u cap=%u)\n",
++			     q, read_index, write_index,
++			     queue_params->max_capacity);
++		return NULL;
++	}
 +
-+		d2d_ret = ipu7_isys_d2d_power(isp, false);
-+		if (d2d_ret) {
-+			dev_err(&isp->pdev->dev,
-+				"D2D power down failed (%d)\n", d2d_ret);
-+			if (!ret)
-+				ret = d2d_ret;
-+		}
- 		ipu7_nde_control(isp, false);
- 	}
+ 	if (q < ctx->num_output_queues) {
+ 		/* Output queue */
+ 		bool empty = (write_index == read_index);
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-com.h b/drivers/media/pci/intel/ipu6/ipu7-fw-com.h
+index 097eaab99547..2921d097e580 100644
+--- a/drivers/media/pci/intel/ipu6/ipu7-fw-com.h
++++ b/drivers/media/pci/intel/ipu6/ipu7-fw-com.h
+@@ -6,6 +6,8 @@
  
--	return 0;
-+	return ret;
+ #include <linux/types.h>
+ 
++struct device;
++
+ struct ipu7_fw_com_queue_config {
+ 	void *token_array_mem;
+ 	u32 queue_size;
+@@ -46,7 +48,8 @@ struct ipu7_fw_com_queue_indices {
+ };
+ 
+ void ipu7_fw_com_put_token(struct ipu7_fw_com_context *ctx, int q);
+-void *ipu7_fw_com_get_token(struct ipu7_fw_com_context *ctx, int q);
++void *ipu7_fw_com_get_token(struct device *dev, struct ipu7_fw_com_context *ctx,
++			    int q);
+ struct ipu7_fw_com_queue_params_config *
+ ipu7_fw_com_get_queue_config(struct ipu7_fw_com_config *config);
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+index e74e2b2566aa..60e29e2d63a7 100644
+--- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+@@ -147,7 +147,8 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ 
+ static struct ipu7_insys_resp *ipu7_fw_isys_get_resp(struct ipu6_isys *isys)
+ {
+-	return ipu7_fw_com_get_token(isys->fwctx, IPU7_INSYS_OUTPUT_MSG_QUEUE);
++	return ipu7_fw_com_get_token(&isys->adev->auxdev.dev, isys->fwctx,
++				     IPU7_INSYS_OUTPUT_MSG_QUEUE);
  }
  
- static int __ipu6_power(struct device *dev,
+ static void ipu7_fw_isys_put_resp(struct ipu6_isys *isys)
+@@ -219,7 +220,6 @@ ipu7_fw_isys_send_cmd(struct ipu6_isys *isys, const unsigned int stream_handle,
+ 		      size_t size, u16 send_type)
+ {
+ 	struct ipu7_fw_com_context *ctx = isys->fwctx;
+-	/*struct device *dev = &isys->adev->auxdev.dev;*/
+ 	struct ipu7_insys_send_queue_token *token;
+ 
+ 	if (send_type >= N_IPU7_INSYS_SEND_TYPE)
+@@ -228,7 +228,8 @@ ipu7_fw_isys_send_cmd(struct ipu6_isys *isys, const unsigned int stream_handle,
+ 	if (cpu_mapped_buf)
+ 		clflush_cache_range(cpu_mapped_buf, size);
+ 
+-	token = ipu7_fw_com_get_token(ctx, stream_handle +
++	token = ipu7_fw_com_get_token(&isys->adev->auxdev.dev, ctx,
++				      stream_handle +
+ 				      IPU7_INSYS_INPUT_MSG_QUEUE);
+ 	if (!token)
+ 		return -EBUSY;
 -- 
 2.53.0
 
