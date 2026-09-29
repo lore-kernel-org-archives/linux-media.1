@@ -1,89 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6223CF204
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 14:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61812BFC60;
+	Tue, 29 Sep 2026 14:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692241; cv=none; b=AIkZ6DObtY5MPtFyAQRZTwMHn8eVDdG1cwcM2N00VhZA6cFugzS6wL+WtUwZOYfE5AkgE7JRZYeIl+oaefdCcBsd6Wa8dve2m3dBsoiH8C1pfeEE5TM6u5bXoU8xota1yPJQGNneMYQuPlAtC7ubYfZI4tzpiGII/FDHJg70F6k=
+	t=1790692286; cv=none; b=Izy3Ddr12iDHVDGxHrasYghgAVezlqF7xd1itelFDLZxt71noE1DM+otE+14ah8hnzjqDue1cjBZSsL97R9HYXoenBk0rF3tbMtNlvoiPUDux1OOyTfsf3vhW1UT5rtv6US8UpKSFPHsrWvlnJkmj1Le1NRfrbqw/wPeT+nM1DY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692241; c=relaxed/simple;
-	bh=5RH8aoQtRmvy8K9uQVT1zoWnqq8lfmszEHmuirYoqkY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J31uE5QmwADTqBBOHEvB2oYFuCm3LazfMVe5V7iklUC5Mjb1ZN312nIojQ3qsXVzEmnkhT1gaW7wDiukih+mXT8Bi2UI9HBLWqLkOP2sqjkMw/lCCpiSH9EEk5/nGjqC4+W/bZkiXDXJ46cdbBkFpWyQsz7o1Vz4FaCjWJjVKTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USvTALae; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790692286; c=relaxed/simple;
+	bh=mc0ilMueXZXPuhVX6jYrX0LunRcOPD+Ig24apa308/k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lVaNBsjuVKvpm6oyt0tE1DtvLMWrsgJGFJClAW4KvYqIRi842Pgusb7LFlCBHDq7OvIIJPISXwPCsTo7TCqtntTD7SCBFU/B+j1nqbt7T/Ja+Fc9yWY61MUYW2UeMO7/4vid8FTZL3yg4mVQV7jVqbyVetSZMVYLsmqDUl9cHxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=nl5075lJ; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USvTALae"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCBD1F000FF;
-	Tue, 29 Sep 2026 14:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790692238;
-	bh=3hJKdQ9F+DtTmkgf++IVGoq1CqPC5cL0d36si2U739w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=USvTALaegRiX/GJ9sAhl4Cm2kFrVJvYi01X7wwHnU5C6TUXGOjtvGPC1HpGwiFJ4d
-	 1pyqKQD9me62BZZA7VAisHyNdqAu6EP1JuL6+CazFi/OY7eERWvnQUKVheLAkNKV/F
-	 t3edQqiEHs1XgewwJNhQsLTQOysM+vuyQQuBIcNXCRqsDmC/vW5hjHr94csg8JSPUK
-	 UbWwytBr1Q3wzfquQoDg/YKpBg/or0IYadmDDOG1o5Lq+PgWxAEVgkZKhx5jxNkZKV
-	 pvaPHV1gPQ55Mk3Tp+0JmoVEmAP98bz0o4+/m6fVJPnutk4CLmOHqUYkwfjnzneWdU
-	 KaH7Hkkw90j7g==
-Message-ID: <34d766fa-b573-4e33-9ded-fac8996be093@kernel.org>
-Date: Tue, 29 Sep 2026 16:30:36 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="nl5075lJ"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f83a856d;
+	Tue, 29 Sep 2026 22:31:12 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Maxim Levitsky <maximlevitsky@gmail.com>
+Cc: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] media: rc: Fix simulated TX timer lifecycle
+Date: Tue, 29 Sep 2026 22:31:05 +0800
+Message-Id: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: Make uvc_event_control attribute name
- array const
-To: =?UTF-8?B?44Kk44Og44OG44Kj44Ok44K6?= <reza1234khan1234@gmail.com>,
- laurent.pinchart@ideasonboard.com
-Cc: linux-media@vger.kernel.org
-References: <20260805093407.110571-1-reza1234khan1234@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260805093407.110571-1-reza1234khan1234@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0ed93a9dd03a1kunmdecca74e242d48
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSkJKVh1JHUxOQkIfGB5JHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=nl5075lJxJ/fPCr70pKfVhRELflboqA/7/pCiO+cMj1BAuNdhJrv/b6jqhdlXhNxVdsYjiMdQQsWpxXtdSf6fhQD10dSvbMOFMmNEjJEtyjCzX5Sk7IHNPJZuqzHAxdlmustOKlmACiHDDhMIeFWvVY7uApx75lZFu9pzNKOpLY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=E2PrdciCZ3Uc2ciSOa1CzF5S70Ohk9bCqDAdSupoot0=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi,
+The ENE driver only initializes tx_sim_timer when TX simulation is
+enabled for hardware without native TX support.  However, ene_remove()
+passes the timer to timer_delete_sync() unconditionally, and
+ene_tx_sample() uses the global txsim parameter when deciding whether to
+arm it.  Thus a normal device, or a device with native TX support and
+txsim enabled, can operate on an uninitialized timer.
 
-On 5-Aug-26 11:34, イムティヤズ wrote:
-> The attrs array in uvc_event_control() is only ever read, never
-> modified. Declare it as static const char *const so the pointer array
-> itself is also immutable.
-> 
-> Signed-off-by: イムティヤズ <reza1234khan1234@gmail.com>
-> Assisted-by: opencode:auto/best-free
+Track whether simulation was actually enabled for each device and use
+that state for timer arming and teardown.  Since the simulation callback
+rearms the timer, shut it down permanently before freeing the device.
 
-Thank you for your patch.
+Fixes: 9ea53b74df9c ("V4L/DVB: STAGING: remove lirc_ene0100 driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/media/rc/ene_ir.c | 6 ++++--
+ drivers/media/rc/ene_ir.h | 1 +
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-I have merged this into:
-
-https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
-
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/media/usb/uvc/uvc_status.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-> index b632cf5e3fe9..97c939206302 100644
-> --- a/drivers/media/usb/uvc/uvc_status.c
-> +++ b/drivers/media/usb/uvc/uvc_status.c
-> @@ -165,7 +165,7 @@ static struct uvc_control *uvc_event_find_ctrl(struct uvc_device *dev,
->  static bool uvc_event_control(struct urb *urb,
->  			      const struct uvc_status *status, int len)
->  {
-> -	static const char *attrs[] = { "value", "info", "failure", "min", "max" };
-> +	static const char *const attrs[] = { "value", "info", "failure", "min", "max" };
->  	struct uvc_device *dev = urb->context;
->  	struct uvc_video_chain *chain;
->  	struct uvc_control *ctrl;
-
+diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
+index 6f7dccc96..9d0279667 100644
+--- a/drivers/media/rc/ene_ir.c
++++ b/drivers/media/rc/ene_ir.c
+@@ -652,7 +652,7 @@ static void ene_tx_sample(struct ene_device *dev)
+ 	dev->tx_reg = !dev->tx_reg;
+ exit:
+ 	/* simulate TX done interrupt */
+-	if (txsim)
++	if (dev->tx_sim_enabled)
+ 		mod_timer(&dev->tx_sim_timer, jiffies + HZ / 500);
+ }
+ 
+@@ -1032,6 +1032,7 @@ static int ene_probe(struct pnp_dev *pnp_dev, const struct pnp_device_id *id)
+ 
+ 	if (!dev->hw_learning_and_tx_capable && txsim) {
+ 		dev->hw_learning_and_tx_capable = true;
++		dev->tx_sim_enabled = true;
+ 		timer_setup(&dev->tx_sim_timer, ene_tx_irqsim, 0);
+ 		pr_warn("Simulation of TX activated\n");
+ 	}
+@@ -1103,7 +1104,8 @@ static void ene_remove(struct pnp_dev *pnp_dev)
+ 	unsigned long flags;
+ 
+ 	rc_unregister_device(dev->rdev);
+-	timer_delete_sync(&dev->tx_sim_timer);
++	if (dev->tx_sim_enabled)
++		timer_shutdown_sync(&dev->tx_sim_timer);
+ 	spin_lock_irqsave(&dev->hw_lock, flags);
+ 	ene_rx_disable(dev);
+ 	ene_rx_restore_hw_buffer(dev);
+diff --git a/drivers/media/rc/ene_ir.h b/drivers/media/rc/ene_ir.h
+index c1c44e86e..f44cbc034 100644
+--- a/drivers/media/rc/ene_ir.h
++++ b/drivers/media/rc/ene_ir.h
+@@ -218,6 +218,7 @@ struct ene_device {
+ 	int tx_done;				/* done transmitting */
+ 						/* one more sample pending*/
+ 	struct completion tx_complete;		/* TX completion */
++	bool tx_sim_enabled;			/* simulated TX is enabled */
+ 	struct timer_list tx_sim_timer;
+ 
+ 	/* TX settings */
+-- 
+2.34.1
