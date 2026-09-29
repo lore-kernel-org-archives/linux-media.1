@@ -1,104 +1,167 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27625523785
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 19:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51923515EB
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 20:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711645; cv=none; b=P5U/b9Xjf1Swyh0IJo3RRAlB5wMC951/AbAjZJ4TUFUQpuL3gMsT06eRH42Te80PQDUJLYdtajH84zdWtsS//4Hootzvhaogs3f/Nv3MzXlzCmytg6D5V/n7X48Sqp6D64UD9G4dUL0w+DaM3hNTZfIYs6K9e3Tmd3nHochntus=
+	t=1790712044; cv=none; b=dIM+Ms0QS+D1H0YAO2dyNkWSN6/ttC8B4N1Pq3XmfpfTRCETHAfQ71kb4jkeMr5gi8z+O9W/Awzvq555New2sBl5UXZWXz4GgyKxnuMQJVQrBHT8Mna9NL7chQV4U94hpl3VehmPPrGLHFk/Dc7ywAqWn5jIM4JC7yXGkqOJs8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711645; c=relaxed/simple;
-	bh=d2Pdheq5TEoj0kP/4JTqWlNZuyyufLJOnBh2gR/G9ks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=InD/K8hPck1xFyAILnUnStIPxIeauXQymTZeHyzs3G0MKXCCaDWm0vAqh7u5tr4c1FGSovztwwzZP3QzJ5XMk4WdrXJLbD3xYRzO59wC7NrqMdvk9IkOTH0L//zcOY3ji393LgEzFeWu/3WwrqMqjBG5nB9kT+1xIusohLmyndc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=suUkfmVE; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790712044; c=relaxed/simple;
+	bh=bflvXTI33vjxSht8XTOG8aF+khDqayoPxK2CclOBoqg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=L5CZhLsNDTEbZg6955QR0P5c2t0rv9Q9k/zcUckqKvmCnAZxFEkUjZR11uk+0IUClOR0go6fSkMnM4Oke/UM4l5Suj5fUDaps/soI06jl0coQs3u2t6iANT+tPkmM34w73IHCiiBHWTA6nXu3E76tTqiJN1cXv3LiEC08nSfvFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=pGQ9kmn5; arc=none smtp.client-ip=74.125.230.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="suUkfmVE"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so21881455e9.1
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 12:54:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="pGQ9kmn5"
+Received: by mail-qk2-f8.google.com with SMTP id af79cd13be357-939fea05b69so260766485a.0
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 13:00:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790711641; x=1791316441; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790712040; x=1791316840; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=u27k5NmvBzDFGlc9tKb68XrZeYB1FzHqqK5+lL8nqVA=;
-        b=suUkfmVEjhSeDCtnPBwdPfraeh0BaU67xIhsFJKW8Zb8u3GqqldoIq7ZJDI2TWqcqO
-         ICwO2Rt0FM+N8Ji39M+kNqvHmxSBvQ6t3LK3HosYr68JSc1CrHFJfyLGstp1FA3NaTkN
-         PE+OD7gqI1ShkuDswSPjqteL38R23+wLTXfln5xjlc/4nr9CssJfQvvAXJZairavXRWL
-         gekMEuMDdfFdUEctwETR4XKqfMInSoqMsm5MYTlE1oLDYKajK51fyAcpjQuIjWPrgw5l
-         ywIRPa58TClW66Jee4M3/hihCZ7ysBYMC0UxnIX2S7CmcAY0skXaLJlaZUxuv2XvxKEI
-         KjXg==
+        bh=770xEhvBw1Dn5803XOi5/66nDa+u1CSmAxJ8KSDFNxU=;
+        b=pGQ9kmn50/VpFsVE5cO3R8GriOe/9y9QIIQ3v5tFSZ6jMuOQ1YA3KICYKR/cDvRf9g
+         VzQ1IlMgl962Asw+La47f1iauiVorz1/ea8AyQtTwKg7kCSIseLpX5YIdTH4IdVcp6gd
+         vnAzTroJgpJYJeYqqJ7lCnWHoOarELypOu4UHnVVDVnPVUafNbv9i7Qu4vDvt/KH4PDU
+         b/2sF9kQBKRuRd2E08VNof4YEapTSoE14KGcA6D3xptvMOCfLgfib7xGLPFP2do7Xou+
+         WkPpPjOj92c85vQEDst+pithOVqvRw1C938RHjhMv3bRGpUoKOFXhoewFx0BWERaDIIc
+         WI9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790711641; x=1791316441;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790712040; x=1791316840;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=u27k5NmvBzDFGlc9tKb68XrZeYB1FzHqqK5+lL8nqVA=;
-        b=Cpoq/Xaa4Ja0snmszkYS1YLzQ5gGegJS3D8Ha2/tSbBRXegEnFNlx9eUXJxKqP9Alv
-         rLvrG6Pi4VvbDa0JYzvOnMhuZDu7Ro3s2pavzyKgjpoqaLGLh8lHqdjaBNl4wgp8vzI0
-         Ln9xuECepv4DkTt/9PtM2RAQb3Oec5k9RwdOTfzxNW0JM2pIaFlM0kAHqrY25+GSjgb1
-         RAgelmJ5rCOovOw9pCBb18w3rpFtpUC/HBT1uqaV3rOfFZCSGtyDYvdmKssD/gQB6B+Q
-         LZFTF12XY9ieLdvXunxzbrnE9tbC+Pf38vr53FoRDLLEGJoUxsKwO05BCqgs/qe2amKS
-         2ccw==
-X-Forwarded-Encrypted: i=1; AKwUvBzO5QU3In99kKrnAWy9IHwiAkhTMlhHgoFCiAtjop+sRvw4rmnBkQLmEXinszGi4ipNZmF8F4b6SPHQMQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nJVHGsHICcEAjvTpFFUd2Bw1CbV7tcUQjT2xmIktkq7Vh3FRW+
-	28lStDGgGfAE2wWxc659za1OIu7LN3bd8m+mu1GQFCH+3QmEOqHoN78H
-X-Gm-Gg: AYBFou1qAknb/BdDCvr7AoFiaL3Zc4LhGBqNRa9wJmz3cEgkwbZfeVFpxNEsiQ4zlwb
-	ySGPOTaDPh8wELQpqZLbACri70ZtTbcfvIrQu4KLwDBCCYsP+a2QKfGEEj7mV+LDXJ0+sDpNfTq
-	5GQeCu1aE7UuhbXG87myPBbwPpTRGCwVNs1P2pjhPW9cxuo7qDkPnOkgB+43zkIRFJ3Gah5TBhs
-	pSeCIFE+WDllueY6ruNKyBzycRogM30IX/65JZhXcdu4T9ey5oQLuZH7nhWlDdzllYK2L/R7T0z
-	H0w+FNt1RisUN/82VbQp7FtmJvCRdzQAEm1eXNZ6kQjLVmoCDcV/IjGuBQjrdfL2iH98Phb3HmQ
-	OmzphepQjRguJKXYi1Omvyt+pcAuZkPNTv1bpu5qCbXjjAl0viFWUdwwrIENq0xTzY8HcQVDb2u
-	11O4hsk2QnzjWJ0V+oWmcsNmLA8R+tl2EoUTwM8SK4uFEH3dUSkx9IXSSRph1w5ICuhnsMCpnyc
-	a9N6/jxNggu60keFlfz6K6M/U/eSWMoAnmCTaDCUoa8eLssWV01etdXmus8QIqf0ikAwUeHASsW
-	1dvWtVzssvR4HoJ6/yIfUlM2KnRRJJfuZUUFCSITPu4umC7ilNtO3XQnuhssz4iInmEmEu537LK
-	V924JWg==
-X-Received: by 2002:a05:600c:3ba3:b0:49c:fc6c:be03 with SMTP id 5b1f17b1804b1-4a015155f74mr2815545e9.26.1790711641143;
-        Tue, 29 Sep 2026 12:54:01 -0700 (PDT)
-Received: from MBP-von-Karl (dynamic-2a02-3100-9c32-f801-9d9d-c89f-9fb1-4ec2.310.pool.telefonica.de. [2a02:3100:9c32:f801:9d9d:c89f:9fb1:4ec2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015019e5asm8566915e9.2.2026.09.29.12.53.59
+        bh=770xEhvBw1Dn5803XOi5/66nDa+u1CSmAxJ8KSDFNxU=;
+        b=JDVr8mJc5KJVVNtIgq1y3Mgr+nQ6oVK6g9dwq51ideZmAdID6tKpJSymgNpuQUP/Y6
+         DqVQmKUgA6WF9Y9c+przY1+aXHN51LAaY5C3zrBX5G9G5282UqUzbP0DbP1eoVFiuXVV
+         x9KHmMSwd8LKLqfPNMNAsyQ/f4tQ+3f8LKUdTUVfYjM/WVONcl8ADHXcwu+JNxpzBe5S
+         FInqE67v2hAyj6e2FYvj+98miMY8dNz5fHWygXdRdtsviPaOH6hbuIWy+KNVWoZpje6a
+         UsFiRnzfaImBJiARRHtnQliE8lzjPQxDbn2C/A2Bhpyh02D5buOulH2yDtgHcxFJVFxW
+         LM+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzTwUtbbCg7yixm/wAAHrX6MNN0LX7T97shUHrCu5VZ5yqwKOLMX28Lnp4jZVfHwRV1cM6RdIeGKUXy5g==@vger.kernel.org
+X-Gm-Message-State: AFuF++lxyiHTCn9EWNOqI+Xva4inmF9T+DMzIsHtqNF/qXRwjGwCTYgL
+	PEuDu1oACSi0lKowWkZKkHM0C7sQI2OTvDoeoOrRk29p8oX7TSgiL64/zmQfh9i93AY=
+X-Gm-Gg: AYBFou2WCav5QiyLGEGZIeoObCLa1a3wG7t/ft/ak5l8b5W9HDKNcA6piq5H5O5jFt/
+	Qo2nMsFtscRgwke+AbNL3c8r7KSNM7ePwLsdyfn2NNmf1/3JWQHrcXZdlOqFhaK+ltF4EG+2E5U
+	B/e2hFlOwcMyJ3/ntxgE46YtZ2h3OoeaN/uZx8VmDS+H+2+wFrt/ulXm5ifppYyVH1p0ZMjNEHT
+	I7VKiWFlMrf1DejjN6pefVTc4uktkD7mWLaKUOhoNHjxlATudjgW4m1zoCWElZpCuxybF6Jd708
+	lBUIm+LCI6dmBj5Lnpv1z5ccgQVryYeHlwHYcP8GDsbU48MIkxSn7pDUcmbuDlpTHuigexT/jyr
+	gzWUWdT3PpEWf5nbfMsLp0yoDjD1QX2AK77f17o3H8Epuqgjj72OSRVHqI9+XW1ElBpcysTmFsO
+	NrSxSq+2kUM4RtAvVnd3QE88uSeWEVBL6StJfDWura/U6+H2YJeclZ2VIL/l6QnrL1A8Wsav5bE
+	YpACJdNpshdKBY=
+X-Received: by 2002:a05:620a:2586:b0:93c:68f0:f0a2 with SMTP id af79cd13be357-93c9fc42202mr119215685a.65.1790712039675;
+        Tue, 29 Sep 2026 13:00:39 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917987aa21fsm3242546d6.10.2026.09.29.13.00.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 12:54:00 -0700 (PDT)
-Date: Tue, 29 Sep 2026 21:53:59 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, g@mbp-von-karl
-Cc: sashiko-bot@kernel.org, Gerd Hoffmann <kraxel@redhat.com>, 
-	Vivek Kasireddy <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] udmabuf: respect the device's maximum segment sizeg
-Message-ID: <arwW9XNaoppy5o4k@gmail.com>
-References: <20260929054835.94118-1-kmehltretter@gmail.com>
- <20260929060028.371041F00893@smtp.kernel.org>
- <20260929065601.99518-1-kmehltretter@gmail.com>
- <20260929120317.GH1616761@nvidia.com>
+        Tue, 29 Sep 2026 13:00:38 -0700 (PDT)
+Message-ID: <232d8d12f9fa302e14d22b0b1f5d659a45d83ed3.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vpu: free IRQ before destroying
+ watchdog workqueue
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Fan Wu <fanwu01@zju.edu.cn>, Tiffany Lin <tiffany.lin@mediatek.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong
+ <yunfei.dong@mediatek.com>, Minghsiu Tsai	 <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	 <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org, Song Li
+	 <songl@zju.edu.cn>
+Date: Tue, 29 Sep 2026 16:00:36 -0400
+In-Reply-To: <20260923085921.496767-1-fanwu01@zju.edu.cn>
+References: <20260923085921.496767-1-fanwu01@zju.edu.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-fhr5ayFbyS+0mRQDrJmg"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929120317.GH1616761@nvidia.com>
 
-On Tue, Sep 29, 2026 at 09:03:17AM +0100, Jason Gunthorpe wrote:
-> On Tue, Sep 29, 2026 at 08:56:01AM +0200, Karl Mehltretter wrote:
-> > Right, the misc device has no dma_parms, so it gets the 64K default and
-> > sync fails with 256K pages
-> 
-> I would ignore this, it seems fictional to me, and if someone really
-> needs to support this rediculous combination it should be done inside
-> sg_alloc_table_from_pages_segment(:)
->  
 
-Fair enough, Sashiko got me there. Looking around, 256K pages seem
-to be barely supported today: they were already disabled for 47x, and
-I couldn't get userspace running on a 256K-page 44x kernel in QEMU.
+--=-fhr5ayFbyS+0mRQDrJmg
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I'll leave v2 as is. Thanks for the review.
+Le mercredi 23 septembre 2026 =C3=A0 08:59 +0000, Fan Wu a =C3=A9crit=C2=A0=
+:
+> mtk_vpu_remove() destroys the watchdog workqueue while the interrupt
+> handler requested with devm_request_irq() is still registered: the
+> devres core frees the interrupt only after remove() has returned. If
+> the VPU watchdog fires in that window, vpu_irq_handler() queues
+> vpu->wdt.ws on the already destroyed vpu->wdt.wq.
+>=20
+> Fix this by calling devm_free_irq() before destroy_workqueue(), which
+> releases the interrupt and waits for a running handler, so no new work
+> can be queued while the workqueue is drained and freed.
+>=20
+> This issue was found by an in-house static analysis tool.
+>=20
+> Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Karl
+Reviewed-by: Nicolas Dufresne <nicolas.dufres@collabora.com>
+
+> ---
+>  drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
+a/platform/mediatek/vpu/mtk_vpu.c
+> index 8d8319f..b6bd80b 100644
+> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> @@ -962,6 +962,7 @@ static void mtk_vpu_remove(struct platform_device *pd=
+ev)
+>  #ifdef CONFIG_DEBUG_FS
+>  	debugfs_remove(vpu_debugfs);
+>  #endif
+> +	devm_free_irq(&pdev->dev, vpu->reg.irq, vpu);
+
+On the clean factor, it reduce the use of devm API here, but the error path=
+ in
+probe relies on it still.
+
+>  	if (vpu->wdt.wq)
+>  		destroy_workqueue(vpu->wdt.wq);
+>  	vpu_free_ext_mem(vpu, P_FW);
+>=20
+
+--=-fhr5ayFbyS+0mRQDrJmg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwY5AAKCRDZQZRRKWBy
+9KULAP43NLUTImHqX9ivxd9kELGpFXE9g6z+OyEjshp8cbtTjAEA6v9p0zb/FZ2S
+5xMDzjZ73uKB7T217AXpRwnRjKu3JgU=
+=Ksa7
+-----END PGP SIGNATURE-----
+
+--=-fhr5ayFbyS+0mRQDrJmg--
