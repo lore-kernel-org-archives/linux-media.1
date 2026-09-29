@@ -1,271 +1,108 @@
-Received: from mail-oa2-f26.google.com (mail-oa2-f26.google.com [74.125.231.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB45A52D2C9
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 14:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.90
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690832; cv=pass; b=e6bSlo5SRF2AmjwfvwZgnZkrE/TNBshoTlQWsDPSNPdvRSXwnQyNwkXoG4yFYVz1QYU3YeUXGMQ9M7X0HLIFSVuo3tnVAHCQCVGKz+KV+X/iqINYl2IStRq8sEBtrJ0OGQ7MkBSsFYrkafgMJVL33O/DM2flUIrZNxNdyhNwMKQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690832; c=relaxed/simple;
-	bh=/saj/+V8MHAkl39Mum9liJsxtMUx2G639TaMKrFW7k0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cdhwmpL3p1JmsExDFMgnnxxTIDHhkiEvgPT3rZ+18fCxFKmOymsW16Z23AqU5mTReaHnkfUgCl7AGKgzvgnYrEMMBt+7d4GFIDSQW5EpjepPRneiwv0PBTI92TcY1ikshEEF2YMyzRrqdmijPijw1W08Sfsi9/BUU/6mSwszKMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=gQSOUuXN; arc=pass smtp.client-ip=74.125.231.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CE62BEFEB;
+	Tue, 29 Sep 2026 14:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790691530; cv=none; b=N92CSQavZGFiB9ChTIKs9eUflV/vVE6p1w8xCHMsOxUJTYz8VX8ZH/jHDFaJJ6MYYLJCBp6co1lZfXyVn84PVcyhNCnNryoy9mh4ycY5r5KM+JJUrYF+zoySQ4zmBTV6aSnIKvw9hVaqjs4e2/4DxWex1ECi99IyasUUjMLTb4s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790691530; c=relaxed/simple;
+	bh=vV3dpOhH7E5KTP+X1/3hXr4cJ3NNA1N87N4qlOCmZK4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ofv1PNkHkZJgxOxyUqxvFKKSaMGTizwXInOzoKl3vOU5rSb7Gv+LV1Wot2SV66S7w1Jk8iXcWtBwvjONCKRk+NCUBrnEN8siLmsye/NKw0aBkHU3AouBuBXtCnrzO5b53du8LGH9wxKNULl+Q51QatWWDS9ylvvYd7sRs865IGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HauA4Wbd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="gQSOUuXN"
-Received: by mail-oa2-f26.google.com with SMTP id 586e51a60fabf-466cc88a9b9so2756322fac.2
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 07:07:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790690828; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rqxQoEROYgBnd4GsJxe9LpqJpWeF8Biy/kGc9yEqmm5zofKWwtCjuQjHPill0j3wtD
-         e/p46e6xDw4kjsm1ugdDMABp9jkIxJdXfPYkeeOU6jWOQbiVyLpJN2xyT8BBhrqVYGe7
-         YeUxzkzmjG/2q/M9rqwoWU3ipMhOUuUAHn5uBTIlLvwDg8xRVZAxLOrK8nh9Xkzhneo0
-         DsWXYOU1NDRL8iYgCMg8X6Z+J2QFgiWngFbaAUz3KBTvH6QFuYtYMJSFHcgwb2V/7PUr
-         YrvxfwAIYvYQgdDqbU7aapkVFAmFiZM/WjTrfSiDm3xChHKO3hiuw4gCB8Ck0fxoCkIZ
-         LR6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dTLyCqQ7WwfTK5C8c/TV/luJZ1l7pOnefZ2LabbNeYQ=;
-        fh=2cy2un/seSqi355G+ZoXlvRg0LdgpwaV+Bg7H+BvcHo=;
-        b=oZyNBmtlDE/0V2wCc/S7dNtnnJ9zcWC6ntHv2PM6ei/xXmKFKpwpd5D68/oNHya+Dy
-         OxIlYU8Dj6/CIuZGJYQJmFu77K2H2zKwVT15jyAA7KqGHgtsDZEhhabQKOmteLqLwszf
-         ZjJOnSk3nkcS25oSYdq9Ku1/pVG7x0Jo+OVxW0c/ZvbITB1wU2uj3/7Tu9uwbNeNxiI2
-         FBK27lnDaakcmIM8mHacJ0IIZG2KtryRllpOK0KLpBcbwlJOE6xg2DS+rkkMZHfemOjt
-         0ipVvh/XpUXheBi6sXGOeFtm9VXZaN3xZmIlFUtOQLx4jmN/3n9cYTiFYSYUPjhDtdAh
-         hACg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1790690828; x=1791295628; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dTLyCqQ7WwfTK5C8c/TV/luJZ1l7pOnefZ2LabbNeYQ=;
-        b=gQSOUuXNh2zlw8vzI8eJKVCfcuDaVAqZchv0avu7VqDWT2Nvm95ppwUC0k2KB3AXxj
-         d7fkq9GESDHVJOXeeeMS0DGWZ2dv5MEiC8SI4HPipc5f5glPljch0tg8xK/u3PS+BOnG
-         imcijVuLUcC7qfN50B1xdggxWYO7jtNAHgpQHr+PDHnCPFd6PMeKfoSc0/hVdJPurIdE
-         IQ7GnM2RATHBcFYNNREe2Aeutbzjotrr3ZtQm3ZqfJCHzWJO8NuiDtG3g19lKL2JXIab
-         /u7o4mV6+mX0GSWrv8MpCZM99Df06zGpS0touglyOF5tyOf0RHtHGysL3QnhxiaWBLx5
-         xs7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790690828; x=1791295628;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dTLyCqQ7WwfTK5C8c/TV/luJZ1l7pOnefZ2LabbNeYQ=;
-        b=tWoWBjEuRYD/2C/Vzhx+9q07xT4oYdwYCEwKcXcn5p6H0xR0kRLa9x3aQRxZV0/Biw
-         QI/dkPMDrJwXwi4XQUSnEkQPvI68UGSMdHOH/SuNsO2sM4Y4MbHM4CGrZ/nZGAf/ARi9
-         rv8IDMbx4k65n/fDPA4Dz44GYJCEKik4yrxjEXzEfCvcduWWug1IvL6tst2X1aFb9LlS
-         f/FSVL5wXxFEN1c1gGhC91fpxupHhGoKokztkumCXiGIb7NldLlohesK/r3wo77uCiIs
-         whR4jgHcUGCq4VdMWisM2sWTv2Xq7OC7wflsVOJc6EprE507BKNyvozOvgHb8bYkzyEO
-         flLg==
-X-Forwarded-Encrypted: i=1; AKwUvBx12hoGoTPswSRH0kRREcKzV0vSRkoCMZbXFhazyINOc2xcE5WLexYL7i660QJbZcPmMDLQR3Mw8UXfFw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoP9BgAFqc+xbhvnCUhZhNxepibj37eguzMlM+S1qLgJaE0EQ6
-	GefCL1w5hj6CnYP1ASa5VG3JrJWELTIrQq3HgfwcnbAtBv1aFwA1WeXZL1YDE3ivlTdBt8LkFMk
-	Lkyys82QqyaUbDJ3ENvFhqq1CCbdwK5gKJ6o6nSKdUQ==
-X-Gm-Gg: AYBFou2AfSKYF31pedYNKhPEIZkrMUR3GNQ+jFfaD1fC4prT44XdbRg1E+EslIOtfQy
-	o0SnkmqM9WGe7PR8NiD3rJm9w3co5ykCVTGcxqmUEFbOqb7TqconAjeSPvz5Eh2XqFqPHObHDw1
-	8dnfa55cx9r4WAk4Z9ISZes6q2auWUmVPQawY8L8tMv2/c9SEyYPg+7yR2FbKhYz3B+YpDU+Qn8
-	5X1ES3K07MvlHbtMNWIe1p79LL32AHCnhMF1ebU1Cl2rI6mhQIEnXj/iIBe0xVOzWBgO8s2y9it
-	URd7N9z2POUCmY/0mdKWOt/tflMrBbCGqAd0iEk81DSMCkb4HKh0fqTe4Nh2mg00YDfgzkB+uJA
-	0gXknH+9/ZHzEfczy0/bVThsBGbGo65Mqkaks4A2JNQ6F/NVhH4TuQD3MTrauO8m9Wc2YpUeG
-X-Received: by 2002:a05:6870:5b8c:b0:475:e235:907 with SMTP id
- 586e51a60fabf-491e6df2ca6mr14181395fac.37.1790690828150; Tue, 29 Sep 2026
- 07:07:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HauA4Wbd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48481F000FF;
+	Tue, 29 Sep 2026 14:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790691529;
+	bh=WHZHSX8cRu/7/N33fTuRJpkBnX/fMb/1SxVzpaZbqe4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HauA4Wbd8IIVvjR+dnKtbWAgqLHFacHuGPzIt5RXkCF+osvlaHzhm9z2uVXgihdKW
+	 EsbdtoTz9gAoFqqu3Qr4/N4duOqPNk3555qRUoABxdQUPeOESsjP6l+lHa6AjViFAg
+	 UqY5s/f/rWZpRrW83q2ZXHoHXTxF5sdVy+T+lfXADKhfqzRPMpeEGeyMKlVSeAsSCg
+	 BfgHBqR1yotzMSyA8EwTKD2sSezHd+/h0Jm59aalB5xraXb13K9pWUar/gjrI37Vgv
+	 RZGFtWv80Gnsbc+5DYk5GZEmN4XZZCKn2un8eRH1+HRi/1MiK0tZvlmQBTeC7sCZ30
+	 pRHLzGt9sTMzw==
+Message-ID: <a385d1e2-cca9-446e-b855-818fa61fb64a@kernel.org>
+Date: Tue, 29 Sep 2026 16:18:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev> <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
- <arpyD2CjxOqwQvx8@bombadil> <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
- <arrVt-0ctw1cXkkW@bombadil>
-In-Reply-To: <arrVt-0ctw1cXkkW@bombadil>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 29 Sep 2026 15:06:51 +0100
-X-Gm-Features: AclHuK-gui-cmKb2M0DiyVTpVowsm0FxE-fiQgHI28BhjnvZNZKvO0fM-Xkz-xM
-Message-ID: <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control range
-To: Richard Leitner <richard.leitner@linux.dev>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: uvcvideo: Remove unused active field
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sept 2026 at 22:08, Richard Leitner
-<richard.leitner@linux.dev> wrote:
->
-> On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
-> > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
-> > <richard.leitner@linux.dev> wrote:
-> > >
-> > > Hi Dave,
-> > >
-> > > thanks for your feedback! Greatly appreciated!
-> > >
-> > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> > > > Hi Richard
-> > > >
-> > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > > <richard.leitner@linux.dev> wrote:
-> > > > >
-> > > > > When updating the flash_duration range ensure the ceiling is at least as
-> > > > > long as the exposure time is. This may cause the calculated
-> > > > > flash_duration register value to be rounded up.
-> > > > >
-> > > > > This is done by introducing a new
-> > > > > ov9282_update_ctrl_range_flash_duration() function and using them
-> > > > > wherever possible.
-> > > > >
-> > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > > ---
-> > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > > index f728709fcf0a6..be38ecfad8c82 100644
-> > > > > --- a/drivers/media/i2c/ov9282.c
-> > > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > > > >                                 NSEC_PER_USEC);
-> > > > >  }
-> > > > >
-> > > > > +/**
-> > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > > > > + * @ov9282: pointer to ov9282 device
-> > > > > + *
-> > > > > + * This may round up the ceiling to the microseconds representation of the
-> > > > > + * next flash_duration register value to make sure one can illuminate the whole
-> > > > > + * exposure time long.
-> > > > > + *
-> > > > > + * Return: 0 if successful, error code otherwise.
-> > > > > + */
-> > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > > > > +{
-> > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > > > > +
-> > > > > +       if (fd_max_us < exposure_us)
-> > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> > > >
-> > > > Reading the driver for how it handles flash duration, it all gets a
-> > > > bit convoluted. I see part of it comes from the units being usecs
-> > > > whilst natively it is in lines, but we've got this slightly odd calc
-> > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
-> > > > value.
-> > >
-> > > That's true. I'm also not happy with this back-and-forth conversion between
-> > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-> > > all "timing related" controls in the same unit (likely usecs). I was
-> > > already playing around with that approach, but as this would break the
-> > > current exporsure property I have not sent those patches...
-> > >
-> > > If you have any "mainline-acceptable" idea on how to do that I would
-> > > definitely love to hear it ;-)
-> >
-> > Sadly I think that there is a need for some of the back and forth in
-> > conversions :-(
-> >
-> > > > Seeing as this is the max flash_duration, is it actually limited by
-> > > > the exposure, or by the frame duration? The difference between those
-> > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> > > > you up to another 9usecs to play with. That covers any of this
-> > > > rounding stuff. You can afford to always round that one down and never
-> > > > clip the range below the exposure time.
-> > >
-> > > From a hardware perspective this isn't limited at all AFAICT. But from a
-> > > "use-case" perspective a flash_duration (with a flash offset=0, which is
-> > > the hard-coded default case in this driver currently) longer than the
-> > > exposure time makes no sense, as it does not have any effect on the image.
-> > >
-> > > With this patch I want to make sure to be able to illuminate the frame
-> > > during the complete exposure time, but keep the maximum as short as
-> > > possible. So I was comparing/aiming this at the exposure time, not the
-> > > frame duration.
-> > >
-> > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-> > > time: Would a "turned-on flash" during those 25 lines have any impact on
-> > > the frames brightness in your opinion?
-> > > I haven't explicitely tested/measured this with hardware, but I guess
-> > > this does not have any impact?
-> >
-> > No, as this is a global shutter sensor I wouldn't expect the flash to
-> > impact the image if a connected flash was on for more lines than the
-> > exposure.
-> >
-> > > Or do you mean when calculating against the frame duration the +/-1
-> > > stuff can be dropped and the code would be easier to read?
-> >
-> > Yes, I'm suggesting the driver handles the range of values that the
-> > hardware can support correctly. Whether that helps for your image
-> > quality requirements is a different question.
-> > The driver can pass the buck with at least some of the rounding issues
-> > to userspace, which potentially has use-case specific knowledge. And
-> > it simplifies the driver in the process.
->
-> Talking about "range of values that the hardware can support": AFAICT
-> the strobe duration is (from a sensor hardware point of view) not
-> limited by the frame duration. At least I found nothing on this in the
-> datasheet and a quick test on hardware also showed no correlation.
+Hi,
 
-Interesting. So if you set it to a 1 second strobe pulse when
-streaming at 60fps, what behaviour do you get?
-It triggers at the relevant point on one (random) frame, holds the
-strobe line active for the 1sec, deasserts the strobe line, and then
-waits for the relevant trigger point of the next frame to repeat the
-cycle?
+On 30-Jun-26 12:28, Ricardo Ribalda wrote:
+> The active field in struct uvc_streaming is not used anymore, drop it.
+> 
+> Reported-by: Hans de Goede <hansg@kernel.org>
+> Closes: https://lore.kernel.org/linux-media/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org/T/#m3078f0d5fd71435b5cfacaa5c99f23a446db581f
+> Fixes: c93d73c9c2cf ("media: uvcvideo: Use vb2 ioctl and fop helpers")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
-> So IMHO the real maximum flash duration range the sensor can support is
-> the maximum strobe_frame_span register value.
->
-> I'm not saying this makes any sense from a use-case perspective, but if
-> we require the driver to support the hardware's maximum values wouldn't
-> that be the correct approach?
+Thank you for your patch.
 
-I don't believe there are any defined *requirements* for how a driver
-should behave with regard to flash timings beyond that in the control
-docs [1], and that doesn't list any constraints.
-If this sensor does behave all the way up to the maximum
-strobe_frame_span register value, then I probably would go for that.
-Other than having to convert into usecs on mode change based on pixel
-rate, it at least saves recomputing it as any other controls change.
+I have merged this into:
 
-Sakari - what's your view?
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
 
-  Dave
+Regards,
 
-[1] https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/ext-ctrls-flash.html
+Hans
 
-> Or am I misunderstanding something?
->
-> regards;rl
->
-> >
-> > > Sorry If misunderstood your feedback somehow.
-> > >
-> > > >
-> > > > There is reference in the docs to a different behaviour if "the
-> > > > vertical blanking period is long", but with a bit to set to give
-> > > > stable behaviour (0x3017 bit 1).
-> > >
-> > > I've read that paragraph in the datasheet, yes. But as this was not
-> > > affecting my use-case I haven't included this in this series or my
-> > > downstream kernel. Do you think it's worth adding support for this? Do
-> > > you know of any reports complaining about this power saving feature?
-> >
-> > It only matters if you allow flash duration to be significantly
-> > greater than the exposure time, which I was effectively proposing.
-> >
-> >   Dave
-> >
->
-> [... snip ...]
+
+> ---
+>  drivers/media/usb/uvc/uvc_video.c | 2 --
+>  drivers/media/usb/uvc/uvcvideo.h  | 1 -
+>  2 files changed, 3 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index fc3536a4399f..0167f0f8e846 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -2229,8 +2229,6 @@ int uvc_video_init(struct uvc_streaming *stream)
+>  		return -EINVAL;
+>  	}
+>  
+> -	atomic_set(&stream->active, 0);
+> -
+>  	/*
+>  	 * Alternate setting 0 should be the default, yet the XBox Live Vision
+>  	 * Cam (and possibly other devices) crash or otherwise misbehave if
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index b6bcee4a222f..021fd9af78b5 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -456,7 +456,6 @@ struct uvc_streaming {
+>  	struct list_head list;
+>  	struct uvc_device *dev;
+>  	struct uvc_video_chain *chain;
+> -	atomic_t active;
+>  
+>  	struct usb_interface *intf;
+>  	int intfnum;
+> 
+> ---
+> base-commit: 253355887a1ab0ac8f33b356c7c1140eee554d18
+> change-id: 20260630-uvc-remove-active-8843181bcbb4
+> 
+> Best regards,
+
