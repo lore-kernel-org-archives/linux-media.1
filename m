@@ -1,182 +1,172 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010020.outbound.protection.outlook.com [52.101.201.20])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA8950EBFE;
-	Tue, 29 Sep 2026 13:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688737; cv=fail; b=PRit72fFRPHCMzAzKDaGECufXuwhNnxNO0zpB3xjh+FxXhaCNHzHqQnTNFghe7UHN7Gocppv62TJdM4JLl9wawOIgoxEfmRMMN1XvrP4BkYtPVvABhe5/eJACUbq0V78NYZtj53zn0uCXDvBi/Dp7HSVmvIDbfjBNf3LgEV55ww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688737; c=relaxed/simple;
-	bh=CFMW+bRw3/SEDSiZ6e11WnUX2WhC239Uc27d+LpXon8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TM6jhTX/2ocvMkK/ZKExQn+Sieo8OHVb6QMEw1jxYDcF6WIb83/6YElriiN9UytCXeNN3yI0f1G8Z3KDa8vM781kv8uKJZEgaGE17fLQByoe6R+QG6ropcwOmf8krZiB0UGIjJVJYZ/BWk0BBR3fPbq3rLxgp87L6eLMQ7jWTk4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oC5mJiXY; arc=fail smtp.client-ip=52.101.201.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D64E4F96A5;
+	Tue, 29 Sep 2026 13:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790689054; cv=none; b=UfGPZ/XDn8j5vpJHVINXgaxgp24OJQq4sM5KOYGqPel0qRO5rAFXd8+hcRbbTlgED9NS+k/emzz+z1Id54rE1qUn5HW7Vkwsj9IdhbIybEFAvAwuZUsLQVDFEtKsIpX2YbJxoAUDF2OtoMALtcnasrCLjuC2H/gW8jGl/yNKjMQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790689054; c=relaxed/simple;
+	bh=ZfOI4enPkIyHuoxQGCP7dsiWqYy6zkYOhymwAH5/upM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FROTc400QRyp8/A9j04Rz59XK3rR2ObfsSE7aWcVUkU5Jb9hNvAG14DERcXVz8Dp87NTCzL66LwmHFWJDmlVuYHMaPTBpKkVQGU4pDTvNsRU28Qn01wXYP6cgk6sCLw+6mln409TRfuQ2nGSI3ypVxlEPkjKKO9tGpidiS9oo+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EwnBxFbE; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oC5mJiXY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=szTQlvEWRt9zkUUAangwu6pKag+UgAnhcHGctRzVvB+WLcrMVH8bg8ptiefux9S+yrJwHn2u9KlxXX51qXCT6xUk6mllQinXQXUm0dOz9O2NzoM/YbafGVcqQAQxwUTyGtaCoqsZOi7pUNwdYdKz4qIVLXWSYEShnsR3ysiP3HN6y87Wqk7SXmwLLafUjz81EI5Hp4uvMFPjwVgM9h76UdYwRaySWmzeo8UjbAS9VAafVRWFp79slpWHeYkZJom/OHFSbCLfQxCDHT2JshlxQKeIJnUdSN7eUyKG0L+QZ0e2XO8/84G5jvEI25iLw8GxbcjrdI6qYWB3ENyXTWPw5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7phmc2Ras8wYtNuA2aGaXoRhmLXYMT28um5iz9vep0Y=;
- b=FTHKzbsiBPh1VAxappde7SB2oRCBpJg21UMfIcNv48ZTEcCDAVe0sIBUXsqeeujOQUdwH68lXYa8hZLPouqQaDNUnDLH2PAxUl8UsLoI8Gzq7qATdNhu2DDIkr86fSLKV9GAn8Lc6K4RNMBLsvxNv3ItmONilVTe6m12biFostMpYB5FeqTbaU9SRHVz9qYpWNDBCoGJ6CkTcEPAkR/SBn5owchCvlWvbbEu95rKlmPSpsoorCyfNkvUlg4PRfuwggR55ckWTUb1EFj0lULrqhw32VWnI+Xq0xheHeJalXkl2h6YPQOTFijGIdzpEhg701Ml9aYGPXWPL986lfArZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7phmc2Ras8wYtNuA2aGaXoRhmLXYMT28um5iz9vep0Y=;
- b=oC5mJiXY17wh9wnsmYi2HsoB0qM6gqnrg39wBgFWa8jljGg/LUtM+gllMfWioaoG6W0gLMU3Z469ooEVfKZWiBjaWGgM2VGujPPQiKs3+HKK74/Nl0+L5l8MaHc7G/gBNzWxm8YY7WWDcH6ZO6FJtwTsuRYeqgiOgNAEHn1tC5o=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS2PR12MB432622.namprd12.prod.outlook.com (2603:10b6:8:70b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
- 2026 13:32:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 13:32:13 +0000
-Message-ID: <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
-Date: Tue, 29 Sep 2026 15:32:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
-To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260923150308.1294592-2-phasta@kernel.org>
- <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
- <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
- <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
- <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
- <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
- <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0217.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e4::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EwnBxFbE"
+Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 00B755B3;
+	Tue, 29 Sep 2026 15:35:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790688940;
+	bh=ZfOI4enPkIyHuoxQGCP7dsiWqYy6zkYOhymwAH5/upM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EwnBxFbE7T6vx4gMFO5ybILHXg9BWjiCSfu2hafCtjNit+3SnOHgxdk1RKUUSCLdJ
+	 GPgkFOGQ85WLCLlN77h/ZMC4sVE6hHOY1Il9HmtLcQwWG5SoPF9k2R/gGZ0NFI+95B
+	 hZFYmwqlyiZXjbO/CTei/mVnCZbo1+TEmAgAiR+g=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [PATCH v1] media: rcar-vin: Implement `VIDIOC_ENUM_FRMSIZES`
+Date: Tue, 29 Sep 2026 15:37:20 +0200
+Message-ID: <20260929133720.344955-1-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB432622:EE_
-X-MS-Office365-Filtering-Correlation-Id: d51b86d2-2ab2-439f-3da1-08df1e2e1205
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	9iLSe4as7lZ2YRQIC1/Xj8vm2tLptMzTBspSW5iYXupeBZBxw0GJGIm03qG70S1lhQPvD/0TyMLQIPblCPo/7avc3IZYh2eHUDvdHKSMd0UH9QBBtETNuqFk+p6HzrsbTsmfSdnuyWhXzOFibgpwKo5urRpezRa4TGlkSuwK7G8Ybz5QnF7ijeSWmFwo0otYsdo+E7jFGy9oRUGBZ4feyiw1whkFS5MaQL2MJ8VpJor2yt4cXOo5656xJRwaIIHx+3BR8vQJ5oIVqEZC5fvPf1qPdZbCM9XQnNNPtKfTJRtFHr9L+DwyREYtfkRYMV3tA7lD6TE2lyu6OxralFiATPC/IouZSfmUfOJptH9eqd3D1jIxtJDNxA3gfoiEvNHllel0IfQMl8tzOsIfikq1/qXdeDzcU3HhaCbstMQs7mCAAY123JZZAuuMc3/90i5w1N6PFQwY1xUEH80aolQFkOlrVH54u7pKNOrQoqs9nN5fZhZijbclrSTt34nPCG2VhsBME9QVZsQoOOgl7Kfbp61F+QrnOcu35NLtYWWlr/at6+4QZ7eYUKNh7DnJ4+hr9XFYF82gGA3zQjk2TZAnH2H2DX3IYYPlgq9xuo72+fv31ysa1XWaMx1Qw0GvdtUyZ7FTUbdNo5VV7fRGof7YWJHcwNU0Kad7Xif067D/108=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SEEyWDRKK3g4SEppUnNKVmx2WnhocWUwOVIyeWxKbFkxSUxvRXBHUTN5djFQ?=
- =?utf-8?B?MVUyMFBya1cxMS9zYTM1dkRabWY1b21RVU9aYmsvendHOGIrR2Q5Vm50QXZL?=
- =?utf-8?B?THBBZUFabnJVdkZDeWlUb1hDVmRBcGx1SUVMSE9jZWN0UXhsZGd3alJiMEwy?=
- =?utf-8?B?K3pGa3l1amZVTFF2Wm83L0J6b2t4d2w2dm11V1E4TUEzbmNwekxLS1Y1cGFm?=
- =?utf-8?B?UlRmNzI3UC9OZ0pnVHJIVzhlRlZ3UllvTkVuc08zcmNvVktOV3F4cHRDdTFG?=
- =?utf-8?B?V3RMMEFRR2VnbC9XVmZhVWtoMVdaZS82SVpQNmlQRHV5eVZZMU5SWXJESVd3?=
- =?utf-8?B?UWwvRUJGV2hqTDlXbWRtNi9aTlZ0L0VXcnlSY01OQmRPL1VhUTkxZ1FzTUI4?=
- =?utf-8?B?Q1F4THU3U1VTVTczc1pPVkFqUWRkSFUxc0pHanBCZ1pWRW9sQ3FuTk5nZEVE?=
- =?utf-8?B?cHRQV1ZteFJPeDVXamFCNW96Smc4ZFVoaTVRWnhKVUdrQkpxa3FIVEhZV092?=
- =?utf-8?B?Y0VWcXRvbWQxaG1EM21lOTZ0Y0JUaGZyTGNVak5iNWttY0VRMVF3VzY3UHI1?=
- =?utf-8?B?Wm1FbGdlZ1ZEVlRPZHRwbU1jdnErUGYvRXh3b2ZUV01pZUVuWXpUYzVmc0xF?=
- =?utf-8?B?TzcrVWpYMU9naG94WmhUcVJqdXJTWU1aTWhlMzYySDhocVA2cUEyN2lkOWUx?=
- =?utf-8?B?ckVzaEZURkhMSTJFb0lZWEpIWjNyVnIzSCtLWHB6S3hLS3VEVjFxcFpuZTFa?=
- =?utf-8?B?S3ZETCtpK3JNRWdIRUNtdzF2ZDM5bVFaVk9USllLN1VHY09KOVRWRTZyOGRV?=
- =?utf-8?B?Tlg5WDRuUWkzWEt5KzZXdEdjQS80Qi9xTkRia3pMeWQxamYxSnN6S3ZRN2o3?=
- =?utf-8?B?S01QREFOTkRXYklsWTR6ajRRSm5saHJYbm9NT3laVWs1dkxzV3p6YVlIT294?=
- =?utf-8?B?T2ROKzVPRUtPdTZmKzB3QUlGakdFSmszS2ZtY21OaXRVQm1BbS92RDZvMks2?=
- =?utf-8?B?dUQvZmNwNTM3RzdxczJRbDhwMW1BWkZmOG1QTUtGa3JwR0pINENKZ0lrUnRo?=
- =?utf-8?B?TkpqemxBOTVjZmpxOVF4bjYzOVpZc0dVNGkzZFk2Q3VVZTdIV0c2endGbkZB?=
- =?utf-8?B?Yy9Va0ZoYzZpMFgxcUpmOHJmY2dLMGQ1emlRMXp1cGtvdHQvVmJHUFZYUlJV?=
- =?utf-8?B?YU9kT0hvMTM1SVJ3OTlHVFJaMnY4RCtRa0ptaEFjaUg2Unp1NjdvcEFYZHUr?=
- =?utf-8?B?YVBQVmJWRmRsV05vSHRDcXNmS2Y3TExPSFNCUWQxeEFnQlBENFZDdzdGVDZ2?=
- =?utf-8?B?b3hzTkEveFpkYmFyc2oySDd5VENuZG9oOUlDNGJoWWZaUms0KzJNR3R5enE3?=
- =?utf-8?B?UjRlS0l0Y0hnQS9IckZJQzJnVXdQOC9CenNZRnI4dzhYUFZZc0lDdlB1QmVL?=
- =?utf-8?B?cjQwUXE0RFlTVGhaRDZjQzFMSlh4Wko5VGpRWnZWZ3l2MDBCZ25JSWV2ZHFt?=
- =?utf-8?B?VFp0cnNNT2hoblllL0Y5L3hWVkJvVHh5ZitPTkpRTGtnc2lyT1RrMVV2RWR6?=
- =?utf-8?B?dFdzTFNRL2VVSE9xZFFPcHY3MDYrOEFDUE14ajV2TE5XbURHYjk5SkZRVzFQ?=
- =?utf-8?B?QVFVSk1qTFM1ZllzZDVGaHp5RUZQQ3dNQ0svbExQYW8vZjlrZ1ZNS2gwVEhp?=
- =?utf-8?B?aGxINmxzQWtLUmMvNkpjTVp2TnFGVlliM0xwVEJKeGFzNXA4dFRWUFlVV3Rj?=
- =?utf-8?B?SjdiYkV0T2RxNkVjdExNVEpLVnVOTkl0SUtsMWJ0V2RpNDRzczBJVnJQZ1ZW?=
- =?utf-8?B?ZFBOVzhtQW1RaG5HWjBIZDBJYktFVUlhN2JxazAyL2lIVm5JVTg0THE2Q1lz?=
- =?utf-8?B?bnVMa0FJbThSYm5aSTl4SjhFS0tuWG1LNElpRTU2WldBY1grWXlYK3ptMktG?=
- =?utf-8?B?UnMwODhqTnl0LzBTeXZaQU9GZ3ZSc1BQVUg5RGlCbjVCazhNQXliTlFpYmly?=
- =?utf-8?B?S0E1SllnZzRxQW0xR1JtSEZYZ0d0NGRjb1FIUS9BSGg1Ti9sRjlidmxUWFpC?=
- =?utf-8?B?M3UwdlRUMk5lN0hYUzZ2TEdzS2szcTJUV21WbDJyTVNtVlVud3Y3em5wcjJE?=
- =?utf-8?B?Smx4RmhJcCtZTmhvWWVLTzNpNFE4dk00NCtpMmYzSi9iTlV4OHJ4T2FLSFZq?=
- =?utf-8?B?K0pWRHZqTmNYOTlUMjVBWHB5Y2x1SGQ0WlZLY0VrdkJEVmF0OEVCbm9zU3oy?=
- =?utf-8?B?c0hiWlhJQVpFTFIvYjNEUzVQRjlOK0hRK1VLVjZkdjdFUWF3N3o0OFJBQnFx?=
- =?utf-8?Q?mniXML6yt0j1FvDO1A?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d51b86d2-2ab2-439f-3da1-08df1e2e1205
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 13:32:13.1202
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gi07lCqEqvUpYAw+u8M2/E9c1zTXTFGQQOKAmyz+JODDYrvuVTBXujARQjYhg0Cr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB432622
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/25/26 10:42, Philipp Stanner wrote:
-> On Fri, 2026-09-25 at 10:21 +0200, Christian König wrote:
->> Some problems like the locking design are still WIP, but we are
->> slowly moving towards that.
-> 
-> The question will be whether we can reach common ground with that one.
+Currently there is no way for applications to query the available frame
+sizes, so implement `VIDIOC_ENUM_FRMSIZES` based on what is allowed in
+`rvin_format_align()`.
 
-I haven't had a chance to look into your alternative to using RCU, but you mentioned that you found a solution to the problem on the RUST side so it sounded to me that we at least have a path forward.
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+---
+ .../platform/renesas/rcar-vin/rcar-v4l2.c     | 70 ++++++++++++++-----
+ 1 file changed, 51 insertions(+), 19 deletions(-)
 
->>
->> But some problems like parts of the dma_fence uAPI are unfixable
->> without time travel.
-> 
-> I would be especially interested in learning about who the party is
-> that apparently is spinning on dma_fence_is_signaled(), supposedly
-> preventing us from getting the memory ordering right.
-
-Well there isn't spinning on it. It's just that in a SMP system it takes some time for state to transfer between CPU cores and that communication channel often becomes a bottleneck.
-
-By implementing the is_signaled callback you avoid that device->CPU core A->CPU core B signaling making things much more responsive.
-
-Even on ancient drivers like radeon people start to complain when the is_signaled callback is removed, so it is definitely necessary.
-> Also learning more about the users that definitely *need* ops-
->> signaled() and ops->enable_signaling() would be interesting. drm_sched
-> users cannot make use of these, since the sched-fence does not pass the
-> request through to the hardware fence.
-> 
-> So who are the users? Parties like Nouveau implement these callbacks,
-> but it's not clear whether they actually need them.
-
-The eviction fence and KFD fence in amdgpu as well as the preemption fence in XE and i915 depend on that to note whenever somebody starts depending on the fence.
-
-Additional to that I just last week have talked with some Qualcomm folks who desperately want device to device signaling without waking up the CPU. The enabling_signaling callback is necessary for that as well.
-
-For Nouveau I think that it is pretty much pointless to implement those callbacks, but I'm not 100% sure.
-
-Regards,
-Christian.
-
-> 
-> (btw, funnily enough, with the Rust-fence design we finally have the
-> ability to fully support all callbacks with or without a scheduler,
-> since the need for an intermediate fence disappeared)
-> 
-> 
-> P.
+diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
+index 9d45e11898c13..4961d28f42c78 100644
+--- a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
++++ b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
+@@ -19,6 +19,8 @@
+ #include "rcar-vin.h"
+ 
+ #define RVIN_DEFAULT_FORMAT	V4L2_PIX_FMT_YUYV
++#define RVIN_MIN_WIDTH		5
++#define RVIN_MIN_HEIGHT		2
+ #define RVIN_DEFAULT_WIDTH	800
+ #define RVIN_DEFAULT_HEIGHT	600
+ #define RVIN_DEFAULT_FIELD	V4L2_FIELD_NONE
+@@ -187,6 +189,24 @@ static u32 rvin_format_sizeimage(struct v4l2_pix_format *pix)
+ 	}
+ }
+ 
++static u32 rvin_format_width_alignment(u32 pixelformat)
++{
++	/* Hardware limits width alignment based on format. */
++	switch (pixelformat) {
++	/* Multiple of 32 (2^5) for NV12/16. */
++	case V4L2_PIX_FMT_NV12:
++	case V4L2_PIX_FMT_NV16:
++		return 5;
++	/* Multiple of 2 (2^1) for YUV. */
++	case V4L2_PIX_FMT_YUYV:
++	case V4L2_PIX_FMT_UYVY:
++		return 1;
++	/* No multiple for RGB. */
++	default:
++		return 0;
++	}
++}
++
+ static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
+ {
+ 	u32 walign;
+@@ -208,27 +228,12 @@ static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
+ 		break;
+ 	}
+ 
+-	/* Hardware limits width alignment based on format. */
+-	switch (pix->pixelformat) {
+-	/* Multiple of 32 (2^5) for NV12/16. */
+-	case V4L2_PIX_FMT_NV12:
+-	case V4L2_PIX_FMT_NV16:
+-		walign = 5;
+-		break;
+-	/* Multiple of 2 (2^1) for YUV. */
+-	case V4L2_PIX_FMT_YUYV:
+-	case V4L2_PIX_FMT_UYVY:
+-		walign = 1;
+-		break;
+-	/* No multiple for RGB. */
+-	default:
+-		walign = 0;
+-		break;
+-	}
++	walign = rvin_format_width_alignment(pix->pixelformat);
+ 
+ 	/* Limit to VIN capabilities */
+-	v4l_bound_align_image(&pix->width, 5, vin->info->max_width, walign,
+-			      &pix->height, 2, vin->info->max_height, 0, 0);
++	v4l_bound_align_image(&pix->width, RVIN_MIN_WIDTH, vin->info->max_width, walign,
++			      &pix->height, RVIN_MIN_HEIGHT, vin->info->max_height, 0,
++			      0);
+ 
+ 	pix->bytesperline = rvin_format_bytesperline(vin, pix);
+ 	pix->sizeimage = rvin_format_sizeimage(pix);
+@@ -343,6 +348,32 @@ static int rvin_enum_fmt_vid_cap(struct file *file, void *priv,
+ 	return -EINVAL;
+ }
+ 
++static int rvin_enum_framesizes(struct file *file, void *priv,
++				struct v4l2_frmsizeenum *fsize)
++{
++	struct rvin_dev *vin = video_drvdata(file);
++	u32 wstep;
++
++	if (fsize->index != 0)
++		return -EINVAL;
++
++	if (!rvin_format_from_pixel(vin, fsize->pixel_format))
++		return -EINVAL;
++
++	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
++
++	wstep = 1u << rvin_format_width_alignment(fsize->pixel_format);
++	fsize->stepwise.min_width = round_up(RVIN_MIN_WIDTH, wstep);
++	fsize->stepwise.max_width = vin->info->max_width;
++	fsize->stepwise.step_width = wstep;
++
++	fsize->stepwise.min_height = RVIN_MIN_HEIGHT;
++	fsize->stepwise.max_height = vin->info->max_height;
++	fsize->stepwise.step_height = 1;
++
++	return 0;
++}
++
+ static int rvin_remote_rectangle(struct rvin_dev *vin, struct v4l2_rect *rect)
+ {
+ 	struct media_pad *pad = media_pad_remote_pad_first(&vin->pad);
+@@ -564,6 +595,7 @@ static const struct v4l2_ioctl_ops rvin_mc_ioctl_ops = {
+ 	.vidioc_g_fmt_vid_cap		= rvin_g_fmt_vid_cap,
+ 	.vidioc_s_fmt_vid_cap		= rvin_mc_s_fmt_vid_cap,
+ 	.vidioc_enum_fmt_vid_cap	= rvin_enum_fmt_vid_cap,
++	.vidioc_enum_framesizes		= rvin_enum_framesizes,
+ 
+ 	.vidioc_g_selection		= rvin_g_selection,
+ 	.vidioc_s_selection		= rvin_s_selection,
+-- 
+2.55.0
 
