@@ -1,176 +1,184 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011071.outbound.protection.outlook.com [40.107.130.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41591389DEC;
-	Tue, 29 Sep 2026 07:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F503A3822;
+	Tue, 29 Sep 2026 07:30:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666203; cv=pass; b=k5HdPnIKnGawwbL+dE5QRqp7jIex++KKCmKUg41+ibCGouSth+MhzsB8T082koYroPNz2KKoWbnWMtcmnfApXzTayDjKLynKrbaCI7AiRQ9lrUqxeSGgOhvWUdXYGw5XovrR0nj9E2Sz7S+f2HyfytHvuccO0Ps8yBv8zw3Yr1I=
+	t=1790667053; cv=fail; b=pYvM5ICU5JY2pz40+mEjKlMA+ojCjjoBdKmwzPTzKSo03yigOjnsv8JHCEMPauRSHRPnKa0W9AttInYuvxAglFIn4+LQI6Y7OpsM8c9A88IjyNAI4crVtfbi/z6+cUB8k6qrt93syLHaAPFYLw8TWX7bfaS5w8iY/qeKfP2nBt0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666203; c=relaxed/simple;
-	bh=696ijxOXQfhBgBvDoMokAePa1R6tyLjNu1OEPOnd1xc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sYjqFITmnosss5p6bxu4hETJtokOGCxjXHm1wpmVGIqS0eWaSUcT0Al5bMDrsyX/PhSxshphDib9VnZv6H7+DxqOnKO1CizvmzWJP4ehLBwnb9XmeC+JKkFujHDoyw1EWQbGzsBXAJeE1mKrWDr1zGtzLYZ9cE7i/u82s5KwUX0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=ZHw0xdkY; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1790667053; c=relaxed/simple;
+	bh=0jTMvjfhyu9pUTelspHPktt1+3URXqYGLygczZyAnAI=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=l8/jSmWQA1yCB+ZGS7Vf2g0BRI8fiAFiTmAcxct0eKhUzUNMnaPl6J7A48GCLjuZkKSjeZlBbwpXt+7dEtmPDaQrkA8VZaP8eMc6iIPpk9SffXq8Fe63dSHKrze4wrIyx5cwc9NgX356S1atPytEIl/s0ZkslROSV8C5h1uDW9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=r8oSU2+k; arc=fail smtp.client-ip=40.107.130.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="ZHw0xdkY"
-Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: spu@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E1FB5201548;
-	Tue, 29 Sep 2026 09:16:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790666191;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g8yFIMfXcamOSTdytiUcdogK/QABhn5sWuK0oBzBWh8=;
-	b=ZHw0xdkYy/CgZdHMayUgrCk0soMlwyhaMORQtte2UHNbGN0o201RQsAvUvvJO0B/tASX+K
-	/e0QmBTAs0E8LKSyAfA4hd2UAsZXpkivVzKhxGuDX4TfgNMICqDkuMmn48zqRWQX3qvPF6
-	DfeWkjOBdLoVRw0n213tpVu59oBTgSu9LjsbEOUJxM9A+RyJ3odHCwW9Gcewpwi3es0t3O
-	tlfG1smpcr8FKjykCeJJ52sDjjmZdksnikADGoc1+fSMbkdYRyrhl+OErnc/xq3XdEMsv9
-	EuR0AYN9PxHH5HcwEeYN9/lPQXY4kV6tWJ5AiUqFE+JQXlWhzHB9qmvqDc6Ong==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790666191;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g8yFIMfXcamOSTdytiUcdogK/QABhn5sWuK0oBzBWh8=;
-	b=M+JKN1oGvusBH3GBbsSTZwkM4KbQFzknN49NdMhTKlqHKiBQJY4k1juzDjamtQAQ8oPB42
-	5aA3ZEb0Ez2mG5RFTyZ0Ban7gPtS1dziE/z1uAc8TrABDztC45SrHuOrk5YQdx0N+1ulIB
-	aneZeVJR0b2X2p8GxboV2RsfyDY54tyrxLg5IZLD4VJcttFfbTNBVyHSejK05VXBxle0yV
-	kC+bU5sSk0PUkd1z+uVJNKKYqf2NRx9dvHoqNBD2Wo2WGfFQLoWyRHB9HYqPEb9ZvSLq91
-	KqdkhQXcWNrik2OuYExfRRGTSyEEY9qCD8rp3VoIJS+NVKJ8JZy7QuZwQGkWSQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790666191; a=rsa-sha256;
-	cv=none;
-	b=Ii8cJJuTLEYqiYxjCnvVvpCmlwjg6YT9uF6cvpIcfUkAdlNqZJR+/9KjwdoBQfHNHDdTNI
-	r2tpE0lmVSyfwqqWL/5BTsriQOQoQ1DzcdcWbvE6cPVSeraHe9aHfx0ZTpEXUjF2dgs+1C
-	1WfW308uJJtKuPmNtHwWlkisDqE9GgAYL2XzaKda1BL5QBRk+wQR1Ld1rYLhku1NzY83bH
-	zeLUvWs8BWlZ11bkzJy4O77PE5UbzMj1vTM71AzOJ5cqjIi5tQqKjaROg/B84Wv5OWu5PK
-	6tO8nZdpMj/J6UK6/C9ZK+LR1SrUrHEmZKnj/A3uvNtxQlDLkheGUayXk4BftA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=spu@pengutronix.de smtp.mailfrom=s.pueschel@pengutronix.de
-Message-ID: <b3b26ca0-c362-47ff-837f-989fb8f9cc12@pengutronix.de>
-Date: Tue, 29 Sep 2026 09:16:30 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="r8oSU2+k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yIF0wBJACT/nOhA+G/9V/yuPwwgh7BvGu/+wAJZvOTQ2KAPUO83NGv9ehmr0yY75EM9e0/aEU7JJuKlAH/H/h7lsXmWrHNeFrpOgaGuxawxkw0jYkoR2U2Q7chV6pXFWBnXqF43l2Tt1c+InxNVYNoEaM9qL29J5fyTB46R+JU7KO+kmQwo0a75iW8zug+ESaycJAS4jEk/w4ywrUjcTWimmNGcmOTQIdQZk0HCNMmrt2HewS6l/QaFGBrBp8EBQd5NNqlbTpMNtQaN8ujXC0ZKe4LUtqj/imivpiwcF6LYj8I/GzpYIQGsRCQEzSV+3dXiWfYF9epHW7GQBSbi/fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sRlN/4Zd6uvtWpNC2sSCOef+x8tqwHQEgxl+zJ3J/10=;
+ b=cJSZPZ9w0a/tgPt+JD9glVH2N80NBrmX2dURxuPt4A0vSriqAGIWswpqoxd/oRZiIZHmNnZp/pDS5TP0sEOXFx5WcP80qQc7Iuum4jcAD9LLr+qxrK36k7bLkMbpZG27SaZcqFw1VEzyyq7QZ8kifnkl9v2xs5j8mSf5VjFIBpWXWdeosM67GTZCQMH0oDohOFe41XfsRkW+GNuUKnF7MhWu64XFfV2krpyB/qibtOFGXeGdiQCU+ufJu3i9qsOVN0hnQ7mk3xD+ZTyTcRSjJ5O8caQwNQHXCIU3hmxokYzvr3sLMTSBhmxCqSVF6ZFXFuj4dMYr3ylqFTOi50wdtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sRlN/4Zd6uvtWpNC2sSCOef+x8tqwHQEgxl+zJ3J/10=;
+ b=r8oSU2+kZr5dcMEmNhfdtJrBhuXV1QwA0JOm4WIVeEKpezc1alxLJ+HA8bG12G50KfHWchj9RQjpUNjwi/UlF3AxhkNBO9l7dRqcYWOQH+5CSEKqq6JV1MKIIO3Gp+sD68j6Kf9umT8rQGFtJRcrZG1k605H4Gn9IVrk03EYRmmegigiHUPFGR3jgP0I3jNZL1iI0JCrqv9/uBgkRk1FmXgrzbf+CmqNgASpQgUSySKr4XQd0ro6a0Qs7kuz0CCaLKz87KYgkqABLTewxUrf7gNig9oge7a6qrqm+5wymUQG/8yKhZum0Ut8sYB4rXdjTqjUvamU335PwbEcEF4fYw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com (2603:10a6:10:1c::21)
+ by BESPR04MB299202.eurprd04.prod.outlook.com (2603:10a6:b10:13f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 07:30:48 +0000
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c]) by DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 07:30:48 +0000
+From: Ming Qian <ming.qian@oss.nxp.com>
+Date: Tue, 29 Sep 2026 16:30:28 +0900
+Subject: [PATCH v2] media: amphion: Add V4L2_FMT_FLAG_DYN_RESOLUTION for
+ VC1L
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-flag-dyn-resolution-v2-1-ef29487f7215@oss.nxp.com>
+X-B4-Tracking: v=1; b=H4sIABNpu2oC/32Nyw6DIBQFf8Ww7jVAkdiu+h+NC+ShNBYMV43G+
+ O/Fdt/lJHPm7ARt8hbJvdhJsotHH0MGfimI7lXoLHiTmXDKJZW0BjeoDswWIFmMwzxlH9z15gw
+ XiraKk7wck3V+/VafzY9xbl9WT2fqNHqPU0zb93Zhp/f/YWFAQQijZVUxyUT9iIhlWMdSxzdpj
+ uP4AEXgiOPKAAAA
+X-Change-ID: 20260608-flag-dyn-resolution-f39fd24a0ba2
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Ming Qian <ming.qian@nxp.com>
+Cc: Zhou Peng <eagle.zhou@nxp.com>, Elliot Chen <elliot.chen@nxp.com>, 
+ Frank Li <Frank.Li@nxp.com>, linux-imx@nxp.com, imx@lists.linux.dev, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ming Qian <ming.qian@oss.nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: JH0PR02CA0013.apcprd02.prod.outlook.com
+ (2603:1096:990:5::6) To DB7PR04MB4698.eurprd04.prod.outlook.com
+ (2603:10a6:10:1c::21)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: rockchip: rga: quiesce IRQ before releasing m2m
- state
-To: Nicolas Dufresne <nicolas@ndufresne.ca>, Fan Wu <fanwu01@zju.edu.cn>,
- jacob-chen@iotwrt.com, ezequiel@vanguardiasur.com.ar
-Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260704084659.612221-1-fanwu01@zju.edu.cn>
- <c5bb16dec180576cb7e68221880b5e36b7cb689b.camel@ndufresne.ca>
-Content-Language: en-US
-From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-In-Reply-To: <c5bb16dec180576cb7e68221880b5e36b7cb689b.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4698:EE_|BESPR04MB299202:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf1d48a3-2d2a-4214-b9b6-08df1dfb9507
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|19092799006|23010399003|1800799024|18002099003|3023799007|6133799003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	/Cwr+ubGd83eD1tcVJAYJtCjylpaDjntB0Gfq51W49Gdhg6Jjtj8DC5rCyZmc2BmhG3wZ4Aw/4FBIY1vsDlj3yY7VK45FtuHfDYT6N4KeKELla3ZbOWknKNt2NMJjaZ3U3QK/nVjwYQs7Ti7tyutoZdgJRiGyq2oW+85R4CK/MQ0KoQXbfk+nX4D6dcmrPbkV96a8p4QFRiSoOI5dBnxKhKY7OAeLzQFlGasNUm/hQhcNhNs65tDqzgGMjvJ4xnjqQTtaz3yQZEO9vFDtEbQ6ZLL6U+rHrZsI3zzelGaajk+w6MK1THRHLGmfSx/RuqYdSQEUBMMbAXVxgrPyCxrj6aIMboSdcGPZE8XJ5+lsbcyf9IQOv7XLQH5tJCXyHFel4P8zinnRWqRYqbNWd5HJf7Xin0m7m5Zz3pwM8eGYMd68YGDnlxqz0FNmf9dFrJfH7hWFVNu6e7CXMYTvZZGcWK9/rXs6txYdq37UNDq4BWiH5XndBSYc6nEsYzPd/PLowBB07+97udFVza5E+63pRh9daEqHtpmX8hJ4SMIN3KkbXROOknDEJpcNYF3r6DgBj2a73w+XcZnRPYYEnCsn/dsNk31CCGR3oUWugAumaQKUkXzUGYt9wKPEkz/VN2p
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4698.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(19092799006)(23010399003)(1800799024)(18002099003)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dnBaWkZVMTFncHc4bW0xY20wN3dJU3plbXFHZW4wUk1oeGk1ZnNVaUtjanEz?=
+ =?utf-8?B?ck1mQ1cxTVVDcXBRMHJ5RWdPeStPbFdTTk1saW4vV3VnOXdMamRqRHl4cGZF?=
+ =?utf-8?B?Sk41eWpXR09sYmVid3RUWm0xUE9NaVNRSElQYkhZNzRNOVprN2VNQzM3bFp2?=
+ =?utf-8?B?bWw4STZsVWgyTWpST3N6SVE4cWI2UmtDbmJJNStNVmx5T1BLSnhablBTMlhi?=
+ =?utf-8?B?amthd0UwbFFpVGFxSktBY1lnbDVYalErempIL29aOEFabkRRb0c3YTJ1V2Ex?=
+ =?utf-8?B?YW00V2NaRFloc3dnSC9xdTZ6ZThJeUZZOHV3eGR3ekJxKzlraEdYSllYOC92?=
+ =?utf-8?B?SGtBeE1ud0pDQ3F6ZDVzcmZybE5mWG5OQUJiUHpTNGczbklhZWcrOGlUb1Rn?=
+ =?utf-8?B?ZXpZOGttY3J1bVI3Sys4dFBaY1o0Q2pVdmNxUEFWYkRiS0kxcWhVaXFNTjRW?=
+ =?utf-8?B?MzEvUWxGZVBIYVlUL3ZiRVRpc3l0RzRJaVl6NTMvTlRoUmJrcDUwVmRnVUhS?=
+ =?utf-8?B?UExYTzNGNVZET2tBUEdpRExDUUVSVnJoYW5ISEhxeGxyTTY1aWw2TUhHNlZE?=
+ =?utf-8?B?a0hVM2VhUWU4SzVUTEVocnJpSWFDdkREV25MMXl3cVIydHNDSzVyUmZleUIy?=
+ =?utf-8?B?RU5zZkhPQ0JQWHBDeXZEZ29XSFlXNTJvY0tPZEhZY2R6QXFQcVcxaGwzQUJv?=
+ =?utf-8?B?bHdBYVRjMTZwdzZmVytIVkRUa1h0T3VXZjhiSnczWHJkY3dOd1NJemR6Q3pU?=
+ =?utf-8?B?RjlKWHdSYzljSWNVMjhHZzBBSUtGcDd4ZnJRZWFEZWZNNjJldFloT0V2QlpB?=
+ =?utf-8?B?R2RPNDZ1OWtHNVZxeWFOR08veW4rRlBBYVIzZHVML3BtS3NZUTBaUUdtSWhB?=
+ =?utf-8?B?R09qNHA2T2VlQTRhaVhDbEk2WGV5NDNvVm5QQ3p5bnIyd0MrNnU3Y3FuaE1Z?=
+ =?utf-8?B?Vk1YWVJFOE42LzQzazNZbUNzbkFrS0h4eTEwVzIyU2h6TnJoUDhWUGhMbGY1?=
+ =?utf-8?B?SlN1VmVLWkFCUTdtZ3FQcXBrMmN0WGcrWkl0RzRsTUN0N0xwM1Q5RFp5ZU5B?=
+ =?utf-8?B?ZUg5OTczcElNUU5LZS9tUURFUUtlcW1DMmlGR0d6Y1dhYkNRaXRmbzROQmFu?=
+ =?utf-8?B?VTVjdE5wb1dTSnFNcDZWS0hyU3V3T2hCYzlEVkxrWlEreHl2bU5YTXhva0lG?=
+ =?utf-8?B?azZYcXBRTG9IcFd0UFR4MGg3cFZzaUNPa1dlL1ZUWTY1ZVhneG4zeWNPanAx?=
+ =?utf-8?B?TXhyZEtDbHVvWUZyWmxMUGtzOEV6VUJEeEdob1NuZlJCcXhOZWtWOXkvV3Fp?=
+ =?utf-8?B?bUs0WWJmZkgwcUlyc05laVZtaFBYOS9xOGpFRVV6djAwblpORHFvM3V3c01O?=
+ =?utf-8?B?dVZ2R2NCbDMxL0NVQ3RtbmtkbkpyOTdEWnNka3dFSUJPbVNqUmxwdnRsTFBY?=
+ =?utf-8?B?dktGYllQbzdBWVVlSWFrVFFac21sTTA0TWRQOVZUc0NwYkVrTU02TlI2dUcw?=
+ =?utf-8?B?clNsZmc2cDdzVm0zSExkV0VOeXkzNUxWWW5VaGl0dVl5clYvd3AxemRGY2xI?=
+ =?utf-8?B?ekZZSTFWK05ORmhVaGxaQmllMDZXTGlkczBvMVFzUmJQSnFic242eEZxc0RS?=
+ =?utf-8?B?Z2tta1BVM0RJejc2OU9uR29weVJWMmRhK2txckFGNVd0Y3JGeXo1N0Ivblc5?=
+ =?utf-8?B?MEJnT0plV3l2L2Q2WVJ5eXRIYUpLVnhrT3NCUmZBR0hxS2lhVnoyUjhjbzhJ?=
+ =?utf-8?B?dVJNKzNOdGJES1haUG5nTnRobDlsOXozdk1QZ1Fqb3NYd2hpZFNaQ29PZVY5?=
+ =?utf-8?B?VERxWUZSQ1o0MG1CbldmM1cxcmxUcjM4ejZqYzVFbEs0UzdETE5NSGs3TVZZ?=
+ =?utf-8?B?a2FiV3QvRk5JY0tYcTFXK1BkSWpFZWYvZmZud3Jub2pUQXZFQUdZNHR5bWky?=
+ =?utf-8?B?UW55MzRNT20xSlp5dkVKOVhqOHpsMnhCemV0cjhhTTJyejVKNUNGaHdnMzI5?=
+ =?utf-8?B?ME1TT1lWbStoMTdiNlZMWjd3TUlUaFU5Q3VMMEVMMjNLaGhLOHVnaHdDK3pn?=
+ =?utf-8?B?NElMcjZYa2tQYmpnZWsvalJ5NUZ1N0xUWjJjcGJrTGZRTjlyUEdjeTNuMWhy?=
+ =?utf-8?B?ektXWS96K21VUlNkLzh0Z0lrM3QzRFFyUThadFlXQ3dOTXFxQ1I0SjhiNkRZ?=
+ =?utf-8?B?NGJTRHhJSFF2MVQrVXkrcjRWOU5EdzhkbWF0TmhoUTlCYmc3ZE1Kb0IxaE9L?=
+ =?utf-8?B?NFB3a3ZZRDJvaVdrK1lucG05dTFlbk85anVTVitBdXpST3hBczNMNWVzcmt4?=
+ =?utf-8?B?dU1hYnZpQlBLZXd3YVFya3NBV2lma3YyZGNQM3hpOTFtR3oyOE5XS1l4UGt5?=
+ =?utf-8?Q?YVtS4XxIwf4dVzY8uunjMX00Q54uU81znZR41?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf1d48a3-2d2a-4214-b9b6-08df1dfb9507
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4698.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 07:30:48.6761
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZVsSV0VG2ZL/njYtlBFRZZl6jw/1yP0fSNTgc82E3TJ+1uBd36JCrhpDHpvZRd5j8O8h/8T5iEysE3UNMNQLgS5Ju4XKQWnKW5wFRF9BXmdJNQEJBn0EDj7jkD4jcXFP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB299202
 
-Hi,
+The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
+event after parsing the resolution from the stream header for VC1 Annex
+L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
+GStreamer) cannot determine that the driver will signal the initial
+resolution, causing it to skip waiting for the event and fail to set up
+the CAPTURE queue properly.
 
-On 9/28/26 22:18, Nicolas Dufresne wrote:
-> Hi,
->
-> Le samedi 04 juillet 2026 à 08:46 +0000, Fan Wu a écrit :
->> rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
->> devm-managed and is only released once rga_remove() returns, so rga_isr()
->> can still run while the m2m device state is being torn down.
->>
->> Store the IRQ number in struct rockchip_rga, unregister the video device
->> first, and free the IRQ before releasing the m2m state so the handler
->> cannot run against the freed state.
->>
->> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> Again, I don't know if this is a real issue, but seems fair.
+Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
+indicate that the decoder will emit the source change event during
+initialization, consistent with other coded formats supported by this
+driver.
 
-thanks for forwarding. Also stumbled upon the ordering in the remove 
-function but kept it, as it looked akward if it mismatched the probe 
-cleanup order (which comes from the fact that the video device is 
-allocated, then the m2m device and after that the video device is 
-registered). Is it possible to init the m2m device first and then 
-allocate and register the video_device, thus keeping the same teardown 
-order (i'd then adjust this in my multi-core series)? Or is there some 
-logic behind this probe ordering?
+Fixes: e670f5d672ef ("media: amphion: only insert the first sequence startcode for vc1l format")
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+---
+Changes in v2:
+- Drop the documentation patch. Nicolas pointed out that
+  V4L2_FMT_FLAG_DYN_RESOLUTION postdates the stateful decoder spec, so any
+  driver setting it is already required to follow that spec. The
+  non-compliant drivers (coda, s5p-mfc) are pre-spec history and not worth
+  bending the spec text around.
+- Drop the RFC prefix, as requested by Nicolas.
+- Link to v1: https://patch.msgid.link/20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com
+---
+ drivers/media/platform/amphion/vdec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Btw. the irq variable will probably be dropped with my 
-mulit-core/component-devices patchset, as I then have a separate core 
-struct and can check if my core has been already bound to something (and 
-otherwise ignore IRQs). See [1][2]
+diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platform/amphion/vdec.c
+index a9f0521f2e1a..75808482d090 100644
+--- a/drivers/media/platform/amphion/vdec.c
++++ b/drivers/media/platform/amphion/vdec.c
+@@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] = {
+ 		.mem_planes = 1,
+ 		.comp_planes = 1,
+ 		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-		.flags = V4L2_FMT_FLAG_COMPRESSED
++		.flags = V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
+ 	},
+ 	{
+ 		.pixfmt = V4L2_PIX_FMT_MPEG2,
 
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260608-flag-dyn-resolution-f39fd24a0ba2
 
-Sincerely
-     Sven
-
-
-[1] 
-https://lore.kernel.org/linux-media/20260916-spu-rga3multicore-v2-13-23aa2cb74e61@pengutronix.de/
-
-[2] 
-https://lore.kernel.org/linux-media/20260916-spu-rga3multicore-v2-14-23aa2cb74e61@pengutronix.de/
-
-
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
->
-> Picked, ty
->
->> ---
->> Changes in v2:
->> - Rebased onto media-committers/fixes (Linux 7.2-rc1) so the Media CI
->>    valid-ancestor check passes. The rga driver was rewritten upstream
->>    (rga3 support, external IOMMU, clk_bulk, cmdbuf moved to rga_ctx), so
->>    this is a re-port rather than a pure rebase: the resource freed during
->>    removal is now rga->m2m_dev.
->> ---
->>   drivers/media/platform/rockchip/rga/rga.c | 4 +++-
->>   drivers/media/platform/rockchip/rga/rga.h | 1 +
->>   2 files changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
->> index b3cb6bf8eb86..fbc99462dce2 100644
->> --- a/drivers/media/platform/rockchip/rga/rga.c
->> +++ b/drivers/media/platform/rockchip/rga/rga.c
->> @@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
->>   		ret = irq;
->>   		goto err_put_clk;
->>   	}
->> +	rga->irq = irq;
->>   
->>   	ret = devm_request_irq(rga->dev, irq, rga_isr,
->>   			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
->> @@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
->>   
->>   	v4l2_info(&rga->v4l2_dev, "Removing\n");
->>   
->> -	v4l2_m2m_release(rga->m2m_dev);
->>   	video_unregister_device(rga->vfd);
->> +	devm_free_irq(rga->dev, rga->irq, rga);
->> +	v4l2_m2m_release(rga->m2m_dev);
->>   	v4l2_device_unregister(&rga->v4l2_dev);
->>   
->>   	pm_runtime_disable(rga->dev);
->> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
->> index bd431534d0d3..7bcdf36c11b4 100644
->> --- a/drivers/media/platform/rockchip/rga/rga.h
->> +++ b/drivers/media/platform/rockchip/rga/rga.h
->> @@ -73,6 +73,7 @@ struct rockchip_rga {
->>   	struct device *dev;
->>   	struct regmap *grf;
->>   	void __iomem *regs;
->> +	int irq;
->>   	struct clk_bulk_data *clks;
->>   	int num_clks;
->>   	struct rockchip_rga_version version;
