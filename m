@@ -1,110 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038AF51B163
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 12:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A9851AFFF;
+	Tue, 29 Sep 2026 12:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683348; cv=none; b=n4NLGLoYwrTKKGlJSNA0zZjKmEGQ6VhrQm2C0TDyh+8e4yrGpEkX5n3l7t+XsyPGiZ0e4vk0G7g57tXfDnJoWHakQvOROG/UeUZZCQ9DywHL6Nt5ld0x0QopluT+Dwg4GPGaPShP6wzhKnEndOMdZfghjfpKRzAtoCwQvYNodmY=
+	t=1790683350; cv=none; b=WPDbEuEPnG0hkJxWLnf0wxn1wouowEJ+qNpMQac4MnrA15bvijZLw5tYEiXEPVo0mB9M5+NhE+dkxIvG++WSJX4AkPseOUNQn+oMzpMDBnnQkAKGMjBEfIHU/d2eh9KNLw2+sHEAG4mqTTLhUBgI90nPg+dpP5JZ9Lchh7/sFx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683348; c=relaxed/simple;
-	bh=OTO3c1Z55KaSG1CAhfiPzBeKdlDOwaiM9M88wpEun68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hctoWU4WttmcSI9xin2sHd7wgFKMVFDF4AU0eEyAkxfPXJpTi7oLqDEhHmxwghjLaUUx0bkVRTHnG5USZF2O4W9rAsaMPckya8fUymv+CeSQa8jiVUSgy5/T7JlFYx0Pcqxjea0Df31j+7m6ULZyrk1pzsd52wqnyY9cSy9dumI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ULzDGaAT; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790683350; c=relaxed/simple;
+	bh=wJ9PVLSIq6X7O5ZhoJEWBuB6leO8e2NgoslQ6mcWslI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Kr8hct0MICMaVJ+dGOQ5ZbB6tGSIGEWQS8gujNEjMUXCa/Bk2rtG8um4zBnzYkbg+qJExqr0t498VrKgn1KvcXK0YtW3pwBNb/c9gZGh45GBYDbbPYASOUCBgxhIKOcWtgtpXo7FXVO2wTd2I4qLFTBAIOCJYSrO+roTblpJX0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTuNMHlS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ULzDGaAT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790683346; x=1822219346;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OTO3c1Z55KaSG1CAhfiPzBeKdlDOwaiM9M88wpEun68=;
-  b=ULzDGaATCKa+SA03nlfgkfoybih6R/ED+bvRjlbSsfoYzXlLnZLHwsmC
-   9VMeVg6H7Rvrgy/vyzBlanTjdM30mi/17WT8h/CCrXGz5H3fk7mYmVNLs
-   UI0ZDyM+x98EWu58n2o5YVeGh4kJuvvWpvYYn22+L8dv5+rMp0UJaJQON
-   3JcGnvOb9/vy099v173xTGXMbvdsjrjW+0Zde7cL7s9zIQtWlDmUKtRMB
-   YhQRrIt3Vfw+3ATMuhXaHXLA94vd04ToaXEA8PEiZoCQ2QT+/VFpPKfBL
-   +DA3fagtUh8VkAQcm42PS+B2de1ziksJM+0j0+th3wp6FNCUULjxsTDKL
-   Q==;
-X-CSE-ConnectionGUID: NUWrDACUTWeOovNBk284rA==
-X-CSE-MsgGUID: IA0ExgH9TjC+gJVs+Zv7mw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90452641"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90452641"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 05:02:26 -0700
-X-CSE-ConnectionGUID: zTW94HwQQyqz8smGSVdbXg==
-X-CSE-MsgGUID: bVwB4HutT4ODXebtdrrHuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="273959202"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.223])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 05:02:24 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6B960121840;
-	Tue, 29 Sep 2026 15:02:27 +0300 (EEST)
-Date: Tue, 29 Sep 2026 15:02:27 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Vladimir Zapolskiy <vz@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH] media: i2c: ov02c10: Narrow chip id check down to match
- ov02c chips only
-Message-ID: <aruo03AhRCNtFp0n@kekkonen.localdomain>
-References: <20260621145808.2660219-1-vz@kernel.org>
- <fa69ef0f-089d-453f-b088-dfa573bf1fcf@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTuNMHlS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441161F00893;
+	Tue, 29 Sep 2026 12:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790683349;
+	bh=QFu4TV/Yh3C4ZczXnV817/jCqQsTVBiQDypj9KNrY7k=;
+	h=From:Subject:Date:To:Cc;
+	b=FTuNMHlSaS8ULO6fO+IxVQ8pwc6Fpu/XBRMky3Qzgqi0n1t4v4dA2RVXN1bKEmWXD
+	 0M+L0wGfmTsVk+zzJGWRlxP1+0PbvAQbr8YKz2YrRp+xepCWrGhj3c5DVd2oVEVSNG
+	 WapUhfEF7AHp0PN4ux9M/rIbMKjcVsutZ9VBvj4h9EYtt32ryY6mjWk+W61ntQQMC0
+	 3bcUAZr6p741FWPwFax74hLvYRT5ck7Vbymsny/ZYVZKoUrlcUiYm6t9svriS81Fqu
+	 Bz/WpgVTd8m0RtHwCLRMMAhGlwE/qorFmGyzIBPcWURk22PZgkmqNkafSb2+ZnTuGR
+	 jzAVudzGFoPHw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
+Date: Tue, 29 Sep 2026 14:02:23 +0200
+Message-Id: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fa69ef0f-089d-453f-b088-dfa573bf1fcf@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAwA0F+RnA2kHXXOXxEPVbMtoJ0mKAPx3
+ y0e3+UdYKzCBk1xgPIuJr+U4coChm9MH0YZs8GTr+jlapzjJDiEgKIr2rZwGlHZtpnxQX2gZ/R
+ EzkEOFuW3/O+87c7zAl0pO/VsAAAA
+X-Change-ID: 20260918-mali-c55-irq-supend-resume-30b507a20011
+To: Li Youhong <dayou5941@163.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Nayden Kanchev <nayden.kanchev@arm.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-Hi Vladimir,
+This is essentially my reply with the "proper fix" for:
+https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@163.com/
 
-On Tue, Sep 29, 2026 at 10:58:16AM +0300, Vladimir Zapolskiy wrote:
-> Hi Sakari,
-> 
-> On 6/21/26 17:58, Vladimir Zapolskiy wrote:
-> > Originally a chip id check in the driver's probe function is done for
-> > any OmniVision "ov02" sensors, but is too wide, since there are at least
-> > "ov02a", "ov02b", "ov02c", "ov02e", "ov02g", "ov02k" and likely even
-> > more families of sensors with similar names, thus the check for id shall
-> > be more specific and match "ov02c" exclusively and expectedly.
-> > 
-> > Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> > ---
-> >   drivers/media/i2c/ov02c10.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-> > index cf93d36032e1..b36da75d7dfa 100644
-> > --- a/drivers/media/i2c/ov02c10.c
-> > +++ b/drivers/media/i2c/ov02c10.c
-> > @@ -18,8 +18,8 @@
-> >   #define OV02C10_MCLK			19200000
-> >   #define OV02C10_RGB_DEPTH		10
-> > -#define OV02C10_REG_CHIP_ID		CCI_REG16(0x300a)
-> > -#define OV02C10_CHIP_ID			0x5602
-> > +#define OV02C10_REG_CHIP_ID		CCI_REG24(0x300a)
-> > +#define OV02C10_CHIP_ID			0x560243
-> >   #define OV02C10_REG_STREAM_CONTROL	CCI_REG8(0x0100)
-> 
-> can you please start review of this trivial and long-standing change?
-> 
-> Thank you in advance.
+Keep the Mali-C55 interrupt requested for the driver's lifetime instead
+of changing interrupt ownership along with the runtime power state.
+Synchronize and disable the IRQ before power-off, and enable it after
+power-on. Hold a PM reference until probe installs the IRQ, and stop
+runtime PM and drain the IRQ before removing the media entities.
 
-Thanks for the ping. I've queued it for 7.4.
+Allow platforms to mark the ISP as a wakeup source. Hold a runtime PM
+reference while IRQ wake is armed, resuming an idle ISP if needed and
+preserving an active ISP's configuration. Balance the reference on resume
+and failure. Hibernation still uses the power-down path.
 
--- 
-Kind regards,
+Wake events require a configured stream and an input that remains active
+during system sleep. The internal TPG shares the ISP's power state;
+external sensors and receivers need their own wake support. An idle
+pipeline is not started by this series. Hardware wake remains untested.
 
-Sakari Ailus
+The first patch extends the binding with the standard wakeup-source
+property. The second patch updates the driver IRQ and PM handling. The
+third patch retains ISP power while IRQ wake is armed.
+
+Tested on the Renesas RZ/V2H board with the other in-flight patches
+(DTS changes and the TPG enablement) doing full suspend/resume cycles
+with wakeup from RTC and NMI and capturing images before and
+after the test.
+
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (3):
+      dt-bindings: media: mali-c55: Allow wakeup source
+      media: mali-c55: Keep IRQ requested during suspend
+      media: mali-c55: Keep ISP powered while IRQ wake is armed
+
+ .../devicetree/bindings/media/arm,mali-c55.yaml    |  2 +
+ .../media/platform/arm/mali-c55/mali-c55-core.c    | 96 +++++++++++++++++-----
+ 2 files changed, 78 insertions(+), 20 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
