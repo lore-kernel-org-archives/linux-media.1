@@ -1,208 +1,532 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013022.outbound.protection.outlook.com [52.101.72.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388E53D3D18;
-	Tue, 29 Sep 2026 14:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691759; cv=fail; b=P5+lgFQaEUCm4kYL61tBTlmY9uVT6Rq47F8m5HqxJ2ZdrppK58ubHwmUKZARAeLUrFESRzcOL+AeYg3nU8KnVjEjk9sJpahMQFPGs7Kt/RYGB3MsHOj2BFt9rpOi/TkrC2aSuKIv2VU2jEbmJWz8AFJph4CccSjzJVDmI8K4sDY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691759; c=relaxed/simple;
-	bh=lJmIZ3EmGapFurvfRD0KCx2ef9hf0lwNIXicADQhWI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=pa6Bg1hljfaZfwFIzZpGk/NVG+PtdRI8nQLSoPVZ/JH2AumyTM7r1zFvRF6vUR5vn6cHJABay3NB/r0vLAFcKXC7HRa3yP4NKeCNBiODrmJBOtDAG49FuOL41oL0GAvM5u5ARFsbiGfwNxVHE3RPEdbPGLTiyIB5YP7196Nx3fU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=anFJsX6v; arc=fail smtp.client-ip=52.101.72.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7C83D333E;
+	Tue, 29 Sep 2026 14:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790691763; cv=none; b=i4nbEDVlrwaP9e6LEmdZJ3R2PGyAFXFuggLaAdnyNPNaJo8SjNBBr/IN3m+O1uuSC5DSyHs8JPaYxl1qNIdKbAYrrZkO+Hs9IxPIbNdccrbcBpPOFp41tHR6Kqlwy2OXiVVPpQF/6NOFpI/zSGHNT2tx0b6n+XSzpUZQ9MMR9C4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790691763; c=relaxed/simple;
+	bh=FlioqPm1WUrR9xzl9jKhxhUahpT1wflRiha/9euysz0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=luMVfC90nLDtBqiaaxurtfg2DT5n5QJmSUQOdTgiyGTthnJRume1XWC9BNKbhGcyX5ZRfm2sLVqSdu091AGkZGPzTNIRfvamhUoZQQCeTfNVr4UvqLjOBbV8n9/Sd4yF738LSa+fGFdShoPN+AuLXG2BIKxvn47d3wl8yzWcCf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfgQioIz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="anFJsX6v"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KKP2PagTUHwjO/dUMKsh+Um7Q/O8lTK1z9dSqCoWoTv7Hkoq7uF7W2tMvP+NH/stoVwAAkf0SicUbAzL2DhzPPYEfDK63WD2BzoduqRuKdFCaembg9kAplrc36r5AIJs6l6kfa33a3NinEGnQdhEltwjV8CK7chczjwc7VtNRLBZWpqrWb+tDeRLTr6tqpQGDqo8E0RRtVjf72Br9fdy3VcPEDwnHj1f4APxHk+hj8pSSHjM59jb5EsIEti/A9J2/yuUmBnGysH749/VB1AScNi0aR+ACfi0Z8CLklBPd1NRp7bGkrhGp46aPHAIcRFyOjUPHz0b6tR3eViO5pkHFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dP11d71qA64RXQG0l8UkefcXYo39MtfMPTbQyK3kgN4=;
- b=fUvMHsx6UV4fIbiFEOSUjVme/pIWrsZjNEEsWuWxYOa6eO21yxwny3almCKjqAQSLjIsaWQszk7LhvFfvGckfM7Y2QNH9PMf4REi/irg4xCy6+Kwml8W6PBtmWVhaEeCtfWCvyiloDrqXtZaR0z284zIfIGqCJOezX01iwBkJZ8dWgsgwqyoDY+v2+X9IjC/MjcUxJGM/KWdSqeheLwfporVcnXsZ93V4tXLe03urGyfpc64GMTy3ixkqpjG54+PQamXsd9DtQ8OGNdaEahgQUyU0Hy/+vAPJvafO/ftzPw8xmZLHoZBwe0rVlV/qZbi/liwg8ODgy6loxVlD2DWjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dP11d71qA64RXQG0l8UkefcXYo39MtfMPTbQyK3kgN4=;
- b=anFJsX6vsqEFzpjTudm8qVIRF3bJDeLoQH50AZDBdT5lE9bq4k2sbPPkDCU+ADXrnNPr07LQVweKTt2z5a4qzYi3vgn7HlvMqqOKe9dR+Y2ShqFIv4m9XPZKVSBuLbiaD+CIEA9o4Tpg3MXpz6zswADw50V4Am/4qYlOgfXsLgJbNh7i0xbFUn8L4USxO31IX6Y8H/m9Rk107eHisCLhGQSstk3Dk+0tdGXRmtUlw9nnRTCVIYCqk34nyHPd5+YuHyfJbzummcXDHh3W5HGNfLensOwaFTikVO/JGYizFn3OVQ94tdqgH2Mw+JEjsco+e4thgxbcJaBHC4WBC9z9bA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB8774.eurprd04.prod.outlook.com (2603:10a6:10:2e1::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 14:22:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 14:22:34 +0000
-Date: Tue, 29 Sep 2026 09:22:23 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 03/11] media: imx8-isi: Support mbus_code filtering in
- format enumeration
-Message-ID: <arvJn9iaYVuL7Bn1@SMW015318>
-References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
- <20260929-isi_imx952-v4-3-e69f89c7c651@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-isi_imx952-v4-3-e69f89c7c651@oss.nxp.com>
-X-ClientProxiedBy: PH7P220CA0030.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:326::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfgQioIz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9C81F000FF;
+	Tue, 29 Sep 2026 14:22:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790691761;
+	bh=F+ZfKOJ8ZWrEthYmm50gkS1fpQO7KkbAsp/k7Iif6SQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UfgQioIzbr6GkBEKnrAnDXgFdbQZwe6vTGSy1eJ1g7g0C0qh/VnjYfFvJM6aOxPkb
+	 8w8lIm3uC4cHw9bApRiHtsj6RGy7g06kjSNO+8ClAzpNhrIB4nfOwgU5c4isni5eXe
+	 E/irE/jVcVPd6B++NSZoxZwyvcQZhS6ZSckgamrVAottnVD9hmlYOjwab6KO0wCMDf
+	 re4fqMMLnAZJ8z4gXt/VcvURRhoFau5uLiuqrHZ14Yz8QSMi6lMvTWqbQTL3GXJJyL
+	 V9ORsEaQHS5exr/vtCTcslXiVUKrsInkQctWwPzsbOIhvM3EUmq96bH4rNMQJs0DnH
+	 f4su2U04R7Ndg==
+Message-ID: <35c7cc34-4460-4801-9693-e26188439fa7@kernel.org>
+Date: Tue, 29 Sep 2026 16:22:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB8774:EE_
-X-MS-Office365-Filtering-Correlation-Id: c94bc616-3392-4c48-1d73-08df1e351a6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|376014|1800799024|366016|7416014|10067099003|11063799006|56012099006|3023799007|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	kaRs95WzkYUzjC3ttnNUN1uQDtrsponFKLCU3L8VK6QrCZ0PCzaQKqLcmFNANUCuSKqpA8wfqzANeelCbXq1vbCAg1Vnl5a1ZDW2V2S4iHnsIAGrSRQz4c720d+WkFXxmTm2oKcmiI3OShUX3bDZnVrwOG6vxLyx08tFof/P0Owliep6g0GF4VM5oAmCempwhICenDFLnQ8e5kWgznoEHscZZHA25RB+J4MoT22/Hoxz2Ip19H1KnCB0kkZddBlQrjK8giM+nfBh2AUqKJemXSXjFRtxAJKRMXBCKqvhapsDc39kR3ezUkL2WGIJBtlOMGx1Fd9quT0cI5qxq3a3g2QTE4dI5U8ho3M+IGzlU1hvGT9lByjg8/0Ro4ej6XlF5QWVRu7Y7Z0lkpJbpUwNgw8ft+ASzrnb/jnr3Y3OPt49PrD2+LTUIvvjAko/D6A0C4p+9UgDk8NLGgOQAW4Ju/HbTGoVsyq0xE5E7BaYWFu+dKYjb0yE/GFJonw1TzYYMaqo8Ms2ILYBGn5LwriVnl+IvPqZ4v/3O99xEjm01MtUL3WI0bHRJvlTas6/jt67j7mAZR45d/WkTlAiiGypeloA4fN/6njW3c4qjxqQAi9irpWmOua+nDqt+vhLZBpdb5wuTtqIVDmKvwSRSvCJZf7o3ZYyTG07hJmK6oJqRq0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(1800799024)(366016)(7416014)(10067099003)(11063799006)(56012099006)(3023799007)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/PGm+kIQnIoGtp0BbHR/7gFrwKgavaIEf2L8MXAHzLI/eYYJw2jcrnhqF5/3?=
- =?us-ascii?Q?zHZq4DSWb38t4W68kWlnCAaVGvma8b/LAydOPVifC0hWN+Rx6RWwfwNrlX8x?=
- =?us-ascii?Q?ppiYHT9h80qvOkDvA43QmMrC+XMgj3O8KAgTDxIaASScX19dREw/RMo1BMCZ?=
- =?us-ascii?Q?yF0mkCvSQXF8T2eOtcVIqAaOE2AFIc/OW2A2+FGVgaQ/6c8MEqGfntAi27OC?=
- =?us-ascii?Q?EsauAVflWMx5jDKqPVzQliMOvtsvbXppWB+qz3StKfSuXklGq5YmGqqqH1ke?=
- =?us-ascii?Q?EHo4lRWrxm1Gh4lDufXoHB7rDKIvb498EK+Ghc2Cte0130sMuOQkVNFiGnHI?=
- =?us-ascii?Q?AmngVUiQeQ6zMdN7HcqgiDAK8RPzPEOZouPXHo+Faeeckcb9/XK9LvUdasin?=
- =?us-ascii?Q?z+D0MsqjsFK8pu8yZlBNhDappLABWkyR+EoWBn8D5P5CmhXXniaJO8qKt2e+?=
- =?us-ascii?Q?vMUUwUVoilaNKJVRZIBxBUj1tVOnplQiMVqj6gnrtMa/0eAZ67q6t0f+8Cx0?=
- =?us-ascii?Q?yE8bMMG+tv3nkuzvXyzKExeeLOhZwDuKRcpvW16wXhYUWOt8AoG/OYiUMrZo?=
- =?us-ascii?Q?j8iMMJvNuX5IBsHyij0u2vNbm7FCmaPumRI8qdfcoXyyOzmJv1BtZe3KwGaS?=
- =?us-ascii?Q?zikKfFKAifLADVOTbXl6h1MYybr2Jd5njSiX0v0nar+bPh0K27JVpiXrwogH?=
- =?us-ascii?Q?8i4f3PmDXzdJaBRSketTghqUJLsu7epc1HrL6GBrt8eIRvmRNImyGBlUCdnm?=
- =?us-ascii?Q?7dbAmB1/IwTVMelWlKsUsk4R4SOdvq1IPtx2HJd5aCSN3lZckW2u8Kd3L07l?=
- =?us-ascii?Q?VHBblyjEy+kUgILkgp2e+B/wb0Oetqf5JPsOxQm8DdkVBIpEzLwJKNbZSh6e?=
- =?us-ascii?Q?Cx5HXHyrBe/zdUMv4Pz0FsPYbsvcca+3ysfemk6yFFSyQ0iQ0L+980Z9hpfS?=
- =?us-ascii?Q?3+G9KJgOfoeiLedgnkImhL9ypHeTNNb5uoekfgMilsuO4XkGGn6okuw0IN8o?=
- =?us-ascii?Q?guCaMYTNU7J456QhmFVKxVULi/yNcMddvJYRLj9U4hydDHO4rtRzq1o4XC6q?=
- =?us-ascii?Q?ml82eqdgc3qaaR1bIGnwY5i1ewBI0pbDBM72WJHmnnC3smCMdw3YdHgCYSmh?=
- =?us-ascii?Q?I1ZqcrJZf1GCQlDqWEXKL0d+lb0Vub2B+2cq8AL/Og2cNxiJBSHP/Y36XsiT?=
- =?us-ascii?Q?oPu7TI3vIVCnt2M0J6fHu+wI68I6dnO+ZC7uHSCA6Bzdah0Cx3p/o3nIe1jG?=
- =?us-ascii?Q?LhB2JLKJmMpLXoWKVtcQXheikTD1MVsVV1hFWbkMnXaa2on46ElOTsad8tL0?=
- =?us-ascii?Q?m9+apdUfO9XDXLFjB2lELclvyvOxHHFw7S0cfHyrlBOvr5bBiv5eiv8djf2q?=
- =?us-ascii?Q?n0kUp6DW63GzjLCFtNbnAKMkFSAtLRemCxajwihyuqvPW4LGarWZR9BRLIxZ?=
- =?us-ascii?Q?WP650BjZIiMZgctlz7kVaeKHMN50Ir/2YngMCdEkPshW6Gzb6pMcmlf36MXA?=
- =?us-ascii?Q?u/rLWcjILT1QO17Y62Klqouse4oOV1quFaBPofMQC4A/DFq/6dOLQOzUd+Kd?=
- =?us-ascii?Q?AUApgvZwkJbXHQTjCohXtW2blMTeVyFFx4mixyT78XEZwEBjUKc1FhkOHWsE?=
- =?us-ascii?Q?Hqyahq5CDEtrELwfK7xMEiHB3p6qhwpmUG/X83yhcDjJlEhMWTm3QeKTjKcP?=
- =?us-ascii?Q?MMKZVgtSoX8yf8S5qt8Kf47brtgXKKbSNd0rST5OP9jlQOoN92IFzPVdwQnf?=
- =?us-ascii?Q?gykVQm6OB1rTP3uDrBOdblwPh6dr8HFauBVG+u7k+B5xtwUfa400?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c94bc616-3392-4c48-1d73-08df1e351a6d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:22:33.8932
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oZqliYjYB6tmF84Rf0OBZT2GveHFf4w2bvQX2d1J7NDF0VlegNXg9pkvJZtb0Ty6ZxX7O65wBASUyg6PGYsdRPaymVuVOaTWybyAwv2jfgCJh/9cr/Joz3wmSQJ8WAcG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8774
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: uvcvideo: Add autosuspend quirk for AVerMedia Live
+ Gamer HD 2
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sean Baggaley <me@drinkybird.net>
+References: <20260730-uvc-avermedia-v1-1-7272dd394d83@chromium.org>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260730-uvc-avermedia-v1-1-7272dd394d83@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 04:52:24PM +0800, Guoniu Zhou wrote:
-> Extend mxc_isi_format_enum() to accept a v4l2_fmtdesc pointer instead
-> of a plain index, so it can filter formats by mbus_code when set. This
-> is used by the capture path to enumerate only formats compatible with
-> the connected subdev output.
->
-> For the M2M device, the V4L2 framework clears mbus_code to 0 for
-> devices without V4L2_CAP_IO_MC (v4l2-ioctl.c), so this change has no
-> effect on M2M format enumeration.
->
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Hi,
+
+On 30-Jul-26 18:18, Ricardo Ribalda wrote:
+> A user has reported that this device gets stuck in a loop where every
+> few seconds it will turn off and turn back on, causing audio devices
+> to disappear and reappear, its LED to flash, spamming dmesg, etc.
+> This only happens when not in use; everything is fine when the video
+> device is actually being used.
+> 
+> They also reported that using the AUTOSUSPEND quirk via module parameters
+> fixes the issue.
+> 
+> Add the device to the quirk list.
+
+Thank you for your patch.
+
+I have merged this into:
+
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
+
+Regards,
+
+Hans
+
+> 
+> ID 07ca:1570 AVerMedia Technologies, Inc. AVerMedia USB Device
+> Negotiated speed: High Speed (480Mbps)
+> Device Descriptor:
+>    bLength                18
+>    bDescriptorType         1
+>    bcdUSB               2.10
+>    bDeviceClass          239 Miscellaneous Device
+>    bDeviceSubClass         2 [unknown]
+>    bDeviceProtocol         1 Interface Association
+>    bMaxPacketSize0        64
+>    idVendor           0x07ca AVerMedia Technologies, Inc.
+>    idProduct          0x1570 AVerMedia USB Device
+>    bcdDevice            1.00
+>    iManufacturer           6 AVerMedia
+>    iProduct                7 AVerMedia USB Device
+>    iSerial                 3 53106326013650
+>    bNumConfigurations      1
+>    Configuration Descriptor:
+>      bLength                 9
+>      bDescriptorType         2
+>      wTotalLength       0x01d6
+>      bNumInterfaces          4
+>      bConfigurationValue     1
+>      iConfiguration          0
+>      bmAttributes         0xa0
+>        (Bus Powered)
+>        Remote Wakeup
+>      MaxPower              150mA
+>      Interface Association:
+>        bLength                 8
+>        bDescriptorType        11
+>        bFirstInterface         0
+>        bInterfaceCount         2
+>        bFunctionClass         14 Video
+>        bFunctionSubClass       3 Video Interface Collection
+>        bFunctionProtocol       0
+>        iFunction               8 AVerMedia Live Gamer HD 2
+>      Interface Descriptor:
+>        bLength                 9
+>        bDescriptorType         4
+>        bInterfaceNumber        0
+>        bAlternateSetting       0
+>        bNumEndpoints           0
+>        bInterfaceClass        14 Video
+>        bInterfaceSubClass      1 Video Control
+>        bInterfaceProtocol      0
+>        iInterface              8 AVerMedia Live Gamer HD 2
+>        VideoControl Interface Descriptor:
+>          bLength                13
+>          bDescriptorType        36
+>          bDescriptorSubtype      1 (HEADER)
+>          bcdUVC               1.00
+>          wTotalLength       0x004d
+>          dwClockFrequency      120.000000MHz
+>          bInCollection           1
+>          baInterfaceNr( 0)       1
+>        VideoControl Interface Descriptor:
+>          bLength                18
+>          bDescriptorType        36
+>          bDescriptorSubtype      2 (INPUT_TERMINAL)
+>          bTerminalID             1
+>          wTerminalType      0x0201 Camera Sensor
+>          bAssocTerminal          0
+>          iTerminal               0
+>          wObjectiveFocalLengthMin      0
+>          wObjectiveFocalLengthMax      0
+>          wOcularFocalLength            0
+>          bControlSize                  3
+>          bmControls           0x00000000
+>        VideoControl Interface Descriptor:
+>          bLength                11
+>          bDescriptorType        36
+>          bDescriptorSubtype      5 (PROCESSING_UNIT)
+>        Warning: Descriptor too short
+>          bUnitID                 3
+>          bSourceID               1
+>          wMaxMultiplier          0
+>          bControlSize            2
+>          bmControls     0x0000000f
+>            Brightness
+>            Contrast
+>            Hue
+>            Saturation
+>          iProcessing             0
+>          bmVideoStandards     0x09
+>            None
+>            SECAM - 625/50
+>        VideoControl Interface Descriptor:
+>          bLength                 9
+>          bDescriptorType        36
+>          bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+>          bTerminalID             2
+>          wTerminalType      0x0101 USB Streaming
+>          bAssocTerminal          0
+>          bSourceID               4
+>          iTerminal               0
+>        VideoControl Interface Descriptor:
+>          bLength                28
+>          bDescriptorType        36
+>          bDescriptorSubtype      6 (EXTENSION_UNIT)
+>          bUnitID                 4
+>          guidExtensionCode         {c66d125b-0480-0844-8c26-b8363a84de63}
+>          bNumControls           17
+>          bNrInPins               1
+>          baSourceID( 0)          3
+>          bControlSize            3
+>          bmControls( 0)       0x07
+>          bmControls( 1)       0xfe
+>          bmControls( 2)       0x01
+>          iExtension              0
+>      Interface Descriptor:
+>        bLength                 9
+>        bDescriptorType         4
+>        bInterfaceNumber        1
+>        bAlternateSetting       0
+>        bNumEndpoints           0
+>        bInterfaceClass        14 Video
+>        bInterfaceSubClass      2 Video Streaming
+>        bInterfaceProtocol      0
+>        iInterface              8 AVerMedia Live Gamer HD 2
+>        VideoStreaming Interface Descriptor:
+>          bLength                            14
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  1 (INPUT_HEADER)
+>          bNumFormats                         1
+>          wTotalLength                   0x00bd
+>          bEndpointAddress                 0x89  EP 9 IN
+>          bmInfo                              0
+>          bTerminalLink                       2
+>          bStillCaptureMethod                 0
+>          bTriggerSupport                     0
+>          bTriggerUsage                       0
+>          bControlSize                        1
+>          bmaControls( 0)                     0
+>        VideoStreaming Interface Descriptor:
+>          bLength                            11
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  6 (FORMAT_MJPEG)
+>          bFormatIndex                        1
+>          bNumFrameDescriptors                5
+>          bFlags                              0
+>            Fixed-size samples: No
+>          bDefaultFrameIndex                  1
+>          bAspectRatioX                       0
+>          bAspectRatioY                       0
+>          bmInterlaceFlags                 0x00
+>            Interlaced stream or variable: No
+>            Fields per frame: 1 fields
+>            Field 1 first: No
+>            Field pattern: Field 1 only
+>          bCopyProtect                        0
+>        VideoStreaming Interface Descriptor:
+>          bLength                            34
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  7 (FRAME_MJPEG)
+>          bFrameIndex                         1
+>          bmCapabilities                   0x00
+>            Still image unsupported
+>          wWidth                            640
+>          wHeight                           480
+>          dwMinBitRate                294617088
+>          dwMaxBitRate                294912000
+>          dwMaxVideoFrameBufferSize      614400
+>          dwDefaultFrameInterval         166833
+>          bFrameIntervalType                  2
+>          dwFrameInterval( 0)            166666
+>          dwFrameInterval( 1)            166833
+>        VideoStreaming Interface Descriptor:
+>          bLength                            34
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  7 (FRAME_MJPEG)
+>          bFrameIndex                         2
+>          bmCapabilities                   0x00
+>            Still image unsupported
+>          wWidth                            720
+>          wHeight                           480
+>          dwMinBitRate                331444224
+>          dwMaxBitRate                331776000
+>          dwMaxVideoFrameBufferSize      691200
+>          dwDefaultFrameInterval         166833
+>          bFrameIntervalType                  2
+>          dwFrameInterval( 0)            166666
+>          dwFrameInterval( 1)            166833
+>        VideoStreaming Interface Descriptor:
+>          bLength                            30
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  7 (FRAME_MJPEG)
+>          bFrameIndex                         3
+>          bmCapabilities                   0x00
+>            Still image unsupported
+>          wWidth                            720
+>          wHeight                           576
+>          dwMinBitRate                331776000
+>          dwMaxBitRate                331776000
+>          dwMaxVideoFrameBufferSize      829440
+>          dwDefaultFrameInterval         200000
+>          bFrameIntervalType                  1
+>          dwFrameInterval( 0)            200000
+>        VideoStreaming Interface Descriptor:
+>          bLength                            38
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  7 (FRAME_MJPEG)
+>          bFrameIndex                         4
+>          bmCapabilities                   0x00
+>            Still image unsupported
+>          wWidth                           1280
+>          wHeight                           720
+>          dwMinBitRate                737280000
+>          dwMaxBitRate                884736000
+>          dwMaxVideoFrameBufferSize     1843200
+>          dwDefaultFrameInterval         166666
+>          bFrameIntervalType                  3
+>          dwFrameInterval( 0)            166666
+>          dwFrameInterval( 1)            166833
+>          dwFrameInterval( 2)            200000
+>        VideoStreaming Interface Descriptor:
+>          bLength                            46
+>          bDescriptorType                    36
+>          bDescriptorSubtype                  7 (FRAME_MJPEG)
+>          bFrameIndex                         5
+>          bmCapabilities                   0x00
+>            Still image unsupported
+>          wWidth                           1920
+>          wHeight                          1080
+>          dwMinBitRate                994332672
+>          dwMaxBitRate                1990656000
+>          dwMaxVideoFrameBufferSize     4147200
+>          dwDefaultFrameInterval         166666
+>          bFrameIntervalType                  5
+>          dwFrameInterval( 0)            166666
+>          dwFrameInterval( 1)            166833
+>          dwFrameInterval( 2)            200000
+>          dwFrameInterval( 3)            333333
+>          dwFrameInterval( 4)            333667
+>        VideoStreaming Interface Descriptor:
+>          bLength                             6
+>          bDescriptorType                    36
+>          bDescriptorSubtype                 13 (COLORFORMAT)
+>          bColorPrimaries                     1 (BT.709,sRGB)
+>          bTransferCharacteristics            1 (BT.709)
+>          bMatrixCoefficients                 4 (SMPTE 170M (BT.601))
+>      Interface Descriptor:
+>        bLength                 9
+>        bDescriptorType         4
+>        bInterfaceNumber        1
+>        bAlternateSetting       1
+>        bNumEndpoints           1
+>        bInterfaceClass        14 Video
+>        bInterfaceSubClass      2 Video Streaming
+>        bInterfaceProtocol      0
+>        iInterface              8 AVerMedia Live Gamer HD 2
+>        Endpoint Descriptor:
+>          bLength                 7
+>          bDescriptorType         5
+>          bEndpointAddress     0x89  EP 9 IN
+>          bmAttributes            5
+>            Transfer Type            Isochronous
+>            Synch Type               Asynchronous
+>            Usage Type               Data
+>          wMaxPacketSize     0x1400  3x 1024 bytes
+>          bInterval               1
+>      Interface Association:
+>        bLength                 8
+>        bDescriptorType        11
+>        bFirstInterface         2
+>        bInterfaceCount         2
+>        bFunctionClass          1 Audio
+>        bFunctionSubClass       2 Streaming
+>        bFunctionProtocol       0
+>        iFunction               9 AVerMedia Live Gamer HD 2
+>      Interface Descriptor:
+>        bLength                 9
+>        bDescriptorType         4
+>        bInterfaceNumber        2
+>        bAlternateSetting       0
+>        bNumEndpoints           0
+>        bInterfaceClass         1 Audio
+>        bInterfaceSubClass      1 Control Device
+>        bInterfaceProtocol      0
+>        iInterface              9 AVerMedia Live Gamer HD 2
+>        AudioControl Interface Descriptor:
+>          bLength                 9
+>          bDescriptorType        36
+>          bDescriptorSubtype      1 (HEADER)
+>          bcdADC               1.00
+>          wTotalLength       0x003a
+>          bInCollection           1
+>          baInterfaceNr(0)        3
+>        AudioControl Interface Descriptor:
+>          bLength                12
+>          bDescriptorType        36
+>          bDescriptorSubtype      2 (INPUT_TERMINAL)
+>          bTerminalID             1
+>          wTerminalType      0x0602 Digital Audio Interface
+>          bAssocTerminal          0
+>          bNrChannels             1
+>          wChannelConfig     0x0000
+>          iChannelNames           0
+>          iTerminal               0
+>        AudioControl Interface Descriptor:
+>          bLength                12
+>          bDescriptorType        36
+>          bDescriptorSubtype      2 (INPUT_TERMINAL)
+>          bTerminalID             5
+>          wTerminalType      0x0603 Line Connector
+>          bAssocTerminal          0
+>          bNrChannels             1
+>          wChannelConfig     0x0000
+>          iChannelNames           0
+>          iTerminal               0
+>        AudioControl Interface Descriptor:
+>          bLength                 9
+>          bDescriptorType        36
+>          bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+>          bTerminalID             2
+>          wTerminalType      0x0101 USB Streaming
+>          bAssocTerminal          0
+>          bSourceID               3
+>          iTerminal               0
+>        AudioControl Interface Descriptor:
+>          bLength                 8
+>          bDescriptorType        36
+>          bDescriptorSubtype      6 (FEATURE_UNIT)
+>          bUnitID                 3
+>          bSourceID               4
+>          bControlSize            1
+>          bmaControls(0)       0x01
+>            Mute Control
+>          iFeature                0
+>        AudioControl Interface Descriptor:
+>          bLength                 8
+>          bDescriptorType        36
+>          bDescriptorSubtype      5 (SELECTOR_UNIT)
+>          bUnitID                 4
+>          bNrInPins               2
+>          baSourceID(0)           1
+>          baSourceID(1)           5
+>          iSelector               0
+>      Interface Descriptor:
+>        bLength                 9
+>        bDescriptorType         4
+>        bInterfaceNumber        3
+>        bAlternateSetting       0
+>        bNumEndpoints           0
+>        bInterfaceClass         1 Audio
+>        bInterfaceSubClass      2 Streaming
+>        bInterfaceProtocol      0
+>        iInterface              9 AVerMedia Live Gamer HD 2
+>      Interface Descriptor:
+>        bLength                 9
+>        bDescriptorType         4
+>        bInterfaceNumber        3
+>        bAlternateSetting       1
+>        bNumEndpoints           1
+>        bInterfaceClass         1 Audio
+>        bInterfaceSubClass      2 Streaming
+>        bInterfaceProtocol      0
+>        iInterface              9 AVerMedia Live Gamer HD 2
+>        AudioStreaming Interface Descriptor:
+>          bLength                 7
+>          bDescriptorType        36
+>          bDescriptorSubtype      1 (AS_GENERAL)
+>          bTerminalLink           2
+>          bDelay                  1 frames
+>          wFormatTag         0x0001 PCM
+>        AudioStreaming Interface Descriptor:
+>          bLength                11
+>          bDescriptorType        36
+>          bDescriptorSubtype      2 (FORMAT_TYPE)
+>          bFormatType             1 (FORMAT_TYPE_I)
+>          bNrChannels             2
+>          bSubframeSize           2
+>          bBitResolution         16
+>          bSamFreqType            1 Discrete
+>          tSamFreq[ 0]        48000
+>        Endpoint Descriptor:
+>          bLength                 9
+>          bDescriptorType         5
+>          bEndpointAddress     0x8a  EP 10 IN
+>          bmAttributes            5
+>            Transfer Type            Isochronous
+>            Synch Type               Asynchronous
+>            Usage Type               Data
+>          wMaxPacketSize     0x00c0  1x 192 bytes
+>          bInterval               4
+>          bRefresh                0
+>          bSynchAddress           0
+>          AudioStreaming Endpoint Descriptor:
+>            bLength                 7
+>            bDescriptorType        37
+>            bDescriptorSubtype      1 (EP_GENERAL)
+>            bmAttributes         0x01
+>              Sampling Frequency
+>            bLockDelayUnits         0 Undefined
+>            wLockDelay         0x0000
+> Binary Object Store Descriptor:
+>    bLength                 5
+>    bDescriptorType        15
+>    wTotalLength       0x0016
+>    bNumDeviceCaps          2
+>    USB 2.0 Extension Device Capability:
+>      bLength                 7
+>      bDescriptorType        16
+>      bDevCapabilityType      2
+>      bmAttributes   0x00000006
+>        BESL Link Power Management (LPM) Supported
+>    SuperSpeed USB Device Capability:
+>      bLength                10
+>      bDescriptorType        16
+>      bDevCapabilityType      3
+>      bmAttributes         0x00
+>      wSpeedsSupported   0x000e
+>        Device can operate at Full Speed (12Mbps)
+>        Device can operate at High Speed (480Mbps)
+>        Device can operate at SuperSpeed (5Gbps)
+>      bFunctionalitySupport   1
+>        Lowest fully-functional device speed is Full Speed (12Mbps)
+>      bU1DevExitLat           4 micro seconds
+>      bU2DevExitLat           4 micro seconds
+> Device Status:     0x0000
+>    (Bus Powered)
+> 
+> Reported-by: Sean Baggaley <me@drinkybird.net>
+> Closes: https://lore.kernel.org/linux-media/5ef59031-0853-41a7-8d11-c345fe535daf@drinkybird.net/
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
-> Changes in v4:
-> - New patch
+>  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..30adde5a8bc9 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -2851,6 +2851,15 @@ static const struct usb_device_id uvc_ids[] = {
+>  	  .bInterfaceSubClass	= 1,
+>  	  .bInterfaceProtocol	= 0,
+>  	  .driver_info		= (kernel_ulong_t)&uvc_quirk_fix_bandwidth },
+> +	/* AVerMedia Live Gamer HD 2 capture card */
+> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+> +				| USB_DEVICE_ID_MATCH_INT_INFO,
+> +	  .idVendor		= 0x07ca,
+> +	  .idProduct		= 0x1570,
+> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
+> +	  .bInterfaceSubClass	= 1,
+> +	  .bInterfaceProtocol	= 0,
+> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_DISABLE_AUTOSUSPEND) },
+>  	/* ViMicro Vega */
+>  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+>  				| USB_DEVICE_ID_MATCH_INT_INFO,
+> 
 > ---
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h  | 2 +-
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c   | 2 +-
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c | 6 +++++-
->  3 files changed, 7 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> index 58b47335afc7..a30633a7e2e9 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> @@ -322,7 +322,7 @@ mxc_isi_bus_format_by_index(unsigned int index, unsigned int pad);
->  const struct mxc_isi_format_info *
->  mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type);
->  const struct mxc_isi_format_info *
-> -mxc_isi_format_enum(unsigned int index, enum mxc_isi_video_type type);
-> +mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type);
->  const struct mxc_isi_format_info *
->  mxc_isi_format_try(struct mxc_isi_pipe *pipe, struct v4l2_pix_format_mplane *pix,
->  		   enum mxc_isi_video_type type);
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
-> index b729eecad0fe..1178947bb548 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
-> @@ -492,7 +492,7 @@ static int mxc_isi_m2m_enum_fmt_vid(struct file *file, void *fh,
->  		MXC_ISI_VIDEO_M2M_OUT : MXC_ISI_VIDEO_M2M_CAP;
->  	const struct mxc_isi_format_info *info;
->
-> -	info = mxc_isi_format_enum(f->index, type);
-> +	info = mxc_isi_format_enum(f, type);
->  	if (!info)
->  		return -EINVAL;
->
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> index f45c2aae59ce..0d87a1082727 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> @@ -482,13 +482,17 @@ mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type)
->  }
->
->  const struct mxc_isi_format_info *
-> -mxc_isi_format_enum(unsigned int index, enum mxc_isi_video_type type)
-> +mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type)
->  {
-> +	unsigned int index = f->index;
->  	unsigned int i;
->
->  	for (i = 0; i < ARRAY_SIZE(mxc_isi_formats); i++) {
->  		const struct mxc_isi_format_info *fmt = &mxc_isi_formats[i];
->
-> +		if (f->mbus_code && fmt->mbus_code != f->mbus_code)
-> +			continue;
-> +
->  		if (!(fmt->type & type))
->  			continue;
->
->
-> --
-> 2.34.1
->
->
+> base-commit: 7b1734e1761258d78651263706182f1d772c0d3b
+> change-id: 20260730-uvc-avermedia-9c3012e5e683
+> 
+> Best regards,
+
