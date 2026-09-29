@@ -1,66 +1,66 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97353043DE
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 21:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABC32931E1
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 21:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715661; cv=none; b=uJjlXEZOMWNl7E5P70BrCtpW3oENhyi+qsT7M20wpRd1anlX21SpWUAmUTU6sr0THOW5nrwhYdBASvRK2eVtvOCpdV8hNUjzGboUJBKqY7n3piJaIRMqXMXYze37/wg2qR/CuNa+OZA0QLp9VQ57rRkIlIaGsZDaFDXkUcgqjJQ=
+	t=1790715680; cv=none; b=M64AqQHZmz4F+K3oRADhIezjlAk4nsnqTCgnBshL9T2jJz8C4v+QG75TlpYlHuT9JbN165h07w+yZgYFOEmGkg93TqTuvIAatacZUhhs6g+/j0Ee6eWag34E98D7jQevgvc29M98gn76AtIWx2bGdJEqWdH9eLuYDU+CqswlF4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790715661; c=relaxed/simple;
-	bh=UoQrgOIT9pT4CzAhwaqrqGXRM6nIVCOsWizitR0s6Lw=;
+	s=arc-20240116; t=1790715680; c=relaxed/simple;
+	bh=2+ejL0YZjI8InY0H8ZJcRERvW4tbYvlDaxnKFDKpqyw=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q2SNCY3xXvgfIdESJfaoPjreTtkjW+WxTV1Cysm7XXM+M4NGGQ9GaLyjx9i1HS4IVH2lX1vyjEJgKFZSL/YkaB43Irt7cB4EiXP5F1Fnpb2W075av7UxVRg/YOMA9lPbz/0ygrY/W31Uikbr0krCBadqA7xA6Sn4rLdCPvDGReg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=F6haQvth; arc=none smtp.client-ip=74.125.227.38
+	 Content-Type:MIME-Version; b=C+YZOCs3k1QnYbE9AJIStKJnaYU6DhDaCIbwecQuYw2vQeXsuM7UqnISnF4Au553U/TyzPXJEkVJTh8AlpkhLfrfndieb1+yAYmd6ItJcEQAsTYJs83FmVpZ0i9hQoKlERSrkdBjD2XDc5n+OVXqlmsK3SLoy8OquY7t9lgO1Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=01rQEZem; arc=none smtp.client-ip=74.125.227.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="F6haQvth"
-Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b314b72db8so1456419137.1
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 14:00:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="01rQEZem"
+Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5caec6d2983so3877478e0c.0
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 14:01:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790715658; x=1791320458; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790715678; x=1791320478; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6WFXVZDT0yfhcBTuFPg21aJm8jhlblvZ+mRIY0J9dPY=;
-        b=F6haQvthqtouYa7WksLEtpww5oRxVMFjh0nSB1bndfTjKVZ4dZ3gr7aI8zLWNcV5lt
-         1hi2zzRwKsjQ/jTXheREet4B5NnFpo5n26wyITm+Su6zcUqU6L2rfRY9UUrUzq3dpdmq
-         9qkp8mO7uj1vLIUtQfZ4I7btlbotc1+CXLTspVD7/Y5mk59u1z0nDEqufmWKR8WirMuR
-         9nDUS719+BG0YBnH42dm6VMaDl3JegbA4UsZiMmvQHkqwwUnfudUEV+n1KD9KZYORiOv
-         kcfLYoU6a+C8Us9Q/Vdfe/8SfDD5lCRE7KK5hWOjbkOE2TCmgLTinOBvXG1NXtODOu+r
-         jW1Q==
+        bh=YQOfsK+HlKeVCf8Z4OdzeQNNGZLvLEYB73B+IGrPM8Q=;
+        b=01rQEZemfUJg+3qt0rigGhhQqFf/xLI4VumTIP9BDt6uzvbnuFLDEOxHSO45v22ry5
+         mrU2aAhScNzE0ZaK43VBPtqMmMsmf3PDHAecdtoOLmYmbvV7ZVkWZpLTOpC7rHEvvK6B
+         FUTwM7vuLSB3E/wCy0FqZeSMuocfB1i7P5wKCNU2hi/U+JQ4LChxeJqI5lpGFiMgtIeT
+         DT1UgiV4ghL+2LWpGKxrSYUgxN1SeW0ikejSNrt663U+6cHQ81UQnds62RWV1NHmgHIz
+         4R+OSW4n7QoAhZFvw0EnxQ0RXGOpcp96x6NwuVikJv35+fh7an7yqJM2+gO8FT6Hbi3f
+         QuPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790715658; x=1791320458;
+        d=1e100.net; s=20260707; t=1790715678; x=1791320478;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6WFXVZDT0yfhcBTuFPg21aJm8jhlblvZ+mRIY0J9dPY=;
-        b=BgKmByuqEM3Fqv41LQZ4RZTy9d+STpqTieFlG+sNTFep6ObfzO7W+ooOoTO6GKurJq
-         xjDhHtnQpbsAfl3Fk723I1CAzqoqEm1UBhZdjIQ494SkTo1Gh2nyI/vLJQ31u/LUAL+U
-         iC66OML67YwYPzhpeVXjtL33deJZ70KoKPNXIEXvD3VGPnl8bRnb52hGUD8xi6129Qtp
-         uPOE6IvtqL8JX7x6rqVOOjfyBmqifHVTh6poGfi2s2ib9BG9TZLvTijBGbYzlJ8ueOpF
-         i3a2h0TH2Uha/64qDfH8g0kITSDpObwja6lRDIP42tm5dE/weOWTYE0MCEt/+e+39vpR
-         4idg==
-X-Forwarded-Encrypted: i=1; AKwUvBym0Q3iQTmfQf7376IFx9F486KjKBxF0x3AkfWi8p/k2jAAE4IIsu+QSL9dZhDI8qjg8OCI4kjfnegXtA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKy/213erEAnXubVPZMtV3yLncWtFAf83HnOVJ8SLtqnUVjNk4p
-	dpzRaxXHXA5zBb+li4H9JBSI7cxnEMLFcZ+x/+8BBDuCbxWcja07TQTLuzKTF1d6hfU=
-X-Gm-Gg: AYBFou0mVglzZbQt6jeOt1QLS4bkem9qJ+6Uk1V8i5/8ntWyGOm37xBr/YreGKCUNtX
-	jW1zHjj5QQLtf8hmZnLkHm5hUjyroAIA6+RAFdNF7N9OuqfmSq4hmu5W5iD0sVCLvfnTbp9p2pS
-	XeRbWI70c5jUebHEFkhMJIdSU1gc5MvYErozAaKHY9uE9VPoP5/MhNinfK7UGoayG9IElM5kyvP
-	Kb+SO4ZncJIaced+sOWx9+WnazSoKR10PrLZTt85jIgQL7buxRpRUdG/nLliQzCIp/nX8vZOTHc
-	xFQc4vqFjQ3/iFNWrQeNkmpk7Rz/g3jCuI2ndrLTQG+bZ5SIWWV88BzV/3Ro0KlNAkdthMXKPtr
-	Pb6dAxapN0DYsr2yXXPihRtvG06O9w+3Uevcmvp7SG+p8c38O+dl53Q36oOygkW3EEuKmX8vECb
-	GHcBZ3U8bsyNw+KleuKDK5zeX/zEuqr2czCGZNk5zDyS6omHHH10aSOFvYTAS6iOJcSIZVBo+ow
-	rdIEqo/nvYMvA==
-X-Received: by 2002:a05:6102:2d02:b0:7aa:1b48:ca3f with SMTP id ada2fe7eead31-7bc39333beamr267682137.3.1790715658269;
-        Tue, 29 Sep 2026 14:00:58 -0700 (PDT)
+        bh=YQOfsK+HlKeVCf8Z4OdzeQNNGZLvLEYB73B+IGrPM8Q=;
+        b=scGHPFU9yhmBksd6AkB3WR80Zo7fRDyfebFGenIb5YdEZJIh5PDnTIehmjHubLaFoT
+         17DIc1QE+6HDILLJ34dns4WrsH7Ll1BcZ5KPpHS00O2rmobS/GL4TkJq3VDHlKs3TTVE
+         DWiBuH1x7gONSnMTRrSHRuLaJ5vBkxd1DUWeC+7HgLgsfuQRG7+b6Nrd4narH75cMON1
+         iI3ZKsQJ4WD7/U5yPdcR2JUy3VB51o8TslWwL3CEuVbZSNidmM9VgqilWSxLw9yDhQoD
+         K0kfmN+JYUOVIQ2HWnt45+iCBsN9bJGGjwkPl5n2rHR3v4fAQMTKSlr4L+urpgsi2era
+         qk4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwhomGW0RgvHqtbL0LvXYJN0Av7gdRALPp4TkYRt5bplHKhZNFGGV+fW5OTf/R6yUtjhg1Am/+s0X+eMw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5umPZ6DDcebet/DykFaYxl6GKFQmLl4TGxhhG53/q2lEvuZE3
+	4FY3mlGF2VSfryTbaZ5MGbPecaHvhYlmg+uzua+UOIt/Coum8BLYthhv0MxrGgwL77E=
+X-Gm-Gg: AYBFou3RC6/UZT0/XrAX8PuuQtDg0xb7i6Bd7HL4bgAlOFA8azvi0IwGewcACoiZ+7F
+	xYKjQBs0XSdhisuotqsvVWcynljgNVinWXg6n7/cweTL3E2aE2R9wkT/kdQpaQ/IIG8wXZsTp6Q
+	1uygt+ro67ZipFjUGnSC0CloI4yl2MJPi0j0c/tM98owr58YXK4jHkOwpO+lMxIV3A8pGnXzyei
+	5u0ZmK2nY9TdABOxdz4HsCazLXCpvXXc4cn356NYCPfcRwhkXjNhdbywYtMWpoZYGDG4R/d7Fjw
+	uUSf5/6z5WDPkbuYOSXtjEL5qj3udgxxXwZ0eU6hZUc8SkJZlflMawCekfmiKdLWRtjvxLQl7cI
+	Mr0BEdmKzubf3Vnpru/0J3PRG5GkgGZ+C4tiXvBoDZKXuRa0JEcX5MeBz9s+j4vG+QvGcECovRz
+	eewF7Ov6oQqeQwzox99PuYNogDSNT8KGFsQFR7hYxBFB/9SaFXmqs6C6YjnSroxuLDFdvsE83UL
+	MVNQfnRXCA9IxA/gRowf5j4
+X-Received: by 2002:a05:6122:1c05:b0:5c9:ae70:e784 with SMTP id 71dfb90a1353d-5d5131cdd4cmr304268e0c.3.1790715678096;
+        Tue, 29 Sep 2026 14:01:18 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d4e778bf23sm1128224e0c.3.2026.09.29.14.00.54
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d4e778bafasm1226873e0c.5.2026.09.29.14.01.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 14:00:55 -0700 (PDT)
-Message-ID: <2e3c6c4eb72d79ef8b995d6ae62a6424685ec281.camel@ndufresne.ca>
+        Tue, 29 Sep 2026 14:01:17 -0700 (PDT)
+Message-ID: <dd1d9010ad1a3ee11fc38923dfa1252992c2b245.camel@ndufresne.ca>
 Subject: Re: [PATCH] media: mtk-jpeg: Fix runtime PM leak in
  mtk_jpegdec_worker()
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
@@ -70,7 +70,7 @@ Cc: bin.liu@mediatek.com, hverkuil@kernel.org, irui.wang@mediatek.com,
 	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
 	linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
  mchehab@kernel.org, 	stable@vger.kernel.org
-Date: Tue, 29 Sep 2026 17:00:54 -0400
+Date: Tue, 29 Sep 2026 17:01:16 -0400
 In-Reply-To: <20260917100247.2145872-1-vulab@iscas.ac.cn>
 References: <20260917100247.2145872-1-vulab@iscas.ac.cn>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
@@ -87,7 +87,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-LdOO8KXcg0f7Ano5ixCQ"
+	protocol="application/pgp-signature"; boundary="=-OaQi5nvPKDU3qCHl6JAX"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -97,7 +97,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-LdOO8KXcg0f7Ano5ixCQ
+--=-OaQi5nvPKDU3qCHl6JAX
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -138,16 +138,16 @@ work)
 >  		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
 >  			__func__, __LINE__);
 
---=-LdOO8KXcg0f7Ano5ixCQ
+--=-OaQi5nvPKDU3qCHl6JAX
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwnBgAKCRDZQZRRKWBy
-9JxRAQCaqpvPcMxkU8M6x7Jg8iRFYx/F7tQzZ4yTAJ0dpC4WDAEAkMVIPHkUqYox
-NeqJq4h74JpK7UjBvsNaj7x4tjst7QM=
-=Fvo3
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwnHAAKCRDZQZRRKWBy
+9E83APwLk0zeKWzQOIGJYqNZSVuM65LfwP9mlNJVQ/ss2bY3FAD9EhLs8d7/vbqz
+J2u9T+/yffmnP0xvF8G43YoE4lnGZQg=
+=AlR/
 -----END PGP SIGNATURE-----
 
---=-LdOO8KXcg0f7Ano5ixCQ--
+--=-OaQi5nvPKDU3qCHl6JAX--
