@@ -1,102 +1,150 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E261D37BE9F
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 06:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E6A390C85;
+	Tue, 29 Sep 2026 07:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664970; cv=none; b=A0TQX12G098TR1kOr9XWG0dIQn1z2J7Po7nhrxu9UJQe/cycTmOmzlFch6VN0kNGuAgq08ZWG8HebhLho8G3GRGzFxatXXu+S/l/cTpqIthrXsl6fLAvTEXbov7vnQbOmsUSIvW1x5Ux1mYf85aROxevrRIvlXDdRtHz9FN9IdQ=
+	t=1790665490; cv=none; b=tzIyVt7Snp46RQZcGmy8A5bTk6o4l+F/hbLu5JssU33eNwd3ZIndoQLCbvUVpL8w4Xf4WkobEmN0W9BXdoX+oCizpxU9gj9x46cFp3TrQUZno7m4v/+aaXti9EUHYpILG3b8X8DUSt2/RqmCzuIohirrX37vJIk1jXzTp15nX5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664970; c=relaxed/simple;
-	bh=4pzOI0dqfXOjphwaIy4ajDJicrR2uXepG+CBQhlx9B0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rOl5R0J4J/+ZMoIuUxJ6olXfY1AP/drVBipevrScB+aOKp47l5ssu+HMWTUSmZtb4WJwwQG65XzUllC+sRJ1ovByorhIwXq+VK4qxlS12nknnIWZhdwe0omElGYDK1TgB0Rh205QMU2ByZGUACH3haV2sK4AxW46QIX1RhUVleo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rdgcsq2j; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790665490; c=relaxed/simple;
+	bh=LRiNZ0PgF+p4KPYkdFl2kfIl2phZiqixNWOA0NRwLcs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hSXGOGK4ycdSnUGigmP/Eocb1iK56m8gsn4Sbd66MCfTxcfx6gSZxNzusGEYi8NzVquTzWX1xCZH+Vu4+mQBGRRhiZywelqAvu8mfRjFL0KuP3MlVK8CMqNI/EabgOJ6mJY8mEuei9rbP9bryX971LJfmRZBUI2RTatNKMCH6Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XldU8Ln7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rdgcsq2j"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so23530575e9.0
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 23:56:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790664967; x=1791269767; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4pzOI0dqfXOjphwaIy4ajDJicrR2uXepG+CBQhlx9B0=;
-        b=rdgcsq2jogvyYVZ6AQUJuQZ7ogp3Pn9kGrMmAqsWTpRFGDI4Jv2mUqqZIASe2CysIJ
-         BmQqzYrXjZ3+buCrKXJAVLFAxLxAYCk++M9sIkjqmMPpiC0zzeB2uQKl3b2w3O95jsn1
-         RBm1qb0ooMqofVoQ3xsiyaarS44YfDo94q56L80kPp1z7HG496GrU4A88Lf+oeIgFWF4
-         zw1pizGoaF0Pwwp8zducgS7ZwmEnWRYle1ZbCxrCtdJERi8IMxGA7gnLa4Xe4D/y37OZ
-         I5fuXLd0Zt0o0sR+RMXRVoUCwrrVgyuD52fALJVM69WSTPZ9unI8dbuy9iqxVVMF4xUY
-         WW6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790664967; x=1791269767;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4pzOI0dqfXOjphwaIy4ajDJicrR2uXepG+CBQhlx9B0=;
-        b=kTdSetxvP19VGbktrvxIXs3iAjEPd6jbtMAzyJ9Rc1oQf7Q3270/cDJGG2m5iK9FoT
-         BjOVnTEnAhbWoN2WgH6rfsXewOKsNws+2CZPm5on8Q6DDKxY1XA7xMeYCNmzdNtM69kY
-         K9rx2yhL1677peOBLo+t8Gq8u31wfoCY6fQpLP38QCvZxKXAPye224ZVWmPLm0Y0Qjy9
-         v+8QJ34lTO/lJL7c9gJfbVqRJPofUgw6Ns2LLNqvs95WqDLPi4Ov7T/HfnBtXUvPxTdm
-         gYSGBjum1POWHPrSIQpiGfJYJctEZpD9Unaf8lfWq/bM8rjTZXLq0YkY7rX9qbn1gskM
-         qKmg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8+ypVqEDUkR2UdzPwrpBJxKVc021qPPH5CRQ5tn3gctSZYyOkyfH69ApHCBh/dmPQK56YY3czDwPSIw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lSx9aG9J8RUO2p2bFwqd5plUislbyexzlYvCbgMKEXZOus6C8j
-	YkXCr+SqyfqWPonTJkuh6oVfcUPQtBC1VG0cKm1U8QZZ7FnUbr01pwRy
-X-Gm-Gg: AYBFou2lUijnWKUqEzeC+1ICrskD9Hs3eOXEf3w0I37DOq+Yiq0a2cDcvCzOSdmPVPw
-	Np7o7ypn9ERHyQUhz9d4pZO4amE58+K6lWVXzgz0BU3SfyZzj+9hR9XQy/0XnrhIlTsAwLSe0Nh
-	3yWU2GYuXbJZIVYBQN8kkmEnLoMfGrrceW94oNWo6iaJIBOC1OwWgjxludBGTNjoOST01s4vD/i
-	CLZSctOAUkWv0cnDTj2QmfE5WzC4iXBcBcLJVu07El7kNdXHUJksSTqyw407o5FxdIgHb+qy55F
-	5RMBf4mByWxvRHVdyT+tEcKJSmD1nYHNMJ8Fkp/YDu84LgapkHNh9+l1ChvhR8JBheZZ+v+UZEF
-	5z/3k4Y72LTJdcoZjd7VcSpxwhVCa+ifB2Tp5gryn8JPMsX1GQLxC2Xgae4S4MEYTYX0OAR9gro
-	c/tWWB0M9qKqxAtQHoLsrhUWZLqK54a/XL5pVbGhNbZVtxCafWA4kZIuBpU3cjYLbzZDjQjtIkY
-	0pQG9nkyH+mzCJdTajdZ+B6SxXj6p4uLJErO63f08x4G0nPwS2kavZNiHUpfmkywEsTSwO7LH5l
-	uP6mKBAGZiI7zCF4jDzVHenA65MlfpbAy/18vfO0fij7/1Z9Lfao00TTMhbEJr2JrOz4ZAEucCt
-	sS/k4C5ML/if/EyyS
-X-Received: by 2002:a05:600c:c4a3:b0:4a0:a34:f6fe with SMTP id 5b1f17b1804b1-4a00a34f7ffmr46104355e9.17.1790664966699;
-        Mon, 28 Sep 2026 23:56:06 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9c32-f801-0451-cc94-d3ca-f56b.310.pool.telefonica.de. [2a02:3100:9c32:f801:451:cc94:d3ca:f56b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af507611csm1570357f8f.22.2026.09.28.23.56.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 23:56:06 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: sashiko-bot@kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] udmabuf: respect the device's maximum segment size
-Date: Tue, 29 Sep 2026 08:56:01 +0200
-Message-Id: <20260929065601.99518-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260929060028.371041F00893@smtp.kernel.org>
-References: <20260929054835.94118-1-kmehltretter@gmail.com> <20260929060028.371041F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XldU8Ln7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4491F000FF;
+	Tue, 29 Sep 2026 07:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790665488;
+	bh=2qKMY1x1duDIpfMguLIlsKcBdmxwyEv+EI2pLOyWOfE=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=XldU8Ln7sNxg5k2xUAxca31wT/mlW1M1NttXvc8BhQeOhrNU9IUlGHWE3H0umACqW
+	 E2MoBsf20EzAZyVTkTeIHkOeGSGZrMQ1uJTqgfaxcFKpwEXLM+UakBEwpkavt9rBPt
+	 OtCzPOdz1MaDjmc80A1hrawN21HAZ/Ebg3z4floOZ/VDjt08lvWfQRHO1a34z8K7mX
+	 H0bee2vbO5bRg1SjpOkRXJD5Z1RFywTmSoBjqfwRa+sNFrYrMGzfrzn/62iOujg9ms
+	 BhvXZTjeE8df8UmWTz1InOcVY/NAd0CtW2WQUE/DNMvoGaemjQYnymy8wnV6j49yHv
+	 rGeiaKpzbkZvw==
+Message-ID: <f34e29d0-f679-4dfc-ab76-6005295a8e98@kernel.org>
+Date: Tue, 29 Sep 2026 09:04:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: v4l2-ioctl: zero the ext control built for
+ VIDIOC_{G,S}_CTRL
+To: Nick Rogers <nick@getfieldwork.ai>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@xs4all.nl>, Brian Daniels
+ <briandaniels@google.com>, Alexandre Courbot <gnurou@gmail.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925080206.45261-1-nick@getfieldwork.ai>
+Content-Language: en-US, nl
+In-Reply-To: <20260925080206.45261-1-nick@getfieldwork.ai>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 06:00:27AM +0000, sashiko-bot@kernel.org wrote:
-> On architectures with a 256KB PAGE_SIZE (such as Hexagon or PowerPC), this
-> new validation evaluates to 65536 < 262144, unconditionally returning
-> -EINVAL and breaking all CPU mappings.
+On 25/09/2026 10:02, Nick Rogers wrote:
+> When a driver implements the extended control ioctls but has no control
+> handler, v4l_g_ctrl() and v4l_s_ctrl() pass VIDIOC_G_CTRL and
+> VIDIOC_S_CTRL on as a single struct v4l2_ext_control built on the stack.
+> Only its id and value are set, and check_ext_ctrls() clears reserved[0]
+> and reserved2[0]; the control's size and the rest of both structures are
+> left uninitialized.
+> 
+> A driver that forwards the controls rather than handling them through
+> the control framework sees that stack garbage. The virtio-media driver
+> under review takes a nonzero size as a payload to copy from userspace,
+> so VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL through it whenever
+> the stack is dirty. GStreamer's V4L2 encoders set their profile with
+> VIDIOC_S_CTRL, and cannot negotiate against such a device.
+> 
+> Zero-initialize both structures.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> ---
+> Changes in v2:
+> - Assisted-by: LLM, per Documentation/process/coding-assistants.rst
+>   (Alexandre)
+> - Collected Nicolas's Reviewed-by
+> 
+> v1: https://lore.kernel.org/all/20260923160936.33445-1-nick@getfieldwork.ai/
+> 
+> Alexandre asked whether drivers should fill the structure themselves.
+> The core builds it and passes it down, and a driver can't tell a
+> translated G_CTRL/S_CTRL from a real extended control call, so I think
+> it's the core's to zero. He's right that virtio-media will meet kernels
+> without this, though, so the driver now guards against it too:
+> https://lore.kernel.org/all/20260925080140.44696-1-nick@getfieldwork.ai/
+> 
+> Found running the virtio-media v9 series [1] in a VMM with a host-side
+> stateful encoder: GStreamer's v4l2h264enc fails to negotiate because
+> VIDIOC_S_CTRL returns -EINVAL. Tested on 6.18 with that series applied:
+> VIDIOC_G_CTRL and VIDIOC_S_CTRL now reach the device intact, and
+> v4l2-compliance 1.30.1 reports the same results with and without this
+> patch. Build-tested on media.git next (arm64, W=1, no new warnings).
 
-Right, the misc device has no dma_parms, so it gets the 64K default and
-sync fails with 256K pages
+This is the correct patch: these two struct need to be cleared in the
+code. In fact, this needs a Fixes tag and a CC to stable. It's just a bug.
+Never been caught since there are very few drivers that do not have a
+control handler. The only driver without a control handler is uvc, and
+that does the equivalent of QUERY_EXT_CTRL to determine if the control id
+refers to a compound control (that uses the 'size' field) or not.
 
-The misc device has no real segment limit, so for v3 I'll give it
-dma_parms with an unlimited max segment size and keep the -EINVAL for
-importers that report a limit below PAGE_SIZE.
+I verified that there are no other places in the kernel where v4l2_ext_control(s)
+isn't cleared before use.
 
-Karl
+The virtio-media driver can try the same thing as uvc does: query the
+control and check the flags field to see if it has a payload or not
+(V4L2_CTRL_FLAG_HAS_PAYLOAD). That will work with any kernel.
+
+In the meantime, this is just a plain bug fix.
+
+Frankly, rather embarrassing. I'm pretty sure I wrote this, and I should have
+known better...
+
+Regards,
+
+	Hans
+
+> 
+> [1] https://lore.kernel.org/all/20260917171921.2810550-1-briandaniels@google.com/
+> 
+>  drivers/media/v4l2-core/v4l2-ioctl.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+> index 17ba1ae70..b7d248ab7 100644
+> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> @@ -2357,8 +2357,8 @@ static int v4l_g_ctrl(const struct v4l2_ioctl_ops *ops, struct file *file,
+>  	struct video_device *vfd = video_devdata(file);
+>  	struct v4l2_control *p = arg;
+>  	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
+> -	struct v4l2_ext_controls ctrls;
+> -	struct v4l2_ext_control ctrl;
+> +	struct v4l2_ext_controls ctrls = {};
+> +	struct v4l2_ext_control ctrl = {};
+>  
+>  	if (vfh && vfh->ctrl_handler)
+>  		return v4l2_g_ctrl(vfh->ctrl_handler, p);
+> @@ -2388,8 +2388,8 @@ static int v4l_s_ctrl(const struct v4l2_ioctl_ops *ops, struct file *file,
+>  	struct video_device *vfd = video_devdata(file);
+>  	struct v4l2_control *p = arg;
+>  	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
+> -	struct v4l2_ext_controls ctrls;
+> -	struct v4l2_ext_control ctrl;
+> +	struct v4l2_ext_controls ctrls = {};
+> +	struct v4l2_ext_control ctrl = {};
+>  	int ret;
+>  
+>  	if (vfh && vfh->ctrl_handler)
+
