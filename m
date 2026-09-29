@@ -1,78 +1,82 @@
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABC32931E1
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 21:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA243E49D7
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 21:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715680; cv=none; b=M64AqQHZmz4F+K3oRADhIezjlAk4nsnqTCgnBshL9T2jJz8C4v+QG75TlpYlHuT9JbN165h07w+yZgYFOEmGkg93TqTuvIAatacZUhhs6g+/j0Ee6eWag34E98D7jQevgvc29M98gn76AtIWx2bGdJEqWdH9eLuYDU+CqswlF4k=
+	t=1790715979; cv=none; b=r7mJ9aDxqImppBOmZXphZUa/iRDYabufRo9Y53Q01rCuYnMB47ERE68Qthni1ns7Y/CETNuuZYYIWqwJtSlBghlhipUTtlkojfwIGJeI18D1EPmfZNPDdyIvcPZRy+iKALx9b53B6iBxmZWJiJFag75QKNkmm4G6u2D+FuR1Hxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790715680; c=relaxed/simple;
-	bh=2+ejL0YZjI8InY0H8ZJcRERvW4tbYvlDaxnKFDKpqyw=;
+	s=arc-20240116; t=1790715979; c=relaxed/simple;
+	bh=mK6Mulvd+6WzWYA6dTVzp3jfz6d98sJor5h6S6M4KlA=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=C+YZOCs3k1QnYbE9AJIStKJnaYU6DhDaCIbwecQuYw2vQeXsuM7UqnISnF4Au553U/TyzPXJEkVJTh8AlpkhLfrfndieb1+yAYmd6ItJcEQAsTYJs83FmVpZ0i9hQoKlERSrkdBjD2XDc5n+OVXqlmsK3SLoy8OquY7t9lgO1Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=01rQEZem; arc=none smtp.client-ip=74.125.227.40
+	 Content-Type:MIME-Version; b=G6genzeyDUQEOalQmsnFXmJaBSkvIElSiFCyQ7X1DkPZ5Lk0ZkA4Zv9NMYW1tzhabju3KkI7VDG8bjXnhRVgflFr/nbE2bslviC73dwDas4hMfb0BtuOvP4TH03/Ym6GrWbeNF5wZcjo3YDnLBkT3UPLe9R4mWfyuloEGzy5IO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=to/pfk49; arc=none smtp.client-ip=74.125.230.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="01rQEZem"
-Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5caec6d2983so3877478e0c.0
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 14:01:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="to/pfk49"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-53321c5743fso6119321cf.1
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 14:06:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790715678; x=1791320478; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790715972; x=1791320772; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YQOfsK+HlKeVCf8Z4OdzeQNNGZLvLEYB73B+IGrPM8Q=;
-        b=01rQEZemfUJg+3qt0rigGhhQqFf/xLI4VumTIP9BDt6uzvbnuFLDEOxHSO45v22ry5
-         mrU2aAhScNzE0ZaK43VBPtqMmMsmf3PDHAecdtoOLmYmbvV7ZVkWZpLTOpC7rHEvvK6B
-         FUTwM7vuLSB3E/wCy0FqZeSMuocfB1i7P5wKCNU2hi/U+JQ4LChxeJqI5lpGFiMgtIeT
-         DT1UgiV4ghL+2LWpGKxrSYUgxN1SeW0ikejSNrt663U+6cHQ81UQnds62RWV1NHmgHIz
-         4R+OSW4n7QoAhZFvw0EnxQ0RXGOpcp96x6NwuVikJv35+fh7an7yqJM2+gO8FT6Hbi3f
-         QuPg==
+        bh=8LFOvHs5vGrtobfr2ePGnKbAMOPISIpzHqSP7jz8iLA=;
+        b=to/pfk49Pg79h2HQij3Xz0T1LCc4kyltwvU7PQmpkW9TRVpUFoYqqH1omsn6yVMxRO
+         q/UWFkBulkHBeuUtCXXRZXy0hzY4/WTJ1ej5jCmeP+yzMlKir6GQr1lt6LGJo4BHuech
+         NF2PqNv/UfNsPsf8+v2lyB4+YK0PedhdlD35AE8GeeD9/YK7sT71gtlhIXOOLYsggIN7
+         RWDU8zyeYCiC+fZo24Kvc67zgVQX/vBdvTJfflaEFIBy5YBnn+QR4NNrJMRElqmAmSvB
+         RgqmLYt4qSc0CroB2gP6N1Cy8saX+vX8502yQF/78pS7R9feR/cK9rmVXpS4Sv7eFA12
+         PPew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790715678; x=1791320478;
+        d=1e100.net; s=20260707; t=1790715972; x=1791320772;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YQOfsK+HlKeVCf8Z4OdzeQNNGZLvLEYB73B+IGrPM8Q=;
-        b=scGHPFU9yhmBksd6AkB3WR80Zo7fRDyfebFGenIb5YdEZJIh5PDnTIehmjHubLaFoT
-         17DIc1QE+6HDILLJ34dns4WrsH7Ll1BcZ5KPpHS00O2rmobS/GL4TkJq3VDHlKs3TTVE
-         DWiBuH1x7gONSnMTRrSHRuLaJ5vBkxd1DUWeC+7HgLgsfuQRG7+b6Nrd4narH75cMON1
-         iI3ZKsQJ4WD7/U5yPdcR2JUy3VB51o8TslWwL3CEuVbZSNidmM9VgqilWSxLw9yDhQoD
-         K0kfmN+JYUOVIQ2HWnt45+iCBsN9bJGGjwkPl5n2rHR3v4fAQMTKSlr4L+urpgsi2era
-         qk4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwhomGW0RgvHqtbL0LvXYJN0Av7gdRALPp4TkYRt5bplHKhZNFGGV+fW5OTf/R6yUtjhg1Am/+s0X+eMw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5umPZ6DDcebet/DykFaYxl6GKFQmLl4TGxhhG53/q2lEvuZE3
-	4FY3mlGF2VSfryTbaZ5MGbPecaHvhYlmg+uzua+UOIt/Coum8BLYthhv0MxrGgwL77E=
-X-Gm-Gg: AYBFou3RC6/UZT0/XrAX8PuuQtDg0xb7i6Bd7HL4bgAlOFA8azvi0IwGewcACoiZ+7F
-	xYKjQBs0XSdhisuotqsvVWcynljgNVinWXg6n7/cweTL3E2aE2R9wkT/kdQpaQ/IIG8wXZsTp6Q
-	1uygt+ro67ZipFjUGnSC0CloI4yl2MJPi0j0c/tM98owr58YXK4jHkOwpO+lMxIV3A8pGnXzyei
-	5u0ZmK2nY9TdABOxdz4HsCazLXCpvXXc4cn356NYCPfcRwhkXjNhdbywYtMWpoZYGDG4R/d7Fjw
-	uUSf5/6z5WDPkbuYOSXtjEL5qj3udgxxXwZ0eU6hZUc8SkJZlflMawCekfmiKdLWRtjvxLQl7cI
-	Mr0BEdmKzubf3Vnpru/0J3PRG5GkgGZ+C4tiXvBoDZKXuRa0JEcX5MeBz9s+j4vG+QvGcECovRz
-	eewF7Ov6oQqeQwzox99PuYNogDSNT8KGFsQFR7hYxBFB/9SaFXmqs6C6YjnSroxuLDFdvsE83UL
-	MVNQfnRXCA9IxA/gRowf5j4
-X-Received: by 2002:a05:6122:1c05:b0:5c9:ae70:e784 with SMTP id 71dfb90a1353d-5d5131cdd4cmr304268e0c.3.1790715678096;
-        Tue, 29 Sep 2026 14:01:18 -0700 (PDT)
+        bh=8LFOvHs5vGrtobfr2ePGnKbAMOPISIpzHqSP7jz8iLA=;
+        b=Zr0iBCPLe/3fTGtjjZv8xIMW7idIVep9PbgPchNOoAgT2Sdx5ekGlQCoJthGS8KcWU
+         Ij0kxzKEb33gWMh9MLN2/14eZnsQzg14+Yqo11gwD4uUTg2uk/tX9EmJ3DmU+NmBu4Z/
+         CTvVdwSFNvEJydIdmRtw5pu16vNX0sHH31LxypV5tOT3v7VqCKpOT5q0tbJ4qS3LIMKc
+         7L5/adz61GUhHZth7H3MUf+mwStNcMejy2BGgys4JF7T+vs1PedOBKaCIshZNQSYlCDP
+         T2rP+QkZ2VXjUTXUw0WcMuRWZl1jhv70WK4yxEgjHHOWlQ+Xv6ghkXF7K2w/o88P8nkl
+         MR0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwI2aAoF6bRMLID09wwKlFR99HmDzP1NRk8kabiWmWvIM7xaQ9cHQUj3ZPDIAnifPyt3I1CMaYYdMzfxw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kO14tuyqKMKltFNgnPMehx2EOzCd0w1FcUTw6xDMiyH9x8IqaX
+	ES10LvkiEyByMSrZcjI9xT+fdTt7SWgn/WxD9C/WHJCdyuznc7Lt9csp9rhl0lSm85M=
+X-Gm-Gg: AYBFou2BaCOkbfwxW1vebFkKQQCe2Pim41some78UtLErySvBO7ey7yq941AMliob8i
+	9J4edmmmnSeWilTOyxr7vtR5mcgumIZ5cIJl50MviBxL+1hLMmd1Cn5nO6c/3Zl1CmY2cgajAkP
+	XIq2SxQszR1MHnwxf3D2V8zxSXrJRcgiB8N8X9FnTpQ/QUqoJdTLC8FVzgVsrpFa1apU+OV6xWz
+	CwRKxzoXYVjuPK+gotRgik0dqwoKe9QqkIwbT1aSKgaN0rj3h+r71r0TlemH+I1xGdP0epvFBc9
+	6dTuOkFJKWXomM580ZqsJqGkjxVPh1F7zQePTLvuN324oJOE0yljKUUmphJmv4jKNwp6suxVulO
+	f+K5JgvRSlYyJTeki2toh2wbP3EqbXrhxcMkpXRceHz44deeVHgSEZ9/DCB/R/mdYajHXySJ+Dg
+	WRllNJfhchizATKaR43uoh1kN9OtB0ogzKhn3KjtuWAsO+8nC+4lZ3+o1VrA9JmE6ZtQgjFQusZ
+	B0oez+DF4rBtQ==
+X-Received: by 2002:a05:6214:c27:b0:917:9504:374d with SMTP id 6a1803df08f44-91799b6daf0mr7450606d6.36.1790715972169;
+        Tue, 29 Sep 2026 14:06:12 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d4e778bafasm1226873e0c.5.2026.09.29.14.01.16
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917987e2746sm4263186d6.20.2026.09.29.14.06.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 14:01:17 -0700 (PDT)
-Message-ID: <dd1d9010ad1a3ee11fc38923dfa1252992c2b245.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mtk-jpeg: Fix runtime PM leak in
- mtk_jpegdec_worker()
+        Tue, 29 Sep 2026 14:06:10 -0700 (PDT)
+Message-ID: <0741e05902488b491624e5e05098092245242a1a.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vpu: release reserved memory on remove
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Wentao Liang <vulab@iscas.ac.cn>, angelogioacchino.delregno@collabora.com
-Cc: bin.liu@mediatek.com, hverkuil@kernel.org, irui.wang@mediatek.com, 
-	kyrie.wu@mediatek.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- mchehab@kernel.org, 	stable@vger.kernel.org
-Date: Tue, 29 Sep 2026 17:01:16 -0400
-In-Reply-To: <20260917100247.2145872-1-vulab@iscas.ac.cn>
-References: <20260917100247.2145872-1-vulab@iscas.ac.cn>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Minghsiu Tsai	
+ <minghsiu.tsai@mediatek.com>, Houlong Wei <houlong.wei@mediatek.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Tiffany Lin
+ <tiffany.lin@mediatek.com>, Yunfei Dong	 <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>,  Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,  Hans Verkuil
+ <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 17:06:09 -0400
+In-Reply-To: <20260915121025.2412446-1-lgs201920130244@gmail.com>
+References: <20260915121025.2412446-1-lgs201920130244@gmail.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -87,7 +91,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-OaQi5nvPKDU3qCHl6JAX"
+	protocol="application/pgp-signature"; boundary="=-JBpDEv9eNq9BIPUlwiLE"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -97,57 +101,62 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-OaQi5nvPKDU3qCHl6JAX
+--=-JBpDEv9eNq9BIPUlwiLE
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le jeudi 17 septembre 2026 =C3=A0 10:02 +0000, Wentao Liang a =C3=A9crit=C2=
+Le mardi 15 septembre 2026 =C3=A0 20:10 +0800, Guangshuo Li a =C3=A9crit=C2=
 =A0:
-> pm_runtime_get_sync() leaves the device's runtime PM usage count
-> incremented even when it fails.  mtk_jpegdec_worker() jumps to
-> dec_end on that failure, which does not call pm_runtime_put(), so
-> the reference taken by the failed resume is leaked.
+> mtk_vpu_probe() may assign a reserved memory region to the VPU device
+> with of_reserved_mem_device_init(). The probe failure path releases the
+> assignment with of_reserved_mem_device_release(), but the normal remove
+> path does not perform the corresponding cleanup.
 >=20
-> Use pm_runtime_resume_and_get() instead, which drops the reference
-> again when resuming the device fails.
+> As a result, removing the VPU driver after a successful probe can leave
+> the reserved memory assignment associated with the device after its
+> lifetime has ended.
 >=20
-> Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interfac=
-e")
+> Release the reserved memory assignment after freeing the VPU external
+> firmware memory, matching the cleanup performed by the probe failure
+> path.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
->  drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
+>  1 file changed, 1 insertion(+)
 >=20
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index 8c684756d5fc..ed1d5858c942 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1732,7 +1732,7 @@ static void mtk_jpegdec_worker(struct work_struct *=
-work)
->  	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
-> =20
->  	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
-> -	ret =3D pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
-> +	ret =3D pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
->  	if (ret < 0) {
->  		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
->  			__func__, __LINE__);
+> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
+a/platform/mediatek/vpu/mtk_vpu.c
+> index 8d8319f0cd22..16b5bdc2f2c0 100644
+> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> @@ -966,6 +966,7 @@ static void mtk_vpu_remove(struct platform_device *pd=
+ev)
+>  		destroy_workqueue(vpu->wdt.wq);
+>  	vpu_free_ext_mem(vpu, P_FW);
+>  	vpu_free_ext_mem(vpu, D_FW);
+> +	of_reserved_mem_device_release(&pdev->dev);
+>  	mutex_destroy(&vpu->vpu_mutex);
+>  	clk_unprepare(vpu->clk);
+>  }
 
---=-OaQi5nvPKDU3qCHl6JAX
+--=-JBpDEv9eNq9BIPUlwiLE
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwnHAAKCRDZQZRRKWBy
-9E83APwLk0zeKWzQOIGJYqNZSVuM65LfwP9mlNJVQ/ss2bY3FAD9EhLs8d7/vbqz
-J2u9T+/yffmnP0xvF8G43YoE4lnGZQg=
-=AlR/
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwoQQAKCRDZQZRRKWBy
+9LIrAP9JLK9HAtBMScpQ1KexiHDip4nmcCWrHasuo3ANeEljAgEAs60FyYFYBqgL
+Jt8fxtvRcoN2QASZVOg0X0uof6Yp8g4=
+=0P79
 -----END PGP SIGNATURE-----
 
---=-OaQi5nvPKDU3qCHl6JAX--
+--=-JBpDEv9eNq9BIPUlwiLE--
