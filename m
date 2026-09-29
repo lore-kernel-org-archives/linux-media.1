@@ -1,109 +1,231 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824CE3DDB16
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 10:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72E1514770;
+	Tue, 29 Sep 2026 11:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790679267; cv=none; b=IAm4Q/jFCHq6VZzgoiYzL3oYStFZKSsLQrF045iZlxDEetY99vOEc/YtK69qmOHy9z/OYK60/MHIL9IpdGK6VM/MOQgxpNO3XzyjPtv2HfyHOzRyGiE0KL6RhGWEOabU/y7bFhCynDV1Nc29aEX/OkpCghw7GLD1UUt9pRTjA5I=
+	t=1790682239; cv=none; b=JrMDovPQloWkGEs1eNjzM012kt676l9luOHRruCKEihs52KwWmzufFNoDf5c+K1K5ESjC2X91oaW9xHII311DUMXK3F8t7GTOvNaKZU9t+ZdnEeqliwK5OCykEsjJGqvC33pRU+T4TtB1hOFARNS03Dp21h70l+x5BkW0VZ6g2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790679267; c=relaxed/simple;
-	bh=qUTAtSkazbuiw97JmzmXpo13u0OoQY3Knwt3AvqF6iM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=agcNDwz1xMCOicVgZaufXkQsE77Ys/NPjamJPdIywqd2bG9dFwUZTQ1nGXfBqSZkxNX6GsLXs/V3+21FpxhgSJniP0HylnxkurFeYOsdHhMOzMgvTeqsv2T0w/wTOjvSfcS+8jffSm2Mkrbj5V4ZH1JjWWPuHzq+GXPNZ9Yzu7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I1gWKGSS; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790682239; c=relaxed/simple;
+	bh=KbI05H8257pbTzuYfeN0E7QF6PPoH8UPLCkl8YK1WlI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cwTc6Syw5YVwa6UOwQOA5mwTLRO8FNqsoPCtp+d09vexynYQB8xsJ9JpCjNlovR2KIw1a1eaINu9ImRAKJQV3Jib9+uhrw0Uvjoqz65dOy8ihwBa3J2LYI2E05JAcYWwDLMhw9HJywKbNG8k7oLDUHnvaXYrnFSBddwITrQ3rZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=y72ExFnk; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I1gWKGSS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790679264; x=1822215264;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=qUTAtSkazbuiw97JmzmXpo13u0OoQY3Knwt3AvqF6iM=;
-  b=I1gWKGSS5NWbDqLgo2j0t11O/RYy2sY7FkdJ8nzwpHmtLuj8uZtHErSD
-   DWmJXn0qcNAggZj6Icb1Yc+BWD0YZhvxOkeLVNWzllAfvLOLkz7fwJ5To
-   qnZMKknVCochaZ6aro4t7wXfigYfAUelAiHCHu6QsiyiHzQyg1Ti47X89
-   xi2iUa9rM6A53XlK16mV2OgJ0mOlx7Ww6I9+nXt/6ieD4TdpFNFMKTcCB
-   MiJ6K8oyz5iR8A8D478GEbmqtoNK3BuuK3LMd0xFLkgH/fVDjFNqr4tdK
-   sFqbcUtf5x3tGNNCjcItQ9YZ3S8gW3tLKiphCHeuVJ2l1NuWXTvQjvo1v
-   A==;
-X-CSE-ConnectionGUID: 0uiXBFu7RmWumhaggT6CGw==
-X-CSE-MsgGUID: 1FLZRI71RUeE+yybJrUgTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="95206072"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="95206072"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 03:54:14 -0700
-X-CSE-ConnectionGUID: vnDCqpZgSrKMQ+31++3GCw==
-X-CSE-MsgGUID: B4et/VO8TJyMbjbq5V0siw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="278686988"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.223])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 03:54:13 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 969D9121BB7;
-	Tue, 29 Sep 2026 13:54:16 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xBVTT-0000000AYZI-3AvH;
-	Tue, 29 Sep 2026 13:54:15 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH 2/2] media: ipu6: Warn if the active list isn't empty when returning buffers
-Date: Tue, 29 Sep 2026 13:54:15 +0300
-Message-ID: <20260929105415.2516142-3-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260929105415.2516142-1-sakari.ailus@linux.intel.com>
-References: <20260929105415.2516142-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="y72ExFnk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1790682200;
+	bh=odX8h+v3SuO3LBAU4tzqREo252vsuXpN4nbA3pZgk4M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=y72ExFnkOblYlkejvfz50psNdKfcbaTHptBCwG5Fs0LSKDtLdjoPF1A/pnJOgMB/R
+	 vJl0KHdDt6OAxcRDdxMX1hmmIVBsKAd4EyeBjaC84sNrPxQrmOoWRA5g2rlAOSiAmO
+	 IVvfN94A4Jf+aK0UZgxDy4bwu36RRmrgW+A0/BzMrju9b7Krr1ns3Rf285FSCi3J7/
+	 RLwxRxZg6UnUsTKvGVwkd426DmWDJuDiORwQqlndhUjncGsGZP5c+X3OjN51rVCD10
+	 K10j+YGrS+CJG8YDDDy3ZsJfuryhnGzBffduAaow9tb3p38Hgryzgt2qGrJRPiPk92
+	 bl4Jv/7LhEk6w==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hvGWz0nfcz4wDx;
+	Tue, 29 Sep 2026 21:43:10 +1000 (AEST)
+Message-ID: <ed9a25ad-9a10-407d-b910-1b5cbdff88b4@ozlabs.org>
+Date: Tue, 29 Sep 2026 12:43:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/9] dma-buf: Provide dma_buf_set_name()
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260924152159.49702-1-matt@ozlabs.org>
+ <20260924152159.49702-4-matt@ozlabs.org>
+ <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The ISYS needs a reset when the active buffer list isn't empty. Warn about
-this.
+On 25/09/2026 09:39, Christian König wrote:
+> 
+> 
+> On 9/24/26 17:21, Matt Evans wrote:
+>> Allow exporters to set the name of buffers, during export or for
+>> subsequent updates.  This is useful to express buffer-specific debug
+>> information, indicate state particular to the exporter's usage, etc.
+>> Only exporters and userspace are expected to set names; it isn't
+>> sensible for importers to do it.
+>>
+>> Originally, the static dma_buf_set_name() was used for
+>> DMA_BUF_SET_NAME ioctls, taking a __user string parameter.  Export
+>> this function as a generic set-name helper, taking a kernel-allocated
+>> string.  The SET_NAME ioctls now locally duplicate the __user string,
+>> and use the new function to set the name.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> ---
+>>   drivers/dma-buf/dma-buf.c | 78 ++++++++++++++++++++++++---------------
+>>   include/linux/dma-buf.h   |  2 +
+>>   2 files changed, 50 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 4c9add51f9ef..e4ec504e9288 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -404,34 +404,6 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+>>   	return events;
+>>   }
+>>   
+>> -/**
+>> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
+>> - * It could support changing the name of the dma-buf if the same
+>> - * piece of memory is used for multiple purpose between different devices.
+>> - *
+>> - * @dmabuf: [in]     dmabuf buffer that will be renamed.
+>> - * @buf:    [in]     A piece of userspace memory that contains the name of
+>> - *                   the dma-buf.
+>> - *
+>> - * Returns 0 on success. If the dma-buf buffer is already attached to
+>> - * devices, return -EBUSY.
+>> - *
+>> - */
+>> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+>> -{
+>> -	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
+>> -
+>> -	if (IS_ERR(name))
+>> -		return PTR_ERR(name);
+>> -
+>> -	spin_lock(&dmabuf->name_lock);
+>> -	kfree(dmabuf->name);
+>> -	dmabuf->name = name;
+>> -	spin_unlock(&dmabuf->name_lock);
+>> -
+>> -	return 0;
+>> -}
+>> -
+>>   #if IS_ENABLED(CONFIG_SYNC_FILE)
+>>   static long dma_buf_export_sync_file(struct dma_buf *dmabuf,
+>>   				     void __user *user_data)
+>> @@ -577,8 +549,19 @@ static long dma_buf_ioctl(struct file *file,
+>>   		return ret;
+>>   
+>>   	case DMA_BUF_SET_NAME_A:
+>> -	case DMA_BUF_SET_NAME_B:
+>> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
+>> +	case DMA_BUF_SET_NAME_B: {
+>> +		char *name = strndup_user((const char __user *)arg,
+>> +					  DMA_BUF_NAME_LEN);
+>> +
+>> +		if (IS_ERR(name))
+>> +			return PTR_ERR(name);
+>> +
+>> +		ret = dma_buf_set_name(dmabuf, name);
+>> +		if (ret)
+>> +			kfree(name);
+>> +
+>> +		return ret;
+>> +	}
+>>   
+>>   #if IS_ENABLED(CONFIG_SYNC_FILE)
+>>   	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
+>> @@ -874,6 +857,41 @@ void dma_buf_put(struct dma_buf *dmabuf)
+>>   }
+>>   EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
+>>   
+>> +/**
+>> + * dma_buf_set_name - Set a dmabuf's name
+>> + * Intended to be used by the exporter to set a name for debug
+>> + * purposes.  This can also change an existing name if the same piece
+>> + * of memory is used for multiple purposes over time.
+> 
+> Add something like "Importers should *NOT* use this function to overwrite the name." here and add some note under "DOC: locking convention" how this function is supposed to be called.
+> 
+> Apart from that looks good to me,
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Thanks, Christian.  Good point, done.
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 2608e3b91acb..c9ecda158fd1 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -423,6 +423,7 @@ static void return_buffers(struct ipu6_isys_queue *aq,
- 	struct ipu6_isys_video *av = ipu6_isys_queue_to_video(aq);
- 	struct ipu6_isys_buffer *ib;
- 	bool need_reset = false;
-+	bool first_buf = true;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&aq->lock, flags);
-@@ -448,6 +449,12 @@ static void return_buffers(struct ipu6_isys_queue *aq,
- 	while (!list_empty(&aq->active)) {
- 		struct vb2_buffer *vb;
- 
-+		if (first_buf) {
-+			dev_warn(&av->isys->adev->auxdev.dev,
-+				 "buffer list not empty, needs isys reset\n");
-+			first_buf = false;
-+		}
-+
- 		ib = list_first_entry(&aq->active, struct ipu6_isys_buffer,
- 				      head);
- 		vb = ipu6_isys_buffer_to_vb2_buffer(ib);
--- 
-2.47.3
+Re the locking convention, it appears dma_buf_set_name() is agnostic to 
+whether resv is held or not.  However, rather than adding that as a new 
+category to the 'DOC: locking convention', I've put this function in the 
+existing "don't hold resv" section.
+
+Whilst conservative, this matches existing (and this series's) usage, 
+and can then be relaxed in future.  If you think a new "resv is 
+permitted but not required to be held" category of API doc is better, do 
+say.
+
+Thanks,
+
+
+Matt
+
+
+> Christian.
+> 
+>> + *
+>> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
+>> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
+>> + *                   similar.  This takes ownership of the allocation
+>> + *                   on success, which will be kfree()d when the
+>> + *                   dmabuf is released or a new name assigned.
+>> + *
+>> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
+>> + * name (including terminator) exceeds DMA_BUF_NAME_LEN.
+>> + */
+>> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
+>> +{
+>> +	if (!name)
+>> +		return -EINVAL;
+>> +
+>> +	/* dmabuffs_dname() won't use the string if the length
+>> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
+>> +	 */
+>> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
+>> +		return -E2BIG;
+>> +
+>> +	spin_lock(&dmabuf->name_lock);
+>> +	kfree(dmabuf->name);
+>> +	dmabuf->name = name;
+>> +	spin_unlock(&dmabuf->name_lock);
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
+>> +
+>>   static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>>   {
+>>   	struct scatterlist *to_sg, *from_sg;
+>> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+>> index d15b2b31d3c9..952a2c196ad4 100644
+>> --- a/include/linux/dma-buf.h
+>> +++ b/include/linux/dma-buf.h
+>> @@ -571,6 +571,8 @@ void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
+>>   struct dma_buf *dma_buf_get(int fd);
+>>   void dma_buf_put(struct dma_buf *dmabuf);
+>>   
+>> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
+>> +
+>>   struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
+>>   					enum dma_data_direction);
+>>   void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+> 
 
