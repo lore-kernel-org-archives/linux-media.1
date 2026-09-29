@@ -1,168 +1,198 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023101.outbound.protection.outlook.com [52.101.127.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357243D6CA3
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 05:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790660931; cv=none; b=dQHeo04Oj99kYAYBNQN1fThUYahkKZi4XIxz8ZufXhnE2l1wkJ8g0eRIm07EAw9guS1Zg3bthw76RB96Vr4Azpas+E2Yd3XP+7pbcHoidbOEB0yHzFTwQNbAm+gaPttW8G1RPMw1BFtiD9S84EnKzshJxzjuTotrr8WyPp8wwNg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790660931; c=relaxed/simple;
-	bh=29ZEC5PLjG/gXCEI5HDKF6BpnkTdM5aT/oFaP2wsL48=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oYgP08wWzW6jJhp9QdlN5W3ZR3kpPlvUODXB/UbjNE0+t4RGzxI69YeJPEGfsr5+hEoGeNOJad41J+3zIKypPlddgPgnEeOxwVqnxLC3tN0btXPZ+vtORBfa8h/9V+rNe3vjb6G+6wv/fLSvG2PIeDTyJIdGrgC+klfPLO9wHPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U+fOKjz2; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD422DEA68;
+	Tue, 29 Sep 2026 05:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790661487; cv=fail; b=Z/knyDBmy1VmXb877XZ3B4aEsRnK4rp1+x9Z/uqfLnx36ZwG+hgtliOHw66GVVk4Vbqg8ocXzwz8NmNZrrdwnlBtSn+6OS9rfAERvrsH3YrDiz1rV4ubjlnCTFxz9EwAUTcvtKKf9Z0WdLgfarX4lfm1D0NCqxJJ0pIBOUxYAf0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790661487; c=relaxed/simple;
+	bh=x9QXiCQu9/eFU7IAafYTyEB6YtMuUWUNclxvy73uy+g=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KyHQ7BjDB+f7Er4NyM5JxdDPuyzguvbUrgyiRnoVygwzuAGBcV3Z+cz7FiP4YfC0nohS9DZaadEFnIzSTNQqsrk3SZt3d8aE5akStXUt32fF2e/IuY7WPYeXHnE3OyIc2W0Lzq2xTg7nD3i0SVPK9y0vkw6D4keoLW0lJgD5fs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=xsQZIPKl; arc=fail smtp.client-ip=52.101.127.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U+fOKjz2"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so23198245e9.0
-        for <linux-media@vger.kernel.org>; Mon, 28 Sep 2026 22:48:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790660928; x=1791265728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9WcZ52LtgxmvNFnY7nqHOBLnLq9Jyv8OCVXDEjqGBY8=;
-        b=U+fOKjz27dNxI8/l0o9duI/7azrFo5v+OUnZpQ/+B3/oKe0Ld7Evm3T+qnp6KEVe66
-         jgmoJuDv33jN6/Q03tjO3UJq21pHsKZsQejs8WPNwaZAfwLEOlP0RXdlRnVqUHmJzP2Q
-         Rw0rqUhkcsYDAUBnN8ZGXUL6BhxLogEE2hW+NLuakp42iw8E/bIHQlV/5gTTsIqW9u0M
-         WRkkTR10Dd1Xl1FODLkDRLRBfwXDWUrJB0IIGtse8XcJqzmz3UvAEiaqGMqu9r0+lwmY
-         7lOxvoLH2/Tgjc0vVsouVFNMzdr2pFNECJd5oKS/l9X4xiDwOAOGrhI8Dvd+25vuzcjO
-         DFNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790660928; x=1791265728;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9WcZ52LtgxmvNFnY7nqHOBLnLq9Jyv8OCVXDEjqGBY8=;
-        b=O59TlJ47I5H6HAi7nF35Gt1fCWqsnEMyaQNpRXYAWENMgLc6f8ufn88QtbjCePG5+K
-         hRoU3xABo0FablSDCDo8gC5TCU0AHW+IptxZ/8pi4CH3idZjlIRa5l/DwWQyXStq0dn4
-         f6/qTP6bsUlBog50hO2LMwUG/ptZf+ijFaldhKMeR+VHdLVaEyrW6smOtPbjfbuIp1ke
-         fIXEmTGQHTH0bWSiwj9hcejK8Ssv1VzYmgnkKuFgMEAVEBEDWVgkh9K1LRhtlEOeNMtT
-         5RpgdyRWBEQb6/721ov9yBwSuP9Wc62ug+fMfXylqjog6+Vab2bOo4VulB3qqc10SGqn
-         EB9g==
-X-Forwarded-Encrypted: i=1; AKwUvBw8vZcwKy1T5fEuw/+Ni+iw4fb5Y7i6im9r+McTn1WudWHVpfT4U59dd3x2uRHeAgby35uy9SzPIzqg4w==@vger.kernel.org
-X-Gm-Message-State: AFuF++kkb7yJFZamInmEJWz8j3SDLDYFhWQsrItNj3s85rqzK8Z8FsCd
-	vjxpbulTtcgO697BKhxfxfDCugTwbnJ9prGI1FJCPRsp9IbsD32PWYiP
-X-Gm-Gg: AYBFou10kU2PrHu5ReEyYVaw2V036tKvIv9zWvq2YALPTu4UF3HX92Ar8UKJj8GxPZM
-	acqAbj5Y3ejXvgmssqpx+mVUa00z8uXRR8PhiutLme4KyG7pb3gzXZzQrgiW5DWzPfRIFxtBJSm
-	0w0XwwoWeJ0uhgxc9wcx1hyYJ2Eezp9V2mwCLhA0bloPd/5vqphSVVUOEYSw/TKGUiU5rnp+XqB
-	MxZ7Vf7VJC65DNZPY9DnFFTXm7vDu/BS/BR4nW7gfh9CZPeIvLsvcnPcq6nL809OWBxwjYf12nj
-	cRHuSRj8JrXBEF2GEzy3zzbBSdEH1Ml4m90KYfK4l3+MvpN3SCgnPMi5DvAkkDpeUnriDKv68YL
-	ivThO0NCCIG8LXecWC3AWxQCdlicP6MmHcFvSZ25rdmF7OFUR4iDqYkckM14D7E72duUoMB2LPO
-	bjVarvO3G4zDHutznqs82D9XTXqAG/ObXn5oNvL7qXQtwOdxro+IWWA4QeUTHF/8jBGDQK71Rhf
-	XsrldOPdp0kP6snuvIP0xtR5cUuoLMyQijyhrl37xl6Gvlfve7z2VbiFxlRhpAns1htqMNZDMUa
-	Jl/Fiu96nTPTcemr7NRPT/IuweeSIibyk7xIGr1KxQHxKxb2NmLE07+CvmBeVyTeNrCar9ZrQDu
-	v
-X-Received: by 2002:a05:600c:530f:b0:49f:ffdc:939d with SMTP id 5b1f17b1804b1-49fffdc9a4amr93691455e9.9.1790660928275;
-        Mon, 28 Sep 2026 22:48:48 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9c32-f801-0451-cc94-d3ca-f56b.310.pool.telefonica.de. [2a02:3100:9c32:f801:451:cc94:d3ca:f56b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8fa5bsm58477615e9.6.2026.09.28.22.48.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 22:48:47 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Gerd Hoffmann <kraxel@redhat.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] udmabuf: respect the device's maximum segment size
-Date: Tue, 29 Sep 2026 07:48:35 +0200
-Message-Id: <20260929054835.94118-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="xsQZIPKl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GuU6/Sx+PjoxbqGtE0uQcZ6F2Eq4TGqJdD8ViPKUCyYXD29rAX3fXPYWJFcMFtg/e2vp+JDK34QQL4ve0om0gC00+eaYzfE6c3P+/l17Fx6tJqEaJnUi5gBLcaexHwn9UZmJ+C+SeJ1QbH7eXH6DGiMlKuZqG4A0JnM87mPJ1wi1/zj/H1a+4IrGmxwPtsK8C3u5gJLP15f7E+4l2anUjkT8EicxWjYwNz1buRcgU7xhhDcQUQh4QOW0HFQ+aMZU1pp6rQIvCpbwO5oxDee2+EK7z8vSgcWRsFihCQRvhaKnK5GAcbbBgHv3Fi0Mj2mzRjWl5FBQ38uoOU8AmysoIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Lh8BeN+/KqmxEd2b3ZzVTXo92SpPK4fOtDMDxMjE1U=;
+ b=Bm6ZhAgSoFsnjC7KiCewP+wnRRO8R8RsrCBttHuNrUvUuAvFY5Hp2++BkijIU3y1D1aU44+vkEv9Qwlgu/L/+CIwM/u36mZ8Pf3iyTR7v5oC/RpGVsQuJ5MvG74aVOosmiNtQEdtNtLQOqsby5RcFHE2UFYAQP4u8Hf5hNyZSCjCKGcP5TI0zbPL1dddNS+Z2g9D0NH+c8thcUiIGoFHB35MawrHsgtD2gFZ4Yhvg6SY4YHVSf/EE272wY+OO8bYcKP72MpdUqp8CGi5kRx5+xty/vAZAet8JgrNqmhVfzBeiLviQSI/+1Cjn41LZkROHtOxv3LisOGtEyAllLugeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Lh8BeN+/KqmxEd2b3ZzVTXo92SpPK4fOtDMDxMjE1U=;
+ b=xsQZIPKl7qIm7P42LbD3JW0PulH7vL02yWxaj4g5Xre0A1CWwVHfZH52Xqk8U/O7XHEU/+8a9p0mCz+FixGkpezisifi0ExGbJodTyonlztgzWNn6oi6jLBs0UaS/cpRZJVtW/dpA/ZM/m+IRCvLutcthwREhSmla7GNGZvQcxUwrPKDMDlVrqWLGwHmbQjAqGm4E4Kq7TPVagvodmDHbBVeeyK4rM1qpDvglcZap2RNnJbH0ClGwM2eZBPWJDNzeCrmpvOvGeQhRmGtQQdZNIowxEpkGEhuBmw3e2k1W04QnRnXjc+kZPTgLbvNlAXMiHcs4nNwIxe6RXL2meuNxQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by SI6PR03MB8707.apcprd03.prod.outlook.com (2603:1096:4:253::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 05:58:00 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 05:58:00 +0000
+Message-ID: <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
+Date: Tue, 29 Sep 2026 13:57:56 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
+ decoder
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
+ <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+ <20260928-efficient-secret-manatee-2fcca6@quoll>
+ <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
+ <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SEWP216CA0051.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2bd::12) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SI6PR03MB8707:EE_
+X-MS-Office365-Filtering-Correlation-Id: d78a7dbc-3707-4b2d-b811-08df1dee9e01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10067099003|56012099006|11063799006|3023799007|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RjTAxHG00cApzJnzBX8DEmQH8S4oGzKVJvdX0OjxFkAGboDRLMwRdyJWYpn3pFiRNttPk7yBa6JpB18tjjn3Jj68VOtonF9poGL5DKXrRauLG9VsfwNyMS6pvXPGRPidSJ/OXBk7tgz7XtZn17vWDonpzGbeeJADMnvsKMVriI4MEN7ewY2cUMSqobvB+nJ7P+e/34DB0ZoXJBoeQ4osgoCLTd/WlfMJ3FZOuMwzUpJLfHfxEHSCamKMGuksubUMRTuoecaG0W0G+DOjJ8Gvk0We0R7KOwKcnt+2WzE5WBAkT/tNna4DZFEFx2JdXnKvdXXlrb2Qlq9JZDBwKICc9YgdUSS7ZMhY+PV+oRWogy0anIdEN0vLou3BBI/3DRJqvPq5uYkLW81RCDuCf4WmKFjWzUpdr7RwHfvrNBGxqElh4OrfM06ho/2/jCYXe3/3De0BHc6tRfn1w4lCHRIJOFYle7FRZa7AY8Qf3SWihZWkLOAV2ktsNRIAe4RERUHbZFVDAuttrmx8XZYDuD2HUb8LK+CEhWYIkx05w+oi/jnx+UsTqwVpPF+8afQ9zfUhxDW2tAQFEEu5liM5+GCkkRupLTL6xsPjtKHw95ErFSfwCXE1DBOF7yQgN/ft0n3p
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(3023799007)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S3NNeUUxQ2Y1ZTZkUUN4a2hLeGp5QlpyR1lSaFU0VGZUWkU1Z25Nb0c2dlJq?=
+ =?utf-8?B?a1VLWXFUZkJIYVViKy9pWFdJK1E4UTcwMUlHTk1teFh1Z0tBZ0ZBSmRxd2dn?=
+ =?utf-8?B?bVhPWWNZT1NPNldud1FBaTdYU1hqMHV5MGhST3dBZWY2YnJ3YjJjV0FIRDRp?=
+ =?utf-8?B?cHc0MG1seUU1eFJXMC82SVBRc3M2RllvUU16YXJSWVRnNXFSbTR2U3RDVW4z?=
+ =?utf-8?B?UXBzalBOYzI5RTNtQ1RZUU1tL2tsL3NIcktsZko3MTNEVFp1ZXBCaFRVNmoz?=
+ =?utf-8?B?V3h1NTd3TWZuL2laMG4xS0wzbm9GSktrd082d1VrdDJBMFNSRG5RM1M3UE44?=
+ =?utf-8?B?NmQ0dENlcDYzemcxdTZNdUdBeUw5Y1Nud29YY21tZnBHdlYyRVovZ2o2bXht?=
+ =?utf-8?B?K2pGSEFBa3N5KzhqdlBBMlZVc2ozT2dOQ0swR2xCOG5oSGFkSVlCZVkvM2dt?=
+ =?utf-8?B?Njk1dkxzZDJuT2VoZDRZeWFoaytockdQcFFlcHlJT0VUODZSWWRoMHdmaUY4?=
+ =?utf-8?B?aXlTbFBETTVKYmN2OVl2QWtoVlZrYXdqNXZqODYwWUd2TEN5VVZOa1RNQ3Q1?=
+ =?utf-8?B?djl4UjNMUTlUd1hEc25FOHNlTmRzbExIanZPaTdDUlhWdUFYeGtYcExuSjh1?=
+ =?utf-8?B?WjZxNzhENmkwVjBRT2k4cDBPNmpoa25sNmxPMDlpRzRCRlhSZlp3WG5wWm9S?=
+ =?utf-8?B?YTNsejUxb0tOOGx5b29MUzF1Y1l1c0UwK0VXRktFMVgwOCtKaUU2OTN0NzY5?=
+ =?utf-8?B?dXFIVGhRQ1lLT1QzQXA5YlhlOGJoODYxaEpBRG4vNUJFWWZvTHpLeFZvNXg5?=
+ =?utf-8?B?em9JL3ZjenNpdTJkR1BWRWl0RWVZNUNXeE9FTkRZbGpSdjA4T3R4UmUxT1Rl?=
+ =?utf-8?B?b1o1WVJSeE5hMUNHSElTWThIZTc2ZjlnSFdzY2VjZEFEQVA0M1lTSlIvdVZF?=
+ =?utf-8?B?cFd2YXkza2NoTCszNzBrVXlUNG4zZlFIR1JzSTJySGtMTXdHeXFCQW4vdXUy?=
+ =?utf-8?B?NmJzcC9DZWJDKzU3Q1BTU0dkSU13T3FUVzhWSmxMaHR6d1k0TWlqcEJGcjJN?=
+ =?utf-8?B?UHU4dVRJNWNEZVU1KzJ5S0VHVFZIL3JXMHJaQVNRSmpVc3orU1N3cmxjdWtk?=
+ =?utf-8?B?ckR5c0hZNVBESFBMYmFVZ21OSERMbmFqUEpHcnppd0FWZGhJWjkrNE1USUcv?=
+ =?utf-8?B?ZFNvcmZKcy91ZUVqM0M5UGhMeDdUaHFvUTRmOHZqVDZCVFdqRkVkQUxpdW96?=
+ =?utf-8?B?b25SVmMyLzBqZThrRGhROEZwam5nTmswUnhBUXJQMDNYYUoxMnErZ1Z6cUIv?=
+ =?utf-8?B?c0wvMUpieUt1QUJLVEJseklTdlZHNzZXRmRieDRCTWJmeTE2MVphWktKMkM4?=
+ =?utf-8?B?VU5obmIrYW9odjdJV25ycU9WOXlDYmE1R3VPWHRqUUxielAybkNPbEI1T1di?=
+ =?utf-8?B?UGJyalZlNmt3R2lSSXlOOFJFd2NVNWIyMkJBSXJJb0xsV05DN2dYM2hXZWtv?=
+ =?utf-8?B?bnU5bmV3YjY4QXlpcFlRbENVQnRTV0RSTWhhRS9vUllnV081aXc4bkZEOXNW?=
+ =?utf-8?B?SGUvSFZSeWVmOWs5TU9JTk95SGQrTk1QNUljTldDVC9MNk4yVEtiWmJDN0V4?=
+ =?utf-8?B?ckNvZzdRbjN5OURkQ1pWTHhyTU5KY005em5uVFFqODgxYjdWNjl1a01mcTZM?=
+ =?utf-8?B?blUwYVdYdlFxU0xQd0VIMEdmN3FTdzZ0V3o0NUhxUHB2TmYydHF1akRUQXFO?=
+ =?utf-8?B?SkVIV1FhcXJVR3NZZTlhV2p1TGJ1Y1IrSmRlR1o2Mk15VWZSYjAxbitKMndj?=
+ =?utf-8?B?a2R6emd5d0NFc21BMHo2eTJ6VktNT1JzY3FLREFuRGhVZkJLZ0FheFQ2cHcr?=
+ =?utf-8?B?TlAvQ21mZCtHVCtXQS9GQjhkdkFwZXZtWnUrbUNuNUw4a2I1T1hSQjR2a0V5?=
+ =?utf-8?B?MGR5NDVJM1p4TTA1Tjg4WjdHekRZWFlPSHZiV0tFUWNWOWlhWnhuVCtGWUJG?=
+ =?utf-8?B?NTZ1b2dhTmtjUm9RSXJldERLN2dHVVhuNmUrTXFUcnJ2RnV3dHl3amJneGFa?=
+ =?utf-8?B?WmxMWFFmaWVHU3pQenRqbFZhQWUxTzVLMXpvMFd4amNIOVJEZlNoaUl6a05S?=
+ =?utf-8?B?dUt6M0VWTGpHMW9aY3E3UVZ5MHhzWTh1dHcwWFl5WE0rUlNoU2toRm1ja01W?=
+ =?utf-8?B?ejQzS1FWTzNJUjI0MG1GSlNOSmswd29HRk5YbGpic2hybWgxVmw5VzZCcjNT?=
+ =?utf-8?B?ajlMQkZvZDlSUjVDckFDUEdETVBuN1pKZGJEMVJLUW04bzlZMHcvWnNQNlB3?=
+ =?utf-8?B?OE9RZ2Yxei9hVEx2ZHErNlNUY3hsN1lvWFRWaUtLQWNlazNnZ0k1Zz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d78a7dbc-3707-4b2d-b811-08df1dee9e01
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 05:58:00.2541
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: viOLgm7UqRmUyAOljVYEapBn925bLdIYE/SUxxfAuDa55MYmoss7Ouwhps4irAAtZNiPezzDY1CzFtx7aQgUzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI6PR03MB8707
 
-get_sg_table() merges physically contiguous pages without accounting
-for the mapping device's maximum segment size. This affects both
-importer mappings and the udmabuf misc device mapping used for CPU
-access.
+Hi Krzysztof,
+> On 29/09/2026 04:59, Zhentao Guo wrote:
+>> Hi Krzysztof,
+>>
+>>> On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
+>>>> Add bindings for Amlogic hardware decoder accelerator.
+>>>>
+>>>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+>>>> ---
+>>>>    .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+>>>>    1 file changed, 114 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..751043c3d9cc
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>> @@ -0,0 +1,114 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Amlogic Video Decode Accelerator
+>>>> +
+>>>> +maintainers:
+>>>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
+>>>> +
+>>>> +description:
+>>>> +  The Video Decoder Accelerator present on Amlogic SOCs.
+>>>> +  It supports stateless h264 decoding.
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: amlogic,s4-vdec
+>>>> +
+>>>> +  reg:
+>>>> +    minItems: 2
+>>> What is happening here? Previous version was different.
+>> maxItems: 2 implies that a single items is also allowed,but the hardware actually requires at least two register regions (dos
+> Since when?
+It should have been minItems:2 ever since v1,I must admit that this is a 
+long-standing mistake.
+>> and dmc) to work, so minItems:2 makes sense here.
+>>
+>> The same applies to |power-domain| and |interrupts| below. At least 2
+>> power-domains to make the hardware work, and at least 2 interrupts
+>> needed for the two sub-cores.
+>
+> Best regards,
+> Krzysztof
 
-With DMA_API_DEBUG enabled, DMA_BUF_IOCTL_SYNC on a 64 MiB udmabuf
-reports:
+Best regards,
 
-  DMA-API: misc udmabuf: mapping sg segment longer than device claims to
-  support [len=65884160] [max=65536]
-
-Use sg_alloc_table_from_pages_segment() with the mapping device's
-maximum segment size. Return -EINVAL if the limit is smaller than
-PAGE_SIZE because the page-based allocator cannot honor it.
-
-Before commit 5bf888673e0d ("udmabuf: Do not create malformed
-scatterlists"), each entry covered one page.
-
-Fixes: 5bf888673e0d ("udmabuf: Do not create malformed scatterlists")
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-
-Notes:
-    Changes in v2:
-    - Return -EINVAL when the maximum segment size reported by the device is
-      smaller than PAGE_SIZE instead of clamping it. (Christian)
-    - Add Jason Gunthorpe's Reviewed-by tag.
-    
-    Tested on v7.3-rc4-70-gfe2ec83746e5 in QEMU (x86_64, TCG) with
-    DMA_API_DEBUG (all_errors=1) and DMABUF_DEBUG, A/B against the same
-    base:
-    
-                                            before        after
-      DMA_BUF_IOCTL_SYNC, 64 MiB udmabuf    1 report      0
-      vivid import, 4 MiB udmabuf           2 reports     0
-      vivid import, 2 MiB hugetlb udmabuf   2 reports     0
-        frames captured                     5/5           5/5
-    
-    vb2-dma-contig rejected the non-contiguous import in both runs.
-    
-    For v2, a focused importer advertising PAGE_SIZE / 2 returned
-    -EINVAL under KASAN and DMA_API_DEBUG. No warning, BUG, or DMA-API
-    report was emitted.
-
- drivers/dma-buf/udmabuf.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd00462423..018937435356e 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -133,15 +133,22 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- {
- 	struct udmabuf *ubuf = buf->priv;
- 	struct sg_table *sg;
-+	unsigned int max_segment;
- 	int ret;
- 
-+	max_segment = dma_get_max_seg_size(dev);
-+	/* The SG allocator requires a segment limit of at least PAGE_SIZE. */
-+	if (max_segment < PAGE_SIZE)
-+		return ERR_PTR(-EINVAL);
-+
- 	sg = kzalloc_obj(*sg);
- 	if (!sg)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->pagecount, 0,
--					ubuf->pagecount << PAGE_SHIFT,
--					GFP_KERNEL);
-+	ret = sg_alloc_table_from_pages_segment(sg, ubuf->pages, ubuf->pagecount,
-+						0, ubuf->pagecount << PAGE_SHIFT,
-+						max_segment,
-+						GFP_KERNEL);
- 	if (ret < 0)
- 		goto err_alloc;
- 
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
--- 
-2.53.0
+Zhentao
 
