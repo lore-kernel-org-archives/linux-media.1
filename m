@@ -1,56 +1,77 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C33A4F58;
-	Tue, 29 Sep 2026 20:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2594C388E4B
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 20:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713625; cv=none; b=ACEElr9E4koVESeyKbYG9vQEP8ko07vFxk0uxuAGecb56sofJ9BVLkZ9t/KUltRkdkIA8X/DiyKxp72kFaRSQhJSs5Wd36nz1nvARxq+uN/jsP6LBDLB5OT0eUC6ew+6RUZS6Pd5nxRys1S50uXsAfxgysAEA89qjEnnPnp94iI=
+	t=1790713715; cv=none; b=Ox5RrnZoYKwGPPsVWBV/1SuEpYhPh6wK9d9UkPYTNjnDqqmQgR9qV4O9pBFJfzrZ11cKhA1cDmx+QYKh6UxJ8Zug3bG2wYk7R+1u7/TAhpQZxOII1EZWtsqGQuXYw30b5dPl89mFMsr2ulkS4zIPLwwSUkcudnaey5zxZx/Mayc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713625; c=relaxed/simple;
-	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
+	s=arc-20240116; t=1790713715; c=relaxed/simple;
+	bh=uUrRYyuz9ljqvGYpIxFhR3M2h+TBtMioCu5j9jfhbA4=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RB+SthpFZ40/FCCEQNArPBzymemFKzl2/MvjKbYfxOqEBw7LxAltNCKDlKhlhv6eIRz3YqMpMkeo8yKbCbeAYxaYxJz/vh18OcYkV6DReRuEpiz1MxKcdcA00XqKE//uS4nyK72bcZ3HGz2jpcmRp2u6n+FzKi61Um/pRI5Jn3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TvFU9C9P; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:MIME-Version; b=pdL0iLFeMTbOdu0jxiLTS5QKCKyon8rxTUAV334QNP/VURkSk2mvzgZ6WfdVvc4JMGWCdg/qHUg527s2TZG0gF+puGoWG+lrElI8s/OaUg20W8yB1ymqiDCNu4nw3v440cgDJe5V4GPEi2t1P7Biuaa4rRDT76uCHRYfqg7/hn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=s4+rwdgg; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TvFU9C9P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790713618;
-	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=TvFU9C9Pbg/JzO7ElZRPimssQgIEjJ2O+y47e02mjN7B5re1GnOWJ2BbvYWhNNp17
-	 T1Akjncag7PuCiEoPPfIgVDUzYd3K36JyRBSSy1aiIU5w/msMQugPDcHBt8mH7x1oP
-	 GDfogMllekTuriiWr+Eo8jW4OC4m44QDMWYdGspci/W+OJ7Gdxt1i4mfXicmrZYp37
-	 tcMnhLzHJNNzkkt78qjieaQWD6O7YSwK7vp5kVpiTY+enHh8SPxuR/5uobMpxfg9+2
-	 Y1qT8xbzt77mkxXoZzgqqLW+x64NaHWHoVz8PYVlRYS1Z3VNk+bmFswyYVKDQOFwdL
-	 nR3ngVmlMXtOg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4D56F17E0B21;
-	Tue, 29 Sep 2026 22:26:56 +0200 (CEST)
-Message-ID: <90a604622a614a2de95820bdc73372a3e1d7fb41.camel@collabora.com>
-Subject: Re: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Tiffany Lin	
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Hans
- Verkuil	 <hverkuil+cisco@kernel.org>, Kees Cook <kees@kernel.org>, Tomasz
- Figa	 <tfiga@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, Steve Cho	
- <stevecho@chromium.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Date: Tue, 29 Sep 2026 16:26:54 -0400
-In-Reply-To: <20260921090808.336112-1-lgs201920130244@gmail.com>
-References: <20260921090808.336112-1-lgs201920130244@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="s4+rwdgg"
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c9031e714dso1719873e0c.3
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 13:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790713713; x=1791318513; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VQaYivWBj1ySc+nCCyxMCDWtW4eRfB8nvxBhJGO3V6s=;
+        b=s4+rwdggV4Ka2ohZHGvPc4ZdJVZSJ/m/wqHZ80yvbpzg16u9wPcnL3ZT7SlkKSAGaX
+         GAsM5WXB/9031DG+S9qkFwrfphbJZCN7TEV/BO1hkpqO95wK2REbxvti3Dk5ahg0q9SN
+         76JwthHRUXzVELDgpjgwLYacCwGmuoW4cokn/tYpMV6IEucpnDk4fd5I0t6WIVFL0Z5s
+         UeVmFZpwSUYRtyY+S62Y88NSNueLUN1pbw8GwIMRz0fCK4YDjRNtC1PamBHDeyyRkcE4
+         wGGYF6SNLHcZxXkK4DdODOEW42wXFf8RdQKjLgf4hVUPoBfPqKRDALATTSS1NBEnI2zT
+         IN+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790713713; x=1791318513;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VQaYivWBj1ySc+nCCyxMCDWtW4eRfB8nvxBhJGO3V6s=;
+        b=yoNTjNwvz97dTYlxPbMa1D9vcICI10OHf4oJSt2b7SSoPtNDt5CqGAu1H3DZYL9KqX
+         zP3dRjxCxUAbA8phPN+45AZ7zTeEQjXJ+390fPcRIcjJHiGar6lot19m7SgwadgjibIz
+         wU6GJTeODlNVrWbq/1d1d2mWzQxw8jkBcP/Rb8TwCqtQsrwVoroUBK333rlKVRKrXQOF
+         sGDOQBnb3/CKWGWgMyjZ7IeYfPkVoCzjgJjC2M+tVJp4D670+ari08zEmQo+Y6IKZcd4
+         g5TrQOm40jYTuhc5TGbNTuWcAzuxkc5WQbNlaLFtSEa7y1VRL3P+tDQ7zmlOtaA6NOtQ
+         9IYQ==
+X-Gm-Message-State: AFq9FYK2eyBT8/l7+jBoszsXyeJxKq5a3ZiAzRaXbUxYEt37z5hl+I1u
+	RTmDKKP5BuM6r307N+wcz6aP3kjwArnnhnSDBmtzwjh/cTKowoYVSDMuC9LwL3kgyPE=
+X-Gm-Gg: AYBFou3HuwH9pb4yZTaKYDmr3qGAhMRtTWgUPRtpZPz97yXnq3LDsF8PEb000ZxKx6+
+	FeJ4waYiap5FqpjhgeuAE4i9+eBmN2J7NmpXmoQeaHnwOLNJWDfJZGxwyaI9cjmEpf/0dbDEqSo
+	d7yv9Qwcf80tGqtvslDBLlrNuxQNtZgZo0pCQS6Z1At5zrW+4WpgEpg2A4e8qjxRAHtrrpK9/L6
+	EePIbHqCwzj7wyt6CfjBh9vw0ZLapA6auRub9dksit+jl3S1QGzfYzW0cvEquuqa4+LbhqSVlxc
+	hsWnqOBGLU+jU0HD97j5ptTjJw7OVZbSH4jK/Fi431xs8hqeWhJUdEOC8RZswzbywxtrTc9YesS
+	AZ+HyPm3dpUASyIUdLj4JSqEelQFRzJjMq0McZtOvOCszLqL6MUZ1yNRukumqkl0dFDP8I3SW0W
+	K9G6jV4Esk3BesWZwKY9YqgnMvsP4Az0D13/SYoyTQXrp3+0CD5qfTash7DIdVD+UbdC+FUHIaz
+	CJRFnH7t7c+mQ==
+X-Received: by 2002:a05:6122:e1aa:b0:5c9:c60a:e9b3 with SMTP id 71dfb90a1353d-5d51a3753bemr226593e0c.19.1790713712883;
+        Tue, 29 Sep 2026 13:28:32 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d4e9a793e6sm1089117e0c.13.2026.09.29.13.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 13:28:32 -0700 (PDT)
+Message-ID: <1fe9b189db3d0704be5b1b37a700311dac2cbfc3.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: rkvdec: Remove redundant dev_err()
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Diederik de Haas <diederik@cknow-tech.com>, Detlev Casanova	
+ <detlev.casanova@collabora.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:28:31 -0400
+In-Reply-To: <20260919093449.2534901-1-diederik@cknow-tech.com>
+References: <20260919093449.2534901-1-diederik@cknow-tech.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
  cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
@@ -63,9 +84,8 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-rV4yfsU2n0WfwiE+CTHf"
+	protocol="application/pgp-signature"; boundary="=-F+3ToYK5qPTGqdEYIxDv"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -75,82 +95,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-rV4yfsU2n0WfwiE+CTHf
+--=-F+3ToYK5qPTGqdEYIxDv
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 21 septembre 2026 =C3=A0 17:08 +0800, Guangshuo Li a =C3=A9crit=C2=
-=A0:
-> mtk_vcodec_probe() populates decoder hardware child platform devices on
-> platforms that support decoder subdevices. These children must be
-> removed with of_platform_depopulate() when they are no longer needed.
+Le samedi 19 septembre 2026 =C3=A0 11:34 +0200, Diederik de Haas a =C3=A9cr=
+it=C2=A0:
+> The devm_request_threaded_irq() function already logs detailed error
+> messages on failure automatically since commit
+> 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()"=
+)
+> So remove the now-redundant driver-specific dev_err() calls.
 >=20
-> If initialization fails after the children have been populated, the
-> probe error path releases the parent decoder resources without
-> depopulating the child devices. This leaves the child platform devices
-> registered.
->=20
-> The remove path has the same issue and leaves the child devices
-> registered when the parent decoder driver is unbound.
->=20
-> Depopulate the child devices in the probe error path and in the remove
-> path before tearing down the remaining parent resources.
->=20
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->=20
-> Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware de=
-code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
 > ---
->  .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 >=20
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv=
-.c
-> index e936ed8dffba..592685ad522c 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-> @@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *p=
-dev)
->  err_dec_mem_init:
->  	video_unregister_device(vfd_dec);
->  err_reg_cont:
-> +	if (dev->vdec_pdata->is_subdev_supported)
-> +		of_platform_depopulate(&pdev->dev);
->  	if (dev->vdec_pdata->uses_stateless_api)
->  		media_device_cleanup(&dev->mdev_dec);
->  	destroy_workqueue(dev->decode_workqueue);
-> @@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_dev=
-ice *pdev)
->  {
->  	struct mtk_vcodec_dec_dev *dev =3D platform_get_drvdata(pdev);
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
+dia/platform/rockchip/rkvdec/rkvdec.c
+> index 061281f903f3..13d13c041509 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> @@ -1824,10 +1824,8 @@ static int rkvdec_probe(struct platform_device *pd=
+ev)
+>  	ret =3D devm_request_threaded_irq(&pdev->dev, irq, NULL,
+>  					rkvdec_irq_handler, IRQF_ONESHOT,
+>  					dev_name(&pdev->dev), rkvdec);
+> -	if (ret) {
+> -		dev_err(&pdev->dev, "Could not request vdec IRQ\n");
+> +	if (ret)
+>  		return ret;
+> -	}
 > =20
-> +	if (dev->vdec_pdata->is_subdev_supported)
-> +		of_platform_depopulate(&pdev->dev);
-> +
->  	destroy_workqueue(dev->decode_workqueue);
+>  	rkvdec->sram_pool =3D of_gen_pool_get(pdev->dev.of_node, "sram", 0);
+>  	if (!rkvdec->sram_pool && rkvdec->variant->num_rcb_sizes > 0)
 
-This was first for a reason, please keep first.
-
-Nicolas
-
-> =20
->  	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
-
---=-rV4yfsU2n0WfwiE+CTHf
+--=-F+3ToYK5qPTGqdEYIxDv
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwfDgAKCRDZQZRRKWBy
-9FakAP4vcR8SMhV7pVZIdxreL/3W6hen9hQOFj6cC3ZEarcA2wD+LAwK/qdsJ85/
-pSIKX2XUmKWpyl2obUYqdo/NDZ69UQU=
-=Asfv
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwfbwAKCRDZQZRRKWBy
+9KhKAP4k1cHvpCPn5smix40RZY42YEI2Eo0qvXxN29oEVWOpCgEAnLNOPA0qpepn
+oMGr7q8y93fQEe5BvvTo5vSFZBOIxQw=
+=Qt2k
 -----END PGP SIGNATURE-----
 
---=-rV4yfsU2n0WfwiE+CTHf--
+--=-F+3ToYK5qPTGqdEYIxDv--
