@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946ED4BA1EF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37084E4320;
 	Tue, 29 Sep 2026 22:41:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790721715; cv=none; b=hgzk9S3h0XBrHIn5GuZYLZXoVC5NrhM+XU0uPNgvmTulcrfffl9ySiYCChbnm2W7XYsSjk60Ucpo9RPYm4j3F3Nq1bMUX7COHTA6SlxEC2CxdEgEDJnyU3rZRAKOugluY5147bzK2Ms9EdxTDKGd6KFpnNs62VIprQeBjo3iGl0=
+	t=1790721715; cv=none; b=Zjq0SZ9nW26GFFWejIeIcHuSXtpaE67/yKgg7UyOaD38rHcgHZfzXtC9qBIUxlUt6/RInwU9D5zvuMssFDvurW9UTdv9PuT9n8sCCZs2u8BiWXEfv7+aeOHIBSNBYFv4Uqv/NtGTPzhf3KcZoqmTycrjhrXmfWd/snO8+oV6h6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790721715; c=relaxed/simple;
-	bh=2UNaYaDUC+KOUqbXhrMeZ127wFlSjuGWYCf+/BWeMx0=;
+	bh=9RKZraDwM9H1ZhvKjKzDRZ+HYrQ9YCXpHoPHv6I9kCM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JwKdJQ2WymS+/VRS/Xhvu/u7UVQ/HAE8nObNSHBZGS1/LE21iu06Zvavns2eSS5yQLvSPIHCDi6E2w6j4p1TlHY8GL1fQzt3ZxLZBp0JphwoScNTM3it2vRZt63Bx+/cyd+LMCk8uJ8pvdk/PubUWRW9BNjqT+iWFaItNBVfKxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jpPbHe4f; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=uRyzp9mBZFmUsQvUQUxSm1N0mW8o8x9YpaUuCuQup1w2dUUBzpYxfadEg56vZKwjkN86YIInfCo5ZkRNyhACtKYn19jupX4AQrijei9YkJjs1XJV1l0Q3fKZzi+rkCvKn3AZSZUXaxjhaRmwQiKCKhFSQb7v9KAtgHOKzf226VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dmsq15UK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jpPbHe4f"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 649A6C4AF4D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dmsq15UK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A88E1C4AF16;
 	Tue, 29 Sep 2026 22:41:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790721715;
-	bh=2UNaYaDUC+KOUqbXhrMeZ127wFlSjuGWYCf+/BWeMx0=;
+	bh=9RKZraDwM9H1ZhvKjKzDRZ+HYrQ9YCXpHoPHv6I9kCM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jpPbHe4fLHLMktkBFvZH9uheFwDKFPFvS5a0EqMgc4xKRKN8P7a7sIokGbTAIrSSt
-	 DWba1TKHOtHbHWPOz6xJe36tRIuA6OETvHMyf5dtRn/UyLxkpRa4XukmLR7FjG/Yi9
-	 9tp6P0Co4vICxRIOASd9nEpPD7VE0PTwdsHWfETKh+bIysIcV1bzAUh23ipcTXvA1I
-	 mGD58qqYIIbMd7A7EpPQoCzcxVKCeMCXO2Qn8Ye5DwXigYv+Gr448mrYT+YXE1w/a0
-	 aZWQq8FETzyGN1UuxtQKzROgZivtOTv25J5IZeO+T5+iFRyk10GA7AZxiwcruG1P2+
-	 C2ii7cbOwAADw==
+	b=Dmsq15UKOwz5VTLiiMxjTGZOxnG7pdB7OKAfyRRb5D2sDaUxM/w+d0WEcAe/cKJDQ
+	 GrXdV6X6mPQVQe9B6jMmGE2/VqbAL4caUBmGuGRlqV3cKOSSw1w98XaVUOqrt7li8S
+	 +TUwVk1k+e5JKZJWS7JybYrBA3HfT2zmJHz0FHXiK8dO1dqkM2V1FghAj4sXZVfLcm
+	 IqumifB3WyaRzlUKetp1GDBREHU2oySCgMjL0+iJIDVW/EoE25hHT87M76QwhJqtfk
+	 LO5X1YoiioO3SGDC2OAZzcaAU6r16+7tVn4ZEjat66MbogXCSLJQbv0GzQFYRiT5Rx
+	 F9ThxOC0B4lxQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52EFACA5FA7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 954DBCA5FA7;
 	Tue, 29 Sep 2026 22:41:55 +0000 (UTC)
 From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
-Date: Wed, 30 Sep 2026 01:41:43 +0300
-Subject: [PATCH v18 09/23] dt-bindings: media: i2c: max96712: add support
- for MAX96724F/R
+Date: Wed, 30 Sep 2026 01:41:47 +0300
+Subject: [PATCH v18 13/23] i2c: atr: serialize attach/detach against bus
+ transfers
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260930-gmsl2-3_serdes-v18-9-43117818f499@analog.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-gmsl2-3_serdes-v18-13-43117818f499@analog.com>
 References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
 In-Reply-To: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
 To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
@@ -59,13 +59,13 @@ Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
  Martin Hecht <Martin.Hecht@avnet.eu>, 
  Andrian Suciu <Adrian.Suciu@analog.com>, 
- Cosmin Tanislav <demonsingur@gmail.com>, Martin Hecht <mhecht73@gmail.com>
+ Quentin Freimanis <quentin@q-lab.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790721712; l=1335;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790721712; l=2334;
  i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
- bh=3Sc2CAKuNty9q1xAmiQ226o79bhZNCidxmwGjXQzLEY=;
- b=qaCF7Q2l6mdfbWBoV86nR8dt/+5PF2uHxjHElHDH06+Q4q0T7pHHhWzB2oJKEvgyZ66rHuvo8
- af9xQlOP0xSBKsYt6zb/9iEWZ4C6Bk2Ky36D1Rh6uaumymNaSeSFLFQ
+ bh=BzonsaTzVGAWmnVOwQz2Jf0/RUn4KnlpIxawiVR7AoQ=;
+ b=C1QBwqxybTM1bxDc6LTnDuQ6m4r/vV+1XwFcu/LR5JqndWRjINmw91+AV1cAZgXXJ6GxuITu6
+ tePWjxjqyQtDrZeNBKwvSfyp24EzM6DcrjmDZnpufhX4RHIeHzG13Bj
 X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
  pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
 X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
@@ -73,41 +73,77 @@ X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
 X-Original-From: Dumitru Ceclan <dumitru.ceclan@analog.com>
 Reply-To: dumitru.ceclan@analog.com
 
-From: Cosmin Tanislav <demonsingur@gmail.com>
+From: Dumitru Ceclan <dumitru.ceclan@analog.com>
 
-MAX96724F/MAX96724R are a lower capability variant of the MAX96724 which
-only support a fixed rate of 3Gbps in the forward direction.
+The attach_addr() and detach_addr() callbacks may need to reconfigure
+the remote side of the bus. Maxim GMSL deserializers, for example,
+disable all links but one to reach a serializer at its default address,
+since all serializers power up at the same address.
 
-Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Tested-by: Martin Hecht <mhecht73@gmail.com>
+Transfers on other channels of the same ATR can run concurrently with
+these callbacks and fail with -EIO while the links are disabled.
+
+Take the ATR bus lock around both callbacks, before alias_pairs_lock.
+i2c_atr_replace_mapping_by_addr() already calls them under this lock,
+so ATR drivers see no new constraint.
+
+Suggested-by: Quentin Freimanis <quentin@q-lab.dev>
+Signed-off-by: Dumitru Ceclan <dumitru.ceclan@analog.com>
 ---
- Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/i2c/i2c-atr.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-index d2dd72f2e924..161d40acdd28 100644
---- a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-@@ -23,12 +23,17 @@ description: |
-   MAX96712 can be paired with first-generation 3.12Gbps or 1.5Gbps GMSL1
-   serializers or operate up to 3.12Gbps with GMSL2 serializers in GMSL1 mode.
+diff --git a/drivers/i2c/i2c-atr.c b/drivers/i2c/i2c-atr.c
+index ca29633dcd62..b98442ffff94 100644
+--- a/drivers/i2c/i2c-atr.c
++++ b/drivers/i2c/i2c-atr.c
+@@ -540,6 +540,12 @@ static int i2c_atr_attach_addr(struct i2c_adapter *adapter,
+ 	struct i2c_atr_alias_pair *c2a;
+ 	int ret = 0;
  
-+  MAX96724F and MAX96724R only support a fixed rate of 3Gbps in the forward
-+  direction.
++	/*
++	 * attach_addr() may reconfigure the remote side of the bus, keep
++	 * transfers on other channels out until it is done.
++	 */
++	mutex_lock(&atr->lock);
 +
- properties:
-   compatible:
-     items:
-       - enum:
-           - maxim,max96712
-           - maxim,max96724
-+          - maxim,max96724f
-+          - maxim,max96724r
+ 	mutex_lock(&chan->alias_pairs_lock);
  
-   reg:
-     description: I2C device address
+ 	c2a = i2c_atr_create_mapping_by_addr(chan, addr);
+@@ -557,6 +563,8 @@ static int i2c_atr_attach_addr(struct i2c_adapter *adapter,
+ 
+ out_unlock:
+ 	mutex_unlock(&chan->alias_pairs_lock);
++	mutex_unlock(&atr->lock);
++
+ 	return ret;
+ }
+ 
+@@ -567,6 +575,8 @@ static void i2c_atr_detach_addr(struct i2c_adapter *adapter,
+ 	struct i2c_atr *atr = chan->atr;
+ 	struct i2c_atr_alias_pair *c2a;
+ 
++	mutex_lock(&atr->lock);
++
+ 	atr->ops->detach_addr(atr, chan->chan_id, addr);
+ 
+ 	mutex_lock(&chan->alias_pairs_lock);
+@@ -574,6 +584,7 @@ static void i2c_atr_detach_addr(struct i2c_adapter *adapter,
+ 	c2a = i2c_atr_find_mapping_by_addr(chan, addr);
+ 	if (!c2a) {
+ 		mutex_unlock(&chan->alias_pairs_lock);
++		mutex_unlock(&atr->lock);
+ 		return;
+ 	}
+ 
+@@ -586,6 +597,7 @@ static void i2c_atr_detach_addr(struct i2c_adapter *adapter,
+ 	i2c_atr_destroy_c2a(&c2a);
+ 
+ 	mutex_unlock(&chan->alias_pairs_lock);
++	mutex_unlock(&atr->lock);
+ }
+ 
+ static int i2c_atr_bus_notifier_call(struct notifier_block *nb,
 
 -- 
 2.53.0
