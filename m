@@ -1,76 +1,77 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2594C388E4B
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 20:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCA354B1A6
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 20:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713715; cv=none; b=Ox5RrnZoYKwGPPsVWBV/1SuEpYhPh6wK9d9UkPYTNjnDqqmQgR9qV4O9pBFJfzrZ11cKhA1cDmx+QYKh6UxJ8Zug3bG2wYk7R+1u7/TAhpQZxOII1EZWtsqGQuXYw30b5dPl89mFMsr2ulkS4zIPLwwSUkcudnaey5zxZx/Mayc=
+	t=1790714668; cv=none; b=mw5id6UDC1Ga0SJUy03BLD6T9xT+TpG1uFdbiEa7QyKtXt5GSrbZtDQ8ZhXrxsRfb9PX0o6kH3CfaB3htWq32Iy5XGPY9oE9hhsqfwGZFU8/zje+H7I3wglbGEcCrZGSS3MFc2KJ8HsmIVC9D2tOpezFXyg/N1pG/tIJAFotPBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713715; c=relaxed/simple;
-	bh=uUrRYyuz9ljqvGYpIxFhR3M2h+TBtMioCu5j9jfhbA4=;
+	s=arc-20240116; t=1790714668; c=relaxed/simple;
+	bh=PeMI4feZR80NGYaeOustHzcRf+r5lTpl9KboZo5vxGU=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pdL0iLFeMTbOdu0jxiLTS5QKCKyon8rxTUAV334QNP/VURkSk2mvzgZ6WfdVvc4JMGWCdg/qHUg527s2TZG0gF+puGoWG+lrElI8s/OaUg20W8yB1ymqiDCNu4nw3v440cgDJe5V4GPEi2t1P7Biuaa4rRDT76uCHRYfqg7/hn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=s4+rwdgg; arc=none smtp.client-ip=74.125.227.41
+	 Content-Type:MIME-Version; b=BKQYqnnyNTmmbAkQFEZaNH82nTccQn3SdzgkjMqzluR0IcUSQcct35dnhsmRmU1qM4C0DMEVFuvHyxmgTMuCIobg0WCPQ1Gq32GpCmh6hEaHcDvLSkw6J0DOVlnEye+xSERAbaA0Vdd2ux64JIdOlB9cTsmbxkSUiBjiHQ+jrOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=qLpsls0v; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="s4+rwdgg"
-Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c9031e714dso1719873e0c.3
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 13:28:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="qLpsls0v"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530fa0716f6so52536611cf.3
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 13:44:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790713713; x=1791318513; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790714665; x=1791319465; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VQaYivWBj1ySc+nCCyxMCDWtW4eRfB8nvxBhJGO3V6s=;
-        b=s4+rwdggV4Ka2ohZHGvPc4ZdJVZSJ/m/wqHZ80yvbpzg16u9wPcnL3ZT7SlkKSAGaX
-         GAsM5WXB/9031DG+S9qkFwrfphbJZCN7TEV/BO1hkpqO95wK2REbxvti3Dk5ahg0q9SN
-         76JwthHRUXzVELDgpjgwLYacCwGmuoW4cokn/tYpMV6IEucpnDk4fd5I0t6WIVFL0Z5s
-         UeVmFZpwSUYRtyY+S62Y88NSNueLUN1pbw8GwIMRz0fCK4YDjRNtC1PamBHDeyyRkcE4
-         wGGYF6SNLHcZxXkK4DdODOEW42wXFf8RdQKjLgf4hVUPoBfPqKRDALATTSS1NBEnI2zT
-         IN+g==
+        bh=FiwtqZphJSml0R4L9uG6YdUip66h9uGgkQ6b6jASY4c=;
+        b=qLpsls0v5K8SsbhjxTxqw5PN3tY5A4nNOea37BcJWHtNIOdMnkx/rnVKpgJr+EQHLS
+         zC5gNcaSf8d61CfYbaRAdFXl3JJQOitqEbfSLxG0TE0mVnsFr0pH8CZcGdi3nzKrvvvZ
+         t3Bg0SgeGdQPHE4eHInc7VajPm56DnpPT/HPIqruzGXtaAUzQ8odY28GpCRhgVkMjXjd
+         383Ip7Sk4e6igiofZHVQAyHkjFVVZafzWHrEQK8UuOTSEcZF4MMDGHVijFtngRNDMjNU
+         TWNyeEQZoTYv155JfO9es/s+RXODps5WFPQs/V82VHx8r6b5LT9GulXbVBjy3SlsWPDW
+         HBeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790713713; x=1791318513;
+        d=1e100.net; s=20260707; t=1790714665; x=1791319465;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VQaYivWBj1ySc+nCCyxMCDWtW4eRfB8nvxBhJGO3V6s=;
-        b=yoNTjNwvz97dTYlxPbMa1D9vcICI10OHf4oJSt2b7SSoPtNDt5CqGAu1H3DZYL9KqX
-         zP3dRjxCxUAbA8phPN+45AZ7zTeEQjXJ+390fPcRIcjJHiGar6lot19m7SgwadgjibIz
-         wU6GJTeODlNVrWbq/1d1d2mWzQxw8jkBcP/Rb8TwCqtQsrwVoroUBK333rlKVRKrXQOF
-         sGDOQBnb3/CKWGWgMyjZ7IeYfPkVoCzjgJjC2M+tVJp4D670+ari08zEmQo+Y6IKZcd4
-         g5TrQOm40jYTuhc5TGbNTuWcAzuxkc5WQbNlaLFtSEa7y1VRL3P+tDQ7zmlOtaA6NOtQ
-         9IYQ==
-X-Gm-Message-State: AFq9FYK2eyBT8/l7+jBoszsXyeJxKq5a3ZiAzRaXbUxYEt37z5hl+I1u
-	RTmDKKP5BuM6r307N+wcz6aP3kjwArnnhnSDBmtzwjh/cTKowoYVSDMuC9LwL3kgyPE=
-X-Gm-Gg: AYBFou3HuwH9pb4yZTaKYDmr3qGAhMRtTWgUPRtpZPz97yXnq3LDsF8PEb000ZxKx6+
-	FeJ4waYiap5FqpjhgeuAE4i9+eBmN2J7NmpXmoQeaHnwOLNJWDfJZGxwyaI9cjmEpf/0dbDEqSo
-	d7yv9Qwcf80tGqtvslDBLlrNuxQNtZgZo0pCQS6Z1At5zrW+4WpgEpg2A4e8qjxRAHtrrpK9/L6
-	EePIbHqCwzj7wyt6CfjBh9vw0ZLapA6auRub9dksit+jl3S1QGzfYzW0cvEquuqa4+LbhqSVlxc
-	hsWnqOBGLU+jU0HD97j5ptTjJw7OVZbSH4jK/Fi431xs8hqeWhJUdEOC8RZswzbywxtrTc9YesS
-	AZ+HyPm3dpUASyIUdLj4JSqEelQFRzJjMq0McZtOvOCszLqL6MUZ1yNRukumqkl0dFDP8I3SW0W
-	K9G6jV4Esk3BesWZwKY9YqgnMvsP4Az0D13/SYoyTQXrp3+0CD5qfTash7DIdVD+UbdC+FUHIaz
-	CJRFnH7t7c+mQ==
-X-Received: by 2002:a05:6122:e1aa:b0:5c9:c60a:e9b3 with SMTP id 71dfb90a1353d-5d51a3753bemr226593e0c.19.1790713712883;
-        Tue, 29 Sep 2026 13:28:32 -0700 (PDT)
+        bh=FiwtqZphJSml0R4L9uG6YdUip66h9uGgkQ6b6jASY4c=;
+        b=GkF/phfkrOS36NNHVzzs/uB27n2W+8lDiDAs+jL4yBtYEHtBj391mX9B8DUfnzUzU3
+         oi0dg+GbLSKhLPCy4PccuwNa/166oHCElheZ3RrgipkZUiVUqqb9CAyWJTRtqd7CBoJv
+         KFo22GacMFz/I9gXCFOPyUR0NGnQuwlMCCKtYHGGIowvoCuphDmCRY/DXyXvzQeRoxW/
+         U3HSmP6nP7C9ZvGxrVaHW0e7Q3mLJuhP2nVQ3fivptWFOZLEhhmSFzam3u9hT5ZjjXa/
+         bGmKWxE0VTmg4WaGgt4nfoBx/igEAlRx+95m/OkhdbQjQwilBeVgBhktODgWeIpYe68y
+         Rj/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzGU+CbvnYgXwGDfpXWSNVS44F1ihnEyYlw5fmjj1ScDgXBrjXy2gJsmwPFXgP03eHcuoUzuCT2ww30GA==@vger.kernel.org
+X-Gm-Message-State: AFuF++lkje8GleS5uFCFR2j6+enTGeugglbgdsuZDBVjS2ytTcBc/28t
+	hSAK7EBpdPbZ+EyKTSe0zgnpBkCn8Z5XrRG+cUs4eZJnXI+sSEsns37as2nQFWJkbnY=
+X-Gm-Gg: AYBFou0/7J+2BWnsCinL/hdGs3n308eu9j0xPcgS0VG7odPXE5XAelT9TE+N7ykhT9v
+	mOgM8cHBcD/M1KBFe3ZLowVzkYYPkaX9Kka4IACnWZXbAhRqWC997ZT5g8va3x9U7uaCotm0/uQ
+	LZD2N3SJPB4H3Z2gko6xPQQrN1GCmsHCKAyRtmIT970irHJ8JPZH8byGmHz3g3XomdgNcwYnxYv
+	ORKbpaYDWM9ZhfdjHbl5ALEG/2j/+vQUjhlig+g35RMNYpHZS79ktKT8wMsTkabJubUWMwBQA28
+	TD8RTGgGa1O5CybD0xa7Z3ZsEf+SnxS65gmAldlFUbSVcwAuL8gVa+jbPINIJ2ftzO7WmoreWtY
+	cGyI9Lc96Kye9ZXw2ymO5QFsH5cBhVI7tlP/uYb+WC2tPHx8p5Pp4UWfaRnv7ZU1/g1Z8GHC/9+
+	RT8/JwsJPsRX4gKIYWTYtsA6PtfqhcLmkLrQHsho3YFjP7IAjFYUQZ0QtYW0nI77QCOQc4vKyKB
+	b4v8AS7vHvkSR1x3TRYkA5t
+X-Received: by 2002:a05:622a:229d:b0:530:e429:ea81 with SMTP id d75a77b69052e-5336a4fedd4mr9984921cf.11.1790714665420;
+        Tue, 29 Sep 2026 13:44:25 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d4e9a793e6sm1089117e0c.13.2026.09.29.13.28.31
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917987e1439sm3860516d6.21.2026.09.29.13.44.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 13:28:32 -0700 (PDT)
-Message-ID: <1fe9b189db3d0704be5b1b37a700311dac2cbfc3.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: rkvdec: Remove redundant dev_err()
+        Tue, 29 Sep 2026 13:44:24 -0700 (PDT)
+Message-ID: <b2430afd1f224f12d5b74349399892ad774874c3.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: platform: mtk-mdp3: Fix device reference leak in
+ mdp_comp_init()
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Diederik de Haas <diederik@cknow-tech.com>, Detlev Casanova	
- <detlev.casanova@collabora.com>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>,  Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 16:28:31 -0400
-In-Reply-To: <20260919093449.2534901-1-diederik@cknow-tech.com>
-References: <20260919093449.2534901-1-diederik@cknow-tech.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, angelogioacchino.delregno@collabora.com
+Cc: hverkuil@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ mchehab@kernel.org, 	moudy.ho@mediatek.com, stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:44:22 -0400
+In-Reply-To: <20260917100721.2146044-1-vulab@iscas.ac.cn>
+References: <20260917100721.2146044-1-vulab@iscas.ac.cn>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -85,7 +86,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-F+3ToYK5qPTGqdEYIxDv"
+	protocol="application/pgp-signature"; boundary="=-fdXlNmHJpaX9m6SU1Zhk"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -95,55 +96,93 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-F+3ToYK5qPTGqdEYIxDv
+--=-fdXlNmHJpaX9m6SU1Zhk
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le samedi 19 septembre 2026 =C3=A0 11:34 +0200, Diederik de Haas a =C3=A9cr=
-it=C2=A0:
-> The devm_request_threaded_irq() function already logs detailed error
-> messages on failure automatically since commit
-> 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()"=
-)
-> So remove the now-redundant driver-specific dev_err() calls.
+Le jeudi 17 septembre 2026 =C3=A0 10:07 +0000, Wentao Liang a =C3=A9crit=C2=
+=A0:
+> mdp_comp_init() takes a reference to the component platform device
+> with of_find_device_by_node(), but the error path taken when the
+> clock array cannot be allocated and the one taken for a component
+> without a GCE EOF event return without dropping it.  The caller
+> frees the mdp_comp in those cases, so the reference is leaked.
 >=20
-> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+> Release the reference on both error paths.
+>=20
+> Fixes: c4320f9721fd ("media: platform: mtk-mdp3: dynamically allocate com=
+ponent clocks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>  .../media/platform/mediatek/mdp3/mtk-mdp3-comp.c   | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
 >=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
-dia/platform/rockchip/rkvdec/rkvdec.c
-> index 061281f903f3..13d13c041509 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> @@ -1824,10 +1824,8 @@ static int rkvdec_probe(struct platform_device *pd=
-ev)
->  	ret =3D devm_request_threaded_irq(&pdev->dev, irq, NULL,
->  					rkvdec_irq_handler, IRQF_ONESHOT,
->  					dev_name(&pdev->dev), rkvdec);
-> -	if (ret) {
-> -		dev_err(&pdev->dev, "Could not request vdec IRQ\n");
-> +	if (ret)
->  		return ret;
-> -	}
+> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c b/drive=
+rs/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+> index 7fcb2fbdd64e..acb2758a7b42 100644
+> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+> @@ -1730,6 +1730,7 @@ static int mdp_comp_init(struct mdp_dev *mdp, struc=
+t device_node *node,
+>  	struct device *dev =3D &mdp->pdev->dev;
+>  	struct platform_device *pdev_c;
+>  	int clk_ofst;
+> +	int ret;
+>  	int i;
+>  	s32 event;
 > =20
->  	rkvdec->sram_pool =3D of_gen_pool_get(pdev->dev.of_node, "sram", 0);
->  	if (!rkvdec->sram_pool && rkvdec->variant->num_rcb_sizes > 0)
+> @@ -1756,8 +1757,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, stru=
+ct device_node *node,
+>  	comp->clk_num =3D mdp->mdp_data->comp_data[id].info.clk_num;
+>  	comp->clks =3D devm_kzalloc(dev, sizeof(struct clk *) * comp->clk_num,
+>  				  GFP_KERNEL);
+> -	if (!comp->clks)
+> -		return -ENOMEM;
+> +	if (!comp->clks) {
+> +		ret =3D -ENOMEM;
+> +		goto err_put_device;
+> +	}
+> =20
+>  	clk_ofst =3D mdp->mdp_data->comp_data[id].info.clk_ofst;
+> =20
+> @@ -1782,7 +1785,8 @@ static int mdp_comp_init(struct mdp_dev *mdp, struc=
+t device_node *node,
+>  		if (of_property_read_u32_index(node, "mediatek,gce-events",
+>  					       MDP_GCE_EVENT_EOF, &event)) {
+>  			dev_err(dev, "Component id %d has no EOF\n", id);
+> -			return -EINVAL;
+> +			ret =3D -EINVAL;
+> +			goto err_put_device;
+>  		}
+>  	} else {
+>  		event =3D MDP_GCE_NO_EVENT;
+> @@ -1791,6 +1795,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, stru=
+ct device_node *node,
+>  	comp->gce_event[MDP_GCE_EVENT_EOF] =3D event;
+> =20
+>  	return 0;
+> +
+> +err_put_device:
+> +	put_device(&pdev_c->dev);
+> +	return ret;
+>  }
+> =20
+>  static void mdp_comp_deinit(struct mdp_comp *comp)
 
---=-F+3ToYK5qPTGqdEYIxDv
+--=-fdXlNmHJpaX9m6SU1Zhk
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwfbwAKCRDZQZRRKWBy
-9KhKAP4k1cHvpCPn5smix40RZY42YEI2Eo0qvXxN29oEVWOpCgEAnLNOPA0qpepn
-oMGr7q8y93fQEe5BvvTo5vSFZBOIxQw=
-=Qt2k
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwjJgAKCRDZQZRRKWBy
+9AzTAP9evVQ/rK1EdzWFKFNoZe85mZQymiN/AnmFnzuCNe0UMAEA2miyExzscQrC
+QApgG4LckhviwoffkCjd3tbgtsQ2eAU=
+=kfwh
 -----END PGP SIGNATURE-----
 
---=-F+3ToYK5qPTGqdEYIxDv--
+--=-fdXlNmHJpaX9m6SU1Zhk--
