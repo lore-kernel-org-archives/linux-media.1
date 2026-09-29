@@ -1,186 +1,281 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E0C5383F8
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 18:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487D653B613
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 19:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707362; cv=none; b=K3GPOvEx0AyYzHa0PHi/bamX7YRY8QAvuQnKa3xPP2XAeLMmenG3EXZuSS20rNIs8kaCt+lXxC6HJhPeTU12aXrJHu6Y9UtacgEeUZ2Qu0S5D1LhjFfXxFZiBN+q9xhi6xkxq+8egN+zqWVmcv20ntK0kepqdNIwhPZ2s4SvoLU=
+	t=1790709987; cv=none; b=PMfzzMrLIMdrq7cw47RjcQmBM24+XC43h+Ex3A9NfT2tCUTBggjpYRIElOB905gRSdWKWdqsQp2iDFMarIhLzfbv93ncrE5kJHiYdHY7iDd0xEKThe6oo5kg+8VbHv3lr4537ZBafY81cuclPPvUDZmUXrmEa78+TOGwLnPXOeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707362; c=relaxed/simple;
-	bh=PPJGcCM0sx6er+/xcCz8HP+65T75ADwxPymHBvvsnVo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=skJNrXTcxDlNj9dEWmrvdTqzDf7xMXCi02RZgT40PUnT0TLGcfsdIV3tYpTdELjwPkYVmPq8Wo6BYm5ihAzAcsk028TMq8HiG00Ka+jIpDP3oiGvL87Z7F1CSB/MmFmWg03rd1t8ri27CLvqx/8j+A+8A8fcS+Anu1mUnCbDiXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=oj06MDRn; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790709987; c=relaxed/simple;
+	bh=bmytGywDiBZZEcJlaLynGrfkR8OAE36ghtJndTJvmGE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=m2g5oGTP8jm4ha1ZVVKSnpiH5zzfom/d7l6wMJZd5IyAifqPNon/N30llToXLhOr9EIdkqifn9XR21O3hzAJVYItQT6fSSm1bYrDcnbqZw8eyqZRoYAsj/1evfxPUxR90W2U6Dt/ZdvQY1/qbNdsMHY/JGFOw1fix034Kymp52g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PY0bdX05; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PZNJYtz8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="oj06MDRn"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso2916713241.3
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 11:42:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PY0bdX05";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PZNJYtz8"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68THgjIN858074
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 19:26:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Jcggai5cj02Q8AdG/I+0wRNZv2kOWaf+kgficKkoXVk=; b=PY0bdX05WUzvsHGf
+	8RoMNUa8YwOF8uE3TT0Erj/VBvtbs0q0z411V5NjMcnbxdaWhUC8tiqOiQqD8xJv
+	l4CYB0IF833ujdxwP6hA18mteyjrB6ZrtNf3+KUVsuLVvJZQSCddqHSZKwzxlCRi
+	u+XOosmyZbCFUrYD9PGm5Hs/QJnQTjMC+fJFw3iySOGwkcot7G3GomBJqWImVyGD
+	HvVRbbzGYlC2n+MBWLs32bH075tYlmDBQN39VPViFHidhy0i2AwiBXYsO5CpRPdF
+	V+LPpHvI/Rk+0+uX/YiKvTTXbmDU6y1LUS79z2ygPL/ihRJFaXQRP2ab6Ccm5n0a
+	wzv6Sg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h08e0k9gd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 19:26:25 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-342138eeff2so403513eec.0
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 12:26:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790707360; x=1791312160; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5xU2IbXhE/z5ABDUOgveshtAzBWv4hsn4Hu2VpZqugQ=;
-        b=oj06MDRnSA7tz9HbTB5i1da6HLxSCKZFik46vLf7h0fokVHesrXHOePRbkJG9X7LSM
-         N5BWiZrUZVb8BFR18pEiF4BO4WYNLykaLIYTBaVUgB4hieUZK1CKubzFKuNElaB/ip9M
-         eNiLp7rTQSU+j291xrtS6bV49/cF2ZkVgzU0KIYPalAKFLA2hnZ2fQVlCBq2vSnWpIrz
-         c1Ws48MATjJfvXAxPsWVSFeoaed5c05bH9sJatycc5gGlpUO4wsclpjykk17rg2z8U1W
-         bdZkVDRK600uRFAuSE8dObwZVwLY8a272BBt1t513xjnAjxRjPDduXgrAphxTnUjajZM
-         sZ0A==
+        d=oss.qualcomm.com; s=google; t=1790709984; x=1791314784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jcggai5cj02Q8AdG/I+0wRNZv2kOWaf+kgficKkoXVk=;
+        b=PZNJYtz8J18BuujiVysz/ZfMwYlbVnQrWnielfWUCnMhFmeejn0DEvhy4R8ET565/8
+         hPH5dYngMeXN2kVOW/5uAkZMfQpaA7JTqWRYagHnKqxIX5zjZhlg+17FuZKKZXc2Fdtm
+         7stl17i30X+H5w0kMEWlM4f0GFiSJ6DV9xVXmvtUxv01Vpj5i0+2pIvynxFhRk9Qb5dZ
+         IpZQCHjqrblvJSAvqLyeNiQDSpbYD1lxkRkAWJ5wCpmBUqj01ORkl8Pfrpo27oO0JL0N
+         zpEQQlP/gfNngU6Z86e+ZG802GUsBBCyNkIESoHJg1adVQkcfdxXNVzTG2PH/JuIoFuI
+         GHdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707360; x=1791312160;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5xU2IbXhE/z5ABDUOgveshtAzBWv4hsn4Hu2VpZqugQ=;
-        b=FjAva3aJItPAs537uf72+oxPkBZ9Tb5SZGAXfZ1CI5u4fQjiVdn7cUtaxJMT+Yz10B
-         Pah1X1od6CkwEyumisSZFZdeprfSzrVR3xw5lJp5JF1Owv/6cfukbCJBkN+z3aIjGrPf
-         SN3EZASkeo3dYCaRX9oRIozN6uCfd9EYqwMd77eMa1Z+jXtV5D3LyLUdEXuPxej/i/zA
-         MTlOkZkL/0em6s0tqTCNxNFcKyWbBONZ6/LPHEZ+EgzhKHfXyHbwxBPWxQjjrGssk4JJ
-         YkTKfT0PPGtLdrXzeJf1stCN7+xZFDqP6wpa3uSLy54fK8QEbvUIlMRzuvYA30F9qxiv
-         AOfA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6iGPgAaGhx9/TlmJkDZqU4PKRIBi+LU8gC+yKFRHvaqCxivmhz61yJgwYR9pytBjQbnhTGYxg6iTPAw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaySdLXoiZaxMZPocOuD20y2k+B4C7fevyW2ERssnds0p+j1Z3
-	O0NOB1ofZuJS6fstfIWaM65hhJ8/S4aSJ4kOCadYof43lUR9hqYapO1GyWoApeWK6O8=
-X-Gm-Gg: AYBFou1wNMsSMrBU2JgAMwdCVtyPOqVMAwPcKzBBfUM1350xxdUTxVwdQVSsOll3+kP
-	CT3cla/YyayDURIiig2SBkLUm5jMVaG5sq9pQwAoPg36RGQq9JAKH6qjGQazk6pzA18dBBK9QX7
-	yjbYKDacTLd/Mwc7x42ReyKMdo2OfIdP/R89fe5+CtpFQhoRWSPszJzA61TYQFK1bq73zs/tMMO
-	xevVDPc3CI/FndxAN0iNSm3Ck2xJvKoHxgWKTWHetBUyttf3f8rz6w9o7PhPVjb3sXLWHDSjw8l
-	X79tqie9e22212wfOeZw9hcgrfWjtdpJCdpgJnF8JVCvp9G2MxzKckvg6CWYh8qGpqaiBziOMFp
-	A8QrZlc0MkZmfFci+3C5oJ4OeFtMCAodfEHKQcf70Iyj7Zjgzwol7J6MVCDWnq+cDGxzv95/fk8
-	xr8ZjfQYR6508PNa3vtd9QIBC8g0662L6799LqBEm8vm0ZgOi4YWegiNV54f3unHuMVy1Bg5C+k
-	rITgB96kGFprw==
-X-Received: by 2002:a05:6102:3e96:b0:7a8:2a34:433a with SMTP id ada2fe7eead31-7bc3c0968b9mr194936137.9.1790707359677;
-        Tue, 29 Sep 2026 11:42:39 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7bc7de014a3sm373692137.11.2026.09.29.11.42.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:42:38 -0700 (PDT)
-Message-ID: <6cbde49a7440bb59faa9eab91dfb8e99947be993.camel@ndufresne.ca>
-Subject: Re: [PATCH v3] media: rockchip: rga: fix rotation on rev0 hardware
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: John Keeping <jkeeping@inmusicbrands.com>, linux-media@vger.kernel.org
-Cc: Jacob Chen <jacob-chen@iotwrt.com>, Ezequiel Garcia	
- <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
- <mchehab@kernel.org>,  Heiko Stuebner	 <heiko@sntech.de>,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 14:42:36 -0400
-In-Reply-To: <20260929094142.928758-1-jkeeping@inmusicbrands.com>
-References: <20260929094142.928758-1-jkeeping@inmusicbrands.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ILpt8SK1pUoNPTw2qXEH"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        d=1e100.net; s=20260707; t=1790709984; x=1791314784;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jcggai5cj02Q8AdG/I+0wRNZv2kOWaf+kgficKkoXVk=;
+        b=SJT3MuSdueoD6TOIKsb4QWtF4wEznyrgzzw1jEdxPWyNiGKIu8E49o5NxU8JcGo4ny
+         hSfM+CiclVscAun/VXRX0S3VfAdWREslWuLdBzahQg+pHkmICKapo4PqFJspLRmsaTgF
+         JDzgDrbSVWVl5ESurMl07V7z/gRweDi8Cri9wefVRnKSmF3mhXpy5q36OqppzXWO8vig
+         jC3tdfzswqn0oJoZ/BBONu4K8ewY+JrBKwG37gtL7l3ax2snQdWihR5znJxVu2MAjnqO
+         lysW+/V36YuV/Z263BT7iKZRKRSnj4F2d3YveIXbzxe3mO8P78C5xuQ7ozm5df8pwkPs
+         GLhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzxBDdTa3GMzo1/TmNHKnR2RmumBEpP0QRWCjlpYWt2NXm8o2lfsr5XJ2bHg8pHYMwiufS8zunECDgIuA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcVtZA4CNT/+c20x95uXjsepRvTbymgyfCkL0N6+CG3KXk+hSc
+	On3Z3WZeKtgMgErMiSHAlETATSCxAWzExWkTXaHw6eazrzucW+Ra8QBZ7+M7Pl0DGl5htoW6mRo
+	fm8ZsYX22PLrR60AweMaRlYybmf6NZYLWDCwFzzHJau4kF+/0+Gtv6QnCl83mAMVw3A==
+X-Gm-Gg: AYBFou36h2z/kblhINKjSGYgFNcbQodliQaRdxe44XHHi1VouWnUZ9IoPSQO8nVFNOV
+	h3HTYj5WhL2UddlzMRjrcoHxNwntND3j97inGFZRHi66knrCLdBsQaKda7OHjNck8mVjB2ZOKhL
+	+3b+/wY99zeAtuvNWUcvdCXX0zHd8aigDvhWd/fp7yNx8gGG9oPPO8EtCDQiQjcB4i2C9+Piel0
+	aD0Z0amCSlqImHw65qm7vU0jN67RFE1PeMh5tuw14Ka12KTkuwi0NNEqrUxYyhtJ2fvHs2KXQmf
+	6O5uzXY2yt+TUUKkeTLrv3VQTjt1x8vx6jN3Vh8fu/aGDJFAOH+czG/JKQ58tqvZP/iukJldZ7L
+	IFcmUUDl5fH2TWxV6toVtCc5IoMa/tmgLxwofW3jK63rrNDK0hhg4RA==
+X-Received: by 2002:a05:7300:d203:b0:34a:fc46:35c3 with SMTP id 5a478bee46e88-34c67ca5854mr293319eec.33.1790709983946;
+        Tue, 29 Sep 2026 12:26:23 -0700 (PDT)
+X-Received: by 2002:a05:7300:d203:b0:34a:fc46:35c3 with SMTP id 5a478bee46e88-34c67ca5854mr293278eec.33.1790709983268;
+        Tue, 29 Sep 2026 12:26:23 -0700 (PDT)
+Received: from [10.226.49.37] (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c38bf0948sm909179eec.25.2026.09.29.12.26.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 12:26:21 -0700 (PDT)
+Message-ID: <d9bf5c75-91b4-4933-ac2a-33aace58cbbf@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 13:25:26 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Jeffrey Boody <jeffrey.boody@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dma-fence: deliver set_deadline callback even if fence
+ is already signaled
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+        linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20260922-dma-fence-set-deadline-v2-1-2338d6fac9aa@oss.qualcomm.com>
+ <72e380d8-4b94-47d4-8721-a6f652dfd27b@amd.com>
+Content-Language: en-US
+In-Reply-To: <72e380d8-4b94-47d4-8721-a6f652dfd27b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA3NyBTYWx0ZWRfX06zLGyBemgHH
+ EfuMSMzOq+DUQ/zcmjW6ABip/bAtwJjuWyQfAhafdhl0Uoxw7h/UYXVyMpK4pw1opeydiPYIYeQ
+ jYniAPYRcMQMI/TkEVoRSkKFgWfqkJA=
+X-Proofpoint-ORIG-GUID: tDbSQ76XxGWJg8rkvEOb3iZk2jRWF0ex
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA3NyBTYWx0ZWRfX78rkAw5XmFAM
+ T1AAK0VDwn5J0/mp0PdcpStsf6PwvgG50RYx08uRP4Gr5k0o+zbymE1aNiaKbQa6RGbdICg8P46
+ FEwMmwluvMAmt6n2H2k4UhxFBDzfhnTyaLSBF3cE189AkqW58RY56Eb3AOf4uAyRFWmID9vbjwH
+ guYtAPLIpBvC0QKfr2lzwDVr+AZobv3+2SPPGFkO1efKkeCIL3DYphb3Idw627+wZKiL1cDeDG3
+ 0w0th4Rh8EgEGlvEDbmpQB02Vm4TiFAVhAUvhJm+Vd3eVKcM2Z4h8TlcS84RC32mC0TwIBcxBYU
+ fJ4LosSx2+jTRLPCSJoqjbWrAPFoxiFXveLPykQvX0GKQ/y50BISE6MmeidFW336ynWb+pge68w
+ Z9FOJJWkQJH+aliDycsxThCtj3wtNxBv7TfYTUEDdoPOU/baX9l0xVZhpFLnyTQ5D/cS5iti7Wr
+ fZDdf4kwnIc6FxPcWlQ==
+X-Authority-Analysis: v=2.4 cv=WJ7qzXsR c=1 sm=1 tr=0 ts=6abc10e1 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=a6woDCoF70UX9vXSefYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: tDbSQ76XxGWJg8rkvEOb3iZk2jRWF0ex
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ adultscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290077
 
+Hi Christian,
 
---=-ILpt8SK1pUoNPTw2qXEH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I apologize for missing this issue and will follow up if we can find 
+another approach.
 
-Le mardi 29 septembre 2026 =C3=A0 10:41 +0100, John Keeping a =C3=A9crit=C2=
-=A0:
-> On RK3288 where the RGA reports version zero [1], rotating a buffer
-> gives corrupt output where one edge will be truncated.  This is a result
-> of some adjustment done specifically for hardware revision zero.  But it
-> seems this is not necessary and there is no evidence for why this
-> adjustment should be applied on these hardware revisions.
->=20
-> Comparing the TRMs between RK3288 with revision zero and RK3588 with
-> revision 3.2 there is evidence of new features supported by later
-> hardware, but nothing indicating any difference in behaviour for
-> rotation which is supported by all hardware revisions.
->=20
-> The logic here looks wrong anyway, since it's bizarre that minor
-> revision zero would need the adjustment for _all_ major revisions.  This
-> was added with the initial version of the driver in commit f7e7b48e6d796
-> ("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
-> Git history to indicate why this special-case might be needed.
->=20
-> [1] Comparing with the vendor code, it seems this is actually 1.3 with
->     the hardware reporting zero more by coincidence than design since the
->     version register is not defined for RK3288.
->=20
-> Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
+Thank you for reviewing the change,
 
-Fixes: f7e7b48e6d796 ("[media] rockchip/rga: v4l2 m2m support")
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Jeff
 
-> ---
-> base-commit: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
->=20
-> v3:
-> - Rebase on media-committers/fixes and add base-commit to hopefully make
->   CI happy (patch content is completely unchanged)
-> v2:
-> - Remove variable that is unused after this change
-> ---
->  drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
->  1 file changed, 8 deletions(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
-/platform/rockchip/rga/rga-hw.c
-> index be1bc8ddbd03b..2e7ec8b7c20f7 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-> @@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx,=
- dma_addr_t dma_addr)
-> =20
->  static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
->  {
-> -	struct rockchip_rga *rga =3D ctx->rga;
->  	u32 *dest =3D ctx->cmdbuf_virt;
->  	unsigned int scale_dst_w, scale_dst_h;
->  	unsigned int src_h, src_w, dst_h, dst_w;
-> @@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *c=
-tx)
->  	 */
->  	if (src_info.data.rot_mode =3D=3D RGA_SRC_ROT_MODE_90_DEGREE ||
->  	    src_info.data.rot_mode =3D=3D RGA_SRC_ROT_MODE_270_DEGREE) {
-> -		if (rga->version.major =3D=3D 0 || rga->version.minor =3D=3D 0) {
-> -			if (dst_w =3D=3D src_h)
-> -				src_h -=3D 8;
-> -			if (abs(src_w - dst_h) < 16)
-> -				src_w -=3D 16;
-> -		}
-> -
->  		scale_dst_h =3D dst_w;
->  		scale_dst_w =3D dst_h;
->  	} else {
-
---=-ILpt8SK1pUoNPTw2qXEH
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwGnQAKCRDZQZRRKWBy
-9I5zAQDENsSWZWYp+AVmTDcFYwYqOZBs5vG6vPbEM8JLE0qmywD+L4sImLRB2DW8
-3eXQUNCT5EOVLkntXGgixskKFIem2ww=
-=3GCb
------END PGP SIGNATURE-----
-
---=-ILpt8SK1pUoNPTw2qXEH--
+On 9/23/2026 1:35 AM, Christian König wrote:
+> On 9/22/26 18:57, Jeffrey Boody wrote:
+>> The set_deadline callback is currently skipped if the fence has already
+>> been signaled. This prevents GPU drivers from performing power
+>> management adjustments when the deadline hint arrives after fence
+>> completion.
+>>
+>> In triple-buffered rendering, a staged frame may be completed well
+>> ahead of the vblank deadline. When a display driver delivers the
+>> deadline hint, the fence has already been signaled and the callback is
+>> silently dropped. This leaves the GPU driver unable to evaluate the
+>> headroom between the fence signal time and the vblank deadline, and
+>> therefore unable to reduce GPU frequency when the target headroom is
+>> exceeded.
+>>
+>> Remove the dma_fence_is_signaled() guard from dma_fence_set_deadline()
+>> so that the callback is invoked unconditionally when ops->set_deadline
+>> is present. Implementations of set_deadline must already tolerate
+>> concurrent and repeated calls; handling a post-signal invocation
+>> requires no additional locking. The fence signaler can compare the fence
+>> signal time against the supplied deadline to determine whether frequency
+>> scaling is warranted.
+> Sorry but I have to clearly reject that patch.
+>
+> No callback whatsoever is allowed to be used after the fence has signaled or otherwise we break module unloading for the originator of the fence.
+>
+> So that approach you want to have here simply doesn't work at all.
+>
+> Regards,
+> Christian.
+>
+>> Signed-off-by: Jeffrey Boody <jeffrey.boody@oss.qualcomm.com>
+>> ---
+>> Signed-off-by: Jeff Boody <jeffrey.boody@oss.qualcomm.com>
+>> ---
+>>   drivers/dma-buf/dma-fence.c     | 22 ++++++++++++++++++++--
+>>   drivers/gpu/drm/msm/msm_fence.c |  3 +++
+>>   include/linux/dma-fence.h       | 11 ++++++++++-
+>>   3 files changed, 33 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>> index bd58688b81a7..ebc7c5ca6f69 100644
+>> --- a/drivers/dma-buf/dma-fence.c
+>> +++ b/drivers/dma-buf/dma-fence.c
+>> @@ -999,8 +999,19 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+>>    * Multiple deadlines may be set on a given fence, even in parallel.  See the
+>>    * documentation for &dma_fence_ops.set_deadline.
+>>    *
+>> + * The deadline hint may also be delivered *after* the fence has already been
+>> + * signaled.  This is intentional and supports the case where a fence signaler
+>> + * aware of a periodic deadline (e.g. vblank) and the fence's signal time can
+>> + * evaluate the headroom between the two.  In triple-buffered rendering, for
+>> + * example, a staged frame that is completed well ahead of the vblank deadline
+>> + * represents excess headroom; delivering the deadline hint post-signal allows
+>> + * the fence signaler to consider reducing frequency for subsequent workloads,
+>> + * rather than holding an unnecessarily high frequency.  Implementations
+>> + * of &dma_fence_ops.set_deadline must therefore tolerate invocation on
+>> + * already-signaled fences.
+>> + *
+>>    * The deadline hint is just that, a hint.  The driver that created the fence
+>> - * may react by increasing frequency, making different scheduling choices, etc.
+>> + * may react by changing frequency, making different scheduling choices, etc.
+>>    * Or doing nothing at all.
+>>    */
+>>
+>> @@ -1016,6 +1027,13 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+>>    * to aid in power management decisions, such as boosting GPU frequency
+>>    * if a periodic vblank deadline is approaching but the fence is not
+>>    * yet signaled..
+>> + *
+>> + * This function may also be called after the fence has already been
+>> + * signaled.  In that case the fence signaler can compare the fence's signal
+>> + * time against the deadline to determine the available headroom.  If the
+>> + * fence was signaled significantly ahead of the deadline, the fence
+>> + * signaler may choose to reduce frequency for subsequent workloads to
+>> + * avoid unnecessarily high power consumption.
+>>    */
+>>   void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>>   {
+>> @@ -1023,7 +1041,7 @@ void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>>
+>>          rcu_read_lock();
+>>          ops = rcu_dereference(fence->ops);
+>> -       if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+>> +       if (ops && ops->set_deadline)
+>>                  ops->set_deadline(fence, deadline);
+>>          rcu_read_unlock();
+>>   }
+>> diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
+>> index 3dca8e09c192..3c5de96d4092 100644
+>> --- a/drivers/gpu/drm/msm/msm_fence.c
+>> +++ b/drivers/gpu/drm/msm/msm_fence.c
+>> @@ -136,6 +136,9 @@ static void msm_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>>          unsigned long flags;
+>>          ktime_t now;
+>>
+>> +       if (dma_fence_is_signaled(fence))
+>> +               return;
+>> +
+>>          spin_lock_irqsave(&fctx->spinlock, flags);
+>>          now = ktime_get();
+>>
+>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+>> index ffa99b930843..839ef2e5dad9 100644
+>> --- a/include/linux/dma-fence.h
+>> +++ b/include/linux/dma-fence.h
+>> @@ -264,7 +264,16 @@ struct dma_fence_ops {
+>>           * an upcoming deadline, such as vblank, by which point the waiter
+>>           * would prefer the fence to be signaled by.  This is intended to
+>>           * give feedback to the fence signaler to aid in power management
+>> -        * decisions, such as boosting GPU frequency.
+>> +        * decisions, such as boosting GPU frequency if the deadline has
+>> +        * not yet been met, or reducing GPU frequency if the fence was
+>> +        * signaled significantly ahead of the deadline.
+>> +        *
+>> +        * This callback may be invoked even after the fence has been
+>> +        * signaled.  In this case, the signaler may use the deadline and
+>> +        * the fence's signal time to evaluate whether the GPU frequency
+>> +        * should be adjusted for future workloads.  Implementations must
+>> +        * therefore be prepared to handle calls on already-signaled fences
+>> +        * without error.
+>>           *
+>>           * This is called without &dma_fence.lock held, it can be called
+>>           * multiple times and from any context.  Locking is up to the callee
+>>
+>> ---
+>> base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+>> change-id: 20260917-dma-fence-set-deadline-a778746e9abd
+>>
+>> Best regards,
+>> --
+>> Jeff Boody <jeffrey.boody@oss.qualcomm.com>
+>>
