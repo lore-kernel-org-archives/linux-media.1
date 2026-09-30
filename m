@@ -1,484 +1,1114 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7EA52122E
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 18:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE3D3C09F5
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 19:04:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793063; cv=none; b=AswiQ6Ub8Kuzpv9QUE5njp/eV47lGNVO9D6Res06tG7p5glxoZA7vzwPIJnxam3YwFRsXvQSZR6eAN1N8dQp40igGGi4JnahsLeg/6K2F8kERkzpRhlXD3lezt6YoAscpYSvM69CCIQQr5in0SWZ6IGroIfZmQLa5qCpiSGf9No=
+	t=1790795070; cv=none; b=tpoB5oKK5Mgppcih6Vv0WxexF9MXEW0B01fppV/qCOUG7kAHPOkNdpMjIdQdLwMcAalyoahKIDNpstI2Bx812DwC4997WGDHK+75wp8ZNNF33G/yWKJeUvCGZMRhwLTnGhQQxJY4czHFNxsiOgSuq5cFNOghQ4QJJ7CXoYb1VlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793063; c=relaxed/simple;
-	bh=hZYpkknU50IPTqTLH/yzuqeNN6S6tqV+9vDdGUEOvlI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LMiCWPDIrI8wX8zMRdiq5WqScbc0+1cxap/WCS02rV9KyW6GUyBJcAo0rtZoKLWseWiKhLTkKIE09lxEHcNcvkmN507s0yCcZEdmsW8ZTlQMpEmsUJKExPbjvIR0PTbKjwkF2KmYYcACfG0VsfTxFDmpa2GPyVNVQZmxvAjZVR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=luoEzeID; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DAMjypOW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790795070; c=relaxed/simple;
+	bh=PclHNUP9fsZpAGzAZ180xkhRAG7LBgbAfWpq56fesvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nz4NZoZd/2VDNbg4xJiMBVTCif2cwjFvKVZcfSkVW90VQpyvAEvTIK1BRakMHXLOLGa+CDzExmUn2VfaBDkb+Nqk/s7Ljw8zz3FXhsXEHPxkWcBQkrOrWg1E8laBcwofS7+oMNgmykJrhNXr+naBz39V918967MC1h+zEGrIMlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dsi8YC1u; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="luoEzeID";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DAMjypOW"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHelVQ4160547
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 18:31:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RvnzSJafvmyhZIkCGy51NSl5QzuGjrllVF2BLRNXpNI=; b=luoEzeIDGJtrWAGK
-	kmVWWGYK0ASJGz9EGvVlXHYNrQvzXgaQu11x3fqocuFODoiBuI9iczcn6CqI175L
-	OBAfGjZRTHmArs9q6OAR9HcP0QlOMnpK5LyD3vKYnOkG1BTpxR5McuQeAQV4kDVn
-	YNQzK/YQqyA5hOjpeq9LQzeByq637Ch+h8mWo86MIU+JnnIX6g7yexExV6IUepYi
-	+rs/9UcWG3m+bowd+9JI6dGmsoczibklv69y9u3+GNn33tih9maKBewUdTzqD5WR
-	K+drMxD7E0KHegXPyEMjPUDzYKfpan221qXF3wEGAekJg/Vc9BBpM1PuoxlJAGnf
-	0dwnyQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h167pgh1f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 18:31:00 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34d749e0e0fso78228eec.1
-        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 11:31:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790793059; x=1791397859; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RvnzSJafvmyhZIkCGy51NSl5QzuGjrllVF2BLRNXpNI=;
-        b=DAMjypOWBe2SRQ6Ij+k4VOCLQDS0r8ah9NhSlZyYgZoh/UsUaGuPIsMUNfLuhneBIf
-         5eE53Bk8QIHNxYwUdxCN/oJmDektBojRXdTuEug4x3IgONfoCIVrxsGlYnPVeFP3I0+n
-         z4XVEEgMejQ3Eem007ZqxQiW7Z9U7r9zr4jdPvLZmk4vwzy0PHvJpwuxilrxejgNSCEZ
-         BFq8p//eHmAJzbO38BctfNxd0BG7brXUxXu5WwAh4ejlL6jhLIkxvCKAtLAkn44qdTdh
-         kho3duTsq/AZ8wk/+hx51Y8TIz8aHwFM5AKfrj1plU/Zs4wczFCHLR6KuLTNBRHXxpMf
-         L3gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793059; x=1791397859;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RvnzSJafvmyhZIkCGy51NSl5QzuGjrllVF2BLRNXpNI=;
-        b=yU1kYjU8LMBMKd/qyS42xOxHRbG5d8Ig3xwP4ZzPmsi02ovwnllP0ncxZI8nCe+FXy
-         podtBjROFNKoGCYVJL1ofosS0XQu7cg9wFxMfGC42E+HZ7h6iouFmBP+a9MdvtRhxw4B
-         UoCThKiB9g33Sde0AwAFf8m1feyNfJkumqC/dis/K0y1gUN/4T5rUbKerX4L1hCj2Mw7
-         el90rYb+O1vDuqpBhr/B0UtG+VaChukSnWiTYk4kg1wNt0xquyPLWLfVFPT3TR0r2AeC
-         rx6ae7VL1TeQqaCs0LI+7jvx5K54pVB9ssPB0mzfbRaBS95lspd2XzdR+P8Ry1hF9RtK
-         MUEA==
-X-Gm-Message-State: AFuF++ks0+dcRseaMEdLQrjUUuUDyCtqk6GdMgqaKJBT0sCPw4nbvlWt
-	rkXT43Wz20H2tNPrZOCd8yYt1Ib7dy/m/1spNroZIXfKeGI90EmwQ58HfwPrlRlcnQsCvciDvbp
-	63jfCBOfBf14ROb0qiIRtdQ0HQBT21feA6sgXr9oupumIPNo3wwKABRJJIb9+Ex8Stw==
-X-Gm-Gg: AYBFou2tkHh2xjg7rei1ZEupgY3TdKeZ1ussj88PGSTz460pEMa1sDWIsRFdPv8wjO6
-	bSs4ROjUiqZTiNmTDhVWAVZOMyJUjdOaVqxC82eSV2+BLHBljUItI/drma8mPGuKP++Spqae9j2
-	fQS6hIYoA7HUMwtsV4f8zo53erRQtHzZUpnzYM+A6P4aer1C9xsPll9IQnOCRgumKFI7wQz1A8k
-	v1YHfzV1QVozRIP1eApKzkFGlTfoKQx+3/fkGc3YAtNGRCv1KMsHB6urPuEvp73aemRv5yri2XO
-	9RWuhFuhoRJUP+djNSf1QXTyIBBbsZ65Wbn1K1ONAryyMjEiHus2RuvI4J1EZsvyw4bs0itj1i9
-	pye8wtK32A7f2ezX+faPMjlw/DqoO0+GfQd+ensr167AMcneH5eKoUW7Z+M8f
-X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id 5a478bee46e88-34cdbcd280emr4556454eec.2.1790793058853;
-        Wed, 30 Sep 2026 11:30:58 -0700 (PDT)
-X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id 5a478bee46e88-34cdbcd280emr4556379eec.2.1790793057870;
-        Wed, 30 Sep 2026 11:30:57 -0700 (PDT)
-Received: from gu-dmadival-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db491fae1sm750926eec.24.2026.09.30.11.30.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:30:55 -0700 (PDT)
-From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 11:30:28 -0700
-Subject: [PATCH v8 5/5] media: iris: Add BUF_ROIMB_DELTAQP metadata buffer
- for ROI delta QP
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dsi8YC1u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790795067; x=1822331067;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=PclHNUP9fsZpAGzAZ180xkhRAG7LBgbAfWpq56fesvc=;
+  b=dsi8YC1ujRKBEAaIiBB7da2h37t0eZNy84q9EqZ22vKBpCMLQ/lttIM3
+   ZuO+HQSJDkNl9m2qYek7mYs825S7AnTKivo+7zAYw43uCz+hGZCUZO5n1
+   0O8cbw1e4rPqHvWtHIZZjOEAemseijT2LkljjVGwaKN/QHFiIZ2ec9QgA
+   mJA5ywcjKIBdet7z5kfOM/exl9/3jOjD4OUV0/N9KqpdFiLJpY9olde5e
+   QFAsAwEC39FVQ9TFzMY0gKs4WF+jrP5hpMm9lzeusv3eAPPFjBY1Dl5jN
+   PTy6Aa2ib/sz2D+hyXKawq3WKC1UDaVe38U6mMXQgpVDk49nKQ/aJte6I
+   g==;
+X-CSE-ConnectionGUID: aVaEz+6pQAy9CRRXy9eIZQ==
+X-CSE-MsgGUID: vxQFzDLaSZ2W13eMMQCf6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90495018"
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="90495018"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 12:04:27 -0700
+X-CSE-ConnectionGUID: 588JUQwMSFKeIdrgzwAscQ==
+X-CSE-MsgGUID: cVvfBBlMTLesJ5Md09Bbfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="275812882"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.217])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 12:04:25 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 08EE211FBD1;
+	Wed, 30 Sep 2026 22:04:28 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xBzbP-0000000D3xA-0JWD;
+	Wed, 30 Sep 2026 22:04:27 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: antti.laakso@linux.intel.com,
+	hao.yao@intel.com,
+	dongcheng.yan@intel.com,
+	Mehdi Djait <mehdi.djait@linux.intel.com>
+Subject: [PATCH v2 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
+Date: Wed, 30 Sep 2026 22:04:27 +0300
+Message-ID: <20260930190427.3113453-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-enc_roi_enable-v8-5-2c908f30e963@oss.qualcomm.com>
-References: <20260930-enc_roi_enable-v8-0-2c908f30e963@oss.qualcomm.com>
-In-Reply-To: <20260930-enc_roi_enable-v8-0-2c908f30e963@oss.qualcomm.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
-        kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790793031; l=13611;
- i=deepa.madivalara@oss.qualcomm.com; s=20250814; h=from:subject:message-id;
- bh=hZYpkknU50IPTqTLH/yzuqeNN6S6tqV+9vDdGUEOvlI=;
- b=IfPd8wMyLP3r+tnVBDAy/EgcTDYXaAlQ59voSJS2ZiBoQqPJixqlNc+TyD1BPGyp4qk3zGLM9
- t7q50M8LIMdC2ZAZvP2e5lIfIN8EX1WTseD3ldBlWY6mtmn6eZLMGF+
-X-Developer-Key: i=deepa.madivalara@oss.qualcomm.com; a=ed25519;
- pk=MOEXgyokievn+bgpHdS6Ixh/KQYyS90z2mqIbQ822FQ=
-X-Proofpoint-ORIG-GUID: EEMrkqbtZfRCtacckqB-N3suPcMoycOA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3NSBTYWx0ZWRfX0UNq0n7b0GJ2
- gqg8rGguYVtrgMADyLr1FwikIX7jFLbSlXgVz2ebdn66smvZ958y6pTcmgDzZJSH83ss1GcZ++f
- vxNNZkcLL9mI4Z1IzkaGe+J2GgmmyDs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3NSBTYWx0ZWRfX4O/ym6q0HIr2
- ML4trBgToGt5++7LcJj1jsSCp8cEED61XS3BujEmJoImfDbrqhKDUrdqHYpcmKCEeeBhzu5Y6uS
- d4rYVymZZHjof8b0mJ4xIDSxdk7t2fXSjy0lzp9CwCqCtL+XmU1eRZaH+aFA15fIEuPrxcLKUVX
- IAnwfg1SebQuHZ2YkG/9BAKYILdLtIZS5AgsVTne9kPc2isFXfnqdjPQUiGkCB5TbmVHLc+G9vL
- iiZt0R9z7Q6fCbthI/TkhtF3JpXAdl8EJg9E+OfyE4FDZOcwp1YkNHQF3WiItSES3d573O7jTO+
- IdTlC/7F4pOb+ySjLfC+gC4PwxF7Y2ucMAke0yeW/WgMRknjuDCQYiWbPvKUIYtOcGV3NunFd6y
- eQZQyb/3szQj+DkWi+bgxrFOFhAJobqTNRFo7zZ914lzw5kNBSLHphUQzNFJgRkx3M2Ao2UB8P7
- UCZSZAg8SnEuV26kgmw==
-X-Proofpoint-GUID: EEMrkqbtZfRCtacckqB-N3suPcMoycOA
-X-Authority-Analysis: v=2.4 cv=WpC+otfv c=1 sm=1 tr=0 ts=6abd5564 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=vSfK5Sz1eu9jql6VJIMA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300075
+Content-Transfer-Encoding: 8bit
 
-- Introduce BUF_ROIMB_DELTAQP as a new internal buffer type to carry
-  per-macroblock ROI delta QP data to the firmware. This buffer is
-  allocated on demand when the application sets ROI parameters via
-  V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP, and is queued alongside each
-  raw input buffer as an HFI_BUFFER_METADATA packet on HFI_PORT_RAW.
+From: Hao Yao <hao.yao@intel.com>
 
-- The metadata buffer layout follows the firmware-defined metabuf_header
-  and metapayload_header structures. The s8 per-MB delta QP values
-  supplied by userspace are widened to s16 as required by the firmware.
+Add a driver for the Omnivision ov05c10 camera sensor. This driver
+implements a single mode only.
 
-Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+Signed-off-by: Hao Yao <hao.yao@intel.com>
+Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 ---
- drivers/media/platform/qcom/iris/iris_buffer.c     | 114 +++++++++++++++++++++
- drivers/media/platform/qcom/iris/iris_buffer.h     |   4 +
- drivers/media/platform/qcom/iris/iris_ctrls.c      |  29 ++++++
- drivers/media/platform/qcom/iris/iris_ctrls.h      |   1 +
- drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |   1 +
- .../platform/qcom/iris/iris_hfi_gen2_command.c     |  24 +++++
- .../platform/qcom/iris/iris_hfi_gen2_response.c    |   2 +
- drivers/media/platform/qcom/iris/iris_vidc.c       |   2 +
- 8 files changed, 177 insertions(+)
+since v1:
 
-diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-index eb8de60c1177f5e1ab83b90a3c8c80e0b4d1f02e..a7f1d74360d6a490959b27936fa5bbc61a7d9358 100644
---- a/drivers/media/platform/qcom/iris/iris_buffer.c
-+++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-@@ -5,11 +5,13 @@
+- Use devm_v4l2_sensor_clk_get().
+
+- Adjust git tags.
+
+ drivers/media/i2c/Kconfig   |  10 +
+ drivers/media/i2c/Makefile  |   1 +
+ drivers/media/i2c/ov05c10.c | 978 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 989 insertions(+)
+ create mode 100644 drivers/media/i2c/ov05c10.c
+
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 9b28e91b8a67..cc4b675214e9 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -466,6 +466,16 @@ config VIDEO_OV02C10
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called ov02c10.
  
- #include <media/v4l2-event.h>
- #include <media/v4l2-mem2mem.h>
-+#include <linux/slab.h>
- 
- #include "iris_buffer.h"
- #include "iris_instance.h"
- #include "iris_power.h"
- #include "iris_vpu_buffer.h"
-+#include "iris_hfi_gen2_defines.h"
- 
- #define PIXELS_4K 4096
- #define MAX_WIDTH 4096
-@@ -705,6 +707,20 @@ int iris_destroy_dequeued_internal_buffers(struct iris_inst *inst, u32 plane)
- 	return iris_destroy_internal_buffers(inst, plane, false);
- }
- 
-+int iris_destroy_roi_metadata_buffers(struct iris_inst *inst)
++config VIDEO_OV05C10
++	tristate "OmniVision OV05C10 sensor support"
++	select V4L2_CCI_I2C
++	help
++	  This is a Video4Linux2 sensor driver for the OmniVision
++	  OV05C10 camera.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called ov05c10.
++
+ config VIDEO_OV08D10
+         tristate "OmniVision OV08D10 sensor support"
+         help
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index fd1cb25718c0..0c87f564be5f 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -94,6 +94,7 @@ obj-$(CONFIG_VIDEO_OV01A10) += ov01a10.o
+ obj-$(CONFIG_VIDEO_OV02A10) += ov02a10.o
+ obj-$(CONFIG_VIDEO_OV02C10) += ov02c10.o
+ obj-$(CONFIG_VIDEO_OV02E10) += ov02e10.o
++obj-$(CONFIG_VIDEO_OV05C10) += ov05c10.o
+ obj-$(CONFIG_VIDEO_OV08D10) += ov08d10.o
+ obj-$(CONFIG_VIDEO_OV08X40) += ov08x40.o
+ obj-$(CONFIG_VIDEO_OV13858) += ov13858.o
+diff --git a/drivers/media/i2c/ov05c10.c b/drivers/media/i2c/ov05c10.c
+new file mode 100644
+index 000000000000..2f2c49bac13f
+--- /dev/null
++++ b/drivers/media/i2c/ov05c10.c
+@@ -0,0 +1,978 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2024-2026 Intel Corporation. */
++
++#include <linux/acpi.h>
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <media/v4l2-cci.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-event.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-fwnode.h>
++
++/*
++ * OV05C10 has paged 8-bit registers. Encode register addresses as 16-bit
++ * logical addresses (<page><offset>) so regmap range handling can switch
++ * pages via 0xfd automatically, making page handling transparent to driver.
++ */
++#define OV05C10_REG8(page, addr)	CCI_REG8(((page) << 8) | (addr))
++#define OV05C10_REG16(page, addr)	CCI_REG16(((page) << 8) | (addr))
++#define OV05C10_REG24(page, addr)	CCI_REG24(((page) << 8) | (addr))
++#define OV05C10_REG32(page, addr)	CCI_REG32(((page) << 8) | (addr))
++
++#define OV05C10_REG_PAGE_FLAG		0xfd
++#define OV05C10_MAX_REGISTER		0x0fff
++
++#define OV05C10_REG_CHIP_ID		OV05C10_REG32(0x00, 0x00)
++#define OV05C10_CHIP_ID			0x43055610
++
++#define OV05C10_REG_MIPI_EN		OV05C10_REG8(0x00, 0xa0)
++#define OV05C10_MIPI_EN_ENABLE		0x01
++
++#define OV05C10_REG_H_SIZE_MIPI		OV05C10_REG16(0x00, 0x8e)
++#define OV05C10_REG_V_SIZE_MIPI		OV05C10_REG16(0x00, 0x90)
++
++#define OV05C10_REG_TRIGGER		OV05C10_REG8(0x01, 0x01)
++#define OV05C10_TRIGGER_APPLY		0x01
++#define OV05C10_TRIGGER_LATCH		0x02
++
++#define OV05C10_REG_EXPOSURE		OV05C10_REG24(0x01, 0x02)
++#define OV05C10_EXPOSURE_MARGIN		33
++#define OV05C10_EXPOSURE_MIN		0x6
++#define OV05C10_EXPOSURE_STEP		0x1
++
++#define OV05C10_REG_DUMMY_LINE		OV05C10_REG16(0x01, 0x05)
++
++#define OV05C10_REG_DIGITAL_GAIN	OV05C10_REG16(0x01, 0x21)
++#define OV05C10_MAX_DIG_GAIN		0x100	/* 4x */
++#define OV05C10_MIN_DIG_GAIN		0x40	/* 1x */
++#define OV05C10_DGTL_GAIN_STEP		0x01
++#define OV05C10_DGTL_GAIN_DEFAULT	0x40
++
++#define OV05C10_REG_ANALOG_GAIN		OV05C10_REG8(0x01, 0x24)
++#define OV05C10_MAX_ANALOG_GAIN		0xf8	/* 15.5x */
++#define OV05C10_MIN_ANALOG_GAIN		0x10	/* 1x */
++#define OV05C10_ANALOG_GAIN_STEP	0x01
++#define OV05C10_ANALOG_GAIN_DEFAULT	0x10
++
++#define OV05C10_REG_TIMING_VTS		OV05C10_REG16(0x01, 0x35)
++#define OV05C10_VTS_MAX			0xffff
++#define OV05C10_PPL			3236
++#define OV05C10_DEFAULT_VTS		1860
++
++#define OV05C10_REG_TIMING_HTS		OV05C10_REG16(0x01, 0x37)
++
++#define OV05C10_REG_COL_ANA_ADDR_START	OV05C10_REG16(0x01, 0x28)
++#define OV05C10_REG_COL_ANA_ADDR_SIZE	OV05C10_REG16(0x01, 0x2a)
++#define OV05C10_REG_ROW_ANA_ADDR_START	OV05C10_REG16(0x01, 0x2c)
++#define OV05C10_REG_ROW_ANA_ADDR_SIZE	OV05C10_REG16(0x01, 0x2e)
++
++#define OV05C10_REG_DEM_V_START		OV05C10_REG16(0x02, 0xa0)
++#define OV05C10_REG_DEM_V_SIZE		OV05C10_REG16(0x02, 0xa2)
++#define OV05C10_REG_DEM_H_START		OV05C10_REG16(0x02, 0xa4)
++#define OV05C10_REG_DEM_H_SIZE		OV05C10_REG16(0x02, 0xa6)
++
++#define OV05C10_REG_TEST_PATTERN_EN	OV05C10_REG8(0x04, 0x12)
++#define OV05C10_TEST_PATTERN_DISABLE	0x00
++#define OV05C10_TEST_PATTERN_ENABLE	0x01
++
++#define OV05C10_REG_TEST_CLK_EN		OV05C10_REG8(0x04, 0xf3)
++#define OV05C10_TEST_CLK_DISABLE	0x00
++#define OV05C10_TEST_CLK_ENABLE		0x02
++
++#define OV05C10_PIXEL_RATE		192000000ULL
++#define OV05C10_NATIVE_WIDTH		2888
++#define OV05C10_NATIVE_HEIGHT		1808
++
++static const struct regmap_range_cfg ov05c10_range = {
++	.range_min = 0x0000,
++	.range_max = OV05C10_MAX_REGISTER,
++	.selector_reg = OV05C10_REG_PAGE_FLAG,
++	.selector_mask = 0x0f,
++	.selector_shift = 0,
++	.window_start = 0x00,
++	.window_len = 0x100,
++};
++
++static const struct regmap_config ov05c10_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.reg_format_endian = REGMAP_ENDIAN_BIG,
++	.max_register = OV05C10_MAX_REGISTER,
++	.ranges = &ov05c10_range,
++	.num_ranges = 1,
++	.disable_locking = true,
++};
++
++#define to_ov05c10(_sd)		container_of(_sd, struct ov05c10, sd)
++
++static const char *const ov05c10_test_pattern_menu[] = {
++	"Disabled",
++	"Color Bar",
++};
++
++static const s64 ov05c10_link_freq_items[] = {
++	480000000ULL,
++};
++
++struct ov05c10_reg_list {
++	u32 num_of_regs;
++	const struct cci_reg_sequence *regs;
++};
++
++struct ov05c10_mode {
++	u16 left;
++	u16 top;
++	u32 width;
++	u32 height;
++	u16 hts;
++	u16 vts_def;
++	u16 vts_min;
++	u16 lanes;
++	u32 code;
++	/* Sensor register settings for this mode */
++	const struct ov05c10_reg_list reg_list;
++};
++
++/* 2800X1576_2lane_raw10_Mclk19.2M_pclk96M_30fps */
++static const struct cci_reg_sequence mode_2800_1576_30fps[] = {
++	{ OV05C10_REG8(0x00, 0x20), 0x00 },
++	{ OV05C10_REG8(0x00, 0x20), 0x0b },
++	{ OV05C10_REG8(0x00, 0xc1), 0x09 },
++	{ OV05C10_REG8(0x00, 0x21), 0x06 },
++	{ OV05C10_REG8(0x00, 0x11), 0x4e },
++	{ OV05C10_REG8(0x00, 0x12), 0x13 },
++	{ OV05C10_REG8(0x00, 0x14), 0x96 },
++	{ OV05C10_REG8(0x00, 0x1b), 0x64 },
++	{ OV05C10_REG8(0x00, 0x1d), 0x02 },
++	{ OV05C10_REG8(0x00, 0x1e), 0x40 },
++	{ OV05C10_REG8(0x00, 0xe7), 0x03 },
++	{ OV05C10_REG8(0x00, 0xe7), 0x00 },
++	{ OV05C10_REG8(0x00, 0x21), 0x00 },
++	{ OV05C10_REG8(0x01, 0x03), 0x00 },
++	{ OV05C10_REG8(0x01, 0x04), 0x06 },
++	{ OV05C10_REG8(0x01, 0x06), 0x76 },
++	{ OV05C10_REG8(0x01, 0x07), 0x08 },
++	{ OV05C10_REG8(0x01, 0x1b), 0x01 },
++	{ OV05C10_REG8(0x01, 0x24), 0xff },
++	{ OV05C10_REG8(0x01, 0x42), 0x5d },
++	{ OV05C10_REG8(0x01, 0x43), 0x08 },
++	{ OV05C10_REG8(0x01, 0x44), 0x81 },
++	{ OV05C10_REG8(0x01, 0x46), 0x5f },
++	{ OV05C10_REG8(0x01, 0x48), 0x18 },
++	{ OV05C10_REG8(0x01, 0x49), 0x04 },
++	{ OV05C10_REG8(0x01, 0x5c), 0x18 },
++	{ OV05C10_REG8(0x01, 0x5e), 0x13 },
++	{ OV05C10_REG8(0x01, 0x70), 0x15 },
++	{ OV05C10_REG8(0x01, 0x77), 0x35 },
++	{ OV05C10_REG8(0x01, 0x79), 0xb2 },
++	{ OV05C10_REG8(0x01, 0x7b), 0x08 },
++	{ OV05C10_REG8(0x01, 0x7d), 0x08 },
++	{ OV05C10_REG8(0x01, 0x7e), 0x08 },
++	{ OV05C10_REG8(0x01, 0x7f), 0x08 },
++	{ OV05C10_REG8(0x01, 0x90), 0x37 },
++	{ OV05C10_REG8(0x01, 0x91), 0x05 },
++	{ OV05C10_REG8(0x01, 0x92), 0x18 },
++	{ OV05C10_REG8(0x01, 0x93), 0x27 },
++	{ OV05C10_REG8(0x01, 0x94), 0x05 },
++	{ OV05C10_REG8(0x01, 0x95), 0x38 },
++	{ OV05C10_REG8(0x01, 0x9b), 0x00 },
++	{ OV05C10_REG8(0x01, 0x9c), 0x06 },
++	{ OV05C10_REG8(0x01, 0x9d), 0x28 },
++	{ OV05C10_REG8(0x01, 0x9e), 0x06 },
++	{ OV05C10_REG8(0x01, 0xb2), 0x0f },
++	{ OV05C10_REG8(0x01, 0xb3), 0x29 },
++	{ OV05C10_REG8(0x01, 0xbf), 0x3c },
++	{ OV05C10_REG8(0x01, 0xc2), 0x04 },
++	{ OV05C10_REG8(0x01, 0xc4), 0x00 },
++	{ OV05C10_REG8(0x01, 0xca), 0x20 },
++	{ OV05C10_REG8(0x01, 0xcb), 0x20 },
++	{ OV05C10_REG8(0x01, 0xcc), 0x28 },
++	{ OV05C10_REG8(0x01, 0xcd), 0x28 },
++	{ OV05C10_REG8(0x01, 0xce), 0x20 },
++	{ OV05C10_REG8(0x01, 0xcf), 0x20 },
++	{ OV05C10_REG8(0x01, 0xd0), 0x2a },
++	{ OV05C10_REG8(0x01, 0xd1), 0x2a },
++	{ OV05C10_REG8(0x0f, 0x00), 0x00 },
++	{ OV05C10_REG8(0x0f, 0x01), 0xa0 },
++	{ OV05C10_REG8(0x0f, 0x02), 0x48 },
++	{ OV05C10_REG8(0x0f, 0x07), 0x8e },
++	{ OV05C10_REG8(0x0f, 0x08), 0x70 },
++	{ OV05C10_REG8(0x0f, 0x09), 0x01 },
++	{ OV05C10_REG8(0x0f, 0x0b), 0x40 },
++	{ OV05C10_REG8(0x0f, 0x0d), 0x07 },
++	{ OV05C10_REG8(0x0f, 0x11), 0x33 },
++	{ OV05C10_REG8(0x0f, 0x12), 0x77 },
++	{ OV05C10_REG8(0x0f, 0x13), 0x66 },
++	{ OV05C10_REG8(0x0f, 0x14), 0x65 },
++	{ OV05C10_REG8(0x0f, 0x15), 0x37 },
++	{ OV05C10_REG8(0x0f, 0x16), 0xbf },
++	{ OV05C10_REG8(0x0f, 0x17), 0xff },
++	{ OV05C10_REG8(0x0f, 0x18), 0xff },
++	{ OV05C10_REG8(0x0f, 0x19), 0x12 },
++	{ OV05C10_REG8(0x0f, 0x1a), 0x10 },
++	{ OV05C10_REG8(0x0f, 0x1c), 0x77 },
++	{ OV05C10_REG8(0x0f, 0x1d), 0x77 },
++	{ OV05C10_REG8(0x0f, 0x20), 0x0f },
++	{ OV05C10_REG8(0x0f, 0x21), 0x0f },
++	{ OV05C10_REG8(0x0f, 0x22), 0x0f },
++	{ OV05C10_REG8(0x0f, 0x23), 0x0f },
++	{ OV05C10_REG8(0x0f, 0x2b), 0x20 },
++	{ OV05C10_REG8(0x0f, 0x2c), 0x20 },
++	{ OV05C10_REG8(0x0f, 0x2d), 0x04 },
++	{ OV05C10_REG8(0x03, 0x9d), 0x0f },
++	{ OV05C10_REG8(0x03, 0x9f), 0x40 },
++	{ OV05C10_REG8(0x00, 0x20), 0x1b },
++	{ OV05C10_REG8(0x04, 0x19), 0x60 },
++	{ OV05C10_REG8(0x02, 0x75), 0x04 },
++	{ OV05C10_REG8(0x02, 0x7f), 0x06 },
++	{ OV05C10_REG8(0x02, 0x9a), 0x03 },
++	{ OV05C10_REG8(0x07, 0x42), 0x00 },
++	{ OV05C10_REG8(0x07, 0x43), 0x80 },
++	{ OV05C10_REG8(0x07, 0x44), 0x00 },
++	{ OV05C10_REG8(0x07, 0x45), 0x80 },
++	{ OV05C10_REG8(0x07, 0x46), 0x00 },
++	{ OV05C10_REG8(0x07, 0x47), 0x80 },
++	{ OV05C10_REG8(0x07, 0x48), 0x00 },
++	{ OV05C10_REG8(0x07, 0x49), 0x80 },
++	{ OV05C10_REG8(0x07, 0x00), 0xf7 },
++	{ OV05C10_REG8(0x00, 0xe7), 0x03 },
++	{ OV05C10_REG8(0x00, 0xe7), 0x00 },
++	{ OV05C10_REG8(0x00, 0x93), 0x18 },
++	{ OV05C10_REG8(0x00, 0x94), 0xff },
++	{ OV05C10_REG8(0x00, 0x95), 0xbd },
++	{ OV05C10_REG8(0x00, 0x96), 0x1a },
++	{ OV05C10_REG8(0x00, 0x98), 0x04 },
++	{ OV05C10_REG8(0x00, 0x99), 0x08 },
++	{ OV05C10_REG8(0x00, 0x9b), 0x10 },
++	{ OV05C10_REG8(0x00, 0x9c), 0x3f },
++	{ OV05C10_REG8(0x00, 0xa1), 0x05 },
++	{ OV05C10_REG8(0x00, 0xa4), 0x2f },
++	{ OV05C10_REG8(0x00, 0xc0), 0x0c },
++	{ OV05C10_REG8(0x00, 0xc1), 0x08 },
++	{ OV05C10_REG8(0x00, 0xc2), 0x00 },
++	{ OV05C10_REG8(0x00, 0xb6), 0x20 },
++	{ OV05C10_REG8(0x00, 0xbb), 0x80 },
++	{ OV05C10_REG_MIPI_EN, 0x00 },
++	{ OV05C10_REG8(0x01, 0x33), 0x03 },
++	{ OV05C10_REG8(0x01, 0x01), 0x02 },
++	{ OV05C10_REG8(0x00, 0x20), 0x1f },
++};
++
++static const struct ov05c10_mode supported_modes[] = {
++	{
++		.left = 46,
++		.top = 117,
++		.width = 2800,
++		.height = 1576,
++		.hts = 758,
++		.vts_def = 1978,
++		.vts_min = 1978,
++		.code = MEDIA_BUS_FMT_SGRBG10_1X10,
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_2800_1576_30fps),
++			.regs = mode_2800_1576_30fps,
++		},
++	},
++};
++
++struct ov05c10 {
++	struct v4l2_subdev sd;
++	struct media_pad pad;
++	struct v4l2_ctrl_handler ctrl_handler;
++
++	struct v4l2_ctrl *exposure;
++	struct v4l2_ctrl *vblank;
++	struct v4l2_ctrl *hblank;
++
++	struct regmap *regmap;
++	unsigned long link_freq_bitmap;
++
++	struct clk *img_clk;
++	struct regulator *avdd;
++	struct gpio_desc *reset;
++	bool identified;
++};
++
++static int ov05c10_test_pattern(struct ov05c10 *ov05c10, u32 pattern)
 +{
-+	struct iris_buffer *buf, *next;
-+	struct iris_buffers *buffers;
-+
-+	if (inst->domain == ENCODER) {
-+		buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
-+		list_for_each_entry_safe(buf, next, &buffers->list, list)
-+			iris_destroy_internal_buffer(inst, buf);
-+	}
-+
-+	return 0;
-+}
-+
- static int iris_release_internal_buffers(struct iris_inst *inst,
- 					 enum iris_buffer_type buffer_type)
- {
-@@ -928,3 +944,101 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
- 
- 	return 0;
- }
-+
-+static int iris_fill_roi_data(struct iris_inst *inst, struct iris_buffer *buffer)
-+{
-+	s8 *p_array = (s8 *)inst->fw_caps[ROI_PARAMS].p_array;
-+	u32 payload_offset, lcu_width, lcu_height, row_size;
-+	u32 array_size = inst->fw_caps[ROI_PARAMS].elems;
-+	struct metabuf_header *mbuf_hdr = buffer->kvaddr;
-+	struct metapayload_header *mbuf_payload_hdr;
-+	struct v4l2_format *f = inst->fmt_src;
-+	s16 *p_16, *p_temp;
-+
-+	memset(mbuf_hdr, 0, sizeof(struct metabuf_header));
-+	mbuf_hdr->count = 1;
-+	mbuf_hdr->size = sizeof(struct metabuf_header) +
-+			 sizeof(struct metapayload_header);
-+	mbuf_hdr->version = BIT(16);
-+	mbuf_hdr++;
-+	mbuf_payload_hdr = (struct metapayload_header *)(mbuf_hdr);
-+	payload_offset = sizeof(struct metabuf_header) +
-+			 sizeof(struct metapayload_header);
-+
-+	memset(mbuf_payload_hdr, 0, sizeof(struct metapayload_header));
-+	mbuf_payload_hdr->type = HFI_PROP_ROI_INFO;
-+	mbuf_payload_hdr->size = array_size * sizeof(s16);
-+	mbuf_payload_hdr->version = 1 << 16;
-+	mbuf_payload_hdr->offset = ALIGN(payload_offset, (u32)256);
-+	mbuf_payload_hdr->flags = 0;
-+
-+	if (inst->codec == V4L2_PIX_FMT_HEVC) {
-+		lcu_width = (f->fmt.pix_mp.width + 31) >> 5;
-+		lcu_height = (f->fmt.pix_mp.height + 31) >> 5;
-+	} else {
-+		lcu_width = (f->fmt.pix_mp.width + 15) >> 4;
-+		lcu_height = (f->fmt.pix_mp.height + 15) >> 4;
-+	}
-+	/* Firmware expects each row to align to 8 LCU */
-+	row_size = (((lcu_width + 7) >> 3) << 3);
-+
-+	/* Firmware expects 2bytes of delta_Qp, int16_t */
-+	p_16 = buffer->kvaddr + mbuf_payload_hdr->offset;
-+	for (int j = 0; j < lcu_height; j++) {
-+		p_temp = p_16 + j * row_size;
-+		for (int i = 0; i < lcu_width; i++)
-+			*p_temp++ = (1 << 11) | (((u8)p_array[j * lcu_width + i]
-+						   & 0x3F) << 4);
-+	}
-+
-+	return 0;
-+}
-+
-+int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst)
-+{
-+	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
-+	struct iris_core *core = inst->core;
-+	struct iris_buffer *buffer, *first_buffer, *next;
-+	bool found = false;
 +	int ret = 0;
 +
-+	if (!buffers->size)
-+		return 0;
-+
-+	list_for_each_entry_safe(buffer, next, &buffers->list, list) {
-+		if (buffer->attr & BUF_ATTR_DEQUEUED) {
-+			buffer->attr &= ~BUF_ATTR_DEQUEUED;
-+			list_move(&buffer->list, &buffers->list);
-+			found = true;
-+			break;
-+		}
++	if (pattern) {
++		cci_write(ov05c10->regmap, OV05C10_REG_TEST_CLK_EN,
++			  OV05C10_TEST_CLK_ENABLE, &ret);
++		cci_write(ov05c10->regmap, OV05C10_REG_TEST_PATTERN_EN,
++			  OV05C10_TEST_PATTERN_ENABLE, &ret);
++	} else {
++		cci_write(ov05c10->regmap, OV05C10_REG_TEST_CLK_EN,
++			  OV05C10_TEST_CLK_DISABLE, &ret);
++		cci_write(ov05c10->regmap, OV05C10_REG_TEST_PATTERN_EN,
++			  OV05C10_TEST_PATTERN_DISABLE, &ret);
 +	}
-+	if (!found) {
-+		buffer = kzalloc_obj(*buffer);
-+		if (!buffer)
-+			return -ENOMEM;
-+
-+		INIT_LIST_HEAD(&buffer->list);
-+		buffer->type = BUF_ROIMB_DELTAQP;
-+		buffer->index++;
-+		buffer->buffer_size = buffers->size;
-+		buffer->dma_attrs = DMA_ATTR_WRITE_COMBINE;
-+
-+		buffer->kvaddr = dma_alloc_attrs(core->dev, buffer->buffer_size,
-+						 &buffer->device_addr, GFP_KERNEL,
-+						 buffer->dma_attrs);
-+
-+		if (!buffer->kvaddr) {
-+			kfree(buffer);
-+			return -ENOMEM;
-+		}
-+		list_add(&buffer->list, &buffers->list);
-+	}
-+
-+	first_buffer = list_first_entry(&buffers->list, struct iris_buffer, list);
-+	ret = iris_fill_roi_data(inst, first_buffer);
-+	if (ret)
-+		return ret;
 +
 +	return ret;
 +}
-diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
-index ee2d24bb69c57220b0a735d9b4aae4434a33daf6..df9d018493f3ec37fd5e6b0ba049dba0b5ae76e9 100644
---- a/drivers/media/platform/qcom/iris/iris_buffer.h
-+++ b/drivers/media/platform/qcom/iris/iris_buffer.h
-@@ -28,6 +28,7 @@ struct iris_inst;
-  * @BUF_SCRATCH_2: buffer to store encoding context data for HW
-  * @BUF_VPSS: buffer to store VPSS context data for HW
-  * @BUF_PARTIAL: buffer for AV1 IBC data
-+ * @BUF_ROIMB_DELTAQP: metadata buffer for ROI MB DeltaQp
-  * @BUF_TYPE_MAX: max buffer types
-  */
- enum iris_buffer_type {
-@@ -44,6 +45,7 @@ enum iris_buffer_type {
- 	BUF_SCRATCH_2,
- 	BUF_VPSS,
- 	BUF_PARTIAL,
-+	BUF_ROIMB_DELTAQP,
- 	BUF_TYPE_MAX,
- };
- 
-@@ -139,5 +141,7 @@ int iris_queue_buffer(struct iris_inst *inst, struct iris_buffer *buf);
- int iris_queue_deferred_buffers(struct iris_inst *inst, enum iris_buffer_type buf_type);
- int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf);
- void iris_vb2_queue_error(struct iris_inst *inst);
-+int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst);
-+int iris_destroy_roi_metadata_buffers(struct iris_inst *inst);
- 
- #endif
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-index 142c9712bb0b05bea2cf656be636e7449e361512..9b42d0e81dcce8e4b1ccea0b2959b4505808226f 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-@@ -1620,3 +1620,32 @@ int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane)
- 
- 	return hfi_ops->session_subscribe_metadata_delivery(inst, plane);
- }
 +
-+int iris_set_roi_params(struct iris_inst *inst, u32 plane)
++static int ov05c10_set_ctrl(struct v4l2_ctrl *ctrl)
 +{
-+	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
-+	u32 height = inst->fmt_src->fmt.pix_mp.height;
-+	u32 width = inst->fmt_src->fmt.pix_mp.width;
-+	u32 metadata_header_bytes = 256;
-+	u32 lcu_height = 0;
-+	u32 lcu_width = 0;
-+	u32 lcu_size = 16;
-+	u32 n_shift = 0;
-+	u32 size = 0;
++	struct ov05c10 *ov05c10 =
++		container_of(ctrl->handler, struct ov05c10, ctrl_handler);
++	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
++	struct v4l2_subdev_state *state;
++	const struct v4l2_mbus_framefmt *format;
++	u64 vts;
++	int ret;
++
++	state = v4l2_subdev_get_locked_active_state(&ov05c10->sd);
++	format = v4l2_subdev_state_get_format(state, 0);
++
++	if (ctrl->id == V4L2_CID_VBLANK) {
++		ret = __v4l2_ctrl_modify_range(ov05c10->exposure,
++					       ov05c10->exposure->minimum,
++					       format->height + ctrl->val -
++					       OV05C10_EXPOSURE_MARGIN,
++					       ov05c10->exposure->step,
++					       format->height -
++					       OV05C10_EXPOSURE_MARGIN);
++
++		if (ret)
++			return ret;
++	}
++
++	if (!pm_runtime_get_if_active(&client->dev))
++		return 0;
++
++	switch (ctrl->id) {
++	case V4L2_CID_ANALOGUE_GAIN:
++		ret = cci_write(ov05c10->regmap, OV05C10_REG_ANALOG_GAIN,
++				ctrl->val, NULL);
++		break;
++	case V4L2_CID_DIGITAL_GAIN:
++		ret = cci_write(ov05c10->regmap, OV05C10_REG_DIGITAL_GAIN,
++				ctrl->val, NULL);
++		break;
++	case V4L2_CID_EXPOSURE:
++		ret = cci_write(ov05c10->regmap, OV05C10_REG_EXPOSURE,
++				ctrl->val, NULL);
++		break;
++	case V4L2_CID_VBLANK:
++		/*
++		 * REG_TIMING_VTS is read-only and increased by writing to
++		 * REG_DUMMY_LINE in ov05c10. The calculation formula is
++		 * required VTS = dummyline + current VTS. Here get the
++		 * current VTS and calculate the required dummyline.
++		 */
++		cci_read(ov05c10->regmap, OV05C10_REG_TIMING_VTS, &vts, &ret);
++		if (ret)
++			goto err;
++
++		ret = cci_write(ov05c10->regmap, OV05C10_REG_DUMMY_LINE,
++				max_t(int, ctrl->val + format->height - vts, 0),
++				NULL);
++		break;
++	case V4L2_CID_TEST_PATTERN:
++		ret = ov05c10_test_pattern(ov05c10, ctrl->val);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,
++		  OV05C10_TRIGGER_APPLY, &ret);
++	if (ret) {
++		dev_err(&client->dev, "failed to trigger write");
++		goto err;
++	}
++
++err:
++	pm_runtime_put_autosuspend(&client->dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops ov05c10_ctrl_ops = {
++	.s_ctrl = ov05c10_set_ctrl,
++};
++
++static int ov05c10_init_controls(struct ov05c10 *ov05c10)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
++	struct v4l2_fwnode_device_properties props;
++	struct v4l2_ctrl_handler *ctrl_hdlr;
++	s64 exposure_max, vblank_max, vblank_min, vblank_def, hblank;
++	const struct ov05c10_mode *mode = &supported_modes[0];
++	struct v4l2_ctrl *link_freq;
++	int ret;
++
++	ret = v4l2_fwnode_device_parse(&client->dev, &props);
++	if (ret)
++		return ret;
++
++	ctrl_hdlr = &ov05c10->ctrl_handler;
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 8);
++	if (ret)
++		return ret;
++
++	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov05c10_ctrl_ops,
++					   V4L2_CID_LINK_FREQ,
++					   ARRAY_SIZE(ov05c10_link_freq_items) -
++					   1, 0, ov05c10_link_freq_items);
++
++	vblank_min = mode->vts_min - mode->height;
++	vblank_max = OV05C10_VTS_MAX - mode->height;
++	vblank_def = mode->vts_def - mode->height;
++	ov05c10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
++					    V4L2_CID_VBLANK, vblank_min,
++					    vblank_max, 1, vblank_def);
++
++	hblank = OV05C10_PPL - mode->width;
++	ov05c10->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
++					    V4L2_CID_HBLANK, hblank, hblank, 1,
++					    hblank);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
++			  OV05C10_MIN_ANALOG_GAIN, OV05C10_MAX_ANALOG_GAIN,
++			  OV05C10_ANALOG_GAIN_STEP,
++			  OV05C10_ANALOG_GAIN_DEFAULT);
++	v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
++			  OV05C10_MIN_DIG_GAIN, OV05C10_MAX_DIG_GAIN,
++			  OV05C10_DGTL_GAIN_STEP, OV05C10_DGTL_GAIN_DEFAULT);
++
++	exposure_max = mode->vts_def - OV05C10_EXPOSURE_MARGIN;
++	ov05c10->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
++					      V4L2_CID_EXPOSURE,
++					      OV05C10_EXPOSURE_MIN,
++					      exposure_max,
++					      OV05C10_EXPOSURE_STEP,
++					      exposure_max);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
++			  V4L2_CID_PIXEL_RATE, OV05C10_PIXEL_RATE,
++			  OV05C10_PIXEL_RATE, 1, OV05C10_PIXEL_RATE);
++
++	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov05c10_ctrl_ops,
++				     V4L2_CID_TEST_PATTERN,
++				     ARRAY_SIZE(ov05c10_test_pattern_menu) - 1,
++				     0, 0, ov05c10_test_pattern_menu);
++
++	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &ov05c10_ctrl_ops, &props);
++
++	if (ctrl_hdlr->error)
++		return ctrl_hdlr->error;
++
++	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	ov05c10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	ov05c10->sd.ctrl_handler = ctrl_hdlr;
++
++	return 0;
++}
++
++static int ov05c10_enable_streams(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *state, u32 pad,
++				  u64 streams)
++{
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
++	struct v4l2_mbus_framefmt *format =
++		v4l2_subdev_state_get_format(state, 0);
++	const struct ov05c10_mode *mode =
++		v4l2_find_nearest_size(supported_modes,
++				       ARRAY_SIZE(supported_modes),
++				       width, height,
++				       format->width, format->height);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(&client->dev);
++	if (ret < 0)
++		return ret;
++
++	cci_multi_reg_write(ov05c10->regmap, mode->reg_list.regs,
++			    mode->reg_list.num_of_regs, &ret);
++	if (ret) {
++		dev_err(&client->dev, "failed to set mode");
++		goto err_rpm_put;
++	}
++
++	cci_write(ov05c10->regmap, OV05C10_REG_DEM_V_START, mode->top, &ret);
++	cci_write(ov05c10->regmap, OV05C10_REG_DEM_V_SIZE, mode->height, &ret);
++	cci_write(ov05c10->regmap, OV05C10_REG_DEM_H_START, mode->left, &ret);
++	cci_write(ov05c10->regmap, OV05C10_REG_DEM_H_SIZE, mode->width, &ret);
++
++	cci_write(ov05c10->regmap, OV05C10_REG_H_SIZE_MIPI, mode->width, &ret);
++	cci_write(ov05c10->regmap, OV05C10_REG_V_SIZE_MIPI, mode->height, &ret);
++
++	ret = __v4l2_ctrl_handler_setup(ov05c10->sd.ctrl_handler);
++	if (ret)
++		goto err_rpm_put;
++
++	cci_write(ov05c10->regmap, OV05C10_REG_MIPI_EN,
++		  OV05C10_MIPI_EN_ENABLE, &ret);
++	cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,
++		  OV05C10_TRIGGER_LATCH, &ret);
++	if (ret) {
++		dev_err(&client->dev, "failed to start stream");
++		goto err_rpm_put;
++	}
++
++	return 0;
++
++err_rpm_put:
++	pm_runtime_put_autosuspend(&client->dev);
++
++	return ret;
++}
++
++static int ov05c10_disable_streams(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *state, u32 pad,
++				   u64 streams)
++{
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
 +	int ret = 0;
 +
-+	if (!inst->fw_caps[ROI_PARAMS].p_array)
++	cci_write(ov05c10->regmap, OV05C10_REG_MIPI_EN, 0, &ret);
++	cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,
++		  OV05C10_TRIGGER_LATCH, &ret);
++	if (ret < 0)
++		dev_err(&client->dev, "failed to stop stream");
++
++	pm_runtime_put_autosuspend(&client->dev);
++
++	return ret;
++}
++
++static void ov05c10_pad_format_crop_from_mode(const struct ov05c10_mode *mode,
++					      struct v4l2_mbus_framefmt *fmt,
++					      struct v4l2_rect *crop)
++{
++	fmt->width = mode->width;
++	fmt->height = mode->height;
++	fmt->code = mode->code;
++	fmt->field = V4L2_FIELD_NONE;
++
++	crop->left = mode->left;
++	crop->width = mode->width;
++	crop->top = mode->top;
++	crop->height = mode->height;
++}
++
++static int ov05c10_set_format(struct v4l2_subdev *sd,
++			      const struct v4l2_subdev_client_info *ci,
++			      struct v4l2_subdev_state *sd_state,
++			      struct v4l2_subdev_format *fmt)
++{
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
++	struct v4l2_rect *crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
++	const struct ov05c10_mode *mode;
++	s64 hblank, exposure_max;
++	int ret;
++
++	mode = v4l2_find_nearest_size(supported_modes,
++				      ARRAY_SIZE(supported_modes),
++				      width, height,
++				      fmt->format.width, fmt->format.height);
++
++	ov05c10_pad_format_crop_from_mode(mode, &fmt->format, crop);
++	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
++
++	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
++		return 0;
++
++	hblank = OV05C10_PPL - mode->width;
++	ret = __v4l2_ctrl_modify_range(ov05c10->hblank, hblank, hblank,
++				       1, hblank);
++	if (ret) {
++		dev_err(&client->dev, "HBLANK ctrl range update failed\n");
++		return ret;
++	}
++
++	/* Update limits and set FPS to default */
++	ret = __v4l2_ctrl_modify_range(ov05c10->vblank,
++				       mode->vts_min - mode->height,
++				       OV05C10_VTS_MAX - mode->height, 1,
++				       mode->vts_def - mode->height);
++	if (ret) {
++		dev_err(&client->dev, "VBLANK ctrl range update failed\n");
++		return ret;
++	}
++
++	ret = __v4l2_ctrl_s_ctrl(ov05c10->vblank,
++				 mode->vts_def - mode->height);
++	if (ret) {
++		dev_err(&client->dev, "VBLANK ctrl set failed\n");
++		return ret;
++	}
++
++	exposure_max = mode->vts_def - OV05C10_EXPOSURE_MARGIN;
++	ret = __v4l2_ctrl_modify_range(ov05c10->exposure, OV05C10_EXPOSURE_MIN,
++				       exposure_max, OV05C10_EXPOSURE_STEP,
++				       exposure_max);
++	if (ret)
++		dev_err(&client->dev, "exposure ctrl range update failed\n");
++
++	return ret;
++}
++
++static int ov05c10_enum_mbus_code(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *sd_state,
++				  struct v4l2_subdev_mbus_code_enum *code)
++{
++	if (code->index)
 +		return -EINVAL;
 +
-+	if (inst->codec == V4L2_PIX_FMT_HEVC)
-+		lcu_size = 32;
++	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
 +
-+	n_shift = ilog2(lcu_size);
-+	lcu_width = (width + (lcu_size - 1)) >> n_shift;
-+	lcu_height = (height + (lcu_size - 1)) >> n_shift;
-+	size = (((lcu_width + 7) >> 3) << 3) * lcu_height * 2;
-+	size += metadata_header_bytes;
-+	buffers->size = ALIGN(size, 4096);
-+
-+	return iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
++	return 0;
 +}
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-index 9957b69366f50310338a0c1470d9744592655c33..7587dfec052a320863889eb15203416b9c527a40 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-@@ -51,5 +51,6 @@ int iris_set_req_sync_frame(struct iris_inst *inst, enum platform_inst_fw_cap_ty
- int iris_set_time_delta_based_rc(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_properties(struct iris_inst *inst, u32 plane);
- int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane);
-+int iris_set_roi_params(struct iris_inst *inst, u32 plane);
- 
- #endif
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-index d628bc6748438b19dac01cd11cb9f8da0b8500af..4d40d6733e5877a302ce63fb0b4a61b8f284e6dc 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -1789,6 +1789,7 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
- 		.hfi_id = HFI_PROP_ROI_INFO,
- 		.flags = CAP_FLAG_INPUT_PORT | CAP_FLAG_CUSTOM |
- 			 CAP_FLAG_DYNAMIC_ALLOWED,
-+		.set = iris_set_roi_params,
- 	},
- 	{
- 		.cap_id = MB_SIZE,
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-index cf88dbe11e8e9faef826e661d8e9909fd7f16b94..a1b0c4982f0d789a807f22a1dffdf61decd20d28 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-@@ -134,6 +134,7 @@ static u32 iris_hfi_gen2_get_port_from_buf_type(struct iris_inst *inst,
- 		switch (buffer_type) {
- 		case BUF_INPUT:
- 		case BUF_VPSS:
-+		case BUF_ROIMB_DELTAQP:
- 			return HFI_PORT_RAW;
- 		case BUF_OUTPUT:
- 		case BUF_BIN:
-@@ -1267,6 +1268,8 @@ static u32 iris_hfi_gen2_buf_type_from_driver(u32 domain, enum iris_buffer_type
- 		return HFI_BUFFER_VPSS;
- 	case BUF_PARTIAL:
- 		return HFI_BUFFER_PARTIAL_DATA;
-+	case BUF_ROIMB_DELTAQP:
-+		return HFI_BUFFER_METADATA;
- 	default:
- 		return 0;
- 	}
-@@ -1328,6 +1331,7 @@ static struct iris_buffer *iris_queue_metadata_buffers(struct iris_inst *inst,
- static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iris_buffer *buffer)
- {
- 	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
-+	struct iris_hfi_buffer hfi_meta_buffer;
- 	struct iris_hfi_buffer hfi_buffer;
- 	u32 port;
- 	int ret;
-@@ -1349,6 +1353,26 @@ static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iri
- 					     &hfi_buffer,
- 					     sizeof(hfi_buffer));
- 
-+	/* check if any metadata buffer is available not queued, queue it */
-+	if (port == HFI_PORT_RAW) {
-+		buffer = iris_queue_metadata_buffers(inst, BUF_ROIMB_DELTAQP, buffer->index);
-+		if (buffer) {
-+			iris_hfi_gen2_get_buffer(inst->domain, buffer, &hfi_meta_buffer);
-+			port = iris_hfi_gen2_get_port_from_buf_type(inst, buffer->type);
-+			iris_hfi_gen2_create_packet(inst_hfi_gen2->packet,
-+						    HFI_CMD_BUFFER,
-+						    HFI_HOST_FLAGS_INTR_REQUIRED,
-+						    HFI_PAYLOAD_STRUCTURE,
-+						    port,
-+						    inst->core->packet_id++,
-+						    &hfi_meta_buffer,
-+						    sizeof(hfi_meta_buffer));
 +
-+			buffer->attr |= BUF_ATTR_QUEUED;
-+			buffer->attr &= ~BUF_ATTR_DEQUEUED;
++static int ov05c10_enum_frame_size(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *sd_state,
++				   struct v4l2_subdev_frame_size_enum *fse)
++{
++	if (fse->index >= ARRAY_SIZE(supported_modes))
++		return -EINVAL;
++	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
++		return -EINVAL;
++
++	fse->min_width = supported_modes[fse->index].width;
++	fse->max_width = fse->min_width;
++	fse->min_height = supported_modes[fse->index].height;
++	fse->max_height = fse->min_height;
++
++	return 0;
++}
++
++static int ov05c10_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *state,
++				 struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r = *v4l2_subdev_state_get_crop(state, 0);
++		break;
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.top = 0;
++		sel->r.left = 0;
++		sel->r.width = OV05C10_NATIVE_WIDTH;
++		sel->r.height = OV05C10_NATIVE_HEIGHT;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int ov05c10_init_state(struct v4l2_subdev *sd,
++			      struct v4l2_subdev_state *sd_state)
++{
++	ov05c10_pad_format_crop_from_mode(&supported_modes[0],
++					  v4l2_subdev_state_get_format(sd_state, 0),
++					  v4l2_subdev_state_get_crop(sd_state, 0));
++
++	return 0;
++}
++
++static const struct v4l2_subdev_pad_ops ov05c10_pad_ops = {
++	.set_fmt = ov05c10_set_format,
++	.get_fmt = v4l2_subdev_get_fmt,
++	.enum_mbus_code = ov05c10_enum_mbus_code,
++	.enum_frame_size = ov05c10_enum_frame_size,
++	.get_selection = ov05c10_get_selection,
++	.enable_streams = ov05c10_enable_streams,
++	.disable_streams = ov05c10_disable_streams,
++};
++
++static const struct v4l2_subdev_core_ops ov05c10_core_ops = {
++	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
++	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
++};
++
++static const struct v4l2_subdev_ops ov05c10_subdev_ops = {
++	.core = &ov05c10_core_ops,
++	.pad = &ov05c10_pad_ops,
++};
++
++static const struct v4l2_subdev_internal_ops ov05c10_internal_ops = {
++	.init_state = ov05c10_init_state,
++};
++
++static int ov05c10_parse_fwnode(struct ov05c10 *ov05c10, struct device *dev)
++{
++	struct fwnode_handle *endpoint;
++	struct v4l2_fwnode_endpoint bus_cfg = {
++		.bus_type = V4L2_MBUS_CSI2_DPHY,
++	};
++	int ret;
++
++	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
++						   FWNODE_GRAPH_ENDPOINT_NEXT);
++	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &bus_cfg);
++	fwnode_handle_put(endpoint);
++	if (ret) {
++		dev_err(dev, "parsing endpoint node failed\n");
++		goto out_err;
++	}
++
++	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
++				       bus_cfg.nr_of_link_frequencies,
++				       ov05c10_link_freq_items,
++				       ARRAY_SIZE(ov05c10_link_freq_items),
++				       &ov05c10->link_freq_bitmap);
++
++out_err:
++	v4l2_fwnode_endpoint_free(&bus_cfg);
++
++	return ret;
++}
++
++static int ov05c10_identify_module(struct ov05c10 *ov05c10)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
++	u64 val;
++	int ret = 0;
++
++	cci_read(ov05c10->regmap, OV05C10_REG_CHIP_ID, &val, &ret);
++	if (ret) {
++		dev_err(&client->dev, "chip id read err");
++		return ret;
++	}
++
++	if (val != OV05C10_CHIP_ID) {
++		dev_err(&client->dev, "chip id mismatch: %x!=%llu",
++			OV05C10_CHIP_ID, val);
++		return -ENXIO;
++	}
++
++	return 0;
++}
++
++/* This function tries to get power control resources */
++static int ov05c10_get_pm_resources(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++
++	ov05c10->img_clk = devm_v4l2_sensor_clk_get(dev, NULL);
++	if (IS_ERR(ov05c10->img_clk))
++		return dev_err_probe(dev, PTR_ERR(ov05c10->img_clk),
++				     "failed to get imaging clock\n");
++
++	ov05c10->avdd = devm_regulator_get(dev, "avdd");
++	if (IS_ERR(ov05c10->avdd))
++		return dev_err_probe(dev, PTR_ERR(ov05c10->avdd),
++				     "failed to get avdd regulator\n");
++
++	ov05c10->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ov05c10->reset))
++		return dev_err_probe(dev, PTR_ERR(ov05c10->reset),
++				     "failed to get reset gpio\n");
++
++	return 0;
++}
++
++static int ov05c10_power_off(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++
++	gpiod_set_value_cansleep(ov05c10->reset, 1);
++	regulator_disable(ov05c10->avdd);
++	clk_disable_unprepare(ov05c10->img_clk);
++
++	return 0;
++}
++
++static int ov05c10_power_on(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++	int ret;
++
++	ret = clk_prepare_enable(ov05c10->img_clk);
++	if (ret < 0) {
++		dev_err(dev, "failed to enable imaging clock: %d", ret);
++		return ret;
++	}
++
++	ret = regulator_enable(ov05c10->avdd);
++	if (ret < 0) {
++		dev_err(dev, "failed to enable avdd: %d", ret);
++		goto err_clk_disable_unprepare;
++	}
++
++	gpiod_set_value_cansleep(ov05c10->reset, 0);
++	/* 5ms to wait ready after XSHUTDN assert */
++	fsleep(5000);
++
++	if (!ov05c10->identified) {
++		ret = ov05c10_identify_module(ov05c10);
++		if (ret) {
++			dev_err_probe(dev, ret, "failed to find sensor: %d\n",
++				      ret);
++			goto err_power_off;
++		}
++
++		ov05c10->identified = true;
++	}
++
++	return 0;
++
++err_power_off:
++	gpiod_set_value_cansleep(ov05c10->reset, 1);
++	regulator_disable(ov05c10->avdd);
++
++err_clk_disable_unprepare:
++	clk_disable_unprepare(ov05c10->img_clk);
++
++	return ret;
++}
++
++static const struct dev_pm_ops ov05c10_pm_ops = {
++	SET_RUNTIME_PM_OPS(ov05c10_power_off, ov05c10_power_on, NULL)
++};
++
++static int ov05c10_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct ov05c10 *ov05c10;
++	bool full_power;
++	int ret;
++
++	ov05c10 = devm_kzalloc(&client->dev, sizeof(*ov05c10), GFP_KERNEL);
++	if (!ov05c10)
++		return -ENOMEM;
++
++	ret = ov05c10_parse_fwnode(ov05c10, dev);
++	if (ret)
++		return ret;
++
++	ov05c10->regmap = devm_regmap_init_i2c(client, &ov05c10_regmap_config);
++	if (IS_ERR(ov05c10->regmap))
++		return dev_err_probe(dev, PTR_ERR(ov05c10->regmap),
++				     "failed to init regmap\n");
++
++	v4l2_i2c_subdev_init(&ov05c10->sd, client, &ov05c10_subdev_ops);
++
++	ret = ov05c10_get_pm_resources(dev);
++	if (ret)
++		return ret;
++
++	full_power = acpi_dev_state_d0(dev);
++	if (full_power) {
++		ret = ov05c10_power_on(dev);
++		if (ret) {
++			dev_err(&client->dev, "failed to power on\n");
++			return ret;
 +		}
 +	}
 +
- 	return iris_hfi_queue_cmd_write(inst->core, inst_hfi_gen2->packet,
- 					inst_hfi_gen2->packet->size);
- }
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-index 84b629b957442c024dccc18b354ac9a7e541abaa..f63e0a7723e8583da818c2b004e367c1dd3d94f7 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-@@ -58,6 +58,8 @@ static u32 iris_hfi_gen2_buf_type_to_driver(struct iris_inst *inst,
- 		return BUF_PARTIAL;
- 	case HFI_BUFFER_VPSS:
- 		return BUF_VPSS;
-+	case HFI_BUFFER_METADATA:
-+		return BUF_ROIMB_DELTAQP;
- 	default:
- 		return 0;
- 	}
-diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-index fcbc60016beec693f2ce27927a09a2d51494bc38..fae3d113a9dc990f06167ee0b7fb8fab24a0552c 100644
---- a/drivers/media/platform/qcom/iris/iris_vidc.c
-+++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-@@ -180,6 +180,7 @@ int iris_open(struct file *filp)
- 	INIT_LIST_HEAD(&inst->buffers[BUF_SCRATCH_2].list);
- 	INIT_LIST_HEAD(&inst->buffers[BUF_VPSS].list);
- 	INIT_LIST_HEAD(&inst->buffers[BUF_PARTIAL].list);
-+	INIT_LIST_HEAD(&inst->buffers[BUF_ROIMB_DELTAQP].list);
- 	init_completion(&inst->completion);
- 	init_completion(&inst->flush_completion);
- 
-@@ -299,6 +300,7 @@ int iris_close(struct file *filp)
- 	iris_destroy_all_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
- 	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
- 	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-+	iris_destroy_roi_metadata_buffers(inst);
- 	iris_remove_session(inst);
- 	mutex_unlock(&inst->lock);
- 	mutex_destroy(&inst->ctx_q_lock);
++	ret = ov05c10_init_controls(ov05c10);
++	if (ret) {
++		dev_err(&client->dev, "failed to init controls: %d", ret);
++		goto probe_error_power_off;
++	}
++
++	ov05c10->sd.internal_ops = &ov05c10_internal_ops;
++	ov05c10->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
++			     V4L2_SUBDEV_FL_HAS_EVENTS;
++	ov05c10->sd.entity.ops = NULL;
++	ov05c10->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++	ov05c10->pad.flags = MEDIA_PAD_FL_SOURCE;
++
++	ret = media_entity_pads_init(&ov05c10->sd.entity, 1, &ov05c10->pad);
++	if (ret) {
++		dev_err(&client->dev, "failed to init entity pads: %d", ret);
++		goto probe_error_v4l2_ctrl_handler_free;
++	}
++
++	ov05c10->sd.state_lock = ov05c10->ctrl_handler.lock;
++	ret = v4l2_subdev_init_finalize(&ov05c10->sd);
++	if (ret < 0) {
++		dev_err(dev, "v4l2 subdev init error: %d\n", ret);
++		goto probe_error_media_entity_cleanup;
++	}
++
++	if (full_power)
++		pm_runtime_set_active(&client->dev);
++	pm_runtime_enable(&client->dev);
++
++	ret = v4l2_async_register_subdev_sensor(&ov05c10->sd);
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to register V4L2 subdev: %d",
++			ret);
++		goto probe_error_rpm;
++	}
++	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
++	pm_runtime_use_autosuspend(&client->dev);
++	pm_runtime_idle(&client->dev);
++
++	return 0;
++
++probe_error_rpm:
++	pm_runtime_disable(&client->dev);
++	v4l2_subdev_cleanup(&ov05c10->sd);
++
++probe_error_media_entity_cleanup:
++	media_entity_cleanup(&ov05c10->sd.entity);
++
++probe_error_v4l2_ctrl_handler_free:
++	v4l2_ctrl_handler_free(ov05c10->sd.ctrl_handler);
++
++probe_error_power_off:
++	ov05c10_power_off(&client->dev);
++
++	return ret;
++}
++
++static void ov05c10_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct ov05c10 *ov05c10 = to_ov05c10(sd);
++
++	v4l2_async_unregister_subdev(&ov05c10->sd);
++	v4l2_subdev_cleanup(sd);
++	media_entity_cleanup(&ov05c10->sd.entity);
++	v4l2_ctrl_handler_free(&ov05c10->ctrl_handler);
++	pm_runtime_disable(&client->dev);
++
++	if (!pm_runtime_status_suspended(&client->dev)) {
++		ov05c10_power_off(&client->dev);
++		pm_runtime_set_suspended(&client->dev);
++	}
++}
++
++#if IS_BUILTIN(CONFIG_ACPI)
++static const struct acpi_device_id ov05c10_acpi_ids[] = {
++	{ .id = "OVTI05C1" },
++	{ }
++};
++
++MODULE_DEVICE_TABLE(acpi, ov05c10_acpi_ids);
++#endif
++
++static struct i2c_driver ov05c10_i2c_driver = {
++	.driver = {
++		.name = "ov05c10",
++		.pm = pm_ptr(&ov05c10_pm_ops),
++		.acpi_match_table = ACPI_PTR(ov05c10_acpi_ids),
++	},
++	.probe = ov05c10_probe,
++	.remove = ov05c10_remove,
++	.flags = I2C_DRV_ACPI_WAIVE_D0_PROBE,
++};
++
++module_i2c_driver(ov05c10_i2c_driver);
++MODULE_DESCRIPTION("OmniVision ov05c10 camera driver");
++MODULE_AUTHOR("Dongcheng Yan <dongcheng.yan@intel.com>");
++MODULE_LICENSE("GPL");
 
 -- 
-2.34.1
+2.47.3
 
