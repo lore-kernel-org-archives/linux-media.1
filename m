@@ -1,77 +1,81 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8673515C0
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 01:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0A5360EE5;
+	Wed, 30 Sep 2026 02:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730841; cv=none; b=OzSNR6sB/6PYOUv1hPx2CwAk8mBXtBDFb0pdgX2NIAgy/b6lX3xnA88HE+bS1NadjkON0yrIvXolYFI4qzUs8BP28xzvf8Sw1avsDZwDCFNT8RHyf6rt93mt8K7So5rNEFfn8lfh0czge0w9gYGd4wIP30BLcQvoVqCuUD5IoL0=
+	t=1790733679; cv=none; b=XsRTVShN7tCR42hJXbKbbhJkLsoDtwC1IdRt69YuhRXIBdeNCPr62IHaG/uv6pEE/9Sgtxm57S0NbNRjIB44FBN58kDQvCmESKmLjG3PVH25VERi5zTE4bbDMIG24FBX6RnRaor1wkF5doiDKqUCEMw9J26KIzk1wobzpyrCqT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730841; c=relaxed/simple;
-	bh=5TTPFw+6pOzebpyRN9BKpiTnM6uz6kUgLoi6TD/nApg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HVbIVBs4hCdxq1CiIbY1SzY//5YmjS3bHbYyMl8IXHoSboDy7qV27QgHG87efck9YtYVn+ok2x2CI5NWPdThCnSNDV/ttcIGa49kp+aApaSDGYVeO/RKLhQeod51r/wwVoOm4AZRr9ujS5IvVrNIGLzIKBNXcNcnGGFYhuw9hmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=DDTvdfGW; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790733679; c=relaxed/simple;
+	bh=6Pty6e/BsuARxstt0uljApujK3Ir0Y0DM1bCKScy6rU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GsNs0X4H6CQDwXGfBKEMA5EiglPbpp10uOBQLKA4WgzFh5jQeyjAO7al9BQUBgx1FYImIhYoHQ2TFq8e4MqW0qqx8NUb5KPRyObdPmyAiIxb24WkV/dFsnJ8N9lW8xepuuPTilph00kjVhmtEM2whI+AXlCauZOKJQlDz8iTn3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kode54.net; spf=pass smtp.mailfrom=kode54.net; dkim=pass (2048-bit key) header.d=kode54.net header.i=@kode54.net header.b=b7+GjVH8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QfkNs7tN; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kode54.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kode54.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="DDTvdfGW"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34abf779ac9so1279139eec.1
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 18:13:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790730839; x=1791335639; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lc1wbxzVuxiw3fva36zB66RHmqecR2gjnNW5+7fJzDk=;
-        b=DDTvdfGWjerA9DS7DhELvPpUBqOFJaWyixv6ykZpPhjOH7lTaPC/jxyabiazjuQPMP
-         xjEcWP00K9ZQfzp7y4h5olzb3mJ8ZBNrvRnMWhoRdd4f3iNYSdFTbnU6eeRowqbpRJ8k
-         eircqXmkBbvsek1igV75+My1expfy/5Uh5aV3VqBy9/oHGoYpRn5PU8GLOWJB/vTQqRk
-         VnRLUCV+o+79Txx6tlNWs5RJ2I8ezaNmltAeBE1Z2ASEA03M4qCB0OkrDq8oCQkH0t/s
-         OReWUC+2caCkFZwAKhrh2+hDoX0+JwuSvZ2IPI9Dgd0dgFBA028+hXNmvjZxUS0N2Pw+
-         9+SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730839; x=1791335639;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lc1wbxzVuxiw3fva36zB66RHmqecR2gjnNW5+7fJzDk=;
-        b=QBpkxZ9MMNuxdYUNC/4B4J/dasH5rgzF2WpxEYEbNueRdwWEvLB02FGST77rWSoMYT
-         H6ZT4PmC1BHTkVDHiMuJj+QlQRONInzH75MDJGmYfbf4+1L3KMNRNj6T9RfmepsZLL52
-         dqgulAlijCXYpelUpzXX2Yipd4qIEbAc5A17zUusb7i3PPop2zCCouLoQ+vOvYVoFYHW
-         ZxYz9tVmAkbPak+5i+EDxQWzmVNi0UURABejB+PRmUGEP2AYpLrOCNoB8dtzJNZp8dLX
-         eeio8/w8+BKzld0PXIiy6Fqcjx7ilN0Oo6wHVy6d51gZuTAyRXwofdcgxTGs6IMs9H7v
-         VZ2g==
-X-Forwarded-Encrypted: i=1; AKwUvBw5Z0FLyV+Zgvzy+qodNmPjP9N/VwU4Lt1x0hwJBfWZIaNUUl8mUCl7+cFdI0ixGW/B00txru4EmO5sUw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGYEV6u0Wwk4TGrx9zxuqcdKT2lc3nzVqLGxJNWnOMgih+ouDK
-	iR7jUrBqEk2P7XNn+QjTDfGKRAN7ol4hwJaouzVL8FF3NBlO0l9T56iZwrnJ+rd/11Q=
-X-Gm-Gg: AYBFou26FATzYLSmz79ySKDXaJaCv2EFdcoYpsLeD6MxSfxEJmyX3tGk53/yCkSbByf
-	jNVlFKX/4HPAwZnSqcQy8nzkyJMMJU0rQdvKxBvFffRcJz5+x3zGyZ2cLSPMPdLNtn6YMA5mPit
-	gxBdrqS17zRq7RPUjdVMOM1TpmLpJlHUhkCBG1ql3Jd90NTh2v4uLAgrB4jJIDRcOkwozMyH0Q0
-	jT5Z0rwSg6JLL80axZrZNJQzkjS5GDBavbWroUNyF8GSSMASVsFBJddPlme6jpKuwXPfgz1+E8s
-	k/JCw7QTfOHeSSBLUf91n0LyIZrZA26IrxZBn8kSOpBUMc8tXAORh26TLjp6YJbn7YIPBW7+nSQ
-	2XdvY8qgV+yryfjEtU7SeP7r+ny9TmE8PnBzF9yxr4fnGRXq4SjR/zsKoeWd3xOpTvEZLRjLMKh
-	kB2gH9dqsBIBGA2VKcoQvSye2gS8ulMNB1fAmVWarX/jmxEvX+96e2RNVpBJurB+BA9DdFPJVXO
-	PG2pe1QF8cW/nLhJZdi5RhZDcmRPq3z+Nr/eJJF+T/4g+ZtesIf/l2JfxDhsLKB4YWhNNs=
-X-Received: by 2002:a05:7301:2525:b0:33c:259a:759 with SMTP id 5a478bee46e88-34c68185f7cmr1091505eec.36.1790730838921;
-        Tue, 29 Sep 2026 18:13:58 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c38bf0948sm2036089eec.25.2026.09.29.18.13.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 18:13:58 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kode54.net header.i=@kode54.net header.b="b7+GjVH8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QfkNs7tN"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 3E14C1400327;
+	Tue, 29 Sep 2026 22:01:16 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 29 Sep 2026 22:01:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kode54.net; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1790733676; x=1790820076; bh=Ly1y7IF0HFIJnT198Bnkw
+	vjYBp3S6axzsFhDj3HrqYg=; b=b7+GjVH8jDqsOJb07dLPqpckl5muwt5JQ5jj9
+	ChheHJCM+JPSUesXBSvqkhAaTEW6a65PEXGl9r+h5KfizEegZNUBtimNGF++nmzs
+	yn01i+DDLBme36oRQJsvfr35g3Ti5lvV28JqhX18wXGaVQl/l3mrQKP/Du0vNX9e
+	vhpSllUOaa+C/VmgjzhvUpGw/Zl9eNP7gKb+2SZvWvYHplDgYXHrf9wPlJ6BTKWg
+	hIMPJX8f0R4i/a3ogwCu6HPy9RUtMgooc+mDTURmZYbDFRGKHwkUoFmr5R8ksC7C
+	ZwiTNxMRV0ste3SgrJHaIxADexO/ekKccqUg5HcsypKjN99ag==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790733676; x=1790820076; bh=Ly1y7IF0HFIJnT198BnkwvjYBp3S6axzsFh
+	Dj3HrqYg=; b=QfkNs7tNOw7vLOA2lNNeq7manuCMoUHx6QYDhhzhwX5BMGWW2aH
+	CSqJDHP423jMVwgVBY3iy4Sf2ZmCgHive5mKw2tpjtVpQ70SRIS+jl4LV7fs0wVm
+	PkvlyL2Tw2+0cyKIXiOAcR9c99/IYCgor+6tH+sKD1pF2wV/alGKMvNFynElfVol
+	xrZcD5zMkyzkFId7+fGCyRjfelHRgHDLF2jPDELW4eewRA1MVmy/0gYI8uIu/vkq
+	t3pC1Or28t0ovCr3OsWdjt5IBb18bX/7jQB/MvBJhAVMgfgXtfJcAzGs+p+5i9DC
+	X8pcy8e3s7J22sQ+mKdxuOKcyH4Qz/5ogaQ==
+X-ME-Sender: <xms:a228aruYAANBIZ_nTejCL87INVWs0jD0n0KkUet4Jm5ivk9fxHVP6w>
+    <xme:a228anYoDVab2hiCzassLdKASxVRK3m_eMfhkVk3sqI_PDQKirMeZ8O5tPuPPDbsX
+    JnG1X02EvZDnpiA45MlnUe7z1e1J26gu2wPcrckiYbDuGn20aiRMQs>
+X-ME-Received: <xmr:a228aty0xCR-Hfkp5qkpFLFEPK7PlhR5QydNOdwMztM_0ipyxkQ7JXmqEknbXo9VomNz0jtuAoluY7gr1ZEZtAo>
+X-ME-Proxy-Cause: dmFkZTEPMcW4vJDRdzUnK4djoVSsdnnwRjLFCruDVjPsainYLB3oKAY+Ex2CsDtt1nZMBo
+    26hA70uBS+4BCKyGravu0b+omsVL7olxrH2bXo3Yq4HauTMapEuzjlxhVWJcRVPjwXuxY3
+    Efb2SbE88HdXj3HYDi1+RTPwKr2u68xwBhhBGfvFk+TUG9VBMUldyuu1/e8xYuy2tBEAiK
+    zgxNU7y5s/o51HBmnBhk6G7SAHNVNRImGUU0FXy/zvvqdDB2b3Uf5ZGHMnOGcoZwQq4Qv2
+    opeg/GAk7/S8/wJIIeomnOA64/yxeGleGp4K2t1Fp9k+hvvc0mCY+sVQHTq3FAv3tTb3Iq
+    4BkFENAYsD8h9CllKFwYuIujipg6GmKBNyns9iW5mJ7DF+zh/65FtAYXLZKnw6vin8mHKF
+    qHvG4WdmGjnv46Lxkj7PUG2mzik/+poWG0HhRidWKKHP3GpwrbsZtYxZeKZP7XW+11kQJv
+    imi7+HlQcKlazV8MDTBdcMgKeSMiQbD8QK4xI0j/+Dk+h/OodZTMOBm/AYLObYrFx/0fNI
+    M0i/nOkmvtMUhMYNaDEPN3guS28p+kchTchSaeILx4ItD2uZmNQIrtTOrhYEK73Y+Y93h7
+    XaSC3DZ5MhGPoQVkgQLexAbtbsHzmhW99xSHJDhizml/L1wSy7apTWAyZeQg
+X-ME-Proxy: <xmx:a228avit3OORqY-347gSy4GgAr7ceZlBw6Qf1LlNAIjwkwGeU3iedw>
+    <xmx:a228apm-JqXDB4j7-W7eEXjPJxD9xImJJAzFXN-_iBCd6UiU4MyuBQ>
+    <xmx:a228algLeBKv6zUrk5wBHjkORrB0O9uUGv8Y4kWzeh9vdkiajSLXvA>
+    <xmx:a228at24IsT-BfZxoa18BY3LuR9d7NTEgDPtHzZ5xvypwOZK58cXSQ>
+    <xmx:bG28atDyTFSEw43bC4wdIccUpgL1tHMjJjvGuHONsjDJQMykGR3D7l-P>
+Feedback-ID: i9ec6488d:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 29 Sep 2026 22:01:14 -0400 (EDT)
+From: Christopher Snowhill <chris@kode54.net>
+To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
+Cc: Christopher Snowhill <chris@kode54.net>,
 	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Hans Verkuil <hverkuil@xs4all.nl>
-Subject: [PATCH 6.6.y] media: av7110: fix a spectre vulnerability
-Date: Tue, 29 Sep 2026 21:13:52 -0400
-Message-ID: <20260930011353.94864-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	"Bradford Love" <brad@nextdimension.cc>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: em28xx: fix inverted tuner capability check for VBI device
+Date: Tue, 29 Sep 2026 19:00:06 -0700
+Message-ID: <20260930020010.85250-2-chris@kode54.net>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -80,141 +84,48 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Commit 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X
+bridge") changed the condition for setting V4L2_CAP_TUNER on the VBI
+device from "dev->tuner_type != TUNER_ABSENT" to a check of the video
+device's capabilities, but inverted it: the VBI node now advertises a
+tuner only when the video node does not have one.
 
-[ Upstream commit 458ea1c0be991573ec436aa0afa23baacfae101a ]
+On boards without a tuner (e.g. the MyGica iGrabber, card=105) the VBI
+device's device_caps therefore contain V4L2_CAP_TUNER, while the shared
+vidioc_querycap() correctly omits it from cap->capabilities. This trips
+the sanity check in v4l_querycap() whenever the VBI node is queried,
+for example by udev's v4l_id on every hotplug:
 
-As warned by smatch:
-	drivers/staging/media/av7110/av7110_ca.c:270 dvb_ca_ioctl() warn: potential spectre issue 'av7110->ci_slot' [w] (local cap)
+  WARNING: drivers/media/v4l2-core/v4l2-ioctl.c:1119 at v4l_querycap+0xff/0x110 [videodev]
+  (cap->capabilities & (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)) != (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)
 
-There is a spectre-related vulnerability at the code. Fix it.
+It also leaves the tuner ioctls enabled on the VBI node of tuner-less
+boards and disables them on boards that do have a tuner.
 
-[ Backport to 6.6.y: added the explicit linux/nospec.h include required
-  by the older source. ]
+Restore the intended logic so the VBI device has V4L2_CAP_TUNER exactly
+when the video device does.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Fixes: 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X bridge")
 Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Signed-off-by: Christopher Snowhill <chris@kode54.net>
+Cc: stable@vger.kernel.org
 ---
-Hi Greg, Sasha, and media av7110 maintainers,
+ drivers/media/usb/em28xx/em28xx-video.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-50289. It masks the validated CI-slot index
-before using it in the av7110 array lookup.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2024-50289
-Upstream: 458ea1c0be991573ec436aa0afa23baacfae101a
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- drivers/staging/media/av7110/av7110.h    |  4 +++-
- drivers/staging/media/av7110/av7110_ca.c | 26 ++++++++++++++++--------
- 2 files changed, 21 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/staging/media/av7110/av7110.h b/drivers/staging/media/av7110/av7110.h
-index 809d938ae1667f..f77766008b973d 100644
---- a/drivers/staging/media/av7110/av7110.h
-+++ b/drivers/staging/media/av7110/av7110.h
-@@ -86,6 +86,8 @@ struct infrared {
- 	u32			ir_config;
- };
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index c418add65bb5..cdf1dc692b08 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -3001,7 +3001,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		v4l2->vbi_dev.queue->lock = &v4l2->vb_vbi_queue_lock;
+ 		v4l2->vbi_dev.device_caps = V4L2_CAP_STREAMING |
+ 			V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
+-		if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) == 0)
++		if (v4l2->vdev.device_caps & V4L2_CAP_TUNER)
+ 			v4l2->vbi_dev.device_caps |= V4L2_CAP_TUNER;
  
-+#define MAX_CI_SLOTS	2
-+
- /* place to store all the necessary device information */
- struct av7110 {
- 
-@@ -166,7 +168,7 @@ struct av7110 {
- 
- 	/* CA */
- 
--	struct ca_slot_info	ci_slot[2];
-+	struct ca_slot_info	ci_slot[MAX_CI_SLOTS];
- 
- 	enum av7110_video_mode	vidmode;
- 	struct dmxdev		dmxdev;
-diff --git a/drivers/staging/media/av7110/av7110_ca.c b/drivers/staging/media/av7110/av7110_ca.c
-index c1338e074a3dc1..642af03fbac810 100644
---- a/drivers/staging/media/av7110/av7110_ca.c
-+++ b/drivers/staging/media/av7110/av7110_ca.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/kernel.h>
-+#include <linux/nospec.h>
- #include <linux/types.h>
- #include <linux/delay.h>
- #include <linux/fs.h>
-@@ -26,23 +27,28 @@
- 
- void CI_handle(struct av7110 *av7110, u8 *data, u16 len)
- {
-+	unsigned slot_num;
-+
- 	dprintk(8, "av7110:%p\n",av7110);
- 
- 	if (len < 3)
- 		return;
- 	switch (data[0]) {
- 	case CI_MSG_CI_INFO:
--		if (data[2] != 1 && data[2] != 2)
-+		if (data[2] != 1 && data[2] != MAX_CI_SLOTS)
- 			break;
-+
-+		slot_num = array_index_nospec(data[2] - 1, MAX_CI_SLOTS);
-+
- 		switch (data[1]) {
- 		case 0:
--			av7110->ci_slot[data[2] - 1].flags = 0;
-+			av7110->ci_slot[slot_num].flags = 0;
- 			break;
- 		case 1:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_PRESENT;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_PRESENT;
- 			break;
- 		case 2:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_READY;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_READY;
- 			break;
- 		}
- 		break;
-@@ -264,15 +270,19 @@ static int dvb_ca_ioctl(struct file *file, unsigned int cmd, void *parg)
- 	case CA_GET_SLOT_INFO:
- 	{
- 		struct ca_slot_info *info=(struct ca_slot_info *)parg;
-+		unsigned int slot_num;
- 
- 		if (info->num < 0 || info->num > 1) {
- 			mutex_unlock(&av7110->ioctl_mutex);
- 			return -EINVAL;
- 		}
--		av7110->ci_slot[info->num].num = info->num;
--		av7110->ci_slot[info->num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
--							CA_CI_LINK : CA_CI;
--		memcpy(info, &av7110->ci_slot[info->num], sizeof(struct ca_slot_info));
-+		slot_num = array_index_nospec(info->num, MAX_CI_SLOTS);
-+
-+		av7110->ci_slot[slot_num].num = info->num;
-+		av7110->ci_slot[slot_num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
-+						 CA_CI_LINK : CA_CI;
-+		memcpy(info, &av7110->ci_slot[slot_num],
-+		       sizeof(struct ca_slot_info));
- 		break;
- 	}
- 
+ 		/* disable inapplicable ioctls */
 -- 
-2.39.5
+2.55.0
 
