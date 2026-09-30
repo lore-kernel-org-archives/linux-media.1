@@ -1,371 +1,198 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020129.outbound.protection.outlook.com [52.101.84.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41A34C0439
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 11:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767147; cv=none; b=mPQ6s31WN0SsprV3C92T3856mfKVmzs4yoXnRXmuPdciC8DYSjJHEDZO/y1ODXXeR8pg2Rc8DvgKMSgaGZFDK+R0v9NcX2J6RqXoj9Es+fEBM0WPfcj+M0chQ+vvW+KaAl4S4O/Iuo/N3jmN3mc3roSToNSsMj2B2oElebUPdbM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767147; c=relaxed/simple;
-	bh=+TNiO6bA0Lf90bdJHi/T9A8jEn00cQF1TyCgzvohxEk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
-	 In-Reply-To:Content-Type; b=fihOg77U/n2DQNCPFwkb9e2V4d0Xt6um1BPh0rogbCrXKiqJaYtOfyqnW9nV9N+L5JITMARySXmwGJhM73kaPxAhSnzxTw6cIzSaONzQuwImpU+inYAdnhv9+4SPemBSI4EORLrflIfWMsHtBH/rDD8u/SfUmqZ2YbO4NMYho3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kdgYEUl8; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62912D0292;
+	Wed, 30 Sep 2026 11:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790767188; cv=fail; b=TEXwdMTirmTcpeUrCVKBfBGWxLAogiwP2SV6k6qu9wj8N7g0kIxFxVRLe1VpMvBaMZ3xiAHAMAPNEy0wWiFdW+Q6dXfblwPrWbLBF41T1QyeazRXKsu545M0zlU7zCRec3PqP/DGCKBdzRVb2knVYAwvBpTUSJN16dQaDGBbuvM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790767188; c=relaxed/simple;
+	bh=YqkqPT6gmhPrALc8V9VWTPyHXoOTqAmfm0V41dxPQsA=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=rxuVby5IK0k7jvddb6CS4U5s/M4IYu4++N67eQxQvP1HaehKbQoT/GoR+vYLJttffyFORRV4+lCeMIiCyfEzvKvdcWk8EzQRAh0HjXdR+66VAHKCgB0qtDdUqNLsyZu1EnkxQvLVAJF1y1FbwgLdgtvC0EpuPF5vkyPjbZ81opY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=santannapisa.it; spf=pass smtp.mailfrom=santannapisa.it; dkim=pass (1024-bit key) header.d=santannapisa.it header.i=@santannapisa.it header.b=wl/KgCXG; arc=fail smtp.client-ip=52.101.84.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=santannapisa.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=santannapisa.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kdgYEUl8"
-Received: from [IPV6:2a00:6020:448c:6c00:6c1f:355d:1c19:aba6] (unknown [IPv6:2a00:6020:448c:6c00:6c1f:355d:1c19:aba6])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A75A0B07;
-	Wed, 30 Sep 2026 13:17:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790767032;
-	bh=+TNiO6bA0Lf90bdJHi/T9A8jEn00cQF1TyCgzvohxEk=;
-	h=Date:Subject:To:References:From:Cc:In-Reply-To:From;
-	b=kdgYEUl8i7TjTeNATXbbx3ut9u8jiO/g8e5Y+umq5oQz2+tJi+P8Y40d3JmbjCwFj
-	 AyP4xZ2JRn5RC0p9IVOif1rgbn78aAS55G2JE+4BSdEqqNV9Fw6IGZDS6k70tPN1N4
-	 HqI8PrXJBHd0J4aFuKMnHj9vcBgHKS+8v1JB1pmE=
-Message-ID: <93b0e5fd-5570-4418-8bbc-4b18ef5e419f@ideasonboard.com>
-Date: Wed, 30 Sep 2026 13:18:59 +0200
+	dkim=pass (1024-bit key) header.d=santannapisa.it header.i=@santannapisa.it header.b="wl/KgCXG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y/e81besAJEr4Fl8vGOq7sENerrPOAf+tT3W+f0TyyKHKwrZHJZtO6/8k2N0xhDyXyG7ZjzAjdqJEULjZchtyLQt+2oJkOUvCR57u8y7zZbLMp4OP1iIBhxjey+Eev4xJTjUN9WlSSCoHKIJC115lk0x6D0XfgClRVxNEL31UL5EKvWM0vMjMKXNeXcdSvIAFsrAI6d54oaOxhYer89jG0FeLlEg6EjNza7PU4StCqxNNDQD3JtasWzcSHzQqziPwfy+ehh4STfVPoyG2vkjbaGjojHEcaEzEnXnIXR6v34lUpJ0nm2H3gDHeSImSH/nrqieYT66OOSSnhu1RC2UHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EP7YSG+7EfzzOSdz3SLUOdxfXWgC5POwlbnb9HKkeos=;
+ b=JvMYIo4c5wmy5RkSPEmbtFN2FO1mH4ZKMqmuyo1L4v7SPqlNpbxQEhTqCfd9OI8/rXztNKt7xrcp+2s1gzRviLdmXJWibaix3S0fOqe7I+PmDNnI3IHj78FyqPo57JM/jEAZUV9z1WfsZfNQAGmJGqxMmHhG+IrIj08f+5oLbMZE5BzaU91ozpBfzxxpMz45MTOC+njk8vKvGNxYFFHlf4OlbKjI74SYS1td8vfej1ZhErVqWzlS10PfUKELZLb2KD5DueoSFHF5FBCQBOJIzj24T3JlOQBR7JPsbRnzv4p228A6joZaILW+2elOb912leu7S/WlPAiylni0Y5tI7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=santannapisa.it; dmarc=pass action=none
+ header.from=santannapisa.it; dkim=pass header.d=santannapisa.it; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=santannapisa.it;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EP7YSG+7EfzzOSdz3SLUOdxfXWgC5POwlbnb9HKkeos=;
+ b=wl/KgCXG8j2WGMBbMyZZ/OM3l2L+YoEF9L6hluwcZo0Ed9ubAW4vh4Vot5O1FrbCSzc5F4Udb6Mot/NTmdEOZkoCORGryJIZoy9S14h0G002eK7+qVOXcPRp4Zj2B/ALOwadNBLQee6xln/LhhXgdbJ5OQaGnupu9TYAovRj46Q=
+Received: from AM0PR03MB4113.eurprd03.prod.outlook.com (2603:10a6:208:74::27)
+ by AMBPR03MB11494.eurprd03.prod.outlook.com (2603:10a6:20b:733::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 11:19:40 +0000
+Received: from AM0PR03MB4113.eurprd03.prod.outlook.com
+ ([fe80::57d1:3e47:721f:a0a0]) by AM0PR03MB4113.eurprd03.prod.outlook.com
+ ([fe80::57d1:3e47:721f:a0a0%6]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 11:19:40 +0000
+From: Mauro Marinoni <Mauro.Marinoni@santannapisa.it>
+To: Miguel Vadillo <miguel.vadillo@intel.com>, "mchehab@kernel.org"
+	<mchehab@kernel.org>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+Subject: [PATCH] media: i2c: cvs: Register subdev nodes upon binding remote
+ sensor
+Thread-Topic: [PATCH] media: i2c: cvs: Register subdev nodes upon binding
+ remote sensor
+Thread-Index: AQHdUM1nmRnvfDJuw0aAAGWiw0p6gQ==
+Date: Wed, 30 Sep 2026 11:19:40 +0000
+Message-ID:
+ <AM0PR03MB41134A56B8F1697407D08D54918B2@AM0PR03MB4113.eurprd03.prod.outlook.com>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=santannapisa.it;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM0PR03MB4113:EE_|AMBPR03MB11494:EE_
+x-ms-office365-filtering-correlation-id: 71e8d07a-670f-4f28-9757-08df1ee4b88d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|786006|1800799024|376014|366016|10067099003|11063799006|56012099006|6133799003|3023799007|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ 1P6sAjSoWqajZGDy2U0+nII5bLEbqYIGXPAgPRDZG5H/rpAUkRvNvfqS9w/ntz8OUMz0Yq8IuwoApP3c7M/fEeHf6wdiRN4vJ5dcjNz5XguF1Ic9+jp05dhcvvcIp2pNXx2vWnAgG86gHHYDmnexFOEERRvjylOLn8Hj8eUywhJxQDSEM86fVHJ4yJGkyTQnnsoPPoLpjdwWNGiz+ITjDyRmZPBNKlnZxVs4YzEXZVBfRWVD1dzWjYJhFZGwHBhphwtLikXBH35WE94h05rC7qDK3/9tCcNVscYTCkNB5mGBF9a2rb+jeQ4qKFKkRl/2/S4iVWOWij2zZceUM+GbI5FdM/L8ggWJUCgKvXP8c5S0fpvRvdYliRtu2QN4lOfTgVUeBiSZtKH6bZWgmlnEjDsimnXtNkm5ABGaBj4gs7zrEXwq1UaGbNQnYQHA6XtB9uNd13N4x+yVePrlOsBOAmLLyT6E1fCogontZFnycz288NvjElWuoCDU9P980F9U+xH53LYArNn6yOYMTHhGONLSy3jrfIyfDbbbngFyude763KPgu3OUwlydJ5m6H9KJGf6vdGu2B363aDyC0cSOaULw6fhDt/aHyzfWRP64b6WWmKkyw/vVra91WzZNwrL7xYa5WU9qxcz33y2sgbo7y8wIql4v249/I/Ljwl12ctZ2Z+DVqV6BPDVqAD87kBNfjyGsetayYsBLJMcYMWFPkCgGU4mlPC8FA3gH2ej8JY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4113.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(786006)(1800799024)(376014)(366016)(10067099003)(11063799006)(56012099006)(6133799003)(3023799007)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?+bz7X0h9ETZ/OsCBB6QXLan95tvF4LdOHzIfKSCZ/hY2lFvQ1cuGQC+On8?=
+ =?iso-8859-1?Q?YwMSgjrkc5b4RryQi/K9O4nNDsP32BhR68D/2vVair6b7pWH1voRm2bPhl?=
+ =?iso-8859-1?Q?jkWDnRiK0zziLA/zGBmPIO34mC7CvM60Ta3awUB4Tq0CmyBrfYtIbQXhng?=
+ =?iso-8859-1?Q?mhVaNKhUaYdP3HJYsO5wKYUX97hg8CK6HBfFukqmjcjIYGvlm1hndzCNmh?=
+ =?iso-8859-1?Q?2EhkrRCkPTYjy2Vl43Izs2qvdKeTFV/VfYiSbreaVi9TkIeq06qgvAt4k3?=
+ =?iso-8859-1?Q?1fBec5L2r4B5pz4rfTWNCbHsWx43P5eXhyqyaP7kNzC7BDRwdDaLeofT5C?=
+ =?iso-8859-1?Q?s+iuPoToRiE0Bq+CBtRSSYTjkOhH9u8177x4nb/BkukpLUIKXW2lTNohr4?=
+ =?iso-8859-1?Q?iJxcKdcNynLptO6qGoxNSQ7l1fSy79bBMrRFpBXftW3NQS3BRggu0em5JC?=
+ =?iso-8859-1?Q?51l1AJ6m6OcySPedaED9Df3ksZQFuppSgfPinfAq5v88k2lfAbDncUnyzV?=
+ =?iso-8859-1?Q?4CIYkUzKL+pOBUPDWo2D8itltXf9f2FLHDGUn4M/yQJjj5iVo3YUXKYxXf?=
+ =?iso-8859-1?Q?xvqglnr4+z5U1MrqtL0q+6UBWmR3gU8gN880DaQyt/dsIZQQUijimyu/Hn?=
+ =?iso-8859-1?Q?RMB8RmG/3BUDRM0W2yDswm3/LF2awzFwrhI1B7lKOTFOis/WD36Nwixi0J?=
+ =?iso-8859-1?Q?fpuoON1fZsVgBhDllCbIcBDsUByO5Ns9eCV9w2vXADJrGUzQcW27uQSj9b?=
+ =?iso-8859-1?Q?h/CoLNwMzCFv41xvvNbq9foNdieSmJI+Q9EitMSEcCnbT8udWUnKNRnZrg?=
+ =?iso-8859-1?Q?HZQ+XKBtmO62e4ukjSz6TpNlhBdwJUnn8vtTBOhsofEPWKerLZG/RBzc2M?=
+ =?iso-8859-1?Q?6M38gWYBuvJ+pIy/ZiRnSwnu6Ch7BYw93SPwcEOPzL1LKK2VVtOnYQvZDF?=
+ =?iso-8859-1?Q?cJBosn/pou3Rdaj7f3jUG9YDXw9sQBDTOn6rI6l8/Q7B6uczfoxhjQi+sD?=
+ =?iso-8859-1?Q?xR6HycseEyghH50aFT3F04wKPFvMIWLlKhPZp8H6mHzcn2JNCF3norJtHD?=
+ =?iso-8859-1?Q?l/i4ojDJd+u8WvCCQZ19H4d4f1MvLyzYCb6dAniOtNn2KXqoIwN6f8mARb?=
+ =?iso-8859-1?Q?RIJ1IWgzfrRad9gFhlRQq2RgkNyER0jm0BFHV2NMz9w0+clDV+ZGkezWMJ?=
+ =?iso-8859-1?Q?v1Y5LNVZkJc4MEY5m1nLNTcd0yELoesIwpkNc4YQflfzZdIreAEREcV+fB?=
+ =?iso-8859-1?Q?t5HR1CQXLQySsQdpivIOlVwpwqFoBsSGc41Dpm6M0+SSQlISka3y+ygmxA?=
+ =?iso-8859-1?Q?reBkzH2lm5d1GAqPtiXEwLFSleaj3CNLfrE6nKfUBq1lzlm43IPC/qD6Di?=
+ =?iso-8859-1?Q?jNG/41+SR/akJo/Rl8NZxmsYuk57SjgSZCJljCvZEksaVfktI90ldX49RM?=
+ =?iso-8859-1?Q?j1VECH7UCAzekcTEPLQr9Amcu1usO2QHmYmhgIh9l/ysHU+ZuJDP+l1SVD?=
+ =?iso-8859-1?Q?Iy2sL7XgsoffnRYeZsT23I0kbqlam1S6k3xyCF8/KImETq8BtGSVEx0oCP?=
+ =?iso-8859-1?Q?PtvZI82Rhsfx4N1b7wFd2eR8ORK9k1GcHMho3Obpv7PCz6fauQNBTDY+KN?=
+ =?iso-8859-1?Q?C45Tuh1E7BICyMol6KHeXeIwuAuzEGzZjj6ep69qwsRsSEe874++N49kTf?=
+ =?iso-8859-1?Q?Hiw3wGCSFmHUllQkJbmW7wlLHmibq67P4Lfne98+bJrOUOW/jKqQv5Geji?=
+ =?iso-8859-1?Q?sHPU1FD4qvRNlLOQ+EEC+HHE1zHCuxKW6SKO81PwZZ+MjA0uguQHoZq3uU?=
+ =?iso-8859-1?Q?xskt6XmqzQ=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-References: <20260914233810.GA2796257@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Stefan Klug <stefan.klug@ideasonboard.com>
-Cc: Loic Poulain <lpoulain@qti.qualcomm.com>,
- Michael Riesch <michael.riesch@collabora.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-In-Reply-To: <20260914233810.GA2796257@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: santannapisa.it
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4113.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71e8d07a-670f-4f28-9757-08df1ee4b88d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 11:19:40.7322
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d97360e3-138d-4b5f-956f-a646c364a01e
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: S6WBtgqBACBtuSMQCQjcrMwaNnwO1drIHBE1iJfEHhjav/nYQnFImm855stt6D9QVRMfKrVRwdwLNYoBUZ2eOlGSe+btSqjqLZWgPvYltnw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR03MB11494
 
-Hi everyone,
-
-On 15.09.26 01:38, Laurent Pinchart wrote:
-> Hello,
-> 
-> As most of you already know, the Linux Plumbers Conference will host a
-> Camera & ISP BoF in Prague in three weeks ([1]).
-> 
-> The initial proposal for a microconference has unfortunately been
-> downgraded by the program committee to a 45 minutes BoF. We have
-> therefore decided to limit the discussion to three topics at most. Two
-> topics have been approved so far:
-> 
-> - RGB-IR support in V4L2 and libcamera
-> 
->   by Rishikesh Donadkar and Devarsh Thakkar, Texas Instruments
-> 
->   The Linux kernel V4L2 API does not support RGB-IR image sensors.
->   While building blocks necessary to handle those devices are slowly
->   being merged, RGB-IR support itself hasn't been tackled yet.
-> 
->   Rishikesh and Devarsh will also present this topic at the OSS Europe
->   conference ([2]).
-> 
-> - Camera module identification
-> 
->   by Stefan Klug, Ideas on Board
-> 
->   Camera tuning and calibration depend not only on the image sensor, but
->   also on the lens and other characteristics of camera modules. While
->   Linux supports identifying image sensors, it completely lacks the
->   concept of camera modules. 
-> 
->   Identification of camera modules requires coordination between
->   platform firmware (DT or ACPI), the kernel and userspace. Discussions
->   will benefit from the presence of DT maintainers.
-> 
-LPC is already next week and we won't have enough time on the BoF for a
-full introduction to the topic. So this email summarizes the Module
-identification topic and contains the questions I'd like to discuss.
-
-To the device-tree maintainers: I added you to the invitation as this
-document proposes new device tree properties and I'd love to get some
-feedback and common understanding on these. So if you'd be able to join,
-that would be fantastic.
-
-Most of this mail is introduction and context. If you are short on time,
-please jump directly to the last headline "### 4. Camera modules without
-data storage" which contains the most relevant questions.
-
-Disclaimer: Even though it uses markdown syntax, this document is
-entirely written by a human and therefore the language is not as
-polished as one might expect from an AI generated one - sorry for that :-)
-
-Best regards,
-Stefan
-
-
-# Camera Module identification
-
-## Problem statement
-
-In many cases where a camera is involved it is a so called "complex
-camera", meaning a sensor is connected to an Image Signal Processing
-(ISP) unit that often is part of the SoC. In most cases the sensor is
-soldered to a separate PCB together with a bit of electrical
-infrastructure like regulators and an eeprom. In this document I call
-these "camera modules". Sometimes camera modules are sold separately
-like a Raspberry Pi Camera, in other cases the module is part of bigger
-device like in a modern laptop.
-
-Sensor and ISP are orchestrated by libcamera to create a proper image
-from the RAW data produced by the sensor. To be able to do that
-properly, libcamera needs a "tuning file" which contains tuning
-parameters for a given camera module. These tuning parameters depend not
-only on the sensor model, but also on physical properties of the camera
-module. These are e.g. the material and geometry of the lens in the use,
-the mounting position of the lens, in extreme cases even the individual
-module due to production tolerances.
-
-So to produce a good image, libcamera must be able to select the correct
-tuning file for the camera module at hand. Currently libcamera only uses
-the sensor name to select the tuning file. This is not sufficient as it
-misses the properties mentioned above. There is a prototype of libcamera
-that implements a simple scheme that collects as much information as
-possible and chooses the best fitting tuning file (in this proposed
-implementation the one that matches most tags). However the exact
-implementation details are out of scope for this discussion. Side note
-here: Tuning files are not necessarily part of libcamera, therefore the
-selection process must be a able to select a tuning file that was not
-known by libcamera at compile time.
-
-To make this a bit more concrete, here are some examples for such cases
-(these are also the reference cases that I'll use in the dicussion):
-
-1. The webcam in a modern IPU6 based laptop (meaning Intel + ACPI) that
-could include camera modules with the same sensor but from different
-suppliers (meaning slightly different lenses and optical characteristics)
-
-2. Camera modules with an embedded EEPROM that contains additional data.
-Think of a camera module connected to a Raspberry Pi. The data stored in
-the EEPROM could be anything from a SKU, a module name, or even
-calibration data like colour correction matrices and lens shading
-descriptions. The format of the data stored in the EEPROM is
-vendor-specific.
-
-3. Camera modules with a sensor that has an embedded OTP memory with
-additional data. Same case as before, but the sensor driver has direct
-access to the data and, depending on the use-case, also knows the
-internal format of the data.
-
-4. Camera modules without data storage with the same sensor but from
-different manufacturers and with different lenses (screw-on or not, wide
-angle, IR cut filter,...). Same case as before but no way to identify
-the module. Compared to case 1 the modules are normally sold separately
-and can therefore not be inferred from the main device.
-
-Cases 1-3 are easier to solve and added here for completeness sake. Case
-4 is the main point I'd like to discuss.
-
-## Related topic (udev/hwdb)
-
-After my talk at the Linux Media Summit 2026 I got the feedback to look
-closer at hwdb. I did that and I think it could solve parts of the problem.
-
-For those of us who (as me) are not that familiar with udev & hwdb here
-is a quick summary:
-
-Udev and hwdb are part of systemd. They can be used without systemd so
-they are also used by non-systemd setups.
-Udev consists of the udev-daemon that:
-
-- Is notified when a device is added/removed
-- Runs rules that
-  - Create device symlinks
-  - Query sysfs
-  - Query the hwdb
-  - Attach properties to devices
-  - Attach tags to devices
-  - ...
-
-Interestingly there is already /lib/udev/v4l_id that is used by udev to
-collect some V4L properties:
-
-```
-$ /lib/udev/v4l_id /dev/video6
-ID_V4L_VERSION=2
-ID_V4L_PRODUCT=HD Webcam C615
-ID_V4L_CAPABILITIES=:
-```
-
-This is run by udev in /lib/udev/rules.d/60-persistent-v4l.rules
-And essentially executes:
-SUBSYSTEM=="video4linux", IMPORT{program}="v4l_id $devnode"
-
-hwdb is a complementary utility that adds specific rules for known hardware.
-
-In hwdb there are already some camera specific things:
-70-camera.rules and 70-cameras.hwdb  [2],[3]
-which set
-```
-ID_INFRARED_CAMERA=0|1
-ID_CAMERA_DIRECTION=front|back
-```
-
-which are used in a similar manner:
-
-```
-SUBSYSTEM=="video4linux", ENV{ID_BUS}=="usb", \
-  IMPORT{builtin}="hwdb
-'camera:usb:v$env{ID_VENDOR_ID}p$env{ID_MODEL_ID}:name:$attr{name}:'"
-```
-
-So udev/hwdb provides an accepted way to gain more system knowledge and
-to provide that to libcamera. It is an open discussion which parts of
-the detection logic should live inside libcamera and which are better
-located in udev.
-
-## Diving into the examples
-
-Lets look at the example I listed to see how these would be solved.
-
-### 1. Laptop with camera module from various manufacturers
-
-I believe this can be solved by either integrating the detection logic
-in libcamera and/or adding rules to udev/hwdb. But we are lacking real
-examples. So if you're able to provide identification strategies for
-real, existing hardware, I'd be glad to know about it. One strategy
-might be to use the machine identifier provided by DMI. This is however
-quite coarse and can not handle cases where the manufacturer used
-different camera modules from different vendors (using the same sensor
-model). ARe there for example ACPI properties that we could query for
-additional information?
-
-Q: Does anyone in this group have more details on which information to
-query and where to get more details from the system?
-A: ...
-
-### 2. Camera modules with an embedded EEPROM
-
-To make use of the EEPROM data from user space we need to carry two
-elements: The EEPROM data itself and some identifier telling which
-format the data in the EEPROM has. This seems relatively straightforward
-and we could model it like this in dts:
-
-dts-snippet:
-imx283_0: sensor@1a {
-		compatible = "sony,imx283";
-    ...
-    eeprom = <&eeprom>;
-    eeprom-format = "vendor-a-eeprom-fmt";
-};
-
-Getting the link to the EEPROM from user space is something to
-investigate. Ideas are either sysfs or media-controller.
-The eeprom-format must be specified as well, to tell user space how to
-interpret the EEPROM data, as it is typically not self-contained.
-
-Q: On a first discussion on that topic we were unsure if it would be
-preferred to expose the data directly in sysfs,
-or to symlink to the corresponding sysfs entry for the EEPROM. Any
-preferences?
-A: ...
-
-Q: Any input/things to consider from ACPI side?
-A:
-
-Q: What happens if the EEPROM driver is not loaded yet or is just not
-available? Should it block/defer probing of the sensor?
-A:
-
-Q: We are missing real-life examples for these cases. So input from
-vendors would be welcome.
-A:
-
-### 3. Camera modules with a sensor that has an embedded OTP memory
-
-This case is similar to the previous one. The big difference is that the
-OTP memory can be handled by the sensor driver itself, so no additional
-driver is necessary. In this case a practical solution could be to
-expose the OTP data via sysfs. Handling in user-space is similar to the
-EEPROM case. So the device driver could expose an otp_data and
-otp_format attribute in sysfs for user-space to read.
-
-The property otp_format contains a name of the format of the OTP data.
-There are cases where the format is specific to the sensor vendor and
-cases where the format is specific to the module vendor. So it should be
-possible to specify that in the device tree.
-
-### 4. Camera modules without data storage
-
-This is the most difficult and most controversial case. In this case we
-can't identify the module automatically by querying the hardware. It is
-also not possible to rely on the machine identifier as with example 1.
-Think of an arbitrary camera module connected to a Raspberry Pi - the
-machine identifier will not change just by connecting a camera.
-Therefore we'd like to supply all necessary information with the device
-tree.
-
-The difficulty is that the combinations are huge and there is no common
-denominator (for some modules one might be able to get an SKU, for
-others it will even be difficult to get an official name).
-
-This is quite contrary to typical device tree use-cases where we try to
-tie down everything as far as possible.
-A flat list of module identifiers (like compatible strings) won't work
-as it should be possible to standardize aspects of a module, even if not
-everything is know. Think of a Raspberry Pi Cam HQ with a screw-on lens.
-It would be great to be able to specify that module, but the lens is
-still up to the user.
-
-In [1] I proposed a possible solution to that problem. A tag-based
-system with a single device tree entry of space separated tags. Every
-tag carries a prefix to denote a category:
-
-Tag                 Example
-m:<ModuleName>      m:vc-mipi-imx296
-v:<Vendor>          v:RaspberryPi
-l:<Lens>            l:generic-8mm-ircut
-s:<Sku>             s:B030801
-u:<user defined>    u:my-selfmade-module
-
-This is a bit like the existing "label" property which carries a human
-readable label. So an example for a module could be:
-
-imx283_0: sensor@1a {
-		compatible = "sony,imx283";
-    ...
-    module-info = "v:RaspberryPi m:camera-module-hq
-l:generic-8mm-wide-angle";
-};
-
-This leads to the immediate question: Should we split the tags into
-properties?
-
-imx283_0: sensor@1a {
-		compatible = "sony,imx283";
-    ...
-    module-name = "camera-module-hq";
-    module-vendor = "RaspberryPi"
-    module-lens = "generic-8mm-wide-angle";
-};
-
-Pros: We could try to standardize on some values.
-Cons: We add a (possibly increasing) number of properties that have no
-value inside the kernel and will only be populated very sparsely.
-
-Q: Would the dtb maintainers accept such a property?
-A:
-
-Q: Are there other/better ways to convey that information?
-A:
-
-# Links:
-
-- [1]
-https://www.linuxtv.org/downloads/presentations/media_summit_2026/Stefan%20-%20Module%20Identification.pdf
-- [2] https://github.com/systemd/systemd/blob/main/rules.d/70-camera.rules
-- [3] https://github.com/systemd/systemd/blob/main/hwdb.d/70-cameras.hwdb
-
+The Intel CVS driver acts as an intermediate CSI-2 bridge between=0A=
+the host receiver (e.g. IPU7 ISYS) and the downstream camera sensor.=0A=
+When the host driver initializes, its async notifier completes upon=0A=
+binding the CVS bridge and registers its initial subdev nodes.=0A=
+=0A=
+However, when the CVS bridge subsequently binds the downstream sensor=0A=
+via its own async notifier callback (cvs_csi_notify_bound), it creates=0A=
+the media pad link but omits calling v4l2_device_register_subdev_nodes().=
+=0A=
+As a consequence, downstream sensors declaring the flag=0A=
+V4L2_SUBDEV_FL_HAS_DEVNODE (such as ov02c10) never have their=0A=
+/dev/v4l-subdev* character device created, preventing userspace=0A=
+frameworks like libcamera from opening the sensor.=0A=
+=0A=
+Call v4l2_device_register_subdev_nodes() in cvs_csi_notify_bound() once=0A=
+the media pad link is established to expose newly bound subdevices.=0A=
+=0A=
+Signed-off-by: Mauro Nino Marinoni <mauro.marinoni@santannapisa.it>=0A=
+---=0A=
+ drivers/media/i2c/cvs/v4l2.c | 15 ++++++++++++---=0A=
+ 1 file changed, 12 insertions(+), 3 deletions(-)=0A=
+=0A=
+diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c=0A=
+index 9fadca7a3bee..6ac4ad6d871c 100644=0A=
+--- a/drivers/media/i2c/cvs/v4l2.c=0A=
++++ b/drivers/media/i2c/cvs/v4l2.c=0A=
+@@ -13,6 +13,7 @@=0A=
+ #include <media/v4l2-async.h>=0A=
+ #include <media/v4l2-common.h>=0A=
+ #include <media/v4l2-ctrls.h>=0A=
++#include <media/v4l2-device.h>=0A=
+ #include <media/v4l2-event.h>=0A=
+ #include <media/v4l2-fwnode.h>=0A=
+ #include <media/v4l2-mc.h>=0A=
+@@ -401,6 +402,7 @@ static int cvs_csi_notify_bound(struct v4l2_async_notif=
+ier *notifier,=0A=
+ {=0A=
+         struct icvs *ctx =3D notifier_to_csi(notifier);=0A=
+         int pad;=0A=
++       int ret;=0A=
+ =0A=
+         pad =3D media_entity_get_fwnode_pad(&sd->entity, asc->match.fwnode=
+,=0A=
+                                           MEDIA_PAD_FL_SOURCE);=0A=
+@@ -409,9 +411,16 @@ static int cvs_csi_notify_bound(struct v4l2_async_noti=
+fier *notifier,=0A=
+ =0A=
+         ctx->remote =3D &sd->entity.pads[pad];=0A=
+ =0A=
+-       return media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,=
+=0A=
+-                                    ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLE=
+D |=0A=
+-                                    MEDIA_LNK_FL_IMMUTABLE);=0A=
++       ret =3D media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity=
+,=0A=
++                                   ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED=
+ |=0A=
++                                   MEDIA_LNK_FL_IMMUTABLE);=0A=
++       if (ret)=0A=
++               return ret;=0A=
++=0A=
++       if (ctx->subdev.v4l2_dev)=0A=
++               return v4l2_device_register_subdev_nodes(ctx->subdev.v4l2_d=
+ev);=0A=
++=0A=
++       return 0;=0A=
+ }=0A=
+ =0A=
+ /**=0A=
+--=0A=
+2.53.0=
