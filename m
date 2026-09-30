@@ -1,160 +1,149 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E596B511180
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 15:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50924D1787;
+	Wed, 30 Sep 2026 15:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783344; cv=none; b=rUSstQJL9K7VDR82FxpHVu+wyM/kDUpC5eaGT4E0m54OTP+sdcuT5gKiGFurk9ikDx9g48ROvYh8iOyjT1XtfIRFR8R95rbhuJo7KZPXK61ME3FJZpgWaD6EDlaKRi/uuuv/nq1XAPgIvESZlqMIhTTJlBqsRWJwb1fDSO3YkhE=
+	t=1790783913; cv=none; b=FCX+nABzNWKSO2+2YQH2ZQikHMzBBQd7YMGvYTjVdjZsAT6QXP4uyUCK1SQJvxRzMptVsAaBc+YWK3AgYdhUK40cTkWcNzz2imYz05O6g+wt0aVjS1HdzK7R5jy1NtZnNtnnA00HRnhL2gJb8ni2rSIUk/2T/q0sJqleCD+NjzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783344; c=relaxed/simple;
-	bh=QCdSHI2SuhoD7qC/wY8SB6ThI20K2KtGW46geTtY5QQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OnkCEB9/hacwQpSFgByA/cYmgwd6gK1oJPaTnkUV1U5ojw6wcAV6DvXWmK9q30WyAwgBZQ/LtIQcz6mGNXHMMZ8o7sgrZaZn+elndne2ST3bsEXA7azfCybBwLq0SUpXJZvZwfWH7Tmv8ZUdOYF2cAwAgvJvZTxyLiiciayeDt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=XJVvgZvl; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	s=arc-20240116; t=1790783913; c=relaxed/simple;
+	bh=7+uOAdwvRA5Phs71HOWvHd2WnABdLy2EzB8eI2nyFFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lqTI12H6q0H84KMyhlgT9gmEZn/iqjp61tDA5rFSJatvq8zU0nlK0U8uiX3Q5xqHh6PlSUnk8h6Yg1SDGRU91+5rrANOAeMjKSzexzdFe/2YegbpPcA8IjjdKnpkSeUCO9jwVR434AzJdX/lZ+enO2qW0fa6M9fnzZw9tD7hgak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=L2tfF9HC; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="XJVvgZvl"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4eda6744bso250588a91.1
-        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 08:49:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790783337; x=1791388137; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y41Q9WFkOR6sDX/bibH4WaOpuLUrtGQ8SMNMm1pPqNc=;
-        b=XJVvgZvl9f8mAfQB9YkfbaDE+PFAFnw0kLqZ1g+Z8x83ZxXmXCvF2Xkg7fGt70Jj6l
-         1zx2Fl/piWCRuZf9I+Pc6WQ7rqtnu0H48U2K42UVc8AB/FZIdq9i3zROmXpX5UutPjns
-         wG9ctOWDi8gJcSZZeoiKhVkp1qAtkgC4jG47Va5cyMAHBiWSFDWUHroe6X21I2dVAqOQ
-         pZ2bloKVO/IiMR/n5Gl9GE3yZPsli2eeNpc87wGj1fG4g5MjtKpVEp06TeVEYQgD2l0T
-         3BMw1GrS44NmqvB+pc6jtdH3ACxSaHFRX7vfb+WwVrxKKFvPe/k6tniGV/uydUOnGCU3
-         YCmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790783337; x=1791388137;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y41Q9WFkOR6sDX/bibH4WaOpuLUrtGQ8SMNMm1pPqNc=;
-        b=VOFHx6uVO5x154+6NuyPYb/qjFuRHRGdggj+3tbKD7Z2GYQZoX+czGddcLrYdEZMTo
-         kM2hsv7j3Ykz9rbuZwBXDJlVMpcUVVZWM+NR761OyE4yU/3I5aK71NGInQqAFJrajXNN
-         WlhmEgG8tK/nEyRuXUiIi9Iv/UexpdryR+NYnLV8AqhMGnJ8d+g5mvSTJVEZM8UVkxoX
-         rKlkZpkgC2ceyNq4VnMCvL2aWS0S3n0lG6ZO3brIC7eMe/SCbaHmwkpape1UU9Tnz8DZ
-         dX6aULmNhuEPzbcHC4IuQhZIlCScUvZokjiqWTdGHcDh2kNhp+rnt15T6M69bMj+gIeS
-         gBkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxSlpx3/PLHP2nzfGjpS9wWAY75r+0h287ZGdNUPfMtrSx1W8shulyJ2SiYhc4FePwA8um93u1b/6jIhw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMRsZwyedsv9I56DibSGhxUpRr9U5wRWmgwOl3gAQXKSSrPRRf
-	KOopzzym/6Xp4UsgfA7JKXRmngu8rDcZIjMKOTQLALICp6LfU0vw96GUfoFGKXbuE2+B
-X-Gm-Gg: AYBFou1m78FMh6rFuKTiLOA3mSBCeBTZ2WXZmdeLYJdWc6rMlDiyQ+YrDsvHr9R+H5+
-	0Gk628K4WTeCi7GDcsUugDc6ILM+aOfAodhnwsUW3DgSR6rZ/31GriBuIFoBfG7FEhbjBkvjfx1
-	oayCMf2qn1SapdeIZGJa3uK8lxFnoJivLrXE76Xe63piE+cTeENd3JpqHDR1dbEQ8aIh34AdmxH
-	i00UobCDEOedoMRnpmNqdkPoQcOkTsufTx1qT6XHw3NUIpPy0CfCmSDo5IoBSZc72wL0nzd5ahA
-	BNbhyIrhfu/kjXfWV5pQ/NyLuF0+IBXAIDepVB7w5Hkiah/1qNDXMRbsgQKXF2tn+B0KKPlzLC8
-	YpqKWvuf3/e/DrqtgwLqzoZf0VBQBTWJQQrXOSrfRkiSNtT3xoCVxpfIUQ0S6xH9YzkuMtDDtXs
-	DUncA503DqqoiRIfdF0IC948y3P6iUHnuqKAeCelgdS893zmGRDGH9TxNklHtJXth4X62J9HDYU
-	xoXk2s7
-X-Received: by 2002:a17:90b:35c3:b0:3a0:ca03:3e1f with SMTP id 98e67ed59e1d1-3a4d154522bmr1584586a91.32.1790783337518;
-        Wed, 30 Sep 2026 08:48:57 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ee4d0af2sm308136a91.2.2026.09.30.08.48.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:48:57 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] riscv: dts: allwinner: d1s-t113: Add the CSIC node
-Date: Wed, 30 Sep 2026 22:48:35 +0700
-Message-Id: <20260930154835.402684-4-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
-References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L2tfF9HC"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 34D4C34;
+	Wed, 30 Sep 2026 17:56:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790783786;
+	bh=7+uOAdwvRA5Phs71HOWvHd2WnABdLy2EzB8eI2nyFFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=L2tfF9HC3qurjOKRXYDMqOKASmD+Fr11uViI6pruu4IK+X2gjb+Qrc0LPbo2ClC/i
+	 pQ50KvP2bVEDVqeebyd/BBPmVqkW68rD+oEjTdYgMuso89FKaU5zYqVN2gKEIaX8Kh
+	 049B+Gb1N/HvapsKch/NcZ4isnk/qWbGR2u6qN6Y=
+Date: Wed, 30 Sep 2026 17:58:14 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Paul Cercueil <paul@crapouillou.net>, 
+	Anitha Chrisanthus <anitha.chrisanthus@intel.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Alexey Brodkin <abrodkin@synopsys.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, 
+	Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+	Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
+	Houlong Wei <houlong.wei@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>, 
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ge Gordon <gordon.ge@bst.ai>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>, 
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, BST Linux Kernel Upstream Group <bst-upstream@bstai.top>, 
+	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+	Chunyan Zhang <zhang.lyra@gmail.com>, 
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-media@vger.kernel.org, openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org, 
+	kernel@collabora.com, linux-tegra@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH 21/42] media: arm: mali-c55: Use
+ devm_of_reserved_mem_device_init()
+Message-ID: <ar0xb9md8E76G5VI@zed>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-22-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260703193855.110619-22-mukesh.ojha@oss.qualcomm.com>
 
-Add the CSIC node to the dtsi shared by the D1, D1s and T113, with the
-pin groups of its parallel input. MCLK has its own group, for the sensor
-node.
+Hi Mukesh
 
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
----
- .../boot/dts/allwinner/sunxi-d1s-t113.dtsi    | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+On Sat, Jul 04, 2026 at 01:08:34AM +0530, Mukesh Ojha wrote:
+> Use the devres-managed devm_of_reserved_mem_device_init() instead of
+> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
+> pair, letting the device resource manager handle cleanup automatically.
+>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-diff --git a/arch/riscv/boot/dts/allwinner/sunxi-d1s-t113.dtsi b/arch/riscv/boot/dts/allwinner/sunxi-d1s-t113.dtsi
-index 13b1e57166..dd4c873457 100644
---- a/arch/riscv/boot/dts/allwinner/sunxi-d1s-t113.dtsi
-+++ b/arch/riscv/boot/dts/allwinner/sunxi-d1s-t113.dtsi
-@@ -70,6 +70,20 @@ clk_pg11_pin: clk-pg11-pin {
- 				function = "clk";
- 			};
- 
-+			/omit-if-no-ref/
-+			csi0_8bit_pins: csi0-8bit-pins {
-+				pins = "PE0", "PE1", "PE2", "PE4", "PE5",
-+				       "PE6", "PE7", "PE8", "PE9", "PE10",
-+				       "PE11";
-+				function = "ncsi0";
-+			};
-+
-+			/omit-if-no-ref/
-+			csi0_mclk_pin: csi0-mclk-pin {
-+				pins = "PE3";
-+				function = "ncsi0";
-+			};
-+
- 			/omit-if-no-ref/
- 			dsi_4lane_pins: dsi-4lane-pins {
- 				pins = "PD0", "PD1", "PD2", "PD3", "PD4", "PD5",
-@@ -997,6 +1011,23 @@ tcon_tv0_out_tcon_top_hdmi: endpoint {
- 			};
- 		};
- 
-+		csi: csi@5800000 {
-+			compatible = "allwinner,sun20i-d1-csi";
-+			reg = <0x5800000 0x400000>;
-+			interrupts = <SOC_PERIPHERAL_IRQ(95) IRQ_TYPE_LEVEL_HIGH>,
-+				     <SOC_PERIPHERAL_IRQ(96) IRQ_TYPE_LEVEL_HIGH>,
-+				     <SOC_PERIPHERAL_IRQ(100) IRQ_TYPE_LEVEL_HIGH>,
-+				     <SOC_PERIPHERAL_IRQ(106) IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_CSI>,
-+				 <&ccu CLK_CSI_TOP>,
-+				 <&ccu CLK_MBUS_CSI>;
-+			clock-names = "bus", "mod", "ram";
-+			resets = <&ccu RST_BUS_CSI>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&csi0_8bit_pins>;
-+			status = "disabled";
-+		};
-+
- 		ppu: power-controller@7001000 {
- 			compatible = "allwinner,sun20i-d1-ppu";
- 			reg = <0x7001000 0x1000>;
--- 
-2.34.1
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
+I'll collect this single patch for the Mali-C55 PR for v7.4
+
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 12 +++---------
+>  1 file changed, 3 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index 94a389b3f833..afbec11f69f8 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -801,14 +801,12 @@ static int mali_c55_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to acquire resets\n");
+>
+> -	of_reserved_mem_device_init(dev);
+> +	devm_of_reserved_mem_device_init(dev);
+>  	vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
+>
+>  	ret = __mali_c55_power_on(mali_c55);
+> -	if (ret) {
+> -		dev_err_probe(dev, ret, "failed to power on\n");
+> -		goto err_release_mem;
+> -	}
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to power on\n");
+>
+>  	ret = mali_c55_check_hwcfg(mali_c55);
+>  	if (ret)
+> @@ -847,9 +845,6 @@ static int mali_c55_probe(struct platform_device *pdev)
+>  	kfree(mali_c55->context.registers);
+>  err_power_off:
+>  	__mali_c55_power_off(mali_c55);
+> -err_release_mem:
+> -	of_reserved_mem_device_release(dev);
+> -
+>  	return ret;
+>  }
+>
+> @@ -864,7 +859,6 @@ static void mali_c55_remove(struct platform_device *pdev)
+>  	}
+>  	pm_runtime_disable(&pdev->dev);
+>  	kfree(mali_c55->context.registers);
+> -	of_reserved_mem_device_release(&pdev->dev);
+>  }
+>
+>  static const struct of_device_id mali_c55_of_match[] = {
+> --
+> 2.53.0
+>
