@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EEF37E5DB
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 09:37:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E39386552
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 09:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790761031; cv=none; b=ofMd4aNAyAyVUJIKY5WANxDOtkvsI2wQxhj4O5iJiuRgcDY4fW7XwPrjBS7SFnmDM5QkXZVCFNLtxrmXSk2Ss2rI1UWp8Ty8GVC2Bd4pEiutMl4zHltt7W0xbK5ks63gAUg3yMYhf2oFX0yM6wlUK3vHMTPQVqT3NaUw5DJvkYw=
+	t=1790761031; cv=none; b=EpyTxBPHhH5+MKraNaMfmfUc1ZJRgmZUcYHCp3OagAfELCoIC6wrlUdN9xJoiy6zRzt8H7GuXjLOy6WaOLjcbT21vE96JP7FgdowSS59Ae0FGPkSinToDu1E2M9MXE7Fc379fv6i2X58FmhhpqZxO63FQQuShNEvm5G4NHJDq/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790761031; c=relaxed/simple;
-	bh=qNJ/St5rT4U9Knnp2KbnCm1mddRBkER8idvV4hfJNgU=;
+	bh=DkWHTbY7cKIaGzbtxtuD7sIaOOSb0F63KJMnjaEBGrs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N+Z3dggCVrSU8rG8TO9OZ58SKbKRcOhfBq8rxjtta8/aXKG3p5yZP1PSxPA+OaKMWxgeBn4lxMHjiVvj8X85uK+13GV8sCkkIi6TsE1v6YiYeiQPvL3k7m73uy4nUuW+BA5aIO3eFb2K6M6NAKroAXBGTmGl8Acu6Tbl1fj+7GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RUilkpOU; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=KQJxtH4/lDP2YsHCGhbHz5jGK02UqTaTBYyzdK0nbnrFBs5xshWbuZXkgNC08BZmBIjnbGNSd1SWSbDj32CZ4WElqRddDRC/9Yc7fS7ar/nVOOb95OPTyzhMRfD/7Kp0NMQVNVe9LUf7JWMIaK+jxWlzCZ3vWtbVCB029wrX6e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XvUAz0iI; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RUilkpOU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XvUAz0iI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1790761030; x=1822297030;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=qNJ/St5rT4U9Knnp2KbnCm1mddRBkER8idvV4hfJNgU=;
-  b=RUilkpOUg4VJx2germoHGbtinI35TGP/DH52KPd1WWwqH3cIKIdwwVxt
-   FE5PDc8e52EGIqbChg1rX9lr+4HGaNW7j+JdYkszKVj3ihKx29UM5+Egf
-   n7yyizT0IhHUzDZ/fdRmU1poqYwoQprZqlbpjJhrxdC6rVOTR3L3kHLhu
-   2GI9e34BeqxgomO4XisRvvdL3EPB6F60OXbtwcl8v/T0UfBrRHG9EYi/J
-   91SP5jXyOmlQw2ZBff1OGWI3zkLDwBiGiPZGGgVfRLWLaI06iUgunlq4y
-   BbMb0t0qtOh/KhE2B1uaAn6datdWDRnWLQuiypZ2UBUaryH2UNrva7z4u
-   Q==;
-X-CSE-ConnectionGUID: ktDjjtBqQU2ps/pyKgFzww==
-X-CSE-MsgGUID: bIC0gZSCRCCy+RWsc+Svdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90394169"
+  bh=DkWHTbY7cKIaGzbtxtuD7sIaOOSb0F63KJMnjaEBGrs=;
+  b=XvUAz0iIhyn9f2YqkzTsq2Ux+ZzOakUqYlaC6ixp45mdatecuCVNalQZ
+   I1d4dyAjEL66NivHy7xDuYNzWarTy+ivv0wTu3EuZnTyV8OsbW2z0O/VK
+   KYW56bn/OoEMQ/8RhOEUry7d3tuF2Sn57iSr5kbVrnJjIkwlTBZmDGxPN
+   Duts2GFEl/Blw0qL71H8welgo2cPQAKdMkApzpERPcwaJlYM2r0Mxm5i5
+   gscywvFJkgTWwAeJZVy/TIBwt0sagaBUBFjymKhNvmGoopkdOY42aQM6z
+   wURMRRxbUk4GmAs5Bf2Y+kBbXmguNIIM6DKdUWP5eW4/109rT+vb3of5h
+   w==;
+X-CSE-ConnectionGUID: /W2eGs+tSQii+B9Vkv/MNQ==
+X-CSE-MsgGUID: tSRcVTYKQLy1snsF0cuJlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90394170"
 X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90394169"
+   d="scan'208";a="90394170"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:37:07 -0700
-X-CSE-ConnectionGUID: KEFyHK1ZQ6S2k3EA/AY9zA==
-X-CSE-MsgGUID: AsXXeVA+TlCtW4GUU3kz3A==
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:37:08 -0700
+X-CSE-ConnectionGUID: 7i0iY5CfQ/W3CY2rmUmm6Q==
+X-CSE-MsgGUID: 0SQYLEl3QoKrw8pOJOlNiw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="279442921"
+   d="scan'208";a="279442924"
 Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
   by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:37:05 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 08DC811F8A5;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0A9E411FA30;
 	Wed, 30 Sep 2026 12:37:10 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xBqkP-0000000B13f-0eDP;
+	id 1xBqkP-0000000B13j-0kJt;
 	Wed, 30 Sep 2026 12:37:09 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	"Sapre, Sarang" <sarang.sapre@intel.com>,
 	Manik Bajpai <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v2 1/2] media: ipu6: Reset need_reset in ISYS suspend
-Date: Wed, 30 Sep 2026 12:37:08 +0300
-Message-ID: <20260930093709.2625661-2-sakari.ailus@linux.intel.com>
+Subject: [PATCH v2 2/2] media: ipu6: Warn if the active list isn't empty when returning buffers
+Date: Wed, 30 Sep 2026 12:37:09 +0300
+Message-ID: <20260930093709.2625661-3-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260930093709.2625661-1-sakari.ailus@linux.intel.com>
 References: <20260930093709.2625661-1-sakari.ailus@linux.intel.com>
@@ -71,32 +71,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The need_reset field in struct ipu6_isys tells whether the device needs a
-power-on reset. Resetting the field was removed unintentionally in commit
-70e3fac3ec78 ("media: ipu6: Move firmware init/cleanup to RPM callbacks").
+The ISYS needs a reset when the active buffer list isn't empty. Warn about
+this.
 
-Add it back.
-
-Fixes: 70e3fac3ec78 ("media: ipu6: Move firmware init/cleanup to RPM callbacks")
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 60f5f9ea2910..74bb48c1f814 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -826,6 +826,10 @@ static int isys_runtime_pm_suspend(struct device *dev)
- 		ret = -EIO;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+index 2608e3b91acb..23d00e1f89e8 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+@@ -467,6 +467,8 @@ static void return_buffers(struct ipu6_isys_queue *aq,
+ 		mutex_lock(&av->isys->mutex);
+ 		av->isys->need_reset = true;
+ 		mutex_unlock(&av->isys->mutex);
++		dev_warn(&av->isys->adev->auxdev.dev,
++			 "buffer list not empty, needs isys reset\n");
  	}
- 
-+	mutex_lock(&isys->mutex);
-+	isys->need_reset = false;
-+	mutex_unlock(&isys->mutex);
-+
- 	isys->phy_termcal_val = 0;
- 	cpu_latency_qos_update_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
+ }
  
 -- 
 2.47.3
