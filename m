@@ -1,697 +1,289 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020140.outbound.protection.outlook.com [52.101.225.140])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F662F8E91;
-	Wed, 30 Sep 2026 13:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C274E4322;
+	Wed, 30 Sep 2026 13:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776062; cv=fail; b=X68rChYTZg8UKBGY/X7ZpoLBgiRKVJ5b0GXtQNAcrxHaQ5/vMgU/n5FrwvfqAqV5286IKGaao2QJ27MYqseyhNuo0ePFTg05YDpCV4AgNs7IbwgYP3n0pZVlnxPTe8oTu91fSRGLimh/ywbqUkklKX5DrpSEQgbc6ZaFNVqQ/GU=
+	t=1790776354; cv=fail; b=REefRZTb2z1J+V67n9gXhcdC/8fj60sZWLILzVxx2BUWVR9VLwq/U//qhvSz5m6F/FVjGtR8Czmi5Mn/UuECl1g9sDazITL8DkJmeW+muFLSaQqT6UF0Q5Q4lBzOGZg2vN4rEY4ZvVxyPFjSt9f0wFGGzKJXL+SU9eEIRg3UgqM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776062; c=relaxed/simple;
-	bh=q3s6DGEObISewH/XX2gLTqFl5rPruspfwUBBjsj5KeY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KiLRpxHMG3v8VtM3quu35yRzPtnUCMKd3pVJnjA6VdHbDgFIGOIVefSbFVm/NiaO8VWu63kpUP0kflDhMYd60wKodvf7KA7jVXusort33Gw/roJKZMjtYYwpC9bEcyTrF0FH061pH+FLcxYmqRi3lG8ITAHleVFP0Q13n9ZzN04=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=PQswSa39; arc=fail smtp.client-ip=52.101.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	s=arc-20240116; t=1790776354; c=relaxed/simple;
+	bh=AdodLzuPkv3ymNl7GBDfKxvuq764E4TMRtulLlF2uLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=gh32rfT9bh0P9N+cP/+bYncnmWbfcyaQbRICrKsyJo7gWznyEhFGD8Ydks5vS37MeO2x4x6aK25gPtgTC27KSDBebaipI/8qZmHEtPR/iGjCZesJgZJFtdf23bExVmNqh9DlaUnYebN9ik/MgMoRVwQIVK6vE6KeatnFYMsHMss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=i6HU7vCc; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=oX5g4d4A; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="PQswSa39"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="i6HU7vCc";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="oX5g4d4A"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68UB5a782989885;
+	Wed, 30 Sep 2026 08:52:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=sJYd3h2LG7COwxltwKr2LmDFk7KGxcP0KYU1VDZlE
+	Ro=; b=i6HU7vCc+lHAV/YRB3lKC8ubkRHTgZU15TCfj4SHjSL6+X6TnhzGd1Y6d
+	5SGGV0mn0/5D1KhlANc/Dr31bt3Yt/pLeo5BTl4OMnDS/YcrjOMxD+ajpK9lYyhr
+	e/YZIgYwz/krtwBBEFVqmcq42DtvtxoF/qUIKtHVdjldHKUSdA5zxPlbRqYy9zHk
+	rqrt5I+MtpIeKCAXTD2kkcyexwVGTqAtiuKl7iRzR6P40iVBYDGRSfqt0xseDWbu
+	Jke7KW9Yx75Pzn6yoaKuHJE8CfmW+5fAiZutLmsF/8ggNmfcgjXjs+3/ZgD4vodn
+	LGHSCgZ6ojJOSONIUmOE1fW7s8NVQ==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4h10t1s36t-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 08:52:12 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nHcTnNR6LAbb0nG76JGXR/ydPpA/+Nm4e4xkaulNpZLATmIcZ8lry4PPwHU1N2b6T5tgqV1jZoNu6pJoCtypWanb49NoTnfdGbDrgIBBlaLgbQHyWZWhPtdf5eKJ8LDqnOSBR6Bap/BL5Sc68trilPteUBDHBYn6gicvbnSAdlUXlN0g8ddgfiiYgbPslMYWU/XZIghKbdfozgoqd5pnmV9nOz7HptpXFja+cFJC/2Njy7wAZL6FfVNkDngzpGhioHhesQ3pYo/EdaPOkEDJxR4hYakdTJ0jgfi1shPgmpaQONzeGCa6znLMw8hwH3jvkUWKNr0oyN1c6vt4LSZbcg==
+ b=VRGHynpWIzcf1BqneLglrj+iPEBuCCa9lPAxq7Kr94xYOSe07NnW9t/x6yuXOdALBnc8pcF2pI0mws/txKRCh4C+R+h5BGxD2sNpHO+xvbhErM7PiI/2sRRyI4plqetVWSrgCXRkl+jQnsNWj5AjsIK6Sf90sQyuq4hPouDLGP8ROQdsbR+SDbHrbKsRYOhVW19IBrJdG5xYUejBaZuTkkzcYTH6bNLJFzzfMM6T1hYT8ykvdFlndJ3Ha6d1GM/swcgxAiGTBXaxJD9J3B+fSJ0zx5EkX3zLa7W5pmEJaGovGVYrsZva5VX3yugVirmuhUaTPVugQbw7aD+SI8GGag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PQZPL3isgr/8n2vpa0sU0Q3CTxXPJUSHXysqoC4GlRs=;
- b=VHEVSRpbU6H638G0UnITNr4R6d2rxeGUkfaIKYXGdlptG0jGxsUKYqRxq/PL/7kZ/IBPd/HlKwJ8iSzpcywN6rT8/gJ1wDoP8DdkHhYAM9hcDICBI4ruOSVtqEXnlhK9LjWFWP7FfUXSGsrPfOsWAOiVhYMc4X0TaLtzYqOBMKRJ1MjQvX+RxDZHjQ/wXTiyhpBQXhi0l9FiSSc2YG4NCovltx/Kc7sJR3ILkNKjp9aaTJndW7Pc89GFxoq8lg48oA5O7gCa2A997hirV483y0t3l8kwGj7tDeZdL9igjBOBmhK5qB5q3c036uhkCWgzoYAt4x1J4uWsZVdcojun5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
+ bh=sJYd3h2LG7COwxltwKr2LmDFk7KGxcP0KYU1VDZlERo=;
+ b=h2CM0iUFBUBvz2GkTvczuBrPSOHYm7dz88c5lCM3rz70IlEDw4uavwn+85ZUl9XMgAXUzDNF3CVJzgiKkGL1+FrrGdwbzft2VS8Uer2mCsi52CBrkQMFSeLJnzUHx9+6K02BffVMuSpNF7GIaaXZGTdxXD2/4uMpaNljNqB5wZ9PFBegzJJnTt2YdtBcI60O2Z69usZIqi0sb3+IqJsjUjzu9CNwsMvnH5t8fCjT04uZL9JK7/XwS2SebN3wxuo3cUYni2WHhPEPuCiV1XcfEq/eUBZdKpP4PV+s5DCjc8Ge8SJlMYzughgdEv9lBIDjNAGQYzKdvm5EDBPR12a7gA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQZPL3isgr/8n2vpa0sU0Q3CTxXPJUSHXysqoC4GlRs=;
- b=PQswSa39Ev7IqgA2IQNj1Vy1GxmLjW11Tjrz4EAqecTI0josunLLfuy179gyd+FIGoNkeSRKp6/0ady5PY5ajGz0UnwDqXyYuNybDQYioGUTe0CiZ12S31zepOeCXqM3grBenPWl60K5RkWlYlYbJAcqfHrWG5QwjbrN8sKKj3YO6yHrTi3Sb2S7xRVX41t5tin3QMnM0d2jl+ug9xdRr2lPQEWCn9IydaC7JEts9ijJrFqq7HlO0sY014qhO7FMznAUoBSa64Xemnyn7o8+svByb9EgMg49G5D+NQL83pUuQSZ5LizOYZ7iuLMNT4L3P8nY40ChpCfYI4EgPorKYg==
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by MA0P287MB2053.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:121::12) with
+ bh=sJYd3h2LG7COwxltwKr2LmDFk7KGxcP0KYU1VDZlERo=;
+ b=oX5g4d4AsNuXUF2ui0LR9drNZbMU4ZGdS9vOY7tATtXOD6yzMyanoOsIXHg71u0DSKdSJ3L9vWiu3Hn5vSjhS01RVv5vPEIDzhEfoUgOu8QvvaRHmLT0nN03clRWxk5mNTcGfChZ7R6INSD2wDxtEkHAM5+HIC4q5tgIf8Vs990=
+Received: from MW4P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::28)
+ by DM4PR10MB6744.namprd10.prod.outlook.com (2603:10b6:8:10c::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 13:47:22 +0000
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0451.014; Wed, 30 Sep 2026
- 13:47:22 +0000
-From: Tarang Raval <tarang.raval@siliconsignals.io>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-CC: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kieran
- Bingham <kieran.bingham@ideasonboard.com>, "jai.luthra"
-	<jai.luthra@ideasonboard.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Philippe Baetens <philippebaetens@gmail.com>
-Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
-Thread-Topic: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
-Thread-Index: AQHdUMo4rVRTjcvjQEC54POlPihIBrbm/ntd
-Date: Wed, 30 Sep 2026 13:47:22 +0000
-Message-ID:
- <PN3P287MB1829832B0C6C42441B18D9D18B8B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
- <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
-In-Reply-To: <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN3P287MB1829:EE_|MA0P287MB2053:EE_
-x-ms-office365-filtering-correlation-id: adc586d1-3490-4faf-e338-08df1ef95aa2
-x-ld-processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|4143699003|10067099003|56012099006|6133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- 2YxcgjIPqIw2ylDnZ6wSN/XShakM5KSlbzekiZ6JW5FQjG0IntjL3RDPUtjGNYBY15CiHY2wbUXXNl3OVjY1nQGtk6fz/gRITVIWSI0FTS2ESurfoU0lbIxYlm06Pf6SH9bpttITEYesLI9e1JqpBQCl9mpO+5S6h7qD5sKSMKkXnayNyPf/HwIFxA/h8Cf6adP3U3pY8Lz2MF1vev0VARs1y8SENCRiRcMD+/wa4D59Set0kma3zqITVx059T/FArCUt1leJB6QURmwCVkFQ8MCKyOYPSSfk+5vHMetme2MkV6rBQR7gMX3LcdoIROVms9K6DBLWijOL/8V7EbjrcjiS1lrj5mvaz57jWPQ0U0Bcr2Cc0Od5ExdefsRE82K+p4OCEmh+UkKRgXzcSc+9CpHhjZs07cpmSPI8h9vBmtnwYQHGXA1Wc/0TLOjPZIDjNsTIVq9WBD1MR1IEmuKpWXR7rXpUzk9d0D3dUtMHOo5nU6XUdRke9L4ON5sWZSz13RfkpahHRgXbHhplC5LVz90xObfzUJbb+w0eloNU30FbsHUhPtzH14JVVWthIc+p+ljQVq5w7llZ5G+WjhK2DIaJB9BP3k2fIpWpG4Ew89dVXFIlaxv704awGOsY4BzvF3Cs1+mhgjQBhymwDYrkgU2ior1VIxJYwv3ERJ5w6k9F6tQSx8CuT06R4GdxofsaaY0YTmj9CaeLiqiCb4WAYOozGmpFEcHf61qKafPvjo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(4143699003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?yeIEu8Ktb4PH5DosQh/LzEG4qaP3Ct2OIjYA48pTFZ2984qVJEJh6HtY?=
- =?Windows-1252?Q?UPxqQ54GW6MGnUxrLvfZLagtH1WWVF4ciM7BbpJ0j4BTnrIjDH095JSZ?=
- =?Windows-1252?Q?rdwBaAzHBshitsceO6lNJYV5G8VDkIuG1ukwUAXZ/hGS6BYrJwISu5yx?=
- =?Windows-1252?Q?+i4PbMxQgTP1Zo3MmSQ3yt/b7aw6TFqPO6JYBS+TGcufpyAqHFhmxdzz?=
- =?Windows-1252?Q?N7EOcn9ZHEjQMjruswtb68OfbkiZ5d41McZFVi/LDn7JOhEy0nNciZN1?=
- =?Windows-1252?Q?GYR/wKrCygwYhRYpqgppUME9tDOwKzfupwjex/SZ2Ndhda4RX63LSW6V?=
- =?Windows-1252?Q?TGe7OVIOYXVlHxHT0PG+M575e7w56wTv7fnu82gLkuFGE6xC378ZisdL?=
- =?Windows-1252?Q?NANuFjNCwSClTpSdok8odDgSuVYa9KUVGn8TNesuF/HeInUb5/ep7AgH?=
- =?Windows-1252?Q?+jXAJpH63mBmCC2G5pN/hYC617pSd72Xfw8CbFzhRr2J/ahE4F/li0Q0?=
- =?Windows-1252?Q?Y6AerdgxsgQupK7/7Kyy3Oo/etTIenVrcNoEWsBS3q6VmXrOngRCVWiD?=
- =?Windows-1252?Q?wizu/Ry0itk3cmgxLzqcbdNxsrdq1VUmCTruiS/is+lxV2NUCBA///3f?=
- =?Windows-1252?Q?Gbvm2wAoO2VXGiWvddvvXs2+LBRddaj8VLkZ5WqytyvcDXHyZ39BdwDz?=
- =?Windows-1252?Q?sJziR0ncPP44OOFJSmw9icKLieNWAHwKXebAwRWCSsaFtmw0s17NwWJz?=
- =?Windows-1252?Q?t+3Ins87XcVxuTnxhB+djfwfxtTf6GufTKuJxN0qJFZWlwBrIE105XHe?=
- =?Windows-1252?Q?cXldelPS2dFbLD3CJenOHcEKPoOFJ+BP4K9PH6VIseZtM4azmZv3mVSm?=
- =?Windows-1252?Q?4BimDNXzgEvZbzzmNUd7nqlCiaRakSKHLgcnahrEvJobLh1wNZN9N1/0?=
- =?Windows-1252?Q?U+8oNM8t5OTL+t8lCqeMYTGSUUnqy/MBpQKzSipijqlxN2+EzpJHbJkx?=
- =?Windows-1252?Q?TTJXx19gjq3e3AS3p08+4ardDI8mk7JADG3nbhsfvBq9nZMVVM6IS9tW?=
- =?Windows-1252?Q?KkTcRII10yHJG+LHLMX4jWF7OP0NpE7ksQk6Wm0PHbb+yZ6h+9Fu3Ihs?=
- =?Windows-1252?Q?tNIfIcpso/0D2G2+kTD0AE7tIu1qAxker6EdnZls3dHk5WLgdVcNopJ7?=
- =?Windows-1252?Q?NrsgVg95sDVrspJNMH4yy7HlcPfNjSaIu3svW6wIFtDVHLzR7mycfBRn?=
- =?Windows-1252?Q?yl+ZKTDznntemHgAibHAdRyrhas0czC2JOlbDnRrKzL0LroJ6zYpGSjn?=
- =?Windows-1252?Q?MlzD33O9G0/TvtRP7fZlgTFg5vzx2pdmH5JhsxIl3FODvJBJlzivt6fk?=
- =?Windows-1252?Q?2R74kI9AztNCqo/jwR42KoJAiJuRkoAwtuE76N52+nRldJjfBKYRxkai?=
- =?Windows-1252?Q?KRgEDxfh54JOdkCfVUXSmkCcp7v0gYvOCKQtFse82K47LMPGcz615Txx?=
- =?Windows-1252?Q?tyPMKFsOx6J6GCWdre07SoF36DDBBUGuFCK3IiBNGOazW7JRD/I47dAS?=
- =?Windows-1252?Q?t1udbH+FdCRyRPb9UMV0jFg4BRrOKWPNuxehu16Enp+iNZa+mEy2eJ5b?=
- =?Windows-1252?Q?3xcQifhzdP2mRvy2Tv6CK0wazK8miZpyqzM2FLLo+VYdLWurcwXUj7w1?=
- =?Windows-1252?Q?LL5pDd+q+OXcUqkXv2Kl6Ebcob9skKN0nmSyUZoW0NeCGrNaqX4nwf9l?=
- =?Windows-1252?Q?Or4Aau1y/Olvw/ej7gEipEw1XcEaY8kWlATgX3ddUvISwPFzz+LohB7Z?=
- =?Windows-1252?Q?lpLCjoulbLU9il4h5xw+CxKP0plPZpqu13qClW6LhHKEn5LDSe95FbPw?=
- =?Windows-1252?Q?8vQmIQD7Ja+PX6ow6kFXBGcWvBgBEmRYdBw=3D?=
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+ 2026 13:52:08 +0000
+Received: from CO1PEPF000066EB.namprd05.prod.outlook.com
+ (2603:10b6:303:115:cafe::56) by MW4P220CA0023.outlook.office365.com
+ (2603:10b6:303:115::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 13:52:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CO1PEPF000066EB.mail.protection.outlook.com (10.167.249.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 13:52:04 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
+ 2026 08:51:15 -0500
+Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
+ 2026 08:51:15 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 30 Sep 2026 08:51:15 -0500
+Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UDpC8O3230266;
+	Wed, 30 Sep 2026 08:51:13 -0500
+Message-ID: <fc08a754-1e0b-42ab-ac53-94bff728aef3@ti.com>
+Date: Wed, 30 Sep 2026 19:21:12 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: adc586d1-3490-4faf-e338-08df1ef95aa2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 13:47:22.5591
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: imagination: e5010: release m2m device on probe
+ failure
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+        =?UTF-8?B?67CV66qF7ZuI?=
+	<mhun512@gmail.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>, Brandon Brnich <b-brnich@ti.com>
+References: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
+ <59097bca6ad101c160c1d519556fbee378801dcd.camel@ndufresne.ca>
+Content-Language: en-US
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <59097bca6ad101c160c1d519556fbee378801dcd.camel@ndufresne.ca>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066EB:EE_|DM4PR10MB6744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cc6e0b3-28e1-46d1-2180-08df1efa027c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|22082099003|18002099003|13003099007|10067099003|5023799004|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	bb6XanNbBdB9/w7wQTgC2VvPSXo9ydGsygMEGyEEL7KcynoNxvomPtscRfYRe9hozxn+JNG6WIFKp+qdpWqxad3d3uK8pzwa0bghAkON3Xyi9FkfD5Uot/ZTbJXuBDkiNJAZBzhiLMp4LCoBBooG6f0OkaLfSLbgXQSsgQIIXZ/w3CWYQZEJWtWLTJONynr85IlSIn1fqvhxCvGwdruIWAapJSZhcslOPlemUp6Vgx2W3q3Tg1r/wFHr+Rv4AQfAf0i0yhmWTH0ua7oqMJH9T7zo9h+xccWhkJgrptl397p4Y69lOkb7QIMXjcIf55FNcAoJWXcvOwHyd8XmMJeDYd4kdDMNy/r/cLJG2ElGd0IZf5dHL+vI/fO7cz9aI5f9ZeJfeoiQOGafRQDKjslQqmOH0peGy9bI0yrW3LiY6RHBm6xMrCg9rtVQO+VBHxWctS3+ZuIauNrbHPR3YhKGikHiwa4yhNWBt1aEiWeO/YklHN0CSMCDQEIKYJt8reCyVO9Wxz68SIztkdCtdYu6+Tw6n1a/2BQgnu+nziYO2cbsYbSN4EMYdRfTDhDLO03KU/39rlVm8u8HsyWuSzhubXVbsii/VaUMoKRTTEXEfe6/LdAowepTTpUazlx8sgX9q/ypej5yD8cLizRn1YsqNMeTCKRlVPQSs0sy3UP2OGI=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(22082099003)(18002099003)(13003099007)(10067099003)(5023799004)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vOHtqmkGYel2PNi1HKTBIaFRW0Cy+FjiEE8s9xAhTsv16rKSsr+pBXhT5FVgIf9AJdil/mr46FekvbohAugJLh0/wu0jG5mtfjVp/H/FyKGHlVcWjFjieQNwcWVbkjGKnVVWsaaQWs583CQ/mmeVsM5DDMmlQpZ9u6Qzsaynj0DpufUBkHNQByY1K8eVdkYip0DUejRBnpVfVACfbEbkh1wWo+1s7pXFqXS0W+SIdHrvO++o4v3wh3LS97I7LBRsQs93HGU5CWUudb7CctKxVWb3nUHZadBbaeseuo6fhtFIHztd3P0xp3Sjw5oz8W9spSIiTSAJ4J+AL3mPQrK/pnXHr3xsoTVG31jAoFmspbYrufXPFCE53LdODD43Ahbjy3UxW/m16zuBs1xg/QwTmLElAIYBL/ooGGNyhyn/udm0hiShk6fZVecc64YJEUeb
+X-Exchange-RoutingPolicyChecked:
+	wVi/9i88hSl80BvO+YzUTzPvr5tpUOxLHLVUesyc8jiRkLnHjZ8ylCBEUWYLedekQb1VWncdvGdjbRTtnIAhROtwNKnI+10AJJ3xFmPeAW8z/sfL9w6U6rE5gv8+Q9thojHimDBZcXRm0JLuFZ8q1XPqz2pYpq3Q6UMVKWZJmEYAqqSVx24lFcZOV/ZE1AQWI632JGjoXE93Y4gEUUrP8sAoT9FMXnGMVNTZ4OzTNMH6iTUSh1g6JqVstzkgO+LnFU/JYdxYbInAHcPpKwpCjY61qOTSD+45LtnngmE0CWESNRJfr5qTKBXqMSBuCbyVG4wQNS3vF5CJLVg4JbBdqA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:52:04.0999
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v3vJtoVnzyLCl4bDc4Ej//fdciNXI17HK6vHi0K/e9NPMFPdPHzy+W2J9wHy636JnL834lU1PXrsP4PYMEWfHanSbYixLicZzex/YAxZcfI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA0P287MB2053
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc6e0b3-28e1-46d1-2180-08df1efa027c
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000066EB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB6744
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA1NSBTYWx0ZWRfX/GNl2iGhq73Y
+ t3NX26SY5f5qbOVygKUH2GqbGTk/CtQ0e0m+ErlKjQPLYqbRoa8PDAT1FG1Phs1pyPehdj74x0J
+ MQHlWPE3ElRjEMXTuAp7DdPyiG15jrQ=
+X-Proofpoint-ORIG-GUID: 2a73D3tGZWEjanoqEShtyYVFFyLU-VPw
+X-Authority-Analysis: v=2.4 cv=C7R8WgP+ c=1 sm=1 tr=0 ts=6abd140c cx=c_pps
+ a=5+b0Cb5m1vs/r/JsbObUdA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8
+ a=Na_iDZEeDH6X7TjMGrQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 2a73D3tGZWEjanoqEShtyYVFFyLU-VPw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA1NSBTYWx0ZWRfX+HhEJPbG5LVE
+ 0yKgnEZiM3BSiihWsRgSJl+du7XgPPh50tMTjK+RuFnQQqVI1ViwjHc+1WmS8fhu6hXExgJRqw7
+ zzhyc3i3QP0QskBn0O1ZPRW6Hs0DLmU2vv8a/ygVSFa+YMH3SRXrpP5ypiP7k4h3jzqSAawPOwf
+ WGhQFOtcVqfTDivr1HKSTd67rrPQ7DlTsCnVi/PemyQ+tBufqF6IMENdAsPgGQ4RsiIMYXZOXJq
+ wTOWoCqM38kjxCsYibcTC6KY2N0a3DX1O+2K2wwDelRJ+ft2KBm5UsT+wVQ1I7uKCuNiXYe3Q1Z
+ I8vq6sHYZnhClroLaO2i1XkaGmmuSIT0tBMA5vrF9uKHJNWhVIuGFoT+b8s5R5K28fHQOIcJdxE
+ 8kWPcCPeG0Bxy16fMUuP/jbrFCEJG47ws/UN3xehoMmU7bUPyB+bDTgJVhMPm/HNbU6vXEndTGA
+ Gf6wya4lx1OFVixlCkA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300055
 
-Hi Jacopo,=0A=
-=0A=
-I noticed a few issues. Could you please check the comments below?=0A=
-=0A=
-> Add driver for the ams OSRAM Mira016 sensor.=0A=
->=0A=
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>=0A=
-> ---=0A=
->  MAINTAINERS                 |    1 +=0A=
->  drivers/media/i2c/Kconfig   |   12 +=0A=
->  drivers/media/i2c/Makefile  |    1 +=0A=
->  drivers/media/i2c/mira016.c | 2309 +++++++++++++++++++++++++++++++++++++=
-++++++=0A=
->  4 files changed, 2323 insertions(+)=0A=
-=0A=
-...=0A=
-=0A=
-> +/* Register select. */=0A=
-> +#define MIRA016_BANK_SEL_REG           CCI_REG8(0xe000)=0A=
-> +#define MIRA016_ACTIVE_CONTEXT_REG     CCI_REG8(0x4002)=0A=
-> +#define MIRA016_NEXT_ACTIVE_CONTEXT_REG        CCI_REG8(0xe003)=0A=
-> +#define MIRA016_RW_CONTEXT_REG         CCI_REG8(0xe004)=0A=
-> +#define MIRA016_AUTO_SWITCH_CONTEXT_REG        CCI_REG8(0xe005)=0A=
-> +#define MIRA016_PARAM_HOLD_REG         CCI_REG8(0x0006)=0A=
-> +#define MIRA016_DISABLE_CONTEXTSYNC_REG        CCI_REG8(0xe008)=0A=
-> +#define MIRA016_DISABLE_CONTEXTSYNC    BIT(0)=0A=
-> +#define MIRA016_CMD_REQ_1_REG          CCI_REG8(0x000a)=0A=
-> +#define MIRA016_CMD_HALT_BLOCK_REG     CCI_REG8(0x000c)=0A=
-=0A=
-A few of these macros are unused. Can we remove them?=0A=
-=0A=
-> +=0A=
-> +/* Chip id */=0A=
-> +#define MIRA016_CHIP_ID_REG            CCI_REG8(0x011B)=0A=
-> +#define MIRA016_CHIP_ID                        33=0A=
-=0A=
-...=0A=
-=0A=
-> +static const struct cci_reg_sequence mira016_8b_fine_gain_init[] =3D {=
-=0A=
-> +     { CCI_REG8(0xe000), 0x0 },=0A=
-> +     { CCI_REG8(0x01bb), 0xb4 },=0A=
-...=0A=
-> +     { CCI_REG8(0xe000), 0x1 },=0A=
-> +     { CCI_REG8(0xe000), 0x1 },=0A=
-> +     { CCI_REG8(0xe024), 0x3 },=0A=
-> +     { CCI_REG8(0xe000), 0x0 },=0A=
-> +     { CCI_REG8(0xe000), 0x0 },=0A=
-> +     { CCI_REG8(0xe000), 0x0 },=0A=
-> +     { CCI_REG8(0x005c), 0x0 },=0A=
-> +     { CCI_REG8(0x005d), 0x18 },=0A=
-> +     { CCI_REG8(0xe000), 0x0 },=0A=
-> +};=0A=
-=0A=
-I noticed some registers are written multiple times within each=0A=
-of these arrays. Are all the repeated writes required, or can=0A=
-the redundant ones be removed?=0A=
-=0A=
-Like for the above array 0xe000 register.=0A=
-=0A=
-> +static void mira016_update_pad_format(struct mira016 *mira016,=0A=
-> +                                     struct v4l2_mbus_framefmt *fmt, u32=
- code)=0A=
-=0A=
-third argument is unused. Can we remove it?=0A=
-=0A=
-> +{=0A=
-> +       unsigned int i;=0A=
-> +=0A=
-> +       for (i =3D 0; i < ARRAY_SIZE(mira016_mbus_formats); ++i) {=0A=
-> +               if (mira016_mbus_formats[i] =3D=3D fmt->code)=0A=
-> +                       break;=0A=
-> +       }=0A=
-> +       if (i =3D=3D ARRAY_SIZE(mira016_mbus_formats))=0A=
-> +               fmt->code =3D mira016_mbus_formats[0];=0A=
-> +=0A=
-> +       fmt->width =3D MIRA016_PIXEL_ARRAY_WIDTH;=0A=
-> +       fmt->height =3D MIRA016_PIXEL_ARRAY_HEIGHT;=0A=
-> +       fmt->field =3D V4L2_FIELD_NONE;=0A=
-> +       fmt->colorspace =3D V4L2_COLORSPACE_RAW;=0A=
-> +       fmt->ycbcr_enc =3D V4L2_YCBCR_ENC_601;=0A=
-> +       fmt->quantization =3D V4L2_QUANTIZATION_FULL_RANGE;=0A=
-> +       fmt->xfer_func =3D V4L2_XFER_FUNC_NONE;=0A=
-> +}=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_set_pad_format(struct v4l2_subdev *sd,=0A=
-> +                                 const struct v4l2_subdev_client_info *c=
-i,=0A=
-> +                                 struct v4l2_subdev_state *state,=0A=
-> +                                 struct v4l2_subdev_format *fmt)=0A=
-> +{=0A=
-> +       struct mira016 *mira016 =3D to_mira016(sd);=0A=
-> +       struct v4l2_rect *crop;=0A=
-> +       u32 pixel_rate;=0A=
-> +       u32 min_vblank;=0A=
-> +       u32 gain_max;=0A=
-> +       int ret;=0A=
-> +=0A=
-> +       mira016_update_pad_format(mira016, &fmt->format, fmt->format.code=
-);=0A=
-> +       *v4l2_subdev_state_get_format(state, 0) =3D fmt->format;=0A=
-> +=0A=
-> +       crop =3D v4l2_subdev_state_get_crop(state, 0);=0A=
-> +       crop->width =3D fmt->format.width;=0A=
-> +       crop->height =3D fmt->format.height;=0A=
-> +       crop->left =3D MIRA016_PIXEL_ARRAY_LEFT;=0A=
-> +       crop->top =3D MIRA016_PIXEL_ARRAY_TOP;=0A=
-> +=0A=
-> +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)=0A=
-> +               return 0;=0A=
-> +=0A=
-> +       /*=0A=
-> +        * Update the row length: changing the image format implies chang=
-ing the=0A=
-> +        * row_length parameter, which changes the line duration and the =
-pixel=0A=
-> +        * rate consequentially. Also, changing the image format changes =
-the=0A=
-> +        * analogue gain limits.=0A=
-> +        *=0A=
-> +        * Do not allow to change image format while the subdevice is str=
-eaming.=0A=
-> +        *=0A=
-> +        * TODO: row length depends on binning, update it also in the=0A=
-> +        * implementation of set_selection.=0A=
-> +        */=0A=
-> +       if (v4l2_subdev_is_streaming(sd))=0A=
-> +               return -EBUSY;=0A=
-=0A=
-State is overwritten before the streaming check, so a failed call=0A=
-with -EBUSY still changes the active format.=0A=
-=0A=
-Should we move this check to the top of the function and only check=0A=
-it for V4L2_SUBDEV_FORMAT_ACTIVE?=0A=
-=0A=
-> +=0A=
-> +       switch (fmt->format.code) {=0A=
-> +       case MEDIA_BUS_FMT_Y8_1X8:=0A=
-> +               gain_max =3D ARRAY_SIZE(mira016_gain_lut_8bit);=0A=
-> +               break;=0A=
-> +       case MEDIA_BUS_FMT_Y10_1X10:=0A=
-> +               gain_max =3D ARRAY_SIZE(mira016_gain_lut_10bit);=0A=
-> +               break;=0A=
-> +       case MEDIA_BUS_FMT_Y12_1X12:=0A=
-> +       default:=0A=
-> +               /*=0A=
-> +                * TODO: Clarify how to handle 12 bit 2x fixed gain which=
-=0A=
-> +                * changes the line timings while streaming. Only allow 1=
-x=0A=
-> +                * for the time being.=0A=
-> +                */=0A=
-> +               gain_max =3D 1;=0A=
-> +               break;=0A=
-> +       }=0A=
-> +=0A=
-> +       ret =3D __v4l2_ctrl_modify_range(mira016->gain, 1, gain_max, 1, 1=
-);=0A=
-> +       if (ret)=0A=
-> +               return ret;=0A=
-> +=0A=
-> +       mira016_calc_row_length(mira016, state);=0A=
-> +=0A=
-> +       min_vblank =3D mira016_calc_min_vblank(mira016, crop->height);=0A=
-> +       ret =3D __v4l2_ctrl_modify_range(mira016->vblank, min_vblank,=0A=
-> +                                      MIRA016_MAX_VBLANK, 1, min_vblank)=
-;=0A=
-> +       if (ret)=0A=
-> +               return ret;=0A=
-> +=0A=
-> +       pixel_rate =3D mira016_calc_prate(mira016, crop->width);=0A=
-> +=0A=
-> +       return __v4l2_ctrl_modify_range(mira016->prate, pixel_rate, pixel=
-_rate,=0A=
-> +                                       1, pixel_rate);=0A=
-> +}=0A=
-> +=0A=
-> +                                 u64 streams_mask)=0A=
-> +{=0A=
-> +       struct mira016 *mira016 =3D to_mira016(sd);=0A=
-> +       struct i2c_client *client =3D v4l2_get_subdevdata(&mira016->sd);=
-=0A=
-=0A=
-We can use mira016->dev directly instead &client->dev.=0A=
-=0A=
-> +       int ret;=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_disable_streams(struct v4l2_subdev *sd,=0A=
-> +                                  struct v4l2_subdev_state *state, u32 p=
-ad,=0A=
-> +                                  u64 streams_mask)=0A=
-> +{=0A=
-> +       struct mira016 *mira016 =3D to_mira016(sd);=0A=
-> +       struct i2c_client *client =3D v4l2_get_subdevdata(&mira016->sd);=
-=0A=
-=0A=
-same here.=0A=
-=0A=
-> +=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_init_state(struct v4l2_subdev *sd,=0A=
-> +                             struct v4l2_subdev_state *state)=0A=
-> +{=0A=
-> +       struct v4l2_subdev_format fmt =3D {=0A=
-> +               .which =3D V4L2_SUBDEV_FORMAT_TRY,=0A=
-> +               .pad =3D 0,=0A=
-> +               .format =3D {=0A=
-> +                       .code =3D MEDIA_BUS_FMT_Y8_1X8,=0A=
-> +                       .width =3D MIRA016_PIXEL_ARRAY_WIDTH,=0A=
-> +                       .height =3D MIRA016_PIXEL_ARRAY_HEIGHT=0A=
-> +               },=0A=
-> +       };=0A=
-> +=0A=
-> +       mira016_set_pad_format(sd, NULL, state, &fmt);=0A=
-> +=0A=
-> +       return 0;=0A=
-=0A=
-You can directly return the result of=0A=
-mira016_set_pad_format() here.=0A=
-=0A=
-> +}=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)=0A=
-> +{=0A=
-> +       struct mira016 *mira016 =3D=0A=
-> +               container_of(ctrl->handler, struct mira016, ctrl_handler)=
-;=0A=
-> +       struct i2c_client *client =3D v4l2_get_subdevdata(&mira016->sd);=
-=0A=
-=0A=
-we can use mira016->dev directly instead &client->dev.=0A=
-=0A=
-> +       struct v4l2_subdev_state *state;=0A=
-> +       struct v4l2_rect *crop;=0A=
-> +       int ret =3D 0;=0A=
-> +=0A=
-> +       state =3D v4l2_subdev_get_locked_active_state(&mira016->sd);=0A=
-> +       crop =3D v4l2_subdev_state_get_crop(state, 0);=0A=
-> +=0A=
-> +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {=0A=
-> +               s32 exposure_max =3D crop->height + ctrl->val=0A=
-> +                                - MIRA016_FRAME_INTEGRATION_DIFF;=0A=
-> +               s32 exposure_def =3D min(exposure_max,=0A=
-> +                                      mira016->exposure->val);=0A=
-> +=0A=
-> +               ret =3D __v4l2_ctrl_modify_range(mira016->exposure,=0A=
-> +                                              mira016->exposure->minimum=
-,=0A=
-> +                                              exposure_max,=0A=
-> +                                              mira016->exposure->step,=
-=0A=
-> +                                              exposure_def);=0A=
-> +               if (ret)=0A=
-> +                       return ret;=0A=
-> +       }=0A=
-> +=0A=
-> +       if (!pm_runtime_get_if_in_use(&client->dev))=0A=
-> +               return 0;=0A=
-> +=0A=
-> +       switch (ctrl->id) {=0A=
-> +       case V4L2_CID_EXPOSURE:=0A=
-> +               ret =3D mira016_write_exposure_reg(mira016, ctrl->val);=
-=0A=
-> +               break;=0A=
-> +       case V4L2_CID_VBLANK:=0A=
-> +               ret =3D mira016_write_frame_duration_reg(mira016, state, =
-ctrl->val);=0A=
-> +               break;=0A=
-> +       case V4L2_CID_ANALOGUE_GAIN:=0A=
-> +               ret =3D mira016_write_analogue_gain(mira016, state, ctrl-=
->val);=0A=
-> +               break;=0A=
-=0A=
-Why do you not introduce vflip and hflip controls here?=0A=
-=0A=
-> +       default:=0A=
-> +               ret =3D -EINVAL;=0A=
-> +               break;=0A=
-> +       }=0A=
-> +=0A=
-> +       pm_runtime_put_autosuspend(&client->dev);=0A=
-> +=0A=
-> +       return ret;=0A=
-> +}=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_init_controls(struct mira016 *mira016)=0A=
-> +{=0A=
-> +       struct i2c_client *client =3D v4l2_get_subdevdata(&mira016->sd);=
-=0A=
-=0A=
-we can use mira016->dev directly.=0A=
-=0A=
-> +       struct v4l2_fwnode_device_properties props;=0A=
-> +       struct v4l2_ctrl_handler *ctrl_hdlr;=0A=
-> +       struct v4l2_ctrl *link_freq;=0A=
-> +       struct v4l2_ctrl *hblank;=0A=
-> +       u32 min_exposure_lines;=0A=
-> +       u32 def_exposure;=0A=
-> +       u32 min_vblank;=0A=
-> +       u32 def_vblank;=0A=
-> +       u32 pixel_rate;=0A=
-> +       int ret;=0A=
-> +=0A=
-=0A=
-...=0A=
-=0A=
-> +static u8 mira016_m_to_pll_m(u32 pll_m)=0A=
-> +{=0A=
-> +       /* Table 12: Lookup table for =93M to PLL_DIV_M=94 mapping */=0A=
-> +       static const struct pll_m_div {=0A=
-> +               u8 m_min;=0A=
-> +               u8 m_max;=0A=
-> +               u8 pll_m_min;=0A=
-> +               u8 pll_m_max;=0A=
-> +       } pll_m_lut[] =3D {=0A=
-> +               { 16, 31, 224, 239 }, { 32, 63, 192, 233 },=0A=
-=0A=
-I=92m not sure, but I think 233 might be a typo and should be 223,=0A=
-Since the m range and PLL code range don=92t match.=0A=
-=0A=
-> +               { 64, 127, 128, 191 }, { 1285, 0, 127 },=0A=
-> +       };=0A=
-> +=0A=
-> +       for (unsigned int i =3D 0; i < ARRAY_SIZE(pll_m_lut); ++i) {=0A=
-> +               const struct pll_m_div *p =3D &pll_m_lut[i];=0A=
-> +=0A=
-> +               if (pll_m > p->m_max)=0A=
-> +                       continue;=0A=
-> +=0A=
-> +               return p->pll_m_min + pll_m - p->m_min;=0A=
-> +       }=0A=
-> +=0A=
-> +       return 0;=0A=
-> +}=0A=
-=0A=
-...=0A=
-=0A=
-> +               for (m =3D MIRA016_PLL_M_MIN; m < MIRA016_PLL_M_MAX; ++m)=
- {=0A=
-> +                       u32 pll2 =3D pll1 * m;=0A=
-> +=0A=
-> +                       if (pll2 < MIRA016_PLL_PLL2_MIN ||=0A=
-> +                           pll2 > MIRA016_PLL_PLL2_MAX)=0A=
-> +                               continue;=0A=
-> +=0A=
-> +                       if (pll2 =3D=3D target_mbps) {=0A=
-> +                               found =3D true;=0A=
-> +                               break;=0A=
-> +                       }=0A=
-> +=0A=
-> +                       if (abs(pll2 - target_mbps) < best) {=0A=
-=0A=
-Since these are unsigned int values, it would be better to use=0A=
-abs_diff() instead of abs() here.=0A=
-=0A=
-> +                               n_best =3D n;=0A=
-> +                               m_best =3D m;=0A=
-> +                               best =3D abs(pll2 - target_mbps);=0A=
-> +                       }=0A=
-> +               }=0A=
-> +               if (found)=0A=
-> +                       break;=0A=
-> +       }=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_get_regulators(struct mira016 *mira016)=0A=
-> +{=0A=
-> +       struct i2c_client *client =3D v4l2_get_subdevdata(&mira016->sd);=
-=0A=
-=0A=
-We can remove this as well.=0A=
-=0A=
-> +       for (unsigned int i =3D 0; i < ARRAY_SIZE(mira016_supplies); i++)=
-=0A=
-> +               mira016->supplies[i].supply =3D mira016_supplies[i];=0A=
-> +=0A=
-> +       return devm_regulator_bulk_get(&client->dev,=0A=
-> +                                      ARRAY_SIZE(mira016_supplies),=0A=
-> +                                      mira016->supplies);=0A=
-> +}=0A=
-> +=0A=
-=0A=
-...=0A=
-=0A=
-> +static int mira016_probe(struct i2c_client *client)=0A=
-> +{=0A=
-> +       struct device *dev =3D &client->dev;=0A=
-> +       struct mira016 *mira016;=0A=
-> +       int ret;=0A=
-> +=0A=
-> +       mira016 =3D devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERN=
-EL);=0A=
-> +       if (!mira016)=0A=
-> +               return -ENOMEM;=0A=
-> +=0A=
-> +       mira016->dev =3D &client->dev;=0A=
-> +=0A=
-> +       ret =3D mira016_parse_endpoint(dev, mira016);=0A=
-> +       if (ret)=0A=
-> +               return ret;=0A=
-> +=0A=
-> +       v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);=
-=0A=
-> +=0A=
-> +       mira016->regmap =3D devm_cci_regmap_init_i2c(client, 16);=0A=
-> +       if (IS_ERR(mira016->regmap))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(mira016->regmap),=0A=
-> +                                    "failed to initialize CCI\n");=0A=
-> +=0A=
-> +       mira016->xclk =3D devm_v4l2_sensor_clk_get(dev, NULL);=0A=
-> +       if (IS_ERR(mira016->xclk))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(mira016->xclk),=0A=
-> +                                    "failed to get xclk\n");=0A=
-> +=0A=
-> +       mira016->xclk_freq =3D clk_get_rate(mira016->xclk);=0A=
-> +       if (mira016_validate_xclk_freq(mira016)) {=0A=
-> +               dev_err(dev, "xclk frequency not supported: %d Hz\n",=0A=
-=0A=
-Please use dev_err_probe.=0A=
-=0A=
-> +                       mira016->xclk_freq);=0A=
-> +               return -EINVAL;=0A=
-> +       }=0A=
-> +=0A=
-> +       ret =3D mira016_get_regulators(mira016);=0A=
-> +       if (ret)=0A=
-> +               return dev_err_probe(dev, ret, "failed to get regulators\=
-n");=0A=
-> +=0A=
-> +       mira016->reset_gpio =3D devm_gpiod_get_optional(dev, "reset",=0A=
-> +                                                     GPIOD_OUT_HIGH);=0A=
-> +       if (IS_ERR(mira016->reset_gpio))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),=
-=0A=
-> +                                    "failed to get reset gpio\n");=0A=
-> +=0A=
-> +       /*=0A=
-> +        * Calculate the PLL configuration based on the link frequency=0A=
-> +        * selected by .dts and compute the sensor timing bases.=0A=
-> +        *=0A=
-> +        * Initialize row_length to a value matching the default format f=
-or=0A=
-> +        * exposure and frame time limits calculations.=0A=
-> +        */=0A=
-> +       mira016_pll_calc(mira016);=0A=
-> +       mira016_timings_calc(mira016);=0A=
-> +       mira016->timings.row_length =3D 1262;=0A=
-=0A=
-1262 doesn=92t match any of the supported formats. Is this a typo?=0A=
-Should it be 1062 instead?=0A=
-=0A=
-> +=0A=
-> +       ret =3D mira016_power_on(dev);=0A=
-> +       if (ret)=0A=
-> +               return ret;=0A=
-> +=0A=
-> +       /* Enable runtime PM and power on the device */=0A=
-> +       pm_runtime_set_active(dev);=0A=
-> +       pm_runtime_enable(dev);=0A=
-> +=0A=
-> +       ret =3D mira016_identify_module(mira016);=0A=
-> +       if (ret)=0A=
-> +               goto error_power_off;=0A=
-> +=0A=
-> +       ret =3D mira016_init_controls(mira016);=0A=
-> +       if (ret)=0A=
-> +               goto error_power_off;=0A=
-> +=0A=
-> +       /* Initialize subdev */=0A=
-> +       mira016->sd.internal_ops =3D &mira016_internal_ops;=0A=
-> +       mira016->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;=0A=
-> +       mira016->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;=0A=
-> +=0A=
-> +       /* Initialize source pads */=0A=
-> +       mira016->pad.flags =3D MEDIA_PAD_FL_SOURCE;=0A=
-> +=0A=
-> +       ret =3D media_entity_pads_init(&mira016->sd.entity, 1, &mira016->=
-pad);=0A=
-> +       if (ret) {=0A=
-> +               dev_err_probe(dev, ret, "failed to init entity pads\n");=
-=0A=
-> +               goto error_handler_free;=0A=
-> +       }=0A=
-> +=0A=
-> +       mira016->sd.state_lock =3D mira016->ctrl_handler.lock;=0A=
-> +       ret =3D v4l2_subdev_init_finalize(&mira016->sd);=0A=
-> +       if (ret < 0) {=0A=
-> +               dev_err_probe(dev, ret, "subdev init error\n");=0A=
-> +               goto error_media_entity;=0A=
-> +       }=0A=
-> +=0A=
-> +       ret =3D v4l2_async_register_subdev_sensor(&mira016->sd);=0A=
-> +       if (ret < 0) {=0A=
-> +               dev_err_probe(dev, ret,=0A=
-> +                             "failed to register sensor sub-device\n");=
-=0A=
-> +               goto error_subdev_cleanup;=0A=
-> +       }=0A=
-> +=0A=
-> +       pm_runtime_set_autosuspend_delay(dev, 1000);=0A=
-> +       pm_runtime_use_autosuspend(dev);=0A=
-> +       pm_runtime_idle(dev);=0A=
-> +=0A=
-> +       return 0;=0A=
-> +=0A=
-> +error_subdev_cleanup:=0A=
-> +       v4l2_subdev_cleanup(&mira016->sd);=0A=
-> +error_media_entity:=0A=
-> +       media_entity_cleanup(&mira016->sd.entity);=0A=
-> +error_handler_free:=0A=
-> +       v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);=0A=
-> +error_power_off:=0A=
-> +       pm_runtime_disable(dev);=0A=
-> +       if (!pm_runtime_status_suspended(&client->dev))=0A=
-=0A=
-Could we use dev here as well, just for consistency?=0A=
-=0A=
-> +               mira016_power_off(dev);=0A=
-> +       pm_runtime_set_suspended(dev);=0A=
-> +       return ret;=0A=
-> +}=0A=
-> +=0A=
-=0A=
-...=0A=
-=0A=
-> +static const struct of_device_id mira016_dt_ids[] =3D {=0A=
-> +       { .compatible =3D "ams,mira016" },=0A=
-> +       { /* sentinel */ }=0A=
-> +};=0A=
-> +MODULE_DEVICE_TABLE(of, mira016_dt_ids);=0A=
-> +=0A=
-> +static struct i2c_driver mira016_i2c_driver =3D {=0A=
-> +       .driver =3D {=0A=
-> +               .name =3D "mira016",=0A=
-> +               .of_match_table =3D mira016_dt_ids,=0A=
-> +               .pm =3D pm_ptr(&mira016_pm_ops),=0A=
-> +       },=0A=
-> +       .probe =3D mira016_probe,=0A=
-> +       .remove =3D mira016_remove,=0A=
-> +};=0A=
-> +=0A=
-> +module_i2c_driver(mira016_i2c_driver);=0A=
-> +=0A=
-> +MODULE_AUTHOR("Jacopo Mondi <jacopo.mondi@ideasonboard.com>");=0A=
-> +MODULE_DESCRIPTION("ams OSRAM MIRA016 sensor driver");=0A=
-> +MODULE_LICENSE("GPL");=0A=
->=0A=
-> --=0A=
-> 2.55.0=0A=
-=0A=
-Best Regards,=0A=
-Tarang=
+Hi Myeonghun, Nicolas,
+
+On 29/09/26 00:58, Nicolas Dufresne wrote:
+> Hi,
+> 
+> sorry for the long delay, finally getting to this one, comment below...
+> 
+
+Apologies from my side too. I too completely missed it.
+
+> Le samedi 25 avril 2026 à 01:58 +0900, 박명훈 a écrit :
+>> From: Myeonghun Pak <mhun512@gmail.com>
+>>
+>> The probe path allocates the mem2mem device with v4l2_m2m_init(),
+>> but several later failures jump directly to the v4l2_device_unregister()
+>> unwind path. Since the driver core does not call .remove() after a failed
+>> probe, those paths leak the m2m device.
+>>
+>> Route post-v4l2_m2m_init() failures through
+Brandonm
+Could you drop the existing m2m release step
+>> before unregistering the v4l2 device.
+>>
+>> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+>> ---
+>>   drivers/media/platform/imagination/e5010-jpeg-enc.c | 9 +++++----
+>>   1 file changed, 5 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+>> index 42ad9ee399..4c250e2275 100644
+>> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
+>> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+>> @@ -1072,14 +1072,14 @@ static int e5010_probe(struct platform_device *pdev)
+>>   	if (IS_ERR(e5010->core_base)) {
+>>   		ret = PTR_ERR(e5010->core_base);
+>>   		dev_err_probe(dev, ret, "Missing 'core' resources area\n");
+>> -		goto fail_after_v4l2_register;
+>> +		goto fail_after_m2m_init;
+
+I'd prefer naming convention as goto fail_after_v4l2_m2m_init to be 
+consistent w.r.t naming for other labels (goto fail_after_v4l2_register)
+>>   	}
+>>   
+>>   	e5010->mmu_base = devm_platform_ioremap_resource_byname(pdev, "mmu");
+>>   	if (IS_ERR(e5010->mmu_base)) {
+>>   		ret = PTR_ERR(e5010->mmu_base);
+>>   		dev_err_probe(dev, ret, "Missing 'mmu' resources area\n");
+>> -		goto fail_after_v4l2_register;
+>> +		goto fail_after_m2m_init;
+
+goto fail_after_v4l2_m2m_init;
+
+>>   	}
+>>   
+>>   	e5010->last_context_run = NULL;
+>> @@ -1089,14 +1089,14 @@ static int e5010_probe(struct platform_device *pdev)
+>>   			       E5010_MODULE_NAME, e5010);                            >>   	if (ret) {
+>>   		dev_err_probe(dev, ret, "failed to register IRQ %d\n", irq);
+>> -		goto fail_after_v4l2_register;
+>> +		goto fail_after_m2m_init;
+>>   	}
+>>   
+>>   	e5010->clk = devm_clk_get(dev, NULL);
+>>   	if (IS_ERR(e5010->clk)) {
+>>   		ret = PTR_ERR(e5010->clk);
+>>   		dev_err_probe(dev, ret, "failed to get clock\n");
+>> -		goto fail_after_v4l2_register;
+>> +		goto fail_after_m2m_init;
+
+goto fail_after_v4l2_m2m_init;
+
+>>   	}
+>>   
+>>   	pm_runtime_enable(dev);
+>> @@ -1113,6 +1113,7 @@ static int e5010_probe(struct platform_device *pdev)
+>>   	return 0;
+>>   
+>>   fail_after_video_register_device:
+
+I don't think we need above label anymore.
+
+>> +fail_after_m2m_init:
+
+fail_after_v4l2_m2m_init;
+> 
+> Can't you simply use fail_after_video_register_device label ?
+> 
+
+Actually it was a bit of mislabeling from my end when I authored this 
+originally as below :
+
+         ret = video_register_device(e5010->vdev, VFL_TYPE_VIDEO, 0); 
+
+          if (ret) { 
+
+                 dev_err_probe(dev, ret, "failed to register video 
+device\n");
+                 goto fail_after_video_register_device; -> This should 
+be fail_after_v4l2_m2_init too
+         }
+
+I think same thing I commented here too [0] which seems to address 
+similar problem.
+
+Basically you don't need fail_after_video_register_device label here, as 
+there is nothing much after it which needs and intead user here goto 
+fail_after_v4l2_m2m_init
+
+[0]:https://lore.kernel.org/all/39a03dcb-bebd-4794-a2bf-ff1b56cb632b@ti.com/#t
+
+Regards
+Devarsh
+
+
+> Nicolas
+> 
+>>   	v4l2_m2m_release(e5010->m2m_dev);
+>>   fail_after_v4l2_register:
+>>   	v4l2_device_unregister(&e5010->v4l2_dev);
+
