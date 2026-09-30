@@ -1,1114 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE3D3C09F5
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 19:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5393DDAE9
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 19:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795070; cv=none; b=tpoB5oKK5Mgppcih6Vv0WxexF9MXEW0B01fppV/qCOUG7kAHPOkNdpMjIdQdLwMcAalyoahKIDNpstI2Bx812DwC4997WGDHK+75wp8ZNNF33G/yWKJeUvCGZMRhwLTnGhQQxJY4czHFNxsiOgSuq5cFNOghQ4QJJ7CXoYb1VlI=
+	t=1790796206; cv=none; b=hE5g+Xp96+NxDkaw0yl8koeZZXOcqc9ZEx1zHlZBLIISUuMfqVR5aXzPYRestB/rS0mLJFKugpkpbKYGjDZRN4rojqruM0yIbVLC+CFaoLj9CGRVGN5rae8vzfTrPqz6tXf2255zlcV1i7rQlaZOm4vnrP8iDQ8+A2RbRnZaIYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795070; c=relaxed/simple;
-	bh=PclHNUP9fsZpAGzAZ180xkhRAG7LBgbAfWpq56fesvc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nz4NZoZd/2VDNbg4xJiMBVTCif2cwjFvKVZcfSkVW90VQpyvAEvTIK1BRakMHXLOLGa+CDzExmUn2VfaBDkb+Nqk/s7Ljw8zz3FXhsXEHPxkWcBQkrOrWg1E8laBcwofS7+oMNgmykJrhNXr+naBz39V918967MC1h+zEGrIMlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dsi8YC1u; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dsi8YC1u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790795067; x=1822331067;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=PclHNUP9fsZpAGzAZ180xkhRAG7LBgbAfWpq56fesvc=;
-  b=dsi8YC1ujRKBEAaIiBB7da2h37t0eZNy84q9EqZ22vKBpCMLQ/lttIM3
-   ZuO+HQSJDkNl9m2qYek7mYs825S7AnTKivo+7zAYw43uCz+hGZCUZO5n1
-   0O8cbw1e4rPqHvWtHIZZjOEAemseijT2LkljjVGwaKN/QHFiIZ2ec9QgA
-   mJA5ywcjKIBdet7z5kfOM/exl9/3jOjD4OUV0/N9KqpdFiLJpY9olde5e
-   QFAsAwEC39FVQ9TFzMY0gKs4WF+jrP5hpMm9lzeusv3eAPPFjBY1Dl5jN
-   PTy6Aa2ib/sz2D+hyXKawq3WKC1UDaVe38U6mMXQgpVDk49nKQ/aJte6I
-   g==;
-X-CSE-ConnectionGUID: aVaEz+6pQAy9CRRXy9eIZQ==
-X-CSE-MsgGUID: vxQFzDLaSZ2W13eMMQCf6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90495018"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="90495018"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 12:04:27 -0700
-X-CSE-ConnectionGUID: 588JUQwMSFKeIdrgzwAscQ==
-X-CSE-MsgGUID: cVvfBBlMTLesJ5Md09Bbfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="275812882"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.217])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 12:04:25 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 08EE211FBD1;
-	Wed, 30 Sep 2026 22:04:28 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xBzbP-0000000D3xA-0JWD;
-	Wed, 30 Sep 2026 22:04:27 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: antti.laakso@linux.intel.com,
-	hao.yao@intel.com,
-	dongcheng.yan@intel.com,
-	Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: [PATCH v2 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
-Date: Wed, 30 Sep 2026 22:04:27 +0300
-Message-ID: <20260930190427.3113453-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1790796206; c=relaxed/simple;
+	bh=uJ8EtuEK905+Gi23qPeV9TGepWx/mAogCtFhhB1gBt4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IRJ7FYiGmkHprB3C4MpYigCUm4jHIFKaRk5RXvUrt1YEAGzoR2rdexl+1lq0nVRWWCD4Q4h2Era03R7RPlMCLO6XKY6hf3k/c5ld5oP+e6rcGwS309/KbQGautBW1CdKnByhsTBvcxs+J/7+ectNWU0MxjVTavJtgnNfCHaO0Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab8b4887d4so5354245b6e.1
+        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 12:23:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790796203; x=1791401003;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vu33goty3w6qMJWGH8JjwHxD7w/swbfgGOmcqaO0bYg=;
+        b=hLGAHM/3MEU91dcqd4A0BdI+qJI+je6TqZB+fShY30moaXTd0JHH2+rnm66gIbi9sC
+         U8OAzbsR+0FruHf/xP2LByqhRO2VX3c2U1GbsvOByBiS13FMPCdYC4j5sc9Opnqrzwns
+         QNI25gtETFcd0H9+XmG280XKpQbpW8N6rnRYZ3Qzc4uLO4Hmjnds1+TL5IYJhF39SCDM
+         8+2qnj8u23ANaSfGHBqJ5NscXxqCMLC8dAI44Ya/pLvid0ppayuSWCAri1m+p/n6PiA6
+         Ah7VJctv3e1y0Al9J1McyyCmd6PCONpakgyQ4cufr+J0e5v5xFPzvwCEYkEOFygT9blc
+         SwNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXvmJvqjxXmmdrxg3A5iqa33yrIkRM67X2kTmQUYiU04FLHnrdR4NpZF7LyPinsTO3QbIqeJ7bAtRgzg==@vger.kernel.org
+X-Gm-Message-State: AFuF++mi/SI2iU5C5SHjpFU3TOovVuP7TPs5mRRGkSbIN72WTedpB0Lc
+	jYDlatalvP0tvV2vjzett2A7Cc7ok4JKYKJ7WG5uDnXbm3wmzJcsWcusw0TAJKwZwUfa+q+IzH9
+	R6fSg4JdoJo4xoTg5vSiLn991JVX1UJgkaRtAobcTwb0nhhvffCnqb71MIio=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:f0a:b0:4d6:90f3:74b4 with SMTP id
+ 5614622812f47-4f1b7dfcb10mr2831827b6e.52.1790796203482; Wed, 30 Sep 2026
+ 12:23:23 -0700 (PDT)
+Date: Wed, 30 Sep 2026 12:23:23 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abd61ab.9eb00033.20dcce.0004.GAE@google.com>
+Subject: [syzbot] [media?] general protection fault in mxl111sf_ep4_streaming_ctrl
+From: syzbot <syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Hao Yao <hao.yao@intel.com>
+Hello,
 
-Add a driver for the Omnivision ov05c10 camera sensor. This driver
-implements a single mode only.
+syzbot found the following issue on:
 
-Signed-off-by: Hao Yao <hao.yao@intel.com>
-Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=10a37b25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=3df044e20e6ff1fb3cf5
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14f983f5580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com
+
+usb 3-1: dvb_usb_v2: could not submit urb no. 0 - get them all back
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
+CPU: 1 UID: 0 PID: 5922 Comm: syz-executor559 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+RIP: 0010:mxl111sf_ep4_streaming_ctrl+0x2c/0x1a0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:399
+Code: 1e fa 55 41 57 41 56 53 89 f3 49 89 fe 49 bf 00 00 00 00 00 fc ff df e8 02 5e 93 f9 49 81 c6 08 03 00 00 4c 89 f0 48 c1 e8 03 <42> 80 3c 38 00 74 08 4c 89 f7 e8 25 61 03 fa 4d 8b 36 49 83 c6 38
+RSP: 0018:ffffc90002fc7b38 EFLAGS: 00010202
+RAX: 0000000000000061 RBX: 0000000000000001 RCX: ffff88807ceb8000
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: ffffc90002fc7c38 R08: ffffc90002fc7647 R09: 1ffff920005f8ec8
+R10: dffffc0000000000 R11: ffffffff88348d10 R12: dffffc0000000000
+R13: ffff88805a6753b8 R14: 0000000000000308 R15: dffffc0000000000
+FS:  00007f91525696c0(0000) GS:ffff888124dc8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f09f0cd1140 CR3: 000000002f2ca000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ dvb_usb_start_feed+0x57a/0xc70 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:308
+ dmx_ts_feed_start_filtering+0x129/0x220 drivers/media/dvb-core/dvb_demux.c:747
+ dvb_dmxdev_start_feed drivers/media/dvb-core/dmxdev.c:658 [inline]
+ dvb_dmxdev_filter_start+0x434/0x10d0 drivers/media/dvb-core/dmxdev.c:769
+ dvb_demux_do_ioctl+0x48b/0x540 drivers/media/dvb-core/dmxdev.c:1099
+ dvb_usercopy+0x199/0x2e0 drivers/media/dvb-core/dvbdev.c:996
+ dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9153da4a8b
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+RSP: 002b:00007f9152569060 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f9153da4a8b
+RDX: 00007f91525690d0 RSI: 0000000040146f2c RDI: 0000000000000003
+RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f91525690f0
+R13: 00007f9153e11fe6 R14: 0000001400000001 R15: 00007ffdf0c12528
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:mxl111sf_ep4_streaming_ctrl+0x2c/0x1a0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:399
+Code: 1e fa 55 41 57 41 56 53 89 f3 49 89 fe 49 bf 00 00 00 00 00 fc ff df e8 02 5e 93 f9 49 81 c6 08 03 00 00 4c 89 f0 48 c1 e8 03 <42> 80 3c 38 00 74 08 4c 89 f7 e8 25 61 03 fa 4d 8b 36 49 83 c6 38
+RSP: 0018:ffffc90002fc7b38 EFLAGS: 00010202
+RAX: 0000000000000061 RBX: 0000000000000001 RCX: ffff88807ceb8000
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: ffffc90002fc7c38 R08: ffffc90002fc7647 R09: 1ffff920005f8ec8
+R10: dffffc0000000000 R11: ffffffff88348d10 R12: dffffc0000000000
+R13: ffff88805a6753b8 R14: 0000000000000308 R15: dffffc0000000000
+FS:  00007f91525696c0(0000) GS:ffff888124cc8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000564103601950 CR3: 000000002f2ca000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess), 1 bytes skipped:
+   0:	fa                   	cli
+   1:	55                   	push   %rbp
+   2:	41 57                	push   %r15
+   4:	41 56                	push   %r14
+   6:	53                   	push   %rbx
+   7:	89 f3                	mov    %esi,%ebx
+   9:	49 89 fe             	mov    %rdi,%r14
+   c:	49 bf 00 00 00 00 00 	movabs $0xdffffc0000000000,%r15
+  13:	fc ff df
+  16:	e8 02 5e 93 f9       	call   0xf9935e1d
+  1b:	49 81 c6 08 03 00 00 	add    $0x308,%r14
+  22:	4c 89 f0             	mov    %r14,%rax
+  25:	48 c1 e8 03          	shr    $0x3,%rax
+* 29:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1) <-- trapping instruction
+  2e:	74 08                	je     0x38
+  30:	4c 89 f7             	mov    %r14,%rdi
+  33:	e8 25 61 03 fa       	call   0xfa03615d
+  38:	4d 8b 36             	mov    (%r14),%r14
+  3b:	49 83 c6 38          	add    $0x38,%r14
+
+
 ---
-since v1:
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-- Use devm_v4l2_sensor_clk_get().
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-- Adjust git tags.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
- drivers/media/i2c/Kconfig   |  10 +
- drivers/media/i2c/Makefile  |   1 +
- drivers/media/i2c/ov05c10.c | 978 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 989 insertions(+)
- create mode 100644 drivers/media/i2c/ov05c10.c
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 9b28e91b8a67..cc4b675214e9 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -466,6 +466,16 @@ config VIDEO_OV02C10
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ov02c10.
- 
-+config VIDEO_OV05C10
-+	tristate "OmniVision OV05C10 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a Video4Linux2 sensor driver for the OmniVision
-+	  OV05C10 camera.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ov05c10.
-+
- config VIDEO_OV08D10
-         tristate "OmniVision OV08D10 sensor support"
-         help
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index fd1cb25718c0..0c87f564be5f 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -94,6 +94,7 @@ obj-$(CONFIG_VIDEO_OV01A10) += ov01a10.o
- obj-$(CONFIG_VIDEO_OV02A10) += ov02a10.o
- obj-$(CONFIG_VIDEO_OV02C10) += ov02c10.o
- obj-$(CONFIG_VIDEO_OV02E10) += ov02e10.o
-+obj-$(CONFIG_VIDEO_OV05C10) += ov05c10.o
- obj-$(CONFIG_VIDEO_OV08D10) += ov08d10.o
- obj-$(CONFIG_VIDEO_OV08X40) += ov08x40.o
- obj-$(CONFIG_VIDEO_OV13858) += ov13858.o
-diff --git a/drivers/media/i2c/ov05c10.c b/drivers/media/i2c/ov05c10.c
-new file mode 100644
-index 000000000000..2f2c49bac13f
---- /dev/null
-+++ b/drivers/media/i2c/ov05c10.c
-@@ -0,0 +1,978 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2024-2026 Intel Corporation. */
-+
-+#include <linux/acpi.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+/*
-+ * OV05C10 has paged 8-bit registers. Encode register addresses as 16-bit
-+ * logical addresses (<page><offset>) so regmap range handling can switch
-+ * pages via 0xfd automatically, making page handling transparent to driver.
-+ */
-+#define OV05C10_REG8(page, addr)	CCI_REG8(((page) << 8) | (addr))
-+#define OV05C10_REG16(page, addr)	CCI_REG16(((page) << 8) | (addr))
-+#define OV05C10_REG24(page, addr)	CCI_REG24(((page) << 8) | (addr))
-+#define OV05C10_REG32(page, addr)	CCI_REG32(((page) << 8) | (addr))
-+
-+#define OV05C10_REG_PAGE_FLAG		0xfd
-+#define OV05C10_MAX_REGISTER		0x0fff
-+
-+#define OV05C10_REG_CHIP_ID		OV05C10_REG32(0x00, 0x00)
-+#define OV05C10_CHIP_ID			0x43055610
-+
-+#define OV05C10_REG_MIPI_EN		OV05C10_REG8(0x00, 0xa0)
-+#define OV05C10_MIPI_EN_ENABLE		0x01
-+
-+#define OV05C10_REG_H_SIZE_MIPI		OV05C10_REG16(0x00, 0x8e)
-+#define OV05C10_REG_V_SIZE_MIPI		OV05C10_REG16(0x00, 0x90)
-+
-+#define OV05C10_REG_TRIGGER		OV05C10_REG8(0x01, 0x01)
-+#define OV05C10_TRIGGER_APPLY		0x01
-+#define OV05C10_TRIGGER_LATCH		0x02
-+
-+#define OV05C10_REG_EXPOSURE		OV05C10_REG24(0x01, 0x02)
-+#define OV05C10_EXPOSURE_MARGIN		33
-+#define OV05C10_EXPOSURE_MIN		0x6
-+#define OV05C10_EXPOSURE_STEP		0x1
-+
-+#define OV05C10_REG_DUMMY_LINE		OV05C10_REG16(0x01, 0x05)
-+
-+#define OV05C10_REG_DIGITAL_GAIN	OV05C10_REG16(0x01, 0x21)
-+#define OV05C10_MAX_DIG_GAIN		0x100	/* 4x */
-+#define OV05C10_MIN_DIG_GAIN		0x40	/* 1x */
-+#define OV05C10_DGTL_GAIN_STEP		0x01
-+#define OV05C10_DGTL_GAIN_DEFAULT	0x40
-+
-+#define OV05C10_REG_ANALOG_GAIN		OV05C10_REG8(0x01, 0x24)
-+#define OV05C10_MAX_ANALOG_GAIN		0xf8	/* 15.5x */
-+#define OV05C10_MIN_ANALOG_GAIN		0x10	/* 1x */
-+#define OV05C10_ANALOG_GAIN_STEP	0x01
-+#define OV05C10_ANALOG_GAIN_DEFAULT	0x10
-+
-+#define OV05C10_REG_TIMING_VTS		OV05C10_REG16(0x01, 0x35)
-+#define OV05C10_VTS_MAX			0xffff
-+#define OV05C10_PPL			3236
-+#define OV05C10_DEFAULT_VTS		1860
-+
-+#define OV05C10_REG_TIMING_HTS		OV05C10_REG16(0x01, 0x37)
-+
-+#define OV05C10_REG_COL_ANA_ADDR_START	OV05C10_REG16(0x01, 0x28)
-+#define OV05C10_REG_COL_ANA_ADDR_SIZE	OV05C10_REG16(0x01, 0x2a)
-+#define OV05C10_REG_ROW_ANA_ADDR_START	OV05C10_REG16(0x01, 0x2c)
-+#define OV05C10_REG_ROW_ANA_ADDR_SIZE	OV05C10_REG16(0x01, 0x2e)
-+
-+#define OV05C10_REG_DEM_V_START		OV05C10_REG16(0x02, 0xa0)
-+#define OV05C10_REG_DEM_V_SIZE		OV05C10_REG16(0x02, 0xa2)
-+#define OV05C10_REG_DEM_H_START		OV05C10_REG16(0x02, 0xa4)
-+#define OV05C10_REG_DEM_H_SIZE		OV05C10_REG16(0x02, 0xa6)
-+
-+#define OV05C10_REG_TEST_PATTERN_EN	OV05C10_REG8(0x04, 0x12)
-+#define OV05C10_TEST_PATTERN_DISABLE	0x00
-+#define OV05C10_TEST_PATTERN_ENABLE	0x01
-+
-+#define OV05C10_REG_TEST_CLK_EN		OV05C10_REG8(0x04, 0xf3)
-+#define OV05C10_TEST_CLK_DISABLE	0x00
-+#define OV05C10_TEST_CLK_ENABLE		0x02
-+
-+#define OV05C10_PIXEL_RATE		192000000ULL
-+#define OV05C10_NATIVE_WIDTH		2888
-+#define OV05C10_NATIVE_HEIGHT		1808
-+
-+static const struct regmap_range_cfg ov05c10_range = {
-+	.range_min = 0x0000,
-+	.range_max = OV05C10_MAX_REGISTER,
-+	.selector_reg = OV05C10_REG_PAGE_FLAG,
-+	.selector_mask = 0x0f,
-+	.selector_shift = 0,
-+	.window_start = 0x00,
-+	.window_len = 0x100,
-+};
-+
-+static const struct regmap_config ov05c10_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.reg_format_endian = REGMAP_ENDIAN_BIG,
-+	.max_register = OV05C10_MAX_REGISTER,
-+	.ranges = &ov05c10_range,
-+	.num_ranges = 1,
-+	.disable_locking = true,
-+};
-+
-+#define to_ov05c10(_sd)		container_of(_sd, struct ov05c10, sd)
-+
-+static const char *const ov05c10_test_pattern_menu[] = {
-+	"Disabled",
-+	"Color Bar",
-+};
-+
-+static const s64 ov05c10_link_freq_items[] = {
-+	480000000ULL,
-+};
-+
-+struct ov05c10_reg_list {
-+	u32 num_of_regs;
-+	const struct cci_reg_sequence *regs;
-+};
-+
-+struct ov05c10_mode {
-+	u16 left;
-+	u16 top;
-+	u32 width;
-+	u32 height;
-+	u16 hts;
-+	u16 vts_def;
-+	u16 vts_min;
-+	u16 lanes;
-+	u32 code;
-+	/* Sensor register settings for this mode */
-+	const struct ov05c10_reg_list reg_list;
-+};
-+
-+/* 2800X1576_2lane_raw10_Mclk19.2M_pclk96M_30fps */
-+static const struct cci_reg_sequence mode_2800_1576_30fps[] = {
-+	{ OV05C10_REG8(0x00, 0x20), 0x00 },
-+	{ OV05C10_REG8(0x00, 0x20), 0x0b },
-+	{ OV05C10_REG8(0x00, 0xc1), 0x09 },
-+	{ OV05C10_REG8(0x00, 0x21), 0x06 },
-+	{ OV05C10_REG8(0x00, 0x11), 0x4e },
-+	{ OV05C10_REG8(0x00, 0x12), 0x13 },
-+	{ OV05C10_REG8(0x00, 0x14), 0x96 },
-+	{ OV05C10_REG8(0x00, 0x1b), 0x64 },
-+	{ OV05C10_REG8(0x00, 0x1d), 0x02 },
-+	{ OV05C10_REG8(0x00, 0x1e), 0x40 },
-+	{ OV05C10_REG8(0x00, 0xe7), 0x03 },
-+	{ OV05C10_REG8(0x00, 0xe7), 0x00 },
-+	{ OV05C10_REG8(0x00, 0x21), 0x00 },
-+	{ OV05C10_REG8(0x01, 0x03), 0x00 },
-+	{ OV05C10_REG8(0x01, 0x04), 0x06 },
-+	{ OV05C10_REG8(0x01, 0x06), 0x76 },
-+	{ OV05C10_REG8(0x01, 0x07), 0x08 },
-+	{ OV05C10_REG8(0x01, 0x1b), 0x01 },
-+	{ OV05C10_REG8(0x01, 0x24), 0xff },
-+	{ OV05C10_REG8(0x01, 0x42), 0x5d },
-+	{ OV05C10_REG8(0x01, 0x43), 0x08 },
-+	{ OV05C10_REG8(0x01, 0x44), 0x81 },
-+	{ OV05C10_REG8(0x01, 0x46), 0x5f },
-+	{ OV05C10_REG8(0x01, 0x48), 0x18 },
-+	{ OV05C10_REG8(0x01, 0x49), 0x04 },
-+	{ OV05C10_REG8(0x01, 0x5c), 0x18 },
-+	{ OV05C10_REG8(0x01, 0x5e), 0x13 },
-+	{ OV05C10_REG8(0x01, 0x70), 0x15 },
-+	{ OV05C10_REG8(0x01, 0x77), 0x35 },
-+	{ OV05C10_REG8(0x01, 0x79), 0xb2 },
-+	{ OV05C10_REG8(0x01, 0x7b), 0x08 },
-+	{ OV05C10_REG8(0x01, 0x7d), 0x08 },
-+	{ OV05C10_REG8(0x01, 0x7e), 0x08 },
-+	{ OV05C10_REG8(0x01, 0x7f), 0x08 },
-+	{ OV05C10_REG8(0x01, 0x90), 0x37 },
-+	{ OV05C10_REG8(0x01, 0x91), 0x05 },
-+	{ OV05C10_REG8(0x01, 0x92), 0x18 },
-+	{ OV05C10_REG8(0x01, 0x93), 0x27 },
-+	{ OV05C10_REG8(0x01, 0x94), 0x05 },
-+	{ OV05C10_REG8(0x01, 0x95), 0x38 },
-+	{ OV05C10_REG8(0x01, 0x9b), 0x00 },
-+	{ OV05C10_REG8(0x01, 0x9c), 0x06 },
-+	{ OV05C10_REG8(0x01, 0x9d), 0x28 },
-+	{ OV05C10_REG8(0x01, 0x9e), 0x06 },
-+	{ OV05C10_REG8(0x01, 0xb2), 0x0f },
-+	{ OV05C10_REG8(0x01, 0xb3), 0x29 },
-+	{ OV05C10_REG8(0x01, 0xbf), 0x3c },
-+	{ OV05C10_REG8(0x01, 0xc2), 0x04 },
-+	{ OV05C10_REG8(0x01, 0xc4), 0x00 },
-+	{ OV05C10_REG8(0x01, 0xca), 0x20 },
-+	{ OV05C10_REG8(0x01, 0xcb), 0x20 },
-+	{ OV05C10_REG8(0x01, 0xcc), 0x28 },
-+	{ OV05C10_REG8(0x01, 0xcd), 0x28 },
-+	{ OV05C10_REG8(0x01, 0xce), 0x20 },
-+	{ OV05C10_REG8(0x01, 0xcf), 0x20 },
-+	{ OV05C10_REG8(0x01, 0xd0), 0x2a },
-+	{ OV05C10_REG8(0x01, 0xd1), 0x2a },
-+	{ OV05C10_REG8(0x0f, 0x00), 0x00 },
-+	{ OV05C10_REG8(0x0f, 0x01), 0xa0 },
-+	{ OV05C10_REG8(0x0f, 0x02), 0x48 },
-+	{ OV05C10_REG8(0x0f, 0x07), 0x8e },
-+	{ OV05C10_REG8(0x0f, 0x08), 0x70 },
-+	{ OV05C10_REG8(0x0f, 0x09), 0x01 },
-+	{ OV05C10_REG8(0x0f, 0x0b), 0x40 },
-+	{ OV05C10_REG8(0x0f, 0x0d), 0x07 },
-+	{ OV05C10_REG8(0x0f, 0x11), 0x33 },
-+	{ OV05C10_REG8(0x0f, 0x12), 0x77 },
-+	{ OV05C10_REG8(0x0f, 0x13), 0x66 },
-+	{ OV05C10_REG8(0x0f, 0x14), 0x65 },
-+	{ OV05C10_REG8(0x0f, 0x15), 0x37 },
-+	{ OV05C10_REG8(0x0f, 0x16), 0xbf },
-+	{ OV05C10_REG8(0x0f, 0x17), 0xff },
-+	{ OV05C10_REG8(0x0f, 0x18), 0xff },
-+	{ OV05C10_REG8(0x0f, 0x19), 0x12 },
-+	{ OV05C10_REG8(0x0f, 0x1a), 0x10 },
-+	{ OV05C10_REG8(0x0f, 0x1c), 0x77 },
-+	{ OV05C10_REG8(0x0f, 0x1d), 0x77 },
-+	{ OV05C10_REG8(0x0f, 0x20), 0x0f },
-+	{ OV05C10_REG8(0x0f, 0x21), 0x0f },
-+	{ OV05C10_REG8(0x0f, 0x22), 0x0f },
-+	{ OV05C10_REG8(0x0f, 0x23), 0x0f },
-+	{ OV05C10_REG8(0x0f, 0x2b), 0x20 },
-+	{ OV05C10_REG8(0x0f, 0x2c), 0x20 },
-+	{ OV05C10_REG8(0x0f, 0x2d), 0x04 },
-+	{ OV05C10_REG8(0x03, 0x9d), 0x0f },
-+	{ OV05C10_REG8(0x03, 0x9f), 0x40 },
-+	{ OV05C10_REG8(0x00, 0x20), 0x1b },
-+	{ OV05C10_REG8(0x04, 0x19), 0x60 },
-+	{ OV05C10_REG8(0x02, 0x75), 0x04 },
-+	{ OV05C10_REG8(0x02, 0x7f), 0x06 },
-+	{ OV05C10_REG8(0x02, 0x9a), 0x03 },
-+	{ OV05C10_REG8(0x07, 0x42), 0x00 },
-+	{ OV05C10_REG8(0x07, 0x43), 0x80 },
-+	{ OV05C10_REG8(0x07, 0x44), 0x00 },
-+	{ OV05C10_REG8(0x07, 0x45), 0x80 },
-+	{ OV05C10_REG8(0x07, 0x46), 0x00 },
-+	{ OV05C10_REG8(0x07, 0x47), 0x80 },
-+	{ OV05C10_REG8(0x07, 0x48), 0x00 },
-+	{ OV05C10_REG8(0x07, 0x49), 0x80 },
-+	{ OV05C10_REG8(0x07, 0x00), 0xf7 },
-+	{ OV05C10_REG8(0x00, 0xe7), 0x03 },
-+	{ OV05C10_REG8(0x00, 0xe7), 0x00 },
-+	{ OV05C10_REG8(0x00, 0x93), 0x18 },
-+	{ OV05C10_REG8(0x00, 0x94), 0xff },
-+	{ OV05C10_REG8(0x00, 0x95), 0xbd },
-+	{ OV05C10_REG8(0x00, 0x96), 0x1a },
-+	{ OV05C10_REG8(0x00, 0x98), 0x04 },
-+	{ OV05C10_REG8(0x00, 0x99), 0x08 },
-+	{ OV05C10_REG8(0x00, 0x9b), 0x10 },
-+	{ OV05C10_REG8(0x00, 0x9c), 0x3f },
-+	{ OV05C10_REG8(0x00, 0xa1), 0x05 },
-+	{ OV05C10_REG8(0x00, 0xa4), 0x2f },
-+	{ OV05C10_REG8(0x00, 0xc0), 0x0c },
-+	{ OV05C10_REG8(0x00, 0xc1), 0x08 },
-+	{ OV05C10_REG8(0x00, 0xc2), 0x00 },
-+	{ OV05C10_REG8(0x00, 0xb6), 0x20 },
-+	{ OV05C10_REG8(0x00, 0xbb), 0x80 },
-+	{ OV05C10_REG_MIPI_EN, 0x00 },
-+	{ OV05C10_REG8(0x01, 0x33), 0x03 },
-+	{ OV05C10_REG8(0x01, 0x01), 0x02 },
-+	{ OV05C10_REG8(0x00, 0x20), 0x1f },
-+};
-+
-+static const struct ov05c10_mode supported_modes[] = {
-+	{
-+		.left = 46,
-+		.top = 117,
-+		.width = 2800,
-+		.height = 1576,
-+		.hts = 758,
-+		.vts_def = 1978,
-+		.vts_min = 1978,
-+		.code = MEDIA_BUS_FMT_SGRBG10_1X10,
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_2800_1576_30fps),
-+			.regs = mode_2800_1576_30fps,
-+		},
-+	},
-+};
-+
-+struct ov05c10 {
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct v4l2_ctrl_handler ctrl_handler;
-+
-+	struct v4l2_ctrl *exposure;
-+	struct v4l2_ctrl *vblank;
-+	struct v4l2_ctrl *hblank;
-+
-+	struct regmap *regmap;
-+	unsigned long link_freq_bitmap;
-+
-+	struct clk *img_clk;
-+	struct regulator *avdd;
-+	struct gpio_desc *reset;
-+	bool identified;
-+};
-+
-+static int ov05c10_test_pattern(struct ov05c10 *ov05c10, u32 pattern)
-+{
-+	int ret = 0;
-+
-+	if (pattern) {
-+		cci_write(ov05c10->regmap, OV05C10_REG_TEST_CLK_EN,
-+			  OV05C10_TEST_CLK_ENABLE, &ret);
-+		cci_write(ov05c10->regmap, OV05C10_REG_TEST_PATTERN_EN,
-+			  OV05C10_TEST_PATTERN_ENABLE, &ret);
-+	} else {
-+		cci_write(ov05c10->regmap, OV05C10_REG_TEST_CLK_EN,
-+			  OV05C10_TEST_CLK_DISABLE, &ret);
-+		cci_write(ov05c10->regmap, OV05C10_REG_TEST_PATTERN_EN,
-+			  OV05C10_TEST_PATTERN_DISABLE, &ret);
-+	}
-+
-+	return ret;
-+}
-+
-+static int ov05c10_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct ov05c10 *ov05c10 =
-+		container_of(ctrl->handler, struct ov05c10, ctrl_handler);
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
-+	struct v4l2_subdev_state *state;
-+	const struct v4l2_mbus_framefmt *format;
-+	u64 vts;
-+	int ret;
-+
-+	state = v4l2_subdev_get_locked_active_state(&ov05c10->sd);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+
-+	if (ctrl->id == V4L2_CID_VBLANK) {
-+		ret = __v4l2_ctrl_modify_range(ov05c10->exposure,
-+					       ov05c10->exposure->minimum,
-+					       format->height + ctrl->val -
-+					       OV05C10_EXPOSURE_MARGIN,
-+					       ov05c10->exposure->step,
-+					       format->height -
-+					       OV05C10_EXPOSURE_MARGIN);
-+
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (!pm_runtime_get_if_active(&client->dev))
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = cci_write(ov05c10->regmap, OV05C10_REG_ANALOG_GAIN,
-+				ctrl->val, NULL);
-+		break;
-+	case V4L2_CID_DIGITAL_GAIN:
-+		ret = cci_write(ov05c10->regmap, OV05C10_REG_DIGITAL_GAIN,
-+				ctrl->val, NULL);
-+		break;
-+	case V4L2_CID_EXPOSURE:
-+		ret = cci_write(ov05c10->regmap, OV05C10_REG_EXPOSURE,
-+				ctrl->val, NULL);
-+		break;
-+	case V4L2_CID_VBLANK:
-+		/*
-+		 * REG_TIMING_VTS is read-only and increased by writing to
-+		 * REG_DUMMY_LINE in ov05c10. The calculation formula is
-+		 * required VTS = dummyline + current VTS. Here get the
-+		 * current VTS and calculate the required dummyline.
-+		 */
-+		cci_read(ov05c10->regmap, OV05C10_REG_TIMING_VTS, &vts, &ret);
-+		if (ret)
-+			goto err;
-+
-+		ret = cci_write(ov05c10->regmap, OV05C10_REG_DUMMY_LINE,
-+				max_t(int, ctrl->val + format->height - vts, 0),
-+				NULL);
-+		break;
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = ov05c10_test_pattern(ov05c10, ctrl->val);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,
-+		  OV05C10_TRIGGER_APPLY, &ret);
-+	if (ret) {
-+		dev_err(&client->dev, "failed to trigger write");
-+		goto err;
-+	}
-+
-+err:
-+	pm_runtime_put_autosuspend(&client->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops ov05c10_ctrl_ops = {
-+	.s_ctrl = ov05c10_set_ctrl,
-+};
-+
-+static int ov05c10_init_controls(struct ov05c10 *ov05c10)
-+{
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
-+	struct v4l2_fwnode_device_properties props;
-+	struct v4l2_ctrl_handler *ctrl_hdlr;
-+	s64 exposure_max, vblank_max, vblank_min, vblank_def, hblank;
-+	const struct ov05c10_mode *mode = &supported_modes[0];
-+	struct v4l2_ctrl *link_freq;
-+	int ret;
-+
-+	ret = v4l2_fwnode_device_parse(&client->dev, &props);
-+	if (ret)
-+		return ret;
-+
-+	ctrl_hdlr = &ov05c10->ctrl_handler;
-+	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 8);
-+	if (ret)
-+		return ret;
-+
-+	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov05c10_ctrl_ops,
-+					   V4L2_CID_LINK_FREQ,
-+					   ARRAY_SIZE(ov05c10_link_freq_items) -
-+					   1, 0, ov05c10_link_freq_items);
-+
-+	vblank_min = mode->vts_min - mode->height;
-+	vblank_max = OV05C10_VTS_MAX - mode->height;
-+	vblank_def = mode->vts_def - mode->height;
-+	ov05c10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
-+					    V4L2_CID_VBLANK, vblank_min,
-+					    vblank_max, 1, vblank_def);
-+
-+	hblank = OV05C10_PPL - mode->width;
-+	ov05c10->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
-+					    V4L2_CID_HBLANK, hblank, hblank, 1,
-+					    hblank);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-+			  OV05C10_MIN_ANALOG_GAIN, OV05C10_MAX_ANALOG_GAIN,
-+			  OV05C10_ANALOG_GAIN_STEP,
-+			  OV05C10_ANALOG_GAIN_DEFAULT);
-+	v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
-+			  OV05C10_MIN_DIG_GAIN, OV05C10_MAX_DIG_GAIN,
-+			  OV05C10_DGTL_GAIN_STEP, OV05C10_DGTL_GAIN_DEFAULT);
-+
-+	exposure_max = mode->vts_def - OV05C10_EXPOSURE_MARGIN;
-+	ov05c10->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
-+					      V4L2_CID_EXPOSURE,
-+					      OV05C10_EXPOSURE_MIN,
-+					      exposure_max,
-+					      OV05C10_EXPOSURE_STEP,
-+					      exposure_max);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops,
-+			  V4L2_CID_PIXEL_RATE, OV05C10_PIXEL_RATE,
-+			  OV05C10_PIXEL_RATE, 1, OV05C10_PIXEL_RATE);
-+
-+	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov05c10_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(ov05c10_test_pattern_menu) - 1,
-+				     0, 0, ov05c10_test_pattern_menu);
-+
-+	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &ov05c10_ctrl_ops, &props);
-+
-+	if (ctrl_hdlr->error)
-+		return ctrl_hdlr->error;
-+
-+	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	ov05c10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	ov05c10->sd.ctrl_handler = ctrl_hdlr;
-+
-+	return 0;
-+}
-+
-+static int ov05c10_enable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state, u32 pad,
-+				  u64 streams)
-+{
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
-+	struct v4l2_mbus_framefmt *format =
-+		v4l2_subdev_state_get_format(state, 0);
-+	const struct ov05c10_mode *mode =
-+		v4l2_find_nearest_size(supported_modes,
-+				       ARRAY_SIZE(supported_modes),
-+				       width, height,
-+				       format->width, format->height);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(&client->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	cci_multi_reg_write(ov05c10->regmap, mode->reg_list.regs,
-+			    mode->reg_list.num_of_regs, &ret);
-+	if (ret) {
-+		dev_err(&client->dev, "failed to set mode");
-+		goto err_rpm_put;
-+	}
-+
-+	cci_write(ov05c10->regmap, OV05C10_REG_DEM_V_START, mode->top, &ret);
-+	cci_write(ov05c10->regmap, OV05C10_REG_DEM_V_SIZE, mode->height, &ret);
-+	cci_write(ov05c10->regmap, OV05C10_REG_DEM_H_START, mode->left, &ret);
-+	cci_write(ov05c10->regmap, OV05C10_REG_DEM_H_SIZE, mode->width, &ret);
-+
-+	cci_write(ov05c10->regmap, OV05C10_REG_H_SIZE_MIPI, mode->width, &ret);
-+	cci_write(ov05c10->regmap, OV05C10_REG_V_SIZE_MIPI, mode->height, &ret);
-+
-+	ret = __v4l2_ctrl_handler_setup(ov05c10->sd.ctrl_handler);
-+	if (ret)
-+		goto err_rpm_put;
-+
-+	cci_write(ov05c10->regmap, OV05C10_REG_MIPI_EN,
-+		  OV05C10_MIPI_EN_ENABLE, &ret);
-+	cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,
-+		  OV05C10_TRIGGER_LATCH, &ret);
-+	if (ret) {
-+		dev_err(&client->dev, "failed to start stream");
-+		goto err_rpm_put;
-+	}
-+
-+	return 0;
-+
-+err_rpm_put:
-+	pm_runtime_put_autosuspend(&client->dev);
-+
-+	return ret;
-+}
-+
-+static int ov05c10_disable_streams(struct v4l2_subdev *sd,
-+				   struct v4l2_subdev_state *state, u32 pad,
-+				   u64 streams)
-+{
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
-+	int ret = 0;
-+
-+	cci_write(ov05c10->regmap, OV05C10_REG_MIPI_EN, 0, &ret);
-+	cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,
-+		  OV05C10_TRIGGER_LATCH, &ret);
-+	if (ret < 0)
-+		dev_err(&client->dev, "failed to stop stream");
-+
-+	pm_runtime_put_autosuspend(&client->dev);
-+
-+	return ret;
-+}
-+
-+static void ov05c10_pad_format_crop_from_mode(const struct ov05c10_mode *mode,
-+					      struct v4l2_mbus_framefmt *fmt,
-+					      struct v4l2_rect *crop)
-+{
-+	fmt->width = mode->width;
-+	fmt->height = mode->height;
-+	fmt->code = mode->code;
-+	fmt->field = V4L2_FIELD_NONE;
-+
-+	crop->left = mode->left;
-+	crop->width = mode->width;
-+	crop->top = mode->top;
-+	crop->height = mode->height;
-+}
-+
-+static int ov05c10_set_format(struct v4l2_subdev *sd,
-+			      const struct v4l2_subdev_client_info *ci,
-+			      struct v4l2_subdev_state *sd_state,
-+			      struct v4l2_subdev_format *fmt)
-+{
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
-+	struct v4l2_rect *crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
-+	const struct ov05c10_mode *mode;
-+	s64 hblank, exposure_max;
-+	int ret;
-+
-+	mode = v4l2_find_nearest_size(supported_modes,
-+				      ARRAY_SIZE(supported_modes),
-+				      width, height,
-+				      fmt->format.width, fmt->format.height);
-+
-+	ov05c10_pad_format_crop_from_mode(mode, &fmt->format, crop);
-+	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
-+		return 0;
-+
-+	hblank = OV05C10_PPL - mode->width;
-+	ret = __v4l2_ctrl_modify_range(ov05c10->hblank, hblank, hblank,
-+				       1, hblank);
-+	if (ret) {
-+		dev_err(&client->dev, "HBLANK ctrl range update failed\n");
-+		return ret;
-+	}
-+
-+	/* Update limits and set FPS to default */
-+	ret = __v4l2_ctrl_modify_range(ov05c10->vblank,
-+				       mode->vts_min - mode->height,
-+				       OV05C10_VTS_MAX - mode->height, 1,
-+				       mode->vts_def - mode->height);
-+	if (ret) {
-+		dev_err(&client->dev, "VBLANK ctrl range update failed\n");
-+		return ret;
-+	}
-+
-+	ret = __v4l2_ctrl_s_ctrl(ov05c10->vblank,
-+				 mode->vts_def - mode->height);
-+	if (ret) {
-+		dev_err(&client->dev, "VBLANK ctrl set failed\n");
-+		return ret;
-+	}
-+
-+	exposure_max = mode->vts_def - OV05C10_EXPOSURE_MARGIN;
-+	ret = __v4l2_ctrl_modify_range(ov05c10->exposure, OV05C10_EXPOSURE_MIN,
-+				       exposure_max, OV05C10_EXPOSURE_STEP,
-+				       exposure_max);
-+	if (ret)
-+		dev_err(&client->dev, "exposure ctrl range update failed\n");
-+
-+	return ret;
-+}
-+
-+static int ov05c10_enum_mbus_code(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index)
-+		return -EINVAL;
-+
-+	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+
-+	return 0;
-+}
-+
-+static int ov05c10_enum_frame_size(struct v4l2_subdev *sd,
-+				   struct v4l2_subdev_state *sd_state,
-+				   struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index >= ARRAY_SIZE(supported_modes))
-+		return -EINVAL;
-+	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
-+		return -EINVAL;
-+
-+	fse->min_width = supported_modes[fse->index].width;
-+	fse->max_width = fse->min_width;
-+	fse->min_height = supported_modes[fse->index].height;
-+	fse->max_height = fse->min_height;
-+
-+	return 0;
-+}
-+
-+static int ov05c10_get_selection(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r = *v4l2_subdev_state_get_crop(state, 0);
-+		break;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.top = 0;
-+		sel->r.left = 0;
-+		sel->r.width = OV05C10_NATIVE_WIDTH;
-+		sel->r.height = OV05C10_NATIVE_HEIGHT;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ov05c10_init_state(struct v4l2_subdev *sd,
-+			      struct v4l2_subdev_state *sd_state)
-+{
-+	ov05c10_pad_format_crop_from_mode(&supported_modes[0],
-+					  v4l2_subdev_state_get_format(sd_state, 0),
-+					  v4l2_subdev_state_get_crop(sd_state, 0));
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_pad_ops ov05c10_pad_ops = {
-+	.set_fmt = ov05c10_set_format,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.enum_mbus_code = ov05c10_enum_mbus_code,
-+	.enum_frame_size = ov05c10_enum_frame_size,
-+	.get_selection = ov05c10_get_selection,
-+	.enable_streams = ov05c10_enable_streams,
-+	.disable_streams = ov05c10_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_core_ops ov05c10_core_ops = {
-+	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
-+	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
-+};
-+
-+static const struct v4l2_subdev_ops ov05c10_subdev_ops = {
-+	.core = &ov05c10_core_ops,
-+	.pad = &ov05c10_pad_ops,
-+};
-+
-+static const struct v4l2_subdev_internal_ops ov05c10_internal_ops = {
-+	.init_state = ov05c10_init_state,
-+};
-+
-+static int ov05c10_parse_fwnode(struct ov05c10 *ov05c10, struct device *dev)
-+{
-+	struct fwnode_handle *endpoint;
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	int ret;
-+
-+	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-+						   FWNODE_GRAPH_ENDPOINT_NEXT);
-+	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &bus_cfg);
-+	fwnode_handle_put(endpoint);
-+	if (ret) {
-+		dev_err(dev, "parsing endpoint node failed\n");
-+		goto out_err;
-+	}
-+
-+	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       ov05c10_link_freq_items,
-+				       ARRAY_SIZE(ov05c10_link_freq_items),
-+				       &ov05c10->link_freq_bitmap);
-+
-+out_err:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+
-+	return ret;
-+}
-+
-+static int ov05c10_identify_module(struct ov05c10 *ov05c10)
-+{
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov05c10->sd);
-+	u64 val;
-+	int ret = 0;
-+
-+	cci_read(ov05c10->regmap, OV05C10_REG_CHIP_ID, &val, &ret);
-+	if (ret) {
-+		dev_err(&client->dev, "chip id read err");
-+		return ret;
-+	}
-+
-+	if (val != OV05C10_CHIP_ID) {
-+		dev_err(&client->dev, "chip id mismatch: %x!=%llu",
-+			OV05C10_CHIP_ID, val);
-+		return -ENXIO;
-+	}
-+
-+	return 0;
-+}
-+
-+/* This function tries to get power control resources */
-+static int ov05c10_get_pm_resources(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+
-+	ov05c10->img_clk = devm_v4l2_sensor_clk_get(dev, NULL);
-+	if (IS_ERR(ov05c10->img_clk))
-+		return dev_err_probe(dev, PTR_ERR(ov05c10->img_clk),
-+				     "failed to get imaging clock\n");
-+
-+	ov05c10->avdd = devm_regulator_get(dev, "avdd");
-+	if (IS_ERR(ov05c10->avdd))
-+		return dev_err_probe(dev, PTR_ERR(ov05c10->avdd),
-+				     "failed to get avdd regulator\n");
-+
-+	ov05c10->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ov05c10->reset))
-+		return dev_err_probe(dev, PTR_ERR(ov05c10->reset),
-+				     "failed to get reset gpio\n");
-+
-+	return 0;
-+}
-+
-+static int ov05c10_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+
-+	gpiod_set_value_cansleep(ov05c10->reset, 1);
-+	regulator_disable(ov05c10->avdd);
-+	clk_disable_unprepare(ov05c10->img_clk);
-+
-+	return 0;
-+}
-+
-+static int ov05c10_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+	int ret;
-+
-+	ret = clk_prepare_enable(ov05c10->img_clk);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to enable imaging clock: %d", ret);
-+		return ret;
-+	}
-+
-+	ret = regulator_enable(ov05c10->avdd);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to enable avdd: %d", ret);
-+		goto err_clk_disable_unprepare;
-+	}
-+
-+	gpiod_set_value_cansleep(ov05c10->reset, 0);
-+	/* 5ms to wait ready after XSHUTDN assert */
-+	fsleep(5000);
-+
-+	if (!ov05c10->identified) {
-+		ret = ov05c10_identify_module(ov05c10);
-+		if (ret) {
-+			dev_err_probe(dev, ret, "failed to find sensor: %d\n",
-+				      ret);
-+			goto err_power_off;
-+		}
-+
-+		ov05c10->identified = true;
-+	}
-+
-+	return 0;
-+
-+err_power_off:
-+	gpiod_set_value_cansleep(ov05c10->reset, 1);
-+	regulator_disable(ov05c10->avdd);
-+
-+err_clk_disable_unprepare:
-+	clk_disable_unprepare(ov05c10->img_clk);
-+
-+	return ret;
-+}
-+
-+static const struct dev_pm_ops ov05c10_pm_ops = {
-+	SET_RUNTIME_PM_OPS(ov05c10_power_off, ov05c10_power_on, NULL)
-+};
-+
-+static int ov05c10_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct ov05c10 *ov05c10;
-+	bool full_power;
-+	int ret;
-+
-+	ov05c10 = devm_kzalloc(&client->dev, sizeof(*ov05c10), GFP_KERNEL);
-+	if (!ov05c10)
-+		return -ENOMEM;
-+
-+	ret = ov05c10_parse_fwnode(ov05c10, dev);
-+	if (ret)
-+		return ret;
-+
-+	ov05c10->regmap = devm_regmap_init_i2c(client, &ov05c10_regmap_config);
-+	if (IS_ERR(ov05c10->regmap))
-+		return dev_err_probe(dev, PTR_ERR(ov05c10->regmap),
-+				     "failed to init regmap\n");
-+
-+	v4l2_i2c_subdev_init(&ov05c10->sd, client, &ov05c10_subdev_ops);
-+
-+	ret = ov05c10_get_pm_resources(dev);
-+	if (ret)
-+		return ret;
-+
-+	full_power = acpi_dev_state_d0(dev);
-+	if (full_power) {
-+		ret = ov05c10_power_on(dev);
-+		if (ret) {
-+			dev_err(&client->dev, "failed to power on\n");
-+			return ret;
-+		}
-+	}
-+
-+	ret = ov05c10_init_controls(ov05c10);
-+	if (ret) {
-+		dev_err(&client->dev, "failed to init controls: %d", ret);
-+		goto probe_error_power_off;
-+	}
-+
-+	ov05c10->sd.internal_ops = &ov05c10_internal_ops;
-+	ov05c10->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
-+			     V4L2_SUBDEV_FL_HAS_EVENTS;
-+	ov05c10->sd.entity.ops = NULL;
-+	ov05c10->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	ov05c10->pad.flags = MEDIA_PAD_FL_SOURCE;
-+
-+	ret = media_entity_pads_init(&ov05c10->sd.entity, 1, &ov05c10->pad);
-+	if (ret) {
-+		dev_err(&client->dev, "failed to init entity pads: %d", ret);
-+		goto probe_error_v4l2_ctrl_handler_free;
-+	}
-+
-+	ov05c10->sd.state_lock = ov05c10->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&ov05c10->sd);
-+	if (ret < 0) {
-+		dev_err(dev, "v4l2 subdev init error: %d\n", ret);
-+		goto probe_error_media_entity_cleanup;
-+	}
-+
-+	if (full_power)
-+		pm_runtime_set_active(&client->dev);
-+	pm_runtime_enable(&client->dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&ov05c10->sd);
-+	if (ret < 0) {
-+		dev_err(&client->dev, "failed to register V4L2 subdev: %d",
-+			ret);
-+		goto probe_error_rpm;
-+	}
-+	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
-+	pm_runtime_use_autosuspend(&client->dev);
-+	pm_runtime_idle(&client->dev);
-+
-+	return 0;
-+
-+probe_error_rpm:
-+	pm_runtime_disable(&client->dev);
-+	v4l2_subdev_cleanup(&ov05c10->sd);
-+
-+probe_error_media_entity_cleanup:
-+	media_entity_cleanup(&ov05c10->sd.entity);
-+
-+probe_error_v4l2_ctrl_handler_free:
-+	v4l2_ctrl_handler_free(ov05c10->sd.ctrl_handler);
-+
-+probe_error_power_off:
-+	ov05c10_power_off(&client->dev);
-+
-+	return ret;
-+}
-+
-+static void ov05c10_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-+
-+	v4l2_async_unregister_subdev(&ov05c10->sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&ov05c10->sd.entity);
-+	v4l2_ctrl_handler_free(&ov05c10->ctrl_handler);
-+	pm_runtime_disable(&client->dev);
-+
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		ov05c10_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
-+}
-+
-+#if IS_BUILTIN(CONFIG_ACPI)
-+static const struct acpi_device_id ov05c10_acpi_ids[] = {
-+	{ .id = "OVTI05C1" },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(acpi, ov05c10_acpi_ids);
-+#endif
-+
-+static struct i2c_driver ov05c10_i2c_driver = {
-+	.driver = {
-+		.name = "ov05c10",
-+		.pm = pm_ptr(&ov05c10_pm_ops),
-+		.acpi_match_table = ACPI_PTR(ov05c10_acpi_ids),
-+	},
-+	.probe = ov05c10_probe,
-+	.remove = ov05c10_remove,
-+	.flags = I2C_DRV_ACPI_WAIVE_D0_PROBE,
-+};
-+
-+module_i2c_driver(ov05c10_i2c_driver);
-+MODULE_DESCRIPTION("OmniVision ov05c10 camera driver");
-+MODULE_AUTHOR("Dongcheng Yan <dongcheng.yan@intel.com>");
-+MODULE_LICENSE("GPL");
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
--- 
-2.47.3
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
+If you want to undo deduplication, reply with:
+#syz undup
