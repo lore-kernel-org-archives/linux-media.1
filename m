@@ -1,167 +1,272 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5393DDAE9
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 19:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790796206; cv=none; b=hE5g+Xp96+NxDkaw0yl8koeZZXOcqc9ZEx1zHlZBLIISUuMfqVR5aXzPYRestB/rS0mLJFKugpkpbKYGjDZRN4rojqruM0yIbVLC+CFaoLj9CGRVGN5rae8vzfTrPqz6tXf2255zlcV1i7rQlaZOm4vnrP8iDQ8+A2RbRnZaIYk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790796206; c=relaxed/simple;
-	bh=uJ8EtuEK905+Gi23qPeV9TGepWx/mAogCtFhhB1gBt4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IRJ7FYiGmkHprB3C4MpYigCUm4jHIFKaRk5RXvUrt1YEAGzoR2rdexl+1lq0nVRWWCD4Q4h2Era03R7RPlMCLO6XKY6hf3k/c5ld5oP+e6rcGwS309/KbQGautBW1CdKnByhsTBvcxs+J/7+ectNWU0MxjVTavJtgnNfCHaO0Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab8b4887d4so5354245b6e.1
-        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 12:23:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790796203; x=1791401003;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vu33goty3w6qMJWGH8JjwHxD7w/swbfgGOmcqaO0bYg=;
-        b=hLGAHM/3MEU91dcqd4A0BdI+qJI+je6TqZB+fShY30moaXTd0JHH2+rnm66gIbi9sC
-         U8OAzbsR+0FruHf/xP2LByqhRO2VX3c2U1GbsvOByBiS13FMPCdYC4j5sc9Opnqrzwns
-         QNI25gtETFcd0H9+XmG280XKpQbpW8N6rnRYZ3Qzc4uLO4Hmjnds1+TL5IYJhF39SCDM
-         8+2qnj8u23ANaSfGHBqJ5NscXxqCMLC8dAI44Ya/pLvid0ppayuSWCAri1m+p/n6PiA6
-         Ah7VJctv3e1y0Al9J1McyyCmd6PCONpakgyQ4cufr+J0e5v5xFPzvwCEYkEOFygT9blc
-         SwNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXvmJvqjxXmmdrxg3A5iqa33yrIkRM67X2kTmQUYiU04FLHnrdR4NpZF7LyPinsTO3QbIqeJ7bAtRgzg==@vger.kernel.org
-X-Gm-Message-State: AFuF++mi/SI2iU5C5SHjpFU3TOovVuP7TPs5mRRGkSbIN72WTedpB0Lc
-	jYDlatalvP0tvV2vjzett2A7Cc7ok4JKYKJ7WG5uDnXbm3wmzJcsWcusw0TAJKwZwUfa+q+IzH9
-	R6fSg4JdoJo4xoTg5vSiLn991JVX1UJgkaRtAobcTwb0nhhvffCnqb71MIio=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC19372B5E;
+	Wed, 30 Sep 2026 19:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790797450; cv=fail; b=eaHBNlhbTHF5sR4HtKNEHWqwf4RB4mxqTdOphPtE2/QhOQ02GIxbo1wbpXErTgUsdsuHXZPWTEFbU0Fh6DMymZdkjPKGRMW9QHu06Kj1hRA16iIAbUmM4e+T1uGTfmwITwhFPYcoPqzDaiucu2ts17eb2oGxD84cikdGavrKBE4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790797450; c=relaxed/simple;
+	bh=Fmw6jRsLrnVIuCVQd3pzDMh+JzFsmiDjabIw71RhPKI=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=POZQMzKaajKkMCGiEqgCZHvYi7vcnPQPNebmVPJhq9oM7CR08ZTla4M/NWKbLPuLv6P6L4MtJ+7K9NPUdBbsnxkHKlCeyCH/XGU05PvjIGSq51teS8CPN+o/rlJuARmHiXPPJqReP7O95MMaZP077N46V2z2RuAvhvU4LCypBcQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LjT2QXhJ; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LjT2QXhJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790797448; x=1822333448;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Fmw6jRsLrnVIuCVQd3pzDMh+JzFsmiDjabIw71RhPKI=;
+  b=LjT2QXhJhbvxrZ+jUwFxouMJFUsRA0J8RRNyaSxshB0t+bg29G0tMYXG
+   LmQuHutwHTZ0JSCeQ5EMdzw+pY1vHCnSUrafFx8+5ya+ttUhxVucR5HRt
+   wTlvikVKRUd7uB9IXpNF84pRcPBzwxtvwi242axArhyxndzyaRaxtLLWU
+   OMWSeKz3ffgvikLk0CcgloAjT/GP9Db6q0Q2/HEanpljV8sAVgpWTzUBo
+   Bdqywe3qbxw8CjLvXnX5tK5Iyzx3da/sfZ305NOlYrP6GjX9eyr0BAnLX
+   ABSrmjXO7zupzUVHB4JYNg9YXOVxbQyzDF1tsCfuAn00XwqF6KFykr8/U
+   Q==;
+X-CSE-ConnectionGUID: dUhUjHIBS2iJ9OqIX3NROg==
+X-CSE-MsgGUID: 6PrB73evTN2sv56JRvE4JA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="95356315"
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="95356315"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 12:44:07 -0700
+X-CSE-ConnectionGUID: BAE3pRXXSSWcDpCzBXWdgA==
+X-CSE-MsgGUID: rysXhI4GR7Wj44skSUsNAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="313724829"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 12:44:07 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 12:44:06 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 30 Sep 2026 12:44:06 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.10) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 30 Sep 2026 12:44:06 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OXciUb9UQfT5BON4avglze2lkeYHtLJLMPYxAF3fiV3tbaI+a8IQBnAwmk0a4KwUaiV6vr3Cm5R0JZB4uFwg0179TYhgpOkAsbI/GCR0YcE34ImUTi5NZYEtpc6eXdXiRzTzZXhFS1gL97ZmlZa6gdkZiUV1IeBh3KK8irkbOTQc3Rjrw3PYjt4mxTDR7Tnpvt6P51eS/fz7qVX16w+FfktcwmlV/xRxbCzqsvRibLDZQbiJh0/m0KXifeZNHZGZLyOAzt3hpg6gGhU3g2V6SYT2RswAMGvDcdRkh/stnk55ajMmYtlevjssEe61pIQBEPZkrO2Fh/qMOuouboy5Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CYI3B8OyqGFS3ssejZ9imkq9m+g1jMTnkTmxNJ5FqRo=;
+ b=UJ1WGRsRxUNse+gCairW7/zy9BMCudC1jkTq2TEnZ88w+YmRyYHZJtKWKxWqfimSvXCTdNY6Y2n8kd3xo1c6QUXJ64edCf6oh2CJHY794H1KNTSi3aXzhn5Bu0CaCKofqFnWkhyispcVC1Zzzr9dpZbHvqVrW3tVhFpVC9hWbIIoHMwwf5FPvC1T22iilI71Wkj25pUxi97BHzYsTK5x0uQTLu8oQFw/FXnDvKkr8xMpEqRh49JmIMz55kiwEGD5xePlWJ7q5smg31Dfy9LzqLm7cWVi55FuYXm3prMFP0MVFaRvCv0PvRQbVYzcqZdyygqO4XasDyrwX79JEbHBeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by PH7PR11MB6498.namprd11.prod.outlook.com (2603:10b6:510:1f1::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 19:43:55 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 19:43:55 +0000
+Date: Wed, 30 Sep 2026 12:43:51 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+CC: <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<linaro-mm-sig@lists.linaro.org>, <linux-nvme@lists.infradead.org>,
+	<linux-fsdevel@vger.kernel.org>, <io-uring@vger.kernel.org>, "Christoph
+ Hellwig" <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Keith Busch
+	<kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, Alexander Viro
+	<viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
+	<jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, Jens Axboe
+	<axboe@kernel.dk>, Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi
+	<joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad
+	<tushar.gohad@intel.com>, William Power <william.power@intel.com>, "Phil
+ Cayton" <phil.cayton@intel.com>, Alasdair Kergon <agk@redhat.com>, "Mike
+ Snitzer" <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+	"Benjamin Marzinski" <bmarzins@redhat.com>, <dm-devel@lists.linux.dev>
+Subject: Re: [PATCH v6 01/13] dma-buf: introduce initial file I/O
+ infrastructure
+Message-ID: <ar1md2N4PkoXSE/N@gsse-cloud1.jf.intel.com>
+References: <cover.1789997898.git.asml.silence@gmail.com>
+ <5490ee42c4452fd4198b245ead20fcf7438c066e.1789997898.git.asml.silence@gmail.com>
+ <arx7ZQ8o9aeHsAqS@gsse-cloud1.jf.intel.com>
+ <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
+ <c07404e0-33f6-4e5f-a80a-e1901b42dc39@gmail.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c07404e0-33f6-4e5f-a80a-e1901b42dc39@gmail.com>
+X-ClientProxiedBy: SJ0PR05CA0145.namprd05.prod.outlook.com
+ (2603:10b6:a03:33d::30) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f0a:b0:4d6:90f3:74b4 with SMTP id
- 5614622812f47-4f1b7dfcb10mr2831827b6e.52.1790796203482; Wed, 30 Sep 2026
- 12:23:23 -0700 (PDT)
-Date: Wed, 30 Sep 2026 12:23:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abd61ab.9eb00033.20dcce.0004.GAE@google.com>
-Subject: [syzbot] [media?] general protection fault in mxl111sf_ep4_streaming_ctrl
-From: syzbot <syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|PH7PR11MB6498:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1f081bf-bed0-4ebf-182a-08df1f2b2991
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|6133799003|10067099003|4143699003|5023799004|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: pu4RpMbSx0h1u4/Dh7Bqc3ep//3wk6pqmzLuSjsmO5+3gbq8dLwoLRc+SmCo/C2d56Tb+skXqpzfeq4CiObkBr1Tfm7Lmx4t2u/goEFX/yVzVfxSDS4uQ3y8QMz+IDNFcS4dWyBI6NyUUXLWTs3iWD6FvkYeQ7ApOSjw6smTeYHFheE4mrUC3yINMUvsSJ3GniIPGzvO+xpGLDiAhOfsVn5tEoftH1AIlJfElH92JK9oASUgGIyazaULWHog//g3pz0KURyWg0x0CAn8Y3sFVfW6hq2GM3E3TcL9RCNYBTusozH/CjjoGjdH0COclr/6HRke+Ztugxcopg/Lwi+q53KOfJo0zkaqv17AK10PyDYbJVuZVKAhsxHT6fCkDtWUVlBSOlSWAuniEJbeP8rrOBHiJrTPOI4IaBVA9zsMsA3BVgDN9I0mbE+doJbfD949NnnLI0QF1fpNFly0R7rq56+Inz1wbETh5adf9JiZAP3CYbk8DtQ5dYJBMpom32fKS2ixCh15InlXIJJOspUHCA/Zn4lZr3kLHqIGgxP2iRj1bqSgGDWxqTHw8+Mswnt3cmpn3ZdkTiQshvOSsIEEQWi20sdzlG/SiyQMgCl3YcnTjeNekk8PPbauw0nQuf7DhcZRtOxkmxk0qhvTeHH+tECHzRHQu7rPT6yuDcyF99U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(6133799003)(10067099003)(4143699003)(5023799004)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?sLQL9tlMeNXRA+DmQwG8OxyqhWpG4eYn2BXjv88Xf5HGIhSGiSW+UQMTiC?=
+ =?iso-8859-1?Q?rbSOSBZUt1aJso2rRV44c32cCB4N7PJXR9TSjCt71zr0XhSJ6tzJEpqil2?=
+ =?iso-8859-1?Q?+L1NjyqIPWlL2UqMf77EXk9YCx//07WE2sFjLKyfTRXvKh4vfkOhGTfywp?=
+ =?iso-8859-1?Q?c52MRs6bzv2NWrjwxXOzgnDQWWB+BNJZc1Cx5Yub7HLgTC0c2p9+B577/E?=
+ =?iso-8859-1?Q?e1Y1IAuU4G+LedNR/cZFtgC667PoXiwaLETcCKacgXHzhm1uPtSgy1dvBj?=
+ =?iso-8859-1?Q?dMWv4gMDbTg+p00YLLIb7DYuMOZK4Cq8/8hc/Fir6tPFkALZpdnyeqrRWY?=
+ =?iso-8859-1?Q?txRTzI7iKn4zqzEz63bQG88c+unZyNC/fKuFW3A/V4UGjHMwTkTh+miUHN?=
+ =?iso-8859-1?Q?Qo5wO79EIhS+1vPp7p1injHMPb+DRJ7TyF5djIwsF9r54kIcsl3a0Ji9nS?=
+ =?iso-8859-1?Q?w+yhY/m/8+o+GTWaw5RpGOqhrOlUqf7XVii1fPQY7GJForIMklNqpbUjhu?=
+ =?iso-8859-1?Q?3FKCp2kr1fiHUHuKC/UAP2HjitGZrapHyLog3g4i1Q7TtnFc6a0LPqmchD?=
+ =?iso-8859-1?Q?VdVP6Zw+R29PJ9Yo82bpYvRdS58DiyflKYtCEZc2Gpp5ST20UHlvjtcWgs?=
+ =?iso-8859-1?Q?T3pIeH/lkx3SLOfMrp7o1fQlhDa4Wdwiax7eg1zsFZ7wwo5jmeg7LZjlPV?=
+ =?iso-8859-1?Q?4X2gl0ThGHxtQJ8EKam1eDOzsjzjQTSGv6Qx6I6u8nH556DTtxOppmfjAA?=
+ =?iso-8859-1?Q?/O6ILs+NYwnEo+AmyHc9Q5v6B0pJ8LFczT+vtOfrA+yChVNzJPYMR+0Rbo?=
+ =?iso-8859-1?Q?gmK1wsV5ndARN9KjeGNTw5e0HhwfavtRjpJHlla9krAneq49ULDLy9n3mK?=
+ =?iso-8859-1?Q?tVMNtKI+b8DoyMeF32qPZSjgADQIfj+ZvMKsRUSeQTpGCS+L6YnArCcEFf?=
+ =?iso-8859-1?Q?l2ysEFXY4O+FUHo764F3UFl/VeC3o45XRBUVpAlOZ8VeS8nSa9MRI6fA4s?=
+ =?iso-8859-1?Q?oAQKHCApxPR4by2kKKCRBO8k1XRY9Gd9wqqRxfZgI5xKd9vf45q4yZiVdy?=
+ =?iso-8859-1?Q?xYFELx8uTdE6Q0bYNaVVCbj2r5l4gw2F2a3/u9B/t/poyzWe8wYaqS4geu?=
+ =?iso-8859-1?Q?QJ3hVdDRUj9ATFVsiHCVVXVBQVWJJqspqXg4iHiHVmQVYSlJDDgxRg5y7i?=
+ =?iso-8859-1?Q?2PEMSjeRSAvsE1agOQhFRIjsyFMbRlK3zbpudvcnnLZV65oFyF2BxnBKb9?=
+ =?iso-8859-1?Q?c4xjL1LGYdNIkwQA/UU7g09OJAmfG//QYA1AvV/gEhORU/E2ASkRu/e4lW?=
+ =?iso-8859-1?Q?FPruuK3tzKsZDOrQAcn9+ERhvKJ9ZWXjfTB4EAshtxetbBOOx+eygYqkp4?=
+ =?iso-8859-1?Q?vCCRQh4vHGLYPWQI/Qh5TejoHpJBUlqoue8nHONYdS4JldzxExevtLd8mU?=
+ =?iso-8859-1?Q?R5U2EwhZEzdKr7E+fIms9ZJdi9pVJfxH/pOl6mDozdbqChZsAp52XPQzaa?=
+ =?iso-8859-1?Q?ChnRSZSK2aQnSrYp/BOlXBah8ToyBnb4ODClA7Hjj+1XQuwqgMhO902QVC?=
+ =?iso-8859-1?Q?VGsQdtlPOqY8+ZDqLy/kfOr6mxKrXLr2x/dYFGxoXjLPK8/S66AZECB0K3?=
+ =?iso-8859-1?Q?6xkg/GsmIfoX6G9PEFPBdezTSek3NYHOKpGDo7+fuApfa5IZ/LUJErF8OK?=
+ =?iso-8859-1?Q?gMxnhTP26xK4iY/PVcnnEEmSvU4N1ZLpBnEZs5yU4jZprdJH2CDl1ATwk0?=
+ =?iso-8859-1?Q?ukvv4SsCWH3f/KvNNf3dp9Fl/HKQOcyNleW2rbhmzOZvkfpv/SRLZj2TP6?=
+ =?iso-8859-1?Q?54XPoBFolucoI54mdKJQI3u/PH2oys0=3D?=
+X-Exchange-RoutingPolicyChecked: JUQQoN3GXGmzsHWGDdX/uoFf71hYWwo6dH6kRN7M+SWv74nUu6Bn+fgx12kwKrBfulW3zKnpPkPShJ2nouK/om99IWXiiN2UAvOI/Pu9AyZWVvnRUXAsw1JmwFVuC5/zIxZGPKYgZADCdtboo1069YDr0YuXJB5/uC2m4T7qYjN189HRc7mwsy0qArdrBZSLqwE8aQ6kbVFCXy27MWfBKgdrRw1Dirn0K7aKjm2WdoGol7y9S6IFOsEvbEkFbHDkNtlItK0ydw2seP4s1sg+8WHzvfKXnb1YRn4Tvclv5f4iPIaS5w/XAzaUB25oyHZK0Y4FbxWtbkeg/GeKDfxzwg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1f081bf-bed0-4ebf-182a-08df1f2b2991
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:43:55.2719
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XQO7usHwnfdkyXgs8WgRkzr0QqC2WbfL5Mb6CjPb3HzWhJINM+ofJ5l7jTRlwt9z1Vdsk1y7SQDOFYY/Fv2HpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6498
+X-OriginatorOrg: intel.com
 
-Hello,
+On Wed, Sep 30, 2026 at 01:48:49PM +0100, Pavel Begunkov wrote:
+> On 9/30/26 11:08, Pavel Begunkov wrote:
+> > On 9/30/26 04:00, Matthew Brost wrote:
+> > > On Mon, Sep 21, 2026 at 02:38:45PM +0100, Pavel Begunkov wrote:
+> > ...>> +struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
+> > > > +{
+> > > > +    struct dma_buf *dmabuf = ctx->dmabuf;
+> > > > +    struct dma_buf_io_map *map;
+> > > > +    long ret;
+> > > > +
+> > > > +    guard(mutex)(&ctx->map_create_mutex);
+> > > > +
+> > > > +    scoped_guard(mutex, &ctx->map_mutex) {
+> > > > +        if (ctx->maps_killed)
+> > > > +            return ERR_PTR(-ENOENT);
+> > > > +        /* recheck under the lock in case it has already been re-created */
+> > > > +        map = __dma_buf_io_get_map(ctx);
+> > > > +        if (map)
+> > > > +            return map;
+> > > > +    }
+> > > > +
+> > > > +    dma_buf_io_wait_active_maps(ctx);
+> > > > +
+> > > > +    ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
+> > > > +    if (ret)
+> > > > +        return ERR_PTR(ret);
+> > > > +
+> > > > +    ret = dma_resv_wait_timeout(dmabuf->resv, DMA_RESV_USAGE_KERNEL,
+> > > > +                    true, MAX_SCHEDULE_TIMEOUT);
+> > > > +    if (ret <= 0) {
+> > > > +        if (!ret)
+> > > > +            ret = -EAGAIN;
+> > > > +        dma_resv_unlock(dmabuf->resv);
+> > > > +        return ERR_PTR(ret);
+> > > > +    }
+> > > > +
+> > > > +    map = ctx->dev_ops->map(ctx);
+> > > 
+> > > I'm playing around this code now.
+> > > 
+> > > I think you need the dma_resv_wait_timeout after the 'map'?
+> > > 
+> > > If a device doesn't support p2p ->map() will typically trigger an async
+> > > migrate to system memory and data will be moving but the map is valid -
+> > > Xe 100% does this, I checked AMDGPU and fairly confident it has the same
+> > > async behavior.
+> > 
+> > There is a wait right before because I read somewhere in dma-buf
+> > comments that I need to do that, sounds a bit odd if I need to
+> > wait on fences before and after. I can add it, just curious how
+> > come that other dma_buf_map_attachment() callers don't need to do
+> > that. Or maybe they wait somewhere else?
 
-syzbot found the following issue on:
+In GPU drivers, when we receive a foreign object and map it in Xe or
+AMDGPU, this logic sits deep in the stack. However, the top-level call
+is typically ttm_bo_validate(), which in both drivers eventually
+resolves to the TTM ->move() vfunc. That path calls
+dma_buf_map_attachment(), which in turn invokes the dma-buf's ->map()
+callback.
 
-HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=10a37b25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=3df044e20e6ff1fb3cf5
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14f983f5580000
+That ->map() callback can trigger a asynchronous move on a different
+device, where the top-level call is again ttm_bo_validate().
+We then end up back in the TTM ->move() vfunc, where kernel fences are
+installed. I realize that's a lot of layers, but the call chain can end
+up looking like this.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com
+Now we have a mapping and an object with kernel fences attached. Before
+the object can be used by either the exec IOCTL (batch buffer
+submission), the VM bind IOCTL (mapping into the GPU address space), or
+a CPU page fault (not relevant for dma-bufs since they cannot be
+CPU-mapped, but a useful example of a normal BO move), we wait on those
+kernel fences.
+ 
+In the case of the exec IOCTL or VM bind IOCTL, the kernel fences are
+added as dependencies to a drm_sched job, delaying its execution until
+the fences signal. That is where the wait occurs. In the case of a CPU
+page fault, the kernel waits directly on the fences before installing
+the CPU page mappings.
 
-usb 3-1: dvb_usb_v2: could not submit urb no. 0 - get them all back
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-CPU: 1 UID: 0 PID: 5922 Comm: syz-executor559 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:mxl111sf_ep4_streaming_ctrl+0x2c/0x1a0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:399
-Code: 1e fa 55 41 57 41 56 53 89 f3 49 89 fe 49 bf 00 00 00 00 00 fc ff df e8 02 5e 93 f9 49 81 c6 08 03 00 00 4c 89 f0 48 c1 e8 03 <42> 80 3c 38 00 74 08 4c 89 f7 e8 25 61 03 fa 4d 8b 36 49 83 c6 38
-RSP: 0018:ffffc90002fc7b38 EFLAGS: 00010202
-RAX: 0000000000000061 RBX: 0000000000000001 RCX: ffff88807ceb8000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: ffffc90002fc7c38 R08: ffffc90002fc7647 R09: 1ffff920005f8ec8
-R10: dffffc0000000000 R11: ffffffff88348d10 R12: dffffc0000000000
-R13: ffff88805a6753b8 R14: 0000000000000308 R15: dffffc0000000000
-FS:  00007f91525696c0(0000) GS:ffff888124dc8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f09f0cd1140 CR3: 000000002f2ca000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- dvb_usb_start_feed+0x57a/0xc70 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:308
- dmx_ts_feed_start_filtering+0x129/0x220 drivers/media/dvb-core/dvb_demux.c:747
- dvb_dmxdev_start_feed drivers/media/dvb-core/dmxdev.c:658 [inline]
- dvb_dmxdev_filter_start+0x434/0x10d0 drivers/media/dvb-core/dmxdev.c:769
- dvb_demux_do_ioctl+0x48b/0x540 drivers/media/dvb-core/dmxdev.c:1099
- dvb_usercopy+0x199/0x2e0 drivers/media/dvb-core/dvbdev.c:996
- dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9153da4a8b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f9152569060 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f9153da4a8b
-RDX: 00007f91525690d0 RSI: 0000000040146f2c RDI: 0000000000000003
-RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f91525690f0
-R13: 00007f9153e11fe6 R14: 0000001400000001 R15: 00007ffdf0c12528
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:mxl111sf_ep4_streaming_ctrl+0x2c/0x1a0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:399
-Code: 1e fa 55 41 57 41 56 53 89 f3 49 89 fe 49 bf 00 00 00 00 00 fc ff df e8 02 5e 93 f9 49 81 c6 08 03 00 00 4c 89 f0 48 c1 e8 03 <42> 80 3c 38 00 74 08 4c 89 f7 e8 25 61 03 fa 4d 8b 36 49 83 c6 38
-RSP: 0018:ffffc90002fc7b38 EFLAGS: 00010202
-RAX: 0000000000000061 RBX: 0000000000000001 RCX: ffff88807ceb8000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: ffffc90002fc7c38 R08: ffffc90002fc7647 R09: 1ffff920005f8ec8
-R10: dffffc0000000000 R11: ffffffff88348d10 R12: dffffc0000000000
-R13: ffff88805a6753b8 R14: 0000000000000308 R15: dffffc0000000000
-FS:  00007f91525696c0(0000) GS:ffff888124cc8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000564103601950 CR3: 000000002f2ca000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	fa                   	cli
-   1:	55                   	push   %rbp
-   2:	41 57                	push   %r15
-   4:	41 56                	push   %r14
-   6:	53                   	push   %rbx
-   7:	89 f3                	mov    %esi,%ebx
-   9:	49 89 fe             	mov    %rdi,%r14
-   c:	49 bf 00 00 00 00 00 	movabs $0xdffffc0000000000,%r15
-  13:	fc ff df
-  16:	e8 02 5e 93 f9       	call   0xf9935e1d
-  1b:	49 81 c6 08 03 00 00 	add    $0x308,%r14
-  22:	4c 89 f0             	mov    %r14,%rax
-  25:	48 c1 e8 03          	shr    $0x3,%rax
-* 29:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1) <-- trapping instruction
-  2e:	74 08                	je     0x38
-  30:	4c 89 f7             	mov    %r14,%rdi
-  33:	e8 25 61 03 fa       	call   0xfa03615d
-  38:	4d 8b 36             	mov    (%r14),%r14
-  3b:	49 83 c6 38          	add    $0x38,%r14
+So the TL;DR is if you want to immediately hand back a valid mapping,
+the kernel fences must be waited on before returning after ->map() call.
 
+Matt
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> 
+> I can't find it, so maybe it was the comment below and I mixed
+> sth up back then. I'll move it after ->map().
+> 
+> 
+> * Note that for non-dynamic exporters the driver must guarantee that
+> * that the memory is available for use and cleared of any old data by
+> * the time this function returns.  Drivers which pipeline their buffer
+> * moves internally must wait for all moves and clears to complete.
+> * Dynamic exporters do not need to follow this rule: For non-dynamic
+> * importers the buffer is already pinned through @pin, which has the
+> * same requirements. Dynamic importers otoh are required to obey the
+> * dma_resv fences.
+> *
+> 
+> -- 
+> Pavel Begunkov
+> 
