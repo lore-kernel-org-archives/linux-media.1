@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89865403B11;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910DC403B1B;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750570; cv=none; b=CriPKzD1jM3cPrNM484pBbvRgwzmeucm+x+W7rlCM8L5A4OvxGD8T8QssAc3y4Vpgdwm3MdQNEiNDWpwS9BUSgBmvkDZF5Hpsrv1P1+uMF+MMULmuGHri680BzdRrMiDUVOQtZfNEst/drOcslllR+Kj3b0m/cs3C/taleHmU/U=
+	t=1790750570; cv=none; b=lyZJdTDcNAJXWhUDcYxmg4Ada9HCxkQP4iYI1Py/UGTV2+bKcBRQ0nIpNmthlhW9qSpI9IamOqDO/DKmF2RISn3hhA4SqG9qyOmnzXMe0hBzc+jPoTuKLJftpPfdK13xAEJHT07Ra8CL4i3sKVyR2vuU/HJCZtYSxKF+QaHai4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790750570; c=relaxed/simple;
-	bh=tsEe8yZqVHY4rLDZIYUrUeF/VcPaojwRTopY/WvDkOg=;
+	bh=cDPMaol6QHe7TLUO9f2oW68IB0rx5wsxTDo8tuEeOYU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AMKv6RxgF0hhGrTT5PFje8JFa5MkjCSJSvt02xXJiRARuOhWH1ii2hwcDFrovTlKwRZPOy9jzzaNKyf7wxgry0i1hX57bGN7A9FEkfZyFYL5vB9m/723MeloGdybQ/nhfZJ+hVA9zThUYy1VzQoInJFojQr0G8vT1UxTlXb7ECU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9jLOw7j; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cfGDJiJEfQul4ZY1C9kAP1RONv+UxiKeMEm3P3Y2cNMXrCs7S/ZU0gUYv/nJGHMLxkCfoT4g56Kr3mSrgm1FpOedhflLNxhWzUF24LN969Kj1lXGf8sCbUNxa9cMNKjUYYdS0Tl0LSmDD+ECydxzYMIoKsIzjSzmEk+HPIOQm/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQKxrpGh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9jLOw7j"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2279FC4AF53;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQKxrpGh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 60B02C4AF16;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790750570;
-	bh=tsEe8yZqVHY4rLDZIYUrUeF/VcPaojwRTopY/WvDkOg=;
+	bh=cDPMaol6QHe7TLUO9f2oW68IB0rx5wsxTDo8tuEeOYU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=L9jLOw7jRIcOKpBylZpokttxD63w71JF69Kz6rg4sw84nyWO7YxxaLpBHaWs0pnzM
-	 fio1xOEBpuQgZ6ljQFBBDYfhoRgS8CbwDSFAKum4F8VUCzMtzNCAGwz32P/ufCAqOK
-	 axMwPj/b6/BR/2KSRNm9Uk6mLMJif6avNcPf1cjqHEhPn41j9aDul9jeUVE8W7aw5S
-	 27OKMXh+4QXfeFOxzDIpBR6rfPjIkB+1jashFid3s+i73f8B202/Oodcr1Bw8QRsXa
-	 Jk4HXBHEhOe63xg3dKIEA4kNHOICCS5XKTphYeKUXH0syJlryGWdBj8ZD/HvdH1xe3
-	 nAFQLxNuUkX6Q==
+	b=UQKxrpGhIYmYnBHTfK4EzYl16M3vmhXev79sVP2orkB2jDGDMaG+bTqsFvUXVrHiz
+	 p9eqfio4PAu6FXLTLAhObEPtF0Gp7rzM4G4QAjBzgPFQnznh/iJIsA0gL9uxKr9v6z
+	 4xaHzDQXFAkMVEGCq2j9r9aG6EYnyCA5mpvbxPZEVvgN7sLW5VL2XV5jeyAKKmlxfr
+	 MWUGLlgseYioA1rsK8AofHeNhwYmDaY+RmMrddfdLHi0J2rNXGKszPEWuQFcYygPGb
+	 ByAQ45AHThrF/4r3xGzlglZ5qfVyYDIK7tLZGNC1YraU4X0eNHs8nWOKuW1eQFeWUB
+	 HKxm7RPK43FUA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11BD4C9830E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F813CA5FBD;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 30 Sep 2026 14:41:23 +0800
-Subject: [PATCH v2 05/21] media: i2c: it6625: drop stale GCC < 4.4.6
- workaround
+Date: Wed, 30 Sep 2026 14:41:27 +0800
+Subject: [PATCH v2 09/21] media: i2c: it6625: tidy CEC buffer init and a
+ continuation line
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-5-e353f887e7fa@ite.com.tw>
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-9-e353f887e7fa@ite.com.tw>
 References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -53,11 +53,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1310;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1972;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=V9bwEAyagMxudYN4xHUy2bQH/gYjrOpBukYLroS2Zxg=;
- b=MeNAGj4SzHM3hYJ/Ckl0R+DJp7ecCkMfb4tC4uUK5MPwF06n6DbCR/196J4lQWuquHy6zdnW8
- rlWpw4XnAToCaLNDFZlDqhRtB9ovwiPGau/bvBev3JWdvXzZvWx05kb
+ bh=mICEuUYSGNnJU5+TzTlAKH3DyJBxrCepqtV9sdWebjM=;
+ b=i9GEumRrbTmjXXp8TiFNMUA35NM81a3/VTRB58wJQnrkZzilXllauMaWpN5/3ElgiBVnKQ9UK
+ rHL1GfSBTe4BGki3+H6eEj7EtxUijrHEhTRn5R3IRWAlH3tIEAG7KjD
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -67,36 +67,57 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-The kernel-wide minimum GCC version is 8.1 (scripts/min-tool-version.sh),
-so the explicit .reserved = { 0 } initializer kept for GCC < 4.4.6 is no
-longer needed in either v4l2_dv_timings_cap initializer.
+it6625_hpd_delayed_work(): wrap the container_of() assignment after
+'=' instead of splitting the argument list mid-parenthesis.
+
+it6625_cec_adap_enable(): assign the cmds[] buffer at declaration
+instead of two separate statements, matching the pattern already used
+elsewhere in this file.
+
+it6625_cec_adap_log_addr(): add the missing spaces inside the cmds[]
+initializer's braces.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/media/i2c/it6625.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index b09b331b20364a8e169429bb309d1112ec83d919..b747c08e092c7b35994cb36bb5bf7b99495282cb 100644
+index 0fe828cc5aff6d61957c3f0a781033dc94b7754b..8d368fd5a64cd815c7a9013c863804c32eee7fc1 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -331,8 +331,6 @@ static const s64 it6625_link_freq[] = {
-  */
- static const struct v4l2_dv_timings_cap it6625_timings_cap = {
- 	.type = V4L2_DV_BT_656_1120,
--	/* keep this initialization for compatibility with GCC < 4.4.6 */
--	.reserved = { 0 },
+@@ -757,8 +757,8 @@ static void it6625_enable_hpd(struct it6625 *it6625)
  
- 	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 300000000,
- 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
-@@ -347,7 +345,6 @@ static const struct v4l2_dv_timings_cap it6625_timings_cap = {
-  */
- static const struct v4l2_dv_timings_cap it6626_cphy_3trio_timings_cap = {
- 	.type = V4L2_DV_BT_656_1120,
--	.reserved = { 0 },
+ static void it6625_hpd_delayed_work(struct work_struct *work)
+ {
+-	struct it6625 *it6625 = container_of(work,
+-			struct it6625, hpd_delayed_work.work);
++	struct it6625 *it6625 =
++		container_of(work, struct it6625, hpd_delayed_work.work);
+ 	int val = 0;
  
- 	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 594000000,
- 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 	guard(mutex)(&it6625->it6625_lock);
+@@ -996,10 +996,8 @@ static int it6625_initial_setup(struct it6625 *it6625)
+ static int it6625_cec_adap_enable(struct cec_adapter *adap, bool enable)
+ {
+ 	struct it6625 *it6625 = adap->priv;
+-	u8 cmds[2];
++	u8 cmds[2] = { CMD_SET_CEC_ENABLE, enable ? 1 : 0 };
+ 
+-	cmds[0] = CMD_SET_CEC_ENABLE;
+-	cmds[1] = enable ? 1 : 0;
+ 	guard(mutex)(&it6625->it6625_lock);
+ 	it6625_write_command(it6625, cmds, sizeof(cmds));
+ 
+@@ -1025,7 +1023,7 @@ static void it6625_cec_reset_la(struct it6625 *it6625, bool keep_enabled)
+ static int it6625_cec_adap_log_addr(struct cec_adapter *adap, u8 log_addr)
+ {
+ 	struct it6625 *it6625 = adap->priv;
+-	u8 cmds[2] = {CMD_SET_CEC_LA, log_addr};
++	u8 cmds[2] = { CMD_SET_CEC_LA, log_addr };
+ 
+ 	dev_dbg(it6625->dev, "%s: la=%d", __func__, log_addr);
+ 
 
 -- 
 2.34.1
