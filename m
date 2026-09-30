@@ -1,103 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615A2314D1A
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 12:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819F24E323E
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 12:49:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772552; cv=none; b=SiHEqxQPEI3QYJwaTz2ZaTyq3m3+sgA7Rp8l3yNz+gWu4n4nJEXB9t3O0Y74+gpxzqHxynuAtkmhahPypwqVw+7oPXFnXxA3ndvLVtJ+UodY8eY/jDdmLLkOvunAh2tygtQimqK381bW8SYfx96VJ27q+5VwxufIiuDQ5PuyYUM=
+	t=1790772567; cv=none; b=AoyGY7wd7dnFpsUdGCVVqK7BgRFuIYsOa8+3AOSjeXeRygdDDEawGkL6IPmZBoQnVFjXQCfptPxdF/o9RoDg9XgllwKdWPIxsqMKE9BJ8/G7EkKdJV9yqkgwqm8DKkQI51zmAPEqDDm1oomDZxVQ0bYikbCwF9CCewqpGzznJnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772552; c=relaxed/simple;
-	bh=F1MhoLbsvBoThWshBTqDLDTvYs8AZAm/8ZMivKiU7UM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ogC0FKfpkxRb4/BPG5iSRHEh5/CA8FSRMNEztKAnFYXwOSpAo4/J0DZeNwfpt3hms/v/QBKfhpfE6tisJ0+KflaQmeGVVewNNOdz7uy44Vs79yGCAvVk9zJfEikfytYs/XNNZ36pF/U8pOfVey4z6HHr23u/CHivMJKf/L7WsQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l0ybWhgH; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790772567; c=relaxed/simple;
+	bh=TdyzSTHL7WYOVSGbZvbctK9FEuEdU7OX2Rp7WBlcsZU=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gn0soShgO6JGlnHnjRygwQQE5UQpcT1eAcQI4qsbVgKY2YsXRnLBBoZ5A18q5p66d2Hyj5r/RDYG0j9D5NPXDeYIYY7S3V1LlctptXNu8wnVKrUX9og918iFdd9GfN1K3skVTUZDHfFw4m0BzRuTKrTTXzHng8oBvjvuT0UYsLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E2krLUjP; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l0ybWhgH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790772545; x=1822308545;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=F1MhoLbsvBoThWshBTqDLDTvYs8AZAm/8ZMivKiU7UM=;
-  b=l0ybWhgHINjI237CY6Ls+T5lcCiOh7x/wVOi0hxUXMNNXKHKf/5ENxZ1
-   pGfWP0qEBSFkGoexfUYcjDknmDAEzwoAn11DHMAD1N4tvtY78ljwL6kYa
-   O+KojGs3dtqr4us38spRv8meh0WPlS9BvxRahbxN2h/6Anf9Cv2o4BKOp
-   HyZ/Kvu9HarGQg3mVlUR0Tl+bCiZ0rCZILttuyLYd/LxTSSnLY1eRoGNk
-   HX9uLGNi8ZhZUrF4fzSBTp4bsXscmlBc2pK3UZFy2pLwEk7C65sL3lmbn
-   AYGZ69Cj3Dq6gdBAUDQwiXKv3Hw+hu5ONK/Iuj75NqvQBQN/FTnlhO1+C
-   Q==;
-X-CSE-ConnectionGUID: ocZTIVPJQESdEBbjuDdr1A==
-X-CSE-MsgGUID: bU3pJuVEQeKBSeQAFv7yHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102034529"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="102034529"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 05:49:00 -0700
-X-CSE-ConnectionGUID: NK5+XAjfShaP6mu8A4AUHw==
-X-CSE-MsgGUID: 8zSfD1tESKOR/pqiKGErcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="274301077"
-Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO alaakso-desk) ([10.125.111.180])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 05:48:58 -0700
-Date: Wed, 30 Sep 2026 15:48:54 +0300
-From: Antti Laakso <antti.laakso@linux.intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, hao.yao@intel.com, dongcheng.yan@intel.com
-Subject: Re: [PATCH 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
-Message-ID: <ar0FNjatXOfRCBVB@alaakso-desk>
-References: <20260929121802.2516868-1-sakari.ailus@linux.intel.com>
- <ar0AOud9uEPuUAMr@alaakso-desk>
- <ar0BZ4MAut3fnS86@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E2krLUjP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffe817151so22617365e9.0
+        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 05:49:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790772554; x=1791377354; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/dhWIKwIs8lapn2MMhEevzHPS2BYYvsR1AqGmdi+y+4=;
+        b=E2krLUjPpvrjrc3xDD1ruwYeGrnztUDpB0EbXuqQ64ya+ghgwLzJB+1E5NNBi3dNmk
+         ewgRuZ2yH28PCIEOpx8O5+lO4q6b7LiYehDLuET1lwy0FEs/jtsNRqUavw+Sm9UpWepO
+         HFH3PDxavM68qWrzFfHptgwr0V/ux8XT8/IEzXHe/L1fwZSIFaTgSkv3seMwvR6eYmMh
+         o4xgSUAIq1BWV8z5HbTekS6MAGp3aFxVP+7DLov7ntg9RGoIb/IwiFYaTTDU3biKzWZq
+         yDB9TY9Rj4BnIA7cY177iiWNXZCg0b7gsuuRyq+8qlvtW9lcwTN748kT+6OZNQI2TXkU
+         CduQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790772554; x=1791377354;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/dhWIKwIs8lapn2MMhEevzHPS2BYYvsR1AqGmdi+y+4=;
+        b=SafHFYOcMrIhfRa0H7lD3QsXvG5nIdrC9VgYZoRZPPV2zY0B3vzXqKUrTGwyN4IsHR
+         k6JCr8qp+iLmHZD/Jkl3GWIqYFGlT13b/z/D8Y73+vr3xjyd/B3q3H6QpgLgZ/sOrA2q
+         CPQydy0eC07R6COf4CkwiCJobXymORcGWrTNOd2pEMpIjnGxuSVNfB+0WD/pmKQBvpfc
+         ogIquYRqLoz9siLqqipabdYnlQziLE2rZU3MCRqvwC5pHoaZVUhbJUZGK+5SiIEZjwlQ
+         BY9cFKF75os3wCKUmePu2eJPmEuq4Pyyu/nbCvCQZe3LndmzlgI8sJW9673xDTYEwR6P
+         ibPg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5YKOaHzojz5DLE6Ukeun/loPF5tswFlDs587yGClvImhGWXfYHvDUjQo0N8e1lLrPi3tP+j3PAqBNXw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kxPUZgbVvrvZBqTnBkyd1HTnuV5w0aPfQ/zJDw+IT3i24/hGI3
+	fM9kog6D7y2TXNo42KZIySrEJty1jIY4pjxmKPOn0qTcPOX4acsVEAeR
+X-Gm-Gg: AYBFou3i7bzv5uUnNn/Euon6I1R6XCVhcXfi4IyjBF3g1Qjd5aPfXo2vm920y5MWd8/
+	ZE4Kcg0sAUQ8tEugS8wgUh782cBxeIk2TyC8JCJZyG9lFu5jHDaRvjwOcVOr0tShGkFGnLikeL9
+	FATNh5GAcXE4tcXYCrVf1sJpTmiax/h7EMPeeKDSCogpfEz3Ayp+8FvcbzoWkVEvSczJun+/2UK
+	8suVVRxZWunNrzRtaILbBNbbteF/KwTxbsfZupwBGAUUFVHnmZVoQm0AO+Yify2rBfGrot3i86E
+	oU9KEmaUH7uOVvq7oC7n2t5dvYd14Jlz1/5ojxo6ni7zf7ZhRRqmngwX9JkvW/9BQih09grYNaf
+	Ej8rvtSMnCX/4eNnMsWN2UbkVBxxhzG/fkGBzDL+d3OZ2Bs+SUBIqxMdlPemT+e7a38vpc6fLhq
+	wXlwl5iql4RH43CW/59JiAUu8SC80COEbVfsJNEUOSzfrVgCKjw4c0XNmHNr/Rgjqchl+LcH7Dw
+	o2Io+bhH9hY5IkGyT5YYhkC5+unM5hV66SgWKY9FtcwdzzZuvGZBG27EIA7YWxWUss3MqYZTbw5
+	w61JvKgCtP6mt0+7Ph+g5lF2M/nM26FB61o1
+X-Received: by 2002:a05:600d:864b:10b0:4a0:2dd:7573 with SMTP id 5b1f17b1804b1-4a01b12b666mr16604625e9.33.1790772554145;
+        Wed, 30 Sep 2026 05:49:14 -0700 (PDT)
+Received: from [10.54.182.141] (82-132-212-25.dab.02.net. [82.132.212.25])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01cb8abc1sm3766935e9.0.2026.09.30.05.48.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 05:48:57 -0700 (PDT)
+Message-ID: <c07404e0-33f6-4e5f-a80a-e1901b42dc39@gmail.com>
+Date: Wed, 30 Sep 2026 13:48:49 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar0BZ4MAut3fnS86@kekkonen.localdomain>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/13] dma-buf: introduce initial file I/O
+ infrastructure
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+References: <cover.1789997898.git.asml.silence@gmail.com>
+ <5490ee42c4452fd4198b245ead20fcf7438c066e.1789997898.git.asml.silence@gmail.com>
+ <arx7ZQ8o9aeHsAqS@gsse-cloud1.jf.intel.com>
+ <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
+Content-Language: en-US
+In-Reply-To: <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 03:32:39PM +0300, Sakari Ailus wrote:
-> Hei Antti,
+On 9/30/26 11:08, Pavel Begunkov wrote:
+> On 9/30/26 04:00, Matthew Brost wrote:
+>> On Mon, Sep 21, 2026 at 02:38:45PM +0100, Pavel Begunkov wrote:
+> ...>> +struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
+>>> +{
+>>> +    struct dma_buf *dmabuf = ctx->dmabuf;
+>>> +    struct dma_buf_io_map *map;
+>>> +    long ret;
+>>> +
+>>> +    guard(mutex)(&ctx->map_create_mutex);
+>>> +
+>>> +    scoped_guard(mutex, &ctx->map_mutex) {
+>>> +        if (ctx->maps_killed)
+>>> +            return ERR_PTR(-ENOENT);
+>>> +        /* recheck under the lock in case it has already been re-created */
+>>> +        map = __dma_buf_io_get_map(ctx);
+>>> +        if (map)
+>>> +            return map;
+>>> +    }
+>>> +
+>>> +    dma_buf_io_wait_active_maps(ctx);
+>>> +
+>>> +    ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
+>>> +    if (ret)
+>>> +        return ERR_PTR(ret);
+>>> +
+>>> +    ret = dma_resv_wait_timeout(dmabuf->resv, DMA_RESV_USAGE_KERNEL,
+>>> +                    true, MAX_SCHEDULE_TIMEOUT);
+>>> +    if (ret <= 0) {
+>>> +        if (!ret)
+>>> +            ret = -EAGAIN;
+>>> +        dma_resv_unlock(dmabuf->resv);
+>>> +        return ERR_PTR(ret);
+>>> +    }
+>>> +
+>>> +    map = ctx->dev_ops->map(ctx);
+>>
+>> I'm playing around this code now.
+>>
+>> I think you need the dma_resv_wait_timeout after the 'map'?
+>>
+>> If a device doesn't support p2p ->map() will typically trigger an async
+>> migrate to system memory and data will be moving but the map is valid -
+>> Xe 100% does this, I checked AMDGPU and fairly confident it has the same
+>> async behavior.
 > 
-> Thanks for the review.
-> 
-> On Wed, Sep 30, 2026 at 03:27:38PM +0300, Antti Laakso wrote:
-> ...
-> > > +static int ov05c10_parse_fwnode(struct ov05c10 *ov05c10, struct device *dev)
-> > > +{
-> > > +	struct fwnode_handle *endpoint;
-> > > +	struct v4l2_fwnode_endpoint bus_cfg = {
-> > > +		.bus_type = V4L2_MBUS_CSI2_DPHY,
-> > > +	};
-> > > +	int ret;
-> > > +
-> > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-> > > +						   FWNODE_GRAPH_ENDPOINT_NEXT);
-> > 
-> > Should this return -EPROBE_DEFER in case endpoint is not found?
-> 
-> v4l2_fwnode_endpoint_alloc_parse() will return that if endpoint is NULL.
-> 
+> There is a wait right before because I read somewhere in dma-buf
+> comments that I need to do that, sounds a bit odd if I need to
+> wait on fences before and after. I can add it, just curious how
+> come that other dma_buf_map_attachment() callers don't need to do
+> that. Or maybe they wait somewhere else?
 
-Ah, indeed.
+I can't find it, so maybe it was the comment below and I mixed
+sth up back then. I'll move it after ->map().
 
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 
-> > 
-> > > +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &bus_cfg);
-> > > +	fwnode_handle_put(endpoint);
-> > > +	if (ret) {
-> > > +		dev_err(dev, "parsing endpoint node failed\n");
-> > > +		goto out_err;
-> > > +	}
-> 
-> -- 
-> Regards,
-> 
-> Sakari Ailus
+* Note that for non-dynamic exporters the driver must guarantee that
+* that the memory is available for use and cleared of any old data by
+* the time this function returns.  Drivers which pipeline their buffer
+* moves internally must wait for all moves and clears to complete.
+* Dynamic exporters do not need to follow this rule: For non-dynamic
+* importers the buffer is already pinned through @pin, which has the
+* same requirements. Dynamic importers otoh are required to obey the
+* dma_resv fences.
+*
+
+-- 
+Pavel Begunkov
+
