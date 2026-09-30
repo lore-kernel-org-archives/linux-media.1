@@ -1,122 +1,162 @@
-Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583CE3C0A19
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 07:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D982D662F;
+	Wed, 30 Sep 2026 07:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753728; cv=none; b=KoVlvLtcbbquyNW0e+U1ADc7FSalE2FZfcc9lG5dUMvFOvEIl4N8Es1TJwESIpkcqqUuIGmFJ1sdIyEMa6OQsHG+ER7j+5tjbgmntr/6Ukq5E0ZJc3D8hCI52R18HJ4B+v089O3pj1c1Omad+ZH2VJnkQRw+Im5Ec19Lok6yhgM=
+	t=1790753841; cv=none; b=O6uhNKwMYgqlPwsT7MXeGPw4M0qX1K6c/nn1Tpfw8Tr+G+1GTKp4WlbaEQxdA0dpvrJkNUtVZ7w72lujUeLftihmS06szg5HXoMvbzj3ZoTY2Tvib7FxPJWuU2gjWbgScwRoOkS/ElGnRi+57qlvOnFe+sJmKvbRV0kAbjeDO40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753728; c=relaxed/simple;
-	bh=8jGVgeAsi4w2FymRKhfkQ4ZH8Dt7Je7AZlJL80qfSm4=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=DFDYD43RFM2354M2B0i7FtVjmJ9f+/m7dIFnkw/lU/gd83djfaqo1usODJ+9ibAEhZgid0+9DgqdWEAQ3VjHTuzA15u9g/ik+rH4whFC+yN/EOd1ERRR4Q2+3VsFRwEk7cj11HcDjx55EUGCeLJqDs/ItdMjDWWVBMrj9WNPU1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lOH+0OK2; arc=none smtp.client-ip=74.125.227.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790753841; c=relaxed/simple;
+	bh=q583Vuo00DaNmQkzLneKIqegshtifcF0GMHRsSSz/K4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=W6zhV3LOnaps2nrYF7KH//wndnRIoJA86Go0gw8AS85fs6/0M3Zjg70lZY1Q70yIMZriOEWsyWQzn3J81DEnsq8fVqTTCfBc5p6mk1zPPv6BF0PLyRSw/b+nnezTt5UBBKWBbHFqIviIn0ImCw3pdEraq/mqGPgPWL3xGp3eTsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSeEEJWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lOH+0OK2"
-Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a498cb99b3so889929a91.0
-        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 00:35:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790753721; x=1791358521; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/DmxIGCqxQEtfsdP4GpsNIMQ3eXB5ANPTlWJ5OIQB94=;
-        b=lOH+0OK2hexo71FlcY4eRsFklOrOhrAYMyjw5tgW0zdsfUCA1yhyzrX8qXvZyin6AM
-         NulXY0AVJJo77B8Mrp0saALZPVec0itaq9wI2ZibciBmAuZaZ/N1LN5iZBrD7/l5yCMe
-         pyFu9exVrNEIYENKAq8ZbvVSZ52MviEkTcMr3xbwMyZXt9lF9r9LdFRB0n05TnVSw8TX
-         vbUNB7zCcdiNblRZ7X2DObPQ2PJr5EWaxRCgAOqOrCqnmkrQE++v6vVHz3dVFoZj2FoB
-         06A79NPp3q3h3218nVZSFMLENuipZrTk4oH5iW+8LB8eVyVUeB3s6NM1OT7uN8lecfvt
-         3FjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790753721; x=1791358521;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/DmxIGCqxQEtfsdP4GpsNIMQ3eXB5ANPTlWJ5OIQB94=;
-        b=AhdO3kzLa/lMJUggG0H3CL3ah5OgvT+urQc5JIS/k1b4rvkRhy5qOUAltp+RijORNY
-         VWts9voJKNmlDRSAnCcc3EV62X1V5weuAMIyayCY+VVaDEXV6TRck6ru/qhp3j0nNMM/
-         UKNeHTnSGwpMnoQpLgeGT0i8HqSpmzBujxk7AGbiCWWjZT9UxIAgWvDWZAFN9Pm1fWwF
-         BA2RsvpTwim6ocBVTYwLjCJGueiNdLI9zchx0VBuT/przgAEYS3HBQKmZYT1kcXDBaMf
-         Ic6EzCh2KQl5icKdTQOI1Ugks9HcdwA9ev7mD6Hsh6SvLeksLjhzOeOqzDbCHextA3+E
-         FI/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxKARvl1Tef/24+kgzsCO2cDSRLk6NL6w4R9ZQbPo0j/dgCXV2IAWAPLhwJKR9JxqHTAOYCCihh4zSKwQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRp2rjEVQgNJnVhhOOlGBHwSSrKw7QWeQz4Fln6a6cAf0QHFTy
-	RKhVWBDJzKUOYPEIcrm2ehZ3uTuodh4VG5BsOUIIjdNFbgVV0W3OzawgWLXrMMTp
-X-Gm-Gg: AYBFou1a/n3OQXszYwZHaXourHkwSMgZlRzMr+eFXefZ0TT2wySSQSBGSEDmXkXsoJ7
-	DNqKOcSqgHvGzA/bnNpZijfLRkwEoePweso/W4xDTAv69AvxcWdss3MLa94owMs0Xz3EkrxefQ1
-	E/ujaioViR6E5zFZicD9SpAr3S9DjuGHJ1T3dERmforYp5TIJ8sZm+Z98CUp6gt2yfnlIOezjHQ
-	G1itoCmyAawc6aK+o5ZUewXHn+IuLRu+Zfv6Ayg3lDgyesDwPaqP9VAhZh3rFX+HW96mO9YxUP8
-	EC5axdR7izlD/ctCBXlWR0wbJ3SfHeA+CHFy2Pfs0rMYVE8s0InrXq/iolcZbdC8yGi9fdDIoeI
-	UZXyAe0tnoPwbcKRZ/rrN3VTx29G+hPJ1hasN7UXkZ2tjNMFNy1sf62WjU0c7zTspH6Sr7R4GzS
-	hBCnxqGqHxMeFwzyJ35kBBiVCPqoEu8BYxT/UWP948szeFIzLZiZlTGpOE/tVZqNw9XmWrMQPLs
-	xu/WKKUKNyaqk2DUyJsMCo=
-X-Received: by 2002:a17:90b:1c08:b0:3a0:dec0:c0cd with SMTP id 98e67ed59e1d1-3a4d17a0c3bmr320928a91.28.1790753721107;
-        Wed, 30 Sep 2026 00:35:21 -0700 (PDT)
-Received: from SANGHOON. ([1.220.132.212])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4c7662ed6sm808626a91.3.2026.09.30.00.35.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:35:20 -0700 (PDT)
-From: Sang-Hoon Choi <csh0052@gmail.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] media: coda: store context ID before error cleanup
-Date: Wed, 30 Sep 2026 16:08:58 +0900
-Message-ID: <179075213853.3.17591166088476877916.idr-bug-26@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSeEEJWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8CE1F000FF;
+	Wed, 30 Sep 2026 07:37:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790753839;
+	bh=qPO2lw1+79erqGqMxWWT2r7/JSusNTUmIuDxiPR1T9A=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=RSeEEJWTUISA4Xb3aGin4FOZkGfc7pAlpZkL51IuLixgqW7X0vS9lAZVycEgtiOEm
+	 STLCa9T+wxWrcnmWAAQcu1bVpP98FpsBsV6Y3SzLjgSomMNIUm0+rpYqPxf+eGFYk/
+	 Gwg5vli5FXJL2M7rrJbYIfB8joz9rp7Xt/fkIGJHFHmXZatt3S8K5AUX191MZ9D6Zr
+	 tNj4QhBL/3t0wdB3DzthNqqtUFPiwkzIRu6007sQDiKYUphsyJtzZ+lJoITd0KIYFE
+	 vXZ8L/ugzeBtFnKDJ5QSOW9HufqMXxpjw446fVF4ijziWlitt+fGg4fYiUr0fSrvqS
+	 RISvqi/jMbxXA==
+Message-ID: <56fc727a-cfd6-4114-b0f1-4c1e6b39f8e9@kernel.org>
+Date: Wed, 30 Sep 2026 09:37:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH fixes v3] media: vivid: check for NULL dev in
+ vivid_probe() control setup
+To: Rohinthan P <rokinthanp03@gmail.com>, hverkuil@kernel.org,
+ mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260926084318.12161-1-rokinthanp03@gmail.com>
+ <20260927033306.14125-1-rokinthanp03@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260927033306.14125-1-rokinthanp03@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-coda_open() allocates an ID before formatting the debugfs directory
-name, but stores it in ctx->idx only after kasprintf() succeeds. If
-kasprintf() fails, the error path calls ida_free() with ctx->idx, which
-is still zero because the context was zero-initialized.
+On 27/09/2026 05:33, Rohinthan P wrote:
+> In vivid_probe(), after creating instances, the driver iterates
+> through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
+> 'Connected To' controls. However, it dereferences dev->has_vid_out
+> without verifying that dev is non-NULL.
+> 
+> If an instance fails during creation, vivid_devs[i] remains NULL,
+> causing a general protection fault:
+> 
+>     Oops: general protection fault
+>     KASAN: probably user-memory-access in range
+>     [0x0000000000005f38-0x0000000000005f3f]
+>     RIP: 0010:vivid_probe+0x579/0x10d0
+> 
+> Add NULL pointer checks in both loops in vivid_probe() before accessing
+> vivid_devs[i].
+> 
+> Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
+> Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
+> ---
+> Changes in v3:
+> - Add "fixes" branch prefix to subject and base-commit info targeting
+>   media-committers.git fixes branch to satisfy media-ci test-valid-ancestor check.
 
-When the allocated ID is nonzero, this releases ID 0 instead and leaves
-the allocated ID reserved.
+Don't add a fixes prefix, it serves no purpose.
 
-Store the ID in the context immediately after a successful allocation
-so every later error path releases the correct ID.
+> - Add Cc: stable@vger.kernel.org for media-patchstyle check.
+> 
+> Changes in v2:
+> - Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
+>   remains supported as required by the test-media test suite.
+> - Update author name to "Rohinthan P".
+> 
+>  drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+> index 62cfb5f..1860ad6 100644
+> --- a/drivers/media/test-drivers/vivid/vivid-core.c
+> +++ b/drivers/media/test-drivers/vivid/vivid-core.c
+> @@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
+>  	for (int i = 0; i < n_devs; i++) {
+>  		struct vivid_dev *dev = vivid_devs[i];
+>  
+> +		if (!dev)
+> +			continue;
 
-Fixes: 649cfc2bdfee ("media: coda: fix memory corruption in case more than 32 instances are opened")
-Reported-by: Changyul Lee <lcy8047@gmail.com>
-Link: https://github.com/lcy8047/radix-tree-bug-temp/blob/main/bug_list/idr-ida-xarray/premature-id-release/IDR-BUG-26-coda-release.md
-Assisted-by: Sang-Hoon Choi <csh0052@gmail.com>
-Signed-off-by: Sang-Hoon Choi <csh0052@gmail.com>
----
-Compile-tested on x86_64 with allmodconfig and W=1 against mainline
-6f8319e3e9a44dd537d17f41565a8453c560a581. No hardware runtime or fault
-injection test was performed.
+As I mentioned in my earlier reply: AFAICT this can never happen.
 
- drivers/media/platform/chips-media/coda/coda-common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Looking at the code, vivid_devs is non-NULL for all indices 0...n_devs-1. See the for loop
+at the start of vivid_probe where the instances are created.
 
-diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/drivers/media/platform/chips-media/coda/coda-common.c
-index be37ea568bfe..06b165c556f9 100644
---- a/drivers/media/platform/chips-media/coda/coda-common.c
-+++ b/drivers/media/platform/chips-media/coda/coda-common.c
-@@ -2617,6 +2617,7 @@ static int coda_open(struct file *file)
- 		ret = idx;
- 		goto err_coda_max;
- 	}
-+	ctx->idx = idx;
- 
- 	name = kasprintf(GFP_KERNEL, "context%d", idx);
- 	if (!name) {
-@@ -2640,7 +2641,6 @@ static int coda_open(struct file *file)
- 	v4l2_fh_init(&ctx->fh, video_devdata(file));
- 	v4l2_fh_add(&ctx->fh, file);
- 	ctx->dev = dev;
--	ctx->idx = idx;
- 
- 	coda_dbg(1, ctx, "open instance (%p)\n", ctx);
- 
--- 
-2.43.0
+So if vivid_devs[i] is ever NULL, then that's the bug that needs to be addressed:
+why is it NULL at all?
+
+Do you have proof that it is actually NULL?
+
+The syzkaller report shows this at the start of the crash log:
+
+cec: vivid-003-vid-cap0: kthread_run() failed
+
+So why does it fail, and why does it cause a crash later on.
+
+Anyway, I'm rejecting this patch since it doesn't address the real cause.
+
+Regards,
+
+	Hans
+
+>  		if (!dev->has_vid_out)
+>  			continue;
+>  		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
+>  			if (dev->output_type[j] == HDMI) {
+> -				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
+> +				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
+>  				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
+>  			}
+>  		}
+>  		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
+>  			if (dev->output_type[j] == SVID) {
+> -				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
+> +				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
+>  				vivid_ctrl_svid_to_output_index[svid_count++] = j;
+>  			}
+>  		}
+> @@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
+>  	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
+>  	svid_count = min(svid_count, MAX_MENU_ITEMS);
+>  	for (int i = 0; i < n_devs; i++) {
+> -		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
+> -			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
+> +		struct vivid_dev *dev = vivid_devs[i];
+> +
+> +		if (!dev)
+> +			continue;
+> +		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
+> +			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
+>  
+>  			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
+>  		}
+> -		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
+> -			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
+> +		for (int j = 0; j < dev->num_svid_inputs; j++) {
+> +			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
+>  
+>  			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
+>  		}
+
