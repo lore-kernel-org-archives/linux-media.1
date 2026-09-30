@@ -1,142 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13C04D17A7;
-	Wed, 30 Sep 2026 12:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9694C7558
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 12:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790771304; cv=none; b=N5sVWYJVUZngtEO6cQv7TmfJFmO09Z686rOz3u+4zCi3JS7Mt1b5ACeVgYML0C8sds5UWGUc0AexvFSnsaii+nsD2L0+E+blhuDnEmNXSezVtwuoVJapp0WFh405DGRoCiPTF8UrZ2YT9g9KnN8ptKi5RFtrHRdwiHPTeEIiPl4=
+	t=1790771558; cv=none; b=MAbx6mLaiO4n/DZkN07qdgWNuNGbARCFRRwnTlLc6YbgGTurotLy9Fzk2E2EVWmFVYMJpFzFQ4a21eAwdxYgVpbzbaoa5wbRrGnNK4MMFoC3aISy55W8F0xYKmkr7TcIbepcUE8aavEPllGlhk4s5rVZfXOCYLMrJciWeexKOAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790771304; c=relaxed/simple;
-	bh=9lmVFQC9Z4KGtoW38DAAhc2bvTVrr3skeuO3USIIg7U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kjNL3Iip1vqt/cY+/EUpxZ9IfRDUAi0QP7j6a3sdJqsu0R6I/RB0umEoFpqSPrvANR6T+JoN9RvrG4uThPBNcDwedAoPbhPbaVQO4GkvT9UX8/Aq1wIu7V2z76xqPWC107NbJ5PQsq9IgCpvUe9nY+bGyNejZ7qsA/OMMcH3DNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZW7CboBu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790771558; c=relaxed/simple;
+	bh=uIr7S0aHlDG1dvnPRclRJg+sIqRDxLt4biMoth3vRiQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJYYpHH3aC9IvIMFwlPuiBARa4VjHHk1QoOgKSNgGniJA3SOxBTkcnLgqoCcus91L/xPL7CP33Mw3GHg/ha992Mf2JxL5RRSdy/jk15EB+xV4aHDhGWsipb/8MAFso1TE9/M/IlWB+4o9hWGqYlfl0X34E3fN7ioYMEQ+tng6ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kkSCRBHd; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZW7CboBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4421F000FF;
-	Wed, 30 Sep 2026 12:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790771301;
-	bh=3homTzU0A5b5rw9eK11AZ6XdME+l9JWLnwxZWPVmGdc=;
-	h=From:To:Cc:Subject:Date;
-	b=ZW7CboBubk39tvnYuGIZ5tXL+A0YFTPJJ2igNcxtbe8dp9Kh5SjalN1XLxq+NljCt
-	 3P78bGnK4azx8QEdlT+glzg356U4xxF0CSLLQqo0+f5A/stM8VfMNwMSwKI36T2oZt
-	 7aXL1FWA8l0ZwioPGA2ugwMIYKFQOFqlPiFuv0KZVBZekXPlAa/h8EnAxL8CcljzkC
-	 zt8H/MDI7YHtHwBSCpjpxpfq72fBkDmhQTbsQyw3Yt5G20YFXfNw6DT8W/4exY2rET
-	 ya5edFpNyiAXfkUNNoaihAjxXu5FWqhznT7HFyx8iO5U80og+97E4rUt9Zd+1m8lxL
-	 DvMTQWREcqLag==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] rust: DmaFence: Remove static lifetime
-Date: Wed, 30 Sep 2026 14:27:56 +0200
-Message-ID: <20260930122755.1657820-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kkSCRBHd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790771557; x=1822307557;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=uIr7S0aHlDG1dvnPRclRJg+sIqRDxLt4biMoth3vRiQ=;
+  b=kkSCRBHdN4/4xzhofFutWOvQH6XBASq7u7zuRtkLiFppIgBp+YMmzjB2
+   XNAFa/mWxde1NLzBvEWUNoENF09sE9VTIM0kAaZNQpGFHY+6eRq12mPqO
+   srGPWAFR3BcZvb0jueGKPBEe9w1nTZ0U4eN2FOhMe5dvdm2nbIp+cTRSH
+   PTvUFCRelbrrWPLyMiRyWDgNSnUrJXmse5LIdOwAdbvw1DLD7ewzRDMn/
+   s+eGR5hNKbgpKSnabKrVYdZTm6e47su9t28vS97tQlTVJJCJ5+Pb8gqPW
+   Bh8RwePhQPS6k5xaBZLl4F5Z1tn/QUjWs7U0ZBkHBfyUB2vbSezaD2cFZ
+   Q==;
+X-CSE-ConnectionGUID: hxnSVYjKR1i2LS2of9TzGQ==
+X-CSE-MsgGUID: vWqNOogIQ8e9YdLMbjpUwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90556809"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90556809"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 05:32:36 -0700
+X-CSE-ConnectionGUID: HOXO+UbATmS4giVs59BN3A==
+X-CSE-MsgGUID: Ud4L+WX7Tmq2pPTUthY2+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="275230179"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 05:32:35 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 8BA5511F925;
+	Wed, 30 Sep 2026 15:32:39 +0300 (EEST)
+Date: Wed, 30 Sep 2026 15:32:39 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hao.yao@intel.com, dongcheng.yan@intel.com
+Subject: Re: [PATCH 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
+Message-ID: <ar0BZ4MAut3fnS86@kekkonen.localdomain>
+References: <20260929121802.2516868-1-sakari.ailus@linux.intel.com>
+ <ar0AOud9uEPuUAMr@alaakso-desk>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar0AOud9uEPuUAMr@alaakso-desk>
 
-A FenceCallbackRegistration can stem from another party than the one
-that has created a Fence. Should that party forget the registration
-object (for example through a refcount cycle) and then unload the
-module, a fence signaling would run into the unloaded module, causing
-UAF bugs.
+Hei Antti,
 
-So far, this has been solved by demanding that the payload data of the
-registration object demanding static lifetime.
+Thanks for the review.
 
-It turns out, however, that this is harmful because the static lifetime
-bubbles up to all users, ultimately potentially causing a large amount
-of driver data to be static, which renders the lifetime obsolete.
+On Wed, Sep 30, 2026 at 03:27:38PM +0300, Antti Laakso wrote:
+...
+> > +static int ov05c10_parse_fwnode(struct ov05c10 *ov05c10, struct device *dev)
+> > +{
+> > +	struct fwnode_handle *endpoint;
+> > +	struct v4l2_fwnode_endpoint bus_cfg = {
+> > +		.bus_type = V4L2_MBUS_CSI2_DPHY,
+> > +	};
+> > +	int ret;
+> > +
+> > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
+> > +						   FWNODE_GRAPH_ENDPOINT_NEXT);
+> 
+> Should this return -EPROBE_DEFER in case endpoint is not found?
 
-Solve this issue instead through an unsafe requirement which demands
-that the user does not forget the registration object. This is also the
-solution chosen by ScopedWork.
+v4l2_fwnode_endpoint_alloc_parse() will return that if endpoint is NULL.
 
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Reviewed-by: Onur Özkan <work@onurozkan.dev>
----
-Changes in v2:
-  - Safety Docu: Be more precise about what must not be forgotten.
-    (Gary)
----
- rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> > +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &bus_cfg);
+> > +	fwnode_handle_put(endpoint);
+> > +	if (ret) {
+> > +		dev_err(dev, "parsing endpoint node failed\n");
+> > +		goto out_err;
+> > +	}
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index 18a43e1bb442..a1d851656562 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {
- ///     }
- /// }
- /// ```
--pub trait FenceCallback: Send + 'static {
-+pub trait FenceCallback: Send {
-     /// Called when the fence is signaled.
-     ///
-     /// This is called from the fence signaling path, which may be in interrupt
-@@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {
- /// When this object is dropped, the callback is automatically removed if it
- /// hasn't been called yet.
- #[pin_data(PinnedDrop)]
--pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {
-+pub struct FenceCallbackRegistration<T: FenceCallback> {
-     #[pin]
-     callback_foreign: Opaque<bindings::dma_fence_cb>,
-     callback: ManuallyDrop<T>,
-@@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> {
-     /// On success the callback is pinned in place and will fire when the fence
-     /// signals. On `AlreadySignaled` the callback is returned to the caller so
-     /// that owned resources can be reclaimed.
--    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
-+    ///
-+    /// # Safety
-+    ///
-+    /// The callback registration must not be forgotten.
-+    pub unsafe fn new<'a>(
-+        fence: &'a Fence,
-+        callback: T,
-+    ) -> impl PinInit<Self, CallbackError<T>> + 'a
-     where
-         T: 'a,
-     {
-@@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- ///
- /// let cb_data = CallbackData { };
- /// let waiting_fence = ARef::from(fence.as_fence());
--/// let cb_reg = FenceCallbackRegistration::new(&waiting_fence, cb_data);
-+/// // SAFETY: `cb_data` is not forgotten.
-+/// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
- /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
- ///
- /// // TODO signalling guards
-
-base-commit: 6bd5eaeb9827ca7ba953b68fb27948fdb3e40630
 -- 
-2.55.0
+Regards,
 
+Sakari Ailus
