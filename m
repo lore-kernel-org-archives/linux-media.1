@@ -1,211 +1,220 @@
 Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624123B27C1
-	for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 23:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723590; cv=pass; b=LECAyt7lU3c189t2TODMjG2mQjsA4PxWat1XvFA27m76qPl9dGm6OiNirTXS5etCXEGUsn8J+bs9JZOaElR2qrz6wHK85ni9F3Tbkf5QFBmIxvfJC1/EpHN2IXly5nkWPi3tXX7mrfYlynUlEVBvNfDGwLOUupubJ9exiKZ2cP0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723590; c=relaxed/simple;
-	bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AG7saBvSK6IPSdPSlOj8+wbk13lwQiUgBq95D/xRqUhOISnryx4vrd7U+/d2wWG1nM60N7hKCYxhL5FsWRyiycd6TQERT/vbyA8xRP7N0i4TEWvS66rCGmB/9hPVhWZH7BogMolHTxDH0DTShkKB8XPB1dOuGzOK6lVtk0Y+oHo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5JVZJra; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8673515C0
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 01:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790730841; cv=none; b=OzSNR6sB/6PYOUv1hPx2CwAk8mBXtBDFb0pdgX2NIAgy/b6lX3xnA88HE+bS1NadjkON0yrIvXolYFI4qzUs8BP28xzvf8Sw1avsDZwDCFNT8RHyf6rt93mt8K7So5rNEFfn8lfh0czge0w9gYGd4wIP30BLcQvoVqCuUD5IoL0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790730841; c=relaxed/simple;
+	bh=5TTPFw+6pOzebpyRN9BKpiTnM6uz6kUgLoi6TD/nApg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HVbIVBs4hCdxq1CiIbY1SzY//5YmjS3bHbYyMl8IXHoSboDy7qV27QgHG87efck9YtYVn+ok2x2CI5NWPdThCnSNDV/ttcIGa49kp+aApaSDGYVeO/RKLhQeod51r/wwVoOm4AZRr9ujS5IvVrNIGLzIKBNXcNcnGGFYhuw9hmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=DDTvdfGW; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5JVZJra"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so4547323eec.0
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 16:13:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790723585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VNNkWR/a5FvX26c0XrZfa8oxi/IKQz0hzE4yVE47ujnxAmV4UCbUoyThTH7RmOqIoh
-         xGWV636ETXZ9ZVmtKEGZQ56/QqOj3TESl4YqwzjA0pxdjHfVkNOH+3J9hkIEY+L69iGL
-         9O4mIZK4M7a+WcyZfsjRQyxegaj9NaspnYKyKBBTgb250XjrSXchYYkWH3vRrMwRWPNB
-         KR6P6HBLldwaQjeXMklKJ1oSfLEu+uKDisj3fArWVYA2Od0KOIZMUpazxK2nkWAQxppc
-         meA4cBCduId8kjxIn8DANEmQAItce4tDOWug5T8xHKw6NQQnWygEQhRxd0WA7vh66syt
-         FPmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
-        fh=fx3/tE2Ckj7wz585KaFmOKdlnWYl1Tq+42rVBZp9Riw=;
-        b=LTyd3tTryemGdYwRbulH5+yb3Eh5nx1qRuNLbDUfDpr1UWFy1OMTyHoN2trda4O5lM
-         JHKVeON3hWTE9OgXFiq2UFdkZMno9WkiFF2UAiGwDv/6XAOgfZt/7CmYYAXOI+n8Q0jz
-         dpIpcOaSi1CJmBGptyAWgWcDxEi42pJT1pknII/HDBPsSqCRgfrrLBTitwa3cbE62Wnq
-         ucue5QvRC7lqkuEAIth5h4j2s6bPJ6uevU/skJCjQEBPp7rDYc3LWeHraHrQWgl/9eTa
-         wsr1cQBm1Rtb2Zp+XbcpDIQ6+WASfj9yfmpQFluNbuCNmZ58fVlUb1G/uL/uyfBfJ0le
-         CugQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="DDTvdfGW"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34abf779ac9so1279139eec.1
+        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 18:13:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790723585; x=1791328385; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
-        b=h5JVZJra0NXjN/IR922ol6FflVUo56jzzpCbGrig3DCL3Yk72ns/C0G2vLz1QRi885
-         9lRTcxNmn2ENuLHEDDefEyEo7iw8xORpxFEW7zBKC3u2fmiNnXiKZo49ZUnGHLsDOoLl
-         Mjz0svzPQtf2EL0ouFrDyysjE4Jie0IJJedi/xdWLIWUgEiPNayIBk2CBZdLGNZP7/Ns
-         WWKLEPQMEbI0H+Xb4BOBq4Mc8KgWYzljv87xMybVciuVEAn8LsO/FsVEXgxuCdBrG4lX
-         Z4wGesNfzfI+F1P64FeDUnDzy1ZJzgO2icMP6d3gKv2n5Mo6qZGHUa57owqUPVb3ZNlq
-         shGg==
+        d=trailofbits.com; s=google; t=1790730839; x=1791335639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lc1wbxzVuxiw3fva36zB66RHmqecR2gjnNW5+7fJzDk=;
+        b=DDTvdfGWjerA9DS7DhELvPpUBqOFJaWyixv6ykZpPhjOH7lTaPC/jxyabiazjuQPMP
+         xjEcWP00K9ZQfzp7y4h5olzb3mJ8ZBNrvRnMWhoRdd4f3iNYSdFTbnU6eeRowqbpRJ8k
+         eircqXmkBbvsek1igV75+My1expfy/5Uh5aV3VqBy9/oHGoYpRn5PU8GLOWJB/vTQqRk
+         VnRLUCV+o+79Txx6tlNWs5RJ2I8ezaNmltAeBE1Z2ASEA03M4qCB0OkrDq8oCQkH0t/s
+         OReWUC+2caCkFZwAKhrh2+hDoX0+JwuSvZ2IPI9Dgd0dgFBA028+hXNmvjZxUS0N2Pw+
+         9+SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790723585; x=1791328385;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
-        b=Ofm6+ObMFQTOWZE0HJZ26KXcIYnSZ1+bG0OMZV+TQHcoI2gC5Srl3zLMI6jkKTwDxF
-         nJ9L1xTfsV/roe2V3iQDC6kspSAWLL4PcGckAeUfzSorn1TU26BTOHmDHG4cmUl6FPHB
-         cA0Y6+gwjPpaTpVCBG680ux5Iuu9nhPw/FfgCu/SuHOx+TH5jyX1Pfjiox4pGuFkbWXq
-         DbscLPAC2EYwVbs9UlyqDT2SlZxMSRUNKAgsdM0K78WRyWp/IwpOgx9Omee92KYOtlKf
-         YsOb5qMtPez6c4m+y8yts/MwJWkQ2+WsbFJOQR1Xl18Se/J7hH911THGBoBK2JpjUz1/
-         29jw==
-X-Gm-Message-State: AFq9FYJURs9C+kJgGq6od/pduGLEG7D+M9AK7ve5BMKM4S9RiFvy9S7S
-	9PsVDuQN4sKN+NMyywqLBCvvZNS/y58oNGG6dC4t1xMz6onfbkFupdnY8YaJdv+rVQ1wMd7D/4D
-	bueqe/y53i9Oxu3udKDHGW3xGpKV9mOMr3SV9sHk=
-X-Gm-Gg: AYBFou2mxuC5rTkGeafT4UfSUW0H+Vup9m3ABn6LoY380RSvFHiDqLQ1rBHkpOk2Fj/
-	clWm1DQP0rMrK9RzPuSf/NxtLs/3I9qhVPbsjmTojYp8EOrb4i8kUIoVKLsGT0ag9B+9l2g4oR0
-	oY1NHX4OPQvxxi/EMXAQEcRIHXXWrktXWkwgUProHAe0uUxV6LOIV9DheG22nUQU7EoGzQjtQAB
-	n1BldpZKkvXhUiQVuO47KeR/86VGU9iMN4IcvL8rvuz8sTIf82u3SCJmXM04r+uKEW/gSMU0eDI
-	A7BkxAMcGwvp+00KMD4MB4cLsoKfBNtT1RvlDwwYtHO2B7vcoSgVoinYQkPAoqrNvlXrDpVwevd
-	/tA==
-X-Received: by 2002:a05:7301:fc12:b0:341:a4ed:d910 with SMTP id
- 5a478bee46e88-34c65c622cdmr858433eec.7.1790723584981; Tue, 29 Sep 2026
- 16:13:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790730839; x=1791335639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lc1wbxzVuxiw3fva36zB66RHmqecR2gjnNW5+7fJzDk=;
+        b=QBpkxZ9MMNuxdYUNC/4B4J/dasH5rgzF2WpxEYEbNueRdwWEvLB02FGST77rWSoMYT
+         H6ZT4PmC1BHTkVDHiMuJj+QlQRONInzH75MDJGmYfbf4+1L3KMNRNj6T9RfmepsZLL52
+         dqgulAlijCXYpelUpzXX2Yipd4qIEbAc5A17zUusb7i3PPop2zCCouLoQ+vOvYVoFYHW
+         ZxYz9tVmAkbPak+5i+EDxQWzmVNi0UURABejB+PRmUGEP2AYpLrOCNoB8dtzJNZp8dLX
+         eeio8/w8+BKzld0PXIiy6Fqcjx7ilN0Oo6wHVy6d51gZuTAyRXwofdcgxTGs6IMs9H7v
+         VZ2g==
+X-Forwarded-Encrypted: i=1; AKwUvBw5Z0FLyV+Zgvzy+qodNmPjP9N/VwU4Lt1x0hwJBfWZIaNUUl8mUCl7+cFdI0ixGW/B00txru4EmO5sUw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGYEV6u0Wwk4TGrx9zxuqcdKT2lc3nzVqLGxJNWnOMgih+ouDK
+	iR7jUrBqEk2P7XNn+QjTDfGKRAN7ol4hwJaouzVL8FF3NBlO0l9T56iZwrnJ+rd/11Q=
+X-Gm-Gg: AYBFou26FATzYLSmz79ySKDXaJaCv2EFdcoYpsLeD6MxSfxEJmyX3tGk53/yCkSbByf
+	jNVlFKX/4HPAwZnSqcQy8nzkyJMMJU0rQdvKxBvFffRcJz5+x3zGyZ2cLSPMPdLNtn6YMA5mPit
+	gxBdrqS17zRq7RPUjdVMOM1TpmLpJlHUhkCBG1ql3Jd90NTh2v4uLAgrB4jJIDRcOkwozMyH0Q0
+	jT5Z0rwSg6JLL80axZrZNJQzkjS5GDBavbWroUNyF8GSSMASVsFBJddPlme6jpKuwXPfgz1+E8s
+	k/JCw7QTfOHeSSBLUf91n0LyIZrZA26IrxZBn8kSOpBUMc8tXAORh26TLjp6YJbn7YIPBW7+nSQ
+	2XdvY8qgV+yryfjEtU7SeP7r+ny9TmE8PnBzF9yxr4fnGRXq4SjR/zsKoeWd3xOpTvEZLRjLMKh
+	kB2gH9dqsBIBGA2VKcoQvSye2gS8ulMNB1fAmVWarX/jmxEvX+96e2RNVpBJurB+BA9DdFPJVXO
+	PG2pe1QF8cW/nLhJZdi5RhZDcmRPq3z+Nr/eJJF+T/4g+ZtesIf/l2JfxDhsLKB4YWhNNs=
+X-Received: by 2002:a05:7301:2525:b0:33c:259a:759 with SMTP id 5a478bee46e88-34c68185f7cmr1091505eec.36.1790730838921;
+        Tue, 29 Sep 2026 18:13:58 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c38bf0948sm2036089eec.25.2026.09.29.18.13.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 29 Sep 2026 18:13:58 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hans Verkuil <hverkuil@xs4all.nl>
+Subject: [PATCH 6.6.y] media: av7110: fix a spectre vulnerability
+Date: Tue, 29 Sep 2026 21:13:52 -0400
+Message-ID: <20260930011353.94864-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+2YD=Nxe25n8rmM-DS+w+Pg0N_YtOf_znJXNMi77SCwk3OUyw@mail.gmail.com>
- <20260925205706.GA697101@killaraus.ideasonboard.com>
-In-Reply-To: <20260925205706.GA697101@killaraus.ideasonboard.com>
-From: Perry Joyce <perrygjoyce97@gmail.com>
-Date: Wed, 30 Sep 2026 00:12:53 +0100
-X-Gm-Features: AclHuK-Ap3SxujRSf8OOSV3hnZak0aESAQpvapu2LboIUe41glhlpR1xU3QT6b0
-Message-ID: <CA+2YD=P3pNVi=GJ1qoqnsgA56Hg_N6iT_AXGPDBHn9XToxh1KA@mail.gmail.com>
-Subject: Re: uvcvideo: Logitech Brio 500 (046d:0943) needs UVC_QUIRK_PROBE_DEF
-To: linux-media@vger.kernel.org
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, hansg@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-Resending in plain text as requested.
+[ Upstream commit 458ea1c0be991573ec436aa0afa23baacfae101a ]
 
-I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
+As warned by smatch:
+	drivers/staging/media/av7110/av7110_ca.c:270 dvb_ca_ioctl() warn: potential spectre issue 'av7110->ci_slot' [w] (local cap)
 
-uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
+There is a spectre-related vulnerability at the code. Fix it.
 
-Kernel:
+[ Backport to 6.6.y: added the explicit linux/nospec.h include required
+  by the older source. ]
 
-Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17
-Sep 2026 07:33:37 +0000 x86_64 GNU/Linux
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and media av7110 maintainers,
 
-The webcam otherwise works normally.
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-50289. It masks the validated CI-slot index
+before using it in the av7110 array lookup.
 
-Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
+The target-specific adjustment is recorded in the bracketed note above.
 
-modprobe -r uvcvideo
+Could you please queue it for 6.6.y?
 
-modprobe uvcvideo quirks=0x100
+CVE: CVE-2024-50289
+Upstream: 458ea1c0be991573ec436aa0afa23baacfae101a
 
-After loading the module with 0x100, the device initializes without
-the probe-control error:
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
 
-uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter
-for testing purpose.
-uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing list.
+Thanks,
+Artem Dinaburg
 
-I also tested this across a reboot with:
+ drivers/staging/media/av7110/av7110.h    |  4 +++-
+ drivers/staging/media/av7110/av7110_ca.c | 26 ++++++++++++++++--------
+ 2 files changed, 21 insertions(+), 9 deletions(-)
 
-options uvcvideo quirks=0x100
+diff --git a/drivers/staging/media/av7110/av7110.h b/drivers/staging/media/av7110/av7110.h
+index 809d938ae1667f..f77766008b973d 100644
+--- a/drivers/staging/media/av7110/av7110.h
++++ b/drivers/staging/media/av7110/av7110.h
+@@ -86,6 +86,8 @@ struct infrared {
+ 	u32			ir_config;
+ };
+ 
++#define MAX_CI_SLOTS	2
++
+ /* place to store all the necessary device information */
+ struct av7110 {
+ 
+@@ -166,7 +168,7 @@ struct av7110 {
+ 
+ 	/* CA */
+ 
+-	struct ca_slot_info	ci_slot[2];
++	struct ca_slot_info	ci_slot[MAX_CI_SLOTS];
+ 
+ 	enum av7110_video_mode	vidmode;
+ 	struct dmxdev		dmxdev;
+diff --git a/drivers/staging/media/av7110/av7110_ca.c b/drivers/staging/media/av7110/av7110_ca.c
+index c1338e074a3dc1..642af03fbac810 100644
+--- a/drivers/staging/media/av7110/av7110_ca.c
++++ b/drivers/staging/media/av7110/av7110_ca.c
+@@ -12,6 +12,7 @@
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/nospec.h>
+ #include <linux/types.h>
+ #include <linux/delay.h>
+ #include <linux/fs.h>
+@@ -26,23 +27,28 @@
+ 
+ void CI_handle(struct av7110 *av7110, u8 *data, u16 len)
+ {
++	unsigned slot_num;
++
+ 	dprintk(8, "av7110:%p\n",av7110);
+ 
+ 	if (len < 3)
+ 		return;
+ 	switch (data[0]) {
+ 	case CI_MSG_CI_INFO:
+-		if (data[2] != 1 && data[2] != 2)
++		if (data[2] != 1 && data[2] != MAX_CI_SLOTS)
+ 			break;
++
++		slot_num = array_index_nospec(data[2] - 1, MAX_CI_SLOTS);
++
+ 		switch (data[1]) {
+ 		case 0:
+-			av7110->ci_slot[data[2] - 1].flags = 0;
++			av7110->ci_slot[slot_num].flags = 0;
+ 			break;
+ 		case 1:
+-			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_PRESENT;
++			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_PRESENT;
+ 			break;
+ 		case 2:
+-			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_READY;
++			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_READY;
+ 			break;
+ 		}
+ 		break;
+@@ -264,15 +270,19 @@ static int dvb_ca_ioctl(struct file *file, unsigned int cmd, void *parg)
+ 	case CA_GET_SLOT_INFO:
+ 	{
+ 		struct ca_slot_info *info=(struct ca_slot_info *)parg;
++		unsigned int slot_num;
+ 
+ 		if (info->num < 0 || info->num > 1) {
+ 			mutex_unlock(&av7110->ioctl_mutex);
+ 			return -EINVAL;
+ 		}
+-		av7110->ci_slot[info->num].num = info->num;
+-		av7110->ci_slot[info->num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
+-							CA_CI_LINK : CA_CI;
+-		memcpy(info, &av7110->ci_slot[info->num], sizeof(struct ca_slot_info));
++		slot_num = array_index_nospec(info->num, MAX_CI_SLOTS);
++
++		av7110->ci_slot[slot_num].num = info->num;
++		av7110->ci_slot[slot_num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
++						 CA_CI_LINK : CA_CI;
++		memcpy(info, &av7110->ci_slot[slot_num],
++		       sizeof(struct ca_slot_info));
+ 		break;
+ 	}
+ 
+-- 
+2.39.5
 
-and the probe error remains absent. Normal 1920x1080 MJPEG capture at
-30 fps continues to work.
-
-Device information:
-
-idVendor=046d
-idProduct=0943
-bcdDevice=0.21
-Product: Brio 500
-
-Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
-
-I'm happy to provide additional logs or test a patch if needed.
-
-Kind regards,
-Perry
-
-
-On Fri, 25 Sept 2026 at 21:57, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> Hello Perry,
->
-> Your original e-mail was sent as HTML, which gets silently rejected by
-> the kernel mailing lists. Could you please resend it as plain text ?
->
-> On Fri, Sep 25, 2026 at 09:31:42PM +0100, Perry Joyce wrote:
-> > Hi,
-> >
-> > I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
-> >
-> > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-> > uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
-> >
-> > Kernel:
-> >
-> > Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17 Sep 2026
-> > 07:33:37 +0000 x86_64 GNU/Linux
-> >
-> > The webcam otherwise works normally.
-> >
-> > Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
-> >
-> > # modprobe -r uvcvideo
-> > # modprobe uvcvideo quirks=0x100
-> >
-> > After loading the module with 0x100, the device initializes without the
-> > probe-control error:
-> >
-> > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-> > uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter for
-> > testing purpose.
-> > uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing
-> > list.
-> >
-> > I also tested this across a reboot with:
-> >
-> > options uvcvideo quirks=0x100
-> >
-> > and the probe error remains absent. Normal 1920x1080 MJPEG capture at 30 fps
-> > continues to work.
-> >
-> > Device information:
-> >
-> > idVendor=046d
-> > idProduct=0943
-> > bcdDevice=0.21
-> > Product: Brio 500
-> >
-> > Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
-> >
-> > I'm happy to provide additional logs or test a patch if needed.
-> >
-> >
-> > Kind Regards,
-> > Perry
->
-> --
-> Regards,
->
-> Laurent Pinchart
