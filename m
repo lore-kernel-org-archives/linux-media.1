@@ -1,219 +1,201 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38503B9DB6
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 06:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E1C3F54AE;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790749652; cv=none; b=mcGh5u2EHu3nNuN4UU/+f1cDJ7c5zvAobpDNa9p9o70xsqO+afcYDOp+ESbTZtn25dBgnxlq2pPc3pI/7fy7z5QvmVDmFHlAHb3WSQVTz0SQU07DXeQntquv8YtsxeX6CP8eCRreHdvqOENuFkK2+0K+58IKwcQEavvpW3L09ZQ=
+	t=1790750570; cv=none; b=iJBSmw9mdHrMFP5931UpZVJdWejEf2x/AwGN1jMC0fnq7bRkFtiAD0PxjebBR4H2rovwdALr7/x8gXBWQkDwOr/zXmP2ORkJ0m4Vf+2mUAF5BJIDMkaJFYXrLEvyMALyCoM/Lf0TRzmENFDc6XbyK16Q0gVXLp8l6dQ4ArT3GjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790749652; c=relaxed/simple;
-	bh=GJNgEKqztoFxFEvYnJMG3Ai2a3tKs0b85VlnyR58z8A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f2Vc3cNgWFK1wWsw3yZmxUYAUlE2ls2u18djSo+2xdUbLiWHJ+/9ZKBQGGww6N84Dpm03iLHLxLx5Row0C5fizIkJQ338yhJ0eJeIfdbnNxp3tuIipg8j5jI2ELvjDsi/65bczF5hifWue9axWCAvVL4o8piglFCY8G5MA9ASLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OSKU+N5X; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790750570; c=relaxed/simple;
+	bh=CO2T0TShXLh0YQDK3d+IQ/aQD8IKWaiHzJsRA5shaao=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tuuk9lXojIk09/O4bUjDplNbmPpjcb9pTVpvdSUwjhfCvneK1XNOPLFU5lnZL2b1CM5lOM4dXW8pfGUVVpmsEB7Pe+ZlXXufvFhyDAJxToInSdv/wPENV2ZsTUOMU85i0H7jO5VagRnYkcKduOGoqGRBP6gzZ6ONFRtuN1OjQaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iptxv1Dt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OSKU+N5X"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so343398a91.2
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 23:27:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790749650; x=1791354450; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lc1qIpsrNbX+GFd8HSn+Cvyk4IOwYzMrYFI4KpEuUyw=;
-        b=OSKU+N5XH4KbTSOkit1XMJYVLOeqkhL8cD2J5Hjp4XZKYA0jdG5d1VAiRoysmTpzJZ
-         Zd00K09GFe3ewSXrgeTKUBx6TUmmEuCckIdq3HI7UBRu8NyEU1EvpUAz49jHMtA0fFm6
-         KBWkJnSEHkwMaoHnY1pjj2zBW3IpfT3KDSroY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790749650; x=1791354450;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Lc1qIpsrNbX+GFd8HSn+Cvyk4IOwYzMrYFI4KpEuUyw=;
-        b=MtRDfbE8V10nGOVq4JzB7A/6v+usZHpM98jgI3BKcMDPLhUA0TVQ7zKq9ksaA25j4L
-         nX4JzK/abbnBmhaX2yWsCnACe7WN69AKOwNeqv5eL40i+4dDtNHvn8IoI6i+p7T17rU0
-         rJtk8qJWjWdRsnti309j+CairvMRJrcCKy/lzZnrN3bxzoUlZpGr1wyGZTzhdZup7jZZ
-         kKFXPWICexoh6qh/LR8HcFCD19ElpjF98WDQ0itV3l39b83sSc+tB081e3yMhyMK5RuY
-         od/CU/kLgAJDB6DgJ7/w/foR7VsbHZ7IKHGkuxfD6ZiLS4JR16mE7Zxn6Pu33KYE9dLH
-         Ff4A==
-X-Gm-Message-State: AFq9FYK6JArOnfds+kkrBF5426IRMiZQukNP2uhjpNNa2DsgWM9cqBeR
-	D77PGEUStmXF6YCqqi4SgqzYBpMZzp144pg3ZtHkKhJ+0vbRNrnNcSGJzL0xlQt1Q98vVSPCGBf
-	IAoQ=
-X-Gm-Gg: AYBFou0pnjlr4kA8Ovf1Q8CmSA3o2HsAywO4oKSYSaXSHQ3A3uLYIC5QU7R+MPeuzVT
-	9IWc005Vn2sve2JNWemum/+xoczJG8Qltjdh5KtzQ5fejSeFUNh+XBq5UnZSiOhc+5hb3JPe3fJ
-	xn5j7bBBXuRJSodQcTGnOphULlJbQ/QgTuUeMgIn0g3p8yGN6hyfzNPTRjMNPPUlicRXYDbqyYz
-	T3LV0LCdoVCU1OpZMWbchFHvU1ABicpQ1ZfNuEXSBp5pRKT2E4cB9Yf90dhyJwbRXvBDYFWCUzk
-	kR4t/sSFu8MiIFC9cbL8DL6HhqGZQJ0W/RKadjq5T2fQjRCqvB2x3vplMCNU6nWnSs7ruI5+fsu
-	fVcYTkW75uAomtTR5P2gZFVnTZtOYoXnP7J0VXY+hgbM4ReUQPFUx6TTKeIxfpecwOLQGmCOD3H
-	7LWbSU2rKZS4kJ2orxKaRQ2uRtfoaih+1jZA4AvfaaW2HpCNgJKF4dEVUV5fuVFKmzKf+4RhWR/
-	oStH4ihBi1mWvvtpBims2mrYN1TdnHInJZLjw==
-X-Received: by 2002:a17:90b:51:b0:3a2:a98e:7a2b with SMTP id 98e67ed59e1d1-3a4d1914382mr401074a91.57.1790749650283;
-        Tue, 29 Sep 2026 23:27:30 -0700 (PDT)
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com. [74.125.229.170])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ca185432sm1864904a91.1.2026.09.29.23.27.28
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 23:27:29 -0700 (PDT)
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4541039c88.2
-        for <linux-media@vger.kernel.org>; Tue, 29 Sep 2026 23:27:28 -0700 (PDT)
-X-Received: by 2002:a05:701b:2719:b0:143:57c1:6242 with SMTP id
- a92af1059eb24-14d32bde9b9mr300065c88.26.1790749647410; Tue, 29 Sep 2026
- 23:27:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iptxv1Dt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ED43AC4AF18;
+	Wed, 30 Sep 2026 06:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790750570;
+	bh=CO2T0TShXLh0YQDK3d+IQ/aQD8IKWaiHzJsRA5shaao=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=iptxv1Dtk1xlGJ7HHK3Or5BJVGIy3KoVQjzACqIS/nEfdilhzdYWSbEvN/9dUn8ts
+	 s8u/N+wGBBgP9PKyA9E+TJbvtyYoumkmUdM/9TRkxm6QgoNV5VmHXGQOJ9HuaPJjIN
+	 UXZEu7IXZw/A/ZLTYpLO/SXcoGu4nVEVY1BDeNZOH5GxTMxaWfTjuIIfDnMNAmRYyj
+	 jwFagBb3JgUriC9dR+uw7zOXqbNzatlMOtgQh+8XLe09CEZ26+dQUecyp6dTbHygjZ
+	 nasUy4xrQHTJaqv8YQKx0Cr3QXyXdL4/e1DJ6wme/34XcGS1W4am7KX7COl0KqioS4
+	 Onh06uzORH8nA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7D7FCA5FAB;
+	Wed, 30 Sep 2026 06:42:49 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 30 Sep 2026 14:41:20 +0800
+Subject: [PATCH v2 02/21] media: i2c: it6625: propagate initial-setup and
+ control-update errors
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+2YD=Nxe25n8rmM-DS+w+Pg0N_YtOf_znJXNMi77SCwk3OUyw@mail.gmail.com>
- <20260925205706.GA697101@killaraus.ideasonboard.com> <CA+2YD=P3pNVi=GJ1qoqnsgA56Hg_N6iT_AXGPDBHn9XToxh1KA@mail.gmail.com>
-In-Reply-To: <CA+2YD=P3pNVi=GJ1qoqnsgA56Hg_N6iT_AXGPDBHn9XToxh1KA@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 30 Sep 2026 08:27:14 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsuiPN=9PNb9gckRwgZXMEouYTac0_DgbO1Mti+p2zH=A@mail.gmail.com>
-X-Gm-Features: AclHuK-fwd65UvzyRP5lPKeP_uJxaO37ohdi1sIivOyI8BaBY3Yurjj-DcNth6o
-Message-ID: <CANiDSCsuiPN=9PNb9gckRwgZXMEouYTac0_DgbO1Mti+p2zH=A@mail.gmail.com>
-Subject: Re: uvcvideo: Logitech Brio 500 (046d:0943) needs UVC_QUIRK_PROBE_DEF
-To: Perry Joyce <perrygjoyce97@gmail.com>
-Cc: linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, hansg@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-2-e353f887e7fa@ite.com.tw>
+References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
+In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=4296;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=90pok60+3e5gqhfAQTgKXaY0isPdDz9LBO2ZGVI6Tn4=;
+ b=PqCigJcanrscKAcFYgk1zXuTgaYEzvulO7YUS/M7fcdeWN0lnHh+JH5WNttIidKcAHSN9KBOP
+ tgt+yZ4970wBZsZyjgEQXkYNlMmoa02UuZiDzoghmZZgYi31l1cKYUA
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Hi Perry
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Thanks for the report.
+it6625_initial_setup() discarded every register write's return value
+internally, and probe() logged but did not propagate a failed
+it6625_v4l2_sd_ctrl_update() call; either way, probe() always
+registered the subdev regardless of failure.
 
-Could you provide the output of lsusb -v -d 046d:0943 ?
+Make both functions return int, propagate the first error, and fail
+probe() with dev_err_probe() when either one fails.
 
-If you want to try, you could send a patch like this one (but with the
-right quirk):
-https://gitlab.freedesktop.org/linux-media/users/uvc/-/commit/056dfb7bf8c9d62367bd600a175e072692df67a6
+None of the three controls has a driver .ops, so the only failure path
+in v4l2_ctrl_s_ctrl() is range validation, and every value this driver
+passes is always in range -- this is an error-handling correctness fix
+responsive to review, not a fix for an observed runtime failure.
 
-Thanks :)
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+ drivers/media/i2c/it6625.c | 64 ++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 50 insertions(+), 14 deletions(-)
 
-On Wed, 30 Sept 2026 at 01:13, Perry Joyce <perrygjoyce97@gmail.com> wrote:
->
-> Hi,
->
-> Resending in plain text as requested.
->
-> I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
->
-> uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-> uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
->
-> Kernel:
->
-> Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17
-> Sep 2026 07:33:37 +0000 x86_64 GNU/Linux
->
-> The webcam otherwise works normally.
->
-> Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
->
-> modprobe -r uvcvideo
->
-> modprobe uvcvideo quirks=0x100
->
-> After loading the module with 0x100, the device initializes without
-> the probe-control error:
->
-> uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-> uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter
-> for testing purpose.
-> uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing list.
->
-> I also tested this across a reboot with:
->
-> options uvcvideo quirks=0x100
->
-> and the probe error remains absent. Normal 1920x1080 MJPEG capture at
-> 30 fps continues to work.
->
-> Device information:
->
-> idVendor=046d
-> idProduct=0943
-> bcdDevice=0.21
-> Product: Brio 500
->
-> Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
->
-> I'm happy to provide additional logs or test a patch if needed.
->
-> Kind regards,
-> Perry
->
->
-> On Fri, 25 Sept 2026 at 21:57, Laurent Pinchart
-> <laurent.pinchart@ideasonboard.com> wrote:
-> >
-> > Hello Perry,
-> >
-> > Your original e-mail was sent as HTML, which gets silently rejected by
-> > the kernel mailing lists. Could you please resend it as plain text ?
-> >
-> > On Fri, Sep 25, 2026 at 09:31:42PM +0100, Perry Joyce wrote:
-> > > Hi,
-> > >
-> > > I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
-> > >
-> > > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-> > > uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
-> > >
-> > > Kernel:
-> > >
-> > > Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17 Sep 2026
-> > > 07:33:37 +0000 x86_64 GNU/Linux
-> > >
-> > > The webcam otherwise works normally.
-> > >
-> > > Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
-> > >
-> > > # modprobe -r uvcvideo
-> > > # modprobe uvcvideo quirks=0x100
-> > >
-> > > After loading the module with 0x100, the device initializes without the
-> > > probe-control error:
-> > >
-> > > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
-> > > uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter for
-> > > testing purpose.
-> > > uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing
-> > > list.
-> > >
-> > > I also tested this across a reboot with:
-> > >
-> > > options uvcvideo quirks=0x100
-> > >
-> > > and the probe error remains absent. Normal 1920x1080 MJPEG capture at 30 fps
-> > > continues to work.
-> > >
-> > > Device information:
-> > >
-> > > idVendor=046d
-> > > idProduct=0943
-> > > bcdDevice=0.21
-> > > Product: Brio 500
-> > >
-> > > Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
-> > >
-> > > I'm happy to provide additional logs or test a patch if needed.
-> > >
-> > >
-> > > Kind Regards,
-> > > Perry
-> >
-> > --
-> > Regards,
-> >
-> > Laurent Pinchart
->
-
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index 25f9e61a7b03ff228ed61a99c41248036035881f..485e1667c7bea34b152ff3dde09a928f334d71aa 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -889,11 +889,19 @@ static int it6625_s_ctrl_audio_present(struct v4l2_subdev *sd)
+ 				audio_present(it6625));
+ }
+ 
+-static void it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
++static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
+ {
+-	it6625_s_ctrl_detect_hdmi_5v(sd);
+-	it6625_s_ctrl_audio_sampling_rate(sd);
+-	it6625_s_ctrl_audio_present(sd);
++	int ret;
++
++	ret = it6625_s_ctrl_detect_hdmi_5v(sd);
++	if (ret)
++		return ret;
++
++	ret = it6625_s_ctrl_audio_sampling_rate(sd);
++	if (ret)
++		return ret;
++
++	return it6625_s_ctrl_audio_present(sd);
+ }
+ 
+ static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+@@ -940,9 +948,10 @@ static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
+ 				 V4L2_DV_BT_FRAME_WIDTH(t));
+ }
+ 
+-static void it6625_initial_setup(struct it6625 *it6625)
++static int it6625_initial_setup(struct it6625 *it6625)
+ {
+ 	int val = 0;
++	int err;
+ 
+ 	guard(mutex)(&it6625->it6625_lock);
+ 
+@@ -968,13 +977,28 @@ static void it6625_initial_setup(struct it6625 *it6625)
+ 	if (it6625->port_num == 2)
+ 		val |= FIELD_PREP(B_MIPI_SPLIT, 1);
+ 
+-	it6625_write_byte(it6625, REG_MIPI_CFG, val);
+-	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625->csi_format);
+-	it6625_write_byte(it6625, REG_MIPI_CONTROL, 0x00);
+-	it6625_write_byte(it6625, REG_RX_CFG, 0x00);
++	err = it6625_write_byte(it6625, REG_MIPI_CFG, val);
++	if (err)
++		return err;
++
++	err = it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625->csi_format);
++	if (err)
++		return err;
+ 
+-	it6625_set_bits(it6625, REG_HOST_CTRL_INT, B_CONFIG_UPDATE, B_CONFIG_UPDATE);
+-	it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
++	err = it6625_write_byte(it6625, REG_MIPI_CONTROL, 0x00);
++	if (err)
++		return err;
++
++	err = it6625_write_byte(it6625, REG_RX_CFG, 0x00);
++	if (err)
++		return err;
++
++	err = it6625_set_bits(it6625, REG_HOST_CTRL_INT, B_CONFIG_UPDATE,
++			      B_CONFIG_UPDATE);
++	if (err)
++		return err;
++
++	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
+ }
+ 
+ static int it6625_cec_adap_enable(struct cec_adapter *adap, bool enable)
+@@ -1136,9 +1160,12 @@ static void it6625_clear_timings(struct it6625 *it6625)
+ static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
+ {
+ 	struct v4l2_subdev *sd = &it6625->sd;
++	int ret;
+ 
+ 	it6625_clear_timings(it6625);
+-	it6625_v4l2_sd_ctrl_update(sd);
++	ret = it6625_v4l2_sd_ctrl_update(sd);
++	if (ret)
++		dev_err(it6625->dev, "%s: failed to update controls: %d", __func__, ret);
+ }
+ 
+ static void it6625_irq_hdcp_change(struct it6625 *it6625)
+@@ -2297,8 +2324,17 @@ static int it6625_probe(struct i2c_client *client)
+ 
+ 	it6625_debugfs_init(it6625, client);
+ 
+-	it6625_initial_setup(it6625);
+-	it6625_v4l2_sd_ctrl_update(sd);
++	err = it6625_initial_setup(it6625);
++	if (err) {
++		dev_err_probe(it6625->dev, err, "failed initial hardware setup");
++		goto err_clean_debugfs;
++	}
++
++	err = it6625_v4l2_sd_ctrl_update(sd);
++	if (err) {
++		dev_err_probe(it6625->dev, err, "failed to update controls");
++		goto err_clean_debugfs;
++	}
+ 
+ 	err = v4l2_async_register_subdev(sd);
+ 	if (err < 0) {
 
 -- 
-Ricardo Ribalda
+2.34.1
+
+
