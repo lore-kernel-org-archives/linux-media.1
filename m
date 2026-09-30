@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713E341F7EA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1872D41440A;
 	Wed, 30 Sep 2026 06:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750571; cv=none; b=RccTXBWXpczIenbronIXGpqjkHcuwUa4IdeJYt27obdojxTjCwfXNt/prwC7ze3GYxawuHwma/jCGfKNXqO43Qnwzwe6Aqn9ETGMmd/j8uuPh6s/Z+MrgfT0QuZoVxLFSb4vDylG7ZFqnYlImH9qGPj1cSr0cmtgoMD2KBLAvVI=
+	t=1790750571; cv=none; b=YavblKVC8pg5FoQvW4LjP2KKWrSmh8phwHnpZjhEJwQGuGbHK9t1mNL24rG5nsPZpO2L4Cb09zkP7O8MUDWlziTozI5UNvbvgbD5fAJy7awC7gcJ6NzC4yLKLCFoBR1cyY2w4+cgahDJj8Rkw6akazx4l8BRfTPzCVZHN2ZRF+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790750571; c=relaxed/simple;
-	bh=JXc2zAY5pvMfItFUOju/DX40CF8r1F7X/GSq065RlJA=;
+	bh=zy8WcgNDxPORMC5xYJLLaE5AV77rBHPhlyArhIjTUjY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o3Qmgq85pGkTSOAp48zoiai/1QAhcca+wxcHTpReLZSoVFSy4TbZrHM/xNzyq3GAPx6aoG14zpBdTe4x1PGqDzBU2xM+cTWi4Gn+rdDbrSBwrKeCLQAOu6qk/2xYIcYJFK+JfQp5TFVs/OLY0NBk7zDTY08K72aKozz3VJTErNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akAVtXYE; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Tpki3c3y5cvWjt7n5Afm34KIue8GgtJ6g+r6vn+ko5Er6vlUHpYrx5euqopJAA28kNIlAIoCbXf/lPriuMgGixXE30mr0nkgjrMzSrVV56gw+IZ0TE4PdUfjT0JS5vP+2HvUwU9yzEPA60A6R2BxcYPLNXsaxXFfjKMV8/NcnrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOCOq+TY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akAVtXYE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2C8EDC4DDF8;
-	Wed, 30 Sep 2026 06:42:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOCOq+TY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E14E9C4AF64;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790750571;
-	bh=JXc2zAY5pvMfItFUOju/DX40CF8r1F7X/GSq065RlJA=;
+	bh=zy8WcgNDxPORMC5xYJLLaE5AV77rBHPhlyArhIjTUjY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=akAVtXYE+cUbemhIcSMAYDyND+/TuT7jdj6qxtKIO+Hr/HTA7a/1O6GKdlhSec+5h
-	 BpcnRupI4HbvMIQCipC5p8GqmUQGvaxOC7bIKfRcmOkhv35PgiqLFcdwBfa9ittZ66
-	 aNqhoKeKzXGxKPC5m7yzii4tCGeMsO5CmRvTacZcrJjftuw4Bs/dbdeQ2qOS+JiRou
-	 j7EsnUfo9TaDhAZbOzGThYhbuvWp7Fl8ZJQodJ3pJx5fvwo6RxgZ/0fFKokR7PwONF
-	 zKL7p9K5MUrMTFv40Tu3jX5U9x9WQ98AaOXnYBMCCzPqcvnhx6WQdZjgYHOLIsoVQF
-	 cwpJjgXmvxM+g==
+	b=TOCOq+TYfA+6Ln8OhfjJ3Vjd0/oZeBDsaM2rb42CUoCVlweginGb5enaCs0MdfVCJ
+	 rwKlIwvPeNrK3N+k5VhTQzfgkzvIkUTYHj3GPW6bM9begy53MaoyryLo5U4aaTY/Yn
+	 o/3VaYmYKPXLBO1/sib0rFSrynFaRy55tXtrla4jdGGBcAO7ZaN3ZJuUyYbCHmy3et
+	 tchr9KeWcL+lZQ1qeL9j5y6QS5F2v++Mma8LLFkZ4YGWk5FgpVxmwrQcCXzWHrA/rj
+	 gyGLPTD/bVIyWT5y5stIwJjC60GiZa1LAh8tyZKZifvUXb1k940g3PihsN7O8b1o3e
+	 sWZntAxVrdSzg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 190A8CA5FC2;
-	Wed, 30 Sep 2026 06:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C33B5CA5FB5;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 30 Sep 2026 14:41:39 +0800
-Subject: [PATCH v2 21/21] media: i2c: it6625: use enable_streams and
- disable_streams
+Date: Wed, 30 Sep 2026 14:41:34 +0800
+Subject: [PATCH v2 16/21] media: i2c: it6625: drop the private CSI-format
+ name table
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-21-e353f887e7fa@ite.com.tw>
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-16-e353f887e7fa@ite.com.tw>
 References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -53,11 +53,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=2777;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=2207;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=G4Y3pCwRUr3hCF/1tQ6at9bCfCCdQ3wlFc2uUKsFLdg=;
- b=OYReQLa/Vq3GMHmFs262O1CLQW5yaUJre1HRcO3Q8yFFQMtojrQ0kGjCeOjNAE6JzORO5/foj
- ghQLRRipCSwCBrVVl+aUdJYULjmeZlXewu+DdeT5gZN2bme31FK/74p
+ bh=wCpy/UplelcFSxnwqg95Ja5ADbd8Nx3nmIgWYK2WAOg=;
+ b=KRWq9lHLgL98Dn6Yq+yck1Q2RTntOj+L/nyWuJh0q7GEOKFUC/VLvTrqnJkSsYrIswG8Zi/LF
+ dE7rOHskoCTC5mZowGrpZmYYjx358cL7JYrUYQ7+QJQUZ6uUXLSqlHI
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -67,81 +67,68 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-The .s_stream video op is deprecated; add .enable_streams()/
-.disable_streams() pad ops instead and keep v4l2_subdev_s_stream_helper
-for legacy .s_stream callers.
-
-Both ops take it6625_lock explicitly around the MCU transactions. This
-device has a single, non-multiplexed source pad, so the core's implicit
-stream 0 is sufficient and V4L2_SUBDEV_FL_STREAMS is not set.
+it6625_csi_format_name(), used only by it6625_log_status(), maintains
+a driver-local name table for a value V4L2 already exposes as a
+media-bus format code. No in-kernel helper converts MEDIA_BUS_FMT_*
+codes to printable names, so report the raw media-bus code as %#x
+instead. it6625_log_status() now snapshots it6625->mbus_fmt_code
+(the value actually used elsewhere as the driver's representation of
+the current format) under it6625_lock instead of the separate
+csi_format field.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ drivers/media/i2c/it6625.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 1127d050d82522e202f042832e3772fd88e63ca9..10619df51a2274a4deb155710d6aa46c950f10a9 100644
+index c972a74dd5d63655d531579cfd4e8dc3f72cb7ae..7637418c5a214d32f75d197a1e0ba1bffe7235f9 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -935,12 +935,6 @@ static int it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
- 	return it6625_update_config(it6625);
+@@ -1366,26 +1366,12 @@ static void it6625_polling_work(struct work_struct *work)
+ 	it6625_interrupt_handler(it6625);
  }
  
--static int it6625_enable_stream(struct it6625 *it6625, bool enable)
+-static const char *it6625_csi_format_name(u8 csi_format)
 -{
--	guard(mutex)(&it6625->it6625_lock);
--	return it6625_enable_stream_locked(it6625, enable);
+-	switch (csi_format) {
+-	case CSI_YUV422_8b:
+-		return "YUV422 8bit";
+-	case CSI_RGB888:
+-		return "RGB888 8bit";
+-	case CSI_YUV444_8b:
+-		return "YUV444 8bit";
+-	default:
+-		return "unknown";
+-	}
 -}
 -
- static int it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
- {
- 	u8 mipi_data_type;
-@@ -1538,11 +1532,24 @@ static int it6625_dv_timings_cap(struct v4l2_subdev *sd,
- 	return 0;
- }
- 
--static int it6625_s_stream(struct v4l2_subdev *sd, int enable)
-+static int it6625_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 u32 pad, u64 streams_mask)
+ static int it6625_log_status(struct v4l2_subdev *sd)
  {
  	struct it6625 *it6625 = sd_to_6625(sd);
+ 	struct v4l2_dv_timings timings, configured_timings;
+ 	struct v4l2_bt_timings bt;
+-	u8 csi_format;
++	u32 mbus_fmt_code;
  
--	return it6625_enable_stream(it6625, enable);
-+	guard(mutex)(&it6625->it6625_lock);
-+	return it6625_enable_stream_locked(it6625, true);
-+}
-+
-+static int it6625_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  u32 pad, u64 streams_mask)
-+{
-+	struct it6625 *it6625 = sd_to_6625(sd);
-+
-+	guard(mutex)(&it6625->it6625_lock);
-+	return it6625_enable_stream_locked(it6625, false);
- }
+ 	if (it6625_get_detected_timings(it6625, &timings))
+ 		v4l2_info(sd, "No video detected");
+@@ -1399,13 +1385,11 @@ static int it6625_log_status(struct v4l2_subdev *sd)
  
- static int it6625_enum_mbus_code(struct v4l2_subdev *sd,
-@@ -1833,7 +1840,7 @@ static const struct v4l2_subdev_core_ops it6625_core_ops = {
+ 	/* snapshot together so the reported pair was actually configured together */
+ 	scoped_guard(mutex, &it6625->it6625_lock) {
+-		csi_format = it6625->csi_format;
++		mbus_fmt_code = it6625->mbus_fmt_code;
+ 		bt = it6625->timings.bt;
+ 	}
  
- static const struct v4l2_subdev_video_ops it6625_video_ops = {
- 	.g_input_status = it6625_g_input_status,
--	.s_stream = it6625_s_stream,
-+	.s_stream = v4l2_subdev_s_stream_helper,
- };
+-	v4l2_info(sd, "CSI format: %s @ %uHz",
+-		  it6625_csi_format_name(csi_format),
+-		  fps_from_bt_timings(&bt));
++	v4l2_info(sd, "CSI format: %#x @ %uHz", mbus_fmt_code, fps_from_bt_timings(&bt));
  
- static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
-@@ -1848,6 +1855,8 @@ static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
- 	.s_dv_timings = it6625_pad_s_dv_timings,
- 	.g_dv_timings = it6625_pad_g_dv_timings,
- 	.query_dv_timings = it6625_pad_query_dv_timings,
-+	.enable_streams = it6625_enable_streams,
-+	.disable_streams = it6625_disable_streams,
- };
+ 	it6625_show_avi_infoframe(it6625);
  
- static const struct v4l2_subdev_ops it6625_ops = {
 
 -- 
 2.34.1
