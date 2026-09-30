@@ -1,499 +1,945 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F9951C056
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 17:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72128519DFD;
+	Wed, 30 Sep 2026 18:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790934; cv=none; b=TgsLRInbtF3cdc5rRJO2bN1KgytIS4rPRXFoLemdoOb3MZO4BbQ8lHeVfQKuJr1ksNHjopkpeQbhQa7ycsCoPpSDSTmm9vG6RkVHM8Dvg8rqB3zPFOq/7aW7tUgGgofullx1BVVjluOR7xsFEY3R4UYxt/PMrQJBkTCek46eEV0=
+	t=1790792555; cv=none; b=m4cP7//W9Pk4ZkjNgyJM3Ytv0oEm/g6z8EjlENi0vz2DrJMyHmoIVyW1eP9TieFgecyXbPXDos+TUhTJ9qufRHUdYSSDYUpETC7ZlOGLl9GZcvz05uTU1FHyAEQMZXdFCJBGpGiWyF9fZpSUg/FOVMF8x7wj1isAUaOXxmyr+l4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790934; c=relaxed/simple;
-	bh=1IAG9iWUdrE5KXDZksMisPlCAxidmBV6hJZ6/pIvSeg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OP68A8HPlRfW0Lh3jo1kReqQSbx+rXalBRDDhdzKeXh6NZ8mcOJuLOt4lHBiV9WjIaUzuZpTizVm/JLmScsTUqW2a/ptdeQeAH0QqHQ61vHK1jJKjX4eweZEbZVsgfqM8E+TgDdo1+Uuk9kjJeWADP6IAoHpfYWALueLMHzqulw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZdRYsxgR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GS1Qvj8r; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790792555; c=relaxed/simple;
+	bh=aZtWt5LLIHVBoPR3pe7TFxhb8invAGcE3Ne/y719eqU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZnsSSy37DyOVVocpl5P4KtMNGT3wSjWFOxyC35ih/yusxp+648Qu0UGvzW7gJzzCFcc1+ZqUKF5Vjx/vdg32AKYqvvdO/PzANm4I/HyG3AG9Tkxg3b9YQErkvQ8sojRs5oVtMeuqmhj17nZRJOQpBlT6T6r7d4Hx8n94w0YMXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DrPun8PI; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZdRYsxgR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GS1Qvj8r"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHekUE4160533
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 17:55:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Fv3+uB+hNZVh+KZjwVEVQEuptXwi/iHQs2V9ye9BK9o=; b=ZdRYsxgRd+wadli3
-	kitbAHAEjhqnGplU9+a29ZmZ+giXA5kWGNL8TFCWzmwlJgNgvQjqVMc4ICyXkKh9
-	5kQ84EhrC/h2Bx7onqBt4nKrUxJ8Y86CRGQ6xsVzuU/kir7rcShu6mqaQygMT2Ia
-	vITS24cE2JiSEgFT3l5s6e9dKmq8HXnLJHaDPU1iTO1St6uhyP1H2iwKuoUK6Wlc
-	F3WsqFBGl/xfxYxWpF3k4QvRX/nDmq8z3nPF2XNwJFrEYMMbvcT4/eu2PhN86y9q
-	8ONZIZJ2pdSg5fhnAheTpRetoHypcre9/tasKy/5/Af1+xGHiaG7YCZXiTcOl3gL
-	HjD0jQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h167pgbg1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 17:55:30 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-313c7315becso904322eec.2
-        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 10:55:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790790929; x=1791395729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fv3+uB+hNZVh+KZjwVEVQEuptXwi/iHQs2V9ye9BK9o=;
-        b=GS1Qvj8r6BzTODjNPAe640iqlSGmYNimt9gZPw3dJUDwryokO1dCgkqOEkHIRIfFZK
-         Ja/ciMQVpK6aRlowKmxgVy1XppGAyP7sHJW5wPBjnTPMDyXfBtLVnmiz5h9/LbcgbQPP
-         5Ndrh/DVPNVcH7ojPQLB/ekrdbHlkckfz/5HemsGkW4zD7YGB6cOa7x9u06Ygc4l1gSz
-         AdE9JFMFg5CkN7ez4ZZU+gekcmTblyl4KAeCWEc69JD8a2cr7lsSA1250Y8UcLWw44ZH
-         Q+SkXpxhICNvfiEKBEYU/QfiR/HuIt227NjFB98q2rMho89JhoUYDFA4l/aq9YCGRXsS
-         ptcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790790929; x=1791395729;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fv3+uB+hNZVh+KZjwVEVQEuptXwi/iHQs2V9ye9BK9o=;
-        b=V8i78KgRNtb/ztZbO9TSFzipwFH4zTVvtRe/069y2k/Vw0C9OEhp8MzUGK7G9g/P49
-         Uj3UWZohgkrC3hIejqRKMUVAsPwtlWp9BK/7qSYGsPfEQDnRVf3MoyjiBZ1GhpKfO9Q0
-         bQi2syCBtQQ7ETMfv4vDAow6tl9na2DIDR4Xibxm7fH/trKmHneI+uebFoKrBSoxVufs
-         F9KhEQYel3/BbABHglhB7IkNQcDFOgviawQx2pZthNoHNVl8L7etG+pji48igzrZvO/a
-         +WFKUWnj09cnr2YclLNAOUYIhXo4RIvIbYPd29tUt33HRRpCiEzO0yjIQQ8zVvJTJ97c
-         IXig==
-X-Gm-Message-State: AFq9FYKw4GYKfoMif6aGFO4bH4bIc0QfoOI5H5OYiRN/y/ipz1cYT1Fo
-	z+9E5/8qqyWKCds9cmXNPQWnuraktxxpNtdwLJckgNscvzaKbLLLXYSN4ByRGTfA5BFSUjsqU9k
-	0QEHtxZpqzwsgycibA3EuyKqXFjdnaMejlMXfRzDcEoRU0cwkN8H7KPgWpi8Nuk8O6Q==
-X-Gm-Gg: AYBFou36nmqGA6B+w3RU7nDZa7L+7J2aUuLrzkkS7z79bOpniHmtAsSKuIZzW2nhwzK
-	+hrQN7/eZCT7bh7Ul2+7T1asukaCcO90mmPCcFZ6xxI+gMEE9mMqh5t7wp+AIonAZQJakQD8ra9
-	0jfyiWYqWjFi4PFLYs9Yr6hGc8POaMpzjYdLVILsd0mcDTT70lwlPu1qx3dpjM+ReJZ8eqPn55P
-	Y4raGloqZWG52avSUtSjmX/waisjYCanlqfUbnRcLeDn2eaLz2+v4vClv6Z5TfSPohQ2GMlh60L
-	YU03FlU1PUCdfuF+iLUeHAcHzKr1ir8bMNm3WXvgli6cShu0Oy3MeoJXfzTc9X0aX2SHFgFs2vH
-	GRmaI9qRRRFX7IM+ZsJaga9+otjnhTEvbjxvYKSiiilAGjAtlhZZYr6L+aIVW2Ps=
-X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id 5a478bee46e88-34cdbecb18fmr3678500eec.2.1790790928940;
-        Wed, 30 Sep 2026 10:55:28 -0700 (PDT)
-X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id 5a478bee46e88-34cdbecb18fmr3678460eec.2.1790790928141;
-        Wed, 30 Sep 2026 10:55:28 -0700 (PDT)
-Received: from [10.110.82.170] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db31623b6sm578041eec.7.2026.09.30.10.55.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 10:55:27 -0700 (PDT)
-Message-ID: <2fac895e-0ac9-482f-a264-9a75b0741901@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 10:55:25 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DrPun8PI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790792552; x=1822328552;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=aZtWt5LLIHVBoPR3pe7TFxhb8invAGcE3Ne/y719eqU=;
+  b=DrPun8PIX/kgEJ2z5mX2hE58DqCSVGaoOmb1MSAm4+JhEbUQn3CyyJQg
+   EvVTrJyILnqDeUAwFrXVeguK8mffC3sW0MbLdx/ogYhxaIqPJeg40mkU3
+   V3uPKs497X9WfkzdY98q84RoSrOST1bGeZzXqzCV9BsuIXc2JXwwCNf3e
+   Qtsdu0qBZ7vrt1fHZyZ6jHzKmq1lfdXLfOeUOa63ZUVqEfNpWyCh3q+Oq
+   fDVXDfxmSjDUbeLRD9mt4tT9/gY6nb/CpW+zNAcw3BOnUPU3XIGCOsm0J
+   iIzRYCMM7kCpL63pBQ5ntDgzwYUWTOFFgpL23/tzWSMMV82qzwdSzQC5D
+   Q==;
+X-CSE-ConnectionGUID: oiJ8SnfjS0GLtVQNYTxEoA==
+X-CSE-MsgGUID: lo44cXcAT9WkkWFT8lHjFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90595380"
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="90595380"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 11:22:31 -0700
+X-CSE-ConnectionGUID: i25Q1xqiSwWMOMVnHBUhmw==
+X-CSE-MsgGUID: TG3wVXm+TbCmtOEyl1ksfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="303693740"
+Received: from ubuntu.jf.intel.com ([10.54.60.84])
+  by fmviesa001.fm.intel.com with ESMTP; 30 Sep 2026 11:22:30 -0700
+From: Miguel Vadillo <miguel.vadillo@intel.com>
+To: linux-media@vger.kernel.org,
+	mchehab@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	hansg@kernel.org,
+	laurent.pinchart@ideasonboard.com,
+	mehdi.djait@bootlin.com,
+	andriy.shevchenko@linux.intel.com,
+	mika.westerberg@linux.intel.com,
+	srini@kernel.org,
+	arun.t@intel.com,
+	miguel.vadillo@intel.com
+Subject: [PATCH] media: i2c: cvs: Add NVMem-based firmware update support
+Date: Wed, 30 Sep 2026 11:21:42 -0700
+Message-ID: <20260930182142.108744-1-miguel.vadillo@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/5] media: iris: Add BUF_ROIMB_DELTAQP metadata buffer
- for ROI delta QP
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
-References: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
- <20260924-enc_roi_enable-v7-5-6fa7413af23c@oss.qualcomm.com>
- <8e350ba2-0eb7-7f69-e36c-7c0294e9c564@oss.qualcomm.com>
-Content-Language: en-US
-From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-In-Reply-To: <8e350ba2-0eb7-7f69-e36c-7c0294e9c564@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 9_Y1ryzhjgI8gHoDPpmCIDU7LOnSWYKc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MiBTYWx0ZWRfX8mae42+mHRgO
- dEOWqBElSZgn3BARAn7Hv32L5W5KdwLzd1bpX3dgwlcqLrfBAOb4DUfXlSmjiucyk23cyjcESAr
- C7shEiGAuR3/dtp/50jYaObcbQ9xENU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MiBTYWx0ZWRfXxRiHq/dX0KLd
- 01/+RgvHsg8tKgjT7b4H+lpaHrW0Dd/9AywUhUpY5bUv4fjMuIWu/j99sqTFCa6sKKUrmYuisL2
- s1NCsqay2kVJQBEuhubszJsqL4wDdr3D+MPkZTfl0sCOnnt/GbkLJHtPPEHfre1DSX7X7woeg7p
- u3gxD2rLHmhZcbgJS3fSMlXbZPvGGPBRrI76hJ/S7t0KDeCC13fBjIXcZQL85Bv2CqoBG6mRAPL
- ri/GXh/0otFTQIXhZtin2JND9wEoO7IVtjALNi4Py2PrRxxdoqD57r9M72p6i8H9Atwsm584MEF
- L6QOze81UX8XYV+DGohoysQfq/ElttNDcd/yN0VPEV6vC0+5URY6rSDRNkNJrPrem/8J2q/X76S
- Xgo97Ukex4xKyXtutkLS/USv0aOwzHv6wRXYcfihWPphwdal+bf7lTWIrkAFXlXAt8NinxYnyb1
- 3aeYUhBg+7E0OmJ5CHg==
-X-Proofpoint-GUID: 9_Y1ryzhjgI8gHoDPpmCIDU7LOnSWYKc
-X-Authority-Analysis: v=2.4 cv=WpC+otfv c=1 sm=1 tr=0 ts=6abd4d12 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=ja7yzqJmmUcjEkDZDlMA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300072
+Content-Transfer-Encoding: 8bit
 
+Add firmware update support for the Intel CVS device using the kernel
+NVMem provider framework.
 
-On 9/30/2026 3:58 AM, Vishnu Reddy wrote:
-> On 9/25/2026 5:58 AM, Deepa Guthyappa Madivalara wrote:
->> - Introduce BUF_ROIMB_DELTAQP as a new internal buffer type to carry
->>    per-macroblock ROI delta QP data to the firmware. This buffer is
->>    allocated on demand when the application sets ROI parameters via
->>    V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP, and is queued alongside each
->>    raw input buffer as an HFI_BUFFER_METADATA packet on HFI_PORT_RAW.
->>
->> - The metadata buffer layout follows the firmware-defined metabuf_header
->>    and metapayload_header structures. The s8 per-MB delta QP values
->>    supplied by userspace are widened to s16 as required by the firmware.
->>
->> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
->> ---
->>   drivers/media/platform/qcom/iris/iris_buffer.c     | 114 +++++++++++++++++++++
->>   drivers/media/platform/qcom/iris/iris_buffer.h     |   4 +
->>   drivers/media/platform/qcom/iris/iris_ctrls.c      |  37 +++++++
->>   drivers/media/platform/qcom/iris/iris_ctrls.h      |   1 +
->>   drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |   1 +
->>   .../platform/qcom/iris/iris_hfi_gen2_command.c     |  24 +++++
->>   .../platform/qcom/iris/iris_hfi_gen2_response.c    |   2 +
->>   drivers/media/platform/qcom/iris/iris_vidc.c       |   2 +
->>   8 files changed, 185 insertions(+)
->>
->> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
->> index eb8de60c1177f5e1ab83b90a3c8c80e0b4d1f02e..a7f1d74360d6a490959b27936fa5bbc61a7d9358 100644
->> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
->> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
->> @@ -5,11 +5,13 @@
->>   
->>   #include <media/v4l2-event.h>
->>   #include <media/v4l2-mem2mem.h>
->> +#include <linux/slab.h>
->>   
->>   #include "iris_buffer.h"
->>   #include "iris_instance.h"
->>   #include "iris_power.h"
->>   #include "iris_vpu_buffer.h"
->> +#include "iris_hfi_gen2_defines.h"
->>   
->>   #define PIXELS_4K 4096
->>   #define MAX_WIDTH 4096
->> @@ -705,6 +707,20 @@ int iris_destroy_dequeued_internal_buffers(struct iris_inst *inst, u32 plane)
->>   	return iris_destroy_internal_buffers(inst, plane, false);
->>   }
->>   
->> +int iris_destroy_roi_metadata_buffers(struct iris_inst *inst)
->> +{
->> +	struct iris_buffer *buf, *next;
->> +	struct iris_buffers *buffers;
->> +
->> +	if (inst->domain == ENCODER) {
->> +		buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
->> +		list_for_each_entry_safe(buf, next, &buffers->list, list)
->> +			iris_destroy_internal_buffer(inst, buf);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->>   static int iris_release_internal_buffers(struct iris_inst *inst,
->>   					 enum iris_buffer_type buffer_type)
->>   {
->> @@ -928,3 +944,101 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
->>   
->>   	return 0;
->>   }
->> +
->> +static int iris_fill_roi_data(struct iris_inst *inst, struct iris_buffer *buffer)
->> +{
->> +	s8 *p_array = (s8 *)inst->fw_caps[ROI_PARAMS].p_array;
->> +	u32 payload_offset, lcu_width, lcu_height, row_size;
->> +	u32 array_size = inst->fw_caps[ROI_PARAMS].elems;
->> +	struct metabuf_header *mbuf_hdr = buffer->kvaddr;
->> +	struct metapayload_header *mbuf_payload_hdr;
->> +	struct v4l2_format *f = inst->fmt_src;
->> +	s16 *p_16, *p_temp;
->> +
->> +	memset(mbuf_hdr, 0, sizeof(struct metabuf_header));
->> +	mbuf_hdr->count = 1;
->> +	mbuf_hdr->size = sizeof(struct metabuf_header) +
->> +			 sizeof(struct metapayload_header);
->> +	mbuf_hdr->version = BIT(16);
->> +	mbuf_hdr++;
->> +	mbuf_payload_hdr = (struct metapayload_header *)(mbuf_hdr);
->> +	payload_offset = sizeof(struct metabuf_header) +
->> +			 sizeof(struct metapayload_header);
->> +
->> +	memset(mbuf_payload_hdr, 0, sizeof(struct metapayload_header));
->> +	mbuf_payload_hdr->type = HFI_PROP_ROI_INFO;
->> +	mbuf_payload_hdr->size = array_size * sizeof(s16);
->> +	mbuf_payload_hdr->version = 1 << 16;
->> +	mbuf_payload_hdr->offset = ALIGN(payload_offset, (u32)256);
->> +	mbuf_payload_hdr->flags = 0;
->> +
->> +	if (inst->codec == V4L2_PIX_FMT_HEVC) {
->> +		lcu_width = (f->fmt.pix_mp.width + 31) >> 5;
->> +		lcu_height = (f->fmt.pix_mp.height + 31) >> 5;
->> +	} else {
->> +		lcu_width = (f->fmt.pix_mp.width + 15) >> 4;
->> +		lcu_height = (f->fmt.pix_mp.height + 15) >> 4;
->> +	}
->> +	/* Firmware expects each row to align to 8 LCU */
->> +	row_size = (((lcu_width + 7) >> 3) << 3);
->> +
->> +	/* Firmware expects 2bytes of delta_Qp, int16_t */
->> +	p_16 = buffer->kvaddr + mbuf_payload_hdr->offset;
->> +	for (int j = 0; j < lcu_height; j++) {
->> +		p_temp = p_16 + j * row_size;
->> +		for (int i = 0; i < lcu_width; i++)
->> +			*p_temp++ = (1 << 11) | (((u8)p_array[j * lcu_width + i]
->> +						   & 0x3F) << 4);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst)
->> +{
->> +	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
->> +	struct iris_core *core = inst->core;
->> +	struct iris_buffer *buffer, *first_buffer, *next;
->> +	bool found = false;
->> +	int ret = 0;
->> +
->> +	if (!buffers->size)
->> +		return 0;
->> +
->> +	list_for_each_entry_safe(buffer, next, &buffers->list, list) {
->> +		if (buffer->attr & BUF_ATTR_DEQUEUED) {
->> +			buffer->attr &= ~BUF_ATTR_DEQUEUED;
->> +			list_move(&buffer->list, &buffers->list);
->> +			found = true;
->> +			break;
->> +		}
->> +	}
->> +	if (!found) {
->> +		buffer = kzalloc_obj(*buffer);
->> +		if (!buffer)
->> +			return -ENOMEM;
->> +
->> +		INIT_LIST_HEAD(&buffer->list);
->> +		buffer->type = BUF_ROIMB_DELTAQP;
->> +		buffer->index++;
->> +		buffer->buffer_size = buffers->size;
->> +		buffer->dma_attrs = DMA_ATTR_WRITE_COMBINE;
->> +
->> +		buffer->kvaddr = dma_alloc_attrs(core->dev, buffer->buffer_size,
->> +						 &buffer->device_addr, GFP_KERNEL,
->> +						 buffer->dma_attrs);
->> +
->> +		if (!buffer->kvaddr) {
->> +			kfree(buffer);
->> +			return -ENOMEM;
->> +		}
->> +		list_add(&buffer->list, &buffers->list);
->> +	}
->> +
->> +	first_buffer = list_first_entry(&buffers->list, struct iris_buffer, list);
->> +	ret = iris_fill_roi_data(inst, first_buffer);
->> +	if (ret)
->> +		return ret;
->> +
->> +	return ret;
->> +}
->> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
->> index ee2d24bb69c57220b0a735d9b4aae4434a33daf6..df9d018493f3ec37fd5e6b0ba049dba0b5ae76e9 100644
->> --- a/drivers/media/platform/qcom/iris/iris_buffer.h
->> +++ b/drivers/media/platform/qcom/iris/iris_buffer.h
->> @@ -28,6 +28,7 @@ struct iris_inst;
->>    * @BUF_SCRATCH_2: buffer to store encoding context data for HW
->>    * @BUF_VPSS: buffer to store VPSS context data for HW
->>    * @BUF_PARTIAL: buffer for AV1 IBC data
->> + * @BUF_ROIMB_DELTAQP: metadata buffer for ROI MB DeltaQp
->>    * @BUF_TYPE_MAX: max buffer types
->>    */
->>   enum iris_buffer_type {
->> @@ -44,6 +45,7 @@ enum iris_buffer_type {
->>   	BUF_SCRATCH_2,
->>   	BUF_VPSS,
->>   	BUF_PARTIAL,
->> +	BUF_ROIMB_DELTAQP,
->>   	BUF_TYPE_MAX,
->>   };
->>   
->> @@ -139,5 +141,7 @@ int iris_queue_buffer(struct iris_inst *inst, struct iris_buffer *buf);
->>   int iris_queue_deferred_buffers(struct iris_inst *inst, enum iris_buffer_type buf_type);
->>   int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf);
->>   void iris_vb2_queue_error(struct iris_inst *inst);
->> +int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst);
->> +int iris_destroy_roi_metadata_buffers(struct iris_inst *inst);
->>   
->>   #endif
->> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
->> index 1ce8eccdedbdeb840833bd92edb3f59dd6962d7f..2ab20cacbc2b79ac4cf28eda88b15cae332c4160 100644
->> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
->> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
->> @@ -1624,3 +1624,40 @@ int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane)
->>   
->>   	return ret;
->>   }
->> +
->> +int iris_set_roi_params(struct iris_inst *inst, u32 plane)
->> +{
->> +	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
->> +	u32 height = inst->fmt_src->fmt.pix_mp.height;
->> +	u32 width = inst->fmt_src->fmt.pix_mp.width;
->> +	u32 metadata_header_bytes = 256;
->> +	u32 lcu_height = 0;
->> +	u32 lcu_width = 0;
->> +	u32 lcu_size = 16;
->> +	u32 n_shift = 0;
->> +	u32 size = 0;
->> +	int ret = 0;
->> +
->> +	if (!inst->fw_caps[ROI_PARAMS].p_array)
->> +		return -EINVAL;
->> +
->> +	if (inst->codec == V4L2_PIX_FMT_HEVC)
->> +		lcu_size = 32;
->> +
->> +	while (lcu_size && !(lcu_size & 0x1)) {
->> +		n_shift++;
->> +		lcu_size = lcu_size >> 1;
-> Since lcu_size can only be 16 or 32 here, is the loop needed?
-> n_shift could be derived using ilog2(lcu_size), and the lcu_size reassignment
-> below could also be avoided.
->
->> +	}
->> +
->> +	lcu_size = inst->codec == V4L2_PIX_FMT_HEVC ? 32 : 16;
->> +	lcu_width = (width + (lcu_size - 1)) >> n_shift;
->> +	lcu_height = (height + (lcu_size - 1)) >> n_shift;
->> +	size = (((lcu_width + 7) >> 3) << 3) * lcu_height * 2;
->> +	size += metadata_header_bytes;
->> +	buffers->size = ALIGN(size, 4096);
->> +	ret = iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
->> +	if (ret)
->> +		return ret;
->> +
->> +	return 0;
-> return iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
->
->> +}
->> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
->> index 9957b69366f50310338a0c1470d9744592655c33..7587dfec052a320863889eb15203416b9c527a40 100644
->> --- a/drivers/media/platform/qcom/iris/iris_ctrls.h
->> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
->> @@ -51,5 +51,6 @@ int iris_set_req_sync_frame(struct iris_inst *inst, enum platform_inst_fw_cap_ty
->>   int iris_set_time_delta_based_rc(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->>   int iris_set_properties(struct iris_inst *inst, u32 plane);
->>   int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane);
->> +int iris_set_roi_params(struct iris_inst *inst, u32 plane);
->>   
->>   #endif
->> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
->> index d628bc6748438b19dac01cd11cb9f8da0b8500af..4d40d6733e5877a302ce63fb0b4a61b8f284e6dc 100644
->> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
->> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
->> @@ -1789,6 +1789,7 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
->>   		.hfi_id = HFI_PROP_ROI_INFO,
->>   		.flags = CAP_FLAG_INPUT_PORT | CAP_FLAG_CUSTOM |
->>   			 CAP_FLAG_DYNAMIC_ALLOWED,
->> +		.set = iris_set_roi_params,
->>   	},
->>   	{
->>   		.cap_id = MB_SIZE,
->> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
->> index cf88dbe11e8e9faef826e661d8e9909fd7f16b94..a1b0c4982f0d789a807f22a1dffdf61decd20d28 100644
->> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
->> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
->> @@ -134,6 +134,7 @@ static u32 iris_hfi_gen2_get_port_from_buf_type(struct iris_inst *inst,
->>   		switch (buffer_type) {
->>   		case BUF_INPUT:
->>   		case BUF_VPSS:
->> +		case BUF_ROIMB_DELTAQP:
->>   			return HFI_PORT_RAW;
->>   		case BUF_OUTPUT:
->>   		case BUF_BIN:
->> @@ -1267,6 +1268,8 @@ static u32 iris_hfi_gen2_buf_type_from_driver(u32 domain, enum iris_buffer_type
->>   		return HFI_BUFFER_VPSS;
->>   	case BUF_PARTIAL:
->>   		return HFI_BUFFER_PARTIAL_DATA;
->> +	case BUF_ROIMB_DELTAQP:
->> +		return HFI_BUFFER_METADATA;
->>   	default:
->>   		return 0;
->>   	}
->> @@ -1328,6 +1331,7 @@ static struct iris_buffer *iris_queue_metadata_buffers(struct iris_inst *inst,
->>   static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iris_buffer *buffer)
->>   {
->>   	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
->> +	struct iris_hfi_buffer hfi_meta_buffer;
->>   	struct iris_hfi_buffer hfi_buffer;
->>   	u32 port;
->>   	int ret;
->> @@ -1349,6 +1353,26 @@ static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iri
->>   					     &hfi_buffer,
->>   					     sizeof(hfi_buffer));
->>   
->> +	/* check if any metadata buffer is available not queued, queue it */
->> +	if (port == HFI_PORT_RAW) {
->> +		buffer = iris_queue_metadata_buffers(inst, BUF_ROIMB_DELTAQP, buffer->index);
->> +		if (buffer) {
->> +			iris_hfi_gen2_get_buffer(inst->domain, buffer, &hfi_meta_buffer);
->> +			port = iris_hfi_gen2_get_port_from_buf_type(inst, buffer->type);
->> +			iris_hfi_gen2_create_packet(inst_hfi_gen2->packet,
->> +						    HFI_CMD_BUFFER,
->> +						    HFI_HOST_FLAGS_INTR_REQUIRED,
->> +						    HFI_PAYLOAD_STRUCTURE,
->> +						    port,
->> +						    inst->core->packet_id++,
->> +						    &hfi_meta_buffer,
->> +						    sizeof(hfi_meta_buffer));
->> +
->> +			buffer->attr |= BUF_ATTR_QUEUED;
->> +			buffer->attr &= ~BUF_ATTR_DEQUEUED;
-> If iris_queue_buffer() is the only caller, is this needed?
-> The caller already updates QUEUED attribute on successful return.
-This makes it clear that the buffer is actually is not dequeued yet, 
-while I am searching for a
-free buffer in iris_hfi_gen2_session_alloc_roi_metadata_buffer.
->> +		}
->> +	}
->> +
->>   	return iris_hfi_queue_cmd_write(inst->core, inst_hfi_gen2->packet,
->>   					inst_hfi_gen2->packet->size);
->>   }
->> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
->> index 84b629b957442c024dccc18b354ac9a7e541abaa..f63e0a7723e8583da818c2b004e367c1dd3d94f7 100644
->> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
->> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
->> @@ -58,6 +58,8 @@ static u32 iris_hfi_gen2_buf_type_to_driver(struct iris_inst *inst,
->>   		return BUF_PARTIAL;
->>   	case HFI_BUFFER_VPSS:
->>   		return BUF_VPSS;
->> +	case HFI_BUFFER_METADATA:
->> +		return BUF_ROIMB_DELTAQP;
->>   	default:
->>   		return 0;
->>   	}
->> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
->> index fcbc60016beec693f2ce27927a09a2d51494bc38..fae3d113a9dc990f06167ee0b7fb8fab24a0552c 100644
->> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
->> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
->> @@ -180,6 +180,7 @@ int iris_open(struct file *filp)
->>   	INIT_LIST_HEAD(&inst->buffers[BUF_SCRATCH_2].list);
->>   	INIT_LIST_HEAD(&inst->buffers[BUF_VPSS].list);
->>   	INIT_LIST_HEAD(&inst->buffers[BUF_PARTIAL].list);
->> +	INIT_LIST_HEAD(&inst->buffers[BUF_ROIMB_DELTAQP].list);
->>   	init_completion(&inst->completion);
->>   	init_completion(&inst->flush_completion);
->>   
->> @@ -299,6 +300,7 @@ int iris_close(struct file *filp)
->>   	iris_destroy_all_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
->>   	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
->>   	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
->> +	iris_destroy_roi_metadata_buffers(inst);
->>   	iris_remove_session(inst);
->>   	mutex_unlock(&inst->lock);
->>   	mutex_destroy(&inst->ctx_q_lock);
->>
+Two NVMem devices are registered per CVS device:
+ - nvm_active: read-only, exposes the active firmware version by
+   querying the device over I2C.
+ - nvm_non_active: write-only, root-only, accepts an incoming firmware
+   image staged by userspace (e.g. fwupd).
+
+Firmware update is triggered via the nvm_authenticate sysfs attribute,
+which supports the following write values:
+ 1 - Validate staged image, stream to device, and request reset
+ 2 - Validate and stream image only (no reset request)
+ 3 - Request reset for a previously streamed image
+ 0 - Clear update state and reset_pending flag
+
+On a successful write of 1 or 3, a KOBJ_CHANGE uevent is emitted and
+nvm_reset_pending is set to signal that a device reset is required to
+activate the new firmware.
+
+The nvm_version attribute exposes the running firmware version in
+major.minor decimal format. The device_id attribute exposes the device
+VID:PID for identification by userspace tools.
+
+Firmware images are streamed to the device in 256-byte or 1KB chunks
+over I2C depending on device quirks. The staging buffer is vmalloc'd
+on first write and released once the image has been streamed to the
+device, or on driver remove if no update was performed.
+
+ABI documentation for all new sysfs attributes is added under
+Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs.
+
+The kernel does not inspect the firmware image contents. Signature
+verification and anti-rollback enforcement are performed by the CVS
+device firmware, which rejects images that fail either check.
+
+Signed-off-by: Miguel Vadillo <miguel.vadillo@intel.com>
+---
+ .../ABI/testing/sysfs-bus-i2c-devices-cvs     |  53 ++
+ MAINTAINERS                                   |   1 +
+ drivers/media/i2c/cvs/Kconfig                 |   1 +
+ drivers/media/i2c/cvs/core.c                  | 504 +++++++++++++++++-
+ drivers/media/i2c/cvs/icvs.h                  |  34 +-
+ drivers/media/i2c/cvs/v4l2.c                  |   2 +-
+ 6 files changed, 572 insertions(+), 23 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs
+
+diff --git a/Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs b/Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs
+new file mode 100644
+index 000000000000..553532b35f07
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs
+@@ -0,0 +1,53 @@
++What:		/sys/bus/i2c/devices/<dev>/nvm_version
++Date:		January 2027
++KernelVersion:	7.4
++Contact:	Miguel Vadillo <miguel.vadillo@intel.com>
++Description:	Returns the active firmware version of the Intel CVS device
++		in "<major>.<minor>" decimal format. This reflects the firmware
++		version currently running on the device.
++
++		This file is read-only and is only present when the CVS device
++		is accessible over I2C.
++
++What:		/sys/bus/i2c/devices/<dev>/nvm_authenticate
++Date:		January 2027
++KernelVersion:	7.4
++Contact:	Miguel Vadillo <miguel.vadillo@intel.com>
++Description:	Reading returns the authentication status of the last firmware
++		update attempt as a hex value. 0x0 indicates success; any
++		non-zero value is an errno from the failed operation.
++
++		Writing triggers a firmware update operation using the image
++		previously staged via the nvm_non_active NVMem region. Accepted
++		values:
++
++		* 0 - Clear the staged update state
++		* 1 - Validate staged image, stream to device, and request reset
++		* 2 - Validate and stream image only (no reset request)
++		* 3 - Request device reset for a previously streamed image
++
++		After a successful write of 1 or 3, a KOBJ_CHANGE uevent is
++		emitted. The new firmware only takes effect once the device
++		has been reset.
++
++		The kernel does not inspect the image contents. Signature
++		verification and anti-rollback enforcement are performed by the
++		CVS device firmware, which rejects images that fail either
++		check.
++
++		This file is only present when the CVS device is accessible
++		over I2C and supports firmware update.
++
++What:		/sys/bus/i2c/devices/<dev>/device_id
++Date:		January 2027
++KernelVersion:	7.4
++Contact:	Miguel Vadillo <miguel.vadillo@intel.com>
++Description:	Returns the device vendor and product identifier in
++		"<vid>:<pid>" lowercase hexadecimal format
++		(e.g. "06cb:0701"). Note this identifies the CVS device
++		make and model, not the individual device instance, and
++		is not necessarily unique when multiple identical devices
++		share the same bus.
++
++		This file is read-only and is only present when the CVS device
++		is accessible over I2C.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 72294ddfa5b7..0462ce7a3b2c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13033,6 +13033,7 @@ INTEL COMPUTER VISION SENSING (CVS) DRIVER
+ M:	Miguel Vadillo <miguel.vadillo@intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
++F:	Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs
+ F:	drivers/media/i2c/cvs/
+ 
+ INTEL CPU family model numbers
+diff --git a/drivers/media/i2c/cvs/Kconfig b/drivers/media/i2c/cvs/Kconfig
+index 4309d20dd726..0a5f4fdc6b66 100644
+--- a/drivers/media/i2c/cvs/Kconfig
++++ b/drivers/media/i2c/cvs/Kconfig
+@@ -5,6 +5,7 @@ config VIDEO_INTEL_CVS
+ 	depends on I2C && ACPI && VIDEO_DEV
+ 	depends on IPU_BRIDGE || !IPU_BRIDGE
+ 	select MEDIA_CONTROLLER
++	select NVMEM
+ 	select VIDEO_V4L2_SUBDEV_API
+ 	select V4L2_FWNODE
+ 	help
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index d4a3b9c3bab1..dc870024da5a 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -13,11 +13,15 @@
+ #include <linux/interrupt.h>
+ #include <linux/jiffies.h>
+ #include <linux/module.h>
++#include <linux/nvmem-provider.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <linux/time64.h>
++#include <linux/unaligned.h>
++#include <linux/vmalloc.h>
+ #include <linux/workqueue.h>
+ 
+ #include <media/ipu-bridge.h>
+@@ -25,9 +29,18 @@
+ 
+ #include "icvs.h"
+ 
+-/* Command timeouts determined experimentally */
+-#define CMD_TIMEOUT (5 * HZ)
+-#define FW_READY_DELAY_MS 100
++/*
++ * FW_LOADER_END has to wait for the device to actually finish writing the
++ * image to flash and exit ICVS_DEV_STATE_DOWNLOAD. Measured completion time
++ * on reference hardware is well under a second, but this is given extra
++ * margin over the generic ICVS_CMD_TIMEOUT since flash commit time can
++ * vary with image size and flash part across supported devices.
++ */
++#define FW_END_TIMEOUT		(10 * HZ)
++#define FW_READY_DELAY_MS	100
++
++#define ICVS_NVM_MIN_SIZE	SZ_4K
++#define ICVS_NVM_MAX_SIZE	SZ_4M
+ 
+ #define PCI_DEVICE_ID_INTEL_IPU7		0x645d	/* MTL / LNL */
+ #define PCI_DEVICE_ID_INTEL_IPU7P5		0xb05d	/* ARL / PTL */
+@@ -436,6 +449,9 @@ static void cvs_reset(struct icvs *ctx)
+  * @work: Embedded delayed_work member
+  *
+  * Re-reads device state; if device_busy remains set, re-schedules itself.
++ * When ctx->nvm.wait_dl_clear is set (FW_LOADER_END completion), also keeps
++ * re-scheduling while ICVS_DEV_STATE_DOWNLOAD remains set, since the
++ * device can clear BUSY slightly before it exits download mode.
+  * Otherwise stores state into wq_resp and completes the command.
+  */
+ static void cvs_recv(struct work_struct *work)
+@@ -450,7 +466,8 @@ static void cvs_recv(struct work_struct *work)
+ 		return;
+ 	}
+ 
+-	if (state & ICVS_DEV_STATE_BUSY) {
++	if ((state & ICVS_DEV_STATE_BUSY) ||
++	    (ctx->nvm.wait_dl_clear && (state & ICVS_DEV_STATE_DOWNLOAD))) {
+ 		dev_dbg(cvs_dev(ctx), "device busy, reschedule\n");
+ 		schedule_delayed_work(&ctx->work,
+ 				      msecs_to_jiffies(FW_READY_DELAY_MS));
+@@ -466,6 +483,8 @@ static void cvs_recv(struct work_struct *work)
+  * @ctx: CVS device context
+  * @cmd: Command buffer (icvs_cmd) with cmd_id and param populated
+  * @len: Buffer length
++ * @timeout: Timeout (jiffies) to wait for command completion; unused for
++ *	     the GPIO-only ICVS_HOST_SENSOR_OWNER command
+  *
+  * Dispatches a set of supported commands:
+  * - ICVS_SET_DEV_HOST_ID,
+@@ -483,7 +502,8 @@ static void cvs_recv(struct work_struct *work)
+  * Return: 0 on success, negative errno, -EINVAL for unsupported command
+  * or status from device in ctx->wq_resp.
+  */
+-int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len)
++int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len,
++	     unsigned long timeout)
+ {
+ 	int ret, status = 0;
+ 
+@@ -500,8 +520,7 @@ int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len)
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS,
+-					    CMD_TIMEOUT);
++		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS, timeout);
+ 		if (ret < 0)
+ 			break;
+ 
+@@ -521,8 +540,7 @@ int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len)
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS,
+-					    CMD_TIMEOUT);
++		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS, timeout);
+ 		status = (ctx->wq_resp.resp.state &
+ 			  ICVS_DEV_STATE_ERROR) ? -EINVAL : 0;
+ 		break;
+@@ -532,13 +550,11 @@ int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len)
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = cvs_wait_wake_or_sleep(ctx, CMD_TIMEOUT,
+-					     FW_READY_DELAY_MS);
++		ret = cvs_wait_wake_or_sleep(ctx, timeout, FW_READY_DELAY_MS);
+ 		if (ret)
+ 			break;
+ 
+-		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS,
+-					    CMD_TIMEOUT);
++		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS, timeout);
+ 		status = (ctx->wq_resp.resp.state &
+ 			  ICVS_DEV_STATE_DOWNLOAD) ? 0 : -EINVAL;
+ 		break;
+@@ -561,8 +577,7 @@ int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len)
+ 		if (ret)
+ 			break;
+ 
+-		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS,
+-					    CMD_TIMEOUT);
++		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS, timeout);
+ 		status = ctx->wq_resp.resp.state &
+ 			  ICVS_DEV_STATE_ERROR ? -EINVAL : 0;
+ 		break;
+@@ -572,13 +587,13 @@ int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len)
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = cvs_wait_wake_or_sleep(ctx, CMD_TIMEOUT,
+-					     FW_READY_DELAY_MS);
++		ret = cvs_wait_wake_or_sleep(ctx, timeout, FW_READY_DELAY_MS);
+ 		if (ret)
+ 			break;
+ 
+-		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS,
+-					    CMD_TIMEOUT);
++		ctx->nvm.wait_dl_clear = true;
++		ret = cvs_schedule_and_wait(ctx, FW_READY_DELAY_MS, timeout);
++		ctx->nvm.wait_dl_clear = false;
+ 		status = !(ctx->wq_resp.resp.state &
+ 			   ICVS_DEV_STATE_DOWNLOAD) ? 0 : -EINVAL;
+ 		break;
+@@ -612,7 +627,7 @@ int cvs_set_link_owner(struct icvs *ctx, enum icvs_csi_link_owner owner)
+ 	size_t cmd_size = sizeof(cmd.cmd_id) + sizeof(cmd.param.param);
+ 
+ 	guard(mutex)(&ctx->lock);
+-	return cvs_send(ctx, &cmd, cmd_size);
++	return cvs_send(ctx, &cmd, cmd_size, ICVS_CMD_TIMEOUT);
+ }
+ 
+ /**
+@@ -641,9 +656,435 @@ static int cvs_configure_dev_caps(struct icvs *ctx)
+ 		cmd.param.host_id |= ICVS_HOST_ID_RGBCAMERA_PWRUP;
+ 
+ 	guard(mutex)(&ctx->lock);
+-	return cvs_send(ctx, &cmd, sz);
++	return cvs_send(ctx, &cmd, sz, ICVS_CMD_TIMEOUT);
++}
++
++/**
++ * enum icvs_nvm_auth_mode - nvm_authenticate sysfs write values
++ * @ICVS_NVM_AUTH_CLEAR: Clear the staged update state
++ * @ICVS_NVM_AUTH_WRITE_AND_AUTH: Validate image, stream, and request reset
++ * @ICVS_NVM_AUTH_WRITE_ONLY: Validate and stream image without reset request
++ * @ICVS_NVM_AUTH_AUTH_ONLY: Request reset for previously streamed image
++ */
++enum icvs_nvm_auth_mode {
++	ICVS_NVM_AUTH_CLEAR		= 0,
++	ICVS_NVM_AUTH_WRITE_AND_AUTH	= 1,
++	ICVS_NVM_AUTH_WRITE_ONLY	= 2,
++	ICVS_NVM_AUTH_AUTH_ONLY		= 3,
++};
++
++/**
++ * cvs_nvm_validate - Locate the payload within the staged firmware image
++ * @ctx: CVS device context
++ *
++ * Only the staged image size is checked here. Signature verification and
++ * anti-rollback enforcement are performed by the CVS device firmware, which
++ * rejects images that fail either check.
++ *
++ * Return: 0 on success, -ENODATA when no usable image is staged.
++ */
++static int cvs_nvm_validate(struct icvs *ctx)
++{
++	struct icvs_nvm *nvm = &ctx->nvm;
++	unsigned int header_size = SZ_1K;
++
++	if (ctx->quirks & ICVS_FW_HEADER_SIZE_256)
++		header_size = SZ_256;
++
++	if (!nvm->buf || nvm->buf_total_size < ICVS_NVM_MIN_SIZE)
++		return -ENODATA;
++
++	/* The ICVS_NVM_MIN_SIZE check above keeps this from underflowing */
++	nvm->buf_data_start = nvm->buf + header_size;
++	nvm->buf_data_size = nvm->buf_total_size - header_size;
++
++	return 0;
+ }
+ 
++/**
++ * cvs_do_fw_download - Stream firmware payload to the device over I2C
++ * @ctx: CVS device context (ctx->lock held by caller)
++ * @buf: Firmware payload (header already removed)
++ * @size: Payload size in bytes
++ *
++ * Sends FW_LOADER_START, streams @buf in FW_LOADER_DATA chunks, then
++ * FW_LOADER_END. cvs_send() already waits for and confirms actual flash
++ * completion for FW_LOADER_END (via the BUSY/DOWNLOAD state polling in
++ * cvs_recv()), so its return value is the final result here.
++ *
++ * Return: 0 on success or negative errno.
++ */
++static int cvs_do_fw_download(struct icvs *ctx, const u8 *buf, size_t size)
++{
++	struct icvs_cmd cmd = { };
++	size_t chunk_max, chunk, pos;
++	int ret, end_ret;
++
++	if (ctx->quirks & ICVS_FW_BUF_SIZE_256)
++		chunk_max = SZ_256;
++	else
++		chunk_max = SZ_1K;
++
++	void *fw_buf __free(kfree) = kmalloc(chunk_max + sizeof(__be16),
++					     GFP_KERNEL);
++	if (!fw_buf)
++		return -ENOMEM;
++
++	cmd.cmd_id = cpu_to_be16(ICVS_FW_LOADER_START);
++	ret = cvs_send(ctx, &cmd, sizeof(cmd.cmd_id), ICVS_CMD_TIMEOUT);
++	if (ret < 0)
++		return ret;
++
++	for (pos = 0; pos < size; pos += chunk) {
++		chunk = min(chunk_max, size - pos);
++		put_unaligned_be16(ICVS_FW_LOADER_DATA, fw_buf);
++		memcpy(fw_buf + sizeof(__be16), buf + pos, chunk);
++
++		ret = cvs_send(ctx, fw_buf, sizeof(__be16) + chunk,
++			       ICVS_CMD_TIMEOUT);
++		if (ret < 0) {
++			dev_err(cvs_dev(ctx),
++				"FW data chunk send failed: %d\n", ret);
++			break;
++		}
++	}
++
++	/* Always send FW_LOADER_END, but keep any earlier DATA error. */
++	cmd.cmd_id = cpu_to_be16(ICVS_FW_LOADER_END);
++	end_ret = cvs_send(ctx, &cmd, sizeof(cmd.cmd_id), FW_END_TIMEOUT);
++
++	return ret < 0 ? ret : end_ret;
++}
++
++/* cvs_nvm_active_read - NVMem read callback for active firmware region */
++static int cvs_nvm_active_read(void *priv, unsigned int offset,
++			       void *val, size_t bytes)
++{
++	__be16 op = cpu_to_be16(ICVS_GET_DEV_FW_VERSION);
++	struct icvs_fw_version fw_ver = { };
++	struct icvs *ctx = priv;
++	struct device *dev = cvs_dev(ctx);
++	size_t avail = sizeof(fw_ver);
++	size_t len;
++	int ret;
++
++	if (offset >= avail)
++		return -EINVAL;
++
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	scoped_guard(mutex, &ctx->lock) {
++		ret = cvs_read_i2c(ctx, op, &fw_ver, sizeof(fw_ver));
++		if (ret)
++			return ret;
++	}
++
++	len = min(bytes, avail - offset);
++	memcpy(val, (void *)&fw_ver + offset, len);
++
++	return 0;
++}
++
++/*
++ * cvs_nvm_write_buf - NVMem write callback for non-active firmware staging
++ *
++ * Serialized against nvm_authenticate_store() via ctx->lock, since both
++ * read and mutate the shared staging buffer and its size/flushed state.
++ *
++ * offset + bytes is always used as the new total size (rather than only
++ * growing it) so that staging a new, smaller image after a larger one
++ * does not leave stale trailing bytes from the previous image in the
++ * buffer that would otherwise be sent to the device.
++ */
++static int cvs_nvm_write_buf(void *priv, unsigned int offset,
++			     void *val, size_t bytes)
++{
++	struct icvs *ctx = priv;
++	struct icvs_nvm *nvm = &ctx->nvm;
++
++	guard(mutex)(&ctx->lock);
++
++	if (!nvm->buf)
++		nvm->buf = vmalloc(ICVS_NVM_MAX_SIZE);
++	if (!nvm->buf)
++		return -ENOMEM;
++
++	memcpy(nvm->buf + offset, val, bytes);
++	nvm->buf_total_size = offset + bytes;
++	nvm->flushed = false;
++
++	return 0;
++}
++
++/**
++ * cvs_nvm_add_active - Register read-only NVMem device for active FW version
++ * @ctx: CVS device context
++ *
++ * Registers an NVMem device named "nvm_active" whose read callback queries
++ * the device for its currently running firmware version.
++ *
++ * Return: 0 on success or negative errno.
++ */
++static int cvs_nvm_add_active(struct icvs *ctx)
++{
++	struct nvmem_config config = {
++		.name = "nvm_active",
++		.id = NVMEM_DEVID_NONE,
++		.dev = cvs_dev(ctx),
++		.owner = THIS_MODULE,
++		.read_only = true,
++		.reg_read = cvs_nvm_active_read,
++		.priv = ctx,
++		.stride = 4,
++		.word_size = 4,
++		.size = sizeof(struct icvs_fw_version),
++	};
++	struct nvmem_device *nvmem;
++
++	nvmem = nvmem_register(&config);
++	if (IS_ERR(nvmem))
++		return PTR_ERR(nvmem);
++
++	ctx->nvm.active = nvmem;
++
++	return 0;
++}
++
++/**
++ * cvs_nvm_add_non_active - Register write-only NVMem device for FW staging
++ * @ctx: CVS device context
++ *
++ * Registers an NVMem device named "nvm_non_active" that accepts an incoming
++ * firmware image written by userspace (e.g. fwupd via dd). The image is
++ * buffered in memory until nvm_authenticate triggers the actual download.
++ * Access is restricted to root.
++ *
++ * Return: 0 on success or negative errno.
++ */
++static int cvs_nvm_add_non_active(struct icvs *ctx)
++{
++	struct nvmem_config config = {
++		.name = "nvm_non_active",
++		.id = NVMEM_DEVID_NONE,
++		.dev = cvs_dev(ctx),
++		.owner = THIS_MODULE,
++		.root_only = true,
++		.reg_write = cvs_nvm_write_buf,
++		.priv = ctx,
++		.stride = 4,
++		.word_size = 4,
++		.size = ICVS_NVM_MAX_SIZE,
++	};
++	struct nvmem_device *nvmem;
++
++	nvmem = nvmem_register(&config);
++	if (IS_ERR(nvmem))
++		return PTR_ERR(nvmem);
++
++	ctx->nvm.non_active = nvmem;
++
++	return 0;
++}
++
++/**
++ * cvs_nvm_release_buf - Free the firmware staging buffer
++ * @nvm: NVM state to release the buffer from
++ *
++ * Frees the vmalloc'd staging buffer once it is no longer needed, either
++ * right after a successful download or during teardown. Does not touch
++ * @nvm->flushed, since a successfully streamed image must stay reflected
++ * there even after the buffer backing it has been released.
++ */
++static void cvs_nvm_release_buf(struct icvs_nvm *nvm)
++{
++	vfree(nvm->buf);
++	nvm->buf = NULL;
++	nvm->buf_total_size = 0;
++	nvm->buf_data_start = NULL;
++	nvm->buf_data_size = 0;
++}
++
++/**
++ * cvs_nvm_free - Release firmware staging buffer
++ * @ctx: CVS device context
++ *
++ * Frees the vmalloc'd buffer used to stage the incoming firmware image
++ * and resets all associated NVM state fields.
++ */
++static void cvs_nvm_free(struct icvs *ctx)
++{
++	nvmem_unregister(ctx->nvm.non_active);
++	ctx->nvm.non_active = NULL;
++	nvmem_unregister(ctx->nvm.active);
++	ctx->nvm.active = NULL;
++	cvs_nvm_release_buf(&ctx->nvm);
++	ctx->nvm.flushed = false;
++}
++
++static ssize_t nvm_version_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	__be16 op = cpu_to_be16(ICVS_GET_DEV_FW_VERSION);
++	struct icvs *ctx = dev_get_drvdata(dev);
++	struct icvs_fw_version fw_ver = { };
++	int ret;
++
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	scoped_guard(mutex, &ctx->lock) {
++		ret = cvs_read_i2c(ctx, op, &fw_ver, sizeof(fw_ver));
++		if (ret)
++			return ret;
++	}
++
++	return sysfs_emit(buf, "%u.%u\n", fw_ver.major, fw_ver.minor);
++}
++static DEVICE_ATTR_RO(nvm_version);
++
++static ssize_t nvm_authenticate_show(struct device *dev,
++				     struct device_attribute *attr, char *buf)
++{
++	struct icvs *ctx = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%#x\n", ctx->nvm.auth_status);
++}
++
++static ssize_t nvm_authenticate_store(struct device *dev,
++				      struct device_attribute *attr,
++				      const char *buf, size_t count)
++{
++	struct icvs *ctx = dev_get_drvdata(dev);
++	bool do_uevent = false;
++	unsigned int val;
++	int ret;
++
++	ret = kstrtouint(buf, 0, &val);
++	if (ret)
++		return ret;
++	if (val > ICVS_NVM_AUTH_AUTH_ONLY)
++		return -EINVAL;
++
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	mutex_lock(&ctx->lock);
++	ctx->nvm.auth_status = 0;
++
++	switch (val) {
++	case ICVS_NVM_AUTH_CLEAR:
++		ctx->nvm.flushed = false;
++		break;
++
++	case ICVS_NVM_AUTH_WRITE_ONLY:
++	case ICVS_NVM_AUTH_WRITE_AND_AUTH:
++		ret = cvs_nvm_validate(ctx);
++		if (ret)
++			goto err_status;
++
++		ret = cvs_do_fw_download(ctx, ctx->nvm.buf_data_start,
++					 ctx->nvm.buf_data_size);
++		if (ret)
++			goto err_status;
++
++		ctx->nvm.flushed = true;
++		cvs_nvm_release_buf(&ctx->nvm);
++
++		if (val == ICVS_NVM_AUTH_WRITE_ONLY)
++			break;
++
++		fallthrough;
++
++	case ICVS_NVM_AUTH_AUTH_ONLY:
++		if (!ctx->nvm.flushed) {
++			ret = -ENODATA;
++			goto err_status;
++		}
++
++		do_uevent = true;
++		break;
++	}
++
++	mutex_unlock(&ctx->lock);
++
++	if (do_uevent)
++		kobject_uevent(&dev->kobj, KOBJ_CHANGE);
++
++	return count;
++
++err_status:
++	ctx->nvm.auth_status = -ret;
++	mutex_unlock(&ctx->lock);
++
++	return ret;
++}
++static DEVICE_ATTR_RW(nvm_authenticate);
++
++static ssize_t device_id_show(struct device *dev,
++			      struct device_attribute *attr, char *buf)
++{
++	struct icvs *ctx = dev_get_drvdata(dev);
++	struct icvs_resp n = { };
++	int ret;
++
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	n.cmd_id = cpu_to_be16(ICVS_GET_DEV_VID_PID);
++	scoped_guard(mutex, &ctx->lock) {
++		ret = cvs_read_i2c(ctx, n.cmd_id, &n.resp.vid_pid,
++				   sizeof(n.resp.vid_pid));
++		if (ret)
++			return ret;
++	}
++
++	return sysfs_emit(buf, "%04x:%04x\n",
++			  n.resp.vid_pid.v_id, n.resp.vid_pid.p_id);
++}
++static DEVICE_ATTR_RO(device_id);
++
++static umode_t cvs_fw_attr_visible(struct kobject *kobj,
++				   const struct attribute *attr, int n)
++{
++	struct icvs *ctx = dev_get_drvdata(kobj_to_dev(kobj));
++
++	/* Every attribute in this group needs the I2C transport */
++	if (!ctx->i2c_client)
++		return 0;
++
++	if ((ctx->quirks & ICVS_NO_FW_UPDATE) &&
++	    attr == &dev_attr_nvm_authenticate.attr)
++		return 0;
++
++	return attr->mode;
++}
++
++static const struct attribute *const cvs_fw_attrs[] = {
++	&dev_attr_nvm_version.attr,
++	&dev_attr_nvm_authenticate.attr,
++	&dev_attr_device_id.attr,
++	NULL
++};
++
++static const struct attribute_group cvs_fw_group = {
++	.attrs_const = cvs_fw_attrs,
++	.is_visible_const = cvs_fw_attr_visible,
++};
++
++static const struct attribute_group *cvs_fw_groups[] = {
++	&cvs_fw_group,
++	NULL
++};
++
+ /**
+  * cvs_core_probe - Shared probe path for I2C & platform instantiation
+  * @dev: Parent device
+@@ -806,11 +1247,28 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+ 	pm_runtime_enable(dev);
+ 	pm_runtime_idle(dev);
+ 
++	if (ctx->i2c_client) {
++		ret = cvs_nvm_add_active(ctx);
++		if (ret) {
++			dev_err_probe(dev, ret, "NVM active register failed\n");
++			goto err_csi_remove;
++		}
++
++		ret = cvs_nvm_add_non_active(ctx);
++		if (ret) {
++			dev_err_probe(dev, ret,
++				      "NVM non-active register failed\n");
++			goto err_csi_remove;
++		}
++	}
++
+ 	/*
+ 	 * Create a PM runtime device link with IPU as consumer and CVS as
+ 	 * supplier. When the IPU runtime-resumes to start streaming, the PM
+ 	 * framework automatically resumes CVS first, triggering
+ 	 * cvs_runtime_resume() which hands CSI-2 link ownership to the host.
++	 * Kept as the last probe step so it is only established once the
++	 * device is otherwise fully initialized.
+ 	 */
+ 	ctx->ipu_link = device_link_add(&ipu->dev, dev,
+ 					DL_FLAG_PM_RUNTIME |
+@@ -830,6 +1288,7 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+ 	return 0;
+ 
+ err_csi_remove:
++	cvs_nvm_free(ctx);
+ 	if (ctx->ipu_link)
+ 		device_link_del(ctx->ipu_link);
+ 	cvs_csi_remove(ctx);
+@@ -864,6 +1323,7 @@ static void cvs_core_remove(struct device *dev)
+ 
+ 	cancel_delayed_work_sync(&ctx->work);
+ 	cvs_csi_remove(ctx);
++	cvs_nvm_free(ctx);
+ 
+ 	if (ctx->ipu_link)
+ 		device_link_del(ctx->ipu_link);
+@@ -973,6 +1433,7 @@ static struct i2c_driver cvs_driver = {
+ 	.driver = {
+ 		.name = "intel_cvs",
+ 		.acpi_match_table = intel_cvs_acpi_match,
++		.dev_groups = cvs_fw_groups,
+ 		.pm = pm_ptr(&cvs_pm_ops),
+ 	},
+ 	.probe = cvs_probe,
+@@ -1000,6 +1461,7 @@ static struct platform_driver cvs_platform_driver = {
+ 	.driver = {
+ 		.name = "cvs_platform",
+ 		.acpi_match_table = intel_cvs_acpi_match,
++		.dev_groups = cvs_fw_groups,
+ 		.pm = pm_ptr(&cvs_pm_ops),
+ 	},
+ 	.probe = cvs_platform_probe,
+diff --git a/drivers/media/i2c/cvs/icvs.h b/drivers/media/i2c/cvs/icvs.h
+index 17beb0920dd2..d0f4e3d02058 100644
+--- a/drivers/media/i2c/cvs/icvs.h
++++ b/drivers/media/i2c/cvs/icvs.h
+@@ -8,7 +8,9 @@
+ 
+ #include <linux/bits.h>
+ #include <linux/completion.h>
++#include <linux/jiffies.h>
+ #include <linux/mutex.h>
++#include <linux/nvmem-provider.h>
+ #include <linux/workqueue.h>
+ #include <linux/types.h>
+ #include <linux/wait.h>
+@@ -38,6 +40,30 @@ struct i2c_client;
+ /* Firmware response prefix (optional, for protocol revision 2.x or newer) */
+ #define ICVS_PREFIX_VAL	0xCAFEB0BA
+ 
++/**
++ * struct icvs_nvm - NVM firmware staging and update state
++ * @buf: vmalloc'd buffer staging the incoming firmware image
++ * @buf_data_start: Pointer to payload start (past header)
++ * @active: Read-only NVMem device exposing active firmware version region
++ * @non_active: Write-only NVMem device accepting incoming firmware image
++ * @buf_total_size: Total bytes written into @buf by fwupd
++ * @buf_data_size: Payload byte count (total minus header)
++ * @auth_status: Last nvm_authenticate error (0 = success)
++ * @flushed: True after payload has been successfully streamed to device
++ * @wait_dl_clear: cvs_recv() keeps polling past BUSY until DOWNLOAD clears
++ */
++struct icvs_nvm {
++	u8 *buf;
++	u8 *buf_data_start;
++	struct nvmem_device *active;
++	struct nvmem_device *non_active;
++	unsigned int buf_total_size;
++	unsigned int buf_data_size;
++	unsigned int auth_status;
++	bool flushed;
++	bool wait_dl_clear;
++};
++
+ /*
+  * CSI bridge sub-device definitions
+  */
+@@ -443,6 +469,7 @@ enum icvs_state {
+  * @irq: Wake IRQ (full capability)
+  * @hostwake_event: Waitqueue for wake events
+  * @hostwake_event_arg: Wake event flag
++ * @nvm: NVMem firmware staging and update state
+  */
+ struct icvs {
+ 	struct i2c_client *i2c_client;
+@@ -468,6 +495,7 @@ struct icvs {
+ 	int irq;
+ 	wait_queue_head_t hostwake_event;
+ 	bool hostwake_event_arg;
++	struct icvs_nvm nvm;
+ };
+ 
+ /**
+@@ -484,8 +512,12 @@ static inline struct device *cvs_dev(struct icvs *ctx)
+ 	return ctx->i2c_client ? &ctx->i2c_client->dev : ctx->subdev.dev;
+ }
+ 
++/* Command timeout (jiffies) determined experimentally */
++#define ICVS_CMD_TIMEOUT (5 * HZ)
++
+ /* Cross-unit interfaces */
+-int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len);
++int cvs_send(struct icvs *ctx, struct icvs_cmd *cmd, size_t len,
++	     unsigned long timeout);
+ int cvs_set_link_owner(struct icvs *ctx, enum icvs_csi_link_owner owner);
+ int cvs_csi_init(struct icvs *ctx, struct device *dev, struct i2c_client *i2c);
+ void cvs_csi_remove(struct icvs *ctx);
+diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
+index 9fadca7a3bee..c74fbd0cda5d 100644
+--- a/drivers/media/i2c/cvs/v4l2.c
++++ b/drivers/media/i2c/cvs/v4l2.c
+@@ -64,7 +64,7 @@ static int csi_set_link_cfg(struct icvs *ctx, u64 link_freq)
+ 	size_t cmd_size = sizeof(cmd.cmd_id) + sizeof(cmd.param.conf);
+ 
+ 	guard(mutex)(&ctx->lock);
+-	return cvs_send(ctx, &cmd, cmd_size);
++	return cvs_send(ctx, &cmd, cmd_size, ICVS_CMD_TIMEOUT);
+ }
+ 
+ /*
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.43.0
+
