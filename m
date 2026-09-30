@@ -1,132 +1,95 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5254C67F3;
-	Wed, 30 Sep 2026 15:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F52035CB91;
+	Wed, 30 Sep 2026 15:32:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782176; cv=none; b=PJ4cp4t80BifAISSl5UQY8v7B5DrIxbcUutt9/j9TkC7QCZ/KxAi142l0MZjis+jk57/jiwab180nlIjWhSPZIT7aB6Lr8IQQzDAsgSpf7zUy1Es7bRXLHYLjhtj53/Ec1GtgeE4+oinsu750+FvzOyrPoOB/zBDp6YQA8sd0+c=
+	t=1790782331; cv=none; b=l5ggT1Wnm6XfwGWleY86PEwnnP/qdHD7CHEeFcfDedFqwogNurgcfLwrPeCLwhfFpj3gblKRhYKlDtlTenpPEE6IezQ2Lrxlf7KJUnKr2JBPZxpw+UU5KDa585SaHXgC5S71IE4UaoqzoC6Fscmyc82DIoRgaaM4Gj0bNV0gVto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782176; c=relaxed/simple;
-	bh=rgOEJWLF8fMjQxtHHXuWmE11tv/fj/B2PNNtkYOwXsQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P6aNpwzD1mdHTwWh4siOizX5W2W5dw/oTegkQx56FEWJmjhQ2fXeyQyA7wD86cj9mhjgxZkEI1iFcQUpMC0q+1UfH6HEq6lHphYlTC3dwyanhUMgIkpQ3mKb0pbaS3jf+r3q68gcPN8t6vqBcb1XA8dAS8s2Od/NB8nVyYnQER8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ro0Xaq7j; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790782331; c=relaxed/simple;
+	bh=Em3vcwagAyAWSmwoDtG8wFY3snq8SkqpquR1qt+m92A=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gY+bq8HXpA250qOuvmtQwy2fgdfsGJZQywRtvOAijMd22ImzfWuwhSdi52eONpJLpRh0/gg5IFO19pz+AAE04NT+YxBsjjKIfoLMii/pDU0wj5HjMhnnT8B48SBxzDgAPGEmVxEZD5CJd1x898tAKXsim6eWWDqZSOg+a5kn9wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJAR54No; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ro0Xaq7j"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2BA6B593;
-	Wed, 30 Sep 2026 17:27:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790782050;
-	bh=rgOEJWLF8fMjQxtHHXuWmE11tv/fj/B2PNNtkYOwXsQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ro0Xaq7jepzZHoQYwP4oaYSE8okA/yRG9K2EU1Pi4LG2Eze2kVxKkZlpTEphjbvM2
-	 GNnEWGlD11DH+ibPAJ8JRmmu2GPh3zvIPfeCxG3Hz5FPTxAtS1P1C7FskMRNpb4VhP
-	 ZuaarDRks4i2pk47k1UAk8EeNF7dv52CEvVofgO0=
-Date: Wed, 30 Sep 2026 17:29:18 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: linux-media@vger.kernel.org, dan.scally@ideasonboard.com, 
-	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, nayden.kanchev@arm.com, 
-	hverkuil+cisco@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: mali-c55: Check the statistics buffer address
- before filling
-Message-ID: <ar0qrapmUzt_TMdY@zed>
-References: <20260906092429.50046-1-devnexen@gmail.com>
- <20260906092429.50046-2-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJAR54No"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9284F1F008A1;
+	Wed, 30 Sep 2026 15:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790782319;
+	bh=BZRI8hlbTu+2JkqknH2WafbyhYLKE2FcuAneqESOJos=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=AJAR54NondsF73cYPh3uLjUH4JpKIcYiDBzUfngvQCZpjujwZ9i+WPzHdPGpDEuYm
+	 eJfCqjQWI7XQPnBpt4SgdcvWOwJi9WuawQ4SpVCDLT7CKh08apfuoxJfVXZhmVNzsG
+	 JIX0Gv062YhX97SAcOYCOIEP/j1xSVLdhLsiFGDXg+mgp6cqOIj9ZFmi5zgWbkKmkY
+	 4VYhfbZN9agduprAU2kVBaDL90Y53iuvDp1m8PR+I5wIIMnlhPRzo4Ic+o7CwXIoYp
+	 /hJ9PyCZ7hiGbpREkAyHQSXpvvkMEKAXD2rNGnkA4kcxTYuv1t7hvy+oc+9QXEudwp
+	 NLK+YQ2UbFbow==
+Message-ID: <79ef6399-36bb-42d2-be7f-fded840866c7@kernel.org>
+Date: Wed, 30 Sep 2026 17:31:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260906092429.50046-2-devnexen@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2 05/21] media: i2c: it6625: drop stale GCC < 4.4.6
+ workaround
+To: Hermes.wu@ite.com.tw, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
+ <20260930-upstream-it6625-follow-up-patch-v2-5-e353f887e7fa@ite.com.tw>
+Content-Language: en-US, nl
+In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-5-e353f887e7fa@ite.com.tw>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi David
+On 30/09/2026 08:41, Hermes Wu via B4 Relay wrote:
+> From: Hermes Wu <Hermes.wu@ite.com.tw>
+> 
+> The kernel-wide minimum GCC version is 8.1 (scripts/min-tool-version.sh),
+> so the explicit .reserved = { 0 } initializer kept for GCC < 4.4.6 is no
+> longer needed in either v4l2_dv_timings_cap initializer.
 
-On Sun, Sep 06, 2026 at 10:24:25AM +0100, David Carlier wrote:
-> mali_c55_stats_cpu_read() copies the metering registers into the buffer
-> returned by vb2_plane_vaddr() without checking it. As for the parameters
-> queue, a DMABUF whose exporter cannot be vmapped yields NULL, and the
-> memcpy_fromio() then dereferences it from the threaded interrupt
-> handler.
->
-> Report the failure to mali_c55_stats_fill_buffer() and complete the
-> buffer with VB2_BUF_STATE_ERROR.
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+FYI: I'm dropping this patch. It might be OK against the oldest gcc version,
+but for the oldest llvm version this is still needed.
 
-Same as the previous one
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Regards,
 
+	Hans
+
+> 
+> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 > ---
->  .../platform/arm/mali-c55/mali-c55-stats.c     | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-> index 655e52a5f288..a9c28b090b2a 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-> @@ -200,9 +200,9 @@ static const struct vb2_ops mali_c55_stats_vb2_ops = {
->  	.stop_streaming = mali_c55_stats_stop_streaming,
->  };
->
-> -static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
-> -				    struct mali_c55_stats_buf *buf,
-> -				    enum mali_c55_config_spaces cfg_space)
-> +static int mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
-> +				   struct mali_c55_stats_buf *buf,
-> +				   enum mali_c55_config_spaces cfg_space)
->  {
->  	struct mali_c55 *mali_c55 = stats->mali_c55;
->  	const void __iomem *src;
-> @@ -211,12 +211,18 @@ static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
->
->  	src = mali_c55->base + MALI_C55_REG_1024BIN_HIST;
->  	dst = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
-> +
-> +	if (!dst)
-> +		return -EFAULT;
-> +
->  	memcpy_fromio(dst, src, MALI_C55_1024BIN_HIST_SIZE);
->
->  	src = mali_c55->base + metering_space_addrs[cfg_space];
->  	dst += MALI_C55_1024BIN_HIST_SIZE;
->  	length = sizeof(struct mali_c55_stats_buffer) - MALI_C55_1024BIN_HIST_SIZE;
->  	memcpy_fromio(dst, src, length);
-> +
-> +	return 0;
->  }
->
->  void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
-> @@ -224,6 +230,7 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
->  {
->  	struct mali_c55_stats *stats = &mali_c55->stats;
->  	struct mali_c55_stats_buf *buf = NULL;
-> +	int ret;
->
->  	spin_lock(&stats->buffers.lock);
->  	if (!list_empty(&stats->buffers.queue)) {
-> @@ -239,8 +246,9 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
->  	buf->vb.sequence = mali_c55->isp.frame_sequence;
->  	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
->
-> -	mali_c55_stats_cpu_read(stats, buf, cfg_space);
-> -	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-> +	ret = mali_c55_stats_cpu_read(stats, buf, cfg_space);
-> +	vb2_buffer_done(&buf->vb.vb2_buf,
-> +			ret ? VB2_BUF_STATE_ERROR : VB2_BUF_STATE_DONE);
->  }
->
->  void mali_c55_unregister_stats(struct mali_c55 *mali_c55)
-> --
-> 2.55.0
->
->
+>  drivers/media/i2c/it6625.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> index b09b331b20364a8e169429bb309d1112ec83d919..b747c08e092c7b35994cb36bb5bf7b99495282cb 100644
+> --- a/drivers/media/i2c/it6625.c
+> +++ b/drivers/media/i2c/it6625.c
+> @@ -331,8 +331,6 @@ static const s64 it6625_link_freq[] = {
+>   */
+>  static const struct v4l2_dv_timings_cap it6625_timings_cap = {
+>  	.type = V4L2_DV_BT_656_1120,
+> -	/* keep this initialization for compatibility with GCC < 4.4.6 */
+> -	.reserved = { 0 },
+>  
+>  	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 300000000,
+>  			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+> @@ -347,7 +345,6 @@ static const struct v4l2_dv_timings_cap it6625_timings_cap = {
+>   */
+>  static const struct v4l2_dv_timings_cap it6626_cphy_3trio_timings_cap = {
+>  	.type = V4L2_DV_BT_656_1120,
+> -	.reserved = { 0 },
+>  
+>  	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 594000000,
+>  			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+> 
+
