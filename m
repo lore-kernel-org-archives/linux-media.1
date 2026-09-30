@@ -1,114 +1,114 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49E7409103
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 08:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BFA45D92C
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 08:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757695; cv=none; b=ZHxrWAum+F6OoIwNR1s1NgSM5iq9bPB3yNRago1xdmJ1BQZ5TJgcvL+VE/xkGDyG4GqauIAV520CcbeRci+6yExTgLZRrdrw01LIKVmb7PSzigaZ70ydl500XqRZ+D6snoVULKPaxWsr5VhWkrw+0pfPQKQ5xmN6oDwkMYfw/w8=
+	t=1790758419; cv=none; b=bS1gCWc9uaO3Mi2xNuUapFv3EgrGVTy2CmQXSj9M6eDdqVMPW7D6XQ7N/83QVngPlYOXFckCPnIQ+sWVFJfMVIzdqwT5tVMuTrfOESYeARkpf+EPSZWMwKg0jEDssUV9Kb8xCUNnXAuwlEsdSRJ39M8oR6JGCeI6jmuPtObsOlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757695; c=relaxed/simple;
-	bh=kFriuOhaNnjZk/B46O1+32ucB1JapNpRC0Q1aWQ8dao=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type; b=jJW+So8jy6WhEdiuXwWAuKmlekC3Mu4m2UxGXaR2hg86VcLPJ0dJ59kgPMXSG40FswVB70lY+2RDXi8C+UCBEopQ2BcxRpmSrSE4An0weymiSwbuClx/F6ixbn1MeUoiClxd9QI4r6/v9f5Xa1hw+YeDXds9VJJ8kC4HrN7J43k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=drake-brockman.id.au; spf=pass smtp.mailfrom=drake-brockman.id.au; dkim=pass (2048-bit key) header.d=drake-brockman.id.au header.i=@drake-brockman.id.au header.b=iyqafqtz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kxXeHS+d; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=drake-brockman.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=drake-brockman.id.au
+	s=arc-20240116; t=1790758419; c=relaxed/simple;
+	bh=NAU6++ODk0NHRPzDs+3GpRDCyiND5PkiZO83ERTpMlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jEWz/McWA/r4NPyFqxQ3q1AVLiYXCSAkkjpgAzi5zXZdCgCWGSei+j9igqNB5asIEr/fLBBcQ2fvnsjMnxYDmkPBrCeTYAGC1iB+O8cHxjymWmJaJPXY76e8/XBveYvpXK2gse3V0jp0S028/ml1y3m2GDxXZb6Sau5g+F+nMXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B7jSco29; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=drake-brockman.id.au header.i=@drake-brockman.id.au header.b="iyqafqtz";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kxXeHS+d"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 966A31D0078A;
-	Wed, 30 Sep 2026 04:41:31 -0400 (EDT)
-Received: from phl-imap-17 ([10.202.2.105])
-  by phl-compute-01.internal (MEProxy); Wed, 30 Sep 2026 04:41:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	drake-brockman.id.au; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
-	 t=1790757691; x=1790844091; bh=1IrALn/xGk5sLlRtkJ//ANPApGDd613U
-	QCNJLZqm2Rs=; b=iyqafqtzW76Vzl8VLtWBVmhEL5yvjEBiCSOcAEWK2L++vVUL
-	cDgOPwNg4LkmNjTwFrEz1Uki7C/HI7BQCqdjFc8UQtKCfaE5JO445E/epIKDr5f1
-	4qpygMaKbBEekP7X5OCW53cMvRc0XM9BkRbhq222oSpru3TGyDRGtH5BBvlr87KL
-	lKOdcbVzOCyMbvWlBiLAMaXa8ACc+LEgW5fW4KV3eb/KZFhCkI/chnIi9XS/0biT
-	pFfd03sQfcfeQh0vIJy8RM+8ft1wV0eX1Fn3EFj/XVbDZ1iWH0031rFFfeRT1wWI
-	oj/fKoJn2bdTT6HZiIOSZuDHB1qoMGJeaK+8Kw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1790757691; x=1790844091; bh=1IrALn/xGk5sLlRtkJ//ANPApGDd
-	613UQCNJLZqm2Rs=; b=kxXeHS+dZjXz7jr6ajogwZ40dUebUetpzmehysqN91LK
-	QQpP4hapuAlwBHfHZfOkJTsAo6Xuht6YfcngK460MJ1fWv0GHNMi6qHhYEyHp6Ka
-	G6guETK8h6edvnjs97NGzStBW9dWRpfJ+8rD0LKKLe6sr4xKf8iTH7smYN/Jirlk
-	DtRZrzMGGdsbzmbbh8JT60CNK/ZnaZVSfPRtgtbAizom8k6N5OGRnqdfMEAMuNpp
-	B9wzaRtG6gZhHWxONsYTdLUCYpCKK5tephFD/wY7WsLrMQ9S8HCLhtmoh9Qsuj7c
-	hBcZ++6UfuFydGiz64lvxxzYeumRlt8I9SMxo/odSQ==
-X-ME-Sender: <xms:O8u8aglLx0cxPZVpAzOb-YWRoU9KWUcEBp0os-qlMy77a2AWniSv1A>
-    <xme:O8u8aqrcH3NydwK8CEzpjiM48KP9FUDY0GzAscvMNTaFq7ik1C8o2Q6w-FdJsIutr
-    qLLF3T6UTit4qMB7gYkc62UUZgrR9kYKWOl8ryqHwNR_34gIUj2qw>
-X-ME-Proxy-Cause: dmFkZTGL26CLtt5LgulrBsczOqoNvslw09F+DMmy+ThBLX3q5vvBOZyV3Zz+53hjDb74MO
-    XIYCLNrlig6sjqPAJlMoA5v+gKN3axckW2gYsy2vHAxOBimQtWIxr4sgmdA1DQLpF00DtJ
-    dKQopG5QHdCKjzaFQ9Zwu8unf2P3zRQe8vwzunhJQzMaqIbRaGAiQnCD7sWOkRg833Qjis
-    EikwOk5q3uzfj8e1HfSKMyqoU2JY1wRnoax6zohewOK3GerVHwDDbXOA1piqz635W+6Kgy
-    4kmGWFW/75KA1JVQ9p/AQ/MDNC2BfBmQhE/MhUjY/rZtRnOy6TgyZ5WsHufbMnSypBJ0KX
-    23lcInKVilGpMFU1JaLhcCgLqIO34sPXRznXgYJw9vgkeMc9bCtgvZAzUrp2hd0+cMOpdJ
-    TJHJ8JuLSJytveTDpocFM2m15+w8Z2ynHiJhtrV8fVQeOxp/Oo6KG1/m0yq4e4DfccZbWp
-    F9pnBoXjrbvvTTefmYMlFjXM6zwq3PtBPuhZCDsqS162NoGpM3niKirfIupLKb9HaK+2b6
-    8IoxfE2hPizqFmfnFt2wBRwS9G/KimD0J+OTSHzDeiWqbZ3lE19gWLDb/R2x7lDWbshbFv
-    BG2r48PQS4WVFM5JI2194mtmSEIvRf03ByfQ4Rk/ASu4ZpZXg5AGLMrvqhEw
-X-ME-Proxy: <xmx:O8u8aoJ-6l0-NQ9fQ2xmbbnMLJA12JxGZzD9EQkI6RDmdVUYZPZF4Q>
-    <xmx:O8u8aoQq6hDWxaci-4vxZte-IlnjDpgLuJ3Mk1UsHUMQuWcT1FZOGw>
-    <xmx:O8u8agq8aa3CQB40AdhSP7QLKxsKHw8PE366Kbmc8b-SDx3yeNHTtw>
-    <xmx:O8u8atrMXD2E4dGeMg8IKkBNZbc6PWbEVRxR7loVAXDmoVqtt55-TQ>
-    <xmx:O8u8ao2ke6_bmUTx7gx4eNgUK7ELxWqCp08YXH5uxhrTLdlOs11jAGKZ>
-Feedback-ID: i40c0427f:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 26FF8C40072; Wed, 30 Sep 2026 04:41:31 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B7jSco29"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790758415; x=1822294415;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NAU6++ODk0NHRPzDs+3GpRDCyiND5PkiZO83ERTpMlI=;
+  b=B7jSco29l6/H+vHu21M8IkGpdmVxwZtJ/t7Vb7PXH/z0TjG1HZg8opTv
+   PzW7mPjYowSryFPZrnoqutq3wJZhf+lqThpse0/pWC2NxDSc4+6gPOHR1
+   jphKue0VI28N+LK00Ut9KtOgbSGtt4GdZToKa/A8m4TYgPo59FyK2kLQD
+   VPTsbhkzydBWHbVJBctBZtSXvV6idIsOrtzgJKiYsW+kMghNzk9yWHvfK
+   hOJiXW4piRMNmqBVkfhBFFeAdnMnQ6Ig3no/iFJnoyekvAAs9/AThw7s6
+   WHPllFgIq7d0UvkAlcCtCMuPzWc/OmJ/z8ssMLtYqV0qQlsr2lU5aKEdx
+   A==;
+X-CSE-ConnectionGUID: pUaRavelSAm8noOUH34V8g==
+X-CSE-MsgGUID: seSrNbkUR0iJy/gjMXa7Ig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90256573"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90256573"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:53:34 -0700
+X-CSE-ConnectionGUID: /8k60e3eQXmYhuBVnqkw3w==
+X-CSE-MsgGUID: EbGEhRVpSAyrPHSHlL750A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="273720638"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:53:32 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3189A11F8A5;
+	Wed, 30 Sep 2026 11:53:37 +0300 (EEST)
+Date: Wed, 30 Sep 2026 11:53:37 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Manik Bajpai <manik.bajpai@intel.com>
+Cc: linux-media@vger.kernel.org, antti.laakso@linux.intel.com,
+	sarang.sapre@intel.com
+Subject: Re: [PATCH v2 1/4] media: ipu6: Free boot config on queue memory
+ alloc failure
+Message-ID: <arzOEbZugSnqCbkW@kekkonen.localdomain>
+References: <arpYuzb0yJinlDyH@kekkonen.localdomain>
+ <20260929083130.88381-1-manik.bajpai@intel.com>
+ <20260929083130.88381-2-manik.bajpai@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 16:41:11 +0800
-From: "Thomas Drake-Brockman" <thomas@drake-brockman.id.au>
-To: "Kate Hsuan" <hpa@redhat.com>
-Cc: "Sakari Ailus" <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Message-Id: <35240e45-c73b-4425-923a-c1026386ed3c@slotpi17m12>
-Subject: imx471: frame timing ~10% off & digital gain only affects Gr
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929083130.88381-2-manik.bajpai@intel.com>
 
-Hi Kate,
+Hi Manik,
 
-I found two issues with the imx471 driver while tuning libcamera on a ThinkPad X1 Carbon Gen 14 (21V7, IPU7) and Fedora's 7.1.10-200.fc44 kernel.
+On Tue, Sep 29, 2026 at 02:01:27PM +0530, Manik Bajpai wrote:
+> If the queue_mem allocation in ipu7_init_boot_config() fails, the
+> function returned -ENOMEM without freeing the boot_config buffer it
+> had already allocated. The current caller happens to clean up via
+> ipu7_fw_isys_cleanup() -> ipu7_release_boot_config() on any failure
+> from this function, so this is not an active leak today, but
+> ipu7_init_boot_config() should not rely on a specific caller undoing
+> its partial allocations.
+> 
+> Call the existing ipu7_release_boot_config() helper before returning,
+> so the function cleans up after itself on its own error path,
+> independent of what the caller does.
+> 
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Manik Bajpai <manik.bajpai@intel.com>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu7-boot.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu7-boot.c b/drivers/media/pci/intel/ipu6/ipu7-boot.c
+> index 5bd5281ec107..225f802cfd1c 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu7-boot.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu7-boot.c
+> @@ -246,6 +246,7 @@ int ipu7_init_boot_config(struct ipu6_bus_device *adev,
+>  					  GFP_KERNEL, 0);
+>  	if (!fwctx->queue_mem) {
+>  		dev_err(dev, "Failed to allocate queue memory.\n");
+> +		ipu7_release_boot_config(adev);
 
-I've been doing this with a fair amount of assistance from Claude Code, but testing things by hand. Hopefully this is helpful.
+I believe on error, the caller already calls ipu7_fw_isys_cleanup() that
+includes a call to ipu7_release_boot_config().
 
-1. Frame timing doesn't match V4L2_CID_PIXEL_RATE and V4L2_CID_HBLANK
+The rest of the patches seem fine to me.
 
-The driver reports pixel_rate = 160M (link frequency based) and hblank = llp - width = 2328 - 1928 = 400. With those values, userspace computes the frame rate as pixel_rate / ((width + hblank) * (height + vblank)). Measured rates from buffer timestamps, raw stream, 1928x1088 mode, 130 frames each:
+>  		return -ENOMEM;
+>  	}
+>  	fwctx->queue_mem_size = total_queue_size_aligned;
 
-`  vblank   measured    predicted from 160M / 2328
-   220     57.817 fps  52.54 fps
-  1433     29.998 fps  27.26 fps
-`
-Both give a real rate of 176.1M "pixels" per second at llp 2328, so every exposure and frame duration derived from these controls is ~10% long.
+-- 
+Kind regards,
 
-2. V4L2_CID_DIGITAL_GAIN only changes the Gr channel
-
-Changing digital_gain scales only the Gr pixels in the raw output. R, Gb and B stay unchanged.
-
-The init code enables global digital gain with
-
-`  #define IMX471_REG_DPGA_USE_GLOBAL_GAIN  CCI_REG16(0x3ff9)
-  cci_write(sensor->regmap, IMX471_REG_DPGA_USE_GLOBAL_GAIN, 1, NULL);
-`
-Thus puts 0x00 in 0x3ff9 and 0x01 in 0x3ffa. imx319 uses the same register and writes it as a single byte (imx319_write_reg(..., IMX319_REG_DPGA_USE_GLOBAL_GAIN, 1, 1)), and imx355 declares its equivalent as CCI_REG8(0x3070). So I suspect it should be CCI_REG8(0x3ff9).
-
-I'm happy to test patches on this machine if that would help.
-
-Cheers,
-Thomas
+Sakari Ailus
