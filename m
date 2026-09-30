@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EBC3F7A83;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89057403AEA;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750570; cv=none; b=Dovf8KLh6SIa7//MzE1vORxLlIexgVRLIg3jyS0Yg90vEkxMWn19340f26zseTtufxts0r8jj0VSx3K/7uXS3O+g+pwRB18AIsgI3pEr0m6k3P/7YwoXK8F6J5vmevaAJOThiECGtMwmbUZxsMnDDaDu5wyisLfpITP1GHumxVo=
+	t=1790750570; cv=none; b=C5VhaPlV5/Itrx4p3NqGt77LI6j7+MHHTJgssuAld3v1pon50p7EqSXKAoBroO7oURWSZ2eqhfHEhKwpeW0Emqa9v47M3pQOvqG/H5ehYo9liabysfHhC+ApvFRMznqVUhJHZkhbbW6FCE6wP0f3KSpcTghchP3G8h+QQ7f5/Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790750570; c=relaxed/simple;
-	bh=MZ4SNiX5An1I4HMBFwNw0tj0D04S9cwxlqjl0QXD8x0=;
+	bh=VY0sEM523SH01bCMUPYNNCgBvCGlXFy3JXgkUJlHGsE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S+z6APdrg7uJz19DirsMTI1xRHfefC0C4cfKUyyj+jGBgZzUVQ2OL/O6kMxx9MxM6smOV6TlMwc0rBvFhjsbYoknEw9PNTuV2UHwAEaHRhSp6rWs73XkbOKp4AC09aj243pXxiU/iIIuGPcEHkV/gRTFO504sroGlohRthcAKNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gELObn/X; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=YIJotdzjdH4d2i+M8kUsnyvrjRT5Uv4LzU/4IjY26QS0bghmLZVYzy0/hPKDYaw0mKlm3Pnl2bUvGDrnul6O4zhrs5cvProQ1+PEkP9CIqpaiyz2qbfeEhuwoQL05UH+Yf1AyfBfAy7hyUmoa1mJWFEaFNCIYhZc25YnHPdkY50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jUwll++9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gELObn/X"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DBBD9C4AF14;
-	Wed, 30 Sep 2026 06:42:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jUwll++9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4092FC4AF68;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790750569;
-	bh=MZ4SNiX5An1I4HMBFwNw0tj0D04S9cwxlqjl0QXD8x0=;
+	s=k20201202; t=1790750570;
+	bh=VY0sEM523SH01bCMUPYNNCgBvCGlXFy3JXgkUJlHGsE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gELObn/XKO5sofiDawndYV+Vp/Jn3pjBD1F/s96gJMHl87Y8UVaPCct11By1Sthb8
-	 AORJFAErbeQiZ+Uc5YzL3X1GK2Vkf1y71wbTZjrYgyxO2SeM4Yfiijaj6irKCXZEz3
-	 u5XtJD20/wgg+NuNxn+g+xEv2foeDZr2Rnpd3KiCd5g8i9OiYaGY001NfW1bhj9X36
-	 VuTG1mX5xbr2qO13BvVHffAlT/gojNL08PzywxZwCTKILsr0AE7w6j9eny7+/1Cv+Y
-	 Woe1tuQ80IR3vHr+DSOyr//+KLx8KoSAezIod+mYmhg/RO8HMoK2LmgdX/vyHxujtT
-	 Pd5J91q2n3eyA==
+	b=jUwll++9GcDzumeZoHDLTYFUrqyukaCiPkU6np++KWZLAXod5CavoUi8xKTFIEfXL
+	 4GHAd8K9Q4kLgDjuWpbEKmJ2osg2NkFRutfFlZYkWfoQyd2AaPCxEBdv/8CzTzMVQ+
+	 w1W3m93c7GfOgBlFvX/3SspQ1UOEMXLBo08ZmZ6bmEZlW3SUwlxQ+wijjGG44N9Ity
+	 iBwtz+ktGiIxFdmMxEFmO+r6FRBYfRcsTOBmzEeHYXuZ3IpYWPR1AIPCm9SiMKxAna
+	 VhdLK7tCAAf4vlWC2R2y66VaKrdm5Op20++ZIBnEnriC34EtTwTi8Z39rP85Aa36NH
+	 8y9hmI1tJf26w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C702FCA5FB5;
-	Wed, 30 Sep 2026 06:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31609CA5FB5;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 30 Sep 2026 14:41:19 +0800
-Subject: [PATCH v2 01/21] dt-bindings: media: ite,it6625: document the
- default CSI-2 bus type
+Date: Wed, 30 Sep 2026 14:41:25 +0800
+Subject: [PATCH v2 07/21] media: i2c: it6625: drop redundant parentheses in
+ status helpers
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-1-e353f887e7fa@ite.com.tw>
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-7-e353f887e7fa@ite.com.tw>
 References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -53,11 +53,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1595;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1911;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=2GNSGI/SvJJnKRdKfmcthbKtRJOxkaKnD5LBk104cW0=;
- b=gmcEUkr92KQXRx+94bsEWoxMUYXEWR8pqxzO3eQKln5bydnrweTsoFcTTwt9Rl3UGxhliH6aG
- NrcDnbc3g8ZDQHFtKFDjZ/TZTK3n8Z4CiCT8qluKy2rJQVpS6SWO1X7
+ bh=hMUgQungpbvUXhPIcEyCYMEDenPhUZbplvI5NTD2M/Y=;
+ b=4p861QfJr2FzWeA3OL1lEpTKQ3NGHwgCOHTW7FueOiH3uBLPSw2Alw7HbSqqcxefQY4NjMEoj
+ Hb08iDNDKnQAe5mNLkRSn8ExlMOcA42HNpqwjovl+Mq6BQ2fjV4r9vd
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -67,41 +67,57 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-bus-type is optional under port@0 and port@1's endpoint for ite,it6625
-(the allOf/if/then clause only requires it for ite,it6626, which
-supports both C-PHY and D-PHY and needs disambiguation). With bus-type
-omitted, the actual runtime default is D-PHY:
-v4l2_fwnode_endpoint_parse_csi2_bus() falls back to
-V4L2_MBUS_CSI2_DPHY whenever data-lanes is present, which this binding
-already requires. Document that default explicitly instead of leaving
-it unstated.
+is_hdmi(), hdmi_5v_power_present(), no_signal(), and audio_present()
+wrap their ternary condition and true-branch bitwise-AND in
+parentheses that C's operator precedence already makes unnecessary:
+'<' binds tighter than '&', and '&' binds tighter than '?:'. Drop them;
+behavior is unchanged.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/i2c/it6625.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-index 756fe655f534f85b23b7741d06710c956f9694d8..9b621f726249189255692da02049ebcbf1d5b43c 100644
---- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-@@ -65,6 +65,7 @@ properties:
-                 enum:
-                   - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-                   - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+                default: 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index 9382a64706919d380e8318c3139b42a4a7b2fd55..b48252a71bc1ed788de2df79c5fdaf7895f6e0c4 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -554,7 +554,7 @@ static inline bool is_hdmi(struct it6625 *it6625)
+ 	int val;
  
-             required:
-               - data-lanes
-@@ -88,6 +89,7 @@ properties:
-                 enum:
-                   - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-                   - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+                default: 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+ 	val = it6625_read_byte(it6625, REG_RX_STATUS);
+-	return (val < 0) ? false : (val & B_RX_HDMI);
++	return val < 0 ? false : val & B_RX_HDMI;
+ }
  
-             required:
-               - data-lanes
+ static inline bool hdmi_5v_power_present(struct it6625 *it6625)
+@@ -562,7 +562,7 @@ static inline bool hdmi_5v_power_present(struct it6625 *it6625)
+ 	int val;
+ 
+ 	val = it6625_read_byte(it6625, REG_RX_STATUS);
+-	return (val < 0) ? false : (val & B_RX_5V);
++	return val < 0 ? false : val & B_RX_5V;
+ }
+ 
+ static inline bool no_signal(struct it6625 *it6625)
+@@ -570,7 +570,7 @@ static inline bool no_signal(struct it6625 *it6625)
+ 	int val;
+ 
+ 	val = it6625_read_byte(it6625, REG_RX_STATUS);
+-	return (val < 0) ? true : !(val & B_RX_STABLE);
++	return val < 0 ? true : !(val & B_RX_STABLE);
+ }
+ 
+ static inline bool audio_present(struct it6625 *it6625)
+@@ -578,7 +578,7 @@ static inline bool audio_present(struct it6625 *it6625)
+ 	int val;
+ 
+ 	val = it6625_read_byte(it6625, REG_RX_STATUS);
+-	return (val < 0) ? false : (val & B_RX_AUD_ON);
++	return val < 0 ? false : val & B_RX_AUD_ON;
+ }
+ 
+ static int get_audio_sampling_rate(struct it6625 *it6625)
 
 -- 
 2.34.1
