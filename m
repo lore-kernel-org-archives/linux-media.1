@@ -1,116 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA00353A96
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 09:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007BC28B4E2
+	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 09:37:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760789; cv=none; b=WC9NCJpVvVHEU5XVdwSrXXe7Uo2bwXVw3mV2rfMSYmbwkCl3ljWnN2wzYCSl4B8aMI0VWXnopYKreLmsFiDYadb6pm887bjD57bA98wlymY8xDjuJFQOv5YRk5XRDh4pGeTPwIDo69bVPFDisBtCSy1pJaoFxVrpWZRWperq62U=
+	t=1790761029; cv=none; b=CdWujbd63y232hGRYSb8mdoItZF7w26xX5aEq/dMrrx0JhQqj66TSrwaBIBWx8CL/PeC1D0yWd8jbrnq56NX+J84f/fmLy4Ecbe90CPvtPlFgu1Qs1xjQaezdmRNJBGhteS6XDYXqNh2cCstMS3moW1sOly0MwXjIQ/RDFAlXQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760789; c=relaxed/simple;
-	bh=XC89cUmX9D0qEHVQEIkHs3hF/5+20GnAqEQhHwqzA6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VcL9nKvUAPjWPrdlXhIi+J4u0A38F2O3ui54qIGEbA8MTjs4+XrUaZeFFWielFVC68LDik8EBsvdPtBm4ZZh+ojrcvxckr3XA2p4uXihoxIgdZ4Djy1yuhb2EBOXLlV6RZRwTQ6jCD82bQ1Z4HClvOpcotVnxsm68PiSLLp40So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Blmebjim; arc=none smtp.client-ip=192.198.163.8
+	s=arc-20240116; t=1790761029; c=relaxed/simple;
+	bh=1XjTOGGr1Aee5mRlY6jFoNlU44abhKhzO5lgxARWP+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dHo6vKZOQj/viQw4Ya1ucFhC9+GI5kOsaVbGIcQx14IYjn8huWi2ElWd5V7pqBYzPT0BczrmZX1+zzSWpSmBfP9O8Moqi655z1gItbpUojbyqXY05COgcwl9dRIZfRJJjeMSXlta64EgrHIvKERU60juLrs3X9P6lAZ7w14iNcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KHFrgGBl; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Blmebjim"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KHFrgGBl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790760787; x=1822296787;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XC89cUmX9D0qEHVQEIkHs3hF/5+20GnAqEQhHwqzA6U=;
-  b=BlmebjimdHLYeJVpTn/k8VBBm9Qa8vsJNVePpWRJ/qNNeFV+z/UobRIB
-   ksUQ7GJFFeuf8OYCiZNohNYJGVJNvG73EkWJ3ejs3onmmWFnbMr+p5DRv
-   11neP/BiT4ZS34TXyrHIhpj2FtQV0hpkXoauEA9+VVOOdA0RXgbjfvQk3
-   NlWKDJa0mpvaR+tf3xhQTI6kbhhhMKQWthe5foxs9XWPJpvp1owo4N3tu
-   DF7RfabBhXVCtWq19EaAz+M5RbrzaGNPZ8R9ht7U4puhZInflsTH//q+t
-   +JQuFHuFZl+EwFq58y85y794LcouuBMV2a/UcUCMUR/4F30k9kVPrsQyH
-   w==;
-X-CSE-ConnectionGUID: HwQud7XkTjCsvn6nqQ+oBw==
-X-CSE-MsgGUID: 5DjEPEmhSNipYGC6nOXj+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="108981493"
+  t=1790761028; x=1822297028;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=1XjTOGGr1Aee5mRlY6jFoNlU44abhKhzO5lgxARWP+0=;
+  b=KHFrgGBlUo4izxHgYVQ6v2SbIhGk6oGCrh1eByEHQX7uAyZfWI23Gogy
+   CWkoUuADhA+e4fZNn70MSuuc2NjfpqImDJuTHDrax4YXkIkrAlMjG9KZl
+   tlma9GfBtjTSV1QIm2doExZKBYzDQ45hV34NfVTtwyxU+HdSaQAPcuXsN
+   CQPVQgjf7TlfTU6U/6416eIMohY7J8uaizCVGTDVom4tIczc6xzZ/YDFN
+   z88tRQ0JPXpqfNZh20m5e4VoaS+lVQ5b5/Pfl57jHB+HTemRoDQtNKEIL
+   kh81223bVA+5vvjPWR5tbdE3YetMxg9bJUb9a8UuO4f2cN01aAnW+zN7j
+   A==;
+X-CSE-ConnectionGUID: WQ5m2+WQRwizeXwXZUwfoQ==
+X-CSE-MsgGUID: YfPJym35QzaynEyUAHhXUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90394168"
 X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="108981493"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:33:07 -0700
-X-CSE-ConnectionGUID: xpfyZzisSSSBSXPz1O34GA==
-X-CSE-MsgGUID: 7FE76aNHQLOdjF3hSUqKlQ==
+   d="scan'208";a="90394168"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:37:07 -0700
+X-CSE-ConnectionGUID: tLxH2dkHQC2FwP98bkKTBQ==
+X-CSE-MsgGUID: sX8qyuIrRbiFd1pTXlwVLw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="301896412"
+   d="scan'208";a="279442919"
 Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:33:05 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id A1C7811F8A5;
-	Wed, 30 Sep 2026 12:33:08 +0300 (EEST)
-Date: Wed, 30 Sep 2026 12:33:08 +0300
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:37:05 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0931111F925;
+	Wed, 30 Sep 2026 12:37:10 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xBqkP-0000000B13c-0ZYq;
+	Wed, 30 Sep 2026 12:37:09 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Antti Laakso <antti.laakso@linux.intel.com>
-Cc: linux-media@vger.kernel.org, "Sapre, Sarang" <sarang.sapre@intel.com>,
+To: linux-media@vger.kernel.org
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	"Sapre, Sarang" <sarang.sapre@intel.com>,
 	Manik Bajpai <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: Re: [PATCH 2/2] media: ipu6: Warn if the active list isn't empty
- when returning buffers
-Message-ID: <arzXVJXoKjE1dLZb@kekkonen.localdomain>
-References: <20260929105415.2516142-1-sakari.ailus@linux.intel.com>
- <20260929105415.2516142-3-sakari.ailus@linux.intel.com>
- <arzVKOdobIONAwwB@alaakso-desk>
+Subject: [PATCH v2 0/2] IPU6 fixes following multi-stream support
+Date: Wed, 30 Sep 2026 12:37:07 +0300
+Message-ID: <20260930093709.2625661-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arzVKOdobIONAwwB@alaakso-desk>
+Content-Transfer-Encoding: 8bit
 
-Hei Antti,
+Hi all,
 
-Thanks for the review.
+There's a small but important fix for the ipu6 driver's ipu7 support -- on
+ipu7 streaming works only once, and apparently this is because the ISYS
+needs a power reset between streaming instances. The patch addresses
+detecting this, which got broken in the multi-stream support set.
 
-On Wed, Sep 30, 2026 at 12:23:52PM +0300, Antti Laakso wrote:
-> On Tue, Sep 29, 2026 at 01:54:15PM +0300, Sakari Ailus wrote:
-> > The ISYS needs a reset when the active buffer list isn't empty. Warn about
-> > this.
-> > 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > ---
-> >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> > 
-> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-> > index 2608e3b91acb..c9ecda158fd1 100644
-> > --- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-> > +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-> > @@ -423,6 +423,7 @@ static void return_buffers(struct ipu6_isys_queue *aq,
-> >  	struct ipu6_isys_video *av = ipu6_isys_queue_to_video(aq);
-> >  	struct ipu6_isys_buffer *ib;
-> >  	bool need_reset = false;
-> > +	bool first_buf = true;
-> >  	unsigned long flags;
-> >  
-> >  	spin_lock_irqsave(&aq->lock, flags);
-> > @@ -448,6 +449,12 @@ static void return_buffers(struct ipu6_isys_queue *aq,
-> >  	while (!list_empty(&aq->active)) {
-> >  		struct vb2_buffer *vb;
-> >  
-> > +		if (first_buf) {
-> > +			dev_warn(&av->isys->adev->auxdev.dev,
-> > +				 "buffer list not empty, needs isys reset\n");
-> > +			first_buf = false;
-> > +		}
-> 
-> Could the warning be in the end of the function, in need_reset block. We
-> could save one local variable too.
+The second patch adds a warning on needing a reset.
 
-Makes sense; I'll do that for v2.
+Addressing why the reset is needed is out of scope of this set.
 
+since v1:
+
+- Just print the message when setting need_reset to true.
+
+Sakari Ailus (2):
+  media: ipu6: Reset need_reset in ISYS suspend
+  media: ipu6: Warn if the active list isn't empty when returning
+    buffers
+
+ drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 2 ++
+ drivers/media/pci/intel/ipu6/ipu6-isys.c       | 4 ++++
+ 2 files changed, 6 insertions(+)
+
+
+base-commit: 58348f64125e9a3e44d3abb275ca7f4e6c9641e5
 -- 
-Terveisin,
+2.47.3
 
-Sakari Ailus
