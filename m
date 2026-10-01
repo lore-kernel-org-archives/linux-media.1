@@ -1,184 +1,174 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9733C060F
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 22:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893058; cv=pass; b=qrYmbz5s0f7ZcsLNjVpydn1L+d/9H1EAE13nJba0rba7+e/QEDjf8j56OaBnlwQjU2Dh9b8wl/AnGh6jzs3VobqSX5TP7d+XeAPiEJ2bK1+68WiBXluWAuKQj66tcdHFdk4gIaRlrNSTnLY6S3Hx4lpbJRDHzd9np/HljCzRQzY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790893058; c=relaxed/simple;
-	bh=moiLJF31S6vVTOsVKtV9lRYkXUMG654AkWGkX05F34M=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=odGW1+gfP0qd1KXSQ+elIJE3xNNqNrGwcpFaMq3upQ+4hB1rrMDfgkAjqhHjEf899L5Qb2+eEDs5NX9pxcdvDtVHID1gzNalTvCrCYsK37oWpI9/W6UuArzcx1XEtq22pooVEerYcDlCZUJICAjPTjEc3D0r4/S6oGy34jTWyS0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=piDK4YEC; arc=pass smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23D2346E63
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 22:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790895046; cv=none; b=pl+61Tp1MqSCUCtptKIUnYjoB8ucKHL8+/fL/VuFJsNCARm10ETJ85/EDAoezdKfVSn55HJ0kv/MfMSATeKIjQGUiDfVDndu6MXIfpJbemXmLQNFV0UubVZaQ3+NcWZJgJzGvulG5om7o3+AydntFY5zXiHZG9fFNzuYYv4B4Io=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790895046; c=relaxed/simple;
+	bh=hbaWfqTT50rz/0Ibb9FN7fOZGgV8qI7vnWW/cMLRjW4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bNP3p2HmRCrKbxUPphKBWAtiQR3RihLK4v8DcenWko/iVTCOlkljmoOJz3J18trOQm2kXPkPx3wFbxrzV8HzFW29Mgt0tPue9j7EoXoyiI4D7mhLVBtu9dsPbBVYB/dSNIc9ejSjMpUF4v9TPrjIzPeh24fjHyZhnrVUi7kgX9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=a06o7VOQ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="piDK4YEC"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab445ac183so45842637b3.3
-        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 15:17:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790893056; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rwVzT0wNNXoE9d77/ZaDjbklU3NjhI9c3ADjss3dUT0UfJOM6CnmxRYni4JeBd9PSW
-         pfgL7ZFdycAVsnqgS8Cfp7KqFQj8oXUEP+0dXOvumo4MujsW4Shq7Mgkgvacbu9ZES6z
-         eG0l97ODU9+0QZFZFBQXaZU1ZW6Jd5tOzBcCOB8BS5haEzHTnUR580uqeM/+ZS/MITTl
-         5QMviN+JXQbZP7cnmXtRK/ojfQcAWLIrsG0fxRxsInrMqzWUTaxNHphVlOImnCZoMDfm
-         5gMs6mKCVWVfUKtWSgQ49wh0PLRT0jy/EqIDMd9nyUFmYkaZhTyYB+C16nM6gysbzXaz
-         idpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=/XDU0FZ6HMbzwlIOklQvusOqb4kZ9TT1LQEY3p6zjxA=;
-        fh=bgTuDVd8tqBDCvoBSREeXUbrqaN5rYCDXrY+0Zn3414=;
-        b=JrlTPd812kqzco3Fw1KgpFTcMM9MN9vk3RJl7KQEi+AMO9ODbXRoeA9imio/naZgel
-         Fb04PqteIo2RV5YAI9ZS5x7uSMCHLM2hXuxnRkZsJYqVQVcCuwUO/QApWAn6qV2D6Sbw
-         +WsnN9wcWuz4esQI5+Kf6dgmwqOS9dxOL2YC3vqbbpMM92OE4MSM1nCdGeQvTucyDsRd
-         ReWsbz/Rlp+sdUZjj/Oh6wAIPGaHxP/U8LW39OtK6QduqCdzRRP4hcWirYLYvVCj49kI
-         jfek4XoN9kjPkvlUKaPGLixCHV+LPqXfXk2KMkgd3dbKZXG4ZZ/NuI6SV4Y9zeqxQ0ok
-         4b1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790893056; x=1791497856; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/XDU0FZ6HMbzwlIOklQvusOqb4kZ9TT1LQEY3p6zjxA=;
-        b=piDK4YECyMxVi6X41cxu4uDUwQn2ypoeVdem/lvhHoH4eG9WK+TwBCaQISIF2QCUGM
-         zcDp/5opOHm61SHf5ktU+IxiNPSZsxF2xdrnWjDqoe+taVk6+vVmuFI22hoyQLJwKqhB
-         OHl44MmDiE6zXUENt7AUaaUU40BNnc865PkJDmp4zJ0Di1hmeM3eMuG/9Vw7V3aTr2yM
-         uoCQqAQJ9WuGy0L34R9VEDhwoTW82dHQoKtZH3jkaTZw3SgNUgFDgC6ZmjsCDa3yEk7+
-         rs+va8K433P0+NirG6W+SLHY313tFQTfjAEW7EMrKO0rKmZtX1N4pwmwpQ7bBoKZZK/3
-         QyzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790893056; x=1791497856;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/XDU0FZ6HMbzwlIOklQvusOqb4kZ9TT1LQEY3p6zjxA=;
-        b=inOsCd+syGuVkNentqUyGdoi0ZPPVEB/wUO1gtDijo5Ue/+q7dtMxXu6Wi8N8QiZr1
-         CP+cBn2vxuZydYvLSe8ftrcwxq4p5vgw3+QYpIinDEfesGjBaAgJ74UEQXrpgmBIBZA/
-         r0lejgZs8ZwePw/N0KhGBq2qhD1G3H6ael7fXL/rb8gaVwsvSlOTBQI0KcGrFO8355u/
-         9ajN+wdAnwrpViB1A8Rc/Uui4fiZAmtlJjqNiK87S5Ltk0lJAk/wIFUE0NqhwWA1Xhl6
-         SGGqYFm27Nhj5YsWpmxijvrJcRAy6/22FelSf4UHtmgyCxyr3Thtwtn7iUIon4wheMUH
-         Ou0Q==
-X-Gm-Message-State: AFq9FYJ7HO+zrC0gqK2NoyOq1RpfbZ++q4TNqOI8q6Y4Wt3nQIfrewe3
-	yOrtMUNdVgY1Hl8OZce6LbYuvq9FX9cWlfJ0S8ePeEB3MljzILuxUZG2ih8dlyKErPS8yJIxIH9
-	CZyS54GcrijclWnfaM5xr/BVj86fbj/Zrd+VCNNY=
-X-Gm-Gg: AYBFou0UKdZ3ttqOEpsKOlyPhYsVhHqAbG3UCK+7nI520aAcW1vhmdJnqJZB2GaxMtf
-	kVnjKWJHyKuKa83gUp0fWvGvDHCr3myt9ziAJcEdgyLVds8KNgZmGOhCOzC3+Lgrkm+tDavsRb8
-	4D10QNlrbGD1G+wiIuBcbfNov3eRxJhdUpw39T1BW4+i4xNrnmbUByZxtsdM8GAfJvXAW3FwIpu
-	hE6NgIOZz6fDtMfM0w4N/KNNBPvVvbq5QIf+hh8y6dM9U1lMiER4pzgAmVPggOyynx31/SOpQzG
-	UyyDAG5YyuB+08m8mtrowHKoY++3YQirI826zp9YSu+IM0wHkISBnXrJA8QIP5SRC8CyyVtMF+1
-	XQ/LeDjQ/3wI+zn4dh9rsbt18FB37MsjvKh+pzoUXwd8ihg==
-X-Received: by 2002:a05:690c:c50f:b0:8aa:2207:60b9 with SMTP id
- 00721157ae682-8ae399a42f2mr4061457b3.20.1790893055774; Thu, 01 Oct 2026
- 15:17:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="a06o7VOQ"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 009E96A6;
+	Fri,  2 Oct 2026 00:48:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790894927;
+	bh=hbaWfqTT50rz/0Ibb9FN7fOZGgV8qI7vnWW/cMLRjW4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a06o7VOQ/FMeaKGKiSjvwGfcThhG66bQ37QKDi4AhXZaK9EOLKgU+UavKTFc7Bq45
+	 hhnb1vXT60FhqY6EdSXuxEBw22asioy9ygmm6oAZ/HKUHuU0IrebS24NNTMjbgIpbp
+	 UtkaUCLgYlF01sIUVXQvo3ZYNBief+LX7Hgv+kQw=
+Date: Fri, 2 Oct 2026 01:50:38 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Yunke Cao <yunkec@google.com>, Ricardo Ribalda <ribalda@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Add quirk for invalid dev_sof in
+ Logitech C925e
+Message-ID: <20261001225038.GA4649@killaraus.ideasonboard.com>
+References: <20260803065811.3490286-1-yunkec@google.com>
+ <e939bb77-94d4-428e-b1a2-fc7d2d052a83@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: leone 1337 <leo.vernisse@gmail.com>
-Date: Fri, 2 Oct 2026 00:17:24 +0200
-X-Gm-Features: AclHuK9AEdDVpvcSnKRgpDu2-HXISQI4ih1r8S951DbXy8W1D3jvmlIvxf_xBms
-Message-ID: <CADah2-fgdwyZOiAEnK6XAe5qLP0mHNRBH6DebPN+XXdgrM+fyQ@mail.gmail.com>
-Subject: [RFC] uvcvideo: Realtek 0bda:579f sends multiple variable-length bulk
- payloads per URB
-To: linux-media@vger.kernel.org
-Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e939bb77-94d4-428e-b1a2-fc7d2d052a83@kernel.org>
 
-Hi,
+On Tue, Sep 29, 2026 at 04:27:17PM +0200, Hans de Goede wrote:
+> Hi,
+> 
+> On 3-Aug-26 08:58, Yunke Cao wrote:
+> > Logitech C925e SOF does not increases at a stable rate of 1kHz.
+> > Add a quirk for this camera to make hwtimestamp usable.
+> > 
+> > Before applying the quirk:
+> > ```
+> > seq:     31 ts: 1075.543294 delta: 29.423 ms fps: 34.94
+> > seq:     32 ts: 1075.573022 delta: 29.728 ms fps: 34.90
+> > seq:     33 ts: 1075.602353 delta: 29.331 ms fps: 34.87
+> > seq:     34 ts: 1075.632031 delta: 29.678 ms fps: 34.84
+> > seq:     35 ts: 1076.177759 delta: 545.728 ms fps: 23.00
+> > seq:     36 ts: 1076.213255 delta: 35.496 ms fps: 23.12
+> > seq:     37 ts: 1076.209371 delta: -3.884 ms fps: 23.82
+> > seq:     38 ts: 1076.232233 delta: 22.862 ms fps: 24.11
+> > seq:     39 ts: 1076.264682 delta: 32.449 ms fps: 24.24
+> > seq:     40 ts: 1076.287318 delta: 22.636 ms fps: 24.52
+> > seq:     41 ts: 1076.285949 delta: -1.369 ms fps: 25.16
+> > seq:     42 ts: 1076.317714 delta: 31.765 ms fps: 25.28
+> > seq:     43 ts: 1076.317085 delta: -0.629 ms fps: 25.89
+> > seq:     44 ts: 1076.339919 delta: 22.834 ms fps: 26.13
+> > seq:     45 ts: 1076.212836 delta: -127.083 ms fps: 28.91
+> > seq:     46 ts: 1076.242494 delta: 29.658 ms fps: 29.00
+> > seq:     47 ts: 1076.271852 delta: 29.358 ms fps: 29.09
+> > seq:     48 ts: 1076.301739 delta: 29.887 ms fps: 29.17
+> > seq:     49 ts: 1076.330887 delta: 29.148 ms fps: 29.26
+> > seq:     50 ts: 1076.360639 delta: 29.752 ms fps: 29.33
+> > seq:     51 ts: 1076.390095 delta: 29.456 ms fps: 29.41
+> > ```
+> > 
+> > After applying the quirk:
+> > ```
+> > seq:     31 ts: 203.782342 delta: 33.460 ms fps: 30.94
+> > seq:     32 ts: 203.815492 delta: 33.150 ms fps: 30.91
+> > seq:     33 ts: 203.849017 delta: 33.525 ms fps: 30.88
+> > seq:     34 ts: 203.882190 delta: 33.173 ms fps: 30.86
+> > seq:     35 ts: 203.915672 delta: 33.482 ms fps: 30.83
+> > seq:     36 ts: 203.948902 delta: 33.230 ms fps: 30.81
+> > seq:     37 ts: 203.982335 delta: 33.433 ms fps: 30.78
+> > seq:     38 ts: 204.015475 delta: 33.140 ms fps: 30.76
+> > seq:     39 ts: 204.048992 delta: 33.517 ms fps: 30.74
+> > seq:     40 ts: 204.082208 delta: 33.216 ms fps: 30.72
+> > seq:     41 ts: 204.115675 delta: 33.467 ms fps: 30.70
+> > seq:     42 ts: 204.148995 delta: 33.320 ms fps: 30.69
+> > seq:     43 ts: 204.182354 delta: 33.359 ms fps: 30.67
+> > seq:     44 ts: 204.215605 delta: 33.251 ms fps: 30.66
+> > seq:     45 ts: 204.249004 delta: 33.399 ms fps: 30.64
+> > seq:     46 ts: 204.282259 delta: 33.255 ms fps: 30.63
+> > seq:     47 ts: 204.315686 delta: 33.427 ms fps: 30.61
+> > seq:     48 ts: 204.348945 delta: 33.259 ms fps: 30.60
+> > seq:     49 ts: 204.382337 delta: 33.392 ms fps: 30.59
+> > seq:     50 ts: 204.415570 delta: 33.233 ms fps: 30.58
+> > seq:     51 ts: 204.449069 delta: 33.499 ms fps: 30.56
+> > seq:     52 ts: 204.482218 delta: 33.149 ms fps: 30.55
+> > seq:     53 ts: 204.515706 delta: 33.488 ms fps: 30.54
+> > seq:     54 ts: 204.548940 delta: 33.234 ms fps: 30.53
+> > seq:     55 ts: 204.582403 delta: 33.463 ms fps: 30.52
+> > seq:     56 ts: 204.615563 delta: 33.160 ms fps: 30.51
+> > seq:     57 ts: 204.649057 delta: 33.494 ms fps: 30.50
+> > seq:     58 ts: 204.682301 delta: 33.244 ms fps: 30.49
+> > seq:     59 ts: 204.715735 delta: 33.434 ms fps: 30.48
+> > seq:     60 ts: 204.748890 delta: 33.155 ms fps: 30.48
+> > ```
+> 
+> Thank you for your patch.
+> 
+> I have merged this into:
+> 
+> https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
+> 
+> > lsusb -v
+> > 
+> > Bus 003 Device 005: ID 046d:085b
+> > Device Descriptor:
+> >   bLength                18
+> >   bDescriptorType          1
+> >   bcdUSB               2.00
+> >   bDeviceClass            239
+> >   bDeviceSubClass         2
+> >   bDeviceProtocol         1
+> >   bMaxPacketSize0        64
+> >   idVendor           0x046d
+> >   idProduct          0x085b
+> >   bcdDevice            0.16
+> >   iManufacturer           0
+> >   iProduct                2 Logitech Webcam C925e
+> >   iSerial                 1 2F2036AF
+> >   bNumConfigurations      1
+> > 
+> > Signed-off-by: Yunke Cao <yunkec@google.com>
+> > ---
+> >  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> > 
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > index e289cc71ba98..5b9ea19ad9f2 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -2706,6 +2706,15 @@ static const struct usb_device_id uvc_ids[] = {
+> >  	  .bInterfaceSubClass	= 1,
+> >  	  .bInterfaceProtocol	= 0,
+> >  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
+> > +	/* Logitech HD Pro Webcam C925e */
+> > +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+> > +				| USB_DEVICE_ID_MATCH_INT_INFO,
+> > +	  .idVendor		= 0x046d,
+> > +	  .idProduct		= 0x085b,
+> > +	  .bInterfaceClass	= USB_CLASS_VIDEO,
+> > +	  .bInterfaceSubClass	= 1,
+> > +	  .bInterfaceProtocol	= 0,
+> > +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
 
-I=E2=80=99ve been investigating a long-standing webcam issue on a Razer Bla=
-de 14
-(2017), using a Realtek USB camera with VID:PID 0bda:579f with the
-help of Codex.
+The entry isn't correctly sorted by VID:PID. I'll fix it and rebase the
+for-next branch.
 
-This appears related to the issue reported for the same device in 2017 and
-to Julian Meyer=E2=80=99s 2020 work on handling multiple UVC bulk payloads =
-inside
-a single URB.
+> >  	/* Logitech Rally Bar Huddle */
+> >  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+> >  				| USB_DEVICE_ID_MATCH_INT_INFO,
 
-Old report:
-https://sourceforge.net/p/linux-uvc/mailman/message/35729061/
+-- 
+Regards,
 
-Kernel bug:
-https://bugzilla.kernel.org/show_bug.cgi?id=3D207045
-
-Previous patch:
-https://lore.kernel.org/lkml/20200420191506.664877-1-julianmeyer2000@gmail.=
-com/
-
-I reproduced the issue on Ubuntu 26.04.1 with kernel 7.0.0-38.
-
-With the stock uvcvideo driver, 12 of the camera=E2=80=99s 30 advertised
-format/resolution/frame-rate combinations fail. For example, 640x480 YUYV
-returns buffers marked faulty and shorter than the expected 614400-byte
-image.
-
-USB captures showed that a complete 640x480 YUYV frame contains:
-
-614400 bytes image data
-
-+six 12-byte UVC payload headers
-
-=3D614472 USB bytes
-
-The additional payload headers appear at 512-byte USB packet boundaries
-inside 16 KiB bulk URBs.
-
-One additional observation may be relevant to the previous proposed fix:
-the camera=E2=80=99s bulk payload lengths are not fixed.
-
-For one negotiated max payload size of 119296 bytes, observed payload spans
-included:
-
-103936
-107520
-128000
-129024
-
-I initially tested an implementation based on the negotiated fixed size,
-but it failed during live capture.
-
-I then implemented a device-specific uvcvideo quirk for 0bda:579f. For
-this device only, the bulk decoder recognizes packet-aligned 12-byte UVC
-headers using FID, PTS and forward SCR continuity and splits multiple
-payloads contained in the same URB.
-
-The normal bulk decoder remains unchanged for all other devices.
-
-Testing so far:
-
-    - all 30 advertised YUYV/MJPEG combinations pass
-    - 360 matrix frames with zero V4L2 error buffers
-    - all 192 MJPEG matrix frames decode
-    - 5400 complete 640x480 YUYV frames over ~3 minutes
-    - ~3 minutes of decoded 1920x1080 MJPEG through GStreamer
-    - repeated open/close during mode testing
-    - successful capture after one S3 suspend/resume cycle
-    - ASan/UBSan testing of extracted decoder logic against captured and
-    - synthetic inputs
-
-The implementation currently exists as a local three-file patch against
-the Ubuntu 7.0.0-38 UVC driver. It adds a device quirk and a separate bulk
-payload decoder for this camera.
-
-Before spending time porting and formatting this properly against the
-current media tree, I=E2=80=99d like to ask what approach would be preferre=
-d
-upstream.
-
-Would a narrowly scoped quirk for 0bda:579f be acceptable, or would you
-rather see this handled as a generic improvement to UVC bulk payload
-parsing?
-
-I can provide the patch, USB capture analysis, validation results and a
-version rebased against the current media tree if useful.
-
-Thanks,
-L=C3=A9o Vernisse
+Laurent Pinchart
