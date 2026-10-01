@@ -1,34 +1,35 @@
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
+Received: from mta1.migadu.com (out-90.mta1.migadu.com [95.215.58.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6BD526A8D
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 17:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA18346774
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 17:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.90
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790876204; cv=none; b=YmNQ0L46gbo/Zsxr926XXLo2tRVNea25/yuaFZ6lCKqmyrJaeOrXj0Sn9nCcZ9F8bXfA+qzZh59Uyo5A7TsK/Wm3ED8BLGlsYCwHa6aX6BRKLE16nKDt4QEkTno5I5khIheFAR9nKiN9jeWb0PcY9f9v9W2k6uOT0MuK+whiwM4=
+	t=1790876205; cv=none; b=eVnSJFJU5+mAJ5X3rWU7iGXAZRxOoFVSpuf48/PeN+VdhoYtKymMjmFHbO6g6BmqOT6hff1ool2u5pMKfyOxClleitVhGrt5D8BIMzzVtKn3/wQPZIZCFeVMqcjUVXF5IXtabAL0qgBOnwWeL3ugjC6avycCciMonMQG1Izrdq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790876204; c=relaxed/simple;
-	bh=1S97aZ5lqXhW4kBuXjOjGy0qBmexZE7CglrgJsyPvnY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jy3I90EZgMvZ6wP+MLnirE+bwKUSTe74fs3qce54zPGl2/+j1AIgKSb4qyw/2FLk3GwIRqf5UB+mBuzR+vDrpJSb/BiTyMDuNBoGiNan991QcbB9Om2yfeylWU/T1tFZ9/34aTgMQQteuEvRCjL71OhfJEtDISFupLYqJOzlQ6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=Y55wQwAV; arc=none smtp.client-ip=91.218.175.1
+	s=arc-20240116; t=1790876205; c=relaxed/simple;
+	bh=SoALhT7ctD/Ofq5oEPYAXAkgPEKatIJv6UIilwTDtfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H7waVy1kfg04J209cYwY70a5a6EtkeVtLohxoZ81saiwGEZ6TuJ8MP3HyCCWcte272yyFu6SbzCbuqN9VI+4SI5WOR9ImA6ElYm9qDJYfYzGGT9SfJFSTFV6SRMqj+1YejSU/am2+WLas6QOL/TK2IC6Qa9MqmXDMvWzoxVNTLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=kNnE23VM; arc=none smtp.client-ip=95.215.58.90
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="Y55wQwAV"
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="kNnE23VM"
 X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1S97aZ5lqXhW4kBuXjOjGy0qBmexZE7CglrgJsyPvnY=;
+DKIM-Signature: a=rsa-sha256; bh=SoALhT7ctD/Ofq5oEPYAXAkgPEKatIJv6UIilwTDtfw=;
  c=simple/simple; d=cknow-tech.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790876199; v=1; x=1791480999;
- b=Y55wQwAVU5NyiMLjmzQs5YxkE383hNNktO0WHGn47RJLsGXdIUcVbp6An7Sw47e6uU14md6g
- 4rKD+gx466Bo4wnMZqOdabJc9TCrV6s3DWDKDKXxQ1EtWsNaZxd76U8s4j7JhphLZwmh+L0u0Gc
- 1WqXinNUam9G5UgM+dEfJB73disd2Jzrk7lxOaodRDpNo7Kp17LkR2gjs7hhuOwUvFOaKGf8nxC
- kleb/69b7aKoDwB4H72TVdH9YYaUKSxnUne/iD0Q+TzrJDU/hhUkutryp7iGRxUeWrOUc8xr0py
- ylQznPCzzegwvQrJ/AHsk8+uYtdDWR95FQfCuVQ9Rzn2Q==
+ t=1790876201; v=1; x=1791481001;
+ b=kNnE23VMQUox9UleXFY4PNjn7rrveHEZaklWe3JIC+p0zRHUJ6HokdlBNuZ4jiVY+4MfZlQT
+ z524uyUVnXHwC8OhWLIK3y1bCuYTwppQgwB13mU7AOMBWnkcduQgoxSN8ZFnaHdfKLo3m9OrME8
+ VpsYKGlMcX88ZrdhtUWHSd2k8xASY42Q0tMgKgBgltJGovtLIuqNUwuZzBz91MAAe7F8qjrc3Za
+ mTPQF8rDQmEQnxJ4rvf5HjMuIKo+llhoWVQ5mfS8Cdxmfk/nkP4g/s67Q4JOJfoLN5tX/rxACBG
+ X/S81yc61Se6niAHcjjZh3s0yz0XIykiXzsNMDFQZPSRw==
 X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e9cad268562f180b;
-	Thu, 01 Oct 2026 17:36:29 +0000
-X-Mizu-Trace-ID: e9cad268562f180b
+Received: by smtp.migadu.com with ESMTPS id 0533d356648de116;
+	Thu, 01 Oct 2026 17:36:40 +0000
+X-Mizu-Trace-ID: 0533d356648de116
 X-Migadu-Flow: FLOW_OUT
 From: Diederik de Haas <diederik@cknow-tech.com>
 To: Dafna Hirschfeld <dafna@fastmail.com>,
@@ -43,10 +44,12 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH 0/3] media: rockchip: Modernize PM_OPS
-Date: Thu,  1 Oct 2026 19:34:50 +0200
-Message-ID: <20261001173610.158931-1-diederik@cknow-tech.com>
+Subject: [PATCH 3/3] media: rkisp1: Switch to modern PM_OPS
+Date: Thu,  1 Oct 2026 19:34:53 +0200
+Message-ID: <20261001173610.158931-4-diederik@cknow-tech.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001173610.158931-1-diederik@cknow-tech.com>
+References: <20261001173610.158931-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -55,32 +58,61 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A bunch of new PM_OPS macros got introduced in commit
+A new set of modern PM_OPS macros got defined in commit
 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
 
-Straight up copied from that commit message:
+Switch to those new macros so that the PM callbacks are always seen by the
+compiler, but discarded if not used. This lets us drop the __maybe_unused
+annotation from the callback functions.
 
-    These new macros are very similar to their SET_*_PM_OPS() equivalent.
-    They however differ in the fact that the callbacks they set will always
-    be seen as referenced by the compiler. This means that the callback
-    functions don't need to be wrapped with a #ifdef CONFIG_PM guard, or
-    tagged with __maybe_unused, to prevent the compiler from complaining
-    about unused static symbols. The compiler will then simply evaluate at
-    compile time whether or not these symbols are dead code.
-
-So convert the rockchip media components which used the old macros to the
-new ones.
-
-Diederik de Haas (3):
-  media: rkvdec: Switch to modern PM_OPS
-  media: rockchip: rga: Switch to modern PM_OPS
-  media: rkisp1: Switch to modern PM_OPS
-
- drivers/media/platform/rockchip/rga/rga.c           |  9 ++++-----
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
  drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c | 11 +++++------
- drivers/media/platform/rockchip/rkvdec/rkvdec.c     |  9 +++------
- 3 files changed, 12 insertions(+), 17 deletions(-)
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c
+index f90e01301943..e619a949dbc9 100644
+--- a/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c
++++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c
+@@ -305,7 +305,7 @@ static int rkisp1_subdev_notifier_register(struct rkisp1_device *rkisp1)
+  * Power
+  */
+ 
+-static int __maybe_unused rkisp1_runtime_suspend(struct device *dev)
++static int rkisp1_runtime_suspend(struct device *dev)
+ {
+ 	struct rkisp1_device *rkisp1 = dev_get_drvdata(dev);
+ 
+@@ -331,7 +331,7 @@ static int __maybe_unused rkisp1_runtime_suspend(struct device *dev)
+ 	return pinctrl_pm_select_sleep_state(dev);
+ }
+ 
+-static int __maybe_unused rkisp1_runtime_resume(struct device *dev)
++static int rkisp1_runtime_resume(struct device *dev)
+ {
+ 	struct rkisp1_device *rkisp1 = dev_get_drvdata(dev);
+ 	int ret;
+@@ -351,9 +351,8 @@ static int __maybe_unused rkisp1_runtime_resume(struct device *dev)
+ }
+ 
+ static const struct dev_pm_ops rkisp1_pm_ops = {
+-	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+-				pm_runtime_force_resume)
+-	SET_RUNTIME_PM_OPS(rkisp1_runtime_suspend, rkisp1_runtime_resume, NULL)
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
++	RUNTIME_PM_OPS(rkisp1_runtime_suspend, rkisp1_runtime_resume, NULL)
+ };
+ 
+ /* ----------------------------------------------------------------------------
+@@ -815,7 +814,7 @@ static struct platform_driver rkisp1_drv = {
+ 	.driver = {
+ 		.name = RKISP1_DRIVER_NAME,
+ 		.of_match_table = of_match_ptr(rkisp1_of_match),
+-		.pm = &rkisp1_pm_ops,
++		.pm = pm_ptr(&rkisp1_pm_ops),
+ 	},
+ 	.probe = rkisp1_probe,
+ 	.remove = rkisp1_remove,
 -- 
 2.55.0
 
