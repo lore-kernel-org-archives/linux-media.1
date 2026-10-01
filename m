@@ -1,86 +1,79 @@
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754561F8691
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 14:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B12D3A6B6C
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 14:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866085; cv=none; b=XEwenRRDOspIi+GDKzP3IBt/3OytQNwu67ysAXvKxBPLRQWBdwBfSdAyP07W8UEeVgEmRbukOByBwm4wXg4Bi1ekvX2wJAE2IIKc200OdxZcbGoBAcY2pLqxwppDXM37eWud7iyoje/q78tRkEFOcg5cRRuRNmue+RYmhtvj9Mw=
+	t=1790866252; cv=none; b=AZ5XvWp4CitVzBQ6/vmf4UQ2ksqDCOmPh/bTwXmtRyvBNSpVjBoTg9RJYOzv4DmTnn8ii7BfYcXZdsS/4WuDN/dyqBgSqoLSRw+aQj1Vr+2REpou+kRAEYlId+DHv3hoI3XlM5d/IGjwz9Yn2M8ja0V73vSFX+6tJCemeBs4Z3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866085; c=relaxed/simple;
-	bh=rK0uz/KSkFjE1x+MXlOe6fim8a3tw/1d0l+5isYZhlA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pPtJPei5axR4pPyKClx6au5Ux0pMU9YElN/CBMKpOfOK0vfwgzZoufwvbzhgj6EHyOrkrooam9MwRGf3dUQpTBBlojpeHLow/m54JSg6zooGd78hUr6bMGBjkaHUlWwgD/OArTiBkh0KN9jJ/0dnGpRNdfRVJckAi5ulxYUG0/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CfoPka6L; arc=none smtp.client-ip=74.125.230.98
+	s=arc-20240116; t=1790866252; c=relaxed/simple;
+	bh=dDIRB5Oi9FoUSrNMqIkdMDYOwZXhk13+e4IgFEYdx7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QyV1p0WmrN8s+iyJGfYe6PXcssKbQ6jyKQbcqtQUlks37qMJiDuNX0t/NQJAVKq6PBYLxVrvS3EuNF0xXIYHF0b8ln7mWXgbAaUfVkJ3ZwY6RgEY5y03I3D+vcQ3GB5wsYBYLp1+wbTDuCDK0NS9bdcdKDeSmFav4Dyf3fe9JjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I3PwQCu5; arc=none smtp.client-ip=74.125.229.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CfoPka6L"
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a772de44c5so17729531fa.1
-        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 07:48:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I3PwQCu5"
+Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so74526eec.0
+        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 07:50:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790866078; x=1791470878; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7FOj1RGK/mRk1UhJU2+5CuBy3GqPCpS4tTpMqltPtOA=;
-        b=CfoPka6LNgH6fX3A9a5+O26ytPhKIxp4IxTWSsjpnkAKmmvQ4CSyTtp2PJ7uo5dQHo
-         hzZ0ABXnIy0A2UmgbrA02FXAEgTBktGheQ3LYD0CI/VualuSksb2ZBKLVqYRo1MpcsBa
-         ZshPZIs+gkemwLZUqVcnxeX2FUliHszyD2jmAIEmQDt4mOAbfDwh/nLmmKUETFTXATRd
-         LZnQfLF7BWLYiBshtHx8CfRz7tgY48/T6hzqGqEDP+entcr2ZSDRiGgCV7bTDkTS9HxQ
-         Z1MY1deL2KOUEg8CNHllPcsS2ig6ZyufCsqAGPDgcwdvjWlK3kHairqD/NXsWAsNqedj
-         MORA==
+        d=gmail.com; s=20251104; t=1790866249; x=1791471049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MawLjsR6a0c8Iz3+/frylZDgFlv1Xa4BhzLG/vLSrIU=;
+        b=I3PwQCu53fz6FY7V6VAX+1t1OXe5L4DlKKEo23M5BX6WreIRIYi4Lq5W00BtLUTeN6
+         PfFfFC+7nJY3Bv6gzAN+gMoMQKDHm3IFd4+QjIYb100jiZw8sdQO9Segon+YW0C2OGJz
+         LR+qsfWZ5OLMvKVoSgRNHIDH/4PCkbFvmgHa7DnVnAeidvHnCDAGYLrcb0h1ecBTqPmc
+         JfxuX7tMu3tab5PsmPvwT1XN8V7bOxCs/5CZuRqc1DmGzutsElIacoGZvAfQayPx0c1s
+         5eHiUUNXm/qsWeMbtChn3nEvgyQvE48bJfy7bfTtvWrGA2FfwcnCdSRf7Px796W7JTpg
+         0jYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790866078; x=1791470878;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7FOj1RGK/mRk1UhJU2+5CuBy3GqPCpS4tTpMqltPtOA=;
-        b=n8ex75UpE1wgCwKgtdGXg5U43qiQm8V0hFjOvNVIZ2/kSbuFCPYMq3KU78W6iYBVYr
-         Fa/87QsT0U0vI3ULEmV5FZE+f4uyJEBd1YTjTYZLct2IwbDrUOwAq6g9IOvfPT2cugnV
-         K0edcRBJllzgYJkKAaZf/iBYZMqlakZifIGEWMMds3HTzInqZOood2RB65nlMFhHAfDH
-         q+7jDmIFoCk8rf+oe3adB1dj3Sq1xz0op1O9o370rNoJvrGLUKt3GveL6mx2XOI3v+pt
-         duKiVuoovM61q+gFYYF6SOzuSygR/Ryd5ddbgFtadxm24ZxSXW8W3tORFYEgioeFcmAU
-         piPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmHaMdWKBs5LbLRNK3LOLcbn+6SYSThiXMTYDqPwttCnE3J/cLRj0UVAKOkq3POVdW5Sg5a1Y8WSUaMg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdJfzL4XmLJoeOXI/v/VrCsNWu5RTTlPqJblG6RQetnXZSmy8U
-	V2FWYzPmipZ2IzqqJjqO08g/2g/1g40vaXVbHQmNfs4bipuqhzBPmvXk
-X-Gm-Gg: AYBFou12mnVXrNaPEdWgvS547tql0PjsSfcSbVyjSWH/ZJgwfTKIXhlVgQGeAbXLMT4
-	H2eC1Z02z/hI++5dzSk98KdSWNOLUi/AxIOXQqB/M0TPJa6mZEaot3jk20Cn0MsYHz3cvTsekQV
-	Ss42xWLbJ8xSVD3k29E1QJEvE2IJZ5cKr/BXlBPxIToMiGVeCW4P6CouQENAFo3kuVvG7fK4BMe
-	JePJbSrtNG9WZfTJ26dqaa1gMCq8UTQVVdev/R7hGWmxz01cVyFWmBhL7bTVaTxkf79DuFjludX
-	E1X5/hs/XQfCM7FZz2jqKq7zx1YtEypsEszSi556E7FYTjlyY0uckKeSMjLs6h5fqqkrsgj5x78
-	Vysl2jkepUwpLUc0FWl/JLjLhORTlAMLuLG/OYlop1cEzRSAvBrJ5TwRy6kuktRqq4UoOvdw9ss
-	G47BvxXVnAO8YQ+zQjpGF8X404nC8Y1gM383lq2+wAANELRVF8rWmyUgiCgks+XISED7BiQScCK
-	fkLZeY7Pec=
-X-Received: by 2002:a05:651c:41d5:b0:3a7:72ec:81aa with SMTP id 38308e7fff4ca-3a779207c3dmr16366201fa.28.1790866077663;
-        Thu, 01 Oct 2026 07:47:57 -0700 (PDT)
-Received: from quietus.tail91f8a6.ts.net ([169.40.47.10])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87cfec0efsm918191fa.17.2026.10.01.07.47.55
+        d=1e100.net; s=20260707; t=1790866249; x=1791471049;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MawLjsR6a0c8Iz3+/frylZDgFlv1Xa4BhzLG/vLSrIU=;
+        b=2Yi4qD0JdrITtDYZvjj19NThjfmIr6BvPIoZIfxXIU3zCsDO24XFYTu+ZD7Lf01EI7
+         i9OmQmIsfyRtoWVs/K3zdiTlAyZNsGjiyBYvyI3+feWfJv/an9or2Bnxs0xf4cI/1F5i
+         THVls2mRnPjlkyMtSeQqtGbGsaUXvoIhU9HYtlQrL0Gb6yJ8cxOjyB768KNNvNiDRGiI
+         hwopf3xzEzNyRSpXcHQf4VpDFrw3eL4HwZ76/w/lb7+wMHNXClTa4fiJzY32dKxvTZz1
+         XupHVT/hU0D7MvP5e5zwO1EgocxElyatsaIUVD16+7M1KEOp0U/goS72jqdj7FUb7ve+
+         VE3Q==
+X-Forwarded-Encrypted: i=1; AKwUvByeMjZqXvLVZwdDLN1FMScu0fH6DA20MwJBVl2ujfd4PTYbGe9baQjBYqTjieu9YbJlpMIFgq1ARFDZNw==@vger.kernel.org
+X-Gm-Message-State: AFuF++mVc4wpJ6tCkYHdOPnRXkhsN0cf+CvHtv23eCg5MXM7JK48EL6D
+	UcglqNp9CIrJzHbbycTle7X20vBqJ9EtltTnd8NdOl1dJO5RaDrfQzLh
+X-Gm-Gg: AYBFou1vcMo5KR0F8V63q+AJdxQ9R6DbrZ/J0kM5JR1A7PoeHXMQVNDKh5x795A77S9
+	B9iyiT/bEO4n2tRgWMma31U3j7POASG4oK/YRTtwvyvTJISrX5S72mJ+y54d9xQSLOImDwYil/l
+	udja+GiRzxqRHNzeDa+CL2G0k3G5g6WcDHMme7bEvWJq7vkthGY/J49iSIf6Kn+VkculbwORffw
+	EXAy6ElRy9PwFCoDptdeVMwgAxVZrhjQQGQSyVzqlsIBbnmGBNo7JpGBlBa1d3QYOqilHhRrt9L
+	AfKSp0bTbqg2ADjhSC+BUFUWQkm9KOorm8hwO5vX7ccVMDX6ZPE09UM4PJ2a0dcj4ZXlkpXYRds
+	gIeTtA0iljz1MpbTz4eQziupiZRlDaeuKoumAMGEpYa4jlMOiRH95QouvcioYaG8vKvv0ARve1h
+	/hnQqS/7EPG6S6rhaR2YF4KaW8v6NhqoYNmkyMQQcV3wkmjueXRuhwQsNAqNn7ic0d9KsrVxF4N
+	rMXfJjgdft4qQ2JXIuyRnkwii0=
+X-Received: by 2002:a05:7300:8aaa:b0:34b:e21e:5e2c with SMTP id 5a478bee46e88-34cdb1feb63mr5732460eec.12.1790866248511;
+        Thu, 01 Oct 2026 07:50:48 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34e7ff86d5csm5048122eec.5.2026.10.01.07.50.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:47:57 -0700 (PDT)
-From: Ruslan Koreev <koreev.r@gmail.com>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>
-Cc: Ruslan Koreev <koreev.r@gmail.com>,
-	sakari.ailus@linux.intel.com,
-	benjamin.mugnier@foss.st.com,
-	sylvain.petinot@foss.st.com,
-	dan.scally@ideasonboard.com,
-	mchehab@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	gregkh@linuxfoundation.org,
+        Thu, 01 Oct 2026 07:50:47 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
 	linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	pm@petermarshall.ca
-Subject: Re: [PATCH 4/4] media: staging/ipu7: Add monochrome pixel formats
-Date: Thu,  1 Oct 2026 17:47:47 +0300
-Message-ID: <20261001144747.1167917-1-koreev.r@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <aru5-aq_sPUDy8dq@ThinkPad>
-References: <20260924171820.1179823-1-koreev.r@gmail.com> <20260924171820.1179823-5-koreev.r@gmail.com> <arY2CULvwXGyVvH_@kekkonen.localdomain> <20260929092238.1765758-1-koreev.r@gmail.com> <aru5-aq_sPUDy8dq@ThinkPad>
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v7] media: qcom: iris: release OPP constraints on VPU power-on failure
+Date: Thu,  1 Oct 2026 14:50:33 +0000
+Message-ID: <20261001145033.17652-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,57 +82,134 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Qiling,
+The per-block cleanup paths request a zero rate through
+iris_opp_set_rate(). This selects the minimum OPP rather than
+disabling the OPP constraints, so a failed VPU power-on can leave
+required-OPP performance-state requests installed. Supplier reference
+cleanup after a failed runtime resume does not itself request supplier
+suspension.
 
-On Tue, Sep 29, 2026 at 09:25:39PM +0800, Qiling Zhu wrote:
-> Since you reported successful plain-V4L2 Y10/Y10P streaming on
-> next-20260924, could you share the exact media-ctl/v4l2-ctl commands
-> and any setup performed before STREAMON?
+Move the maximum OPP request to iris_vpu_power_on(), leaving the
+per-block helpers responsible for their power domains and clocks.
 
-I tested on next-20260924 with intel-ipu6 bound to 8086:b05d and v1
-patches 1-3, with the vd55g1 changes reworked for v2. Before the plain
-V4L2 test, I ran the following with libcamera 0.7.2:
+When controller or hardware power-on fails after the OPP request
+succeeds, unwind the acquired clocks and functional domains, then
+disable the OPP constraints with dev_pm_opp_set_opp(dev, NULL).
 
-  cam -l
-  timeout 30 cam -c '\_SB_.LNK1' -C5 -s width=804,height=704
+Report an OPP-disable failure without replacing the original error,
+and continue ICC cleanup. Keep failures of the maximum OPP request on
+the ICC-only cleanup path. Recovery from partial failures in the OPP
+transition itself and the existing normal-power-off behavior are
+outside this change.
 
-That captured five frames at 804x704 R8. Afterwards, media-ctl -p
-showed Y8_1X8/804x704 on sensor pad 0 and CSI2 pads 0 and 1. The sensor
-link was enabled and immutable, and this capture link was enabled:
+Fixes: f6940b79fcb6 ("media: iris: Fix opp scaling of power domains")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Changes in v7:
+- Rebase the fix onto the updated power-domain and clock helpers.
+- Remove OPP handling from the per-block power-domain and clock helpers.
+- Keep the maximum OPP request in iris_vpu_power_on().
+- Use the NULL-OPP disable path for failures after a successful maximum
+  OPP request.
+- Keep a separate ICC-only cleanup path when the maximum OPP request
+  itself fails.
+- Preserve the original power-on error if OPP disable fails.
 
-  "Intel IPU6 CSI2 2":1 -> "Intel IPU6 ISYS Capture 16":0
+Changes in v6:
+- Move OPP handling from the power-domain helpers to
+  iris_vpu_power_on().
+- Request the maximum OPP before powering on the controller and
+  hardware.
+- Add a zero-rate OPP request to the VPU power-on error path.
+- Keep the power-domain helpers limited to runtime PM operations.
+- Replace pm_runtime_get_sync() with pm_runtime_resume_and_get().
+- Rename the patch to reflect the new approach.
+- Update the Fixes tag to the commit that introduced required-OPP
+  performance states.
 
-I did not enable any links manually. I have not repeated this sequence
-from a fresh boot using only media-ctl and v4l2-ctl, so the prior
-libcamera setup is relevant to reproducing my test.
+Changes in v5:
+- Return pm_runtime_resume_and_get() directly.
+- Handle pm_runtime_put_sync() failures while preserving an earlier
+  OPP-update error.
+- Add a blank line before the rollback return.
 
-For each format, I ran these commands first:
+Changes in v4:
+- Convert the OPP rollback to a goto-based cleanup path.
 
-  sudo media-ctl -V '"vd55g1 1-0010":0 [fmt:Y10_1X10/804x704]'
-  sudo media-ctl -V '"Intel IPU6 CSI2 2":0 [fmt:Y10_1X10/804x704]'
-  sudo media-ctl -V '"Intel IPU6 CSI2 2":1 [fmt:Y10_1X10/804x704]'
+ drivers/media/platform/qcom/iris/iris_resources.c  |  7 -------
+ drivers/media/platform/qcom/iris/iris_vpu_common.c | 12 ++++++++++--
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
-Then, for Y10 (with the trailing space in the FourCC):
+diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
+index 7149a5bf4e7f..b1734e5ecf60 100644
+--- a/drivers/media/platform/qcom/iris/iris_resources.c
++++ b/drivers/media/platform/qcom/iris/iris_resources.c
+@@ -77,10 +77,6 @@ int iris_enable_power_domain_and_clocks(struct iris_core *core, struct iris_powe
+ {
+ 	int ret, i;
+ 
+-	ret = iris_opp_set_rate(core->dev, ULONG_MAX);
+-	if (ret)
+-		return ret;
+-
+ 	for (i = 0; i < pd->pd_cnt; i++) {
+ 		ret = pm_runtime_resume_and_get(pd->dev[i]);
+ 		if (ret < 0)
+@@ -94,8 +90,6 @@ int iris_enable_power_domain_and_clocks(struct iris_core *core, struct iris_powe
+ 	return 0;
+ 
+ error:
+-	iris_opp_set_rate(core->dev, 0);
+-
+ 	while (--i >= 0)
+ 		pm_runtime_put_sync(pd->dev[i]);
+ 
+@@ -107,7 +101,6 @@ void iris_disable_power_domain_and_clocks(struct iris_core *core, struct iris_po
+ 	int i;
+ 
+ 	clk_bulk_disable_unprepare(pd->clk_cnt, pd->clocks);
+-	iris_opp_set_rate(core->dev, 0);
+ 
+ 	for (i = 0; i < pd->pd_cnt; i++)
+ 		pm_runtime_put_sync(pd->dev[i]);
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+index 22d394851ef1..9bd59bbfc109 100644
+--- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
++++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+@@ -413,16 +413,20 @@ u64 iris_vpu3x_vpu4x_calculate_frequency(struct iris_inst *inst, size_t data_siz
+ int iris_vpu_power_on(struct iris_core *core)
+ {
+ 	u32 freq;
+-	int ret;
++	int ret, opp_ret;
+ 
+ 	ret = iris_set_icc_bw(core, INT_MAX);
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = core->iris_platform_data->vpu_ops->power_on_controller(core);
++	ret = iris_opp_set_rate(core->dev, ULONG_MAX);
+ 	if (ret)
+ 		goto err_unvote_icc;
+ 
++	ret = core->iris_platform_data->vpu_ops->power_on_controller(core);
++	if (ret)
++		goto err_opp;
++
+ 	ret = core->iris_platform_data->vpu_ops->power_on_hw(core);
+ 	if (ret)
+ 		goto err_power_off_ctrl;
+@@ -442,6 +446,10 @@ int iris_vpu_power_on(struct iris_core *core)
+ 
+ err_power_off_ctrl:
+ 	core->iris_platform_data->vpu_ops->power_off_controller(core);
++err_opp:
++	opp_ret = dev_pm_opp_set_opp(core->dev, NULL);
++	if (opp_ret)
++		dev_warn(core->dev, "failed to disable OPP: %d\n", opp_ret);
+ err_unvote_icc:
+ 	iris_unset_icc_bw(core);
+ err:
+-- 
+2.43.0
 
-  sudo v4l2-ctl -d /dev/video16 --set-fmt-video \
-    'width=804,height=704,pixelformat=Y10 '
-  sudo v4l2-ctl -d /dev/video16 --get-fmt-video
-  sudo timeout 20 v4l2-ctl -d /dev/video16 --stream-mmap=4 \
-    --stream-count=5 --stream-to=/tmp/ir-Y10.raw
-
-I repeated the three media-ctl commands, then used:
-
-  sudo v4l2-ctl -d /dev/video16 --set-fmt-video \
-    'width=804,height=704,pixelformat=Y10P'
-  sudo v4l2-ctl -d /dev/video16 --get-fmt-video
-  sudo timeout 20 v4l2-ctl -d /dev/video16 --stream-mmap=4 \
-    --stream-count=5 --stream-to=/tmp/ir-Y10P.raw
-
-Both Y10 and Y10P captured five frames successfully and the images
-looked correct.
-
-I have not tested next-20260928, so I cannot yet explain the EPIPE.
-Could you capture media-ctl -p immediately before STREAMON and any
-IPU or vd55g1 messages from dmesg after it fails?
-
-Ruslan
