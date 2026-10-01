@@ -1,57 +1,60 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A454FDE7B
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 12:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31F45012A3
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 12:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858753; cv=none; b=mmRKISUsvvAnGpWNrAnAEU6/ALQD4JqvrophBuiMpMxaureuQEkEvel+rNM3Fy0q48RKue7futAdRezgQaw7OGmtac3K2skzxSDcD9cGIAOfG+Xq84el2vUyNLWlLxR0JAqTD5z+tqCHsXXIOVDhibdnpERBop8Jtbj1f1E9AlY=
+	t=1790858754; cv=none; b=REmgZR4CrhelB2F23BgyFkoCVaBMUXJ8aZ4LEDXD590cNLnrMwr9srhWuea0bVltDQiwMPFeWLRTSy4/aodb0/mWFz43X429VsRpVWeIPBVnj8Xay1C3eXtlX5OZVGme/urhiFVS5g848ct0FfF5n01E2jeuITc9rrjR3G/RV+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858753; c=relaxed/simple;
-	bh=9LjKYGDOo5Vi4A+zsb5F+IE4GsxVUeB/m9SifdQPXtk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gPCYTeQdjR/BwOw6w1NoGjh0UnOGZ+kFZROqnDnLV/iMjbxmn07EGOV6iBuRngm+wjSiYL+5RlQGmMROBJhqiRXknFu8FkmzX/ekxF79HO4QPXXrqfDQVM9df+liQTBhycYY7y5jPgF3kZLcVpeTKxdRlSoZPzLzxQCVB7EUy74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aIblvpi3; arc=none smtp.client-ip=198.175.65.13
+	s=arc-20240116; t=1790858754; c=relaxed/simple;
+	bh=UlxRCl9vSBazgGUf8fRrAI3G5vnIheZLkkw9mdiXAE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OUt50WjOZRXmdwUf8tMbAYh73Hpl0MymdoYGenx2UfJe2E/AiWw5NgQHCYiThzDvH/xcBBdZUIxLhK4hrlrKHQf8NHLB3RdHP5ckwnPj8CPchjCEwMVcslIWKvEBtif2032IC+5TYwhcu5jq6phUJYENH3Et5IV06VMBngphF0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AJd39AUq; arc=none smtp.client-ip=198.175.65.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aIblvpi3"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AJd39AUq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790858751; x=1822394751;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9LjKYGDOo5Vi4A+zsb5F+IE4GsxVUeB/m9SifdQPXtk=;
-  b=aIblvpi34oudrD9TSOpI7SFBifF/ohvkq+3ZjJPvvM/tfG1/FRRE36eA
-   PCkmYHGcDVFruev0+KgF9Az//Vw+ZcejfBpOEE+iB/96Zqd4uLEdHYW6W
-   dS1qilisk6bL/WKMP2tElsKuBbocsZ89dHTWBejdJkbp9ex2lrmfwBC9R
-   qIpVqsohrbL6Nz70+Z1PbVwxdJvCXh3fZ6n/21r2gUF3nSSVbbsBRHmWu
-   BOTfA1jK/HqIPGMZaFv9L8E4D2DokEaBpNTTwqhsfpAE3diFo6cKnJGIn
-   FtcB0xznmD4n2zRrzArk1ei2i6BNMXvb+mASWsWGtEhjPJ9aMYC9w1rbH
-   w==;
-X-CSE-ConnectionGUID: 5QDRQih4QMujcSvxHDWwmw==
-X-CSE-MsgGUID: E82nN/4BTsKbvPeri0PU8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="101774553"
+  t=1790858753; x=1822394753;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=UlxRCl9vSBazgGUf8fRrAI3G5vnIheZLkkw9mdiXAE4=;
+  b=AJd39AUqDqOrKd8a6Gw9eDDOOi4aQdmJLsOQkb7JU4VBbk4G4eJnd2eA
+   /HQuzrBHrr6rZ4SUsiDprsp6bgmp74RhLS6woFvOgXwnQSEREtEHeDtr+
+   cSeNdG8YV4lQe2iqzgur/njIpbELsrFyQjupcmAt35x42odykciaBINt7
+   ZSgBIagdTfXdJc+tdJNoQKfQz24iO4r5F+fXan+IiqMkM54r47uM/3WJ/
+   CTxckcNgXi2z78nbRyEo3YnV0tRwWZATKX3cVkJsqIpE80aMz99C/RLnf
+   EdOFAg00q6XatvE7CBf2IrJs+xau6M4TNYW6KmWK6EJ9ABFI/33yShOqW
+   Q==;
+X-CSE-ConnectionGUID: XwKEvxAbQn6/Lj3ZiYrj1g==
+X-CSE-MsgGUID: O9ZWZ71jRJeyK/7OcQVwCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="101774555"
 X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="101774553"
+   d="scan'208";a="101774555"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 05:45:51 -0700
-X-CSE-ConnectionGUID: VITDf1PBTCiuWB5425Ycpw==
-X-CSE-MsgGUID: gDYptcARTjSxb9X+dQSm7A==
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 05:45:52 -0700
+X-CSE-ConnectionGUID: lb5+m5nATsaKfT8BN/KmQw==
+X-CSE-MsgGUID: BSwz4ju6Qyifx7mSJQusJw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="313934875"
+   d="scan'208";a="313934883"
 Received: from cooperst-gp119.amr.corp.intel.com (HELO alaakso-desk.intel.com) ([10.125.111.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 05:45:49 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 05:45:51 -0700
 From: Antti Laakso <antti.laakso@linux.intel.com>
 To: linux-media@vger.kernel.org,
 	sakari.ailus@linux.intel.com,
 	sarang.sapre@intel.com,
 	divyamani.tripathi@intel.com
 Cc: manik.bajpai@intel.com
-Subject: [PATCH 0/7] Make ipu7 fw boot code subsystem agnostic
-Date: Thu,  1 Oct 2026 15:45:33 +0300
-Message-ID: <20261001124540.2129309-1-antti.laakso@linux.intel.com>
+Subject: [PATCH 1/7] media: ipu6: Fix media entity names for different ipu versions
+Date: Thu,  1 Oct 2026 15:45:34 +0300
+Message-ID: <20261001124540.2129309-2-antti.laakso@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001124540.2129309-1-antti.laakso@linux.intel.com>
+References: <20261001124540.2129309-1-antti.laakso@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -60,35 +63,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make the ipu7 firmware boot and config helpers independent of isys.
-The set includes a fix for media entity names, and now entities are
-named according to ipu version. Excluding the fix, other changes are
-for preparation only and do not intoruce changes to functionality.
+The media entity name prefix is ipu6 for all the hardware, fix it.
 
-Antti Laakso (7):
-  media: ipu6: Fix media entity names for different ipu versions
-  media: ipu6: Forward declare struct ipu6_mmu
-  media: ipu6: Pass the fw context to the ipu7 boot helpers
-  media: ipu6: Make ipu7 fw config subsystem agnostic
-  media: ipu6: Export the ipu7 firmware boot state
-  media: ipu6: Add the ipu7 psys buttress support
-  media: ipu6: Move ipu7 fw logger and watchdog configuration
+Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+---
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  3 ++-
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      |  3 ++-
+ drivers/media/pci/intel/ipu6/ipu6-isys.h      | 18 +++++++++++++++++-
+ 3 files changed, 21 insertions(+), 3 deletions(-)
 
- drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 22 ++++++++++++
- drivers/media/pci/intel/ipu6/ipu6-buttress.h  |  2 ++
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  3 +-
- drivers/media/pci/intel/ipu6/ipu6-isys.c      |  3 +-
- drivers/media/pci/intel/ipu6/ipu6-isys.h      | 18 +++++++++-
- drivers/media/pci/intel/ipu6/ipu6-mmu.h       |  1 +
- .../intel/ipu6/ipu6-platform-buttress-regs.h  |  4 +++
- drivers/media/pci/intel/ipu6/ipu7-boot.c      | 35 ++++++++-----------
- drivers/media/pci/intel/ipu6/ipu7-boot.h      | 34 ++++++++++++++++--
- drivers/media/pci/intel/ipu6/ipu7-fw-com.h    |  2 +-
- drivers/media/pci/intel/ipu6/ipu7-fw-isys.c   | 13 ++++---
- drivers/media/pci/intel/ipu6/ipu7-fw-isys.h   | 19 ++--------
- .../media/pci/intel/ipu6/ipu7-platform-regs.h | 12 +++++++
- 13 files changed, 118 insertions(+), 50 deletions(-)
-
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+index 4a2b3d460782..152545427930 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+@@ -937,7 +937,8 @@ int ipu6_isys_csi2_init(struct ipu6_isys_csi2 *csi2,
+ 	csi2->asd.source = IPU6_FW_ISYS_STREAM_SRC_CSI2_PORT0 + index;
+ 	csi2->asd.supported_codes = csi2_supported_codes;
+ 	snprintf(csi2->asd.sd.name, sizeof(csi2->asd.sd.name),
+-		 IPU6_ISYS_ENTITY_PREFIX " CSI2 %u", index);
++		 "Intel IPU%s CSI2 %u",
++		 ipu6_isys_entity_version(isys->adev->isp), index);
+ 	v4l2_set_subdevdata(&csi2->asd.sd, &csi2->asd);
+ 	ret = v4l2_subdev_init_finalize(&csi2->asd.sd);
+ 	if (ret) {
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index a6b79a7be871..094a98e31c06 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -263,7 +263,8 @@ static int isys_register_video_devices(struct ipu6_isys *isys)
+ 			struct ipu6_isys_video *av = &isys->csi2[i].av[j];
+ 
+ 			snprintf(av->vdev.name, sizeof(av->vdev.name),
+-				 IPU6_ISYS_ENTITY_PREFIX " ISYS Capture %u",
++				 "Intel IPU%s ISYS Capture %u",
++				 ipu6_isys_entity_version(isys->adev->isp),
+ 				 i * NR_OF_CSI2_SRC_PADS + j);
+ 			av->isys = isys;
+ 			av->aq.vbq.buf_struct_size =
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+index c5c8ede8e64e..f4d00f763eba 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -25,7 +25,23 @@
+ 
+ struct ipu6_bus_device;
+ 
+-#define IPU6_ISYS_ENTITY_PREFIX		"Intel IPU6"
++#define IPU6_ISYS_ENTITY_VERSION	"6"
++#define IPU7_ISYS_ENTITY_VERSION	"7"
++#define IPU7P5_ISYS_ENTITY_VERSION	"7.5"
++#define IPU8_ISYS_ENTITY_VERSION	"8"
++
++static inline const char *ipu6_isys_entity_version(struct ipu6_device *isp)
++{
++	if (IS_IPU8(isp))
++		return IPU8_ISYS_ENTITY_VERSION;
++	if (IS_IPU7P5(isp))
++		return IPU7P5_ISYS_ENTITY_VERSION;
++	if (IS_IPU7_MTL(isp))
++		return IPU7_ISYS_ENTITY_VERSION;
++
++	return IPU6_ISYS_ENTITY_VERSION;
++}
++
+ /* FW support max 16 streams */
+ #define IPU6_ISYS_MAX_STREAMS		16
+ #define ISYS_UNISPART_IRQS	(IPU6_ISYS_UNISPART_IRQ_SW |	\
 -- 
 2.55.0
 
