@@ -1,105 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F97B3C09E5;
-	Thu,  1 Oct 2026 18:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1661738655D;
+	Thu,  1 Oct 2026 18:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790879669; cv=none; b=NTb2Ws5HSQ91MhQyKyNF6TMdq09jJDcI8tnAvr6OUol6kzCIYi00Nn8oEeFXiXMocGQpLvfFxuv6WIoSdO2lPxaX+m/tNnj5evBIMKdGVHqtugFRBOP4UAOCYYguSYuwPALE0LhiN/Kd+Zl3e9xhjRv+vpZq6UI25zF9bJh79Uc=
+	t=1790879806; cv=none; b=aA3bhh7nun8CN+KzBl1Lneva5pkGHhWcDPBt+AI7CVtjrjLjpJM9NSUSPNYk3P7yIR75B1GXhGGQ3KObIJhV3u+FLJHrwC/Jc/DdztB3JS5Rl4w4iqGqMAV4r79N8/TdslIu3uzoRUv737hJm8IakUyjfJghQjuLEFsn0LmGTg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790879669; c=relaxed/simple;
-	bh=TL3i3xudEraGcY7ggiZASTQVHtZIS72OAyyv3WBq6/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LMMybOVgPCL7BEr1Ww8k32F7JnIdEpZL/B0Z3SEYJ5F5tkkVFm1Hk4pZy47zwCifX8ypu4SuM1wQDXWCuGnzpDIBzOqMStPB+1qGz020TF46ynEUf9EwdyHkYIKzHU4ZGCPy1uSlYryu0jsAKCrENE1q5zkUxJ+pqdJS40KWS3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GIQzNY7a; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790879806; c=relaxed/simple;
+	bh=IV4ER0qyUFmYSNMfu94+sUKn484WIoV6/SOHbavbjYs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aoazy2f3cUJUBaYQcEKCcDv+c0/PgiYagBiGb1A4hJsCvo8JRVwUMe5tIRf8fDdmBPdc7ggnkM7dsZVj2GUuLNT9ulXw6tEDozeXdpMAUe8bWjf8kKqPNjVgg8J22MEZRXHgkgZiFPH2J31289ShGVJKNVo6YhYBsDk1Tu6698A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=UXqkGC3z; arc=none smtp.client-ip=57.129.93.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GIQzNY7a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790879667; x=1822415667;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TL3i3xudEraGcY7ggiZASTQVHtZIS72OAyyv3WBq6/Q=;
-  b=GIQzNY7aIN+vMtBTbuEi0264KSYnvGshatECSmob70DHLINgoMnduxB3
-   +0pzHSnBlCJl82E6E/sFZ68WIMwyLXeKAk4jtqme5bQDt8c+Ro3hB67kg
-   4sH2eAjgFjlcZsp9Cfb3wPkX9YAKFnhzjL3x7BpqV8E4OuTiF1gnxOToW
-   sIo5J3ewlBw3OaeJmfn/C+JSYS0Rq4jBHvl+zmZ/lbgt5JogxGxWQHNis
-   GBBFNMUT5uCfv+7FAohPBGeHd+e4Whg1Vs5HdUbMRnavveJoT2/1v2Hpp
-   hDWWmG4zTj1VlcmNnUNA6O+F2oJ2lKGFecTlXt3Lm/hnbptlkBJ78Ry1A
-   g==;
-X-CSE-ConnectionGUID: hRgNCbB1RZ2P9FqJF4p2JQ==
-X-CSE-MsgGUID: alM4i0PSRKapB8gCRYi48g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94135401"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="94135401"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:34:27 -0700
-X-CSE-ConnectionGUID: LuiiE+6+SdOBYvzhX8m4Ww==
-X-CSE-MsgGUID: vjJ1OiTxQ+KLUHxWsOM6RQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="274694057"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:34:23 -0700
-Date: Thu, 1 Oct 2026 21:34:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="UXqkGC3z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1790879791; x=1791138991;
+	bh=IV4ER0qyUFmYSNMfu94+sUKn484WIoV6/SOHbavbjYs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=UXqkGC3zZo7mSTVfUKKBjW421ugTBdKfM8A0Z+cciCkwMFLuqR86P82l8D3bcnWEO
+	 dYBC/uyn/Pxwd8p1WMiMPgCA4DKI1RRqhtKHVhAAFvYWjhfeP1+nsZ78W/V0awVaC8
+	 MU95o0bChYZKoQpXE1xE9fL8Z81ydt3XOd582EDtdv6rcWrNrfuwcvv4d38h4cPwtq
+	 Mjx2UzIwsoV8GC3e7a/EKKjTKvg/bfnp7Fvj0dhbGVR4n9ExMRKqmM3bMPIx5kDCpP
+	 33D3bZUEoiTpZzxhy+TBihTjkMOYUit+mxR8fg4+hjF+N86tMn3CqbNHwPcVK2ozPO
+	 DWMV3yUslFEVA==
+Date: Thu, 01 Oct 2026 18:36:25 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Thierry Chatard <tchatard@gmail.com>, linux-kernel@vger.kernel.org,
-	hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, dan.scally@ideasonboard.com,
-	linux-media@vger.kernel.org, mchehab@kernel.org,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com, dmanresa@gmail.com
-Subject: Re: [PATCH v11 1/9] mfd: intel-lpss: add resource conflict quirk for
- Dell Latitude 5285
-Message-ID: <ar6nrcQfDYAg2L-M@ashevche-desk.local>
-References: <20260930214321.600863-1-tchatard@gmail.com>
- <20260930214321.600863-2-tchatard@gmail.com>
- <ar4GIfvaxGiykYKX@ashevche-desk.local>
- <ar4KtbRTyJR0Bo-b@kekkonen.localdomain>
+From: "armandas.kvietkus" <armandas.kvietkus@proton.me>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
+Message-ID: <NIJlrzovNpxB31oPCsIJrrbmpireUDeerm7rqwzwteU-NSyIpkdaU0lbg13n2mmd8hG-vNAXP8V-FWmzGb_4NCjkCJQ5wR0hTqCnVfRzMEY=@proton.me>
+In-Reply-To: <ar4JeR2DGKFS-Qhx@kekkonen.localdomain>
+References: <20260924-upstream-s5k3t2-v3-0-a5c58dfcec29@proton.me> <20260924-upstream-s5k3t2-v3-2-a5c58dfcec29@proton.me> <ar4JeR2DGKFS-Qhx@kekkonen.localdomain>
+Feedback-ID: 164226125:user:proton
+X-Pm-Message-ID: 3a03ab77527fde6eb49aa010b944367ea7303e5c
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar4KtbRTyJR0Bo-b@kekkonen.localdomain>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 10:24:37AM +0300, Sakari Ailus wrote:
-> On Thu, Oct 01, 2026 at 10:05:05AM +0300, Andy Shevchenko wrote:
-> > On Wed, Sep 30, 2026 at 02:43:13PM -0700, Thierry Chatard wrote:
-> > > The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
-> > > and the I2C4 controller (INT3446) both claim the same MMIO region via the
-> > > shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
-> > > with -EBUSY, preventing the front camera (OV5670) sensor from being
-> > > registered.
-> > > 
-> > > Match the affected machine by DMI and the affected device by ACPI ID,
-> > > carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
-> > > applying it to the per-device info in probe. This follows the quirk
-> > > organisation used by the PCI counterpart.
-> > 
-> > > Assisted-by: Claude Code:claude-opus-4-8
-> > 
-> > Assisted-by: LLM
-> 
-> While coding-assistants.rst does indeed suggest to just use "LLM", I think
-> more specific information is worth having, too. Specifying this seems
-> commonplace elsewhere. I have to admit I haven't followed the related
-> discussions.
+Hi Sakari,
 
-While 80 characters is recommended, you are strict about that rule,
-I believe the same about Assisted-by. It *is* documented.
+Thanks for the review. It is really good to get feedback from a person
+after the bot reviews, so I appreciate you taking the time.
 
--- 
-With Best Regards,
-Andy Shevchenko
+On Thu, Oct 01, 2026 at 10:19:21AM +0300, Sakari Ailus wrote:
+> Is Documentation/process/coding-assistants.rst relevant for this
+> contribution?
 
+No, it is not relevant. No coding assistants were used for this driver.
+
+> But HBLANK should be handled below, shouldn't it? The fewer of the
+> configuration that could be dynamic is set through register lists, the
+> better.
+
+Yes. The line length register 0x0342 holds the same value as hts in the
+mode table. I'll write width + HBLANK there from s_ctrl and take it
+out of the mode tables.
+
+> Hmm. The link frequency is supposed to be set by the user, not by the
+> driver. How do you change mode in that case?
+
+The mode decides it. Each mode's register list sets the PLL, so the
+link frequency comes with the mode. set_fmt picks the mode and then
+sets the control to match, like imx258 does.
+
+The modes are also tied to their frequency by bandwidth. 2592x1940 at
+60 fps needs about 3.0 gbit/s, and four lanes at 300 MHz carry 2.4
+gbit/s. So of the three modes, only 1280x720 fits at 300 MHz.
+
+If you prefer a writable control, I can do that and only offer the
+modes that fit the selected frequency. Which one do you want?
+
+> Can you set these using the control handler's set callback? They should b=
+e
+> clustered, too.
+
+Yes. I'll write the flips from s_ctrl and cluster them.
+
+> How about calling this s5k3t2_format_from_mode()?
+
+Sure.
+
+I'll fix the rest in v4.
+
+Armandas
 
