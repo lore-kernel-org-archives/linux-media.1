@@ -1,295 +1,346 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF22376494;
-	Thu,  1 Oct 2026 01:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DA1234994
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 02:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816543; cv=none; b=GUNxnviCwY+nHNrBTMdfiaXExPPBlvOLk/n6fdG3v1ye3Aj6B81Z8fmJlS5idhIY6IavzXzQU0ciAZGW1FHlmZ3fg0j4NyIYmLWPyjFbVis60dGOrEIC8thpBJ8szPuNtKW0d+bj/i9+69NmzQxdscFuG2vl0+QYCwJjPPPz39o=
+	t=1790822972; cv=none; b=CU97k00NZN+nXvnase76D/c1Xps0JrdAO+4r+bszmPe/yvGsilOKxNA/aENRHuv4TZ57sW/fqpmbPlWNghs/ByycAmaWXWmyXRdOQ4Luu1CIxk5tF3em4zkUh0gbPPvvj/ZUYMaUFuty86ZSS7ahScFWfo0ETcJzDjXRVjlaxyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816543; c=relaxed/simple;
-	bh=L+Hp8Yw29SRpaCK/PXaXtgmrl5FZwywATprbCKPs1Ko=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=dcQVYq9XLjb4E2Xpg0TdPAJFl4RDAqXN+62iQ+SdGuLnEEVJ/qh/7wNYas5M0v8RUm+44PjTKLdb3AK0OB13IbW5Df7Y6nltW7ZhKXOURCxNh5uIMjrbA9g5/A/oZaQkPpSAnwDlLl3XfP8kooFOApSR499yKgdvyhutkdYJTik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XkozrC3K; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790822972; c=relaxed/simple;
+	bh=H0vTFFzW39bczpINGfcjUjFpQAVtYUbVDSPTk5bLgW0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bFGj53sMtlap3/l68xgu34Rbz0lsXXNRZhwRxg2NL88pdDwLp0vbEDxv2Yv/3bg5Hsj3yW7Yw4jGDlQQbt2xCzMJMNY2vkXm6uzm6IJUuEy1jHdbw5JhgNO3MQ9DbHXHxhpWw2ewcMeM+RacxJRWNg69HZRXU2N4O2MPAETz8qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D6IiySGm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NAShoreF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XkozrC3K"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:5ebe:c680:ee8f:e17f])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id A15955B3;
-	Thu,  1 Oct 2026 03:00:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790816424;
-	bh=L+Hp8Yw29SRpaCK/PXaXtgmrl5FZwywATprbCKPs1Ko=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=XkozrC3KyCnyRJgNaWcZtmA43Cx/6tul/4Tz5Xlbshn/gV2YDhE/73TlTLgmby2Uc
-	 DVLrcz6uW66LcBpbp9fy3k+yT9lJ0I8KXkKrttWb2n/wawPXFx8UTZKn6OLbcgBld6
-	 xHGT2vlX115CewcKVziNiBCxfV8Tg3nx36XzN3Nw=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D6IiySGm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NAShoreF"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910kHKJ3804298
+	for <linux-media@vger.kernel.org>; Thu, 1 Oct 2026 02:49:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Eqi1lToXLrNFs6d5WQVIm9fr1NE0oqHF1TCkIlVqtvM=; b=D6IiySGmZlkQwq/U
+	6kOK5Ibe/znMucq82Nc7l0vK8wftsUOa4HLZR29RnYZuxSxCghAbojOoaX2ND8v4
+	zmw9pbDH1iSQe34sq3dpT63XRTkIxjHFNTYQ5ssGVUjT45QOsvcD0YgclsFMxKed
+	0A2JKON5tzfq4mkrx6OpMxmg+E/RKKYSrZVZ6/PNTKSxSudX6EhSl4CQeNbNVE32
+	9wauTc9nkzVeNHBApqNrGjI8uw1jKLLKWET2gzq5h2kgSyLt/FMUQ6EBhcX/YoFz
+	EVkxyPg14CDbJyvDWVepmyu5FhgKACRCsbnJY8qrrn3nuNzE+i48kcDC0Oj/+qXL
+	2PGmWA==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh58pm8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 02:49:29 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso6025616c88.0
+        for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 19:49:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790822968; x=1791427768; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Eqi1lToXLrNFs6d5WQVIm9fr1NE0oqHF1TCkIlVqtvM=;
+        b=NAShoreFIR5uFtjPN1PiTmrisVzu23ilEJkzP0/62xeFtkDWbZweD4OMDVaApro51G
+         5DbVRaI8S8J0nmgTbRBOjLEEO0h1M9ScHYmOvY1ncBdjXFLBErnx96cpNWeAyiLxKq8a
+         ABIxmH4WX2g4ilsBJn88vxsemfrWdFza4pVaY89np3AIWB4twL4A7bR4wS4lgPGv9PAc
+         5ZBiQWrndSDQUHsBcwuRNSq9bF85XhUWpHfa3rcfpjvYroZXvTWr4waIDvohSu1grxtX
+         QtwPGf5AvW4032KoqhLelm3jjY+YyhIIzl3145FcrK8brzV86a21ubbVYMom4bMpfTrs
+         +xMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790822968; x=1791427768;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Eqi1lToXLrNFs6d5WQVIm9fr1NE0oqHF1TCkIlVqtvM=;
+        b=F/fvXMGWmR0d9venzvXHvwy//lwPApb/ZTnEAbfOpkY6pjXU3uKukK2OiKVEjqJtrB
+         AzTzhFNjLgq/iLvtiA9f6K0S42aaF2JryQyw3sejVosrohq78LzL1vOZwYJRxbmEzoSS
+         i8d2N0mgiSqzztfDASKoLJiGK4Ad62mpYsv2SWp+QGOJQNzIt2sfxeZtVlXOsrZvZzFY
+         HfzZP2GbeP5JGMqC2CBLhgdsinmLcfXzbAH2lDPIAmlODQ0jsy1rmwqif6bbUQVVuIJO
+         RCRzrexBk5ny2jaSFOoCcnBP28BdbDnTOqDGjr8BbxgTA6bOENfPEjkZ1pacmRE6eL30
+         ZvqA==
+X-Gm-Message-State: AFuF++m2Zinhf/03OS2G6r0OR1z7BHGnnzCmqSOB1WTmMFGjjz782PSL
+	sHg+bfjKt+mtJBXaGk7FuIwuSi6v4Qq1Ps4a0iLRtz5Ojgoh1x6Yn7QNKRvAofEDPgsEgsJPiXc
+	BDKssrjwhabGkrnvCe+m3C5oF2zm0bUMcbs3/G3OxZZl+jNhKjsvYm//J6pgXmPLACg==
+X-Gm-Gg: AYBFou2CcnP+LFdLM9ZIc06zuRm2+xTXV37+A9z/sfwi1pQJmGmUUKMl8KIskphNOjB
+	azL7L1TnYL3mvqSDWoJ3XYrhwV7NQQLb4TO22py+gWoNnNFqtgvjTZLglcRxosYwlJ1RaDl0IG+
+	R/8Noi16iB27nUr3q7IjWi4pJBBugjQLWMNVXGpdtQ8KbarpV1WGmUcwne3n5slH8nNkD20whnZ
+	7nlfkL35IVyMhfmBgvYWFTdz6l2QrqZbAvWG8qu+MyyhDjdPvXwT2D/624j2KwG2naRlbRqTMZK
+	37w06eL04+v3Pas2bCVRrJnZviHP/arKvRLpC9sY9SiQoQZmbj/RymOajt6p9s9rkMEqlp4xEhw
+	9EdLL2fsKJCUSXL0sWv6RRSTtRM7FuNM=
+X-Received: by 2002:a05:7022:ea8b:b0:14b:588b:c80f with SMTP id a92af1059eb24-14d31a8191fmr2935635c88.10.1790822968313;
+        Wed, 30 Sep 2026 19:49:28 -0700 (PDT)
+X-Received: by 2002:a05:7022:ea8b:b0:14b:588b:c80f with SMTP id a92af1059eb24-14d31a8191fmr2935611c88.10.1790822967664;
+        Wed, 30 Sep 2026 19:49:27 -0700 (PDT)
+Received: from [192.168.0.12] ([183.83.137.244])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3758da2sm2892431eec.15.2026.09.30.19.49.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 19:49:27 -0700 (PDT)
+Message-ID: <6846a877-5698-e38d-41fd-95cb8c0986c1@oss.qualcomm.com>
+Date: Thu, 1 Oct 2026 08:19:20 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260811040459.GE3046075@killaraus.ideasonboard.com>
-References: <20260810162406.118981-2-A.Nasrolahi01@gmail.com> <20260810162858.GA3012183@killaraus.ideasonboard.com> <anqdNsu7VS63YKOo@zephyr> <20260811040459.GE3046075@killaraus.ideasonboard.com>
-Subject: Re: [PATCH] media: v4l2-core: make number of video devices configurable
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, mchehab@kernel.org, Frank.Li@nxp.com, hverkuil+cisco@kernel.org, guoniu.zhou@oss.nxp.com
-To: Ali Nasrollahi <a.nasrolahi01@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Date: Thu, 01 Oct 2026 10:02:09 +0900
-Message-ID: <179081652958.2882041.3075142352161432960@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v8 3/5] media: iris: Add ROI delta QP control support for
+ HFI Gen2 encoders
+Content-Language: en-US
+To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260930-enc_roi_enable-v8-0-2c908f30e963@oss.qualcomm.com>
+ <20260930-enc_roi_enable-v8-3-2c908f30e963@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260930-enc_roi_enable-v8-3-2c908f30e963@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMSBTYWx0ZWRfX1dcWlRCfWrVj
+ ebQ94Rm8416YLlelnWIwNmt+GcNb5qnfQsoqUthGkO9ZHLAqDezHkD+RQlhmjsoRrzjhnaWGHuu
+ CaDJCghrl3zYlBMIljvAg34ftp2+uqH/5GJko36uoQMuvE7+wAVZFSUQ9u/aJWoi8xWxG9YB9mA
+ L6vaQ9qJMo2mjBrU01UvwnkdtTVtnblXTq12s3Ngn+38XCCl7jUdHT1On0iksOHwImDwPl5tW/Q
+ BNkV9MEyhezB7wSwRWa+gVP+lz44vMM4XVPeJlWvPZGWX13sjqtJCPD+5v+RCxeAyv0wshOC/jS
+ Ajm8J4787FGFyahOtZ18thlWEcMWbaj7pW4MA+5MsTS7tmz+kY/3GpKR0PsuCdlIboGfN8UvwZW
+ ezxxcUgLmSuKWq2tt5qLgQ2PrHxkH18l3rXrp/9dSLVUXrcVA+a+A/WRDnIR/0tbygcbnIi8Y3e
+ c8gC7pzoVSN09IOaFow==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMSBTYWx0ZWRfX99LpDxaDHE3M
+ EvsvPMN/uUNg/wEkGYEDtnxuGPDzvgY/F6VKsEObmwZn2ArH7EP+oSvg2lBW+TrfIwWYh/Eor6x
+ j2teH4Xv4tdMVG8lbfNfDz0qBBcvQG0=
+X-Proofpoint-ORIG-GUID: td1f4Vz14lk68yZxRi9gd2FMZawegdxR
+X-Proofpoint-GUID: td1f4Vz14lk68yZxRi9gd2FMZawegdxR
+X-Authority-Analysis: v=2.4 cv=NrJE4MdJ c=1 sm=1 tr=0 ts=6abdca39 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=gJrurTm18R8X9NiJySVakQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=BQAKiL45JnMOSjkhOBIA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010011
 
-Quoting Laurent Pinchart (2026-08-11 13:04:59)
-> On Tue, Aug 11, 2026 at 07:29:36AM +0330, Ali Nasrollahi wrote:
-> > On 26/08/10 07:28PM, Laurent Pinchart wrote:
-> > > On Mon, Aug 10, 2026 at 07:54:07PM +0330, Ali Nasrollahi wrote:
-> > > > The V4L2 core currently limits the number of registered video devic=
-es to
-> > > > 256. This can become a restriction for workloads that create a large
-> > > > number of virtual video devices, such as v4l2loopback instances.
-> > >=20
-> > > We don't support v4l2loopback upstream though.
-> >=20
-> > Yes, you are correct.
-> >=20
-> > But perhaps my description was a bit misleading. The main idea of this
-> > patch is not to support out-of-tree modules by any means, but to allow a
-> > configurable number of V4L2 devices to be created and used, whether
-> > through loopback devices or other means.
->=20
-> Do you have a use case where you're reaching the limit without
-> out-of-tree drivers ?
-
-I do :)
-
-On the Renesas R-Car X5H, if I enable all the VSP-I and VSP-B and VSP-D (a)
-(with uapi mode enabled) and VSP-D (b) (with uapi mode enabled) then I get =
-101
-video devices and 155 subdevs and thus a few of the VSP instances fail to
-probe with -ENFILE.
 
 
-Paul
+On 10/1/2026 12:00 AM, Deepa Guthyappa Madivalara wrote:
+> Add ROI support to the Iris encoder driver for HFI Gen2 based targets.
+> 
+> - Add control infrastructure, ROI_PARAMS and MB_SIZE capability IDs to
+>   platform_inst_fw_cap_type. Extend struct platform_inst_fw_cap with
+>   p_array and elems fields to hold a pointer to the per-frame
+>   delta QP array and its element count, set during s_ctrl.
+> - Register V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP as a dynamic S8
+>   array control (max dims = 139264 entries, supporting resolution of
+>   8192x4352 at 16x16 MB granularity).
+>   Register V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE as a read-only U8
+>   control; g_volatile_ctrl returns 32 for HEVC and 16 for H.264.
+> - Define HFI_PROP_ROI_INFO and hook ROI_PARAMS to iris_set_roi_params().
+> 
+> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_ctrls.c      | 70 +++++++++++++++++++++-
+>  drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 13 ++++
+>  .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
+>  .../platform/qcom/iris/iris_platform_common.h      |  5 ++
+>  4 files changed, 88 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
+> index bf17d310eac081ffd3a4ad4842c2255ad798d4d8..9f84d28d00ab25555f1d2259f7ef0ed0786a0271 100644
+> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
+> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
+> @@ -156,6 +156,10 @@ static enum platform_inst_fw_cap_type iris_get_cap_id(u32 id)
+>  		return LAYER5_BITRATE_HEVC;
+>  	case V4L2_CID_MPEG_VIDEO_FORCE_KEY_FRAME:
+>  		return REQUEST_SYNC_FRAME;
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
+> +		return ROI_PARAMS;
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:
+> +		return MB_SIZE;
+>  	default:
+>  		return INST_FW_CAP_MAX;
+>  	}
+> @@ -301,6 +305,10 @@ static u32 iris_get_v4l2_id(enum platform_inst_fw_cap_type cap_id)
+>  		return V4L2_CID_MPEG_VIDEO_HEVC_HIER_CODING_L5_BR;
+>  	case REQUEST_SYNC_FRAME:
+>  		return V4L2_CID_MPEG_VIDEO_FORCE_KEY_FRAME;
+> +	case ROI_PARAMS:
+> +		return V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP;
+> +	case MB_SIZE:
+> +		return V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE;
+>  	default:
+>  		return 0;
+>  	}
+> @@ -327,6 +335,14 @@ static int iris_op_s_ctrl(struct v4l2_ctrl *ctrl)
+>  
+>  	inst->fw_caps[cap_id].value = ctrl->val;
+>  
+> +	if (inst->fw_caps[cap_id].flags & CAP_FLAG_CUSTOM) {
+> +		if (cap_id == ROI_PARAMS) {
+> +			inst->fw_caps[cap_id].p_array =
+> +				(const void *)ctrl->p_new.p;
+> +			inst->fw_caps[cap_id].elems = ctrl->new_elems;
+> +		}
+> +	}
+> +
+>  	if (vb2_is_streaming(q)) {
+>  		if (cap[cap_id].set)
+>  			cap[cap_id].set(inst, cap_id);
+> @@ -335,8 +351,53 @@ static int iris_op_s_ctrl(struct v4l2_ctrl *ctrl)
+>  	return 0;
+>  }
+>  
+> +static int iris_get_roi_mb_size(struct iris_inst *inst)
+> +{
+> +	return inst->codec == V4L2_PIX_FMT_HEVC ? 32 : 16;
+> +}
+> +
+> +static int iris_op_g_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct iris_inst *inst = container_of(ctrl->handler, struct iris_inst, ctrl_handler);
+> +	enum platform_inst_fw_cap_type cap_id;
+> +
+> +	cap_id = iris_get_cap_id(ctrl->id);
+> +	if (!iris_valid_cap_id(cap_id))
+> +		return -EINVAL;
+> +
+> +	if (cap_id == MB_SIZE)
+> +		ctrl->val = iris_get_roi_mb_size(inst);
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct v4l2_ctrl_ops iris_ctrl_ops = {
+>  	.s_ctrl = iris_op_s_ctrl,
+> +	.g_volatile_ctrl = iris_op_g_ctrl,
+> +};
+> +
+> +static const struct v4l2_ctrl_config roi_mbqp_cfg = {
+> +	.ops = &iris_ctrl_ops,
+> +	.id = V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP,
+> +	.name = "Enc Mb ROI Delta QP",
+> +	.type = V4L2_CTRL_TYPE_S8,
+> +	.dims = {139264}, /* Max MBPF = 8192 * 4352 / 256 */
+> +	.min = -31,
+> +	.max = 30,
+> +	.def = 0,
+> +	.step = 1,
+> +	.flags = V4L2_CTRL_FLAG_DYNAMIC_ARRAY,
+> +};
+> +
+> +static const struct v4l2_ctrl_config roi_mbqp_size = {
+> +	.ops = &iris_ctrl_ops,
+> +	.id = V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE,
+> +	.name = "ROI Mb size",
+> +	.type = V4L2_CTRL_TYPE_U8,
+> +	.min = 16,
+> +	.max = 32,
+> +	.def = 16,
+> +	.step = 1,
+>  };
+>  
+>  int iris_ctrls_init(struct iris_inst *inst)
+> @@ -361,7 +422,7 @@ int iris_ctrls_init(struct iris_inst *inst)
+>  		return ret;
+>  
+>  	for (idx = 1; idx < INST_FW_CAP_MAX; idx++) {
+> -		struct v4l2_ctrl *ctrl;
+> +		struct v4l2_ctrl *ctrl = NULL;
+>  
+>  		v4l2_id = iris_get_v4l2_id(cap[idx].cap_id);
+>  		if (!v4l2_id)
+> @@ -379,6 +440,13 @@ int iris_ctrls_init(struct iris_inst *inst)
+>  						      cap[idx].max,
+>  						      ~(cap[idx].step_or_mask),
+>  						      cap[idx].value);
+> +		} else if (cap[idx].flags & CAP_FLAG_CUSTOM) {
+> +			if (cap[idx].cap_id == ROI_PARAMS)
+> +				ctrl = v4l2_ctrl_new_custom(&inst->ctrl_handler,
+> +							    &roi_mbqp_cfg, NULL);
+> +			if (cap[idx].cap_id == MB_SIZE)
+> +				ctrl = v4l2_ctrl_new_custom(&inst->ctrl_handler,
+> +							    &roi_mbqp_size, NULL);
+>  		} else {
+>  			ctrl = v4l2_ctrl_new_std(&inst->ctrl_handler,
+>  						 &iris_ctrl_ops,
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
+> index 3b8fbefb8b93576962abd3850215f7b7fb364930..d628bc6748438b19dac01cd11cb9f8da0b8500af 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
+> @@ -1782,6 +1782,19 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
+>  		.flags = CAP_FLAG_INPUT_PORT | CAP_FLAG_DYNAMIC_ALLOWED,
+>  		.set = iris_set_req_sync_frame,
+>  	},
+> +	{
+> +		.cap_id = ROI_PARAMS,
+> +		.step_or_mask = 1,
+> +		.p_array = NULL,
+> +		.hfi_id = HFI_PROP_ROI_INFO,
+> +		.flags = CAP_FLAG_INPUT_PORT | CAP_FLAG_CUSTOM |
+> +			 CAP_FLAG_DYNAMIC_ALLOWED,
+> +	},
+> +	{
+> +		.cap_id = MB_SIZE,
+> +		.step_or_mask = 1,
+> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_CUSTOM,
+> +	},
+>  };
+>  
+>  static const u32 sm8550_vdec_input_config_params_default[] = {
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+> index f43aea10090d8f1d6ae5c20547e5f6321b2ca203..08fc1036013de29e51747a6425ae7bb805ca3e0f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+> @@ -133,6 +133,7 @@ enum hfi_flip {
+>  #define HFI_PROP_DEC_START_FROM_RAP_FRAME	0x03000169
+>  #define HFI_PROP_NO_OUTPUT			0x0300016a
+>  #define HFI_PROP_BUFFER_MARK			0x0300016c
+> +#define HFI_PROP_ROI_INFO			0x03000173
+>  #define HFI_PROP_WORST_COMPRESSION_RATIO	0x03000174
+>  #define HFI_PROP_WORST_COMPLEXITY_FACTOR	0x03000175
+>  #define HFI_PROP_RAW_RESOLUTION		0x03000178
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index 9748095091461ba13443c63955a42906fa4f050c..9910eb5514b3ae0a6b5349adb071d0a56375102c 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -186,6 +186,8 @@ enum platform_inst_fw_cap_type {
+>  	LAYER5_BITRATE_HEVC,
+>  	REQUEST_SYNC_FRAME,
+>  	TIME_DELTA_BASED_RC,
+> +	ROI_PARAMS,
+> +	MB_SIZE,
+>  	INST_FW_CAP_MAX,
+>  };
+>  
+> @@ -197,6 +199,7 @@ enum platform_inst_fw_cap_flags {
+>  	CAP_FLAG_CLIENT_SET		= BIT(4),
+>  	CAP_FLAG_BITMASK		= BIT(5),
+>  	CAP_FLAG_VOLATILE		= BIT(6),
+> +	CAP_FLAG_CUSTOM			= BIT(7),
+>  };
+>  
+>  struct platform_inst_fw_cap {
+> @@ -206,6 +209,8 @@ struct platform_inst_fw_cap {
+>  	s64 step_or_mask;
+>  	s64 value;
+>  	u32 hfi_id;
+> +	const void *p_array;
+> +	u32 elems;
+>  	enum platform_inst_fw_cap_flags flags;
+>  	int (*set)(struct iris_inst *inst,
+>  		   enum platform_inst_fw_cap_type cap_id);
+> 
 
->=20
-> > > > Make the maximum number of video devices configurable through a mod=
-ule
-> > > > parameter. The default and minimum remain at the existing limit of =
-256,
-> > > > while the maximum is capped at 4096.
-> > > >=20
-> > > > The parameter is only available when CONFIG_VIDEO_FIXED_MINOR_RANGE=
-S is
-> > > > disabled, as the fixed minor allocation scheme relies on the existi=
-ng
-> > > > minor ranges.
-> > > >=20
-> > > > The device array is allocated according to the configured limit, wh=
-ile
-> > > > the allocation bitmaps remain statically sized to the maximum suppo=
-rted
-> > > > limit of 4096.
-> > > >=20
-> > > > Signed-off-by: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
-> > > > ---
-> > > >  drivers/media/v4l2-core/v4l2-dev.c | 70 +++++++++++++++++++++++---=
-----
-> > > >  1 file changed, 55 insertions(+), 15 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l=
-2-core/v4l2-dev.c
-> > > > index fd267fb74905..5a526b577970 100644
-> > > > --- a/drivers/media/v4l2-core/v4l2-dev.c
-> > > > +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> > > > @@ -31,7 +31,8 @@
-> > > >  #include <media/v4l2-ioctl.h>
-> > > >  #include <media/v4l2-event.h>
-> > > > =20
-> > > > -#define VIDEO_NUM_DEVICES        256
-> > > > +#define VIDEO_MIN_NUM_DEVICES    256
-> > > > +#define VIDEO_MAX_NUM_DEVICES    4096
-> > > >  #define VIDEO_NAME              "video4linux"
-> > > > =20
-> > > >  #define dprintk(fmt, arg...) do {                                 =
-       \
-> > > > @@ -39,6 +40,27 @@
-> > > >                  __func__, ##arg);                                \
-> > > >  } while (0)
-> > > > =20
-> > > > +static unsigned int video_nr_devices =3D VIDEO_MIN_NUM_DEVICES;
-> > > > +
-> > > > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > +static int param_set_video_nr_devices(const char *val,
-> > > > +                               const struct kernel_param *kp)
-> > > > +{
-> > > > + return param_set_uint_minmax(val, kp, VIDEO_MIN_NUM_DEVICES,
-> > > > +                              VIDEO_MAX_NUM_DEVICES);
-> > > > +}
-> > > > +
-> > > > +static const struct kernel_param_ops param_ops_video_nr_devices =
-=3D {
-> > > > + .set =3D param_set_video_nr_devices,
-> > > > + .get =3D param_get_uint,
-> > > > +};
-> > > > +
-> > > > +module_param_cb(video_nr_devices, &param_ops_video_nr_devices,
-> > > > +         &video_nr_devices, 0444);
-> > > > +
-> > > > +MODULE_PARM_DESC(video_nr_devices, "Maximum number of V4L2 devices=
- (256-4096)");
-> > > > +#endif
-> > > > +
-> > > >  /*
-> > > >   *       sysfs stuff
-> > > >   */
-> > > > @@ -98,9 +120,14 @@ static struct dentry *v4l2_debugfs_root_dir;
-> > > >  /*
-> > > >   *       Active devices
-> > > >   */
-> > > > -static struct video_device *video_devices[VIDEO_NUM_DEVICES];
-> > > > +#ifdef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > +static struct video_device *video_devices[VIDEO_MIN_NUM_DEVICES];
-> > > > +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MIN_NUM_DE=
-VICES);
-> > > > +#else
-> > > > +static struct video_device **video_devices;
-> > > > +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MAX_NUM_DE=
-VICES);
-> > > > +#endif
-> > > >  static DEFINE_MUTEX(videodev_lock);
-> > > > -static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_NUM_DEVICE=
-S);
-> > > > =20
-> > > >  /* Device node utility functions */
-> > > > =20
-> > > > @@ -504,7 +531,7 @@ static const struct file_operations v4l2_fops =
-=3D {
-> > > >   * in the video_device array, but it was able to obtain a minor nu=
-mber.
-> > > >   *
-> > > >   * This means that we can always obtain a free stream index number=
- since
-> > > > - * the worst case scenario is that there are VIDEO_NUM_DEVICES - 1=
- slots in
-> > > > + * the worst case scenario is that there are video_nr_devices - 1 =
-slots in
-> > > >   * use of the video_device array.
-> > > >   *
-> > > >   * Returns a free index number.
-> > > > @@ -513,19 +540,19 @@ static int get_index(struct video_device *vde=
-v)
-> > > >  {
-> > > >   /* This can be static since this function is called with the glob=
-al
-> > > >      videodev_lock held. */
-> > > > - static DECLARE_BITMAP(used, VIDEO_NUM_DEVICES);
-> > > > + static DECLARE_BITMAP(used, VIDEO_MAX_NUM_DEVICES);
-> > > >   int i;
-> > > > =20
-> > > > - bitmap_zero(used, VIDEO_NUM_DEVICES);
-> > > > + bitmap_zero(used, VIDEO_MAX_NUM_DEVICES);
-> > > > =20
-> > > > - for (i =3D 0; i < VIDEO_NUM_DEVICES; i++) {
-> > > > + for (i =3D 0; i < video_nr_devices; i++) {
-> > > >           if (video_devices[i] !=3D NULL &&
-> > > >               video_devices[i]->v4l2_dev =3D=3D vdev->v4l2_dev) {
-> > > >                   __set_bit(video_devices[i]->index, used);
-> > > >           }
-> > > >   }
-> > > > =20
-> > > > - return find_first_zero_bit(used, VIDEO_NUM_DEVICES);
-> > > > + return find_first_zero_bit(used, video_nr_devices);
-> > > >  }
-> > > > =20
-> > > >  #define SET_VALID_IOCTL(ops, cmd, op) \
-> > > > @@ -915,7 +942,7 @@ int __video_register_device(struct video_device=
- *vdev,
-> > > >   int i =3D 0;
-> > > >   int ret;
-> > > >   int minor_offset =3D 0;
-> > > > - int minor_cnt =3D VIDEO_NUM_DEVICES;
-> > > > + int minor_cnt =3D video_nr_devices;
-> > > >   const char *name_base;
-> > > > =20
-> > > >   /* A minor value of -1 marks this video device as never
-> > > > @@ -1020,10 +1047,10 @@ int __video_register_device(struct video_de=
-vice *vdev,
-> > > >  #else
-> > > >   /* The device node number and minor numbers are independent, so
-> > > >      we just find the first free minor number. */
-> > > > - for (i =3D 0; i < VIDEO_NUM_DEVICES; i++)
-> > > > + for (i =3D 0; i < video_nr_devices; i++)
-> > > >           if (video_devices[i] =3D=3D NULL)
-> > > >                   break;
-> > > > - if (i =3D=3D VIDEO_NUM_DEVICES) {
-> > > > + if (i =3D=3D video_nr_devices) {
-> > > >           mutex_unlock(&videodev_lock);
-> > > >           pr_err("could not get a free minor\n");
-> > > >           return -ENFILE;
-> > > > @@ -1032,7 +1059,7 @@ int __video_register_device(struct video_devi=
-ce *vdev,
-> > > >   vdev->minor =3D i + minor_offset;
-> > > >   vdev->num =3D nr;
-> > > > =20
-> > > > - if (WARN_ON(vdev->minor >=3D VIDEO_NUM_DEVICES)) {
-> > > > + if (WARN_ON(vdev->minor >=3D video_nr_devices)) {
-> > > >           mutex_unlock(&videodev_lock);
-> > > >           return -EINVAL;
-> > > >   }
-> > > > @@ -1241,7 +1268,7 @@ static int __init videodev_init(void)
-> > > >   int ret;
-> > > > =20
-> > > >   pr_info("Linux video capture interface: v2.00\n");
-> > > > - ret =3D register_chrdev_region(dev, VIDEO_NUM_DEVICES, VIDEO_NAME=
-);
-> > > > + ret =3D register_chrdev_region(dev, video_nr_devices, VIDEO_NAME);
-> > > >   if (ret < 0) {
-> > > >           pr_warn("videodev: unable to get major %d\n",
-> > > >                           VIDEO_MAJOR);
-> > > > @@ -1250,11 +1277,21 @@ static int __init videodev_init(void)
-> > > > =20
-> > > >   ret =3D class_register(&video_class);
-> > > >   if (ret < 0) {
-> > > > -         unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
-> > > > +         unregister_chrdev_region(dev, video_nr_devices);
-> > > >           pr_warn("video_dev: class_register failed\n");
-> > > >           return -EIO;
-> > > >   }
-> > > > =20
-> > > > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > + video_devices =3D kzalloc_objs(*video_devices, video_nr_devices);
-> > > > + if (!video_devices) {
-> > > > +         class_unregister(&video_class);
-> > > > +         unregister_chrdev_region(dev, video_nr_devices);
-> > > > +         pr_warn("video_dev: failed to allocate video_devices\n");
-> > > > +         return -ENOMEM;
-> > > > + }
-> > > > +#endif
-> > > > +
-> > > >   return 0;
-> > > >  }
-> > > > =20
-> > > > @@ -1262,8 +1299,11 @@ static void __exit videodev_exit(void)
-> > > >  {
-> > > >   dev_t dev =3D MKDEV(VIDEO_MAJOR, 0);
-> > > > =20
-> > > > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > + kvfree(video_devices);
-> > > > +#endif
-> > > >   class_unregister(&video_class);
-> > > > - unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
-> > > > + unregister_chrdev_region(dev, video_nr_devices);
-> > > >   debugfs_remove_recursive(v4l2_debugfs_root_dir);
-> > > >   v4l2_debugfs_root_dir =3D NULL;
-> > > >  }
->=20
-> --=20
-> Regards,
->=20
-> Laurent Pinchart
->
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
