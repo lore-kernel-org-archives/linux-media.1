@@ -1,291 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FA94C150C;
-	Thu,  1 Oct 2026 11:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7D649890A;
+	Thu,  1 Oct 2026 12:09:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855822; cv=none; b=rdaN1VeRDQl7btq50/o5nlXMBaBEs66zHITQZmk0dpg/3wDYuggHMPPqhD5yZ1inFpp+YwIY0IsouBNgJZ8Y4ecnW7RHhbh0UIvDSYIb21hmWX2O4pWjTGSebi5YyPpJpLUWjdhZj8lLrpHjC5o7qBMyB6YufCV+u0Nk+Qtl/nA=
+	t=1790856550; cv=none; b=o8wPJDZNqTfYRtzG5KZxvEGH2FmlF9YDKxRs4LyCcObyP7xDw4Tx8e+VbJok34vIy3ByxJ4U2na295XnnTW/mxajk5nT9Y56WhKlHk9tcfhYLZSH81dGp5WORfQjQJoebjHyvKdJa0nh45/XkXhnufOSO5SLx78q+Tw1j1PQV0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855822; c=relaxed/simple;
-	bh=qMFDGWO8T8rFnlZH5zEdWBCmQ3eAYnLT2YaeHu0sank=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XQZzQUdegnkM5CvRQTmWwhVPA7NUlVBSI15JIiBHSNjQAtdo12nmgQt8w+/nYaGJItCY3I4mYNY4PyRv6LJ9Bohr2gtSL296L3Ct0tXiTKlC5Cb6OjxRz2KE2rnTqd3LA5+mhxPpZxyG3x6kC3xYt7A+eMjYoi+bgZntUHspk1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mnX/q5ZG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790856550; c=relaxed/simple;
+	bh=w4g8SezvbiFS3UHJOThxm7I98kIx4gBk9Iv1qFWZMEE=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=aHlMrRLw/GcpiA8qc0gZppi9lYtHO0vSthuUVRTBi5wFm5OpZ0YGhK4XFNoFt0JLYL5DFUa4rACNOtpGVp9NyAjvNQFdvsKfrMfB1OWJwtv+FPEj8iX3mXTRiB7OaWAf9g7Wdd/HxUWT4Fwri+tOPHW9gIjnF69V/B9OtnKMgZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=KHO0Y1Or; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mnX/q5ZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6631F00899;
-	Thu,  1 Oct 2026 11:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790855816;
-	bh=b8xMLV7p9JhteAfTAaXYXGWAPPpzeBoIObqNjYHNZZc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mnX/q5ZGh9QvoKViirbZ+0zoCYxQCU+qGhCAeUJMpcagryn+sDJAnarzkPMf6klND
-	 fw2oxioFH3OspfgLXlsNrqSPhEv/28440YQT1iM/XZJD1BGZ2OW4JfuwgYjsBFGAQC
-	 n5qNwrPFqG8Hq5Eamz3XDh2hnRqkdb7Lyce917X6CQUyGn/foj5YIX2CjbWznsIuqb
-	 Qicl+1f7WYFxwI9V9IrAB7d9Xazllb1otM2X3UCzVSvYGDHqtmJfb1PAM8Zontty0e
-	 /wLhGtBmaFrt4Q8KGKXOwavjBWGTlYfKOGJM/QJvhBack0KE6VMIWmNCy1+3wVpBIf
-	 GAnVID1Z9H5fg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v9 18/18] PCI/P2PDMA: Test the routing of clients with ATS enabled
-Date: Thu,  1 Oct 2026 14:55:26 +0300
-Message-ID: <20261001-fix-p2p-acs-v4-0-v9-18-1a8e0f50ddd9@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
-References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KHO0Y1Or"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:75b7:7bc3:5d5e:18e])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 781BE593;
+	Thu,  1 Oct 2026 14:07:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790856423;
+	bh=w4g8SezvbiFS3UHJOThxm7I98kIx4gBk9Iv1qFWZMEE=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=KHO0Y1OrBukmr63Z2jShcMjKEAGqnGTjbjFQinbc+8P2nX2q1apyYahbA2OP/uS5m
+	 KpkV8zMfdLIJZCOyuRgBHJsWVvl5QBqtL7hw2ImwZg8T05bu5kzzGNwgZpxzhzGuwB
+	 9o+xTbCQWzZdyG5IXbxUJAaPmYKZO5XUoXwcfC4w=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260810162406.118981-2-A.Nasrolahi01@gmail.com>
+References: <20260810162406.118981-2-A.Nasrolahi01@gmail.com>
+Subject: Re: [PATCH] media: v4l2-core: make number of video devices configurable
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: mchehab@kernel.org, laurent.pinchart@ideasonboard.com, Frank.Li@nxp.com, hverkuil+cisco@kernel.org, guoniu.zhou@oss.nxp.com, Ali Nasrollahi <A.Nasrolahi01@gmail.com>
+To: Ali Nasrollahi <a.nasrolahi01@gmail.com>, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 01 Oct 2026 21:08:50 +0900
+Message-ID: <179085653047.2882041.14718244537270943651@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Quoting Ali Nasrollahi (2026-08-11 01:24:07)
+> The V4L2 core currently limits the number of registered video devices to
+> 256. This can become a restriction for workloads that create a large
+> number of virtual video devices, such as v4l2loopback instances.
+>=20
+> Make the maximum number of video devices configurable through a module
+> parameter. The default and minimum remain at the existing limit of 256,
+> while the maximum is capped at 4096.
+>=20
+> The parameter is only available when CONFIG_VIDEO_FIXED_MINOR_RANGES is
+> disabled, as the fixed minor allocation scheme relies on the existing
+> minor ranges.
+>=20
+> The device array is allocated according to the configured limit, while
+> the allocation bitmaps remain statically sized to the maximum supported
+> limit of 4096.
+>=20
+> Signed-off-by: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
 
-A client that enables ATS for the whole device must never be handed a
-bus address, and Translation Blocking must reject its peer-to-peer
-traffic even when the caller asks for the default class. That has to
-hold for answers taken from the cache as well.
+Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 
-Cover those on the fabricated fabric, together with a client that
-declared per-mapping ATS keeping the per-class answers and a client
-without ATS answering for the Untranslated Requests it will issue.
-
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c       |   8 +--
- drivers/pci/pci.h          |   5 ++
- drivers/pci/pci_acs_test.c | 123 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 133 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9d17a3d2bf1f..38c712d77f15 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1595,14 +1595,15 @@ void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
- }
- EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
- 
--static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
--						unsigned int tlp_flags)
-+VISIBLE_IF_KUNIT unsigned int
-+pci_p2pdma_client_tlp_flags(struct pci_dev *client, unsigned int tlp_flags)
- {
- 	if (client->ats_enabled)
- 		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
- 
- 	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_tlp_flags);
- 
- /*
-  * A client that translates every address it is handed cannot be handed a bus
-@@ -1611,7 +1612,7 @@ static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-  * translation carries the IOVA to the host bridge, so that route has to work
-  * as well.
-  */
--static enum pci_p2pdma_map_type
-+VISIBLE_IF_KUNIT enum pci_p2pdma_map_type
- pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 			   bool per_mapping, enum pci_p2pdma_map_type type)
- {
-@@ -1629,6 +1630,7 @@ pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 
- 	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_map_type);
- 
- /**
-  * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index a4a07f31f744..8b10965ab536 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1144,6 +1144,11 @@ enum pci_p2pdma_map_type calc_map_type_and_dist(struct pci_dev *provider,
- 						int *dist,
- 						unsigned int tlp_flags,
- 						bool verbose);
-+unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+					 unsigned int tlp_flags);
-+enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, enum pci_p2pdma_map_type type);
- #endif
- 
- #ifdef CONFIG_PCI_QUIRKS
-diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-index 6a2cd38d968f..a9a3b80ea0ac 100644
---- a/drivers/pci/pci_acs_test.c
-+++ b/drivers/pci/pci_acs_test.c
-@@ -698,6 +698,125 @@ static void acs_walk_unreadable_control_test(struct kunit *test)
- 			PCI_P2PDMA_MAP_NOT_SUPPORTED);
- }
- 
-+/*
-+ * Route the way pci_p2pdma_map_type_tlp() does once it has a client: the
-+ * client decides which flags apply, and the answer is then checked against
-+ * what the client can be handed.
-+ */
-+static enum pci_p2pdma_map_type acs_client_map(struct acs_fabric *f,
-+					       bool per_mapping,
-+					       unsigned int tlp_flags)
-+{
-+	enum pci_p2pdma_map_type type;
-+	int dist;
-+
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(f->client, tlp_flags);
-+	type = calc_map_type_and_dist(f->provider, f->client, &dist, tlp_flags,
-+				      false);
-+	return pci_p2pdma_client_map_type(f->provider, f->client, per_mapping,
-+					  type);
-+}
-+
-+/*
-+ * A client with ATS enabled for the whole device translates whatever it is
-+ * handed, so it never gets bus addresses even on a direct route, and
-+ * Translation Blocking rejects it even when its caller asks for the default
-+ * class.
-+ */
-+static void acs_client_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * The cache holds what the topology allows, filled when the client first
-+ * asked. A client whose ATS was enabled after that must still be kept off the
-+ * bus addresses the cache recorded.
-+ */
-+static void acs_client_ats_cached_test(struct kunit *test)
-+{
-+	enum pci_p2pdma_map_type type[PCI_P2PDMA_TLP_CLASSES], hit;
-+	struct acs_fabric f = {};
-+	unsigned long cached;
-+	unsigned int flags;
-+	int dist;
-+
-+	acs_build_fabric(test, &f);
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+		type[flags] = calc_map_type_and_dist(f.provider, f.client,
-+						     &dist, flags, false);
-+	cached = pci_p2pdma_map_types_pack(type);
-+
-+	f.client->ats_enabled = 1;
-+	flags = pci_p2pdma_client_tlp_flags(f.client, 0);
-+	hit = pci_p2pdma_map_types_unpack(cached, flags);
-+
-+	KUNIT_EXPECT_EQ(test,
-+			pci_p2pdma_client_map_type(f.provider, f.client, false,
-+						   hit),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
-+/*
-+ * A client that declared per-mapping ATS picks the Address Type per mapping,
-+ * so it keeps the per-class answers even with ATS enabled.
-+ */
-+static void acs_client_ats_per_mapping_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * A client with ATS disabled cannot issue Translated Requests, so a caller
-+ * asking about them gets the answer for the Untranslated ones it will issue.
-+ */
-+static void acs_client_no_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.dn1->acs_cap = 0x100;
-+	f.dn1->acs_capabilities = PCI_ACS_RR | PCI_ACS_DT;
-+	f.dn1_cfg.ctrl = PCI_ACS_RR | PCI_ACS_DT;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, false, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
- static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE_PARAM(pci_acs_p2pdma_request_test,
- 			 acs_request_gen_params),
-@@ -723,6 +842,10 @@ static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE(acs_walk_tb_above_divergence_test),
- 	KUNIT_CASE(acs_walk_unreadable_control_test),
- 	KUNIT_CASE(acs_map_types_pack_test),
-+	KUNIT_CASE(acs_client_ats_test),
-+	KUNIT_CASE(acs_client_ats_cached_test),
-+	KUNIT_CASE(acs_client_ats_per_mapping_test),
-+	KUNIT_CASE(acs_client_no_ats_test),
- 	{}
- };
- 
-
--- 
-2.55.0
-
+> ---
+>  drivers/media/v4l2-core/v4l2-dev.c | 70 +++++++++++++++++++++++-------
+>  1 file changed, 55 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core=
+/v4l2-dev.c
+> index fd267fb74905..5a526b577970 100644
+> --- a/drivers/media/v4l2-core/v4l2-dev.c
+> +++ b/drivers/media/v4l2-core/v4l2-dev.c
+> @@ -31,7 +31,8 @@
+>  #include <media/v4l2-ioctl.h>
+>  #include <media/v4l2-event.h>
+> =20
+> -#define VIDEO_NUM_DEVICES      256
+> +#define VIDEO_MIN_NUM_DEVICES  256
+> +#define VIDEO_MAX_NUM_DEVICES  4096
+>  #define VIDEO_NAME              "video4linux"
+> =20
+>  #define dprintk(fmt, arg...) do {                                      \
+> @@ -39,6 +40,27 @@
+>                        __func__, ##arg);                                \
+>  } while (0)
+> =20
+> +static unsigned int video_nr_devices =3D VIDEO_MIN_NUM_DEVICES;
+> +
+> +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> +static int param_set_video_nr_devices(const char *val,
+> +                                     const struct kernel_param *kp)
+> +{
+> +       return param_set_uint_minmax(val, kp, VIDEO_MIN_NUM_DEVICES,
+> +                                    VIDEO_MAX_NUM_DEVICES);
+> +}
+> +
+> +static const struct kernel_param_ops param_ops_video_nr_devices =3D {
+> +       .set =3D param_set_video_nr_devices,
+> +       .get =3D param_get_uint,
+> +};
+> +
+> +module_param_cb(video_nr_devices, &param_ops_video_nr_devices,
+> +               &video_nr_devices, 0444);
+> +
+> +MODULE_PARM_DESC(video_nr_devices, "Maximum number of V4L2 devices (256-=
+4096)");
+> +#endif
+> +
+>  /*
+>   *     sysfs stuff
+>   */
+> @@ -98,9 +120,14 @@ static struct dentry *v4l2_debugfs_root_dir;
+>  /*
+>   *     Active devices
+>   */
+> -static struct video_device *video_devices[VIDEO_NUM_DEVICES];
+> +#ifdef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> +static struct video_device *video_devices[VIDEO_MIN_NUM_DEVICES];
+> +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MIN_NUM_DEVICES);
+> +#else
+> +static struct video_device **video_devices;
+> +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MAX_NUM_DEVICES);
+> +#endif
+>  static DEFINE_MUTEX(videodev_lock);
+> -static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_NUM_DEVICES);
+> =20
+>  /* Device node utility functions */
+> =20
+> @@ -504,7 +531,7 @@ static const struct file_operations v4l2_fops =3D {
+>   * in the video_device array, but it was able to obtain a minor number.
+>   *
+>   * This means that we can always obtain a free stream index number since
+> - * the worst case scenario is that there are VIDEO_NUM_DEVICES - 1 slots=
+ in
+> + * the worst case scenario is that there are video_nr_devices - 1 slots =
+in
+>   * use of the video_device array.
+>   *
+>   * Returns a free index number.
+> @@ -513,19 +540,19 @@ static int get_index(struct video_device *vdev)
+>  {
+>         /* This can be static since this function is called with the glob=
+al
+>            videodev_lock held. */
+> -       static DECLARE_BITMAP(used, VIDEO_NUM_DEVICES);
+> +       static DECLARE_BITMAP(used, VIDEO_MAX_NUM_DEVICES);
+>         int i;
+> =20
+> -       bitmap_zero(used, VIDEO_NUM_DEVICES);
+> +       bitmap_zero(used, VIDEO_MAX_NUM_DEVICES);
+> =20
+> -       for (i =3D 0; i < VIDEO_NUM_DEVICES; i++) {
+> +       for (i =3D 0; i < video_nr_devices; i++) {
+>                 if (video_devices[i] !=3D NULL &&
+>                     video_devices[i]->v4l2_dev =3D=3D vdev->v4l2_dev) {
+>                         __set_bit(video_devices[i]->index, used);
+>                 }
+>         }
+> =20
+> -       return find_first_zero_bit(used, VIDEO_NUM_DEVICES);
+> +       return find_first_zero_bit(used, video_nr_devices);
+>  }
+> =20
+>  #define SET_VALID_IOCTL(ops, cmd, op) \
+> @@ -915,7 +942,7 @@ int __video_register_device(struct video_device *vdev,
+>         int i =3D 0;
+>         int ret;
+>         int minor_offset =3D 0;
+> -       int minor_cnt =3D VIDEO_NUM_DEVICES;
+> +       int minor_cnt =3D video_nr_devices;
+>         const char *name_base;
+> =20
+>         /* A minor value of -1 marks this video device as never
+> @@ -1020,10 +1047,10 @@ int __video_register_device(struct video_device *=
+vdev,
+>  #else
+>         /* The device node number and minor numbers are independent, so
+>            we just find the first free minor number. */
+> -       for (i =3D 0; i < VIDEO_NUM_DEVICES; i++)
+> +       for (i =3D 0; i < video_nr_devices; i++)
+>                 if (video_devices[i] =3D=3D NULL)
+>                         break;
+> -       if (i =3D=3D VIDEO_NUM_DEVICES) {
+> +       if (i =3D=3D video_nr_devices) {
+>                 mutex_unlock(&videodev_lock);
+>                 pr_err("could not get a free minor\n");
+>                 return -ENFILE;
+> @@ -1032,7 +1059,7 @@ int __video_register_device(struct video_device *vd=
+ev,
+>         vdev->minor =3D i + minor_offset;
+>         vdev->num =3D nr;
+> =20
+> -       if (WARN_ON(vdev->minor >=3D VIDEO_NUM_DEVICES)) {
+> +       if (WARN_ON(vdev->minor >=3D video_nr_devices)) {
+>                 mutex_unlock(&videodev_lock);
+>                 return -EINVAL;
+>         }
+> @@ -1241,7 +1268,7 @@ static int __init videodev_init(void)
+>         int ret;
+> =20
+>         pr_info("Linux video capture interface: v2.00\n");
+> -       ret =3D register_chrdev_region(dev, VIDEO_NUM_DEVICES, VIDEO_NAME=
+);
+> +       ret =3D register_chrdev_region(dev, video_nr_devices, VIDEO_NAME);
+>         if (ret < 0) {
+>                 pr_warn("videodev: unable to get major %d\n",
+>                                 VIDEO_MAJOR);
+> @@ -1250,11 +1277,21 @@ static int __init videodev_init(void)
+> =20
+>         ret =3D class_register(&video_class);
+>         if (ret < 0) {
+> -               unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
+> +               unregister_chrdev_region(dev, video_nr_devices);
+>                 pr_warn("video_dev: class_register failed\n");
+>                 return -EIO;
+>         }
+> =20
+> +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> +       video_devices =3D kzalloc_objs(*video_devices, video_nr_devices);
+> +       if (!video_devices) {
+> +               class_unregister(&video_class);
+> +               unregister_chrdev_region(dev, video_nr_devices);
+> +               pr_warn("video_dev: failed to allocate video_devices\n");
+> +               return -ENOMEM;
+> +       }
+> +#endif
+> +
+>         return 0;
+>  }
+> =20
+> @@ -1262,8 +1299,11 @@ static void __exit videodev_exit(void)
+>  {
+>         dev_t dev =3D MKDEV(VIDEO_MAJOR, 0);
+> =20
+> +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> +       kvfree(video_devices);
+> +#endif
+>         class_unregister(&video_class);
+> -       unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
+> +       unregister_chrdev_region(dev, video_nr_devices);
+>         debugfs_remove_recursive(v4l2_debugfs_root_dir);
+>         v4l2_debugfs_root_dir =3D NULL;
+>  }
+> --=20
+> 2.55.0
+>=20
+>
