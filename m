@@ -1,83 +1,79 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C9541B8F9
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 17:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6B93E16A5
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 18:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790877481; cv=none; b=FAK0q/ZdZL3XrKG6m1jm8DtLAbEyy7z+4o3Iu0fOEWqOAPUP4KtsEmdVFpjlsyqshhuJZEZzdHX8zbNCaiZ1vbvOH8ykYtPI6QHxfWjYuzhvKQGk9XQr96qDTCV2FVNzAw6NP/J7xA/9UPs9ShypgUk3ryaiQvsha3Yv1mG5H7k=
+	t=1790878030; cv=none; b=BkA7Avh7jsDXu7cK2Di3fwEx5ekqtk7ZTOkB3Q0V26ZHY0ttKp6Dd+TKfwO1tK7HCKT3bIVJqzWIYWC86LzsiGyR0zUpnEr+yaZ8Z3t6q2KcMHUnn59isAOEc2KEpPwjrnLn9cEqJHOpR+SgZiL7lCvsmLXNQbkrJju5AqF2LWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790877481; c=relaxed/simple;
-	bh=jpJ+Su3Y1yhm/gM5Dhwlk3M8DvQgQBJXozNtOrhbmY4=;
+	s=arc-20240116; t=1790878030; c=relaxed/simple;
+	bh=QsCmprxjt2AIVs23Cx9JQTbYtmyYsaQxrbmPDfjmTRU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=umOmp5JkZr7b3SOSB+qNj6XxiOSGQVRJQMsNVu8wLrM9gpbFkvmnuGiyXa8hqK4ONnKZgkz4Xm+F5ZHgMoZ5Vrntc8J4ehisPoGRBHMSwI9my2urZsOe1lPOKqvAVTyLAChoJSlmTjzVSdioGotOeXY1Ut3ccqrSM2CaimfKf6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SNGs+jaV; arc=none smtp.client-ip=74.125.230.234
+	 MIME-Version; b=ZtLt9Ut5EXvd6q4rX5jxOMpN0uImTAmakN17KRg3IaTzDvnGh1Cw7YX8FnZ0OpsVS3bFAEjeXXziaFG6tDikuii5ujHKg2sXLR6pqChCQUfqbxlVvApkPh5M2lvTVnsP6WOpyI2D7CKkg9KU+b/LrflZ9ba02iCSVJcu0P5PNz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LTvBFO5e; arc=none smtp.client-ip=209.85.219.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SNGs+jaV"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320068d8eso63936121cf.3
-        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 10:57:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LTvBFO5e"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-914411dd7ecso25495966d6.1
+        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 11:07:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790877467; x=1791482267; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790878025; x=1791482825; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=axc/agQFuJUMgO0JWETHJcM/R1Xc0CldGQrnTgdLGIs=;
-        b=SNGs+jaVfW43SM1Zgl6aMZN+jyG4LJHlDbCqUHj/SM4aCLKMnDVQIuKCoCnpLPz7le
-         RxIQ4Z1qlRrYx8VsITrwpLd8/+1pSR5/OfbB+qjsB3fCkm4QVXaUB7Kz8QqSR97Bkm33
-         L25YAi79gY2Y89N/UY1hVrqFeZtSY45ue2RvlRqANFPgq0sYaMr9oXAuBM4M9eTVYscX
-         SXk9BktaXIdrQkF6z2NFkXdRLmcijYdcLmpNV2scAxtmpIpiTUvlLEDZl+2om1+ZTLHS
-         md3mSVfNJrMP/awCNVVjrG4lC7RvIGxlKkX2sUxfCpMfCvOjYBeKdZ/E27pLJ9ywNSF9
-         0Raw==
+        bh=7GPDCUkXzbddkBBz1dYgs3l5YKgPxDZJWy/V/n2BPFU=;
+        b=LTvBFO5e4vJnXr0+4FKdBv0Oat3qg3EB/WoQUwBvQCQAebiX0pJvoMZdfxe6HXDPd9
+         k52+cEHhSyoE7aht4e6VhyFKo6JyFfrY7fU7a87r0Zd6/2hExFgl/BnHbF5qK7S4kR+O
+         ngMiq14OUpvvPHHbXSwf4yUAO7Ys3vrysP3b2hQ88eeL84qLMttCVAicSiMpXPlDc1xQ
+         toKjTcDGDtwOGcQKoyJVir4fF5AjjIRL/baKeMzxKvC9izOMAdmNGxsdHEk17fp6zONJ
+         w738wU6JdhpJkQo94ne/uKlYX+NxiF8Y2aAawPHu9JhC7m3Xh5ZjHQj6BDRvsQ5YJUfR
+         OWWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790877467; x=1791482267;
+        d=1e100.net; s=20260707; t=1790878025; x=1791482825;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=axc/agQFuJUMgO0JWETHJcM/R1Xc0CldGQrnTgdLGIs=;
-        b=gRNwM1UBviLI5N9JC6wQdbst7Sre/oelbjwY6RFMMOEb9k3KU0oO8gCC2xMLO0h++S
-         8wY/PvyX97dZdSqhEwS/U75V5S1B+djua1G7jrTsRp0f6SdTzSHyAyhM7bTcVzHUptig
-         jDoQCbW+8XCLvPLKZFeVcKOHs9W8rf1dwCID5IBn9Yf2+QlyCJ45P/TTku3m8VIN50qK
-         DLM6dxE9yR0lN4HmU8viCWF2ge5//8nr6TwVBapy42ueVOCqp+W65+Z/0QJT4iCA5H6O
-         f/163nXAYDP7jzWfgaqh4RDbSW5TMDO4vvV0S5GTLACpu+RIS/vAW7Saa1B7KUhWSWO/
-         plKg==
-X-Forwarded-Encrypted: i=1; AKwUvBztMd/IugSHXy5q1IEIKxpmCEpxfnWz+OXqNtIG7P2CSBI1Isw6a5Dv3HPt32lAuqxgLSMB3XHsU/+gHw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mr9exoNAK42S3m/R6+iqcI2OrneEpqlezIQoh35YWkJeTJZj45
-	nJl5Esf4win4toyA+gby3U0ewcCjm1UMNtE8K4WeZpEganf2M4G2NY4=
-X-Gm-Gg: AYBFou2DW6DVclU/Hh3+ZfF5XexxyGuMJLyjWEy0H8lH2IGosG21vygVp5tX/TW7Uvx
-	6m9R0x4bHoyMhV79DgtG7JP7uvybXTKAbR8Iey7Q6XpzsTdY4yJ3bkBX7OuuQPo2ROKLoqyoRs6
-	95DRmMPJZqvPvmQ/9ffWYa3kJBw6xaZvggLP/fQpmpadKV0CtQKMeENGP+TFRuGDMW5pmMR559z
-	SYmqpmLYCrEGJAICVRBIEeMuSRIGQsnzxSxWm0RnAyKV9BEV2ZmvcPpOL25kpb37NwDLuKNyZcx
-	I+v7cmrkenCNPFT4xiqGrXoJHnpNlhWmNSAwJEtj2nsfHmz1k4b2F5xRimKiBLNvUCzzHdVt6+j
-	Wbc1uV/L9LU/u0kbmXFdqGcwq9C41/ZwrxzUOnxEwEVJZq5G3QJUsv3/VRp9j0by2wYBSpn7+V/
-	ICKEdl0veK9GqrPH9iebJMlRBhHvZ418NH0EjSAhXMsZQ5ZGGmq+Ay16f32oaUvSoLzyEGfM5y6
-	d2dLRiJo4COgztj5HAUD04x5FwisaTEfp/uI1KBSkqVD/gcoH/zwNDYXGZguYSTeF4nFeMK/Yir
-	+4eFRdp8ba0YCTqkjLJ/dbll42jP
-X-Received: by 2002:ac8:7f8c:0:b0:52d:9dd9:63bd with SMTP id d75a77b69052e-5337427ea48mr112168181cf.10.1790877466953;
-        Thu, 01 Oct 2026 10:57:46 -0700 (PDT)
+        bh=7GPDCUkXzbddkBBz1dYgs3l5YKgPxDZJWy/V/n2BPFU=;
+        b=N4WsYwlqZr6St8XHEiv4lIwf6GDhjS6fU/U7+NPGyEqAvkM/NHrHPjbQDOFHK54UqI
+         duTnrtcpweuWJeKcljAC/7sBxmP9czGU8To8Xkq/Gu4CfKvPBjj8kJs4WkMnNV+8urJt
+         nujk0ZhKO3Eiy5EpuU+v42XBdC48ZNyqBM7rEUSg3PobV9Y0b9g2fbg8TTFuykUomyev
+         JbhtBhFQVqNLe5zlGTX6W/BA/XsxgcQUlV5HyEYRWWmFyC9WMp8QGJcj2UPb7EvMIwyo
+         Ac79/4qptyNZt4WdrlAmwcnHEmmM5Gdzk0F0Z+ZddHAJS9FsI22aOe5XRshBuLNGqkG0
+         DFXw==
+X-Gm-Message-State: AFuF++kkWHpNl1BIqnr/Ho4RNMRK+tYGBNSSohPJ0oc/Hxtuvtxwoab8
+	u4uMEDRy2L0bPiQfdLEjQALJpgPtdP3gQwoY/P3EuoXdVFP03RHTroA=
+X-Gm-Gg: AYBFou1GpxXihIwRo0MWI2EENqGfpi5b8TIOZsUfRUsTNuIzosQ4UFA3L8TPUkO2hpR
+	yGCL3AX/Ny/oFyQRZqNoVnJJrp0wfO/ew7A/9jN8hQnqkC9DI/WKjorszFxP3GGB/ojzw2LTdJA
+	Tk74pKAr+BViC+HKFS+zrgAW5RLpuApJ4c+GstaRvZloDenmhlBLE6PMYO88/adtzFAhbnCo+Bv
+	bS/efdFfpau00wRGCI8MXcJc5aM5DF72v02PIdXPQxT/2gOtxrK0pZgSx1nfIT6W6Eo/e+3TmnT
+	4Q/vpG5tNrY2DUXpnc8FBWxOWU5537Tvb50a5wtfEAyMPGZrIMgK31KpSkudquXjSxpnvxKI5wh
+	moLUHc+9D5Og9I1oHqnV8IHmPlb18lYr18WHzDjdex4hsUW2VkdzKg2lDHu3QQCysZNDTKNR4WW
+	tZiWTVjBuOrfFw2OEsTyfJqxtYbIk/O11ddk6siajxCrK+GdshiSgpMbXMzr8vdj3R/c6BYKJmr
+	ICUkRUrDz/0/E8kUln86nSKs3fF/X397iilvtqKPcZ0Kk8hKDy9TknrlwlzyVhYaL1nhNtKk3ME
+	nXDEDV6sUEvSZZk3jgc0zT3DMDr1
+X-Received: by 2002:a05:622a:181b:b0:531:85a:25db with SMTP id d75a77b69052e-533832a853cmr71428341cf.11.1790878025154;
+        Thu, 01 Oct 2026 11:07:05 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917a8a9800dsm31853976d6.46.2026.10.01.10.57.45
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5c3fbsm4310221cf.8.2026.10.01.11.07.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 10:57:45 -0700 (PDT)
+        Thu, 01 Oct 2026 11:07:03 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Ming Qian <ming.qian@nxp.com>,
-	Ming Qian <ming.qian@oss.nxp.com>,
-	Zhou Peng <eagle.zhou@nxp.com>,
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	linux-media@vger.kernel.org,
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Shijie Qin <shijie.qin@nxp.com>
-Subject: [PATCH v5 2/2] media: amphion: prevent unbind while video instances are open
-Date: Thu,  1 Oct 2026 13:57:37 -0400
-Message-ID: <20261001175737.4048254-3-mhun512@gmail.com>
+	Benoit Parrot <bparrot@ti.com>,
+	Hans Verkuil <hverkuil@kernel.org>
+Subject: [PATCH v4] media: ti: cal: drain WDMA IRQ before freeing contexts
+Date: Thu,  1 Oct 2026 14:07:02 -0400
+Message-ID: <ea39fac2402d401d452fe191ac6f9cc1e9e9dfce.1790877910.git.mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001175737.4048254-1-mhun512@gmail.com>
-References: <20261001175737.4048254-1-mhun512@gmail.com>
+In-Reply-To: <20260925191949.3147558-1-mhun512@gmail.com>
+References: <20260925191949.3147558-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -86,59 +82,101 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An open video instance holds a plain pointer to its devm-allocated core.
-Unbinding the core or its parent through sysfs can release that memory
-while the instance remains open. A later ioctl or close then uses the
-stale pointer.
+cal_remove() unregisters the video devices but does not release their vb2
+queues. An active stream can therefore keep WDMA IRQs enabled while the
+contexts are freed. The managed IRQ is released only after .remove()
+returns, so a handler already in flight can access a freed context through
+cal->ctx[i].
 
-The video file operations pin the module, but sysfs unbind bypasses that
-protection. Suppress manual bind and unbind for both platform drivers,
-and warn if core removal ever encounters a live instance.
+Use vb2_video_unregister_device() to release each queue and stop any active
+stream while the IRQ is still available for DMA stop completion. Then
+release the managed IRQ explicitly before destroying the contexts, which
+synchronizes any in-flight handler before the context memory is freed.
+Drain the IRQ on the probe error path before destroying partially created
+contexts too.
 
-Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
+Fixes: 343e89a792a5 ("[media] media: ti-vpe: Add CAL v4l2 camera capture driver")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
 ---
- drivers/media/platform/amphion/vpu_core.c | 3 +++
- drivers/media/platform/amphion/vpu_drv.c  | 1 +
- 2 files changed, 4 insertions(+)
+Changes in v4:
+- Rebase onto the latest media-committers next branch.
+- Rewrap devm_request_irq() to stay within 80 columns; no functional changes.
+- Compile-test the CAL driver with x86_64 COMPILE_TEST and W=1.
 
-diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
-index a0c58ec97a42..2e8e08e05de7 100644
---- a/drivers/media/platform/amphion/vpu_core.c
-+++ b/drivers/media/platform/amphion/vpu_core.c
-@@ -696,6 +696,8 @@ static void vpu_core_remove(struct platform_device *pdev)
- 	struct vpu_core *core = platform_get_drvdata(pdev);
- 	int ret;
+Changes in v3:
+- Resend the unchanged patch with intact diff headers.
+
+Changes in v2:
+- Rebuilt the mail-ready message; no code changes.
+
+ drivers/media/platform/ti/cal/cal-video.c |  2 +-
+ drivers/media/platform/ti/cal/cal.c       | 13 ++++++++-----
+ 2 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/platform/ti/cal/cal-video.c b/drivers/media/platform/ti/cal/cal-video.c
+index 1990cab77344..fdf0b2f2a310 100644
+--- a/drivers/media/platform/ti/cal/cal-video.c
++++ b/drivers/media/platform/ti/cal/cal-video.c
+@@ -1051,7 +1051,7 @@ void cal_ctx_v4l2_unregister(struct cal_ctx *ctx)
+ 	ctx_dbg(1, ctx, "unregistering %s\n",
+ 		video_device_node_name(&ctx->vdev));
  
-+	WARN_ON(!list_empty(&core->instances));
+-	video_unregister_device(&ctx->vdev);
++	vb2_video_unregister_device(&ctx->vdev);
+ }
+ 
+ int cal_ctx_v4l2_init(struct cal_ctx *ctx)
+diff --git a/drivers/media/platform/ti/cal/cal.c b/drivers/media/platform/ti/cal/cal.c
+index 5c82378d1eee..0340e19fe8cb 100644
+--- a/drivers/media/platform/ti/cal/cal.c
++++ b/drivers/media/platform/ti/cal/cal.c
+@@ -1145,7 +1145,6 @@ static int cal_probe(struct platform_device *pdev)
+ 	bool connected = false;
+ 	unsigned int i;
+ 	int ret;
+-	int irq;
+ 
+ 	cal = devm_kzalloc(&pdev->dev, sizeof(*cal), GFP_KERNEL);
+ 	if (!cal)
+@@ -1180,10 +1179,10 @@ static int cal_probe(struct platform_device *pdev)
+ 	cal_dbg(1, cal, "ioresource %s at %pa - %pa\n",
+ 		cal->res->name, &cal->res->start, &cal->res->end);
+ 
+-	irq = platform_get_irq(pdev, 0);
+-	cal_dbg(1, cal, "got irq# %d\n", irq);
+-	ret = devm_request_irq(&pdev->dev, irq, cal_irq, 0, CAL_MODULE_NAME,
+-			       cal);
++	cal->irq = platform_get_irq(pdev, 0);
++	cal_dbg(1, cal, "got irq# %d\n", cal->irq);
++	ret = devm_request_irq(&pdev->dev, cal->irq, cal_irq, 0,
++			       CAL_MODULE_NAME, cal);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1264,6 +1263,8 @@ static int cal_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ error_context:
++	devm_free_irq(&pdev->dev, cal->irq, cal);
 +
- 	vpu_core_remove_dbgfs_file(core);
- 	ret = pm_runtime_resume_and_get(dev);
- 	WARN_ON(ret < 0);
-@@ -846,6 +848,7 @@ static struct platform_driver amphion_vpu_core_driver = {
- 	.remove = vpu_core_remove,
- 	.driver = {
- 		.name = "amphion-vpu-core",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_core_dt_match,
- 		.pm = &vpu_core_pm_ops,
- 	},
-diff --git a/drivers/media/platform/amphion/vpu_drv.c b/drivers/media/platform/amphion/vpu_drv.c
-index 2cca61f41bea..9c6f32c5eae9 100644
---- a/drivers/media/platform/amphion/vpu_drv.c
-+++ b/drivers/media/platform/amphion/vpu_drv.c
-@@ -205,6 +205,7 @@ static struct platform_driver amphion_vpu_driver = {
- 	.remove = vpu_remove,
- 	.driver = {
- 		.name = "amphion-vpu",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_dt_match,
- 	},
- };
+ 	for (i = 0; i < cal->num_contexts; i++)
+ 		cal_ctx_destroy(cal->ctx[i]);
+ 
+@@ -1294,6 +1295,8 @@ static void cal_remove(struct platform_device *pdev)
+ 	for (i = 0; i < cal->data->num_csi2_phy; i++)
+ 		cal_camerarx_disable(cal->phy[i]);
+ 
++	devm_free_irq(&pdev->dev, cal->irq, cal);
++
+ 	for (i = 0; i < cal->num_contexts; i++)
+ 		cal_ctx_destroy(cal->ctx[i]);
+ 
+
+base-commit: 4a069a763e8a86821edac4159f7c59a20015631b
 -- 
 2.53.0
 
