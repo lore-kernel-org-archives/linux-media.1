@@ -1,187 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2396B316905;
-	Thu,  1 Oct 2026 06:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7624547059;
+	Thu,  1 Oct 2026 06:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790836673; cv=none; b=uSkV+1QeI4ea9fIZyxjIN5jLL7DAp/CjOLKH7s2s6CuyM4vOxsf5ukmeiUf9cBw6d/SjdAK7jbYpTuy8ILMx42kawa/7S3eac91K/F8i0SHUOnLbH8wOAzQbTyhNc6966tITykPJFuXWoIWZ+PzQdMeUfgd9AsN4Qx+j5U2ZYdk=
+	t=1790837177; cv=none; b=Hoy6QE1fAj30wWj5ZZyW8TTO+T+EDLoGbOt6zwt5P8yptiVDPKoX10B17WTfzXshBZVEFjnqUKl11arDz+yU6UMhWPntk5D2C+raz/XP+dcWRmKPvsKMhbGpPc9TzLn/m4/ileRwO45KPVL1f7uKzZ5SAUOsjG7nWpU3wMy7NuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790836673; c=relaxed/simple;
-	bh=VCT1N6hI2ooF+CmtCByw4GpH0V8pynMdUmROqI71U1Y=;
+	s=arc-20240116; t=1790837177; c=relaxed/simple;
+	bh=9XG3NnyEazFzFaeMLAgpuysfjEoeCrXwje5Lonk2mF0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fj0srJHERSbxGz7lA3OyAQGj4cOw19vFnzC7/gAgZvknGOWivYZcGRdAAu01UEA9wWLcGjZQuBG0lhNxD2RKQ7qUxzkH6rDqxZ8pF/V8alll0DQhkIbxyf2tijisvGEyypmH190dJ/oB66v9VYuvANAdwbptzRMEK7D82HPKNio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMj51tOD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DwLwg0IsX1nb5NgpHerDAcuCeW8DKOM/djnfoPRKeyUR75Mql6yyuTk59ZgdbxvlvhRNQiM/N33eQS9+BO0y17qGt4DZNvCR0IPc7pFd8+MxRgG3Yvshw08WsKpJWv3Nuk6GLH9ZWBEoDsxm5KCi7VbIg/cmiswBJCCCn4M1/rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WoOGl8vu; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMj51tOD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFA41F000FF;
-	Thu,  1 Oct 2026 06:37:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790836671;
-	bh=X2yG9C10oNzGkh3Q87HvKsn9L3yVCds4Sm/K2JQM8aM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EMj51tODtUfKbgPh4IO5i7MmvgaToTcylrTMg0RILrRDsivA3MJdxfofL4/hF3JhN
-	 LPRGbF6J0rhnXmajfYlkAaf3IfaFyCM9JLycu6mbYtTqlbDkCOjCH9BMAGdxzgKFic
-	 3JAbeh529NFx5rbISpZvuPqTO5mrujoixRvIB2jzSFz4bmzHQaWXq/oga+T8bqIIMa
-	 fls5ZFM8A59T+zDE1f73qjU5FENioHEd12uHY+ggnOU03mm9N4kaqWYlbdev7BFFua
-	 mK9PZMO45uCurwd1tqcPjFAnfEnFtsGa/dIcLcZJYwJqdye860qW3ldcHI/khTHRn7
-	 Lq6iv0ZeBTTKA==
-Date: Thu, 1 Oct 2026 09:37:47 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20261001063747.GK3401365@unreal>
-References: <20260929132305.GJ563127@unreal>
- <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
- <20260929175737.GK563127@unreal>
- <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
- <20260930081832.GA3401365@unreal>
- <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
- <20260930114356.GC3401365@unreal>
- <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
- <20260930143237.GI3401365@unreal>
- <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WoOGl8vu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790837175; x=1822373175;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9XG3NnyEazFzFaeMLAgpuysfjEoeCrXwje5Lonk2mF0=;
+  b=WoOGl8vutGralDs2cBiF2J/OqLkmt+qdofw5BBP6dMNalxEGipZYSwq4
+   d1q1rzUzY6T1QkuUNYpzWZWpwznSgtFj0BzHVCxa7tHUPnTElMxwAO2lU
+   qqHbpH93AKVmp6dCkSllv05e6okLhnhC31CZfMhga2trthbJkMPn7ztOI
+   JSRGl2iOZTk+KfqEKWGz6aiaXiQuYJjwXAhxmj3ZNtbp7D8voyRBWX4yP
+   CRD5Hxp7Bc3PHg0GDznpnZMK7ehOpbTmcnBV8X+LEtcaXY+89gYf8KaHK
+   Tox4/ogwvQ/yDhg5bJ7KcuyVCGCFSbcSOyZvjYBfjykw4Ie/+j62HLvt6
+   g==;
+X-CSE-ConnectionGUID: nou0bfUuSvqb9iHq7Vw3Jw==
+X-CSE-MsgGUID: PoNt8qEGQq69LVDwBhHMAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90620666"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="90620666"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:46:13 -0700
+X-CSE-ConnectionGUID: JHix8IX1Tt6emvYTEQkXyA==
+X-CSE-MsgGUID: UQaPFTEcTMyu7O+xhq3DTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="283970288"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:46:11 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 21A45121B95;
+	Thu, 01 Oct 2026 09:46:08 +0300 (EEST)
+Date: Thu, 1 Oct 2026 09:46:08 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar4BsDNOkcusy4Qz@kekkonen.localdomain>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+In-Reply-To: <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 
-On Wed, Sep 30, 2026 at 04:57:04PM +0200, Thomas Hellström wrote:
-> On Wed, 2026-09-30 at 17:32 +0300, Leon Romanovsky wrote:
-> > On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
-> > > On 9/30/26 13:43, Leon Romanovsky wrote:
-> > > > On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian König wrote:
-> > > > > On 9/30/26 10:18, Leon Romanovsky wrote:
-> > > ...
-> > > > > > 
-> > > > > > At a minimum, exporters need to pass `p2pdma_provider`.
-> > > > > 
-> > > > > No, exactly that is a no-go. The neither the framework nor the
-> > > > > importer should see the p2pdma_provider.
-> > > > > 
-> > > > > Only fully translated addresses where the DMA access should
-> > > > > happen.
-> > > > > 
-> > > > > > 
-> > > > > > If I keep the “dma-buf: Let exporters hand out the P2PDMA
-> > > > > > provider behind a
-> > > > > > buffer” patch, I can move the P2P TLP types back into
-> > > > > > `p2pdma.c` and export
-> > > > > > only the function that indicates whether ATS is required.
-> > > > > > 
-> > > > > > Is it ok?
-> > > > > 
-> > > > > What you can do is to forward declare enum pci_p2pdma_map_type
-> > > > > and than pass that 1 to 1 from the exporter to the importer.
-> > > > 
-> > > > Unfortunately, neither suggestion applies to RDMA NICs. They need
-> > > > to know,
-> > > > before mapping addresses, whether to create the memory region
-> > > > with ATS
-> > > > enabled.
-> > > 
-> > > The design principle here is that the final location and access
-> > > path of the data isn't determined when the buffer is created.
-> > > 
-> > > The importer first need to attach before it can query such
-> > > information from the exporter.
-> > 
-> > In attach yes, this is why importer digs in dma_buf ops to get
-> > p2pdma_provide, however it is before addresses are known.
-> > 
-> > > > The importer needs a way to obtain device information from the
-> > > > exporter so
-> > > > that it can configure itself correctly.
-> > > 
-> > > That won't work with DMA-buf then, the exporter is completely
-> > > opaque to the importer and that is for really good reasons.
-> > > 
-> > > Why in the world does the importer needs to know the information
-> > > from the exporter before the mapping is created?
-> > > 
-> > > It is the exporter who decides how data is accessed by the importer
-> > > and not the other way around.
-> > 
-> > There are several reasons:
-> > 
-> > 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on
-> > the ODP
-> >    mechanism, which requires an MKEY to be created first. See commit
-> >    90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory
-> > region”).
-> > 2. P2P routing is a property of devices, not memory. It is known and
-> > remains
-> >    stable.
-> > 3. See the VFIO TPH ST discussion, where the requirement to obtain
-> > the
-> >    exporter’s P2P information in the importer was raised again.
-> > 
-> > Thanks
-> 
-> 
-> Returning again to Jason's series. Let's say we'd add just the mapping
-> type infrastructure, converted users of pcie_p2pdma only to use that
-> and then we'd have access to per-mapping-type data. This could actually
-> be done as a prereq for this series and merged separately. It's a
-> couple of patches only.
+Hi Jacopo,
 
-I afraid that you over optimistic about the amount of work.
-
+On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
+> Add driver for the ams OSRAM Mira016 sensor.
 > 
-> Jason's match() and finish() callbacks could compute the interesting
-> routes at attach time,  perhaps even condesed to whether IOVA is used
-> and whether ATS translated packages have a direct route (which is what
-> mlx5 care about AFAICT). This information is kept outside core dma-buf
-> and would be specific to the pcie_p2p mapping type (interconnect) only
-> rather than having functions and callbacks bloating the core dma-buf
-> structures.
-> 
-> Then exactly where the cross-subsystem match() and finish()
-> implementations should live I figure remain up for discussion and
-> guidance by Christoph?
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> +{
+> +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> +	struct v4l2_fwnode_endpoint ep_cfg = {
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> +	};
+> +	int ret;
+> +
+> +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> +	if (!endpoint)
+> +		return -ENODEV;
+> +
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Link frequencies: the driver supports a single link frequency,
+> +	 * no need to check bitmap after this call.
+> +	 */
+> +	ret = v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
+> +				       ep_cfg.nr_of_link_frequencies,
+> +				       mira016_link_freqs,
+> +				       ARRAY_SIZE(mira016_link_freqs),
+> +				       &mira016->link_freq_bitmap);
+> +	if (ret) {
+> +		v4l2_fwnode_endpoint_free(&ep_cfg);
 
-Maybe I'm wrong, and everything will work out. However, given Christian's
-feedback to determine the mapping type when the mapping is established, this
-approach won't work for an RDMA exporter.
+I recall commenting about this at in least three occasions earlier.
 
-As I mentioned, mlx5 uses on-demand paging (ODP), creating mappings in
-response to page faults. To handle these faults with reasonable performance,
-mlx5 must create a memory region (MR), with or without ATS, and it is
-needed to be created before first page fault.
+Also applies to the other driver.
 
-I'm afraid we're going in circles, so I'll drop the dma-buf patches for now
-and focus on fixing only the PCI ATS flow.
+> +		return ret;
+> +	}
+> +
+> +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> +		dev_err(dev, "Continuous clock is not supported\n");
+> +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> +		return -EINVAL;
+> +	}
+> +
+> +	mira016->bus_config = ep_cfg.bus.mipi_csi2.flags;
+> +
+> +	v4l2_fwnode_endpoint_free(&ep_cfg);
+> +
+> +	return 0;
+> +}
 
-Thanks
+-- 
+Regards,
 
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
+Sakari Ailus
