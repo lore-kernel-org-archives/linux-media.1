@@ -1,132 +1,104 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983F9495041
-	for <linux-media@vger.kernel.org>; Wed, 30 Sep 2026 23:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA7B31280D;
+	Thu,  1 Oct 2026 00:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790810623; cv=none; b=EY6fj4+GT/X5Wh0tAvLDWUXtR9NNkwGX12wTNb8Pa2AU4RPx73BFMyYTQA1w2yDXEce7+OcoN54ATVd14hHI7O+yGIwV6VyTHNxqW8N+idRc8xhs4Cy37wydFkcjzJNzyU0CXe2A1QDx/nkcvddj3DgtfNJdEp0LFaqGR7WsSdc=
+	t=1790815588; cv=none; b=KCvyMvtyB5k2OFwlmTtBxNN7TVy5NqZ3GaDNOYbY+3e+PUkw/0tAedB4eBWDrKKrdtiGlV4grwCTGaU7pZJ2IIOwYf0nuVSgw34Nhnsbq4NdMfgjyEIQoyLEMOsSiPISi9WSGtaM0HTPxSTz55oK3NtlQk1xGyL47wSxcqICTAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790810623; c=relaxed/simple;
-	bh=ZJjikGABeJHJouBKKK1nML3ff+AFjdVxV8EcZtfmWEs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WBV6934gLTLKWVp3OijlLwmkZv0P1l7Fv7avKmFzRaLtikxwnVs3VOTWf6v5DCKfnLW9PeNbaFtXT2BQc6Gijsv8I04YlgQ3MKv/rs/ySiFIbrsoHIH/aPYREbkFW5BNYKayJidn0D/5AwJhXcBWQc1MYSi6qVvZvu0+33RcAAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=buVu7BMs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790815588; c=relaxed/simple;
+	bh=UkmVbkQERU56oU3uOeniS6e1LqsnVJGtykuPyHWVboY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nr1AXwIUnMry/wJtol2YSdrn+Gvgu2wU+bf+mG5ZCXJEN8bFQGa1daJRzIKm4YJjTsD5N2eGARPfZNgKoP7onXWX7zrCrQqPggENMuRmiKvlH6mIF2xEIP25uBHTZeWxQqb8pnvIfsOedasVg82iPWBEVNM9q6az7DiFxBjayGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YroZubdL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="buVu7BMs"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 95D86C1;
-	Thu,  1 Oct 2026 01:21:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790810501;
-	bh=ZJjikGABeJHJouBKKK1nML3ff+AFjdVxV8EcZtfmWEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=buVu7BMsrIOiGXavtoWptFrcSGigZuVhPMNrrK9FT5MIyPf8kztLyLEJ+TgD8Fq9w
-	 roHQwHRCgQxUqMVL6XDxXzNO4znJiYxzkM+hKGB9LrAxgSpnfuvTk31XUEGqJ83NWN
-	 297oWLmggu/sTgkrL74nzyRuhq6ckM7ralNDq3OY=
-Date: Thu, 1 Oct 2026 02:23:32 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Gjorgji Rosikopulos <grosikopulos@mm-sol.com>
-Cc: libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-Message-ID: <20260930232332.GG944070@killaraus.ideasonboard.com>
-References: <20260914233810.GA2796257@killaraus.ideasonboard.com>
- <2e1d628f-8183-4446-9500-9886561f320b@mm-sol.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YroZubdL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A73A1F000FF;
+	Thu,  1 Oct 2026 00:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790815586;
+	bh=+R+5td0uBnZOXenj6T+11HpyCjqpHRZMaeS3A2qHMnU=;
+	h=From:To:Cc:Subject:Date;
+	b=YroZubdLhKwT6IPaRA3dd8oPGYJMhAsOL8Nw6uCnuvSdvhpgL+4EjRg6/k/7dV6+N
+	 q6tLUrz3YhUPeK+Uu/MCggfWdY5a7OwrialumJzs2NX/uHI92J2jPJg4Dh6evy9+Hx
+	 pCYjO/vF7MwuY6VBwxuQGCkLmCuj5RFVpxNQF/jBFZBlVkwWiUTg/9U1zElk0Os1PM
+	 S/Y6K/JdtqPwaU1FroIMaP8UKpusz+ssfbyJgJwTbOOs3x51gG7V0sZGx3Vexjc2S9
+	 kdP8tKAtWb+TdPm3hqpyUtTaY1qWaplYm4JYmEJoOz/uV8PvucYfJqUpUAQbxhp8Eg
+	 DQpBPuLtnv82w==
+From: Sasha Levin <sashal@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	"Bryan O'Donoghue" <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	"kernelci.org bot" <bot@kernelci.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: iris: fix 64-bit division in iris_set_slice_count()
+Date: Wed, 30 Sep 2026 20:46:17 -0400
+Message-ID: <20261001004619.2230849-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2e1d628f-8183-4446-9500-9886561f320b@mm-sol.com>
+Content-Transfer-Encoding: 8bit
 
-Hello Gjorgji,
+32-bit ARM builds fail at modpost:
 
-On Fri, Sep 18, 2026 at 02:10:07PM +0300, Gjorgji Rosikopulos wrote:
-> Hi Laurent, All,
-> 
-> On 9/15/26 02:38, Laurent Pinchart wrote:
-> 
->     We can consider scheduling a third topic. Proposals are welcome.
-> 
-> 
-> Below are my proposed discussion topics. All of them relate to advanced camera
-> use cases:
-> 
-> 1. Electronic Image Stabilization (EIS).
-> 2. Multi-frame Bayer or YUV noise reduction filters.
-> 3. QUAD CFA reconstruction, including preprocessing algorithms for
-> high-resolution Quad Bayer sensors.
-> 4. AI-based denoising in Bayer or YUV domains, focusing on image preprocessing
-> denoising algorithms.
-> 5. DOL and video HDR use cases.
-> 6. Background blur for video conferencing applications.
-> 7. Face detection algorithms operating directly on image data.
-> 8. Multicamera 360 image stitching etc.
+  ERROR: modpost: drivers/media/platform/qcom/iris/qcom-iris.ko:
+  symbol '__aeabi_ldivmod' undefined!
 
-Those are all interesting topics, but I won't be able to schedule all of
-them in 15 minutes :-)
+The maximum average slice size in MAX_BYTES mode is derived from the
+BITRATE capability, whose value is an s64, so both the division by
+the frame rate and the DIV_ROUND_UP() by the number of slices are
+64-bit divisions. 32-bit ARM has no instruction for these and the
+compiler emits calls to __aeabi_ldivmod(), which the kernel does not
+provide.
 
-> All of these use cases and algorithm implementations can be vendor-specific or
-> third-party solutions and may run on a GPU, DSP, or other accelerators.
-> 
-> I also think that, similar to the IPA used for 3A algorithms, we need an
-> IPA-like for frame-processing algorithms.
-> 
-> As discussed, the only practical way to upstream such functionality into
-> libcamera is to provide an open-source alternative (even a simplified
-> implementation) that defines and covers the use case, including its input/
-> output parameters and interfaces.
-> 
-> The main question is whether these algorithms should live inside libcamera or
-> outside of it. Both approaches have their strengths, but I am personally in
-> favor of integrating them into libcamera, perhaps as a layer above the pipeline
-> handlers, for example through use case plugins or a similar mechanism.
+The bitrate is always positive, so use div_u64() for the division by
+the frame rate and DIV_ROUND_UP_ULL() for the rounding. Include
+<linux/math64.h> for div_u64() instead of relying on it being pulled
+in indirectly.
 
-I've long thought that libcamera should make pipeline handlers more
-modular. Pipeline handlers would implement components for the pipeline
-elements (such as the inline frontend and offline ISP) and declare how
-those components are connected. We should be able to move most of the
-logic required to run the pipeline into common code.
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Closes: https://d.kernelci.org/i/maestro:4935f1aae20e7f957e60f8fde09c4e6d153c7909
+Fixes: 5f21cd9a4ae4 ("media: iris: add support for multi_slice in iris encoder")
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/qcom/iris/iris_ctrls.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-With a modular approach, inserting elements in the pipeline could become
-easier. It's however not clear to me yet if we should try to separate
-the processing required for the use cases you list above from the "core"
-of pipeline handlers, into a separate layer on top, or if some use cases
-would benefit more from being able to inject elements into the pipeline.
-
-Note that we have started experimenting with the concept of layers, see
-https://patchwork.libcamera.org/project/libcamera/list/?series=5753/
-
-> We can also learn from Android's approach. Initially, the HAL3 and per-control
-> APIs were created to allow applications to implement advanced algorithms such
-> as HDR and EIS. Later, CameraX Extensions were introduced so that these
-> capabilities could be shared across applications and benefit the broader
-> ecosystem:
-> 
-> https://developer.android.com/media/camera/camerax/extensions-api
-
-It's certainly something we should study more. As usual with Android
-there's little documentation on the underlying architecture though :-(
-
-> I believe Linux faces a similar challenge. Once PipeWire and GStreamer plugins
-> based on libcamera become widely adopted across Linux distributions, it will
-> become increasingly difficult to introduce these advanced use cases at higher
-> layers of the software stack. Having a standardized framework within or closely
-> integrated with libcamera could make these capabilities more accessible and
-> reusable across applications.
-
-No fundamental disagreement there, although we should also be careful
-not to reimplement GStreamer or PipeWire inside libcamera.
-
-An important question that will need to be answered is who will be
-willing to do all this work.
-
+diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
+index 8c4c47944f22f..4f2633bbb49f8 100644
+--- a/drivers/media/platform/qcom/iris/iris_ctrls.c
++++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+  */
+ 
++#include <linux/math64.h>
+ #include <linux/types.h>
+ #include <media/v4l2-mem2mem.h>
+ 
+@@ -1588,8 +1589,9 @@ int iris_set_slice_count(struct iris_inst *inst, enum platform_inst_fw_cap_type
+ 	} else if (slice_mode == V4L2_MPEG_VIDEO_MULTI_SLICE_MODE_MAX_BYTES) {
+ 		hfi_value = inst->fw_caps[SLICE_MAX_BYTES].value;
+ 		if (rc_type != HFI_RC_OFF) {
+-			max_avg_slicesize = DIV_ROUND_UP((inst->fw_caps[BITRATE].value / fps) / 8,
+-							 slice_caps->max_slices_per_frame);
++			max_avg_slicesize =
++				DIV_ROUND_UP_ULL(div_u64(inst->fw_caps[BITRATE].value, fps) / 8,
++						 slice_caps->max_slices_per_frame);
+ 		} else {
+ 			/*
+ 			 * No bitrate target exists under RC_OFF, so approximate a
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
