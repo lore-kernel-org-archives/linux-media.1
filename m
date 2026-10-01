@@ -1,103 +1,94 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919964D7D4D
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 10:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8596C4E01E8;
+	Thu,  1 Oct 2026 10:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849496; cv=none; b=oPEx15YX+FprdkgUtaE30/uY6TPSgLSyruZzTirdJNZtV4IHaKcC4LIKl0FPxAU0qr5TCn8DV1mx8zeUZcCss+s1gNSzG3WjMEpHSLGaAp/aH/YbRqjhNyfRqsQZjt9wNgony9vmDZ04gQHKQt6ZlCN23oqVSKj4xOR8duiT6yc=
+	t=1790850860; cv=none; b=be783qNRQ7s3VpZiyzp4ox5tdxkcUY3sgDHx/V9EBwVjvK4e+1yvT5B95ITGc4hgrjF6JDARQ55vp+u04ZgpLE5YOSpBMhZPbsY5lRJvXrOq9dGTxJAj25+H5OvyZMzte8VKyi9M+rfwKS0TcYhLwkclePMIcOReN2bZ0ClxwaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849496; c=relaxed/simple;
-	bh=6C565t/VlyoDv3UV6Pv/GK2eTKoZ4N03hIDuBo2UJDA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u5ytEFEzGM+eYk3A7dNvSaR/2bnoRRs/9vgJJA1YCMPNcHWZW8DOnD9jIdPSXhed0YCMJ2RpjtHiDFyY8QAV+Eo6dnrWaYXhmhSuwBrEqoQ6FEnJITBQdxjVWCR7wo1aWJbLwMQJv8SA0lXJrEjrWMeovICAJ0TDzo1okriVkbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bOMFfnn/; arc=none smtp.client-ip=74.125.228.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790850860; c=relaxed/simple;
+	bh=xjVMW3aXX1KCF37mr2VmMH/GPb4/XV4kex/2mMgZ8vg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t3vG5NMFu2CMpX3RVXHDE3GBzOF39ci8E/OpA2en7pyfKjj3jF/SolCIawl4B2OCQ8o6npgcnN2LSyzwj7FIId4qw0QgcnRADqPO8nywLDy8kVkvWiaY8TiwxpUm+ZYbQOtppgQF41hA8PfcaIYU9frNz3RBfF0Oya9rVVdEl8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mRIe2UAT; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bOMFfnn/"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae3a72e02eso1095478a12.3
-        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 03:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790849485; x=1791454285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i3XG5cy5KBLHekXoy0zdt8qQzO6LEdX5LiupQKnkZIo=;
-        b=bOMFfnn/jgcz1WJBEzhyFKMrlGUEYbsuCSbA6r3wTylJd66TyCu5SR5fCkUgQwBOZW
-         KCIcufLthnXh9KQfCHlLl6IF1XEBvloeFkmBFXF0LJHMarEOn6JQ6byyvAzMyOShQzQ6
-         ZeXpvpF+kCn/QX5M7cdXO+ltiSp50HpNN66qTWqfVzrO1GWLSk6rHIO3ctSgJGFXilPx
-         cWJ2a1WagwmIT/r5gmeYZv75Sgf/gADZh2ePg7Gip4Gs5qS3RkeVui5mj57bHcWc1hYD
-         tT8Pn0TUhjCu8dEhc4DwmL1JtVVcp4D+xWFtpf2R8SZMySyhumIc59LClekjWdnvLITG
-         CLOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790849485; x=1791454285;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i3XG5cy5KBLHekXoy0zdt8qQzO6LEdX5LiupQKnkZIo=;
-        b=cPPo5mOPO/oQnsESwmGd11qcXC5mhMRarqPnITa3iKpskpQNT0jelbjNJMu/2k0KAs
-         vmYLHCxLoP3q4+66sOA3QnP6LolWNW8eveYXFRYMMvdu/vTm0j+D8HnP0oxjockGb7dh
-         30ZXboDnbAh6qGA0Z/+qc4+AFq1K8RmRYwmKXMTK+Xy6QRJWITmMxmBWOiSr8vrQ2xOA
-         aiUoopwoBR0S7l23C6K04yDsQOWdJcC8i/YUWaD7pV9la/CEeEIyaAKqKaiaMq4SFHw4
-         M9yM2O864N2tGXWSJIOfndFTCuCto9iyhkV3BuuXvv1JACnfiRhSk1Kq8QEoFYxVZ6aW
-         Iu7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxemXyr33O3jQZnlzr/u7PxGcbKQhMPZK5f5kzfgehL79uRGkp3kXj6A1kHej9ODfBfccZIUKvZ0aCLgA==@vger.kernel.org
-X-Gm-Message-State: AFuF++l8Okglbj6eZVCTcRZAHTQWW+aseyTYiDnc3NPrEhH6bbHXMPNE
-	pN/s9Xy3F3G0gnRRZKRezw7KALbIaIBoA4+59Ll3ck6q2ygSFIQjSxngJx8SCkEJagc=
-X-Gm-Gg: AYBFou2sOl2HTBR6/iUinJ1sJr99JFmzn08/SABdhkZOGDBsO03n74ELEsJeeMONCFM
-	se6wGxt9qJg5mq9jLnOYQv+c3vFyHGBkBXQvtem7JCYihch0ShfFoLBoPiAVggSIPFYgSBLYBE1
-	3Sk8k9xWO5Kp8ygH2CyVWTtHn06bheGkph6U6REC7Y3wlZFgiCu3L0fx4PY9UGkV+8EVZRyt81C
-	JQxRVubHAwNaPAfhTO5P39uyp86LLdLnml15oyb8PbPJ5QAB5JNJz3YOwajj9VU3qsQmO9hB6/7
-	qFFWenLpQHeIvctI9z4yq1T2fGVbwqnVfoS0G1jLZCR+K0onmTVb01unpFTyYW6UHLcT2vEXF8c
-	7ey4gvWe5PwLXrbIwNPa2cN/csEz+DirtlJxgpGfIecax0n+TRuFVXYkPGJW5XdKcIc1Q2UGDmC
-	3tvMXwXCGynmoqKR+vox8MshWR2NfK/9WFGx2PZCMSdIlyeoNewc/EUXmKu0NnZrPcPu8vSQuVc
-	gIn2uIDM74=
-X-Received: by 2002:a17:906:f587:b0:c2d:c98f:4824 with SMTP id a640c23a62f3a-c2e23d7e12fmr327647166b.30.1790849484765;
-        Thu, 01 Oct 2026 03:11:24 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.14.175])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e342a24c5sm95689566b.4.2026.10.01.03.11.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 03:11:24 -0700 (PDT)
-Message-ID: <f61f1882-d6a5-46ce-81e3-b84648ecc6d6@linaro.org>
-Date: Thu, 1 Oct 2026 11:11:23 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mRIe2UAT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790850856; x=1822386856;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=xjVMW3aXX1KCF37mr2VmMH/GPb4/XV4kex/2mMgZ8vg=;
+  b=mRIe2UATDSdZaLmFvFN6OGLwz+5EIW0R/B+IYI79mYBa+/QlPOJNyjIQ
+   sTUCVRidPTXscavljCMnHbchDOfmdTrYuujAWVHxV/ixh2R1ExCC4DsEQ
+   EykxqelgOhSXggU+HSaIfd97ee0Eki/vupzllvVgSwWZ7LqfRVb15ZzFk
+   eJ0wjlvE3TCDIuBhpOIjanrXxyB46fRrGWOPEtMWKBkn3pSjrGHfRUTxh
+   FT89Pbs+UdOn/yXhvyyc5DGzpzFbUSEfriQLVz6OlEGp/hWsMjRDXCp/Q
+   Wm3hY4nxS+mD2Mc0FpQlR1dGFVH4FT9nMuJAQwWO5TwAKKSmvLdWBymxk
+   A==;
+X-CSE-ConnectionGUID: H11a5I/DQie8aIBLQSsMSA==
+X-CSE-MsgGUID: Yy8gKO7+QnG9F8Jgk+eJKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="113390217"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="113390217"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:34:10 -0700
+X-CSE-ConnectionGUID: 7S1VmvmGRveXsMyrE3BPbA==
+X-CSE-MsgGUID: Guu9ITM9RUmISY1TW2anfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="274044840"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:34:07 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B52BD121BA0;
+	Thu, 01 Oct 2026 13:34:03 +0300 (EEST)
+Date: Thu, 1 Oct 2026 13:34:03 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Cc: Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
+Message-ID: <ar43Gx4cm_bKLC0b@kekkonen.localdomain>
+References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: Add qcom,x1p42100-camss
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260930-purwa_camss-v3-0-0fe2a5b11208@oss.qualcomm.com>
- <20260930-purwa_camss-v3-1-0fe2a5b11208@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260930-purwa_camss-v3-1-0fe2a5b11208@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
 
-On 30/09/2026 07:57, Wenmeng Liu wrote:
-> Add bindings for the Camera Subsystem for X1P42100.
+Hi Barnabás,
+
+On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
+> `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
+> step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
+> to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
 > 
-> The X1P42100 platform provides:
-> - 2 x CSIPHY
-> - 3 x TPG
-> - 3 x CSID
-> - 2 x CSID Lite
-> - 1 x IFE
-> - 2 x IFE Lite
+> So move these constants into macros to avoid the repetition, and with that,
+> use 4 as the step size everywhere.
 > 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
+> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
+> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+I already have v1 in my tree and I don't think there's a need to fix that
+tiny typo just for the typo itself.
 
+-- 
+Regards,
+
+Sakari Ailus
