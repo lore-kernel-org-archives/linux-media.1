@@ -1,94 +1,94 @@
-Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
+Received: from mail-oo2-f34.google.com (mail-oo2-f34.google.com [74.125.231.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389DE3D6477
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 15:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF98501F30
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 16:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.162
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870357; cv=pass; b=i4BI75o7o8Qzn6PQ8HgTenHK6yHGgs1IDQ6CtWPufYZjTuwYWwcxlzHLppX5f4cg+92rofx04lzO1A9H5AaVf8/AvAGmJpm+2vuaZAwZilrnyJWhC/yBN91RXnPPzKFRO9yKf76fkW42hdEMG5DOsJlrN2/eQasCz2Rq0zL0+9o=
+	t=1790873465; cv=pass; b=dbVt9UE7ESfnu0jElAbBER2CX15af6AZ93BGpf5FW6OxQQnFlQUucVVOqexXHsklVvVsvT3ZejS25WibvZPRJxC5heQ+sZKzVt2qctTBVn9oSLlJybJcyL7bW46et47pxliZ2d+8qvRfkzNhOy4aVap4HkVgUKs/WIr4PixOLKM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870357; c=relaxed/simple;
-	bh=xGRVRG3bANziLbbWfgLCs1dTAw7UUNAdO1KbQXxklMk=;
+	s=arc-20240116; t=1790873465; c=relaxed/simple;
+	bh=Z/Pt4iHzmTGZd8lDgdQqN+liVD+302dlRQrpejVIGb4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D6/KebE+7eTcP9vYMeKjvoL8zm2foPxIaNQ52inYzKyBdHLrGOMXWem4xB9mnxVML+vam6LeSWTJ1rEcOhlvD3Ef+DcwukCsdaO+Y95qp+W+DU8wbxCJnVdkHY4ORVvQ4OtZh5WdJOfD56Fq5KYVG3cjfaIqfqebr8IUw/SwIfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=GVmnq3n0; arc=pass smtp.client-ip=74.125.231.233
+	 To:Cc:Content-Type; b=De+EzqGG2UZEIw/vHaTJBI50sahwph8lNM1bS/ga8eW1E0NluagdH5sKSJGDtkupS/ksQIlBk7wxCxInRZKWYQbr622Ac58ZY429e9Rwzt140rAL6H/pTz414T7bWQdlphfHotLp7h/LdVROpWju58GknMVMr3hSYiKYlrL9DN0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=cgI1RHyt; arc=pass smtp.client-ip=74.125.231.162
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="GVmnq3n0"
-Received: by mail-oi2-f41.google.com with SMTP id 5614622812f47-4f4a36e08f9so197667b6e.2
-        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 08:59:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790870354; cv=none;
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="cgI1RHyt"
+Received: by mail-oo2-f34.google.com with SMTP id 006d021491bc7-6de64084488so375555eaf.3
+        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 09:50:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790873456; cv=none;
         d=google.com; s=arc-20260327;
-        b=fLeSEGAaclk0nruKHdQR8iNNH7UhxdzrudeuKgh0/q2MWUdB9oHZxGJfxczDbC4JbO
-         /EA0NiEHnVBF7L0iQGvUzOMVl0lJFXqGAYp5NSLPuwKnYI5/NhszjgLBR1ZdzQczBi00
-         m/Ayy4fDrkOolcEuJsJ9QWuVRix5duAwll9OD1Bq8L58JPBAKeLZqNF1AGwpW6CeVMYt
-         9+3Fie31Ztni8DBiofOOq16wkpDqKNmYm8b5fxZ6bbfQMq1glF5lFVTdmn5ZZpOXHFDQ
-         uJyUGdupZIEPnMPINWTqqZbmk5rl4Oq7uWjn94JO1u5Dg8aL8UMD9JjP5CHGJR+hjucJ
-         7Jaw==
+        b=SDQSmDEguY0wI4XJWYRZVDh1ijyalru2rEtoBfpuOmKz+ludi32aTHvvm3uu+tpOdP
+         l75ZLGuGV3wfyZyFD3gVaXyW3hEOKTj99jxb4HRYssWytZAPiJlHoxy5jly9geX0C8RU
+         5PO5xKT2L8Bosl1Gjjd2lYkztTZGwoELZQ10AIohGvKxK6Dt6KXyOk6PkWrTpcNxkSzV
+         NgHXARMyNlraMlfBAslILZGBjf/2ps3xgnfkZdJscA+LGBpZY1ss/DzRrAimVYKK4+/D
+         3L7MSeTh/4t8Pdkir5MEGzWJHBbdqi+Gw1K42Ab2lA8K8Ak6ipxM9yfNDxi7LWyzuATl
+         YnRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=gGXBtD5i3iEOjYjdpDLSyJG8vr5d+zCegcbbH2xRJZs=;
-        fh=N3QA1AUkmtA6xgTOFxyxW5+qwuwaGCuA2pogbgBD06Y=;
-        b=hkWu+WEjSs625ki1HHkn0141lV0tG50hWDiVbQR7nrvl56RrUjGxtfxCIQO8zfpsXp
-         ZH/S+jOGJ0ejQy0eBUrbMG8ySJjDvbmVZWDBIbj5I2+1S/I/dcBiNP4aQdGjeisTZ5E6
-         VuZP4QW+qonRv1o4hvZAlgTbnRW9sRJ7+Ljy0m52k+ClNVtQvtJKuaTVYpC98xLzbmUz
-         cX4LcGpsnGT7Xextv/h5kbllRIBL5AoKNmtVqEqz1OhheM2ekpbSgn7Db2qhQL1/6RHm
-         egLStG6diD04Qs6StKbPznUv67XbIpZpXIcSVT5f5CLesQAppsO4fUOXlS78Z+ty9N1J
-         zDAg==;
+        bh=M4UDS/r0ws+k3dZ66A0pvwJmVSCNZ/qISAilbB0LD6s=;
+        fh=4Jr6Mr7AP96t3i05Lq0nr1DWpxOdpkRcnd7jD2ZTBKQ=;
+        b=IIbRV4tCjVgkXDuAwD+eDBQm1M6TxlNryS03NF0pLoEKqxUTjstD6h+9tKhqHdD2gz
+         NfdCpN/udCG5vru4xU2cO7uE9RkOUQ5E+cXXFmNjRz4THwwuwYy2uCGR6NNRvx6AJUjT
+         0PzUMVXGu+QOytzhHM8fvHni8m6FxOY7pBoQ8/gZA+ImoYJmqQqcpkeF0/4t6zlBwM8O
+         6FTiFmxNqKD/LqAoYBvFrRtCyGVvMB68EYIfV+kOoDqlmtKuOOxbXT01sYwRzeaPODFE
+         DDTpu6tCbi6FlUVQ51AByeAmTjgC2l/OkJVMAhL0UZSspklodPtOHmKh2NwYLGC52Ozt
+         e4Zw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1790870354; x=1791475154; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1790873456; x=1791478256; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gGXBtD5i3iEOjYjdpDLSyJG8vr5d+zCegcbbH2xRJZs=;
-        b=GVmnq3n0yltosIrzzqEj+0hfboI1DxdmygcIxnKE1OAyLWK4SGPfxzx6do5lpD2O99
-         7tzsj24lXremONEgd7lGsqztCjTgJ+ql8QeFTBu1mbk53SZ3gDNdAFVbjWZ4bi3yjSI7
-         U41nvGmopyWHPTG5WWsQ5FCgOghT7WSEjBAyzkutDA78ZrOzg5YfuqPpiWL/X2H+dNZR
-         fO44KcV3mxsOLxWDwOTs3sN++jl2lhGW5FwUJ7TernKfYNoDvBD33eagwV0YLwkMBef7
-         vsvNKoBbZhcINWh+z6qeRZAhBjtmY0+NMFwmNa2pP9iFQ9x6H+UwW9YhYqWj9WazAxgS
-         0Ytg==
+        bh=M4UDS/r0ws+k3dZ66A0pvwJmVSCNZ/qISAilbB0LD6s=;
+        b=cgI1RHytfVAFFdIdjx/z35eWFWQWtzRSMjH7sTmKcPXA7Lw46jFBmuC+275qFp68CQ
+         dpltNj5cTiiqbr87pw+KnhpWGYPsAwaivigXkhFJPhGQrdmq0O6bpJHqgWYYARuj0N4+
+         pWUFdgmsHwopYfslmuJu0Icn3Eu3upbz3rFm5BKqCd8xEO/ADr4ZYFclEeq5BsDIToqo
+         sWokxBpNzrsqcSj2pYntzyGhsSO3ROwDhkER1nvGLsrBNvgWr5l4fSbQfTsHRQzJ9VKS
+         mc/+4t+9hDCDwaeswf6wgNNilT16sn/V0VOQTnZ2WZVsQHCgbSdh7EIC/W89Y34SLp6F
+         /+1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790870354; x=1791475154;
+        d=1e100.net; s=20260707; t=1790873456; x=1791478256;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=gGXBtD5i3iEOjYjdpDLSyJG8vr5d+zCegcbbH2xRJZs=;
-        b=N7lb/E17eUge4Bw3MiOIyGFHKMUu6b0eyBvQNU/lufJAzkG9i4dN3Fjf5xxyLhkXzL
-         sSseIRCzlUpchgb1NifVkNZCPFqN/bLYCiPItW+1EIhNv48mlcpTyRqk5ydKyw97wJhI
-         AaF4lkI+JKnZTi79lEOFYcDo+SSSuRRclZWHQbVhSAtdOqYPmqCS9DJDYxcTu59xirKp
-         M1p/mYeSTUQ002m5DmEq7EAcJD+YCkMZt3iypFVyTCaxO/vpuAp/5Kj6T+oZRZaqo9zK
-         A7OTlE4rA3vK7kDLgGLWbTdLOqk2bRsihFagR4RyXHEobp39nmVTyy9nFKQY/c8pbB8U
-         0u8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwlCJr7Fr6aKG42mk/4kLMUaHXD8IQcwWwFyo6Sj648/Xi40bC5a2WQcCA/85nLowYURZi1ca9wcJitnA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kuuVTg87y5P590G9k8C+lT4Obyd3Piv6RvEy6NxcByG93SNlMi
-	UgdL7Qi7ZHJftiKvPgBIR6qOf77humdZkm4pKUrh/p5NRQVYofkHVKllw+WgrCdgB1cSV8QYcc1
-	V+zSuOqDHG2Us5KD43ckQBuLCu50zD84NWEJDpRYJmg==
-X-Gm-Gg: AYBFou0rVtz/vwqz5xl2Orbmb2eaBo9ZAPFNQm3mGqvG5WaR8g+r/+S1V18Vg6ScuYX
-	cpM6G9Ufop2ugTZvr2F2IpxjiD+Gm9Nppf+HppKSH1P+dZwe0zlXCjD56VbdD4ZN+ebTxt7NDvd
-	78r7+952Mlq+s+QHNyifJO8K+kYZBUaJvkaQu7sCrgyLscTsu/PRPVVTVYawYbZpnuaGszE43bB
-	2xACU+6xvbOzn58GDWqAFT5ufachOGULDQtaF5tg3tZKFZo9eiXGHVGFqb34at9yF25tTd36i4V
-	KKO/W9uDWHh8QfkplOQ0pqevTrmGq5DKeCYG9J3FJPbOvf2NyxJKyaBhdCVgcGFhttL0BxKmdfx
-	A/LhMIGfnNqx67akj4HNClpq06dNuyHLGpQna7K5rDoIMJ38mp/3CQ8zMiyCrGQC0g7FCIdUv
-X-Received: by 2002:a05:6808:4497:b0:4e8:18ee:eb4d with SMTP id
- 5614622812f47-4f1b5fcd0afmr5535366b6e.20.1790870353757; Thu, 01 Oct 2026
- 08:59:13 -0700 (PDT)
+        bh=M4UDS/r0ws+k3dZ66A0pvwJmVSCNZ/qISAilbB0LD6s=;
+        b=zTCGEIGOpp1i1f9OM9RHRsp+0siTMMp+NmyIPm5K/Vn+gUZedvzkh6RqLsA63vyXif
+         nF8Zf2Oo5xf16sIJPvtogfEC2/S83j4LXE71szG2Am0HfuBht1IdHR6a6kKbGuvif5qa
+         QYtwwoYoen7TkIIHjGCM//Ciz3EjjZar+Luw87sJ+naMuKVqY+O+B75JUC7NFT7ssYyP
+         1yWx9HlNF/Vq6bZtEmlrj8zAgTy1mQF26jO3jY2oK5CWHP6l8F2H9Cl2F9VBV3aw5ciy
+         7MUyund0C73J9HBjJ7qmMGuwGTiToIhToHvUztjSP5fzO5RepID133FaPuINZqfVzcwE
+         ZwCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzqtRRlq38dLgVnIpzSXVAduF8QHUYCtHvYgcPpPvIPrr1nkAMsQc6M5FbGXEDLdOdkSDUr5y5m4fjgXg==@vger.kernel.org
+X-Gm-Message-State: AFuF++ncW5g1urrook6yxJXBF+rnDG2pxRIuGc5B62bkQ4JPKFpRz38l
+	Z2A3uxMCvR82LJ5CFT/NkBEGlY0hJcIcCeY6+3i9CVap9s9zPNN+HuQRHnC/TXgjgOUSeCXFwKj
+	Pej5CF7oiPgxY9OSasxtaEIyUPsDgDG8O1odCoVkhDQ==
+X-Gm-Gg: AYBFou3cIYVbYiKLY7RYCF/5FQd7FvXfBVpAIIXE6sy7AfTLxC7Kcftj7x/HjxiVIVW
+	BgUh7wa9LoA5Wv4QMUk9jj5TILptW6NlB35FW6mZZwcYVCbhF91eNWo7JvizorDJB8C18yGuw8D
+	qMmAmI0h4VngKrDzYa864y63MhXCEnI6OfvPD4yOrje5edtbkuNJ1m1OENgyembBGDDbpI9Ebe+
+	9EWQ0ho8uG3JmVZRK7G3aPKbGQ85w55L8VnveBoexSF2S71XqayKpaK5Pl0SQ6GOOssRbfs6+Yt
+	piUvX6EzMaoxjxPKNT1UrBDObyjrqaJNiEksW3EumqFtXw+nLHIgdroSVZ4UsaXiPwwNmPApOSH
+	vC8TZ1HpyfFyyoRABQbjuiSk/dfLrUuQe5prmh/5u7fHcCRMRJ+C8tTKLQK/9ozQwYDZP4aW8
+X-Received: by 2002:a05:6820:4c89:b0:6c9:80d8:a1ec with SMTP id
+ 006d021491bc7-6dcf5b2beb1mr4733964eaf.41.1790873455249; Thu, 01 Oct 2026
+ 09:50:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org> <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org>
-In-Reply-To: <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org> <20261001-v4l2-sensor-detect-v1-3-a45993be17b8@kernel.org>
+In-Reply-To: <20261001-v4l2-sensor-detect-v1-3-a45993be17b8@kernel.org>
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 1 Oct 2026 16:58:57 +0100
-X-Gm-Features: AclHuK_Yf9QyrCc0iJsQd3RXKlqA6IRw77W3fZK_Zobo9ZJVh5iTB54WTG55uA4
-Message-ID: <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
-Subject: Re: [PATCH RFC 5/5] media: imx219: Add status polling using .detect()
+Date: Thu, 1 Oct 2026 17:50:36 +0100
+X-Gm-Features: AclHuK8bZj6T-wpokTrd8IamyDPA2xXVzcpmrKfxvmyZWiIGgRZgvlAzYjIYUmY
+Message-ID: <CAPY8ntBFTGmGHRZX0QAtbV=fQi4p3Obp19SfNHdFq_DrW3-T7g@mail.gmail.com>
+Subject: Re: [PATCH RFC 3/5] media: imx219: Allow driver probe with missing sensor
 To: Mattijs Korpershoek <mkorpershoek@kernel.org>
 Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
 	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
@@ -97,117 +97,172 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Mattij
+Hi Mattijs
 
 On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
 <mkorpershoek@kernel.org> wrote:
 >
-> Userspace needs to be notified when a sensor connection status
-> changes (e.g. disconnected at boot, then later reconnected) so it can
-> react accordingly.
+> Probe() should complete even when a sensor is disconnected. This would
+> allow the v4l-subdev to be created and improve fault tolerance.
 >
-> Add periodic polling using a delayed work that calls .detect() every
-> 2s and sends a KOBJ_CHANGE uevent with HOTPLUG=1 on status changes.
-> This mirrors the approach used by DRM connectors in output_poll_execute().
+> Currently, the driver reads the CHIP_ID over i2c in the probe().
+> When we can't read CHIP_ID, the probe errors out - which result in the
+> v4l2-subdev not being created.
+>
+> Remove all i2c communications to allow the driver to probe with a
+> missing sensor.
+>
+> Note: Since we no longer power on the sensor during probe, the driver
+> now starts in suspended mode by default.
+>
+> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+> ---
+>  drivers/media/i2c/imx219.c | 72 +++++++++++++++++++++-------------------------
+>  1 file changed, 33 insertions(+), 39 deletions(-)
+>
+> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> index 7978fee5f4a2..aeac70123b9b 100644
+> --- a/drivers/media/i2c/imx219.c
+> +++ b/drivers/media/i2c/imx219.c
+> @@ -1000,6 +1000,29 @@ static int imx219_init_state(struct v4l2_subdev *sd,
+>         return imx219_set_pad_format(sd, state, &fmt);
+>  }
+>
+> +/* Verify chip ID */
+> +static int imx219_identify_module(struct imx219 *imx219)
+> +{
+> +       struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+> +       int ret;
+> +       u64 val;
+> +
+> +       ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
+> +       if (ret) {
+> +               dev_dbg(&client->dev, "failed to read chip id %x\n",
+> +                       IMX219_CHIP_ID);
+> +               return ret;
+> +       }
+> +
+> +       if (val != IMX219_CHIP_ID) {
+> +               dev_dbg(&client->dev, "chip id mismatch: %x!=%llx\n",
+> +                       IMX219_CHIP_ID, val);
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static const struct v4l2_subdev_video_ops imx219_video_ops = {
+>         .s_stream = v4l2_subdev_s_stream_helper,
+>  };
+> @@ -1056,6 +1079,14 @@ static int imx219_power_on(struct device *dev)
+>         usleep_range(IMX219_XCLR_MIN_DELAY_US,
+>                      IMX219_XCLR_MIN_DELAY_US + IMX219_XCLR_DELAY_RANGE_US);
+>
+> +       /*
+> +        * If we can't identify the module here, it might be disconnected.
+> +        * Consider power_on() complete and exit early in that case.
+> +        */
+> +       ret = imx219_identify_module(imx219);
 
-AIUI DRM polls from within the framework (drm_probe_helper.c), not by
-a workqueue in the individual drivers.
+Do we need to identify the module on every power on? Admittedly it's a
+lightweight operation here, but for imx678 and the other Starvis2
+sensors I'm currently working with you're needing to come out of
+standby and wait 80ms before reading the ID registers.
 
-Admittedly V4L2 doesn't currently have a totally obvious place to
-setup this, but it would be far less effort to have the polling
-framework within the core code rather than driver.
-Possibly initialised in __v4l2_async_register_subdev_sensor() based on
-whether .detect is set, and cleaned up in
-v4l2_async_unregister_subdev, with the workqueue calling .detect and
-generating the udev event based on the return value? I think that's
-feasible.
+Looking at the rest of the series, polling of detect would notice if
+the sensor goes away again within a system that cares about it, so
+caching the first successful identify would largely restore the
+behaviour for systems that don't care about fault tolerance.
+Actually I'd be tempted to keep a call to detect/identify from within
+probe so that if the sensor is connected at boot we don't have any
+change in behaviour, nor the reporting of the unknown status.
 
   Dave
 
-> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
-> ---
->  drivers/media/i2c/imx219.c | 40 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
->
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index e198d3fe99c6..76e578a8eab5 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-> @@ -20,6 +20,7 @@
->  #include <linux/i2c.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
-> +#include <linux/workqueue.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
->
-> @@ -374,6 +375,9 @@ struct imx219 {
->
->         /* Two or Four lanes */
->         u8 lanes;
+> +       if (ret)
+> +               return 0;
 > +
-> +       struct delayed_work detect_work;
-> +       enum v4l2_subdev_connected_status_whence detect_status;
->  };
->
->  static inline struct imx219 *to_imx219(struct v4l2_subdev *_sd)
-> @@ -1252,6 +1256,35 @@ static int imx219_check_hwcfg(struct device *dev, struct imx219 *imx219)
->         return ret;
+>         /*
+>          * Sensor doesn't enter LP-11 state upon power up until and unless
+>          * streaming is started, so upon power up switch the modes to:
+> @@ -1117,27 +1148,6 @@ static int imx219_get_regulators(struct imx219 *imx219)
+>                                        imx219->supplies);
 >  }
 >
-> +#define IMX219_DETECT_INTERVAL_MS 2000
-> +static void imx219_detect_work(struct work_struct *work)
-> +{
-> +       struct imx219 *imx219 = container_of(work, struct imx219,
-> +                                            detect_work.work);
-> +       struct v4l2_subdev_connected_status status = {};
-> +
-> +       /*
-> +        * All async notifiers should have been run before
-> +        * we can use sd.devnode
-> +        */
-> +       if (!imx219->sd.devnode)
-> +               goto reschedule_detect_work;
-> +
-> +       imx219_detect(&imx219->sd, &status);
-> +
-> +       if (status.status != imx219->detect_status) {
-> +               struct device *dev = &imx219->sd.devnode->dev;
-> +               char *envp[] = { "HOTPLUG=1", NULL };
-> +
-> +               imx219->detect_status = status.status;
-> +               kobject_uevent_env(&dev->kobj, KOBJ_CHANGE, envp);
-> +       }
-> +
-> +reschedule_detect_work:
-> +       schedule_delayed_work(&imx219->detect_work,
-> +                             msecs_to_jiffies(IMX219_DETECT_INTERVAL_MS));
-> +}
-> +
->  static int imx219_probe(struct i2c_client *client)
+> -/* Verify chip ID */
+> -static int imx219_identify_module(struct imx219 *imx219)
+> -{
+> -       struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+> -       int ret;
+> -       u64 val;
+> -
+> -       ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
+> -       if (ret)
+> -               return dev_err_probe(&client->dev, ret,
+> -                                    "failed to read chip id %x\n",
+> -                                    IMX219_CHIP_ID);
+> -
+> -       if (val != IMX219_CHIP_ID)
+> -               return dev_err_probe(&client->dev, -EIO,
+> -                                    "chip id mismatch: %x!=%llx\n",
+> -                                    IMX219_CHIP_ID, val);
+> -
+> -       return 0;
+> -}
+> -
+>  static int imx219_check_hwcfg(struct device *dev, struct imx219 *imx219)
 >  {
->         struct device *dev = &client->dev;
-> @@ -1334,6 +1367,11 @@ static int imx219_probe(struct i2c_client *client)
+>         struct fwnode_handle *endpoint;
+> @@ -1252,21 +1262,9 @@ static int imx219_probe(struct i2c_client *client)
+>                 return dev_err_probe(dev, PTR_ERR(imx219->reset_gpio),
+>                                      "failed to get reset gpio\n");
+>
+> -       /*
+> -        * The sensor must be powered for imx219_identify_module()
+> -        * to be able to read the CHIP_ID register
+> -        */
+> -       ret = imx219_power_on(dev);
+> -       if (ret)
+> -               return ret;
+> -
+> -       ret = imx219_identify_module(imx219);
+> -       if (ret)
+> -               goto error_power_off;
+> -
+>         ret = imx219_init_controls(imx219);
+>         if (ret)
+> -               goto error_power_off;
+> +               return ret;
+>
+>         /* Initialize subdev */
+>         imx219->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> @@ -1288,7 +1286,7 @@ static int imx219_probe(struct i2c_client *client)
+>                 goto error_media_entity;
+>         }
+>
+> -       pm_runtime_set_active(dev);
+> +       pm_runtime_set_suspended(dev);
+>         pm_runtime_enable(dev);
+>
+>         ret = v4l2_async_register_subdev_sensor(&imx219->sd);
+> @@ -1298,7 +1296,6 @@ static int imx219_probe(struct i2c_client *client)
+>                 goto error_subdev_cleanup;
+>         }
+>
+> -       pm_runtime_idle(dev);
 >         pm_runtime_set_autosuspend_delay(dev, 1000);
 >         pm_runtime_use_autosuspend(dev);
 >
-> +       imx219->detect_status = V4L2_SUBDEV_STATUS_UNKNOWN;
-> +       INIT_DELAYED_WORK(&imx219->detect_work, imx219_detect_work);
-> +       schedule_delayed_work(&imx219->detect_work,
-> +                             msecs_to_jiffies(IMX219_DETECT_INTERVAL_MS));
-> +
->         return 0;
+> @@ -1315,9 +1312,6 @@ static int imx219_probe(struct i2c_client *client)
+>  error_handler_free:
+>         imx219_free_controls(imx219);
 >
->  error_subdev_cleanup:
-> @@ -1355,6 +1393,8 @@ static void imx219_remove(struct i2c_client *client)
->         struct v4l2_subdev *sd = i2c_get_clientdata(client);
->         struct imx219 *imx219 = to_imx219(sd);
+> -error_power_off:
+> -       imx219_power_off(dev);
+> -
+>         return ret;
+>  }
 >
-> +       cancel_delayed_work_sync(&imx219->detect_work);
-> +
->         v4l2_async_unregister_subdev(sd);
->         v4l2_subdev_cleanup(sd);
->         media_entity_cleanup(&sd->entity);
 >
 > --
 > 2.55.0
