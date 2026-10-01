@@ -1,178 +1,165 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com [209.85.167.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F5465192
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 22:51:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790895104; cv=none; b=VaVSRgQaQGeupiqNQZvJUfn+EIuLa9Dr/ynA/4WpVX1hHHY86pPk7kTZDqsD7dX/L4fVS8O0ua5cLXKHmW6egMgH/uV+h8PiMe8Yl2XyT9YE5ZDe7S+o3EEtHTumR1wzJQ6GDeVU/1JRHqKNqgMsdjjbxM6NX42bW+7H8pQugDk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790895104; c=relaxed/simple;
-	bh=IPhNhe+oBVbfeJO5KRUbVSbbdTgoP+Yn9pLbmSUis1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bcsoo5X4/YF8qivrPepnpeSuQgeYWnXbO2kLwDCwJVQuLmuhMB/9aWz4KoyIs3srHvIlxt6WBKBelBLtSjYR2/e+upb/gXcTerUDmIl2ul4Rs/KwIdlRimgnaf4DzMiWaNzO2tCDceDWHhf9Mxh+YyTiAu4HHQ2T9PHzCs37KQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rlE2IZAA; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556023EFFC0
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 23:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.194
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790895780; cv=pass; b=BblaKSiROtUVmy9hnqYWGdLt3aM7sXEPBf8jnicUAI6fZe3oxOs5s/tmmXhg8gyDrmNo4yT7LdAMtReM6zzIVIVbgZhU+qQ3BdkWAy3vGD/8rDxIJWts/9ywWzGf813Ofvf/rcmcDK0mqg7ORDYiyXM+CxzlbSakTXoWG8mGKyI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790895780; c=relaxed/simple;
+	bh=GSPz6lNi1VEpA/4xAN+CTCqpQey0mPtqaK5dSSm5u0M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=boO1y752dL1DthyFT+PgCfBX7D5EgqTXxw8mdcIv5ist8k/3uvM+2Qv+sD6Ybr+b3Zf+xLaOg12xfIEI3oUtsVNsE9KKKcivJ5cKOaYCyENWrDCMyXfMVEaKLEF51xyLByx2RJebqnQzF6HB2OQic6h++5ryUoMeOC4SdRkbIfc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJHEXlfj; arc=pass smtp.client-ip=209.85.167.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rlE2IZAA"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0DF866A6;
-	Fri,  2 Oct 2026 00:49:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790894987;
-	bh=IPhNhe+oBVbfeJO5KRUbVSbbdTgoP+Yn9pLbmSUis1Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rlE2IZAAwsZpsj53oJMVHjpw7rMup8YA6X+aKzcVOTeQsdEF1VGG16vBTHEb5CKXk
-	 G1TnTkF3sYvRYgfw/VjiI3ERTNlZ1KrpwW+UWHK3oBjccnRWpY0xrOSpfhxWjvwz+2
-	 kSSSmf6gtIe9UJKUxqwnErxQUe+EZbzLGS0QhUUU=
-Date: Fri, 2 Oct 2026 01:51:38 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Yunke Cao <yunkec@google.com>, Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add quirk for invalid dev_sof in
- Logitech C925e
-Message-ID: <20261001225138.GB4649@killaraus.ideasonboard.com>
-References: <20260803065811.3490286-1-yunkec@google.com>
- <e939bb77-94d4-428e-b1a2-fc7d2d052a83@kernel.org>
- <20261001225038.GA4649@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJHEXlfj"
+Received: by mail-oi1-f194.google.com with SMTP id 5614622812f47-4b28d9537bcso758572b6e.0
+        for <linux-media@vger.kernel.org>; Thu, 01 Oct 2026 16:02:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790895774; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ANCE1866GvtACpPA03MOekSLqOEzK1SoGe7j8rmR7wPZSGSgCvIqSBKQDS8rCcZYo7
+         72XdKH+hjSpd4HCoq9Uhit75s6DOS4CcQI5VzR6tQunM3uvhDyW2Qh5TEbGbQi6YMV3x
+         UGlWSZud+C5AAdKsi2R7rQhDz+evNQQtnEpff2yc86QF3Tx3tdk7OfRvpNTuRkiN9Upo
+         2yl1rVsImVZVU3HezUkR9w1SkHqE4hWc6jqsKIcpgA6SqsBOeH9Web9zvGCvuRWxEWhH
+         oJqv8Qr0/16vL/kau83Lfu69ZV1YnhFf4hwOwCT+4039/veWGH5ILNx0HVNvX3xbbe0e
+         9qrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lq1IpFmDlDgG5sD+4IjWn0mvnDPiTx45p//Li+dS8Nk=;
+        fh=RIYe0QDGWhunDH5UlIWIsO+hypL8Z7HWjVTdhmeZOiQ=;
+        b=L4OHtQkJB4nJqghBZG2HF2wh4UKladaQ4kvqvm5cP0nTM0Qy8lWnHRiow1N4xjFZ3h
+         39717oYdueTaItHBp4uWtDNajcAh9hf8O75VnsJkzyT6a/siHiHds7f9DY6jk2CrsZgZ
+         n4F4o86g211JydSzKCcBjZHN8A/bQVkpNI7zwCdlVPPjxqmcxD8H27qbhVhpHEnEZeb4
+         gZmpTocCoUknqvqxPrDCLds6cZFmYmCEQcuqk7mp94jZxc7XHKd7c321HBWCEGHhUkon
+         k4FGp4tzl2/wwqgpReKBwNWjIAuXS1S/Zxy9ePtpy9t5eMeE4ikVFYFJ2E02zpliZHgy
+         tvBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790895774; x=1791500574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lq1IpFmDlDgG5sD+4IjWn0mvnDPiTx45p//Li+dS8Nk=;
+        b=KJHEXlfjzgsTNDvsiCSozuH0Ve9EgtbVHd7/lUSARngOzjJAz6/e31H1WSjgqUpCu6
+         H9gvQuhQMn7gSuh6ZxYmysrxKOyjtMTvbeUo77o6cGancPBQVMXWQL5Rxi122H7VCyqz
+         H3aYldeQwsmUhh/8tmGSCJf58z8ChWlhBPfo1tCIDno2Jwss0lxSy3sp/+K66vD6KCXw
+         8CtVh0PeLnvGMn4tBEqHxtfYO/mOMsXrP8ipSokLeHdbuhukGo5ZOgYKeasA6E6t8/0u
+         +J/KTntIofeSg+w0QAQ4azCA4+AdifqpR79fPYgActMAid+1jL6YKcXfWHkHv5Ekrbx2
+         UKJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790895774; x=1791500574;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lq1IpFmDlDgG5sD+4IjWn0mvnDPiTx45p//Li+dS8Nk=;
+        b=TfdTTg8fdgoqJMxyuFn+ksNGnympUe4SWH5571Lx50QGZ6CJG1zsKMu5ufQgfCpTag
+         deRq/NCVoHkiuLgy7wFrN+7uFphyn6EuZ89giYU84vISD8AgpNnIj1+qRSaIzNysDRp+
+         dNWuAjnsp+6HRZMdOh1wXyH6YMEwAidXULnBIKJTabPL8bKTsO56BtxhgEn2VLAK63oU
+         XNLBhSDRFhiWIte+s89ywiNxJT2HdUqB68Ey1yyQIB5rvhCNu2Jik8JClOSUx1SABGQ9
+         CI/P/XrHeqiyeHRLlvyzdV7VsZT1BqAf9ygYVNNk6i4WvgBAloT8lSJRRJJFxxYPi+PT
+         x5eA==
+X-Gm-Message-State: AFuF++nolH3kdIIDWGMJR1Dz5vOrjNfryM0jNmMrRkqKmFsQbBA4uY6z
+	BEI4tFnmBVqMwekMEADjHjnPA70wVy3R8Rr0emaa0LqvxO5ZhwnWe2t/yq4Tl6JssoCvHBoDzQd
+	X6YvNmXTMvF3590vL2DN8dMKl50hjP2aEHV/ybSsWhg==
+X-Gm-Gg: AYBFou1iyo2o32Rp1ZsXLDfTYp3m6X8JEI+0D2Dk6de3bmczierBBDOHnaYGTTNBz6k
+	rPxktLampE1ZnpNOStypbTZvRjBaLSRNxNgpTTybdTJtNVpSDjfDyNJcrFL3jh66ldRGi6NfEo7
+	LRbGDuTbMrodTkG5rHxbWov8bu5enhqCFA7On94NjACFFLpxR+gu4GPHockpal8rNAgULYYaJiI
+	bwTZAswRcBBdi1vz2Z6UsGVtWmQF06NdsEmhBQ6WmmMUz6ta0D7G//cZBbSs+rmTXklMX9sPfVR
+	A01PB+CCwDM1oWBTh8Uuenx7hVXk74avf1aBc9uQLpZrLQlQkvtnQsCgV0D9GXek1TKcHUNIUvp
+	gCON53X6wWdTnuzc1Lx6EceeD
+X-Received: by 2002:a05:6808:4f2c:b0:4d6:9133:cfe7 with SMTP id
+ 5614622812f47-4f30c1c555dmr4506466b6e.44.1790895774078; Thu, 01 Oct 2026
+ 16:02:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001225038.GA4649@killaraus.ideasonboard.com>
+References: <20261001154436.20798-1-dennylin0707@gmail.com> <6abe9325.08f94d98.6f30f.894d@mx.google.com>
+In-Reply-To: <6abe9325.08f94d98.6f30f.894d@mx.google.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Thu, 1 Oct 2026 16:02:40 -0700
+X-Gm-Features: AclHuK-qgZru4MIB9vIGw8FoyRLEgWgTrcOdkdp9FH8JKVTRgbsTu6KWFGHeVhM
+Message-ID: <CAGEkeHcRBF_SsXYhzsRqzpXe-bWCEGB6PYuxhS_MOXCuJWbZsw@mail.gmail.com>
+Subject: Re: [v8] media: qcom: iris: release OPP constraints on VPU power-on failure
+To: linux-media@vger.kernel.org
+Cc: Linux Media CI <media-ci@linuxtv.org>, ribalda@chromium.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-And while at it,
+Hi Ricardo and Media CI maintainers,
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Thank you for testing v8.
 
-On Fri, Oct 02, 2026 at 01:50:39AM +0300, Laurent Pinchart wrote:
-> On Tue, Sep 29, 2026 at 04:27:17PM +0200, Hans de Goede wrote:
-> > On 3-Aug-26 08:58, Yunke Cao wrote:
-> > > Logitech C925e SOF does not increases at a stable rate of 1kHz.
-> > > Add a quirk for this camera to make hwtimestamp usable.
-> > > 
-> > > Before applying the quirk:
-> > > ```
-> > > seq:     31 ts: 1075.543294 delta: 29.423 ms fps: 34.94
-> > > seq:     32 ts: 1075.573022 delta: 29.728 ms fps: 34.90
-> > > seq:     33 ts: 1075.602353 delta: 29.331 ms fps: 34.87
-> > > seq:     34 ts: 1075.632031 delta: 29.678 ms fps: 34.84
-> > > seq:     35 ts: 1076.177759 delta: 545.728 ms fps: 23.00
-> > > seq:     36 ts: 1076.213255 delta: 35.496 ms fps: 23.12
-> > > seq:     37 ts: 1076.209371 delta: -3.884 ms fps: 23.82
-> > > seq:     38 ts: 1076.232233 delta: 22.862 ms fps: 24.11
-> > > seq:     39 ts: 1076.264682 delta: 32.449 ms fps: 24.24
-> > > seq:     40 ts: 1076.287318 delta: 22.636 ms fps: 24.52
-> > > seq:     41 ts: 1076.285949 delta: -1.369 ms fps: 25.16
-> > > seq:     42 ts: 1076.317714 delta: 31.765 ms fps: 25.28
-> > > seq:     43 ts: 1076.317085 delta: -0.629 ms fps: 25.89
-> > > seq:     44 ts: 1076.339919 delta: 22.834 ms fps: 26.13
-> > > seq:     45 ts: 1076.212836 delta: -127.083 ms fps: 28.91
-> > > seq:     46 ts: 1076.242494 delta: 29.658 ms fps: 29.00
-> > > seq:     47 ts: 1076.271852 delta: 29.358 ms fps: 29.09
-> > > seq:     48 ts: 1076.301739 delta: 29.887 ms fps: 29.17
-> > > seq:     49 ts: 1076.330887 delta: 29.148 ms fps: 29.26
-> > > seq:     50 ts: 1076.360639 delta: 29.752 ms fps: 29.33
-> > > seq:     51 ts: 1076.390095 delta: 29.456 ms fps: 29.41
-> > > ```
-> > > 
-> > > After applying the quirk:
-> > > ```
-> > > seq:     31 ts: 203.782342 delta: 33.460 ms fps: 30.94
-> > > seq:     32 ts: 203.815492 delta: 33.150 ms fps: 30.91
-> > > seq:     33 ts: 203.849017 delta: 33.525 ms fps: 30.88
-> > > seq:     34 ts: 203.882190 delta: 33.173 ms fps: 30.86
-> > > seq:     35 ts: 203.915672 delta: 33.482 ms fps: 30.83
-> > > seq:     36 ts: 203.948902 delta: 33.230 ms fps: 30.81
-> > > seq:     37 ts: 203.982335 delta: 33.433 ms fps: 30.78
-> > > seq:     38 ts: 204.015475 delta: 33.140 ms fps: 30.76
-> > > seq:     39 ts: 204.048992 delta: 33.517 ms fps: 30.74
-> > > seq:     40 ts: 204.082208 delta: 33.216 ms fps: 30.72
-> > > seq:     41 ts: 204.115675 delta: 33.467 ms fps: 30.70
-> > > seq:     42 ts: 204.148995 delta: 33.320 ms fps: 30.69
-> > > seq:     43 ts: 204.182354 delta: 33.359 ms fps: 30.67
-> > > seq:     44 ts: 204.215605 delta: 33.251 ms fps: 30.66
-> > > seq:     45 ts: 204.249004 delta: 33.399 ms fps: 30.64
-> > > seq:     46 ts: 204.282259 delta: 33.255 ms fps: 30.63
-> > > seq:     47 ts: 204.315686 delta: 33.427 ms fps: 30.61
-> > > seq:     48 ts: 204.348945 delta: 33.259 ms fps: 30.60
-> > > seq:     49 ts: 204.382337 delta: 33.392 ms fps: 30.59
-> > > seq:     50 ts: 204.415570 delta: 33.233 ms fps: 30.58
-> > > seq:     51 ts: 204.449069 delta: 33.499 ms fps: 30.56
-> > > seq:     52 ts: 204.482218 delta: 33.149 ms fps: 30.55
-> > > seq:     53 ts: 204.515706 delta: 33.488 ms fps: 30.54
-> > > seq:     54 ts: 204.548940 delta: 33.234 ms fps: 30.53
-> > > seq:     55 ts: 204.582403 delta: 33.463 ms fps: 30.52
-> > > seq:     56 ts: 204.615563 delta: 33.160 ms fps: 30.51
-> > > seq:     57 ts: 204.649057 delta: 33.494 ms fps: 30.50
-> > > seq:     58 ts: 204.682301 delta: 33.244 ms fps: 30.49
-> > > seq:     59 ts: 204.715735 delta: 33.434 ms fps: 30.48
-> > > seq:     60 ts: 204.748890 delta: 33.155 ms fps: 30.48
-> > > ```
-> > 
-> > Thank you for your patch.
-> > 
-> > I have merged this into:
-> > 
-> > https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
-> > 
-> > > lsusb -v
-> > > 
-> > > Bus 003 Device 005: ID 046d:085b
-> > > Device Descriptor:
-> > >   bLength                18
-> > >   bDescriptorType          1
-> > >   bcdUSB               2.00
-> > >   bDeviceClass            239
-> > >   bDeviceSubClass         2
-> > >   bDeviceProtocol         1
-> > >   bMaxPacketSize0        64
-> > >   idVendor           0x046d
-> > >   idProduct          0x085b
-> > >   bcdDevice            0.16
-> > >   iManufacturer           0
-> > >   iProduct                2 Logitech Webcam C925e
-> > >   iSerial                 1 2F2036AF
-> > >   bNumConfigurations      1
-> > > 
-> > > Signed-off-by: Yunke Cao <yunkec@google.com>
-> > > ---
-> > >  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
-> > >  1 file changed, 9 insertions(+)
-> > > 
-> > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > index e289cc71ba98..5b9ea19ad9f2 100644
-> > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > @@ -2706,6 +2706,15 @@ static const struct usb_device_id uvc_ids[] = {
-> > >  	  .bInterfaceSubClass	= 1,
-> > >  	  .bInterfaceProtocol	= 0,
-> > >  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
-> > > +	/* Logitech HD Pro Webcam C925e */
-> > > +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> > > +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> > > +	  .idVendor		= 0x046d,
-> > > +	  .idProduct		= 0x085b,
-> > > +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> > > +	  .bInterfaceSubClass	= 1,
-> > > +	  .bInterfaceProtocol	= 0,
-> > > +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
-> 
-> The entry isn't correctly sorted by VID:PID. I'll fix it and rebase the
-> for-next branch.
-> 
-> > >  	/* Logitech Rally Bar Huddle */
-> > >  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> > >  				| USB_DEVICE_ID_MATCH_INT_INFO,
+v8 was based on media-committers.git next at:
+c6fb304dc0253584cfcb93b6b97970c36850910a
 
--- 
-Regards,
+The CI-applied commit e452a7481f23 also has that commit as its parent.
 
-Laurent Pinchart
+The ancestor log reports "Not a valid commit name" for both the
+next and fixes tips. The checked next tip, 4a069a763e8a, is four
+commits after the submitted base, with no changes to the two Iris
+files touched by this patch.
+
+Could you please check this ancestry failure and reapply v8 onto
+the current next branch before running CI again? Please let me
+know if a rebased v9 is required instead.
+
+v8:
+https://lore.kernel.org/r/20261001154436.20798-1-dennylin0707@gmail.com
+
+CI report:
+https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/11157506=
+1/artifacts/report.htm
+
+Ancestor error log:
+https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/11157505=
+4/artifacts/junit/test-valid-ancestor.err.txt
+
+Thanks,
+Hungyu Lin
+
+On Thu, Oct 1, 2026 at 10:06=E2=80=AFAM Patchwork Integration
+<patchwork@media-ci.org> wrote:
+>
+> Dear Hungyu Lin:
+>
+> Thanks for your patches! Unfortunately the Media CI robot detected some
+> issues:
+>
+> # Test media-patchstyle:test-valid-ancestor
+> ERROR: This code is not based on any of the branches: next fixes
+>        from https://gitlab.freedesktop.org/linux-media/media-committers.g=
+it.
+>        The output of media-ci will not be reliable, and the code will not
+>        land upstream as-is. Please rebase your code.
+>
+>
+>
+> Please fix your series, and upload a new version. If you have a patchwork
+> account, do not forget to mark the current series as Superseded.
+>
+> For more details, check the full report at:
+> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/111575=
+061/artifacts/report.htm .
+>
+>
+>
+> Best regards, and Happy Hacking!
+> Media CI robot on behalf of the linux-media community.
+>
+> ---
+> Check the latest rules for contributing your patches at:
+> https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
+>
+> If you believe that the CI is wrong, kindly open an issue at
+> https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-all
+> to this message.
+>
