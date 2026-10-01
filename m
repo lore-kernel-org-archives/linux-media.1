@@ -1,35 +1,34 @@
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5193C5DDB
-	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 17:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6BD526A8D
+	for <linux-media@vger.kernel.org>; Thu,  1 Oct 2026 17:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790876201; cv=none; b=bpc+Ar6StgpMCS6kywiGqy46ah3kxi32dylfZvnObEb0t1mzgaaGoNHIcVJImJsjEJhw5bS6p3R7JckAcdqXQOseOQiMT8a7ioQ70XVIhc8jkn45/YVKhZF8UB2zLs/JwlxSJu4/WRfiT/NidF5Tnr5Rs2ompKuNScBMVRjUHs0=
+	t=1790876204; cv=none; b=YmNQ0L46gbo/Zsxr926XXLo2tRVNea25/yuaFZ6lCKqmyrJaeOrXj0Sn9nCcZ9F8bXfA+qzZh59Uyo5A7TsK/Wm3ED8BLGlsYCwHa6aX6BRKLE16nKDt4QEkTno5I5khIheFAR9nKiN9jeWb0PcY9f9v9W2k6uOT0MuK+whiwM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790876201; c=relaxed/simple;
-	bh=+aL1i0lxNCeiEOWt9v5pY59s5NqU4xro0mHTazEQe6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V5/YFylWWcTd+PiEmi+GohPjrK0FOHl7EK7NDLqeKtNGLR2DsI5kSRR7QDSky2OEtYn25fySx++AutkRomJDlxddd/kY2YudcHT822eVkzMEucEk4mmsE4bCpI0ryZYH4b7f7nRPWmp0ZUq0CBH25oDFn786NlA+nb34ZaJg210=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=PGsVk0bA; arc=none smtp.client-ip=95.215.58.81
+	s=arc-20240116; t=1790876204; c=relaxed/simple;
+	bh=1S97aZ5lqXhW4kBuXjOjGy0qBmexZE7CglrgJsyPvnY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jy3I90EZgMvZ6wP+MLnirE+bwKUSTe74fs3qce54zPGl2/+j1AIgKSb4qyw/2FLk3GwIRqf5UB+mBuzR+vDrpJSb/BiTyMDuNBoGiNan991QcbB9Om2yfeylWU/T1tFZ9/34aTgMQQteuEvRCjL71OhfJEtDISFupLYqJOzlQ6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=Y55wQwAV; arc=none smtp.client-ip=91.218.175.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="PGsVk0bA"
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="Y55wQwAV"
 X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+aL1i0lxNCeiEOWt9v5pY59s5NqU4xro0mHTazEQe6g=;
+DKIM-Signature: a=rsa-sha256; bh=1S97aZ5lqXhW4kBuXjOjGy0qBmexZE7CglrgJsyPvnY=;
  c=simple/simple; d=cknow-tech.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790876196; v=1; x=1791480996;
- b=PGsVk0bAf7E2GjwQqubTwMs9wI2e+lsOvv8WHUkijTxzzr4eJxohuFWFwooi1JKCPIlkvz7E
- THa0cu1Uw/bgZBhyKyAu7qQAt6pLVF4E4+yb3KjFRie0uZWqUtolWGXpPe+XQ3H+5ZVzI+vtCcS
- PMQZfLNgMtO3En55v5mq7gjP38EQpJ50Fa9/W1OJgjLuyhaJ6QRPHhRg+R4fZQ2qzsudW2ygMVS
- 9nUcauCBEVapvtgturtDIuSW3LEmnS0UTnE3FtCSitvRIK2Ztls05nPaCfKhOL6YMz3yIZUtdFk
- n/gtInFKXAM43YyO144lHaWEwWZoCdIVTxPSHeRc4SzLg==
+ t=1790876199; v=1; x=1791480999;
+ b=Y55wQwAVU5NyiMLjmzQs5YxkE383hNNktO0WHGn47RJLsGXdIUcVbp6An7Sw47e6uU14md6g
+ 4rKD+gx466Bo4wnMZqOdabJc9TCrV6s3DWDKDKXxQ1EtWsNaZxd76U8s4j7JhphLZwmh+L0u0Gc
+ 1WqXinNUam9G5UgM+dEfJB73disd2Jzrk7lxOaodRDpNo7Kp17LkR2gjs7hhuOwUvFOaKGf8nxC
+ kleb/69b7aKoDwB4H72TVdH9YYaUKSxnUne/iD0Q+TzrJDU/hhUkutryp7iGRxUeWrOUc8xr0py
+ ylQznPCzzegwvQrJ/AHsk8+uYtdDWR95FQfCuVQ9Rzn2Q==
 X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 28778f0b3f296ced;
-	Thu, 01 Oct 2026 17:36:36 +0000
-X-Mizu-Trace-ID: 28778f0b3f296ced
+Received: by smtp.migadu.com with ESMTPS id e9cad268562f180b;
+	Thu, 01 Oct 2026 17:36:29 +0000
+X-Mizu-Trace-ID: e9cad268562f180b
 X-Migadu-Flow: FLOW_OUT
 From: Diederik de Haas <diederik@cknow-tech.com>
 To: Dafna Hirschfeld <dafna@fastmail.com>,
@@ -44,12 +43,10 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH 2/3] media: rockchip: rga: Switch to modern PM_OPS
-Date: Thu,  1 Oct 2026 19:34:52 +0200
-Message-ID: <20261001173610.158931-3-diederik@cknow-tech.com>
+Subject: [PATCH 0/3] media: rockchip: Modernize PM_OPS
+Date: Thu,  1 Oct 2026 19:34:50 +0200
+Message-ID: <20261001173610.158931-1-diederik@cknow-tech.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001173610.158931-1-diederik@cknow-tech.com>
-References: <20261001173610.158931-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -58,59 +55,32 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A new set of modern PM_OPS macros got defined in commit
+A bunch of new PM_OPS macros got introduced in commit
 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
 
-Switch to those new macros so that the PM callbacks are always seen by the
-compiler, but discarded if not used. This lets us drop the __maybe_unused
-annotation from the callback functions.
+Straight up copied from that commit message:
 
-Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
----
- drivers/media/platform/rockchip/rga/rga.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+    These new macros are very similar to their SET_*_PM_OPS() equivalent.
+    They however differ in the fact that the callbacks they set will always
+    be seen as referenced by the compiler. This means that the callback
+    functions don't need to be wrapped with a #ifdef CONFIG_PM guard, or
+    tagged with __maybe_unused, to prevent the compiler from complaining
+    about unused static symbols. The compiler will then simply evaluate at
+    compile time whether or not these symbols are dead code.
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index b3cb6bf8eb86..f28c93d63760 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -883,7 +883,7 @@ static void rga_remove(struct platform_device *pdev)
- 	pm_runtime_disable(rga->dev);
- }
- 
--static int __maybe_unused rga_runtime_suspend(struct device *dev)
-+static int rga_runtime_suspend(struct device *dev)
- {
- 	struct rockchip_rga *rga = dev_get_drvdata(dev);
- 
-@@ -892,7 +892,7 @@ static int __maybe_unused rga_runtime_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int __maybe_unused rga_runtime_resume(struct device *dev)
-+static int rga_runtime_resume(struct device *dev)
- {
- 	struct rockchip_rga *rga = dev_get_drvdata(dev);
- 
-@@ -900,8 +900,7 @@ static int __maybe_unused rga_runtime_resume(struct device *dev)
- }
- 
- static const struct dev_pm_ops rga_pm = {
--	SET_RUNTIME_PM_OPS(rga_runtime_suspend,
--			   rga_runtime_resume, NULL)
-+	RUNTIME_PM_OPS(rga_runtime_suspend, rga_runtime_resume, NULL)
- };
- 
- static const struct of_device_id rockchip_rga_match[] = {
-@@ -927,7 +926,7 @@ static struct platform_driver rga_pdrv = {
- 	.remove = rga_remove,
- 	.driver = {
- 		.name = RGA_NAME,
--		.pm = &rga_pm,
-+		.pm = pm_ptr(&rga_pm),
- 		.of_match_table = rockchip_rga_match,
- 	},
- };
+So convert the rockchip media components which used the old macros to the
+new ones.
+
+Diederik de Haas (3):
+  media: rkvdec: Switch to modern PM_OPS
+  media: rockchip: rga: Switch to modern PM_OPS
+  media: rkisp1: Switch to modern PM_OPS
+
+ drivers/media/platform/rockchip/rga/rga.c           |  9 ++++-----
+ drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c | 11 +++++------
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c     |  9 +++------
+ 3 files changed, 12 insertions(+), 17 deletions(-)
+
 -- 
 2.55.0
 
