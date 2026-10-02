@@ -1,66 +1,66 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4089B446058
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402D03233E8
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970990; cv=none; b=QA4C9iHnsXtaoMKN3Y4Z+S6rlt1GhwecGXVIPCWBEJOHM9rE+jMDbpKmzTDmiZiu/uCHVfNlIPbCFjS3l91q04iAUqoNCZqJ3lQ71NzE3W/5DLwXunQL59drhlO6h3ppyM2e5sSvZrVNeX7YPGkg/HgbOth0UMHtwRvEGV4iZ1k=
+	t=1790971028; cv=none; b=eHSqvQVYafp64GJqtAuPQxMSxUd0Ico7F69pR8FnfCNR6HPdK43qOw+L2FYiMsm4xdwbdipjzrwPabZ2i34cnecLk5LNL/C27tfiH0yDzI9rHATBQqq4inyAyBcahm7rR9lLd0U+eTdN3YwAyiiP5LzuoDADqaP3h4vT6sNk4qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970990; c=relaxed/simple;
-	bh=RAm0gUhki2pqljTZWQr8CrgmhZ5p9hcCadzRxn5CSGM=;
+	s=arc-20240116; t=1790971028; c=relaxed/simple;
+	bh=u+AOCaj6H+sVhBdJRSYLOHdqWPibeQxtAivV8c9JEuQ=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XGEYfcXQy7TiocI6sGdmJCL+Zn2BLOlFPy9Nm1GhxUbgczTh3KprADXryb7Yf2ZdjfaTCcx/ZTrwJybnprknmeftvmKP72xI8+hwizaiwQViKGAUHcLSDfS/BTq8IPYUunfVRJxRTOfLxAaXudKLpE8j3O7xhFWpah3zLDWmKUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=kllv/0IM; arc=none smtp.client-ip=209.85.160.169
+	 Content-Type:MIME-Version; b=eCLqB9j8FSpujmU4gQPdA1C67fI48xiu+/bdbTCmTiRI8TpEpRCnxNDRpNIn1y2Ef2GpNlcd4h76APzV8LTvvAF50rByZ506qeAnqVGZps0PlS7yxhed1tYnKLllaYPhykeZZ4+0JrGPuxHbmHkwgWJaVqWmnuTfAfUi1jgVoMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Od5KauoA; arc=none smtp.client-ip=209.85.219.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="kllv/0IM"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53396adbc53so2739081cf.3
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:56:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Od5KauoA"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917bab38b14so1295996d6.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:57:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790970985; x=1791575785; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790971026; x=1791575826; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NJl6vN2DYWl5SvECY/MNPFkAoXMpLzutrBdwcjZxYRo=;
-        b=kllv/0IM3PbW8aScYN2euRWeTP2DK5sSB7+A8+NESTWA+J9dfxdnQyrrOR8BIMzAxq
-         I6eh3op+3Btg/hJs7zmF62amZuH00b+DtxjGJ66yprzE6SR6wSpuSAfznWhwgWqjym6H
-         qoBR1X/S1f/KSKsNIWORLKzHg/Q5gY9VTFzLAprQxfvlfwWV5eB2k4X4UhONu7ZgwYfa
-         WvoaIvKUUZ1Wv6q/G6dCGC3nJ75ayuP4ZNJxJg5FuCVHnMia6oTlwP48WhingQwBjWFl
-         Od3Ne/miqBBeaXEc19fisWlDlOwxfwMM//fITp96BMR/p2kGs4AOIkS9yACwScaGz1xX
-         kHgQ==
+        bh=5xr7pX17mvH2aCY+fCJUZRujhX//jXl3D3Nc+GjIbpY=;
+        b=Od5KauoASJeOT0rwCOn/DNhmhOtIclo4yMuMptgt5PqPCBYfAc/3h26hVfwyc95YQk
+         RthvDcSD6OZLYQ7Xwp8CVRBR5iaD/OaH3V1Oc5qsjUw47/0/dQR8IV/ycjzNzEidjg6+
+         6wle0kr9M+20Jjh+IDDY1ioN/LnDrAPWYE71GueGa+rCugn4M6+9o713aX6qsRqMpS5N
+         etFmWRZS38XJrwxPyOmlwBv70my86hEriJnLftu/8AJmXxiJiEIBTS0Q6yeNhAzvK3PF
+         5Kicp76vCkWK9cqbaEWD5M/h9/dahT5UuCcR1Ybcb5pC5F/R4bpPIQZ/4BgWF6yMR8Hr
+         Rbjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970985; x=1791575785;
+        d=1e100.net; s=20260707; t=1790971026; x=1791575826;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NJl6vN2DYWl5SvECY/MNPFkAoXMpLzutrBdwcjZxYRo=;
-        b=b/AzOjNfJ/o9f/DHt3KNT7vNXUoD6RiuvmT9sGd/2FZSmejVLsuf+rXOIJ46U/RwB9
-         vh0bqg+HDQfz8PV1lykWQQc0NO1iKax7PrOe5SeLjPPgTiewzHrPSvrb0oAt7s4QWjkm
-         yyYE68WDUbZi93yUquh0hicNGLz/4F3iuwd64WXzK98vZWMSE0B3Gnf6YU2DGTZRhci7
-         PIIW8PwMASrz/yZLvxJO8ofa4BUYz3bdl93UzvcZJxFzLUqAkGFMTlUCco2FLn4gKkOF
-         jJXXRxmaMTvbIrcsusjdenApj+G5pyzIJ3E59V49JEwE+UCMp50ffYHoELRLEMKoBM4G
-         QhOA==
-X-Gm-Message-State: AFuF++kKHa1mi675FEtQ4MwEz4+0Wf/V8RG8+osTJAUWyIrEDg7sjCJX
-	CJmNtTZGP4+jPxvkXICQINnWW6hhPKHDbb+i5wAqQgxwSStnR9PDD3J7qXH7zOdrI/U=
-X-Gm-Gg: AYBFou1ZtHaML2dpvXly2FlevQ2MfZmWFBIVxO7iw0RxMO60Z6uQ9gbakR+1qmoogHw
-	aSJzbVVLTIXTJZTQfKGtbK8OtXIsirj7Ul86BrxKLCb/xDziBsXghEDNo4IwIzlw4jrvWyqiHkq
-	btdJfwVH4kRdLa0Bm/aIm5tUzbSNrPBOp1IgOsTlcvbNTEpwYWsTSUs79+yQSZIH29QXth6P4hh
-	mo/tBA+YY48kjks33cjth5SQ7LAK4sZWN6w/GP7Ci8HgC/j1BqT2WLV0/Z7PKs3rTMzqj0X+2GJ
-	hjugW3jL5lZMbDzc909ro4PlCmhgV4GnQAcmWkgjhg2TrM74WPaXRlG5nbq49q0K+aTo/Vo9b0S
-	5MIMNmFBnTKWUTkMV+Js5d3GWYOnPXGIYCcxMo5DP9aPiTK4GZnJnKVziPdVbhGqiqh1Juwpmao
-	Y0Ba+TXpSNLc8YUPOd4jQTCCWrApPZz1VM21qC437UBZpZCq1uE7iJNhZbGd82EUvDaXqhfH4qQ
-	JIBqwYm577wnA==
-X-Received: by 2002:a05:620a:6413:b0:93c:b766:2bfc with SMTP id af79cd13be357-93e50fa6a3dmr87378085a.17.1790970985078;
-        Fri, 02 Oct 2026 12:56:25 -0700 (PDT)
+        bh=5xr7pX17mvH2aCY+fCJUZRujhX//jXl3D3Nc+GjIbpY=;
+        b=Vc7uj3aOXw72Amgmtafsv6e10PZ3GgKNYt8bGR9BcqbMPrX4qAiOTkK75kKo+Kb3Fz
+         llu/71/WpG040esCozhAeljuCuJRynLBVEky67ZNFKxKk8j33+iLPg+5Hg5srUssIp/R
+         gPZZMh80WKL1wK8BVJ9rc44qlQS8AizNK9L145wLqE5FDSOM+85iarl+JowcrkGZMtKE
+         gkWlDPFdHCGKAN4ShSN7czbqEhT+8O6v+Eb7xHQwoARoMZUpcKqFeB5QjOM434QN9Deg
+         T27Ne+fVJJ9Ng050J9YjiY9Qe5FanJ3gryySbWc3+Dp74WliWedwltiKB6pUz5elIZO5
+         iytw==
+X-Gm-Message-State: AFuF++kUAzf1z5eXFocl3o3Jdlr8uQr7DEK6+ipUmiwAal2zjry35KAQ
+	xghgE3FbivGsvcwDGpPwYX0TASmHtrL1DkhItylzyA8aikn5Qs7O/YBpugN2f3bbhP0=
+X-Gm-Gg: AYBFou1gtHa76DUvNIWSuypgvTOQRCA6Erj1Gg6SLj8Xg6g6A8ulwUyPeihgwrgcqBo
+	eLdyCLmt33bKLTMdk3ELgQ8cEugAX/JRH5wbcbTsEo7aylroax53DqbonvWmPFfjbk7msOFWv4W
+	4qNav/YRjyxF6REEH2BYiQwdCmaUJNQ4nKi7lrMu86ZEjPiVjuylDg7WwPVzDJeeBzRwr5zeBOw
+	RpL5n6L587y1okg0UnSscVe/vbSNOOa5PbUOVWTQXYhXoUTONga9PtCa3fgJyXopSAI6eV45HmQ
+	VrnufcPzfmHQrOWyD+eTBCye5lvMYFX788+dizbnd29Wmvtn7Y4J+2iI/UbfTUwjkfhO5TYByR8
+	UBgLcWCQsmxBiX71s10gVhmnLcpMlqF6IZKETMSHOYQp9JDnrVGEMDnw21MUX5PxZ4psKDvivsU
+	AxesFOiwJP8lLYf2dRTBEa+bLQ7THSxQ5HmRBwreyTeZE103iy4yIy7J4ZI9wqSP0/Vdiccu3hb
+	8vvDifXQJISRQ==
+X-Received: by 2002:a05:6214:d46:b0:917:a8b7:c824 with SMTP id 6a1803df08f44-9195d0a24fdmr7529476d6.7.1790971025988;
+        Fri, 02 Oct 2026 12:57:05 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c17b8esm27137276d6.43.2026.10.02.12.56.23
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-919442ce1c4sm20271766d6.3.2026.10.02.12.57.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:56:24 -0700 (PDT)
-Message-ID: <a153b350bdfd614b4da5a15da29079eec7fc4dd4.camel@ndufresne.ca>
-Subject: Re: [PATCH 2/3] media: rockchip: rga: Switch to modern PM_OPS
+        Fri, 02 Oct 2026 12:57:05 -0700 (PDT)
+Message-ID: <60c0db37aa1ba8674a0b205473075ab6cb0ed39b.camel@ndufresne.ca>
+Subject: Re: [PATCH 0/3] media: rockchip: Modernize PM_OPS
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
 To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld	
  <dafna@fastmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
@@ -70,10 +70,9 @@ To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld
  <jacob-chen@iotwrt.com>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 15:56:23 -0400
-In-Reply-To: <20261001173610.158931-3-diederik@cknow-tech.com>
+Date: Fri, 02 Oct 2026 15:57:04 -0400
+In-Reply-To: <20261001173610.158931-1-diederik@cknow-tech.com>
 References: <20261001173610.158931-1-diederik@cknow-tech.com>
-	 <20261001173610.158931-3-diederik@cknow-tech.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -88,7 +87,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1Mpu87nLgk5Us+/k4nVo"
+	protocol="application/pgp-signature"; boundary="=-4HyN8OfCN+SaQY/bAsCV"
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -98,83 +97,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-1Mpu87nLgk5Us+/k4nVo
+--=-4HyN8OfCN+SaQY/bAsCV
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Hi,
+
 Le jeudi 01 octobre 2026 =C3=A0 19:34 +0200, Diederik de Haas a =C3=A9crit=
 =C2=A0:
-> A new set of modern PM_OPS macros got defined in commit
+> A bunch of new PM_OPS macros got introduced in commit
 > 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
 >=20
-> Switch to those new macros so that the PM callbacks are always seen by th=
-e
-> compiler, but discarded if not used. This lets us drop the __maybe_unused
-> annotation from the callback functions.
+> Straight up copied from that commit message:
 >=20
-> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
->  drivers/media/platform/rockchip/rga/rga.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
+>     These new macros are very similar to their SET_*_PM_OPS() equivalent.
+>     They however differ in the fact that the callbacks they set will alwa=
+ys
+>     be seen as referenced by the compiler. This means that the callback
+>     functions don't need to be wrapped with a #ifdef CONFIG_PM guard, or
+>     tagged with __maybe_unused, to prevent the compiler from complaining
+>     about unused static symbols. The compiler will then simply evaluate a=
+t
+>     compile time whether or not these symbols are dead code.
 >=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
-atform/rockchip/rga/rga.c
-> index b3cb6bf8eb86..f28c93d63760 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -883,7 +883,7 @@ static void rga_remove(struct platform_device *pdev)
->  	pm_runtime_disable(rga->dev);
->  }
-> =20
-> -static int __maybe_unused rga_runtime_suspend(struct device *dev)
-> +static int rga_runtime_suspend(struct device *dev)
->  {
->  	struct rockchip_rga *rga =3D dev_get_drvdata(dev);
-> =20
-> @@ -892,7 +892,7 @@ static int __maybe_unused rga_runtime_suspend(struct =
-device *dev)
->  	return 0;
->  }
-> =20
-> -static int __maybe_unused rga_runtime_resume(struct device *dev)
-> +static int rga_runtime_resume(struct device *dev)
->  {
->  	struct rockchip_rga *rga =3D dev_get_drvdata(dev);
-> =20
-> @@ -900,8 +900,7 @@ static int __maybe_unused rga_runtime_resume(struct d=
-evice *dev)
->  }
-> =20
->  static const struct dev_pm_ops rga_pm =3D {
-> -	SET_RUNTIME_PM_OPS(rga_runtime_suspend,
-> -			   rga_runtime_resume, NULL)
-> +	RUNTIME_PM_OPS(rga_runtime_suspend, rga_runtime_resume, NULL)
->  };
-> =20
->  static const struct of_device_id rockchip_rga_match[] =3D {
-> @@ -927,7 +926,7 @@ static struct platform_driver rga_pdrv =3D {
->  	.remove =3D rga_remove,
->  	.driver =3D {
->  		.name =3D RGA_NAME,
-> -		.pm =3D &rga_pm,
-> +		.pm =3D pm_ptr(&rga_pm),
->  		.of_match_table =3D rockchip_rga_match,
->  	},
->  };
+> So convert the rockchip media components which used the old macros to the
+> new ones.
+>=20
+> Diederik de Haas (3):
+>   media: rkvdec: Switch to modern PM_OPS
+>   media: rockchip: rga: Switch to modern PM_OPS
 
---=-1Mpu87nLgk5Us+/k4nVo
+I'm taking the two first, thanks!
+
+>   media: rkisp1: Switch to modern PM_OPS
+>=20
+>  drivers/media/platform/rockchip/rga/rga.c           |  9 ++++-----
+>  drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c | 11 +++++------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c     |  9 +++------
+>  3 files changed, 12 insertions(+), 17 deletions(-)
+
+--=-4HyN8OfCN+SaQY/bAsCV
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMZwAKCRDZQZRRKWBy
-9Nm3AP4y8JqQZKv9U0OttedqiWp5M0Ofbzvm9AyImGL7/X3BggEA6Av0uZd+Ipgu
-Sn0DcrUr/Ux6st7B3vMRPFDOud8b9gM=
-=w8WG
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMkAAKCRDZQZRRKWBy
+9LnsAQCEQh8/fK0EjxA2qyBxHJJCZTj66w+XssQ/r5decbAYxwD+NAlRMgWmM5Q8
+DCLHzSESx4CgbNEx6od60qqNuMc9Bgs=
+=z221
 -----END PGP SIGNATURE-----
 
---=-1Mpu87nLgk5Us+/k4nVo--
+--=-4HyN8OfCN+SaQY/bAsCV--
