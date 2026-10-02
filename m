@@ -1,120 +1,92 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F553254A9;
-	Fri,  2 Oct 2026 01:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB89935C6B7
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 05:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790905605; cv=none; b=MFBM+ARPCKOFSRy0fvwhdpN4/kwgNZZjN/9tFBo2AfFA+3vORHiYaPnTdnyixI7wMQW8iJ3mmIkh+MHGkVNp+byxOSkbN6otB+Ryn1MerX5GyenA2g5Ph+L1awFEfwYHqc0b4O02lNQ7M8ZrxwU4MbJCOz6/wtCsWIu7QMQ/BWM=
+	t=1790917877; cv=none; b=okgYJDrTv6svRGnRyRnOWwfl4KXjkxgedSy1fUQPdqcuCJNJfMNoikzZRQe53KrxFb6sR/qOS2kjfb3+uw6Tb0RtaWA4TvKWd77M/EA2EeAbc93/bMmIm6SlJP99iz3nLxScjalhQJRwP0/KujLMVelnYejH6nZHWSliA+6g8nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790905605; c=relaxed/simple;
-	bh=oICVcHOz2Wfgzqh7GpipejxF0d1OizMTX25Z+t8idAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tV0W6/bVXZIJJz9IqCBR5eVDmp4S78qoKKBao2QWEoYMttVa+VX+THtdE5gCEYzAgIyLRTMsPvR1pA2B7refZdB1EM61CpiAEXXxhpefXa9sZXoBtbA3vkAgcQm3sZrsuRFl6rQ3Kg8vS517EwBdoCvfWfGu2DGpFiO6P7Es7dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DL47LK26; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790917877; c=relaxed/simple;
+	bh=R9uOh3aj39TzSM25DgmMMe4T/4tSG0J65/5dA+myGig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dqWExWiKfJZVWTUnJBgUGXsJo2pXOipHHP4kLQ31yOGsyiaD2sg7U9BMbRXSjFNhDmosL4pAjS+j/NpjXSYsByTNEth5jPZhZebxlsKOvEsRMIjhmFWrXbNRZMEFVyxsSXB9LsSB9IjHEpQob+811NcQxRv6As7K0VcgwAm7ppA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TiPKIS91; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DL47LK26"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D4333227;
-	Fri,  2 Oct 2026 03:44:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790905489;
-	bh=oICVcHOz2Wfgzqh7GpipejxF0d1OizMTX25Z+t8idAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DL47LK26zxYWCGEwmH0pFphMpQcdDa446j4BIEW/6z2jrfgx1u/HPvf5LspF0B4qm
-	 e6PUuZGYTLC1VVDdFuuXDusl9pBhG9xklqDGgx/8Sj4OayueF0WmZ/r+0sa/0dNgYP
-	 l4McKnsWX9Tt+e/LWL/mGqJ/C9wK+61dNMGhnAiI=
-Date: Fri, 2 Oct 2026 04:46:40 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Diederik de Haas <diederik@cknow-tech.com>
-Cc: Dafna Hirschfeld <dafna@fastmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Jacob Chen <jacob-chen@iotwrt.com>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: rkisp1: Switch to modern PM_OPS
-Message-ID: <20261002014640.GB101842@killaraus.ideasonboard.com>
-References: <20261001173610.158931-1-diederik@cknow-tech.com>
- <20261001173610.158931-4-diederik@cknow-tech.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TiPKIS91"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790917874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=rslogmTZ8oBKCAlJVPMzfVZf7AJ0I+8AQLCt4b/DRsM=;
+	b=TiPKIS91M4foaN5+cU3qJFKOPpOVVVWx7c2CIjMMDBoX/VLnM4RoNyad5yp1y3zJiiNvZR
+	cv7rvsSGaVGfGjh2oeUC4125uvzyfuJFmBOKYxqyEq/gRYsuEanK3B8gJrsBqUXD4BkFlL
+	gxGRRWS4kjwty7146J9tPMHri+etyic=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-370-PVHOFOk3N0i68oviNCrfLA-1; Fri,
+ 02 Oct 2026 01:11:11 -0400
+X-MC-Unique: PVHOFOk3N0i68oviNCrfLA-1
+X-Mimecast-MFC-AGG-ID: PVHOFOk3N0i68oviNCrfLA_1790917870
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1346E1955F70;
+	Fri,  2 Oct 2026 05:11:10 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1B8D71956095;
+	Fri,  2 Oct 2026 05:11:06 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH] media: i2c: imx471: Fix register size for IMX471_REG_DPGA_USE_GLOBAL_GAIN
+Date: Fri,  2 Oct 2026 13:11:00 +0800
+Message-ID: <20261002051100.261507-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001173610.158931-4-diederik@cknow-tech.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Thu, Oct 01, 2026 at 07:34:53PM +0200, Diederik de Haas wrote:
-> A new set of modern PM_OPS macros got defined in commit
-> 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
-> 
-> Switch to those new macros so that the PM callbacks are always seen by the
-> compiler, but discarded if not used. This lets us drop the __maybe_unused
-> annotation from the callback functions.
-> 
-> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+The IMX471_REG_DPGA_USE_GLOBAL_GAIN register was incorrectly defined as a
+16-bit register, preventing global gain from enabling correctly. As a
+result, only the green channel gain was applied instead of the intended
+global gain.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Change the register size to 8 bits to ensure global gain is properly
+enabled.
 
-As the three patches in this series are independent from each other,
-I've taken this in my tree.
+Link: https://lore.kernel.org/linux-media/35240e45-c73b-4425-923a-c1026386ed3c@slotpi17m12/
+Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor driver")
+Signed-off-by: Kate Hsuan <hpa@redhat.com>
+---
+ drivers/media/i2c/imx471.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c
-> index f90e01301943..e619a949dbc9 100644
-> --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c
-> +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c
-> @@ -305,7 +305,7 @@ static int rkisp1_subdev_notifier_register(struct rkisp1_device *rkisp1)
->   * Power
->   */
->  
-> -static int __maybe_unused rkisp1_runtime_suspend(struct device *dev)
-> +static int rkisp1_runtime_suspend(struct device *dev)
->  {
->  	struct rkisp1_device *rkisp1 = dev_get_drvdata(dev);
->  
-> @@ -331,7 +331,7 @@ static int __maybe_unused rkisp1_runtime_suspend(struct device *dev)
->  	return pinctrl_pm_select_sleep_state(dev);
->  }
->  
-> -static int __maybe_unused rkisp1_runtime_resume(struct device *dev)
-> +static int rkisp1_runtime_resume(struct device *dev)
->  {
->  	struct rkisp1_device *rkisp1 = dev_get_drvdata(dev);
->  	int ret;
-> @@ -351,9 +351,8 @@ static int __maybe_unused rkisp1_runtime_resume(struct device *dev)
->  }
->  
->  static const struct dev_pm_ops rkisp1_pm_ops = {
-> -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> -				pm_runtime_force_resume)
-> -	SET_RUNTIME_PM_OPS(rkisp1_runtime_suspend, rkisp1_runtime_resume, NULL)
-> +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-> +	RUNTIME_PM_OPS(rkisp1_runtime_suspend, rkisp1_runtime_resume, NULL)
->  };
->  
->  /* ----------------------------------------------------------------------------
-> @@ -815,7 +814,7 @@ static struct platform_driver rkisp1_drv = {
->  	.driver = {
->  		.name = RKISP1_DRIVER_NAME,
->  		.of_match_table = of_match_ptr(rkisp1_of_match),
-> -		.pm = &rkisp1_pm_ops,
-> +		.pm = pm_ptr(&rkisp1_pm_ops),
->  	},
->  	.probe = rkisp1_probe,
->  	.remove = rkisp1_remove,
-
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84340..b442b083286d 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -46,7 +46,7 @@
+ #define IMX471_ANA_GAIN_DEFAULT			0
+ 
+ /* Digital gain control */
+-#define IMX471_REG_DPGA_USE_GLOBAL_GAIN		CCI_REG16(0x3ff9)
++#define IMX471_REG_DPGA_USE_GLOBAL_GAIN		CCI_REG8(0x3ff9)
+ #define IMX471_REG_DIG_GAIN_GLOBAL		CCI_REG16(0x020e)
+ #define IMX471_DGTL_GAIN_MIN			256
+ #define IMX471_DGTL_GAIN_MAX			4095
 -- 
-Regards,
+2.55.0
 
-Laurent Pinchart
