@@ -1,157 +1,127 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDAC3ED3CE
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929495; cv=pass; b=DtrVAqkzFtl5WPC9xtORhfVpqMdHd7ob6x+O22bmy2+oRlLoQMROfdj8jL5VMUFt4hXZWRI/PLVt+71a0dwp20gNl77PZgXuDL0T7WBnhOxCbpWT9U76hhmFCkWpYdTmQ92m/KZ2AKytFksbbvUkhdNULuwuYP39xGe7/bZ1Q30=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929495; c=relaxed/simple;
-	bh=KlIxB3DMOBjHkj3qfvKkhWtQBR4BYmDHWWCcFBUyWG4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ehFWiH9Pn7mwCans4+DNT64MdPQ6pDNg32FtfWWbNQRk5on64gfFl+ZhDOGbP+QjcrkvmUMHFHbCTNRaILkg1bGUEorXXNd/NZAknUzw5l6JTdBqNtZzsem/O0TrBuik0ZBXte3EGjzlfP/VcBR/E4tX3morc2KT+ITwFCnLPCk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qMb9qYZS; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9703ED5C7
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790929561; cv=none; b=QCBDoQb1lYhbLoR0G7yOgBqV92NuugEe/yx0qYNRze/AzBk2D/02nQne3pjR+B4WwRWb38yx/U9Oty94lCbA7CB9GoH0v0ODmO3qs3IGRWMnKpGaETZjm8psOYAUVDDHmImQC6x88fawC+Kc0Oy8PdDxPEtLToqX6qFu8ryRQpg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790929561; c=relaxed/simple;
+	bh=PAvkE0hEsDjsrQLIbjPxiMaGNpImfrF/NuPpzzyRhCA=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=BlUv5r2rJ2R5dHX+QtAV3La2SXuvtHS41hzBVJJRtGnB9iv4bTTREIqVtgjpZUs34Ax9qDgv1G9sthwW7gltba4Yd7NvbCLYZoL264Yo3o4Iqbbern0XhHsuPo/sDLT2sLC37gmhnm0fpUa02fNylnz1nDbkoqb6uza0tIz3G8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=hooxsSSI; arc=none smtp.client-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qMb9qYZS"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e30a06b59so349615066b.3
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 01:24:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790929492; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ILKHYI3UeIMoA0w6i1qUV32+14Ly9ZCmRcb+OzBz36kWVy+82SajvK3zwWpZPfajXA
-         tBr2kAKubrWZKksXZBlRW0fujzvTDoSfFPd1r0DJs8781LzJocyjtLAl/H3T/irjAdbo
-         cvyLesxWvw2T4mR16gEONZvVH6KlcvGz16fX4QkdaAxfPtfLUJRMr3mqYFoUyYlcZLQD
-         rp2Pk+qL2vy1nTKiNWSZm53aw7Q7z+km9uYVTJkyc8e7e+vGQooXQFQERUz1icMyrBTa
-         ox021cwaJ/CEjT5cWbcmOBHWjjfs39OxlLhg1Q0365maE8O1EUO7H25mZmtWVtHAuhIr
-         C0Nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yLL38YXRs8v13bhjczR68f1fMy6oYgiP+2Rp4B5sHZs=;
-        fh=Z1or64utxwlzSq0hcqXgsiEmblgS4xWWMC9eyHqe+aU=;
-        b=E+mUV912TDsOXaDFMvaNKgUbliTuZociILu3dAbH5higk0U69kTpRpzW+p5brUQp9I
-         ZK5xOtnOJWw5MKczAucoJF/fGsH5O1oLh2bYHNH4ksdkODApNsjZbnZKan4DXJ5U3evT
-         4fevYsn/iDR63mwyKtvvBsoNmR38SFP4NLh786UhLnPe5eyx8r6c8I2OuLLWqQC1iWrW
-         9W0WWaUj3z2FryGAQQKPL2Qd/cyHVMtDUIQBnOPA7AbV3v18br8rMqTrF8HKVGJptQtL
-         nqcRI0cANgy1P1Xx1RX7/nQlBRwUf3RMleGg2My52OLAYOpxXDS07QvtbN5lt869RDjQ
-         oYCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790929492; x=1791534292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yLL38YXRs8v13bhjczR68f1fMy6oYgiP+2Rp4B5sHZs=;
-        b=qMb9qYZSGZD3eCVgCuGtNJ9jw9MZIG+tXv6pf0sgyxpk9BN6cpoOm1ZyovaxPXsyk8
-         FHaUa0/wcqBJHbIj/XmwSUMdUj7FujAnFc70FSfRKvjDl6hFwRiEgEJCJT01M7zfJ6r6
-         LnEJcHRGrr7Cz6zw1yMMXAwFhkgTtXTRbml/rRcdGrBGRBUqfnnCcR8VWfKBLgLSvLCJ
-         +ATr0vHCQ36BIWph/SNmqwlOBG8/11GJVbuxBcMadqa1SY5nbCbUb6Hty+hbytDw7SDK
-         b6kVskrXHQYGxZ4XirnDkKcsiQkshUanQTCbA6hntjfErJOx8FJxe9DkRpuI2IhKU1ij
-         m59g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929492; x=1791534292;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yLL38YXRs8v13bhjczR68f1fMy6oYgiP+2Rp4B5sHZs=;
-        b=uUcAFdKhzv9Q476LtsGx6GWghJ5hr6YvJmZ9Pmwww3IpcsMwhM6TPtw7WL/dburJky
-         T0LpabrUR0ITNcWZgFsJhflcvTZ6y43l2e0tXs8+BDPiYJJ/Cb1AcmCzdXTe7JP4Nmkl
-         hybTfcGVZnJdfaC0QYZboLSFrqHZz0QbE/Aw2Qo8l0ZzYTkulD4lsfAX+azaiv1fBeGx
-         uSzRoWbcYw3ktrMn9nu4/EG+hro1JS83+XNCU7wVNZzKOwZq+VunCV2WmaBIRoExJzyu
-         9I9Of8kPL/TNPRv4BbNWumthljM/Z1/+h3gNuWnj4ABUibvHBpbDV+GPh7C6SiWeV0+y
-         wgwA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSpu8jljHdBzNlLpXkZjVOsA4uhp7lC1liOy+JUVOFi0TggS6y0zgL+AyWeXQrXcc7fvWPVw0+hjkRlg==@vger.kernel.org
-X-Gm-Message-State: AFuF++mibiizQSGZWsqbXq2LP+XTUl9KZ7xW4DLSL541XI38C9+S88m4
-	lANeYqFvO7wTGbf0MFHdf0ZzExvzMqKa6iUs+vI6u8yZuTrNW4RVCln5CRGrJn6uXBuHupJch31
-	4mivi4sBTGZWsl/DTz86pSJu8SdE5D5U=
-X-Gm-Gg: AYBFou0CnzNK8y8lL6K8+amLiU6JjPu8+CbDzWs76LKXak+h6SOklGB9j61aqoEYsCJ
-	WbMVRvWgZb266BmzlPRRk5uUlWKlIjQhr/Q2UWfiJ4nnx1hiaodtliBO3jRbZJ2JifptOAg3f5C
-	TdCREaJzdnN8F8ox2loaC+5EKPM6zk2W7AxMX3ej2DKvb0jm7QNIeAJU+Cp+iXC1XOfItou0vXE
-	8mJhMz2Wb9X8ukmq60OwMe9W2gN70foowQDE2zg6b13f567xnkq2wxAog83PQheFhaXc3wSqriD
-	dtny0n82NaQ9QMoQPAhFt8OERrHRnqtZcxjpOsxkSnwCRf+F7CWYLLVRQ3cEbXKVwz8SOosvX0j
-	132Hi7NkGPdrNTm2iSk7h0ojw0GdKEfDyHhfbAoyBO/eVZlb4Rv2QZI36JE/2Cez/S5d3oLk3N2
-	Z1QdnhJg3/Fq1v51X0W8CoFh05VIwtul8IccIUNB1A
-X-Received: by 2002:a17:907:1c98:b0:c2e:3152:6a78 with SMTP id
- a640c23a62f3a-c2e4ad7918emr175853666b.15.1790929491855; Fri, 02 Oct 2026
- 01:24:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="hooxsSSI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790929550; x=1791188750;
+	bh=JF+lB9N5zrc0eEEV+Fj6tuEAiMhErWeVlB2b6FMPFZ4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=hooxsSSI3hQCx5VeXhgQsgmFf99GD5CzFYfLgKsa0N2vpvu2Yt/MyO678pkKs66YL
+	 VbGgeSIKxq6zGYDljCQGIWuVfgfmWEnC9zteCaYi41tFB2ojenkp9BVM7pgz5OGG+C
+	 DgFFxP5epZfgo0Zi77pKonRfvdsE49f2OFGLLW3V+3t6J1JDpWJue3w7Y6Vlrk4bZ0
+	 KXrWDBk+Cw7ivPIKUhLBjsa4+0UcEDw9GiVSuAs/YqQ4yJGZuFxqomeuId4HUohpAe
+	 Zh91b65AWvIpsiRnObV81KtUdWhprwtvg/7ysUd/j3uWg4Fp0RlA5ap3LZfLr30qQ8
+	 WRawpjbuQ+YKQ==
+Date: Fri, 02 Oct 2026 08:25:43 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v8 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20261002082537.74084-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 13de14f6c47b96018f1a3acedde943f2f6b4e680
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
-In-Reply-To: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 2 Oct 2026 11:24:14 +0300
-X-Gm-Features: AclHuK-EFQV5WhAXMWIxmr7qjCCaiLixTX8idKJX50cwoXk48nStXfS5xiZzZ-Q
-Message-ID: <CAHp75VdRtMuSeS=39SXmLre=XKF11USi7w2HOGGwxP0+qBmPvg@mail.gmail.com>
-Subject: Re: [PATCH v8 00/15] media: Add Lenovo Yoga Book camera support
-To: mauriziocasciano7@gmail.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nicholas Roth <nicholas@rothemail.net>, 
-	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 2, 2026 at 11:16=E2=80=AFAM <mauriziocasciano7@gmail.com> wrote=
-:
->
-> Add camera support for the Lenovo Yoga Book YB1-X91L. The tablet uses
-> an AtomISP ISP2401 with an OV2740 front sensor, an OV8858 rear sensor
-> and a WV517S rear-camera lens actuator.
->
-> The series adds the missing ACPI and bridge configuration, selects the
-> OV2740 link frequency through the existing IPU PCI-ID mechanism, derives
-> AtomISP CSI-2 timing from the sensor link frequency, enables raw Bayer
-> capture and adds the sensor controls and actuator driver needed by the
-> hardware.
->
-> Runtime validation used the same 15-patch content on the current
-> media_stage.git master. The final media-committers.git next rebase change=
-s
-> only three source line wraps needed by the media 80-column check:
->
-> - W=3D1 builds and sparse builds of all eight affected objects passed bot=
-h
->   before and after the rebase.
-> - A full x86_64 Debian binary package build passed and produced kernel
->   7.3.0-rc1-yogabook-media-v8-20261002-001605.
-> - The kernel booted on a Lenovo Yoga Book YB1-X91L with AtomISP PCI ID
->   8086:22b8. OV2740 negotiated 288 MHz and OV8858 negotiated 360 MHz;
->   both sensors bound and AtomISP registered two cameras.
-> - OV8858 digital, red and blue gains were changed during streaming and
->   read back correctly. Continuous raw capture produced changing frames
->   from both sensors (6/8 unique rear samples and 8/8 unique front
->   samples), including front-to-rear-to-front switching without OV8858,
->   I2C or CSI errors.
-> - Both front and rear cameras were also exercised successfully with
->   Cheese.
-> - v4l2-compliance 1.32.0 completed 47 tests on the AtomISP capture node:
->   40 succeeded and 7 failed in invalid-ioctl, multiple-open, input,
->   control enumeration, stream-parameter and buffer tests. These failures
->   remain a validation limitation; this series does not claim to make the
->   staging AtomISP driver fully compliant.
->
-> Only the Yoga Book 19.2 MHz OV8858 path was hardware-tested; the existing
-> 24 MHz paths received build and static-analysis coverage but were not
-> tested on separate hardware.
->
-> ---
-> Changes in v8:
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
+or
+Business (Intel Lunar Lake, IPU7), ACPI device SONY0681. Without a driver t=
+he
+camera does not appear at all.
 
-You haven't even read what you sent, right?
-Your series is mangled (has a garbage), please, *always* read and test
-what you are sending before actually click the "send" button!
+  1/3  dt-bindings: media: Add Sony IMX681            (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre's, co-develope=
+d)
+  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
+
+The driver is Andre's, reverse-engineered from I2C traces taken under
+Windows.
+
+Changes in v8
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+From Andre's review of v7 2/3:
+https://lore.kernel.org/all/CAKNG7X8_fNSNKK8FGtm4pey+Pq1PP+38PFTn8O2yP8L04r=
+pcpg@mail.gmail.com/
+
+- The clock comes from devm_v4l2_sensor_clk_get(), and the 19.2 MHz check
+  no longer depends on a clock being found. v7 skipped it when
+  devm_clk_get_optional() returned NULL, and its comment said INT3472 on
+  this machine hands the clock over outside the clk framework. That was
+  wrong: the sensor gets INT3472:02-clk at 19.2 MHz through clkdev, as
+  v7's own cover letter showed.
+- The probe error path calls pm_runtime_dont_use_autosuspend(), as
+  remove() does.
+- At Andre's suggestion, we are both maintainers, in the binding and in
+  MAINTAINERS, and 2/3 carries Co-developed-by for me.
+
+Also:
+- Andre's Acked-by on 1/3, from a mail lore does not thread under v7:
+  https://lore.kernel.org/all/CAKNG7X9NkbXSnWGR4-79akJ7WiVeGa7D0mC=3Dp1Pz2g=
+TFO4npZw@mail.gmail.com/
+  Krzysztof's Reviewed-by is kept: the binding changed only by the second
+  maintainer line.
+- German's Tested-by on 2/3 is kept. Its only functional changes are
+  Andre's two above, which he tested on the same machine, as I did.
+- Each patch carries Assisted-by: Claude:claude-opus-5-5.
+
+While this sensor streams, IPU7's CSI-2 receiver logs "Received packet is
+too long" once per frame, and the frames are complete. Andre sees the same
+with his downstream driver, so it does not come from this series, and he is
+looking into it.
+
+Tested on the Surface Pro 11 for Business, on media next 2dcdfb625c3 with
+KASAN and lockdep:
+- the clock is INT3472:02-clk at 19.2 MHz, with the sensor as consumer;
+- v4l2-compliance 46 of 46, no warnings;
+- 3844x2640 at 30.01 fps;
+- the four flip states give the four Bayer orders, and EBUSY while
+  streaming;
+- runtime suspend after streaming, and capture after unbind and bind;
+- no KASAN or lockdep report from the driver;
+- W=3D1 and sparse clean, dt_binding_check clean.
+
+v7: https://lore.kernel.org/all/20260923211816.89954-1-lsa.uz@pm.me/
+
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       |  108 ++
+ MAINTAINERS                                   |    8 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx681.c                    | 1032 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |    2 +
+ 6 files changed, 1161 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
 
 --=20
-With Best Regards,
-Andy Shevchenko
+2.54.0 (Apple Git-157)
+
+
