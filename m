@@ -1,76 +1,61 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D18282F1E
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 06:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924193; cv=pass; b=i7bqG7ioQTEWVJnhwQWjIsFf7mQ2ycAPcSUD0oTK/4kdaGK4AKdRDmJOkodHXe0YF4uOrmGIZe8EW1yP6yMO6HAKc8m7wCrlVWIz4B7hIw80PtMrpdIwYzofOZF981shmH83WVhPcbOni+NeT+ZekiyaPYYH/+9pLCmDS6UF0Zc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924193; c=relaxed/simple;
-	bh=vbarVqydOBfABJChdUGoDl6YJZbwNByy+PQhxzxqsyU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1F32D3A75;
+	Fri,  2 Oct 2026 07:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790924748; cv=none; b=V9xTMEkTEk2ZKJwUo9f/uBrutuqC4wu7lvmsydGg+rjTkf37gI5jU6wZ9Fh5IXDml+vsO2ZbZ7VWx36/gX5zH2/gJz1/ZJzphqYs5w5WwoBDTWSZ3PfrKZkWWuaF4/03NtAEGXONG7MlXm0r+EW8qV1dqoTOl49n54ArE6AopCo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790924748; c=relaxed/simple;
+	bh=SsQhvlJAJv0pdksiuuoZnY55Sy8Rj6sCNdaY5dfHUsA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UpxhuqJovK8XCd+Sxuvk5LQ77rgVFTOHyezqbbuBGDubYf6oo8r3Opq3s/0Cd6je2u6na6yh4D7Mn13l3pLBmgbhBSEWuw/2dvY+Bbl9/9CrLmGFv38dawJr3W1PWLVC/ZNX9/32hQQ5+H/ZhXotBUiXWKSqtSeJMINjl/e3exw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=BYmTUTNW; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	 Content-Type:Content-Disposition:In-Reply-To; b=hPF+0+pOk23j9cgPrX7uMAP15J/IGmeN7SYQBCDac9k4GeOfa5ARz6S++mSA8iviymChR/GZtO+TWJqHuVR7ixXqwjF2Kcjf4ElwIeXGqF2Aod+Lq1ZGbtFJV5OF5iMGfontH6uhF+xetwYdWnCGG/6+bMiqRPjDSHZqFwcO+9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=enxlC8cK; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="BYmTUTNW"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hx01h2SlNzyQx;
-	Fri, 02 Oct 2026 09:56:24 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1790924184;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7wZVIGg84erRveyszTRBpVaTkv5Ht3KD7WF5GsiEMtE=;
-	b=BYmTUTNWlJ2E6kvqHzwMDHBaGU5VoTivD4u5Pg50DGrjGMXMZkaIP7mhEhmYuKfbzPDKNP
-	XLI0/wm+0K+FJmkhvg78rZdnaf8unyIa/2mVSMasaCLNQOEecr83tayfSrDXfoRKSPVzAr
-	LxsyxNKyC4Q319x4malQqGL5t9qsuYc=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1790924184;
-	b=t0Jvblq841Blwek5LnYz9O4BLWYN0u2Y+JUnb9BeNr57Yivrseo33q9MBeswf01nTwYph9
-	adFKUcfLaA4mntVqR3oUz3tA67YiZ2Q0IWavZivxuFLwOERFERYOMLA6QPgrbaazVUVkuq
-	hs0LIG798wpbxVzeKpJYIxjVO7XMzlc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1790924184;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7wZVIGg84erRveyszTRBpVaTkv5Ht3KD7WF5GsiEMtE=;
-	b=VycpGOYqqFvnyqU+qxrnJO/CRu/Xtrh0lf/PyX/jXoUepU1/75dCKmiTkwAWrcBqcgNA5c
-	Sfjg31q7E4w/DBpqF+qWKEPwG3YlZraliwaEGyzNZnt79yHaAAQXGF+cG1a73oUe+TPQm9
-	ntN4x68C6OHoFWsrcYuEIlG2mlef91Q=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id B1385634C51;
-	Fri, 02 Oct 2026 09:56:23 +0300 (EEST)
-Date: Fri, 2 Oct 2026 09:56:23 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: johannes.goede@oss.qualcomm.com,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org,
-	Loic Poulain <lpoulain@qti.qualcomm.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-Message-ID: <ar9Vlz3RyCUwW0Ia@valkosipuli.retiisi.eu>
-References: <20260914233810.GA2796257@killaraus.ideasonboard.com>
- <93b0e5fd-5570-4418-8bbc-4b18ef5e419f@ideasonboard.com>
- <ff4290aa-8edd-4135-9260-3bcd0361fa06@oss.qualcomm.com>
- <20261001205505.GP944070@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="enxlC8cK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790924747; x=1822460747;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SsQhvlJAJv0pdksiuuoZnY55Sy8Rj6sCNdaY5dfHUsA=;
+  b=enxlC8cKCpr2wPZAVX9dBNxSoHkeIYm2eu+nBaPAncPjllrwwgr/SS+c
+   EIHIkSxz4MaRQU8qhJzst/vLm/5VWIUBFh9ubSWDGwQuXWbq4hJDFAgej
+   qoVWQVzb/gytGhWEzfFcPkkUHlOhNKjunzx1XZ4odIfP6HLL6nVLGOmZ+
+   Or09kSyQnkBAt/x/qfH24/m7o0jdQaGeNK6Q1suJ/xfot8Wxwkhyv8MAe
+   adxhxgvW+A4xqSAUlbRTnKkai+XSdISxHuLHNv9qdojlVVrX+clpB/UaH
+   mq+AM8SBjrj9Amneh1ffekw+luh0oZJ7FlS8r5EnYepQkS9o+b7JRK6JR
+   Q==;
+X-CSE-ConnectionGUID: g9S2PE4XTgCLztaz5lQNhw==
+X-CSE-MsgGUID: 4QjFaBHwQx6UAZ2Nn6j+yA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102213210"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="102213210"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:05:46 -0700
+X-CSE-ConnectionGUID: JsatRacVQuSSLTGAEbKyUQ==
+X-CSE-MsgGUID: Ybx2T56SQAyPNw2AQnktTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="314170258"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:05:43 -0700
+Date: Fri, 2 Oct 2026 10:05:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Vadillo, Miguel" <miguel.vadillo@intel.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	sakari.ailus@linux.intel.com, hansg@kernel.org,
+	laurent.pinchart@ideasonboard.com, mehdi.djait@bootlin.com,
+	mika.westerberg@linux.intel.com, srini@kernel.org, arun.t@intel.com
+Subject: Re: [PATCH] media: i2c: cvs: Add NVMem-based firmware update support
+Message-ID: <ar9XxEb6Kjvd6HXb@ashevche-desk.local>
+References: <20260930182142.108744-1-miguel.vadillo@intel.com>
+ <ar6nSbS-FpaI6jYp@ashevche-desk.local>
+ <abb0daee-c5f2-47c2-9b0f-6018edb0ba6b@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,138 +64,86 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001205505.GP944070@killaraus.ideasonboard.com>
+In-Reply-To: <abb0daee-c5f2-47c2-9b0f-6018edb0ba6b@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Laurent, Hans,
+On Thu, Oct 01, 2026 at 04:03:50PM -0700, Vadillo, Miguel wrote:
+> On 10/1/26 11:32 AM, Andy Shevchenko wrote:
+> > On Wed, Sep 30, 2026 at 11:21:42AM -0700, Miguel Vadillo wrote:
 
-On Thu, Oct 01, 2026 at 11:55:05PM +0300, Laurent Pinchart wrote:
-> Hi Hans,
-> 
-> (CC'ing Sakari who may have more insight on ACPI properties for
-> Intel-based machines, or who may be able to pull the right people in
-> this conversation)
-> 
-> On Thu, Oct 01, 2026 at 05:15:05PM +0200, johannes.goede@oss.qualcomm.com wrote:
-> > Hi Stefan,
-> > 
-> > Thank you for the write-up.
-> > 
-> > On 30-Sep-26 13:18, Stefan Klug wrote:
-> > 
-> > <snip>
-> > 
-> > > ## Diving into the examples
-> > > 
-> > > Lets look at the example I listed to see how these would be solved.
-> > > 
-> > > ### 1. Laptop with camera module from various manufacturers
-> > > 
-> > > I believe this can be solved by either integrating the detection logic
-> > > in libcamera and/or adding rules to udev/hwdb. But we are lacking real
-> > > examples. So if you're able to provide identification strategies for
-> > > real, existing hardware, I'd be glad to know about it. One strategy
-> > > might be to use the machine identifier provided by DMI. This is however
-> > > quite coarse and can not handle cases where the manufacturer used
-> > > different camera modules from different vendors (using the same sensor
-> > > model). ARe there for example ACPI properties that we could query for
-> > > additional information?
-> > > 
-> > > Q: Does anyone in this group have more details on which information to
-> > > query and where to get more details from the system?
-> > > A: ...
-> > 
-> > For the Intel IPU6/IPU7 methods there is an ACPI call which the kernel
-> > can do on the sensor fwnode object which will return a string identifying
-> > the modules. These strings don't really have any fixed format, typically
-> > they contain something which look like how some laptop serials look
-> > just a random bunch of numbers + capital letters.
-> 
-> We know that hardware manufacturers like to have multiple providers for
-> camera modules in the same laptop model in order to avoid supply chain
-> issues. Do you know if this can be confirmed from those strings, do we
-> have enough data to see if the identification strings are made of a
-> small number of clusters ?
+...
 
-These strings are unique to the module. I'm afraid they could even be
-module names as defined by the module vendor.
-
-> 
-> > Userspace cannot get to this without the kernel exporting it.
+> > > +	mutex_lock(&ctx->lock);
 > > 
-> > Given all the udev talk, I think a sysfs attribute would make sense
-> > for this. We can make the kernel do the ACPI call and if it is present
-> > add a camera_module sysfs attribute to the v4l2-subdev for the sensor,
-> > which will only be visible when there actually is a module-name.
+> > Why not guard()()? Also how ACQUIRE() macros are co-habit with goto:s?
+> 
+> You are right scoped_guard() should be the case here and to get rid of the
+> gotos, this could be done like:
+> ...
+> 	scoped_guard(mutex, &ctx->lock) {
+
+Why scoped_guard()? If you need something to be outside of the regular
+guard()(), but double check that it's indeed the case, refactor to have to
+functions, one with guard()() in it and one that wraps it.
+
+> 		switch (val) {
+> 		...
+> 		}
+> 
+> 		nvm->auth_status = -ret;
+> 	}
+
+> 	if (ret)
+> 		return ret;
+> 
+> 	if (do_uevent)
+> 		kobject_uevent(&dev->kobj, KOBJ_CHANGE);
+> 
+> 	return count;
+
+...
+
+> > >   struct icvs {
+> > >   	struct i2c_client *i2c_client;
 > > 
-> > On laptops using devicetree we could then fill this from a devicetree
-> > property.
-> 
-> I would very much like to standardize the API exposed to userspace
-> across different types of firmwares (ACPI and DT). Having more data
-> about the ACPI side could help us design DT properties that would fit
-> nicely with a single API.
-
-Note that this concerns only the Windows specific ACPI tables. DisCo for
-Imaging (or older Chromebook ACPI tables following Linux specific
-definitions) doesn't specify anything (largely because DT doesn't). Of
-course it'd be nice to change that -- for both.
-
-> 
-> > > ### 2. Camera modules with an embedded EEPROM
-> > > 
-> > > To make use of the EEPROM data from user space we need to carry two
-> > > elements: The EEPROM data itself and some identifier telling which
-> > > format the data in the EEPROM has. This seems relatively straightforward
-> > > and we could model it like this in dts:
-> > > 
-> > > dts-snippet:
-> > > imx283_0: sensor@1a {
-> > > 		compatible = "sony,imx283";
-> > >     ...
-> > >     eeprom = <&eeprom>;
-> > >     eeprom-format = "vendor-a-eeprom-fmt";
-> > > };
-> > > 
-> > > Getting the link to the EEPROM from user space is something to
-> > > investigate. Ideas are either sysfs or media-controller.
-> > > The eeprom-format must be specified as well, to tell user space how to
-> > > interpret the EEPROM data, as it is typically not self-contained.
-> > > 
-> > > Q: On a first discussion on that topic we were unsure if it would be
-> > > preferred to expose the data directly in sysfs,
-> > > or to symlink to the corresponding sysfs entry for the EEPROM. Any
-> > > preferences?
-> > > A: ...
-> > > 
-> > > Q: Any input/things to consider from ACPI side?
-> > > A:
+> > >   	int irq;
+> > >   	wait_queue_head_t hostwake_event;
+> > >   	bool hostwake_event_arg;
+> > > +	struct icvs_nvm nvm;
+> > >   };
 > > 
-> > For IPU6/IPU7 eeprom data is not used for camera-module identification
-> > (AFAIK), it is all done through the (custom, Intel specific) ACPI call
-> > I mentioned above.
+> > Is `pahole` happy with the layout?
 > 
-> I wouldn't expect an EEPROM, that would be quite costly for little gain.
-> I wonder if sensor OTP memory is typically used though. Some sensor
-> manufacturers specify how to store calibration data there, such as lens
-> shading tables for instance. I wonder if anyone puts the same data in
-> ACPI tables.
+> Yes. struct icvs_nvm is itself hole-free and fits in one cacheline.
+> That being said, there seems to be other holes in the full struct from the
+> existing implementation, this order could make it better
+> ...
 
-To my knowledge there's no tuning data in system firmware on Intel x86
-systems. That could change in the future of course, but it's perhaps
-unlikely, due to logistical issues.
+Better by `pahole` doesn't always mean better in all aspects. You have to also
+check it in conjunction with the output of `bloat-o-meter`. And in some
+(performance-critical) cases with the runtime performance tests.
 
+> 	struct media_pad pads[ICVS_CSI_NUM_PADS];
+> 	struct device_link *ipu_link;
+> 	unsigned long quirks;
+> 	struct gpio_desc *rst;
+> 	struct gpio_desc *req;
+> 	struct gpio_desc *resp;
+> 	wait_queue_head_t hostwake_event;
+> 	struct icvs_nvm nvm;
+> 	struct icvs_dev_capabilities caps;
+> 	u32 nr_of_lanes;
+> 	enum icvs_resources res;
+> 	int irq;
+> 	bool prefix;
+> 	bool hostwake_event_arg;
 > 
-> > > Q: What happens if the EEPROM driver is not loaded yet or is just not
-> > > available? Should it block/defer probing of the sensor?
-> > > A:
-> > > 
-> > > Q: We are missing real-life examples for these cases. So input from
-> > > vendors would be welcome.
-> > > A:
-> > <snip>
-> 
+> but maybe send as a separate patch since it is not related to the patch
+> intent (?)
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Sakari Ailus
+
