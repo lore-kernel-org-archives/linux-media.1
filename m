@@ -1,120 +1,275 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94EB266581;
-	Fri,  2 Oct 2026 12:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F32622370A;
+	Fri,  2 Oct 2026 12:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943412; cv=none; b=dDQG6T2NlvxN760mde2pmviJL6jNYPCUf761hzOw3hUwI6xEhyJQaamg/rtORB0APEH+1asY9dvKWQ9hI77HcWi/8mePTa6uPJM6yT/ChL1FuKthP4clUKS0PXFA75vmRGVoB8D16/XyLiB20OchUm0vh7e+TA954RoOYhT4k1M=
+	t=1790943674; cv=none; b=TtBTCxODluD0heMoLGTGjjDMgLEom3yRciH1NKdjKGbaOS+Xw2s1SJjS2d/64FZ4cxx/an7l0LGpTgeykgiF91vc1x4jX/3CSIAK34Q58WEuhbH4gFGsTqZ7GrCW28yl5sZEpkt1bw8KCHCxlVeOBhlg+VE78eyZk2zgqxB6kL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943412; c=relaxed/simple;
-	bh=hWvROiBQkqgwYapnAaGEgy91XM4lZH3rX2b5rdYyUEM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aGYd9jlRQYSSjQXAncKOTUhLoCHlzq1Zm9TSl70xI7dzZZHPq4YzxSJoGrgBzQQ56jOoQQVsnjkipBQaOjbmzUCG7DabPdP85rPkPRkJsMV6Yq5pS61KURy4rDABZnQ0499KFzyvSIcAGZatOkDwydG0aS+gMKvTkXODBqOPac0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vZaNG2pj; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790943674; c=relaxed/simple;
+	bh=u+U4+GGA98/75HGwZG8Q0DLVcKXq0XVWma+vi3kkSyc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TRU9OYqRjpsTxB2/yeVwIKzvwAtRezhd1J9maszBYCVKtHbpEnR2hVDO+tpVX48dDGvbem5j8KjBwcidgG+oQgzYk9CNTZAgd9OxndY4OzmZvH6a1lAGKS+0DYXkwFPHZvJIrjggBvOR61ab1iKNv1/zlmlMft7r/S03GNEApww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3Q4KZto; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vZaNG2pj"
-Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 191DB5E;
-	Fri,  2 Oct 2026 14:14:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790943294;
-	bh=hWvROiBQkqgwYapnAaGEgy91XM4lZH3rX2b5rdYyUEM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=vZaNG2pjGZf5q/7aenUNXYfzavHTPGhlNCg+RFNYInDWfBCHZqIpTfby14tMTG8b0
-	 rnTu7RvwnTp229SHWYoHInz17exaQl/qZTUZN9/K9J49gogSLg8pkcuzBw9AeHDLPs
-	 dCw8oGQ/nDwS6U7EXhRloxN48C8KSzdLkAexRJoc=
-From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Subject: [PATCH v1] media: rppx1: lsc: Fix and use LSC_SIZE_VALUE()
-Date: Fri,  2 Oct 2026 14:16:43 +0200
-Message-ID: <20261002121643.418200-1-barnabas.pocze+renesas@ideasonboard.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3Q4KZto"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94C61F000FF;
+	Fri,  2 Oct 2026 12:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790943673;
+	bh=A17ei//BVy1gsJYVHpC6jubZHQhrRN2IN+K+8bR9YZ4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=V3Q4KZtoBc0C/r6cNlHPpuQpPQLrjM4ehSUEL206wmyOiEKBhmKkZ3PSOdNkHUW2V
+	 t8OK5k76l38Op8MONpmZCVP8VmCBE3KGUXdjB4zFah7QQsD43EbhUgnOfSU4GtaT5t
+	 MOO1BlZhjvvFyGIOJyVB8RiVd0YKJZWBVxjDoePMnJNq2I9jBIO9JKbZKyimHa9snl
+	 lcSa6XCk+InygJrGue0iyZIHN90A16dNSlwlCCyDp96avU5S+WpKDjOSXLm+amTxj8
+	 z9YPqgKVkDyOfYG7FJbPfQrBUioaF1Zm3DVpIIsqkWtj6SNU5rRLA9cAnC60/uTe+w
+	 EZfXxMHjLzQJw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham
+ <kieran.bingham@ideasonboard.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 3/5] media: imx219: Allow driver probe with missing
+ sensor
+In-Reply-To: <CAPY8ntAzRMXc61DvLRRFQBQXxWbVx26r5jCf_dg3PCeiGqKSaw@mail.gmail.com>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <20261001-v4l2-sensor-detect-v1-3-a45993be17b8@kernel.org>
+ <CAPY8ntBFTGmGHRZX0QAtbV=fQi4p3Obp19SfNHdFq_DrW3-T7g@mail.gmail.com>
+ <CAPY8ntAzRMXc61DvLRRFQBQXxWbVx26r5jCf_dg3PCeiGqKSaw@mail.gmail.com>
+Date: Fri, 02 Oct 2026 14:21:10 +0200
+Message-ID: <xhkdb33uouwcp.fsf@mkorpers-koolstof.csb>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Firstly, the size values are 10-bit unsigned integers, and there doesn't
-appear to be an upper limit in the hardware documentation, and testing also
-seems to confirm that 1023 works as expected, so the correct mask to use is
-0x3ff (1023), not 0x1ff (511).
+Hi Dave,
 
-Secondly, actually use `LSC_SIZE_VALUE()` when populating the size registers
-instead of using the `LSC_GRAD_VALUE()` macro.
+Thank you for the review.
 
-Fixes: b39656efb71a ("media: rppx1: lsc: Add support for lens shade correction")
-Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
----
- .../platform/dreamchip/rppx1/rppx1_lsc.c      | 34 +++++++++----------
- 1 file changed, 17 insertions(+), 17 deletions(-)
+On Thu, Oct 01, 2026 at 18:35, Dave Stevenson <dave.stevenson@raspberrypi.com> wrote:
 
-diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
-index 8badeca23e249..ffc52ca23dd99 100644
---- a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
-+++ b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
-@@ -57,7 +57,7 @@
- 
- #define LSC_R_TABLE_DATA_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 12))
- #define LSC_GRAD_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 16))
--#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x1ff) | (((v2) & 0x1ff) << 16))
-+#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x3ff) | (((v2) & 0x3ff) << 16))
- 
- static int rppx1_lsc_probe(struct rpp_module *mod)
- {
-@@ -157,24 +157,24 @@ rppx1_lsc_fill_params(struct rpp_module *mod,
- 	write(priv, mod->base + LSC_YGRAD_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
- 
- 	v = cfg->x_sect_size;
--	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
--	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
--	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
--	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
--	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
--	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
--	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
--	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
-+	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
-+	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
-+	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
-+	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
-+	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
-+	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
-+	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
-+	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
- 
- 	v = cfg->y_sect_size;
--	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
--	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
--	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
--	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
--	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
--	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
--	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
--	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
-+	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
-+	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
-+	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
-+	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
-+	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
-+	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
-+	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
-+	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
- 
- 	/* Enable module. */
- 	write(priv, mod->base + LSC_CTRL_REG, LSC_CTRL_LSC_EN);
--- 
-2.56.0
+> On Thu, 1 Oct 2026 at 17:50, Dave Stevenson
+> <dave.stevenson@raspberrypi.com> wrote:
+>>
+>> Hi Mattijs
+>>
+>> On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
+>> <mkorpershoek@kernel.org> wrote:
+>> >
+>> > Probe() should complete even when a sensor is disconnected. This would
+>> > allow the v4l-subdev to be created and improve fault tolerance.
+>> >
+>> > Currently, the driver reads the CHIP_ID over i2c in the probe().
+>> > When we can't read CHIP_ID, the probe errors out - which result in the
+>> > v4l2-subdev not being created.
+>> >
+>> > Remove all i2c communications to allow the driver to probe with a
+>> > missing sensor.
+>> >
+>> > Note: Since we no longer power on the sensor during probe, the driver
+>> > now starts in suspended mode by default.
+>> >
+>> > Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+>> > ---
+>> >  drivers/media/i2c/imx219.c | 72 +++++++++++++++++++++-------------------------
+>> >  1 file changed, 33 insertions(+), 39 deletions(-)
+>> >
+>> > diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+>> > index 7978fee5f4a2..aeac70123b9b 100644
+>> > --- a/drivers/media/i2c/imx219.c
+>> > +++ b/drivers/media/i2c/imx219.c
+>> > @@ -1000,6 +1000,29 @@ static int imx219_init_state(struct v4l2_subdev *sd,
+>> >         return imx219_set_pad_format(sd, state, &fmt);
+>> >  }
+>> >
+>> > +/* Verify chip ID */
+>> > +static int imx219_identify_module(struct imx219 *imx219)
+>> > +{
+>> > +       struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+>> > +       int ret;
+>> > +       u64 val;
+>> > +
+>> > +       ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
+>> > +       if (ret) {
+>> > +               dev_dbg(&client->dev, "failed to read chip id %x\n",
+>> > +                       IMX219_CHIP_ID);
+>> > +               return ret;
+>> > +       }
+>> > +
+>> > +       if (val != IMX219_CHIP_ID) {
+>> > +               dev_dbg(&client->dev, "chip id mismatch: %x!=%llx\n",
+>> > +                       IMX219_CHIP_ID, val);
+>> > +               return -EIO;
+>> > +       }
+>> > +
+>> > +       return 0;
+>> > +}
+>> > +
+>> >  static const struct v4l2_subdev_video_ops imx219_video_ops = {
+>> >         .s_stream = v4l2_subdev_s_stream_helper,
+>> >  };
+>> > @@ -1056,6 +1079,14 @@ static int imx219_power_on(struct device *dev)
+>> >         usleep_range(IMX219_XCLR_MIN_DELAY_US,
+>> >                      IMX219_XCLR_MIN_DELAY_US + IMX219_XCLR_DELAY_RANGE_US);
+>> >
+>> > +       /*
+>> > +        * If we can't identify the module here, it might be disconnected.
+>> > +        * Consider power_on() complete and exit early in that case.
+>> > +        */
+>> > +       ret = imx219_identify_module(imx219);
+>>
+>> Do we need to identify the module on every power on? Admittedly it's a
+>> lightweight operation here, but for imx678 and the other Starvis2
+>> sensors I'm currently working with you're needing to come out of
+>> standby and wait 80ms before reading the ID registers.
 
+That's quite some time to wait. Are the 80ms also needed to write registers?
+
+I added this as a safeguard to avoid doing the LP-11 power state change
+(and thus writing IMX219_REG_MODE_SELECT).
+
+We could replace the identify module with testing if the REG_MODE_SELECT
+write failed ...
+
+>>
+>> Looking at the rest of the series, polling of detect would notice if
+>> the sensor goes away again within a system that cares about it, so
+>> caching the first successful identify would largely restore the
+>> behaviour for systems that don't care about fault tolerance.
+
+... or use a cached value. I will give it some thought and change this
+for v2.
+
+>> Actually I'd be tempted to keep a call to detect/identify from within
+>> probe so that if the sensor is connected at boot we don't have any
+>> change in behaviour, nor the reporting of the unknown status.
+
+Ack. see below.
+
+>
+> And a follow up thought on this one too.
+>
+> We already return any errors from the I2C writes in
+> imx219_enable_streams, so reading the ID value here is fairly
+> redundant. The likelihood of someone having connected a totally
+> different I2C device on the same I2C bus and address is very low, so
+> if the writes succeed then you can reasonably assume that the relevant
+> device is connected.
+
+Ack, I will look into this for v2.
+
+>
+> Perhaps a more useful solution is to still try reading the device ID
+> during probe. An I2C failure at that point shouldn't abort probe, but
+> a mismatch on the ID register after a successful read should. Again
+> that keeps existing users experiencing largely the current behaviour,
+> but your use case of fault tolerance if not present will also work.
+
+I agree, I will read REG_CHIP_ID once in probe(). The read won't abort
+the probe. The IMX219_CHIP_ID mismatch will.
+This way, we don't report the unknown status.
+
+Mattijs
+
+>
+>   Dave
+>
+>>   Dave
+>>
+>> > +       if (ret)
+>> > +               return 0;
+>> > +
+>> >         /*
+>> >          * Sensor doesn't enter LP-11 state upon power up until and unless
+>> >          * streaming is started, so upon power up switch the modes to:
+>> > @@ -1117,27 +1148,6 @@ static int imx219_get_regulators(struct imx219 *imx219)
+>> >                                        imx219->supplies);
+>> >  }
+>> >
+>> > -/* Verify chip ID */
+>> > -static int imx219_identify_module(struct imx219 *imx219)
+>> > -{
+>> > -       struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+>> > -       int ret;
+>> > -       u64 val;
+>> > -
+>> > -       ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
+>> > -       if (ret)
+>> > -               return dev_err_probe(&client->dev, ret,
+>> > -                                    "failed to read chip id %x\n",
+>> > -                                    IMX219_CHIP_ID);
+>> > -
+>> > -       if (val != IMX219_CHIP_ID)
+>> > -               return dev_err_probe(&client->dev, -EIO,
+>> > -                                    "chip id mismatch: %x!=%llx\n",
+>> > -                                    IMX219_CHIP_ID, val);
+>> > -
+>> > -       return 0;
+>> > -}
+>> > -
+>> >  static int imx219_check_hwcfg(struct device *dev, struct imx219 *imx219)
+>> >  {
+>> >         struct fwnode_handle *endpoint;
+>> > @@ -1252,21 +1262,9 @@ static int imx219_probe(struct i2c_client *client)
+>> >                 return dev_err_probe(dev, PTR_ERR(imx219->reset_gpio),
+>> >                                      "failed to get reset gpio\n");
+>> >
+>> > -       /*
+>> > -        * The sensor must be powered for imx219_identify_module()
+>> > -        * to be able to read the CHIP_ID register
+>> > -        */
+>> > -       ret = imx219_power_on(dev);
+>> > -       if (ret)
+>> > -               return ret;
+>> > -
+>> > -       ret = imx219_identify_module(imx219);
+>> > -       if (ret)
+>> > -               goto error_power_off;
+>> > -
+>> >         ret = imx219_init_controls(imx219);
+>> >         if (ret)
+>> > -               goto error_power_off;
+>> > +               return ret;
+>> >
+>> >         /* Initialize subdev */
+>> >         imx219->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+>> > @@ -1288,7 +1286,7 @@ static int imx219_probe(struct i2c_client *client)
+>> >                 goto error_media_entity;
+>> >         }
+>> >
+>> > -       pm_runtime_set_active(dev);
+>> > +       pm_runtime_set_suspended(dev);
+>> >         pm_runtime_enable(dev);
+>> >
+>> >         ret = v4l2_async_register_subdev_sensor(&imx219->sd);
+>> > @@ -1298,7 +1296,6 @@ static int imx219_probe(struct i2c_client *client)
+>> >                 goto error_subdev_cleanup;
+>> >         }
+>> >
+>> > -       pm_runtime_idle(dev);
+>> >         pm_runtime_set_autosuspend_delay(dev, 1000);
+>> >         pm_runtime_use_autosuspend(dev);
+>> >
+>> > @@ -1315,9 +1312,6 @@ static int imx219_probe(struct i2c_client *client)
+>> >  error_handler_free:
+>> >         imx219_free_controls(imx219);
+>> >
+>> > -error_power_off:
+>> > -       imx219_power_off(dev);
+>> > -
+>> >         return ret;
+>> >  }
+>> >
+>> >
+>> > --
+>> > 2.55.0
+>> >
