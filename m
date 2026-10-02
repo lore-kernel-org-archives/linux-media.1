@@ -1,359 +1,435 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013062.outbound.protection.outlook.com [40.107.162.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6E2233D9E
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 16:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957652; cv=none; b=ExJ7eTYGxPfq9m0g2W1LRe4DCAtNg/jNhTz6Fl+hXs711orY9yJKbwaibGGIjNBKpwxY0eg9H9fNHx+L5XmCrHlXjAJqx/lGbIGz2COq5j1dmlvaKsaAdr3tfmJ9rdgJ9q9+XU75C9CegVh+t8XMOyaV7NJXc6vztkst7JClpw8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957652; c=relaxed/simple;
-	bh=TuILmkj6p4SrybxIo6pAqvu9WLt9qKfShvZOf+31YpY=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=gZ/Nmi+Ra0lf6NoO+GUtOhC6OMIWbHisb8c6thmtWOxiPJav+ikFrQNaybRFKKZ+zJegg18vTBCcGH2DbYsiykL+PHfBDwJEyJdzUfd9kDs7Q8h5I5TBhiZtqnOBzYvQe9xKMUgvJx8bJmcQpyB4HbvVCeyNI2hV0qW3eZ6ccbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=PBwZq9M6; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BD54EE877;
+	Fri,  2 Oct 2026 16:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790957779; cv=fail; b=IVDz9cVwByEwpHXL2cJtx0Wlfgl8uZRgPP0wU5j5IfEUmYCupXQjhCycdmzhaa+I/g8mWFebuh39Nkx3e6lWND14H4hsr7UjQ2dNnYzoax4jeRGw4WGqlF/5kKIoGOsN1vnAnsQHkgcz5kNbfwMBzad9IpZ76gt1obvLTp1r0uw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790957779; c=relaxed/simple;
+	bh=kETkd9ICKj5ujmY/+jUj/M9gflyjeqpRx/B6OIRW+xw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Sbw3pwPVnQSg6ccnFmH8DcOdNI4wsbrs/n5bL2q1loVa1pt87SDwCkLOvfcKof33bjWuZUYjBirh2QFnSp7NZ5pFkzdzX/lt82MK1xjmGAKuPDRe3dO9JhnOazqaogfZ+A85G7gOrgCdvyR1Dk+9AmIl9w/24+99gJyvdvbM7oE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=eSwSAKPN; arc=fail smtp.client-ip=40.107.162.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PBwZq9M6"
-Received: from ideasonboard.com (unknown [IPv6:2a00:6020:448c:6c00:6c1f:355d:1c19:aba6])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 63C595E;
-	Fri,  2 Oct 2026 18:12:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790957535;
-	bh=TuILmkj6p4SrybxIo6pAqvu9WLt9qKfShvZOf+31YpY=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=PBwZq9M6r+Grr9eCWYFtirAhXLMoCF4cWmG6iKA1FfMOfFsE4xNGCB4UV1rCcAIn5
-	 SnLaIK3qUByYsu9j0KisUWWgI/K+yQpzE62H2eFMPacqhkkohYgKmKIdVPk0n/vqZY
-	 59SKLi9i9JgUw44ScufV/tYMqfuu3s+depnT03Uo=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="eSwSAKPN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YdYlsrj7LLsCXrbbC8BAgdBMV14ZNfpcqhUOSjv67FD+UUprw3KpXYrXFOpyTNiXPKE9B3hnTvVg5i+KGyRdI7vQT1IF/Tv+SbSPFkY8pYValqYPYJxmJ9XYQjfkonJJ3r736DulVB80f3BgjyJ+7qo5N7wggo8sZnB68z56jLjISPdtT257W8p70jYP/UE6rN9j+BEhtRGAmPPiOuQeJjwY8YjTFDcLKRG2on30CczVknSaf4tDJYFErcf+ySy/EJTMBLXXW9wOqbjtcovNSTu3UpmRmJ37qtPqORYc8XSO2Uvki/eCNSugO+EJyiP396fxxWSksDWk0wNYW+tK+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IjcDbTs9FdX3fXZwA90xbytMzlO4CTXr03GT3vdQAU4=;
+ b=yErqQQ1WfU0Tty8iuFfy6914Dy0+Xg+ogGdWH5/uROPduzO/qYR6QskWLKbqCtWPeJAooRnzsZk8pIYe2k49TKorKFynKYPSP2m5C0IooKdiLpcii2bKXUchhoNBw7Xafi4xxbf+8XQVCK5SNABQE3sjUO6Tbd/CxCa7EvD0j/lS6rZulY5XLckbZKiZS64mcz4sYd6zW7nYRQ0YqFds4d8TDDixi5t/WOmT7rMMmkCSgDxAGuXO7s3jMo604WZLK3nQxomGL5QwIkVOh/Opb2E3Jd0BsLM4jHh69f1BYm+gMzULle4YuV0cwzJweOrWCsA00BPWavODYIgMt3MKWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IjcDbTs9FdX3fXZwA90xbytMzlO4CTXr03GT3vdQAU4=;
+ b=eSwSAKPNlw5j/elcsov0kt3UAcEeQSF6LCVpvuKmb+0j5DdvRhm5laHXNmhhhSlTdeZzHRVwMuaJLWa9ctEcXS+WHdO7YgU19j8MbHlouexKhHNxX/WaYp7PVzvn0cNrsVANcBs19W5OF3D0G5Zi9vZ6bkX7eRVYPQniOe4kUorYcMRR1dUp79f1S7JqD7YUYGseYjx478JId26nBQc3GVrirOB7guOUFB2lvwPaLMlJiieDiovE2mHUKL8/sUrQb98o3G2+zrI9Q1usoHpC3ulPqUtEfl83sOEt2P6V77zfr7sAYMCKYRL7hIJWbj5cJRvj6PPL/jjARP+zB/cuHA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com (2603:10a6:20b:4e3::9)
+ by AS8PR04MB8293.eurprd04.prod.outlook.com (2603:10a6:20b:3fa::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 16:16:13 +0000
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538]) by AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538%6]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
+ 16:16:13 +0000
+Message-ID: <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+Date: Fri, 2 Oct 2026 19:16:11 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312 driver
+To: Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Cc: tomi.valkeinen@ideasonboard.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com,
+ kristo@kernel.org, sakari.ailus@linux.intel.com, mripard@kernel.org,
+ jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
+ y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com
+References: <20260925133001.2780868-1-r-donadkar@ti.com>
+ <20260925133001.2780868-7-r-donadkar@ti.com>
+Content-Language: en-US
+From: Mirela Rabulea <mirela.rabulea@nxp.com>
+In-Reply-To: <20260925133001.2780868-7-r-donadkar@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0183.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::11) To AS4PR04MB9244.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4e3::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260930-boil-capitol-19514aea9236@spud>
-References: <20260914233810.GA2796257@killaraus.ideasonboard.com> <93b0e5fd-5570-4418-8bbc-4b18ef5e419f@ideasonboard.com> <20260930-boil-capitol-19514aea9236@spud>
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-From: Stefan Klug <stefan.klug@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org, Loic Poulain <lpoulain@qti.qualcomm.com>, Michael Riesch <michael.riesch@collabora.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Date: Fri, 02 Oct 2026 18:14:06 +0200
-Message-ID: <179095764618.1027537.15476078497656119934@localhost>
-User-Agent: alot/0.12.dev43+g2cacc0d03
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR04MB9244:EE_|AS8PR04MB8293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00ce22ec-8181-4342-1e31-08df20a07aba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|19092799006|260925021911599003|260925021311599003|6133799003|260925022911599003|56012099006|10067099003|11063799006|4143699003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	cWaPcY2pg29A9UYHKXBaTcyrWisQrixkXyeKL3bHiNaCGt2lzawpkKGfIkW2T3wzhMkKnTbS+tj4o3HOJnzyd3wqSwocrr/e3t/B016xwkJwIA0L/gd3Wwc3R9rRCouRgxX0k+vKxM7pYX6oyA8aWg8JoR5voS/xYyYE2i+EIHzsYNhbOZUNOmS1i3P6HrOsI67iGrUox81yAqnHmL4LVoByFgCvktp9Kv905qDruAyrQGCKk4mtVkloK43S8KfGHuX/ptjkY37y3kr0jprQKDs9KX6QBxM/ZV4Qi4sJYQRQbhWPaLZXVvjT+ssF/uyR3he5ZHA1XAn2Oe557nCaWbnyoIFk913cpKJx+khL+IPym5rJk9U0KRwmCIvwJzbBM+Y6SkJIXEQi7yIwUa++RBJT6YiaPeBhMarIaJP7vviA1TMOSxWcRMv2a6sfpI6ufCaFP5B8jGY9ig013u/i8hWJGn6iDIyb2TPr4vSqfWec2yZ+6a4zOt3/fKvZaVKzfpvaD0MZetLCB74hnE8YLQfu4+tvIsyVsPMvckib1cqQA3Rv74lOMc3/6hJc7h1r7j8Tb7kdGsn7OLX+CjT2BQVWvR+7I9aHNTkeL8kZbY4DtZWv0h4P0tuTJmGSPPMG8Tt5fCPO6i/8dnpZauLNbfQ8hFED2EBJbpymmIWi4Do=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9244.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(19092799006)(260925021911599003)(260925021311599003)(6133799003)(260925022911599003)(56012099006)(10067099003)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RFhXaFBWbFluNWdCNzl3NmVaWFAxSDFzaG4xb3lLQlQway9SUXhrYTJhUUFr?=
+ =?utf-8?B?ei9PQTZTVFhZem0vUHdvY1ZyYlFGZTl6ZCtubHRvZHo3WGFMamt2d2xNTXBX?=
+ =?utf-8?B?cnlLQldaMWtYSEdONGMzOWhsbWRHUmtQODVZYnZ5TDRiWktaUk1jQzdCS0Nv?=
+ =?utf-8?B?cDN6cVFyZ3Z0aXNuL2pmWFB4VDhDRmxwb056ZHQ0U1NaM0d0akY2Q2FKN1FX?=
+ =?utf-8?B?VEkrZzkrYVBJeGg1SkNQSUxCSVJHUjhjU1A2OUJxTFNjZmt5UjFEQWN0dEZn?=
+ =?utf-8?B?TE1EUkJnam9OY09tMERsa2Uyd1BjZDdPNWYxdVAwUkpsZmFUckE0QmlqUklC?=
+ =?utf-8?B?WWdoKy9oR3dYMnBWYzBZbk92ZjZBTHJTMXJFTmc5elVYenRxRzNXMXgzUXRE?=
+ =?utf-8?B?bjVIMlE0cGtMOFNmSS9HOXVaczJGVkErenNrTDUzNHlKRnpYNWJZRjRpYng4?=
+ =?utf-8?B?RkNPaVo4ZUgwaXJ4T1VWLzdVWHBFcWpEd0ZLK25kWEQ4UGJ3Q2JpTVkyenNM?=
+ =?utf-8?B?czBvZ3drOWNRb2dOSjlWeWtndjZQcytUcGc2SlNaMlM5bXViajMrTmJOSXhq?=
+ =?utf-8?B?N1ZJTXZOWUo3dVRvM25mSGNwSHNPWko5aUxSbDF4bjkzTnFCNit5bHRka1li?=
+ =?utf-8?B?Q3VMcGpYbDVQU1ZYSUJ0Um1XNTN4dlZwSU5wK3kxb2Q3NjRJK1gxeVlvalli?=
+ =?utf-8?B?amhYc3lVN2E2dkk3aEt1UG9MUEZlaGtnSWcxY3VmYVc2Y3pMa2EzdCthbFhD?=
+ =?utf-8?B?ZU1mSlFqS1Bib2s2TlRFRUJIc2Yrc0dwZzI2RldxNlRaV1psSkRHcnVFZW9W?=
+ =?utf-8?B?RHhydHZOZjdOd3RTa2xHRlY0a3d2dlJxaGlTL0VQdy83S0NMNG9TUzY0dFZR?=
+ =?utf-8?B?bTduYWltcVlVck43bVZXOUV4NHpaMnRmYmZkazZzdVZJMmk0V29Ld0dLRkVo?=
+ =?utf-8?B?WGlmTXFoWlIxZXRNWFNTYVhUUHVzckZoZmE1MjlVazdmaDhHRzZrOXR1cEJP?=
+ =?utf-8?B?OFJWYnV4WTV2NzBlLzFaSWtteGpuU0h1aHd5c2wvUlRrMzdBT2JrU1JzMDRw?=
+ =?utf-8?B?NFZTNkF6ZGpHaFk2NEdJbVZpUHBMQ1lOTHlySkU2WGo0WFpLOTRKd255R1dL?=
+ =?utf-8?B?bmlFNGFVbnJHZDNRK3VPdzd2ai9xWFo2Z3hLQ0syYThqQ2pab2J3YUdydkF1?=
+ =?utf-8?B?cTExdStyS2NKdEtaajFUTnRvajAxZU00OVZCT2ZIL3FlMG1YRDkrOUFnS1ZF?=
+ =?utf-8?B?ZGN6RTRZNDc3b2x0UytGdE1CQ1pQcjFCTHRIc0tmLzBEeDBpckN4M01wU2Ji?=
+ =?utf-8?B?MVRibmw5WXRRN1JNMVBUZjNhV1RBWjF3ejVJU0xSL0NiNGpHdElVT083U3Jm?=
+ =?utf-8?B?YTk2M0xUUGVTdVA2SG5Ka00vNGw3dkpzeUJ3ODM0alpHRTZheVJpUHdHSFVw?=
+ =?utf-8?B?SjQxZmZSQzJFSmRzRXRVSHZidjM0YnFaazh6VUJ4TUZjSWVyVExhYTc2cSth?=
+ =?utf-8?B?VlMzYVRFelBKVkpDZktob1o0dkhXKzIzWEl2am9WQzhCcTdHd2JseUVaLzVK?=
+ =?utf-8?B?OTlSV1Zta2oxYU1TMjMvQmlqUXV5R1Jqd0k0MUZmcUFBSUZxWitJTEc0K3V5?=
+ =?utf-8?B?QnVzWld2aGxHWU9FanlYeXYwaWZ2dFBPZXdJVytRS0lXVTF3MUZ2eEIyUyt5?=
+ =?utf-8?B?TEJ1WjVpN1doN05VWEFZV2trMTd5azFScGd3SDFJQm5sTW8vNGhpZWRoa0Jm?=
+ =?utf-8?B?SEJNWnhjcTcxZjFCMzZsSDcyNUUrL0l3VGZWSU9vZTloN21ncUJwNm9BTWlM?=
+ =?utf-8?B?WXdzeVVZOG9lVlZQWUE4aEk1cUpTUnBTR0paRlVmcEJVVHl3MmtqTUdIN1FI?=
+ =?utf-8?B?UkdwTi96bnhvbjNLN2NjaFZ6WkppVDFOekE4UzV0YzlZVlN1QkFKbTlPbjRE?=
+ =?utf-8?B?Wm1jMk9seUlITVZRYXhpOWZiWk5RRkhEa2tjcW9XRXh2QmhZSXNYVEsvdERS?=
+ =?utf-8?B?VWFRaXBERDVtQldYeDRla3lpaWYxK2FKUlQ1UWFZdzdSN1N6YWJKTnp4MjRs?=
+ =?utf-8?B?Y1lSU0diSUwyWDJRUzJjRXM4V05XWTlKVDJGWUpMeEhWNExKK2c5bGNiNFJL?=
+ =?utf-8?B?bEgzaHYwWTNnLy9QMDUxMTgxa1FkeTk5WjhRNjdiUFRHMXplWXY4WmViZHB1?=
+ =?utf-8?B?NU1raGpBZjBKazBaNGZYWnVMTEdTY3d5MmI5MWNjK0xpLzZxSHFZY1hUMkFx?=
+ =?utf-8?B?eFFXVGhCN3pXdTNEejd3aUNRd3lESW9FK29CK0JEUitLTEUvajVKVkN5MDkx?=
+ =?utf-8?B?OGVEZWhPdXJiSFN2cWFvOTFwVURjV0lVMTFyMlNpNGIxLzNwNG1JZz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00ce22ec-8181-4342-1e31-08df20a07aba
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9244.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 16:16:13.7818
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t+towQu4CuRwpbBmBjOrETV0bMf0il/gL5xNGsC6aHZGeL5t59ZnUKSfqksn3bxdTWG6AB4BehrEfp7wWvkWVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8293
 
-Hi Conor,
+Hi Rishikesh, Jay, Laurent, Hans, Sakari,
 
-Thank you for your fast reply.
+On 9/25/26 16:29, Rishikesh Donadkar wrote:
+> From: Jai Luthra <j-luthra@ti.com>
+>
+> Omnivision OV2312 is an RGB-IR sensor, i.e. it uses a 4x4 R,G,B,Ir bayer
+> pattern to capture both visible and near-infrared light. Every alternate
+> frame, the sensor changes the exposure and IR flash strobe registers to
+> stream an -
+> A. IR-dominant frame on CSI-2 virtual channel 0
+> B. RGB-dominant frame on CSI-2 virtual channel 1
+>
+> These A/B frames are routed as separate v4l2 streams, which may be
+> mapped to two separate /dev/videoX nodes by the CSI-RX DMA driver.
+>
+> Both of these streams are captured at a resolution of 1600x1301, 30 fps
+> each (60fps total). The extra row (1301 vs 1300) is an embedded line
+> prepended to each frame by the sensor, containing the following register
+> values:
+>    0x4813 - VC (Virtual Channel)
+>    0x321A - Group ID
+>    0x3920 - Strobe
+>    0x3501 - Exposure HI
+>    0x3502 - Exposure LO
+>    0x3508 - Gain HI
+>    0x3509 - Gain LO
+>    0x350e - Current Exposure HI
+>    0x350f - Current Exposure LO
+>
+> This driver also supports a few v4l2 controls like horizontal/vertical
+> flip, multi exposure and multi gain controls.
+>
+> Signed-off-by: Jai Luthra <j-luthra@ti.com>
+> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+> ---
+>   drivers/media/i2c/Kconfig  |  12 +
+>   drivers/media/i2c/Makefile |   1 +
+>   drivers/media/i2c/ov2312.c | 939 +++++++++++++++++++++++++++++++++++++
+>   drivers/media/i2c/ov2312.h | 285 +++++++++++
+>   4 files changed, 1237 insertions(+)
+>   create mode 100644 drivers/media/i2c/ov2312.c
+>   create mode 100644 drivers/media/i2c/ov2312.h
+>
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 4d9946479160..8d9d8d491b2e 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -496,6 +496,18 @@ config VIDEO_OV13B10
+>            This is a Video4Linux2 sensor driver for the OmniVision
+>            OV13B10 camera.
+...
+> +
+> +static int ov2312_read(struct ov2312 *ov2312, u16 addr, u32 *val, size_t nbytes)
+> +{
+> +       int ret;
+> +       __le32 val_le = 0;
+> +
+> +       ret = regmap_bulk_read(ov2312->regmap, addr, &val_le, nbytes);
+I've received in the past feedback to use cci_* helpers instead of 
+regmap, see drivers/media/v4l2-core/v4l2-cci.c
+> +       if (ret < 0) {
+> +               dev_err(ov2312->dev, "%s: failed to read reg 0x%04x: %d\n",
+> +                       __func__, addr, ret);
+> +               return ret;
+> +       }
+> +
+> +       *val = le32_to_cpu(val_le);
+> +       return 0;
+> +}
+> +
+> +static int ov2312_write(struct ov2312 *ov2312, u16 addr, u32 val, size_t nbytes)
+> +{
+> +       int ret;
+> +       __le32 val_le = cpu_to_le32(val);
+> +
+> +       ret = regmap_bulk_write(ov2312->regmap, addr, &val_le, nbytes);
+> +       if (ret < 0)
+> +               dev_err(ov2312->dev, "%s: failed to write reg 0x%04x: %d\n",
+> +                       __func__, addr, ret);
+> +       return ret;
+> +}
+> +
+> +static int ov2312_write_table(struct ov2312 *ov2312,
+> +                             const struct reg_sequence *regs,
+> +                             unsigned int nr_regs)
+> +{
+> +       int ret, i;
+> +
+> +       for (i = 0; i < nr_regs; i++) {
+> +               ret = regmap_write(ov2312->regmap, regs[i].reg, regs[i].def);
+> +               if (ret < 0) {
+> +                       dev_err(ov2312->dev,
+> +                               "%s: failed to write reg[%d] 0x%04x = 0x%02x (%d)!\n",
+> +                               __func__, i, regs[i].reg, regs[i].def, ret);
+> +                       return ret;
+> +               }
+> +       }
+> +       return 0;
+> +}
+> +
+>
+>
+>
+> + */
+> +static int ov2312_set_group_a(struct ov2312 *ov2312)
+> +{
+> +       u32 ir_exposure = ov2312->exposure_multi->p_new.p_u32[1];
+> +       u32 ir_again    = ov2312->again_multi->p_new.p_u32[1];
+> +       u32 ir_dgain    = ov2312->dgain_multi->p_new.p_u32[1];
+> +       u32 ir_strobe_start = OV2312_VTS - ir_exposure - 7;
+> +       int ret;
+> +
+> +       struct reg_sequence ov2312_groupA[] = {
+> +               {0x3208, 0x00},/* Group A (IR Dominant VC0) */
+> +               {OV2312_AEC_PK_EXPO_HI, (ir_exposure >> 8) & 0xff},
+> +               {OV2312_AEC_PK_EXPO_LO, ir_exposure & 0xff},
+> +               {OV2312_AEC_PK_AGAIN_HI, (ir_again >> 4) & 0xff},
+> +               {OV2312_AEC_PK_AGAIN_LO, (ir_again & 0x0f) << 4},
+> +               {OV2312_AEC_PK_DGAIN_HI, (ir_dgain >> 8) & 0xff},
+> +               {OV2312_AEC_PK_DGAIN_LO, ir_dgain & 0xff},
+> +               {0x3920, 0xff},/* IR Strobe duty cycle */
+> +               {0x3927, (ir_exposure >> 8) & 0xff},
+> +               {0x3928, ir_exposure & 0xff},
+> +               {0x3929, (ir_strobe_start >> 8) & 0xff},
+> +               {0x392a, ir_strobe_start & 0xff},
+> +               {0x4813, 0x01},/* VC=1. This register takes effect from next frame */
+> +               {0x3208, 0x10},
+> +               {0x320D, 0x00},/* Auto mode switch between group0 and group1 ;setting to switch */
+> +               {0x320D, 0x31},
+> +               {0x3208, 0xA0},
+> +       };
+> +
+> +       ret = regmap_register_patch(ov2312->regmap, ov2312_groupA,
+> +                                   ARRAY_SIZE(ov2312_groupA));
+> +       if (ret < 0)
+> +               dev_err(ov2312->dev,
+> +                       "%s: failed to apply Group A register patch (%d)!\n",
+> +                       __func__, ret);
+> +       return ret;
+> +}
+> +
+> +static int ov2312_set_group_b(struct ov2312 *ov2312)
+> +{
+> +       u32 rgb_exposure = ov2312->exposure_multi->p_new.p_u32[0];
+> +       u32 rgb_again    = ov2312->again_multi->p_new.p_u32[0];
+> +       u32 rgb_dgain    = ov2312->dgain_multi->p_new.p_u32[0];
+> +       int ret;
+> +
+> +       struct reg_sequence ov2312_groupB[] = {
+> +               {0x3208, 0x01},/* Group B (RGB Dominant VC1) */
+> +               {OV2312_AEC_PK_EXPO_HI, (rgb_exposure >> 8) & 0xff},
+> +               {OV2312_AEC_PK_EXPO_LO, rgb_exposure & 0xff},
+> +               {OV2312_AEC_PK_AGAIN_HI, (rgb_again >> 4) & 0xff},
+> +               {OV2312_AEC_PK_AGAIN_LO, (rgb_again & 0x0f) << 4},
+> +               {OV2312_AEC_PK_DGAIN_HI, (rgb_dgain >> 8) & 0xff},
+> +               {OV2312_AEC_PK_DGAIN_LO, rgb_dgain & 0xff},
+> +               {0x3920, 0x00},
+> +               {0x4813, 0x00},/* VC=0. This register takes effect from next frame */
+> +               {0x3208, 0x11},
+> +               {0x320D, 0x00},/* Auto mode switch between group0 and group1 ;setting to switch */
+> +               {0x320D, 0x30},
+> +               {0x3208, 0xA0},
+> +       };
+> +
+> +       ret = regmap_register_patch(ov2312->regmap, ov2312_groupB,
+> +                                   ARRAY_SIZE(ov2312_groupB));
+> +       if (ret < 0)
+> +               dev_err(ov2312->dev,
+> +                       "%s: failed to apply Group B register patch (%d)!\n",
+> +                       __func__, ret);
+> +       return ret;
+> +}
+> +
+> +static int ov2312_set_AB_mode(struct ov2312 *ov2312)
+> +{
+> +       bool ir_ready  = ov2312->exposure_multi->p_new.p_u32[1] &&
+> +                        ov2312->again_multi->p_new.p_u32[1] &&
+> +                        ov2312->dgain_multi->p_new.p_u32[1];
+> +       bool rgb_ready = ov2312->exposure_multi->p_new.p_u32[0] &&
+> +                        ov2312->again_multi->p_new.p_u32[0] &&
+> +                        ov2312->dgain_multi->p_new.p_u32[0];
+> +       int ret;
+> +
+> +       if (ir_ready) {
+> +               ret = ov2312_set_group_a(ov2312);
+> +               if (ret < 0)
+> +                       return ret;
+> +       }
+> +
+> +       if (rgb_ready) {
+> +               ret = ov2312_set_group_b(ov2312);
+> +               if (ret < 0)
+> +                       return ret;
+> +       }
+> +
+> +       /* Wait for 1 frame duration after setting AB mode registers */
+> +       if (ir_ready || rgb_ready)
+> +               msleep(33);
+> +
+> +       return 0;
+> +}
+> +
+> +static int ov2312_set_orientation(struct ov2312 *ov2312)
+> +{
+> +       bool v_flip = ov2312->v_flip->val;
+> +       bool h_flip = ov2312->h_flip->val;
+> +       u32 reg = (v_flip ? 0x4400 : 0) | (h_flip ? 0x0004 : 0);
+> +
+> +       return ov2312_write(ov2312, OV2312_TIMING_VFLIP, be16_to_cpu(reg), 2);
+> +}
+> +
+> +static int ov2312_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +       struct ov2312 *ov2312 = container_of(ctrl->handler,
+> +                                            struct ov2312, ctrls);
+> +       int ret;
+> +
+> +       /*
+> +        * If the device is not powered up by the host driver do
+> +        * not apply any controls to H/W at this time. Instead
+> +        * the controls will be restored right after power-up.
+> +        */
+> +       if (pm_runtime_suspended(ov2312->dev))
+> +               return 0;
+> +
+> +       switch (ctrl->id) {
+> +       case V4L2_CID_EXPOSURE_MULTI:
+> +       case V4L2_CID_AGAIN_MULTI:
+> +       case V4L2_CID_DGAIN_MULTI:
+> +               dev_dbg(ov2312->dev, "debug: %s: %s = [%u, %u]\n", __func__,
+> +                               ctrl->name, ctrl->p_new.p_u32[0], ctrl->p_new.p_u32[1]);
+> +
+> +               ret = ov2312_set_AB_mode(ov2312);
 
-Quoting Conor Dooley (2026-10-01 00:01:44)
-> Hey, just some quick thoughts I had, mostly to fish for more information
-> so I can be more informed..
->=20
-> On Wed, Sep 30, 2026 at 01:18:59PM +0200, Stefan Klug wrote:
-> > Hi everyone,
-> >=20
-> > On 15.09.26 01:38, Laurent Pinchart wrote:
-> > > Hello,
-> > >=20
-> > > As most of you already know, the Linux Plumbers Conference will host a
-> > > Camera & ISP BoF in Prague in three weeks ([1]).
-> > >=20
-> > > The initial proposal for a microconference has unfortunately been
-> > > downgraded by the program committee to a 45 minutes BoF. We have
-> > > therefore decided to limit the discussion to three topics at most. Two
-> > > topics have been approved so far:
-> > >=20
-> > > - RGB-IR support in V4L2 and libcamera
-> > >=20
-> > >   by Rishikesh Donadkar and Devarsh Thakkar, Texas Instruments
-> > >=20
-> > >   The Linux kernel V4L2 API does not support RGB-IR image sensors.
-> > >   While building blocks necessary to handle those devices are slowly
-> > >   being merged, RGB-IR support itself hasn't been tackled yet.
-> > >=20
-> > >   Rishikesh and Devarsh will also present this topic at the OSS Europe
-> > >   conference ([2]).
-> > >=20
-> > > - Camera module identification
-> > >=20
-> > >   by Stefan Klug, Ideas on Board
-> > >=20
-> > >   Camera tuning and calibration depend not only on the image sensor, =
-but
-> > >   also on the lens and other characteristics of camera modules. While
-> > >   Linux supports identifying image sensors, it completely lacks the
-> > >   concept of camera modules.=20
-> > >=20
-> > >   Identification of camera modules requires coordination between
-> > >   platform firmware (DT or ACPI), the kernel and userspace. Discussio=
-ns
-> > >   will benefit from the presence of DT maintainers.
-> > >=20
-> > LPC is already next week and we won't have enough time on the BoF for a
-> > full introduction to the topic. So this email summarizes the Module
-> > identification topic and contains the questions I'd like to discuss.
-> >=20
-> > To the device-tree maintainers: I added you to the invitation as this
-> > document proposes new device tree properties and I'd love to get some
-> > feedback and common understanding on these. So if you'd be able to join,
-> > that would be fantastic.
->=20
-> I'll do my best, there's some schedule conflicts with the RISC-V MC for
-> me, so we'll see how it goes.
->=20
-> >=20
-> > Most of this mail is introduction and context. If you are short on time,
-> > please jump directly to the last headline "### 4. Camera modules without
-> > data storage" which contains the most relevant questions.
->=20
-> >=20
-> > Q: Does anyone in this group have more details on which information to
-> > query and where to get more details from the system?
-> > A: ...
-> >=20
-> > ### 2. Camera modules with an embedded EEPROM
-> >=20
-> > To make use of the EEPROM data from user space we need to carry two
-> > elements: The EEPROM data itself and some identifier telling which
-> > format the data in the EEPROM has. This seems relatively straightforward
-> > and we could model it like this in dts:
-> >=20
-> > dts-snippet:
-> > imx283_0: sensor@1a {
-> >               compatible =3D "sony,imx283";
-> >     ...
-> >     eeprom =3D <&eeprom>;
-> >     eeprom-format =3D "vendor-a-eeprom-fmt";
->=20
-> It's nvmem-cells you want here I believe, and the associated layouts
-> should cover the format?
+So, the group hold for A/B context is set right away, when the control 
+arrives.
 
-Oh, that looks good. nvmem-cells seems to be the right thing here. I'm
-not completely sure how the format would map, but I believe that would
-resolve itself on the first practical implementation.
+While working with the Omnivision OX05B1S, which is also an RGB-IR 
+sensor, we run into this problem:
 
->=20
-> > };
-> >=20
-> > Getting the link to the EEPROM from user space is something to
-> > investigate. Ideas are either sysfs or media-controller.
-> > The eeprom-format must be specified as well, to tell user space how to
-> > interpret the EEPROM data, as it is typically not self-contained.
->=20
-> If you have the format of the eeprom, is it not better to provide the
-> parsed version to userspace directly rather? Or are you concerned that
-> these things will contain such "random" and non-standardisable info that
-> it is a lost cause?
+The normal expected sequence is that the sensor will output alternating 
+frames VC0, VC1, VC0, VC1,...
 
-As the data is of no use to the kernel, I don't see the benefit in
-standardizing it. On the other hand we are missing practical examples. I
-feel it is a bit of a chicken and egg situation. There were some
-EEPROMSs, but it is difficult to correlate them with the camera module
-so no one really used theme even though everyone would like to have
-them.
+But  when user space tries to do automatic exposure and gain control via 
+v4l2 muti controls, if the driver applies the values immediately, if the 
+virtual channels are not switched within the proper timeframe, it is 
+possible to run into frame duplication (no more nice alternating frames 
+VC0, VC1, VC0, VC1,...but duplicate VC0,VC0 or VC1,VC1).
+The information we received from the sensor vendor is that group0 update 
+needs to be between 2 group0 launchpoints (similar for group 1). We can 
+use the status register to query the currently active context, and in 
+order to avoid frame duplication we can update each group only when its 
+context is active.
 
->=20
-> >=20
-> > Q: On a first discussion on that topic we were unsure if it would be
-> > preferred to expose the data directly in sysfs,
-> > or to symlink to the corresponding sysfs entry for the EEPROM. Any
-> > preferences?
-> > A: ...
->=20
-> FWIW, nvmem already has sysfs for this (first option in the nvmem
-> Kconfig menu).
+This is problematic in the v4l2-api context, it implies that even while 
+streaming, a v4l2 control cannot be committed to sensor registers right 
+away.
 
-Thanks for that info. I need to toy around with that.
+Even with workarounds in the sensor driver, to defer for later the 
+updates for the inactive context, it is still problematic: defer for how 
+long, and problems with overloaded systems, a stress test can bring us 
+in a broken VC sequence, as there is no atomic way to determine the 
+current active context + update the right group.  A broken VC sequence 
+shows up for example in libcamera as lost frames.
 
->=20
-> >=20
-> > Q: Any input/things to consider from ACPI side?
-> > A:
-> >=20
-> > Q: What happens if the EEPROM driver is not loaded yet or is just not
-> > available? Should it block/defer probing of the sensor?
-> > A:
-> >=20
-> > Q: We are missing real-life examples for these cases. So input from
-> > vendors would be welcome.
-> > A:
-> >=20
-> > ### 3. Camera modules with a sensor that has an embedded OTP memory
-> >=20
-> > This case is similar to the previous one. The big difference is that the
-> > OTP memory can be handled by the sensor driver itself, so no additional
-> > driver is necessary. In this case a practical solution could be to
-> > expose the OTP data via sysfs. Handling in user-space is similar to the
-> > EEPROM case. So the device driver could expose an otp_data and
-> > otp_format attribute in sysfs for user-space to read.
-> >=20
-> > The property otp_format contains a name of the format of the OTP data.
-> > There are cases where the format is specific to the sensor vendor and
-> > cases where the format is specific to the module vendor. So it should be
-> > possible to specify that in the device tree.
-> >=20
-> > ### 4. Camera modules without data storage
-> >=20
-> > This is the most difficult and most controversial case. In this case we
-> > can't identify the module automatically by querying the hardware. It is
-> > also not possible to rely on the machine identifier as with example 1.
-> > Think of an arbitrary camera module connected to a Raspberry Pi - the
-> > machine identifier will not change just by connecting a camera.
-> > Therefore we'd like to supply all necessary information with the device
-> > tree.
-> >=20
-> > The difficulty is that the combinations are huge and there is no common
-> > denominator (for some modules one might be able to get an SKU, for
-> > others it will even be difficult to get an official name).
-> >=20
-> > This is quite contrary to typical device tree use-cases where we try to
-> > tie down everything as far as possible.
-> > A flat list of module identifiers (like compatible strings) won't work
-> > as it should be possible to standardize aspects of a module, even if not
-> > everything is know. Think of a Raspberry Pi Cam HQ with a screw-on lens.
-> > It would be great to be able to specify that module, but the lens is
-> > still up to the user.
-> >=20
-> > In [1] I proposed a possible solution to that problem. A tag-based
-> > system with a single device tree entry of space separated tags. Every
-> > tag carries a prefix to denote a category:
-> >=20
-> > Tag                 Example
-> > m:<ModuleName>      m:vc-mipi-imx296
-> > v:<Vendor>          v:RaspberryPi
-> > l:<Lens>            l:generic-8mm-ircut
-> > s:<Sku>             s:B030801
-> > u:<user defined>    u:my-selfmade-module
-> >=20
-> > This is a bit like the existing "label" property which carries a human
-> > readable label. So an example for a module could be:
-> >=20
-> > imx283_0: sensor@1a {
-> >               compatible =3D "sony,imx283";
-> >     ...
-> >     module-info =3D "v:RaspberryPi m:camera-module-hq
-> > l:generic-8mm-wide-angle";
-> > };
-> >=20
-> > This leads to the immediate question: Should we split the tags into
-> > properties?
->=20
-> Yes, make use of the standard utilities before rolling your own format
-> please.
->=20
-> > imx283_0: sensor@1a {
-> >               compatible =3D "sony,imx283";
-> >     ...
-> >     module-name =3D "camera-module-hq";
-> >     module-vendor =3D "RaspberryPi"
-> >     module-lens =3D "generic-8mm-wide-angle";
-> > };
-> >=20
-> > Pros: We could try to standardize on some values.
-> > Cons: We add a (possibly increasing) number of properties that have no
-> > value inside the kernel and will only be populated very sparsely.
->=20
-> What value do they have anywhere? ELI5 why anyone cares that the rpi
-> foundation made the sensor module, for example. What decisions can be
-> made on the basis of it? Not trying to be antagonistic, I genuinely
-> don't know what kind of things it affects. The lens type or some sort of
-> nd filter info I can understand being useful. That said, and I know very
-> little about cameras, some of these things could actually vary at runtime
-> right?
+Rishikesh, Jai,
 
-I think the difficulty here is that we want to identify something which
-we can't even name precisely and we don't yet see the full spectrum of
-possibilities. Regarding the question who cares if the RPi foundation
-manufactured a module: It is just a way of identifying a specific piece
-of hardware. So there are many modules out there using an imx477 sensor,
-but they could differ in the geometry from other ones.
+  did you notice this problem on OV2312? A way to reproduce this is to 
+stress the driver with frequent repeated set controls (for the 
+multi-controls), and observe broken VC sequence (I observed it with 
+libcamera and on the CSI analyzer).
 
-A compatible string works well for devices we know. But then you can
-quickly come up with cases, where only an aspect or part is known.
 
-- Raspberry Pi Camera Module HQ
-  - Lens is unknown
-  - So we could start to unroll that
-    - rpi,cmarea-module-hq-8mm-lens
-    - rpi,cmarea-module-hq-9mm-lens
-    - ... that doesn't scale
+Laurent, Hans, Sakari,
 
-So we could introduce a module-lens property:
-- vendor-a-8mm
-  vendor-a-8mm-ir-cut
-  vendor-b-8mm
-  ... 1000 vendors more
+did you encounter similar situations? Any comments or proposals? The 
+concern here, to summarize, is: v4l2 control cannot be committed to 
+sensor registers right away (even when streaming) and we are also unsure 
+when the right moment to perform the register access may come.
 
-That doesn't scale as well.
 
-I tried to further reason about the underlying targets and why my
-gutfeeling doesn't like the compatible.
+Regards,
 
-I see two main targets:=20
+Mirela
 
-1. Finding a solution for well known devices like laptops or phones.
-Upstreaming a compatible string per module could work, but we will often
-just not know the vendor of the module. So they would be named
-(incorrectly) after the manufacturer of the device.
-
-2. Upstreaming overlays for well known camera modules like the ones from
-RaspberryPi.  I don't expect that to gain too much traction quickly
-because of missing specs for connectors and therefore no way to model a
-camera module in dt in a way that works for multiple processing boards.
-Still it would be very helpful to be able to write dt overlays for these
-modules that work with an upstream kernel without the need for nasty
-hacks (like abusing the label property or so).
-
-3. The same applies for full custom solutions where upstreaming
-compatible strings will never happen, but we need the overall mechanics.
-
-So in summary I'm looking for a place to put a blob of information
-regarding the camera module that is not of any use to the kernel and
-only passed on to userspace. Defining a separate node and maintaining
-compatible strings seems like a lot of maintenance work for little gain.
-
-Looking for other places to put that information doesn't lead to really
-good candidates. One could store it in the software image itself, but
-that is a pain as a user would loose it when flashing a new image.
-
-One could put it in a extra partition with the same issues as above and
-a huge technical complexity for use cases like the RaspberryPi.
-
-So the devicetree seems to be a good location for it, just that we're
-lacking a place to put it there.
-
-I hope that makes a bit of sense.
-
-Best regards,
-Stefan
-
->=20
-> On the module name front, it quickly becomes compatible-v2 I think,
-> since you're gonna need standardised names for specific modules so that
-> decisions can be made on the basis of them. Makes me wonder if you need
-> sensors to have an endpoint connection to whatever sits in front of
-> them...
->=20
-> > Q: Would the dtb maintainers accept such a property?
->=20
-> I mean, at first glance the idea itself seems reasonable. The info isn't
-> discoverable and some of it seems to be valuable.
->=20
-> > A:
-> >=20
-> > Q: Are there other/better ways to convey that information?
-> > A:
-> >=20
-> > # Links:
-> >=20
-> > - [1]
-> > https://www.linuxtv.org/downloads/presentations/media_summit_2026/Stefa=
-n%20-%20Module%20Identification.pdf
-> > - [2] https://github.com/systemd/systemd/blob/main/rules.d/70-camera.ru=
-les
-> > - [3] https://github.com/systemd/systemd/blob/main/hwdb.d/70-cameras.hw=
-db
-> >
+> +               break;
+> +
+> +       case V4L2_CID_HFLIP:
+> +       case V4L2_CID_VFLIP:
+> +               ret = ov2312_set_orientation(ov2312);
+> +               break;
+> +
+> +       default:
+> +               ret = -EINVAL;
+> +       }
+> +
+> +       return ret;
+> +}
+> +
+>
