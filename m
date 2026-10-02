@@ -1,131 +1,216 @@
-Received: from outbound.ci.icloud.com (ci-2007l-snip4-8.eps.apple.com [57.103.88.121])
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7D43EFFAF
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 06:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.88.121
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922378; cv=none; b=WxXqHClltAigpkYFI8EgVGRhFGMQuQsigJS2MVzqKbI6JFAtZjaSONLsrX18mBfAxxW3Mg0IDAYJbBW+t/13JulzuHb35yxgiPgBYvJ1ghhhvfb6cDhMTcmfxh48Yn4/3WAQ01Grr3l3YcJHHNpY5uRW/1vQmIHZZY+1kup3oJI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922378; c=relaxed/simple;
-	bh=J76d1SrQu599xi74Vaoip0qG/U5sqlk+sZbqLTbmpYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qkKAwD4D2FOZpmAQEFJhjuFDfB9vBtV7VowlPYKrWeemFBs8CnyM4N6swza6Y6Pw24nUF9wTM8fcwygyA3HpiQR35qIRsAtO6k5v9bOzIHNUB4tdcDJcQYrUMnfptRQ5UAQ3asaxojhBUXhEYSV/e22cqC0K0/7QnnetlNc9ies=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=iRHcVHil; arc=none smtp.client-ip=57.103.88.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D18282F1E
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 06:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790924193; cv=pass; b=i7bqG7ioQTEWVJnhwQWjIsFf7mQ2ycAPcSUD0oTK/4kdaGK4AKdRDmJOkodHXe0YF4uOrmGIZe8EW1yP6yMO6HAKc8m7wCrlVWIz4B7hIw80PtMrpdIwYzofOZF981shmH83WVhPcbOni+NeT+ZekiyaPYYH/+9pLCmDS6UF0Zc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790924193; c=relaxed/simple;
+	bh=vbarVqydOBfABJChdUGoDl6YJZbwNByy+PQhxzxqsyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UpxhuqJovK8XCd+Sxuvk5LQ77rgVFTOHyezqbbuBGDubYf6oo8r3Opq3s/0Cd6je2u6na6yh4D7Mn13l3pLBmgbhBSEWuw/2dvY+Bbl9/9CrLmGFv38dawJr3W1PWLVC/ZNX9/32hQQ5+H/ZhXotBUiXWKSqtSeJMINjl/e3exw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=BYmTUTNW; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="iRHcVHil"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-2 (Postfix) with ESMTPS id 64A011800119;
-	Fri, 02 Oct 2026 06:26:12 +0000 (UTC)
-X-ICL-RepId: 01a0fb4a-b4c7-7fc6-8e10-43d5fd3bbf33
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUgdXwVTEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDloXA1ccVkVcGEMJXQVXHB0OXkVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ8OB1JXEg1ICkBWXFYWFExXVFJGChEIQB5UA18BSAsZBQ5RW1QwSRFdAllaHBZLRhMZThtXTVoNQBlYBm0UVhVSBFk=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1790922372; x=1793514372; bh=fWKzdWcxLONbaaD3KRUjC0mbzfi1SS7Fw0/czLd0h9E=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=iRHcVHilMCtTw4fEu2mimbU17NMui4SurzjzqJU5hPsZKUXBpxqiR4tzzGpNQmk/xV3K7Id3yKiB1FWDwetPHn/1dEheAI5QscVzu5HBhKsK5Tr2qFWhe4xTWTrhI7feDuKMnxHXNrKA48H1ndpgrmxRLbAQADzXMhJ9OoXXZdtrqh5h2P5MQeU07xdDL/IHq0R2BV8KL6ab/Ue9wt00cMFxS32W4XonH4eEKxcffMkP11WTcYdrp4O6Px2nZS2FIM9CB+mkjVFYqj/jB0cePLjtRm0KiSeTCdUzAvlYUWjSeJ1yT30VqI4oNbGRn7taL4Hvh6UlDDkuUE1nu8GfVA==
-mail-alias-created-date: 1575045973000
-Received: from [IPV6:2a01:cb06:c04c:dc8a:ae72:cf9f:fcf2:ab8d] (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-2 (Postfix) with ESMTPSA id D2866180015B;
-	Fri, 02 Oct 2026 06:26:10 +0000 (UTC)
-Message-ID: <c09eb409-a7df-4d9e-8a18-944382a6cf0f@pinon1.fr>
-Date: Fri, 2 Oct 2026 08:26:08 +0200
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="BYmTUTNW"
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hx01h2SlNzyQx;
+	Fri, 02 Oct 2026 09:56:24 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1790924184;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7wZVIGg84erRveyszTRBpVaTkv5Ht3KD7WF5GsiEMtE=;
+	b=BYmTUTNWlJ2E6kvqHzwMDHBaGU5VoTivD4u5Pg50DGrjGMXMZkaIP7mhEhmYuKfbzPDKNP
+	XLI0/wm+0K+FJmkhvg78rZdnaf8unyIa/2mVSMasaCLNQOEecr83tayfSrDXfoRKSPVzAr
+	LxsyxNKyC4Q319x4malQqGL5t9qsuYc=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1790924184;
+	b=t0Jvblq841Blwek5LnYz9O4BLWYN0u2Y+JUnb9BeNr57Yivrseo33q9MBeswf01nTwYph9
+	adFKUcfLaA4mntVqR3oUz3tA67YiZ2Q0IWavZivxuFLwOERFERYOMLA6QPgrbaazVUVkuq
+	hs0LIG798wpbxVzeKpJYIxjVO7XMzlc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1790924184;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7wZVIGg84erRveyszTRBpVaTkv5Ht3KD7WF5GsiEMtE=;
+	b=VycpGOYqqFvnyqU+qxrnJO/CRu/Xtrh0lf/PyX/jXoUepU1/75dCKmiTkwAWrcBqcgNA5c
+	Sfjg31q7E4w/DBpqF+qWKEPwG3YlZraliwaEGyzNZnt79yHaAAQXGF+cG1a73oUe+TPQm9
+	ntN4x68C6OHoFWsrcYuEIlG2mlef91Q=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id B1385634C51;
+	Fri, 02 Oct 2026 09:56:23 +0300 (EEST)
+Date: Fri, 2 Oct 2026 09:56:23 +0300
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: johannes.goede@oss.qualcomm.com,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org,
+	Loic Poulain <lpoulain@qti.qualcomm.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
+Message-ID: <ar9Vlz3RyCUwW0Ia@valkosipuli.retiisi.eu>
+References: <20260914233810.GA2796257@killaraus.ideasonboard.com>
+ <93b0e5fd-5570-4418-8bbc-4b18ef5e419f@ideasonboard.com>
+ <ff4290aa-8edd-4135-9260-3bcd0361fa06@oss.qualcomm.com>
+ <20261001205505.GP944070@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: i2c: ov08x40: Do not expose the broken
- 1928x1088 binned mode
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jason Chen <jason.z.chen@intel.com>, Jimmy Su <jimmy.su@intel.com>,
- linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans de Goede <hansg@kernel.org>, linux-kernel@vger.kernel.org
-References: <20260904134604.595685-1-pierre@pinon1.fr>
- <aqUmkCIizqkwrgZG@kekkonen.localdomain>
-Content-Language: en-US
-From: Pierre PINON <pierre@pinon1.fr>
-In-Reply-To: <aqUmkCIizqkwrgZG@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAyNSBTYWx0ZWRfX7nWnfzV86Dq6
- 0c5/xQE3rJ5boeWHIR00EuaJz3N8dqt8BcwarQDYSHSNC1AUPtj2QuYpqxyeIaOYOJkeyPqjxW0
- rX0q8rRP9LFnyY8jqtsDb0kmpqsSd9TpQ8kgsinAtwma066Xz2S8q5tVX++71zDEnUAmvUSCZSp
- B96RIH2y0IdpTI0V8gU4NYLu23rlVp+vO2dkyJfjplWGOxBviGpIb3xX7IK7wWfPZvm+E0Xd4Ua
- 4adf45UpvSBqG5lDSPlvmQng/zImMgWp+cnjavH8d9IwMxam+bf553gLI44XFEgCeIZjhAxh4B5
- +JnMZDO63q5E+BWjumy78dTPWZhxjCjG1zODs2I8MobwNZMXiAqPlo/JPmZtZw=
-X-Proofpoint-GUID: wpukwn77bk72hFxrj1fPMzTcS8TSW96z
-X-Authority-Info-Out: v=2.4 cv=ZMraWH7b c=1 sm=1 tr=0 ts=6abf4e84
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=dmTPy_p9AAAA:8
- a=xVw6qfRTu0CMNbYao_QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=6T7zzwDmeAXMUsgpoIZR:22
-X-Proofpoint-ORIG-GUID: wpukwn77bk72hFxrj1fPMzTcS8TSW96z
-X-JNJ: AAAAAAAB4+lq9kLBFHhutHGpTxE8YdwbEMZ9iCBERq0ame43HPNbUTXAnyABi1kGV5FBQK
- 3Yu8n/QpPU8qpNRZy81aymQ2ojhqRHGO53fy5ItF3xxjwiLIJWz7+URL9AAqcJQkooTAk1
- /ggvB3Fj26KUpDcS8yr8gbTfJdo1l4sF2gdE8MxUD6bJCehdgi8FbMqQvCHrlGNRIO4q1B
- eQs5dpbQtIzWSWcCh0LZLEJaSuRAPmQel9WTmT4KdMLyvuv4eFYb9aI0dE7EERMQfxDJf8
- IZEvr/vNS4Lw1zFmquMPA9LADE09HdU9Qg5aioiIdNGXdqQnJYqjw63tsPjxD6ee0FhBF3
- 3VZr5PK/fFHzsbbqovv/3KMkZPhGquds8sWSMxz3rNEYPGpBP7VD8IAt/JdmuULWIB5S8C
- MUEhMRpgiy2jvnVY9i+S5bJwjMNnHPg7ULfjN5Frawa9s5gZgpYIvY0ft+/995bU8hWQiO
- 67s3bLKpmJeAnGSDCRPE1zUe1KrT6gNQZgznD46we3HgJtVQ1Oo2mOSQFuXRpTnJ6p1G7d
- 4qs2CiLAv2wmRsNxvaeqUZkTGfzFcJXsHGvxWylABitVOqob5rLK2ghnH7lzV0Zb7EyRL8
- rngTdwl31OGcbXBdV6ja/sfGuisGTh7oAYcB83EBL13DcspZJzl1rV6utNPhIHWUR8BmnN
- BYkkmRcHPkf7OWgj3B4pxtPBgB4xiN26TsOQjTvcz7GkhqH0GICEJmcMaZWL08IAya6qw6
- uyBCm6PdzhDzC6d2daHkZknYrcgp6cLuyzfMNimbIFz63PO7xAC9n36fddO8yv5RLh29St
- OZhF28nFE9MaxTR8/97AggkwhYThYpmqzrxNSjDJyxZcDDCQUYhsf9SZAtDo7pEfOpecyH
- hh1O98TNNSFvLrG4ml8rcEcCDuitaCGzXZkdp8Sktgyth01VTUx/3pDg8w3/evSY1wqL82
- WzMvyCZsFDOZo3J2IlhxNAr0cjueByAmnmYcZ2SUekydV1YFTopLLsFG05xNi5CWD63PJV
- NWVZv1JfH3w8KwQUHA4XdhPFKh6oZYD5QHvzhchASuZkrBqTdq0WlsdBBPgXGuj9XgfHIx
- 9MQtN+IXcQCxYjuIowYx/LYXS5YIiQo8t2CbGHj89uRt9TLp/WkKN0lcZS6d+5AY7YI5Wq
- p6W+pAfDZ5Je8tDk09MeL2GbqP+XaFf3O9TwUsZaMTjISKIgVTU1ALFogPo5R7UshvWnmF
- LTGSTgUvdob8Y1ZE/eWqyhlRxXfFg/Vhm868QZPv03Lr9Z5j/8/v+//hp5EOQcEkV1AOGR
- 0X3O9WGbqI+vK3sb5uTl2Nyoo+LM5GyT7jbUwC7XGQitcWogctMXf4596/d51f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001205505.GP944070@killaraus.ideasonboard.com>
 
-Hi Sakari,
+Hi Laurent, Hans,
 
-Sorry for the late reply. Here it is:
+On Thu, Oct 01, 2026 at 11:55:05PM +0300, Laurent Pinchart wrote:
+> Hi Hans,
+> 
+> (CC'ing Sakari who may have more insight on ACPI properties for
+> Intel-based machines, or who may be able to pull the right people in
+> this conversation)
+> 
+> On Thu, Oct 01, 2026 at 05:15:05PM +0200, johannes.goede@oss.qualcomm.com wrote:
+> > Hi Stefan,
+> > 
+> > Thank you for the write-up.
+> > 
+> > On 30-Sep-26 13:18, Stefan Klug wrote:
+> > 
+> > <snip>
+> > 
+> > > ## Diving into the examples
+> > > 
+> > > Lets look at the example I listed to see how these would be solved.
+> > > 
+> > > ### 1. Laptop with camera module from various manufacturers
+> > > 
+> > > I believe this can be solved by either integrating the detection logic
+> > > in libcamera and/or adding rules to udev/hwdb. But we are lacking real
+> > > examples. So if you're able to provide identification strategies for
+> > > real, existing hardware, I'd be glad to know about it. One strategy
+> > > might be to use the machine identifier provided by DMI. This is however
+> > > quite coarse and can not handle cases where the manufacturer used
+> > > different camera modules from different vendors (using the same sensor
+> > > model). ARe there for example ACPI properties that we could query for
+> > > additional information?
+> > > 
+> > > Q: Does anyone in this group have more details on which information to
+> > > query and where to get more details from the system?
+> > > A: ...
+> > 
+> > For the Intel IPU6/IPU7 methods there is an ACPI call which the kernel
+> > can do on the sensor fwnode object which will return a string identifying
+> > the modules. These strings don't really have any fixed format, typically
+> > they contain something which look like how some laptop serials look
+> > just a random bunch of numbers + capital letters.
+> 
+> We know that hardware manufacturers like to have multiple providers for
+> camera modules in the same laptop model in order to avoid supply chain
+> issues. Do you know if this can be confirmed from those strings, do we
+> have enough data to see if the identification strings are made of a
+> small number of clusters ?
 
-   $ lsusb
-   Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-   Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-   Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-   Bus 003 Device 003: ID 06cb:0701 Synaptics, Inc. SVP7500
-   Bus 003 Device 004: ID 062a:5918 MosArt Semiconductor Corp. 2.4G 
-Keyboard Mouse
-   Bus 003 Device 005: ID 1050:0407 Yubico.com Yubikey 4/5 OTP+U2F+CCID
-   Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+These strings are unique to the module. I'm afraid they could even be
+module names as defined by the module vendor.
 
-   $ lsusb -t
-   /:  Bus 001.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 480M
-   /:  Bus 002.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 
-20000M/x2
-   /:  Bus 003.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/10p, 480M
-       |__ Port 002: Dev 005, If 0, Class=Human Interface Device, 
-Driver=usbhid, 12M
-       |__ Port 002: Dev 005, If 1, Class=Human Interface Device, 
-Driver=usbhid, 12M
-       |__ Port 002: Dev 005, If 2, Class=Chip/SmartCard, Driver=usbfs, 12M
-       |__ Port 003: Dev 003, If 0, Class=Vendor Specific Class, 
-Driver=usbio-bridge, 12M
-       |__ Port 007: Dev 004, If 0, Class=Human Interface Device, 
-Driver=usbhid, 12M
-       |__ Port 007: Dev 004, If 1, Class=Human Interface Device, 
-Driver=usbhid, 12M
-   /:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/2p, 
-20000M/x2
+> 
+> > Userspace cannot get to this without the kernel exporting it.
+> > 
+> > Given all the udev talk, I think a sysfs attribute would make sense
+> > for this. We can make the kernel do the ACPI call and if it is present
+> > add a camera_module sysfs attribute to the v4l2-subdev for the sensor,
+> > which will only be visible when there actually is a module-name.
+> > 
+> > On laptops using devicetree we could then fill this from a devicetree
+> > property.
+> 
+> I would very much like to standardize the API exposed to userspace
+> across different types of firmwares (ACPI and DT). Having more data
+> about the ACPI side could help us design DT properties that would fit
+> nicely with a single API.
 
-   Best regards,
-   Pierre
+Note that this concerns only the Windows specific ACPI tables. DisCo for
+Imaging (or older Chromebook ACPI tables following Linux specific
+definitions) doesn't specify anything (largely because DT doesn't). Of
+course it'd be nice to change that -- for both.
 
-On 9/12/26 12:16 PM, Sakari Ailus wrote:
-> Hi Pierre,
->
-> On Fri, Sep 04, 2026 at 03:46:00PM +0200, Pierre Pinon wrote:
->> Measured on a Dell Pro 14 Premium PA14260 (IPU7 + Intel CVS, 2 MIPI
->> lanes at 1500 Mbps) by instrumenting libcamera's software ISP to count,
->> for each line of the incoming buffer, how many samples were left at
->> 0xffff:
-> Can you provide the output of lsusb on that system, plesae?
->
+> 
+> > > ### 2. Camera modules with an embedded EEPROM
+> > > 
+> > > To make use of the EEPROM data from user space we need to carry two
+> > > elements: The EEPROM data itself and some identifier telling which
+> > > format the data in the EEPROM has. This seems relatively straightforward
+> > > and we could model it like this in dts:
+> > > 
+> > > dts-snippet:
+> > > imx283_0: sensor@1a {
+> > > 		compatible = "sony,imx283";
+> > >     ...
+> > >     eeprom = <&eeprom>;
+> > >     eeprom-format = "vendor-a-eeprom-fmt";
+> > > };
+> > > 
+> > > Getting the link to the EEPROM from user space is something to
+> > > investigate. Ideas are either sysfs or media-controller.
+> > > The eeprom-format must be specified as well, to tell user space how to
+> > > interpret the EEPROM data, as it is typically not self-contained.
+> > > 
+> > > Q: On a first discussion on that topic we were unsure if it would be
+> > > preferred to expose the data directly in sysfs,
+> > > or to symlink to the corresponding sysfs entry for the EEPROM. Any
+> > > preferences?
+> > > A: ...
+> > > 
+> > > Q: Any input/things to consider from ACPI side?
+> > > A:
+> > 
+> > For IPU6/IPU7 eeprom data is not used for camera-module identification
+> > (AFAIK), it is all done through the (custom, Intel specific) ACPI call
+> > I mentioned above.
+> 
+> I wouldn't expect an EEPROM, that would be quite costly for little gain.
+> I wonder if sensor OTP memory is typically used though. Some sensor
+> manufacturers specify how to store calibration data there, such as lens
+> shading tables for instance. I wonder if anyone puts the same data in
+> ACPI tables.
+
+To my knowledge there's no tuning data in system firmware on Intel x86
+systems. That could change in the future of course, but it's perhaps
+unlikely, due to logistical issues.
+
+> 
+> > > Q: What happens if the EEPROM driver is not loaded yet or is just not
+> > > available? Should it block/defer probing of the sensor?
+> > > A:
+> > > 
+> > > Q: We are missing real-life examples for these cases. So input from
+> > > vendors would be welcome.
+> > > A:
+> > <snip>
+> 
+
+-- 
+Regards,
+
+Sakari Ailus
