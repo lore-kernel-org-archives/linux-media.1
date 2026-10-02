@@ -1,67 +1,89 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC7438A720
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E35A4477F7;
+	Fri,  2 Oct 2026 09:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934824; cv=none; b=Vndz6AHBMeOpa0UnJ5WU1wpye5Hqrz7wrye55AZ4L7pjLNLUUO6q1/S4XrIuq9uJab57rBB2dFTacpKlFFP90HniXAbaohPMFKIox/LjDaFVIA2KbhiJ+UNxFTD8SuhMIQzg23N6GEPkt5/nA8rkQQVmcVzOi1T/a4A1tdOaoZg=
+	t=1790934859; cv=none; b=V9EeHAW8RqDoYfAR5HJdAOyHLk05Yc0T1EjZmXt9yGuT0azNw6MxqHAAUhJECljPNP2YL8AjgNuyyD0mSmuvW+MxihDCKgpIFDAdyxkOswcUxYUx9xQNkFD6zGxi9ehvXx/0oqWlXXJxsO1xOF4a7ofsPUmdc3/saSi7ICT/8Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934824; c=relaxed/simple;
-	bh=gBVfS8Z97pp/piGdlIkEVhWZcOZCyLP6JZH2sHnPxI4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vs4bTn0EF+n7H3Z45BycDwITKJufRLOnJonHxExF3rNl1Pn+oxIu/YRxX5eFXwUCNyI7D81P3BNXjWYOQJr/wLiMJZXkuHALEAtpyhAbec/C92LrckjtpWME4mRGvLjOSu2Ed6wCtr4EcJu6/VeCOVCAOD+wO0XJk1Lxs6frNx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=EqSkZGWI; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790934859; c=relaxed/simple;
+	bh=LIH3653wHUiG2rHQosnCSA/Td0xQNJwohQIQij+gCCg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YXhlnQ+funHxHm6Rkifta1zOsjlmIHyljp0ZJaSdoIsEZbHlNb/nSiYEV38l280J96mIrPgjun4Jkdlb01WjYO2Q7xZJ66DRrZCMJsgWLLbEo8JF4mlTLhw2Iiq6JQ9SoQHgufNsfCfAiZS64ALYJaTWAOWJDh/ywSa9PefKgIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K5ugB2xL; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="EqSkZGWI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790934818; x=1791194018;
-	bh=gBVfS8Z97pp/piGdlIkEVhWZcOZCyLP6JZH2sHnPxI4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=EqSkZGWIt90Bk+2itJm4JwvBaT8CrCrbwDCHBxI4k36yLUcJfv9GSWAH709/R8Gg7
-	 36ANzuQJJ3qRxmHUmZV/25OoVb8oMDlmUKEvR7S1etMz3YgAoxqeEjcvTlurv8A2fw
-	 R5URhN8yHmXzS97FPQPi4N3TCphgJrBo43gyLTlBofCks0lont+uDw3HoYVakM8E4o
-	 PfvdCs+0urapr6L/hymmk9nhYTjhqo+0se7x9u7YB3G+PtmpCv+Ox+pO267pAKques
-	 VjTcJLvYEi9XxMJO0RSEC/Kf4HHIXvjOyX+TsTsiopt7ppycxhpfMJZaV5q5XICjse
-	 mWm6V1uMgNBQQ==
-Date: Fri, 02 Oct 2026 09:53:32 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/3] media: i2c: Add Sony IMX681 sensor driver
-Message-ID: <20261002095324.65355-1-lsa.uz@pm.me>
-In-Reply-To: <20261002082537.74084-3-lsa.uz@pm.me>
-References: <20261002082537.74084-1-lsa.uz@pm.me> <20261002082537.74084-3-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: e99c89fc6fe63ed71028b4fc2830343b8854d6c8
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K5ugB2xL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790934857; x=1822470857;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LIH3653wHUiG2rHQosnCSA/Td0xQNJwohQIQij+gCCg=;
+  b=K5ugB2xLhwmyRXNkW9pNuRswHMC1JBp22WBnkAGREWjfrF/6glZYmni7
+   ZDNkxiajXNckyUjE+EnZOSoCFGjP2jWbc+6MShxrUiZse7wal5ImU5eof
+   Kq+QH80t6gpYWECuspnfS2MRP+FC6trRWv0xeg2mZIpgyBp++lEgGh7Vm
+   sUfa/chdg+UikT1Hh+lDXcUbLWumsJCO8TuWL0gzdsW9F+JWzt8SGHWM4
+   vAzeZEBivARoPHzRbt1snsIkYsF/XmRn7KN3akisLtWb4AKBl0Iw5h5wM
+   aaSdSxNZ8BIPhn6nyNQqBL1TxL6EYCNdkSfiAWTsJiPC3xnFA5NihnFTr
+   Q==;
+X-CSE-ConnectionGUID: ZKLQIxlfRZOSd5fAAm7vzQ==
+X-CSE-MsgGUID: 0Za/vpMiR+aMrUh+zZZUlw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94187986"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="94187986"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:54:16 -0700
+X-CSE-ConnectionGUID: zMtaMrcZRZOXuJ7K+HUNXw==
+X-CSE-MsgGUID: SdCxz/i2QT2BG41Id64Mmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="275766882"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:54:13 -0700
+Date: Fri, 2 Oct 2026 12:54:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: mauriziocasciano7@gmail.com
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH v10 01/15] media: ov8858: Extract digital gain programming
+Message-ID: <ar9_Q1iBAfLVyvKL@ashevche-desk.local>
+References: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
+ <20261002-submission-media-yogabook-v10-b4-final-v10-1-817ec765b257@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-submission-media-yogabook-v10-b4-final-v10-1-817ec765b257@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Sashiko's review of this patch [1] went to devicetree, not linux-media. It
-asks whether the flip controls are read here without the control handler
-lock:
+On Fri, Oct 02, 2026 at 10:57:39AM +0200, Maurizio Casciano via B4 Relay wrote:
 
-> When a userspace process calls VIDIOC_SUBDEV_ENUM_MBUS_CODE or
-> VIDIOC_SUBDEV_S_FMT with V4L2_SUBDEV_FORMAT_TRY, the V4L2 core locks the
-> file handle's TRY state, but not the control handler.
+> Move the existing packed digital-gain register programming into a
+> helper so clock-specific gain handling can be added separately.
+> 
+> This is a pure refactoring: preserve both the register packing and the
+> explanatory comment without changing the bytes written to the sensor.
 
-The TRY state's lock is the control handler's lock. The driver sets
-sd.state_lock to ctrl_handler.lock before v4l2_subdev_init_finalize(), and
-subdev_fh_init() allocates each TRY state with sd->state_lock, so these
-ioctls hold the same mutex as S_CTRL. No change needed.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-[1] https://lore.kernel.org/all/20261002091451.1476A1F000FF@smtp.kernel.org=
-/
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Sergey
 
