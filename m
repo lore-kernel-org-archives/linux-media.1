@@ -1,90 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0363C33A014;
-	Fri,  2 Oct 2026 08:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF16028B4E2;
+	Fri,  2 Oct 2026 08:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931205; cv=none; b=qcfvh/ha+nyvfH65vQe1Nwd0d1ZXyrZg3k8AxZMfwYWb0pTjGmvS/zBu2GC46uOtIO5Of5GdX/J4uB6Y/Ae6z56irWU/O3vQ9N5TQ/P7lyATJGHC1vTJfYAr8+K9CvLcX3D4YLoP8YGQAFhyZjjsg75Oy2Xfu7W66dSnsCH58a8=
+	t=1790931472; cv=none; b=O7i+VhvMg5TO/2BzX83XBXfu6YC2LFYdlkdrlNjPQSBkY5lERALNszw3LRtJIgyaMWtIonFTRVxfeQH+9ZgntqAfmm9UIBN2b2e6NGpofI/8qn+HdZa6jKBZLTrVK8LCLI2kTFdzDE22+2bgjyW+nml5p6Ewn/be67OauRxGEo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931205; c=relaxed/simple;
-	bh=OUd46eQf7kwOL/iqEFkEDEC8xb9V7EynRj3WeqAslvE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=s5xGOZNNhq8QkL0SJYcDEfxhKvGfBL8t7K3PKVFcPJbiEVr5izceFD2Qj7mx6KM+SHc0z6sCG7gxyLL+dcZUoUPX4i0KUvqn6zC9IndNbDHJFkMviiu0x8y7VlxIAddSQuoM10CZjvEGQQGA8cJCQsu4cna3DlQr5KYFpXI5HLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBLgsM/3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790931472; c=relaxed/simple;
+	bh=2eJ1mchBfXwSxiTCzU9Q2DA9MfTAG55bJ6IJZIdcGKc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b3ZEMF4mKQJRouT+0Dsjxjc9B1z68YHFKLmruahf2n76MLIT1EK9djz/DmA8OugeeQ1HWXFHWeUXZjAt5eXDsIKtfczonlKQehTDo9afS3WR0NTksB2bKoSpO8+5snicSE/NF418jvRW09d74v5b4ciHwV6hO2diyDEj3fzzySU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FX33aoUU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBLgsM/3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695581F000FF;
-	Fri,  2 Oct 2026 08:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790931203;
-	bh=b76lmn+AfBToq/B+Bidd3cGscxduq21YgiiOj463Xas=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=DBLgsM/3zeV4rGvc/sW/XvcCI79IK89LIgQDxv2Pa+yZHaycy5VUUzbJVK1y1N2i/
-	 0xBVm0d19PwdrvsiKJkNV8Ctgbd9stZZQ5mRROxs7StS4Gx2umiygRwrkf6P45X7Me
-	 y6upBZFkjioytz5al/Lr9uTl/RpRAA9IzFcC8OhSosCE4w13p/xzYAT2mc76JxCROt
-	 jZhnWjiiVfBRi/0/vU0M4oQ46ifZlCXK20iIBr+0qTLc1N2hMounanbxMX5DfZC0By
-	 2M/xHuyUsUqd1O995mK03P+R0mo/dZYBDC7+uK3FALirpoyE7m7vFYjI2fA0+MBG4Z
-	 IWWljH8q1eEqA==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham
- <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>, Maxime Ripard
- <mripard@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 2/5] media: v4l2-subdev: Add new ioctl for
- connection status
-In-Reply-To: <ar9ZgBPEGxzNTSzU@kekkonen.localdomain>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <20261001-v4l2-sensor-detect-v1-2-a45993be17b8@kernel.org>
- <ar9ZgBPEGxzNTSzU@kekkonen.localdomain>
-Date: Fri, 02 Oct 2026 10:53:21 +0200
-Message-ID: <xhkdb5wzkv5z2.fsf@mkorpers-koolstof.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FX33aoUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4E593C4AF0B;
+	Fri,  2 Oct 2026 08:57:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790931472;
+	bh=2eJ1mchBfXwSxiTCzU9Q2DA9MfTAG55bJ6IJZIdcGKc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=FX33aoUU4933i8J0y0RsX3VSF/fD6UHAX7sXC4zyXSA79YCzjZr2cASfyhCU/05ur
+	 6JqZOqYKhVZU1sRIcwgTtN9yGim/NSAl0GJVmEcnmEre6NGa+u3aVHXM9D+8dvsF2/
+	 IIAdusGzQw3oUlPHVb/5tw+leBx80bo/wiTg0XXRKihkAT5Y/VYtl/I8iRZ8Q0ssBo
+	 nmRu4rQAnIlbntwf+iOTlVW3YwwykhUMVdqiZVhGKvjOcA7fkT/jXhEJlWqCckb5K7
+	 XeSUxWozafAOeMqyxe1HyPFaiWrjlxzJK9+GkpTdPExf6YAMFpBMGL0uOJVip41bt5
+	 0UYsEy7d8HuLw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C9C9CA5FD4;
+	Fri,  2 Oct 2026 08:57:52 +0000 (UTC)
+From: Maurizio Casciano via B4 Relay <devnull+mauriziocasciano7.gmail.com@kernel.org>
+Subject: [PATCH v10 00/15] media: Add Lenovo Yoga Book camera support
+Date: Fri, 02 Oct 2026 10:57:38 +0200
+Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2N0QrCMAxFf2Xk2UBaq4K/Ij6kNp1B10rDhjL27
+ 1Yf7+Fw7gomTcXgPKzQZFHTWvpwtBvgducyCmrqADz5oyPyaHOc1H4eTpKU8VNHjrU+cHGEMWD
+ Wwk/c+5CTHMJJmKHHXk2yvv9Pl+u2fQFqRK6aeQAAAA==
+X-Change-ID: 20261002-submission-media-yogabook-v10-b4-final-324fde547eaa
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Nicholas Roth <nicholas@rothemail.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Bingbu Cao <bingbu.cao@amd.com>, 
+ Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-staging@lists.linux.dev
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=6164;
+ i=mauriziocasciano7@gmail.com; s=yogabook-kernel-20261002;
+ h=from:subject:message-id;
+ bh=2eJ1mchBfXwSxiTCzU9Q2DA9MfTAG55bJ6IJZIdcGKc=;
+ b=CbT/xFIrrWRcJIIKV8lO15FLCS2miTT+8CB4/Eo9C/0acTanWZcwXfaDVZniNfN210Qola6Sg
+ /UrbM2PxhK8BeU3+fwaTMtctT3rqohd7nfzlDDTl02f9LLPZvjWYr70
+X-Developer-Key: i=mauriziocasciano7@gmail.com; a=ed25519;
+ pk=ODC2oSPBqt7ukC3AEDZNS7LIE21D8ke8TEHoNlxniNM=
+X-Endpoint-Received: by B4 Relay for
+ mauriziocasciano7@gmail.com/yogabook-kernel-20261002 with auth_id=1099
+X-Original-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Reply-To: mauriziocasciano7@gmail.com
 
-Hi Sakari,
+Add camera support for the Lenovo Yoga Book YB1-X91L. The tablet uses
+an AtomISP ISP2401 with an OV2740 front sensor, an OV8858 rear sensor
+and a WV517S rear-camera lens actuator.
 
-On Fri, Oct 02, 2026 at 10:13, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+The series adds the missing ACPI and bridge configuration, selects the
+OV2740 link frequency through the existing IPU PCI-ID mechanism, derives
+AtomISP CSI-2 timing from the sensor link frequency, enables raw Bayer
+capture and adds the sensor controls and actuator driver needed by the
+hardware.
 
-> Hi Mattijs,
->
-> On Thu, Oct 01, 2026 at 02:55:20PM +0200, Mattijs Korpershoek wrote:
->> The V4L2 framework has historically assumed that every component of the
->> camera pipeline is always present. This is a reasonable assumption for
->> integrated cameras in laptops or phones. However, in automotive systems,
->> cameras (e.g. rear-view or surround-view) can be damaged or
->> disconnected.
->> 
->> When a camera gets disconnected, userspace cannot detect this and thus
->> cannot react (for example, by disabling streaming on a faulty camera).
->> 
->> Add a new v4l2-subdev ioctl (VIDIOC_SUBDEV_G_CONNECTION_STATUS) that
->> drivers can implement to report their connection status.
->> 
->> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
->
-> Have you considered using V4L2 controls for this?
+Runtime validation used the same functional 15-patch content on the
+2026-10-01 media_stage.git master. The final media-committers.git next
+rebase and review edits only change source formatting and equivalent
+frequency notation:
 
-I have not considered it.
-I think I initially wanted to make this a control but I ended up making
-it an ioctl.
+- W=1 builds and sparse builds of all eight affected objects passed after
+  the rebase. The OV8858 object passed both again after the v10 review
+  edits.
+- A full x86_64 Debian binary package build passed and produced kernel
+  7.3.0-rc1-yogabook-media-v8-20261002-001605.
+- The kernel booted on a Lenovo Yoga Book YB1-X91L with AtomISP PCI ID
+  8086:22b8. OV2740 negotiated 288 MHz and OV8858 negotiated 360 MHz;
+  both sensors bound and AtomISP registered two cameras.
+- OV8858 digital, red and blue gains were changed during streaming and
+  read back correctly. Continuous raw capture produced changing frames
+  from both sensors (6/8 unique rear samples and 8/8 unique front
+  samples), including front-to-rear-to-front switching without OV8858,
+  I2C or CSI errors.
+- Both front and rear cameras were also exercised successfully with
+  Cheese.
+- v4l2-compliance 1.32.0 completed 47 tests on the AtomISP capture node:
+  40 succeeded and 7 failed in invalid-ioctl, multiple-open, input,
+  control enumeration, stream-parameter and buffer tests. These failures
+  remain a validation limitation; this series does not claim to make the
+  staging AtomISP driver fully compliant.
 
-From patch 5/5 in this thread, it seems that you believe that a control
-is more appropriate. I will look into that for v2.
+Only the Yoga Book 19.2 MHz OV8858 path was hardware-tested; the existing
+24 MHz paths received build and static-analysis coverage but were not
+tested on separate hardware.
 
-Thanks for the suggestion!
-Mattijs
+Changes in v10:
 
->
-> -- 
-> Regards,
->
-> Sakari Ailus
+- Express both OV8858 input-clock rates with HZ_PER_KHZ.
+- Drop trailing commas from the terminators of all four new OV8858 clock
+  register tables.
+- Use the b4 kernel web-submission workflow after Gmail corrupted the v8
+  series and the incomplete v9 retry. Media CI confirmed v8 patch 1 was
+  corrupt at line 10. There are no functional changes from v8.
+
+Changes in v8:
+
+- Keep patch 2's commit message focused on the implementation, remove the
+  invalid review Link and move runtime results to this cover letter.
+- Express OV8858 frequencies with HZ_PER_MHZ/HZ_PER_KHZ, name clock
+  tables by their input and link frequencies, and remove platform names
+  from the sensor driver.
+- Explain that V4L2 exposes standard red and blue balance controls but no
+  standard green-balance control, so green remains the unity reference.
+- Replace the per-sensor link-frequency override with the IPU bridge's
+  existing PCI-ID matching mechanism. Add an 8086:22b8-specific OV2740
+  288 MHz entry before the generic 360 MHz fallback. This removes the
+  associated AtomISP hand-off patch and reduces the series to 15 patches.
+- Add the introducing commit to the OV2740 group-hold fix and mark it for
+  stable backporting.
+- Use the documented Assisted-by tag syntax.
+- Keep the padding helper as a normal static function and avoid a
+  single-use raw-format descriptor structure.
+- Retain Andy's Reviewed-by tags only where the corresponding patches did
+  not change materially. In particular, drop the tag from the redesigned
+  IPU bridge frequency patch.
+
+v9 (incomplete and transport-corrupted):
+https://lore.kernel.org/linux-media/CAO7O_xjhrLNFu6sKEFWp8z+UCkcHu9kr9KfxtEQ=T9yKHCQT-w@mail.gmail.com/
+
+v8 (transport-corrupted):
+https://lore.kernel.org/linux-media/CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com/
+
+v7:
+https://lore.kernel.org/linux-media/cover.1788360629.git.mauriziocasciano7@gmail.com/
+
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+---
+Maurizio Casciano (15):
+      media: ov8858: Extract digital gain programming
+      media: ov8858: support 19.2 MHz clock and manual white balance
+      media: ov2740: Use C99 initializers for ACPI IDs
+      media: ov2740: Add OVTI2740 ACPI ID
+      media: ov8858: Add INT3477 ACPI ID
+      media: intel: ipu-bridge: Add Yoga Book camera sensors
+      media: atomisp: Add Yoga Book camera configuration
+      media: ov2740: support 288 MHz link frequency
+      media: intel: ipu-bridge: select OV2740 frequency by IPU ID
+      media: atomisp: derive CSI-2 timing from sensor link frequency
+      media: ov2740: release group hold after gain write errors
+      media: ov2740: add manual white balance controls
+      media: atomisp: Use struct v4l2_area for padding
+      media: atomisp: allow raw Bayer capture
+      media: i2c: Add WV517S lens actuator driver
+
+ MAINTAINERS                                        |   1 +
+ drivers/media/i2c/Kconfig                          |  11 +
+ drivers/media/i2c/Makefile                         |   1 +
+ drivers/media/i2c/ov2740.c                         | 114 ++++++++---
+ drivers/media/i2c/ov8858.c                         | 221 ++++++++++++++++-----
+ drivers/media/i2c/wv517s.c                         | 208 +++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c               |  13 ++
+ drivers/staging/media/atomisp/pci/atomisp_cmd.c    |  81 +++++---
+ drivers/staging/media/atomisp/pci/atomisp_cmd.h    |   6 +-
+ drivers/staging/media/atomisp/pci/atomisp_csi2.c   |  20 +-
+ .../media/atomisp/pci/atomisp_csi2_bridge.c        |  19 +-
+ drivers/staging/media/atomisp/pci/atomisp_ioctl.c  |  32 ++-
+ drivers/staging/media/atomisp/pci/atomisp_subdev.c |   4 +-
+ drivers/staging/media/atomisp/pci/atomisp_subdev.h |   3 +-
+ 14 files changed, 605 insertions(+), 129 deletions(-)
+---
+base-commit: 4a069a763e8a86821edac4159f7c59a20015631b
+change-id: 20261002-submission-media-yogabook-v10-b4-final-324fde547eaa
+
+With Best Regards,
+Maurizio Casciano
+
+
