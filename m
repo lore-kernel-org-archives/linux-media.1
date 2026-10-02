@@ -1,220 +1,176 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A178432304
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:50:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A26429CEC
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970630; cv=none; b=E2N8Nwn+r8FOv+mabQ4fDIzn+llLJAxwkNAxkiHN94mUsVEjPWwodIlgnUIcjMyOSW4HQMBo2q7aWCaktWJHjW3fs9MvIM+xCOxJy4CqbAH/rTFZG83ZSDOBF1CjN00vj1u4YScF//Wm7pY1fPMmf0S201Xf1IB3Cbl3nEyCwx0=
+	t=1790970908; cv=none; b=OAvxzXXvytVHmnRba/pMRNU/H09oflXoCL+TImEgjMxbajIyLoRZ+huM2F6ahndZ/V1xZDaukAGcv4gANrGE4iTB+mzftm+moYaD/mXHpWlD1WFKcPHVMBD+hRWZFj4w0sb3VoGm4xUJPr9eYWNuiijT7NQqk1pL+f8nCMALpyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970630; c=relaxed/simple;
-	bh=jPry0ZxZWH2qI0ULrUX+JCx/FGm9iZZhCbMohyCfLZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E80bg48x06ifrk9O/BEcp060mBczhvOa9CCB6pJQfNC7EuuZdZgwVtu4DXEkMMB+PNKspoGd83TiivEJkx5v5LmRWxhimPB/Bf8VZ5qaB1Ewaq541NHeIe5/UV9u2ezny8Efpyb0kfnOgPOfhH0Emo3SR5M17Wp/2yY9uFJw/a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=iPKS0/3n; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790970908; c=relaxed/simple;
+	bh=KQJZu3TJ1ZoJQSgg5FQgIcwzZKx6ACMrss1Z+0H9Uvw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kU9/D7xPNPEmXK6U0x+1NAwKP6M2FncwDp5zzQxunKIqzGtdaEAxcnC7VReAORUfJc/j7njTKO38qYNWwxeDfqm5nIYl6VDlPSR0dwmClC66ZOWlzqoSylLm53YoUd3HjR8sqbfsqABAmrkpVAJ1RcY4OSvH+IpsabbP8c1vyLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=a6mQm22h; arc=none smtp.client-ip=74.125.230.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="iPKS0/3n"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-144f79153f5so485584c88.0
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:50:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="a6mQm22h"
+Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-533984bfe2bso14159031cf.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:55:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790970621; x=1791575421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
-        b=iPKS0/3nt/yps11kzkBCV1f6JgZy+m9nq1oaXe/hF3tlSfPFM5dO+uLlr672/tPl91
-         m9ScaGSftrqg4nbbGN1R6CwSxYW/9uqbTwVzBIebRSuHRb3uzuiBWFiNLgshSye7VMM1
-         p7sNOnQkyr3gmXnPxJYvA5CZQ2GdZ6juSUqdXrPqxxhwQnT3vhX/l+lC4AmwcRrgIyuD
-         p/s9Rzf6BbtVe/mcrZLVa/Wp+wyjaczK0QndkgwvoxTcCf8NqcvVFsK2GLI1oQBCAOP9
-         wzEAY851Ypjv6I4EXUGWwkdFQNFIehnSOClh5y72uqmDFaN+F9+cHRh6wsPWaLVYLgyI
-         Mchw==
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790970905; x=1791575705; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sGlzclWAPvmV9l90+X/3UL+TEboVyGRPeZlBqSVtL2g=;
+        b=a6mQm22h7M5gUEQm9Ow+aMNey6fH7Lvexeblm+Nh+DEEghKTJlolMwLfixH0Lgo7NN
+         lwyVXUlke8yiEeyWmN7vA0dv8AZczT6+WnNFmh5VCf+Dy7tkXC0vGsLvdyP51CkHiV60
+         s9y+TcsQ0GB00hNMEA3ljjbeGG8qXot3ymCI3klwP+MuVX105tAooBngEdeFT0Sz5pSR
+         MbBrvzmWln+W577ydj+y1OBPzV4WL/dNfJw42N+teqlLOr+uwAkR47fCzRPBrukhjxMT
+         e+ho9VMMqWt37pcdn7SgS+84M1TxqdioSRIhoqsSk4NqydEV0pEgTFC7AuKUBSq6fOl8
+         LhZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970621; x=1791575421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
-        b=2bNBQPUPwV+q+AgJBnkKeb7kQ5zo2xAGulFKlTEdWCD2cbTvNBFe93GBm92kI3SJEP
-         vkCN6AfsEFoGAoLuDgGyVm8egxQxLmpR5osIXz7A3OL4M3+RxvoNebFGHg/btMPyupFW
-         4xoUKkFTHs3V2Na7/hxcl9ISaZLmmtI3v5MGJWj6lzYrGTTJxQkZYiX4K4lo5LOggqU5
-         uggWpdnqIPdVoudvoLn1trZbbTgNPoHn0au3beSLNk+lMemDqjlEpokWlRbnDv7ikC0k
-         xbTD1S4+tHJzsHO8q3lI6rTZps73LZrXWP+jTgs/6A/t/v1oVKEGu9NSZUnarFc8Iff7
-         XC8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzP8oRSWsV4Vs6tyqwDLiMT9TI5ZO0nuldl/0fJ+CYN/TdFR5aXr8ymFPAFiMI4oOJJyB6CgSwCksfrfQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mmfH5ilLGlYD14JFKThiYE9RDlGXZ5PWtwAWgYWjwkq6ZmUUll
-	geZQIaSFXjzyjGds+BDnzWWbyo/j15jXtNEwxBEVm11EnaaYEk78i5NunmeTjU3DRxs=
-X-Gm-Gg: AYBFou1fm5DeozrJnQHNIHG3oq1Y1tV+PwnRGLAEPjhXs9bk9zM0cieDGkJjtsT026C
-	7xTo6PldDWwTMAFRt1JIY4+bNUJ6zeWRQEoJomKz+Z71uWMT0RTKejMNOeX7O+yKl16pVw85Yuq
-	eGh/J95DazLjp0dMnETjA/JzVU6VOiu0cFukqYLQvVr51zD0Dtrk/OT1FdTmAPbDZkM+Fj3Enyr
-	4cUjwYwdtpmaISgqn23d3tDLgDqO1IW5XILUT7eWRCws5CK/aeLUNDGGD6lsRy3VPjcfE3WfGWc
-	ntqyX1Q4ndkvBtAWLHQ8w5VyVpshr1+9y8yRyg1IcIRrpTNtDi7BHjtFql1KUw2kI7KIlj9tP2z
-	SjZ5EWibBplb3Ab5WOOsAgmWNRr4HL+olfCA0roQlQ40ll0QG3bGPhfNuqwGn/RRJr44o7jTwwB
-	JB0ZKUhYpuE8zVQscZbjdq2l26jBkhvDEX/NHSmYnpOWKWSXqbpHrWWbe9ogpgt4P1muiW3ViHO
-	ZQSxLgNLMRt/RigyiBca5bU0RmZ2FLImrYcL8+SK4WpaLLKbJrx4Ted66ppYgax0cJEQdg=
-X-Received: by 2002:a05:7022:1587:b0:148:516e:53e with SMTP id a92af1059eb24-14dd07fbc16mr9332303c88.6.1790970620487;
-        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f410725e2sm7157041c88.0.2026.10.02.12.50.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1.y] media: av7110: fix a spectre vulnerability
-Date: Fri,  2 Oct 2026 15:50:15 -0400
-Message-ID: <20261002195016.21386-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790970905; x=1791575705;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sGlzclWAPvmV9l90+X/3UL+TEboVyGRPeZlBqSVtL2g=;
+        b=Rn3KZQ0bXIrBDSdjxKSsyEx7h/+7sQ58ApSh5bUK+5OoXnxvAuyPYh1Zqfc4o4ezen
+         1SOHqjQbVZmS+I/buhj1WcnsOEqq8TsXOeQf5f345ic8YVZvSauw2YAgE/E0fcNJACYs
+         CJkhZRM8tjOb0NbGrRUqi0LXYTF0wFCftCFVHQOmRymRPHRxTKhfuQ/vWCseqpMytVsT
+         ao7IowFlvFhp7+TqNOCgztzEDORLyid52T/AILGnsmaeThzabKKN4IfCVFs24cV0QaxH
+         Go/JJAkUSmVXJTwpdrY7PL0dAAqjB0RH73feuDVmnlRPc1YWDwhTP4aPjT4HMQ//n2nq
+         wlww==
+X-Gm-Message-State: AFuF++n3SDZHngjrZHtdD6WxuYGsw1a3NapIqyYc4+pUoAu1Qc5h/v8m
+	2uuMiQoQ5/aGf4z/dS5nHq1k15sTGbymxUP5eLcR6v0YvaTu41TIGxbecA9p7HhbqXjKc54iraN
+	IBH/w+Ks=
+X-Gm-Gg: AYBFou1hesrU/GKBJDIq4BoQduTKHvphvJpVa0H2uY3sgclRVlhiQ6Spfn7YmFDG5Kh
+	dK+a1igIR5yhfZHMoh9NVvhFDtzMKOBQsGNTr+bQO3TQG0xCYj+PpdKKQkW8+1H55TouBGUpo0B
+	+CXH3v+L0C6ykgcVkDLiH2g18ulaXW0TUmvk+NtodmAQUoV/5RHCgxG636DZpUtjBjLKn7f2IAA
+	Ddt8ykyzHzx6INMw4Er3VW4ul9J9rW4xtAR9tfbxsNw7MjD+L9F2untFytlPEzfqpZTWUtVtwyJ
+	q6pES6ntIjRkkgAFRQ53i1bUyI55AdrJAf+VJKLbGGZ7Es9j6gOyqgnUEhiHKUGkqdh4eiGaLd/
+	/147ikRI5dsxxSRm49OkA3CDCtYEmvgkU2DRcR/1GwQ9i0B2DNoaGXgFAEbjdE4BTG+KOGX9lek
+	TAPxxagJnsAAHGljBz+uP/a+XQmlWYve04oo6ftPPI5aL/xN9TwWD7wNy6POh4F/UKLL7+z3goo
+	7kfnMfxZgUNr48rg8M4yftQ
+X-Received: by 2002:ac8:5d8b:0:b0:533:1038:ad50 with SMTP id d75a77b69052e-533d9587585mr69965091cf.45.1790970905305;
+        Fri, 02 Oct 2026 12:55:05 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b6b636sm27285076d6.26.2026.10.02.12.55.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 12:55:04 -0700 (PDT)
+Message-ID: <aaf70162b2f8353d198e4f0a0137574b9963870d.camel@ndufresne.ca>
+Subject: Re: [PATCH 1/3] media: rkvdec: Switch to modern PM_OPS
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld	
+ <dafna@fastmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+  Mauro Carvalho Chehab	 <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Detlev Casanova	 <detlev.casanova@collabora.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,  Jacob Chen
+ <jacob-chen@iotwrt.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 02 Oct 2026 15:55:02 -0400
+In-Reply-To: <20261001173610.158931-2-diederik@cknow-tech.com>
+References: <20261001173610.158931-1-diederik@cknow-tech.com>
+	 <20261001173610.158931-2-diederik@cknow-tech.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-u687AWLeNGHFAtWYehS2"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-[ Upstream commit 458ea1c0be991573ec436aa0afa23baacfae101a ]
+--=-u687AWLeNGHFAtWYehS2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-As warned by smatch:
-	drivers/staging/media/av7110/av7110_ca.c:270 dvb_ca_ioctl() warn: potential spectre issue 'av7110->ci_slot' [w] (local cap)
+Le jeudi 01 octobre 2026 =C3=A0 19:34 +0200, Diederik de Haas a =C3=A9crit=
+=C2=A0:
+> A new set of modern PM_OPS macros got defined in commit
+> 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
+>=20
+> Switch to those new macros so that the PM callbacks are always seen by th=
+e
+> compiler, but discarded if not used. This lets us drop the check for
+> CONFIG_PM.
+>=20
+> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
 
-There is a spectre-related vulnerability at the code. Fix it.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-[ Backport to 6.1.y: added the explicit linux/nospec.h include required
-  by the older source. ]
+> ---
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
+dia/platform/rockchip/rkvdec/rkvdec.c
+> index 061281f903f3..936abd92f703 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> @@ -1877,7 +1877,6 @@ static void rkvdec_remove(struct platform_device *p=
+dev)
+>  		iommu_domain_free(rkvdec->empty_domain);
+>  }
+> =20
+> -#ifdef CONFIG_PM
+>  static int rkvdec_runtime_resume(struct device *dev)
+>  {
+>  	struct rkvdec_dev *rkvdec =3D dev_get_drvdata(dev);
+> @@ -1892,12 +1891,10 @@ static int rkvdec_runtime_suspend(struct device *=
+dev)
+>  	clk_bulk_disable_unprepare(rkvdec->num_clocks, rkvdec->clocks);
+>  	return 0;
+>  }
+> -#endif
+> =20
+>  static const struct dev_pm_ops rkvdec_pm_ops =3D {
+> -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> -				pm_runtime_force_resume)
+> -	SET_RUNTIME_PM_OPS(rkvdec_runtime_suspend, rkvdec_runtime_resume, NULL)
+> +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+> +	RUNTIME_PM_OPS(rkvdec_runtime_suspend, rkvdec_runtime_resume, NULL)
+>  };
+> =20
+>  static struct platform_driver rkvdec_driver =3D {
+> @@ -1906,7 +1903,7 @@ static struct platform_driver rkvdec_driver =3D {
+>  	.driver =3D {
+>  		   .name =3D "rkvdec",
+>  		   .of_match_table =3D of_rkvdec_match,
+> -		   .pm =3D &rkvdec_pm_ops,
+> +		   .pm =3D pm_ptr(&rkvdec_pm_ops),
+>  	},
+>  };
+>  module_platform_driver(rkvdec_driver);
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and media av7110 maintainers,
+--=-u687AWLeNGHFAtWYehS2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-50289. It masks the validated CI-slot index
-before using it in the av7110 array lookup.
+-----BEGIN PGP SIGNATURE-----
 
-The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMFgAKCRDZQZRRKWBy
+9FScAP9oQFR10NikWDA9nu2Dfv7rKQ2BsngLSDea0lYtTWwcEgD9HVcbeQIF371C
+sm9RTJ7S2Z9Gr+G5/grG+QsiqbS/kws=
+=Ce67
+-----END PGP SIGNATURE-----
 
-Could you please queue it for 6.1.y?
-
-CVE: CVE-2024-50289
-Upstream: 458ea1c0be991573ec436aa0afa23baacfae101a
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- .../media/deprecated/saa7146/av7110/av7110.h  |  4 ++-
- .../deprecated/saa7146/av7110/av7110_ca.c     | 26 +++++++++++++------
- 2 files changed, 21 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-index 9fde69b38f1ce3..c2956c23d9c1e4 100644
---- a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-+++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-@@ -86,6 +86,8 @@ struct infrared {
- 	u32			ir_config;
- };
- 
-+#define MAX_CI_SLOTS	2
-+
- /* place to store all the necessary device information */
- struct av7110 {
- 
-@@ -166,7 +168,7 @@ struct av7110 {
- 
- 	/* CA */
- 
--	struct ca_slot_info	ci_slot[2];
-+	struct ca_slot_info	ci_slot[MAX_CI_SLOTS];
- 
- 	enum av7110_video_mode	vidmode;
- 	struct dmxdev		dmxdev;
-diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-index c1338e074a3dc1..642af03fbac810 100644
---- a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-+++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/kernel.h>
-+#include <linux/nospec.h>
- #include <linux/types.h>
- #include <linux/delay.h>
- #include <linux/fs.h>
-@@ -26,23 +27,28 @@
- 
- void CI_handle(struct av7110 *av7110, u8 *data, u16 len)
- {
-+	unsigned slot_num;
-+
- 	dprintk(8, "av7110:%p\n",av7110);
- 
- 	if (len < 3)
- 		return;
- 	switch (data[0]) {
- 	case CI_MSG_CI_INFO:
--		if (data[2] != 1 && data[2] != 2)
-+		if (data[2] != 1 && data[2] != MAX_CI_SLOTS)
- 			break;
-+
-+		slot_num = array_index_nospec(data[2] - 1, MAX_CI_SLOTS);
-+
- 		switch (data[1]) {
- 		case 0:
--			av7110->ci_slot[data[2] - 1].flags = 0;
-+			av7110->ci_slot[slot_num].flags = 0;
- 			break;
- 		case 1:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_PRESENT;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_PRESENT;
- 			break;
- 		case 2:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_READY;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_READY;
- 			break;
- 		}
- 		break;
-@@ -264,15 +270,19 @@ static int dvb_ca_ioctl(struct file *file, unsigned int cmd, void *parg)
- 	case CA_GET_SLOT_INFO:
- 	{
- 		struct ca_slot_info *info=(struct ca_slot_info *)parg;
-+		unsigned int slot_num;
- 
- 		if (info->num < 0 || info->num > 1) {
- 			mutex_unlock(&av7110->ioctl_mutex);
- 			return -EINVAL;
- 		}
--		av7110->ci_slot[info->num].num = info->num;
--		av7110->ci_slot[info->num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
--							CA_CI_LINK : CA_CI;
--		memcpy(info, &av7110->ci_slot[info->num], sizeof(struct ca_slot_info));
-+		slot_num = array_index_nospec(info->num, MAX_CI_SLOTS);
-+
-+		av7110->ci_slot[slot_num].num = info->num;
-+		av7110->ci_slot[slot_num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
-+						 CA_CI_LINK : CA_CI;
-+		memcpy(info, &av7110->ci_slot[slot_num],
-+		       sizeof(struct ca_slot_info));
- 		break;
- 	}
- 
--- 
-2.39.5
-
+--=-u687AWLeNGHFAtWYehS2--
