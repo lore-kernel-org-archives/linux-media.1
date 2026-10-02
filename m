@@ -1,61 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1F32D3A75;
-	Fri,  2 Oct 2026 07:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AAC299943;
+	Fri,  2 Oct 2026 07:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924748; cv=none; b=V9xTMEkTEk2ZKJwUo9f/uBrutuqC4wu7lvmsydGg+rjTkf37gI5jU6wZ9Fh5IXDml+vsO2ZbZ7VWx36/gX5zH2/gJz1/ZJzphqYs5w5WwoBDTWSZ3PfrKZkWWuaF4/03NtAEGXONG7MlXm0r+EW8qV1dqoTOl49n54ArE6AopCo=
+	t=1790925295; cv=none; b=To6VmYvcOfdBoH2pLqnjndNGxYj1wTWQvAu29qfbpJvWpzPjrpWytEfT5RI8iB1dr8epFwUnoLjA6Ci4S4EU3uIUP8CvigsOP08ctb+UepzxRMrAJ1uJe5SSR4uA7DkhzcMeUxbCG256zUgCk7i9nMGKnhfO3KpLoLScvXhgWgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924748; c=relaxed/simple;
-	bh=SsQhvlJAJv0pdksiuuoZnY55Sy8Rj6sCNdaY5dfHUsA=;
+	s=arc-20240116; t=1790925295; c=relaxed/simple;
+	bh=kADFZVHcGsVMssp/5GR/ZGeLfZVGUksbdgP3u7jjIcQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hPF+0+pOk23j9cgPrX7uMAP15J/IGmeN7SYQBCDac9k4GeOfa5ARz6S++mSA8iviymChR/GZtO+TWJqHuVR7ixXqwjF2Kcjf4ElwIeXGqF2Aod+Lq1ZGbtFJV5OF5iMGfontH6uhF+xetwYdWnCGG/6+bMiqRPjDSHZqFwcO+9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=enxlC8cK; arc=none smtp.client-ip=198.175.65.12
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cx+bWKSzx6VV0hI1qcinXmwXsn/wz/NdXB7iRFm04zdOQR1GOBaaMPjG7fE3Cnxx44Wil5REmZVNEo3n8jEGd3FBaIMjh+DCOJZyouFZvXTaI+jMkGcpaAfXHsBy/oR4G1wimFYgJkw8SZD1mjBA7UMJ7S8U6LDflf7lyivolwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FLc0KELS; arc=none smtp.client-ip=192.198.163.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="enxlC8cK"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FLc0KELS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790924747; x=1822460747;
+  t=1790925294; x=1822461294;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=SsQhvlJAJv0pdksiuuoZnY55Sy8Rj6sCNdaY5dfHUsA=;
-  b=enxlC8cKCpr2wPZAVX9dBNxSoHkeIYm2eu+nBaPAncPjllrwwgr/SS+c
-   EIHIkSxz4MaRQU8qhJzst/vLm/5VWIUBFh9ubSWDGwQuXWbq4hJDFAgej
-   qoVWQVzb/gytGhWEzfFcPkkUHlOhNKjunzx1XZ4odIfP6HLL6nVLGOmZ+
-   Or09kSyQnkBAt/x/qfH24/m7o0jdQaGeNK6Q1suJ/xfot8Wxwkhyv8MAe
-   adxhxgvW+A4xqSAUlbRTnKkai+XSdISxHuLHNv9qdojlVVrX+clpB/UaH
-   mq+AM8SBjrj9Amneh1ffekw+luh0oZJ7FlS8r5EnYepQkS9o+b7JRK6JR
+  bh=kADFZVHcGsVMssp/5GR/ZGeLfZVGUksbdgP3u7jjIcQ=;
+  b=FLc0KELSf85Ysld4iyB/clKZA2IeuwjgmkPgTE542U8/jnnPmlgxBDAl
+   buq1IZNp2s5wYeBXlJzbdFx7qV4CiFYvjulx7c3ZmQUwJffjfIGU08Drv
+   Av6ch2pMTI3Fd1irr3ZdstYfvaoyMxR6vlHpvPE2NJ5uB4A3+5cyUAVI3
+   BfzvkYAKxaNGeqv4qyTnlYAOFDT1yfFedhn5fGYIzhw33hRPIwojRWz98
+   HjyLxb8qDrLcQiBkmSfKNz5L/lnGmawh01Gzngrce8jGxRusOY3vUd7an
+   R/Tu5YVLbTGJQOholUzD3lTlJs6gEK25+jHyrBx10B6lLfJ735eIRka4d
    Q==;
-X-CSE-ConnectionGUID: g9S2PE4XTgCLztaz5lQNhw==
-X-CSE-MsgGUID: 4QjFaBHwQx6UAZ2Nn6j+yA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102213210"
+X-CSE-ConnectionGUID: YNL7uRY3TX+x3m477eQQcQ==
+X-CSE-MsgGUID: G7dZ/z0CSxO2zSlLW/04Mw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="79248475"
 X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="102213210"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:05:46 -0700
-X-CSE-ConnectionGUID: JsatRacVQuSSLTGAEbKyUQ==
-X-CSE-MsgGUID: Ybx2T56SQAyPNw2AQnktTg==
+   d="scan'208";a="79248475"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:13:10 -0700
+X-CSE-ConnectionGUID: vuzVD8mZQkGJ8aQr9Yasbw==
+X-CSE-MsgGUID: iT49og5jTfSvvrCnVbpxhQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="314170258"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:05:43 -0700
-Date: Fri, 2 Oct 2026 10:05:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Vadillo, Miguel" <miguel.vadillo@intel.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	sakari.ailus@linux.intel.com, hansg@kernel.org,
-	laurent.pinchart@ideasonboard.com, mehdi.djait@bootlin.com,
-	mika.westerberg@linux.intel.com, srini@kernel.org, arun.t@intel.com
-Subject: Re: [PATCH] media: i2c: cvs: Add NVMem-based firmware update support
-Message-ID: <ar9XxEb6Kjvd6HXb@ashevche-desk.local>
-References: <20260930182142.108744-1-miguel.vadillo@intel.com>
- <ar6nSbS-FpaI6jYp@ashevche-desk.local>
- <abb0daee-c5f2-47c2-9b0f-6018edb0ba6b@intel.com>
+   d="scan'208";a="284255412"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.205])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:13:08 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 9CB0311F817;
+	Fri, 02 Oct 2026 10:13:04 +0300 (EEST)
+Date: Fri, 2 Oct 2026 10:13:04 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/5] media: v4l2-subdev: Add new ioctl for connection
+ status
+Message-ID: <ar9ZgBPEGxzNTSzU@kekkonen.localdomain>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <20261001-v4l2-sensor-detect-v1-2-a45993be17b8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -64,86 +70,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <abb0daee-c5f2-47c2-9b0f-6018edb0ba6b@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261001-v4l2-sensor-detect-v1-2-a45993be17b8@kernel.org>
 
-On Thu, Oct 01, 2026 at 04:03:50PM -0700, Vadillo, Miguel wrote:
-> On 10/1/26 11:32 AM, Andy Shevchenko wrote:
-> > On Wed, Sep 30, 2026 at 11:21:42AM -0700, Miguel Vadillo wrote:
+Hi Mattijs,
 
-...
-
-> > > +	mutex_lock(&ctx->lock);
-> > 
-> > Why not guard()()? Also how ACQUIRE() macros are co-habit with goto:s?
+On Thu, Oct 01, 2026 at 02:55:20PM +0200, Mattijs Korpershoek wrote:
+> The V4L2 framework has historically assumed that every component of the
+> camera pipeline is always present. This is a reasonable assumption for
+> integrated cameras in laptops or phones. However, in automotive systems,
+> cameras (e.g. rear-view or surround-view) can be damaged or
+> disconnected.
 > 
-> You are right scoped_guard() should be the case here and to get rid of the
-> gotos, this could be done like:
-> ...
-> 	scoped_guard(mutex, &ctx->lock) {
-
-Why scoped_guard()? If you need something to be outside of the regular
-guard()(), but double check that it's indeed the case, refactor to have to
-functions, one with guard()() in it and one that wraps it.
-
-> 		switch (val) {
-> 		...
-> 		}
+> When a camera gets disconnected, userspace cannot detect this and thus
+> cannot react (for example, by disabling streaming on a faulty camera).
 > 
-> 		nvm->auth_status = -ret;
-> 	}
-
-> 	if (ret)
-> 		return ret;
+> Add a new v4l2-subdev ioctl (VIDIOC_SUBDEV_G_CONNECTION_STATUS) that
+> drivers can implement to report their connection status.
 > 
-> 	if (do_uevent)
-> 		kobject_uevent(&dev->kobj, KOBJ_CHANGE);
-> 
-> 	return count;
+> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 
-...
-
-> > >   struct icvs {
-> > >   	struct i2c_client *i2c_client;
-> > 
-> > >   	int irq;
-> > >   	wait_queue_head_t hostwake_event;
-> > >   	bool hostwake_event_arg;
-> > > +	struct icvs_nvm nvm;
-> > >   };
-> > 
-> > Is `pahole` happy with the layout?
-> 
-> Yes. struct icvs_nvm is itself hole-free and fits in one cacheline.
-> That being said, there seems to be other holes in the full struct from the
-> existing implementation, this order could make it better
-> ...
-
-Better by `pahole` doesn't always mean better in all aspects. You have to also
-check it in conjunction with the output of `bloat-o-meter`. And in some
-(performance-critical) cases with the runtime performance tests.
-
-> 	struct media_pad pads[ICVS_CSI_NUM_PADS];
-> 	struct device_link *ipu_link;
-> 	unsigned long quirks;
-> 	struct gpio_desc *rst;
-> 	struct gpio_desc *req;
-> 	struct gpio_desc *resp;
-> 	wait_queue_head_t hostwake_event;
-> 	struct icvs_nvm nvm;
-> 	struct icvs_dev_capabilities caps;
-> 	u32 nr_of_lanes;
-> 	enum icvs_resources res;
-> 	int irq;
-> 	bool prefix;
-> 	bool hostwake_event_arg;
-> 
-> but maybe send as a separate patch since it is not related to the patch
-> intent (?)
+Have you considered using V4L2 controls for this?
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Regards,
 
-
+Sakari Ailus
