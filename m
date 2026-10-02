@@ -1,92 +1,68 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA70E47252A;
-	Fri,  2 Oct 2026 09:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6738D47607D
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933737; cv=none; b=IPF8pd63d9zC2rrloiao8SUd6cWaKQS3KHTNPdPZmlsOrRnBVWsc0lyEtmowFHik2t/8IZti0dI7ESIyIMF3KmiV7mTN4no+I6XHH0mGAINauZWAUVFtQ5Tk+XsTLpI092mh5eN2ytQu2NsS+byGVDISrPz+x6SqsiFXoKbiIVI=
+	t=1790933781; cv=none; b=D3XteOB+4E6Req5E4xCQL701LUB0JPKLwTPlJiYafXmnlMSj/B+7cV80T2cMlNgRyI8gmg9lI/NFcc9BFdbfJ936ArblmUn8scydM4wfFoby9edGhggNJIK/1v1UmHwoxtDSDVrhnvGt+yrnpkiIaI6JXtVUjXSFr6x+4DblwlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933737; c=relaxed/simple;
-	bh=LpYvzdoI+v3hP2QfjXBG+s6avTxCp0utyl7YsTTTCBQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=SFqU6Zw2RJihcFu3G21mIW8PfbX5OfHve2q9onuYpHhkyVSiYV94z/kNEw+7y925MvaVDBiP5ErqpgPnJrFiaulbulmyWbVPGrbQ2/NK3F6H+6CMyZwiS7+XJBGn3xAFzs/WUlXNUUaMLf9DoZL1B49N5mUmfK3MqVAYHBttqbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=kcXQcjSP; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790933781; c=relaxed/simple;
+	bh=yb0TdYtnwZ1tdLYldpVyyHJQmhmxHLxZco9LIpobt2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AzGtyy4t7mKxMJqO0OtHBS7JK+jPjLzSJdYGNi8p1W5zcqXToQf5me9g9t7zXHu4aF6qQmAf+tobrnKe6QUX9adi1mhjp4KxjlI6FVZz1cZIhoypFiACW3u6XUYsdRaPEouyszImLGwp85M6YLuYB3YAURLe4BSoAFU39+4auAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hehpjl9M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="kcXQcjSP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790933718; x=1791192918;
-	bh=O1HxbaRc8z3eMAf1ryP97Ibc+/kv+GDzTxEzG30WsQw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=kcXQcjSPEwpzLDlR6bVUHUZJkEUbv1XIu4HbJlwm8TiXj5Pk5dq7+svhMpAWxJMNA
-	 KEVlDORu33BNKut4RU1EG6m7zR+t129KCigJQ5DD8cEv6KMT0r6bq1bRLb0j++TG2w
-	 rem0jLjtvZNbHp6WDVopHU4dlEMTwqWaPI7aLjqDKlLr4HDmiCmlj4tdSy0eH/tyY/
-	 VXCBPACOa77f23qsjiGM5TwfS96WidA2+34aDtOpZbZiYrV09WDLYngfMjlvReYHjb
-	 YjGWCGVhS10vXwsL3fZoSGBeSk1i0cbLb3IgYVwKDxBGg8judugmNagKOVioqYX7qe
-	 8HMTtF0hSCCng==
-Date: Fri, 02 Oct 2026 09:35:14 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: i2c: ov13858: cap analogue gain at 15.5x
-Message-ID: <20261002093507.43584-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 00f8d8cb4d36879944596efd0be92ed5a98371d6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hehpjl9M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1681F000FF;
+	Fri,  2 Oct 2026 09:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790933776;
+	bh=vwyRh+c4xjz9C3NbsWsVEF8jFh2z8kUPZbg+Ayw/3x0=;
+	h=From:To:Cc:Subject:Date;
+	b=hehpjl9MlJz2yLqH9nBzN5b3f31fWUY1PkC5LvLPv6xf3fpHFu7vZXv/dEYdjEG5v
+	 rfTZnnRVKxiZEpwJf3usXe29WUv+PDeUNnAUeyher3llRC7Hm0qD4jY8f/oXBXyPpH
+	 5ZGAu84Q/KcdGrKdwzOv5MA54mwLMXVWi/sqqA5s2L8WlNlA0rQtmTULIwSMNMqoEE
+	 wwV87460pPoh3hQ0A+oz2OoErbi+jQcGFfwxI3aBGstuTOWs8ysB/l0xuoBjZYiVXD
+	 njHXYjv3iHDnHOxk1hHX2LHzf3Gk9VRvqhcDjTo3vYKkbm8M9x+IblQMS8jjLRwD8D
+	 hTjniX9gOD4KQ==
+From: bod@kernel.org
+To: linux-media@vger.kernel.org,
+	hans@jjverkuil.nl
+Cc: bryan.odonoghue@linaro.org,
+	Bryan O'Donoghue <bod@kernel.org>
+Subject: [GIT PULL FOR platform-qcom-media-for-7.3-fixes] Please pull platform-qcom-media-for-7.3-fixes
+Date: Fri,  2 Oct 2026 10:36:01 +0100
+Message-ID: <20261002093604.27786-1-bod@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The analogue gain control is advertised up to 0x1fff, but the gain only
-follows it up to 0x7c0. Measured on raw Bayer at fixed exposure, on a
-Surface Pro 11:
+From: Bryan O'Donoghue <bod@kernel.org>
 
-  register   requested   measured
-      1984       15.5x      14.23x
-      2047      15.99x      13.71x
-      2048         16x       7.54x
-      8191         64x      14.28x
+The following changes since commit 8e757b5e7743163dc7d110efee25aba9bf79e267:
 
-At 0x800 the gain halves, and above it the gain repeats values from below
-0x800, so an auto exposure loop that raises the gain can get less signal
-back. Cap the control at 0x7c0, as ov13b10 and ov08x40 do.
+  media: i2c: Add Omnivision ov05c10 sensor driver (2026-10-01 13:58:56 +0300)
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v2:
- - Commit message shortened.
- - Assisted-by added, per Documentation/process/coding-assistants.rst.
+are available in the Git repository at:
 
-The code is v1's, byte for byte. Tested on a Surface Pro 11 with
-libcamera's software ISP: image quality is unchanged, since 0x7c0 and
-0x1fff reach about the same gain.
+  https://gitlab.freedesktop.org/linux-media/users/bodonoghue.git tags/platform-qcom-media-for-7.3-fixes
 
-v1: https://lore.kernel.org/all/20260831180746.68878-1-lsa.uz@pm.me/
+for you to fetch changes up to 254e479dec5cb4587d9364f10d4572f5c6e4f76c:
 
- drivers/media/i2c/ov13858.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  media: iris: fix 64-bit division in iris_set_slice_count() (2026-10-01 15:12:36 +0100)
 
-diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-index de2b79a9a0e..27273d589cb 100644
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -63,7 +63,7 @@
- /* Analog gain control */
- #define OV13858_REG_ANALOG_GAIN=09=090x3508
- #define OV13858_ANA_GAIN_MIN=09=090
--#define OV13858_ANA_GAIN_MAX=09=090x1fff
-+#define OV13858_ANA_GAIN_MAX=09=090x07c0
- #define OV13858_ANA_GAIN_STEP=09=091
- #define OV13858_ANA_GAIN_DEFAULT=090x80
-=20
---=20
-2.54.0 (Apple Git-157)
+----------------------------------------------------------------
+This PR contains a single fix for a commit -next to address 64 bit division
+on 32 bit ARM.
 
+----------------------------------------------------------------
+Sasha Levin (1):
+      media: iris: fix 64-bit division in iris_set_slice_count()
 
+ drivers/media/platform/qcom/iris/iris_ctrls.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
