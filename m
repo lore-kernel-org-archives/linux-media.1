@@ -1,67 +1,66 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A26429CEC
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4089B446058
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970908; cv=none; b=OAvxzXXvytVHmnRba/pMRNU/H09oflXoCL+TImEgjMxbajIyLoRZ+huM2F6ahndZ/V1xZDaukAGcv4gANrGE4iTB+mzftm+moYaD/mXHpWlD1WFKcPHVMBD+hRWZFj4w0sb3VoGm4xUJPr9eYWNuiijT7NQqk1pL+f8nCMALpyQ=
+	t=1790970990; cv=none; b=QA4C9iHnsXtaoMKN3Y4Z+S6rlt1GhwecGXVIPCWBEJOHM9rE+jMDbpKmzTDmiZiu/uCHVfNlIPbCFjS3l91q04iAUqoNCZqJ3lQ71NzE3W/5DLwXunQL59drhlO6h3ppyM2e5sSvZrVNeX7YPGkg/HgbOth0UMHtwRvEGV4iZ1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970908; c=relaxed/simple;
-	bh=KQJZu3TJ1ZoJQSgg5FQgIcwzZKx6ACMrss1Z+0H9Uvw=;
+	s=arc-20240116; t=1790970990; c=relaxed/simple;
+	bh=RAm0gUhki2pqljTZWQr8CrgmhZ5p9hcCadzRxn5CSGM=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kU9/D7xPNPEmXK6U0x+1NAwKP6M2FncwDp5zzQxunKIqzGtdaEAxcnC7VReAORUfJc/j7njTKO38qYNWwxeDfqm5nIYl6VDlPSR0dwmClC66ZOWlzqoSylLm53YoUd3HjR8sqbfsqABAmrkpVAJ1RcY4OSvH+IpsabbP8c1vyLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=a6mQm22h; arc=none smtp.client-ip=74.125.230.230
+	 Content-Type:MIME-Version; b=XGEYfcXQy7TiocI6sGdmJCL+Zn2BLOlFPy9Nm1GhxUbgczTh3KprADXryb7Yf2ZdjfaTCcx/ZTrwJybnprknmeftvmKP72xI8+hwizaiwQViKGAUHcLSDfS/BTq8IPYUunfVRJxRTOfLxAaXudKLpE8j3O7xhFWpah3zLDWmKUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=kllv/0IM; arc=none smtp.client-ip=209.85.160.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="a6mQm22h"
-Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-533984bfe2bso14159031cf.3
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:55:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="kllv/0IM"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53396adbc53so2739081cf.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:56:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790970905; x=1791575705; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790970985; x=1791575785; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sGlzclWAPvmV9l90+X/3UL+TEboVyGRPeZlBqSVtL2g=;
-        b=a6mQm22h7M5gUEQm9Ow+aMNey6fH7Lvexeblm+Nh+DEEghKTJlolMwLfixH0Lgo7NN
-         lwyVXUlke8yiEeyWmN7vA0dv8AZczT6+WnNFmh5VCf+Dy7tkXC0vGsLvdyP51CkHiV60
-         s9y+TcsQ0GB00hNMEA3ljjbeGG8qXot3ymCI3klwP+MuVX105tAooBngEdeFT0Sz5pSR
-         MbBrvzmWln+W577ydj+y1OBPzV4WL/dNfJw42N+teqlLOr+uwAkR47fCzRPBrukhjxMT
-         e+ho9VMMqWt37pcdn7SgS+84M1TxqdioSRIhoqsSk4NqydEV0pEgTFC7AuKUBSq6fOl8
-         LhZg==
+        bh=NJl6vN2DYWl5SvECY/MNPFkAoXMpLzutrBdwcjZxYRo=;
+        b=kllv/0IM3PbW8aScYN2euRWeTP2DK5sSB7+A8+NESTWA+J9dfxdnQyrrOR8BIMzAxq
+         I6eh3op+3Btg/hJs7zmF62amZuH00b+DtxjGJ66yprzE6SR6wSpuSAfznWhwgWqjym6H
+         qoBR1X/S1f/KSKsNIWORLKzHg/Q5gY9VTFzLAprQxfvlfwWV5eB2k4X4UhONu7ZgwYfa
+         WvoaIvKUUZ1Wv6q/G6dCGC3nJ75ayuP4ZNJxJg5FuCVHnMia6oTlwP48WhingQwBjWFl
+         Od3Ne/miqBBeaXEc19fisWlDlOwxfwMM//fITp96BMR/p2kGs4AOIkS9yACwScaGz1xX
+         kHgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970905; x=1791575705;
+        d=1e100.net; s=20260707; t=1790970985; x=1791575785;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sGlzclWAPvmV9l90+X/3UL+TEboVyGRPeZlBqSVtL2g=;
-        b=Rn3KZQ0bXIrBDSdjxKSsyEx7h/+7sQ58ApSh5bUK+5OoXnxvAuyPYh1Zqfc4o4ezen
-         1SOHqjQbVZmS+I/buhj1WcnsOEqq8TsXOeQf5f345ic8YVZvSauw2YAgE/E0fcNJACYs
-         CJkhZRM8tjOb0NbGrRUqi0LXYTF0wFCftCFVHQOmRymRPHRxTKhfuQ/vWCseqpMytVsT
-         ao7IowFlvFhp7+TqNOCgztzEDORLyid52T/AILGnsmaeThzabKKN4IfCVFs24cV0QaxH
-         Go/JJAkUSmVXJTwpdrY7PL0dAAqjB0RH73feuDVmnlRPc1YWDwhTP4aPjT4HMQ//n2nq
-         wlww==
-X-Gm-Message-State: AFuF++n3SDZHngjrZHtdD6WxuYGsw1a3NapIqyYc4+pUoAu1Qc5h/v8m
-	2uuMiQoQ5/aGf4z/dS5nHq1k15sTGbymxUP5eLcR6v0YvaTu41TIGxbecA9p7HhbqXjKc54iraN
-	IBH/w+Ks=
-X-Gm-Gg: AYBFou1hesrU/GKBJDIq4BoQduTKHvphvJpVa0H2uY3sgclRVlhiQ6Spfn7YmFDG5Kh
-	dK+a1igIR5yhfZHMoh9NVvhFDtzMKOBQsGNTr+bQO3TQG0xCYj+PpdKKQkW8+1H55TouBGUpo0B
-	+CXH3v+L0C6ykgcVkDLiH2g18ulaXW0TUmvk+NtodmAQUoV/5RHCgxG636DZpUtjBjLKn7f2IAA
-	Ddt8ykyzHzx6INMw4Er3VW4ul9J9rW4xtAR9tfbxsNw7MjD+L9F2untFytlPEzfqpZTWUtVtwyJ
-	q6pES6ntIjRkkgAFRQ53i1bUyI55AdrJAf+VJKLbGGZ7Es9j6gOyqgnUEhiHKUGkqdh4eiGaLd/
-	/147ikRI5dsxxSRm49OkA3CDCtYEmvgkU2DRcR/1GwQ9i0B2DNoaGXgFAEbjdE4BTG+KOGX9lek
-	TAPxxagJnsAAHGljBz+uP/a+XQmlWYve04oo6ftPPI5aL/xN9TwWD7wNy6POh4F/UKLL7+z3goo
-	7kfnMfxZgUNr48rg8M4yftQ
-X-Received: by 2002:ac8:5d8b:0:b0:533:1038:ad50 with SMTP id d75a77b69052e-533d9587585mr69965091cf.45.1790970905305;
-        Fri, 02 Oct 2026 12:55:05 -0700 (PDT)
+        bh=NJl6vN2DYWl5SvECY/MNPFkAoXMpLzutrBdwcjZxYRo=;
+        b=b/AzOjNfJ/o9f/DHt3KNT7vNXUoD6RiuvmT9sGd/2FZSmejVLsuf+rXOIJ46U/RwB9
+         vh0bqg+HDQfz8PV1lykWQQc0NO1iKax7PrOe5SeLjPPgTiewzHrPSvrb0oAt7s4QWjkm
+         yyYE68WDUbZi93yUquh0hicNGLz/4F3iuwd64WXzK98vZWMSE0B3Gnf6YU2DGTZRhci7
+         PIIW8PwMASrz/yZLvxJO8ofa4BUYz3bdl93UzvcZJxFzLUqAkGFMTlUCco2FLn4gKkOF
+         jJXXRxmaMTvbIrcsusjdenApj+G5pyzIJ3E59V49JEwE+UCMp50ffYHoELRLEMKoBM4G
+         QhOA==
+X-Gm-Message-State: AFuF++kKHa1mi675FEtQ4MwEz4+0Wf/V8RG8+osTJAUWyIrEDg7sjCJX
+	CJmNtTZGP4+jPxvkXICQINnWW6hhPKHDbb+i5wAqQgxwSStnR9PDD3J7qXH7zOdrI/U=
+X-Gm-Gg: AYBFou1ZtHaML2dpvXly2FlevQ2MfZmWFBIVxO7iw0RxMO60Z6uQ9gbakR+1qmoogHw
+	aSJzbVVLTIXTJZTQfKGtbK8OtXIsirj7Ul86BrxKLCb/xDziBsXghEDNo4IwIzlw4jrvWyqiHkq
+	btdJfwVH4kRdLa0Bm/aIm5tUzbSNrPBOp1IgOsTlcvbNTEpwYWsTSUs79+yQSZIH29QXth6P4hh
+	mo/tBA+YY48kjks33cjth5SQ7LAK4sZWN6w/GP7Ci8HgC/j1BqT2WLV0/Z7PKs3rTMzqj0X+2GJ
+	hjugW3jL5lZMbDzc909ro4PlCmhgV4GnQAcmWkgjhg2TrM74WPaXRlG5nbq49q0K+aTo/Vo9b0S
+	5MIMNmFBnTKWUTkMV+Js5d3GWYOnPXGIYCcxMo5DP9aPiTK4GZnJnKVziPdVbhGqiqh1Juwpmao
+	Y0Ba+TXpSNLc8YUPOd4jQTCCWrApPZz1VM21qC437UBZpZCq1uE7iJNhZbGd82EUvDaXqhfH4qQ
+	JIBqwYm577wnA==
+X-Received: by 2002:a05:620a:6413:b0:93c:b766:2bfc with SMTP id af79cd13be357-93e50fa6a3dmr87378085a.17.1790970985078;
+        Fri, 02 Oct 2026 12:56:25 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b6b636sm27285076d6.26.2026.10.02.12.55.03
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c17b8esm27137276d6.43.2026.10.02.12.56.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:55:04 -0700 (PDT)
-Message-ID: <aaf70162b2f8353d198e4f0a0137574b9963870d.camel@ndufresne.ca>
-Subject: Re: [PATCH 1/3] media: rkvdec: Switch to modern PM_OPS
+        Fri, 02 Oct 2026 12:56:24 -0700 (PDT)
+Message-ID: <a153b350bdfd614b4da5a15da29079eec7fc4dd4.camel@ndufresne.ca>
+Subject: Re: [PATCH 2/3] media: rockchip: rga: Switch to modern PM_OPS
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
 To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld	
  <dafna@fastmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
@@ -71,10 +70,10 @@ To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld
  <jacob-chen@iotwrt.com>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 15:55:02 -0400
-In-Reply-To: <20261001173610.158931-2-diederik@cknow-tech.com>
+Date: Fri, 02 Oct 2026 15:56:23 -0400
+In-Reply-To: <20261001173610.158931-3-diederik@cknow-tech.com>
 References: <20261001173610.158931-1-diederik@cknow-tech.com>
-	 <20261001173610.158931-2-diederik@cknow-tech.com>
+	 <20261001173610.158931-3-diederik@cknow-tech.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -89,7 +88,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-u687AWLeNGHFAtWYehS2"
+	protocol="application/pgp-signature"; boundary="=-1Mpu87nLgk5Us+/k4nVo"
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -99,7 +98,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-u687AWLeNGHFAtWYehS2
+--=-1Mpu87nLgk5Us+/k4nVo
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -110,67 +109,72 @@ Le jeudi 01 octobre 2026 =C3=A0 19:34 +0200, Diederik de Haas a =C3=A9crit=
 >=20
 > Switch to those new macros so that the PM callbacks are always seen by th=
 e
-> compiler, but discarded if not used. This lets us drop the check for
-> CONFIG_PM.
+> compiler, but discarded if not used. This lets us drop the __maybe_unused
+> annotation from the callback functions.
 >=20
 > Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
+>  drivers/media/platform/rockchip/rga/rga.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
 >=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
-dia/platform/rockchip/rkvdec/rkvdec.c
-> index 061281f903f3..936abd92f703 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> @@ -1877,7 +1877,6 @@ static void rkvdec_remove(struct platform_device *p=
-dev)
->  		iommu_domain_free(rkvdec->empty_domain);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index b3cb6bf8eb86..f28c93d63760 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -883,7 +883,7 @@ static void rga_remove(struct platform_device *pdev)
+>  	pm_runtime_disable(rga->dev);
 >  }
 > =20
-> -#ifdef CONFIG_PM
->  static int rkvdec_runtime_resume(struct device *dev)
+> -static int __maybe_unused rga_runtime_suspend(struct device *dev)
+> +static int rga_runtime_suspend(struct device *dev)
 >  {
->  	struct rkvdec_dev *rkvdec =3D dev_get_drvdata(dev);
-> @@ -1892,12 +1891,10 @@ static int rkvdec_runtime_suspend(struct device *=
-dev)
->  	clk_bulk_disable_unprepare(rkvdec->num_clocks, rkvdec->clocks);
+>  	struct rockchip_rga *rga =3D dev_get_drvdata(dev);
+> =20
+> @@ -892,7 +892,7 @@ static int __maybe_unused rga_runtime_suspend(struct =
+device *dev)
 >  	return 0;
 >  }
-> -#endif
 > =20
->  static const struct dev_pm_ops rkvdec_pm_ops =3D {
-> -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> -				pm_runtime_force_resume)
-> -	SET_RUNTIME_PM_OPS(rkvdec_runtime_suspend, rkvdec_runtime_resume, NULL)
-> +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-> +	RUNTIME_PM_OPS(rkvdec_runtime_suspend, rkvdec_runtime_resume, NULL)
+> -static int __maybe_unused rga_runtime_resume(struct device *dev)
+> +static int rga_runtime_resume(struct device *dev)
+>  {
+>  	struct rockchip_rga *rga =3D dev_get_drvdata(dev);
+> =20
+> @@ -900,8 +900,7 @@ static int __maybe_unused rga_runtime_resume(struct d=
+evice *dev)
+>  }
+> =20
+>  static const struct dev_pm_ops rga_pm =3D {
+> -	SET_RUNTIME_PM_OPS(rga_runtime_suspend,
+> -			   rga_runtime_resume, NULL)
+> +	RUNTIME_PM_OPS(rga_runtime_suspend, rga_runtime_resume, NULL)
 >  };
 > =20
->  static struct platform_driver rkvdec_driver =3D {
-> @@ -1906,7 +1903,7 @@ static struct platform_driver rkvdec_driver =3D {
+>  static const struct of_device_id rockchip_rga_match[] =3D {
+> @@ -927,7 +926,7 @@ static struct platform_driver rga_pdrv =3D {
+>  	.remove =3D rga_remove,
 >  	.driver =3D {
->  		   .name =3D "rkvdec",
->  		   .of_match_table =3D of_rkvdec_match,
-> -		   .pm =3D &rkvdec_pm_ops,
-> +		   .pm =3D pm_ptr(&rkvdec_pm_ops),
+>  		.name =3D RGA_NAME,
+> -		.pm =3D &rga_pm,
+> +		.pm =3D pm_ptr(&rga_pm),
+>  		.of_match_table =3D rockchip_rga_match,
 >  	},
 >  };
->  module_platform_driver(rkvdec_driver);
 
---=-u687AWLeNGHFAtWYehS2
+--=-1Mpu87nLgk5Us+/k4nVo
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMFgAKCRDZQZRRKWBy
-9FScAP9oQFR10NikWDA9nu2Dfv7rKQ2BsngLSDea0lYtTWwcEgD9HVcbeQIF371C
-sm9RTJ7S2Z9Gr+G5/grG+QsiqbS/kws=
-=Ce67
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMZwAKCRDZQZRRKWBy
+9Nm3AP4y8JqQZKv9U0OttedqiWp5M0Ofbzvm9AyImGL7/X3BggEA6Av0uZd+Ipgu
+Sn0DcrUr/Ux6st7B3vMRPFDOud8b9gM=
+=w8WG
 -----END PGP SIGNATURE-----
 
---=-u687AWLeNGHFAtWYehS2--
+--=-1Mpu87nLgk5Us+/k4nVo--
