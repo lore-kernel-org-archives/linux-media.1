@@ -1,151 +1,175 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402D03233E8
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 19:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F645403AFF;
+	Fri,  2 Oct 2026 20:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790971028; cv=none; b=eHSqvQVYafp64GJqtAuPQxMSxUd0Ico7F69pR8FnfCNR6HPdK43qOw+L2FYiMsm4xdwbdipjzrwPabZ2i34cnecLk5LNL/C27tfiH0yDzI9rHATBQqq4inyAyBcahm7rR9lLd0U+eTdN3YwAyiiP5LzuoDADqaP3h4vT6sNk4qM=
+	t=1790974012; cv=none; b=BstdJjckF/MpSu2PWt4yMaqVxVZFMd30dbzA/ksD8mgPKkCHnXL1D1n2U010dGHiDDAvoD3QuClr7Emh/1Ve/XRcqV1VtKbkuJVUqiZzJyPhh0lCk/pJaEEefsKS3oukCnxFLGUlEp+GHGHAKHIXBz7fyJtNpQoJCEDJlP5/Yuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790971028; c=relaxed/simple;
-	bh=u+AOCaj6H+sVhBdJRSYLOHdqWPibeQxtAivV8c9JEuQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eCLqB9j8FSpujmU4gQPdA1C67fI48xiu+/bdbTCmTiRI8TpEpRCnxNDRpNIn1y2Ef2GpNlcd4h76APzV8LTvvAF50rByZ506qeAnqVGZps0PlS7yxhed1tYnKLllaYPhykeZZ4+0JrGPuxHbmHkwgWJaVqWmnuTfAfUi1jgVoMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Od5KauoA; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790974012; c=relaxed/simple;
+	bh=NX/4BxXQULqN4P1sxYYtLY/zeRY+5VhdpUBDKVxY/UY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UXFWsw8dOrTtYPocV+mNG5/3+ZyPgIfWn9b6vy6bd+NwnrbbWI0TtqjFe0vodeKdC4gXSiHrvnGNkGuSgbl89S4GM57uIr+WrMMgHS3CwMHIuAivPJN9+lYBJW8LeT+/rOo2pelDh0i7/271SBAgMfh09SwggJqsgyAyVwZcZGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jQfJ6fzP; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Od5KauoA"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917bab38b14so1295996d6.3
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 12:57:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790971026; x=1791575826; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5xr7pX17mvH2aCY+fCJUZRujhX//jXl3D3Nc+GjIbpY=;
-        b=Od5KauoASJeOT0rwCOn/DNhmhOtIclo4yMuMptgt5PqPCBYfAc/3h26hVfwyc95YQk
-         RthvDcSD6OZLYQ7Xwp8CVRBR5iaD/OaH3V1Oc5qsjUw47/0/dQR8IV/ycjzNzEidjg6+
-         6wle0kr9M+20Jjh+IDDY1ioN/LnDrAPWYE71GueGa+rCugn4M6+9o713aX6qsRqMpS5N
-         etFmWRZS38XJrwxPyOmlwBv70my86hEriJnLftu/8AJmXxiJiEIBTS0Q6yeNhAzvK3PF
-         5Kicp76vCkWK9cqbaEWD5M/h9/dahT5UuCcR1Ybcb5pC5F/R4bpPIQZ/4BgWF6yMR8Hr
-         Rbjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790971026; x=1791575826;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5xr7pX17mvH2aCY+fCJUZRujhX//jXl3D3Nc+GjIbpY=;
-        b=Vc7uj3aOXw72Amgmtafsv6e10PZ3GgKNYt8bGR9BcqbMPrX4qAiOTkK75kKo+Kb3Fz
-         llu/71/WpG040esCozhAeljuCuJRynLBVEky67ZNFKxKk8j33+iLPg+5Hg5srUssIp/R
-         gPZZMh80WKL1wK8BVJ9rc44qlQS8AizNK9L145wLqE5FDSOM+85iarl+JowcrkGZMtKE
-         gkWlDPFdHCGKAN4ShSN7czbqEhT+8O6v+Eb7xHQwoARoMZUpcKqFeB5QjOM434QN9Deg
-         T27Ne+fVJJ9Ng050J9YjiY9Qe5FanJ3gryySbWc3+Dp74WliWedwltiKB6pUz5elIZO5
-         iytw==
-X-Gm-Message-State: AFuF++kUAzf1z5eXFocl3o3Jdlr8uQr7DEK6+ipUmiwAal2zjry35KAQ
-	xghgE3FbivGsvcwDGpPwYX0TASmHtrL1DkhItylzyA8aikn5Qs7O/YBpugN2f3bbhP0=
-X-Gm-Gg: AYBFou1gtHa76DUvNIWSuypgvTOQRCA6Erj1Gg6SLj8Xg6g6A8ulwUyPeihgwrgcqBo
-	eLdyCLmt33bKLTMdk3ELgQ8cEugAX/JRH5wbcbTsEo7aylroax53DqbonvWmPFfjbk7msOFWv4W
-	4qNav/YRjyxF6REEH2BYiQwdCmaUJNQ4nKi7lrMu86ZEjPiVjuylDg7WwPVzDJeeBzRwr5zeBOw
-	RpL5n6L587y1okg0UnSscVe/vbSNOOa5PbUOVWTQXYhXoUTONga9PtCa3fgJyXopSAI6eV45HmQ
-	VrnufcPzfmHQrOWyD+eTBCye5lvMYFX788+dizbnd29Wmvtn7Y4J+2iI/UbfTUwjkfhO5TYByR8
-	UBgLcWCQsmxBiX71s10gVhmnLcpMlqF6IZKETMSHOYQp9JDnrVGEMDnw21MUX5PxZ4psKDvivsU
-	AxesFOiwJP8lLYf2dRTBEa+bLQ7THSxQ5HmRBwreyTeZE103iy4yIy7J4ZI9wqSP0/Vdiccu3hb
-	8vvDifXQJISRQ==
-X-Received: by 2002:a05:6214:d46:b0:917:a8b7:c824 with SMTP id 6a1803df08f44-9195d0a24fdmr7529476d6.7.1790971025988;
-        Fri, 02 Oct 2026 12:57:05 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-919442ce1c4sm20271766d6.3.2026.10.02.12.57.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:57:05 -0700 (PDT)
-Message-ID: <60c0db37aa1ba8674a0b205473075ab6cb0ed39b.camel@ndufresne.ca>
-Subject: Re: [PATCH 0/3] media: rockchip: Modernize PM_OPS
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld	
- <dafna@fastmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-  Mauro Carvalho Chehab	 <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Detlev Casanova	 <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,  Jacob Chen
- <jacob-chen@iotwrt.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 15:57:04 -0400
-In-Reply-To: <20261001173610.158931-1-diederik@cknow-tech.com>
-References: <20261001173610.158931-1-diederik@cknow-tech.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-4HyN8OfCN+SaQY/bAsCV"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jQfJ6fzP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790974006; x=1822510006;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NX/4BxXQULqN4P1sxYYtLY/zeRY+5VhdpUBDKVxY/UY=;
+  b=jQfJ6fzPnS5/MeDD7ULDO9mgGIZBDiJoOE6EjKsoucsYz1rNTEZgzckv
+   NylteXbH+pVBj6q+Ki7HXbIcLx3sJVR157TI/xcuAkj+q7kY8tvg4UGIq
+   68JUAjbsb625lfquptXaA/PEi777IGNBknbe7Cf4cfusu3bDCgZEMCcfx
+   ZQJEd41Ml+criO0+6dEUWkNy1o2BKai5yKXvIP9pP1SrHDtL83PqJEFhy
+   kXIglqsVuIVY3L83CVLmyKsXlGu6U5+B0jcX425XqRSDwjL/9ubmYaQ1t
+   va4vfWoiGjYd/zx12RY5ziIbPQMeM1ZKQPXgBhe6sWBY90XpjkppIl0UQ
+   Q==;
+X-CSE-ConnectionGUID: tmzrHPI+QcaSOyzy7tx1rQ==
+X-CSE-MsgGUID: OVeZ8KgQTiOyZd6FHqeWkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90774969"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90774969"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:46:33 -0700
+X-CSE-ConnectionGUID: kCmCiu21TB6KPEYA/aKl2A==
+X-CSE-MsgGUID: 2ZOicHAbQkeECdK0UcDALQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="276456377"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.45])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:46:30 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 62091121840;
+	Fri, 02 Oct 2026 23:46:27 +0300 (EEST)
+Date: Fri, 2 Oct 2026 23:46:27 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Felipe Calliari <calliarifelipe@gmail.com>
+Cc: linux-media@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Tomas Moro <tmorolias@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/5] media: ov02c10: Split the PLL registers off the
+ mode tables
+Message-ID: <asAYI3pjBMHAdnTv@kekkonen.localdomain>
+References: <20260923144257.119076-1-calliarifelipe@gmail.com>
+ <20260923234100.318151-1-calliarifelipe@gmail.com>
+ <20260923234100.318151-4-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923234100.318151-4-calliarifelipe@gmail.com>
 
+Hi Felipe,
 
---=-4HyN8OfCN+SaQY/bAsCV
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Sep 23, 2026 at 08:40:58PM -0300, Felipe Calliari wrote:
+> The PLL is programmed partly by the common mode table and partly by the
+> per-lane tables, which override 0x0303 and 0x0305 with the same values
+> for either lane count and also set 0x0316.
+> 
+> Move the 0x03xx PLL registers into a table of their own, keeping only
+> the values that end up in the sensor, and write it before the mode
+> tables. The PLL settings depend on the external clock rate rather than
+> on the mode or the lane count, and this prepares for supporting clock
+> rates other than 19.2 MHz.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
+> ---
+> 
+> Notes:
+>     Changes in v3:
+>     - New patch, as asked by Sakari.
+> 
+>  drivers/media/i2c/ov02c10.c | 28 ++++++++++++++++------------
+>  1 file changed, 16 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
+> index cdccbdef3..0e5010303 100644
+> --- a/drivers/media/i2c/ov02c10.c
+> +++ b/drivers/media/i2c/ov02c10.c
+> @@ -89,12 +89,6 @@ struct ov02c10_mode {
+>  };
+>  
+>  static const struct reg_sequence sensor_1928x1092_30fps_setting[] = {
+> -	{0x0301, 0x08},
+> -	{0x0303, 0x06},
 
-Hi,
+I haven't tried to figure out what this register exatly is, but this patch
+changes how this register is programmed. After this patch, the value of
+this register is always 5.
 
-Le jeudi 01 octobre 2026 =C3=A0 19:34 +0200, Diederik de Haas a =C3=A9crit=
-=C2=A0:
-> A bunch of new PM_OPS macros got introduced in commit
-> 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
->=20
-> Straight up copied from that commit message:
->=20
->     These new macros are very similar to their SET_*_PM_OPS() equivalent.
->     They however differ in the fact that the callbacks they set will alwa=
-ys
->     be seen as referenced by the compiler. This means that the callback
->     functions don't need to be wrapped with a #ifdef CONFIG_PM guard, or
->     tagged with __maybe_unused, to prevent the compiler from complaining
->     about unused static symbols. The compiler will then simply evaluate a=
-t
->     compile time whether or not these symbols are dead code.
->=20
-> So convert the rockchip media components which used the old macros to the
-> new ones.
->=20
-> Diederik de Haas (3):
->   media: rkvdec: Switch to modern PM_OPS
->   media: rockchip: rga: Switch to modern PM_OPS
+> -	{0x0304, 0x01},
+> -	{0x0305, 0xe0},
+> -	{0x0313, 0x40},
+> -	{0x031c, 0x4f},
+>  	{0x3020, 0x97},
+>  	{0x3022, 0x01},
+>  	{0x3026, 0xb4},
+> @@ -303,10 +297,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_1lane_setting[] = {
+>  	{0x394e, 0x0b},
+>  	{0x4800, 0x24},
+>  	{0x5000, 0xf5},
+> -	/* plls */
+> -	{0x0303, 0x05},
+> -	{0x0305, 0x90},
+> -	{0x0316, 0x90},
+>  	{0x3016, 0x12},
+>  };
+>  
+> @@ -330,11 +320,17 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
+>  	{0x4d0d, 0x00},
+>  	{0x5000, 0xfd},
+>  	{0x481f, 0x30},
+> -	/* plls */
+> +	{0x3016, 0x32},
+> +};
+> +
+> +static const struct reg_sequence sensor_pll_19_2mhz_setting[] = {
 
-I'm taking the two first, thanks!
+I guess some of these settings are determining link frequency or pixel
+rate, so they're not generic to anything using 19,2 MHz external clock.
 
->   media: rkisp1: Switch to modern PM_OPS
->=20
->  drivers/media/platform/rockchip/rga/rga.c           |  9 ++++-----
->  drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c | 11 +++++------
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c     |  9 +++------
->  3 files changed, 12 insertions(+), 17 deletions(-)
+> +	{0x0301, 0x08},
+>  	{0x0303, 0x05},
+> +	{0x0304, 0x01},
+>  	{0x0305, 0x90},
+> +	{0x0313, 0x40},
+>  	{0x0316, 0x90},
+> -	{0x3016, 0x32},
+> +	{0x031c, 0x4f},
+>  };
+>  
+>  static const char * const ov02c10_test_pattern_menu[] = {
+> @@ -601,6 +597,14 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = regmap_multi_reg_write(ov02c10->regmap,
+> +				     sensor_pll_19_2mhz_setting,
+> +				     ARRAY_SIZE(sensor_pll_19_2mhz_setting));
+> +	if (ret) {
+> +		dev_err(ov02c10->dev, "failed to write PLL settings\n");
+> +		goto out;
+> +	}
+> +
+>  	reg_sequence = mode->reg_sequence;
+>  	sequence_length = mode->sequence_length;
+>  	ret = regmap_multi_reg_write(ov02c10->regmap,
 
---=-4HyN8OfCN+SaQY/bAsCV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+-- 
+Kind regards,
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMkAAKCRDZQZRRKWBy
-9LnsAQCEQh8/fK0EjxA2qyBxHJJCZTj66w+XssQ/r5decbAYxwD+NAlRMgWmM5Q8
-DCLHzSESx4CgbNEx6od60qqNuMc9Bgs=
-=z221
------END PGP SIGNATURE-----
-
---=-4HyN8OfCN+SaQY/bAsCV--
+Sakari Ailus
