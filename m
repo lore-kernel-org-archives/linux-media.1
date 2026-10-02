@@ -1,224 +1,163 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA8C3F9F3C;
-	Fri,  2 Oct 2026 14:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886E931E822
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 14:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949926; cv=none; b=oml66BDHdDG7RaOtFUSs2g3MvmEIjpp6R+wo/B/tXFPNaFTp9NIAon613XTWe8WORxtulW5pklHrSNj6S7/u7xh/THbUK9/lST9QJdMYB1K+QiRpQ0Bx8igftbwxrMVGTXW/Wl8W5/wySi0gWJOilik/g328KD8IbJz4DzJTenc=
+	t=1790951753; cv=none; b=un6EWWeijxUSzc4L4bnFuEUMGbjuhtYysXCZg9vFnSaAV8bs2/e+ZyaBC1S5lN78Zg1H+3VxVF85ChC8QaMd2h+LXk4ksmKtB0f3npiRYkErn7Io5Arxvy41KBPK5zWFtZRzT6/nabB5H/ImREw/MnEEpbMEIMvRm9TbJR4wvzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949926; c=relaxed/simple;
-	bh=1vxcTXuBCxqXwoQBIzmW3rqlvuTa07ZNaVeUtHOifdM=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=QGpXFjEK6Ys5ufnCbKTY33oR0r2vAbH5xrFiaGHOTMZquMTDJ7GcZZJvvIehfyXbKGPN/7ng5S4V0yNWzN9g1H6INPOeuupAVynXPoagV3uKhUXtX4xpzeawTHmvn2MWig9+icblupIkgnF1Tz5oP3o8nk4hZSgKJlo+ptd070A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=dZhb3mgq; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1790951753; c=relaxed/simple;
+	bh=sEskR/3ExQTLHI71NqLlpzs/JE6M5OOwwHG9YZNTZAY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qrfr+VR0VnSLU7V3JwgrRgSnkNwU3uTEgIJ3jIVlVIg5oNe81LINw7OoiHWMveObhrDnnQaa3nGafHFzhjsUFLiXG7S0AYmSVTLnOwa+gd7Sb7+SGRHpElEZw2qjS8K77+77ZCtDx32NX+MmLJ2zKQw2gzRdHR5qOqxEaadeeBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OM7fjLjt; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="dZhb3mgq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1790949882;
-	bh=BAoZsisDnlY0LO+TduzgC6g/Q+8iWDR6OcyZyRZyWNU=;
-	h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
-	b=dZhb3mgqrZGt9We8M7wy4kUi8RDLqBxp+dSeqrnGinNUgE3cp2JCb5g25ZszfRS0/
-	 3OQomL/ZZan98v95D1OLV91MUwsfSec3jzmKoviInvLYlqlKacVZT1GiqhK32xg9XR
-	 gYdceKx7LwwI51NMR/g3I6NMROCse5XRMAc6lO2lI/OSDbXiiZzAhaLAQYS2a4Ke0A
-	 k9lQIs+pvIsTnYyw+8whPYPvnv2FsL8YH1Qw6gKWEds1EM/YtypDZhAZe2jXUa76IP
-	 6WR91iWgzB5042mky/irVF1YtzY5eNSasK1Oy8mRFJw3jgAHLLqRe91tmGqdx21OnK
-	 Z+tWDurs/SNEw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hx9Wh1Pvtz4w1l;
-	Sat, 03 Oct 2026 00:04:31 +1000 (AEST)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OM7fjLjt"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso13317912a12.1
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 07:35:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790951750; x=1791556550; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tnnaK1bgjoHXdx4TLwgBNAZANL+ZBN5rHCxr30tdrTw=;
+        b=OM7fjLjthjUwEd0GpjeI8BQRE7H8dKViyY9tMVjlOk3mh4SRm1wpryj8WyanqV+qeX
+         bc2PbvW09240D6r9g+3PRl3XtqISSfiCWEhTZ9Xdk5NU2C4KPil/aUP/NgzIypJw0eSt
+         ybZsGUurjdNY6uXbz/+sU2EJVKu8Aci92SWB0+XKUZh+yw9fh0hsFi76LsyoJEY0QmOp
+         gYANqf/kmpL6bpm22VIKnMFmlfk8vYTjYwaXjSEydMEzH6ows7TgL1yzGo7ZijNPSxzQ
+         06PQxgreAxbPjVa80MvNyldbr+hB9vG5sjTifjO5fFiHF74F3BJvnejqLnEGYdz8XNGq
+         BtuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790951750; x=1791556550;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tnnaK1bgjoHXdx4TLwgBNAZANL+ZBN5rHCxr30tdrTw=;
+        b=ZDeSYuWrV4AZUzu3QwMJnp7h9CnKoaMda/HfVTFU8mkYy78fu4FDLqTljSxCjP7U7+
+         voH+agGdYNP6pLi4tqEk4rP3FIsAmpqVmuyEDWyOAwR9JlHtYXpbn9zWGsZuLNXsF408
+         IyaiaPkY5iDy9ls4+wnrj/UTfj+yww9lU/EQXDFDIu5DVH6QNUPJWPpP77BVoO4wR8Sl
+         KEYPlgP2OZKHUNIy981SiKqiM0F3fmCVNZ4tCWF7OC+reeRehvuCGS8ZOXcUm3umkLNt
+         XrUoO3ZcoP+js8n9pWUWi+07MxNuCJF7TtiYnzqFn8kP/fADO0/OMjBV9ScA/otDCC7c
+         ruVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxV5PO93IQ9lr/rVaGxyeba795GNZMhFAmllh6YQ4df/1VSe0qDwAKsF0P5dyContVIiY92urt28SnCDg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIdttCgVK3A047xdGTJ3a4oCvXAU5ekVio7q+NN87xHwvspGr4D
+	pjFb029DUOZyYa2O+Wl7L8YizDLpeeXVEOjXD4q1rfvnf5KhtXOy4W8g68feA459QY0=
+X-Gm-Gg: AYBFou29URiQUUMbBXqHzntg5zPsHxfbsnTd2q855VP/63Zz2GAceQQwpdXfl9z+wlm
+	AY5TM4VA2arTx9ZHwjzQjzaPWjoJVjwoynzihqGJC9YEsUhb0zykkwrfBxicdLUnyJmLNAKV+34
+	3aNP5QGqVhG+37i0sGMhQYkvCALTuC0QgbdJ0+gXLAwJ5xnnNY20MbeH9VyUa1EL5ODXE3PZJc0
+	MwVcNSYuywRvXk2CBwxtLZBKaFN9X2yFjLmbcN/OaV1LvTUpIyuvDlo5LhTIYQ/QdgQyJEkwtI8
+	x3pVmzzNbcA703pCvjssdx0phZAJj8C3PNfTsWeKjq+rC8VaMI8h7eKGMi6wKRK/GFy7fp9adnq
+	Wb+PXCSPkW8Hhgn0TLMiLG2wbMoTJKtHZMjto1g5lqnzkdhrWkLuh52w5R3FtRFWVh8LlePhahW
+	oq6oPsKvhXeBs+nLqHb/+HBPY2pFZm12fT7rmxjVCRS00AJPNiZAxRp8FXO4mq8znWHJdabx6cL
+	4a0x4TRGpX8
+X-Received: by 2002:a05:6402:254b:b0:6aa:fac1:3bff with SMTP id 4fb4d7f45d1cf-6af9e357989mr2066365a12.32.1790951749730;
+        Fri, 02 Oct 2026 07:35:49 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.210.127])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d873682sm929326a12.10.2026.10.02.07.35.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 07:35:49 -0700 (PDT)
+Message-ID: <45d79c84-cc76-4bee-835d-ed11ce07bf2f@linaro.org>
+Date: Fri, 2 Oct 2026 15:35:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v7 0/9] vfio/pci: Add mmap() for DMABUFs
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261001153834.4a2528a2@shazbot.org>
-Date: Fri, 2 Oct 2026 15:04:49 +0100
-Cc: Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>,
- =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org,
- linux-pci@vger.kernel.org,
- Manish Honap <mhonap@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A758FB87-95D3-4CE4-87C8-C50FF0ACE026@ozlabs.org>
-References: <20260924152159.49702-1-matt@ozlabs.org>
- <20261001153834.4a2528a2@shazbot.org>
-To: Alex Williamson <alex@shazbot.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 06/15] media: qcom: camss: vfe: Add support for VFE
+ 1190
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
+ <20260923-hawi-maili-camss-v1-6-cbbb42e534ef@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260923-hawi-maili-camss-v1-6-cbbb42e534ef@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Alex,
+On 23/09/2026 12:02, Nihal Kumar Gupta wrote:
+> drivers/media/platform/qcom/camss/camss-vfe-gen4.c
 
-> On 1 Oct 2026, at 22:38, Alex Williamson <alex@shazbot.org> wrote:
->=20
-> On Thu, 24 Sep 2026 16:21:43 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
->> Dear Reviewers,
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>=20
->> Along the way several related issues came up that warrant more
->> eyes, and I'd be grateful for your input:
->>=20
->> 1. If VFIO fd is opened O_RDONLY, it currently can't be mmap()ed
->>   (because PROT_WRITE is rejected in do_mmap(), and PROT_READ alone
->>   drops the VM_SHARED so VFIO's mmap rejects it).  BUT it seems we
->>   can export a DMABUF from it, and then pass the resulting fd around
->>   for P2P writes.
->>=20
->>   I don't know if this is intentional/relied on/a known limitation,
->>   or a bug?
->=20
-> Seems like a bug.  In practice it's probably not very meaningful, the
-> user can still potentially change the device power state and trigger a
-> reset, but being able to source a writable dmabuf to a region on the
-> device fd that isn't itself writable seems semantically wrong.
->=20
->>   a) We could reject export w/ -EPERM unless the device fd's f_mode
->>      has O_RDWR, to reflect the RW abilities of P2P
->=20
-> This seems sufficient...
+So I'd like to completely drop the genX.c stuff it is not descriptive.
 
-Thanks, I=E2=80=99ll take a look then.  I should=E2=80=99ve said this is =
-cdev-centric=20
-(an explicit open O_RDONLY), as VFIO_GROUP_GET_DEVICE_FD always
-generates the fd with RDWR perms.  The path from container/group open
-through to device fd generation and then export is similarly=20
-semantically weird, but maybe less clear on effort vs benefit to fix.
-
-So, for cdev open it looks like some plumbing, and that it won=E2=80=99t=20=
-
-conflict with this series, so I can look at that separately.
-
->>   If we agree it's a bug, I want to do this fix (a), as we can now
->>   export a DMABUF RW from an O_RDONLY device fd and then succeed to
->>   mmap() the DMABUF with RW.  (That said, even with an O_RDONLY
->>   device fd, the device state can still be changed/reset.  But it
->>   feels cleaner to prevent export for a O_RDONLY device fd, and match
->>   the device fd mmap() behaviour.)
->>=20
->>   In future, we could consider finer-grained RD/WR if there's a
->>   future goal to tie DMABUF permissions to, say, iommufd
->>   IOMMU_READ/IOMMU_WRITE permissions:
->>=20
->>   b) Instead of just failing if !O_RDWR, we could limit the
->>      get_dma_buf.open_flags to the VFIO device fd's f_mode, such as:
->>=20
->>       VFIO device fd perms:    Export flags:           Result:
->>       O_RDWR                   O_RDWR, O_RDONLY        OK
->>       O_RDONLY                 O_RDONLY                OK
->>       O_RDONLY                 O_RDWR                  -EPERM
->>       O_WRONLY                 * -EPERM
->>       *                  O_WRONLY                -EPERM
->>=20
->>     (Skipping WRONLY because a PROT_WRITE-only mmap() won't work,
->>      though it probably should be included for P2P.)
->=20
-> Certainly more complete, but I'm not sure there's a use case here that
-> really warrants the effort.
->=20
-> Another angle to the dmabuf permissions is the region permissions
-> themselves.  We don't currently hit this since we're only exporting =
-PCI
-> BARs, but for instance Manish wants to protect the HDM decoder range =
-in
-> the vfio-cxl series[1].  Again, there's probably a simple solution to
-> simply consult the excluded ranges list, added in that series, and
-> reject dmabuf exports overlapping it.  I don't expect any action item
-> for this series though.
-
-Interesting, thanks.  Reading.
-
-> =
-[1]https://lore.kernel.org/all/20260916183540.3813685-1-mhonap@nvidia.com/=
-
->=20
->> 2. The mmap fault handler takes a bunch of locks non-interruptibly,
->>   and potentially depends on a lot of DMABUF-related activities
->>   completing.  I'd had a go at converting them to
->>   interruptible/killable forms, but that revealed there seems to be a
->>   wider issue if move/revoke doesn't complete in a timely fashion
->>   (due to buggy importers).  Where I got to was that just updating
->>   the fault handler won't fix the user experience of an unkillable
->>   task, and move()/revocation will need thought too.  I don't intend
->>   to fix this here but wanted to start discussion so we can address
->>   it in a follow up.  There's now a dependency between mmap_lock in
->>   the fault handler and the DMABUF resv (which might take a while to
->>   resolve), though revocation will be rare in practice.
->>=20
->> 3. vfio_basic_config_write() has an error path if
->>   vfio_default_config_write() fails that releases memory_lock but
->>   doesn't un-revoke BARs in the case of PCI_COMMAND.MSE being
->>   cleared.  When can the write fail, in practice, perhaps surprise
->>   removal?
->>=20
->>   The effect on this series would be: a write of MSE=3D0 revokes =
-BARs,
->>   vconfig[PCI_COMMAND]'s MSE becomes 0, but if the physical write
->>   fails then the physical MSE remains 1 and BAR VMAs stay revoked.
->>=20
->>   This seemed a mess; fixing isn't as simple as un-revoking on the
->>   error path since vfio_default_config_write() has already trampled
->>   vconfig so that'd need unwinding.  It felt like a catastrophic
->>   scenario where BARs staying revoked isn't a bad outcome, but want
->>   to hear your experience of the likelihood of this issue.
->=20
-> Our vfio-pci story around surprise removal and DPC is pretty weak, I'm
-> hoping that some of our parallel error handling work will shut down =
-the
-> device when this occurs.  For now, leaving the dmabuf revoked seems
-> like a reasonable thing to do.  In practice, I don't really see this
-> coming up other than in testing surprise removal of NVMe drives.
-
-OK, cheers.
-
-(Maybe a couple of these bullets are ~rhetorical, just to get a =E2=80=9Ck=
-nown
-wrinkle=E2=80=9D searchable somewhere.)
-
->> 4. The exchange of a VFIO fd mmap()'s vma->vm_file with an implicitly
->>   created DMABUF's file has implications on LSM.  For example, an
->>   mmap will be checked against the policy for a VFIO fd, but a
->>   subsequent mprotect() relates to the policy of the DMABUF file
->>   (which is anon/unique to the mapping).  This is pretty confusing.
->=20
-> Maybe I'm not seeing the issue, but this seems like correct behavior =
-to
-> me.  Policy decisions are made at creation time and later changing
-> protections on one object doesn't affect the other.  Thanks,
-
-I think this is a change in behaviour re LSM rule, should anyone have
-applied any to VFIO in any fine-grained way, so just flagging that.
-
-I=E2=80=99ll send v8 shortly, resolving Christian=E2=80=99s request.  As =
-ever, thanks
-for the input!
+For example:
 
 
-Matt
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen3.c 
+b/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
+index 93d16b0951e99..f2001140ead12 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
+@@ -12,13 +12,43 @@
+  #include "camss.h"
+  #include "camss-vfe.h"
 
+-#define BUS_REG_BASE                   (vfe_is_lite(vfe) ? 0x200 : 0xC00)
++#define IS_VFE_690(vfe) \
++           (vfe->camss->res->version == CAMSS_8775P)
++
++#define BUS_REG_BASE_690 \
++           (vfe_is_lite(vfe) ? 0x480 : 0x400)
++#define BUS_REG_BASE_780 \
++           (vfe_is_lite(vfe) ? 0x200 : 0xC00)
++#define BUS_REG_BASE \
++           (IS_VFE_690(vfe) ? BUS_REG_BASE_690 : BUS_REG_BASE_780)
++
++#define VFE_TOP_CORE_CFG (0x24)
++#define VFE_DISABLE_DSCALING_DS4  BIT(21)
++#define VFE_DISABLE_DSCALING_DS16 BIT(22)
++
++#define VFE_BUS_WM_TEST_BUS_CTRL_690 (BUS_REG_BASE + 0xFC)
++#define VFE_BUS_WM_TEST_BUS_CTRL_780 (BUS_REG_BASE + 0xDC)
++#define VFE_BUS_WM_TEST_BUS_CTRL \
++           (IS_VFE_690(vfe) ? VFE_BUS_WM_TEST_BUS_CTRL_690 \
++            : VFE_BUS_WM_TEST_BUS_CTRL_780)
++/*
++ * Bus client mapping:
++ *
++ * Full VFE:
++ * VFE_690: 16 = RDI0, 17 = RDI1, 18 = RDI2
++ * VFE_780: 23 = RDI0, 24 = RDI1, 25 = RDI2
++ *
++ * VFE LITE:
++ * VFE_690 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4, 5 = RDI5
++ * VFE_780 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4
++ */
++#define RDI_WM_690(n)  ((vfe_is_lite(vfe) ? 0x0 : 0x10) + (n))
++#define RDI_WM_780(n)  ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
++#define RDI_WM(n)      (IS_VFE_690(vfe) ? RDI_WM_690(n) : RDI_WM_780(n))
+
+In other words VFE 690 and VFE 780/880 don't share the same write-master 
+index.
+
+So they aren't the same silicon.
+
+I'll go and find the Kaanapali thread but the feedback here will apply 
+there.
+
+Name the files per their silicon version not some genX.c moniker, please.
+
+It _looks_ like 690 and 780 will need to be separated so, I'd like to 
+move away from this misleading genX notation - it may mean things to 
+qcom but I feel we are burying inappropriate hacks inside of convenient 
+gen files.
+
+---
+bod
