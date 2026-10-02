@@ -1,175 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F645403AFF;
-	Fri,  2 Oct 2026 20:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBBF1F3B85
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 22:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790974012; cv=none; b=BstdJjckF/MpSu2PWt4yMaqVxVZFMd30dbzA/ksD8mgPKkCHnXL1D1n2U010dGHiDDAvoD3QuClr7Emh/1Ve/XRcqV1VtKbkuJVUqiZzJyPhh0lCk/pJaEEefsKS3oukCnxFLGUlEp+GHGHAKHIXBz7fyJtNpQoJCEDJlP5/Yuc=
+	t=1790978747; cv=none; b=i+5KEBhRsP03KNeOTONPkvbkEkUicQQbV4YoYx1YzmP/RZe6xO4kKiF7yJ9LEXER3TC1G5YGvtfMnWK+6IOtkhCVLGTsfkacEJS3RQnKhbqUoVy2IpzqbeSzQP6gPLoBnaxhNUe+GE9rRZuyuhWbjiwTSIqqBRBic6VVl4dd5kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790974012; c=relaxed/simple;
-	bh=NX/4BxXQULqN4P1sxYYtLY/zeRY+5VhdpUBDKVxY/UY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UXFWsw8dOrTtYPocV+mNG5/3+ZyPgIfWn9b6vy6bd+NwnrbbWI0TtqjFe0vodeKdC4gXSiHrvnGNkGuSgbl89S4GM57uIr+WrMMgHS3CwMHIuAivPJN9+lYBJW8LeT+/rOo2pelDh0i7/271SBAgMfh09SwggJqsgyAyVwZcZGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jQfJ6fzP; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790978747; c=relaxed/simple;
+	bh=01XW4uC/sGdUHWiw99Nd7VE9u7bEzoXNo4QNFV8NZy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PlmHWEpQvfVImkMKviNCxZd7m8IQsb1AoGPBOyJYNY+IgP/HQKyC42JOy9t8UBK4w4SOyam/UzsSBDIktO6SqA8Jpg/sw4Gjslyd5DHi65wF0/vhkrvoQtVQbqSqWJv/RjcfDjorPuZu3oj92LBsrwEuw8MeV+fcymmhq+3crb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+vyULPE; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jQfJ6fzP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790974006; x=1822510006;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NX/4BxXQULqN4P1sxYYtLY/zeRY+5VhdpUBDKVxY/UY=;
-  b=jQfJ6fzPnS5/MeDD7ULDO9mgGIZBDiJoOE6EjKsoucsYz1rNTEZgzckv
-   NylteXbH+pVBj6q+Ki7HXbIcLx3sJVR157TI/xcuAkj+q7kY8tvg4UGIq
-   68JUAjbsb625lfquptXaA/PEi777IGNBknbe7Cf4cfusu3bDCgZEMCcfx
-   ZQJEd41Ml+criO0+6dEUWkNy1o2BKai5yKXvIP9pP1SrHDtL83PqJEFhy
-   kXIglqsVuIVY3L83CVLmyKsXlGu6U5+B0jcX425XqRSDwjL/9ubmYaQ1t
-   va4vfWoiGjYd/zx12RY5ziIbPQMeM1ZKQPXgBhe6sWBY90XpjkppIl0UQ
-   Q==;
-X-CSE-ConnectionGUID: tmzrHPI+QcaSOyzy7tx1rQ==
-X-CSE-MsgGUID: OVeZ8KgQTiOyZd6FHqeWkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90774969"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90774969"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:46:33 -0700
-X-CSE-ConnectionGUID: kCmCiu21TB6KPEYA/aKl2A==
-X-CSE-MsgGUID: 2ZOicHAbQkeECdK0UcDALQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="276456377"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.45])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:46:30 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 62091121840;
-	Fri, 02 Oct 2026 23:46:27 +0300 (EEST)
-Date: Fri, 2 Oct 2026 23:46:27 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Felipe Calliari <calliarifelipe@gmail.com>
-Cc: linux-media@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Tomas Moro <tmorolias@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] media: ov02c10: Split the PLL registers off the
- mode tables
-Message-ID: <asAYI3pjBMHAdnTv@kekkonen.localdomain>
-References: <20260923144257.119076-1-calliarifelipe@gmail.com>
- <20260923234100.318151-1-calliarifelipe@gmail.com>
- <20260923234100.318151-4-calliarifelipe@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+vyULPE"
+Received: by mail-pj2-f38.google.com with SMTP id d9443c01a7336-2e2d9fdf798so275835ad.0
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 15:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790978746; x=1791583546; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j8/HFUWluZhijz+URCNd+7IiH1oTyp6nTgJbUzgXg/4=;
+        b=c+vyULPEsPxrvz8hR4E+VQD/8I0rPSXCXN4LKlUxvkqvkFSAk0DvwC8mmkMHnQUZVy
+         2v9FjRbeS5vmn0SAc51K+IilUvF/B5jBfinZl0DReiWiqUW/vHfSZXeWUhcqC3eqTkZB
+         h0/CBOKpdRrc1lDZt+4yHbKiT757G1W39NF/BNkGqB62FkAgzJAvQcgtx4tikO5yced7
+         B6Psxcuo7W3uzlPEyxNMdeDLeBNoxslMitR7g1vFHSDsySkd58W5ns5XNZeF004vfjW5
+         QMmyPu9nLI7aGnv8mlhWSh3PL4yosVvxSmgJRWPUstD215BPBQ3SIXL3XsxNj6BPS/81
+         JSmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790978746; x=1791583546;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j8/HFUWluZhijz+URCNd+7IiH1oTyp6nTgJbUzgXg/4=;
+        b=fgSSrPR1m6oQLX9oPWPmCatrv241ufJ2TxUeJJqhPFQ1ajKFZ1YkVceCSVhpknUdMR
+         QhY9GnjiyMvPPnk0GFTAwSwgi976vBJSNL5zO0H7KkdYtkw8zWm1QAu9/dkCiz39pe1n
+         q/flY03htVzjQ75z4f89ffpyoA54Hf5mY+pI9RXuY5lrP/PttYZxm1Vg1PdcS05DLXOp
+         W0PWuOrq5Q0+Y/k5CJpaJ2jhOO2uC4n9oh56jWydsimNI+FFEJahoBjbUdh0Xmj2y4xx
+         KjBlylc8hYEeNmaEXS5whQSHj2kxnC+sLya/rCYxCkUjfWqm7yZ/IoJXS4kV3ytSjSUK
+         ggJg==
+X-Forwarded-Encrypted: i=1; AKwUvByMVfA2rmLZrUax8Wai8NjU4HN8YOtEUnSIdDA3O2mwgXLwvD8BLpdG0bQUYjFaE5WazDmPCy7DaYu3+A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuCP55QGl+aL4YeuZUljGbL4MNER54D+s419joq8nMb8a3ftl1
+	HdC7JxAimK8PK95pCyWOPV+jQn6D09kVYy9TPOUw9RSgexutoBu3HWRZ
+X-Gm-Gg: AYBFou2Puaf1Ffb7lHANMkPjEONbSdDke9imMFAdx6LmmHI2gFhjUSPHPKcpJ2X4u8d
+	7yj1Cqd7eDjQjvneU2Lav1NhrXIucQwKpXDm2foIWqs6Oldxrv1CnMeAxOD0edL7Ub9gHeYavsS
+	wRkTRjd/PKW3CJmtb3RrDLylf+oYfnOKtEPPZqVOl8Z1Eb7CCjWaV72kjptgq42pJrgnBxXFT9A
+	TpqvUL0xYQZcV2ZC3QXGcrjsKHZ9TdrkZuWxDdxi8B+ILhAZbBWDMXfdSFWG3Otj66Voz3A0rh3
+	uDgGX84gbRHoLflIiXEVo6JKxtyyVxluMHbQBmPM9edyiMBqg8K20LU2K65Nd+PN3QR1zlUqf29
+	3KUt0/a1/aj+LcYL1xoiKcKskwLv6fy5TspKMu+/iBIp7FVDV3lWyIkWIgAhdzpbDqTMKQ0mZ+3
+	47Ruj4ej5uv7UWgh9gW1EZR7Q5a7WzMnWnxNKQ/UXXBhqkQIZogfLztkUXqD9pJz/i4vQ=
+X-Received: by 2002:a17:902:f607:b0:2df:9556:6847 with SMTP id d9443c01a7336-2e49b7ff04emr31434085ad.70.1790978745585;
+        Fri, 02 Oct 2026 15:05:45 -0700 (PDT)
+Received: from TC-LAPTOP.lan ([99.30.92.7])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6ad1a9sm12324835ad.43.2026.10.02.15.05.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 15:05:45 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	lee@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	dmanresa@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v12 9/9] media: ov8858: add ACPI device ID INT3477
+Date: Fri,  2 Oct 2026 15:05:40 -0700
+Message-ID: <20261002220540.1271601-1-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002163350.1248431-1-tchatard@gmail.com>
+References: <20261002163350.1248431-1-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923234100.318151-4-calliarifelipe@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Felipe,
+The Omnivision OV8858 appears in ACPI firmware under the HID INT3477 on
+Intel IPU3-based platforms such as the Dell Latitude 5285 2-in-1. Add
+INT3477 to the ACPI match table so the driver binds when instantiated by
+ipu_bridge.
 
-On Wed, Sep 23, 2026 at 08:40:58PM -0300, Felipe Calliari wrote:
-> The PLL is programmed partly by the common mode table and partly by the
-> per-lane tables, which override 0x0303 and 0x0305 with the same values
-> for either lane count and also set 0x0316.
-> 
-> Move the 0x03xx PLL registers into a table of their own, keeping only
-> the values that end up in the sensor, and write it before the mode
-> tables. The PLL settings depend on the external clock rate rather than
-> on the mode or the lane count, and this prepares for supporting clock
-> rates other than 19.2 MHz.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
-> ---
-> 
-> Notes:
->     Changes in v3:
->     - New patch, as asked by Sakari.
-> 
->  drivers/media/i2c/ov02c10.c | 28 ++++++++++++++++------------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-> index cdccbdef3..0e5010303 100644
-> --- a/drivers/media/i2c/ov02c10.c
-> +++ b/drivers/media/i2c/ov02c10.c
-> @@ -89,12 +89,6 @@ struct ov02c10_mode {
->  };
->  
->  static const struct reg_sequence sensor_1928x1092_30fps_setting[] = {
-> -	{0x0301, 0x08},
-> -	{0x0303, 0x06},
+Assisted-by: LLM
+Signed-off-by: Thierry Chatard <tchatard@gmail.com>
+---
+ drivers/media/i2c/ov8858.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-I haven't tried to figure out what this register exatly is, but this patch
-changes how this register is programmed. After this patch, the value of
-this register is always 5.
-
-> -	{0x0304, 0x01},
-> -	{0x0305, 0xe0},
-> -	{0x0313, 0x40},
-> -	{0x031c, 0x4f},
->  	{0x3020, 0x97},
->  	{0x3022, 0x01},
->  	{0x3026, 0xb4},
-> @@ -303,10 +297,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_1lane_setting[] = {
->  	{0x394e, 0x0b},
->  	{0x4800, 0x24},
->  	{0x5000, 0xf5},
-> -	/* plls */
-> -	{0x0303, 0x05},
-> -	{0x0305, 0x90},
-> -	{0x0316, 0x90},
->  	{0x3016, 0x12},
->  };
->  
-> @@ -330,11 +320,17 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
->  	{0x4d0d, 0x00},
->  	{0x5000, 0xfd},
->  	{0x481f, 0x30},
-> -	/* plls */
-> +	{0x3016, 0x32},
-> +};
-> +
-> +static const struct reg_sequence sensor_pll_19_2mhz_setting[] = {
-
-I guess some of these settings are determining link frequency or pixel
-rate, so they're not generic to anything using 19,2 MHz external clock.
-
-> +	{0x0301, 0x08},
->  	{0x0303, 0x05},
-> +	{0x0304, 0x01},
->  	{0x0305, 0x90},
-> +	{0x0313, 0x40},
->  	{0x0316, 0x90},
-> -	{0x3016, 0x32},
-> +	{0x031c, 0x4f},
->  };
->  
->  static const char * const ov02c10_test_pattern_menu[] = {
-> @@ -601,6 +597,14 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
->  	if (ret)
->  		return ret;
->  
-> +	ret = regmap_multi_reg_write(ov02c10->regmap,
-> +				     sensor_pll_19_2mhz_setting,
-> +				     ARRAY_SIZE(sensor_pll_19_2mhz_setting));
-> +	if (ret) {
-> +		dev_err(ov02c10->dev, "failed to write PLL settings\n");
-> +		goto out;
-> +	}
-> +
->  	reg_sequence = mode->reg_sequence;
->  	sequence_length = mode->sequence_length;
->  	ret = regmap_multi_reg_write(ov02c10->regmap,
-
+diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
+index 3f45f7fab..d106cad6f 100644
+--- a/drivers/media/i2c/ov8858.c
++++ b/drivers/media/i2c/ov8858.c
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/unaligned.h>
+ 
++#include <linux/acpi.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+@@ -1981,11 +1982,18 @@ static const struct of_device_id ov8858_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, ov8858_of_match);
+ 
++static const struct acpi_device_id ov8858_acpi_ids[] __maybe_unused = {
++	{ .id = "INT3477" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(acpi, ov8858_acpi_ids);
++
+ static struct i2c_driver ov8858_i2c_driver = {
+ 	.driver = {
+ 		.name = "ov8858",
+ 		.pm = &ov8858_pm_ops,
+ 		.of_match_table = ov8858_of_match,
++		.acpi_match_table = ACPI_PTR(ov8858_acpi_ids),
+ 	},
+ 	.probe		= ov8858_probe,
+ 	.remove		= ov8858_remove,
 -- 
-Kind regards,
+2.53.0
 
-Sakari Ailus
