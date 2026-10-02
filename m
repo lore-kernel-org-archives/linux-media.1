@@ -1,77 +1,47 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from outbound.ms.icloud.com (ms-2004k-snip4-11.eps.apple.com [57.103.74.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11167477E22;
-	Fri,  2 Oct 2026 09:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF3E47A0C0
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934504; cv=none; b=bQMIXHCzVU6BI0mBfzmq/RT9ACovzaO4Yz2lDFZZHQdOuoc11fSfCYXdIQFMljsqoewvKUQhi9quvSmVPFC9jNHsakw1rUVypMHac0eRPr7K/nbegS7ywEpr0WevKqeESOL9VqM92JC21vHpO4gO0GYv89OY3uDwM39nrCs4ZsE=
+	t=1790934580; cv=none; b=J7PQBwY+cSLWtjFcGHvOQmDULYgwfJKDiCOiK2CvY9QNxx9oiywUZONIooEMPEUuuR79pUX9RMJolsXNZxz7X+5142bBt6FNfFYTZLyK2dpfJV5XaF4b6ON4Cy0tpLlrwp6H6fNr3MIeoVf9/K4zcObumYLm3qi97BgOL+6gWLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934504; c=relaxed/simple;
-	bh=RbcWBmCUPxJ+y+RKr8MXYk/AIpKv9AVVXztnaBm7aIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WNSoyj/JyhKZIQlcYWvketrm/xra8aHuRaXYSdsAeEQLXhb34mVZh+mkPEbJCIUx4d1ckgyvyMnq2Yv5pDj0q3KoiURIDDHtT6zT5lUag8933dBzncR7U1DY+dIawgiWiv3oWwX3GIR6M8Dw2mV1uXSgRCtTn1JYPRe8YWgm95o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gKaU8UYy; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790934580; c=relaxed/simple;
+	bh=Z4DGypsjGRe2NX77iE2DcjvhUodppVYdEuTOf+BILg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RJbgl5dzQVQUJ5HsO1Da95EoB5keChryV9nI5FB6sKHVLYJW5O9ReUQOg9DeMkX7AN0IoW8gf78XZI4e927ZhyXL8M/qqTIQb/KM3C3kuuHFZJi238QvkeTF45QW6uz5tKDBYsNl7G6u0cLdJ8NYZjOQgW2SsVN/YI6FNJFEuT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=kKrWsOqU; arc=none smtp.client-ip=57.103.74.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gKaU8UYy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790934502; x=1822470502;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=RbcWBmCUPxJ+y+RKr8MXYk/AIpKv9AVVXztnaBm7aIk=;
-  b=gKaU8UYyaYW27ZvD7xoGGCZnoyTKr7dqlf5c4cHtjw6zJqYFIMETOu6p
-   e4diwwleMPm2OTeVAr31xOsaMtAVzrKksMsqsInfTfhdlVgw5dj7QJXRg
-   agX+4jJ+vXyLlsLGbK+IiRCtFISTjXczbzVytDHRIEAbRLH8lIbYx9jjJ
-   zdVMI3ajGggnbf9dHg+RfdnAtaVX8K9zre4+1q9W3Hv13bn0h75yMtGl2
-   uaJXegg2Nxllxstz1k8Bv/mld4EQhbZbNcpb4tg7J+XUtNSkPCL0VhW6z
-   DKbsQi+9kS1BA3WZdlz9Al25OPIHh7kzNQdHwEkBbp/rDN+jm5WQTfupR
-   A==;
-X-CSE-ConnectionGUID: GD3ZXMnPR+q5gMVmPv1lMw==
-X-CSE-MsgGUID: M8nP66pgRUCfqcW+d6wSKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102374091"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="102374091"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:48:21 -0700
-X-CSE-ConnectionGUID: p0x8X6ozTo2s8vpYu1Y3mQ==
-X-CSE-MsgGUID: 9fXOdM5bTF2RRK4GAMke+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="280959261"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa004.fm.intel.com with ESMTP; 02 Oct 2026 02:48:16 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 6CEE299; Fri, 02 Oct 2026 11:48:15 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="kKrWsOqU"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPS id 4175B18001BA;
+	Fri, 02 Oct 2026 09:49:30 +0000 (UTC)
+X-ICL-RepId: 01a0fc04-d4a8-701f-925f-36e5446a0b91
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUgdXwRZEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlQXA1ccVkVcGEMJXQVXHB0AREVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQQlIAV0OXwtBClYBVQBZAF0IVUMEUhlAFXkIWgNYBQNeXwoNTUMSQhUEG0YeQwRfL10XXgxeBQ==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1790934573; x=1793526573; bh=2NoRxWcsszTzrFvdkXa8Ga+nEaBZTT0YNHj2aZ8ZKYo=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=kKrWsOqUEmMagH/uaammt5zaghZyA++DS4w+utV9lsezRCAzHKSzPcaCzZ8Qh06TfdBfzxKQcTwkaE+y6gpkjny41e2qLa4Q7ty8gko+Q5Z52ddzsH2IJxVwFVfL360kRVGQOvhDv7yViBmP1zuycBZKkzFnASB8aJcW3NIaggZqxPyCrsaJlYf6Z8lI4iqwUFlOrYymPhNwzBwpnX7RUc+6Y/+Xpp4ZZeQpXBaAcOTM/EFJOuH9gmET98MGjEP9xqcKa9c1CX4CoDDsfAXq2LjCz36uPkkC9sei4yu1i1Uypn1bnxkPKsOToC/VvM3GNwMRWJwL0sSFQ2EVs9rFAQ==
+mail-alias-created-date: 1575045973000
+Received: from toolbx (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPSA id 4997B18000A7;
+	Fri, 02 Oct 2026 09:49:26 +0000 (UTC)
+From: Pierre Pinon <pierre@pinon1.fr>
+To: okerixx@gmail.com
+Cc: hansg@kernel.org,
+	jason.z.chen@intel.com,
+	jimmy.su@intel.com,
 	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-pci@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the pci_ids.h
-Date: Fri,  2 Oct 2026 11:43:43 +0200
-Message-ID: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	mchehab@kernel.org,
+	pierre@pinon1.fr,
+	sakari.ailus@linux.intel.com
+Subject: [PATCH v2] media: i2c: ov08x40: Implement get_selection
+Date: Fri,  2 Oct 2026 11:49:13 +0200
+Message-ID: <20261002094913.28722-1-pierre@pinon1.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <178939442771.2622.14821982022354625878@gmail.com>
+References: <178939442771.2622.14821982022354625878@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,136 +49,222 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 513iTgkx0qLtJGc374laVqu3WJq40inw
+X-Authority-Info-Out: v=2.4 cv=cpKWUl4i c=1 sm=1 tr=0 ts=6abf7e2b
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=DSvjlNx152q2Ky1L3_0A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzOCBTYWx0ZWRfX6EpYS4BdVzXt
+ oSgqt5bQUDfCzuECJv66ktYPzW0Z+XuYJJWiXcRzsA/Ye7856ma11SZBoCfhUY3/VQQdMaOXUYP
+ 18V3qVxVTk0+ulNP2waFVf3xU6Es+/duiQ+T7Lst5c8lOBMKB92l7Ly5n+sArk7s4afkWakHRwX
+ ERzGGE18o4bzQvAAHsMmV1bPNJyGeud5p+Tf15qucC8fRHgBMI46ClXOy4zEjNaEZlvXfdFqzsT
+ UZvj7sGkdcq81ByhYEyYyVlVtPOuL3fM/AVFqCBY16V1dXlesv0F/3Ii9Suh3wBhbAWNL4vcPca
+ VICDAj47pDqt7Ha60+eloMnF8cHfhU/c+HzUC1sAJ1o+ebXBReygbT/mHnfUrk=
+X-Proofpoint-ORIG-GUID: 513iTgkx0qLtJGc374laVqu3WJq40inw
+X-JNJ: AAAAAAABctdYjKj6r0gHFu78BCpF9oQ5lVkr+vK85XWbyy2gjbY6ZJtC+Fl8ve81YG0O7a
+ LpNwKI4Gmm8sOIYTKs3E4VA6t69KG5byGpL8e2LWV3onpprU4r07e3edERc2eCb1Pq5tvI
+ oL4COnP6EIyejIy5eoZ7YXdEnc3uC5dabqemeJIzlDSSGAjBgJFqWF+qw4eC5WXeh2M9rP
+ m2fqtSKONdkzLFvllh4sshOixjY4/ef7sdSNgnqobFfoIvaafCWXJhI0iyORZpZXF4jFVl
+ sQH6NQpVyfkWcGXoGRo1NUpmqWhoAL5qxLr8JZ9ZOw9VFW0Cqi61CV6nvAGX6JPYUhWTQM
+ roQqhXRmrH0qT+0jqihObvKWJUwvNija2xizY9SqY6cJURx+WfFSgJrfUeGMBCfO+VFpKb
+ U5R5JFxHTWFrTJ1xSiRI5uwJQjVoX+DPD1Q2qMpgeVUIKK1kZU5NEtR4WgNE+P2mI257fE
+ P3QYscIKQ39il+WsB0huAaK6KucYW4pUhv5eFKpfIyA2dssCJznddpIh/3pnZQLh0cFA8w
+ lot51aDsKGMuW2zHL8qnYBH/LQriocCnHlNIBP+Af6u8AIxSL6kOp8j5HlHArTwPPIS6WC
+ /AB/Jrtx1BGU3QzMm3ISq+WIlC6jxRpbkh9TFHEUD6lwiA7SgbrdkfQekqp08fF3heccUO
+ UtWDHZjJhRBatTEhTSGr4V0nPwSirW73RDH3XqpRQRs4vr56w/K3xPTzDOxtkZsoaPZYtl
+ 7uQyhjzVHs41+toZIg2kdc5zoQfCY9ghW6FKdS8y5UO8nORPLAUpRaTtoxaS4wtkYZh2uN
+ 9buU38peBkJyf0qRWHi/JXzYb2eSeUaWXS1iUUkXb6f4l+e/KxZEe0i4pcGc5JTjcUOBYy
+ rg9wKM02Yw7Cugltu2nZu2OsT1wKUs+KZ2vKxWCUN5VXUVE5Qcc/QS3Fb2dUipMVX8TzpN
+ R12Wtlky9pFcrhL6PmoKGuMV/9ERY3fK7vonyCBacYaB0ppSWlzn7nZ7+B0ysZtY/HkXhH
+ KLyDc3Xcl94xzeBM7uSsDSDAHR3CpTecBCNQ9yJJnubBxBjtfzXPCn2PNesZnvInOox4UL
+ Wwc45EYdw7z3U319xxHlQx2Peddkc9vLnU4LI6BjtYSo4iEbqtSHTn2dPe2izFnrp984aT
+ wfTM41pkLlMLT5mVU13NflRt7dAyvPbOQwPCkT9+l9jMmUbhRayeQz68cDMepwsAO7MefA
+ zQ9hw+iC5/i2/tXa/Z5JvPS/nA+F2XzDSnbJjSg1xXSzklgVkztv2e3RY9V0PXYQ3RtnT/
+ 01Zg==
 
-We have a few drivers using same pair of the PCI IDs across the kernel and
-there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
+Report the crop of each mode, derived from the window registers in
+ov08x40_global_regs and the mode lists, so that libcamera can tell the
+2x2 binned modes apart from cropped ones and select them.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
 ---
+Hi Oleg,
 
-Assuming that media subsystem is the main beneficiary I think it is the best
-to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
-are agree.
+Thanks a lot for the review, and for checking the rectangles on the
+Yoga Slim 7x. You were right about ov08x40_global_regs, I had missed
+those writes. v2 looks up the mode matching the TRY format as you
+suggested.
 
- drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
- drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
- drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
- drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
- include/linux/pci_ids.h                              |  2 ++
- 5 files changed, 13 insertions(+), 13 deletions(-)
+While reworking that path I noticed a pre-existing issue on 2-lane
+setups such as yours: ov08x40_open() initialises the TRY format to
+supported_modes[0] (3856x2416), which is a 4-lane only mode, and probe
+likewise sets cur_mode to it regardless of mipi_lanes. On a 2-lane
+sensor the TRY format is therefore 3856x2416 right after open, while
+the closest 2-lane mode, and so the TRY crop, is 3856x2176. I left it
+out of this patch to keep it focused; I can send a separate fix that
+picks the default mode according to mipi_lanes, if that sounds right
+to you.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 2e534ddb7347..ee2c59b72b4a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
- static void assert_isp_power_gated(struct intel_display *display)
- {
- 	static const struct pci_device_id isp_ids[] = {
--		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
--		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
--		{}
-+		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
-+		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-+		{ }
- 	};
+Changes in v2:
+- Rebase onto media/next, which adds the client_info argument to
+  .get_selection
+- Reword the commit message: the X window and Y window high bytes are
+  programmed in ov08x40_global_regs, not left at power-on values (Oleg)
+- Return the TRY mode's crop for V4L2_SUBDEV_FORMAT_TRY (Oleg)
+- Move the OV08X40_NATIVE_* defines out of the OV08X40_REG_VALUE_* group
+
+ drivers/media/i2c/ov08x40.c | 85 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 85 insertions(+)
+
+diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
+index 6de0c17e6..d202e3d5a 100644
+--- a/drivers/media/i2c/ov08x40.c
++++ b/drivers/media/i2c/ov08x40.c
+@@ -38,6 +38,14 @@
+ #define OV08X40_REG_CHIP_ID		0x300a
+ #define OV08X40_CHIP_ID			0x560858
  
- 	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
-diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
-index ad1f99140962..f3dee0e58f62 100644
---- a/drivers/platform/x86/intel/atomisp2/pm.c
-+++ b/drivers/platform/x86/intel/atomisp2/pm.c
-@@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
- 			    isp_pci_resume, NULL);
- 
- static const struct pci_device_id isp_id_table[] = {
--	{ PCI_VDEVICE(INTEL, 0x0f38), },
--	{ PCI_VDEVICE(INTEL, 0x22b8), },
--	{ 0, }
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-+	{ }
++/*
++ * Full readable pixel array, as programmed by the X window (0x3800-0x3801,
++ * 0x3804-0x3805) and Y window high byte (0x3802, 0x3806) registers in
++ * ov08x40_global_regs.
++ */
++#define OV08X40_NATIVE_WIDTH		3872U
++#define OV08X40_NATIVE_HEIGHT		2432U
++
+ /* V_TIMING internal */
+ #define OV08X40_REG_VTS			0x380e
+ #define OV08X40_VTS_30FPS		0x09c4	/* the VTS need to be half in normal mode */
+@@ -151,6 +159,9 @@ struct ov08x40_mode {
+ 	/* Exposure calculation */
+ 	u16 exposure_margin;
+ 	u16 exposure_shift;
++
++	/* Analogue crop rectangle, in native pixel array coordinates */
++	struct v4l2_rect crop;
  };
- MODULE_DEVICE_TABLE(pci, isp_id_table);
  
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-index 5a69580b8251..1a05fc331557 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
-+++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-@@ -37,7 +37,6 @@
- 	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
- 	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
- 
--#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
- /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
- #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
- /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
-@@ -45,7 +44,6 @@
- /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
- #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
- #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
--#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
- 
- #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
- #define ATOMISP_PCI_REV_BYT_A0_MAX	4
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-index 476fe143a591..ab8727a806bf 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-@@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
- 		}
- 		isp->hpll_freq = HPLL_FREQ_1600MHZ;
- 		break;
--	case ATOMISP_PCI_DEVICE_SOC_BYT:
-+	case PCI_DEVICE_ID_INTEL_ISP_BYT:
- 		isp->media_dev.hw_revision =
- 		    (ATOMISP_HW_REVISION_ISP2400
- 		     << ATOMISP_HW_REVISION_SHIFT) |
-@@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
- 		isp->dfs = &dfs_config_merr;
- 		isp->hpll_freq = HPLL_FREQ_1600MHZ;
- 		break;
--	case ATOMISP_PCI_DEVICE_SOC_CHT:
-+	case PCI_DEVICE_ID_INTEL_ISP_BSW:
- 		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
- 						 << ATOMISP_HW_REVISION_SHIFT);
- 		isp->media_dev.hw_revision |= pdev->revision < 2 ?
-@@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
- 	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
- 	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
- 	/* Baytrail */
--	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
-+	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
- 	/* Anniedale (Merrifield+ / Moorefield) */
- 	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
- 	/* Cherrytrail */
--	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
--	{0,}
-+	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-+	{ }
+ static const struct ov08x40_reg ov08x40_global_regs[] = {
+@@ -1232,6 +1243,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3856x2416_regs),
+ 			.regs = mode_3856x2416_regs,
+ 		},
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 3872,
++			.height = 2432,
++		},
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
+@@ -1247,6 +1264,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3856x2176_regs_800mbps),
+ 			.regs = mode_3856x2176_regs_800mbps,
+ 		},
++		.crop = {
++			.left = 0,
++			.top = 112,
++			.width = 3872,
++			.height = 2208,
++		},
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
+@@ -1263,6 +1286,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1928x1208_regs),
+ 			.regs = mode_1928x1208_regs,
+ 		},
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 3872,
++			.height = 2432,
++		},
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 0,
+ 		.exposure_margin = OV08X40_EXPOSURE_BIN_MAX_MARGIN,
+@@ -1278,6 +1307,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3856x2176_regs_1500mbps),
+ 			.regs = mode_3856x2176_regs_1500mbps,
+ 		},
++		.crop = {
++			.left = 0,
++			.top = 112,
++			.width = 3872,
++			.height = 2208,
++		},
+ 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
+@@ -1293,6 +1328,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1928x1088_regs_1500mbps),
+ 			.regs = mode_1928x1088_regs_1500mbps,
+ 		},
++		.crop = {
++			.left = 0,
++			.top = 120,
++			.width = 3872,
++			.height = 2192,
++		},
+ 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
+ 		.exposure_shift = 0,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
+@@ -2056,10 +2097,54 @@ static const struct v4l2_subdev_video_ops ov08x40_video_ops = {
+ 	.s_stream = ov08x40_set_stream,
  };
- MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
  
-diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index 63774ae2bf71..0693e4532a68 100644
---- a/include/linux/pci_ids.h
-+++ b/include/linux/pci_ids.h
-@@ -2732,6 +2732,7 @@
- #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
- #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
- #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
-+#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
- #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
- #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
- #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
-@@ -2787,6 +2788,7 @@
- #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
- #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
- #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
-+#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
- #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
- #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
- #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
++static int ov08x40_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	struct ov08x40 *ov08x = to_ov08x40(sd);
++	const struct v4l2_mbus_framefmt *framefmt;
++	const struct ov08x40_mode *mode;
++
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		mutex_lock(&ov08x->mutex);
++		if (sel->which == V4L2_SUBDEV_FORMAT_TRY) {
++			framefmt = v4l2_subdev_state_get_format(sd_state,
++								sel->pad);
++			mode = v4l2_find_nearest_size_conditional(supported_modes,
++								  ARRAY_SIZE(supported_modes),
++								  width, height,
++								  framefmt->width,
++								  framefmt->height,
++								  filter_by_mipi_lanes,
++								  ov08x);
++		} else {
++			mode = ov08x->cur_mode;
++		}
++		sel->r = mode->crop;
++		mutex_unlock(&ov08x->mutex);
++		return 0;
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = OV08X40_NATIVE_WIDTH;
++		sel->r.height = OV08X40_NATIVE_HEIGHT;
++		return 0;
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r = supported_modes[0].crop;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct v4l2_subdev_pad_ops ov08x40_pad_ops = {
+ 	.enum_mbus_code = ov08x40_enum_mbus_code,
+ 	.get_fmt = ov08x40_get_pad_format,
+ 	.set_fmt = ov08x40_set_pad_format,
++	.get_selection = ov08x40_get_selection,
+ 	.enum_frame_size = ov08x40_enum_frame_size,
+ };
+ 
 -- 
-2.50.1
+2.55.0
 
