@@ -1,82 +1,154 @@
-Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DC344C659;
-	Fri,  2 Oct 2026 08:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E52440A27
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929592; cv=none; b=WmyRAma29D1DhUVOgcBG4t56rthb35/yxHq9qBttpmmNVtoEyN0acdkdfuVcfRrzHGeDrQ8UrnRBINrUOMTTkmzJ0MumevCh7OGeyxARWHgriIi+aOx9TKWtvO5Jxucx6ujLHHP3V8GXR6AVecY8Cco7A2vl80eaSfU16Qw07go=
+	t=1790929731; cv=none; b=gzfJRkkIVUvwFvM20ybgKANGMIHhyuFRGKoMbxAZ6VnX07LUBy/s3TijF3WYmNWYTYZVb7FAOy2FaxJZqUnPF/9nkNzxz4EmlgrEoRYuKPFBp8fhtE00LlwUvJrzZKvYwIiCcfMjqNVdoLvkDiYfbwNzGAJAW0+XmICyZdQBW8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929592; c=relaxed/simple;
-	bh=GPt5QiWyQfcd9gTLrHwGhz/yTpEBfeywxwurUGfQhq4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AFR29w0Km5Uqfc1yGso4P/WWIvvqzxGyHS+sAXW1kWMWqWj3rkljMMlSzJmBy0epEbuHubeqt3mHQACvIGCnij76PfZalxEzW/7QN9ZfJYmfArtTlAi4eaaIpfHoecaihmsyCFeuR6Bm5iLDOToHUBaZWxdJGb7am8ihoccF/gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=bay31VPy; arc=none smtp.client-ip=79.135.106.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790929731; c=relaxed/simple;
+	bh=CtFT3EHUof72nBALXqeD+zwffUXPjZInoY5/n4inSyk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hky3qqqXnVOHzRMu69t8C9J1hd1tyBu0l6KGRwt3egxjd5aIO84azVw8gcQNe3BN1hmBBucCZjPVrKG+jVOMzSQ+9len6HFZw2AbfyFSaqKo7oSH6O3ZtFWhxwC90Bl4wJhcHHLLgWqBr6xPEFM/8pe5U99y0fNfNGSyr0tP6uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D53X3E5c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="bay31VPy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790929573; x=1791188773;
-	bh=GPt5QiWyQfcd9gTLrHwGhz/yTpEBfeywxwurUGfQhq4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=bay31VPy/n5ewCm3P9fg94l+RSgBizOEvN+pEuD5KVrfT/iBE8tlP2PgZEBsaY/4z
-	 TDOLw7Wsp6xO423XcS6WXW2a9Xe6fFB1w2hSxjrSbukBZlNZzqSzdIHveD/PzvNyWH
-	 KHSHvoC1QyheL6rQtaOaoMV0lf086C8/TKOB02BusTO4mjoKvWtcmYn6t9XQeLfgc8
-	 T21YJ5gc2zHuOrWN4H+8AeW51j+h5Xuuq7aXgsWqiWhIW0onWOJwVbzPAUE3wbaLA8
-	 bJZzBjy6s38hYgv2E6uT/0U1ihFoaJepGNG0WqUUgYADz00yNaHtXYuc6sAUlePZoa
-	 eVxAhCkGYn+hw==
-Date: Fri, 02 Oct 2026 08:26:08 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20261002082537.74084-4-lsa.uz@pm.me>
-In-Reply-To: <20261002082537.74084-1-lsa.uz@pm.me>
-References: <20261002082537.74084-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 25bc23d44ae156c9fb1933c5ed8db98bb0646499
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D53X3E5c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106A41F000FF;
+	Fri,  2 Oct 2026 08:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790929729;
+	bh=1YKclv0LnxgAAnm5X50IREOAt+N9vOR0vT1dcc9cNFw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D53X3E5cC0kzaQuqLpXCJXq3bJE3iNNBGmV5dPzUUQ/i/e/DbKFXG/4sy5g8RyQCG
+	 dVt3XkUdnk2QX3o/krSPzqrVo4kDlizDTD4WPQPSQXQaNGOQaeB3gV7sNO8cqtSjkB
+	 xmH17iI9P3Q+QiQSooBiPc1KpmFmIGPXY7SFheCfdByl20Mn1yUP9sGhDdMmbpmISe
+	 agJMJa9XRv/qC5MsHqZfpi7PdgfdvXcqL0O9WsjjdeeibBTpMUzAoDIOz/uzVneWTc
+	 rsyii1kGTptVgiOcVkxQwyjzn8w8ilFAJ7s727HBilu4WaoH8IUDqlKGoaqaKNyD/l
+	 rbmKomtk8mFbQ==
+Message-ID: <d60f606c-94f4-4a94-87b7-b0756d8557b9@kernel.org>
+Date: Fri, 2 Oct 2026 10:28:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] uvcvideo: Realtek 0bda:579f sends multiple variable-length
+ bulk payloads per URB
+To: leone 1337 <leo.vernisse@gmail.com>, linux-media@vger.kernel.org
+Cc: laurent.pinchart@ideasonboard.com
+References: <CADah2-fgdwyZOiAEnK6XAe5qLP0mHNRBH6DebPN+XXdgrM+fyQ@mail.gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <CADah2-fgdwyZOiAEnK6XAe5qLP0mHNRBH6DebPN+XXdgrM+fyQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+Hi Léo,
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+On 2-Oct-26 00:17, leone 1337 wrote:
+> Hi,
+> 
+> I’ve been investigating a long-standing webcam issue on a Razer Blade 14
+> (2017), using a Realtek USB camera with VID:PID 0bda:579f with the
+> help of Codex.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thank you for your work on trying to fix support for this camera.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 77257311d1d..a1a4023f813 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -116,6 +116,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
---=20
-2.54.0 (Apple Git-157)
+> This appears related to the issue reported for the same device in 2017 and
+> to Julian Meyer’s 2020 work on handling multiple UVC bulk payloads inside
+> a single URB.
+> 
+> Old report:
+> https://sourceforge.net/p/linux-uvc/mailman/message/35729061/
+> 
+> Kernel bug:
+> https://bugzilla.kernel.org/show_bug.cgi?id=207045
+> 
+> Previous patch:
+> https://lore.kernel.org/lkml/20200420191506.664877-1-julianmeyer2000@gmail.com/
+> 
+> I reproduced the issue on Ubuntu 26.04.1 with kernel 7.0.0-38.
+> 
+> With the stock uvcvideo driver, 12 of the camera’s 30 advertised
+> format/resolution/frame-rate combinations fail. For example, 640x480 YUYV
+> returns buffers marked faulty and shorter than the expected 614400-byte
+> image.
+> 
+> USB captures showed that a complete 640x480 YUYV frame contains:
+> 
+> 614400 bytes image data
+> 
+> +six 12-byte UVC payload headers
+> 
+> =614472 USB bytes
+> 
+> The additional payload headers appear at 512-byte USB packet boundaries
+> inside 16 KiB bulk URBs.
+> 
+> One additional observation may be relevant to the previous proposed fix:
+> the camera’s bulk payload lengths are not fixed.
+> 
+> For one negotiated max payload size of 119296 bytes, observed payload spans
+> included:
+> 
+> 103936
+> 107520
+> 128000
+> 129024
+> 
+> I initially tested an implementation based on the negotiated fixed size,
+> but it failed during live capture.
+> 
+> I then implemented a device-specific uvcvideo quirk for 0bda:579f. For
+> this device only, the bulk decoder recognizes packet-aligned 12-byte UVC
+> headers using FID, PTS and forward SCR continuity and splits multiple
+> payloads contained in the same URB.
+> 
+> The normal bulk decoder remains unchanged for all other devices.
+> 
+> Testing so far:
+> 
+>     - all 30 advertised YUYV/MJPEG combinations pass
+>     - 360 matrix frames with zero V4L2 error buffers
+>     - all 192 MJPEG matrix frames decode
+>     - 5400 complete 640x480 YUYV frames over ~3 minutes
+>     - ~3 minutes of decoded 1920x1080 MJPEG through GStreamer
+>     - repeated open/close during mode testing
+>     - successful capture after one S3 suspend/resume cycle
+>     - ASan/UBSan testing of extracted decoder logic against captured and
+>     - synthetic inputs
+> 
+> The implementation currently exists as a local three-file patch against
+> the Ubuntu 7.0.0-38 UVC driver. It adds a device quirk and a separate bulk
+> payload decoder for this camera.
+> 
+> Before spending time porting and formatting this properly against the
+> current media tree, I’d like to ask what approach would be preferred
+> upstream.
+> 
+> Would a narrowly scoped quirk for 0bda:579f be acceptable, or would you
+> rather see this handled as a generic improvement to UVC bulk payload
+> parsing?
+
+I think we would first need to see the new extra bulk payload decoder
+you added. If that is clean enough and we expect no regressions on
+other devices from it then we will likely want this as a generic
+improvement.
+
+> I can provide the patch, USB capture analysis, validation results and a
+> version rebased against the current media tree if useful.
+
+Sending the actual patch (as-is, just rebased) as RFC to the list
+would be good I believe. For USB capture analysis and validation results
+IMHO it would be best to just put a link in the patch cover-letter or
+commit message to same place on the web storing those. 
+
+Regards,
+
+Hans
+
 
 
