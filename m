@@ -1,92 +1,147 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C7547F786
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 10:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738A247206F;
+	Fri,  2 Oct 2026 10:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937087; cv=none; b=aBs1LxNgvupgCtorVPg64AXBKPims2WFG1FxyRaHpj1b4JG9MZFCUa7JOBzf8oTkNExMPPo/ym7XKv17444OS/IRqPXSwAI/MFeXqI4T/8wSDzIcdl3lhU39VBmD9ZOynQFcxAyGborugQ4ZLt/vC/uoNDHpj6ZvC23WKh9Qc2g=
+	t=1790937247; cv=none; b=DJX94krmx787xwRtgjQDpRzOqNmHNwnwS69BPwj5uPonYui4UrnbRyZ+R3Z2rx5PKba/M2Zod4R/Ehzy0VYD2M0zayev2JxASiKI3LfVmB56pqm9TuD4/WTQRjb2XQ7mwO9HcCzFmpFtO2PZZBsznYv6Ybjf239E4z/8uH7+ldw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937087; c=relaxed/simple;
-	bh=ET/jfY1QDBHadWDOICZziU2PCIlyAJkvZj8XAZZ/VIE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aN0zGHbIjOMHV+uG8vKVfQmbTYXVEgHMJIOvzGkk3sCpoqdxM3WBxlOMrYlBCkUTgqRJZG9sNx8wqVYZHQpVbnYym8VzaZE6TOOm1jVLAKM/VVv46IYZ6vqE6HGThzF4TYTf/VRH6m6D1Bxktyn8h2pMW/TyONuSPz0FJF8s9jU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jNe9M+HS; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790937247; c=relaxed/simple;
+	bh=BDUDcsWafuKgArLN+mhzCG92d7iXxtCnpnblrL8p3ik=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=eQPmUXIakWfiPNkHtAVAO9Y9h8U/v1K+ej2p4Wg4xBunODdFqzYgx+C6ZUj2u13eEVt3eCfJbLC2mnFuOcnoHJQk8wds0T0yiaWiGU9nvBE8PeOuwk0v0LKI8bcyELsBMYwpdOsQ4BAEsz6vMxRAMbqsUmp8+n5RgC7gcFeC3/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vhTKI3xX; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jNe9M+HS"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0f2c945eso424216966b.3
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 03:31:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790937079; x=1791541879; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DqWtIxL1q2DAFBIqqs5rpBBSEMrGutL9XsqSKxpq+O0=;
-        b=jNe9M+HShYuMzOxrZoyOZ4mXft+hE08k/tW8tvTVJojqDxF7PZ9pjEnIw70StI/Jva
-         JcBM/ncz4pcAdeAamtVpWBUHpwJZUZbc7g6tEaP1Lxij1yqmueyvwLWRKWWaWMlS7FsT
-         f1nAFEQ7GTDGPGEKVzTS2ax8+McSevDZJcPoi4vOLwF390knik7kwFFOZDuSMAcZj7tT
-         i56OqGnFujcNf73rX5e1GOUU8nRxrxo9URhtNUje1vpnP94m6WJsVL+lVXr0NPGVgaS1
-         D+VXV07y/V9jfLx73W/mIbFOZ0c58CZVZh/2mkRwSbse3gN651JnL/PBYtYu9TpRjLS7
-         tbEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790937079; x=1791541879;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DqWtIxL1q2DAFBIqqs5rpBBSEMrGutL9XsqSKxpq+O0=;
-        b=fL2NDPCOrObVwKFqCxINi6lfEZ6OpaQLX+PVFiXubvxkEDA9yc0DudJq5bHg5duaBt
-         Be/qdn4yn6OtHtjJ4b0C1B6QASZn/aSSqItzyLPCABhMscuXU87wod2yJcatJW0zBVpV
-         y8zIO5E47qWFbBZyxjMKAPAvTJ2xGutsti+HfkEBl22s64MmkGrOpcVTaMfHaz8ah0HG
-         sC4GwJIhuYmU1r+qMT1vBYsFoCFXGsQaXZxx2Ef/V99wjfaodelp43EzTuCwe+nxAdH8
-         vc8m22hipdAWRyCml6P81NM2hCr5kUvn799ythgQps3iXH75hVRH/oqbMPLXoiIqVLZb
-         nT7w==
-X-Gm-Message-State: AFuF++mmBQ7XoevGbOJbnBwBUx6b8rWz0mREF83Ep/9kZ8LgjQYZN93d
-	E8MRO7yBIP/qgUe7TmRDZAE/55um7mhR8kmvJLIUp5X17AXp06+T1AFm53fXpyHZnyNTNw==
-X-Gm-Gg: AYBFou0wkov2oVefeoiunUoz1XzR47KOFoUDz9zzt9BeHZVnciYoSYXoAflILctqgJQ
-	AFKHwZxSiSfkmfxXe6058J3PySUzO/LsPZsj8JuqWejPrxtr+Fe4oLi/EXYleZ/8qqungVc3OZN
-	aYPX2qa5Vbuk2VRh3a9U9qg+JbiZz09ZuHH3MyTUC5G/l+Ffbxa88FMn1MriUktOrWCskz0224L
-	oBK4i0tB/dUU10teI//WpzEVZ39CzY7uyb6H9i8Oo3mjkGi9LgvGsShTglEdHb4m3ZvBHWTbWLt
-	lnM0+hvfah2f0YOBrCvmJl8R0ouL9xoi0sTEep6D6MU4pQPz8qfobVG9+UABOL3g3qK1qxxFoMi
-	sE02IX0MzYN9bvpdejVOpLt2xt0V6JZPD9tFTvnmuuR9XgUpE3TUfM/4iMA86U7/lHfOExATR42
-	NAWaecuMruRTtEze6UqawEUnbcQHj7+t90ntVPYj+ud9aSjBOy2bozUcdi2MwPhXUGj8g=
-X-Received: by 2002:a17:907:e1ce:10b0:c2a:ad68:c70e with SMTP id a640c23a62f3a-c2e5c0525d6mr62225766b.11.1790937078494;
-        Fri, 02 Oct 2026 03:31:18 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf85881sm74359966b.56.2026.10.02.03.31.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 03:31:17 -0700 (PDT)
-Date: Fri, 2 Oct 2026 13:31:14 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org
-Subject: Re: [PATCH v7 02/16] media: ov8858: support 19.2 MHz clock and CHT
- gain setup
-Message-ID: <ar-H8g9RnhujCvyk@stanley.mountain>
-References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
- <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vhTKI3xX"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:337:442a:994d:7d4])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 36A265E;
+	Fri,  2 Oct 2026 12:32:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790937126;
+	bh=BDUDcsWafuKgArLN+mhzCG92d7iXxtCnpnblrL8p3ik=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=vhTKI3xX5MMRrF+YBxnB5SpKIRAR+2CzMzjptdxV8tTmce7xi6nj71O2xe9oSOirY
+	 BnDXOwbEuKiRj662hPNvZ1rO9pd2Uu8XCS15SPvlInH5flOV2qYf79zrzU8c0SB5MV
+	 NpYrvXyOZejN6MvkQPbRwLRvI9JRQNMscq4XvTic=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260917-b4-vchiq-isp-v5-5-2d8870add2c0@ideasonboard.com>
+References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com> <20260917-b4-vchiq-isp-v5-5-2d8870add2c0@ideasonboard.com>
+Subject: Re: [PATCH v5 05/10] platform/raspberrypi: vchiq-mmal: Support bayer and gray formats
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Hans Verkuil <hans@jjverkuil.nl>, Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
+Date: Fri, 02 Oct 2026 19:33:53 +0900
+Message-ID: <179093723372.2882041.17250388661101595740@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-On Wed, Sep 02, 2026 at 04:53:31PM +0200, Maurizio Casciano wrote:
-> Link: https://lore.kernel.org/linux-media/apf7cJOoXrl_wZfr@kekkonen.localdomain/
-> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-> Assisted-by: LLM [Codex] [Sparse]
+Quoting Jai Luthra (2026-09-17 17:23:11)
+> Raw camera sensors often send data as packed or unpacked bayer and gray
+> formats, which needs to be processed by the ISP.
+>=20
+> Add macros to support bayer and gray format FOURCCs in the MMAL layer.
+>=20
+> Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
+> Changes in v4:
+> - Drop comment about FourCC values being copied from V4L2
 
-Gmail keeps blocking my replies to this thread.  Perhaps the CC list
-was too long?  I have shortened it.
+Ok, I've seen the comments from Dave. Sounds good to me.
 
-What was the exact Sparse warning here?
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 
-regards,
-dan carpenter
-
+> ---
+>  include/linux/raspberrypi/mmal-encodings.h | 63 ++++++++++++++++++++++++=
+++++++
+>  1 file changed, 63 insertions(+)
+>=20
+> diff --git a/include/linux/raspberrypi/mmal-encodings.h b/include/linux/r=
+aspberrypi/mmal-encodings.h
+> index eadf2e981408..fd9cd840cb7b 100644
+> --- a/include/linux/raspberrypi/mmal-encodings.h
+> +++ b/include/linux/raspberrypi/mmal-encodings.h
+> @@ -69,6 +69,69 @@
+>   */
+>  #define MMAL_ENCODING_OPAQUE           MMAL_FOURCC('O', 'P', 'Q', 'V')
+> =20
+> +/**
+> + * Bayer formats
+> + */
+> +/* 8 bit per pixel Bayer formats. */
+> +#define MMAL_ENCODING_BAYER_SBGGR8     MMAL_FOURCC('B', 'A', '8', '1')
+> +#define MMAL_ENCODING_BAYER_SGBRG8     MMAL_FOURCC('G', 'B', 'R', 'G')
+> +#define MMAL_ENCODING_BAYER_SGRBG8     MMAL_FOURCC('G', 'R', 'B', 'G')
+> +#define MMAL_ENCODING_BAYER_SRGGB8     MMAL_FOURCC('R', 'G', 'G', 'B')
+> +
+> +/* 10 bit per pixel packed Bayer formats. */
+> +#define MMAL_ENCODING_BAYER_SBGGR10P   MMAL_FOURCC('p', 'B', 'A', 'A')
+> +#define MMAL_ENCODING_BAYER_SGRBG10P   MMAL_FOURCC('p', 'g', 'A', 'A')
+> +#define MMAL_ENCODING_BAYER_SGBRG10P   MMAL_FOURCC('p', 'G', 'A', 'A')
+> +#define MMAL_ENCODING_BAYER_SRGGB10P   MMAL_FOURCC('p', 'R', 'A', 'A')
+> +
+> +/* 12 bit per pixel packed Bayer formats. */
+> +#define MMAL_ENCODING_BAYER_SBGGR12P   MMAL_FOURCC('p', 'B', '1', '2')
+> +#define MMAL_ENCODING_BAYER_SGRBG12P   MMAL_FOURCC('p', 'g', '1', '2')
+> +#define MMAL_ENCODING_BAYER_SGBRG12P   MMAL_FOURCC('p', 'G', '1', '2')
+> +#define MMAL_ENCODING_BAYER_SRGGB12P   MMAL_FOURCC('p', 'R', '1', '2')
+> +
+> +/* 14 bit per pixel packed Bayer formats. */
+> +#define MMAL_ENCODING_BAYER_SBGGR14P   MMAL_FOURCC('p', 'B', 'E', 'E')
+> +#define MMAL_ENCODING_BAYER_SGBRG14P   MMAL_FOURCC('p', 'G', 'E', 'E')
+> +#define MMAL_ENCODING_BAYER_SGRBG14P   MMAL_FOURCC('p', 'g', 'E', 'E')
+> +#define MMAL_ENCODING_BAYER_SRGGB14P   MMAL_FOURCC('p', 'R', 'E', 'E')
+> +
+> +/* 16 bit per pixel Bayer formats. */
+> +#define MMAL_ENCODING_BAYER_SBGGR16    MMAL_FOURCC('B', 'G', '1', '6')
+> +#define MMAL_ENCODING_BAYER_SGBRG16    MMAL_FOURCC('G', 'B', '1', '6')
+> +#define MMAL_ENCODING_BAYER_SGRBG16    MMAL_FOURCC('G', 'R', '1', '6')
+> +#define MMAL_ENCODING_BAYER_SRGGB16    MMAL_FOURCC('R', 'G', '1', '6')
+> +
+> +/* 10 bit per pixel unpacked (16bit) Bayer formats. */
+> +#define MMAL_ENCODING_BAYER_SBGGR10    MMAL_FOURCC('B', 'G', '1', '0')
+> +#define MMAL_ENCODING_BAYER_SGRBG10    MMAL_FOURCC('B', 'A', '1', '0')
+> +#define MMAL_ENCODING_BAYER_SGBRG10    MMAL_FOURCC('G', 'B', '1', '0')
+> +#define MMAL_ENCODING_BAYER_SRGGB10    MMAL_FOURCC('R', 'G', '1', '0')
+> +
+> +/* 12 bit per pixel unpacked (16bit) Bayer formats */
+> +#define MMAL_ENCODING_BAYER_SBGGR12    MMAL_FOURCC('B', 'G', '1', '2')
+> +#define MMAL_ENCODING_BAYER_SGRBG12    MMAL_FOURCC('B', 'A', '1', '2')
+> +#define MMAL_ENCODING_BAYER_SGBRG12    MMAL_FOURCC('G', 'B', '1', '2')
+> +#define MMAL_ENCODING_BAYER_SRGGB12    MMAL_FOURCC('R', 'G', '1', '2')
+> +
+> +/* 14 bit per pixel unpacked (16bit) Bayer formats */
+> +#define MMAL_ENCODING_BAYER_SBGGR14    MMAL_FOURCC('B', 'G', '1', '4')
+> +#define MMAL_ENCODING_BAYER_SGBRG14    MMAL_FOURCC('G', 'B', '1', '4')
+> +#define MMAL_ENCODING_BAYER_SGRBG14    MMAL_FOURCC('G', 'R', '1', '4')
+> +#define MMAL_ENCODING_BAYER_SRGGB14    MMAL_FOURCC('R', 'G', '1', '4')
+> +
+> +/* MIPI packed monochrome images */
+> +#define MMAL_ENCODING_GREY    MMAL_FOURCC('G', 'R', 'E', 'Y')
+> +#define MMAL_ENCODING_Y10P    MMAL_FOURCC('Y', '1', '0', 'P')
+> +#define MMAL_ENCODING_Y12P    MMAL_FOURCC('Y', '1', '2', 'P')
+> +#define MMAL_ENCODING_Y14P    MMAL_FOURCC('Y', '1', '4', 'P')
+> +#define MMAL_ENCODING_Y16     MMAL_FOURCC('Y', '1', '6', ' ')
+> +
+> +/* Unpacked monochrome formats (16bit per sample, but only N LSBs used) =
+*/
+> +#define MMAL_ENCODING_Y10     MMAL_FOURCC('Y', '1', '0', ' ')
+> +#define MMAL_ENCODING_Y12     MMAL_FOURCC('Y', '1', '2', ' ')
+> +#define MMAL_ENCODING_Y14     MMAL_FOURCC('Y', '1', '4', ' ')
+> +
+>  /** An EGL image handle
+>   */
+>  #define MMAL_ENCODING_EGL_IMAGE        MMAL_FOURCC('E', 'G', 'L', 'I')
+>=20
+> --=20
+> 2.55.0
+>
