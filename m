@@ -1,125 +1,119 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9324657CD
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790930420; cv=pass; b=QzrbpU4Fk3NXdWc2jLXOtRXGsXGylzBvMz3WBfeOEC6QvMJ/lmFc/EEc+U8zYYcHUVM2Q/BTUL+kYxMVTHiegMkBOY4gd8yTdpaxA4OtOkyAXamk3wkR8VZAMvehR8tP0OsgnM5sWRM3QWnl6M9SaX9uwwuh24yAILiP8MBxTck=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790930420; c=relaxed/simple;
-	bh=4WkAcgYLado3xLlFZo333K/JOqm39OaQQnKUMy1OPAU=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vrp7tROmT2efzKmnG/JshtZ82BFK9NyeU3AnsaeeRiMRmeci3adXYR2r5D0IyLsm2fs+/f/WWCv786Hnt4VLEWgH4dTY5Z1rIeTmTELiZUO0X789OFzTzgYu5SJn2dIdurnb5liUYdrjGeLwtMPZbOFTsVX64gBWd+Zd2guZPbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKm4vTVP; arc=pass smtp.client-ip=74.125.231.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1B34657F5;
+	Fri,  2 Oct 2026 08:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790930712; cv=none; b=fBKaju9MB8/tCS2jvQinfGQFeUIoAS6lWOq36Vm+kj69bMN6BATGJcf791dkWr3kRkiZ9+iE7Bqj2FAm7Exq9ijiIP05ANxkUeIbLwQptEyYujgrUjCC2uLeiiLHF+dw9vE4O4/207Xi2UnLdJu6was3TfFaMGFqazWqQ3/ObjM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790930712; c=relaxed/simple;
+	bh=/rBvAO/AZQc/jN4k2Xar6jPktmwSC1dqu1j1mnmcMGM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=N9ulqvtFy3QqH1z/8mtIAjK/laF1BHBPyJ0uERHUuAskKFW3kKYgapHTD1/hQlVviZNbvNs/TRhfZhdQFMNvszIbMODThoNZ9UY9CA4vuZooZYDlokq25V8+rLLH1w0yq+nGvGDEZgKksQujfcNiKnNX9wqWDb5RVtJ8HV6smaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2S/r/LX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKm4vTVP"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-82328163e12so123791a34.1
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 01:40:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790930415; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ud+CpEL7FOJE48VI6NIasuNSE9UVzMJ1ZF4eO8SnZ60u/cVox1rPao3XP9Eh87h+7Z
-         4L7SenscUVD9D8k7eMpBernQVP1GzuHOD82ts/qZoZNnybntsNl/mqTeU8TJ3r+5S6HY
-         nDATgylWqWtYfzFmvRTMMpTL5m1+Hr//EwNNxVYNdlxlIaCLHc2d+em2vOUY24RXoag9
-         mw2TWPyzxirIomJP3TOOiECMDW7aQwpicECZW9xmoch92hKCC5jxkYYccUH8bXReFQth
-         L6zzSUQhvKei+dA5/dntPBmn/cZCfVDXvbPYt47W726CnXdpUSDhlou+7ESooFT9sGai
-         Bdlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=4WkAcgYLado3xLlFZo333K/JOqm39OaQQnKUMy1OPAU=;
-        fh=FCW37D4E3QFV6+mtuBTX6EOjj7BVWCHEvhnqwxvbzvI=;
-        b=ax8t8Ul/opZ4D4npRGHCWdFX+vPqh2+hHE1eJksT6HKmCO9U+D60z7wHe/rv9rhvQ2
-         /Ja7okOoMGBEEJhhLMFiHG0kCp3t7mE4J6gjqKauf8lcCpe225udJZjZ6er5yF0OIDwx
-         R36IbjyAGd/JIImi5hvYUTCmz4tJtwTNNjmXX1UEw6VuOcZ4WRGia26/c+cMHhqlSMdu
-         9JgEAKGenPZ+Cq4sI1OeFol0rZu/++xI5fJoBuYj3SOelBWgEtz6PwIiVExbNf5bcD8s
-         WphoXMBsshO6Uo1DFxAOccYOQL2fGD0oINjC18Qp0WIJEo6NA9MTERjtxXck72eEYJ33
-         sL+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790930415; x=1791535215; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4WkAcgYLado3xLlFZo333K/JOqm39OaQQnKUMy1OPAU=;
-        b=PKm4vTVPKnAuGzBx/+vHBPEpI9VUtVBh7M1EpIHVVFK5aJw0IoOfi7CCNoQ0Yzl/Iz
-         RB1gvgbMjHyvULQNWpk5S0yxp2SQkyCO51+UCISwJZbGVg+R3qoCEfvMODwqXyI7NY1g
-         bxqJVckDwSrf0D0kYRhlAOVXpXu8LEexJ0I8gGXoH0/zgncHDqbotBBjPuB+e4u8z5ti
-         6LwdV/q1AAoUpUnlAcDTpQopTS5eoXZVbx5qYqO8JYJJbMYwNoDKOAw6mTX+bPSbuTYg
-         AdwLCKQ6/lfDKnD3kL/PKrMAvEeawK1Y5eOaIex8JYVJHf4yc6RqslfNJ1dw3BDYA+SH
-         tdig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790930415; x=1791535215;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4WkAcgYLado3xLlFZo333K/JOqm39OaQQnKUMy1OPAU=;
-        b=aiBZRJs8EcCyPvhzDmxhKD0cqFF5wEU7Zy9MeI1QAnmFVchGUho1CTBbG9jWkYny8B
-         kZKkQ6ewamRTybSh3g9t8JqCgwl22bDUJU2JaaF1hm/QX4u+ehqSMt8j9FDV44GLiw+t
-         dE366L0FTvbGd71LA2R9iC0ZRfPsbJjEL3A/stK+PeTDukHVJPXpQ6wieWvIgLZlS0ai
-         DrF77h9/7c7P/IBSXt1P9dVmCEqV/WPQ9P8v5t0guBIWNv+CelfUCzQBVatQPSORbuoG
-         WrYS8hTj+6Ww8iAQFFVIq0Lm7ZTQCrTJ4kmRFwKkTJXdd8XjZvsmEk6y+jM5YhumELaI
-         Jsgg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0v0ytuKQH7qNxq1A+khCf0i4fwEpV2UUuqXeJlaEL/tKRYE5YUKs7DI8H642J+r07u/XzYx/M7r86fw==@vger.kernel.org
-X-Gm-Message-State: AFuF++nKgG3H2OY+uzObtpd+5nDu4m4Dw3tV4wj08HNYvvZ943RR4AMg
-	Sv7ZN2og3DwzOg3p7QCIxFC6bnMt4lou8Pg3PnyU4l/dVt7qR5tbHPWQarQoOdIQH9mZadInDkG
-	NOHK7EEzs1tQyxmkJTr9ukqWEQvdqoWs=
-X-Gm-Gg: AYBFou1KFhAivruEwBEdLwZQnE6TJzXIvYZJNHuEGkx1WUIxqZImHUNJeCA1hKjFIYS
-	hmo/izuvXvSIQ+AEomJDlbQCcEa4dT7moxNv/C1/JbL+Ci2eSVcnNkhZbgJoegjzIZ/ke6UNOZs
-	waGUZbsU/5ld5SPJJGEXxLgvvF1CSSOxXXjpwkqI2mS0PBQ2Ti4UVS9uf1+r0PnDMHlpJzAYqQv
-	hQvw7sfuH/OhouQqvu/mGihNUq3Umjx9wZjRG2TKzkZ046IIahsmpa2UIEjUhM9xoy0ju30UHma
-	Y1NKB/v1VTF2y5uuOSeU6bqUmfkazVsw29H6VA/QnjSMW0dzTNfR8plYDqRghBE20HHJNv11LCl
-	5ztS+7DT0F+cbcGq+xWBQ0iEn/Ym/rRJaXcA=
-X-Received: by 2002:a05:6820:c3c5:10b0:6dd:4a4b:1843 with SMTP id
- 006d021491bc7-6df32aa7697mr1233994eaf.14.1790930415068; Fri, 02 Oct 2026
- 01:40:15 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:40:13 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:40:03 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2S/r/LX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42051F000FF;
+	Fri,  2 Oct 2026 08:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790930705;
+	bh=KhwYdb5g90NJxDqqJyvRKBka+GvXTVinYKwenu04PuE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=U2S/r/LXHrpCOJf2df9QIp5aT+K3lkx4eIzQWAaZsvSJIJ2l8xM09rdwwU4+m3gkJ
+	 Vrss+xG/GTPJFnGF+m9JMxdDcAEMrEVqYuDNe3iM8Vfvwmp6W5DmcS+k7ETQ1df8Hy
+	 hfi0TzjNZGnMaxdxNWK3CAOZ2PORHbNis2nf7mAgWy4v/PtPAWO6R4zRraYl2HDAFR
+	 FCd/9Iw+5OU2dqQ3gpGsz1eqZ/S37FjtLCDFsmYTs+/lTgc1c67Wmd5jrKfp953lJ+
+	 peqWuTg/eaBNxIYYXMnibZWqG9gVOEUwm+w/WmbHG1dXUV1ldUnZEMPQOfy6q6MG7b
+	 xCO0jQIsZ2Myw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham
+ <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 5/5] media: imx219: Add status polling using .detect()
+In-Reply-To: <ar9bYNbuJHwpxlyk@kekkonen.localdomain>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org>
+ <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+ <ar9bYNbuJHwpxlyk@kekkonen.localdomain>
+Date: Fri, 02 Oct 2026 10:45:02 +0200
+Message-ID: <xhkdb8q4gv6cx.fsf@mkorpers-koolstof.csb>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Fri, 2 Oct 2026 01:39:53 -0700
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-In-Reply-To: <CAHp75VdRtMuSeS=39SXmLre=XKF11USi7w2HOGGwxP0+qBmPvg@mail.gmail.com>
-References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
- <CAHp75VdRtMuSeS=39SXmLre=XKF11USi7w2HOGGwxP0+qBmPvg@mail.gmail.com>
-Date: Fri, 2 Oct 2026 01:40:13 -0700
-X-Gm-Features: AclHuK_f_8PDilm3AcjpkkUSo4CYULlSQZBGWXCxVQAmtvjbpYa5nVZnpOcKW7M
-Message-ID: <CAO7O_xiT9L4M2NXz0gRtX-6toT7q6Ec_ZnyEj3i0RGc0q8jdxg@mail.gmail.com>
-Subject: Re: [PATCH v8 00/15] media: Add Lenovo Yoga Book camera support
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nicholas Roth <nicholas@rothemail.net>, 
-	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hi Andy,
+Hi Sakari,
 
-> Your series is mangled (has a garbage), please, *always* read and test
-> what you are sending before actually click the "send" button!
+On Fri, Oct 02, 2026 at 10:21, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 
-You are right. I checked the public-inbox copy and the Media CI result.
-Gmail reflowed the patch bodies; Media CI reports patch 1 as corrupt at
-line 10.
+> Hi Dave, Mattij,
+>
+> On Thu, Oct 01, 2026 at 04:58:57PM +0100, Dave Stevenson wrote:
+>> Hi Mattij
+>> 
+>> On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
+>> <mkorpershoek@kernel.org> wrote:
+>> >
+>> > Userspace needs to be notified when a sensor connection status
+>> > changes (e.g. disconnected at boot, then later reconnected) so it can
+>> > react accordingly.
+>> >
+>> > Add periodic polling using a delayed work that calls .detect() every
+>> > 2s and sends a KOBJ_CHANGE uevent with HOTPLUG=1 on status changes.
+>> > This mirrors the approach used by DRM connectors in output_poll_execute().
+>> 
+>> AIUI DRM polls from within the framework (drm_probe_helper.c), not by
+>> a workqueue in the individual drivers.
+>> 
+>> Admittedly V4L2 doesn't currently have a totally obvious place to
+>> setup this, but it would be far less effort to have the polling
+>> framework within the core code rather than driver.
+>> Possibly initialised in __v4l2_async_register_subdev_sensor() based on
+>> whether .detect is set, and cleaned up in
+>> v4l2_async_unregister_subdev, with the workqueue calling .detect and
+>> generating the udev event based on the return value? I think that's
+>> feasible.
+>
+> Sounds good to me.
+>
+> I'd also put this behind a Kconfig option, the use case is rather special.
 
-I stopped the attempted v9 after its cover and patch 1 when the public
-archive showed the same corruption. I will not send the remaining
-patches through Gmail. I am switching to a byte-safe submission path and
-will verify the public archive with b4 before resending the complete
-series.
+Ack
 
-With Best Regards,
-Maurizio Casciano
+>
+> Also there are different approaches to this: in some cases you may want to
+> know the values written to the device's registers get updated so you write
+> and read, then some devices might crash in a way they're not doing their
+> real job while still allowing reading registers as usual. These are rare
+> cases though.
+
+As far as I understand, that's device specific so could be handled in
+the device specific .detect() implementation?
+
+>
+> Should the interval be at least configurable? That indeed further suggests
+> the use of controls for this.
+
+I agree that the current polling interval is completely arbitrary and
+not a proper value.
+I'll move it 10s for v2 but will also look into making it configurable.
+
+I'll also look into controls.
+
+Thanks for the suggestions!
+
+Mattijs
+
+>
+> -- 
+> Regards,
+>
+> Sakari Ailus
