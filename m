@@ -1,83 +1,83 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209FB476CC3
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CA947CC89
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932685; cv=none; b=AOHww+ZgT/b5YnX1nnxDWP1luwd9lClnlLUra9BUAdJYam7VrIdri0jqjcpHnnbYxjOk/ErIBOcWMdZRaW/3Nyk7evN0+pjXssuSiHIJvF7r66ONbXMI4p4Mp+let7Gjf3gwI8MVDFZkGvT9bSTIrbUCJmDROpio6xVkXPgLVa8=
+	t=1790932696; cv=none; b=LWpDE5FiVuw9EJH4q62HNwUcHzPbmtNlhmVhYE5YynzxLIaE/mvngCXVOG5ZDR3/rJTMjcTGQsEQYTn9u1JsKXqClo2bFoo6ff8TEWf7XH5Ope3Svga+XrXsQPoCraj9s28u7Q3ezGqDlY5cRZJ/zIy0gmMyfECl8gQHYDQMONw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932685; c=relaxed/simple;
-	bh=IUZNf3fno5D/v1SQtKkJJtC39+JBzebyE7h56078Jj4=;
+	s=arc-20240116; t=1790932696; c=relaxed/simple;
+	bh=FTaeuMBL/kHKwhk5uksXNF1j/IbmPOC4gCAtqsaIJ4A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PpNbSoWzffp5jPnckXOhCmN0OKjFhOiRdKv+Qvc69KPAlNhM6T2Mq1wC4Lnwc2Am321JSMrllWKKuXHNGJliR1BH9VJvkCtBDlCcVT23kvdOtCvH/ehlRlNQ8GKGNUvBqDopbpMt8If0x00sfS1b5jY0QEA1tSYgZhV1DgPDPyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IFg2oAmc; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version; b=oD5LWeh46lgLbKMmw25M58mMiFyU3FKaOGgJow52m5iQ2mm9umkpmFPqZeo86SzDtbTphI9P+VEBAJSLHoFMJNIZertXxePJ9C/W5iruPnelpj1GciQ5d0k0auOF31nIrdPQU4zeZGdnXJ98Q32GcVM5te2P2j2+1IOdL8skmeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rMN9BdM7; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IFg2oAmc"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48affb828f1so2676808f8f.0
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 02:18:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rMN9BdM7"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so4620324f8f.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 02:18:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790932682; x=1791537482; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790932693; x=1791537493; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H0FcRb8OTX7/GhAedNNsxuIjIt1hP3QdH9f7yijnG/M=;
-        b=IFg2oAmc4OUwqJ7/ZADZIUBWoK0A41m3vk0OoWpsiXflsnjc3loxliTcWMGrUn2P3k
-         jl66KzvdUHXDElmsrvWPkxKxm0Y7f8QX2SvTJ0ZkcJF4EKD3b+1KrTWjsPCQ9DLh8pXY
-         XZBRqR+Z5K0QMHfZmS9czomEFTvSmOC/A3npIALIZNAJDFVKzPfL1gaFbPLS9OlprlYx
-         o8QS6yQohrVFd4J4/Dt7tPWKkEGmr5grL0Ms2ZbtwPnZtcqop93jq8s+VGo4fOicArnQ
-         tE/g+pwmDzDpo9YS8Eo03Ci7mukayZKs/fKaKP8qXlpXlBDywp1x6BUknTQI+rDApggk
-         mnhg==
+        bh=FTaeuMBL/kHKwhk5uksXNF1j/IbmPOC4gCAtqsaIJ4A=;
+        b=rMN9BdM7KdbmMwHqGrmxlu5iz2YeuIgQfxYQa7psz5jGLlEbI3iXPIU+8oHJpBrI+a
+         MgS4dYsPtt8epbg683Tt8l4WDWz5uhXoXKdVwxnsLAauLWG35Yb68UiAGU3n2KVG4vI5
+         lGMqxaejpaJ9281VBJYcsyYNPQ7acMyskFgnQ/w/5FCpH9HwnVaIEMKZmQWnm+gk6zxC
+         YPR4qLcsQcwiyDMIv1yKrAqj6XXIcBkfkVFxsCc5YWTpgg5GbW9Pr5WChn+pUiVTSSQb
+         ZRFrFn0fPvoJOnPExAzrRn8mb6QxIjh3cCvh5oka06aQXv4T13R0fqbnw4eRz+xyin2w
+         hctw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932682; x=1791537482;
+        d=1e100.net; s=20260707; t=1790932693; x=1791537493;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H0FcRb8OTX7/GhAedNNsxuIjIt1hP3QdH9f7yijnG/M=;
-        b=I1d+nWbZo6D8uouwNW7rNCzDCqYLV1h6XZSqEm2pwYYFnsJH4zh1Qh4QX6AORp2J74
-         QZmRkiVcFsHUPs1W7PS94InxKfwFq+FDuHdIbBZTGmwjzRjwDjM+aK576AQwX9dMvnR4
-         SVewwPlb7h4hnYzV679RzyRLG3BdZFehZh9eIrKHzZvCo9NGVMS6J7/2iDLUy5LYitdd
-         Hj1NCxUJcKmt8est6+H7YVkqkm3k3y92+0uSJYjuAWCnipdELwRsemmEoEY0rVsaP62E
-         v1k5cdKcEdmJnX0mY4DhawntAEyeDiW20b4YtAICdHN4ZmNu7HbqtmLD8+Ek2DGJtf1G
-         MirA==
-X-Forwarded-Encrypted: i=1; AKwUvBz61N4gFkHG3BRVCLMx2MqNH6Mbo/GxoAVr+NIDPhKNfP0cHNfHK9AkWOrevf2GxUuWRCNpv8jfEd9vsA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kyKxd6AzCXcv6B6x9PJ7/SaiCwpGFQSRO1kICkZ8NRw2yj2vFr
-	jfZVz+s6HzPeZyrMcNaD9uTUNmBFbLPK4djWnNrt3fwkFkcRI6k35NP1J55wFvdJ
-X-Gm-Gg: AYBFou0DV15kNfPGXAwzmm6PxK5ODcUQd19RYY6kgJ5kow8qMaVt9ilkAeBNfJhOflB
-	3COb1v7uNJddc7516MYoN2RJlUGJW64n6rdQZMr89xMwgsItVfklQCTyNdA7FaN2JtZNlh08BZm
-	e6ytGrNxc7LdIThfUfS0aVY3bfq2nckmzOSRkMguOLGCptm1eAAmi3w0VuRnhVyDJj98iehOZ1J
-	hocx3G3IBpRhXl7Dva3LKfZArTgcIZMeaWHOEVbZRWIlzfFHHK2j3d9xqU3H3sWswR9wmKtmGRM
-	DiquxjyoMeKE4Cyw35IqSLoeitYq9tMrPhiuys+T63B5EOqrmUioHSfS8fq1FFw3YDqbHieCjM4
-	GGShB6txCBI4PHe6WKjcJsdG+JcuQ08I/OXDmMO1ILQDnHI4fIIDSalUEDOkaK0TM5iptrOd+YK
-	7Epd2FhzFoyNBi2/8nN+CR/0AiiS0cNFRW+RpQyzpuVuUNBk9ZYmCjudHQ0pKYdZqXuYCHiVxJn
-	SQj5r3tAUQ4z17ed9XBIssYrBvxvCemVgye9wRi01pBV1hAdqLYtga6fxs=
-X-Received: by 2002:a05:600c:8b77:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a027564df4mr36860205e9.19.1790932682063;
-        Fri, 02 Oct 2026 02:18:02 -0700 (PDT)
+        bh=FTaeuMBL/kHKwhk5uksXNF1j/IbmPOC4gCAtqsaIJ4A=;
+        b=ktaWbVr1PEDE4h0OiN8Kntx92n7sawJzUMUJ2c6XOr/sDuq1ypKe9/aXENLIWFIW9v
+         Q2V2xskv3JH5Ye3FCsVsboefIq5hg9PPEbPzJklRZ1jDTp4uU+W6uX7ZPfhO1SGhPaqj
+         8XSV+Upeq6V/1Gg49Bs3+MXW1bSAmDrR+4VtiBAXPrUCwGE11zGLyOQAKKnfsUoNf0WT
+         /ik4uQRszHjiTHf0nKFefFhldLMLhwI1mwIn8IOd5YsgIx2kF03vvXAtzLgCHcPNxKsF
+         uk8xKagHWdlN+509/nWvdyRo74OkPIU3yxhAZdtMJ10Xmt6Lhz6TfO2OBu6KFx/Nb6D2
+         wRmA==
+X-Forwarded-Encrypted: i=1; AKwUvByWshJdhBPcQGyduV+PIDfY8Wa4mmF0woww1YpDzVoUSRi2MQfeivtntW6Kqeyg7inLCsFZBEASXVp/GQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKro8cDVfpoJqNNlQCC6CQKnDZ5oHHapPBjgsoAQyS6hbQlVuCN
+	LoBHBkUSz0IIpZgBW7ymiFejTTzx7I9sYpk0mFjeHnDkP8U42iQ407fV
+X-Gm-Gg: AYBFou25CNtb1k5KUQiv0M5+mpfTHyhDhBrMCON+vw+IsratIiq6UlOtyuCDJzKF5gB
+	qIcE8QEr7ewx7VWR3D3wTNBXmE96ta+AM7+hSsoHJYtplPB9kGi81e3dNhAQ8bfksTPbCbHcPsW
+	kvgNQkP97gps/lkDzFAkmvB4r4aDn2J2u5Iq/OhjrC1g8yzA1M9TFm/PxIqS+JNWQyGNFxefUyP
+	ScK4BOEpzXfs4x3T60ceH5YpazB1bntICToFhAc44JVjHCncfRC2fnzzYLuHMyaC0m2jXTHzCDw
+	VYmvGJvmB/mUkCPjsUscWx9ea1YWJqCeU8UTVDLSHZEawpfdek6jAQ9wZQ4g4mrje+090xjamd4
+	0ENCHsHhr5QpAxtqyPB18VgcGa6DtBWKd/JR3JmyUGyTMhB1IKBCqAb/rv/VzhMOvUREeRjUOsA
+	/dig6/aHk6Fr57QZ3xFhX3jYrx8Z1IrhOuJFx6j+2g3HbtahNCQz/sQfwIKWVXpw9NHvrpepFr2
+	aWZDvKLNz4bj/B8DRUrrKSyYMsVN4DSO6OtQtCmT4B7s1n64RjeKjR4Lgk=
+X-Received: by 2002:a05:6000:4112:b0:48a:f02e:1d23 with SMTP id ffacd0b85a97d-48b12741316mr3374960f8f.23.1790932692892;
+        Fri, 02 Oct 2026 02:18:12 -0700 (PDT)
 Received: from 1Z10 ([2a02:b123:8010:a99a:44ac:6cdb:a419:601e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280b2e3csm77717755e9.5.2026.10.02.02.18.00
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f98ffsm4465019f8f.38.2026.10.02.02.18.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:18:01 -0700 (PDT)
+        Fri, 02 Oct 2026 02:18:12 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	mchehab@kernel.org,
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	bingbu.cao@amd.com,
 	jacopo.mondi@ideasonboard.com,
 	nicholas@rothemail.net,
 	andy@kernel.org,
+	andriy.shevchenko@intel.com,
 	hansg@kernel.org,
 	gregkh@linuxfoundation.org,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 02/16] media: ov8858: support 19.2 MHz clock and CHT gain setup
-Date: Fri,  2 Oct 2026 11:17:59 +0200
-Message-ID: <20261002-media-v7-p02-andy-reply-1-mauriziocasciano7@gmail.com>
+Subject: Re: [PATCH v7 09/16] media: intel: ipu-bridge: allow sensor-specific link frequencies
+Date: Fri,  2 Oct 2026 11:18:10 +0200
+Message-ID: <20261002-media-v7-p09-sakari-reply-1-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ar9Z1Zr-deCCQ1nx@ashevche-desk.local>
-References: <cover.1788360629.git.mauriziocasciano7@gmail.com> <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com> <ar674__4-cNOGMMy@kekkonen.localdomain> <ar9Z1Zr-deCCQ1nx@ashevche-desk.local>
+In-Reply-To: <ar68mkS8_qRdGJQr@kekkonen.localdomain>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com> <dd8bcb40575bfcb11e92d976bec7f2b26cb95ca5.1788360629.git.mauriziocasciano7@gmail.com> <ar68mkS8_qRdGJQr@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -86,15 +86,13 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Link trailer was invalid and has been removed.
+Yes. I changed this in v10 patch 9 to use the existing IPU PCI-device
+matching mechanism.
 
-I also corrected the disclosure to the documented form used by this tree:
-
-  Assisted-by: LLM sparse
-
-The clock constants in v10 use integer unit macros consistently, including
-19200 * HZ_PER_KHZ for 19.2 MHz. Patch 2 now uses 24000 * HZ_PER_KHZ for the
-24 MHz value as well.
+The patch adds an IPU_SENSOR_CONFIG_MATCH_FL() OVTI2740 entry for AtomISP
+PCI ID 0x22b8 with a 288 MHz link frequency, before the generic OVTI2740
+360 MHz fallback. The separate per-sensor override and its hand-off patch
+were removed.
 
 With Best Regards,
 Maurizio Casciano
