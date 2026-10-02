@@ -1,270 +1,151 @@
-Received: from outbound.ms.icloud.com (ms-2004k-snip4-11.eps.apple.com [57.103.74.221])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF3E47A0C0
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AF246D097
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 09:52:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934580; cv=none; b=J7PQBwY+cSLWtjFcGHvOQmDULYgwfJKDiCOiK2CvY9QNxx9oiywUZONIooEMPEUuuR79pUX9RMJolsXNZxz7X+5142bBt6FNfFYTZLyK2dpfJV5XaF4b6ON4Cy0tpLlrwp6H6fNr3MIeoVf9/K4zcObumYLm3qi97BgOL+6gWLA=
+	t=1790934754; cv=none; b=NeXEB+ugjiZPaykHjlX3cQuF02a7/fq5WBSIgaUDO9+uYNh6Vt3yymXwceE0ykwvgK3Mf5z+H/Gd239ugOaO1CgfO2AAMVeG4Dyr4KRzqdXe9xbWrUUKjQJJmaG1Pw+B+BFWgOv79qcnjNYjMpypPUNe9r3KPZ1PxxxfFI1MkjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934580; c=relaxed/simple;
-	bh=Z4DGypsjGRe2NX77iE2DcjvhUodppVYdEuTOf+BILg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RJbgl5dzQVQUJ5HsO1Da95EoB5keChryV9nI5FB6sKHVLYJW5O9ReUQOg9DeMkX7AN0IoW8gf78XZI4e927ZhyXL8M/qqTIQb/KM3C3kuuHFZJi238QvkeTF45QW6uz5tKDBYsNl7G6u0cLdJ8NYZjOQgW2SsVN/YI6FNJFEuT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=kKrWsOqU; arc=none smtp.client-ip=57.103.74.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
+	s=arc-20240116; t=1790934754; c=relaxed/simple;
+	bh=Wk003mPRscXKkC2kxK3DF9LhU0/tg9S9WPMvqfiftDI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XRdFPUWGTnrfsOwZ/nunw20TCqFb/hw5Mvl328fdJT58Zb5LEtzbeaSJskig5X4TGfk2u+mRv9IapNNIa1kIf9DtxsAfvok5TsJ6v+CJmnaRuCDaP8f88PDROWa4FsjpyJFUD1QVulZDnBrgxhavwg/waoANEIxgAJMBbFBw45Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TZFAZPXJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MOyMwdil; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="kKrWsOqU"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPS id 4175B18001BA;
-	Fri, 02 Oct 2026 09:49:30 +0000 (UTC)
-X-ICL-RepId: 01a0fc04-d4a8-701f-925f-36e5446a0b91
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUgdXwRZEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlQXA1ccVkVcGEMJXQVXHB0AREVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQQlIAV0OXwtBClYBVQBZAF0IVUMEUhlAFXkIWgNYBQNeXwoNTUMSQhUEG0YeQwRfL10XXgxeBQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1790934573; x=1793526573; bh=2NoRxWcsszTzrFvdkXa8Ga+nEaBZTT0YNHj2aZ8ZKYo=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=kKrWsOqUEmMagH/uaammt5zaghZyA++DS4w+utV9lsezRCAzHKSzPcaCzZ8Qh06TfdBfzxKQcTwkaE+y6gpkjny41e2qLa4Q7ty8gko+Q5Z52ddzsH2IJxVwFVfL360kRVGQOvhDv7yViBmP1zuycBZKkzFnASB8aJcW3NIaggZqxPyCrsaJlYf6Z8lI4iqwUFlOrYymPhNwzBwpnX7RUc+6Y/+Xpp4ZZeQpXBaAcOTM/EFJOuH9gmET98MGjEP9xqcKa9c1CX4CoDDsfAXq2LjCz36uPkkC9sei4yu1i1Uypn1bnxkPKsOToC/VvM3GNwMRWJwL0sSFQ2EVs9rFAQ==
-mail-alias-created-date: 1575045973000
-Received: from toolbx (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPSA id 4997B18000A7;
-	Fri, 02 Oct 2026 09:49:26 +0000 (UTC)
-From: Pierre Pinon <pierre@pinon1.fr>
-To: okerixx@gmail.com
-Cc: hansg@kernel.org,
-	jason.z.chen@intel.com,
-	jimmy.su@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	pierre@pinon1.fr,
-	sakari.ailus@linux.intel.com
-Subject: [PATCH v2] media: i2c: ov08x40: Implement get_selection
-Date: Fri,  2 Oct 2026 11:49:13 +0200
-Message-ID: <20261002094913.28722-1-pierre@pinon1.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <178939442771.2622.14821982022354625878@gmail.com>
-References: <178939442771.2622.14821982022354625878@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TZFAZPXJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MOyMwdil"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6929nZt11190354
+	for <linux-media@vger.kernel.org>; Fri, 2 Oct 2026 09:52:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6m2y1KtWVZtI5Dc4dXOHeD8LNqvt0R4u9wS9uoheMY4=; b=TZFAZPXJvSUNssIP
+	kbk4Y3PNfs53YClIJ7NeWTLSU8weFgQIhT0GriEVdsvjpKB5nQqVG2mF18cyI+hj
+	TxMj+coha0MF9X5GnZRp0uy44Oi4HleRM+fPsU1qSAfPz7fksKJD7FFLF1ZVF13b
+	r8OVcf9DdQ3OG6r/TrU7ZtqsuNAjkYFZyizO+z1/l7vRtJ/mSOPNVCPFy7/4amZg
+	rB4V986F0pYY7OEry2uircqTrRflMnOt74soam/7mi5DQLYHbFdDNdAlZk81UyuZ
+	8mti8T1dPGhaMMSipI4VKklJ25Psf88ohK304inRExITdggAOZpJ6WTjwj/MpE1g
+	pjBHZA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1w8tjj44-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 09:52:32 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934963b2bc0so1831630485a.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 02:52:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790934751; x=1791539551; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6m2y1KtWVZtI5Dc4dXOHeD8LNqvt0R4u9wS9uoheMY4=;
+        b=MOyMwdilCZtgFK/CyzQ+TNT5LRrlZr6NHF4RfIu8wBr6HgmAXmKcKtQvrYKzZqR4IN
+         pN4gE//hzYv5RS/9b531nf9tKVJ81IA48IywJLvUaLs0mCzLdZtC5tFN8vYzRqXNzrge
+         cjpv8+S+5DjvRA2W9fiymhPLFnHy0ikH7Lx3irSIvpPnDBsUJB6LREB16lY4Itl0st9Q
+         nC6l1MdzXbJUxhQp1mAG4mcfsq87Z2+bkx9bxgiTyq82kaNIHvE1zphQVOqO3Ouwyb/R
+         fdUtWvaF0BcLXF/AYZ2Azd/eoiVDCBinAcKfgZ/ZqKXZgVPgYYs152334MXnHefPECfV
+         1nQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790934751; x=1791539551;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6m2y1KtWVZtI5Dc4dXOHeD8LNqvt0R4u9wS9uoheMY4=;
+        b=v+ETihriE4ottwDM1tL5GH6iZB8irlXi0roVfCmJ7ohK+QTtQCtxyuhEKXJqFQT1jw
+         RwbGXoEJjhhOHXmr2ZTIOJ5u+A8zZrB4AsXVh65SEQXQO+uAGMmMZ2vQcp1GLw464Y29
+         97kUPF8ZR/3Oa34recZZ9yqq9WnDgZQMrEGJ2yFlPAQPT9aiW985Pv/UWfzFKdJ+WNco
+         sYdWUZUIdGrrJY+sYmWg7dv5MwAcUjPoGltt+J/Ppyv/5Bg9JB/jBecN9O5es5XA3Bjw
+         f8mpiaNw9Zgzq19COS/Y5WPThwth867OMJjlW1EqriaJR0PfG32qyVkCUyJHO4FDm67D
+         71Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkKxdX+hl/xUIb/bWXdW00Rsi8iBAL3pVvA+r3TLpJZJ1Ai8pbuMWDBsJE8r5RTGl+lXhLEQNHgEwTlQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++kbFh61AZYrWxRuRClB/6UuxqG1VxLmkIHr8JS4FfH5lDyH6Jwa
+	0vvw3LYpbc1D7oZtY/07I6CalgglXDsvwDDgJTwVkiKcJTSGDWUc117ai2SfTfbfLFRjNAOCLeL
+	Aeao+VQPun6745RlUQ/cQjnNppoNKSoXVihRc7pJtm5kK0nMihsrh+gHhQBfUujdZKw==
+X-Gm-Gg: AYBFou3VkrirAJZgCvtHrHI5t/K9/HGbf0uNvkOfu9izYFN4RhREZxP1iVgsbyaPs1+
+	+dxAikLU8urCTPLzXLsgm4h1b7h2Y5dlNldWBkrGEknofW7u3zfNKOJOpSxrCBJS7SmFHVuapW6
+	zSHSv84vldPB+Y+p4SasGjqRHVF5YjQ+UyT6OjRW75KoBy2PThVZ7x/so5kbNeEObnkcg02l9hB
+	tkpjwWnD7hydMfqGEMF7Alc6YRc27ZMnZrq9Yhh/PKRzb+wA+VRbjL8dQxiI6HrrY8vdbtGV7wc
+	AXGuHhxwlz/Lp9yuSa+2/fVvSygKgmmD5p6WcmxD/9JBo7h23STzTwIZAzbpHCWS4D/VCK8km3Y
+	5MKsVsRA37EMLAi9jaDgKCsehBGJ3LUy8RdmQHJJQ2PyPGKwsNGoXSGB70OW/8Q==
+X-Received: by 2002:a05:620a:a790:20b0:93c:bb75:d8f0 with SMTP id af79cd13be357-93cf170b54cmr237247985a.27.1790934751372;
+        Fri, 02 Oct 2026 02:52:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:a790:20b0:93c:bb75:d8f0 with SMTP id af79cd13be357-93cf170b54cmr237245885a.27.1790934750933;
+        Fri, 02 Oct 2026 02:52:30 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:f14c:b716:c104:4712? ([2a05:6e02:1041:c10:f14c:b716:c104:4712])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280d1e38sm55681315e9.13.2026.10.02.02.52.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 02:52:30 -0700 (PDT)
+Message-ID: <94e3f42c-4ffd-417a-9bee-69c504360af9@oss.qualcomm.com>
+Date: Fri, 2 Oct 2026 11:52:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 513iTgkx0qLtJGc374laVqu3WJq40inw
-X-Authority-Info-Out: v=2.4 cv=cpKWUl4i c=1 sm=1 tr=0 ts=6abf7e2b
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=DSvjlNx152q2Ky1L3_0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzOCBTYWx0ZWRfX6EpYS4BdVzXt
- oSgqt5bQUDfCzuECJv66ktYPzW0Z+XuYJJWiXcRzsA/Ye7856ma11SZBoCfhUY3/VQQdMaOXUYP
- 18V3qVxVTk0+ulNP2waFVf3xU6Es+/duiQ+T7Lst5c8lOBMKB92l7Ly5n+sArk7s4afkWakHRwX
- ERzGGE18o4bzQvAAHsMmV1bPNJyGeud5p+Tf15qucC8fRHgBMI46ClXOy4zEjNaEZlvXfdFqzsT
- UZvj7sGkdcq81ByhYEyYyVlVtPOuL3fM/AVFqCBY16V1dXlesv0F/3Ii9Suh3wBhbAWNL4vcPca
- VICDAj47pDqt7Ha60+eloMnF8cHfhU/c+HzUC1sAJ1o+ebXBReygbT/mHnfUrk=
-X-Proofpoint-ORIG-GUID: 513iTgkx0qLtJGc374laVqu3WJq40inw
-X-JNJ: AAAAAAABctdYjKj6r0gHFu78BCpF9oQ5lVkr+vK85XWbyy2gjbY6ZJtC+Fl8ve81YG0O7a
- LpNwKI4Gmm8sOIYTKs3E4VA6t69KG5byGpL8e2LWV3onpprU4r07e3edERc2eCb1Pq5tvI
- oL4COnP6EIyejIy5eoZ7YXdEnc3uC5dabqemeJIzlDSSGAjBgJFqWF+qw4eC5WXeh2M9rP
- m2fqtSKONdkzLFvllh4sshOixjY4/ef7sdSNgnqobFfoIvaafCWXJhI0iyORZpZXF4jFVl
- sQH6NQpVyfkWcGXoGRo1NUpmqWhoAL5qxLr8JZ9ZOw9VFW0Cqi61CV6nvAGX6JPYUhWTQM
- roQqhXRmrH0qT+0jqihObvKWJUwvNija2xizY9SqY6cJURx+WfFSgJrfUeGMBCfO+VFpKb
- U5R5JFxHTWFrTJ1xSiRI5uwJQjVoX+DPD1Q2qMpgeVUIKK1kZU5NEtR4WgNE+P2mI257fE
- P3QYscIKQ39il+WsB0huAaK6KucYW4pUhv5eFKpfIyA2dssCJznddpIh/3pnZQLh0cFA8w
- lot51aDsKGMuW2zHL8qnYBH/LQriocCnHlNIBP+Af6u8AIxSL6kOp8j5HlHArTwPPIS6WC
- /AB/Jrtx1BGU3QzMm3ISq+WIlC6jxRpbkh9TFHEUD6lwiA7SgbrdkfQekqp08fF3heccUO
- UtWDHZjJhRBatTEhTSGr4V0nPwSirW73RDH3XqpRQRs4vr56w/K3xPTzDOxtkZsoaPZYtl
- 7uQyhjzVHs41+toZIg2kdc5zoQfCY9ghW6FKdS8y5UO8nORPLAUpRaTtoxaS4wtkYZh2uN
- 9buU38peBkJyf0qRWHi/JXzYb2eSeUaWXS1iUUkXb6f4l+e/KxZEe0i4pcGc5JTjcUOBYy
- rg9wKM02Yw7Cugltu2nZu2OsT1wKUs+KZ2vKxWCUN5VXUVE5Qcc/QS3Fb2dUipMVX8TzpN
- R12Wtlky9pFcrhL6PmoKGuMV/9ERY3fK7vonyCBacYaB0ppSWlzn7nZ7+B0ysZtY/HkXhH
- KLyDc3Xcl94xzeBM7uSsDSDAHR3CpTecBCNQ9yJJnubBxBjtfzXPCn2PNesZnvInOox4UL
- Wwc45EYdw7z3U319xxHlQx2Peddkc9vLnU4LI6BjtYSo4iEbqtSHTn2dPe2izFnrp984aT
- wfTM41pkLlMLT5mVU13NflRt7dAyvPbOQwPCkT9+l9jMmUbhRayeQz68cDMepwsAO7MefA
- zQ9hw+iC5/i2/tXa/Z5JvPS/nA+F2XzDSnbJjSg1xXSzklgVkztv2e3RY9V0PXYQ3RtnT/
- 01Zg==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] clocksource: clint: Use IPI_MAX for IPI muxing
+To: "GUO Ren (XuanTie)" <guoren@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+        Alexandre Ghiti <alex@ghiti.fr>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+        Anup Patel <anup@brainfault.org>,
+        Tiffany Lin <tiffany.lin@mediatek.com>,
+        Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+        Yunfei Dong <yunfei.dong@mediatek.com>,
+        Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+        Houlong Wei <houlong.wei@mediatek.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
+ <20260911-ipi_max-v2-3-a77826ff189e@kernel.org>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260911-ipi_max-v2-3-a77826ff189e@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: vjLljHVBSMgJjbruR73WlZZj5WxA9mga
+X-Authority-Analysis: v=2.4 cv=ML/1C8Zl c=1 sm=1 tr=0 ts=6abf7ee0 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=uCLItbk5GdqmTsIkEKsA:9 a=QEXdDO2ut3YA:10 a=Dn0JnjMMefUA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzOSBTYWx0ZWRfXwB5QJbVdAVGs
+ LTCIzohLxv5uO28OHvoX4106hAflLOHfb3GBbKZAsT9ztCI1tMTMrhoFrMlr4yCPtnUKPOqeb5R
+ wUx9Xb0VXsgdP084dbcJ3qXXeA4C9LaQIV6s1/VWtmCu3LDUOA9C+DMejIrdz3lCQwQmDoz0AJa
+ ENEQpG+2Yt3Vj+f4vQwEyFDyCarHtRslLJdQw38l2zQ3EvUjj79pgoPkxwmb8veMGJ9r8TlNPuj
+ YmZlcXVpbiZbXBXtiMGchQ5841BYrXm8TFZzyoDdnYJQdYK8OOV7ZumrwKDqA4ajUcge6Ck5fx5
+ 0URaCotKTZwj0IwPnVbWrc2ovoOFzdfmX8xPfE6QgphWtzrix4YwOiIMSL9wrfRQcj8/GdPfj1v
+ YXU0KtMmfhnau5k4hLBCzeQyY2G7vcpRjT5GlE+TgxQGY0OuOB9fFzcrcK67LKmhjYdndacF4Vk
+ ApFaUIx7iFchqoNCyCw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzOSBTYWx0ZWRfX7KglCMNj1Jdc
+ MHJkkMQBywLX1TlZL7/g5/n8dPxVEhAlXMvbOAKd4LGx7fPXZjNphkMm2PfkNrBPvBLUb7A9D+F
+ H+WxGTfd5OD0DOtSaI0AdZtWETZG+Kg=
+X-Proofpoint-ORIG-GUID: vjLljHVBSMgJjbruR73WlZZj5WxA9mga
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_03,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ bulkscore=0 suspectscore=0 clxscore=1011 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020039
 
-Report the crop of each mode, derived from the window registers in
-ov08x40_global_regs and the mode lists, so that libcamera can tell the
-2x2 binned modes apart from cropped ones and select them.
-
-Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
----
-Hi Oleg,
-
-Thanks a lot for the review, and for checking the rectangles on the
-Yoga Slim 7x. You were right about ov08x40_global_regs, I had missed
-those writes. v2 looks up the mode matching the TRY format as you
-suggested.
-
-While reworking that path I noticed a pre-existing issue on 2-lane
-setups such as yours: ov08x40_open() initialises the TRY format to
-supported_modes[0] (3856x2416), which is a 4-lane only mode, and probe
-likewise sets cur_mode to it regardless of mipi_lanes. On a 2-lane
-sensor the TRY format is therefore 3856x2416 right after open, while
-the closest 2-lane mode, and so the TRY crop, is 3856x2176. I left it
-out of this patch to keep it focused; I can send a separate fix that
-picks the default mode according to mipi_lanes, if that sounds right
-to you.
-
-Changes in v2:
-- Rebase onto media/next, which adds the client_info argument to
-  .get_selection
-- Reword the commit message: the X window and Y window high bytes are
-  programmed in ov08x40_global_regs, not left at power-on values (Oleg)
-- Return the TRY mode's crop for V4L2_SUBDEV_FORMAT_TRY (Oleg)
-- Move the OV08X40_NATIVE_* defines out of the OV08X40_REG_VALUE_* group
-
- drivers/media/i2c/ov08x40.c | 85 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 85 insertions(+)
-
-diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
-index 6de0c17e6..d202e3d5a 100644
---- a/drivers/media/i2c/ov08x40.c
-+++ b/drivers/media/i2c/ov08x40.c
-@@ -38,6 +38,14 @@
- #define OV08X40_REG_CHIP_ID		0x300a
- #define OV08X40_CHIP_ID			0x560858
- 
-+/*
-+ * Full readable pixel array, as programmed by the X window (0x3800-0x3801,
-+ * 0x3804-0x3805) and Y window high byte (0x3802, 0x3806) registers in
-+ * ov08x40_global_regs.
-+ */
-+#define OV08X40_NATIVE_WIDTH		3872U
-+#define OV08X40_NATIVE_HEIGHT		2432U
-+
- /* V_TIMING internal */
- #define OV08X40_REG_VTS			0x380e
- #define OV08X40_VTS_30FPS		0x09c4	/* the VTS need to be half in normal mode */
-@@ -151,6 +159,9 @@ struct ov08x40_mode {
- 	/* Exposure calculation */
- 	u16 exposure_margin;
- 	u16 exposure_shift;
-+
-+	/* Analogue crop rectangle, in native pixel array coordinates */
-+	struct v4l2_rect crop;
- };
- 
- static const struct ov08x40_reg ov08x40_global_regs[] = {
-@@ -1232,6 +1243,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_3856x2416_regs),
- 			.regs = mode_3856x2416_regs,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 0,
-+			.width = 3872,
-+			.height = 2432,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
- 		.exposure_shift = 1,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -1247,6 +1264,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_3856x2176_regs_800mbps),
- 			.regs = mode_3856x2176_regs_800mbps,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 112,
-+			.width = 3872,
-+			.height = 2208,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
- 		.exposure_shift = 1,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -1263,6 +1286,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_1928x1208_regs),
- 			.regs = mode_1928x1208_regs,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 0,
-+			.width = 3872,
-+			.height = 2432,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
- 		.exposure_shift = 0,
- 		.exposure_margin = OV08X40_EXPOSURE_BIN_MAX_MARGIN,
-@@ -1278,6 +1307,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_3856x2176_regs_1500mbps),
- 			.regs = mode_3856x2176_regs_1500mbps,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 112,
-+			.width = 3872,
-+			.height = 2208,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
- 		.exposure_shift = 1,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -1293,6 +1328,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_1928x1088_regs_1500mbps),
- 			.regs = mode_1928x1088_regs_1500mbps,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 120,
-+			.width = 3872,
-+			.height = 2192,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
- 		.exposure_shift = 0,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -2056,10 +2097,54 @@ static const struct v4l2_subdev_video_ops ov08x40_video_ops = {
- 	.s_stream = ov08x40_set_stream,
- };
- 
-+static int ov08x40_get_selection(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	struct ov08x40 *ov08x = to_ov08x40(sd);
-+	const struct v4l2_mbus_framefmt *framefmt;
-+	const struct ov08x40_mode *mode;
-+
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		mutex_lock(&ov08x->mutex);
-+		if (sel->which == V4L2_SUBDEV_FORMAT_TRY) {
-+			framefmt = v4l2_subdev_state_get_format(sd_state,
-+								sel->pad);
-+			mode = v4l2_find_nearest_size_conditional(supported_modes,
-+								  ARRAY_SIZE(supported_modes),
-+								  width, height,
-+								  framefmt->width,
-+								  framefmt->height,
-+								  filter_by_mipi_lanes,
-+								  ov08x);
-+		} else {
-+			mode = ov08x->cur_mode;
-+		}
-+		sel->r = mode->crop;
-+		mutex_unlock(&ov08x->mutex);
-+		return 0;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = OV08X40_NATIVE_WIDTH;
-+		sel->r.height = OV08X40_NATIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r = supported_modes[0].crop;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct v4l2_subdev_pad_ops ov08x40_pad_ops = {
- 	.enum_mbus_code = ov08x40_enum_mbus_code,
- 	.get_fmt = ov08x40_get_pad_format,
- 	.set_fmt = ov08x40_set_pad_format,
-+	.get_selection = ov08x40_get_selection,
- 	.enum_frame_size = ov08x40_enum_frame_size,
- };
- 
--- 
-2.55.0
-
+On 9/11/26 05:27, GUO Ren (XuanTie) wrote:
+> Replace the hard-coded BITS_PER_BYTE with IPI_MAX now that the
+> constant is exported from riscv asm/smp.h.
+> 
+> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+> ---
+Acked-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
