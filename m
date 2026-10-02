@@ -1,85 +1,85 @@
-Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8FE448CF6
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1BF44A414
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:19:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929139; cv=pass; b=t+eZxJsLEppTmud4HvdAsrBGXQpPW9YB5uFtHe3Zw1voNbq74wDUXe7SysmmNpvRR94B2OzF1vuIpiAZmQsafLPLiwXj46eInp8BGCOtncY6FhF0Sig5GntUZsuPWZGG43qfGNDhf64G3iyFEwDtBxTQI1lAF/+nVewmLM8VJ9Q=
+	t=1790929149; cv=pass; b=VoL+4sbrvh9QfnA26/lgEbBRbnz92wa06rXQBvEAGTzRwFzxwSt4tntAEMO+7e5wq3jredfT6LsDdg2VHdvv2XMMDslNbJXppqQ3QikWiEkAhs5Z4CpGVR09CJJn8/lHKuxbJuQ8486Tl17Hki3JFGg3XEvyE3KUsPq+/DKxhQo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929139; c=relaxed/simple;
-	bh=e0R8qZBXa11DudLfZtnfVvQvEHGmMbO+6kvSXwrNWeU=;
+	s=arc-20240116; t=1790929149; c=relaxed/simple;
+	bh=27hxXloP76JsKfsmk584722mn6NeJkNLSEB2gBVr7Io=;
 	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NU6LErlxw5/j0geXyhtA0vw08xZVHmsBv4Qb289qY+Weu40SsATfyu9STCruN/FtSXAT80cqe+soQ/jEQudl/UHuqqYB8zC+xSGtJaEv9dMBjcaz/0GE801BTF9t5R0Q2078vwNd6zvTFl+beH6D6s19oPgGL3kmGkQNd0drdHU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L6b3P9UU; arc=pass smtp.client-ip=74.125.231.165
+	 To:Cc:Content-Type; b=jYsNgsiymmIO8IIy3ZqKCd4bv8UrBK4Veoua1lPjWl1u/1H5ZHcJSQGUYt3MbjYnpzlkijv5PBDBH0jKFJDdEILRPyLOukMPJIBVgqBI/mCYuaH+LmMUsKnpCNUJOivDdVRhyxZVQ2PhStdYd0foe4SOxff1R4QrX3FElQleJoQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GIw6YUR4; arc=pass smtp.client-ip=74.125.231.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L6b3P9UU"
-Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-804f7045f3eso2736080a34.2
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 01:18:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790929136; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GIw6YUR4"
+Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6c72bd8a017so4328121eaf.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 01:19:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790929145; cv=none;
         d=google.com; s=arc-20260327;
-        b=pN2QL2cqdOy6HDJXH0rVw2e4sHUpyvs0q2OiFNEGzDhL22J/MgydEdm9ydeLXsFRJv
-         9CvxcuhrKih/wUV8Cbq31pkO+wQTy50gNQB+jfoYA7UEYeKXKd1ZZj3hH/VBQtt/Y/zC
-         e9Th6WHh7nnp9pprNd3s4yjgSAkJVp1ZKPi8F9wLlAWXkfVF52zK3DGnlZgl/MItIaVg
-         g6XkatVBrw2LQSWRtmonPgWsDTZnqQD+p8/0zJRVbRQkZU0AC2gbvPXi4687K7oim61N
-         mqh2tgt64fKvyxgus8pxUNHkBksxbDtOcn1ukYPXpnLMtTLWOQj6sITVTUAG4e2OC0vb
-         Svlg==
+        b=IqLFo91B+D0Fn1CLAceqc+R5u00pAzmUnMPc0o85S+PNLx/jMkM10WAGL0p7cf6o5i
+         WW5PSwiUd652q6NMJ3bF2Tq25Wof9na7bUm3z85x5ENo8uHb2L9ogKVvQeUux/0up3QC
+         9aQdy0kMdi9isG3Uu+5F32NaVJZYjp8WTlarFfPYhDlua1S4bOA4h/zfOwfc5O8N27mI
+         QI3WeOxVbcN/5sSJDgOAx8t2GunSZSyFWIgehzRFmhJNoCV9OmRuErxNYBOI+5jqjDi3
+         Sq5/G6Ko6Fk6wD0enxjL0GL6JRe0qHgLaaeZNrvjaa+6lLHTdWF0BYggbls1TqHOATU3
+         l1sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:from
          :mime-version:dkim-signature;
-        bh=KsxBG92p9ibwEnb4BhwoVnsxppBxJJIvb0AZD7wJfLQ=;
-        fh=UlFw1IV3jd+rOS25E3N9b7jX1jpPXECb2wG2R+Zj/Q8=;
-        b=iJuy7qUNxb3b1E+otf8guBmnVf9w6+o410iA90b+SlO6jsAzIf40B+NMVVTiFy61rl
-         7zpzxYve7FdFFgY/1uRSgXgqZ0MC3xjpX7vF62Ny4N2WhIP29CuTdOdyL51TQmXRkja7
-         NQcecHX0ZuBHhErI3CXMLpFzOk2lhKXa6nWzw87qXiM7t7uRL6M2wcOuK1thCefcWlXz
-         ZEZL6NNJcpMjP7XmSb5eKXdtWjhDqR0yrml2TWvH/jM3r1tjkqCSspNTwCr8FVReC/NI
-         n1GsEQwQmLcTDgYnmwgZE5Bm5XZHpTruROEoSOZk+oLKSXuSXJhOdzJ05U8j1lhViFQr
-         EEhg==;
+        bh=TBB5VLvsRNqJPLPM7Vv3h3G/5GzyI/UfTCWuNdJZ3fY=;
+        fh=bh5G9E0Gj587l2TwnAgfshH/ad9aU1eN+LA7HQd3kx8=;
+        b=K0Z4+MwxJ4ifuPqd7PfabJXBRrFHEL0dMz1pjSrIygMG8EQgzIumRhnKGw27q+HXvv
+         IGTgRYAp4J6h3LJ1/db73+eCEjiR/8VVWKiIN7M2rBGjHfs6/h2J0Vr0sUDJCeocCvsX
+         CmFz/a/+5wrwkpyUTgXnkxDwKn4yrqHjZQGmWwMlj/bauTRkbitW+pM8VvM3BCXmBdof
+         MGI0AWrV3uWSDABb1PRYnLzv7/kaUKcLRy9UQsnwY6nc7QVt+o++gnSwWModAsZ5kqJY
+         /wy4lDdBtv6LZHvnWSYce617tsZRgmz/4Oj60J9iCKNoeQ3rSnbgzOdTNGRhu6tWXPvN
+         lExw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790929136; x=1791533936; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790929145; x=1791533945; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KsxBG92p9ibwEnb4BhwoVnsxppBxJJIvb0AZD7wJfLQ=;
-        b=L6b3P9UUkhihUZ3PaFQHzDfAPTER1mu2bw7+EY/Z15sqPKkDnk2+FRA/ynSCqyBsIQ
-         X9LKL1hNwQuphvs1zRvAhKIghSL3vK22osk0POCPcQ5hQcBBKcMNXXtl/rhWLl7Fh8uG
-         c637gQfyCFqGuhkf4kcnYh6zIuQ7UjmeUAVcXG91NK66tgp94IPkeg6+XPxnvF/GYLJj
-         Y7FpjqxRolbD5KJtc2ZeeHKjtZiXtCQOWRZxY/Ex5q4rXmTUrvn0qyA5C8KdF/al4EPb
-         e/E/DlNLCpxuQjyHhjt5/Mu9zyhbZO8UF1J02vwE+7IROBRZ8J2W/QrdvYO1th+/U4Js
-         sgfA==
+        bh=TBB5VLvsRNqJPLPM7Vv3h3G/5GzyI/UfTCWuNdJZ3fY=;
+        b=GIw6YUR4PLSnU7k3/QpEy+7p6Q3AKeaiSTlPw0JC9mquVvTxk6rYt//lUDosqnq6eZ
+         4X64nHau+WzDkxkjXZsAt7vbko/+6b7xOszZz2MWnSpnX1s37cWmDZG63xACh/vB+rmj
+         ym39Z0vZ7EocyJpOsxcNyNcpKNsRuDPqeUEmWro9fMPZiE7di4qcQOiYf4HxLINDfuID
+         huT02nGxe5II48Gk1sL27kPnV2bNbyieT1JOuieyhp5rXu9UuNsay/gVM9qhVLMxdFDe
+         E8nYS+I6Z3OLPUUXXX/9Xfcy1dovCHtqLmvYEk45FdI8mz4Yub9VvkF7+cD6GcXlnx/i
+         jOdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929136; x=1791533936;
+        d=1e100.net; s=20260707; t=1790929145; x=1791533945;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KsxBG92p9ibwEnb4BhwoVnsxppBxJJIvb0AZD7wJfLQ=;
-        b=hxe+QYBXcq58in8PCUwJhilQoW9RxddDXNZcCqkQaQJozgdTyHTm5cYba5MlqfUVGU
-         GV8oOgDTRrLeLpFVWYgYD8Bc+udYUoWggXwfP9iPOAEkvo9LL4vI6W7QWQXZ9Fdl6oIA
-         pD6yeIIkWsuSW6AMCuJLppBinvHupKh0Q1n2K4U+u7ss9G8MTjH0ZbNrw4TQo7Zopiyk
-         GeReJjjj0U3cnjx/sJh91PUjtC0NvOEj4nxsQS2bpk+psAakGVYb0v+x55LWnebYTdTE
-         RIHWOWsPCWCb/2Cmu/mxUCADsV4cTdEtLVupeddaBIcgTNNSbVbWDlEf1sgcakcMY/2o
-         64xg==
-X-Forwarded-Encrypted: i=1; AKwUvBy42pG+HdELztHnT+O9/N48GVIqJDOgKrzn1aYFhMlk393TN+zPBdx27iQGMmhCCAthJtD6KnqkEp+Tpg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kUPFu2wihmCapjZEpzzpZA2wF1hDdSViQIyakINKPTpPg5191J
-	XjmyTiDDbMvFYfh8341miP3M9LK0Kxqpou6H5jOV85Q6JVIcWnRjtPUmgtHgEr0RpfrCw1VAkNp
-	0tAZ4kYR1k0Mo2dSY1U6saZnPRw9XOyE=
-X-Gm-Gg: AYBFou31arNXdcnh57LlEFIeWZwOB9dWrngq6siUWUTdZGDUPH6VOv1LW3MEwnFxs6A
-	Ca1VFMP7oF4BitOXaEA/qg6rUu7z1AQIANfL0JIZpNhFE1XBm799D+U/57vG+wqt2bg72DG8av7
-	J2jxpZfjiZKV/hHkcWnS43CeVxiacSqJZjlIMVRW5eXHWvUh0SZ2N+aV0AfemJB80lKjacJHnuk
-	KX/YTb+xFK/m9KsQmMl5+XuEZT4Ym45TO99p4frPb9rFBTdpY6rS5WV0Zrgq/rLxf7VVcoH1mV+
-	eFnxcVQzN4zWxNu1nfBU1EkWbgARvHWjgrYTCkramN+aHD2vMheOLWxNNlKqguNE2f5UOOAYu8z
-	KswKeW6zrbRu6CRpD+LAA2o+R+0pCfbQKQbtV/41J4y4=
-X-Received: by 2002:a05:6830:25d4:b0:81b:c62c:b63 with SMTP id
- 46e09a7af769-82285766111mr2214591a34.18.1790929135793; Fri, 02 Oct 2026
- 01:18:55 -0700 (PDT)
+        bh=TBB5VLvsRNqJPLPM7Vv3h3G/5GzyI/UfTCWuNdJZ3fY=;
+        b=K+H56RsudKnZxI9Pq1++n7dMEJlRyGdPZx0MDaEO4xVDfDr2JCf4yFl2tCu1+47wNY
+         TVgJyo0WXAb4ieYSeSCaF6P4zTCHVOl0N4z7evKA6qYbr6A2YG0h2NXgGrsbfxY2sw3R
+         jEWIajsNegyuGDPg4wuoVYTA55QeQIajyZHVAVE+xZKZogqYZ53H1LbIo9mYVzvgLjdZ
+         5qZDNC7dQQSNUpyU0G79Ts6bCFbMLGpHWhcFiD+wgS9RTY3zENBr5URpuvd92nkyfHOa
+         IrTQ3dxDlTbLbHrAE+OlBKj3MQ9a+xogjFlw3hulP8vY610DbeWcBlvLjdScJrNq8DmH
+         J4Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBwsAj9fhsBOe5EQQssuWFJ2orDRs2GqGZjUg+bGxUL6qpAnb1kr4lFYZGqpkM5sJTuMnMmwf2OmA39cNg==@vger.kernel.org
+X-Gm-Message-State: AFuF++lxFubXJof4AibeQIefamloLXFy0eHw1KvkaAtVPoSLF5mRkj7F
+	lrsa2CEJ1FgUtwyFVllyWVhpNgie+cumSHeRGAPPpZBuhyj5bGaM4ETtjP3elsxSjbgloUUSrMF
+	oVBKIuhJFtqYnsMuxEVzTie2IpcaPmtw=
+X-Gm-Gg: AYBFou3kQVzbdvg9hhH0p2sCaCKqFjfQrnFmWcZs+nYQL4QbhpwGPDgn3k+KrtT8+i2
+	EJtBGbk6tq84SnD0GJpYad1lbn7SXIDEiydgTbryUDPQZ/bByAXgO2Mp8xa3GiMTS0ucTavPh17
+	R4CdEC84wBS/hCEX3X+0A4ZZqKTPK2Ows9qcC3i/pJKmIM7ulW01W0+LCPQgMsAMNLdiobLbpX7
+	NUVtQahIWH2eiKxNxTSG9mC4BwQhLYy36rqJI68E4z6JIDHDVU3lv0zTGZzl6rCU+WZlLqeiMV3
+	8MmyAvd3VbR5HKDYVb53bSVrr6PKlD4ocU5TwJtZHJLLbDbTa01VTuK2GIdol1syM6zM007nQ5y
+	a9j49dv2WLwH1fewlshI6tfdZw90DT+KqdA==
+X-Received: by 2002:a4a:ee83:0:b0:6df:3690:d092 with SMTP id
+ 006d021491bc7-6df3690d0demr1473997eaf.83.1790929145116; Fri, 02 Oct 2026
+ 01:19:05 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:18:55 -0700
+ Fri, 2 Oct 2026 01:19:04 -0700
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:18:55 -0700
+ Fri, 2 Oct 2026 01:19:04 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,10 +89,10 @@ MIME-Version: 1.0
 From: mauriziocasciano7@gmail.com
 In-Reply-To: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
 References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
-Date: Fri, 2 Oct 2026 01:18:55 -0700
-X-Gm-Features: AclHuK9nPCYmSaWXDMDuSn5Xjv8o-h6goY4mO41PT99ARicqCQBe20-xJ2G7HIA
-Message-ID: <CAO7O_xg4ytm05eBm_vsv-qtXwTsWrn6vExzmB-d58f+PogR2CA@mail.gmail.com>
-Subject: [PATCH v8 14/15] media: atomisp: allow raw Bayer capture
+Date: Fri, 2 Oct 2026 01:19:04 -0700
+X-Gm-Features: AclHuK94Z1GzlwpWH9hv5Bi2k_51UO1H2knYbtS1vtyy1-uKsVbUP2Z4wlXl2-8
+Message-ID: <CAO7O_xiMnK+dxmGKc5oJsSy8cCgZTWn0upmJ0cxNzJitfGNHVQ@mail.gmail.com>
+Subject: [PATCH v8 15/15] media: i2c: Add WV517S lens actuator driver
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
 Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, 
 	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
@@ -103,120 +103,288 @@ Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-AtomISP currently rejects all raw formats and silently substitutes
-YUV420. This prevents userspace camera processing stacks from obtaining
-unprocessed sensor frames.
+The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S voice-coil
+actuator. Add a V4L2 lens subdevice exposing the standard 10-bit
+FOCUS_ABSOLUTE control and the device ringing-control mode.
 
-Enumerate only the raw format matching the sensor media-bus code and
-reconcile raw requests with the code selected by the sensor. Userspace
-opts in by selecting that raw V4L2 pixel format with VIDIOC_S_FMT.
+Use regmap for register access and tie control updates to runtime PM so
+the IPU bridge sensor link keeps shared power resources active. Propagate
+PM acquisition failures and restore the drive mode and controls after
+resume.
 
-Raw formats expose the full sensor transport frame so ISP2401 can use
-its copy pipeline. Processed formats retain the existing global padding
-behavior; selecting a smaller receiver crop remains a userspace pipeline
-decision.
+The register addresses and drive-mode value are derived from Intel's
+GPL-2.0 WV517 driver. Retain the Intel copyright notice and document the
+2026 copyright for this V4L2/regmap implementation.
 
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
 Assisted-by: LLM sparse
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 ---
- drivers/staging/media/atomisp/pci/atomisp_cmd.c | 14 +++++++++++---
- .../staging/media/atomisp/pci/atomisp_ioctl.c   | 17 ++++++++++++++---
- 2 files changed, 25 insertions(+), 6 deletions(-)
+ MAINTAINERS                |   1 +
+ drivers/media/i2c/Kconfig  |  11 ++
+ drivers/media/i2c/Makefile |   1 +
+ drivers/media/i2c/wv517s.c | 208 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 221 insertions(+)
+ create mode 100644 drivers/media/i2c/wv517s.c
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-index 4d4c0726d9de..e7b817fd779a 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -3822,8 +3822,7 @@ int atomisp_try_fmt(struct atomisp_device *isp,
-struct v4l2_pix_format *f,
- 	int ret;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6bdc32e7c8bf..9b0a6ef0bec8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28656,6 +28656,7 @@ S:	Maintained
+ F:	drivers/media/i2c/ak*
+ F:	drivers/media/i2c/dw*
+ F:	drivers/media/i2c/lm*
++F:	drivers/media/i2c/wv517s.c
 
- 	fmt = atomisp_get_format_bridge(f->pixelformat);
--	/* Currently, raw formats are broken!!! */
--	if (!fmt || fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-+	if (!fmt) {
- 		f->pixelformat = V4L2_PIX_FMT_YUV420;
+ V4L2 CAMERA SENSOR DRIVERS
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index b9961f77f0c4..9ccfa4b881f0 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -991,6 +991,17 @@ config VIDEO_DW9807_VCM
+ 	  capability. This is designed for linear control of
+ 	  voice coil motors, controlled via I2C serial interface.
 
- 		fmt = atomisp_get_format_bridge(f->pixelformat);
-@@ -3845,7 +3844,10 @@ int atomisp_try_fmt(struct atomisp_device *isp,
-struct v4l2_pix_format *f,
- 	 * resolution + padding. Add padding here and remove it again after
- 	 * the set_fmt call, like atomisp_set_fmt_to_snr() does.
- 	 */
--	atomisp_get_pix_padding(isp, f, &padding);
-+	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-+		padding = (struct v4l2_area) { };
-+	else
-+		atomisp_get_pix_padding(isp, f, &padding);
- 	v4l2_fill_mbus_format(&ffmt, f, fmt->mbus_code);
- 	ffmt.width += padding.width;
- 	ffmt.height += padding.height;
-@@ -3865,6 +3867,12 @@ int atomisp_try_fmt(struct atomisp_device *isp,
-struct v4l2_pix_format *f,
- 		return -EINVAL;
- 	}
-
-+	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW &&
-+	    fmt->mbus_code != snr_fmt->mbus_code) {
-+		fmt = snr_fmt;
-+		f->pixelformat = fmt->pixelformat;
-+	}
++config VIDEO_WV517S
++	tristate "WV517S lens voice coil support"
++	select REGMAP_I2C
++	help
++	  This is a driver for the WV517S camera lens voice coil. The driver
++	  supports 10-bit focus control and exposes the actuator through the
++	  standard V4L2 lens sub-device interface.
 +
- 	f->width = ffmt.width - padding.width;
- 	f->height = ffmt.height - padding.height;
++	  To compile this driver as a module, choose M here: the module will be
++	  called wv517s.
++
+ endif
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-index 87c29a940f9b..9ce529b0c7b3 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-@@ -537,12 +537,17 @@ static int atomisp_enum_framesizes(struct file
-*file, void *priv,
- 		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
- 		.code = input->code,
- 	};
-+	const struct atomisp_format_bridge *format;
- 	struct v4l2_subdev_state *act_sd_state;
- 	int ret;
-
- 	if (!input->sensor)
- 		return -EINVAL;
-
-+	format = atomisp_get_format_bridge(fsize->pixel_format);
-+	if (!format)
+ menu "Flash devices"
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 351c41ef25f8..6c3b4f06b819 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -178,4 +178,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
+ obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
+ obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
+ obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
++obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
+ obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
+diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
+new file mode 100644
+index 000000000000..e252a423289d
+--- /dev/null
++++ b/drivers/media/i2c/wv517s.c
+@@ -0,0 +1,208 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++/*
++ * WV517S voice-coil motor driver
++ *
++ * Copyright (c) 2014 Intel Corporation.
++ * Copyright (C) 2026 Maurizio Casciano <mauriziocasciano7@gmail.com>
++ */
++
++#include <linux/container_of.h>
++#include <linux/device.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++
++#define WV517S_MAX_FOCUS_POSITION	1023
++#define WV517S_DEFAULT_FOCUS_POSITION	300
++
++#define WV517S_REG_FOCUS		0x41
++#define WV517S_REG_DRIVE_MODE		0x43
++#define WV517S_DRIVE_MODE_12_6_MS	0x0211
++
++struct wv517s_device {
++	struct v4l2_ctrl_handler ctrl_handler;
++	struct v4l2_subdev sd;
++	struct regmap *regmap;
++	bool resuming;
++};
++
++static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
++{
++	return container_of(sd, struct wv517s_device, sd);
++}
++
++static const struct regmap_config wv517s_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 16,
++	.max_register = WV517S_REG_DRIVE_MODE,
++	.val_format_endian = REGMAP_ENDIAN_BIG,
++};
++
++static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct wv517s_device *wv517s =
++		container_of(ctrl->handler, struct wv517s_device, ctrl_handler);
++	struct device *dev = wv517s->sd.dev;
++	int pm_ret;
++	int ret;
++
++	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
 +		return -EINVAL;
 +
- 	if (input->crop_support)
- 		return atomisp_enum_framesizes_crop(isp, fsize);
-
-@@ -555,8 +560,13 @@ static int atomisp_enum_framesizes(struct file
-*file, void *priv,
- 		return ret;
-
- 	fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
--	fsize->discrete.width = fse.max_width - pad_w;
--	fsize->discrete.height = fse.max_height - pad_h;
-+	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-+		fsize->discrete.width = fse.max_width;
-+		fsize->discrete.height = fse.max_height;
-+	} else {
-+		fsize->discrete.width = fse.max_width - pad_w;
-+		fsize->discrete.height = fse.max_height - pad_h;
++	/*
++	 * Runtime resume restores controls while the PM state is RPM_RESUMING.
++	 */
++	pm_ret = pm_runtime_get_if_active(dev);
++	if (!pm_ret && !wv517s->resuming)
++		return 0;
++	if (pm_ret < 0)
++		return pm_ret;
++
++	ret = regmap_write(wv517s->regmap, WV517S_REG_FOCUS, ctrl->val);
++
++	if (pm_ret > 0)
++		pm_runtime_put(dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
++	.s_ctrl = wv517s_set_ctrl,
++};
++
++static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++{
++	return pm_runtime_resume_and_get(sd->dev);
++}
++
++static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++{
++	pm_runtime_put(sd->dev);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
++	.open = wv517s_open,
++	.close = wv517s_close,
++};
++
++static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
++
++static int wv517s_resume(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct wv517s_device *wv517s = to_wv517s(sd);
++	int ret;
++
++	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
++	ret = regmap_write(wv517s->regmap, WV517S_REG_DRIVE_MODE,
++			   WV517S_DRIVE_MODE_12_6_MS);
++	if (ret)
++		return ret;
++
++	wv517s->resuming = true;
++	ret = v4l2_ctrl_handler_setup(&wv517s->ctrl_handler);
++	wv517s->resuming = false;
++
++	return ret;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
++
++static int wv517s_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct wv517s_device *wv517s;
++	int ret;
++
++	wv517s = devm_kzalloc(dev, sizeof(*wv517s), GFP_KERNEL);
++	if (!wv517s)
++		return -ENOMEM;
++
++	wv517s->regmap = devm_regmap_init_i2c(client, &wv517s_regmap_config);
++	if (IS_ERR(wv517s->regmap))
++		return dev_err_probe(dev, PTR_ERR(wv517s->regmap),
++				     "failed to initialize regmap\n");
++
++	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
++	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	wv517s->sd.internal_ops = &wv517s_internal_ops;
++	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
++
++	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
++	v4l2_ctrl_new_std(&wv517s->ctrl_handler, &wv517s_ctrl_ops,
++			  V4L2_CID_FOCUS_ABSOLUTE, 0,
++			  WV517S_MAX_FOCUS_POSITION, 1,
++			  WV517S_DEFAULT_FOCUS_POSITION);
++	if (wv517s->ctrl_handler.error) {
++		ret = wv517s->ctrl_handler.error;
++		goto err_free_ctrl_handler;
 +	}
-
- 	return 0;
- }
-@@ -630,7 +640,8 @@ static int atomisp_enum_fmt_cap(struct file *file, void *fh,
- 		 *
- 		 * FIXME: fix the pipeline to allow sensor format too.
- 		 */
--		if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-+		if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW &&
-+		    format->mbus_code != code.code)
- 			continue;
-
- 		/* Found a match. Now let's pick f->index'th one. */
++	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
++
++	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
++	if (ret)
++		goto err_free_ctrl_handler;
++
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++
++	ret = wv517s_resume(dev);
++	if (ret)
++		goto err_disable_pm;
++
++	ret = v4l2_async_register_subdev(&wv517s->sd);
++	if (ret)
++		goto err_disable_pm;
++
++	pm_runtime_idle(dev);
++
++	return 0;
++
++err_disable_pm:
++	pm_runtime_disable(dev);
++	media_entity_cleanup(&wv517s->sd.entity);
++err_free_ctrl_handler:
++	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
++
++	return ret;
++}
++
++static void wv517s_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct wv517s_device *wv517s = to_wv517s(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	pm_runtime_disable(&client->dev);
++	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
++	media_entity_cleanup(&sd->entity);
++}
++
++static const struct i2c_device_id wv517s_id_table[] = {
++	{ .name = "wv517s" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
++
++static struct i2c_driver wv517s_i2c_driver = {
++	.driver = {
++		.name = "wv517s",
++		.pm = pm_ptr(&wv517s_pm_ops),
++	},
++	.probe = wv517s_probe,
++	.remove = wv517s_remove,
++	.id_table = wv517s_id_table,
++};
++module_i2c_driver(wv517s_i2c_driver);
++
++MODULE_AUTHOR("Maurizio Casciano <mauriziocasciano7@gmail.com>");
++MODULE_DESCRIPTION("WV517S VCM driver");
++MODULE_LICENSE("GPL");
 -- 
 2.53.0
 
