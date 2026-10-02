@@ -1,85 +1,85 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0696D359A6C
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:17:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9456E41A50B
+	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 08:17:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929032; cv=pass; b=a8IFSdo+hP8hpLiGqOPlb3AzXJdkUSb/2uBFFJ0X29H6+MIsY+1oaJd/TXX/Asb0oYZiJ6coiYVSTD3z+0voVy5OpxkvfbZ0sZrGaMNHCtawuokHvcYHZ0X6sUxpq3zIH8UDFkd57MgekzC10SSiyi4GSc8Dg8mR4vvaUh9I8+I=
+	t=1790929043; cv=pass; b=AUQzpcMbahd6Umrs48EwcrmQj6vT5/Q94kYKpfNnQxjtDwGL3UY9Lrg+xCCgIqi3UwuZ+JZdpBf2deIy14MNVaE62rojGWKzv6naCCVfx7b9KilWQG/PDgVr40gGqF+gh+NAPK8/bqJ+4xxRtJ4D2GytKfWoQo5tu9XZWKRaMx4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929032; c=relaxed/simple;
-	bh=AW/hl4GAxmdzelzgtfN6Zdian7Bgh15Ju/suGkVS214=;
+	s=arc-20240116; t=1790929043; c=relaxed/simple;
+	bh=V9mlkn6rFZgJWc3sdMpgHtW1gw94RUIGRN5GFmumsAw=;
 	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R6eDc8Q65d8A328BZbhiPHIcF6oRtoon4v6/ck8XCIhggM22DhNMTc6nYpzikzEeO3e1OytKOW58hqcCu82cFB21HscVBAFCx/VL4USVhRVae9RSv6ZEKaF7DJQfgKr6DRjqyF+Sgf6ClZMWTl7feVhROSsFkJc0ftxY8OVtLh0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RcljU18Q; arc=pass smtp.client-ip=74.125.231.168
+	 To:Cc:Content-Type; b=UMtxDGiIfUEbN2W8ShS1FUaoMMvSIeqiPJjbfZ/JEEzmgMAD6Yg9QDjOQOhG7vXi910XE3cjMjOwWN1Do/hy9Ia/677hq00PjtL1S0PlXGoqmKTNP7EVR5YTF5VDKKGL4WJ4GgRp5sxmbNVXF16DdOL/p/nHUNT7q7c++H4QqWQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LXGsLsmY; arc=pass smtp.client-ip=74.125.231.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RcljU18Q"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-82328163e12so114195a34.1
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 01:17:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790929029; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LXGsLsmY"
+Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-81b8e8e9cb0so4208218a34.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 01:17:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790929039; cv=none;
         d=google.com; s=arc-20260327;
-        b=d1m3oq+bd5VWESGgMAOZtqc7/D2pYlRNDFiMBe6wD5+PAP01jBa2w9x0pXf07XFkGq
-         NqK9k+amlPuNzncPCMvfGbEVkEhH1xk/bIY97ix3hIGFVABq3qqnlRUvqSpAs1ifgqdE
-         E4y9VfsyAoJdWwikBynMt2I1fhBcGGe8oDhApvhzONGLIWkFTO4H+dY14SuxjzBDleAY
-         ZlVy99NAz6UopiRvWCteVuK1dXPBbKOV+bNWoR/NZi7HuBBZkJyaG4I+/98NGwNZEWHT
-         1Hlhc4ZK1w0jkquklvPjIWzGaFFaGhyKMjgEbjHoqy3xFxoDmpS5kB++Uxw8x0iER0os
-         Yfsw==
+        b=YtUPoAf8IENYGmYHhP5gpbDurvLZXk1ZDzrM8gGxNLSqlKLumHZCaSjnraXj8yfagy
+         7rSNeM1kbBqYda3ZZfumUWXolsQ7bY9G14ooMYIS+h835g/Zp8GPofFsDpHXdRYmN700
+         H3+3eDD7eCyJeuDkKyVrA1JUUWhVtGy8g7DmleagajTNVeHEob6JzsY54b37qWAmg1zi
+         ZidmjqHiHvUOqSAbh2vsgODQTIxfgjY5tGowrUsTBaXuultLPfA5+46AFiUBVyGx0geU
+         dgv2PEFr5s+HEo48hYPvgD+vqnjgibCmIw05BvCFxRAKlpryox4yH0jB0TCHWM1G648T
+         Hzig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:from
          :mime-version:dkim-signature;
-        bh=vwlaLQjJD4LA4qoX5aX57TZ11LYaUU8pRjBICIySVm8=;
-        fh=M9cVc0MwhadHedtdO1IfrlQf3JnPSvllkkSlsP3wnyg=;
-        b=CGJ7SH7bB6XwDatl8LxVBRKoN4fd5m84G0W4oU080ouqzv7irFhVbMsTZt2GP9t+/O
-         iUiU2YDUMWxWyn2zMSCxNc5IC/XuR7nHVNUAtMHMYTWraJoK6L/acm+zSmckcPKCgzod
-         TbZT40c7LlAu4c1VteLPvyjrWRJY1y3O5pHckKGZkVpHNuEaB4BK70nM3cZUngxppKj1
-         3lOeZuHrcW4xu/NR+JC68ZNQ9lGjd7qbFGwIsUmSe2l5HnEL7z1UaXD6N9YR7alWKHJq
-         DugGVQbjySWFA8YPryDZ2+04wjCWy/Vv2mpKCKyAD8w85sq/uTDShKo52Oauhh0rQkio
-         Fdsg==;
+        bh=pcFDa9I883BpJ1qewU49epkbu/O1gg/G2fJgTy7QgDE=;
+        fh=DbMcZ3fT14q4vTxtRT5dJfh7xnFyMHeRWImr2C3z3r8=;
+        b=Jhi0QIWWZEz96f/vcekq410hukHTMpKyL054+tCKbsGgIgBo8IafqwN32y7S/ZFMbk
+         15tO6T9vMAKx7cBe/BchT2wiXsDcTRNsqhFeedfUsEZbFI24TaXikele4dVIqxkcxv21
+         tBVb6BGYIsojY2yi8vPCAgR42Gmy5lnw6r10YNSQI11y+b0MFlJGvu5N4u5V8FAEGm54
+         JQ4YLgr4FiaeKHeQUB9tB63PlOr7fos3eDKPA9braUubI2fnpXj94uzHZpTT7vcC1TsM
+         Q1cws7KRGcAEmoDvYzzh262hZ5wk2T3iW4OOGNwcrxsplRecnY93ro43Cweotnf7MGQR
+         QGgg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790929029; x=1791533829; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790929039; x=1791533839; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vwlaLQjJD4LA4qoX5aX57TZ11LYaUU8pRjBICIySVm8=;
-        b=RcljU18QX/MfBolDxIwBObWNRGKGj9uqdIqBOR+RR8Ml2aRpG1HLCH2A1ED9uCz7qz
-         2B6uHjLQNY+64i++ennbpBVbupWQl+U8aCdBsLe0mbZ5vTBXgep6mduhGQBJUXsWU5AO
-         fm4+A/s+b3w+Ex3fA9eTH2G07fYR6LpPaHGgXUSWm6xpmW9uEl+QSd0lZ5fD1i+cnI1k
-         +3RTIs5U5xC53JMVNsHwZXx5I3Knjn8gVcdO9oN4g2cbEaYkuIVwY0OS42qo2PPBpAdp
-         7fxEfujcSUor6rpGlPhMNFR14mOZSROnMlYyc1jNM/+rJCWZi7NDtX6VC687ZpoeD3N4
-         EvzA==
+        bh=pcFDa9I883BpJ1qewU49epkbu/O1gg/G2fJgTy7QgDE=;
+        b=LXGsLsmYYsrfekQ0X4iQOaUHtGqQBpzEDR3uSaL+g1u0M1RDbUWwDwIu+0d/0pYcj5
+         AW197aMDh9NYoKk1CxR9VjFpqf5lfWhqo0a+2YIrwIMSqr6jCy1RHW7pRbXiILcKAfpg
+         JWnk2WuhV6Xd7862NOSMvy4T/4acJ2UezzElx/CKWbMq0Mmp3H7Kg6IMsmtUvckA58Ac
+         y6jMxoC/bbIN2oORn4kRovynJg4EBZ7p2GXhkU3FU5U0t+PNxEbsxwzPcvxQlbg0xenn
+         yqG6mJFeELozBQc1PnRR+t/fErjpjhU3uB717Oz87+C8S+ouVz75EYYLwIc5BIya3PRH
+         oHIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929029; x=1791533829;
+        d=1e100.net; s=20260707; t=1790929039; x=1791533839;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vwlaLQjJD4LA4qoX5aX57TZ11LYaUU8pRjBICIySVm8=;
-        b=xvKI69ULRk4wgk6FlInH3yORndqraJTsfZsvRs0HkpZ55eruP/iDnaOz+CGmfoJmHa
-         Ji32Z2bcFh8RyxAwrlIIBaL1BK5aIPwSdmMCRlXty8ZpVeLn/5g2czoIE7OdR1heLC1c
-         raZuyZ7KBF9S9zyD8ue2E01hDSvnoSHZ4wHJjuiyjBA4TpPVvWg9+eiHrwziReTZRyvg
-         D/7gF0N3No2+7fuJNKps4jGazouAE5hzKFNcZqotYkEargW7ibaXoixKBWF45vGGKdxm
-         O4t3GJW/hGkHJPTjzn4q0EtnieFmEP2cH3nT7PTGfI2xPubc8qj9JJvVhI/MBahqDTSA
-         gW/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzgZxvrfS4KQhxBIQ5jAVeUiy7vRDuIzdrQbgG0PmbyUqdSN4AIPjdQZ9+AKf78505i1E64v4lMgUi0qg==@vger.kernel.org
-X-Gm-Message-State: AFuF++lAzXiHQ6FDGzo+xh2C9YZfcXbshxu5CaCLIi4Dxgpa1wx+usZE
-	AsPlZEW2vCezHdSX0LH1Nyg4WVg4EiFVogjz6hFwiE8LWaoMuUvTwe7tH6nZv0fmpFVKUdIwg2g
-	I47Wb1EnWbzJHT33p4wHtgdo6EdwYyyU=
-X-Gm-Gg: AYBFou0mxbktYkIQtK6L7KIsZLK+kwFtp1ADd2oSluzwLblgrMCyXnU8/IasaGbggZi
-	LI5puiob9KMMfrXzYYY4O9yarKkGWpwG3olDcDOGZ/KeWWP6tU16Yn4iK1CRDVmFWre5lPwdi/G
-	3ggLGYYJySzMb/UqoLWKavBD6j9oYuABJ1v26eeu4WBApulxxh3LmIEzu7BPd8Qf0NIGqBaxm1K
-	9XEO5I8iVAzVckfSQg40dUwTf28k2Y/8whwn31JrLlEnovVli62e8gOMX8Z2AvfdHUdHmULFDLe
-	bQ0Zj/fKcITkkrKmlWhi4PPbrYyqqLKY1XCVHN5vsB8J2HC2VZ0XwzTBFhWqdjtMfCEo8AYsz2E
-	3f0OFds76NTA5YnA2SBE9lKmZske+Fngv6BgaItCeRlI=
-X-Received: by 2002:a05:6830:f81:b0:81b:9724:8724 with SMTP id
- 46e09a7af769-82284553bb3mr2195651a34.11.1790929028678; Fri, 02 Oct 2026
- 01:17:08 -0700 (PDT)
+        bh=pcFDa9I883BpJ1qewU49epkbu/O1gg/G2fJgTy7QgDE=;
+        b=Rn3CODlHA5UmRFPz784kVCQ5b1icboQT2hnB/4V7q+NGjydo7hPMi4vKzb0ET5udtq
+         VnioAA3WMmuGzf7aL9OUzv1OOzbfyhmgwbiB7WPtARbDFxJeWxSRaFESENerH/T9aZcY
+         91xvH0K7IUQ3FA1uUP2HsI3vOlgCuZntNTmtHwxw1v8D7N4Dcv0u8gSQIh3IlvofGgRY
+         5uj7U6WMkMihPtHI5507uBVt78Su8+D38PDvfkTsaxROV3BIATzLsGcVbq+SLQX/+xOa
+         3Ncs7S7Vl1saa3+bsMzjOZhLApqS8h+F/lMqlYVKfz9mzyuMLZDa0GIJh3vJ6A9/4I2p
+         swSg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdKveOAfGctktFseqmH6CRklBqEkE++ExOwguqExWpvWTdjjgMRUS0rY8ZhH1Gb2oTmtcOXVJZsZKrJw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kiAVXvtKiLk1HdLnWLBpBzCrCalh5XxxDcbJ9ATy3jjbjNWMcR
+	HZc45HdfS6uty1IOqW4vxAvxlTBWLC9bzF4Hgs5/LFB5vxJny+6Xe2S8Ws0fjZEu9x8ovWwgkLA
+	EmXyXQ55aosaTEjdGgKD0M4wVbZ5W0Uc=
+X-Gm-Gg: AYBFou2iQuVkzRAI1B9EvOCpizbDOFejnZ9l2TwhgeOEuJ1Nuyll+QJkLpKJZ8ljNXW
+	bVPw0kIhwZj6f9xEcNVpT49nFP0AAKRq9PGwQf5V3d2wJ153M7UNq2wvoCje9fSvIPUlCALxTKu
+	TDAUkfhq1ctsuyyX2Qjh5n93tNxGQNtoURMpNBGETUOXhmf+gXV/HZ5AgoIPe4jSVGbNAtTA8t1
+	FUd+DMFwJMckjaRE1bkO72dwYF3QNfcnVPVCC0QOs02SKY+jI0lKRdIFRPXDd29BEdf1cj9DgsW
+	LMU1qlhWPx4lX2xmL9RU6Q/grxv2+qKTtGTvFel1TBx1xY4/rv2wiRmhzc8ABU5EykjJwuu34gW
+	CKANTX5OuL+G3abXOn1rcvQpP0KNrT0lwZDreV3yUbzk=
+X-Received: by 2002:a05:6808:6408:b0:4d5:295c:a82f with SMTP id
+ 5614622812f47-4f52bacb381mr1370022b6e.60.1790929039252; Fri, 02 Oct 2026
+ 01:17:19 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:17:08 -0700
+ Fri, 2 Oct 2026 01:17:18 -0700
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:17:08 -0700
+ Fri, 2 Oct 2026 01:17:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,10 +89,10 @@ MIME-Version: 1.0
 From: mauriziocasciano7@gmail.com
 In-Reply-To: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
 References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
-Date: Fri, 2 Oct 2026 01:17:08 -0700
-X-Gm-Features: AclHuK-s3En-dBInVKqqd_wUvqqzXZ7qVMyjE-03z1fuCXIHtAVrIsCb8dbhHsM
-Message-ID: <CAO7O_xg+aLuRELykNbbBjpku3ttjoHL0EnH3texn3J2ewBL=dA@mail.gmail.com>
-Subject: [PATCH v8 03/15] media: ov2740: Use C99 initializers for ACPI IDs
+Date: Fri, 2 Oct 2026 01:17:18 -0700
+X-Gm-Features: AclHuK8iCzKbWnYiIfO1nOdV2_eMWyLE27DrxpNhzaQNvYCQiT81CDMNKLaOXFA
+Message-ID: <CAO7O_xhaMCV+w1qF4hmnFuOBJsed_LnhdRd=x8oxTwLedRVDiw@mail.gmail.com>
+Subject: [PATCH v8 04/15] media: ov2740: Add OVTI2740 ACPI ID
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
 Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, 
 	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
@@ -103,35 +103,28 @@ Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Use designated initializers and the standard empty sentinel style
-before adding firmware IDs.
+Firmware may enumerate OV2740 image sensors using the OVTI2740 ACPI ID.
+Add it to the existing ACPI match table.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Assisted-by: LLM sparse
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/media/i2c/ov2740.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/media/i2c/ov2740.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index 536325bb7b92..64a85735c1b8 100644
+index 64a85735c1b8..830f5857d73f 100644
 --- a/drivers/media/i2c/ov2740.c
 +++ b/drivers/media/i2c/ov2740.c
-@@ -1462,10 +1462,9 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ov2740_pm_ops,
+@@ -1463,6 +1463,7 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ov2740_pm_ops,
 ov2740_suspend, ov2740_resume,
- 				 NULL);
 
  static const struct acpi_device_id ov2740_acpi_ids[] = {
--	{"INT3474"},
--	{}
-+	{ .id = "INT3474" },
-+	{ }
+ 	{ .id = "INT3474" },
++	{ .id = "OVTI2740" },
+ 	{ }
  };
--
  MODULE_DEVICE_TABLE(acpi, ov2740_acpi_ids);
-
- static struct i2c_driver ov2740_i2c_driver = {
 -- 
 2.53.0
 
