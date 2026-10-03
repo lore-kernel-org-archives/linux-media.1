@@ -1,67 +1,67 @@
-Received: from mail-ej2-f28.google.com (mail-ej2-f28.google.com [74.125.228.156])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BE7399CFC
-	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 09:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE18391E5B
+	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 09:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018299; cv=none; b=bYyKMfHqUZ23ZzVH92RrT8waDId69hOyhCDxlRGgFUYdvbL9/qVtem/73HuMZVtiiN0UVrZSxtmi/HdTO6qo0WmVzggvwOIngxBLeyqtyraxaAzPt/5AxuijerirCNPzqdA68m+9L+eHaW3pNw26X8sgd1SC3Ouri0x0GvFxZ7c=
+	t=1791018488; cv=none; b=U9Zx3JMt2bIYnccDdVaytsC3e+5RhehyeczWvbYTdwhGHWC3PfdMXP5DrMTe30PvTVF7K/3xaszgoQpo4kawao+OpzvwvUWtajfFrp4raXq6z7BAZMJVc9t3pd51ZrLBadUjkhPR3I9TqlFuve8lltF35Aq4BdXPLZ68/PpbWUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018299; c=relaxed/simple;
-	bh=oBAwIlp0EH3iPcRUaPn/NBQX1NuaLsMheNDGOxsCCCg=;
+	s=arc-20240116; t=1791018488; c=relaxed/simple;
+	bh=lQa68HSQB6MjEneq1xa13evrsdFLJRQ6nIBA9huGu2g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iI2nHXG53bqQJQV8606rrRzG7KHc9drEVhp8vWBTwnbE1nN3TVr6Kxr2+QX3xYqFU/2DcisTodMyuRO90t+Xwfb7Oe3NOX3yMBZLQU+b5eOjwqW+NvBLalwRvZzsofAsjsbIEQrXGeTd+2+Baiw1nG/BgHqBBN5HpUJIzjbx+c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=S06ZJiyU; arc=none smtp.client-ip=74.125.228.156
+	 In-Reply-To:Content-Type; b=I5AkBLBxcXGq3Y9mny8+fSRxCa6+STJVmsRXxNMRZJaOlfDxaesovF+zT9gtHb96FhWvjbrIWvuWTTqYoJeyhSnEt5cpkula8nLe0+2hpBNNX8et06CHtUMcoYxmF5UxTgrLniN4HPLp58Ac7NbUoqmWBCjv9n0PA5I3be5E9x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=B6GnvZOX; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="S06ZJiyU"
-Received: by mail-ej2-f28.google.com with SMTP id a640c23a62f3a-c2e4a2f00beso88064066b.3
-        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 02:04:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="B6GnvZOX"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so93912766b.0
+        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 02:08:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791018296; x=1791623096; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791018484; x=1791623284; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0SCNo95/BixJDrCNj1e89Xl9YT1Mqeqtzc6x6damSjo=;
-        b=S06ZJiyUNxkTWTJDW9fMCol/9fu1dIy5o87nmR1DS1aFKMyhGm9XeGOIPwjwcE8VTc
-         +30aX593eqYqkg0faeA9CGvwuc32zcLfi3LGupK/d+x24+v6tXhAJlwjyniDGLu6VaFm
-         wv9eXu1KKhDULReGpw+X4Y8qxEbIui6QaMzN2hhnqqbyr7XL/jHgk+NUb8fzQDm5z1aB
-         dO/8th1A1YrqyXzuzCd685r3O70sFoYWPfnvMUAklbvqb76sU5rvvqevwYcRNsglZ16F
-         86uBvzR0a/Du6cc0nKqxj/bXjhKWrKjPuUguoNM0StVbS6zQhZ6VOR3u1RmfcZ0tRTOa
-         JSsg==
+        bh=2g2VvdGotpSREZ6JBEKnuSUm+BHjQJ7dqfy+OdMa7ww=;
+        b=B6GnvZOXDZVn2+mc24zj8awri0mS57OuUZdiXDG9/JtI6+sjq7gHTFPPCA+4n6Fs5X
+         V9/o0q7eUYO3UNd6N4R8I+Nbtxd9rjEonrv9Q4c/mWCVOjOq3dAzvieoAK5rL0DsjDSt
+         4P3euGVKltxWyNqJPalVUBPrYfOtIE9alrMTQQLiu4ljrIuA0sp0e2x7LuTusUdRR8PQ
+         xbDz8w0ZE8cmT3kebQZcPzA5htC/ssbTVv/fR2w7M58zdj02cf9IAHxqW1x73X4oJNKt
+         iOzpivS27GLC6Z8VkMQBD0pMTt0HlebPNWrKGdqFL0qAarnIcrN5wtvOhZtq2RCTiHYu
+         n2yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791018296; x=1791623096;
+        d=1e100.net; s=20260707; t=1791018484; x=1791623284;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0SCNo95/BixJDrCNj1e89Xl9YT1Mqeqtzc6x6damSjo=;
-        b=mCHehSaB3LN1H+bSqPoE0YCgFIrlbrZHXG5ftlLiPuUasmRjk+e6PYUvB1Vnrv/0D0
-         yjOwV6TS4gRKUCUU0WZ6WMc0p+WcQDY5uOqpQyE6obSJzs6z+NqvxIvdurlUY+42nxRf
-         pwvRBhtueZei9ig8ySQReDiN6oa0Gj9VvGfjTM3D07sas7X1u7K0O3pKnRd7iYGNyJq4
-         BKeH6y2IJTZi9EVubzVtbYOcf2Ayumkt5U/Ioeo5aohCk/b6jgcYUFKVW1StoQJSEoO2
-         mIZJNqLvuzvBgqeP7hFjQyl/Ft8DAmC+z3Ycke10avKCs+nCILsUUS8u+hAQLfOj2Jao
-         vUGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYn/WSGHM1xOoJ6lBw8bpJycefYXNe/XXBiVjUy/srAJAbPJ6PchwePQ0vW+6v48DZpn/IQMYDdJYXrA==@vger.kernel.org
-X-Gm-Message-State: AFuF++m1RlZI5yr+G99yx0Qq/cVBxO/k4YHKy8+KM1EIDsmAooNpRSrl
-	VXS3cfViBIZxz3tZeLSzii8oelmzs7bqCHikT1N63TV5bGelFUjWk6nvuiA+xEuxIC8=
-X-Gm-Gg: AYBFou3ILoxbK59GMpAAGqCCbMjoIqWRxQGgQSDS2kQ8I2LdNJ2iu8blhkoYXgh3H4f
-	+Vnp7HgzhGwPcOeuBg6UmSE7gL3YYj/wW47m7LH3a1km1O4fsD4twZd3UOQPX1V9GdEE6kvnSm2
-	qNtMiVfcUmaDC4jQ1h9xAa+KIBYQKHDKZXYmZeN9pLEFSfEYRLDLGTuDjvb6vjv/n3nu8XDFoyV
-	lZKeX4F+f/zltqo7RepOfL9vCTPAgpx5i8mK4q/ru1a944RgJjsSjpbcEXbSUFYgXivgBw0CY7w
-	CmGOMxM1OgOg4NZpIepZfruArBJ5VfGqQFHGt/bnkmtFKaTrEL38nM7C1f+ApeeRnasyEOT8dF4
-	gx48VfNf3uHl76BPUI3+xZVmH1ay0UWVExw9nqqYh82lNndoH4yhmloTZVV213d9USRgAudH3bJ
-	eSxYToS6NEQoYPsAEjLA35BcRf0tUAOtwh7Wdm5mukVY673X1U/P0QlNmu0+mlMvSfvK6gZc4bI
-	hbLZ3KE05s=
-X-Received: by 2002:a17:907:94cd:b0:c2e:3d17:5265 with SMTP id a640c23a62f3a-c2e4acecd07mr452317266b.21.1791018295547;
-        Sat, 03 Oct 2026 02:04:55 -0700 (PDT)
+        bh=2g2VvdGotpSREZ6JBEKnuSUm+BHjQJ7dqfy+OdMa7ww=;
+        b=0gnxj2o0M7e15zUyi4++MiMQt2SQoq2tdeU45mcrLrUqBF2PI0tDDq7IPN9h05WjdQ
+         WnW5Q1YrSH0YjRphnm4LFbA1PtbkPH7RkqoYptvKE/q3mbD05Unqjhk8BNhS+FWA2WAG
+         25T1rQh/MvgJkR6nMDFXyixJbr4m2YpuvQF4G8GUk1w4VY+Oi3jC2fnz9DxSkM7u09xb
+         g7EWYqHCpgVu6BUP63TuaApKFRecluJFz5CEts/SnjX43aGkY1OWJVey6jDS68VXsZD6
+         FBfcSy3E4WkuLQAFROT6Uejsl6C8H2Z3ZjXS0CpRgZpQ+HDi9BRTqz++D9OXUKECCyg3
+         l+yg==
+X-Forwarded-Encrypted: i=1; AKwUvBxENpTiwGTFQhfseyj7x90QpGQoQYhCEuBsIOHLS0y8pZL7GUYUVM5FiC3Qw5Sz9xIVJwKHZJMZ+udlGA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4oBfkjBeDL21Scrz1adRx1IVAiKWDu/fnzJnIw+dPBs8DN10E
+	Cnjn+Ca9ETOCOK4VcaBU9idwBYBHdq6XmNqPqpCAtFSJnC7Z2llWjuZVxf/FxZuD2g8=
+X-Gm-Gg: AYBFou05IqQ+d+g5IbBa9U+TTefMwNvrvYM7o8pprIfLWiL8hem3794GqWW2b/NJVEM
+	Mvzhho8tDmu4sOwt/Lj1g21C+4kk7IBl30a+uCQ2Yp9loxzYnkxZxm7rX+klboPhO4legD/9hLO
+	jd9vDRJBRSQ660KvjieKmNdH6+vjQjhiSJrPqkGvwJUAD3T9uk1+6VahM6TsMU1HQE4F6+4oU0V
+	hrGsEFqQsqInEWvdI4lxR6slSuLFnsQ7XrU+UhAP448VxkC0p5ueuR4kby19JQSTpMM7nJaDvd7
+	ZPZ/6cbQv1iH/erjqd+hTAYnW3detMuom5UGG+xG36G/IcxAT7yjFytaUlCyKZMlaPvxXshhqgy
+	hNePsIjIk6KkFgtWCUpY/6P/2yM5rIE6w6NRasNX4b2bcG53ZPLnWlr6U+zal6IOnpxstK4Cdqg
+	MVs2bsdFM8xgvWi8p/ekVO+5dWQ2dcFjBb7LpgDuQn8WeDkAXMh0N4jHx+McWclD1rhJDrgeevp
+	f42kollDh4=
+X-Received: by 2002:a17:907:3f1b:b0:c29:f5d8:9c70 with SMTP id a640c23a62f3a-c2e4adfa160mr448166766b.31.1791018484339;
+        Sat, 03 Oct 2026 02:08:04 -0700 (PDT)
 Received: from [192.168.0.167] ([109.77.86.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e71d5876fsm48745266b.0.2026.10.03.02.04.54
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e71d58da4sm46210666b.7.2026.10.03.02.08.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 02:04:55 -0700 (PDT)
-Message-ID: <86300678-cc2e-48ea-9421-b615dd263f24@linaro.org>
-Date: Sat, 3 Oct 2026 10:04:53 +0100
+        Sat, 03 Oct 2026 02:08:03 -0700 (PDT)
+Message-ID: <022c47c3-54b1-43a4-9161-1d0acb13b736@linaro.org>
+Date: Sat, 3 Oct 2026 10:08:02 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,8 +69,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 02/11] media: dt-bindings: Add CAMSS device for
- Kaanapali
+Subject: Re: [PATCH v18 04/11] phy: qcom-mipi-csi2: Parametrise the common
+ status register offset
 To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
  Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -86,24 +86,96 @@ Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
  Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
 References: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
- <20261003-kaanapali-camss-v18-2-87ba4ebe0db1@oss.qualcomm.com>
+ <20261003-kaanapali-camss-v18-4-87ba4ebe0db1@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20261003-kaanapali-camss-v18-2-87ba4ebe0db1@oss.qualcomm.com>
+In-Reply-To: <20261003-kaanapali-camss-v18-4-87ba4ebe0db1@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 03/10/2026 10:02, Hangxiang Ma wrote:
-> Add bindings for Camera Subsystem (CAMSS) on the Qualcomm Kaanapali
-> platform.
+> The CSI2 PHY common status registers are not at a fixed offset from the
+> common register block across SoCs: x1e80100 uses 0xb0 while other 3PH
+> v2.4.0 parts differ.
 > 
-> The Kaanapali platform provides:
-> - 6 x CSIPHY (CSI Physical Layer)
-> - 3 x TPG (Test Pattern Generator)
-> - 3 x CSID (CSI Decoder)
-> - 2 x CSID Lite
-> - 3 x VFE (Video Front End), 5 RDI per VFE
-> - 2 x VFE Lite, 4 RDI per VFE Lite
+> Replace the hard-coded 0xb0 in CSIPHY_3PH_CMN_CSI_COMMON_STATUSn() with
+> a per-SoC common_status_offset field in struct mipi_csi2phy_device_regs,
+> initialising x1e80100 to 0xb0 so behaviour is unchanged. This is a
+> no-functional-change preparation for describing other SoC offsets.
 > 
 > Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 16 +++++++++++-----
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  1 +
+>   2 files changed, 12 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> index 966d79c98f9b..8cd331cfb4b3 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> @@ -19,7 +19,8 @@
+>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B	BIT(0)
+>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID	BIT(1)
+>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRL10_IRQ_CLEAR_CMD	BIT(0)
+> -#define CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(offset, n)	((offset) + 0xb0 + 0x4 * (n))
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(offset, common_status_offset, n) \
+> +	((offset) + (common_status_offset) + 0x4 * (n))
+>   
+>   #define CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(n)		((0x200 * (n)) + 0x24)
+>   
+> @@ -176,19 +177,23 @@ static void phy_qcom_mipi_csi2_hw_version_read(struct mipi_csi2phy_device *csi2p
+>   	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
+>   
+>   	tmp = readl_relaxed(csi2phy->base +
+> -			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 12));
+> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset,
+> +							      regs->common_status_offset, 12));
+>   	csi2phy->hw_version = tmp;
+>   
+>   	tmp = readl_relaxed(csi2phy->base +
+> -			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 13));
+> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset,
+> +							      regs->common_status_offset, 13));
+>   	csi2phy->hw_version |= (tmp << 8) & 0xFF00;
+>   
+>   	tmp = readl_relaxed(csi2phy->base +
+> -			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 14));
+> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset,
+> +							      regs->common_status_offset, 14));
+>   	csi2phy->hw_version |= (tmp << 16) & 0xFF0000;
+>   
+>   	tmp = readl_relaxed(csi2phy->base +
+> -			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 15));
+> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset,
+> +							      regs->common_status_offset, 15));
+>   	csi2phy->hw_version |= (tmp << 24) & 0xFF000000;
+>   
+>   	dev_dbg_once(csi2phy->dev, "CSIPHY 3PH HW Version = 0x%08x\n", csi2phy->hw_version);
+> @@ -375,6 +380,7 @@ const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
+>   		.init_seq = lane_regs_x1e80100,
+>   		.lane_array_size = ARRAY_SIZE(lane_regs_x1e80100),
+>   		.common_regs_offset = 0x1000,
+> +		.common_status_offset = 0xb0,
+>   	},
+>   	.supply_names = (const char **)x1e_supplies,
+>   	.num_supplies = ARRAY_SIZE(x1e_supplies),
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+> index 7e55ae007370..d6366f809e51 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+> @@ -51,6 +51,7 @@ struct mipi_csi2phy_device_regs {
+>   	const struct mipi_csi2phy_lane_regs *init_seq;
+>   	const int lane_array_size;
+>   	const u32 common_regs_offset;
+> +	const u32 common_status_offset;
+>   };
+>   
+>   struct mipi_csi2_genpd {
+> 
+
+Aren't you using the CSIPHY driver in drivers/phy now ?
+
+So if phy stuff has to change then that change needs to go into drivers/phy
+
+---
+bod
