@@ -1,102 +1,176 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-pz2-f7.google.com (mail-pz2-f7.google.com [74.125.228.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B904344D91
-	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 09:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C336A37B3F7
+	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 10:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018554; cv=none; b=i2f91ydf5ZsH50Sn+/3NCa16N9Lt9HOmF/Ggujmaroekln8hk4w01qOSX+CaQOS0mYJ7BF9YP2tJXtlkj8AS8rTPpCrVwontUwYovc7/moGmKwOcrioFYxvb6CnA1U32ULsS4LCHTpt/GlUx1YerUfmHn/lcVAjk+/gk+FKGWC8=
+	t=1791021878; cv=none; b=TVsmpx12zmQS9gsoudtwvB6e3qjz57v8wAdTc4Id60vVU9KuK0TyjXpl/YEzFJLYgGUij9zJgiPyj7pD/doD8joAOCKSF6TtxeqhBnHzeMOOrJs4RwLnx2q5ir23TQzPv8hiF+43iM/BC9nowItf/i0n+9rbpPOpfAArkr02RyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018554; c=relaxed/simple;
-	bh=kYIfDI3QBE3ClSciA+/48Hptd209qBRxGk3JWEtzUGI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ga4ZKzR6WgYkvNhg++ulavE6XHNVPLVb2BscEm1yPyIzoOIKPOYnOSybsa63lj3rU/YJzCjnJun8vsewxbgbwz2KMV3VhP1NryiOXDXp0CyLCFWkID0C2DeBIb5gCHmkqJTVNQxVCpRp3QZn+1pnhAbpl+ChsglTuE7lcoF/pjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=DIS+y5K7; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791021878; c=relaxed/simple;
+	bh=O4fhyAKEtLoyIjrYd1doUUUlI2ZyKNVlzH5Eu6cpoZs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lyEIsrRmWdiBsTmxbUOoH3LjnfagSABilRArnFcnFgrq71VzNx80l+SzBFSyJ5Db7RQFyG1hlxdmAzPrjsuBjuYr3BVghe1mtYOr1Ql88vxXaT0cEPmiojJCPKbJdj4tIii9K99TOKEtlqdfBE2Ta74ZXEz8uV9a4FGqo6D184E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mP5aWTLn; arc=none smtp.client-ip=74.125.228.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="DIS+y5K7"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2a25dfbf5fso79013966b.1
-        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 02:09:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mP5aWTLn"
+Received: by mail-pz2-f7.google.com with SMTP id 41be03b00d2f7-cc4ae08cca6so18674a12.0
+        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 03:04:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791018551; x=1791623351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aD42U9G+t3AA3eGszJykKagIq3I33nrg5HXNEK2wHFE=;
-        b=DIS+y5K7aJB/YHs2o2NskzaCYs/OLfQL6i2dF72DW5eMpR2rcWe6kJaoo1n0zmFIUw
-         NvIJo5m0f0L1fJ1V+2EysiRQ59m79UF3hrKQZ6bbpP0phZDu6nRIbB8++P1KGP6Lu624
-         Kagj4dVL6rSoRK4BWlaw4yRIfckJVQQE4Zb6lYdPD0/x7yct57ap9fGuJYp8+fxM3PUZ
-         8ZjscNDf8lOSgYVQozQTzzBzcQBg//fjT4/gSVwy8m2M70xm/LWUSoC1eRqiuyM0+Q/S
-         2whApDjisXCfawzqInsvCzyRTtw3Zlpjm1VYtzwGq1rgmr9PYFZ2YSq1IXPXzsXRA6lE
-         wWGg==
+        d=gmail.com; s=20251104; t=1791021876; x=1791626676; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IHYEahD+HEjWATdVIsFuXWmcHH7Pn8DgotCON/mJvLc=;
+        b=mP5aWTLnUR4giJM0Wv+HQ7BDprXNG94S/a7TP4df6Ec8WVyp9GUIpGtgoAnev18yKL
+         CxRLIO6PfLMhDMRZDEsB4WwBNnrYRIbs5TUJ3oE/6clu8IqGxqM3vInJ0aQUi8UwYOUy
+         uq0zzijuUJOTk4LjTreBroCMX6a+IKLrLrYawIreVhwLrGRBjdNO8GPtXz2hOfUKZxGD
+         nFnmtjDdEJoo1R4VUHEHTon6TEjyLC3Bsvc6oCBxYyuYnRLBXU/DswcPaZtpf4cz+6Qd
+         xubFuHv7O9u/PDDSn/afKff+Kkfpp6Rrr2bshC0V7shtGU8DCBMUvLfCbo4V2mnXAxDK
+         afZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791018551; x=1791623351;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aD42U9G+t3AA3eGszJykKagIq3I33nrg5HXNEK2wHFE=;
-        b=DGHfSkQozd6ZlRMDcT+g0PhBIN6VMJSbEMyTWh4pUQdpnrtLorrorEq5ixPbULsVVS
-         GqstQFcrjbc6fL7QMLvtJPB7qxyMFDUEf1ltC/ieDQ4geGhQGELOcCgezW2mghsz+wq3
-         QkT43y9yq3K2fDR+LZ7rlzpWiLbxWIRVPE6TA+bct0RVQWCsc6CMRkPLOOho+k4dgsM2
-         bHDnasmnZ94uq366Vy1QQLfXe81ze1nAwiG1DjfKeQ2ECMD82Jo5sSjx44kMWmnhdnPI
-         J84ipfqpPJ0ds43Mem0FmAilkzQyQ389ZJEUS6h6AAstvRdOWPusM2EE14QdKz5s+Rtn
-         inig==
-X-Forwarded-Encrypted: i=1; AKwUvBwQECkFxJEEkenN4tg6XCBPQS+O9HajdzpXRya1t6erDs9zIyP8/p3Dh8FuKPAR7hwD2eiLdypNG14Zkw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mI/q80SufDlsjAkunplzQFrUS0ttfNR953ZkS/ueFIno0HPhXw
-	13OtA4h8Gdn+eZU/Qh0Hklcysu7D0Z3fmWi7XLu83toqfXWmCuUgTbYvU86GUVHBeiI=
-X-Gm-Gg: AYBFou2ezwFC2AsZzdSMdpYFSORZHJwNEOxvOkax/Vx9WS7e9/pMoVpJYnrNg6mNUx9
-	gk189rP8/0AqalbAV5oSZIXtOMMOqhEA2+mygK6kYL/dC/IyjphmjC5lH5dpIlPOcW/L7HaIdUS
-	dLPi5U/t7dlbHk5D7cjq+4Mzxq0LwMGGux9spEBi+d43WJFrU23iQU+b1m45hn3bXPWOaUSNt4/
-	0wfDyIIclaKwQ4Bz4MvoMev2Ly2xHsqQgWKwHe/4tj4J3eMpecRLi4Z4mT3csaQv9q0WioXXzkK
-	vOLyURkjOm3V9xopGIepCAHj/3IdsUP2UKOGY2TP9S9hepiOcjWcNOgRuwwWUulE0SZe/vq0+ZW
-	lUApySj0q0DBNqRklufG5BwnKraU8ClzgdteF2J/F5ZKUCsn6NOC17L2Ra2QBHbFXTa5idK/p3a
-	Ttc/UXIqAjiZEJppWIYr38Cl9qGdyeouqEaFGpYrxudRInQSD+BXQBvEkMDn/k1B3+74OXGxk+t
-	N18k7R5EjJm
-X-Received: by 2002:a17:907:e155:b0:c2e:4d39:b5a1 with SMTP id a640c23a62f3a-c2e6ece5605mr88982166b.17.1791018551275;
-        Sat, 03 Oct 2026 02:09:11 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.86.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd05446sm174814366b.19.2026.10.03.02.09.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 02:09:10 -0700 (PDT)
-Message-ID: <fbc988c9-d701-4479-96d0-f18d92063f31@linaro.org>
-Date: Sat, 3 Oct 2026 10:09:09 +0100
+        d=1e100.net; s=20260707; t=1791021876; x=1791626676;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IHYEahD+HEjWATdVIsFuXWmcHH7Pn8DgotCON/mJvLc=;
+        b=xTCBAV0b6gJjBYg19y8s12Io6/aFJLFcZmvNjiFEwg+Rtk57+AAcigjkGecV42Ii7Z
+         QTzu/NqSq3u8dT36RCVwKNE6aKB0Ovc8pdbQgMrYQZamRPtRkhMaGzC51aCGQoy1qXaN
+         XxFtlOvZGc2HENfTc7ayx/9JdXlIz/6rIVHWuVV3JczMo9xPDUseqSepiuwwLSyHP6i9
+         j+jeKlymx+4sEu+U/mfzkY0xKbnIxli6AvyVv6bO9Mi2heZPPIgZLe6YjhEmyVkzu9hV
+         hsPS4zA+GBXPkQ57XAMcH0Q6ycrCrhOPVfkiokEC6ATAw0tN+wycm/D4jEitewEiSs/P
+         TaQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzklqkr58C1SHDPsjIbTzX5i5MKDuIIvRCzyDZuxBInwsBkHAXJKH5AUqMx16or8RLmTDZTJczP+WdLEA==@vger.kernel.org
+X-Gm-Message-State: AFuF++l9qQxRGBQ14eMiiujG3QDZDdChb4aug4HyQ00xGxVkGociSIJZ
+	gtieNRmiNcHVSgQq24OZ8nmE8t0RHpc2wMwphyq6hGsSzqmz/08TzdlG
+X-Gm-Gg: AYBFou1NkAbcezlRDq9nE662dsRyGZf4in0WFgSFXnPxlG6Uok2VdNErnrsFOBUwImd
+	8QhylVN+Wx7LbpCtX/DO26YoIPw1Vpej5LJkdsfbETLAqz9YGGPgIwzooPZOaqeikxR2dFHlfaE
+	r7iVjn3HXCW8cQPrMg0l2Lu9vyxJYj+npuolS2wveZ+ejPZoJrZYsGb1d4elxg3eMexCbLpX8JU
+	AhvdTFSnWqi7YjIItIBxwV4GOeLld4ugfA5yayua7G16etYyxBTrNjdAf/oED2lz+IvceMe5tBs
+	XkywQzRmZUpE2SzOtt6OXMrb0e9V8/Gy7sPdVFzfsl+c+QZULAWI/8C+BkZwiSV3f9G3e3S6p1L
+	NxtbIw5CUdndHqYGME17yDb5cRckFf3z8mriUIqh2MIrIGE8gKTbn/L3aKd1j3ib4dvju5mf6Rw
+	2sBKdkBV3EvfmKwfEVRTrk4/WF+Odqino0rr7vdDHfdihc6PlR6v5M/gYFF9zmajR71PZNNHtWs
+	ps=
+X-Received: by 2002:a05:6a00:b50:b0:874:708d:b62f with SMTP id d2e1a72fcca58-88c628f240bmr1630063b3a.27.1791021875942;
+        Sat, 03 Oct 2026 03:04:35 -0700 (PDT)
+Received: from ThinkPad ([240e:46d:7b20:7df:1ddc:2f29:f17a:97e4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88caf6b0bfdsm376019b3a.29.2026.10.03.03.04.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 03:04:35 -0700 (PDT)
+Date: Sat, 3 Oct 2026 18:04:05 +0800
+From: Qiling Zhu <kmatzkaczor244@gmail.com>
+To: Ruslan Koreev <koreev.r@gmail.com>
+Cc: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
+	sylvain.petinot@foss.st.com, dan.scally@ideasonboard.com, mchehab@kernel.org, 
+	hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux-media@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Peter Marshall <pm@petermarshall.ca>
+Subject: Re: [PATCH v2 0/4] Lenovo ThinkPad X1 Carbon Gen 14 IR camera: ST
+ VD55G1 on Intel IPU7
+Message-ID: <asDSmOu2NMD_SFnr@ThinkPad>
+References: <20260929092700.1776966-1-koreev.r@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 05/11] media: qcom: camss: csiphy: Add support for
- v2.4.0 two-phase CSIPHY
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
- <20261003-kaanapali-camss-v18-5-87ba4ebe0db1@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261003-kaanapali-camss-v18-5-87ba4ebe0db1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929092700.1776966-1-koreev.r@gmail.com>
 
-On 03/10/2026 10:02, Hangxiang Ma wrote:
-> +			.hw_ops = &csiphy_ops_3ph_1_0,
+Hi Ruslan,
 
-There's no reason to continue to use the internal CSIPHY hack.
+I did some more testing and checked the saved logs from my original
+next-20260928 tests. The VD55G1 failure appears to be intermittent.
 
----
-bod
+Today I managed to boot the original next-20260928 + v1 patches 1-3
+kernel into a state where the VD55G1 probed successfully again.
+`cam -l` showed both cameras:
+
+  1: Internal front camera (\_SB_.LNK0)
+  2: Internal front camera (\_SB_.LNK1)
+
+I then ran the libcamera test you provided:
+
+  timeout 30 cam -c '\_SB_.LNK1' -C5 -s width=804,height=704
+
+The camera was configured as 804x704 R8, but when capture started the
+same I2C failure appeared:
+
+  i2c_designware i2c_designware.1:
+    i2c_dw_handle_tx_abort: lost arbitration
+  i2c_designware i2c_designware.1: controller timed out
+  vd55g1 i2c-TBE20A1:00: Sensor reset failed -110
+
+The IPU6 ISYS path then reported stream stop/close timeouts and failed
+to start Intel IPU6 CSI2 2 with -110.
+
+I also checked my saved logs from the original testing. They contain
+both successful and failed boots of the same kernel build and command
+line.
+
+In successful boots, the media graph contained:
+
+  vd55g1 1-0010
+    -> Intel IPU6 CSI2 2
+    -> Intel IPU6 ISYS Capture 16
+    -> /dev/video16
+
+and /dev/video16 advertised GREY, Y10 and Y10P.
+
+In failed boots, the sensor failed during probe with the same sequence:
+
+  i2c_designware i2c_designware.1:
+    i2c_dw_handle_tx_abort: lost arbitration
+  i2c_designware i2c_designware.1: controller timed out
+  vd55g1 i2c-TBE20A1:00: Sensor reset failed -110
+  vd55g1 i2c-TBE20A1:00:
+    probe with driver vd55g1 failed with error -110
+
+This seems to explain my earlier results: sometimes the I2C failure
+happens during probe, so LNK1 never appears; sometimes probe succeeds
+and the media graph is created, but the same failure can occur later
+when streaming starts.
+
+I checked the basic sensor power sequence during failing probes:
+
+  - INT3472:01-vana is enabled during probe
+  - the active-low VD55G1 reset GPIO is deasserted
+  - INT3472:01-clk is prepared/enabled at 19.2 MHz
+
+The "Sensor reset failed" message above is reached while
+vd55g1_wait_state() is polling the sensor over I2C after reset has
+already been deasserted.
+
+I also tried forcing i2c_designware.1 runtime PM to "on". In another
+test I prevented vd55g1 from probing at boot, waited until the system
+had been up for more than 10 seconds, and then loaded the module
+manually. Neither changed the failure.
+
+I rebuilt the saved next-20260928 + v1 patches 1-3 source tree and can
+reproduce the problem there. I also see the same probe failure on
+next-20261002 with the v2 changes already present in linux-next. So at
+this point this does not look like a v1/v2 or
+next-20260928/next-20261002 regression.
+
+For completeness, I also ran into a separate intermittent boot hang in
+thinkpad_acpi hotkey polling while doing these tests. Disabling
+CONFIG_THINKPAD_ACPI_HOTKEY_POLL makes boot reliable, but does not fix
+the VD55G1 I2C failure, so I currently believe the two issues are
+unrelated.
+
+Have you seen this intermittent arbitration loss on your X1 Carbon Gen
+14, either during probe or when starting the VD55G1 stream? Is there
+anything about the BIOS/firmware or I2C setup on your test machine that
+would be useful for me to compare?
+
+I have complete kernel logs from successful-probe, failed-probe, and
+successful-probe/failed-stream boots, as well as the saved media
+topology, if useful.
+
+Thanks,
+Qiling Zhu
