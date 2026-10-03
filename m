@@ -1,77 +1,71 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43742641C6
-	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 00:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA4337F72F
+	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 02:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790987103; cv=none; b=Aae33uVcHXe7fBOaEGlGg0z6JXOkSFYMU67pBV+mxSja98Pyt+PuA7a7xbEOjChYX4Vd6z1Es5KQOUiLN+zk8m3cb6jnKZR8UYCb/Po02geHrFQM+kcj35Ol/0M81OvzNQtxmzU8+e5Tu8yYTezhiNQVbBToqteWD7LC3Buaqjc=
+	t=1790993005; cv=none; b=q19jmZk0Moiy+lMl7gID1Z4cfgYT7Pc0h2zYOkW123Np1vSsNyAr30KP9DHdbxN6dty9IQ6GQvXmn81DW/NLHcCaHpzMjbu+dY7vHhhRaO31IZm+TFYMciaXdo/QivdRPyLG1pU3/RW3iQvYADI6h6FOIo0vHnlruPx/ME5jkY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790987103; c=relaxed/simple;
-	bh=A/3AUXde72fuZ6eY3PoFCI49hKa2ZKP7PMEccBpbJk4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s+HsSKzQIEnzXyNQBPC7gRQdkXa2rmBpPYGZb53x/GY8Jm0VqNXWJin8AEqfgIRY33zyBoE9HiD6lHiiQtn30oC4U6TNFy5hD9cmzAVyZYWfrPZlpq/pyW1syoihemsE5AfgvAW4iK7r47OTuX6FPjDo6RTCAF1aLQqx2ZQ7cmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IKpowAtE; arc=none smtp.client-ip=209.85.219.43
+	s=arc-20240116; t=1790993005; c=relaxed/simple;
+	bh=Oo7iFCsWgd1/0XYyOFF3WnVNRUhkxJd9ISmdDyp8p28=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oQlW17KrSAxQd75W8GUQ/HQhZoAWhAfJWcvp5NkUat6nYGO9r6ld54M+2mgz1z+c/AZ9/wpSxHyRIE4/UyzWa8UbcZYPRFNRa1mD9xKFNI8YQcDG3NediRdpx55Rps7grSED+N/G6igcH7ueZpk/DY58U4/CnS1tKIgnoet3ixo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VEH85zfA; arc=none smtp.client-ip=209.85.217.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IKpowAtE"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917a2800e83so3027886d6.2
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 17:24:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VEH85zfA"
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7a6e560f580so115576137.1
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 19:03:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790987097; x=1791591897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8hxKqOypKGR+ve63h/kwiqa4y6aqyuQrRDm4kuc2wAI=;
-        b=IKpowAtEhkMc7UlX32fZg3kvjFh+HzDUPniQ2AqOUSysBqt/ewvXLPTpnUI4HVtHUD
-         sVikVJIKWBkfCqqnDWZRQMKJg/YWKUUnWGDYXobqfixYAEY5c2Fp3Sm4t9QAk+SvYMZg
-         8RYEtTGW+em2ozbyFpOuVkUp+dyWUqQ9dqcn7riBQVG44C97HBkWH0ZA2CTuDEvXOoUP
-         Fus2MrbzauY8DkNmYcRDHMOPr/RpjMEgK0d3Isrc0rMo02FSj27GrjNNLrza7EnHtjX6
-         Ds/oWzXIIyTu7bzq0nsecZKOjb1LWYL2VtJ+Yp8CuLGAS7UyzT2XtfBjWen6XlvdIQFU
-         L5UA==
+        d=gmail.com; s=20251104; t=1790992999; x=1791597799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lSxuDWtcpxCnWeooDXtbfbm5yCmDSN/hvU5qo3jSo20=;
+        b=VEH85zfAPu+za08RAFBtbUeOzU1KIiifbMXZngIGYGe/TZVf8wg2SqT/mW0ePOi4QL
+         NFntvuJ7Vl33PkFvE/CmCmt+0IG2/gXoPZM6kgx2GFDBpZUCV64GnrpZ9bniV16vaieG
+         rB0Fg8vgAgkt9g/teLkBQh8Hezq/ZlK8/+MiCWsgqKULHlOAGd4bJ9XpBI7I6MNFjkcX
+         wOuPrBfevPSfT+y5o+HL+0+PybZK5wqtknUQN6oy0wM8m+BUX6gQfTnVp1lPZMWf4IF5
+         +xkAwqzXj0QqT14j0iDYTyFjxWvNB4jNhjNw5xLT7W7VoZtu2EWuZH1pI/gpjTMVzNhG
+         Ezyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790987097; x=1791591897;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8hxKqOypKGR+ve63h/kwiqa4y6aqyuQrRDm4kuc2wAI=;
-        b=OAht38dGlgAA6yakl8M8GF8YaTrhk4+pu8i30jj4PcbbLooq0gWG0La1OjQ4O+jtaW
-         O7AmyVPKjXoPR5bgvi9kNp92je0TktSxmroo18cydDbCYw6yzs6zuflrUBLo1DAKvw/M
-         IGGfHHVk5qNHK5izUafuUWYErHR9xcK4gBkYFR7wM7eSlcyZCmo36x4z417YTpO9254/
-         VTr44aHZulq6NhazM4WPK8O7kEHequ4NHJ3g1KmtRMg/pbM7mktcqjTHCpOcaEsnYBaF
-         VbB5On3RPyQ2tAwnOodLdB1sWHZRRK6oBRydEGsGYe1HWnwPUY26aqRQo4CVxAlfQO2r
-         gY2w==
-X-Gm-Message-State: AFuF++lveH7B90Keol31iCJvHASAsgsgcsHMDXvgksyCXdzzeLTDneFY
-	d0kDcLtGHeIWzIlou550qBYecMt3+2nnCqcOFsimw4bivB7swF03Yuc=
-X-Gm-Gg: AYBFou1PdlfpBRpmDW1Pvy17nOpZyVfmLyZsqhgXQ0s35qKn80jQfzMaGJmBP+IBNq/
-	Trb8ShQ01HbSU2Z+i5yAk4NdD5CORphvBhOsDDzCkRLdQYIT8HQWjb/pRZ9ItIzDOQrk7SZsVfo
-	GIaJ9IvPQvExJFXqzvJTNXeLHwiIvWD6/JcDsgjmxiEx0WSKmShtG317JRTuTdAyuSkK1o1MUH/
-	vy9jRsWmbUIkIH18Nn/wcvaKN2/G3z2DKZJvfDRiZhuYClZmeZyFMixkUt2McW17Ji3P39TDi3A
-	lFXqOuo2bJ//epbCimsVLngavgLvWhgd72KDnvBupS+qsXAtYfu+/hpUDMKyfel4ADx/8/dU9Xg
-	MZW1twKsmd615cO78Sqwilv2jyghGs92VDYr58k1wBVI9juHnodcwRaos5h1nJZAt8ZJGrtV6bI
-	eQEJFB+jXg2BmOGId2W70w8hRg6e1dxmzPD5x4fciSZvA2rj1ZDcTQCZ2Rn82mmyx27RKu32kBO
-	S4ZqYvCl9kt618xCtbh0pi6S7dzvt7MrLrb8hu4vhSw9MKGVASFzQCqqI/Q3yvQN1DfJSt5FvrU
-	36q7V0dKUFV1xB8cjNEaNQfH9e9b
-X-Received: by 2002:a05:620a:2814:b0:937:2d64:57ae with SMTP id af79cd13be357-93e50c00470mr224017585a.0.1790987097519;
-        Fri, 02 Oct 2026 17:24:57 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a48a5sm341771585a.14.2026.10.02.17.24.56
+        d=1e100.net; s=20260707; t=1790992999; x=1791597799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lSxuDWtcpxCnWeooDXtbfbm5yCmDSN/hvU5qo3jSo20=;
+        b=h7kJtJavaZsfeev79nbqLscN59+eN1qs21tLP6OphVf/p8D5ARRks0rbQBMXG2rKxM
+         qinbZnG7JfYdFnrfCxSNd3VHkt/NKE6OW9zzN/jg8NDqCOLylLjYvFJN5i1CrY5rRX5m
+         9+2SjVoLTZqP/bmg4CNtYgPYsIlL3OBdm8Y8Lr0l3YYMyfbqjZ+oVwUQKDYRXk73lS1r
+         S7NudZ4A0jBZis81vgYBeeg2vX1H2rksmLlmu4/AOOC4ZBANw8z5sRAXzIOitAibNRoT
+         r9SFxpJIfMYhomky4/51ZvHP0p2rMDLb9aryGy7mJutDvIrftdPe0b+/AkO6/CKYhrhO
+         P5hw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxRvu6qYBgY/KAXyoqoF3TZavLv9gH34Nsijw4qNHN1KFFKXnFxlNxwfLgTIXONG9G3C2AE8e1+fHBPw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqHHuUpZ8M5dnK+iTyBiGuaH5FtLQIBEJ8Nf9c/gjJLcpIC7IV
+	DoagsoVLnvzCUa5dXyOQrWrkdIyfOKvgbK/cAbnE6nvyk2E01w+uvyiD/ZyDyw==
+X-Gm-Gg: AYBFou3AhsyYwXM9D29dxgEjd08eyHM4S0syTsHnYA9CEeDQ2jCLOh87BEZQUzfCSXp
+	HDREV4lo2tRR0kCkqe/Md2UDblq1o3uWhlw/iscWCzhrMzAqzI8r4LxWxMA1GAM9MtmHxEs3poA
+	amMxd/ySt5rb6R+Cgttu7G4ih0kBX4KGY6HCzrrdjSnAWkZjfmbIOETJtwT6QW9tNPylbcSwgrG
+	rEHSZ2cdcL+d3dUMRINnVI8FWBgVTPnSuLMcDIVIAviu9SOaWYUt4BxSUOERD/CrWt6nTpBb9zp
+	IKNmt/OsEZ/x4ddU7AP8x73hO4QmAFC4I4JjEAKOn/4PxmVjuh4UvVimwX7+FSSsdLdShZgiAwB
+	Ai+zB2bnRIv3DQw6uqSVoqILWEgRyhKUYU+7ya3MyexXuyaD5P/0GPn20I/L1UbXG2aTs3Iecym
+	6kXV++jZv6SD9APf8dlSVUcWz6rOpTIWVZFYZ/KnG0zo6NdDCzfI5R7pIH1ROE6WmtEfeP74mqJ
+	xumqSp3l1tD7uvKA/d6kj+NM/nhXQl8Ifpshc1wEkS+Cg==
+X-Received: by 2002:a67:e709:0:b0:7a0:3902:52d7 with SMTP id ada2fe7eead31-7c23f6aafebmr393920137.0.1790992999403;
+        Fri, 02 Oct 2026 19:03:19 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a800:a625:e44d:bc3:a2c4:9ce0])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7c100a5c965sm4085223137.12.2026.10.02.19.03.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 17:24:56 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH 2/2] media: cadence: csi2rx: disable error IRQ while runtime suspended
-Date: Fri,  2 Oct 2026 20:24:51 -0400
-Message-ID: <6778a4ae61c46294f5014125fbe82618067e2c30.1790986123.git.mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <0d41c39bc84b97efdb8c06ef451fdaefcb331058.1790986123.git.mhun512@gmail.com>
-References: <0d41c39bc84b97efdb8c06ef451fdaefcb331058.1790986123.git.mhun512@gmail.com>
+        Fri, 02 Oct 2026 19:03:18 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: sean@mess.org
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	Fabio Estevam <festevam@nabladev.com>
+Subject: [PATCH] rc: Add keymap for Ruwido Z3 RC-34 remote
+Date: Fri,  2 Oct 2026 23:03:09 -0300
+Message-ID: <20261003020309.11749-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -80,56 +74,127 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The error IRQ handler accesses MMIO while runtime suspend can disable
-its clocks without draining the handler.
+From: Fabio Estevam <festevam@nabladev.com>
 
-Request the IRQ with IRQF_NO_AUTOEN, enable it after successful runtime
-resume, and disable and drain it before runtime suspend gates clocks.
+Add keymap for the Ruwido Z3 RC-34 remote control.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: c85d3d5362a8 ("media: cadence: csi2rx: Support runtime PM")
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Fabio Estevam <festevam@nabladev.com>
 ---
- drivers/media/platform/cadence/cdns-csi2rx.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/media/rc/keymaps/Makefile             |  1 +
+ .../media/rc/keymaps/rc-nec-ruwido-z3-rc34.c  | 80 +++++++++++++++++++
+ include/media/rc-map.h                        |  1 +
+ 3 files changed, 82 insertions(+)
+ create mode 100644 drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
 
-diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
-index f8c626e19aa84569737aa785a31a0f8c94087613..9bb776b5a4c8248a65df733e3a8963a6393f0996 100644
---- a/drivers/media/platform/cadence/cdns-csi2rx.c
-+++ b/drivers/media/platform/cadence/cdns-csi2rx.c
-@@ -982,7 +982,7 @@ static int csi2rx_probe(struct platform_device *pdev)
- 		dev_dbg(csi2rx->dev, "Optional interrupt not defined, proceeding without it\n");
- 	} else {
- 		ret = devm_request_irq(csi2rx->dev, csi2rx->error_irq,
--				       csi2rx_irq_handler, 0,
-+				       csi2rx_irq_handler, IRQF_NO_AUTOEN,
- 				       dev_name(&pdev->dev), csi2rx);
- 		if (ret) {
- 			dev_err(csi2rx->dev,
-@@ -1042,6 +1042,10 @@ static int csi2rx_runtime_suspend(struct device *dev)
- {
- 	struct csi2rx_priv *csi2rx = dev_get_drvdata(dev);
- 
-+	/* Drain the handler before disabling the clocks it needs. */
-+	if (csi2rx->error_irq >= 0)
-+		disable_irq(csi2rx->error_irq);
+diff --git a/drivers/media/rc/keymaps/Makefile b/drivers/media/rc/keymaps/Makefile
+index 38b84e34b225..525d203c0a94 100644
+--- a/drivers/media/rc/keymaps/Makefile
++++ b/drivers/media/rc/keymaps/Makefile
+@@ -86,6 +86,7 @@ obj-$(CONFIG_RC_MAP) += \
+ 			rc-msi-tvanywhere-plus.o \
+ 			rc-mygica-utv3.o \
+ 			rc-nebula.o \
++			rc-nec-ruwido-z3-rc34.o \
+ 			rc-nec-terratec-cinergy-xs.o \
+ 			rc-norwood.o \
+ 			rc-npgtech.o \
+diff --git a/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
+new file mode 100644
+index 000000000000..97d416cf0441
+--- /dev/null
++++ b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
+@@ -0,0 +1,80 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++//
++// Keytable for the Ruwido Z3 RC-34 remote
 +
- 	reset_control_assert(csi2rx->sys_rst);
- 	clk_disable_unprepare(csi2rx->sys_clk);
- 
-@@ -1082,6 +1086,9 @@ static int csi2rx_runtime_resume(struct device *dev)
- 
- 	reset_control_deassert(csi2rx->sys_rst);
- 
-+	if (csi2rx->error_irq >= 0)
-+		enable_irq(csi2rx->error_irq);
++#include <media/rc-map.h>
++#include <linux/module.h>
 +
- 	return 0;
- 
- err_disable_pixclk:
++static struct rc_map_table nec_ruwido_z3_rc34[] = {
++	/* Ruwido Z3 RC-34, NECX address 0xe310 */
++	{ 0xe3100f, KEY_POWER },
++	{ 0xe31016, KEY_MENU },
++	{ 0xe3100a, KEY_UP },
++	{ 0xe3100b, KEY_DOWN },
++	{ 0xe3100d, KEY_LEFT },
++	{ 0xe3100c, KEY_RIGHT },
++	{ 0xe31019, KEY_OK },
++	{ 0xe3106a, KEY_BACK },
++	{ 0xe31033, KEY_INFO },
++	{ 0xe31066, KEY_DISPLAYTOGGLE },
++	{ 0xe3101a, KEY_VOLUMEUP },
++	{ 0xe31010, KEY_VOLUMEDOWN },
++	{ 0xe31013, KEY_MUTE },
++	{ 0xe31032, KEY_CHANNELUP },
++	{ 0xe31031, KEY_CHANNELDOWN },
++	{ 0xe31069, KEY_HP },
++	{ 0xe31000, KEY_NUMERIC_1 },
++	{ 0xe31001, KEY_NUMERIC_2 },
++	{ 0xe31002, KEY_NUMERIC_3 },
++	{ 0xe31003, KEY_NUMERIC_4 },
++	{ 0xe31004, KEY_NUMERIC_5 },
++	{ 0xe31005, KEY_NUMERIC_6 },
++	{ 0xe31006, KEY_NUMERIC_7 },
++	{ 0xe31007, KEY_NUMERIC_8 },
++	{ 0xe31008, KEY_NUMERIC_9 },
++	{ 0xe31030, KEY_NUMERIC_0 },
++	{ 0xe31065, KEY_RED },
++	{ 0xe31063, KEY_GREEN },
++	{ 0xe31064, KEY_YELLOW },
++	{ 0xe3106b, KEY_OPTION },
++	{ 0xe31050, KEY_PLAY },
++	{ 0xe31057, KEY_REWIND },
++	{ 0xe31058, KEY_FASTFORWARD },
++	{ 0xe31060, KEY_PROG1 },
++	{ 0xe31061, KEY_PROG2 },
++	{ 0xe31062, KEY_PROG3 },
++
++	/* RC-34 remote volume keys */
++	{ 0x3506, KEY_VOLUMEUP },
++	{ 0x3507, KEY_VOLUMEDOWN },
++
++	/* McIntosh HR070 remote volume keys */
++	{ 0xca5542, KEY_VOLUMEUP },
++	{ 0xca5543, KEY_VOLUMEDOWN },
++};
++
++static struct rc_map_list nec_ruwido_z3_rc34_map = {
++	.map = {
++		.scan     = nec_ruwido_z3_rc34,
++		.size     = ARRAY_SIZE(nec_ruwido_z3_rc34),
++		.rc_proto = RC_PROTO_NEC,
++		.name     = RC_MAP_NEC_RUWIDO_Z3_RC34,
++	}
++};
++
++static int __init init_rc_map_nec_ruwido_z3_rc34(void)
++{
++	return rc_map_register(&nec_ruwido_z3_rc34_map);
++}
++
++static void __exit exit_rc_map_nec_ruwido_z3_rc34(void)
++{
++	rc_map_unregister(&nec_ruwido_z3_rc34_map);
++}
++
++module_init(init_rc_map_nec_ruwido_z3_rc34)
++module_exit(exit_rc_map_nec_ruwido_z3_rc34)
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Fabio Estevam <festevam@gmail.com>");
++MODULE_DESCRIPTION("Ruwido Z3 RC-34 remote keytable");
+diff --git a/include/media/rc-map.h b/include/media/rc-map.h
+index f167c37179c8..290919a7247e 100644
+--- a/include/media/rc-map.h
++++ b/include/media/rc-map.h
+@@ -289,6 +289,7 @@ struct rc_map *rc_map_get(const char *name);
+ #define RC_MAP_MSI_TVANYWHERE_PLUS       "rc-msi-tvanywhere-plus"
+ #define RC_MAP_MYGICA_UTV3               "rc-mygica-utv3"
+ #define RC_MAP_NEBULA                    "rc-nebula"
++#define RC_MAP_NEC_RUWIDO_Z3_RC34        "rc-nec-ruwido-z3-rc34"
+ #define RC_MAP_NEC_TERRATEC_CINERGY_XS   "rc-nec-terratec-cinergy-xs"
+ #define RC_MAP_NORWOOD                   "rc-norwood"
+ #define RC_MAP_NPGTECH                   "rc-npgtech"
+-- 
+2.43.0
