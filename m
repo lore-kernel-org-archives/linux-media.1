@@ -1,174 +1,204 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7983AE198
-	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 11:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791025876; cv=pass; b=P4HbxLjbVpcUowSpeVFJN0sEg0Q639//rA6OX8HXAZuWxQWdIAsu4SO3sZ0f+qyDjtPGcwwpMY4neT06XISJmGj/olnMzeyCDMkGxAUrmp1aZ/BpU1QgFIbsbBqQSyH6oYTwAZGcMX0a7Q08IeBcBd+7Cw8AxTVFKPSZ9lD/paE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791025876; c=relaxed/simple;
-	bh=QSTsi0xJf3W1mpjWc0B8G2aXS3mqDz2jPj3tOwKmY1w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YVu+r9OEgBhdFyIvNcgbExdyTFYRLHeDCyBAOX6foXotuw6EoRN05nvKef2WE1DoTPAX/japS5ueFH+QKXzft3aM0qgAkWupvthmb7YkQThYK6ElVPlQlQBONrm2tTM5nN+uLH5T1XmPEpnBDdnc6+Ay0OtSGHCDuDH/V4nQkIE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V2oyxHBB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ez6pS71k; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1382175A8A;
+	Sat,  3 Oct 2026 13:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791033467; cv=none; b=dzExDGj3HIPb8NRKsDVINI1oprjIIcReE8ffapTvvCBpLkpU96w9hUZTeVU9g7yA4ljJ6pNmiT6OpnHUgqYNCWm727/ILO3cXmaAXhDufCGbavQ7ApjSjFB32cG6ZKsR4LWn3XYjdH/5LOACFEeYxi04359h7+bMpj4pHS/hGjI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791033467; c=relaxed/simple;
+	bh=WtrnOYPfoCIVycA33AV23kjL/1nSMC2IR2IcPofxGjo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q84JIWNqpfnJSu84Vp76zB/AudUcyd7ZHbG1UKZvradYSJGpvT3NwsujJJb3AoFEj4hOrhfbxeVW/UJ7XcGrnM9zpZ6s8s2TNOLMBRKV0I1hA9CIL0Jt9f68rrXMQtQmXRdXMwqfa1IB4q4X9ALGEkRJ9Kwqda5S/eIObNyiFq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAN/rVvg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V2oyxHBB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ez6pS71k"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 693Au9Lx1054282
-	for <linux-media@vger.kernel.org>; Sat, 3 Oct 2026 11:11:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UE2uEuYVLje6l25RVb+6f3Yk+oZ8JPiWMgc+3V3C9oI=; b=V2oyxHBBB1jvM5Ow
-	crcDF4evfefwb0OIznLHLFoXGMh8i8tfuPMFKahTZkdWR7PrsX6H09frhmcdLwLX
-	6FyrQaMvTJ0KxitESHH90u60fJA9QnMRhB5gQp18KmMPPriZaT21Dr1MObotAKcT
-	VIGDngQ5BrHBgmQVBEZhOFJcFntKAn5nupT2bRkQpF8ax31aW9/FhpAvcjRSDhw4
-	tUY7FWyVu19KLcvjcrA/3Pe2Q06+UDZs3sB2wbeXL/mNxxvcDFLw2qynBj35j3mb
-	rcYtBdXHH2h6ozG9pubUOJ7ejMv9STp07C2ITM9nR5hztFbge7lMqRaGtUTiQLqz
-	Sy2YNw==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sssgpsg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 11:11:13 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5da613f7588so325667e0c.2
-        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 04:11:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791025873; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YzfKvEsPf8JZ0BrrWawRL71NXfksE9PLH966qba+eEAmmKvq+JCGXmSXZC6ih7g7qw
-         XeSR8/Je0DgOZzH/zukFFz4fHVQR8nlump3Fr3qSL9t+4cHUfAx5v1sqwVH+F0Qec2dx
-         eSMhJbVFYmifKyZvJ+WlGb/iDgSIHlCoDUAXCE56PAQGMiwdMvpXshYG3nCFTv7edjNC
-         Nyq31UwEISzcuMrq0huJvdH0oPP9JTvUWN0Dwk2IVqs2v+5fEAoz4zQP5wqaGBOznPT7
-         2FbRCP8RwXC+bpW2/RKWtFMtFQt89JQI4wj76OM17Nk7gGEuFgtkkfFRHXEcNe3hpU4S
-         AZSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UE2uEuYVLje6l25RVb+6f3Yk+oZ8JPiWMgc+3V3C9oI=;
-        fh=mlXF2LdB03Kt/pmdcGuuAt33zZ6vEGuwP8BKqVW4PoA=;
-        b=GUkBYkKkjclfjcfn/q10HJRrvVRN3dUhP1/VzjH+ptHzl83Wj6orWu6Z3NMdpEC0Xi
-         bswzeek6LxH9D116S4ELFdWJUgE0zkt3FD4AN/dY6dplF36tHIofwaQ/3LnFjBo7p89u
-         ibkWLF5sdi9vuzvmRunIqAYFH/dKlVad98Sx9HGvHQyaj5MEblI5cst2pyFGpjx+uHH8
-         ZhCyw2NN2+RGFQsNod7w+guiYoVs0jYURZJAfIH0er+eREfEGvdb+dhSp7Y1ahZfnm20
-         EQT3p8uxeePVBtACj18pB8lR4w8aHF8BS2GWaR0Ejq4VfShTrhq6EEw/XxqcG+fwuvZ3
-         LvGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791025873; x=1791630673; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UE2uEuYVLje6l25RVb+6f3Yk+oZ8JPiWMgc+3V3C9oI=;
-        b=ez6pS71k7225yfO5SQ5SIyeXqnSI3ya+9mGeI0QVId4tIHRvmUrWmUUGptxbB8smOD
-         PeetxH96f6CI0DdvX7sXYqex2hy3dQaHLDYHJVAklrQ8iQyTBbwn+IRtnscs1j9drPWt
-         vlMkD/F1ewDkSNmzbiPK7dgEaShnxVIAPjjhozlY0R29IOhOMPiwHntU6nPBYN2KyxWg
-         Qp7N/li4CFsT+4ZEPmmkJD+kbQSeF/AKZsSk/JiLX2Vjbl9LyN9bZrc2Nk6OQDNGXtDH
-         R5pXF77jFVHCCcWOWH76EVn//N0aKU+8A6AkMvMxmNljjg1LVOwZbPFaM8jtcMXZRw2e
-         7t2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791025873; x=1791630673;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UE2uEuYVLje6l25RVb+6f3Yk+oZ8JPiWMgc+3V3C9oI=;
-        b=LRjbVb5mowCQGyE0zbZ1gVLvh1KCJgQzRV26PD68FKsPp6AK9+vC+Yn1TnJZ7N55O7
-         KOIfSi34/vAGWuar0FaHe4ar8zRHwk45Kj4fk7IhXQJ1Qt8S7wsEB6oukZ/8ebX5OcZ4
-         518TdGRLIGJ0u0/gwl5EkgBStQZ5bEHBXUAfNXSEIsY7shzXSTEZpcKfRKDlJTsDqCYx
-         So8npncLVntUymxWauF2wQJf6wN2QkZlcOkQEmGmTtjyCAi3HrL8jqUkJ4zu3WU+JIow
-         IdgIFKdx42nbNT5MA/+JNpafcuZqIvb9wMXlRyHWriPW7puFAIB7FzbJUt1gOMJ2Mt24
-         0ddw==
-X-Forwarded-Encrypted: i=1; AKwUvBwkDhqPQrIB+Wgnry30mNVQIs+N1qZcS7wemroo4rxOLV3UZtLxmNwX4qw0LJpADbj8qTdBvXoGmaTI5g==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJQGGLK41JPOngltKa0tLK8HZPhOLg+t7A2WlGHpxy7w1FBWS+
-	uB+m80c09XctO2++yn9pDIAsLL4WLkIpdF01OsVUg9VZ5AkhBUl5PkAQRkF/REIXsMDsK067rtj
-	7GOMhD6sISPtlFRfmMZoOx3o4RcedSApfywXjdT2kiwzrhZSCsJ6cz6ZI4jclTWC/ZzlX1NrC5K
-	K/BnhI9VIG78vO0kJShBB4vZKy0m7o+EOq9GXEmgIX
-X-Gm-Gg: AYBFou1Gx5H7Snx5ALp2gvzlVMIe1etSsPW1u0cMqMFJKN9L3swPsj6T5gGAoXsOxaB
-	b8qluJA0wdI4NGAncVP4aj4Ffx27t6CvThPdVMkazc7jXeGlP4nxySRwR2zx8je2RRYbC57/A+W
-	hakGq5Ba5GtF6a0J4G4u54FdINQ6HYmnue3U9OriQqQVuIAFEpS+3fTk01qsP9+4cq0yul96dlp
-	9BOfQ9xbBp/8HqkQg==
-X-Received: by 2002:a05:6122:2106:b0:5d4:f492:bdf4 with SMTP id 71dfb90a1353d-5dab3357fa0mr1691065e0c.21.1791025872947;
-        Sat, 03 Oct 2026 04:11:12 -0700 (PDT)
-X-Received: by 2002:a05:6122:2106:b0:5d4:f492:bdf4 with SMTP id
- 71dfb90a1353d-5dab3357fa0mr1691051e0c.21.1791025872550; Sat, 03 Oct 2026
- 04:11:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAN/rVvg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638301F0089B;
+	Sat,  3 Oct 2026 13:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791033465;
+	bh=IzbNPOia8VMKvzs9m7iStPmTfA5edKy5GnhybPACNJg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CAN/rVvgMSKtbA1KsHN4RGBkEoftMGFQkGSEnSQs+8AEVSkBCWecWeksf/WYsl1JG
+	 vex0FEYYejEF5KBKQs3a3h2WUWTGlrypAHO0jB7GcWDeXS+D/+znTX6DKUfidRG83X
+	 KItpx2EQPp7inJx6IFStH8dZ+eMtoE7P8nu9DjRFIQNUe6U/ssysH7A+cXRlIPm4Ai
+	 uS0zxXdr9FMT2JNfL9NgSa4w/DxjAmkHiv17gFyFjuKU7FUXI5TNUC3F06nl6tEBlE
+	 3czGY7wygWYhTxNlVL3QeN/Tvv2nfFHUwj7QHwOyoenvU3RvYpzPX68Qt38Q5OaCdO
+	 N3Jr4jT5uXPxg==
+Message-ID: <d3d70595-4fa3-47d1-8f2c-aa44862cc242@kernel.org>
+Date: Sat, 3 Oct 2026 15:17:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
- <20261003-kaanapali-camss-v18-5-87ba4ebe0db1@oss.qualcomm.com> <fbc988c9-d701-4479-96d0-f18d92063f31@linaro.org>
-In-Reply-To: <fbc988c9-d701-4479-96d0-f18d92063f31@linaro.org>
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Sat, 3 Oct 2026 19:11:01 +0800
-X-Gm-Features: AclHuK9kb58p-lhxZ0JM2phaLs-oK0O_r3eZlqRT_1LCVxXx_9IYV-_oLUsV2-s
-Message-ID: <CACbMrhrB0k27wBDgADSbhD8Cjyx_-xBvgCOXcwXMxmxxuEhBGA@mail.gmail.com>
-Subject: Re: [PATCH v18 05/11] media: qcom: camss: csiphy: Add support for
- v2.4.0 two-phase CSIPHY
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDA0NCBTYWx0ZWRfX1hWa8V194f7A
- 7v6lIl+fFeVNDDanLx3eZiH0Zovy12kTCU2yvIhlbkKvmbo3kiYLtHUbokuvSQvU9TWmCgRK2GM
- MggBG9Gh1RreCRvGgDwWf5l4TamC6Hk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDA0NCBTYWx0ZWRfX1N3hdNfybh8f
- 923PaRgQdsjjBjKd0CKU34y9t5/XRhY5nzUfLEHjX4FDo2mvSh8HoJL/QAbTCQInPP6/hik7V6P
- lZM1rh2AwW0mFgKSobi9mFZLO2IOBjFoIROLqvvb8GlHUxQe1k9LUuZeTwHNVT/hVz/Ell6sqGI
- SZ0y489+ML05nnxhjM12X7axdDsFEqsQ6xOXzXof0kiqz/oHWeRZosUrUzsOpQzv/1+NMMbUCUL
- QEBBLaWs9DWUuJmbetz2i7GwxcAuCRbLtabpzQyhFEW1OH/XSbtZ+yer8otvZL4oYH96U8GSQPR
- HX1gbCj6/Ve4ErIoLEfvhglhbuAL0MODwkRkO8uqGHkzcjenk5uGJRkq/uHebbkd8DIpGRv0ZHD
- ffZXVmtvmtJoNWa3g62lO5+tSWWa49RSTLKoatEQ1uLOINDsDjt7kl/3OxLHRns/fsrKRc7401w
- T2oPO3seSjTTFrWEhwQ==
-X-Proofpoint-GUID: AT3qjxjGbFKlljMYPLlDfP3ycIpnnFH2
-X-Authority-Analysis: v=2.4 cv=HqjjiETS c=1 sm=1 tr=0 ts=6ac0e2d1 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=KKAkSRfTAAAA:8 a=kQtmRZuExVT1y5CfGhAA:9
- a=QEXdDO2ut3YA:10 a=1SaFWpeTM14A:10 a=tNoRWFLymzeba-QzToBc:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: AT3qjxjGbFKlljMYPLlDfP3ycIpnnFH2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-03_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 bulkscore=0 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610030044
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
+ pci_ids.h
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-pci@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Ack
+Hi,
 
-Best Regards,
-Hangxiang
+On 2-Oct-26 11:43, Andy Shevchenko wrote:
+> We have a few drivers using same pair of the PCI IDs across the kernel and
+> there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-On Sat, Oct 3, 2026 at 5:09=E2=80=AFPM Bryan O'Donoghue
-<bryan.odonoghue@linaro.org> wrote:
->
-> On 03/10/2026 10:02, Hangxiang Ma wrote:
-> > +                     .hw_ops =3D &csiphy_ops_3ph_1_0,
->
-> There's no reason to continue to use the internal CSIPHY hack.
->
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+
 > ---
-> bod
+> 
+> Assuming that media subsystem is the main beneficiary I think it is the best
+> to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
+> are agree.
+> 
+>  drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
+>  drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
+>  drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
+>  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
+>  include/linux/pci_ids.h                              |  2 ++
+>  5 files changed, 13 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index 2e534ddb7347..ee2c59b72b4a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
+>  static void assert_isp_power_gated(struct intel_display *display)
+>  {
+>  	static const struct pci_device_id isp_ids[] = {
+> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
+> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
+> -		{}
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +		{ }
+>  	};
+>  
+>  	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
+> diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
+> index ad1f99140962..f3dee0e58f62 100644
+> --- a/drivers/platform/x86/intel/atomisp2/pm.c
+> +++ b/drivers/platform/x86/intel/atomisp2/pm.c
+> @@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
+>  			    isp_pci_resume, NULL);
+>  
+>  static const struct pci_device_id isp_id_table[] = {
+> -	{ PCI_VDEVICE(INTEL, 0x0f38), },
+> -	{ PCI_VDEVICE(INTEL, 0x22b8), },
+> -	{ 0, }
+> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(pci, isp_id_table);
+>  
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> index 5a69580b8251..1a05fc331557 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> @@ -37,7 +37,6 @@
+>  	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
+>  	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
+>  
+> -#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
+>  /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
+>  #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
+>  /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
+> @@ -45,7 +44,6 @@
+>  /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
+>  #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
+>  #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
+> -#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
+>  
+>  #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
+>  #define ATOMISP_PCI_REV_BYT_A0_MAX	4
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> index 476fe143a591..ab8727a806bf 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> @@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+>  		}
+>  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+>  		break;
+> -	case ATOMISP_PCI_DEVICE_SOC_BYT:
+> +	case PCI_DEVICE_ID_INTEL_ISP_BYT:
+>  		isp->media_dev.hw_revision =
+>  		    (ATOMISP_HW_REVISION_ISP2400
+>  		     << ATOMISP_HW_REVISION_SHIFT) |
+> @@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+>  		isp->dfs = &dfs_config_merr;
+>  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+>  		break;
+> -	case ATOMISP_PCI_DEVICE_SOC_CHT:
+> +	case PCI_DEVICE_ID_INTEL_ISP_BSW:
+>  		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
+>  						 << ATOMISP_HW_REVISION_SHIFT);
+>  		isp->media_dev.hw_revision |= pdev->revision < 2 ?
+> @@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
+>  	/* Baytrail */
+> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+>  	/* Anniedale (Merrifield+ / Moorefield) */
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
+>  	/* Cherrytrail */
+> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
+> -	{0,}
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
+>  
+> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+> index 63774ae2bf71..0693e4532a68 100644
+> --- a/include/linux/pci_ids.h
+> +++ b/include/linux/pci_ids.h
+> @@ -2732,6 +2732,7 @@
+>  #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
+>  #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
+>  #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
+> +#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
+>  #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
+>  #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
+>  #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
+> @@ -2787,6 +2788,7 @@
+>  #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
+>  #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
+>  #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
+> +#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
+>  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
+>  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
+>  #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
+
