@@ -1,85 +1,73 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBBF1F3B85
-	for <linux-media@vger.kernel.org>; Fri,  2 Oct 2026 22:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E0A27F72C
+	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 00:24:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790978747; cv=none; b=i+5KEBhRsP03KNeOTONPkvbkEkUicQQbV4YoYx1YzmP/RZe6xO4kKiF7yJ9LEXER3TC1G5YGvtfMnWK+6IOtkhCVLGTsfkacEJS3RQnKhbqUoVy2IpzqbeSzQP6gPLoBnaxhNUe+GE9rRZuyuhWbjiwTSIqqBRBic6VVl4dd5kk=
+	t=1790987102; cv=none; b=lvGpJFAOO58Qmj44xaA3mI/2tXdP5nmKIVYe5BOSzBQEWvDitFAdRQp2b7k4sRyphIo9E2nRc/3tBGexPRBLuiz94Pr/Y1iln8GvfPSEFFb9NAhILH6RaO33nhERu4CdmyKzZNjQ8FJwC3ohezhTa0rapvBrijpTMOVzJcuQYUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790978747; c=relaxed/simple;
-	bh=01XW4uC/sGdUHWiw99Nd7VE9u7bEzoXNo4QNFV8NZy8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PlmHWEpQvfVImkMKviNCxZd7m8IQsb1AoGPBOyJYNY+IgP/HQKyC42JOy9t8UBK4w4SOyam/UzsSBDIktO6SqA8Jpg/sw4Gjslyd5DHi65wF0/vhkrvoQtVQbqSqWJv/RjcfDjorPuZu3oj92LBsrwEuw8MeV+fcymmhq+3crb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+vyULPE; arc=none smtp.client-ip=74.125.227.166
+	s=arc-20240116; t=1790987102; c=relaxed/simple;
+	bh=6ckQJEHVNOJV2V7bIgVUTxZBGwUPBL7mdcXUXsKMJ40=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aZTSq4fhx16ZKfxFQjPlfinIncZ4jd1LDAx+mWpiQOqU+eW1Td5Qwj7mlQAsETiWXTbK2Ohaw8FSk6E5pmXL2v+hY/Gojqzoyei+xXHOyQ7hqSRIUwJw6dWZgZh7cz2YSGX92a+f6UO8nuAkzXs7lk66WkIfluer0DCc68DL35o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QaT459JZ; arc=none smtp.client-ip=74.125.230.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+vyULPE"
-Received: by mail-pj2-f38.google.com with SMTP id d9443c01a7336-2e2d9fdf798so275835ad.0
-        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 15:05:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QaT459JZ"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c5818c4a4so8219485a.3
+        for <linux-media@vger.kernel.org>; Fri, 02 Oct 2026 17:24:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790978746; x=1791583546; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j8/HFUWluZhijz+URCNd+7IiH1oTyp6nTgJbUzgXg/4=;
-        b=c+vyULPEsPxrvz8hR4E+VQD/8I0rPSXCXN4LKlUxvkqvkFSAk0DvwC8mmkMHnQUZVy
-         2v9FjRbeS5vmn0SAc51K+IilUvF/B5jBfinZl0DReiWiqUW/vHfSZXeWUhcqC3eqTkZB
-         h0/CBOKpdRrc1lDZt+4yHbKiT757G1W39NF/BNkGqB62FkAgzJAvQcgtx4tikO5yced7
-         B6Psxcuo7W3uzlPEyxNMdeDLeBNoxslMitR7g1vFHSDsySkd58W5ns5XNZeF004vfjW5
-         QMmyPu9nLI7aGnv8mlhWSh3PL4yosVvxSmgJRWPUstD215BPBQ3SIXL3XsxNj6BPS/81
-         JSmw==
+        d=gmail.com; s=20251104; t=1790987096; x=1791591896; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/TPkrn/h/1/hQC4aM5Wt/WQn40axj4PKDixOVSYImwc=;
+        b=QaT459JZ09Vex4/ev2Y2pEZbxS1kc7slXjSQcOdfOGhAMqYnNFyoeg75Np2EbvuAbJ
+         mGOmENpQS07TwSNyF0WEdbf6g4Cy4SFo1zWvUx9xe7G+MOtOoA/cB8k6a8/huPjsnliU
+         vvogHEjFzYpMQ7KiT3fBu3f3MuEGQ+OPC/nHHxk4ruj2iFr6NGDXUKVl5qlD8yEBUBRM
+         hoNoEKgmT+v+kV1ZyB0PafvBrmmdA7UT/jzHEe+1aECPBw2oXXwUN+k9EPdktqHOluNI
+         G0hzsWmGHuOgbUmEvZuNZBNG0GelRNmtKRtzX/Xh1CilORjFz5od/TqfsohHklzz3YDp
+         yWkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790978746; x=1791583546;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j8/HFUWluZhijz+URCNd+7IiH1oTyp6nTgJbUzgXg/4=;
-        b=fgSSrPR1m6oQLX9oPWPmCatrv241ufJ2TxUeJJqhPFQ1ajKFZ1YkVceCSVhpknUdMR
-         QhY9GnjiyMvPPnk0GFTAwSwgi976vBJSNL5zO0H7KkdYtkw8zWm1QAu9/dkCiz39pe1n
-         q/flY03htVzjQ75z4f89ffpyoA54Hf5mY+pI9RXuY5lrP/PttYZxm1Vg1PdcS05DLXOp
-         W0PWuOrq5Q0+Y/k5CJpaJ2jhOO2uC4n9oh56jWydsimNI+FFEJahoBjbUdh0Xmj2y4xx
-         KjBlylc8hYEeNmaEXS5whQSHj2kxnC+sLya/rCYxCkUjfWqm7yZ/IoJXS4kV3ytSjSUK
-         ggJg==
-X-Forwarded-Encrypted: i=1; AKwUvByMVfA2rmLZrUax8Wai8NjU4HN8YOtEUnSIdDA3O2mwgXLwvD8BLpdG0bQUYjFaE5WazDmPCy7DaYu3+A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuCP55QGl+aL4YeuZUljGbL4MNER54D+s419joq8nMb8a3ftl1
-	HdC7JxAimK8PK95pCyWOPV+jQn6D09kVYy9TPOUw9RSgexutoBu3HWRZ
-X-Gm-Gg: AYBFou2Puaf1Ffb7lHANMkPjEONbSdDke9imMFAdx6LmmHI2gFhjUSPHPKcpJ2X4u8d
-	7yj1Cqd7eDjQjvneU2Lav1NhrXIucQwKpXDm2foIWqs6Oldxrv1CnMeAxOD0edL7Ub9gHeYavsS
-	wRkTRjd/PKW3CJmtb3RrDLylf+oYfnOKtEPPZqVOl8Z1Eb7CCjWaV72kjptgq42pJrgnBxXFT9A
-	TpqvUL0xYQZcV2ZC3QXGcrjsKHZ9TdrkZuWxDdxi8B+ILhAZbBWDMXfdSFWG3Otj66Voz3A0rh3
-	uDgGX84gbRHoLflIiXEVo6JKxtyyVxluMHbQBmPM9edyiMBqg8K20LU2K65Nd+PN3QR1zlUqf29
-	3KUt0/a1/aj+LcYL1xoiKcKskwLv6fy5TspKMu+/iBIp7FVDV3lWyIkWIgAhdzpbDqTMKQ0mZ+3
-	47Ruj4ej5uv7UWgh9gW1EZR7Q5a7WzMnWnxNKQ/UXXBhqkQIZogfLztkUXqD9pJz/i4vQ=
-X-Received: by 2002:a17:902:f607:b0:2df:9556:6847 with SMTP id d9443c01a7336-2e49b7ff04emr31434085ad.70.1790978745585;
-        Fri, 02 Oct 2026 15:05:45 -0700 (PDT)
-Received: from TC-LAPTOP.lan ([99.30.92.7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6ad1a9sm12324835ad.43.2026.10.02.15.05.43
+        d=1e100.net; s=20260707; t=1790987096; x=1791591896;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/TPkrn/h/1/hQC4aM5Wt/WQn40axj4PKDixOVSYImwc=;
+        b=i2+u1AsrCl7atR0sULz4uysWCJX4Eq9UmlDzy7Gdpp1XOUZ3J03w3iYD3vvBwnyW1/
+         Sp6yagDzNuq4olgiaAQg4S6SPq7VmY9m13yroMA3PUgTO+AlgHQHF0ucqj7NMRV9lGtO
+         fXyjDIbR5Iu7GUtEmQDeamprMAsqIICAHwgSmnX2KAz/TxQ2f02J0RBLgEUSMlJmCazQ
+         wD1Lrmh8XHB7qS+SYzOSyzTeesNW9+rm3mpH+V7pXCkvB8f7DhydilLrHXCG2B6uTJZ5
+         p1gDmTCTfjRM230lPkj/c3FBfHwEM3ICHhHoZikSZ4xJeMYw0kSwCUpEzQaTLCh2MvG4
+         RHFg==
+X-Gm-Message-State: AFuF++mHgHZGurWJPyQtn3uUGRURiRi8ZaKNQ0znRzdF5efmH2hpN6vj
+	7ExGqbzWMKyxU4qafPNeGDi0r1eOVWkzFJ0rROTdwx33KoQ48XT3GR0=
+X-Gm-Gg: AYBFou0BeIAWS2sPdbsiQtaZpsnHj2Sca+gIyzX9nTZwWzoBaHHXE0+aJbv67Ns8sAf
+	fIv+cM/dutL4hfMpNaLGLIK+FKQxmrGUReU07E/AA7ZDw6tPGUDSI/p1huvNtibIK/l8LglfgrB
+	0HDuknd+O5dtJbg8uSauobzfRVWvh7m743INyqE1fdQxvohJRYk/UW7TVTdLWSphfTPRhiA/NYl
+	8ma0LmumsZWa0BrrqNeF4y3gv7tYfQwL7WdsRBJMvLBa9kO19ktkmaQKM70wcQdffIROipu0MnF
+	RtoLEGhIugommaMljthQenkt8I21tkfCg0YnH0lnHPRXP29EsI9Es2WqKa+7R3eR2GmR/mJNOuf
+	vy/d9N0LN62/9LTgBt3XumJXuB39nvL6v0d1M4q+Y+ZZ0mmJdvOszDCOLdUNIscCUBlQnd3ioMz
+	h+RSFubDqka6lI7e9bWHLFYahkXWhK1SOlo659Ndmu3Wp+WzVQkHY/tJgEJHFrHxQk2TJ9dL/hw
+	W1K5HmEccNDz1tMmVaDaOG55yfHsEQOROybZguKeh6lhcAdBwXMxgNwZo/KKOh9K0Si9tfAmltM
+	nsNH9Yw92vYsu0aSNUoebo8Nmpno
+X-Received: by 2002:a05:620a:4504:b0:939:7683:33d5 with SMTP id af79cd13be357-93cf16b4c31mr814263285a.19.1790987095939;
+        Fri, 02 Oct 2026 17:24:55 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a48a5sm341771585a.14.2026.10.02.17.24.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 15:05:45 -0700 (PDT)
-From: Thierry Chatard <tchatard@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	lee@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andriy.shevchenko@intel.com,
-	v.vitovt@gmail.com,
-	dmanresa@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v12 9/9] media: ov8858: add ACPI device ID INT3477
-Date: Fri,  2 Oct 2026 15:05:40 -0700
-Message-ID: <20261002220540.1271601-1-tchatard@gmail.com>
+        Fri, 02 Oct 2026 17:24:55 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH 1/2] media: cadence: csi2rx: free error IRQ before private state
+Date: Fri,  2 Oct 2026 20:24:50 -0400
+Message-ID: <0d41c39bc84b97efdb8c06ef451fdaefcb331058.1790986123.git.mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002163350.1248431-1-tchatard@gmail.com>
-References: <20261002163350.1248431-1-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,48 +76,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Omnivision OV8858 appears in ACPI firmware under the HID INT3477 on
-Intel IPU3-based platforms such as the Dell Latitude 5285 2-in-1. Add
-INT3477 to the ACPI match table so the driver binds when instantiated by
-ipu_bridge.
+The managed error IRQ is released after private state is freed on remove
+and post-request probe failures, allowing use-after-free in the handler.
 
+Free the IRQ before releasing private state on these paths.
+
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
+
+Fixes: 9f2d0da9b8c3 ("media: cadence: csi2rx: Enable csi2rx_err_irq interrupt and add support for VIDIOC_LOG_STATUS")
 Assisted-by: LLM
-Signed-off-by: Thierry Chatard <tchatard@gmail.com>
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/i2c/ov8858.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/media/platform/cadence/cdns-csi2rx.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index 3f45f7fab..d106cad6f 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -7,6 +7,7 @@
+diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
+index de7cce76397ab03b3dcdc4b5e68d2d92dca183ea..f8c626e19aa84569737aa785a31a0f8c94087613 100644
+--- a/drivers/media/platform/cadence/cdns-csi2rx.c
++++ b/drivers/media/platform/cadence/cdns-csi2rx.c
+@@ -993,7 +993,7 @@ static int csi2rx_probe(struct platform_device *pdev)
  
- #include <linux/unaligned.h>
+ 	ret = v4l2_subdev_init_finalize(&csi2rx->subdev);
+ 	if (ret)
+-		goto err_cleanup;
++		goto err_free_irq;
  
-+#include <linux/acpi.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -1981,11 +1982,18 @@ static const struct of_device_id ov8858_of_match[] = {
- };
- MODULE_DEVICE_TABLE(of, ov8858_of_match);
+ 	pm_runtime_enable(csi2rx->dev);
+ 	ret = v4l2_async_register_subdev(&csi2rx->subdev);
+@@ -1011,6 +1011,9 @@ static int csi2rx_probe(struct platform_device *pdev)
+ err_free_state:
+ 	v4l2_subdev_cleanup(&csi2rx->subdev);
+ 	pm_runtime_disable(csi2rx->dev);
++err_free_irq:
++	if (csi2rx->error_irq >= 0)
++		devm_free_irq(csi2rx->dev, csi2rx->error_irq, csi2rx);
+ err_cleanup:
+ 	v4l2_async_nf_unregister(&csi2rx->notifier);
+ 	v4l2_async_nf_cleanup(&csi2rx->notifier);
+@@ -1030,6 +1033,8 @@ static void csi2rx_remove(struct platform_device *pdev)
+ 	v4l2_subdev_cleanup(&csi2rx->subdev);
+ 	media_entity_cleanup(&csi2rx->subdev.entity);
+ 	pm_runtime_disable(csi2rx->dev);
++	if (csi2rx->error_irq >= 0)
++		devm_free_irq(csi2rx->dev, csi2rx->error_irq, csi2rx);
+ 	kfree(csi2rx);
+ }
  
-+static const struct acpi_device_id ov8858_acpi_ids[] __maybe_unused = {
-+	{ .id = "INT3477" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(acpi, ov8858_acpi_ids);
-+
- static struct i2c_driver ov8858_i2c_driver = {
- 	.driver = {
- 		.name = "ov8858",
- 		.pm = &ov8858_pm_ops,
- 		.of_match_table = ov8858_of_match,
-+		.acpi_match_table = ACPI_PTR(ov8858_acpi_ids),
- 	},
- 	.probe		= ov8858_probe,
- 	.remove		= ov8858_remove,
--- 
-2.53.0
 
