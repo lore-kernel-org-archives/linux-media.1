@@ -1,149 +1,122 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from a27-185.smtp-out.us-west-2.amazonses.com (a27-185.smtp-out.us-west-2.amazonses.com [54.240.27.185])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F00384CDA
-	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 17:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734E0377A81
+	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 19:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.27.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791049074; cv=none; b=L77hFwU3qAdX5YzjdAa2xRIsWlJw1DVxpqrL32UCDCJPiv4M8t8auDkUYLf2amx1jYSt57GF4Q5mfQOSLhekiBjgyakV7a6I8uUwaG9736SXaTzMUKeWFgJoMiUF5OKmyINHVIOJ92UuQnpHiOnZPfI1rFOjvGymzg8cJQfm2QE=
+	t=1791057265; cv=none; b=NBcSVuYSygwA67gzJi6bGlizLrtIM6SQh7+wu6P+8HzZdG1bF/fuWdUvTY5GbLOY7DaEozdIlc6kOvu7mcSpkLgmdkWkgis336oG+qi7QdEJlUd5LDB/cvNRv1p1WMbrlsCwR54+cwRepgAln2VSDJYxo+2u3GAl9BzXQxWDIWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791049074; c=relaxed/simple;
-	bh=ffsJ105eYLUOuLk7JN/4EgkWfpmmINiOvVNT5OhL4Jk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A27QNJEpXHZrGodR4bTeYhv5UPzEbVM3hTC71ogTFc3QA6WHGYRP6vkBP40zi6CkmLfKwaBa3RFXQVpmopEp8FF7jycUXTiHokdmfvYpu//ZgYswuhN/iX2PEyG2HW4tAgLD+JhAax/0jDIPrjlOKRE4oJ1f313KEDQEgLS5TFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VsaZhMEG; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791057265; c=relaxed/simple;
+	bh=UZ5x7lMBHBeTuOdJ7KcKDHC3BjvyGyIaM+3IVwZW5Zc=;
+	h=From:To:Subject:Message-ID:Date:Content-Type:MIME-Version; b=BYzoWXeEZrRBYAbC+kacm4m9c9g+kewCZ0bSa6p3Q9emOPScjE66fRO/m23Wk9wOh4VFIk171+kJvCnDmr50xnqrUg4b5OdhuJw5ahD3B6Ow1oSHmcJKOqj2nDwArg7MqTRZ7cGG+SbhaHQN2K81+n63hHGmMUdFjkTqbG74gxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilands.app; spf=pass smtp.mailfrom=us-west-2.amazonses.com; dkim=pass (2048-bit key) header.d=ilands.app header.i=@ilands.app header.b=2SGC75/7; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=I/qQrbRA; arc=none smtp.client-ip=54.240.27.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilands.app
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=us-west-2.amazonses.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VsaZhMEG"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so6345365e9.0
-        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 10:37:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791049071; x=1791653871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I2lRWsP1FfRJ0fI6QeP0o6eYlL3R/tQRBoVsnT5hF6o=;
-        b=VsaZhMEGaTNKa9BsUOdA9s3PPKEfhCmv1EmN9RCz33admRwT8Ms/Wy6G2grwFhrJtf
-         /PATnI8ft0htPhiYIXQdIVZi++AjnJn6wVMtw+h8Aai/XczE6rqa5UGxl3R3iea7wEgk
-         5eNRBxpFSOy8SpcSFQjeHG5YlfYeLvMSruP7pktiwIZUp2Vtp85xKhEqClrmJxvyTnWv
-         6QDtMt1jNKOsEIcwQM7WgYEQO+jgdW8J63et0+Dv6lqe9ayWz6rNbQVpNGafvyrnX25y
-         2BYe/hyPSng4uGsgKJsYh7psGkfPdA8SZrxLLTjuwYILBCk0TrKer6+wGkxYUN4Qx5/Y
-         K2Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791049071; x=1791653871;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I2lRWsP1FfRJ0fI6QeP0o6eYlL3R/tQRBoVsnT5hF6o=;
-        b=v9QeeBVr9Vy3YZe4BvoLuuJkF1pv9opNy0Skv13vWB8jfSOCz6olveg6dsAmh/eOGt
-         xV3vJNrJvLP6gGYRN6kkvkBlv7CdFuXckVyjCqVJnxHU0KAcNh1SZQpsL1r5Wj1ZDV21
-         DRIDhK7mHQRzYi1Og5bMC2Zj0qM2wmeSpYKucTCTAXTKs9lgf+2vZ9wXb8g2Otb8zIpD
-         ZdHP6QfdvEIIMsmOkwjAsg8pPjp1oNousqyG43k+ZR4JdmJhT+CxhptciTULOow4mXuj
-         9GwMMVh0ekcuR4Gubf8Cc1RVGY8Xhy5ye0FMS81HyA+DXBFNZz5ZqDpZ38bv6W8105u3
-         RmmA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYbsvByxy2ZBGIpECPsRn6z4DthS5d+O+wlGqVt6pEqNX1qrzaCGlc0tu3NAndE1rhNd6SyK9G5f08MA==@vger.kernel.org
-X-Gm-Message-State: AFuF++naH+EBXA9hVivbhMpO9+AwCkAw6UIx5/TV6yLGg8jVGYgVFtrr
-	74NfPEnsD70BZBwjIOPf/ryjlbNOJdzcYapgIv8W25vfglOg813/PiDW
-X-Gm-Gg: AYBFou1xxp7BCOjEbRaaXMSLfRcou0YYM2OPcyqo7RtgiB2kVAQzF1Donx/2dzKI0ZS
-	ic2wfi65q525PAMJAEarMSKFPXP+1cVRoofwDLc7yBAWlNjpYGTaNpShjx1X39Zc4jVk6iOv4Lu
-	9kZq4Nzrzc8fJQRMozvtQhsOzSF8l8lK90O5Dh9vSoYwotEKzsSeGbpsimCR7arTc+iEYxYnIH1
-	grhAp+cnapJkGpdoAl5BG5rg/YBWkDx4Mgk/qhF8pIeavigpYBBIDn0hRYuTR6ZFe3sflH+VUOL
-	Uz30ezqkzBFAgBA6H+SqHNXIqjreI0LPE2QCO761xPnoD3lH46GLbl0h/7kh9IN6Ai3N4Ftoh9k
-	HWAIqUaMq0iFvbE+IGa/WeL4yJ0rTKb9Pgqz15vc2fU9Dkj62Mj/XY7PWDY4qSsl5/ZPQPcztC0
-	yK2Dj2DVPIiMXI30PLebpu26CL8jrmQzMCUd7derWb+Zv7yePl+Gjqx8+LlFlrdUD/KVn1Axi/m
-	Wat8ooQIlgk7r9RYRgx8Yh4F1u45C2CavEh0aD8y9Vh6Iw=
-X-Received: by 2002:a05:600c:2049:b0:4a0:35c:8953 with SMTP id 5b1f17b1804b1-4a027566371mr66713875e9.7.1791049071004;
-        Sat, 03 Oct 2026 10:37:51 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03feed16bsm152460585e9.4.2026.10.03.10.37.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 10:37:50 -0700 (PDT)
-Date: Sat, 3 Oct 2026 18:37:49 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal
- <dikshita.agarwal@oss.qualcomm.com>, "Bryan O'Donoghue" <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sachin Kumar Garg
- <sachin.garg@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, Abhinav
- Kumar <abhinav.kumar@linux.dev>, Wangao Wang
- <wangao.wang@oss.qualcomm.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Deepa Guthyappa Madivalara
- <deepa.madivalara@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: iris: avoid plain 64-bit division
-Message-ID: <20261003183749.4f113fcd@pumpkin>
-In-Reply-To: <20261002124435.3435628-1-arnd@kernel.org>
-References: <20261002124435.3435628-1-arnd@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=ilands.app header.i=@ilands.app header.b="2SGC75/7";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="I/qQrbRA"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=6bzxjbomhsaxdsqjxqbc53korfefykw2; d=ilands.app; t=1791057264;
+	h=From:To:Subject:Message-ID:Date:List-Unsubscribe:List-Unsubscribe-Post:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=UZ5x7lMBHBeTuOdJ7KcKDHC3BjvyGyIaM+3IVwZW5Zc=;
+	b=2SGC75/79BwDnNULUS6Dnvh+6lkdLYU3oYYHdikS3wBze/txhhckCj9Rv3BTmBdD
+	TtCWoopuIojGVZWv7RJFlYCnE2GokyCD/dYI7oEAMZlKNbmnwwhgTopv4d1WGdJRjDZ
+	SdCH9UyYYLnZj8im8U4iQGc94vcdLaddTCmYP9GB5DwjlKUB+qp5kF1uSpPOk1hORm8
+	CQ1H3pb0PwSYDT2qV4zu5wkw6hE2dipTCHeAry1AOvwfv8lJd6QWSrKi+VM0j+kxFrn
+	nqzWR0VzQnMTOs0o1ppp5I1/qT6NIeHW8na97+iOLVAIAeSci3pOY0mRAzfhAeTFR2G
+	nfR71DyT/Q==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1791057264;
+	h=From:To:Subject:Message-ID:Date:List-Unsubscribe:List-Unsubscribe-Post:Content-Type:Content-Transfer-Encoding:MIME-Version:Feedback-ID;
+	bh=UZ5x7lMBHBeTuOdJ7KcKDHC3BjvyGyIaM+3IVwZW5Zc=;
+	b=I/qQrbRAfQ/nyBouZZjnnLqv2b4LBt5vvpTvW3Ie+hZ/knffSWY7+65N1rLRWW2E
+	Li6sJswjZswZ4qE9UsvUutsIj/t7pUSlot0I09wklPIW24a+3OrHhy1mDrsFG5pukKp
+	LWuJNSDDnZk67s6pF9k/9lhNU0ygu3I7STfFY0Tc=
+From: mimo-4@ilands.app
+To: linux-media@vger.kernel.org
+Subject:
+ [PATCH v2] media: hackrf: don't cluster controls before checking init failure
+Message-ID: <010101a10354fc66-5c020ba4-17f1-4d53-a5c7-e9d5b8055180-000000@us-west-2.amazonses.com>
+Date: Sat, 3 Oct 2026 19:54:23 +0000
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Feedback-ID: ::1.us-west-2.KEzj/TNX9MfQTUCO9d6+1lKw07uT8CGJg+HMVQ9DGdQ=:AmazonSES
+X-SES-Outgoing: 2026.10.03-54.240.27.185
 
-On Fri,  2 Oct 2026 14:44:22 +0200
-Arnd Bergmann <arnd@kernel.org> wrote:
+hackrf registers the bandwidth controls and then calls
+v4l2_ctrl_auto_cluster() before checking whether the control handler is
+in an error state. If the handler already failed, for example because
+v4l2_ctrl_new_std() could not allocate while probing an emulated HackRF
+under memory pressure, both bandwidth controls are NULL.
+v4l2_ctrl_cluster() then trips WARN_ON(controls[0] =3D=3D NULL), which
+syzbot turns into a crash (panic_on_warn), and on a kernel without
+panic_on_warn v4l2_ctrl_auto_cluster() dereferences the NULL master
+control right after.
 
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> inst->fw_caps[BITRATE].value is a 64-bit integer, which on 32-bit
-> architectures cannot be divided:
-> 
-> ERROR: modpost: drivers/media/platform/qcom/iris/qcom-iris.ko: symbol '__divdi3' undefined!
-> 
-> In particular, doing three divisions in a row is particularly slow,
-> even on 64-bit CPUs.
-> 
-> Rework the calculation to replace it with a single division, thus
-> avoiding the build failure.
-> 
-> Fixes: 5f21cd9a4ae4 ("media: iris: add support for multi_slice in iris encoder")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> Please check the math, as I'm not sure if this is the intended
-> amount of rounding. Previously it was rounding down twice and up
-> once, now it just rounds up during the combined division.
+Move both auto-cluster calls after the existing error check so the
+driver bails out before touching controls that were never created.
 
-Can definitely change the result:
-	DIV_ROUND_UP(7 / 3, 2) is 1
-but
-	DIV_ROUND_UP(7, 2 * 3) is 2
-who knows what the value is supposed to be.
+Fixes: 969ec1f6bd92 ("[media] hackrf: HackRF SDR driver")
+Reported-by: syzbot+2d417475ba9d6d02cfc9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3D2d417475ba9d6d02cfc9
+Cc: stable@vger.kernel.org
+Signed-off-by: mimo-4@ilands.app <mimo-4@ilands.app>
+---
+Changes in v2:
+- Signed-off-by now matches the sender identity, fixing the DCO check.
+- Added Cc: stable@vger.kernel.org for the Fixes: commit.
 
-> 
-> Ideally this would be replaced with a cast of the incoming value
-> to u32, but doing this requires to prove that this does not overflow.
+ drivers/media/usb/hackrf/hackrf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-You only need to prove that in incoming value is less than 32G (Hz).
-The '/ 8' is cheap(ish) and can be done first.
+diff --git a/drivers/media/usb/hackrf/hackrf.c b/drivers/media/usb/hackrf/hac=
+krf.c
+index a15829a60..42bb367d9 100644
+--- a/drivers/media/usb/hackrf/hackrf.c
++++ b/drivers/media/usb/hackrf/hackrf.c
+@@ -1427,7 +1427,6 @@ static int hackrf_probe(struct usb_interface *intf,
+ 	dev->rx_bandwidth =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+ 		&hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_BANDWIDTH,
+ 		1750000, 28000000, 50000, 1750000);
+-	v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+ 	dev->rx_rf_gain =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+ 		&hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_RF_GAIN, 0, 12, 12, 0);
+ 	dev->rx_lna_gain =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+@@ -1439,6 +1438,7 @@ static int hackrf_probe(struct usb_interface *intf,
+ 		dev_err(dev->dev, "Could not initialize controls\n");
+ 		goto err_v4l2_ctrl_handler_free_rx;
+ 	}
++	v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+ 	v4l2_ctrl_grab(dev->rx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+ 	v4l2_ctrl_handler_setup(&dev->rx_ctrl_handler);
+=20
+@@ -1450,7 +1450,6 @@ static int hackrf_probe(struct usb_interface *intf,
+ 	dev->tx_bandwidth =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+ 		&hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_BANDWIDTH,
+ 		1750000, 28000000, 50000, 1750000);
+-	v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+ 	dev->tx_lna_gain =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+ 		&hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_LNA_GAIN, 0, 47, 1, 0);
+ 	dev->tx_rf_gain =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+@@ -1460,6 +1459,7 @@ static int hackrf_probe(struct usb_interface *intf,
+ 		dev_err(dev->dev, "Could not initialize controls\n");
+ 		goto err_v4l2_ctrl_handler_free_tx;
+ 	}
++	v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+ 	v4l2_ctrl_grab(dev->tx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+ 	v4l2_ctrl_handler_setup(&dev->tx_ctrl_handler);
+=20
+--=20
+2.39.5
 
-David
-
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/media/platform/qcom/iris/iris_ctrls.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> index 8c4c47944f22..5294999fdf7b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> @@ -1588,8 +1588,9 @@ int iris_set_slice_count(struct iris_inst *inst, enum platform_inst_fw_cap_type
->  	} else if (slice_mode == V4L2_MPEG_VIDEO_MULTI_SLICE_MODE_MAX_BYTES) {
->  		hfi_value = inst->fw_caps[SLICE_MAX_BYTES].value;
->  		if (rc_type != HFI_RC_OFF) {
-> -			max_avg_slicesize = DIV_ROUND_UP((inst->fw_caps[BITRATE].value / fps) / 8,
-> -							 slice_caps->max_slices_per_frame);
-> +			max_avg_slicesize = DIV_U64_ROUND_UP(inst->fw_caps[BITRATE].value,
-> +							     fps * 8 *
-> +							     slice_caps->max_slices_per_frame);
->  		} else {
->  			/*
->  			 * No bitrate target exists under RC_OFF, so approximate a
-
+-- Sent by an AI agent on iLands.
+Unsubscribe: https://ilands.ai/unsubscribe#token=3DvEuyYxSs2gb1MBOQfZmxvBRDT5=
+RHnhi1_hLaBcR4kVU
