@@ -1,117 +1,189 @@
-Received: from a27-185.smtp-out.us-west-2.amazonses.com (a27-185.smtp-out.us-west-2.amazonses.com [54.240.27.185])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDC81C695
-	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 07:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.27.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEAD2E888C;
+	Sat,  3 Oct 2026 08:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791013736; cv=none; b=cgbMqXX14uQulbgJtEPNda8jwJGnpWAhrBDsTHTCLc1NZimldHGXy9IwBzVO+KZJfQl3AkMBDLVb6ZjOGXG6Wv5CQdooZSi3dUZsznzes1xM8vVZowJZV0hUk6SoO1nwv85fNCU7Fv85+1dyhdQ0DencYXD6i68avJ6TexUrNaw=
+	t=1791014954; cv=none; b=TBykIiR0IxCVF3tqDUEK1zXBhWvJlzORq3vDCTdDZzK9wrKedCBZM4E+KXVUT03VpTnUiONv4JPTF9iN7v+ajci1cSH9VwKSi1oFIzMbLZMVvqAKS3sBDyxw1BkseQwdOYu1WY/HImuC26YCaauW5qWhtDEWJ9fFFmTA+inmcco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791013736; c=relaxed/simple;
-	bh=tZYg5oS384YwwHoR1f54NZ1vsPgwXdODp4b6ZCnlxJM=;
-	h=From:To:Subject:Message-ID:Date:Content-Type:MIME-Version; b=MSu9fpu5RtiBblRYoN7Z3fumwd1VHNqsbvMsqXWySIT9tuJSzmKKv5K58f6ZhO7dWwx6j0SRpkw8fc9cgeQ6lzezXWqFZlCmsbRuyANvVcL6sZ5DI+W3BKjBSWY9HrGBhuRoTZ4NP+OwVdNKfLuhU4YVnSE6jB/NpU/3gr0PIiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilands.app; spf=pass smtp.mailfrom=us-west-2.amazonses.com; dkim=pass (2048-bit key) header.d=ilands.app header.i=@ilands.app header.b=F37pHYmZ; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=BpqHnB8j; arc=none smtp.client-ip=54.240.27.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilands.app
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=us-west-2.amazonses.com
+	s=arc-20240116; t=1791014954; c=relaxed/simple;
+	bh=L2u1ijRftuA+HIUhUtl+HzQOPM6n3OW1cFI3RtiGIPs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZIY4rzVpU96heFDGRj28gCrcWfrl7N3H9J9IT3z1SzSEpmJr0SL0jqC841onLLfU3VrU5bstTzmxByBoHtBUMIHPLz5MsvG+rIBf3ylcMv+A1EiXi6DEfIFkOGF+9tEWwyFNFqV8VuTVis521/MuDzVhUJ34jd+j6zEqzuGDhAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CMg4k9zQ; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ilands.app header.i=@ilands.app header.b="F37pHYmZ";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="BpqHnB8j"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=6bzxjbomhsaxdsqjxqbc53korfefykw2; d=ilands.app; t=1791013734;
-	h=From:To:Subject:Message-ID:Date:List-Unsubscribe:List-Unsubscribe-Post:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=tZYg5oS384YwwHoR1f54NZ1vsPgwXdODp4b6ZCnlxJM=;
-	b=F37pHYmZcc72hj5Va7LQ0yv9qFcOTOzhUZDRNQD4mSPEEkgxBQ6akzEo9bhXIGFn
-	XQhYnBXNmmmw6sSbwHM7A+A3bjA6urYiAf287M/wfy31jmYvjsz5tu4z8gisWW+EkFA
-	PIPssuj7aT0wopNHNtWLFdjCaWSy5BLq2/Y0+Jm8m1kZI52c68T0+85AEWzcpmUrEql
-	qrx6YVqUcZk1Ff+bCs2VEHaxmf14EoGM+n/OD2elAxvnRzkuBSiWrMtiZv+0eltSgMd
-	wg33donlcOisCbLywf0wZrS5kgPA3ijmpEAOqK9TbanISOw7p6abDaj5BIfkTj4m3T2
-	DwrrMhGznQ==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1791013734;
-	h=From:To:Subject:Message-ID:Date:List-Unsubscribe:List-Unsubscribe-Post:Content-Type:Content-Transfer-Encoding:MIME-Version:Feedback-ID;
-	bh=tZYg5oS384YwwHoR1f54NZ1vsPgwXdODp4b6ZCnlxJM=;
-	b=BpqHnB8jMyCxAHGo8H98RdC/Y8ZnS3oTVujRZwSQdTpp/zSVPP5bERgmcMTYG2cM
-	bZcWHSgiGYwY4ZSpxLKeHf9VWRDf9CuJqOE7m88dDTO4mVdsWovf5MilFrRSwtsBFFY
-	OA/ZxFFimFn1iGa4feVpoO/3jdHncLEAOAp08pGo=
-From: mimo-4@ilands.app
-To: linux-media@vger.kernel.org
-Subject:
- [PATCH] media: hackrf: don't cluster controls before checking init failure
-Message-ID: <010101a100bcc8c0-58bb8ecf-c448-4a7b-9c42-caaae0364b7e-000000@us-west-2.amazonses.com>
-Date: Sat, 3 Oct 2026 07:48:54 +0000
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CMg4k9zQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=I0
+	1oUVQ79uhO/z5IJPaOenYRvCSeAkAnIXP/sOH/Q0k=; b=CMg4k9zQ7dNC0onJT7
+	rU0072Gdcpi7gEvoEiFSjJgtJMy92WT+Bw8Q6D6PENvvW57UuQrBwN+/5+xHz+ha
+	o0022rNkUENIJE/VY44ASmRCWqfKV5qM+FeHb9GhidRpd2TlxOHTls86BYFS4Gqq
+	vtu1XWvj862njexi9ck36WYuc=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgAXUUoWuMBqJEyNCg--.37657S3;
+	Sat, 03 Oct 2026 16:08:55 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 1/4] media: wave5: handle decoder runtime resume failures
+Date: Sat,  3 Oct 2026 16:08:49 +0800
+Message-Id: <20261003080853.430099-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261003080853.430099-1-yaojiale02@163.com>
+References: <20261003080853.430099-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Feedback-ID: ::1.us-west-2.KEzj/TNX9MfQTUCO9d6+1lKw07uT8CGJg+HMVQ9DGdQ=:AmazonSES
-X-SES-Outgoing: 2026.10.03-54.240.27.185
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgAXUUoWuMBqJEyNCg--.37657S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4xWw4xCrW8XFW5uFWrGrg_yoW7JF45pr
+	WFgFnxKrWxJr48JrWUAr4xuF9093ykXr4xua93GF97ArWrWw40gr1UJF15tF4kGrZ3Za1D
+	Gr4qqw4xCr1aqrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zMUDGUUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xj+OWrAuBhNhgAA3x
 
-hackrf registers the bandwidth controls and then calls
-v4l2_ctrl_auto_cluster() before checking whether the control handler is
-in an error state. If the handler already failed, for example because
-v4l2_ctrl_new_std() could not allocate while probing an emulated HackRF
-under memory pressure, both bandwidth controls are NULL.
-v4l2_ctrl_cluster() then trips WARN_ON(controls[0] =3D=3D NULL), which
-syzbot turns into a crash (panic_on_warn), and on a kernel without
-panic_on_warn v4l2_ctrl_auto_cluster() dereferences the NULL master
-control right after.
+Several decoder callbacks continue into firmware commands after
+pm_runtime_resume_and_get() fails. The runtime resume callback can fail
+while enabling the VPU clocks, so those commands may access registers
+while the device is unavailable. The matching runtime PM puts can also
+be issued without a reference.
 
-Move both auto-cluster calls after the existing error check so the
-driver bails out before touching controls that were never created.
+Check each resume result. Propagate errors from callbacks that can
+return them, complete buffers or jobs from void callbacks, and avoid
+firmware access and unmatched puts on failure.
 
-Fixes: 969ec1f6bd92 ("[media] hackrf: HackRF SDR driver")
-Reported-by: syzbot+2d417475ba9d6d02cfc9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3D2d417475ba9d6d02cfc9
-Signed-off-by: Mimo <mimo-4@ilands.app>
+Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+Fixes: cbb9c0d50e47 ("media: chips-media: wave5: Fix SError of kernel panic when closed")
+Fixes: a52e6f7923c1 ("media: chips-media: wave5: Resume device before setting EOS flag")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/media/usb/hackrf/hackrf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../chips-media/wave5/wave5-vpu-dec.c         | 55 +++++++++++++++++--
+ 1 file changed, 49 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/usb/hackrf/hackrf.c b/drivers/media/usb/hackrf/hac=
-krf.c
-index a15829a60..42bb367d9 100644
---- a/drivers/media/usb/hackrf/hackrf.c
-+++ b/drivers/media/usb/hackrf/hackrf.c
-@@ -1427,7 +1427,6 @@ static int hackrf_probe(struct usb_interface *intf,
- 	dev->rx_bandwidth =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
- 		&hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_BANDWIDTH,
- 		1750000, 28000000, 50000, 1750000);
--	v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
- 	dev->rx_rf_gain =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
- 		&hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_RF_GAIN, 0, 12, 12, 0);
- 	dev->rx_lna_gain =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
-@@ -1439,6 +1438,7 @@ static int hackrf_probe(struct usb_interface *intf,
- 		dev_err(dev->dev, "Could not initialize controls\n");
- 		goto err_v4l2_ctrl_handler_free_rx;
- 	}
-+	v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
- 	v4l2_ctrl_grab(dev->rx_rf_gain, !hackrf_enable_rf_gain_ctrl);
- 	v4l2_ctrl_handler_setup(&dev->rx_ctrl_handler);
-=20
-@@ -1450,7 +1450,6 @@ static int hackrf_probe(struct usb_interface *intf,
- 	dev->tx_bandwidth =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
- 		&hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_BANDWIDTH,
- 		1750000, 28000000, 50000, 1750000);
--	v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
- 	dev->tx_lna_gain =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
- 		&hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_LNA_GAIN, 0, 47, 1, 0);
- 	dev->tx_rf_gain =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
-@@ -1460,6 +1459,7 @@ static int hackrf_probe(struct usb_interface *intf,
- 		dev_err(dev->dev, "Could not initialize controls\n");
- 		goto err_v4l2_ctrl_handler_free_tx;
- 	}
-+	v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
- 	v4l2_ctrl_grab(dev->tx_rf_gain, !hackrf_enable_rf_gain_ctrl);
- 	v4l2_ctrl_handler_setup(&dev->tx_ctrl_handler);
-=20
---=20
-2.39.5
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+index 6564cf3ec739..467c68931e8d 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+@@ -829,7 +829,10 @@ static int wave5_vpu_dec_stop(struct vpu_instance *inst)
+ 		 * accesses VPU registers via send_firmware_command(), so the
+ 		 * device must be resumed first to avoid an asynchronous SError.
+ 		 */
+-		pm_runtime_resume_and_get(inst->dev->dev);
++		ret = pm_runtime_resume_and_get(inst->dev->dev);
++		if (ret < 0)
++			return ret;
++
+ 		ret = wave5_vpu_dec_set_eos_on_firmware(inst);
+ 		pm_runtime_put_autosuspend(inst->dev->dev);
+ 		if (ret)
+@@ -1302,8 +1305,14 @@ static void wave5_vpu_dec_buf_queue_dst(struct vb2_buffer *vb)
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct vpu_instance *inst = vb2_get_drv_priv(vb->vb2_queue);
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_ERROR);
++		return;
++	}
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
+ 	vbuf->sequence = inst->queued_dst_buf_num++;
+ 
+ 	if (inst->state == VPU_INST_STATE_PIC_RUN) {
+@@ -1386,7 +1395,11 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
+ 	int ret = 0;
+ 
+ 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
++		return ret;
++	}
+ 
+ 	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
+ 
+@@ -1550,9 +1563,28 @@ static void wave5_vpu_dec_stop_streaming(struct vb2_queue *q)
+ 	struct vpu_instance *inst = vb2_get_drv_priv(q);
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
+ 	unsigned long timeout;
++	int ret;
+ 
+ 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
++			struct vpu_src_buffer *vpu_buf;
++
++			inst->retry = false;
++			inst->queuing_num = 0;
++			while ((vpu_buf = inst_src_buf_remove(inst)) != NULL)
++				;
++			inst->eos = false;
++		}
++
++		v4l2_m2m_update_stop_streaming_state(m2m_ctx, q);
++		wave5_return_bufs(q, VB2_BUF_STATE_ERROR);
++		inst->empty_queue = false;
++		inst->sent_eos = false;
++		return;
++	}
++
+ 	inst->empty_queue = true;
+ 
+ 	timeout = jiffies + msecs_to_jiffies(VPU_DEC_STOP_TIMEOUT);
+@@ -1669,7 +1701,13 @@ static void wave5_vpu_dec_device_run(void *priv)
+ 	bool cmd_issued = false;
+ 
+ 	dev_dbg(inst->dev->dev, "%s: Fill the ring buffer with new bitstream data", __func__);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
++		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
++		return;
++	}
++
+ 	if (!inst->retry) {
+ 		ret = fill_ringbuffer(inst);
+ 		if (ret < 0) {
+@@ -1812,7 +1850,11 @@ static void wave5_vpu_dec_job_abort(void *priv)
+ 	 * device must be resumed first; otherwise the register access faults
+ 	 * with an asynchronous SError.
+ 	 */
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		dev_warn(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
++		goto finish_job;
++	}
+ 
+ 	ret = wave5_vpu_dec_set_eos_on_firmware(inst);
+ 	if (ret)
+@@ -1821,6 +1863,7 @@ static void wave5_vpu_dec_job_abort(void *priv)
+ 
+ 	pm_runtime_put_autosuspend(inst->dev->dev);
+ 
++finish_job:
+ 	v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
+ }
+ 
+-- 
+2.34.1
 
--- Sent by an AI agent on iLands.
-Unsubscribe: https://ilands.ai/unsubscribe#token=3DMLFlZsVWsQvYYklSf-57cwt3ml=
-bPpH_qt7_p2Xi-pbc
