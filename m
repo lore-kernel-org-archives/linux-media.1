@@ -1,218 +1,211 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F9D49552B;
-	Sat,  3 Oct 2026 21:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB83815E6
+	for <linux-media@vger.kernel.org>; Sat,  3 Oct 2026 22:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063010; cv=none; b=eJJzhXA3w5IrG7enxQ9UNmkDr5aDVuZW32xW4JzGKceLzbXXTmokvYSrvtPNYmbDTCPZwroim6fByNbmlquK79RoprKN9mTNOFarAzI3G+0N5gkMNjKtqLyWDoEf/QUiDSPPhr3KuW6sv3ybYsfeLCHUrYFV1Lr6SHeX7C2PAck=
+	t=1791066500; cv=none; b=I+3dSQ999wXSSXt2xo6/poXDx1NXOL6RCjAQEPX2l5hV3DN87YIv9P/xwwjCvOoHzUgqU+HnAeNmsbVhg8S6K0GUG08z7xACpYvQmNKVbV7BJXDZtJXHF+vDgInFXGlWH3jJmHu20IjOeZ0HUlQ7kIFmDgldvO9w3OuZPKSapDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063010; c=relaxed/simple;
-	bh=D8x8axyFP8hKFCMfmt2XmWeJmTJTn183MyVucMGFPXc=;
+	s=arc-20240116; t=1791066500; c=relaxed/simple;
+	bh=k3pu6UlAByUAsZ1COmnVfKb/1csTnqbAuf3uXtysK5o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M6+EuTVf9G/v/doU1rdL50spzi6NHdj6c/hJFnDlW3oZ2BryDl+eePvvV4oTITD2Sf9WY2fJvTWcFLULYvLR2oG1O9iFmKVkYAQslctzfDY72QYm5dn2YQwL4Q+zF8tM4ZeqIiG6GyXEUP6TBKFO7r2QQMBQcn8M2Ahu7Z8XBmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FXm96tWC; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ARE5MxJ1nahV9TCrHolCmZ1PpfH/URnEBtUObyRKkMCCXp0gaecS3A21OB2FrjMFMHDAx8vZ76trsUVI15ggzwG04HJ+t34DZk1+/xgvMjp2UVrP6DM98sYNXKP+ZX+lqlX45NeBdyf04VtQ8E6SrzpscAiNg/du7NDDYyoQZEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X9jv6JFa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZdpuPUVd; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FXm96tWC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791063009; x=1822599009;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=D8x8axyFP8hKFCMfmt2XmWeJmTJTn183MyVucMGFPXc=;
-  b=FXm96tWCPW3zHcOm8NDnvgdF2XSltjJwaC/38mQQt7FjDQQ53XlmmNc8
-   I4+57XQVt9hLXNo1uNFgNqwKK7aDHdsB+T6aoeaf7sYlzCs/11OGzCA2e
-   O6aa+wqwdIr8LC9OAtXDYcL5tVt6u46tBlD2T/ZoMVlZWNYyopNY4wI7A
-   5mwROAvSeCoFlQiZNdnAN3fF33TmkPIteq4fBpFirR0NA3CvitzWVRLLo
-   dHTwkzI+Gri/fU2uEKpdvpxGZGPy7mIecjYNhBALn3mMUc/gKFS0anV4S
-   Ew6LQ9IU7ToyyF725tfrajT7QF1iGDpcHkjqCOPcznV0tBo82KELrnwZM
-   w==;
-X-CSE-ConnectionGUID: ixVRk/ugTZ2bAp+9dt4kUg==
-X-CSE-MsgGUID: DBn2xDk+SwC2BRAdm8Y2cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90818175"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="90818175"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 14:30:09 -0700
-X-CSE-ConnectionGUID: 884xvonTRIqeU9tyOSMARA==
-X-CSE-MsgGUID: 1sNEDaDcRQqRF48yLzmY7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="279754011"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.88])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 14:30:06 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 49AD711FA5B;
-	Sun, 04 Oct 2026 00:30:05 +0300 (EEST)
-Date: Sun, 4 Oct 2026 00:30:05 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH v4 2/2] staging: media: atomisp: Remove dbg_level and
- dbg_func module parameters
-Message-ID: <asFz3bcfdOOYG953@kekkonen.localdomain>
-References: <20260721163533.15888-1-prajvalchaudhari733@gmail.com>
- <20260721163533.15888-3-prajvalchaudhari733@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X9jv6JFa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZdpuPUVd"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 693Kolc21305861
+	for <linux-media@vger.kernel.org>; Sat, 3 Oct 2026 22:28:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BOffTPIXfRD8qfa88meVOZsKWaJiiHdOJxpXHsrvcO0=; b=X9jv6JFagqgG8Tcm
+	cDdbDven0/uCifZa8j7QD1JtjMcJYKAzhsxd58xn38MCtnLMh8NLXuC+7G7khy1A
+	dDNoJjCdifUhuBxBPpWYaBPqkYMSW8Y6ARMxV3vrWsPbOiiUNqxYPE5+QIItnE9m
+	LwtjbgBHqt0pfVovtQTytiDTJ32ub8ahfd5eRij5iFdDo7KWTgtfE36M7U55FCn0
+	d5eMda3pudCqbFHS7goAIC9oD3v6MH+hXg0cKzz6n0iz+xCoEoa2EmDijpxkB5lL
+	Ru8mxmacAaQnO8P0qwavAWCbHzj8MAgyX8b4bIFjsgnG8F20v5uT2KnTbE7epFcN
+	nPMBTg==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sx31whc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 22:28:17 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-988bbb0ed9aso394476241.3
+        for <linux-media@vger.kernel.org>; Sat, 03 Oct 2026 15:28:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791066496; x=1791671296; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BOffTPIXfRD8qfa88meVOZsKWaJiiHdOJxpXHsrvcO0=;
+        b=ZdpuPUVdDtYWnsOvvQ4H29agyUBkOMijobo1zxxYdBqlDBxrMLLQOCaoK4tBgbp2rd
+         OGGAghkiuIgc3iYUDbztf1dtG9/8o4YcSQ3er15DPi1hrou2XyJysk3QrnKy8iKMbIqX
+         gn5UYJbGFJknzSLoT6vS1NkUtag2M65oUIj513fKDae54IDxI5HBUflHLeNddHBMoQAB
+         YxXyWyjJfXybdTXezLpJVpYVnuIrOZxyyAqicNKxRLalxAbP3apbo8fZWPn1ORRLWa+C
+         YfgHBdDoHT0f+d/cajWh0HCykjoKXRc3Vm86yoAldRvdIjE2fl2BQfr9QUfhDmP2fP1c
+         nDcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791066496; x=1791671296;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BOffTPIXfRD8qfa88meVOZsKWaJiiHdOJxpXHsrvcO0=;
+        b=oQ+sbDFRIp/Qp5X5nS5fA2OnWcRPwr7TY21EH2w9QcLbL0GjcP2h3AOLqdeg+qnfgJ
+         FaZeiSleXRlCAZMpSzdW8ekwO8V8gv4ngZUDx8K1pYGObR52z3D9s/S7au79qOHWOg6b
+         alqn3F65e+o6ijUUdbQBnBoMRCkR9QAIW/SDPZHF0eVvQZhLmhKd9i9w2CUXkaAx6XB9
+         gCpIMFiKXUelmfiAv1eWuDB18Pq+fWrFDvIbpiJWHOEjrZbIUzEx9pzOyhccrob0xJlS
+         g/2sDWEsyAJSoA2FqjAOCToncoD2Ztq0gEWRETpVt7NHHOx0jUHnsWp9z+dkVsTx6o09
+         mG6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx8iLLe0cC1SyHQKncbWc6tPktR1SSokCl2AcpnpOu6RrTcAve8Lw0vum5y/JVvp13gj/k1Plt/0LlYYQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7ap1H7tyVNRE5cmI+jxtDC+tnFpal8KAvl4FVZq5zlTY7B4jc
+	xlH+IrEIv64/elXe7+sjvMXstn5xvnyoGj/ucq5JcEdaBFP7w5Zfy91E+VrjN8cMTWgJeyvthps
+	TuFJaINGYyQ0IXGXu3RnzsPtbeebn8DaHCpn2sDHxKZQU0lGK5tiT3vW2/a8YG8yxDQ==
+X-Gm-Gg: AYBFou3wgFWpaJ9S06uSjTlYLXQM1PCBCHbGC5Sn9LR6RM3/N6gzrKE4Nb+/ohPW43+
+	T1V7PCewL5MZfQuGACSibwQ8+J8UHSqxIBDgnoWSrzoRTsH5rAODHnU0L8lbS8mKlwGjAp3aT3F
+	UfqmI3r+fdx8qLNg7kVCHPZpUwLv6cqc0BnA7N5B9cHKo1PWd/HiTMsYsRTOaRLoHeFaKyJDVk3
+	AgvuUymVL5h1yZ2zTLQBtmtZR6pL+8+AubG5CI2QCf3YrQntJOLKSngpYV+42oNyKlCIAZQJI4q
+	f9yOW5/+Ab+68sJ68hao+Tn3IFAADxF8wvz1VvObWD5IMYeqMs2K3H5jRfEU1xJUs8CA5gJ0dKw
+	jG+BMbrxakqzUSdlIu9yCFgV0LVllOiy/7wBvBpJb/mGZe4rOrwiRuzTbuxnSTH8MHmp3z9A1Fz
+	FACBmGQElT09KB
+X-Received: by 2002:a05:6102:148c:b0:7b5:8fd9:27e2 with SMTP id ada2fe7eead31-7c0f3d4ba11mr2024903137.12.1791066496102;
+        Sat, 03 Oct 2026 15:28:16 -0700 (PDT)
+X-Received: by 2002:a05:6102:148c:b0:7b5:8fd9:27e2 with SMTP id ada2fe7eead31-7c0f3d4ba11mr2024897137.12.1791066495559;
+        Sat, 03 Oct 2026 15:28:15 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a966c4d821sm20369441fa.17.2026.10.03.15.28.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 15:28:13 -0700 (PDT)
+Date: Sun, 4 Oct 2026 01:28:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] media: iris: add support for vbv delay
+Message-ID: <zttltt3f5zmajyy2fbhod5vc7x4l7l6htcalu5hpbrpmd2kgze@p675hgd5pwko>
+References: <20260927-iris_vbv_delay-v4-0-8ee2b7462e68@oss.qualcomm.com>
+ <20260927-iris_vbv_delay-v4-2-8ee2b7462e68@oss.qualcomm.com>
+ <jc4vctqyyrh7gvoxv7h7ioqnrv72t73trgesscx3xpd4xwpj2m@m6no5tnmet5s>
+ <828e8a38-4d11-4126-8f77-04e05e1a94b9@oss.qualcomm.com>
+ <CAO9ioeW_EabUpjDZa6w-60=CbDXVgGw0-N2t4Z5SpJPrrhcrtw@mail.gmail.com>
+ <1eeccb79-540f-4a84-987c-77dc2b05fd18@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260721163533.15888-3-prajvalchaudhari733@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1eeccb79-540f-4a84-987c-77dc2b05fd18@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=JY0pPkKV c=1 sm=1 tr=0 ts=6ac18181 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=aLSecQpocWsgUSzuDAoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-ORIG-GUID: 4MV1vPLU6CTjGDCL_l8CS45WT-NAvLwh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDA4OSBTYWx0ZWRfXzDc+DReStQNR
+ uVek8XliFRaG0jIvQ1TFXjS4X3JnopHT6E/rAvSZPu6hQBUPfsgCl5F1bdmTlUHWvlscm+dlBm5
+ lSIMZa82mFfdwIEMUXp8lVhOH12oXZs=
+X-Proofpoint-GUID: 4MV1vPLU6CTjGDCL_l8CS45WT-NAvLwh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDA4OSBTYWx0ZWRfX9pNJTlVBEUpr
+ R6a2U4UPTPUK2wrWCVT5x+QKzrcN3HGBRNuL0CknBaFAmL/oB65hqX4ut9mipP+2HTn3AYzg1Fe
+ wAaHG6WDIyY592ig6OWFzaIg0n9lr0opIP10+ang5AI1QA8SrSItalJAXt59ClBJx9Gldav/Q0J
+ 9yZDFoAKRETsJzvUHsvI5lznXcCIQ/CbvRYlBkXM2HEjXeVqlt/TU96c7fw0LLdMANEwkfgg7Qz
+ RHM1KanSJOah+l6t89PGozeMb4e/uO4TiTPklIvBEkjsasmoeH/9/tBqnJZyZRjGhEf4ndlt/RQ
+ Ox/j5WCwWDl1AWJZpmaySguVpmXM/qz41hbw6Wt20zOcVilfwQkH4SBILrzwJSxvLv+BFqMgVnS
+ of2OZ3h7Ab6M+kQU2KF227ZuAqXOWfIczitWyri8OrYeTgrL7Ul52Q6rAZ/EozOfwzZdtshVr1J
+ VIFDY+plfs2B1rZy07w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-03_04,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610030089
 
-Hi Prajval,
-
-On Tue, Jul 21, 2026 at 10:05:32PM +0530, Prajval Chaudhary wrote:
-> Remove the 'dbg_level' and 'dbg_func' module parameters to align the
-> driver's debug facility with standard Linux kernel APIs (printk/vprintk).
+On Tue, Sep 29, 2026 at 09:37:38PM +0530, Sachin Kumar Garg wrote:
 > 
-> The internal logic relying on custom debug parameters has been updated
-> so that message logging and function tracing no longer depend on exposed
-> userspace module parameters.
 > 
-> Signed-off-by: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-> ---
->  drivers/staging/media/atomisp/pci/atomisp_common.h   |  2 --
->  .../staging/media/atomisp/pci/atomisp_compat_css20.c | 12 +++---------
->  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     |  7 -------
->  .../pci/runtime/debug/interface/ia_css_debug.h       |  7 +++----
->  .../atomisp/pci/runtime/debug/src/ia_css_debug.c     |  4 ++--
->  5 files changed, 8 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_common.h b/drivers/staging/media/atomisp/pci/atomisp_common.h
-> index 7c6c0124ff72..aa230c3708dd 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_common.h
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_common.h
-> @@ -20,8 +20,6 @@
->  
->  #include "ia_css.h"
->  
-> -extern int dbg_level;
-> -extern int dbg_func;
->  extern const int pad_w;
->  extern const int pad_h;
->  
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-> index ea49ebe2da5c..647f6e7e2455 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-> @@ -784,7 +784,7 @@ int atomisp_css_load_firmware(struct atomisp_device *isp)
->  	isp->css_env.isp_css_env.hw_access_env.load = atomisp_css2_hw_load;
->  	isp->css_env.isp_css_env.hw_access_env.store = atomisp_css2_hw_store;
->  
-> -	__set_css_print_env(isp, dbg_func);
-> +	__set_css_print_env(isp, 1);
->  
->  	isp->css_env.isp_css_env.print_env.error_print = atomisp_vprintk;
->  
-> @@ -3372,18 +3372,12 @@ void atomisp_css_set_isp_config_applied_frame(struct atomisp_sub_device *asd,
->  
->  int atomisp_get_css_dbgfunc(void)
->  {
-> -	return dbg_func;
-> +	return 1;
+> On 9/29/2026 8:35 PM, Dmitry Baryshkov wrote:
+> > On Tue, 29 Sept 2026 at 14:54, Sachin Kumar Garg
+> > <sachin.garg@oss.qualcomm.com> wrote:
+> > > 
+> > > 
+> > > 
+> > > On 9/27/2026 11:55 PM, Dmitry Baryshkov wrote:
+> > > > On Sun, Sep 27, 2026 at 09:27:46AM +0530, Sachin Kumar Garg wrote:
+> > > > > Add the VBV_DELAY instance capability for the HFI Gen2 encoder,
+> > > > > exposed to userspace via V4L2_CID_MPEG_VIDEO_VBV_DELAY and mapped to
+> > > > > HFI_PROP_VBV_DELAY through a new iris_set_vbv_delay(). The property
+> > > > > is only meaningful for CBR rate-control modes.
+> > > > > 
+> > > > > Low VBV delay values (34-100 ms) require the encoder to run
+> > > > > with a single video pipe, so extend iris_set_pipe() to force
+> > > > > work_route to 1 whenever the configured VBV_DELAY falls in that
+> > > > > range.
+> > > > > 
+> > > > > Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > > > > Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+> > > > > ---
+> > > > >    drivers/media/platform/qcom/iris/iris_ctrls.c      | 37 +++++++++++++++++++++-
+> > > > >    drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
+> > > > >    drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 12 ++++++-
+> > > > >    .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
+> > > > >    .../platform/qcom/iris/iris_platform_common.h      |  1 +
+> > > > >    5 files changed, 50 insertions(+), 2 deletions(-)
+> > > > > 
+> > > > > @@ -541,8 +545,19 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
+> > > > >    int iris_set_pipe(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
+> > > > >    {
+> > > > >       const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
+> > > > > -    u32 work_route = inst->fw_caps[PIPE].value;
+> > > > > +    u32 work_route = inst->fw_caps[PIPE].max;
+> > > > 
+> > > > Why is being set to the max value instead of using the .value?
+> > > > 
+> > > 
+> > > fw_caps[PIPE].min/.max/.value are all seeded from the same platform
+> > > constant (num_vpp_pipe) at init, so .max and .value were interchangeable
+> > > before this patch. This patch now writes the applied pipe count back
+> > > into .value (used elsewhere for power/cycle estimation), which makes
+> > > .value stateful. Since iris_set_pipe() is re-invoked on every resolution
+> > > change while streaming, seeding work_route from .value would let a
+> > > previous single-pipe override persist as the new baseline on the next
+> > > call, even after the VBV-delay/CBR condition no longer applies. Reading
+> > > from .max instead keeps the default pipe count stable and re-evaluates
+> > > the workaround fresh on every call.
+> > 
+> > With the .value being written, does it need a lock protection?
+> > 
+> No — inst->lock already serializes this. iris_set_pipe()'s write to
+> fw_caps[PIPE].value only happens inside start_streaming
+> (iris_venc/vdec_streamon_output(), both the iris_set_properties() cap loop
+> and the DRC re-apply path), and start_streaming takes inst->lock before
+> reaching either. The only reader outside that same call chain is the
+> power/clock-scaling code (iris_vpu3x_vpu4x_calculate_frequency()), which is
+> only invoked via iris_scale_power(), itself called from start_streaming and
+> buf_queue — both of which also hold inst->lock. So writer and readers
+> already can't run concurrently; adding a lock here would just be redundant
+> with the existing vb2-op locking, and no other .set() callback in this file
+> takes one either.
 
-Maybe you could switch to similar v4l2 macros?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
->  }
->  
->  int atomisp_set_css_dbgfunc(struct atomisp_device *isp, int opt)
->  {
-> -	int ret;
-> -
-> -	ret = __set_css_print_env(isp, opt);
-> -	if (ret == 0)
-> -		dbg_func = opt;
-> -
-> -	return ret;
-> +	return __set_css_print_env(isp, opt);
->  }
->  
->  void atomisp_en_dz_capt_pipe(struct atomisp_sub_device *asd, bool enable)
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> index d117fea2860c..55b3d4d3d6ad 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> @@ -45,15 +45,8 @@
->  #define CSTATE_EXIT_LATENCY_C1  1
->  
->  /* cross component debug message flag */
-> -int dbg_level;
-> -module_param(dbg_level, int, 0644);
-> -MODULE_PARM_DESC(dbg_level, "debug message level (default:0)");
->  
->  /* log function switch */
-> -int dbg_func = 1;
-> -module_param(dbg_func, int, 0644);
-> -MODULE_PARM_DESC(dbg_func,
-> -		 "log function switch non/printk (default:printk)");
->  
->  /*
->   * Set to 16x16 since this is the amount of lines and pixels the sensor
-> diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h b/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h
-> index 2d0e906530af..029adbdca945 100644
-> --- a/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h
-> +++ b/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h
-> @@ -8,7 +8,7 @@
->  #define _IA_CSS_DEBUG_H_
->  
->  /*! \file */
-> -
-> +#include <linux/printk.h>
->  #include <type_support.h>
->  #include <linux/stdarg.h>
->  #include <linux/bits.h>
-> @@ -39,7 +39,6 @@
->  #define IA_CSS_DEBUG_INFO    9
->  
->  /* Global variable which controls the verbosity levels of the debug tracing */
-> -extern int dbg_level;
->  
->  /*! @brief Enum defining the different isp parameters to dump.
->   *  Values can be combined to dump a combination of sets.
-> @@ -125,8 +124,8 @@ static inline void __printf(2, 0) ia_css_debug_vdtrace(unsigned int level,
->  						       const char *fmt,
->  						       va_list args)
->  {
-> -	if (dbg_level >= level)
-> -		sh_css_vprint(fmt, args);
-> +	if (level <= IA_CSS_DEBUG_WARNING)
-> +		vprintk(fmt, args);
->  }
->  
->  __printf(2, 3) void ia_css_debug_dtrace(unsigned int level,
-> diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-> index 5113aa5973f3..86b2cca2f441 100644
-> --- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-> +++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-> @@ -135,13 +135,13 @@ void ia_css_debug_dtrace(unsigned int level, const char *fmt, ...)
->  
->  void ia_css_debug_set_dtrace_level(const unsigned int trace_level)
->  {
-> -	dbg_level = trace_level;
-> +	/* Trace level is now controlled dynamically via Linux kernel dynamic debug facility */
->  	return;
->  }
->  
->  unsigned int ia_css_debug_get_dtrace_level(void)
->  {
-> -	return dbg_level;
-> +	return 0;
->  }
->  
->  static const char *debug_stream_format2str(const enum atomisp_input_format
 
 -- 
-Regards,
-
-Sakari Ailus
+With best wishes
+Dmitry
