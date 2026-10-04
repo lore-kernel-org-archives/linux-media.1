@@ -1,82 +1,78 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C1224DCF9
-	for <linux-media@vger.kernel.org>; Sun,  4 Oct 2026 11:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5350B3B14D9
+	for <linux-media@vger.kernel.org>; Sun,  4 Oct 2026 11:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791111937; cv=none; b=N08qSME8PL1nju70uUwnaYYgu11jaMgvgpS8nroLCW97tKL1qqDIRsBKAbBc4CRjWSWOOIMgh9iQeboWGMujV8WG4SREGO7jdXQPzvocgAxgmRxq6O9yWdeB1g0EQnjLFPs/CkzWaU5yvOBB5F0IcQQo+71QrVE/QN0dj9YfE9Y=
+	t=1791112669; cv=none; b=oPJxVmndtXz7QYZGiDIa1isO4x5sT+/6GpyidcVNE7Domq3M3cKdGDOzfiIXMEBtRCSTyKiNbSARAKn43v/7lmU2bnQRhd8ZyObw6S8beSb9RLQBuhyOooIZqQQFbE1w3yYDofzbT39rJaXP4xVaJWensvyOJXU5pOBTDb4GO0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791111937; c=relaxed/simple;
-	bh=pqU0AmLH7J2NewvDYsALCFE8C0uhZNes4u+zqrHAxe0=;
+	s=arc-20240116; t=1791112669; c=relaxed/simple;
+	bh=Mt2h8LV/WNkvF9rhDfChy/WnatB7KEgOdqPVkHELyr0=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e56H67CX3THnXo84IjGrX90mWGQRYXswyT02lkyNI/Hk3UcLiOekPLA3at2hhKTeulqta2QssZSlszfj/XDYRHUv3k/4Kve5qq+NFKCAhnqz+7IkCR5OFtPls+fVH3mMxRdsZs812gKY885mL3oKaolwaJJsolDAU1ELDImKsJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=yTdfayOW; arc=none smtp.client-ip=74.125.225.141
+	 Content-Type:MIME-Version; b=RA0lbXMo/mHNtpGdvMM5jU7F+NpYYp+SCWqbVKez6oA8ZTwy2ycygQM0jLVyRk4QzQ8B2CP8Opnn94HQ2h7nsML2XZPi8p1Cl+/jg/flvi9E3sQi87TajaGYbCUgWXlE8/hBDoCL5YVuRKP9RTp/95uC4lHq/jOR6BrGMI0oaQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=kfOPaDaq; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="yTdfayOW"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so3520895e9.0
-        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 04:05:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="kfOPaDaq"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso328523f8f.0
+        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 04:17:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1791111933; x=1791716733; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1791112666; x=1791717466; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1gMc178loumsMJ2fyhcP0L7Qn5VoTNXOEWwEnxYnAdM=;
-        b=yTdfayOWQ3zBdIqo/GqJotRigsGDXtWYbKQb4UDmdEM1/8uHY3feaNyMPhDFsmxgsy
-         E4OVEIRmq0N1dBro3FC0s2+PFe/hznxvsB12oM/S8c9mRdDtmrhLPspf/8GBPlAF7jC8
-         SphKsprLg76y3kMKXrKZ6MoYURGM9dmESWdPigAqvq7Sl/FFvxe2AvPdmQ0A06XjpqxZ
-         Mj5cmhGvSNe4L2HwnWT8e5Lkbycfh+O3EKvsE9sGGnM9fUVANFUFmZDYw6E65NSZrx13
-         ixKY2uZIrAZy06N+46STisgkBuJSCUoIEOyN9+yj65atz37UUDeoDO9NtiwgwQ//gZXt
-         vmIA==
+        bh=eL39BrBDAGEfSIelgQ0pH7LJpTqjoDddDfMIFB1yeIQ=;
+        b=kfOPaDaqEIMNhO7dQPsTs9YlZQQ7pqhAkhM0hxqjvEHGUsuECSOV6quCq9qhc5XIF1
+         3w29LL5QpKrUlcKRzzj+oY96u4NtNe8Ul9yBHhGyymqtjuvW1WeiFbevNW0KQMjN8K93
+         AuHqCIiN39iFfuVyNnK8IXi6FPKdOkR+LNllGCcGcQExdyhDwoFr0MDy/obbe2ASwBLZ
+         ydkXRibxcI3hPNvsM6e4MW7rVGiiJHjUSbaMUlpX1JE73zInPRLQ5JfA+dRgl0j3+C0F
+         b/PZ3Fl5yo9XtRWIyyR/S+mK5JJhTUpiQKb2Pv4JJdz0vX6sREyyieBgiXLbQRq4+CKE
+         fgNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791111933; x=1791716733;
+        d=1e100.net; s=20260707; t=1791112666; x=1791717466;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1gMc178loumsMJ2fyhcP0L7Qn5VoTNXOEWwEnxYnAdM=;
-        b=jka2wLk1Bh48GPNk4079tEZQlTmrPLV0LEmFFhS5C2b6U/P/g/DUFWRCmzBqF6f+9v
-         CXZ7fvNpkXuoAkIUlPRE6ERQHoAknydWr06iJE8N48Q85i5apDfo67gT0VZSACSi+YUA
-         jdDeS4ofQYYvKVYwxNalxtCPg70P91rGqdOwqHhnOxMDxXyVTzUYsT/WrUuTYlxlnzyY
-         7d2sKoexzJy+efMav1sIx3c3jIU2FcAml1wz8yOrfaRJ6TrG7XTjnvLB4G+/i5t0eOVX
-         XDpvlrerK9q9UwegVJV/cVb5K9xZATf96HCHWOidLYoi08wDmRusteO7oE1Nf7uNu0nO
-         eqXw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzoNra2JPDtXML+FHQT2u/dy4jOrmYAv88TE8FJ8ynLGBDRoJK/8kvVBeEPfqZCjNt0V8SHxIP0kSPGA==@vger.kernel.org
-X-Gm-Message-State: AFuF++neSmdZfJNV+wMLpA+SzLuLdCx96+WRoY3n6kRGzpknlOBq3Bvg
-	9NqULwREls1cUdbqSjsE9yviHQ5jxiylvgTfChpkyisZCGLwTmGNhR1W97gFtPIa+EU=
-X-Gm-Gg: AYBFou1xR1z1kvcZrtgnwX9zr+9lqIeDrDTLJZao++Q+ZRjFWDjE1OBZ6DpUUPJpbaA
-	Pf32y13+DsASVk7XwH9Alf1bsnzp9dHjoq/mrsN5gdUUUfHEjcuVYa+w3/a12GjjzVvVw6V8mtB
-	B3sALJAQ0u0/DlorcYG1w2YegBTt78wHBopPpOm04FIEJOggV43Zchq5zmaUJbxFND6bVjsWc5J
-	v1Vyagw+EnOLqj8Jl/1b1DVw6JekXk/ho18Eg5TU1hPGfOSKgsqYUnCLLCv872u9agMRK8vhc9Q
-	K0Zh2n5XSq+Bv9idglol2jm0hx/xbaw2oRknlpx54cxcyBJtIDZDX+A7+lwuDTRwzFEvxJsgJuP
-	5NuLqEJIk+KS/UZQhuDhmV0JIT0FFcoAOmp5i8t0l8JeDYXvRL1YvvU9wGTcH3OVpqMeoG00S95
-	B4JwDFg8gkui/3psLgOaHZ0ukJTjCZ7HPY0I9/z9QQwUXPpL0afuq1Jzw50tBQZ+GwrUjS7rTZH
-	I8n5EFi3Yy9HkHD6w2/CHXNOofNCcdDcZjn4xn+eecgGu6mCevO07JjLHFnQ0LrrkfSGOEFUE8B
-	DHhwfqq05b5wWjXs8PGUdGHl0z1gLRrO2Q9kRvSU
-X-Received: by 2002:a05:600c:548c:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a027534bd7mr125807085e9.5.1791111932983;
-        Sun, 04 Oct 2026 04:05:32 -0700 (PDT)
+        bh=eL39BrBDAGEfSIelgQ0pH7LJpTqjoDddDfMIFB1yeIQ=;
+        b=Iq40fg5uCG1X1/N7KetBjIBTIu2bin8k5WVFscIfSBA8x2pbABVmFbZcNbp7WoAjMc
+         oBho+09UFBzMlvWN8gt1vJXq3fT5RRArxogiS6GwrlI9KeBSIbPSPtVlEju59Wyfe0Ag
+         +vD14xZIIH677GaXXivu2lQKW4LZtJ7Fi0jE1mTA59O22W/X5kZQjs8bIs8PUIBDyOKA
+         evs2euUoLK5ELaq1Hz7IyBh/wk2VAVXvpy3DXpcFDDhQbg47vkUOYsKSKP+5QACLAatj
+         3q0JkjiNmzeI+oMSRsINHdhfwhwYsne8JuMAz4uLuP0kgvbmLk4G+f5Q+5ZIizwU9+JA
+         bdKA==
+X-Forwarded-Encrypted: i=1; AKwUvBzR/tvCA2nUb9tqZS+7+C14EpLMfItMzK+uP+jv9TyYxQxtryjpS5B2plpTnAt1QSzNNZ9ap3VNYp3Tjg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJFDjODqQ6DEiA2cO2cT1dOzBMij6xUcR1dy/7MsRkYOKxm4ph
+	/WYTcIBJNqz5OtZ/IfxgQN8Aot8ADqm3X6QslwqVfShX5PQHEadJiYedGXDlGs8Stno=
+X-Gm-Gg: AYBFou1WnB18D+vibWXuGn7EgdQLCq9lbCKrGkIcTv8gM4LfhBLLdNZKHduFGsEEC0+
+	6ypUKs5PfaaPVb58iRVqiwiYOawbvcnTmQpu0JYDaC/9rSfRlBZJzqt+hJf2UWLxKMuasxUGVOr
+	VZNmMqzFHfcZLUPLYfmiMXZyQo7YRBjAPPn1t+g1QLm6cXqyuN5a214p5Aqat820Pt52qbYq7CP
+	ExfROQIttBKZXy0PSZ7zE+0+Mqx0Cx4Nkw77nH2VvQXCMWUGa46IAqeMpAAxY/OStWL6qycP+Si
+	CCQlnqd1HGlGObscLBoC5kEBBJInvaLu4xDMbGvCnzHOBHXaLn5gkzzV0+KB40opumOWbtm9WQO
+	PSAvfy2eh7pIPg6KkIy56tqCFEpHX6burzjwSx5fD1x7SZfHfzFjPyreHAcN2Nn9y+jr5hPRi/J
+	vCDPrNDsEwpucxChM/ev5JxoBuG3JNt2snzeREjYY+0quaNfNKP2zB5ubT9jFxnhkBAweK/s27h
+	cqCr5NM7nUiwYRSTbBsVeKoD6ARQCP1bnoR73k2QsHgtFvKt3KmUYXCNgCiAz7IzeCDYDIc3y9W
+	JxMumzFOi2WViV8rxpWUWiUPGobiHa58xRWRSu03
+X-Received: by 2002:adf:edd1:0:b0:48a:fc74:2156 with SMTP id ffacd0b85a97d-48b067c4defmr16138748f8f.22.1791112666400;
+        Sun, 04 Oct 2026 04:17:46 -0700 (PDT)
 Received: from ?IPv6:2001:1aeb:400:6f00:73f4:bfe7:a3e6:c16f? (2001-1aeb-400-6f00-73f4-bfe7-a3e6-c16f.ip6.tmcz.cz. [2001:1aeb:400:6f00:73f4:bfe7:a3e6:c16f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03048abc9sm100142955e9.0.2026.10.04.04.05.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b383065a4sm16730166f8f.44.2026.10.04.04.17.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 04:05:31 -0700 (PDT)
-Message-ID: <d166bd7190c1a71921a1eaff3359ffcd8b825afb.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mediatek: jpeg: Avoid context access after job
- finish
+        Sun, 04 Oct 2026 04:17:45 -0700 (PDT)
+Message-ID: <8ea77a207f6f99d4f20610670e5f88fc56df3faa.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vcodec: Initialize context lock before
+ firmware setup
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Kazuki Hanai <hnkz.64@gmail.com>, Bin Liu <bin.liu@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, Hans Verkuil
- <hverkuil@kernel.org>,  Tomasz Figa <tfiga@chromium.org>, Xia Jiang
- <xia.jiang@mediatek.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Date: Sun, 04 Oct 2026 07:05:30 -0400
-In-Reply-To: <e7aef28efd9860e80b8be8865dd04268ee2fd786.camel@ndufresne.ca>
-References: <20260902112230.452176-1-hnkz.64@gmail.com>
-	 <e7aef28efd9860e80b8be8865dd04268ee2fd786.camel@ndufresne.ca>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, tiffany.lin@mediatek.com
+Cc: andrew-ct.chen@mediatek.com, yunfei.dong@mediatek.com,
+ mchehab@kernel.org, 	matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, 	linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, 	stable@vger.kernel.org
+Date: Sun, 04 Oct 2026 07:17:43 -0400
+In-Reply-To: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
+References: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -91,7 +87,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Xzpp1i9yhFiY86lHCQIK"
+	protocol="application/pgp-signature"; boundary="=-N6yzswm0lU7qZmLZZ6MH"
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -101,76 +97,76 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-Xzpp1i9yhFiY86lHCQIK
+--=-N6yzswm0lU7qZmLZZ6MH
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le jeudi 03 septembre 2026 =C3=A0 09:26 -0400, Nicolas Dufresne a =C3=A9cri=
-t=C2=A0:
-> Le mercredi 02 septembre 2026 =C3=A0 20:22 +0900, Kazuki Hanai a =C3=A9cr=
-it=C2=A0:
-> > v4l2_m2m_job_finish() publishes job completion and wakes waiters
-> > before it returns. A concurrent file release can therefore finish
-> > v4l2_m2m_ctx_release() and free the context while the single-core IRQ
-> > handler continues with its tail.
-> >=20
-> > Both handlers only need the device for the matching runtime PM put.
-> > Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
-> > completion has been published. This preserves the get/put pairing and
-> > removes the post-completion context access.
-> >=20
-> > Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
-> > Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off f=
-low")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Codex:gpt-5
-> > Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Hi,
+
+Le dimanche 30 ao=C3=BBt 2026 =C3=A0 22:48 +0800, Runyu Xiao a =C3=A9crit=
+=C2=A0:
+> The VPU firmware setup registers a watchdog callback that accesses the
+> encoder context lock. Initialize the lock before selecting the firmware
+> implementation so the callback cannot observe an uninitialized lock durin=
+g
+> probe.
 >=20
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-Also applied to my tree now, ty
-
+> Fixes: afaaf3a0f647 ("media: mediatek: vcodec: adding lock to protect enc=
+oder context list")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  .../media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> > ---
-> >  drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> > index d147ec4830811..9010e7b1108fa 100644
-> > --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> > +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> > @@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_j=
-peg_dev *jpeg)
-> >  	v4l2_m2m_buf_done(src_buf, buf_state);
-> >  	v4l2_m2m_buf_done(dst_buf, buf_state);
-> >  	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-> > -	pm_runtime_put(ctx->jpeg->dev);
-> > +	pm_runtime_put(jpeg->dev);
-> >  	return IRQ_HANDLED;
-> >  }
-> > =20
-> > @@ -1855,7 +1855,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void=
- *priv)
-> >  	v4l2_m2m_buf_done(src_buf, buf_state);
-> >  	v4l2_m2m_buf_done(dst_buf, buf_state);
-> >  	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-> > -	pm_runtime_put(ctx->jpeg->dev);
-> > +	pm_runtime_put(jpeg->dev);
-> >  	return IRQ_HANDLED;
-> >  }
-> > =20
+> diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_en=
+c_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv=
+.c
+> index 4e4541b2f..e6cd3817a 100644
+> --- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+> +++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+> @@ -255,6 +255,7 @@ static int mtk_vcodec_probe(struct platform_device *p=
+dev)
+> =20
+>  	INIT_LIST_HEAD(&dev->ctx_list);
+>  	dev->plat_dev =3D pdev;
+> +	spin_lock_init(&dev->dev_ctx_lock);
 
---=-Xzpp1i9yhFiY86lHCQIK
+I'll have to reject this one for now since the theory of a callback taking =
+the
+lock while the probe is happening does not hold. The very first place the l=
+ock
+will be taken is in _open() and that cannot happen before
+video_register_device(), which is kept last. Please demonstrate what the is=
+sue
+you are suggesting if you'd like to see this merged.
+
+Nicolas
+
+> =20
+>  	if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vpu",
+>  				  &rproc_phandle)) {
+> @@ -308,7 +309,6 @@ static int mtk_vcodec_probe(struct platform_device *p=
+dev)
+> =20
+>  	mutex_init(&dev->enc_mutex);
+>  	mutex_init(&dev->dev_mutex);
+> -	spin_lock_init(&dev->dev_ctx_lock);
+>  	spin_lock_init(&dev->irqlock);
+> =20
+>  	snprintf(dev->v4l2_dev.name, sizeof(dev->v4l2_dev.name), "%s",
+
+--=-N6yzswm0lU7qZmLZZ6MH
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasIy+gAKCRDZQZRRKWBy
-9O1/AP0Ub/AIchVgAs3Ts4yTOsB4mOEvnEYHlNzN5kVNk8UUrAEAtPaya56szHHG
-qpbxCFdG4wfkrMMaiqEo5qcevW0q1QM=
-=L2sR
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasI12AAKCRDZQZRRKWBy
+9D0fAP9lSFbuAS00fVndTGbGVuCWhD9paS0BD1BT5qJExQWHOgD+M/VqV8OTjN0r
+TJV6llyZfdBtx5qmuyep65FyxrPNTgs=
+=O4hg
 -----END PGP SIGNATURE-----
 
---=-Xzpp1i9yhFiY86lHCQIK--
+--=-N6yzswm0lU7qZmLZZ6MH--
