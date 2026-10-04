@@ -1,74 +1,74 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BD73F9265
-	for <linux-media@vger.kernel.org>; Sun,  4 Oct 2026 10:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69ADD42047D
+	for <linux-media@vger.kernel.org>; Sun,  4 Oct 2026 10:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108476; cv=none; b=tHu2I5+0iK7y1Lv8AmPF+MpNPr3fWxHppM2GchgMloV3Qba723NG1cjeHskz6AmXjMHz7c67fc+pax/LA5NDJMXoPei3mgMuQOH7KEaln1I72RhlejATZ06+0oe2IaU0OPBrvO7AwMKQHFyE6O+ijhJihAOLxpjQHEfClCafreA=
+	t=1791108481; cv=none; b=ZB3sa7HdCEVqDclS29D6gGDTl2Av91WV0Dbwxays/dT/Usm3FsV7i+USsyFCR2+/hjSr9NmbnuQLr6EM3QGrW/QT800jAdZ3Z2FkAJRgVlA2sFAYMgVSsqt9PRnncoMj8pKSBjskQQTlIIXtiEi23UFxZWvFA8cpFvWFK7fxenc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108476; c=relaxed/simple;
-	bh=7GlmDoyW4bfU/UvvrDoTiuGj6klREMUqUByskEivwuc=;
+	s=arc-20240116; t=1791108481; c=relaxed/simple;
+	bh=w/aktebwl1Y3XGcI23NvEGJ5CAnVHvAXb/qbZPYpZaY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mbR/hAcO8G4YhyDZGTkkU+QfD23iOy0N8qoOGd24J6HtdNuyuBMiTcWVlHgtWJasJgF/fJf1DKVvY1CghWXLF3ZhkXydW0sdSJlr1m73YkBgr5fA5R6zWTWA9moNauDDAoRP9YYeXq5JTJGw2Id+16hd7KgltqzRXRW+YcpkkYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0hWqDRe; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=PaLlpXGDlwZWDIz4xFRyS4vv5quQsQjapLBiG+bYKhyhwuGyqdiiA2WnyDKH8VXBUSTla5Av4b5lJNLVNxHamz20/0Fb9PeiSfXfMHDqc37t7HYrjSsr2aeuZXcuL5Dm7sI6BuE1HtRON6GyJH092HRxxPgW5ZVtC0qzWowl3cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PVC1sdbo; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0hWqDRe"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so692952f8f.0
-        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 03:07:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PVC1sdbo"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso5106565e9.2
+        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 03:07:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791108473; x=1791713273; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791108475; x=1791713275; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7MGuNB3b/Yy22a1g9JOUlAf9mYM1EW7M9T3gG75yYmM=;
-        b=L0hWqDReFy5sz6MdzVJmVFHswZC+TVOB2Ra6qnGgWWPAdKiSpJEd5BBdXi/95TwBsS
-         vsC59XPyUWaeMECX0O6Ty//kikgOaPqlQ46Cb2hggC900t5TmCriwcG03eTy3gwi3m90
-         6RPNNuIX+k7hQ6xzc+lHcbDGmS1iYPwm5H7gRib+A8uxloEGYwaA95hiM3CydhnzW0dy
-         /3k0UaHDb4yIngVn2Xbdd7i3wMDwcIvp68lmn7yp4vdsYfhF7Hx2pA4MNMQOp0VtA+Go
-         5glCSQOn57Htbi2nggyPGPqTKtyc1AYLF/7FnD0iA49nYUvEWR2WJszdSesktLVt/gW0
-         jvmA==
+        bh=43QVrNsixc1/5D2acx7HxxSlwhomqIkjYst8NKgVyIQ=;
+        b=PVC1sdboPFGV77NYPF9giKf4qyQbA8sW+Hw9bF1JXpyZs0Nh92WyiqbIeFqlozDbDz
+         nyl/X4zxdJjYlqrwTleG1b68/PSm1FIlV5ghW2WZJWCCnzMc1on4YG9EfuW8orZ6BOmh
+         WllJVyG9NrzbLMy4oBkNMNpO7VMiQRk1mlT1HSg0fhI19xRGT4tlDR8TJ3TfZOx7wXeH
+         d7domTPhFKTzHLFlwKMQ6N0j87x0Z0wfEejXjOG/jSCJVNY3eoDraVX0dr3ph3YHcvWX
+         sgYycpbfpX36z+EXFk0zRzMocLkIilsREFbmDatYGbya2jQNRo/g076s0ZFNYIFWuZUs
+         cLvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791108473; x=1791713273;
+        d=1e100.net; s=20260707; t=1791108475; x=1791713275;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7MGuNB3b/Yy22a1g9JOUlAf9mYM1EW7M9T3gG75yYmM=;
-        b=0tqRWKl9rOQb8TLwVkkCq7UfTflQSYrTMZtVD6zmJDrZ1CaR5dgYo3nD3Cqxqf34TX
-         Q8R2WVNck6shkVTzyyf0D3Bx17NfcB+3E39h8eGBE4BgtywR+lxPvEHgDfZa+XOfJnmK
-         1EoLTPzrWLxZ9Ij7s0zWGyDHvNagGo9cu/PzJY5JMQeKNjmGepFzwawHKkj6snkG0I9r
-         FSSLf0utIMAh09NvYDLbALbi4HS9hDkiD0FYgzIWdouAkKFI8semPe2LR03CuSEp0Xl3
-         jnfZyrNxQyCQlTHtHXCbSt2+q8DwCdyo1Lth5Y5lH/Hj/ls6/8XhF/Whu3nli5VdTiic
-         7Anw==
-X-Gm-Message-State: AFq9FYLecGESdGAcSAnY3vHXuIUxeWEblSeUXv8W0diTtcdBomvFYTrk
-	0gLjva1EPrSA5zYKWNBNG/Dwb8cnVfLhDCNbQMbmfbc3ORX7HG0noJ27
-X-Gm-Gg: AYBFou3o2bWYxxJuZjvxau2vUQt7xYFEW9B/xqYDsG5s0BUz6QV7LJnq0MfSKnsBpeq
-	qEV1XsKsJwQo8TQS+5FDmsWg9kZcMWvB/5fraur8YkJRQXABg1rX2du1ydBOwlQO1FaauvGvGcg
-	ri4cwVDDdulCYLIX/1FsxMOXUXWajJP4kvb30s8lG9t8bZqdpGpvtkj9xoA5KUCugj0AN+4zHrC
-	gl5DlaJeeqifuBYfProHhulbmcVlplU9ggl2SQpa1qkHCgi/rZvuhGtvW3pDcVNjrGFvhoymbJl
-	tquwRa2S+rEY/edY8rR2qJ7NL04MpZFOzQflwtOiMOPbqw5ALqhkuzT7GLvF9h0QmDj0ofGlJ0J
-	TvkUNzzJHevtjyYnZhPoHUkZK/2hKb0zgrEZhzFybraHTXTL1fS5hEftaPp36F/sFF2RCvVzWyN
-	YW1RbX0JFzCoiGCCryF4tJE884BWppcOEUCOyjrF0y/J+l5nowkcBtlN5fxVieP+fixVWHTKWqp
-	e0f8i8/htt32/ClSflcJH/aQXrampDHWL6ymeauGdbAuch3edqYzF8SQLT/1fRFhax8FlBarD/e
-	GaXSxXJN0msGwXQBh7Xexxb7DhkcYvKpclVb3JCC5iOccYJ/Xg87c0IOO8ix85A96ptzxnPuUxv
-	3dD2KtuR1NQ41AbgKcqbG
-X-Received: by 2002:a05:6000:402c:b0:487:27f9:840 with SMTP id ffacd0b85a97d-48b12726a91mr14815824f8f.53.1791108473037;
-        Sun, 04 Oct 2026 03:07:53 -0700 (PDT)
+        bh=43QVrNsixc1/5D2acx7HxxSlwhomqIkjYst8NKgVyIQ=;
+        b=gWq64w5GvfhHcpnGLmfMz4QccmnAIKFCzIHkQILVXFLYl2F1ZJ0DndwqZwVWivv2on
+         9tOrxkw+SSH4Q02bmIOGKvivGGv8Rtw7wcMyAR+0PhgoRk4jU4IS7QCyRsXa22Xpy7y1
+         gelx31+aoh0zSK20mgbBZ4hQGdjdhJM3SaEoghYkfDLBXHrs1S4WyhORuApkM7gNFZlK
+         8V4OMDFT1gITIEnzc5CmJAWupV9TNMWPibnLcWux5IfPD4iafKzMrDoLQBtBJPL5wB1q
+         deBFZ34z19N0y0pcDN5BzZbfHG59MEGfDKF3ah0T4vAMRMl/x7LN/WcAtBspUk8Pkw9Z
+         bETQ==
+X-Gm-Message-State: AFuF++mSPWw1yb9sOD+i2OIJCU4ZnKWfFKG+pQZCRHZHvWcgGCdQh5Wi
+	86m79/q40Ub9UFeI2WCOkungiuyhV9u91CEwq2Lllk43UDXEvffh8KIJ
+X-Gm-Gg: AYBFou29RSTPQnZ31BKCZSrJXRyQ1FlnMM51bo9IZHq+p8A6hL5YKqC5I/JD0BCq4U/
+	ZM2Fe5G5UW7bFUbzqgjxRtSGzFtHiHpmqX98G0XFM4FD5+vp+rxpqzu1djqkKXpIhqoeFD9g9zc
+	aC6RkToTIRmsk54sBcn2yunxy5lyCDDRAp2yhleQ5MwieYjQmt6ZVxA93e2JQ83gEbb7+srRNHq
+	WzM8Tt609H98Jy3b3T6mtYT2M8Uf8Nz3wg6p8JBH7JnOkzm/8yLCLM97GcNLGiev4D388c1E5fx
+	0ETewVPCWWlSBXDcv2EGRX3XlTIgeZoEXFA7850qESEDQNoCU+9zQrfbhwxrVQxXTZEUIMjDkIX
+	491S5Ay2PRuic8lbSEq1O3IgTZczjjl8rirASB41Olh34CuqSJv6FW2TGQVDgfE+htFCji2ATjw
+	NJNyg3KopQQ3GCfeQr3JULHioVz+xvrxVPUJAflouIP0Ra0ne416YLc3U6Y0bAjcLHyMFbJOT41
+	AZX1u0dKCrlT28YwjuVx+FHTCfPKXQrD/yn/M8rPo3T0GiHJWw+fz/8Q0pAzVmWS9n/upvwqlnS
+	v4qqm8949M8gh0LGwhpaRIc+tsXF4z4Syez2vgcXwbsqqxqizJRSMVN5BLwN7SSUYC+LC4IqFe0
+	NCVyWnrRYsg7d/CK2PRED5ma6+il+H0U=
+X-Received: by 2002:a05:600c:3510:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-4a027559c6fmr132249245e9.15.1791108474647;
+        Sun, 04 Oct 2026 03:07:54 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-b17d-de75-1ac4-0a1a.ipv6.o2.cz. [2a00:1028:c000:ddf:b17d:de75:1ac4:a1a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm18136032f8f.26.2026.10.04.03.07.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm18136032f8f.26.2026.10.04.03.07.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 03:07:52 -0700 (PDT)
+        Sun, 04 Oct 2026 03:07:54 -0700 (PDT)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hyunwoo Kim <imv4bel@gmail.com>,
 	Hans Verkuil <hverkuil@kernel.org>
-Subject: [PATCH v2 3/6] media: drxk: stop retrying after disconnect
-Date: Sun,  4 Oct 2026 12:07:38 +0200
-Message-ID: <20261004100741.71711-4-pepe.schlehofer@gmail.com>
+Subject: [PATCH v2 4/6] media: drxk: stop accessing a disconnected device
+Date: Sun,  4 Oct 2026 12:07:39 +0200
+Message-ID: <20261004100741.71711-5-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
 References: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
@@ -80,75 +80,92 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-drxk's wait loops retry I2C transfers on every error. In
-dvbt_sc_command(), read16() can leave cur_cmd unchanged when the read
-fails, so the loop can either exit early or retry until the maximum when
-the device has disappeared.
+drxk continues frontend status polling after its USB device disappears.
+read_status() keeps issuing I2C accesses, and drxk_get_stats() ignores
+the error from get_lock_status(), so callers see "no signal".
 
-Stop retrying on -ENODEV and return the error instead of continuing with
-the command. In power_up_device(), check the final transfer status after
-the shortened loop.
+Enter DRXK_NO_DEV when an I2C transfer returns -ENODEV and reject
+further hardware accesses in that state. Propagate -ENODEV from
+drxk_get_stats() so read_status() reports the disconnect.
 
--ENODEV is only returned here after a USB device has been disconnected,
-so this does not change behaviour while the device is present.
+Also check the state after the tuner's gate control in
+drxk_set_parameters() before continuing demodulator setup.
 
 Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 ---
- drivers/media/dvb-frontends/drxk_hard.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/media/dvb-frontends/drxk_hard.c | 29 ++++++++++++++++++++++---
+ drivers/media/dvb-frontends/drxk_hard.h |  2 +-
+ 2 files changed, 27 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/dvb-frontends/drxk_hard.c b/drivers/media/dvb-frontends/drxk_hard.c
-index 47786d0610f0..0815083e54eb 100644
+index 0815083e54eb..df5f5ea959ce 100644
 --- a/drivers/media/dvb-frontends/drxk_hard.c
 +++ b/drivers/media/dvb-frontends/drxk_hard.c
-@@ -467,9 +467,9 @@ static int power_up_device(struct drxk_state *state)
- 				continue;
- 			status = i2c_read1(state, state->demod_address,
- 					   &data);
--		} while (status < 0 &&
-+		} while (status < 0 && status != -ENODEV &&
- 			 (retry_count < DRXK_MAX_RETRIES_POWERUP));
--		if (status < 0 && retry_count >= DRXK_MAX_RETRIES_POWERUP)
-+		if (status < 0)
- 			goto error;
- 	}
+@@ -208,10 +208,27 @@ static void drxk_i2c_unlock(struct drxk_state *state)
+ static int drxk_i2c_transfer(struct drxk_state *state, struct i2c_msg *msgs,
+ 			     unsigned len)
+ {
++	int status;
++
++	/* Don't touch the bus once the device is known to be gone */
++	if (state->m_drxk_state == DRXK_NO_DEV)
++		return -ENODEV;
++
+ 	if (state->drxk_i2c_exclusive_lock)
+-		return __i2c_transfer(state->i2c, msgs, len);
++		status = __i2c_transfer(state->i2c, msgs, len);
+ 	else
+-		return i2c_transfer(state->i2c, msgs, len);
++		status = i2c_transfer(state->i2c, msgs, len);
++
++	/*
++	 * -ENODEV from the I2C adapter means that the device is gone for
++	 * good, e.g. an unplugged USB bridge. Stop accessing it from now on.
++	 */
++	if (status == -ENODEV) {
++		state->m_drxk_state = DRXK_NO_DEV;
++		pr_warn("device is gone, stopping all I2C access\n");
++	}
++
++	return status;
+ }
  
-@@ -992,7 +992,8 @@ static int hi_command(struct drxk_state *state, u16 cmd, u16 *p_result)
- 			retry_count += 1;
- 			status = read16(state, SIO_HI_RA_RAM_CMD__A,
- 					  &wait_cmd);
--		} while ((status < 0 || wait_cmd) && (retry_count < DRXK_MAX_RETRIES));
-+		} while ((status < 0 || wait_cmd) && status != -ENODEV &&
-+			 (retry_count < DRXK_MAX_RETRIES));
- 		if (status < 0)
- 			goto error;
- 		status = read16(state, SIO_HI_RA_RAM_RES__A, p_result);
-@@ -3199,8 +3200,10 @@ static int dvbt_sc_command(struct drxk_state *state,
- 		usleep_range(1000, 2000);
- 		status = read16(state, OFDM_SC_RA_RAM_CMD__A, &cur_cmd);
- 		retry_cnt++;
--	} while ((cur_cmd != 0) && (retry_cnt < DRXK_MAX_RETRIES));
--	if (retry_cnt >= DRXK_MAX_RETRIES && (status < 0))
-+	} while ((cur_cmd != 0) && status != -ENODEV &&
-+		 (retry_cnt < DRXK_MAX_RETRIES));
-+	if (status == -ENODEV ||
-+	    (retry_cnt >= DRXK_MAX_RETRIES && status < 0))
- 		goto error;
+ static int i2c_read1(struct drxk_state *state, u8 adr, u8 *val)
+@@ -6319,6 +6336,10 @@ static int drxk_set_parameters(struct dvb_frontend *fe)
+ 	if (fe->ops.i2c_gate_ctrl)
+ 		fe->ops.i2c_gate_ctrl(fe, 0);
  
- 	/* Write sub-command */
-@@ -3252,8 +3255,10 @@ static int dvbt_sc_command(struct drxk_state *state,
- 		usleep_range(1000, 2000);
- 		status = read16(state, OFDM_SC_RA_RAM_CMD__A, &cur_cmd);
- 		retry_cnt++;
--	} while ((cur_cmd != 0) && (retry_cnt < DRXK_MAX_RETRIES));
--	if (retry_cnt >= DRXK_MAX_RETRIES && (status < 0))
-+	} while ((cur_cmd != 0) && status != -ENODEV &&
-+		 (retry_cnt < DRXK_MAX_RETRIES));
-+	if (status == -ENODEV ||
-+	    (retry_cnt >= DRXK_MAX_RETRIES && status < 0))
- 		goto error;
++	/* The device may have disappeared while the tuner was programmed */
++	if (state->m_drxk_state == DRXK_NO_DEV)
++		return -ENODEV;
++
+ 	old_delsys = state->props.delivery_system;
+ 	state->props = *p;
  
- 	/* Check for illegal cmd */
+@@ -6487,7 +6508,9 @@ static int drxk_get_stats(struct dvb_frontend *fe)
+ 
+ 	/* get status */
+ 	state->fe_status = 0;
+-	get_lock_status(state, &stat);
++	status = get_lock_status(state, &stat);
++	if (status == -ENODEV)
++		return status;
+ 	if (stat == MPEG_LOCK)
+ 		state->fe_status |= 0x1f;
+ 	if (stat == FEC_LOCK)
+diff --git a/drivers/media/dvb-frontends/drxk_hard.h b/drivers/media/dvb-frontends/drxk_hard.h
+index a850a876deee..dc6ee0bb6854 100644
+--- a/drivers/media/dvb-frontends/drxk_hard.h
++++ b/drivers/media/dvb-frontends/drxk_hard.h
+@@ -106,7 +106,7 @@ enum e_drxk_state {
+ 	DRXK_DTV_STARTED,
+ 	DRXK_ATV_STARTED,
+ 	DRXK_POWERED_DOWN,
+-	DRXK_NO_DEV			/* If drxk init failed */
++	DRXK_NO_DEV			/* drxk init failed or device gone */
+ };
+ 
+ enum e_drxk_coef_array_index {
 -- 
 2.54.0 (Apple Git-157)
 
