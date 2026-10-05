@@ -1,212 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from outbound.ms.icloud.com (ms-2004b-snip4-11.eps.apple.com [57.103.74.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F2D20B80B;
-	Mon,  5 Oct 2026 08:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E19837204D
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 08:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187910; cv=none; b=uaRSwNceGp55/s4vsLRJavv4TEHaat1ejgXKl8bXy3fki9tc7pA3ZBAHafx6rKxosJoDvICFvaSs7G7MkWdL06lG1g9fG7bow6nEniqSpdOADouhq8BYGe+q5bsEI/CK6WyUizihHEYxLo2+inlSHArXVaZ2e+6FLgyKUbOjSlY=
+	t=1791188154; cv=none; b=WIHN4tHP8wu+4tU7D5zbtSAIWUsfLrSNvKCu5ToNBINjGnWOQswqDFifdZBqQ44PCfwiGJ+D03jTLheEsACFDYNcROijfzGHzlhGLWURO36xtdvOhHNxr1lkbWM7LptL4NloQITkddshzCzzTLddlkPUOZ29nC7i2cDA0XLOsvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187910; c=relaxed/simple;
-	bh=st/qLCL/giY4pL8SWRU1yd5Jt5UqpGSnlFcz4M4mP7o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PW3xQ3SluLYTsZhcFba5beH9/iE5rjyLIX4STi0WUXMOFFGBU80hg39SFDV6CkMdIni8WhekPwH89f6R6s3T/aE3wO9VaJzlp45H6EKa2z+QV8wm7ojw4mUbIpgLOw3oIQ9axmF36u5zH/uzSPbq6VHbsDBpCm+6uU3O7x4p/kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RJtb+AYT; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791188154; c=relaxed/simple;
+	bh=ql6nD8jjUHofs2j5B+YAjajTgb1xVq27Du8E/O8QWI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Umne7ZXO4LBCm5Hs5snveqlwrGBjxAzaewuveDcOFQWalsgh/XujdtD/Dn3+MEV7CDcWfLuYyGSq1Bc7hsoPJpbJSKt8EOYcMErQqoSAgfELpdLE3sxVS1h1v1fdOIlZSpd6PUnUdcI2HfNfy9j2csyO+6VFX0cKG3PTpdOaGeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=DSdcCq1Q; arc=none smtp.client-ip=57.103.74.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RJtb+AYT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791187909; x=1822723909;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=st/qLCL/giY4pL8SWRU1yd5Jt5UqpGSnlFcz4M4mP7o=;
-  b=RJtb+AYTBCDJz0PKp4ubB/d8dJ3VTsGiK0m/n/fJKGofJGBnbxac1UEo
-   emRzSOWnj5q+QM7Dzx2deNsVNBQ3DiepiIB2/fYP49FXgZuwtyRX09lgs
-   3OClFyrh/c/1fQJYq7QQ9iEMuB4vxq5rL9fjZTY2MdItDt7olRipdG/e/
-   8/o906RQr8s/bJZeAJClhUrFIgKQC9L+KAALIqFFIyadL0ZwiISDiQFdz
-   6OyAdmnhpWlbvADjB0m2tVrX8qe5thwL20JEfbGqmYEWlVccMneLrMf69
-   ADwaVqvIOsBwphSJx7TlqLExePqFVJI5p5XdoSSH2IJwDYIpJMQvIYrxp
-   w==;
-X-CSE-ConnectionGUID: Rg8OkbxgSjKN6dYeGW8aBA==
-X-CSE-MsgGUID: bB2CRlHYQkK/4dCYk49ZJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="117371369"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="117371369"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 01:11:48 -0700
-X-CSE-ConnectionGUID: D2ZY/M0SSeOreGrOk0cpmg==
-X-CSE-MsgGUID: YhYWfDyASQyvpezqwxaBEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="303006505"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.157])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 01:11:46 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F3D7D11F817;
-	Mon, 05 Oct 2026 11:11:46 +0300 (EEST)
-Date: Mon, 5 Oct 2026 11:11:46 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Robert Bozik <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="DSdcCq1Q"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-7 (Postfix) with ESMTPS id 82C981800355;
+	Mon, 05 Oct 2026 08:15:47 +0000 (UTC)
+X-ICL-RepId: 01a10b22-1c67-7000-b57d-931cd80d19f9
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUwdXAZdEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlQXA1ccVkVcGEMJXQVXHB0AREVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQQlIBl0PWgdCAFYHWAFSBV0IVUMEUhlAFXkIWgNYBQNeXwoNTUMSQhUEG0YeQwRfL10XXgxeBQ==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1791188149; x=1793780149; bh=L9uLoOBTD9w1t1qUvTjFgamb/kOBtGPS0KtQvW60OSY=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=DSdcCq1Qo+QoBhR9qXcHsyNdqqnOti6bOyqU+GLw3XXUObYLYh6pjydodn7gMcW5msgq7/qHMH89iM3mfQXoigRxPUWucUPeoM57P7e+cnkaZnHYM2uqdU0bBezcsMesZDrPXG03vnut9PfMqa9lIm05/WDuHIunBYARYfDo91g0foKUQ5W5Lpnlhz75KnQlGgx0edB8eXy/zgOKsHxBmoAH51aJ20SjVQ0Y8FlsBumewiuombQkVewzbMblxwIvF7Elye3T7442yQ8wPg+hx3qIkKTPpQwywsgJTo3sW4Bd6tN2CHG8qa+o1ToewtLC7kXi9UhXdCEm6CK2NRz52w==
+mail-alias-created-date: 1575045973000
+Received: from toolbx (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-7 (Postfix) with ESMTPSA id 87FB618000B0;
+	Mon, 05 Oct 2026 08:15:44 +0000 (UTC)
+From: Pierre Pinon <pierre@pinon1.fr>
+To: okerixx@gmail.com
+Cc: hansg@kernel.org,
+	jason.z.chen@intel.com,
+	jimmy.su@intel.com,
 	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Message-ID: <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com>
- <20261005071010.7191-2-robertbozik@gmail.com>
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	pierre@pinon1.fr,
+	sakari.ailus@linux.intel.com
+Subject: Re: [PATCH v2] media: i2c: ov08x40: Implement get_selection
+Date: Mon,  5 Oct 2026 10:15:29 +0200
+Message-ID: <20261005081529.45697-1-pierre@pinon1.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <179096167726.2508.10599420708324219706@gmail.com>
+References: <179096167726.2508.10599420708324219706@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005071010.7191-2-robertbozik@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: _wGdSyeo90-Lf0E4K9-Xpy2mt9W8BmPk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMiBTYWx0ZWRfXzzUnNAmr3Iy8
+ UxTz7/MHwHFem0JbpGjg74EdUothEy9Z8il0vMheI8G/YZ6Jhx3fn1sjWSlqXqT7TfBUQP2dq62
+ F94m7rjqDdJZtwHnsV/9BcpM8igPD/4BSsa9hEgmzEDwCLv5Tiq19o2LmmsTv0hxoA+XeJ/OBdG
+ vMCE42v67UG9mc+UhoJHT+WpDwdKmhgw5gLpNqUCea3xKX42O6QG4CQIWna6T8jVsMn5ox06lPY
+ hdxsSTB/XMYoko7BEsRQ4T3ZJO7tO7+znREcZACVtkwRnsBr6Y6izfeKrNuVCovqqn6i4s2FeaU
+ 49Py4LRqg96gvnnjRgdeXu61iX/1TpIz/H6oSSRMF5hqnEXAaZOeiCpNzrAAIs=
+X-Proofpoint-GUID: _wGdSyeo90-Lf0E4K9-Xpy2mt9W8BmPk
+X-Authority-Info-Out: v=2.4 cv=Y+v1cxeN c=1 sm=1 tr=0 ts=6ac35cb4
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=Cl8kbS0eVb9THYje38kA:9
+X-JNJ: AAAAAAABy8DTSxHgvZO59cEsTWJAbEdyCxmQEuJSHMckWS16jams2NRUg+ATLDC/EURyf3bI8m/UL/HV0iGNkzfLluDquEb9ZgLi9tyBBVaD7Qa4dHsfkzR9u0B1VKtTk1AiKomdtPohlcCtYNLwta+wvIbDPy90Y4n7jD5F+7X7Pqaq1e4LlYQM0neebX/5sFCTO7bdg1FA1+XLR/aY9eGnZ69gQLtR6h8WuxCbp1G+1BTcZGxGS8X65lbWImcgRpAIBwyscH9Yj7nbjInKzGKqlQ9f1iDqWZ3WhVoeEEvIu/yh//RmOVs7ZSvBw13JNRu+SJM/uZIwYZ16R+XzTfCDAW0RVG5TfgngnfVj99spBikEX/nZKrbS1fLkWav1WmeQGws/b0BvGsINLCgh6uZCdLIjOH7DCe7m6nb4W20KcgsbufVTQ2Ibkn76rMbi/tj3uPot5/yN9w5vAlIUBLEn91yTeVwTVSaCGYOKApN8FMdPQ07wMhV7d/lBIBq/nmFi3+sQkyV0UAn8iFSP41+yXLEtCDiaotg+mYrkcu3vNChk9VwDfC4hWIvmyF+ZHWa7DAorYSKx90rxTfZy0k16t1zhSvFbeMhmgQUNa3+ITWXQjcB3HhBkel9YtmllFgzU0e6JD/xOqaTzQSQc9BrjkYWAMBTk2ySxtW00UISL3MkvgorpEh1KxZhsqCOxoRhahUjBU8/sUU4ePgHkPtMU+2SrtDMvo7SOtlsDszPovW2jhY7uQ+QFXtTatOCtiwocGoJ+3ulDZwG8H97PhwU/kUc0HhbE7Rbaw27XvhdxEgR1K9Jo20Lv7/XAPcsuVEFZhqoxE5Qnjy4GEFa61QnqQgRsUrsZx/9OrTNaqa7/Qo+jorzIqA21PuZRoN8W4uSxrUlL18Tq8Qy2d9NXJn3tvtKb9TVEy542dneqhTWSM9ikBxX8SElY/1C57/jlQPuq19Ohlf8+6fT6t5Re+G4Q7xOlqF8
+ N8/fZJKe14O5D2qpIygt3gO0c+b8K5+PubjMSjpEM322byl1elQrzgcHwOcPHDBFGKYR/BvGF7essAEHBAGH8BKb80WyM2LdKlr37d6jrp3MNWVv8mSRd3bGdPnA9lLJugkTlSn7b4aLQ74FRm/fCtcosZVlRIXCESb4GcL8fvildFC+SGzDOw//fU1ZjdrRtCShmpl6zLNkaL9CxYX2tr9EWx5gagUepINm1DR2aZUFIEkWyHzyaqr6pen8LfNeWZ8TH1jem/txqJ6SOppzPYHEJ+Or60FxxpACz3SpGctuR4Zg29HufDw8LxesOGV9PEWDohGPlGJ22eHKLzVX0Bv7ehhRQf1tbJr0jg+5ERA==
 
-Hi Robert,
+Hi Oleg,
 
-On Mon, Oct 05, 2026 at 09:10:08AM +0200, Robert Bozik wrote:
-> Add a binding for the OmniVision OV32C4, a 32 megapixel RGBC CMOS image
-> sensor with on-chip 4-cell fusion, a 4-lane MIPI CSI-2 D-PHY transmitter
-> and the standard SCCB command interface.
-> 
-> The sensor ships in laptops as an under-display camera, where it is
-> described by ACPI; the binding follows ovti,ov08x40.yaml, which covers
-> the closest relative already in tree.
-> 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
-> ---
-> Changes in v4:
-> - No changes to the binding.
-> 
->  .../bindings/media/i2c/ovti,ov32c4.yaml       | 105 ++++++++++++++++++
->  1 file changed, 105 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-> new file mode 100644
-> index 000000000..804307cd0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-> @@ -0,0 +1,105 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov32c4.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OmniVision OV32C4 Image Sensor
-> +
-> +maintainers:
-> +  - Robert Bozik <robertbozik@gmail.com>
-> +
-> +description:
-> +  The OmniVision OV32C4 is a 32 megapixel RGBC (red, green, blue and clear)
-> +  CMOS image sensor in a 4-cell arrangement, with on-chip 4-cell fusion and
-> +  binning. It has a 6528x4896 active pixel array, a 4-lane MIPI CSI-2 D-PHY
-> +  transmitter and the standard SCCB command interface.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ovti,ov32c4
-> +
-> +  reg:
-> +    maxItems: 1
+On Fri, Oct 02, 2026 at 07:24:20PM +0200, Oleg Keri wrote:
+> v2 works here on the Lenovo Yoga Slim 7x Gen 11 (2-lane, libcamera 0.7.2
+> simple pipeline).
+>
+> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11
 
-minItems should be 2 here, for the always-on client.
+Thanks for testing!
 
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: Input clock (XVCLK).
-> +
-> +  avdd-supply: true
-> +
-> +  dovdd-supply: true
-> +
-> +  dvdd-supply: true
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: Active low GPIO connected to the XSHUTDOWN pad of the sensor.
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        additionalProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            items:
-> +              - const: 1
-> +              - const: 2
-> +              - const: 3
-> +              - const: 4
-> +          link-frequencies: true
-> +          remote-endpoint: true
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +          - remote-endpoint
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        camera@36 {
-> +            compatible = "ovti,ov32c4";
-> +            reg = <0x36>;
-> +
-> +            clocks = <&ov32c4_clk>;
-> +            assigned-clocks = <&ov32c4_clk>;
-> +            assigned-clock-rates = <19200000>;
-> +
-> +            avdd-supply = <&vreg_2p8>;
-> +            dovdd-supply = <&vreg_1p8>;
-> +            dvdd-supply = <&vreg_1p1>;
-> +
-> +            reset-gpios = <&tlmm 111 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                ov32c4_ep: endpoint {
-> +                    remote-endpoint = <&csiphy0_ep>;
-> +                    data-lanes = <1 2 3 4>;
-> +                    link-frequencies = /bits/ 64 <400000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
+> Yes, please do. It makes no sense to default to a mode a 2-lane board
+> can't use.
 
--- 
-Regards,
+Sent here:
+https://lore.kernel.org/linux-media/20261005065535.16137-1-pierre@pinon1.fr/
 
-Sakari Ailus
+For the record, on the Dell (IPU7 behind an Intel CVS, 2 lanes),
+libcamera now picks the binned 1928x1088 mode for 1080p, and that mode
+still does not stream: the IPU7 firmware rejects every frame with
+INSYS_MSG_ERR_CAPTURE_HW_ERR_BAD_FRAME_DIM.
+
+This is the issue discussed under v1 2/2, "media: i2c: ov08x40: Do not
+expose the broken 1928x1088 binned mode":
+https://lore.kernel.org/linux-media/20260904134604.595685-1-pierre@pinon1.fr/
+
+In short:
+- Jimmy relayed that the CVS firmware decodes and re-packs the sensor's
+  MIPI stream, and only supports 3856x2176 linear and 1928x1088 sHDR,
+  while the driver programs 1928x1088 as linear.
+- Sakari suggested having the CVS driver reject the other sizes.
+
+With your Yoga feeding the sensor into CAMSS, I assume there is no such
+vision chip in between, which would explain why the mode works there.
+Is that right?
+
+I'll follow up in that thread.
+
+Pierre
