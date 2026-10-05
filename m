@@ -1,162 +1,210 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DF827FD43
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 05:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA49E367F3A
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791177454; cv=none; b=bKoV7XOmj+mi2rog1X8T/kbItSW/beYBV0SplcsZe+eTSC1q7kB9KC0GcjAu37D36EWaPOF7TR1CToYMaZvLDvbxR5vyX4LfJaby8LDas46UQMgzG9KJjJn3dBuMu3obc8olSF+WidavpDn+5dHGhYxf5H3HZidaL3wJAGQPKGQ=
+	t=1791182503; cv=none; b=kD+cHems5JxEoH/XFC1dy1ymq3oKFuWwrT0Q5GajjWQ2Y/v6rVzfualjy/Na7VrN/O3fu7Ok+SWFEcdakaF2RLXPdXSUbVbKqrxQiTVvHQUV+py5Mm+Hjk/2t/wRDYgww1G6nMiQKKZL3RTaGejT+2GK+fUObdmPM+a7z/3n714=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791177454; c=relaxed/simple;
-	bh=O43mM4fr02Xx/jsKGSTF4uneqSaUTIh4j9o8SiMa14E=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=oCyf7uTSyz5PRNICDYar2B5yrJcfjrT1N6huVonZRn71kHYi2gnX81wJXSa63j1sVNBxzjivZENpJ/D8rO+XsKphStRQd78J6CcNYwxWZR3t3L1GzB7G9Y0Hr6pypDM5UiHA3v2az3bhW9GU7p+T+6aDES+MpWaJ6di+TY7iS5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8233f34d21eso1938288a34.0
-        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 22:17:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791177451; x=1791782251;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	s=arc-20240116; t=1791182503; c=relaxed/simple;
+	bh=yCkXo4sSj6S2ElefNk4UC31+4JoEn9L05JKIXoGqVks=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=pGnBME5WLm6Jd9brLG/YRHnGVq7jkAcxWwKDxNrJfNxYqcTiW7E6fJImeAYWRjCv8wRgSOv91uEjdM1DFj5QX/LA/NZhwG/vinPhGpJpWNrAD6ZTDXP5gx1MRYdTNwphvURbIhYRZGliInx4cmHB4ki78v009II3swphRPk1qmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpefHT+v; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpefHT+v"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b03f23305so1185971f8f.1
+        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 23:41:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791182500; x=1791787300; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GPgY2QqAXkpTT8ue2JQI/5i8AHyd2xVyfOf3038fJ9Y=;
-        b=GnOPOCjfLlxd0uVuSVtRL90h1Lt0/sh2TcQIX9BcYLAK2+F5Gqpe7Y4WGfeS0r2AoZ
-         Zt29vijPeHIvJWPQ1fAEtXz0iAfEv3/P5jh5RPJ0PmcicVvlh20nCHpBTGHB9UHWbJHx
-         qcT3c0fTzEPBS7tsBhG8yomdwu7cOGNyAW2M7T9D8IpjQKSRc97mBjZO5NXmVeMS7FjF
-         /sKLuVVUB10+K+wI5mIXNxA4nqC0tXenkUsTRr/yRAKEYqmbqJ+L+fvsBJ1RinPC3OJM
-         CXRV5z88hUmyqSeTvzcJzZmOOqC1GeywUkcHzXpPfwXtNWz3yQJ3ZjT0fU72qb18i7pf
-         Wm1w==
-X-Forwarded-Encrypted: i=1; AKwUvByjJRfd1tusrSp8BWPzv27U0m+k2jTZ3xY1tmSLIcG6XFGv1BcBHd4pkVmOyrjn8iB6gYp12WN86KiPOQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nzUZdf0WnQh+ynU+evyZTr4iAhX7C5qYEBXZKFR59/RQT19YAb
-	x8KytTVAI8MahNLedMld1vQc6X5NAKcU+Z1viuFSr4r2lfXkktuiS/TpNGBPZV6jYjL6qjEu1n+
-	mYn/cz88bgqXzWjMzEkS39PYu7RlO2p//hMqvuB9yYj1UFZNNHwGxmEd2jZM=
+        bh=+EGFppMfswXU/fV+uWCD2+0j1OKAXO1MerJRCo45qjU=;
+        b=gpefHT+v+PuWiM2I9C7k22I8aLGVqVvXcYDdoa/DNkxz4fm2nZ2R04FQkr/+o0/R8r
+         SvjRKyHS5vQzGUbOr6O1Ug/h/QSIeVvQWgEzdjHg+c/sp45bzhWKutA6nMLTsRp1tY0I
+         KXh43CeNes6fqNt7imQRYOh0lCV9QD9hVwq9TyZNlTzG6Ixc016GJuMmz05nZvf4+Bwe
+         n6/DYoED59QpRv7shl9ICdeUYkMU8ZyslGwBAdJdt9eDI99zkzAKJdby85alA5oXqN1G
+         6TfxcpsbsyeP+jtsvrxaYhzZ34VrN41pyDIEHg7MT0MrYVAMUH82gI/sVDPaUjad4AgO
+         Thug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791182500; x=1791787300;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+EGFppMfswXU/fV+uWCD2+0j1OKAXO1MerJRCo45qjU=;
+        b=Fo10xjdFhgmJW8fTYKF0Sipori1H5D/pjj8Wvc2LSZeUxI13MHiq8RTR0UZaro4fYt
+         qgOnJAL6mxtWxRUyexLB2sttgYqpUY6lxFqo13a8GkUgcKoamiveqGDJZqyTavU6doci
+         KmbJ2c7fISVMEnSCJ8+89e3o/y5RZroGPXCrxQWFbHoH3lTBCYrBW9LxIA/ZBntC46AN
+         rscfrQbKjPC3i9BVc7Nz34sp6z415NeRuQgxklvOsS+OFWQF83lT7tZEa8DT/pF13gw6
+         /J2RzPKHo1gF15U64X8MHblio4/KdKq21cKCVvyKpEB0Xa0Ic+NpLqjGi4pVAJX4YFsw
+         hu+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxXllk08VaguyOprk6upTcvQSUsH0wdPIXkaSEI9jXMwfPM+6jKB5wlRJrtLe3DgWFTq2OQ3zIPnVDwzA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKB0PSxhwoyK9qPrSImmV13ZJh97Pp1CjvVlvFQVXXJVUYWZr/A
+	ATc8V2qN6iv8TX9AhmirFh4JvS1ebhWDRdtTJwmxtpEV0NuRdjsiIbVx
+X-Gm-Gg: AYBFou0f2ymz5rB2gMeVyzNa/rfba0HHGKmk6wa9bI1Caf5Wuqd9gE79qk7gnuLPW3O
+	K3KaA30rpGcgyrzGMyhRTZ+AQGooiEv4e1QOletCYqUc+c6qPpW5SScnEiV8v4Q96db18Uvt7Sm
+	hmah+CR+RdztYhsjIjZj7cIdCRhoOKxsZpo+8DIyrpXEjO6YTHlNrgqmlseIP1/HilIKJyEvwK3
+	LcXPdNMaNSXAX/yenli7syqKqXIb7yEnshBvFzbEMwccIvtEkWRECjoJO2p8nvkLCsrGM8VXf2l
+	Cn8hiCS+xjN69bkrrguNITk4CDKnMREATv+KomY+mQ7ai208F5YpLq62hdaRM+UOBhlP5mkTS0Y
+	gOvV8uaeg4+1YOhxaTljyNJFQxau5fa8dDJFAH4f8fBVhaS15LV97r0s8cn86OfKxHFQRgIbyDp
+	PUuCAJZsh7x3Gl8syJmNtjzF9RRPR45B7rPGtmjKfBR9++GkRNDpRK9YumKfJ3t52DrPPtLpypT
+	7Y5t4MoBCydbPrGjRrYEm1k1D6kzBb7OLpCNdIOP+v2ySpyQv+LPaifrFewWpThZ/Qof73GCNFB
+	zLjxaG36MR7hstW9b/F4EKJeAgQuXXoR0Q7sjky4e+uJfm9kccBijjKs9Q7mOJJCPMUV3x4TJS5
+	Yxuc=
+X-Received: by 2002:a05:6000:24c6:b0:48a:f5cb:4356 with SMTP id ffacd0b85a97d-48c4801ac46mr10819804f8f.45.1791182499704;
+        Sun, 04 Oct 2026 23:41:39 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c62289b62sm1666871f8f.20.2026.10.04.23.41.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 23:41:39 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
+Date: Mon,  5 Oct 2026 08:41:30 +0200
+Message-Id: <20261005064133.7305-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1924:b0:4f9:6348:cd3b with SMTP id
- 5614622812f47-4f96348dac1mr1348428b6e.41.1791177451757; Sun, 04 Oct 2026
- 22:17:31 -0700 (PDT)
-Date: Sun, 04 Oct 2026 22:17:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac332eb.598348e0.18b15.0000.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+With DMABUF_DEBUG, dma_buf_map_attachment() gives the importer a copy of
+the exporter's sg_table without the struct pages and offsets, and
+without the lengths where sg_dma_len() is a separate field. An importer
+that uses those fields stops working. That is the point of the option,
+but the failure usually shows up somewhere else and says nothing about
+the cause.
 
-syzbot found the following issue on:
+Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+DEBUG_KERNEL kernels"), which I wrote, went into v7.3-rc4. It made the
+default from commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by
+default on DEBUG kernels") take effect, and distribution configs
+usually have DEBUG_KERNEL=y. Two reports followed:
 
-HEAD commit:    6addb4f38557 Merge tag 'edac_urgent_for_v7.3_rc6' of git:/..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=154b0f25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
-dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=134b0f25580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10cb27f5580000
+- Jianfeng Liu: hardware video decode with drm/msm ends in GPU
+  translation faults [1]. He then sent a revert [2].
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/70aa10806ffb/disk-6addb4f3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/053f6eeab8df/vmlinux-6addb4f3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/9427f05ec282/bzImage-6addb4f3.xz
+- Diederik de Haas: rockchip fails to import buffers when playing
+  video, on a config based on Debian's [3].
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
+In [2] Rob Clark said the problem goes beyond msm and cannot be fixed
+quickly, and Christian König offered to set the default to N for
+another few months [4]. I listed more importers that look affected and
+mentioned this RFC in [5]. As of v7.3-rc6 the default is unchanged.
 
-smsusb:smsusb_init_device: smscore_start_device(...) failed
-------------[ cut here ]------------
-data & WORK_STRUCT_PWQ
-WARNING: kernel/workqueue.c:4425 at __flush_work+0xc8f/0xd70 kernel/workqueue.c:4425, CPU#1: kworker/1:4/5659
-Modules linked in:
-CPU: 1 UID: 0 PID: 5659 Comm: kworker/1:4 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:__flush_work+0xc8f/0xd70 kernel/workqueue.c:4425
-Code: 38 00 90 0f 0b 90 31 c0 49 bd f8 f8 f8 f8 f8 f8 f8 f8 e9 2d ff ff ff e8 7f 24 38 00 4d 89 f4 e9 ee fa ff ff e8 72 24 38 00 90 <0f> 0b 90 e9 23 fd ff ff e8 a4 60 ca 09 e8 5f 24 38 00 48 c7 c7 80
-RSP: 0018:ffffc900051ce960 EFLAGS: 00010293
-RAX: ffffffff818eb3be RBX: ffff88813fe4a005 RCX: ffff88803a410000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc900051ceb18 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffffbfff1f64590 R12: dffffc0000000000
-R13: f8f8f8f8f8f8f8f8 R14: 1ffff92000a39d34 R15: ffffc900051cea08
-FS:  0000000000000000(0000) GS:ffff888125cc2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f0e9993643c CR3: 0000000045a10000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4568
- smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
- smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
- smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
- smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
- hub_port_connect drivers/usb/core/hub.c:5585 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+This series adds DMABUF_DEBUG_WARN as a sub-option of DMABUF_DEBUG. The
+importer still gets a copy, but one that keeps the CPU side of the
+exporter's table. The entries are marked with a new bit in dma_flags.
+sg_page(), sg_nents_for_len() and sg_split() print a rate limited
+message with a stack trace when they see the bit. These CPU-side
+accesses can continue after the report instead of failing because the
+fields were cleared. The report is not a WARN(), so it does not taint
+and does not trigger panic_on_warn. Strict mode remains the default and
+continues to remove the CPU-side fields.
+
+Known limits:
+
+- Only access through sg_page(), sg_nents_for_len() and sg_split() is
+  seen. sg_page() covers sg_phys(), sg_virt() and the page iterators.
+  An importer that reads sg->length or sg->offset directly is not
+  noticed.
+
+- When the option is enabled, every sg_page() tests the flag.
+
+- It selects NEED_SG_DMA_FLAGS, which adds dma_flags and may increase
+  the size of struct scatterlist. It also relies on dma_flags being
+  initialised, as the DMA mapping code already does.
+
+- It finds importers. It does not fix them.
+
+Question for the maintainers: could warn mode be what DEBUG_KERNEL
+kernels get by default, with strict mode kept for CI? Or is an opt-in
+sub-option all that is wanted, if anything? The series does not change
+any default.
+
+Testing, on the commits as posted:
+
+- KUnit, the dma-buf suites, under UML and on x86_64 in QEMU, in strict
+  and in warn mode: 56 passed, 1 skipped (it needs 2 CPUs) each time.
+
+- Builds: x86_64, arm64 and ARM926 with DMABUF_DEBUG_WARN=y, ARM926
+  without DMABUF_DEBUG. Without DMABUF_DEBUG the generated code of
+  dma-buf.o and lib/scatterlist.o is the same as before, except for
+  line numbers.
+
+- IIO DMABUF capture on a Zynq in QEMU, with local device models. The
+  IIO dmaengine buffer calls sg_nents_for_len() on the attachment's
+  table. In strict mode with NEED_SG_DMA_LENGTH the capture fails with
+  -EBUSY. In warn mode it works, the kernel is not tainted, and the log
+  has:
+
+  DMA-BUF: importer used the CPU side of an exporter's sg_table
+  CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VOLUNTARY
+  Call trace:
+   [...]
+   dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
+   sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
+   iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block.part.0+0x5c/0x104
+   iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dmabuf+0x68/0xa0
+   iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0x9a4
+   iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
+
+- sur40 behind xHCI and intel-iommu on x86_64 in QEMU, with a one-line
+  test-only change in sur40. Here sg_page() is called in
+  iommu_dma_map_sg(), and the trace leads back to sur40_poll(). The
+  capture itself did not finish in that setup.
+
+Details are in the notes on the patches. Not tested on hardware.
+
+Based on v7.3-rc4-70-gfe2ec83746e5.
+
+An LLM agent helped with the code and the testing.
+
+[1] https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com
+[2] https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com
+[3] https://lists.freedesktop.org/archives/dri-devel/2026-September/600904.html
+[4] https://lore.kernel.org/r/50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com
+[5] https://lore.kernel.org/r/arrAvk4aYQ4sDEzN@gmail.com
+
+Karl Mehltretter (3):
+  dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
+  dma-buf: add a warn-only mode to DMABUF_DEBUG
+  dma-buf: test the debug scatterlist wrapper
+
+ drivers/dma-buf/.kunitconfig |   1 +
+ drivers/dma-buf/Kconfig      |  23 ++++
+ drivers/dma-buf/Makefile     |   1 +
+ drivers/dma-buf/dma-buf.c    |  48 ++++++-
+ drivers/dma-buf/st-dma-buf.c | 253 +++++++++++++++++++++++++++++++++++
+ include/linux/scatterlist.h  |  26 +++-
+ lib/scatterlist.c            |  22 +++
+ lib/sg_split.c               |   2 +
+ 8 files changed, 372 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/dma-buf/st-dma-buf.c
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+-- 
+2.53.0
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
