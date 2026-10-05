@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49612522698;
-	Mon,  5 Oct 2026 17:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9390F5237B7;
+	Mon,  5 Oct 2026 17:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220735; cv=none; b=dCSHYIqSvklHMu/AVrh/3pPXFa7d/1kiHJ2pw08ZrAzVV21eWbms2/cqDCL8rjPCvJK3/AKDdHPRYzntl1Vfk6QACky4I+s0xnsXCpult88lMiwxBj3jCcFbyZMp5zkMbq4u8uWc1YEuk93+cGi/z7LGoOUmlV8R96voNpaiYmc=
+	t=1791220738; cv=none; b=IuC8Bj3MqG8jI36n7F6jGaYz0+szzYNTxNweLcvE/nEe1mlXLKjQ+U8Bozb4U6zRpyDfNtbJrDCtuhJuIJ75Ou0iw+ghGqeQT0CbiiUfUy7SI4uuSmTs4jk8xh5ll0SYSy1N5CV+qrW0vhB41OIi39nJcrFp1LnH9H3jgcFW5t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220735; c=relaxed/simple;
-	bh=fCvjxCJcdveIl0NVXqCQT2quwuk/jIufo+x10nHbZNg=;
+	s=arc-20240116; t=1791220738; c=relaxed/simple;
+	bh=uS1t744te2Ot8L6A3g+MVPoUquMklX9ig/QH3wLfwdI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HZY/mch6qR/6Cnh6CLXRRqZTfhYvkyYuFxtursSEeNfPdhk46sXY31xJKcLx9ic4E6QRDAdqmVT6pPTqZqPp5puSk6pibvP2k9HevMAmexDPcsn47ITEB1UZRdmrZLCB/77hJdPHT7E/DMV1bFH/cl80GefPkvMGkC952KKXE14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lsygoQM9; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Kjwp0LvBE+8lUcjniNnu0o7QtFSJRk1sKFEhz/waCZUVa3mGmc+6gvhvlF9R2QsGYQj4fKh2Scjt6gbTQRP6bTsmqCDN5Ic+nKICKBg45nVxLtLzW0seeK/PkP9+to5JKsVJ3hY1fI4fpB04ZD0ZyplN1mbP+YMIGfqjWwGnuBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxMDQkpn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lsygoQM9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EAC1F00893;
-	Mon,  5 Oct 2026 17:18:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxMDQkpn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6999C1F000FF;
+	Mon,  5 Oct 2026 17:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220734;
-	bh=+V5BwiU8e3bYrhDhdZYtzfmlO7XXqxlSOsRknVCR/M8=;
+	s=k20260515; t=1791220737;
+	bh=ul5KgzhIsSZ142uwpg0FUSjAqikjYuMg4NIBYsV47os=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lsygoQM9l4Nm/0wpxwFKLPd38sF2VWMGBjMGtAd5NhnvMXD487OjG6zGLYXX30rQP
-	 atwNWkejV5xRk2Vnp//mLSjR+MRjjvZ6GF9Mimbkmkykig1RuwPWh3pfLqey1Z/b+t
-	 Od3nEt2NGqxHrlbA7E37yp7K9JP4QHei39kT0e8U6onlanFX7JtL//JiBn/GXGIuUf
-	 wBOm5tVevUTs+qiKx8MQVSxlqC64PFA0qobqM5+7MeLIQHS5j1fVR7X8LiDclB71+A
-	 3dWXkbfl1QlxyqF+c+zGLxobwDgIjSqar5YQNrmWOZYBckPHHFx+DRn4STpHwOlDJ0
-	 spXrxWb5MBfJQ==
-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:14:24 +0200
-Subject: [PATCH 54/74] media: qcom: camss: vfe-880: Program the pixel pipe
- outside output_lock
+	b=BxMDQkpnrUSrmfrcgdjDLAzIptmY3Fz7hLWuP3q0EG/wDDI78/6IbdBocHphRLfI0
+	 Fy7wT7lCd2JNn1spfBzQufFOt21Cb7Y+1SPZ8sDNZ1bF2L4cAp0m54KjXH9U0DuZ6W
+	 9VCwAGhYvV4wkGDlSL5fYbfKJQCfAc/Dh8MVGtYapCrd6tuPXg4hhQb9rSOyHbJGgR
+	 yzbQRpZzGzlD225UzId4j4ECBFim8TIcG7qu2eC4zIpXzrYbCXS7aijHhFFPwV2eq7
+	 SKBaLFpoJRk2dDeIosOMvqRoZbx2nTvojTYRq/ZYdc4ZBN12NedvHFEFIOq41wn3H6
+	 Al3M8Vak0kB4Q==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:25 +0200
+Subject: [PATCH 55/74] media: qcom: camss: vfe: Make is_pix the only test
+ for the pixel path
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-54-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-55-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,91 +55,190 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3283; i=bod@kernel.org;
- h=from:subject:message-id; bh=fCvjxCJcdveIl0NVXqCQT2quwuk/jIufo+x10nHbZNg=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9snMd8TDtsAIpsrSp95Pa/ZcZ6ZGU1NRjapQ
- uEe/ONptoKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbJwAKCRAicTuzoY3I
- Og+2D/4xbNJWrEj445CCGa8y/l++uvR9HzildDGg5OyKzHYs2TFl/JBOmDwsQAYTQC1y5rAjZnJ
- gO5TVcO7AK7kGXIcAnrwJQOl952ggOLZX7TMTuH0US2Gf8+hZKY0KviCVMtkO3g5jY3GJqdxc2w
- mBu7isYu2bfExJzTj/v6pzfr03FScPbgdMXnIetIULPsKsHAUycvnP1kVZsfWu/6Zlzcs37GgXt
- kVAp1GTNmZ2TCAyHDBzh2ALCK2wugexvxPHzCpccMlyXgdDiX3/aD5VRZV57c5Bz2tSzFjXAyuF
- jxAcN8U9XbFG8Is/jZnmqKMonNYCKc/Bodd7f4y1/TVZaDhKOF3Je6kG6nv/AyBl2yWeF8feOE7
- zEVbDXy0wQ24vrb0qlOoA2Xv0GdEdcUamAxLkxWg6JEEDkpCmLuqqogtiYL8CEczH/YE710UY8J
- CA0kNYEoOOQkyfC6F3vpDqpV1Xzq3rH5J94vKRBJeIuX/wMjyRpLCAMPXWbxkaE+Pa1IorVEsP1
- gsCSF2R6zwB8U+w/J92guDUHRHZ1+f8rwZBN1GbkONt7tcEmUFlsDo9bnmvsfi9TkGQN8F9XN8p
- 5L3QiGj+wW0HoZibnN1N/KxFMEXDVTwQo6zNvg1KIVSCd7wNRyM6yl393/eyY4SRzrYoH0cz4Rh
- ZweyGEq3hJ/IHuQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5984; i=bod@kernel.org;
+ h=from:subject:message-id; bh=pZe6CqqAWER9w0OquUWWY8u4q4MN90MdGfjacYiUGng=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9soW1L8yQ024nPGTw1OAOocXnDqEmdPNQkf9
+ B7cHMmllY2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKAAKCRAicTuzoY3I
+ OnqkEACJUZNGxsw4sh1HfFpu4oMfw8f10T4btYIsHh2O7SfGjgCt6y9HtwTkm/IDFfuvHb89yRL
+ iLbRrG1bh64G4ErKc2lW7OWRlCg2cR7QD471WC5mtusR6R+wxVjl0ZOki19U/Cn10Rl8+sIljuE
+ IPXMWm56/ztmhWAfHnp/KrC4wX+oR+WGbGf6qKguOu9JPWnJEHNCx5q5KbCcswxVjNdCUzg70tG
+ FvXiPXcMhaekRhw6bLC9BYYMMOhVmTnvEiYUwkF5yeCuFIPcJf3FK7XR+iffBVpn7hIkGTrgS9r
+ nSvNxegw0kZksFbEixM+81GbHcNf6Uro17EtTscmYA9w6F8RkW+90IuG7d81M33jYiRQ6vc7cT4
+ atCFMC3ijPAMjSf2PnW72qhGQcXDYO2sECJBe+SKtI2UHoVG13Vtn0X9KHkDXyT5/Vy0BJ/INz+
+ 4WcOXSfq2ze3/lzK0ZwJ+6Q4kanZxOXaznEItR5YSHJWjyd04q7U7Ou81jihXz2I0+SMgprlED0
+ uOmBFmJoEhBg5TcXktlQ6g/dKuciUru+zl2lI7VV7bps/3Tlv6Bg244hPqjKCPajeLtjHBX3I14
+ r7/urYufoyPGYvwbC10N7aA7ciuvIVAgIZqajyF+xD6JzttjZc3OIcPOnUlhpgLJAKfpBk/Mfe5
+ +FPsU2reDzBBy7A==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-vfe_wm_start() runs from vfe_enable_output_v2() with output_lock held
-and interrupts disabled. Calling vfe_880_setup_pixel_pipe() from there
-put about 3.3k register writes in that window on every STREAMON, most
-of them gamma, BHIST and downscaler table uploads.
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Add an optional vfe_line_prepare() hw op. vfe_enable_v2() calls it once
-vfe_get_output_v2() has reserved the line's outputs and before
-vfe_enable_output_v2() takes the lock. vfe-880 uses it to program the
-NV12 pixel pipe.
+camss-vfe.c decides whether a line is the pixel path by its index in
+most places, comparing against VFE_LINE_PIX. On a VFE lite index 3 is
+RDI3, so the lite's fourth RDI picks up the pixel path's selection API,
+crop clamp, PIX formats, PIX bytes-per-line alignment, line-based mode
+and clock computation.
 
-The ordering is unchanged: the pipe is still written before the write
-masters and before the IPP reg update that latches both, and the CSID
-still resumes the IPP afterwards. Doing it after the reservation means
-a line whose outputs are busy fails without touching a pipe that might
-be in use.
+Make line->is_pix the single test:
 
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+- a backend declares its pixel line by setting is_pix; a lite never does
+- formats are chosen after the backend's subdev_init(), once is_pix is
+  known
+- every VFE_LINE_PIX comparison in camss-vfe.c becomes an is_pix test
+- add VFE_LINE_RDI3 as the name of index 3 on a lite
+
+vfe-780 already declares its pixel line. vfe-340 declares it here; it is
+the only other backend whose tables still give a full VFE four lines.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-880-pp.c | 2 +-
- drivers/media/platform/qcom/camss/camss-vfe.c        | 3 +++
- drivers/media/platform/qcom/camss/camss-vfe.h        | 7 +++++++
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-vfe-340.c |  1 +
+ drivers/media/platform/qcom/camss/camss-vfe.c     | 36 +++++++++++++----------
+ drivers/media/platform/qcom/camss/camss-vfe.h     |  3 +-
+ 3 files changed, 23 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-index 8f56e584b180b..a4bccedb4a2f1 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-@@ -593,7 +593,7 @@ static void vfe_setup_ds16(struct vfe_device *vfe, u32 w, u32 h)
- 	writel_relaxed(0x000003ff, vfe->base + IFE_CROP_RND_CLAMP_POST_DOWNSCALE_4TO1_C_VID_DS16_OUT_CH2_CLAMP_MAX);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-340.c b/drivers/media/platform/qcom/camss/camss-vfe-340.c
+index e5a0a70eed1e6..708dad42186f9 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-340.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-340.c
+@@ -356,6 +356,7 @@ static const struct camss_video_ops vfe_video_ops_520 = {
+ static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
+ {
+ 	vfe->video_ops = vfe_video_ops_520;
++	vfe->line[VFE_LINE_PIX].is_pix = true;
  }
  
--/* Called from vfe_wm_start() for NV12, ahead of the write masters and the IPP reg update */
-+/* Called from vfe_line_prepare() for NV12, ahead of the write masters and the IPP reg update */
- void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, u32 w, u32 h)
- {
- 	vfe_setup_core_config(vfe);
+ static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index fbc2068b301bc..82a23be7cae9c 100644
+index 82a23be7cae9c..0c7be87d7bd57 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -821,6 +821,9 @@ int vfe_enable_v2(struct vfe_line *line)
- 	if (ret < 0)
- 		goto error_get_output;
+@@ -1059,7 +1059,8 @@ void vfe_isr_comp_done(struct vfe_device *vfe, u8 comp)
+ 	unsigned int i;
  
-+	if (ops->vfe_line_prepare)
-+		ops->vfe_line_prepare(line);
+ 	for (i = 0; i < ARRAY_SIZE(vfe->wm_output_map); i++)
+-		if (vfe->wm_output_map[i] == VFE_LINE_PIX) {
++		if (vfe->wm_output_map[i] != VFE_LINE_NONE &&
++		    vfe->line[vfe->wm_output_map[i]].is_pix) {
+ 			vfe->isr_ops.wm_done(vfe, i);
+ 			break;
+ 		}
+@@ -1167,7 +1168,7 @@ static int vfe_set_clock_rates(struct vfe_device *vfe)
+ 				u32 tmp;
+ 				u8 bpp;
+ 
+-				if (j == VFE_LINE_PIX) {
++				if (vfe->line[j].is_pix) {
+ 					tmp = pixel_clock[j];
+ 				} else {
+ 					struct vfe_line *l = &vfe->line[j];
+@@ -1248,7 +1249,7 @@ static int vfe_check_clock_rates(struct vfe_device *vfe)
+ 				u32 tmp;
+ 				u8 bpp;
+ 
+-				if (j == VFE_LINE_PIX) {
++				if (vfe->line[j].is_pix) {
+ 					tmp = pixel_clock[j];
+ 				} else {
+ 					struct vfe_line *l = &vfe->line[j];
+@@ -1566,7 +1567,7 @@ static void vfe_try_format(struct vfe_line *line,
+ 
+ 		fmt->code = vfe_src_pad_code(line, fmt->code, 0, code);
+ 
+-		if (line->id == VFE_LINE_PIX) {
++		if (line->is_pix) {
+ 			struct v4l2_rect *rect;
+ 
+ 			rect = __vfe_get_crop(line, sd_state, which);
+@@ -1844,7 +1845,7 @@ static int vfe_set_format(struct v4l2_subdev *sd,
+ 		vfe_try_format(line, sd_state, MSM_VFE_PAD_SRC, format,
+ 			       fmt->which);
+ 
+-		if (line->id != VFE_LINE_PIX)
++		if (!line->is_pix)
+ 			return 0;
+ 
+ 		/* Reset sink pad compose selection */
+@@ -1878,7 +1879,7 @@ static int vfe_get_selection(struct v4l2_subdev *sd,
+ 	struct v4l2_rect *rect;
+ 	int ret;
+ 
+-	if (line->id != VFE_LINE_PIX)
++	if (!line->is_pix)
+ 		return -EINVAL;
+ 
+ 	if (sel->pad == MSM_VFE_PAD_SINK)
+@@ -1949,7 +1950,7 @@ static int vfe_set_selection(struct v4l2_subdev *sd,
+ 	struct v4l2_rect *rect;
+ 	int ret;
+ 
+-	if (line->id != VFE_LINE_PIX)
++	if (!line->is_pix)
+ 		return -EINVAL;
+ 
+ 	if (sel->target == V4L2_SEL_TGT_COMPOSE &&
+@@ -2173,18 +2174,21 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
+ 		init_completion(&l->output[0].sof);
+ 		init_completion(&l->output[0].reg_update);
+ 
+-		if (i == VFE_LINE_PIX) {
+-			l->nformats = res->vfe.formats_pix->nformats;
+-			l->formats = res->vfe.formats_pix->formats;
+-		} else {
+-			l->nformats = res->vfe.formats_rdi->nformats;
+-			l->formats = res->vfe.formats_rdi->formats;
+-		}
+ 
+ 	}
+ 
+ 	vfe->res->hw_ops->subdev_init(dev, vfe);
+ 
++	/* Only now does a line know whether it is the pixel path */
++	for (i = 0; i < vfe->res->line_num; i++) {
++		struct vfe_line *l = &vfe->line[i];
++		const struct camss_formats *f = l->is_pix ? res->vfe.formats_pix :
++							    res->vfe.formats_rdi;
 +
- 	ret = vfe_enable_output_v2(line);
- 	if (ret < 0)
- 		goto error_enable_output;
++		l->nformats = f->nformats;
++		l->formats = f->formats;
++	}
++
+ 	init_completion(&vfe->reset_complete);
+ 	init_completion(&vfe->halt_complete);
+ 
+@@ -2331,7 +2335,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		v4l2_subdev_init(sd, &vfe_v4l2_ops);
+ 		sd->internal_ops = &vfe_v4l2_internal_ops;
+ 		sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+-		if (i == VFE_LINE_PIX && vfe->res->is_lite == false)
++		if (vfe->line[i].is_pix)
+ 			snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d_%s",
+ 				 MSM_VFE_NAME, vfe->id, "pix");
+ 		else
+@@ -2371,7 +2375,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		}
+ 
+ 		video_out->ops = &vfe->video_ops;
+-		if (i == VFE_LINE_PIX) {
++		if (vfe->line[i].is_pix) {
+ 			video_out->bpl_alignment = vfe_bpl_align_pix(vfe);
+ 			video_out->line_based = 1;
+ 		} else {
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index 0b632479cefc6..318b025702007 100644
+index 318b025702007..2b354d6bcc1f5 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.h
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -188,6 +188,13 @@ struct vfe_hw_ops {
- 	void (*vfe_wm_update)(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			      struct vfe_line *line);
+@@ -59,7 +59,8 @@ enum vfe_line_id {
+ 	VFE_LINE_RDI0 = 0,
+ 	VFE_LINE_RDI1 = 1,
+ 	VFE_LINE_RDI2 = 2,
+-	VFE_LINE_PIX = 3,
++	VFE_LINE_RDI3 = 3,	/* IFE lite */
++	VFE_LINE_PIX = 3,	/* full IFE, when line->is_pix */
+ 	VFE_LINE_NUM_MAX = 4
+ };
  
-+	/*
-+	 * Optional: program line-level hardware once the line's outputs are
-+	 * reserved, outside output_lock. Runs before vfe_wm_start() and the
-+	 * reg update that latches it.
-+	 */
-+	void (*vfe_line_prepare)(struct vfe_line *line);
-+
- 	/* Output based API - new and shiny */
- 	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
- 	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
 
 -- 
 2.55.0
