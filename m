@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006654D4893;
-	Mon,  5 Oct 2026 17:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5E94E80D8;
+	Mon,  5 Oct 2026 17:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220604; cv=none; b=epq8tHRq4B0rsnzeLJcNNynaX5Iqq9AYELdW94cF2JDAKQLy1+J+demCJuKJ50F2/FuQzyOkGCSGY8O0RbYdSF2Fgxyun3ap9xHDHbBo5I/Qgig3r1wmhV/6lMnPT6tY2lok2C43EgDuIeXjmOyK6Joucmm8dyyThdEDThkdMvk=
+	t=1791220607; cv=none; b=dhhG7DEqskXA+MLKltR1sAN0hfRUlU4EbaWqf8RJdVJ7w6KdnMpuuVRtJ1/cczmVkeYkJyJqn/jPh0IJC7UF0d3yq6uSiCcj2nVDKvE3uBN1b6OhaHNTeOwObUdrszqHURuHGQ8CknLSlI45lAZ0ZvUudqJdxvOg8o6ypfj9iTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220604; c=relaxed/simple;
-	bh=IQLyGXidtpbkyCvZQIX4xJNh4l5zzGcp0xK8oMd/3m0=;
+	s=arc-20240116; t=1791220607; c=relaxed/simple;
+	bh=w2wwxc+vXtkZuVngjMDId+G6VbktTVOeStGEG+ggNVw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mTKg0CQOgoSgzWvIDTquEb/kYVRz7rImO7r8W6kc5qyzxVsAxg/ngfxughwVAn45eW5OaymExbWnAiqv2eAUGBVr3lln7gCD8Tr3mOLJ/PK/7TcXvamqYQrLOLSo0YYiDX1wTLXdTXZF7ld7xgGxom2ZlorRD15Qrsh1HU8FooU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+N2Z+s1; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Begb4YmKfmPGbRG9YARvqQSsYa/iDRJYy0KxkNMbydNfdtRmt2de0krPM1q3jL08RAK61SwjxYiFHlMgCxmPsINi/symogTRCUMD+KJgHjuhLMwDG9TpXNeTK2QQNEUqOCoZ9Xgdy+fXSzbokR3T4b/WJMYW7ebiN/OxVxwtEVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rcxjfr29; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+N2Z+s1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860AB1F0089C;
-	Mon,  5 Oct 2026 17:16:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rcxjfr29"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F118A1F00898;
+	Mon,  5 Oct 2026 17:16:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220602;
-	bh=vi4UyExXfuLIBkR6lt//Pf4ohXDPksZy8Lxi7mswrSA=;
+	s=k20260515; t=1791220606;
+	bh=zbxG8NAQ5PCfX6FEMtnQ7f5Nu6iD2U12hBuLX4TzKLc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=B+N2Z+s1ObTdVcsyb++lX0kMdkizNOuENTlP+uPA16S17H89kvadurduqw0/uAYQr
-	 qAowdvZkDEv7d5Z6fIPNVWoyA4OwVnP8kmTDhDZSj5vtjO7/ukR7Yu+aalp6wjLgZf
-	 qD2PovicmYgukw4qJgiQx+r3P2/7cTULhwS5hVd1iqg+0IXORAlNVwbiIcVdysk1+N
-	 63bgGvAzGJu55+tZinX6d/78CN76JAxScLaDHY9Jyt+5ftqWfdeYQ4wrjeKkF2LYah
-	 dlrnD62zJ8xDN2hKntayoIgVGq4fNuYFT0Z5Y5jA4olmCF9k0CURhAVAO3Q0CCDGFK
-	 M8HkAM2DlX0TA==
+	b=Rcxjfr29GTv6vqa3U0f/OQbO1hS0kmjPR9jkDSaYRp8DNCn4kwTcpsLJfK4Bm6n1V
+	 +LGreeVpnAcWrhyJ6SkVYLZypX5oEOngyfS9sRhlLfexCjDKlpzXBniwvJwb69ZOlC
+	 UIkBFP3vAna+XLnoqoqAA51x8PO9Qjycs4XAI3TOYPg44iUxUdFbiYTF1vjw5muJj4
+	 NT17+/5VooKg5rHbVlmEi/m8UedvX0LwpCWYBeK6Ql/SZQOg+ow+m4SfzwRkiOmPVf
+	 ay/E+k0U4cBjqGDZRrhbuSAfCavS8FPPS4/ZmdYPzcPSfwDX2TTHBuvYgljuCpkrjf
+	 +weruwIPCQnag==
 From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:13:47 +0200
-Subject: [PATCH 17/74] media: qcom: camss: Define PIX formats for x1e PIX
- interface
+Date: Mon, 05 Oct 2026 19:13:48 +0200
+Subject: [PATCH 18/74] media: qcom: camss: vfe: Add helper
+ vfe_bus_v3_packer_fmt()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-17-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-18-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,163 +55,147 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6247; i=bod@kernel.org;
- h=from:subject:message-id; bh=IQLyGXidtpbkyCvZQIX4xJNh4l5zzGcp0xK8oMd/3m0=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sMtgeovv52EiMRe/4bedxd3fsn2zCY1Q6Qs
- t5HKPsFIOeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDAAKCRAicTuzoY3I
- OsGaEACJEB0ioxwTL5RhzQsmq13EhPTM23XOg4It/Tk3WGXaFhBIBpgckp+/+/fscWy6jToa50/
- 4weMe1v+l8S0runuPHez5c8Y2Oh3mW0w6fWvC90G5jkePexqKGAo98S/jtaJKiZtQj27F59ZhEV
- miKv575xhShhT30Cx+wI997HM9mC1Yc23Pq4Z8aVCHxbPOnWi5tSKDl86KL28ZemgxIfNY1HNkh
- Wlnn8hdP0hZ+YjZ9vEtRsXko6A41yvYd2QVJoNyodlMSmH5gyBtJxZU1x/+40cUT6EXD3LzT2qy
- 4aQwyJU/pAUc5k16KKKiRn5BDpXwcMW0K2zPaGQ3FQ4kR4pU8Df80pmod1DoK3szkjR3vc8pg43
- q+x6q9tph9egR9Xnl5JUpGmRHVC6Ern8TG+xQfEKV0r1Y3/s4H8KzfBBRRD9JvxatuBPpgwDJIk
- +N1EqvLm5G38yLymaKhVCcDwsp/zSmDi74/cPm/iZVRKtFUhpEf4wlixXjhJ7xYd9nbijmCNZrb
- Ypr/+wDthxqkHI3M1y176XVHYrt6C70I5Xbu8fKIYlEQO2apRnjMJ4k78s5H1sNxBkmAwy7O0cq
- KpVgMyhP/Wl05FDZOJvW4gMBMrO5wcqE+SM6SyunYtNuUlI6mgfRVhxgQ6QtSTjXtSzAuNP57mQ
- mTUTsRxN+YZqHuw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4246; i=bod@kernel.org;
+ h=from:subject:message-id; bh=w2wwxc+vXtkZuVngjMDId+G6VbktTVOeStGEG+ggNVw=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sNAU2O9SxZWjTmRi8+l5ubOpJfJFsiE03lu
+ f+eqyLuTUqJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDQAKCRAicTuzoY3I
+ OuvZEAC21/0pR5b0oK/X95b3qebm15KDFK58mvoVjg/WW8iYstGWMA6OZ5XYkmNnZOPJBLI89D7
+ zROvShQnbrrf8F1AyTzarrCyyts7z6kuFmV7im1RNAclxgPMXa68OGGL498tw1lNiSO6/1quxuR
+ 3O2jhpSGo/f77q/MHoUbHYLqgV5AlUr6oWrQMvvIDPBWAJ5nx1EEW6pSOKVy0sNKu6DJmL0DQof
+ J2C3M+sb0aj7RBsxXoPKSu4hSoxg8KV0k8RZOkS/V+GFaB1DhUYzI3nTNFmXWJNM3lhke9q9TyL
+ uuGNWIWZZ+rAXmrTeZnvKsYdbP7JJctxa75XC59pfKPBUpx3KCbPJ+cCIlkRYwhDAATu3fHnUvd
+ rRyhmOSTqDjguMtzGh5/urAVdISuL8q3pwhRwn0+MmMzEGv2e3/42h6IQqR3f6/qyTOfZPUmayS
+ eIsY7MGQZCP8Lket8KC650KEa97Z9WMPeXFjoBoxvl9jpIe7qilhwHrDCeYFw14sCKUQ4ubgCNI
+ SkbN6SN+wtb0NcEij2dlk9OnEq4F6TBo3eBi3pJzS1e++EZC618w5CygcB508Bqxw9fM25AtO/1
+ XliRvED17G7thg/wHNbFOHbWkRzpATCO/WydGvf+KhTTqsW8uONWhVoxD+odcdCCuJlEouOAVqN
+ UmJtGJaq5k41+ug==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
+vfe_bus_v3_packer_fmt()'s job in life is to translate a given v4l2 pixel
+format and plane into the appropriate bus packing format for v3 class
+hardware.
+
+Other versions are currently not covered.
+
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 93 ++++++++++++++++++++++++++-
- drivers/media/platform/qcom/camss/camss.c     |  4 +-
- 2 files changed, 92 insertions(+), 5 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 53 +++++++++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.h | 32 ++++++++++++++++
+ 2 files changed, 85 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 319d191589884..5b5201b55a485 100644
+index 5b5201b55a485..c95fe5b0b05fc 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -174,6 +174,94 @@ static const struct camss_format_info formats_rdi_845[] = {
- 	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+@@ -370,6 +370,59 @@ const struct camss_formats vfe_formats_pix_845 = {
+ 	.formats = formats_pix_845
  };
  
-+static const struct camss_format_info formats_pix_845[] = {
-+	/* Passthrought formats */
-+	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_UYVY, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_VYUY, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_YUYV, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_YVYU, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_SBGGR8_1X8, 8, V4L2_PIX_FMT_SBGGR8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SGBRG8_1X8, 8, V4L2_PIX_FMT_SGBRG8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SGRBG8_1X8, 8, V4L2_PIX_FMT_SGRBG8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SRGGB8_1X8, 8, V4L2_PIX_FMT_SRGGB8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SBGGR10_1X10, 10, V4L2_PIX_FMT_SBGGR10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SGBRG10_1X10, 10, V4L2_PIX_FMT_SGBRG10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SGRBG10_1X10, 10, V4L2_PIX_FMT_SGRBG10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SRGGB10_1X10, 10, V4L2_PIX_FMT_SRGGB10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SBGGR10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_SBGGR10, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_SBGGR12_1X12, 12, V4L2_PIX_FMT_SBGGR12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SGBRG12_1X12, 12, V4L2_PIX_FMT_SGBRG12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SGRBG12_1X12, 12, V4L2_PIX_FMT_SGRBG12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SRGGB12_1X12, 12, V4L2_PIX_FMT_SRGGB12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SBGGR14_1X14, 14, V4L2_PIX_FMT_SBGGR14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_SGBRG14_1X14, 14, V4L2_PIX_FMT_SGBRG14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_SGRBG14_1X14, 14, V4L2_PIX_FMT_SGRBG14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_SRGGB14_1X14, 14, V4L2_PIX_FMT_SRGGB14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_Y8_1X8, 8, V4L2_PIX_FMT_GREY, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_Y10_1X10, 10, V4L2_PIX_FMT_Y10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_Y10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_Y10, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
++u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift)
++{
++	switch (v4l2_fmt) {
++	case V4L2_PIX_FMT_NV12:
++	case V4L2_PIX_FMT_NV12M:
++	case V4L2_PIX_FMT_NV16:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10;
++	case V4L2_PIX_FMT_NV21:
++	case V4L2_PIX_FMT_NV21M:
++	case V4L2_PIX_FMT_NV61:
++		return plane ? VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10_ODD_EVEN
++			     : VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10;
 +
-+	/* 4:2:0 Bayer to YUV */
-+	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
++	case V4L2_PIX_FMT_SRGGB10P:
++	case V4L2_PIX_FMT_SGRBG10P:
++	case V4L2_PIX_FMT_SGBRG10P:
++	case V4L2_PIX_FMT_SBGGR10P:
++		return VFE_BUS_WM_PACKER_FMT_V3_MIPI10;
++	case V4L2_PIX_FMT_SRGGB12P:
++	case V4L2_PIX_FMT_SGRBG12P:
++	case V4L2_PIX_FMT_SGBRG12P:
++	case V4L2_PIX_FMT_SBGGR12P:
++		return VFE_BUS_WM_PACKER_FMT_V3_MIPI12;
++	case V4L2_PIX_FMT_SRGGB14P:
++	case V4L2_PIX_FMT_SGRBG14P:
++	case V4L2_PIX_FMT_SGBRG14P:
++	case V4L2_PIX_FMT_SBGGR14P:
++		return VFE_BUS_WM_PACKER_FMT_V3_MIPI14;
 +
-+	/* 4:2:2 Bayer to YUV */
-+	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
++	case V4L2_PIX_FMT_SRGGB10:
++	case V4L2_PIX_FMT_SGRBG10:
++	case V4L2_PIX_FMT_SGBRG10:
++	case V4L2_PIX_FMT_SBGGR10:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_10BPP |
++		       BIT(align_shift);
++	case V4L2_PIX_FMT_SRGGB12:
++	case V4L2_PIX_FMT_SGRBG12:
++	case V4L2_PIX_FMT_SGBRG12:
++	case V4L2_PIX_FMT_SBGGR12:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_12BPP |
++		       BIT(align_shift);
++
++	case V4L2_PIX_FMT_SRGGB8:
++	case V4L2_PIX_FMT_SGRBG8:
++	case V4L2_PIX_FMT_SGBRG8:
++	case V4L2_PIX_FMT_SBGGR8:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8;
++	}
++
++	WARN_ONCE(1, "no packer format for 0x%08x\n", v4l2_fmt);
++	return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128;
++}
++
+ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 			    unsigned int index, u32 src_req_code)
+ {
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 089f525b98cf5..98d403a71cf95 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -56,6 +56,27 @@ enum vfe_line_id {
+ 	VFE_LINE_NUM_MAX = 4
+ };
+ 
++enum vfe_packer_format_v3 {
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128 = 0,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_ODD_EVEN,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10_ODD_EVEN,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_10BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_12BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_14BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_16BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_32,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_64,
++	VFE_BUS_WM_PACKER_FMT_V3_TP_10,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI10,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI12,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI14,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI20,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN32_20BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_MAX,
 +};
 +
- static const struct camss_format_info formats_pix_8x16[] = {
- 	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
- 	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-@@ -277,10 +365,9 @@ const struct camss_formats vfe_formats_rdi_845 = {
- 	.formats = formats_rdi_845
- };
+ struct vfe_output {
+ 	u8 wm_num;
+ 	u8 wm_idx[3];
+@@ -315,4 +336,15 @@ int vfe_enable_output_v2(struct vfe_line *line);
+ int vfe_queue_buffer_v2(struct camss_video *vid,
+ 			struct camss_buffer *buf);
  
--/* TODO: Replace with pix formats */
- const struct camss_formats vfe_formats_pix_845 = {
--	.nformats = ARRAY_SIZE(formats_rdi_845),
--	.formats = formats_rdi_845
-+	.nformats = ARRAY_SIZE(formats_pix_845),
-+	.formats = formats_pix_845
- };
- 
- static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index ff09873706c0d..6f3de2c185bc9 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4434,7 +4434,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
- 			.pd_name = "ife0",
- 			.hw_ops = &vfe_ops_680,
- 			.formats_rdi = &vfe_formats_rdi_845,
--			.formats_pix = &vfe_formats_rdi_845
-+			.formats_pix = &vfe_formats_pix_845
- 		},
- 	},
- 	/* IFE1 */
-@@ -4458,7 +4458,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
- 			.pd_name = "ife1",
- 			.hw_ops = &vfe_ops_680,
- 			.formats_rdi = &vfe_formats_rdi_845,
--			.formats_pix = &vfe_formats_rdi_845
-+			.formats_pix = &vfe_formats_pix_845
- 		},
- 	},
- 	/* IFE_LITE_0 */
++/*
++ * vfe_bus_v3_packer_fmt
++ *
++ * @v4l2_fmt: v4l2 format
++ * @plane: plane for the given format
++ * @align_shift: bit position of the PLAIN16 LSB alignment flag
++ *
++ * Return: the bus packer format for the register
++ */
++u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift);
++
+ #endif /* QC_MSM_CAMSS_VFE_H */
 
 -- 
 2.55.0
