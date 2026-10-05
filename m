@@ -1,93 +1,40 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ci.icloud.com (ci-2003h-snip4-1.eps.apple.com [57.103.91.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433B53769EA
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B95327C09
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182816; cv=none; b=QTjeKpuIqRu6LswuLbelr/CXeAQ2AzCo9Zi5uUdcMQGdj1sA3Pspxkuulr0yfPwXzaUy0c6oL+Us9+UN0BnM5py8xhkERZsq7LqSNP3Jq68sif/81XSXlTei/XzPxQAKjL0i/+YqUCEYFl51CI0uSi5ceUz+zwDtfIriMAwJrp8=
+	t=1791183359; cv=none; b=XyfsF1IdNFqw46yc/OeZW9fFP0KxsGNbGUXgwXTpPJ5+2ORen4BT2SeSR1nV1nFedsEz0sJzANK0p3kbvdEinQYQdHVXd9iI5gpFNRq4+SH4qU1uT1O1Jvr5WVCEkGzNHeOLkDuSvsZsVb5nYHgTJMcmXfYv+xuJeMp+vviH8ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182816; c=relaxed/simple;
-	bh=NVcBj19XbbYYddhYV+VVVlQwPifJ42KXYiumrbNv5/E=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=b3TNZ33YGZWEgsIsMijjirAn7M8qfA76XEmdzspM3pz6WEB1ZJxFy4kOLIeAJFErtFI9ujz8aIaGEQvtQl6heqQIX7622WECapgdKdJ9bwUkA7PBxWCstg5D4RbD+WHUDpzxzWihDq56JIgz+ajZ1MtexY9i+kaTUhiwDtgXMVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X7Mi+PzE; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791183359; c=relaxed/simple;
+	bh=Pxj/V4ni3Q/M5jJkSyX/YAN5m1XvqcBOIHVIjjUnQBw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CsNIT7lukqM4rwl9zRryCugGrLqkzB12/V6I6h6v6PVJFJTqGr/ilrpiRZ1MOU7uo5KO7WTgFip3b5J3EkoEyNS94rGu/6ZYuzIJGkeSPfW71W2wPFMcfy4roPtBR/isIDfUH0rbNLK4UJ25sKv1CoozMiNQGVYiwXKjE9Iic/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=T4FfSPZk; arc=none smtp.client-ip=57.103.91.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X7Mi+PzE"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ff680331aso13490465e9.3
-        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 23:46:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791182813; x=1791787613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G3p/ksaVF9bUxZ/l44uSSprnNI0BM8HQrDHB2YvnRV0=;
-        b=X7Mi+PzEkkrbK+H7IoGNdUygFj2UJcf0B4DioZz0WrJgs3HECd8OuAVY1GLL2TaM/b
-         TL/RzW3kacvJTLmOAFxScwgcdYUQ1melwES53Id/vSFBYiFhfZdguR3yJnPMpDDUsoSL
-         SzHj2UqhBjW2S385GUehcokZ80Gct/XjyAoonCdWGeqVr/AasqT6x7FZdf4rjob3bVD5
-         O5NAA+Nl9hMRl43MN+6lYYE6d4/Vp2/B+Q2xF3y/icmQSbD2D34t/dCPJLas2FX4wQnV
-         hZp41tXy1RKoYyGlmBgtx6ZMJ7MKrgduDjtPiBXOHOzOh6PJ5ishgqSmda22m+ZmoBNO
-         zv3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791182813; x=1791787613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G3p/ksaVF9bUxZ/l44uSSprnNI0BM8HQrDHB2YvnRV0=;
-        b=t4kriVHNXik0KvqWPJiovoiAm9mqedapscHxopVpcA4k9DpSMEKNmNV3w3ih8t3gfq
-         3EYkhoGY0LIIbb84xSB/3nAtFpUeQLNhhlU71wEAFXworMHt7hvnGpzAT/kMBnh8g3Ds
-         U9srPaKRgQSy2MmAzRkL5KWLtbcIVVBr+RjfGfG87k4hxj2YFtysF0FWsTWNV4fhO8VY
-         e7xR+y8wRsO/CHwJOo+BbaCAb+9Kf0UwBhAmVJcaFNzsshSnBOz0hyjrpzLIsNVFwVSj
-         weYrQEsdf2X06//MH7XpoIpZpoH/PR64diclhZDN4q4clNQzpl8NjhDuAoNbomT4UIPu
-         VBNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLpEqqq67SutLoiU3JKNwuF+cHlZZo6LwQDm9ztSeKGXIHSLI1URDVapGlFl6t7E99kF4M9R2jBwoprA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nQLoYTt+I7iTl8rZhA+bVzLnfovcypl0sS+/RZv4mpGI+j3x3m
-	W6uD+2bEGVHS1n+N+eyrdaQRsQip7ek6OyEE4sWgi8TMCFIAaIO4seR/
-X-Gm-Gg: AYBFou2vXxA1WKcMIXbnthF5m1CO5dhG0/mzqITgndikqOGKY49853hdGUQrWHD0QB8
-	vlkAccfljketeAnQeVxoB2fAGBbJHnazkFt4A212ox3q0OAVa7jF4UkYZGC8Doy6Y+wmO6RizcG
-	Vodii4mPL7GDPWdulbvtZCxYeA4PVPHSrhH2jdXD3dSReZw1ZkNK2DDgXXUqkOyyk9ZlqvZnQhL
-	dIkKmrKIq2WLMjseqKOrgrurBalWVugX/jcnfLel/oE7jwiE1eG0c73IsIMpBfcMl4rNHgcnuHp
-	T233hj6pyrkE77vcSUbgjPRG1/dJuPJyNPnw6uh2ic1wFB7Ja2rv0sz+dAA8IXXhFjLi1k+lYLD
-	Jc71eLCZ+ksyt7AiZeWNiW10tMZDghJUXxPcP4tyEsHuGTrSCEYskQO8hEQPZqK5Gec+KvDo6Ju
-	PpJeXDXpTm88hH1aXMaetZ+V5/vEutgmox5R6oVUoQbArPPGmRSrCsduANeW00DyIXCInPnlZKy
-	2xZX0Qi2qa5Wkn3Ih6+3tGr4p8dM3tOT9TVKeMERAUo09XCa0FcOQP6KC2zYWuITTm+v1s0lSBg
-	bjHXsRDj23R2KwbgWJMLryt4a7+cQjWVMqaFLXm4qNhgyw94rVbVc/3F+ByTlL3tT6TC8RHdj6S
-	O4A==
-X-Received: by 2002:a05:600c:4e13:b0:4a1:7367:5395 with SMTP id 5b1f17b1804b1-4a173675558mr17104845e9.2.1791182813344;
-        Sun, 04 Oct 2026 23:46:53 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm315273615e9.14.2026.10.04.23.46.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 23:46:52 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T . J . Mercier" <tjmercier@google.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
+	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="T4FfSPZk"
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-1 (Postfix) with ESMTPS id 43B1E18000BA;
+	Mon, 05 Oct 2026 06:55:52 +0000 (UTC)
+X-ICL-RepId: 01a10ad8-f4c6-7881-975a-14625d5b6abd
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBKHVwPXxxBDUwdXAZdEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlgXA1ccVkVcGEMJXQVXHB0OXkVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQQlIBl0BXgdDDFYCWwZYBV0IVUMEUhlAFXkIWgNYBQNeXwoNTUMSQhUEG0YeQwRfL10XXgxeBQ==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1791183354; x=1793775354; bh=MfM1eZ9CNmghV1BDWoFw01LZ1/BzzVRW5NNfDwJcO1M=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=T4FfSPZkoLrbpozQX2IpJZWTPcM596xWk9Z7Kq9t98LowkpA+saKnYfCjilqw1z3L/zaVs5suOHPfyPzEt+2PZibF17la4pxLEfWMZE6hTfyIJo++y4NjLZo1bHcX10Fy559Jft/ARR3ft77vEAWvplUng2nRGi8e4wI9wkbEC93YRkQSj4hiOVdjWOsxLn1Boidu3cLbEJuxgi2GfvtjvH0GZqVN5AP48IG3VW2eH10xDxY0Y21s4kVXLlTAEP3IPZNznKj5Ni39LpMErrM4pUrDm+OzxiBFKVXbGphaMmG2uirp1N46dXDwYQ7E9Rel/pRW/Gxp+wNusp8eAlusw==
+mail-alias-created-date: 1575045973000
+Received: from toolbx (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-1 (Postfix) with ESMTPSA id 96843180017A;
+	Mon, 05 Oct 2026 06:55:49 +0000 (UTC)
+From: Pierre Pinon <pierre@pinon1.fr>
+To: linux-media@vger.kernel.org
+Cc: Jimmy Su <jimmy.su@intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Russell King <linux@armlinux.org.uk>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] dma-buf: heaps: cma: respect the device's maximum segment size
-Date: Mon,  5 Oct 2026 08:46:40 +0200
-Message-Id: <20261005064640.7776-4-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261005064640.7776-1-kmehltretter@gmail.com>
-References: <20261005064640.7776-1-kmehltretter@gmail.com>
+	Oleg Keri <okerixx@gmail.com>,
+	Pierre Pinon <pierre@pinon1.fr>
+Subject: [PATCH] media: i2c: ov08x40: Default to a mode matching the lane count
+Date: Mon,  5 Oct 2026 08:55:35 +0200
+Message-ID: <20261005065535.16137-1-pierre@pinon1.fr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -95,88 +42,71 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: pNnW8L76kRioaEC1K2k2fWaWoeyP0hpq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNyBTYWx0ZWRfX1MXH4NK29e0z
+ pOy91QKrh0Qih3NbK2qyJ0UZFdktDtyfJXOIWXnEeX1bjzWDRanjHtfGuWxU6LFLuWMHVF6FthJ
+ LFgRU+ZwB2Iw9GG3NEqD+jxiiwBuhftm1O+IgEef2nvU7ZrFwf5QUN3qWRg9Uq8w2VESYfnjlNj
+ ZZChxO8WFRp/ag2v6rnkAt5XVto140qXWOzzvFnxW0AwaIfwzbSYeJj4CoDN5Wng4YorGSOF4Nf
+ gofvFZd9ct/J5Hev0gUOlIcvFGwy+HpLZQ2p5dk1rAoj5PiEwRBhid0M6gzvnrvTB0adfCpVf2p
+ xGhM0hUy7ttIRjo6ceXs2r4zEpi21m7YZ51vMju8VVxHswQB4de7uW3Hr64me4=
+X-Authority-Info-Out: v=2.4 cv=W8A1lBWk c=1 sm=1 tr=0 ts=6ac349f9
+ cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
+ a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=A7cOQzBelK9jzjY8NncA:9
+X-Proofpoint-GUID: pNnW8L76kRioaEC1K2k2fWaWoeyP0hpq
+X-JNJ: AAAAAAABTihzwFHYnNXnRCQzqZIV8XSEHAOUDYByqyU7VkOs7dr+6W+2V+pvbjz5ZYwtjWgGDJ0cxXHjhUdeD9AE3bL9e7+UpIzFtyXboKe6Tts0q7g/KTltsRcZ161Fu9b3CgsYOo7RJjSjAIEbH6z2CLWaejmD+/4lhXftW9HC2ZIYjMCbq2pbKDjsV9Xuc03JT6o9tWvS24rTArgzQt2HrgZU9UotUDDYux8VAMWXItcmqkg2KzNLipeb+TkBMnarE/+CXO4LhpIndTDmhiff9JzG3FrzMuWjWcdJd5eij4k+eYBuatvSLQOjcuEvisYDg2CwAL6/WfLlPepT9cRWpXL3Npw1ZCESdwmEr+r8sPSNzl6W64CKRJPJ5fS4kZzpTwJ9YF1LUqVAXJn8Q1HLQAwzEroCfOce8sJ3CUi3QzqguuEf3561HwPh/aAMzx9OT0NWalkGooWirHxPxRjmeVWNvsoEjV84oWUGTmZmp2ugv/wmu3bxGeLeZQpbokwu+elBuTmAjp93cMeT4QE0X6yENRnXmTpzqwbvuEBzSjwoXgcAoUSbEihz/l1ULPfp9GezYUB7DCw1819eozV4KCl6pMA+7RBeA1acwM2TN/wYzVp8OrvTEKl+Q3s1Lx8/jyVIPVHVvBDXuwf3RJxepKSpuBOVlP8da2Dmio4yeRSigWLsR9Pm8eJdOguzYYcRoBVZpfkeIIiISq7Ufw7v4QrLdy6D002Vv7kO2MC8Ey5N1ooXt3lXkQFjiTbtU2YqjjE7OCNfiK55T/YAroK4vLy9LutApRhbFD4KakT6GzliSopcelpXR+uBeX7vVaGgx99T7nPgOKyMj3BvHssugCvatSy2kUSxX8/SbAna4G0aXkv6mVmAlDxRvwQjRZtNtHG5gNqXHVif/TPNr3Wr2g4Oo6k4PUrC2RQHq/a2kknWNBJuIalFy+0Bp6Z5XAvbmOJzQtqBoETLZiOtBWK7OpXDcmP
+ FGam6BKIgTBkOEyiTFMn/hkAd8k4L8T/hM8c/u+229o5X8s4/oCQvarq7I1EPV7QIGZXTZtWEvCoyTmwsXwq9CQaLBhgZE1YL6+Et8NRiuRdnD5Dt76mZxtb20kYyb07rVGGme/f/O53Z+oB8G7GoVwBlAvi5Jege6W2CZEqnxiZgQJFzRS8N6KHLXJpBkHA0x9OW2YBQNG4tb1h1rzWDVucVN+H+cT4LxKKdXIDFKWS2xe0LozHU9QXP7UZckyvnm9+PayxGH5PKb0yMnqUxhg==
 
-cma_heap_attach() merges the physically contiguous buffer into one
-scatterlist entry without considering the importing device's maximum
-segment size. With DMA_API_DEBUG, importing a buffer larger than that
-limit reports, here with atmel-hlcdc:
+On 2-lane boards, probe and open() default to 3856x2416, a 4-lane only
+mode. Use the largest mode supported by the configured number of lanes.
 
-  DMA-API: atmel-hlcdc-display-controller atmel-hlcdc-dc: mapping sg
-  segment longer than device claims to support [len=307200] [max=65536]
-
-Build each attachment table using the importing device's segment limit.
-Return -EINVAL if the limit is smaller than PAGE_SIZE because the
-page-based allocator cannot honor it.
-
-An importer that needs the whole buffer as one entry has to declare a
-segment size that covers it. tegra-vde without an IOMMU domain and
-armada did not. Their limits must be raised before this change is
-applied.
-
-Reproduced with a custom QEMU model of the SAM9X75 Curiosity. Not
-tested on real hardware.
-
-Fixes: b61614ec318a ("dma-buf: heaps: Add CMA heap to dmabuf heaps")
-Cc: stable+noautosel@kernel.org # needs the tegra-vde and armada segment size changes first
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
 ---
+  This follows up on the review of the get_selection v2:
+  https://lore.kernel.org/linux-media/20261002094913.28722-1-pierre@pinon1.fr/
 
-Notes:
-    Tested on v7.3-rc4-70-gfe2ec83746e5 with DMA_API_DEBUG and
-    DMABUF_DEBUG, on a custom QEMU model of the SAM9X75 Curiosity
-    (ARM926EJ-S, TCG) with an XLCDC model.
-    
-    vivid captures into three 307200-byte CMA heap buffers, which
-    atmel-hlcdc imports and scans out. All 8 frames are shown before and
-    after the patch, with 3 DMA-API reports before and none after.
-    
-    A test importer maps a 256 KiB CMA heap buffer with different
-    maximum segment sizes (4 KiB pages):
-    
-      max segment (bytes)   before         after
-      2048                  1 x 256 KiB    attach returns -EINVAL
-      4096                  1 x 256 KiB    64 x 4 KiB
-      65536                 1 x 256 KiB    4 x 64 KiB
-      UINT_MAX              1 x 256 KiB    1 x 256 KiB
-    
-    The first three cases gave a DMA-API report before the patch and
-    none after it.
+ drivers/media/i2c/ov08x40.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
- drivers/dma-buf/heaps/cma_heap.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
-index 3fb4b946c91a..9d61d14688b8 100644
---- a/drivers/dma-buf/heaps/cma_heap.c
-+++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -58,16 +58,22 @@ static int cma_heap_attach(struct dma_buf *dmabuf,
- {
- 	struct cma_heap_buffer *buffer = dmabuf->priv;
- 	struct dma_heap_attachment *a;
-+	unsigned int max_segment;
- 	int ret;
+diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
+index 6de0c17e6..af15fe67f 100644
+--- a/drivers/media/i2c/ov08x40.c
++++ b/drivers/media/i2c/ov08x40.c
+@@ -1541,10 +1541,24 @@ static int ov08x40_write_reg_list(struct ov08x40 *ov08x,
+ 	return ov08x40_write_regs(ov08x, r_list->regs, r_list->num_of_regs);
+ }
  
-+	max_segment = dma_get_max_seg_size(attachment->dev);
-+	/* The SG allocator requires a segment limit of at least PAGE_SIZE. */
-+	if (max_segment < PAGE_SIZE)
-+		return -EINVAL;
++/* Largest mode supported by the configured number of CSI-2 data lanes */
++static const struct ov08x40_mode *
++ov08x40_default_mode(const struct ov08x40 *ov08x)
++{
++	unsigned int i;
 +
- 	a = kzalloc_obj(*a);
- 	if (!a)
- 		return -ENOMEM;
++	for (i = 0; i < ARRAY_SIZE(supported_modes); i++) {
++		if (supported_modes[i].lanes == ov08x->mipi_lanes)
++			return &supported_modes[i];
++	}
++
++	return &supported_modes[0];
++}
++
+ static int ov08x40_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ {
+-	const struct ov08x40_mode *default_mode = &supported_modes[0];
+ 	struct ov08x40 *ov08x = to_ov08x40(sd);
++	const struct ov08x40_mode *default_mode = ov08x40_default_mode(ov08x);
+ 	struct v4l2_mbus_framefmt *try_fmt =
+ 		v4l2_subdev_state_get_format(fh->state, 0);
  
--	ret = sg_alloc_table_from_pages(&a->table, buffer->pages,
--					buffer->pagecount, 0,
--					buffer->pagecount << PAGE_SHIFT,
--					GFP_KERNEL);
-+	ret = sg_alloc_table_from_pages_segment(&a->table, buffer->pages,
-+						buffer->pagecount, 0,
-+						buffer->pagecount << PAGE_SHIFT,
-+						max_segment, GFP_KERNEL);
- 	if (ret) {
- 		kfree(a);
- 		return ret;
+@@ -2309,7 +2323,7 @@ static int ov08x40_probe(struct i2c_client *client)
+ 	}
+ 
+ 	/* Set default mode to max resolution */
+-	ov08x->cur_mode = &supported_modes[0];
++	ov08x->cur_mode = ov08x40_default_mode(ov08x);
+ 
+ 	ret = ov08x40_init_controls(ov08x);
+ 	if (ret)
 -- 
-2.53.0
+2.55.0
 
