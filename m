@@ -1,112 +1,109 @@
-Received: from outbound.ci.icloud.com (ci-2003h-snip4-1.eps.apple.com [57.103.91.202])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B95327C09
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8481836B928;
+	Mon,  5 Oct 2026 07:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791183359; cv=none; b=XyfsF1IdNFqw46yc/OeZW9fFP0KxsGNbGUXgwXTpPJ5+2ORen4BT2SeSR1nV1nFedsEz0sJzANK0p3kbvdEinQYQdHVXd9iI5gpFNRq4+SH4qU1uT1O1Jvr5WVCEkGzNHeOLkDuSvsZsVb5nYHgTJMcmXfYv+xuJeMp+vviH8ow=
+	t=1791183672; cv=none; b=TLy/RNZiYkLamiwzNQar8uEYIxAdh0t3jTsTlB9OLNgxMoALXUaiArwpqck4SzRYKDEdP86m3c5OPjrRldR19sTA565BwwdTxhFLuFh1GTywSq+WiBOAwrQeVsgW2quNCw/UJfIEud9wM4NIenFwexFPUpx57mC9wZVYRyKG3+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791183359; c=relaxed/simple;
-	bh=Pxj/V4ni3Q/M5jJkSyX/YAN5m1XvqcBOIHVIjjUnQBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CsNIT7lukqM4rwl9zRryCugGrLqkzB12/V6I6h6v6PVJFJTqGr/ilrpiRZ1MOU7uo5KO7WTgFip3b5J3EkoEyNS94rGu/6ZYuzIJGkeSPfW71W2wPFMcfy4roPtBR/isIDfUH0rbNLK4UJ25sKv1CoozMiNQGVYiwXKjE9Iic/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=T4FfSPZk; arc=none smtp.client-ip=57.103.91.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
+	s=arc-20240116; t=1791183672; c=relaxed/simple;
+	bh=XZq8VL8ZM7hCSbTrhYYxSsjLxgFUhffoXPS7oiE6TAU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XI48TxqbBnwMwz1/sTvr5uZEMR2SXiLoRaICIwf1/MalPGTsiOoa355w8xFYhrt2pAessJKjN4+5wxffXUm5j7ExGaoVaJqPfnNHG/laRkDJmiSNUoesfe/WJRK3im+RCi4zxa0/NFtX2KY11eC/rK9jz7XH9SYuRjrPXy3Bpxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qpE+m16b; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="T4FfSPZk"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-1 (Postfix) with ESMTPS id 43B1E18000BA;
-	Mon, 05 Oct 2026 06:55:52 +0000 (UTC)
-X-ICL-RepId: 01a10ad8-f4c6-7881-975a-14625d5b6abd
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBKHVwPXxxBDUwdXAZdEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlgXA1ccVkVcGEMJXQVXHB0OXkVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQQlIBl0BXgdDDFYCWwZYBV0IVUMEUhlAFXkIWgNYBQNeXwoNTUMSQhUEG0YeQwRfL10XXgxeBQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1791183354; x=1793775354; bh=MfM1eZ9CNmghV1BDWoFw01LZ1/BzzVRW5NNfDwJcO1M=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=T4FfSPZkoLrbpozQX2IpJZWTPcM596xWk9Z7Kq9t98LowkpA+saKnYfCjilqw1z3L/zaVs5suOHPfyPzEt+2PZibF17la4pxLEfWMZE6hTfyIJo++y4NjLZo1bHcX10Fy559Jft/ARR3ft77vEAWvplUng2nRGi8e4wI9wkbEC93YRkQSj4hiOVdjWOsxLn1Boidu3cLbEJuxgi2GfvtjvH0GZqVN5AP48IG3VW2eH10xDxY0Y21s4kVXLlTAEP3IPZNznKj5Ni39LpMErrM4pUrDm+OzxiBFKVXbGphaMmG2uirp1N46dXDwYQ7E9Rel/pRW/Gxp+wNusp8eAlusw==
-mail-alias-created-date: 1575045973000
-Received: from toolbx (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-1 (Postfix) with ESMTPSA id 96843180017A;
-	Mon, 05 Oct 2026 06:55:49 +0000 (UTC)
-From: Pierre Pinon <pierre@pinon1.fr>
-To: linux-media@vger.kernel.org
-Cc: Jimmy Su <jimmy.su@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Oleg Keri <okerixx@gmail.com>,
-	Pierre Pinon <pierre@pinon1.fr>
-Subject: [PATCH] media: i2c: ov08x40: Default to a mode matching the lane count
-Date: Mon,  5 Oct 2026 08:55:35 +0200
-Message-ID: <20261005065535.16137-1-pierre@pinon1.fr>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qpE+m16b"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F1B3DC2BCC7;
+	Mon,  5 Oct 2026 07:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791183672;
+	bh=XZq8VL8ZM7hCSbTrhYYxSsjLxgFUhffoXPS7oiE6TAU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=qpE+m16b7T8KDEiZAAn0EcHAkVwQX2fa7eqMUZvjUsLyUZrGRgop1YSrdhR4d/Hvw
+	 ldlMDn6LYZ3ixxNteb3t+ulCptvUzLC2dqmd28SNmt7w0LNZAUYYWIFyXiMpF0ikvm
+	 uJpYpQ36KhJMxBm6NlPN0FI18dsStiGnEAInGHqC6OaAZkSiKWBxkrVSr4Q5PmQel+
+	 +FNHYu38/pKqBqRAlpWU+/8EOXDeFfApu1oDxA1ezjFTCoM6KXoWLxsz1erM5tPiKS
+	 1xp9tlNSM7gh85egpQgwIeRdPi74V872t4KE89+I+s1Z/FnFmWiVsoP7o2dRBQ1Rle
+	 EmltWTlFeU+hQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD3ABCA5FF0;
+	Mon,  5 Oct 2026 07:01:11 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Mon, 05 Oct 2026 15:01:10 +0800
+Subject: [PATCH] dt-bindings: media: ite,it6625: fix I2C address in example
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: pNnW8L76kRioaEC1K2k2fWaWoeyP0hpq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNyBTYWx0ZWRfX1MXH4NK29e0z
- pOy91QKrh0Qih3NbK2qyJ0UZFdktDtyfJXOIWXnEeX1bjzWDRanjHtfGuWxU6LFLuWMHVF6FthJ
- LFgRU+ZwB2Iw9GG3NEqD+jxiiwBuhftm1O+IgEef2nvU7ZrFwf5QUN3qWRg9Uq8w2VESYfnjlNj
- ZZChxO8WFRp/ag2v6rnkAt5XVto140qXWOzzvFnxW0AwaIfwzbSYeJj4CoDN5Wng4YorGSOF4Nf
- gofvFZd9ct/J5Hev0gUOlIcvFGwy+HpLZQ2p5dk1rAoj5PiEwRBhid0M6gzvnrvTB0adfCpVf2p
- xGhM0hUy7ttIRjo6ceXs2r4zEpi21m7YZ51vMju8VVxHswQB4de7uW3Hr64me4=
-X-Authority-Info-Out: v=2.4 cv=W8A1lBWk c=1 sm=1 tr=0 ts=6ac349f9
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=A7cOQzBelK9jzjY8NncA:9
-X-Proofpoint-GUID: pNnW8L76kRioaEC1K2k2fWaWoeyP0hpq
-X-JNJ: AAAAAAABTihzwFHYnNXnRCQzqZIV8XSEHAOUDYByqyU7VkOs7dr+6W+2V+pvbjz5ZYwtjWgGDJ0cxXHjhUdeD9AE3bL9e7+UpIzFtyXboKe6Tts0q7g/KTltsRcZ161Fu9b3CgsYOo7RJjSjAIEbH6z2CLWaejmD+/4lhXftW9HC2ZIYjMCbq2pbKDjsV9Xuc03JT6o9tWvS24rTArgzQt2HrgZU9UotUDDYux8VAMWXItcmqkg2KzNLipeb+TkBMnarE/+CXO4LhpIndTDmhiff9JzG3FrzMuWjWcdJd5eij4k+eYBuatvSLQOjcuEvisYDg2CwAL6/WfLlPepT9cRWpXL3Npw1ZCESdwmEr+r8sPSNzl6W64CKRJPJ5fS4kZzpTwJ9YF1LUqVAXJn8Q1HLQAwzEroCfOce8sJ3CUi3QzqguuEf3561HwPh/aAMzx9OT0NWalkGooWirHxPxRjmeVWNvsoEjV84oWUGTmZmp2ugv/wmu3bxGeLeZQpbokwu+elBuTmAjp93cMeT4QE0X6yENRnXmTpzqwbvuEBzSjwoXgcAoUSbEihz/l1ULPfp9GezYUB7DCw1819eozV4KCl6pMA+7RBeA1acwM2TN/wYzVp8OrvTEKl+Q3s1Lx8/jyVIPVHVvBDXuwf3RJxepKSpuBOVlP8da2Dmio4yeRSigWLsR9Pm8eJdOguzYYcRoBVZpfkeIIiISq7Ufw7v4QrLdy6D002Vv7kO2MC8Ey5N1ooXt3lXkQFjiTbtU2YqjjE7OCNfiK55T/YAroK4vLy9LutApRhbFD4KakT6GzliSopcelpXR+uBeX7vVaGgx99T7nPgOKyMj3BvHssugCvatSy2kUSxX8/SbAna4G0aXkv6mVmAlDxRvwQjRZtNtHG5gNqXHVif/TPNr3Wr2g4Oo6k4PUrC2RQHq/a2kknWNBJuIalFy+0Bp6Z5XAvbmOJzQtqBoETLZiOtBWK7OpXDcmP
- FGam6BKIgTBkOEyiTFMn/hkAd8k4L8T/hM8c/u+229o5X8s4/oCQvarq7I1EPV7QIGZXTZtWEvCoyTmwsXwq9CQaLBhgZE1YL6+Et8NRiuRdnD5Dt76mZxtb20kYyb07rVGGme/f/O53Z+oB8G7GoVwBlAvi5Jege6W2CZEqnxiZgQJFzRS8N6KHLXJpBkHA0x9OW2YBQNG4tb1h1rzWDVucVN+H+cT4LxKKdXIDFKWS2xe0LozHU9QXP7UZckyvnm9+PayxGH5PKb0yMnqUxhg==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-upstream-it6625-dt-example-i2c-addr-v1-1-11ff60e2293f@ite.com.tw>
+X-B4-Tracking: v=1; b=H4sIADVLw2oC/x2N0QrCMAwAf2Xk2UAbbJn+ivgQ2mwG3CxplcHYv
+ 1v2eHDc7VDFVCrchx1Mflr1s3bwlwHSi9dZUHNnIEfROxfwW2oz4QW1xUgBc0PZeCnvblJCztm
+ QriOHafS3FBP0UjGZdDsvj+dx/AET7kEedQAAAA==
+X-Change-ID: 20261005-upstream-it6625-dt-example-i2c-addr-248a5f819c6c
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791183671; l=1520;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=OrLWDLA4fM9Wv4Fc/STWxB87oF1ekyLlK5DPdsFadMQ=;
+ b=KX3ZFIpwstxZAimr7Zlu7TDoTUNviLo5yCwTNEP/fatQ3WXXRNdDtRu6886ZzF0apvOYl4irQ
+ kjYNt27xnIvCFs8F6OXkIWG2GCJoqbkdcumZP7ANvRqn3PveuIyW6tH
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-On 2-lane boards, probe and open() default to 3856x2416, a 4-lane only
-mode. Use the largest mode supported by the configured number of lanes.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
+The IT6625/IT6626 respond on the I2C bus at the 7-bit address 0x59
+(0xB2 in 8-bit write form, as given in the IT6625 SW programming
+guide). The binding example used 0x4c, which does not match the
+hardware and can mislead board DTS authors copying the example.
+
+Use 0x59 for both the unit address and the reg property.
+
+Fixes: cee2619b011a ("dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge")
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
-  This follows up on the review of the get_selection v2:
-  https://lore.kernel.org/linux-media/20261002094913.28722-1-pierre@pinon1.fr/
+Example-only fix; the schema itself is unchanged.
+---
+ Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/media/i2c/ov08x40.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+index 9b621f726249189255692da02049ebcbf1d5b43c..b766f075dedd4668446856aceb854b24726a1266 100644
+--- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -142,9 +142,9 @@ examples:
+       #address-cells = <1>;
+       #size-cells = <0>;
+ 
+-      hdmi-bridge@4c {
++      hdmi-bridge@59 {
+         compatible = "ite,it6625";
+-        reg = <0x4c>;
++        reg = <0x59>;
+         interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
+ 
+         reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
 
-diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
-index 6de0c17e6..af15fe67f 100644
---- a/drivers/media/i2c/ov08x40.c
-+++ b/drivers/media/i2c/ov08x40.c
-@@ -1541,10 +1541,24 @@ static int ov08x40_write_reg_list(struct ov08x40 *ov08x,
- 	return ov08x40_write_regs(ov08x, r_list->regs, r_list->num_of_regs);
- }
- 
-+/* Largest mode supported by the configured number of CSI-2 data lanes */
-+static const struct ov08x40_mode *
-+ov08x40_default_mode(const struct ov08x40 *ov08x)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(supported_modes); i++) {
-+		if (supported_modes[i].lanes == ov08x->mipi_lanes)
-+			return &supported_modes[i];
-+	}
-+
-+	return &supported_modes[0];
-+}
-+
- static int ov08x40_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- {
--	const struct ov08x40_mode *default_mode = &supported_modes[0];
- 	struct ov08x40 *ov08x = to_ov08x40(sd);
-+	const struct ov08x40_mode *default_mode = ov08x40_default_mode(ov08x);
- 	struct v4l2_mbus_framefmt *try_fmt =
- 		v4l2_subdev_state_get_format(fh->state, 0);
- 
-@@ -2309,7 +2323,7 @@ static int ov08x40_probe(struct i2c_client *client)
- 	}
- 
- 	/* Set default mode to max resolution */
--	ov08x->cur_mode = &supported_modes[0];
-+	ov08x->cur_mode = ov08x40_default_mode(ov08x);
- 
- 	ret = ov08x40_init_controls(ov08x);
- 	if (ret)
+---
+base-commit: 89a3d2a2237e017cdbefcb036db71ce74e67faf5
+change-id: 20261005-upstream-it6625-dt-example-i2c-addr-248a5f819c6c
+
+Best regards,
 -- 
-2.55.0
+Hermes Wu <Hermes.wu@ite.com.tw>
+
 
