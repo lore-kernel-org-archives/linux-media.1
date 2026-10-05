@@ -1,324 +1,284 @@
-Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369204CC261
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 16:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.165
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216374; cv=pass; b=OQkl4dN5lq/YsozihG9iCxeOevOGsRdLeKOjJmySSnQbPqUaHRgbOft6HJDq6mOzBgLJwhUHsQ5efs/mc7/VhohFipMBuL/8k9A7ORRCG+P6KT7O0n+NuimJs/+0zD8+r9L/cwdm4VjjYb967Sp/W0dmWwR5BHxyEXblCuvQq94=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216374; c=relaxed/simple;
-	bh=Aq9n+WVXpMtFimt1yOlnQ5XvkLhJlSuqBmqy8/y2ArE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tRnoII8KCE8imXjgGoj4khV6lmwn6OTT0sHKU+1geQCA3sTO+av2Bin1wDr6undjLGM51YRatBCEfAfacAQpveVDoCrjQy1vs36nE6deXnB8sa8+hnwdzSZh2eIrfvcmEEC7C3SoBhyesM7jEgzSWusN9j9D2JP8FQVUBhUXSXM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=EOJElG+y; arc=pass smtp.client-ip=74.125.231.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C145481AAD
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 16:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791216521; cv=none; b=RqxOr4q+ac7Cufjyxe4F7Z+5YfB5EvlqlGPJ7EK5Uv6boFceX48BBro8DVqXdhOeInV98SabH1VigdaBIt2Jijk8ZkNWAHBHqkPLuRACoRcYPGDHWvNYpI5BpjfDWXl+pml4x1Ua//YmjvCYcxKh9yV3uSIUOCgNX3kt47cCDPw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791216521; c=relaxed/simple;
+	bh=HGg3vTFwT9cs3xra0Fdacg6LFkzkpZ0eEPl0PzLPJsk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A4u7/OXboS6pZ+324GkzYYjb6Lvo4oJSUTeCFa8ioKA71hR+O21GjPvFA23LGwzKhxPOg/D4ruNmEtVbbnwR7RTpfIDHBnBawNpzfyjsoPn4OZ5IDn+XNv5RcbildB3XGcditLW8PGbiHAEIXzpR8iBcCWEguf9bNzq9pSshQBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=YVY0B1WW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A0ro46Hc; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="EOJElG+y"
-Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-7fcb425fc2bso1484859a34.3
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 09:06:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791216371; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ok+5+zGhQO7dWg3dihSf7yssE3SDKsuVu74DmztELF/Qjou/Ta/6fupKEgFC6wg8nz
-         DWn7GxiVLWQs5tMdi+i31mzd45O51w7z6wfwcpPQ4vXf8WYX651dd2/Sj9fc1YAFcbDm
-         dwfeOAaPE2WTv9IrgjhEu+4tScl8WDj6PzEsg/1+Uv4Q4uXfEjqoOw0ccwhnS0IBkRr6
-         ZXqx0QuvymgNr1VabjpnNIxKiEn7EZD/G8tNzL2lmm0BDj7c3CHLn7vk9KAbLk+T22aO
-         JfmTHdX45B/TKd8HGaEUO/t+BrL39o2y6QlMuVJm33Bwj0YLXh1o6RXg3KPU8ODMREdy
-         TvOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iXYOVHIBN9ZC5y6W29Gxv1RB4crN6nX0cmKZsey6SkQ=;
-        fh=IYmTmWGrXViLAWXZBPf85AkrkuvMRZSKYhUJpvjGDac=;
-        b=OyWKVs1g7PP+RFrh0SKTHdl7nBeAmYeI4iHPb16FmilICcIrgXVeX3WmU8banxDaFQ
-         c8rLzw+RPE5FeTsFnioBFa6r6k+tO2Sqz2QiXzUXDWU+gbcVbsMKXcKdeST/adNp62QI
-         hz2jmFhRfLKYNwAyXARH+QfzxA2clAmMu+QaAZe7PjYXxYLp0k5EO4C7C4iyqD5TqaXS
-         41PiJ4zoa/izt8Y1kPkyLlrwIhHIXdncDNQCFcX/2qb50avVfNisCu1R5DWrx8cIoC33
-         iaMAhY9VVZ8akLzkzup0THrl4gYVwfFWerIgHRFpG5VlKk+7713a7YWHBVEfIdj5ehxI
-         SJoA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1791216371; x=1791821171; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iXYOVHIBN9ZC5y6W29Gxv1RB4crN6nX0cmKZsey6SkQ=;
-        b=EOJElG+yVprPGZmCXozcriPDYo2zSVFppo9EetZIKOE91Gl+9rj5Mekb7USpTYjgP8
-         pZK/ZwL8vbXBO7o9KCVGYfxSjHaVkoTPnrQoFnjnzuBTRjXvNLv97JGhix+XIJN7b8Yi
-         8RL/HHGU8kTQ+6SpbtUfK3ia09NLV0bRON1zs/UYusGk6QiVsjBWASARbyKvYcpwpdOw
-         +jA8EO6psEZClWrl//e1uRpTicttL5s3BUQXAmac9xHeJypInDJYCH2msG9Oub5olWQw
-         MQXYOFPVF0LXKKhxVTsejZKFcnmx1Q2G8T3OGQDzNYRsRon7Z3pjABoK3kXQqvCkmTlf
-         W5qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791216371; x=1791821171;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iXYOVHIBN9ZC5y6W29Gxv1RB4crN6nX0cmKZsey6SkQ=;
-        b=x0i+sIcqapbHuSsudrTW4mGAic0HifVojgQXgb+Dca8+Kuem2s7q30CdCLQdbX94O5
-         /Kdl7VAW6a5wYDry7Hw6wxILbxhO1e79Vzo86Yu1A2Zt/I/EhBGwGEKXX6aT/BgsAq+A
-         WvfSZU7kiFBokBdpl+Ai2tFKWZU4+PvzaqwdzjD1ZdpyKOs9D0ltnBfMPjSvG+IXlIg/
-         aj5yll9MI1DPCi2UqiQzJiQAuAWK51l7eDlkEd5gHG3uCJB/cihDy5SohIORBeB+BMfY
-         o4czsejGxSGhsjWTSpKzaeu6x54Zvy0pAFiuZSwcgCUZAUn4LHti8NU31A7HWfJdwpj7
-         5TTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1rBcG+197ReoSeOPktL3YgUc1euycAwqnMjJInpQX9smxZ6Wo1levrcvcMJ6lR//T0l5OKKIYCtLTYA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mqGYSQlFcMb1N3vhsjsYuZCVmRO1lBW35iT8EJYhtFCYs5r7tb
-	Kqdjub3QNKHz79TGLeaOXrRDmvcX18CQCsHFFeLM+URvFBJbZIpdnhUAAiDyagUTazTVHxxUcE1
-	+y1jja5r/jxVUAWOn9hAJcE+K2P5obdIKcy2mjiMiGQ==
-X-Gm-Gg: AYBFou0JQP/pByalMFNi3ZOq0K4j+sKYGL7jbRqdnzUbVVkbGcFOKco2ayTiIAr52ur
-	swdjyBObH9KQQnw+xCZKpin89mCtZZcmdBw+fZCh14pQFVW115HXMRPcPJA26AsirJxojLFMhiM
-	RwTzuaXwc1JJekSJsOeokC1zhRY92W2Ep4Xrsj9cqjYiZ3pUsm8NMHpCPwYNMSWPbcHCzbN/FxF
-	oiUN2Bs3bSs2ORQIiJoGavlEwdTCXDgQ5pnUnsRnymik37JoNusDH7y3pk95HVRvzLWQdIpxyKk
-	6hBxKOYu5e1JIuFxlYVSEljjfVNbcbFStAOMlkxS6aEVcpra3mj2M7jX5z36ubdJBBOrCBT7hW0
-	zRZzUxwfwhcU39+CPTby8R8CdoqwNGqP6OK2EZsAvObG4JtF2BUgNk93PTFJQhXBtLZJuxN1x
-X-Received: by 2002:a05:6820:4df8:b0:6c0:6199:8274 with SMTP id
- 006d021491bc7-6df34a77d53mr9550307eaf.63.1791216370746; Mon, 05 Oct 2026
- 09:06:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="YVY0B1WW";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A0ro46Hc"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 31523EC0918
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 12:08:37 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 05 Oct 2026 12:08:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791216517;
+	 x=1791302917; bh=u2CmOWw6YQCImPNSkhIO4WX/l034UQ2ZOYIj4264qHs=; b=
+	YVY0B1WWsRH91/b/X+KPYhiUsf9DZJ1Y8ZfuB+hBmqHi4voCyBrEVCzTAzcnqqJ+
+	xweWbYlSZ+PZnhTmJ3JhxvuRro2Iml/GmrcNFVxSZL5AcmeEUjxG66is42fCHL56
+	/lIFf4axF6Vtqb6ie445lx+YMO8gLkhshzRD2yiVW0/e0tHH0h8LkoYgMs3PvNWL
+	adBX9Nw2YMN11IqpE1XZGqVoKxHd5wVZTQXOmIYOHAXTj3jfiN4OzNgCeNUStGUN
+	tOfv2nzraiB8O1CkFJRIceT9n2S5qYMtVfaIGImNnLYUzUHdZag0D4zGacxUGpxc
+	x4x95tLDGJGdJTjKM4Zp8g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791216517; x=
+	1791302917; bh=u2CmOWw6YQCImPNSkhIO4WX/l034UQ2ZOYIj4264qHs=; b=A
+	0ro46HcYIRQnOHuepcitLupojocReZd3H6bcLPKttkTG6cDqobmX3058UHpWM+U2
+	lGOPln3HEuQZIO2bVnl8rGIIafz+9K/IJ8e3KAezMKF2TJbrJNL0FLlPZlFJ1OuO
+	eam6CMq5N6HvxQFC4H7H3nqC81ZN4vUVr+wjUvp4j2jow3FMzbW3shkyTYuVFu2q
+	5XaCaoMyD9ZVGtHteXFdXzWiMAYjwHe+DbFFCDdOWn6VHw15Tgle/0G0594tkmbu
+	Dd3JSjaIbB11Rr574+Wq5lawtBwmlbIkZZOP77iMGyq5yQ/mZAPRiq7p8ZJ9PRNv
+	6k1ONqZYU5bpd35x40dCw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791216517; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm1:rsa-sha256:TZju1z79s+Im14BF4CPTkvAcroJWLAMHbDiqes5G7gb3AU9
+	anlw5aYxeDb+g2i9OdcGTpevgwSj76xZJuNezPjcNQDMLWuW16krJQ3sfLLf9a+j
+	/Zy/uYJ7JChC8w5cM2Pr9qiZzTbl470GRjkl8A0XmiHs2k9yEvB+O9BlGOHn/3l6
+	lyzwZcGplloQGAkx9PqkMk3X8T8AlXhDgvML1oXRcCVNmmAQ3KzrO01CSElXKa3j
+	d9MrWOSp6n3fBcMBTqJhCx4uKFT1G5+bCdC+sLcZir/J511vABvkk0OFfFyGxzl9
+	6DYi8PNjPULtYmZdB7LARgdYDylt/fLs7IDXDVg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:iA6wwhB8tKDaU4UCn0XNx1K55ruGkX8hpu3bQCvG7io=:HGg3vTFwT9cs3xra0Fdacg6LFkzkpZ0eEPl0PzLPJsk=;
+X-ME-Sender: <xms:hMvDaoytEeT2olvWEwLdwJx_Pyng208iSQa12GYLclBHnryS3o-vrA>
+    <xme:hMvDake99CRE0QWQGdo-urUXwPjj5uJYjc8hawIAzLMiHFQRpzxxNmgmGoU_Ihmwo
+    LhkQX5gEtMe9zX0RgNAEifrkiwDbw53ce-R7gfWScf2R_5qKoN1Hco>
+X-ME-Received: <xmr:hMvDal4jMTfJ8s_TE0WuJFhcsYVGee5G30vSJ3HO_jHpIpicWOIo6tXKNcalqjLU40Na4jmFDnt5LOtY8KICs0OxNfX2YEg>
+X-ME-Proxy-Cause: dmFkZTEe/uWcROJxRt3zO8jNocSwmVFJ5uPbz41vUYEWE+TUmS238r+h2WpJh52laQKGvX
+    1YKxt5ljwfLSQ3JZdtFZBCyC/5SNa59sSKzPvJvRgMuGW9UJKKK/jg8uf9C1lO6vAEdcXs
+    scFnRyp4V/HJov7uDxt/+E4NBs4RSshGzIIgzmCXUFsRsFdyLpU0bhWgbwVJ1KxaMadG7y
+    diQatgwvyMhF7aScITKogHJSgpA9GsnKigGpoFotF2svSTs3RgCq2y0SRgPPmHyafeYuoZ
+    XKZbFJQ1iYJYK96f0anGkzWZwRrdwug2qYqN55rmvffCHlLJ7dQbsX1LuUeNda92nEToFp
+    LrzpjzK2Gok2ty6RbhtrUlRn0Rn4bIJBJmf3vVBvv3bwyh5SXfYdKGUJEoc4Zs4q4YkqWc
+    MVvf4+3qHAS+62g+bSgJu6AwNL+Q1XoCdyNo909eCcyCqMRDDHFDDU9BiGFxocH7USPMHr
+    Qc5U4jXjZv2ehMkz0Gqh/PVQfUk6ySPsubrgFv+2Dnuh+bmcsCC4hbNbHMRaTJJlDzlqxA
+    9uLuwUaHX24QfswaYP/VJJVnOtqxBn6MAbkTnhDhG62GC6XyM5O6Z+WIUXEB9UXr0yenTG
+    nMYa4Z9nP9vgGKzR+2+Es2B6eThiB8NvMi1834efgAd14ZDDL0g+VEU2y8vQ
+X-ME-Proxy: <xmx:hMvDahIJ0yadXp4XvQDiqTs4CnXKOiD-L705PNbNo9G_im8N_7V10A>
+    <xmx:hMvDalxM5xF7vjgZXnD_fhOGAYwIBFQCopHv3zqlgy-Ilv2Zrrb0Kw>
+    <xmx:hMvDahL-ypFWOwe_LC0J21QkMSr9sk9VWOm_qj0B4uHqNTHvio9xpg>
+    <xmx:hMvDasV0FRh1ArmstVtBqi8mlpqkAgS8ViR1V0rGDD-BoZt42KKlVw>
+    <xmx:hcvDavaqsJEoMr_aRS6Mwj_-pXm29n6bAJKtP_9Cjt6SjY4LJHXgoSGq>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Oct 2026 12:08:35 -0400 (EDT)
+Date: Mon, 5 Oct 2026 18:08:33 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
+Message-ID: <20261005160833.GA3658258@ragnatech.se>
+References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
+ <asIXMIVjbusYLbaR@zed>
+ <58f364aa-0960-4ae1-95e6-1313b9d08bdd@ideasonboard.com>
+ <asNsjkhHv9OoMjqm@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev> <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
- <arpyD2CjxOqwQvx8@bombadil> <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
- <arrVt-0ctw1cXkkW@bombadil> <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
- <asO1sIZC8rOyhSnu@bombadil>
-In-Reply-To: <asO1sIZC8rOyhSnu@bombadil>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 5 Oct 2026 17:05:54 +0100
-X-Gm-Features: AclHuK8iEACOzxyne6yAjoVoTGdSzWQb6lh-WlVBlMti3keDCEYJo8j4rsyZRHE
-Message-ID: <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control range
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <asNsjkhHv9OoMjqm@zed>
 
-Hi Richard
+On 2026-10-05 11:24:14 +0200, Jacopo Mondi wrote:
+> Hi Barnabás
+> 
+> On Mon, Oct 05, 2026 at 10:55:00AM +0200, Barnabás Pőcze wrote:
+> > 2026. 10. 04. 11:14 keltezéssel, Jacopo Mondi írta:
+> > > Hi Barnabás
+> > >
+> > > On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
+> > > > `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
+> > > > step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
+> > > > to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
+> > > >
+> > > > So move these constants into macros to avoid the repetition, and with that,
+> > > > use 4 as the step size everywhere.
+> > >
+> > > Why 4 ?
+> > >
+> > > I can't find any such limit in documentation.
+> > >
+> > > For input I don't find alignment constraints nor in CS or VSPX
+> > > documentation.
+> > >
+> > > For output I only see a requirement that the stride is 256 bits
+> > > aligned, something that is enforced by risp_io_capture_try_format()
+> > > already.
+> > >
+> > > I see Niklas has reviewed the patch, so he might have found somewhere
+> > > in the long documentation where the alignment for both input and
+> > > capture nodes is described.
+> >
+> > My primary goal was to remove the inconsistency between the reported and applied
+> > step sizes. So I went with 4 because that was the applied step size, so with that,
+> 
+> Let's first clarify if the 4 was intentional or is the API of
+> v4l_bound_align_image() that confused us.
+> 
+> Niklas: any recollection here ?
 
-On Mon, 5 Oct 2026 at 15:46, Richard Leitner <richard.leitner@linux.dev> wrote:
->
-> On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
-> > On Mon, 28 Sept 2026 at 22:08, Richard Leitner
-> > <richard.leitner@linux.dev> wrote:
-> > >
-> > > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
-> > > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
-> > > > <richard.leitner@linux.dev> wrote:
-> > > > >
-> > > > > Hi Dave,
-> > > > >
-> > > > > thanks for your feedback! Greatly appreciated!
-> > > > >
-> > > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> > > > > > Hi Richard
-> > > > > >
-> > > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > > > > <richard.leitner@linux.dev> wrote:
-> > > > > > >
-> > > > > > > When updating the flash_duration range ensure the ceiling is at least as
-> > > > > > > long as the exposure time is. This may cause the calculated
-> > > > > > > flash_duration register value to be rounded up.
-> > > > > > >
-> > > > > > > This is done by introducing a new
-> > > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
-> > > > > > > wherever possible.
-> > > > > > >
-> > > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > > > > ---
-> > > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> > > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
-> > > > > > >
-> > > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > > > > index f728709fcf0a6..be38ecfad8c82 100644
-> > > > > > > --- a/drivers/media/i2c/ov9282.c
-> > > > > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > > > > > >                                 NSEC_PER_USEC);
-> > > > > > >  }
-> > > > > > >
-> > > > > > > +/**
-> > > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > > > > > > + * @ov9282: pointer to ov9282 device
-> > > > > > > + *
-> > > > > > > + * This may round up the ceiling to the microseconds representation of the
-> > > > > > > + * next flash_duration register value to make sure one can illuminate the whole
-> > > > > > > + * exposure time long.
-> > > > > > > + *
-> > > > > > > + * Return: 0 if successful, error code otherwise.
-> > > > > > > + */
-> > > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > > > > > > +{
-> > > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > > > > > > +
-> > > > > > > +       if (fd_max_us < exposure_us)
-> > > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> > > > > >
-> > > > > > Reading the driver for how it handles flash duration, it all gets a
-> > > > > > bit convoluted. I see part of it comes from the units being usecs
-> > > > > > whilst natively it is in lines, but we've got this slightly odd calc
-> > > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
-> > > > > > value.
-> > > > >
-> > > > > That's true. I'm also not happy with this back-and-forth conversion between
-> > > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-> > > > > all "timing related" controls in the same unit (likely usecs). I was
-> > > > > already playing around with that approach, but as this would break the
-> > > > > current exporsure property I have not sent those patches...
-> > > > >
-> > > > > If you have any "mainline-acceptable" idea on how to do that I would
-> > > > > definitely love to hear it ;-)
-> > > >
-> > > > Sadly I think that there is a need for some of the back and forth in
-> > > > conversions :-(
-> > > >
-> > > > > > Seeing as this is the max flash_duration, is it actually limited by
-> > > > > > the exposure, or by the frame duration? The difference between those
-> > > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> > > > > > you up to another 9usecs to play with. That covers any of this
-> > > > > > rounding stuff. You can afford to always round that one down and never
-> > > > > > clip the range below the exposure time.
-> > > > >
-> > > > > From a hardware perspective this isn't limited at all AFAICT. But from a
-> > > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
-> > > > > the hard-coded default case in this driver currently) longer than the
-> > > > > exposure time makes no sense, as it does not have any effect on the image.
-> > > > >
-> > > > > With this patch I want to make sure to be able to illuminate the frame
-> > > > > during the complete exposure time, but keep the maximum as short as
-> > > > > possible. So I was comparing/aiming this at the exposure time, not the
-> > > > > frame duration.
-> > > > >
-> > > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-> > > > > time: Would a "turned-on flash" during those 25 lines have any impact on
-> > > > > the frames brightness in your opinion?
-> > > > > I haven't explicitely tested/measured this with hardware, but I guess
-> > > > > this does not have any impact?
-> > > >
-> > > > No, as this is a global shutter sensor I wouldn't expect the flash to
-> > > > impact the image if a connected flash was on for more lines than the
-> > > > exposure.
-> > > >
-> > > > > Or do you mean when calculating against the frame duration the +/-1
-> > > > > stuff can be dropped and the code would be easier to read?
-> > > >
-> > > > Yes, I'm suggesting the driver handles the range of values that the
-> > > > hardware can support correctly. Whether that helps for your image
-> > > > quality requirements is a different question.
-> > > > The driver can pass the buck with at least some of the rounding issues
-> > > > to userspace, which potentially has use-case specific knowledge. And
-> > > > it simplifies the driver in the process.
-> > >
-> > > Talking about "range of values that the hardware can support": AFAICT
-> > > the strobe duration is (from a sensor hardware point of view) not
-> > > limited by the frame duration. At least I found nothing on this in the
-> > > datasheet and a quick test on hardware also showed no correlation.
-> >
-> > Interesting. So if you set it to a 1 second strobe pulse when
-> > streaming at 60fps, what behaviour do you get?
->
-> I haven't tested the 1 second strobe explicitely. But the strobe in my
-> case is always on for the configured time. No matter if it exceeds the
-> frame time/trigger. After the configured strobe_duration passed it goes
-> low until the next trigger happens.
->
-> Maybe the following visualization helps:
->
->
-> strobe duration < frame time:
->                   __         __         __         __
->                  |  |       |  |       |  |       |  |
-> strobe signal   _|  |_______|  |_______|  |_______|  |_____
-> strobe trigger   ^          ^          ^          ^
->
->
-> frame time < strobe duration < 2x frame time:
->                   _____________         _____________
->                  |             |       |             |
-> strobe signal   _|             |_______|             |_____
-> strobe trigger   ^          ^          ^          ^
->
->
-> 2x frame time < strobe duration < 3x frame time:
->                   ________________________         ________
->                  |                        |       |
-> strobe signal   _|                        |_______|
-> strobe trigger   ^          ^          ^          ^
->
-> Therefore I would strongly suggest to set the maximum strobe duration to
-> be in every case shorter than the "frame time".
->
-> For the reasons discussed earlier it the maximum strobe duration should
-> be the same or longer than the actual exposure time.
->
-> What's your take on this Dave? Or Sakari?
+I think this was picked/discovered early when we where debuggin the 
+issues in the DMA from the VSPX and never re-evaluated. I acked the 
+packed as it do the correct thing, expose the limit we enforce in 
+TRY_FORMAT to the enumeration of frame sizes which was inconsistent.
 
-Seeing as the behaviour is logical, personally I'd go with allowing
-whatever strobe period (up to the register max), and leave it up to
-userspace to keep the period below the exposure time if that is what
-is desired for the use case.
+> 
+> > it's quite certain that nothing that has worked will break.
+> >
+> > Admittedly I do not know if that is the correct number, but I think that can
+> > be considered a separate issue.
+> >
+> >
+> >
+> > >
+> > > >
+> > > > Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
+> > > > Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+> > > > Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > > > ---
+> > > > changes in v2:
+> > > >    * fix typo
+> > > >
+> > > > v1: https://lore.kernel.org/linux-media/20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com
+> > > > ---
+> > > >   .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
+> > > >   1 file changed, 24 insertions(+), 16 deletions(-)
+> > > >
+> > > > diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > > > index 820af506f896c..b60b91f43d42d 100644
+> > > > --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > > > +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > > > @@ -15,6 +15,12 @@
+> > > >
+> > > >   #include "risp-core.h"
+> > > >
+> > > > +#define RISP_MIN_WIDTH 128
+> > > > +#define RISP_MAX_WIDTH 5120
+> > > > +#define RISP_MIN_HEIGHT 128
+> > > > +#define RISP_MAX_HEIGHT 4096
+> > > > +#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
+> > >
+> > > The fact that 2 means 2^2 is only because of how
+> > > v4l_bound_align_image() is implemented
+> > >
+> > > > +
+> > > >   #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
+> > > >
+> > > >   static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
+> > > > @@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
+> > > >   {
+> > > >   	unsigned int bpp = 0;
+> > > >
+> > > > -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+> > > > -			      &pix->height, 128, 4096, 2, 0);
+> > > > +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
+> > > > +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
+> > >
+> > > Should we maybe use 1 here, unless it is documented that 4 is a
+> > > requirement ?
+> > >
+> > > My suspicion is that we originally meant '2' everywhere, but
+> > > v4l_bound_align_image() is weird and if you pass '2' in it means
+> > > '2^2' and this went unnoticed.
+> > >
+> > > > +			      0);
+> > > >
+> > > >   	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
+> > > >   		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
+> > > > @@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
+> > > >
+> > > >   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+> > > >
+> > > > -	fsize->stepwise.min_width = 128;
+> > > > -	fsize->stepwise.max_width = 5120;
+> > > > -	fsize->stepwise.step_width = 2;
+> > > > +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
+> > > > +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
+> > > > +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+> > > >
+> > > > -	fsize->stepwise.min_height = 128;
+> > > > -	fsize->stepwise.max_height = 4096;
+> > > > -	fsize->stepwise.step_height = 2;
+> > > > +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
+> > > > +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
+> > > > +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+> > > >
+> > > >   	return 0;
+> > > >   }
+> > > > @@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
+> > > >   static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+> > > >   				       struct v4l2_pix_format_mplane *pix)
+> > > >   {
+> > > > -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+> > > > -			      &pix->height, 128, 4096, 2, 0);
+> > > > +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
+> > > > +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
+> > > > +			      0);
+> > > >
+> > > >   	pix->field = V4L2_FIELD_NONE;
+> > > >   	pix->colorspace = V4L2_COLORSPACE_SRGB;
+> > > > @@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
+> > > >
+> > > >   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+> > > >
+> > > > -	fsize->stepwise.min_width = 128;
+> > > > -	fsize->stepwise.max_width = 5120;
+> > > > -	fsize->stepwise.step_width = 2;
+> > > > +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
+> > > > +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
+> > > > +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+> > > >
+> > > > -	fsize->stepwise.min_height = 128;
+> > > > -	fsize->stepwise.max_height = 4096;
+> > > > -	fsize->stepwise.step_height = 2;
+> > > > +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
+> > > > +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
+> > > > +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+> > > >
+> > > >   	return 0;
+> > > >   }
+> > > > --
+> > > > 2.55.0
+> > > >
+> > > >
+> >
 
-  Dave
-
-> thanks & regards;rl
->
-> > It triggers at the relevant point on one (random) frame, holds the
-> > strobe line active for the 1sec, deasserts the strobe line, and then
-> > waits for the relevant trigger point of the next frame to repeat the
-> > cycle?
-> >
-> > > So IMHO the real maximum flash duration range the sensor can support is
-> > > the maximum strobe_frame_span register value.
-> > >
-> > > I'm not saying this makes any sense from a use-case perspective, but if
-> > > we require the driver to support the hardware's maximum values wouldn't
-> > > that be the correct approach?
-> >
-> > I don't believe there are any defined *requirements* for how a driver
-> > should behave with regard to flash timings beyond that in the control
-> > docs [1], and that doesn't list any constraints.
-> > If this sensor does behave all the way up to the maximum
-> > strobe_frame_span register value, then I probably would go for that.
-> > Other than having to convert into usecs on mode change based on pixel
-> > rate, it at least saves recomputing it as any other controls change.
-> >
-> > Sakari - what's your view?
-> >
-> >   Dave
-> >
-> > [1] https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/ext-ctrls-flash.html
-> >
-> > > Or am I misunderstanding something?
-> > >
-> > > regards;rl
-> > >
-> > > >
-> > > > > Sorry If misunderstood your feedback somehow.
-> > > > >
-> > > > > >
-> > > > > > There is reference in the docs to a different behaviour if "the
-> > > > > > vertical blanking period is long", but with a bit to set to give
-> > > > > > stable behaviour (0x3017 bit 1).
-> > > > >
-> > > > > I've read that paragraph in the datasheet, yes. But as this was not
-> > > > > affecting my use-case I haven't included this in this series or my
-> > > > > downstream kernel. Do you think it's worth adding support for this? Do
-> > > > > you know of any reports complaining about this power saving feature?
-> > > >
-> > > > It only matters if you allow flash duration to be significantly
-> > > > greater than the exposure time, which I was effectively proposing.
-> > > >
-> > > >   Dave
-> > > >
-> > >
-> > > [... snip ...]
+-- 
+Kind Regards,
+Niklas Söderlund
