@@ -1,47 +1,80 @@
-Received: from outbound.ms.icloud.com (ms-2004b-snip4-11.eps.apple.com [57.103.74.191])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E19837204D
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 08:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC4F3F4841
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 08:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188154; cv=none; b=WIHN4tHP8wu+4tU7D5zbtSAIWUsfLrSNvKCu5ToNBINjGnWOQswqDFifdZBqQ44PCfwiGJ+D03jTLheEsACFDYNcROijfzGHzlhGLWURO36xtdvOhHNxr1lkbWM7LptL4NloQITkddshzCzzTLddlkPUOZ29nC7i2cDA0XLOsvg=
+	t=1791189407; cv=none; b=aANeI0JaBRmd5G45B1BmveX24TKkjloAp1o1wd6rGGV3Qn/Bb4hB/8ZBr/Q1aUXm5XE7o9xUQpSinGB/FrmsQtyAmMyOkhg6/W6yBB1hdDosHkQOv20IhvhVtHp62Hdrh7J4DHaiEUmWjhbQcB9xCcReFLEuNsYeMfMviMu9aHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188154; c=relaxed/simple;
-	bh=ql6nD8jjUHofs2j5B+YAjajTgb1xVq27Du8E/O8QWI0=;
+	s=arc-20240116; t=1791189407; c=relaxed/simple;
+	bh=xVWhoI1lNUOU6HwKrdL16M8Wcy17FpNv6JjlWtBiFHw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Umne7ZXO4LBCm5Hs5snveqlwrGBjxAzaewuveDcOFQWalsgh/XujdtD/Dn3+MEV7CDcWfLuYyGSq1Bc7hsoPJpbJSKt8EOYcMErQqoSAgfELpdLE3sxVS1h1v1fdOIlZSpd6PUnUdcI2HfNfy9j2csyO+6VFX0cKG3PTpdOaGeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=DSdcCq1Q; arc=none smtp.client-ip=57.103.74.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
+	 MIME-Version; b=d3eIeFnJd0B0L2h0olEbMxrXpCRFKTfUE8+RGlYb1H9gEpGXFNfPpkQTrb+kQTY7BVx042RuaiwyyEJ/HXPXTJR7qXdRJ2p72EnAYyNk/TykPsdz8kt3mHsyTorkHg4SS54ffvTEj7KSCd+r9UbWY3Q5IhEGDH7I6ZfKpGcVzng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3Rn2Sw4; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="DSdcCq1Q"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-7 (Postfix) with ESMTPS id 82C981800355;
-	Mon, 05 Oct 2026 08:15:47 +0000 (UTC)
-X-ICL-RepId: 01a10b22-1c67-7000-b57d-931cd80d19f9
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUwdXAZdEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlQXA1ccVkVcGEMJXQVXHB0AREVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQQlIBl0PWgdCAFYHWAFSBV0IVUMEUhlAFXkIWgNYBQNeXwoNTUMSQhUEG0YeQwRfL10XXgxeBQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1791188149; x=1793780149; bh=L9uLoOBTD9w1t1qUvTjFgamb/kOBtGPS0KtQvW60OSY=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=DSdcCq1Qo+QoBhR9qXcHsyNdqqnOti6bOyqU+GLw3XXUObYLYh6pjydodn7gMcW5msgq7/qHMH89iM3mfQXoigRxPUWucUPeoM57P7e+cnkaZnHYM2uqdU0bBezcsMesZDrPXG03vnut9PfMqa9lIm05/WDuHIunBYARYfDo91g0foKUQ5W5Lpnlhz75KnQlGgx0edB8eXy/zgOKsHxBmoAH51aJ20SjVQ0Y8FlsBumewiuombQkVewzbMblxwIvF7Elye3T7442yQ8wPg+hx3qIkKTPpQwywsgJTo3sW4Bd6tN2CHG8qa+o1ToewtLC7kXi9UhXdCEm6CK2NRz52w==
-mail-alias-created-date: 1575045973000
-Received: from toolbx (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-7 (Postfix) with ESMTPSA id 87FB618000B0;
-	Mon, 05 Oct 2026 08:15:44 +0000 (UTC)
-From: Pierre Pinon <pierre@pinon1.fr>
-To: okerixx@gmail.com
-Cc: hansg@kernel.org,
-	jason.z.chen@intel.com,
-	jimmy.su@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3Rn2Sw4"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso13916085e9.1
+        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 01:36:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791189405; x=1791794205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
+        b=W3Rn2Sw4fmV+JEy9l/LRs2sdd2M0OqA85K9pcdruSRtQPUX24/Ozxpm8GgMKHXs33a
+         NrlEVeJs/iUdXLZJ83eYePucLoiUh0Xxb0x9JRDqw8ZVD901Ysgx2/vLRjIFdaJaaKEk
+         4HIgirjGIjg6apKmmRYHHrq+eu6F+9B8AMBX0U3Mh57Sr3DtMdZ6Mqm87iLV29IhYkb7
+         aCG1mF+3RR6UFyMbcglHEdXvw0AArduKougLV4enqRdQQFX6fTCHzyZtr4YKxzpPaNjr
+         ta8EkiHk4Glpj2pccjkqrsS72Hn4mxanb30SZeBmYoSpweZf1cljOlMhxZE5RlAZvICk
+         7Erw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791189405; x=1791794205;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
+        b=MjGXZNj3I6SoI4NI2XxTypRSTEC7AztpvYf6UpTal0+Z6aWopMs/e3bS4baLl45t1w
+         TjPkD6dQbkDfXYlVG/N82w1ANTwrdYvGuomvdiG6BMQFUbDPOtUsDdLpXuban9MQM1eD
+         wKqtuTu0j6z6SmwV2542zbMPdRnfKqZjIaQFXkwRNa+y6lskvEv18xQmrrp9TjrEhMGx
+         dBKfoxEEVTcTyTywlT28ZbJDHbJEEs5fTHNqiZDIrDUsg4qPqXLjF21W3GZWlDC8jnai
+         9plEPOXtNp899jW87YVZ6UyEiRIdCy4GC67La4VHFsz98DlmYr+UjGBJIlZ25gDhyFqs
+         xauQ==
+X-Gm-Message-State: AFuF++nyvMPY7QE1FyZhz1Tfg2LNef5knTJFxvVHEPeL5FkklhYQ1lNm
+	rJ37EkuLyoisgAKHLGsajViBIM7efw5mq1XFuw5ojwDtmRukkIwxySFE
+X-Gm-Gg: AYBFou3zIHWYpUrIMluV7qu7t5tuICp0p6ih1FayY+ItiFFZIR/DFwW1jLGNZ8KWhGj
+	wg3XMdlgx/x/UGyhfird3M95MWS/OQpKbD86sH531QLGC9yZIrC0VOYPt4rc/7/MswK6buTy+pP
+	fiBXr7zYHu83zrnavO/ifpNxx4zJpayVACL89eOQUQAP38FagJGXIXCHmq49zpyVCDJawLlnbrd
+	CmGZfqKKqw2Vyw94m/oIarufRfBxwdKJrs/PZzeOIXKkbNwDzgbo7Fy2itumMPhOIzXKmaVDa4T
+	7KtIRSdeoBP6egyuzEdIgy5CjWYrc9t1hzshgz9uqQAB9oy6pXMUynJGNfwgJGziDkvPcnpdmIA
+	Zy3kmiWyZ4e4PBX2ChH0OWRx35MA10C0mrnt34tLuzuYCfjSyRPTlcTlH6Z2AZK/A5M4HV/ieRg
+	u3aIuIrV+BBsC7es55AzZ6w09NWrEdcx2fIYbpTBJ0hw+PqNJnDRPDLhMCvdktCqi5CUt4z2HcG
+	K9tiG3AA4Q4Z15t/vOrawGYUbOeoJa79emgK8YgiDWN4cDKBJFd4G+zgU3Go0B+kC4KsUz03l9P
+	RawbJ+XwUOCtP/usBo5Bi7i5lw==
+X-Received: by 2002:a05:600c:a010:b0:4a0:251f:a726 with SMTP id 5b1f17b1804b1-4a02759badbmr163677825e9.24.1791189404503;
+        Mon, 05 Oct 2026 01:36:44 -0700 (PDT)
+Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16620dbdfsm219210615e9.0.2026.10.05.01.36.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 01:36:43 -0700 (PDT)
+From: Robert Bozik <robertbozik@gmail.com>
+To: sakari.ailus@linux.intel.com
+Cc: linux-media@vger.kernel.org,
 	mchehab@kernel.org,
-	pierre@pinon1.fr,
-	sakari.ailus@linux.intel.com
-Subject: Re: [PATCH v2] media: i2c: ov08x40: Implement get_selection
-Date: Mon,  5 Oct 2026 10:15:29 +0200
-Message-ID: <20261005081529.45697-1-pierre@pinon1.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179096167726.2508.10599420708324219706@gmail.com>
-References: <179096167726.2508.10599420708324219706@gmail.com>
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	conor.dooley@microchip.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
+Date: Mon,  5 Oct 2026 10:36:42 +0200
+Message-ID: <20261005083642.11511-1-robertbozik@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
+References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-2-robertbozik@gmail.com> <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,56 +82,24 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: _wGdSyeo90-Lf0E4K9-Xpy2mt9W8BmPk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMiBTYWx0ZWRfXzzUnNAmr3Iy8
- UxTz7/MHwHFem0JbpGjg74EdUothEy9Z8il0vMheI8G/YZ6Jhx3fn1sjWSlqXqT7TfBUQP2dq62
- F94m7rjqDdJZtwHnsV/9BcpM8igPD/4BSsa9hEgmzEDwCLv5Tiq19o2LmmsTv0hxoA+XeJ/OBdG
- vMCE42v67UG9mc+UhoJHT+WpDwdKmhgw5gLpNqUCea3xKX42O6QG4CQIWna6T8jVsMn5ox06lPY
- hdxsSTB/XMYoko7BEsRQ4T3ZJO7tO7+znREcZACVtkwRnsBr6Y6izfeKrNuVCovqqn6i4s2FeaU
- 49Py4LRqg96gvnnjRgdeXu61iX/1TpIz/H6oSSRMF5hqnEXAaZOeiCpNzrAAIs=
-X-Proofpoint-GUID: _wGdSyeo90-Lf0E4K9-Xpy2mt9W8BmPk
-X-Authority-Info-Out: v=2.4 cv=Y+v1cxeN c=1 sm=1 tr=0 ts=6ac35cb4
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=Cl8kbS0eVb9THYje38kA:9
-X-JNJ: AAAAAAABy8DTSxHgvZO59cEsTWJAbEdyCxmQEuJSHMckWS16jams2NRUg+ATLDC/EURyf3bI8m/UL/HV0iGNkzfLluDquEb9ZgLi9tyBBVaD7Qa4dHsfkzR9u0B1VKtTk1AiKomdtPohlcCtYNLwta+wvIbDPy90Y4n7jD5F+7X7Pqaq1e4LlYQM0neebX/5sFCTO7bdg1FA1+XLR/aY9eGnZ69gQLtR6h8WuxCbp1G+1BTcZGxGS8X65lbWImcgRpAIBwyscH9Yj7nbjInKzGKqlQ9f1iDqWZ3WhVoeEEvIu/yh//RmOVs7ZSvBw13JNRu+SJM/uZIwYZ16R+XzTfCDAW0RVG5TfgngnfVj99spBikEX/nZKrbS1fLkWav1WmeQGws/b0BvGsINLCgh6uZCdLIjOH7DCe7m6nb4W20KcgsbufVTQ2Ibkn76rMbi/tj3uPot5/yN9w5vAlIUBLEn91yTeVwTVSaCGYOKApN8FMdPQ07wMhV7d/lBIBq/nmFi3+sQkyV0UAn8iFSP41+yXLEtCDiaotg+mYrkcu3vNChk9VwDfC4hWIvmyF+ZHWa7DAorYSKx90rxTfZy0k16t1zhSvFbeMhmgQUNa3+ITWXQjcB3HhBkel9YtmllFgzU0e6JD/xOqaTzQSQc9BrjkYWAMBTk2ySxtW00UISL3MkvgorpEh1KxZhsqCOxoRhahUjBU8/sUU4ePgHkPtMU+2SrtDMvo7SOtlsDszPovW2jhY7uQ+QFXtTatOCtiwocGoJ+3ulDZwG8H97PhwU/kUc0HhbE7Rbaw27XvhdxEgR1K9Jo20Lv7/XAPcsuVEFZhqoxE5Qnjy4GEFa61QnqQgRsUrsZx/9OrTNaqa7/Qo+jorzIqA21PuZRoN8W4uSxrUlL18Tq8Qy2d9NXJn3tvtKb9TVEy542dneqhTWSM9ikBxX8SElY/1C57/jlQPuq19Ohlf8+6fT6t5Re+G4Q7xOlqF8
- N8/fZJKe14O5D2qpIygt3gO0c+b8K5+PubjMSjpEM322byl1elQrzgcHwOcPHDBFGKYR/BvGF7essAEHBAGH8BKb80WyM2LdKlr37d6jrp3MNWVv8mSRd3bGdPnA9lLJugkTlSn7b4aLQ74FRm/fCtcosZVlRIXCESb4GcL8fvildFC+SGzDOw//fU1ZjdrRtCShmpl6zLNkaL9CxYX2tr9EWx5gagUepINm1DR2aZUFIEkWyHzyaqr6pen8LfNeWZ8TH1jem/txqJ6SOppzPYHEJ+Or60FxxpACz3SpGctuR4Zg29HufDw8LxesOGV9PEWDohGPlGJ22eHKLzVX0Bv7ehhRQf1tbJr0jg+5ERA==
 
-Hi Oleg,
+Hi Sakari,
 
-On Fri, Oct 02, 2026 at 07:24:20PM +0200, Oleg Keri wrote:
-> v2 works here on the Lenovo Yoga Slim 7x Gen 11 (2-lane, libcamera 0.7.2
-> simple pipeline).
->
-> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11
+On Mon, Oct 05, 2026 at 11:11:46AM +0300, Sakari Ailus wrote:
+> On Mon, Oct 05, 2026 at 09:10:08AM +0200, Robert Bozik wrote:
+> > +  reg:
+> > +    maxItems: 1
+> 
+> minItems should be 2 here, for the always-on client.
 
-Thanks for testing!
+Yes - will do in v5: two entries, the sensor and the always-on block,
+with the example as reg = <0x36>, <0x3e>. The driver will take the
+second address from reg on DT and keep the _CRS lookup for ACPI, and
+fail probe when there is none, now that the binding requires it. I'll
+drop Conor's ack since the binding changes.
 
-> Yes, please do. It makes no sense to default to a mode a 2-lane board
-> can't use.
+I can compile the DT path but have no DT platform to run it on; the
+ACPI path is what I can test.
 
-Sent here:
-https://lore.kernel.org/linux-media/20261005065535.16137-1-pierre@pinon1.fr/
-
-For the record, on the Dell (IPU7 behind an Intel CVS, 2 lanes),
-libcamera now picks the binned 1928x1088 mode for 1080p, and that mode
-still does not stream: the IPU7 firmware rejects every frame with
-INSYS_MSG_ERR_CAPTURE_HW_ERR_BAD_FRAME_DIM.
-
-This is the issue discussed under v1 2/2, "media: i2c: ov08x40: Do not
-expose the broken 1928x1088 binned mode":
-https://lore.kernel.org/linux-media/20260904134604.595685-1-pierre@pinon1.fr/
-
-In short:
-- Jimmy relayed that the CVS firmware decodes and re-packs the sensor's
-  MIPI stream, and only supports 3856x2176 linear and 1928x1088 sHDR,
-  while the driver programs 1928x1088 as linear.
-- Sakari suggested having the CVS driver reject the other sizes.
-
-With your Yoga feeding the sensor into CAMSS, I assume there is no such
-vision chip in between, which would explain why the mode works there.
-Is that right?
-
-I'll follow up in that thread.
-
-Pierre
+Thanks,
+Robert
