@@ -1,336 +1,347 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F4A48E0C8;
-	Mon,  5 Oct 2026 13:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206928; cv=pass; b=hWYiNsEs7Ad513j9XhLatgovIj/OfwuOnq6+xgWIEM+AR34qTlOtA/YnT/GmKaMwNTGqc8GmkFyNvjvmXle1EUbfVeu4PNjARCeH+gSJgES2DfAzHk9m2KaVjVDY/szHyfask2/EnW52a6AW8V0y92VHH7PcXsRuqSNI3npCE4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206928; c=relaxed/simple;
-	bh=y6Ue3zb5wP29FzlRtI7E5vOClGsbwguCJ+PRjxITBkg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BP8cylJpYWE89onQIRdnYKqx/w5XNEYL9qzenfCh/b6BJCDB+RqTv6QHamUfVIV6sT1mCV3pX9g57Ncpq017tn4bbfoMy01YLSr6uhD5RApYXXppdfDPW8UWHEoBkmNnQDw5+1tUOpcF4S0aO0rQF/dceWFDgYna6KyrykLRCtk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=EgnXUP2v; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87A648C408
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 13:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791207879; cv=none; b=EgKTR10Bmzx6/5JzuLi4/0YPWvXCXUOSDzAPljXSimOW2X3aEt4hslKhJgiAwg5AEZO1lesaZCo4dnXvSGJmrLUVziDWrO7U4imPOelrW6q4boUlU7phyTWWv+HchmWuGvqYD+D2AMWWnogzx/C+OSXUcmUZZ0vww8xT1zpjv8Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791207879; c=relaxed/simple;
+	bh=intGmf38q8+76lEbB5t6szBae1tNQlR1D8eREutil3g=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=kixvkVehmE5iY541pX8m8+s3a+h1nfuIq5O4uRRIBvYCPo9rTBlIQwSPaS46h3EhM7Einv4TS7kc8Wzj1BtWRiZNLeTItEsKKSCksz/iwfyEaRhv7vV1HeEbp3AhcYgr5kOtrqpHz4OgMiOzAJQkTBwKruUMj5MO53qvA/GOuh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qta3Vyf5; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="EgnXUP2v"
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 147C520235E;
-	Mon, 05 Oct 2026 15:28:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791206903;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1rrOJaNoEZ6wto9Ta3yT/73Hqv8zXwg/0BgH1ClNTs4=;
-	b=EgnXUP2vHJ0W+8Uzn3hAUkbu6zVLjrhIhE/R6iFmehLG7r0WfQRXDCeoN6r8upBEjMx5Jv
-	bKt1YPv3KM0uvbedSPGm49w0EgIpRdUYPX3WnxBV4UXgHQG7fRXsNI5Zy2Jf/4Mvdh9rU7
-	scBWqRycxkmaG6+8AjSehKdE4mDBA4kW66ZWWg/bb0jcct1hRwoJmbxdDjAKYU9rrHrj2d
-	GOXAsaWWqcWuNfixdcSAoi0syMTkHugVIswSaZdMMtnsl0RXvNG7BtT+twcBdPySWTP2sp
-	EeUTau1Yrhc/09Jv6CUC3V22HDzh4/Xmdi8PxQmM/8PyevXM9P1VeVvCm04jcg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791206903; a=rsa-sha256;
-	cv=none;
-	b=GuWesdBE54JTUefdl46MLsqLAzKthK73V4hAl9c+/hqfKDRM/cL5UyWABTMk0FRj1eUhtb
-	XFRp9fg2kFUVZr2yEttSgQQvCkhh8Ht8v2o0RkPaHnCt6YmYE/UTgT9p1IXRL0rVBAUCme
-	ku8kqyX73g5vgGXBDSvhT56clBjfuB6I1q5QirY0q/VDBs3NfMplIQtWOsY6m8JPHMXJ2+
-	OfyTccwTC7TTHnfp11V6WmiYUHKXAgYBy7B7dBYz1eYOFEOGulAlu+8wO0kHrsYA5XsNxW
-	t2bSi4LKb8Op4d/8cYDJbDOw4joRRN/qVMvLBg3MAtAQWdc3E6QaiWLQR4wNKA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791206903;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1rrOJaNoEZ6wto9Ta3yT/73Hqv8zXwg/0BgH1ClNTs4=;
-	b=LbJvMjREkBR6hDfWXttd7u6dScY6fCXYVhurfg6VC+2MLh3v38o8qmvUv8stxHkQYsv6ev
-	fOz2Ys29CVDcoqt37DiSBPcLh8LH1R2LgOp9i75Ough/JEO5KeWgUWL2H+m3Ox5yalMInc
-	gGLz6Nc1RtM33QZYoz29ToJwZ6B6OGhGtMhE/4stDdU0FWjj3Bhzu7ztCogBjWW2ABTw/J
-	Ywt6D2+rUOwyRSGtaTeIOf6YTru/Q/ZmMo+gMmhsLx8n/08J5Weuxlbs6jhKhcNCr2oSm1
-	Wf/eUInjksvMQdnhBVrMf6aOLQrlDR1pXUiYqcPwjFHPpyHBZDrKw4OmarH5LA==
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 05 Oct 2026 15:28:29 +0200
-Subject: [PATCH v3 10/10] media: synopsys: hdmirx: get the 5V state from
- the upstream subdev
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qta3Vyf5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791207876; x=1822743876;
+  h=date:from:to:cc:subject:message-id;
+  bh=intGmf38q8+76lEbB5t6szBae1tNQlR1D8eREutil3g=;
+  b=Qta3Vyf5fNgYDGHIEgh7sEiaPDo99GEUeFb2nTbeCmqCRfFp89Na5dPG
+   NI5/oNoav7lpxCMYqkW3jc9Z8r+o5eQFh5FA/7bVvqbM2XkofAKn++soS
+   rMKDHzYLR/JxB9tMYh6VXxoCuiKnMxeAwivQu4ydu6HdGBZ0tLJZteMZf
+   iG0JaZ3jUFXPfjjajdJApe18ChSc5D6QZCnuuRUl/J4mpDXpkTNel/oHG
+   1gcx9bk7QV0dugtp/vxhJdLyS7uG7yLbqafwoqBWe2OLdwQrmOIAyhkNz
+   9REBCCxmfl6B8VxBDwbYj1ydLyCd0h9YRCJcWnaSBHFKHcLtiLcOpDcJS
+   w==;
+X-CSE-ConnectionGUID: N2TJaJhbTmuwRtknLQfutw==
+X-CSE-MsgGUID: WoJZAKuCQk27pxdmB7Rieg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="108255629"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="108255629"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:44:36 -0700
+X-CSE-ConnectionGUID: Ej4Zmi0LRHWFlwF9vjkMzA==
+X-CSE-MsgGUID: rxPHoIjKSd2lUdH/pQYBdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="280108165"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 05 Oct 2026 06:44:35 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDizY-000000000Ml-38SE;
+	Mon, 05 Oct 2026 13:44:32 +0000
+Date: Mon, 05 Oct 2026 21:44:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Subject: [sailus-media-tree:next] BUILD SUCCESS
+ 9a4dd8147c7a45e8579e58c101c25604e51117b0
+Message-ID: <202610052118.mKeosAz0-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-hdmirx-media-v3-10-71a11a2e3e76@pengutronix.de>
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
-In-Reply-To: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>, 
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>, 
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791206902; l=9482;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=T3DqNccI4SSpfaK91bTfAWK17P4gl98uRPl3VbH4W9Y=;
- b=mlnPyL902GLVXcIQZzsX4CCN1lZDI6xJQR3pjptU1gDsZ85P39rtX44AIZaePp2dlzE8TZalQ
- gt7zrhe7SM0BdxhqcRXn46rnFccSrkAUgb8lqOL0+wLFGDJK0a+yyit
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-From: Gerald Loacker <gerald.loacker@wolfvision.net>
+tree/branch: git://linuxtv.org/sailus/media_tree.git next
+branch HEAD: 9a4dd8147c7a45e8579e58c101c25604e51117b0  media: ipu6: Fix bus device use-after-free
 
-On a board whose HDMI connector belongs to a device in front of this
-receiver, the connector's +5V line goes to that device and hpd-gpios is
-absent. tx_5v_power_present() then reads a NULL descriptor, which
-gpiod_get_value_cansleep() reports as zero, so the receiver never sees a
-source and hdmirx_plugin() never runs.
+elapsed time: 1152m
 
-Ask the device in front instead. Remember the subdev bound through our
-async notifier in source_sd, and without a GPIO of our own have
-tx_5v_power_present() call its g_input_status(), taking
-V4L2_IN_ST_NO_POWER as "no 5V". There is nothing to debounce here; the
-subdev does that on its side of the connector. A subdev without that op
-is bound anyway, with a warning: a receiver that sees no source beats
-one that refuses to probe.
+configs tested: 270
+configs skipped: 8
 
-Changes reach us the way they do on the GPIO path, as an edge that makes
-the hotplug worker look again. Once the subdev is bound its
-sd->v4l2_dev is ours, so v4l2_subdev_notify() lands in the callback
-installed here, and V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT stands in for
-the 5V interrupt this board does not have. The value the notification
-carries is not used. The worker asks the subdev itself, so nothing is
-cached that could go stale against bind, unbind, or a notification that
-arrives early or late. Bind and unbind queue the work as well, for a
-source that was connected all along and for one that leaves with the
-subdev. With a GPIO of our own, notifications are ignored.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-source_sd is set and cleared under work_lock. Every caller of
-tx_5v_power_present() already holds it except port_no_link(), which
-VIDIOC_QUERY_DV_TIMINGS reaches without it; take it there.
-hdmirx_notify() reads sd->v4l2_dev, which relies on
-v4l2_device_unregister_subdev() waiting for running callbacks before it
-clears the pointer, see "media: v4l2-device: wait for notifications
-when unregistering a subdev".
+tested configs:
+alpha                             alldefconfig    gcc-16.1.0
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+alpha                randconfig-r2300-20261004    gcc-15.2.0 sparse
+alpha                randconfig-r2301-20261004    clang-24   sparse
+arc                               allmodconfig    clang-24
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    clang-24
+arc                                  defconfig    gcc-16.1.0
+arc                   randconfig-1000-20261005    gcc-8.5.0
+arc                   randconfig-1001-20261005    gcc-8.5.0
+arc                  randconfig-r2302-20261004    clang-24   sparse
+arc                  randconfig-r2309-20261004    gcc-9.5.0  sparse
+arm                                allnoconfig    gcc-16.1.0
+arm                               allyesconfig    clang-24
+arm                          bcm2835_defconfig    gcc-16.1.0
+arm                                  defconfig    gcc-16.1.0
+arm                        imx_v4_v5_defconfig    gcc-16.1.0
+arm                         mvebu_v7_defconfig    gcc-16.1.0
+arm                   randconfig-1000-20261005    gcc-8.5.0
+arm                   randconfig-1001-20261005    gcc-8.5.0
+arm                   randconfig-1002-20261005    gcc-8.5.0
+arm                   randconfig-1003-20261005    gcc-8.5.0
+arm                  randconfig-r2107-20261004    gcc-14.3.0 cocci
+arm                  randconfig-r2202-20261004    gcc-11.5.0 smatch
+arm                  randconfig-r2302-20261004    clang-20   sparse
+arm                         spear6xx_defconfig    gcc-16.1.0
+arm                         vexpress_defconfig    gcc-16.1.0
+arm64                             allmodconfig    clang-24
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20261005    gcc-16.1.0
+arm64                 randconfig-1001-20261005    gcc-16.1.0
+arm64                 randconfig-1002-20261005    gcc-16.1.0
+arm64                 randconfig-1003-20261005    gcc-16.1.0
+arm64                randconfig-r2107-20261004    clang-22   cocci
+arm64                randconfig-r2300-20261004    clang-20   sparse
+arm64                randconfig-r2305-20261004    clang-24   sparse
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20261005    gcc-16.1.0
+csky                  randconfig-1001-20261005    gcc-16.1.0
+csky                 randconfig-r2304-20261004    clang-20   sparse
+csky                 randconfig-r2304-20261004    clang-24   sparse
+csky                 randconfig-r2304-20261004    gcc-10.5.0 sparse
+hexagon                           allmodconfig    gcc-16.1.0
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20261005    gcc-16.1.0
+hexagon               randconfig-1001-20261005    gcc-16.1.0
+hexagon              randconfig-r2300-20261004    clang-24   sparse
+i386                              allmodconfig    clang-22
+i386                               allnoconfig    gcc-16.1.0
+i386                              allyesconfig    clang-22
+i386        buildonly-randconfig-1000-20261005    clang-22
+i386        buildonly-randconfig-1001-20261005    clang-22
+i386        buildonly-randconfig-1002-20261005    clang-22
+i386        buildonly-randconfig-1003-20261005    clang-22
+i386        buildonly-randconfig-1004-20261005    clang-22
+i386        buildonly-randconfig-1005-20261005    clang-22
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20261005    clang-22
+i386                  randconfig-1001-20261005    clang-22
+i386                  randconfig-1002-20261005    clang-22
+i386                  randconfig-1003-20261005    clang-22
+i386                  randconfig-1004-20261005    clang-22
+i386                  randconfig-1005-20261005    clang-22
+i386                  randconfig-1006-20261005    clang-22
+i386                  randconfig-1007-20261005    clang-22
+i386                  randconfig-1008-20261005    clang-22
+i386                  randconfig-1009-20261005    clang-22
+i386                  randconfig-1010-20261005    clang-22
+i386                  randconfig-1011-20261005    clang-22
+i386                  randconfig-1012-20261005    clang-22
+i386                  randconfig-1013-20261005    clang-22
+i386                  randconfig-2100-20261004    clang-22   cocci
+i386                  randconfig-2101-20261004    clang-22   cocci
+i386                  randconfig-2102-20261004    clang-22   cocci
+i386                  randconfig-2103-20261004    clang-22   cocci
+i386                  randconfig-2200-20261004    clang-22   smatch
+i386                  randconfig-2300-20261004    clang-22   sparse
+i386                  randconfig-2301-20261004    clang-22   sparse
+i386                  randconfig-2302-20261004    clang-22   sparse
+i386                 randconfig-r2100-20261004    clang-24   cocci
+i386                 randconfig-r2303-20261004    clang-20   sparse
+i386                 randconfig-r2307-20261004    gcc-11.5.0 sparse
+loongarch                         allmodconfig    clang-24
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch                            defconfig    clang-24
+loongarch             randconfig-1000-20261005    gcc-16.1.0
+loongarch             randconfig-1001-20261005    gcc-16.1.0
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    clang-24
+m68k                                 defconfig    clang-24
+m68k                         mvme16x_defconfig    gcc-16.1.0
+m68k                             q40_defconfig    gcc-16.1.0
+m68k                 randconfig-r2100-20261004    gcc-10.5.0 cocci
+m68k                 randconfig-r2302-20261004    gcc-8.5.0  sparse
+m68k                 randconfig-r2307-20261004    gcc-9.5.0  sparse
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    clang-24
+microblaze                       mmu_defconfig    gcc-16.1.0
+microblaze           randconfig-r2303-20261004    gcc-8.5.0  sparse
+microblaze           randconfig-r2305-20261004    clang-20   sparse
+mips                              allmodconfig    gcc-16.1.0
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                 randconfig-r2106-20261004    clang-22   cocci
+mips                 randconfig-r2106-20261004    gcc-14.3.0 cocci
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                                defconfig    clang-24
+nios2                 randconfig-1000-20261005    gcc-16.1.0
+nios2                 randconfig-1001-20261005    gcc-16.1.0
+nios2                randconfig-r2102-20261004    gcc-10.5.0 cocci
+nios2                randconfig-r2103-20261004    clang-24   cocci
+nios2                randconfig-r2309-20261004    gcc-11.5.0 sparse
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+openrisc             randconfig-r2105-20261004    gcc-14.3.0 cocci
+openrisc             randconfig-r2200-20261004    gcc-11.5.0 smatch
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20261005    gcc-8.5.0
+parisc                randconfig-1001-20261005    gcc-8.5.0
+parisc               randconfig-r2101-20261004    gcc-10.5.0 cocci
+parisc               randconfig-r2305-20261004    gcc-16.1.0 sparse
+parisc               randconfig-r2306-20261004    gcc-9.5.0  sparse
+parisc               randconfig-r2308-20261004    gcc-9.5.0  sparse
+parisc64                             defconfig    clang-24
+powerpc                     adder875_defconfig    gcc-16.1.0
+powerpc                           allmodconfig    gcc-16.1.0
+powerpc                            allnoconfig    clang-24
+powerpc                       arches_defconfig    gcc-16.1.0
+powerpc                    bluestone_defconfig    gcc-16.1.0
+powerpc                         cell_defconfig    gcc-16.1.0
+powerpc               randconfig-1000-20261005    gcc-8.5.0
+powerpc               randconfig-1001-20261005    gcc-8.5.0
+powerpc                     sam440ep_defconfig    gcc-16.1.0
+powerpc                      tqm8540_defconfig    gcc-16.1.0
+powerpc64                         alldefconfig    gcc-16.1.0
+powerpc64             randconfig-1000-20261005    gcc-8.5.0
+powerpc64             randconfig-1001-20261005    gcc-8.5.0
+powerpc64            randconfig-r2301-20261004    clang-20   sparse
+riscv                             allmodconfig    clang-24
+riscv                              allnoconfig    clang-24
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv              nommu_k210_sdcard_defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20261005    clang-17
+riscv                 randconfig-1001-20261005    clang-17
+riscv                 randconfig-2000-20261004    gcc-11.5.0
+riscv                 randconfig-2001-20261004    gcc-11.5.0
+riscv                randconfig-r2101-20261004    clang-24   cocci
+riscv                randconfig-r2102-20261004    clang-24   cocci
+riscv                randconfig-r2200-20261004    gcc-11.5.0 smatch
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                              allyesconfig    gcc-16.1.0
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20261005    clang-17
+s390                  randconfig-1001-20261005    clang-17
+s390                  randconfig-2000-20261004    gcc-11.5.0
+s390                  randconfig-2001-20261004    gcc-11.5.0
+s390                 randconfig-r2105-20261004    clang-22   cocci
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                                   defconfig    gcc-14
+sh                         edosk7705_defconfig    gcc-16.1.0
+sh                    randconfig-1000-20261005    clang-17
+sh                    randconfig-1001-20261005    clang-17
+sh                    randconfig-2000-20261004    gcc-11.5.0
+sh                    randconfig-2001-20261004    gcc-11.5.0
+sh                   randconfig-r2104-20261004    gcc-14.3.0 cocci
+sh                       rts7751r2d1_defconfig    gcc-16.1.0
+sh                            se7750_defconfig    gcc-16.1.0
+sh                               ul2_defconfig    gcc-16.1.0
+sh                           urquell_defconfig    gcc-16.1.0
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20261005    clang-24
+sparc                 randconfig-1001-20261005    clang-24
+sparc                 randconfig-2000-20261004    clang-17
+sparc                 randconfig-2001-20261004    clang-17
+sparc                randconfig-r2103-20261004    gcc-10.5.0 cocci
+sparc                randconfig-r2308-20261004    gcc-11.5.0 sparse
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20261005    clang-24
+sparc64               randconfig-1001-20261005    clang-24
+sparc64               randconfig-2000-20261004    clang-17
+sparc64               randconfig-2001-20261004    clang-17
+sparc64              randconfig-r2202-20261004    clang-20   smatch
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                allyesconfig    gcc-16.1.0
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20261005    clang-24
+um                    randconfig-1001-20261005    clang-24
+um                    randconfig-2000-20261004    clang-17
+um                    randconfig-2001-20261004    clang-17
+um                   randconfig-r2201-20261004    gcc-14     smatch
+um                   randconfig-r2202-20261004    clang-17   smatch
+um                   randconfig-r2303-20261004    clang-24   sparse
+um                   randconfig-r2306-20261004    gcc-11.5.0 sparse
+um                            x86_64_defconfig    gcc-14
+x86_64                             allnoconfig    clang-24
+x86_64      buildonly-randconfig-1000-20261005    gcc-13
+x86_64      buildonly-randconfig-1001-20261005    gcc-13
+x86_64      buildonly-randconfig-1002-20261005    gcc-13
+x86_64      buildonly-randconfig-1003-20261005    gcc-13
+x86_64      buildonly-randconfig-1004-20261005    gcc-13
+x86_64      buildonly-randconfig-1005-20261005    gcc-13
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20261005    gcc-14
+x86_64                randconfig-1001-20261005    gcc-14
+x86_64                randconfig-1002-20261005    gcc-14
+x86_64                randconfig-1003-20261005    gcc-14
+x86_64                randconfig-1004-20261005    gcc-14
+x86_64                randconfig-1005-20261005    gcc-14
+x86_64                randconfig-1006-20261005    gcc-14
+x86_64                randconfig-1007-20261005    gcc-14
+x86_64                randconfig-1008-20261005    gcc-14
+x86_64                randconfig-1009-20261005    gcc-14
+x86_64                randconfig-1010-20261005    gcc-14
+x86_64                randconfig-1011-20261005    gcc-14
+x86_64                randconfig-1012-20261005    gcc-14
+x86_64                randconfig-1013-20261005    gcc-14
+x86_64                randconfig-1014-20261005    gcc-14
+x86_64                randconfig-1015-20261005    gcc-14
+x86_64                randconfig-1016-20261005    gcc-14
+x86_64                randconfig-1017-20261005    gcc-14
+x86_64                randconfig-2100-20261004    gcc-14     cocci
+x86_64                randconfig-2101-20261004    clang-22   cocci
+x86_64                randconfig-2101-20261004    gcc-14     cocci
+x86_64                randconfig-2102-20261004    gcc-14     cocci
+x86_64                randconfig-2103-20261004    gcc-14     cocci
+x86_64                randconfig-2200-20261004    gcc-14     smatch
+x86_64                randconfig-2300-20261004    clang-22   sparse
+x86_64                randconfig-2301-20261004    clang-22   sparse
+x86_64                randconfig-2302-20261004    clang-22   sparse
+x86_64               randconfig-r2104-20261004    clang-22   cocci
+x86_64               randconfig-r2301-20261004    clang-22   sparse
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    clang-22
+x86_64                            rhel-9.4-ltp    gcc-14
+x86_64                           rhel-9.4-rust    clang-22
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20261005    clang-24
+xtensa                randconfig-1001-20261005    clang-24
+xtensa                randconfig-2000-20261004    clang-17
+xtensa                randconfig-2001-20261004    clang-17
 
-Without a det_irq there is nothing to disable_irq() across the cancel in
-hdmirx_disable_irq(), so a notification could queue the hotplug work
-right afterwards - including from hdmirx_suspend(), on its way to gating
-the clocks. Disable the work items instead of cancelling them.
-disable_delayed_work_sync() also turns every later attempt to queue them
-into a no-op, whoever makes it, and hdmirx_enable_irq() enables them
-again. They start out disabled at probe, which keeps the worker queued
-by hdmirx_fwnode_bound() off the hardware before the EDID is written.
-It also covers the way out: hdmirx_fwnode_unbind() queues the work from
-inside v4l2_async_nf_unregister(), in hdmirx_remove() and on the probe
-error path, just before the devm allocated hdmirx_dev goes away, and
-that queue is now ignored.
-
-Assisted-by: LLM
-Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 101 +++++++++++++++++++--
- 1 file changed, 95 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index a937ee23e230c..7f04958de1702 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -142,6 +142,7 @@ struct snps_hdmirx_dev {
- 	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
- 	struct mutex stream_lock; /* to lock video stream capture */
- 	struct mutex work_lock; /* to lock the critical section of hotplug event */
-+	struct v4l2_subdev *source_sd; /* under work_lock: 5V without hpd-gpios */
- 	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
- 	struct clk_bulk_data *clks;
- 	struct regmap *grf;
-@@ -237,6 +238,23 @@ static bool tx_5v_power_present(struct snps_hdmirx_dev *hdmirx_dev)
- 	int val, i, cnt = 0;
- 	bool ret;
- 
-+	/*
-+	 * Without a GPIO of our own the connector belongs to the subdev in
-+	 * front of us. Ask it; it debounces on its side of the connector.
-+	 */
-+	if (!hdmirx_dev->detect_5v_gpio) {
-+		u32 status;
-+
-+		lockdep_assert_held(&hdmirx_dev->work_lock);
-+
-+		if (!hdmirx_dev->source_sd ||
-+		    v4l2_subdev_call(hdmirx_dev->source_sd, video,
-+				     g_input_status, &status))
-+			return false;
-+
-+		return !(status & V4L2_IN_ST_NO_POWER);
-+	}
-+
- 	for (i = 0; i < 10; i++) {
- 		usleep_range(1000, 1100);
- 		val = gpiod_get_value_cansleep(hdmirx_dev->detect_5v_gpio);
-@@ -465,7 +483,13 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
- 
- static bool port_no_link(struct snps_hdmirx_dev *hdmirx_dev)
- {
--	return !tx_5v_power_present(hdmirx_dev);
-+	bool present;
-+
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	present = tx_5v_power_present(hdmirx_dev);
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
-+	return !present;
- }
- 
- static int hdmirx_query_dv_timings(struct file *file, void *priv,
-@@ -2268,13 +2292,22 @@ static void hdmirx_delayed_work_res_change(struct work_struct *work)
- 	mutex_unlock(&hdmirx_dev->work_lock);
- }
- 
--static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-+/*
-+ * A 5V edge. Neither source of one says more than "look again": the
-+ * hotplug worker samples tx_5v_power_present() and acts on what it finds.
-+ */
-+static void hdmirx_5v_edge(struct snps_hdmirx_dev *hdmirx_dev)
- {
--	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
--
- 	queue_delayed_work(system_dfl_wq,
- 			   &hdmirx_dev->delayed_work_hotplug,
- 			   msecs_to_jiffies(10));
-+}
-+
-+static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
-+
-+	hdmirx_5v_edge(hdmirx_dev);
- 
- 	return IRQ_HANDLED;
- }
-@@ -2526,14 +2559,18 @@ static void hdmirx_disable_irq(struct device *dev)
- 	disable_irq(hdmirx_dev->dma_irq);
- 	disable_irq(hdmirx_dev->hdmi_irq);
- 
--	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
--	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_res_change);
-+	/* A subdev in front of us can still notify, keep it from queueing. */
-+	disable_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
-+	disable_delayed_work_sync(&hdmirx_dev->delayed_work_res_change);
- }
- 
- static void hdmirx_enable_irq(struct device *dev)
- {
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
- 
-+	enable_delayed_work(&hdmirx_dev->delayed_work_hotplug);
-+	enable_delayed_work(&hdmirx_dev->delayed_work_res_change);
-+
- 	enable_irq(hdmirx_dev->hdmi_irq);
- 	enable_irq(hdmirx_dev->dma_irq);
- 	if (hdmirx_dev->det_irq > 0)
-@@ -2680,6 +2717,19 @@ static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
- 	kfree(hdmirx_dev);
- }
- 
-+static void hdmirx_notify(struct v4l2_subdev *sd, unsigned int notification,
-+			  void *arg)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(sd->v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
-+
-+	if (notification != V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT ||
-+	    hdmirx_dev->detect_5v_gpio)
-+		return;
-+
-+	hdmirx_5v_edge(hdmirx_dev);
-+}
-+
- static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 			       struct v4l2_subdev *subdev,
- 			       struct v4l2_async_connection *asc)
-@@ -2708,6 +2758,21 @@ static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 		return ret;
- 	}
- 
-+	if (hdmirx_dev->detect_5v_gpio)
-+		return 0;
-+
-+	if (!v4l2_subdev_has_op(subdev, video, g_input_status))
-+		dev_warn(hdmirx_dev->dev,
-+			 "%s cannot report 5V and there is no hpd-gpios, no source will be detected\n",
-+			 subdev->name);
-+
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	hdmirx_dev->source_sd = subdev;
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
-+	/* The source may have been connected all along. */
-+	hdmirx_5v_edge(hdmirx_dev);
-+
- 	return 0;
- }
- 
-@@ -2719,8 +2784,28 @@ static int hdmirx_fwnode_complete(struct v4l2_async_notifier *notifier)
- 	return v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
- }
- 
-+static void hdmirx_fwnode_unbind(struct v4l2_async_notifier *notifier,
-+				 struct v4l2_subdev *subdev,
-+				 struct v4l2_async_connection *asc)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(notifier, struct snps_hdmirx_dev, notifier);
-+
-+	/* With a GPIO of our own the connector is ours and stays put. */
-+	if (hdmirx_dev->detect_5v_gpio)
-+		return;
-+
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	hdmirx_dev->source_sd = NULL;
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
-+	/* The source went with it. */
-+	hdmirx_5v_edge(hdmirx_dev);
-+}
-+
- static const struct v4l2_async_notifier_operations hdmirx_async_ops = {
- 	.bound = hdmirx_fwnode_bound,
-+	.unbind = hdmirx_fwnode_unbind,
- 	.complete = hdmirx_fwnode_complete,
- };
- 
-@@ -2779,6 +2864,9 @@ static int hdmirx_probe(struct platform_device *pdev)
- 			  hdmirx_delayed_work_hotplug);
- 	INIT_DELAYED_WORK(&hdmirx_dev->delayed_work_res_change,
- 			  hdmirx_delayed_work_res_change);
-+	/* Until hdmirx_enable_irq(), after the EDID is written. */
-+	disable_delayed_work(&hdmirx_dev->delayed_work_hotplug);
-+	disable_delayed_work(&hdmirx_dev->delayed_work_res_change);
- 
- 	hdmirx_dev->cur_fmt_fourcc = V4L2_PIX_FMT_BGR24;
- 	hdmirx_dev->timings = cea640x480;
-@@ -2818,6 +2906,7 @@ static int hdmirx_probe(struct platform_device *pdev)
- 	}
- 	hdmirx_dev->v4l2_dev.ctrl_handler = hdl;
- 	hdmirx_dev->v4l2_dev.release = hdmirx_v4l2_release;
-+	hdmirx_dev->v4l2_dev.notify = hdmirx_notify;
- 
- 	ret = v4l2_device_register(dev, &hdmirx_dev->v4l2_dev);
- 	if (ret < 0) {
-
--- 
-2.47.3
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
