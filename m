@@ -1,257 +1,132 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010025.outbound.protection.outlook.com [52.101.193.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD363B05BA;
-	Mon,  5 Oct 2026 10:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194944; cv=fail; b=q/p3MCjqdfgdNV3GB63bZXWLn6iLErTzp7IZxd327sjqdEov+LgI8bfTsijLrTSV3trW+TGbD3zPe8YdUmPqtWuFMGhKg8CvuTMRkdEBUKmYVCcYLt77Mvctv1Bpn/qqcKq4L4kTGfC6zVhQxH033rvIRVm2f3vz2/CCoeLxMAM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194944; c=relaxed/simple;
-	bh=b+tx8K95LDpM5KSkY/UelrSRpaqt9uo2EW3FiP90WwI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=d5qldzzDsz7PRtusG5EmdfBkiyeyWV0cjwJQjFJNuYuc1zt5fT9S/gB07QA7fKTrjZHIj/Q95n7NBqZgkgGIq315k7wBlTOQNCF8M1ljIQp1+flBqo9YKcOiWjV6OPjVqOKDXEEpGftjqZVmd6W7YWauowbkTf5XIshjaeltRa8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=iU+b86M2; arc=fail smtp.client-ip=52.101.193.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD54473C76
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 10:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791195294; cv=none; b=S14tSo3ftEwAXFIpVWihCB70OMlnJJ8hMjgrmoduibfRS71gRkN6ViEa+nxQ0GOQddVP937LlrQb2W6UwBBQ7wcz1gLub5vrqKXuZu1I5vH93pK8gygV2WSjSGEtFrahE/8h5fTfIoraHt44HSPsrpJbq8IJSDRRDWFnW4zEKv0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791195294; c=relaxed/simple;
+	bh=SiCSaNH35Aalw7e03q0enXBs+RMPPX74VeGZyDKg77c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X6JqOnTyWlKC5rq4w6ReLGvp0Dc+oPRFdhD24YR3TcIqnV6HMCOG1/kiRq1YHWxgzoZ2pGOrHrBaYL1G0hE8jojhWT6CKCEeZI8Hb2q2pha0guQUA289ZUOwLCs4Drk4wDYmP8YHjmdGIIFSrlbQi4lIPGtsf6J2dnVdgry7MPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E8z4F4C5; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="iU+b86M2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C3ILky1M5EvunATQtP6LL1IT6Iu+/xU3FlPOD5JgiB3X5/pXx1OcKDyGU4blvuLblq7kXNfcPaPIba0VZp3sBEppebJZVAZO3HlkEcCyPy0IJv0REyLNjfQk32c5Vz2HS6JLddowR66+W5zgCdoelXr2PMjbvLKUZmORR3924YRM1Sx2nqxiTAnCppJmEsH6gXSF2pCHPolS9kk3DoAg30oVe9eHMSocyhWeo1e6iDJMRdIjrLSw0W2h8f9ZnipVIA9J3/G4GwRgV2V3kcSnxVPF8wI1DE5cH1vu3nDqI4c4U5wNqnvANmUh9E8D7IDL6cBBjxAGmXECmAw7ioaWeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PRuchyLASPNs/Idu1XzTq6YGjzxyPtWok/wuyzbhaUw=;
- b=dZp1uf81F0z1hcTyZ40w/nk2Al5Fkcf25+7dY+3cbndnxSQehQN2X2rLULodtk47nrPMekJZGmrnhha9WhskY+pBfU1VtiV+E3bbIsL1GMVQH/boHbbYv7Y//attyV38r1MXSc5DoddJ16y3571PGq5Vfzhoscq/aUYu7VyPiLGU72KSghxdj964N3AJNPAVj84x+DZt4UA8/qjmXbzpdhm9ChpwtgiWYcR/RNti2VuqJKsFODzPagz1CPQ4t+nrPkJ2sspEUfW+Rkmb5qPI2telrxtU3sjpwH+K4zz3wMzSioy3hwBnX4tyChVJnHHo+mn3e4TdsLKfmU2S0wtgdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PRuchyLASPNs/Idu1XzTq6YGjzxyPtWok/wuyzbhaUw=;
- b=iU+b86M23XPv08q/GW3BRpEKWrTPeCz61MDZMZPqvWaSBpqWSdOXMevuy+ULMc8gEtcQgCwKdsPQpmVeZsCMaWYbrQy4tOayx4solxnCMWN50fRbIKclUx/7EamKf4j+YvXev5JHk+yxxM0WNXQp3lGgwPsik1EEhPYTmrk0Kf8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY5PR12MB4228.namprd12.prod.outlook.com (2603:10b6:a03:20b::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 10:08:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 10:08:59 +0000
-Message-ID: <189054b2-3899-429f-b5fb-5be6917f7960@amd.com>
-Date: Mon, 5 Oct 2026 12:08:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 3/6] dma-buf: Add ranged mapping invalidation
-To: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>,
- Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
- <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, x86@kernel.org
-References: <20260720111259.122911-1-dwmw2@infradead.org>
- <20261005095552.52748-1-griffoul@gmail.com>
- <20261005095552.52748-4-griffoul@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261005095552.52748-4-griffoul@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0304.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E8z4F4C5"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afe75f055so1305826f8f.2
+        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 03:14:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791195290; x=1791800090; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X6peHqRvKIr35uOnhSLA6otbHrMaTXR/Zz2Q8g3tXsk=;
+        b=E8z4F4C5raHgkCPaxLGTVC0qnmkMTwYp83gmHKoYs+PTOp23wwEM4G2fGm/4p30ByQ
+         /iJgvJdhLnnt3i/B1ouPcQBzN3golvYN8nLAl2xcFwHNzfGsUTxFLG+iRobqUKvUua/G
+         /gfBhz6cCbO9vH94UHgHOXYr5aSueXkYQ1FZaZd7FKYIRYYK/GPbu44e5ye3uquiK239
+         cLEXQ1GFoHzxbZpZC1Ikg+igmM1Z/kpCZvbafptHJTT87c79/y7coWOEHWjnTtQKq0GJ
+         U3jEeuH9eJUq5t8xTnZXDiAp56K/ieFoeK0NcmXqNqbz2vfxTxH8/zN49DZ9ORjUeXHb
+         ZihA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791195290; x=1791800090;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X6peHqRvKIr35uOnhSLA6otbHrMaTXR/Zz2Q8g3tXsk=;
+        b=IihGM7WHpuCsD4Yd2cMo2Y/7ej8qWfHwmtJ5KZQisBHaU2a28W+HdG/hui7zBncS87
+         4SJI6pjBXDJvGjlyKeTzvXbHytGoF2qBffPz9DSnFqCFeBnif3m2nfHOBtu00RoYuesH
+         yCdVCTmlgR0QVeTtJmc+zyTRfe6blaRKWVzNJ32CCWmbJUimIEyPZIeyVhZAVqazlkpa
+         zGdZjTXCzfkZmCU8FaLgsgdPgLDhfZaBfRB5P6euDC6HCj4ieI2+3+9c3KLns1VYh6el
+         U/lWdLZ4eEiGyKx38QAs1AdxOD/d2wfiQ/y8tYwy8tvC05B6JcEJrQ9hT0s35hJb2Huz
+         66CQ==
+X-Gm-Message-State: AFq9FYJcYSsSy179N+21pZORn3sZtDOzLpXfXeRuTeDqXx88hx/KGoWY
+	nMOcLQJ0x9JXFMFnwbeUku2huNWRr1W3K68Bf6RpdeFzNNx2YfLau5mZ
+X-Gm-Gg: AYBFou26l/n0MW+/8hVxelQm/fZZ+Ve6Hmt8OiFRQN9mcQA7KQfqkkaE2a3+KQL+0Hg
+	+yR3vtXf2XQhrWHjH/TOrZXJ2phXuXxGPyEEQAWIX9N+FSCBz5/bPN2XDBxxA7GLn35iR2XPxpv
+	hxLqzkpR40LWnoqGG7Q7ZeqQVQfzPZfKK8sHmR2k/ZQ3n2CYc7RgIgqESU60mV9o612B62U16mY
+	mm3IgPwEEv23T5MiQyQSor8VhKKcSVWcBA5AT01vPvszshjfiTnYmErimJ3Ppv98Ran6MJ7vX/6
+	GdHF9m3Amr+LOYyFNDE/sR0wZ7bTNV4t8jNMoqA23SSK7duPvfg7xo0ENDCCMTsJP+/N7AGisuZ
+	W2xzzlT8ciz5i9Yl9Oj1ugu3wMxfCg9ntdjR9tg4e7UNVGj9fjZ+UZib5Wp9nEv/EwQcjkAKll3
+	JSk9qnn9XSilXCE2gPwrewpoj/bijUWRtyUdRyCX2tirWzJwdH0ZOnHfBHXl8TkM6BJJYc9aYwB
+	thHvAWErVXMZu0tICouaj5yR8UU3hmM7TW3vGZnMHIbXy+snVyfpmtMkSZONZTwweuStCxhbF0H
+	uo3UYtsnt/klaCxUkHfGgWFK2w==
+X-Received: by 2002:a05:6000:2482:b0:486:e707:42eb with SMTP id ffacd0b85a97d-48c47fdff0amr13692245f8f.33.1791195290122;
+        Mon, 05 Oct 2026 03:14:50 -0700 (PDT)
+Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c62270746sm2478145f8f.7.2026.10.05.03.14.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 03:14:49 -0700 (PDT)
+From: Robert Bozik <robertbozik@gmail.com>
+To: sakari.ailus@linux.intel.com
+Cc: linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	antti.laakso@linux.intel.com
+Subject: Re: [PATCH v4 2/3] media: i2c: Add driver for OmniVision OV32C4
+Date: Mon,  5 Oct 2026 12:14:46 +0200
+Message-ID: <20261005101447.15264-1-robertbozik@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <asNsiKal6GgcqUSK@kekkonen.localdomain>
+References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-3-robertbozik@gmail.com> <asNsiKal6GgcqUSK@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4228:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3cefb0a-155e-4bd5-fb0d-08df22c8aca4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	aKS7Plx6L4aE2cwQY4Kl8/biwQ+YvW9UckTYYYjPmFbIbga+HbrKCXwwqgAt4NaEGs4SWPOt4yyoc5UrszxWnm4hOnVmdRm5Koir+eXUBwvkgvSvLJ/PmZ/z/kBLUApd/nSwGBkA6dzUYuYhiyDJnn0nTw6KFEnBRt6Bgi1QKCoW96YgwLJ7uO6ZgLzSt50yiB4Vzc1dJxN8CdtieOB1QvaGjnvRM6IskuYzIirFpWMyH08cjcI+gbR/j+h7UTLbB/fBnqKOqjjM72cBdfmkk/1mrigsAN/Tua47pj7xpcpYXTWvn5ACl5RVPySjbFI/3pSzmd1jEAe+HcNbG7Jcgr0eqfQjRU7qTEaaCxEfTfZU6EG//V0BnaR318cAUB7ODylrukN7Hxb97TGkDj468l+/MoblIaWJlxJT3skxiqvve3FZAXY/sMMEjlhZtdQNJKNfWMkWHqK3Nb1Dy8HngZDIoiHF61Uv0zxQ4QDRva3dGNfOgCWTe4HIgf9nCcvnWfY8jJ9z32wouVX6SQ/ycSzZ9Dw5WJqi1kWx0mExOghfVysZA+9xEqwLVKBPn6y96jrJg4Vv8cmmXbzRZfpt1eTbe40wZHHFPsMkfZXFHemqC8gLmL5/sF8Nw4wfu1uw6TE790LGK9q5ANBVJxfhsE5JzUlB16wpd7+R645t0Tk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NnZab3ZLTk1zOW4rM2hUeE45K0pMZXE1c3pSZXdidG9meDFWMkVuclc4YVlJ?=
- =?utf-8?B?SHF4MUJMdTVDcUt0b3phR0lnRWJtRWtnV292bWs0eG9oazFKUld2cXp4NnNC?=
- =?utf-8?B?UGNUaUtndHhIOWhFTUhmdTBkdDR1ejZ4VkNHeGVTLzhnUVErQ2VWMVk4LzBm?=
- =?utf-8?B?bUcvN0o0Zy9xRmNUZUtXQ3cybWhwZkMvQXZ4VzlwV1JUbEVFckNJNVFrTVk2?=
- =?utf-8?B?U3ZUZStMU01QK3VFWHNpTnlrdXZVWGNRK1VDSFd6cTE1ZmxQSXlPWDZTOGVT?=
- =?utf-8?B?SjI1akh4RTBueU1pcUZkSForalpTWHIrb3FNRXVHZ2Z4VHpvUUJKbHR2THB5?=
- =?utf-8?B?cTBPaWxRQkRXbVB3cGU1M2NCbnJTYm14VDVLd1VnV2JJdzAzOHoyaHBLRktH?=
- =?utf-8?B?Ky8xdnBlc3hLbElwdUZFUUpTdkVxQk5hZ0lqTEJYQW1hUUJKbWdjcytQUm50?=
- =?utf-8?B?T3JZYlZKa1JRWS9LUHZoVURqUUJpTVBKblpxWU5JZjdEVDVtU3M1bkFDMEM2?=
- =?utf-8?B?Y0MyM0NTOWM0blJlbXcxN0tDS2VtRFlQL1lObjFGbjV3SFY0c3RDRURXU0tu?=
- =?utf-8?B?OGtZRUlENjd6ODFhcmhzMDhiaCtSSDlQZGF2bUxXVHIxQksvN2JLWi9NaEQv?=
- =?utf-8?B?NjA4VUtuWVc2bmpVUWxPMG8xWnBjQkZCODFZMXZxbFVTbkl2VU10cXBnUHZu?=
- =?utf-8?B?M080RlljNnpuY2FOR200TnZIM3ZKb2d2eE8yemh1T29xejN3L1E1Q1BvRklI?=
- =?utf-8?B?cXNKRlh6amdoOS9OVE52M1NYVFZrb04wMW9wdXJkV0hTcG9HQkM5M2hFYTNW?=
- =?utf-8?B?ZTdzMWNNWURpNHNMWW9QemcxNWw0QUxVWjVCY0RXYzR5QkFCMWdCTGYvUmFG?=
- =?utf-8?B?UVk3QTJjT2QyVXdCbUhqSFBSN2lYUWF3MnJxQzNqVzE1YjVNc2kzODdDeExw?=
- =?utf-8?B?R3F3NGJKdUpwak9va1hndERuc3hOeHFqd3Y4RW5WN28waC8wdzFuMEtlaXpY?=
- =?utf-8?B?Z2oraEUyTjBuVW1adWJzS1ZITkhJditIWm5PMHRUa08wZnNHYnBSLzRVT3k5?=
- =?utf-8?B?T0hRVDdGL2NDcy81YzhCQlhRUkpNTFBzVGVWYm5GY29seEZsNEk5RURSRlRs?=
- =?utf-8?B?RFFSZmhLVHU1aEwwUTU5RjRXSEJmNVcrYnd3TWN5TnhKbXZrMWJsajJjaGNS?=
- =?utf-8?B?REZzSTNVTmszY29KMjFFcC9pbzcrQVk3d2w1TXhVMStTOVRGWGtRdW0ySW1M?=
- =?utf-8?B?ckx3cGFHbG9Qb0JNMkFxTVR4aE9pQ1MyUERTYVN2a01UeU1Fa0ZDRVpXTGNP?=
- =?utf-8?B?b3RXSHBLQlJpbndHWERkOHRlenFEaXhWNHNDVlY1ajFmZVFiSWlYOFg4ZW5U?=
- =?utf-8?B?YUF0Zmp5TXh3SkVqa1dMZXVVTEYzZ2hjbHFSMFM3aC9Dd2FwR2dYSEtDOE5o?=
- =?utf-8?B?bmt1VWVDZ0t4M1FuakdoR0xFVjVxYzRmc0hoQk9aNWVhYkFqOXNuQlA3RlJa?=
- =?utf-8?B?UXo5RUFBUXlzeTRJOUdsRUVJekg3dkd0YkNlM3BKdUE3L1YxNnRMUTM2Q1NH?=
- =?utf-8?B?enIxUGtMNkhJcHNjWXV2bEIwakp2RFZwOUQwSEtVbGJDQWVTclhnbGJDdmxL?=
- =?utf-8?B?UExlZE0ySzd1bHZKY0VqbGFiVkZVbzl0L1NoV0RCMjRZaFJ5Rjk0TnpBeU1q?=
- =?utf-8?B?V2ZHRXMvR1JhVFl6TzluTkxmQUNmbjg2eVNhOE13NFVSSTRQVUhnNmhNRmNo?=
- =?utf-8?B?TmpDRGdqa1JaY1psTFNPL0oxcmtkcWRlenNYamxMNHphMVJaQ1c2cGFVZDht?=
- =?utf-8?B?UDZTc1JIbmtYMGxINXE4bDBZR0Q2SUp0L29LbUxMdE5rcGY1NUFRUW1qY00w?=
- =?utf-8?B?NExZQ3NyTlByejFvVk1PNjlLcUVmYmhoYjcwbGJJVlk1QWh4UzZrTFFOWWNH?=
- =?utf-8?B?WFlEWUJ3MS94REZ6Z3d0a1QrOENqWU1NMk1LeWp3bGs1ZldMRnBobjRReXFU?=
- =?utf-8?B?V0k2clZNRzdvSjJLa2QzdUxpTU9SVzdBOXMyMml6YUFQZlJBRjFscmdYVDNW?=
- =?utf-8?B?Z3B2TjBvdUFhWklOaVl5eWJtVW13SW1qa0Zpd2hjb0U3cnNRWjFYQ1o2bjYv?=
- =?utf-8?B?c1VVN012cVdCUWtlaXQ0cVpsRFpiSERIRERVYzNRd1UwcGo5alZ6WkpxZTha?=
- =?utf-8?B?YWI4U21yNHduK2RFQ2pxK1Vaak0xVzE2R3JqTkhDa1lMS0ZzbFgvSDBaaVBr?=
- =?utf-8?B?eWNyZzUyK1k2czR4VjlHNVMzamFvOEV2Yjl5VTVlNlJMaWtGNEJvQkw5aFRP?=
- =?utf-8?Q?0B9+nKmnBkEpZMvJ56?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3cefb0a-155e-4bd5-fb0d-08df22c8aca4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 10:08:59.6509
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AJl+UFqf0sYUVm4UPyg78W8ujOjnfVAn24iraIuxrxj9SmFrtYLh67EZcYWDlmw+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4228
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 11:55, Fred Griffoul wrote:
-> From: Fred Griffoul <fgriffo@amazon.co.uk>
-> 
-> dma_buf_invalidate_mappings() tells every importer that the whole
-> buffer changed. An exporter that changes one part of its memory cannot
-> say which bytes changed, so importers throw away mappings that are
-> still valid.
-> 
-> Add an exporter helper that invalidates a byte range, and an importer
-> callback that receives it. The callback means that the address, the
-> attributes or the backing of the range changed. If part of the range is
-> no longer backed, get_phys() returns -ENOENT for it. Importers must stop
-> using their old answer before the callback returns. Importers that do
-> not implement the callback still receive a whole-buffer invalidation.
+Hi Sakari,
 
-Yeah that is exactly one of the reasons why we don't allow that.
+Thank you for the review.
 
-Clear NAK to the whole approach. See the reply to patch #2 for a detailed description.
+On Mon, Oct 05, 2026 at 12:23:20PM +0300, Sakari Ailus wrote:
+> > +	{ 0x6ad0, 0x00 },
+> > +	{ 0x6ad1, 0x75 },
+> 
+> Are there any gaps in this deluge of 0x0 and 0x75? If not, could you write
+> it programmatically rather than using a huge array?
 
-Regards,
-Christian.
+Two contiguous ranges, 0x6ad0-0x6bef and 0x6c00-0x707f, with one gap of
+16 bytes between them; every even address holds 0x00 and the odd one
+0x75, so it is 720 16-bit registers set to 0x0075. v5 writes them from a
+loop and the table shrinks to 345 entries. I'll verify the stream and
+the image after the change, since it alters the bus transactions.
 
+> > +	ret = acpi_dev_get_resources(adev, &resources, ov32c4_i2c_res_cb, &ctx);
 > 
-> Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
-> ---
->  drivers/dma-buf/dma-buf.c | 30 ++++++++++++++++++++++++++++++
->  include/linux/dma-buf.h   | 16 ++++++++++++++++
->  2 files changed, 46 insertions(+)
+> The presence of additional chips like VCM is very much dependent on the
+> module, and I think we should have parsing of the I²C address outside the
+> sensor driver.
 > 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 66b85d53ed22..e7010163eb2f 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -1389,6 +1389,36 @@ void dma_buf_invalidate_mappings(struct dma_buf *dmabuf)
->  }
->  EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings, "DMA_BUF");
-> 
-> +/**
-> + * dma_buf_invalidate_mappings_range - notify attachments that a range changed
-> + * @dmabuf: buffer whose layout changed
-> + * @offset: first changed byte
-> + * @length: number of changed bytes
-> + *
-> + * Importers with a ranged callback stop using their old mappings of the range
-> + * before returning. Other importers receive the existing whole-buffer
-> + * callback, which is correct but coarser. The reservation lock must be held.
-> + */
-> +void dma_buf_invalidate_mappings_range(struct dma_buf *dmabuf,
-> +                                      unsigned long offset,
-> +                                      unsigned long length)
-> +{
-> +       struct dma_buf_attachment *attach;
-> +
-> +       dma_resv_assert_held(dmabuf->resv);
-> +       list_for_each_entry(attach, &dmabuf->attachments, node) {
-> +               const struct dma_buf_attach_ops *ops = attach->importer_ops;
-> +
-> +               if (!ops)
-> +                       continue;
-> +               if (ops->invalidate_mappings_range)
-> +                       ops->invalidate_mappings_range(attach, offset, length);
-> +               else if (ops->invalidate_mappings)
-> +                       ops->invalidate_mappings(attach);
-> +       }
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings_range, "DMA_BUF");
-> +
->  /**
->   * dma_buf_get_phys - describe the run that starts at an offset
->   * @attach: attachment to query
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index b223962e20c2..55c3fe60a0ba 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -485,6 +485,19 @@ struct dma_buf_attach_ops {
->          * required behavior.
->          */
->         void (*invalidate_mappings)(struct dma_buf_attachment *attach);
-> +
-> +       /**
-> +        * @invalidate_mappings_range: [optional] a byte range changed
-> +        *
-> +        * The exporter changed the address, attributes or backing of
-> +        * [@offset, @offset + @length). The importer must stop using its old
-> +        * answer for that range before returning.
-> +        * Importers without this callback receive @invalidate_mappings for
-> +        * the whole buffer instead.
-> +        */
-> +       void (*invalidate_mappings_range)(struct dma_buf_attachment *attach,
-> +                                         unsigned long offset,
-> +                                         unsigned long length);
->  };
-> 
->  /**
-> @@ -600,6 +613,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
->                                 enum dma_data_direction);
->  void dma_buf_invalidate_mappings(struct dma_buf *dma_buf);
-> +void dma_buf_invalidate_mappings_range(struct dma_buf *dma_buf,
-> +                                      unsigned long offset,
-> +                                      unsigned long length);
->  bool dma_buf_attach_revocable(struct dma_buf_attachment *attach);
->  /* bits 0-7: memory type (a value, not flags) */
->  #define DMA_BUF_PHYS_ATTR_TYPE_MASK    GENMASK(7, 0)
-> --
-> 2.47.3
-> 
+> One option could be to stuff it into the reg property in the ipu-bridge,
+> that way it'd work the same way for the driver on both DT and ACPI. In the
+> ipu-bridge, I'd use a static value and provide the reg property for this
+> sensor only (based on _HID). i2c_new_ancillary_device() will only use OF so
+> the driver will need to dig the address manually still.
 
+Agreed, that is better. For v5 I'd give ipu-bridge a small table of
+sensors whose second I2C address belongs to the sensor itself,
+{ "OVTI32C4", 0x3e }; for a sensor in it the bridge adds reg = <main,
+aon> to the sensor's software node and does not instantiate the VCM
+from SSDB - so the no-VCM exception of patch 3 folds into the same
+table. The driver reads reg with device_property_read_u32_array() on
+both DT and ACPI and the _CRS walk goes away with its CONFIG_ACPI
+guard. The property fits into the existing dev_properties slot that
+lens-focus uses when there is a VCM, so no change to the header.
+
+The rest will be in v5 as suggested - the register names, the RGB/IR
+comments, the function name, the error label and the comments; the HTS
+define was unused and goes too.
+
+Thanks,
+Robert
