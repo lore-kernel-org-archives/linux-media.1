@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AC64E50B9;
-	Mon,  5 Oct 2026 17:16:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3766B4E56EB;
+	Mon,  5 Oct 2026 17:16:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220597; cv=none; b=ov7cij0J65ThabTRmplv1MkwQuQJbAzWI5fn5DxOYHWXNRxNvCSOqS2Xpp98IsL9qArZmGBkPjV/1Awb6V48LkhBIX/vOR5hN0ZQ3Di7BhkvHvFwKcmrrguDenU4LXmwZW59MDPdzrcsW2QEV2Yo/TXROYSIRamBsQ4eOUNh4Qc=
+	t=1791220600; cv=none; b=IA20ZoxA7n6VXmb0eVYjTHaoDkhLs82JE0cpRVhNslyd7ERfA+k37+5769BJ9IJHfBQ4M01XVjXeOUyXcMQjYY1gCjStE1cEkC8wR2on2H+aaWBjD2OqTmDVsrKN/vAiPssSVh8WM85OuYfmnp0GZNtB4+6sBgEqak6NZjAegFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220597; c=relaxed/simple;
-	bh=uJYbVeA2d/vLeZPMg5dBOonjFGP9beuFqeFEPc0Yy/M=;
+	s=arc-20240116; t=1791220600; c=relaxed/simple;
+	bh=1fM2cWqConx5kmN6vxn2B4RMjoqxNNfUoK9XWGrOla4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nmEMYZAuhgu07Y07Elvl27G049d9oppUQU35CXaNxF11vmRLfNzIMy1QlYO4VZc/vyIoVecYbV06Iib9lqs/s97v8f1EAQNkog6rMn5B+O9tC3ILtRPHtpkh1xFIgkPFfF5aK2nMugShGgGQ1XDEUzIKAPzjEELQYOw+Pe+4Moc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dueI2aop; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=UclmAjpQMe82tbR38tBD5Ww2LqkZa73/ruyAcL82llANmDg26GvGy8H4mq49gT2+J9LXMYsXbev+UUG7xut7AN7RD3zip59sBSO28Y/0e4h+dakvRRvdOtzqs4wrvR8eDUkWTjWFAFhen7KzSfngEXGspJnbzK3mKrmk2TPI4qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZPF+RzP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dueI2aop"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3278A1F00899;
-	Mon,  5 Oct 2026 17:16:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZPF+RzP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6DB1F00893;
+	Mon,  5 Oct 2026 17:16:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220595;
-	bh=YyR7Pg9tARS9hhwBZN8G9pK77PaZDn8OCMSreMfPa80=;
+	s=k20260515; t=1791220599;
+	bh=ijtgzLepcN3kh0RbPTLJQ7U0bVcDQv6nupI6IOBbMag=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dueI2aopjtw7I7YFGkYIqEyFOcIr9Hm097KGeUTfknvtZWyZEc++x1sYocvAOqeNe
-	 JzKhy5y3DsNapypoXxqXgRPhxI9nzUw+OLMvJXLHuVgKgTGh2HkStRb1UKXJwFxcyT
-	 XAtF2c62+EjtrtpeMZGz7q8BduDogX/bcESZRWYVf6h2JRyAJdFS3jPlYmfLBnp35W
-	 48mjeCbGlqrXhBFUYeWl3I2E8lMGDAhJ7qJBgIFOSE0BupEjThh1bs7SFQC+vWukeU
-	 PzK73bhqw0j9J9uWRfv4n2Fd9HdwxWCcZPv5gbJm1y7GAAGgi9Ii6VkKZO6aMjqLsg
-	 k1LihIdRtFc0A==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:13:45 +0200
-Subject: [PATCH 15/74] media: qcom: camss: csid: Configure the stream on
- every s_stream
+	b=QZPF+RzPUjcsOjrGb+PioK7sCaV/GuebhvdK5HtXeYIRIfcNWNWYaS4L/mpywuTLC
+	 /ocP1p5ZfvtQ9h3JtKDxhroCB556mKL4NIfGlMzYYnyjg8dQWPLxhxXU7+ytLIuD24
+	 0AykA3FWPtJHDU2Bt/Fol7OgbS9i23JJJaajfLuY5ciqMZpf7FgvH86dP3wkFQ8lPg
+	 JWJeG52frgzpK8lTHrwfMMFTNgrdAxXOfjpNZ4jRzTGiPGCZEt84xlVWv84eLncdHo
+	 HJw+P2S0sqKJsOvJoA3661WFslkz14cGF5Ye+eS/dJ7TdiwB2x9I+PJAKsnKGMrQAp
+	 /mgljVH7hH31Q==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:13:46 +0200
+Subject: [PATCH 16/74] media: qcom: camss: Switch existing
+ vfe_formats_pix_845 to vfe_formats_rdi_845
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-15-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-16-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,96 +55,482 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2763; i=bod@kernel.org;
- h=from:subject:message-id; bh=OoN/Wr7IqWQPvXdm3zVLFQgGCMhHnMKbzRIzonG9vWI=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sLPaVrQEpC93llEqKIkBy6iy5QXPlS/g3CJ
- f+M71c1f32JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbCwAKCRAicTuzoY3I
- OhG1D/9T1yw9c1OjZ3c4ZXSteX5kVUDmAU9QdFNR/Z+ddeFNfRsg07ahIWCCtoT0gCX/tEKd+Ft
- 1FeTlTX5Imb4L1db3c5rGohsIuXAJEzQ49lbgTfSZOD1qPT4jPM8Pul2zIMSgYNfzT66mlEbF8r
- UL0Fi5amlTc6eqtpOWsiJocZj0TaQ160wdesdMcuaX6OevH78DUlxHJn5yZ+eVXDZ+5nXdSOqCt
- SsnjaBDHcs5Y9lXEJIfUyHquFrcPTk7rBqYirBtMGj5LRuFMJNOFHKlWdUE7lGUJdOPp2LpoUSC
- DU40abZJ8vpmAc+deD7X3TFHHuZnQca9bZZX7ylTpCdv1c2l++EXaD4JIgf24naZgflD7cF5vKL
- HyTw8haCuCB2tpdyeCW9ctrBUOjXCvqaO0psV4Hpf/ifBZwg8JYtR8oNUmDeObot3yfOaTeFNb2
- GjvMqkQtZ7+LkhxSVdGfSXNqR5vVKGcmCYsVL7tmcKm3NoydGx1R8wPvxqkFZ48NLn0VdqAbfXL
- cKWmIpmoIPjTl/isD7YXEVjEBc2vuoPn90lHY5E0AUbHYTUsTF/RJDDtRLQjkdFIC9c67JqGWT2
- bkWDEs79gcrWd6BH6xb/gBVAJRNDiiT3L1mXdp6Daw9Tk3K/nSwXY1UvqmLEBJs8h1wGVM2AoKt
- 6fDM7QJmGCiRptQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14949; i=bod@kernel.org;
+ h=from:subject:message-id; bh=1fM2cWqConx5kmN6vxn2B4RMjoqxNNfUoK9XWGrOla4=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sMJuCXChF3J1eOkkBWLI6J7vVCqiS062McR
+ 9yCNyR7EwuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDAAKCRAicTuzoY3I
+ OqxqD/962Wf5KjS6+WGokwQrpPex+bBNp105R3MVpPprKJfKNqZ6ENZdS1/3ME1b8QNFz4RP24b
+ vl4XkQnvXYJTWVgl2BTXsCWyXsjQ2g4jn+fByVyd8WM8Q7L4pWZv/AVQaz8LkSf8uG1mnfLFWLZ
+ kp6K3IP+tSKnE4c5nqL4vJfjmLS7nYA73slbYwPvmQskYA2zdubLiTczvcsHS5tyfCxO3lF6ZGc
+ 124ofDde4drb1pr9OObBnAmaQuLcthyRG2QU/O2cun6eBbL7yOypjZCww/ZG+xCK7VSXJUeX1TS
+ EV8Q33J+gGANQTpP6RuhPXiQcx87ixHAhqpmnSqmsUYxxLjzK8PiTC3ezoLrMp2bDc/aLSXF7lL
+ Gm9GWOFZhbjOU+VvK+sErPdrgGyyq9m2tP+oamBrf81a/OX8gO6+2QKQNoxKjWGNwelNJKTnrSJ
+ 52tWYxTB3t1RG1GmV9H6r0GaihxDlRCSJ5v8tlVemIvD1sRMx70fMZDJYjRPdxRLBtOx+mSt9b1
+ M29rP1e6Rf0+Wi78R9iGU6aPdOT5uj60bKammhCn8N8DsfdWLvhqkktYyFoOeIM/w3eN52feNI9
+ QTJ/G08tsmz/Z+Qd7QktKoNp+ATSqs23c3pccB4qQYLJzNgkq5YlrMlGkGZZm8w6Gve21rkkgCK
+ AmhMn8SbXbCmNPg==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Right now the vfe_formats_pix_845 points to the same data as
+vfe_formats_rdi_845. When we actually switch on the PIX formats though only
+some of the PIX interfaces will support the format conversions. Repoint
+existing PIX interfaces to the RDI formats they actually support. As YUV
+formats are enabled on a per SoC basis the enabled SoC's can be pointed at
+the expanded list.
 
-csid_set_stream() only calls configure_stream() when need_vc_update is
-set, and need_vc_update is only set at power on and on a CSID link
-change. Stopping and restarting a stream while the pipeline stays
-powered, as userspace does when it keeps the video node open across
-STREAMOFF and STREAMON, therefore breaks the CSID in two ways:
+Repoint existing stuff to the right location as a precursor.
 
-- STREAMOFF does not stop the CSID: the paths it enabled keep running
-  after the VFE has stopped.
-- The following STREAMON does not configure the CSID: a format set
-  between the two streams is never programmed, and the CSID runs with
-  the previous stream's configuration.
-
-need_vc_update was added so that several video nodes streaming through
-one CSID would configure it only once. Its counterpart in
-video_stop_streaming() was removed by commit 25f18cb1b673 ("media: qcom:
-camss: Remove use_count guard in stop_streaming"). Drop the rest of it and
-configure the stream on every s_stream.
-
-Fixes: 3c4ed72a16bc ("media: camss: sm8250: Virtual channels for CSID")
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-csid.c | 9 +--------
- drivers/media/platform/qcom/camss/camss-csid.h | 1 -
- 2 files changed, 1 insertion(+), 9 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 98 +++++++++++++++----------------
+ 1 file changed, 49 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 48459b46a981b..645e02ad6b9b1 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -721,8 +721,6 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
- 			return ret;
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index e7a1a25d7c9a3..ff09873706c0d 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -777,7 +777,7 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_340,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
  		}
+ 	},
  
--		csid->phy.need_vc_update = true;
--
- 		enable_irq(csid->irq);
- 
- 		ret = csid->res->hw_ops->reset(csid);
-@@ -777,10 +775,7 @@ static int csid_set_stream(struct v4l2_subdev *sd, int enable)
- 			return -ENOLINK;
- 	}
- 
--	if (csid->phy.need_vc_update) {
--		csid->res->hw_ops->configure_stream(csid, enable);
--		csid->phy.need_vc_update = false;
--	}
-+	csid->res->hw_ops->configure_stream(csid, enable);
- 
- 	return 0;
- }
-@@ -1306,8 +1301,6 @@ static int csid_link_setup(struct media_entity *entity,
- 		else
- 			csid->phy.en_vc &= ~BIT(local->index - 1);
- 
--		csid->phy.need_vc_update = true;
--
- 		dev_dbg(dev, "%s: Enabled CSID virtual channels mask 0x%x\n",
- 			__func__, csid->phy.en_vc);
- 	}
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index 5296b10f6bac8..53f43ae7b9327 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -69,7 +69,6 @@ struct csid_phy_config {
- 	u8 lane_cnt;
- 	u32 lane_assign;
- 	u32 en_vc;
--	u8 need_vc_update;
+@@ -797,7 +797,7 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_340,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
  };
+@@ -1207,7 +1207,7 @@ static const struct camss_subdev_resources vfe_res_670[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
  
- struct csid_device;
+@@ -1229,7 +1229,7 @@ static const struct camss_subdev_resources vfe_res_670[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1249,7 +1249,7 @@ static const struct camss_subdev_resources vfe_res_670[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	}
+ };
+@@ -1460,7 +1460,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 			.has_pd = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1488,7 +1488,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 			.has_pd = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1514,7 +1514,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	}
+ };
+@@ -1642,7 +1642,7 @@ static const struct camss_subdev_resources vfe_res_sm6150[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -1665,7 +1665,7 @@ static const struct camss_subdev_resources vfe_res_sm6150[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -1685,7 +1685,7 @@ static const struct camss_subdev_resources vfe_res_sm6150[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -2150,7 +2150,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -2176,7 +2176,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 (lite) */
+@@ -2200,7 +2200,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 (lite) */
+@@ -2224,7 +2224,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -2467,7 +2467,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -2493,7 +2493,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -2519,7 +2519,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.has_pd = true,
+ 			.pd_name = "ife2",
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 (lite) */
+@@ -2541,7 +2541,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE4 (lite) */
+@@ -2563,7 +2563,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -2813,7 +2813,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -2833,7 +2833,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -2853,7 +2853,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife2",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 */
+@@ -2873,7 +2873,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife3",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_0 */
+@@ -2892,7 +2892,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_1 */
+@@ -2911,7 +2911,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_2 */
+@@ -2930,7 +2930,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_3 */
+@@ -2949,7 +2949,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -3220,7 +3220,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -3244,7 +3244,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -3268,7 +3268,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.pd_name = "ife2",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 lite */
+@@ -3289,7 +3289,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE4 lite */
+@@ -3310,7 +3310,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -3535,7 +3535,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE1 */
+@@ -3562,7 +3562,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE2 */
+@@ -3589,7 +3589,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.pd_name = "ife2",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE3 lite */
+@@ -3614,7 +3614,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE4 lite */
+@@ -3639,7 +3639,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ };
+@@ -4003,7 +4003,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.pd_name = NULL,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -4031,7 +4031,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.pd_name = NULL,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 (lite) */
+@@ -4056,7 +4056,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 (lite) */
+@@ -4081,7 +4081,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE4 (lite) */
+@@ -4106,7 +4106,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE5 (lite) */
+@@ -4131,7 +4131,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE6 (lite) */
+@@ -4156,7 +4156,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -4434,7 +4434,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* IFE1 */
+@@ -4458,7 +4458,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* IFE_LITE_0 */
+@@ -4481,7 +4481,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* IFE_LITE_1 */
+@@ -4504,7 +4504,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ };
 
 -- 
 2.55.0
