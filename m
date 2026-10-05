@@ -1,97 +1,201 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61A2370D7C
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 08:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBA64078C5;
+	Mon,  5 Oct 2026 08:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190439; cv=none; b=TyfgboT2QIdCsS1o+nI4prZrdHq/3stFtlOEjcuq8OvPieEu6MInV7vZaWIw9yVUrv9u4nw7pg1X6rauKm/7ut/cCzhjUnrgjMQ5LOWeR7aoCzWkdNxMzqP9d+gK5VHESRxheFv8tvifl7NWZAOSjxb9ckBCXQNx1OeaaoqeUWM=
+	t=1791190513; cv=none; b=ZwGA+iL6ogkDiq8RmkbucPiEygu9XwkFyLyVkg8tGKvwrsr6TK9BAn5mfWDHgv44WUsxfqoiNsd/rh0rXk81awj8/7PzC5AIz299ye7wCS6ED5qWc4aFd0MZ2R2cRyITYJlFYDD8YmCX9F8UPGYLj4xeKjVJaQwd+JrUFNcxpZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190439; c=relaxed/simple;
-	bh=pYKbb9UXC1JXT2n3550Q9wl1CVm2XMWNl38H+mqjS84=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FUooaWVr7wVBFuqryuYlt3QzDO0mtEPfCDz5WM4V5rIIpj68dDh0XhbDk3zFYbJbsdLIZjGI34zjNHXetvBCNkoM+TnW44NThRuKqIgNTwUp7ALbB0GMIEt57D7K6zaNWRocNpF1xuHcU/OAMyHK5qALZcButmgnRbJkvdm3N6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kFJjMdD8; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791190513; c=relaxed/simple;
+	bh=iZyHdHq86W3PEOFd0HAUwzoifmohiFy/cOSf06sJW3g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FY3evI7rvYchV2htFVK8ijdbLn+WG8ibrj4YpjRNQhAZDQIf50HNmyp1++uOOHz4VBf1u3XBk4y2VAY4mvRrIV3N47ndwrrbH7PnvDwHnfRfjwHXk/AMARygE1TJabO0b6cJikPncYk/yL73cTFegAKoGyD+cl4y7DnGt0FGscg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vdXBxllS; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kFJjMdD8"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso1224922f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 01:53:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791190436; x=1791795236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pYKbb9UXC1JXT2n3550Q9wl1CVm2XMWNl38H+mqjS84=;
-        b=kFJjMdD8Hw0TiGl9zBCi2ImEG5r24eryk3O6hdBzUvwwMuf6a/4LxKk7e3EKO7o8q3
-         aY8b2SLbDmc8BQyo+mtdAvkGn42wQLt+fTUg4w/JnvwUZUpwLHydtO+EyyQm8IUKz5zk
-         O7pC2G2QoK4lCnSiuXxrmgBGH+cpEQo5E38RfdxzlH8rGa+h9/v5krCL8FEUZ0O3Uy5O
-         ZEzKv2bBWyybuYjMBlxIpDRjbhR1v2V3otoxu2FsBC/45xgvuOiCH2P6hmzjfnTpKHPb
-         LRIdmN2HwLthXK4k53TjxJH6nBL+Rbb0v4o0ByxZyJVeO/8db/vshhAXnJGt2THa11w8
-         aB2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791190436; x=1791795236;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pYKbb9UXC1JXT2n3550Q9wl1CVm2XMWNl38H+mqjS84=;
-        b=fG+fcXL+Or4X0flPyHurEkwgHFnOxYWtKb1C3hyLvw9zHQlUDMvk9qH3Pg2BuJkKMj
-         GPBdpmWPZM5CZLTAu49gDJXPkXLdOQqdalTPyvPdtv16Maoq4ge/X8Yd1SX24hdtfGlT
-         tkzl4pGv2+v3AjlJLK7qCm8E2s78dcpdDDp7KKwUABFEkF/TLMP8aNoMaaCb2Rt5WQXL
-         3eSwNs2xshtvnJkyLHn03OIDGsinN7SJxzInigdI5HltCbFUx0+HAT/nmUzekV9zRYJ5
-         NU/slZ2z+4Q39gCprSAd+oAkkZ5qF3ooZke00czvyndrMrtmJ2thQJleUOVZ6ck5yDLF
-         s8ig==
-X-Forwarded-Encrypted: i=1; AKwUvBwvOBbb3cxwvtVgpmh0bdXBhVctsHP1Qr/AjWxPiqDLvB7JWaFw32btE8+5eVhk6pLyAIE+B6zFPl21cg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFcUPtPUdMtMSlyTLcpjNHwuiNiPMgP6mxpuN0So13DpDP1VlN
-	kpsiQuAmF+yReREMltu6QgBijSHzkfomV7p4LbNd82t+LXQ3PamXaJh1BL44FJyv
-X-Gm-Gg: AYBFou2ZyDBr+UNQZy3cfmQ3MTaDc2meLcJxzi6B9BbzUNn3cwGRIUTZdsOtXFTAogB
-	Oe9DCQjnFr1jxYEvhymvFbPwvFCBi+dcLMDhlIunA5TCencGK777tW/QhUiqpW3wrIL0LATyMEF
-	WZnK4AJAqXR7K7B9BACC+lJkz1Fwwg9e5GQnQgMTdTRoxHBOBgefiX9OTBwMi47xSbge/FjARuF
-	BiBn6id07+BYToJbuNj5/IZ5m1S1kcNVSJnJIi/CqoYBv1fa5LBuTHWkDklJSNmqRbgZ85jXoae
-	x85AMtj+ceJgxt9G1EqK0QdVe1gkJ9FXoJQHM7jz0URObCiOZZtFHjbK94jznuZQs+dB8RlUlfk
-	Kju07vWmsrtK8R97jAnbeaUyIogsrLhbq2gZSTFHmxPcvnWQmhXCgYlXIA79gkUQqepby0oZVa2
-	EGqDqwjzm/2wwlQpENm7Ad/bZl1q2F0ZsLUA1yHh83GmTO9xZazD7nTeCtJ930LYeWgMqdD4tyl
-	lLEyw==
-X-Received: by 2002:a05:6000:200e:b0:488:8411:1d08 with SMTP id ffacd0b85a97d-48c4801c7f9mr10007975f8f.48.1791190435824;
-        Mon, 05 Oct 2026 01:53:55 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.11])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48c6228d716sm2371333f8f.24.2026.10.05.01.53.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 01:53:55 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Pierre Pinon <pierre@pinon1.fr>
-Cc: hansg@kernel.org,
-	jason.z.chen@intel.com,
-	jimmy.su@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Re: [PATCH v2] media: i2c: ov08x40: Implement get_selection
-Date: Mon,  5 Oct 2026 10:53:46 +0200
-Message-ID: <179119035557.32442.16855854917692483516@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005081529.45697-1-pierre@pinon1.fr>
-References: <20261005081529.45697-1-pierre@pinon1.fr>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vdXBxllS"
+Received: from [192.168.33.82] (185.221.140.22.nat.pool.zt.hu [185.221.140.22])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5D6444F1;
+	Mon,  5 Oct 2026 10:53:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791190391;
+	bh=iZyHdHq86W3PEOFd0HAUwzoifmohiFy/cOSf06sJW3g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vdXBxllSc5kkTZ4MxbWHj5eZvBumOxrpQYbAWnfb87qZ7eQiNxcBiIixVfxM9Oj+A
+	 tXYM0S3RyOgcWnFmlo34dk5cl6i/28OGMgS1VWJNVvo1kHT0Gqz3dXhXpbX70zFC4n
+	 lPQvfQq63j4t92kTQkefYtMGoSprqraaFO3P1OLg=
+Message-ID: <58f364aa-0960-4ae1-95e6-1313b9d08bdd@ideasonboard.com>
+Date: Mon, 5 Oct 2026 10:55:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
+ <asIXMIVjbusYLbaR@zed>
+From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
+Content-Language: en-US, hu-HU
+In-Reply-To: <asIXMIVjbusYLbaR@zed>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026, Pierre Pinon wrote:
-> With your Yoga feeding the sensor into CAMSS, I assume there is no such
-> vision chip in between, which would explain why the mode works there.
-> Is that right?
+2026. 10. 04. 11:14 keltezéssel, Jacopo Mondi írta:
+> Hi Barnabás
+> 
+> On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
+>> `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
+>> step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
+>> to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
+>>
+>> So move these constants into macros to avoid the repetition, and with that,
+>> use 4 as the step size everywhere.
+> 
+> Why 4 ?
+> 
+> I can't find any such limit in documentation.
+> 
+> For input I don't find alignment constraints nor in CS or VSPX
+> documentation.
+> 
+> For output I only see a requirement that the stride is 256 bits
+> aligned, something that is enforced by risp_io_capture_try_format()
+> already.
+> 
+> I see Niklas has reviewed the patch, so he might have found somewhere
+> in the long documentation where the alignment for both input and
+> capture nodes is described.
 
-Yes, as far as I can tell. The sensor sits on a CCI bus and its two
-lanes go straight to CSIPHY4 of CAMSS, nothing in between. The binned
-1928x1088 mode streams fine here and is what a 1080p request ends up
-using.
+My primary goal was to remove the inconsistency between the reported and applied
+step sizes. So I went with 4 because that was the applied step size, so with that,
+it's quite certain that nothing that has worked will break.
 
-Oleg
+Admittedly I do not know if that is the correct number, but I think that can
+be considered a separate issue.
+
+
+
+> 
+>>
+>> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
+>> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+>> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+>> ---
+>> changes in v2:
+>>    * fix typo
+>>
+>> v1: https://lore.kernel.org/linux-media/20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com
+>> ---
+>>   .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
+>>   1 file changed, 24 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+>> index 820af506f896c..b60b91f43d42d 100644
+>> --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
+>> +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+>> @@ -15,6 +15,12 @@
+>>
+>>   #include "risp-core.h"
+>>
+>> +#define RISP_MIN_WIDTH 128
+>> +#define RISP_MAX_WIDTH 5120
+>> +#define RISP_MIN_HEIGHT 128
+>> +#define RISP_MAX_HEIGHT 4096
+>> +#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
+> 
+> The fact that 2 means 2^2 is only because of how
+> v4l_bound_align_image() is implemented
+> 
+>> +
+>>   #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
+>>
+>>   static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
+>> @@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
+>>   {
+>>   	unsigned int bpp = 0;
+>>
+>> -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+>> -			      &pix->height, 128, 4096, 2, 0);
+>> +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
+>> +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
+> 
+> Should we maybe use 1 here, unless it is documented that 4 is a
+> requirement ?
+> 
+> My suspicion is that we originally meant '2' everywhere, but
+> v4l_bound_align_image() is weird and if you pass '2' in it means
+> '2^2' and this went unnoticed.
+> 
+>> +			      0);
+>>
+>>   	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
+>>   		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
+>> @@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
+>>
+>>   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+>>
+>> -	fsize->stepwise.min_width = 128;
+>> -	fsize->stepwise.max_width = 5120;
+>> -	fsize->stepwise.step_width = 2;
+>> +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
+>> +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
+>> +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+>>
+>> -	fsize->stepwise.min_height = 128;
+>> -	fsize->stepwise.max_height = 4096;
+>> -	fsize->stepwise.step_height = 2;
+>> +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
+>> +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
+>> +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+>>
+>>   	return 0;
+>>   }
+>> @@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
+>>   static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+>>   				       struct v4l2_pix_format_mplane *pix)
+>>   {
+>> -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+>> -			      &pix->height, 128, 4096, 2, 0);
+>> +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
+>> +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
+>> +			      0);
+>>
+>>   	pix->field = V4L2_FIELD_NONE;
+>>   	pix->colorspace = V4L2_COLORSPACE_SRGB;
+>> @@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
+>>
+>>   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+>>
+>> -	fsize->stepwise.min_width = 128;
+>> -	fsize->stepwise.max_width = 5120;
+>> -	fsize->stepwise.step_width = 2;
+>> +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
+>> +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
+>> +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+>>
+>> -	fsize->stepwise.min_height = 128;
+>> -	fsize->stepwise.max_height = 4096;
+>> -	fsize->stepwise.step_height = 2;
+>> +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
+>> +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
+>> +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+>>
+>>   	return 0;
+>>   }
+>> --
+>> 2.55.0
+>>
+>>
+
