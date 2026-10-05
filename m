@@ -1,274 +1,324 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312484AA58F
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 14:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369204CC261
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 16:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.165
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212094; cv=pass; b=j9Ko8bBaNiQaQvmYPECqHA+8EO7dwlSmDPaU6eeTUBavFDWKZxN2m7y45msLUpOPoRij0qz2R8v5EMOjD+LC+4zv35lhUuEoUYlaf+7u4zjvsg0e2Rj+ncXNzn5JkadSNzrP2jmNwNR81ljYvf0K0AUibp0Hj1eTGWePBhtm4E8=
+	t=1791216374; cv=pass; b=OQkl4dN5lq/YsozihG9iCxeOevOGsRdLeKOjJmySSnQbPqUaHRgbOft6HJDq6mOzBgLJwhUHsQ5efs/mc7/VhohFipMBuL/8k9A7ORRCG+P6KT7O0n+NuimJs/+0zD8+r9L/cwdm4VjjYb967Sp/W0dmWwR5BHxyEXblCuvQq94=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212094; c=relaxed/simple;
-	bh=i0nQ0+XMImW6Os1ZaVv1TSv69h48b+lQNTkAWPRE4ME=;
+	s=arc-20240116; t=1791216374; c=relaxed/simple;
+	bh=Aq9n+WVXpMtFimt1yOlnQ5XvkLhJlSuqBmqy8/y2ArE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N0rjuJC/lR0tTJk6+aODu5btwGooLv5k6ND6GoMMXF5U313K7Nvjcs/cGnGNdmS2NZwJwaccR/stnyV7Pu2JjpJARTxvJ6ztEhrERmomwe/44kr/Vaa/UF2B7xMuGrE//15uu2/54umZGwPucZIxSQboEs2gr+XWsE8wit/UPVc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RwT4N7zl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bzwXXbOO; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=tRnoII8KCE8imXjgGoj4khV6lmwn6OTT0sHKU+1geQCA3sTO+av2Bin1wDr6undjLGM51YRatBCEfAfacAQpveVDoCrjQy1vs36nE6deXnB8sa8+hnwdzSZh2eIrfvcmEEC7C3SoBhyesM7jEgzSWusN9j9D2JP8FQVUBhUXSXM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=EOJElG+y; arc=pass smtp.client-ip=74.125.231.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RwT4N7zl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bzwXXbOO"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EQFgM762590
-	for <linux-media@vger.kernel.org>; Mon, 5 Oct 2026 14:54:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=ApQSUFVI2oW1ohSRn0/36SH+054N3pE3T9i78ZQXk34=; b=Rw
-	T4N7zleli/KGH+oInNyb2+VoirvJOg5zCbCk38L1ROJ8Fl66nVnmi+UkTbfqzU4P
-	9qCE9ocv7QpBM+AkQJjHBtKsTShJ/Yp5ONAk7292RkWgV71cLF2L4AR6p3rf2eyd
-	DKua+QumR3H+jlYmHD+y8oCtnK9K+8HT2RzTCZCh8VLBEK+N+GgtXF2qUENI1del
-	WWxwCfdbx+AVQdOH488yGn2aua6NePMuCFKILlxsG+yqOg+PqoRhBPZ4XAFBsoTD
-	2XS+CCi0DYi8BPT0DruTloZ8aOkkE2ma/IJquD/etbhYStCPgrZMdkq2l5YoLvlT
-	fqSrMkfiqOS6M6NakaEg==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4dncg484-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 14:54:46 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-46f178d813bso1890556fac.3
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 07:54:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791212085; cv=none;
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="EOJElG+y"
+Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-7fcb425fc2bso1484859a34.3
+        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 09:06:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791216371; cv=none;
         d=google.com; s=arc-20260327;
-        b=lfduGnsCLBsVczACgNp4cvJsCc5eKH9GLMlXigzT0RUIJ59aCmlNfN+Npa+TvXF5Ew
-         ogofe2qnzFNIUxlHJck0U5/GCfMjzN39zLogekUMRjscoHtBKsOWtSG84QCpAI9BWi+t
-         tcBwQFIzK0kDf6jcW3xjOUrSSZIn8EDzCRMS/8bFzypwIIdPbDAkVEk/fA9QmGrRWTID
-         PjoBZVtdbrIapKRuZ+NbPlzACK7Om+xTTfq50nT8Xi0XXj512HrgbJ6Agg2q4X5vx52x
-         EglrosxY810iKdwFJ3BvQx7oKCOpqzDnuFEZqHkIGuSJGdGMOSERjKlvmVb55QFukJK1
-         jJhQ==
+        b=ok+5+zGhQO7dWg3dihSf7yssE3SDKsuVu74DmztELF/Qjou/Ta/6fupKEgFC6wg8nz
+         DWn7GxiVLWQs5tMdi+i31mzd45O51w7z6wfwcpPQ4vXf8WYX651dd2/Sj9fc1YAFcbDm
+         dwfeOAaPE2WTv9IrgjhEu+4tScl8WDj6PzEsg/1+Uv4Q4uXfEjqoOw0ccwhnS0IBkRr6
+         ZXqx0QuvymgNr1VabjpnNIxKiEn7EZD/G8tNzL2lmm0BDj7c3CHLn7vk9KAbLk+T22aO
+         JfmTHdX45B/TKd8HGaEUO/t+BrL39o2y6QlMuVJm33Bwj0YLXh1o6RXg3KPU8ODMREdy
+         TvOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=ApQSUFVI2oW1ohSRn0/36SH+054N3pE3T9i78ZQXk34=;
-        fh=DAS5Hc349J6wLIq8C96JTL2jqwyN+YZgRt6xwE7bxyI=;
-        b=J7nJAsQjZ2xp/UMKjMrXSxJWo5zS5zUJootk+Ht1ujPKFXqAarfK7cZJ74FdcIpyLL
-         I9sEbUHQF5WUYvt+l2w225B+LH71jzMqc223Dbi+fKi5SyaC+rgxuupJjJRXmn55Bzf0
-         lcdRb3eOxrNr6gUtld+uHZJ121ku79vpY4QnH0IIWFhzAankad4zzT3GGKSoEVqc1xvj
-         i0NT306sywpjf9GQq1QAIiFAFc6POLGWyatATndR0U8FegtNIdzGZzxS5DQ9uwEipk3j
-         litYxaruVx0cQ34jLfw1RG9/eLyIJ+VMl/iLv+BkqS+6iM05fmoZlu1vhmp20kjGsqp2
-         FQcQ==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iXYOVHIBN9ZC5y6W29Gxv1RB4crN6nX0cmKZsey6SkQ=;
+        fh=IYmTmWGrXViLAWXZBPf85AkrkuvMRZSKYhUJpvjGDac=;
+        b=OyWKVs1g7PP+RFrh0SKTHdl7nBeAmYeI4iHPb16FmilICcIrgXVeX3WmU8banxDaFQ
+         c8rLzw+RPE5FeTsFnioBFa6r6k+tO2Sqz2QiXzUXDWU+gbcVbsMKXcKdeST/adNp62QI
+         hz2jmFhRfLKYNwAyXARH+QfzxA2clAmMu+QaAZe7PjYXxYLp0k5EO4C7C4iyqD5TqaXS
+         41PiJ4zoa/izt8Y1kPkyLlrwIhHIXdncDNQCFcX/2qb50avVfNisCu1R5DWrx8cIoC33
+         iaMAhY9VVZ8akLzkzup0THrl4gYVwfFWerIgHRFpG5VlKk+7713a7YWHBVEfIdj5ehxI
+         SJoA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791212085; x=1791816885; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ApQSUFVI2oW1ohSRn0/36SH+054N3pE3T9i78ZQXk34=;
-        b=bzwXXbOOzb2FvOj6m+iji/8UZDINJmyrqVgsFo+qesrrzY4uuM4DmVHCNnTZ7cJBIR
-         7f8Q1rZ4hdWGV/t7DiZ06KPcE3V0l/FZxWk+sxzu3D76fFFfaMy3aJ75/BaXbiB2XAmI
-         LSKF6Wp4btqTTDlX4YCrr9g/nZmTjncDnd9J3SLr9fIhtWt+bOGQ7SpNj9P4WWHPRQgs
-         3IDvWcHPq7hZlCSoDBlWQe1+rlwHshd9W5qMm1UDchqWEMn9HCcICeC0MKnwak6RPviX
-         +mP8J65JCZUX61Nj4ZrQJEQlF73I5v27dLQVjZDVnhU+n4PfuoIQ4Ky9O53pkyvAa9EQ
-         wLyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791212085; x=1791816885;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1791216371; x=1791821171; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ApQSUFVI2oW1ohSRn0/36SH+054N3pE3T9i78ZQXk34=;
-        b=I+msA+PLJmWouUuy5fhyebyiykYNh+DTaPQ+E5VgCDXDMIEI6UsrTt0wjukp+nhM3p
-         wK86Qck3TdK/b31tOPO9t/MxBIBs0PpfyUBqzqJxebVUwjhAVuwJ6x7NLu05PnYGzVKN
-         yFyRVBiRV+VDqYdu7bvYkexoVBoVTWjRzi0htBwhvjHlwM5nUVibU0nzHGOm7YlTOo3j
-         3YtIVTZxz0uwvpKheGOwB91yqGkttE4JXwuwQCtoEwdwC+04MpF0Zfzhm/1zbWpCZM5B
-         tKSMpKL9iXgqH+yDJaA7Cg9fxoEdRtAI2KMgpCW6F4As1gknYQyMIYXn0njeHy5Gb1+w
-         ExdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxy6PW6mL1v8ru4ipnboWpS+5upzVl9MfzQODCbLgUDyqrBufznHmbrlU80TMFWMRkKvENQOLtJzuwJcQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqaNENJRhjnxUCVUNg7h/0WI56l1MVWXrbdahIOeosDl2qwwDe
-	t9ZKZO5RD3f3SefAn9Dx2hs73bpCjBwTcqaheriGVNaqSKog0feTT+MWh2Bt4OHHNRUsTJUVX8N
-	LFbrYhbWtyOw7fgoqg9b3pr8VuOWA0jQe+9Eehfpnn2tJSLqIZQrxqHtzhIxkHzqlkO5qGEPf+l
-	32CLN1VkvuLalXWIwBe9ZdbT0qeOtopje6muLTnPCm
-X-Gm-Gg: AYBFou3HKarT2tQ9pwm4D5zLoeIPzcU+Cr46DaWTo8oEOy7seQ8s6DY14bl3pGvgRbR
-	cCm7jxTV7s1lMrxwcYaN348ceEZ15rMlezGhW5ina2sxec0BvIKzp2RqcDrMIvRTogh5y6yUkIa
-	XWKmihE2agtEHwGvnLslj4MV9XBVIrlACgXF0sE98vnnHqEGuovMcjKTHE
-X-Received: by 2002:a05:6870:d892:b0:447:a816:9328 with SMTP id 586e51a60fabf-49e3a59bd9amr5060480fac.6.1791212085086;
-        Mon, 05 Oct 2026 07:54:45 -0700 (PDT)
-X-Received: by 2002:a05:6870:d892:b0:447:a816:9328 with SMTP id
- 586e51a60fabf-49e3a59bd9amr5060455fac.6.1791212084569; Mon, 05 Oct 2026
- 07:54:44 -0700 (PDT)
+        bh=iXYOVHIBN9ZC5y6W29Gxv1RB4crN6nX0cmKZsey6SkQ=;
+        b=EOJElG+yVprPGZmCXozcriPDYo2zSVFppo9EetZIKOE91Gl+9rj5Mekb7USpTYjgP8
+         pZK/ZwL8vbXBO7o9KCVGYfxSjHaVkoTPnrQoFnjnzuBTRjXvNLv97JGhix+XIJN7b8Yi
+         8RL/HHGU8kTQ+6SpbtUfK3ia09NLV0bRON1zs/UYusGk6QiVsjBWASARbyKvYcpwpdOw
+         +jA8EO6psEZClWrl//e1uRpTicttL5s3BUQXAmac9xHeJypInDJYCH2msG9Oub5olWQw
+         MQXYOFPVF0LXKKhxVTsejZKFcnmx1Q2G8T3OGQDzNYRsRon7Z3pjABoK3kXQqvCkmTlf
+         W5qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791216371; x=1791821171;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iXYOVHIBN9ZC5y6W29Gxv1RB4crN6nX0cmKZsey6SkQ=;
+        b=x0i+sIcqapbHuSsudrTW4mGAic0HifVojgQXgb+Dca8+Kuem2s7q30CdCLQdbX94O5
+         /Kdl7VAW6a5wYDry7Hw6wxILbxhO1e79Vzo86Yu1A2Zt/I/EhBGwGEKXX6aT/BgsAq+A
+         WvfSZU7kiFBokBdpl+Ai2tFKWZU4+PvzaqwdzjD1ZdpyKOs9D0ltnBfMPjSvG+IXlIg/
+         aj5yll9MI1DPCi2UqiQzJiQAuAWK51l7eDlkEd5gHG3uCJB/cihDy5SohIORBeB+BMfY
+         o4czsejGxSGhsjWTSpKzaeu6x54Zvy0pAFiuZSwcgCUZAUn4LHti8NU31A7HWfJdwpj7
+         5TTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1rBcG+197ReoSeOPktL3YgUc1euycAwqnMjJInpQX9smxZ6Wo1levrcvcMJ6lR//T0l5OKKIYCtLTYA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mqGYSQlFcMb1N3vhsjsYuZCVmRO1lBW35iT8EJYhtFCYs5r7tb
+	Kqdjub3QNKHz79TGLeaOXrRDmvcX18CQCsHFFeLM+URvFBJbZIpdnhUAAiDyagUTazTVHxxUcE1
+	+y1jja5r/jxVUAWOn9hAJcE+K2P5obdIKcy2mjiMiGQ==
+X-Gm-Gg: AYBFou0JQP/pByalMFNi3ZOq0K4j+sKYGL7jbRqdnzUbVVkbGcFOKco2ayTiIAr52ur
+	swdjyBObH9KQQnw+xCZKpin89mCtZZcmdBw+fZCh14pQFVW115HXMRPcPJA26AsirJxojLFMhiM
+	RwTzuaXwc1JJekSJsOeokC1zhRY92W2Ep4Xrsj9cqjYiZ3pUsm8NMHpCPwYNMSWPbcHCzbN/FxF
+	oiUN2Bs3bSs2ORQIiJoGavlEwdTCXDgQ5pnUnsRnymik37JoNusDH7y3pk95HVRvzLWQdIpxyKk
+	6hBxKOYu5e1JIuFxlYVSEljjfVNbcbFStAOMlkxS6aEVcpra3mj2M7jX5z36ubdJBBOrCBT7hW0
+	zRZzUxwfwhcU39+CPTby8R8CdoqwNGqP6OK2EZsAvObG4JtF2BUgNk93PTFJQhXBtLZJuxN1x
+X-Received: by 2002:a05:6820:4df8:b0:6c0:6199:8274 with SMTP id
+ 006d021491bc7-6df34a77d53mr9550307eaf.63.1791216370746; Mon, 05 Oct 2026
+ 09:06:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com> <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
-In-Reply-To: <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
-Reply-To: rob.clark@oss.qualcomm.com
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 07:54:32 -0700
-X-Gm-Features: AclHuK9HudIjSgMqJ3EcpweDFeA8JvXrNOQ7VzbVPGFBjWu5VmzRi8Z8u8xEFGw
-Message-ID: <CACSVV00sJmmRqpTJUD4AfB5-LJRCtzdWDTKVCQwH+y-uYYYMbg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on handle close
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Antonino Maniscalco <antomani103@gmail.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev> <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
+ <arpyD2CjxOqwQvx8@bombadil> <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
+ <arrVt-0ctw1cXkkW@bombadil> <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
+ <asO1sIZC8rOyhSnu@bombadil>
+In-Reply-To: <asO1sIZC8rOyhSnu@bombadil>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 5 Oct 2026 17:05:54 +0100
+X-Gm-Features: AclHuK8iEACOzxyne6yAjoVoTGdSzWQb6lh-WlVBlMti3keDCEYJo8j4rsyZRHE
+Message-ID: <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
+Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control range
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1OCBTYWx0ZWRfX1rHB5fnUxYDN
- XViSpVMjrGX54c11mCexqHZZBSekvME2xqwP6a0a0NUyaj9udXkd7NaGnuyrm1rWkFvpHJC2p4N
- UphtLhBO7korN27dMr98MX0MLasS7Io=
-X-Authority-Analysis: v=2.4 cv=Vdxir1p9 c=1 sm=1 tr=0 ts=6ac3ba36 cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=VfJzBMOGgdBi7dMCBGQA:9
- a=QEXdDO2ut3YA:10 a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-GUID: fwjd6JJ6ECa4NtSiYhnOadKHUIMnEWVh
-X-Proofpoint-ORIG-GUID: fwjd6JJ6ECa4NtSiYhnOadKHUIMnEWVh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1OCBTYWx0ZWRfX3v7XAqdpOnIc
- 84ugYpJni26kwXdzZul/A2DUT5XV4eYPaPUvSFpvZq+caN8t1PoZSGmB22ivwImJxlhDYFIhc8z
- ZShk7yV1cPOaTR39PCG6gFUpvHpN0hk7/J4DhzVz3xlt6jhTcit7EH6KHHXXYUTOFD8fbcDD2cc
- QPB7VwNvqBvMuSyj7sUcmuovOLH8tGbINjLYmFFqSnDcxIclsZTuwS96VwwlS4Ka124WGBUBz31
- FgDJz8UbtQXECFmIgdAflgqDIQpE01A9cCQ65OCp4ika2PUXkRS/1KofZsqKiX/Zl6ogQ6y65Gw
- 2DUo0rHbGg0vqrDkBQVT7wet8etD6TSVw344CLy5CsVoRtAv2oOKN7Tl63zjQ2fIYP+Kjy/NWY4
- MAtspdxZmAO5nHX8fFGcIVcXax9a+pn/5b31WuD6M2Iak0HcD2RxpWMrPTQxPn+l4Fxt9baSN/h
- SQDPwviOhb6q4EepbPw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0 clxscore=1015
- impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050058
 
-On Sat, Aug 22, 2026 at 1:49=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> On targets (like A530 / MSM8996) without per-process pgtables
-> msm_gpu_create_private_vm() uses the global VM, so all DRM files share
-> one GPU address space.  msm_gem_close() unmaps the object from ctx->vm,
-> which on those targets pulls the buffer out from under every other file
-> that still has it open, and frees the iova for immediate reuse.
->
-> A dma-buf imported into a second file hits this as soon as the exporter
-> closes its handle: the importer's texture keeps sampling the old
-> address, which the next allocation has taken over.  On a530 this is
-> every ext_image_dma_buf_import sampling test, reading back all zeros.
->
-> The VMA teardown a shared VM needs is the one already used for kms->vm
-> -- defer it to the @vma_ref drop, when the last handle and dma_buf
-> reference are gone.  That restores the pre-drm_gpuvm lifetime without
-> reintroducing the reference loop, since a BO with a live vma_ref is held
-> by userspace anyway.
->
-> Fixes: 111fdd2198e6 ("drm/msm: drm_gpuvm conversion")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_gem.c | 13 ++++++++++++-
->  drivers/gpu/drm/msm/msm_gpu.c |  4 +++-
->  drivers/gpu/drm/msm/msm_gpu.h |  3 +++
->  3 files changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.=
-c
-> index f90afffe3442..e73cf49c360e 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -63,6 +63,7 @@ static void put_iova_spaces(struct drm_gem_object *obj,=
- struct drm_gpuvm *vm,
->
->  static void msm_gem_close(struct drm_gem_object *obj, struct drm_file *f=
-ile)
->  {
-> +       struct msm_drm_private *priv =3D obj->dev->dev_private;
->         struct msm_context *ctx =3D file->driver_priv;
->
->         update_ctx_mem(file, -obj->size);
-> @@ -84,6 +85,10 @@ static void msm_gem_close(struct drm_gem_object *obj, =
-struct drm_file *file)
->         if (msm_context_is_vmbind(ctx))
->                 return;
->
-> +       /* A global VM's VMAs are torn down by the @vma_ref drop above */
-> +       if (priv->gpu && ctx->vm =3D=3D priv->gpu->vm)
-> +               return;
-> +
->         /*
->          * TODO we might need to kick this to a queue to avoid blocking
->          * in CLOSE ioctl
-> @@ -95,7 +100,7 @@ static void msm_gem_close(struct drm_gem_object *obj, =
-struct drm_file *file)
->  }
->
->  /*
-> - * Get/put for kms->vm VMA
-> + * Get/put for VMAs in VMs shared between contexts: kms->vm, gpu->vm
->   */
->
->  void msm_gem_vma_get(struct drm_gem_object *obj)
-> @@ -110,6 +115,12 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
->         if (atomic_dec_return(&to_msm_bo(obj)->vma_ref))
->                 return;
->
-> +       if (priv->gpu && priv->gpu->vm_shared) {
-> +               dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP,=
- false,
-> +                                     MAX_SCHEDULE_TIMEOUT);
-> +               put_iova_spaces(obj, priv->gpu->vm, true, "vma_put");
-> +       }
-> +
->         if (!priv->kms)
->                 return;
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.=
-c
-> index 0c2c35636251..31d84e2b123a 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -879,8 +879,10 @@ msm_gpu_create_private_vm(struct msm_gpu *gpu, struc=
-t task_struct *task,
->                         to_msm_vm(vm)->pid =3D get_pid(task_pid(task));
->         }
->
-> -       if (IS_ERR_OR_NULL(vm) && kernel_managed)
-> +       if (IS_ERR_OR_NULL(vm) && kernel_managed) {
->                 vm =3D drm_gpuvm_get(gpu->vm);
-> +               gpu->vm_shared =3D true;
-> +       }
->
->         return vm;
->  }
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.=
-h
-> index d27d54bdb7a7..7722776e9129 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -223,6 +223,9 @@ struct msm_gpu {
->
->         struct drm_gpuvm *vm;
->
-> +       /** @vm_shared: Has @vm been handed out as a context VM? */
-> +       bool vm_shared;
+Hi Richard
 
-nit, this seems unnecessary, just check if vm =3D=3D gpu->vm
+On Mon, 5 Oct 2026 at 15:46, Richard Leitner <richard.leitner@linux.dev> wrote:
+>
+> On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
+> > On Mon, 28 Sept 2026 at 22:08, Richard Leitner
+> > <richard.leitner@linux.dev> wrote:
+> > >
+> > > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
+> > > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
+> > > > <richard.leitner@linux.dev> wrote:
+> > > > >
+> > > > > Hi Dave,
+> > > > >
+> > > > > thanks for your feedback! Greatly appreciated!
+> > > > >
+> > > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
+> > > > > > Hi Richard
+> > > > > >
+> > > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> > > > > > <richard.leitner@linux.dev> wrote:
+> > > > > > >
+> > > > > > > When updating the flash_duration range ensure the ceiling is at least as
+> > > > > > > long as the exposure time is. This may cause the calculated
+> > > > > > > flash_duration register value to be rounded up.
+> > > > > > >
+> > > > > > > This is done by introducing a new
+> > > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
+> > > > > > > wherever possible.
+> > > > > > >
+> > > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > > > > > ---
+> > > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
+> > > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
+> > > > > > >
+> > > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > > > > > > index f728709fcf0a6..be38ecfad8c82 100644
+> > > > > > > --- a/drivers/media/i2c/ov9282.c
+> > > > > > > +++ b/drivers/media/i2c/ov9282.c
+> > > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
+> > > > > > >                                 NSEC_PER_USEC);
+> > > > > > >  }
+> > > > > > >
+> > > > > > > +/**
+> > > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
+> > > > > > > + * @ov9282: pointer to ov9282 device
+> > > > > > > + *
+> > > > > > > + * This may round up the ceiling to the microseconds representation of the
+> > > > > > > + * next flash_duration register value to make sure one can illuminate the whole
+> > > > > > > + * exposure time long.
+> > > > > > > + *
+> > > > > > > + * Return: 0 if successful, error code otherwise.
+> > > > > > > + */
+> > > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+> > > > > > > +{
+> > > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+> > > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> > > > > > > +
+> > > > > > > +       if (fd_max_us < exposure_us)
+> > > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+> > > > > >
+> > > > > > Reading the driver for how it handles flash duration, it all gets a
+> > > > > > bit convoluted. I see part of it comes from the units being usecs
+> > > > > > whilst natively it is in lines, but we've got this slightly odd calc
+> > > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
+> > > > > > value.
+> > > > >
+> > > > > That's true. I'm also not happy with this back-and-forth conversion between
+> > > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
+> > > > > all "timing related" controls in the same unit (likely usecs). I was
+> > > > > already playing around with that approach, but as this would break the
+> > > > > current exporsure property I have not sent those patches...
+> > > > >
+> > > > > If you have any "mainline-acceptable" idea on how to do that I would
+> > > > > definitely love to hear it ;-)
+> > > >
+> > > > Sadly I think that there is a need for some of the back and forth in
+> > > > conversions :-(
+> > > >
+> > > > > > Seeing as this is the max flash_duration, is it actually limited by
+> > > > > > the exposure, or by the frame duration? The difference between those
+> > > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
+> > > > > > you up to another 9usecs to play with. That covers any of this
+> > > > > > rounding stuff. You can afford to always round that one down and never
+> > > > > > clip the range below the exposure time.
+> > > > >
+> > > > > From a hardware perspective this isn't limited at all AFAICT. But from a
+> > > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
+> > > > > the hard-coded default case in this driver currently) longer than the
+> > > > > exposure time makes no sense, as it does not have any effect on the image.
+> > > > >
+> > > > > With this patch I want to make sure to be able to illuminate the frame
+> > > > > during the complete exposure time, but keep the maximum as short as
+> > > > > possible. So I was comparing/aiming this at the exposure time, not the
+> > > > > frame duration.
+> > > > >
+> > > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
+> > > > > time: Would a "turned-on flash" during those 25 lines have any impact on
+> > > > > the frames brightness in your opinion?
+> > > > > I haven't explicitely tested/measured this with hardware, but I guess
+> > > > > this does not have any impact?
+> > > >
+> > > > No, as this is a global shutter sensor I wouldn't expect the flash to
+> > > > impact the image if a connected flash was on for more lines than the
+> > > > exposure.
+> > > >
+> > > > > Or do you mean when calculating against the frame duration the +/-1
+> > > > > stuff can be dropped and the code would be easier to read?
+> > > >
+> > > > Yes, I'm suggesting the driver handles the range of values that the
+> > > > hardware can support correctly. Whether that helps for your image
+> > > > quality requirements is a different question.
+> > > > The driver can pass the buck with at least some of the rounding issues
+> > > > to userspace, which potentially has use-case specific knowledge. And
+> > > > it simplifies the driver in the process.
+> > >
+> > > Talking about "range of values that the hardware can support": AFAICT
+> > > the strobe duration is (from a sensor hardware point of view) not
+> > > limited by the frame duration. At least I found nothing on this in the
+> > > datasheet and a quick test on hardware also showed no correlation.
+> >
+> > Interesting. So if you set it to a 1 second strobe pulse when
+> > streaming at 60fps, what behaviour do you get?
+>
+> I haven't tested the 1 second strobe explicitely. But the strobe in my
+> case is always on for the configured time. No matter if it exceeds the
+> frame time/trigger. After the configured strobe_duration passed it goes
+> low until the next trigger happens.
+>
+> Maybe the following visualization helps:
+>
+>
+> strobe duration < frame time:
+>                   __         __         __         __
+>                  |  |       |  |       |  |       |  |
+> strobe signal   _|  |_______|  |_______|  |_______|  |_____
+> strobe trigger   ^          ^          ^          ^
+>
+>
+> frame time < strobe duration < 2x frame time:
+>                   _____________         _____________
+>                  |             |       |             |
+> strobe signal   _|             |_______|             |_____
+> strobe trigger   ^          ^          ^          ^
+>
+>
+> 2x frame time < strobe duration < 3x frame time:
+>                   ________________________         ________
+>                  |                        |       |
+> strobe signal   _|                        |_______|
+> strobe trigger   ^          ^          ^          ^
+>
+> Therefore I would strongly suggest to set the maximum strobe duration to
+> be in every case shorter than the "frame time".
+>
+> For the reasons discussed earlier it the maximum strobe duration should
+> be the same or longer than the actual exposure time.
+>
+> What's your take on this Dave? Or Sakari?
 
-> +
->         /* Power Control: */
->         struct regulator *gpu_reg, *gpu_cx;
->         struct clk_bulk_data *grp_clks;
+Seeing as the behaviour is logical, personally I'd go with allowing
+whatever strobe period (up to the register max), and leave it up to
+userspace to keep the period below the exposure time if that is what
+is desired for the use case.
+
+  Dave
+
+> thanks & regards;rl
 >
-> --
-> 2.47.3
->
+> > It triggers at the relevant point on one (random) frame, holds the
+> > strobe line active for the 1sec, deasserts the strobe line, and then
+> > waits for the relevant trigger point of the next frame to repeat the
+> > cycle?
+> >
+> > > So IMHO the real maximum flash duration range the sensor can support is
+> > > the maximum strobe_frame_span register value.
+> > >
+> > > I'm not saying this makes any sense from a use-case perspective, but if
+> > > we require the driver to support the hardware's maximum values wouldn't
+> > > that be the correct approach?
+> >
+> > I don't believe there are any defined *requirements* for how a driver
+> > should behave with regard to flash timings beyond that in the control
+> > docs [1], and that doesn't list any constraints.
+> > If this sensor does behave all the way up to the maximum
+> > strobe_frame_span register value, then I probably would go for that.
+> > Other than having to convert into usecs on mode change based on pixel
+> > rate, it at least saves recomputing it as any other controls change.
+> >
+> > Sakari - what's your view?
+> >
+> >   Dave
+> >
+> > [1] https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/ext-ctrls-flash.html
+> >
+> > > Or am I misunderstanding something?
+> > >
+> > > regards;rl
+> > >
+> > > >
+> > > > > Sorry If misunderstood your feedback somehow.
+> > > > >
+> > > > > >
+> > > > > > There is reference in the docs to a different behaviour if "the
+> > > > > > vertical blanking period is long", but with a bit to set to give
+> > > > > > stable behaviour (0x3017 bit 1).
+> > > > >
+> > > > > I've read that paragraph in the datasheet, yes. But as this was not
+> > > > > affecting my use-case I haven't included this in this series or my
+> > > > > downstream kernel. Do you think it's worth adding support for this? Do
+> > > > > you know of any reports complaining about this power saving feature?
+> > > >
+> > > > It only matters if you allow flash duration to be significantly
+> > > > greater than the exposure time, which I was effectively proposing.
+> > > >
+> > > >   Dave
+> > > >
+> > >
+> > > [... snip ...]
