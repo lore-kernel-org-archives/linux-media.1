@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6750C52F276;
-	Mon,  5 Oct 2026 17:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6AC52FE40;
+	Mon,  5 Oct 2026 17:19:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220752; cv=none; b=qZp7KazZBE6Q16dDazX9hMFjqGAmi8c/4xDNWJ2+etDius9h6/6xyW+RIYfkW4wsle2rLlRsSN1zES6HtAi6ehVqYua6eWMECXIIVU6r4Nife3maiVlvWC33g10C8mupTlJUos6Ju0Ok3lFNcitu5GbZ/nBt9zWAQVtehjDI4pY=
+	t=1791220756; cv=none; b=vA1gKO0YjgsysTuLYwr3L9pQq2haDbkEVhn+/4e1PSZPaF0o1rtAfdQ3b5e65/QJbLfuSqeVykyXwH3dHXnvIIhVDooFM3bayhXxkrmt6Fdg4qpD+5+0tVWxoW2oFM3EdDdPiIsfksRGtLdFZq15idbkZEXgnsm7aod46+wZADk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220752; c=relaxed/simple;
-	bh=5e+q4TCXQGoXItJZIg01pjZhKGXCsA1kAZgp8jkqTME=;
+	s=arc-20240116; t=1791220756; c=relaxed/simple;
+	bh=ixGzTt618acudIfWhUHiiEvO/zaTFQWnU2inPGvdKw0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZXrbRIlx78HLReE9Wainz8CvZVYE5NAY5h1x33tChYScE/CFfBQ3y/pD0+3D4bA8vgQdawi15G0EN0sVe8tLcDdc8GsQ10HY2bkMWiYGHuJ8FC9DR7hVdaZR+6g0mmi6DsfcpTwnsGJme8gNpc4ogO3dcnfXkdUz5OnW2et0VF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax/1dOU4; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=HjZQXA9a4dnc6G2bSOOcRG9w9J3FMwd/w5Byn1uFFB2Jy5jbMMP4CWSm2oNSzf/iNRhAJ1zGkpdZiqRiA/4OjokwUIvH/pzs35r3ogbxZJta870yMBsWuqoEQXNA+7NDAFwOaHQASjtB7TamK92GvlFO1Rj4jQh6+HH/NwofNDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Un9kShDa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax/1dOU4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4796E1F000FF;
-	Mon,  5 Oct 2026 17:19:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Un9kShDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B609A1F00898;
+	Mon,  5 Oct 2026 17:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220751;
-	bh=eM2eSoBfK7UQlxslfOLMAUF8tLhozKrVeJnSTAKakz4=;
+	s=k20260515; t=1791220754;
+	bh=S12p/LUH1jU10dpLqaOaOgJAuS9xgzKrvmgufQl8ZDU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ax/1dOU4GKGU82UeWrh1Hmf224urdOHAUckJ7Zln7gDDiJDBjoXbAp0wyvijE8YtD
-	 1XJql7qOh8C6ToXRAnR6bj51cb+GqgzLPAKaiAabvjMLUYfGloEo+TpQ7dauXEfedy
-	 jAlaHDY/07P4M9sJUCvrqGnlCkuUhEqEaCpgTKa3ly/IWHuutG2/+HubsmGengxgna
-	 /s5iRVbRm/C9j6npzhNrVBWycjSu+P7A8Vnn4NSNmylv62sX0uom2M8si8PxdNI4im
-	 aR6MiK1H4Jk4nWKsI3L5QyNJQOKYL5Q/N0KxBM3FarqFoS6UqeAbWggexuPiFU1asx
-	 BJMHmm4P7RWMQ==
+	b=Un9kShDaBbnH5fTOmDNKOuobmC2LTfsk7HyBiZOS2d5IMcC13ESICF91DYasjPhE/
+	 uXTSSI3thG7R/jFXSl9ExbJq22FzJQk1hHOuqQsM18R1gioUJlqpZkMBu6VtHvjyDu
+	 QpdkfyhiIFvuz4yjOI0NfKp2S03y69K/9AMYGm2wisQgj6fswlKd7eDg9WC4FutlW+
+	 p7jDwJV3+GOnBjD2kOYmqWA6ml5J6VAVWDjEfcyRD7T0/RYrTaek6xleuK345wGdpb
+	 xKl6bMqoH+wYBjOjZ53bLJ+1QM67j75rtHHxQvY798B7TItep4u73O85PCCRvza6zb
+	 2wLxUNzjiHHig==
 From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:29 +0200
-Subject: [PATCH 59/74] media: Documentation: uapi: Add qcom-camss ISP
- statistics
+Date: Mon, 05 Oct 2026 19:14:30 +0200
+Subject: [PATCH 60/74] media: qcom: camss: vfe: Select line-based mode for
+ the pixel path's video node
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-59-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-60-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,95 +55,82 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2863; i=bod@kernel.org;
- h=from:subject:message-id; bh=g1c9IKan9MOjGAcLlQSt2+4Sn8dFibLAGkmvn6iMdNU=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9srKc1qM5VVsH6RzQk7aIUmBdQrVEO3U3/HD
- voHQzRh8qeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKwAKCRAicTuzoY3I
- OjWpEACintDPXqIEcnMv/mKxNDCzLiJkb0eJWsGHWSoqmIZ2JROU3Vbr0lo+han4CwCe92c2l/W
- 2Vi50hczZHyfhOdVczR7qRrR2h/5GdFoyyvCZwGAJCDjc1TmdTprLrI/rNfL+kIkWNUrOGBK9xb
- hvFMPhfFrXluFIVh1Rm3HCZFMNH7gOY+yV8os1HkCbV7F8Gs5uWavVArLoH5A8ELNk8ebfmZJ2/
- gE4QQKMKfCDl4qjxBQe/Ttt97izzHmYT1LV7DOR6YdouLRO8iytZ8ishvHwrWRyifXBPVp7nGAn
- NkfRsFOLoZlt4sursQPHv0T0MRcGMUJDrkHdJQVxoxY7Szobp3XqZnI8M1YNPv9YIoi+tG5GxBD
- eMcZghD+Vw3jbtkOtVqGokef2UmrmHWJR7DGo5QyxAFxYsMgW9ml+GP2HndgaBTKlqyqwXlUUiQ
- nH5hbuVi9dPRZi/y2PEcrC+bzYaDT/6MO0kWKvdtAqICnsgAC1PjQ0ZBkWYBLrOwChhB9ijLlf5
- 6YH7PNvxlDB8bZTy325nq/AeyR4KOM2gXMf7bLMkOlz5TzJDa+4HyAkw9d9D5sAXmgUY/Z97JpE
- Xxs7DafPzAxkq5WZFWtaPZo97nWGT0rNo1aqdGLWIBQ46qRs5HP4Weidp8BcJZ/uTW95qE7wWZr
- +WmB1Ktlj7xGXFA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2317; i=bod@kernel.org;
+ h=from:subject:message-id; bh=KOBTGCHj3HcsfrMCMApcvhyDX/preF/McyKydgMwTXw=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9srvkH6xQK67nw31gq4Wb+U/ycbVWj02oX2G
+ KK38szvl86JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKwAKCRAicTuzoY3I
+ OjmgD/9OrX3L7IK5qMwPjWWM2Zgq0syjAJE4Qr+r/2ZrWx1Hm1eLnbsizaFDBUDWKTFFIYaC3E0
+ NGh2TM1O1pCevM0fZMhk//HdMv4q99TlypleW1wvCIR3AgD4nqAQ42YS0u1yAuRv4rV1633rb+7
+ oa60su+xk8vWD1oCoKj7x3W4H7uKSMRkD7/HvytFH7lNr3Dor0JagHG2DErFBsaK4TINwxBeLVB
+ hy1H3kA/CRR5otMPs7f2nARtv5T86tmgIRsosW3Mkcdk2bKV6CdmmDCGQq2O3CyfjHVCsw7ZtNU
+ ANvPwjABV7dW/wbv9yVjfIo58Z5W8h1Zxsb/FJN5uG6wc06lilgbuFF0twfdiifNq3W2NDQI4wM
+ XmzHihvij6y3QyYdfy1l+HhMjxOO6L17Ah61cUsmpkqVWpa/2Z4b7a0kYmLXBIVwD3LCLGbNa4j
+ bDuByZmI9TIkjuD78QdAS7MO+1oPgjk+xMgYBwn/1sePwQWYH/6VffNJOja1Qo8XhBHF+sXgWE4
+ vdDQkoyjDx9FLlekMhnlkfyPcCMdC69YYIOvzPeOqxubO7sBlTBuV+vCyTP3dl9sUl7QkY2yrO/
+ eIujnwMh2UEQNWlpUXRRJ4fp0XZpz1i7cO9DaULlyzozJqVqYq7nRkVqKxazSwrpgdP8mKtmIeh
+ yM2rQyyjAXt6Mkw==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Document V4L2_META_FMT_QCOM_ISP_STATS: the v4l2-isp extensible statistics
-container, the block types, and the AEC Bayer histogram produced by the
-SM8650 IFE pixel path, with an example of walking the blocks.
+The pixel path's video node is always marked line based. A line-based
+node caps its buffer at CAMSS_FRAME_MAX_HEIGHT_PIX lines of bytesperline,
+counting every plane's lines together. That fits the VFE 4.x and TFE
+pixel outputs, but not the SM8650 IFE, which writes luma and chroma
+through separate write masters, each programmed with its own height.
+There, single-buffer NV12 at 4080x3072 needs 4608 lines: the buffer is
+cut to 4096 lines and the CbCr write runs off its end.
+
+Add vfe_pix_line_based(), alongside vfe_bpl_align_pix(). Every existing
+pixel path stays line based. SM8650 is not.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 50 ++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-index 2f3654a9ba897..77372b3a32d7d 100644
---- a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-+++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-@@ -141,6 +141,56 @@ and a gamma correction block:
- 	for (unsigned int i = 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
- 		gamma->glut[i] = gamma->blut[i] = gamma->rlut[i] = i;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 0c7be87d7bd57..bf8ae6a6bfae0 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -2285,6 +2285,27 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+ 	return ret;
+ }
  
-+.. _v4l2-meta-fmt-qcom-isp-stats:
-+
-+*************************************
-+V4L2_META_FMT_QCOM_ISP_STATS ('QCIS')
-+*************************************
-+
-+Statistics
-+==========
-+
-+The ``V4L2_META_FMT_QCOM_ISP_STATS`` format carries the statistics an ISP
-+engine of the Qualcomm Camera Subsystem (CAMSS) gathers from a frame. It is
-+captured from a metadata capture video node using the
-+:c:type:`v4l2_meta_format` interface.
-+
-+Statistics use the :ref:`v4l2-isp` extensible format. The driver serialises one
-+block per statistics engine into the data member of :c:type:`v4l2_isp_buffer`.
-+Each block embeds :c:type:`v4l2_isp_block_header` as its first member, with the
-+type member set to a value from :c:type:`camss_stats_block_type`. Blocks are
-+placed consecutively, and their combined size is reported in the data_size
-+member of :c:type:`v4l2_isp_buffer`.
-+
-+Which blocks a buffer holds depends on the engine producing it and on the
-+statistics enabled for the stream. Their order is not defined: userspace walks
-+the blocks by the size member of each header and skips types it does not know.
-+
-+The SM8650 IFE pixel path produces the AEC Bayer histogram,
-+:c:type:`camss_stats_bhist`, on its ``msm_vfeN_stats`` metadata capture node.
-+
-+The following example reads the AEC Bayer histogram from a statistics buffer:
-+
-+.. code-block:: c
-+
-+	const struct v4l2_isp_buffer *stats =
-+		(const struct v4l2_isp_buffer *)buffer;
-+	size_t offset = 0;
-+
-+	while (offset < stats->data_size) {
-+		const struct v4l2_isp_block_header *header =
-+			(const struct v4l2_isp_block_header *)&stats->data[offset];
-+
-+		if (header->type == CAMSS_STATS_AEC_BHIST) {
-+			const struct camss_stats_bhist *bhist =
-+				(const struct camss_stats_bhist *)header;
-+
-+			use_histogram(bhist->bins, CAMSS_STATS_BHIST_BINS);
-+		}
-+
-+		offset += header->size;
++/*
++ * vfe_pix_line_based - Select line-based mode for the pixel path's video node
++ * @vfe: VFE device
++ *
++ * A line-based video node caps its buffer at CAMSS_FRAME_MAX_HEIGHT_PIX lines,
++ * counting every plane's lines together. That fits the VFE 4.x and TFE pixel
++ * outputs. The SM8650 IFE writes luma and chroma through separate write
++ * masters, each programmed with its own height, so the cap does not apply.
++ *
++ * Return true if the pixel path's video node is line based
++ */
++static bool vfe_pix_line_based(struct vfe_device *vfe)
++{
++	switch (vfe->camss->res->version) {
++	case CAMSS_8650:
++		return false;
++	default:
++		return true;
 +	}
++}
 +
- Qualcomm CAMSS ISP uAPI data types
- ==================================
- 
+ static int vfe_bpl_align_pix(struct vfe_device *vfe)
+ {
+ 	int ret = 16;
+@@ -2377,7 +2398,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		video_out->ops = &vfe->video_ops;
+ 		if (vfe->line[i].is_pix) {
+ 			video_out->bpl_alignment = vfe_bpl_align_pix(vfe);
+-			video_out->line_based = 1;
++			video_out->line_based = vfe_pix_line_based(vfe);
+ 		} else {
+ 			video_out->bpl_alignment = vfe_bpl_align_rdi(vfe);
+ 			video_out->line_based = 0;
 
 -- 
 2.55.0
