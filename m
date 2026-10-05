@@ -1,246 +1,274 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F082A37E2E2
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 22:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB434078D4
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 23:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791239420; cv=none; b=GX7tDb/yYP5S+YynjMtPQz7qAwueDIeQRR4TJVDZluSImzaiAfPkgMjhz1G8ZSPxaTRWfweI2R0GTwzcv1lREpvjapFsQBzHW9/JgEGEg4Hnz6XnycR9voY9A11wlf+3k5hn+62jpISiX+RBAYslizOAbh6sUsj27rM4wU1KQlc=
+	t=1791244188; cv=none; b=r3PhUI1axc5E2y/xxjGluzXyqAz7b6xETfcXoJYS9fdl/dgVxYFAsRK3bzNVtXqZgH71qvCYVjeMZbHDNp6KdoDRlzJ+TlEIthNnJbP7hMoseJMY2rkX2688SIKwnY4jLHSMy6SJ3OIBbBTJNdJ9PVX+8azgz4ePdHvW4P81oA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791239420; c=relaxed/simple;
-	bh=mucEdj1uqoLVSZBfuK1SF6FXby2PwwKZv5l3z18QNLk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UM4RTh2mqH1DOKS3NAls3pn+W+rfav6E2eM2WY5W6XsNbpfzxF03FQTpSsf5qhnheHnvxCqJLsQr41uVr/SrrePcmIguryg9+sQMcET2tWgKuXFWWwuMQ8VqSnSR8zi8Q4YpTQYbiWq3nvtn2e01eMsYsGX2WaEftgY0tG3Swxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev
+	s=arc-20240116; t=1791244188; c=relaxed/simple;
+	bh=YflqftK0tOs+oYdHjc0Iyq6b3erf2NCTF7El+MU1zD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=dKRJU+n0S87TW9XefHcZDjTQ+dAfqNKfC6nHAi8YiMtKEt9IJ9edJfdYKVF3ddOgeqa3dcbZYgLc7wekqwvAFxcWD9CSX1pPW+g7HduZM8u8wPuaVlzbhchYjsT0sBYMA0iOGeDsoC2NzP5k6jbKuNPEHc0mjCsGMU9KrgAtsbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P9i3zIOE; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6dddc514bcdso1405559eaf.3
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 15:30:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791239417; x=1791844217;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P9i3zIOE"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c0b552ccfso1899349eec.3
+        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 16:49:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791244185; x=1791848985; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xb3yq1vtfACEwe75yrbB1CPQfwdI7baxuA1mRi57je4=;
-        b=jBeSfbdxPX4F9VEteEYmmwDg+FWkpdrFVgltO927zMfoUkwwENzseZA0QzZ/AIjhrZ
-         lcpgjU9gZI/SAsUDokjQ9ocqNbSt6zOH2Q29pNtkADHlBT1aebtipGsIvG25OjtCSVXm
-         JzZe9Pnx5vuMk9uBvQ8dCILOmP0VMpX0tMbEelIwwllce99ExusAc3nuqG+jQxW6o6/s
-         Y9NYiYra3ZLdxz3DhPDcMoUvvtncIaPH5QhqvV8e8R674jqxAnEyHuPBWUycU5l1p670
-         78y5wLnM/q4IVdXH5VPoc7jT9wl1Lp8JVxu+5fIJtO5FgBV+jvcBE0r0DWpn3Q/ye+Up
-         Mxsg==
-X-Forwarded-Encrypted: i=1; AKwUvBx+9Yi5sL4LCI37jndBRVi1vPAl2h24dnajl003Yszf0DktceG1ChRC0m0IdVFiTJGf4+UTN8bHumkQqA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nIB8oAdNiiOgxkLObSk7iuf/Nggya14yGLHE/5rrqY/cr4WaNQ
-	HtloMDv05MfRFMHa3piJRPOBws2YDhi7cABu5h7Tz3jiQ4gViNGO8ub1R3PSfVxI
-X-Gm-Gg: AYBFou0p73PYRyYosFpIN+D/Cbzy6U9VGWHyFQLg9j8BbKFHLJ/xU5ENNI5przqZ/q+
-	/TSsONbKtGStn667tKtv5yCgQRrM4085jz5ZuwQwikuI34LPoSu2EoIcFHit5vnUhYy+9/1gDJT
-	ZncA5LJeWYU9BAk8sCv2Eq/x5PPI439J38BdChzAkA447S6xN9lmp2OFMU4xhLNJ63ADd9qLNpr
-	NKgEX7l8TfynWCFuAUaFeoejuu5eGVmTfPw3SBiu0WoFRAMCMflpRC3+8vZoOVYaUGtYVGqHwKc
-	b/IXahyMrc4BOUAKpfP8BRnSeUj/mckpqC1G+NZYzVxeC/NWuKP9xdh/nV028362XCAqJAiWtvy
-	XRAOapF/5BIBxQPSq+p+eT6ZW9KH4qj7pJqIF4ts2jm6x0FD+EmEeHkJ36grUoc/pvqByTtM6Qc
-	GbtKAn4s9rs3u8UbszqDBvHM8pKIM7KTXuEqJ06ya+fKfUMLzySdWztJwXTXsmM9Oqy3Ir+tySp
-	jDmhLl804WsT3AcTcCGXOLkeQTsG7fHTEEllLCsHQ6F4eVKl+l4m6JxigQArriVJ9Zt51I335lt
-	QV01uZpcFI1eX/vtMccpBcLRyU830iVywZcITQaeK4aohfIR9joJ6GZV
-X-Received: by 2002:a05:6820:1501:b0:6dd:1d43:8cc9 with SMTP id 006d021491bc7-6e09f617b36mr7259319eaf.82.1791239416539;
-        Mon, 05 Oct 2026 15:30:16 -0700 (PDT)
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com. [209.85.161.46])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-828201c6e79sm696111a34.10.2026.10.05.15.30.15
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 15:30:15 -0700 (PDT)
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6dde81a6820so1899364eaf.2
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 15:30:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0P/l1bER03seLdeeV3zH3xcjfnKy48kqPrO1Txhf0y6Vy7iYUqYdeXJF+T//xky23fEuqHOdw335V3g==@vger.kernel.org
-X-Received: by 2002:a05:6820:2226:b0:6de:1788:c3af with SMTP id
- 006d021491bc7-6e09db9eae9mr7389349eaf.43.1791239415075; Mon, 05 Oct 2026
- 15:30:15 -0700 (PDT)
+        bh=jg7eC6O8sczD/5bWQmAv3EpmSexdLgJjBCRuuQxdedo=;
+        b=P9i3zIOEpnc0dG7jrBZFdOSmsjGFXxdt0REq9NMUG1zwxInBQzbtqIcoU3GtDj6JO0
+         l427EveNeJsbDqSTYOegrc4UzbIc9POD9u3fHH/Sp2ImsFbnVD0w6mjSCa8vXaZ/XjOf
+         qRXHHRnNikg4tRmeAv/VRJ3mWWe3fBlVnemPJdtiFClkDPEHgxOYAUTc+hInRlsB0Q1g
+         aspIujELJs3sNxf0mBYLd/YNstMpET9frFMKLzZvah/D8doeVpYdomAA1mkwGFE8meRd
+         US8IzjybQ7jXl4ptjiAi9OzyU43qrbK5QStrivUL/wiq04IeHi8vJqLjj+Zz/eNOaIug
+         PJHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791244185; x=1791848985;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jg7eC6O8sczD/5bWQmAv3EpmSexdLgJjBCRuuQxdedo=;
+        b=B/bBJCD87J8hRmooxVwNua5XMhn02QSeKxgA8u5cEVTE5Yz8tPi/QIxETsYc0UCiug
+         FtSpXR/aakRv484KriogXy7kjC8By2WoVcbvCy6LQr0jpo+dCLoJ9Imby/lk4QL0KwKb
+         grb8O1ZBE/zDg4c5iTtkIcA2y6G6lRI671Bz0hxjGUBJlNW9hPnnM2tPoYaBLaQ2BvjJ
+         EgOkCriEgw+90NlZGkH4mOw/LRIHLwgVgksGD47edmXuqigbgArUjTd0NK3jqbnT59U3
+         cLCZD1TSz3rXR93vFudLBB03Q9nh2x6wkP+LrS0R1CZmFWzyOSSqA90LZky/Y6kERKRz
+         +8/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzxzlOPFduoIOIkYkUUpHOn8UzAAGPEhhW3tabdAzDXz9aDHkbL+L3DfcELLjLWVXseGe2g+0jrf+07ag==@vger.kernel.org
+X-Gm-Message-State: AFuF++lahO/SBEvK6ddBdZikVaUP2drsYxa4sNvRktKn8aL9A7RTFr9Y
+	awIhjzXx4DsEE8ORlYIA2GefhjT9PHbKlNj2tMxv/2WtIsW4DEDZ0M6X
+X-Gm-Gg: AYBFou3ShhdJTHOPAEN810J7fPkgOTKD9i4tVn71PAEAZ7QghLKfMqu6JRyBfnGv2Ag
+	IZIGjBTY+QjVoME8KzVJxWaKkDA9MlHJJNzhga8AhibodXJ4ZDifx+uo8T/T/TJ1ia6Gplm0FVO
+	oR8PghBf4lhwSLHRZReRZzBhhHJqy4xxhAQrKcnOayR2f/zxq0fQSLgpzvqvvfB+dBDNMeevZ67
+	kY+sf1QEudRQq2NJ70+DwzBOZFqivdxbITKr5fUNc17q09rdJSfflMRoLE3qhxFnqdz0u6yYVtQ
+	WpybgzggvCkrZogiPjlppW/G6kyZ9YvOgL6mbL84joeXUOuIvB7TouyN0hFwHH5+DRLQcgQ58da
+	P8DnykyGpVffKKp4axgnEpnLIYOoo3/L0w59eVuqNyX6doFXybh0tCv1BzF7MwnBn7919MpHRWT
+	8SVmW/zmkj5Qo786WOB455PUuJpskzGNkqaPtoYCLKU9gK5x8JIdOqD7Flq0IFbM2i
+X-Received: by 2002:a05:701b:4587:b0:14b:992f:c168 with SMTP id a92af1059eb24-14f58fd2a19mr13452231c88.4.1791244184897;
+        Mon, 05 Oct 2026 16:49:44 -0700 (PDT)
+Received: from arlo ([72.235.71.10])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d84ec510dsm2126430c88.13.2026.10.05.16.49.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 16:49:43 -0700 (PDT)
+Date: Mon, 5 Oct 2026 13:49:40 -1000
+From: Raiden Horner <raidenhornerdev@gmail.com>
+To: slongerbeam@gmail.com, p.zabel@pengutronix.de, Frank.Li@nxp.com,
+	mchehab@kernel.org, gregkh@linuxfoundation.org
+Cc: imx@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: media: imx: Fixed depricated implementations of 80
+ char limit & open parentheses line ending
+Message-ID: <asQ3lNQ2kZ_hBHZt@arlo>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-avd-v2-0-ecebe6a3648e@icloud.com>
-In-Reply-To: <20260926-avd-v2-0-ecebe6a3648e@icloud.com>
-From: Neal Gompa <neal@gompa.dev>
-Date: Mon, 5 Oct 2026 18:29:38 -0400
-X-Gmail-Original-Message-ID: <CAEg-Je9OY45PLvj2BKyXVfnVo4+VpRL-iQXVvMUVohLYNfWGTA@mail.gmail.com>
-X-Gm-Features: AclHuK9yFwOzqsj_JcPTvXfeG7bJIFye1-m4CrTXTFUfDaK1QknzW0JvhVf1j8M
-Message-ID: <CAEg-Je9OY45PLvj2BKyXVfnVo4+VpRL-iQXVvMUVohLYNfWGTA@mail.gmail.com>
-Subject: Re: [PATCH v2 00/17] media: apple: add avd driver
-To: Sofus Forstreuter <sofus.c@icloud.com>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, Sep 26, 2026 at 9:16=E2=80=AFAM Sofus Forstreuter <sofus.c@icloud.c=
-om> wrote:
->
-> Hi,
->
-> This series enables hardware video decoding on Apple Silicon M1, M2 and
-> M3 SoCs. It adds support for all the codecs AVD (Apple Video Decoder)
-> supports, which is H264, H265, VP9 and AV1 (only on M3+).
->
-> The AVD is a bit unique both as a video decoder and an IP block on Apple
-> Silicon SoCs. Instead of following the normal "a register for each
-> parameter", AVD is programmed through one single register. This means
-> the order of the writes are important, but its also important to ensure
-> we dont write faster than the hardware can process. To solve this, we
-> use the included Cortex-M3 co-processor. The CM3 accepts unsigned code,
-> which we take advantage off [1].
-> The driver prepares the instructions and writes them into segments,
-> which are submitted to the CM3. The CM3 then programs the hardware and
-> notifies the AP when the job is done or if an error occurred.
->
-> The driver implements the V4L2 M2M stateless decoder API. The driver's
-> framework is based very heavy on rkvdecs driver. It therefore comes as
-> no suprise that `v4l2-compliance` reports no errors:
-> Total for avd device /dev/video0: 49, Succeeded: 49, Failed: 0, Warnings:=
- 0
->
-> The fluster scores are:
-> JVT-AVC_V1: 77/135
-> JVT-FR-EXT: 42/69
-> VP9-TEST-VECTORS: 216/305
-> VP9-TEST-VECTORS-HIGH: 1/6
-> JCT-VC-HEVC_V1: 143/147
-> AV1-TEST-VECTORS: 238/242
->
-> Since not all unsupported H264 streams are rejected, the scores
-> depend on the reset working, this only works with a patch to the
-> apple-dart driver so that the IOMMU attach/detach trick works.
->
-> All codecs support 4:2:2, 4:2:0, in 10 and 8 bit. By default, AVD
-> outputs in NV12, NV16, P010 and P210. Support for 4:4:4 and 12 bit
-> formats has not been added yet.
->
-> Internally the AVD uses an Apple specific compressed and tiled format
-> called Interchange to store reference image data. This is stored after
-> image data across all codecs. Apple Interchange is used for sharing
-> buffers with other hardware blocks (GPU, display controller), support
-> for this is on its way [2].
-> The V4L2 pixel formats have been added to help with calculating sizes.
->
-> This driver has been tested on most Apple Silicon SoCs in our downstream
-> tree [3]. Its expected this driver will work on M4, M5, M6 and the Neo,
-> with firmware already being written for all except the M6 SoCs [4].
->
-> The groundwork for this was laid many years ago by Jamie, R and Eileen,
-> who through a combined effort managed to reverse engineer many core
-> parts of the AVD block.
-> This driver would not have been possible without the work done by
-> Eileen, who wrote initial support for H264, H265, VP9 and excellent
-> tooling [5], allowing me to reverse engineer AV1 and make the driver
-> conformant.
->
-> [1] https://github.com/sofus13/avd-fw/tree/avd-next-fw
-> [2] https://patch.msgid.link/20260917-apple-interchange-modifier-v1-1-875=
-294689c48@gmail.com
-> [3] https://github.com/AsahiLinux/linux
-> [4] https://github.com/AsahiLinux/avd-fw
-> [5] https://github.com/eiln/avd/tree/main
->
-> Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
-> ---
-> Changes in v2:
-> - Patch order
-> - Fixed dt-bindings by constraining all properties
-> - Fixed dts, add interrupts, iommus and regs. Drop labels, fix names
-> - Add Apple Interchange format
-> - Add more av1 and vp9 validation to v4l2-ctrls
-> - Validate more codec parameters
-> - Use the new CM3 firmware (drop avd-hw, drop submission loops)
-> - Updated cover to reflect changes
-> - Link to v1: https://patch.msgid.link/20260918-avd-v1-0-49977931f455@icl=
-oud.com
->
-> To: Sven Peter <sven@kernel.org>
-> To: Janne Grunau <j@jannau.net>
-> To: Neal Gompa <neal@gompa.dev>
-> To: Mauro Carvalho Chehab <mchehab@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Sofus Forstreuter <sofus.c@icloud.com>
-> To: Philipp Zabel <p.zabel@pengutronix.de>
-> To: Heiko Stuebner <heiko@sntech.de>
-> Cc: asahi@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-media@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-rockchip@lists.infradead.org
->
-> ---
-> Sofus Forstreuter (17):
->       dt-bindings: media: add apple,avd
->       media: v4l2: Add P210 pixel format
->       media: v4l2: Add Apple interchange pixel formats
->       media: v4l2-ctrls: validate av1 tile info
->       media: v4l2-ctrls: validate vp9 tile_rows_log2
->       media: apple: add avd driver
->       media: apple: avd: add h264 support
->       media: apple: avd: add vp9 support
->       media: apple: avd: add hevc support
->       media: apple: avd: add av1 support
->       arm64: dts: apple: t8103: add avd nodes
->       arm64: dts: apple: t8112: add avd nodes
->       arm64: dts: apple: t8122: add avd nodes
->       arm64: dts: apple: t600x: add avd nodes
->       arm64: dts: apple: t602x: add avd nodes
->       arm64: dts: apple: t6030: add avd nodes
->       arm64: dts: apple: t6031: add avd nodes
->
->  .../devicetree/bindings/media/apple,avd.yaml       |  127 +
->  .../userspace-api/media/v4l/pixfmt-yuv-planar.rst  |   14 +-
->  MAINTAINERS                                        |    2 +
->  arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |   32 +
->  arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |   32 +
->  arch/arm64/boot/dts/apple/t6030.dtsi               |   32 +
->  arch/arm64/boot/dts/apple/t6031-dieX.dtsi          |   32 +
->  arch/arm64/boot/dts/apple/t8103.dtsi               |   32 +
->  arch/arm64/boot/dts/apple/t8112.dtsi               |   32 +
->  arch/arm64/boot/dts/apple/t8122.dtsi               |   32 +
->  drivers/media/platform/Kconfig                     |    1 +
->  drivers/media/platform/Makefile                    |    1 +
->  drivers/media/platform/apple/Kconfig               |    5 +
->  drivers/media/platform/apple/Makefile              |    3 +
->  drivers/media/platform/apple/avd/Kconfig           |   18 +
->  drivers/media/platform/apple/avd/Makefile          |    5 +
->  .../media/platform/apple/avd/avd-av1-entropymode.c | 4698 ++++++++++++++=
-++++++
->  .../media/platform/apple/avd/avd-av1-entropymode.h |  284 ++
->  drivers/media/platform/apple/avd/avd-av1.c         | 1432 ++++++
->  drivers/media/platform/apple/avd/avd-drv.c         |  776 ++++
->  drivers/media/platform/apple/avd/avd-h264.c        |  862 ++++
->  drivers/media/platform/apple/avd/avd-hevc.c        | 1340 ++++++
->  drivers/media/platform/apple/avd/avd-inst.h        |  210 +
->  drivers/media/platform/apple/avd/avd-v4l2.c        |  992 +++++
->  drivers/media/platform/apple/avd/avd-vp9.c         | 1054 +++++
->  drivers/media/platform/apple/avd/avd.h             |  299 ++
->  drivers/media/v4l2-core/v4l2-common.c              |    8 +
->  drivers/media/v4l2-core/v4l2-ctrls-core.c          |   17 +-
->  drivers/media/v4l2-core/v4l2-ioctl.c               |    7 +
->  include/uapi/linux/v4l2-controls.h                 |    2 +-
->  include/uapi/linux/videodev2.h                     |    9 +
->  31 files changed, 12386 insertions(+), 4 deletions(-)
-> ---
-> base-commit: 4efa625593e1e9c76346232413997556dea1d89f
-> change-id: 20260917-avd-7ee5474b468c
->
+Fixed open parentheses line ending issue & readability. 
+I presume this syntax was there to meet the old 80 char limit, and double checked the changelogs to make sure this was not already submitted.
+If not I apologize, I am still getting used to using the indexing system.
 
-Series LGTM.
+Signed-off-by: Raiden Horner <raidenhornerdev@gmail.com>
+---
+ drivers/staging/media/imx/imx-ic-prpencvf.c   | 13 +++--
+ drivers/staging/media/imx/imx-media-csi.c     |  4 +-
+ .../staging/media/imx/imx-media-dev-common.c  |  2 +-
+ drivers/staging/media/imx/imx-media-fim.c     |  5 +-
+ drivers/staging/media/imx/imx-media-utils.c   | 54 +++++--------------
+ 5 files changed, 24 insertions(+), 54 deletions(-)
 
-Reviewed-by: Neal Gompa <neal@gompa.dev>
+diff --git a/drivers/staging/media/imx/imx-ic-prpencvf.c b/drivers/staging/media/imx/imx-ic-prpencvf.c
+index 77360bfe081a..69f5ca280454 100644
+--- a/drivers/staging/media/imx/imx-ic-prpencvf.c
++++ b/drivers/staging/media/imx/imx-ic-prpencvf.c
+@@ -704,11 +704,11 @@ static int prp_start(struct prp_priv *priv)
+ 	}
+ 
+ 	if (ipu_rot_mode_is_irt(priv->rot_mode))
+-		priv->eof_irq = ipu_idmac_channel_irq(
+-			ic_priv->ipu, priv->rot_out_ch, IPU_IRQ_EOF);
++		priv->eof_irq = ipu_idmac_channel_irq(ic_priv->ipu,
++						      priv->rot_out_ch, IPU_IRQ_EOF);
+ 	else
+-		priv->eof_irq = ipu_idmac_channel_irq(
+-			ic_priv->ipu, priv->out_ch, IPU_IRQ_EOF);
++		priv->eof_irq = ipu_idmac_channel_irq(ic_priv->ipu,
++						      priv->out_ch, IPU_IRQ_EOF);
+ 
+ 	ret = devm_request_irq(ic_priv->ipu_dev, priv->eof_irq,
+ 			       prp_eof_interrupt, 0,
+@@ -761,9 +761,8 @@ static void prp_stop(struct prp_priv *priv)
+ 	/*
+ 	 * and then wait for interrupt handler to mark completion.
+ 	 */
+-	ret = wait_for_completion_timeout(
+-		&priv->last_eof_comp,
+-		msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
++	ret = wait_for_completion_timeout(&priv->last_eof_comp,
++					  msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
+ 	if (ret == 0)
+ 		v4l2_warn(&ic_priv->sd, "wait last EOF timeout\n");
+ 
+diff --git a/drivers/staging/media/imx/imx-media-csi.c b/drivers/staging/media/imx/imx-media-csi.c
+index ef22a083f8eb..4eb621ddda25 100644
+--- a/drivers/staging/media/imx/imx-media-csi.c
++++ b/drivers/staging/media/imx/imx-media-csi.c
+@@ -679,8 +679,8 @@ static void csi_idmac_wait_last_eof(struct csi_priv *priv)
+ 	/*
+ 	 * and then wait for interrupt handler to mark completion.
+ 	 */
+-	ret = wait_for_completion_timeout(
+-		&priv->last_eof_comp, msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
++	ret = wait_for_completion_timeout(&priv->last_eof_comp,
++					  msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
+ 	if (ret == 0)
+ 		v4l2_warn(&priv->sd, "wait last EOF timeout\n");
+ }
+diff --git a/drivers/staging/media/imx/imx-media-dev-common.c b/drivers/staging/media/imx/imx-media-dev-common.c
+index 0d0ee8627a2d..be445df93518 100644
+--- a/drivers/staging/media/imx/imx-media-dev-common.c
++++ b/drivers/staging/media/imx/imx-media-dev-common.c
+@@ -377,7 +377,7 @@ struct imx_media_dev *imx_media_dev_init(struct device *dev,
+ EXPORT_SYMBOL_GPL(imx_media_dev_init);
+ 
+ int imx_media_dev_notifier_register(struct imx_media_dev *imxmd,
+-			    const struct v4l2_async_notifier_operations *ops)
++				    const struct v4l2_async_notifier_operations *ops)
+ {
+ 	int ret;
+ 
+diff --git a/drivers/staging/media/imx/imx-media-fim.c b/drivers/staging/media/imx/imx-media-fim.c
+index ccbc0371fba2..9e9bacf9dcec 100644
+--- a/drivers/staging/media/imx/imx-media-fim.c
++++ b/drivers/staging/media/imx/imx-media-fim.c
+@@ -205,9 +205,8 @@ static void fim_acquire_first_ts(struct imx_media_fim *fim)
+ 	if (!fim->enabled || fim->num_skip > 0)
+ 		return;
+ 
+-	ret = wait_for_completion_timeout(
+-		&fim->icap_first_event,
+-		msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
++	ret = wait_for_completion_timeout(&fim->icap_first_event,
++					  msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
+ 	if (ret == 0)
+ 		v4l2_warn(fim->sd, "wait first icap event timeout\n");
+ }
+diff --git a/drivers/staging/media/imx/imx-media-utils.c b/drivers/staging/media/imx/imx-media-utils.c
+index f119477cac6b..00cd391b5ff7 100644
+--- a/drivers/staging/media/imx/imx-media-utils.c
++++ b/drivers/staging/media/imx/imx-media-utils.c
+@@ -16,18 +16,12 @@ static const struct imx_media_pixfmt pixel_formats[] = {
+ 	/*** YUV formats start here ***/
+ 	{
+ 		.fourcc	= V4L2_PIX_FMT_UYVY,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_UYVY8_2X8,
+-			MEDIA_BUS_FMT_UYVY8_1X16
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_UYVY8_2X8, MEDIA_BUS_FMT_UYVY8_1X16),
+ 		.cs     = IPUV3_COLORSPACE_YUV,
+ 		.bpp    = 16,
+ 	}, {
+ 		.fourcc	= V4L2_PIX_FMT_YUYV,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_YUYV8_2X8,
+-			MEDIA_BUS_FMT_YUYV8_1X16
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_YUYV8_2X8, MEDIA_BUS_FMT_YUYV8_1X16),
+ 		.cs     = IPUV3_COLORSPACE_YUV,
+ 		.bpp    = 16,
+ 	}, {
+@@ -71,10 +65,7 @@ static const struct imx_media_pixfmt pixel_formats[] = {
+ 		.cycles = 2,
+ 	}, {
+ 		.fourcc	= V4L2_PIX_FMT_RGB24,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_RGB888_1X24,
+-			MEDIA_BUS_FMT_RGB888_2X12_LE
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_RGB888_1X24, MEDIA_BUS_FMT_RGB888_2X12_LE),
+ 		.cs     = IPUV3_COLORSPACE_RGB,
+ 		.bpp    = 24,
+ 	}, {
+@@ -132,55 +123,36 @@ static const struct imx_media_pixfmt pixel_formats[] = {
+ 		.bayer  = true,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_SBGGR16,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_SBGGR10_1X10,
+-			MEDIA_BUS_FMT_SBGGR12_1X12,
+-			MEDIA_BUS_FMT_SBGGR14_1X14,
+-			MEDIA_BUS_FMT_SBGGR16_1X16
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SBGGR12_1X12,
++				       MEDIA_BUS_FMT_SBGGR14_1X14, MEDIA_BUS_FMT_SBGGR16_1X16),
+ 		.cs     = IPUV3_COLORSPACE_RGB,
+ 		.bpp    = 16,
+ 		.bayer  = true,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_SGBRG16,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_SGBRG10_1X10,
+-			MEDIA_BUS_FMT_SGBRG12_1X12,
+-			MEDIA_BUS_FMT_SGBRG14_1X14,
+-			MEDIA_BUS_FMT_SGBRG16_1X16
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SGBRG10_1X10, MEDIA_BUS_FMT_SGBRG12_1X12,
++				       MEDIA_BUS_FMT_SGBRG14_1X14, MEDIA_BUS_FMT_SGBRG16_1X16),
+ 		.cs     = IPUV3_COLORSPACE_RGB,
+ 		.bpp    = 16,
+ 		.bayer  = true,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_SGRBG16,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_SGRBG10_1X10,
+-			MEDIA_BUS_FMT_SGRBG12_1X12,
+-			MEDIA_BUS_FMT_SGRBG14_1X14,
+-			MEDIA_BUS_FMT_SGRBG16_1X16
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SGRBG12_1X12,
++				       MEDIA_BUS_FMT_SGRBG14_1X14, MEDIA_BUS_FMT_SGRBG16_1X16),
+ 		.cs     = IPUV3_COLORSPACE_RGB,
+ 		.bpp    = 16,
+ 		.bayer  = true,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_SRGGB16,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_SRGGB10_1X10,
+-			MEDIA_BUS_FMT_SRGGB12_1X12,
+-			MEDIA_BUS_FMT_SRGGB14_1X14,
+-			MEDIA_BUS_FMT_SRGGB16_1X16
+-		),
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SRGGB10_1X10, MEDIA_BUS_FMT_SRGGB12_1X12,
++				       MEDIA_BUS_FMT_SRGGB14_1X14, MEDIA_BUS_FMT_SRGGB16_1X16),
+ 		.cs     = IPUV3_COLORSPACE_RGB,
+ 		.bpp    = 16,
+ 		.bayer  = true,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_GREY,
+-		.codes = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_Y8_1X8,
+-			MEDIA_BUS_FMT_Y10_1X10,
+-			MEDIA_BUS_FMT_Y12_1X12
+-		),
++		.codes = IMX_BUS_FMTS(MEDIA_BUS_FMT_Y8_1X8, MEDIA_BUS_FMT_Y10_1X10,
++				      MEDIA_BUS_FMT_Y12_1X12),
+ 		.cs     = IPUV3_COLORSPACE_RGB,
+ 		.bpp    = 8,
+ 		.bayer  = true,
+-- 
+2.47.3
 
-
---=20
-=E7=9C=9F=E5=AE=9F=E3=81=AF=E3=81=84=E3=81=A4=E3=82=82=E4=B8=80=E3=81=A4=EF=
-=BC=81/ Always, there's only one truth!
