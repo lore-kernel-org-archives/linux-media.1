@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF754D9542;
-	Mon,  5 Oct 2026 17:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7844D9552;
+	Mon,  5 Oct 2026 17:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220615; cv=none; b=DZ5V1v0JOp2LYX1Md8ZiYeLMqIJA6hal6v8yRhwfq6zqVUg2HKk2JMc2FEtqnF3wrAzaKrsvOYVGn2wMdLtjL1rX7cPCyXpKJGWDr+qJFbo8FCco2osCtcRSFwyhK1QsST4xxtn9QDfyR6pBhasrWOX2R5fLf0SanxF+Y3mDck0=
+	t=1791220620; cv=none; b=njZl4ImnDXxZiDui97/Sm9Kryx9ecT+0jO2pRKJdQkDVNAm26dTP3JSBEUnr4HQ68rfgoT8Av5fj+TW5u1qo5eEF73EES2/0ikzFEgvG3vK4KVdDK7L5tTvpxb+nlHSnDzwxzrRRKVUBHxk2O6NWzcWfPKmQ2FaddObH2Ulylc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220615; c=relaxed/simple;
-	bh=8tE/VrSYseq1rYuBIbNmyYqUqa/PPxg1KS78abVx2Uc=;
+	s=arc-20240116; t=1791220620; c=relaxed/simple;
+	bh=bOQkHJpa9j6I3ldFdS/97ztkAiQyARWHD/TphLGqdIw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SHAmNF9WUi0Yu3TTqbV3d11dB3yE+VS5nzZsiMdzDqQoDUj5sLXRIZ+ItfLNe2LugJSyBRRLEEaDiLeBVI2cA2q/Ks4WLDshqVjyTPdBndIsvv2vWV4XnPqZVIjuKXgxQksGZEiRlnMQm4VGXf7zjgOiSvLGRWYPEsPQSGNdlqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGDmw/WM; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=CqFwkaPhiHkzQ0LEs/mOmLe+XJFuW/FYioKLhnWU8BEsEtMbhGmw0Re/+vCFp4raLiKANWMLmb+ecohq9Op6eQng+F//SXExyM7IWza518y6a/vLaMyFEovTNiJUEE/XXyHxOQw17n3K/vY439PHFqZPSDh5VdvrJDU3HrB2+z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lLhPf7j2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGDmw/WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26EE1F000FF;
-	Mon,  5 Oct 2026 17:16:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lLhPf7j2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9EA1F0089A;
+	Mon,  5 Oct 2026 17:16:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220613;
-	bh=IYq3aZblsL+IEQB02Wc/GznQOyWSkQDG2qUoH13L2Tk=;
+	s=k20260515; t=1791220617;
+	bh=gt9PlZtuX2xRbkTkk2bZvpg6unStsMlGZqrk/YRiMyw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oGDmw/WM2mMeKedE9zmZ+YLDZZtpabPnviKHv0DIuoj2ukGAfLUNQ5aQbUG2XKoRa
-	 0yKsjtkbkLkwoUQPRfuo/omuCHSDRLe7w1nvag5iaBsyiSvdrJAM8t+tFdmOi0iXfL
-	 zYzBaRwyaKEzv1ldqEK7KVXXSzd7G442MyeH45KKiSfGlpV8v/WxI2A4E0wh4gMXLl
-	 N59axHlgRAciEj7WQVu0Fpusy2dQuFFe9Y8WzQ3WxVlXd+9LDXB1O0eUpuP/f2PWUk
-	 /wV4ka5+f0fc4P5Yml2eUiH0AkYPvUothtPZi1B2bug1b2wFlXT/Oio6LR8JtTZZgf
-	 LA4lIHCFNl0lg==
+	b=lLhPf7j2xWPKcH//nUUXEfSFcQtr3PQn83DOMFgw30GzPAp1i/EjDuvblZurtkkEj
+	 zLFZX50Y4v6Na48Ptw3UJfwuT9KjfbI95CetQ9m3fLKWxfT83/6e0NeSeZ+/0AS3Jr
+	 B1fsoSsXytlHd2QAqwNE7UJal7TO5d2I0yiri9BBnCmt2NBtIlNAWUMz9s+NydQWWC
+	 zs1iFz0lOkgz7XBVIkPTZcs5olHWMPoAHJIBm8m6NORJECHB/aBFeVTmKuNrWd2ICH
+	 ZTJxo4kFuIeRQ0fnwobODI9jOYetH5m3CKIhLlP4WTDoJwQzGuEpg5xexxWskS+cxm
+	 NQnnAyuAJGMBw==
 From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:13:50 +0200
-Subject: [PATCH 20/74] media: qcom: camss: vfe: Move video_out from
- vfe_line to vfe_output
+Date: Mon, 05 Oct 2026 19:13:51 +0200
+Subject: [PATCH 21/74] media: qcom: camss: vfe: Represent vfe wm inside of
+ a struct
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-20-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-21-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,364 +55,488 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15016; i=bod@kernel.org;
- h=from:subject:message-id; bh=8tE/VrSYseq1rYuBIbNmyYqUqa/PPxg1KS78abVx2Uc=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sOLD1TlDGV4J0XUgevZsLx43pANnOLdtO47
- YAtEl3uJq2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDgAKCRAicTuzoY3I
- Oi3MD/0alLrqJYtgh21wttBVvutMsEBpLtYMU6U5WMdBU/OPi1UbxhV89mlbYKIq68MH/zkBXK5
- JvcpLm00vYu6k5Zv/xY6JEt73CWwU7r5/1RVt+SXeIOTQCkKJIfPqx/XW0SqXjJ3fCaztn/txiC
- WVyN+dswqSAjS6PD4cw7ra2cRrszd/K1Y2nWrsGkC9FH+Hw4M4i5j91Cg9zEsBx7pwSi2rJOJ1g
- xiT96OdJ291yxTn/enG/iD4R6FTfC0hkMqxCkODlaHebwRN9fDuHzV67uhHxax8u5IyWGYrmgVM
- 751FbR1ClYt0hASTcDuFR7bt9SxmHqDCTUWPsivWADcWiEdNwgnfEThXO1da7Ikd9CNrh1fuaVs
- 6AZrnSUFM3kDd/fTMdxcK0+zwfCssEFQj6OJXZWykYC4hDuR8p1DGX2CsKRiOhg6k53/Qif3QXS
- NHAyCFn5Vm9ResDSZA4/pgudO0FZkCpzq8p7JmszgefU9/ZSdD4D3We475+nHe/GHY0BWN4YrdW
- ZKCYRCzxLLpJN4IZH9W6TlKWxqQQWG6DVgU7ckXyH3rl6lSiPrUG7OoFxMmWp7xPIuj6ylFJKAL
- +kQJDwZqq1xRAk53aY6IaSsOrH5UtV4awQ9sEOiZxN2CemBvlbdpHWcBZ80G/w4CHFQL2VysQEI
- NJQihu9khyzuSzg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19184; i=bod@kernel.org;
+ h=from:subject:message-id; bh=bOQkHJpa9j6I3ldFdS/97ztkAiQyARWHD/TphLGqdIw=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sPrLyx0/fDQ4OBxIMIEPsE046FHNea2OQJ8
+ 49AtY40nkuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDwAKCRAicTuzoY3I
+ OolFEACX5Iq+Y4waor6C47vJ6i5ejdyxpwOvGZ3j5RIKYq5ygAeRe9zRPhfSkdlU/3RaDMnb1c0
+ dYcueVq6RCbuqksyQ/t4F6yBHUeiuWdPxvmDtnlJ+5keVwdhgzqky89Bk6ptbfI2OOAZSF0Lgb+
+ oNtnzJsVm3BxWp9TFrAxv1n9Rte9CI2WO2t0T/0ChhhEBdjK5tXX+szrM0lg08Oe7sq2TjI6uxr
+ 3xP4z8syK+P1F/iE5Ll6vWSKaUW3957MyMT93WUSOeWjbSpShZ8jujqK6b1v5xHCke3JEOqP1P8
+ o8SFtKOb5+j8/783cRH6XFbRb9RedKLwUXLynWn8bKUY9KpCF93hNnMVTHhYph/WNhrkSeFst7+
+ UySVNXAFS5ERB+rD79TNqK9BFQIWo/99V0ZLEyJ2r6EzwAq9H2XqDNd+7jT6rKR3jP1GPdYDFRY
+ nWId1GqEX3kLsvdKNQe+yuFGKaBuBCJH2vUqhdnD6zeDUzyUDcIrPk16w/64HHeBGzBAYhDc6b5
+ 736tBsTkUA2FBp+5glnNYAgS3H+gn/E7Hsuf57iF2VKkP2FnGLFJjLPezVG+t4xDhMEjUyk6LBc
+ 1JLC7UDBJcA7elcVmGvDkogxcXvoeGpc2eBSoF6N1Gw1QCY4pYnC3h0ctNZuTtyXwVdCif+r+EK
+ /2QgbKB6VM2KZ7Q==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-In preparation for having multiple source/sink pads on VFE PIX nodes, move
-the video_out structure to vfe_output.
+Right now we have a major source of concept confusion where write-master is
+used in-lieu of of completion group. In the code when we say "wm" we
+actually mean "completion group".
+
+To extend this driver out to support completion groups where multiple
+write-masters within one completion group signal readiness via their group
+completion status, we need to associate write masters with their completion
+groups.
+
+Firs step is to stop indexing wm's as sacrosanct indexes and instead hide
+their fake sacral nature in a struct.
 
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
  drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-340.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-4-1.c  |  6 +++---
- drivers/media/platform/qcom/camss/camss-vfe-4-7.c  |  8 ++++----
- drivers/media/platform/qcom/camss/camss-vfe-4-8.c  |  8 ++++----
- drivers/media/platform/qcom/camss/camss-vfe-480.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-680.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-690.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-780.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-gen1.c | 10 ++++------
- drivers/media/platform/qcom/camss/camss-vfe.c      | 22 +++++++++-------------
- drivers/media/platform/qcom/camss/camss-vfe.h      |  2 +-
- 12 files changed, 31 insertions(+), 37 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe-4-1.c  | 10 +--
+ drivers/media/platform/qcom/camss/camss-vfe-4-7.c  | 22 +++----
+ drivers/media/platform/qcom/camss/camss-vfe-4-8.c  | 22 +++----
+ drivers/media/platform/qcom/camss/camss-vfe-gen1.c | 72 +++++++++++-----------
+ drivers/media/platform/qcom/camss/camss-vfe.c      | 14 ++---
+ drivers/media/platform/qcom/camss/camss-vfe.h      |  8 ++-
+ 7 files changed, 78 insertions(+), 72 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index d2dc2acc9d234..d9e37cf609823 100644
+index d9e37cf609823..8cb0c028a3bce 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -257,7 +257,7 @@ static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
- 			  struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
+@@ -541,7 +541,7 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, u8 wm)
+ 	output->buf[index] = vfe_buf_get_pending(output);
  
- 	writel_relaxed(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-340.c b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-index 2526d568686db..6edbfcf766dad 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-340.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-@@ -282,7 +282,7 @@ static u32 vfe_packer_format(struct vfe_device *vfe, u32 pixelformat)
+ 	if (output->buf[index])
+-		vfe_wm_update(vfe, output->wm_idx[0], output->buf[index]->addr[0], line);
++		vfe_wm_update(vfe, output->wm[0].bus_client, output->buf[index]->addr[0], line);
+ 	else
+ 		output->gen2.active_num--;
  
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
--	struct v4l2_pix_format_mplane *pix = &line->video_out.active_fmt.fmt.pix_mp;
-+	struct v4l2_pix_format_mplane *pix = &line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
- 	u8 client = tfe_wm_client_map[wm];
- 	u32 cfg = TFE_BUS_CLIENT_CFG_EN;
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-index a2a91217a3cf8..ccc065924b6b6 100644
+index ccc065924b6b6..40fa7cecd0f71 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-@@ -476,7 +476,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- 			     u8 enable)
- {
- 	struct vfe_line *line = output->line;
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	unsigned int i;
+@@ -493,16 +493,16 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
+ 			break;
+ 		}
  
-@@ -631,7 +631,7 @@ static void vfe_set_demux_cfg(struct vfe_device *vfe, struct vfe_line *line)
+-		if (output->wm_idx[i] % 2 == 1)
++		if (output->wm[i].bus_client % 2 == 1)
+ 			reg <<= 16;
  
- static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 input, output;
- 	u8 interp_reso;
-@@ -686,7 +686,7 @@ static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[i]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[i].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[i]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[i].bus_client),
+ 				    reg);
+ 	}
+ }
+@@ -568,8 +568,8 @@ static void vfe_enable_irq_pix_line(struct vfe_device *vfe, u8 comp,
+ 	irq_en1 = VFE_0_IRQ_MASK_1_CAMIF_ERROR;
+ 	for (i = 0; i < output->wm_num; i++) {
+ 		irq_en1 |= VFE_0_IRQ_MASK_1_IMAGE_MASTER_n_BUS_OVERFLOW(
+-							output->wm_idx[i]);
+-		comp_mask |= (1 << output->wm_idx[i]) << comp * 8;
++							output->wm[i].bus_client);
++		comp_mask |= (1 << output->wm[i].bus_client) << comp * 8;
+ 	}
  
- static void vfe_set_crop_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 first, last;
- 
+ 	if (enable) {
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-index 2eb4c3d505ebf..1f02adb79f921 100644
+index 1f02adb79f921..f98986641ae1a 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-@@ -566,7 +566,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- 			     u8 enable)
- {
- 	struct vfe_line *line = output->line;
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
+@@ -577,32 +577,32 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
+ 		reg = VFE_0_BUS_XBAR_CFG_x_M_SINGLE_STREAM_SEL_LUMA <<
+ 			VFE_0_BUS_XBAR_CFG_x_M_SINGLE_STREAM_SEL_SHIFT;
  
- 	switch (p) {
-@@ -635,7 +635,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- static void vfe_set_realign_cfg(struct vfe_device *vfe, struct vfe_line *line,
- 				u8 enable)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 val = VFE_0_MODULE_ZOOM_EN_REALIGN_BUF;
+-		if (output->wm_idx[0] % 2 == 1)
++		if (output->wm[0].bus_client % 2 == 1)
+ 			reg <<= 16;
  
- 	if (p != V4L2_PIX_FMT_YUYV && p != V4L2_PIX_FMT_YVYU &&
-@@ -782,7 +782,7 @@ static void vfe_set_demux_cfg(struct vfe_device *vfe, struct vfe_line *line)
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
  
- static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 input, output;
- 	u8 interp_reso;
-@@ -837,7 +837,7 @@ static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
+ 		reg = VFE_0_BUS_XBAR_CFG_x_M_PAIR_STREAM_EN;
+ 		if (p == V4L2_PIX_FMT_NV12 || p == V4L2_PIX_FMT_NV16)
+ 			reg |= VFE_0_BUS_XBAR_CFG_x_M_PAIR_STREAM_SWAP_INTER_INTRA;
  
- static void vfe_set_crop_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 first, last;
+-		if (output->wm_idx[1] % 2 == 1)
++		if (output->wm[1].bus_client % 2 == 1)
+ 			reg <<= 16;
  
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[1]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[1].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[1]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[1].bus_client),
+ 				    reg);
+ 		break;
+ 	case V4L2_PIX_FMT_YUYV:
+@@ -615,16 +615,16 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
+ 		if (p == V4L2_PIX_FMT_YUYV || p == V4L2_PIX_FMT_YVYU)
+ 			reg |= VFE_0_BUS_XBAR_CFG_x_M_PAIR_STREAM_SWAP_INTER_INTRA;
+ 
+-		if (output->wm_idx[0] % 2 == 1)
++		if (output->wm[0].bus_client % 2 == 1)
+ 			reg <<= 16;
+ 
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
+ 		break;
+ 	default:
+@@ -719,8 +719,8 @@ static void vfe_enable_irq_pix_line(struct vfe_device *vfe, u8 comp,
+ 	irq_en1 = VFE_0_IRQ_MASK_1_CAMIF_ERROR;
+ 	for (i = 0; i < output->wm_num; i++) {
+ 		irq_en1 |= VFE_0_IRQ_MASK_1_IMAGE_MASTER_n_BUS_OVERFLOW(
+-							output->wm_idx[i]);
+-		comp_mask |= (1 << output->wm_idx[i]) << comp * 8;
++							output->wm[i].bus_client);
++		comp_mask |= (1 << output->wm[i].bus_client) << comp * 8;
+ 	}
+ 
+ 	if (enable) {
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-index 3166660d864ec..577d1ddfe84b4 100644
+index 577d1ddfe84b4..06bcdf72132b2 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-@@ -537,7 +537,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- 			     u8 enable)
- {
- 	struct vfe_line *line = output->line;
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
+@@ -548,32 +548,32 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
+ 		reg = VFE_0_BUS_XBAR_CFG_x_M_SINGLE_STREAM_SEL_LUMA <<
+ 			VFE_0_BUS_XBAR_CFG_x_M_SINGLE_STREAM_SEL_SHIFT;
  
- 	switch (p) {
-@@ -606,7 +606,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- static void vfe_set_realign_cfg(struct vfe_device *vfe, struct vfe_line *line,
- 				u8 enable)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 val = VFE_0_MODULE_ZOOM_EN_REALIGN_BUF;
+-		if (output->wm_idx[0] % 2 == 1)
++		if (output->wm[0].bus_client % 2 == 1)
+ 			reg <<= 16;
  
- 	if (p != V4L2_PIX_FMT_YUYV && p != V4L2_PIX_FMT_YVYU &&
-@@ -753,7 +753,7 @@ static void vfe_set_demux_cfg(struct vfe_device *vfe, struct vfe_line *line)
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
  
- static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 input, output;
- 	u8 interp_reso;
-@@ -808,7 +808,7 @@ static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
+ 		reg = VFE_0_BUS_XBAR_CFG_x_M_PAIR_STREAM_EN;
+ 		if (p == V4L2_PIX_FMT_NV12 || p == V4L2_PIX_FMT_NV16)
+ 			reg |= VFE_0_BUS_XBAR_CFG_x_M_PAIR_STREAM_SWAP_INTER_INTRA;
  
- static void vfe_set_crop_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 first, last;
+-		if (output->wm_idx[1] % 2 == 1)
++		if (output->wm[1].bus_client % 2 == 1)
+ 			reg <<= 16;
  
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-480.c b/drivers/media/platform/qcom/camss/camss-vfe-480.c
-index 616d80ae1da74..73bfb53266c3e 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-480.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-480.c
-@@ -99,7 +99,7 @@ static void vfe_global_reset(struct vfe_device *vfe)
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[1]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[1].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[1]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[1].bus_client),
+ 				    reg);
+ 		break;
+ 	case V4L2_PIX_FMT_YUYV:
+@@ -586,16 +586,16 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
+ 		if (p == V4L2_PIX_FMT_YUYV || p == V4L2_PIX_FMT_YVYU)
+ 			reg |= VFE_0_BUS_XBAR_CFG_x_M_PAIR_STREAM_SWAP_INTER_INTRA;
  
- 	wm = RDI_WM(wm); /* map to actual WM used (from wm=RDI index) */
+-		if (output->wm_idx[0] % 2 == 1)
++		if (output->wm[0].bus_client % 2 == 1)
+ 			reg <<= 16;
  
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-680.c b/drivers/media/platform/qcom/camss/camss-vfe-680.c
-index 99036e7c1e763..c002ff126135a 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-680.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-680.c
-@@ -155,7 +155,7 @@ static void vfe_wm_update(struct vfe_device *vfe, u8 rdi, u32 addr,
- static void vfe_wm_start(struct vfe_device *vfe, u8 rdi, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
- 	u32 cfg;
- 	u8 wm;
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-690.c b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-index 6f90134d5ed64..88dc902dd30dd 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-690.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-@@ -56,7 +56,7 @@
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
+ 		if (enable)
+ 			vfe_reg_set(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
+ 		else
+ 			vfe_reg_clr(vfe,
+-				    VFE_0_BUS_XBAR_CFG_x(output->wm_idx[0]),
++				    VFE_0_BUS_XBAR_CFG_x(output->wm[0].bus_client),
+ 				    reg);
+ 		break;
+ 	default:
+@@ -690,8 +690,8 @@ static void vfe_enable_irq_pix_line(struct vfe_device *vfe, u8 comp,
+ 	irq_en0 |= VFE_0_IRQ_MASK_0_line_n_REG_UPDATE(line_id);
+ 	irq_en1 = VFE_0_IRQ_MASK_1_CAMIF_ERROR;
+ 	for (i = 0; i < output->wm_num; i++) {
+-		irq_en1 |= VFE_0_IRQ_MASK_1_IMAGE_MASTER_n_BUS_OVERFLOW(output->wm_idx[i]);
+-		comp_mask |= (1 << output->wm_idx[i]) << comp * 8;
++		irq_en1 |= VFE_0_IRQ_MASK_1_IMAGE_MASTER_n_BUS_OVERFLOW(output->wm[i].bus_client);
++		comp_mask |= (1 << output->wm[i].bus_client) << comp * 8;
+ 	}
  
- 	wm = RDI_WM(wm);
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-index 4adbd0680898f..a4a2beb0c38b7 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-@@ -52,7 +52,7 @@
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 
- 	wm = RDI_WM(wm);
- 
+ 	if (enable) {
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-index 3e3d103e0d09d..ac4c4fd261b33 100644
+index ac4c4fd261b33..4b0fe2db7fcf5 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-@@ -255,7 +255,7 @@ static int vfe_enable_output(struct vfe_line *line)
- 			vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm_idx[i],
- 						     (ub_size + 1) * output->wm_idx[i], ub_size);
- 			vfe->ops_gen1->wm_line_based(vfe, output->wm_idx[i],
--						     &line->video_out.active_fmt.fmt.pix_mp, i, 1);
-+						     &line->output[0].video_out.active_fmt.fmt.pix_mp, i, 1);
- 			vfe->ops_gen1->wm_enable(vfe, output->wm_idx[i], 1);
- 			vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[i]);
- 		}
-@@ -282,7 +282,7 @@ static int vfe_get_output(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output;
--	struct v4l2_format *f = &line->video_out.active_fmt;
-+	struct v4l2_format *f = &line->output[0].video_out.active_fmt;
- 	unsigned long flags;
- 	int i;
- 	int wm_idx;
-@@ -688,13 +688,11 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, u8 wm)
-  */
- static int vfe_queue_buffer(struct camss_video *vid, struct camss_buffer *buf)
- {
--	struct vfe_line *line = container_of(vid, struct vfe_line, video_out);
-+	struct vfe_output *output = container_of(vid, struct vfe_output, video_out);
-+	struct vfe_line *line = output->line;
- 	struct vfe_device *vfe = to_vfe(line);
--	struct vfe_output *output;
- 	unsigned long flags;
+@@ -53,7 +53,7 @@ static int vfe_disable_output(struct vfe_line *line)
  
--	output = &line->output[0];
--
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 	for (i = 0; i < output->wm_num; i++)
+-		vfe->ops_gen1->wm_enable(vfe, output->wm_idx[i], 0);
++		vfe->ops_gen1->wm_enable(vfe, output->wm[i].bus_client, 0);
+ 
+ 	ops->reg_update(vfe, line->id);
+ 	output->wait_reg_update = 1;
+@@ -66,15 +66,15 @@ static int vfe_disable_output(struct vfe_line *line)
  	spin_lock_irqsave(&vfe->output_lock, flags);
  
- 	vfe_buf_update_wm_on_new(vfe, output, buf, line);
+ 	if (line->id != VFE_LINE_PIX) {
+-		vfe->ops_gen1->wm_frame_based(vfe, output->wm_idx[0], 0);
+-		vfe->ops_gen1->bus_disconnect_wm_from_rdi(vfe, output->wm_idx[0], line->id);
+-		vfe->ops_gen1->enable_irq_wm_line(vfe, output->wm_idx[0], line->id, 0);
+-		vfe->ops_gen1->set_cgc_override(vfe, output->wm_idx[0], 0);
++		vfe->ops_gen1->wm_frame_based(vfe, output->wm[0].bus_client, 0);
++		vfe->ops_gen1->bus_disconnect_wm_from_rdi(vfe, output->wm[0].bus_client, line->id);
++		vfe->ops_gen1->enable_irq_wm_line(vfe, output->wm[0].bus_client, line->id, 0);
++		vfe->ops_gen1->set_cgc_override(vfe, output->wm[0].bus_client, 0);
+ 		spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 	} else {
+ 		for (i = 0; i < output->wm_num; i++) {
+-			vfe->ops_gen1->wm_line_based(vfe, output->wm_idx[i], NULL, i, 0);
+-			vfe->ops_gen1->set_cgc_override(vfe, output->wm_idx[i], 0);
++			vfe->ops_gen1->wm_line_based(vfe, output->wm[i].bus_client, NULL, i, 0);
++			vfe->ops_gen1->set_cgc_override(vfe, output->wm[i].bus_client, 0);
+ 		}
+ 
+ 		vfe->ops_gen1->enable_irq_pix_line(vfe, 0, line->id, 0);
+@@ -138,10 +138,10 @@ static void vfe_output_init_addrs(struct vfe_device *vfe,
+ 		else
+ 			pong_addr = ping_addr;
+ 
+-		vfe->ops_gen1->wm_set_ping_addr(vfe, output->wm_idx[i], ping_addr);
+-		vfe->ops_gen1->wm_set_pong_addr(vfe, output->wm_idx[i], pong_addr);
++		vfe->ops_gen1->wm_set_ping_addr(vfe, output->wm[i].bus_client, ping_addr);
++		vfe->ops_gen1->wm_set_pong_addr(vfe, output->wm[i].bus_client, pong_addr);
+ 		if (sync)
+-			vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[i]);
++			vfe->ops_gen1->bus_reload_wm(vfe, output->wm[i].bus_client);
+ 	}
+ }
+ 
+@@ -158,8 +158,8 @@ static void vfe_output_frame_drop(struct vfe_device *vfe,
+ 	drop_period = VFE_FRAME_DROP_VAL + output->drop_update_idx;
+ 
+ 	for (i = 0; i < output->wm_num; i++) {
+-		vfe->ops_gen1->wm_set_framedrop_period(vfe, output->wm_idx[i], drop_period);
+-		vfe->ops_gen1->wm_set_framedrop_pattern(vfe, output->wm_idx[i], drop_pattern);
++		vfe->ops_gen1->wm_set_framedrop_period(vfe, output->wm[i].bus_client, drop_period);
++		vfe->ops_gen1->wm_set_framedrop_pattern(vfe, output->wm[i].bus_client, drop_pattern);
+ 	}
+ 
+ 	vfe->res->hw_ops->reg_update(vfe, output->line->id);
+@@ -237,27 +237,27 @@ static int vfe_enable_output(struct vfe_line *line)
+ 	vfe_output_init_addrs(vfe, output, 0, line);
+ 
+ 	if (line->id != VFE_LINE_PIX) {
+-		vfe->ops_gen1->set_cgc_override(vfe, output->wm_idx[0], 1);
+-		vfe->ops_gen1->enable_irq_wm_line(vfe, output->wm_idx[0], line->id, 1);
+-		vfe->ops_gen1->bus_connect_wm_to_rdi(vfe, output->wm_idx[0], line->id);
+-		vfe->ops_gen1->wm_set_subsample(vfe, output->wm_idx[0]);
++		vfe->ops_gen1->set_cgc_override(vfe, output->wm[0].bus_client, 1);
++		vfe->ops_gen1->enable_irq_wm_line(vfe, output->wm[0].bus_client, line->id, 1);
++		vfe->ops_gen1->bus_connect_wm_to_rdi(vfe, output->wm[0].bus_client, line->id);
++		vfe->ops_gen1->wm_set_subsample(vfe, output->wm[0].bus_client);
+ 		vfe->ops_gen1->set_rdi_cid(vfe, line->id, 0);
+-		vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm_idx[0],
+-					    (ub_size + 1) * output->wm_idx[0], ub_size);
+-		vfe->ops_gen1->wm_frame_based(vfe, output->wm_idx[0], 1);
+-		vfe->ops_gen1->wm_enable(vfe, output->wm_idx[0], 1);
+-		vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[0]);
++		vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm[0].bus_client,
++					    (ub_size + 1) * output->wm[0].bus_client, ub_size);
++		vfe->ops_gen1->wm_frame_based(vfe, output->wm[0].bus_client, 1);
++		vfe->ops_gen1->wm_enable(vfe, output->wm[0].bus_client, 1);
++		vfe->ops_gen1->bus_reload_wm(vfe, output->wm[0].bus_client);
+ 	} else {
+ 		ub_size /= output->wm_num;
+ 		for (i = 0; i < output->wm_num; i++) {
+-			vfe->ops_gen1->set_cgc_override(vfe, output->wm_idx[i], 1);
+-			vfe->ops_gen1->wm_set_subsample(vfe, output->wm_idx[i]);
+-			vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm_idx[i],
+-						     (ub_size + 1) * output->wm_idx[i], ub_size);
+-			vfe->ops_gen1->wm_line_based(vfe, output->wm_idx[i],
++			vfe->ops_gen1->set_cgc_override(vfe, output->wm[i].bus_client, 1);
++			vfe->ops_gen1->wm_set_subsample(vfe, output->wm[i].bus_client);
++			vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm[i].bus_client,
++						     (ub_size + 1) * output->wm[i].bus_client, ub_size);
++			vfe->ops_gen1->wm_line_based(vfe, output->wm[i].bus_client,
+ 						     &line->output[0].video_out.active_fmt.fmt.pix_mp, i, 1);
+-			vfe->ops_gen1->wm_enable(vfe, output->wm_idx[i], 1);
+-			vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[i]);
++			vfe->ops_gen1->wm_enable(vfe, output->wm[i].bus_client, 1);
++			vfe->ops_gen1->bus_reload_wm(vfe, output->wm[i].bus_client);
+ 		}
+ 		vfe->ops_gen1->enable_irq_pix_line(vfe, 0, line->id, 1);
+ 		vfe->ops_gen1->set_module_cfg(vfe, 1);
+@@ -316,7 +316,7 @@ static int vfe_get_output(struct vfe_line *line)
+ 			dev_err(vfe->camss->dev, "Can not reserve wm\n");
+ 			goto error_get_wm;
+ 		}
+-		output->wm_idx[i] = wm_idx;
++		output->wm[i].bus_client = wm_idx;
+ 	}
+ 
+ 	output->drop_update_idx = 0;
+@@ -327,7 +327,7 @@ static int vfe_get_output(struct vfe_line *line)
+ 
+ error_get_wm:
+ 	for (i--; i >= 0; i--)
+-		vfe_release_wm(vfe, output->wm_idx[i]);
++		vfe_release_wm(vfe, output->wm[i].bus_client);
+ 	output->state = VFE_OUTPUT_OFF;
+ error:
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+@@ -394,9 +394,9 @@ static void vfe_output_update_ping_addr(struct vfe_device *vfe,
+ 		else
+ 			addr = 0;
+ 
+-		vfe->ops_gen1->wm_set_ping_addr(vfe, output->wm_idx[i], addr);
++		vfe->ops_gen1->wm_set_ping_addr(vfe, output->wm[i].bus_client, addr);
+ 		if (sync)
+-			vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[i]);
++			vfe->ops_gen1->bus_reload_wm(vfe, output->wm[i].bus_client);
+ 	}
+ }
+ 
+@@ -413,9 +413,9 @@ static void vfe_output_update_pong_addr(struct vfe_device *vfe,
+ 		else
+ 			addr = 0;
+ 
+-		vfe->ops_gen1->wm_set_pong_addr(vfe, output->wm_idx[i], addr);
++		vfe->ops_gen1->wm_set_pong_addr(vfe, output->wm[i].bus_client, addr);
+ 		if (sync)
+-			vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[i]);
++			vfe->ops_gen1->bus_reload_wm(vfe, output->wm[i].bus_client);
+ 	}
+ }
+ 
+@@ -658,10 +658,10 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, u8 wm)
+ 
+ 	if (active_index)
+ 		for (i = 0; i < output->wm_num; i++)
+-			vfe->ops_gen1->wm_set_ping_addr(vfe, output->wm_idx[i], new_addr[i]);
++			vfe->ops_gen1->wm_set_ping_addr(vfe, output->wm[i].bus_client, new_addr[i]);
+ 	else
+ 		for (i = 0; i < output->wm_num; i++)
+-			vfe->ops_gen1->wm_set_pong_addr(vfe, output->wm_idx[i], new_addr[i]);
++			vfe->ops_gen1->wm_set_pong_addr(vfe, output->wm[i].bus_client, new_addr[i]);
+ 
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 54ab906b01a82..18f66bea5e3b1 100644
+index 18f66bea5e3b1..8899f02ceba02 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -713,14 +713,12 @@ int vfe_enable_output_v2(struct vfe_line *line)
- int vfe_queue_buffer_v2(struct camss_video *vid,
- 			struct camss_buffer *buf)
- {
--	struct vfe_line *line = container_of(vid, struct vfe_line, video_out);
-+	struct vfe_output *output = container_of(vid, struct vfe_output, video_out);
-+	struct vfe_line *line = output->line;
- 	struct vfe_device *vfe = to_vfe(line);
- 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
--	struct vfe_output *output;
- 	unsigned long flags;
+@@ -624,7 +624,7 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 	output->buf[index] = vfe_buf_get_pending(output);
  
--	output = &line->output[0];
--
- 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 	if (output->buf[index]) {
+-		ops->vfe_wm_update(vfe, output->wm_idx[0],
++		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
+ 				   output->buf[index]->addr[0],
+ 				   line);
+ 		ops->reg_update(vfe, line->id);
+@@ -683,14 +683,14 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 	output->wait_reg_update = 0;
+ 	reinit_completion(&output->reg_update);
  
+-	ops->vfe_wm_start(vfe, output->wm_idx[0], line);
++	ops->vfe_wm_start(vfe, output->wm[0].bus_client, line);
+ 
+ 	for (i = 0; i < CAMSS_INIT_BUF_COUNT; i++) {
+ 		output->buf[i] = vfe_buf_get_pending(output);
+ 		if (!output->buf[i])
+ 			break;
+ 		output->gen2.active_num++;
+-		ops->vfe_wm_update(vfe, output->wm_idx[0],
++		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
+ 				   output->buf[i]->addr[0], line);
+ 		ops->reg_update(vfe, line->id);
+ 	}
+@@ -724,7 +724,7 @@ int vfe_queue_buffer_v2(struct camss_video *vid,
  	if (output->state == VFE_OUTPUT_ON &&
-@@ -1320,13 +1318,11 @@ void vfe_put(struct vfe_device *vfe)
- int vfe_flush_buffers(struct camss_video *vid,
- 		      enum vb2_buffer_state state)
- {
--	struct vfe_line *line = container_of(vid, struct vfe_line, video_out);
-+	struct vfe_output *output = container_of(vid, struct vfe_output, video_out);
-+	struct vfe_line *line = output->line;
- 	struct vfe_device *vfe = to_vfe(line);
--	struct vfe_output *output;
- 	unsigned long flags;
+ 	    output->gen2.active_num < 2) {
+ 		output->buf[output->gen2.active_num++] = buf;
+-		ops->vfe_wm_update(vfe, output->wm_idx[0],
++		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
+ 				   buf->addr[0], line);
+ 		ops->reg_update(vfe, line->id);
+ 	} else {
+@@ -808,7 +808,7 @@ int vfe_get_output_v2(struct vfe_line *line)
+ 	 * line 0 -> RDI 0, line 1 -> RDI1, line 2 -> RDI2, line 3 -> PIX/RDI3
+ 	 * Note this 1:1 mapping will not work for PIX streams.
+ 	 */
+-	output->wm_idx[0] = line->id;
++	output->wm[0].bus_client = line->id;
+ 	vfe->wm_output_map[line->id] = line->id;
  
--	output = &line->output[0];
--
+ 	output->drop_update_idx = 0;
+@@ -938,7 +938,7 @@ int vfe_put_output(struct vfe_line *line)
  	spin_lock_irqsave(&vfe->output_lock, flags);
  
- 	vfe_buf_flush_pending(output, state);
-@@ -2052,8 +2048,8 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
- 	for (i = VFE_LINE_RDI0; i < vfe->res->line_num; i++) {
- 		struct vfe_line *l = &vfe->line[i];
+ 	for (i = 0; i < output->wm_num; i++)
+-		vfe_release_wm(vfe, output->wm_idx[i]);
++		vfe_release_wm(vfe, output->wm[i].bus_client);
  
--		l->video_out.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
--		l->video_out.camss = camss;
-+		l->output[0].video_out.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-+		l->output[0].video_out.camss = camss;
- 		l->id = i;
+ 	output->state = VFE_OUTPUT_OFF;
  
- 		l->num_outputs = 1;
-@@ -2212,7 +2208,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+@@ -955,7 +955,7 @@ static int vfe_disable_output(struct vfe_line *line)
  
- 		sd = &vfe->line[i].subdev;
- 		pads = vfe->line[i].pads;
--		video_out = &vfe->line[i].video_out;
-+		video_out = &vfe->line[i].output[0].video_out;
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 	for (i = 0; i < output->wm_num; i++)
+-		vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm_idx[i]);
++		vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm[i].bus_client);
+ 	output->gen2.active_num = 0;
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
  
- 		v4l2_subdev_init(sd, &vfe_v4l2_ops);
- 		sd->internal_ops = &vfe_v4l2_internal_ops;
-@@ -2297,7 +2293,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- error_init:
- 	for (i--; i >= 0; i--) {
- 		sd = &vfe->line[i].subdev;
--		video_out = &vfe->line[i].video_out;
-+		video_out = &vfe->line[i].output[0].video_out;
- 
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
-@@ -2320,7 +2316,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
- 
- 	for (i = 0; i < vfe->res->line_num; i++) {
- 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
--		struct camss_video *video_out = &vfe->line[i].video_out;
-+		struct camss_video *video_out = &vfe->line[i].output[0].video_out;
- 
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index e043ef4468626..42ac030d339b0 100644
+index 42ac030d339b0..29682e8e9f401 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.h
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -105,6 +105,7 @@ struct vfe_output {
- 	struct completion reg_update;
- 
- 	struct vfe_line *line;
-+	struct camss_video video_out;
+@@ -78,9 +78,15 @@ enum vfe_packer_format_v3 {
+ 	VFE_BUS_WM_PACKER_FMT_V3_MAX,
  };
  
- struct vfe_line {
-@@ -114,7 +115,6 @@ struct vfe_line {
- 	struct v4l2_mbus_framefmt fmt[MSM_VFE_PADS_NUM];
- 	struct v4l2_rect compose;
- 	struct v4l2_rect crop;
--	struct camss_video video_out;
- 	struct vfe_output output[MSM_VFE_NUM_OUTPUTS];
- 	u32 num_outputs;
- 	const struct camss_format_info *formats;
++struct vfe_wm {
++	u8 bus_client;
++};
++
++#define VFE_MAX_WM_PER_OUTPUT 3
++
+ struct vfe_output {
+ 	u8 wm_num;
+-	u8 wm_idx[3];
++	struct vfe_wm wm[VFE_MAX_WM_PER_OUTPUT];
+ 
+ 	struct camss_buffer *buf[2];
+ 	struct camss_buffer *last_buffer;
 
 -- 
 2.55.0
