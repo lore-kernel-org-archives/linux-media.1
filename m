@@ -1,66 +1,66 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E800E371CE9
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCAB37473A
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:46:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182812; cv=none; b=tmbPk4g5j1qZ4OXhqtq+/D/PqgJAemH6H874/97GB5Fde/n73RaRoYGgqsDBXLaV9TvgGuKgGEs4+7PbYp7s/PPh1e7eFVTrJES96GX2KxtueVcgDLm84060KU3JcDPpkZUaHJilN76+4EY3i04h5Zp1/ZmVpJBvdclXBlfGquo=
+	t=1791182815; cv=none; b=G6Xqu/r+u/TKX6J/glhfouJYmrPkHrVDP5dU/iKP/ATOtfT0W4kEsE+6BrmCB9dEuFv+iTLOxaSKxhg/ZKTWm6TCNxcoeIQ99UUsoz3HB3SAm8y4YceadhkQpumM+SXGrMqQsiq/NZvQmNt7MqpzZaBsspGegKbbKGmu6n92n/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182812; c=relaxed/simple;
-	bh=q9OyI2l21NW11/Gw8QsUWSQEjaNRiUNBykFrHBl3t9s=;
+	s=arc-20240116; t=1791182815; c=relaxed/simple;
+	bh=pPxWjPgoC5ZIds9yfuD0Hb2xgEd3s6+PhvxvqEZ957Y=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HSqAPt7U/lEwP23Rhenl51e9EzG/k7+YUKwrNoJebC8T4jomw7O83qy3n/EA3HuxAoSY3vGlwgUlKv342N+cHZiqI0znfgiyx4tLUxYIfwaG3yLrsXeN01FLYEVEyabYDpWA++Vrx6oEDUJayfCK6xMQBZvWDd8w/wTWZCpKbAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G59WWrHa; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=i9yi8x42UwJAW+Rtdfia3t5jOpo02r/rrWgZGmFk4ExG3dntcJjVWRSelJYprekudfbjXToPvhsPWQrCROHmW6rVj4bhyi3weCuH84jDOuQedbKXRx2KUU4vz62FmlFpjprZm8hwTb4rpjtgxgcd+LbhW3ipMR2RHbpeCFGljGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HbxG+bzT; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G59WWrHa"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso12938745e9.1
-        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 23:46:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HbxG+bzT"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso12938955e9.1
+        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 23:46:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791182809; x=1791787609; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791182812; x=1791787612; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C8mhPQJ3zOva6jYeHlXj3lH5xzHiYvRbnIJdnEytZoE=;
-        b=G59WWrHaVggZqDd69q+dJn7E6fGOwsQk6L7WimTA/qFUhHBcdqmh8+YDApqkuy5DnX
-         WfBu7gHIJsBiQQu+hX0SVFMS6okf+UftlvtPo4Kk0ZeUjeRbV9MbiISZxkviWuU4B5DT
-         0j5B+5KoxDNJjY3lLPKcgcN/iPPYaJDlGrtE8p/RkjLMHwUqpMcLt3xCqigRNvKB9m3Z
-         aerfMILJhOJ3h5AgeXd/35KUQHoOB3s66VakS7tDq5GudzZrb0eVKcM+GqA3uIvhL11F
-         lWrmQ63d1VfYgy57XRO//WQs71P4OF7c9xog+LI9CRxw044iZbnfNab38J6SdEkOOlGL
-         ov+g==
+        bh=14533aMWhAmVs8SNCRLlWVRuMICBt1zkdaHBPEpaQzs=;
+        b=HbxG+bzTD+p+rn9qx7izKiqwLaK7HHFf5ZJq9kycITHZIq0dorjbM+urbpJWvZv4Wr
+         bKe74GiBudMJhH5CYZaDBWQrtTCJzS3PC2+lkcrls3xpXTTWUQc5YOtwGNvGiZLyEqRk
+         kNMRSYd3hIit+5Ecyf2nQBIiaKfco7OOQkaSXAlFrKx/JPEGCJsuljTkcsfSQ4+DgnGJ
+         sv/ztOo5NZrW8who/qyaOiLnbbZLTfkuu4aQroGY4YN2eLm7IHNzf4TCKBgDGZl4ZMvI
+         8Raz+AqCGqLJUktZCNIAQQ8a4E1Xht3vlDe8kvgPUj86thdjkzchBoa3ZTUXZGmfKVDW
+         JZTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791182809; x=1791787609;
+        d=1e100.net; s=20260707; t=1791182812; x=1791787612;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C8mhPQJ3zOva6jYeHlXj3lH5xzHiYvRbnIJdnEytZoE=;
-        b=f7jrjk9mjQQmKlktDGb7M6prhx8CarN8s5qiFkJCNQP0JV0H6m1yHAuynwjIUQYlGC
-         w5PiiC9SmVIPNmWbRRruXqcqbE96arp8JIkvoPKIA9K1yX5d3Plo7kAf4XmB7exkviQo
-         aQ6M7XdjF/9ZaPdZkx6+hKF6gb7cCBya9/n/3XM6sJBFwQgx/mTXgu0fBPs/WcOO9VoY
-         U5vfG5x47114fYylFj72p7ogb9vS0ELlVo0KXxOukR/Zqz0F7UD41r8Mp0Qh4+zBOFok
-         /wCVbP4kCg+BonmYkFqI1Q4W65aGFG3vk6JqrCbFoJILofgB5TS4PoTdaejOXJzlwzgP
-         hISA==
-X-Forwarded-Encrypted: i=1; AKwUvBybMF5k0gE0t1pmMWvZnOlLR+zDoeTG8TvgU+mEVpEj3iFI6dbW+IyyC2EVfNuF2WM8HqVmr6dyGZeIWQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mPMbh7yUOjo8EdMESWGmHnJTBqoTkdQsqjvmyIVcLcoGphiDD5
-	9B7Ds1Gs6m7aHKNAsWTXcfjkPhuvb75jQrF/Rg/aPLRi6llwhRGbp3qo
-X-Gm-Gg: AYBFou39z18RcYSFjLzFT/hSwbvtSPXSMzFE08biO34pDZXEnmLn0MkgsNQIZkjGFc/
-	SS+50zERTyDZbzTFiALt+VH45Sp8oD+6FJGu2dqqpcsP/gZza63ufTc8ctU4CD13bp3foKuzpKR
-	79yH4YBfz+bjiaEMAfMXsx6t0O+OgysZXyHmdB/C5H7p3vfuTCcPdOnLYlY+8A8lnKRPY0S1bzD
-	RcK54i3yfeJOt2Jz2cCUCnSpgOT5AVGsh4CszrShuqt5Rs6Sd43CT5kyJZgNVPZ9jcVn/EOF9t9
-	TKey9LKOxSfNrPtofMVuAyQl4SotITo6zhAjU2GaufIGst5GHGhs9kjjNjcz+P84zFWepo18F7p
-	ZmytOgNUHaIQepjqzulfKiG4yFnLf89I1aZYAQqk+nmoPVq3ei/jCwG8u3R3o05gvhd+7t4WK/B
-	B5VqiWy6LL1q3oGbwvotPtgK6mRE79yo6Ut0QCYh0YUCbPJe2qDxaqnEmcUzK3U6fMGEX313THo
-	X5cVkjeznyy9wU7tG+hf6QmnysnuLvjGLsGI/nx7otgk5/aJhcBaj4M+JWM/hj9fRw9JoFxHfyL
-	CsA11gpvhHxTMwgFtelROfVCUT2ryi08A6yn51uyVFm7zysDFMt68qjTWxiRZ/AXhMLYZzGOvTJ
-	7Wg==
-X-Received: by 2002:a05:600c:2187:b0:4a0:1c10:1372 with SMTP id 5b1f17b1804b1-4a02769a83amr118812745e9.27.1791182808952;
-        Sun, 04 Oct 2026 23:46:48 -0700 (PDT)
+        bh=14533aMWhAmVs8SNCRLlWVRuMICBt1zkdaHBPEpaQzs=;
+        b=HeZUbmqClv5Jpafnty67lAfLARGomgql4hf+oYZbMiBRExAEapezjL3BmwLN+lT6no
+         AgZDTIKslDWqFMWl8U8lftZRVnBaPWE0rwqDOcCpJrEH9uXCGrywqQMYmGGwZqHUT8j7
+         e+dt1CwdNH3TbWc6jPkDilNiuxxn/NcJqmOH2nDcAOxkV+5NE728L5ASw1KUsTISVE6T
+         YU92HydXf991X1xRs9Wd3U1NLJTqJONRPdicaEBNzhvTzQtOm1fWlo1okh0kOLaN3694
+         cWVG/2vAz8BE3ArRwOk8pkx3SIDEQD7+PK6sF0ML73wJelcBmPt/dbBnUUVb1HQ/yK/f
+         vZ+g==
+X-Forwarded-Encrypted: i=1; AKwUvBxaExz11utOUCz5iGi8P7UErPAx/9MAPbzdQpw+ETClKU79KLqELXv3KC+1AgZ1zoLKmJgMv8RNjTXgGw==@vger.kernel.org
+X-Gm-Message-State: AFuF++lhm+5bDuWXaMapvXQtUcOxLDNi4F0sXJIT1C2miCvfmjAOcKrx
+	OwT/7oyvDW076ILolSpl4MoGfLshfYtTCyRyGW/NtD3gZlOe7k0LNsm0
+X-Gm-Gg: AYBFou1rgyzanUJgxItrTcqO5yhSWv3ygRzxRp1dVeLGSyZP9mZOiMiuAaG5OOPOAd5
+	ff8RffM3D+UVlfWUNTrgcHTe2ui9LTeGVV16a0lciizaVyqPb3a4XmrsnLNYujAwhmZS6dfiAoJ
+	+qO+yG7+1VehjeGB8eY8h+bZFpVpdL78To5eCIQGxVdgqAE2jBijkNiMz8mdd5mGhJJlCECb0Xm
+	F4SxmTCtw0R004b+8hBy/FoSOd5uiyZ+kbIhQcaOMKLU/lA7OuPjX4PPk4ViC1WVnQJDhT0S81a
+	Cb7j8ibUiUSM1+4IO164+oboPQZX2HiVC9aMULQ97M647hBwTGKEn7n/vueGpXgSY2aQi8XJ6kF
+	RviYK9JL1BzrxmFB2qngHpu0muz/UWTJ949xXqQTnepnsgezuQwh9ESDaSnB42tNG/IGlMRm1MT
+	NK3e52yuJOBVOy1dCPG/oXcvvpfCIfctdeGAONDpRA9xuu4BrwAMsEKynB7oIP+WXbLvrDo6PZW
+	0JaDefCrsoUJSXMFc9h6K1/byAN9NIL0Razn60A1g/9MSj0XcaCFzCFC8PpKrIncV0sUKxDMpX+
+	HE5qwb280IgLovtUEzvg477GDZkXdsz1yAYeWGjZZUPVLyobn7gXDocMCf4RxEMw5HM44ECthuQ
+	sa1Rfe01SgwZW
+X-Received: by 2002:a05:600d:82e4:b0:4a1:71af:cbc7 with SMTP id 5b1f17b1804b1-4a171bc2193mr44005545e9.13.1791182811349;
+        Sun, 04 Oct 2026 23:46:51 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm315273615e9.14.2026.10.04.23.46.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm315273615e9.14.2026.10.04.23.46.49
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 23:46:47 -0700 (PDT)
+        Sun, 04 Oct 2026 23:46:49 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
@@ -82,9 +82,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linaro-mm-sig@lists.linaro.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] media: tegra-vde: set an unlimited DMA segment size
-Date: Mon,  5 Oct 2026 08:46:38 +0200
-Message-Id: <20261005064640.7776-2-kmehltretter@gmail.com>
+Subject: [PATCH 2/3] drm/armada: set an unlimited DMA segment size
+Date: Mon,  5 Oct 2026 08:46:39 +0200
+Message-Id: <20261005064640.7776-3-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261005064640.7776-1-kmehltretter@gmail.com>
 References: <20261005064640.7776-1-kmehltretter@gmail.com>
@@ -97,53 +97,61 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 The driver never sets a maximum DMA segment size, so the device claims
-the 64 KiB default. With DMA_API_DEBUG, mapping a larger buffer
-reports:
+the 64 KiB default. With DMA_API_DEBUG, importing a larger contiguous
+dma-buf reports:
 
-  DMA-API: tegra-vde 6001a000.vde: mapping sg segment longer than
+  DMA-API: armada-drm armada-drm: mapping sg segment longer than
   device claims to support [len=1228800] [max=65536]
 
-Without an IOMMU domain the driver also needs each imported buffer as
-one entry. An exporter that respects the 64 KiB claim has to split a
-larger buffer, and queueing it fails with "Sparse DMA region is
-unsupported, please enable IOMMU".
+armada_gem_map_import() also needs the buffer as one entry. An exporter
+that respects the 64 KiB claim has to split a larger buffer, and the
+import fails with "dma_buf_map_attachment() returned an (unsupported)
+scattered list".
 
 Set the maximum segment size to UINT_MAX.
 
 Verified with a QEMU stub. Not tested on real hardware.
 
-Fixes: cd6c56feb591 ("media: staging: media: Introduce NVIDIA Tegra video decoder driver")
+Fixes: 96f60e37dc66 ("DRM: Armada: Add Armada DRM driver")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
 
 Notes:
     Tested on v7.3-rc4-70-gfe2ec83746e5 with DMA_API_DEBUG on QEMU's
-    xilinx-zynq-a9. The driver probed from a stub device tree node, so all
-    registers read 0, and needed a test-only change to probe without a
-    Tegra PMC.
+    xilinx-zynq-a9. The LCD controller probed from a stub device tree
+    node, so all registers read 0. A test module registered the
+    armada-drm platform device, because nothing in mainline registers it.
     
-    Queueing a capture buffer of 1228800-byte CMA heap buffers works
-    before and after this patch, with 7 segment-length reports before and
-    none after. With patch 3 alone it fails. With patches 1 and 3 it
-    works.
+    Creating a framebuffer from an imported 1228800-byte CMA heap buffer
+    works before and after this patch, with one segment-length report
+    before and none after. With patch 3 alone it fails. With patches 2
+    and 3 it works.
 
- drivers/media/platform/nvidia/tegra-vde/vde.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/armada/armada_drv.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/platform/nvidia/tegra-vde/vde.c b/drivers/media/platform/nvidia/tegra-vde/vde.c
-index c3097085ad9d..6a47e8ba083c 100644
---- a/drivers/media/platform/nvidia/tegra-vde/vde.c
-+++ b/drivers/media/platform/nvidia/tegra-vde/vde.c
-@@ -238,6 +238,8 @@ static int tegra_vde_probe(struct platform_device *pdev)
- 	vde->soc = of_device_get_match_data(&pdev->dev);
- 	vde->dev = dev;
+diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+index cae25ad66c74..42498fc77e54 100644
+--- a/drivers/gpu/drm/armada/armada_drv.c
++++ b/drivers/gpu/drm/armada/armada_drv.c
+@@ -6,6 +6,7 @@
+ #include <linux/aperture.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
++#include <linux/dma-mapping.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+@@ -101,6 +102,8 @@ static int armada_drm_bind(struct device *dev)
+ 
+ 	dev_set_drvdata(dev, &priv->drm);
  
 +	dma_set_max_seg_size(dev, UINT_MAX);
 +
- 	vde->sxe = devm_platform_ioremap_resource_byname(pdev, "sxe");
- 	if (IS_ERR(vde->sxe))
- 		return PTR_ERR(vde->sxe);
+ 	/* Mode setting support */
+ 	drm_mode_config_init(&priv->drm);
+ 	priv->drm.mode_config.min_width = 320;
 -- 
 2.53.0
 
