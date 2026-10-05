@@ -1,111 +1,114 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A12740EB9D
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 10:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4DB47A887;
+	Mon,  5 Oct 2026 10:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197214; cv=none; b=NXSu7g0eBXLX4YAS3aNf5rKZIh8mNyQymU8aFFl2o3FyY61D9vWaMVBeeIX/polRzjRzQjGz0kLCQgN2oz9KiPZrMXWp+EEfctlLb2m7YCJxoeMbc3XtLVoBWFtt1BlgVB0/3te0piAiVDnm48f7mdF74iSutpJJfaDpKOUcvAo=
+	t=1791197438; cv=none; b=aEEf/84oEeZDNwj9MxQDfcsUYvKUL2UPKntvyU+0sA3pkyA82JB63S2DVScGYJC45X0iDQiiJtP3URkfP2jq0Ywa/1j/VaCLZLkgzZ0eSbOOrcrfqOGNMpRHdaS8mcqjIL24SCtiXYOI6td9wb/7b1PjjM3MOWlIuAzvMALODi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197214; c=relaxed/simple;
-	bh=mXUAahTE+iLm2mg6xrnFW6mcn2COXMs/9ARrZND1ezE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZAaYUV9pzEiVKvusX54DFo6JWhpilOcX/ZrGfee5BdSH+KhN96sq4Uhp3qQswkYZ+2Wdjfun3TYUSJqoAWgGxNAPndddQbPEYDioF7TnxS3XFoeVtVD05I9WVYgUqW0C8fYMmFxu3tHYjUqyeyNxzQK0JSL7WQE3OM5YMz5o94Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oGisSSAj; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791197438; c=relaxed/simple;
+	bh=ZSzHHrbXNPF8oF4l9pXFk/8HIQuqCE2kcP9X0fXR5Qo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cH4nDOtjmiy82PQCw/iq/tOdgpnB+U38ugcfg5YdxQUpxiijWkbe7ZRstxIlR0hLdhAwDjG2IXLbR/N6YH6gzK5wuJHGqYPCPMSjhnJEr9lUdrwtfNl7LCuZXquqYKx7JLCiBVBXoTzae7sZoBvXyosIv0vd1odKhANywn+B+fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BL1DSSP6; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oGisSSAj"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso9509605e9.3
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 03:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791197210; x=1791802010; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p87CL+99r2nufenKJUmxs5PgJ6qzjJ8ZoeapGb8jCEk=;
-        b=oGisSSAjJcmo+bynapDG8BKlTVBWZZtFXgpwWfd7fYqQLPXUPueQnRY1k1ecl2+1mT
-         PwN6u+e+lRIVQdrJP7+Q0mhqvky/n70m2i2nltczMgNTK6daN5VcARRhW5swXVTOMxBC
-         eCI4PqZx6ImUIW4YRpWqKQYgvK7mC0QRvuuL63h7xTLakyLgR7EcK/7cd+DZ0hvTtenk
-         bYJkVFPR+PfXis2zXk5SKOav1ZIHm9bIYCRagdEUYsivu7HCN7qwAM6FBl2ZQu6t7wl9
-         t4xRicifCln9DfBiTg+oqfcXtd53j/K+jDdQZ0JjcT9xeuBBYEhkqJ5c7/LBTdg1m+wC
-         ySSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791197210; x=1791802010;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p87CL+99r2nufenKJUmxs5PgJ6qzjJ8ZoeapGb8jCEk=;
-        b=WUbsO8CCRDw0aYTSwaD7JO/aiV9J+kVhUsnszIBvGWp5hCXhfJ2w+cQd3fx4Bk0G0R
-         0qKXaUdcDMWNvy9vATHvvvke79ovoP17pMY7wdx0yPwhZAgDFVNMfS7Po7p3ImUwh5BK
-         CRi9xdzgdJjIQmpA9bKiqUxNbrOtUDCQa9RQUTBmw44xVA2POEaUqTabIv3XT3jtfmrH
-         1YzxXSHtBnh4kTOioe16/9tjZItDMM/kHjy+jLqi9cSfXiKEeowgEa6BmSE43YOBXh+3
-         lmV9N6G8bmdwB1PKqu7pmTG1Ei7leMQe9lh1MSlEKmEW7XmTjhBlP1qcZm+4Q4CHWvIO
-         sv+w==
-X-Gm-Message-State: AFuF++lvnhwPTa+ysNQBXIuuCGuvver+kOeOFvf7yI2KUSJZYBhyKQe7
-	ZCm44AMBvlQWdemQSf0Fn5XkR72/7Tw/MPqdC7iprw7jSX/7BNiFQnNb
-X-Gm-Gg: AYBFou0V7/jDOlJZV8hDQpij0mlkGOFXQz8bIkjJnFsq6Hx8vkfwBwmBBBmEbYDA549
-	jiLXTyiBAaD1fgPKpA/2dnpS7JepxfIHXV2oehSxbUIw7SWJHQlTzXmaTJAE5UGYV4ZWFhCV8aR
-	dNfCHjPNWUi4PSHhEnaoJSWBRCI9D7kVFildVFXuYjEod1zlHf+hB7DKNyY4f1gg1R+gHi7Fhke
-	XvTfnUXUkjfumdUu2O2wzxQesOFfsVLJGZYJv0ffE/8knmfsJpZgX4ciodgUi8d1mfZuqxbT27Q
-	CWWzSQg+fOD8iAiXxuXhihOoKk/o3za2R4+1XU0/xMP7H9x2+0hEdlFilGuki7Rth1aSJhneiLc
-	iCBx80/OE0qfu7JqTGqgMio/G9QWiteRh6n5Mi8v/SVhUIDoHrSCe1EWPLtIwKMAvvVGcRUXEyh
-	mhj9rGZ8xzQ/+XHNJVEUeiWr/+MIOP4prsb9ka5p6Gt92pCwua+KsdH/MuwHt70xNeNbv5azSnk
-	r/09Aed92HRblw2wO1mBio8TJvlxd7F/leI5CfbEpHhDFVSNeoq6jhrRyrZTbGb/d0iSAL9YpJF
-	/aDycfQWMnfzm2hN5JKymG9eJQ==
-X-Received: by 2002:a05:600c:1f93:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a1728f7420mr34459605e9.26.1791197210463;
-        Mon, 05 Oct 2026 03:46:50 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c8bb0sm367261625e9.11.2026.10.05.03.46.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 03:46:49 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	antti.laakso@linux.intel.com
-Subject: Re: [PATCH v4 2/3] media: i2c: Add driver for OmniVision OV32C4
-Date: Mon,  5 Oct 2026 12:46:48 +0200
-Message-ID: <20261005104648.16362-1-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <asN9kKdqf6hY_iCV@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-3-robertbozik@gmail.com> <asNsiKal6GgcqUSK@kekkonen.localdomain> <20261005101447.15264-1-robertbozik@gmail.com> <asN9kKdqf6hY_iCV@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BL1DSSP6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791197436; x=1822733436;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZSzHHrbXNPF8oF4l9pXFk/8HIQuqCE2kcP9X0fXR5Qo=;
+  b=BL1DSSP6A7leBNGmlvFXBa+fj1bcY5MSdv8U4cORSzNrGZKlyiOvOvO9
+   yWjkcS3MgGhISlZY6sL/W7hTitfC6waGj+thjWktHwBSA/vjyIV+cBXYc
+   9Flnnm3vqtuky0F3e8c1WCOSwTPOfpkZ1xuvJBBASZzUGfJceR4Px3RNK
+   joEd8yedkh1arzjsTABrIz8yffmzjlyJNWvgklMJ0pFVQkP+UvOhZjrWV
+   zu/eIu9G2aJsW0BSoNVd2x12PUSBs3nG4NE0yHfUwxU48xqLf87RWeRAh
+   ZKt+iCbLH0/iUtRpyYTOiG7fxIJf8ZjjBuOI9CYCSP2W+XislIVlr2ZAx
+   A==;
+X-CSE-ConnectionGUID: FVaDOAAdRqyN8cE13VqNcQ==
+X-CSE-MsgGUID: fpmNx97wSZ6DbwtwdJYezw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="94738509"
+X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
+   d="scan'208";a="94738509"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 03:50:36 -0700
+X-CSE-ConnectionGUID: 3Lq6UyQBQAu4UMNdI9PuHQ==
+X-CSE-MsgGUID: ZA4WTWF8TPW4aRr5fzLvnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
+   d="scan'208";a="276347153"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.157])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 03:50:34 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2FA4D11F73F;
+	Mon, 05 Oct 2026 13:50:34 +0300 (EEST)
+Date: Mon, 5 Oct 2026 13:50:34 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Robert Bozik <robertbozik@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: ipu-bridge: Add OmniVision OV32C4
+Message-ID: <asOA-hnrSKBjsnbF@kekkonen.localdomain>
+References: <20260826072002.14357-1-robertbozik@gmail.com>
+ <20260826072002.14357-4-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826072002.14357-4-robertbozik@gmail.com>
 
-Hi Sakari,
-
-On Mon, Oct 05, 2026 at 01:36:00PM +0300, Sakari Ailus wrote:
-> > Agreed, that is better. For v5 I'd give ipu-bridge a small table of
-> > sensors whose second I2C address belongs to the sensor itself,
-> > { "OVTI32C4", 0x3e }; for a sensor in it the bridge adds reg = <main,
-> > aon> to the sensor's software node and does not instantiate the VCM
-> > from SSDB - so the no-VCM exception of patch 3 folds into the same
-> > table. The driver reads reg with device_property_read_u32_array() on
-> > both DT and ACPI and the _CRS walk goes away with its CONFIG_ACPI
-> > guard. The property fits into the existing dev_properties slot that
-> > lens-focus uses when there is a VCM, so no change to the header.
+On Wed, Aug 26, 2026 at 09:20:02AM +0200, Robert Bozik wrote:
+> Add the sensor configuration for the OV32C4, matching the _HID the
+> sensor enumerates with. Without this entry the bridge does not build a
+> software node graph for the sensor, so its driver defers probing on the
+> missing fwnode endpoint forever and the camera never binds.
 > 
-> You shouldn't assume there won't be a VCM; please do add an array entry for
-> reg instead.
+> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+> Assisted-by: Claude:claude-opus-5 sparse
+> Assisted-by: Claude:claude-fable-5 sparse
+> ---
+>  drivers/media/pci/intel/ipu-bridge.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index 1bb3a3e98..7d3c7e09f 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -93,6 +93,16 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+>  	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+>  	/* Omnivision OV2680 */
+>  	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
+> +	/*
+> +	 * OmniVision OV32C4.
+> +	 *
+> +	 * 400 MHz link frequency, i.e. 800 Mbps per lane. There is no public
+> +	 * datasheet; the value comes from the vendor Windows driver, which
+> +	 * carries it as MipiBps, and it is confirmed on hardware: the IPU7
+> +	 * D-PHY locks and the sensor streams 3264x1840 at a measured
+> +	 * 30.00 fps, matching pixel_rate / (ppl * vts) exactly.
+> +	 */
 
-OK - a separate entry for reg, independent of the VCM.
+I don't think we need this comment here.
 
-For the VCM I won't assume either way then. The bridge instantiates it
-from the second I2C resource of _CRS, so v5 skips it only when that
-resource's address is the sensor's AON address from the table, as it
-is on this machine; a module with a real VCM there is handled as
-before.
+> +	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
+>  	/* Omnivision OV5675 */
+>  	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+>  	/* Omnivision OV8856 */
+> -- 
+> 2.53.0
+> 
 
-Thanks,
-Robert
+-- 
+Sakari Ailus
