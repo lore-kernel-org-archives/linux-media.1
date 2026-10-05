@@ -1,64 +1,66 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E13370D7B
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E800E371CE9
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 06:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182810; cv=none; b=JJmmmsCVrLcR8khm4aZt30M2J+QuT68wgo2TRlHA3VUOgwT+2hhwIYsB1qvERcJzhbHiTYNDDrUmsYqJ/r4F5/cTNbE8HenrLk7jb5rQ0COSFuoZ4xJSKaSENVPv+RW5beXcOlRaMhMTBEtNxensVL5ENEcoYfu0r/gaEP1XKiE=
+	t=1791182812; cv=none; b=tmbPk4g5j1qZ4OXhqtq+/D/PqgJAemH6H874/97GB5Fde/n73RaRoYGgqsDBXLaV9TvgGuKgGEs4+7PbYp7s/PPh1e7eFVTrJES96GX2KxtueVcgDLm84060KU3JcDPpkZUaHJilN76+4EY3i04h5Zp1/ZmVpJBvdclXBlfGquo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182810; c=relaxed/simple;
-	bh=5YTMgbdtfas9/Wgp0DfTQJZ86ha0EZMTqQX5JKE1wjs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XbId6Jt7EpxYHVEMPkRghhabu6l92rIaLbgEGAoj91XcXN5NVIGR23ZdRMRoxF7vgcZvdcXey8fFR/DDi8q/bHZxCYvRQGXChMiVDHPUGmkk4fm5vj39n1l7OcPNpSxKDAlpNE/ADbCc3/glHg2QJh3yLZo9uTm60OFPqoOIvWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kw7zT7CK; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1791182812; c=relaxed/simple;
+	bh=q9OyI2l21NW11/Gw8QsUWSQEjaNRiUNBykFrHBl3t9s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HSqAPt7U/lEwP23Rhenl51e9EzG/k7+YUKwrNoJebC8T4jomw7O83qy3n/EA3HuxAoSY3vGlwgUlKv342N+cHZiqI0znfgiyx4tLUxYIfwaG3yLrsXeN01FLYEVEyabYDpWA++Vrx6oEDUJayfCK6xMQBZvWDd8w/wTWZCpKbAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G59WWrHa; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kw7zT7CK"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1626d6a6cso7860515e9.0
-        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 23:46:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G59WWrHa"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso12938745e9.1
+        for <linux-media@vger.kernel.org>; Sun, 04 Oct 2026 23:46:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791182807; x=1791787607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UDPEzA003wpyS4AK6a7pECjHcKEnmKef8YGoalZCMc8=;
-        b=kw7zT7CKbKYytUUSLAfAUecE90cucLyPRbnpJtErosiX3D+BZ3zkZW70yTbll7sRiZ
-         ULuVH8YCcURqqCqUw5WyQa3DHhUDhFu/86dLrWHd7a5pKfv/4CSApLd2oVNHYaXncvJP
-         U4GsKvm74RFbq2TseyZ5bY1SdRo+/PvpEso72k0l8lrxN+PTE/86GOpsk3q/qWeaNGJa
-         hRWTgyeCTLnu7UbQgLkOWQadedP1e4iltW4BhQhoXzq/RnOkL4sBX1gdBsDELyRMrmBO
-         4BFjdMxM+9FW4mCAbuMOPL5UpIWUXaIWtTpX6vPvi+v4VglgkJNREtENTVn4cE0UnkQX
-         7Rxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791182807; x=1791787607;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791182809; x=1791787609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UDPEzA003wpyS4AK6a7pECjHcKEnmKef8YGoalZCMc8=;
-        b=B8R7IwGMv9TwYj2Uo6bLZgDbABB09oJ8hGffM60GPfyC2/24KYPrhXMEY650lMYwYu
-         WCtBmpis9yOJf4Zvi+oH16lCIclNC5N2sYybbUwFj8zk86X0km6UZgptQ1NiaZvOBbV9
-         0RmFI5E8NQCNJxJKj9LkeltL/rIoekcQlCKadjFetHLvpEC4KWvDBpt4fqR6NRvQ9tk+
-         iSlPhJeHqj6f7YEXoNp5kC3b8vER6fQSr7i6RSZqlAbsfaZyz858L4qWrNYvnMikQEFH
-         fd5HevWBKHo1sGdXKAj+h2L852QTpMlDW44YArpfj5IfxlOOdeqechYV/dLCQJmptpUK
-         IJqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzf+WCVBvDa2Lr0QAmZ8hZyykAxmXt8acLWqfxGZQU6d34zMx8HS7ALO1+UWE87+lQH3hw5IqnNrmto7A==@vger.kernel.org
-X-Gm-Message-State: AFuF++kpRulhFza4L+KMGAdFuI9TBa4xqrPoHzXqJPQFRJh1vDyINV2Q
-	TUrhRVycbh9aRPNTUTBIm9imo8963cIWOCiyUcWoVF9ELtKRhnGM0BZF
-X-Gm-Gg: AYBFou0MbX2W6S1+Z76OLdddFQSErM91sUtsL1F8SYs8ZtJHrZxhoxgr5EVecMgnPE7
-	D7TMscLS7rhXhnmgIstxAjQTUCdFkitS4KgbbD/6oFD6Z2vp9+1yBkKyxLwkyJTtQ2OCoFzFWRH
-	XIL4QyPtLZJkTYQXagMIwjIdSE8ZdbAi0WubXDs+AjJoWQRmtoUWCV+HnBCIbvKZJeEjCB5a13x
-	oIZYmHzHcDAl6UzdIRVwXdBMOWj7paNVEDBQzbEKe0jd1brcqgvgHjwIJUnJr+DzNyRcBC6lcNH
-	RHx4/qDYlHtBFpl+ZPslSNTFPpBB52iZmtwKjbjmjBTcnFr5Ntpw2rQFlpsbxiC47WCyH2psPbH
-	TZA2wx7wNyHWXe0ayXcl5Wmyq6WCLKi8FncsMGxJWdjuylffHWqX/0J9FD1E0jh2AEjFJgLuqGi
-	g8Mob7/vTH1bYkEsFGwB/mzvR/mvKqK8k+o85q1VaQfp6vg/mmoPGJ/Tcn4yiE93yf+tUL6Hq9w
-	7bZ6MQarSI6NW3fHcBM6c4GLQJgMn34tMoIbiY8ODntTonauXYt2LXoRjbXpQcHyqCTvHNFv3JN
-	cFCJ4fXMUnlcSPb/14Nify9VLEOX8h6QD+a4Mw/BbgLjDj5R41fi/kA7V1UmOquDB3FRJTol6Gi
-	Q4LdGmpspIwyU
-X-Received: by 2002:a05:600c:6212:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-4a1680e9466mr94460155e9.10.1791182806529;
-        Sun, 04 Oct 2026 23:46:46 -0700 (PDT)
+        bh=C8mhPQJ3zOva6jYeHlXj3lH5xzHiYvRbnIJdnEytZoE=;
+        b=G59WWrHaVggZqDd69q+dJn7E6fGOwsQk6L7WimTA/qFUhHBcdqmh8+YDApqkuy5DnX
+         WfBu7gHIJsBiQQu+hX0SVFMS6okf+UftlvtPo4Kk0ZeUjeRbV9MbiISZxkviWuU4B5DT
+         0j5B+5KoxDNJjY3lLPKcgcN/iPPYaJDlGrtE8p/RkjLMHwUqpMcLt3xCqigRNvKB9m3Z
+         aerfMILJhOJ3h5AgeXd/35KUQHoOB3s66VakS7tDq5GudzZrb0eVKcM+GqA3uIvhL11F
+         lWrmQ63d1VfYgy57XRO//WQs71P4OF7c9xog+LI9CRxw044iZbnfNab38J6SdEkOOlGL
+         ov+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791182809; x=1791787609;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C8mhPQJ3zOva6jYeHlXj3lH5xzHiYvRbnIJdnEytZoE=;
+        b=f7jrjk9mjQQmKlktDGb7M6prhx8CarN8s5qiFkJCNQP0JV0H6m1yHAuynwjIUQYlGC
+         w5PiiC9SmVIPNmWbRRruXqcqbE96arp8JIkvoPKIA9K1yX5d3Plo7kAf4XmB7exkviQo
+         aQ6M7XdjF/9ZaPdZkx6+hKF6gb7cCBya9/n/3XM6sJBFwQgx/mTXgu0fBPs/WcOO9VoY
+         U5vfG5x47114fYylFj72p7ogb9vS0ELlVo0KXxOukR/Zqz0F7UD41r8Mp0Qh4+zBOFok
+         /wCVbP4kCg+BonmYkFqI1Q4W65aGFG3vk6JqrCbFoJILofgB5TS4PoTdaejOXJzlwzgP
+         hISA==
+X-Forwarded-Encrypted: i=1; AKwUvBybMF5k0gE0t1pmMWvZnOlLR+zDoeTG8TvgU+mEVpEj3iFI6dbW+IyyC2EVfNuF2WM8HqVmr6dyGZeIWQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mPMbh7yUOjo8EdMESWGmHnJTBqoTkdQsqjvmyIVcLcoGphiDD5
+	9B7Ds1Gs6m7aHKNAsWTXcfjkPhuvb75jQrF/Rg/aPLRi6llwhRGbp3qo
+X-Gm-Gg: AYBFou39z18RcYSFjLzFT/hSwbvtSPXSMzFE08biO34pDZXEnmLn0MkgsNQIZkjGFc/
+	SS+50zERTyDZbzTFiALt+VH45Sp8oD+6FJGu2dqqpcsP/gZza63ufTc8ctU4CD13bp3foKuzpKR
+	79yH4YBfz+bjiaEMAfMXsx6t0O+OgysZXyHmdB/C5H7p3vfuTCcPdOnLYlY+8A8lnKRPY0S1bzD
+	RcK54i3yfeJOt2Jz2cCUCnSpgOT5AVGsh4CszrShuqt5Rs6Sd43CT5kyJZgNVPZ9jcVn/EOF9t9
+	TKey9LKOxSfNrPtofMVuAyQl4SotITo6zhAjU2GaufIGst5GHGhs9kjjNjcz+P84zFWepo18F7p
+	ZmytOgNUHaIQepjqzulfKiG4yFnLf89I1aZYAQqk+nmoPVq3ei/jCwG8u3R3o05gvhd+7t4WK/B
+	B5VqiWy6LL1q3oGbwvotPtgK6mRE79yo6Ut0QCYh0YUCbPJe2qDxaqnEmcUzK3U6fMGEX313THo
+	X5cVkjeznyy9wU7tG+hf6QmnysnuLvjGLsGI/nx7otgk5/aJhcBaj4M+JWM/hj9fRw9JoFxHfyL
+	CsA11gpvhHxTMwgFtelROfVCUT2ryi08A6yn51uyVFm7zysDFMt68qjTWxiRZ/AXhMLYZzGOvTJ
+	7Wg==
+X-Received: by 2002:a05:600c:2187:b0:4a0:1c10:1372 with SMTP id 5b1f17b1804b1-4a02769a83amr118812745e9.27.1791182808952;
+        Sun, 04 Oct 2026 23:46:48 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm315273615e9.14.2026.10.04.23.46.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm315273615e9.14.2026.10.04.23.46.46
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 23:46:45 -0700 (PDT)
+        Sun, 04 Oct 2026 23:46:47 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
@@ -80,10 +82,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linaro-mm-sig@lists.linaro.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] dma-buf: heaps: cma: respect the importer's maximum segment size
-Date: Mon,  5 Oct 2026 08:46:37 +0200
-Message-Id: <20261005064640.7776-1-kmehltretter@gmail.com>
+Subject: [PATCH 1/3] media: tegra-vde: set an unlimited DMA segment size
+Date: Mon,  5 Oct 2026 08:46:38 +0200
+Message-Id: <20261005064640.7776-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261005064640.7776-1-kmehltretter@gmail.com>
+References: <20261005064640.7776-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -92,43 +96,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CMA heap builds attachment scatterlists without considering the
-importing device's maximum DMA segment size. When an entry exceeds
-that limit, DMA_API_DEBUG reports "mapping sg segment longer than
-device claims to support". Patch 3 uses the importer's limit. A
-corresponding udmabuf fix was posted in [1].
+The driver never sets a maximum DMA segment size, so the device claims
+the 64 KiB default. With DMA_API_DEBUG, mapping a larger buffer
+reports:
 
-With patch 3, an importer that keeps the 64 KiB default gets a larger
-buffer in several entries. Two in-tree importers require a single
-entry and never set a limit: tegra-vde without an IOMMU domain, and
-armada. Patches 1 and 2 set an unlimited segment size there. I found
-them by searching the importers for checks on the number of entries
-and on the length of the first entry. etnaviv has a fast path for
-single-entry buffers but already declares a 2 GiB limit.
+  DMA-API: tegra-vde 6001a000.vde: mapping sg segment longer than
+  device claims to support [len=1228800] [max=65536]
 
-Patches 1 and 2 are valid on their own and can go through their own
-trees. Patch 3 should only be applied after them, and is marked
-stable+noautosel for that reason.
+Without an IOMMU domain the driver also needs each imported buffer as
+one entry. An exporter that respects the 64 KiB claim has to split a
+larger buffer, and queueing it fails with "Sparse DMA region is
+unsupported, please enable IOMMU".
 
-Tested in QEMU only, not on real hardware: patch 3 on a custom model
-of the SAM9X75 Curiosity, and all three patches on xilinx-zynq-a9
-with tegra-vde and armada probing from stub device tree nodes. The
-notes of each patch have the details.
+Set the maximum segment size to UINT_MAX.
 
-[1] https://lore.kernel.org/r/20260929054835.94118-1-kmehltretter@gmail.com/
+Verified with a QEMU stub. Not tested on real hardware.
 
-Karl Mehltretter (3):
-  media: tegra-vde: set an unlimited DMA segment size
-  drm/armada: set an unlimited DMA segment size
-  dma-buf: heaps: cma: respect the device's maximum segment size
+Fixes: cd6c56feb591 ("media: staging: media: Introduce NVIDIA Tegra video decoder driver")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
 
- drivers/dma-buf/heaps/cma_heap.c              | 14 ++++++++++----
- drivers/gpu/drm/armada/armada_drv.c           |  3 +++
- drivers/media/platform/nvidia/tegra-vde/vde.c |  2 ++
- 3 files changed, 15 insertions(+), 4 deletions(-)
+Notes:
+    Tested on v7.3-rc4-70-gfe2ec83746e5 with DMA_API_DEBUG on QEMU's
+    xilinx-zynq-a9. The driver probed from a stub device tree node, so all
+    registers read 0, and needed a test-only change to probe without a
+    Tegra PMC.
+    
+    Queueing a capture buffer of 1228800-byte CMA heap buffers works
+    before and after this patch, with 7 segment-length reports before and
+    none after. With patch 3 alone it fails. With patches 1 and 3 it
+    works.
 
+ drivers/media/platform/nvidia/tegra-vde/vde.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
+diff --git a/drivers/media/platform/nvidia/tegra-vde/vde.c b/drivers/media/platform/nvidia/tegra-vde/vde.c
+index c3097085ad9d..6a47e8ba083c 100644
+--- a/drivers/media/platform/nvidia/tegra-vde/vde.c
++++ b/drivers/media/platform/nvidia/tegra-vde/vde.c
+@@ -238,6 +238,8 @@ static int tegra_vde_probe(struct platform_device *pdev)
+ 	vde->soc = of_device_get_match_data(&pdev->dev);
+ 	vde->dev = dev;
+ 
++	dma_set_max_seg_size(dev, UINT_MAX);
++
+ 	vde->sxe = devm_platform_ioremap_resource_byname(pdev, "sxe");
+ 	if (IS_ERR(vde->sxe))
+ 		return PTR_ERR(vde->sxe);
 -- 
 2.53.0
 
