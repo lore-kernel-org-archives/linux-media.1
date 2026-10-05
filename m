@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B2653161E;
-	Mon,  5 Oct 2026 17:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482A25326A1;
+	Mon,  5 Oct 2026 17:19:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220771; cv=none; b=GWOQGLhJJvvQQ7L6fdVz3kJcYjarWMpG5x/jzsX4fNJYxw1xRnpHkKt6qqANVfVEB2F9FEcEt8IkrDDLsMJmztDDm9R6lyE3y5gpCbaVZ0ize+aoSExqMdlfEVG8DBJ+obVVPJajWugmbfN4a2V2bFc62JC9JoFuwQj51V74T5M=
+	t=1791220773; cv=none; b=SGqOzP6kzjpbSVjOtc9poyf+S6s/Sqjtz9uD5n8VHb2x+ZDSthGRcDUlYuVw57mTaHy6dvZViCyvpt1VjpLN0uBg24j9qXlopDIuam4i4Jj2xdT3IoplXYsGbY9iPBDXOtQg4acYADG6bUaQL4dV8eNDZo4Pc0bwxCKyItte6x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220771; c=relaxed/simple;
-	bh=suIKByc22EBVd6NzZw3DGC/UVpmB8QIcsdotoZKHyJQ=;
+	s=arc-20240116; t=1791220773; c=relaxed/simple;
+	bh=rMrcWqigr//5GxBoOZNdAyKkTYZZPJ79QLy44EWWQbA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S2Z6xfM3NyETOam3MnvKstQjW16ahfXDeyq/Hwnq+FIbW917qDZ3agOH8I1BD/TzCD+ON2s/xhK6pC5vKhX0RliEdhoWQMdLAzE1q35Z/AZ3E1UpcBAOpOibYPI6CGGiWNhidt7xYPt1G6zZ9eEGGbqom/rdq5vyVvoPjBlPJy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ek08A4rk; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=QBvNlqmktQWbn5zcoTBrNNH9X7Pt8Y7h9AVY08sLgoO32RDht7O43fA5hKZMN59yeMsZAJHInEx7hnlMgSQ6EVVcKN83txD54lmV+Vn/ZrKgHIVO/vNfMghEJ4l9EdJPW7a0bnj9WtHsulnhjo85hBP/hNfFGvCw9dJPKFGolaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=moC+waeS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ek08A4rk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EB41F00893;
-	Mon,  5 Oct 2026 17:19:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="moC+waeS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248DA1F0089B;
+	Mon,  5 Oct 2026 17:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220768;
-	bh=PUS1VqT1unHEmRoX3yoBazSvna/Wqg3AnG0UfHiqWvQ=;
+	s=k20260515; t=1791220772;
+	bh=U6xids41mo7tlCLqN29b91Tl3Fdc8rp6haXCDpWa7kM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ek08A4rkyT5ieak7UQL3oXm4aR1HYBW42dZNhXJWnqYkuVCXdWtEic4qjzTiEWtnV
-	 3WPic958cc0LoYYBguvtgT39PswxglkY3fRD3wTLJ5e+GHUYgitkMdW6HOqgbgloF/
-	 PhLMB1OBGS36mdMcF6MPM1vohPV/0+lJuGUxBsX3XWRhEIh+J3FpT7hAtcTe+LqPWO
-	 2Qfqj5eF1r0+nZ06wwJn8yp5L+ue4JF2cXDaIqqSLXza29qDgbVi2sNpC24m26efTP
-	 eWyev0qY5SauMi8/aLxbCgbFZxULjwfNFPpCLvu+D1mYlZcT3/zP/eBvz7fDbXs9fK
-	 fu2tuziTvRozA==
+	b=moC+waeSsME/i4fO51EkMXsCv4IW0Cufitd/A8Ah71uhDsg8BU9cpR7rbUbLpv4M9
+	 G2h/gUtWPGPEb+JZvZw0I81+94tDSUCBiigtcn6FZ480cv3DlZH8/gXIAWvcG/8YBm
+	 vauH3VbNlKME0c/R5hDZPO659tKKmgofpyK5JOJu/Cq9HlvfVOl1I3W+va/gskheB0
+	 2LVAstoJ8BbQPCSi990UMJF9l9lf9z7h+vIwI4gwVKEQq1IokL23B9SHiHjswJ2PD8
+	 xxTCRlmBESIrKa0Rhc6xSJpd7qR9kneHj6kzWRVFpas2+Re7be3O+/iEvE9trOeuer
+	 9sQP4tKzOoPwQ==
 From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:34 +0200
-Subject: [PATCH 64/74] media: qcom: camss: vfe: Register a statistics node
- for the pixel line
+Date: Mon, 05 Oct 2026 19:14:35 +0200
+Subject: [PATCH 65/74] media: qcom: camss: vfe: Complete pixel line outputs
+ on their own completion group
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-64-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-65-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,163 +55,159 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4548; i=bod@kernel.org;
- h=from:subject:message-id; bh=5A2KoQwEXT2+D4A1qWNDb5wIIoIA0EWL30AFwbOSegA=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9suCsNCKG61iiufrkWxnley5A0ZRlYTlwYs+
- B+WJ67nKRmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLgAKCRAicTuzoY3I
- OsuaD/9Dce93l/PiCNyA0RGgZ8Xk7uwS+AII8SmdbAEqJSwe/uHBZs1l+kjvGYuHbL0IZJ3NiNC
- 9DgZoNTVTjZxzJT/O8tMxctgB1mXKhRQLaQdKSpSGw4TLb/ZAKxLcZUn0eQumDcSJkn28w3xOgs
- TvikHQkEpyAVxU1vpBKJOQQ/C0d7R6cn6NSxN/iI8sie3st+06clCR4cYVTLbMmcuRYzFgWYAwZ
- W9JMTCejrYY2uDeb5ZXXWwWQConALvUIbyo9wfWnUGaHSclqZzSRadlDuqhCM2qjht5uODNvUzd
- s/wavlisplCIXr7NRgXBp22AILhLuNyI092S8jB0CTRHSeNJBCH5heolwkm2f7sKEj+MXKoznpb
- ICu+8aHOCw0V6cnIaGXrfjgxH6YEmzbbcHu2U9DzE6vXbpi6TMWo0ayItgODGEjtBpKm5p/zwOX
- TLLaf9ClZKZE7psGjGHTaG2hDMNCA82rM2FaEDP+yyl0zzrcr+Ar06sm070pnjTchqXHtOx11YU
- GGvR2uH75dSgMTHIk5QKBcgy45nK49MajBZCiwC9kN8tyN5yCAKyU9Idyr0LqFPu/Dl9tGM32ar
- wA3izmJiU2KiRYWJGnxtcmqBK7xaFu24OM10XGoRtfWtNsI4eCx/eSZSU6zqjpq7NqoszFlynUo
- dyLCcCayTO/XFrQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4752; i=bod@kernel.org;
+ h=from:subject:message-id; bh=Q7fx0+NaUnmKkah1gWGq3GdOsLV5NQMGx+5mQc6mV08=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9svOvA02gnskaaIqQq6Ht2GMtps4GRpiTwZL
+ vIrNPRqTh6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLwAKCRAicTuzoY3I
+ OlyUD/wOPcSt+9BZjRkcjBUgSM3Ctn9KddnX1CAmPiU1AqWdihK/DBD1DVTB12PAcx7Tyz8JuQ9
+ 16GKN26LF2M1+PGHZPYz+ieOWn0utI4X5l92eM7z5BKRRUjdmM8Wjxj+GfJ8CIqbjj+EIHJBTDA
+ 0e3x8ohiDOtgu77Q3vL7Pr0bul3saZJQIIkrcAy1xnd0fKe/0PH4R0OWuYNROLzgNNr8cs9wAVM
+ RYAaBBsHQkZdjLtzgNA6mz0DKgKrR6UOpol+j8LxjUKk1Imx/+Pdxob4lAdONBfzi37c36mVNOV
+ C1frTJI7gQ2k6KXKXpS/jiyzB6YAyUX+9xO/PK8i1qbWy83JBxaA2S9BTnPF0rvCoDwoS0PWzBp
+ YGzffJKvUSFT10RLdSR8eXybuV22aFkapHLfSNtXQkDadPr0A04D417PBDqq41gdRFrqRLIm8d8
+ /TvSYHaUEWyDtlEJL81O/tz7XmLxoey96kxMIupVHh55D2tv7KDIDDxkDf4lJfub1EmE9rLgoD9
+ DOZdlYTndE45ESXIvJv3+/a0ZWPrRqa/cv8/OwEvwBwrOX+x+T4wC97O/fUNAcpyEe32ArJITCL
+ bl6UY/+lagIgztwoaEOy23AsqgB4YTnin/21V9/9S3iLQkvEVUUNGB201vC5smnt4vYfq7Y+Gwi
+ dy+nOYUspABU8ww==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-A line whose descriptor declares a statistics output gets a metadata
-capture node, msm_vfeN_stats, linked immutably from its statistics pad.
-The node carries V4L2_META_FMT_QCOM_ISP_STATS, sized for every
-statistics block the format defines.
+vfe_buf_done() always completes the first output of the line. The
+outputs of a pixel line complete on their own completion groups: the
+image on one, statistics on another. Completing the image on any group
+retires it early once a second output runs.
 
-Select V4L2_ISP for the statistics buffer helpers.
+Split the per-output retirement into vfe_output_done() and, when the
+completion carries per-group status, retire each running output whose
+group fired. RDI lines, and completions without per-group status such as
+the TFE's, keep completing the first output.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/Kconfig     |  1 +
- drivers/media/platform/qcom/camss/camss-vfe.c | 76 +++++++++++++++++++++++++++
- 2 files changed, 77 insertions(+)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 89 +++++++++++++++++++++------
+ 1 file changed, 69 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index 42c3ee13e548b..4f1c1000a501e 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -8,3 +8,4 @@ config VIDEO_QCOM_CAMSS
- 	select VIDEOBUF2_DMA_SG
- 	select VIDEOBUF2_VMALLOC
- 	select V4L2_FWNODE
-+	select V4L2_ISP
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 8bcacede0f969..12d94bdf13bc8 100644
+index 12d94bdf13bc8..b90b538c1aaaf 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -20,7 +20,9 @@
- #include <linux/spinlock.h>
- #include <media/media-entity.h>
- #include <media/v4l2-device.h>
-+#include <media/v4l2-isp.h>
- #include <media/v4l2-subdev.h>
-+#include <linux/qcom-camss-config.h>
- 
- #include "camss-vfe.h"
- #include "camss.h"
-@@ -2370,6 +2372,74 @@ static int vfe_bpl_align_pix(struct vfe_device *vfe)
- 	return ret;
- }
- 
+@@ -623,30 +623,35 @@ u32 vfe_hw_version(struct vfe_device *vfe)
+  * @vfe: VFE Device
+  * @wm: Write master id
+  */
+-void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *buf_done_info)
 +/*
-+ * vfe_register_stats_node - Register the statistics node of a pixel line
++ * vfe_output_done - Retire the filled buffer of one output
 + * @vfe: VFE device
 + * @line: VFE line
-+ * @v4l2_dev: V4L2 device
++ * @output: VFE output whose write masters completed a frame
++ * @ts: completion timestamp
 + *
-+ * A line whose descriptor declares a statistics output gets a metadata
-+ * capture node, msm_vfeN_stats, linked from its statistics pad.
++ * Called with output_lock held. Hands the next pending buffer to the write
++ * masters.
 + *
-+ * Return 0 on success or a negative error code otherwise
++ * Return the filled buffer for the caller to complete once the lock is
++ * dropped, or NULL if none was queued
 + */
-+static int vfe_register_stats_node(struct vfe_device *vfe,
-+				   struct vfe_line *line,
-+				   struct v4l2_device *v4l2_dev)
-+{
-+	struct device *dev = vfe->camss->dev;
-+	unsigned int o;
-+	int ret;
-+
-+	for (o = 1; o < line->num_outputs; o++) {
-+		struct vfe_output *output = &line->output[o];
-+		struct camss_video *video = &output->video_out;
-+		char name[32];
-+
-+		if (output->pad != MSM_VFE_PAD_SRC_STATS || !output->wm_num)
-+			continue;
-+
-+		video->type = V4L2_BUF_TYPE_META_CAPTURE;
-+		video->active_fmt.fmt.meta.dataformat =
-+			V4L2_META_FMT_QCOM_ISP_STATS;
-+		video->active_fmt.fmt.meta.buffersize =
-+			v4l2_isp_buffer_size(CAMSS_STATS_MAX_PAYLOAD);
-+		video->ops = &vfe->video_ops;
-+
-+		snprintf(name, ARRAY_SIZE(name), "%s%d_%s",
-+			 MSM_VFE_NAME, vfe->id, "stats");
-+		ret = msm_video_register(video, v4l2_dev, name);
-+		if (ret < 0) {
-+			dev_err(dev, "Failed to register stats node: %d\n", ret);
-+			return ret;
-+		}
-+
-+		ret = media_create_pad_link(&line->subdev.entity, output->pad,
-+					    &video->vdev.entity, 0,
-+					    MEDIA_LNK_FL_IMMUTABLE |
-+					    MEDIA_LNK_FL_ENABLED);
-+		if (ret < 0) {
-+			dev_err(dev, "Failed to link stats node: %d\n", ret);
-+			msm_video_unregister(video);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void vfe_unregister_stats_node(struct vfe_line *line)
-+{
-+	unsigned int o;
-+
-+	for (o = 1; o < line->num_outputs; o++) {
-+		struct camss_video *video = &line->output[o].video_out;
-+
-+		if (video_is_registered(&video->vdev))
-+			msm_video_unregister(video);
-+	}
-+}
-+
- /*
-  * msm_vfe_register_entities - Register subdev node for VFE module
-  * @vfe: VFE device
-@@ -2472,6 +2542,10 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 				ret);
- 			goto error_link;
- 		}
-+
-+		ret = vfe_register_stats_node(vfe, &vfe->line[i], v4l2_dev);
-+		if (ret < 0)
-+			goto error_link;
++static struct camss_buffer *vfe_output_done(struct vfe_device *vfe,
++					    struct vfe_line *line,
++					    struct vfe_output *output, u64 ts)
+ {
+-	struct vfe_line *line = &vfe->line[vfe->wm_output_map[wm]];
+ 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+ 	struct camss_buffer *ready_buf;
+-	struct vfe_output *output;
+-	unsigned long flags;
+ 	u32 index;
+-	u64 ts = ktime_get_ns();
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-
+-	if (vfe->wm_output_map[wm] == VFE_LINE_NONE) {
+-		dev_err_ratelimited(vfe->camss->dev,
+-				    "Received wm done for unmapped index\n");
+-		goto out_unlock;
+-	}
+-	output = &vfe->line[vfe->wm_output_map[wm]].output[0];
+ 
+ 	ready_buf = output->buf[0];
+ 	if (!ready_buf) {
+-		dev_err_ratelimited(vfe->camss->dev,
+-				    "Missing ready buf %d!\n", output->state);
+-		goto out_unlock;
++		/* only the first output must keep up; the others may starve */
++		if (output == &line->output[0])
++			dev_err_ratelimited(vfe->camss->dev,
++					    "Missing ready buf %d!\n",
++					    output->state);
++		return NULL;
  	}
  
- 	return 0;
-@@ -2490,6 +2564,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 		sd = &vfe->line[i].subdev;
- 		video_out = &vfe->line[i].output[0].video_out;
+ 	ready_buf->vb.vb2_buf.timestamp = ts;
+@@ -671,14 +676,58 @@ void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *bu
+ 		output->gen2.active_num--;
+ 	}
  
-+		vfe_unregister_stats_node(&vfe->line[i]);
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
- 		media_entity_cleanup(&sd->entity);
-@@ -2513,6 +2588,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
- 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
- 		struct camss_video *video_out = &vfe->line[i].output[0].video_out;
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
++	return ready_buf;
++}
  
-+		vfe_unregister_stats_node(&vfe->line[i]);
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
- 		media_entity_cleanup(&sd->entity);
+-	vb2_buffer_done(&ready_buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++/*
++ * vfe_buf_done - Complete the outputs whose completion groups fired
++ * @vfe: VFE device
++ * @wm: port the completion arrived on
++ * @buf_done_info: completion status, one bit per completion group
++ *
++ * An RDI line has one output. The outputs of a pixel line each complete on
++ * their own group, the image on one and statistics on another, when the
++ * completion carries per-group status.
++ */
++void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *buf_done_info)
++{
++	struct camss_buffer *ready[MSM_VFE_NUM_OUTPUTS] = { };
++	struct vfe_line *line;
++	unsigned long flags;
++	unsigned int o;
++	u64 ts = ktime_get_ns();
++
++	spin_lock_irqsave(&vfe->output_lock, flags);
++
++	if (vfe->wm_output_map[wm] == VFE_LINE_NONE) {
++		dev_err_ratelimited(vfe->camss->dev,
++				    "Received wm done for unmapped index\n");
++		goto out_unlock;
++	}
++	line = &vfe->line[vfe->wm_output_map[wm]];
+ 
+-	return;
++	/* Without per-group status (RDI lines, TFE) there is a single output */
++	if (!line->is_pix || !buf_done_info || !buf_done_info->status) {
++		ready[0] = vfe_output_done(vfe, line, &line->output[0], ts);
++	} else {
++		for (o = 0; o < line->num_outputs; o++) {
++			struct vfe_output *output = &line->output[o];
++
++			if (output->state != VFE_OUTPUT_ON || !output->wm_num ||
++			    !(buf_done_info->status & BIT(output->comp_group)))
++				continue;
++
++			ready[o] = vfe_output_done(vfe, line, output, ts);
++		}
++	}
+ 
+ out_unlock:
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
++
++	for (o = 0; o < MSM_VFE_NUM_OUTPUTS; o++)
++		if (ready[o])
++			vb2_buffer_done(&ready[o]->vb.vb2_buf,
++					VB2_BUF_STATE_DONE);
+ }
+ 
+ /*
 
 -- 
 2.55.0
