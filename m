@@ -1,2003 +1,2963 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010041.outbound.protection.outlook.com [52.101.201.41])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9192541F5EA;
-	Mon,  5 Oct 2026 09:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191851; cv=fail; b=HlI+7SyUwvfjE4fG/BGyrNWuvmUqhY+ZYiIGzQ5uuHTs5fIF6YAIIiD8058P5DYUMYK1k9SPVD/GhJxN9QZxROi9w/t1hVo7cZfJw8H9srlsYOqROT+J4j4Z3Xv252FLwW2xcvjFWF7VGT4usR6mh6RYGN60xYshKMUywHMh6VA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191851; c=relaxed/simple;
-	bh=hXiS3cV15CEGN+ItoJfHbRHtctFw5rYfti9Z/ohFVOQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pvo8hFUVOa10XjMBhtYbtE5XwNn++uCxofFPWYNmUGVUbUwp92rL17i0aNjy+rnF5bZp/Xq2UBCRdU3YPvlKzDJN4QNEU+hDu8UmWtV6UuX3zIzt8D3KMeQUrdgJcRuekPzinrt+Uc7yLAEhkUUxDjA/CffNcB/+e/h3wow2BMA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DGjgpE4w; arc=fail smtp.client-ip=52.101.201.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B35A427F98;
+	Mon,  5 Oct 2026 09:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791192208; cv=none; b=rvdLB60X8MSUAZxT7zlx7nvV1twakjhEKVKboiXakTx1Z8wBfS7VcnLwJDUdroK1blDQLCLEuunfjeHi0DBRZ3fqvyoKChYnokMepSVqWm6CpUQ4chrC7iiEm6N8WAVCAywe7SbDvbAPf/VfduL/vvyCmcBXjiT/ioE3+9a0Bmg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791192208; c=relaxed/simple;
+	bh=LFSfqDciK7aJuxdT1g522coj4vDcCd3Zpu1jkZ2zk2k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fSEOegbab7BjfkAQNgecz+3cimvuwxyg7E9T0FPtA+6lrw/19Lr63y5lnCmO3T7Rpk0b96dzmlLEwyxfxz4KpOYJUslrpcuDHaTykRyO8l2keUEGlPz3PiiBu+d7O0/ZPt2xOBBEGiSn54pNo4nrwafgELHdWafcsja8qqWzQjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JAsv2+fi; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DGjgpE4w"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AkeaOp1QzWY5MAGaHN1w1FgidyGRB9scmswGGQMcAQRatE+K+3svKlatv7xR06oLNLcAJDAHWRQUupngCAoQAEAIEWeGRRd48FnepOndu0IldhmEB3gzwV+kUF9K2cYFw743vlRxQNYuP0nDnFoSInZqDULWKaZf4A6cm0aPVcbK3R0y6A9Hh57MQTkf7RyBny35iD8/07r4Se9xUX6tV5PT8/r7EZnYjyaq8+jgc2286PQg/nYTjYOPwDz/O2tyf4mei7JCd+ftwN0/5hh8bEbUoikbxct4OgUaIjpxhFIaZDWpEMp/HhY8cFDtWbIa0/A42WVfitELfWXYkQcoDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9llObD0brl4CzpNRQdZfddYjut/QfmZ+ePpDRANzhPo=;
- b=A55eerKx3TKYL48Ej7F4QuYHa62xNeqoWz18Vmlx/d2lmSARxD+ZygU9HNmPifVRYAET9We0uoVaGdwD+euN+HpQfRD2znKN87Z5vKlwOfiuQYiv2fqhPDtnw5Uo/ofueGgNEfgg5NgueAXVaW8kbUgs/mGo9haiZuc5GvJgfh9ac/KvDkdDT3nkRdiK/bF1+KrDV8ObTuZbvwea0iGU8JLym3awzE4xYx+HwQ4GIf9+Q3Na9VO5VbCtBG6VdLISF6ze947sWu5h95jwZLpV3bDJz+HabHSyVzeMv751Ogo2GwUeFmpAejeEGzCujT/zPACy8JVGxZWXlWO1JWalKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9llObD0brl4CzpNRQdZfddYjut/QfmZ+ePpDRANzhPo=;
- b=DGjgpE4wn6QnKJHNci5QAPWZtCuVmDtOk/RG2/VsLOL05EN67OolJ1/xmg0WDSDw9RwYHogy40iUp6iIQK1em02VnvLGERfUtkOu8lePKa57nYOlRPYecuU0p6VGxHGqODe10WBs/97os+DjzHFTbQGJSD/wE+RlZTatBbY5oik=
-Received: from PH7PR02CA0007.namprd02.prod.outlook.com (2603:10b6:510:33d::13)
- by SJ2PR12MB8136.namprd12.prod.outlook.com (2603:10b6:a03:4f8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
- 2026 09:17:15 +0000
-Received: from MW1PEPF0001615B.namprd21.prod.outlook.com
- (2603:10b6:510:33d:cafe::50) by PH7PR02CA0007.outlook.office365.com
- (2603:10b6:510:33d::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 09:17:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MW1PEPF0001615B.mail.protection.outlook.com (10.167.249.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.3 via Frontend Transport; Mon, 5 Oct 2026 09:17:14 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 04:17:13 -0500
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 04:16:56 -0500
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <Sunil-kumar.Dommati@amd.com>,
-	<vijendar.mukunda@amd.com>, <Mario.Limonciello@amd.com>,
-	<venkataprasad.potturu@amd.com>, <yung-chuan.liao@linux.intel.com>,
-	<pierre-louis.bossart@linux.dev>, <anson.tsao@amd.com>, Syed Saba Kareem
-	<Syed.SabaKareem@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, "Liam
- Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
- Iwai" <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>, Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Simon Trimmer
-	<simont@opensource.cirrus.com>, "Mario Limonciello (AMD)"
-	<superm1@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, "open
- list:SOUNDWIRE SUBSYSTEM" <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, "moderated list:SOUND - SOUND OPEN FIRMWARE
- (SOF) DRIVERS" <sound-open-firmware@alsa-project.org>, "open list:BPF
- [MISC]:Keyword:(?:\\b|_)bpf(?:\\b|_)" <bpf@vger.kernel.org>, "open list:DMA
- BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
-	<linux-media@vger.kernel.org>, "open list:DMA BUFFER SHARING
- FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
-	<dri-devel@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING
- FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
-	<linaro-mm-sig@lists.linaro.org>
-Subject: [PATCH v3 4/5] soundwire: amd: Add BRA/BPT firmware download support
-Date: Mon, 5 Oct 2026 14:45:47 +0530
-Message-ID: <20261005091620.1390916-5-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005091620.1390916-1-syed.sabakareem@amd.com>
-References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JAsv2+fi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791192204; x=1822728204;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LFSfqDciK7aJuxdT1g522coj4vDcCd3Zpu1jkZ2zk2k=;
+  b=JAsv2+fiwEIzpFWHv9dgH2O9ckxntiAy+5pWHMQbq2114rBVRB1BzRsv
+   mPtURnTMH5sYfJ7TEGJ6KOwLXFC7eHD+qzYoilRm8YFqBBJKvy8C9/YNl
+   B/f/jHr+di4VHahadcgP5Pa8QvY0SuZAKZdzcsxLD9EtiTKvsQF56W8P9
+   +eemnvgHS4ncYCHxL2IzQgTgPcSyaipWEHfZYoRiAUNrtSnBmwXigRsbs
+   aNsZ28pP/otACxI+dlfoWcM5Iop3TdAG6hVtvBdEJbGG4tSjADHYk0Zwp
+   0c7sdbI9g4CI5vIFYbVZThw9CQtrlt2hi79CGK2rE2tgGa15v4SB3CRTI
+   g==;
+X-CSE-ConnectionGUID: JJICEaj4Q7ya6J9Lf4tw2A==
+X-CSE-MsgGUID: Us/gHCAKRnCgma75jjjYmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="113636141"
+X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
+   d="scan'208";a="113636141"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 02:23:23 -0700
+X-CSE-ConnectionGUID: QkYSHF3gQdScFPDCZ3qxUA==
+X-CSE-MsgGUID: M8mJLXkbStiiKZzP9EELxg==
+X-ExtLoop1: 1
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.157])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 02:23:20 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 37BCB11F817;
+	Mon, 05 Oct 2026 12:23:20 +0300 (EEST)
+Date: Mon, 5 Oct 2026 12:23:20 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Robert Bozik <robertbozik@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] media: i2c: Add driver for OmniVision OV32C4
+Message-ID: <asNsiKal6GgcqUSK@kekkonen.localdomain>
+References: <20261005071010.7191-1-robertbozik@gmail.com>
+ <20261005071010.7191-3-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001615B:EE_|SJ2PR12MB8136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73d44f69-6bc1-4a23-41ae-08df22c17204
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|22082099003|18002099003|56012099006|3023799007|6133799003|10067099003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	S1i5XD5O/KbRNHi7idKpAZU/uiMP9ahRO1S7Xk3+XVQUqXipBUOCXKGteYyyDp26nLNhl9xriSE/GOXSsCooeCo86GMV3S1p0xBrCZCTRYBZCKpKyuq3Vrau2GVwWcHBT5bENnFTCoKrhqJ0h3FEYeiby1M4R0Z1YwlpILr1iMba4MQcKOOs+cCh/qDAGolBPMIGc1HK31VDjJe+oJ4JZyHsNmYDWxgXOBCU39yKmvmWK1gMLq4ccV8gKIb8sCli0IkVaKXUxAwuLiZFBs1KEipwzsxIS3mmKxSsDsua0k9BJ4dCYKHZOFJZl+5L78cGoOfrGlUqkjorBhWJVhEIMR4t0T2sqKyXwoORP4ZjE/a6y7SJb+nc7vRQf1a2q2luN9s/jWlh2kTNc846yWLtyVAsNS3WAapIFeIo4VpsmT2R1tYq8AOhR9oOEZC+AZZarmg7reoy43msmATQObNR9k9CDKE90aMJyNuPJ28Hk1//pRCbCbBStezSWNJ2Bxjfw9xiNLQShGuv8mBiF7vfm/lZSH/U+J6DHDUzCgZVsy4aP5m28eEYbL5gmVeqwLCyf4G5jwXltRpilJpooHkoIVHZeLUsRUUXnO7hL7ZoKdco72s2Czkr+7vReuKNO6yYJiIdppgjUw3yXu6trDaiyvUOH+mc22MUOfhRyAH1ZQ+MJmDgbbBp7sHpkrBR5VQPzW1nmia8Ds7eKnuuwcqzxw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(22082099003)(18002099003)(56012099006)(3023799007)(6133799003)(10067099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	+NTWcd1yK49KYkb22ncBeaafjMYc0hUw9nHJBwXdonXauYRfubYY0fqdVJ7BzoD5VSEJQgC9OERaLQJYvSB1NaCIq8GNnPDKNVJb9FIUgW3jar1BIWN0KQU5ymQpp7tBIeRH5cgDYNbcM0cwtMv0XbzTZ9Kw+jk6YmKnwHIYgMmkavhgAh/3w6oo21ZLd8LzKvN8yPjzU8D5DP/uLENiAc65jUYAwqAutD3Kn6BIjpC/qEqsVFfPsnMkQwjDY9/FrDGG2ob9NPI7Avg+ooxbezdT6loaao5Ge0LsaxaUWc3C4h5WFwagjq9k7ZQMM1Z4MTg5EYdsDaD70O6K992mTBxc7kkULc+eeGCLIAsGidKGHAxrKw7hr5DCJqWzxEpfHFBdnzqDB9AaaDNI3QlxnKbwCOqqRsriNJJtVj7+jKbcbsoW3EK/JVyPWG4Q7V8q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:17:14.6070
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73d44f69-6bc1-4a23-41ae-08df22c17204
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF0001615B.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8136
+In-Reply-To: <20261005071010.7191-3-robertbozik@gmail.com>
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Hi Robert,
 
-Add Bulk Register Access (BRA) / Bulk Payload Transport (BPT) support
-for AMD SoundWire platforms. This enables high-speed firmware download
-to SoundWire peripherals via DP0, using the ACP BRA DMA engine.
+On Mon, Oct 05, 2026 at 09:10:09AM +0200, Robert Bozik wrote:
+> The OV32C4 is a 32 megapixel RGBC CMOS image sensor with on-chip 4-cell
+> fusion and binning, connected over 4 MIPI CSI-2 D-PHY lanes. It is used
+> as an under-display camera in laptops, where it is enumerated through
+> ACPI (_HID "OVTI32C4") and paired with an Intel IPU.
+> 
+> The driver supports 3264x1840 at 30 fps in 10-bit Bayer at a link
+> frequency of 400 MHz, with exposure, analogue gain, digital gain,
+> vblank, hblank and horizontal and vertical flip controls, runtime PM
+> and .get_selection reporting the 6560x4928 pixel array.
+> 
+> The sensor has a second I2C address, the second I2cSerialBus resource of
+> its _CRS, behind which sits a small register block of its own; the main
+> address does not answer until 0x1001 there is written. The block is part
+> of the sensor - it is unreachable while the sensor is unpowered or in
+> reset, starts answering about a millisecond after reset is released,
+> loses the written value over a power cycle and has no ACPI device of
+> its own - so the driver claims the address as a second I2C client and
+> writes it on every power-up.
+> 
+> There is no public datasheet for this sensor. The mode register table is
+> the vendor driver's initialisation sequence, and the registers the
+> controls use were established by correlating that binary with the values
+> read back from the chip; the cover letter has the measurements that back
+> the ranges and the timings.
 
-Key design points:
+Please clean this up. Most of this goes to the cover letter.
 
-- Uses the SoundWire stream framework (sdw_prepare_stream,
-  sdw_enable_stream, sdw_disable_stream, sdw_deprepare_stream)
-  for all DP0 port programming and bank switches. No manual DP0
-  register writes or bank mirrors are needed.
+> 
+> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+> ---
+> Changes in v4:
+> - The second I2C address is claimed with devm_i2c_new_dummy_device() and
+>   driven through its own CCI regmap instead of a bare i2c_transfer(),
+>   now that it is measured to be part of the sensor (cover letter).
+> - power_on() fails when the enable write to that block fails, and undoes
+>   the clock, the supply and the reset, instead of returning 0.
+> - The stream-off and the software reset are issued by the driver before
+>   the mode table rather than from inside it: the delay_us of a
+>   reg_sequence is a udelay() on a regmap without can_sleep, which made
+>   the 10 ms settle a busy wait. The table is now the vendor's list minus
+>   those two entries.
+> - Power-up timing from the measurement, in line with the "0 and 5 ms"
+>   remark on v1: no wait after the supply (the regulator core waits for
+>   it), 5 ms after reset release, 1 ms after the enable write. Verified
+>   over a cold boot, 20 runtime power cycles and 15 stream starts.
+> - Copyright line.
+> 
+>  MAINTAINERS                |    8 +
+>  drivers/media/i2c/Kconfig  |   10 +
+>  drivers/media/i2c/Makefile |    1 +
+>  drivers/media/i2c/ov32c4.c | 2716 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 2735 insertions(+)
+>  create mode 100644 drivers/media/i2c/ov32c4.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3785b8c1d..7b28717fc 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20008,6 +20008,14 @@ S:	Maintained
+>  T:	git git://linuxtv.org/media.git
+>  F:	drivers/media/i2c/ov2740.c
+>  
+> +OMNIVISION OV32C4 SENSOR DRIVER
+> +M:	Robert Bozik <robertbozik@gmail.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +T:	git git://linuxtv.org/media.git
+> +F:	Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+> +F:	drivers/media/i2c/ov32c4.c
+> +
+>  OMNIVISION OV4689 SENSOR DRIVER
+>  M:	Mikhail Rudenko <mike.rudenko@gmail.com>
+>  L:	linux-media@vger.kernel.org
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 5c52007f9..1c363d581 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -547,6 +547,16 @@ config VIDEO_OV2740
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called ov2740.
+>  
+> +config VIDEO_OV32C4
+> +	tristate "OmniVision OV32C4 sensor support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the OmniVision
+> +	  OV32C4 camera.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called ov32c4.
+> +
+>  config VIDEO_OV4689
+>  	tristate "OmniVision OV4689 sensor support"
+>  	depends on GPIOLIB
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index d04bd5724..79bf2e393 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -102,6 +102,7 @@ obj-$(CONFIG_VIDEO_OV2685) += ov2685.o
+>  obj-$(CONFIG_VIDEO_OV2732) += ov2732.o
+>  obj-$(CONFIG_VIDEO_OV2735) += ov2735.o
+>  obj-$(CONFIG_VIDEO_OV2740) += ov2740.o
+> +obj-$(CONFIG_VIDEO_OV32C4) += ov32c4.o
+>  obj-$(CONFIG_VIDEO_OV4689) += ov4689.o
+>  obj-$(CONFIG_VIDEO_OV5640) += ov5640.o
+>  obj-$(CONFIG_VIDEO_OV5645) += ov5645.o
+> diff --git a/drivers/media/i2c/ov32c4.c b/drivers/media/i2c/ov32c4.c
+> new file mode 100644
+> index 000000000..151d6b32e
+> --- /dev/null
+> +++ b/drivers/media/i2c/ov32c4.c
+> @@ -0,0 +1,2716 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * OmniVision OV32C4 image sensor driver.
+> + *
+> + * Copyright (C) 2026 Robert Bozik
+> + *
+> + * The sensor ships in laptops with an Intel IPU7, where it is enumerated
+> + * through ACPI _HID "OVTI32C4". There is no public datasheet; the 400 MHz
+> + * link frequency comes from the vendor driver, which carries it as bits per
+> + * second, and is confirmed on hardware: the receiver locks and the sensor
+> + * streams 3264x1840 at a measured 30.00 fps, which is pixel_rate divided by
+> + * ppl times vts.
 
-- BRA transport parameters (hstart, hstop, SampleInterval,
-  BytesPerFrame) are computed dynamically from the current bus
-  frame shape, not hardcoded.
+I think you could just drop this paragraph.
 
-- The ACP BPT DMA engine is triggered by the bank switch
-  performed inside sdw_enable_stream(), and stopped by the
-  bank switch in sdw_disable_stream().
+> + */
+> +
+> +#include <linux/acpi.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/minmax.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <media/v4l2-cci.h>
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-fwnode.h>
+> +
+> +#define OV32C4_LINK_FREQ_400MHZ		400000000ULL	/* 800 Mbps/lane */
+> +#define OV32C4_MCLK			19200000
+> +#define OV32C4_RGB_DEPTH		10
+> +#define OV32C4_DATA_LANES		4
+> +
+> +/* Horizontal timing */
+> +#define OV32C4_REG_HTS			CCI_REG16(0x380c)
+> +
+> +/*
+> + * Pixel array geometry, derived from the mode registers: 0x3800..0x3807 read
+> + * a 6560x3712 window out of a 6560x4928 array, 2x2 binned to 3280x1856, of
+> + * which 0x3810..0x3813 take 3264x1840 at offset (8, 9). The 32 columns and
+> + * rows by which the array exceeds the 6528x4896 active area are blind.
+> + */
+> +#define OV32C4_NATIVE_WIDTH		6560U
+> +#define OV32C4_NATIVE_HEIGHT		4928U
+> +#define OV32C4_ACTIVE_LEFT		16U
+> +#define OV32C4_ACTIVE_TOP		16U
+> +#define OV32C4_ACTIVE_WIDTH		6528U
+> +#define OV32C4_ACTIVE_HEIGHT		4896U
+> +#define OV32C4_CROP_LEFT		16U
+> +#define OV32C4_CROP_TOP			626U
+> +#define OV32C4_CROP_WIDTH		6528U
+> +#define OV32C4_CROP_HEIGHT		3680U
+> +
+> +#define OV32C4_REG_CHIP_ID		CCI_REG24(0x300a)
+> +#define OV32C4_CHIP_ID			0x563243
+> +
+> +#define OV32C4_REG_STREAM_CONTROL	CCI_REG8(0x0100)
+> +#define OV32C4_REG_SW_RESET		CCI_REG8(0x0103)
+> +/* The vendor driver issues the reset itself and waits this long after it. */
+> +#define OV32C4_SW_RESET_SETTLE_US	10000
+> +
+> +/*
+> + * The sensor has a second I2C address, listed as the second I2cSerialBus
+> + * resource of its ACPI _CRS, behind which sits a small register block of
+> + * its own. Until 0x1001 there is written, the main address does not answer
+> + * at all. The block is part of the sensor: it is unreachable while the
+> + * sensor is unpowered or held in reset, starts answering about a millisecond
+> + * after reset is released, loses the value written to 0x1001 over a power
+> + * cycle, and has no ACPI device of its own. The same register pair exists in
+> + * OV08X40 (AO_STANDBY at 0x1000, MS_SELECT at 0x1001, 0x04 for streaming)
+> + * at that sensor's main address.
+> + */
+> +#define OV32C4_COMPANION_ENABLE_REG	CCI_REG8(0x1001)
+> +#define OV32C4_COMPANION_ENABLE_VAL	0x04
 
-- Non-contiguous firmware sections are handled by iterating
-  per-section: large sections use BRA DMA, small sections
-  (< one BRA frame) fall back to sdw_nwrite/sdw_nread.
+How about:
 
-- BPT stream m_rt entries are skipped in audio compute_params
-  to prevent BPT transport parameters from corrupting audio
-  port block offset calculations.
+#define OV32C4_AON_SMIA_R1001		CCI_REG8(0x1001)
+#define OV32C4_AON_SMIA_R1001_MAIN_MODE	BIT(2)
 
-- DP0 port_params, xport_params, and port_enable callbacks
-  return early for BPT streams since the ACP BRA descriptor
-  registers handle DP0 configuration independently.
+for these?
 
-- bus->bpt_stream is published with WRITE_ONCE() only after the stream
-  runtime is added and bpt_stream_refcount is raised under bus_lock, and
-  is cleared before the runtime is removed and the stream is freed, so
-  the lockless DP0 port callbacks never observe a half-initialised or
-  freed stream pointer.
+> +
+> +/* Vertical timing */
+> +#define OV32C4_REG_VTS			CCI_REG16(0x380e)
+> +#define OV32C4_VTS_MAX			0xffff
+> +
+> +/* Exposure; the sensor has two exposure contexts and ov32c4.sys writes both */
+> +#define OV32C4_REG_EXPOSURE		CCI_REG24(0x3500)
 
-- bus->bpt_fw_download is set around the transfer so sdw_master_rt_alloc()
-  admits the BPT allocation while audio streams on the same bus are
-  allocated but idle (for example an amplifier left DISABLED across a
-  power-off-mode suspend that must re-download firmware on resume). It is
-  cleared on the close and open error paths. An audio stream that is
-  actively using the bus still blocks the transfer.
+This is for RGB.
 
-- On an aborted or timed-out transfer the ACP BPT DMA engine is disarmed
-  (PORT_EN=0) before the sdw_disable_stream() bank switch, so the bank
-  switch cannot re-trigger a DMA write into the buffer that is freed once
-  the transfer returns.
+> +#define OV32C4_REG_EXPOSURE_CTX2	CCI_REG24(0x3540)
 
-- A per-manager bpt_lock serialises concurrent BPT transfers
-  from multiple slave probes. pm_runtime keeps the bus clock
-  active during transfers.
+And this is for IR.
 
-- PTE-based ACP ATU mapping provides DMA scatter-gather for the
-  firmware buffer. The ATU maps up to 512 4KB pages (2 MB per
-  transfer); each transfer is additionally bounded by the SoundWire
-  BPT limit of 1 MB (SDW_BPT_MSG_MAX_BYTES), which the driver enforces.
+I think we can keep them behind the same control for now.
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- drivers/soundwire/amd_init.c      |    1 +
- drivers/soundwire/amd_manager.c   | 1388 ++++++++++++++++++++++++++++-
- drivers/soundwire/amd_manager.h   |   17 +-
- include/linux/soundwire/sdw_amd.h |   35 +
- sound/soc/amd/ps/acp63.h          |    3 +
- sound/soc/amd/ps/pci-ps.c         |    3 +
- sound/soc/sof/amd/acp.c           |    3 +
- sound/soc/sof/amd/acp.h           |    4 +
- 8 files changed, 1449 insertions(+), 5 deletions(-)
+> +#define OV32C4_EXPOSURE_MIN		4
+> +#define OV32C4_EXPOSURE_STEP		1
+> +/* VTS = max(vts, exposure + 32) in ov32c4.sys -> keep 32 lines of margin */
+> +#define OV32C4_EXPOSURE_MAX_MARGIN	32
+> +
+> +/*
+> + * Mirror and flip: bit 2 in each register, but with opposite polarity. The
+> + * mode table leaves 0x3821 set and 0x3820 clear, and that is the un-flipped
+> + * state. Neither changes the Bayer order.
+> + */
+> +#define OV32C4_REG_FLIP			CCI_REG8(0x3820)
+> +#define OV32C4_REG_MIRROR		CCI_REG8(0x3821)
+> +#define OV32C4_FLIP_BIT			BIT(2)
+> +
+> +/* Analogue gain: 0x100 is unity and 0x7c0, 7.75x, is the maximum. */
+> +#define OV32C4_REG_ANALOG_GAIN		CCI_REG16(0x3508)
+> +#define OV32C4_REG_ANALOG_GAIN_CTX2	CCI_REG16(0x3548)
 
-diff --git a/drivers/soundwire/amd_init.c b/drivers/soundwire/amd_init.c
-index 8e419ddfa516..00f4a87da7cb 100644
---- a/drivers/soundwire/amd_init.c
-+++ b/drivers/soundwire/amd_init.c
-@@ -120,6 +120,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
- 
- 		sdw_pdata[index].instance = index;
- 		sdw_pdata[index].acp_sdw_lock = res->acp_lock;
-+		sdw_pdata[index].acp_bra_lock = res->acp_bra_lock;
- 		sdw_pdata[index].acp_rev = res->acp_rev;
- 		pdevinfo[index].name = "amd_sdw_manager";
- 		pdevinfo[index].id = index;
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index a3316efdf8ac..078e13b01ac9 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -9,6 +9,7 @@
- #include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/io.h>
-+#include <linux/dma-mapping.h>
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -16,6 +17,7 @@
- #include <linux/soundwire/sdw.h>
- #include <linux/soundwire/sdw_registers.h>
- #include <linux/pm_runtime.h>
-+#include <linux/sched.h>
- #include <linux/wait.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -23,15 +25,53 @@
- #include "amd_init.h"
- #include "amd_manager.h"
- 
-+/* ATU register offsets */
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1		0x0000C00
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_1		0x0000C04
-+#define ACPAXI2AXI_ATU_CTRL			0x0000C40
-+#define ACP_SCRATCH_REG_0			0x0010000
-+
- #define DRV_NAME "amd_sdw_manager"
- 
- #define to_amd_sdw(b)	container_of(b, struct amd_sdw_manager, bus)
- 
-+#define AMD_BPT_MSG_BYTE_MIN 16
-+
-+/*
-+ * BRA PTE/ATU Configuration Constants
-+ *
-+ * BRA DMA uses ATU GRP_1 with 4KB pages. GRP_1 PTE table base sits at
-+ * ACP_SCRATCH_REG_0 (offset 0x03800000 from MMIO base). The AXI window
-+ * for GRP_1 starts at ACP_BRA_MEM_WINDOW_START (0x4000000). PTE entries
-+ * are 8 bytes each and start at scratch offset ACP_BRA_PTE_OFFSET (0x0).
-+ * ATU_PAGE_SIZE = 0x0 means DISABLED; set ACP_BRA_PAGE_SIZE_4K_ENABLE (0x2)
-+ * to enable 4KB page translation.
-+ */
-+#define ACP_BRA_SRAM_GRP1_BASE		0x03800000
-+#define ACP_BRA_PAGE_SIZE_4K_ENABLE	0x2
-+#define ACP_BRA_PTE_OFFSET		0x0
-+#define ACP_BRA_MEM_WINDOW_START	0x4000000
-+#define ACP_BRA_ATU_PTE_ENTRY_SIZE	8
-+#define ACP_BRA_MAX_PTE_ENTRIES		512
-+struct amd_bra_params {
-+	u32 sample_interval;
-+	u32 bytes_per_frame;
-+	u8 hstart;
-+	u8 hstop;
-+	u8 word_length;
-+	u8 dev_addr;
-+	bool write_mode;
-+	u32 peripheral_first_byte_addr;
-+	u32 dma_base_addr;
-+	u32 transfer_length;
-+};
-+
- static int amd_sdw_clk_init_ctrl(struct amd_sdw_manager *amd_manager)
- {
- 	struct sdw_bus *bus = &amd_manager->bus;
- 	struct sdw_master_prop *prop = &bus->prop;
--	u32 divider;
-+	u32 val;
-+	int divider;
- 
- 	dev_dbg(amd_manager->dev, "mclk %d max %d row %d col %d frame_rate:%d\n",
- 		prop->mclk_freq, prop->max_clk_freq, prop->default_row,
-@@ -44,16 +84,28 @@ static int amd_sdw_clk_init_ctrl(struct amd_sdw_manager *amd_manager)
- 	}
- 
- 	/* Set clock divider */
-+	dev_dbg(amd_manager->dev, "bus params curr_dr_freq: %d\n",
-+		bus->params.curr_dr_freq);
- 	divider = (prop->mclk_freq / bus->params.curr_dr_freq);
-+
- 	writel(divider, amd_manager->mmio + ACP_SW_CLK_FREQUENCY_CTRL);
-+	val = readl(amd_manager->mmio + ACP_SW_CLK_FREQUENCY_CTRL);
-+	dev_dbg(amd_manager->dev, "ACP_SW_CLK_FREQUENCY_CTRL:0x%x\n", val);
- 
- 	/* Set frame shape base on the actual bus frequency. */
- 	prop->default_col = bus->params.curr_dr_freq /
- 			    prop->default_frame_rate / prop->default_row;
-+
-+	dev_dbg(amd_manager->dev, "default_frame_rate:%d default_row: %d default_col: %d\n",
-+		prop->default_frame_rate, prop->default_row, prop->default_col);
- 	amd_manager->cols_index = sdw_find_col_index(prop->default_col);
- 	amd_manager->rows_index = sdw_find_row_index(prop->default_row);
- 	bus->params.col = prop->default_col;
- 	bus->params.row = prop->default_row;
-+	dev_dbg(amd_manager->dev, "rows_index: %d cols_index: %d\n",
-+		amd_manager->rows_index, amd_manager->cols_index);
-+	dev_dbg(amd_manager->dev, "params.col:0x%x params.row:0x%x\n",
-+		bus->params.col, bus->params.row);
- 	return 0;
- }
- 
-@@ -267,7 +319,8 @@ static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lo
- 	}
- 
- 	if (sts & AMD_SDW_IMM_RES_VALID) {
--		dev_err(amd_manager->dev, "SDW%x manager is in bad state\n", amd_manager->instance);
-+		dev_warn(amd_manager->dev, "SDW%x stale IMM response cleared\n",
-+			 amd_manager->instance);
- 		writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
- 	}
- 	writel(upper_data, amd_manager->mmio + ACP_SW_IMM_CMD_UPPER_WORD);
-@@ -465,12 +518,53 @@ static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
- 	return slave_stat;
- }
- 
-+/*
-+ * amd_sdw_bra_sample_interval() - Derive the BRA SampleInterval
-+ *
-+ * The ACP BRA hardware descriptor and the peripheral DP0 must be
-+ * programmed with an identical SampleInterval, otherwise the frame
-+ * layout seen by the two ends diverges and the transfer misaligns.
-+ * Both amd_sdw_compute_params() (peripheral DP0) and
-+ * amd_sdw_calculate_bra_params() (ACP BRA descriptor) use this helper
-+ * so the value can never diverge.
-+ *
-+ * BlockCount algorithm (col_width = hstop - hstart + 1):
-+ *  - col_width >= 8: BlockCount = 1, SI = nc
-+ *  - otherwise:      smallest BlockCount in [2..8] such that
-+ *                    (BlockCount * col_width >= 8) && (nr % BlockCount == 0),
-+ *                    SI = nc * BlockCount
-+ *
-+ * Returns 0 if no valid BlockCount can be found.
-+ */
-+static u32 amd_sdw_bra_sample_interval(u32 nr, u32 nc, u8 hstart, u8 hstop)
-+{
-+	u8 col_width = hstop - hstart + 1;
-+	u32 block_count;
-+
-+	if (col_width >= 8)
-+		return nc;		/* BlockCount = 1 */
-+
-+	/*
-+	 * col_width < 8 (including col_width == 1, which needs BlockCount = 8):
-+	 * pick the smallest BlockCount that both reaches a full 8-bit sample
-+	 * and divides the row count, so the frame is not fractionally blocked.
-+	 */
-+	for (block_count = 2; block_count <= 8; block_count++) {
-+		if ((block_count * col_width >= 8) &&
-+		    (nr % block_count == 0))
-+			return nc * block_count;
-+	}
-+
-+	return 0;
-+}
-+
- static int amd_sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime *stream)
- {
- 	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
- 	struct sdw_transport_data t_data = {0};
- 	struct sdw_master_runtime *m_rt;
- 	struct sdw_port_runtime *p_rt;
-+	struct sdw_slave_runtime *s_rt;
- 	struct sdw_bus_params *b_params = &bus->params;
- 	int port_bo, hstart, hstop, sample_int;
- 	unsigned int rate, bps, channels;
-@@ -478,6 +572,60 @@ static int amd_sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime
- 	static unsigned int next_offset[AMD_SDW_MAX_MANAGER_COUNT] = {1};
- 	unsigned int inst_id = amd_manager->instance;
- 
-+	/*
-+	 * BPT stream: compute DP0 transport/port params so the SoundWire stream
-+	 * framework can program peripheral DP0 registers in sdw_prepare_stream().
-+	 */
-+	if (stream->type == SDW_STREAM_BPT) {
-+		u32 nc = bus->params.col;
-+		u8 bpt_hstart = amd_manager->bra_hstart;
-+		u8 bpt_hstop = amd_manager->bra_hstop;
-+		u32 bpt_si = amd_sdw_bra_sample_interval(bus->params.row, nc,
-+							 bpt_hstart, bpt_hstop);
-+
-+		if (!bpt_si || bpt_si > bus->params.row * nc) {
-+			dev_err(bus->dev,
-+				"BPT: cannot derive SI: NR=%u NC=%u hstart=%u hstop=%u\n",
-+				bus->params.row, nc, bpt_hstart, bpt_hstop);
-+			return -EINVAL;
-+		}
-+
-+		dev_dbg(bus->dev, "BPT compute: NC=%u hstart=%u hstop=%u SI=%u\n",
-+			nc, bpt_hstart, bpt_hstop, bpt_si);
-+
-+		list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-+			if (m_rt->stream != stream)
-+				continue;
-+
-+			list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
-+				sdw_fill_xport_params(&p_rt->transport_params,
-+						      p_rt->num, false,
-+						      SDW_BLK_GRP_CNT_1, bpt_si,
-+						      0, 0, bpt_hstart, bpt_hstop,
-+						      SDW_BLK_PKG_PER_PORT, 0);
-+				sdw_fill_port_params(&p_rt->port_params,
-+						     p_rt->num, 8,
-+						     SDW_PORT_FLOW_MODE_ISOCH,
-+						     SDW_PORT_DATA_MODE_NORMAL);
-+			}
-+
-+			list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
-+				list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
-+					sdw_fill_xport_params(&p_rt->transport_params,
-+							      p_rt->num, false,
-+							      SDW_BLK_GRP_CNT_1, bpt_si,
-+							      0, 0, bpt_hstart, bpt_hstop,
-+							      SDW_BLK_PKG_PER_PORT, 0);
-+					sdw_fill_port_params(&p_rt->port_params,
-+							     p_rt->num, 8,
-+							     SDW_PORT_FLOW_MODE_ISOCH,
-+							     SDW_PORT_DATA_MODE_NORMAL);
-+				}
-+			}
-+		}
-+		return 0;
-+	}
-+
- 	port_bo = 0;
- 	hstart = 1;
- 	hstop = bus->params.col - 1;
-@@ -485,6 +633,14 @@ static int amd_sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime
- 	t_data.hstart = hstart;
- 
- 	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-+		/*
-+		 * Skip BPT stream entries when computing audio params.
-+		 * BPT may have stream params (rate/bps) that don't match the
-+		 * assumptions below and can lead to division by zero.
-+		 */
-+		if (m_rt->stream->type == SDW_STREAM_BPT)
-+			continue;
-+
- 		rate = m_rt->stream->params.rate;
- 		bps = m_rt->stream->params.bps;
- 		channels = m_rt->stream->params.ch_count;
-@@ -557,6 +713,19 @@ static int amd_sdw_port_params(struct sdw_bus *bus, struct sdw_port_params *p_pa
- 	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
- 	u32 frame_fmt_reg, dpn_frame_fmt;
- 
-+	/*
-+	 * BPT uses the dedicated ACP BRA descriptor registers, not the DPn
-+	 * audio port registers, so the manager side of DP0 must not be
-+	 * programmed while a BPT transfer owns the bus. Manager port 0 is also
-+	 * an audio port (AUDIO0/AUDIO1 TX), but an audio port-0 op cannot race
-+	 * a BPT transfer: BPT holds the bus across the whole prepare->transfer
-+	 * sequence and the core disallows an active audio stream while BPT
-+	 * runs, so a num == 0 op observed here is always the BPT stream. Allow
-+	 * DPn (n > 0) audio port ops to proceed even while BPT is active.
-+	 */
-+	if (READ_ONCE(bus->bpt_stream) && p_params->num == 0)
-+		return 0;
-+
- 	dev_dbg(amd_manager->dev, "p_params->num:0x%x\n", p_params->num);
- 	switch (amd_manager->acp_rev) {
- 	case ACP63_PCI_REV_ID:
-@@ -601,6 +770,19 @@ static int amd_sdw_transport_params(struct sdw_bus *bus,
- 	u32 frame_fmt_reg, sample_int_reg, hctrl_dp0_reg;
- 	u32 offset_reg, lane_ctrl_ch_en_reg;
- 
-+	/*
-+	 * BPT uses the dedicated ACP BRA descriptor registers, not the DPn
-+	 * audio port registers, so the manager side of DP0 must not be
-+	 * programmed while a BPT transfer owns the bus. Manager port 0 is also
-+	 * an audio port (AUDIO0/AUDIO1 TX), but an audio port-0 op cannot race
-+	 * a BPT transfer: BPT holds the bus across the whole prepare->transfer
-+	 * sequence and the core disallows an active audio stream while BPT
-+	 * runs, so a port_num == 0 op observed here is always the BPT stream.
-+	 * Allow DPn (n > 0) audio port ops to proceed even while BPT is active.
-+	 */
-+	if (READ_ONCE(bus->bpt_stream) && params->port_num == 0)
-+		return 0;
-+
- 	switch (amd_manager->acp_rev) {
- 	case ACP63_PCI_REV_ID:
- 		switch (amd_manager->instance) {
-@@ -673,6 +855,13 @@ static int amd_sdw_port_enable(struct sdw_bus *bus,
- 	u32 dpn_ch_enable;
- 	u32 lane_ctrl_ch_en_reg;
- 
-+	/*
-+	 * BPT port enable/disable is handled in execute_bra_transfer; ignore
-+	 * DP0 ops only. Allow DPn audio port ops even while BPT is active.
-+	 */
-+	if (READ_ONCE(bus->bpt_stream) && enable_ch->port_num == 0)
-+		return 0;
-+
- 	switch (amd_manager->acp_rev) {
- 	case ACP63_PCI_REV_ID:
- 		switch (amd_manager->instance) {
-@@ -710,6 +899,1071 @@ static int amd_sdw_port_enable(struct sdw_bus *bus,
- 	return 0;
- }
- 
-+static int amd_sdw_calculate_bra_params(struct amd_sdw_manager *amd_manager,
-+					struct amd_bra_params *params,
-+					u8 peripheral_addr)
-+{
-+	struct sdw_bus *bus = &amd_manager->bus;
-+	u32 nr = bus->params.row;  /* current rows - NOT enlarged */
-+	u32 nc = bus->params.col;  /* current cols */
-+	u8 hstart = amd_manager->bra_hstart;
-+	u8 hstop  = amd_manager->bra_hstop;
-+	u8 col_width = hstop - hstart + 1;
-+	u32 sample_interval;
-+	u32 bits_per_frame;
-+	u32 bpf;
-+
-+	params->hstart      = hstart;
-+	params->hstop       = hstop;
-+	params->word_length = 8;  /* BRA is always byte-oriented: WL=8 */
-+
-+	/*
-+	 * Derive SampleInterval via the shared helper so the ACP BRA
-+	 * descriptor and the peripheral DP0 (programmed in
-+	 * amd_sdw_compute_params()) always agree.
-+	 */
-+	sample_interval = amd_sdw_bra_sample_interval(nr, nc, hstart, hstop);
-+
-+	if (!sample_interval || sample_interval > nr * nc) {
-+		dev_err(amd_manager->dev,
-+			"BPT: cannot derive SI: col_width=%u NR=%u NC=%u\n",
-+			col_width, nr, nc);
-+		return -EINVAL;
-+	}
-+
-+	bits_per_frame = ((nr * nc) / sample_interval) * params->word_length;
-+	bpf = bits_per_frame / 8;
-+	if (bpf <= 10) {
-+		dev_err(amd_manager->dev,
-+			"BPT: frame too small: %u bytes (NR=%u NC=%u SI=%u)\n",
-+			bpf, nr, nc, sample_interval);
-+		return -EINVAL;
-+	}
-+	bpf -= 10;  /* subtract BRA protocol overhead */
-+	if (bpf > 511)
-+		bpf = 511;
-+
-+	params->sample_interval = sample_interval;
-+	params->bytes_per_frame = bpf;
-+	params->dev_addr        = peripheral_addr;
-+
-+	dev_dbg(amd_manager->dev,
-+		"BPT calc_params: NR=%u NC=%u col_width=%u WL=%u SI=%u BPF=%u hstart=%u hstop=%u dev=%u\n",
-+		nr, nc, col_width, params->word_length, sample_interval,
-+		bpf, hstart, hstop, peripheral_addr);
-+	return 0;
-+}
-+
-+/*
-+ * Latched when a BRA transfer leaves the ACP DMA engine wedged: it failed to
-+ * confirm it stopped and may still be bus-mastering through the ACP-global ATU
-+ * PTEs. Once set, amd_sdw_bra_configure_pte() refuses to reprogram those shared
-+ * PTEs, so a still-active engine on one manager instance cannot be redirected
-+ * into another instance's buffer. The flag lives in the shared ACP device
-+ * context (acp_bra_wedged, reached through amd_manager->acp_bra_wedged) so it
-+ * is scoped to one ACP controller and does not disable BRA on an independent
-+ * ACP instance. Written and read only under acp_bra_lock and never cleared:
-+ * recovering the engine requires a device reset / driver reload.
-+ */
-+static u32 amd_sdw_bra_configure_pte(struct amd_sdw_manager *amd_manager,
-+				     dma_addr_t dma_addr, size_t size)
-+{
-+	u32 num_pages = (u32)(PAGE_ALIGN(size) >> PAGE_SHIFT);
-+	u32 low, high, val;
-+	u16 page_idx;
-+	dma_addr_t addr = dma_addr;
-+
-+	if (*amd_manager->acp_bra_wedged) {
-+		dev_err(amd_manager->dev,
-+			"BRA engine previously wedged; refusing to reprogram shared ATU PTEs\n");
-+		return 0;
-+	}
-+
-+	if (num_pages > ACP_BRA_MAX_PTE_ENTRIES) {
-+		dev_err(amd_manager->dev,
-+			"BRA buffer too large: %u pages (max %u)\n",
-+			num_pages, ACP_BRA_MAX_PTE_ENTRIES);
-+		return 0;
-+	}
-+
-+	/*
-+	 * Program ATU GRP_1 with 4KB pages. PTE entries start at scratch offset
-+	 * ACP_BRA_PTE_OFFSET (0x0); DMA AXI base = ACP_BRA_MEM_WINDOW_START.
-+	 *
-+	 * The ATU and scratch registers are ACP-global, so they must be
-+	 * accessed via acp_mmio (the shared ACP base) rather than mmio
-+	 * (which carries the per-instance SDW_MANAGER_REG_OFFSET). Otherwise
-+	 * SoundWire instance 1 would program the wrong physical addresses.
-+	 */
-+	writel(ACP_BRA_SRAM_GRP1_BASE | BIT(31),
-+	       amd_manager->acp_mmio + ACPAXI2AXI_ATU_BASE_ADDR_GRP_1);
-+	writel(ACP_BRA_PAGE_SIZE_4K_ENABLE,
-+	       amd_manager->acp_mmio + ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1);
-+
-+	val = ACP_BRA_PTE_OFFSET;
-+	for (page_idx = 0; page_idx < num_pages; page_idx++) {
-+		low  = lower_32_bits(addr);
-+		high = upper_32_bits(addr) | BIT(31);
-+		writel(low,  amd_manager->acp_mmio + ACP_SCRATCH_REG_0 + val);
-+		writel(high, amd_manager->acp_mmio + ACP_SCRATCH_REG_0 + val + 4);
-+		val += ACP_BRA_ATU_PTE_ENTRY_SIZE;
-+		addr += PAGE_SIZE;
-+	}
-+
-+	/* Flush ATU cache to ensure PTE update takes effect */
-+	writel(0x1, amd_manager->acp_mmio + ACPAXI2AXI_ATU_CTRL);
-+
-+	dev_dbg(amd_manager->dev,
-+		"BRA PTE: phys=0x%llx pages=%u ACP=0x%08x\n",
-+		(u64)dma_addr, num_pages, ACP_BRA_MEM_WINDOW_START);
-+
-+	return ACP_BRA_MEM_WINDOW_START;
-+}
-+
-+static void amd_sdw_bra_deconfigure_pte(struct amd_sdw_manager *amd_manager,
-+					size_t size)
-+{
-+	u32 num_pages = (u32)(PAGE_ALIGN(size) >> PAGE_SHIFT);
-+	u32 val;
-+	u16 page_idx;
-+
-+	if (num_pages > ACP_BRA_MAX_PTE_ENTRIES)
-+		num_pages = ACP_BRA_MAX_PTE_ENTRIES;
-+
-+	/* Clear all BRA PTE entries at scratch[ACP_BRA_PTE_OFFSET..] */
-+	val = ACP_BRA_PTE_OFFSET;
-+	for (page_idx = 0; page_idx < num_pages; page_idx++) {
-+		writel(0, amd_manager->acp_mmio + ACP_SCRATCH_REG_0 + val);
-+		writel(0, amd_manager->acp_mmio + ACP_SCRATCH_REG_0 + val + 4);
-+		val += ACP_BRA_ATU_PTE_ENTRY_SIZE;
-+	}
-+
-+	/* Flush ATU cache */
-+	writel(0x1, amd_manager->acp_mmio + ACPAXI2AXI_ATU_CTRL);
-+}
-+
-+static int amd_sdw_config_bra_descriptor(struct amd_sdw_manager *amd_manager,
-+					 struct amd_bra_params *params)
-+{
-+	u32 frame_format, hctrl;
-+	u32 int_mask;
-+
-+	if (params->dev_addr > 15 ||
-+	    params->sample_interval == 0 || params->sample_interval > 65536 ||
-+	    params->hstart > 15 || params->hstop > 15 ||
-+	    params->word_length == 0 || params->word_length > 64 ||
-+	    params->bytes_per_frame > 511)
-+		return -EINVAL;
-+
-+	/*
-+	 * ACP BPT_PORT_HCTRL: encode as (hstart << 4) | hstop.
-+	 * The ACP BRA engine starts reading from column hstart (including
-+	 * the BRA frame header).  No offset adjustment is needed.
-+	 */
-+	hctrl = (u32)((params->hstart << 4) | params->hstop);
-+
-+	frame_format =
-+		((u32)(params->word_length - 1) << 2)  |  /* [7:2]  WordLength-1       */
-+		(params->write_mode ? BIT(10) : 0U)    |  /* [10]   Write/Read         */
-+		((u32)params->bytes_per_frame << 11)   |  /* [19:11] BytesPerFrame     */
-+		((u32)params->dev_addr << 20);		   /* [23:20] DeviceAddr        */
-+
-+	/* Mask BRA error interrupts while programming descriptor */
-+	int_mask = readl(amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-+	int_mask &= ~(u32)AMD_SDW_BPT_ERR_INTR_MASK;
-+	writel(int_mask, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-+
-+	writel(frame_format,                  amd_manager->mmio + ACP_SW_BPT_PORT_FRAME_FORMAT);
-+	writel(params->sample_interval - 1,   amd_manager->mmio + ACP_SW_BPT_PORT_SAMPLEINTERVAL);
-+	writel(hctrl,                         amd_manager->mmio + ACP_SW_BPT_PORT_HCTRL);
-+	writel(0,                             amd_manager->mmio + ACP_SW_BPT_PORT_OFFSET);
-+	writel(BIT(3),                        amd_manager->mmio + ACP_SW_BPT_PORT_CHANNEL_ENABLE);
-+	writel(params->peripheral_first_byte_addr,
-+	       amd_manager->mmio + ACP_SW_BPT_PORT_FIRST_BYTE_ADDR);
-+	writel(params->dma_base_addr,         amd_manager->mmio + ACP_SW_BRA_BASE_ADDRESS);
-+	writel(params->transfer_length,       amd_manager->mmio + ACP_SW_BRA_TRANSFER_SIZE);
-+
-+	int_mask |= AMD_SDW_BPT_ERR_INTR_MASK;
-+	writel(int_mask, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-+
-+	dev_dbg(amd_manager->dev,
-+		"BPT config_desc: FF=0x%08x SI=0x%x HC=0x%02x CE=0x%02x periph=0x%08x dma=0x%08x xfer=%u\n",
-+		frame_format, params->sample_interval - 1, hctrl, (u32)BIT(3),
-+		params->peripheral_first_byte_addr, params->dma_base_addr,
-+		params->transfer_length);
-+	return 0;
-+}
-+
-+static void amd_sdw_deconfig_bra_descriptor(struct amd_sdw_manager *amd_manager)
-+{
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_FRAME_FORMAT);
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_SAMPLEINTERVAL);
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_HCTRL);
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_OFFSET);
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_CHANNEL_ENABLE);
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_FIRST_BYTE_ADDR);
-+	writel(0, amd_manager->mmio + ACP_SW_BRA_BASE_ADDRESS);
-+	writel(0, amd_manager->mmio + ACP_SW_BRA_TRANSFER_SIZE);
-+}
-+
-+static int amd_sdw_execute_bra_transfer(struct amd_sdw_manager *amd_manager,
-+					struct sdw_slave *slave,
-+					bool *dma_unsafe)
-+{
-+	struct sdw_bus *bus = &amd_manager->bus;
-+	u32 i2s_err_offset;
-+	u32 saved_intr_mask;
-+	u32 reg_addr, len;
-+	u32 val;
-+	int ret, ret_disable;
-+
-+	/* Read descriptor regs before enabling the DMA engine. */
-+	reg_addr = readl(amd_manager->mmio + ACP_SW_BPT_PORT_FIRST_BYTE_ADDR);
-+	len = readl(amd_manager->mmio + ACP_SW_BRA_TRANSFER_SIZE);
-+
-+	i2s_err_offset = (amd_manager->instance == 0) ?
-+			 ACP_SW_I2S_ERROR_REASON : ACP_P1_SW_I2S_ERROR_REASON;
-+
-+	/*
-+	 * Save and disable the error interrupt mask for manual error
-+	 * checking.  acp_bra_lock is held across the whole BPT sequence by
-+	 * amd_sdw_bpt_wait(), which serialises this shared-register
-+	 * read-modify-write against the other manager instance.
-+	 */
-+	saved_intr_mask = readl(amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-+	writel(0, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-+	writel(0, amd_manager->acp_mmio + i2s_err_offset);
-+	writel(0, amd_manager->mmio + ACP_SW_ERROR_REASON1);
-+
-+	/* Arm the ACP BPT DMA engine */
-+	writel(1, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-+
-+	/*
-+	 * Use the framework's sdw_enable_stream() to write CHANNELEN and
-+	 * perform a bank switch.  The ACP BPT hardware uses the bank switch
-+	 * as the trigger to start the DMA transfer.  The framework manages
-+	 * bank state consistently, eliminating the need for a manual bank
-+	 * switch or DP0 bank mirror.
-+	 */
-+	dev_dbg(amd_manager->dev,
-+		"BPT: pre-enable: curr_bank=%u next_bank=%u BPT_EN_STATUS=0x%x stream_state=%d\n",
-+		bus->params.curr_bank, bus->params.next_bank,
-+		readl(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS),
-+		bus->bpt_stream->state);
-+
-+	ret = sdw_enable_stream(bus->bpt_stream);
-+	if (ret < 0) {
-+		dev_err(amd_manager->dev,
-+			"BPT: sdw_enable_stream failed: %d\n", ret);
-+		/*
-+		 * Disarm the engine and wait for the port to quiesce before
-+		 * returning: the caller (amd_sdw_bra_transfer()) then deconfigures
-+		 * the BRA descriptor unconditionally, zeroing BASE_ADDRESS and
-+		 * TRANSFER_SIZE, so the port must be idle first -- mirrors the
-+		 * disable path below.
-+		 */
-+		writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-+		ret_disable = readl_poll_timeout(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS,
-+						 val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT);
-+		if (ret_disable < 0) {
-+			dev_err(amd_manager->dev, "BPT: PORT_EN disable timeout\n");
-+			*dma_unsafe = true;
-+		}
-+		goto restore_intr;
-+	}
-+
-+	dev_dbg(amd_manager->dev,
-+		"BPT: DMA started: curr_bank=%u next_bank=%u BPT_EN_STATUS=0x%x stream_state=%d\n",
-+		bus->params.curr_bank, bus->params.next_bank,
-+		readl(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS),
-+		bus->bpt_stream->state);
-+
-+	/* Poll DMA_BUSY until transfer completes */
-+	{
-+		unsigned long timeout;
-+
-+		timeout = jiffies + msecs_to_jiffies(BRA_DMA_TIMEOUT_MS);
-+		do {
-+			val = readl(amd_manager->mmio + ACP_SW_BRA_DMA_BUSY);
-+			/*
-+			 * Side-effectful read: reading ACP_SW_BRA_CURRENT_TRANSFER_SIZE
-+			 * advances the BRA DMA engine to the next frame.  The value is
-+			 * intentionally discarded (hence the (void) cast); removing this
-+			 * read stalls multi-frame transfers, which then time out.
-+			 */
-+			(void)readl(amd_manager->mmio + ACP_SW_BRA_CURRENT_TRANSFER_SIZE);
-+			if (!(val & 0x01))
-+				break;
-+			if (time_after(jiffies, timeout)) {
-+				/*
-+				 * Re-sample the busy bit before declaring a
-+				 * timeout. cond_resched() below can park this
-+				 * thread for longer than BRA_DMA_TIMEOUT_MS, in
-+				 * which window the DMA may have completed; without
-+				 * this final read a finished transfer would be
-+				 * reported as a false timeout.
-+				 */
-+				val = readl(amd_manager->mmio + ACP_SW_BRA_DMA_BUSY);
-+				if (!(val & 0x01))
-+					break;
-+				dev_err(amd_manager->dev,
-+					"BPT: DMA timeout: periph=0x%08x len=%u EN_STATUS=0x%x RESP=0x%x I2S_ERR=0x%08x\n",
-+					reg_addr, len,
-+					readl(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS),
-+					readl(amd_manager->mmio + ACP_SW_BRA_RESP),
-+					readl(amd_manager->acp_mmio + i2s_err_offset));
-+				ret = -ETIMEDOUT;
-+				break;
-+			}
-+			/*
-+			 * Runs in process context. Yield the CPU so a
-+			 * multi-frame transfer cannot busy-spin for up to
-+			 * BRA_DMA_TIMEOUT_MS and trip the soft lockup
-+			 * watchdog on non-preemptible kernels. cond_resched()
-+			 * keeps the poll cadence tight -- reading
-+			 * ACP_SW_BRA_CURRENT_TRANSFER_SIZE every iteration is
-+			 * required to advance the DMA engine between frames,
-+			 * so usleep_range() (which would space out the reads)
-+			 * is deliberately not used here.
-+			 */
-+			cond_resched();
-+		} while (1);
-+	}
-+
-+	/* Check for I2S/BRA errors */
-+	val = readl(amd_manager->acp_mmio + i2s_err_offset);
-+	if (val & AMD_SDW_BRA_I2S_ERROR_MASK) {
-+		dev_err(amd_manager->dev,
-+			"BPT: BRA failed I2S_ERROR_REASON=0x%08x (NAK=%u Clash=%u HdrResp=%u FtrResp=%u CRC=%u DMA=%u Cmd=%u)\n",
-+			val,
-+			!!(val & BIT(18)), !!(val & BIT(19)),
-+			!!(val & BIT(26)), !!(val & BIT(27)),
-+			!!(val & BIT(28)), !!(val & BIT(29)), !!(val & BIT(30)));
-+		writel(0, amd_manager->acp_mmio + i2s_err_offset);
-+		if (!ret)
-+			ret = -EIO;
-+	} else if (!ret) {
-+		dev_dbg(amd_manager->dev,
-+			"BPT: DMA done: periph=0x%08x len=%u\n", reg_addr, len);
-+	}
-+
-+	/*
-+	 * On an aborted or timed-out transfer the ACP BPT DMA engine can still
-+	 * be armed (PORT_EN=1, DMA_BUSY=1). sdw_disable_stream() below performs
-+	 * a bank switch, which is the BPT DMA start trigger, so disarm the engine
-+	 * first -- otherwise the bank switch could (re)start a DMA write into
-+	 * dma_buf, which amd_sdw_bpt_wait() frees as soon as this transfer
-+	 * returns. On the success path the DMA has already completed, so this
-+	 * early clear is a no-op.
-+	 */
-+	if (ret < 0)
-+		writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-+
-+	/*
-+	 * Disable the stream via framework (writes CHANNELEN=0 + bank switch).
-+	 * This cleanly stops the port and keeps bank state consistent.
-+	 * Propagate a disable failure: it leaves the stream in
-+	 * SDW_STREAM_ENABLED, and sdw_enable_stream() returns 0 early for an
-+	 * already-ENABLED stream without the bank switch that triggers the BRA
-+	 * DMA, so the next section would be silently skipped rather than
-+	 * transferred.  Report the failure to the caller so it stops instead of
-+	 * chaining a section whose DMA never starts.
-+	 */
-+	ret_disable = sdw_disable_stream(bus->bpt_stream);
-+	if (ret_disable < 0) {
-+		dev_err(amd_manager->dev, "BPT: sdw_disable_stream failed: %d\n",
-+			ret_disable);
-+		if (!ret)
-+			ret = ret_disable;
-+	}
-+
-+	dev_dbg(amd_manager->dev,
-+		"BPT: post-disable: curr_bank=%u next_bank=%u stream_state=%d\n",
-+		bus->params.curr_bank, bus->params.next_bank,
-+		bus->bpt_stream->state);
-+
-+	/*
-+	 * Disarm the ACP BPT DMA engine and wait for the port to quiesce.
-+	 * Like the manager enable/disable sequence (ACP_SW_EN paired with
-+	 * ACP_SW_EN_STATUS), ACP_SW_BPT_PORT_EN_STATUS reflects the real port
-+	 * state, so polling it here guarantees a non-contiguous transfer's next
-+	 * section cannot re-arm PORT_EN before the current one has torn down.
-+	 */
-+	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-+	ret_disable = readl_poll_timeout(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS,
-+					 val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT);
-+	if (ret_disable < 0) {
-+		dev_err(amd_manager->dev, "BPT: PORT_EN disable timeout\n");
-+		if (!ret)
-+			ret = ret_disable;
-+		*dma_unsafe = true;
-+	}
-+	writel(0, amd_manager->acp_mmio + i2s_err_offset);
-+	writel(0, amd_manager->mmio + ACP_SW_ERROR_REASON1);
-+	/*
-+	 * Clearing the immediate-command response-valid status races with the
-+	 * immediate-command path (amd_sdw_send_cmd_get_resp()), which polls and
-+	 * clears the same ACP_SW_IMM_CMD_STS bit under bus->msg_lock. The BPT DMA
-+	 * poll loop above drops all locks, so a concurrent slave enumeration or
-+	 * register access (amd_sdw_work / IRQ thread / codec regmap) can be
-+	 * mid-command here. Take msg_lock so this teardown clear cannot erase a
-+	 * response the command path has not yet consumed, which would make that
-+	 * command time out. This msg_lock nests inside acp_bra_lock and bpt_lock,
-+	 * both already held by the enclosing amd_sdw_bpt_wait(), preserving the
-+	 * bpt_lock -> acp_bra_lock -> msg_lock order. do_bank_switch() inside
-+	 * sdw_enable_stream()/sdw_disable_stream() only takes msg_lock for
-+	 * multi-link managers, so this single-link manager establishes that order
-+	 * via the explicit msg_lock here and in the non-contiguous
-+	 * sdw_nwrite_no_pm()/sdw_nread_no_pm() fallback.
-+	 */
-+	mutex_lock(&bus->msg_lock);
-+	writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
-+	mutex_unlock(&bus->msg_lock);
-+
-+restore_intr:
-+	writel(saved_intr_mask, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-+	return ret;
-+}
-+
-+/**
-+ * amd_sdw_bra_transfer() - Execute a single-shot BRA DMA transfer
-+ * @amd_manager: AMD SoundWire manager
-+ * @slave: SoundWire slave device
-+ * @reg_addr: Peripheral register start address
-+ * @acp_base_addr: Pre-configured ACP system address for the DMA buffer
-+ * @len: Total number of bytes to transfer
-+ * @write: true for write, false for read
-+ * @dma_unsafe: output flag, set to true when the BRA DMA engine could not be
-+ *              confirmed stopped after the transfer; the caller must then leak
-+ *              the DMA buffer instead of freeing it
-+ *
-+ * Programs the BRA descriptor once with the full transfer length and triggers
-+ * a single DMA operation.  The ACP BRA hardware autonomously slices the
-+ * buffer into BPF-sized BRA frames, auto-incrementing PERIPHERAL_FIRST_BYTE_ADDR
-+ * and DMA_BASE_ADDRESS between frames.  The last frame may be shorter than BPF;
-+ * the hardware handles partial final frames correctly.
-+ *
-+ * The poll loop in amd_sdw_execute_bra_transfer() reads
-+ * ACP_SW_BRA_CURRENT_TRANSFER_SIZE in every iteration, which is required
-+ * to advance the DMA engine between frames.
-+ */
-+static int amd_sdw_bra_transfer(struct amd_sdw_manager *amd_manager,
-+				struct sdw_slave *slave, u32 reg_addr,
-+				u32 acp_base_addr, size_t len, bool write,
-+				bool *dma_unsafe)
-+{
-+	struct amd_bra_params params = {0};
-+	int ret;
-+
-+	ret = amd_sdw_calculate_bra_params(amd_manager, &params,
-+					   (u8)slave->dev_num);
-+	if (ret < 0)
-+		return ret;
-+
-+	params.peripheral_first_byte_addr = reg_addr;
-+	params.dma_base_addr = acp_base_addr;
-+	params.transfer_length = (u32)len;
-+	params.write_mode = write;
-+
-+	ret = amd_sdw_config_bra_descriptor(amd_manager, &params);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = amd_sdw_execute_bra_transfer(amd_manager, slave, dma_unsafe);
-+	/*
-+	 * If the engine could not be confirmed stopped it may still be
-+	 * bus-mastering through the BRA descriptor. Deconfiguring would zero
-+	 * ACP_SW_BRA_BASE_ADDRESS and redirect that live DMA to physical
-+	 * address 0, so leave the descriptor pointing at the (now leaked)
-+	 * buffer and skip deconfigure in the wedged case.
-+	 */
-+	if (!*dma_unsafe)
-+		amd_sdw_deconfig_bra_descriptor(amd_manager);
-+
-+	return ret;
-+}
-+
-+/**
-+ * amd_sdw_bpt_open_stream() - Allocate and prepare BPT stream
-+ * @amd_manager: AMD SoundWire manager
-+ * @slave: SoundWire slave device
-+ * @msg: BPT message with transfer direction
-+ *
-+ * Allocates a SoundWire BPT stream and adds slave and master runtime
-+ * entries so that transport column params are visible to the port ops
-+ * callbacks. DP0 is programmed through the SoundWire stream framework in
-+ * amd_sdw_bpt_wait() immediately before the DMA transfer.
-+ */
-+static int amd_sdw_bpt_open_stream(struct amd_sdw_manager *amd_manager,
-+				   struct sdw_slave *slave,
-+				   struct sdw_bpt_msg *msg)
-+{
-+	struct sdw_bus *bus = &amd_manager->bus;
-+	struct sdw_stream_config sconfig = {0};
-+	struct sdw_port_config pconfig = {0};
-+	struct sdw_stream_runtime *stream;
-+	int ret;
-+
-+	stream = sdw_alloc_stream("BPT", SDW_STREAM_BPT);
-+	if (!stream)
-+		return -ENOMEM;
-+
-+	/*
-+	 * BPT has no PCM sample rate, but sdw_prepare_stream() still validates
-+	 * the stream rate against the bus clock: _sdw_prepare_stream() rejects a
-+	 * rate that does not evenly divide max_clk_freq ("Async mode not
-+	 * supported"). Use the bus frame rate, which the driver derives as
-+	 * curr_dr_freq / (rows * cols) and therefore divides the SoundWire clock
-+	 * by construction; this passes on any valid clock instead of only when
-+	 * max_clk_freq happens to be a multiple of 48 kHz. The DP0 sample interval
-+	 * used for the transfer is computed from the BRA frame geometry in
-+	 * amd_sdw_compute_params(), not from this rate.
-+	 */
-+	sconfig.frame_rate = bus->prop.default_frame_rate;
-+	sconfig.ch_count = 1;
-+	sconfig.bps = 8;
-+	sconfig.direction = (msg->flags & SDW_MSG_FLAG_WRITE) ?
-+			    SDW_DATA_DIR_TX : SDW_DATA_DIR_RX;
-+	sconfig.type = SDW_STREAM_BPT;
-+
-+	pconfig.num = 0;
-+	pconfig.ch_mask = BIT(0);
-+
-+	/*
-+	 * Flag this BPT transfer as a firmware download that may run while
-+	 * audio streams on this bus are allocated but idle. sdw_stream_add_slave()
-+	 * allocates the master runtime, and sdw_master_rt_alloc() consults
-+	 * bus->bpt_fw_download to permit that allocation even when idle audio
-+	 * streams are still allocated. The peripheral does not start its own
-+	 * audio stream until the download has completed, so no stream is made
-+	 * active on the bus for the duration.
-+	 */
-+	WRITE_ONCE(bus->bpt_fw_download, true);
-+
-+	ret = sdw_stream_add_slave(slave, &sconfig, &pconfig, 1, stream);
-+	if (ret < 0) {
-+		dev_err(amd_manager->dev,
-+			"add slave to BPT stream failed: %d\n", ret);
-+		goto remove_rt;
-+	}
-+
-+	ret = sdw_stream_add_master(bus, &sconfig, &pconfig, 1, stream);
-+	if (ret < 0) {
-+		dev_err(amd_manager->dev,
-+			"add master to BPT stream failed: %d\n", ret);
-+		goto remove_rt;
-+	}
-+
-+	/*
-+	 * Publish bus->bpt_stream only after the runtime is added and
-+	 * bus->bpt_stream_refcount has been raised under bus_lock. The refcount
-+	 * is raised by sdw_stream_add_slave() above (via sdw_master_rt_alloc());
-+	 * sdw_stream_add_master() then reuses that runtime through
-+	 * sdw_master_rt_find() without incrementing it again.
-+	 * sdw_program_params() keys off bpt_stream; publishing it last keeps
-+	 * it consistent with the refcount, so an audio path that observes
-+	 * refcount == 0 under bus_lock also sees bpt_stream == NULL and
-+	 * programs its own parameters instead of being skipped.
-+	 */
-+	WRITE_ONCE(bus->bpt_stream, stream);
-+
-+	return 0;
-+
-+remove_rt:
-+	/*
-+	 * sdw_stream_add_slave() allocates the master runtime and raises
-+	 * bus->bpt_stream_refcount. If it or the following sdw_stream_add_master()
-+	 * fails, sdw_stream_remove_slave() frees only the slave runtime and
-+	 * sdw_release_stream() only frees the stream, leaving the master runtime on
-+	 * bus->m_rt_list dangling at the freed stream with bpt_stream_refcount stuck
-+	 * non-zero -- which rejects every future BPT transfer with -EBUSY. Mirror
-+	 * the amd_sdw_bpt_close_stream() teardown and remove the slave then the
-+	 * master runtime (dropping the refcount) before releasing the stream; both
-+	 * removes are no-ops when nothing was allocated.
-+	 */
-+	WRITE_ONCE(bus->bpt_fw_download, false);
-+	sdw_stream_remove_slave(slave, stream);
-+	sdw_stream_remove_master(bus, stream);
-+	sdw_release_stream(stream);
-+	return ret;
-+}
-+
-+/**
-+ * amd_sdw_bpt_close_stream() - Deprepare and release BPT stream
-+ * @amd_manager: AMD SoundWire manager
-+ * @slave: SoundWire slave device
-+ *
-+ * Deprepares slave DP0 and removes the stream/master/slave entries.
-+ * Hardware teardown (CHANNELEN=0, bank-switch, PORT_EN=0) was handled by
-+ * execute_bra_transfer()'s cleanup path.
-+ */
-+static void amd_sdw_bpt_close_stream(struct amd_sdw_manager *amd_manager,
-+				     struct sdw_slave *slave)
-+{
-+	struct sdw_bus *bus = &amd_manager->bus;
-+	struct sdw_stream_runtime *stream = READ_ONCE(bus->bpt_stream);
-+	int ret;
-+
-+	if (!stream)
-+		return;
-+
-+	/*
-+	 * Deprepare DP0 via SoundWire framework to leave the peripheral in a
-+	 * clean state for subsequent audio streams. Only deprepare when the
-+	 * stream actually reached a depreparable state: on early-failure paths
-+	 * (e.g. DMA buffer alloc failed before sdw_prepare_stream()) the stream
-+	 * is still SDW_STREAM_CONFIGURED and sdw_deprepare_stream() would reject
-+	 * it with -EINVAL. In that case DP0 was never programmed, so there is
-+	 * nothing to clean up.
-+	 */
-+	dev_dbg(amd_manager->dev,
-+		"BPT: pre-deprepare: curr_bank=%u next_bank=%u stream_state=%d\n",
-+		bus->params.curr_bank, bus->params.next_bank,
-+		stream->state);
-+
-+	/*
-+	 * A failed sdw_disable_stream() during the transfer can leave the
-+	 * stream in SDW_STREAM_ENABLED. Disable it first so it reaches a
-+	 * depreparable state and the peripheral DP0 is not left active.
-+	 */
-+	if (stream->state == SDW_STREAM_ENABLED) {
-+		ret = sdw_disable_stream(stream);
-+		if (ret < 0)
-+			dev_err(amd_manager->dev,
-+				"BPT: sdw_disable_stream (cleanup) failed: %d\n", ret);
-+	}
-+
-+	if (stream->state == SDW_STREAM_PREPARED ||
-+	    stream->state == SDW_STREAM_DISABLED) {
-+		ret = sdw_deprepare_stream(stream);
-+		if (ret < 0)
-+			dev_err(amd_manager->dev,
-+				"BPT: sdw_deprepare_stream failed: %d\n", ret);
-+		else
-+			dev_dbg(amd_manager->dev,
-+				"BPT: deprepared: curr_bank=%u next_bank=%u stream_state=%d\n",
-+				bus->params.curr_bank, bus->params.next_bank,
-+				stream->state);
-+	}
-+
-+	if (stream->state == SDW_STREAM_ENABLED)
-+		dev_warn(amd_manager->dev,
-+			 "BPT: stream still ENABLED after cleanup; DP0 may remain active, peripheral may need re-enumeration\n");
-+
-+	/*
-+	 * Clear bus->bpt_stream while bpt_stream_refcount is still raised so
-+	 * the two remain consistent for lockless observers.
-+	 * sdw_stream_remove_master() drops the refcount under bus_lock, so
-+	 * clearing bpt_stream first means any audio path that observes
-+	 * refcount == 0 also sees bpt_stream == NULL and programs its own
-+	 * parameters rather than skipping them in sdw_program_params().
-+	 */
-+	WRITE_ONCE(bus->bpt_stream, NULL);
-+	WRITE_ONCE(bus->bpt_fw_download, false);
-+
-+	ret = sdw_stream_remove_slave(slave, stream);
-+	if (ret < 0)
-+		dev_err(amd_manager->dev,
-+			"remove slave from BPT stream failed: %d\n", ret);
-+
-+	ret = sdw_stream_remove_master(bus, stream);
-+	if (ret < 0)
-+		dev_err(amd_manager->dev,
-+			"remove master from BPT stream failed: %d\n", ret);
-+
-+	sdw_release_stream(stream);
-+}
-+
-+/**
-+ * amd_sdw_bpt_send_async() - Validate a BPT message before transfer
-+ * @bus: SoundWire bus
-+ * @slave: SoundWire slave device
-+ * @msg: BPT message with transfer sections
-+ *
-+ * For AMD the BRA engine transfer is synchronous, so the entire transfer
-+ * (stream open/prepare, DMA, poll and teardown) is performed in
-+ * amd_sdw_bpt_wait().  This callback only validates the message so a bad
-+ * request fails fast.  Deliberately, no lock, runtime-PM reference or
-+ * stream is taken here: nothing is held across the send_async()/wait()
-+ * boundary, so a caller that never reaches bpt_wait() cannot leak the BPT
-+ * lock or a runtime-PM reference.
-+ */
-+static int amd_sdw_bpt_send_async(struct sdw_bus *bus,
-+				  struct sdw_slave *slave,
-+				  struct sdw_bpt_msg *msg)
-+{
-+	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
-+	size_t total_len = 0;
-+	int i;
-+
-+	for (i = 0; i < msg->sections; i++) {
-+		if (msg->sec[i].len > SDW_BPT_MSG_MAX_BYTES - total_len) {
-+			dev_err(amd_manager->dev,
-+				"BPT msg length exceeds maximum %d bytes\n",
-+				SDW_BPT_MSG_MAX_BYTES);
-+			return -EINVAL;
-+		}
-+		total_len += msg->sec[i].len;
-+	}
-+
-+	if (total_len < AMD_BPT_MSG_BYTE_MIN) {
-+		dev_err(amd_manager->dev,
-+			"BPT msg length %zu < minimum %d bytes\n",
-+			total_len, AMD_BPT_MSG_BYTE_MIN);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static bool amd_sdw_sections_are_contiguous(struct sdw_bpt_msg *msg)
-+{
-+	int i;
-+
-+	for (i = 1; i < msg->sections; i++) {
-+		if (msg->sec[i].addr != msg->sec[i - 1].addr + msg->sec[i - 1].len)
-+			return false;
-+	}
-+	return true;
-+}
-+
-+/**
-+ * amd_sdw_bpt_wait() - Execute a BPT transfer and release all resources
-+ * @bus: SoundWire bus
-+ * @slave: SoundWire slave device
-+ * @msg: BPT message with transfer sections
-+ *
-+ * Performs the whole BPT transfer for AMD: it serialises against other BPT
-+ * transfers, holds a runtime-PM reference, opens/prepares the BPT stream,
-+ * allocates the DMA buffer, configures the PTE mapping, runs the BRA DMA
-+ * transfer and finally tears everything down.  Acquiring and releasing the
-+ * BPT lock and the runtime-PM reference within this single function
-+ * guarantees they cannot leak across the send_async()/wait() boundary.
-+ */
-+static int amd_sdw_bpt_wait(struct sdw_bus *bus,
-+			    struct sdw_slave *slave,
-+			    struct sdw_bpt_msg *msg)
-+{
-+	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
-+	bool is_write = (msg->flags & SDW_MSG_FLAG_WRITE);
-+	struct amd_bra_params prep_params = {0};
-+	u32 acp_sys_addr;
-+	dma_addr_t dma_addr = 0;
-+	u8 *dma_buf = NULL;
-+	size_t offset = 0;
-+	size_t total_len = 0;
-+	int ret = 0;
-+	int i;
-+	bool dma_unsafe = false;
-+
-+	for (i = 0; i < msg->sections; i++) {
-+		if (msg->sec[i].len > SDW_BPT_MSG_MAX_BYTES - total_len) {
-+			dev_err(amd_manager->dev,
-+				"BPT msg length exceeds maximum %d bytes\n",
-+				SDW_BPT_MSG_MAX_BYTES);
-+			return -EINVAL;
-+		}
-+		total_len += msg->sec[i].len;
-+	}
-+
-+	if (total_len < AMD_BPT_MSG_BYTE_MIN) {
-+		dev_err(amd_manager->dev,
-+			"BPT msg length %zu < minimum %d bytes\n",
-+			total_len, AMD_BPT_MSG_BYTE_MIN);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * Take the runtime-PM reference that keeps the bus clock alive before
-+	 * acquiring bpt_lock, not after.  When the manager is runtime
-+	 * suspended, pm_runtime_get_sync() runs amd_resume_runtime()
-+	 * synchronously in this task, and that callback acquires bpt_lock to
-+	 * clear bpt_disabled.  Taking the reference while already holding
-+	 * bpt_lock would therefore deadlock against ourselves.
-+	 */
-+	ret = pm_runtime_get_sync(amd_manager->dev);
-+	/*
-+	 * -EACCES only occurs when runtime PM is disabled, which for this
-+	 * device happens across the system suspend/resume window.  amd_suspend()
-+	 * sets bpt_disabled before the clock is stopped and amd_resume_runtime()
-+	 * clears it only once the clock is back, so the bpt_disabled check below
-+	 * rejects the transfer with -ESHUTDOWN before any BRA access whenever the
-+	 * clock could be down.  A merely runtime-suspended manager (clock stopped,
-+	 * PM still enabled) is resumed by the get above and returns success, not
-+	 * -EACCES; tolerating -EACCES therefore never drives the BRA engine on a
-+	 * stopped clock.
-+	 */
-+	if (ret < 0 && ret != -EACCES) {
-+		pm_runtime_put_noidle(amd_manager->dev);
-+		dev_err(amd_manager->dev, "BPT: pm_runtime_get failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * The ACP BRA engine is a single shared resource.  Serialise all BPT
-+	 * transfers so concurrent slave probes do not race over the hardware.
-+	 */
-+	mutex_lock(&amd_manager->bpt_lock);
-+
-+	/*
-+	 * Refuse the transfer if the bus is being (or has been) clock-stopped
-+	 * for system suspend.  Driving the BRA/command channel while the clock
-+	 * is stopping wedges the channel and leaves the peripheral unable to
-+	 * re-enumerate on resume; the codec retries once it re-attaches.
-+	 */
-+	if (amd_manager->bpt_disabled) {
-+		mutex_unlock(&amd_manager->bpt_lock);
-+		pm_runtime_mark_last_busy(amd_manager->dev);
-+		pm_runtime_put_autosuspend(amd_manager->dev);
-+		return -ESHUTDOWN;
-+	}
-+
-+	/* BRA always uses all available data columns (1..NC-1). */
-+	amd_manager->bra_hstart = 1;
-+	amd_manager->bra_hstop  = bus->params.col - 1;
-+
-+	/*
-+	 * Open the BPT stream so the framework stream state machine tracks the
-+	 * transfer.  Slave DP0 is prepared below before bra_transfer().
-+	 */
-+	ret = amd_sdw_bpt_open_stream(amd_manager, slave, msg);
-+	if (ret < 0)
-+		goto close_stream;
-+
-+	/* Allocate single DMA buffer for entire BPT message */
-+	dma_buf = dma_alloc_coherent(amd_manager->dev->parent, total_len,
-+				     &dma_addr, GFP_KERNEL);
-+	if (!dma_buf) {
-+		ret = -ENOMEM;
-+		goto close_stream;
-+	}
-+
-+	/*
-+	 * The ATU GRP_1 and scratch PTE registers programmed here are
-+	 * ACP-global and shared by both SoundWire manager instances, as is the
-+	 * BRA DMA engine that reads through them.  bpt_lock is per-manager and
-+	 * does not serialise across instances, so hold the ACP-wide
-+	 * acp_bra_lock across the whole configure -> transfer -> deconfigure
-+	 * sequence to stop the other instance reprogramming the shared PTEs
-+	 * mid-transfer.
-+	 *
-+	 * A dedicated lock (not acp_sdw_lock) is used so that a transfer, which
-+	 * can last up to BRA_DMA_TIMEOUT_MS, does not block the brief
-+	 * ACP_EXTERNAL_INTR_CNTL updates done under acp_sdw_lock by
-+	 * amd_enable_sdw_interrupts()/amd_disable_sdw_interrupts() and the PDM
-+	 * interrupt helpers, which touch a different ACP-global register.
-+	 */
-+	mutex_lock(amd_manager->acp_bra_lock);
-+	acp_sys_addr = amd_sdw_bra_configure_pte(amd_manager, dma_addr, total_len);
-+	if (!acp_sys_addr) {
-+		ret = -ENOMEM;
-+		mutex_unlock(amd_manager->acp_bra_lock);
-+		goto free_dma;
-+	}
-+
-+	/* For writes, copy all section data into the DMA buffer */
-+	if (is_write) {
-+		for (i = 0; i < msg->sections; i++) {
-+			memcpy(dma_buf + offset, msg->sec[i].buf, msg->sec[i].len);
-+			offset += msg->sec[i].len;
-+		}
-+	}
-+
-+	dev_dbg(amd_manager->dev,
-+		"BPT %s start: dev_num=%d sections=%d total_len=%zu dma_addr=0x%llx\n",
-+		is_write ? "write" : "read",
-+		msg->dev_num, msg->sections, total_len, (unsigned long long)dma_addr);
-+
-+	/*
-+	 * Calculate BRA parameters for this device. We use bytes_per_frame to
-+	 * decide whether a section is too small for BRA DMA and must fallback
-+	 * to register read/write commands.
-+	 */
-+	ret = amd_sdw_calculate_bra_params(amd_manager, &prep_params,
-+					   (u8)slave->dev_num);
-+	if (ret < 0) {
-+		dev_err(amd_manager->dev,
-+			"BPT: failed to calc params: %d\n", ret);
-+		goto deconfigure_pte;
-+	}
-+
-+	/*
-+	 * Prepare DP0 via SoundWire framework so the core programs the
-+	 * peripheral DP0 transport/port registers and issues PREPARECTRL.
-+	 * This is invoked from the BPT transfer context (firmware callback)
-+	 * and not from update_status(), so it is safe w.r.t. sdw_dev_lock.
-+	 */
-+	ret = sdw_prepare_stream(bus->bpt_stream);
-+	if (ret < 0) {
-+		dev_err(amd_manager->dev,
-+			"BPT: sdw_prepare_stream failed: %d\n", ret);
-+		goto deconfigure_pte;
-+	}
-+	dev_dbg(amd_manager->dev,
-+		"BPT: stream prepared, curr_bank=%u next_bank=%u state=%d\n",
-+		bus->params.curr_bank, bus->params.next_bank,
-+		bus->bpt_stream->state);
-+
-+	if (amd_sdw_sections_are_contiguous(msg)) {
-+		/*
-+		 * All sections are contiguous in peripheral address space, so a
-+		 * single BRA call can cover the entire firmware image -- unless the
-+		 * whole image is smaller than one BRA frame.  The DMA engine never
-+		 * starts for a sub-frame payload, so fall back to regular SDW
-+		 * register commands in that case, mirroring the per-section
-+		 * fallback used for non-contiguous transfers below.
-+		 */
-+		if (total_len < prep_params.bytes_per_frame) {
-+			if (is_write)
-+				ret = sdw_nwrite_no_pm(slave, msg->sec[0].addr,
-+						       total_len, dma_buf);
-+			else
-+				ret = sdw_nread_no_pm(slave, msg->sec[0].addr,
-+						      total_len, dma_buf);
-+		} else {
-+			ret = amd_sdw_bra_transfer(amd_manager, slave,
-+						   msg->sec[0].addr,
-+						   acp_sys_addr,
-+						   total_len, is_write,
-+						   &dma_unsafe);
-+		}
-+		if (ret < 0) {
-+			dev_err(amd_manager->dev,
-+				"BPT contiguous transfer failed: addr=0x%x len=%zu ret=%d\n",
-+				msg->sec[0].addr, total_len, ret);
-+			/*
-+			 * Skip the read-back copy below so a failed read
-+			 * cannot return stale DMA buffer contents to the
-+			 * caller as if the transfer had succeeded.
-+			 */
-+			goto deconfigure_pte;
-+		}
-+	} else {
-+		/*
-+		 * Non-contiguous sections: each section targets a different
-+		 * peripheral address range.  The ACP BRA DMA engine is
-+		 * triggered by sdw_enable_stream() (bank switch + CHANNELEN), so
-+		 * each section needs its own full config -> activate ->
-+		 * run_dma -> deactivate -> deconfig cycle.
-+		 *
-+		 * Sections smaller than one BRA frame (bytes_per_frame)
-+		 * cannot be transferred via DMA because the engine never
-+		 * starts for sub-frame payloads.  Use regular SDW register
-+		 * read/write commands for those tiny sections instead.
-+		 */
-+		offset = 0;
-+		for (i = 0; i < msg->sections; i++) {
-+			if (i < 3 || i == msg->sections - 1)
-+				dev_dbg(amd_manager->dev,
-+					"BPT nc sec[%d/%d]: periph=0x%08x len=%u acp=0x%08x\n",
-+					i, msg->sections, msg->sec[i].addr,
-+					msg->sec[i].len,
-+					acp_sys_addr + (u32)offset);
-+			if (msg->sec[i].len < prep_params.bytes_per_frame) {
-+				/*
-+				 * Section too small for BRA DMA -- use
-+				 * regular SDW byte-level commands instead.
-+				 */
-+				if (is_write)
-+					ret = sdw_nwrite_no_pm(slave,
-+							       msg->sec[i].addr,
-+							       msg->sec[i].len,
-+							       dma_buf + offset);
-+				else
-+					ret = sdw_nread_no_pm(slave,
-+							      msg->sec[i].addr,
-+							      msg->sec[i].len,
-+							      dma_buf + offset);
-+				if (ret < 0)
-+					dev_err(amd_manager->dev,
-+						"BPT reg %s failed: sec=%d/%d addr=0x%x len=%u ret=%d\n",
-+						is_write ? "write" : "read",
-+						i, msg->sections,
-+						msg->sec[i].addr,
-+						msg->sec[i].len, ret);
-+				else
-+					dev_dbg(amd_manager->dev,
-+						"BPT sec[%d/%d]: used reg %s for %u bytes at 0x%08x\n",
-+						i, msg->sections,
-+						is_write ? "write" : "read",
-+						msg->sec[i].len,
-+						msg->sec[i].addr);
-+			} else {
-+				ret = amd_sdw_bra_transfer(amd_manager, slave,
-+							   msg->sec[i].addr,
-+							   acp_sys_addr + (u32)offset,
-+							   msg->sec[i].len, is_write,
-+							   &dma_unsafe);
-+				if (ret < 0)
-+					dev_err(amd_manager->dev,
-+						"BPT failed: sec=%d/%d addr=0x%x len=%u ret=%d\n",
-+						i, msg->sections, msg->sec[i].addr,
-+						msg->sec[i].len, ret);
-+			}
-+			if (ret < 0)
-+				break;
-+			offset += msg->sec[i].len;
-+		}
-+		if (ret < 0)
-+			goto deconfigure_pte;
-+	}
-+
-+	offset = 0;
-+	/* For reads, copy all section data out of the DMA buffer */
-+	if (!is_write) {
-+		for (i = 0; i < msg->sections; i++) {
-+			memcpy(msg->sec[i].buf, dma_buf + offset, msg->sec[i].len);
-+			offset += msg->sec[i].len;
-+		}
-+	}
-+
-+deconfigure_pte:
-+	if (dma_unsafe) {
-+		/*
-+		 * PORT_EN_STATUS never cleared: the ACP BPT DMA engine did not
-+		 * confirm it stopped and may still be bus-mastering through the
-+		 * ATU into dma_buf.  PORT_EN=0 is the only stop control the
-+		 * hardware exposes -- the audio DMA path relies on the same
-+		 * enable-clear-then-poll-status primitive -- so there is no
-+		 * stronger barrier to force it off here.  Leave the ATU PTEs
-+		 * pointing at dma_buf and do NOT free the buffer: returning
-+		 * these pages to the allocator while a wedged engine can still
-+		 * write would corrupt memory reused for another purpose.
-+		 * Deliberately leak the buffer instead -- the only memory-safe
-+		 * option, matching the guarantee the managed-buffer audio path
-+		 * gets from the PCM core (buffer never reused while the engine
-+		 * may be active).
-+		 */
-+		dev_err(amd_manager->dev,
-+			"BPT: engine did not quiesce; leaking %zu bytes to avoid corruption\n",
-+			total_len);
-+		/*
-+		 * Latch the wedged state under acp_bra_lock before dropping it,
-+		 * so neither instance can reprogram the shared ATU PTEs while this
-+		 * engine may still be mastering into the leaked buffer.
-+		 */
-+		*amd_manager->acp_bra_wedged = true;
-+		mutex_unlock(amd_manager->acp_bra_lock);
-+		goto close_stream;
-+	}
-+	amd_sdw_bra_deconfigure_pte(amd_manager, total_len);
-+	mutex_unlock(amd_manager->acp_bra_lock);
-+free_dma:
-+	dma_free_coherent(amd_manager->dev->parent, total_len, dma_buf, dma_addr);
-+close_stream:
-+	amd_sdw_bpt_close_stream(amd_manager, slave);
-+	/*
-+	 * Release in the reverse of the acquire order documented at the top:
-+	 * drop bpt_lock before releasing the runtime-PM reference (matching the
-+	 * bpt_disabled early-exit path above), so the lock is never held across
-+	 * the PM put.
-+	 */
-+	mutex_unlock(&amd_manager->bpt_lock);
-+	pm_runtime_mark_last_busy(amd_manager->dev);
-+	pm_runtime_put_autosuspend(amd_manager->dev);
-+	return ret;
-+}
-+
- static int sdw_master_read_amd_prop(struct sdw_bus *bus)
- {
- 	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
-@@ -761,6 +2015,20 @@ static const struct sdw_master_ops amd_sdw_ops = {
- 	.read_prop = amd_prop_read,
- 	.xfer_msg = amd_sdw_xfer_msg,
- 	.read_ping_status = amd_sdw_read_ping_status,
-+	.bpt_send_async = amd_sdw_bpt_send_async,
-+	.bpt_wait = amd_sdw_bpt_wait,
-+};
-+
-+/*
-+ * BRA/BPT was validated only on ACP70 and later.  ACP63 uses a different
-+ * BPT register layout (see the per-revision port/transport-params tables),
-+ * so it must not advertise the BPT callbacks -- doing so would let a BPT
-+ * transfer program the wrong registers and corrupt audio DMA state.
-+ */
-+static const struct sdw_master_ops amd_sdw_ops_no_bpt = {
-+	.read_prop = amd_prop_read,
-+	.xfer_msg = amd_sdw_xfer_msg,
-+	.read_ping_status = amd_sdw_read_ping_status,
- };
- 
- static int amd_sdw_hw_params(struct snd_pcm_substream *substream,
-@@ -1012,6 +2280,16 @@ static void amd_sdw_irq_thread(struct work_struct *work)
- 
- 	dev_dbg(amd_manager->dev, "[SDW%d] SDW INT: 0to7=0x%x, 8to11=0x%x\n",
- 		amd_manager->instance, status_change_0to7, status_change_8to11);
-+
-+	/*
-+	 * Clear non-slave-status bits before processing.
-+	 * Bit 18 (BRA DMA completion) and bit 17 (command response)
-+	 * are informational -- not tied to slave state changes.
-+	 * Leaving them set can confuse the slave status update path.
-+	 */
-+	status_change_8to11 &= ~(AMD_SDW_BRA_DMA_COMPLETION_STAT |
-+				   AMD_SDW_CMD_RESP_INTR_STAT);
-+
- 	if (status_change_8to11 & AMD_SDW_WAKE_STAT_MASK)
- 		return amd_sdw_process_wake_event(amd_manager);
- 
-@@ -1081,11 +2359,16 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
- 	amd_manager->mmio = amd_manager->acp_mmio +
- 			    (amd_manager->instance * SDW_MANAGER_REG_OFFSET);
- 	amd_manager->acp_sdw_lock = pdata->acp_sdw_lock;
-+	amd_manager->acp_bra_lock = pdata->acp_bra_lock;
-+	amd_manager->acp_bra_wedged = pdata->acp_bra_wedged;
- 	amd_manager->acp_rev = pdata->acp_rev;
- 	amd_manager->cols_index = sdw_find_col_index(AMD_SDW_DEFAULT_COLUMNS);
- 	amd_manager->rows_index = sdw_find_row_index(AMD_SDW_DEFAULT_ROWS);
- 	amd_manager->dev = dev;
--	amd_manager->bus.ops = &amd_sdw_ops;
-+	if (amd_manager->acp_rev >= ACP70_PCI_REV_ID)
-+		amd_manager->bus.ops = &amd_sdw_ops;
-+	else
-+		amd_manager->bus.ops = &amd_sdw_ops_no_bpt;
- 	amd_manager->bus.port_ops = &amd_sdw_port_ops;
- 	amd_manager->bus.compute_params = &amd_sdw_compute_params;
- 	amd_manager->bus.clk_stop_timeout = 200;
-@@ -1132,6 +2415,10 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
- 	prop = &amd_manager->bus.prop;
- 	prop->mclk_freq = AMD_SDW_BUS_BASE_FREQ;
- 
-+	ret = devm_mutex_init(dev, &amd_manager->bpt_lock);
-+	if (ret)
-+		return ret;
-+
- 	ret = sdw_bus_master_add(&amd_manager->bus, dev, dev->fwnode);
- 	if (ret) {
- 		dev_err(dev, "Failed to register SoundWire manager(%d)\n", ret);
-@@ -1154,9 +2441,32 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
- 	struct amd_sdw_manager *amd_manager = dev_get_drvdata(&pdev->dev);
- 	int ret;
- 
-+	/*
-+	 * A BPT firmware transfer runs in the codec's firmware-download
-+	 * context (amd_sdw_bpt_wait()) and holds bpt_lock for its entire
-+	 * duration.  Latch bpt_disabled under the lock (mirroring amd_suspend())
-+	 * before tearing anything down: draining alone is not enough, because as
-+	 * soon as bpt_lock is released a task already blocked on it could start a
-+	 * new transfer that then races sdw_bus_master_delete() into a
-+	 * use-after-free.  Setting bpt_disabled makes any such transfer bail out
-+	 * with -ESHUTDOWN instead, and the drain below waits for a transfer that
-+	 * is already in flight to finish, so sdw_bus_master_delete() cannot free
-+	 * bus structures still in use by amd_sdw_bpt_wait().
-+	 */
-+	mutex_lock(&amd_manager->bpt_lock);
-+	amd_manager->bpt_disabled = true;
-+	mutex_unlock(&amd_manager->bpt_lock);
-+
- 	pm_runtime_disable(&pdev->dev);
--	cancel_work_sync(&amd_manager->amd_sdw_work);
-+	/*
-+	 * Disable interrupts first so the ACP ISR can no longer schedule
-+	 * amd_sdw_irq_thread, then drain the IRQ bottom-half before the
-+	 * slave-status work: amd_sdw_irq_thread may schedule amd_sdw_work, so
-+	 * it must be cancelled first (mirrors the suspend path ordering).
-+	 */
- 	amd_disable_sdw_interrupts(amd_manager);
-+	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
-+	cancel_work_sync(&amd_manager->amd_sdw_work);
- 	sdw_bus_master_delete(&amd_manager->bus);
- 	ret = amd_disable_sdw_manager(amd_manager);
- 	if (ret)
-@@ -1290,6 +2600,22 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 		return 0;
- 	}
- 
-+	/*
-+	 * Close the window between a BPT transfer and the clock stop below.
-+	 * A codec's async firmware download runs in a workqueue
-+	 * (amd_sdw_bpt_wait()) and its runtime-PM reference does not block
-+	 * system-suspend clock stop.  Taking bpt_lock drains any transfer
-+	 * already in progress (it completes on the still-live bus), and
-+	 * setting bpt_disabled under the lock makes every subsequent transfer
-+	 * bail with -ESHUTDOWN instead of racing amd_sdw_clock_stop().  A
-+	 * plain drain is not enough: a re-enumeration-triggered download can
-+	 * start a new BPT after the drain but before the clock stop.
-+	 * amd_resume_runtime() clears the flag when the bus comes back.
-+	 */
-+	mutex_lock(&amd_manager->bpt_lock);
-+	amd_manager->bpt_disabled = true;
-+	mutex_unlock(&amd_manager->bpt_lock);
-+
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
- 		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, false);
-@@ -1340,6 +2666,26 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 			bus->link_id);
- 		return 0;
- 	}
-+	/*
-+	 * A BPT (firmware) transfer holds bpt_lock for its whole duration and
-+	 * keeps a runtime-PM reference across it (pm_runtime_get_sync() in
-+	 * amd_sdw_bpt_wait() until the matching put), so usage_count stays > 0
-+	 * and this callback cannot be entered while a transfer is in flight; the
-+	 * trylock below is a belt-and-braces guard for that invariant.
-+	 *
-+	 * Unlike the system-suspend path, runtime PM is still enabled here, so
-+	 * there is no need to latch bpt_disabled to close the window between this
-+	 * unlock and amd_sdw_clock_stop(): a BPT that starts in that window calls
-+	 * pm_runtime_get_sync() first, and because the device is RPM_SUSPENDING
-+	 * the PM core makes that get wait for this suspend to complete and then
-+	 * resume the manager - restoring the clock - before it returns, so the
-+	 * transfer never drives the BRA engine on a stopped clock. (The
-+	 * system-suspend path must latch bpt_disabled because there runtime PM is
-+	 * disabled and pm_runtime_get_sync() returns -EACCES instead of resuming.)
-+	 */
-+	if (!mutex_trylock(&amd_manager->bpt_lock))
-+		return -EBUSY;
-+	mutex_unlock(&amd_manager->bpt_lock);
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
- 		amd_sdw_wake_enable(amd_manager, true);
- 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-@@ -1397,6 +2743,15 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 		ret = amd_sdw_clock_stop_exit(amd_manager);
- 		if (ret)
- 			return ret;
-+		/*
-+		 * The bus clock is live again as soon as clock_stop_exit()
-+		 * succeeds, so re-allow BPT here.  Doing it before the host-wake
-+		 * step below means a spurious host_wake_enable() error cannot
-+		 * leave BPT wedged at -ESHUTDOWN on an otherwise running clock.
-+		 */
-+		mutex_lock(&amd_manager->bpt_lock);
-+		amd_manager->bpt_disabled = false;
-+		mutex_unlock(&amd_manager->bpt_lock);
- 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
- 			ret = amd_sdw_host_wake_enable(amd_manager, false);
- 			if (ret)
-@@ -1432,11 +2787,36 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 			return ret;
- 		amd_sdw_set_frameshape(amd_manager);
- 	}
-+
-+	/*
-+	 * Re-allow BPT transfers now that the bus clock is restored.  amd_suspend()
-+	 * latches bpt_disabled under bpt_lock before stopping the clock; this
-+	 * callback (which serves both runtime and system resume) clears it once the
-+	 * clock-restore steps above have succeeded, before the BPT-independent
-+	 * set_device_state() call below.  A BPT that tolerated a
-+	 * pm_runtime_get_sync() -EACCES during the system-resume window still sees
-+	 * bpt_disabled and bails out with -ESHUTDOWN instead of driving the BRA
-+	 * engine on a not-yet-running clock.
-+	 *
-+	 * These paths differ in when the flag is cleared.  POWER_OFF_MODE clears it
-+	 * only here, so a clock-restore step that fails returns above with
-+	 * bpt_disabled still set and a failed resume correctly leaves BPT blocked.
-+	 * CLK_STOP_MODE instead clears it right after clock_stop_exit() succeeds --
-+	 * the clock is already live there -- so a subsequent host_wake_enable()
-+	 * failure returns with BPT already re-allowed, which is intentional: blocking
-+	 * BPT on a running clock would be needlessly conservative.  For the same
-+	 * reason a set_device_state() failure below also leaves BPT enabled.
-+	 */
-+	mutex_lock(&amd_manager->bpt_lock);
-+	amd_manager->bpt_disabled = false;
-+	mutex_unlock(&amd_manager->bpt_lock);
-+
- 	if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
- 		ret = amd_sdw_set_device_state(amd_manager, AMD_SDW_DEVICE_STATE_D0);
- 		if (ret)
- 			return ret;
- 	}
-+
- 	return 0;
- }
- 
-diff --git a/drivers/soundwire/amd_manager.h b/drivers/soundwire/amd_manager.h
-index 88cf8a426a0c..1e355a597520 100644
---- a/drivers/soundwire/amd_manager.h
-+++ b/drivers/soundwire/amd_manager.h
-@@ -96,6 +96,17 @@
- #define ACP_SW_CLK_RESUME_DELAY_CNTR			0x0003184
- #define ACP_SW_BUS_RESET_CTRL				0x0003188
- #define ACP_SW_PRBS_ERR_STATUS				0x000318c
-+#define ACP_SW_ERROR_REASON1					0x00031cc
-+/*
-+ * ACP_SW_I2S_ERROR_REASON is in the codec/I2S address space (not the SDW
-+ * controller space) and must be accessed via acp_mmio (not mmio).
-+ * Instance 0 and instance 1 have separate registers.
-+ * bit 18: NAK response  bit 19: bus clash
-+ * bits 26-30: BRA errors (header/footer/CRC/DMA/command response)
-+ */
-+#define ACP_SW_I2S_ERROR_REASON				0x000018b4
-+#define ACP_P1_SW_I2S_ERROR_REASON			0x00001a50
-+#define AMD_SDW_BRA_I2S_ERROR_MASK			0x7ffc0000
- #define ACP_SW_IMM_CMD_UPPER_WORD			0x0003230
- #define ACP_SW_IMM_CMD_LOWER_QWORD			0x0003234
- #define ACP_SW_IMM_RESP_UPPER_WORD			0x0003238
-@@ -105,7 +116,6 @@
- #define ACP_SW_BRA_TRANSFER_SIZE			0x0003248
- #define ACP_SW_BRA_DMA_BUSY				0x000324c
- #define ACP_SW_BRA_RESP					0x0003250
--#define ACP_SW_BRA_RESP_FRAME_ADDR			0x0003254
- #define ACP_SW_BRA_CURRENT_TRANSFER_SIZE		0x0003258
- #define ACP_SW_STATE_CHANGE_STATUS_0TO7			0x000325c
- #define ACP_SW_STATE_CHANGE_STATUS_8TO11		0x0003260
-@@ -117,6 +127,7 @@
- 
- #define ACP_DELAY_US					10
- #define AMD_SDW_TIMEOUT					1000
-+#define BRA_DMA_TIMEOUT_MS				1000
- #define AMD_SDW_DEFAULT_CLK_FREQ			12000000
- 
- #define AMD_SDW_MCP_RESP_ACK				BIT(0)
-@@ -154,6 +165,8 @@
- #define AMD_SDW_IRQ_MASK_0TO7		0x77777777
- #define AMD_SDW_IRQ_MASK_8TO11		0x000c7777
- #define AMD_SDW_IRQ_ERROR_MASK		0xff
-+/* BRA DMA error interrupt bits [5:7] in ACP_SW_ERROR_INTR_MASK */
-+#define AMD_SDW_BPT_ERR_INTR_MASK	(BIT(5) | BIT(6) | BIT(7))
- #define AMD_SDW_MAX_FREQ_NUM		1
- #define AMD_ACP63_SDW0_MAX_TX_PORTS		3
- #define AMD_ACP63_SDW0_MAX_RX_PORTS		3
-@@ -189,6 +202,8 @@
- #define AMD_SDW0_PAD_KEEPER_DISABLE_MASK		0x1e
- #define AMD_SDW1_PAD_KEEPER_DISABLE_MASK		0xf
- #define AMD_SDW_PREQ_INTR_STAT				BIT(19)
-+#define AMD_SDW_BRA_DMA_COMPLETION_STAT			BIT(18)
-+#define AMD_SDW_CMD_RESP_INTR_STAT			BIT(17)
- #define AMD_SDW_CLK_STOP_DONE				1
- #define AMD_SDW_CLK_RESUME_REQ				2
- #define AMD_SDW_CLK_RESUME_DONE				3
-diff --git a/include/linux/soundwire/sdw_amd.h b/include/linux/soundwire/sdw_amd.h
-index 470360a2723c..993984cb4a22 100644
---- a/include/linux/soundwire/sdw_amd.h
-+++ b/include/linux/soundwire/sdw_amd.h
-@@ -37,6 +37,10 @@ struct acp_sdw_pdata {
- 	u32 acp_rev;
- 	/* mutex to protect acp common register access */
- 	struct mutex *acp_sdw_lock;
-+	/* mutex to protect the SoundWire BRA transfer vs the other manager instance */
-+	struct mutex *acp_bra_lock;
-+	/* latched when a BRA transfer leaves the ACP DMA engine wedged */
-+	bool *acp_bra_wedged;
- };
- 
- /**
-@@ -63,6 +67,7 @@ struct sdw_amd_dai_runtime {
-  * @amd_sdw_irq_thread: SoundWire manager irq workqueue
-  * @amd_sdw_work: peripheral status work queue
-  * @acp_sdw_lock: mutex to protect acp share register access
-+ * @acp_bra_lock: mutex to protect the SoundWire BRA transfer vs the other manager instance
-  * @status: peripheral devices status array
-  * @num_din_ports: number of input ports
-  * @num_dout_ports: number of output ports
-@@ -89,6 +94,10 @@ struct amd_sdw_manager {
- 	struct work_struct amd_sdw_work;
- 	/* mutex to protect acp common register access */
- 	struct mutex *acp_sdw_lock;
-+	/* mutex to protect the SoundWire BRA transfer vs the other manager instance */
-+	struct mutex *acp_bra_lock;
-+	/* latched when a BRA transfer leaves the ACP DMA engine wedged */
-+	bool *acp_bra_wedged;
- 
- 	enum sdw_slave_status status[SDW_MAX_DEVICES + 1];
- 
-@@ -108,6 +117,27 @@ struct amd_sdw_manager {
- 	bool clk_stopped;
- 
- 	struct sdw_amd_dai_runtime **dai_runtime_array;
-+
-+	/* Transport columns allocated for the active BPT transfer */
-+	u8 bra_hstart;
-+	u8 bra_hstop;
-+
-+	/*
-+	 * Serialises concurrent BPT requests from multiple slaves on the
-+	 * same bus.  Acquired at the start of amd_sdw_bpt_wait() and released
-+	 * before it returns, so that only one slave can use the single ACP BRA
-+	 * engine at a time.  amd_sdw_bpt_send_async() deliberately takes no
-+	 * lock; the whole transfer is serialised in amd_sdw_bpt_wait().
-+	 */
-+	struct mutex bpt_lock;
-+
-+	/*
-+	 * Set true while the bus clock is stopped for system suspend so
-+	 * that amd_sdw_bpt_wait() refuses new BPT transfers: starting one
-+	 * on a clock-stopped bus wedges the command channel and leaves the
-+	 * peripheral unable to re-enumerate on resume.  Guarded by bpt_lock.
-+	 */
-+	bool bpt_disabled;
- };
- 
- /**
-@@ -153,6 +183,7 @@ struct sdw_amd_ctx {
-  * @parent: parent device
-  * @dev: device implementing hwparams and free callbacks
-  * @acp_lock: mutex protecting acp common registers access
-+ * @acp_bra_lock: mutex protecting the SoundWire BRA transfer vs the other manager instance
-  */
- struct sdw_amd_res {
- 	u32 acp_rev;
-@@ -166,6 +197,10 @@ struct sdw_amd_res {
- 	struct device *dev;
- 	/* use to protect acp common registers access */
- 	struct mutex *acp_lock;
-+	/* use to protect the SoundWire BRA transfer vs the other manager instance */
-+	struct mutex *acp_bra_lock;
-+	/* latched when a BRA transfer leaves the ACP DMA engine wedged */
-+	bool *acp_bra_wedged;
- };
- 
- int sdw_amd_probe(struct sdw_amd_res *res, struct sdw_amd_ctx **ctx);
-diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
-index 62cb6bef17ab..5ebc32d91ace 100644
---- a/sound/soc/amd/ps/acp63.h
-+++ b/sound/soc/amd/ps/acp63.h
-@@ -322,6 +322,7 @@ struct acp_hw_ops {
-  * sdw_dma_dev: platform device for SoundWire DMA controller
-  * @mach_dev: platform device for machine driver to support ACP PDM/SoundWire configuration
-  * @acp_lock: used to protect acp common registers
-+ * @acp_bra_lock: protect the SoundWire BRA transfer against the other manager instance
-  * @info: SoundWire AMD information found in ACPI tables
-  * @sdw: SoundWire context for all SoundWire manager instances
-  * @machine: ACPI machines for SoundWire interface
-@@ -356,6 +357,8 @@ struct acp63_dev_data {
- 	struct platform_device *sdw_dma_dev;
- 	struct platform_device *mach_dev;
- 	struct mutex acp_lock; /* protect shared registers */
-+	struct mutex acp_bra_lock; /* protect BRA transfer vs the other manager instance */
-+	bool acp_bra_wedged; /* latched when a BRA transfer leaves the DMA engine wedged */
- 	struct sdw_amd_acpi_info info;
- 	/* sdw context allocated by SoundWire driver */
- 	struct sdw_amd_ctx *sdw;
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index 729f9aaba69e..530bea2f740c 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -287,6 +287,8 @@ static int amd_sdw_probe(struct device *dev)
- 	sdw_res.parent = dev;
- 	sdw_res.dev = dev;
- 	sdw_res.acp_lock = &acp_data->acp_lock;
-+	sdw_res.acp_bra_lock = &acp_data->acp_bra_lock;
-+	sdw_res.acp_bra_wedged = &acp_data->acp_bra_wedged;
- 	sdw_res.count = acp_data->info.count;
- 	sdw_res.mmio_base = acp_data->acp63_base;
- 	sdw_res.acp_rev = acp_data->acp_rev;
-@@ -630,6 +632,7 @@ static int snd_acp63_probe(struct pci_dev *pci,
- 	pci_set_master(pci);
- 	pci_set_drvdata(pci, adata);
- 	mutex_init(&adata->acp_lock);
-+	mutex_init(&adata->acp_bra_lock);
- 	ret = acp_hw_init_ops(adata, pci);
- 	if (ret) {
- 		dev_err(&pci->dev, "ACP hw ops init failed\n");
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index f89ad86260b4..134bab578f17 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -889,6 +889,8 @@ static int amd_sof_sdw_probe(struct snd_sof_dev *sdev)
- 	sdw_res.parent = sdev->dev;
- 	sdw_res.dev = sdev->dev;
- 	sdw_res.acp_lock = &acp_data->acp_lock;
-+	sdw_res.acp_bra_lock = &acp_data->acp_bra_lock;
-+	sdw_res.acp_bra_wedged = &acp_data->acp_bra_wedged;
- 	sdw_res.count = acp_data->info.count;
- 	sdw_res.link_mask = acp_data->info.link_mask;
- 	sdw_res.mmio_base = sdev->bar[ACP_DSP_BAR];
-@@ -968,6 +970,7 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
- 	adata->reg_range = chip->reg_end_addr - chip->reg_start_addr;
- 	adata->pci_rev = pci->revision;
- 	mutex_init(&adata->acp_lock);
-+	mutex_init(&adata->acp_bra_lock);
- 	sdev->pdata->hw_pdata = adata;
- 
- 	ret = acp_init(sdev);
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 1cd9904c2908..093366c540bf 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -245,6 +245,10 @@ struct acp_dev_data {
- 	struct platform_device *dmic_dev;
- 	/* mutex lock to protect ACP common registers access */
- 	struct mutex acp_lock;
-+	/* protect the SoundWire BRA transfer vs the other manager instance */
-+	struct mutex acp_bra_lock;
-+	/* latched when a BRA transfer leaves the ACP DMA engine wedged */
-+	bool acp_bra_wedged;
- 	/* ACPI information stored between scan and probe steps */
- 	struct sdw_amd_acpi_info info;
- 	/* sdw context allocated by SoundWire driver */
+Same for these (RGB and IR).
+
+> +#define OV32C4_ANA_GAIN_MIN		0x100
+> +#define OV32C4_ANA_GAIN_MAX		0x07c0
+> +#define OV32C4_ANA_GAIN_STEP		1
+> +#define OV32C4_ANA_GAIN_DEFAULT		0x100
+> +
+> +/*
+> + * Digital gain. The register holds the gain shifted left by 6; the control
+> + * carries the value itself, of which 1024 is unity.
+> + */
+> +#define OV32C4_REG_DIGITAL_GAIN		CCI_REG24(0x350a)
+> +#define OV32C4_REG_DIGITAL_GAIN_CTX2	CCI_REG24(0x354a)
+> +#define OV32C4_DGAIN_SHIFT		6
+> +#define OV32C4_DGAIN_MIN		1024
+> +#define OV32C4_DGAIN_MAX		16383
+> +#define OV32C4_DGAIN_STEP		1
+> +#define OV32C4_DGAIN_DEFAULT		1024
+> +
+> +struct ov32c4_mode {
+> +	u32 width;
+> +	u32 height;
+> +	/*
+> +	 * Line length in pixels, in the units of the PIXEL_RATE control.
+> +	 * OV32C4_REG_HTS holds the same line in the sensor's own clock
+> +	 * units, which for this mode is 1224 against these 4080 pixels.
+> +	 */
+
+?
+
+> +	u32 ppl;
+> +	/* Frame length in lines, as written to OV32C4_REG_VTS */
+> +	u32 vts_min;
+> +
+> +	const struct reg_sequence *reg_sequence;
+> +	int sequence_length;
+> +};
+> +
+> +static const char * const ov32c4_supply_names[] = {
+> +	"avdd",		/* Analog power */
+> +};
+> +
+> +/*
+> + * Power-up timing; there is no public datasheet for this sensor. The
+> + * regulator core already waits for the supply to settle. Measured on the
+> + * hardware, the block behind the second address answers about 1 ms after
+> + * reset is released, and the main address answers within 1 ms of the
+> + * enable write; 5 ms and 1 ms leave a margin over that.
+> + */
+> +#define OV32C4_RESET_SETTLE_US		5000
+> +#define OV32C4_ENABLE_SETTLE_US		1000
+> +
+> +/*
+> + * Mode 3264x1840 @ 30 fps, 4 lanes, SGRBG10. The 15 fps variant of the same
+> + * table differs only in VTS, which V4L2_CID_VBLANK covers.
+
+I think you can omit the second sentence here.
+
+> + *
+> + * This is the vendor driver's list for the mode, minus its first two
+> + * entries: the stream-off and the software reset, which the driver issues
+> + * itself in ov32c4_enable_streams() so that the settle time after the reset
+> + * can be a sleep rather than a delay inside a register sequence.
+> + */
+> +static const struct reg_sequence ov32c4_mode_3264x1840_regs[] = {
+> +	{ 0x0301, 0xc8 },
+> +	{ 0x0303, 0x04 },
+> +	{ 0x0304, 0x02 },
+> +	{ 0x0305, 0x71 },
+> +	{ 0x0306, 0x04 },
+> +	{ 0x0307, 0x01 },
+> +	{ 0x0308, 0x03 },
+> +	{ 0x0316, 0x3c },
+> +	{ 0x0325, 0xd0 },
+> +	{ 0x0343, 0x04 },
+> +	{ 0x0344, 0x02 },
+> +	{ 0x0345, 0x32 },
+> +	{ 0x034b, 0x03 },
+> +	{ 0x034f, 0xe4 },
+> +	{ 0x3012, 0x41 },
+> +	{ 0x3025, 0x89 },
+> +	{ 0x3107, 0x86 },
+> +	{ 0x3400, 0x00 },
+> +	{ 0x3402, 0x8c },
+> +	{ 0x3404, 0x1a },
+> +	{ 0x3405, 0xb6 },
+> +	{ 0x3406, 0x88 },
+> +	{ 0x3407, 0x01 },
+> +	{ 0x3408, 0xb6 },
+> +	{ 0x3409, 0x88 },
+> +	{ 0x340a, 0x01 },
+> +	{ 0x340c, 0x50 },
+> +	{ 0x340d, 0x52 },
+> +	{ 0x3419, 0x15 },
+> +	{ 0x341a, 0xfc },
+> +	{ 0x341b, 0x30 },
+> +	{ 0x3420, 0x00 },
+> +	{ 0x3421, 0x00 },
+> +	{ 0x3422, 0x00 },
+> +	{ 0x3423, 0x00 },
+> +	{ 0x3424, 0x00 },
+> +	{ 0x3425, 0x00 },
+> +	{ 0x3426, 0x00 },
+> +	{ 0x3427, 0x00 },
+> +	{ 0x3428, 0xff },
+> +	{ 0x342a, 0x00 },
+> +	{ 0x342b, 0x00 },
+> +	{ 0x342c, 0x00 },
+> +	{ 0x342d, 0x0f },
+> +	{ 0x342e, 0x00 },
+> +	{ 0x342f, 0x00 },
+> +	{ 0x3430, 0x00 },
+> +	{ 0x3431, 0x00 },
+> +	{ 0x3432, 0x00 },
+> +	{ 0x3436, 0x10 },
+> +	{ 0x3437, 0x00 },
+> +	{ 0x3438, 0x00 },
+> +	{ 0x3439, 0x00 },
+> +	{ 0x3452, 0x14 },
+> +	{ 0x3453, 0x88 },
+> +	{ 0x3458, 0x02 },
+> +	{ 0x3459, 0x02 },
+> +	{ 0x3504, 0x4c },
+> +	{ 0x3506, 0x30 },
+> +	{ 0x3507, 0x00 },
+> +	{ 0x3544, 0x4c },
+> +	{ 0x3546, 0x30 },
+> +	{ 0x3547, 0x00 },
+> +	{ 0x3602, 0x24 },
+> +	{ 0x3605, 0xd0 },
+> +	{ 0x3608, 0x21 },
+> +	{ 0x3609, 0x90 },
+> +	{ 0x360c, 0x08 },
+> +	{ 0x3616, 0x31 },
+> +	{ 0x361a, 0x0a },
+> +	{ 0x3682, 0x80 },
+> +	{ 0x368e, 0x71 },
+> +	{ 0x3696, 0xd1 },
+> +	{ 0x36af, 0x00 },
+> +	{ 0x3714, 0x22 },
+> +	{ 0x3718, 0x02 },
+> +	{ 0x37b0, 0x00 },
+> +	{ 0x37b1, 0x8a },
+> +	{ 0x37b2, 0x01 },
+> +	{ 0x37b3, 0x5f },
+> +	{ 0x37b4, 0x00 },
+> +	{ 0x37b5, 0xd3 },
+> +	{ 0x37b6, 0x01 },
+> +	{ 0x37b7, 0xbe },
+> +	{ 0x3800, 0x00 },
+> +	{ 0x3801, 0x00 },
+> +	{ 0x3802, 0x02 },
+> +	{ 0x3803, 0x60 },
+> +	{ 0x3804, 0x19 },
+> +	{ 0x3805, 0x9f },
+> +	{ 0x3806, 0x10 },
+> +	{ 0x3807, 0xdf },
+> +	{ 0x3808, 0x0c },
+> +	{ 0x3809, 0xc0 },
+> +	{ 0x380a, 0x07 },
+> +	{ 0x380b, 0x30 },
+> +	{ 0x380c, 0x04 },
+> +	{ 0x380d, 0xc8 },
+> +	{ 0x380e, 0x0a },
+> +	{ 0x380f, 0x36 },
+> +	{ 0x3810, 0x00 },
+> +	{ 0x3811, 0x08 },
+> +	{ 0x3812, 0x00 },
+> +	{ 0x3813, 0x09 },
+> +	{ 0x3814, 0x11 },
+> +	{ 0x3815, 0x11 },
+> +	{ 0x3820, 0x02 },
+> +	{ 0x3821, 0x06 },
+> +	{ 0x3828, 0x0d },
+> +	{ 0x382a, 0x80 },
+> +	{ 0x3837, 0x08 },
+> +	{ 0x383a, 0x81 },
+> +	{ 0x383b, 0x81 },
+> +	{ 0x383c, 0x11 },
+> +	{ 0x383d, 0x11 },
+> +	{ 0x3840, 0x00 },
+> +	{ 0x3902, 0x12 },
+> +	{ 0x3903, 0x12 },
+> +	{ 0x3904, 0x12 },
+> +	{ 0x3905, 0x12 },
+> +	{ 0x3906, 0x12 },
+> +	{ 0x3907, 0x12 },
+> +	{ 0x3908, 0x12 },
+> +	{ 0x3909, 0x12 },
+> +	{ 0x390a, 0x03 },
+> +	{ 0x390b, 0x0d },
+> +	{ 0x390c, 0x12 },
+> +	{ 0x390d, 0x14 },
+> +	{ 0x390e, 0x03 },
+> +	{ 0x390f, 0x0d },
+> +	{ 0x3910, 0x12 },
+> +	{ 0x3911, 0x14 },
+> +	{ 0x3913, 0x00 },
+> +	{ 0x3914, 0x00 },
+> +	{ 0x3915, 0x00 },
+> +	{ 0x3916, 0x00 },
+> +	{ 0x391a, 0x78 },
+> +	{ 0x391c, 0x78 },
+> +	{ 0x391e, 0x78 },
+> +	{ 0x3920, 0x78 },
+> +	{ 0x3922, 0x78 },
+> +	{ 0x3924, 0x78 },
+> +	{ 0x3926, 0x78 },
+> +	{ 0x3928, 0x78 },
+> +	{ 0x392a, 0x04 },
+> +	{ 0x3930, 0x55 },
+> +	{ 0x3937, 0x09 },
+> +	{ 0x3938, 0x13 },
+> +	{ 0x3939, 0x25 },
+> +	{ 0x393a, 0x4b },
+> +	{ 0x393b, 0x05 },
+> +	{ 0x393f, 0xa6 },
+> +	{ 0x3940, 0x03 },
+> +	{ 0x3941, 0x01 },
+> +	{ 0x3942, 0x03 },
+> +	{ 0x3943, 0x01 },
+> +	{ 0x3944, 0x03 },
+> +	{ 0x3945, 0x02 },
+> +	{ 0x3946, 0x07 },
+> +	{ 0x3947, 0x06 },
+> +	{ 0x394e, 0xaa },
+> +	{ 0x394f, 0xaa },
+> +	{ 0x3950, 0x03 },
+> +	{ 0x395a, 0x60 },
+> +	{ 0x3a05, 0x03 },
+> +	{ 0x3a10, 0x84 },
+> +	{ 0x3a11, 0x20 },
+> +	{ 0x3a14, 0x13 },
+> +	{ 0x3a1a, 0x78 },
+> +	{ 0x3a1d, 0x48 },
+> +	{ 0x3ae1, 0x7b },
+> +	{ 0x3b21, 0x71 },
+> +	{ 0x3b25, 0x71 },
+> +	{ 0x3b29, 0x71 },
+> +	{ 0x3b2d, 0x71 },
+> +	{ 0x3b31, 0x71 },
+> +	{ 0x3b35, 0x71 },
+> +	{ 0x3b39, 0x71 },
+> +	{ 0x3b3d, 0x71 },
+> +	{ 0x3b64, 0x20 },
+> +	{ 0x3b68, 0x7f },
+> +	{ 0x3b69, 0xe3 },
+> +	{ 0x3b6c, 0x7f },
+> +	{ 0x3b6d, 0xe3 },
+> +	{ 0x3b71, 0x83 },
+> +	{ 0x3b73, 0xbf },
+> +	{ 0x3ba9, 0x9d },
+> +	{ 0x3bab, 0xe2 },
+> +	{ 0x3baf, 0x9d },
+> +	{ 0x3bb1, 0xe2 },
+> +	{ 0x3bb5, 0x9d },
+> +	{ 0x3bb7, 0xe2 },
+> +	{ 0x3bbb, 0x9d },
+> +	{ 0x3bbd, 0xe2 },
+> +	{ 0x3f00, 0x11 },
+> +	{ 0x4010, 0xe8 },
+> +	{ 0x4011, 0x01 },
+> +	{ 0x4012, 0x0c },
+> +	{ 0x4015, 0x00 },
+> +	{ 0x4016, 0x0f },
+> +	{ 0x4017, 0x00 },
+> +	{ 0x4018, 0x07 },
+> +	{ 0x401a, 0x40 },
+> +	{ 0x402e, 0x00 },
+> +	{ 0x4040, 0x00 },
+> +	{ 0x4041, 0x00 },
+> +	{ 0x4042, 0x00 },
+> +	{ 0x4043, 0x00 },
+> +	{ 0x4044, 0x00 },
+> +	{ 0x4045, 0x00 },
+> +	{ 0x4046, 0x00 },
+> +	{ 0x4047, 0x00 },
+> +	{ 0x4048, 0x00 },
+> +	{ 0x4049, 0x00 },
+> +	{ 0x404a, 0x00 },
+> +	{ 0x404b, 0x00 },
+> +	{ 0x404c, 0x00 },
+> +	{ 0x404d, 0x00 },
+> +	{ 0x404e, 0x00 },
+> +	{ 0x404f, 0x00 },
+> +	{ 0x40dc, 0x02 },
+> +	{ 0x4501, 0x11 },
+> +	{ 0x4504, 0x80 },
+> +	{ 0x4603, 0x15 },
+> +	{ 0x4609, 0x20 },
+> +	{ 0x460e, 0x00 },
+> +	{ 0x4680, 0x01 },
+> +	{ 0x4686, 0x00 },
+> +	{ 0x4687, 0x00 },
+> +	{ 0x4691, 0x00 },
+> +	{ 0x4800, 0x64 },
+> +	{ 0x4802, 0x00 },
+> +	{ 0x4806, 0x40 },
+> +	{ 0x481b, 0x3c },
+> +	{ 0x481f, 0x30 },
+> +	{ 0x4829, 0x70 },
+> +	{ 0x4837, 0x10 },
+> +	{ 0x4850, 0x42 },
+> +	{ 0x4853, 0x04 },
+> +	{ 0x4860, 0x00 },
+> +	{ 0x4861, 0xec },
+> +	{ 0x4862, 0x04 },
+> +	{ 0x4883, 0x00 },
+> +	{ 0x4888, 0x10 },
+> +	{ 0x4889, 0x03 },
+> +	{ 0x488a, 0x04 },
+> +	{ 0x48f8, 0x05 },
+> +	{ 0x48f9, 0xdc },
+> +	{ 0x4910, 0xe8 },
+> +	{ 0x4911, 0x01 },
+> +	{ 0x4912, 0x0c },
+> +	{ 0x4915, 0x00 },
+> +	{ 0x4916, 0x0f },
+> +	{ 0x4917, 0x00 },
+> +	{ 0x4918, 0x07 },
+> +	{ 0x491a, 0x40 },
+> +	{ 0x4940, 0x00 },
+> +	{ 0x4941, 0x00 },
+> +	{ 0x4942, 0x00 },
+> +	{ 0x4943, 0x00 },
+> +	{ 0x4944, 0x00 },
+> +	{ 0x4945, 0x00 },
+> +	{ 0x4946, 0x00 },
+> +	{ 0x4947, 0x00 },
+> +	{ 0x4948, 0x00 },
+> +	{ 0x4949, 0x00 },
+> +	{ 0x494a, 0x00 },
+> +	{ 0x494b, 0x00 },
+> +	{ 0x494c, 0x00 },
+> +	{ 0x494d, 0x00 },
+> +	{ 0x494e, 0x00 },
+> +	{ 0x494f, 0x00 },
+> +	{ 0x49dc, 0x02 },
+> +	{ 0x4d00, 0x04 },
+> +	{ 0x4d01, 0xea },
+> +	{ 0x4d02, 0xb9 },
+> +	{ 0x4d03, 0x40 },
+> +	{ 0x4d04, 0x72 },
+> +	{ 0x4d05, 0xf7 },
+> +	{ 0x5000, 0x1f },
+> +	{ 0x5001, 0x10 },
+> +	{ 0x5004, 0x17 },
+> +	{ 0x5007, 0x06 },
+> +	{ 0x5008, 0x04 },
+> +	{ 0x50c1, 0x00 },
+> +	{ 0x5110, 0x00 },
+> +	{ 0x5111, 0x14 },
+> +	{ 0x5112, 0x03 },
+> +	{ 0x5113, 0x93 },
+> +	{ 0x5152, 0xa3 },
+> +	{ 0x5180, 0xc1 },
+> +	{ 0x518a, 0x04 },
+> +	{ 0x51b0, 0x30 },
+> +	{ 0x52c1, 0x00 },
+> +	{ 0x52c2, 0x00 },
+> +	{ 0x5310, 0x00 },
+> +	{ 0x5311, 0x14 },
+> +	{ 0x5312, 0x03 },
+> +	{ 0x5313, 0x93 },
+> +	{ 0x5352, 0x63 },
+> +	{ 0x5380, 0xc1 },
+> +	{ 0x538a, 0x04 },
+> +	{ 0x53b0, 0x00 },
+> +	{ 0x5400, 0x3f },
+> +	{ 0x5401, 0x10 },
+> +	{ 0x5408, 0x0c },
+> +	{ 0x5409, 0xc0 },
+> +	{ 0x540a, 0x09 },
+> +	{ 0x540b, 0x90 },
+> +	{ 0x6ad0, 0x00 },
+> +	{ 0x6ad1, 0x75 },
+
+Are there any gaps in this deluge of 0x0 and 0x75? If not, could you write
+it programmatically rather than using a huge array?
+
+> +	{ 0x6ad2, 0x00 },
+> +	{ 0x6ad3, 0x75 },
+> +	{ 0x6ad4, 0x00 },
+> +	{ 0x6ad5, 0x75 },
+> +	{ 0x6ad6, 0x00 },
+> +	{ 0x6ad7, 0x75 },
+> +	{ 0x6ad8, 0x00 },
+> +	{ 0x6ad9, 0x75 },
+> +	{ 0x6ada, 0x00 },
+> +	{ 0x6adb, 0x75 },
+> +	{ 0x6adc, 0x00 },
+> +	{ 0x6add, 0x75 },
+> +	{ 0x6ade, 0x00 },
+> +	{ 0x6adf, 0x75 },
+> +	{ 0x6ae0, 0x00 },
+> +	{ 0x6ae1, 0x75 },
+> +	{ 0x6ae2, 0x00 },
+> +	{ 0x6ae3, 0x75 },
+> +	{ 0x6ae4, 0x00 },
+> +	{ 0x6ae5, 0x75 },
+> +	{ 0x6ae6, 0x00 },
+> +	{ 0x6ae7, 0x75 },
+> +	{ 0x6ae8, 0x00 },
+> +	{ 0x6ae9, 0x75 },
+> +	{ 0x6aea, 0x00 },
+> +	{ 0x6aeb, 0x75 },
+> +	{ 0x6aec, 0x00 },
+> +	{ 0x6aed, 0x75 },
+> +	{ 0x6aee, 0x00 },
+> +	{ 0x6aef, 0x75 },
+> +	{ 0x6af0, 0x00 },
+> +	{ 0x6af1, 0x75 },
+> +	{ 0x6af2, 0x00 },
+> +	{ 0x6af3, 0x75 },
+> +	{ 0x6af4, 0x00 },
+> +	{ 0x6af5, 0x75 },
+> +	{ 0x6af6, 0x00 },
+> +	{ 0x6af7, 0x75 },
+> +	{ 0x6af8, 0x00 },
+> +	{ 0x6af9, 0x75 },
+> +	{ 0x6afa, 0x00 },
+> +	{ 0x6afb, 0x75 },
+> +	{ 0x6afc, 0x00 },
+> +	{ 0x6afd, 0x75 },
+> +	{ 0x6afe, 0x00 },
+> +	{ 0x6aff, 0x75 },
+> +	{ 0x6b00, 0x00 },
+> +	{ 0x6b01, 0x75 },
+> +	{ 0x6b02, 0x00 },
+> +	{ 0x6b03, 0x75 },
+> +	{ 0x6b04, 0x00 },
+> +	{ 0x6b05, 0x75 },
+> +	{ 0x6b06, 0x00 },
+> +	{ 0x6b07, 0x75 },
+> +	{ 0x6b08, 0x00 },
+> +	{ 0x6b09, 0x75 },
+> +	{ 0x6b0a, 0x00 },
+> +	{ 0x6b0b, 0x75 },
+> +	{ 0x6b0c, 0x00 },
+> +	{ 0x6b0d, 0x75 },
+> +	{ 0x6b0e, 0x00 },
+> +	{ 0x6b0f, 0x75 },
+> +	{ 0x6b10, 0x00 },
+> +	{ 0x6b11, 0x75 },
+> +	{ 0x6b12, 0x00 },
+> +	{ 0x6b13, 0x75 },
+> +	{ 0x6b14, 0x00 },
+> +	{ 0x6b15, 0x75 },
+> +	{ 0x6b16, 0x00 },
+> +	{ 0x6b17, 0x75 },
+> +	{ 0x6b18, 0x00 },
+> +	{ 0x6b19, 0x75 },
+> +	{ 0x6b1a, 0x00 },
+> +	{ 0x6b1b, 0x75 },
+> +	{ 0x6b1c, 0x00 },
+> +	{ 0x6b1d, 0x75 },
+> +	{ 0x6b1e, 0x00 },
+> +	{ 0x6b1f, 0x75 },
+> +	{ 0x6b20, 0x00 },
+> +	{ 0x6b21, 0x75 },
+> +	{ 0x6b22, 0x00 },
+> +	{ 0x6b23, 0x75 },
+> +	{ 0x6b24, 0x00 },
+> +	{ 0x6b25, 0x75 },
+> +	{ 0x6b26, 0x00 },
+> +	{ 0x6b27, 0x75 },
+> +	{ 0x6b28, 0x00 },
+> +	{ 0x6b29, 0x75 },
+> +	{ 0x6b2a, 0x00 },
+> +	{ 0x6b2b, 0x75 },
+> +	{ 0x6b2c, 0x00 },
+> +	{ 0x6b2d, 0x75 },
+> +	{ 0x6b2e, 0x00 },
+> +	{ 0x6b2f, 0x75 },
+> +	{ 0x6b30, 0x00 },
+> +	{ 0x6b31, 0x75 },
+> +	{ 0x6b32, 0x00 },
+> +	{ 0x6b33, 0x75 },
+> +	{ 0x6b34, 0x00 },
+> +	{ 0x6b35, 0x75 },
+> +	{ 0x6b36, 0x00 },
+> +	{ 0x6b37, 0x75 },
+> +	{ 0x6b38, 0x00 },
+> +	{ 0x6b39, 0x75 },
+> +	{ 0x6b3a, 0x00 },
+> +	{ 0x6b3b, 0x75 },
+> +	{ 0x6b3c, 0x00 },
+> +	{ 0x6b3d, 0x75 },
+> +	{ 0x6b3e, 0x00 },
+> +	{ 0x6b3f, 0x75 },
+> +	{ 0x6b40, 0x00 },
+> +	{ 0x6b41, 0x75 },
+> +	{ 0x6b42, 0x00 },
+> +	{ 0x6b43, 0x75 },
+> +	{ 0x6b44, 0x00 },
+> +	{ 0x6b45, 0x75 },
+> +	{ 0x6b46, 0x00 },
+> +	{ 0x6b47, 0x75 },
+> +	{ 0x6b48, 0x00 },
+> +	{ 0x6b49, 0x75 },
+> +	{ 0x6b4a, 0x00 },
+> +	{ 0x6b4b, 0x75 },
+> +	{ 0x6b4c, 0x00 },
+> +	{ 0x6b4d, 0x75 },
+> +	{ 0x6b4e, 0x00 },
+> +	{ 0x6b4f, 0x75 },
+> +	{ 0x6b50, 0x00 },
+> +	{ 0x6b51, 0x75 },
+> +	{ 0x6b52, 0x00 },
+> +	{ 0x6b53, 0x75 },
+> +	{ 0x6b54, 0x00 },
+> +	{ 0x6b55, 0x75 },
+> +	{ 0x6b56, 0x00 },
+> +	{ 0x6b57, 0x75 },
+> +	{ 0x6b58, 0x00 },
+> +	{ 0x6b59, 0x75 },
+> +	{ 0x6b5a, 0x00 },
+> +	{ 0x6b5b, 0x75 },
+> +	{ 0x6b5c, 0x00 },
+> +	{ 0x6b5d, 0x75 },
+> +	{ 0x6b5e, 0x00 },
+> +	{ 0x6b5f, 0x75 },
+> +	{ 0x6b60, 0x00 },
+> +	{ 0x6b61, 0x75 },
+> +	{ 0x6b62, 0x00 },
+> +	{ 0x6b63, 0x75 },
+> +	{ 0x6b64, 0x00 },
+> +	{ 0x6b65, 0x75 },
+> +	{ 0x6b66, 0x00 },
+> +	{ 0x6b67, 0x75 },
+> +	{ 0x6b68, 0x00 },
+> +	{ 0x6b69, 0x75 },
+> +	{ 0x6b6a, 0x00 },
+> +	{ 0x6b6b, 0x75 },
+> +	{ 0x6b6c, 0x00 },
+> +	{ 0x6b6d, 0x75 },
+> +	{ 0x6b6e, 0x00 },
+> +	{ 0x6b6f, 0x75 },
+> +	{ 0x6b70, 0x00 },
+> +	{ 0x6b71, 0x75 },
+> +	{ 0x6b72, 0x00 },
+> +	{ 0x6b73, 0x75 },
+> +	{ 0x6b74, 0x00 },
+> +	{ 0x6b75, 0x75 },
+> +	{ 0x6b76, 0x00 },
+> +	{ 0x6b77, 0x75 },
+> +	{ 0x6b78, 0x00 },
+> +	{ 0x6b79, 0x75 },
+> +	{ 0x6b7a, 0x00 },
+> +	{ 0x6b7b, 0x75 },
+> +	{ 0x6b7c, 0x00 },
+> +	{ 0x6b7d, 0x75 },
+> +	{ 0x6b7e, 0x00 },
+> +	{ 0x6b7f, 0x75 },
+> +	{ 0x6b80, 0x00 },
+> +	{ 0x6b81, 0x75 },
+> +	{ 0x6b82, 0x00 },
+> +	{ 0x6b83, 0x75 },
+> +	{ 0x6b84, 0x00 },
+> +	{ 0x6b85, 0x75 },
+> +	{ 0x6b86, 0x00 },
+> +	{ 0x6b87, 0x75 },
+> +	{ 0x6b88, 0x00 },
+> +	{ 0x6b89, 0x75 },
+> +	{ 0x6b8a, 0x00 },
+> +	{ 0x6b8b, 0x75 },
+> +	{ 0x6b8c, 0x00 },
+> +	{ 0x6b8d, 0x75 },
+> +	{ 0x6b8e, 0x00 },
+> +	{ 0x6b8f, 0x75 },
+> +	{ 0x6b90, 0x00 },
+> +	{ 0x6b91, 0x75 },
+> +	{ 0x6b92, 0x00 },
+> +	{ 0x6b93, 0x75 },
+> +	{ 0x6b94, 0x00 },
+> +	{ 0x6b95, 0x75 },
+> +	{ 0x6b96, 0x00 },
+> +	{ 0x6b97, 0x75 },
+> +	{ 0x6b98, 0x00 },
+> +	{ 0x6b99, 0x75 },
+> +	{ 0x6b9a, 0x00 },
+> +	{ 0x6b9b, 0x75 },
+> +	{ 0x6b9c, 0x00 },
+> +	{ 0x6b9d, 0x75 },
+> +	{ 0x6b9e, 0x00 },
+> +	{ 0x6b9f, 0x75 },
+> +	{ 0x6ba0, 0x00 },
+> +	{ 0x6ba1, 0x75 },
+> +	{ 0x6ba2, 0x00 },
+> +	{ 0x6ba3, 0x75 },
+> +	{ 0x6ba4, 0x00 },
+> +	{ 0x6ba5, 0x75 },
+> +	{ 0x6ba6, 0x00 },
+> +	{ 0x6ba7, 0x75 },
+> +	{ 0x6ba8, 0x00 },
+> +	{ 0x6ba9, 0x75 },
+> +	{ 0x6baa, 0x00 },
+> +	{ 0x6bab, 0x75 },
+> +	{ 0x6bac, 0x00 },
+> +	{ 0x6bad, 0x75 },
+> +	{ 0x6bae, 0x00 },
+> +	{ 0x6baf, 0x75 },
+> +	{ 0x6bb0, 0x00 },
+> +	{ 0x6bb1, 0x75 },
+> +	{ 0x6bb2, 0x00 },
+> +	{ 0x6bb3, 0x75 },
+> +	{ 0x6bb4, 0x00 },
+> +	{ 0x6bb5, 0x75 },
+> +	{ 0x6bb6, 0x00 },
+> +	{ 0x6bb7, 0x75 },
+> +	{ 0x6bb8, 0x00 },
+> +	{ 0x6bb9, 0x75 },
+> +	{ 0x6bba, 0x00 },
+> +	{ 0x6bbb, 0x75 },
+> +	{ 0x6bbc, 0x00 },
+> +	{ 0x6bbd, 0x75 },
+> +	{ 0x6bbe, 0x00 },
+> +	{ 0x6bbf, 0x75 },
+> +	{ 0x6bc0, 0x00 },
+> +	{ 0x6bc1, 0x75 },
+> +	{ 0x6bc2, 0x00 },
+> +	{ 0x6bc3, 0x75 },
+> +	{ 0x6bc4, 0x00 },
+> +	{ 0x6bc5, 0x75 },
+> +	{ 0x6bc6, 0x00 },
+> +	{ 0x6bc7, 0x75 },
+> +	{ 0x6bc8, 0x00 },
+> +	{ 0x6bc9, 0x75 },
+> +	{ 0x6bca, 0x00 },
+> +	{ 0x6bcb, 0x75 },
+> +	{ 0x6bcc, 0x00 },
+> +	{ 0x6bcd, 0x75 },
+> +	{ 0x6bce, 0x00 },
+> +	{ 0x6bcf, 0x75 },
+> +	{ 0x6bd0, 0x00 },
+> +	{ 0x6bd1, 0x75 },
+> +	{ 0x6bd2, 0x00 },
+> +	{ 0x6bd3, 0x75 },
+> +	{ 0x6bd4, 0x00 },
+> +	{ 0x6bd5, 0x75 },
+> +	{ 0x6bd6, 0x00 },
+> +	{ 0x6bd7, 0x75 },
+> +	{ 0x6bd8, 0x00 },
+> +	{ 0x6bd9, 0x75 },
+> +	{ 0x6bda, 0x00 },
+> +	{ 0x6bdb, 0x75 },
+> +	{ 0x6bdc, 0x00 },
+> +	{ 0x6bdd, 0x75 },
+> +	{ 0x6bde, 0x00 },
+> +	{ 0x6bdf, 0x75 },
+> +	{ 0x6be0, 0x00 },
+> +	{ 0x6be1, 0x75 },
+> +	{ 0x6be2, 0x00 },
+> +	{ 0x6be3, 0x75 },
+> +	{ 0x6be4, 0x00 },
+> +	{ 0x6be5, 0x75 },
+> +	{ 0x6be6, 0x00 },
+> +	{ 0x6be7, 0x75 },
+> +	{ 0x6be8, 0x00 },
+> +	{ 0x6be9, 0x75 },
+> +	{ 0x6bea, 0x00 },
+> +	{ 0x6beb, 0x75 },
+> +	{ 0x6bec, 0x00 },
+> +	{ 0x6bed, 0x75 },
+> +	{ 0x6bee, 0x00 },
+> +	{ 0x6bef, 0x75 },
+> +	{ 0x6c00, 0x00 },
+> +	{ 0x6c01, 0x75 },
+> +	{ 0x6c02, 0x00 },
+> +	{ 0x6c03, 0x75 },
+> +	{ 0x6c04, 0x00 },
+> +	{ 0x6c05, 0x75 },
+> +	{ 0x6c06, 0x00 },
+> +	{ 0x6c07, 0x75 },
+> +	{ 0x6c08, 0x00 },
+> +	{ 0x6c09, 0x75 },
+> +	{ 0x6c0a, 0x00 },
+> +	{ 0x6c0b, 0x75 },
+> +	{ 0x6c0c, 0x00 },
+> +	{ 0x6c0d, 0x75 },
+> +	{ 0x6c0e, 0x00 },
+> +	{ 0x6c0f, 0x75 },
+> +	{ 0x6c10, 0x00 },
+> +	{ 0x6c11, 0x75 },
+> +	{ 0x6c12, 0x00 },
+> +	{ 0x6c13, 0x75 },
+> +	{ 0x6c14, 0x00 },
+> +	{ 0x6c15, 0x75 },
+> +	{ 0x6c16, 0x00 },
+> +	{ 0x6c17, 0x75 },
+> +	{ 0x6c18, 0x00 },
+> +	{ 0x6c19, 0x75 },
+> +	{ 0x6c1a, 0x00 },
+> +	{ 0x6c1b, 0x75 },
+> +	{ 0x6c1c, 0x00 },
+> +	{ 0x6c1d, 0x75 },
+> +	{ 0x6c1e, 0x00 },
+> +	{ 0x6c1f, 0x75 },
+> +	{ 0x6c20, 0x00 },
+> +	{ 0x6c21, 0x75 },
+> +	{ 0x6c22, 0x00 },
+> +	{ 0x6c23, 0x75 },
+> +	{ 0x6c24, 0x00 },
+> +	{ 0x6c25, 0x75 },
+> +	{ 0x6c26, 0x00 },
+> +	{ 0x6c27, 0x75 },
+> +	{ 0x6c28, 0x00 },
+> +	{ 0x6c29, 0x75 },
+> +	{ 0x6c2a, 0x00 },
+> +	{ 0x6c2b, 0x75 },
+> +	{ 0x6c2c, 0x00 },
+> +	{ 0x6c2d, 0x75 },
+> +	{ 0x6c2e, 0x00 },
+> +	{ 0x6c2f, 0x75 },
+> +	{ 0x6c30, 0x00 },
+> +	{ 0x6c31, 0x75 },
+> +	{ 0x6c32, 0x00 },
+> +	{ 0x6c33, 0x75 },
+> +	{ 0x6c34, 0x00 },
+> +	{ 0x6c35, 0x75 },
+> +	{ 0x6c36, 0x00 },
+> +	{ 0x6c37, 0x75 },
+> +	{ 0x6c38, 0x00 },
+> +	{ 0x6c39, 0x75 },
+> +	{ 0x6c3a, 0x00 },
+> +	{ 0x6c3b, 0x75 },
+> +	{ 0x6c3c, 0x00 },
+> +	{ 0x6c3d, 0x75 },
+> +	{ 0x6c3e, 0x00 },
+> +	{ 0x6c3f, 0x75 },
+> +	{ 0x6c40, 0x00 },
+> +	{ 0x6c41, 0x75 },
+> +	{ 0x6c42, 0x00 },
+> +	{ 0x6c43, 0x75 },
+> +	{ 0x6c44, 0x00 },
+> +	{ 0x6c45, 0x75 },
+> +	{ 0x6c46, 0x00 },
+> +	{ 0x6c47, 0x75 },
+> +	{ 0x6c48, 0x00 },
+> +	{ 0x6c49, 0x75 },
+> +	{ 0x6c4a, 0x00 },
+> +	{ 0x6c4b, 0x75 },
+> +	{ 0x6c4c, 0x00 },
+> +	{ 0x6c4d, 0x75 },
+> +	{ 0x6c4e, 0x00 },
+> +	{ 0x6c4f, 0x75 },
+> +	{ 0x6c50, 0x00 },
+> +	{ 0x6c51, 0x75 },
+> +	{ 0x6c52, 0x00 },
+> +	{ 0x6c53, 0x75 },
+> +	{ 0x6c54, 0x00 },
+> +	{ 0x6c55, 0x75 },
+> +	{ 0x6c56, 0x00 },
+> +	{ 0x6c57, 0x75 },
+> +	{ 0x6c58, 0x00 },
+> +	{ 0x6c59, 0x75 },
+> +	{ 0x6c5a, 0x00 },
+> +	{ 0x6c5b, 0x75 },
+> +	{ 0x6c5c, 0x00 },
+> +	{ 0x6c5d, 0x75 },
+> +	{ 0x6c5e, 0x00 },
+> +	{ 0x6c5f, 0x75 },
+> +	{ 0x6c60, 0x00 },
+> +	{ 0x6c61, 0x75 },
+> +	{ 0x6c62, 0x00 },
+> +	{ 0x6c63, 0x75 },
+> +	{ 0x6c64, 0x00 },
+> +	{ 0x6c65, 0x75 },
+> +	{ 0x6c66, 0x00 },
+> +	{ 0x6c67, 0x75 },
+> +	{ 0x6c68, 0x00 },
+> +	{ 0x6c69, 0x75 },
+> +	{ 0x6c6a, 0x00 },
+> +	{ 0x6c6b, 0x75 },
+> +	{ 0x6c6c, 0x00 },
+> +	{ 0x6c6d, 0x75 },
+> +	{ 0x6c6e, 0x00 },
+> +	{ 0x6c6f, 0x75 },
+> +	{ 0x6c70, 0x00 },
+> +	{ 0x6c71, 0x75 },
+> +	{ 0x6c72, 0x00 },
+> +	{ 0x6c73, 0x75 },
+> +	{ 0x6c74, 0x00 },
+> +	{ 0x6c75, 0x75 },
+> +	{ 0x6c76, 0x00 },
+> +	{ 0x6c77, 0x75 },
+> +	{ 0x6c78, 0x00 },
+> +	{ 0x6c79, 0x75 },
+> +	{ 0x6c7a, 0x00 },
+> +	{ 0x6c7b, 0x75 },
+> +	{ 0x6c7c, 0x00 },
+> +	{ 0x6c7d, 0x75 },
+> +	{ 0x6c7e, 0x00 },
+> +	{ 0x6c7f, 0x75 },
+> +	{ 0x6c80, 0x00 },
+> +	{ 0x6c81, 0x75 },
+> +	{ 0x6c82, 0x00 },
+> +	{ 0x6c83, 0x75 },
+> +	{ 0x6c84, 0x00 },
+> +	{ 0x6c85, 0x75 },
+> +	{ 0x6c86, 0x00 },
+> +	{ 0x6c87, 0x75 },
+> +	{ 0x6c88, 0x00 },
+> +	{ 0x6c89, 0x75 },
+> +	{ 0x6c8a, 0x00 },
+> +	{ 0x6c8b, 0x75 },
+> +	{ 0x6c8c, 0x00 },
+> +	{ 0x6c8d, 0x75 },
+> +	{ 0x6c8e, 0x00 },
+> +	{ 0x6c8f, 0x75 },
+> +	{ 0x6c90, 0x00 },
+> +	{ 0x6c91, 0x75 },
+> +	{ 0x6c92, 0x00 },
+> +	{ 0x6c93, 0x75 },
+> +	{ 0x6c94, 0x00 },
+> +	{ 0x6c95, 0x75 },
+> +	{ 0x6c96, 0x00 },
+> +	{ 0x6c97, 0x75 },
+> +	{ 0x6c98, 0x00 },
+> +	{ 0x6c99, 0x75 },
+> +	{ 0x6c9a, 0x00 },
+> +	{ 0x6c9b, 0x75 },
+> +	{ 0x6c9c, 0x00 },
+> +	{ 0x6c9d, 0x75 },
+> +	{ 0x6c9e, 0x00 },
+> +	{ 0x6c9f, 0x75 },
+> +	{ 0x6ca0, 0x00 },
+> +	{ 0x6ca1, 0x75 },
+> +	{ 0x6ca2, 0x00 },
+> +	{ 0x6ca3, 0x75 },
+> +	{ 0x6ca4, 0x00 },
+> +	{ 0x6ca5, 0x75 },
+> +	{ 0x6ca6, 0x00 },
+> +	{ 0x6ca7, 0x75 },
+> +	{ 0x6ca8, 0x00 },
+> +	{ 0x6ca9, 0x75 },
+> +	{ 0x6caa, 0x00 },
+> +	{ 0x6cab, 0x75 },
+> +	{ 0x6cac, 0x00 },
+> +	{ 0x6cad, 0x75 },
+> +	{ 0x6cae, 0x00 },
+> +	{ 0x6caf, 0x75 },
+> +	{ 0x6cb0, 0x00 },
+> +	{ 0x6cb1, 0x75 },
+> +	{ 0x6cb2, 0x00 },
+> +	{ 0x6cb3, 0x75 },
+> +	{ 0x6cb4, 0x00 },
+> +	{ 0x6cb5, 0x75 },
+> +	{ 0x6cb6, 0x00 },
+> +	{ 0x6cb7, 0x75 },
+> +	{ 0x6cb8, 0x00 },
+> +	{ 0x6cb9, 0x75 },
+> +	{ 0x6cba, 0x00 },
+> +	{ 0x6cbb, 0x75 },
+> +	{ 0x6cbc, 0x00 },
+> +	{ 0x6cbd, 0x75 },
+> +	{ 0x6cbe, 0x00 },
+> +	{ 0x6cbf, 0x75 },
+> +	{ 0x6cc0, 0x00 },
+> +	{ 0x6cc1, 0x75 },
+> +	{ 0x6cc2, 0x00 },
+> +	{ 0x6cc3, 0x75 },
+> +	{ 0x6cc4, 0x00 },
+> +	{ 0x6cc5, 0x75 },
+> +	{ 0x6cc6, 0x00 },
+> +	{ 0x6cc7, 0x75 },
+> +	{ 0x6cc8, 0x00 },
+> +	{ 0x6cc9, 0x75 },
+> +	{ 0x6cca, 0x00 },
+> +	{ 0x6ccb, 0x75 },
+> +	{ 0x6ccc, 0x00 },
+> +	{ 0x6ccd, 0x75 },
+> +	{ 0x6cce, 0x00 },
+> +	{ 0x6ccf, 0x75 },
+> +	{ 0x6cd0, 0x00 },
+> +	{ 0x6cd1, 0x75 },
+> +	{ 0x6cd2, 0x00 },
+> +	{ 0x6cd3, 0x75 },
+> +	{ 0x6cd4, 0x00 },
+> +	{ 0x6cd5, 0x75 },
+> +	{ 0x6cd6, 0x00 },
+> +	{ 0x6cd7, 0x75 },
+> +	{ 0x6cd8, 0x00 },
+> +	{ 0x6cd9, 0x75 },
+> +	{ 0x6cda, 0x00 },
+> +	{ 0x6cdb, 0x75 },
+> +	{ 0x6cdc, 0x00 },
+> +	{ 0x6cdd, 0x75 },
+> +	{ 0x6cde, 0x00 },
+> +	{ 0x6cdf, 0x75 },
+> +	{ 0x6ce0, 0x00 },
+> +	{ 0x6ce1, 0x75 },
+> +	{ 0x6ce2, 0x00 },
+> +	{ 0x6ce3, 0x75 },
+> +	{ 0x6ce4, 0x00 },
+> +	{ 0x6ce5, 0x75 },
+> +	{ 0x6ce6, 0x00 },
+> +	{ 0x6ce7, 0x75 },
+> +	{ 0x6ce8, 0x00 },
+> +	{ 0x6ce9, 0x75 },
+> +	{ 0x6cea, 0x00 },
+> +	{ 0x6ceb, 0x75 },
+> +	{ 0x6cec, 0x00 },
+> +	{ 0x6ced, 0x75 },
+> +	{ 0x6cee, 0x00 },
+> +	{ 0x6cef, 0x75 },
+> +	{ 0x6cf0, 0x00 },
+> +	{ 0x6cf1, 0x75 },
+> +	{ 0x6cf2, 0x00 },
+> +	{ 0x6cf3, 0x75 },
+> +	{ 0x6cf4, 0x00 },
+> +	{ 0x6cf5, 0x75 },
+> +	{ 0x6cf6, 0x00 },
+> +	{ 0x6cf7, 0x75 },
+> +	{ 0x6cf8, 0x00 },
+> +	{ 0x6cf9, 0x75 },
+> +	{ 0x6cfa, 0x00 },
+> +	{ 0x6cfb, 0x75 },
+> +	{ 0x6cfc, 0x00 },
+> +	{ 0x6cfd, 0x75 },
+> +	{ 0x6cfe, 0x00 },
+> +	{ 0x6cff, 0x75 },
+> +	{ 0x6d00, 0x00 },
+> +	{ 0x6d01, 0x75 },
+> +	{ 0x6d02, 0x00 },
+> +	{ 0x6d03, 0x75 },
+> +	{ 0x6d04, 0x00 },
+> +	{ 0x6d05, 0x75 },
+> +	{ 0x6d06, 0x00 },
+> +	{ 0x6d07, 0x75 },
+> +	{ 0x6d08, 0x00 },
+> +	{ 0x6d09, 0x75 },
+> +	{ 0x6d0a, 0x00 },
+> +	{ 0x6d0b, 0x75 },
+> +	{ 0x6d0c, 0x00 },
+> +	{ 0x6d0d, 0x75 },
+> +	{ 0x6d0e, 0x00 },
+> +	{ 0x6d0f, 0x75 },
+> +	{ 0x6d10, 0x00 },
+> +	{ 0x6d11, 0x75 },
+> +	{ 0x6d12, 0x00 },
+> +	{ 0x6d13, 0x75 },
+> +	{ 0x6d14, 0x00 },
+> +	{ 0x6d15, 0x75 },
+> +	{ 0x6d16, 0x00 },
+> +	{ 0x6d17, 0x75 },
+> +	{ 0x6d18, 0x00 },
+> +	{ 0x6d19, 0x75 },
+> +	{ 0x6d1a, 0x00 },
+> +	{ 0x6d1b, 0x75 },
+> +	{ 0x6d1c, 0x00 },
+> +	{ 0x6d1d, 0x75 },
+> +	{ 0x6d1e, 0x00 },
+> +	{ 0x6d1f, 0x75 },
+> +	{ 0x6d20, 0x00 },
+> +	{ 0x6d21, 0x75 },
+> +	{ 0x6d22, 0x00 },
+> +	{ 0x6d23, 0x75 },
+> +	{ 0x6d24, 0x00 },
+> +	{ 0x6d25, 0x75 },
+> +	{ 0x6d26, 0x00 },
+> +	{ 0x6d27, 0x75 },
+> +	{ 0x6d28, 0x00 },
+> +	{ 0x6d29, 0x75 },
+> +	{ 0x6d2a, 0x00 },
+> +	{ 0x6d2b, 0x75 },
+> +	{ 0x6d2c, 0x00 },
+> +	{ 0x6d2d, 0x75 },
+> +	{ 0x6d2e, 0x00 },
+> +	{ 0x6d2f, 0x75 },
+> +	{ 0x6d30, 0x00 },
+> +	{ 0x6d31, 0x75 },
+> +	{ 0x6d32, 0x00 },
+> +	{ 0x6d33, 0x75 },
+> +	{ 0x6d34, 0x00 },
+> +	{ 0x6d35, 0x75 },
+> +	{ 0x6d36, 0x00 },
+> +	{ 0x6d37, 0x75 },
+> +	{ 0x6d38, 0x00 },
+> +	{ 0x6d39, 0x75 },
+> +	{ 0x6d3a, 0x00 },
+> +	{ 0x6d3b, 0x75 },
+> +	{ 0x6d3c, 0x00 },
+> +	{ 0x6d3d, 0x75 },
+> +	{ 0x6d3e, 0x00 },
+> +	{ 0x6d3f, 0x75 },
+> +	{ 0x6d40, 0x00 },
+> +	{ 0x6d41, 0x75 },
+> +	{ 0x6d42, 0x00 },
+> +	{ 0x6d43, 0x75 },
+> +	{ 0x6d44, 0x00 },
+> +	{ 0x6d45, 0x75 },
+> +	{ 0x6d46, 0x00 },
+> +	{ 0x6d47, 0x75 },
+> +	{ 0x6d48, 0x00 },
+> +	{ 0x6d49, 0x75 },
+> +	{ 0x6d4a, 0x00 },
+> +	{ 0x6d4b, 0x75 },
+> +	{ 0x6d4c, 0x00 },
+> +	{ 0x6d4d, 0x75 },
+> +	{ 0x6d4e, 0x00 },
+> +	{ 0x6d4f, 0x75 },
+> +	{ 0x6d50, 0x00 },
+> +	{ 0x6d51, 0x75 },
+> +	{ 0x6d52, 0x00 },
+> +	{ 0x6d53, 0x75 },
+> +	{ 0x6d54, 0x00 },
+> +	{ 0x6d55, 0x75 },
+> +	{ 0x6d56, 0x00 },
+> +	{ 0x6d57, 0x75 },
+> +	{ 0x6d58, 0x00 },
+> +	{ 0x6d59, 0x75 },
+> +	{ 0x6d5a, 0x00 },
+> +	{ 0x6d5b, 0x75 },
+> +	{ 0x6d5c, 0x00 },
+> +	{ 0x6d5d, 0x75 },
+> +	{ 0x6d5e, 0x00 },
+> +	{ 0x6d5f, 0x75 },
+> +	{ 0x6d60, 0x00 },
+> +	{ 0x6d61, 0x75 },
+> +	{ 0x6d62, 0x00 },
+> +	{ 0x6d63, 0x75 },
+> +	{ 0x6d64, 0x00 },
+> +	{ 0x6d65, 0x75 },
+> +	{ 0x6d66, 0x00 },
+> +	{ 0x6d67, 0x75 },
+> +	{ 0x6d68, 0x00 },
+> +	{ 0x6d69, 0x75 },
+> +	{ 0x6d6a, 0x00 },
+> +	{ 0x6d6b, 0x75 },
+> +	{ 0x6d6c, 0x00 },
+> +	{ 0x6d6d, 0x75 },
+> +	{ 0x6d6e, 0x00 },
+> +	{ 0x6d6f, 0x75 },
+> +	{ 0x6d70, 0x00 },
+> +	{ 0x6d71, 0x75 },
+> +	{ 0x6d72, 0x00 },
+> +	{ 0x6d73, 0x75 },
+> +	{ 0x6d74, 0x00 },
+> +	{ 0x6d75, 0x75 },
+> +	{ 0x6d76, 0x00 },
+> +	{ 0x6d77, 0x75 },
+> +	{ 0x6d78, 0x00 },
+> +	{ 0x6d79, 0x75 },
+> +	{ 0x6d7a, 0x00 },
+> +	{ 0x6d7b, 0x75 },
+> +	{ 0x6d7c, 0x00 },
+> +	{ 0x6d7d, 0x75 },
+> +	{ 0x6d7e, 0x00 },
+> +	{ 0x6d7f, 0x75 },
+> +	{ 0x6d80, 0x00 },
+> +	{ 0x6d81, 0x75 },
+> +	{ 0x6d82, 0x00 },
+> +	{ 0x6d83, 0x75 },
+> +	{ 0x6d84, 0x00 },
+> +	{ 0x6d85, 0x75 },
+> +	{ 0x6d86, 0x00 },
+> +	{ 0x6d87, 0x75 },
+> +	{ 0x6d88, 0x00 },
+> +	{ 0x6d89, 0x75 },
+> +	{ 0x6d8a, 0x00 },
+> +	{ 0x6d8b, 0x75 },
+> +	{ 0x6d8c, 0x00 },
+> +	{ 0x6d8d, 0x75 },
+> +	{ 0x6d8e, 0x00 },
+> +	{ 0x6d8f, 0x75 },
+> +	{ 0x6d90, 0x00 },
+> +	{ 0x6d91, 0x75 },
+> +	{ 0x6d92, 0x00 },
+> +	{ 0x6d93, 0x75 },
+> +	{ 0x6d94, 0x00 },
+> +	{ 0x6d95, 0x75 },
+> +	{ 0x6d96, 0x00 },
+> +	{ 0x6d97, 0x75 },
+> +	{ 0x6d98, 0x00 },
+> +	{ 0x6d99, 0x75 },
+> +	{ 0x6d9a, 0x00 },
+> +	{ 0x6d9b, 0x75 },
+> +	{ 0x6d9c, 0x00 },
+> +	{ 0x6d9d, 0x75 },
+> +	{ 0x6d9e, 0x00 },
+> +	{ 0x6d9f, 0x75 },
+> +	{ 0x6da0, 0x00 },
+> +	{ 0x6da1, 0x75 },
+> +	{ 0x6da2, 0x00 },
+> +	{ 0x6da3, 0x75 },
+> +	{ 0x6da4, 0x00 },
+> +	{ 0x6da5, 0x75 },
+> +	{ 0x6da6, 0x00 },
+> +	{ 0x6da7, 0x75 },
+> +	{ 0x6da8, 0x00 },
+> +	{ 0x6da9, 0x75 },
+> +	{ 0x6daa, 0x00 },
+> +	{ 0x6dab, 0x75 },
+> +	{ 0x6dac, 0x00 },
+> +	{ 0x6dad, 0x75 },
+> +	{ 0x6dae, 0x00 },
+> +	{ 0x6daf, 0x75 },
+> +	{ 0x6db0, 0x00 },
+> +	{ 0x6db1, 0x75 },
+> +	{ 0x6db2, 0x00 },
+> +	{ 0x6db3, 0x75 },
+> +	{ 0x6db4, 0x00 },
+> +	{ 0x6db5, 0x75 },
+> +	{ 0x6db6, 0x00 },
+> +	{ 0x6db7, 0x75 },
+> +	{ 0x6db8, 0x00 },
+> +	{ 0x6db9, 0x75 },
+> +	{ 0x6dba, 0x00 },
+> +	{ 0x6dbb, 0x75 },
+> +	{ 0x6dbc, 0x00 },
+> +	{ 0x6dbd, 0x75 },
+> +	{ 0x6dbe, 0x00 },
+> +	{ 0x6dbf, 0x75 },
+> +	{ 0x6dc0, 0x00 },
+> +	{ 0x6dc1, 0x75 },
+> +	{ 0x6dc2, 0x00 },
+> +	{ 0x6dc3, 0x75 },
+> +	{ 0x6dc4, 0x00 },
+> +	{ 0x6dc5, 0x75 },
+> +	{ 0x6dc6, 0x00 },
+> +	{ 0x6dc7, 0x75 },
+> +	{ 0x6dc8, 0x00 },
+> +	{ 0x6dc9, 0x75 },
+> +	{ 0x6dca, 0x00 },
+> +	{ 0x6dcb, 0x75 },
+> +	{ 0x6dcc, 0x00 },
+> +	{ 0x6dcd, 0x75 },
+> +	{ 0x6dce, 0x00 },
+> +	{ 0x6dcf, 0x75 },
+> +	{ 0x6dd0, 0x00 },
+> +	{ 0x6dd1, 0x75 },
+> +	{ 0x6dd2, 0x00 },
+> +	{ 0x6dd3, 0x75 },
+> +	{ 0x6dd4, 0x00 },
+> +	{ 0x6dd5, 0x75 },
+> +	{ 0x6dd6, 0x00 },
+> +	{ 0x6dd7, 0x75 },
+> +	{ 0x6dd8, 0x00 },
+> +	{ 0x6dd9, 0x75 },
+> +	{ 0x6dda, 0x00 },
+> +	{ 0x6ddb, 0x75 },
+> +	{ 0x6ddc, 0x00 },
+> +	{ 0x6ddd, 0x75 },
+> +	{ 0x6dde, 0x00 },
+> +	{ 0x6ddf, 0x75 },
+> +	{ 0x6de0, 0x00 },
+> +	{ 0x6de1, 0x75 },
+> +	{ 0x6de2, 0x00 },
+> +	{ 0x6de3, 0x75 },
+> +	{ 0x6de4, 0x00 },
+> +	{ 0x6de5, 0x75 },
+> +	{ 0x6de6, 0x00 },
+> +	{ 0x6de7, 0x75 },
+> +	{ 0x6de8, 0x00 },
+> +	{ 0x6de9, 0x75 },
+> +	{ 0x6dea, 0x00 },
+> +	{ 0x6deb, 0x75 },
+> +	{ 0x6dec, 0x00 },
+> +	{ 0x6ded, 0x75 },
+> +	{ 0x6dee, 0x00 },
+> +	{ 0x6def, 0x75 },
+> +	{ 0x6df0, 0x00 },
+> +	{ 0x6df1, 0x75 },
+> +	{ 0x6df2, 0x00 },
+> +	{ 0x6df3, 0x75 },
+> +	{ 0x6df4, 0x00 },
+> +	{ 0x6df5, 0x75 },
+> +	{ 0x6df6, 0x00 },
+> +	{ 0x6df7, 0x75 },
+> +	{ 0x6df8, 0x00 },
+> +	{ 0x6df9, 0x75 },
+> +	{ 0x6dfa, 0x00 },
+> +	{ 0x6dfb, 0x75 },
+> +	{ 0x6dfc, 0x00 },
+> +	{ 0x6dfd, 0x75 },
+> +	{ 0x6dfe, 0x00 },
+> +	{ 0x6dff, 0x75 },
+> +	{ 0x6e00, 0x00 },
+> +	{ 0x6e01, 0x75 },
+> +	{ 0x6e02, 0x00 },
+> +	{ 0x6e03, 0x75 },
+> +	{ 0x6e04, 0x00 },
+> +	{ 0x6e05, 0x75 },
+> +	{ 0x6e06, 0x00 },
+> +	{ 0x6e07, 0x75 },
+> +	{ 0x6e08, 0x00 },
+> +	{ 0x6e09, 0x75 },
+> +	{ 0x6e0a, 0x00 },
+> +	{ 0x6e0b, 0x75 },
+> +	{ 0x6e0c, 0x00 },
+> +	{ 0x6e0d, 0x75 },
+> +	{ 0x6e0e, 0x00 },
+> +	{ 0x6e0f, 0x75 },
+> +	{ 0x6e10, 0x00 },
+> +	{ 0x6e11, 0x75 },
+> +	{ 0x6e12, 0x00 },
+> +	{ 0x6e13, 0x75 },
+> +	{ 0x6e14, 0x00 },
+> +	{ 0x6e15, 0x75 },
+> +	{ 0x6e16, 0x00 },
+> +	{ 0x6e17, 0x75 },
+> +	{ 0x6e18, 0x00 },
+> +	{ 0x6e19, 0x75 },
+> +	{ 0x6e1a, 0x00 },
+> +	{ 0x6e1b, 0x75 },
+> +	{ 0x6e1c, 0x00 },
+> +	{ 0x6e1d, 0x75 },
+> +	{ 0x6e1e, 0x00 },
+> +	{ 0x6e1f, 0x75 },
+> +	{ 0x6e20, 0x00 },
+> +	{ 0x6e21, 0x75 },
+> +	{ 0x6e22, 0x00 },
+> +	{ 0x6e23, 0x75 },
+> +	{ 0x6e24, 0x00 },
+> +	{ 0x6e25, 0x75 },
+> +	{ 0x6e26, 0x00 },
+> +	{ 0x6e27, 0x75 },
+> +	{ 0x6e28, 0x00 },
+> +	{ 0x6e29, 0x75 },
+> +	{ 0x6e2a, 0x00 },
+> +	{ 0x6e2b, 0x75 },
+> +	{ 0x6e2c, 0x00 },
+> +	{ 0x6e2d, 0x75 },
+> +	{ 0x6e2e, 0x00 },
+> +	{ 0x6e2f, 0x75 },
+> +	{ 0x6e30, 0x00 },
+> +	{ 0x6e31, 0x75 },
+> +	{ 0x6e32, 0x00 },
+> +	{ 0x6e33, 0x75 },
+> +	{ 0x6e34, 0x00 },
+> +	{ 0x6e35, 0x75 },
+> +	{ 0x6e36, 0x00 },
+> +	{ 0x6e37, 0x75 },
+> +	{ 0x6e38, 0x00 },
+> +	{ 0x6e39, 0x75 },
+> +	{ 0x6e3a, 0x00 },
+> +	{ 0x6e3b, 0x75 },
+> +	{ 0x6e3c, 0x00 },
+> +	{ 0x6e3d, 0x75 },
+> +	{ 0x6e3e, 0x00 },
+> +	{ 0x6e3f, 0x75 },
+> +	{ 0x6e40, 0x00 },
+> +	{ 0x6e41, 0x75 },
+> +	{ 0x6e42, 0x00 },
+> +	{ 0x6e43, 0x75 },
+> +	{ 0x6e44, 0x00 },
+> +	{ 0x6e45, 0x75 },
+> +	{ 0x6e46, 0x00 },
+> +	{ 0x6e47, 0x75 },
+> +	{ 0x6e48, 0x00 },
+> +	{ 0x6e49, 0x75 },
+> +	{ 0x6e4a, 0x00 },
+> +	{ 0x6e4b, 0x75 },
+> +	{ 0x6e4c, 0x00 },
+> +	{ 0x6e4d, 0x75 },
+> +	{ 0x6e4e, 0x00 },
+> +	{ 0x6e4f, 0x75 },
+> +	{ 0x6e50, 0x00 },
+> +	{ 0x6e51, 0x75 },
+> +	{ 0x6e52, 0x00 },
+> +	{ 0x6e53, 0x75 },
+> +	{ 0x6e54, 0x00 },
+> +	{ 0x6e55, 0x75 },
+> +	{ 0x6e56, 0x00 },
+> +	{ 0x6e57, 0x75 },
+> +	{ 0x6e58, 0x00 },
+> +	{ 0x6e59, 0x75 },
+> +	{ 0x6e5a, 0x00 },
+> +	{ 0x6e5b, 0x75 },
+> +	{ 0x6e5c, 0x00 },
+> +	{ 0x6e5d, 0x75 },
+> +	{ 0x6e5e, 0x00 },
+> +	{ 0x6e5f, 0x75 },
+> +	{ 0x6e60, 0x00 },
+> +	{ 0x6e61, 0x75 },
+> +	{ 0x6e62, 0x00 },
+> +	{ 0x6e63, 0x75 },
+> +	{ 0x6e64, 0x00 },
+> +	{ 0x6e65, 0x75 },
+> +	{ 0x6e66, 0x00 },
+> +	{ 0x6e67, 0x75 },
+> +	{ 0x6e68, 0x00 },
+> +	{ 0x6e69, 0x75 },
+> +	{ 0x6e6a, 0x00 },
+> +	{ 0x6e6b, 0x75 },
+> +	{ 0x6e6c, 0x00 },
+> +	{ 0x6e6d, 0x75 },
+> +	{ 0x6e6e, 0x00 },
+> +	{ 0x6e6f, 0x75 },
+> +	{ 0x6e70, 0x00 },
+> +	{ 0x6e71, 0x75 },
+> +	{ 0x6e72, 0x00 },
+> +	{ 0x6e73, 0x75 },
+> +	{ 0x6e74, 0x00 },
+> +	{ 0x6e75, 0x75 },
+> +	{ 0x6e76, 0x00 },
+> +	{ 0x6e77, 0x75 },
+> +	{ 0x6e78, 0x00 },
+> +	{ 0x6e79, 0x75 },
+> +	{ 0x6e7a, 0x00 },
+> +	{ 0x6e7b, 0x75 },
+> +	{ 0x6e7c, 0x00 },
+> +	{ 0x6e7d, 0x75 },
+> +	{ 0x6e7e, 0x00 },
+> +	{ 0x6e7f, 0x75 },
+> +	{ 0x6e80, 0x00 },
+> +	{ 0x6e81, 0x75 },
+> +	{ 0x6e82, 0x00 },
+> +	{ 0x6e83, 0x75 },
+> +	{ 0x6e84, 0x00 },
+> +	{ 0x6e85, 0x75 },
+> +	{ 0x6e86, 0x00 },
+> +	{ 0x6e87, 0x75 },
+> +	{ 0x6e88, 0x00 },
+> +	{ 0x6e89, 0x75 },
+> +	{ 0x6e8a, 0x00 },
+> +	{ 0x6e8b, 0x75 },
+> +	{ 0x6e8c, 0x00 },
+> +	{ 0x6e8d, 0x75 },
+> +	{ 0x6e8e, 0x00 },
+> +	{ 0x6e8f, 0x75 },
+> +	{ 0x6e90, 0x00 },
+> +	{ 0x6e91, 0x75 },
+> +	{ 0x6e92, 0x00 },
+> +	{ 0x6e93, 0x75 },
+> +	{ 0x6e94, 0x00 },
+> +	{ 0x6e95, 0x75 },
+> +	{ 0x6e96, 0x00 },
+> +	{ 0x6e97, 0x75 },
+> +	{ 0x6e98, 0x00 },
+> +	{ 0x6e99, 0x75 },
+> +	{ 0x6e9a, 0x00 },
+> +	{ 0x6e9b, 0x75 },
+> +	{ 0x6e9c, 0x00 },
+> +	{ 0x6e9d, 0x75 },
+> +	{ 0x6e9e, 0x00 },
+> +	{ 0x6e9f, 0x75 },
+> +	{ 0x6ea0, 0x00 },
+> +	{ 0x6ea1, 0x75 },
+> +	{ 0x6ea2, 0x00 },
+> +	{ 0x6ea3, 0x75 },
+> +	{ 0x6ea4, 0x00 },
+> +	{ 0x6ea5, 0x75 },
+> +	{ 0x6ea6, 0x00 },
+> +	{ 0x6ea7, 0x75 },
+> +	{ 0x6ea8, 0x00 },
+> +	{ 0x6ea9, 0x75 },
+> +	{ 0x6eaa, 0x00 },
+> +	{ 0x6eab, 0x75 },
+> +	{ 0x6eac, 0x00 },
+> +	{ 0x6ead, 0x75 },
+> +	{ 0x6eae, 0x00 },
+> +	{ 0x6eaf, 0x75 },
+> +	{ 0x6eb0, 0x00 },
+> +	{ 0x6eb1, 0x75 },
+> +	{ 0x6eb2, 0x00 },
+> +	{ 0x6eb3, 0x75 },
+> +	{ 0x6eb4, 0x00 },
+> +	{ 0x6eb5, 0x75 },
+> +	{ 0x6eb6, 0x00 },
+> +	{ 0x6eb7, 0x75 },
+> +	{ 0x6eb8, 0x00 },
+> +	{ 0x6eb9, 0x75 },
+> +	{ 0x6eba, 0x00 },
+> +	{ 0x6ebb, 0x75 },
+> +	{ 0x6ebc, 0x00 },
+> +	{ 0x6ebd, 0x75 },
+> +	{ 0x6ebe, 0x00 },
+> +	{ 0x6ebf, 0x75 },
+> +	{ 0x6ec0, 0x00 },
+> +	{ 0x6ec1, 0x75 },
+> +	{ 0x6ec2, 0x00 },
+> +	{ 0x6ec3, 0x75 },
+> +	{ 0x6ec4, 0x00 },
+> +	{ 0x6ec5, 0x75 },
+> +	{ 0x6ec6, 0x00 },
+> +	{ 0x6ec7, 0x75 },
+> +	{ 0x6ec8, 0x00 },
+> +	{ 0x6ec9, 0x75 },
+> +	{ 0x6eca, 0x00 },
+> +	{ 0x6ecb, 0x75 },
+> +	{ 0x6ecc, 0x00 },
+> +	{ 0x6ecd, 0x75 },
+> +	{ 0x6ece, 0x00 },
+> +	{ 0x6ecf, 0x75 },
+> +	{ 0x6ed0, 0x00 },
+> +	{ 0x6ed1, 0x75 },
+> +	{ 0x6ed2, 0x00 },
+> +	{ 0x6ed3, 0x75 },
+> +	{ 0x6ed4, 0x00 },
+> +	{ 0x6ed5, 0x75 },
+> +	{ 0x6ed6, 0x00 },
+> +	{ 0x6ed7, 0x75 },
+> +	{ 0x6ed8, 0x00 },
+> +	{ 0x6ed9, 0x75 },
+> +	{ 0x6eda, 0x00 },
+> +	{ 0x6edb, 0x75 },
+> +	{ 0x6edc, 0x00 },
+> +	{ 0x6edd, 0x75 },
+> +	{ 0x6ede, 0x00 },
+> +	{ 0x6edf, 0x75 },
+> +	{ 0x6ee0, 0x00 },
+> +	{ 0x6ee1, 0x75 },
+> +	{ 0x6ee2, 0x00 },
+> +	{ 0x6ee3, 0x75 },
+> +	{ 0x6ee4, 0x00 },
+> +	{ 0x6ee5, 0x75 },
+> +	{ 0x6ee6, 0x00 },
+> +	{ 0x6ee7, 0x75 },
+> +	{ 0x6ee8, 0x00 },
+> +	{ 0x6ee9, 0x75 },
+> +	{ 0x6eea, 0x00 },
+> +	{ 0x6eeb, 0x75 },
+> +	{ 0x6eec, 0x00 },
+> +	{ 0x6eed, 0x75 },
+> +	{ 0x6eee, 0x00 },
+> +	{ 0x6eef, 0x75 },
+> +	{ 0x6ef0, 0x00 },
+> +	{ 0x6ef1, 0x75 },
+> +	{ 0x6ef2, 0x00 },
+> +	{ 0x6ef3, 0x75 },
+> +	{ 0x6ef4, 0x00 },
+> +	{ 0x6ef5, 0x75 },
+> +	{ 0x6ef6, 0x00 },
+> +	{ 0x6ef7, 0x75 },
+> +	{ 0x6ef8, 0x00 },
+> +	{ 0x6ef9, 0x75 },
+> +	{ 0x6efa, 0x00 },
+> +	{ 0x6efb, 0x75 },
+> +	{ 0x6efc, 0x00 },
+> +	{ 0x6efd, 0x75 },
+> +	{ 0x6efe, 0x00 },
+> +	{ 0x6eff, 0x75 },
+> +	{ 0x6f00, 0x00 },
+> +	{ 0x6f01, 0x75 },
+> +	{ 0x6f02, 0x00 },
+> +	{ 0x6f03, 0x75 },
+> +	{ 0x6f04, 0x00 },
+> +	{ 0x6f05, 0x75 },
+> +	{ 0x6f06, 0x00 },
+> +	{ 0x6f07, 0x75 },
+> +	{ 0x6f08, 0x00 },
+> +	{ 0x6f09, 0x75 },
+> +	{ 0x6f0a, 0x00 },
+> +	{ 0x6f0b, 0x75 },
+> +	{ 0x6f0c, 0x00 },
+> +	{ 0x6f0d, 0x75 },
+> +	{ 0x6f0e, 0x00 },
+> +	{ 0x6f0f, 0x75 },
+> +	{ 0x6f10, 0x00 },
+> +	{ 0x6f11, 0x75 },
+> +	{ 0x6f12, 0x00 },
+> +	{ 0x6f13, 0x75 },
+> +	{ 0x6f14, 0x00 },
+> +	{ 0x6f15, 0x75 },
+> +	{ 0x6f16, 0x00 },
+> +	{ 0x6f17, 0x75 },
+> +	{ 0x6f18, 0x00 },
+> +	{ 0x6f19, 0x75 },
+> +	{ 0x6f1a, 0x00 },
+> +	{ 0x6f1b, 0x75 },
+> +	{ 0x6f1c, 0x00 },
+> +	{ 0x6f1d, 0x75 },
+> +	{ 0x6f1e, 0x00 },
+> +	{ 0x6f1f, 0x75 },
+> +	{ 0x6f20, 0x00 },
+> +	{ 0x6f21, 0x75 },
+> +	{ 0x6f22, 0x00 },
+> +	{ 0x6f23, 0x75 },
+> +	{ 0x6f24, 0x00 },
+> +	{ 0x6f25, 0x75 },
+> +	{ 0x6f26, 0x00 },
+> +	{ 0x6f27, 0x75 },
+> +	{ 0x6f28, 0x00 },
+> +	{ 0x6f29, 0x75 },
+> +	{ 0x6f2a, 0x00 },
+> +	{ 0x6f2b, 0x75 },
+> +	{ 0x6f2c, 0x00 },
+> +	{ 0x6f2d, 0x75 },
+> +	{ 0x6f2e, 0x00 },
+> +	{ 0x6f2f, 0x75 },
+> +	{ 0x6f30, 0x00 },
+> +	{ 0x6f31, 0x75 },
+> +	{ 0x6f32, 0x00 },
+> +	{ 0x6f33, 0x75 },
+> +	{ 0x6f34, 0x00 },
+> +	{ 0x6f35, 0x75 },
+> +	{ 0x6f36, 0x00 },
+> +	{ 0x6f37, 0x75 },
+> +	{ 0x6f38, 0x00 },
+> +	{ 0x6f39, 0x75 },
+> +	{ 0x6f3a, 0x00 },
+> +	{ 0x6f3b, 0x75 },
+> +	{ 0x6f3c, 0x00 },
+> +	{ 0x6f3d, 0x75 },
+> +	{ 0x6f3e, 0x00 },
+> +	{ 0x6f3f, 0x75 },
+> +	{ 0x6f40, 0x00 },
+> +	{ 0x6f41, 0x75 },
+> +	{ 0x6f42, 0x00 },
+> +	{ 0x6f43, 0x75 },
+> +	{ 0x6f44, 0x00 },
+> +	{ 0x6f45, 0x75 },
+> +	{ 0x6f46, 0x00 },
+> +	{ 0x6f47, 0x75 },
+> +	{ 0x6f48, 0x00 },
+> +	{ 0x6f49, 0x75 },
+> +	{ 0x6f4a, 0x00 },
+> +	{ 0x6f4b, 0x75 },
+> +	{ 0x6f4c, 0x00 },
+> +	{ 0x6f4d, 0x75 },
+> +	{ 0x6f4e, 0x00 },
+> +	{ 0x6f4f, 0x75 },
+> +	{ 0x6f50, 0x00 },
+> +	{ 0x6f51, 0x75 },
+> +	{ 0x6f52, 0x00 },
+> +	{ 0x6f53, 0x75 },
+> +	{ 0x6f54, 0x00 },
+> +	{ 0x6f55, 0x75 },
+> +	{ 0x6f56, 0x00 },
+> +	{ 0x6f57, 0x75 },
+> +	{ 0x6f58, 0x00 },
+> +	{ 0x6f59, 0x75 },
+> +	{ 0x6f5a, 0x00 },
+> +	{ 0x6f5b, 0x75 },
+> +	{ 0x6f5c, 0x00 },
+> +	{ 0x6f5d, 0x75 },
+> +	{ 0x6f5e, 0x00 },
+> +	{ 0x6f5f, 0x75 },
+> +	{ 0x6f60, 0x00 },
+> +	{ 0x6f61, 0x75 },
+> +	{ 0x6f62, 0x00 },
+> +	{ 0x6f63, 0x75 },
+> +	{ 0x6f64, 0x00 },
+> +	{ 0x6f65, 0x75 },
+> +	{ 0x6f66, 0x00 },
+> +	{ 0x6f67, 0x75 },
+> +	{ 0x6f68, 0x00 },
+> +	{ 0x6f69, 0x75 },
+> +	{ 0x6f6a, 0x00 },
+> +	{ 0x6f6b, 0x75 },
+> +	{ 0x6f6c, 0x00 },
+> +	{ 0x6f6d, 0x75 },
+> +	{ 0x6f6e, 0x00 },
+> +	{ 0x6f6f, 0x75 },
+> +	{ 0x6f70, 0x00 },
+> +	{ 0x6f71, 0x75 },
+> +	{ 0x6f72, 0x00 },
+> +	{ 0x6f73, 0x75 },
+> +	{ 0x6f74, 0x00 },
+> +	{ 0x6f75, 0x75 },
+> +	{ 0x6f76, 0x00 },
+> +	{ 0x6f77, 0x75 },
+> +	{ 0x6f78, 0x00 },
+> +	{ 0x6f79, 0x75 },
+> +	{ 0x6f7a, 0x00 },
+> +	{ 0x6f7b, 0x75 },
+> +	{ 0x6f7c, 0x00 },
+> +	{ 0x6f7d, 0x75 },
+> +	{ 0x6f7e, 0x00 },
+> +	{ 0x6f7f, 0x75 },
+> +	{ 0x6f80, 0x00 },
+> +	{ 0x6f81, 0x75 },
+> +	{ 0x6f82, 0x00 },
+> +	{ 0x6f83, 0x75 },
+> +	{ 0x6f84, 0x00 },
+> +	{ 0x6f85, 0x75 },
+> +	{ 0x6f86, 0x00 },
+> +	{ 0x6f87, 0x75 },
+> +	{ 0x6f88, 0x00 },
+> +	{ 0x6f89, 0x75 },
+> +	{ 0x6f8a, 0x00 },
+> +	{ 0x6f8b, 0x75 },
+> +	{ 0x6f8c, 0x00 },
+> +	{ 0x6f8d, 0x75 },
+> +	{ 0x6f8e, 0x00 },
+> +	{ 0x6f8f, 0x75 },
+> +	{ 0x6f90, 0x00 },
+> +	{ 0x6f91, 0x75 },
+> +	{ 0x6f92, 0x00 },
+> +	{ 0x6f93, 0x75 },
+> +	{ 0x6f94, 0x00 },
+> +	{ 0x6f95, 0x75 },
+> +	{ 0x6f96, 0x00 },
+> +	{ 0x6f97, 0x75 },
+> +	{ 0x6f98, 0x00 },
+> +	{ 0x6f99, 0x75 },
+> +	{ 0x6f9a, 0x00 },
+> +	{ 0x6f9b, 0x75 },
+> +	{ 0x6f9c, 0x00 },
+> +	{ 0x6f9d, 0x75 },
+> +	{ 0x6f9e, 0x00 },
+> +	{ 0x6f9f, 0x75 },
+> +	{ 0x6fa0, 0x00 },
+> +	{ 0x6fa1, 0x75 },
+> +	{ 0x6fa2, 0x00 },
+> +	{ 0x6fa3, 0x75 },
+> +	{ 0x6fa4, 0x00 },
+> +	{ 0x6fa5, 0x75 },
+> +	{ 0x6fa6, 0x00 },
+> +	{ 0x6fa7, 0x75 },
+> +	{ 0x6fa8, 0x00 },
+> +	{ 0x6fa9, 0x75 },
+> +	{ 0x6faa, 0x00 },
+> +	{ 0x6fab, 0x75 },
+> +	{ 0x6fac, 0x00 },
+> +	{ 0x6fad, 0x75 },
+> +	{ 0x6fae, 0x00 },
+> +	{ 0x6faf, 0x75 },
+> +	{ 0x6fb0, 0x00 },
+> +	{ 0x6fb1, 0x75 },
+> +	{ 0x6fb2, 0x00 },
+> +	{ 0x6fb3, 0x75 },
+> +	{ 0x6fb4, 0x00 },
+> +	{ 0x6fb5, 0x75 },
+> +	{ 0x6fb6, 0x00 },
+> +	{ 0x6fb7, 0x75 },
+> +	{ 0x6fb8, 0x00 },
+> +	{ 0x6fb9, 0x75 },
+> +	{ 0x6fba, 0x00 },
+> +	{ 0x6fbb, 0x75 },
+> +	{ 0x6fbc, 0x00 },
+> +	{ 0x6fbd, 0x75 },
+> +	{ 0x6fbe, 0x00 },
+> +	{ 0x6fbf, 0x75 },
+> +	{ 0x6fc0, 0x00 },
+> +	{ 0x6fc1, 0x75 },
+> +	{ 0x6fc2, 0x00 },
+> +	{ 0x6fc3, 0x75 },
+> +	{ 0x6fc4, 0x00 },
+> +	{ 0x6fc5, 0x75 },
+> +	{ 0x6fc6, 0x00 },
+> +	{ 0x6fc7, 0x75 },
+> +	{ 0x6fc8, 0x00 },
+> +	{ 0x6fc9, 0x75 },
+> +	{ 0x6fca, 0x00 },
+> +	{ 0x6fcb, 0x75 },
+> +	{ 0x6fcc, 0x00 },
+> +	{ 0x6fcd, 0x75 },
+> +	{ 0x6fce, 0x00 },
+> +	{ 0x6fcf, 0x75 },
+> +	{ 0x6fd0, 0x00 },
+> +	{ 0x6fd1, 0x75 },
+> +	{ 0x6fd2, 0x00 },
+> +	{ 0x6fd3, 0x75 },
+> +	{ 0x6fd4, 0x00 },
+> +	{ 0x6fd5, 0x75 },
+> +	{ 0x6fd6, 0x00 },
+> +	{ 0x6fd7, 0x75 },
+> +	{ 0x6fd8, 0x00 },
+> +	{ 0x6fd9, 0x75 },
+> +	{ 0x6fda, 0x00 },
+> +	{ 0x6fdb, 0x75 },
+> +	{ 0x6fdc, 0x00 },
+> +	{ 0x6fdd, 0x75 },
+> +	{ 0x6fde, 0x00 },
+> +	{ 0x6fdf, 0x75 },
+> +	{ 0x6fe0, 0x00 },
+> +	{ 0x6fe1, 0x75 },
+> +	{ 0x6fe2, 0x00 },
+> +	{ 0x6fe3, 0x75 },
+> +	{ 0x6fe4, 0x00 },
+> +	{ 0x6fe5, 0x75 },
+> +	{ 0x6fe6, 0x00 },
+> +	{ 0x6fe7, 0x75 },
+> +	{ 0x6fe8, 0x00 },
+> +	{ 0x6fe9, 0x75 },
+> +	{ 0x6fea, 0x00 },
+> +	{ 0x6feb, 0x75 },
+> +	{ 0x6fec, 0x00 },
+> +	{ 0x6fed, 0x75 },
+> +	{ 0x6fee, 0x00 },
+> +	{ 0x6fef, 0x75 },
+> +	{ 0x6ff0, 0x00 },
+> +	{ 0x6ff1, 0x75 },
+> +	{ 0x6ff2, 0x00 },
+> +	{ 0x6ff3, 0x75 },
+> +	{ 0x6ff4, 0x00 },
+> +	{ 0x6ff5, 0x75 },
+> +	{ 0x6ff6, 0x00 },
+> +	{ 0x6ff7, 0x75 },
+> +	{ 0x6ff8, 0x00 },
+> +	{ 0x6ff9, 0x75 },
+> +	{ 0x6ffa, 0x00 },
+> +	{ 0x6ffb, 0x75 },
+> +	{ 0x6ffc, 0x00 },
+> +	{ 0x6ffd, 0x75 },
+> +	{ 0x6ffe, 0x00 },
+> +	{ 0x6fff, 0x75 },
+> +	{ 0x7000, 0x00 },
+> +	{ 0x7001, 0x75 },
+> +	{ 0x7002, 0x00 },
+> +	{ 0x7003, 0x75 },
+> +	{ 0x7004, 0x00 },
+> +	{ 0x7005, 0x75 },
+> +	{ 0x7006, 0x00 },
+> +	{ 0x7007, 0x75 },
+> +	{ 0x7008, 0x00 },
+> +	{ 0x7009, 0x75 },
+> +	{ 0x700a, 0x00 },
+> +	{ 0x700b, 0x75 },
+> +	{ 0x700c, 0x00 },
+> +	{ 0x700d, 0x75 },
+> +	{ 0x700e, 0x00 },
+> +	{ 0x700f, 0x75 },
+> +	{ 0x7010, 0x00 },
+> +	{ 0x7011, 0x75 },
+> +	{ 0x7012, 0x00 },
+> +	{ 0x7013, 0x75 },
+> +	{ 0x7014, 0x00 },
+> +	{ 0x7015, 0x75 },
+> +	{ 0x7016, 0x00 },
+> +	{ 0x7017, 0x75 },
+> +	{ 0x7018, 0x00 },
+> +	{ 0x7019, 0x75 },
+> +	{ 0x701a, 0x00 },
+> +	{ 0x701b, 0x75 },
+> +	{ 0x701c, 0x00 },
+> +	{ 0x701d, 0x75 },
+> +	{ 0x701e, 0x00 },
+> +	{ 0x701f, 0x75 },
+> +	{ 0x7020, 0x00 },
+> +	{ 0x7021, 0x75 },
+> +	{ 0x7022, 0x00 },
+> +	{ 0x7023, 0x75 },
+> +	{ 0x7024, 0x00 },
+> +	{ 0x7025, 0x75 },
+> +	{ 0x7026, 0x00 },
+> +	{ 0x7027, 0x75 },
+> +	{ 0x7028, 0x00 },
+> +	{ 0x7029, 0x75 },
+> +	{ 0x702a, 0x00 },
+> +	{ 0x702b, 0x75 },
+> +	{ 0x702c, 0x00 },
+> +	{ 0x702d, 0x75 },
+> +	{ 0x702e, 0x00 },
+> +	{ 0x702f, 0x75 },
+> +	{ 0x7030, 0x00 },
+> +	{ 0x7031, 0x75 },
+> +	{ 0x7032, 0x00 },
+> +	{ 0x7033, 0x75 },
+> +	{ 0x7034, 0x00 },
+> +	{ 0x7035, 0x75 },
+> +	{ 0x7036, 0x00 },
+> +	{ 0x7037, 0x75 },
+> +	{ 0x7038, 0x00 },
+> +	{ 0x7039, 0x75 },
+> +	{ 0x703a, 0x00 },
+> +	{ 0x703b, 0x75 },
+> +	{ 0x703c, 0x00 },
+> +	{ 0x703d, 0x75 },
+> +	{ 0x703e, 0x00 },
+> +	{ 0x703f, 0x75 },
+> +	{ 0x7040, 0x00 },
+> +	{ 0x7041, 0x75 },
+> +	{ 0x7042, 0x00 },
+> +	{ 0x7043, 0x75 },
+> +	{ 0x7044, 0x00 },
+> +	{ 0x7045, 0x75 },
+> +	{ 0x7046, 0x00 },
+> +	{ 0x7047, 0x75 },
+> +	{ 0x7048, 0x00 },
+> +	{ 0x7049, 0x75 },
+> +	{ 0x704a, 0x00 },
+> +	{ 0x704b, 0x75 },
+> +	{ 0x704c, 0x00 },
+> +	{ 0x704d, 0x75 },
+> +	{ 0x704e, 0x00 },
+> +	{ 0x704f, 0x75 },
+> +	{ 0x7050, 0x00 },
+> +	{ 0x7051, 0x75 },
+> +	{ 0x7052, 0x00 },
+> +	{ 0x7053, 0x75 },
+> +	{ 0x7054, 0x00 },
+> +	{ 0x7055, 0x75 },
+> +	{ 0x7056, 0x00 },
+> +	{ 0x7057, 0x75 },
+> +	{ 0x7058, 0x00 },
+> +	{ 0x7059, 0x75 },
+> +	{ 0x705a, 0x00 },
+> +	{ 0x705b, 0x75 },
+> +	{ 0x705c, 0x00 },
+> +	{ 0x705d, 0x75 },
+> +	{ 0x705e, 0x00 },
+> +	{ 0x705f, 0x75 },
+> +	{ 0x7060, 0x00 },
+> +	{ 0x7061, 0x75 },
+> +	{ 0x7062, 0x00 },
+> +	{ 0x7063, 0x75 },
+> +	{ 0x7064, 0x00 },
+> +	{ 0x7065, 0x75 },
+> +	{ 0x7066, 0x00 },
+> +	{ 0x7067, 0x75 },
+> +	{ 0x7068, 0x00 },
+> +	{ 0x7069, 0x75 },
+> +	{ 0x706a, 0x00 },
+> +	{ 0x706b, 0x75 },
+> +	{ 0x706c, 0x00 },
+> +	{ 0x706d, 0x75 },
+> +	{ 0x706e, 0x00 },
+> +	{ 0x706f, 0x75 },
+> +	{ 0x7070, 0x00 },
+> +	{ 0x7071, 0x75 },
+> +	{ 0x7072, 0x00 },
+> +	{ 0x7073, 0x75 },
+> +	{ 0x7074, 0x00 },
+> +	{ 0x7075, 0x75 },
+> +	{ 0x7076, 0x00 },
+> +	{ 0x7077, 0x75 },
+> +	{ 0x7078, 0x00 },
+> +	{ 0x7079, 0x75 },
+> +	{ 0x707a, 0x00 },
+> +	{ 0x707b, 0x75 },
+> +	{ 0x707c, 0x00 },
+> +	{ 0x707d, 0x75 },
+> +	{ 0x707e, 0x00 },
+> +	{ 0x707f, 0x75 },
+> +	{ 0x70e4, 0x02 },
+> +	{ 0x70e6, 0x06 },
+> +	{ 0x70e7, 0x08 },
+> +	{ 0x70e8, 0x0a },
+> +	{ 0x70e9, 0x0c },
+> +	{ 0x70ea, 0x10 },
+> +	{ 0x70eb, 0x16 },
+> +	{ 0x70ec, 0x1a },
+> +	{ 0x70ed, 0x20 },
+> +	{ 0x70ee, 0x04 },
+> +	{ 0x70ef, 0x06 },
+> +	{ 0x70f0, 0x08 },
+> +	{ 0x70f1, 0x0a },
+> +	{ 0x70f2, 0x10 },
+> +	{ 0x70f3, 0x16 },
+> +	{ 0x70f4, 0x1a },
+> +	{ 0x70f5, 0x20 },
+> +	{ 0x7119, 0x16 },
+> +	{ 0x711b, 0x1a },
+> +	{ 0x713a, 0x19 },
+> +	{ 0x713b, 0x17 },
+> +	{ 0x713c, 0x15 },
+> +	{ 0x713d, 0x13 },
+> +	{ 0x713e, 0x11 },
+> +	{ 0x713f, 0x11 },
+> +	{ 0x7140, 0x11 },
+> +	{ 0x7141, 0x11 },
+> +	{ 0x7142, 0x12 },
+> +	{ 0x7143, 0x0d },
+> +	{ 0x7144, 0x0b },
+> +	{ 0x7145, 0x0b },
+> +	{ 0x7146, 0x09 },
+> +	{ 0x7147, 0x09 },
+> +	{ 0x7148, 0x09 },
+> +	{ 0x7149, 0x08 },
+> +	{ 0x7150, 0x00 },
+> +};
+> +
+> +static const s64 link_freq_menu_items[] = {
+> +	OV32C4_LINK_FREQ_400MHZ,
+> +};
+> +
+> +static const struct ov32c4_mode supported_modes[] = {
+> +	{
+> +		.width = 3264,
+> +		.height = 1840,
+> +		.ppl = 4080,
+> +		.vts_min = 2614,
+> +		.reg_sequence = ov32c4_mode_3264x1840_regs,
+> +		.sequence_length = ARRAY_SIZE(ov32c4_mode_3264x1840_regs),
+> +	},
+> +};
+> +
+> +struct ov32c4 {
+> +	struct device *dev;
+> +
+> +	struct v4l2_subdev sd;
+> +	struct media_pad pad;
+> +	struct v4l2_ctrl_handler ctrl_handler;
+> +	struct regmap *regmap;
+> +
+> +	/* The sensor's second I2C address, see OV32C4_COMPANION_ENABLE_REG */
+> +	struct regmap *companion;
+> +	u16 companion_addr;
+> +
+> +	/* V4L2 controls */
+> +	struct v4l2_ctrl *link_freq;
+> +	struct v4l2_ctrl *pixel_rate;
+> +	struct v4l2_ctrl *vblank;
+> +	struct v4l2_ctrl *hblank;
+> +	struct v4l2_ctrl *exposure;
+> +
+> +	struct clk *img_clk;
+> +	struct gpio_desc *reset;
+> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov32c4_supply_names)];
+> +
+> +	u32 link_freq_index;
+> +	u8 mipi_lanes;
+> +};
+> +
+> +#ifdef CONFIG_ACPI
+> +/*
+> + * Walk the sensor's ACPI _CRS and return the address of the n-th
+> + * I2cSerialBus resource. Index 0 is the sensor itself (the kernel binds the
+> + * i2c client to it), index 1 is the companion, index 2 the module EEPROM.
+> + */
+> +struct ov32c4_i2c_res_ctx {
+> +	int index;
+> +	int want;
+> +	u16 addr;
+> +};
+> +
+> +static int ov32c4_i2c_res_cb(struct acpi_resource *ares, void *data)
+> +{
+> +	struct ov32c4_i2c_res_ctx *ctx = data;
+> +	struct acpi_resource_i2c_serialbus *sb;
+> +
+> +	if (i2c_acpi_get_i2c_resource(ares, &sb)) {
+> +		if (ctx->index == ctx->want)
+> +			ctx->addr = sb->slave_address;
+> +		ctx->index++;
+> +	}
+> +
+> +	return 1;
+> +}
+> +
+> +static u16 ov32c4_acpi_i2c_addr(struct device *dev, int index)
+> +{
+> +	struct ov32c4_i2c_res_ctx ctx = { .want = index };
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> +	LIST_HEAD(resources);
+> +	int ret;
+> +
+> +	if (!adev)
+> +		return 0;
+> +
+> +	ret = acpi_dev_get_resources(adev, &resources, ov32c4_i2c_res_cb, &ctx);
+
+The presence of additional chips like VCM is very much dependent on the
+module, and I think we should have parsing of the I²C address outside the
+sensor driver.
+
+One option could be to stuff it into the reg property in the ipu-bridge,
+that way it'd work the same way for the driver on both DT and ACPI. In the
+ipu-bridge, I'd use a static value and provide the reg property for this
+sensor only (based on _HID). i2c_new_ancillary_device() will only use OF so
+the driver will need to dig the address manually still.
+
+Better ideas are welcome of course.
+
+> +	acpi_dev_free_resource_list(&resources);
+> +
+> +	return ret < 0 ? 0 : ctx.addr;
+> +}
+> +#else
+> +static u16 ov32c4_acpi_i2c_addr(struct device *dev, int index)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+> +static inline struct ov32c4 *to_ov32c4(struct v4l2_subdev *subdev)
+> +{
+> +	return container_of(subdev, struct ov32c4, sd);
+> +}
+> +
+> +/* MIPI D-PHY is DDR -> link frequency * 2 */
+> +static u64 ov32c4_pixel_rate(struct ov32c4 *ov32c4)
+> +{
+> +	return div_u64(link_freq_menu_items[ov32c4->link_freq_index] *
+> +		       2 * ov32c4->mipi_lanes, OV32C4_RGB_DEPTH);
+> +}
+> +
+> +static int ov32c4_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct ov32c4 *ov32c4 = container_of(ctrl->handler,
+> +					     struct ov32c4, ctrl_handler);
+> +	const u32 height = supported_modes[0].height;
+> +	s64 exposure_max;
+> +	int ret = 0;
+> +	int pm;
+> +
+> +	if (ctrl->id == V4L2_CID_VBLANK) {
+> +		exposure_max = height + ctrl->val - OV32C4_EXPOSURE_MAX_MARGIN;
+> +		ret = __v4l2_ctrl_modify_range(ov32c4->exposure,
+> +					       ov32c4->exposure->minimum,
+> +					       exposure_max,
+> +					       ov32c4->exposure->step,
+> +					       exposure_max);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/*
+> +	 * A negative return means runtime PM is disabled for the device, in
+> +	 * which case it is powered and the registers can be written, but no
+> +	 * reference was taken and none may be dropped below.
+> +	 */
+> +	pm = pm_runtime_get_if_active(ov32c4->dev);
+> +	if (!pm)
+> +		return 0;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_ANALOGUE_GAIN:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_ANALOG_GAIN,
+> +			  ctrl->val, &ret);
+> +		cci_write(ov32c4->regmap, OV32C4_REG_ANALOG_GAIN_CTX2,
+> +			  ctrl->val, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_EXPOSURE:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_EXPOSURE,
+> +			  ctrl->val, &ret);
+> +		cci_write(ov32c4->regmap, OV32C4_REG_EXPOSURE_CTX2,
+> +			  ctrl->val, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_VBLANK:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_VTS, height + ctrl->val,
+> +			  &ret);
+> +		break;
+> +
+> +	case V4L2_CID_DIGITAL_GAIN:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_DIGITAL_GAIN,
+> +			  (u64)ctrl->val << OV32C4_DGAIN_SHIFT, &ret);
+> +		cci_write(ov32c4->regmap, OV32C4_REG_DIGITAL_GAIN_CTX2,
+> +			  (u64)ctrl->val << OV32C4_DGAIN_SHIFT, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_HFLIP:
+> +		cci_update_bits(ov32c4->regmap, OV32C4_REG_MIRROR,
+> +				OV32C4_FLIP_BIT,
+> +				ctrl->val ? 0 : OV32C4_FLIP_BIT, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_VFLIP:
+> +		cci_update_bits(ov32c4->regmap, OV32C4_REG_FLIP,
+> +				OV32C4_FLIP_BIT,
+> +				ctrl->val ? OV32C4_FLIP_BIT : 0, &ret);
+> +		break;
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	if (pm > 0)
+> +		pm_runtime_put(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct v4l2_ctrl_ops ov32c4_ctrl_ops = {
+> +	.s_ctrl = ov32c4_set_ctrl,
+> +};
+> +
+> +static int ov32c4_init_controls(struct ov32c4 *ov32c4)
+> +{
+> +	struct v4l2_ctrl_handler *ctrl_hdlr = &ov32c4->ctrl_handler;
+> +	const struct ov32c4_mode *mode = &supported_modes[0];
+> +	u32 vblank_min, vblank_max, vblank_default;
+> +	struct v4l2_fwnode_device_properties props;
+> +	s64 exposure_max, h_blank, pixel_rate;
+> +	int ret;
+> +
+> +	ret = v4l2_fwnode_device_parse(ov32c4->dev, &props);
+> +	if (ret)
+> +		return ret;
+> +
+> +	v4l2_ctrl_handler_init(ctrl_hdlr, 13);
+> +
+> +	ov32c4->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +						   V4L2_CID_LINK_FREQ,
+> +						   ARRAY_SIZE(link_freq_menu_items) - 1,
+> +						   ov32c4->link_freq_index,
+> +						   link_freq_menu_items);
+> +
+> +	pixel_rate = ov32c4_pixel_rate(ov32c4);
+> +	ov32c4->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					       V4L2_CID_PIXEL_RATE, 0,
+> +					       pixel_rate, 1, pixel_rate);
+> +
+> +	vblank_min = mode->vts_min - mode->height;
+> +	vblank_max = OV32C4_VTS_MAX - mode->height;
+> +	vblank_default = vblank_min;
+> +	ov32c4->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					   V4L2_CID_VBLANK, vblank_min,
+> +					   vblank_max, 1, vblank_default);
+> +
+> +	h_blank = mode->ppl - mode->width;
+> +	ov32c4->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					   V4L2_CID_HBLANK, h_blank, h_blank,
+> +					   1, h_blank);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
+> +			  OV32C4_ANA_GAIN_MIN, OV32C4_ANA_GAIN_MAX,
+> +			  OV32C4_ANA_GAIN_STEP, OV32C4_ANA_GAIN_DEFAULT);
+> +
+> +	exposure_max = mode->vts_min - OV32C4_EXPOSURE_MAX_MARGIN;
+> +	ov32c4->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					     V4L2_CID_EXPOSURE,
+> +					     OV32C4_EXPOSURE_MIN, exposure_max,
+> +					     OV32C4_EXPOSURE_STEP,
+> +					     exposure_max);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
+> +			  OV32C4_DGAIN_MIN, OV32C4_DGAIN_MAX,
+> +			  OV32C4_DGAIN_STEP, OV32C4_DGAIN_DEFAULT);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_HFLIP,
+> +			  0, 1, 1, 0);
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_VFLIP,
+> +			  0, 1, 1, 0);
+> +
+> +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &ov32c4_ctrl_ops, &props);
+> +
+> +	if (ctrl_hdlr->error)
+> +		return ctrl_hdlr->error;
+> +
+> +	ov32c4->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +	ov32c4->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +
+> +	ov32c4->sd.ctrl_handler = ctrl_hdlr;
+> +
+> +	return 0;
+> +}
+> +
+> +static void ov32c4_update_pad_format(const struct ov32c4_mode *mode,
+
+I'd call this e.g. ov32c4_format_from_mode().
+
+> +				     struct v4l2_mbus_framefmt *fmt)
+> +{
+> +	fmt->width = mode->width;
+> +	fmt->height = mode->height;
+> +	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+> +	fmt->field = V4L2_FIELD_NONE;
+> +	fmt->colorspace = V4L2_COLORSPACE_RAW;
+> +	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
+> +	fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
+> +	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
+> +}
+> +
+> +static int ov32c4_enable_streams(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *state,
+> +				 u32 pad, u64 streams_mask)
+> +{
+> +	const struct ov32c4_mode *mode = &supported_modes[0];
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	int ret;
+> +
+> +	ret = pm_runtime_resume_and_get(ov32c4->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cci_write(ov32c4->regmap, OV32C4_REG_STREAM_CONTROL, 0, &ret);
+> +	cci_write(ov32c4->regmap, OV32C4_REG_SW_RESET, 1, &ret);
+> +	if (ret) {
+> +		dev_err(ov32c4->dev, "failed to reset the sensor: %d\n", ret);
+> +		goto out;
+> +	}
+> +	fsleep(OV32C4_SW_RESET_SETTLE_US);
+> +
+> +	ret = regmap_multi_reg_write(ov32c4->regmap, mode->reg_sequence,
+> +				     mode->sequence_length);
+> +	if (ret) {
+> +		dev_err(ov32c4->dev, "failed to set mode: %d\n", ret);
+> +		goto out;
+> +	}
+> +
+> +	ret = __v4l2_ctrl_handler_setup(ov32c4->sd.ctrl_handler);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = cci_write(ov32c4->regmap, OV32C4_REG_STREAM_CONTROL, 1, NULL);
+
+A newline here?
+
+> +out:
+> +	if (ret)
+> +		pm_runtime_put(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ov32c4_disable_streams(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  u32 pad, u64 streams_mask)
+> +{
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	int ret;
+> +
+> +	ret = cci_write(ov32c4->regmap, OV32C4_REG_STREAM_CONTROL, 0, NULL);
+> +	pm_runtime_put(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ov32c4_get_pm_resources(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +
+> +	/* The reset pin is active low, so a logical 1 means "held in reset". */
+> +	ov32c4->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(ov32c4->reset))
+> +		return dev_err_probe(dev, PTR_ERR(ov32c4->reset),
+> +				     "failed to get reset gpio\n");
+> +
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(ov32c4_supply_names); i++)
+> +		ov32c4->supplies[i].supply = ov32c4_supply_names[i];
+> +
+> +	return devm_regulator_bulk_get(dev, ARRAY_SIZE(ov32c4_supply_names),
+> +				       ov32c4->supplies);
+> +}
+> +
+> +/* Ungate the main address, see OV32C4_COMPANION_ENABLE_REG. */
+> +static int ov32c4_companion_enable(struct ov32c4 *ov32c4)
+> +{
+> +	return cci_write(ov32c4->companion, OV32C4_COMPANION_ENABLE_REG,
+> +			 OV32C4_COMPANION_ENABLE_VAL, NULL);
+> +}
+> +
+> +static int ov32c4_power_off(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +
+> +	gpiod_set_value_cansleep(ov32c4->reset, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(ov32c4_supply_names),
+> +			       ov32c4->supplies);
+> +	clk_disable_unprepare(ov32c4->img_clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_power_on(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	int ret;
+> +
+> +	ret = clk_prepare_enable(ov32c4->img_clk);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to enable imaging clock: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov32c4_supply_names),
+> +				    ov32c4->supplies);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
+> +		clk_disable_unprepare(ov32c4->img_clk);
+
+This calls for a new label below.
+
+> +		return ret;
+> +	}
+> +
+> +	if (ov32c4->reset) {
+> +		gpiod_set_value_cansleep(ov32c4->reset, 0);
+> +		fsleep(OV32C4_RESET_SETTLE_US);
+> +	}
+> +
+> +	if (ov32c4->companion) {
+> +		ret = ov32c4_companion_enable(ov32c4);
+> +		if (ret) {
+> +			dev_err(dev, "the block at 0x%02x did not accept the enable write: %d\n",
+> +				ov32c4->companion_addr, ret);
+> +			goto err_power_off;
+> +		}
+> +		fsleep(OV32C4_ENABLE_SETTLE_US);
+> +	}
+> +
+> +	return 0;
+> +
+> +err_power_off:
+> +	if (ov32c4->reset)
+> +		gpiod_set_value_cansleep(ov32c4->reset, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(ov32c4_supply_names),
+> +			       ov32c4->supplies);
+> +	clk_disable_unprepare(ov32c4->img_clk);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ov32c4_set_format(struct v4l2_subdev *sd,
+> +			     struct v4l2_subdev_state *sd_state,
+> +			     struct v4l2_subdev_format *fmt)
+> +{
+> +	const struct ov32c4_mode *mode = &supported_modes[0];
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	s32 vblank_def, h_blank;
+> +	int ret;
+> +
+> +	ov32c4_update_pad_format(mode, &fmt->format);
+> +	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+> +
+> +	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+> +		return 0;
+> +
+> +	vblank_def = mode->vts_min - mode->height;
+> +	ret = __v4l2_ctrl_modify_range(ov32c4->vblank, vblank_def,
+> +				       OV32C4_VTS_MAX - mode->height, 1,
+> +				       vblank_def);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = __v4l2_ctrl_s_ctrl(ov32c4->vblank, vblank_def);
+> +	if (ret)
+> +		return ret;
+> +
+> +	h_blank = mode->ppl - mode->width;
+> +
+> +	return __v4l2_ctrl_modify_range(ov32c4->hblank, h_blank, h_blank, 1,
+> +					h_blank);
+> +}
+> +
+> +static int ov32c4_enum_mbus_code(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *sd_state,
+> +				 struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->index > 0)
+> +		return -EINVAL;
+> +
+> +	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_enum_frame_size(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *sd_state,
+> +				  struct v4l2_subdev_frame_size_enum *fse)
+> +{
+> +	if (fse->index >= ARRAY_SIZE(supported_modes))
+> +		return -EINVAL;
+> +
+> +	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
+> +		return -EINVAL;
+> +
+> +	fse->min_width = supported_modes[fse->index].width;
+> +	fse->max_width = fse->min_width;
+> +	fse->min_height = supported_modes[fse->index].height;
+> +	fse->max_height = fse->min_height;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_init_state(struct v4l2_subdev *sd,
+> +			     struct v4l2_subdev_state *sd_state)
+> +{
+> +	ov32c4_update_pad_format(&supported_modes[0],
+> +				 v4l2_subdev_state_get_format(sd_state, 0));
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_subdev_video_ops ov32c4_video_ops = {
+> +	.s_stream = v4l2_subdev_s_stream_helper,
+> +};
+> +
+> +static int ov32c4_get_selection(struct v4l2_subdev *sd,
+> +				struct v4l2_subdev_state *state,
+> +				struct v4l2_subdev_selection *sel)
+> +{
+> +	if (sel->pad != 0)
+> +		return -EINVAL;
+> +
+> +	switch (sel->target) {
+> +	case V4L2_SEL_TGT_CROP:
+> +		sel->r.left = OV32C4_CROP_LEFT;
+> +		sel->r.top = OV32C4_CROP_TOP;
+> +		sel->r.width = OV32C4_CROP_WIDTH;
+> +		sel->r.height = OV32C4_CROP_HEIGHT;
+> +		return 0;
+> +	case V4L2_SEL_TGT_NATIVE_SIZE:
+> +		sel->r.left = 0;
+> +		sel->r.top = 0;
+> +		sel->r.width = OV32C4_NATIVE_WIDTH;
+> +		sel->r.height = OV32C4_NATIVE_HEIGHT;
+> +		return 0;
+> +	case V4L2_SEL_TGT_CROP_BOUNDS:
+> +	case V4L2_SEL_TGT_CROP_DEFAULT:
+> +		sel->r.left = OV32C4_ACTIVE_LEFT;
+> +		sel->r.top = OV32C4_ACTIVE_TOP;
+> +		sel->r.width = OV32C4_ACTIVE_WIDTH;
+> +		sel->r.height = OV32C4_ACTIVE_HEIGHT;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static const struct v4l2_subdev_pad_ops ov32c4_pad_ops = {
+> +	.set_fmt = ov32c4_set_format,
+> +	.get_fmt = v4l2_subdev_get_fmt,
+> +	.get_selection = ov32c4_get_selection,
+> +	.enum_mbus_code = ov32c4_enum_mbus_code,
+> +	.enum_frame_size = ov32c4_enum_frame_size,
+> +	.enable_streams = ov32c4_enable_streams,
+> +	.disable_streams = ov32c4_disable_streams,
+> +};
+> +
+> +static const struct v4l2_subdev_ops ov32c4_subdev_ops = {
+> +	.video = &ov32c4_video_ops,
+> +	.pad = &ov32c4_pad_ops,
+> +};
+> +
+> +static const struct media_entity_operations ov32c4_subdev_entity_ops = {
+> +	.link_validate = v4l2_subdev_link_validate,
+> +};
+> +
+> +static const struct v4l2_subdev_internal_ops ov32c4_internal_ops = {
+> +	.init_state = ov32c4_init_state,
+> +};
+> +
+> +static int ov32c4_identify_module(struct ov32c4 *ov32c4)
+> +{
+> +	u64 chip_id;
+> +	int ret;
+> +
+> +	ret = cci_read(ov32c4->regmap, OV32C4_REG_CHIP_ID, &chip_id, NULL);
+> +	if (ret)
+> +		return dev_err_probe(ov32c4->dev, ret,
+> +				     "failed to read the chip id\n");
+> +
+> +	if (chip_id != OV32C4_CHIP_ID)
+> +		return dev_err_probe(ov32c4->dev, -ENXIO,
+> +				     "chip id mismatch: %x != %llx\n",
+> +				     OV32C4_CHIP_ID, chip_id);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_check_hwcfg(struct ov32c4 *ov32c4)
+> +{
+> +	struct v4l2_fwnode_endpoint bus_cfg = {
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> +	};
+> +	struct device *dev = ov32c4->dev;
+> +	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
+> +	unsigned long link_freq_bitmap;
+> +	int ret;
+> +
+> +	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
+> +
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+> +	fwnode_handle_put(ep);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
+> +
+> +	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+> +				       bus_cfg.nr_of_link_frequencies,
+> +				       link_freq_menu_items,
+> +				       ARRAY_SIZE(link_freq_menu_items),
+> +				       &link_freq_bitmap);
+> +	if (ret)
+> +		goto check_hwcfg_error;
+> +
+> +	/* v4l2_link_freq_to_bitmap() guarantees at least one bit is set */
+> +	ov32c4->link_freq_index = ffs(link_freq_bitmap) - 1;
+> +
+> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV32C4_DATA_LANES) {
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "number of CSI2 data lanes %u is not supported\n",
+> +				    bus_cfg.bus.mipi_csi2.num_data_lanes);
+> +		goto check_hwcfg_error;
+> +	}
+> +
+> +	ov32c4->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
+> +
+> +check_hwcfg_error:
+> +	v4l2_fwnode_endpoint_free(&bus_cfg);
+> +	return ret;
+> +}
+> +
+> +static void ov32c4_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_ctrl_handler_free(sd->ctrl_handler);
+> +	pm_runtime_disable(ov32c4->dev);
+> +	if (!pm_runtime_status_suspended(ov32c4->dev)) {
+> +		ov32c4_power_off(ov32c4->dev);
+> +		pm_runtime_set_suspended(ov32c4->dev);
+> +	}
+> +}
+> +
+> +static int ov32c4_probe(struct i2c_client *client)
+> +{
+> +	struct ov32c4 *ov32c4;
+> +	unsigned long freq;
+> +	int ret;
+> +
+> +	ov32c4 = devm_kzalloc(&client->dev, sizeof(*ov32c4), GFP_KERNEL);
+> +	if (!ov32c4)
+> +		return -ENOMEM;
+> +
+> +	ov32c4->dev = &client->dev;
+> +
+> +	ov32c4->img_clk = devm_v4l2_sensor_clk_get(ov32c4->dev, NULL);
+> +	if (IS_ERR(ov32c4->img_clk))
+> +		return dev_err_probe(ov32c4->dev, PTR_ERR(ov32c4->img_clk),
+> +				     "failed to get imaging clock\n");
+> +
+> +	freq = clk_get_rate(ov32c4->img_clk);
+> +	if (freq != OV32C4_MCLK)
+> +		return dev_err_probe(ov32c4->dev, -EINVAL,
+> +				     "external clock %lu is not supported\n",
+> +				     freq);
+> +
+> +	v4l2_i2c_subdev_init(&ov32c4->sd, client, &ov32c4_subdev_ops);
+> +
+> +	ret = ov32c4_check_hwcfg(ov32c4);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ov32c4_get_pm_resources(ov32c4->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ov32c4->regmap = devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(ov32c4->regmap))
+> +		return PTR_ERR(ov32c4->regmap);
+> +
+> +	/*
+> +	 * On the ACPI machines this sensor ships in, the main address only
+> +	 * answers after a write to the sensor's second address, listed as the
+> +	 * second I2C resource of _CRS (see OV32C4_COMPANION_ENABLE_REG). The
+> +	 * address is claimed here so that nothing else binds to it; the
+> +	 * platform's SSDB wrongly calls it a VCM, and ipu-bridge knows not to
+> +	 * instantiate one for this sensor.
+> +	 */
+
+I think you can assume it's always there, and not related to ACPI.
+
+> +	ov32c4->companion_addr = ov32c4_acpi_i2c_addr(ov32c4->dev, 1);
+> +	if (ov32c4->companion_addr) {
+> +		struct i2c_client *companion;
+> +
+> +		companion = devm_i2c_new_dummy_device(ov32c4->dev,
+> +						      client->adapter,
+> +						      ov32c4->companion_addr);
+> +		if (IS_ERR(companion))
+> +			return dev_err_probe(ov32c4->dev, PTR_ERR(companion),
+> +					     "failed to claim the second address 0x%02x\n",
+> +					     ov32c4->companion_addr);
+> +
+> +		ov32c4->companion = devm_cci_regmap_init_i2c(companion, 16);
+> +		if (IS_ERR(ov32c4->companion))
+> +			return PTR_ERR(ov32c4->companion);
+> +	} else if (ACPI_COMPANION(ov32c4->dev)) {
+> +		dev_warn(ov32c4->dev,
+> +			 "no second I2C address in _CRS, the sensor may not answer\n");
+> +	}
+> +
+> +	ret = ov32c4_power_on(ov32c4->dev);
+> +	if (ret) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to power on\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = ov32c4_identify_module(ov32c4);
+> +	if (ret)
+> +		goto probe_error_power_off;
+> +
+> +	ret = ov32c4_init_controls(ov32c4);
+> +	if (ret) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to init controls\n");
+> +		goto probe_error_v4l2_ctrl_handler_free;
+> +	}
+> +
+> +	ov32c4->sd.internal_ops = &ov32c4_internal_ops;
+> +	ov32c4->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	ov32c4->sd.entity.ops = &ov32c4_subdev_entity_ops;
+> +	ov32c4->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> +	ov32c4->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +	ret = media_entity_pads_init(&ov32c4->sd.entity, 1, &ov32c4->pad);
+> +	if (ret) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to init entity pads\n");
+> +		goto probe_error_v4l2_ctrl_handler_free;
+> +	}
+> +
+> +	ov32c4->sd.state_lock = ov32c4->ctrl_handler.lock;
+> +	ret = v4l2_subdev_init_finalize(&ov32c4->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to init subdev\n");
+> +		goto probe_error_media_entity_cleanup;
+> +	}
+> +
+> +	pm_runtime_set_active(ov32c4->dev);
+> +	pm_runtime_enable(ov32c4->dev);
+> +
+> +	ret = v4l2_async_register_subdev_sensor(&ov32c4->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to register subdev\n");
+> +		goto probe_error_v4l2_subdev_cleanup;
+> +	}
+> +
+> +	pm_runtime_idle(ov32c4->dev);
+> +
+> +	return 0;
+> +
+> +probe_error_v4l2_subdev_cleanup:
+> +	pm_runtime_disable(ov32c4->dev);
+> +	pm_runtime_set_suspended(ov32c4->dev);
+> +	v4l2_subdev_cleanup(&ov32c4->sd);
+> +
+> +probe_error_media_entity_cleanup:
+> +	media_entity_cleanup(&ov32c4->sd.entity);
+> +
+> +probe_error_v4l2_ctrl_handler_free:
+> +	v4l2_ctrl_handler_free(&ov32c4->ctrl_handler);
+> +
+> +probe_error_power_off:
+> +	ov32c4_power_off(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(ov32c4_pm_ops, ov32c4_power_off,
+> +				 ov32c4_power_on, NULL);
+> +
+> +#ifdef CONFIG_ACPI
+> +static const struct acpi_device_id ov32c4_acpi_ids[] = {
+> +	{ "OVTI32C4" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, ov32c4_acpi_ids);
+> +#endif
+> +
+> +static const struct of_device_id ov32c4_of_match[] = {
+> +	{ .compatible = "ovti,ov32c4" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ov32c4_of_match);
+> +
+> +static struct i2c_driver ov32c4_i2c_driver = {
+> +	.driver = {
+> +		.name = "ov32c4",
+> +		.pm = pm_ptr(&ov32c4_pm_ops),
+> +		.acpi_match_table = ACPI_PTR(ov32c4_acpi_ids),
+> +		.of_match_table = ov32c4_of_match,
+> +	},
+> +	.probe = ov32c4_probe,
+> +	.remove = ov32c4_remove,
+> +};
+> +module_i2c_driver(ov32c4_i2c_driver);
+> +
+> +MODULE_DESCRIPTION("OmniVision OV32C4 sensor driver");
+> +MODULE_LICENSE("GPL");
+
 -- 
-2.43.0
+Kind regards,
 
+Sakari Ailus
