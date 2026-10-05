@@ -1,105 +1,97 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC4F3F4841
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 08:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61A2370D7C
+	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 08:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189407; cv=none; b=aANeI0JaBRmd5G45B1BmveX24TKkjloAp1o1wd6rGGV3Qn/Bb4hB/8ZBr/Q1aUXm5XE7o9xUQpSinGB/FrmsQtyAmMyOkhg6/W6yBB1hdDosHkQOv20IhvhVtHp62Hdrh7J4DHaiEUmWjhbQcB9xCcReFLEuNsYeMfMviMu9aHk=
+	t=1791190439; cv=none; b=TyfgboT2QIdCsS1o+nI4prZrdHq/3stFtlOEjcuq8OvPieEu6MInV7vZaWIw9yVUrv9u4nw7pg1X6rauKm/7ut/cCzhjUnrgjMQ5LOWeR7aoCzWkdNxMzqP9d+gK5VHESRxheFv8tvifl7NWZAOSjxb9ckBCXQNx1OeaaoqeUWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189407; c=relaxed/simple;
-	bh=xVWhoI1lNUOU6HwKrdL16M8Wcy17FpNv6JjlWtBiFHw=;
+	s=arc-20240116; t=1791190439; c=relaxed/simple;
+	bh=pYKbb9UXC1JXT2n3550Q9wl1CVm2XMWNl38H+mqjS84=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d3eIeFnJd0B0L2h0olEbMxrXpCRFKTfUE8+RGlYb1H9gEpGXFNfPpkQTrb+kQTY7BVx042RuaiwyyEJ/HXPXTJR7qXdRJ2p72EnAYyNk/TykPsdz8kt3mHsyTorkHg4SS54ffvTEj7KSCd+r9UbWY3Q5IhEGDH7I6ZfKpGcVzng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3Rn2Sw4; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version:Content-Type; b=FUooaWVr7wVBFuqryuYlt3QzDO0mtEPfCDz5WM4V5rIIpj68dDh0XhbDk3zFYbJbsdLIZjGI34zjNHXetvBCNkoM+TnW44NThRuKqIgNTwUp7ALbB0GMIEt57D7K6zaNWRocNpF1xuHcU/OAMyHK5qALZcButmgnRbJkvdm3N6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kFJjMdD8; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3Rn2Sw4"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso13916085e9.1
-        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 01:36:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kFJjMdD8"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso1224922f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 01:53:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791189405; x=1791794205; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
-        b=W3Rn2Sw4fmV+JEy9l/LRs2sdd2M0OqA85K9pcdruSRtQPUX24/Ozxpm8GgMKHXs33a
-         NrlEVeJs/iUdXLZJ83eYePucLoiUh0Xxb0x9JRDqw8ZVD901Ysgx2/vLRjIFdaJaaKEk
-         4HIgirjGIjg6apKmmRYHHrq+eu6F+9B8AMBX0U3Mh57Sr3DtMdZ6Mqm87iLV29IhYkb7
-         aCG1mF+3RR6UFyMbcglHEdXvw0AArduKougLV4enqRdQQFX6fTCHzyZtr4YKxzpPaNjr
-         ta8EkiHk4Glpj2pccjkqrsS72Hn4mxanb30SZeBmYoSpweZf1cljOlMhxZE5RlAZvICk
-         7Erw==
+        d=gmail.com; s=20251104; t=1791190436; x=1791795236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pYKbb9UXC1JXT2n3550Q9wl1CVm2XMWNl38H+mqjS84=;
+        b=kFJjMdD8Hw0TiGl9zBCi2ImEG5r24eryk3O6hdBzUvwwMuf6a/4LxKk7e3EKO7o8q3
+         aY8b2SLbDmc8BQyo+mtdAvkGn42wQLt+fTUg4w/JnvwUZUpwLHydtO+EyyQm8IUKz5zk
+         O7pC2G2QoK4lCnSiuXxrmgBGH+cpEQo5E38RfdxzlH8rGa+h9/v5krCL8FEUZ0O3Uy5O
+         ZEzKv2bBWyybuYjMBlxIpDRjbhR1v2V3otoxu2FsBC/45xgvuOiCH2P6hmzjfnTpKHPb
+         LRIdmN2HwLthXK4k53TjxJH6nBL+Rbb0v4o0ByxZyJVeO/8db/vshhAXnJGt2THa11w8
+         aB2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791189405; x=1791794205;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
-        b=MjGXZNj3I6SoI4NI2XxTypRSTEC7AztpvYf6UpTal0+Z6aWopMs/e3bS4baLl45t1w
-         TjPkD6dQbkDfXYlVG/N82w1ANTwrdYvGuomvdiG6BMQFUbDPOtUsDdLpXuban9MQM1eD
-         wKqtuTu0j6z6SmwV2542zbMPdRnfKqZjIaQFXkwRNa+y6lskvEv18xQmrrp9TjrEhMGx
-         dBKfoxEEVTcTyTywlT28ZbJDHbJEEs5fTHNqiZDIrDUsg4qPqXLjF21W3GZWlDC8jnai
-         9plEPOXtNp899jW87YVZ6UyEiRIdCy4GC67La4VHFsz98DlmYr+UjGBJIlZ25gDhyFqs
-         xauQ==
-X-Gm-Message-State: AFuF++nyvMPY7QE1FyZhz1Tfg2LNef5knTJFxvVHEPeL5FkklhYQ1lNm
-	rJ37EkuLyoisgAKHLGsajViBIM7efw5mq1XFuw5ojwDtmRukkIwxySFE
-X-Gm-Gg: AYBFou3zIHWYpUrIMluV7qu7t5tuICp0p6ih1FayY+ItiFFZIR/DFwW1jLGNZ8KWhGj
-	wg3XMdlgx/x/UGyhfird3M95MWS/OQpKbD86sH531QLGC9yZIrC0VOYPt4rc/7/MswK6buTy+pP
-	fiBXr7zYHu83zrnavO/ifpNxx4zJpayVACL89eOQUQAP38FagJGXIXCHmq49zpyVCDJawLlnbrd
-	CmGZfqKKqw2Vyw94m/oIarufRfBxwdKJrs/PZzeOIXKkbNwDzgbo7Fy2itumMPhOIzXKmaVDa4T
-	7KtIRSdeoBP6egyuzEdIgy5CjWYrc9t1hzshgz9uqQAB9oy6pXMUynJGNfwgJGziDkvPcnpdmIA
-	Zy3kmiWyZ4e4PBX2ChH0OWRx35MA10C0mrnt34tLuzuYCfjSyRPTlcTlH6Z2AZK/A5M4HV/ieRg
-	u3aIuIrV+BBsC7es55AzZ6w09NWrEdcx2fIYbpTBJ0hw+PqNJnDRPDLhMCvdktCqi5CUt4z2HcG
-	K9tiG3AA4Q4Z15t/vOrawGYUbOeoJa79emgK8YgiDWN4cDKBJFd4G+zgU3Go0B+kC4KsUz03l9P
-	RawbJ+XwUOCtP/usBo5Bi7i5lw==
-X-Received: by 2002:a05:600c:a010:b0:4a0:251f:a726 with SMTP id 5b1f17b1804b1-4a02759badbmr163677825e9.24.1791189404503;
-        Mon, 05 Oct 2026 01:36:44 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16620dbdfsm219210615e9.0.2026.10.05.01.36.43
+        d=1e100.net; s=20260707; t=1791190436; x=1791795236;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pYKbb9UXC1JXT2n3550Q9wl1CVm2XMWNl38H+mqjS84=;
+        b=fG+fcXL+Or4X0flPyHurEkwgHFnOxYWtKb1C3hyLvw9zHQlUDMvk9qH3Pg2BuJkKMj
+         GPBdpmWPZM5CZLTAu49gDJXPkXLdOQqdalTPyvPdtv16Maoq4ge/X8Yd1SX24hdtfGlT
+         tkzl4pGv2+v3AjlJLK7qCm8E2s78dcpdDDp7KKwUABFEkF/TLMP8aNoMaaCb2Rt5WQXL
+         3eSwNs2xshtvnJkyLHn03OIDGsinN7SJxzInigdI5HltCbFUx0+HAT/nmUzekV9zRYJ5
+         NU/slZ2z+4Q39gCprSAd+oAkkZ5qF3ooZke00czvyndrMrtmJ2thQJleUOVZ6ck5yDLF
+         s8ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwvOBbb3cxwvtVgpmh0bdXBhVctsHP1Qr/AjWxPiqDLvB7JWaFw32btE8+5eVhk6pLyAIE+B6zFPl21cg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFcUPtPUdMtMSlyTLcpjNHwuiNiPMgP6mxpuN0So13DpDP1VlN
+	kpsiQuAmF+yReREMltu6QgBijSHzkfomV7p4LbNd82t+LXQ3PamXaJh1BL44FJyv
+X-Gm-Gg: AYBFou2ZyDBr+UNQZy3cfmQ3MTaDc2meLcJxzi6B9BbzUNn3cwGRIUTZdsOtXFTAogB
+	Oe9DCQjnFr1jxYEvhymvFbPwvFCBi+dcLMDhlIunA5TCencGK777tW/QhUiqpW3wrIL0LATyMEF
+	WZnK4AJAqXR7K7B9BACC+lJkz1Fwwg9e5GQnQgMTdTRoxHBOBgefiX9OTBwMi47xSbge/FjARuF
+	BiBn6id07+BYToJbuNj5/IZ5m1S1kcNVSJnJIi/CqoYBv1fa5LBuTHWkDklJSNmqRbgZ85jXoae
+	x85AMtj+ceJgxt9G1EqK0QdVe1gkJ9FXoJQHM7jz0URObCiOZZtFHjbK94jznuZQs+dB8RlUlfk
+	Kju07vWmsrtK8R97jAnbeaUyIogsrLhbq2gZSTFHmxPcvnWQmhXCgYlXIA79gkUQqepby0oZVa2
+	EGqDqwjzm/2wwlQpENm7Ad/bZl1q2F0ZsLUA1yHh83GmTO9xZazD7nTeCtJ930LYeWgMqdD4tyl
+	lLEyw==
+X-Received: by 2002:a05:6000:200e:b0:488:8411:1d08 with SMTP id ffacd0b85a97d-48c4801c7f9mr10007975f8f.48.1791190435824;
+        Mon, 05 Oct 2026 01:53:55 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.11])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48c6228d716sm2371333f8f.24.2026.10.05.01.53.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 01:36:43 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org,
+        Mon, 05 Oct 2026 01:53:55 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Pierre Pinon <pierre@pinon1.fr>
+Cc: hansg@kernel.org,
+	jason.z.chen@intel.com,
+	jimmy.su@intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
 	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	conor.dooley@microchip.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Date: Mon,  5 Oct 2026 10:36:42 +0200
-Message-ID: <20261005083642.11511-1-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-2-robertbozik@gmail.com> <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
+	sakari.ailus@linux.intel.com
+Subject: Re: [PATCH v2] media: i2c: ov08x40: Implement get_selection
+Date: Mon,  5 Oct 2026 10:53:46 +0200
+Message-ID: <179119035557.32442.16855854917692483516@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261005081529.45697-1-pierre@pinon1.fr>
+References: <20261005081529.45697-1-pierre@pinon1.fr>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Sakari,
+On Mon, Oct 05, 2026, Pierre Pinon wrote:
+> With your Yoga feeding the sensor into CAMSS, I assume there is no such
+> vision chip in between, which would explain why the mode works there.
+> Is that right?
 
-On Mon, Oct 05, 2026 at 11:11:46AM +0300, Sakari Ailus wrote:
-> On Mon, Oct 05, 2026 at 09:10:08AM +0200, Robert Bozik wrote:
-> > +  reg:
-> > +    maxItems: 1
-> 
-> minItems should be 2 here, for the always-on client.
+Yes, as far as I can tell. The sensor sits on a CCI bus and its two
+lanes go straight to CSIPHY4 of CAMSS, nothing in between. The binned
+1928x1088 mode streams fine here and is what a 1080p request ends up
+using.
 
-Yes - will do in v5: two entries, the sensor and the always-on block,
-with the example as reg = <0x36>, <0x3e>. The driver will take the
-second address from reg on DT and keep the _CRS lookup for ACPI, and
-fail probe when there is none, now that the binding requires it. I'll
-drop Conor's ack since the binding changes.
-
-I can compile the DT path but have no DT platform to run it on; the
-ACPI path is what I can test.
-
-Thanks,
-Robert
+Oleg
