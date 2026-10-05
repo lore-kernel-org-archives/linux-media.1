@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCDF4D90DE;
-	Mon,  5 Oct 2026 17:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248764D9F74;
+	Mon,  5 Oct 2026 17:16:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220575; cv=none; b=KC7+nz2b4AJaoc9cW4cmaZFf4K7v+9x1lXUcTKeI+ufuLR4z8SwjEyPyDBb95v5dl19CSKNgJzrlWKW6x8gmQWRMFTnziQS3lzKV08TPYL2RUE1eMMaNGTDOB/ZhaaGqLWQtaRu+ZaaED18bsjzGzrlmwiLyfKoE992Oop18ZVE=
+	t=1791220578; cv=none; b=sQuxI6Gryk4N1HWelhwMbISdjicI18IX8ogBvgRuf/w4/cWBEuZVLgZsRjNFs/tZ/+vNHKg9Frlu/ptXXLEkYQseHeU+luGxxUFfUcq71tFRKzKyvG0Iz/+kdx1iu/k/xqBB/TloJyiP73aM4wsTI6P/9YwBZ1ULFuXGEoiElBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220575; c=relaxed/simple;
-	bh=WX/7UlzNPZyY5LZqYAmovxqpm7JL4YPistaGCcwSJek=;
+	s=arc-20240116; t=1791220578; c=relaxed/simple;
+	bh=jJgmEy5Dd0Kq7Bqe3zrV5h8ILpY7x0Jfm6I6iGuaD2s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b8TUSs0bzX++sXmn1orLOnwTFxh7rGhuBNmOABFf2FQI5b7Y1WGD2bC5YzziIrqmi29NAKKDrHDBx996j5t0BUnnNru5WfiFOLBw9ATP9UYy7IOyK2IL++92L4O3415LfcXXDYmDbAOWEmf313mqWxDJvzExUfaIEc7NegWyIXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+Vh6oGP; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=e2ZBGwIHjrL1/ZObOSQY9jZ9QoCu5A+SmiI8G6FiuwoskuLqsvT5lW1oCzqR8Mct3rHLyODfU2oJ1QUDkYyEcZczeDIy2Sb7NC3T+02l7ECW2licQIwypKoc3pNwo2WreCFwou13yW+ZMZ9oay3eUTlDHXQQrMyu9iv6cRu+Bps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2YHMbhQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+Vh6oGP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A061F000FF;
-	Mon,  5 Oct 2026 17:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2YHMbhQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA901F00893;
+	Mon,  5 Oct 2026 17:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220573;
-	bh=veFGkuCJHr2qLBukOS4BoWp/zHJhP3HQl60FbCT/Sn4=;
+	s=k20260515; t=1791220576;
+	bh=6y3rn324KPbMKcs26RZMeG8NIFbzip7gMbEdU/OqkxU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=a+Vh6oGPHAAk8NEQd/BfZeB1hvLhoZAVrFLSDTKJTs2vfL5CGJ4qphDO+dsvnngkU
-	 DqtSf+JdwUbbDZKXna/PsqO+dIwYdJOl4jtjHcV/tcBC1eeaMuMLIQwL9aATWO9p75
-	 1PmpV60F5bip3ghk4hY8z9QuluuI/vitQ0ixFx0S+swpayEKs0nrHdsJkPBehUobS3
-	 t+Qj5S5lReT2Sa41d/sR886BU3ZtqiQFON2boHj4iREy5MfKnXP8rbWLCQadGwl7Wk
-	 rUGVcA095prQ6zpFUCLTFVLW+75ycTMYswS2vNX0FRZUB5wY0WRpZb2OVKDaF1ZiKc
-	 FM8tHk8pYwowg==
+	b=C2YHMbhQ4GZujxhc3Vj08OOmbkSHPZe6k8Ep+dYw+aMNKGdtyBfksEj6RfB+EIxFg
+	 0ZCjNMlfjOXLIz8i63UpRGOgMIN7AgkY5JqvHEU2W9Waio1yuYdS7dU8PdYP4Ndp3e
+	 ybNVZ2XFvc2jU0lySV2+JNLh8SK12dwavQHpk6Onksda+b9OcY37f+5i5VnDlRUzbN
+	 AUWT2kLikjBsehET75bpUd57nVHOiEFzdZ7Al8/vR1PvholGJq9I6vxlt+Wp6d0Ygt
+	 FaO+HozoVhbl1GUwtSLd5TzBc92B0bt2R8OlavM83WT4xsO74T4GflkPh51iKc96N0
+	 /b2c5s0Cvjbog==
 From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:13:39 +0200
-Subject: [PATCH 09/74] media: uapi: Add CAMSS ISP configuration definition
+Date: Mon, 05 Oct 2026 19:13:40 +0200
+Subject: [PATCH 10/74] media: Documentation: uapi: Add qcom-camss ISP
+ params documentation
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -36,8 +37,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-9-ed985aefd611@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-10-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -54,256 +55,218 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8540; i=bod@kernel.org;
- h=from:subject:message-id; bh=hsUT8SGygLRjym6lXKe3jSuVqlzN+37plgukrihEslk=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sHfK2s7O8BR2OmVotfDSkEHQnDxVF2b4yqM
- D4E5tzsIIGJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbBwAKCRAicTuzoY3I
- OisBD/9p4VoIq1vG4fIjIN13bJ0ub0io+qzC4iFtzw+dX1WYZxCyOlaieXvk4lR0uoRQU86fIsT
- 0BPGfP2bAolmDOwZIO49t6tkwDYG0QfBd1q0/8dDYe2SfsZ9jafmshxV0Yp/I9HZEX9Ab1DOYvD
- Fg7bh2vSOjopii1EAt6ii+eKz32pjLu6DD9X+Ac27S8XLS0e/7pSf8r/sfL0fK9ZYEnfmDg99b3
- VJikeSq6mUYKmfXCDtIkJvjBMZkvs8BchVmaJhrv28Qe6yx68E02cLPJ7m5Qrc2dHWogrw+s8CP
- Kzuj6FXTOgIx6cqsd4y79+JjyZNut3fpVhYQmvW5EBn2sDe0eyQA0iukaWOCqDikIUrBZOBqvK6
- iEb8pE/2jbMH3mJ6kiM3GDsm4syvbk71mygEF6Mc28d0F/LqvDNHD4GMjEirMLGufNEgCNtswV/
- m+TINijqUpdTFOewa360tZ4KLG/M0ePnC5WzNhpuXiGV1wWBaay9dgpkimoz4aFJQgzPW25sSYN
- 6K9lOq7aFO+fHJkutZj8MKMSc3QC4G6Nq5NcfMVhYcmoGrT5tQuHDDU3izPI1YG1aJzV6j21s8w
- J9xLxw1tPKY/i640nKhMF2l7/a1sKwoZOT2xosSOpnImOV54pvvVWPppRBSnmze+Lw0Fk9sZpxt
- M2OVyvcEO7+DDyw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8105; i=bod@kernel.org;
+ h=from:subject:message-id; bh=7Dy1AH3molk7yiHPHFcMsw9tnNfk+Dknq29Dyio8H80=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sHxoDjAyYrKc9j1Evq1WlfVydQYkW3EDF7V
+ s48Jl7OViOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbBwAKCRAicTuzoY3I
+ OhxyD/4poKrnFy2aoVd/eTfr8rA3uWOpUwjhz8THzvOu5D6kwpRyOjMxJPUTd73YRLGtXDaOV24
+ 2HzzR/EnpFJLWC6LJKvcL0qHp0034PPeOzoGBWGWf5VB2T0fXLqjhwTbWkjmUZv7o3PHTzhRuar
+ 2cZ07Mg3blkaInitAp9YhkPsc+YICFYsd7k2XN2lT2n3qYvjgnrcfCP/XUnT546vc1fvCRk8Pe5
+ p1AxExtEAUyVU2kod5m7qGJ4rOWdSxbjWsFaaoAs/i0DbA6FzrjD8diPKumTHoU646ydiBxDMZA
+ K4pDc4dEvjxmg6/anxvZKDOEWrUvoq8X+sGJ+LpAeOus6ic9nvVOsfLp26PsxUUijk9XsPKZTB6
+ VjP5pbY14DflwxvgMP1lpgIysvZpj0BST4d6qhZRX3xu9gJkmpBfBQ1MQKS2ND/QFtPyyvthyRH
+ MZhgZANeQmdx4Nc+dxWHwf4YLQlaAW2ALHYdYasCtl/EhzbZzdTWVq0mGEi1YfOzwcyMD8kC3tv
+ x8frscdg9XmOAOH8UqrTGBhuJxvp4PGgp2aGiUso/KM8Icvol8nAlB34xsgWLoeCEf9RDLNl4xZ
+ wuTaa+oghrk75fxpf7wF5iqf9qQc6YEDBK0JjIVfSWuaD4DjMhw9OqcuVvDpHCaDzf49eysTqAR
+ OR9S+yRQmCBOIHw==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Add the uapi header qcom-camss-config.h defining the ISP parameter
-structures used by the CAMSS Offline Processing Engine (OPE) driver.
-This includes structures for white balance, chroma enhancement and
-color correction configuration.
-
-The block type enum is shared across CAMSS ISPs so that userspace only
-has to deal with a single set of block identifiers.
+Add documentation for the Qualcomm CAMSS ISP parameters metadata format
+(V4L2_META_FMT_QCOM_ISP_PARAMS). The format is built on the V4L2
+extensible ISP parameters system, with per-block structs defined in the
+qcom-camss-config.h uAPI header, and is designed to be shared by any
+CAMSS ISP engine exposing a parameters metadata output video node. The
+Offline Processing Engine (OPE) ope_params node is the first consumer,
+with additional engines expected to add their own parameter blocks in
+the future.
 
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- include/uapi/linux/qcom-camss-config.h | 212 +++++++++++++++++++++++++++++++++
- 1 file changed, 212 insertions(+)
+ .../userspace-api/media/v4l/meta-formats.rst       |   1 +
+ .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 147 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ 3 files changed, 149 insertions(+)
 
-diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
+diff --git a/Documentation/userspace-api/media/v4l/meta-formats.rst b/Documentation/userspace-api/media/v4l/meta-formats.rst
+index 3e0cab153f0ac..1b39bb844cbba 100644
+--- a/Documentation/userspace-api/media/v4l/meta-formats.rst
++++ b/Documentation/userspace-api/media/v4l/meta-formats.rst
+@@ -20,6 +20,7 @@ These formats are used for the :ref:`metadata` interface only.
+     metafmt-intel-ipu3
+     metafmt-pisp-be
+     metafmt-pisp-fe
++    metafmt-qcom-isp
+     metafmt-rkisp1
+     metafmt-uvc
+     metafmt-uvc-msxu-1-5
+diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
 new file mode 100644
-index 0000000000000..aa3d97cfcc78e
+index 0000000000000..2f3654a9ba897
 --- /dev/null
-+++ b/include/uapi/linux/qcom-camss-config.h
-@@ -0,0 +1,212 @@
-+/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-+/*
-+ * Qualcomm CAMSS ISP Driver - Userspace API
-+ *
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
++++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
+@@ -0,0 +1,147 @@
++.. SPDX-License-Identifier: GPL-2.0
++.. c:namespace:: V4L
 +
-+#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-+#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
++.. _v4l2-meta-fmt-qcom-isp-params:
 +
-+#include <linux/types.h>
-+#include <linux/media/v4l2-isp.h>
++**************************************
++V4L2_META_FMT_QCOM_ISP_PARAMS ('QCIP')
++**************************************
 +
-+/**
-+ * enum camss_params_block_type - CAMSS ISP parameter block identifiers
-+ *
-+ * Each value identifies one ISP processing block.  The value is placed in
-+ * the @type field of &struct v4l2_isp_params_block_header.
-+ *
-+ * @CAMSS_PARAMS_WB_GAIN: white balance gains and offsets (CLC_WB),
-+ *	&struct camss_params_wb_gain
-+ * @CAMSS_PARAMS_CHROMA_ENHAN: RGB to YUV colour transfer matrix
-+ *	(CLC_CHROMA_ENHAN), &struct camss_params_chroma_enhan
-+ * @CAMSS_PARAMS_COLOR_CORRECT: colour correction matrix (CLC_CC),
-+ *	&struct camss_params_color_correct
-+ * @CAMSS_PARAMS_GAMMA: per-channel gamma correction curves (CLC_GLUT),
-+ *	&struct camss_params_gamma
-+ */
-+enum camss_params_block_type {
-+	CAMSS_PARAMS_WB_GAIN = 1,
-+	CAMSS_PARAMS_CHROMA_ENHAN = 2,
-+	CAMSS_PARAMS_COLOR_CORRECT = 3,
-+	CAMSS_PARAMS_GAMMA = 4,
-+};
++Configuration Parameters
++========================
 +
-+/* Number of entries in each gamma channel LUT. */
-+#define CAMSS_GAMMA_LUT_SIZE	256
++The ``V4L2_META_FMT_QCOM_ISP_PARAMS`` format carries image processing
++configuration for the ISP engines found in the Qualcomm Camera Subsystem
++(CAMSS). It is passed to a metadata output video node using the
++:c:type:`v4l2_meta_format` interface.
 +
-+/**
-+ * struct camss_params_wb_gain - White Balance gains
-+ *
-+ * Implements the CLC_WB pipeline module.  The pipeline applies three
-+ * sequential operations per channel:
-+ *   1. Subtract sub-offset (black-level subtraction)
-+ *   2. Multiply by gain    (colour balance)
-+ *   3. Add add-offset      (output pedestal)
-+ *
-+ * Gains are 15uQ10 (15-bit unsigned, 10 fractional bits). Offsets
-+ * are 16-bit unsigned, normalised to full input scale (65535 = 1.0)
-+ *
-+ * @header:   block header; @header.type = CAMSS_PARAMS_WB_GAIN
-+ * @g_gain:   green channel gain (15uQ10, 1024 = 1.0)
-+ * @b_gain:   blue  channel gain (15uQ10, 1024 = 1.0)
-+ * @r_gain:   red   channel gain (15uQ10, 1024 = 1.0)
-+ * @g_sub:    green sub-offset, subtracted before gain (16u)
-+ * @b_sub:    blue  sub-offset, subtracted before gain (16u)
-+ * @r_sub:    red   sub-offset, subtracted before gain (16u)
-+ * @g_add:    green add-offset, added after gain (16u)
-+ * @b_add:    blue  add-offset, added after gain (16u)
-+ * @r_add:    red   add-offset, added after gain (16u)
-+ * @_pad:     padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_wb_gain {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 g_gain;
-+	__u16 b_gain;
-+	__u16 r_gain;
-+	__u16 g_sub;
-+	__u16 b_sub;
-+	__u16 r_sub;
-+	__u16 g_add;
-+	__u16 b_add;
-+	__u16 r_add;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
++Rather than a single struct containing sub-structs for each configurable area
++of the ISP, parameters use the :ref:`v4l2-isp` parameters system, through which
++groups of parameters are defined as distinct structs or "blocks" which may be
++added to the data member of :c:type:`v4l2_isp_params_buffer`. Userspace is
++responsible for populating the data member with the blocks that need to be
++configured by the driver. Each block-specific struct embeds
++:c:type:`v4l2_isp_params_block_header` as its first member and userspace must
++populate the type member with a value from :c:type:`camss_params_block_type`.
++Populated blocks must be placed consecutively in the data member, and the
++combined size of all populated blocks must be set in the data_size member of
++:c:type:`v4l2_isp_params_buffer`.
 +
-+/**
-+ * struct camss_params_chroma_enhan - RGB to YUV colour transfer matrix
-+ *
-+ * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
-+ * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
-+ *
-+ * RGB2Y - Luma (Y) coefficients
-+ * Y = v0 * R + v1 * G + v2 * B
-+ *
-+ * @luma_v0:  R-to-Y coefficient (12sQ8)
-+ * @luma_v1:  G-to-Y coefficient (12sQ8)
-+ * @luma_v2:  B-to-Y coefficient (12sQ8)
-+ * @luma_k:   Y output offset    (9s,  0 = no offset)
-+ *
-+ * RGB2Cb - Chroma (Cb) coefficients
-+ * Cb = a x ((B - G) + b(R - G)) + KCb
-+ * with:
-+ *   a = ap, when (B-G) + b(R-G) > 0; a = am, when (B-G) + b(R-G) ≤ 0;
-+ *   b = bp when (R-G) > 0; b = bm when (R-G) ≤ 0
-+ *
-+ * @coeff_ap: Cb positive coefficient (12sQ8)
-+ * @coeff_am: Cb negative coefficient (12sQ8)
-+ * @coeff_bp: Cb positive coefficient (12sQ8)
-+ * @coeff_bm: Cb negative coefficient (12sQ8)
-+ * @kcb:      Cb output offset        (11s)
-+ *
-+ * RGB2Cr - Chroma (Cr) coefficients:
-+ * Cr = c x ((R - G) + d(B - G)) + KCr
-+ * with:
-+ *   c = cp, when (R-G) + d(B-G) > 0; c = cm, when (R-G) + d(B-G) ≤ 0
-+ *   d = dp when (B-G) > 0; d = dm when (B-G) ≤ 0
-+ *
-+ * @coeff_cp: Cr positive coefficient (12sQ8)
-+ * @coeff_cm: Cr negative coefficient (12sQ8)
-+ * @coeff_dp: Cr positive coefficient (12sQ8)
-+ * @coeff_dm: Cr negative coefficient (12sQ8)
-+ * @kcr:      Cr output offset        (11s)
-+ *
-+ * @header: generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
-+ * @_pad:   padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_chroma_enhan {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 luma_v0;
-+	__u16 luma_v1;
-+	__u16 luma_v2;
-+	__u16 luma_k;
-+	__u16 coeff_ap;
-+	__u16 coeff_am;
-+	__u16 coeff_bp;
-+	__u16 coeff_bm;
-+	__u16 coeff_cp;
-+	__u16 coeff_cm;
-+	__u16 coeff_dp;
-+	__u16 coeff_dm;
-+	__u16 kcb;
-+	__u16 kcr;
-+	__u16 _pad[2];
-+} __attribute__((aligned(8)));
++The set of supported blocks depends on the CAMSS engine consuming the buffer.
++The block definitions themselves are shared across CAMSS ISPs; currently the
++Offline Processing Engine (OPE) is the only engine consuming them, through its
++``ope_params`` metadata output video node. Additional engines and blocks may be
++added to this format in the future.
 +
-+/**
-+ * struct camss_params_color_correct - colour correction matrix
-+ *
-+ * Implements the CLC_CC pipeline module.  The matrix computes:
-+ *   Out_ch0 (G) = a0*G + b0*B + c0*R + k0
-+ *   Out_ch1 (B) = a1*G + b1*B + c1*R + k1
-+ *   Out_ch2 (R) = a2*G + b2*B + c2*R + k2
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_COLOR_CORRECT
-+ * @a:       G-input coefficients per output channel (12s;
-+ *           a[0]=Out_G, a[1]=Out_B, a[2]=Out_R)
-+ * @b:       B-input coefficients (12s)
-+ * @c:       R-input coefficients (12s)
-+ * @k:       per-output-channel offsets (typically 9s effective)
-+ * @qfactor: Q-format selector (2u):
-+ *           0 = 12sQ7  (range ~-16.0 .. +15.992)
-+ *           1 = 12sQ8  (range  ~-8.0 ..  +7.996)
-+ *           2 = 12sQ9  (range  ~-4.0 ..  +3.998)
-+ *           3 = 12sQ10 (range  ~-2.0 ..  +1.999)
-+ * @_pad:    padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_color_correct {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 a[3];
-+	__u16 b[3];
-+	__u16 c[3];
-+	__u16 k[3];
-+	__u16 qfactor;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
++A block carrying ``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE`` bypasses the
++corresponding hardware module. Any other block updates the module's
++configuration and leaves it enabled. Blocks omitted from a buffer keep their
++previously programmed configuration and enable state; until userspace submits
++a block for a given module, the driver's default configuration applies.
 +
-+/**
-+ * struct camss_params_gamma - per-channel gamma correction curves
-+ *
-+ * Implements the CLC_GLUT pipeline module, applied in the RGB domain.  It
-+ * holds one independent lookup table per colour channel. Each table is a
-+ * direct (not segmented) map of input level to output level.
-+ *
-+ * Each table has @CAMSS_GAMMA_LUT_SIZE (256) entries of 16-bit unsigned
-+ * output. The number of significant output bits follows the width of the
-+ * engine's internal bus; the upper bits are ignored by the hardware.
-+ *
-+ * The module maps a 12-bit input to an 8-bit output: the top 8 input bits
-+ * index the table and the low 4 bits are used to linearly interpolate
-+ * between adjacent entries. Entry i therefore represents the output for
-+ * input level i/255 of full scale.
-+ * Output range: 0x00 = black, 0xFF = white.
-+ *
-+ * How to fill a curve (same on all three channels for pure luminance
-+ * gamma; different curves per channel additionally shift colour balance):
-+ *
-+ *   Identity (pass-through, gamma 1.0):
-+ *     lut[i] = i;                                // i = 0..255
-+ *
-+ *   Encode with gamma g (e.g. sRGB-like, g = 2.2):
-+ *     lut[i] = round(pow(i / 255.0, 1.0 / g) * 255.0);
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_GAMMA
-+ * @glut:    green channel gamma curve
-+ * @blut:    blue  channel gamma curve
-+ * @rlut:    red   channel gamma curve
-+ */
-+struct camss_params_gamma {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 glut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 blut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 rlut[CAMSS_GAMMA_LUT_SIZE];
-+} __attribute__((aligned(8)));
++OPE processing pipeline
++=======================
 +
-+#define CAMSS_PARAMS_OPE_MAX_PAYLOAD		\
-+	(sizeof(struct camss_params_wb_gain)	+\
-+	 sizeof(struct camss_params_chroma_enhan)	+\
-+	 sizeof(struct camss_params_color_correct)	+\
-+	 sizeof(struct camss_params_gamma))
++The OPE is a memory-to-memory engine that reads a Bayer RAW frame from its
++``ope_input`` node and writes a YUV frame to its ``ope_disp_output`` node. The
++parameter blocks configure fixed-function hardware modules that the frame data
++passes through, in the following order:
 +
-+#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
++.. code-block:: none
++
++	 Bayer RAW in            RGB domain                      YUV domain      YUV out
++	 (8/10-bit)   +------+   +------+   +------+   +------+   +------+   +------+   (NV12/NV16/
++	  ----------> |  WB  |-->| DEMO |-->|  CC  |-->| GLUT |-->|CHROMA|-->| DSC  |----------->
++	              +------+   +------+   +------+   +------+   |ENHAN |   +------+    NV24/GREY)
++	                                                         +------+
++
++The stages, and the parameter block that configures each one, are:
++
++.. flat-table:: OPE pipeline stages
++    :header-rows: 1
++    :stub-columns: 0
++
++    * - Stage
++      - Module
++      - Parameter block
++      - Function
++    * - WB
++      - CLC_WB
++      - :c:type:`camss_params_wb_gain`
++      - Per-channel white balance gains and black-level / pedestal offsets,
++        applied to the raw Bayer data.
++    * - DEMO
++      - CLC_DEMO
++      - *(none)*
++      - Demosaic: reconstructs a full-resolution RGB image from the Bayer
++        mosaic. Always enabled; not configurable through this format.
++    * - CC
++      - CLC_CC
++      - :c:type:`camss_params_color_correct`
++      - Color correction matrix applied in the RGB domain.
++    * - GLUT
++      - CLC_GLUT
++      - :c:type:`camss_params_gamma`
++      - Per-channel gamma correction curves (256-entry LUTs).
++    * - CHROMA_ENHAN
++      - CLC_CHROMA_ENHAN
++      - :c:type:`camss_params_chroma_enhan`
++      - RGB to YUV color transfer matrix.
++    * - DSC
++      - Downscaler
++      - *(none)*
++      - Chroma (and, when required, luma) downscaling to produce the requested
++        YUV subsampling, e.g. YUV 4:4:4 to 4:2:2 (NV16) or 4:2:0 (NV12).
++
++The input node accepts 8-bit and 10-bit packed Bayer RAW formats (for example
++``V4L2_PIX_FMT_SRGGB8`` and ``V4L2_PIX_FMT_SRGGB10P``). The output node
++produces semi-planar YUV (``V4L2_PIX_FMT_NV12`` / ``NV21`` / ``NV16`` /
++``NV61`` / ``NV24`` / ``NV42``) or luma-only ``V4L2_PIX_FMT_GREY``. A
++configurable stage is bypassed while its block carries
++``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE``.
++
++The following example populates an OPE parameters buffer with a white balance
++and a gamma correction block:
++
++.. code-block:: c
++
++	struct v4l2_isp_params_buffer *params =
++		(struct v4l2_isp_params_buffer *)buffer;
++
++	params->version = V4L2_ISP_PARAMS_VERSION_V1;
++	params->data_size = sizeof(struct camss_params_wb_gain) +
++			    sizeof(struct camss_params_gamma);
++
++	__u8 *data = params->data;
++
++	struct camss_params_wb_gain *wb =
++		(struct camss_params_wb_gain *)data;
++
++	memset(wb, 0, sizeof(*wb));
++	wb->header.type = CAMSS_PARAMS_WB_GAIN;
++	wb->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
++	wb->header.size = sizeof(struct camss_params_wb_gain);
++
++	/* Unity gain on all three channels (15uQ10, 1024 = 1.0) */
++	wb->g_gain = 1024;
++	wb->b_gain = 1024;
++	wb->r_gain = 1024;
++
++	data += sizeof(struct camss_params_wb_gain);
++
++	struct camss_params_gamma *gamma =
++		(struct camss_params_gamma *)data;
++
++	memset(gamma, 0, sizeof(*gamma));
++	gamma->header.type = CAMSS_PARAMS_GAMMA;
++	gamma->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
++	gamma->header.size = sizeof(struct camss_params_gamma);
++
++	/* Identity curve (pass-through, gamma 1.0) */
++	for (unsigned int i = 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
++		gamma->glut[i] = gamma->blut[i] = gamma->rlut[i] = i;
++
++Qualcomm CAMSS ISP uAPI data types
++==================================
++
++.. kernel-doc:: include/uapi/linux/qcom-camss-config.h
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f8253ed..ebb857e2168cc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22119,6 +22119,7 @@ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/admin-guide/media/qcom_camss.rst
+ F:	Documentation/devicetree/bindings/media/qcom,*camss*
++F:	Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
+ F:	drivers/media/platform/qcom/camss/
+ 
+ QUALCOMM CLOCK DRIVERS
 
 -- 
 2.55.0
