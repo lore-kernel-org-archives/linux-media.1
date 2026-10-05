@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA484CE699;
-	Mon,  5 Oct 2026 17:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833864D4869;
+	Mon,  5 Oct 2026 17:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220548; cv=none; b=O508vEBPZTCI1/jnrrRf/v6xrpmaE6WgAZF3V1Vjc1MZX8cOLNoyiYjG8faHjlVisoGZQgRFBMtamvqU4Vi4Hj+VnBaEkh5qe/GuZrb/zJaOvO851FwbLMuSsVxcRGV61j/1E8ZFc0dPYTbH5uQ2O4hNITDuYwA6xKIA5jLj0ig=
+	t=1791220552; cv=none; b=Z8nJ9rT0VIGuHLc8brewE7mBlbHPZpJL2F/fnv4zN/F2wz4kX/eNFahOyUjCGsmrMU1cSsSMzz/TVBbOzV/cW5SFOQ2SIdXObO0+h/bkwQc/INcX+u+Wt2XWWEwOXzXd3CxSKjkAfHkWCiSDx1kac5x4hZeI1p4efwl0j0gU6z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220548; c=relaxed/simple;
-	bh=3KI+WRfOWe1BqN3B0+hvh29upFHskMPI5atz6YE3l8M=;
+	s=arc-20240116; t=1791220552; c=relaxed/simple;
+	bh=gQlF5UTGmwmyfjuBZ/8d2dO31cTMLlAyXIh7EyYstJk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Dpe4oqIHXaogIQq8KIGVBl1ZkBj75zGH4uY4yRy/hNwZHBPsue5tJf7YYwmyq9UwRP8Ip9zOHou+S9Ryx+st0LMHvGb17hIhoKB7TPZ2oMsGrznS8yGjlYGZNHCdXKfcKHLws4CLZ8u0luHvlF74fyOfCDZPkq2WuIS7htjuL3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBM/ckDs; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=hNVwJ9HB40fVNlww43nIq7COGFgdGzfIr2CtZLOJ5VKICbOx+oomCaOo7qH78KZXkmvzmCwF0zOQxxGLw6JNVWKwF/762g67Ib/npJibWTctDo7z8d3KtkdsXdj4qIfWfAA+8WQRTjmgOsH2Q5dd/I3BeEaJWoWxYL7iWhxIS0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DEiYOMNO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBM/ckDs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97E51F000FF;
-	Mon,  5 Oct 2026 17:15:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DEiYOMNO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853EC1F00898;
+	Mon,  5 Oct 2026 17:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220546;
-	bh=PNhVxcjyDyVesjAh/2LTUKSGS0WDwiR2Mj+OOwzsm24=;
+	s=k20260515; t=1791220550;
+	bh=CcoQHFm6kAxKnphQaH3IG5sbJZmOitJCh28rGpjCVbw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CBM/ckDsP7vHKN0RNptkRC8dmot7Z6sHbbnL+Gsq1KaXWfbIfGfnTYV7RMJKTBIjG
-	 2GVaL1DgkxhbOuJrwiKLcIRfDD9xGvArUsWhBdvchLzhw0Yw6OppXyhw8/7GpTsYVB
-	 94rqqrpIB6jJ3SvKwWWHqZD3n+vCzj7hAli4HfqKI51aNp5fUw5itHnXq70X7E41V1
-	 8VXKyxyzIuEXbRL/EqNhnUBnzjkItnoq3I1xdnQDFfy4cb6W/dKU8UYoxjEXlwK+mC
-	 tXPlQIJHHsmQYv6bkD2Uz9G06IT86yD47ugSqqprcE2e/oiG6wsCxkxaePoPaYpvww
-	 WIdPM3RtMsDwg==
-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:13:32 +0200
-Subject: [PATCH 02/74] media: qcom: camss: vfe: Separate VFE 690 from VFE
- 780/880
+	b=DEiYOMNO9SezwTNmLBn91fmM6USKA+4tYBjvIa7hz6JMKejjB3b5yh+jmkPkdREpx
+	 c5hXGfP69nHhtFwCuDhAGyXqlXRmcNZsO1FzcjkVvR2dcxQWOqYkAPAqfnxklOcuHd
+	 sbAJD6miC/siLFz398nPxNNSOb2xbgght5eA1oYv4peu4bc2sT0NNU4yi9M4SIaw89
+	 07cFyOMK1o/f+lpqsBz+sr7Emia6JEcfG/XcTgBK3H6ReWFjfbSZEQ6U6EtRzAtI0T
+	 SDxiHupYSKrdQ7RrWf3vpmih8dzQc0M6gGIEAkgB47nXejAzIAwjjt3Xe8EiWDSDW2
+	 iuIDMi0Sfs1xw==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:13:33 +0200
+Subject: [PATCH 03/74] media: uapi: v4l2-isp: Add extensible statistics
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,8 +36,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-2-ed985aefd611@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-3-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -53,422 +52,224 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
  Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>, 
+ Antoine Bouyer <antoine.bouyer@nxp.com>, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13999; i=bod@kernel.org;
- h=from:subject:message-id; bh=3KI+WRfOWe1BqN3B0+hvh29upFHskMPI5atz6YE3l8M=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sBu+cQpMvdZLtBKPiVWly1ROJUtNl1p192F
- bSJkw155myJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbAQAKCRAicTuzoY3I
- Oi36EACTwJj8Ha8fyEmzl2LpHYktFHYfXNSdhg+0lf5Bm4NNpe6TupWqEHrobvwdB0k66g93huh
- KSFKiwPGHGLXMinkOEuWqxfEOAs/EXPDzY/3pGRb2BME6ZWYffvHz5ue5UK+oi0eCK3XIVyJmZO
- NXXkRhkddF8o9otil0A8Rvf0KvfwmU7mPAZ7SQ2z0fwjXJ4FMsKSXHC2d4bpqzO9B5eI4xlHWOM
- Fb422Ys+Vdu8KqhHoePOFyecZKKHLiY/Xsljhn4sRzkPW24sIqRO0IOCdNoJQWAks5v9pl+A0Yk
- dh0+ER8y7lwgjYaMx8fW7esDaII+SNOYky4TmR1PjRi0fBVfvYgKQ/yXnrZhuVaqMgIdJL3SaJA
- 6eVOXO1hj5TgBoC9AI/qUn4qHdjmR4/s1diYDzqMoqoGtOskZ/zF9ShGtSBFKzhcB2tULYVUcig
- /XUMznIYneoy9TwuK5u9E3yGTjY3tEeb0eurpgkHOz9zqW2NoUAd8zAdjiYcPKWGArmL+c5NmOd
- UdbO4iwICM/0M7itrg+HmOgsUPVB9IYC4b4pu1FVdI7iyVs7xCH7lX2h8+ADDqU6Tg6sJYSLsFK
- edEdhNMrsCcIArtdbU/TKSW5Rp85l/Sc0l6+YbvZ18S2IorQbp0WHrvktvFw3TRobLdOHK56nr1
- GJmU36DlrV6C/tQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9295; i=bod@kernel.org;
+ h=from:subject:message-id; bh=L/cnRmJ0LnlxAtopn89GtIed460oO4nvBOV0eydhcrQ=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sCXOPxf/tJC/p3DaHRjbpuxXKDJ1oWMC4a1
+ GwFRudB0B2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbAgAKCRAicTuzoY3I
+ Ou9NEADAbn0qq/9OrQRdKxx43n3Um6aSAsMAJSslEW6YXW45v2VYycLk52AGX3jmHgV0FwEFAcY
+ R/90nAlruXAlv64SxdQ3r12kqPnSJu668xAKD47/6i9cVf7mVJr/mtCfbw94N8lP5tvSgmXGSbW
+ YCUkVqY/KVrJUPKfdzSp0Crjcz6qALt8C78FONonJn5e4oQCY1n2dMqU192PL+hihg31uAS0M/c
+ oJfSI3OXjYCBj0PLtiBttkvP8sXEB9j1FNdrgXN3k72XIOYrA0DAdUTosSFL3DJgrh9F4BOZ7XG
+ QPSEM4C1e8mjS6p9JWncTnlaS852ZnoWXinzhXypwISv5eS4qPFJQsyBlyrLLbF1JcnXXpv7q6N
+ C8NB/FB3o3jngyiVXBir4RF2qntZb7jT5OY931EONw0522E4SeZXsOTUaUMwB90S5Df/4yz5QXY
+ WtWyVrsgOUIm7f7dcMrKUWwCcuNY1NyyzXpXxTx9A46TlUnMDqtkfZKOdTrr9L8cGRhjPsoktb+
+ tOHW/71P9dE85ambeoAn6AoLosU+SYjTbI0U0SVu/RyeAoSXEQzvPoBopDlnyFnlXenBjZyPXTc
+ lUkxpqaPg5IL6uZ3abcMcYTREvWWzaCaRFBLAGxyeNtYL3XwqBhja3mhkpNsfD5rA0fuKITMJYo
+ tv7CcdULM50MLhQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Looking at the write-master index for VFE 690 and VFE 780/880 we can see a
-discontinuity between 690 and 780/880. Extending out the functionality in
-these files will result in spaghettification of the code for no good
-purpose.
+From: Antoine Bouyer <antoine.bouyer@nxp.com>
 
-The WM index difference is indication enough that the silicon should live
-in separate files.
+Extend the v4l2-isp extensible format introduced for isp parameters buffers
+to the support buffers of ISP statistic.
 
-Disjoin now.
+Like for ISP configuration purpose, that will help supporting various ISP
+hardware versions reporting different statistics data with less impact on
+userspace.
 
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Rename all 'v4l2_isp_params' types to generic 'v4l2_isp' types to
+prepare to use them for statistics as well and maintain the existing
+types for compatibility with existing userspace only.
+
+Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+[Rework to remove 'v4l2_isp_stats' and unify types]
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/platform/qcom/camss/Makefile        |   1 +
- drivers/media/platform/qcom/camss/camss-vfe-690.c | 168 ++++++++++++++++++++++
- drivers/media/platform/qcom/camss/camss-vfe-780.c |  53 ++-----
- drivers/media/platform/qcom/camss/camss-vfe.h     |   1 +
- drivers/media/platform/qcom/camss/camss.c         |  14 +-
- 5 files changed, 187 insertions(+), 50 deletions(-)
+ include/uapi/linux/media/v4l2-isp.h | 125 +++++++++++++++++++++++-------------
+ 1 file changed, 79 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-index e82bc8141c241..4dcb08a0e25aa 100644
---- a/drivers/media/platform/qcom/camss/Makefile
-+++ b/drivers/media/platform/qcom/camss/Makefile
-@@ -25,6 +25,7 @@ qcom-camss-objs += \
- 		camss-vfe-340.o \
- 		camss-vfe-480.o \
- 		camss-vfe-680.o \
-+		camss-vfe-690.o \
- 		camss-vfe-780.o \
- 		camss-vfe-gen1.o \
- 		camss-vfe-vbif.o \
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-690.c b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-new file mode 100644
-index 0000000000000..6f90134d5ed64
---- /dev/null
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-@@ -0,0 +1,168 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module 690
-+ *
-+ * Copyright (c) 2024 Qualcomm Technologies, Inc.
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+
-+#include "camss.h"
-+#include "camss-vfe.h"
-+
-+#define BUS_REG_BASE (vfe_is_lite(vfe) ? 0x480 : 0x400)
-+
-+#define VFE_TOP_CORE_CFG (0x24)
-+#define VFE_DISABLE_DSCALING_DS4  BIT(21)
-+#define VFE_DISABLE_DSCALING_DS16 BIT(22)
-+
-+#define VFE_BUS_WM_TEST_BUS_CTRL (BUS_REG_BASE + 0xFC)
-+/*
-+ * Bus client mapping:
-+ *
-+ * Full VFE:
-+ * VFE_690: 16 = RDI0, 17 = RDI1, 18 = RDI2
-+ *
-+ * VFE LITE:
-+ * VFE_690 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4, 5 = RDI5
-+ */
-+#define RDI_WM(n)	((vfe_is_lite(vfe) ? 0x0 : 0x10) + (n))
-+
-+#define VFE_BUS_WM_CGC_OVERRIDE		(BUS_REG_BASE + 0x08)
-+#define		WM_CGC_OVERRIDE_ALL		(0x7FFFFFF)
-+
-+#define VFE_BUS_WM_CFG(n)		(BUS_REG_BASE + 0x200 + (n) * 0x100)
-+#define		WM_CFG_EN			BIT(0)
-+#define		WM_VIR_FRM_EN			BIT(1)
-+#define		WM_CFG_MODE			BIT(16)
-+#define VFE_BUS_WM_IMAGE_ADDR(n)	(BUS_REG_BASE + 0x204 + (n) * 0x100)
-+#define VFE_BUS_WM_FRAME_INCR(n)	(BUS_REG_BASE + 0x208 + (n) * 0x100)
-+#define VFE_BUS_WM_IMAGE_CFG_0(n)	(BUS_REG_BASE + 0x20c + (n) * 0x100)
-+#define		WM_IMAGE_CFG_0_DEFAULT_WIDTH	(0xFFFF)
-+#define VFE_BUS_WM_IMAGE_CFG_2(n)	(BUS_REG_BASE + 0x214 + (n) * 0x100)
-+#define		WM_IMAGE_CFG_2_DEFAULT_STRIDE	(0xFFFF)
-+#define VFE_BUS_WM_PACKER_CFG(n)	(BUS_REG_BASE + 0x218 + (n) * 0x100)
-+
-+#define VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(n)	(BUS_REG_BASE + 0x230 + (n) * 0x100)
-+#define VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(n)	(BUS_REG_BASE + 0x234 + (n) * 0x100)
-+#define VFE_BUS_WM_FRAMEDROP_PERIOD(n)		(BUS_REG_BASE + 0x238 + (n) * 0x100)
-+#define VFE_BUS_WM_FRAMEDROP_PATTERN(n)		(BUS_REG_BASE + 0x23c + (n) * 0x100)
-+
-+#define VFE_BUS_WM_MMU_PREFETCH_CFG(n)		(BUS_REG_BASE + 0x260 + (n) * 0x100)
-+#define VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(n)	(BUS_REG_BASE + 0x264 + (n) * 0x100)
-+
-+static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
-+{
-+	struct v4l2_pix_format_mplane *pix =
-+		&line->video_out.active_fmt.fmt.pix_mp;
-+
-+	wm = RDI_WM(wm);
-+
-+	/* no clock gating at bus input */
-+	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
-+
-+	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
-+
-+	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height,
-+	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
-+
-+	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
-+	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
-+	writel(WM_IMAGE_CFG_2_DEFAULT_STRIDE,
-+	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
-+	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
-+
-+	/* TOP CORE CFG */
-+	writel(VFE_DISABLE_DSCALING_DS4 | VFE_DISABLE_DSCALING_DS16,
-+		vfe->base + VFE_TOP_CORE_CFG);
-+
-+	/* no dropped frames, one irq per frame */
-+	writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
-+	writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
-+	writel(0, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(wm));
-+	writel(1, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(wm));
-+
-+	writel(1, vfe->base + VFE_BUS_WM_MMU_PREFETCH_CFG(wm));
-+	writel(0xFFFFFFFF, vfe->base + VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(wm));
-+
-+	writel(WM_CFG_EN | WM_CFG_MODE, vfe->base + VFE_BUS_WM_CFG(wm));
-+}
-+
-+static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
-+{
-+	wm = RDI_WM(wm);
-+	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
-+}
-+
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+			  struct vfe_line *line)
-+{
-+	wm = RDI_WM(wm);
-+
-+	writel(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-+
-+	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n",
-+		wm, addr);
-+}
-+
-+static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
-+{
-+	int port_id = line_id;
-+
-+	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-+}
-+
-+static inline void vfe_reg_update_clear(struct vfe_device *vfe,
-+					enum vfe_line_id line_id)
-+{
-+	int port_id = line_id;
-+
-+	camss_reg_update(vfe->camss, vfe->id, port_id, true);
-+}
-+
-+static const struct camss_video_ops vfe_video_ops_690 = {
-+	.queue_buffer = vfe_queue_buffer_v2,
-+	.flush_buffers = vfe_flush_buffers,
-+};
-+
-+static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
-+{
-+	vfe->video_ops = vfe_video_ops_690;
-+}
-+
-+static void vfe_global_reset(struct vfe_device *vfe)
-+{
-+	vfe_isr_reset_ack(vfe);
-+}
-+
-+static irqreturn_t vfe_isr(int irq, void *dev)
-+{
-+	/* nop */
-+	return IRQ_HANDLED;
-+}
-+
-+static int vfe_halt(struct vfe_device *vfe)
-+{
-+	/* rely on vfe_disable_output() to stop the VFE */
-+	return 0;
-+}
-+
-+const struct vfe_hw_ops vfe_ops_690 = {
-+	.global_reset = vfe_global_reset,
-+	.hw_version = vfe_hw_version,
-+	.isr = vfe_isr,
-+	.pm_domain_off = vfe_pm_domain_off,
-+	.pm_domain_on = vfe_pm_domain_on,
-+	.reg_update = vfe_reg_update,
-+	.reg_update_clear = vfe_reg_update_clear,
-+	.subdev_init = vfe_subdev_init,
-+	.vfe_disable = vfe_disable,
-+	.vfe_enable = vfe_enable_v2,
-+	.vfe_halt = vfe_halt,
-+	.vfe_wm_start = vfe_wm_start,
-+	.vfe_wm_stop = vfe_wm_stop,
-+	.vfe_buf_done = vfe_buf_done,
-+	.vfe_wm_update = vfe_wm_update,
-+};
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-index 6c04e3c64b841..4adbd0680898f 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module gen3
-+ * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module 780
+diff --git a/include/uapi/linux/media/v4l2-isp.h b/include/uapi/linux/media/v4l2-isp.h
+index 779168f9058e3..e4607e1217e1a 100644
+--- a/include/uapi/linux/media/v4l2-isp.h
++++ b/include/uapi/linux/media/v4l2-isp.h
+@@ -13,25 +13,33 @@
+ #include <linux/types.h>
+ 
+ /**
+- * enum v4l2_isp_params_version - V4L2 ISP parameters versioning
++ * enum v4l2_isp_version - V4L2 ISP serialization format versioning
   *
-  * Copyright (c) 2024 Qualcomm Technologies, Inc.
+- * @V4L2_ISP_PARAMS_VERSION_V0: First version of the V4L2 ISP parameters format
+- *				(for compatibility)
+- * @V4L2_ISP_PARAMS_VERSION_V1: First version of the V4L2 ISP parameters format
++ * @V4L2_ISP_VERSION_V0: First version of the V4L2 ISP serialization format
++ *                       (for compatibility)
++ * @V4L2_ISP_VERSION_V1: First version of the V4L2 ISP serialization format
+  *
+  * V0 and V1 are identical in order to support drivers compatible with the V4L2
+- * ISP parameters format already upstreamed which use either 0 or 1 as their
+- * versioning identifier. Both V0 and V1 refers to the first version of the
+- * V4L2 ISP parameters format.
++ * ISP format already upstreamed which use either 0 or 1 as their versioning
++ * identifier. Both V0 and V1 refers to the first version of the V4L2 ISP
++ * serialization format.
+  *
+- * Future revisions of the V4L2 ISP parameters format should start from the
++ * Future revisions of the V4L2 ISP serialization format should start from the
+  * value of 2.
   */
-@@ -12,40 +12,19 @@
- #include "camss.h"
- #include "camss-vfe.h"
- 
--#define IS_VFE_690(vfe) \
--	    ((vfe->camss->res->version == CAMSS_8775P) \
--	    || (vfe->camss->res->version == CAMSS_8300))
--
--#define BUS_REG_BASE_690 \
--	    (vfe_is_lite(vfe) ? 0x480 : 0x400)
--#define BUS_REG_BASE_780 \
--	    (vfe_is_lite(vfe) ? 0x200 : 0xC00)
--#define BUS_REG_BASE \
--	    (IS_VFE_690(vfe) ? BUS_REG_BASE_690 : BUS_REG_BASE_780)
--
--#define VFE_TOP_CORE_CFG (0x24)
--#define VFE_DISABLE_DSCALING_DS4  BIT(21)
--#define VFE_DISABLE_DSCALING_DS16 BIT(22)
--
--#define VFE_BUS_WM_TEST_BUS_CTRL_690 (BUS_REG_BASE + 0xFC)
--#define VFE_BUS_WM_TEST_BUS_CTRL_780 (BUS_REG_BASE + 0xDC)
--#define VFE_BUS_WM_TEST_BUS_CTRL \
--	    (IS_VFE_690(vfe) ? VFE_BUS_WM_TEST_BUS_CTRL_690 \
--	     : VFE_BUS_WM_TEST_BUS_CTRL_780)
-+#define BUS_REG_BASE (vfe_is_lite(vfe) ? 0x200 : 0xC00)
-+
-+#define VFE_BUS_WM_TEST_BUS_CTRL (BUS_REG_BASE + 0xDC)
- /*
-  * Bus client mapping:
-  *
-  * Full VFE:
-- * VFE_690: 16 = RDI0, 17 = RDI1, 18 = RDI2
-  * VFE_780: 23 = RDI0, 24 = RDI1, 25 = RDI2
-  *
-  * VFE LITE:
-- * VFE_690 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4, 5 = RDI5
-  * VFE_780 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4
-  */
--#define RDI_WM_690(n)	((vfe_is_lite(vfe) ? 0x0 : 0x10) + (n))
--#define RDI_WM_780(n)	((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
--#define RDI_WM(n)	(IS_VFE_690(vfe) ? RDI_WM_690(n) : RDI_WM_780(n))
-+#define RDI_WM(n)	((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
- 
- #define VFE_BUS_WM_CGC_OVERRIDE		(BUS_REG_BASE + 0x08)
- #define		WM_CGC_OVERRIDE_ALL		(0x7FFFFFF)
-@@ -82,12 +61,8 @@ static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- 
- 	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
- 
--	if (IS_VFE_690(vfe))
--		writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height,
--		       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
--	else
--		writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
--		       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
-+	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
-+	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
- 
- 	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
- 	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
-@@ -95,11 +70,6 @@ static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- 	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
- 	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
- 
--	/* TOP CORE CFG */
--	if (IS_VFE_690(vfe))
--		writel(VFE_DISABLE_DSCALING_DS4 | VFE_DISABLE_DSCALING_DS16,
--			vfe->base + VFE_TOP_CORE_CFG);
--
- 	/* no dropped frames, one irq per frame */
- 	writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
- 	writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
-@@ -123,10 +93,7 @@ static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
- {
- 	wm = RDI_WM(wm);
- 
--	if (IS_VFE_690(vfe))
--		writel(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
--	else
--		writel((addr >> 8), vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-+	writel((addr >> 8), vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
- 
- 	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n",
- 		wm, addr);
-@@ -147,14 +114,14 @@ static inline void vfe_reg_update_clear(struct vfe_device *vfe,
- 	camss_reg_update(vfe->camss, vfe->id, port_id, true);
- }
- 
--static const struct camss_video_ops vfe_video_ops_gen3 = {
-+static const struct camss_video_ops vfe_video_ops_780 = {
- 	.queue_buffer = vfe_queue_buffer_v2,
- 	.flush_buffers = vfe_flush_buffers,
+-enum v4l2_isp_params_version {
+-	V4L2_ISP_PARAMS_VERSION_V0 = 0,
+-	V4L2_ISP_PARAMS_VERSION_V1
++enum v4l2_isp_version {
++	V4L2_ISP_VERSION_V0 = 0,
++	V4L2_ISP_VERSION_V1
  };
  
- static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
- {
--	vfe->video_ops = vfe_video_ops_gen3;
-+	vfe->video_ops = vfe_video_ops_780;
- }
++/*
++ * Compatibility with existing users of v4l2_isp_params which pre-date the
++ * introduction of v4l2_isp_stats.
++ */
++#define v4l2_isp_params_version			v4l2_isp_version
++#define V4L2_ISP_PARAMS_VERSION_V0		V4L2_ISP_VERSION_V0
++#define V4L2_ISP_PARAMS_VERSION_V1		V4L2_ISP_VERSION_V1
++
+ #define V4L2_ISP_PARAMS_FL_BLOCK_DISABLE	(1U << 0)
+ #define V4L2_ISP_PARAMS_FL_BLOCK_ENABLE		(1U << 1)
  
- static void vfe_global_reset(struct vfe_device *vfe)
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index 68cd05331ffe7..089f525b98cf5 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -248,6 +248,7 @@ extern const struct vfe_hw_ops vfe_ops_170;
- extern const struct vfe_hw_ops vfe_ops_340;
- extern const struct vfe_hw_ops vfe_ops_480;
- extern const struct vfe_hw_ops vfe_ops_680;
-+extern const struct vfe_hw_ops vfe_ops_690;
- extern const struct vfe_hw_ops vfe_ops_780;
+@@ -39,64 +47,89 @@ enum v4l2_isp_params_version {
+  * Reserve the first 8 bits for V4L2_ISP_PARAMS_FL_* flag.
+  *
+  * Driver-specific flags should be defined as:
+- * #define DRIVER_SPECIFIC_FLAG0     ((1U << V4L2_ISP_PARAMS_FL_DRIVER_FLAGS(0))
+- * #define DRIVER_SPECIFIC_FLAG1     ((1U << V4L2_ISP_PARAMS_FL_DRIVER_FLAGS(1))
++ * #define DRIVER_SPECIFIC_FLAG0     ((1U << V4L2_ISP_FL_DRIVER_FLAGS(0))
++ * #define DRIVER_SPECIFIC_FLAG1     ((1U << V4L2_ISP_FL_DRIVER_FLAGS(1))
+  */
+-#define V4L2_ISP_PARAMS_FL_DRIVER_FLAGS(n)       ((n) + 8)
++#define V4L2_ISP_FL_DRIVER_FLAGS(n)		((n) + 8)
  
- int vfe_get(struct vfe_device *vfe);
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 80697d0ab701b..40a993ade5f6d 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4001,7 +4001,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 			.is_lite = false,
- 			.has_pd = false,
- 			.pd_name = NULL,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
-@@ -4029,7 +4029,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 			.is_lite = false,
- 			.has_pd = false,
- 			.pd_name = NULL,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
-@@ -4054,7 +4054,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 		.vfe = {
- 			.line_num = 4,
- 			.is_lite = true,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
-@@ -4079,7 +4079,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 		.vfe = {
- 			.line_num = 4,
- 			.is_lite = true,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
-@@ -4104,7 +4104,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 		.vfe = {
- 			.line_num = 4,
- 			.is_lite = true,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
-@@ -4129,7 +4129,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 		.vfe = {
- 			.line_num = 4,
- 			.is_lite = true,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
-@@ -4154,7 +4154,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
- 		.vfe = {
- 			.line_num = 4,
- 			.is_lite = true,
--			.hw_ops = &vfe_ops_780,
-+			.hw_ops = &vfe_ops_690,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
- 		}
+ /**
+- * struct v4l2_isp_params_block_header - V4L2 extensible parameters block header
+- * @type: The parameters block type (driver-specific)
++ * struct v4l2_isp_block_header - V4L2 extensible block header
++ * @type: The parameters or statistics block type (driver-specific)
+  * @flags: A bitmask of block flags (driver-specific)
+- * @size: Size (in bytes) of the parameters block, including this header
++ * @size: Size (in bytes) of the block, including this header
+  *
+- * This structure represents the common part of all the ISP configuration
+- * blocks. Each parameters block shall embed an instance of this structure type
+- * as its first member, followed by the block-specific configuration data.
++ * This structure represents the common part of all the ISP configuration or
++ * statistic blocks. Each block shall embed an instance of this structure type
++ * as its first member, followed by the block-specific configuration or
++ * statistic data.
+  *
+  * The @type field is an ISP driver-specific value that identifies the block
+- * type. The @size field specifies the size of the parameters block.
++ * type. The @size field specifies the size of the block, including this
++ * header.
+  *
+- * The @flags field is a bitmask of per-block flags V4L2_PARAMS_ISP_FL_* and
+- * driver-specific flags specified by the driver header.
++ * The @flags field is a bitmask of per-block flags. If a block is used for
++ * configuration parameters this field can be a combination of
++ * V4L2_ISP_PARAMS_FL_* and driver-specific flags. If a block is used
++ * for statistics this fields is used to report optional
++ * driver-specific flags, if any.
+  */
+-struct v4l2_isp_params_block_header {
++struct v4l2_isp_block_header {
+ 	__u16 type;
+ 	__u16 flags;
+ 	__u32 size;
+ } __attribute__((aligned(8)));
+ 
+ /**
+- * struct v4l2_isp_params_buffer - V4L2 extensible parameters configuration
+- * @version: The parameters buffer version (driver-specific)
+- * @data_size: The configuration data effective size, excluding this header
+- * @data: The configuration data
++ * v4l2_isp_params_block_header - V4L2 extensible parameters block header
++ *
++ * Compatibility with existing users of v4l2_isp_params_block_header
++ * which pre-date the introduction of v4l2_isp_block_header.
++ */
++#define v4l2_isp_params_block_header v4l2_isp_block_header
++
++/**
++ * struct v4l2_isp_buffer - V4L2 extensible buffer
++ * @version: The extensible buffer version (driver-specific)
++ * @data_size: The data effective size, excluding this header
++ * @data: The configuration or statistics data
+  *
+- * This structure contains the configuration parameters of the ISP algorithms,
+- * serialized by userspace into a data buffer. Each configuration parameter
+- * block is represented by a block-specific structure which contains a
+- * :c:type:`v4l2_isp_params_block_header` entry as first member. Userspace
+- * populates the @data buffer with configuration parameters for the blocks that
+- * it intends to configure. As a consequence, the data buffer effective size
+- * changes according to the number of ISP blocks that userspace intends to
+- * configure and is set by userspace in the @data_size field.
++ * This structure contains ISP configuration parameters or ISP hardware
++ * statistics serialized into a data buffer. Each block is represented by a
++ * block-specific structure which contains a :c:type:`v4l2_isp_block_header`
++ * entry as first member.
+  *
+- * The parameters buffer is versioned by the @version field to allow modifying
+- * and extending its definition. Userspace shall populate the @version field to
+- * inform the driver about the version it intends to use. The driver will parse
+- * and handle the @data buffer according to the data layout specific to the
+- * indicated version and return an error if the desired version is not
++ * When used for ISP parameters, userspace populates the @data buffer with
++ * configuration parameters for the blocks that it intends to configure. As a
++ * consequence, the data buffer effective size changes according to the number
++ * of ISP blocks that userspace intends to configure.
++ *
++ * When used to report ISP statistics, the driver populates the @data buffer
++ * with statistics for each supported measurement block.
++ *
++ * The buffer is versioned by the @version field to allow modifying
++ * and extending its definition. The writer shall populate the @version field
++ * to inform the reader about the version it intends to use. The reader will
++ * parse and handle the @data buffer according to the data layout specific to
++ * the indicated version and return an error if the desired version is not
+  * supported.
+  *
+- * For each ISP block that userspace wants to configure, a block-specific
+- * structure is appended to the @data buffer, one after the other without gaps
+- * in between. Userspace shall populate the @data_size field with the effective
+- * size, in bytes, of the @data buffer.
++ * For each ISP block, a block-specific structure is appended to the @data
++ * buffer, one after the other without gaps in between. The writer shall
++ * populate the @data_size field with the effective size, in bytes, of the
++ * @data buffer.
+  */
+-struct v4l2_isp_params_buffer {
++struct v4l2_isp_buffer {
+ 	__u32 version;
+ 	__u32 data_size;
+ 	__u8 data[] __counted_by(data_size);
+ };
+ 
++/**
++ * v4l2_isp_params_buffer - V4L2 extensible parameters compatibility
++ *
++ * Compatibility with existing users of v4l2_isp_params_buffer which
++ * pre-date the introduction of v4l2_isp_buffer.
++ */
++#define v4l2_isp_params_buffer v4l2_isp_buffer
++
+ #endif /* _UAPI_V4L2_ISP_H_ */
 
 -- 
 2.55.0
