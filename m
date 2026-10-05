@@ -1,269 +1,194 @@
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010013.outbound.protection.outlook.com [52.101.61.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4244AD7F4
-	for <linux-media@vger.kernel.org>; Mon,  5 Oct 2026 14:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211622; cv=none; b=HBuFj+ZI6vp2k0XZ3kURjyuI+b0bse5HQ80HYbaIYFrIPL/JI0HUO8mgo6dP1F/ZRctvx/VS7nYCtSUdrPpTaHjTF8MFRZkuEFWz/aphcNaqiIze89sEfEXC9g3OwfvW0xJXcYqo5yg8Jj7L2kR+Bh3VGnBHHyiVs1idTpiEuds=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211622; c=relaxed/simple;
-	bh=j7Fabh1ipsvJpw4nlYqUplEE8dTCxplH8Wq6kmUOg1o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XLE9Aa978X7Z02QNdJxM23+jCVX5hlOeQz5UjOGm43rTgd1Gvlj6YttiaD2i/vE06BRs7l5Zz1Y/VL/KKdevfJQp6eH6Tz1rec9BpF/NrzItO1z/kfO4GIX97XxuK6eETpjkelbXrokf53tIsLdyWehy3inzS8PzEUsjz35d8Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OmYOgKur; arc=none smtp.client-ip=95.215.58.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8837D49A3C7;
+	Mon,  5 Oct 2026 14:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791212034; cv=fail; b=kmy5kR7ti5CICUL/8OvC4fRb8G0GDCAcvDsRebFC3zpyPFc5zSTyta7/kauLvmkpQ1qR1snmig9Tjl8trejBE0igvxPfbZRcOzohuBmUzjNbr2nk9ldvS2usz4sKsmKPHPvDx6YFVVxp7SX6YHDdl14o8BOkRQmFApqyjEsaszE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791212034; c=relaxed/simple;
+	bh=hGdULoe/W2dbSVyhiNd/guNApPkDuDmLF1WFcRKixlw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=MEZN5ucXqkSnpTSHls2irCyPEQGq5gyIoTji7Gut7yYbB9XJAR23mB9sDrsbWTfaf/H6iRs6GcEz1Qg12fYK38oCPxo5HVWHl5IA+z8a3Q5z1w1rBYoEtWka6OlpFmANM1IhaB+EvU2RV4E9G2eTs2jX7YurGW3TDVc68YOxRB8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=wIGvIAAW; arc=fail smtp.client-ip=52.101.61.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OmYOgKur"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=j7Fabh1ipsvJpw4nlYqUplEE8dTCxplH8Wq6kmUOg1o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791211615; v=1; x=1791816415;
- b=OmYOgKur8w7x5rzhbqdrCU9HtpKwXYr7KChRkdPfZPhBqTJAKtfGnAB3w1jcEAykKiChwdlS
- QkRzmKxSn3a+MxAGEX0KxarthK5n/nnpqTiPgKU8etMY0thMcOUDm2xFE/mpIMw9lIcZF1wKiag
- gdO9Oi6YJHvD0CHgioq5zT0A=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 83017cc526c8b5ba;
-	Mon, 05 Oct 2026 14:46:55 +0000
-X-Mizu-Trace-ID: 83017cc526c8b5ba
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 5 Oct 2026 16:46:50 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Martina Krasteva <martinax.krasteva@intel.com>, "Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
- range
-Message-ID: <asO1sIZC8rOyhSnu@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
- <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
- <arpyD2CjxOqwQvx8@bombadil>
- <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
- <arrVt-0ctw1cXkkW@bombadil>
- <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="wIGvIAAW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pw3lf1bFTBSStJfEdjrCIrBSNkTC6D00dtZfizWfRjPoZMA0eRKpzx2msy2tRNMK+xukBQxSlG7JzIBafsMqmMV3IVurp+FSPKTLbamM/bkPgJr8grYFsHtVJDEiGRly4a7EX2wWcXw812kxm9yNzqtPheFwa3LV+0e3pFdVwvVSf+DnpO/6/E8/HS77jfjBI7WtRyzUD8u0xw/KrcvmUeSWzSHuCskK4Y0oX7KwqMW1b3eZWQJiwcgicvXBbaWWGChJHixNSK57919HYjamRfZpOLIc4ApGaSQbpA9fm6p31E0rsiSKfIfd/IQaEXyC2ECUoGXIhLdgHltWHbOghA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xhYYD7fuqcEAqP8b+0LuUdhivoZIMdrxyhMC5z2p9gw=;
+ b=ORZq6mJpMNo8JqZweAKESr2IUbYSuWZQJX6/oC1KXTgmHsuQmF3JzhlPN1kLNI7LBmiRPybhtslCSYJlzb4jc0xVoNfmrfUvJJj/nExXl1/ON+cvwCtciD8AcsEhWg/u47z7I7aEPNB2VVKjuUZyMSnBAAW33+Fmyz/+T+ZS4Fuy5WyISTKxIGnTf2DcDmBJ1yKyoOlpabk9zH0SFJOigEtvl/ljILckBLj6RuIT8jIL0HIaqQfKwWJZcnmT2qyaFz5fX6970HgrNI6Qvs2HToD9s9ERxajS4CVBWhTYBmSKEWdplWK8JsT6/M46URq8zDd0TZ1Mx/l6xl2bJgx8yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xhYYD7fuqcEAqP8b+0LuUdhivoZIMdrxyhMC5z2p9gw=;
+ b=wIGvIAAWRpVTelaHn5Xf4TclnHJYErRu37kJxH+pnH/xAOt0jRFJFktlzFAUi2Fq0pLTUcBifmyk5OtHjOF+OZRqxas9t1uckJhfAgzdOapw3RaaKL3OBoqPUbOYu3dbM0NIvr2S9lmN4PR6M1a5ucw4jNdIOYlXouKDwLGOTEo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BL1PR12MB5729.namprd12.prod.outlook.com (2603:10b6:208:384::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 5 Oct
+ 2026 14:53:47 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 14:53:46 +0000
+Message-ID: <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
+Date: Mon, 5 Oct 2026 16:53:34 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical
+ run
+To: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+ Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+ <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, x86@kernel.org
+References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
+ <20261005132046.30025-1-griffoul@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261005132046.30025-1-griffoul@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT2PR01CA0021.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::26) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL1PR12MB5729:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5180c871-a821-4b99-440d-08df22f07562
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|11063799006|56012099006|6133799003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	UMx0b+52OJCYLOf3oRoulDZIGT5QrLnzOPNMCapQVSyRURB5fCSysSsCDls0m/nsgU+Rewv0hwM6sGISOslSxlDf+V1525NPxJ3b6a3KpwPI2G614zfLeZpctlIy7hrtl4VH53G2goXj7KlcD2XMdgVHRRxZ+QF7cH9zYnN5PbCbBXDOLzm6a7KZuOScVS41NpxCR7fijpnvixJNIipadhiZDk4yTqIbuj+Oimh3R/UrIelVMAXFSvaLP34R+oCB7yihEiuv8FBHn1PMGc4AFBe6iGt69gntVEx7Z/f1JN53fQ+8yytRU4X91Ox3DBfYowNwGYcAtLF/40KTzNC7HH9OvoDlF33Cfc1WpX6zYDE8oW5hZ9LJK5qnBG+G1GWbbqqeKBZJmYt8Gujq7MJc1ehEJ3bscl9n8/JRFjEJmWRUaHr4mfgUzX7tBNUVkY/uj6w2DoVeeldjKURa5CE0pox0qOcLBcJRdczt6Nz+yOJsMU8QQXHjqzMwdla9J4G5BYx2QTklmlfQSiCK+hQ/6QudiHQMd+5G+J3jORC5BCXzmyU9jOdJcCYzLcFKA4X+VZCRb5UGKckeTYm6JKBj7sV0kJ5o6wm19Yv+0O1SAqpzwOkZ7Fjx3vuZGdHl8P53
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UUZnZzlQU0J0SkJkUTdIYzlWSEhvRHJ3VlVBbE80Z1A1L0lTU1ZLTll4bmVi?=
+ =?utf-8?B?a211M0o0QkVyMWxhM0JKZGNCQnJmTEFzRk9ON0k3eTRadU1zQVZYUTB5bW8z?=
+ =?utf-8?B?eDhaQ0FnVDlsRUM2VUJWRTJZa2pBSlJMQWhrbmNWZ1Z6ZTJuNUkxdFNMeU4y?=
+ =?utf-8?B?M2hOUHY1bEtUWHNlOSt6cm5XcXNmSjByNHcwd1VvNlEvSVZsamdVdmFxS3Ax?=
+ =?utf-8?B?c05sUkQvWjhOVWV0M1ExQkoxT2ZrTzF6RmhPNVVBNWtzMFkwaDhQejllZnc3?=
+ =?utf-8?B?OXNSbG41L2hvdSs3OVlUTlo3ZmR6T29XbVNUOEwvU1BxVmNjK1V5dmhpSUEz?=
+ =?utf-8?B?OWRwNk1ubWcra3VrVitDRTNwVUtpaVhDY284RFFKc3pjdUtmcWlHQjJUVFRM?=
+ =?utf-8?B?Y2xhLzNyT0VRUDlZd3V4ai9ld0pISFl4Mi9Jc0lFcFZ0bk1QZ0d6ZVdOZjRt?=
+ =?utf-8?B?a3NBUHUxbTQyRTliZk84TktrMG1WaUFyNEdZNzcrS0trNTZLdUNJQ3hXQnh0?=
+ =?utf-8?B?Z2hHQTZNL1BwVUZaTWhXTEc3dm1hbXZ1UFZLWUNSUGRsTjcxV2FWNm9CMnBB?=
+ =?utf-8?B?WjBuUEI0VUo2YXVyUVM1UjgyZFNRMGlmUnQ2aVZNNDZsMWFvOHVDU2dYYXlp?=
+ =?utf-8?B?VzV0Sm1QRGRNQzBwNHI1aFVyaW1HQjhNRmlPcUpiZHpoWWp0cHpJUWNBYWJ4?=
+ =?utf-8?B?RjJXdW9yUmQ5ZWFKazlMSTlHZVpnMTZaV3l3VEs5czNYQitiWGJOZi9admRy?=
+ =?utf-8?B?SmpVSkphclViTldydnc3Y0VjNU5tU2l3akVSUG9TQW9qY2h4dG9uOWhBdWh0?=
+ =?utf-8?B?WEk0UjhqWHEybUpqNEl5Ly93dGVsYXJwVHU5QVAzU2puVWRxZGUvV3g3b2dp?=
+ =?utf-8?B?WkZ4a1kvc3VsSldKWUNEYXFFYkZqaDlqV1l2aDRkc3VxMmg1N2t1dEdMalhV?=
+ =?utf-8?B?a3MrRWEzL3JtdmFQYVcvY05PSmtML1VkVnk0OUt2UUJRekJybDdZSDVnS1V5?=
+ =?utf-8?B?YXJPWStxbWRyTVhyQWYwbDlkcTA5bXhEbkR2ZWRobXFuV29UVFY1c1FRbDlB?=
+ =?utf-8?B?eTg1dThBMzVwNHdldTdCM0ZsR1lQajBleEtPcUtHcW1NZnJXeFRielMwa1c5?=
+ =?utf-8?B?MkxMZFJLZ2UxeHJzRHNFL1hSY2RSSEpzMEgwRDFTakR6VGVQOFVaQS94OEhN?=
+ =?utf-8?B?WDVLMjhoNG51Uk93YWQwVGVDT1V5cGd2UlEzd0dBRkU0VmRESjRQTERrUXB6?=
+ =?utf-8?B?RVBVMDhvMER5M003RzRPVWJWNGU2ejlqZzNDR3lSWUVsVmh1dGRXdlJlWUpz?=
+ =?utf-8?B?djJRQ3QwZzNwditmVmRCZ0cvZHVQMHdqd3RvMnZDSzVPT2lMZWVJMEhTSWFz?=
+ =?utf-8?B?LzRmcFp4bGFiaXBZTENuV2VnWVJBTWpNcyttR1BCeDUzRElrc0NyL3F3eVFK?=
+ =?utf-8?B?N0ttaVJYdFNqbHRoSTVVZnA2OFBibEUwRTduR3BtU0h0NHlMaHVLZ0F3dUQ2?=
+ =?utf-8?B?bUlFM3dBakdDbEpxSWh2T1gxeFFnekFyVEZYYUxQSm5DNFhVNmxYcUpXdWxK?=
+ =?utf-8?B?dDNpV1Yray8ycXdVaVBqeFk2Qzlpd1NBclVsLzRleVJWV25nQVpkN1cwTVBJ?=
+ =?utf-8?B?OEQ4RFFqSGc2bWhuZXVCeVM1eDZWUjVPV0pkcVlmMkNOSHh5T2ZoYjd4c2Y1?=
+ =?utf-8?B?U2hxc0xBNWRhTFlrYnVpZW85ZzRGMFFNaTk0Y0V4VjdQQXd4MWNUYWtMdkNK?=
+ =?utf-8?B?UFNZMXNIS3RIN25BQWVmWVA3dGZTV3AxQnRjQTRNY3NXM2w1YmJaL1duZTBE?=
+ =?utf-8?B?VmN0LzlUVVlHWThyZm5pSFVCMG9GMDFqMWVnRWN0YkZZcmFLOUNLK2MreWtq?=
+ =?utf-8?B?RUtQaUt6TTJ5aHllWE84T3J4ZzV0T2dpaEs3a1Y1SnY3MlNxUmdxZjNNc1dP?=
+ =?utf-8?B?R0pwc1NFNnRFVzQ0VW1YVDNwVlF2eXBwelpIT3NZK3M0a2pEWUsxL3dLZU9X?=
+ =?utf-8?B?YjNpN1lVTGNIQzZMLzVCT1FqTGt1Tm5NVFhoZU1wOUtMYitMaUkzSm9LbWFz?=
+ =?utf-8?B?M2lkSzBOTkpiSHViNlR5dHBGVitrMmRBVDIySHl5LzhzQVZzUEt0R1NWbUVM?=
+ =?utf-8?B?TDVpeFQwdnZCK3dwS1N6T3RnclF0K2JJcnZUWmhoZDJ0WlVTbWJJMFdhNENZ?=
+ =?utf-8?B?L2Q1a082VHk1bGswVXdwYzdsY1VESkFOeUw2ZzlyM0pBTTluT25EcmVKN2hC?=
+ =?utf-8?B?RlVMRE9udVFBbDJLUVBkSGVURTNob1RlekNkTmFKRjR0SmRlVzhMdTNhYmF3?=
+ =?utf-8?Q?Hc0M7qWAY2qZQ8+ci9?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5180c871-a821-4b99-440d-08df22f07562
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 14:53:46.8740
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AmtdD0x3b82LYedWJRCPE8uRkJn8eUSChFoy8OXHpB8cABCoDWbN6dYWy0C+wQk+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5729
 
-On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
-> On Mon, 28 Sept 2026 at 22:08, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
-> > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
-> > > <richard.leitner@linux.dev> wrote:
-> > > >
-> > > > Hi Dave,
-> > > >
-> > > > thanks for your feedback! Greatly appreciated!
-> > > >
-> > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> > > > > Hi Richard
-> > > > >
-> > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > > > <richard.leitner@linux.dev> wrote:
-> > > > > >
-> > > > > > When updating the flash_duration range ensure the ceiling is at least as
-> > > > > > long as the exposure time is. This may cause the calculated
-> > > > > > flash_duration register value to be rounded up.
-> > > > > >
-> > > > > > This is done by introducing a new
-> > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
-> > > > > > wherever possible.
-> > > > > >
-> > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > > > ---
-> > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > > > index f728709fcf0a6..be38ecfad8c82 100644
-> > > > > > --- a/drivers/media/i2c/ov9282.c
-> > > > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > > > > >                                 NSEC_PER_USEC);
-> > > > > >  }
-> > > > > >
-> > > > > > +/**
-> > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > > > > > + * @ov9282: pointer to ov9282 device
-> > > > > > + *
-> > > > > > + * This may round up the ceiling to the microseconds representation of the
-> > > > > > + * next flash_duration register value to make sure one can illuminate the whole
-> > > > > > + * exposure time long.
-> > > > > > + *
-> > > > > > + * Return: 0 if successful, error code otherwise.
-> > > > > > + */
-> > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > > > > > +{
-> > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > > > > > +
-> > > > > > +       if (fd_max_us < exposure_us)
-> > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> > > > >
-> > > > > Reading the driver for how it handles flash duration, it all gets a
-> > > > > bit convoluted. I see part of it comes from the units being usecs
-> > > > > whilst natively it is in lines, but we've got this slightly odd calc
-> > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
-> > > > > value.
-> > > >
-> > > > That's true. I'm also not happy with this back-and-forth conversion between
-> > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-> > > > all "timing related" controls in the same unit (likely usecs). I was
-> > > > already playing around with that approach, but as this would break the
-> > > > current exporsure property I have not sent those patches...
-> > > >
-> > > > If you have any "mainline-acceptable" idea on how to do that I would
-> > > > definitely love to hear it ;-)
-> > >
-> > > Sadly I think that there is a need for some of the back and forth in
-> > > conversions :-(
-> > >
-> > > > > Seeing as this is the max flash_duration, is it actually limited by
-> > > > > the exposure, or by the frame duration? The difference between those
-> > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> > > > > you up to another 9usecs to play with. That covers any of this
-> > > > > rounding stuff. You can afford to always round that one down and never
-> > > > > clip the range below the exposure time.
-> > > >
-> > > > From a hardware perspective this isn't limited at all AFAICT. But from a
-> > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
-> > > > the hard-coded default case in this driver currently) longer than the
-> > > > exposure time makes no sense, as it does not have any effect on the image.
-> > > >
-> > > > With this patch I want to make sure to be able to illuminate the frame
-> > > > during the complete exposure time, but keep the maximum as short as
-> > > > possible. So I was comparing/aiming this at the exposure time, not the
-> > > > frame duration.
-> > > >
-> > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-> > > > time: Would a "turned-on flash" during those 25 lines have any impact on
-> > > > the frames brightness in your opinion?
-> > > > I haven't explicitely tested/measured this with hardware, but I guess
-> > > > this does not have any impact?
-> > >
-> > > No, as this is a global shutter sensor I wouldn't expect the flash to
-> > > impact the image if a connected flash was on for more lines than the
-> > > exposure.
-> > >
-> > > > Or do you mean when calculating against the frame duration the +/-1
-> > > > stuff can be dropped and the code would be easier to read?
-> > >
-> > > Yes, I'm suggesting the driver handles the range of values that the
-> > > hardware can support correctly. Whether that helps for your image
-> > > quality requirements is a different question.
-> > > The driver can pass the buck with at least some of the rounding issues
-> > > to userspace, which potentially has use-case specific knowledge. And
-> > > it simplifies the driver in the process.
-> >
-> > Talking about "range of values that the hardware can support": AFAICT
-> > the strobe duration is (from a sensor hardware point of view) not
-> > limited by the frame duration. At least I found nothing on this in the
-> > datasheet and a quick test on hardware also showed no correlation.
+On 10/5/26 15:20, Fred Griffoul wrote:
+> On 10/5/26 Christian König wrote:
+>> Well filling page tables by the importer is an absolutely clear NO-GO
+>> for the DMA-buf design, we have gotten down that path already and it
+>> took us years to remove this functionality again.
 > 
-> Interesting. So if you set it to a 1 second strobe pulse when
-> streaming at 60fps, what behaviour do you get?
-
-I haven't tested the 1 second strobe explicitely. But the strobe in my
-case is always on for the configured time. No matter if it exceeds the
-frame time/trigger. After the configured strobe_duration passed it goes
-low until the next trigger happens.
-
-Maybe the following visualization helps:
-
-
-strobe duration < frame time:
-                  __         __         __         __      
-                 |  |       |  |       |  |       |  |     
-strobe signal   _|  |_______|  |_______|  |_______|  |_____
-strobe trigger   ^          ^          ^          ^
-
-
-frame time < strobe duration < 2x frame time:
-                  _____________         _____________ 
-                 |             |       |             |
-strobe signal   _|             |_______|             |_____
-strobe trigger   ^          ^          ^          ^
-
-
-2x frame time < strobe duration < 3x frame time:
-                  ________________________         ________
-                 |                        |       |        
-strobe signal   _|                        |_______|        
-strobe trigger   ^          ^          ^          ^
-
-Therefore I would strongly suggest to set the maximum strobe duration to
-be in every case shorter than the "frame time".
-
-For the reasons discussed earlier it the maximum strobe duration should
-be the same or longer than the actual exposure time.
-
-What's your take on this Dave? Or Sakari?
-
-thanks & regards;rl
-
-> It triggers at the relevant point on one (random) frame, holds the
-> strobe line active for the 1sec, deasserts the strobe line, and then
-> waits for the relevant trigger point of the next frame to repeat the
-> cycle?
+> Understood, thanks for the quick and clear answers on this patch and on
+> patch 3.
 > 
-> > So IMHO the real maximum flash duration range the sensor can support is
-> > the maximum strobe_frame_span register value.
-> >
-> > I'm not saying this makes any sense from a use-case perspective, but if
-> > we require the driver to support the hardware's maximum values wouldn't
-> > that be the correct approach?
+>> The problem you are facing here is that dma_buf_mmap() doesn't work
+>> because you don't have a VMA.
 > 
-> I don't believe there are any defined *requirements* for how a driver
-> should behave with regard to flash timings beyond that in the control
-> docs [1], and that doesn't list any constraints.
-> If this sensor does behave all the way up to the maximum
-> strobe_frame_span register value, then I probably would go for that.
-> Other than having to convert into usecs on mode change based on pixel
-> rate, it at least saves recomputing it as any other controls change.
+> Right: the memory has no struct page and is deliberately not mapped in
+> the host, so there is no VMA to hand to KVM.
 > 
-> Sakari - what's your view?
+> I'll post a new version of this series. It drops get_phys(), the ranged
+> invalidation and the guest_memfd dma-buf import (patches 2-5), and it
+> does not touch drivers/dma-buf, as you suggested in the PAL discussion:
 > 
->   Dave
+>   https://lore.kernel.org/all/c413710b-4c28-4ed8-88ec-aeb8c4482011@amd.com/
 > 
-> [1] https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/ext-ctrls-flash.html
+> KVM gets its frames through the KVM-private guest_memfd provider
+> interface from David's series. iommufd gets them through a private
+> interface with the exporter, as it already does for vfio-pci. The new
+> version adds a small registry in iommufd for that, which replaces the
+> symbol_get() of the sample in David's series. The dma-buf is then only
+> the handle and the existing revoke.
+
+Yeah that approach sounds totally sane to me.
+
+We have drivers which stuff all kind of resources, not just memory, into a DMA-buf. That ranges from MMIO BARs to trigger FW operations (doorbells) over full HW blocks (ordered appends, global wave sync etc...) where two or more applications need to share which one is used.
+
+That you then have a exporter private interface is for accessing this is perfectly ok.
+
+The problem you are facing here is more that this is not limited to one driver/module but multiple ones and you don't want module inter dependencies because of the symbols.
+
+So symbol_get() is probably the right thing to do as long as we don't have something like weak symbols or similar.
+
+Regards,
+Christian.
+
 > 
-> > Or am I misunderstanding something?
-> >
-> > regards;rl
-> >
-> > >
-> > > > Sorry If misunderstood your feedback somehow.
-> > > >
-> > > > >
-> > > > > There is reference in the docs to a different behaviour if "the
-> > > > > vertical blanking period is long", but with a bit to set to give
-> > > > > stable behaviour (0x3017 bit 1).
-> > > >
-> > > > I've read that paragraph in the datasheet, yes. But as this was not
-> > > > affecting my use-case I haven't included this in this series or my
-> > > > downstream kernel. Do you think it's worth adding support for this? Do
-> > > > you know of any reports complaining about this power saving feature?
-> > >
-> > > It only matters if you allow flash duration to be significantly
-> > > greater than the exposure time, which I was effectively proposing.
-> > >
-> > >   Dave
-> > >
-> >
-> > [... snip ...]
+> Thanks,
+> Fred
+
