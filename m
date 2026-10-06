@@ -1,90 +1,170 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62BC3E3177;
-	Tue,  6 Oct 2026 10:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282537; cv=none; b=Ad/BCZ226RGIqlw/c+tXmkAwHY+yZ+LEmipbzxG5gR/vnIe8F4Rxt8utGo07hwZ3k0g3RWCVEjiXgZYyMbI9/s5Bo4fJb9wF+C8ZFwl8cMsJpqm37DDBNdNTZNQFQdRW3kWWMJh8fGHj8ZPLpMnEcvv51aze3S5iG25wyehw0Ac=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282537; c=relaxed/simple;
-	bh=CMwnIq4EzH/h8aGBC+9C1q1EScSn2RamA0/WP01JIRo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M/4vfLZTCg9xmcE8Zl8GuKfP0JDQjDG9olsFyP5GDbZaU+hl1V4XOhsmTRPM2ea4Vn3nPgWiSMXNOJJ9PSTlJvAvAO4rg7Jss90vlQbmfMiJtDvftSZXHPidn+DRnIAqDCmQKb7E/sSm7th4j0hwV36zwbfUN3uLljihPw7unwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uKry8SPe; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1343E44E4
+	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 11:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791284904; cv=pass; b=IM5YDT+Uor3H9BOhiHfBhZreqHyvIJvt8DGtX7p+Ws9sxu6Pnel7KWDtRAY69IIewEAIW+1FdO2XS57/jaemCql3ouPt8t9dqG8D+sq49F8yTv7l3q7Fm7F8Y2O58cLlyNrNOyq+Cd8GXGolntAlpkrg2M5RjQSAX8ICSmQ+nyQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791284904; c=relaxed/simple;
+	bh=mu/t0nX9SJf6wo8N8jq58J5MNpmsuozgdWxvH8xSVO8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IPFB9vRlEOUkVPSdXtuSEE+jcOvMxd+0u4rIN57z8X6J+BWfUEG8YH1SfneRPcw6pjEVKQDYdnZ94M3DribyY9HU1nd5G7Kx+NWx6IRI1c9Vhmlib0LpNioCsFdXEiIxHCYT6xdLYKeSLJjrPFpRcSxR/GXJ+fnyBWZsnYXo/Bc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KT1hCJ8A; arc=pass smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uKry8SPe"
-Received: from [127.0.1.1] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B2B141CF8;
-	Tue,  6 Oct 2026 12:26:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791282412;
-	bh=CMwnIq4EzH/h8aGBC+9C1q1EScSn2RamA0/WP01JIRo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=uKry8SPeYfkaAUFPvUfiOgCdWdfxanbJRYX3QCqYJEUyoInmzGtnfalYf/5f1UDFv
-	 y6r4uQ/9SJQNrM3j4LpJXrLniiue6Ahxfw+i9VfmwuDm4bDd1L3lpc25wodzdTcStk
-	 lnXwshE2l0i58ogjoL7nA/o8kX3N3tgh9HSb5jpk=
-From: Alen Karnil <alen.karnil@ideasonboard.com>
-Date: Tue, 06 Oct 2026 11:28:33 +0100
-Subject: [PATCH v3 2/2] media: rkisp1: Treat 8 bus width and 16 bus width
- formats the same
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KT1hCJ8A"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4956869750eso4215345e9.2
+        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 04:08:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791284901; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g83RQg9bWntM7g8ztbRnNEB7V/ymUAPbtBGGMqgfg/GNTgE8v7YSGGl0WzF9ZkMxdc
+         EjLCYJp1rrMf93eT5C9TuGvH3uRrC10Tsv55u+ZVOaTar5wOGuCNuLYt3uWs0VRzvA3g
+         IbJUouoSupSywqvES13szMjRicfeanJrErbcYj91D9xqHqyMaehFlylPcanzg1iYkYNg
+         9EteI54FEjgqCgC3oFAZnv20F0yYnuvZ1B/8sFmit6KDw+lyyDNrGdqv1146ubGb/EzE
+         AhsLnHVMtAfrB5npltaEcWxeEroBD/peA3SC0zcTNHVLTOn8clzExVj4MUpotbyHd0pM
+         qAOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yJ8PE6Uy4bwH6wDfLl1X3RI3sdy7oVAtm672ES1XxF4=;
+        fh=9/hckwr4365BbuWvsSCyYnYZVMeBxMGjNYQtAQFIojU=;
+        b=U4kJ0BUEtEwCISCFpqTvZ+YJi6mQCd8FoToUhixH6JUzKTO7D49misnIMgttU0FEpa
+         pwP2Z47Zhf+OuKxy4vFRk3xJwxFUTTyCny5UVowJ/O/xWYcmglg8aayHpep8Dvn9EBl0
+         NBivi3tnFbqw52WF+X6IPX8lS8LXqg1/BihteAKrK+wjaqagop2XwDj5YFMZS4uzD7F3
+         BY5fVfgDQxpt7stIkI1bONgNHDxXBXFdwEwyb28qNOBc0QOqAUfTKoArZf970JPY5vTH
+         cskBPTBFZyxgiqhjAZ8w4p+4TTsI0Px9cWxEQrVaW0Oz3RmlDMdcCWCxrMAO1LeWrDgc
+         F/7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791284901; x=1791889701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yJ8PE6Uy4bwH6wDfLl1X3RI3sdy7oVAtm672ES1XxF4=;
+        b=KT1hCJ8A7oqKyx/HwsCOpG/k8CUyOUxNqnqhANXA3v/D501wdyMQD/7fxto87CZA23
+         b3H+9lTW9z58X+AKuT14XbGFYQSc1xd1lqqLdXpVWoFNwSUYUxqZQ0hqqzLjjMSk5GtP
+         apdhWwTQ25paigoxcYFhy9CfgjlHYl1WPntyi0sQEXRbnMTOb70P0a3JPwAXpuqw1ABG
+         oprA+Ble1uL+FudlWSAqhEngp0vooE9sZMMOS44hSUzextuaQPfpjx20CHbxdBGCyJps
+         EWUTG/dqKLOhd/vvkRkl5FdwdCEklePWrRzo2hlVlzEBzwEUv8OxLdv3+ycau8Xwhmjc
+         KJ/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791284901; x=1791889701;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yJ8PE6Uy4bwH6wDfLl1X3RI3sdy7oVAtm672ES1XxF4=;
+        b=hWAQNdUwgFwCO/nbeJDCCmojxWpsvY+ghdH9PkPem4K+wEZY77eXzcbVleu2gG+j4t
+         +FZbxt+eU+8cXnCK2AJo5lRG+IxqOhJgKHLrQZ7iJjJhDWMBr7bweyLd4rM0N9rQKdVs
+         v9CU1Z4JKqN0yxpkg31KOEGhT3xdUQ4jmjNs9d6TRUjHscQafFNLl05pkQ359BnbqVx2
+         C5n9Zr3401baMP0AbWijW+6vfAsBZfeNJYCm0UR95NzBM2/fuqe33D6gZ3bNsTs8PURP
+         y9mjJbi8Do7v/GulcAt2wO5fN54R2yQSTKexcstmlPvuJz8bpAw1turJWJj3s7WMB/xB
+         +zQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxaaATi9O6URe2kqlaDetbJy6FNgk3TBaq0hlueLxfz8ji6Whq0lPvesFefGVU4SjLerFylPoiwYuIfHQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nR/c3QDjbpVI1ruPrHnsryiztcRWskglunGvJ21j2jDSCwoY9V
+	tpFqzh1ns7ZE2c8gDWJXe/qWj1XZxLkoR4MNAf5ajzzZGv1qdCDsccpiVg2ztCsExnHKnpkrngc
+	grx1ILdmsHwnKm0pkQkbbZrFNyZ3nu/MS2VFFgpU=
+X-Gm-Gg: AYBFou06WxKp/a2a9gJtokzIpkvCeWIhAQam0Sy7b4okCqC4ys7b/KcVjqtVjX0wh4A
+	Uv85Wuc5SiENjcDjoKoAF0xqZH90ajjBjjCSnhQ8RVSEU123o/lbJY+YU/pYogh7U7dnvFLbAPM
+	Mdm6YOqYggQUylsI0IC9EUwymtN6VfRkg6h9/7vnErom6Z4yoaqFFrKbKcpqtIT9sp0gSgp972Z
+	aedMKw9MWbqSLc0YSaXynw6LOFd8CK8vprLfys/HVRnCfwPxDaiGcXYNQdXo5CAYIlD3sg6UugW
+	I9tiMKuHT3dAsiHIlJw7P/c52PoqTl59nWdu9tcduAv0QR/0dS5cYZkQkdw23iF8KExmr/WMgq3
+	lrc2fuU1wObx+/KXtQOXcSSBhaeXSbpiYWhIjCDZ/qkZLgqW3Pn1Ao7/ag5pzfI07SRyGN/gP
+X-Received: by 2002:a05:600c:8b55:b0:4a0:13ea:2ec3 with SMTP id
+ 5b1f17b1804b1-4a17b55f8d4mr16436125e9.35.1791284900622; Tue, 06 Oct 2026
+ 04:08:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-2-93d3d43991a0@ideasonboard.com>
-References: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-0-93d3d43991a0@ideasonboard.com>
-In-Reply-To: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-0-93d3d43991a0@ideasonboard.com>
-To: Dafna Hirschfeld <dafna@fastmail.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Isaac Scott <isaac.scott@ideasonboard.com>, 
- Alen Karnil <alen.karnil@ideasonboard.com>
-X-Mailer: b4 0.16.0
+References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org> <20260928-mali-c55-renesas-dts-v3-1-2cf7eb746ebb@kernel.org>
+In-Reply-To: <20260928-mali-c55-renesas-dts-v3-1-2cf7eb746ebb@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 6 Oct 2026 12:07:53 +0100
+X-Gm-Features: AclHuK93-zqsTFDUIXHtLL21RUOx75gjaGfM2OXZX3yb6vwYcEZ12igB1pL2UyA
+Message-ID: <CA+V-a8t_WZpq+n_z8zk7M+OpWExRZydZaS3W1uxi6dH7SukXtg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] dt-bindings: media: renesas,r9a09g057-ivc:
+ Describe additional interrupts
+To: Linus Walleij <linusw@kernel.org>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Isaac Scott <isaac.scott@ideasonboard.com>
+Hi Linus,
 
-The driver accepts 1x16 YUV formats, which are 16 bits per sample.
-Each sample being made of two 8-bit components. Add a fallthrough case
-to allow the ISP to handle the 8-bit components.
+Thank you for the patch.
 
-Signed-off-by: Isaac Scott <isaac.scott@ideasonboard.com>
-[Alen:Rewrote commit message, added comment]
-Signed-off-by: Alen Karnil <alen.karnil@ideasonboard.com>
----
-v3:
- - Taken over from list and refreshed
- - Rewrote commit message following review and added code comment
----
- drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+On Mon, Sep 28, 2026 at 1:32=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
+>
+> The RZ/V2H IVC provides input frame-start and frame-stop completion
+> interrupts alongside its input frame-end interrupt.
+>
+> Describe these optional interrupts, keeping frame end first and requiring
+> only that entry to preserve support for existing device trees. Extend the
+> example to show all three interrupts using mock interrupt numbers.
+>
+> Assisted-by: LLM
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  .../devicetree/bindings/media/renesas,r9a09g057-ivc.yaml      | 11 +++++=
+++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/media/renesas,r9a09g057-iv=
+c.yaml b/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml
+> index c09cbd8c9e35..3eeb1a92c9cf 100644
+> --- a/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml
+> +++ b/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml
+> @@ -21,7 +21,11 @@ properties:
+>      maxItems: 1
+>
+>    interrupts:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Image input frame-end interrupt
+> +      - description: Image input frame-start interrupt
+> +      - description: Frame-stop processing completion interrupt
+>
+>    clocks:
+>      items:
+> @@ -92,7 +96,10 @@ examples:
+>                 <&cpg 0xd3>;
+>        reset-names =3D "reg", "axi", "isp";
+>
+> -      interrupts =3D <GIC_SPI 861 IRQ_TYPE_EDGE_RISING>;
+> +      /* Example interrupt numbers. */
+> +      interrupts =3D <GIC_SPI 103 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 104 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
+>
+I think it would be better to use the actual interrupt numbers used on
+the RZ/V2H(P) SoC. Most of the Renesas bindings use the actual
+interrupt numbers.
 
-diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
-index 4de44f6ec753..54b9028b1f41 100644
---- a/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
-+++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
-@@ -264,6 +264,11 @@ static int rkisp1_config_isp(struct rkisp1_isp *isp,
- 
- 		switch (sink_fmt->bus_width) {
- 		case 8:
-+		case 16:
-+			/*
-+			 * 16-bit width YUV formats use 8 bits per component,
-+			 * so they can be handled by the ISP same as 8-bit.
-+			 */
- 			acq_prop |= RKISP1_CIF_ISP_ACQ_PROP_IN_SEL_8B_ZERO;
- 			break;
- 		case 10:
+Rest LGTM,
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
--- 
-2.53.0
+Cheers,
+Prabhakar
 
+>        port {
+>          ivc_out: endpoint {
+>
+> --
+> 2.55.0
+>
+>
