@@ -1,97 +1,95 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47F63E44E4
-	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 11:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F0A31E823
+	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 11:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791285112; cv=pass; b=rJw0H/+SXsaJGdKxPTZlOHG9jAOt1y8vUjHDvkjA+WVns14Ht7jyFnTYiPIrOoefQ5M1UvzTBPporfi1SghGV8QKYt81mSoaDOu6na3/+Sq4LxLuTGPiPzHIT7TxfaiK18r77F/e5iWbTfWbVZYFRWiAlsEZytOaSgwmi9l1+Vo=
+	t=1791285228; cv=pass; b=BziCu8bvRpFh8Rwpc5LWacq0FYsK4G7W8lZw6MWjsS1jnjLLHW1L9ISivLl/fvTgneP4vqbA3FNCs+2yAPqVZjGQqAjZlLCfMKVodF9ze5k0Y4Ss6s8G2kcIOpvN5E23RHRQ5VAObRRc9ssDWc9OqJ/V4np+gzRVbYT0S+RdE8Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791285112; c=relaxed/simple;
-	bh=mUNeY0u+Irh6yo+HzKbKNtxDudPGVOMhORN9dinV7FA=;
+	s=arc-20240116; t=1791285228; c=relaxed/simple;
+	bh=xNyDpAmR5FGwhysiQJeqiOkY4NC2Si7kbY4uEVulYIM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C17euEaGQyHv2L4Nn9WOcNdDVwx5X3OdcqoP9Q/amzyD+gjcoLwoOvXc1zwRCYVbP0GrC5I4hrs+t+Qvo+AoaZMK/N3ahGVKZFgTJgWoo65uuoTpMTaG872ThDJ3yPU0KsfOZ8OtvSYafe3ML/eX9o8q9XLzID3oYHQZM6YFHRk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zc82NDTs; arc=pass smtp.client-ip=209.85.221.51
+	 To:Cc:Content-Type; b=gvkI5P8kUbH5zxEKiYfCLmL4d+DmTAFf7rgLkui0sX4xpgogfd2yt78B6oIxG6/P+v1B0VxeDddsEhg0NwS6p/hcUNeQGG5cneOiMR2cxNl7YTHEdUtn7Afo3CyoUzJ2mjEg4a/cjwOhEgGiL7Jwm62Moai8R9rCdO8ZW5kezUk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C7zt8yU/; arc=pass smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zc82NDTs"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso2268882f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 04:11:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791285109; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C7zt8yU/"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so6484165e9.0
+        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 04:13:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791285226; cv=none;
         d=google.com; s=arc-20260327;
-        b=dyunr80dSD/dvi29kC1pn/IiAqEm+kwplCT9ntlYDE7F14N9x1UTDu0l5Ac4nKXqqa
-         UUp7ppNy04vA8h10mnolvsp4u9OB9wW78xEyOP60n4YaH/YiADeLvSFkPyNeY7gC/b3e
-         9BYoYmbMg7JCIQw/61463HR7vskhHCs9rpP/FOPA9H+kqvLW8kyWGNc5lqMheWcMmnXO
-         Xw9y6Aop2YzOtmz/aZT9jYbFBs1m/PsXfqatTs6OjlJaYkjWs9qzDEqJMrE957LkY1EP
-         Isa7KTTAw4Il7cXJGrKZMDCFW4V2TZCjdntSa6e2aDCzb/VbONOd1QbB9NFZSCK0uwts
-         dXpg==
+        b=nvAiZH/XKPDaLCRqdxKi2xMRgqQ9gY78+PEFf50+CbDqAnx/z2zGwAlv49cwpvr0cv
+         VgBmIGCCu04RGP1pkyZ2gmpMGe8Jrw+Nv6N1QYkq7YZnzRbQvIgk9smgw6RmcxCPLGtb
+         biFIKmbB6nosNtX9QyFBlMEc9pFXyS3uNBRcLKw57BLD4qEtCHXRMqzvEOAC7cRjuYqx
+         82Bu6WytDlL3JSwAGALjPT7mLn+KLVRQLWonRiTVMIwfRaiGox8LFhE8/bbmqZduxCJU
+         1CoVyGanqMk/0cjS9Cm88bTmNQzvK0ZRKYnBL5zsx3Kdo+6jhO8rgsb+R4z2eu/VWzpR
+         rtPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=hGa1JZEofQkImbdUcr0R+0KXG2WfE9qw2GmFzyG0ca0=;
-        fh=Bb0sqy/Znm1NeP4Kbmu/sTY52xlM4wMw9AmYZ96BBVw=;
-        b=LSrofeR2XHfzDckk+j4KxlBS2qJyr/HyM5hSoYxX4KW0+wfoGrOUksZyXzQGgqBD6G
-         0QhCopn2bHAMdggTUEYp4+tlQhAG7H55q2snr+39knILRztMm9ocwMSr7pY9eBBE7Zkm
-         GWbOWZulLaTg1DoKgyNly2UF6YzKUmXY+5+MLhhazx1cdb2q6nV7nbEesdBm5D64rK16
-         vT5ApBzj7aABXu5oNQon0+GNBVxp7Y1/4l3EpTwOxeLtWp+kBAo5XXt9XAmkej7PzRPE
-         edjVsCk5R7Hha+Py5/5DG8lB/B3nGXzrJact4TjPW3Si8EVJIIHMxc687ZKrtEynTsbO
-         UcfA==;
+        bh=hj9KaKUC+O6S/8IjU9bhafDGIosRHpO/TG6hD/80Dks=;
+        fh=YXDPJbgUdpac1PE9B5TQVhTRpxXxzuCaQd38xCE8M3g=;
+        b=cfWQS2kSs0qB5Je28Xz6IBT66pY/ywQF2bpk+e0hG6/PczBxf0GnxyQipwxaTtCYlO
+         cZORdm8kXe7ew84rwtQPEGCIDAALXfmL0UIe9mt+RgSCi/+xBcdNDfMB6y4bMPadolpg
+         rVz5Xu6x080cTw/fwMacUxDVyiHsI/CJEcDqEQUcOT3yPAPtdSqw9T2jfQ/R9LiVQasG
+         tJq6fZJ70E8LIbcWAUN1JYZmkeKf5zZgzJmq97WJ1JR8mFrE51b8Mq9wQ1T6dO//MPtE
+         /O73JLWl+h9EzY8qx/R88FGx0gocAAnyGl18NGM7Bj7+lWsH7AFZmH0iqbvYxR1Nd3q1
+         657g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791285109; x=1791889909; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791285226; x=1791890026; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hGa1JZEofQkImbdUcr0R+0KXG2WfE9qw2GmFzyG0ca0=;
-        b=Zc82NDTsUNurJDINr8R7WoGBO1Kglvdz4OFjt+dUjGIdn813cYGuiuG00CFAGsjqoh
-         wSwv3mSWym9yl24y6vzSfdyHXzr1NKe7CIqqY5FADf2b1v6rYmSdZ7tyd2k5vFTdncKA
-         +eWTJAkb8wZyBBrExkd5ITvtFfr4MyuFhQNNqaMUABl/ab+TfU/AbWmu3MCMXYVSuz/2
-         fGDbH5FGMDXARijapoefRsbIb7XRQeA/sZ2Mvbme7MVpc/E59tSlsyl76gFdYP0bmpaa
-         pYTKTkKhAOY22HC4Ps/fDPLer7YfP2NeNKUaKpiSSGvjHRUqJAkIDvNn4Kav7aPOsTDH
-         xcjA==
+        bh=hj9KaKUC+O6S/8IjU9bhafDGIosRHpO/TG6hD/80Dks=;
+        b=C7zt8yU/Dr1uFq1oZpQuvKwQ9NBTNzA9jmFC9W5KhcHZjxApR03UeFJQDcJol09SB6
+         i2K1HPpx8WiE3BQAFAGDjF2W0ufyBde+7+U3sSph68j9G5ij2rjdzoH7Vcmvqy0QvaZz
+         ChlTJX7qEcBz2ZyDFALRphl3dyP1oO8vrmj0THdEf1najn/BWO/yuVxm8fC9Wxif1sLv
+         Ki/7hqc7L3E6UgWFhExjz6p6vcyV7WpmmJtyDc8dINMwdjvgrvehodyAFeekWCVncNNI
+         Uvrcq9UlCzb9toTkpTqoVs+picWgzybrR3/FektgdyFDuf44n7VAmRj4NXqzHip70qmr
+         KzDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791285109; x=1791889909;
+        d=1e100.net; s=20260707; t=1791285226; x=1791890026;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hGa1JZEofQkImbdUcr0R+0KXG2WfE9qw2GmFzyG0ca0=;
-        b=pkUylMjwgJa4m7qBDICNhnX8pbOVtJVNwwb8bWmQ6cE9FiKKXOKwh78TWZwcqpzWhj
-         GUYfPypCdhjfLNaFIV+lDOm2Ti/POeEwB6kGuF83nJEqdpdnPu+/9X64GFyFzyYeBRWL
-         ZGr9DcmWi/RMayZHquKlWTa8bU1L82cNstIffALwWAwir7njW7vLvqERAGmgVEE2W6IB
-         ajKfctd7k6OZzi7QmQldhZ9qpzdnUJgXDb+5VYt9tSZL+JXq+7G3u03PQb7jg12VlqHb
-         Crmv6N3q8DxQWzs+8OY1koNXVhebVFNJ6/5GfMHCVrf9+oYDrS9VrLFFSjl9dI6QohAO
-         KZMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzM+glgywOS8XNdnXplQSDFH9s0rOCzb14MMuQepMsc2Utv+sZLj4TqC1gLWpyKMQr1luRiNZuu+43uw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2xLMFt5C+ZKWQhNo8zEhOlMA34HuimPJojahwuglo54Khh7tq
-	CEDkWYROoIoZdV0qZfyKW6ti2tDBf3mMo4qnuzZO9M3+xbaI/wV6HnAq80kVqKTklmh2Mc6ypO3
-	evLadbh+7Nu+q4GwOxtFS3zBc5Y3SUDo=
-X-Gm-Gg: AYBFou1GgJVqaZHvyeRsqqupr4TJAg/Kx2bJgwmpKccDffA7aWXTEu6QnUpBf+bfH80
-	j8v6m+vhFz0au1a9SLSiDL89hCD4rO/53w52esGV0fodhmCN70owfsaiBNc1vXMxl0sDQ8Pg4gk
-	ri58cGkkPOLVchNiKMgTyZKiBnEv2FZZd4zwunMF0TFfYqV8lEdfZucqWmBkS718UtpS2tbTQRU
-	EC+V0v9lXH++jWT1nhI+V5Uc30DZ6wY13oyujJW84b2MfAr2nOMCzbQ2JXuRfwKO28c3wOo8gdD
-	d6/ymDPkqWH7stWsrIJ7LDiPD15GmkfTEGd2x3g3/eo7+hlAD0T8VVh4J7Qctv1Mj1ayHycHGoR
-	byrJExe4BP2soa9qmUrLWssRK3vMF3ue7OATS7IXU6SHskqVFNSnQGFyR52GP/fUi2Ae3kRuMci
-	Q7D7jwxJU=
-X-Received: by 2002:a05:6000:4a04:b0:48c:4707:1b6f with SMTP id
- ffacd0b85a97d-48c480272dcmr16516413f8f.53.1791285108694; Tue, 06 Oct 2026
- 04:11:48 -0700 (PDT)
+        bh=hj9KaKUC+O6S/8IjU9bhafDGIosRHpO/TG6hD/80Dks=;
+        b=LBkH7gVsMbam3b4tBqj76H/JXjbh09jaF0l7rWJBM/B6QD/Xi9IDkk4ks1y8ySSUDc
+         0JCBbsIHsQc5+WndVAfXSrDPyfe0rpLOHA7EnH8/a1GrYodiWnypxoxuCBuJATIDwCrD
+         xqWzxPkz1/CQ7ITvnoccAPooz7o9BIidFxVeBZXJGIXD66KH5UfWXdt8SEdGEqTTq3Be
+         9jqk6HHeWlSBuL1g/gS0hwL221bZruV0OTMkP8i2FvVN0DmO2o1hKQ31nrqQwgLbh8AP
+         8K+asGmRgCJMb0+5Z/iFaee11OE8WQXFHcDPCdeLrikfyHe1hP/rPst76/jO9AAutC/B
+         SoNw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8UWYFcQBmLyB8jDkfXl1PlO0UHvKrj4wrMLH2gGn7g+yiKZcl18e50mUCjgwiAIHA/5YttrY8lWNyEQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mWJox+mX426QOAgrLCB50R+Gr3qrIHZ0qco1Elj638A+P3agzp
+	T58pePUJH4WWPJYOi9hzQV4lv3XdyEWSHpFfJIpF1vxsbI4D79HEPyJBXOOcnSaQbh4iIXw+Qv+
+	P4vRXFU/k4+zRM75cSLp9T+ORzyehP4o=
+X-Gm-Gg: AYBFou3hcGV2kC4gKu49/a8/ovhaOnpENoyNIVG6s+EDfGXiWPiJ1M2BNUDzu9xhQwD
+	3mzzFp4BnY91A6CrE3wYVHCF0kt4VfQhD6ne9qnChw6VzsbQr2nNqqIHKFY0hxbMk5sg9gbhi34
+	5eLW5wB2u5Dxa5NLFspQXm1tpi3QsxNc3w3Bpu9ejZ/AlGuUB+E1jwgy7yWOv/kOcKVXae/utYJ
+	WTKzlaKS+pgrZPchcsFEBHK696e0/CEnlVd3sMJOrJL65uQmI1cDOWaaDwbmiByUzXaq8AF/VSu
+	XrAzX+QWYovWZ+4YSe7t2tU2bTqKLRZ5Y40qDBwYYiKLuzout0Co/wG4PJwBjuaTIn+hxstBSKX
+	I2BEzgx+aZQUs7dyamFI4hu58qZ9vOW2ghEOGD0eYOkB8zFIB5q8yQ2IGDWsDmGAeB84shERe
+X-Received: by 2002:a05:600c:3510:b0:49f:ffdc:939d with SMTP id
+ 5b1f17b1804b1-4a17b536662mr17476405e9.9.1791285225506; Tue, 06 Oct 2026
+ 04:13:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org> <20260928-mali-c55-renesas-dts-v3-2-2cf7eb746ebb@kernel.org>
-In-Reply-To: <20260928-mali-c55-renesas-dts-v3-2-2cf7eb746ebb@kernel.org>
+References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org> <20260928-mali-c55-renesas-dts-v3-3-2cf7eb746ebb@kernel.org>
+In-Reply-To: <20260928-mali-c55-renesas-dts-v3-3-2cf7eb746ebb@kernel.org>
 From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 6 Oct 2026 12:11:21 +0100
-X-Gm-Features: AclHuK8IOd_scDCDMasik1_SzcAsKOlMt2yLWcF2qQVhREPX9v8HScGEMDKtzlU
-Message-ID: <CA+V-a8t5NaVRnh60eTD50rbnHGmYpZ_O-bQJtwF9=yU2jo_5jA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: media: arm,mali-c55: Describe DMA
- line-tick interrupts
+Date: Tue, 6 Oct 2026 12:13:18 +0100
+X-Gm-Features: AclHuK9BPf3cilBqj7nThWhC8BNihFPb8g0An5CConkIqmbm3l2wQk6-UbbqXpI
+Message-ID: <CA+V-a8sJgTEFB77V=UUXf2d=GLfbEvCbmk8ueGWPsPipr8Dj_w@mail.gmail.com>
+Subject: Re: [PATCH v3 3/5] dt-bindings: media: arm,mali-c55: Add power domain
 To: Linus Walleij <linusw@kernel.org>
 Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -102,66 +100,50 @@ Cc: Daniel Scally <dan.scally@ideasonboard.com>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
-
-Thank you for the patch.
-
-On Mon, Sep 28, 2026 at 1:42=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+On Mon, Sep 28, 2026 at 1:54=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
 rote:
 >
-> Mali-C55 exposes separate full-resolution and UV DMA writer line-tick
-> interrupts in addition to its combined core interrupt.
+> Some Mali-C55 integrations place the ISP in a power domain. In
+> particular, RZ/V2H uses the CPG domain to manage its module clocks
+> through runtime PM.
 >
-> Describe these optional interrupts, keeping the core interrupt first and
-> requiring only that entry to preserve support for existing device trees.
-> Extend the example to show all three interrupts using mock interrupt
-> numbers.
+> Allow a single power domain and describe it in the example. Keep the
+> property optional for integrations that do not expose a power domain.
 >
 > Assisted-by: LLM
 > Signed-off-by: Linus Walleij <linusw@kernel.org>
 > ---
->  Documentation/devicetree/bindings/media/arm,mali-c55.yaml | 11 +++++++++=
---
->  1 file changed, 9 insertions(+), 2 deletions(-)
+>  Documentation/devicetree/bindings/media/arm,mali-c55.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml b/=
-Documentation/devicetree/bindings/media/arm,mali-c55.yaml
-> index fc4fcd19922a..8fcc46660b75 100644
-> --- a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
-> +++ b/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
-> @@ -18,7 +18,11 @@ properties:
->      maxItems: 1
->
->    interrupts:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Combined ISP core interrupt
-> +      - description: Full-resolution DMA writer line-tick interrupt
-> +      - description: Full-resolution UV DMA writer line-tick interrupt
->
->    clocks:
->      items:
-> @@ -75,7 +79,10 @@ examples:
->        clock-names =3D "vclk", "aclk", "hclk";
->        resets =3D <&resets 0>, <&resets 1>, <&resets 2>;
->        reset-names =3D "vresetn", "aresetn", "hresetn";
-> -      interrupts =3D <GIC_SPI 861 IRQ_TYPE_EDGE_RISING>;
-> +      /* Example interrupt numbers. */
-> +      interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-> +                   <GIC_SPI 101 IRQ_TYPE_EDGE_RISING>,
-> +                   <GIC_SPI 102 IRQ_TYPE_EDGE_RISING>;
->
-Same comment as patch 1/4.
-
-Rest LGTM,
 Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
 Cheers,
 Prabhakar
 
->        port {
->          isp_in: endpoint {
+> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml b/=
+Documentation/devicetree/bindings/media/arm,mali-c55.yaml
+> index 8fcc46660b75..3a11d3f8488a 100644
+> --- a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
+> +++ b/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
+> @@ -36,6 +36,9 @@ properties:
+>        - const: aclk
+>        - const: hclk
+>
+> +  power-domains:
+> +    maxItems: 1
+> +
+>    resets:
+>      items:
+>        - description: vclk domain reset
+> @@ -77,6 +80,7 @@ examples:
+>        reg =3D <0x400000 0x200000>;
+>        clocks =3D <&clk 0>, <&clk 1>, <&clk 2>;
+>        clock-names =3D "vclk", "aclk", "hclk";
+> +      power-domains =3D <&power>;
+>        resets =3D <&resets 0>, <&resets 1>, <&resets 2>;
+>        reset-names =3D "vresetn", "aresetn", "hresetn";
+>        /* Example interrupt numbers. */
 >
 > --
 > 2.55.0
