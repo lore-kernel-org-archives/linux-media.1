@@ -1,199 +1,112 @@
-Received: from ns.mm-sol.com (ns.mm-sol.com [37.157.136.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4990238238D
-	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 06:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.157.136.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59199330B09
+	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 06:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791268697; cv=none; b=cqNFp1u9aTkjQ7QXbEgq3pap2o7DhojcKaHAcVig9Xn6E4GmXshctUL+G10K8WNWX7kQFCxT2ZoBdeVnXFWeoA71WHCZWWlXMBcVfA7tM8zoihkxDX+5P7zjcPHRjLY8rozVThxKlyruZddDoj4WRrZ2jSRNVt0T+MbTwAtYHn0=
+	t=1791269535; cv=none; b=Tc+VI1NmE85tVuQIp9+udN5WzBAtMu8UuBQJeU6N2g2E3V+qbEHYsGR81uShrFmcoeF2I6kZKZtsLKaRC8P7Hvyj4HfrJhkNvnnCnj4f+2ZdV4UnVANOAD7iC7r5UVgLdKnSl3lfY6W4G5dwUhk1qrVMHbynkFGYnNhYvF5qQ2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791268697; c=relaxed/simple;
-	bh=mMLnBCWMVuCyHh579WixY2/a22DJeY3beqnzfpd9jUI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HvWJHjiXxvDsjPjYG8qxxQK8MleflgqyAwQbAC6TmqZMC3SGPoaxwYBkB4RkZqyDciv65ZLxTT43hX+MZDh51KVfxqu+AknuWdRRbHItsq+EWyaZzu1ph00uvWUuMhCd1YMeltaBwQw4kVPl7ip3BO0An+2dpyovpP3moaQ/86o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mm-sol.com; spf=pass smtp.mailfrom=mm-sol.com; dkim=pass (2048-bit key) header.d=mm-sol.com header.i=@mm-sol.com header.b=JcvTENqF; dkim=pass (2048-bit key) header.d=mm-sol.com header.i=@mm-sol.com header.b=JcvTENqF; dkim=pass (2048-bit key) header.d=mm-sol.com header.i=@mm-sol.com header.b=SRRp8Mb/; arc=none smtp.client-ip=37.157.136.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mm-sol.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mm-sol.com
+	s=arc-20240116; t=1791269535; c=relaxed/simple;
+	bh=sXEuhuPbydIc2hl07e1Bu/OzsVyrxTFy5iWRYniIZCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lEjqJMGZi7QKQZZ8WhnE5CdWC9vnLSmYPVwHT1EUdwRfSISc0IRcCB+VkpN1d/pOJZ9evux5JYMoTRqVdqjnmLaX9ZjauW+gQD8FDQUJ5jTjxWmvhIoR971a1mwPGqtRIviJhrjm5x6H663DJYeL2DfKq7GiS9xTA3YZoPc1hrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=czHTelQx; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mm-sol.com header.i=@mm-sol.com header.b="JcvTENqF";
-	dkim=pass (2048-bit key) header.d=mm-sol.com header.i=@mm-sol.com header.b="JcvTENqF";
-	dkim=pass (2048-bit key) header.d=mm-sol.com header.i=@mm-sol.com header.b="SRRp8Mb/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mm-sol.com; s=201706;
-	t=1791268244; bh=mMLnBCWMVuCyHh579WixY2/a22DJeY3beqnzfpd9jUI=;
-	h=Date:Subject:To:Cc:From:From;
-	b=JcvTENqFL/MRtT5WBmxVfKF4oDQ8TZplWvWngvNtb9gVgeK+279gg/qlip9VbaqJU
-	 RW9XsTr0ALEuF2bzXT2VgYxacScEuB/xuH/sv2dOrv7hrlDc7QHY8KLLsnxv2LLhav
-	 77Y1rL6EylFa6tBYzW0T90kgxBCmLGVgPuKHJ0jvVPv0xXgffNqnigjTPTcgjqB31L
-	 xxMb97KUbiJB5UaF1gefgQS+8lHCCjZlQe9p5ygm4zbNkU99GoJJIBy06eRmc6zEaH
-	 zGUkv7HzPpCXlCV4Otjd5GPuzjhlkDEI+EOWhc2JJif/6UF0aABAnjoVkBhuLtlNPm
-	 WqghEnqXznbTg==
-Received: from intsrv.int.mm-sol.com (unknown [172.18.0.3])
-	by ns.mm-sol.com (Postfix) with ESMTP id D7E6A802D6;
-	Tue, 06 Oct 2026 09:30:44 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mm-sol.com; s=201706;
-	t=1791268244; bh=mMLnBCWMVuCyHh579WixY2/a22DJeY3beqnzfpd9jUI=;
-	h=Date:Subject:To:Cc:From:From;
-	b=JcvTENqFL/MRtT5WBmxVfKF4oDQ8TZplWvWngvNtb9gVgeK+279gg/qlip9VbaqJU
-	 RW9XsTr0ALEuF2bzXT2VgYxacScEuB/xuH/sv2dOrv7hrlDc7QHY8KLLsnxv2LLhav
-	 77Y1rL6EylFa6tBYzW0T90kgxBCmLGVgPuKHJ0jvVPv0xXgffNqnigjTPTcgjqB31L
-	 xxMb97KUbiJB5UaF1gefgQS+8lHCCjZlQe9p5ygm4zbNkU99GoJJIBy06eRmc6zEaH
-	 zGUkv7HzPpCXlCV4Otjd5GPuzjhlkDEI+EOWhc2JJif/6UF0aABAnjoVkBhuLtlNPm
-	 WqghEnqXznbTg==
-Received: from localhost (localhost [127.0.0.1])
-	by intsrv.int.mm-sol.com (Postfix) with ESMTP id D2B2EFC248B;
-	Tue,  6 Oct 2026 09:30:44 +0300 (EEST)
-X-Virus-Scanned: by amavis-2.13.0 (20230106)
-Received: from intsrv.int.mm-sol.com ([127.0.0.1])
- by localhost (mail.mm-sol.com [127.0.0.1]) (amavis, port 10026) with ESMTP
- id 7PP8h1A2iSPi; Tue,  6 Oct 2026 09:30:42 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mm-sol.com; s=201706;
-	t=1791268242; bh=mMLnBCWMVuCyHh579WixY2/a22DJeY3beqnzfpd9jUI=;
-	h=Date:Subject:To:Cc:From:From;
-	b=SRRp8Mb/W8YGNFVbsOHVLUUDQK56i47+YX+ADUCX8Qvtcs83WHPuGqlIlm0X2ar+Z
-	 PgnrdkYJiAzqNL7zScooobV1yZQOyPb81PeokkzIWEudCIsD/BB1xQxeXiCxv6oq7I
-	 0m14JqIZ+OV1UXhDXhEemP5uHf4mPX+2aZmIsbHRXZz0hD/kuEYjpttAi3RBhJ7oN8
-	 mWh/a02FzliODgHq/XAJXdXE5oxpUSSTr9T9tBj1pSq1W2T2eoTNebvU5RcRvWGk3o
-	 Fsx7wdOZTP60JZFWWVjZioMFdb560sHjhMk0ec79S/EH8sg56N276k8MO7TvVG84X8
-	 dojE4aVpeBDTA==
-Received: from [172.20.2.172] (unknown [172.20.2.172])
-	(Authenticated sender: grosikopulos@mm-sol.com)
-	by intsrv.int.mm-sol.com (Postfix) with ESMTPSA id 6463AFC248A;
-	Tue,  6 Oct 2026 09:30:42 +0300 (EEST)
-Message-ID: <e4b965c0-83fd-41e4-8ed0-81d53c2d57dc@mm-sol.com>
-Date: Tue, 6 Oct 2026 09:30:24 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="czHTelQx"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so7217842eec.1
+        for <linux-media@vger.kernel.org>; Mon, 05 Oct 2026 23:52:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791269533; x=1791874333; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZzqvAx4iFT6Nq0wHCIP+vtsVoXt5n1py2cHhYmK9d5E=;
+        b=czHTelQxxRj89cD+sGN0HyPiyWsQ/2imhVeuBcEQ/2d1oczYEgzdDytpW6NG9ra3pk
+         3awn9TaB1JyL3W/tJ/JAZnwOxFjkWWfiG0f8RUx/saebjQ6qbsuTrWW34Cjs+NQ2Vp4R
+         P/ToqI59vc7vAM7SVH9JBGp5LPK1Db7BEiCom0cxOuoH0wUr9WMpa4ypyK64TFcVlbxR
+         oCcAP6HWeFH/uNi2GjrZLNoUT6vFv0weQVm5lwKTMLRATaHpmu+EvEgy2BCG7EDWpiZV
+         01OtuDq6AvtsmOaD+GJQ+nnrxEOthcJcIL2A2Wvcl2HgngLS65p23ywwyBCJWI78QxVv
+         h2Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791269533; x=1791874333;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZzqvAx4iFT6Nq0wHCIP+vtsVoXt5n1py2cHhYmK9d5E=;
+        b=li71PIYCnfGo2jbM2R96nCb/2JRkAPi8AoEaP/1rQI1k9+Qm3SBHZDxDFj/hK65rVV
+         BbOH3+Tnx+L8keR7FJAAPOCk7DE1M1xyZJQXykBZFrfpiha4IZCCl9Y5pnRTZgLIsmWL
+         qavmLQJCJfJyr4ArxO39+CL59cynIoffIuUm69YNClLHbhn1UT63FFNau2rWCNy4sU54
+         t/UEfmcSHSgqtpQ1stWvuJijTPClGYZYpGtkKCznKyKt2xWi7WbVXhe0X+M4u+hDr8J0
+         2smbjyN+Q9WKnCwuoa7ZDalXcSOICOSuUqHJyXwNuUAwUEsBUs0kwjgp/eZsrk5IKXk8
+         tlZw==
+X-Forwarded-Encrypted: i=1; AKwUvByObq5dN0XFXPPpzVhCkRw2kJ4z4hhw0rthvw+FQhztHsV5UbkIJ/9ERgOkw8lX0YroKcAmu6Js3Scrmg==@vger.kernel.org
+X-Gm-Message-State: AFuF++mRmpFgrsVQPrwjXJP2+AWGVkN7UI99Ks/k+zmk1OGRz91dh3Xj
+	pi41WAErrI3i/ub6+rzxn2VDW58pnohV9FH4YL4YY46k6BO1s339eCBU
+X-Gm-Gg: AYBFou0TfgC3+7kNSc2hhVwYZ1tP0CjWRZ7H20vbcBL0oOKafW3yvNHUbhO8M4a9/Dp
+	msbI8so2t/c/nn2p/RhWiRRs/UDSn7oElLJvPJ1+fIiMBUfLKCNm6Y2KZui3UVjZtEwA+hrhNQJ
+	IUBqCrM8NpGJaxUiLirxAuvkfHbw6DI0Ml9MOVH2sYoSaE8Lm2pI3savq7Sje7V0KFZJ4uYf0Jh
+	u5uuJPBMuRAXHfKp1jGXqShnJ75m6Fy+h9jJ4ysS3707LRw1Ue1jTs6dgffhR5IuAkgv4ONMGvf
+	5Cr+GgWpx5q+eabl0z63kIgLWiMbKKKF167a0KyXN6rJoGafReuMcwqC7QbJG0XB31Ickh814ip
+	lkRiFpnSFfijci3VIDHYVaTCqkQx4JGlgGwIG/RmR4XwXTpWsQ6nrIuiPaZgPvC3NdoSBOgM6Wj
+	249g0/hsOwIlvrU7XE0pQwd96IIxmrpEsuhTnfuCPtMqGzMwUoubyxRCJgaHLDyQ==
+X-Received: by 2002:a05:693c:20c8:10b0:351:4bff:6d6b with SMTP id 5a478bee46e88-3514bff6e22mr859281eec.16.1791269533292;
+        Mon, 05 Oct 2026 23:52:13 -0700 (PDT)
+Received: from gmail.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351468b2cfasm6306463eec.2.2026.10.05.23.52.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 23:52:13 -0700 (PDT)
+From: pdsj2807@gmail.com
+To: slongerbeam@gmail.com,
+	p.zabel@pengutronix.de
+Cc: Frank.Li@nxp.com,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	imx@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Palak Raval <pdsj2807@gmail.com>
+Subject: [PATCH] staging: media: imx: fix function call formatting
+Date: Tue,  6 Oct 2026 12:22:00 +0530
+Message-ID: <20261006065203.3645059-1-pdsj2807@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [ANNOUNCEMENT] Camera & ISP at Linux Plumbers Conference
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-References: <20260914233810.GA2796257@killaraus.ideasonboard.com>
- <2e1d628f-8183-4446-9500-9886561f320b@mm-sol.com>
- <20260930232332.GG944070@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Gjorgji Rosikopulos <grosikopulos@mm-sol.com>
-In-Reply-To: <20260930232332.GG944070@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent,
+From: Palak Raval <pdsj2807@gmail.com>
 
-On 10/1/26 02:23, Laurent Pinchart wrote:
-> Hello Gjorgji,
-> 
-> On Fri, Sep 18, 2026 at 02:10:07PM +0300, Gjorgji Rosikopulos wrote:
->> Hi Laurent, All,
->>
->> On 9/15/26 02:38, Laurent Pinchart wrote:
->>
->>     We can consider scheduling a third topic. Proposals are welcome.
->>
->>
->> Below are my proposed discussion topics. All of them relate to advanced camera
->> use cases:
->>
->> 1. Electronic Image Stabilization (EIS).
->> 2. Multi-frame Bayer or YUV noise reduction filters.
->> 3. QUAD CFA reconstruction, including preprocessing algorithms for
->> high-resolution Quad Bayer sensors.
->> 4. AI-based denoising in Bayer or YUV domains, focusing on image preprocessing
->> denoising algorithms.
->> 5. DOL and video HDR use cases.
->> 6. Background blur for video conferencing applications.
->> 7. Face detection algorithms operating directly on image data.
->> 8. Multicamera 360 image stitching etc.
-> 
-> Those are all interesting topics, but I won't be able to schedule all of
-> them in 15 minutes :-)
+Move the first argument of IMX_BUS_FMTS() to the same line as the
+opening parenthesis to address the checkpatch warning.
 
-I agree those topics will require more time to discuss.
+Signed-off-by: Palak Raval <pdsj2807@gmail.com>
+---
+ drivers/staging/media/imx/imx-media-utils.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> 
->> All of these use cases and algorithm implementations can be vendor-specific or
->> third-party solutions and may run on a GPU, DSP, or other accelerators.
->>
->> I also think that, similar to the IPA used for 3A algorithms, we need an
->> IPA-like for frame-processing algorithms.
->>
->> As discussed, the only practical way to upstream such functionality into
->> libcamera is to provide an open-source alternative (even a simplified
->> implementation) that defines and covers the use case, including its input/
->> output parameters and interfaces.
->>
->> The main question is whether these algorithms should live inside libcamera or
->> outside of it. Both approaches have their strengths, but I am personally in
->> favor of integrating them into libcamera, perhaps as a layer above the pipeline
->> handlers, for example through use case plugins or a similar mechanism.
-> 
-> I've long thought that libcamera should make pipeline handlers more
-> modular. Pipeline handlers would implement components for the pipeline
-> elements (such as the inline frontend and offline ISP) and declare how
-> those components are connected. We should be able to move most of the
-> logic required to run the pipeline into common code.
-
-That will be really good to have.
-
-> 
-> With a modular approach, inserting elements in the pipeline could become
-> easier. It's however not clear to me yet if we should try to separate
-> the processing required for the use cases you list above from the "core"
-> of pipeline handlers, into a separate layer on top, or if some use cases
-> would benefit more from being able to inject elements into the pipeline.
-
-I think that we will need some scheduler or code for driving different usecases,
-also it should be noted that processing order may depend on the parameters,
-An example we have preprocessing noise filter which can be enabled disabled,
-or HDR. Depending on that the processing blocks participating in the pipleine
-may change. But one step at a time.
-
-> 
-> Note that we have started experimenting with the concept of layers, see
-> https://patchwork.libcamera.org/project/libcamera/list/?series=5753/
-
-Thanks i will check that work.
-
-> 
->> We can also learn from Android's approach. Initially, the HAL3 and per-control
->> APIs were created to allow applications to implement advanced algorithms such
->> as HDR and EIS. Later, CameraX Extensions were introduced so that these
->> capabilities could be shared across applications and benefit the broader
->> ecosystem:
->>
->> https://developer.android.com/media/camera/camerax/extensions-api
-> 
-> It's certainly something we should study more. As usual with Android
-> there's little documentation on the underlying architecture though :-(
-> 
->> I believe Linux faces a similar challenge. Once PipeWire and GStreamer plugins
->> based on libcamera become widely adopted across Linux distributions, it will
->> become increasingly difficult to introduce these advanced use cases at higher
->> layers of the software stack. Having a standardized framework within or closely
->> integrated with libcamera could make these capabilities more accessible and
->> reusable across applications.
-> 
-> No fundamental disagreement there, although we should also be careful
-> not to reimplement GStreamer or PipeWire inside libcamera.
-
-I agree on this, but having some concept like bins in gstreamer will also help for the entire usecase,
-the question is whether we need to expose using multiple stages of reprocess the control to the app
-(gstreamer element, PipeWire or other libcamera application) or have them build in libcamera. Both have benefits,
-having ability the application to add intermediate stages gives freedom to experiment and some vendors to implement their
-algos outside of the libcamera, On other hand side standard supported application like teams/slack browser will not 
-have those extras example with cameraX extensions in Android which have been mentioned earlier.
-
-> 
-> An important question that will need to be answered is who will be
-> willing to do all this work.
-
-We have two eng in MMS which can start experimenting with those extensions in libcamera, i will actively involved and drive this activity if
-there are no objections :-). Once you are back from Prague i can schedule a meeting for further discussions.
-
->
-
-Regards,
-~Gjorgji
+diff --git a/drivers/staging/media/imx/imx-media-utils.c b/drivers/staging/media/imx/imx-media-utils.c
+index f119477cac6b..978770cf3907 100644
+--- a/drivers/staging/media/imx/imx-media-utils.c
++++ b/drivers/staging/media/imx/imx-media-utils.c
+@@ -16,8 +16,7 @@ static const struct imx_media_pixfmt pixel_formats[] = {
+ 	/*** YUV formats start here ***/
+ 	{
+ 		.fourcc	= V4L2_PIX_FMT_UYVY,
+-		.codes  = IMX_BUS_FMTS(
+-			MEDIA_BUS_FMT_UYVY8_2X8,
++		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_UYVY8_2X8,
+ 			MEDIA_BUS_FMT_UYVY8_1X16
+ 		),
+ 		.cs     = IPUV3_COLORSPACE_YUV,
+-- 
+2.43.0
 
