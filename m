@@ -1,57 +1,57 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E05C3A8736
-	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 09:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D623AA9F4
+	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 09:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278416; cv=none; b=FKlNa88hd1rgRTQO+LbssAYnnVthjTDmI8cPUO5NFv+eyqfF5eXnJ82ekDpIpkIouExs/lvjhHRDbcWj3O/8yEnp/iOw7CMJD5Ir2WjRE5kj2wcu1BraQW3B/BqmxFZ7Yp8uNWYzTa/NRr2AB2Xe2ljBluS2JTvqZ5/6DGYrUaQ=
+	t=1791278715; cv=none; b=ZNl4x78ZD6scdlPKZ7JxRB1aeosClu2zqOpS85SC0Ssidp7OTo5I4kqwSHKRdOoBBJnfo3eEEc+5wolrnG5iljzHGY+CtooJEnDazFL2S2aK4rAcXYfvh5HVdMDgfanrFZdaJDKRKCLa+g5e0+tn5eZthJoywYHwmqA+oBDOUTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278416; c=relaxed/simple;
-	bh=n4E8fCCl+GfpjTeLizPL3g6QvTafLG9fFo0iW+ZbK94=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=NsC2UDd9lGK3tdJbSA/2TrpZaAFHpe0XVAG3e+Jw0j0ZuCx2cor9hcZcYRztlKG5/I0bAMY+8NpviGETWazK3laAslahM7vppAEbGOQWVNif4Qh8waU8Z7bUi/wzI/KgHBByWjXlPIjJZ4pvB4tNEOTG90rh84n1TeuqLM5o0c0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y04MtDY8; arc=none smtp.client-ip=198.175.65.21
+	s=arc-20240116; t=1791278715; c=relaxed/simple;
+	bh=y2BfgHYUmjrI3CB52oBfp3JNS4+QDjSal/Svw+xsD0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Wj3Bx2I98VC/CArT5UzuPpHfhhTnb1ARPVGqNQuCm/htJxdOZgbxNwhkX+D2Wm+FJsBAWURIcS592a07n7fshxBQi7ZY4iZ3cRG7+/fgu3zoaVEmF80t8KsmmmB6Ke9XgANjO6Av0a210I8NMUvs10inT22GnjjsVTA1ACJaaec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CH1MMt1d; arc=none smtp.client-ip=198.175.65.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y04MtDY8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CH1MMt1d"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791278415; x=1822814415;
+  t=1791278713; x=1822814713;
   h=date:from:to:cc:subject:message-id;
-  bh=n4E8fCCl+GfpjTeLizPL3g6QvTafLG9fFo0iW+ZbK94=;
-  b=Y04MtDY8Aa0ZcoTzpb7FW5Mqov8LnF6ZgOpmNCuP1ErproQFId9rRZ39
-   zt6ZtKSIcg7tOixq6GNvh906opgx45c7QHMmtKYypt4jg/fyJmoNY0Ynr
-   THQTBjtadFac4PpKpLxNX5cwkoBsYqFAtJRf+ZkITxxOdD+3xPAfH3grk
-   VezLW0HbGcq0u1BTiOkj7bRQT+P0PWW4gvjLzePs8KROMhuQnEziMapXP
-   6AW2Jhz9B9HLtXcpW1x7Erok3188K3sTnnYfNmiJcCHPLksBO19sYXT6+
-   6ajQsBgjJ3LwO8OiIAc4oykUQNaULZzhdExZomKEddebWVykvxoixkGWl
-   w==;
-X-CSE-ConnectionGUID: RdphslcIQr2839+QZU2cSA==
-X-CSE-MsgGUID: gFiTawSRSyGG2udro3eneQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="110551"
+  bh=y2BfgHYUmjrI3CB52oBfp3JNS4+QDjSal/Svw+xsD0Q=;
+  b=CH1MMt1dqFjdgWtLJyePlX82XgRn/YtkfFCSetXrk5bhtzHzd56Rtn/7
+   uw2CTHJAibiontvQX+6ocvibGeOF8LK3cdI63QnqvUNj3ODMCJqsoMD1L
+   YcytjqzIwZF7DNGvqeweke1W063IHVgeH35EbTWx2AUezDEsPLu/NCIRH
+   DpuIFvaoAbbR1rWv3Rx4+L/TYiI7SeomX1wzQe8zu3nQ8tc495emlL6OF
+   B8ak/3hwfw4Pph9MGmd9OV9anDJ7KBwPg5mfXyiBN2v/5Fz33SlLk/37s
+   ULe2piYfA0GxV6rqaqu/JrgxoOmb1lG0GbEUtm0JeOqwGRaHpSzXVRaLy
+   Q==;
+X-CSE-ConnectionGUID: Fl2LaOwQQNWmUdgvxcA6iw==
+X-CSE-MsgGUID: +mLpYYVlTqKE6ym4U60KLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102482873"
 X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="110551"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 02:20:12 -0700
-X-CSE-ConnectionGUID: F/t8iGzhRtaRji0IW1n+bA==
-X-CSE-MsgGUID: 9ParOj9eSVu71hgqjjBWtA==
+   d="scan'208";a="102482873"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 02:25:12 -0700
+X-CSE-ConnectionGUID: nfwq1pNSQBqbH0BiOP/Whg==
+X-CSE-MsgGUID: a/6YBQXDT/+1g/EnX6zTYw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="273471947"
+   d="scan'208";a="274898630"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 06 Oct 2026 02:20:10 -0700
+  by orviesa006.jf.intel.com with ESMTP; 06 Oct 2026 02:25:11 -0700
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xE1LD-000000001OI-36ha;
-	Tue, 06 Oct 2026 09:20:07 +0000
-Date: Tue, 06 Oct 2026 17:19:56 +0800
+	id 1xE1Q4-000000001Oi-0eQW;
+	Tue, 06 Oct 2026 09:25:08 +0000
+Date: Tue, 06 Oct 2026 17:25:06 +0800
 From: kernel test robot <lkp@intel.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:metadata] BUILD SUCCESS
- 7dd2f9aeff6d53292a185660605ed29431ca40f1
-Message-ID: <202610061753.imw4lECB-lkp@intel.com>
+Subject: [sailus-media-tree:devel] BUILD REGRESSION
+ d5ffd31776528da0ec4bc883afd056513773566b
+Message-ID: <202610061702.hoykzumD-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -59,16 +59,92 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git metadata
-branch HEAD: 7dd2f9aeff6d53292a185660605ed29431ca40f1  Documentation: media: Reword blanking control documentation
+tree/branch: git://linuxtv.org/sailus/media_tree.git devel
+branch HEAD: d5ffd31776528da0ec4bc883afd056513773566b  media: i2c: add imx576 image sensor driver
 
-elapsed time: 1471m
+Error/Warning (recently discovered and may have been fixed):
 
-configs tested: 183
-configs skipped: 8
+    https://lore.kernel.org/oe-kbuild-all/202610061019.8ldzc0xf-lkp@intel.com
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+    drivers/media/i2c/imx576.c:738:20: error: initialization of 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' from incompatible pointer type 'int (*)(struct v4l2_subdev *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' [-Werror=incompatible-pointer-types]
+    drivers/media/i2c/imx576.c:738:20: error: initialization of 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' from incompatible pointer type 'int (*)(struct v4l2_subdev *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' [-Wincompatible-pointer-types]
+    drivers/media/i2c/imx576.c:739:26: error: initialization of 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_selection *)' from incompatible pointer type 'int (*)(struct v4l2_subdev *, struct v4l2_subdev_state *, struct v4l2_subdev_selection *)' [-Werror=incompatible-pointer-types]
+    drivers/media/i2c/imx576.c:739:26: error: initialization of 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_selection *)' from incompatible pointer type 'int (*)(struct v4l2_subdev *, struct v4l2_subdev_state *, struct v4l2_subdev_selection *)' [-Wincompatible-pointer-types]
+
+Error/Warning ids grouped by kconfigs:
+
+recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- arc-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- arc-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- arm-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- csky-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- i386-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- i386-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- m68k-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- m68k-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- microblaze-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- mips-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- mips-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- nios2-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- openrisc-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- parisc-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- parisc-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- powerpc-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- s390-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- sh-allmodconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- sh-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+|-- um-allyesconfig
+|   |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+|   `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+`-- xtensa-allyesconfig
+    |-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_format-)-from-incompatible-pointer-type-i
+    `-- drivers-media-i2c-imx576.c:error:initialization-of-int-(-)(struct-v4l2_subdev-const-struct-v4l2_subdev_client_info-struct-v4l2_subdev_state-struct-v4l2_subdev_selection-)-from-incompatible-pointer-typ
+
+elapsed time: 1313m
+
+configs tested: 190
+configs skipped: 9
 
 tested configs:
 alpha                              allnoconfig    gcc-16.1.0
@@ -86,13 +162,16 @@ arc                   randconfig-1001-20261006    clang-24
 arm                                allnoconfig    gcc-16.1.0
 arm                               allyesconfig    clang-24
 arm                                  defconfig    gcc-16.1.0
+arm                          lpc32xx_defconfig    gcc-16.1.0
 arm                         mvebu_v7_defconfig    clang-24
+arm                         mvebu_v7_defconfig    gcc-16.1.0
 arm                              mxs_defconfig    gcc-16.1.0
 arm                           pxa3xx_defconfig    clang-24
 arm                   randconfig-1000-20261006    clang-24
 arm                   randconfig-1001-20261006    clang-24
 arm                   randconfig-1002-20261006    clang-24
 arm                   randconfig-1003-20261006    clang-24
+arm                         realview_defconfig    gcc-16.1.0
 arm64                             allmodconfig    clang-24
 arm64                              allnoconfig    gcc-16.1.0
 arm64                                defconfig    gcc-16.1.0
@@ -145,6 +224,7 @@ m68k                              allyesconfig    clang-24
 m68k                           amiga_defconfig    clang-24
 m68k                        bvme6000_defconfig    gcc-16.1.0
 m68k                                 defconfig    clang-24
+m68k                         m5307c3_defconfig    gcc-16.1.0
 m68k                          nettel_defconfig    gcc-16.1.0
 microblaze                         allnoconfig    gcc-16.1.0
 microblaze                        allyesconfig    gcc-16.1.0
@@ -153,6 +233,7 @@ mips                              allmodconfig    gcc-16.1.0
 mips                               allnoconfig    gcc-16.1.0
 mips                              allyesconfig    gcc-16.1.0
 mips                       loongson1_defconfig    gcc-16.1.0
+mips                         omega2p_defconfig    gcc-16.1.0
 nios2                             allmodconfig    clang-20
 nios2                              allnoconfig    clang-24
 nios2                                defconfig    clang-24
@@ -174,6 +255,7 @@ powerpc                            allnoconfig    clang-24
 powerpc                  mpc836x_rdk_defconfig    clang-24
 powerpc               randconfig-1000-20261006    gcc-14.3.0
 powerpc               randconfig-1001-20261006    gcc-14.3.0
+powerpc                      tqm8541_defconfig    gcc-16.1.0
 powerpc                      tqm8548_defconfig    gcc-16.1.0
 powerpc64             randconfig-1000-20261006    gcc-14.3.0
 powerpc64             randconfig-1001-20261006    gcc-14.3.0
@@ -197,6 +279,7 @@ sh                                   defconfig    gcc-14
 sh                           r7780mp_defconfig    gcc-16.1.0
 sh                    randconfig-1000-20261006    clang-24
 sh                    randconfig-1001-20261006    clang-24
+sh                            se7619_defconfig    gcc-16.1.0
 sparc                              allnoconfig    clang-24
 sparc                                defconfig    gcc-16.1.0
 sparc                 randconfig-1000-20261006    gcc-14
