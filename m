@@ -1,344 +1,242 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA833812DB
-	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 20:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237DC286D70;
+	Tue,  6 Oct 2026 20:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791318910; cv=none; b=sVcuynONXDC/aZWKadFOgd/NCId1E9nnnhcQaS9PhxH82xzsSppVv4aAIj+Q19hIsZPsPmv/H9b5wd8H1b4UyBembavKy+nDM96o8m7fnBOXwkxysnR+dsiDKuOuk34uM57V8jvcVgR9xKXi3UebrL37aINUUq9onc/hKUBJ4dQ=
+	t=1791319790; cv=none; b=s5H9oQbpbZoHjOwRQxv4GcHQrt8F+sYtOrVarV7USgleEEMOqwd3WWfc+EBGIQLHgABiacm4VOOcozfBd4ARLnB63/KxAntDU/DBZDCnhdsF2f7aWAhTZPYRQFh8g859m+CvwbeVMA5y4418ijjEkDj4JrSj5RIwHxgydAdl01k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791318910; c=relaxed/simple;
-	bh=ng52mkELL+6uT+ELTDMJ4ymK0FPAfRWeytiCANnJWI8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KQIW1wzt5333vmBHZbRnb3EFHKoNijFVzBU4a7tiTn/5EYdCGDZXUcLjUMt2C7kZ6485aRMkNmVHipaERYwmUarViggBqc/xAdp8yBW7m2Pok9VHSX4wfSiqC4SoCr4r3Tf6yEi3Nx63CL9WkhWGzZjC8kNpVB68k/DJgjnuKTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Wo4CmSvo; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791319790; c=relaxed/simple;
+	bh=CdBZo7dAD6w8z0zdZMujPTtr/0tsxGD7fufPM7H3/9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Zg4hQodGt9JVUkgRLdJOCsSt02/XvhOepDIyQTVtGkZC5vVk9+RDGhSGn1IVsWDPC3uV5OocCFn+vyhr/tVGLzGKbcoiWe+d94l8pdcNi0Bh5mZGxRCZngPfFMZJYhZxJFcj8Jp8CXVfwAEvX5jeEtU3hdohqkuSUkxMMry+lmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ED/Eg9fw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Wo4CmSvo"
-Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 06F0BD50;
-	Tue,  6 Oct 2026 22:33:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791318784;
-	bh=ng52mkELL+6uT+ELTDMJ4ymK0FPAfRWeytiCANnJWI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Wo4CmSvoS0T1FbNj1QkwMD6BCDA9YpJqdnPIj+W5pbjFKK1QEyoxDgiFVi/q/7x4m
-	 rJu6DnOfb3rCSkhQwN8i/dvRD+qAri1NE83YR8RxwhmxWfpEtVD+aFGFb6zm62jhkB
-	 rCMSZXz/ph7+QEgrGTiVASsRNCtVomg6/aDfixdk=
-Date: Tue, 6 Oct 2026 22:34:58 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	sakari.ailus@linux.intel.com,
-	Bingbu Cao <bingbu.cao@linux.intel.com>, bingbu.cao@intel.com,
-	tian.shu.qiu@intel.com, linux-media@vger.kernel.org,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	ilpo.jarvinen@linux.intel.com, tfiga@chromium.org,
-	senozhatsky@chromium.org, claus.stovgaard@gmail.com,
-	andriy.shevchenko@linux.intel.com, tomi.valkeinen@ideasonboard.com,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: RFC: Intel IPU4 driver proof of concept
-Message-ID: <20261006203458.GA627926@killaraus.ideasonboard.com>
-References: <20230727071558.1148653-11-bingbu.cao@intel.com>
- <900a1efcbf29aa238f2ace788dc739e9c6ad3c26.camel@gmail.com>
- <9d5d0bd8-41d1-4879-fccf-54e56aaa5073@redhat.com>
- <e0cc94736e4142f2d661a8bbb0c800b709349377.camel@gmail.com>
- <83426573-8c4b-ec20-6916-2917aa06954f@redhat.com>
- <e136389011517dbc65b30f6bf0b1a9c49ab4e599.camel@gmail.com>
- <6f37f978-4898-473e-b774-7965d25bf27b@proton.me>
- <jsjMql5IQTMsAgViwR9vrMG4CZ1hVx9JMN4wbc0E98BvUP-TRpgtYalrmzQeor4UHRCbLg3bBeeZcaWrTujAMrf0G8q8NyQrd4o954ZayKA=@proton.me>
- <aeXaMGExmtpNcUFS@alaakso-DESK>
- <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ED/Eg9fw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CEE11F0089B;
+	Tue,  6 Oct 2026 20:49:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791319788;
+	bh=n1jIlLDVhEwFYQay6yaey3Xrl4lCWZyVE+tBuM4GUdY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=ED/Eg9fwW7atMhGUfk1Pv1orH+H+fvTLcL4v4uwRtk6qDEigqQ2fvGPFTyCMA8g9J
+	 wczLoxgzCPvRktsmIDJf7ZgQontEyJzkFFeZGTsNfYs70KK8B3zrHNVInfZ1y48IPO
+	 xyk2IiSFTFtxKiNse9K+fqcKDRuudbwamcQKPf6iO2vWwgzAOgY0zgagVb+Xk5ETaX
+	 4tfHC/DUYljpQ2Pu6Q13f0IKFF6gDTpOcX2cUQnQXUMH8tvplp4LpRDC7RBbeq7+it
+	 HrujV2BeRmvuKJIjiWu2jWMRNxweKoUGOojw20Qxk9jWlUAfb5kCCuF8ca5KgthW/0
+	 X9Q2SeTdjdvFw==
+Date: Tue, 6 Oct 2026 15:49:47 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261006204947.GA708098@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me>
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-2-1a8e0f50ddd9@nvidia.com>
 
-On Tue, Oct 06, 2026 at 05:03:15PM +0000, Ruslan Bay wrote:
-> Hi,
+On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> I've got IPU4P support working on top of the upstream IPU6 driver [1][2].
-> This builds on Antti's work [3].
-> 
-> With help from supermepsipax, thisiscamk, ConsultingFuture4200,
-> georgemihaila and others in the linux-surface community [4], together
-> with the libcamera developers, both the front- and rear-facing cameras
-> can now capture images on the Surface Pro 7 (Ice Lake).
-> 
-> The IR camera also works with the downstream driver but I haven't
-> tested it yet, so it is not included in this patchset.
+> pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> direction can unnecessarily force P2PDMA through the host bridge.
 
-This isn't a patchset. See Documentation/process/submitting-patches.rst
-for documentation on the patch submission process.
+Does "the reverse TLP direction" refer to Completions?
 
-> Links:
-> [1] https://github.com/ruslanbay/ipu4-drivers
-> [2] https://github.com/ruslanbay/linux/commits/ipu4p-upstream
-> [3] https://lore.kernel.org/all/20260907113004.2489993-1-sakari.ailus@linux.intel.com/
-> [4] https://github.com/linux-surface/linux-surface
+> Evaluate Request Redirect for client Requests and Completion Redirect for
+> provider read Completions. Continue treating enabled Egress Control
+> conservatively as a Request redirect.
+
+Completion Redirect is intended to avoid ordering rule violations
+between Completions and Requests when Requests are redirected (PCIe
+r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
+but does the commit log need to say something about that?  I don't
+know enough about P2P DMA for it to be obvious to me.
+
+Not really a question for this series, but p2pdma.c and p2pdma.rst
+refer to "clients" and "providers", neither of which are mentioned in
+the PCIe spec.  In this case it sounds like a client is a Requester
+and a provider is a Completer in spec terms.  Is that always the case?
+If so, "client" and "provider" in this paragraph are not adding any
+information.
+
+If "client" is not the same concept as "Requester" and "provider" not
+the same as "Completer", maybe p2pdma.rst could explain the
+difference?
+
+> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  drivers/pci/p2pdma.c | 75 ++++++++++++++++++++++++++++++++++++++++------------
+>  1 file changed, 58 insertions(+), 17 deletions(-)
 > 
-> On Monday, April 20th, 2026 at 9:48 AM, Antti Laakso wrote:
-> > On Wed, Mar 04, 2026 at 11:03:51AM +0000, Ruslan Bay wrote:
-> > > Currently there are multiple IPU driver implementations actively
-> > > maintained by Intel engineers:
-> > >
-> > > - mainline IPU6 [1]
-> > > - downstream IPU6 [2]
-> > > - downstream IPU4/IPU4P [3]
-> > > - staging IPU7 [4]
-> > > - downstream IPU7 [5]
-> > >
-> > > As mentioned earlier, IPU4 and IPU6 share a large portion of the
-> > > code base, and IPU7 appears architecturally very similar as well.
-> > >
-> > > The IPU7 TODO mentions working toward a common IPU module [6].
-> > > There was also an attempt to move from ipu6_* back to more
-> > > generic ipu_* naming [7].
-> > >
-> > > Is a unified IPU core still planned?
-> > 
-> > We're working on extending ipu6 driver to support ipu7 as well. The
-> > exact schedule is not available yet.
-> > 
-> > >
-> > > If so, is it expected to include IPU4/IPU4P support?
-> > >
-> > > Links:
-> > > [1] https://github.com/torvalds/linux/tree/master/drivers/media/pci/intel/ipu6
-> > > [2] https://github.com/intel/ipu6-drivers
-> > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-251103T063840Z/drivers/media/pci/intel
-> > > [4] https://github.com/torvalds/linux/tree/master/drivers/staging/media/ipu7
-> > > [5] https://github.com/intel/ipu7-drivers
-> > > [6] https://github.com/torvalds/linux/blob/master/drivers/staging/media/ipu7/TODO#L17
-> > > [7] https://lore.kernel.org/all/20250502154446.88965-6-stanislaw.gruszka@linux.intel.com/
-> > >
-> > >
-> > >
-> > > On Sunday, February 22nd, 2026 at 8:57 PM, Ruslan Bay <ruslanbey@proton.me> wrote:
-> > >
-> > > > We now have a working IPU4P driver for Ice Lake devices [1][2].
-> > > >
-> > > > The current IPU4P implementation is based on Intel’s downstream IPU4
-> > > > driver [3]. ISYS capture works with libcamera and has been tested on
-> > > > Surface Pro 7 and Surface Book 3 [4]. The world-facing camera (ov8865)
-> > > > works; the user-facing (ov5693) is still being debugged.
-> > > >
-> > > > IPU4P and IPU6 both contain PSYS implementations downstream, but in
-> > > > practice only ISYS is usable with libcamera today.
-> > > >
-> > > > Earlier in this thread Andreas noted that IPU4 and IPU6 share more than
-> > > > 85% of the code base.IPU7 appears architecturally very similar as well.
-> > > >
-> > > > Before preparing an RFC, I would like clarification on direction:
-> > > >
-> > > > 1. Is the long-term plan to unify IPU6 and IPU7 under a common driver
-> > > >    structure?
-> > > > 2. If so, should IPU4/IPU4P be aligned on top of that?
-> > > > 3. If not, would it make sense to follow Andreas’ approach [5],
-> > > >    implement IPU4P on top of the IPU6 structure, and move it to
-> > > >    staging while iterating, as has been done for IPU7?
-> > > >
-> > > > The primary goal is upstream IPU4P support (large Ice Lake user base),
-> > > > but ideally this should align with the Apollo Lake IPU4 work shared
-> > > > earlier [5].
-> > > >
-> > > > What direction would you recommend?
-> > > >
-> > > > [1] https://github.com/ruslanbay/ipu4-drivers/tree/main/patches/kernel/v6.19
-> > > > [2] https://github.com/ruslanbay/linux/commits/ipu4-6.19
-> > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-251103T063840Z/drivers/media/pci/intel
-> > > > [4] https://github.com/linux-surface/linux-surface/discussions/1353?sort=new
-> > > > [5] https://github.com/Kleist/ipu4-driver
-> > > >
-> > > > Thanks,
-> > > > Ruslan Bay
-> > > >
-> > > > On 12/20/23 1:53 PM, Andreas Helbech Kleist wrote:
-> > > > > Hi,
-> > > > >
-> > > > > As mentioned previously in Bingbu's IPU6 patch series, I'm working on
-> > > > > porting the driver to IPU4. I've now got a hole through so I think it
-> > > > > makes sense sense to share the code.
-> > > > >
-> > > > > I'm able to capture frames with yavta with the current code, but there
-> > > > > are several issues that needs to be fixed for it to be complete.
-> > > > >
-> > > > > # How it is tested
-> > > > > ==================
-> > > > > The hardware is a custom x86 PC-like embedded device with the following
-> > > > > video pipeline:
-> > > > > Endoscope -> FPGA -> tc358748 -> IPU4 (E3950/Apollo Lake)
-> > > > >
-> > > > > See my colleague Claus' description[2] for more info.
-> > > > >
-> > > > > There is currently no V4L2 subdevice for the FPGA, so we have a custom
-> > > > > ambu-tc358748.c driver which pretends to be an image sensor.
-> > > > >
-> > > > > $ media-ctl -v \
-> > > > >   -V "\
-> > > > >     \"tc358748 0-000e\"    :0 [fmt:RGB888_1X24/800x800],\
-> > > > >     \"Intel IPU4 CSI2 0\"  :0 [fmt:RGB888_1X24/800x800],\
-> > > > >     \"Intel IPU4 CSI2 0\"  :1 [fmt:RGB888_1X24/800x800]\
-> > > > >     "\
-> > > > >   -l "\
-> > > > >     \"tc358748 0-000e\"    :0 -> \"Intel IPU4 CSI2 0\" :0 [1],\
-> > > > >     \"Intel IPU4 CSI2 0\"  :1 -> \"Intel IPU4 ISYS Capture 12\" :0 [5]\
-> > > > >   "
-> > > > >
-> > > > > $ yavta --data-prefix -c2 -n2 -I -s 800x800 --file=/tmp/frame-#.bin \
-> > > > >         -f XBGR32 /dev/video12
-> > > > >
-> > > > > This produces frame-*.bin files containing 800x800x4 bytes of valid
-> > > > > "BGR0" data.
-> > > > >
-> > > > > # The code
-> > > > > ==========
-> > > > > The code is available at the tag
-> > > > > https://github.com/Kleist/linux/tree/kleist-v6.6-ipu4-hacks-1
-> > > > > (15245fe26e07)
-> > > > >
-> > > > >
-> > > > > Note that I haven't renamed the files to ipu4, to make it clear what
-> > > > > the changes are compared to the IPU6 driver.
-> > > > >
-> > > > > It is based on v6.6 with the IPU6 v2 patches[1] on top, and then my
-> > > > > hacks to make the IPU4 work. This is not meant for upstreaming as it
-> > > > > is. The commits are a cleaned up version of the chronological order I
-> > > > > made the port in. It is not yet in a state where I think an RFC PATCH
-> > > > > series makes sense yet, but I wanted to share it anyway.
-> > > > >
-> > > > > ## Changes compared to IPU6
-> > > > > diff --stat of the changes in ../ipu6/ compared to the IPU6 v2 patches:
-> > > > >
-> > > > >  drivers/media/pci/intel/ipu6/Kconfig               |  12 +-
-> > > > >  drivers/media/pci/intel/ipu6/Makefile              |  13 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.c            |   2 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.h            |   6 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.c       |  71 ++-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.h       |   8 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.c         |  45 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.h         |   2 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c        | 171 ++++---
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h        | 237 ++++++----
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c      | 219 +++++----
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h      |  11 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c     |  33 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.h     |   8 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.c     | 212 +++------
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.h     |   4 -
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.c           | 435 +++----------
-> > > > > -----
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.h           |  18 +-
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-mmu.c            | 130 +++++-
-> > > > >  .../pci/intel/ipu6/ipu6-platform-buttress-regs.h   |  98 +---
-> > > > >  .../pci/intel/ipu6/ipu6-platform-isys-csi2-reg.h   | 226 ++-------
-> > > > >  drivers/media/pci/intel/ipu6/ipu6-platform-regs.h  | 172 ++-----
-> > > > >  drivers/media/pci/intel/ipu6/ipu6.c                | 511 ++++++++-----
-> > > > > --------
-> > > > >  drivers/media/pci/intel/ipu6/ipu6.h                |  37 +-
-> > > > >  24 files changed, 1032 insertions(+), 1649 deletions(-)
-> > > > >
-> > > > > Note that most of the deleted lines are removed because they are not
-> > > > > used in IPU4. E.g. the watermark handling, which I haven't seen an
-> > > > > equivalent for in the old IPU4 driver.
-> > > > >
-> > > > > ## Ambu-specific tweaks
-> > > > > Note that I'm using a hacked ipu-bridge (AMBU_IPU_BRIDGE) to setup the
-> > > > > fwnode graph for our hardware. You don't want if you're testing this,
-> > > > > so revert at least the "ambu: Add AMBU_IPU_BRIDGE" commit.
-> > > > >
-> > > > > I'm not sure the right approach for handling this would be going
-> > > > > forward. Of course the ambu-ipu-bridge shouldn't be upstreamed, so I'm
-> > > > > wondering how we can achieve something similar? The ACPI tables from
-> > > > > our BIOS unfortunately don't contain any info about the Toshiba Bridge
-> > > > > (tc358748), so we can't derive the information from there. Maybe some
-> > > > > kind of platform driver could be created which tweaks the ACPI info
-> > > > > before the ipu-bridge driver reads it?
-> > > > >
-> > > > > What do you typically do when you have some proprietary hardware that
-> > > > > does not provide proper ACPI information? We could carry the ambu-ipu-
-> > > > > bridge patches in our internal kernel tree, but that is not desirable
-> > > > > in the long term.
-> > > > >
-> > > > > # Inspiration for the IPU4 port
-> > > > > ===============================
-> > > > > We are currently using a Intel LTS 4.19.217 based kernel[3], which
-> > > > > contains the old IPU4 driver. The port was basically made by comparing
-> > > > > mmiotrace's between the old IPU4 driver and the new driver.
-> > > > >
-> > > > > We're using the IPU4 FW ipu4_cpd_b0.bin extracted from a ClearLinux
-> > > > > package[4].
-> > > > >
-> > > > > # Known issues
-> > > > > ==============
-> > > > > ## Doesn't yet work with gstreamer for unknown reasons
-> > > > > I get "Unexpected buffer address:" errors from
-> > > > > ipu6_isys_queue_buf_ready, and don't get an image through.
-> > > > >
-> > > > > ## 64 byte chunks of wrong data
-> > > > > We occasionally get 64 byte aligned 64 byte wrong data (all 0xCC) in
-> > > > > the captured frame*.bin files. This could be a cache invalidation
-> > > > > issue, we haven't looked into this yet. The code currently doesn't use
-> > > > > zlw_invalidate, even though it was ported from the old driver. We
-> > > > > haven't yet tested if enabling this fixes the issue.
-> > > > >
-> > > > > # Upstreaming
-> > > > > =============
-> > > > > We would like to upstream this driver, probably after the IPU6 driver
-> > > > > has been merged. We're definitely not ready yet (either), but I already
-> > > > > have a couple of questions, that it would be nice to get some input on
-> > > > > from the community.
-> > > > >
-> > > > > ## How to share code between IPU4 and IPU6
-> > > > > Big parts of the code (approximately 6k out of 7k lines) does not need
-> > > > > to be changed compared to the IPU6 driver, so there is clearly a big
-> > > > > overlap in what the two drivers need to do. I'm not sure how the best
-> > > > > approach would be for sharing this functionality. I see a few options:
-> > > > > 1. Shared driver that supports both IPU's (still split in PCI driver
-> > > > > and -isys driver)
-> > > > > 2. Shared PCI driver that supports both IPU's, but device-specific
-> > > > > intel-ipu4-isys/intel-ipu6-isys drivers
-> > > > > 3. Separate drivers that use a shared "library module" (for lack of a
-> > > > > better term)
-> > > > >
-> > > > > My gut feeling is that 2. is the right choice, especially if we moved
-> > > > > the shared code in to the PCI driver and the more version-specific code
-> > > > > was moved into the specific drivers.
-> > > > >
-> > > > > The answer to this could also be input to Bingbu's IPU6 series, maybe
-> > > > > it would make sense to place some files differently if they eventually
-> > > > > will be used in both IPU4 and IPU6 drivers?
-> > > > >
-> > > > > ## How to implement our platform specific fwnode graph?
-> > > > > As mentioned above, we currently have a hacked ambu-ipu-bridge driver,
-> > > > > which is clearly not upstreamable. What would you typically do if you
-> > > > > need to make a v4l setup where the ACPI table information about
-> > > > > sensors/bridges is missing?
-> > > > >
-> > > > > /Andreas
-> > > > >
-> > > > > [1]https://lore.kernel.org/all/20231024112924.3934228-1-bingbu.cao@intel.com/
-> > > > > [2]
-> > > > > https://lore.kernel.org/all/471df7ffdf34b73d186c429a366cfee62963015f.camel@gmail.com/
-> > > > > [3]
-> > > > > https://github.com/intel/linux-intel-lts/tree/lts-v4.19.217-base-211118T072627Z
-> > > > > [4]
-> > > > > https://download.clearlinux.org/releases/32370/clear/source/SRPMS/linux-firmware-ipu-19ww39-104.src.rpm
-> > > >
-> > > >
-> > >
-> >
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index 4e4d2df17a45..12612b82d80d 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+> @@ -21,6 +21,8 @@
+>  #include <linux/seq_buf.h>
+>  #include <linux/xarray.h>
+>  
+> +#include "pci.h"
+> +
+>  struct pci_p2pdma {
+>  	struct gen_pool *pool;
+>  	bool p2pmem_published;
+> @@ -490,26 +492,56 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+>  	return NULL;
+>  }
+>  
+> +enum pci_acs_p2pdma_state {
+> +	PCI_ACS_P2PDMA_DIRECT,
+> +	PCI_ACS_P2PDMA_REDIRECT,
+> +};
+> +
+>  /*
+> - * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
+> - * TLPs upstream via ACS. Returns 1 if the packets will be redirected
+> - * upstream, 0 otherwise.
+> + * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
+> + * from that port's ACS Control register.
+> + *
+> + * Linux does not read the Egress Control Vector, so Egress Control is treated
+> + * conservatively as a redirect. Per PCIe r7.0 Table 6-11 the outcomes it
+> + * selects are a direct route and an ACS Violation, and neither one lets peer
+> + * bus addressing be assumed.
+>   */
+> -static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
+> +static enum pci_acs_p2pdma_state
+> +pci_acs_p2pdma_request(u16 ctrl)
+>  {
+> -	int pos;
+> -	u16 ctrl;
+> +	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
+> +		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
+> +}
+>  
+> -	pos = pdev->acs_cap;
+> -	if (!pos)
+> -		return 0;
+> +/*
+> + * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
+> + * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
+> + * affects a Completion.
+> + */
+> +static enum pci_acs_p2pdma_state
+> +pci_acs_p2pdma_completion(u16 ctrl)
+> +{
+> +	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+> +				   PCI_ACS_P2PDMA_DIRECT;
+> +}
+>  
+> -	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
+> +/*
+> + * Read @pdev's ACS Control register. A device without an ACS capability has
+> + * no peer-to-peer controls at all, which routes the same as having them all
+> + * clear. Returns false when the register is present but cannot be read; @ctrl
+> + * is then meaningless.
+> + */
+> +static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
+> +{
+> +	int pos;
+>  
+> -	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
+> -		return 1;
+> +	pos = pdev->acs_cap;
+> +	if (!pos) {
+> +		*ctrl = 0;
+> +		return true;
+> +	}
+>  
+> -	return 0;
+> +	return !pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl);
+>  }
+>  
+>  static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+> @@ -698,6 +730,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
+>   * then to Device B. The mapping type returned depends on the ACS
+>   * redirection setting of the ports along the path.
+>   *
+> + * The client initiates Requests to provider memory. Check Request Redirect
+> + * on the client path and Completion Redirect for read Completions on the
+> + * provider path.
+> + *
+>   * If ACS redirect is set on any port in the path, traffic between the
+>   * devices will go through the host bridge, so return
+>   * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
+> @@ -721,6 +757,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+>  	int dist_a = 0;
+>  	int dist_b = 0;
+>  	char buf[128];
+> +	u16 ctrl;
+>  
+>  	seq_buf_init(&acs_list, buf, sizeof(buf));
+>  
+> @@ -732,7 +769,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+>  	while (a) {
+>  		dist_b = 0;
+>  
+> -		if (pci_bridge_has_acs_redir(a)) {
+> +		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
+> +		    pci_acs_p2pdma_completion(ctrl) ==
+> +			    PCI_ACS_P2PDMA_REDIRECT) {
+>  			seq_buf_print_bus_devfn(&acs_list, a);
+>  			acs_cnt++;
+>  		}
+> @@ -761,7 +800,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+>  		if (a == bb)
+>  			break;
+>  
+> -		if (pci_bridge_has_acs_redir(bb)) {
+> +		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
+> +		    pci_acs_p2pdma_request(ctrl) ==
+> +			    PCI_ACS_P2PDMA_REDIRECT) {
+>  			seq_buf_print_bus_devfn(&acs_list, bb);
+>  			acs_cnt++;
+>  		}
+> @@ -1109,10 +1150,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+>  /**
+>   * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
+>   * @provider: P2PDMA provider structure
+> - * @dev: Target device for the transfer
+> + * @dev: Client device that initiates the transfer
+>   *
+>   * Determines how peer-to-peer DMA transfers should be mapped between
+> - * the provider and the target device. The mapping type indicates whether
+> + * the provider and the client device. The mapping type indicates whether
+>   * the transfer can be done directly through PCI switches or must go
+>   * through the host bridge.
+>   */
 > 
-
--- 
-Regards,
-
-Laurent Pinchart
+> -- 
+> 2.55.0
+> 
