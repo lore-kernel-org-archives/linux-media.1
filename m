@@ -1,68 +1,68 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A183B2FF6
-	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 22:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C123BB115
+	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 22:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791326494; cv=none; b=H445uOGLimtd7HG4ezYnWkJTPUrZbL8vXvdf9uzIPFL0f6DZqajEgjTJkirjQC94bJPpgCPrFFILtH4vDYRITLJS3K4r7K7FIAcz1MrslkwI1o4qKOnUxsvEK1LxfnLsjpUsRZPZzLx6s6xxI7Amky01nxLPjPIzPov7pJVUP74=
+	t=1791326499; cv=none; b=c12h6EMQ4Npxg3hVlHoyXDjQkKrc2qPdcWPZ3x8aO6eGVgPkMeMTjEFV5jx5mQAS1Ym+bbXyj14y4WWbe3G0HqYyqB/D4Dj0iRXuE/GKxCwSV2u9ggnVFuHJQAca2r/HulIHqlGNlK46IyMdMQmeCatI7KraAR+a3tw8rWHI7B4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791326494; c=relaxed/simple;
-	bh=Jwf+0+K9v4ZiGUn4GrpJqPMCEH18nouQcxm79+WBHMg=;
+	s=arc-20240116; t=1791326499; c=relaxed/simple;
+	bh=2hKc1ZoGqwUQh1gTMahm7DabCTCAHzhOeNtSIJ0Xy6M=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NVRrnGjQLu3LteqtnUR3grZiXB74mtaui+kTvcrqQ2YbkccRbLzmuasSEUGdwqBrRTIlsj/iEl9hDgW62PP4EObPFLe6w4l/bCWvkIiJsrXMfVS0xvdvpzkrI0T3Rjbf/fgqGdksfunR24l+R/EIknnkheq3YP+6aqoLmlcdwF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cLK47e+9 reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=tgkDUY5aZb6RNx0U4DXZQb8mVhhmdf2Wg6w/ZTagJS1wakXW84yNitSJUzYWsSWg1nUs9LVCe2b9NrOQfgcBKSJqyxCrNrrNmJ020fcizMgGHprg+cQX8G0MljyYYESfF+BHtim9QfrPcqOwJwveKshwmTALZE3WAg/M8Up2ID4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H1lyhsRP reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cLK47e+9"
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H1lyhsRP"
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeOID2011385
-	for <linux-media@vger.kernel.org>; Tue, 6 Oct 2026 22:41:01 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeOTa2011384
+	for <linux-media@vger.kernel.org>; Tue, 6 Oct 2026 22:40:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=/WAX3tXIYtf
-	UYHfJJ0DzYn390FJgpp7sq8g9weWyJn0=; b=cLK47e+9x8L9M9EUncY1Xuy0+IY
-	GDnYw1e0g3dsmCoCoaUdnljUUsvlxV1GipeO6/+O8TbN3KbgaNjUx3FBPHv0H6sI
-	bRWo07qlg8JFdXmRvTgoHGNkxNUZRxkb+6ph4+RGa4aqhaoiW0KYZtI2g7h3bELH
-	RXYSZjDj3Nk3vQSvP6KXwvWwrWwYY1AFp3uEx3wLFhL2w/KjXNu0cic7cRghSi2u
-	PsO+14GmQWz8R2i08ki1nEnjrvRbP26OCMrtSQSNLEBUs3qcKApdWHjAlNqYPqLB
-	+V5ucyfg3b/yRmbPtWIO3G4uYyiiVU5zjyYZ6/iawUDPUYvv9rB2zBj35bg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xc9u1rb-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=JYdD8egJwrL
+	g7NcyXfZXtIAdt/Efnj+hzcMMsvzKWN4=; b=H1lyhsRPLW60l0+9q/Z/MIxKJke
+	yqe5oNxiHtGNC3vuLFKx2lfZpCUtR2KRH9MLphlcfAV1m9zJLwsHsDfyNTHFXRkA
+	Mu/dZ4Gi9AW2uvwZQlFzdYl98n4buvLtRV9iLLbGsbETCZtZPjmgFkWFgPDN3Nvi
+	25LSK39ofanak6w3TXdWJw9GAwHFvp8Lc0RAJbQr2H+35gaBpj42flIoMggKpbuH
+	fZnaFN3b4iwNGFJiOyKkgvgKNtgSmRuncG2hE4889/3Ci2MhNUTSmF0RHmY7zo+d
+	+pUfFcj1Z9+h5G7GPkj3NCl8JgLzRU1hlZy6KcuegvFg7uAYmoTdLvJGaoQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xc9u1r5-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 22:41:01 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cbf2fd504so641633585a.2
-        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 15:41:01 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 22:40:59 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cc40759b2so683200085a.1
+        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 15:40:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791326461; x=1791931261;
+        d=1e100.net; s=20260707; t=1791326458; x=1791931258;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/WAX3tXIYtfUYHfJJ0DzYn390FJgpp7sq8g9weWyJn0=;
-        b=APxQtn3qPEGVwFkf0Nuro70MtOjUFoAN0Ke5n69OCwgnjnNv8JbJQNKFJ3UjRvtP99
-         L00Jbzcys5BmbP3zdRNllJE0Cl3ZWFE1R4LPMPml48gccJJvO0SdnbM8QBRkatgDdcFh
-         /z2MZlwXXtG0i3/d2uUXHU3IP+w9mZXVCHpbObPAYvWREjD/ExZA4uW3WwXxtRiZJSrk
-         hd0oel6u/czNNxlopdiJksUxq6+HAuDIx5LyaItyyjWAHCrQEWqUjBMg3pTHFE6DVV5Z
-         FJCFzRDkt1339qv8XUT2VwkHdvB1NJhRCp6bMTC3ZQRHt/qrG6EqZ0J+jKg5ztbhxsPm
-         /Vbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsTlTQcoM53kKqZZQcJxoSvo8hRXv1sH0fv2ivFPiXXbWGidU6CI9/C1gyYD1C1RgE4A0IU2v0xbrtdA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nifyhP4AkjaE4Casqqpqru6zo4frZzIitKYbrcIMcSyMtP03ev
-	rgTeTh04pjFIfnckRIPgbf8k8GvH8N17iBY2qEPz8TtARpe4BAY51rhJ5TCGc964UBbzEvSBlsC
-	Xh45g1aDmGcrumXeNTuBayMKtBCR0uHZIAoBrBrbdOuIMeiZ2UsoNxbPY0Bc82SGVJQ==
-X-Gm-Gg: AYBFou3lVq6s4uA4mb3DqGA7NSDOaBktTksQw8x2/Bq5ho6+wEwlC7QgCsAILeqcztT
-	urJfNUuBXy0qlAejbjx+DVCpL3iqpB+7LnIEcznv6QCD1icSGz8A2xxBVE6cFFQ7yWmDcaEQshN
-	2JmNZantL061sNoOcSX/v7Rrc4ZwnU7N9j2rGl6WanZ6JozwjhufCDDMH0bbB96E1IH3hT0Hlmg
-	7SxaAZvx60fpmxk/1QIQOMYssDn7GeuJlyJu9MErjadpWitR4WA20BVoCK1qLODJ00d4kThg1Q3
-	LKaA48ga/8wdvOhcEqz/3k5VIhOlGSanAOUiSZqnP8W1X+rrfMQhpEg8XpI=
-X-Received: by 2002:a05:620a:2984:b0:93b:d7a3:45d0 with SMTP id af79cd13be357-93e9b829e79mr73826385a.57.1791326460846;
-        Tue, 06 Oct 2026 15:41:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:2984:b0:93b:d7a3:45d0 with SMTP id af79cd13be357-93e9b829e79mr73822085a.57.1791326460367;
-        Tue, 06 Oct 2026 15:41:00 -0700 (PDT)
+        bh=JYdD8egJwrLg7NcyXfZXtIAdt/Efnj+hzcMMsvzKWN4=;
+        b=XhJIwiCIi/Nfbk15fDRvr2je5szx6ABUcQxuDofOJopm4uUBQ2nzklBin3XHMqamgQ
+         GlGS9hHH/+z4wcilIQIfQq7iWiIrPc3v/wnO+BDXk6u2DEN2Yq2ew3g3IokTvNscJyzQ
+         7S99zWK9j2CEgU3Q4sZjhD/iasx30vGpJYSYJCUthgNmQ1JzEnP4PoBhC0ZaSBJFQJWI
+         fN5sF6bici+zkYl4q52JW9gYZZeTvNPApDHCCBaTJK7S3GCXaMwkc4r4Ti9HmBx1hJaJ
+         dd1Mlt7DkpxCkrWJ2eC15L4LZFg/tu0VambVkS73u3XJi6hsqAZHsMYrBRBVrbMnhulK
+         jIzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9ARDN/SBNA1b/kM0hACZG07z/j3A1sNu4kH6uTWRwjLSXmzeZwnTsTf5yDvrSrsP7DOYpnb+zSeVHSA==@vger.kernel.org
+X-Gm-Message-State: AFuF++l3ub7eZFW/mtt1DydG4U+J6PVVY/zFFMCOEN4MAzQ80LQEigM1
+	9YAa+Fux0Z/bhERUXvlloWhrI7cu+xyi/vntb5D603rdGnjS6yqN6Nq3nZhXQqJVnmy+jzIH7/9
+	HeXXeqgteuK6K0EytydPkTDg0j/WP1+aKI1eKCtOlvUqNHZK//pGECqlqvc/33Gx9YA==
+X-Gm-Gg: AYBFou3E1J5i0j1NoaeipGaKdU7o8RaCy51Qeq2ya0jJtLx7pgn8Nd+NKnAz/Sny08L
+	b50bdJ6S2wm9H67YDnQ/2eNm61WlyNk+AG8ok2lyj5qhzriMyFrIdA5ByxeDG9Y6yl41b60Zzo5
+	cZcP3c9+sOtqWCVtQ7U8SL02n3E92CQjn61GSbWJTs2xWlEEtsQ3sqmpQ3QC3ZAnK3kTZUHA4Zg
+	ZGV8Rzi1gy7qjo1JwcgdEXyPai1wd9hs14MynjSEVSxofMkl0Biq6b2r6qyvNdQZOipI7qGHbmn
+	x21AN2muoVLDx9W/bL0AoFrehRhXcSh14xWaJ47JrAWgxraTJ6zoTixyhFk=
+X-Received: by 2002:a05:620a:2586:b0:93e:9808:8d6e with SMTP id af79cd13be357-93e9b857d84mr73449785a.72.1791326458270;
+        Tue, 06 Oct 2026 15:40:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:2586:b0:93e:9808:8d6e with SMTP id af79cd13be357-93e9b857d84mr73444785a.72.1791326457711;
+        Tue, 06 Oct 2026 15:40:57 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.40.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.40.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 15:40:59 -0700 (PDT)
+        Tue, 06 Oct 2026 15:40:57 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -80,9 +80,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
         Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
         johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-Subject: [PATCH 19/45] media: qcom: camss: sm8250: add pixel path resources
-Date: Wed,  7 Oct 2026 01:39:27 +0300
-Message-Id: <20261006223953.3382273-20-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH 18/45] media: qcom: camss: integrate IFE devices
+Date: Wed,  7 Oct 2026 01:39:26 +0300
+Message-Id: <20261006223953.3382273-19-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -93,24 +93,24 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=ctMOAF4i c=1 sm=1 tr=0 ts=6ac578fd cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Authority-Analysis: v=2.4 cv=ctMOAF4i c=1 sm=1 tr=0 ts=6ac578fb cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=O1XUiH9HgQSgLzsyt4oA:9
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX+Z9wID3BMgCl
- ExD8FoPSsqBHkXFMjgCBjjd68JY4JfcWo4wgJ6gfiKz9L2cHvlhWT5L2bQyzyZUR4OLC+V3fRZ3
- 5CAitzsQU5vhFEpvSywWTtFvIyxOTKE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX3IqBY/cfCR4d
- 1MHOj//hPArxKOpYtVscIFRgvXnrSaQmOKWqplH2/vJ13IZPm8+Zny5JCoynR0scbcllZu49XMI
- vH5h9w767loOpY/NDjSr7irifk5noriUD6J+rB4hgJ/lL605ox7Ek3MpfRgMJTnivXFNGwdoSbq
- L6W2d8ieQsp9v0bZkSJR82k+VHKxN7kpfkMBpU3zrXbT5hZWhQ9jxBo5hLKEntjTVj19JAWKcvU
- l5KsY4wx5ails52WD2iWNmyJiCjUAIIWJyvVbbUFdOE9oDjlisMLsyfSU+/+qJzR8z2olpB2F2t
- iAkuIb9Doc9UGCyijVAJO860mvKlsrMw8dFxYHM1xs3RHiZLNZDqnfZ2WPqJ66QqyDj62sFrscm
- 0TlMNjQD04mTmQzG9/K0DJdv+YZi1KfJxUz8W0fNxb8UYa+DiqVV05sZsjl1OtvM/i+QDxPkF8l
- esnIxJoLbaxfYJyO+Ww==
-X-Proofpoint-ORIG-GUID: 8abyv_2HF7f73K7f-ldi0YxPbLha-W63
-X-Proofpoint-GUID: 8abyv_2HF7f73K7f-ldi0YxPbLha-W63
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=mQKNiLCmDEPOf1wI07oA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX/7IBQ3vWZ68n
+ yFfmlMnQILQAdRD2mpUlPTp9KfZ9Ajccw6dRHhuTJiv0Dz6/9rbI8syqbk9TpsbhRUPkbczpnep
+ BggSsGf2h0CQFoNRJ0K2FAvap0mI1hQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX6O7jWWXc3gf2
+ +ydoAlGlSB9xnRmxoRsy3aEk11wmYqWjP3iwKQ2j8cMixPSHaOaM60Mo9iNkKoHyXJ4rEuF/FK+
+ eJjvnLTlIu73aRb1vEXmIst1sc//Q88Q1OlCccxhx8sbbo9lfxKuS2K345XN+CeTrIfOqv4zDLd
+ 7KdtaBaeQcG5VleWaz9UhaIssK6y/VdkwVxOLho4oyQtydXL/1bfRWICt1Gl2i+UBpcVMv7T1yy
+ jg1liV0ig/mUlYmhVZ6s+3L4FYeTx2Ak8tEu/oQKZhA8pySzaxCqNbMDin9qLBQZBrXEYZaS4WV
+ tDqolgxEI5/9vk5qIK6SqOhtYqAc0qdvARP3JxREky8IVkZFb6BjY7ro+xmkyn3Tgsix0lV9OvQ
+ eY8H47JWU1lxSCfiAyW8lJMSGQI/SYtG4iXCdUGKTJsYOlTriz4vDxf8BL59rQcUzlz06JwsoaT
+ Dtt7XZ8Yb3vT03U9fUA==
+X-Proofpoint-ORIG-GUID: biXXG_T-cS7dSkB_2pkez3gNP2OSfHtI
+X-Proofpoint-GUID: biXXG_T-cS7dSkB_2pkez3gNP2OSfHtI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
@@ -122,286 +122,633 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Add CSID, IFE, and IFE Lite resources for the SM8250 pixel path. Select
-them with the qcom,sm8250pix-camss compatible.
+Integrate IFE devices with CAMSS probe, power management, media entity
+registration, and performance management. Keep the legacy VFE path
+unchanged.
 
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 224 +++++++++++++++++++++-
- 1 file changed, 222 insertions(+), 2 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 471 +++++++++++++++++++++-
+ 1 file changed, 460 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 7c355003c957..2dc7864ebe07 100644
+index 1f662b1caf5a..7c355003c957 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -27,6 +27,7 @@
- #include <media/v4l2-mc.h>
- #include <media/v4l2-fwnode.h>
- 
-+#include "camss-ife-camif-v10x.h"
- #include "camss.h"
- 
+@@ -32,6 +32,9 @@
  #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
-@@ -36,6 +37,7 @@
- #define CAMSS_NUM_OF_PIXELS_PER_CYCLE	2
+ #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
  
++/* Number of pixels fetched per clock cycle */
++#define CAMSS_NUM_OF_PIXELS_PER_CYCLE	2
++
  static const struct parent_dev_ops vfe_parent_dev_ops;
-+static const struct parent_dev_ops ife_parent_dev_ops;
  
  static const struct camss_subdev_resources csiphy_res_8x16[] = {
- 	/* CSIPHY0 */
-@@ -2269,6 +2271,208 @@ static const struct resources_icc icc_res_sm8250[] = {
- 	},
- };
- 
-+static const struct camss_ife_stream csid_ife_streams_sm8250pix[] = {
-+	{ .id = 0, .pipe = CAMSS_IFE_HW_PIPE_RDI0 },
-+	{ .id = 1, .pipe = CAMSS_IFE_HW_PIPE_RDI1 },
-+	{ .id = 2, .pipe = CAMSS_IFE_HW_PIPE_RDI2 },
-+	{ .id = 3, .pipe = CAMSS_IFE_HW_PIPE_PP },
-+};
-+
-+static const struct camss_ife_stream csid_ife_lite_streams_sm8250pix[] = {
-+	{ .id = 0, .pipe = CAMSS_IFE_HW_PIPE_RDI0 },
-+	{ .id = 1, .pipe = CAMSS_IFE_HW_PIPE_RDI1 },
-+	{ .id = 2, .pipe = CAMSS_IFE_HW_PIPE_RDI2 },
-+	{ .id = 3, .pipe = CAMSS_IFE_HW_PIPE_RDI3 },
-+};
-+
-+static const struct camss_subdev_resources csid_res_sm8250pix[] = {
-+	/* CSID0 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe0_csid", "vfe0_cphy_rx", "vfe0", "vfe0_areg", "vfe0_ahb" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000 },
-+				{ 350000000, 475000000, 576000000, 720000000 },
-+				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 0 } },
-+		.reg = { "csid0" },
-+		.interrupt = { "csid0" },
-+		.csid = {
-+			.streams_enable = true,
-+			.source_streams_mode = CSID_STREAMS_SINGLE_PAD,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &ife_parent_dev_ops,
-+			.formats = &csid_formats_gen2,
-+		}
-+	},
-+	/* CSID1 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe1_csid", "vfe1_cphy_rx", "vfe1", "vfe1_areg", "vfe1_ahb" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000 },
-+				{ 350000000, 475000000, 576000000, 720000000 },
-+				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 0 } },
-+		.reg = { "csid1" },
-+		.interrupt = { "csid1" },
-+		.csid = {
-+			.streams_enable = true,
-+			.source_streams_mode = CSID_STREAMS_SINGLE_PAD,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &ife_parent_dev_ops,
-+			.formats = &csid_formats_gen2,
-+		}
-+	},
-+	/* CSID2 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx", "vfe_lite", "vfe_lite_ahb" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000 },
-+				{ 400000000, 480000000 },
-+				{ 0 } },
-+		.reg = { "csid2" },
-+		.interrupt = { "csid2" },
-+		.csid = {
-+			.is_lite = true,
-+			.streams_enable = true,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &ife_parent_dev_ops,
-+			.formats = &csid_formats_gen2,
-+		}
-+	},
-+	/* CSID3 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx", "vfe_lite", "vfe_lite_ahb" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000 },
-+				{ 400000000, 480000000 },
-+				{ 0 } },
-+		.reg = { "csid3" },
-+		.interrupt = { "csid3" },
-+		.csid = {
-+			.is_lite = true,
-+			.streams_enable = true,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &ife_parent_dev_ops,
-+			.formats = &csid_formats_gen2,
-+		}
-+	}
-+};
-+
-+static const struct camss_subdev_resources ife_res_sm8250pix[] = {
-+	/* IFE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
-+			   "camnoc_axi", "vfe0_ahb", "vfe0_areg", "vfe0",
-+			   "vfe0_axi", "cam_hf_axi" },
-+		.clock_rate = { { },
-+				{ },
-+				{ },
-+				{ },
-+				{ },
-+				{ 19200000, 100000000, 200000000, 300000000, 400000000 },
-+				{ 19200000, 350000000, 475000000, 576000000, 680000000 },
-+				{ 19200000, 300000000, 400000000, 400000000, 400000000 },
-+				{ } },
-+		.reg = { "vfe0" },
-+		.interrupt = { "vfe0" },
-+		.ife = {
-+			.type = CAMSS_IFE_SUBDEV_TYPE_IFE,
-+			.pads = &ife_pads_v20x,
-+			.top_ops = &ife_top_20x_ops,
-+			.camif_ops = &ife_camif_v10x_ops,
-+			.mod_ops = &ife_mod_v10x_ops,
-+			.buswr_ops = &ife_buswr_20x_ops,
-+			.num_sink_streams = ARRAY_SIZE(csid_ife_streams_sm8250pix),
-+			.sink_streams = csid_ife_streams_sm8250pix,
-+		},
-+	},
-+	/* IFE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
-+			   "camnoc_axi", "vfe1_ahb", "vfe1_areg", "vfe1",
-+			   "vfe1_axi", "cam_hf_axi" },
-+		.clock_rate = { { },
-+				{ },
-+				{ },
-+				{ },
-+				{ },
-+				{ 19200000, 100000000, 200000000, 300000000, 400000000 },
-+				{ 19200000, 350000000, 475000000, 576000000, 680000000 },
-+				{ 19200000, 300000000, 400000000, 400000000, 400000000 },
-+				{ } },
-+		.reg = { "vfe1" },
-+		.interrupt = { "vfe1" },
-+		.ife = {
-+			.type = CAMSS_IFE_SUBDEV_TYPE_IFE,
-+			.pads = &ife_pads_v20x,
-+			.top_ops = &ife_top_20x_ops,
-+			.camif_ops = &ife_camif_v10x_ops,
-+			.mod_ops = &ife_mod_v10x_ops,
-+			.buswr_ops = &ife_buswr_20x_ops,
-+			.num_sink_streams = ARRAY_SIZE(csid_ife_streams_sm8250pix),
-+			.sink_streams = csid_ife_streams_sm8250pix,
-+		},
-+	},
-+	/* IFE2 (lite) */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
-+			   "camnoc_axi", "vfe_lite_ahb", "vfe_lite_axi",
-+			   "vfe_lite", "cam_hf_axi" },
-+		.clock_rate = { { },
-+				{ },
-+				{ },
-+				{ },
-+				{ },
-+				{ 19200000, 300000000, 400000000, 400000000, 400000000 },
-+				{ 19200000, 400000000, 480000000, 480000000, 480000000 },
-+				{ } },
-+		.reg = { "vfe_lite0" },
-+		.interrupt = { "vfe_lite0" },
-+		.ife = {
-+			.type = CAMSS_IFE_SUBDEV_TYPE_IFE_LITE,
-+			.pads = &ife_lite_pads_v20x,
-+			.top_ops = &ife_lite_top_10x_ops,
-+			.camif_ops = &ife_camif_v10x_ops,
-+			.buswr_ops = &ife_buswr_20x_ops,
-+			.num_sink_streams = ARRAY_SIZE(csid_ife_lite_streams_sm8250pix),
-+			.sink_streams = csid_ife_lite_streams_sm8250pix,
-+		}
-+	},
-+	/* IFE3 (lite) */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
-+			   "camnoc_axi", "vfe_lite_ahb", "vfe_lite_axi",
-+			   "vfe_lite", "cam_hf_axi" },
-+		.clock_rate = { { },
-+				{ },
-+				{ },
-+				{ },
-+				{ },
-+				{ 19200000, 300000000, 400000000, 400000000, 400000000 },
-+				{ 19200000, 400000000, 480000000, 480000000, 480000000 },
-+				{ } },
-+		.reg = { "vfe_lite1" },
-+		.interrupt = { "vfe_lite1" },
-+		.ife = {
-+			.type = CAMSS_IFE_SUBDEV_TYPE_IFE_LITE,
-+			.pads = &ife_lite_pads_v20x,
-+			.top_ops = &ife_lite_top_10x_ops,
-+			.camif_ops = &ife_camif_v10x_ops,
-+			.buswr_ops = &ife_buswr_20x_ops,
-+			.num_sink_streams = ARRAY_SIZE(csid_ife_lite_streams_sm8250pix),
-+			.sink_streams = csid_ife_lite_streams_sm8250pix,
-+		}
-+	},
-+};
-+
- static const struct camss_subdev_resources csiphy_res_7280[] = {
- 	/* CSIPHY0 */
- 	{
-@@ -4977,10 +5181,10 @@ static void __iomem
- 	return NULL;
+@@ -4653,6 +4656,108 @@ s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
+ 	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
  }
  
--static const struct parent_dev_ops ife_parent_dev_ops __maybe_unused = {
-+static const struct parent_dev_ops ife_parent_dev_ops = {
- 	.get = ife_parent_dev_ops_get,
- 	.put = ife_parent_dev_ops_put,
--	.get_base_address = ife_parent_dev_ops_get_base_address
-+	.get_base_address = ife_parent_dev_ops_get_base_address,
++static int camss_get_num_lanes(struct media_entity *entity,
++			       unsigned int *lanes)
++{
++	struct media_pad *pad;
++
++	while (1) {
++		struct v4l2_subdev *sd;
++
++		pad = &entity->pads[0];
++		if (!(pad->flags & MEDIA_PAD_FL_SINK))
++			return -ENODEV;
++
++		pad = media_pad_remote_pad_first(pad);
++		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
++			return -ENODEV;
++
++		sd = media_entity_to_v4l2_subdev(pad->entity);
++		if (sd->grp_id == CSIPHY_GRP_ID) {
++			struct csiphy_lanes_cfg *lane_cfg;
++			struct csiphy_device *csiphy;
++
++			csiphy = v4l2_get_subdevdata(sd);
++			if (!csiphy->cfg.csi2)
++				return -ENODEV;
++
++			lane_cfg = &csiphy->cfg.csi2->lane_cfg;
++			if (!lane_cfg->num_data)
++				return -EINVAL;
++
++			*lanes = lane_cfg->num_data;
++			return 0;
++		}
++
++		entity = pad->entity;
++	}
++}
++
++static int camss_get_pixel_clock_from_link_freq(struct media_entity *entity,
++						unsigned int bpp,
++						u64 *pixel_clock)
++{
++	struct media_pad *sensor_pad;
++	unsigned int lanes;
++	s64 link_freq;
++	int ret;
++
++	if (!bpp)
++		return -EINVAL;
++
++	sensor_pad = camss_find_sensor_pad(entity);
++	if (!sensor_pad)
++		return -ENODEV;
++
++	ret = camss_get_num_lanes(entity, &lanes);
++	if (ret)
++		return ret;
++
++	link_freq = v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
++	if (link_freq < 0)
++		return link_freq;
++
++	*pixel_clock = div_u64(link_freq * 2 * lanes, bpp);
++
++	return 0;
++}
++
++/*
++ * camss_get_pixel_clock - Get pixel clock rate from sensor
++ * @entity: Media entity in the current pipeline
++ * @bpp: Number of bits per pixel for the current format
++ * @pixel_clock: Received pixel clock value
++ *
++ * Return 0 on success or a negative error code otherwise
++ */
++int camss_get_pixel_clock_bpp(struct media_entity *entity, unsigned int bpp,
++			      u64 *pixel_clock)
++{
++	struct media_pad *sensor_pad;
++	struct v4l2_subdev *subdev;
++	struct v4l2_ctrl *ctrl;
++	int ret;
++
++	ret = camss_get_pixel_clock_from_link_freq(entity, bpp, pixel_clock);
++	if (!ret)
++		return 0;
++
++	sensor_pad = camss_find_sensor_pad(entity);
++	if (!sensor_pad)
++		return -ENODEV;
++
++	subdev = media_entity_to_v4l2_subdev(sensor_pad->entity);
++
++	ctrl = v4l2_ctrl_find(subdev->ctrl_handler, V4L2_CID_PIXEL_RATE);
++
++	if (!ctrl)
++		return -EINVAL;
++
++	*pixel_clock = v4l2_ctrl_g_ctrl_int64(ctrl);
++
++	return 0;
++}
++
+ /*
+  * camss_get_pixel_clock - Get pixel clock rate from sensor
+  * @entity: Media entity in the current pipeline
+@@ -4746,6 +4851,156 @@ static const struct parent_dev_ops vfe_parent_dev_ops = {
+ 	.get_base_address = vfe_parent_dev_ops_get_base_address
  };
  
- int camss_attach_host_data(struct camss *camss, struct v4l2_subdev *sd,
-@@ -6142,6 +6346,21 @@ static const struct camss_resources sm8250_resources = {
- 	.csid_vfe_fixed_pairing = true,
- };
- 
-+static const struct camss_resources sm8250pix_resources = {
-+	.version = CAMSS_8250,
-+	.csiphy_res = csiphy_res_8250,
-+	.csid_res = csid_res_sm8250pix,
-+	.ife_res = ife_res_sm8250pix,
-+	.icc_res = icc_res_sm8250,
-+	.icc_path_num = ARRAY_SIZE(icc_res_sm8250),
-+	.csiphy_num = ARRAY_SIZE(csiphy_res_8250),
-+	.csid_num = ARRAY_SIZE(csid_res_sm8250pix),
-+	.embedded_csid = true,
-+	.ife_num = 2,
-+	.ife_lite_num = 2,
-+	.link_entities = camss_ife_link_entities,
++static const u32 cam_cc_sbi_clk_rates[] = {
++	19200000, 350000000, 475000000, 576000000, 680000000,
 +};
 +
- static const struct camss_resources sc8280xp_resources = {
- 	.version = CAMSS_8280XP,
- 	.pd_name = "top",
-@@ -6229,6 +6448,7 @@ static const struct of_device_id camss_dt_match[] = {
- 	{ .compatible = "qcom,sm6150-camss", .data = &sm6150_resources },
- 	{ .compatible = "qcom,sm6350-camss", .data = &sm6350_resources },
- 	{ .compatible = "qcom,sm8250-camss", .data = &sm8250_resources },
-+	{ .compatible = "qcom,sm8250pix-camss", .data = &sm8250pix_resources },
- 	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
- 	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
- 	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
++static int camss_set_perf_level(struct camss *camss, struct ife_device *ife)
++{
++	enum camss_perf_mode perf_max = CAMSS_PERF_MAX_MODES - 1;
++	u64 freq_min, pixel_clock = 0;
++	u32 sink_pad = ife->sink_pad;
++	int pixelformat, fmt_index, i;
++	u8 bits_per_pixel = 0;
++	int ret;
++
++	fmt_index = camss_get_pixfmt_index(ife->pads[sink_pad].fmt.code,
++					   ife->pads[sink_pad].desc->sup_fmts.formats,
++					   ife->pads[sink_pad].desc->sup_fmts.nformats);
++	if (fmt_index < 0) {
++		dev_err(camss->dev, "%s Can't find requested format index: 0x%x\n", __func__,
++			ife->pads[sink_pad].fmt.code);
++		return fmt_index;
++	}
++
++	pixelformat = ife->pads[sink_pad].desc->sup_fmts.formats[fmt_index].pixelformat;
++
++	ret = camss_get_pixfmt_depth(pixelformat, Y_PLANE, &bits_per_pixel);
++	if (ret) {
++		dev_err(camss->dev, "%s Unknown pixel format: 0x%x\n", __func__,
++			pixelformat);
++		return ret;
++	}
++
++	ret = camss_get_pixel_clock_bpp(&ife->sd.entity, bits_per_pixel,
++					&pixel_clock);
++	if (ret) {
++		camss->perf_mode = CAMSS_PERF_MODE_NOM;
++		return 0;
++	}
++
++	freq_min = pixel_clock * bits_per_pixel / CAMSS_NUM_OF_PIXELS_PER_CYCLE / BITS_PER_BYTE;
++	camss->perf_mode = perf_max;
++
++	for (i = 0; i < ARRAY_SIZE(cam_cc_sbi_clk_rates); i++) {
++		if (freq_min <= cam_cc_sbi_clk_rates[i]) {
++			camss->perf_mode = min_t(u8, i, perf_max);
++			break;
++		}
++	}
++
++	return 0;
++}
++
++static int camss_core_get(struct camss *camss, u8 entity_id)
++{
++	int ret;
++
++	if (atomic_inc_return(&camss->perf_ref_count) > 1)
++		return 0;
++
++	ret = camss_set_perf_level(camss, &camss->ife[entity_id]);
++	if (ret)
++		dev_warn(camss->dev, "Cannot configure the performance level\n");
++
++	ret = pm_runtime_resume_and_get(camss->dev);
++	if (ret < 0) {
++		dev_err(camss->dev, "Core domain cannot be acquired\n");
++		atomic_dec(&camss->perf_ref_count);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int camss_core_put(struct camss *camss)
++{
++	int ret;
++
++	if (atomic_dec_if_positive(&camss->perf_ref_count))
++		return 0;
++
++	ret = pm_runtime_put_sync(camss->dev);
++	if (ret < 0) {
++		dev_err(camss->dev, "Core domain cannot be released\n");
++		return ret;
++	}
++
++	camss->perf_mode = CAMSS_PERF_MODE_MINSVS;
++
++	return 0;
++}
++
++static int ife_parent_dev_ops_get(struct camss *camss, int id)
++{
++	int ret = -EINVAL;
++
++	if (id < camss->res->ife_num + camss->res->ife_lite_num) {
++		struct ife_device *ife = &camss->ife[id];
++
++		ret = ife_get(ife);
++	}
++
++	return ret;
++}
++
++static int ife_parent_dev_ops_put(struct camss *camss, int id)
++{
++	if (id < camss->res->ife_num + camss->res->ife_lite_num) {
++		struct ife_device *ife = &camss->ife[id];
++
++		ife_put(ife);
++	}
++
++	return 0;
++}
++
++static void __iomem
++*ife_parent_dev_ops_get_base_address(struct camss *camss, int id)
++{
++	if (id < camss->res->ife_num + camss->res->ife_lite_num) {
++		struct ife_device *ife = &camss->ife[id];
++
++		return ife->top_ctx.base;
++	}
++
++	return NULL;
++}
++
++static const struct parent_dev_ops ife_parent_dev_ops __maybe_unused = {
++	.get = ife_parent_dev_ops_get,
++	.put = ife_parent_dev_ops_put,
++	.get_base_address = ife_parent_dev_ops_get_base_address
++};
++
++int camss_attach_host_data(struct camss *camss, struct v4l2_subdev *sd,
++			   bool is_sensor, int id)
++{
++	struct camss_host_priv_data *host_data;
++	struct device *dev = camss->dev;
++
++	host_data = devm_kzalloc(dev, sizeof(*host_data), GFP_KERNEL);
++	if (!host_data)
++		return -ENOMEM;
++
++	host_data->is_sensor = is_sensor;
++	host_data->id = id;
++
++	v4l2_set_subdev_hostdata(sd, host_data);
++
++	return 0;
++}
++
+ /*
+  * camss_parse_endpoint_node - Parse port endpoint node
+  * @dev: CAMSS device
+@@ -4833,6 +5088,46 @@ static int camss_parse_ports(struct camss *camss)
+ 	return ret;
+ }
+ 
++static int camss_init_csid_subdevices(struct camss *camss)
++{
++	const struct camss_resources *res = camss->res;
++	unsigned int i;
++	int ret;
++
++	for (i = 0; i < res->csid_num; i++) {
++		ret = msm_csid_subdev_init(camss, &camss->csid[i],
++					   &res->csid_res[i], i);
++		if (ret < 0) {
++			dev_err(camss->dev, "Failed to init csid%d sub-device: %d\n",
++				i, ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static int camss_init_ife_subdevices(struct camss *camss)
++{
++	const struct camss_resources *res = camss->res;
++	unsigned int i;
++	int ret;
++
++	for (i = 0; i < camss->ife_total_num; i++) {
++		void __iomem *csid_base = camss->csid[i].base;
++
++		ret = camss_ife_subdev_init(camss, &camss->ife[i],
++					    &res->ife_res[i], i, csid_base);
++		if (ret < 0) {
++			dev_err(camss->dev, "Fail to init ife%d sub-device: %d\n",
++				i, ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
+ /*
+  * camss_init_subdevices - Initialize subdev structures and resources
+  * @camss: CAMSS device
+@@ -4882,6 +5177,11 @@ static int camss_init_subdevices(struct camss *camss)
+ 		}
+ 	}
+ 
++	if (camss->ife_total_num > res->csid_num) {
++		dev_err(camss->dev, "IFE resources require one CSID per IFE\n");
++		return -EINVAL;
++	}
++
+ 	/* Get optional CSID wrapper regs shared between CSID devices */
+ 	if (res->csid_wrapper_res) {
+ 		char *reg = res->csid_wrapper_res->reg;
+@@ -4893,15 +5193,20 @@ static int camss_init_subdevices(struct camss *camss)
+ 		camss->csid_wrapper_base = base;
+ 	}
+ 
+-	for (i = 0; i < camss->res->csid_num; i++) {
+-		ret = msm_csid_subdev_init(camss, &camss->csid[i],
+-					   &res->csid_res[i], i);
+-		if (ret < 0) {
+-			dev_err(camss->dev,
+-				"Failed to init csid%d sub-device: %d\n",
+-				i, ret);
++	if (res->embedded_csid) {
++		ret = camss_init_ife_subdevices(camss);
++		if (ret)
++			return ret;
++	}
++
++	ret = camss_init_csid_subdevices(camss);
++	if (ret)
++		return ret;
++
++	if (!res->embedded_csid) {
++		ret = camss_init_ife_subdevices(camss);
++		if (ret)
+ 			return ret;
+-		}
+ 	}
+ 
+ 	ret = msm_ispif_subdev_init(camss, res->ispif_res);
+@@ -4942,6 +5247,9 @@ static int camss_link_entities(struct camss *camss)
+ 	int i, j, k;
+ 	int ret;
+ 
++	if (camss->ife_total_num)
++		return camss->res->link_entities(camss);
++
+ 	for (i = 0; i < camss->res->csiphy_num; i++) {
+ 		for (j = 0; j < camss->res->csid_num; j++) {
+ 			ret = media_create_pad_link(&camss->csiphy[i].subdev.entity,
+@@ -5126,8 +5434,24 @@ static int camss_register_entities(struct camss *camss)
+ 		}
+ 	}
+ 
++	for (i = 0; i < camss->ife_total_num; i++) {
++		ret = ife_register_entities(&camss->ife[i],
++					    &camss->v4l2_dev);
++		if (ret < 0) {
++			dev_err(camss->dev,
++				"Failed to register ife%d entities: %d\n",
++				i, ret);
++			goto err_reg_ife;
++		}
++	}
++
+ 	return 0;
+ 
++err_reg_ife:
++	for (i--; i >= 0; i--)
++		ife_unregister_entities(&camss->ife[i]);
++
++	i = camss->res->vfe_num;
+ err_reg_vfe:
+ 	for (i--; i >= 0; i--)
+ 		msm_vfe_unregister_entities(&camss->vfe[i]);
+@@ -5180,6 +5504,9 @@ static void camss_unregister_entities(struct camss *camss)
+ 
+ 	for (i = 0; i < camss->res->vfe_num; i++)
+ 		msm_vfe_unregister_entities(&camss->vfe[i]);
++
++	for (i = 0; i < camss->ife_total_num; i++)
++		ife_unregister_entities(&camss->ife[i]);
+ }
+ 
+ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
+@@ -5193,6 +5520,20 @@ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
+ 	struct csiphy_device *csiphy = &camss->csiphy[id];
+ 
+ 	csiphy->cfg.csi2 = &csd->interface.csi2;
++
++	if (camss->ife_total_num) {
++		int ret;
++
++		ret = camss_attach_host_data(camss, subdev, true, id);
++		if (ret) {
++			dev_err(camss->dev,
++				"Failed to alloc host private data: %d\n", ret);
++			return ret;
++		}
++
++		return 0;
++	}
++
+ 	subdev->host_priv = csiphy;
+ 
+ 	return 0;
+@@ -5210,6 +5551,16 @@ static int camss_subdev_notifier_complete(struct v4l2_async_notifier *async)
+ 		unsigned int i;
+ 		int ret;
+ 
++		if (camss->ife_total_num) {
++			struct camss_host_priv_data *host_data;
++
++			host_data = v4l2_get_subdev_hostdata(sd);
++			if (!host_data || !host_data->is_sensor)
++				continue;
++
++			csiphy = &camss->csiphy[host_data->id];
++		}
++
+ 		if (!csiphy)
+ 			continue;
+ 
+@@ -5247,6 +5598,53 @@ static const struct media_device_ops camss_media_ops = {
+ 	.link_notify = v4l2_pipeline_link_notify,
+ };
+ 
++static int camss_configure_ife_pd(struct camss *camss)
++{
++	struct device *dev = camss->dev;
++	int i;
++	int ret;
++
++	camss->ife_genpd = devm_kcalloc(dev, camss->genpd_num,
++					sizeof(*camss->ife_genpd), GFP_KERNEL);
++	if (!camss->ife_genpd)
++		return -ENOMEM;
++
++	camss->ife_genpd_link = devm_kcalloc(dev, camss->genpd_num,
++					     sizeof(*camss->ife_genpd_link),
++					     GFP_KERNEL);
++	if (!camss->ife_genpd_link)
++		return -ENOMEM;
++
++	for (i = 0; i < camss->genpd_num; i++) {
++		camss->ife_genpd[i] = dev_pm_domain_attach_by_id(dev, i);
++		if (IS_ERR(camss->ife_genpd[i])) {
++			ret = PTR_ERR(camss->ife_genpd[i]);
++			goto fail_pm;
++		}
++	}
++
++	if (camss->genpd_num > camss->res->ife_num) {
++		i = camss->genpd_num - 1;
++		camss->ife_genpd_link[i] =
++			device_link_add(dev, camss->ife_genpd[i],
++					DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
++					DL_FLAG_RPM_ACTIVE);
++		if (!camss->ife_genpd_link[i]) {
++			ret = -EINVAL;
++			i = camss->genpd_num;
++			goto fail_pm;
++		}
++	}
++
++	return 0;
++
++fail_pm:
++	while (i--)
++		dev_pm_domain_detach(camss->ife_genpd[i], true);
++
++	return ret;
++}
++
+ static int camss_configure_pd(struct camss *camss)
+ {
+ 	const struct camss_resources *res = camss->res;
+@@ -5271,6 +5669,9 @@ static int camss_configure_pd(struct camss *camss)
+ 	if (camss->genpd_num == 1)
+ 		return 0;
+ 
++	if (camss->ife_total_num)
++		return camss_configure_ife_pd(camss);
++
+ 	/* count the # of VFEs which have flagged power-domain */
+ 	for (vfepd_num = i = 0; i < camss->res->vfe_num; i++) {
+ 		if (res->vfe_res[i].vfe.has_pd)
+@@ -5351,6 +5752,20 @@ static void camss_genpd_subdevice_cleanup(struct camss *camss)
+ 		msm_vfe_genpd_cleanup(&camss->vfe[i]);
+ }
+ 
++static void camss_ife_genpd_cleanup(struct camss *camss)
++{
++	int i;
++
++	if (camss->genpd_num > camss->res->ife_num) {
++		i = camss->genpd_num - 1;
++		if (camss->ife_genpd_link[i])
++			device_link_del(camss->ife_genpd_link[i]);
++	}
++
++	for (i = 0; i < camss->genpd_num; i++)
++		dev_pm_domain_detach(camss->ife_genpd[i], true);
++}
++
+ static void camss_genpd_cleanup(struct camss *camss)
+ {
+ 	if (camss->genpd_num == 1)
+@@ -5358,6 +5773,11 @@ static void camss_genpd_cleanup(struct camss *camss)
+ 
+ 	camss_genpd_subdevice_cleanup(camss);
+ 
++	if (camss->ife_total_num) {
++		camss_ife_genpd_cleanup(camss);
++		return;
++	}
++
+ 	if (camss->genpd_link)
+ 		device_link_del(camss->genpd_link);
+ 
+@@ -5382,8 +5802,23 @@ static int camss_probe(struct platform_device *pdev)
+ 
+ 	camss->res = of_device_get_match_data(dev);
+ 
++	if (camss->res->vfe_num &&
++	    (camss->res->ife_num || camss->res->ife_lite_num)) {
++		dev_err(dev, "VFE and IFE resources are mutually exclusive\n");
++		return -EINVAL;
++	}
++
++	if ((camss->res->ife_num || camss->res->ife_lite_num) &&
++	    !camss->res->link_entities) {
++		dev_err(dev, "IFE resources require entity link operations\n");
++		return -EINVAL;
++	}
++
+ 	atomic_set(&camss->ref_count, 0);
++	atomic_set(&camss->perf_ref_count, 0);
+ 	camss->dev = dev;
++	camss->core_get = camss_core_get;
++	camss->core_put = camss_core_put;
+ 	platform_set_drvdata(pdev, camss);
+ 
+ 	camss->csiphy = devm_kcalloc(dev, camss->res->csiphy_num,
+@@ -5417,6 +5852,14 @@ static int camss_probe(struct platform_device *pdev)
+ 	if (!camss->vfe)
+ 		return -ENOMEM;
+ 
++	camss->ife_total_num = camss->res->ife_num + camss->res->ife_lite_num;
++	if (camss->ife_total_num) {
++		camss->ife = devm_kcalloc(dev, camss->ife_total_num,
++					  sizeof(*camss->ife), GFP_KERNEL);
++		if (!camss->ife)
++			return -ENOMEM;
++	}
++
+ 	ret = camss_icc_get(camss);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to configure ICC: %d\n", ret);
+@@ -5430,8 +5873,10 @@ static int camss_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ret = camss_init_subdevices(camss);
+-	if (ret < 0)
++	if (ret < 0) {
++		dev_err(dev, "Failed to init subdevices: %d\n", ret);
+ 		goto err_genpd_cleanup;
++	}
+ 
+ 	ret = dma_set_mask_and_coherent(dev, 0xffffffff);
+ 	if (ret) {
+@@ -5463,12 +5908,16 @@ static int camss_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ret = camss_register_entities(camss);
+-	if (ret < 0)
++	if (ret < 0) {
++		dev_err(dev, "Failed to register entities: %d\n", ret);
+ 		goto err_v4l2_device_unregister;
++	}
+ 
+ 	ret = camss_link_entities(camss);
+-	if (ret < 0)
++	if (ret < 0) {
++		dev_err(dev, "Failed to link entities: %d\n", ret);
+ 		goto err_register_subdevs;
++	}
+ 
+ 	ret = media_device_register(&camss->media_dev);
+ 	if (ret < 0) {
 -- 
 2.34.1
 
