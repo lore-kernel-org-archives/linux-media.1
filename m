@@ -1,151 +1,102 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E91175A88;
-	Tue,  6 Oct 2026 15:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7829349DB96
+	for <linux-media@vger.kernel.org>; Tue,  6 Oct 2026 16:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301054; cv=none; b=XrDbT910ReepYKaSfoc2l7iYUwgp/QF5BPgLZ9LPyqdxsy5SzY0bxsa9CQ4nqW9XALLmSRjeFn8CMJ9nmFwuM1r8RGW3LAeqc6j4SWTkVYmCltDA10WcpRSgEtjBcXIgdQ6R1GGirKL5pMWbwJmhi4cJ6K70XN4ZNB2W7iD3AKM=
+	t=1791304275; cv=none; b=i41rZM55XpVCGuCImYsnEoSmMDzKP5RkuKBUw9AhOmI2jqLaS6NJQWc6mqjLe8UmNQlGmYcAgFTqRRbEYhFSZrEnpaH62FWaRwrqGmmTAOUW7aU92UsrHcLsid0OjHAmYtvAblXYATpntGmLd4CQhM3SrjO36NQHkE2xSA/YzA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301054; c=relaxed/simple;
-	bh=B2Gh86zo7jHv0y6qiZlKzZJTMfJ+fRsbatAe7FqDDc8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cm9eCbooBpxbZYztweIkbJv90lSfBKvdxmeqGC9Y29b4HemoTWW3fijqEDRn2QLXTplH9c1Sr60axKLKYHX3P4k/xLm/14USfhSlCvFftJece4Pvryu5qoGm6cV4ma3gnFL45gXUal8WrJAxBPEzJf/XKemXwiqWacAlpTCa8TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=M8QovLgU; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791304275; c=relaxed/simple;
+	bh=WXcly/MABuM+KHwXWL2hf3oERsAi0yaIkHJOZ6o97cA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LWYJBcp50cUNJLalZYgGPnxfLf85htsggWJBDA7fn3f26pJEEOrD5fp/YIk7GKAORsk+0sSDVCl8CSRYFAP+Th3RB+G9kwrTzxoe3eHSGlp1Ss1LCVkVzvGP6k4yONhp7Oe5MGALU0RPwdhxyYgig+otqzWYTyqdp1D5CDHQBlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=avkiv3Fq; arc=none smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="M8QovLgU"
-Received: from killaraus.ideasonboard.com (90-182-211-1.rcp.o2.cz [90.182.211.1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C1B51493;
-	Tue,  6 Oct 2026 17:35:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791300933;
-	bh=B2Gh86zo7jHv0y6qiZlKzZJTMfJ+fRsbatAe7FqDDc8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M8QovLgUHD09qoWJFLz/RBXeW4qTdGrd6tK4tK3PfJt71yaBBXJMQFafziP5EYfiX
-	 4y6rkYQaBP0rBjZaItWDd82BEj6paPeOLsSV43jJ1XJkak6XZDIcmyVSXwuMzis01U
-	 NsVCaDFhsbaVzj/NQ3QowR2HgiYPFabtk2s56i+o=
-Date: Tue, 6 Oct 2026 17:37:28 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mirela Rabulea <mirela.rabulea@nxp.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, mripard@kernel.org,
-	jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com
-Subject: Re: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312
- driver
-Message-ID: <20261006153728.GA622105@killaraus.ideasonboard.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-7-r-donadkar@ti.com>
- <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
- <asSk9KW-lzuiUJa3@kekkonen.localdomain>
- <577b34a1-4c2f-487d-a4fa-e7ede2b60091@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="avkiv3Fq"
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5dd8bbb2175so818838e0c.3
+        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 09:31:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791304273; x=1791909073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ywN4tNJNNqDRUPP3AsT8Nesevvk83PmWOswuYVqECKw=;
+        b=avkiv3Fq+Ic3qrn+tYhqQDlFz4NBcxPUb0GKX0nj5qLqjCWcX7HUZvXEb+zWkxusrn
+         1aP329WRFpTC+4JUZWpP4MzWwa3kfUx75Qy21ttDgXB7JhluFdbUTnB4NBW93pAhemq1
+         OEr5TAFYvc/JFl5l2VCp/EaCYYxqYc5uBGJtwmCMn7YGoDRrm1v81mnQ+wwNRQv11DjV
+         QZlv4dAI3GXIsocs8pMt5DAems9pK5nAs5z9hpevWw5gcsBmpND9a3B1qXpA69l5VoyZ
+         Udzbn42XS9YuggQZVxNRFJP0kBKgNOZiagJk4tWnq0NV71LQUu60hyau0pRnlg9sgOtS
+         t4eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791304273; x=1791909073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ywN4tNJNNqDRUPP3AsT8Nesevvk83PmWOswuYVqECKw=;
+        b=w65s6mFeOYbsTpW+hLqtY6mNte7xnl1L9bXytvApoZaif3FvIbHm3f0Yjr85a71YSj
+         yGiW3YkuVqxW6KXsON4VHDRD7G4cminv74KFrhca8P2Ux87MrOF0VQQJEpG2ilqqqcPM
+         cLYNIPbevRgyZZ9AQzeCyyU1exs4ue8VdpnVrKuR65/m+hg+gfhbABInBQnv05xtyv3k
+         5AABTIlYfN8uV977aWmF5rz6q7DNC2ScwGorfAZL/OQ06EaQPDUcoTiq9gVxS/GxJ8St
+         lf2RHDXVekOLqIpO2CuDiH7EfNSAGiWO481TSCH6Tt5gFV/zH85CWtI2Y2ezXMhAtxlh
+         203g==
+X-Forwarded-Encrypted: i=1; AKwUvBwzf6zg7GAo+NzC6/bll9rMb5H9dS5nzlPy3sqsqhfHfQV5nkIVaOogeBdTe0XO1fFJsfPUubliw/vCmQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLalMWPlpkQppPEP5gprzp0cmxNuiexkQiLFwtItY02KflBd1Py
+	BEeDbD0tVvT1AscEayg1jYn1Hpwl5y7xKbII/mwauzVNmNx95VrpkxK3
+X-Gm-Gg: AYBFou3mnx9BYXuluQvIfhIs/jr1ftw4jLQEK0eM2MD6scO4s70jkT6pSzxqOKlLJ01
+	8Anc/XVdpbFIKXVb4CXQPl6JYOVB6S5nvOSn9ThkdJm57SUSUmn7Q5maZRSXw155UhLhZMB0l3Z
+	kN1ZRMbHQvPubaBfAV1LH84StfjrkANROpFGUGIiWotSA0gnAeXzYgzOtufUQ+4gXNzPcp/GsI6
+	OymmrP5aj2sqZWdfpc79Pa/ENDiEMdLggTLuVv4ZiSrocdrtVFb3ab88R2D+i8dkuuPAWaM3lNQ
+	EbUH9gRU1XQCixfbG6KSsfKNrZeCIpOe0hvXyf3ZQgRdtWN+yChMESjRWunWPCpILsw+Vx+wTJI
+	/ibDyML1etSILRoJW0MNuXjThk0qxMz1tOasK/X8EwGV05GRB4RCCpt6x0cDy/iPkWIUJvA+K2E
+	pKFU2BQtHjxvJ0TJmtX0BXwqRcbL/0njWUuJZRiemeV42TdCtpulI9rcarumDP1oy4GLUwSISw2
+	wcuie3tAlaSPOdDPVR3UO/t0cDZrXJ0+ty4rKAw
+X-Received: by 2002:a05:6102:1628:b0:7b3:32fe:77b6 with SMTP id ada2fe7eead31-7c875583d16mr612192137.3.1791304273204;
+        Tue, 06 Oct 2026 09:31:13 -0700 (PDT)
+Received: from localhost.localdomain ([2804:14c:65e4:8ceb:88c7:bff4:c488:f682])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7c0ff5c49a9sm13562366137.4.2026.10.06.09.31.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 09:31:12 -0700 (PDT)
+From: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
+Subject: [PATCH] media: staging/ipu7: fix typo in comment
+Date: Tue,  6 Oct 2026 13:30:55 -0300
+Message-ID: <20261006163055.66095-1-contatocaio.ferreira7@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <577b34a1-4c2f-487d-a4fa-e7ede2b60091@nxp.com>
 
-Hi Mirela,
+Fix a spelling mistake in a comment: utlization -> utilization.
 
-On Tue, Oct 06, 2026 at 04:55:25PM +0300, Mirela Rabulea wrote:
-> On 10/6/26 10:36, Sakari Ailus wrote:
-> > On Fri, Oct 02, 2026 at 07:16:11PM +0300, Mirela Rabulea wrote:
-> >> Laurent, Hans, Sakari,
-> >>
-> >> did you encounter similar situations? Any comments or proposals? The concern
-> >> here, to summarize, is: v4l2 control cannot be committed to sensor registers
-> >> right away (even when streaming) and we are also unsure when the right
-> >> moment to perform the register access may come.
-> > 
-> > In practice there's little the kernel overall can do about this: the timing
-> > of everything is handled by the userspace. Drivers that aren't directly in
-> > control of the data path don't even have frame timing information and even
-> > if we did pass that to drivers, I²C writes always have some uncertainty
-> > (system scheduling, I²C access failures etc.), so one needs to be prepared
-> > to failing to do the writes in time, which would further complicate the
-> > UAPI.
+Signed-off-by: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
+---
+ drivers/staging/media/ipu7/ipu7.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I think an API to group multiple writes in a buffer and trigger the I2C
-operation would be useful. It could be software-based, but it can also
-be useful on platforms where the I2C controller supports hardware
-triggers. I have been told a while ago that some I2C controllers can do
-that (I think on Nvidia chips, but don't quote me on that).
-
-> On the kerne side, what would help would be a way to make an atomic 
-> operation out of an i2c read (the status register to determine the 
-> active context) plus a group hold update (a few i2c register writes). I 
-> don't know if that is possible.
-
-What do you mean by atomic operation here ? From an I2C point of view we
-can probably guarantee that nothing will perform I2C access on the same
-bus between the read and write, but only if we submit both operations
-together. Changing the values to be written based on the read value
-isn't possible.
-
-But I don't really see how that would help. The issue is about
-performing I2C accesses at the right time, not about something else
-preempting the I2C bus between the read and write, right ?
-
-> On the v4l2 API side, I believe the current expectation is that upon 
-> s_ctrl, if the value was accepted by the kernel, it will return success, 
-> but user-space should not assume frames will immediately reflect the new 
-> values.
-> 
-> Traditionally, with drivers I have seen so far, if s_ctrl is applied 
-> while streaming, it is applied immediately (but fail in case of i2c 
-> access failure). Upon success, captured frames will reflect the values 
-> after N+1 or N+2.
-
-The point at which the control will take effect is device-dependent.
-Different sensors have different delays for exposure time and analog
-gain. Increasing the delay when interleaving two groups doesn't seem to
-be a fundamental problem. What is crucial, though, is for userspace to
-know when the controls have taken effect.
-
-> > Do you have libcamera in userspace or something else?
-> 
-> Yes, we experienced with libcamera. I can also reproduce the unwanted 
-> behavior with v4l2-ctl streaming + i2ctranfer script that stress the 
-> group hold writes.
-> 
-> If we were to place the responsibility on userspace/libcamera, than 
-> libcamera should be able to handle this:
-> 
-> - after a successful s_ctrl, captured frames will reflect the values 
-> after not N+2 but  X+N+2, where X can be anything because we do not know 
-> when we catch the right context to do the group hold access
-> 
-> - do not expect s_ctrl to fail, unless the value was not accepted; i2c 
-> access failures cannot be catched, because we cannot apply the control 
-> value instantly
-> 
-> - a control value may get accidentally applied to the wrong stream; 
-> because VC takes effect at frame N+1 and exposure and gain settings take 
-> effect at frame N+2, if the group write timing is improper, these may 
-> get out of sync; so user-space may see frames optimized for RGB on the 
-> stream that was supposed to be optimized for Ir or vice-versa, as 
-> confirmed by RishiKesh and Jai on ov2312.
-> 
-> - embedded data information may help identify what settings were 
-> actually applied for a particular captured frame (if embedded data is 
-> available reliably)
-
-We could decide that support for RGB/IR stream interleaving requires the
-ability to capture embedded data. Some people may complain though.
-
+diff --git a/drivers/staging/media/ipu7/ipu7.h b/drivers/staging/media/ipu7/ipu7.h
+index ac8ac0689468..d045e16bbcf0 100644
+--- a/drivers/staging/media/ipu7/ipu7.h
++++ b/drivers/staging/media/ipu7/ipu7.h
+@@ -114,7 +114,7 @@ struct ipu7_device {
+ #define IPU_UAO_PLANE_MAX_NUM		64U
+ 
+ /*
+- * To maximize the IOSF utlization, IPU need to send requests in bursts.
++ * To maximize the IOSF utilization, IPU need to send requests in bursts.
+  * At the DMA interface with the buttress, there are CDC FIFOs with burst
+  * collection capability. CDC FIFO burst collectors have a configurable
+  * threshold and is configured based on the outcome of performance measurements.
 -- 
-Regards,
+2.56.0
 
-Laurent Pinchart
