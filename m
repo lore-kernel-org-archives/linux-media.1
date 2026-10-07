@@ -1,115 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0343C475320
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 09:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D933449A3C6;
+	Wed,  7 Oct 2026 09:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364214; cv=none; b=N5Do2at67amzz6emqUBUBp4chc9+kc+u36VVyTvdS0yiQL6LD1xD8ZBmMP0XMBIQo6mI3YStJeVzbGl8sYpHz7gJK5ZR5lnJRDQR7jiCy6NW+Qb6OsFa8hQuk+qWS5Z6hYZ62qkoi2dRxSKeuaxqclq/qZNi3uEQ6uzDQmVHtdI=
+	t=1791364479; cv=none; b=OUk+1fObTqPQ33EV0x8OVvJvFa5o7nCiUyh0oN0J1PBhPn2lY5E2b4SQhymd0Yn+NCeWQfDJmcEmZdDHRPR4PT8yss5mG6I08zlaqLOPrMa6D5pD4kM4ZvSFK5w8bDrEQ+jrOf9+OOZ6sGy1ERtAgVqm5m5sGw7S9uH7PQPcHhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364214; c=relaxed/simple;
-	bh=q0UziRZqW94ieBwOChj5gSikraGNtSCf+f7NtRF2D98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FJE7SiI9y4Su2KqxpgyIAo2/gXoAkFBURjygh8RiHvd5zObLDMMnrqy+e1pzPhR+C9U8BMb32wZQCh3iiWD5fKJxBWWSs2G89Ry5ZljBQ6EGqaQYM6vcAnazuS/16sJ8JCadg1X8wP8bQwlskDB8596tCR/IQJ9lQxFcA9CSUvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lFCdjMv9; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791364479; c=relaxed/simple;
+	bh=DW1mnaaHPrHpXBHjiY39nxmMlu4p8RseZKLYOaTIDmE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JI4z9fCu6frBNO0rPvjUfcBr+IMg0fGGw+sRh8976XyxMtjBe9vFeF09tpHXJWyb5eB7Vmxec6DxiUurihsZ88S9fsY5uq9MWaGGEkR4J3JSxDRlhskdLehUgO5VaD2D0nlS3FqUXb7vtn51i+kdBnPCUJn6vZyPC2MyWxU8cYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SRBtTWNQ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lFCdjMv9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791364163; x=1822900163;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=q0UziRZqW94ieBwOChj5gSikraGNtSCf+f7NtRF2D98=;
-  b=lFCdjMv9WlQjK7vXjOCaBB0LMJaIHie0/D2tO0fiUTt4KrqzarDk0SPX
-   7YJh8PxshQQcjzfxSLYYMvTaepJw8+SY5Nw7Mubdq6VTRQ1iU+z6DI8Sw
-   InFZ+QyCRwtQpGldQJWNXFvTk6fLydJ+zmxXJh5W1Ce991S4JySlYW7dF
-   xPiJHVrhmaXf9KBtnqz+37VuNXeHpi1UxX+YEb7sNOpGYKuHbU0h3zX8F
-   wiwNMwWAhmhij2uCJlTkDczuilxbDKxFCzh2WyLQ9jKXEWWiR5b0o3Wiv
-   WwI04khSdsd2Lw3P4j3P/Tem438c9f/elnhNMpvPyKBeG2Li/xorURm5V
-   w==;
-X-CSE-ConnectionGUID: uXhIgIPdT9m77Dk3RoTgbg==
-X-CSE-MsgGUID: bMHub+sWTsevCQ+Og9+O5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="17840"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="17840"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:09:18 -0700
-X-CSE-ConnectionGUID: 7tlJYz3aQt+IpvypfhyXtA==
-X-CSE-MsgGUID: 72ZDD2fgQY612Kx/3evLFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="1506272"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.216])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:09:14 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id C58B3121786;
-	Wed, 07 Oct 2026 12:09:15 +0300 (EEST)
-Date: Wed, 7 Oct 2026 12:09:15 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@linux.intel.com>, bingbu.cao@intel.com,
-	tian.shu.qiu@intel.com, linux-media@vger.kernel.org,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	ilpo.jarvinen@linux.intel.com, tfiga@chromium.org,
-	senozhatsky@chromium.org, claus.stovgaard@gmail.com,
-	andriy.shevchenko@linux.intel.com, tomi.valkeinen@ideasonboard.com,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: RFC: Intel IPU4 driver proof of concept
-Message-ID: <asYMOwB0gyuOE-oy@kekkonen.localdomain>
-References: <20230727071558.1148653-11-bingbu.cao@intel.com>
- <e0cc94736e4142f2d661a8bbb0c800b709349377.camel@gmail.com>
- <83426573-8c4b-ec20-6916-2917aa06954f@redhat.com>
- <e136389011517dbc65b30f6bf0b1a9c49ab4e599.camel@gmail.com>
- <6f37f978-4898-473e-b774-7965d25bf27b@proton.me>
- <jsjMql5IQTMsAgViwR9vrMG4CZ1hVx9JMN4wbc0E98BvUP-TRpgtYalrmzQeor4UHRCbLg3bBeeZcaWrTujAMrf0G8q8NyQrd4o954ZayKA=@proton.me>
- <aeXaMGExmtpNcUFS@alaakso-DESK>
- <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me>
- <20261006203458.GA627926@killaraus.ideasonboard.com>
- <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SRBtTWNQ"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 94F2115B2;
+	Wed,  7 Oct 2026 11:09:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791364190;
+	bh=DW1mnaaHPrHpXBHjiY39nxmMlu4p8RseZKLYOaTIDmE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SRBtTWNQK+mbHOgYbCGkx/+R8rO9gSLWH8SbPiKVemNRsSB6760TL5CwWFKSzvyOJ
+	 jyKR6AByV90Ne+r4yVJMimu68Y7ucxYud9SsqGcP3KajwwZZMih8DVjnp3KbYw5HWS
+	 sj9Nf5+owDnfIm/WyKDFeDX43D/Zg7vp3HZwaPto=
+Message-ID: <a44bdd3f-c28d-4f45-9c1c-174f5d979617@ideasonboard.com>
+Date: Wed, 7 Oct 2026 10:11:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: mali-c55: Disable colour space conversion for RGB
+ outputs
+To: David Carlier <devnexen@gmail.com>, linux-media@vger.kernel.org
+Cc: jacopo.mondi@ideasonboard.com, mchehab@kernel.org,
+ hverkuil+cisco@kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261006234242.11934-1-devnexen@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20261006234242.11934-1-devnexen@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Ruslan,
+Morning David, thanks for the patch
 
-On Wed, Oct 07, 2026 at 07:57:17AM +0000, Ruslan Bay wrote:
-> > This isn't a patchset. See Documentation/process/submitting-patches.rst
-> > for documentation on the patch submission process.
+On 07/10/2026 00:42, David Carlier wrote:
+> The colour space conversion block is only programmed for YUV formats,
+> and its configuration is kept across streaming sessions. An RGB stream
+> started after a YUV one thus still converts its output to YUV.
 > 
-> Sorry, I forgot to mention that this is only a proof of concept, not
-> the final patchset.
+> Clear the conversion configuration for non-YUV formats.
 > 
-> This is my first time contributing to the upstream kernel, please
-> let me know if there are any issues with the PoC or anything else I
-> should approach differently. I'd appreciate any review feedback.
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>   drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 > 
-> I'm still working on the patchset, and there are a couple of things I
-> need to sort out. In particular, I'm not sure whether some of the
-> module parameters I've added are appropriate for upstream, and there
-> are also some details around the new definitions that need cleanup.
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> index ff01553026fb..2425a069a939 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> @@ -577,6 +577,10 @@ static void mali_c55_cap_dev_format_configure(struct mali_c55_cap_dev *cap_dev)
+>   				MALI_C55_REG_CS_CONV_CONFIG,
+>   				MALI_C55_CS_CONV_FILTER_MASK,
+>   				MALI_C55_CS_CONV_FILTER_ENABLE);
+> +	} else {
+> +		/* Don't inherit the conversion set up by a previous YUV stream. */
+> +		mali_c55_cap_dev_write(cap_dev, MALI_C55_REG_CS_CONV_CONFIG,
+> +				       0);
 
-It'd be good to understand when these should be used and why. In general,
-if there's something hardware specific that isn't obtainable from BIOS,
-then we need to put most likely to ipu-bridge as properties in software
-nodes. Are there boards where streaming doesn't work without this
-configuration?
+Makes sense to me:
 
-But feel free to send these for review. There's more to discuss than the
-module parameters.
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 
--- 
-Kind regards,
+>   	}
+>   }
+>   
 
-Sakari Ailus
