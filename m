@@ -1,359 +1,304 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F3044A3F0;
-	Wed,  7 Oct 2026 08:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1571842B324
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 09:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363543; cv=none; b=ftTBKcSu7IRlEoSGfktu7XG/l3AP5LD114DGsDEMfE1qCdSIYmbeuo44c73yYk32Wltkqg4djS0R2f3lz5W2+5I8UNTpxPD5FyWouFbUbHwcoQZlSrOoskZvQy1tJBx6FRpFoQ3+f+36OpHLwT7CdH0Ijhi/EEhjXtqtZ7ws7wA=
+	t=1791363653; cv=none; b=UWbSXzvr5jowlNxBlpN4EeK3oyKXlH1S8gKsCe54dC1vft8VPCwWOlSOlVghDPj+ER0C5MJIEPRIPfAoDkZ9+w8WXlJ8opaEz9XEmnR9c7YVs7aINectAthZ/WD1QMMnXY+ClD41eb1tQu5jqRlVhKBue9oj0hZpErs4syDfOiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363543; c=relaxed/simple;
-	bh=cO7E7mdFxwxigcQAmIjlYNrzW89T0GPcNvedPKO8Cvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OjFjeNhCkUnPCI0nk1oIK7yGPMpvfRORy5gMsE43Yn6UI3xoutYlQue02RloQdbmMx3SoK4bN6O3qUS0aJGF3706bdlj3D0ZKozofn9GydycZBPOk1/aq09U1K4HoXQMqr4W4gUJU/8NQ+ItpDp+UtXP74zJt+t11C6NYMIFIgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fs41tYdY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791363653; c=relaxed/simple;
+	bh=MuxAKhCPMW6q4QLjaUI9ZTb1vgE2jca/P8uL+kFGQjA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TGAhMf972v6SslFFYFJGAJe9ONiSqcbFldxIdBYvTH1GTI/CX2dNEk/vwDCK3maAqqpPJvhgbJWAAOFA+O/x8iMWeZV4kZXathKx1Kpr5W+rgTfkOnF0cS2OZWoNqzIdaBwTG/tYBH6iODyGWqkHis971SSj0unExw5bLmGUoTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xpf6P7Cm reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fs41tYdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3CD1F0089B;
-	Wed,  7 Oct 2026 08:58:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791363539;
-	bh=jL0i9MfDA/PminIFRDX9dVufuQqO+g5HnrYu4cZPTR8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fs41tYdYGRU8d41Wi1d1+UWI/TmJTlqxriOq6ywI4qo25rJHceDey6/KPUth1PWvE
-	 Qt6iZEoHP7VYbhsQzU7lD7xtFv0iWyirUW6t8YNh3nNNiciKBlpKUWXsL/PpnSzEly
-	 AdkOY30FRmNKxIYciBOPZ0YiXVejCWyF40uef5Oa16ImXRZohaLcT58Afa/fWOiLmQ
-	 dan18QB0mfRncPyCrc4Xa1y0O58oEM2R84YVwJeESwoutOQjop0px32eHeqEb5C3Ym
-	 nJxCLh9b1bzCCatHikBUzl4A40XZPQMlMgl/6h2owwVhumytdGO1x6jKXShF+cCp46
-	 /ZmdjGpOLgSAQ==
-Message-ID: <27745be4-20de-4a00-95cf-27fde23f7e28@kernel.org>
-Date: Wed, 7 Oct 2026 10:58:55 +0200
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xpf6P7Cm"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jUJH1873371
+	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 09:00:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=n9Tsd1zqBlO9TKpyNgR8ODetmwgJ/yduZPe
+	DX+3QGow=; b=Xpf6P7CmgioMnGMJe38813o5h4icjIRATUOMgbzz9kqHM79zn4p
+	KINbZMqnwGHtNJ/3G84YAUqowJYPqvv6oWu+F1sStDNcCEeC5/DPAmuja+4mW3PF
+	E9a/jqFwQ/VPkT9LsnsCl5bK+vX4To6GZWUolXsXbBhPiOXtj6b0dXrUgjJw3+Ln
+	lfV8YytOhjMQx2mKxXAisntdWE3CtV0WlwVK07tG5hRjJgm6AitIbB1gixGh3Rfa
+	ZVxiBjeGXEgpTYV3EePte4oIerujIH0fBwx6iNxdH5/K4hVkR+o2NYv/9AoJTQzA
+	sRqNvUULqhVsUOYT+ZdHiMhPd3MANVN/q+g==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fw8rnax-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 09:00:51 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ce7a85f04so700870285a.0
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 02:00:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791363650; x=1791968450;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n9Tsd1zqBlO9TKpyNgR8ODetmwgJ/yduZPeDX+3QGow=;
+        b=FMP4Oz8lWlAY0myKWAsxhU73ujzQDeF8sU3fs1ulT1ON2vbApUMtLKK+MGfT1XPVc1
+         UB1abxYCLb5jUaoMIy7UCuD5RzpOvO5qAdKc6Zlp7UhclVSy6t6F+wrLlMAcJYhe1UjP
+         hHhpCkqMvCwN+NNqU/KzWxi+Uokto88GKD7jEjchTBzbwPakBpksWibjLlotOsduCvZi
+         aqkzQh6k4qJM7k1GK8Ys0iZuHSt2ieAijU6o2c4or2s+RouRfREJL1amIVjbumw9qMQE
+         gYaAEBD2sRYYaLL31iK6ZicckLWpi41pyjD2D4/iI3gZQq54nvxhntTEc5EyM9IaQI7q
+         jejQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0rsyU/Pox4yD2mLAaYnACR1iyZueUIQgLXf+3nlhsNIyIicsACh1LV/DSNUpcxRHnIYt6jwU5ZxyDqA==@vger.kernel.org
+X-Gm-Message-State: AFuF++l2gAdT1E4l8eYoZXd/y6fjp89kV9vBaP2B4Vlc3o2QwIWjqo96
+	5ehxwm7b3b9E6SKK4FLWmW5TkHceceSIpRbuG30i/RgOoIgYbQ4Wg3f2opbJQrnkFlApdDiqe1z
+	ynykb4gm0C56tDxTBZhd9m6BfIqPKeEUt1SNBsLkRBUl8UAHBqdI5ifkn/K4RKsL5FA==
+X-Gm-Gg: AYBFou0seg/qNiYq2YJk5qGpW7lxTRhJGUyE6xEYwfPQ9w7Xh/65478vDI7xBK1zQUp
+	JcGyZF6utv0NRZl/XWOln7mXp1RokrTJe2O6/caOdR0yrOyyHZp4a0SXx+CFoqDYUDhOm/2jkwM
+	3azi9tq6iK01qkuGwMppwSScsamC4SWi05QO4R5FikK7A8yBN0SWgO0SAK2OeH8q/nn/rnGCeTj
+	FquJkuixwrR1x7BmA4Of4xHGtxFyao7TgJZU8eI5AnnhqZ77I5I/beiwoNntYZ5JJh7SND06uMH
+	JILpR9mFb35PYwu4W/XxKpvkVmJ9AUOx9OXh2bRVUmyTHrBhoAuIHXmnjek=
+X-Received: by 2002:a05:620a:27c6:b0:93e:9716:3d11 with SMTP id af79cd13be357-93e9b7865e4mr292080885a.34.1791363649931;
+        Wed, 07 Oct 2026 02:00:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:27c6:b0:93e:9716:3d11 with SMTP id af79cd13be357-93e9b7865e4mr292075985a.34.1791363649454;
+        Wed, 07 Oct 2026 02:00:49 -0700 (PDT)
+Received: from lin-0843.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.00.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 02:00:48 -0700 (PDT)
+From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Daniel Scally <dan.scally@ideasonboard.com>,
+        =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+        Yuchan Nam <entropy1110@gmail.com>,
+        Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+        Robert Foss <rfoss@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
+        pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND 00/45] media: qcom: camss: add IFE pixel path support
+Date: Wed,  7 Oct 2026 11:59:56 +0300
+Message-Id: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/5] media: iris: Add HFI metadata buffer delivery
- support for Gen2 encoders
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261005-enc_roi_enable-v9-0-831c24135cb1@oss.qualcomm.com>
- <inQVe3E9xQxUl97a9oxAvOjTb4IDzqhxOQqup3aHNw7U0PKfGHr7lWGM7jXu5bLR94PU88T5GRDR9txWtXBDRg==@protonmail.internalid>
- <20261005-enc_roi_enable-v9-4-831c24135cb1@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261005-enc_roi_enable-v9-4-831c24135cb1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX9vCyxGI3cjT4
+ +Mq94/H8DB4z1lKimc24Oj+C3BSXHZMq7V0Fr4/s8DPw/sREV4wNZy9+YWM64foLXAVWo5HPxcy
+ Q8+Xkw41M7qTZDu6OZFcyNHT45zqaPU=
+X-Proofpoint-ORIG-GUID: skHzBmG8NT52FRdwKHQJkJvs-IYDpuft
+X-Proofpoint-GUID: skHzBmG8NT52FRdwKHQJkJvs-IYDpuft
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX4q5iRKNQppM8
+ TlB1En5RYe01ihFGbCC7gOItnWtqDBa+PLCjRzkiXI17+vKtyqK1LZcTLEAit54rDEpx/RRRLLz
+ mz41idc8EwOqTdNfY8BoU7bTMXb7ak0IdAGqBlbgZkfkUOb91bCOkFOQKo0xrbfq+mn3h32YEYW
+ FPMqHi3FTxBfOc16/DBvgajmOYgV1G09jm2/c4s1lHYpRfnYvxkAgyJPWDNceWDOspCgIR/Sm/Z
+ 3eAy+dT0tyt8uDaCb8vN4DP10xPXf+FIwUSba6PDlEoPQB4A1bBOzexQ4NGr1LhLYJ4m6SjDt7a
+ SpQfULSVSrpk5iwzHu2gNbE4XJVvmsnRBCjE8deO4GG5y5F/bwvtZBpgQJtvH/P2PpjOLpd+2yS
+ x18m3l0v74O5VhVCVTOHs5qbEoe0xZFnWwq2MVEAXU9qeV9qA8ngykyFijd6Lg1aOHbPULGugE5
+ oQOIyifuMGAU99NHHYA==
+X-Authority-Analysis: v=2.4 cv=Af0kjHXG c=1 sm=1 tr=0 ts=6ac60a43 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=LzdgNzxw2tJgtqBk4dYA:9 a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
-On 05/10/2026 23:38, Deepa Guthyappa Madivalara wrote:
-> Add the infrastructure to deliver metadata buffers to the HFI firmware
-> on HFI Gen2 based encoders, used to carry per-frame ROI delta QP data.
-> 
-> Metadata buffer structures (iris_buffer.h):
-> - Add metabuf_header and metapayload_header structs describing the
->    metadata buffer layout as expected by the firmware.
->    HFI defines (iris_hfi_gen2_defines.h):
-> - Add HFI_CMD_DELIVERY_MODE (0x0100000A).
-> - Add HFI_MODE_METADATA (0x00000004) to hfi_property_mode_type.
->    HFI command side (iris_hfi_gen2_command.c):
-> - In iris_hfi_gen2_session_queue_buffer(), after queuing a RAW
->    (input) buffer, check for an available BUF_ROIMB_DELTAQP metadata
->    buffer and, if found, append a second HFI_CMD_BUFFER packet for
->    the metadata buffer in the same command, tagged with the same
->    buffer index.
-> - Add iris_hfi_gen2_subscribe_metadata_delivery(): sends
->    HFI_CMD_DELIVERY_MODE with HFI_MODE_METADATA and HFI_PROP_ROI_INFO
->    to instruct the firmware to expect metadata on the input port.
->    HFI response side (iris_hfi_gen2_response.c):
-> - Add iris_hfi_gen2_handle_output_metadata_buffer(): locate the
->    metadata buffer by device address and transition it from
->    QUEUED to DEQUEUED so it can be reused.
-> 
-> Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_buffer.h     | 18 ++++++++++
->   drivers/media/platform/qcom/iris/iris_ctrls.c      | 12 +++++++
->   drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
->   drivers/media/platform/qcom/iris/iris_hfi_common.h |  1 +
->   .../platform/qcom/iris/iris_hfi_gen2_command.c     | 39 ++++++++++++++++++++++
->   .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  2 ++
->   .../platform/qcom/iris/iris_hfi_gen2_packet.c      |  6 ++--
->   .../platform/qcom/iris/iris_hfi_gen2_packet.h      |  3 ++
->   .../platform/qcom/iris/iris_hfi_gen2_response.c    | 27 +++++++++++++++
->   drivers/media/platform/qcom/iris/iris_venc.c       |  4 +++
->   10 files changed, 110 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
-> index ab8e5d953101a786ade20540ee3c3ed226160cbe..ee2d24bb69c57220b0a735d9b4aae4434a33daf6 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.h
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.h
-> @@ -107,6 +107,24 @@ struct iris_buffers {
->   	u32			size;
->   };
-> 
-> +/* Metadata buffer header */
-> +struct metabuf_header {
-> +	u32 count;
-> +	u32 size;
-> +	u32 version;
-> +	u32 reserved[5];
-> +};
-> +
-> +/* Metadata buffer payload header */
-> +struct metapayload_header {
-> +	u32 type;
-> +	u32 size;
-> +	u32 version;
-> +	u32 offset;
-> +	u32 flags;
-> +	u32 reserved[3];
-> +};
-> +
->   int iris_get_buffer_size(struct iris_inst *inst, enum iris_buffer_type buffer_type);
->   void iris_get_internal_buffers(struct iris_inst *inst, u32 plane);
->   int iris_create_internal_buffers(struct iris_inst *inst, u32 plane);
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> index d97fe50d48860b0f26b71d328a704f3804b1d93d..cd5597b2cbb69f0608fb8f21bd813e11c1f97693 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> @@ -1704,3 +1704,15 @@ int iris_set_properties(struct iris_inst *inst, u32 plane)
-> 
->   	return 0;
->   }
-> +
-> +int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane)
-> +{
-> +	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-> +	int ret = 0;
-> +
-> +	/*subscribe to metadata delivery only if ROI is enabled */
-> +	if (!inst->fw_caps[ROI_PARAMS].p_array)
-> +		return ret;
-> +
-> +	return hfi_ops->session_subscribe_metadata_delivery(inst, plane);
-> +}
+From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 
-What does ret do here ?
+This series adds pixel-path support for three platforms: SM8250,
+SA8775P, and QCS8300.
 
-Also is session_subscribe_metadata_delivery() guaranteed to be non-NULL 
-? I see it initialised once in this patch.
+To keep the implementation manageable across platforms, instead of a
+single monolithic VFE abstraction, more granular hardware abstractions
+are introduced: ife-top, ife-camif, ife-bus, and ife-modules.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-> index 08db807444203ef02f83008fc311cad20ea79f44..ef2c09485ad93719e4acc7f395899d7f67cb5b2d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-> @@ -51,5 +51,6 @@ int iris_set_req_sync_frame(struct iris_inst *inst, enum platform_inst_fw_cap_ty
->   int iris_set_time_delta_based_rc(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_slice_count(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->   int iris_set_properties(struct iris_inst *inst, u32 plane);
-> +int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane);
-> 
->   #endif
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.h b/drivers/media/platform/qcom/iris/iris_hfi_common.h
-> index 16099f9a25b65e2e4556d54499e2c2a4cc4e22fc..79b276cc64f656c387dab5994d844bc9a9c9e624 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_common.h
-> @@ -132,6 +132,7 @@ struct iris_hfi_session_ops {
->   	int (*session_drain)(struct iris_inst *inst, u32 plane);
->   	int (*session_resume_drain)(struct iris_inst *inst, u32 plane);
->   	int (*session_close)(struct iris_inst *inst);
-> +	int (*session_subscribe_metadata_delivery)(struct iris_inst *inst, u32 plane);
->   };
-> 
->   struct hfi_subscription_params {
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-> index 388a36ff2b07b7bcd8db21d4345bc900356b4ec3..cf88dbe11e8e9faef826e661d8e9909fd7f16b94 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-> @@ -1307,6 +1307,24 @@ static void iris_hfi_gen2_get_buffer(u32 domain, struct iris_buffer *buffer,
->   	buf->timestamp = buffer->timestamp;
->   }
-> 
-> +static struct iris_buffer *iris_queue_metadata_buffers(struct iris_inst *inst,
-> +						       enum iris_buffer_type buffer_type, u32 index)
-> +{
-> +	struct iris_buffers *buffers = &inst->buffers[buffer_type];
-> +	struct iris_buffer *buffer = NULL;
-> +
-> +	if (list_empty(&buffers->list))
-> +		return NULL;
-> +
-> +	buffer = list_first_entry(&buffers->list, typeof(*buffer), list);
-> +	if ((buffer->attr & BUF_ATTR_QUEUED) || (buffer->attr & BUF_ATTR_DEQUEUED))
-> +		return NULL;
-> +
-> +	buffer->index = index;
-> +
-> +	return buffer;
-> +}
-> +
->   static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iris_buffer *buffer)
->   {
->   	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
-> @@ -1359,6 +1377,26 @@ static int iris_hfi_gen2_session_release_buffer(struct iris_inst *inst, struct i
->   					inst_hfi_gen2->packet->size);
->   }
-> 
-> +static int iris_hfi_gen2_subscribe_metadata_delivery(struct iris_inst *inst, u32 plane)
-> +{
-> +	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
-> +	u32 port = iris_hfi_gen2_get_port(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
-> +	u32 payload[2] = {HFI_MODE_METADATA, HFI_PROP_ROI_INFO};
-> +
-> +	iris_hfi_gen2_packet_session_command(inst,
-> +					     HFI_CMD_DELIVERY_MODE,
-> +					     (HFI_HOST_FLAGS_RESPONSE_REQUIRED |
-> +					      HFI_HOST_FLAGS_INTR_REQUIRED),
-> +					     port,
-> +					     inst->session_id,
-> +					     HFI_PAYLOAD_U32_ARRAY,
-> +					     &payload,
-> +					     sizeof(u32) * 2);
-> +
-> +	return iris_hfi_queue_cmd_write(inst->core, inst_hfi_gen2->packet,
-> +					inst_hfi_gen2->packet->size);
-> +}
-> +
->   static const struct iris_hfi_session_ops iris_hfi_gen2_session_ops = {
->   	.session_open = iris_hfi_gen2_session_open,
->   	.session_set_config_params = iris_hfi_gen2_session_set_config_params,
-> @@ -1372,6 +1410,7 @@ static const struct iris_hfi_session_ops iris_hfi_gen2_session_ops = {
->   	.session_drain = iris_hfi_gen2_session_drain,
->   	.session_resume_drain = iris_hfi_gen2_session_resume_drain,
->   	.session_close = iris_hfi_gen2_session_close,
-> +	.session_subscribe_metadata_delivery = iris_hfi_gen2_subscribe_metadata_delivery,
->   };
-> 
->   static struct iris_inst *iris_hfi_gen2_get_instance(void)
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-> index 2394213d8272b53bf6a1cff9574dc93f6830fc8c..746d7c1aad52cd87c55a7ad71fcf9560881dfce6 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-> @@ -20,6 +20,7 @@
->   #define HFI_CMD_DRAIN				0x01000007
->   #define HFI_CMD_RESUME				0x01000008
->   #define HFI_CMD_BUFFER				0x01000009
-> +#define HFI_CMD_DELIVERY_MODE		        0x0100000A
->   #define HFI_CMD_SUBSCRIBE_MODE			0x0100000B
->   #define HFI_CMD_SETTINGS_CHANGE			0x0100000C
->   #define HFI_CMD_PAUSE				0x01000011
-> @@ -177,6 +178,7 @@ enum hfi_flip {
->   enum hfi_property_mode_type {
->   	HFI_MODE_PORT_SETTINGS_CHANGE		= 0x00000001,
->   	HFI_MODE_PROPERTY			= 0x00000002,
-> +	HFI_MODE_METADATA			= 0x00000004,
->   };
-> 
->   enum hfi_color_format {
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
-> index 6e04175eb904b494309a38eece41213600f93a88..655f4c2fcdd5b89624887807f4fa17a645fac803 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
-> @@ -100,9 +100,9 @@ static void iris_hfi_gen2_create_header(struct iris_hfi_header *hdr,
->   	hdr->num_packets = 0;
->   }
-> 
-> -static void iris_hfi_gen2_create_packet(struct iris_hfi_header *hdr, u32 pkt_type,
-> -					u32 pkt_flags, u32 payload_type, u32 port,
-> -					u32 packet_id, void *payload, u32 payload_size)
-> +void iris_hfi_gen2_create_packet(struct iris_hfi_header *hdr, u32 pkt_type,
-> +				 u32 pkt_flags, u32 payload_type, u32 port,
-> +				 u32 packet_id, void *payload, u32 payload_size)
->   {
->   	struct iris_hfi_packet *pkt = (struct iris_hfi_packet *)((u8 *)hdr + hdr->size);
->   	u32 pkt_size = sizeof(*pkt) + payload_size;
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
-> index 25b9582349ca1a0ce6efc0b146a3abb798485c45..613eb500609f745daebdcbdf9a25b85cb9465a79 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
-> @@ -121,5 +121,8 @@ void iris_hfi_gen2_packet_session_property(struct iris_inst *inst,
->   void iris_hfi_gen2_packet_sys_interframe_powercollapse(struct iris_core *core,
->   						       struct iris_hfi_header *hdr);
->   void iris_hfi_gen2_packet_sys_pc_prep(struct iris_core *core, struct iris_hfi_header *hdr);
-> +void iris_hfi_gen2_create_packet(struct iris_hfi_header *hdr, u32 pkt_type,
-> +				 u32 pkt_flags, u32 payload_type, u32 port,
-> +				 u32 packet_id, void *payload, u32 payload_size);
-> 
->   #endif
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> index f0782c4b1e6e88d06cb4bd18f0210c105ae2acf8..ea1fc96077fdce83db9c6a6c1f753ec7978b0673 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> @@ -77,6 +77,7 @@ static bool iris_hfi_gen2_is_valid_hfi_buffer_type(u32 buffer_type)
->   	case HFI_BUFFER_PERSIST:
->   	case HFI_BUFFER_VPSS:
->   	case HFI_BUFFER_PARTIAL_DATA:
-> +	case HFI_BUFFER_METADATA:
->   		return true;
->   	default:
->   		return false;
-> @@ -452,6 +453,30 @@ static int iris_hfi_gen2_handle_release_internal_buffer(struct iris_inst *inst,
->   	return 0;
->   }
-> 
-> +static int iris_hfi_gen2_handle_output_metadata_buffer(struct iris_inst *inst,
-> +						       struct iris_hfi_buffer *buffer)
-> +{
-> +	u32 buf_type = iris_hfi_gen2_buf_type_to_driver(inst, HFI_BUFFER_METADATA);
-> +	struct iris_buffers *buffers = &inst->buffers[buf_type];
-> +	struct iris_buffer *buf, *iter;
-> +	bool found = false;
-> +
-> +	list_for_each_entry(iter, &buffers->list, list) {
-> +		if (iter->device_addr == buffer->base_address) {
-> +			found = true;
-> +			buf = iter;
-> +			break;
-> +		}
-> +	}
-> +	if (!found)
-> +		return -EINVAL;
-> +
-> +	buf->attr &= ~BUF_ATTR_QUEUED;
-> +	buf->attr |= BUF_ATTR_DEQUEUED;
-> +
-> +	return 0;
-> +}
-> +
->   static int iris_hfi_gen2_handle_session_stop(struct iris_inst *inst,
->   					     struct iris_hfi_packet *pkt)
->   {
-> @@ -499,6 +524,8 @@ static int iris_hfi_gen2_handle_session_buffer(struct iris_inst *inst,
->   			return iris_hfi_gen2_handle_input_buffer(inst, buffer);
->   		else if (buffer->type == HFI_BUFFER_BITSTREAM)
->   			return iris_hfi_gen2_handle_output_buffer(inst, buffer);
-> +		else if (buffer->type == HFI_BUFFER_METADATA)
-> +			return iris_hfi_gen2_handle_output_metadata_buffer(inst, buffer);
->   		else
->   			return iris_hfi_gen2_handle_release_internal_buffer(inst, buffer);
->   	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
-> index 2f2c56bf9122c73e10e86815b1aa5fad99b0fb42..08353a8895b0e5d8769c2deb137a4fffcbc3108d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_venc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_venc.c
-> @@ -515,6 +515,10 @@ int iris_venc_streamon_output(struct iris_inst *inst)
->   	if (ret)
->   		goto error;
-> 
-> +	ret = iris_set_metadata_delivery(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-> +	if (ret)
-> +		goto error;
-> +
->   	ret = iris_alloc_and_queue_persist_bufs(inst, BUF_ARP);
->   	if (ret)
->   		return ret;
-> 
-> --
-> 2.34.1
-> 
+We initially attempted to modify and extend the existing VFE code, but
+the changes touched every file and led to a third generation of VFE
+support (multiple pads, etc.) being added on top of the existing two.
+The result was a crowded, hard-to-review camss-vfe.c carrying three
+hardware generations in a single file. Because of this, we introduced
+a new sub-device, IFE (the new name for what was called VFE on older
+platforms). The IFE sub-device supports the multistream API and
+multiple source/sink pads for handling parameters and statistics.
+Stream routing to each output is handled through the streams API. It
+also defines, per pad, the basic configuration shared across all
+platforms (WM IDs, composite IRQs, etc.), as described in the patches
+that follow.
+
+On the CSID side, a single source pad can now expose several hardware
+outputs as separate streams, and the gen2 CSID backend gains a routed
+pixel path (IPP) alongside the existing RDI paths. The TPG internal
+path is also fixed to use one CSI-2 lane, avoiding packet header ECC
+errors, and gains explicit links into the new IFE topology.
+
+QCS8300 shares the same IFE/CSID pixel path hardware as SA8775P, with
+the only difference being that QCS8300 has 3 CSIPHYs (0-2) instead of
+SA8775P's 4 (0-3).
+
+The IFE parameter and statistics blocks are now built on top of the
+generic v4l2-isp parameter/statistics block validation introduced for
+the OPE driver.
+
+The selection of pixel path topology is done using a different
+compatible for the same platform. This will most probably not be
+accepted, but as of today it is the only way to support both
+topologies.
+
+NOTE: Bryan has posted RFC changes for pixel path params and
+statistics. This series was ready to be posted at that time, so it is
+not rebased on top of Bryan's implementation. Both implementations
+share common parts, but take a different direction towards enabling
+the pixel path: Bryan's series extends camss-vfe, while this series
+introduces the new camss-ife sub-device described above.
+
+This series is based on linux-next tag: next-20260909 and does not
+include the PHY changes in CAMSS from Bryan's series:
+https://lore.kernel.org/all/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org/
+
+Depends-on:
+https://lore.kernel.org/all/20260925-camss-isp-ope-v10-0-2622411034cb@oss.qualcomm.com/
+https://lore.kernel.org/all/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com/
+
+Atanas Filipov (35):
+  media: qcom: camss: report probe failures
+  dt-bindings: media: qcom,sm8250-camss: add pixel path variant
+  media: qcom: camss: keep CSIPHY lanes active while streaming
+  media: qcom: camss: add IFE subdevice interface
+  media: qcom: camss: sm8250: add IFE BUS v20x
+  media: qcom: camss: sm8250: add IFE CamIF v10x
+  media: qcom: camss: sm8250: add IFE scaler v10x
+  media: qcom: camss: sm8250: add IFE module engine v10x
+  media: qcom: camss: sm8250: add IFE top v20x
+  media: qcom: camss: sm8250: add IFE Lite top v10x
+  media: qcom: camss: sm8250: add IFE pad descriptors
+  media: qcom: camss: formats: add pixel format lookup helpers
+  media: qcom: camss: video: use helpers for line-based formats
+  media: qcom: camss: video: add managed streaming callbacks
+  media: qcom: camss: add common IFE subdevice core
+  media: qcom: camss: integrate IFE devices
+  media: qcom: camss: sm8250: add pixel path resources
+  media: uapi: add Qualcomm IFE statistics
+  media: v4l2: add Qualcomm IFE statistics format
+  media: qcom: camss: add IFE statistics output
+  media: uapi: add Qualcomm IFE parameters
+  media: v4l2: add Qualcomm IFE parameters format
+  media: qcom: camss: sm8250: apply IFE parameters
+  arm64: dts: qcom: use SM8250 IFE resources
+  dt-bindings: media: qcom,sa8775p-camss: add pixel path variant
+  media: qcom: camss: sa8775p: add IFE BUS v3.1x
+  media: qcom: camss: sa8775p: add IFE scaler v2.3x
+  media: qcom: camss: sa8775p: add IFE top v4.1x
+  media: qcom: camss: sa8775p: add IFE lite top v3.0x
+  media: qcom: camss: sa8775p: add IFE pad descriptors
+  media: qcom: camss: sa8775p: add IFE completion groups
+  media: qcom: camss: sa8775p: add CSID pixel path
+  media: qcom: camss: sa8775p: add IFE modules v4.1x
+  media: qcom: camss: sa8775p: add pixel path resources
+  arm64: dts: qcom: use SA8775P IFE resources
+
+Gjorgji Rosikopulos (6):
+  media: qcom: camss: sa8775p: add CCM parameters
+  media: qcom: camss: sa8775p: add LSC parameters
+  media: qcom: camss: sa8775p: add gamma parameters
+  media: qcom: camss: sa8775p: add white balance parameters
+  media: qcom: camss: sa8775p: add AWB BG parameters
+  media: qcom: camss: ife: queue params buffers in FIFO order
+
+Prashant Shrotriya (4):
+  media: qcom: camss: create TPG links for IFE
+  media: qcom: camss: use one lane for TPG internal path
+  dt-bindings: media: qcom,qcs8300-camss: add pixel path variant
+  media: qcom: camss: sa8775p: add pixel path resources for QCS8300
+
+ .../bindings/media/qcom,qcs8300-camss.yaml    |    4 +-
+ .../bindings/media/qcom,sa8775p-camss.yaml    |    4 +-
+ .../bindings/media/qcom,sm8250-camss.yaml     |    4 +-
+ arch/arm64/boot/dts/qcom/lemans.dtsi          |    2 +-
+ arch/arm64/boot/dts/qcom/sm8250.dtsi          |    2 +-
+ drivers/media/platform/qcom/camss/Kconfig     |    1 +
+ drivers/media/platform/qcom/camss/Makefile    |   14 +
+ .../platform/qcom/camss/camss-csid-gen3.c     |  265 ++-
+ .../media/platform/qcom/camss/camss-csid.c    |    8 +-
+ .../media/platform/qcom/camss/camss-csid.h    |    4 +
+ .../media/platform/qcom/camss/camss-csiphy.c  |   12 +-
+ .../media/platform/qcom/camss/camss-csiphy.h  |    1 +
+ .../media/platform/qcom/camss/camss-format.c  |   31 +
+ .../media/platform/qcom/camss/camss-format.h  |    3 +
+ .../platform/qcom/camss/camss-ife-bus-v20x.c  |  287 +++
+ .../platform/qcom/camss/camss-ife-bus-v31x.c  |  267 +++
+ .../qcom/camss/camss-ife-camif-v10x.c         |   59 +
+ .../qcom/camss/camss-ife-camif-v10x.h         |   42 +
+ .../qcom/camss/camss-ife-lite-top-v10x.c      |  387 ++++
+ .../qcom/camss/camss-ife-lite-top-v30x.c      |  265 +++
+ .../platform/qcom/camss/camss-ife-mod-v10x.c  |  603 ++++++
+ .../platform/qcom/camss/camss-ife-mod-v41x.c  |  739 +++++++
+ .../platform/qcom/camss/camss-ife-pads.c      |  607 ++++++
+ .../platform/qcom/camss/camss-ife-params.c    |   74 +
+ .../platform/qcom/camss/camss-ife-params.h    |   75 +
+ .../qcom/camss/camss-ife-scale-v10x.c         |  148 ++
+ .../qcom/camss/camss-ife-scale-v10x.h         |   15 +
+ .../qcom/camss/camss-ife-scale-v23x.c         |  203 ++
+ .../qcom/camss/camss-ife-scale-v23x.h         |   19 +
+ .../platform/qcom/camss/camss-ife-top-v20x.c  |  570 ++++++
+ .../platform/qcom/camss/camss-ife-top-v41x.c  |  384 ++++
+ drivers/media/platform/qcom/camss/camss-ife.c | 1812 +++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-ife.h |  413 ++++
+ .../platform/qcom/camss/camss-tpg-gen1.c      |    2 +-
+ drivers/media/platform/qcom/camss/camss-tpg.h |    1 +
+ .../media/platform/qcom/camss/camss-video.c   |  299 ++-
+ .../media/platform/qcom/camss/camss-video.h   |    5 +
+ drivers/media/platform/qcom/camss/camss.c     | 1362 ++++++++++++-
+ drivers/media/platform/qcom/camss/camss.h     |   47 +
+ drivers/media/v4l2-core/v4l2-ioctl.c          |    6 +
+ include/uapi/linux/qcom-camss-config.h        |  157 +-
+ include/uapi/linux/qcom-camss-stats.h         |   62 +
+ include/uapi/linux/videodev2.h                |    4 +
+ 43 files changed, 9123 insertions(+), 146 deletions(-)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-bus-v20x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-camif-v10x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-camif-v10x.h
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-lite-top-v10x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-lite-top-v30x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-mod-v10x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-pads.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-params.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-params.h
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v10x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v10x.h
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-top-v20x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-top-v41x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife.h
+ create mode 100644 include/uapi/linux/qcom-camss-stats.h
+
+-- 
+2.34.1
 
