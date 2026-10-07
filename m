@@ -1,129 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DC82F0680
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 03:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE603D8911
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 05:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791345001; cv=none; b=j2rXKTpgG3wmrvdav0XTPdpFPCCIo87iXLC1QGgQXUaHD+jriv0vcIfCOCo3apBHtSSOdAnydWiNaYO+ArIvnqJ5YG10qX6ZNx+nYbwUmjoMIs85yky/UMEz4iiIb56ulekUyRKPS95mo21ZlMsU+T7OQlDcep7TH1cNr2Txppw=
+	t=1791349331; cv=none; b=M2hdPgIt+S1H8ckm1RGniB+PIDvlj78xQjUQ5uGbWnAdb2A3ckuza5z+20qIxPSUUwb/FHol3toWInJQx9UtZzqOcORIWR1FyzZ8KxMkXZm5tJrW97vDKcZ1SMB18MiVfl+vREGX1pyhB5ZmqpMgeEu59TYh+7GMo9JOusj9VfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791345001; c=relaxed/simple;
-	bh=NPnuan4kTzqZfHjXOi/0tORHIN1CkfS3Gy8hAX0YjFA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sdepjd2OBRMol1Ugsze6GfOva9/Pl4r/TZNZTmd322bvcI9cDphNS97wyJnRni5/wyy/09ti4D7WL0mO6t3/TF4Uy/0SCI9dKzP/Iykdfm4Px/RL+CYdaFrjKC+Gxtnzl9dsgt5nonuTRS9vHr4vsl+D761mea4PsTAnQ6MahzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Lc8nf5BM; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791349331; c=relaxed/simple;
+	bh=kP/OXlQrMRdGLEKk7GUu/hc5ANbnL5z53qh4gK51sJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rFrVNuxjJA+nUqGDQTC/Xhd1A2JRrSjKJzJ9XGl8Vg2tT9QMo0hykPO8EgOPBNljlJt2hzb1wYn95orOMeahpz0x0x6TOmLxfcsKf/sZljJu9CwUGMoHm3zWD77coBb/olYODYPpJ1yqwn01LCMNQlBWBOUxb54d2QCBZOON9kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WyZ7bJ/v; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Lc8nf5BM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791345000; x=1822881000;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=NPnuan4kTzqZfHjXOi/0tORHIN1CkfS3Gy8hAX0YjFA=;
-  b=Lc8nf5BMvFUP2zx2LwJLFnByq1fxFFBuoIytLatVwJf7PayhLGX93z68
-   OBAkkaknjRfpHWdGTKLCmmk/Lq59+/BxzVgn/cjozN8vab2CTkwiPsIfP
-   hZ80c7S2Z6E1B8MkOkW4Vn3hbVxr6lqmY2LFO67h8XxG2Fc2d1OiR/7bt
-   fw/R+1igURgIOULfORe0alRyUCt1JYH0lVtiLmc6rpiTsL+p0boZrzfri
-   iaSXaI9LWOcjyb7StBsc9hZXN89ZnjOeelj+v+6dO/C2kQmWzC9d1FNxe
-   iiZWB+QSa9nPBqJr5M7ABO3zXLBXeTVeUuPAHyB1Gll4SGgN0XCyWDrf8
-   w==;
-X-CSE-ConnectionGUID: qn/Dwn8uSyK9IC5y5fiOrQ==
-X-CSE-MsgGUID: 6kOKdBZ8TCeit7uaDOrujw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="87883"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="87883"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 20:50:00 -0700
-X-CSE-ConnectionGUID: AoR2LNkiSB6QsANak+gu6Q==
-X-CSE-MsgGUID: N9BDe89/QpGnRmPwhOxIGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="277469979"
-Received: from jimmy-x299-aorus-gaming-7.itwn.intel.com ([10.225.65.17])
-  by fmviesa008.fm.intel.com with ESMTP; 06 Oct 2026 20:49:58 -0700
-From: Jimmy Su <jimmy.su@intel.com>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	jimmy.su@intel.com,
-	serin.yeh@intel.com,
-	vicamo@gmail.com,
-	sarang.sapre@intel.com
-Subject: [PATCH v1 2/2] media: ipu-bridge: add upside-down quirks for Dell PA14260 & DA14260
-Date: Wed,  7 Oct 2026 11:49:14 +0800
-Message-Id: <20261007034914.1654831-3-jimmy.su@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261007034914.1654831-1-jimmy.su@intel.com>
-References: <20261007034914.1654831-1-jimmy.su@intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WyZ7bJ/v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791349329;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YJbSdgMpDk9KdtBTsjYRvYzB90/hAxQvCL2+cHoJDyI=;
+	b=WyZ7bJ/vOkCrjXAuA2RlLsUaXDwDtt/ePn3M3Le6Z/KcUhbZhv8nq/vjuE6JYQaQiUVkZx
+	9nXg3rrhPdZS4mFuraoOcuU4bNtzXhXUACXcWhK6EvUGRcsi3C9l4QNdmYp6/qLTGBj/VY
+	q/D1Wf73OxLDn/nVVzn8dKrmBVL1868=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-483-1DDeeeBtMLW1ZXkLGrUdLw-1; Wed,
+ 07 Oct 2026 01:02:04 -0400
+X-MC-Unique: 1DDeeeBtMLW1ZXkLGrUdLw-1
+X-Mimecast-MFC-AGG-ID: 1DDeeeBtMLW1ZXkLGrUdLw_1791349323
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CA5DC1933359;
+	Wed,  7 Oct 2026 05:02:02 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 136B830002D6;
+	Wed,  7 Oct 2026 05:01:59 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Christian Murphy <christian@themurphys.eu>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH v3 0/3] media: i2c: imx471: Add line length PCK setting and derive pixel rate from PLL configuration
+Date: Wed,  7 Oct 2026 13:01:37 +0800
+Message-ID: <20261007050140.26604-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Add rotation quirks for two Dell platforms:
+This patchset adds the line length PCK setting and calculates the pixel
+rate based on the external clock rate and PLL configurations.
 
-- XPS 14 DA14260, which uses an OV08X40 sensor and can be identified
-  through its sensor HID.
-- Dell Pro 14 Premium PA14260, which may use camera modules sharing
-  the same sensor HID as other systems but requiring a different
-  orientation. Match these modules using ACPI _DSM module identifiers
-  and apply a 180-degree rotation override when a matching module is
-  detected.
+Changes in v3:
+1. The line length PCK is set with the hblank control.
+2. Define symbolic names for the PLL registers.
+3. Fix the register size for the PLL registers. (0x0300-0x0310)
+4. Derive pixel rate from the PLL configuration.
 
-Co-developed-by: Vicamo Yang <vicamo@gmail.com>
-Signed-off-by: Vicamo Yang <vicamo@gmail.com>
-Signed-off-by: Jimmy Su <jimmy.su@intel.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+The discussion of pixel rate can be found at the following URL
+https://lore.kernel.org/linux-media/CAEth8oHj1Jon9m_4aFzRGoKcdopUMym+MyV0JxTo6F+AUFOLoQ@mail.gmail.com/
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 64caa4254e41..a7c71df8c7bc 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -144,6 +144,16 @@ static struct upside_down_match_info ov02e10_match = {
- 	.ids = { "OVTI02E1" },
- };
- 
-+static const struct upside_down_match_info ov08x40_match = {
-+	.type = UPSIDE_DOWN_MATCH_HID,
-+	.ids = { "OVTI08F4" },
-+};
-+
-+static const struct upside_down_match_info pa14260_match = {
-+	.type = UPSIDE_DOWN_MATCH_DSM,
-+	.ids = { "CJFOE90_B", "BBG809N3A_B" },
-+};
-+
- /*
-  * DMI matches for laptops which have their sensor mounted upside-down
-  * without reporting a rotation of 180° in neither the SSDB nor the _PLD.
-@@ -184,6 +194,20 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
- 		},
- 		.driver_data = &ov02c10_match,
- 	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "XPS 14 DA14260"),
-+		},
-+		.driver_data = (void *)&ov08x40_match,
-+	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell Pro 14 Premium PA14260"),
-+		},
-+		.driver_data = (void *)&pa14260_match,
-+	},
- 	/*
- 	 * The first four characters of DMI_BOARD_NAME identify the Lenovo
- 	 * machine type/model. For example, a DMI_BOARD_NAME starting with
+Changes in v2:
+The patchset contains three patches:
+1. Add line length PCK setting
+2. Name the PLL registers in the OP domain
+3. Calculate pixel rate based on the external clock rate and the PLL
+   configurations in the OP domain.
+
+The line length PCK setting is added to the sensor driver to ensure the
+pixel rate is correct. The pixel rate is calculated based on the external
+clock rate. Moreover, since the sensor runs in the PLL DUAL mode, the
+configurations of the OP domain are considered.
+
+Tested with libcamera 0.7.2 and the patchset mitigated the horizontal
+line noise.
+
+Changes in v1:
+1. Add line length PCK setting
+
+Kate Hsuan (3):
+  media: i2c: imx471: Configure line length PCK via hblank control
+  media: i2c: imx471: Define symbolic names for PLL registers
+  media: i2c: imx471: Derive pixel rate from PLL configuration
+
+ drivers/media/i2c/imx471.c | 70 ++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 25 deletions(-)
+
 -- 
-2.34.1
+2.55.0
 
