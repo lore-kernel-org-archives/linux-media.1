@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8023C3C1C
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 10:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7B48383C;
+	Wed,  7 Oct 2026 10:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368102; cv=none; b=IDtVa3dPqnf72buwPNyDhzEfpeeOdgnEO/OpNtEcBORb7V8chHVPe8xCljsD+HaFkLCUpiHy39RMgkeva8LWl4kxxQkTXjSzLrWD/yf0DQsRTSOJxleqRZgD6NNcMT0lU5F6v2nuTT1Em/cLuVRhxmID4Iu5vSbIsfx9apGIh9c=
+	t=1791369006; cv=none; b=ehcxOEiEmBsUvEJqWZbvXpBaqZGj4Ls3dY3OeTS6JnM/jDpTE29/ZxXthGnLA3UER9RbmajxjlYii0tyAD6YqHl9ZFZXujbn0zChy27nVmZ2/KubtEtJrphW5ImGjCaMPQP3RjjY4UQQHFYINokuYRv/5AfETRlAe5dtMkW/S8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368102; c=relaxed/simple;
-	bh=H7Hw8uCThmvxDMbHvZr82QzyJZx8FQi+P1FtUXp+guo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LlfuEKpfnanuZzPoue1Ob6RPaPS47BYcPTsWmlY33fobS7Kplgnbqlaap47XsMJ1tC//QYVM50XiKUKk4Y7oHFvQcU/61ZOwKlnB1oFH2bRxLhUs3qrr6LcBTr2/b/eLB2rYoOVjmYhZtw3JU4ElrO8hiQoqO80e74UodlqruHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAyL/EO0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791369006; c=relaxed/simple;
+	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=egiSuN4I9tXmsMckhLR064BOw402h0QO/5IoYkAQxLOAfsLhzM0hF/as4A9OC32SHhurrLE5C1ggTJsnTPD4Bs0hu8ntAEzswF0D1Wl+3Z+4T+0LocK/gBjHuT1+l+W/0yB8U9vGk0GdhbIAF1UEyHtphPE/nkwXEj181jKwv6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=t04kAcBz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAyL/EO0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE3E1F0089D;
-	Wed,  7 Oct 2026 10:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368092;
-	bh=1WStVdK5cDacv3Uy3DNfj26xW8v3J2nqBLU5FLnhLO4=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=QAyL/EO0t+SEOzcEwBJ2kff566fmAE8ZeaqD074qNtcF4LPQ/3pMgeoi2uSLVs4dD
-	 zB7MQ28ny491UZe1JiaRqSV2eq5mWKvv67gqpurjg3KPKg43YOEIQz9NyQbDLFYaC3
-	 Y9B1H5NLhusfYtPi1Ef8QDbJVvVT/wMH+zcMWgyiimw1NyTxu/z7/5a/wssoMQm3e8
-	 sX3gsck/L8dNmJzp/oqyqjzpyNMWLaH9ZMh5A/Vwk39CCK6qbzMrdXr5uqGe3BFPQr
-	 YTjvii8zjHpc2VCIBxfgSFw8EbRryZcgm7LwXm8Izy9ILOc1yy2es3LGv9WVKePoTV
-	 SIvO6mURM9VIA==
-Message-ID: <07ce46a4-a8f7-49fc-8ceb-7276abc0d4ad@kernel.org>
-Date: Wed, 7 Oct 2026 12:14:46 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="t04kAcBz"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5CAE1494;
+	Wed,  7 Oct 2026 12:27:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791368875;
+	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=t04kAcBzACKzy1qQVQE84iYj/deeMsQjAAszWheD38x/xRSICsri6ov3jcCqx93w/
+	 tOBgzX0870WeUj+OXh/pi7Gn+7Oxp2AYBzaA0O6yeAtlaXgasAtdHAkVNiwwCmJ/tl
+	 tMr6QWl36hrHxykQdDlXtfc+xamMqeU3ZL4qEPtk=
+Message-ID: <d458c817-85d8-435d-9da5-2aee7b09fc34@ideasonboard.com>
+Date: Wed, 7 Oct 2026 11:29:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,137 +35,159 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 1/1] media: subdev: Make get_fmt on INTERNAL pads without
- STREAMS an error
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
- Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Tommaso Merciai <tomm.merciai@gmail.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Julien Massot <julien.massot@collabora.com>,
- Naushir Patuck <naush@raspberrypi.com>,
- "Yan, Dongcheng" <dongcheng.yan@intel.com>,
- Stefan Klug <stefan.klug@ideasonboard.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Ricardo Ribalda Delgado <ribalda@kernel.org>,
- Hans de Goede <hansg@kernel.org>,
+Subject: Re: [PATCH v2] media: mali-c55: Fix frame sequence numbers on
+ dual-pipe hardware
+To: David Carlier <devnexen@gmail.com>,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- David Plowman <david.plowman@raspberrypi.com>,
- "Yu, Ong Hock" <ong.hock.yu@intel.com>, "Ng, Khai Wen"
- <khai.wen.ng@intel.com>, Jai Luthra <jai.luthra@ideasonboard.com>,
- Rishikesh Donadkar <r-donadkar@ti.com>,
- Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Antti Laakso <antti.laakso@linux.intel.com>
-References: <20261006092950.690101-1-sakari.ailus@linux.intel.com>
- <ae109b76-67f8-456d-a233-796f50cadcb1@kernel.org>
- <asYVi4p-NRWuVxae@kekkonen.localdomain>
-Content-Language: en-US, nl
-In-Reply-To: <asYVi4p-NRWuVxae@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nayden Kanchev <nayden.kanchev@arm.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260930174621.791831-1-devnexen@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260930174621.791831-1-devnexen@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07/10/2026 11:48, Sakari Ailus wrote:
-> Hi Hans,
+Hi David
+
+On 30/09/2026 18:46, David Carlier wrote:
+> The single frame_sequence counter in struct mali_c55_isp is incremented
+> in mali_c55_set_plane_done(), which runs once per completed buffer per
+> capture device rather than once per frame. Hardware fitted with the
+> downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
+> start the ISP unless both the full-resolution and the downscale queues
+> are streaming, so the counter advances twice per frame.
 > 
-> On Wed, Oct 07, 2026 at 11:43:35AM +0200, Hans Verkuil wrote:
->> On 06/10/2026 11:29, Sakari Ailus wrote:
->>> Internal pads should only be accessible to file handles with
->>> V4L2_SUBDEV_CLIENT_CAP_STREAMS flag set. Return an error otherwise.
->>>
->>> Fixes: 49cdf56876d3 ("media: mc: Add INTERNAL pad flag")
->>> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
->>> ---
->>>  drivers/media/v4l2-core/v4l2-subdev.c | 7 ++++++-
->>>  1 file changed, 6 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
->>> index a07d77e584c3..7cb5a40f0f8c 100644
->>> --- a/drivers/media/v4l2-core/v4l2-subdev.c
->>> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
->>> @@ -854,8 +854,13 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
->>>  	case VIDIOC_SUBDEV_G_FMT: {
->>>  		struct v4l2_subdev_format *format = arg;
->>>  
->>> -		if (!client_supports_streams)
->>> +		if (!client_supports_streams) {
->>> +			if (format->pad < sd->entity.num_pads &&
->>> +			    sd->entity.pads[format->pad].flags & MEDIA_PAD_FL_INTERNAL)
->>> +				return -EINVAL;
->>> +
->>>  			format->stream = 0;
->>> +		}
->>>  
->>>  		memset(format->reserved, 0, sizeof(format->reserved));
->>>  		memset(format->format.reserved, 0, sizeof(format->format.reserved));
->>>
->>
->> There is no documentation that I can find that says that MEDIA_PAD_FL_INTERNAL is only available
->> if V4L2_SUBDEV_CLIENT_CAP_STREAMS is set.
->>
->> I think this needs some more thought: if internal pads are only available if that cap is set,
->> then I expect that a lot more ioctls will need this check. In that case the check should become
->> a helper function.
->>
->> But how does this affect e.g. G_TOPOLOGY or ENUM_LINKS? If the cap is not set, should internal
->> pads still be reported?
+> Each video node then reports sequence numbers 0, 2, 4, ..., which
+> userspace reads as a dropped frame between every pair of frames, and the
+> two pipes never number the same frame alike, contrary to
+> Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
+> event and the statistics and parameters buffers only read the counter,
+> so their sequence numbers stop identifying a frame too.
 > 
-> We don't have client capabilities on MC side, at least not right now. The
-> INTERNAL pads are intended to be used in very special circumstances and for
-> that we do have sub-device capability flags. They were introduced in this
-> cycle and if we allow wider access to them now, there could be issues
-> blocking that as the interface they expose isn't intended to be used
-> without these capability flags.
-
-So are the internal pads exposed or not through these MC ioctls? That's not clear
-to me. It's not documented either.
-
+> Increment the counter once per frame, when the ISP start interrupt is
+> handled, and stamp each capture buffer when mali_c55_set_next_buffer()
+> programs it, as it is written out during the following frame. Stamping
+> at completion would be off by one whenever DONE(n) and START(n+1) are
+> handled in the same interrupt, since ISP_START is processed first. Hold
+> the counter at UINT_MAX while the ISP is stopped, as the first buffers
+> are programmed before it starts, so the first frame gets sequence zero.
 > 
-> I'll rework this to apply to the rest of the pad-related IOCTLs.
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+
+I think this approach is fine. In v1 Jacopo said that he'd rather handle it with per-output counters 
+though; @Jacopo, do you mean there that you'd rather an independent sequence counter for the FR and 
+DS outputs?
+
+Thanks
+Dan
+
+> v2:
+>   - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
+>     at completion, which broke when START(n+1) and DONE(n) are handled
+>     together (Jacopo)
+>   - Reset the counter when the ISP stops instead of when it starts
 > 
->>
->> And you need checks in v4l2-compliance, ensuring that trying to access internal pads without
->> that cap will indeed fail.
+> v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
+> ---
+>   drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
+>   drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
+>   drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
+>   drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
+>   4 files changed, 10 insertions(+), 3 deletions(-)
 > 
-> I can add that.
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> index ff01553026fb..fa073ce4b2bd 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> @@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
+>   		return;
+>   	}
+>   
+> +	/* The buffer is written out during the frame following this one. */
+> +	buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
+> +
+>   	pix_mp = &cap_dev->format.format;
+>   
+>   	mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
+> @@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
+>   void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+>   			     enum mali_c55_planes plane)
+>   {
+> -	struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
+>   	struct mali_c55_buffer *buf;
+>   
+>   	scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
+> @@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+>   
+>   	/* If the other plane is also done... */
+>   	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
+> -	buf->vb.sequence = isp->frame_sequence++;
+>   	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+>   }
+>   
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> index 13a3e9dc4243..50f2b7a85f62 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> @@ -76,6 +76,10 @@ struct mali_c55_isp {
+>   	struct media_pad *remote_src;
+>   	/* Mutex to guard vb2 start/stop streaming */
+>   	struct mutex capture_lock;
+> +	/*
+> +	 * Sequence of the frame being processed, incremented at SOF. Held at
+> +	 * UINT_MAX while stopped so the first frame gets sequence 0.
+> +	 */
+>   	unsigned int frame_sequence;
+>   };
+>   
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index fb81141d1653..be562156b295 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
+>   	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
+>   		switch (i) {
+>   		case MALI_C55_IRQ_ISP_START:
+> +			mali_c55->isp.frame_sequence++;
+>   			mali_c55_isp_queue_event_sof(mali_c55);
+>   
+>   			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> index e128adf6ee37..dd3bce287a3d 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> @@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
+>   
+>   	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
+>   
+> -	isp->frame_sequence = 0;
+>   	ret = mali_c55_isp_start(mali_c55, state);
+>   	if (ret) {
+>   		dev_err(mali_c55->dev, "Failed to start ISP\n");
+> @@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct v4l2_subdev *sd,
+>   	isp->remote_src = NULL;
+>   
+>   	mali_c55_isp_stop(mali_c55);
+> +	isp->frame_sequence = UINT_MAX;
+>   
+>   	return 0;
+>   }
+> @@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
+>   	int ret;
+>   
+>   	isp->mali_c55 = mali_c55;
+> +	isp->frame_sequence = UINT_MAX;
+>   
+>   	v4l2_subdev_init(sd, &mali_c55_isp_ops);
+>   	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
 > 
->>
->> Ideally you would like to have this emulated in vimc as well.
->>
->> In other words, I think this needs more work, both in the core and w.r.t. documentation.
-> 
-> The INTERNAL pad flag was introduced as the Maxim serdes driver needed it
-> and we thought it's fine to merge it early; the bulk of the documentation
-> resides in the depths of my metadata series.
-> 
+> base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
 
-Ah, that's not something I was aware of (or may have been aware of, but forgotten). Adding
-a new uAPI requires a lot more care: proper documentation, v4l2-compliance tests, if at all
-possible emulation support in one of the test drivers.
-
-Neither was it reviewed by the media maintainers (me or Mauro). I'm really not happy about
-that. uAPI changes have to be reviewed by the media maintainers.
-
-Before rc1 is released you must have a patch series ready (and reviewed by me) adding proper
-documentation, fixing issues like the one addressed in this patch, and a patch for
-v4l2-compliance.
-
-Ideally also a patch to emulate this in the test driver (probably vimc), but that will
-likely take more time.
-
-If it is not properly documented etc., then I might decide to revert this driver + uAPI
-change in 7.4-rcX.
-
-As media committer it is your responsibility to ensure that the media maintainers have
-reviewed uAPI changes and are OK with it. That clearly didn't happen here.
-
-Regards,
-
-	Hans
