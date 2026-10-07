@@ -1,279 +1,440 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1A1412BF8;
-	Wed,  7 Oct 2026 07:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45A8443A84
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 07:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359775; cv=none; b=BgDSCuaQJJMa9D2KXm93e5rvDVrBgnxZA9V1PITB4W22QxMrQxTeOPMBUdQijcas0zuJfsDd/Yqqxy758maTW6Xn8ngdKPBrtYK3T8ohJ/9mLiiXy/uazM+l4hnyDthBGfRfh0b4hiqLtYX7k4RuhZhyLQb27Ya5iAAaM3DifoU=
+	t=1791359865; cv=none; b=AAaxZowJOo8PIt1/6OwiVACpYfIrTlvPr2uVQdvZ/pYVFRc0SiztF8oZP8/l6q241bTOAMKtX0+1/rTUpkHgUGTxx0r+dlbo350ghgSe2yDWD1bGFq7N/SQbZ9GTyiRSCjUF9fmGKmYXMBDUtkOTBHgwE2MvvzFr61dzkeiJEZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359775; c=relaxed/simple;
-	bh=qts3BUcoBrp3X9Ode5zNMugIZQ1udfiXbxcuc3sx6Tk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Va3OAfvjOKHMo+eVsE1eGrd3b+rw2wVAkh7XQjFQa7t98PBhs9c1JmEkAl+j09ZWVe8aUu6ztt38Jt8o5U8fZl/eQog7X4lhYbowY56vuZ7vJnl6Mnzd1avrcxOwCbLdhXO7xB3Lenam9vZ/PPXd+sbXbvAMsItq0kPufjtyfUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jwtVYmyC; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791359865; c=relaxed/simple;
+	bh=/P5dWcqM3BH7c25VLP+yk4igGsG2PpMddGN8KhQklTY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gG8vRKJdIRNpxQIvAmHjprKILQ5bu2gOB/e8ESKRxSZVhf6j4dPk1jV+Q+Y+F4tUmuBG0/VOQhBN3LORakQancmVk3IzRVlirldHUpZ7Ck9//hCxI4FWWZST0QMRULVnY0rsSVPfbWNq67BF8KkkPxthHrzNiCbc2EY13g2O2yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XkUNx8ow; arc=none smtp.client-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jwtVYmyC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791359750; x=1822895750;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qts3BUcoBrp3X9Ode5zNMugIZQ1udfiXbxcuc3sx6Tk=;
-  b=jwtVYmyCR5P/hTqmajnqGCzLzkSzU8A/0RciQ2jh80n6L5kduds131Lb
-   kRjGCa9omeplJfCmI3WF1QHC1Uv0Wnwro/BMWJ1Rty2pds5Z6AZcYO2Fo
-   hWt9A906RjkDOeakCVD/D3HuZBcSr+0ey0AWAb/U9qnBXImn4Ujgm+bgP
-   atm2YvZhyHB4h//YZSt22wVEnY2E30jVkiiOTUre4KeOjGEGRDHOuuUYx
-   33NHl4+zqLigPNyzwdU98UrNJc3aD0bRBA/0MbUkvKp4Jf+EBX5D1oFxz
-   jNgwYv3k3BKcz3fHTvGRkbs2FB2oiv8uHZ4OCM4j2o+J+hK6MZigEkQeG
-   Q==;
-X-CSE-ConnectionGUID: gTYN44/wQz250XsrSJBTIg==
-X-CSE-MsgGUID: 30dISdjPSdC++XQqzkBE8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="120895"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="120895"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 00:43:00 -0700
-X-CSE-ConnectionGUID: WQMyGmzqSvmVvI/tVYbFOw==
-X-CSE-MsgGUID: uWPMn2AAQYm3E0RhyQd3Ww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="277500411"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.216])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 00:42:56 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6AB6C121B96;
-	Wed, 07 Oct 2026 10:42:57 +0300 (EEST)
-Date: Wed, 7 Oct 2026 10:42:57 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Martina Krasteva <martinax.krasteva@intel.com>,
-	"Paul J. Murphy" <paul.j.murphy@intel.com>,
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
- range
-Message-ID: <asX4ASoL7nzBkljI@kekkonen.localdomain>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
- <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
- <arpyD2CjxOqwQvx8@bombadil>
- <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
- <arrVt-0ctw1cXkkW@bombadil>
- <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
- <asO1sIZC8rOyhSnu@bombadil>
- <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
- <asS0anZZXpbR96oE@bombadil>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XkUNx8ow"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=mf6ocqxm3fcenggijil3aqqpuq.protonmail2; t=1791359842;
+	x=1791619042; bh=RFUaUEAxYn9IeeQ9JlmmC6Qs+RryKZF1fT1DyRiYYc0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=XkUNx8owglV9xThHcMDOkuREp4Bby+79nHtkSXNQrE02lcszB3F+2jH7Y11rXnzvV
+	 u9fPZ+ETNzv1Ge3+Orzm45f2NCwopG3wYcH9PwR5PM9Y5srt1s0DLfbssBEu+cb2z7
+	 PdwA0YZt1rB4dDWqrxG6gS3w8A8Sf15/kVTW/hB8Yy6uNFMgfQiulS1kyU5lamXljw
+	 NSo6Tk+Ldakg7OQgw9WQHi/H+LByxRNGOUN5sQp893excJIwtrhnE4dT6PVvn56PWv
+	 HZ9NG1hhtW0lggcZGkCL+DDcf52MZkjrhdr8Fs/Mz9wsxZ4pSkno5Z2pRdLrZY0mZ1
+	 nZX9snKllOdgg==
+Date: Wed, 07 Oct 2026 07:57:17 +0000
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+From: Ruslan Bay <ruslanbey@proton.me>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>, sakari.ailus@linux.intel.com, Bingbu Cao <bingbu.cao@linux.intel.com>, bingbu.cao@intel.com, tian.shu.qiu@intel.com, linux-media@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, ilpo.jarvinen@linux.intel.com, tfiga@chromium.org, senozhatsky@chromium.org, claus.stovgaard@gmail.com, andriy.shevchenko@linux.intel.com, tomi.valkeinen@ideasonboard.com, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: RFC: Intel IPU4 driver proof of concept
+Message-ID: <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
+In-Reply-To: <20261006203458.GA627926@killaraus.ideasonboard.com>
+References: <20230727071558.1148653-11-bingbu.cao@intel.com> <e0cc94736e4142f2d661a8bbb0c800b709349377.camel@gmail.com> <83426573-8c4b-ec20-6916-2917aa06954f@redhat.com> <e136389011517dbc65b30f6bf0b1a9c49ab4e599.camel@gmail.com> <6f37f978-4898-473e-b774-7965d25bf27b@proton.me> <jsjMql5IQTMsAgViwR9vrMG4CZ1hVx9JMN4wbc0E98BvUP-TRpgtYalrmzQeor4UHRCbLg3bBeeZcaWrTujAMrf0G8q8NyQrd4o954ZayKA=@proton.me> <aeXaMGExmtpNcUFS@alaakso-DESK> <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me> <20261006203458.GA627926@killaraus.ideasonboard.com>
+Feedback-ID: 183606634:user:proton
+X-Pm-Message-ID: f8aede7513d9828ed327a3a8ee9d1360928c16d3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asS0anZZXpbR96oE@bombadil>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Richard, Dave,
+> This isn't a patchset. See Documentation/process/submitting-patches.rst
+> for documentation on the patch submission process.
 
-On Tue, Oct 06, 2026 at 10:57:04AM +0200, Richard Leitner wrote:
-> On Mon, Oct 05, 2026 at 05:05:54PM +0100, Dave Stevenson wrote:
-> > Hi Richard
-> > 
-> > On Mon, 5 Oct 2026 at 15:46, Richard Leitner <richard.leitner@linux.dev> wrote:
-> > >
-> > > On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
-> > > > On Mon, 28 Sept 2026 at 22:08, Richard Leitner
-> > > > <richard.leitner@linux.dev> wrote:
-> > > > >
-> > > > > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
-> > > > > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
-> > > > > > <richard.leitner@linux.dev> wrote:
-> > > > > > >
-> > > > > > > Hi Dave,
-> > > > > > >
-> > > > > > > thanks for your feedback! Greatly appreciated!
-> > > > > > >
-> > > > > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> > > > > > > > Hi Richard
-> > > > > > > >
-> > > > > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > > > > > > <richard.leitner@linux.dev> wrote:
-> > > > > > > > >
-> > > > > > > > > When updating the flash_duration range ensure the ceiling is at least as
-> > > > > > > > > long as the exposure time is. This may cause the calculated
-> > > > > > > > > flash_duration register value to be rounded up.
-> > > > > > > > >
-> > > > > > > > > This is done by introducing a new
-> > > > > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
-> > > > > > > > > wherever possible.
-> > > > > > > > >
-> > > > > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > > > > > > ---
-> > > > > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> > > > > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
-> > > > > > > > >
-> > > > > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > > > > > > index f728709fcf0a6..be38ecfad8c82 100644
-> > > > > > > > > --- a/drivers/media/i2c/ov9282.c
-> > > > > > > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > > > > > > > >                                 NSEC_PER_USEC);
-> > > > > > > > >  }
-> > > > > > > > >
-> > > > > > > > > +/**
-> > > > > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > > > > > > > > + * @ov9282: pointer to ov9282 device
-> > > > > > > > > + *
-> > > > > > > > > + * This may round up the ceiling to the microseconds representation of the
-> > > > > > > > > + * next flash_duration register value to make sure one can illuminate the whole
-> > > > > > > > > + * exposure time long.
-> > > > > > > > > + *
-> > > > > > > > > + * Return: 0 if successful, error code otherwise.
-> > > > > > > > > + */
-> > > > > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > > > > > > > > +{
-> > > > > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > > > > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > > > > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > > > > > > > > +
-> > > > > > > > > +       if (fd_max_us < exposure_us)
-> > > > > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> > > > > > > >
-> > > > > > > > Reading the driver for how it handles flash duration, it all gets a
-> > > > > > > > bit convoluted. I see part of it comes from the units being usecs
-> > > > > > > > whilst natively it is in lines, but we've got this slightly odd calc
-> > > > > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
-> > > > > > > > value.
-> > > > > > >
-> > > > > > > That's true. I'm also not happy with this back-and-forth conversion between
-> > > > > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-> > > > > > > all "timing related" controls in the same unit (likely usecs). I was
-> > > > > > > already playing around with that approach, but as this would break the
-> > > > > > > current exporsure property I have not sent those patches...
-> > > > > > >
-> > > > > > > If you have any "mainline-acceptable" idea on how to do that I would
-> > > > > > > definitely love to hear it ;-)
-> > > > > >
-> > > > > > Sadly I think that there is a need for some of the back and forth in
-> > > > > > conversions :-(
-> > > > > >
-> > > > > > > > Seeing as this is the max flash_duration, is it actually limited by
-> > > > > > > > the exposure, or by the frame duration? The difference between those
-> > > > > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> > > > > > > > you up to another 9usecs to play with. That covers any of this
-> > > > > > > > rounding stuff. You can afford to always round that one down and never
-> > > > > > > > clip the range below the exposure time.
-> > > > > > >
-> > > > > > > From a hardware perspective this isn't limited at all AFAICT. But from a
-> > > > > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
-> > > > > > > the hard-coded default case in this driver currently) longer than the
-> > > > > > > exposure time makes no sense, as it does not have any effect on the image.
-> > > > > > >
-> > > > > > > With this patch I want to make sure to be able to illuminate the frame
-> > > > > > > during the complete exposure time, but keep the maximum as short as
-> > > > > > > possible. So I was comparing/aiming this at the exposure time, not the
-> > > > > > > frame duration.
-> > > > > > >
-> > > > > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-> > > > > > > time: Would a "turned-on flash" during those 25 lines have any impact on
-> > > > > > > the frames brightness in your opinion?
-> > > > > > > I haven't explicitely tested/measured this with hardware, but I guess
-> > > > > > > this does not have any impact?
-> > > > > >
-> > > > > > No, as this is a global shutter sensor I wouldn't expect the flash to
-> > > > > > impact the image if a connected flash was on for more lines than the
-> > > > > > exposure.
-> > > > > >
-> > > > > > > Or do you mean when calculating against the frame duration the +/-1
-> > > > > > > stuff can be dropped and the code would be easier to read?
-> > > > > >
-> > > > > > Yes, I'm suggesting the driver handles the range of values that the
-> > > > > > hardware can support correctly. Whether that helps for your image
-> > > > > > quality requirements is a different question.
-> > > > > > The driver can pass the buck with at least some of the rounding issues
-> > > > > > to userspace, which potentially has use-case specific knowledge. And
-> > > > > > it simplifies the driver in the process.
-> > > > >
-> > > > > Talking about "range of values that the hardware can support": AFAICT
-> > > > > the strobe duration is (from a sensor hardware point of view) not
-> > > > > limited by the frame duration. At least I found nothing on this in the
-> > > > > datasheet and a quick test on hardware also showed no correlation.
+Sorry, I forgot to mention that this is only a proof of concept, not
+the final patchset.
+
+This is my first time contributing to the upstream kernel, please
+let me know if there are any issues with the PoC or anything else I
+should approach differently. I'd appreciate any review feedback.
+
+I'm still working on the patchset, and there are a couple of things I
+need to sort out. In particular, I'm not sure whether some of the
+module parameters I've added are appropriate for upstream, and there
+are also some details around the new definitions that need cleanup.
+
+The overall file and patch structure should remain the same, though.
+
+Once I've sorted out the remaining issues, I'll send the complete
+patchset as a separate email.
+
+
+On Tuesday, October 6th, 2026 at 10:35 PM, Laurent Pinchart <laurent.pincha=
+rt@ideasonboard.com> wrote:
+
+> On Tue, Oct 06, 2026 at 05:03:15PM +0000, Ruslan Bay wrote:
+> > Hi,
+> >
+> > I've got IPU4P support working on top of the upstream IPU6 driver [1][2=
+].
+> > This builds on Antti's work [3].
+> >
+> > With help from supermepsipax, thisiscamk, ConsultingFuture4200,
+> > georgemihaila and others in the linux-surface community [4], together
+> > with the libcamera developers, both the front- and rear-facing cameras
+> > can now capture images on the Surface Pro 7 (Ice Lake).
+> >
+> > The IR camera also works with the downstream driver but I haven't
+> > tested it yet, so it is not included in this patchset.
+>=20
+> This isn't a patchset. See Documentation/process/submitting-patches.rst
+> for documentation on the patch submission process.
+>=20
+> > Links:
+> > [1] https://github.com/ruslanbay/ipu4-drivers
+> > [2] https://github.com/ruslanbay/linux/commits/ipu4p-upstream
+> > [3] https://lore.kernel.org/all/20260907113004.2489993-1-sakari.ailus@l=
+inux.intel.com/
+> > [4] https://github.com/linux-surface/linux-surface
+> >
+> > On Monday, April 20th, 2026 at 9:48 AM, Antti Laakso wrote:
+> > > On Wed, Mar 04, 2026 at 11:03:51AM +0000, Ruslan Bay wrote:
+> > > > Currently there are multiple IPU driver implementations actively
+> > > > maintained by Intel engineers:
 > > > >
-> > > > Interesting. So if you set it to a 1 second strobe pulse when
-> > > > streaming at 60fps, what behaviour do you get?
+> > > > - mainline IPU6 [1]
+> > > > - downstream IPU6 [2]
+> > > > - downstream IPU4/IPU4P [3]
+> > > > - staging IPU7 [4]
+> > > > - downstream IPU7 [5]
+> > > >
+> > > > As mentioned earlier, IPU4 and IPU6 share a large portion of the
+> > > > code base, and IPU7 appears architecturally very similar as well.
+> > > >
+> > > > The IPU7 TODO mentions working toward a common IPU module [6].
+> > > > There was also an attempt to move from ipu6_* back to more
+> > > > generic ipu_* naming [7].
+> > > >
+> > > > Is a unified IPU core still planned?
 > > >
-> > > I haven't tested the 1 second strobe explicitely. But the strobe in my
-> > > case is always on for the configured time. No matter if it exceeds the
-> > > frame time/trigger. After the configured strobe_duration passed it goes
-> > > low until the next trigger happens.
+> > > We're working on extending ipu6 driver to support ipu7 as well. The
+> > > exact schedule is not available yet.
 > > >
-> > > Maybe the following visualization helps:
+> > > >
+> > > > If so, is it expected to include IPU4/IPU4P support?
+> > > >
+> > > > Links:
+> > > > [1] https://github.com/torvalds/linux/tree/master/drivers/media/pci=
+/intel/ipu6
+> > > > [2] https://github.com/intel/ipu6-drivers
+> > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-and=
+roid_t-251103T063840Z/drivers/media/pci/intel
+> > > > [4] https://github.com/torvalds/linux/tree/master/drivers/staging/m=
+edia/ipu7
+> > > > [5] https://github.com/intel/ipu7-drivers
+> > > > [6] https://github.com/torvalds/linux/blob/master/drivers/staging/m=
+edia/ipu7/TODO#L17
+> > > > [7] https://lore.kernel.org/all/20250502154446.88965-6-stanislaw.gr=
+uszka@linux.intel.com/
+> > > >
+> > > >
+> > > >
+> > > > On Sunday, February 22nd, 2026 at 8:57 PM, Ruslan Bay <ruslanbey@pr=
+oton.me> wrote:
+> > > >
+> > > > > We now have a working IPU4P driver for Ice Lake devices [1][2].
+> > > > >
+> > > > > The current IPU4P implementation is based on Intel=E2=80=99s down=
+stream IPU4
+> > > > > driver [3]. ISYS capture works with libcamera and has been tested=
+ on
+> > > > > Surface Pro 7 and Surface Book 3 [4]. The world-facing camera (ov=
+8865)
+> > > > > works; the user-facing (ov5693) is still being debugged.
+> > > > >
+> > > > > IPU4P and IPU6 both contain PSYS implementations downstream, but =
+in
+> > > > > practice only ISYS is usable with libcamera today.
+> > > > >
+> > > > > Earlier in this thread Andreas noted that IPU4 and IPU6 share mor=
+e than
+> > > > > 85% of the code base.IPU7 appears architecturally very similar as=
+ well.
+> > > > >
+> > > > > Before preparing an RFC, I would like clarification on direction:
+> > > > >
+> > > > > 1. Is the long-term plan to unify IPU6 and IPU7 under a common dr=
+iver
+> > > > >    structure?
+> > > > > 2. If so, should IPU4/IPU4P be aligned on top of that?
+> > > > > 3. If not, would it make sense to follow Andreas=E2=80=99 approac=
+h [5],
+> > > > >    implement IPU4P on top of the IPU6 structure, and move it to
+> > > > >    staging while iterating, as has been done for IPU7?
+> > > > >
+> > > > > The primary goal is upstream IPU4P support (large Ice Lake user b=
+ase),
+> > > > > but ideally this should align with the Apollo Lake IPU4 work shar=
+ed
+> > > > > earlier [5].
+> > > > >
+> > > > > What direction would you recommend?
+> > > > >
+> > > > > [1] https://github.com/ruslanbay/ipu4-drivers/tree/main/patches/k=
+ernel/v6.19
+> > > > > [2] https://github.com/ruslanbay/linux/commits/ipu4-6.19
+> > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-a=
+ndroid_t-251103T063840Z/drivers/media/pci/intel
+> > > > > [4] https://github.com/linux-surface/linux-surface/discussions/13=
+53?sort=3Dnew
+> > > > > [5] https://github.com/Kleist/ipu4-driver
+> > > > >
+> > > > > Thanks,
+> > > > > Ruslan Bay
+> > > > >
+> > > > > On 12/20/23 1:53 PM, Andreas Helbech Kleist wrote:
+> > > > > > Hi,
+> > > > > >
+> > > > > > As mentioned previously in Bingbu's IPU6 patch series, I'm work=
+ing on
+> > > > > > porting the driver to IPU4. I've now got a hole through so I th=
+ink it
+> > > > > > makes sense sense to share the code.
+> > > > > >
+> > > > > > I'm able to capture frames with yavta with the current code, bu=
+t there
+> > > > > > are several issues that needs to be fixed for it to be complete=
+.
+> > > > > >
+> > > > > > # How it is tested
+> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > > The hardware is a custom x86 PC-like embedded device with the f=
+ollowing
+> > > > > > video pipeline:
+> > > > > > Endoscope -> FPGA -> tc358748 -> IPU4 (E3950/Apollo Lake)
+> > > > > >
+> > > > > > See my colleague Claus' description[2] for more info.
+> > > > > >
+> > > > > > There is currently no V4L2 subdevice for the FPGA, so we have a=
+ custom
+> > > > > > ambu-tc358748.c driver which pretends to be an image sensor.
+> > > > > >
+> > > > > > $ media-ctl -v \
+> > > > > >   -V "\
+> > > > > >     \"tc358748 0-000e\"    :0 [fmt:RGB888_1X24/800x800],\
+> > > > > >     \"Intel IPU4 CSI2 0\"  :0 [fmt:RGB888_1X24/800x800],\
+> > > > > >     \"Intel IPU4 CSI2 0\"  :1 [fmt:RGB888_1X24/800x800]\
+> > > > > >     "\
+> > > > > >   -l "\
+> > > > > >     \"tc358748 0-000e\"    :0 -> \"Intel IPU4 CSI2 0\" :0 [1],\
+> > > > > >     \"Intel IPU4 CSI2 0\"  :1 -> \"Intel IPU4 ISYS Capture 12\"=
+ :0 [5]\
+> > > > > >   "
+> > > > > >
+> > > > > > $ yavta --data-prefix -c2 -n2 -I -s 800x800 --file=3D/tmp/frame=
+-#.bin \
+> > > > > >         -f XBGR32 /dev/video12
+> > > > > >
+> > > > > > This produces frame-*.bin files containing 800x800x4 bytes of v=
+alid
+> > > > > > "BGR0" data.
+> > > > > >
+> > > > > > # The code
+> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > > The code is available at the tag
+> > > > > > https://github.com/Kleist/linux/tree/kleist-v6.6-ipu4-hacks-1
+> > > > > > (15245fe26e07)
+> > > > > >
+> > > > > >
+> > > > > > Note that I haven't renamed the files to ipu4, to make it clear=
+ what
+> > > > > > the changes are compared to the IPU6 driver.
+> > > > > >
+> > > > > > It is based on v6.6 with the IPU6 v2 patches[1] on top, and the=
+n my
+> > > > > > hacks to make the IPU4 work. This is not meant for upstreaming =
+as it
+> > > > > > is. The commits are a cleaned up version of the chronological o=
+rder I
+> > > > > > made the port in. It is not yet in a state where I think an RFC=
+ PATCH
+> > > > > > series makes sense yet, but I wanted to share it anyway.
+> > > > > >
+> > > > > > ## Changes compared to IPU6
+> > > > > > diff --stat of the changes in ../ipu6/ compared to the IPU6 v2 =
+patches:
+> > > > > >
+> > > > > >  drivers/media/pci/intel/ipu6/Kconfig               |  12 +-
+> > > > > >  drivers/media/pci/intel/ipu6/Makefile              |  13 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.c            |   2 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.h            |   6 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.c       |  71 ++-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.h       |   8 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.c         |  45 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.h         |   2 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c        | 171 ++++-=
+--
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h        | 237 +++++=
++----
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c      | 219 +++++=
+----
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h      |  11 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c     |  33 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.h     |   8 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.c     | 212 +++--=
+----
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.h     |   4 -
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.c           | 435 +++--=
+--------
+> > > > > > -----
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.h           |  18 +-
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-mmu.c            | 130 +++++=
+-
+> > > > > >  .../pci/intel/ipu6/ipu6-platform-buttress-regs.h   |  98 +---
+> > > > > >  .../pci/intel/ipu6/ipu6-platform-isys-csi2-reg.h   | 226 ++---=
+----
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6-platform-regs.h  | 172 ++---=
+--
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6.c                | 511 +++++=
++++-----
+> > > > > > --------
+> > > > > >  drivers/media/pci/intel/ipu6/ipu6.h                |  37 +-
+> > > > > >  24 files changed, 1032 insertions(+), 1649 deletions(-)
+> > > > > >
+> > > > > > Note that most of the deleted lines are removed because they ar=
+e not
+> > > > > > used in IPU4. E.g. the watermark handling, which I haven't seen=
+ an
+> > > > > > equivalent for in the old IPU4 driver.
+> > > > > >
+> > > > > > ## Ambu-specific tweaks
+> > > > > > Note that I'm using a hacked ipu-bridge (AMBU_IPU_BRIDGE) to se=
+tup the
+> > > > > > fwnode graph for our hardware. You don't want if you're testing=
+ this,
+> > > > > > so revert at least the "ambu: Add AMBU_IPU_BRIDGE" commit.
+> > > > > >
+> > > > > > I'm not sure the right approach for handling this would be goin=
+g
+> > > > > > forward. Of course the ambu-ipu-bridge shouldn't be upstreamed,=
+ so I'm
+> > > > > > wondering how we can achieve something similar? The ACPI tables=
+ from
+> > > > > > our BIOS unfortunately don't contain any info about the Toshiba=
+ Bridge
+> > > > > > (tc358748), so we can't derive the information from there. Mayb=
+e some
+> > > > > > kind of platform driver could be created which tweaks the ACPI =
+info
+> > > > > > before the ipu-bridge driver reads it?
+> > > > > >
+> > > > > > What do you typically do when you have some proprietary hardwar=
+e that
+> > > > > > does not provide proper ACPI information? We could carry the am=
+bu-ipu-
+> > > > > > bridge patches in our internal kernel tree, but that is not des=
+irable
+> > > > > > in the long term.
+> > > > > >
+> > > > > > # Inspiration for the IPU4 port
+> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > > We are currently using a Intel LTS 4.19.217 based kernel[3], wh=
+ich
+> > > > > > contains the old IPU4 driver. The port was basically made by co=
+mparing
+> > > > > > mmiotrace's between the old IPU4 driver and the new driver.
+> > > > > >
+> > > > > > We're using the IPU4 FW ipu4_cpd_b0.bin extracted from a ClearL=
+inux
+> > > > > > package[4].
+> > > > > >
+> > > > > > # Known issues
+> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > > ## Doesn't yet work with gstreamer for unknown reasons
+> > > > > > I get "Unexpected buffer address:" errors from
+> > > > > > ipu6_isys_queue_buf_ready, and don't get an image through.
+> > > > > >
+> > > > > > ## 64 byte chunks of wrong data
+> > > > > > We occasionally get 64 byte aligned 64 byte wrong data (all 0xC=
+C) in
+> > > > > > the captured frame*.bin files. This could be a cache invalidati=
+on
+> > > > > > issue, we haven't looked into this yet. The code currently does=
+n't use
+> > > > > > zlw_invalidate, even though it was ported from the old driver. =
+We
+> > > > > > haven't yet tested if enabling this fixes the issue.
+> > > > > >
+> > > > > > # Upstreaming
+> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > > We would like to upstream this driver, probably after the IPU6 =
+driver
+> > > > > > has been merged. We're definitely not ready yet (either), but I=
+ already
+> > > > > > have a couple of questions, that it would be nice to get some i=
+nput on
+> > > > > > from the community.
+> > > > > >
+> > > > > > ## How to share code between IPU4 and IPU6
+> > > > > > Big parts of the code (approximately 6k out of 7k lines) does n=
+ot need
+> > > > > > to be changed compared to the IPU6 driver, so there is clearly =
+a big
+> > > > > > overlap in what the two drivers need to do. I'm not sure how th=
+e best
+> > > > > > approach would be for sharing this functionality. I see a few o=
+ptions:
+> > > > > > 1. Shared driver that supports both IPU's (still split in PCI d=
+river
+> > > > > > and -isys driver)
+> > > > > > 2. Shared PCI driver that supports both IPU's, but device-speci=
+fic
+> > > > > > intel-ipu4-isys/intel-ipu6-isys drivers
+> > > > > > 3. Separate drivers that use a shared "library module" (for lac=
+k of a
+> > > > > > better term)
+> > > > > >
+> > > > > > My gut feeling is that 2. is the right choice, especially if we=
+ moved
+> > > > > > the shared code in to the PCI driver and the more version-speci=
+fic code
+> > > > > > was moved into the specific drivers.
+> > > > > >
+> > > > > > The answer to this could also be input to Bingbu's IPU6 series,=
+ maybe
+> > > > > > it would make sense to place some files differently if they eve=
+ntually
+> > > > > > will be used in both IPU4 and IPU6 drivers?
+> > > > > >
+> > > > > > ## How to implement our platform specific fwnode graph?
+> > > > > > As mentioned above, we currently have a hacked ambu-ipu-bridge =
+driver,
+> > > > > > which is clearly not upstreamable. What would you typically do =
+if you
+> > > > > > need to make a v4l setup where the ACPI table information about
+> > > > > > sensors/bridges is missing?
+> > > > > >
+> > > > > > /Andreas
+> > > > > >
+> > > > > > [1]https://lore.kernel.org/all/20231024112924.3934228-1-bingbu.=
+cao@intel.com/
+> > > > > > [2]
+> > > > > > https://lore.kernel.org/all/471df7ffdf34b73d186c429a366cfee6296=
+3015f.camel@gmail.com/
+> > > > > > [3]
+> > > > > > https://github.com/intel/linux-intel-lts/tree/lts-v4.19.217-bas=
+e-211118T072627Z
+> > > > > > [4]
+> > > > > > https://download.clearlinux.org/releases/32370/clear/source/SRP=
+MS/linux-firmware-ipu-19ww39-104.src.rpm
+> > > > >
+> > > > >
+> > > >
 > > >
-> > >
-> > > strobe duration < frame time:
-> > >                   __         __         __         __
-> > >                  |  |       |  |       |  |       |  |
-> > > strobe signal   _|  |_______|  |_______|  |_______|  |_____
-> > > strobe trigger   ^          ^          ^          ^
-> > >
-> > >
-> > > frame time < strobe duration < 2x frame time:
-> > >                   _____________         _____________
-> > >                  |             |       |             |
-> > > strobe signal   _|             |_______|             |_____
-> > > strobe trigger   ^          ^          ^          ^
-> > >
-> > >
-> > > 2x frame time < strobe duration < 3x frame time:
-> > >                   ________________________         ________
-> > >                  |                        |       |
-> > > strobe signal   _|                        |_______|
-> > > strobe trigger   ^          ^          ^          ^
-> > >
-> > > Therefore I would strongly suggest to set the maximum strobe duration to
-> > > be in every case shorter than the "frame time".
-> > >
-> > > For the reasons discussed earlier it the maximum strobe duration should
-> > > be the same or longer than the actual exposure time.
-> > >
-> > > What's your take on this Dave? Or Sakari?
-> > 
-> > Seeing as the behaviour is logical, personally I'd go with allowing
-> > whatever strobe period (up to the register max), and leave it up to
-> > userspace to keep the period below the exposure time if that is what
-> > is desired for the use case.
+> >
+>=20
+> --
+> Regards,
+>=20
+> Laurent Pinchart
 > 
-> Fair approach. But if we do so it will become a pain in the ass to
-> calculate between the expsoure time (which is based on the line time)
-> and the strobe duration (which is currently microseconds) IMHO.. As we
-> don't have a "reasonable upper limit" easily available...
-> 
-> The problem I'm talking about is that it would be quite "easy" then to
-> mess up the units and configure a strobe duration longer than the frame
-> time, which then show up as "strangely illuminated frames" in the stream.
-> 
-> Do you see any chance to get the exposure time and strobe duration on
-> the same unit? Or is this basically impossible as we would "break"
-> userpace with this? If so, would a new "strobe_duration in line time" be
-> a possible approach?
-
-I'd really like to see such conversion to take place in userspace. The
-flash driver doesn't have a concept of a line either.
-
-A single implementation in libcamera sounds much better than a driver
-implementation, or multiple driver implementations. Also, doing this in
-floating point could be more practical as well.
-
--- 
-Regards,
-
-Sakari Ailus
