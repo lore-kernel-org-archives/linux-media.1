@@ -1,229 +1,123 @@
-Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A52E4CC266
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 16:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.134
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791391178; cv=none; b=s6PruHD/Ckg837nFv6DdF3UbjcsP2wr336q8Q21obEdskgc1mrV+RnUktnqwaokSc9WtD9y0VgQCMLm/Dgeu2h1qlUafwwKwrBdguMa/iUhxcqzafMXZ+3S93XyI1+h27XuliOGmmieY9/tSKJ8GmlEaqFSo/BwRSb/D06cnVvg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791391178; c=relaxed/simple;
-	bh=eRnpcjNC87JUgc4ntFV8wX1zk+0mhQpCHSIVo+orZIQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RBtS/MGw+FOyJNTzsIKqwTbqdwrysJmCotlSh8jOq8f98jLRmkWWaPg7KNCcbXl4098wByBJVxrCE6osn1h4nQpb84j0LqSMMqZa1DFunTkARyUYXm0TnyyriiA5fA1d9n2AyMlijj2wjMagn7o/FqaBrOBkrL2UmhY1kc3/Z48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tnQplAXm; arc=none smtp.client-ip=95.215.58.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B2136DA00
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 17:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.202
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791394188; cv=pass; b=fdaG8JwrJb7hYDB8WpBpRhuF1BB3HJ8NK6hHEXTMLpMk87cr+z7Q1QPfQLsfik3bdNKC6YptwWRtLRZrXotBy6QVa4SnKd+UFaffXZ8rcmFn/HZoJ1Yht0hQqxCffIjzbJn3CDJCN4XM27iXeJW6FhaklycU+sKyIij8FYaZKaM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791394188; c=relaxed/simple;
+	bh=zTRKIT0s2tS4ywlRW4Caixv+Mc/Gnk/vX5KSCXqaq5I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VGVnUobtK4ej7mvHiRzDP4bGsGRXgyWnRxFYy3rZj9+spJpAF00eI/Xy6WaDTNQ5G163AbRf5U0nUJu4nkxf1AxTPPpbD6LEjagCyUI9d94BsWNEcgeB/ZMb9CprxImX12DT974M6RZoBF1KlEcFvGr0a7Q3Zjmi+GpG47Bxbs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PGaUx81Q; arc=pass smtp.client-ip=74.125.231.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tnQplAXm"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eRnpcjNC87JUgc4ntFV8wX1zk+0mhQpCHSIVo+orZIQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791391174; v=1; x=1791995974;
- b=tnQplAXm+DUcB2pqVegxG5XeRJv6dHVEPnpUusHUuxD8z2xooxVqsSnZCivmqS6EPAPC2B/+
- 1DJEXapTTAxhc/E66phNIaRhbBrqn6vmt3lVxLTqCZLY1zKq5od08EMC4DqquZH25K9O4cpAlU0
- SaLqp79hV+heJ0sYPFjhdKxU=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e17154cc886362ab;
-	Wed, 07 Oct 2026 16:39:34 +0000
-X-Mizu-Trace-ID: e17154cc886362ab
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f6790e78-8432-4bab-8363-501a2fb9783d@linux.dev>
-Date: Wed, 7 Oct 2026 18:15:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PGaUx81Q"
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so618218b6e.0
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 10:29:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791394186; cv=none;
+        d=google.com; s=arc-20260327;
+        b=syCLA+2zIB9cjytLRbR9XtxWNWTAdqnz5sbQzSJPH7isQ5GbaHQv4tqytVdM+QdTJA
+         kaz8Js/BkfBRKQEI20BjWjU9wlIWS1rpynGdtDar5FwWNjnMR49jqAAjLpWyiFaf64iq
+         HWFJ0aqRHAStEJhEFTZ+D+5Oytx4XKgtndtMTtzYdt2Ihy3YSadZxFN7RUgcbuhZRZyM
+         DoR0WTgPeZk3fgu9+4ix5t3SEImV9rkE3tstCD/Y743ZMZjdUB8Wb4kXJcyZl/Vv8E5O
+         n8m3BOV492ln+Ykq3DJ9SXZ6BBe4B8/x7+VLn2ocKwCj2hFynkb56m0WflTlbPm2Tnob
+         LHHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
+        fh=viC179kPP7vHOgOB25Wqxsjz4x5Us1rTRCG4IOzNMEQ=;
+        b=CEoRvv6kvmD9kAT1OU0ojYk7J4U/hmWRLL7TU9jo7AQZ1vqSfXK1W2OY0dkZEJMbju
+         gvhJgYOoxu8JcYmcmNYqtjJAxDMp1ObEaf+avrfk5lRTC7dXqsnr0ZWqOEszy/vnVbrF
+         DtX2/ZIrz3xN6IRfc6J4b13OqCxxEv0Pd/DBOZ4Dwo1bJqus1oEi2g1ioaw8/if49AH0
+         rMzy1XatshPZeVh/PCS8Youw9k8F3iEnp++jyMd8nBbYFN1pCrnqbcfvrVpboxPn++6D
+         5tMSKZ7nqpvKdvy3RL9Ho3WkfI/agt8gGz8hTdx+KJ8N7dzWmAzmoli+NOwqxPEi2tOm
+         y0Ow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791394186; x=1791998986; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
+        b=PGaUx81QKnvLqC7bDwSMY/z8Nqbmf6a+1L5WRxFb1rx2cSujFAT/MEQJMI/RJL3y07
+         gvUq4QLJn72zWMVgplmXC/SPFxlPh907Oz7qJrTimqwdp6Zxj2fPwpi7kq8vH7WuMPw0
+         r8tmDJ5o5pFgd9+E3AsxKHZ+Xulw4mkDKh5YoiL2geX4CdCL7Un8D5AXDM57+gRU/nSx
+         B/fIoHCxu35V2tXPPG6N4suOCYAOqmI/fZSjkyVrEcFIL4doJgxXJbi/xFrlMOwiXkW3
+         N/RokhItCo7NiV3XPbeFqO1Jfzz83A1bxBiO8783IXO1GI522ttLAjnPycIXu8AmIwx7
+         kjIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791394186; x=1791998986;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
+        b=ryUD6L9tiuqADdnleBEaqH7I71gCKCQrZKKke/XSlk7E28qBsHe6ZB3vX5H2RaDfGJ
+         gYK+UFBotvt8K8vstDZeB1N+H4ol8RaxDF+TH5bjGzeMN8x2YkNBgjaOFfXVrRfpMkUc
+         egGMCsXjVSbt+MiF0Y3MPVHfCm3nEHBlmCo7ICrIgqnDKkfPpX40pZMTO48nZHRT++Cf
+         JeEcCDc0tlXJIkqBKMIYGCVhAJmr8BxPNdGeBZFLMIoLNMk7pIBGFdcgkRzBoVQYOM+j
+         7Cdb7w8ZcUDGkqSQOIsf6QScbKDk4phNpebH0BS7uc50Uucf/vtD0qzMEaWFCxsU9xVe
+         yvig==
+X-Forwarded-Encrypted: i=1; AKwUvBzMwarNd59f9ZzOh3qcvXIzevlEzCGOWMts6R9Ptg1uQwGFlHY16/N0/8KmNOvtDhxyyywhnpDJOYKQfQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mjTXiZ8D2LQNff/Hluv62k6C/KdkvPryzWDkd7chMS7F4N/5xP
+	ll4EXPrZirnMmziwpeak7Rtb5nK3UwjltrWYK2mChCThAS6f2k20tMsR0gN9yTsCuf7m/31Icsv
+	tVe1yVMj++kNYe6xvsS9bmg9koKvkXk8=
+X-Gm-Gg: AYBFou0gpvfI6AasYb/XMH4+IXb5lRBmevL+rlQiZET6uYK9fMbouNQT8OtehuBz2JF
+	6Qw1lBHBPcFZ+sAWMj6SVTBsKtR9UNYhm2Y5Gl1fvUgMPmYvnXdn4SPcNTUe+z7liUpVyi+yW1H
+	6OA/4UcEcFlRACqdsSFgAsIoRnNrlwBn2NM8/CDI4ofe8iVN8SdFys7PKoBZqrNQLWbenRlcNIL
+	B3S9uL7msV+O6esOKQlDH9JWT26otCpn7ISTCH6Drh8QotMF2RFZPmy6xjYPOJm1n2NRg5oOHyQ
+	L8ev6z3ZrLwQ7eOKiP48hj0M6ChYxUpHZZacsdLr3Fwz5cH1P2qZFj82ZPDy3ZQ+g/oaq5qqpbR
+	UEnM9O6FRURitew==
+X-Received: by 2002:a05:6808:4f69:b0:4ec:ba7c:1dbe with SMTP id
+ 5614622812f47-4fc4729811bmr3186518b6e.66.1791394186597; Wed, 07 Oct 2026
+ 10:29:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] soundwire: amd: Add BRA/BPT firmware download
- support
-To: Syed Saba Kareem <syed.sabakareem@amd.com>, vkoul@kernel.org
-Cc: broonie@kernel.org, Sunil-kumar.Dommati@amd.com,
- vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
- venkataprasad.potturu@amd.com, yung-chuan.liao@linux.intel.com,
- anson.tsao@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Simon Trimmer <simont@opensource.cirrus.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- "open list:SOUNDWIRE SUBSYSTEM" <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
- <sound-open-firmware@alsa-project.org>,
- "open list:BPF [MISC]:Keyword:(?:\\b|_)bpf(?:\\b|_)" <bpf@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <linux-media@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <dri-devel@lists.freedesktop.org>,
- moderated "list:DMA" BUFFER SHARING
- "FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <linaro-mm-sig@lists.linaro.org>
-References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
- <20261005091620.1390916-5-syed.sabakareem@amd.com>
- <b8ab667c-8de2-47db-8fac-49faddd18f1a@linux.dev>
- <87dff7bd-fa1d-4153-8dd1-75947a25a466@amd.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <87dff7bd-fa1d-4153-8dd1-75947a25a466@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
+ <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Wed, 7 Oct 2026 10:29:35 -0700
+X-Gm-Features: AclHuK9vHOpqv4f2YdIvTFbohefG3iRaIeqgIeMjJY_8igy6Stps8jGud7-4xKQ
+Message-ID: <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
+ during power-off
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	"Bryan O'Donoghue" <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> +       if (!iris_vpu_watchdog(core, core->intr_status))
+> +               iris_vpu_disable_irq(core);
 
->> general comment: this patch is quite complex, with code needed for the
->> BTP side as well as the DMA side, only interleaved. Is there a way to
->> have a 'cleaner' split between DMA functionality on the ACP side and BPT
->> on the SoundWire bus side?
->>
->> Likewise the parts dealing with contiguous and non-contiguous parts of
->> the firmware should be handled at a higher level using DMA/BTP support
->> lower-level routines.
-> 
-> Agreed, I'll restructure this into three layers for v5: ACP BRA /DMA/
-> primitives (configure descriptor, arm, poll/wait, disarm, deconfigure)
-> with no SoundWire-stream knowledge; SoundWire /BPT/ primitives (open/
-> close stream, enable/disable); 
-> and a higher-level orchestrator with a dispatcher for the contiguous
-> (single-buffer) vs non-contiguous (per-section loop, with the small-
-> section sdw_nwrite/nread fallback) cases.
+If the IRQ thread records a watchdog after this check, while
+disable_irq() is waiting, it skips enable_irq(). The hard handler and
+helper would then have disabled the IRQ twice, but the next power-on
+only enables it once.
 
-Sounds good.
+Could the helper recheck the watchdog after disable_irq() returns and
+core->lock is reacquired, then call enable_irq() once to balance its
+extra disable in that case?
 
-> One hardware detail I'll preserve and document along the way: the
-> SoundWire bank switch is itself the BRA DMA start trigger,and correct
-> teardown requires disarming the DMA before the disable-path bank switch. 
+If you use this approach for the watchdog fix, could you also add:
 
-That sounds fine, provided that hardware pushes a invalid BPT frame on
-the link in the time window between the disarming and bank switch.
-Otherwise the peripherals might receive garbage BTP data, no?
-> So the orchestrator still sequences an ACP call and a SoundWire call in
-> a fixed order — the layering makes each side independently readable and
-> testable while keeping that ordering contract explicit.
-> 
->>> +static int amd_sdw_execute_bra_transfer(struct amd_sdw_manager *amd_manager,
->>> +					struct sdw_slave *slave,
->>> +					bool *dma_unsafe)
->>> +{
->>> +	struct sdw_bus *bus = &amd_manager->bus;
->>> +	u32 i2s_err_offset;
->>> +	u32 saved_intr_mask;
->>> +	u32 reg_addr, len;
->>> +	u32 val;
->>> +	int ret, ret_disable;
->>> +
->>> +	/* Read descriptor regs before enabling the DMA engine. */
->>> +	reg_addr = readl(amd_manager->mmio + ACP_SW_BPT_PORT_FIRST_BYTE_ADDR);
->>> +	len = readl(amd_manager->mmio + ACP_SW_BRA_TRANSFER_SIZE);
->>> +
->>> +	i2s_err_offset = (amd_manager->instance == 0) ?
->>> +			 ACP_SW_I2S_ERROR_REASON : ACP_P1_SW_I2S_ERROR_REASON;
->>> +
->>> +	/*
->>> +	 * Save and disable the error interrupt mask for manual error
->>> +	 * checking.  acp_bra_lock is held across the whole BPT sequence by
->>> +	 * amd_sdw_bpt_wait(), which serialises this shared-register
->>> +	 * read-modify-write against the other manager instance.
->>> +	 */
->>> +	saved_intr_mask = readl(amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
->>> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
->>> +	writel(0, amd_manager->acp_mmio + i2s_err_offset);
->>> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_REASON1);
->>> +
->>> +	/* Arm the ACP BPT DMA engine */
->>> +	writel(1, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
->>> +
->>> +	/*
->>> +	 * Use the framework's sdw_enable_stream() to write CHANNELEN and
->>> +	 * perform a bank switch.  The ACP BPT hardware uses the bank switch
->>> +	 * as the trigger to start the DMA transfer.  The framework manages
->> do you mean to say
->> a) the DMA transfer was armed and started ealier, and the bank switch
->> unblocks it, ob
->> b) the DMA starts fetching data from memory when the bank switch happens?
->>
->> the latter case would be quite racy and dependent on the time needed to
->> access memory..
-> It's (a). The BRA descriptor (BASE_ADDRESS/TRANSFER_SIZE/FRAME_FORMAT)
-> is fully programmed in amd_sdw_config_bra_descriptor(), 
-> and the engine is armed with ACP_SW_BPT_PORT_EN=1, both before
-> sdw_enable_stream(). 
-> The bank switch is only the trigger for the already-armed engine — it
-> doesn't start a cold engine, so there's no memory-latency race on the
-> switch. 
+Suggested-by: Hungyu Lin <dennylin0707@gmail.com>
 
-ok
-
-> Once triggered the engine runs autonomously frame by frame, and any
-> stall/underrun surfaces as a BRA/I2S error (ACP_SW_I2S_ERROR_REASON /
-> ACP_SW_BRA_RESP), not silent corruption. 
-
-but then if I follow your explanations above, if you stop the DMA first
-don't you get a systematic xrun error before the bank switch happens?
-> This is also why, on an aborted or timed-out transfer, the teardown
-> clears PORT_EN before the sdw_disable_stream() bank switch — otherwise
-> that switch 
-> could re-trigger the armed engine into a buffer we're about to free. 
-> I'll reword the comment to say the engine is armed here and the bank
-> switch only triggers it.
-
-ok
-
-[...]
-
->>> +	/*
->>> +	 * The ATU GRP_1 and scratch PTE registers programmed here are
->>> +	 * ACP-global and shared by both SoundWire manager instances, as is the
->>> +	 * BRA DMA engine that reads through them.  bpt_lock is per-manager and
->>> +	 * does not serialise across instances, so hold the ACP-wide
->>> +	 * acp_bra_lock across the whole configure -> transfer -> deconfigure
->>> +	 * sequence to stop the other instance reprogramming the shared PTEs
->>> +	 * mid-transfer.
->> In that case, what is the point of having a per-instance btp_lock as well?
->>
->> It seems from the comment that only *one* BTP transfer can take place
->> across all manager instances, which defeats the purpose of a
->> per-instance lock, no?
->> What I am missing?
-> 
-> You're right that the transfer itself is serialized ACP-wide: that's
-> acp_bra_lock, held only across configure → transfer → deconfigure,
-> because the ATU PTEs and
->  the BRA DMA engine are single resources shared by both links. bpt_lock
-> is per-link and has a different scope rather than a different transfer
-> window:
-> 
->   * It guards bpt_disabled, which is per-link suspend/clock-stop/
->     runtime-PM state — each link's amd_suspend()/clock-stop 
->     sets it and amd_resume_runtime() clears it under bpt_lock. A per-
->     link flag doesn't belong under an ACP-global lock.
->   * It serializes multiple BPT requests to the same link and lets that
->     link's suspend path drain an in-flight transfer, without reaching
->     for the global lock.
->   * It keeps acp_bra_lock's hold time minimal: the per-link setup/
->     teardown (open_stream, dma_alloc, the PM get/put, the bpt_disabled
->     check) runs 
->     under bpt_lock but outside acp_bra_lock, so the other link contends
->     for the global lock only during the actual shared-hardware window,
->     not the whole sequence.
-> 
-> Folding everything onto acp_bra_lock would mean the global lock has to
-> cover each link's full transfer path including its runtime-PM callbacks,
->  i.e. one link's PM transitions would serialize against the other link's
-> transfer — a scope mismatch and a longer global hold time.
->  So the two are intentionally different scopes: bpt_lock = per-link
-> lifecycle/PM, acp_bra_lock = ACP-global shared hardware. Today the
-> comment only documents acp_bra_lock; I'll expand it to cover both.
-
-The explanation make sense... but I am not fully clear on why you'd need
-to protect the BPT state for link-based pm_runtime. Presumably a BPT
-transfer would happen with a device reference held to prevent it from
-suspending? Something's not right if you need to drain a BPT transfer in
-a pm_runtime suspend, that suspend shouldn't happen in the first place...
-
-
+Thanks,
+Hungyu
