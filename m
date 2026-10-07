@@ -1,64 +1,64 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D81B3515E3
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 01:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53FD344DAE
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 01:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791337403; cv=none; b=EOv+pbN21XL4xV2pPRcoyUs2fJlm0X9VjeCWKklvcAhRaqJX01o0SUBUzYMLPWaucVBWeNgBqer1hyvauLbPEZXzJb6iR6dSrPnwcgu3eC5WYFL6FJkgSnyQk7m8UjfDZdBasbmoT3jcDUCgmYWLGa3D2rwB842vHngC7LpQt8Y=
+	t=1791337410; cv=none; b=kNB9SLv+GkokKcPNSOAIWkIUlI/J/FiU+Pxqd66S2f3jaB9LMA8eoF6H9onVbVoiaRmfqI0licCgW6rmjL+fHnUBuY32UTUDYbiPMBtjTwupomyhEbj77PiTuOnjlks+z8F8p0xlr6Nw3HFFbuIdDPnSeixuEgniIEMFCdSbRRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791337403; c=relaxed/simple;
-	bh=L6TVWpongEDpA7TiLe+SNULpjIEu9UzpPIkgkHUo5Rw=;
+	s=arc-20240116; t=1791337410; c=relaxed/simple;
+	bh=3Fg4fgarhp43AXGD3uCEPBH0DKGK1BrLFUwZDank6PA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gPtdbtxEB42PE/X5rnvnDtD8sV6SFwrRX1WWEQtecXI/q5ivXwUcX44vHvCwIGAT8jJNrj165dORbHzqMV84uvuuiVHF8ZZyGWWFIdP80jNS/59QkPH/Iuaz0/CENqShPXhmH/Qez1/Q+yBIuS+JoGynMegNOCzxjMZ5FC0SeUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PHUxMFdB; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=tv5bMSfTRcRL25JdyaQFZJ4XCB6hL7zbP/h4CQKP9JZL9H/zAhQsnhEVCV1vmJtnS2Y9s5Zi7wLZTEm7mYPu0A+jWIrkpKq4rt+7KePTkIpTu+sLt6/SNxzqzNTDTjntdnvvn2Jn+8b+2554WTFo8k/w3U5CHDiHi7L91wftc40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YqSNZ5qk; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PHUxMFdB"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so9192775e9.0
-        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 18:43:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YqSNZ5qk"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso10561915e9.0
+        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 18:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791337398; x=1791942198; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791337405; x=1791942205; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Nls4uSWUi3FtYOHw3kmfxrWIUNA1MBsyApDbzhyJZsE=;
-        b=PHUxMFdBnl8loPA4gMlZ1Nl0KX3UihE9mLzk+a0dSjbj8L8hiqK2iRPJmJQJfirjjl
-         AyACKfhq1XPG8uw8pqgDDQUadYE2SYYr1W5fH+VR1gKQ2dkFTixU3otk+G5PMLofx27J
-         avEgNEYmNOavcpoMackgdk1vqCVCHTaSa1jwf+rmnjrW/+lMr1RLXaazNs1/Wy0Y1Dem
-         cchGM9TS/6P75TT7BulwCxcUeBiGpVI0ulGWIgUJqG7cS6PsV2hGiAF8jTBZn3etms+W
-         2ayi90jkjlH5Re3EgzybDBanHh6nuB0belXcMhG/k9Q2v5Y4JFEGQeTrvs+NPSVr63Sa
-         PHpA==
+        bh=TBD7LAGhjErBgJ6Wm5F1SHztZSPVsK9gsGPfOw+QBug=;
+        b=YqSNZ5qkQcLj7Z/Am/VKzas78A+ifCaj44BgioYiK2/agpBkcouIRBePNtNuuPZCnO
+         SPX0WoBTcP4T5vRu2atIbH1kppyR2/hje50UeqECH3gq3YzEpjtADOdDF/8oHjMpbShb
+         vnuwgf7nQv+ymslEEKkSjrplhWlGhG+oAcIHyoBRv8k/gosVtrqYY0l/OrEeCeyXJpYM
+         /zJ/9TpRMSCfB6r0O+0mzfD8LU53GAdX8w0N22wQ8UZAC34D7xC0o6DFOlFOL7CN7P2+
+         3EHVOz+UflKKNAAO6dd1RNfBKAGO1IVVZ7uefQVUlX0USAjSiLY6ffy1P0Cwfn0zAzAV
+         k94g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791337398; x=1791942198;
+        d=1e100.net; s=20260707; t=1791337405; x=1791942205;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nls4uSWUi3FtYOHw3kmfxrWIUNA1MBsyApDbzhyJZsE=;
-        b=WO6XvMW0acLX0agEchn7kf+lnZ4jognLQJyDIM/JaM8FnphM0PuIgWWFPk7RzWn0gS
-         uXu9sTYae5bozFv+l3/14fqt3v1Y6GNkmcnoGisITmHUrRiO5WjvUY++FQWr/02rGAFo
-         OSpdlvhMTQDMWtleC+Kod3Ls89uo+E8IfR54S5uBMmPzu0MkdvCk6Ik6Ao8ZfUWHfCa9
-         D5chwn52wSIKoXpn7IIG3xQz4l4sTmoxPjibH7pdcvhmB3dPEtSxqFg45pk4iiZax0bG
-         RbZKIJ/t5vALwlvppDVECbFkSUE3vK1MBzNN6Etn2M/nsdh4IxJ6Cx8iHM0mQlrSohyH
-         M+NQ==
-X-Forwarded-Encrypted: i=1; AKwUvByjCQIj4g43rvr9ALcL8duRb3c/4EI6Lx+gqn0W2ePBRLYTzuMYFzY1fykX1d2Nw908MJLMt5NaSHqSgw==@vger.kernel.org
-X-Gm-Message-State: AFuF++keyOO2VGjGcb8e4yUky5Pw1rx0JuLR6hnfkB5Oq9JsKJTySOi2
-	ykOKQbQ4Y1bUPZ783oz8WGmEigJraPCnnvBlGnyUmhElC6GmyMLscpxG
-X-Gm-Gg: AYBFou2sSZGwwMm72cZrGUWLa2ChOzh/gPEd436JRLlTLSmN5igBY2Maxvx0yWkFgLl
-	/aT8X3t5Qj0FL3kALARuIush5VSCuzLSOBgUWKpZY4wYY6UOWZYOAwAeCa3SoQ6FasAPmZM+o0p
-	Ilo16LLZ+0JmieVt7p03y6nQu3DPxBjUOQpJm80pbq7jQFqf51k412hzWxYIo4bkKLgcDrvAOdj
-	VXXYldOaM5Rxt2D5wizhy+kI4aVVVcA3qZGPHmRqgS/n+8qMeKMZaDLwJ5lbrz22KQROGU3FuaI
-	xNv/QEeln831QnFDTmpD+2ul7O9QY65jP4Ugqkjj9r/olVeLazo9b7C/xGJYZJCzEzNiSc6M7cJ
-	GRFTCUzzYHZSdTMapI6z2l/4yjFuzIi5wS5oUFNNAN2afEpKla2i2dmY0xif5YT+PnSshxx6rS4
-	zdZG2QcOhEFct5puREsVEEVIPrKoIhW5C4I5KW1/JBSqawPlVPHR3gfofqvTINV/5w7VsIN20GD
-	4P3jL5QZltLMFo7U8IWinQb/62LhcpOzvC58nRv3NCuYuGenN3n+MDlCmhfVww2K736tTH1rfgW
-X-Received: by 2002:a05:600c:c16f:b0:4a0:2484:2800 with SMTP id 5b1f17b1804b1-4a1800ca1c3mr7313145e9.3.1791337398229;
-        Tue, 06 Oct 2026 18:43:18 -0700 (PDT)
+        bh=TBD7LAGhjErBgJ6Wm5F1SHztZSPVsK9gsGPfOw+QBug=;
+        b=Tz0NHKSYQU5miQ0Ru02X/vIbmbw0jZPq3cQNsDZHl8Sax/CuG8ZUugwO1JcwxiUZ1X
+         0mWXEAISuHWtH5UeIEzwzfw5MIC7nUTnAnEIkUN8nbyLPLFwqcVtSDB0KnMR681kETAR
+         msFbx3Mi80IfmEVVZ9rc/0AsT+OWzI4N72swBZLf3hsj27nyCMvEKY3IqmoJfao7s905
+         0SjQG4Qt5D9QZYqxzI3Vw9TCslVNL/OxmIVNDcTUaLKCP+mmCa7yAH/5mCWDmAFLZELn
+         rAycZjF/LV5GCZk94WzT2qYuh1UQBJwBvZQOB9iP4zlPdxBDDeSKiKE8mbvC2Z+uFdiO
+         9DJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpdiayTYBfP6zH56+3YdqDYWpwBNgpWqiTdOq62TteSSLuya4Fc211QXxYeJs0Dxa2U0EgK850aOBtug==@vger.kernel.org
+X-Gm-Message-State: AFuF++mi/63ZDy5c9Kxhh2s+R/qf7Z7z3i1OY59kRrezorLjO1mfSAOq
+	3vZRd+yVnrQo+Sc4PQOsreZ/1vfcjZZeqFsVUNXWp9LTkXWLmL0wvB/m
+X-Gm-Gg: AYBFou2jQfhrzyaN4Xn92N8Ln4ivcZxpI0TgbxvokxrPxYxV7sRIpZr0wcBAOZfGH3K
+	6BAZhpeYpz6+d5mg2aMlZY/e8oTQnllHmOJTKVp0mnpuqMvPI6UzOK5f85LmNSbJrRIX+GBK8z8
+	PyYwcDYpKOuvSfQT2vxLI6DR/lQQcRL8Tlj6cqBeC8fTNfyiV6j0bxj00LDbrGnJRGimZfKHpcm
+	P9JPny7juNdu7K5UdEtieLa90pjjbsHF7M9/w51dskwqKnc/E03P/dscIYBA8jqMJ6CvqH1bhzF
+	IwTdWykD8zSDgerEbreljmS3xXq6cytlc3sSYQcFoPCl0OgvyRKi5qvTzjbUMOYBvxjCxWjCHNN
+	h3/RclpjjLRxYgWPkSXoA2VALI7m5AE4U4zARHAUhKHdfJxjEyD5wcPLUur4NOkZt8n8+M8UCfv
+	jsVGAZzeDBgGD2hCR9WopDaMP9xw2JoJt2mRBYgGGW57uQ766gJiDj/Y3/fHYE19PRrU+B9uwGn
+	gm16wHKcafXnpxmg8PKYFbQxbKayKhcVJPhtslSSCt5SDoqdeSoB21A4REmV80oyBFOpSTVTsTQ
+X-Received: by 2002:a05:600c:3e16:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-4a1806649afmr7712265e9.30.1791337405094;
+        Tue, 06 Oct 2026 18:43:25 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f653d7csm26423895e9.14.2026.10.06.18.43.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f653d7csm26423895e9.14.2026.10.06.18.43.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 18:43:16 -0700 (PDT)
+        Tue, 06 Oct 2026 18:43:23 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com,
@@ -90,9 +90,9 @@ Cc: asml.silence@gmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel@lists.linux.dev
-Subject: [PATCH v9 05/13] block: add dma-buf support for raw bdev
-Date: Wed,  7 Oct 2026 02:42:48 +0100
-Message-ID: <af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336930.git.asml.silence@gmail.com>
+Subject: [PATCH v9 09/13] io_uring/rsrc: introduce buf registration structure
+Date: Wed,  7 Oct 2026 02:42:52 +0100
+Message-ID: <82a5ed8b6de7015b9ec3c6aac51ec2597749a1df.1791336930.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1791336930.git.asml.silence@gmail.com>
 References: <cover.1791336930.git.asml.silence@gmail.com>
@@ -104,85 +104,152 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a simple proxy implementation of init_dma_buf_io_ctx() forwarding
-the call to a new struct block_device_operations operation. Also reject
-dma-buf backed iterators for buffered IO.
+In preparation to following changes, instead of passing an iovec for
+buffer registration introduce a new structure. It'll be moved to uapi
+later, but for now it's initialised early from a user provided iovec.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-[pavel: reject dma-buf without O_DIRECT]
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- block/fops.c           | 22 ++++++++++++++++++++++
- include/linux/blkdev.h |  2 ++
- 2 files changed, 24 insertions(+)
+ io_uring/rsrc.c | 47 ++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 32 insertions(+), 15 deletions(-)
 
-diff --git a/block/fops.c b/block/fops.c
-index 827dc9eecba7..e9da48ab73be 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -730,6 +730,9 @@ blkdev_direct_write(struct kiocb *iocb, struct iov_iter *from)
- 
- static ssize_t blkdev_buffered_write(struct kiocb *iocb, struct iov_iter *from)
- {
-+	if (unlikely(iov_iter_is_dmabuf_map(from)))
-+		return -EOPNOTSUPP;
-+
- 	return iomap_file_buffered_write(iocb, from, &blkdev_iomap_ops, NULL,
- 			NULL);
- }
-@@ -855,6 +858,11 @@ static ssize_t blkdev_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 		if (ret < 0 || !count)
- 			goto reexpand;
- 	}
-+	if (unlikely(iov_iter_is_dmabuf_map(to))) {
-+		if (!ret)
-+			ret = -EOPNOTSUPP;
-+		goto reexpand;
-+	}
- 
- 	/*
- 	 * Take i_rwsem and invalidate_lock to avoid racing with set_blocksize
-@@ -958,6 +966,19 @@ static int blkdev_mmap_prepare(struct vm_area_desc *desc)
- 	return generic_file_mmap_prepare(desc);
- }
- 
-+static int blkdev_init_dma_buf_io_ctx(struct file *file,
-+				      struct dma_buf_io_ctx *ctx)
-+{
-+	struct block_device *bdev = file_bdev(file);
-+	struct gendisk *disk = bdev->bd_disk;
-+
-+	if (!(file->f_flags & O_DIRECT))
-+		return -EINVAL;
-+	if (!disk->fops->init_dma_buf_io_ctx)
-+		return -EOPNOTSUPP;
-+	return disk->fops->init_dma_buf_io_ctx(bdev, ctx);
-+}
-+
- const struct file_operations def_blk_fops = {
- 	.open		= blkdev_open,
- 	.release	= blkdev_release,
-@@ -976,6 +997,7 @@ const struct file_operations def_blk_fops = {
- 	.fallocate	= blkdev_fallocate,
- 	.uring_cmd	= blkdev_uring_cmd,
- 	.fop_flags	= FOP_BUFFER_RASYNC | FOP_DONTCACHE,
-+	.init_dma_buf_io_ctx = blkdev_init_dma_buf_io_ctx,
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index 1efaf29514e8..7e58e9d96055 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -27,8 +27,13 @@ struct io_rsrc_update {
+ 	u32				offset;
  };
  
- static __init int blkdev_init(void)
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index d003a9d2d1f6..2d5c30823aab 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1599,6 +1599,8 @@ struct block_device_operations {
- 	/* returns the length of the identifier or a negative errno: */
- 	int (*get_unique_id)(struct gendisk *disk, u8 id[16],
- 			enum blk_unique_id id_type);
-+	int (*init_dma_buf_io_ctx)(struct block_device *,
-+				   struct dma_buf_io_ctx *);
- 	struct module *owner;
- 	const struct pr_ops *pr_ops;
++struct io_uring_regbuf_desc {
++	__u64 uaddr;
++	__u64 size;
++};
++
+ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
+-						   struct iovec *iov);
++						   struct io_uring_regbuf_desc *desc);
  
+ static int hpage_acct_ref(struct io_ring_ctx *ctx, struct page *hpage,
+ 			  bool *acct_new)
+@@ -81,6 +86,15 @@ static bool hpage_acct_unref(struct io_ring_ctx *ctx, struct page *hpage)
+ 
+ #define IO_CACHED_BVECS_SEGS	32
+ 
++static void io_iov_to_regbuf_desc(const struct iovec *iov,
++				  struct io_uring_regbuf_desc *desc)
++{
++	*desc = (struct io_uring_regbuf_desc) {
++		.uaddr = (u64)(uintptr_t)iov->iov_base,
++		.size = iov->iov_len,
++	};
++}
++
+ int __io_account_mem(struct user_struct *user, unsigned long nr_pages)
+ {
+ 	unsigned long page_limit, cur_pages, new_pages;
+@@ -398,6 +412,7 @@ static int __io_sqe_buffers_update(struct io_ring_ctx *ctx,
+ 		return -EINVAL;
+ 
+ 	for (done = 0; done < nr_args; done++) {
++		struct io_uring_regbuf_desc desc;
+ 		struct io_rsrc_node *node;
+ 		u64 tag = 0;
+ 
+@@ -411,7 +426,9 @@ static int __io_sqe_buffers_update(struct io_ring_ctx *ctx,
+ 			err = -EFAULT;
+ 			break;
+ 		}
+-		node = io_sqe_buffer_register(ctx, iov);
++
++		io_iov_to_regbuf_desc(iov, &desc);
++		node = io_sqe_buffer_register(ctx, &desc);
+ 		if (IS_ERR(node)) {
+ 			err = PTR_ERR(node);
+ 			break;
+@@ -870,26 +887,26 @@ bool io_check_coalesce_buffer(struct page **page_array, int nr_pages,
+ }
+ 
+ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
+-						   struct iovec *iov)
++						   struct io_uring_regbuf_desc *desc)
+ {
++	unsigned long uaddr = (unsigned long)desc->uaddr;
++	size_t size = desc->size;
+ 	struct io_mapped_ubuf *imu = NULL;
+ 	struct page **pages = NULL;
+ 	struct io_rsrc_node *node;
+ 	unsigned long off;
+-	size_t size;
+ 	int ret, nr_pages, i;
+ 	struct io_imu_folio_data data;
+ 	bool coalesced = false;
+ 
+-	if (!iov->iov_base) {
+-		if (iov->iov_len)
++	if (!uaddr) {
++		if (size)
+ 			return ERR_PTR(-EFAULT);
+ 		/* remove the buffer without installing a new one */
+ 		return NULL;
+ 	}
+ 
+-	ret = io_validate_user_buf_range((unsigned long)iov->iov_base,
+-					 iov->iov_len);
++	ret = io_validate_user_buf_range(uaddr, size);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+@@ -898,8 +915,7 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	ret = -ENOMEM;
+-	pages = io_pin_pages((unsigned long) iov->iov_base, iov->iov_len,
+-				&nr_pages);
++	pages = io_pin_pages(uaddr, size, &nr_pages);
+ 	if (IS_ERR(pages)) {
+ 		ret = PTR_ERR(pages);
+ 		pages = NULL;
+@@ -921,10 +937,9 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
+ 	if (ret)
+ 		goto done;
+ 
+-	size = iov->iov_len;
+ 	/* store original address for later verification */
+-	imu->ubuf = (unsigned long) iov->iov_base;
+-	imu->len = iov->iov_len;
++	imu->ubuf = uaddr;
++	imu->len = size;
+ 	imu->folio_shift = PAGE_SHIFT;
+ 	imu->release = io_release_ubuf;
+ 	imu->priv = imu;
+@@ -934,7 +949,7 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
+ 		imu->folio_shift = data.folio_shift;
+ 	refcount_set(&imu->refs, 1);
+ 
+-	off = (unsigned long)iov->iov_base & ~PAGE_MASK;
++	off = uaddr & ~PAGE_MASK;
+ 	if (coalesced)
+ 		off += data.first_folio_page_idx << PAGE_SHIFT;
+ 
+@@ -986,6 +1001,7 @@ int io_sqe_buffers_register(struct io_ring_ctx *ctx, void __user *arg,
+ 		memset(iov, 0, sizeof(*iov));
+ 
+ 	for (i = 0; i < nr_args; i++) {
++		struct io_uring_regbuf_desc desc;
+ 		struct io_rsrc_node *node;
+ 		u64 tag = 0;
+ 
+@@ -1009,7 +1025,8 @@ int io_sqe_buffers_register(struct io_ring_ctx *ctx, void __user *arg,
+ 			}
+ 		}
+ 
+-		node = io_sqe_buffer_register(ctx, iov);
++		io_iov_to_regbuf_desc(iov, &desc);
++		node = io_sqe_buffer_register(ctx, &desc);
+ 		if (IS_ERR(node)) {
+ 			ret = PTR_ERR(node);
+ 			break;
 -- 
 2.54.0
 
