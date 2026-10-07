@@ -1,74 +1,56 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74DB41D111
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 21:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0B936402A
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 21:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791407947; cv=none; b=h8E60jy2kMxmFRyW57SGUryoHN15exIrAnQkGz203Ts0nI/Uw7s+gFNDZYiHew432l/SfyqkXG0GnUud6FjV1xzBqX32U9TWTxI2UOkggdmE6Jhe1CVny9rzDtEdSEpEvNES8xaVZwgIiKJwesfN9KoddxhsVO3EtPAOY8VRWHM=
+	t=1791408736; cv=none; b=ndXvhfi2xhyWOD1HlZLpi+gTdHuxfFgx11TUIEq18kXv1usgrlZaozL7DnCLOtRE3ljXl/1KZ15gV5bDDWvVA1hUVXu+/Bu8J6PprbVmCcPo+pU0Q9cdN//ERyPa5WF3yl+zOOysqAucUfnU6c5UCwKw2wtNR2HMLfg3An1XTrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791407947; c=relaxed/simple;
-	bh=Gmv2IzYkxR2GSb5PXZvUVfrdpZVphHzCHjkjBlgrHSs=;
+	s=arc-20240116; t=1791408736; c=relaxed/simple;
+	bh=8NitGKfqB0AoHyWAtpq7KhFbM3sFeGqEqSTNrG60xLo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/YCBpk3xE1UH+DazLE6mEooLgh91pfD4XoEhxOoYjBxE6tg/59Wm+WMcNi4RwTiq955nG66xi8+ZiOkcXr58kfVUzFaDEowwX5oPOZkRhDFoKAEod8v9dWsD0lKM0v4c9PgiCezkH1FV250fztijJ+5RdYrzttXe7HonYdQGlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Y4pT6Mq1; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z1nMnj7g8PZl4Vo9/BFj947JK1X16lKyTdpnVZHwHwNNObA500Ce6DQNvma6qideujUE+pTRcWfgqxBNM7DKmkTAYAlMwGZxuGA7QIgf3WJVz52LxdvzreV8i/MUtk//lm7xnnal11RXd2ZIc8ujzNmZbXPcSr+5fN+/CSfr9ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=M1VMOkM0; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Y4pT6Mq1"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="M1VMOkM0"
 Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B48431C63;
-	Wed,  7 Oct 2026 23:17:02 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 75CEC15B2;
+	Wed,  7 Oct 2026 23:30:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791407823;
-	bh=Gmv2IzYkxR2GSb5PXZvUVfrdpZVphHzCHjkjBlgrHSs=;
+	s=mail; t=1791408608;
+	bh=8NitGKfqB0AoHyWAtpq7KhFbM3sFeGqEqSTNrG60xLo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y4pT6Mq1OBwj4ALuxdmhqSBK4xjuPFmR7nk9d5Sw66Im1UdoKFVp7usAJ3RYEI+o0
-	 EqgqTiu0OJ6ezf6Qjrj90a5YkKbw7tjv4Z7CT4Wq5b/CWDwwKZt1RNC6jItDAODbB0
-	 rq02DinrZcFd9LpVMb7M26AyHfXWFEABCSH0dlZY=
-Date: Wed, 7 Oct 2026 23:18:58 +0200
+	b=M1VMOkM02AnnbDFdon0zlK+eOB/OivSp78/+l0Aas9ldHjk+gBxzIKgYw1m0RZqgS
+	 cjuSRsSYOXXabo97Nmx+8dR6Nnz2kXnBCUzP4EbBFnUzlqnu3niQ83SMdCQl8x2ADd
+	 wUtKiU2Jyh3N0FXH2wWliiJyl9gtsO3bLWj0vMh8=
+Date: Wed, 7 Oct 2026 23:32:04 +0200
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Dumitru Ceclan <dumitru.ceclan@analog.com>,
-	Martin Hecht <Martin.Hecht@avnet.eu>,
-	Andrian Suciu <Adrian.Suciu@analog.com>,
-	Martin Hecht <mhecht73@gmail.com>,
-	Cosmin Tanislav <demonsingur@gmail.com>,
-	Vivekananda Dayananda <vivekana@amd.com>,
-	Quentin Freimanis <quentin@q-lab.dev>,
-	Cory Keitz <ckeitz@amazon.com>
-Subject: Re: [PATCH 1/2] media: mc: Keep INTERNAL pad flags just for the
- kernel, for now
-Message-ID: <20261007211858.GB664854@killaraus.ideasonboard.com>
-References: <20261007204135.782415-1-sakari.ailus@linux.intel.com>
- <20261007204135.782415-2-sakari.ailus@linux.intel.com>
+To: Ruslan Bay <ruslanbey@proton.me>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	sakari.ailus@linux.intel.com,
+	Bingbu Cao <bingbu.cao@linux.intel.com>, bingbu.cao@intel.com,
+	tian.shu.qiu@intel.com, linux-media@vger.kernel.org,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Andreas Helbech Kleist <andreaskleist@gmail.com>,
+	ilpo.jarvinen@linux.intel.com, tfiga@chromium.org,
+	senozhatsky@chromium.org, claus.stovgaard@gmail.com,
+	andriy.shevchenko@linux.intel.com, tomi.valkeinen@ideasonboard.com,
+	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: RFC: Intel IPU4 driver proof of concept
+Message-ID: <20261007213204.GD664854@killaraus.ideasonboard.com>
+References: <20230727071558.1148653-11-bingbu.cao@intel.com>
+ <e0cc94736e4142f2d661a8bbb0c800b709349377.camel@gmail.com>
+ <83426573-8c4b-ec20-6916-2917aa06954f@redhat.com>
+ <e136389011517dbc65b30f6bf0b1a9c49ab4e599.camel@gmail.com>
+ <6f37f978-4898-473e-b774-7965d25bf27b@proton.me>
+ <jsjMql5IQTMsAgViwR9vrMG4CZ1hVx9JMN4wbc0E98BvUP-TRpgtYalrmzQeor4UHRCbLg3bBeeZcaWrTujAMrf0G8q8NyQrd4o954ZayKA=@proton.me>
+ <aeXaMGExmtpNcUFS@alaakso-DESK>
+ <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me>
+ <20261006203458.GA627926@killaraus.ideasonboard.com>
+ <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,46 +59,301 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261007204135.782415-2-sakari.ailus@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
 
-On Wed, Oct 07, 2026 at 11:41:34PM +0300, Sakari Ailus wrote:
-> Do not expose INTERNAL pads on UAPI as the documentation nor
-
-s/as the/as neither the/
-
-> v4l2-compliance changes to support MEDIA_PAD_FL_INTERNAL pads has not yet
-> been merged.
-
-"have been merged yet"
-
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> ---
->  include/uapi/linux/media.h | 6 ++++++
->  1 file changed, 6 insertions(+)
+On Wed, Oct 07, 2026 at 07:57:17AM +0000, Ruslan Bay wrote:
+> > This isn't a patchset. See Documentation/process/submitting-patches.rst
+> > for documentation on the patch submission process.
 > 
-> diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-> index 80cfd12a43fc..63e69a517987 100644
-> --- a/include/uapi/linux/media.h
-> +++ b/include/uapi/linux/media.h
-> @@ -208,7 +208,13 @@ struct media_entity_desc {
->  #define MEDIA_PAD_FL_SINK			(1U << 0)
->  #define MEDIA_PAD_FL_SOURCE			(1U << 1)
->  #define MEDIA_PAD_FL_MUST_CONNECT		(1U << 2)
-> +#if defined(__KERNEL__)
-> +/*
-> + * Forgo INTERNAL pads until proper documentation and v4l2-compliance testing is
+> Sorry, I forgot to mention that this is only a proof of concept, not
+> the final patchset.
 
-s/is$/are/
+That's fine, it's what "RFC" means.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> This is my first time contributing to the upstream kernel, please
+> let me know if there are any issues with the PoC or anything else I
+> should approach differently. I'd appreciate any review feedback.
 
-> + * merged.
-> + */
->  #define MEDIA_PAD_FL_INTERNAL			(1U << 3)
-> +#endif /* __KERNEL__ */
->  
->  struct media_pad_desc {
->  	__u32 entity;		/* entity ID */
+You need to post the patch series for that, with "RFC" in the subject.
+We don't review patches on git forges.
+
+> I'm still working on the patchset, and there are a couple of things I
+> need to sort out. In particular, I'm not sure whether some of the
+> module parameters I've added are appropriate for upstream, and there
+> are also some details around the new definitions that need cleanup.
+
+In an RFC, you can include such questions in the cover letter of the
+series.
+
+> The overall file and patch structure should remain the same, though.
+> 
+> Once I've sorted out the remaining issues, I'll send the complete
+> patchset as a separate email.
+> 
+> On Tuesday, October 6th, 2026 at 10:35 PM, Laurent Pinchart wrote:
+> > On Tue, Oct 06, 2026 at 05:03:15PM +0000, Ruslan Bay wrote:
+> > > Hi,
+> > >
+> > > I've got IPU4P support working on top of the upstream IPU6 driver [1][2].
+> > > This builds on Antti's work [3].
+> > >
+> > > With help from supermepsipax, thisiscamk, ConsultingFuture4200,
+> > > georgemihaila and others in the linux-surface community [4], together
+> > > with the libcamera developers, both the front- and rear-facing cameras
+> > > can now capture images on the Surface Pro 7 (Ice Lake).
+> > >
+> > > The IR camera also works with the downstream driver but I haven't
+> > > tested it yet, so it is not included in this patchset.
+> > 
+> > This isn't a patchset. See Documentation/process/submitting-patches.rst
+> > for documentation on the patch submission process.
+> > 
+> > > Links:
+> > > [1] https://github.com/ruslanbay/ipu4-drivers
+> > > [2] https://github.com/ruslanbay/linux/commits/ipu4p-upstream
+> > > [3] https://lore.kernel.org/all/20260907113004.2489993-1-sakari.ailus@linux.intel.com/
+> > > [4] https://github.com/linux-surface/linux-surface
+> > >
+> > > On Monday, April 20th, 2026 at 9:48 AM, Antti Laakso wrote:
+> > > > On Wed, Mar 04, 2026 at 11:03:51AM +0000, Ruslan Bay wrote:
+> > > > > Currently there are multiple IPU driver implementations actively
+> > > > > maintained by Intel engineers:
+> > > > >
+> > > > > - mainline IPU6 [1]
+> > > > > - downstream IPU6 [2]
+> > > > > - downstream IPU4/IPU4P [3]
+> > > > > - staging IPU7 [4]
+> > > > > - downstream IPU7 [5]
+> > > > >
+> > > > > As mentioned earlier, IPU4 and IPU6 share a large portion of the
+> > > > > code base, and IPU7 appears architecturally very similar as well.
+> > > > >
+> > > > > The IPU7 TODO mentions working toward a common IPU module [6].
+> > > > > There was also an attempt to move from ipu6_* back to more
+> > > > > generic ipu_* naming [7].
+> > > > >
+> > > > > Is a unified IPU core still planned?
+> > > >
+> > > > We're working on extending ipu6 driver to support ipu7 as well. The
+> > > > exact schedule is not available yet.
+> > > >
+> > > > > If so, is it expected to include IPU4/IPU4P support?
+> > > > >
+> > > > > Links:
+> > > > > [1] https://github.com/torvalds/linux/tree/master/drivers/media/pci/intel/ipu6
+> > > > > [2] https://github.com/intel/ipu6-drivers
+> > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-251103T063840Z/drivers/media/pci/intel
+> > > > > [4] https://github.com/torvalds/linux/tree/master/drivers/staging/media/ipu7
+> > > > > [5] https://github.com/intel/ipu7-drivers
+> > > > > [6] https://github.com/torvalds/linux/blob/master/drivers/staging/media/ipu7/TODO#L17
+> > > > > [7] https://lore.kernel.org/all/20250502154446.88965-6-stanislaw.gruszka@linux.intel.com/
+> > > > >
+> > > > > On Sunday, February 22nd, 2026 at 8:57 PM, Ruslan Bay wrote:
+> > > > >
+> > > > > > We now have a working IPU4P driver for Ice Lake devices [1][2].
+> > > > > >
+> > > > > > The current IPU4P implementation is based on Intel’s downstream IPU4
+> > > > > > driver [3]. ISYS capture works with libcamera and has been tested on
+> > > > > > Surface Pro 7 and Surface Book 3 [4]. The world-facing camera (ov8865)
+> > > > > > works; the user-facing (ov5693) is still being debugged.
+> > > > > >
+> > > > > > IPU4P and IPU6 both contain PSYS implementations downstream, but in
+> > > > > > practice only ISYS is usable with libcamera today.
+> > > > > >
+> > > > > > Earlier in this thread Andreas noted that IPU4 and IPU6 share more than
+> > > > > > 85% of the code base.IPU7 appears architecturally very similar as well.
+> > > > > >
+> > > > > > Before preparing an RFC, I would like clarification on direction:
+> > > > > >
+> > > > > > 1. Is the long-term plan to unify IPU6 and IPU7 under a common driver
+> > > > > >    structure?
+> > > > > > 2. If so, should IPU4/IPU4P be aligned on top of that?
+> > > > > > 3. If not, would it make sense to follow Andreas’ approach [5],
+> > > > > >    implement IPU4P on top of the IPU6 structure, and move it to
+> > > > > >    staging while iterating, as has been done for IPU7?
+> > > > > >
+> > > > > > The primary goal is upstream IPU4P support (large Ice Lake user base),
+> > > > > > but ideally this should align with the Apollo Lake IPU4 work shared
+> > > > > > earlier [5].
+> > > > > >
+> > > > > > What direction would you recommend?
+> > > > > >
+> > > > > > [1] https://github.com/ruslanbay/ipu4-drivers/tree/main/patches/kernel/v6.19
+> > > > > > [2] https://github.com/ruslanbay/linux/commits/ipu4-6.19
+> > > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-251103T063840Z/drivers/media/pci/intel
+> > > > > > [4] https://github.com/linux-surface/linux-surface/discussions/1353?sort=new
+> > > > > > [5] https://github.com/Kleist/ipu4-driver
+> > > > > >
+> > > > > > Thanks,
+> > > > > > Ruslan Bay
+> > > > > >
+> > > > > > On 12/20/23 1:53 PM, Andreas Helbech Kleist wrote:
+> > > > > > > Hi,
+> > > > > > >
+> > > > > > > As mentioned previously in Bingbu's IPU6 patch series, I'm working on
+> > > > > > > porting the driver to IPU4. I've now got a hole through so I think it
+> > > > > > > makes sense sense to share the code.
+> > > > > > >
+> > > > > > > I'm able to capture frames with yavta with the current code, but there
+> > > > > > > are several issues that needs to be fixed for it to be complete.
+> > > > > > >
+> > > > > > > # How it is tested
+> > > > > > > ==================
+> > > > > > > The hardware is a custom x86 PC-like embedded device with the following
+> > > > > > > video pipeline:
+> > > > > > > Endoscope -> FPGA -> tc358748 -> IPU4 (E3950/Apollo Lake)
+> > > > > > >
+> > > > > > > See my colleague Claus' description[2] for more info.
+> > > > > > >
+> > > > > > > There is currently no V4L2 subdevice for the FPGA, so we have a custom
+> > > > > > > ambu-tc358748.c driver which pretends to be an image sensor.
+> > > > > > >
+> > > > > > > $ media-ctl -v \
+> > > > > > >   -V "\
+> > > > > > >     \"tc358748 0-000e\"    :0 [fmt:RGB888_1X24/800x800],\
+> > > > > > >     \"Intel IPU4 CSI2 0\"  :0 [fmt:RGB888_1X24/800x800],\
+> > > > > > >     \"Intel IPU4 CSI2 0\"  :1 [fmt:RGB888_1X24/800x800]\
+> > > > > > >     "\
+> > > > > > >   -l "\
+> > > > > > >     \"tc358748 0-000e\"    :0 -> \"Intel IPU4 CSI2 0\" :0 [1],\
+> > > > > > >     \"Intel IPU4 CSI2 0\"  :1 -> \"Intel IPU4 ISYS Capture 12\" :0 [5]\
+> > > > > > >   "
+> > > > > > >
+> > > > > > > $ yavta --data-prefix -c2 -n2 -I -s 800x800 --file=/tmp/frame-#.bin \
+> > > > > > >         -f XBGR32 /dev/video12
+> > > > > > >
+> > > > > > > This produces frame-*.bin files containing 800x800x4 bytes of valid
+> > > > > > > "BGR0" data.
+> > > > > > >
+> > > > > > > # The code
+> > > > > > > ==========
+> > > > > > > The code is available at the tag
+> > > > > > > https://github.com/Kleist/linux/tree/kleist-v6.6-ipu4-hacks-1
+> > > > > > > (15245fe26e07)
+> > > > > > >
+> > > > > > >
+> > > > > > > Note that I haven't renamed the files to ipu4, to make it clear what
+> > > > > > > the changes are compared to the IPU6 driver.
+> > > > > > >
+> > > > > > > It is based on v6.6 with the IPU6 v2 patches[1] on top, and then my
+> > > > > > > hacks to make the IPU4 work. This is not meant for upstreaming as it
+> > > > > > > is. The commits are a cleaned up version of the chronological order I
+> > > > > > > made the port in. It is not yet in a state where I think an RFC PATCH
+> > > > > > > series makes sense yet, but I wanted to share it anyway.
+> > > > > > >
+> > > > > > > ## Changes compared to IPU6
+> > > > > > > diff --stat of the changes in ../ipu6/ compared to the IPU6 v2 patches:
+> > > > > > >
+> > > > > > >  drivers/media/pci/intel/ipu6/Kconfig               |  12 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/Makefile              |  13 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.c            |   2 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.h            |   6 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.c       |  71 ++-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.h       |   8 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.c         |  45 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.h         |   2 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c        | 171 ++++---
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h        | 237 ++++++----
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c      | 219 +++++----
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h      |  11 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c     |  33 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.h     |   8 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.c     | 212 +++------
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.h     |   4 -
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.c           | 435 +++---------------
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.h           |  18 +-
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-mmu.c            | 130 +++++-
+> > > > > > >  .../pci/intel/ipu6/ipu6-platform-buttress-regs.h   |  98 +---
+> > > > > > >  .../pci/intel/ipu6/ipu6-platform-isys-csi2-reg.h   | 226 ++-------
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-platform-regs.h  | 172 ++-----
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6.c                | 511 ++++++++-------------
+> > > > > > >  drivers/media/pci/intel/ipu6/ipu6.h                |  37 +-
+> > > > > > >  24 files changed, 1032 insertions(+), 1649 deletions(-)
+> > > > > > >
+> > > > > > > Note that most of the deleted lines are removed because they are not
+> > > > > > > used in IPU4. E.g. the watermark handling, which I haven't seen an
+> > > > > > > equivalent for in the old IPU4 driver.
+> > > > > > >
+> > > > > > > ## Ambu-specific tweaks
+> > > > > > > Note that I'm using a hacked ipu-bridge (AMBU_IPU_BRIDGE) to setup the
+> > > > > > > fwnode graph for our hardware. You don't want if you're testing this,
+> > > > > > > so revert at least the "ambu: Add AMBU_IPU_BRIDGE" commit.
+> > > > > > >
+> > > > > > > I'm not sure the right approach for handling this would be going
+> > > > > > > forward. Of course the ambu-ipu-bridge shouldn't be upstreamed, so I'm
+> > > > > > > wondering how we can achieve something similar? The ACPI tables from
+> > > > > > > our BIOS unfortunately don't contain any info about the Toshiba Bridge
+> > > > > > > (tc358748), so we can't derive the information from there. Maybe some
+> > > > > > > kind of platform driver could be created which tweaks the ACPI info
+> > > > > > > before the ipu-bridge driver reads it?
+> > > > > > >
+> > > > > > > What do you typically do when you have some proprietary hardware that
+> > > > > > > does not provide proper ACPI information? We could carry the ambu-ipu-
+> > > > > > > bridge patches in our internal kernel tree, but that is not desirable
+> > > > > > > in the long term.
+> > > > > > >
+> > > > > > > # Inspiration for the IPU4 port
+> > > > > > > ===============================
+> > > > > > > We are currently using a Intel LTS 4.19.217 based kernel[3], which
+> > > > > > > contains the old IPU4 driver. The port was basically made by comparing
+> > > > > > > mmiotrace's between the old IPU4 driver and the new driver.
+> > > > > > >
+> > > > > > > We're using the IPU4 FW ipu4_cpd_b0.bin extracted from a ClearLinux
+> > > > > > > package[4].
+> > > > > > >
+> > > > > > > # Known issues
+> > > > > > > ==============
+> > > > > > > ## Doesn't yet work with gstreamer for unknown reasons
+> > > > > > > I get "Unexpected buffer address:" errors from
+> > > > > > > ipu6_isys_queue_buf_ready, and don't get an image through.
+> > > > > > >
+> > > > > > > ## 64 byte chunks of wrong data
+> > > > > > > We occasionally get 64 byte aligned 64 byte wrong data (all 0xCC) in
+> > > > > > > the captured frame*.bin files. This could be a cache invalidation
+> > > > > > > issue, we haven't looked into this yet. The code currently doesn't use
+> > > > > > > zlw_invalidate, even though it was ported from the old driver. We
+> > > > > > > haven't yet tested if enabling this fixes the issue.
+> > > > > > >
+> > > > > > > # Upstreaming
+> > > > > > > =============
+> > > > > > > We would like to upstream this driver, probably after the IPU6 driver
+> > > > > > > has been merged. We're definitely not ready yet (either), but I already
+> > > > > > > have a couple of questions, that it would be nice to get some input on
+> > > > > > > from the community.
+> > > > > > >
+> > > > > > > ## How to share code between IPU4 and IPU6
+> > > > > > > Big parts of the code (approximately 6k out of 7k lines) does not need
+> > > > > > > to be changed compared to the IPU6 driver, so there is clearly a big
+> > > > > > > overlap in what the two drivers need to do. I'm not sure how the best
+> > > > > > > approach would be for sharing this functionality. I see a few options:
+> > > > > > > 1. Shared driver that supports both IPU's (still split in PCI driver
+> > > > > > > and -isys driver)
+> > > > > > > 2. Shared PCI driver that supports both IPU's, but device-specific
+> > > > > > > intel-ipu4-isys/intel-ipu6-isys drivers
+> > > > > > > 3. Separate drivers that use a shared "library module" (for lack of a
+> > > > > > > better term)
+> > > > > > >
+> > > > > > > My gut feeling is that 2. is the right choice, especially if we moved
+> > > > > > > the shared code in to the PCI driver and the more version-specific code
+> > > > > > > was moved into the specific drivers.
+> > > > > > >
+> > > > > > > The answer to this could also be input to Bingbu's IPU6 series, maybe
+> > > > > > > it would make sense to place some files differently if they eventually
+> > > > > > > will be used in both IPU4 and IPU6 drivers?
+> > > > > > >
+> > > > > > > ## How to implement our platform specific fwnode graph?
+> > > > > > > As mentioned above, we currently have a hacked ambu-ipu-bridge driver,
+> > > > > > > which is clearly not upstreamable. What would you typically do if you
+> > > > > > > need to make a v4l setup where the ACPI table information about
+> > > > > > > sensors/bridges is missing?
+> > > > > > >
+> > > > > > > /Andreas
+> > > > > > >
+> > > > > > > [1] https://lore.kernel.org/all/20231024112924.3934228-1-bingbu.cao@intel.com/
+> > > > > > > [2] https://lore.kernel.org/all/471df7ffdf34b73d186c429a366cfee62963015f.camel@gmail.com/
+> > > > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v4.19.217-base-211118T072627Z
+> > > > > > > [4] https://download.clearlinux.org/releases/32370/clear/source/SRPMS/linux-firmware-ipu-19ww39-104.src.rpm
 
 -- 
 Regards,
