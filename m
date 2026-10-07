@@ -1,193 +1,154 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7B48383C;
-	Wed,  7 Oct 2026 10:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CC6490BF4;
+	Wed,  7 Oct 2026 10:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369006; cv=none; b=ehcxOEiEmBsUvEJqWZbvXpBaqZGj4Ls3dY3OeTS6JnM/jDpTE29/ZxXthGnLA3UER9RbmajxjlYii0tyAD6YqHl9ZFZXujbn0zChy27nVmZ2/KubtEtJrphW5ImGjCaMPQP3RjjY4UQQHFYINokuYRv/5AfETRlAe5dtMkW/S8A=
+	t=1791369113; cv=none; b=gezTLuCoQ5m2HoEz/TUr/PUOUKeXGTqhVE6p4sgyJaAlEaxcG5Cwx3JYvKkq37udKMFEP/6/40MHvppm8zDrIvnFmGvWKitbF8JFnU76gD1i9fab/VRW+rUbHKd9ayLORACHxuf9kgFJuRYU/g3KX0rJxy4Fht8Z88CB0RnjKCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369006; c=relaxed/simple;
-	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=egiSuN4I9tXmsMckhLR064BOw402h0QO/5IoYkAQxLOAfsLhzM0hF/as4A9OC32SHhurrLE5C1ggTJsnTPD4Bs0hu8ntAEzswF0D1Wl+3Z+4T+0LocK/gBjHuT1+l+W/0yB8U9vGk0GdhbIAF1UEyHtphPE/nkwXEj181jKwv6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=t04kAcBz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791369113; c=relaxed/simple;
+	bh=AYO8vsLQPJV7QoSJNE3tOAuuVA/+Hjb8NzT78nGjpm4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HQb97Nfl4iAXN4undzl3LDvsf2OVPi9BbIs81yYWLg3kwV9ISEW+WN4h0G+ie2cxmbCsW5qeK8ZQWenTYLbfhWQCXOPxpfxoj4/FchuNuZrMK229jDL6Mi4FLfr326NXvlKv1nx0ltz12pD9FepLXdiAQH+6Aa2381Tw0wQbuyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vIOzJHI3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="t04kAcBz"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5CAE1494;
-	Wed,  7 Oct 2026 12:27:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791368875;
-	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t04kAcBzACKzy1qQVQE84iYj/deeMsQjAAszWheD38x/xRSICsri6ov3jcCqx93w/
-	 tOBgzX0870WeUj+OXh/pi7Gn+7Oxp2AYBzaA0O6yeAtlaXgasAtdHAkVNiwwCmJ/tl
-	 tMr6QWl36hrHxykQdDlXtfc+xamMqeU3ZL4qEPtk=
-Message-ID: <d458c817-85d8-435d-9da5-2aee7b09fc34@ideasonboard.com>
-Date: Wed, 7 Oct 2026 11:29:48 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vIOzJHI3"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6AABDC4AF64;
+	Wed,  7 Oct 2026 10:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791369113;
+	bh=AYO8vsLQPJV7QoSJNE3tOAuuVA/+Hjb8NzT78nGjpm4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=vIOzJHI3mrfPN49a0rXVq/mOQ+85KUZm44ijrRACeT5cR0WBVCw7+0VCzuWmuEn8x
+	 Oph41ogOeW3NvlWks+halmOoZDor9WkjlYY33HVfZaZz0wZAOYJ3xtmMhBmjm6I6ST
+	 6FNsF8dLN/EpUEQiWo0G9UgklMNndqCvxEHDGxBqKAzCv1sfS8Rsr2I5jtTdHKElGe
+	 fx00ypbYKLISl/PjhmXoOwgXGIkC1QVThjzk1kDr+wkgIll0Onm5Zrhx878MRjIJ6P
+	 YfcPn/jXcUA4XVhHqUusqqdZ92dd2oynftpOTEBqPhPteOysOETwF6UrK8oZKroIaX
+	 XDAWyIYGfVlWg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F9C1CA600A;
+	Wed,  7 Oct 2026 10:31:53 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 07 Oct 2026 18:31:53 +0800
+Subject: [PATCH v2 2/2] media: i2c: it6625: allow 250 ms for host control
+ requests to complete
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: mali-c55: Fix frame sequence numbers on
- dual-pipe hardware
-To: David Carlier <devnexen@gmail.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nayden Kanchev <nayden.kanchev@arm.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260930174621.791831-1-devnexen@gmail.com>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260930174621.791831-1-devnexen@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-upstream-it6625-reset-delay-v2-2-c5d6b2522bbe@ite.com.tw>
+References: <20261007-upstream-it6625-reset-delay-v2-0-c5d6b2522bbe@ite.com.tw>
+In-Reply-To: <20261007-upstream-it6625-reset-delay-v2-0-c5d6b2522bbe@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791369112; l=3513;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=6uZOr3QVwYGOfofYdEgdRcxELwJIKpUkYV2QbBd6d48=;
+ b=bqKrhecQLEwwIE6XQiugP6/gPcnbzw9SsE73/P2ecneCcgotJEhTtBBdD9BKkeQQxYbz/Evic
+ a6HwHrCHEksABpg9+LWPRYNtdR+DV6qrLeHbKW36+Cla0hCseP/Gw+l
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Hi David
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-On 30/09/2026 18:46, David Carlier wrote:
-> The single frame_sequence counter in struct mali_c55_isp is incremented
-> in mali_c55_set_plane_done(), which runs once per completed buffer per
-> capture device rather than once per frame. Hardware fitted with the
-> downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
-> start the ISP unless both the full-resolution and the downscale queues
-> are streaming, so the counter advances twice per frame.
-> 
-> Each video node then reports sequence numbers 0, 2, 4, ..., which
-> userspace reads as a dropped frame between every pair of frames, and the
-> two pipes never number the same frame alike, contrary to
-> Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
-> event and the statistics and parameters buffers only read the counter,
-> so their sequence numbers stop identifying a frame too.
-> 
-> Increment the counter once per frame, when the ISP start interrupt is
-> handled, and stamp each capture buffer when mali_c55_set_next_buffer()
-> programs it, as it is written out during the following frame. Stamping
-> at completion would be off by one whenever DONE(n) and START(n+1) are
-> handled in the same interrupt, since ISP_START is processed first. Hold
-> the counter at UINT_MAX while the ISP is stopped, as the first buffers
-> are programmed before it starts, so the first frame gets sequence zero.
-> 
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
+Host requests to the on-chip MCU (commands, config updates, info-block
+bank switches, CEC transmits) are acknowledged by the MCU clearing
+REG_HOST_CTRL_INT. While the MCU is busy handling the HDMI input, this
+can take up to 150 ms, but the driver only polls for 25 ms. The request
+then times out even though the MCU completes it shortly after, and the
+caller fails or continues with stale state.
 
-I think this approach is fine. In v1 Jacopo said that he'd rather handle it with per-output counters 
-though; @Jacopo, do you mean there that you'd rather an independent sequence counter for the FR and 
-DS outputs?
+Raise the timeout for all host control requests to 250 ms, which
+covers the worst case with some margin, using a single named constant
+instead of the open-coded value.
 
-Thanks
-Dan
+Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+ drivers/media/i2c/it6625.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-> v2:
->   - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
->     at completion, which broke when START(n+1) and DONE(n) are handled
->     together (Jacopo)
->   - Reset the counter when the ISP stops instead of when it starts
-> 
-> v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
-> ---
->   drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
->   drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
->   drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
->   drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
->   4 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> index ff01553026fb..fa073ce4b2bd 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> @@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
->   		return;
->   	}
->   
-> +	/* The buffer is written out during the frame following this one. */
-> +	buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
-> +
->   	pix_mp = &cap_dev->format.format;
->   
->   	mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
-> @@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
->   void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
->   			     enum mali_c55_planes plane)
->   {
-> -	struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
->   	struct mali_c55_buffer *buf;
->   
->   	scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
-> @@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
->   
->   	/* If the other plane is also done... */
->   	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
-> -	buf->vb.sequence = isp->frame_sequence++;
->   	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
->   }
->   
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> index 13a3e9dc4243..50f2b7a85f62 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> @@ -76,6 +76,10 @@ struct mali_c55_isp {
->   	struct media_pad *remote_src;
->   	/* Mutex to guard vb2 start/stop streaming */
->   	struct mutex capture_lock;
-> +	/*
-> +	 * Sequence of the frame being processed, incremented at SOF. Held at
-> +	 * UINT_MAX while stopped so the first frame gets sequence 0.
-> +	 */
->   	unsigned int frame_sequence;
->   };
->   
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> index fb81141d1653..be562156b295 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
->   	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
->   		switch (i) {
->   		case MALI_C55_IRQ_ISP_START:
-> +			mali_c55->isp.frame_sequence++;
->   			mali_c55_isp_queue_event_sof(mali_c55);
->   
->   			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> index e128adf6ee37..dd3bce287a3d 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> @@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
->   
->   	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
->   
-> -	isp->frame_sequence = 0;
->   	ret = mali_c55_isp_start(mali_c55, state);
->   	if (ret) {
->   		dev_err(mali_c55->dev, "Failed to start ISP\n");
-> @@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct v4l2_subdev *sd,
->   	isp->remote_src = NULL;
->   
->   	mali_c55_isp_stop(mali_c55);
-> +	isp->frame_sequence = UINT_MAX;
->   
->   	return 0;
->   }
-> @@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
->   	int ret;
->   
->   	isp->mali_c55 = mali_c55;
-> +	isp->frame_sequence = UINT_MAX;
->   
->   	v4l2_subdev_init(sd, &mali_c55_isp_ops);
->   	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
-> 
-> base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index fc8b22cc1c9ba3612f9c55bea1de61fa9a9c0e84..58d58d40035547e85a7f868777b57276a90a9d93 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -212,6 +212,11 @@ MODULE_PARM_DESC(debug, "debug level (0-3)");
+ #define B_CEC_SEND_DATA BIT(5)
+ #define B_CONFIG_UPDATE BIT(6)
+ #define B_IF_BANK BIT(7)
++/*
++ * The MCU can take up to 150 ms to clear REG_HOST_CTRL_INT while it is
++ * busy handling the HDMI input; allow 250 ms to leave some margin.
++ */
++#define IT6625_HOST_CTRL_TIMEOUT_MS 250
+ 
+ #define REG_MCU_INTERRUPT 0xFF
+ #define B_SYS_INT_ACTIVE BIT(0)
+@@ -530,7 +535,8 @@ static void it6625_write_command(struct it6625 *it6625, u8 *cmds, int cmd_len)
+ {
+ 	it6625_write_bytes(it6625, REG_CMD_SET, cmds, cmd_len);
+ 	it6625_write_byte(it6625, REG_HOST_CTRL_INT, B_CMD_SET);
+-	it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
++	it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00,
++			       IT6625_HOST_CTRL_TIMEOUT_MS);
+ }
+ 
+ static int it6625_update_config(struct it6625 *it6625)
+@@ -542,7 +548,8 @@ static int it6625_update_config(struct it6625 *it6625)
+ 	if (err < 0)
+ 		return err;
+ 
+-	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
++	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00,
++				      IT6625_HOST_CTRL_TIMEOUT_MS);
+ }
+ 
+ static int it6625_set_bank(struct it6625 *it6625, u8 bank)
+@@ -557,7 +564,8 @@ static int it6625_set_bank(struct it6625 *it6625, u8 bank)
+ 	if (err < 0)
+ 		return err;
+ 
+-	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
++	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00,
++				      IT6625_HOST_CTRL_TIMEOUT_MS);
+ }
+ 
+ static inline bool is_hdmi(struct it6625 *it6625)
+@@ -1027,7 +1035,8 @@ static int it6625_initial_setup(struct it6625 *it6625)
+ 	if (err)
+ 		return err;
+ 
+-	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
++	return it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00,
++				      IT6625_HOST_CTRL_TIMEOUT_MS);
+ }
+ 
+ static int it6625_cec_adap_enable(struct cec_adapter *adap, bool enable)
+@@ -1084,7 +1093,8 @@ static int it6625_cec_adap_transmit(struct cec_adapter *adap, u8 attempts,
+ 	it6625_write_bytes(it6625, REG_CEC_TX_DATA, msg->msg, msg->len);
+ 	it6625_write_byte(it6625, REG_CEC_TX_DATA_LEN, msg->len);
+ 	it6625_set_bits(it6625, REG_HOST_CTRL_INT, B_CEC_SEND_DATA, B_CEC_SEND_DATA);
+-	it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00, 25);
++	it6625_wait_for_status(it6625, REG_HOST_CTRL_INT, 0x00,
++			       IT6625_HOST_CTRL_TIMEOUT_MS);
+ 
+ 	return 0;
+ }
+
+-- 
+2.34.1
+
 
