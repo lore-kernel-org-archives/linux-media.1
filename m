@@ -1,259 +1,185 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F8242885F;
-	Wed,  7 Oct 2026 07:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359519; cv=fail; b=endm2b2ShHVBVG3HxNBCxzUkNs2yOk8BJ0dJ2p4Wgr/YSLx/WNvaHaS01d/F03j0VdE6wfS8X6yPoH7KLYqgvm+3X36b4Z4urp1bHCNFhtT0cLzUvjzhs807V1O0n2oEbdLnKTSo2855MaIhKs0uX8HE7AlxpMtvbL0iKBzg5Hg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359519; c=relaxed/simple;
-	bh=nDrNAKU6ymG/geHSPyF7Gpp5Osnkv6Ksw+38BHbBCTE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=k/6uyewtSXisEZlFK6FxUuHJkfcsLr2jMMmxrSRdJfPMxJ5XdKNX4hFKITEjHdopSobdBqFfhZvoIjYsnmkQU2QstzIp9qTKhE0Zn/UKAbELbdRVZySCA3rHbRwdYEPlr2fnOAxJ/iPbHPVy042mqnvAcjlh/LsoMzAG38DWyuI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AMpBXvQe; arc=fail smtp.client-ip=52.101.52.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1A9446BEF
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 07:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791359771; cv=none; b=GJHxojGroua3av7744eIkV/3ioevGYLk9tODE4isKUtQTISrVWd8LR5NhG/MA3ybAke+o6ryWg7laXAjRKDYbk789IrO/OflbYYC32TURj7HpIONwSOI8YcYNoNvo8sjv3b3s0JanDR2/HQZwPsL5QTgP74nDfVBaxP/VbaUU7Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791359771; c=relaxed/simple;
+	bh=IuXpEauogL/St8XNKk0KwsM5bjJdVpTHycJAZSQn2z0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PL0ZHTmBJIdR+BJfPpD3eCxY2XcMq1m0SpHp6g7Nml+DvV4sN0ryU1tGJs2t/96YVmjp7L/hkiF0hVAXPoLy6kzWi88ZeJP7XCMFhuhaHFIEmulug2VWY0tGboZDvA1m4jAa1rasjvK2N6TQxnWqv+k1e8fjnnsyovxbc7G0QeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bcHs2lAb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QDAVtATv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AMpBXvQe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hamxG5C27bqNq1Oc+g3dKM2IwOXl2UdyNyV6dHzbrY73NnXEzrtD1jShaMxoIS9O8Wo2aIpR4+Ydm3frvDGGd2l+9170xGWdRKPnzFvdt6DhQ7zlWyIFQ1OLGbYUa8CNhtvqVqMFrbhlcSFe5l9phdwzK4IdslL7NHxZVpBE69lXg9hobGWBGQ+TMXAKBjsewjsp1xGzO+H/+v9pmKbSID9ak/tDbYbXAKAzZDnI853vbzeby/DTrIp7iiBP0wbMPIq3vxMZQT4txnTyU6bGNW27AMLgJusZfgC9oml82sdEgcvlj1C1iU5eG/BCBJ0+HMQbV7M3aynX7HQMTgQwOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L1A661XO1EYBVODGzATc1wIGh+JfQVrb9K6+0UNnyxo=;
- b=GzpHatWPqvG21h105wkEnWzuLBdWm2phrXqpFUka+liRXOgLJ3/IV3TGMNlidt7b/ocAcLgd2IpJ8v440dyV5Hw/Ru+AegyeR7i5a+CPH7vEaydqVJXaiiAVx/9Wo8hFSdE7uDdaa5utqSQTt3+3RwkKnne19w3qAZhlCtFLOzY28ruk1n22MB2U+NmODud2JPssCejZ+LxmrnU9l8auok+ZG01h5oCF5gug2/YdawSd1fCMLq0jM4CUOTPWLfA6uHMOOI+L2rvgC7T+/dBoJiS6bhP9Nh2sf/hm7lrglQLt+UduB4HOWZKn9siVp571Y2eWI/KANjM8ZIrloBWliA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L1A661XO1EYBVODGzATc1wIGh+JfQVrb9K6+0UNnyxo=;
- b=AMpBXvQe26IkfkpNMKcx6eiqu4/vBkmtxnDVYmlhiHV2UM3WT9l4NoZWALeeh5DhC3hn4nevKKflQ2SAlMJI16PiUb2B+OausqnnFMN4SHEPGo8lUxZ5yt6hmr5HfmQXxR3q/l2m4MsHVbxeQRWKO6b31FvvDuuYDGmGO+7S3AI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 07:51:45 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 07:51:45 +0000
-Message-ID: <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
-Date: Wed, 7 Oct 2026 09:51:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Hellstrom <thellstrom@vmware.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0276.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bcHs2lAb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QDAVtATv"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jdOI3194033
+	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 07:55:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EZ326SmaFiOj+nfD4XJq9xzpEa0pXi8pa+upEE/mPc4=; b=bcHs2lAbc25P41fR
+	eltkj+WGOA0fRD+7F7DbOrI1z4AymXUrkNLC2mIGn5Rh3iwxXHcnaVxmot08vUg7
+	gc2q+RSffPMvJeJstrDGTM7yc+r8tBVgvDDqH88ZpawD29SphH859Nkii2XhJu+x
+	HWKP7DQxj/9mWQH63LTsAs0ZgkbIWoKjA9ZMTR9qRwU2zoPnRN8S4KxQlseTVm5U
+	3478jpm1b/bL9ODHmsvP8dy/bI3PHzRmQNr+80eBM8+atJiGgSmZLGZzu+AbxO6r
+	vR1YMUlVU0XWfG4ewbGHNU0mL42pk5VaSsrd9CLRaUfHT2HU9/eYGV9r3vBUlWKv
+	BhXMEQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h541uk9t5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 07:55:46 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e46b4b700so628051585a.1
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 00:55:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791359746; x=1791964546; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EZ326SmaFiOj+nfD4XJq9xzpEa0pXi8pa+upEE/mPc4=;
+        b=QDAVtATvsgJIXsla+CTzXR0oh/OcydgVNaq80yacMlwMC+rdQuOj/ONvSynubrST/F
+         bHFAsqkFQvD+DLDVg3yNmBhM/hI1WItXD86vdSbAB/BDDhgSfS/OQwQOP86MO9yUlSA6
+         tjJSExly81SyISoLPg3+zkextxjCYic2iH7UOIhhAY8mTaDAJTL57vhQ0AVKdhpnmSOi
+         SUPiveFfU0TgTJo7zvYVzzYMWiZ1q+9U9ZU/MgxNLB0vs8pEegT9JV63AZTXjE0c0GWr
+         wsv3VvGtpiqq5Oi0b315ZSgG/vls5nwWKO7Nf4wY13dGf4OvLVrPfX50E+6s9JNDpImI
+         EnrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791359746; x=1791964546;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EZ326SmaFiOj+nfD4XJq9xzpEa0pXi8pa+upEE/mPc4=;
+        b=xHh083aoGV752kLKOWJlwfHuo1w8bEaJ6PZOp5aqUNQHoC1nRZytcr5HlVSwCiOgCa
+         9/xVmbHnUYHmupiqFtYvgAqQ96a3s5J58r21CihB296RdhyJfsVBQgkpzXFc8OP8miji
+         4B/VJCTeky1zp8ZYZhvaL4ah9JtqEMEnYEHPaikI55oeERTjCTzwLJEEg8NPmCsb46l4
+         6Ss1y/OjReHE71Npmxzngg79qp+Jq1Bnr7ytTL4OVefLEGXBjxe5M+UNTEL7uFyBcRW6
+         LI1KoBrL+/NfLASmnHdSk0Xfk7bTjP9jhmS+S7TnHT8+TcMUHJvNfPf9eDrOod260WiM
+         o6oQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxs+/VuonqHgSEIdUZoVmcE4lm/n8aYQuF8GARqjO7mx+EhSyfHsj1k765rNYqysusx76a3dRRp3DrnuQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++lyUz9nm12jXR98h+3T5OtRZjRStEWws0DJUibvWq0798HzZcWc
+	qABFVdN2ka8rJ97Pjk6IW7UZ9rqq/L3LqbxJ36K8+1QS9yfTRLv5CW5evD8AQr9gcu5yMznskE9
+	Gd0q7JrSsYBflXYjdbqmTriBsr9z0ysXLyOmW7Y0sUv7HtAmGAG1k0Mu/f4WaX1D8Vw==
+X-Gm-Gg: AYBFou22M46J1rhtuBfXZ3+2cGpsQx1xOTCsOLsRjzNdyeA/yJhWv2hHlAhYTXYCfyR
+	+/x1dJb//Umd3uHKKO23oGs5Pb5aGRbHk3kW43/MZze8XOOT6tMLbn5zkO+aeps7aW4g303rZPC
+	tuFzu54sOKm0MRHdL1cDi+4IkeMAsyeYyuYl3RB/RTLUb29382pNUy0Bu8RPaE5CLLvJowKqPJZ
+	UT8jJhhoSQdiK3KTHsmPhjxVDW7Dr0ZChZan6eYQqqjBhwzkc9QtdA5V3NepBWDe8MTzg2gyJ/H
+	n9FDUYWBCy6edHzYZOIm7x3YuEcrbvDDU/Ey9pWhkkZoh0J5IDUgvOIXUI5GVDBaH/h1wi7GSSV
+	cb1nr4Q5Ds7TpfSxyDe7tsUwbVsK5gI7ctHEZY/j+
+X-Received: by 2002:a05:620a:170d:b0:93e:96e0:25a5 with SMTP id af79cd13be357-93e9b7bcb58mr298387485a.41.1791359746128;
+        Wed, 07 Oct 2026 00:55:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:170d:b0:93e:96e0:25a5 with SMTP id af79cd13be357-93e9b7bcb58mr298381885a.41.1791359745579;
+        Wed, 07 Oct 2026 00:55:45 -0700 (PDT)
+Received: from [192.168.25.64] ([94.155.124.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c50f54sm123186815e9.10.2026.10.07.00.55.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 00:55:44 -0700 (PDT)
+Message-ID: <03a9480c-97f3-4ac4-9e65-2636cb51b8b1@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 10:55:42 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB9514:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77516e90-6988-461a-71d0-08df2447d533
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	7FEaNN46rP6CFN4SFEt30HRT3QLc1x3QOcSuHayuDeJgPy/CkfmcxhFlDGXuvnLlcnRPE75m8Mf+pTFinTBSkinEXVySzok/xCCeZNsmz8k04IccFmxER6q2MhXnrVjUFTQsaG0RrRGu5Qc78W1Pt+aXop47DO9pcdjgeewzvm5f+js1Lyo9ZQoNX+35lMYJwH8CWynJw+stx0vK7CsFnnvCpNx0jBXrIa9zajx4zwMPgD74VrTeWEppizVPgnA3XmYQS1r1wUltAnWU4FnZAP1qzIXNVK30gOCRcY8aqB5RnRlo+888sDARp0MeWkiJ04H0z3ix3EzMpk52m4G7DEWeROkw/ZnBllJwYN/RSTZYSQdWn77tHlOp+Nn2hvE6WSTnWVmyiROnRbqWziLUjgZe4kXMom9o3sxmNKWVJC93140Fy5cJ1PY35m9A8r5FFMnYkdO7UxkVLW7Y9zaK7g+0608FO1xUITKLDlIHqIQeJcdqMXGMDwS/UEgSKErHn/O0jJVO/lZB+FKlIezRN35DiBrsQbVhWwziXDb1Ah6sH5DZJmZCrxZcw94qF8z89aLdpLd0Buqumo3KUSM/WrN/8e38tuRIjtZ7HjmNfEFSO9tNrjTmOFdEyxmbvdIfRT3LIoEGnhl5pxajoZph/UiYeFHlB6ZR5pDsFBYXYEs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z1JXaVFUb1RBL3Q0N3VIdnZDKzBxNW0vZDgwYytKbXpBY2NVc01HVE9lRVBr?=
- =?utf-8?B?eUx6cTVueXNjb3pyNStTSnFCUHdPYmJDM09CWjlDTnZYZCtWRk53NXFBUGc0?=
- =?utf-8?B?Tk9XZGt5TW9XRXIxSjh6WEVUOUxFTzkxZVl2Q3dJMXBOQWN1MFY3bk4yZWhn?=
- =?utf-8?B?NWpkdWhyV1QxMlJBRHVBN21FdEsxWEJQOEgyUzFRdXdSQW1PTUVheHJRWmZy?=
- =?utf-8?B?MGQ0b0lXM00zQVFBNEdQRjdjQVlqMWhEZFZ6ai95V2hoVllrcXNTNnFxN2hU?=
- =?utf-8?B?WTIweGJpRnJRUEVoY0tPbXRsU1c3NHFLajlHWFRsbUJVeFAvdUo0dng5M3Yz?=
- =?utf-8?B?SGdrQzB5SXJhTnZmSS9ydytETTFJMkNUZyt5c3NjMnFuY2M0UjlXWmNNMVBr?=
- =?utf-8?B?R1dXZ2pXQzFZRmFlVkxYZDBSZTJtcGpmclRVaWpIN1NrdW5sY05zM2l3aElh?=
- =?utf-8?B?L0RnRXFsWmNCdmFCT3U5UFp0RnFnbCt6Zm1vU0pnKzd4K0VvSVpWbnRYNVdN?=
- =?utf-8?B?ZVQ3NlgzK2VwTy9WS0FMeDExY1o1cjhZSHluK3Q5TmlXMVBzSjVueUdTSmRq?=
- =?utf-8?B?MzJ2QWJOd21mZnlLL3dXMDM5bFdlbVVzd1FJL3hTMEFEYU9QbWVxMFJ0SUs4?=
- =?utf-8?B?VWVMQ2FBVlFpdFdFVjBYOTlHM3lWUmp5RHJpRlVaYlRTRXY5WHFkaVdNb0Uw?=
- =?utf-8?B?VTYzY2t5T0lXSk9EZW5nWWFXNlhxL2N2eTE0aHI4VjE2c2hYcCt5UXVSeW1k?=
- =?utf-8?B?S1lmL1lPbXczY3d2SlhnZFkydDJ6L2ZDcFRmMldOWFBIT084OExyRS9LcWNF?=
- =?utf-8?B?NjZrNFIvZEhOT2FHS28zMjVNNHRvUUVhaThNSnlWczZ6RFlpeWJZWVlLSWo4?=
- =?utf-8?B?SndvYkt0U0REWGFDQUNUbUZKYmw3SWI2SFY2TUwvaHNhUkpSSkw2MjBRMmEr?=
- =?utf-8?B?OERzVFZkWTM3bGpOTlU5UlBoVmhLL01tdG5CVEhyQmU5MDR6NnhBWWh2ZWpj?=
- =?utf-8?B?YUlyQUdvZTM5SWVsM0hPZm0xandUVUR3aFNWTTNTY0tNRzVqL3JhZnVGYTBw?=
- =?utf-8?B?YjhkbXR0aG0rc1lZSmtrUEtDQS9jd0NSR2dsbHIxWWUvN3U4TGhnemsyaC9h?=
- =?utf-8?B?cTRVeUxEdW5ZaGkvVXVFeVpEbVREZWZHR0N2ZGNqSm9XRDFNcEh1MXlONjlL?=
- =?utf-8?B?SW1PcUJTYzRONVFld3ZZUVdvRUZld2pDYWhRQXROTVZIQVhTMHoyNEN2a2xO?=
- =?utf-8?B?MTgyNVpCYlpPS1p4SnUwUlZKUDdsQTM0YlFjUGlJMXJUWG42b1BPTkVKcGtv?=
- =?utf-8?B?VWZLRXgvVTNrRHFkbDJhVWxkdGdTZVFrRHh4eCszMGpYM01OdmszdUJra0xZ?=
- =?utf-8?B?WGsxbXg0QkNrV2lQNTJaKyt0QWpuNVNMeUZHd0JZQi9neGxRSHA2M1F1Y1Rz?=
- =?utf-8?B?aDBja296VkRjZ1VnQzk4VXNJNGZNRGpzbjRKTHRSdTlBM1RGSkJmZjRveHkv?=
- =?utf-8?B?OU1jUVVvS2FjU1VlWXFLZWZFL01zZ3N5YUs1RVhadnpPeC9qUUF0Q3JPZVMv?=
- =?utf-8?B?dkJscUdDZHFlcmZ1NS9IOXlJYjRCNlhOTVF6TC9tYVFMdnRVKy8vVWQ0Qkoz?=
- =?utf-8?B?OUVKeGtFWHhzakdqNjBTaUpkSVZWUHNjWW1aVjNyU21HaXgyUU5BRk15Qks5?=
- =?utf-8?B?L0UxeG5ZSlBVY0ZXaGxnckJLZGR0T1hFWTlRSG5ERExzSUxXaFBIZERjWnND?=
- =?utf-8?B?NkF6K1Nra01NeFdoRXBMRVJWU2c1dk51T3lPekhmRTJBRUVsc2htTkJtOTVo?=
- =?utf-8?B?Smh3cFVXNHpVSnBRUXpyVTFzWEN5SkV3djlheEN5UzBvc3pGalVUNit2cTNN?=
- =?utf-8?B?NXhkNWxMK1J1bGNubGtEM0ZxRGgrWndpekJQUUF5NjF1eUJMSjBxK2lLVlV5?=
- =?utf-8?B?bmthZ0xJVk53b1lCdEZJMnBjeG94VVc1VzA3dHVGRHlDOXk1RzZFaFVXTjla?=
- =?utf-8?B?emdvR0d1cSs1cm5OWE5NMFZ5VGpNT0IrRFdFcWVITDBzeVhSSGVCQ2o1d0Fo?=
- =?utf-8?B?bHR3RVZVVFJDRzNPcmtzT096VXkyMGl6YU1Ld1NuWmVlZlM1QjNmTHJaRzB2?=
- =?utf-8?B?ai9GTFN4U2E3dklJWHQ3UEUvR0lVUkRZblVXc2RiNkNFRitWZ1QxSnlaTWlY?=
- =?utf-8?B?anB3OVdFS3B3Vko0bHYyL1YxOHkyVk9ZQkxRaE8zaUFoaXNFcU9EYndsbXBr?=
- =?utf-8?B?NWJUUnJYanpyMjZzZ0c1TzlqUWVHUDNGeC9mWlp6QTZaRlF4K2lpK1BtT2I3?=
- =?utf-8?Q?T/j9T8qz1TgBuEWbSj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77516e90-6988-461a-71d0-08df2447d533
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:51:45.0632
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HFA8Azy6VEx8eQNP4cBAiAniuMoaWXmeP7Z17twlnQE2LmYzwQeee676SkIPQ32M
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/45] dt-bindings: media: qcom,sm8250-camss: add pixel
+ path variant
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
+References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261006223953.3382273-5-gjorgji.rosikopulos@oss.qualcomm.com>
+ <cfa0190a-bfcd-4b09-a5a5-ed4980b16db5@kernel.org>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <cfa0190a-bfcd-4b09-a5a5-ed4980b16db5@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: tN7Fbg5h-xZhBUtUvZfX-dgHLy_ehcN4
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzMSBTYWx0ZWRfX9tc9kyjHsNTF
+ jVd+l2zEYi1Rh3UhqnT4IkH8duPhx9s6Fsh/kbAYc0q/6f3am0jWSm8D88uceyEo1JW44IM2eND
+ 5xAOPMSWX6pSBlc9++KQivqKVw95Fqg=
+X-Authority-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6ac5fb02 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=DO7WzgAb8V_MQCx-KrYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzMSBTYWx0ZWRfXzmgESw/6GSAt
+ sbZf4Vnzybjv66NEDMHoAoyrj/ese3vwtla9ysOia7QjqoPKSy0gj14/hAYhjWS5v5TWjReeBKd
+ HRoVsyZpXBUUiOuZ79teoMYlm0bitHXp68F8N1LlnxNu4MFsH4EffYJQ6VClToWC+LlhQDYUChc
+ UgXiEvOHd+Hadx16cqsmo0wQfmbalQSXimje/WkGN1avxjMqtrpHucHEb4GVWaGy6BcGhpyP3m7
+ NZSxHOLKIv0aTH1w8qhNYf/S26BDkpjOgYvKQDEd8cfb+D4ykjfxfv41eTFHwl6kWwIQ/OpDH6/
+ 2ZI5uwrQDevUszKIY0PE/WmJb4tYi18Y6SQeGbxG+1mMYJzGPN6zZsRfnHTxuA5E7LxXGB6gfL2
+ +y4LvrTifKjzoetQXBoQSAWLoCl3cLWzlAwPDaBsuwyp03XHIfe1HpzpKKSuNms0hTBh2ewwwVj
+ 2DodEh/8EEzykwD42NA==
+X-Proofpoint-ORIG-GUID: tN7Fbg5h-xZhBUtUvZfX-dgHLy_ehcN4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070031
 
-Hi Matt,
+Hi Krzyztof,
 
-On 10/6/26 21:15, Matt Evans wrote:
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
+On 10/7/2026 10:41 AM, Krzysztof Kozlowski wrote:
+> On 07/10/2026 00:39,
+> Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+>> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+>>
+>> Document the qcom,sm8250pix-camss compatible for CAMSS configurations
+>> that use the IFE pixel path. It uses the existing CAMSS property
+>> layout without additional properties.
+>>
+>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > 
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
+> Incomplete DCO.
 > 
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
 > 
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close will only execute as one of:
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
 > 
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file = NULL (no file)
+> You missed at least devicetree list (maybe more), so this won't be
+> tested by automated tooling. Performing review on untested code might be
+> a waste of time.
 > 
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
+> Please kindly resend and include all necessary To/Cc entries.
 
-Oh well, really good catch. And that problem is wider than this.
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
+Thanks for pointing that it seems that i did not include all To/Cc entries,
+from the get_maintainers.pl. I will resend the changes including all entries.
 
-We seriously need a CC: stable here.
-
-> ---
-> 
-> Hi,
-> 
-> This issue was found (by Claude Opus 5.5) in the context of VFIO's
-> DMABUF export path.  VFIO iterates live DMABUFs with a
-> get_file_active()/fput() block, which now becomes safe if the file is
-> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
-> 
-> However, there are a couple of other places that directly use
-> dmabuf->file and seem able to race a closing file (i.e. without holding
-> the file reference)?  If this is so, they'd be a UAF today; with this
-> patch that goes away, but instead of a stale pointer dmabuf->file could
-> be NULL:
-> 
-> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
-> 
->  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
-> 
-> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
-> this might be more subtle than replacing it with a get_file() variant
-> (so as to accept a NULL file *).
-> 
-> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
-> 
->  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
-> 
-> 
-> Respective vmwgfx & i915 maintainers, what is your view?
-> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
-
-*sigh* we had multiple occasions suggesting to add a dma_buf_get_rcu()/active() because exporters wanted to keep their DMA-buf on linked lists or other container structures.
-
-That was always rejected because the DMA-buf framework had never guaranteed that such things work correctly exactly because of those lifetime issues here. In other words nobody thought that through and document what should happen when etc...
-
-So the use cases in vmgfx and i915 are just the tip of the iceberg :)
-
-My suggestion is to get this patch reviewed and backported first and then come up with a dma_buf_get_active() function including documentation and comments and test case to make sure that this feature works *and* keeps working.
-
-One minor comment below, apart from that the patch itself looks good to me.
-
-> 
-> Thanks,
-> 
-> 
-> Matt
-> 
-> 
->  drivers/dma-buf/dma-buf.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..726639130477 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->  
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> +    struct dma_buf *dmabuf = file->private_data;
-> +
->      if (!is_dma_buf_file(file))
->          return -EINVAL;
-
-I would do the casting only after the check.
-
-On the other hand this function is a callback of the file_operations so checking if file->ops is really pointing to the file operations is completely superfluous.
-
-So if you want to remove the check instead I'm perfectly fine with that as well.
-
-Regards,
-Christian.
-
->  
-> -    __dma_buf_list_del(file->private_data);
-> +    __dma_buf_list_del(dmabuf);
->  
-> +    /* Must be observed by __get_file_rcu() before file_free() */
-> +    smp_store_mb(dmabuf->file, NULL);
->      return 0;
->  }
->  
+~Gjorgji
 
