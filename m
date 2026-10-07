@@ -1,108 +1,207 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5F345040F
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 14:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5A84908BF;
+	Wed,  7 Oct 2026 14:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791381690; cv=none; b=VQEmzzT2ycr2zYhQD25ciblhqkAnfZWNwCaK4MYxWpSLIZQ1ekkyHl4+NzLUn1sD0xAQSl6rUYJowj6mtogXS7X2c2lXs791klIoVT/pRxmJkwrc107BPmzaCtvQnyLy45U+ZO12HcY58nPOF+7ncrUQ/2jlR//3A10oQx0j0Q8=
+	t=1791383398; cv=none; b=YSuWyEq/43Wx6G1Nwoeyrx6Yw0Fcc+hgrOBJVf9gfShuMJXR59JywlMdlv6hu3LxWy1mYT4XjfXl41cvktbrWMYZqUXVzRgtwhiIs9EvBr8t0cAS5mUO3E0F27ef0Ln4bYAY/E8OAKSeEzf+QlyUVMHLbQeDtbGSopt6ywSrJDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791381690; c=relaxed/simple;
-	bh=Bzonkp4Kl647I49nPKXVT8eFQsR7sFNTOnQ8eIGUtOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SALin0IGVbRqfWZ5WED96XU+0qRDXMBSYa5bIgwU8FUnvVIv80lCGoKMIyDj/8morI/r/v78nmeVTTcVEUOZKKQ20heMVdvoxrvp7kHdLgcBd7INPLsIWbXzbCqxcZgF29D1wCEII/kOlNPsCpmv4ALzxzm8k0pqMI4p7zNKxks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A1VgcXry; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791383398; c=relaxed/simple;
+	bh=4ANnpVbEXQv2/qq1sKn2RQUrT4135fUF8Xn8/ajn1+4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iOhQJ8QHmoiZXoBpF9j6z8u01VboFN37YtZQV2blmyaV2G+1FRS/JvEut/5rkgnMQLFsfqnaKVgGav7SPiFSOT/GBDm/P7O8sOVHWSHuxWn9O+suIpWCt8rdy8obH7d/Ygb5OLYk+1qqXXD4TQ6ajRzKUazMZpATnquCqlPphwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=lMQEKyHw; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A1VgcXry"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1438d9363fbso1448443c88.0
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 07:01:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791381681; x=1791986481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PdpieMb9IrqAZOHrmOFrCKGqCrPoDymISML061l9Fxk=;
-        b=A1VgcXryepmu9oJcVz7z2l0VF2lYQRJmesc+tJSYXMOUTYOaoUX3U3mpLzUbxukEx2
-         UrpZS/Y7m7UL7JWLLMLGVUVaJFza2R1yHUksD2Dmfak6gcUy43H4Zqu57acLH4F2zMiI
-         DodqIMRii6+u3Z0I9qXaJ3IxL+6etXTaghCFXUaTpfPBCY2QEK++2Sve/qslAtMzPXrv
-         Q70tQi2Sx/+SvSSuiVUuxFZhszrleyminA2jMBPGdE65FZyKKRokQBm1JSCjKJkqdQb4
-         xe5r6Wi33YtdJjR1n6GXvECdLDNSrCWO6CLbVqNIBIxe74dAeSRA6KXLqHt5WxXQD/HO
-         8F0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791381681; x=1791986481;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PdpieMb9IrqAZOHrmOFrCKGqCrPoDymISML061l9Fxk=;
-        b=v3yzE73Ptz/glSVeX4vWxWBkYiMm7WAJYHLasEIDiONrqwrE9+v5NrNPaLkEciIcOd
-         Lo00zSbcGb5fWGNhQezkfqDWBxuE/bkfGX6KxUlgsDlNxHfuBWvlPLNTFHtpjpwmQl9C
-         J+gW9Ng7mfnNPDQtFf0qZ3k707ExbUsWBA+iw1sPfOQGGXxmFgZ33ha7QtDBF1hCk6Zd
-         eakERXrHsNudQqxwPXqePvfC6w6++vCklMEzkHZISgpFbC//dx7C1RsmtDzZ8IKkr6vP
-         mogZ4cDTUIUJhL0MovfV96LZiXzgvHDReVijjTk1DQ1bf/EuXTaNd0dVCpxJxIe2te10
-         Cl6w==
-X-Forwarded-Encrypted: i=1; AKwUvByWMsMkGzkKIKmyS3TS5QvPxUk3e8/hP/pX6Nx+llgAYfhBI3HfCEBKbWpbrBD8Q4wSq9Cn0mz7br42zQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nP4Mp2KtUZiObkuJr/cauwR7gnlkieA+vyEzny3aK6aWI7hqQ5
-	Yz47g30KMbdoW0ydvaQFuknUlgXCT7jUA+XarMiPGRXpZ8jogf5I3eSF
-X-Gm-Gg: AYBFou164ceSSXseP/7tpvRdX0LqferLQ498vNpvM6oym+80QwRbhySYNgqyVT9HfZc
-	7NYmr8p0g7t/f6wHcrZIZmyQhLMKHML6+dPD0G9HOfjMAZNBYnDFo+JCYSiFR6BTSU3DNYb8i18
-	SE3uxRzMMHGSq1ZEjX0syTLMUaE5vvFgrZbgtevohY7YslvHvZkIwmCSJ5OQU5ucOosdqRTJ5q/
-	IdG9UjDIYReZlXXZgugQZWepQ/LCA2PJdSsbD/tWqD0QVxzX27qUqiWhiPezJkzDqYsEgtFnzUJ
-	oX21n1eUvxFB+JheBkhfGc/brLn5w/CYkIWJ8D7QO3cfNhmUEuTsAfvU8oZn1AzjZ6P3DXpBNa4
-	VXzBQMVw8hqQN5NdFnWs445LPgAOCV3jx5wcFm/KYP5z/h82orXe4rzWJUwHQE/M73Dsoajmjk+
-	dgZ54tVRhWQHuAOZRq4Q5W0hMP+CSsvl0H78ZO0YM6w27Lw7ckwf3iXlvEo3bkExyilqrr/bvv6
-	U9MhD5pZfA834zCkmyMOlUwpnF8VQ==
-X-Received: by 2002:a05:7022:ea8b:b0:143:3769:c680 with SMTP id a92af1059eb24-15d3115a913mr6364429c88.25.1791381680555;
-        Wed, 07 Oct 2026 07:01:20 -0700 (PDT)
-Received: from localhost.localdomain ([2804:14c:65e4:8ceb:88c7:bff4:c488:f682])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1630180f6a5sm4179461c88.22.2026.10.07.07.01.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 07:01:19 -0700 (PDT)
-From: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
-To: mripard@kernel.org,
-	paulk@sys-base.io,
-	mchehab@kernel.org
-Cc: gregkh@linuxfoundation.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
-Subject: [PATCH] media: cedrus: fix typo in comment
-Date: Wed,  7 Oct 2026 11:00:56 -0300
-Message-ID: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="lMQEKyHw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1791383388;
+	bh=Frpe7KmlVXJrC4zHZSKF2Mb/ze/JwniZ8DHdvKQpV94=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lMQEKyHwZiapfiOzmHPYvVqwZG1khVfN0a7UrqVgeGec+b+1BU/f8EdP3fmelmMRo
+	 RdsTbHThPjUk0Ky1DUexTowrEmt9aATSh9FOL2f0zGfyqG/78z6Bk3nqqV3qO1wSXY
+	 tPHcPef9IVXHvtT1RUWizsSgqfSffpN793poi2WKGZ9YOStBZBmxssEgpGcn0+9Hy9
+	 5PIsini3bi46sitQYR9NYf2YnM/FI+6J72fE2F3d3/WbWB72OekHX9L6ZZ+xIk7iBC
+	 u8VSWEdjtYsF3x3l/Bbqea8pPc/JXJR14wxZ/n+Bbm9ULloSmKTERY71pa1ArmkNcO
+	 t08CXZBMNCZKg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j0FrP3sN6z4w2b;
+	Thu, 08 Oct 2026 01:29:41 +1100 (AEDT)
+Message-ID: <af2e03ca-718e-40c9-b604-8035eb8f30bd@ozlabs.org>
+Date: Wed, 7 Oct 2026 15:29:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Hellstrom <thellstrom@vmware.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+ <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Fix a spelling mistake in a comment: Neightbor -> Neighbor.
+Hi Christian,
 
-Signed-off-by: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
----
- drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 07/10/2026 08:51, Christian König wrote:
+> Hi Matt,
+> 
+> On 10/6/26 21:15, Matt Evans wrote:
+>> The dmabuf release path is split between file and dentry release:
+>> dma_buf_file_release() is called shortly before the file is freed, and
+>> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+>> dentry is freed.  However, the dentry can outlive the file (for
+>> example, if opened with O_PATH), meaning .release might be called some
+>> time after the file is freed.
+>>
+>> This presents a window, when closing a DMABUF file, in which
+>> dmabuf->file points to freed memory yet .release op has not yet been
+>> called.
+>>
+>> For VFIO, if a buffer's .release has not been called it's considered
+>> still active and subject to move/cleanup.  If so, it attempts to
+>> get_file_active() on dmabuf->file: a file close with dentry held open
+>> will call this function with a stale pointer, a UAF.
+>>
+>> To make this pattern safe, set dmabuf->file to NULL in
+>> dma_buf_file_release() to reflect that the associated file is now dead
+>> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+>> sequence concurrent with a file close will only execute as one of:
+>>
+>>  - Gets the file before file_ref_put() (dmabuf->file valid)
+>>  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>>  - Observes dmabuf->file = NULL (no file)
+>>
+>> Originally, drivers could assume dmabuf->file was valid until .release
+>> was called from fops->release.  This assumption was no longer valid
+>> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+>> dentry_ops"), which moved the callback to the dentry release (by which
+>> point the file might have been freed).  With this commit, drivers must
+>> still consider that dmabuf->file could be NULL before .release.
+> 
+> Oh well, really good catch. And that problem is wider than this.
+>> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> 
+> We seriously need a CC: stable here.
 
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-index 780da4a8b5af..f57642c0d8fa 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-@@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
- 	}
- 	cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
- 
--	/* Neightbor information address. */
-+	/* Neighbor information address. */
- 	reg = VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neighbor_info_buf_addr);
- 	cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
- 
--- 
-2.56.0
+I knew I forgot something :(
+ >> ---
+>>
+>> Hi,
+>>
+>> This issue was found (by Claude Opus 5.5) in the context of VFIO's
+>> DMABUF export path.  VFIO iterates live DMABUFs with a
+>> get_file_active()/fput() block, which now becomes safe if the file is
+>> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
+>>
+>> However, there are a couple of other places that directly use
+>> dmabuf->file and seem able to race a closing file (i.e. without holding
+>> the file reference)?  If this is so, they'd be a UAF today; with this
+>> patch that goes away, but instead of a stale pointer dmabuf->file could
+>> be NULL:
+>>
+>> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
+>>
+>>  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+>>
+>> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
+>> this might be more subtle than replacing it with a get_file() variant
+>> (so as to accept a NULL file *).
+>>
+>> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
+>>
+>>  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+>>
+>>
+>> Respective vmwgfx & i915 maintainers, what is your view?
+>> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
+> 
+> *sigh* we had multiple occasions suggesting to add a dma_buf_get_rcu()/active() because exporters wanted to keep their DMA-buf on linked lists or other container structures.
+> 
+> That was always rejected because the DMA-buf framework had never guaranteed that such things work correctly exactly because of those lifetime issues here. In other words nobody thought that through and document what should happen when etc...
+> 
+> So the use cases in vmgfx and i915 are just the tip of the iceberg :)
+
+Yay :)
+
+> My suggestion is to get this patch reviewed and backported first and then come up with a dma_buf_get_active() function including documentation and comments and test case to make sure that this feature works *and* keeps working.
+> 
+> One minor comment below, apart from that the patch itself looks good to me.
+
+This makes sense to me, thank you for the context also.
+
+Just to make sure I thoroughly understand, do you envisage a 
+dma_buf_get_active() to take both a reference on a dmabuf and its 
+corresponding dmabuf->file so such users can move to a pattern of get-
+test-use-put on the file portion too?  Sorry if it's a silly question, 
+I'm not sure what to search for.
+
+>>  drivers/dma-buf/dma-buf.c | 6 +++++-
+>>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 4c9add51f9ef..726639130477 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
+>>  
+>>  static int dma_buf_file_release(struct inode *inode, struct file *file)
+>>  {
+>> +    struct dma_buf *dmabuf = file->private_data;
+>> +
+>>      if (!is_dma_buf_file(file))
+>>          return -EINVAL;
+> 
+> I would do the casting only after the check.
+> 
+> On the other hand this function is a callback of the file_operations so checking if file->ops is really pointing to the file operations is completely superfluous.
+> 
+> So if you want to remove the check instead I'm perfectly fine with that as well.
+
+I had given the unfamiliar code the benefit of the doubt, but this did 
+look a bit suspect!  Will do, thanks.
+
+
+Matt
+
+PS: I should've mentioned that Alex Mastro has kindly built a reproducer 
+using a VFIO DMABUF export and dentry-held-open scenario.  KASAN will 
+detect the UAF:
+
+ https://github.com/opsound/vfio-dmabuf-lab/blob/main/tests/vfio_dmabuf_opath_uaf_test.c
+
+> 
+> Regards,
+> Christian.
+> 
+>>  
+>> -    __dma_buf_list_del(file->private_data);
+>> +    __dma_buf_list_del(dmabuf);
+>>  
+>> +    /* Must be observed by __get_file_rcu() before file_free() */
+>> +    smp_store_mb(dmabuf->file, NULL);
+>>      return 0;
+>>  }
+>>  
+> 
 
