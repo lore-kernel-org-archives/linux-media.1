@@ -1,564 +1,229 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020094.outbound.protection.outlook.com [52.101.227.94])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116034C10D8
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 15:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3293ACA7A;
+	Wed,  7 Oct 2026 16:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791387608; cv=fail; b=WVqTui72rUj0qKUQkpsqwK8X2JAMCOzU7t+8h0g3amPwaEh2oJ5f/azVA7KuKOcggerFMlk8UTO1y4zhqtlxc0K8ENWFBhZMDrRoprKVLfFsL63q2QON7V8r+b95F3rprJb1fppv0GUmCMeMnxUKeCh6pVw5B6v/smqHvqkPa2E=
+	t=1791389772; cv=fail; b=S5hlFA4iRMEZ52VQzB36tzAPSK4/qRvLWhNTwUJAm4i/ONhHSDaXDTyvhH5Fn8/1MMcqj9CwDNe2rCeUC+xybOmSlUnvcRob9ZpC325TP1HBZMu2GuwgddEZ7q4NMwlK9A5Kpl5VtS0fesY1GgeLaijvsTzBzbuJh4qVd8jf94U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791387608; c=relaxed/simple;
-	bh=pk9De1HrxhPsFQHwbyNhmCE5mDQAGa6/KoM1+AA5MKQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YylWXjv3mvpfqg/NBZpsFbJyoesV4zKIDvp/1fC0kQeTpGbpIQ5tW1CXWbyh1cdOn1guxijLUU0hhtkSndAwfL4x8WtZgiBxABvTpYLe3vW02xPKnuPKjz5ICTIMLN/mN27DMwRLyN+Vc1e/NWKzbWcjU+kaaAiOdQWVxEMqnNo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=celFSUbw; arc=fail smtp.client-ip=52.101.227.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	s=arc-20240116; t=1791389772; c=relaxed/simple;
+	bh=+GWt9v8YyG+5sEdSzcJMM40RGG19p6YTROym0OMVAtQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=EFyVxNh0fz3TAtT+u+GuXaLSn3ag6SsBK76aZ1rkRtOUcEPDZoWydItWknOmfTQUxSqsQ0x4EO/E9PoceaUOEH98pxO9XSpXRLOFuGgeXWwNhxLE+LIhUj0W9Gsz/Wa4cWTJ18UsHi/kbrakSB42uhcebfLMXUz/axwMh3KgttQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=d6XSDj9R; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=A2F9wnwZ; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="celFSUbw"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="d6XSDj9R";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="A2F9wnwZ"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697ExFaU1055556;
+	Wed, 7 Oct 2026 11:15:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=6spBliIDtf16/WuAT4zEAkhxGHtR/1aLlJlEqN8tq
+	RU=; b=d6XSDj9REM9LnRHZDBQjZHW2AsVjBl1DnHnA88aax35t2WSUWTYTvwhxB
+	dBCch6uKevPpVajZ1VUsw72Oj9rsmpHNSQxUPDXTw+J/R1yZpg+qfEBf7uT1YZ4O
+	HN3ulzRtAbZnJ0jrBmoAN1n6ioLbE8s+fUYfs4HLtH0YmjD61rNuo6MfvFZbLh1J
+	M1R2fHbARc+MqK0Za/ZRcxuucWjwmXitBBNDBcLF9j1k7cGn/9V+oepNtioI9dXF
+	ucHzau78Thi5RmBKAjV2agoBg9uP3IQW0RTT66mliOhacC99QNDGyo/Rieo4C05H
+	4+mvgYPDPmkyo6C6g7EKDTKl8eT1A==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010023.outbound.protection.outlook.com [52.101.56.23])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h5d5nby2f-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 11:15:53 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vk4QwI8FBWBiDAAPd45BRT2gv44ndp99C7g4RjDFynZVt1Mc0ig9fyCON+Xde2kMabX9myMs0j+KHK//G8FRR9JYlaIXAGc1VckvqPh0EfuGdppZS3ZU07v34+9RvUWbJKcaDAN7f20tVYWfgBbCCCKAlLutI1BE9A+JzCcAM+2cGadMn9w8QC4FFqF6JWCbbRqCbblAbGPEsFnFANXOC09hpS1bW0Uxtr+gc3hFQKdGCZXCPoAlHPsPGoR9Cgb5773Ypa6iVhrYDMrsarLqCqI0I3VKVMFsTSKpe5wizOLAuY7lFFK4xQyGFghGEDlLebG0VNma2M6pJTbMrMSOlw==
+ b=ZpDUkENEXUMXh/eDSw2s9l7BPLQHShA54uJEzwiqINserMBvv+tL+4Bbhst4lYXPB39raUsdtskVcMbh7TMJJ876bRYBXxnFvCiSsyfAl6G7BvoeMJ+BMa9Ug0gxbaYS5Hdjdr09dKwGVB0sKKsBpQtjnl/DMbCNgY9TiAJ1v5Vw1V2wg6jqeTUEGqoA4FbyJKgkyzwQbVPzutJI6K3qTvYd3DrgJ4R1jicayp/tw5vxW60Y2fWAHTWEkrbwxbgmLTY6znSMz2khTPnUway0klFNgn5iBwTCOE0dsfgQ6oVsbzRhP9G43qaVhA/OjHsSsrR0kY7fF0V8ZzdWWe5Hcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZX+Z4AXd/8Ni7GBaT9be8pBlIxDEBftGie1XPWB8TIM=;
- b=ihZ8ZtfyGeqFHKf14kgiJdEpDqfL+XuAatZrowsG5if/TfQ9OdIXRmRM8v6i5pQp11Hrhk9fxwcYcbadc4MgvHb28y3PBU5xktt+Ea7bGBp2tQdMY39HAhrfqp9sxIT8Q1Es8qv2/Wk7AUg+ddCd4jnFSC+kJpDE1tMQqw4n4Y8rBrYkwyPtwrhX6uIHL328dXPJYXRwcwwR+MvHtz+Z1KF+QjBC3D+qPboKCao20P4q5YMeErmv8lOpWN3U050a7fELbwe7wedTaN2qd1jJyi9utHeFHEp6Da1U/cWRuJ9VpkLrQTTArSY6/kMvdIeumg6flXeUklltuuwAWX107Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
+ bh=6spBliIDtf16/WuAT4zEAkhxGHtR/1aLlJlEqN8tqRU=;
+ b=ZJJKBeleZGopX541wi2GAcgmvRQC63IzshKjRM361WgFvOH3kuCRFUmGi+dqt36VoPLryojApJLYgxJCDCcvCctE/C0gZ08y/FeUTeQIhsieVzEPfcSfsB1jXxuduOvv2gSOJZKRvycCk431O1ItpJcFxPvkBd/G9AHd0vhRtv0wizYHbCICuk7BtiBd4wutNRdUHu7Lo8E33IKf18IItlwG1aL9u6oF6IOA/aoFTdOzlsvIBTIXcxodxL+L5sYPcy0Etjd1TwumbXhdcsKeWlEYxS5jAuWRC7n1gdDRmaWG9U6Hx16Dpkh41PpclJM0FZkR2YcI88fb7g4+AXW9ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZX+Z4AXd/8Ni7GBaT9be8pBlIxDEBftGie1XPWB8TIM=;
- b=celFSUbwSqWzOcEzrsPd5pA3ZDYPiUgq67bxJgMNgZgnv6JedtADOZJwSZBiKvoIgMPQy9C0sDW/9ahu0C8SYo1ij4X84OJHIlNXgGym22w8qJHg+UyTmhmCUT9qttiYYOuaVwfFqhkUu4+a/fJbdGNjePHWOftdbTVRBEAFtC5uRxQbSymVftn74tdZ0WwM4wazMIlZ1GtwptE0A1nab6M44Ogi6mF8/3h3YZC9JC6N90aBkkeY65IKXHUNP60Y1YvssZNJe8Jpo7wCk9egdseIOHqfhLf+DOhM3xuMrWoxF/lfKh2GXbpRBL+25y6G2T9Gg4riKkDJSCZZw1Xw4Q==
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by PN3P287MB0259.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:d4::9) with
+ bh=6spBliIDtf16/WuAT4zEAkhxGHtR/1aLlJlEqN8tqRU=;
+ b=A2F9wnwZGMmiJfHjAy2tfffb3qqLejn2FGYk5eYrYsVc6uHXfYV7Hgi2cDPZIHRxHH+ipN1wDfPPjpMzrUtO3QkG8p8ht2wlDBbvIMd59CM9uLNDaVF5YViqHTCpuY65bs1l8jKMdBty+jTBDB6J9Mwg31hLK4WHrO1DUABpvtQ=
+Received: from MW3PR05CA0029.namprd05.prod.outlook.com (2603:10b6:303:2b::34)
+ by IA6PR10MB997680.namprd10.prod.outlook.com (2603:10b6:208:5dc::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 15:39:56 +0000
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 15:39:56 +0000
-From: Tarang Raval <tarang.raval@siliconsignals.io>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>
-CC: "antti.laakso@linux.intel.com" <antti.laakso@linux.intel.com>,
-	"hao.yao@intel.com" <hao.yao@intel.com>, "dongcheng.yan@intel.com"
-	<dongcheng.yan@intel.com>, Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: Re: [PATCH v3 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
-Thread-Topic: [PATCH v3 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
-Thread-Index: AQHdUWxJYfLOBUcopEeQ8kMYWt6TzrbyJtAA
-Date: Wed, 7 Oct 2026 15:39:55 +0000
-Message-ID:
- <PN3P287MB1829F9B24FB03D373358AF358B942@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-References: <20261001061250.37734-1-sakari.ailus@linux.intel.com>
-In-Reply-To: <20261001061250.37734-1-sakari.ailus@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN3P287MB1829:EE_|PN3P287MB0259:EE_
-x-ms-office365-filtering-correlation-id: 7b336d31-cdf9-4a12-31b0-08df24893cd3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|4022899009|376014|23010399003|1800799024|366016|6133799003|22082099003|18002099003|10067099003|38070700021|56012099006;
-x-microsoft-antispam-message-info:
- tMcOAKts0YC1hx+2rB0g5XUuZFxKzP46okBa1NV+3aIIbKFXuWcy8pVdKPxRsGIKrfmrzYLDhupQmrrpkJFs+mZmJcs3dLNiuvNZbS4vHb9sCF1ba1jB4XjlOSsbukrT7piN1huhSlAXoD1syUPsdaK3s8Cv3zR1viP6806idiMHNo2i3q5smugerjWINLI1JfUdYAGFPbPOcnirF+Ss9WK3uH/Pow4eLzYJb+1jKyZX3NLm8NLwSugKMIaqIZptTgdahy7QSTCqCpANDgm6V2iUGjc4tPghIMAAxopaDOxhQgaacvqwVbryMWAApppoJohaSYpvh/jRG/Yh8XFvnxk0+5Olb4Er1Py6u9pqCcorQ3Pe4dnSddoouVsMP+Y9uWgtLPqDEKqzEVcsLuecXM5FR/KDlaBlKISoGdzCp7Xhh7CZZizOp4Mw7NgvSIuQVlK2EVUbguCJoGldq2QRdUnmSl7Olh/80MdXe/wL4z7B+abi+/QP3pgSjBb1IR+SvxSY5BXrWUoOqS/Z/pXmf8K/6AJBfzwRSQhhVtkVo0jVPxOAOOADjZ0+L2wDX3jTNOSsoBWHDqmBc84iLGBc9aZTiuY6F1onNHFtsfWorE8NmKoZTlB2Z8Tqut0egqyJZ6ZMpVSBMLUlUk6BMCDIJXHsA2Mxjtjoq8Y6xG0jB3sQ3SEyFkMD45I+MJ1cv6lOWee8QI/d3el4B0+eIgPsmb2d8Ay7SlL32EO7UIr53Lg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(4022899009)(376014)(23010399003)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(38070700021)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?tB+WiF0DpfkNDwfPNJbWDG91ZySCG/3EcpUdYsJaCSWc+BR39xha52ZqfX?=
- =?iso-8859-1?Q?wtQvuZCp9FpfoA6TO6qaEM6anaYL46ObBoRBEHGfxzgsUH/DxnPmTNQWHD?=
- =?iso-8859-1?Q?XwY4qCwH0TfMuKfKHWvzkEOarZl3LvUsjF/Agu0Gilduj3U3x3pQl1ZnWu?=
- =?iso-8859-1?Q?BbJ+RlavTT0zkQcJAJPiITe6FVWAO31kcF36uwuCZTlO/yFptbzIyN8n15?=
- =?iso-8859-1?Q?PEfHIz0G7ZMbSQR+FXRMoK39/HHM/nxghWQsJEHKuImavb6DwqryB2oijY?=
- =?iso-8859-1?Q?ARZSneBv671/6z7M4zjxBYvOA07rwIhSkaXdyR+mnklqmgRjBIl0pBgt1H?=
- =?iso-8859-1?Q?SXbN28ZCX3PttocubmsRRz1fjwpV0oQMFBqjyO3vdM8WN/MKH1RUDR9eZ5?=
- =?iso-8859-1?Q?aR5DkrYpqjAktu/uZoEjw4UsjzCKAqmUhXge+mwhRpE7amqJXwgBxaT1ep?=
- =?iso-8859-1?Q?VGDS8CyemlrPZqeBchIBpPggYwU1I67b3675Oq1zC68t4s8DdF1NqSsO5M?=
- =?iso-8859-1?Q?NUYnd8ECHxOMtZjILlEDduPPG8yWPnrCJRgxI0hEOhQpOJWFN01cppOhRo?=
- =?iso-8859-1?Q?UjJJnbSjbeQgKAp0qgkHvTTZbLv4P+QJCPtS+0kYWlaV1/SKWoS/0uiLFc?=
- =?iso-8859-1?Q?RSqfOa4STwnyTrQLJwprw9jUJvkuqF6c2G1/rr7D5Ykzxmtl+vIrhPUSqP?=
- =?iso-8859-1?Q?whYIIZoR6/qsrW05+cE4jnwq9jbniUanClOkVdUFJkiOljTYtL0NTixbQu?=
- =?iso-8859-1?Q?xOt1e6oLC9wWYIN9h1/Qhp70oVY+ydaRDxdSsf5eyPBLKHy+UwsmGRB4/k?=
- =?iso-8859-1?Q?5KQSgH0VeIbZr9126oL9TiC/pyAoKOtOJRarFGl1c9on/MWK3COD7qG35R?=
- =?iso-8859-1?Q?XVtW+14t8MVCe55JhgLCLvbBKOpxt22GHKi5OuKVVchv6iki4glj/Dh/+d?=
- =?iso-8859-1?Q?zCLnZHPAoCr8IXcnqR/2fakxr/A2iSzN656jN1XCps2bsTMEctJtm6/4+F?=
- =?iso-8859-1?Q?co/IogWCiwr5RosNuxw0STx96+YeVYYxAXLXU82cTKqfkHxC7WVKuuQ4z+?=
- =?iso-8859-1?Q?ANmKkSvkxk9Zl02EDCJl+fE5FqeByzBmDuxLfQNFKavcCHc0820DidAO8x?=
- =?iso-8859-1?Q?6bMyPlt2UPgRvkwOuUqWe3dVTTxbbgKV7DV+gj9UZD4ey2IyjkSObKd4x3?=
- =?iso-8859-1?Q?AKruBd46JrwxHyZa7UQjIObNLf6X/W2p2HmmMrVI8uLiUbMRkZsd/ZMeP8?=
- =?iso-8859-1?Q?PGuOws6GjTp/FfoUF228Ps8YqB9ckFowNRfIrZR+8vIOA/UGhMkw7qBc7/?=
- =?iso-8859-1?Q?nnuH8bP2rU0NO4twN6qUsB+dVy6aQqgBZMKmF/CvAmeWBgxvwa6UV1oHSc?=
- =?iso-8859-1?Q?PBMhXiw4d8DhpiUr8fWhDxPIsPKUVztT6MGyqR9iy2a/LM0jo7EykzsxZD?=
- =?iso-8859-1?Q?/w8y+BTNOvMR7ayFA6CQGKsbcZVtf+9Q1iJvaIXJ38oF8E7NVs8kh4qavB?=
- =?iso-8859-1?Q?wA9USwP04v7u6i4jxjNKG0OKVEyEy14VdXlhANn5nZVzHzdj69y1WAcaC8?=
- =?iso-8859-1?Q?+4OU+sF/Uvt3ctqoWeLKfsTTIWjgYJQUmLkzuczSNl2X5//5iMR+x2XB/E?=
- =?iso-8859-1?Q?zq0gWi+gWPmp1QXazgzfZXAVPMzOE6TDSQjtVvOL9oja5xta1jtVc+X0e6?=
- =?iso-8859-1?Q?BVRxQwf1NJagJ6x5vsKNOcq3rh1Occwk38WfIZH21AfiuYEmWLFkYjHSnG?=
- =?iso-8859-1?Q?yGRYca39KwA3dB+D9N8rdDRg80j16Z1Iy94pSvC6Vz6yuCxjwr6ywtb1ry?=
- =?iso-8859-1?Q?xb3bnDoO6Kszfl7m4vPsr7q/PZNqvBI=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Wed, 7 Oct 2026
+ 16:15:50 +0000
+Received: from EA8PEPF00000007.namprd05.prod.outlook.com
+ (2603:10b6:303:2b:cafe::46) by MW3PR05CA0029.outlook.office365.com
+ (2603:10b6:303:2b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 7
+ Oct 2026 16:15:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ EA8PEPF00000007.mail.protection.outlook.com (10.167.249.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 16:15:50 +0000
+Received: from DLEE203.ent.ti.com (157.170.170.78) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 7 Oct
+ 2026 11:15:21 -0500
+Received: from DLEE205.ent.ti.com (157.170.170.85) by DLEE203.ent.ti.com
+ (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 7 Oct
+ 2026 11:15:21 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 7 Oct 2026 11:15:21 -0500
+Received: from [128.247.75.1] (b-brnich.dhcp.ti.com [128.247.75.1])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 697GFLOO1487227;
+	Wed, 7 Oct 2026 11:15:21 -0500
+Message-ID: <ebfa9a8b-89f5-445c-8d17-12ee8a830a07@ti.com>
+Date: Wed, 7 Oct 2026 11:15:21 -0500
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b336d31-cdf9-4a12-31b0-08df24893cd3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2026 15:39:55.9145
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] media: wave5: release runtime PM reference on encoder
+ close errors
+To: Jiale Yao <yaojiale02@163.com>, Nas Chung <nas.chung@chipsnmedia.com>,
+        Jackson Lee <jackson.lee@chipsnmedia.com>,
+        Mauro Carvalho Chehab
+	<mchehab@kernel.org>,
+        Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+        Sebastian Fricke <sebastian.fricke@collabora.com>,
+        Hans Verkuil
+	<hverkuil@kernel.org>, <linux-media@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+References: <20261003080853.430099-1-yaojiale02@163.com>
+ <20261003080853.430099-5-yaojiale02@163.com>
+Content-Language: en-US
+From: Brandon Brnich <b-brnich@ti.com>
+In-Reply-To: <20261003080853.430099-5-yaojiale02@163.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EA8PEPF00000007:EE_|IA6PR10MB997680:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f001603-61a1-49df-6f96-08df248e40ef
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|4143699003|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ pUzIz/I6ghQfreCz76ehShdBZn+hWiZT/+zKW8YjgbT6vGhr1/z0X5wQxn66PS87oFy2dxMTSwgLYkHpWdLaRT6KUuVZGJKzkOb5j3zuXTNQP9TxuujSlpyACGPbNUbqPEDlPN4Ax+CnZoYFkGccz7NLcC/dcd/o3iKDgTPcUGk8MG3BMePKNns1dRVAldCJIyR5/jZW+MMERTOEBBlDvslFGA3MB7EfOy5fbzwlHTgKnJtpDHKQu2X4HRvFhG3vRZkCm2j1jnCOmkabxZ8NDtXk70I7+vsH8JBPidWoDr8Gcp/3aYu2uayOUcCCn3TgaJVjh/gvAJ4N72bTFRb/ai/BTnRpOW4pJegDUe4kQP/4lTioZ3v57n0IQdg0WIEusZ1+Y8I0aJbnRryXQrVsSGjZ5YfVafEJa6w7ZGnQeFrt7hjbnxygiN0QGYblQDvITZeiGYdpXKyLubXKSwhSRAUEuJxtevSFrIE2c/EOVm9tS7nG9aePcd7D1qr3V8C8m2EzFLHBODIsHz6T6D2QenfQkGj8t50PYgkL5/46LHlBqSMnF2zWQ+qAWm3NqCWqTtieb2nXUmiro8L5tx9dlrgmWqLrVs+C15zOkSLdf0KJERi3WO7neT1KXUAIe9erS+iG14g2nNM6MrqnXHFSrQ==
+X-Forefront-Antispam-Report:
+ CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ JgDrEDOBHfpUeBSaNlEf53+XAMkeEjhxIwKldNJH/lDfyiDKOebkuZ/cMi9wnn0/3U4ElAUK2meoXsznYbNd5IkDxsc9YKX8hTN7wORVUJzp99s9teUeFaJCp7ZT+zmbtTr54Dj1en2TTswWR3imY52csqNjumn+gAv/TRhrh7pE08VIZtN6B49Dx8l8DZUBl3Y5BJ8EK0LZpu4W91XPBHJn1ddR+EDnFvZm+6sPPKR4ZkfSnHGxFzI2rwv7zKdJlGK5KakFyzW3ft1HdugkTv7my88IQolfLf42uQ8ofRZT0glTaYz+vutxohVQLFQQU0xURR50bs6H0mC+XN+U2RwDbBoLxlYV13fz2bLV7mgeaalOM7SKez3OtLsJ16Ns6O4A++kDbJebB8+spl0Xq+y0ZTj/cDJ+F2h2EjT8sR6nCLdLkcWf2eQREy4w88uu
+X-Exchange-RoutingPolicyChecked:
+	oIgGOdqJZYXhb+lk15QQ6TlSDiKRssIa/biSLAL/T/o/0lVWFsa8RGtZuNR/3Hnfan9CZ/SiuDWuUw9iVYjeWzJLjLvyBpcg7d8zRYIAgAlM1b9r+dYkrNORovKdxEKPk5lzmI2q3mCv6zMp9DvFCSj6IAW+ECELLJ/hg4pWBw9rTrcCi0YeNSVww0391RQXu7SykIZ91rwd8ekySMHakW/LOi33Clt+hAQZJugqBstlD1GGg1km1J/OkX135k25j+0IhmSBnBirRXzkoi8xLcme9KlLQI6lb4YmDRBD+gVpJ3JN1ZKzeCQhfEgiMdfaPaRDTHhThM+We31J9SDohA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 16:15:50.1997
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mVejC1oOoIreSI8JKTLaITG8iL8DA9r3aS8S16kikwr9eZh3ckv2kh9VFeapPaREljede5bLlhq8gshgXOar/fPRdM6DWaaDddNud3jeDcs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB0259
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f001603-61a1-49df-6f96-08df248e40ef
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: EA8PEPF00000007.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR10MB997680
+X-Proofpoint-ORIG-GUID: jSqkMTyZWMv15z57Qf42wMt3hEvGXaPC
+X-Proofpoint-GUID: jSqkMTyZWMv15z57Qf42wMt3hEvGXaPC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA2NCBTYWx0ZWRfX//tIWjt6PNff
+ 13efS9+lnhzFX/Rd4NqzP+RUUOQzktITZEUZ80ldIkTfMQA2ODLO78d+En00tg7rJZtdagrzyqZ
+ yCrFG88ZTFxtew/L9sZ3+rFmmkjx/Y/Qb0TsV/Z9CzGFjG7VccyUIj30JHl0+tNQUE5Kuu8qs8B
+ B2duMYt7EvNL5nhs/BIPhuLrpCQARVyB/xHNrIiuroezcnEKa+X/4GRokTUynSssJvKu6E/paW7
+ 9fQbUJmPhXJkw2Qtie33bEIdcudQ9/UM1SIFLvLrag1HucCJY8rBMuu7T6zfglWYURsG83IM9ds
+ Cu6NLu3eDoa7NNTvSZ+NwLQegXAg+5ghmri53wh1dcNb5wUOxsqLPUCzDEK4AoieZOU+Wp5k+Yb
+ xe0FQEk9JlJQmzjBP5UWNoq1cbodhXh3pVchUvuhlTk8ai3/zAfyY463342884ulcVnxDl4Ik43
+ l+5mVqMgBYMUP4Z6nxA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA2NCBTYWx0ZWRfX0We5VrsaO7lW
+ O7a9dAoVzrozdZJxX8OC5G9ibP10vRoXyjSr367AJU3ZAv+rnPjrVoMn1oaOIwiIHXKlg/TZJYB
+ 5hEsqrvKXoptjuMaDmcGpTSHi3xV2YY=
+X-Authority-Analysis: v=2.4 cv=S81MU4sP c=1 sm=1 tr=0 ts=6ac67039 cx=c_pps
+ a=55pr0gqEmxT9FJl44qZDsQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=xq3W2uTSAAAA:8
+ a=Byx-y9mGAAAA:8 a=i92EXho9ApMYDWYoLZMA:9 a=QEXdDO2ut3YA:10
+ a=P5L7wpMTXyg1GfFA3Gwx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1011 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070064
 
-Hi Sakari, Hao,=0A=
-=0A=
-I identified a few issues. Could you please check the comments below?=0A=
-=0A=
-> From: Hao Yao <hao.yao@intel.com>=0A=
->=0A=
-> Add a driver for the Omnivision ov05c10 camera sensor. This driver=0A=
-> implements a single mode only.=0A=
->=0A=
-> Signed-off-by: Hao Yao <hao.yao@intel.com>=0A=
-> Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>=0A=
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>=0A=
-> Tested-by: Antti Laakso <antti.laakso@linux.intel.com>=0A=
-> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>=0A=
-> ---=0A=
-> since v2:=0A=
->=0A=
-> - Added missing MAINTAINERS entry.=0A=
->=0A=
->  MAINTAINERS                 |   7 +=0A=
->  drivers/media/i2c/Kconfig   |  10 +=0A=
->  drivers/media/i2c/Makefile  |   1 +=0A=
->  drivers/media/i2c/ov05c10.c | 978 ++++++++++++++++++++++++++++++++++++=
-=0A=
->  4 files changed, 996 insertions(+)=0A=
->  create mode 100644 drivers/media/i2c/ov05c10.c=0A=
-=0A=
-...=0A=
-=0A=
-> +#define to_ov05c10(_sd)                container_of(_sd, struct ov05c10,=
- sd)=0A=
-=0A=
-Please use container_of_const.=0A=
-=0A=
-> +=0A=
-> +static const char *const ov05c10_test_pattern_menu[] =3D {=0A=
-> +       "Disabled",=0A=
-> +       "Color Bar",=0A=
-> +};=0A=
-=0A=
-...=0A=
-=0A=
-> +static const struct cci_reg_sequence mode_2800_1576_30fps[] =3D {=0A=
-> +       { OV05C10_REG8(0x00, 0x20), 0x00 },=0A=
-> +       { OV05C10_REG8(0x00, 0x20), 0x0b },=0A=
-> +       { OV05C10_REG8(0x00, 0xc1), 0x09 },=0A=
-> +       { OV05C10_REG8(0x00, 0x21), 0x06 },=0A=
-> +       { OV05C10_REG8(0x00, 0x11), 0x4e },=0A=
-> +       { OV05C10_REG8(0x00, 0x12), 0x13 },=0A=
-> +       { OV05C10_REG8(0x00, 0x14), 0x96 },=0A=
-> +       { OV05C10_REG8(0x00, 0x1b), 0x64 },=0A=
-> +       { OV05C10_REG8(0x00, 0x1d), 0x02 },=0A=
-> +       { OV05C10_REG8(0x00, 0x1e), 0x40 },=0A=
-> +       { OV05C10_REG8(0x00, 0xe7), 0x03 },=0A=
-> +       { OV05C10_REG8(0x00, 0xe7), 0x00 },=0A=
-=0A=
-Multiple entries for the same register value seem unnecessary.=0A=
-You can keep the last entry only.=0A=
-=0A=
-I can see several similar cases below as well.=0A=
-=0A=
-> +       { OV05C10_REG8(0x00, 0x21), 0x00 },=0A=
-> +       { OV05C10_REG8(0x01, 0x03), 0x00 },=0A=
-> +       { OV05C10_REG8(0x01, 0x04), 0x06 },=0A=
-> +       { OV05C10_REG8(0x01, 0x06), 0x76 },=0A=
-> +       { OV05C10_REG8(0x01, 0x07), 0x08 },=0A=
-> +       { OV05C10_REG8(0x01, 0x1b), 0x01 },=0A=
-> +       { OV05C10_REG8(0x01, 0x24), 0xff },=0A=
-=0A=
-Use OV05C10_REG_ANALOG_GAIN here. Also, you can remove this=0A=
-entry, as it is not required.=0A=
-=0A=
-> +       { OV05C10_REG8(0x01, 0x42), 0x5d },=0A=
-> +       { OV05C10_REG8(0x01, 0x43), 0x08 },=0A=
-> +       { OV05C10_REG8(0x01, 0x44), 0x81 },=0A=
-> +       { OV05C10_REG8(0x01, 0x46), 0x5f },=0A=
-> +       { OV05C10_REG8(0x01, 0x48), 0x18 },=0A=
-> +       { OV05C10_REG8(0x01, 0x49), 0x04 },=0A=
-> +       { OV05C10_REG8(0x01, 0x5c), 0x18 },=0A=
-> +       { OV05C10_REG8(0x01, 0x5e), 0x13 },=0A=
-> +       { OV05C10_REG8(0x01, 0x70), 0x15 },=0A=
-> +       { OV05C10_REG8(0x01, 0x77), 0x35 },=0A=
-> +       { OV05C10_REG8(0x01, 0x79), 0xb2 },=0A=
-> +       { OV05C10_REG8(0x01, 0x7b), 0x08 },=0A=
-> +       { OV05C10_REG8(0x01, 0x7d), 0x08 },=0A=
-> +       { OV05C10_REG8(0x01, 0x7e), 0x08 },=0A=
-> +       { OV05C10_REG8(0x01, 0x7f), 0x08 },=0A=
-> +       { OV05C10_REG8(0x01, 0x90), 0x37 },=0A=
-> +       { OV05C10_REG8(0x01, 0x91), 0x05 },=0A=
-> +       { OV05C10_REG8(0x01, 0x92), 0x18 },=0A=
-> +       { OV05C10_REG8(0x01, 0x93), 0x27 },=0A=
-> +       { OV05C10_REG8(0x01, 0x94), 0x05 },=0A=
-> +       { OV05C10_REG8(0x01, 0x95), 0x38 },=0A=
-> +       { OV05C10_REG8(0x01, 0x9b), 0x00 },=0A=
-> +       { OV05C10_REG8(0x01, 0x9c), 0x06 },=0A=
-> +       { OV05C10_REG8(0x01, 0x9d), 0x28 },=0A=
-> +       { OV05C10_REG8(0x01, 0x9e), 0x06 },=0A=
-=0A=
-...=0A=
-=0A=
-> +static int ov05c10_set_ctrl(struct v4l2_ctrl *ctrl)=0A=
-> +{=0A=
-> +       struct ov05c10 *ov05c10 =3D=0A=
-> +               container_of(ctrl->handler, struct ov05c10, ctrl_handler)=
-;=0A=
-=0A=
-Please use container_of_const.=0A=
-=0A=
-> +       struct i2c_client *client =3D v4l2_get_subdevdata(&ov05c10->sd);=
-=0A=
-> +       struct v4l2_subdev_state *state;=0A=
-> +       const struct v4l2_mbus_framefmt *format;=0A=
-> +       u64 vts;=0A=
-> +       int ret;=0A=
-> +=0A=
-> +       state =3D v4l2_subdev_get_locked_active_state(&ov05c10->sd);=0A=
-> +       format =3D v4l2_subdev_state_get_format(state, 0);=0A=
-> +=0A=
-> +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {=0A=
-> +               ret =3D __v4l2_ctrl_modify_range(ov05c10->exposure,=0A=
-> +                                              ov05c10->exposure->minimum=
-,=0A=
-> +                                              format->height + ctrl->val=
- -=0A=
-> +                                              OV05C10_EXPOSURE_MARGIN,=
-=0A=
-> +                                              ov05c10->exposure->step,=
-=0A=
-> +                                              format->height -=0A=
-> +                                              OV05C10_EXPOSURE_MARGIN);=
-=0A=
-> +=0A=
-> +               if (ret)=0A=
-> +                       return ret;=0A=
-> +       }=0A=
-> +=0A=
-> +       if (!pm_runtime_get_if_active(&client->dev))=0A=
-> +               return 0;=0A=
-> +=0A=
-> +       switch (ctrl->id) {=0A=
-> +       case V4L2_CID_ANALOGUE_GAIN:=0A=
-> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_ANALOG_GAI=
-N,=0A=
-> +                               ctrl->val, NULL);=0A=
-> +               break;=0A=
-> +       case V4L2_CID_DIGITAL_GAIN:=0A=
-> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_DIGITAL_GA=
-IN,=0A=
-> +                               ctrl->val, NULL);=0A=
-> +               break;=0A=
-> +       case V4L2_CID_EXPOSURE:=0A=
-> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_EXPOSURE,=
-=0A=
-> +                               ctrl->val, NULL);=0A=
-> +               break;=0A=
-> +       case V4L2_CID_VBLANK:=0A=
-> +               /*=0A=
-> +                * REG_TIMING_VTS is read-only and increased by writing t=
-o=0A=
-> +                * REG_DUMMY_LINE in ov05c10. The calculation formula is=
-=0A=
-> +                * required VTS =3D dummyline + current VTS. Here get the=
-=0A=
-> +                * current VTS and calculate the required dummyline.=0A=
-> +                */=0A=
-> +               cci_read(ov05c10->regmap, OV05C10_REG_TIMING_VTS, &vts, &=
-ret);=0A=
-> +               if (ret)=0A=
-> +                       goto err;=0A=
-> +=0A=
-> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_DUMMY_LINE=
-,=0A=
-> +                               max_t(int, ctrl->val + format->height - v=
-ts, 0),=0A=
-> +                               NULL);=0A=
-> +               break;=0A=
-> +       case V4L2_CID_TEST_PATTERN:=0A=
-> +               ret =3D ov05c10_test_pattern(ov05c10, ctrl->val);=0A=
-> +               break;=0A=
-> +       default:=0A=
-> +               ret =3D -EINVAL;=0A=
-> +               break;=0A=
-> +       }=0A=
-> +=0A=
-> +       cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,=0A=
-> +                 OV05C10_TRIGGER_APPLY, &ret);=0A=
-> +       if (ret) {=0A=
-> +               dev_err(&client->dev, "failed to trigger write");=0A=
-> +               goto err;=0A=
-=0A=
-We can drop this line.=0A=
-=0A=
-> +       }=0A=
-> +=0A=
-> +err:=0A=
-> +       pm_runtime_put_autosuspend(&client->dev);=0A=
-> +=0A=
-> +       return ret;=0A=
-> +}=0A=
-> +=0A=
-=0A=
-...=0A=
-=0A=
-> +       hblank =3D OV05C10_PPL - mode->width;=0A=
-> +       ov05c10->hblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_op=
-s,=0A=
-> +                                           V4L2_CID_HBLANK, hblank, hbla=
-nk, 1,=0A=
-> +                                           hblank);=0A=
-> +=0A=
-> +       v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_ANALOGUE=
-_GAIN,=0A=
-> +                         OV05C10_MIN_ANALOG_GAIN, OV05C10_MAX_ANALOG_GAI=
-N,=0A=
-> +                         OV05C10_ANALOG_GAIN_STEP,=0A=
-> +                         OV05C10_ANALOG_GAIN_DEFAULT);=0A=
-=0A=
-It would be better to add a blank line after this.=0A=
-=0A=
-> +       v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_DIGITAL_=
-GAIN,=0A=
-> +                         OV05C10_MIN_DIG_GAIN, OV05C10_MAX_DIG_GAIN,=0A=
-> +                         OV05C10_DGTL_GAIN_STEP, OV05C10_DGTL_GAIN_DEFAU=
-LT);=0A=
-> +=0A=
-> +       exposure_max =3D mode->vts_def - OV05C10_EXPOSURE_MARGIN;=0A=
-> +       ov05c10->exposure =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_=
-ops,=0A=
-> +                                             V4L2_CID_EXPOSURE,=0A=
-> +                                             OV05C10_EXPOSURE_MIN,=0A=
-> +                                             exposure_max,=0A=
-> +                                             OV05C10_EXPOSURE_STEP,=0A=
-> +                                             exposure_max);=0A=
-> +=0A=
-=0A=
-...=0A=
-=0A=
-> +static const struct v4l2_subdev_core_ops ov05c10_core_ops =3D {=0A=
-> +       .subscribe_event =3D v4l2_ctrl_subdev_subscribe_event,=0A=
-> +       .unsubscribe_event =3D v4l2_event_subdev_unsubscribe,=0A=
-> +};=0A=
-=0A=
-Drop this.=0A=
-=0A=
-> +=0A=
-> +static const struct v4l2_subdev_ops ov05c10_subdev_ops =3D {=0A=
-> +       .core =3D &ov05c10_core_ops,=0A=
-> +       .pad =3D &ov05c10_pad_ops,=0A=
-> +};=0A=
-=0A=
-...=0A=
-=0A=
-> +static int ov05c10_get_pm_resources(struct device *dev)=0A=
-> +{=0A=
-> +       struct v4l2_subdev *sd =3D dev_get_drvdata(dev);=0A=
-> +       struct ov05c10 *ov05c10 =3D to_ov05c10(sd);=0A=
-> +=0A=
-> +       ov05c10->img_clk =3D devm_v4l2_sensor_clk_get(dev, NULL);=0A=
-> +       if (IS_ERR(ov05c10->img_clk))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(ov05c10->img_clk),=0A=
-> +                                    "failed to get imaging clock\n");=0A=
-> +=0A=
-> +       ov05c10->avdd =3D devm_regulator_get(dev, "avdd");=0A=
-> +       if (IS_ERR(ov05c10->avdd))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(ov05c10->avdd),=0A=
-> +                                    "failed to get avdd regulator\n");=
-=0A=
-> +=0A=
-> +       ov05c10->reset =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OU=
-T_LOW);=0A=
-=0A=
-Default state should be GPIOD_OUT_HIGH.=0A=
-=0A=
-> +       if (IS_ERR(ov05c10->reset))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(ov05c10->reset),=0A=
-> +                                    "failed to get reset gpio\n");=0A=
-> +=0A=
-> +       return 0;=0A=
-> +}=0A=
-=0A=
-...=0A=
-=0A=
-> +static int ov05c10_probe(struct i2c_client *client)=0A=
-> +{=0A=
-> +       struct device *dev =3D &client->dev;=0A=
-> +       struct ov05c10 *ov05c10;=0A=
-> +       bool full_power;=0A=
-> +       int ret;=0A=
-> +=0A=
-> +       ov05c10 =3D devm_kzalloc(&client->dev, sizeof(*ov05c10), GFP_KERN=
-EL);=0A=
-> +       if (!ov05c10)=0A=
-> +               return -ENOMEM;=0A=
-> +=0A=
-> +       ret =3D ov05c10_parse_fwnode(ov05c10, dev);=0A=
-> +       if (ret)=0A=
-> +               return ret;=0A=
-> +=0A=
-> +       ov05c10->regmap =3D devm_regmap_init_i2c(client, &ov05c10_regmap_=
-config);=0A=
-> +       if (IS_ERR(ov05c10->regmap))=0A=
-> +               return dev_err_probe(dev, PTR_ERR(ov05c10->regmap),=0A=
-> +                                    "failed to init regmap\n");=0A=
-> +=0A=
-> +       v4l2_i2c_subdev_init(&ov05c10->sd, client, &ov05c10_subdev_ops);=
-=0A=
-> +=0A=
-> +       ret =3D ov05c10_get_pm_resources(dev);=0A=
-> +       if (ret)=0A=
-> +               return ret;=0A=
-> +=0A=
-> +       full_power =3D acpi_dev_state_d0(dev);=0A=
-> +       if (full_power) {=0A=
-> +               ret =3D ov05c10_power_on(dev);=0A=
-> +               if (ret) {=0A=
-> +                       dev_err(&client->dev, "failed to power on\n");=0A=
-> +                       return ret;=0A=
-> +               }=0A=
-> +       }=0A=
-> +=0A=
-> +       ret =3D ov05c10_init_controls(ov05c10);=0A=
-> +       if (ret) {=0A=
-> +               dev_err(&client->dev, "failed to init controls: %d", ret)=
-;=0A=
-> +               goto probe_error_power_off;=0A=
-> +       }=0A=
-> +=0A=
-> +       ov05c10->sd.internal_ops =3D &ov05c10_internal_ops;=0A=
-> +       ov05c10->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE |=0A=
-> +                            V4L2_SUBDEV_FL_HAS_EVENTS;=0A=
-=0A=
-Drop V4L2_SUBDEV_FL_HAS_EVENTS flag.=0A=
-=0A=
-> +       ov05c10->sd.entity.ops =3D NULL;=0A=
-> +       ov05c10->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;=0A=
-> +       ov05c10->pad.flags =3D MEDIA_PAD_FL_SOURCE;=0A=
-> +=0A=
-> +       ret =3D media_entity_pads_init(&ov05c10->sd.entity, 1, &ov05c10->=
-pad);=0A=
-> +       if (ret) {=0A=
-> +               dev_err(&client->dev, "failed to init entity pads: %d", r=
-et);=0A=
-=0A=
-Can we use dev_err_probe.=0A=
-=0A=
-> +               goto probe_error_v4l2_ctrl_handler_free;=0A=
-> +       }=0A=
-> +=0A=
-> +       ov05c10->sd.state_lock =3D ov05c10->ctrl_handler.lock;=0A=
-> +       ret =3D v4l2_subdev_init_finalize(&ov05c10->sd);=0A=
-> +       if (ret < 0) {=0A=
-> +               dev_err(dev, "v4l2 subdev init error: %d\n", ret);=0A=
-=0A=
-same here.=0A=
-=0A=
-> +               goto probe_error_media_entity_cleanup;=0A=
-> +       }=0A=
-> +=0A=
-> +       if (full_power)=0A=
-> +               pm_runtime_set_active(&client->dev);=0A=
-> +       pm_runtime_enable(&client->dev);=0A=
-> +=0A=
-> +       ret =3D v4l2_async_register_subdev_sensor(&ov05c10->sd);=0A=
-> +       if (ret < 0) {=0A=
-> +               dev_err(&client->dev, "failed to register V4L2 subdev: %d=
-",=0A=
-> +                       ret);=0A=
-> +               goto probe_error_rpm;=0A=
-> +       }=0A=
-> +       pm_runtime_set_autosuspend_delay(&client->dev, 1000);=0A=
-> +       pm_runtime_use_autosuspend(&client->dev);=0A=
-> +       pm_runtime_idle(&client->dev);=0A=
-> +=0A=
-> +       return 0;=0A=
-> +=0A=
-> +probe_error_rpm:=0A=
-> +       pm_runtime_disable(&client->dev);=0A=
-=0A=
-Add pm_runtime_dont_use_autosuspend(&client->dev) before=0A=
-pm_runtime_disable() to undo the pm_runtime_use_autosuspend()=0A=
-call from probe. Maybe Sashiko will point this out.=0A=
-=0A=
-Also, if v4l2_async_register_subdev_sensor() fails with full_power=0A=
-set to true, pm_runtime_set_active() has already been called.=0A=
-After pm_runtime_disable(), the runtime PM status remains active=0A=
-while the sensor is powered off.=0A=
-=0A=
-> +       v4l2_subdev_cleanup(&ov05c10->sd);=0A=
-> +=0A=
-> +probe_error_media_entity_cleanup:=0A=
-> +       media_entity_cleanup(&ov05c10->sd.entity);=0A=
-> +=0A=
-> +probe_error_v4l2_ctrl_handler_free:=0A=
-> +       v4l2_ctrl_handler_free(ov05c10->sd.ctrl_handler);=0A=
-> +=0A=
-> +probe_error_power_off:=0A=
-> +       ov05c10_power_off(&client->dev);=0A=
-=0A=
-If full_power is false, power_on was never called.=0A=
-so power_off must be skipped.=0A=
-=0A=
-> +=0A=
-> +       return ret;=0A=
-> +}=0A=
-=0A=
-...=0A=
-=0A=
-> +#if IS_BUILTIN(CONFIG_ACPI)=0A=
-> +static const struct acpi_device_id ov05c10_acpi_ids[] =3D {=0A=
-> +       { .id =3D "OVTI05C1" },=0A=
-> +       { }=0A=
-> +};=0A=
-> +=0A=
-> +MODULE_DEVICE_TABLE(acpi, ov05c10_acpi_ids);=0A=
-> +#endif=0A=
-> +=0A=
-> +static struct i2c_driver ov05c10_i2c_driver =3D {=0A=
-> +       .driver =3D {=0A=
-> +               .name =3D "ov05c10",=0A=
-> +               .pm =3D pm_ptr(&ov05c10_pm_ops),=0A=
-> +               .acpi_match_table =3D ACPI_PTR(ov05c10_acpi_ids),=0A=
-> +       },=0A=
-> +       .probe =3D ov05c10_probe,=0A=
-> +       .remove =3D ov05c10_remove,=0A=
-> +       .flags =3D I2C_DRV_ACPI_WAIVE_D0_PROBE,=0A=
-> +};=0A=
-> +=0A=
-> +module_i2c_driver(ov05c10_i2c_driver);=0A=
-> +MODULE_DESCRIPTION("OmniVision ov05c10 camera driver");=0A=
-> +MODULE_AUTHOR("Dongcheng Yan <dongcheng.yan@intel.com>");=0A=
-> +MODULE_LICENSE("GPL");=0A=
->=0A=
-> --=0A=
-> 2.47.3=0A=
-=0A=
-Best Regards,=0A=
-Tarang=
+Hi Jiale,
+
+Thanks for the patch.
+
+On 10/3/26 03:08, Jiale Yao wrote:
+> wave5_vpu_enc_close() acquires a runtime PM reference before taking the
+> hardware lock, but three error paths call pm_runtime_resume_and_get()
+> again instead of releasing that reference. Each failure therefore
+> increments the usage count and can prevent the VPU from suspending.
+> 
+> Use pm_runtime_put_sync() on the error paths, matching the successful
+> path and the decoder close implementation.
+These issues have already been addressed and are accepted[0].
+
+Best,
+Brandon
+
+[0]: 
+https://patchwork.linuxtv.org/project/linux-media/patch/20260717075714.1508938-1-lilinmao@kylinos.cn/
+
+> 
+> Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>   drivers/media/platform/chips-media/wave5/wave5-vpuapi.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+> index 42bc737c6980..062f0b5c318b 100644
+> --- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+> @@ -758,7 +758,7 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+>   
+>   	ret = mutex_lock_interruptible(&vpu_dev->hw_lock);
+>   	if (ret) {
+> -		pm_runtime_resume_and_get(inst->dev->dev);
+> +		pm_runtime_put_sync(inst->dev->dev);
+>   		return ret;
+>   	}
+>   
+> @@ -766,14 +766,14 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+>   		ret = wave5_vpu_enc_finish_seq(inst, fail_res);
+>   		if (ret < 0 && *fail_res != WAVE5_SYSERR_VPU_STILL_RUNNING) {
+>   			dev_warn(inst->dev->dev, "enc_finish_seq timed out\n");
+> -			pm_runtime_resume_and_get(inst->dev->dev);
+> +			pm_runtime_put_sync(inst->dev->dev);
+>   			mutex_unlock(&vpu_dev->hw_lock);
+>   			return ret;
+>   		}
+>   
+>   		if (*fail_res == WAVE5_SYSERR_VPU_STILL_RUNNING &&
+>   		    retry++ >= MAX_FIRMWARE_CALL_RETRY) {
+> -			pm_runtime_resume_and_get(inst->dev->dev);
+> +			pm_runtime_put_sync(inst->dev->dev);
+>   			mutex_unlock(&vpu_dev->hw_lock);
+>   			return -ETIMEDOUT;
+>   		}
+
