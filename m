@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD9C48551A
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 10:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763033B636A;
+	Wed,  7 Oct 2026 10:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791367442; cv=none; b=EkWlYTDKnvtbc/no8ZofWXgPI95VySiEn4TH8Q66Q4MfJ1zxEPGAEm2p6jf0+g7DiAzBpmVlmwFEDKlS2ap/M+v1E27RAZPWMx+YN5JqgfOmpDQ3M/RJtXTxmjMHYzijl0Wx4+qRUYm05lPn2v1LZjyeQfWv0fksY7uFP0nn67U=
+	t=1791367946; cv=none; b=Y3+4sRi1qqkv6FhiJtK7MNPj9dVJoHthYnuxTT9J7XAN7xtsrlucR16okAmMVPPYVU7W9XZ+nlJpQzARg35Xgyael++hwwP38wHhQv2821DuBwgADSqtgb/L9/skXwTYpo7K/Mc9T/iILl0XCftfOnWCWIrXs1hBQ0bIBEABi20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791367442; c=relaxed/simple;
-	bh=4yM7CVQmNDTPX/vEciJLhHIVlge+DSOESvRSzxjhG1U=;
+	s=arc-20240116; t=1791367946; c=relaxed/simple;
+	bh=i6WolQeDXnoDJrNQkDZLjMJndNYz2s5HKHwTnvAgcfY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iqia1RJ9RUMTCPh6gbBdyDdg36VO5m4k/INmmasayeq+KJw2l3OkKayG4dYp3pkiVKZaHsZETdlBk+Wicpsgn/JDwY3JYnoWBO4fiFeH9vbC8RZLS6lv9v/E46uxNCrn+qwxBkYP60Ep7eJPXM1PQi8uQhX9snx5u69MtCkgI5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lpbru3pe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BNX/0C3B; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=AQRJ+ldRYZ/x47K1lTYDSfdbrLWiQe9AM4kRZ/+U1BOu1DxAwXpy97tKzZqPEJxg0Pwd5v86pL8dblOLg9AL123t04J0cjiySorOX8KEAWK4ehc3zbLhBIxUUPOyVP20qigWQMC7HpY099NkQATqolQpHUU3HjBlQRXfmNqHT1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ArFvmsAg; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lpbru3pe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BNX/0C3B"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jhix3298365
-	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 10:03:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	M03AwNxsc2r/rMzULNXg8D4H62RlVRMbC2QVmKzSq6E=; b=lpbru3pe/3TX0S5f
-	Vz4mlcuk2Jr7OEtMleywJD+8IT07fFgr5LQ7hD0dtRonIwvvYtlRBxCN0dZBlfOY
-	BrnChFo2mJzeEIA0ikFtcEpykGw/t4pDoQ1GeGA0LZMksYbmwFARVSVb1sz0jMAW
-	Cbl/EfxQnj6UCXvaky7dGJiyGkZOyByVkm6wwrLhQGhiiEWKDo28DcjifZLudpQ6
-	5rqx6sk3EY13b/EegfDYhUVPKllTBZUWiL3GZSf5zfzyOX+OEltjQmrbwnYSakEj
-	jVAF+gwqV0OrFWPdBOiomVY6S0BPzI/qe62PAlYFFRdm0uJkM/53rFiGa28c9oD3
-	VOL9bA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5hdcrjkq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 10:03:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb71b1443so733171885a.2
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 03:03:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791367426; x=1791972226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M03AwNxsc2r/rMzULNXg8D4H62RlVRMbC2QVmKzSq6E=;
-        b=BNX/0C3BrVXJe2b/PW7Mj5357M8toh8OufEY0u2oOO63JXS6F4z6+4bLiGAgJN2pZ0
-         w638Gqh1kVxcHrnB0VXi8yox6ExD10LbxVqcXQOBbMJiypByWnfTeEMuB4OW0EAsridw
-         YmUfAVrg2UU8xK3d8b0SDlEZO/RAB5MHmHTLfUlewXNyRQXDlEp/yQn3ssJobeba2VfC
-         S3rKlGWQBR/5tybY3ehkBPEoUmI+3UNfC04F+so51GmDV/sf7HFl8tBYSm+VZYFoBmL6
-         L9mNRHOAXJkRWuPQWWh+dPQ7bqyeWac7yhzL/2/ZO6AUXQLkcEpF1CnOpqNOdnKj/op/
-         1jZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791367426; x=1791972226;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M03AwNxsc2r/rMzULNXg8D4H62RlVRMbC2QVmKzSq6E=;
-        b=X9e+/L/3csaGkGPw+AuBkGEBKArDlpwW60DaZS5RZT5fTKQZdVbTSR2ylxZO5uK2sf
-         +HHRZtpLWn6ZDnb2BsJnNS7wSMe13QYyhRj24mjLJjWp9ewhnM4jFaqBthep4rxS35G1
-         SXF0XtZBOUXJl0OUTiXjluuOoyEWdkVv3CZ0kbzTwuPA6cyERw7PiFf1+yzD2kFJ2W+b
-         OWaRLzRY7uIrPtoId9EK1IJtpWLGy4xvTy1m3gnf7+H9p+lQLQMBTrD8RDFGGsdc6Rwr
-         S+gmvao6wxcu5v9VgQem3DF7khJZ3P6HQ3PciG/qPtyFGWPQjblZmL8Q3rmuT5p3cJsP
-         J1sg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6abhb+z7O63s51ySLk8XKaEAcdVVsvlsFCoG+ZkEq400yY8EVw0mIm/bgvtA0/gfr9EbNm4m2D2EXxQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++lbNe3ZZpKfE4SogMdi95rsN5hE7UNX8q9gftIgULgiWLFd2GOE
-	KfMxllmwvjXbL1HCYiORUQdfMQ2JA9BWi+23ylu1jBTa0nmetgp+2vG8qyaWErHDQQ5hNVTLYh6
-	bClzYEQ3qAzhOZN5swDeANp73HpI/VTEXMvjz8KhuvjPzZIw4DteNf23kDy6Ey5vrCg==
-X-Gm-Gg: AYBFou0dTHGmGOSpLRObwr2V+zKD41ESNgERXbDb7pWLEwb/Foz/zxDK3Qogeuz8qIs
-	b66LeFNvFwyCUsuBls92TABsfITW37LH/3q1vG6woxSXBZn7xztutplvmng8Y21xUZdE6BGAfWU
-	ZnSHYuiOQxg3nb4dlKN7do7E4vjSVKXtyPlyQn8evn1ixJbteaAZf/T4eCgcDOQOkIwUI+f3qdE
-	A2aeq8N7QekDHVP163e7PvHJubYT25sOdoejKtBdLSzTM2mJuv1r2NjOJ/5uw2i4wNMo+GTAepb
-	jjRsKfLbkRSfl6qYYW9JlPnb4YUyaBFsDsmXfeSsL/HiE+LFT+JTj/eYW7xa9yMsOG2D5MbO3E3
-	dZTFJsaNxw/xzeHCak0BWOgSfdi8b2vrQct+sPFda
-X-Received: by 2002:a05:620a:2912:b0:936:e938:b07a with SMTP id af79cd13be357-93e9b345658mr339530885a.8.1791367426209;
-        Wed, 07 Oct 2026 03:03:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:2912:b0:936:e938:b07a with SMTP id af79cd13be357-93e9b345658mr339524585a.8.1791367425692;
-        Wed, 07 Oct 2026 03:03:45 -0700 (PDT)
-Received: from [192.168.25.64] ([94.155.124.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1144csm4297318f8f.23.2026.10.07.03.03.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 03:03:44 -0700 (PDT)
-Message-ID: <e352d91a-32fb-413b-85be-a2d30083eaea@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 13:03:42 +0300
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ArFvmsAg"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BA43612B2;
+	Wed,  7 Oct 2026 12:10:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791367815;
+	bh=i6WolQeDXnoDJrNQkDZLjMJndNYz2s5HKHwTnvAgcfY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ArFvmsAgbFm25Xs9TpdAtQVombDKdBqC9Y2x+aIXd+fDB338IGBNTcjAO0yCyoSvT
+	 fwBcBICzTyLygmDK/kv/ME+pYO6feBE/IYfwX3qNnkUwojP8BvnnMsHsgeKUO31rKB
+	 3lHK4Og2S7V5wz6KPvJap2ZJhxID1+IePqcFAPrA=
+Message-ID: <0a02d00c-e9d0-4373-9df5-65e3ad58d278@ideasonboard.com>
+Date: Wed, 7 Oct 2026 11:12:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,84 +35,216 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/45] media: qcom: camss: add IFE pixel path support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <e6a77fb9-e8a3-44ae-b8d1-76bb2494d31d@linaro.org>
+Subject: Re: [PATCH 2/3] media: mali-c55: Keep IRQ requested during suspend
+To: Linus Walleij <linusw@kernel.org>, Li Youhong <dayou5941@163.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Nayden Kanchev <nayden.kanchev@arm.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+ <20260929-mali-c55-irq-supend-resume-v1-2-e3af34afff12@kernel.org>
 Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <e6a77fb9-e8a3-44ae-b8d1-76bb2494d31d@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260929-mali-c55-irq-supend-resume-v1-2-e3af34afff12@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Wb0yi6byBaaSvcc-56XV5OQZahGaP_4F
-X-Authority-Analysis: v=2.4 cv=aKFlOr9m c=1 sm=1 tr=0 ts=6ac61903 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=uTK4J-ebKsyKmJgbFeIA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzOSBTYWx0ZWRfX/exVzpzo29dK
- bIX+cL7cuPJh12YdPeL9TpMy4T6WcWHRD5BRn1DAK0Zg/sY605DOF0LB1N66/LOyX8U0lYOIRoh
- ApgObU+zMDCU2YVKlFQ34OughM4FZqY=
-X-Proofpoint-ORIG-GUID: Wb0yi6byBaaSvcc-56XV5OQZahGaP_4F
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzOSBTYWx0ZWRfXyf7f1M9H2Nsq
- akw0sk+FRMqF/ZL6qPUt7BF/+Cz0ae60idknFONH3Q4/EPT+2h9mOk1131g5O6VpSUivTuz2I8K
- neIgS8ir5TuOtndxnB14+t3Ss+poc3+Ss9F+EqM9I7XcJwyjRJeh42GxuUZqvU6CVOZgwUA3nK+
- CnAWhcROUpZekDoPuoWQCtV6ckWj/d5nnebsxj3oepAdLfHYxHbiIZjwdyOJCMiYDLeAsOGBTPX
- bjFH6PgsKcaOiR9myTxETMaHezSxiFCL9aXMC1cJ0L/gaG6pkKgQiathBwHQ0PKkAfMR2Ca+Xe8
- 4CoufjNZCymkltlHFu8HFEnL1sg9VDhcXrxGto42KLU7Mm9FGgkMvRcFBP1ERhRZeqJbfuHWr0G
- ETdBCrULnhTlyvKkUJNadBqImsWCuvCmVsEMCUU9sG5yF5rJHFLGK1xcQcin6rvetim+BC5MvAj
- LbDyXPmfoiOCTEaDNCQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070039
 
+Hi Linus
 
-
-On 10/7/2026 12:59 PM, Bryan O'Donoghue wrote:
-> On 07/10/2026 00:39, 
-> Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
->> NOTE: Bryan has posted RFC changes for pixel path params and
->> statistics. This series was ready to be posted at that time, so it is
->> not rebased on top of Bryan's implementation. Both implementations
->> share common parts, but take a different direction towards enabling
->> the pixel path: Bryan's series extends camss-vfe, while this series
->> introduces the new camss-ife sub-device described above.
+On 29/09/2026 13:02, Linus Walleij wrote:
+> The interrupt is currently freed on every runtime suspend and requested
+> again on runtime resume. Apart from tying interrupt ownership to the
+> power state rather than to the driver lifetime, this leaves remove to
+> guess whether an action is installed for the IRQ.
 > 
-> Indeed.
+> Request the interrupt once during probe and free it during remove.
 > 
-> I have posted an evolutionary approach - shifting from and fixing the 
-> original sin of mixing write-master and rdi indexing - as a first up fix 
-> to the driver, and then placing new features on top.
+> Disable and synchronize the IRQ before powering the ISP off, and enable
+> it only after a successful power-on.
 > 
-> What I don't support here - is a parallel in-driver new driver that 
-> leaves legacy stuff as-is and just shoots off and does something easier 
-> in its own isolated place.
+> Hold a runtime PM reference during probe until the IRQ is installed,
+> and stop runtime PM and drain the IRQ before unregistering the media
+> entities during remove.
 > 
-> Great to see the willingness of qcom to follow up on my lead, lets work 
-> together to integrate your stuff on top.
+> If firmware marks the ISP as a wakeup source, initialize device wakeup
+> and enable IRQ wake during system suspend. Disable it again before
+> resuming the device.
 
-I agree, lets work together to move forward on this topic.
+I think that adding this could be a separate commit to fixing the irq handling...and perhaps that 
+should be the case given the Fixes tag?
 
-~Gjorgji
+> 
+> This configures the interrupt controller wake path.
+> 
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>   .../media/platform/arm/mali-c55/mali-c55-core.c    | 84 ++++++++++++++++------
+>   1 file changed, 64 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index f28e9f4354ac..07267b79801b 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -17,6 +17,8 @@
+>   #include <linux/of_reserved_mem.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/pm_runtime.h>
+> +#include <linux/pm_wakeup.h>
+> +#include <linux/property.h>
+>   #include <linux/reset.h>
+>   #include <linux/slab.h>
+>   #include <linux/string.h>
+> @@ -675,8 +677,7 @@ static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
+>   {
+>   	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
+>   
+> -	if (irq_has_action(mali_c55->irqnum))
+> -		free_irq(mali_c55->irqnum, dev);
+> +	disable_irq(mali_c55->irqnum);
+>   	__mali_c55_power_off(mali_c55);
+>   
+>   	return 0;
+> @@ -745,25 +746,41 @@ static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
+>   	if (ret)
+>   		return ret;
+>   
+> -	/*
+> -	 * The driver needs to transfer large amounts of register settings to
+> -	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
+> -	 * threaded IRQ to avoid disabling interrupts the entire time that's
+> -	 * happening.
+> -	 */
+> -	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
+> -				   IRQF_ONESHOT, dev_driver_string(dev), dev);
+> -	if (ret) {
+> -		__mali_c55_power_off(mali_c55);
+> -		dev_err(dev, "failed to request irq\n");
+> +	enable_irq(mali_c55->irqnum);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused mali_c55_suspend(struct device *dev)
+> +{
+> +	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	if (device_may_wakeup(dev)) {
+> +		ret = enable_irq_wake(mali_c55->irqnum);
+> +		if (ret)
+> +			return ret;
+>   	}
+>   
+> +	ret = pm_runtime_force_suspend(dev);
+> +	if (ret && device_may_wakeup(dev))
+> +		disable_irq_wake(mali_c55->irqnum);
+> +
+>   	return ret;
+>   }
+>   
+> +static int __maybe_unused mali_c55_resume(struct device *dev)
+> +{
+> +	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
+> +
+> +	if (device_may_wakeup(dev))
+> +		disable_irq_wake(mali_c55->irqnum);
+> +
+> +	return pm_runtime_force_resume(dev);
+> +}
+> +
+>   static const struct dev_pm_ops mali_c55_pm_ops = {
+> -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> -				pm_runtime_force_resume)
+> +	SET_SYSTEM_SLEEP_PM_OPS(mali_c55_suspend, mali_c55_resume)
+>   	SET_RUNTIME_PM_OPS(mali_c55_runtime_suspend, mali_c55_runtime_resume,
+>   			   NULL)
+>   };
+> @@ -825,27 +842,53 @@ static int mali_c55_probe(struct platform_device *pdev)
+>   	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+>   	pm_runtime_use_autosuspend(&pdev->dev);
+>   	pm_runtime_set_active(&pdev->dev);
+> +	pm_runtime_get_noresume(dev);
+>   	pm_runtime_enable(&pdev->dev);
+>   
+>   	ret = mali_c55_media_frameworks_init(mali_c55);
+>   	if (ret)
+>   		goto err_pm_runtime_disable;
+>   
+> -	pm_runtime_idle(&pdev->dev);
+> -
+>   	mali_c55->irqnum = platform_get_irq(pdev, 0);
+>   	if (mali_c55->irqnum < 0) {
+>   		ret = mali_c55->irqnum;
+>   		goto err_deinit_media_frameworks;
+>   	}
+>   
+> +	/*
+> +	 * The driver needs to transfer large amounts of register settings to
+> +	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
+> +	 * threaded IRQ to avoid disabling interrupts the entire time that's
+> +	 * happening.
+> +	 */
+> +	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
+> +				   IRQF_ONESHOT, dev_driver_string(dev), dev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to request irq\n");
+> +		goto err_deinit_media_frameworks;
+> +	}
+> +
+> +	if (device_property_read_bool(dev, "wakeup-source")) {
+> +		ret = devm_device_init_wakeup(dev);
+> +		if (ret) {
+> +			ret = dev_err_probe(dev, ret,
+> +					    "failed to initialize wakeup\n");
+> +			goto err_free_irq;
+> +		}
+> +	}
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+>   	return 0;
+>   
+> +err_free_irq:
+> +	free_irq(mali_c55->irqnum, dev);
+>   err_deinit_media_frameworks:
+>   	mali_c55_media_frameworks_deinit(mali_c55);
+>   err_pm_runtime_disable:
+> -	pm_runtime_set_suspended(&pdev->dev);
+>   	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_set_suspended(&pdev->dev);
+
+I would say that this re-ordering of the pm_runtime_set_suspended() and pm_runtime_disable() calls 
+probably ought to be in a separate commit too, since it's a distinct change that should be 
+backported to fix stable branches.
+
+Thanks
+Dan
+
+>   	kfree(mali_c55->context.registers);
+>   err_power_off:
+>   	__mali_c55_power_off(mali_c55);
+> @@ -859,12 +902,13 @@ static void mali_c55_remove(struct platform_device *pdev)
+>   {
+>   	struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
+>   
+> +	pm_runtime_disable(&pdev->dev);
+> +	free_irq(mali_c55->irqnum, &pdev->dev);
+>   	mali_c55_media_frameworks_deinit(mali_c55);
+> -	if (!pm_runtime_suspended(&pdev->dev)) {
+> +	if (!pm_runtime_status_suspended(&pdev->dev)) {
+>   		__mali_c55_power_off(mali_c55);
+>   		pm_runtime_set_suspended(&pdev->dev);
+>   	}
+> -	pm_runtime_disable(&pdev->dev);
+>   	kfree(mali_c55->context.registers);
+>   	of_reserved_mem_device_release(&pdev->dev);
+>   }
+> 
+
