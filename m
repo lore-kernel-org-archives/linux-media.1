@@ -1,361 +1,519 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0B936402A
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 21:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF4B3CE4B1
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 21:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791408736; cv=none; b=ndXvhfi2xhyWOD1HlZLpi+gTdHuxfFgx11TUIEq18kXv1usgrlZaozL7DnCLOtRE3ljXl/1KZ15gV5bDDWvVA1hUVXu+/Bu8J6PprbVmCcPo+pU0Q9cdN//ERyPa5WF3yl+zOOysqAucUfnU6c5UCwKw2wtNR2HMLfg3An1XTrE=
+	t=1791409227; cv=none; b=om6tmydvwLiUrBBRT+2uLvUwA77uWyFQr+X/M6buzAsMOLIXrV7LLzxbuzwG5XPje7TdU+oF384O+vdhLe88UYqOJKBQNrfPdnroz3tyDZknCKbak3n2ehkwwg4jfM8TxHkmUzn/i9uM5/ZS8iKGcls9sZnLp7VfAhabjxvKGuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791408736; c=relaxed/simple;
-	bh=8NitGKfqB0AoHyWAtpq7KhFbM3sFeGqEqSTNrG60xLo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z1nMnj7g8PZl4Vo9/BFj947JK1X16lKyTdpnVZHwHwNNObA500Ce6DQNvma6qideujUE+pTRcWfgqxBNM7DKmkTAYAlMwGZxuGA7QIgf3WJVz52LxdvzreV8i/MUtk//lm7xnnal11RXd2ZIc8ujzNmZbXPcSr+5fN+/CSfr9ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=M1VMOkM0; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791409227; c=relaxed/simple;
+	bh=GnMGRKNZVdbMjw9XclbNRPzyCtDC9pg4OdUYvbLmcJk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ad6zeuYpCUDsI8XgvTAghQhpfTnJqB219mv2EEkCWcZMTsKmbErZ2FM7NwfVTAO3I/ilNjzA/ctCPA5Y80K6eHkGVjLNS6pSekYklkpPi5QcWR4+W0GE+JMK8XjUXyZl/k5JXucfeltri8CjD0XYl8/TVQijqFtpTmeJ0UQV2Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KdkJKBT2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A3rSG27a; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="M1VMOkM0"
-Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 75CEC15B2;
-	Wed,  7 Oct 2026 23:30:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791408608;
-	bh=8NitGKfqB0AoHyWAtpq7KhFbM3sFeGqEqSTNrG60xLo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M1VMOkM02AnnbDFdon0zlK+eOB/OivSp78/+l0Aas9ldHjk+gBxzIKgYw1m0RZqgS
-	 cjuSRsSYOXXabo97Nmx+8dR6Nnz2kXnBCUzP4EbBFnUzlqnu3niQ83SMdCQl8x2ADd
-	 wUtKiU2Jyh3N0FXH2wWliiJyl9gtsO3bLWj0vMh8=
-Date: Wed, 7 Oct 2026 23:32:04 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	sakari.ailus@linux.intel.com,
-	Bingbu Cao <bingbu.cao@linux.intel.com>, bingbu.cao@intel.com,
-	tian.shu.qiu@intel.com, linux-media@vger.kernel.org,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	ilpo.jarvinen@linux.intel.com, tfiga@chromium.org,
-	senozhatsky@chromium.org, claus.stovgaard@gmail.com,
-	andriy.shevchenko@linux.intel.com, tomi.valkeinen@ideasonboard.com,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: RFC: Intel IPU4 driver proof of concept
-Message-ID: <20261007213204.GD664854@killaraus.ideasonboard.com>
-References: <20230727071558.1148653-11-bingbu.cao@intel.com>
- <e0cc94736e4142f2d661a8bbb0c800b709349377.camel@gmail.com>
- <83426573-8c4b-ec20-6916-2917aa06954f@redhat.com>
- <e136389011517dbc65b30f6bf0b1a9c49ab4e599.camel@gmail.com>
- <6f37f978-4898-473e-b774-7965d25bf27b@proton.me>
- <jsjMql5IQTMsAgViwR9vrMG4CZ1hVx9JMN4wbc0E98BvUP-TRpgtYalrmzQeor4UHRCbLg3bBeeZcaWrTujAMrf0G8q8NyQrd4o954ZayKA=@proton.me>
- <aeXaMGExmtpNcUFS@alaakso-DESK>
- <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me>
- <20261006203458.GA627926@killaraus.ideasonboard.com>
- <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KdkJKBT2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A3rSG27a"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697LUbB6075935
+	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 21:40:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	n7d1i+ueXqldQ8CAQkTCQVazrsQYfsC5iF/nX5343oE=; b=KdkJKBT2ZiZ5GwfY
+	tYfRHbJIRkk6R2x1t618U+/sgQoWubHtaU+QzSs1JRAcLJK3BxX/K6wgspxC1CDz
+	m0XHmM4wcok+wzY2A4H9Q00Ti+FvxicgI3CwhiC2cNbCHh3o/Yue9Z7vjL7M6/o9
+	F5DxgK7zvgYu3PtHBat1H5KoMq2ivgAkknZ111CK9QDIafapXPC8IiFpwbp0pPzZ
+	E51C26dPwht71XUfBlDGuR0vEwFEeE5M/rk0i6QoZWn6OTOAVf81ROHVjbg6VXTL
+	tzlt8bh/r9Ndx1b3BnXYJqvM5NV7LZAJ4Y9Ld6hpRpL2iQD8JZ+EdiuS7z1iTrm6
+	BgUosg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5tu80sff-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 21:40:23 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35173b5d32eso60907eec.3
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 14:40:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791409223; x=1792014023; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n7d1i+ueXqldQ8CAQkTCQVazrsQYfsC5iF/nX5343oE=;
+        b=A3rSG27ahsyhpmyHxs1d1DCf2mTp2bQha8OMtvTRYXqiJkW2rqANLRtiWUKvGd+xTf
+         lHSakkMhwjXCtYloNRRbwUCIz74pyv4uX0b5av+P71jiZpVrqYggsuj0pHi4pEpPUO8u
+         reG702kqWUq70sR6A1zVJs64xYjWqJaymVoTbkg69TXci/MZkwQQvH8c6uRbbhy/CFL0
+         MqD7lxiwvZo3d1KOS5xFanB7leJvbDY1z6EgyA+6AE/hjiYPtRMrS6NOWVoq+hxSudVo
+         1beByiWqdMc3tVMmF95Cx7ddpD/OuHyhZKokNR793VriEjOhFTNim8MO3AOQwXEz7rPx
+         F75w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791409223; x=1792014023;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n7d1i+ueXqldQ8CAQkTCQVazrsQYfsC5iF/nX5343oE=;
+        b=uAbVM7lOzFVcH3W1w8ifkPrhvfv0pUzQoRsU4zRl9DbOwxf51bVtXgSrkGyfvObkUX
+         2Rjj4RKrTS9UkyW9Qnl93y2URJB7aMp72IJI51cEr8GE8jFu0dADPzj0cWvBNaguEWz/
+         dfCSfsgpnxYt1ck9/4x+YYE60qbYuZwtDF9fStnZjdGoJYCGE9Wt7Rast0MgnDrQ9vac
+         UA9FJa9CoT5N6h2WAVrlKqLYS/PcHfmJQ3HaLGXRcODFFbmKfNN6hyrxDMEMkRCFppb9
+         zGGKEi4N2TQPNj1Y46CYHPvJAp/iCOheBB12TrMwtOFYK1Ff+EdsigC2FmiutE+VETk2
+         2pug==
+X-Gm-Message-State: AFuF++mxPn2TlIJHYyoYIG41TxunfV2FPIYzOd5Tpp7D3Xhph/A9r5OW
+	IOxg5U1c+6U6PyEQAQul7BZNp8qwzGjILvb208LoN0dcCr+b+D9chhUbtr91uPlUjTopARd1KMm
+	q/FCTVUGDJBy3IxPwIkEXxlrmsqVnu48dOAEKXffa0o21NoTG3hBN3gqpZuGmFD+4eA==
+X-Gm-Gg: AYBFou2sVvYvFJ0doHB83OI6/ueTxIXrp3rhET7fhnEL+0VD2aZVdrpFrk3kzK/S2LI
+	9OQxm7I2HpSQ+IOp1Jr1Cy9MWloS81ekqJ8E91J+NVonLeLtmUppuX5W18XOf4L5vvVNIer6T19
+	M/8R1MMeNrJss9GkfvV/2JEkQBfJ9NAus7zbfzTJ2CItaiErjvhU3CSL+BAU1drJLr9MwYXdG1c
+	pj0RpT451TGgLz/LIzKCEd1X+CoBZWTJo8VXKM8AzhLHpc0plbF2fnsxgu9LrBuuDYXN62QNjXf
+	P5rtsEVwkAuKE+uhcOsoSQ20c/VFrJA+w+qUIUgveqcrk2e82FjlgTCGdJ+r+Wfo9VYh0ADhGtm
+	9JeKD8WeL3kyVzVkL0Sgc6RutJJAyM4Tgudx2
+X-Received: by 2002:a05:7300:50f7:b0:351:7805:d3d4 with SMTP id 5a478bee46e88-3517805d564mr720051eec.0.1791409222461;
+        Wed, 07 Oct 2026 14:40:22 -0700 (PDT)
+X-Received: by 2002:a05:7300:50f7:b0:351:7805:d3d4 with SMTP id 5a478bee46e88-3517805d564mr719966eec.0.1791409221615;
+        Wed, 07 Oct 2026 14:40:21 -0700 (PDT)
+Received: from [192.168.1.210] ([76.33.11.15])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515af155b5sm8732356eec.12.2026.10.07.14.40.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 14:40:21 -0700 (PDT)
+Message-ID: <7639bce8-c259-429e-be91-512e3e2fda78@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 14:40:19 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/5] media: iris: Add HFI metadata buffer delivery
+ support for Gen2 encoders
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20261005-enc_roi_enable-v9-0-831c24135cb1@oss.qualcomm.com>
+ <inQVe3E9xQxUl97a9oxAvOjTb4IDzqhxOQqup3aHNw7U0PKfGHr7lWGM7jXu5bLR94PU88T5GRDR9txWtXBDRg==@protonmail.internalid>
+ <20261005-enc_roi_enable-v9-4-831c24135cb1@oss.qualcomm.com>
+ <27745be4-20de-4a00-95cf-27fde23f7e28@kernel.org>
+Content-Language: en-US
+From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+In-Reply-To: <27745be4-20de-4a00-95cf-27fde23f7e28@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
+X-Proofpoint-ORIG-GUID: QRo_R4inF4WJXwcGV2c0oCenZT3hwXES
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA4NiBTYWx0ZWRfX7ibMv0MNL3P2
+ KUl1duXamYW7NpdG9Ef8FzC1k1F2kn8k47OCrY4yj7+VeXFrHYsF4EPVyRnyHXu2aod3428Q39t
+ JOZ00vEFMOU0YwhzsGoE/BWXzVFP+Sg=
+X-Authority-Analysis: v=2.4 cv=H75OUOYi c=1 sm=1 tr=0 ts=6ac6bc47 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=yYUYPLL3N79xqptAUcuwSw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=rUItHR52hjNWQqA2logA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA4NiBTYWx0ZWRfX0liHiEwLyxKg
+ rhqNjjHbH0QOpHO33MY4X856boR4FQ4MJD/XAHEVqGWohkSKuyxzfVe5DQZJgUDdVbJvYXZ+AAn
+ 83nXoLmNySnFWrcY76cge2m9csSMgPjciA0ASqW/9F3/OE0UUMPddjy50kp31Kvh5mj3fTT4T9p
+ U/FDrQDJjZsvd08RfjvgBmH4vc4WXYgMqg96QLJwWSiojwiijBK/qUHDuYlQJLDmljXJK1FY5Xp
+ uk2EBCnFYd36AS051TN3Ak+mzjieba3SVyT1CbdiGrKtl8bumh9F1FJ/yARYsAHRGv44NcA1P+L
+ bTrrOd3puAhPGYD1NaU9fkk+b9+KcqCydVZeqoKuaat75vkIkEL4a1MJVdbotZmM2b0ZplCsHSz
+ YoyjkAGyEhQrHklKsqSFcVnMwtg5RKmf6pFZ3gDbM+WCfNJlwnVqENTfdnCutiGAtdigzGnU8pk
+ /of99kN7qUggnuhOtzA==
+X-Proofpoint-GUID: QRo_R4inF4WJXwcGV2c0oCenZT3hwXES
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_07,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070086
 
-On Wed, Oct 07, 2026 at 07:57:17AM +0000, Ruslan Bay wrote:
-> > This isn't a patchset. See Documentation/process/submitting-patches.rst
-> > for documentation on the patch submission process.
-> 
-> Sorry, I forgot to mention that this is only a proof of concept, not
-> the final patchset.
 
-That's fine, it's what "RFC" means.
+On 10/7/2026 1:58 AM, Bryan O'Donoghue wrote:
+> On 05/10/2026 23:38, Deepa Guthyappa Madivalara wrote:
+>> Add the infrastructure to deliver metadata buffers to the HFI firmware
+>> on HFI Gen2 based encoders, used to carry per-frame ROI delta QP data.
+>>
+>> Metadata buffer structures (iris_buffer.h):
+>> - Add metabuf_header and metapayload_header structs describing the
+>>    metadata buffer layout as expected by the firmware.
+>>    HFI defines (iris_hfi_gen2_defines.h):
+>> - Add HFI_CMD_DELIVERY_MODE (0x0100000A).
+>> - Add HFI_MODE_METADATA (0x00000004) to hfi_property_mode_type.
+>>    HFI command side (iris_hfi_gen2_command.c):
+>> - In iris_hfi_gen2_session_queue_buffer(), after queuing a RAW
+>>    (input) buffer, check for an available BUF_ROIMB_DELTAQP metadata
+>>    buffer and, if found, append a second HFI_CMD_BUFFER packet for
+>>    the metadata buffer in the same command, tagged with the same
+>>    buffer index.
+>> - Add iris_hfi_gen2_subscribe_metadata_delivery(): sends
+>>    HFI_CMD_DELIVERY_MODE with HFI_MODE_METADATA and HFI_PROP_ROI_INFO
+>>    to instruct the firmware to expect metadata on the input port.
+>>    HFI response side (iris_hfi_gen2_response.c):
+>> - Add iris_hfi_gen2_handle_output_metadata_buffer(): locate the
+>>    metadata buffer by device address and transition it from
+>>    QUEUED to DEQUEUED so it can be reused.
+>>
+>> Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> Signed-off-by: Deepa Guthyappa Madivalara 
+>> <deepa.madivalara@oss.qualcomm.com>
+>> ---
+>>   drivers/media/platform/qcom/iris/iris_buffer.h     | 18 ++++++++++
+>>   drivers/media/platform/qcom/iris/iris_ctrls.c      | 12 +++++++
+>>   drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
+>>   drivers/media/platform/qcom/iris/iris_hfi_common.h |  1 +
+>>   .../platform/qcom/iris/iris_hfi_gen2_command.c     | 39 
+>> ++++++++++++++++++++++
+>>   .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  2 ++
+>>   .../platform/qcom/iris/iris_hfi_gen2_packet.c      |  6 ++--
+>>   .../platform/qcom/iris/iris_hfi_gen2_packet.h      |  3 ++
+>>   .../platform/qcom/iris/iris_hfi_gen2_response.c    | 27 
+>> +++++++++++++++
+>>   drivers/media/platform/qcom/iris/iris_venc.c       |  4 +++
+>>   10 files changed, 110 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h 
+>> b/drivers/media/platform/qcom/iris/iris_buffer.h
+>> index 
+>> ab8e5d953101a786ade20540ee3c3ed226160cbe..ee2d24bb69c57220b0a735d9b4aae4434a33daf6 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_buffer.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.h
+>> @@ -107,6 +107,24 @@ struct iris_buffers {
+>>       u32            size;
+>>   };
+>>
+>> +/* Metadata buffer header */
+>> +struct metabuf_header {
+>> +    u32 count;
+>> +    u32 size;
+>> +    u32 version;
+>> +    u32 reserved[5];
+>> +};
+>> +
+>> +/* Metadata buffer payload header */
+>> +struct metapayload_header {
+>> +    u32 type;
+>> +    u32 size;
+>> +    u32 version;
+>> +    u32 offset;
+>> +    u32 flags;
+>> +    u32 reserved[3];
+>> +};
+>> +
+>>   int iris_get_buffer_size(struct iris_inst *inst, enum 
+>> iris_buffer_type buffer_type);
+>>   void iris_get_internal_buffers(struct iris_inst *inst, u32 plane);
+>>   int iris_create_internal_buffers(struct iris_inst *inst, u32 plane);
+>> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c 
+>> b/drivers/media/platform/qcom/iris/iris_ctrls.c
+>> index 
+>> d97fe50d48860b0f26b71d328a704f3804b1d93d..cd5597b2cbb69f0608fb8f21bd813e11c1f97693 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
+>> @@ -1704,3 +1704,15 @@ int iris_set_properties(struct iris_inst 
+>> *inst, u32 plane)
+>>
+>>       return 0;
+>>   }
+>> +
+>> +int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane)
+>> +{
+>> +    const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
+>> +    int ret = 0;
+>> +
+>> +    /*subscribe to metadata delivery only if ROI is enabled */
+>> +    if (!inst->fw_caps[ROI_PARAMS].p_array)
+>> +        return ret;
+>> +
+>> +    return hfi_ops->session_subscribe_metadata_delivery(inst, plane);
+>> +}
+>
+> What does ret do here ?
+>
+> Also is session_subscribe_metadata_delivery() guaranteed to be 
+> non-NULL ? I see it initialised once in this patch.
+>
+The idea is to subscribe to metadata delivery only if ROI is set. If not 
+firmware will
+expect metadata buffers from driver. So ret will just help returning 
+from here without subscribing.
+session_subscribe_metadata_delivery needs to be initialized only once 
+per instance if ROI is set.
 
-> This is my first time contributing to the upstream kernel, please
-> let me know if there are any issues with the PoC or anything else I
-> should approach differently. I'd appreciate any review feedback.
-
-You need to post the patch series for that, with "RFC" in the subject.
-We don't review patches on git forges.
-
-> I'm still working on the patchset, and there are a couple of things I
-> need to sort out. In particular, I'm not sure whether some of the
-> module parameters I've added are appropriate for upstream, and there
-> are also some details around the new definitions that need cleanup.
-
-In an RFC, you can include such questions in the cover letter of the
-series.
-
-> The overall file and patch structure should remain the same, though.
-> 
-> Once I've sorted out the remaining issues, I'll send the complete
-> patchset as a separate email.
-> 
-> On Tuesday, October 6th, 2026 at 10:35 PM, Laurent Pinchart wrote:
-> > On Tue, Oct 06, 2026 at 05:03:15PM +0000, Ruslan Bay wrote:
-> > > Hi,
-> > >
-> > > I've got IPU4P support working on top of the upstream IPU6 driver [1][2].
-> > > This builds on Antti's work [3].
-> > >
-> > > With help from supermepsipax, thisiscamk, ConsultingFuture4200,
-> > > georgemihaila and others in the linux-surface community [4], together
-> > > with the libcamera developers, both the front- and rear-facing cameras
-> > > can now capture images on the Surface Pro 7 (Ice Lake).
-> > >
-> > > The IR camera also works with the downstream driver but I haven't
-> > > tested it yet, so it is not included in this patchset.
-> > 
-> > This isn't a patchset. See Documentation/process/submitting-patches.rst
-> > for documentation on the patch submission process.
-> > 
-> > > Links:
-> > > [1] https://github.com/ruslanbay/ipu4-drivers
-> > > [2] https://github.com/ruslanbay/linux/commits/ipu4p-upstream
-> > > [3] https://lore.kernel.org/all/20260907113004.2489993-1-sakari.ailus@linux.intel.com/
-> > > [4] https://github.com/linux-surface/linux-surface
-> > >
-> > > On Monday, April 20th, 2026 at 9:48 AM, Antti Laakso wrote:
-> > > > On Wed, Mar 04, 2026 at 11:03:51AM +0000, Ruslan Bay wrote:
-> > > > > Currently there are multiple IPU driver implementations actively
-> > > > > maintained by Intel engineers:
-> > > > >
-> > > > > - mainline IPU6 [1]
-> > > > > - downstream IPU6 [2]
-> > > > > - downstream IPU4/IPU4P [3]
-> > > > > - staging IPU7 [4]
-> > > > > - downstream IPU7 [5]
-> > > > >
-> > > > > As mentioned earlier, IPU4 and IPU6 share a large portion of the
-> > > > > code base, and IPU7 appears architecturally very similar as well.
-> > > > >
-> > > > > The IPU7 TODO mentions working toward a common IPU module [6].
-> > > > > There was also an attempt to move from ipu6_* back to more
-> > > > > generic ipu_* naming [7].
-> > > > >
-> > > > > Is a unified IPU core still planned?
-> > > >
-> > > > We're working on extending ipu6 driver to support ipu7 as well. The
-> > > > exact schedule is not available yet.
-> > > >
-> > > > > If so, is it expected to include IPU4/IPU4P support?
-> > > > >
-> > > > > Links:
-> > > > > [1] https://github.com/torvalds/linux/tree/master/drivers/media/pci/intel/ipu6
-> > > > > [2] https://github.com/intel/ipu6-drivers
-> > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-251103T063840Z/drivers/media/pci/intel
-> > > > > [4] https://github.com/torvalds/linux/tree/master/drivers/staging/media/ipu7
-> > > > > [5] https://github.com/intel/ipu7-drivers
-> > > > > [6] https://github.com/torvalds/linux/blob/master/drivers/staging/media/ipu7/TODO#L17
-> > > > > [7] https://lore.kernel.org/all/20250502154446.88965-6-stanislaw.gruszka@linux.intel.com/
-> > > > >
-> > > > > On Sunday, February 22nd, 2026 at 8:57 PM, Ruslan Bay wrote:
-> > > > >
-> > > > > > We now have a working IPU4P driver for Ice Lake devices [1][2].
-> > > > > >
-> > > > > > The current IPU4P implementation is based on Intel’s downstream IPU4
-> > > > > > driver [3]. ISYS capture works with libcamera and has been tested on
-> > > > > > Surface Pro 7 and Surface Book 3 [4]. The world-facing camera (ov8865)
-> > > > > > works; the user-facing (ov5693) is still being debugged.
-> > > > > >
-> > > > > > IPU4P and IPU6 both contain PSYS implementations downstream, but in
-> > > > > > practice only ISYS is usable with libcamera today.
-> > > > > >
-> > > > > > Earlier in this thread Andreas noted that IPU4 and IPU6 share more than
-> > > > > > 85% of the code base.IPU7 appears architecturally very similar as well.
-> > > > > >
-> > > > > > Before preparing an RFC, I would like clarification on direction:
-> > > > > >
-> > > > > > 1. Is the long-term plan to unify IPU6 and IPU7 under a common driver
-> > > > > >    structure?
-> > > > > > 2. If so, should IPU4/IPU4P be aligned on top of that?
-> > > > > > 3. If not, would it make sense to follow Andreas’ approach [5],
-> > > > > >    implement IPU4P on top of the IPU6 structure, and move it to
-> > > > > >    staging while iterating, as has been done for IPU7?
-> > > > > >
-> > > > > > The primary goal is upstream IPU4P support (large Ice Lake user base),
-> > > > > > but ideally this should align with the Apollo Lake IPU4 work shared
-> > > > > > earlier [5].
-> > > > > >
-> > > > > > What direction would you recommend?
-> > > > > >
-> > > > > > [1] https://github.com/ruslanbay/ipu4-drivers/tree/main/patches/kernel/v6.19
-> > > > > > [2] https://github.com/ruslanbay/linux/commits/ipu4-6.19
-> > > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-251103T063840Z/drivers/media/pci/intel
-> > > > > > [4] https://github.com/linux-surface/linux-surface/discussions/1353?sort=new
-> > > > > > [5] https://github.com/Kleist/ipu4-driver
-> > > > > >
-> > > > > > Thanks,
-> > > > > > Ruslan Bay
-> > > > > >
-> > > > > > On 12/20/23 1:53 PM, Andreas Helbech Kleist wrote:
-> > > > > > > Hi,
-> > > > > > >
-> > > > > > > As mentioned previously in Bingbu's IPU6 patch series, I'm working on
-> > > > > > > porting the driver to IPU4. I've now got a hole through so I think it
-> > > > > > > makes sense sense to share the code.
-> > > > > > >
-> > > > > > > I'm able to capture frames with yavta with the current code, but there
-> > > > > > > are several issues that needs to be fixed for it to be complete.
-> > > > > > >
-> > > > > > > # How it is tested
-> > > > > > > ==================
-> > > > > > > The hardware is a custom x86 PC-like embedded device with the following
-> > > > > > > video pipeline:
-> > > > > > > Endoscope -> FPGA -> tc358748 -> IPU4 (E3950/Apollo Lake)
-> > > > > > >
-> > > > > > > See my colleague Claus' description[2] for more info.
-> > > > > > >
-> > > > > > > There is currently no V4L2 subdevice for the FPGA, so we have a custom
-> > > > > > > ambu-tc358748.c driver which pretends to be an image sensor.
-> > > > > > >
-> > > > > > > $ media-ctl -v \
-> > > > > > >   -V "\
-> > > > > > >     \"tc358748 0-000e\"    :0 [fmt:RGB888_1X24/800x800],\
-> > > > > > >     \"Intel IPU4 CSI2 0\"  :0 [fmt:RGB888_1X24/800x800],\
-> > > > > > >     \"Intel IPU4 CSI2 0\"  :1 [fmt:RGB888_1X24/800x800]\
-> > > > > > >     "\
-> > > > > > >   -l "\
-> > > > > > >     \"tc358748 0-000e\"    :0 -> \"Intel IPU4 CSI2 0\" :0 [1],\
-> > > > > > >     \"Intel IPU4 CSI2 0\"  :1 -> \"Intel IPU4 ISYS Capture 12\" :0 [5]\
-> > > > > > >   "
-> > > > > > >
-> > > > > > > $ yavta --data-prefix -c2 -n2 -I -s 800x800 --file=/tmp/frame-#.bin \
-> > > > > > >         -f XBGR32 /dev/video12
-> > > > > > >
-> > > > > > > This produces frame-*.bin files containing 800x800x4 bytes of valid
-> > > > > > > "BGR0" data.
-> > > > > > >
-> > > > > > > # The code
-> > > > > > > ==========
-> > > > > > > The code is available at the tag
-> > > > > > > https://github.com/Kleist/linux/tree/kleist-v6.6-ipu4-hacks-1
-> > > > > > > (15245fe26e07)
-> > > > > > >
-> > > > > > >
-> > > > > > > Note that I haven't renamed the files to ipu4, to make it clear what
-> > > > > > > the changes are compared to the IPU6 driver.
-> > > > > > >
-> > > > > > > It is based on v6.6 with the IPU6 v2 patches[1] on top, and then my
-> > > > > > > hacks to make the IPU4 work. This is not meant for upstreaming as it
-> > > > > > > is. The commits are a cleaned up version of the chronological order I
-> > > > > > > made the port in. It is not yet in a state where I think an RFC PATCH
-> > > > > > > series makes sense yet, but I wanted to share it anyway.
-> > > > > > >
-> > > > > > > ## Changes compared to IPU6
-> > > > > > > diff --stat of the changes in ../ipu6/ compared to the IPU6 v2 patches:
-> > > > > > >
-> > > > > > >  drivers/media/pci/intel/ipu6/Kconfig               |  12 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/Makefile              |  13 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.c            |   2 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.h            |   6 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.c       |  71 ++-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.h       |   8 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.c         |  45 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.h         |   2 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c        | 171 ++++---
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h        | 237 ++++++----
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c      | 219 +++++----
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h      |  11 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c     |  33 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.h     |   8 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.c     | 212 +++------
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.h     |   4 -
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.c           | 435 +++---------------
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.h           |  18 +-
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-mmu.c            | 130 +++++-
-> > > > > > >  .../pci/intel/ipu6/ipu6-platform-buttress-regs.h   |  98 +---
-> > > > > > >  .../pci/intel/ipu6/ipu6-platform-isys-csi2-reg.h   | 226 ++-------
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6-platform-regs.h  | 172 ++-----
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6.c                | 511 ++++++++-------------
-> > > > > > >  drivers/media/pci/intel/ipu6/ipu6.h                |  37 +-
-> > > > > > >  24 files changed, 1032 insertions(+), 1649 deletions(-)
-> > > > > > >
-> > > > > > > Note that most of the deleted lines are removed because they are not
-> > > > > > > used in IPU4. E.g. the watermark handling, which I haven't seen an
-> > > > > > > equivalent for in the old IPU4 driver.
-> > > > > > >
-> > > > > > > ## Ambu-specific tweaks
-> > > > > > > Note that I'm using a hacked ipu-bridge (AMBU_IPU_BRIDGE) to setup the
-> > > > > > > fwnode graph for our hardware. You don't want if you're testing this,
-> > > > > > > so revert at least the "ambu: Add AMBU_IPU_BRIDGE" commit.
-> > > > > > >
-> > > > > > > I'm not sure the right approach for handling this would be going
-> > > > > > > forward. Of course the ambu-ipu-bridge shouldn't be upstreamed, so I'm
-> > > > > > > wondering how we can achieve something similar? The ACPI tables from
-> > > > > > > our BIOS unfortunately don't contain any info about the Toshiba Bridge
-> > > > > > > (tc358748), so we can't derive the information from there. Maybe some
-> > > > > > > kind of platform driver could be created which tweaks the ACPI info
-> > > > > > > before the ipu-bridge driver reads it?
-> > > > > > >
-> > > > > > > What do you typically do when you have some proprietary hardware that
-> > > > > > > does not provide proper ACPI information? We could carry the ambu-ipu-
-> > > > > > > bridge patches in our internal kernel tree, but that is not desirable
-> > > > > > > in the long term.
-> > > > > > >
-> > > > > > > # Inspiration for the IPU4 port
-> > > > > > > ===============================
-> > > > > > > We are currently using a Intel LTS 4.19.217 based kernel[3], which
-> > > > > > > contains the old IPU4 driver. The port was basically made by comparing
-> > > > > > > mmiotrace's between the old IPU4 driver and the new driver.
-> > > > > > >
-> > > > > > > We're using the IPU4 FW ipu4_cpd_b0.bin extracted from a ClearLinux
-> > > > > > > package[4].
-> > > > > > >
-> > > > > > > # Known issues
-> > > > > > > ==============
-> > > > > > > ## Doesn't yet work with gstreamer for unknown reasons
-> > > > > > > I get "Unexpected buffer address:" errors from
-> > > > > > > ipu6_isys_queue_buf_ready, and don't get an image through.
-> > > > > > >
-> > > > > > > ## 64 byte chunks of wrong data
-> > > > > > > We occasionally get 64 byte aligned 64 byte wrong data (all 0xCC) in
-> > > > > > > the captured frame*.bin files. This could be a cache invalidation
-> > > > > > > issue, we haven't looked into this yet. The code currently doesn't use
-> > > > > > > zlw_invalidate, even though it was ported from the old driver. We
-> > > > > > > haven't yet tested if enabling this fixes the issue.
-> > > > > > >
-> > > > > > > # Upstreaming
-> > > > > > > =============
-> > > > > > > We would like to upstream this driver, probably after the IPU6 driver
-> > > > > > > has been merged. We're definitely not ready yet (either), but I already
-> > > > > > > have a couple of questions, that it would be nice to get some input on
-> > > > > > > from the community.
-> > > > > > >
-> > > > > > > ## How to share code between IPU4 and IPU6
-> > > > > > > Big parts of the code (approximately 6k out of 7k lines) does not need
-> > > > > > > to be changed compared to the IPU6 driver, so there is clearly a big
-> > > > > > > overlap in what the two drivers need to do. I'm not sure how the best
-> > > > > > > approach would be for sharing this functionality. I see a few options:
-> > > > > > > 1. Shared driver that supports both IPU's (still split in PCI driver
-> > > > > > > and -isys driver)
-> > > > > > > 2. Shared PCI driver that supports both IPU's, but device-specific
-> > > > > > > intel-ipu4-isys/intel-ipu6-isys drivers
-> > > > > > > 3. Separate drivers that use a shared "library module" (for lack of a
-> > > > > > > better term)
-> > > > > > >
-> > > > > > > My gut feeling is that 2. is the right choice, especially if we moved
-> > > > > > > the shared code in to the PCI driver and the more version-specific code
-> > > > > > > was moved into the specific drivers.
-> > > > > > >
-> > > > > > > The answer to this could also be input to Bingbu's IPU6 series, maybe
-> > > > > > > it would make sense to place some files differently if they eventually
-> > > > > > > will be used in both IPU4 and IPU6 drivers?
-> > > > > > >
-> > > > > > > ## How to implement our platform specific fwnode graph?
-> > > > > > > As mentioned above, we currently have a hacked ambu-ipu-bridge driver,
-> > > > > > > which is clearly not upstreamable. What would you typically do if you
-> > > > > > > need to make a v4l setup where the ACPI table information about
-> > > > > > > sensors/bridges is missing?
-> > > > > > >
-> > > > > > > /Andreas
-> > > > > > >
-> > > > > > > [1] https://lore.kernel.org/all/20231024112924.3934228-1-bingbu.cao@intel.com/
-> > > > > > > [2] https://lore.kernel.org/all/471df7ffdf34b73d186c429a366cfee62963015f.camel@gmail.com/
-> > > > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v4.19.217-base-211118T072627Z
-> > > > > > > [4] https://download.clearlinux.org/releases/32370/clear/source/SRPMS/linux-firmware-ipu-19ww39-104.src.rpm
-
--- 
-Regards,
-
-Laurent Pinchart
+>> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h 
+>> b/drivers/media/platform/qcom/iris/iris_ctrls.h
+>> index 
+>> 08db807444203ef02f83008fc311cad20ea79f44..ef2c09485ad93719e4acc7f395899d7f67cb5b2d 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_ctrls.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
+>> @@ -51,5 +51,6 @@ int iris_set_req_sync_frame(struct iris_inst *inst, 
+>> enum platform_inst_fw_cap_ty
+>>   int iris_set_time_delta_based_rc(struct iris_inst *inst, enum 
+>> platform_inst_fw_cap_type cap_id);
+>>   int iris_set_slice_count(struct iris_inst *inst, enum 
+>> platform_inst_fw_cap_type cap_id);
+>>   int iris_set_properties(struct iris_inst *inst, u32 plane);
+>> +int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane);
+>>
+>>   #endif
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.h 
+>> b/drivers/media/platform/qcom/iris/iris_hfi_common.h
+>> index 
+>> 16099f9a25b65e2e4556d54499e2c2a4cc4e22fc..79b276cc64f656c387dab5994d844bc9a9c9e624 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_common.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_common.h
+>> @@ -132,6 +132,7 @@ struct iris_hfi_session_ops {
+>>       int (*session_drain)(struct iris_inst *inst, u32 plane);
+>>       int (*session_resume_drain)(struct iris_inst *inst, u32 plane);
+>>       int (*session_close)(struct iris_inst *inst);
+>> +    int (*session_subscribe_metadata_delivery)(struct iris_inst 
+>> *inst, u32 plane);
+>>   };
+>>
+>>   struct hfi_subscription_params {
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c 
+>> b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+>> index 
+>> 388a36ff2b07b7bcd8db21d4345bc900356b4ec3..cf88dbe11e8e9faef826e661d8e9909fd7f16b94 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+>> @@ -1307,6 +1307,24 @@ static void iris_hfi_gen2_get_buffer(u32 
+>> domain, struct iris_buffer *buffer,
+>>       buf->timestamp = buffer->timestamp;
+>>   }
+>>
+>> +static struct iris_buffer *iris_queue_metadata_buffers(struct 
+>> iris_inst *inst,
+>> +                               enum iris_buffer_type buffer_type, 
+>> u32 index)
+>> +{
+>> +    struct iris_buffers *buffers = &inst->buffers[buffer_type];
+>> +    struct iris_buffer *buffer = NULL;
+>> +
+>> +    if (list_empty(&buffers->list))
+>> +        return NULL;
+>> +
+>> +    buffer = list_first_entry(&buffers->list, typeof(*buffer), list);
+>> +    if ((buffer->attr & BUF_ATTR_QUEUED) || (buffer->attr & 
+>> BUF_ATTR_DEQUEUED))
+>> +        return NULL;
+>> +
+>> +    buffer->index = index;
+>> +
+>> +    return buffer;
+>> +}
+>> +
+>>   static int iris_hfi_gen2_session_queue_buffer(struct iris_inst 
+>> *inst, struct iris_buffer *buffer)
+>>   {
+>>       struct iris_inst_hfi_gen2 *inst_hfi_gen2 = 
+>> to_iris_inst_hfi_gen2(inst);
+>> @@ -1359,6 +1377,26 @@ static int 
+>> iris_hfi_gen2_session_release_buffer(struct iris_inst *inst, struct i
+>>                       inst_hfi_gen2->packet->size);
+>>   }
+>>
+>> +static int iris_hfi_gen2_subscribe_metadata_delivery(struct 
+>> iris_inst *inst, u32 plane)
+>> +{
+>> +    struct iris_inst_hfi_gen2 *inst_hfi_gen2 = 
+>> to_iris_inst_hfi_gen2(inst);
+>> +    u32 port = iris_hfi_gen2_get_port(inst, 
+>> V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
+>> +    u32 payload[2] = {HFI_MODE_METADATA, HFI_PROP_ROI_INFO};
+>> +
+>> +    iris_hfi_gen2_packet_session_command(inst,
+>> +                         HFI_CMD_DELIVERY_MODE,
+>> +                         (HFI_HOST_FLAGS_RESPONSE_REQUIRED |
+>> +                          HFI_HOST_FLAGS_INTR_REQUIRED),
+>> +                         port,
+>> +                         inst->session_id,
+>> +                         HFI_PAYLOAD_U32_ARRAY,
+>> +                         &payload,
+>> +                         sizeof(u32) * 2);
+>> +
+>> +    return iris_hfi_queue_cmd_write(inst->core, inst_hfi_gen2->packet,
+>> +                    inst_hfi_gen2->packet->size);
+>> +}
+>> +
+>>   static const struct iris_hfi_session_ops iris_hfi_gen2_session_ops = {
+>>       .session_open = iris_hfi_gen2_session_open,
+>>       .session_set_config_params = 
+>> iris_hfi_gen2_session_set_config_params,
+>> @@ -1372,6 +1410,7 @@ static const struct iris_hfi_session_ops 
+>> iris_hfi_gen2_session_ops = {
+>>       .session_drain = iris_hfi_gen2_session_drain,
+>>       .session_resume_drain = iris_hfi_gen2_session_resume_drain,
+>>       .session_close = iris_hfi_gen2_session_close,
+>> +    .session_subscribe_metadata_delivery = 
+>> iris_hfi_gen2_subscribe_metadata_delivery,
+>>   };
+>>
+>>   static struct iris_inst *iris_hfi_gen2_get_instance(void)
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h 
+>> b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+>> index 
+>> 2394213d8272b53bf6a1cff9574dc93f6830fc8c..746d7c1aad52cd87c55a7ad71fcf9560881dfce6 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
+>> @@ -20,6 +20,7 @@
+>>   #define HFI_CMD_DRAIN                0x01000007
+>>   #define HFI_CMD_RESUME                0x01000008
+>>   #define HFI_CMD_BUFFER                0x01000009
+>> +#define HFI_CMD_DELIVERY_MODE                0x0100000A
+>>   #define HFI_CMD_SUBSCRIBE_MODE            0x0100000B
+>>   #define HFI_CMD_SETTINGS_CHANGE            0x0100000C
+>>   #define HFI_CMD_PAUSE                0x01000011
+>> @@ -177,6 +178,7 @@ enum hfi_flip {
+>>   enum hfi_property_mode_type {
+>>       HFI_MODE_PORT_SETTINGS_CHANGE        = 0x00000001,
+>>       HFI_MODE_PROPERTY            = 0x00000002,
+>> +    HFI_MODE_METADATA            = 0x00000004,
+>>   };
+>>
+>>   enum hfi_color_format {
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c 
+>> b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+>> index 
+>> 6e04175eb904b494309a38eece41213600f93a88..655f4c2fcdd5b89624887807f4fa17a645fac803 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+>> @@ -100,9 +100,9 @@ static void iris_hfi_gen2_create_header(struct 
+>> iris_hfi_header *hdr,
+>>       hdr->num_packets = 0;
+>>   }
+>>
+>> -static void iris_hfi_gen2_create_packet(struct iris_hfi_header *hdr, 
+>> u32 pkt_type,
+>> -                    u32 pkt_flags, u32 payload_type, u32 port,
+>> -                    u32 packet_id, void *payload, u32 payload_size)
+>> +void iris_hfi_gen2_create_packet(struct iris_hfi_header *hdr, u32 
+>> pkt_type,
+>> +                 u32 pkt_flags, u32 payload_type, u32 port,
+>> +                 u32 packet_id, void *payload, u32 payload_size)
+>>   {
+>>       struct iris_hfi_packet *pkt = (struct iris_hfi_packet *)((u8 
+>> *)hdr + hdr->size);
+>>       u32 pkt_size = sizeof(*pkt) + payload_size;
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h 
+>> b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
+>> index 
+>> 25b9582349ca1a0ce6efc0b146a3abb798485c45..613eb500609f745daebdcbdf9a25b85cb9465a79 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.h
+>> @@ -121,5 +121,8 @@ void iris_hfi_gen2_packet_session_property(struct 
+>> iris_inst *inst,
+>>   void iris_hfi_gen2_packet_sys_interframe_powercollapse(struct 
+>> iris_core *core,
+>>                                  struct iris_hfi_header *hdr);
+>>   void iris_hfi_gen2_packet_sys_pc_prep(struct iris_core *core, 
+>> struct iris_hfi_header *hdr);
+>> +void iris_hfi_gen2_create_packet(struct iris_hfi_header *hdr, u32 
+>> pkt_type,
+>> +                 u32 pkt_flags, u32 payload_type, u32 port,
+>> +                 u32 packet_id, void *payload, u32 payload_size);
+>>
+>>   #endif
+>> diff --git 
+>> a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c 
+>> b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+>> index 
+>> f0782c4b1e6e88d06cb4bd18f0210c105ae2acf8..ea1fc96077fdce83db9c6a6c1f753ec7978b0673 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+>> @@ -77,6 +77,7 @@ static bool 
+>> iris_hfi_gen2_is_valid_hfi_buffer_type(u32 buffer_type)
+>>       case HFI_BUFFER_PERSIST:
+>>       case HFI_BUFFER_VPSS:
+>>       case HFI_BUFFER_PARTIAL_DATA:
+>> +    case HFI_BUFFER_METADATA:
+>>           return true;
+>>       default:
+>>           return false;
+>> @@ -452,6 +453,30 @@ static int 
+>> iris_hfi_gen2_handle_release_internal_buffer(struct iris_inst *inst,
+>>       return 0;
+>>   }
+>>
+>> +static int iris_hfi_gen2_handle_output_metadata_buffer(struct 
+>> iris_inst *inst,
+>> +                               struct iris_hfi_buffer *buffer)
+>> +{
+>> +    u32 buf_type = iris_hfi_gen2_buf_type_to_driver(inst, 
+>> HFI_BUFFER_METADATA);
+>> +    struct iris_buffers *buffers = &inst->buffers[buf_type];
+>> +    struct iris_buffer *buf, *iter;
+>> +    bool found = false;
+>> +
+>> +    list_for_each_entry(iter, &buffers->list, list) {
+>> +        if (iter->device_addr == buffer->base_address) {
+>> +            found = true;
+>> +            buf = iter;
+>> +            break;
+>> +        }
+>> +    }
+>> +    if (!found)
+>> +        return -EINVAL;
+>> +
+>> +    buf->attr &= ~BUF_ATTR_QUEUED;
+>> +    buf->attr |= BUF_ATTR_DEQUEUED;
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   static int iris_hfi_gen2_handle_session_stop(struct iris_inst *inst,
+>>                            struct iris_hfi_packet *pkt)
+>>   {
+>> @@ -499,6 +524,8 @@ static int 
+>> iris_hfi_gen2_handle_session_buffer(struct iris_inst *inst,
+>>               return iris_hfi_gen2_handle_input_buffer(inst, buffer);
+>>           else if (buffer->type == HFI_BUFFER_BITSTREAM)
+>>               return iris_hfi_gen2_handle_output_buffer(inst, buffer);
+>> +        else if (buffer->type == HFI_BUFFER_METADATA)
+>> +            return iris_hfi_gen2_handle_output_metadata_buffer(inst, 
+>> buffer);
+>>           else
+>>               return 
+>> iris_hfi_gen2_handle_release_internal_buffer(inst, buffer);
+>>       }
+>> diff --git a/drivers/media/platform/qcom/iris/iris_venc.c 
+>> b/drivers/media/platform/qcom/iris/iris_venc.c
+>> index 
+>> 2f2c56bf9122c73e10e86815b1aa5fad99b0fb42..08353a8895b0e5d8769c2deb137a4fffcbc3108d 
+>> 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_venc.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_venc.c
+>> @@ -515,6 +515,10 @@ int iris_venc_streamon_output(struct iris_inst 
+>> *inst)
+>>       if (ret)
+>>           goto error;
+>>
+>> +    ret = iris_set_metadata_delivery(inst, 
+>> V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+>> +    if (ret)
+>> +        goto error;
+>> +
+>>       ret = iris_alloc_and_queue_persist_bufs(inst, BUF_ARP);
+>>       if (ret)
+>>           return ret;
+>>
+>> -- 
+>> 2.34.1
+>>
+>
