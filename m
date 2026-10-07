@@ -1,95 +1,147 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B1B3CBE96;
-	Wed,  7 Oct 2026 11:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372111; cv=pass; b=DoW5DYtHM2GRVP0ovZKGqZW20cq0gfEKXPz0GDQAf87SudGaFwaijyzHRCd6fuUeDNqMfsrJIueRNJCVC7zLATL3E22R+wSl275662/cnEpsoU1492iBs00uImBrNEPV2dAO+l3L8XRJvNTdvZwmQ6/9tdWL8bjLCP3oG5EgQHA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372111; c=relaxed/simple;
-	bh=Oz5w33I0aWZKeCyF2rgD7FdclPfY6S3l6RkrDTyWTO4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y1Q+X7tWUE2461x3gufOJLuuoP2z1i5wufY/hNRuRZ5Rf86iXd99Z73HptxK26UiOoGz0SFHT4R2qGG5Wk1jiuiKlRkzSYpdtGmivPHLBa0JsmFHw4RtonkySAfw55+6fzxI4SqoVd2BDAnE+ewyRigalfjMEQSNzjF3JnltRV4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=kxlw0qmp; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DDC3B0583
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 11:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791372211; cv=none; b=FpLW2AWriPsA1wP4maVZCaejHhJEX5X5DizHyKvTD4IC8d9OdhKqLs8+GKoPBkXoi3qcnUpNqItOwD1Uh10t8RJJ3KYzBT6pMzUG2PSSwVZc0tsWn7yH6bmzzjkt49rW6t3YPh0OHq3Dh9IDWiosoJpnuemxPrjjrmkjYCdsgwo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791372211; c=relaxed/simple;
+	bh=2hwsUZK4ODMcka/Ebr9sKxEUtV9w7OkXEuWQZ+N18YE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N436kjgOWC0jbVifLubUbkXsokz8Frtf05QXs5RV1+reCF3dt/02wT7RsGMNPEdQ1eshoScLu6dTanQSV2Nla1XOJKERS6D7xKFGh8tul6rBINiKoWPAQQowN1mB2lJIpgKNx5hH1PJjQAD+HjTfFnooVRMsEQ/fCxctG1Oo/Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9G0JFMD; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="kxlw0qmp"
-ARC-Seal: i=1; a=rsa-sha256; t=1791372064; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VVwyfoWYAq10SOGH/95EvOcTYVYkPsLx1K36jmaD+REVN8CixevtiTtXFEjvkXCB2zkleTsErRHyh5K5kOoHbfz/KLWWvYfOTu2o/NQYObXuYOTCk4ShhDgS+r/mGfd2gi1dBB1nuZDxHbsXVeUjjRXmL0IkeoZnHjqat2sEjj4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791372064; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5AjtX2ixtUaJlIPmzG/Mdx77uYIeRYJWWfOZV1ANyJg=; 
-	b=gabNiKMUc6RLzUsXQ6iCb980c8FP84Q7b53hUxtNk43ZddgGLp+HOkjEyk0M6NZz/EBIzCjOu+yOYimDs0y9K45b0xbwT/0dP43xVye+EbyVXfdEMENaDbBdmreRkLVEKwUEsjupunGKxhG+hVhus5BXbSMHZWm+398JtRXnFlY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791372064;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=5AjtX2ixtUaJlIPmzG/Mdx77uYIeRYJWWfOZV1ANyJg=;
-	b=kxlw0qmpSZj54hR03TKiP1ReAp0stnqGH/1cNhw0QdVF55wc4fStAR/FekYkUHP2
-	0df7doR+W+MuNHEn1/nuLvRzTtuc0hpeWYCDFaKz1eeCb3PFnVA3I9SJks9a0RakK6/
-	xmFwFLk1rHhHrAPFCCtaxWv3+Noh+7E2GP+I68OI=
-Received: by smtp.zohomail.com with SMTPS id 1791372062135131.0277099644934;
-	Wed, 7 Oct 2026 04:21:02 -0700 (PDT)
-Message-ID: <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
-Date: Wed, 7 Oct 2026 14:20:56 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9G0JFMD"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-31490970b97so2854130eec.0
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 04:23:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791372192; x=1791976992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ecet2Ly9TeUCYQ0Ys/6vyvxrbNg36mAKtReMuHqWCLU=;
+        b=o9G0JFMDoktnW//TtCy7CyHRjmHKEikXiV0zKO62Hl+m0IPcGn1ksVw7YhUgA+s2TS
+         R7vRKoZEV2TmLg0PyOdduzDTKj4n5C2VaNuQQ3qnV46vW7SicT2RLJAQVZ7SySLWp8Mt
+         aKM6Sm+jPBoyBPg8r2gpx8CnU8hb4dbtvyF4v4OxEyTd2LS+oI6h1tbEojPqJJMU0pmK
+         QhmQSNN1Ro2Q1VZlkmFgY//tPPB/bDsw9WiM8lyOnn5EbWpGDAw3bHVR1IlibsDAe6Kp
+         lRXFRKnBqCXgRs/NH+dTguRCtdh5YALuMYYrXm7ujZX18VdodEht9TbaRr1iFIhtjdoq
+         UgBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791372192; x=1791976992;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ecet2Ly9TeUCYQ0Ys/6vyvxrbNg36mAKtReMuHqWCLU=;
+        b=RuDkX47Y0QmjphIcF+yjTZGWCF30Li7FtDtbciyVyGD32HkF/wG99mFA4IQe6PUE7m
+         dzrd4IfWAEnbgfiG0nVLpsNKgskrT+U5TGJT3HgDSoRLHcsKwxpStSA71JaKry85LeAD
+         tSE7un/W4mw3MXrADDo+Q4DcXohl40NEfS8et6qhepEfJZE+bMR7s809fS7PMl08oKJZ
+         h5MDXIUxgoLh4sCjgg9ll4iarp3tcMH7XsLsZBtIFbwdjwvbZ9/KTFMdE0/0sC9AxGWG
+         Y38N25Wh+VfnpHMQWBkln9jpGu/tuFW4fAfxt6W88EDSo51Jaai0eyGc1935RhNcrcaH
+         B1JA==
+X-Forwarded-Encrypted: i=1; AKwUvByYD6Zb2AeP8Gk79gw8oTIdsWFZK3KgT1DgDil9tm56uktWksVtvfOb8qBG9AVbaQHLWWkA+4NDFpnyWQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nYuCGI5K2N99bKW/q2klBqCWoUdIO5yypAflVuzCnIc/+os6zo
+	3tQ0H309S0ocFJyABKcNUT6crIiEsIkP8NGFQbQV0am6Dw8SVGsA9vR1
+X-Gm-Gg: AYBFou2UrKHTBmj2sgXLaYjItUByBQtqcKXpixw1AtBO4u3DgfKV551PFoDF1idmZI4
+	Y2X1pWyA3foonQ8MYNCAGCcrlvyrcm6GIiY1zTQLgIP+v+C2nrSo6EFt7KrLzo+pBF+dQaQVOxe
+	ca2oOiuc4ICmhVH9wEa2KjIlXzkuHwi5JojPrKTi0KyxEV3GIUimBZiB5HzYKHPFFe84G2oC+9T
+	o5nQpLlwRLnndHIco0OcFgUqdaM6cR75Bzp5lAGZOS6/WTmyRM6WmgTYRm0EYjIXQO97v7e9Q6k
+	+44TgakXXCYIEqEViBMMEJF/tgtJOEJpUGbEl7yhaL+yLwC5PBIu598QnFlK2auZD5Af8Lx8QE9
+	3M4+CvwiKM6u/y1Ykc4KvtmGElEjHyqaCjsAb+S5n1/M7zA0MgJWDQrt00hJWrAurUunMbtbSKj
+	W4f4rAWQs9wSUmTHnxygtYR49j1HK3aTQux+KZt/nepJQrFAXZiJ4D7GqvJyVQIZ9soC0Cj8iJo
+	VDOMWNfxdAxHgaDUj5rsg==
+X-Received: by 2002:a05:701b:2616:b0:13e:6efa:78f7 with SMTP id a92af1059eb24-162044bfdf4mr1689134c88.15.1791372191642;
+        Wed, 07 Oct 2026 04:23:11 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.133.64])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16352800ed6sm3234698c88.9.2026.10.07.04.23.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 04:23:10 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: Duoming Zhou <duoming@zju.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: siano: initialise the urb work once, not on every completion
+Date: Wed,  7 Oct 2026 16:52:57 +0530
+Message-ID: <20261007112257.1888-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261006124545.1778-1-yogeshgaur.83@gmail.com/>
+References: <20261006124545.1778-1-yogeshgaur.83@gmail.com/>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
- when the last user is gone
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 16:28, Sascha Hauer wrote:
-> @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
->  	hdmirx_disable_irq(dev);
->  
->  	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
-> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
->  	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->  
-> -	/* touched by hdmirx_disable()->hdmirx_plugout() */
-> -	hdmirx_dev->rgb_range = NULL;
-> -	hdmirx_dev->content_type = NULL;
-> -
->  	hdmirx_disable(dev);
->  
->  	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
-> +
-> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
->  }
+smsusb_onresponse() re-runs INIT_WORK() on surb->wq every time an URB
+completes, right before scheduling it.  INIT_WORK() resets work->data,
+which is where the workqueue keeps the work's state, including the
+"being cancelled" mark that cancel_work_sync() sets while it waits.
 
-This is uncommon v4l driver removal pattern, I suspect it's either not
-correct or needs to be fixed in the core code.
+smsusb_stop_streaming() kills the URB and then cancels the work.  If
+do_submit_urb() is running at that point it can resubmit the URB, and
+if that URB completes during the cancel, smsusb_onresponse()
+re-initialises the work, wiping the cancel mark, and queues it again.
+__flush_work() then finds a queued work where it expects an idle one:
 
-What is the user-visible or sanitizer-visible problem? How to reproduce it?
+  smsusb:smsusb_init_device: smscore_start_device(...) failed
+  data & WORK_STRUCT_PWQ
+  WARNING: kernel/workqueue.c:4425 at __flush_work+0xc8f/0xd70 kernel/workqueue.c:4425
+   __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4568
+   smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
+   smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
+   smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
+   smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
 
+Initialise each work item once, next to the URB it resubmits, and only
+schedule it from the completion handler.  smsusb_stop_streaming() keeps
+its wq.func check, which still skips the URBs that were never set up
+when smsusb_init_device() fails early.
+
+Fixes: ebad8e731c1c ("media: usb: siano: Fix use after free bugs caused by do_submit_urb")
+Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+Built with W=1 only; not runtime-tested.
+
+v2: Added Closes by
+v1: https://lore.kernel.org/all/20261006124545.1778-1-yogeshgaur.83@gmail.com/
+
+ drivers/media/usb/siano/smsusb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
+index 0fdc2e0950b7..210c323c8232 100644
+--- a/drivers/media/usb/siano/smsusb.c
++++ b/drivers/media/usb/siano/smsusb.c
+@@ -143,7 +143,6 @@ static void smsusb_onresponse(struct urb *urb)
+ 
+ 
+ exit_and_resubmit:
+-	INIT_WORK(&surb->wq, do_submit_urb);
+ 	schedule_work(&surb->wq);
+ }
+ 
+@@ -468,6 +467,7 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
+ 	/* initialize urbs */
+ 	for (i = 0; i < MAX_URBS; i++) {
+ 		dev->surbs[i].dev = dev;
++		INIT_WORK(&dev->surbs[i].wq, do_submit_urb);
+ 		dev->surbs[i].urb = usb_alloc_urb(0, GFP_KERNEL);
+ 		if (!dev->surbs[i].urb)
+ 			goto err_unregister_device;
 -- 
-Best regards,
-Dmitry
+2.55.0.windows.5
+
