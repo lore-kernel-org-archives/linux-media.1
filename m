@@ -1,97 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31A1490BF0;
-	Wed,  7 Oct 2026 10:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1970390214;
+	Wed,  7 Oct 2026 10:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369113; cv=none; b=u/68iC14NrliJ0IuJ/dGnvVOxjZ4lVhVcLZEIRpYeDPGlowFXnXS0NTiwLiCKeeQA1iPk9GpO8A00a5cUmSlRM6cADJUWGsYZ88dVi5JVZUeBwM0nVCuxhNBZHk8bi9faqc24lyw/1R5Ex/N+MUDdcqY3+xvXHoOciRKQuorQUg=
+	t=1791369851; cv=none; b=H03aW2uSeT+4izymziJUk3YRKD6h+wRD6c0QQ1K8IIOVOTj8gMm9v/5qxqwUTARMMMAMQgjCdCkNwIUtbBxN20uPLfxbmHm46ulEt4jW5+5lb9ypGxaMCZIRqT4wjpVU7M8PScG8OkUtXW1aNfen8uAFrpv0iDNWNWwRF5VRleU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369113; c=relaxed/simple;
-	bh=smebOwSVwlwQJeWZ+3B+c1LhBAaLuyJWFeH0+agWoSw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b116laoi7Nm/XKnxaVtH3m6NsV8eKjJ1nD47KXAu+/WZzfwjPv2zgiUjf6euukhax9ltVR9nXWg2qyFKc2dyjjkaEIcY82EQ6WO62aznNBOvtUuDnkq0aMb5pS9guLh5xNokyAebND2Y+HIy9UGIXAXW0ajA3CVZyvg1c7W8hTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TVMG1v21; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791369851; c=relaxed/simple;
+	bh=ZSt1VCxcv8vWZabEwWw2btpSw9/kR+tRGemyzKcLuWw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fUi6d7NXcYEhHV1Vo2ekws9yzlZ2q4KcAhFG22Ab4vw2BCIvInIVOp8pOLpTN2qJN0bx6WCronJml1apZQPp31O0WyRjAAa0AK6UMFJ8BKssZ0VSW3vc+yIjcjUFiDt/GIWHCztLHMphrwzQmylIc/XN4RvDj6nh4thf+iJXTis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kBAxB56r; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TVMG1v21"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 40A6AC2BCB9;
-	Wed,  7 Oct 2026 10:31:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791369113;
-	bh=smebOwSVwlwQJeWZ+3B+c1LhBAaLuyJWFeH0+agWoSw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=TVMG1v21mxJmOqe/UAdgVdedSv9wdP2yo0gQl9HyxVqBv/IaEmozV1ICOeKujzkH/
-	 ZRmUf4dpbGRYLK1Aj1iwbuLJpk3aJfzW+fCfqpUfVssVeZiflRNX1BKmC1e/j1U+I3
-	 ur3agIC5PUNmGF4wmEx+1vasaKjzAIpgNm8nQIMYvIS9rCpjFiGqxTIm9g9mbPs8tW
-	 9iEVqHH/5ZQos+xzT21T7ivFdedaE/YSxTKR5dSERx9VjFf97pmfDNX+HcjAx56l2S
-	 SmejPaDULjtxTy1JdvZoO9EfV6Yb2BkIaCFF0TQRdv/7MefxAp1NyGfcSBFzV54SWU
-	 YOXN66feXDLRA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F5DCCA5FFC;
-	Wed,  7 Oct 2026 10:31:53 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Subject: [PATCH v2 0/2] media: i2c: it6625: fix MCU reset and host control
- timing
-Date: Wed, 07 Oct 2026 18:31:51 +0800
-Message-Id: <20261007-upstream-it6625-reset-delay-v2-0-c5d6b2522bbe@ite.com.tw>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kBAxB56r"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 12C962C6;
+	Wed,  7 Oct 2026 12:41:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791369701;
+	bh=ZSt1VCxcv8vWZabEwWw2btpSw9/kR+tRGemyzKcLuWw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kBAxB56rD67LE+mrEaCiXsndq6hIO9UtMsLKWP3Vru4jfc35ZnD2CmX5BYKzEjJr3
+	 RUJn8KHHv6ROeUf3YV0e+XJ5g3+OcHQ4Z9ttW9mFrpGJRZcGZHcOihbSH3jOaXwbeu
+	 j0Alc/snJd9yjXQHL//hi64FoHSOon/DjVNDWIm4=
+Message-ID: <5966b6e4-77c9-40d5-8ba1-b005fcd60022@ideasonboard.com>
+Date: Wed, 7 Oct 2026 11:43:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] dt-bindings: media: renesas,r9a09g057-ivc:
+ Describe additional interrupts
+To: Linus Walleij <linusw@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
+ <20260928-mali-c55-renesas-dts-v3-1-2cf7eb746ebb@kernel.org>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260928-mali-c55-renesas-dts-v3-1-2cf7eb746ebb@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJcfxmoC/43NSw6CMBSF4a2QO/aSPqAER+zDMMBykZvII21FC
- enerazA4XcG/znAk2PycM0OcLSx52VOUJcM7NjND0Luk0EJZaQQBl+rD466CTkYo0p05ClgT89
- uR610XYrKloOoIRVWRwN/zvqtTR7Zh8Xt59kmf+t/3U2iRCrsXduqINPrhgPldpny8IY2xvgFg
- 1C0QscAAAA=
-X-Change-ID: 20261006-upstream-it6625-reset-delay-3239507c5f09
-To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791369112; l=1138;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=smebOwSVwlwQJeWZ+3B+c1LhBAaLuyJWFeH0+agWoSw=;
- b=n/mu7BNSuJnUteje4iiaMWwDjQpDsaUmpLted5+3I4AP1tNltLaPJx0rSaZtcxHdS2byzSbRO
- +gd9N/IrSVmDTQfCqVydxcHsDIthmczBZBna6SZfsEigpfAnX64ebr5
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
-Reply-To: Hermes.wu@ite.com.tw
 
-The IT6625/IT6626 are driven through an on-chip MCU. The driver does not
-give the MCU enough time in two places: after releasing reset in probe,
-and when waiting for the MCU to acknowledge a host control request.
-Both can cause spurious failures.
+Hi Linus
 
-Patch 1 waits 1s after reset release before the chip-ID read.
-Patch 2 raises the host control request timeout from 25 ms to 250 ms.
+On 28/09/2026 13:21, Linus Walleij wrote:
+> The RZ/V2H IVC provides input frame-start and frame-stop completion
+> interrupts alongside its input frame-end interrupt.
+> 
+> Describe these optional interrupts, keeping frame end first and requiring
+> only that entry to preserve support for existing device trees. Extend the
+> example to show all three interrupts using mock interrupt numbers.
+> 
+> Assisted-by: LLM
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>   .../devicetree/bindings/media/renesas,r9a09g057-ivc.yaml      | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml b/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml
+> index c09cbd8c9e35..3eeb1a92c9cf 100644
+> --- a/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml
+> +++ b/Documentation/devicetree/bindings/media/renesas,r9a09g057-ivc.yaml
+> @@ -21,7 +21,11 @@ properties:
+>       maxItems: 1
+>   
+>     interrupts:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Image input frame-end interrupt
+> +      - description: Image input frame-start interrupt
+> +      - description: Frame-stop processing completion interrupt
 
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
----
-Changes in v2:
-- Patch 1: increase the post-reset wait from 700 ms to 1s.
-- Patch 2: new, raise the host control request timeout to 250 ms.
-- Link to v1: https://lore.kernel.org/r/20261006-upstream-it6625-reset-delay-v1-1-e4cb3c74e6d3@ite.com.tw
+Perhaps interrupt-names too?
 
----
-Hermes Wu (2):
-      media: i2c: it6625: wait 1s after reset release
-      media: i2c: it6625: allow 250 ms for host control requests to complete
+Thanks
+Dan
 
- drivers/media/i2c/it6625.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
----
-base-commit: 89a3d2a2237e017cdbefcb036db71ce74e67faf5
-change-id: 20261006-upstream-it6625-reset-delay-3239507c5f09
-
-Best regards,
--- 
-Hermes Wu <Hermes.wu@ite.com.tw>
-
+>   
+>     clocks:
+>       items:
+> @@ -92,7 +96,10 @@ examples:
+>                  <&cpg 0xd3>;
+>         reset-names = "reg", "axi", "isp";
+>   
+> -      interrupts = <GIC_SPI 861 IRQ_TYPE_EDGE_RISING>;
+> +      /* Example interrupt numbers. */
+> +      interrupts = <GIC_SPI 103 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 104 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
+>   
+>         port {
+>           ivc_out: endpoint {
+> 
 
