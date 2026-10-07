@@ -1,68 +1,68 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2844647253F
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 09:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDE948A8C7
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 09:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363777; cv=none; b=NsdoBFZmP5oSGYx5AMweN94HJKiVysRgg5UUwBv405hznrZ6d5Naws0OC+P0GTq0oAshai1jUNz6fGz/SEFCd7Blk60I55JOptc2JDh6vTpFGScJ3K+sJeKpWOgE7IaRgtjUTT8X435fTBluLLplgTpjYOqlyklkc2UqJTtnF1g=
+	t=1791363779; cv=none; b=ljaAjH7j2zrqgrOKZEZz0Yo8BDR3J68lv8yC34jBCqZFEn5Bpi84dgdQOLKQeyz2s9VWQzjEdaZ+wnBLa+OLqRqzhVPOvVbrfEnYcaQOFg/GZOeSyAkvuEiYmOjGWNZSOZfnpr62Bl8Qkl/+Vu5UGASh2ADQzttWOFCSc+dbH0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363777; c=relaxed/simple;
-	bh=p8Ti0u4sdKq7mIREjZGqcoxubcQI7Yt6m8duN+3uyEU=;
+	s=arc-20240116; t=1791363779; c=relaxed/simple;
+	bh=oiDsL/yj3Pm1VqWrT9P6YWTwtXnmGdL5L3vWdWWbgQ0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fhX9OGtP1C9NugVumtTCze8nXnbOL0OqAT9OCewNqsSzzl9vpJs/Hz5qDAyQ5sybGYc67JX3z6v/j3ObQ/K/Jss0ueB0wCdZ5fKV4XorED+drc46E8bBYLXi/jJPg+YffmI9qsyNet99lAIG/ihSI/6NfOa48DWhTDHzssREcFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=klJoOTRo reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=LO0Th010qj3cR18U8kJWggXEu2KMO82bDBVySLAuXvu0msSiY4/CoaBZyGJlGrq5Zkag2F4K5uY9lMtoEdXsLifa+z552yrPIFDDwPsNbjewaTo4ON99ZC38dJ2bacqILr0jfhJg7yHQgi6qrOw6iHgNQWjXPnSRzl5S9VPR9ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EW7TMz4o reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="klJoOTRo"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jmYO3334818
-	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 09:02:23 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EW7TMz4o"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jYaL2481376
+	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 09:02:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=i2wPgEblZYI
-	w1lpVbl7SSHkOXLD426In94VaISBPMNg=; b=klJoOTRo4y2nA19tw6py9hIXPGe
-	R9K5BJWVb4sD0OKMeWFIPynJDsy5Pt/UBYzAaF38c0VGHYPb67dyoghK64rPhpx3
-	pqG7N4fpfC308CdvoGe+XZtS0orI0yxYOm8/HD9YKvY/a0XOw8gwaZBHZtQ5O3rc
-	6RWW7RmcMQJlJFZjErOBC7ENUHqGOfgHS5RcJn5FMyG+DmpxXmJsdTUOvO9DhUii
-	IRFeuh0r68b6nKaQaHDupRQ/Gi6+GKJ8+fa7B5gHMGBd/JiSNh5mjPyhzA26bn2/
-	vPVuJZ1THK6Gnns2q99FhHKtsuIl/ohxVgsuDfNoG+QlK2P3VUlMrb07uMQ==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=ozuF8iYcxkg
+	jB+Uh/BZnxOQlbcmUuvFSeVklAg+6JKA=; b=EW7TMz4oL9VB79EggeadG8F9zVI
+	fKgoWi6/dNVQQoBRjm1NpXqrHGYiCdFBMzWjsWN62n3mQG69ruNr5byHBP6X9hzw
+	qwTnIys5WP8nWKI7jcEp3stMb1zjudZaSl+yC4gvob4WN8rD7cisDT3JY/TQM88t
+	VIzplWY/I/xIQalfwt6paQ7YRmbNcJe1FLnmRcvB/QEvka/xy9GTAQ05U2l5KdC8
+	hei0onSzzURfWZOt02iMlOSB+6HCpEX/9JydvP5sbRxpsUGCNes2kiS5ZB5Oq2SO
+	sX44nDrLfCdQOI9XFp9zKXXh8Ycv5Zb3qd4pNKe4vpJCKwsJlDh5/qQoiSA==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623avd-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c6u1cfg-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 09:02:23 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93dd3c3badbso731059085a.2
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 02:02:23 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 09:02:26 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a082c014aso738948985a.0
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 02:02:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363742; x=1791968542;
+        d=1e100.net; s=20260707; t=1791363745; x=1791968545;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i2wPgEblZYIw1lpVbl7SSHkOXLD426In94VaISBPMNg=;
-        b=b56DjO0FpMttU9VZRnEeYwIe5iMCwZnX/K7L/Fu03aQBOaincp6T+aiTj5BhqkCfUM
-         toyGbcCXz0+t7BA/+/aYRs7I8dF5Z4/qbVMZThW6CW8xOe0B7xUXUnbi9TvCGznqIKy/
-         UTgTbTKtujL+1poq7sYPz9wh5TWdc+A9H6VIxHo59lvorUxdI182F9IfE63UX9VksvCJ
-         G8VJbB+/iAKVypyUY5YhF8H76b6fFmhBPajobqnFOX9rbB/ef0UDVtvgDkM14rosrZS5
-         MmnYsPfe5BuNEu0RS36+XPFN2lJWrzlaKv9GFgVhMRMNg81iHZJI4Din5GRyP/fP95go
-         U/Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBycChws0qkJKVS0POnK5XhJfaMvwVE3PrEViwl+dzYwKaatwcXAFFvz44CHj5lv1NvEQb8c9yKeD8L2wQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++l5qQxYC49DhNK2muEFwWf9ixWsD0hxIZ+GBggAAf+Ngv/pmEmf
-	h9VTU6Dtei861+Ngj93bN+Ow1lvEG2tLH32BGsIk1KHNbkPx0LS/KtmiJRr0sPZt1JY09Y9FgT6
-	LfvjIbNrd6pe/tRcCpcV1koXmguXmgrjEhsiP4iiv1NHabrpFzJMsk8kplyOH7AAq5w==
-X-Gm-Gg: AYBFou2gvCpphQPgUXjiXkMG5O54Cydf3BpCmyv65Iaql0UBglgqsOr2/SpShoI12CY
-	e3Qlt0IKEqIjeNeBKxFbBiVHrVcpIGaHRdnTr+73gIaTNI0MmrE0xoe2leuoY6TZKL/mCMBjyI4
-	ZOPGBPckXpbrwu+YFb0X5qdFusQRjCb/BG/KRuLz8n1nh4Z8LLio+HNz9we+uo5Nabvu3k4ShYr
-	NGCKnwFHKbRVQ+JNhPEbjZuzO0WOZ1puCccn70+ZCW0OsMPNb5X1pigslYHYVEONJUAoGLdinfo
-	5AmnDZUzG0XfwYiIvdHTOmYbAXeFK++eqmUCpnsGt/17UGx41L5O/HfJyxg=
-X-Received: by 2002:a05:620a:460d:b0:93a:1b82:4962 with SMTP id af79cd13be357-93e9b802eb8mr315066085a.47.1791363741974;
-        Wed, 07 Oct 2026 02:02:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:460d:b0:93a:1b82:4962 with SMTP id af79cd13be357-93e9b802eb8mr315058585a.47.1791363741424;
-        Wed, 07 Oct 2026 02:02:21 -0700 (PDT)
+        bh=ozuF8iYcxkgjB+Uh/BZnxOQlbcmUuvFSeVklAg+6JKA=;
+        b=MTy18g79c5TAARKmqXCK9WsBHskMUVECuD6i9ZJ4TAIFYA6WBVgsI30qLFvXoV9MLD
+         vwlUOD4lGYDvDSn8KOG0LKsmRvD8xhDS0fldDbGfJfWL3gRRnB9s118WRO4fFoGIwr+3
+         Ah57AXr5t/B1EHL72rQBbHsRQI/M6F1glfxCpUIW7dmW3w8ETr5rJ8uk2tEIaXUaiR4x
+         +X8cJlQWupnfzSN3IIIUKrfRTSgoApKnU4AAsBzcGjm3inF+On3LsRbDo2FWDYcVmPMl
+         CSFNBilyP+Az/eetbtS/Y8ymEi+prRDvcvILQSz2RhPZXM6KPGAHhsgj/NvtbX2BDdlB
+         jPdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzVaEY0RZ4/3N6qgJ8eUe3eK5ZCy+pOvxMTyA8DKvA30p68hutBEkfaNyXQ1i5oUr2+W3yX/zObtMHIkg==@vger.kernel.org
+X-Gm-Message-State: AFuF++m4k8bMUlevl2yYdohuLx2O9SkDwOtIorQiQZGqoK1kSMu8mke6
+	T4cTdK+ApYDHD2ZeXnoIuoarCQOmc8cOykVRciGUlQuftXS7j0kWTGU08Gjsqun0MOV3Ro+KVS5
+	5I5hmWXZZdZaUwbHJ0/GbTmIC02vav3luOn2/k0BM8dWuPLf7i2FeQz0i50CdXTZGmA==
+X-Gm-Gg: AYBFou0I4MZYEUUdbJ89q9Yhs4tiXVrVjIq4v4rVu477ims1X9Q/77F0ba6zdPbCODR
+	M6jkVYOF0xaOZbuea7VTarX7jWD+HWwJ+CCbDueZiGlB8i+7SqvMDF0UHAY1HlFAGlVfAzJU9b5
+	im3ygpGFUH6QGU6W6ULHt0oiRShwJbBqWsnuQ0rmlEx9ulVXzrbb8rYkLNHtWpdFOa31OQZ8VK+
+	2chd8RMGms8BBH3KA0vAX8cZsIrsdWqBiwN2KfkoRnDZ/G7ZjbL50pR/rd+DEB6fGwn/AFEvhqF
+	dOHK0rsENOqQpVE7Qhc4AEO3GwgIIT7/NB82fpgP+aM5HNKbsTg2SjKosAU=
+X-Received: by 2002:a05:620a:1789:b0:93c:d209:4ea1 with SMTP id af79cd13be357-93e860958a4mr1053880185a.24.1791363745151;
+        Wed, 07 Oct 2026 02:02:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:1789:b0:93c:d209:4ea1 with SMTP id af79cd13be357-93e860958a4mr1053873085a.24.1791363744483;
+        Wed, 07 Oct 2026 02:02:24 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.17
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:02:19 -0700 (PDT)
+        Wed, 07 Oct 2026 02:02:23 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -91,9 +91,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-Subject: [PATCH RESEND 27/45] media: qcom: camss: sa8775p: add IFE scaler v2.3x
-Date: Wed,  7 Oct 2026 12:00:23 +0300
-Message-Id: <20261007090041.3732717-28-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND 28/45] media: qcom: camss: sa8775p: add IFE top v4.1x
+Date: Wed,  7 Oct 2026 12:00:24 +0300
+Message-Id: <20261007090041.3732717-29-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -104,36 +104,36 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: mbxCTF9Edq0J67no9RjNRbM40pmNunJm
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac60a9f cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX8lCKrY6wxmlz
+ EShxUuUmipfXi3zXQkNJDu7YlIKD9W4xeYjYtRmUqu0RRJ6HDq+7zRbna3cfVELNmOuJit/9wdY
+ 5amkVXu2VJZD5jd2VwMkhBYT+VZU8TQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX4NX01BGzdN+D
+ WNK/BkPtLlTgY5Hyr2T0G2p0+XM1ttpcqqu8oOZwm6COzpPBIa7ewaf8zvDUpLVyDo2SAtrmf4a
+ RasUeb0D3sec3vElIerxjImixgBS48ajR1lHCxyQi48Krak2bjlHMx5BPDHI+2UbyYNNeqFwQOR
+ Cxfx1xI79JHvUewumdztjFyv18f9O/SU5POgUebwnEdYoD42xc5G7zLUwtOk4go1S10plYlN5Bo
+ VLZ6jI8nHxExEH5fyTB0CuAJuLon5aGk3u6QsnH1MQ+WQDljZQK2+KlQi2yMCMPyhlmU2mBEjbh
+ kiLAnsDxiqPi7IRPM+VjHjBEmUlxYrWcAyDotc/+iViNWfQq9FHY0dgDN84DsqMN2rO1jV9NxWX
+ LaPpEVa1CQxLPRxluwr/n5vn+dl3/K24cpNeo/Vgb0fwhG4A0Ev3TLCf2oJqZP+b5+LxGQOxut+
+ 6azjcBCbqF7fUR96IxA==
+X-Proofpoint-ORIG-GUID: zjVvCZBR4RnQEiZ6whMjpH6gdFf0Hzo7
+X-Authority-Analysis: v=2.4 cv=T5EZ3PKQ c=1 sm=1 tr=0 ts=6ac60aa2 cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=N-zR7XLjbuXmyhDf3rIA:9
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX14Y0QaNhPGfZ
- sC2vdO3QuKWm1zpebQXb9tIllkn5KU6nMrhD3ICsQ59a1gCv/Lvl8rupmVB1MnjvriCzkEBjmqK
- bZO8ADutHpnjVLVbNX0NAPq9sYr9rXc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX0mh8vZdvKtSp
- y3R+M9xjVhmn/VLX0O9oo11EiiCWTwS+k3A1/VojsbYiKOrXfYKU1JQ957P29u84fZKFKQgNpVV
- 2P/VBxyOwn9AKgjPxMKFick1sUVcufOJIfikYoiD4Tw3/OIqVS4wR/RkMaFUSUfo2mS4/+QFcr3
- Vt5jLs1eADHmDG5yZPjKdtvFQQBKw0wVJBtegmdBPsTVFyTD2YJR18LDY8qH6o+MNFzctKXKNI1
- 5mp8dTJhBJi19D+XfL0cAHuE137KOg8RKRlPSz93fzUNhhYqmyJCEjtfqBB2qvrGz/8T3ufhq9N
- LXJQQn8I2F8gbGqTYvSCOVMWSt4QJvM/k16ExyNqAKntiQHQ+9nNT+KAkBPP76qpcYSRJ0HKt/9
- GjFtMtQPRws86drnCLGSnCdQsU2V3OiSjc5z22nwMqf1Wqyi3bXQ6mJySjj61wO0t+sgjfq5ERD
- Rss40dmfidVKViazp4Q==
-X-Proofpoint-ORIG-GUID: mbxCTF9Edq0J67no9RjNRbM40pmNunJm
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=PO59o82kRZ5UAxUAygYA:9
+ a=-_4PPS_gdBzYQfpF:21 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: zjVvCZBR4RnQEiZ6whMjpH6gdFf0Hzo7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ clxscore=1015 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Add the scaler helpers used by the IFE v4.1x pixel outputs.
+Add the IFE top v4.1x engine used by the SA8775P full pixel path.
 
 Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
@@ -142,258 +142,425 @@ Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
  drivers/media/platform/qcom/camss/Makefile    |   1 +
- .../qcom/camss/camss-ife-scale-v23x.c         | 203 ++++++++++++++++++
- .../qcom/camss/camss-ife-scale-v23x.h         |  19 ++
- 3 files changed, 223 insertions(+)
- create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
- create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
+ .../platform/qcom/camss/camss-ife-top-v41x.c  | 384 ++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-ife.h |   1 +
+ 3 files changed, 386 insertions(+)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-top-v41x.c
 
 diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-index 2251b57ba38b..e28b7477dab1 100644
+index e28b7477dab1..479ab17f3bdb 100644
 --- a/drivers/media/platform/qcom/camss/Makefile
 +++ b/drivers/media/platform/qcom/camss/Makefile
-@@ -22,6 +22,7 @@ qcom-camss-objs += \
- 		camss-ife-mod-v10x.o \
- 		camss-ife-params.o \
+@@ -24,6 +24,7 @@ qcom-camss-objs += \
  		camss-ife-scale-v10x.o \
-+		camss-ife-scale-v23x.o \
+ 		camss-ife-scale-v23x.o \
  		camss-ife-top-v20x.o \
++		camss-ife-top-v41x.o \
  		camss-ife-pads.o \
  		camss-ispif.o \
-diff --git a/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
+ 		camss-tpg.o \
+diff --git a/drivers/media/platform/qcom/camss/camss-ife-top-v41x.c b/drivers/media/platform/qcom/camss/camss-ife-top-v41x.c
 new file mode 100644
-index 000000000000..13ce9cb93bb0
+index 000000000000..b600dd009268
 --- /dev/null
-+++ b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
-@@ -0,0 +1,203 @@
++++ b/drivers/media/platform/qcom/camss/camss-ife-top-v41x.c
+@@ -0,0 +1,384 @@
 +// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved. */
-+
-+#include <linux/bitfield.h>
-+#include <linux/math.h>
++/*
++ * Copyright (c) 2025 Qualcomm Technologies, Inc.
++ */
 +
 +#include "camss-ife.h"
 +#include "camss-ife-scale-v23x.h"
++#include "camss.h"
 +
-+#define CAMIF_V23X_Q21_FORMAT			21
++#define IFE_V41X_TOP_OFFS		0x0000
 +
-+#define CAMIF_V23X_DS_MN_MODULE_CFG		0x60
-+#define CAMIF_V23X_DS_MN_CFG			0x64
-+#define CAMIF_V23X_DS_MN_IMAGE_SIZE_CFG		0x68
-+#define CAMIF_V23X_DS_MN_H_CFG			0x6c
-+#define CAMIF_V23X_DS_MN_V_CFG			0x74
-+#define CAMIF_V23X_DS_MN_CROP_LINE_CFG		0x7c
-+#define CAMIF_V23X_DS_MN_CROP_PIXEL_CFG		0x80
++/* DS M/N scaler module base offsets from IFE TOP base */
++#define IFE_V41X_VID_DS_MN_Y_OFFSET	0x7f80
++#define IFE_V41X_DISP_DS_MN_Y_OFFSET	0x6780
++#define IFE_V41X_VID_DS_MN_C_OFFSET	0x8700
++#define IFE_V41X_DISP_DS_MN_C_OFFSET	0x6a00
++#define IFE_V41X_DISP_POST_MN_Y_OFFSET	0x6c80
++#define IFE_V41X_DISP_POST_MN_C_OFFSET	0x6e00
 +
-+#define CAMIF_V23X_DS_MN_MODULE_CFG_CROP_EN	BIT(8)
-+#define CAMIF_V23X_DS_MN_MODULE_CFG_EN		BIT(0)
-+#define CAMIF_V23X_DS_MN_CFG_V_SCALE_EN		BIT(10)
-+#define CAMIF_V23X_DS_MN_CFG_H_SCALE_EN		BIT(9)
-+#define CAMIF_V23X_DS_MN_IMAGE_SIZE_WIDTH	GENMASK(29, 16)
-+#define CAMIF_V23X_DS_MN_IMAGE_SIZE_HEIGHT	GENMASK(13, 0)
-+#define CAMIF_V23X_DS_MN_CFG_INTERP_RES		GENMASK(31, 30)
-+#define CAMIF_V23X_DS_MN_CROP_FIRST		GENMASK(29, 16)
-+#define CAMIF_V23X_DS_MN_CROP_LAST		GENMASK(13, 0)
++#define IFE_V41X_MOD_VER_GEN		GENMASK(31, 28)
++#define IFE_V41X_MOD_VER_REV		GENMASK(27, 16)
++#define IFE_V41X_MOD_VER_STEP		GENMASK(15, 0)
++#define IFE_V41X_MOD_GEN(val)		FIELD_GET(IFE_V41X_MOD_VER_GEN, val)
++#define IFE_V41X_MOD_REV(val)		FIELD_GET(IFE_V41X_MOD_VER_REV, val)
++#define IFE_V41X_MOD_STEP(val)		FIELD_GET(IFE_V41X_MOD_VER_STEP, val)
 +
-+#define CAMIF_V23X_INTERP_RES_0			0
-+#define CAMIF_V23X_INTERP_RES_1			1
-+#define CAMIF_V23X_INTERP_RES_2			2
-+#define CAMIF_V23X_INTERP_RES_3			3
++/* CSID-level reset and register-update (via csid_base) */
++#define IFE_V41X_CSID_RST_CMD		0x00000010
++#define IFE_V41X_CSID_RST_CMD_SW_RST	BIT(0)
++#define IFE_V41X_CSID_RUP_AUP_CMD	0x00000018
++#define IFE_V41X_CSID_RUP_IPP0		BIT(0)
++#define IFE_V41X_CSID_RUP_RDI0		BIT(4)
++#define IFE_V41X_CSID_RUP_RDI1		BIT(5)
++#define IFE_V41X_CSID_RUP_RDI2		BIT(6)
++#define IFE_V41X_CSID_AUP_IPP0		BIT(16)
++#define IFE_V41X_CSID_AUP_RDI0		BIT(20)
++#define IFE_V41X_CSID_AUP_RDI1		BIT(21)
++#define IFE_V41X_CSID_AUP_RDI2		BIT(22)
 +
-+#define CAMIF_V23X_POST_MN_MODULE_CFG		0x60
-+#define CAMIF_V23X_POST_MN_CROP_LINE_CFG	0x68
-+#define CAMIF_V23X_POST_MN_CROP_PIXEL_CFG	0x6c
-+#define CAMIF_V23X_POST_MN_CH0_CLAMP_MIN	0x70
-+#define CAMIF_V23X_POST_MN_CH0_ROUND_CFG	0x74
-+#define CAMIF_V23X_POST_MN_CH1_CLAMP_MIN	0x78
-+#define CAMIF_V23X_POST_MN_CH1_ROUND_CFG	0x7c
-+#define CAMIF_V23X_POST_MN_CH2_CLAMP_MIN	0x80
-+#define CAMIF_V23X_POST_MN_CH2_ROUND_CFG	0x84
-+#define CAMIF_V23X_POST_MN_CH0_CLAMP_MAX	0x88
-+#define CAMIF_V23X_POST_MN_CH1_CLAMP_MAX	0x8c
-+#define CAMIF_V23X_POST_MN_CH2_CLAMP_MAX	0x90
++/* TOP functional IRQ registers */
++#define IFE_V41X_FUNC_IRQ_CMD		0x000000a4
++#define IFE_V41X_FUNC_IRQ_CMD_CLEAR	BIT(0)
++#define IFE_V41X_FUNC_IRQ_MASK_0	0x000000a8
++#define IFE_V41X_FUNC_IRQ_MASK_1	0x000000ac
++#define IFE_V41X_FUNC_IRQ_CLEAR_0	0x000000b0
++#define IFE_V41X_FUNC_IRQ_CLEAR_1	0x000000b4
++#define IFE_V41X_FUNC_IRQ_STATUS_0	0x000000b8
++#define IFE_V41X_FUNC_IRQ_STATUS_1	0x000000bc
 +
-+#define CAMIF_V23X_POST_MN_EN			BIT(0)
++/* IRQ_STATUS_0 bits */
++#define IFE_V41X_IRQ0_DIAG_VIOLATION		BIT(15)
++#define IFE_V41X_IRQ0_DSP_ERROR_VIOLATION	BIT(14)
++#define IFE_V41X_IRQ0_DSP_RX_FIFO_OVERFLOW	BIT(13)
++#define IFE_V41X_IRQ0_DSP_TX_FIFO_OVERFLOW	BIT(12)
++#define IFE_V41X_IRQ0_PIXEL_PIPE_VIOLATION	BIT(4)
++#define IFE_V41X_IRQ0_BUSWR			BIT(0)
++#define IFE_V41X_IRQ0_ERRORS_MASK \
++	(IFE_V41X_IRQ0_DIAG_VIOLATION		| \
++	 IFE_V41X_IRQ0_DSP_ERROR_VIOLATION	| \
++	 IFE_V41X_IRQ0_DSP_RX_FIFO_OVERFLOW	| \
++	 IFE_V41X_IRQ0_DSP_TX_FIFO_OVERFLOW	| \
++	 IFE_V41X_IRQ0_PIXEL_PIPE_VIOLATION)
 +
-+static u32 camif_v23x_calc_ds_q2(u32 src_size, u32 dst_size)
++/* IRQ_STATUS_1 bits */
++#define IFE_V41X_IRQ1_PIXEL_PIPE_EPOCH1	BIT(17)
++#define IFE_V41X_IRQ1_PIXEL_PIPE_EPOCH0	BIT(16)
++#define IFE_V41X_IRQ1_RDI2_EOF			BIT(13)
++#define IFE_V41X_IRQ1_RDI2_SOF			BIT(12)
++#define IFE_V41X_IRQ1_RDI1_EOF			BIT(11)
++#define IFE_V41X_IRQ1_RDI1_SOF			BIT(10)
++#define IFE_V41X_IRQ1_RDI0_EOF			BIT(9)
++#define IFE_V41X_IRQ1_RDI0_SOF			BIT(8)
++#define IFE_V41X_IRQ1_PIXEL_PIPE_EOF		BIT(1)
++#define IFE_V41X_IRQ1_PIXEL_PIPE_SOF		BIT(0)
++#define IFE_V41X_IRQ1_RDI0 \
++	(IFE_V41X_IRQ1_RDI0_SOF | IFE_V41X_IRQ1_RDI0_EOF)
++#define IFE_V41X_IRQ1_RDI1 \
++	(IFE_V41X_IRQ1_RDI1_SOF | IFE_V41X_IRQ1_RDI1_EOF)
++#define IFE_V41X_IRQ1_RDI2 \
++	(IFE_V41X_IRQ1_RDI2_SOF | IFE_V41X_IRQ1_RDI2_EOF)
++#define IFE_V41X_IRQ1_PP \
++	(IFE_V41X_IRQ1_PIXEL_PIPE_SOF		| \
++	 IFE_V41X_IRQ1_PIXEL_PIPE_EOF		| \
++	 IFE_V41X_IRQ1_PIXEL_PIPE_EPOCH0	| \
++	 IFE_V41X_IRQ1_PIXEL_PIPE_EPOCH1)
++
++/* WM indices for PP output paths */
++#define IFE_V41X_PP_VID_Y_WM		0
++#define IFE_V41X_PP_VID_C_WM		1
++#define IFE_V41X_PP_DISP_Y_WM		3
++#define IFE_V41X_PP_DISP_C_WM		4
++
++#define IFE_V41X_HW_VERSION		0x00000000
++
++#define IFE_V41X_CORE_CFG_0				0x00000024
++#define IFE_V41X_CORE_CFG_0_VID_OUT_OUTPUT_PACKER_EN	BIT(10)
++#define IFE_V41X_CORE_CFG_0_DISP_DS4_R2PD_DISABLE	BIT(21)
++#define IFE_V41X_CORE_CFG_0_DISP_DS16_R2PD_DISABLE	BIT(22)
++
++static int ife_top_v41x_acquire(struct ife_device *ife, void __iomem *base,
++				void __iomem *csid_base)
 +{
-+	if (src_size > 64 * dst_size)
-+		return CAMIF_V23X_INTERP_RES_0;
-+	else if (src_size > 32 * dst_size)
-+		return CAMIF_V23X_INTERP_RES_1;
-+	else if (src_size > 16 * dst_size)
-+		return CAMIF_V23X_INTERP_RES_2;
++	struct ife_top_ctx *ctx = &ife->top_ctx;
 +
-+	return CAMIF_V23X_INTERP_RES_3;
++	if (!csid_base)
++		return -EINVAL;
++
++	ctx->base	= base + IFE_V41X_TOP_OFFS;
++	ctx->csid_base	= csid_base;
++	ctx->dev	= ife->camss->dev;
++
++	return 0;
 +}
 +
-+static u32 camif_v23x_calc_ds_q21(u32 src_size, u32 dst_size)
++static void ife_top_v41x_release(struct ife_top_ctx *ctx)
 +{
-+	u64 rq21 = (u64)src_size << CAMIF_V23X_Q21_FORMAT;
-+
-+	return DIV_ROUND_CLOSEST_ULL(rq21, dst_size);
++	ctx->base      = NULL;
++	ctx->csid_base = NULL;
 +}
 +
-+static void camif_v23x_crop_config(void __iomem *mod_base,
-+				   const struct camss_ife_pipeline_cfg *cfg)
++static u32 ife_top_v41x_version(struct ife_top_ctx *ctx)
 +{
++	struct camss_hw_version hw_ver;
++	u32 reg = readl_relaxed(ctx->base + IFE_V41X_HW_VERSION);
++
++	hw_ver.ids.major = IFE_V41X_MOD_GEN(reg);
++	hw_ver.ids.minor = IFE_V41X_MOD_REV(reg);
++	hw_ver.ids.steps = IFE_V41X_MOD_STEP(reg);
++
++	return hw_ver.hw_version;
++}
++
++static void ife_top_v41x_reset(struct ife_top_ctx *ctx)
++{
++	void __iomem *top = ctx->base;
++	void __iomem *csid = ctx->csid_base;
++
++	writel_relaxed(~0, top + IFE_V41X_FUNC_IRQ_CLEAR_0);
++	writel_relaxed(~0, top + IFE_V41X_FUNC_IRQ_CLEAR_1);
++	writel_relaxed(IFE_V41X_FUNC_IRQ_CMD_CLEAR, top + IFE_V41X_FUNC_IRQ_CMD);
++	writel_relaxed(IFE_V41X_CSID_RST_CMD_SW_RST, csid + IFE_V41X_CSID_RST_CMD);
++}
++
++static void ife_top_v41x_reg_update(struct ife_top_ctx *ctx,
++				    const struct ife_pad_desc *dsc)
++{
++	void __iomem *csid = ctx->csid_base;
 +	u32 rval;
 +
-+	rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_FIRST, cfg->ds_mn_crop->left) |
-+	       FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, cfg->ds_mn_crop->width - 1);
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_PIXEL_CFG);
-+
-+	rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_FIRST, cfg->ds_mn_crop->top) |
-+	       FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, cfg->ds_mn_crop->height - 1);
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_LINE_CFG);
-+}
-+
-+void camif_v23x_scale_config(void __iomem *mod_base,
-+			     const struct camss_ife_pipeline_cfg *cfg,
-+			     const struct camss_ife_wm_config *wm_cfg)
-+{
-+	u32 height;
-+	u32 width;
-+	u32 h_q21;
-+	u32 v_q21;
-+	u32 h_q2;
-+	u32 v_q2;
-+	u32 rval;
-+
-+	if (cfg->ds_mn_crop) {
-+		camif_v23x_crop_config(mod_base, cfg);
-+		width = cfg->ds_mn_crop->width;
-+		height = cfg->ds_mn_crop->height;
-+
-+		rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
-+		rval |= CAMIF_V23X_DS_MN_MODULE_CFG_CROP_EN;
-+		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
-+	} else {
-+		width = cfg->in_width;
-+		height = cfg->in_height;
-+
-+		/*
-+		 * Vertical scaling misbehaves unless the crop registers are
-+		 * programmed to the full frame, even with crop disabled.
-+		 */
-+		rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, width - 1);
-+		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_PIXEL_CFG);
-+
-+		rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, height - 1);
-+		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_LINE_CFG);
-+
-+		rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
-+		rval &= ~CAMIF_V23X_DS_MN_MODULE_CFG_CROP_EN;
-+		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++	switch (dsc->hw_pipe) {
++	case CAMSS_IFE_HW_PIPE_PP:
++		rval = IFE_V41X_CSID_RUP_IPP0 | IFE_V41X_CSID_AUP_IPP0;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI0:
++		rval = IFE_V41X_CSID_RUP_RDI0 | IFE_V41X_CSID_AUP_RDI0;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI1:
++		rval = IFE_V41X_CSID_RUP_RDI1 | IFE_V41X_CSID_AUP_RDI1;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI2:
++		rval = IFE_V41X_CSID_RUP_RDI2 | IFE_V41X_CSID_AUP_RDI2;
++		break;
++	default:
++		dev_warn(ctx->dev, "Invalid RUP pipe: 0x%x\n", dsc->hw_pipe);
++		return;
 +	}
 +
-+	rval = FIELD_PREP(CAMIF_V23X_DS_MN_IMAGE_SIZE_WIDTH, width - 1) |
-+	       FIELD_PREP(CAMIF_V23X_DS_MN_IMAGE_SIZE_HEIGHT, height - 1);
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_IMAGE_SIZE_CFG);
-+
-+	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_CFG);
-+	if (wm_cfg->width < width) {
-+		h_q2 = camif_v23x_calc_ds_q2(width, wm_cfg->width);
-+		h_q21 = camif_v23x_calc_ds_q21(width, wm_cfg->width);
-+
-+		writel_relaxed(FIELD_PREP(CAMIF_V23X_DS_MN_CFG_INTERP_RES, h_q2) | h_q21,
-+			       mod_base + CAMIF_V23X_DS_MN_H_CFG);
-+		rval |= CAMIF_V23X_DS_MN_CFG_H_SCALE_EN;
-+	} else {
-+		rval &= ~CAMIF_V23X_DS_MN_CFG_H_SCALE_EN;
-+	}
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CFG);
-+
-+	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_CFG);
-+	if (wm_cfg->height < height) {
-+		v_q2 = camif_v23x_calc_ds_q2(height, wm_cfg->height);
-+		v_q21 = camif_v23x_calc_ds_q21(height, wm_cfg->height);
-+
-+		writel_relaxed(FIELD_PREP(CAMIF_V23X_DS_MN_CFG_INTERP_RES, v_q2) | v_q21,
-+			       mod_base + CAMIF_V23X_DS_MN_V_CFG);
-+		rval |= CAMIF_V23X_DS_MN_CFG_V_SCALE_EN;
-+	} else {
-+		rval &= ~CAMIF_V23X_DS_MN_CFG_V_SCALE_EN;
-+	}
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CFG);
++	writel_relaxed(rval, csid + IFE_V41X_CSID_RUP_AUP_CMD);
 +}
 +
-+void camif_v23x_scale_enable(void __iomem *mod_base)
++static int ife_top_v41x_pipe_config(struct ife_top_ctx *ctx,
++				    const struct ife_pad_desc *desc,
++				    const struct camss_ife_pipeline_cfg *pipeline_cfg,
++				    const struct camss_ife_wm_config *wm_cfg)
 +{
++	enum camss_ife_hw_pipe hw_pipe = desc->hw_pipe;
++
++	switch (hw_pipe) {
++	case CAMSS_IFE_HW_PIPE_RDI0:
++	case CAMSS_IFE_HW_PIPE_RDI1:
++	case CAMSS_IFE_HW_PIPE_RDI2:
++		break;
++	case CAMSS_IFE_HW_PIPE_PP:
++		if (wm_cfg[Y_PLANE].wm_id == IFE_V41X_PP_VID_Y_WM &&
++		    wm_cfg[C_PLANE].wm_id == IFE_V41X_PP_VID_C_WM) {
++			camif_v23x_scale_config(ctx->base + IFE_V41X_VID_DS_MN_Y_OFFSET,
++						pipeline_cfg, &wm_cfg[Y_PLANE]);
++			camif_v23x_scale_config(ctx->base + IFE_V41X_VID_DS_MN_C_OFFSET,
++						pipeline_cfg, &wm_cfg[C_PLANE]);
++		}
++
++		if (wm_cfg[Y_PLANE].wm_id == IFE_V41X_PP_DISP_Y_WM &&
++		    wm_cfg[C_PLANE].wm_id == IFE_V41X_PP_DISP_C_WM) {
++			camif_v23x_scale_config(ctx->base + IFE_V41X_DISP_DS_MN_Y_OFFSET,
++						pipeline_cfg, &wm_cfg[Y_PLANE]);
++			camif_v23x_scale_config(ctx->base + IFE_V41X_DISP_DS_MN_C_OFFSET,
++						pipeline_cfg, &wm_cfg[C_PLANE]);
++			camif_v23x_post_mn_config(ctx->base + IFE_V41X_DISP_POST_MN_Y_OFFSET,
++						  &wm_cfg[Y_PLANE], false);
++			camif_v23x_post_mn_config(ctx->base + IFE_V41X_DISP_POST_MN_C_OFFSET,
++						  &wm_cfg[C_PLANE], true);
++		}
++		break;
++	default:
++		dev_err(ctx->dev, "Invalid HW pipeline identifier: 0x%x\n", hw_pipe);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int ife_top_v41x_pipe_enable(struct ife_top_ctx *ctx,
++				    const struct ife_pad_desc *desc)
++{
++	enum camss_ife_hw_pipe hw_pipe = desc->hw_pipe;
++
++	switch (hw_pipe) {
++	case CAMSS_IFE_HW_PIPE_RDI0:
++	case CAMSS_IFE_HW_PIPE_RDI1:
++	case CAMSS_IFE_HW_PIPE_RDI2:
++		break;
++	case CAMSS_IFE_HW_PIPE_PP:
++		camif_v23x_scale_enable(ctx->base + IFE_V41X_VID_DS_MN_Y_OFFSET);
++		camif_v23x_scale_enable(ctx->base + IFE_V41X_VID_DS_MN_C_OFFSET);
++		writel_relaxed(IFE_V41X_CORE_CFG_0_VID_OUT_OUTPUT_PACKER_EN |
++			       IFE_V41X_CORE_CFG_0_DISP_DS4_R2PD_DISABLE |
++			       IFE_V41X_CORE_CFG_0_DISP_DS16_R2PD_DISABLE,
++			       ctx->base + IFE_V41X_CORE_CFG_0);
++		camif_v23x_scale_enable(ctx->base + IFE_V41X_DISP_DS_MN_Y_OFFSET);
++		camif_v23x_scale_enable(ctx->base + IFE_V41X_DISP_DS_MN_C_OFFSET);
++		camif_v23x_post_mn_enable(ctx->base + IFE_V41X_DISP_POST_MN_Y_OFFSET);
++		camif_v23x_post_mn_enable(ctx->base + IFE_V41X_DISP_POST_MN_C_OFFSET);
++		break;
++	default:
++		dev_err(ctx->dev, "Invalid HW pipeline identifier: 0x%x\n", hw_pipe);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int ife_top_v41x_pipe_disable(struct ife_top_ctx *ctx,
++				     const struct ife_pad_desc *desc)
++{
++	enum camss_ife_hw_pipe hw_pipe = desc->hw_pipe;
++
++	switch (hw_pipe) {
++	case CAMSS_IFE_HW_PIPE_RDI0:
++	case CAMSS_IFE_HW_PIPE_RDI1:
++	case CAMSS_IFE_HW_PIPE_RDI2:
++		break;
++	case CAMSS_IFE_HW_PIPE_PP:
++		camif_v23x_scale_disable(ctx->base + IFE_V41X_VID_DS_MN_Y_OFFSET);
++		camif_v23x_scale_disable(ctx->base + IFE_V41X_VID_DS_MN_C_OFFSET);
++		writel_relaxed(0, ctx->base + IFE_V41X_CORE_CFG_0);
++		camif_v23x_scale_disable(ctx->base + IFE_V41X_DISP_DS_MN_Y_OFFSET);
++		camif_v23x_scale_disable(ctx->base + IFE_V41X_DISP_DS_MN_C_OFFSET);
++		camif_v23x_post_mn_disable(ctx->base + IFE_V41X_DISP_POST_MN_Y_OFFSET);
++		camif_v23x_post_mn_disable(ctx->base + IFE_V41X_DISP_POST_MN_C_OFFSET);
++		break;
++	default:
++		dev_err(ctx->dev, "Invalid HW pipeline identifier: 0x%x\n", hw_pipe);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static void ife_top_v41x_prepare(struct ife_top_ctx *ctx)
++{
++	void __iomem *top = ctx->base;
 +	u32 rval;
 +
-+	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
-+	rval |= CAMIF_V23X_DS_MN_MODULE_CFG_EN;
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++	writel_relaxed(~0, top + IFE_V41X_FUNC_IRQ_CLEAR_0);
++	writel_relaxed(~0, top + IFE_V41X_FUNC_IRQ_CLEAR_1);
++	writel_relaxed(IFE_V41X_FUNC_IRQ_CMD_CLEAR, top + IFE_V41X_FUNC_IRQ_CMD);
++
++	rval = IFE_V41X_IRQ0_BUSWR | IFE_V41X_IRQ0_ERRORS_MASK;
++	writel_relaxed(rval, top + IFE_V41X_FUNC_IRQ_MASK_0);
 +}
 +
-+void camif_v23x_scale_disable(void __iomem *mod_base)
++static void ife_top_v41x_enable(struct ife_top_ctx *ctx, enum camss_ife_hw_pipe hw_pipe)
 +{
-+	u32 rval;
++	void __iomem *top = ctx->base;
++	u32 rval = readl_relaxed(top + IFE_V41X_FUNC_IRQ_MASK_1);
 +
-+	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
-+	rval &= ~CAMIF_V23X_DS_MN_MODULE_CFG_EN;
-+	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
-+}
-+
-+void camif_v23x_post_mn_config(void __iomem *base,
-+			       const struct camss_ife_wm_config *cfg,
-+			       bool chroma)
-+{
-+	writel_relaxed(cfg->height - 1, base + CAMIF_V23X_POST_MN_CROP_LINE_CFG);
-+	writel_relaxed(cfg->width - 1, base + CAMIF_V23X_POST_MN_CROP_PIXEL_CFG);
-+	writel_relaxed(0, base + CAMIF_V23X_POST_MN_CH0_CLAMP_MIN);
-+	writel_relaxed(1023, base + CAMIF_V23X_POST_MN_CH0_CLAMP_MAX);
-+	writel_relaxed(4 << 3, base + CAMIF_V23X_POST_MN_CH0_ROUND_CFG);
-+
-+	if (chroma) {
-+		writel_relaxed(0, base + CAMIF_V23X_POST_MN_CH1_CLAMP_MIN);
-+		writel_relaxed(1023, base + CAMIF_V23X_POST_MN_CH1_CLAMP_MAX);
-+		writel_relaxed(4 << 3, base + CAMIF_V23X_POST_MN_CH1_ROUND_CFG);
-+		writel_relaxed(0, base + CAMIF_V23X_POST_MN_CH2_CLAMP_MIN);
-+		writel_relaxed(1023, base + CAMIF_V23X_POST_MN_CH2_CLAMP_MAX);
-+		writel_relaxed(4 << 3, base + CAMIF_V23X_POST_MN_CH2_ROUND_CFG);
++	switch (hw_pipe) {
++	case CAMSS_IFE_HW_PIPE_PP:
++		rval |= IFE_V41X_IRQ1_PP;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI0:
++		rval |= IFE_V41X_IRQ1_RDI0;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI1:
++		rval |= IFE_V41X_IRQ1_RDI1;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI2:
++		rval |= IFE_V41X_IRQ1_RDI2;
++		break;
++	default:
++		return;
 +	}
++
++	writel_relaxed(rval, top + IFE_V41X_FUNC_IRQ_MASK_1);
 +}
 +
-+void camif_v23x_post_mn_enable(void __iomem *base)
++static void ife_top_v41x_disable(struct ife_top_ctx *ctx, enum camss_ife_hw_pipe hw_pipe)
 +{
-+	writel_relaxed(0, base + CAMIF_V23X_POST_MN_MODULE_CFG);
++	void __iomem *top = ctx->base;
++	u32 rval = readl_relaxed(top + IFE_V41X_FUNC_IRQ_MASK_1);
++
++	switch (hw_pipe) {
++	case CAMSS_IFE_HW_PIPE_PP:
++		rval &= ~IFE_V41X_IRQ1_PP;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI0:
++		rval &= ~IFE_V41X_IRQ1_RDI0;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI1:
++		rval &= ~IFE_V41X_IRQ1_RDI1;
++		break;
++	case CAMSS_IFE_HW_PIPE_RDI2:
++		rval &= ~IFE_V41X_IRQ1_RDI2;
++		break;
++	default:
++		return;
++	}
++
++	writel_relaxed(rval, top + IFE_V41X_FUNC_IRQ_MASK_1);
 +}
 +
-+void camif_v23x_post_mn_disable(void __iomem *base)
++static void ife_top_v41x_irq_status(struct ife_top_ctx *ctx, u32 isr_stat[IFE_TOP_STATUS_MAX])
 +{
-+	u32 rval;
++	void __iomem *top = ctx->base;
++	u32 stat0;
++	u32 stat1;
 +
-+	rval = readl_relaxed(base + CAMIF_V23X_POST_MN_MODULE_CFG);
-+	rval &= ~CAMIF_V23X_POST_MN_EN;
-+	writel_relaxed(rval, base + CAMIF_V23X_POST_MN_MODULE_CFG);
++	stat0 = readl_relaxed(top + IFE_V41X_FUNC_IRQ_STATUS_0);
++	stat1 = readl_relaxed(top + IFE_V41X_FUNC_IRQ_STATUS_1);
++
++	writel_relaxed(stat0, top + IFE_V41X_FUNC_IRQ_CLEAR_0);
++	writel_relaxed(stat1, top + IFE_V41X_FUNC_IRQ_CLEAR_1);
++	writel_relaxed(IFE_V41X_FUNC_IRQ_CMD_CLEAR, top + IFE_V41X_FUNC_IRQ_CMD);
++
++	isr_stat[IFE_TOP_STATUS_ID0] = 0;
++	isr_stat[IFE_TOP_STATUS_ID1] = 0;
++	isr_stat[IFE_TOP_STATUS_ID2] = stat0 & IFE_V41X_IRQ0_ERRORS_MASK;
++
++	if (stat0 & IFE_V41X_IRQ0_BUSWR)
++		isr_stat[IFE_TOP_STATUS_ID0] |= IFE_HW_TOP_IRQ0_BUSWR;
++
++	if (stat1 & IFE_V41X_IRQ1_RDI0_SOF)
++		isr_stat[IFE_TOP_STATUS_ID1] |= IFE_HW_TOP_IRQ1_RDI0_SOF;
++
++	if (stat1 & IFE_V41X_IRQ1_RDI1_SOF)
++		isr_stat[IFE_TOP_STATUS_ID1] |= IFE_HW_TOP_IRQ1_RDI1_SOF;
++
++	if (stat1 & IFE_V41X_IRQ1_RDI2_SOF)
++		isr_stat[IFE_TOP_STATUS_ID1] |= IFE_HW_TOP_IRQ1_RDI2_SOF;
++
++	if (stat1 & IFE_V41X_IRQ1_PIXEL_PIPE_SOF)
++		isr_stat[IFE_TOP_STATUS_ID1] |= IFE_HW_TOP_IRQ1_PP_SOF;
++
++	if (stat1 & IFE_V41X_IRQ1_PIXEL_PIPE_EPOCH0)
++		isr_stat[IFE_TOP_STATUS_ID1] |= IFE_HW_TOP_IRQ1_PP_EPOCH0;
++
++	if (stat1 & IFE_V41X_IRQ1_PIXEL_PIPE_EPOCH1)
++		isr_stat[IFE_TOP_STATUS_ID1] |= IFE_HW_TOP_IRQ1_PP_EPOCH1;
 +}
-diff --git a/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
-new file mode 100644
-index 000000000000..d3ca6420a5c7
---- /dev/null
-+++ b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved. */
 +
-+#ifndef _CAMSS_IFE_SCALE_V23X_H_
-+#define _CAMSS_IFE_SCALE_V23X_H_
-+
-+void camif_v23x_scale_config(void __iomem *mod_base,
-+			     const struct camss_ife_pipeline_cfg *cfg,
-+			     const struct camss_ife_wm_config *wm_cfg);
-+void camif_v23x_scale_enable(void __iomem *mod_base);
-+void camif_v23x_scale_disable(void __iomem *mod_base);
-+
-+void camif_v23x_post_mn_config(void __iomem *base,
-+			       const struct camss_ife_wm_config *cfg,
-+			       bool chroma);
-+void camif_v23x_post_mn_enable(void __iomem *base);
-+void camif_v23x_post_mn_disable(void __iomem *base);
-+
-+#endif /* _CAMSS_IFE_SCALE_V23X_H_ */
++const struct ife_hw_top_ops ife_top_v41x_ops = {
++	.acquire	= ife_top_v41x_acquire,
++	.release	= ife_top_v41x_release,
++	.version	= ife_top_v41x_version,
++	.prepare	= ife_top_v41x_prepare,
++	.enable		= ife_top_v41x_enable,
++	.disable	= ife_top_v41x_disable,
++	.pipe_config	= ife_top_v41x_pipe_config,
++	.pipe_enable	= ife_top_v41x_pipe_enable,
++	.pipe_disable	= ife_top_v41x_pipe_disable,
++	.reg_update	= ife_top_v41x_reg_update,
++	.reset		= ife_top_v41x_reset,
++	.irq_status	= ife_top_v41x_irq_status,
++};
+diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
+index efbb1e75d550..31d9c83767a5 100644
+--- a/drivers/media/platform/qcom/camss/camss-ife.h
++++ b/drivers/media/platform/qcom/camss/camss-ife.h
+@@ -396,6 +396,7 @@ camss_ife_pipe_for_stream_id(int nstreams,
+ 
+ extern const struct ife_pads_descriptors ife_pads_v20x;
+ extern const struct ife_hw_top_ops ife_top_20x_ops;
++extern const struct ife_hw_top_ops ife_top_v41x_ops;
+ extern const struct ife_hw_buswr_ops ife_buswr_20x_ops;
+ extern const struct ife_hw_buswr_ops ife_buswr_31x_ops;
+ extern const struct camss_mod_ops ife_mod_v10x_ops;
 -- 
 2.34.1
 
