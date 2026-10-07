@@ -1,284 +1,564 @@
-Received: from mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020094.outbound.protection.outlook.com [52.101.227.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3924B0E4B
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 15:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386701; cv=none; b=GTDCAtbD1/M/nQ/8i9F6o1BSEfefxqFeZNsW5iYNJOt/2SEvCAj9cZXW9ACD/1c3Rp/j63WhP885bg2dUNUEKHCTSW8m09ecK/tIlVoFi3UUmrRMaYIvtplOzgWNG2nxNDWIm8RR3ieUQ9x4w9bKoQ2XJKMWa/4eGYJcYzB+97A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791386701; c=relaxed/simple;
-	bh=WuzQ9NOmYWS1FtXCB0dwF+LzoCz/iWMvkMa6tlUoLy8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gIaDlSohaIHBqnFKpLFTlnATy7hEbTtsQc/bJwCnDrewYKFLhuJd9BdfPhy1WjXYvXcHmK40dPcXSmuNkT1VsZNeCNS59s9Z6rgy6JfJKJ/ZWMsWzQIuoIhlk2E1RLZciHv9cvFoOit9f+zMP+Mm5DxWMSNdcrF/RW+8PpHbBTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NE4D3Prn; arc=none smtp.client-ip=95.215.58.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116034C10D8
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 15:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791387608; cv=fail; b=WVqTui72rUj0qKUQkpsqwK8X2JAMCOzU7t+8h0g3amPwaEh2oJ5f/azVA7KuKOcggerFMlk8UTO1y4zhqtlxc0K8ENWFBhZMDrRoprKVLfFsL63q2QON7V8r+b95F3rprJb1fppv0GUmCMeMnxUKeCh6pVw5B6v/smqHvqkPa2E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791387608; c=relaxed/simple;
+	bh=pk9De1HrxhPsFQHwbyNhmCE5mDQAGa6/KoM1+AA5MKQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=YylWXjv3mvpfqg/NBZpsFbJyoesV4zKIDvp/1fC0kQeTpGbpIQ5tW1CXWbyh1cdOn1guxijLUU0hhtkSndAwfL4x8WtZgiBxABvTpYLe3vW02xPKnuPKjz5ICTIMLN/mN27DMwRLyN+Vc1e/NWKzbWcjU+kaaAiOdQWVxEMqnNo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=celFSUbw; arc=fail smtp.client-ip=52.101.227.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NE4D3Prn"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WuzQ9NOmYWS1FtXCB0dwF+LzoCz/iWMvkMa6tlUoLy8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791386687; v=1; x=1791991487;
- b=NE4D3Prn34Uu7d9XRo+Ug07xa9Vx8ikb95p2HqUPcrgorzBCCtuuJboa/hBZNPOFdCtBIg+U
- e/FnXunjLpp063YPmm8/4yjjIlO/P/4rpqrBY/t35j/Y+z5+SeJFuhZoIviTbrg4oKdKdp27MBi
- X0kvpYKM1OhNH/wccytcaH8g=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 31f9b514d994e1cd;
-	Wed, 07 Oct 2026 15:24:47 +0000
-X-Mizu-Trace-ID: 31f9b514d994e1cd
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 7 Oct 2026 17:24:43 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
- range
-Message-ID: <asZhdsjkFuVyPi2s@bombadil>
-References: <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
- <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
- <arpyD2CjxOqwQvx8@bombadil>
- <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
- <arrVt-0ctw1cXkkW@bombadil>
- <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
- <asO1sIZC8rOyhSnu@bombadil>
- <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
- <asS0anZZXpbR96oE@bombadil>
- <asX4ASoL7nzBkljI@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="celFSUbw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vk4QwI8FBWBiDAAPd45BRT2gv44ndp99C7g4RjDFynZVt1Mc0ig9fyCON+Xde2kMabX9myMs0j+KHK//G8FRR9JYlaIXAGc1VckvqPh0EfuGdppZS3ZU07v34+9RvUWbJKcaDAN7f20tVYWfgBbCCCKAlLutI1BE9A+JzCcAM+2cGadMn9w8QC4FFqF6JWCbbRqCbblAbGPEsFnFANXOC09hpS1bW0Uxtr+gc3hFQKdGCZXCPoAlHPsPGoR9Cgb5773Ypa6iVhrYDMrsarLqCqI0I3VKVMFsTSKpe5wizOLAuY7lFFK4xQyGFghGEDlLebG0VNma2M6pJTbMrMSOlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZX+Z4AXd/8Ni7GBaT9be8pBlIxDEBftGie1XPWB8TIM=;
+ b=ihZ8ZtfyGeqFHKf14kgiJdEpDqfL+XuAatZrowsG5if/TfQ9OdIXRmRM8v6i5pQp11Hrhk9fxwcYcbadc4MgvHb28y3PBU5xktt+Ea7bGBp2tQdMY39HAhrfqp9sxIT8Q1Es8qv2/Wk7AUg+ddCd4jnFSC+kJpDE1tMQqw4n4Y8rBrYkwyPtwrhX6uIHL328dXPJYXRwcwwR+MvHtz+Z1KF+QjBC3D+qPboKCao20P4q5YMeErmv8lOpWN3U050a7fELbwe7wedTaN2qd1jJyi9utHeFHEp6Da1U/cWRuJ9VpkLrQTTArSY6/kMvdIeumg6flXeUklltuuwAWX107Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZX+Z4AXd/8Ni7GBaT9be8pBlIxDEBftGie1XPWB8TIM=;
+ b=celFSUbwSqWzOcEzrsPd5pA3ZDYPiUgq67bxJgMNgZgnv6JedtADOZJwSZBiKvoIgMPQy9C0sDW/9ahu0C8SYo1ij4X84OJHIlNXgGym22w8qJHg+UyTmhmCUT9qttiYYOuaVwfFqhkUu4+a/fJbdGNjePHWOftdbTVRBEAFtC5uRxQbSymVftn74tdZ0WwM4wazMIlZ1GtwptE0A1nab6M44Ogi6mF8/3h3YZC9JC6N90aBkkeY65IKXHUNP60Y1YvssZNJe8Jpo7wCk9egdseIOHqfhLf+DOhM3xuMrWoxF/lfKh2GXbpRBL+25y6G2T9Gg4riKkDJSCZZw1Xw4Q==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by PN3P287MB0259.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:d4::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 15:39:56 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
+ 15:39:56 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>
+CC: "antti.laakso@linux.intel.com" <antti.laakso@linux.intel.com>,
+	"hao.yao@intel.com" <hao.yao@intel.com>, "dongcheng.yan@intel.com"
+	<dongcheng.yan@intel.com>, Mehdi Djait <mehdi.djait@linux.intel.com>
+Subject: Re: [PATCH v3 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
+Thread-Topic: [PATCH v3 1/1] media: i2c: Add Omnivision ov05c10 sensor driver
+Thread-Index: AQHdUWxJYfLOBUcopEeQ8kMYWt6TzrbyJtAA
+Date: Wed, 7 Oct 2026 15:39:55 +0000
+Message-ID:
+ <PN3P287MB1829F9B24FB03D373358AF358B942@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20261001061250.37734-1-sakari.ailus@linux.intel.com>
+In-Reply-To: <20261001061250.37734-1-sakari.ailus@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|PN3P287MB0259:EE_
+x-ms-office365-filtering-correlation-id: 7b336d31-cdf9-4a12-31b0-08df24893cd3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|4022899009|376014|23010399003|1800799024|366016|6133799003|22082099003|18002099003|10067099003|38070700021|56012099006;
+x-microsoft-antispam-message-info:
+ tMcOAKts0YC1hx+2rB0g5XUuZFxKzP46okBa1NV+3aIIbKFXuWcy8pVdKPxRsGIKrfmrzYLDhupQmrrpkJFs+mZmJcs3dLNiuvNZbS4vHb9sCF1ba1jB4XjlOSsbukrT7piN1huhSlAXoD1syUPsdaK3s8Cv3zR1viP6806idiMHNo2i3q5smugerjWINLI1JfUdYAGFPbPOcnirF+Ss9WK3uH/Pow4eLzYJb+1jKyZX3NLm8NLwSugKMIaqIZptTgdahy7QSTCqCpANDgm6V2iUGjc4tPghIMAAxopaDOxhQgaacvqwVbryMWAApppoJohaSYpvh/jRG/Yh8XFvnxk0+5Olb4Er1Py6u9pqCcorQ3Pe4dnSddoouVsMP+Y9uWgtLPqDEKqzEVcsLuecXM5FR/KDlaBlKISoGdzCp7Xhh7CZZizOp4Mw7NgvSIuQVlK2EVUbguCJoGldq2QRdUnmSl7Olh/80MdXe/wL4z7B+abi+/QP3pgSjBb1IR+SvxSY5BXrWUoOqS/Z/pXmf8K/6AJBfzwRSQhhVtkVo0jVPxOAOOADjZ0+L2wDX3jTNOSsoBWHDqmBc84iLGBc9aZTiuY6F1onNHFtsfWorE8NmKoZTlB2Z8Tqut0egqyJZ6ZMpVSBMLUlUk6BMCDIJXHsA2Mxjtjoq8Y6xG0jB3sQ3SEyFkMD45I+MJ1cv6lOWee8QI/d3el4B0+eIgPsmb2d8Ay7SlL32EO7UIr53Lg=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(4022899009)(376014)(23010399003)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(38070700021)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?tB+WiF0DpfkNDwfPNJbWDG91ZySCG/3EcpUdYsJaCSWc+BR39xha52ZqfX?=
+ =?iso-8859-1?Q?wtQvuZCp9FpfoA6TO6qaEM6anaYL46ObBoRBEHGfxzgsUH/DxnPmTNQWHD?=
+ =?iso-8859-1?Q?XwY4qCwH0TfMuKfKHWvzkEOarZl3LvUsjF/Agu0Gilduj3U3x3pQl1ZnWu?=
+ =?iso-8859-1?Q?BbJ+RlavTT0zkQcJAJPiITe6FVWAO31kcF36uwuCZTlO/yFptbzIyN8n15?=
+ =?iso-8859-1?Q?PEfHIz0G7ZMbSQR+FXRMoK39/HHM/nxghWQsJEHKuImavb6DwqryB2oijY?=
+ =?iso-8859-1?Q?ARZSneBv671/6z7M4zjxBYvOA07rwIhSkaXdyR+mnklqmgRjBIl0pBgt1H?=
+ =?iso-8859-1?Q?SXbN28ZCX3PttocubmsRRz1fjwpV0oQMFBqjyO3vdM8WN/MKH1RUDR9eZ5?=
+ =?iso-8859-1?Q?aR5DkrYpqjAktu/uZoEjw4UsjzCKAqmUhXge+mwhRpE7amqJXwgBxaT1ep?=
+ =?iso-8859-1?Q?VGDS8CyemlrPZqeBchIBpPggYwU1I67b3675Oq1zC68t4s8DdF1NqSsO5M?=
+ =?iso-8859-1?Q?NUYnd8ECHxOMtZjILlEDduPPG8yWPnrCJRgxI0hEOhQpOJWFN01cppOhRo?=
+ =?iso-8859-1?Q?UjJJnbSjbeQgKAp0qgkHvTTZbLv4P+QJCPtS+0kYWlaV1/SKWoS/0uiLFc?=
+ =?iso-8859-1?Q?RSqfOa4STwnyTrQLJwprw9jUJvkuqF6c2G1/rr7D5Ykzxmtl+vIrhPUSqP?=
+ =?iso-8859-1?Q?whYIIZoR6/qsrW05+cE4jnwq9jbniUanClOkVdUFJkiOljTYtL0NTixbQu?=
+ =?iso-8859-1?Q?xOt1e6oLC9wWYIN9h1/Qhp70oVY+ydaRDxdSsf5eyPBLKHy+UwsmGRB4/k?=
+ =?iso-8859-1?Q?5KQSgH0VeIbZr9126oL9TiC/pyAoKOtOJRarFGl1c9on/MWK3COD7qG35R?=
+ =?iso-8859-1?Q?XVtW+14t8MVCe55JhgLCLvbBKOpxt22GHKi5OuKVVchv6iki4glj/Dh/+d?=
+ =?iso-8859-1?Q?zCLnZHPAoCr8IXcnqR/2fakxr/A2iSzN656jN1XCps2bsTMEctJtm6/4+F?=
+ =?iso-8859-1?Q?co/IogWCiwr5RosNuxw0STx96+YeVYYxAXLXU82cTKqfkHxC7WVKuuQ4z+?=
+ =?iso-8859-1?Q?ANmKkSvkxk9Zl02EDCJl+fE5FqeByzBmDuxLfQNFKavcCHc0820DidAO8x?=
+ =?iso-8859-1?Q?6bMyPlt2UPgRvkwOuUqWe3dVTTxbbgKV7DV+gj9UZD4ey2IyjkSObKd4x3?=
+ =?iso-8859-1?Q?AKruBd46JrwxHyZa7UQjIObNLf6X/W2p2HmmMrVI8uLiUbMRkZsd/ZMeP8?=
+ =?iso-8859-1?Q?PGuOws6GjTp/FfoUF228Ps8YqB9ckFowNRfIrZR+8vIOA/UGhMkw7qBc7/?=
+ =?iso-8859-1?Q?nnuH8bP2rU0NO4twN6qUsB+dVy6aQqgBZMKmF/CvAmeWBgxvwa6UV1oHSc?=
+ =?iso-8859-1?Q?PBMhXiw4d8DhpiUr8fWhDxPIsPKUVztT6MGyqR9iy2a/LM0jo7EykzsxZD?=
+ =?iso-8859-1?Q?/w8y+BTNOvMR7ayFA6CQGKsbcZVtf+9Q1iJvaIXJ38oF8E7NVs8kh4qavB?=
+ =?iso-8859-1?Q?wA9USwP04v7u6i4jxjNKG0OKVEyEy14VdXlhANn5nZVzHzdj69y1WAcaC8?=
+ =?iso-8859-1?Q?+4OU+sF/Uvt3ctqoWeLKfsTTIWjgYJQUmLkzuczSNl2X5//5iMR+x2XB/E?=
+ =?iso-8859-1?Q?zq0gWi+gWPmp1QXazgzfZXAVPMzOE6TDSQjtVvOL9oja5xta1jtVc+X0e6?=
+ =?iso-8859-1?Q?BVRxQwf1NJagJ6x5vsKNOcq3rh1Occwk38WfIZH21AfiuYEmWLFkYjHSnG?=
+ =?iso-8859-1?Q?yGRYca39KwA3dB+D9N8rdDRg80j16Z1Iy94pSvC6Vz6yuCxjwr6ywtb1ry?=
+ =?iso-8859-1?Q?xb3bnDoO6Kszfl7m4vPsr7q/PZNqvBI=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asX4ASoL7nzBkljI@kekkonen.localdomain>
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b336d31-cdf9-4a12-31b0-08df24893cd3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2026 15:39:55.9145
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mVejC1oOoIreSI8JKTLaITG8iL8DA9r3aS8S16kikwr9eZh3ckv2kh9VFeapPaREljede5bLlhq8gshgXOar/fPRdM6DWaaDddNud3jeDcs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB0259
 
-Hi Sakari,
-
-thanks for the feedback!
-
-On Wed, Oct 07, 2026 at 10:42:57AM +0300, Sakari Ailus wrote:
-> Hi Richard, Dave,
-> 
-> On Tue, Oct 06, 2026 at 10:57:04AM +0200, Richard Leitner wrote:
-> > On Mon, Oct 05, 2026 at 05:05:54PM +0100, Dave Stevenson wrote:
-> > > Hi Richard
-> > > 
-> > > On Mon, 5 Oct 2026 at 15:46, Richard Leitner <richard.leitner@linux.dev> wrote:
-> > > >
-> > > > On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
-> > > > > On Mon, 28 Sept 2026 at 22:08, Richard Leitner
-> > > > > <richard.leitner@linux.dev> wrote:
-> > > > > >
-> > > > > > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
-> > > > > > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
-> > > > > > > <richard.leitner@linux.dev> wrote:
-> > > > > > > >
-> > > > > > > > Hi Dave,
-> > > > > > > >
-> > > > > > > > thanks for your feedback! Greatly appreciated!
-> > > > > > > >
-> > > > > > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> > > > > > > > > Hi Richard
-> > > > > > > > >
-> > > > > > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > > > > > > > <richard.leitner@linux.dev> wrote:
-> > > > > > > > > >
-> > > > > > > > > > When updating the flash_duration range ensure the ceiling is at least as
-> > > > > > > > > > long as the exposure time is. This may cause the calculated
-> > > > > > > > > > flash_duration register value to be rounded up.
-> > > > > > > > > >
-> > > > > > > > > > This is done by introducing a new
-> > > > > > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
-> > > > > > > > > > wherever possible.
-> > > > > > > > > >
-> > > > > > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > > > > > > > ---
-> > > > > > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> > > > > > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
-> > > > > > > > > >
-> > > > > > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > > > > > > > index f728709fcf0a6..be38ecfad8c82 100644
-> > > > > > > > > > --- a/drivers/media/i2c/ov9282.c
-> > > > > > > > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > > > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > > > > > > > > >                                 NSEC_PER_USEC);
-> > > > > > > > > >  }
-> > > > > > > > > >
-> > > > > > > > > > +/**
-> > > > > > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > > > > > > > > > + * @ov9282: pointer to ov9282 device
-> > > > > > > > > > + *
-> > > > > > > > > > + * This may round up the ceiling to the microseconds representation of the
-> > > > > > > > > > + * next flash_duration register value to make sure one can illuminate the whole
-> > > > > > > > > > + * exposure time long.
-> > > > > > > > > > + *
-> > > > > > > > > > + * Return: 0 if successful, error code otherwise.
-> > > > > > > > > > + */
-> > > > > > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > > > > > > > > > +{
-> > > > > > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > > > > > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > > > > > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > > > > > > > > > +
-> > > > > > > > > > +       if (fd_max_us < exposure_us)
-> > > > > > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> > > > > > > > >
-> > > > > > > > > Reading the driver for how it handles flash duration, it all gets a
-> > > > > > > > > bit convoluted. I see part of it comes from the units being usecs
-> > > > > > > > > whilst natively it is in lines, but we've got this slightly odd calc
-> > > > > > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
-> > > > > > > > > value.
-> > > > > > > >
-> > > > > > > > That's true. I'm also not happy with this back-and-forth conversion between
-> > > > > > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-> > > > > > > > all "timing related" controls in the same unit (likely usecs). I was
-> > > > > > > > already playing around with that approach, but as this would break the
-> > > > > > > > current exporsure property I have not sent those patches...
-> > > > > > > >
-> > > > > > > > If you have any "mainline-acceptable" idea on how to do that I would
-> > > > > > > > definitely love to hear it ;-)
-> > > > > > >
-> > > > > > > Sadly I think that there is a need for some of the back and forth in
-> > > > > > > conversions :-(
-> > > > > > >
-> > > > > > > > > Seeing as this is the max flash_duration, is it actually limited by
-> > > > > > > > > the exposure, or by the frame duration? The difference between those
-> > > > > > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> > > > > > > > > you up to another 9usecs to play with. That covers any of this
-> > > > > > > > > rounding stuff. You can afford to always round that one down and never
-> > > > > > > > > clip the range below the exposure time.
-> > > > > > > >
-> > > > > > > > From a hardware perspective this isn't limited at all AFAICT. But from a
-> > > > > > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
-> > > > > > > > the hard-coded default case in this driver currently) longer than the
-> > > > > > > > exposure time makes no sense, as it does not have any effect on the image.
-> > > > > > > >
-> > > > > > > > With this patch I want to make sure to be able to illuminate the frame
-> > > > > > > > during the complete exposure time, but keep the maximum as short as
-> > > > > > > > possible. So I was comparing/aiming this at the exposure time, not the
-> > > > > > > > frame duration.
-> > > > > > > >
-> > > > > > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-> > > > > > > > time: Would a "turned-on flash" during those 25 lines have any impact on
-> > > > > > > > the frames brightness in your opinion?
-> > > > > > > > I haven't explicitely tested/measured this with hardware, but I guess
-> > > > > > > > this does not have any impact?
-> > > > > > >
-> > > > > > > No, as this is a global shutter sensor I wouldn't expect the flash to
-> > > > > > > impact the image if a connected flash was on for more lines than the
-> > > > > > > exposure.
-> > > > > > >
-> > > > > > > > Or do you mean when calculating against the frame duration the +/-1
-> > > > > > > > stuff can be dropped and the code would be easier to read?
-> > > > > > >
-> > > > > > > Yes, I'm suggesting the driver handles the range of values that the
-> > > > > > > hardware can support correctly. Whether that helps for your image
-> > > > > > > quality requirements is a different question.
-> > > > > > > The driver can pass the buck with at least some of the rounding issues
-> > > > > > > to userspace, which potentially has use-case specific knowledge. And
-> > > > > > > it simplifies the driver in the process.
-> > > > > >
-> > > > > > Talking about "range of values that the hardware can support": AFAICT
-> > > > > > the strobe duration is (from a sensor hardware point of view) not
-> > > > > > limited by the frame duration. At least I found nothing on this in the
-> > > > > > datasheet and a quick test on hardware also showed no correlation.
-> > > > >
-> > > > > Interesting. So if you set it to a 1 second strobe pulse when
-> > > > > streaming at 60fps, what behaviour do you get?
-> > > >
-> > > > I haven't tested the 1 second strobe explicitely. But the strobe in my
-> > > > case is always on for the configured time. No matter if it exceeds the
-> > > > frame time/trigger. After the configured strobe_duration passed it goes
-> > > > low until the next trigger happens.
-> > > >
-> > > > Maybe the following visualization helps:
-> > > >
-> > > >
-> > > > strobe duration < frame time:
-> > > >                   __         __         __         __
-> > > >                  |  |       |  |       |  |       |  |
-> > > > strobe signal   _|  |_______|  |_______|  |_______|  |_____
-> > > > strobe trigger   ^          ^          ^          ^
-> > > >
-> > > >
-> > > > frame time < strobe duration < 2x frame time:
-> > > >                   _____________         _____________
-> > > >                  |             |       |             |
-> > > > strobe signal   _|             |_______|             |_____
-> > > > strobe trigger   ^          ^          ^          ^
-> > > >
-> > > >
-> > > > 2x frame time < strobe duration < 3x frame time:
-> > > >                   ________________________         ________
-> > > >                  |                        |       |
-> > > > strobe signal   _|                        |_______|
-> > > > strobe trigger   ^          ^          ^          ^
-> > > >
-> > > > Therefore I would strongly suggest to set the maximum strobe duration to
-> > > > be in every case shorter than the "frame time".
-> > > >
-> > > > For the reasons discussed earlier it the maximum strobe duration should
-> > > > be the same or longer than the actual exposure time.
-> > > >
-> > > > What's your take on this Dave? Or Sakari?
-> > > 
-> > > Seeing as the behaviour is logical, personally I'd go with allowing
-> > > whatever strobe period (up to the register max), and leave it up to
-> > > userspace to keep the period below the exposure time if that is what
-> > > is desired for the use case.
-> > 
-> > Fair approach. But if we do so it will become a pain in the ass to
-> > calculate between the expsoure time (which is based on the line time)
-> > and the strobe duration (which is currently microseconds) IMHO.. As we
-> > don't have a "reasonable upper limit" easily available...
-> > 
-> > The problem I'm talking about is that it would be quite "easy" then to
-> > mess up the units and configure a strobe duration longer than the frame
-> > time, which then show up as "strangely illuminated frames" in the stream.
-> > 
-> > Do you see any chance to get the exposure time and strobe duration on
-> > the same unit? Or is this basically impossible as we would "break"
-> > userpace with this? If so, would a new "strobe_duration in line time" be
-> > a possible approach?
-> 
-> I'd really like to see such conversion to take place in userspace. The
-> flash driver doesn't have a concept of a line either.
-
-True. Haven't thought of the "generic flash driver". I guess I was too
-deep into my use-case. Thanks for the heads-up!
-
-> 
-> A single implementation in libcamera sounds much better than a driver
-> implementation, or multiple driver implementations. Also, doing this in
-> floating point could be more practical as well.
-
-Ok. So I will stick with µs for the strobe/flash duration and "number of
-lines" for the exposure. Furthermore I will drop the dynamic maximum
-value of the control in favour of the actual register maximum.
-
-To address the strobe_duration change on a mode or hblank change:
-
-We could either keep the strobe_duration register value unchanged, which
-will cause the actual strobe_duration control value (in µs) to change.
-
-Or we could change the strobe_duration register value on mode and hblank
-changes to keep the actual strobe_duration control value (in µs) unchanged.
-
-Whats your take on this Sakai, Dave?
-
-Thanks & regards;rl
-
-> 
-> -- 
-> Regards,
-> 
-> Sakari Ailus
+Hi Sakari, Hao,=0A=
+=0A=
+I identified a few issues. Could you please check the comments below?=0A=
+=0A=
+> From: Hao Yao <hao.yao@intel.com>=0A=
+>=0A=
+> Add a driver for the Omnivision ov05c10 camera sensor. This driver=0A=
+> implements a single mode only.=0A=
+>=0A=
+> Signed-off-by: Hao Yao <hao.yao@intel.com>=0A=
+> Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>=0A=
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>=0A=
+> Tested-by: Antti Laakso <antti.laakso@linux.intel.com>=0A=
+> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>=0A=
+> ---=0A=
+> since v2:=0A=
+>=0A=
+> - Added missing MAINTAINERS entry.=0A=
+>=0A=
+>  MAINTAINERS                 |   7 +=0A=
+>  drivers/media/i2c/Kconfig   |  10 +=0A=
+>  drivers/media/i2c/Makefile  |   1 +=0A=
+>  drivers/media/i2c/ov05c10.c | 978 ++++++++++++++++++++++++++++++++++++=
+=0A=
+>  4 files changed, 996 insertions(+)=0A=
+>  create mode 100644 drivers/media/i2c/ov05c10.c=0A=
+=0A=
+...=0A=
+=0A=
+> +#define to_ov05c10(_sd)                container_of(_sd, struct ov05c10,=
+ sd)=0A=
+=0A=
+Please use container_of_const.=0A=
+=0A=
+> +=0A=
+> +static const char *const ov05c10_test_pattern_menu[] =3D {=0A=
+> +       "Disabled",=0A=
+> +       "Color Bar",=0A=
+> +};=0A=
+=0A=
+...=0A=
+=0A=
+> +static const struct cci_reg_sequence mode_2800_1576_30fps[] =3D {=0A=
+> +       { OV05C10_REG8(0x00, 0x20), 0x00 },=0A=
+> +       { OV05C10_REG8(0x00, 0x20), 0x0b },=0A=
+> +       { OV05C10_REG8(0x00, 0xc1), 0x09 },=0A=
+> +       { OV05C10_REG8(0x00, 0x21), 0x06 },=0A=
+> +       { OV05C10_REG8(0x00, 0x11), 0x4e },=0A=
+> +       { OV05C10_REG8(0x00, 0x12), 0x13 },=0A=
+> +       { OV05C10_REG8(0x00, 0x14), 0x96 },=0A=
+> +       { OV05C10_REG8(0x00, 0x1b), 0x64 },=0A=
+> +       { OV05C10_REG8(0x00, 0x1d), 0x02 },=0A=
+> +       { OV05C10_REG8(0x00, 0x1e), 0x40 },=0A=
+> +       { OV05C10_REG8(0x00, 0xe7), 0x03 },=0A=
+> +       { OV05C10_REG8(0x00, 0xe7), 0x00 },=0A=
+=0A=
+Multiple entries for the same register value seem unnecessary.=0A=
+You can keep the last entry only.=0A=
+=0A=
+I can see several similar cases below as well.=0A=
+=0A=
+> +       { OV05C10_REG8(0x00, 0x21), 0x00 },=0A=
+> +       { OV05C10_REG8(0x01, 0x03), 0x00 },=0A=
+> +       { OV05C10_REG8(0x01, 0x04), 0x06 },=0A=
+> +       { OV05C10_REG8(0x01, 0x06), 0x76 },=0A=
+> +       { OV05C10_REG8(0x01, 0x07), 0x08 },=0A=
+> +       { OV05C10_REG8(0x01, 0x1b), 0x01 },=0A=
+> +       { OV05C10_REG8(0x01, 0x24), 0xff },=0A=
+=0A=
+Use OV05C10_REG_ANALOG_GAIN here. Also, you can remove this=0A=
+entry, as it is not required.=0A=
+=0A=
+> +       { OV05C10_REG8(0x01, 0x42), 0x5d },=0A=
+> +       { OV05C10_REG8(0x01, 0x43), 0x08 },=0A=
+> +       { OV05C10_REG8(0x01, 0x44), 0x81 },=0A=
+> +       { OV05C10_REG8(0x01, 0x46), 0x5f },=0A=
+> +       { OV05C10_REG8(0x01, 0x48), 0x18 },=0A=
+> +       { OV05C10_REG8(0x01, 0x49), 0x04 },=0A=
+> +       { OV05C10_REG8(0x01, 0x5c), 0x18 },=0A=
+> +       { OV05C10_REG8(0x01, 0x5e), 0x13 },=0A=
+> +       { OV05C10_REG8(0x01, 0x70), 0x15 },=0A=
+> +       { OV05C10_REG8(0x01, 0x77), 0x35 },=0A=
+> +       { OV05C10_REG8(0x01, 0x79), 0xb2 },=0A=
+> +       { OV05C10_REG8(0x01, 0x7b), 0x08 },=0A=
+> +       { OV05C10_REG8(0x01, 0x7d), 0x08 },=0A=
+> +       { OV05C10_REG8(0x01, 0x7e), 0x08 },=0A=
+> +       { OV05C10_REG8(0x01, 0x7f), 0x08 },=0A=
+> +       { OV05C10_REG8(0x01, 0x90), 0x37 },=0A=
+> +       { OV05C10_REG8(0x01, 0x91), 0x05 },=0A=
+> +       { OV05C10_REG8(0x01, 0x92), 0x18 },=0A=
+> +       { OV05C10_REG8(0x01, 0x93), 0x27 },=0A=
+> +       { OV05C10_REG8(0x01, 0x94), 0x05 },=0A=
+> +       { OV05C10_REG8(0x01, 0x95), 0x38 },=0A=
+> +       { OV05C10_REG8(0x01, 0x9b), 0x00 },=0A=
+> +       { OV05C10_REG8(0x01, 0x9c), 0x06 },=0A=
+> +       { OV05C10_REG8(0x01, 0x9d), 0x28 },=0A=
+> +       { OV05C10_REG8(0x01, 0x9e), 0x06 },=0A=
+=0A=
+...=0A=
+=0A=
+> +static int ov05c10_set_ctrl(struct v4l2_ctrl *ctrl)=0A=
+> +{=0A=
+> +       struct ov05c10 *ov05c10 =3D=0A=
+> +               container_of(ctrl->handler, struct ov05c10, ctrl_handler)=
+;=0A=
+=0A=
+Please use container_of_const.=0A=
+=0A=
+> +       struct i2c_client *client =3D v4l2_get_subdevdata(&ov05c10->sd);=
+=0A=
+> +       struct v4l2_subdev_state *state;=0A=
+> +       const struct v4l2_mbus_framefmt *format;=0A=
+> +       u64 vts;=0A=
+> +       int ret;=0A=
+> +=0A=
+> +       state =3D v4l2_subdev_get_locked_active_state(&ov05c10->sd);=0A=
+> +       format =3D v4l2_subdev_state_get_format(state, 0);=0A=
+> +=0A=
+> +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {=0A=
+> +               ret =3D __v4l2_ctrl_modify_range(ov05c10->exposure,=0A=
+> +                                              ov05c10->exposure->minimum=
+,=0A=
+> +                                              format->height + ctrl->val=
+ -=0A=
+> +                                              OV05C10_EXPOSURE_MARGIN,=
+=0A=
+> +                                              ov05c10->exposure->step,=
+=0A=
+> +                                              format->height -=0A=
+> +                                              OV05C10_EXPOSURE_MARGIN);=
+=0A=
+> +=0A=
+> +               if (ret)=0A=
+> +                       return ret;=0A=
+> +       }=0A=
+> +=0A=
+> +       if (!pm_runtime_get_if_active(&client->dev))=0A=
+> +               return 0;=0A=
+> +=0A=
+> +       switch (ctrl->id) {=0A=
+> +       case V4L2_CID_ANALOGUE_GAIN:=0A=
+> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_ANALOG_GAI=
+N,=0A=
+> +                               ctrl->val, NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_DIGITAL_GAIN:=0A=
+> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_DIGITAL_GA=
+IN,=0A=
+> +                               ctrl->val, NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_EXPOSURE:=0A=
+> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_EXPOSURE,=
+=0A=
+> +                               ctrl->val, NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_VBLANK:=0A=
+> +               /*=0A=
+> +                * REG_TIMING_VTS is read-only and increased by writing t=
+o=0A=
+> +                * REG_DUMMY_LINE in ov05c10. The calculation formula is=
+=0A=
+> +                * required VTS =3D dummyline + current VTS. Here get the=
+=0A=
+> +                * current VTS and calculate the required dummyline.=0A=
+> +                */=0A=
+> +               cci_read(ov05c10->regmap, OV05C10_REG_TIMING_VTS, &vts, &=
+ret);=0A=
+> +               if (ret)=0A=
+> +                       goto err;=0A=
+> +=0A=
+> +               ret =3D cci_write(ov05c10->regmap, OV05C10_REG_DUMMY_LINE=
+,=0A=
+> +                               max_t(int, ctrl->val + format->height - v=
+ts, 0),=0A=
+> +                               NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_TEST_PATTERN:=0A=
+> +               ret =3D ov05c10_test_pattern(ov05c10, ctrl->val);=0A=
+> +               break;=0A=
+> +       default:=0A=
+> +               ret =3D -EINVAL;=0A=
+> +               break;=0A=
+> +       }=0A=
+> +=0A=
+> +       cci_write(ov05c10->regmap, OV05C10_REG_TRIGGER,=0A=
+> +                 OV05C10_TRIGGER_APPLY, &ret);=0A=
+> +       if (ret) {=0A=
+> +               dev_err(&client->dev, "failed to trigger write");=0A=
+> +               goto err;=0A=
+=0A=
+We can drop this line.=0A=
+=0A=
+> +       }=0A=
+> +=0A=
+> +err:=0A=
+> +       pm_runtime_put_autosuspend(&client->dev);=0A=
+> +=0A=
+> +       return ret;=0A=
+> +}=0A=
+> +=0A=
+=0A=
+...=0A=
+=0A=
+> +       hblank =3D OV05C10_PPL - mode->width;=0A=
+> +       ov05c10->hblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_op=
+s,=0A=
+> +                                           V4L2_CID_HBLANK, hblank, hbla=
+nk, 1,=0A=
+> +                                           hblank);=0A=
+> +=0A=
+> +       v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_ANALOGUE=
+_GAIN,=0A=
+> +                         OV05C10_MIN_ANALOG_GAIN, OV05C10_MAX_ANALOG_GAI=
+N,=0A=
+> +                         OV05C10_ANALOG_GAIN_STEP,=0A=
+> +                         OV05C10_ANALOG_GAIN_DEFAULT);=0A=
+=0A=
+It would be better to add a blank line after this.=0A=
+=0A=
+> +       v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_ops, V4L2_CID_DIGITAL_=
+GAIN,=0A=
+> +                         OV05C10_MIN_DIG_GAIN, OV05C10_MAX_DIG_GAIN,=0A=
+> +                         OV05C10_DGTL_GAIN_STEP, OV05C10_DGTL_GAIN_DEFAU=
+LT);=0A=
+> +=0A=
+> +       exposure_max =3D mode->vts_def - OV05C10_EXPOSURE_MARGIN;=0A=
+> +       ov05c10->exposure =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov05c10_ctrl_=
+ops,=0A=
+> +                                             V4L2_CID_EXPOSURE,=0A=
+> +                                             OV05C10_EXPOSURE_MIN,=0A=
+> +                                             exposure_max,=0A=
+> +                                             OV05C10_EXPOSURE_STEP,=0A=
+> +                                             exposure_max);=0A=
+> +=0A=
+=0A=
+...=0A=
+=0A=
+> +static const struct v4l2_subdev_core_ops ov05c10_core_ops =3D {=0A=
+> +       .subscribe_event =3D v4l2_ctrl_subdev_subscribe_event,=0A=
+> +       .unsubscribe_event =3D v4l2_event_subdev_unsubscribe,=0A=
+> +};=0A=
+=0A=
+Drop this.=0A=
+=0A=
+> +=0A=
+> +static const struct v4l2_subdev_ops ov05c10_subdev_ops =3D {=0A=
+> +       .core =3D &ov05c10_core_ops,=0A=
+> +       .pad =3D &ov05c10_pad_ops,=0A=
+> +};=0A=
+=0A=
+...=0A=
+=0A=
+> +static int ov05c10_get_pm_resources(struct device *dev)=0A=
+> +{=0A=
+> +       struct v4l2_subdev *sd =3D dev_get_drvdata(dev);=0A=
+> +       struct ov05c10 *ov05c10 =3D to_ov05c10(sd);=0A=
+> +=0A=
+> +       ov05c10->img_clk =3D devm_v4l2_sensor_clk_get(dev, NULL);=0A=
+> +       if (IS_ERR(ov05c10->img_clk))=0A=
+> +               return dev_err_probe(dev, PTR_ERR(ov05c10->img_clk),=0A=
+> +                                    "failed to get imaging clock\n");=0A=
+> +=0A=
+> +       ov05c10->avdd =3D devm_regulator_get(dev, "avdd");=0A=
+> +       if (IS_ERR(ov05c10->avdd))=0A=
+> +               return dev_err_probe(dev, PTR_ERR(ov05c10->avdd),=0A=
+> +                                    "failed to get avdd regulator\n");=
+=0A=
+> +=0A=
+> +       ov05c10->reset =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OU=
+T_LOW);=0A=
+=0A=
+Default state should be GPIOD_OUT_HIGH.=0A=
+=0A=
+> +       if (IS_ERR(ov05c10->reset))=0A=
+> +               return dev_err_probe(dev, PTR_ERR(ov05c10->reset),=0A=
+> +                                    "failed to get reset gpio\n");=0A=
+> +=0A=
+> +       return 0;=0A=
+> +}=0A=
+=0A=
+...=0A=
+=0A=
+> +static int ov05c10_probe(struct i2c_client *client)=0A=
+> +{=0A=
+> +       struct device *dev =3D &client->dev;=0A=
+> +       struct ov05c10 *ov05c10;=0A=
+> +       bool full_power;=0A=
+> +       int ret;=0A=
+> +=0A=
+> +       ov05c10 =3D devm_kzalloc(&client->dev, sizeof(*ov05c10), GFP_KERN=
+EL);=0A=
+> +       if (!ov05c10)=0A=
+> +               return -ENOMEM;=0A=
+> +=0A=
+> +       ret =3D ov05c10_parse_fwnode(ov05c10, dev);=0A=
+> +       if (ret)=0A=
+> +               return ret;=0A=
+> +=0A=
+> +       ov05c10->regmap =3D devm_regmap_init_i2c(client, &ov05c10_regmap_=
+config);=0A=
+> +       if (IS_ERR(ov05c10->regmap))=0A=
+> +               return dev_err_probe(dev, PTR_ERR(ov05c10->regmap),=0A=
+> +                                    "failed to init regmap\n");=0A=
+> +=0A=
+> +       v4l2_i2c_subdev_init(&ov05c10->sd, client, &ov05c10_subdev_ops);=
+=0A=
+> +=0A=
+> +       ret =3D ov05c10_get_pm_resources(dev);=0A=
+> +       if (ret)=0A=
+> +               return ret;=0A=
+> +=0A=
+> +       full_power =3D acpi_dev_state_d0(dev);=0A=
+> +       if (full_power) {=0A=
+> +               ret =3D ov05c10_power_on(dev);=0A=
+> +               if (ret) {=0A=
+> +                       dev_err(&client->dev, "failed to power on\n");=0A=
+> +                       return ret;=0A=
+> +               }=0A=
+> +       }=0A=
+> +=0A=
+> +       ret =3D ov05c10_init_controls(ov05c10);=0A=
+> +       if (ret) {=0A=
+> +               dev_err(&client->dev, "failed to init controls: %d", ret)=
+;=0A=
+> +               goto probe_error_power_off;=0A=
+> +       }=0A=
+> +=0A=
+> +       ov05c10->sd.internal_ops =3D &ov05c10_internal_ops;=0A=
+> +       ov05c10->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE |=0A=
+> +                            V4L2_SUBDEV_FL_HAS_EVENTS;=0A=
+=0A=
+Drop V4L2_SUBDEV_FL_HAS_EVENTS flag.=0A=
+=0A=
+> +       ov05c10->sd.entity.ops =3D NULL;=0A=
+> +       ov05c10->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;=0A=
+> +       ov05c10->pad.flags =3D MEDIA_PAD_FL_SOURCE;=0A=
+> +=0A=
+> +       ret =3D media_entity_pads_init(&ov05c10->sd.entity, 1, &ov05c10->=
+pad);=0A=
+> +       if (ret) {=0A=
+> +               dev_err(&client->dev, "failed to init entity pads: %d", r=
+et);=0A=
+=0A=
+Can we use dev_err_probe.=0A=
+=0A=
+> +               goto probe_error_v4l2_ctrl_handler_free;=0A=
+> +       }=0A=
+> +=0A=
+> +       ov05c10->sd.state_lock =3D ov05c10->ctrl_handler.lock;=0A=
+> +       ret =3D v4l2_subdev_init_finalize(&ov05c10->sd);=0A=
+> +       if (ret < 0) {=0A=
+> +               dev_err(dev, "v4l2 subdev init error: %d\n", ret);=0A=
+=0A=
+same here.=0A=
+=0A=
+> +               goto probe_error_media_entity_cleanup;=0A=
+> +       }=0A=
+> +=0A=
+> +       if (full_power)=0A=
+> +               pm_runtime_set_active(&client->dev);=0A=
+> +       pm_runtime_enable(&client->dev);=0A=
+> +=0A=
+> +       ret =3D v4l2_async_register_subdev_sensor(&ov05c10->sd);=0A=
+> +       if (ret < 0) {=0A=
+> +               dev_err(&client->dev, "failed to register V4L2 subdev: %d=
+",=0A=
+> +                       ret);=0A=
+> +               goto probe_error_rpm;=0A=
+> +       }=0A=
+> +       pm_runtime_set_autosuspend_delay(&client->dev, 1000);=0A=
+> +       pm_runtime_use_autosuspend(&client->dev);=0A=
+> +       pm_runtime_idle(&client->dev);=0A=
+> +=0A=
+> +       return 0;=0A=
+> +=0A=
+> +probe_error_rpm:=0A=
+> +       pm_runtime_disable(&client->dev);=0A=
+=0A=
+Add pm_runtime_dont_use_autosuspend(&client->dev) before=0A=
+pm_runtime_disable() to undo the pm_runtime_use_autosuspend()=0A=
+call from probe. Maybe Sashiko will point this out.=0A=
+=0A=
+Also, if v4l2_async_register_subdev_sensor() fails with full_power=0A=
+set to true, pm_runtime_set_active() has already been called.=0A=
+After pm_runtime_disable(), the runtime PM status remains active=0A=
+while the sensor is powered off.=0A=
+=0A=
+> +       v4l2_subdev_cleanup(&ov05c10->sd);=0A=
+> +=0A=
+> +probe_error_media_entity_cleanup:=0A=
+> +       media_entity_cleanup(&ov05c10->sd.entity);=0A=
+> +=0A=
+> +probe_error_v4l2_ctrl_handler_free:=0A=
+> +       v4l2_ctrl_handler_free(ov05c10->sd.ctrl_handler);=0A=
+> +=0A=
+> +probe_error_power_off:=0A=
+> +       ov05c10_power_off(&client->dev);=0A=
+=0A=
+If full_power is false, power_on was never called.=0A=
+so power_off must be skipped.=0A=
+=0A=
+> +=0A=
+> +       return ret;=0A=
+> +}=0A=
+=0A=
+...=0A=
+=0A=
+> +#if IS_BUILTIN(CONFIG_ACPI)=0A=
+> +static const struct acpi_device_id ov05c10_acpi_ids[] =3D {=0A=
+> +       { .id =3D "OVTI05C1" },=0A=
+> +       { }=0A=
+> +};=0A=
+> +=0A=
+> +MODULE_DEVICE_TABLE(acpi, ov05c10_acpi_ids);=0A=
+> +#endif=0A=
+> +=0A=
+> +static struct i2c_driver ov05c10_i2c_driver =3D {=0A=
+> +       .driver =3D {=0A=
+> +               .name =3D "ov05c10",=0A=
+> +               .pm =3D pm_ptr(&ov05c10_pm_ops),=0A=
+> +               .acpi_match_table =3D ACPI_PTR(ov05c10_acpi_ids),=0A=
+> +       },=0A=
+> +       .probe =3D ov05c10_probe,=0A=
+> +       .remove =3D ov05c10_remove,=0A=
+> +       .flags =3D I2C_DRV_ACPI_WAIVE_D0_PROBE,=0A=
+> +};=0A=
+> +=0A=
+> +module_i2c_driver(ov05c10_i2c_driver);=0A=
+> +MODULE_DESCRIPTION("OmniVision ov05c10 camera driver");=0A=
+> +MODULE_AUTHOR("Dongcheng Yan <dongcheng.yan@intel.com>");=0A=
+> +MODULE_LICENSE("GPL");=0A=
+>=0A=
+> --=0A=
+> 2.47.3=0A=
+=0A=
+Best Regards,=0A=
+Tarang=
