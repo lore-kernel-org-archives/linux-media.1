@@ -1,331 +1,284 @@
-Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
+Received: from mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C464B0E4B
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 15:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3924B0E4B
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 15:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386666; cv=none; b=l8imc0cTCcBT7GCNUw1uIL8tMNlLcOquRD58ox/7ygfTf3qb8r8kCZE92WdsYqHr7fvcZwBn3yASq7BpRz5ycWlo+Kq8QA+jcXMySF2RjbWHJ/778q/8Ms5Ht4itf1Ezp047g7tfAkUryr4mKKjqptCmUlOBthtM2gX/CRr0rIw=
+	t=1791386701; cv=none; b=GTDCAtbD1/M/nQ/8i9F6o1BSEfefxqFeZNsW5iYNJOt/2SEvCAj9cZXW9ACD/1c3Rp/j63WhP885bg2dUNUEKHCTSW8m09ecK/tIlVoFi3UUmrRMaYIvtplOzgWNG2nxNDWIm8RR3ieUQ9x4w9bKoQ2XJKMWa/4eGYJcYzB+97A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791386666; c=relaxed/simple;
-	bh=pOujG1gLlJUd0Auxxybpk/JUqHob/px8Boi9W0Ds3u4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Uwf68ZhJ1Nm4v0kZHHGyixvYBGeO1/QYUdRLqqTEHQn8Tq8vweTUzAlk5n9VVX206XW6SE2TDKDFc4bmu3o4wG2Ai2Fn7l2U/CKL5iPwoSWyfhtiYxGJTqElOJa1HUYYbRLBc2bAZCJz8f4cZBRKNSXkRQzTIP15oRq6iOLRbdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=AMp7dwBQ; arc=none smtp.client-ip=209.85.222.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791386701; c=relaxed/simple;
+	bh=WuzQ9NOmYWS1FtXCB0dwF+LzoCz/iWMvkMa6tlUoLy8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gIaDlSohaIHBqnFKpLFTlnATy7hEbTtsQc/bJwCnDrewYKFLhuJd9BdfPhy1WjXYvXcHmK40dPcXSmuNkT1VsZNeCNS59s9Z6rgy6JfJKJ/ZWMsWzQIuoIhlk2E1RLZciHv9cvFoOit9f+zMP+Mm5DxWMSNdcrF/RW+8PpHbBTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NE4D3Prn; arc=none smtp.client-ip=95.215.58.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="AMp7dwBQ"
-Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-92ed3993c1eso273120485a.1
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 08:24:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791386660; x=1791991460;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PdzDp7GzQ+D7CbVTfK4MaptRE/Lfrkm6I+zeUO3S0zc=;
-        b=l9E5P+4sJccMIb3FtDEW5pUplJM7vMY5LfBQ8ku5oRQaBSUb7CZ8iiw0XeX2ehe/Sd
-         9yARwVPE+SQoyd/STPlkmBEKe9iL314TEwfKpIhZGJH/MTYQrZSqUVyybJ+T3fXpuons
-         RIW6NvaUVM4N4I97VlaTBKr1SBw/oGj0erFbMJmYBIhPv2+AypjilVMeZDvIwp4i5BoR
-         3OqoebgcVLD58nrASy+LIM0La/2Qbu5d1xdNF7pNe2FPz7nmZpBikmIiv+EWaVSBE7pM
-         dxNIqF7I/Xhg9RRW1cPD5RWWzW25QevFa4kygNMF4D0WU6wfm1j/tnwqPpm8xZ72ZmHN
-         ARNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFppV5GOtR8OSOuucmz7HxJfmkjmJ7UM03DiW6EZJVoQyCxgmOqtnjVJJqvunLjO3SNmq3Mop4qnLCkQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++kcXP6C4WDKShvD41+Nb6kE8vUiAIk+9LxMgjA3qMsWlX/wqEmG
-	r1yVn+A1h79tLiHMULwc5zIXHdmSYST9DaNDPprQip2LM30ulZIMiiU9ehOAFGQRs87RRySakJi
-	xdhdQHP8Angp+hi1YFQ2BUMElucIwd81tjGh6Rwtup6tFsP97uGHhlIMPcXLFXlYKxMrCQZ5YyC
-	QhYIUjrbx9Uu6utnwkJzmN83WdbXX6SSbHUTj+uXJcg1aaIJnJahMIaZ26cYGvuo3gwCUWvA9lo
-	BJbThIOrD0WJso=
-X-Gm-Gg: AYBFou0Fm/UzHeRJajUH5+npB9iXGNwjQuawq+9dGUKYskNPgkTb6fEvjLQQE3WPz1w
-	hc8ESPk1mFfEWC30itvWs2XCifsPvRW8PQuSWqXfCpbZ5lblqbiKF9+waNMhsPkNnkM5a+0c0Mh
-	iBxFeQucB575XrFSTgyjOKTswjjqu0sfUMM3Oy1cBcBuu/M2P7IGYdTiHQ3QVN50fYfDY0w+j8F
-	lDEO1CgD8wx2Wq8iLbXefFcXkXT1EjOIDoWK1j2d4x/0Y3j0rIENO986S9Mm2GFZM+JMi1HWSD+
-	0IX2+Eo+GqAuNTLem7BZTkhoWk9sjB4vxNcwLmx0lYetFm+EEJGRNKGvsRoeQ1ZJ5nKMH+3jK8B
-	0D9ST1DVBYmMa4rJ6DOxVqAhOlr7ySWKTKJ0MrjpUYV0Lu+DNY2jurv3VMHMZNF5aWWfiNNw/FE
-	TSuNDP24+MEAJLMTcMi14esEXHyq6wgm3fkpQ=
-X-Received: by 2002:a05:620a:1b93:b0:93e:8774:fba2 with SMTP id af79cd13be357-93e9b7ec7d6mr466952085a.58.1791386659447;
-        Wed, 07 Oct 2026 08:24:19 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91996d1bb2bsm108696d6.19.2026.10.07.08.24.18
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 07 Oct 2026 08:24:19 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3a99420f912so10907641fa.1
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 08:24:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791386657; x=1791991457; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PdzDp7GzQ+D7CbVTfK4MaptRE/Lfrkm6I+zeUO3S0zc=;
-        b=AMp7dwBQaAzzeE2PRbXqBDl8XL2MrijgBSuHYcQmxc515a46+2U4aliBETZz+9PBCf
-         PudCyeIdjgKVFnphDe/cupBqp4rJcE34xfEJzZalp+P9bPh+3zoD3gbijxcUjc0ZSffm
-         +Q5WnuV8OD4Cy5fh2WCmxXPrbVv3XL+wTCGDE=
-X-Forwarded-Encrypted: i=1; AKwUvBykdZRq4nTDGiWfZBpLQdCYFE0vU1w+3HuaggR9/N+cIDPch5YKmTVpimHW0RqhFX6oCOdF5BBrzMgNdQ==@vger.kernel.org
-X-Received: by 2002:a05:651c:41d4:b0:3a9:8969:3dd2 with SMTP id 38308e7fff4ca-3a9a2d0f257mr5662931fa.13.1791386656108;
-        Wed, 07 Oct 2026 08:24:16 -0700 (PDT)
-X-Received: by 2002:a05:651c:41d4:b0:3a9:8969:3dd2 with SMTP id
- 38308e7fff4ca-3a9a2d0f257mr5662741fa.13.1791386655515; Wed, 07 Oct 2026
- 08:24:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NE4D3Prn"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WuzQ9NOmYWS1FtXCB0dwF+LzoCz/iWMvkMa6tlUoLy8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791386687; v=1; x=1791991487;
+ b=NE4D3Prn34Uu7d9XRo+Ug07xa9Vx8ikb95p2HqUPcrgorzBCCtuuJboa/hBZNPOFdCtBIg+U
+ e/FnXunjLpp063YPmm8/4yjjIlO/P/4rpqrBY/t35j/Y+z5+SeJFuhZoIviTbrg4oKdKdp27MBi
+ X0kvpYKM1OhNH/wccytcaH8g=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 31f9b514d994e1cd;
+	Wed, 07 Oct 2026 15:24:47 +0000
+X-Mizu-Trace-ID: 31f9b514d994e1cd
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 7 Oct 2026 17:24:43 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
+ range
+Message-ID: <asZhdsjkFuVyPi2s@bombadil>
+References: <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
+ <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
+ <arpyD2CjxOqwQvx8@bombadil>
+ <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
+ <arrVt-0ctw1cXkkW@bombadil>
+ <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
+ <asO1sIZC8rOyhSnu@bombadil>
+ <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
+ <asS0anZZXpbR96oE@bombadil>
+ <asX4ASoL7nzBkljI@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-In-Reply-To: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 7 Oct 2026 11:24:03 -0400
-X-Gm-Features: AclHuK-7Psz2fEN6Ia0WD4-kcZK_lZfa-O4nL5-5vl9wSJCF4amtlpIyd2gj7I0
-Message-ID: <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Thomas Hellstrom <thellstrom@vmware.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>, 
-	Alex Williamson <alex@shazbot.org>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000006758ff065d41b589"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <asX4ASoL7nzBkljI@kekkonen.localdomain>
 
---0000000000006758ff065d41b589
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Sakari,
 
-On Tue, Oct 6, 2026 at 3:15=E2=80=AFPM Matt Evans <matt@ozlabs.org> wrote:
->
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
->
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
->
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
->
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close will only execute as one of:
->
->   - Gets the file before file_ref_put() (dmabuf->file valid)
->   - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->   - Observes dmabuf->file =3D NULL (no file)
->
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
->
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
-y_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->
-> Hi,
->
-> This issue was found (by Claude Opus 5.5) in the context of VFIO's
-> DMABUF export path.  VFIO iterates live DMABUFs with a
-> get_file_active()/fput() block, which now becomes safe if the file is
-> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
->
-> However, there are a couple of other places that directly use
-> dmabuf->file and seem able to race a closing file (i.e. without holding
-> the file reference)?  If this is so, they'd be a UAF today; with this
-> patch that goes away, but instead of a stale pointer dmabuf->file could
-> be NULL:
->
-> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
->
->   file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+thanks for the feedback!
 
-Yes, that's a real UAF today. vmwgfx relied on the exporter's
-dma_buf_ops.release running inside __fput() before file_free(), which
-stopped being true with 4ab59c3c638c and we missed it.
+On Wed, Oct 07, 2026 at 10:42:57AM +0300, Sakari Ailus wrote:
+> Hi Richard, Dave,
+> 
+> On Tue, Oct 06, 2026 at 10:57:04AM +0200, Richard Leitner wrote:
+> > On Mon, Oct 05, 2026 at 05:05:54PM +0100, Dave Stevenson wrote:
+> > > Hi Richard
+> > > 
+> > > On Mon, 5 Oct 2026 at 15:46, Richard Leitner <richard.leitner@linux.dev> wrote:
+> > > >
+> > > > On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
+> > > > > On Mon, 28 Sept 2026 at 22:08, Richard Leitner
+> > > > > <richard.leitner@linux.dev> wrote:
+> > > > > >
+> > > > > > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
+> > > > > > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
+> > > > > > > <richard.leitner@linux.dev> wrote:
+> > > > > > > >
+> > > > > > > > Hi Dave,
+> > > > > > > >
+> > > > > > > > thanks for your feedback! Greatly appreciated!
+> > > > > > > >
+> > > > > > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
+> > > > > > > > > Hi Richard
+> > > > > > > > >
+> > > > > > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> > > > > > > > > <richard.leitner@linux.dev> wrote:
+> > > > > > > > > >
+> > > > > > > > > > When updating the flash_duration range ensure the ceiling is at least as
+> > > > > > > > > > long as the exposure time is. This may cause the calculated
+> > > > > > > > > > flash_duration register value to be rounded up.
+> > > > > > > > > >
+> > > > > > > > > > This is done by introducing a new
+> > > > > > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
+> > > > > > > > > > wherever possible.
+> > > > > > > > > >
+> > > > > > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > > > > > > > > ---
+> > > > > > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
+> > > > > > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
+> > > > > > > > > >
+> > > > > > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > > > > > > > > > index f728709fcf0a6..be38ecfad8c82 100644
+> > > > > > > > > > --- a/drivers/media/i2c/ov9282.c
+> > > > > > > > > > +++ b/drivers/media/i2c/ov9282.c
+> > > > > > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
+> > > > > > > > > >                                 NSEC_PER_USEC);
+> > > > > > > > > >  }
+> > > > > > > > > >
+> > > > > > > > > > +/**
+> > > > > > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
+> > > > > > > > > > + * @ov9282: pointer to ov9282 device
+> > > > > > > > > > + *
+> > > > > > > > > > + * This may round up the ceiling to the microseconds representation of the
+> > > > > > > > > > + * next flash_duration register value to make sure one can illuminate the whole
+> > > > > > > > > > + * exposure time long.
+> > > > > > > > > > + *
+> > > > > > > > > > + * Return: 0 if successful, error code otherwise.
+> > > > > > > > > > + */
+> > > > > > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+> > > > > > > > > > +{
+> > > > > > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > > > > > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+> > > > > > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> > > > > > > > > > +
+> > > > > > > > > > +       if (fd_max_us < exposure_us)
+> > > > > > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+> > > > > > > > >
+> > > > > > > > > Reading the driver for how it handles flash duration, it all gets a
+> > > > > > > > > bit convoluted. I see part of it comes from the units being usecs
+> > > > > > > > > whilst natively it is in lines, but we've got this slightly odd calc
+> > > > > > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
+> > > > > > > > > value.
+> > > > > > > >
+> > > > > > > > That's true. I'm also not happy with this back-and-forth conversion between
+> > > > > > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
+> > > > > > > > all "timing related" controls in the same unit (likely usecs). I was
+> > > > > > > > already playing around with that approach, but as this would break the
+> > > > > > > > current exporsure property I have not sent those patches...
+> > > > > > > >
+> > > > > > > > If you have any "mainline-acceptable" idea on how to do that I would
+> > > > > > > > definitely love to hear it ;-)
+> > > > > > >
+> > > > > > > Sadly I think that there is a need for some of the back and forth in
+> > > > > > > conversions :-(
+> > > > > > >
+> > > > > > > > > Seeing as this is the max flash_duration, is it actually limited by
+> > > > > > > > > the exposure, or by the frame duration? The difference between those
+> > > > > > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
+> > > > > > > > > you up to another 9usecs to play with. That covers any of this
+> > > > > > > > > rounding stuff. You can afford to always round that one down and never
+> > > > > > > > > clip the range below the exposure time.
+> > > > > > > >
+> > > > > > > > From a hardware perspective this isn't limited at all AFAICT. But from a
+> > > > > > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
+> > > > > > > > the hard-coded default case in this driver currently) longer than the
+> > > > > > > > exposure time makes no sense, as it does not have any effect on the image.
+> > > > > > > >
+> > > > > > > > With this patch I want to make sure to be able to illuminate the frame
+> > > > > > > > during the complete exposure time, but keep the maximum as short as
+> > > > > > > > possible. So I was comparing/aiming this at the exposure time, not the
+> > > > > > > > frame duration.
+> > > > > > > >
+> > > > > > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
+> > > > > > > > time: Would a "turned-on flash" during those 25 lines have any impact on
+> > > > > > > > the frames brightness in your opinion?
+> > > > > > > > I haven't explicitely tested/measured this with hardware, but I guess
+> > > > > > > > this does not have any impact?
+> > > > > > >
+> > > > > > > No, as this is a global shutter sensor I wouldn't expect the flash to
+> > > > > > > impact the image if a connected flash was on for more lines than the
+> > > > > > > exposure.
+> > > > > > >
+> > > > > > > > Or do you mean when calculating against the frame duration the +/-1
+> > > > > > > > stuff can be dropped and the code would be easier to read?
+> > > > > > >
+> > > > > > > Yes, I'm suggesting the driver handles the range of values that the
+> > > > > > > hardware can support correctly. Whether that helps for your image
+> > > > > > > quality requirements is a different question.
+> > > > > > > The driver can pass the buck with at least some of the rounding issues
+> > > > > > > to userspace, which potentially has use-case specific knowledge. And
+> > > > > > > it simplifies the driver in the process.
+> > > > > >
+> > > > > > Talking about "range of values that the hardware can support": AFAICT
+> > > > > > the strobe duration is (from a sensor hardware point of view) not
+> > > > > > limited by the frame duration. At least I found nothing on this in the
+> > > > > > datasheet and a quick test on hardware also showed no correlation.
+> > > > >
+> > > > > Interesting. So if you set it to a 1 second strobe pulse when
+> > > > > streaming at 60fps, what behaviour do you get?
+> > > >
+> > > > I haven't tested the 1 second strobe explicitely. But the strobe in my
+> > > > case is always on for the configured time. No matter if it exceeds the
+> > > > frame time/trigger. After the configured strobe_duration passed it goes
+> > > > low until the next trigger happens.
+> > > >
+> > > > Maybe the following visualization helps:
+> > > >
+> > > >
+> > > > strobe duration < frame time:
+> > > >                   __         __         __         __
+> > > >                  |  |       |  |       |  |       |  |
+> > > > strobe signal   _|  |_______|  |_______|  |_______|  |_____
+> > > > strobe trigger   ^          ^          ^          ^
+> > > >
+> > > >
+> > > > frame time < strobe duration < 2x frame time:
+> > > >                   _____________         _____________
+> > > >                  |             |       |             |
+> > > > strobe signal   _|             |_______|             |_____
+> > > > strobe trigger   ^          ^          ^          ^
+> > > >
+> > > >
+> > > > 2x frame time < strobe duration < 3x frame time:
+> > > >                   ________________________         ________
+> > > >                  |                        |       |
+> > > > strobe signal   _|                        |_______|
+> > > > strobe trigger   ^          ^          ^          ^
+> > > >
+> > > > Therefore I would strongly suggest to set the maximum strobe duration to
+> > > > be in every case shorter than the "frame time".
+> > > >
+> > > > For the reasons discussed earlier it the maximum strobe duration should
+> > > > be the same or longer than the actual exposure time.
+> > > >
+> > > > What's your take on this Dave? Or Sakari?
+> > > 
+> > > Seeing as the behaviour is logical, personally I'd go with allowing
+> > > whatever strobe period (up to the register max), and leave it up to
+> > > userspace to keep the period below the exposure time if that is what
+> > > is desired for the use case.
+> > 
+> > Fair approach. But if we do so it will become a pain in the ass to
+> > calculate between the expsoure time (which is based on the line time)
+> > and the strobe duration (which is currently microseconds) IMHO.. As we
+> > don't have a "reasonable upper limit" easily available...
+> > 
+> > The problem I'm talking about is that it would be quite "easy" then to
+> > mess up the units and configure a strobe duration longer than the frame
+> > time, which then show up as "strangely illuminated frames" in the stream.
+> > 
+> > Do you see any chance to get the exposure time and strobe duration on
+> > the same unit? Or is this basically impossible as we would "break"
+> > userpace with this? If so, would a new "strobe_duration in line time" be
+> > a possible approach?
+> 
+> I'd really like to see such conversion to take place in userspace. The
+> flash driver doesn't have a concept of a line either.
 
-But this patch on its own makes vmwgfx worse. In the ordinary case,
-where closing the file drops the last dentry reference, a close racing
-PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
-the same __fput() and blocks on prime->mutex, keeping the file
-allocated, so file_ref_get() just fails on the dead refcount. With
-this patch dmabuf->file is NULL in that window and we oops. So this
-shouldn't go to stable without a vmwgfx fix.
+True. Haven't thought of the "generic flash driver". I guess I was too
+deep into my use-case. Thanks for the heads-up!
 
-For vmwgfx we'd probably need this one line change in
-drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
-@@ -471,7 +475,7 @@ void ttm_object_device_release(struct
-ttm_object_device **p_tdev)
-  */
- static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabuf)
- {
--     return file_ref_get(&dmabuf->file->f_ref);
-+     return get_file_active(&dmabuf->file) !=3D NULL;
- }
+> 
+> A single implementation in libcamera sounds much better than a driver
+> implementation, or multiple driver implementations. Also, doing this in
+> floating point could be more practical as well.
 
-under prime->mutex, which keeps the struct dma_buf alive. It needs the
-NULL store from this patch to fix the existing UAF, since otherwise
-the recheck can accept a recycled file through the unchanged stale
-pointer.
+Ok. So I will stick with µs for the strobe/flash duration and "number of
+lines" for the exposure. Furthermore I will drop the dynamic maximum
+value of the control in favour of the actual register maximum.
 
-> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
-> this might be more subtle than replacing it with a get_file() variant
-> (so as to accept a NULL file *).
->
-> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
->
->   gvt_dbg_dpy(... file_count(dmabuf->file) ...);
->
->
-> Respective vmwgfx & i915 maintainers, what is your view?
-> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
->
-> Thanks,
->
->
-> Matt
->
->
->   drivers/dma-buf/dma-buf.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..726639130477 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->
->   static int dma_buf_file_release(struct inode *inode, struct file *file)
->   {
-> +       struct dma_buf *dmabuf =3D file->private_data;
-> +
->         if (!is_dma_buf_file(file))
->                 return -EINVAL;
->
-> -       __dma_buf_list_del(file->private_data);
-> +       __dma_buf_list_del(dmabuf);
->
-> +       /* Must be observed by __get_file_rcu() before file_free() */
-> +       smp_store_mb(dmabuf->file, NULL);
+To address the strobe_duration change on a mode or hblank change:
 
-I think Alex is right and dmabuf can be NULL here. An early if
-(!dmabuf) return 0" will fix that.
+We could either keep the strobe_duration register value unchanged, which
+will cause the actual strobe_duration control value (in µs) to change.
 
-z
+Or we could change the strobe_duration register value on mode and hblank
+changes to keep the actual strobe_duration control value (in µs) unchanged.
 
---0000000000006758ff065d41b589
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Whats your take on this Sakai, Dave?
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIFw7
-JigJDzWY+MbEwLXGqD52Gt+esB7H6stgjSNjxl/bMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAwNzE1MjQxN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAIoFx2Gaivx+RwlIuYDSNE7c+MFfSbDq/yu1idsl
-h3E9/pNzVjxEbYUwNPuKRYkoB1vwEbqN5xK+nVkAuHbTMlkW0baLJFdJZikKLVxrinEKZTGrVFgx
-3YdPvURKmo2E2HIR1X9eA+GPglyyjJBNGzfT5TVjtYqSpqGV/BZrrRCSeEuKLP69lf27tMLa7ks/
-OWQ2I0HNTzsxBPtrGkpPNKhN/T6/VW32kBt75faz9phIsvkrIK9HlUdwuDRTn4f6JMGpeUOZXMQk
-JhW1AAkyO+thfOgk8O4L/M7LOqmXQWBRDf4d7REflmTZl4UNm94IMmGnGXMM+QOWSIFuWY3CGMI=
---0000000000006758ff065d41b589--
+Thanks & regards;rl
+
+> 
+> -- 
+> Regards,
+> 
+> Sakari Ailus
