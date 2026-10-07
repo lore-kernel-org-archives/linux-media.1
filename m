@@ -1,59 +1,39 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe9-0017.asd.mail.yahoo.com [34.2.88.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86D047D45B
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 14:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.88.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF44549E13F;
+	Wed,  7 Oct 2026 14:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791384184; cv=none; b=N0MEKMUcF6/z7Q8xcZImUuWOjnOJ35PmF+7KqOf+816nY5s9EDPJhJtPRoRrXg9yO2mVAVoKkjGLZSGftsWhZZgSlMqgAK1/1l4EVdlPVustSVp0wbjcLd+L4vImAUrf8ul89K04VEaOCOiolAewvJrNpft7AU/eew1O6mCpouQ=
+	t=1791384191; cv=none; b=jny6RJOefsyBsdygtsAJ9uXds5a/NFIdD7xcDBt5oNoY+bnedR1+WJ7h3At2r54hgNwwvgBCXxOCRPCOVFfEFt9hmLWvWmLzNXlGuOn3fPEXyRcylfonwv3V+W3pZY+alTjREfCk22u2IiOrWxindFeE9W8v7PmKM54Rm0F6Aj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791384184; c=relaxed/simple;
-	bh=SxIIgw0ydlG0i4+/48viYe5sGJmgGy76UbNEZEdnvUM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type:
-	 References; b=glGshW8b+eJAZSku55BEu+CIRoS8e1xYW/WzT2islS8xD06+h2TNUkJhkLo9TCSR5Va5kacoFoU3hLZuqs9uKjMHz40yvhM8vKBDuYF0X5orSFDMW927VcDbjIYkNgRQx1btIRmz4FNTiOqAX3v6NibRxoG8gp1H6N/8IAFeZ30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.fr; spf=pass smtp.mailfrom=yahoo.fr; dkim=pass (2048-bit key) header.d=yahoo.fr header.i=@yahoo.fr header.b=MYz+BQ3N; arc=none smtp.client-ip=34.2.88.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.fr
+	s=arc-20240116; t=1791384191; c=relaxed/simple;
+	bh=xcCZxypVl+hwx4LveDXvbkYtsVTfZuAreWliu31ApxY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pc+vrpwV9ZegGm9eXI+9XlH1cp5S1h69tJU5tUiig44lp0GEWwViajxp3xGgRJApMaPHHrHiRRYLewcfaG1EEwPe1GUm/Wmf7FGdi5fGMzgoQn0FomrtodIKa6hphcIUPZcXxnJp+kjw1so5GggrLgWNbUcc8ltKJOp7zK3DlW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=iDj1cgYt; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.fr header.i=@yahoo.fr header.b="MYz+BQ3N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048; t=1791384178; bh=P4Gq/l5PMpm7kLvXzCF1M+XYf0wCg8LsIG1lD/qNzLA=; h=Date:From:Subject:To:Cc:References:From:Subject:Reply-To; b=MYz+BQ3NYMzxjyptq9CVxyrS3Hr1iIxbNM52iz+okkQqXRJI//8c13Y/CJGfhNuh5cvpi5RJqiBhlh+9gKx1qy9bOzpiHVhynH52x2VGVCEgnEntzs7CsgrLH2ZId6P2lauKnmB5Mz+ulm5MWJLVTkxtR/lDr+FwnefrolziIHr/TQ1ioLBUHFkUSO09x+7yXUvcdFH0/GwdBLBTz9CmpfgV6iEdZmXNb3MJkYCn3Y5KjspUZLHD89x+pSY7k7huEifTaPBfMPE8DIQ0M9zLfFRw14TVn6o9ZWB5/aZT5kcik4nLTUZz48zImdCspZNCvzV8X8NrT7UKqYCuyrF/VA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791384178; bh=B3mBrPsL0PtpX+nxS6w/jFLPzXARIeFpajclZ5A80x2=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=JdweuBsooOMLDC3ThEbTuq1IsOBEk0JrH/sFFdyUxaLDKMlQZklDE9bmhSNHHZiHeUk7WJg4orZ3rCznz6IiHkVtCd0F2ctoPl85uXSK63fdODrUVdk6hWYGotbXcifezWvZlkPXaLSrkkzAgWiEhUQ1LT4G0UpgN4XpCx/VgBwFPQjhVhl0oV05hfbwnkMv9J9fU5DK8yTVmTk/r0WiJEtIK6elQMdoKTQrsbIlP1RMoSQLFjbAvBkN83u6Op9BxwbF48zIIXfHP/C76S5MhYXJWcooSdD9GJn9fJEFpnLzp6Qy1UEgoCm0G06GspGc+53iByZrhgZEQL0nfb/m4g==
-X-YMail-OSG: nJVZRk0VM1mHJLR.iWzkrdZ9U235AYbPZXzOGyAvr5zU72F63lw5uFlrGQ3kNz0
- r4RlaZG4sHMUwoJGnFJjrgHvWkMcG6cdj7vSQfDfICReVRtiU1EXZrTYhDjsKc8yMn74wSxAZ7gF
- nmfP0UR8uAYZtdCSHkW469NTiaEO96Po0Dmd.NhZAmf.spVj7snLpMxqvcHpzQ2y3zqHCx_ac9de
- Gqkki19Rg7GMH6v3.SflVQNM8uqEouQ6IKsGw2K1oh57SufXNhuv69p_j3X9noesQvFmqc53ntGN
- epgSA1zQX_9Pkj9AL394naf3MMSuuGX3AEObnYuYiB6xhRT5agLuBay0Xi26yvF36f6WDs9jOwNY
- MADHfOJq0z5VQAGKZrk4eIM68fwoKKKc_elRNFoacNu7v8AY60mlSeyXJ9uByBc1QzhrAEE96KNp
- rA7iHbg2aRrEE78rvvwPAVU2Wwd0GU6kwxqJcsfp.SGgMLEJPeXJx2mNpgNVsA.3CwpLUm5Elcns
- cFX671jH.Bi0a6YIgoYJj7ANWIoOmTgvWyUTF6jNNpgX4YkCgH9Eiakb_465.3FXp3vvEgAcaKSy
- ZdNzfCMsRqX0UZ4M3c6StEoYejUzVlonBgHzAhn_r8j_k.0iIMIi1KkHIW9fC04ixi1yhDKxhgOS
- D8r8nn_LK_WT91zdLuRK0yuwVhO3ymS8JoLfaHkH33P1bPhFJHnX3Ngh7aTWbTxQDMD8s7BRlR_w
- 7tFic6F0LbK3ZN7TMvrQU55LSmoqSgfOjcjv8bxV4DpjEEyRvTaSFVg99NI9jvJoUQAbsbt92mVc
- jTAnQjg8WyijxGz2caMqYK_H8z3gCYuYgenwxsY9C9NhWFjdSDb.oUQn93C6amStVKp3_QtMvkiG
- T0Azq.GNvYUhJ61TVHGX7Hr2x.UyFk3nDFbtR2oTmVbzJxRmi7FnUNRUQBLCDjvoh2D26zNjXcs9
- TNQ2nvg3NeoCZKJaiIidQPRvAryr5mc8QuL0YIzzWqiz52f0TW4KmdpjUqoFgZEskps47F5yH8w7
- tm.V0G8DPqXShjgfF.3leovnJimILUBVdndF1wzhnLXOjoWsFRmYhMuCeUehwcWNQy6rD7uDDmZt
- fNseDjUZWBE1wIKdj886ah4mkQyZSw284.t55jtRcRrqESZBUnzlBuW4ZzSzL8VBUZfpwDJCEOkv
- YgVMU.CaVyawem8ZgDNv_no6XuJoHD5bcDpmOhDiluqOjOJM.86v.7wJE3bD_N9LbJfUyFZ7XktQ
- UxPDZFeLhE.jPsl30neQGV9Kn5FTYxAnIU_.QWmVo3mXun24gqzmW1KQcoyTRXey1BN9mgrN23pt
- d06wb.nFkuoZ3mp5Q8X3UsA3MivdeUyDf_ZfodGnuGux04VEgwNIRPNc5_FGNBOrnQzkxU2Xb3Kx
- pAf.o8uz6l6ZHadznZmfl8yy1ohxt3LHVZffqk83zJd_eswcmi1I9Y64BTMzPBj0YBd.TESCGkAx
- ExAJB2o7pD2iih24BvjOEjL2tr_Ozy1iMFudHoqVKTvHBDDqbQfFjxmlNUYySl5TaPhIkL5gK8et
- DUAC4M3xTfmY2lXKTZ8l8Jx1G6saX_gPrp.FNSZZf016cNtUiO4OROfwm0b7g_1Cg0uiWbIPMEAk
- wyoueSFJ3Gxlz6_LMf0sEzHyZv5CbJDGw48VwKt83F0Nk5nhGkYXxBImATskYHfa0SYFxLh_NyK4
- lqVK99Qphn5k8FYqyUGm8cgK4ueAeq8TbkEak_kzpN_XBH9byqWCJHe1CpyPBgk6TeYORW9z5j8j
- aTiVeAEZ.XqPQtuqy_tPTtpuM9EzHxFaq1KzepXulidKSfPiuGn5AC_CtlkJ_xz0c64P0zCL.45L
- MENObelVqPg3YSN_a3BAaO1CwR9JQgybEAt5hBKUJ8VS7yDueXrZuX6N9U9qOGgfGQE.Ig6EI2cO
- 9Qbx7IBxZcytZNClF.rrLklQK4PD6KBR.uHOORdIwsgrtRjRbD74hZJ2aGjZ3LsA6s4zfnXKhjGl
- uKXuR
-X-Sonic-MF: <vincentcazard@yahoo.fr>
-X-Sonic-ID: 05e14f36-2498-4aca-a18a-02d59f6f8f9c
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe9-prod-sonicconsumer-svc-102 with HTTP; Wed, 7 Oct 2026 14:42:58 +0000
-Received: from dip111.lsn.ir2.yahoo.com ([87.248.99.120])
-          by hello (SMTP) with SMTP ID 595b8e4b9664dbc7ee9cd2133ad7bb1c;
-          Wed, 07 Oct 2026 14:42:53 +0000 (UTC)
-Message-ID: <c0f8246b-5062-4499-955f-374bf6ba91c0@yahoo.fr>
-Date: Wed, 7 Oct 2026 16:42:51 +0200
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="iDj1cgYt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1791384182;
+	bh=Vy/SqPR2iRJy+qH2zNvd5P2288DBcyzZTTebwGhXmmo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iDj1cgYt3A0i04M2ayQrIeQD8r2hmTUox//NvpuJMBgb9DAJGJgDjG+45BDvpKfAn
+	 YGWxBZIr+jOJGuGraDsDKknuoYlTQXy/MvRh+NRtDQlpY3fBJIndRDaWMOWrODf5YK
+	 +uZlsuORBlsm7MgvchZvA88okEqAQn8quST5REy2c6jn705dZR8ytJwAUsBocB7BeU
+	 MiZw0J79WZOWR2fmJb+e9wJULTpZkCvH0J6cR3rJR7390Yz/j3S2sWKOiQZCCaRkCw
+	 hfK+kSaXQl4TWkQWHbBxytFYU3JeT/A7DO5xRVzinzMDiZ2R2+BfnFLTHJpjXMjAeZ
+	 2DdvZFRErtdkA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j0G7j0fjYz4wKm;
+	Thu, 08 Oct 2026 01:42:56 +1100 (AEDT)
+Message-ID: <88a14307-37a2-4081-b5b1-039d4f64a6da@ozlabs.org>
+Date: Wed, 7 Oct 2026 15:42:54 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -61,112 +41,87 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Vincent CAZARD <vincentcazard@yahoo.fr>
-Subject: [PATCH] media: em28xx: don't unlink a dual-TS dev_next that was never
- listed
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, stable@vger.kernel.org,
- regressions@lists.linux.dev, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Jiangong Han <jiangong.han@windriver.com>
-Content-Language: fr
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+Content-Language: en-GB
+To: Alex Mastro <amastro@fb.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, Alex Williamson <alex@shazbot.org>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+ <asYOmaPqwUOBdz0x@devgpu015.cco6.facebook.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <asYOmaPqwUOBdz0x@devgpu015.cco6.facebook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-References: <c0f8246b-5062-4499-955f-374bf6ba91c0.ref@yahoo.fr>
-X-Mailer: WebService/1.1.26668 mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
 
-Commit 826915b6b65e ("media: em28xx: fix use-after-free of
-dev_next->devlist on disconnect") made em28xx_close_extension()
-unconditionally unlink dev->dev_next from em28xx_devlist.
+Hi Alex,
 
-However, on regular dual-TS boards dev->dev_next is never added to that
-list: em28xx_duplicate_dev() creates it with kmemdup() at probe time,
-before the primary device is linked, and em28xx_init_extension() only
-calls list_add_tail() for the primary device. dev_next->devlist is
-therefore a copy of an unlinked, zeroed list_head, and the new
-list_del() hits a NULL ->next.
+On 07/10/2026 10:19, Alex Mastro wrote:
+> On Tue, Oct 06, 2026 at 08:15:26PM +0100, Matt Evans wrote:
+>>  static int dma_buf_file_release(struct inode *inode, struct file *file)
+>>  {
+>> +	struct dma_buf *dmabuf = file->private_data;
+> 
+> I think dmabuf can be NULL here if the dmabuf allocation fails during
+> dma_buf_export().
+> 
+>> +
+>>  	if (!is_dma_buf_file(file))
+>>  		return -EINVAL;
+>> -	__dma_buf_list_del(file->private_data);
+>> +	__dma_buf_list_del(dmabuf);
+>> +	/* Must be observed by __get_file_rcu() before file_free() */
+>> +	smp_store_mb(dmabuf->file, NULL);
+> 
+> Resulting in NULL deref here -- guard with null check?
 
-With CONFIG_DEBUG_LIST this triggers a BUG on every USB disconnect of
-such a board, e.g. a Hauppauge WinTV-dualHD (2040:8265), and with
-panic_on_oops=1 the whole machine reboots:
+Oof, yes!  Thanks for catching this.  __dma_buf_list_del() protects
+itself against a NULL arg.  Done.
 
-  list_del corruption, ffff88b642e141e8->next is NULL
-  kernel BUG at lib/list_debug.c:52!
-  Oops: invalid opcode: 0000 [#1] PREEMPT SMP PTI
-  Workqueue: usb_hub_wq hub_event [usbcore]
-  RIP: 0010:__list_del_entry_valid_or_report.cold+0xf/0x6f
-  Call Trace:
-   em28xx_close_extension+0x74/0x130 [em28xx]
-   em28xx_usb_disconnect.cold+0x71/0xbc [em28xx]
-   usb_unbind_interface+0x93/0x290 [usbcore]
-   device_release_driver_internal+0x19c/0x200
-   bus_remove_device+0xe9/0x1b0
-   device_del+0x161/0x3e0
-   usb_disable_device+0xd4/0x1f0 [usbcore]
-   usb_disconnect+0xe2/0x300 [usbcore]
-   hub_event+0xe30/0x1980 [usbcore]
 
-Initialise dev_next->devlist in em28xx_duplicate_dev() so it is a valid
-empty list head, and only unlink it in em28xx_close_extension() when it
-was actually added to em28xx_devlist. This keeps the use-after-free fix
-for configurations where dev_next does get listed.
+Thanks,
 
-Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Vincent CAZARD <vincentcazard@yahoo.fr>
----
-The offending commit has been backported to stable; this was hit on
-Debian's 6.12.111 (linux-image-6.12.111+deb13-amd64), which reboots on
-every disconnect of the board above (here the board is attached over
-USB/IP, so a disconnect happens whenever the remote side is re-bound).
+Matt
 
-Tested on 6.12.111 with an equivalent change built out of tree: two
-forced disconnects/reconnects of the WinTV-dualHD, both tuners come back,
-no list_del splat and no reboot. The tested variant additionally checked
-dev_next->devlist.next for NULL before list_empty(); that check is
-redundant once em28xx_duplicate_dev() initialises the list head, so it is
-dropped here. Not yet tested on mainline.
+> 
+>>  	return 0;
+>>  }
+> 
+> via this path
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index d504c636dc29..557cd7a4c971 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -725,6 +725,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>  	if (!try_module_get(exp_info->owner))
+>  		return ERR_PTR(-ENOENT);
+>  
+> +	// succeeds
+>  	file = dma_buf_getfile(exp_info->size, exp_info->flags);
+>  	if (IS_ERR(file)) {
+>  		ret = PTR_ERR(file);
+> @@ -739,6 +740,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>  	dmabuf = kzalloc(alloc_size, GFP_KERNEL);
+>  	if (!dmabuf) {
+>  		ret = -ENOMEM;
+> +		// go here
+>  		goto err_file;
+>  	}
+>  
+> @@ -771,6 +773,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>  	return dmabuf;
+>  
+>  err_file:
+> +	// ends up calling dma_buf_file_release()
+>  	fput(file);
+>  err_module:
+>  	module_put(exp_info->owner);
+> 
 
-AI assistance details (per Documentation/process/generated-content.rst):
-the assistant was Claude (Anthropic) running in the Hermes agent with
-shell access to the affected machine. It was asked to find why the node
-rebooted when the tuner was used; it read the pstore oops, compared the
-Debian 6.12.111 em28xx sources with mainline, identified 826915b6b65e,
-wrote the patch and this changelog, built the out-of-tree module and ran
-the disconnect test. All of the patch and changelog text is
-AI-generated.
-
- drivers/media/usb/em28xx/em28xx-cards.c | 1 +
- drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
-index b7c534f..5f0f862 100644
---- a/drivers/media/usb/em28xx/em28xx-cards.c
-+++ b/drivers/media/usb/em28xx/em28xx-cards.c
-@@ -3985,6 +3985,7 @@ static int em28xx_duplicate_dev(struct em28xx *dev)
- 	} while (test_and_set_bit(nr, em28xx_devused));
- 	sec_dev->devno = nr;
- 	snprintf(sec_dev->name, 28, "em28xx #%d", nr);
-+	INIT_LIST_HEAD(&sec_dev->devlist);
- 	sec_dev->dev_next = NULL;
- 	dev->dev_next = sec_dev;
- 	return 0;
-diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
-index 0b998e7..5eb1705 100644
---- a/drivers/media/usb/em28xx/em28xx-core.c
-+++ b/drivers/media/usb/em28xx/em28xx-core.c
-@@ -1265,8 +1265,8 @@ void em28xx_close_extension(struct em28xx *dev)
- 			ops->fini(dev);
- 		}
- 	}
--	if (dev->dev_next)
--		list_del(&dev->dev_next->devlist);
-+	if (dev->dev_next && !list_empty(&dev->dev_next->devlist))
-+		list_del_init(&dev->dev_next->devlist);
- 	list_del(&dev->devlist);
- 	mutex_unlock(&em28xx_devlist_mutex);
- }
--- 
-2.39.5
