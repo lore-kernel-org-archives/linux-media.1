@@ -1,123 +1,106 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B2136DA00
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 17:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.202
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394188; cv=pass; b=fdaG8JwrJb7hYDB8WpBpRhuF1BB3HJ8NK6hHEXTMLpMk87cr+z7Q1QPfQLsfik3bdNKC6YptwWRtLRZrXotBy6QVa4SnKd+UFaffXZ8rcmFn/HZoJ1Yht0hQqxCffIjzbJn3CDJCN4XM27iXeJW6FhaklycU+sKyIij8FYaZKaM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394188; c=relaxed/simple;
-	bh=zTRKIT0s2tS4ywlRW4Caixv+Mc/Gnk/vX5KSCXqaq5I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VGVnUobtK4ej7mvHiRzDP4bGsGRXgyWnRxFYy3rZj9+spJpAF00eI/Xy6WaDTNQ5G163AbRf5U0nUJu4nkxf1AxTPPpbD6LEjagCyUI9d94BsWNEcgeB/ZMb9CprxImX12DT974M6RZoBF1KlEcFvGr0a7Q3Zjmi+GpG47Bxbs4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PGaUx81Q; arc=pass smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C9F3C5DD4
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 18:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791398025; cv=none; b=qGN8U5isvA2jxqEX55JYKiA26fxd0Q3m1F/C6/ZhPA7xNOl0iVPmCj+6cj0w9YifPgq2K+5R1u/9kTDDMzgbkB6QeqcXR3BGbfEmfXFnFz438sr6XWcSvN++sa2AzavzIYx1shtbaRG58mSMPfpChiIMyMDQrSUBXP+AZMg3zbs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791398025; c=relaxed/simple;
+	bh=VZb+WC/Fd3ofksGUyrfR6oLxX0zLZ9X6xa68XA5pzDY=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=OvK91Xdi4f09b/OOr1SQbuF1Sn4KJTLMzpAlmJMvXTjwXxh2QfnZ7NdYbMbqmHcjMjgHmt4wXA5mXFY/W+5T1jWtg9/bUTsCSYNXeT7EDVYjCnN7SpxZ4f7KWvdkd0YFTsyz6wSFwg3R9C/P8qLnCv0YtG51JGGWzWw1p72J+Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fs/gdLJQ; arc=none smtp.client-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PGaUx81Q"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so618218b6e.0
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 10:29:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791394186; cv=none;
-        d=google.com; s=arc-20260327;
-        b=syCLA+2zIB9cjytLRbR9XtxWNWTAdqnz5sbQzSJPH7isQ5GbaHQv4tqytVdM+QdTJA
-         kaz8Js/BkfBRKQEI20BjWjU9wlIWS1rpynGdtDar5FwWNjnMR49jqAAjLpWyiFaf64iq
-         HWFJ0aqRHAStEJhEFTZ+D+5Oytx4XKgtndtMTtzYdt2Ihy3YSadZxFN7RUgcbuhZRZyM
-         DoR0WTgPeZk3fgu9+4ix5t3SEImV9rkE3tstCD/Y743ZMZjdUB8Wb4kXJcyZl/Vv8E5O
-         n8m3BOV492ln+Ykq3DJ9SXZ6BBe4B8/x7+VLn2ocKwCj2hFynkb56m0WflTlbPm2Tnob
-         LHHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
-        fh=viC179kPP7vHOgOB25Wqxsjz4x5Us1rTRCG4IOzNMEQ=;
-        b=CEoRvv6kvmD9kAT1OU0ojYk7J4U/hmWRLL7TU9jo7AQZ1vqSfXK1W2OY0dkZEJMbju
-         gvhJgYOoxu8JcYmcmNYqtjJAxDMp1ObEaf+avrfk5lRTC7dXqsnr0ZWqOEszy/vnVbrF
-         DtX2/ZIrz3xN6IRfc6J4b13OqCxxEv0Pd/DBOZ4Dwo1bJqus1oEi2g1ioaw8/if49AH0
-         rMzy1XatshPZeVh/PCS8Youw9k8F3iEnp++jyMd8nBbYFN1pCrnqbcfvrVpboxPn++6D
-         5tMSKZ7nqpvKdvy3RL9Ho3WkfI/agt8gGz8hTdx+KJ8N7dzWmAzmoli+NOwqxPEi2tOm
-         y0Ow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791394186; x=1791998986; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
-        b=PGaUx81QKnvLqC7bDwSMY/z8Nqbmf6a+1L5WRxFb1rx2cSujFAT/MEQJMI/RJL3y07
-         gvUq4QLJn72zWMVgplmXC/SPFxlPh907Oz7qJrTimqwdp6Zxj2fPwpi7kq8vH7WuMPw0
-         r8tmDJ5o5pFgd9+E3AsxKHZ+Xulw4mkDKh5YoiL2geX4CdCL7Un8D5AXDM57+gRU/nSx
-         B/fIoHCxu35V2tXPPG6N4suOCYAOqmI/fZSjkyVrEcFIL4doJgxXJbi/xFrlMOwiXkW3
-         N/RokhItCo7NiV3XPbeFqO1Jfzz83A1bxBiO8783IXO1GI522ttLAjnPycIXu8AmIwx7
-         kjIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791394186; x=1791998986;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
-        b=ryUD6L9tiuqADdnleBEaqH7I71gCKCQrZKKke/XSlk7E28qBsHe6ZB3vX5H2RaDfGJ
-         gYK+UFBotvt8K8vstDZeB1N+H4ol8RaxDF+TH5bjGzeMN8x2YkNBgjaOFfXVrRfpMkUc
-         egGMCsXjVSbt+MiF0Y3MPVHfCm3nEHBlmCo7ICrIgqnDKkfPpX40pZMTO48nZHRT++Cf
-         JeEcCDc0tlXJIkqBKMIYGCVhAJmr8BxPNdGeBZFLMIoLNMk7pIBGFdcgkRzBoVQYOM+j
-         7Cdb7w8ZcUDGkqSQOIsf6QScbKDk4phNpebH0BS7uc50Uucf/vtD0qzMEaWFCxsU9xVe
-         yvig==
-X-Forwarded-Encrypted: i=1; AKwUvBzMwarNd59f9ZzOh3qcvXIzevlEzCGOWMts6R9Ptg1uQwGFlHY16/N0/8KmNOvtDhxyyywhnpDJOYKQfQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mjTXiZ8D2LQNff/Hluv62k6C/KdkvPryzWDkd7chMS7F4N/5xP
-	ll4EXPrZirnMmziwpeak7Rtb5nK3UwjltrWYK2mChCThAS6f2k20tMsR0gN9yTsCuf7m/31Icsv
-	tVe1yVMj++kNYe6xvsS9bmg9koKvkXk8=
-X-Gm-Gg: AYBFou0gpvfI6AasYb/XMH4+IXb5lRBmevL+rlQiZET6uYK9fMbouNQT8OtehuBz2JF
-	6Qw1lBHBPcFZ+sAWMj6SVTBsKtR9UNYhm2Y5Gl1fvUgMPmYvnXdn4SPcNTUe+z7liUpVyi+yW1H
-	6OA/4UcEcFlRACqdsSFgAsIoRnNrlwBn2NM8/CDI4ofe8iVN8SdFys7PKoBZqrNQLWbenRlcNIL
-	B3S9uL7msV+O6esOKQlDH9JWT26otCpn7ISTCH6Drh8QotMF2RFZPmy6xjYPOJm1n2NRg5oOHyQ
-	L8ev6z3ZrLwQ7eOKiP48hj0M6ChYxUpHZZacsdLr3Fwz5cH1P2qZFj82ZPDy3ZQ+g/oaq5qqpbR
-	UEnM9O6FRURitew==
-X-Received: by 2002:a05:6808:4f69:b0:4ec:ba7c:1dbe with SMTP id
- 5614622812f47-4fc4729811bmr3186518b6e.66.1791394186597; Wed, 07 Oct 2026
- 10:29:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fs/gdLJQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791398021; x=1791657221;
+	bh=VZb+WC/Fd3ofksGUyrfR6oLxX0zLZ9X6xa68XA5pzDY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=fs/gdLJQ5SuO8ISCgDbLbBTPtN1IhOp5mzz4ieW5AjC5vBHDcEu6YbJ/urR8QwSK9
+	 2qwuBXlhVPVV1mzH1YQTv4vffD7iAGza52FhRmsx9r8/XJJOpFfnFARtMxjwynWZ2K
+	 UJ/FUC8rGew2LRondIAbj+xkJdnXNIbbN9b62HAJBGni5k6hyiAbx95as8ev42Czf7
+	 isrWWOGs5G+yP5eZQjwtcmUc9VfvTcETc0OnHKzxn+feXl3Nkub8/hrJzQ3I1+OQ3G
+	 GHPoAL324uNfgRHZphqKD+gvJmKm+Zw/tMUeK+IM+WI1a1UdkDXEJTwkYZmNSc9JBu
+	 Hjdw7wxL30HWA==
+Date: Wed, 07 Oct 2026 18:33:34 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Bingbu Cao <bingbu.cao@amd.com>, Antti Laakso <antti.laakso@linux.intel.com>, German Pablo Lindo <germanpapulindez@gmail.com>, Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH] media: staging/ipu7: snoop ISYS writes to capture buffers
+Message-ID: <20261007183311.24637-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: b6d0aae312015e538990f4e9a1e3a888ecc16031
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
- <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
-In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Wed, 7 Oct 2026 10:29:35 -0700
-X-Gm-Features: AclHuK9vHOpqv4f2YdIvTFbohefG3iRaIeqgIeMjJY_8igy6Stps8jGud7-4xKQ
-Message-ID: <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
- during power-off
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	"Bryan O'Donoghue" <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> +       if (!iris_vpu_watchdog(core, core->intr_status))
-> +               iris_vpu_disable_irq(core);
+The driver sets is_snoop =3D 0 on the ISYS output pin, so the ISYS writes
+capture buffers without snooping the CPU caches. vb2 syncs each buffer
+for the CPU, but on x86 the DMA API takes the device to be coherent and
+that sync does nothing. A CPU that read a buffer before then reads cache
+lines of that buffer's earlier frame, which show as horizontal streaks
+wherever the scene moves.
 
-If the IRQ thread records a watchdog after this check, while
-disable_irq() is waiting, it skips enable_irq(). The hard handler and
-helper would then have disabled the IRQ twice, but the next power-on
-only enables it once.
+Set is_snoop on the capture pin, not only for metadata as the TODO had
+it: the CPU reads pixel data too. IPU6 sets snoopable on its pins.
 
-Could the helper recheck the watchdog after disable_irq() returns and
-core->lock is reacquired, then call enable_irq() once to balance its
-extra disable in that case?
+Tested on a Surface Pro 11 (Lunar Lake IPU7), reading every frame with
+the CPU. With a VD55G0 at 644x604 and 320x240 in 8-bit mono, frames
+holding rows of the buffer's previous fill went from 301 of 698 and 684
+of 697 to none. With an OV13858 in raw at 4224x3136, about 790 MB/s, 300
+frames came at 29.95 fps without a gap either way.
 
-If you use this approach for the watchdog fix, could you also add:
+Fixes: a516d36bdc3d ("media: staging/ipu7: add IPU7 input system device dri=
+ver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+Tested with the bit as a module parameter, both values in one boot, on
+this driver plus Ruslan Koreev's monochrome formats [1], which the
+VD55G0 needs. No row ever equalled the same row of the frame before it.
+A clflush of each buffer before reading, later than any buf_finish could
+run, still left 61 and 24 such rows of 101352 and 46389 (another boot);
+with is_snoop set, none. At 4224x3136 no row was stale even without
+snoop: four 26 MB buffers do not stay in the cache. Not tested on IPU 7.5.
 
-Suggested-by: Hungyu Lin <dennylin0707@gmail.com>
+The ipu6 driver's IPU7 path, drivers/media/pci/intel/ipu6/ipu7-fw-isys.c,
+also used for IPU8, memsets the pin and leaves is_snoop at 0 too.
+Released kernels drive IPU7 only with this driver, hence the stable tag.
+I can send the same change for the ipu6 path, untested here.
 
-Thanks,
-Hungyu
+[1] https://lore.kernel.org/linux-media/20260924171820.1179823-5-koreev.r@g=
+mail.com/
+
+ drivers/staging/media/ipu7/ipu7-isys-video.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/staging/media/ipu7/ipu7-isys-video.c b/drivers/staging=
+/media/ipu7/ipu7-isys-video.c
+index 8c6730833f2..13968caf64d 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys-video.c
++++ b/drivers/staging/media/ipu7/ipu7-isys-video.c
+@@ -407,8 +407,7 @@ static int ipu7_isys_fw_pin_cfg(struct ipu7_isys_video =
+*av,
+ =09output_pin->link.pbk_slot_id =3D IPU_MSG_LINK_PBK_SLOT_ID_DONT_CARE;
+ =09output_pin->link.dest =3D IPU_INSYS_OUTPUT_LINK_DEST_MEM;
+ =09output_pin->link.use_sw_managed =3D 1;
+-=09/* TODO: set the snoop bit for metadata capture */
+-=09output_pin->link.is_snoop =3D 0;
++=09output_pin->link.is_snoop =3D 1;
+=20
+ =09/* output pin crop */
+ =09output_pin->crop.line_top =3D 0;
+--=20
+2.54.0
+
+
