@@ -1,440 +1,212 @@
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45A8443A84
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 07:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A1139182E;
+	Wed,  7 Oct 2026 08:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359865; cv=none; b=AAaxZowJOo8PIt1/6OwiVACpYfIrTlvPr2uVQdvZ/pYVFRc0SiztF8oZP8/l6q241bTOAMKtX0+1/rTUpkHgUGTxx0r+dlbo350ghgSe2yDWD1bGFq7N/SQbZ9GTyiRSCjUF9fmGKmYXMBDUtkOTBHgwE2MvvzFr61dzkeiJEZw=
+	t=1791361372; cv=none; b=t0ZEr6xBXx7hnTQHk/lJ+j22FDp29eQbkJzW94ep5ZobYCDdZj/J/eqiFyh8FAp4mXG2X34ok9MmCch7AB1fvmqtbeS6Tft/d4ymdiU84D0TQUS9r7KG5JO8lCxNdnhYx/vOIdHqoF4NbznAnGY5Rgd+jVfVhecZ3cWe73/mRsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359865; c=relaxed/simple;
-	bh=/P5dWcqM3BH7c25VLP+yk4igGsG2PpMddGN8KhQklTY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gG8vRKJdIRNpxQIvAmHjprKILQ5bu2gOB/e8ESKRxSZVhf6j4dPk1jV+Q+Y+F4tUmuBG0/VOQhBN3LORakQancmVk3IzRVlirldHUpZ7Ck9//hCxI4FWWZST0QMRULVnY0rsSVPfbWNq67BF8KkkPxthHrzNiCbc2EY13g2O2yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XkUNx8ow; arc=none smtp.client-ip=185.70.43.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791361372; c=relaxed/simple;
+	bh=fnfSyxyof8ldx1LKwlAm16hEicCGx2XP+A/qlkJrQbc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qRcRK+8ATpSQD97zY9v5r0iW+iKSriZK0nrjYbB/FxjvW1EH607q9thdmJiWFGxFlBeSPZSVdt8MUidUUGMDhafhp80/mEeNTWn2V98C7x/PsLuDUVggY92NI64brsvAiAtqMd5oe1joUmEw9keW3XF+CeU8GYQ8JpfRWar7c0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuaojcMF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XkUNx8ow"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=mf6ocqxm3fcenggijil3aqqpuq.protonmail2; t=1791359842;
-	x=1791619042; bh=RFUaUEAxYn9IeeQ9JlmmC6Qs+RryKZF1fT1DyRiYYc0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XkUNx8owglV9xThHcMDOkuREp4Bby+79nHtkSXNQrE02lcszB3F+2jH7Y11rXnzvV
-	 u9fPZ+ETNzv1Ge3+Orzm45f2NCwopG3wYcH9PwR5PM9Y5srt1s0DLfbssBEu+cb2z7
-	 PdwA0YZt1rB4dDWqrxG6gS3w8A8Sf15/kVTW/hB8Yy6uNFMgfQiulS1kyU5lamXljw
-	 NSo6Tk+Ldakg7OQgw9WQHi/H+LByxRNGOUN5sQp893excJIwtrhnE4dT6PVvn56PWv
-	 HZ9NG1hhtW0lggcZGkCL+DDcf52MZkjrhdr8Fs/Mz9wsxZ4pSkno5Z2pRdLrZY0mZ1
-	 nZX9snKllOdgg==
-Date: Wed, 07 Oct 2026 07:57:17 +0000
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-From: Ruslan Bay <ruslanbey@proton.me>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>, sakari.ailus@linux.intel.com, Bingbu Cao <bingbu.cao@linux.intel.com>, bingbu.cao@intel.com, tian.shu.qiu@intel.com, linux-media@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, ilpo.jarvinen@linux.intel.com, tfiga@chromium.org, senozhatsky@chromium.org, claus.stovgaard@gmail.com, andriy.shevchenko@linux.intel.com, tomi.valkeinen@ideasonboard.com, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: RFC: Intel IPU4 driver proof of concept
-Message-ID: <mKyj1gXs1gPaeoh99kk23kkFW88Mx1IxSuC1zNaBUKwiIPPOEJ7gKjFjqe50x7jIKFNol0J8HFRnbb28_sDCKQTQXCgRlhAV7i2Gc8-NCQk=@proton.me>
-In-Reply-To: <20261006203458.GA627926@killaraus.ideasonboard.com>
-References: <20230727071558.1148653-11-bingbu.cao@intel.com> <e0cc94736e4142f2d661a8bbb0c800b709349377.camel@gmail.com> <83426573-8c4b-ec20-6916-2917aa06954f@redhat.com> <e136389011517dbc65b30f6bf0b1a9c49ab4e599.camel@gmail.com> <6f37f978-4898-473e-b774-7965d25bf27b@proton.me> <jsjMql5IQTMsAgViwR9vrMG4CZ1hVx9JMN4wbc0E98BvUP-TRpgtYalrmzQeor4UHRCbLg3bBeeZcaWrTujAMrf0G8q8NyQrd4o954ZayKA=@proton.me> <aeXaMGExmtpNcUFS@alaakso-DESK> <aedlbUANNY6QvZ_mrVqU9aH15j76MKgYxxwkpmayED7tFEDztNQN8A-vDuLUIRpb9At6QpBp4gg9RAOA6gvD-LpCOUpFm8aVDJ5IK87tpPg=@proton.me> <20261006203458.GA627926@killaraus.ideasonboard.com>
-Feedback-ID: 183606634:user:proton
-X-Pm-Message-ID: f8aede7513d9828ed327a3a8ee9d1360928c16d3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuaojcMF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0425F1F0089B;
+	Wed,  7 Oct 2026 08:22:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791361371;
+	bh=2F1HQQAc/fMJbnGCSZdEptu0N+9Pd3sBhH3laxTncQ4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OuaojcMF5Q2O2v24+mHmpZN1tbhH15Q0+GZwNBgF4QdXcz5Nb8zUSqTQzV0Z/ql2N
+	 V2XsUl/qCzeV4eHTHhX/NFBY7iZx9F0raYXgHFMCQ8caZAYdm6M3CycXPc1OASOESp
+	 OGGP/Wk6uyHPxn+riOyq1UcDyFPgGM/+eqSQ8wzaJeviz+27fol7BZA4p5a/UX5DVC
+	 ESlDUEQ/Pu8m5n87irM2dHeA/IDrxrco3S5V9mxRPEFW90CKRmeDfnj+477KAVQro0
+	 YAfrHSilY+SpoD+NTuZrcCFuXHf8C6mXQPgugWBfqhZgIlUqKKfA5vUXcfep7kb7XV
+	 +VosUS6KN70iQ==
+Message-ID: <a9024516-a266-4d99-a28c-f356ed98af09@kernel.org>
+Date: Wed, 7 Oct 2026 10:22:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 17/74] media: qcom: camss: Define PIX formats for x1e PIX
+ interface
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <Z8PAFUj3ZBxq4yvNpaYcxqBXjhqYCJ8VfhD_gwcAj7AGdCHMEE-tv5tk9aIDv2wEUoz0Dh9qA-E8iph3COwMQg==@protonmail.internalid>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-17-ed985aefd611@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-17-ed985aefd611@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> This isn't a patchset. See Documentation/process/submitting-patches.rst
-> for documentation on the patch submission process.
-
-Sorry, I forgot to mention that this is only a proof of concept, not
-the final patchset.
-
-This is my first time contributing to the upstream kernel, please
-let me know if there are any issues with the PoC or anything else I
-should approach differently. I'd appreciate any review feedback.
-
-I'm still working on the patchset, and there are a couple of things I
-need to sort out. In particular, I'm not sure whether some of the
-module parameters I've added are appropriate for upstream, and there
-are also some details around the new definitions that need cleanup.
-
-The overall file and patch structure should remain the same, though.
-
-Once I've sorted out the remaining issues, I'll send the complete
-patchset as a separate email.
-
-
-On Tuesday, October 6th, 2026 at 10:35 PM, Laurent Pinchart <laurent.pincha=
-rt@ideasonboard.com> wrote:
-
-> On Tue, Oct 06, 2026 at 05:03:15PM +0000, Ruslan Bay wrote:
-> > Hi,
-> >
-> > I've got IPU4P support working on top of the upstream IPU6 driver [1][2=
-].
-> > This builds on Antti's work [3].
-> >
-> > With help from supermepsipax, thisiscamk, ConsultingFuture4200,
-> > georgemihaila and others in the linux-surface community [4], together
-> > with the libcamera developers, both the front- and rear-facing cameras
-> > can now capture images on the Surface Pro 7 (Ice Lake).
-> >
-> > The IR camera also works with the downstream driver but I haven't
-> > tested it yet, so it is not included in this patchset.
->=20
-> This isn't a patchset. See Documentation/process/submitting-patches.rst
-> for documentation on the patch submission process.
->=20
-> > Links:
-> > [1] https://github.com/ruslanbay/ipu4-drivers
-> > [2] https://github.com/ruslanbay/linux/commits/ipu4p-upstream
-> > [3] https://lore.kernel.org/all/20260907113004.2489993-1-sakari.ailus@l=
-inux.intel.com/
-> > [4] https://github.com/linux-surface/linux-surface
-> >
-> > On Monday, April 20th, 2026 at 9:48 AM, Antti Laakso wrote:
-> > > On Wed, Mar 04, 2026 at 11:03:51AM +0000, Ruslan Bay wrote:
-> > > > Currently there are multiple IPU driver implementations actively
-> > > > maintained by Intel engineers:
-> > > >
-> > > > - mainline IPU6 [1]
-> > > > - downstream IPU6 [2]
-> > > > - downstream IPU4/IPU4P [3]
-> > > > - staging IPU7 [4]
-> > > > - downstream IPU7 [5]
-> > > >
-> > > > As mentioned earlier, IPU4 and IPU6 share a large portion of the
-> > > > code base, and IPU7 appears architecturally very similar as well.
-> > > >
-> > > > The IPU7 TODO mentions working toward a common IPU module [6].
-> > > > There was also an attempt to move from ipu6_* back to more
-> > > > generic ipu_* naming [7].
-> > > >
-> > > > Is a unified IPU core still planned?
-> > >
-> > > We're working on extending ipu6 driver to support ipu7 as well. The
-> > > exact schedule is not available yet.
-> > >
-> > > >
-> > > > If so, is it expected to include IPU4/IPU4P support?
-> > > >
-> > > > Links:
-> > > > [1] https://github.com/torvalds/linux/tree/master/drivers/media/pci=
-/intel/ipu6
-> > > > [2] https://github.com/intel/ipu6-drivers
-> > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-and=
-roid_t-251103T063840Z/drivers/media/pci/intel
-> > > > [4] https://github.com/torvalds/linux/tree/master/drivers/staging/m=
-edia/ipu7
-> > > > [5] https://github.com/intel/ipu7-drivers
-> > > > [6] https://github.com/torvalds/linux/blob/master/drivers/staging/m=
-edia/ipu7/TODO#L17
-> > > > [7] https://lore.kernel.org/all/20250502154446.88965-6-stanislaw.gr=
-uszka@linux.intel.com/
-> > > >
-> > > >
-> > > >
-> > > > On Sunday, February 22nd, 2026 at 8:57 PM, Ruslan Bay <ruslanbey@pr=
-oton.me> wrote:
-> > > >
-> > > > > We now have a working IPU4P driver for Ice Lake devices [1][2].
-> > > > >
-> > > > > The current IPU4P implementation is based on Intel=E2=80=99s down=
-stream IPU4
-> > > > > driver [3]. ISYS capture works with libcamera and has been tested=
- on
-> > > > > Surface Pro 7 and Surface Book 3 [4]. The world-facing camera (ov=
-8865)
-> > > > > works; the user-facing (ov5693) is still being debugged.
-> > > > >
-> > > > > IPU4P and IPU6 both contain PSYS implementations downstream, but =
-in
-> > > > > practice only ISYS is usable with libcamera today.
-> > > > >
-> > > > > Earlier in this thread Andreas noted that IPU4 and IPU6 share mor=
-e than
-> > > > > 85% of the code base.IPU7 appears architecturally very similar as=
- well.
-> > > > >
-> > > > > Before preparing an RFC, I would like clarification on direction:
-> > > > >
-> > > > > 1. Is the long-term plan to unify IPU6 and IPU7 under a common dr=
-iver
-> > > > >    structure?
-> > > > > 2. If so, should IPU4/IPU4P be aligned on top of that?
-> > > > > 3. If not, would it make sense to follow Andreas=E2=80=99 approac=
-h [5],
-> > > > >    implement IPU4P on top of the IPU6 structure, and move it to
-> > > > >    staging while iterating, as has been done for IPU7?
-> > > > >
-> > > > > The primary goal is upstream IPU4P support (large Ice Lake user b=
-ase),
-> > > > > but ideally this should align with the Apollo Lake IPU4 work shar=
-ed
-> > > > > earlier [5].
-> > > > >
-> > > > > What direction would you recommend?
-> > > > >
-> > > > > [1] https://github.com/ruslanbay/ipu4-drivers/tree/main/patches/k=
-ernel/v6.19
-> > > > > [2] https://github.com/ruslanbay/linux/commits/ipu4-6.19
-> > > > > [3] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-a=
-ndroid_t-251103T063840Z/drivers/media/pci/intel
-> > > > > [4] https://github.com/linux-surface/linux-surface/discussions/13=
-53?sort=3Dnew
-> > > > > [5] https://github.com/Kleist/ipu4-driver
-> > > > >
-> > > > > Thanks,
-> > > > > Ruslan Bay
-> > > > >
-> > > > > On 12/20/23 1:53 PM, Andreas Helbech Kleist wrote:
-> > > > > > Hi,
-> > > > > >
-> > > > > > As mentioned previously in Bingbu's IPU6 patch series, I'm work=
-ing on
-> > > > > > porting the driver to IPU4. I've now got a hole through so I th=
-ink it
-> > > > > > makes sense sense to share the code.
-> > > > > >
-> > > > > > I'm able to capture frames with yavta with the current code, bu=
-t there
-> > > > > > are several issues that needs to be fixed for it to be complete=
-.
-> > > > > >
-> > > > > > # How it is tested
-> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > The hardware is a custom x86 PC-like embedded device with the f=
-ollowing
-> > > > > > video pipeline:
-> > > > > > Endoscope -> FPGA -> tc358748 -> IPU4 (E3950/Apollo Lake)
-> > > > > >
-> > > > > > See my colleague Claus' description[2] for more info.
-> > > > > >
-> > > > > > There is currently no V4L2 subdevice for the FPGA, so we have a=
- custom
-> > > > > > ambu-tc358748.c driver which pretends to be an image sensor.
-> > > > > >
-> > > > > > $ media-ctl -v \
-> > > > > >   -V "\
-> > > > > >     \"tc358748 0-000e\"    :0 [fmt:RGB888_1X24/800x800],\
-> > > > > >     \"Intel IPU4 CSI2 0\"  :0 [fmt:RGB888_1X24/800x800],\
-> > > > > >     \"Intel IPU4 CSI2 0\"  :1 [fmt:RGB888_1X24/800x800]\
-> > > > > >     "\
-> > > > > >   -l "\
-> > > > > >     \"tc358748 0-000e\"    :0 -> \"Intel IPU4 CSI2 0\" :0 [1],\
-> > > > > >     \"Intel IPU4 CSI2 0\"  :1 -> \"Intel IPU4 ISYS Capture 12\"=
- :0 [5]\
-> > > > > >   "
-> > > > > >
-> > > > > > $ yavta --data-prefix -c2 -n2 -I -s 800x800 --file=3D/tmp/frame=
--#.bin \
-> > > > > >         -f XBGR32 /dev/video12
-> > > > > >
-> > > > > > This produces frame-*.bin files containing 800x800x4 bytes of v=
-alid
-> > > > > > "BGR0" data.
-> > > > > >
-> > > > > > # The code
-> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > The code is available at the tag
-> > > > > > https://github.com/Kleist/linux/tree/kleist-v6.6-ipu4-hacks-1
-> > > > > > (15245fe26e07)
-> > > > > >
-> > > > > >
-> > > > > > Note that I haven't renamed the files to ipu4, to make it clear=
- what
-> > > > > > the changes are compared to the IPU6 driver.
-> > > > > >
-> > > > > > It is based on v6.6 with the IPU6 v2 patches[1] on top, and the=
-n my
-> > > > > > hacks to make the IPU4 work. This is not meant for upstreaming =
-as it
-> > > > > > is. The commits are a cleaned up version of the chronological o=
-rder I
-> > > > > > made the port in. It is not yet in a state where I think an RFC=
- PATCH
-> > > > > > series makes sense yet, but I wanted to share it anyway.
-> > > > > >
-> > > > > > ## Changes compared to IPU6
-> > > > > > diff --stat of the changes in ../ipu6/ compared to the IPU6 v2 =
-patches:
-> > > > > >
-> > > > > >  drivers/media/pci/intel/ipu6/Kconfig               |  12 +-
-> > > > > >  drivers/media/pci/intel/ipu6/Makefile              |  13 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.c            |   2 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-bus.h            |   6 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.c       |  71 ++-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-buttress.h       |   8 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.c         |  45 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-com.h         |   2 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c        | 171 ++++-=
---
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h        | 237 +++++=
-+----
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c      | 219 +++++=
-----
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h      |  11 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c     |  33 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-queue.h     |   8 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.c     | 212 +++--=
-----
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys-video.h     |   4 -
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.c           | 435 +++--=
---------
-> > > > > > -----
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-isys.h           |  18 +-
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-mmu.c            | 130 +++++=
--
-> > > > > >  .../pci/intel/ipu6/ipu6-platform-buttress-regs.h   |  98 +---
-> > > > > >  .../pci/intel/ipu6/ipu6-platform-isys-csi2-reg.h   | 226 ++---=
-----
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6-platform-regs.h  | 172 ++---=
---
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6.c                | 511 +++++=
-+++-----
-> > > > > > --------
-> > > > > >  drivers/media/pci/intel/ipu6/ipu6.h                |  37 +-
-> > > > > >  24 files changed, 1032 insertions(+), 1649 deletions(-)
-> > > > > >
-> > > > > > Note that most of the deleted lines are removed because they ar=
-e not
-> > > > > > used in IPU4. E.g. the watermark handling, which I haven't seen=
- an
-> > > > > > equivalent for in the old IPU4 driver.
-> > > > > >
-> > > > > > ## Ambu-specific tweaks
-> > > > > > Note that I'm using a hacked ipu-bridge (AMBU_IPU_BRIDGE) to se=
-tup the
-> > > > > > fwnode graph for our hardware. You don't want if you're testing=
- this,
-> > > > > > so revert at least the "ambu: Add AMBU_IPU_BRIDGE" commit.
-> > > > > >
-> > > > > > I'm not sure the right approach for handling this would be goin=
-g
-> > > > > > forward. Of course the ambu-ipu-bridge shouldn't be upstreamed,=
- so I'm
-> > > > > > wondering how we can achieve something similar? The ACPI tables=
- from
-> > > > > > our BIOS unfortunately don't contain any info about the Toshiba=
- Bridge
-> > > > > > (tc358748), so we can't derive the information from there. Mayb=
-e some
-> > > > > > kind of platform driver could be created which tweaks the ACPI =
-info
-> > > > > > before the ipu-bridge driver reads it?
-> > > > > >
-> > > > > > What do you typically do when you have some proprietary hardwar=
-e that
-> > > > > > does not provide proper ACPI information? We could carry the am=
-bu-ipu-
-> > > > > > bridge patches in our internal kernel tree, but that is not des=
-irable
-> > > > > > in the long term.
-> > > > > >
-> > > > > > # Inspiration for the IPU4 port
-> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > We are currently using a Intel LTS 4.19.217 based kernel[3], wh=
-ich
-> > > > > > contains the old IPU4 driver. The port was basically made by co=
-mparing
-> > > > > > mmiotrace's between the old IPU4 driver and the new driver.
-> > > > > >
-> > > > > > We're using the IPU4 FW ipu4_cpd_b0.bin extracted from a ClearL=
-inux
-> > > > > > package[4].
-> > > > > >
-> > > > > > # Known issues
-> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > ## Doesn't yet work with gstreamer for unknown reasons
-> > > > > > I get "Unexpected buffer address:" errors from
-> > > > > > ipu6_isys_queue_buf_ready, and don't get an image through.
-> > > > > >
-> > > > > > ## 64 byte chunks of wrong data
-> > > > > > We occasionally get 64 byte aligned 64 byte wrong data (all 0xC=
-C) in
-> > > > > > the captured frame*.bin files. This could be a cache invalidati=
-on
-> > > > > > issue, we haven't looked into this yet. The code currently does=
-n't use
-> > > > > > zlw_invalidate, even though it was ported from the old driver. =
-We
-> > > > > > haven't yet tested if enabling this fixes the issue.
-> > > > > >
-> > > > > > # Upstreaming
-> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > We would like to upstream this driver, probably after the IPU6 =
-driver
-> > > > > > has been merged. We're definitely not ready yet (either), but I=
- already
-> > > > > > have a couple of questions, that it would be nice to get some i=
-nput on
-> > > > > > from the community.
-> > > > > >
-> > > > > > ## How to share code between IPU4 and IPU6
-> > > > > > Big parts of the code (approximately 6k out of 7k lines) does n=
-ot need
-> > > > > > to be changed compared to the IPU6 driver, so there is clearly =
-a big
-> > > > > > overlap in what the two drivers need to do. I'm not sure how th=
-e best
-> > > > > > approach would be for sharing this functionality. I see a few o=
-ptions:
-> > > > > > 1. Shared driver that supports both IPU's (still split in PCI d=
-river
-> > > > > > and -isys driver)
-> > > > > > 2. Shared PCI driver that supports both IPU's, but device-speci=
-fic
-> > > > > > intel-ipu4-isys/intel-ipu6-isys drivers
-> > > > > > 3. Separate drivers that use a shared "library module" (for lac=
-k of a
-> > > > > > better term)
-> > > > > >
-> > > > > > My gut feeling is that 2. is the right choice, especially if we=
- moved
-> > > > > > the shared code in to the PCI driver and the more version-speci=
-fic code
-> > > > > > was moved into the specific drivers.
-> > > > > >
-> > > > > > The answer to this could also be input to Bingbu's IPU6 series,=
- maybe
-> > > > > > it would make sense to place some files differently if they eve=
-ntually
-> > > > > > will be used in both IPU4 and IPU6 drivers?
-> > > > > >
-> > > > > > ## How to implement our platform specific fwnode graph?
-> > > > > > As mentioned above, we currently have a hacked ambu-ipu-bridge =
-driver,
-> > > > > > which is clearly not upstreamable. What would you typically do =
-if you
-> > > > > > need to make a v4l setup where the ACPI table information about
-> > > > > > sensors/bridges is missing?
-> > > > > >
-> > > > > > /Andreas
-> > > > > >
-> > > > > > [1]https://lore.kernel.org/all/20231024112924.3934228-1-bingbu.=
-cao@intel.com/
-> > > > > > [2]
-> > > > > > https://lore.kernel.org/all/471df7ffdf34b73d186c429a366cfee6296=
-3015f.camel@gmail.com/
-> > > > > > [3]
-> > > > > > https://github.com/intel/linux-intel-lts/tree/lts-v4.19.217-bas=
-e-211118T072627Z
-> > > > > > [4]
-> > > > > > https://download.clearlinux.org/releases/32370/clear/source/SRP=
-MS/linux-firmware-ipu-19ww39-104.src.rpm
-> > > > >
-> > > > >
-> > > >
-> > >
-> >
->=20
-> --
-> Regards,
->=20
-> Laurent Pinchart
+On 05/10/2026 19:13, Bryan O'Donoghue wrote:
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+> ---
+>   drivers/media/platform/qcom/camss/camss-vfe.c | 93 ++++++++++++++++++++++++++-
+>   drivers/media/platform/qcom/camss/camss.c     |  4 +-
+>   2 files changed, 92 insertions(+), 5 deletions(-)
 > 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+> index 319d191589884..5b5201b55a485 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -174,6 +174,94 @@ static const struct camss_format_info formats_rdi_845[] = {
+>   	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+>   };
+> 
+> +static const struct camss_format_info formats_pix_845[] = {
+> +	/* Passthrought formats */
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_UYVY, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_VYUY, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_YUYV, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_YVYU, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_SBGGR8_1X8, 8, V4L2_PIX_FMT_SBGGR8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SGBRG8_1X8, 8, V4L2_PIX_FMT_SGBRG8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SGRBG8_1X8, 8, V4L2_PIX_FMT_SGRBG8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SRGGB8_1X8, 8, V4L2_PIX_FMT_SRGGB8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SBGGR10_1X10, 10, V4L2_PIX_FMT_SBGGR10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SGBRG10_1X10, 10, V4L2_PIX_FMT_SGBRG10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SGRBG10_1X10, 10, V4L2_PIX_FMT_SGRBG10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SRGGB10_1X10, 10, V4L2_PIX_FMT_SRGGB10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SBGGR10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_SBGGR10, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_SBGGR12_1X12, 12, V4L2_PIX_FMT_SBGGR12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SGBRG12_1X12, 12, V4L2_PIX_FMT_SGBRG12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SGRBG12_1X12, 12, V4L2_PIX_FMT_SGRBG12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SRGGB12_1X12, 12, V4L2_PIX_FMT_SRGGB12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SBGGR14_1X14, 14, V4L2_PIX_FMT_SBGGR14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_SGBRG14_1X14, 14, V4L2_PIX_FMT_SGBRG14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_SGRBG14_1X14, 14, V4L2_PIX_FMT_SGRBG14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_SRGGB14_1X14, 14, V4L2_PIX_FMT_SRGGB14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_Y8_1X8, 8, V4L2_PIX_FMT_GREY, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_Y10_1X10, 10, V4L2_PIX_FMT_Y10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_Y10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_Y10, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +
+> +	/* 4:2:0 Bayer to YUV */
+> +	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +
+> +	/* 4:2:2 Bayer to YUV */
+> +	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +};
+> +
+
+The formats are fine but..
+
+>   static const struct camss_format_info formats_pix_8x16[] = {
+>   	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+>   	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> @@ -277,10 +365,9 @@ const struct camss_formats vfe_formats_rdi_845 = {
+>   	.formats = formats_rdi_845
+>   };
+> 
+> -/* TODO: Replace with pix formats */
+>   const struct camss_formats vfe_formats_pix_845 = {
+> -	.nformats = ARRAY_SIZE(formats_rdi_845),
+> -	.formats = formats_rdi_845
+> +	.nformats = ARRAY_SIZE(formats_pix_845),
+> +	.formats = formats_pix_845
+>   };
+> 
+>   static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index ff09873706c0d..6f3de2c185bc9 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4434,7 +4434,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+>   			.pd_name = "ife0",
+>   			.hw_ops = &vfe_ops_680,
+>   			.formats_rdi = &vfe_formats_rdi_845,
+> -			.formats_pix = &vfe_formats_rdi_845
+> +			.formats_pix = &vfe_formats_pix_845
+>   		},
+>   	},
+>   	/* IFE1 */
+> @@ -4458,7 +4458,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+>   			.pd_name = "ife1",
+>   			.hw_ops = &vfe_ops_680,
+>   			.formats_rdi = &vfe_formats_rdi_845,
+> -			.formats_pix = &vfe_formats_rdi_845
+> +			.formats_pix = &vfe_formats_pix_845
+>   		},
+>   	},
+>   	/* IFE_LITE_0 */
+> 
+> --
+> 2.55.0
+> 
+The SoC is not relevant to the patch, excise.
+
+---
+bod
