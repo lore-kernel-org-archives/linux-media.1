@@ -1,261 +1,468 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5F23D3CF2;
-	Wed,  7 Oct 2026 06:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229EA409635
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 06:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354752; cv=none; b=Bhxgfio3wtsUABhaabVdkjfqlqh2TJCMYjEoURkfU2LDMbCwGd2gdFQXfOP4fysuVKgTIWLdetIwx6loZPSihg7xIVr9T6s47f0biC8DrsPMbXhAzTr6j4olexQje8yTFCM6Zwxzl7fkzlvYiRx5xeun1ocLdzp1fM4VJ5s+h64=
+	t=1791355492; cv=none; b=DtyXsPCWOJwdDn/qjXKiqTTxJUhyZY6t9K8SCbe/JTiB3cWGEQ0q5XnQESeyB9l4GJzJsCmwqVJg2F5yOboSgGMY+KjmHEcZILeHQfQHj9EPcD/lWn94VGW8y6stHUVSsVMHr88cLqJNCthL6MaQqoe3unPHyiwIv/XN6UJ2kqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354752; c=relaxed/simple;
-	bh=vK02Arew/xoK/SEhK+ZOF9gf1+RD+J2G1rphi2B2vFo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H//l0cbaJOnya+D/AA/9sqkMV3H4QqTozb4pJsDBlWt7Kvl6bYkh+qziWrHbnJdJ3T/m4L+OQlpl0RyyFUR4OaflypBdD6qrxpI6FAHlvFGAuz4QnI48DNhCpKpjgIiWWQbh5EE9zihuaVs9WF+3612EhCH5rSHi/spqrKbwzgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsS3Dv1k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791355492; c=relaxed/simple;
+	bh=OHYnhcGNkcXhgKogIXD4dkbJwv1pkohaxyfGxIlcDRw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=upKIxB1qmsds+sh3hCszUDmcl5BKDRZMZq+9mfAVtZjugeJEKK9zoHzYUjGMrwtFin4NcqfEdpdI8wcU7+uhW75L3M8Is/mTAf7Wleup7EfWAWXhKu+0BY1bNlq8hXG5x7C5xJsNboZ6t7eypJrqGhT+ssk7MmMWYXmLwBvTJ18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FVz/PEgT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AogbUUTw; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsS3Dv1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0E41F0089C;
-	Wed,  7 Oct 2026 06:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791354750;
-	bh=l2L4StRud6VKnWJLizrYPJpAWtLjtw/B6kHwcJg+Mm0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JsS3Dv1kRWzQotpwuewh//UeSyfmkPJJkE+mwKLwFO4G5FdMIONZZ7Ahkd5MZ60hI
-	 7m6CXy/QS4j/6BaYrlxzDg0PgvvF8tG0WR1rr03foPSIElWbzRJqEbeJNZnG1hX9mv
-	 LTrHS+Lc+AS1wOrNiXTu821Dl11fHMWlY4CVf1JbvYlY05OFcFmSX1JSEFeYbGY/Je
-	 /bWNpYvx0lRvsWmmez92yyYm8uZB5FDe0H615VR7sk182sVK0KMvzlwfS0lIGjWgV2
-	 gx99D6OTKYXV3lBZlVs0bmUuC6Aj2UnZN/xUifsdb/0/db3t6IUDZi3uI9KxR/nhWd
-	 V3q25hUqVfVzA==
-Date: Wed, 7 Oct 2026 09:32:27 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261007063227.GC7822@unreal>
-References: <20261001-fix-p2p-acs-v4-0-v9-2-1a8e0f50ddd9@nvidia.com>
- <20261006204947.GA708098@bhelgaas>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FVz/PEgT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AogbUUTw"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974U9653263996
+	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 06:44:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CJFwA61JyA5wdbFs7MVnT+FErhhO9x6O7TkQU80VFYA=; b=FVz/PEgTBEh8obQG
+	a7Kv7BpSsGoGTNPDXBTCym+sTNfFpAzu6doTNrysh61FCK7X9Wb/HueG6xPqLJY6
+	qq/kpGndDL/vN8/uhertq9nar1EcpWVPWYwQRKkH+9qAbLUVBz4ZT2FFPHYYGzCr
+	1qt8spQKMjgxmxrUdCFqSL0tmkNkD3gV1Gfyzwbkr1n0dxvdSg6WCNBdfzr8diHf
+	6qa/Z4Rju1K4eWjXf2mOI/Qwtf4NrpLr5Y+oIVr3iXAMmM0nZN5DRA0hlkvciLDq
+	qsV3hn0UGT0iNwcOREKvY4GYI3Yjwik3K3yCRBX56WibAQBrv+rWEpJzYS9DoOKX
+	bUo73Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c608wrm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 06:44:47 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ae8e7e546so704682685a.1
+        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 23:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791355487; x=1791960287; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CJFwA61JyA5wdbFs7MVnT+FErhhO9x6O7TkQU80VFYA=;
+        b=AogbUUTw/huqpYnW9ePakc6C3SNso6heBtjHvMVWJMISzHp+nyGBxSN0CEIukRGnqq
+         A8diKXueBV+BJvBrsq6SpHpY8Ba2TE7Wb4+b50DrwY/dg++YvnpzXpddGhDM2qptkhH2
+         Tob3YInMDzIAQ9YICtyiesLI6s5w0PBOLh5BIgIuhdqf4CUw2I4RlTHkURGcBJTZKdsU
+         SNQ2BCSoJgm29mADQkGZiZx8EDF/BZqxB4RXz9lmDnKRQCKfU+knzsS28E9HJGxX31sJ
+         74ic+QSWalPHOsvVhQ17bmNoiD0TWJTJcOUC0vn8ly6KZjQlwkq3cHgQBnol4KevBhDO
+         v6Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791355487; x=1791960287;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CJFwA61JyA5wdbFs7MVnT+FErhhO9x6O7TkQU80VFYA=;
+        b=YfFNAXx0mxJ8ceBjlJXKWc7/gZM54UtEN+0TDz0ebO1qrde2EZ2XNEjBEqZh/tU2uz
+         TOMKdJsBjHb/ivQxPHb4vR0wwwSGT4ei4T7Relc0WP3xdoqyPKVkU9cEZxemRZs/v8e7
+         6qgfDFkoUawCeTPxv4cQ8ZTomEVPGvmdKS64s34nTYMciBQdOHOAsCTdUpdZSADk4liR
+         BDs9jXouDCgwSLCR3CKB8gP8BPSPIOVwlSigJ141F1gFp2zsNKToVrVliuA3v9Nwz6ys
+         kaOqbmOG5nTZGEEMP1s6ioBljCJOw1w7OJrg7ci1ekwXRsKrAM5QhmZ6SwgHmKm9Gsrx
+         BXBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwO6q+8t/sBfqG+xXDC2Mzwj0j4hJVauZncWUdTArWdq4r8gTOu1svR+kaDkxRIJvRbQ3dmXIzh+8ACjA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mG350PZsOV1HhD8rUIE6iu0uBgy6F/yNsamFHOCecvEAux5Pux
+	yCYL9vOB2RL/h4U1I9U8TIPEoxk1KUSNkLub5FLxp6pnRv4XgAFhEBwBQfgLWtG3f6Jj2HoBxXu
+	AY3YmLm4WvCcgfkuHzzUBb71RdRNue6wLyYZWasIbGYDre53QkpG5Farq3Gx6pzUZgg==
+X-Gm-Gg: AYBFou1ALZSxLXuv75SgyQurxkjmvCMYTTQ2HHGUwGHdKP2NJraGYP6ZmsPfA8wYgmv
+	AhBZTp0IoeGppxdsNogoCUnWQjjO6qRmumYawvKAHg5GjRFN2rh1UrbEK+jpKx1xFOqw2sN+7v5
+	zmQsZByKUszLry4P2GWsEWR3XGRDeR/sksbkXQ+/hm1iq1MqViMvd75zvpv/+6nmuoTEmYNnn1z
+	eVIunTenFYEjW8kjwfzAHPR6X5WK+4P/tofqPYp4OJ4YYniusD9KRlCoj3TQPG7CPzlRBCHU5wg
+	QsvMLdRmn3QD8S8VYUOPeXPcixjItuE6yPCK31E99rkJXj2BM03Z27FzAmV8ReWUyeeLBWsTAzq
+	yxUOETLH/be1H2Wduf6j/k05SBdTBGEb7EfGpONE4
+X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id af79cd13be357-93e9b802152mr247420985a.69.1791355487031;
+        Tue, 06 Oct 2026 23:44:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id af79cd13be357-93e9b802152mr247417785a.69.1791355486596;
+        Tue, 06 Oct 2026 23:44:46 -0700 (PDT)
+Received: from [192.168.25.64] ([94.155.124.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f54a5cesm39549625e9.5.2026.10.06.23.44.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 23:44:45 -0700 (PDT)
+Message-ID: <b9ed7848-36ef-4b70-9d5c-b18af9eee83b@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 09:44:43 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006204947.GA708098@bhelgaas>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 27/45] media: qcom: camss: sa8775p: add IFE BUS v3.1x
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
+References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261006223953.3382273-28-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261006223953.3382273-28-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: Ybj5d1bDg3cMXHrkXFK0GPhj8obg8CMn
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNiBTYWx0ZWRfX2m/T2+FVtSb9
+ Vm6nt4VinPLVHtXQbq+EUFMrJvV0ffqzN2lgGKZ9lcAy93oFqwobP4Dv02O5uAKd/ws8zqJpHaL
+ xPUUy8/nnHGa+TU7QSDdzlf4nkUEtes=
+X-Authority-Analysis: v=2.4 cv=PM+aavqC c=1 sm=1 tr=0 ts=6ac5ea5f cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=Y4P9ch1KcTPFiUn8tYgA:9 a=UPhfUc_oUKe9iv7q:21
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: Ybj5d1bDg3cMXHrkXFK0GPhj8obg8CMn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNiBTYWx0ZWRfX46emn14pHFYX
+ fXF5j9Piy5AYL4rzKOd4HIUrdf1yAQOQ7uVHrOXsJp4yMDO0sBy2K4EsdZkX4ybzTTuPgi6fmgB
+ Yy44XC8h+fNZ7zb8evOLOzRO3+0eMCxa0zNP6itL4M5KO9b6wiE3tHEdhL4LuHSmMwq33O0Hre5
+ vNKICyWtUIOh47ysqlDFtA8HYsbkn5ETMIXsHDWC7WpOv+SlDLaPOs7PfD7dqer8OVShk1cMCtE
+ 4vXD92cTtUCK40hjHXO9AM7ArQSSDUAVVQZb8NM+pAxtHlbvBhnLcIKOMHvXKxRzEsVZ1OZca7J
+ P32vUlOMyoZ1PsEVP9eY/wl0z8t1I1uKezM0pAzWJ0/AzLRDuQg7o40HHvSQSb2+czRZbAWe6Kg
+ eiGNZf+y6qNg1wuC7skD2EGjC84ihx3c1jFYVBSoKp8Dcd2yALVz1DEsEuxPCSt/UL/VkzWbl8n
+ au3LA1K0WL0WSIr8GUw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070026
 
-On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
-> On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-> > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-> > direction can unnecessarily force P2PDMA through the host bridge.
+Hello,
+
+Appoagies somehow after my last rebase the co-develped by was removed. For all the changes
+of SA8775P credits to Vikram and Prashant. This will be fixed in the next series.
+
+Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+
+~Gjorgji
+
+On 10/7/2026 1:39 AM, "Gjorgji Rosikopulos gjorgji.rosikopulos"@oss.qualcomm.com wrote:
+> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > 
-> Does "the reverse TLP direction" refer to Completions?
-
-In general, the P2P code treats TLPs flowing from device A to device B the
-same as TLPs flowing from device B to device A.
-
-However, in the context of this commit message, yes: completions flow in the
-opposite direction from the device's perspective.
-
+> Add the IFE BUS v3.1x write engine used by the SA8775P full and lite
+> pixel paths.
 > 
-> > Evaluate Request Redirect for client Requests and Completion Redirect for
-> > provider read Completions. Continue treating enabled Egress Control
-> > conservatively as a Request redirect.
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/camss/Makefile    |   1 +
+>  .../platform/qcom/camss/camss-ife-bus-v31x.c  | 267 ++++++++++++++++++
+>  drivers/media/platform/qcom/camss/camss-ife.h |   1 +
+>  3 files changed, 269 insertions(+)
+>  create mode 100644 drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
 > 
-> Completion Redirect is intended to avoid ordering rule violations
-> between Completions and Requests when Requests are redirected (PCIe
-> r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
-> but does the commit log need to say something about that?  I don't
-> know enough about P2P DMA for it to be obvious to me.
+> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+> index 500b056a906c..2251b57ba38b 100644
+> --- a/drivers/media/platform/qcom/camss/Makefile
+> +++ b/drivers/media/platform/qcom/camss/Makefile
+> @@ -16,6 +16,7 @@ qcom-camss-objs += \
+>  		camss-format.o \
+>  		camss-ife.o \
+>  		camss-ife-bus-v20x.o \
+> +		camss-ife-bus-v31x.o \
+>  		camss-ife-camif-v10x.o \
+>  		camss-ife-lite-top-v10x.o \
+>  		camss-ife-mod-v10x.o \
+> diff --git a/drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c b/drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
+> new file mode 100644
+> index 000000000000..c3a99bd0f75e
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
+> @@ -0,0 +1,267 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/* Copyright (c) 2023, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023 Qualcomm Technologies, Inc.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +
+> +#include "camss.h"
+> +#include "camss-ife.h"
+> +
+> +/* Block base offsets */
+> +#define BUSWR_V31X_OFFS		0x400
+> +#define BUSWR_V31X_LITE_OFFS	0x480
+> +
+> +/* Per-client register offset */
+> +#define BUSWR_V31X_CLIENT_OFFS(n)	((n) * 0x100)
+> +
+> +/* Interface interrupt and violation status bits */
+> +#define BUSWR_V31X_IIF_IRQ_CMD_CLEAR			BIT(0)
+> +#define BUSWR_V31X_OVERFLOW_ERR_MASK			GENMASK(25, 0)
+> +#define IS_BUSWR_V31X_OVERFLOW_ERR(s)	\
+> +	((s) & BUSWR_V31X_OVERFLOW_ERR_MASK)
+> +#define BUSWR_V31X_VIOLATION_ERR_MASK			GENMASK(25, 0)
+> +#define IS_BUSWR_V31X_VIOLATION_ERR(s)	\
+> +	((s) & BUSWR_V31X_VIOLATION_ERR_MASK)
+> +#define BUSWR_V31X_IMG_SIZE_VIOLATION_ERR_MASK		GENMASK(25, 0)
+> +#define IS_BUSWR_V31X_IMG_SIZE_VIOLATION_ERR(s)	\
+> +	((s) & BUSWR_V31X_IMG_SIZE_VIOLATION_ERR_MASK)
+> +#define BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION	BIT(31)
+> +#define IS_BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION(s)	\
+> +	((s) & BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION)
+> +#define BUSWR_V31X_IIF_IRQ_S0_VIOLATION			BIT(30)
+> +#define IS_BUSWR_V31X_IIF_IRQ_S0_VIOLATION(s)	\
+> +	((s) & BUSWR_V31X_IIF_IRQ_S0_VIOLATION)
+> +
+> +/* Client configuration field values */
+> +#define BUSWR_V31X_IIF_CGC_OVERRIDE			GENMASK(26, 0)
+> +#define BUSWR_V31X_CLIENT_CFG_MODE			GENMASK(17, 16)
+> +#define BUSWR_V31X_CLIENT_CFG_AUTO_RECOVERY_EN		BIT(4)
+> +#define BUSWR_V31X_CLIENT_CFG_EN			BIT(0)
+> +#define BUSWR_V31X_CLIENT_IMG_CFG0_HEIGHT		GENMASK(31, 16)
+> +#define BUSWR_V31X_CLIENT_IMG_CFG0_WIDTH		GENMASK(15, 0)
+> +#define BUSWR_V31X_CLIENT_IMG_CFG2_STRIDE		GENMASK(23, 0)
+> +#define BUSWR_V31X_CLIENT_PACKER_CFG_ALIGN		BIT(5)
+> +#define BUSWR_V31X_CLIENT_PACKER_CFG_FORMAT		GENMASK(4, 0)
+> +#define BUSWR_V31X_PACKER_FMT_PLAIN16_10_BPP		0x5
+> +#define BUSWR_V31X_PACKER_FMT_PLAIN16_16_BPP		0x8
+> +#define BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG0_PERIOD	GENMASK(4, 0)
+> +#define BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG1_PATTERN	GENMASK(31, 0)
+> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_PERIOD		GENMASK(4, 0)
+> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_PATTERN	GENMASK(31, 0)
+> +
+> +/* FIFO limit and frame-based RDI defaults */
+> +#define BUSWR_V31X_IMG_ADDR_FIFO_MAX_DEPTH		2
+> +#define BUSWR_V31X_RDI_DEFAULT_WIDTH			0xffff
+> +#define BUSWR_V31X_RDI_DEFAULT_STRIDE			0xffff
+> +#define BUSWR_V31X_CLIENT_ADDR_STATUS_2_IMAGE_ADDR_FIFO_WORD_CNT	GENMASK(2, 0)
+> +
+> +/* Common registers */
+> +#define BUSWR_V31X_IIF_CGC_OVERRIDE_REG		0x00000008
+> +#define BUSWR_V31X_WM_TEST_BUS_CTRL_REG		0x000000fc
+> +#define BUSWR_V31X_IIF_IRQ_MASK_S0		0x00000018
+> +#define BUSWR_V31X_IIF_IRQ_CLEAR_S0		0x00000020
+> +#define BUSWR_V31X_IIF_IRQ_STATUS_S0		0x00000028
+> +#define BUSWR_V31X_IIF_IRQ_CMD_REG		0x00000030
+> +#define BUSWR_V31X_STATUS_CLEAR_REG		0x00000060
+> +#define BUSWR_V31X_VIOLATION_STATUS_REG		0x00000064
+> +#define BUSWR_V31X_OVERFLOW_STATUS_REG		0x00000068
+> +#define BUSWR_V31X_IMG_SIZE_VIOLATION_REG	0x00000070
+> +
+> +/* Per-client registers (relative to client base = module_base + CLIENT_OFFS(n)) */
+> +#define BUSWR_V31X_CLIENT_CFG_REG		0x00000200
+> +#define BUSWR_V31X_CLIENT_ADDR_IMAGE_REG	0x00000204
+> +#define BUSWR_V31X_CLIENT_IMG_CFG0_REG		0x0000020c
+> +#define BUSWR_V31X_CLIENT_IMG_CFG2_REG		0x00000214
+> +#define BUSWR_V31X_CLIENT_PACKER_CFG_REG	0x00000218
+> +#define BUSWR_V31X_CLIENT_IRQ_SS_CFG0_REG	0x00000230
+> +#define BUSWR_V31X_CLIENT_IRQ_SS_CFG1_REG	0x00000234
+> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_REG	0x00000238
+> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_REG	0x0000023c
+> +#define BUSWR_V31X_CLIENT_ADDR_STATUS_0_REG	0x00000270
+> +#define BUSWR_V31X_CLIENT_ADDR_STATUS_2_REG	0x00000278
+> +
+> +static void ife_buswr_31x_acquire(struct ife_device *ife, void __iomem *base)
+> +{
+> +	struct ife_buswr_ctx *ctx = &ife->buswr_ctx;
+> +
+> +	if (ife->res->type == CAMSS_IFE_SUBDEV_TYPE_IFE_LITE)
+> +		ctx->base = base + BUSWR_V31X_LITE_OFFS;
+> +	else
+> +		ctx->base = base + BUSWR_V31X_OFFS;
+> +
+> +	ctx->dev = ife->camss->dev;
+> +}
+> +
+> +static void ife_buswr_31x_release(struct ife_buswr_ctx *ctx)
+> +{
+> +	ctx->base = NULL;
+> +}
+> +
+> +static void ife_buswr_31x_wm_config(struct ife_buswr_ctx *ctx, const u8 wm,
+> +				    const struct camss_ife_wm_config *cfg)
+> +{
+> +	void __iomem *base = ctx->base;
+> +	bool align = cfg->packing_fmt >= BUSWR_V31X_PACKER_FMT_PLAIN16_10_BPP &&
+> +		     cfg->packing_fmt <= BUSWR_V31X_PACKER_FMT_PLAIN16_16_BPP;
+> +	u32 pattern = 1;
+> +	u32 period = 0;
+> +	u32 bytes = cfg->bytes;
+> +	u32 stride = cfg->stride;
+> +	u32 lines = cfg->lines;
+> +	u32 rval;
+> +
+> +	if (cfg->mode_config == BUSWR_CLIENT_CFG_MODE_FRAME_BASED) {
+> +		bytes = BUSWR_V31X_RDI_DEFAULT_WIDTH;
+> +		lines = 0;
+> +		stride = BUSWR_V31X_RDI_DEFAULT_STRIDE;
+> +	}
+> +
+> +	writel_relaxed(BUSWR_V31X_IIF_CGC_OVERRIDE,
+> +		       base + BUSWR_V31X_IIF_CGC_OVERRIDE_REG);
+> +	writel_relaxed(0, base + BUSWR_V31X_WM_TEST_BUS_CTRL_REG);
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_CFG_MODE, cfg->mode_config);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_PACKER_CFG_FORMAT, cfg->packing_fmt) |
+> +	       FIELD_PREP(BUSWR_V31X_CLIENT_PACKER_CFG_ALIGN, align);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_PACKER_CFG_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IMG_CFG0_WIDTH, bytes) |
+> +	       FIELD_PREP(BUSWR_V31X_CLIENT_IMG_CFG0_HEIGHT, lines);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IMG_CFG0_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IMG_CFG2_STRIDE, stride);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IMG_CFG2_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG0_PERIOD, period);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IRQ_SS_CFG0_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG1_PATTERN, pattern);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IRQ_SS_CFG1_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_PERIOD, period);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +
+> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_PATTERN, pattern);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_REG +
+> +		       BUSWR_V31X_CLIENT_OFFS(wm));
+> +}
+> +
+> +static void ife_buswr_31x_wm_enable(struct ife_buswr_ctx *ctx, u8 wm)
+> +{
+> +	void __iomem *base = ctx->base;
+> +	u32 rval;
+> +
+> +	rval = readl_relaxed(base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
+> +	rval |= BUSWR_V31X_CLIENT_CFG_EN | BUSWR_V31X_CLIENT_CFG_AUTO_RECOVERY_EN;
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
+> +}
+> +
+> +static void ife_buswr_31x_wm_disable(struct ife_buswr_ctx *ctx, u8 wm)
+> +{
+> +	void __iomem *base = ctx->base;
+> +	u32 rval;
+> +
+> +	rval = readl_relaxed(base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
+> +	rval &= ~(BUSWR_V31X_CLIENT_CFG_EN | BUSWR_V31X_CLIENT_CFG_AUTO_RECOVERY_EN);
+> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
+> +}
+> +
+> +static bool ife_buswr_31x_is_fifo_full(struct ife_buswr_ctx *ctx, u8 wm)
+> +{
+> +	u32 rval = readl_relaxed(ctx->base + BUSWR_V31X_CLIENT_OFFS(wm) +
+> +				 BUSWR_V31X_CLIENT_ADDR_STATUS_2_REG);
+> +
+> +	rval = FIELD_GET(BUSWR_V31X_CLIENT_ADDR_STATUS_2_IMAGE_ADDR_FIFO_WORD_CNT, rval);
+> +
+> +	return rval >= BUSWR_V31X_IMG_ADDR_FIFO_MAX_DEPTH;
+> +}
+> +
+> +static void ife_buswr_31x_queue_buf(struct ife_buswr_ctx *ctx, const u8 num_wms, const u8 *wm,
+> +				    dma_addr_t *addr)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < num_wms; i++) {
+> +		if (addr[i])
+> +			writel_relaxed(addr[i], ctx->base + BUSWR_V31X_CLIENT_ADDR_IMAGE_REG +
+> +				       BUSWR_V31X_CLIENT_OFFS(wm[i]));
+> +	}
+> +}
+> +
+> +static u32 ife_buswr_31x_consumed_addr(struct ife_buswr_ctx *ctx, u8 wm)
+> +{
+> +	return readl_relaxed(ctx->base + BUSWR_V31X_CLIENT_ADDR_STATUS_0_REG +
+> +			     BUSWR_V31X_CLIENT_OFFS(wm));
+> +}
+> +
+> +static u32 ife_buswr_31x_irq_status(struct ife_buswr_ctx *ctx)
+> +{
+> +	void __iomem *base = ctx->base;
+> +	u32 bus_stat;
+> +	u32 iif_stat;
+> +
+> +	bus_stat = readl_relaxed(base + BUSWR_V31X_OVERFLOW_STATUS_REG);
+> +	writel_relaxed(BIT(0), base + BUSWR_V31X_STATUS_CLEAR_REG);
+> +	if (IS_BUSWR_V31X_OVERFLOW_ERR(bus_stat)) {
+> +		writel_relaxed(bus_stat, base + BUSWR_V31X_STATUS_CLEAR_REG);
+> +		pr_warn("BUSWR common overflow: 0x%x\n", bus_stat);
+> +	}
+> +
+> +	bus_stat = readl_relaxed(base + BUSWR_V31X_VIOLATION_STATUS_REG);
+> +	if (IS_BUSWR_V31X_VIOLATION_ERR(bus_stat))
+> +		pr_warn("BUSWR common violation: 0x%x\n", bus_stat);
+> +
+> +	bus_stat = readl_relaxed(base + BUSWR_V31X_IMG_SIZE_VIOLATION_REG);
+> +	if (IS_BUSWR_V31X_IMG_SIZE_VIOLATION_ERR(bus_stat))
+> +		pr_warn("BUSWR common image size violation: 0x%x\n", bus_stat);
+> +
+> +	iif_stat = readl_relaxed(base + BUSWR_V31X_IIF_IRQ_STATUS_S0);
+> +	writel_relaxed(iif_stat, base + BUSWR_V31X_IIF_IRQ_CLEAR_S0);
+> +	if (iif_stat) {
+> +		if (IS_BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION(iif_stat))
+> +			pr_warn("BUSWR image size violation from CCIF: 0x%x\n", iif_stat);
+> +		if (IS_BUSWR_V31X_IIF_IRQ_S0_VIOLATION(iif_stat))
+> +			pr_warn("BUSWR violation from CCIF: 0x%x\n", iif_stat);
+> +	}
+> +
+> +	writel_relaxed(BUSWR_V31X_IIF_IRQ_CMD_CLEAR, base + BUSWR_V31X_IIF_IRQ_CMD_REG);
+> +
+> +	return iif_stat;
+> +}
+> +
+> +static void ife_buswr_31x_irq_enable(struct ife_buswr_ctx *ctx)
+> +{
+> +	writel_relaxed(~0, ctx->base + BUSWR_V31X_IIF_IRQ_MASK_S0);
+> +}
+> +
+> +static void ife_buswr_31x_irq_disable(struct ife_buswr_ctx *ctx)
+> +{
+> +	void __iomem *base = ctx->base;
+> +
+> +	writel_relaxed(0, base + BUSWR_V31X_IIF_IRQ_MASK_S0);
+> +	writel_relaxed(~0, base + BUSWR_V31X_IIF_IRQ_CLEAR_S0);
+> +	writel_relaxed(BUSWR_V31X_IIF_IRQ_CMD_CLEAR, base + BUSWR_V31X_IIF_IRQ_CMD_REG);
+> +}
+> +
+> +const struct ife_hw_buswr_ops ife_buswr_31x_ops = {
+> +	.acquire	= ife_buswr_31x_acquire,
+> +	.release	= ife_buswr_31x_release,
+> +	.irq_enable	= ife_buswr_31x_irq_enable,
+> +	.irq_disable	= ife_buswr_31x_irq_disable,
+> +	.wm_config	= ife_buswr_31x_wm_config,
+> +	.wm_enable	= ife_buswr_31x_wm_enable,
+> +	.wm_disable	= ife_buswr_31x_wm_disable,
+> +	.queue_buf	= ife_buswr_31x_queue_buf,
+> +	.consumed_addr	= ife_buswr_31x_consumed_addr,
+> +	.irq_status	= ife_buswr_31x_irq_status,
+> +	.is_fifo_full	= ife_buswr_31x_is_fifo_full,
+> +};
+> diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
+> index c163c336fcc3..efbb1e75d550 100644
+> --- a/drivers/media/platform/qcom/camss/camss-ife.h
+> +++ b/drivers/media/platform/qcom/camss/camss-ife.h
+> @@ -397,6 +397,7 @@ camss_ife_pipe_for_stream_id(int nstreams,
+>  extern const struct ife_pads_descriptors ife_pads_v20x;
+>  extern const struct ife_hw_top_ops ife_top_20x_ops;
+>  extern const struct ife_hw_buswr_ops ife_buswr_20x_ops;
+> +extern const struct ife_hw_buswr_ops ife_buswr_31x_ops;
+>  extern const struct camss_mod_ops ife_mod_v10x_ops;
+>  
+>  extern const struct ife_pads_descriptors ife_lite_pads_v20x;
 
-I don't think so, i didn't change anything related to ordering.
-
-> 
-> Not really a question for this series, but p2pdma.c and p2pdma.rst
-> refer to "clients" and "providers", neither of which are mentioned in
-> the PCIe spec.  In this case it sounds like a client is a Requester
-> and a provider is a Completer in spec terms.  Is that always the case?
-> If so, "client" and "provider" in this paragraph are not adding any
-> information.
-> 
-> If "client" is not the same concept as "Requester" and "provider" not
-> the same as "Completer", maybe p2pdma.rst could explain the
-> difference?
-
-Client vs. provider are actual target vs. initiator. They express the
-device role in the flow.
-
-Thanks
-
-> 
-> > Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
-> > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-> > Tested-by: Tushar Dave <tdave@nvidia.com>
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/pci/p2pdma.c | 75 ++++++++++++++++++++++++++++++++++++++++------------
-> >  1 file changed, 58 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> > index 4e4d2df17a45..12612b82d80d 100644
-> > --- a/drivers/pci/p2pdma.c
-> > +++ b/drivers/pci/p2pdma.c
-> > @@ -21,6 +21,8 @@
-> >  #include <linux/seq_buf.h>
-> >  #include <linux/xarray.h>
-> >  
-> > +#include "pci.h"
-> > +
-> >  struct pci_p2pdma {
-> >  	struct gen_pool *pool;
-> >  	bool p2pmem_published;
-> > @@ -490,26 +492,56 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
-> >  	return NULL;
-> >  }
-> >  
-> > +enum pci_acs_p2pdma_state {
-> > +	PCI_ACS_P2PDMA_DIRECT,
-> > +	PCI_ACS_P2PDMA_REDIRECT,
-> > +};
-> > +
-> >  /*
-> > - * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
-> > - * TLPs upstream via ACS. Returns 1 if the packets will be redirected
-> > - * upstream, 0 otherwise.
-> > + * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
-> > + * from that port's ACS Control register.
-> > + *
-> > + * Linux does not read the Egress Control Vector, so Egress Control is treated
-> > + * conservatively as a redirect. Per PCIe r7.0 Table 6-11 the outcomes it
-> > + * selects are a direct route and an ACS Violation, and neither one lets peer
-> > + * bus addressing be assumed.
-> >   */
-> > -static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
-> > +static enum pci_acs_p2pdma_state
-> > +pci_acs_p2pdma_request(u16 ctrl)
-> >  {
-> > -	int pos;
-> > -	u16 ctrl;
-> > +	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
-> > +		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
-> > +}
-> >  
-> > -	pos = pdev->acs_cap;
-> > -	if (!pos)
-> > -		return 0;
-> > +/*
-> > + * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
-> > + * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
-> > + * affects a Completion.
-> > + */
-> > +static enum pci_acs_p2pdma_state
-> > +pci_acs_p2pdma_completion(u16 ctrl)
-> > +{
-> > +	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
-> > +				   PCI_ACS_P2PDMA_DIRECT;
-> > +}
-> >  
-> > -	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
-> > +/*
-> > + * Read @pdev's ACS Control register. A device without an ACS capability has
-> > + * no peer-to-peer controls at all, which routes the same as having them all
-> > + * clear. Returns false when the register is present but cannot be read; @ctrl
-> > + * is then meaningless.
-> > + */
-> > +static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
-> > +{
-> > +	int pos;
-> >  
-> > -	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
-> > -		return 1;
-> > +	pos = pdev->acs_cap;
-> > +	if (!pos) {
-> > +		*ctrl = 0;
-> > +		return true;
-> > +	}
-> >  
-> > -	return 0;
-> > +	return !pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl);
-> >  }
-> >  
-> >  static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
-> > @@ -698,6 +730,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
-> >   * then to Device B. The mapping type returned depends on the ACS
-> >   * redirection setting of the ports along the path.
-> >   *
-> > + * The client initiates Requests to provider memory. Check Request Redirect
-> > + * on the client path and Completion Redirect for read Completions on the
-> > + * provider path.
-> > + *
-> >   * If ACS redirect is set on any port in the path, traffic between the
-> >   * devices will go through the host bridge, so return
-> >   * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
-> > @@ -721,6 +757,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
-> >  	int dist_a = 0;
-> >  	int dist_b = 0;
-> >  	char buf[128];
-> > +	u16 ctrl;
-> >  
-> >  	seq_buf_init(&acs_list, buf, sizeof(buf));
-> >  
-> > @@ -732,7 +769,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
-> >  	while (a) {
-> >  		dist_b = 0;
-> >  
-> > -		if (pci_bridge_has_acs_redir(a)) {
-> > +		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
-> > +		    pci_acs_p2pdma_completion(ctrl) ==
-> > +			    PCI_ACS_P2PDMA_REDIRECT) {
-> >  			seq_buf_print_bus_devfn(&acs_list, a);
-> >  			acs_cnt++;
-> >  		}
-> > @@ -761,7 +800,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
-> >  		if (a == bb)
-> >  			break;
-> >  
-> > -		if (pci_bridge_has_acs_redir(bb)) {
-> > +		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
-> > +		    pci_acs_p2pdma_request(ctrl) ==
-> > +			    PCI_ACS_P2PDMA_REDIRECT) {
-> >  			seq_buf_print_bus_devfn(&acs_list, bb);
-> >  			acs_cnt++;
-> >  		}
-> > @@ -1109,10 +1150,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
-> >  /**
-> >   * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
-> >   * @provider: P2PDMA provider structure
-> > - * @dev: Target device for the transfer
-> > + * @dev: Client device that initiates the transfer
-> >   *
-> >   * Determines how peer-to-peer DMA transfers should be mapped between
-> > - * the provider and the target device. The mapping type indicates whether
-> > + * the provider and the client device. The mapping type indicates whether
-> >   * the transfer can be done directly through PCI switches or must go
-> >   * through the host bridge.
-> >   */
-> > 
-> > -- 
-> > 2.55.0
-> > 
