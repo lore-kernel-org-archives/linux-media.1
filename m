@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3796B2C026C
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 05:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BED934678E
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 05:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791349336; cv=none; b=TVg6DYKGziAmgFIG3O3oBIOtkbUVvj0ERUGT44zqo3R6iPa+TIdBdIO5l5CfP80wIEuJGpmDHfGQuz57FNwtEdEI8j9B6Zp11aE5FgYAxnVhqtvaTSqrKUytvBaJIcc2V+jctqdZ67Go7vHnf4YUnjmQ7K7AhgO6GLdqs+jZYaI=
+	t=1791349337; cv=none; b=EGckF7ZHAp9T2n83xajaOZHsDHwV3aYobx3ZYsmuheOL70MOCPjbxLtMJkdTxzC+ZEW6ThtrT+2apXjfjux6NrFpdNXC8RnNMQekMHVHE4GcFAVNaGxveLPEI/j1CQaxqXJj0RGJ/07G35eGJzQgw1bRHuH0XwEJVR5oc+oRw/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791349336; c=relaxed/simple;
-	bh=lK9JsSmLJGfvHsRjOBNmbHWgk0eDJ7E1rsJHkSKFK4o=;
+	s=arc-20240116; t=1791349337; c=relaxed/simple;
+	bh=HBz6/1jKv3A92D4++qlLo7U7f4XTi2QMgHTd/YuqwQY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wr9bBDtmsXBN3fjB+QH2LVYskGJaJY2KLh4CdlVFx0JDF95POomdVVboICUZFrKIg0uAJ6Bi6ihiFY0QMJ+UnLp8bVV3Qphulc5+n7J0lytR79aZuEm1CYIRLzuxaDeZfdJ0WxBeIPE8foWVjeU3qP/lnjY56vpgYUyzYTPAbf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KA9pUZSV; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=EYm2HAX/CGmr080hqG9vLvvkJbTxqntVXR8hmKjxL36G4LnC9tNrdkA2xGQOm6cnpy2gb2TW7XnR53w2VO/d72G84Kt4W3bMH/NUuFZ8oSeWGCEZGdfN8RgHcWgXt+2ej0eZRwMMp2a77TIIj937bb6w++L2CfFkoCkp/JtxBFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LSnLEHs+; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KA9pUZSV"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LSnLEHs+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791349334;
+	s=mimecast20190719; t=1791349335;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ibH67xvdQ3UeSp4AHfXzs4BVMX/Swj+0v+zp+XsSlMA=;
-	b=KA9pUZSVhJdKfa6AfDgyMkzQCs7qugaQaoUwMKFaIfPK+uWreePo2xzcczUVw86JTQytaz
-	0re/lQUhOMAjyUHbaX9FoIuL9sC9wkw6TZfcOIJziIsVHicS9EZ63j36oyRo20YfK3h73I
-	PLMioN3rAdvEKZL+q9we/iMZ1M4mNUM=
+	bh=ejEKuXGlJ5SVXnp1RnYvtVeLkqAYtrV16J72R2PUKHg=;
+	b=LSnLEHs+5AbDzbOx+d4ensr959XAlKuCgN9gkhZlettitK6sITA5pYpZ+1XjoJyAWiYgu9
+	9+A8DxI+QPHH4eCjS36XxsDpU7hpQPauUQfT+v2AdkCQrjt9FCi2gyJc4Gs6vWWyEQsqhm
+	rVn6Jn956TeYD1XMZ4EdzaJD2LIDrKc=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-586-9X0th3EZNAWkxVG_IsJO6w-1; Wed,
- 07 Oct 2026 01:02:09 -0400
-X-MC-Unique: 9X0th3EZNAWkxVG_IsJO6w-1
-X-Mimecast-MFC-AGG-ID: 9X0th3EZNAWkxVG_IsJO6w_1791349328
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-79-MehdZqSTNDaTb_oRHMoIYA-1; Wed,
+ 7 Oct 2026 05:02:14 +0000
+X-MC-Unique: MehdZqSTNDaTb_oRHMoIYA-1
+X-Mimecast-MFC-AGG-ID: MehdZqSTNDaTb_oRHMoIYA_1791349333
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 34ACA180257D;
-	Wed,  7 Oct 2026 05:02:08 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E1A05184A0A0;
+	Wed,  7 Oct 2026 05:02:12 +0000 (UTC)
 Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7895330002D6;
-	Wed,  7 Oct 2026 05:02:05 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3646F30000E6;
+	Wed,  7 Oct 2026 05:02:09 +0000 (UTC)
 From: Kate Hsuan <hpa@redhat.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
@@ -50,9 +50,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v3 1/3] media: i2c: imx471: Configure line length PCK via hblank control
-Date: Wed,  7 Oct 2026 13:01:38 +0800
-Message-ID: <20261007050140.26604-2-hpa@redhat.com>
+Subject: [PATCH v3 2/3] media: i2c: imx471: Define symbolic names for PLL registers
+Date: Wed,  7 Oct 2026 13:01:39 +0800
+Message-ID: <20261007050140.26604-3-hpa@redhat.com>
 In-Reply-To: <20261007050140.26604-1-hpa@redhat.com>
 References: <20261007050140.26604-1-hpa@redhat.com>
 Precedence: bulk
@@ -64,84 +64,71 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Implement V4L2_CID_HBLANK control to configure the line Length PCK
-register setting. This controls the horizontal line duration
-required for precise frame rate and exposure time calculation.
+Replace raw register addresses with symbolic macros to improve code
+readability. Additionally, fix the register sizes for these PLL
+configuration registers to 16 bits.
 
 Signed-off-by: Kate Hsuan <hpa@redhat.com>
 ---
- drivers/media/i2c/imx471.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/media/i2c/imx471.c | 34 +++++++++++++++++++++-------------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index 4053aed84340..bc6bf11ecf31 100644
+index bc6bf11ecf31..b469fef7eef9 100644
 --- a/drivers/media/i2c/imx471.c
 +++ b/drivers/media/i2c/imx471.c
-@@ -29,6 +29,10 @@
- #define IMX471_REG_FLL				CCI_REG16(0x0340)
- #define IMX471_FLL_MAX				0xffff
+@@ -68,15 +68,24 @@
+ #define IMX471_EXT_CLK				19200000
  
-+/* H-timing internal */
-+#define IMX471_REG_LINE_LENGTH_PCK		CCI_REG16(0x0342)
-+#define IMX471_LLP_MAX				0xffff
-+
- /* Exposure control */
- #define IMX471_REG_EXPOSURE			CCI_REG16(0x0202)
- #define IMX471_EXPOSURE_MIN			1
-@@ -282,7 +286,7 @@ static const struct imx471_mode imx471_modes[] = {
- 		.height = 1088,
- 		.fll_def = 1308,
- 		.fll_min = 1308,
--		.llp = 2328,
-+		.llp = 2560,
- 		.default_mode_regs = mode_1928x1088_regs,
- 		.default_mode_regs_length = ARRAY_SIZE(mode_1928x1088_regs),
- 	},
-@@ -336,6 +340,10 @@ static int imx471_set_ctrl(struct v4l2_ctrl *ctrl)
- 		ret = cci_write(sensor->regmap, IMX471_REG_EXPOSURE,
- 				ctrl->val, NULL);
- 		break;
-+	case V4L2_CID_HBLANK:
-+		ret = cci_write(sensor->regmap, IMX471_REG_LINE_LENGTH_PCK,
-+				ctrl->val + format->width, NULL);
-+		break;
- 	case V4L2_CID_VBLANK:
- 		/* Update FLL that meets expected vertical blanking */
- 		ret = cci_write(sensor->regmap, IMX471_REG_FLL,
-@@ -446,12 +454,10 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
- 		return ret;
+ /* PLL */
+-#define IMX471_REG_VTPXCK_DIV			CCI_REG8(0x0301)
+-#define IMX471_REG_VTSYCK_DIV			CCI_REG8(0x0303)
+-#define IMX471_REG_PREPLLCK_VT_DIV		CCI_REG8(0x0305)
++#define IMX471_REG_VTPXCK_DIV			CCI_REG16(0x0300)
++#define IMX471_REG_VTSYCK_DIV			CCI_REG16(0x0302)
++#define IMX471_REG_PREPLLCK_VT_DIV		CCI_REG16(0x0304)
+ #define IMX471_REG_PLL_VT_MPY			CCI_REG16(0x0306)
+-#define IMX471_REG_OPPXCK_DIV			CCI_REG8(0x0309)
+-#define IMX471_REG_OPSYCK_DIV			CCI_REG8(0x030b)
++#define IMX471_REG_OPPXCK_DIV			CCI_REG16(0x0308)
++#define IMX471_REG_OPSYCK_DIV			CCI_REG16(0x030a)
++#define IMX471_REG_OP_PREPLLCK_DIV		CCI_REG16(0x030c)
++#define IMX471_REG_OP_MPY			CCI_REG16(0x030e)
+ #define IMX471_REG_PLL_MULT_DRIV		CCI_REG8(0x0310)
+ #define IMX471_PLL_SINGLE			0
+ #define IMX471_PLL_DUAL				1
++#define IMX471_VTPXCK_DIV			6
++#define IMX471_VTSYCK_DIV			2
++#define IMX471_PREPLLCK_VT_DIV			2
++#define IMX471_PLL_VT_MPY			121
++#define IMX471_OPSYCK_DIV			1
++#define IMX471_PLL_OP_MPY			83
++#define IMX471_PREPLLCK_OP_DIV			2
  
- 	h_blank = mode->llp - mode->width;
--	/*
--	 * Currently hblank is not changeable.
--	 * So FPS control is done only by vblank.
--	 */
- 	return __v4l2_ctrl_modify_range(sensor->hblank, h_blank,
--					h_blank, 1, h_blank);
-+					IMX471_LLP_MAX - mode->width,
-+					1,
-+					h_blank);
- }
- 
- static int imx471_get_selection(struct v4l2_subdev *sd,
-@@ -708,7 +714,8 @@ static int imx471_init_controls(struct imx471 *sensor)
- 
- 	hblank = mode->llp - mode->width;
- 	sensor->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
--					   V4L2_CID_HBLANK, hblank, hblank,
-+					   V4L2_CID_HBLANK, hblank,
-+					   IMX471_LLP_MAX - mode->width,
- 					   1, hblank);
- 
- 	/* fll >= exposure time + adjust parameter (default value is 18) */
-@@ -745,7 +752,6 @@ static int imx471_init_controls(struct imx471 *sensor)
- 	}
- 
- 	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
--	sensor->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 	sensor->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
- 	sensor->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
- 
+ /* IMX471 native and active pixel array size */
+ #define IMX471_NATIVE_WIDTH			4672
+@@ -236,14 +245,13 @@ static const struct cci_reg_sequence mode_1928x1088_regs[] = {
+ 	{ IMX471_REG_DIG_CROP_HEIGHT, 1088 },
+ 	{ IMX471_REG_X_OUTPUT_SIZE, 1928 },
+ 	{ IMX471_REG_Y_OUTPUT_SIZE, 1088 },
+-	{ IMX471_REG_VTPXCK_DIV, 0x06 },
+-	{ IMX471_REG_VTSYCK_DIV, 0x02 },
+-	{ IMX471_REG_PREPLLCK_VT_DIV, 0x02 },
+-	{ IMX471_REG_PLL_VT_MPY, 0x0079 },
+-	{ IMX471_REG_OPSYCK_DIV, 0x01 },
+-	{ CCI_REG8(0x030d), 0x02 },
+-	{ CCI_REG8(0x030e), 0x00 },
+-	{ CCI_REG8(0x030f), 0x53 },
++	{ IMX471_REG_VTPXCK_DIV, IMX471_VTPXCK_DIV },
++	{ IMX471_REG_VTSYCK_DIV, IMX471_VTSYCK_DIV },
++	{ IMX471_REG_PREPLLCK_VT_DIV, IMX471_PREPLLCK_VT_DIV },
++	{ IMX471_REG_PLL_VT_MPY, IMX471_PLL_VT_MPY },
++	{ IMX471_REG_OPSYCK_DIV, IMX471_OPSYCK_DIV },
++	{ IMX471_REG_OP_PREPLLCK_DIV, IMX471_PREPLLCK_OP_DIV },
++	{ IMX471_REG_OP_MPY, IMX471_PLL_OP_MPY },
+ 	{ IMX471_REG_PLL_MULT_DRIV, IMX471_PLL_DUAL },
+ 	{ CCI_REG8(0x3f4c), 0x81 },
+ 	{ CCI_REG8(0x3f4d), 0x81 },
 -- 
 2.55.0
 
