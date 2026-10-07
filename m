@@ -1,313 +1,261 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4773D4138
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 05:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5F23D3CF2;
+	Wed,  7 Oct 2026 06:32:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351881; cv=none; b=jXQyCpi7NDlNHWBK6oL6mJzF0R4WrF+pttvI9EX5U8BTx8uxuuxQwE5SwoSq2wd0Ey7onhH9iSUKyrEg/8mv28FrSv35e2saJZatn1DCfnfVpvidQdplv/tuYMsl/3K6A0TG/z81PvlZl0tgt0vmi/7go+iXV7j8TBX5uvZvDPg=
+	t=1791354752; cv=none; b=Bhxgfio3wtsUABhaabVdkjfqlqh2TJCMYjEoURkfU2LDMbCwGd2gdFQXfOP4fysuVKgTIWLdetIwx6loZPSihg7xIVr9T6s47f0biC8DrsPMbXhAzTr6j4olexQje8yTFCM6Zwxzl7fkzlvYiRx5xeun1ocLdzp1fM4VJ5s+h64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351881; c=relaxed/simple;
-	bh=ynjoLLi/n3KHDvPRST29+7ahVSC3TrfwzXl6tLKusn4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l+qJTTlyThd3ya1zImiheqgEsYB4pu5PMPL2kq/+CTXpP3v6yvayGhOTdv0uwl7B8R9q4y44QzwjVfqj7hgdkhouAHi0nHMFRA73OPM78GPz9zUZz0mSKWz9RaX2aoaHmdvtnMvGzv/CCkhEXBSktHh5UUUmtyoIrHu9YmwvTBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5JoKDh7; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791354752; c=relaxed/simple;
+	bh=vK02Arew/xoK/SEhK+ZOF9gf1+RD+J2G1rphi2B2vFo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H//l0cbaJOnya+D/AA/9sqkMV3H4QqTozb4pJsDBlWt7Kvl6bYkh+qziWrHbnJdJ3T/m4L+OQlpl0RyyFUR4OaflypBdD6qrxpI6FAHlvFGAuz4QnI48DNhCpKpjgIiWWQbh5EE9zihuaVs9WF+3612EhCH5rSHi/spqrKbwzgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsS3Dv1k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5JoKDh7"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a17baef589so9247245e9.0
-        for <linux-media@vger.kernel.org>; Tue, 06 Oct 2026 22:44:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791351878; x=1791956678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dm9oz8PbVLbTHr6sUh2Zmk88hMu2YoF1bMSolTgGPRo=;
-        b=P5JoKDh7EBaOp2EyL3T1jBlCMcsAfzyZAcWxZV1tCF48Hik3o6VXsQs/k59rdTGL9J
-         BzrwMAzKkGR5sKoEWuO79WMkWObmaXF/I5MUV4K8Qwp8FP/thRaZfopof5DJxZMzCdWK
-         r0W+2Qv4npUO3DZV0nVpII+VIPvRoH0jS/PuxYDI4csg4BQGZsGI888PADi3QwYYmV0w
-         CRbcBXg5CK07GA2133R5LY2CE/vqJoJE1KL5LFlgopocou3Diw06S7VFR+K4qjLidiXO
-         qBCfb7/We2U39DgmxKOm9n4PiAXSZT6V6fv9clPr5TYVAMz9cBuElnnz9zkzyMmzL2iF
-         0Jxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791351878; x=1791956678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dm9oz8PbVLbTHr6sUh2Zmk88hMu2YoF1bMSolTgGPRo=;
-        b=J3IazXhnrxPB5qEnCKRToAhrd7PpUndJe8csYTvOQHDYB04cq4cF7yn9KEBxsoSa+X
-         2qnVbQnV+9nJeMfWccOCRUQy4vCSvB8x5QRTxKylWCK/WzUkab+hwVvh0XImpzvo9rmu
-         GkINlB+xqYmd8apyrVdJJpPc0RIK6+vcucAhs+9PYhtdJiBUH7t2wNSsh/aoQyaLIARL
-         zCn/wCXX1dlVrACHENbR8CJGwNlkS9GZY+A6NhZRDZ/26NEqvDGzy0u7QMfbQQIAtbNK
-         091cYq9u84Tib/e/hiSjZe1pAOpQ/qs9d6vE6n9pCHbNpWtOcSVPobLGQGZLHyBjhdkL
-         OOrg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3HhOOdKtvlRwRwfQ0HTt6AuoS66ETL/SSRqdVDSAOO6GcUdQSrCpyz53jGbFqUjBmEXJ0YKmDFGfR8g==@vger.kernel.org
-X-Gm-Message-State: AFuF++mJfMqx53hv1aQp6+8xtpVNCu79+gxbX8p0YZ3GdEoLV27gRJrx
-	SJQkRrXrj9SZ4w+yqtleKZsb7t3a3o3MBf1I3AKGyqwFBUKBiRyQh4Ny
-X-Gm-Gg: AYBFou1YYQ4QUzNPP4cy9XzIFPf+/2ExbLKRwV4xUBAwRXQeczu4k9HkJev1yfqBeZb
-	MKT9d+h0OvPxXkBe8k0thEYHFitdgAY0DZBV4kqiNDVzu1n1fKQqGICHGPbIaeorgs0m0G/oUQf
-	m9etlqsPkzEjOdqN/aUeQCeh5zR52FIXGJGScbFfEqeldIx+b14sT6Uz5OdNahPdKni1m0wQzCU
-	T8GGrQMFzKYSBPwJXYcOlo2YUk2z0nOOKeCR9nNRVDCmQKqu1gr5kYQpZfjMEWB5Tm8bvg1Woq4
-	UIJk1L3V7fua3gB1qNlXYR9Z/eGnCcxSIhecCag4xo0Ua6U95Zi/GA/qJA0bZMJYWQofND1PrVI
-	NPtHs4D+lzEKw3U+CZzxjOQ4nrOYpBl9arQsDkc9jzffK0DlgAP4YaLydwQiWEKuqWZivOzKd8t
-	xJTQ1o1at0eYTeFkNBOh5TZ1qCd2kdFfLK1EagN7PaiizdsBTA+y32wSxoJ9Xia0Lk2nyyGixJ3
-	UNZ1SN1raATDsw1YQgusmYh/ZKJjpz3vtBQY8bPK12mpYNS5FkBM+Ca8J8p67qdNBMVDiuWZJTx
-	VpxywrcTjVoHCre3m6XStHjilYMIZdsAB+/rrOAlpIGp/gasyxQVQ6MgAYRZcH4YVAL2lW/i/z7
-	3r7slOcyxtCdBWlUrxQ==
-X-Received: by 2002:a05:600c:5252:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4a1806878c3mr10840485e9.33.1791351877434;
-        Tue, 06 Oct 2026 22:44:37 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1e1-2201-60f4-32e0-4d59-5772.310.pool.telefonica.de. [2a02:3100:a1e1:2201:60f4:32e0:4d59:5772])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178a17ac9sm121780835e9.1.2026.10.06.22.44.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 22:44:37 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Florian Echtler <floe@butterbrot.org>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsS3Dv1k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0E41F0089C;
+	Wed,  7 Oct 2026 06:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791354750;
+	bh=l2L4StRud6VKnWJLizrYPJpAWtLjtw/B6kHwcJg+Mm0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JsS3Dv1kRWzQotpwuewh//UeSyfmkPJJkE+mwKLwFO4G5FdMIONZZ7Ahkd5MZ60hI
+	 7m6CXy/QS4j/6BaYrlxzDg0PgvvF8tG0WR1rr03foPSIElWbzRJqEbeJNZnG1hX9mv
+	 LTrHS+Lc+AS1wOrNiXTu821Dl11fHMWlY4CVf1JbvYlY05OFcFmSX1JSEFeYbGY/Je
+	 /bWNpYvx0lRvsWmmez92yyYm8uZB5FDe0H615VR7sk182sVK0KMvzlwfS0lIGjWgV2
+	 gx99D6OTKYXV3lBZlVs0bmUuC6Aj2UnZN/xUifsdb/0/db3t6IUDZi3uI9KxR/nhWd
+	 V3q25hUqVfVzA==
+Date: Wed, 7 Oct 2026 09:32:27 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
-Date: Wed,  7 Oct 2026 07:44:30 +0200
-Message-Id: <20261007054430.40155-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261007063227.GC7822@unreal>
+References: <20261001-fix-p2p-acs-v4-0-v9-2-1a8e0f50ddd9@nvidia.com>
+ <20261006204947.GA708098@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006204947.GA708098@bhelgaas>
 
-Video capture has failed since commit 6eb0233ec2d0 ("usb: don't
-inherity DMA properties for USB devices"). sur40 gives the USB
-interface device to vb2_dma_sg, but the interface no longer has a DMA
-mask. The mapping fails, leaving no entries for usb_sg_init().
+On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
+> On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> > direction can unnecessarily force P2PDMA through the host bridge.
+> 
+> Does "the reverse TLP direction" refer to Completions?
 
-Using the host controller device with vb2_dma_sg would give
-usb_sg_init() an already DMA-mapped scatterlist. The USB core maps that
-list for the host controller itself. Mapping it twice overwrites the DMA
-addresses, and vb2 later unmaps addresses it does not own.
+In general, the P2P code treats TLPs flowing from device A to device B the
+same as TLPs flowing from device B to device A.
 
-Imported dma-bufs cannot supply the CPU-side scatterlist that
-usb_sg_init() needs. Importers may use only the DMA fields of the
-attachment table. DMABUF_DEBUG makes this misuse deterministic by
-clearing its page and length fields.
+However, in the context of this commit message, yes: completions flow in the
+opposite direction from the device's perspective.
 
-Use vb2_vmalloc for capture buffers. Receive each frame into a
-driver-owned, page-backed scatterlist, then copy it through the vb2
-mapping. Synchronize CPU writes to imported dma-bufs with
-dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
+> 
+> > Evaluate Request Redirect for client Requests and Completion Redirect for
+> > provider read Completions. Continue treating enabled Egress Control
+> > conservatively as a Request redirect.
+> 
+> Completion Redirect is intended to avoid ordering rule violations
+> between Completions and Requests when Requests are redirected (PCIe
+> r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
+> but does the commit log need to say something about that?  I don't
+> know enough about P2P DMA for it to be obvious to me.
 
-Verified with a custom QEMU model and raw-gadget emulation. Not tested
-on real hardware.
+I don't think so, i didn't change anything related to ordering.
 
-Fixes: 6eb0233ec2d0 ("usb: don't inherity DMA properties for USB devices")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-RFT because I do not have SUR40 hardware. Testing on a Microsoft Surface
-2.0 / Samsung SUR40 would be appreciated.
+> 
+> Not really a question for this series, but p2pdma.c and p2pdma.rst
+> refer to "clients" and "providers", neither of which are mentioned in
+> the PCIe spec.  In this case it sounds like a client is a Requester
+> and a provider is a Completer in spec terms.  Is that always the case?
+> If so, "client" and "provider" in this paragraph are not adding any
+> information.
+> 
+> If "client" is not the same concept as "Requester" and "provider" not
+> the same as "Completer", maybe p2pdma.rst could explain the
+> difference?
 
-The current RFT passed an x86-64 W=1 build of sur40.o with
-DMABUF_DEBUG=y. Runtime testing used v7.3-rc4-70-gfe2ec83746e5 on QEMU
-TCG with KASAN, DMA_API_DEBUG and DMABUF_DEBUG:
+Client vs. provider are actual target vs. initiator. They express the
+device role in the flow.
 
-- a custom SUR40 model behind qemu-xhci and Intel IOMMU strict mode;
-- raw-gadget on dummy_hcd.
+Thanks
 
-Each setup captured 300 MMAP frames and 300 udmabuf frames. Every frame
-contained the expected sequence data. The xHCI/IOMMU run produced no
-DMA-API report. The dummy_hcd run reported udmabuf's separate maximum
-segment-size issue, which also reproduces through DMA_BUF_IOCTL_SYNC
-without sur40.
-
-Nguyen Ngoc Thang's pending disconnect fixes move resource cleanup to a
-v4l2 release callback:
-
-https://lore.kernel.org/r/20260920113949.12726-1-ngocthang2710.1999@gmail.com/
-
-If that series lands first, the sgl_free() added here must move to the
-release callback as well.
-
- drivers/input/touchscreen/Kconfig |  5 ++-
- drivers/input/touchscreen/sur40.c | 68 ++++++++++++++++++++++++++-----
- 2 files changed, 61 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..e433db3d340f 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -1276,9 +1276,10 @@ config TOUCHSCREEN_SUN4I
- 
- config TOUCHSCREEN_SUR40
- 	tristate "Samsung SUR40 (Surface 2.0/PixelSense) touchscreen"
--	depends on USB && MEDIA_USB_SUPPORT && HAS_DMA
-+	depends on USB && MEDIA_USB_SUPPORT
- 	depends on VIDEO_DEV
--	select VIDEOBUF2_DMA_SG
-+	select SGL_ALLOC
-+	select VIDEOBUF2_VMALLOC
- 	help
- 	  Say Y here if you want support for the Samsung SUR40 touchscreen
- 	  (also known as Microsoft Surface 2.0 or Microsoft PixelSense).
-diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index 09d8c5f8d09f..72e3f0fa1f4c 100644
---- a/drivers/input/touchscreen/sur40.c
-+++ b/drivers/input/touchscreen/sur40.c
-@@ -20,6 +20,7 @@
- #include <linux/kernel.h>
- #include <linux/errno.h>
- #include <linux/delay.h>
-+#include <linux/dma-buf.h>
- #include <linux/init.h>
- #include <linux/slab.h>
- #include <linux/module.h>
-@@ -36,7 +37,7 @@
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-ctrls.h>
- #include <media/videobuf2-v4l2.h>
--#include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-vmalloc.h>
- 
- /* read 512 bytes from endpoint 0x86 -> get header + blobs */
- struct sur40_header {
-@@ -221,6 +222,8 @@ struct sur40_state {
- 
- 	struct sur40_data *bulk_in_buffer;
- 	size_t bulk_in_size;
-+	struct scatterlist *video_sgl;
-+	unsigned int video_nents;
- 	u8 bulk_in_epaddr;
- 	u8 vsvideo;
- 
-@@ -531,8 +534,10 @@ static void sur40_process_video(struct sur40_state *sur40)
- 	struct sur40_image_header *img = (void *)(sur40->bulk_in_buffer);
- 	struct sur40_buffer *new_buf;
- 	struct usb_sg_request sgr;
--	struct sg_table *sgt;
-+	unsigned int size = sur40->pix_fmt.sizeimage;
-+	struct dma_buf *dbuf = NULL;
- 	int result, bulk_read;
-+	void *vaddr;
- 
- 	if (!vb2_start_streaming_called(&sur40->queue))
- 		return;
-@@ -579,11 +584,17 @@ static void sur40_process_video(struct sur40_state *sur40)
- 
- 	dev_dbg(sur40->dev, "header acquired\n");
- 
--	sgt = vb2_dma_sg_plane_desc(&new_buf->vb.vb2_buf, 0);
-+	vaddr = vb2_plane_vaddr(&new_buf->vb.vb2_buf, 0);
-+	if (!vaddr)
-+		goto err_poll;
- 
-+	/*
-+	 * vb2_plane_vaddr() may return a vmalloc or vmap address. Receive
-+	 * into page-backed memory so the USB core can map it for DMA.
-+	 */
- 	result = usb_sg_init(&sgr, sur40->usbdev,
- 		usb_rcvbulkpipe(sur40->usbdev, VIDEO_ENDPOINT), 0,
--		sgt->sgl, sgt->nents, sur40->pix_fmt.sizeimage, 0);
-+		sur40->video_sgl, sur40->video_nents, size, 0);
- 	if (result < 0) {
- 		dev_err(sur40->dev, "error %d in usb_sg_init\n", result);
- 		goto err_poll;
-@@ -595,6 +606,39 @@ static void sur40_process_video(struct sur40_state *sur40)
- 		goto err_poll;
- 	}
- 
-+	if (sgr.bytes != size) {
-+		dev_err(sur40->dev, "short image (%zu of %u bytes)\n",
-+			sgr.bytes, size);
-+		goto err_poll;
-+	}
-+
-+	/*
-+	 * vb2_vmalloc does not synchronize CPU access to imported dma-bufs,
-+	 * so bracket the copy into one here.
-+	 */
-+	if (new_buf->vb.vb2_buf.memory == VB2_MEMORY_DMABUF)
-+		dbuf = new_buf->vb.vb2_buf.planes[0].dbuf;
-+
-+	if (dbuf) {
-+		result = dma_buf_begin_cpu_access(dbuf, DMA_TO_DEVICE);
-+		if (result) {
-+			dev_err(sur40->dev, "error %d in begin_cpu_access\n",
-+				result);
-+			goto err_poll;
-+		}
-+	}
-+
-+	sg_copy_to_buffer(sur40->video_sgl, sur40->video_nents, vaddr, size);
-+
-+	if (dbuf) {
-+		result = dma_buf_end_cpu_access(dbuf, DMA_TO_DEVICE);
-+		if (result) {
-+			dev_err(sur40->dev, "error %d in end_cpu_access\n",
-+				result);
-+			goto err_poll;
-+		}
-+	}
-+
- 	dev_dbg(sur40->dev, "image acquired\n");
- 
- 	/* return error if streaming was stopped in the meantime */
-@@ -725,6 +769,13 @@ static int sur40_probe(struct usb_interface *interface,
- 		goto err_free_input;
- 	}
- 
-+	sur40->video_sgl = sgl_alloc(sur40_pix_format[0].sizeimage, GFP_KERNEL,
-+				     &sur40->video_nents);
-+	if (!sur40->video_sgl) {
-+		error = -ENOMEM;
-+		goto err_free_buffer;
-+	}
-+
- 	/* register the video master device */
- 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
- 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
-@@ -811,6 +862,7 @@ static int sur40_probe(struct usb_interface *interface,
- err_unreg_v4l2:
- 	v4l2_device_unregister(&sur40->v4l2);
- err_free_buffer:
-+	sgl_free(sur40->video_sgl);
- 	kfree(sur40->bulk_in_buffer);
- err_free_input:
- 	input_free_device(input);
-@@ -831,6 +883,7 @@ static void sur40_disconnect(struct usb_interface *interface)
- 	video_unregister_device(&sur40->vdev);
- 	v4l2_device_unregister(&sur40->v4l2);
- 
-+	sgl_free(sur40->video_sgl);
- 	kfree(sur40->bulk_in_buffer);
- 	kfree(sur40);
- 
-@@ -1114,15 +1167,10 @@ static const struct vb2_ops sur40_queue_ops = {
- 
- static const struct vb2_queue sur40_queue = {
- 	.type = V4L2_BUF_TYPE_VIDEO_CAPTURE,
--	/*
--	 * VB2_USERPTR in currently not enabled: passing a user pointer to
--	 * dma-sg will result in segment sizes that are not a multiple of
--	 * 512 bytes, which is required by the host controller.
--	*/
- 	.io_modes = VB2_MMAP | VB2_READ | VB2_DMABUF,
- 	.buf_struct_size = sizeof(struct sur40_buffer),
- 	.ops = &sur40_queue_ops,
--	.mem_ops = &vb2_dma_sg_memops,
-+	.mem_ops = &vb2_vmalloc_memops,
- 	.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC,
- 	.min_queued_buffers = 3,
- };
-
-base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
--- 
-2.53.0
+> 
+> > Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+> > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> > Tested-by: Tushar Dave <tdave@nvidia.com>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/pci/p2pdma.c | 75 ++++++++++++++++++++++++++++++++++++++++------------
+> >  1 file changed, 58 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> > index 4e4d2df17a45..12612b82d80d 100644
+> > --- a/drivers/pci/p2pdma.c
+> > +++ b/drivers/pci/p2pdma.c
+> > @@ -21,6 +21,8 @@
+> >  #include <linux/seq_buf.h>
+> >  #include <linux/xarray.h>
+> >  
+> > +#include "pci.h"
+> > +
+> >  struct pci_p2pdma {
+> >  	struct gen_pool *pool;
+> >  	bool p2pmem_published;
+> > @@ -490,26 +492,56 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+> >  	return NULL;
+> >  }
+> >  
+> > +enum pci_acs_p2pdma_state {
+> > +	PCI_ACS_P2PDMA_DIRECT,
+> > +	PCI_ACS_P2PDMA_REDIRECT,
+> > +};
+> > +
+> >  /*
+> > - * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
+> > - * TLPs upstream via ACS. Returns 1 if the packets will be redirected
+> > - * upstream, 0 otherwise.
+> > + * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
+> > + * from that port's ACS Control register.
+> > + *
+> > + * Linux does not read the Egress Control Vector, so Egress Control is treated
+> > + * conservatively as a redirect. Per PCIe r7.0 Table 6-11 the outcomes it
+> > + * selects are a direct route and an ACS Violation, and neither one lets peer
+> > + * bus addressing be assumed.
+> >   */
+> > -static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
+> > +static enum pci_acs_p2pdma_state
+> > +pci_acs_p2pdma_request(u16 ctrl)
+> >  {
+> > -	int pos;
+> > -	u16 ctrl;
+> > +	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
+> > +		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
+> > +}
+> >  
+> > -	pos = pdev->acs_cap;
+> > -	if (!pos)
+> > -		return 0;
+> > +/*
+> > + * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
+> > + * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
+> > + * affects a Completion.
+> > + */
+> > +static enum pci_acs_p2pdma_state
+> > +pci_acs_p2pdma_completion(u16 ctrl)
+> > +{
+> > +	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+> > +				   PCI_ACS_P2PDMA_DIRECT;
+> > +}
+> >  
+> > -	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
+> > +/*
+> > + * Read @pdev's ACS Control register. A device without an ACS capability has
+> > + * no peer-to-peer controls at all, which routes the same as having them all
+> > + * clear. Returns false when the register is present but cannot be read; @ctrl
+> > + * is then meaningless.
+> > + */
+> > +static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
+> > +{
+> > +	int pos;
+> >  
+> > -	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
+> > -		return 1;
+> > +	pos = pdev->acs_cap;
+> > +	if (!pos) {
+> > +		*ctrl = 0;
+> > +		return true;
+> > +	}
+> >  
+> > -	return 0;
+> > +	return !pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl);
+> >  }
+> >  
+> >  static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+> > @@ -698,6 +730,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
+> >   * then to Device B. The mapping type returned depends on the ACS
+> >   * redirection setting of the ports along the path.
+> >   *
+> > + * The client initiates Requests to provider memory. Check Request Redirect
+> > + * on the client path and Completion Redirect for read Completions on the
+> > + * provider path.
+> > + *
+> >   * If ACS redirect is set on any port in the path, traffic between the
+> >   * devices will go through the host bridge, so return
+> >   * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
+> > @@ -721,6 +757,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+> >  	int dist_a = 0;
+> >  	int dist_b = 0;
+> >  	char buf[128];
+> > +	u16 ctrl;
+> >  
+> >  	seq_buf_init(&acs_list, buf, sizeof(buf));
+> >  
+> > @@ -732,7 +769,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+> >  	while (a) {
+> >  		dist_b = 0;
+> >  
+> > -		if (pci_bridge_has_acs_redir(a)) {
+> > +		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
+> > +		    pci_acs_p2pdma_completion(ctrl) ==
+> > +			    PCI_ACS_P2PDMA_REDIRECT) {
+> >  			seq_buf_print_bus_devfn(&acs_list, a);
+> >  			acs_cnt++;
+> >  		}
+> > @@ -761,7 +800,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+> >  		if (a == bb)
+> >  			break;
+> >  
+> > -		if (pci_bridge_has_acs_redir(bb)) {
+> > +		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
+> > +		    pci_acs_p2pdma_request(ctrl) ==
+> > +			    PCI_ACS_P2PDMA_REDIRECT) {
+> >  			seq_buf_print_bus_devfn(&acs_list, bb);
+> >  			acs_cnt++;
+> >  		}
+> > @@ -1109,10 +1150,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+> >  /**
+> >   * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
+> >   * @provider: P2PDMA provider structure
+> > - * @dev: Target device for the transfer
+> > + * @dev: Client device that initiates the transfer
+> >   *
+> >   * Determines how peer-to-peer DMA transfers should be mapped between
+> > - * the provider and the target device. The mapping type indicates whether
+> > + * the provider and the client device. The mapping type indicates whether
+> >   * the transfer can be done directly through PCI switches or must go
+> >   * through the host bridge.
+> >   */
+> > 
+> > -- 
+> > 2.55.0
+> > 
