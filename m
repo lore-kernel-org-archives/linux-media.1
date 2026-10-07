@@ -1,375 +1,530 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-208.mta1.migadu.com [95.215.58.208])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCE8493623
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 11:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5363D813E
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 12:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.208
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372724; cv=none; b=IzDuj22zjitomkafkLAn0CW0f2Mx1cmNHIOilqRZiMBV3DiWDPGgQHd0SUspvGZS88bvQ8X6QptHjfy0z3RSW9g0VjJkD/jwf8+ViVJeOAF7EQe5IzXaTUk61x/qeliPcGtMZeP+t/st+NF2teNxhQkUfzYQ0HbceyMgC+irVYU=
+	t=1791374577; cv=none; b=UW0GylrXt3xKPnkd5v4NluWK/mE8zqa0Cq4FyI93RUb8miIacsodsR41vfDC9GSphCSEFxRWkQfhuK0mV4FXzhXEA3TuMzlaS96Fm/m/AAU4Ue9QL/16oxhBcnfjRiZfP3fgscIUHojCV8kiEsCqvOR0biqbzCfXDZ+SC8FLWaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372724; c=relaxed/simple;
-	bh=ZMiiaGyDYTCxz97Sz+PlnJpX40AY+IuV2cS3lwByG+o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U6FZ7/kCnJpSUngw6arnL4f89qvDpRBlYoYBlc2yLb1B8qP+6moRC6rLMaQzAMceuem7emgL9PuH+YvWwpWSFIsNwCMMIwzMErwFzgL20dc57cfoLnGl8RBt0rCSuegzfBbAVhkMnZgfLnpCpPRyaNPSX8WscxRHf+cv0Wf6o0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JvyTIzPl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L2EZ3ARE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791374577; c=relaxed/simple;
+	bh=I3I2EGwEvdd1xzorZSyj7Ywj415M3xlCNnegKaql7J0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=GlYFEKderof+MKwfKvenh4452AndJ1AY6eRLpyEmUgJD2kp4vvZm2mNTmcyVQoAqRN4sTC0rBezKWg2FzyHalcu8Lw4UjOXl9ergydRy813CvPtuRPl4UsoYyuSAC+PMhtQpX+/6sGA2Ht4aCnfQBXOpnGwuPgJ94yShSvoKEG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=QOPXms+i; arc=none smtp.client-ip=95.215.58.208
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JvyTIzPl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L2EZ3ARE"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BV6Hx609831
-	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 11:31:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HmYaoe+lJGtCYKh/EC4wIHB7K0XcNmCPYjiXJ8nhW0A=; b=JvyTIzPlCDI4/IC0
-	aSsOzIZCMmdbzM0M77i0zVmy3gmvNgfAB/594YXaRMzV+jmETQCWZY94EAMHC2dY
-	ulTB2ESJ5d57i3zhFA0DedLCjlyPQbuoaIw9giokX6Lo4ohJcKNw+M80beFFR6E1
-	TPBog61WSdSCxzI2Qpx4+ZpSOQk7yyrOBvbceBd4soP+ROhwJ1XaaC05ebDu5ujz
-	IQK9tfomyc0gKSoFq5rOJpDTwriykwqIWejMZw6WL6NLcfN6Em7QCfeqrmTHj11o
-	1inW6jE1SyRPFDxMk9PoketnvxqpPnBWyGeCyPZS8r4WKTUiU2eDpOFOt15C9VCI
-	3DTDGA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fc597bk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 11:31:43 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2d4a8623bso38497515ad.1
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 04:31:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791372703; x=1791977503; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HmYaoe+lJGtCYKh/EC4wIHB7K0XcNmCPYjiXJ8nhW0A=;
-        b=L2EZ3AREGZkA4Xzp2vQ0Y9QKdHnMk+RbOnQqsoOc448EMJ43CRdljbqOSawhav8PeJ
-         V3zNDfSogeXRNayyociUn5WO2qr7wCD9kLGWsNk3BvymcopjS3aKNczKtefBnaWo8aie
-         ki5InXgDOwko+jDgjbbpSQiVj+N19MXRqb+mtG8o3VqnuZdOmBSu4belJyiMdvvOD6Ac
-         cbjD8LiA502Zsom3T1TGKTq82LxzWXj9WwXLuQDEkb3mfIa+YuJnsnjjKltgQvvuWlbD
-         eVjzm/Pn+u0rh0CuGEz6exKdSfdRIJAkn+c1nirdRJcwYlcgJ3rWvVFwU1xdTKdeoqGL
-         zWow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791372703; x=1791977503;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HmYaoe+lJGtCYKh/EC4wIHB7K0XcNmCPYjiXJ8nhW0A=;
-        b=W7I6NrokH8/GaO2n/+Ny2AgUiWZpVvyom78Ypt+hEUqXRfscUl5RuwAYuYicNwbDDF
-         33+BgQ2pzEbEONKOJkWz4Jm8famWkHMSuOPxN1fbwRhMHBQcft/m2yqdmIlCjSOkW5BG
-         Iqm6EAMLDRpA2vn1zWKyvAoPAIBiOsmD9+om87yvIgnupfqG1rx3Ah1fro/ABK/BReV8
-         nrfunzzbuG/Q4yn3obQuPoX5llzGYpjfy662++akhElsV78zaFi4hL/5T/MiMNlZfQfA
-         BcEhgxPcofbdP3MfuSAYHwxhb/Ew2dgkN3Nr0VE/Ha/NsxRFGNZNyZdinhw0gw8mEIqT
-         R6ww==
-X-Forwarded-Encrypted: i=1; AKwUvBw4dRdicJLvIGz9KHTcyrXT8Ux84fWXIaWTMjBt16OOpyVvPda2D5dkYgL1/d6lj3ktBMVip4GD/1QImg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7QJ2OtDQJbqWwZ6eR4xyEt0eNeFug33rHP8SyfW+PHmsSkiLQ
-	9XOw6DteUfYDJ8+TNrsS3leIczdkh6kY/n01PygQT5PZ1KC1K1HQnvBj4R5YyVXMbOJFP+NYt9o
-	89opkoYoquGpr7m4DB3x4kFRnmRdTLfVoP34iX/jZSpqgxC9GuHPnJpiVysyNgTK0TQ==
-X-Gm-Gg: AYBFou063nE1FmJmIhI62LV4gJ2811Q/eSaiJYYo+E/wVPh5HBAeCxxRdO9yK9pLjag
-	cGQn8mj0XjtjKKYsulEnep7q6fDPc0pKt8Rnu+8z6MOqR8KmDJNIakgnfrtcwyXrw5b95+kW2rm
-	Ep14ohO/HK1OV8SDbYn5RKkNgEPJyGIkXykspg69p0SB75BRmHCoWXImBOfkNFQ4HRK6dzTht8f
-	/TErpe+86a6twAUmCypNB6un77ol+Uw4HP4AvNehZQAgIVYF6fpWdisb4kEOBgp4pbTBk0ajQvq
-	GRIsYISPeaymp7+OsHhy1mC4qczF+1HiainWjslqohYAq3BP+kULlE/2s827F8gB5GXizHMdol/
-	aXpdjF1AQrz73hLPIAWYHuGn+/1cv6LNMmA==
-X-Received: by 2002:a17:902:e74d:b0:2e6:13b1:e196 with SMTP id d9443c01a7336-2e613b1f621mr8732405ad.74.1791372702637;
-        Wed, 07 Oct 2026 04:31:42 -0700 (PDT)
-X-Received: by 2002:a17:902:e74d:b0:2e6:13b1:e196 with SMTP id d9443c01a7336-2e613b1f621mr8732155ad.74.1791372702041;
-        Wed, 07 Oct 2026 04:31:42 -0700 (PDT)
-Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0d9sm8388515ad.20.2026.10.07.04.31.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:31:41 -0700 (PDT)
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 17:01:06 +0530
-Subject: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
- during power-off
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="QOPXms+i"
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=I3I2EGwEvdd1xzorZSyj7Ywj415M3xlCNnegKaql7J0=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791374560; v=1; x=1791979360;
+ b=QOPXms+i/aFsMHpNqldMwld6yKrXVAK1rRcQMnAnBPcxPn9j0OPtLBDceQdvIufJ38wyFPPR
+ Q7E/troQ5jNqAYiBBLI5qS8B2fgisguB0ou0LNC4qmCk1d+V6qd/tz78Nt3Qxuz/QoBV4o2gjSD
+ nUjjEJ1IsMZU0EY1e5+AV1kqtPK7zPuK4DmKtVAR1SNbNWHrkKKUNVr6y4WxQI7XCl08tfH964W
+ PYsg1fKjD164qX23r3ZO/mAg6mB+jPSHjUHwP4TP68xsM5cBb4f+84JnHfAEROWhb6HXFpkIeyi
+ pZuUi0Ot0DzCyA7iL0rwJlFEuUnLqYAg/RymtirBkNkFQ==
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0df9cfd24733c53d;
+	Wed, 07 Oct 2026 12:02:40 +0000
+X-Mizu-Trace-ID: 0df9cfd24733c53d
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
-References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
-In-Reply-To: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791372685; l=8327;
- i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=ZMiiaGyDYTCxz97Sz+PlnJpX40AY+IuV2cS3lwByG+o=;
- b=nS5ubLhwDSaEH3cKb1JICyOHeJzyDQQqyrYEnMmFlHEBsO+XsonEGwIZ6pWuu+uXDOlGArcWj
- liq3Uox8McTBxlhGheq2tsmrhsFLB9fwMwEA6vgDf9ZTSOv1yfWIR/S
-X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
- pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0NSBTYWx0ZWRfX691Iz8eYCbDn
- E0vrGLphtk5+rvYyR1GSliecOloIEPnpnFo9sk6fWeZzboy9285WeJhi4oFLg4YRuXrtlEcaIxm
- l4H+eX7Wnzz4CTV8Zpk7a8+r8j+lQrI=
-X-Proofpoint-GUID: CD24dz3NJbzAadWa-_aoBdvAK1uhR7Ux
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0NSBTYWx0ZWRfX9sJzQrLKSa31
- Dg6DmRU8jgIRT9CjRT6fWc5W0f+IQtLdIJemUSTh/c+rmCyFSZXqRBiWoRK9VG7DdCMG1gT+0FF
- XrBGve+Hy5hcGHASXFQrGnFDtePHaUoQ01phf666L03PdlkU5GzkvVrp8scMFsWqhQqnbg22Xmf
- 3N8npNtlojtw1M4PuCZZkbeIwZfZSl91mR6Ts/iiQ7oTzZZIb9JaC5nyGsSONV/7XTBdUbQCw1f
- 8YQvENRBs/EPn8OQQ0uWkrm1FgNAJsgVW105TRdLo0QEsnFNVI14oxRrYShlCnFT0x1MeYrY76h
- 5TqOtW6FWgFiK/iCVF0lLwmBK0rsJRLNA8WrLU3qvQMQtAMpoorvSXTnuZDZUtSs+DEMMxGYAzB
- R4rNgG/fIw62FM+VM7/GZv0iZRoILpVo9JFGqFiY9+vlmJYPQImSFOoHBwKhKLLcUe+L0GzuUDY
- pWR8TMZJliHWrjEnHvw==
-X-Proofpoint-ORIG-GUID: CD24dz3NJbzAadWa-_aoBdvAK1uhR7Ux
-X-Authority-Analysis: v=2.4 cv=a6+lZkSF c=1 sm=1 tr=0 ts=6ac62d9f cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=m_RbpQ2zxIAPIIsuggwA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070045
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 14:02:31 +0200
+Message-Id: <DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Jason Gunthorpe"
+ <jgg@nvidia.com>, "Rob Clark" <rob.clark@oss.qualcomm.com>, "Jianfeng Liu"
+ <liujianfeng1994@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vinod Koul"
+ <vkoul@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 2/3] dma-buf: add a warn-only mode to DMABUF_DEBUG
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <20261005064133.7305-3-kmehltretter@gmail.com>
+In-Reply-To: <20261005064133.7305-3-kmehltretter@gmail.com>
 
-The VPU power-off path calls disable_irq_nosync() after powering down the
-hardware, allowing a pending threaded IRQ handler to access powered-off
-hardware. Switch to disable_irq() so that any in-flight threaded IRQ
-handler completes before power is removed.
+Hi,
 
-However, disable_irq() waits for the threaded IRQ handler to complete,
-while the handler requires core->lock to proceed. Since the caller of
-iris_vpu_power_off() holds core->lock, calling disable_irq() directly can
-deadlock if the IRQ handler is queued and waiting for the same lock.
-Release core->lock before calling disable_irq() and reacquire it after the
-handler completes. Introduce an irq_disabling flag and waitqueue to
-serialize concurrent power management operations while the core->lock is
-released.
+On Mon Oct 5, 2026 at 8:41 AM CEST, Karl Mehltretter wrote:
+> DMABUF_DEBUG hands importers a copy of the exporter's sg_table without
+> the struct pages. An importer that uses them then fails, often far from
+> the cause and without a message that points at it. Where sg_dma_len()
+> is sg->length, the copy cannot hide the length either.
+>
+> Add DMABUF_DEBUG_WARN. With it the copy keeps the CPU side of the
+> exporter's table: page, offset and length of all orig_nents entries,
+> and the exporter's nents and orig_nents. A table without a CPU side
+> (orig_nents =3D=3D 0) stays that way. Every entry of the copy is marked
+> with a new dma_flags bit, SG_DMA_DMABUF_DEBUG.
+>
+> sg_page(), sg_nents_for_len() and sg_split() test the bit and print a
+> rate limited message with a stack trace. sg_page() is mostly reached
+> through DMA and scatterlist helpers, so the trace is what names the
+> importer. These CPU-side accesses can continue after the report instead
+> of failing because the fields were cleared.
+>
+> The report is not a WARN(). It does not taint the kernel and does not
+> trigger panic_on_warn.
+>
+> Reads of sg->offset and sg->length that do not go through these
+> helpers are not seen. The option adds a test to every sg_page() and
+> selects NEED_SG_DMA_FLAGS.
+>
+> Strict mode remains the default and continues to remove the CPU-side
+> fields.
 
-Fixes: bb8a95aa038e ("media: iris: implement power management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
----
- drivers/media/platform/qcom/iris/iris_core.c       | 10 +++++-----
- drivers/media/platform/qcom/iris/iris_core.h       |  5 +++++
- drivers/media/platform/qcom/iris/iris_probe.c      |  9 +++++----
- drivers/media/platform/qcom/iris/iris_resources.c  | 16 ++++++++++++++++
- drivers/media/platform/qcom/iris/iris_resources.h  |  2 ++
- drivers/media/platform/qcom/iris/iris_vpu_common.c | 16 +++++++++++++---
- 6 files changed, 46 insertions(+), 12 deletions(-)
+Thanks for this patch set!
 
-diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-index d558475986ff0..f81fb6d42557d 100644
---- a/drivers/media/platform/qcom/iris/iris_core.c
-+++ b/drivers/media/platform/qcom/iris/iris_core.c
-@@ -17,7 +17,7 @@ void iris_core_deinit(struct iris_core *core)
- 
- 	ret = pm_runtime_resume_and_get(core->dev);
- 
--	mutex_lock(&core->lock);
-+	iris_acquire_core_lock(core);
- 	if (core->state != IRIS_CORE_DEINIT) {
- 		iris_fw_unload(core);
- 
-@@ -27,7 +27,7 @@ void iris_core_deinit(struct iris_core *core)
- 		iris_hfi_queues_deinit(core);
- 		core->state = IRIS_CORE_DEINIT;
- 	}
--	mutex_unlock(&core->lock);
-+	iris_release_core_lock(core);
- 
- 	if (!ret)
- 		pm_runtime_put_sync(core->dev);
-@@ -55,7 +55,7 @@ int iris_core_init(struct iris_core *core)
- 	const struct vpu_ops *vpu_ops = core->iris_platform_data->vpu_ops;
- 	int ret;
- 
--	mutex_lock(&core->lock);
-+	iris_acquire_core_lock(core);
- 	if (core->state == IRIS_CORE_INIT) {
- 		ret = 0;
- 		goto exit;
-@@ -96,7 +96,7 @@ int iris_core_init(struct iris_core *core)
- 	if (ret)
- 		goto error_unload_fw;
- 
--	mutex_unlock(&core->lock);
-+	iris_release_core_lock(core);
- 
- 	return iris_wait_for_system_response(core);
- 
-@@ -109,7 +109,7 @@ int iris_core_init(struct iris_core *core)
- error:
- 	core->state = IRIS_CORE_DEINIT;
- exit:
--	mutex_unlock(&core->lock);
-+	iris_release_core_lock(core);
- 
- 	return ret;
- }
-diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-index 3e4cf652bf39a..0b1b9721e6f9a 100644
---- a/drivers/media/platform/qcom/iris/iris_core.h
-+++ b/drivers/media/platform/qcom/iris/iris_core.h
-@@ -10,6 +10,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/pm_domain.h>
- #include <media/v4l2-device.h>
-+#include <linux/wait.h>
- 
- #include "iris_hfi_common.h"
- #include "iris_hfi_queue.h"
-@@ -70,6 +71,8 @@ struct qcom_ubwc_cfg_data;
-  * @message_queue: shared interface queue to receive responses from firmware
-  * @debug_queue: shared interface queue to receive debug info from firmware
-  * @lock: a lock for this strucure
-+ * @irq_disabling: flag to indicate an IRQ-disable is in-progress
-+ * @irq_disable_waitqueue: waitqueue to wait for the IRQ-disable to complete
-  * @response_packet: a pointer to response packet from fw to driver
-  * @header_id: id of packet header
-  * @packet_id: id of packet
-@@ -116,6 +119,8 @@ struct iris_core {
- 	struct iris_iface_q_info		message_queue;
- 	struct iris_iface_q_info		debug_queue;
- 	struct mutex				lock; /* lock for core related operations */
-+	bool					irq_disabling;
-+	wait_queue_head_t			irq_disable_waitqueue;
- 	u8					*response_packet;
- 	u32					header_id;
- 	u32					packet_id;
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index 41dec90f3e2be..d207d5757648c 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -288,6 +288,7 @@ static int iris_probe(struct platform_device *pdev)
- 
- 	core->state = IRIS_CORE_DEINIT;
- 	mutex_init(&core->lock);
-+	init_waitqueue_head(&core->irq_disable_waitqueue);
- 	init_completion(&core->core_init_done);
- 
- 	core->response_packet = devm_kzalloc(core->dev, IFACEQ_CORE_PKT_SIZE, GFP_KERNEL);
-@@ -379,14 +380,14 @@ static int __maybe_unused iris_pm_suspend(struct device *dev)
- 
- 	core = dev_get_drvdata(dev);
- 
--	mutex_lock(&core->lock);
-+	iris_acquire_core_lock(core);
- 	if (core->state != IRIS_CORE_INIT)
- 		goto exit;
- 
- 	ret = iris_hfi_pm_suspend(core);
- 
- exit:
--	mutex_unlock(&core->lock);
-+	iris_release_core_lock(core);
- 
- 	return ret;
- }
-@@ -398,7 +399,7 @@ static int __maybe_unused iris_pm_resume(struct device *dev)
- 
- 	core = dev_get_drvdata(dev);
- 
--	mutex_lock(&core->lock);
-+	iris_acquire_core_lock(core);
- 	if (core->state != IRIS_CORE_INIT)
- 		goto exit;
- 
-@@ -406,7 +407,7 @@ static int __maybe_unused iris_pm_resume(struct device *dev)
- 	pm_runtime_mark_last_busy(core->dev);
- 
- exit:
--	mutex_unlock(&core->lock);
-+	iris_release_core_lock(core);
- 
- 	return ret;
- }
-diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-index 883ef7e752915..6c92857a6b8eb 100644
---- a/drivers/media/platform/qcom/iris/iris_resources.c
-+++ b/drivers/media/platform/qcom/iris/iris_resources.c
-@@ -16,6 +16,22 @@
- 
- #define BW_THRESHOLD 50000
- 
-+void iris_acquire_core_lock(struct iris_core *core)
-+{
-+	mutex_lock(&core->lock);
-+
-+	while (READ_ONCE(core->irq_disabling)) {
-+		mutex_unlock(&core->lock);
-+		wait_event(core->irq_disable_waitqueue, !READ_ONCE(core->irq_disabling));
-+		mutex_lock(&core->lock);
-+	}
-+}
-+
-+void iris_release_core_lock(struct iris_core *core)
-+{
-+	mutex_unlock(&core->lock);
-+}
-+
- int iris_set_icc_bw(struct iris_core *core, unsigned long icc_bw)
- {
- 	u32 icc_ib_multiplier = core->iris_platform_data->icc_ib_multiplier;
-diff --git a/drivers/media/platform/qcom/iris/iris_resources.h b/drivers/media/platform/qcom/iris/iris_resources.h
-index 6bfbd2dc6db09..6e1a5e734925f 100644
---- a/drivers/media/platform/qcom/iris/iris_resources.h
-+++ b/drivers/media/platform/qcom/iris/iris_resources.h
-@@ -8,6 +8,8 @@
- 
- struct iris_core;
- 
-+void iris_acquire_core_lock(struct iris_core *core);
-+void iris_release_core_lock(struct iris_core *core);
- int iris_opp_set_rate(struct device *dev, unsigned long freq);
- int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev);
- int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev);
-diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-index 1e183fc4e58ce..fcf060a72c4cf 100644
---- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-+++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-@@ -232,15 +232,25 @@ void iris_vpu_power_off_hw(struct iris_core *core)
- 	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
- }
- 
-+static void iris_vpu_disable_irq(struct iris_core *core)
-+{
-+	WRITE_ONCE(core->irq_disabling, true);
-+	mutex_unlock(&core->lock);
-+	disable_irq(core->irq);
-+	mutex_lock(&core->lock);
-+	WRITE_ONCE(core->irq_disabling, false);
-+	wake_up_all(&core->irq_disable_waitqueue);
-+}
-+
- void iris_vpu_power_off(struct iris_core *core)
- {
-+	if (!iris_vpu_watchdog(core, core->intr_status))
-+		iris_vpu_disable_irq(core);
-+
- 	iris_opp_set_rate(core->dev, 0);
- 	core->iris_platform_data->vpu_ops->power_off_hw(core);
- 	core->iris_platform_data->vpu_ops->power_off_controller(core);
- 	iris_unset_icc_bw(core);
--
--	if (!iris_vpu_watchdog(core, core->intr_status))
--		disable_irq_nosync(core->irq);
- }
- 
- int iris_vpu_power_on_controller(struct iris_core *core)
+I build a 7.3-rc6 based kernel with this patch set included.
+And I (ofc) enabled DMABUF_DEBUG and DMABUF_DEBUG_WARN.
 
--- 
-2.34.1
+I then tested it on my NanoPC-T6 Plus (RK3588 SoC) connected to my 1080p
+monitor and also on my NanoPC-T6 LTS (RK3588) connected to my 4K TV (which
+is HDMI 2.0, not 2.1, capable).
+On both devices I got an identical call trace.
+I did get a new (identical) one every time I resized the video window,
+ie going from windowed to full-screen and back again.
+
+```sh
+[ 1091.981354] rc rc3: two consecutive events of type space
+[ 1104.670513] input: EDIFIER e235 (AVRCP) as /devices/virtual/input/input1=
+2
+[ 1172.090231] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1189.403278] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1206.309295] input: EDIFIER e235 (AVRCP) as /devices/virtual/input/input1=
+3
+[ 1268.968696] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1268.968710] CPU: 6 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1268.968715] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1268.968717] Call trace:
+[ 1268.968719]  show_stack+0x20/0x38 (C)
+[ 1268.968726]  dump_stack_lvl+0x60/0x80
+[ 1268.968730]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+[ 1268.968734]  sg_dmabuf_cpu_access_warn+0x34/0x38
+[ 1268.968739]  iommu_map_sg+0xc8/0x1e0
+[ 1268.968745]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+[ 1268.968757]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+[ 1268.968761]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+[ 1268.968776]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+[ 1268.968786]  drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+[ 1268.968796]  drm_ioctl_kernel+0xc8/0x140 [drm]
+[ 1268.968806]  drm_ioctl+0x254/0x558 [drm]
+[ 1268.968816]  __arm64_sys_ioctl+0xac/0x118
+[ 1268.968821]  invoke_syscall.constprop.0+0xac/0x110
+[ 1268.968825]  el0_svc_common.constprop.0+0x40/0xf0
+[ 1268.968829]  do_el0_svc+0x24/0x40
+[ 1268.968832]  el0_svc+0x40/0x260
+[ 1268.968836]  el0t_64_sync_handler+0xa0/0xe8
+[ 1268.968838]  el0t_64_sync+0x198/0x1a0
+[ 1290.531300] sg_dmabuf_cpu_access_warn: 36 callbacks suppressed
+[ 1290.531310] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1290.531319] CPU: 5 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1290.531323] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1290.531325] Call trace:
+[ 1290.531327]  show_stack+0x20/0x38 (C)
+[ 1290.531335]  dump_stack_lvl+0x60/0x80
+[ 1290.531338]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+[ 1290.531342]  sg_dmabuf_cpu_access_warn+0x34/0x38
+[ 1290.531347]  iommu_map_sg+0xc8/0x1e0
+[ 1290.531352]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+[ 1290.531364]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+[ 1290.531368]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+[ 1290.531384]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+[ 1290.531394]  drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+[ 1290.531404]  drm_ioctl_kernel+0xc8/0x140 [drm]
+[ 1290.531414]  drm_ioctl+0x254/0x558 [drm]
+[ 1290.531424]  __arm64_sys_ioctl+0xac/0x118
+[ 1290.531429]  invoke_syscall.constprop.0+0xac/0x110
+[ 1290.531433]  el0_svc_common.constprop.0+0x40/0xf0
+[ 1290.531437]  do_el0_svc+0x24/0x40
+[ 1290.531439]  el0_svc+0x40/0x260
+[ 1290.531444]  el0t_64_sync_handler+0xa0/0xe8
+[ 1290.531446]  el0t_64_sync+0x198/0x1a0
+[ 1294.197699] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1313.464098] sg_dmabuf_cpu_access_warn: 149 callbacks suppressed
+[ 1313.464121] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1313.464144] CPU: 2 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1313.464156] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1313.464163] Call trace:
+[ 1313.464168]  show_stack+0x20/0x38 (C)
+...
+```
+
+Full dmesg output is posted here:
+https://paste.sr.ht/~diederik/3d0020b4f3b0e8547397c20d5c10387d88d32341
+
+Hopefully this helps fixing the underlaying issue.
+
+Cheers,
+  Diederik
+
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>
+> Notes:
+>     Tested on v7.3-rc4-70-gfe2ec83746e5 with GCC 15.2.0.
+>    =20
+>     Builds, without warnings:
+>    =20
+>     - x86_64 with DMABUF_DEBUG_WARN=3Dy, full build
+>     - arm64 defconfig with DMABUF_DEBUG_WARN=3Dy: Image, and the msm and
+>       rockchip DRM drivers
+>     - ARM926 (SAM9X75) with DMABUF_DEBUG_WARN=3Dy and without
+>       NEED_SG_DMA_LENGTH, full build
+>     - ARM926 with DMABUF_DEBUG=3Dn and without NEED_SG_DMA_FLAGS, full bu=
+ild.
+>       dma-buf.o and lib/scatterlist.o disassemble as on the base commit,
+>       except for __LINE__ constants.
+>     - x86_64 with SG_SPLIT, W=3D1, the objects touched here: with
+>       DMABUF_DEBUG_WARN=3Dy, with DMABUF_DEBUG=3Dy alone, and with
+>       DMABUF_DEBUG=3Dn
+>    =20
+>     Runtime, both in QEMU with local device models, not on hardware.
+>    =20
+>     Zynq with an AXI ADC, IIO DMABUF capture into udmabuf buffers,
+>     NEED_SG_DMA_LENGTH=3Dy. The IIO dmaengine buffer calls sg_nents_for_l=
+en()
+>     on the attachment's table. With DMABUF_DEBUG=3Dy alone the capture fa=
+ils:
+>    =20
+>       DMABUF_ENQUEUE failed: Device or resource busy
+>    =20
+>     With DMABUF_DEBUG_WARN=3Dy all 16 blocks arrive with the right data, =
+the
+>     kernel is not tainted, and the log has one report:
+>    =20
+>       DMA-BUF: importer used the CPU side of an exporter's sg_table
+>       CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VO=
+LUNTARY
+>       Hardware name: Xilinx Zynq Platform
+>       Call trace:
+>        unwind_backtrace from show_stack+0x10/0x14
+>        show_stack from dump_stack_lvl+0x54/0x68
+>        dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
+>        sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
+>        iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block=
+.part.0+0x5c/0x104
+>        iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dma=
+buf+0x68/0xa0
+>        iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0=
+x9a4
+>        iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
+>        sys_ioctl from ret_fast_syscall+0x0/0x4c
+>    =20
+>     x86_64 with intel-iommu, xHCI and a SUR40, capture into udmabuf
+>     buffers. This kernel had a one-line test-only change in sur40 that
+>     makes the vb2 queue use the USB controller's DMA device. There was no
+>     report during boot. The capture gives one, from sg_page() in
+>     iommu_dma_map_sg():
+>    =20
+>       DMA-BUF: importer used the CPU side of an exporter's sg_table
+>       CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0-rc4+ #5 PR=
+EEMPT(lazy)
+>       Workqueue: events_freezable input_dev_poller_work
+>       Call Trace:
+>        <TASK>
+>        dump_stack_lvl+0x4d/0x70
+>        iommu_dma_map_sg+0x4c0/0x1010
+>        __dma_map_sg_attrs+0x254/0x3b0
+>        dma_map_sg_attrs+0xe/0x20
+>        usb_hcd_map_urb_for_dma+0x7e0/0x1620
+>        usb_hcd_submit_urb+0x162/0x1af0
+>        usb_sg_wait+0x17c/0x550
+>        sur40_poll+0xb3e/0xff0
+>        input_dev_poller_work+0x54/0x90
+>        process_one_work+0x692/0xf90
+>        [...]
+>    =20
+>     The capture did not finish in this setup. The guest stalled in
+>     xhci_queue_bulk_tx() after the report, so this run only shows the
+>     report.
+>    =20
+>     The SG_DMA_* defines move up in scatterlist.h because sg_page() needs
+>     the new one.
+>
+>  drivers/dma-buf/Kconfig     | 23 +++++++++++++++++++
+>  drivers/dma-buf/dma-buf.c   | 44 ++++++++++++++++++++++++++++++++++++-
+>  include/linux/scatterlist.h | 26 +++++++++++++++++++---
+>  lib/scatterlist.c           | 22 +++++++++++++++++++
+>  lib/sg_split.c              |  2 ++
+>  5 files changed, 113 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index e4f078a326a4..06177465091a 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -49,6 +49,29 @@ config DMABUF_DEBUG
+>  	  exporters. Specifically it validates that importers do not peek at th=
+e
+>  	  underlying struct page when they import a buffer.
+> =20
+> +config DMABUF_DEBUG_WARN
+> +	bool "Warn instead of hiding the pages from DMA-BUF importers"
+> +	depends on DMABUF_DEBUG
+> +	select NEED_SG_DMA_FLAGS
+> +	help
+> +	  DMABUF_DEBUG normally hands importers a copy of the exporter's
+> +	  sg_table without the struct page pointers, so that an importer which
+> +	  uses them fails early.
+> +
+> +	  With this option the copy keeps the pages, offsets and lengths and is
+> +	  only marked. sg_page() and the helpers built on it, sg_nents_for_len(=
+)
+> +	  and sg_split() then print a rate limited message with a stack trace
+> +	  when they are used on such a table. The access itself continues
+> +	  instead of failing because the fields were cleared. The message is
+> +	  not a WARN(): it does not taint the kernel or trigger panic_on_warn.
+> +
+> +	  Importers that read sg->offset or sg->length directly are not
+> +	  noticed. The option adds a test to every sg_page() call. It selects
+> +	  NEED_SG_DMA_FLAGS, which adds dma_flags and may increase the size of
+> +	  struct scatterlist.
+> +
+> +	  If unsure, say N.
+> +
+>  config DMABUF_KUNIT_TEST
+>  	tristate "KUnit tests for DMA-BUF" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index b3d311acb883..bd82b6b7f5ff 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -57,6 +57,7 @@
+>  struct dma_buf_sg_table_wrapper {
+>  	struct sg_table *original;
+>  	struct sg_table wrapper;
+> +	unsigned int alloc_nents;
+>  };
+> =20
+>  static inline int is_dma_buf_file(struct file *);
+> @@ -874,11 +875,42 @@ void dma_buf_put(struct dma_buf *dmabuf)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
+> =20
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +/*
+> + * Warn mode: the importer also gets the CPU side of the exporter's tabl=
+e,
+> + * marked so that sg_page() and friends can report who uses it.
+> + */
+> +static void dma_buf_wrap_cpu_side(struct sg_table *to, struct sg_table *=
+from)
+> +{
+> +	struct scatterlist *to_sg, *from_sg;
+> +	int i;
+> +
+> +	for_each_sgtable_sg(to, to_sg, i)
+> +		to_sg->dma_flags |=3D SG_DMA_DMABUF_DEBUG;
+> +
+> +	to_sg =3D to->sgl;
+> +	for_each_sgtable_sg(from, from_sg, i) {
+> +		sg_assign_page(to_sg, sg_page(from_sg));
+> +		to_sg->offset =3D from_sg->offset;
+> +		to_sg->length =3D from_sg->length;
+> +		to_sg =3D sg_next(to_sg);
+> +	}
+> +
+> +	to->nents =3D from->nents;
+> +	to->orig_nents =3D from->orig_nents;
+> +}
+> +#else
+> +static void dma_buf_wrap_cpu_side(struct sg_table *to, struct sg_table *=
+from)
+> +{
+> +}
+> +#endif
+> +
+>  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>  {
+>  	struct scatterlist *to_sg, *from_sg;
+>  	struct sg_table *from =3D *sg_table;
+>  	struct dma_buf_sg_table_wrapper *to;
+> +	unsigned int nents =3D from->nents;
+>  	int i, ret;
+> =20
+>  	if (!IS_ENABLED(CONFIG_DMABUF_DEBUG))
+> @@ -888,14 +920,21 @@ static int dma_buf_wrap_sg_table(struct sg_table **=
+sg_table)
+>  	 * To catch abuse of the underlying struct page by importers copy the
+>  	 * sg_table without copying the page_link and give only the copy back t=
+o
+>  	 * the importer.
+> +	 *
+> +	 * With DMABUF_DEBUG_WARN the copy keeps the CPU side, which can have
+> +	 * more entries than the DMA side.
+>  	 */
+>  	to =3D kzalloc_obj(*to);
+>  	if (!to)
+>  		return -ENOMEM;
+> =20
+> -	ret =3D sg_alloc_table(&to->wrapper, from->nents, GFP_KERNEL);
+> +	if (IS_ENABLED(CONFIG_DMABUF_DEBUG_WARN))
+> +		nents =3D max(nents, from->orig_nents);
+> +
+> +	ret =3D sg_alloc_table(&to->wrapper, nents, GFP_KERNEL);
+>  	if (ret)
+>  		goto free_to;
+> +	to->alloc_nents =3D nents;
+> =20
+>  	to_sg =3D to->wrapper.sgl;
+>  	for_each_sgtable_dma_sg(from, from_sg, i) {
+> @@ -910,6 +949,7 @@ static int dma_buf_wrap_sg_table(struct sg_table **sg=
+_table)
+>  #endif
+>  		to_sg =3D sg_next(to_sg);
+>  	}
+> +	dma_buf_wrap_cpu_side(&to->wrapper, from);
+> =20
+>  	to->original =3D from;
+>  	*sg_table =3D &to->wrapper;
+> @@ -929,6 +969,8 @@ static void dma_buf_unwrap_sg_table(struct sg_table *=
+*sg_table)
+> =20
+>  	copy =3D container_of(*sg_table, typeof(*copy), wrapper);
+>  	*sg_table =3D copy->original;
+> +	/* sg_free_table() needs the number of allocated entries */
+> +	copy->wrapper.orig_nents =3D copy->alloc_nents;
+>  	sg_free_table(&copy->wrapper);
+>  	kfree(copy);
+>  }
+> diff --git a/include/linux/scatterlist.h b/include/linux/scatterlist.h
+> index 6de1a2434299..5dc8c134ca4c 100644
+> --- a/include/linux/scatterlist.h
+> +++ b/include/linux/scatterlist.h
+> @@ -21,6 +21,13 @@ struct scatterlist {
+>  #endif
+>  };
+> =20
+> +/* Bits in dma_flags, see below. sg_page() needs SG_DMA_DMABUF_DEBUG. */
+> +#ifdef CONFIG_NEED_SG_DMA_FLAGS
+> +#define SG_DMA_BUS_ADDRESS	(1 << 0)
+> +#define SG_DMA_SWIOTLB		(1 << 1)
+> +#define SG_DMA_DMABUF_DEBUG	(1 << 2)
+> +#endif
+> +
+>  /*
+>   * These macros should be used after a dma_map_sg call has been done
+>   * to get bus addresses of each of the SG entries and their lengths.
+> @@ -188,11 +195,27 @@ static inline void sg_set_folio(struct scatterlist =
+*sg, struct folio *folio,
+>  	sg->length =3D len;
+>  }
+> =20
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +void sg_dmabuf_cpu_access_warn(void);
+> +
+> +/* Report use of the CPU side of a table that a DMA-BUF importer was giv=
+en */
+> +static inline void sg_dmabuf_cpu_access_check(struct scatterlist *sg)
+> +{
+> +	if (unlikely(sg->dma_flags & SG_DMA_DMABUF_DEBUG))
+> +		sg_dmabuf_cpu_access_warn();
+> +}
+> +#else
+> +static inline void sg_dmabuf_cpu_access_check(struct scatterlist *sg)
+> +{
+> +}
+> +#endif
+> +
+>  static inline struct page *sg_page(struct scatterlist *sg)
+>  {
+>  #ifdef CONFIG_DEBUG_SG
+>  	BUG_ON(sg_is_chain(sg));
+>  #endif
+> +	sg_dmabuf_cpu_access_check(sg);
+>  	return (struct page *)((sg)->page_link & ~SG_PAGE_LINK_MASK);
+>  }
+> =20
+> @@ -303,9 +326,6 @@ static inline void sg_unmark_end(struct scatterlist *=
+sg)
+>   */
+>  #ifdef CONFIG_NEED_SG_DMA_FLAGS
+> =20
+> -#define SG_DMA_BUS_ADDRESS	(1 << 0)
+> -#define SG_DMA_SWIOTLB		(1 << 1)
+> -
+>  /**
+>   * sg_dma_is_bus_address - Return whether a given segment was marked
+>   *			   as a bus address
+> diff --git a/lib/scatterlist.c b/lib/scatterlist.c
+> index 6ea40d2e6247..55a3697df881 100644
+> --- a/lib/scatterlist.c
+> +++ b/lib/scatterlist.c
+> @@ -12,6 +12,27 @@
+>  #include <linux/bvec.h>
+>  #include <linux/uio.h>
+>  #include <linux/folio_queue.h>
+> +#include <linux/printk.h>
+> +#include <linux/ratelimit.h>
+> +
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +/*
+> + * Not a WARN(): a wrong importer must not taint the kernel or trigger
+> + * panic_on_warn. sg_page() is mostly reached through DMA or scatterlist
+> + * helpers, so the stack trace is what identifies the importer.
+> + */
+> +void sg_dmabuf_cpu_access_warn(void)
+> +{
+> +	static DEFINE_RATELIMIT_STATE(rs, DEFAULT_RATELIMIT_INTERVAL, 1);
+> +
+> +	if (!__ratelimit(&rs))
+> +		return;
+> +
+> +	pr_warn("DMA-BUF: importer used the CPU side of an exporter's sg_table\=
+n");
+> +	dump_stack_lvl(KERN_WARNING);
+> +}
+> +EXPORT_SYMBOL(sg_dmabuf_cpu_access_warn);
+> +#endif
+> =20
+>  /**
+>   * sg_nents - return total count of entries in scatterlist
+> @@ -54,6 +75,7 @@ int sg_nents_for_len(struct scatterlist *sg, u64 len)
+>  		return 0;
+> =20
+>  	for (nents =3D 0, total =3D 0; sg; sg =3D sg_next(sg)) {
+> +		sg_dmabuf_cpu_access_check(sg);
+>  		nents++;
+>  		total +=3D sg->length;
+>  		if (total >=3D len)
+> diff --git a/lib/sg_split.c b/lib/sg_split.c
+> index 24e8f5e48e63..cbbc7f9a206d 100644
+> --- a/lib/sg_split.c
+> +++ b/lib/sg_split.c
+> @@ -33,6 +33,8 @@ static int sg_calculate_split(struct scatterlist *in, i=
+nt nents, int nb_splits,
+>  	}
+> =20
+>  	for_each_sg(in, sg, nents, i) {
+> +		if (!mapped)
+> +			sg_dmabuf_cpu_access_check(sg);
+>  		sglen =3D mapped ? sg_dma_len(sg) : sg->length;
+>  		if (skip > sglen) {
+>  			skip -=3D sglen;
+
 
