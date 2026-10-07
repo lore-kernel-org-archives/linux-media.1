@@ -1,68 +1,68 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E851047F3C0
-	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 09:01:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CD2485CDE
+	for <linux-media@vger.kernel.org>; Wed,  7 Oct 2026 09:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363788; cv=none; b=rVJJzlppj8dUv2Y/ls1FrjfUnNsg9p/jfgoCrJQ9PY04rHJ64YKJ7Xny+XUN8s+0/XoXS4HqCP5SsKiAHQ2Sv0nulj02InGyO2iFYqmoy9In1XJVY6QAGHHhEhfZj4judujZtsvGLPi986E7p/3tWwtEcLNYuyWh4EqUn5uuvE8=
+	t=1791363794; cv=none; b=ZAnA4aWha+b6iD2z2UIWR6B7maM34Xrqv0IrF6TD95WR60WV0fpOsLUEPTyfrGziSqF8EYc2uJOotrvV15slBgzRTt4zTxK2rLHmvDKrJTzEzu45LBQk0fyVX4Wzaf9Vp7lYt1lw+w+gBVRp3iYMTcJ/6LaxA64AW+eJtI/ZLH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363788; c=relaxed/simple;
-	bh=7ig8RKzME4Tg23U2NT0cmp9t9Bqv3O5xWJzNztTvKZg=;
+	s=arc-20240116; t=1791363794; c=relaxed/simple;
+	bh=d1vATNs8EzG54iKhUnlLazo3efhzvjXDMTuggzBBvms=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eYj0XoYEiv054uECMpZ2BjOLy7JDUYIlBOZATF5ZwwjzR0M1RfFE2j/IGMI9XaL1R2EL22qMgxS0VJNZ1EmerxW9OAWgIy90cR/b+aUNg0NvZgXMEvcfQfLxdyCfM9zEeo/4IJXwHU+1NlkCc8FjsQDWDZZc7ADg2d6resyQkgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ekexX+I3 reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=OeBRy7nkGCMAhkxX9tOiKN3uZ/rkIHgpljJvk5s4aJ/oZVZ2iAMztTrpwu76hDJrQq5TCoJ0+WuwaUZJ69SmXmJEUYg72+NgP1KaPY2pD3/0sI5/w6vDmJEoDNm/7bdwJHjgfkzyt//sVANqKtJZyPUgC6OZcxfMHaf2zSStPI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ce0s8ld5 reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ekexX+I3"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jmYB3334818
-	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 09:01:36 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ce0s8ld5"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jkiK152085
+	for <linux-media@vger.kernel.org>; Wed, 7 Oct 2026 09:02:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=UoErLMLnc44
-	hB2Tr7ICKukvAM52COTfpqVXrz+zrfqE=; b=ekexX+I3YysZfBBk6zOG1uO8NJz
-	iPI1H54t6JdM4dFwlDaQALHvTbzL9tEahcrJg3mAapNZYCThy5JbeoYqMZnVugIw
-	SYIyA2Rw/3ynzO02VbsA5TXb+U+kjrYA/XTyL8N00PWdMqTnX1f5/iavqHuyHKZY
-	RvGvpJ0F1IMgk6ExmtGsos8BEZqBxvVfjmAZwBylL0ZEE+xePYFtAHh8w9fta6tC
-	kuz8S/Pz+pTUMBRKC9Ir/xIPsOPZ0IxSIIN//LQuhwGLG2B0exeBhRQRdZ57TZId
-	EH2jRHJLdE6gIjjdopXXX0/acO/RErA66Kec/7eGqjysRv72XBaj3+9tGUg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623ara-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=KLRYnMM5aQd
+	Jx2mY70lmVNjc2Xox2pDWBZko66RN9OY=; b=ce0s8ld5KYG4NQD45m8rwUYFaPI
+	F6efqvrgjsY0+vdxNfXD1dj1PG5ihj0v2LBrHkwjFpioypdd7KjoL4pG+c6iJx1b
+	IPdGsfqJtVsODpS87ZS+1bLN8KfQsTdgt3F05rABtx8W4Xj9/aZe8K5kDseIbX//
+	wpAMEiOMLpVeCDYNhiqJ1Is0sgq1Rqq/RR0LtnHol0zF5z2t5ScJOInTj1KXyq8Y
+	9QYNKQgqLkrDa1IqiuSTl1A5LU9O12ZKem9QArAhsRMqhmvTAcGyzjn1RRxm7CxS
+	I9vNHjd56j78o6QWvvhKmLH/LZApRIOwpJAQklWAUWVxcVLgchvWarv18KQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c719c1c-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 09:01:36 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cbf2fd504so720680585a.2
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 02:01:36 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 09:02:40 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-936aa34873bso745460185a.3
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 02:02:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363695; x=1791968495;
+        d=1e100.net; s=20260707; t=1791363759; x=1791968559;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UoErLMLnc44hB2Tr7ICKukvAM52COTfpqVXrz+zrfqE=;
-        b=1WH+7xFP/ulTS3C5O+Ux6KpEMx9Cd/k0KZQ82Z3aIDHnYyQpSklONh7TTy7+nmp8tc
-         GOwoVrt8oCcj8HcVUMj0C0XKRpt5v974Q4f/cHCXxAf9r9n55mpluoTkHdbuAQK1Qci8
-         Mz6d64+inwEDhW+twzo8jAlN2gtFrkipNZRjfM25IAY8ovtuvCG81JhQ/rXgfzC1iagi
-         R589NqGIF+gc/VHvGQPFizYbauHN+jCFMYxl6lBsdQP2UTQSkBS1//U+E4hGXlMryg9u
-         ZUDv7ABCTNNB/wtudTRTynOeOe5wWJqYRGC8cBm4mHooO7zLfLZltnlwcNJTclQ9lxwv
-         M8FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEK+X6tGBdVpXntOuz0jADcvTLTbyBbNMRgsY4+zp0uXs+X9LnMZO+dGqIsdBIME/Mo/OCjFXLfg9icg==@vger.kernel.org
-X-Gm-Message-State: AFuF++lPD/zVMYu45BsVt8l8arrjl472x2eZu7XRdX7AAflQaJ5fpUXN
-	zli1eOrzYSZSMkveanX4/sBIJ0LqAC2oEbxadsIrDpZcwj1w4NTWDrihFezFuD/dRs2FE4Y6cOl
-	85ykt56KKJjBwiSPIcwoPsVkhZoEIlgR7sNXWEf3boSSvBLYGiD74AmEtDKNhmGQnrw==
-X-Gm-Gg: AYBFou0Bb9yeGMCiL8dX5S1vg5i2Xs8iyjk523binKWDmSs8bDxbG50UVjz71/sZQti
-	eS9k0L4hTXmPi3S7o4NaV8rn7gCEOKAOzBCGD9UDjRMFqXAZ9McPWzEPlyV3raLeEXQJTF8EwdL
-	KQqYj4zKNWvTDohMH3SBnUzpvKsY8oL/z5D38yAW2TXGAYjMoOuyMcWKXX1dw9MKNqe+CErThNm
-	ayX7kSBbXqSlDoO1eu5tCrwGMyi+FMzZl37HPeg7Xg8j51o4oeU1doHOfn6lFgS2fDB4RpwKt7X
-	IiCD0djoBKiOKKJnTMT3kL9qGygK5LW1GhdLsnFYlMEIgmyp5ZzRzRTMrV0=
-X-Received: by 2002:a05:620a:404e:b0:93b:d7ed:ff66 with SMTP id af79cd13be357-93e9b835e0cmr317184585a.58.1791363695142;
-        Wed, 07 Oct 2026 02:01:35 -0700 (PDT)
-X-Received: by 2002:a05:620a:404e:b0:93b:d7ed:ff66 with SMTP id af79cd13be357-93e9b835e0cmr317178585a.58.1791363694627;
-        Wed, 07 Oct 2026 02:01:34 -0700 (PDT)
+        bh=KLRYnMM5aQdJx2mY70lmVNjc2Xox2pDWBZko66RN9OY=;
+        b=RtWxfHuab8HXaeXNuDsXVyVVARS0oSLcIKBeGXL5ONuQ/eK2NkLvwkbB2eCjImtPQX
+         UlLF1eXEfFgTVj35TIwU6qE1T3MKL0PJXU4VCuLyJaRiNOd1Sq5wlPNtevkajaYZmdGm
+         dxCXlxdqDc0RpeGzLN3+qxkeHSpz7OPuVlcnpf4CizrxxdLyirgbSSD2LaJjdUfuZW+g
+         oLX8p2bKrK/F5CwqnOjbIzo6inR7u9BqzDBl9oxg21knVutBupf9ka77ZoGMj2BOhnI8
+         +Qd4qBYaymyY1RAbDSpkUtvewTvASbhoGctq8lkfhqaWRkm8sgD8r8RNbk1rYaz8uv8o
+         UPqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxDJSVyTbu81/84o67zahNTtC3+84kQcBt7TttXt0jvAN/AEVkkNVS3PsozaJON904qN8ZIIXuO/xY88Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++mhE35G8dVby7mfdkZ7AxWfQhCDs+PlThVNsDboFQ5QqchUAYxC
+	LPpA0kt0Q34E4ekwynDxs6smHD8cs1IQH4qsJvmWkkWobV/ZglnMCRNMP4DgaojKUTG/66Uvaed
+	O5+tHl9fagmNHvSqmwCXOswLUHkhQMGseW8bTCqYapWfMMe1XzkUbwPZioHihbYq2kw==
+X-Gm-Gg: AYBFou0F5Cr2iNQT6EQoX4/4wsO75YUACFn/oGti1oAvjduXBkJYxX0UyH8gjm2bDZ+
+	GSFN2SJIZyl66Z+0rfoCQtfpKg7wb2t8PjIZ49Jbl22qHswKfMDwF8VKWTb7AGUWIViRCceNZvo
+	VWIH0Jt+EzRPURI/5PBvBmgIU3GuWs0aStpUrf+WI6hFz8T/nXNx0/jBTlv3DJ2LoR/B0UTMmdX
+	b5wMS5M46W3ZW8FQ4eUVf9yl26eOQXQMey/H9tzfugN9zctWWADnyWtuGQwd/QcOdNuq2isu4WJ
+	rR9RaFsocL6USZfkaWytbfLNcZ5mSh8lv+N8hKfqAoBLI1/X9LrxZKUBi2A=
+X-Received: by 2002:a05:620a:8388:b0:93e:9809:8386 with SMTP id af79cd13be357-93e9b882f72mr286044885a.70.1791363758714;
+        Wed, 07 Oct 2026 02:02:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:8388:b0:93e:9809:8386 with SMTP id af79cd13be357-93e9b882f72mr286037685a.70.1791363758014;
+        Wed, 07 Oct 2026 02:02:38 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.01.32
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:01:33 -0700 (PDT)
+        Wed, 07 Oct 2026 02:02:37 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -89,10 +89,11 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Robert Foss <rfoss@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
         pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND 13/45] media: qcom: camss: video: use helpers for line-based formats
-Date: Wed,  7 Oct 2026 12:00:09 +0300
-Message-Id: <20261007090041.3732717-14-gjorgji.rosikopulos@oss.qualcomm.com>
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Subject: [PATCH RESEND 32/45] media: qcom: camss: sa8775p: add CSID pixel path
+Date: Wed,  7 Oct 2026 12:00:28 +0300
+Message-Id: <20261007090041.3732717-33-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -103,156 +104,535 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: bFZBJcGGsIz-sjZrC_JhjizGWYhr1H3g
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac60a70 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXxz2fd74hIVFs
+ TqMijNVjWL3bCGElAPLeG0Vbw3Uv7U8l75AV+25hfU/vEmvu5P7w0fnxXYvZ15BvzlsB5v00YNJ
+ Ywqiap4CC0Va7j2g8Ulu3s6OwCUl3cE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX1jpnzl2rYDwC
+ ZS8NHMXYi4kfCUqM3DvkG4vmtaaMaP/21D6OFcJ21PshE+ZfWFHCsIDcSnH6S+W6St6HswgTByN
+ ct4opmkdjlzzXVvjtOCxshPw9hyYGPPeWNlmTodwV9tZ5hySNi2jzsXlfYVhbuTCXlu1pqDo28I
+ uEX6S8fdgSz3QCII0mo7nlLA/QGbL39EhM83U6n7b+wpnHgfbcXMWETmssdEmoVuv8xEs9F9/0X
+ 4CCjd41jkv2PiVEPYzz7CcF/zrXVz5a/Ajco9incmxdXOECpOZPKjyJqtLEfc8OMsc9XN8gyqoz
+ bQuPDBWW02RvMNmq6Zned3TlVhQTeURG7iFPW+eYNyeCYhvy01iZ+jXYwEKVZVbbnS6TZY7+ksF
+ lqEKibeMAWgulEfYg493m/6YfBYTTTs+MbQ9gq8YrXuSZhP4wI/FoXbr9II4Ksaix4gF9j8cWPf
+ e3GCm2YCWR6ekDg9zLg==
+X-Proofpoint-GUID: 9WHDXo20CO6nH_qhL0V6xl4-OsmahSO3
+X-Proofpoint-ORIG-GUID: 9WHDXo20CO6nH_qhL0V6xl4-OsmahSO3
+X-Authority-Analysis: v=2.4 cv=LvYHWXdc c=1 sm=1 tr=0 ts=6ac60ab0 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=qbJzVsoXupL-68DMvHcA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXx6RGbkCWhAO+
- 8ChGMB4kiyLnYWEEwv4e7vFfopKkijFEZb8TAaHFIJ64jHVrtPaHHQlv0GwZZ8rF+DEpf7Lk7EN
- ec1qQ/B1jzMtKuupxWLFXsF+NQ2tMkE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXyXlloSCKmipR
- fGJrzmsqjl2ZMKvbUOjCdxoMC31kkdIpnpUjnzmWGIcVRpTKSRjIiZXxL+UKX8AuGl1iFQAPfrE
- mIYRtMMlw8O8DglY4sYFKJZZZPYnW5+SvVIjgG6DEfApAmZcqvsvCMkQy6oQ+dybzCiptpv6aqC
- N0d4uBo01JQHdtZlkXTa/MVg09V67KuUf4DU/gPK/5CcUJ7hir+RdUXzMnvrURV+t3ZX0+PqbXF
- 1h0kAc8M8ez6joJYMfZ97cnwCmfNHnBsKCL50WzX4wdHHMcUPyZE0IGkIrizg9bJ0djAqdp8DH0
- SrNiivbjLt+l1gLDYcR7eT0NBEz1ibQLb7NZtdLg6I9OxBKJ/v3Nps8B5Wq12Ncc43oFuP7lRf+
- 0ez9vT79eg6AKLLxo6qZg6v5qSHADsWUAXE4vreADxP2MLlJiZu0NnzdZI+s71HNc+Z0lDCfBJe
- 6m1p3A7x9OvXksYsBDw==
-X-Proofpoint-ORIG-GUID: bFZBJcGGsIz-sjZrC_JhjizGWYhr1H3g
+ a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=aY1vHUIormEzd9cYp8gA:9
+ a=NVBY9_DhjQISCgBd:21 a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
+ priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070035
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Use the V4L2 format helpers to calculate line-based plane sizes from
-the selected format.
+Extend the common generation 3 CSID backend with SA8775P streams.
 
+Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- .../media/platform/qcom/camss/camss-video.c   | 76 +++++++++++--------
- 1 file changed, 44 insertions(+), 32 deletions(-)
+ .../platform/qcom/camss/camss-csid-gen3.c     | 265 +++++++++++++++++-
+ .../media/platform/qcom/camss/camss-csid.c    |   1 +
+ .../media/platform/qcom/camss/camss-csid.h    |   4 +
+ drivers/media/platform/qcom/camss/camss-ife.c |  23 ++
+ drivers/media/platform/qcom/camss/camss-ife.h |   2 +
+ drivers/media/platform/qcom/camss/camss.c     |   1 +
+ drivers/media/platform/qcom/camss/camss.h     |   1 +
+ 7 files changed, 291 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index c570d7f9258c..803e5ce9b9fd 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -7,7 +7,9 @@
-  * Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
-  * Copyright (C) 2015-2018 Linaro Ltd.
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+index 0fdbf75fb27d..e44b42215461 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+@@ -4,6 +4,7 @@
+  *
+  * Copyright (c) 2024 Qualcomm Technologies, Inc.
   */
-+#include <linux/align.h>
- #include <linux/slab.h>
-+
- #include <media/media-entity.h>
- #include <media/v4l2-dev.h>
- #include <media/v4l2-device.h>
-@@ -513,29 +515,59 @@ static int video_g_fmt(struct file *file, void *fh, struct v4l2_format *f)
- 	return 0;
- }
++#include <linux/bitfield.h>
+ #include <linux/completion.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+@@ -19,6 +20,9 @@
+ #define		OUTPUT_IFE_EN			0x100
+ #define		INTERNAL_CSID			1
  
-+static int video_try_line_based(struct camss_video *video, struct v4l2_format *f)
++#define CSID_GLOBAL_CMD			0x8
++#define		GLOBAL_CMD_START		BIT(0)
++
+ #define CSID_RST_CFG			0xC
+ #define		RST_MODE			BIT(0)
+ #define		RST_LOCATION			BIT(4)
+@@ -31,10 +35,12 @@
+ #define		IRQ_CMD_CLEAR			BIT(0)
+ 
+ #define CSID_RUP_AUP_CMD		0x18
++#define		CSID_RUP_AUP_IPP0		(BIT(0) | BIT(16))
+ #define		CSID_RUP_AUP_RDI(rdi)		((BIT(4) | BIT(20)) << (rdi))
+ 
+ #define CSID_TOP_IRQ_STATUS		0x7C
+ #define		 TOP_IRQ_STATUS_RESET_DONE	BIT(0)
++#define		 TOP_IRQ_STATUS_BUF_DONE	BIT(14)
+ 
+ #define CSID_TOP_IRQ_MASK		0x80
+ #define CSID_TOP_IRQ_CLEAR		0x84
+@@ -44,6 +50,7 @@
+ #define CSID_CSI2_RX_IRQ_MASK		0xA0
+ #define CSID_CSI2_RX_IRQ_CLEAR		0xA4
+ #define CSID_CSI2_RX_IRQ_SET		0xA8
++#define		CSI2_RX_IRQ_ERROR_MASK		0x01bfb800
+ 
+ #define IS_CSID_690(csid)	((csid->camss->res->version == CAMSS_8775P) \
+ 				 || (csid->camss->res->version == CAMSS_8300))
+@@ -54,6 +61,12 @@
+ #define CSID_BUF_DONE_IRQ_MASK		0x90
+ #define CSID_BUF_DONE_IRQ_CLEAR		0x94
+ #define CSID_BUF_DONE_IRQ_SET		0x98
++#define		BUF_DONE_IRQ_STATUS_VID_FULL	BIT(0)
++#define		BUF_DONE_IRQ_STATUS_DISP_FULL	BIT(1)
++#define		BUF_DONE_IRQ_STATUS_STATS	BIT(5)
++#define		BUF_DONE_IRQ_STATUS_PP		(BUF_DONE_IRQ_STATUS_VID_FULL | \
++						 BUF_DONE_IRQ_STATUS_DISP_FULL | \
++						 BUF_DONE_IRQ_STATUS_STATS)
+ 
+ #define CSID_CSI2_RDIN_IRQ_STATUS(rdi)	(0xEC + 0x10 * (rdi))
+ #define		RUP_DONE_IRQ_STATUS		BIT(23)
+@@ -73,6 +86,25 @@
+ #define		CSI2_RX_CFG1_ECC_CORRECTION_EN	BIT(0)
+ #define		CSI2_RX_CFG1_VC_MODE		BIT(2)
+ 
++#define CSID_IPP0_CFG0			0x300
++#define		IPP0_CFG0_EN			BIT(31)
++#define		IPP0_CFG0_VC			GENMASK(26, 22)
++#define		IPP0_CFG0_DT			GENMASK(21, 16)
++#define		IPP0_CFG0_DECODE_FMT		GENMASK(15, 12)
++
++#define CSID_IPP0_CTRL			0x304
++#define		IPP0_CTRL_START_CMD		1
++
++#define CSID_IPP0_CFG1			0x310
++#define		IPP0_CFG1_PIX_STORE_EN		BIT(14)
++#define		IPP0_CFG1_TIMESTAMP_EN		BIT(9)
++#define		IPP0_CFG1_MIN_HBI		GENMASK(7, 4)
++
++#define CSID_IPP0_EPOCH_IRQ_CFG			0x334
++#define CSID_IPP0_EPOCH0_SUBSAMPLE_PATTERN	0x338
++#define CSID_IPP0_EPOCH1_SUBSAMPLE_PATTERN	0x33c
++#define CSID_IPP0_IRQ_SUBSAMPLE_PERIOD		0x380
++
+ #define CSID_RDI_CFG0(rdi)	(csid_is_lite(csid) && IS_CSID_690(csid) ?\
+ 					(0x300 + 0x100 * (rdi)) :\
+ 					(0x500 + 0x100 * (rdi)))
+@@ -97,8 +129,13 @@
+ #define		RDI_CFG1_CROP_H_EN		BIT(7)
+ #define		RDI_CFG1_CROP_V_EN		BIT(8)
+ #define		RDI_CFG1_PIX_STORE		BIT(10)
++#define		RDI_CFG1_TIMESTAMP_EN		BIT(4)
++#define		RDI_CFG1_TIMESTAMP_STB_SEL	GENMASK(1, 0)
+ #define		RDI_CFG1_PACKING_FORMAT_MIPI	BIT(15)
+ 
++#define		ERROR_RECOVERY_CFG0_OVERFLOW_CTRL_EN	BIT(0)
++#define		ERROR_RECOVERY_CFG0_OVERFLOW_CTRL_MODE	BIT(3)
++
+ #define CSID_RDI_IRQ_SUBSAMPLE_PATTERN(rdi)	(csid_is_lite(csid) && IS_CSID_690(csid) ?\
+ 							(0x348 + 0x100 * (rdi)) :\
+ 							(0x548 + 0x100 * (rdi)))
+@@ -106,6 +143,39 @@
+ 							(0x34C + 0x100 * (rdi)) :\
+ 							(0x54C + 0x100 * (rdi)))
+ #define CSI2_RX_CFG0_PHY_SEL_BASE_IDX	1
++#define CSID_PIX_STREAM_ID		3
++#define EPOCH_IRQ_CFG_EPOCH0_LINE	GENMASK(29, 16)
++#define EPOCH_IRQ_CFG_EPOCH1_LINE	GENMASK(13, 0)
++
++static bool csid_is_pix_stream(struct csid_device *csid, u32 stream_id)
 +{
-+	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
-+	const struct v4l2_format_info *info;
-+	unsigned int i;
-+	u32 alignment = video->bpl_alignment ?: 1;
-+
-+	for (i = 0; i < video->nformats; i++) {
-+		if (pix_mp->pixelformat == video->formats[i].pixelformat)
-+			break;
-+	}
-+
-+	if (i == video->nformats)
-+		pix_mp->pixelformat = video->formats[0].pixelformat;
-+
-+	info = v4l2_format_info(pix_mp->pixelformat);
-+	if (!info) {
-+		dev_err(video->camss->dev, "No V4L2 info for requested format\n");
-+		return -EINVAL;
-+	}
-+
-+	pix_mp->width = clamp_t(u32, pix_mp->width, 1, CAMSS_FRAME_MAX_WIDTH);
-+	pix_mp->height = clamp_t(u32, pix_mp->height, 1, CAMSS_FRAME_MAX_HEIGHT_PIX);
-+
-+	pix_mp->width = max_t(u32, round_down(pix_mp->width, info->hdiv), info->hdiv);
-+	pix_mp->height = max_t(u32, round_down(pix_mp->height, info->vdiv), info->vdiv);
-+
-+	pix_mp->field = V4L2_FIELD_NONE;
-+	pix_mp->colorspace = V4L2_COLORSPACE_SRGB;
-+	pix_mp->flags = 0;
-+	pix_mp->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(pix_mp->colorspace);
-+	pix_mp->quantization =
-+		V4L2_MAP_QUANTIZATION_DEFAULT(true, pix_mp->colorspace,
-+					      pix_mp->ycbcr_enc);
-+	pix_mp->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(pix_mp->colorspace);
-+
-+	return v4l2_fill_pixfmt_mp_aligned(pix_mp, pix_mp->pixelformat,
-+					   pix_mp->width, pix_mp->height, alignment);
++	return stream_id == CSID_PIX_STREAM_ID && !csid_is_lite(csid);
 +}
 +
- static int __video_try_fmt(struct camss_video *video, struct v4l2_format *f)
- {
- 	unsigned int alignment = video->bpl_alignment;
- 	struct v4l2_pix_format_mplane *pix_mp;
- 	const struct camss_format_info *fi;
--	struct v4l2_plane_pix_format *p;
--	u32 bytesperline[3] = { 0 };
--	u32 sizeimage[3] = { 0 };
- 	u32 width, height;
--	u32 bpl, lines;
-+	u32 bpl;
- 	int i, j;
++static unsigned int csid_num_rdis(struct csid_device *csid)
++{
++	return csid_is_lite(csid) ? 4 : 3;
++}
++
++static u32 csid_rdi_error_recovery_cfg0(struct csid_device *csid, u32 rdi)
++{
++	return (csid_is_lite(csid) ? 0x314 : 0x514) + 0x100 * rdi;
++}
++
++static u32 csid_rdi_epoch_irq_cfg(struct csid_device *csid, u32 rdi)
++{
++	return (csid_is_lite(csid) ? 0x32c : 0x52c) + 0x100 * rdi;
++}
++
++static u32 csid_rdi_epoch0_pattern(struct csid_device *csid, u32 rdi)
++{
++	return (csid_is_lite(csid) ? 0x330 : 0x530) + 0x100 * rdi;
++}
++
++static u32 csid_rdi_epoch1_pattern(struct csid_device *csid, u32 rdi)
++{
++	return (csid_is_lite(csid) ? 0x334 : 0x534) + 0x100 * rdi;
++}
  
- 	pix_mp = &f->fmt.pix_mp;
- 
- 	if (video->line_based)
--		for (i = 0; i < pix_mp->num_planes && i < 3; i++) {
--			p = &pix_mp->plane_fmt[i];
--			bytesperline[i] = clamp_t(u32, p->bytesperline,
--						  1, 65528);
--			sizeimage[i] = clamp_t(u32, p->sizeimage,
--					       bytesperline[i],
--					       bytesperline[i] * CAMSS_FRAME_MAX_HEIGHT_PIX);
--		}
-+		return video_try_line_based(video, f);
- 
- 	for (j = 0; j < video->nformats; j++)
- 		if (pix_mp->pixelformat == video->formats[j].pixelformat)
-@@ -574,26 +606,6 @@ static int __video_try_fmt(struct camss_video *video, struct v4l2_format *f)
- 					pix_mp->colorspace, pix_mp->ycbcr_enc);
- 	pix_mp->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(pix_mp->colorspace);
- 
--	if (video->line_based)
--		for (i = 0; i < pix_mp->num_planes; i++) {
--			p = &pix_mp->plane_fmt[i];
--			p->bytesperline = clamp_t(u32, p->bytesperline,
--						  1, 65528);
--			p->sizeimage = clamp_t(u32, p->sizeimage,
--					       p->bytesperline,
--					       p->bytesperline * CAMSS_FRAME_MAX_HEIGHT_PIX);
--			lines = p->sizeimage / p->bytesperline;
--
--			if (p->bytesperline < bytesperline[i])
--				p->bytesperline = roundup(bytesperline[i], alignment);
--
--			if (p->sizeimage < p->bytesperline * lines)
--				p->sizeimage = p->bytesperline * lines;
--
--			if (p->sizeimage < sizeimage[i])
--				p->sizeimage = sizeimage[i];
--		}
--
- 	return 0;
+ static void __csid_configure_rx(struct csid_device *csid,
+ 				struct csid_phy_config *phy, int vc)
+@@ -157,6 +227,133 @@ static void __csid_configure_wrapper(struct csid_device *csid)
+ 	writel(val, csid->camss->csid_wrapper_base + CSID_IO_PATH_CFG0(csid->id));
  }
  
++static void __csid_configure_ipp(struct csid_device *csid, u8 vc, u8 dt)
++{
++	struct v4l2_mbus_framefmt *input_format =
++		&csid->fmt[MSM_CSID_PAD_FIRST_SRC + CSID_PIX_STREAM_ID];
++	const struct csid_format_info *format =
++		csid_get_fmt_entry(csid->res->formats->formats,
++				   csid->res->formats->nformats, input_format->code);
++	u32 val;
++
++	val = IPP0_CFG0_EN;
++	val |= FIELD_PREP(IPP0_CFG0_VC, vc);
++	val |= FIELD_PREP(IPP0_CFG0_DT, dt);
++	val |= FIELD_PREP(IPP0_CFG0_DECODE_FMT, format->decode_format);
++	writel(val, csid->base + CSID_IPP0_CFG0);
++
++	val = IPP0_CFG1_PIX_STORE_EN | IPP0_CFG1_TIMESTAMP_EN;
++	val |= FIELD_PREP(IPP0_CFG1_MIN_HBI, 4);
++	writel(val, csid->base + CSID_IPP0_CFG1);
++
++	val = FIELD_PREP(EPOCH_IRQ_CFG_EPOCH0_LINE, input_format->height / 3);
++	val |= FIELD_PREP(EPOCH_IRQ_CFG_EPOCH1_LINE, input_format->height / 2);
++	writel(val, csid->base + CSID_IPP0_EPOCH_IRQ_CFG);
++	writel(1, csid->base + CSID_IPP0_EPOCH0_SUBSAMPLE_PATTERN);
++	writel(1, csid->base + CSID_IPP0_EPOCH1_SUBSAMPLE_PATTERN);
++	writel(0, csid->base + CSID_IPP0_IRQ_SUBSAMPLE_PERIOD);
++	writel(CSID_RUP_AUP_IPP0, csid->base + CSID_RUP_AUP_CMD);
++}
++
++static void __csid_ctrl_ipp(struct csid_device *csid, bool enable)
++{
++	if (!enable)
++		writel(0, csid->base + CSID_IPP0_CFG0);
++
++	writel(enable ? IPP0_CTRL_START_CMD : 0, csid->base + CSID_IPP0_CTRL);
++}
++
++static void __csid_configure_rdi_streams(struct csid_device *csid, bool enable,
++					 u32 port, u8 vc, u8 dt)
++{
++	struct v4l2_mbus_framefmt *input_format =
++		&csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
++	u32 val;
++
++	if (!enable) {
++		val = readl(csid->base + CSID_RDI_CFG0(port));
++		writel(val & ~RDI_CFG0_EN, csid->base + CSID_RDI_CFG0(port));
++		return;
++	}
++
++	val = DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
++	val |= dt << RDI_CFG0_DT;
++	val |= vc << RDI_CFG0_VC;
++	val |= (port & 0x3) << RDI_CFG0_DT_ID;
++	writel(val, csid->base + CSID_RDI_CFG0(port));
++
++	val = RDI_CFG1_PACKING_FORMAT_MIPI | RDI_CFG1_TIMESTAMP_EN |
++	      FIELD_PREP(RDI_CFG1_TIMESTAMP_STB_SEL, 2);
++	writel(val, csid->base + CSID_RDI_CFG1(port));
++
++	val = ERROR_RECOVERY_CFG0_OVERFLOW_CTRL_EN |
++	      ERROR_RECOVERY_CFG0_OVERFLOW_CTRL_MODE;
++	writel(val, csid->base + csid_rdi_error_recovery_cfg0(csid, port));
++	writel(0, csid->base + CSID_RDI_IRQ_SUBSAMPLE_PERIOD(port));
++	writel(1, csid->base + CSID_RDI_IRQ_SUBSAMPLE_PATTERN(port));
++
++	val = FIELD_PREP(EPOCH_IRQ_CFG_EPOCH0_LINE, input_format->height / 3);
++	val |= FIELD_PREP(EPOCH_IRQ_CFG_EPOCH1_LINE, input_format->height / 2);
++	writel(val, csid->base + csid_rdi_epoch_irq_cfg(csid, port));
++	writel(1, csid->base + csid_rdi_epoch0_pattern(csid, port));
++	writel(1, csid->base + csid_rdi_epoch1_pattern(csid, port));
++	writel(CSID_RUP_AUP_RDI(port), csid->base + CSID_RUP_AUP_CMD);
++
++	writel(0, csid->base + CSID_RDI_CTRL(port));
++	val = readl(csid->base + CSID_RDI_CFG0(port));
++	writel(val | RDI_CFG0_EN, csid->base + CSID_RDI_CFG0(port));
++}
++
++static void csid_buf_done_irq(struct csid_device *csid, u32 mask, bool enable)
++{
++	unsigned long flags;
++	u32 top_mask;
++	u32 val;
++
++	spin_lock_irqsave(&csid->irq_lock, flags);
++
++	top_mask = readl(csid->base + CSID_TOP_IRQ_MASK);
++	val = readl(csid->base + CSID_BUF_DONE_IRQ_MASK);
++
++	writel(mask, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
++	if (enable) {
++		val |= mask;
++		top_mask |= TOP_IRQ_STATUS_BUF_DONE;
++	} else {
++		val &= ~mask;
++		if (!val)
++			top_mask &= ~TOP_IRQ_STATUS_BUF_DONE;
++	}
++
++	writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
++	writel(top_mask, csid->base + CSID_TOP_IRQ_MASK);
++	writel(IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
++
++	spin_unlock_irqrestore(&csid->irq_lock, flags);
++}
++
++static void csid_buf_done(struct csid_device *csid, u32 status)
++{
++	const struct parent_dev_ops *ops = csid->res->parent_dev_ops;
++	unsigned int i;
++
++	if (!ops->buf_done)
++		return;
++
++	if (!csid_is_lite(csid)) {
++		if (status & BUF_DONE_IRQ_STATUS_VID_FULL)
++			ops->buf_done(csid->camss, csid->id, CAMSS_IFE_OUTPUT_VID_FULL);
++		if (status & BUF_DONE_IRQ_STATUS_DISP_FULL)
++			ops->buf_done(csid->camss, csid->id, CAMSS_IFE_OUTPUT_DISP_FULL);
++		if (status & BUF_DONE_IRQ_STATUS_STATS)
++			ops->buf_done(csid->camss, csid->id, CAMSS_IFE_OUTPUT_STATS);
++	}
++
++	for (i = 0; i < csid_num_rdis(csid); i++)
++		if (status & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i))
++			ops->buf_done(csid->camss, csid->id, CAMSS_IFE_OUTPUT_RDI0 + i);
++}
++
+ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
+ {
+ 	u32 val;
+@@ -234,6 +431,47 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ 		}
+ }
+ 
++static void csid_configure_rx(struct csid_device *csid)
++{
++	__csid_configure_wrapper(csid);
++	__csid_configure_rx(csid, &csid->phy, 0);
++	writel(CSI2_RX_IRQ_ERROR_MASK, csid->base + CSID_CSI2_RX_IRQ_MASK);
++	writel(GLOBAL_CMD_START, csid->base + CSID_GLOBAL_CMD);
++}
++
++static void csid_enable_stream(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt)
++{
++	u32 mask;
++
++	if (csid_is_pix_stream(csid, stream_id)) {
++		__csid_configure_ipp(csid, vc, dt);
++		mask = BUF_DONE_IRQ_STATUS_PP;
++		csid_buf_done_irq(csid, mask, true);
++		__csid_ctrl_ipp(csid, true);
++	} else if (stream_id < csid_num_rdis(csid)) {
++		mask = BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + stream_id);
++		csid_buf_done_irq(csid, mask, true);
++		__csid_configure_rdi_streams(csid, true, stream_id, vc, dt);
++		__csid_ctrl_rdi(csid, true, stream_id);
++	}
++}
++
++static void csid_disable_stream(struct csid_device *csid, u32 stream_id)
++{
++	u32 mask;
++
++	if (csid_is_pix_stream(csid, stream_id)) {
++		mask = BUF_DONE_IRQ_STATUS_PP;
++		csid_buf_done_irq(csid, mask, false);
++		__csid_ctrl_ipp(csid, false);
++	} else if (stream_id < csid_num_rdis(csid)) {
++		mask = BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + stream_id);
++		csid_buf_done_irq(csid, mask, false);
++		__csid_ctrl_rdi(csid, false, stream_id);
++		__csid_configure_rdi_streams(csid, false, stream_id, 0, 0);
++	}
++}
++
+ static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
+ {
+ 	return 0;
+@@ -259,10 +497,14 @@ static void csid_subdev_reg_update(struct csid_device *csid, int port_id, bool c
+ static irqreturn_t csid_isr(int irq, void *dev)
+ {
+ 	struct csid_device *csid = dev;
+-	u32 val, buf_done_val;
++	unsigned long flags;
++	u32 buf_done_val;
++	u32 val;
+ 	u8 reset_done;
+ 	int i;
+ 
++	spin_lock_irqsave(&csid->irq_lock, flags);
++
+ 	val = readl(csid->base + CSID_TOP_IRQ_STATUS);
+ 	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+ 	reset_done = val & TOP_IRQ_STATUS_RESET_DONE;
+@@ -282,8 +524,19 @@ static irqreturn_t csid_isr(int irq, void *dev)
+ 			if (val & RUP_DONE_IRQ_STATUS)
+ 				/* clear the reg update bit */
+ 				csid_subdev_reg_update(csid, i, true);
++		}
++
++	val = IRQ_CMD_CLEAR;
++	writel(val, csid->base + CSID_IRQ_CMD);
++
++	spin_unlock_irqrestore(&csid->irq_lock, flags);
+ 
+-			if (buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i)) {
++	if (csid->res->streams_enable) {
++		csid_buf_done(csid, buf_done_val);
++	} else {
++		for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
++			if (csid->phy.en_vc & BIT(i) &&
++			    buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i)) {
+ 				/*
+ 				 * For Titan Gen3, bus done and RUP IRQ have been moved to
+ 				 * CSID from VFE. Once CSID received bus done, need notify
+@@ -291,10 +544,7 @@ static irqreturn_t csid_isr(int irq, void *dev)
+ 				 */
+ 				camss_buf_done(csid->camss, csid->id, i);
+ 			}
+-		}
+-
+-	val = IRQ_CMD_CLEAR;
+-	writel(val, csid->base + CSID_IRQ_CMD);
++	}
+ 
+ 	if (reset_done)
+ 		complete(&csid->reset_complete);
+@@ -354,6 +604,9 @@ static void csid_subdev_init(struct csid_device *csid)
+ const struct csid_hw_ops csid_ops_gen3 = {
+ 	.configure_stream = csid_configure_stream,
+ 	.configure_testgen_pattern = csid_configure_testgen_pattern,
++	.configure_rx = csid_configure_rx,
++	.enable_stream = csid_enable_stream,
++	.disable_stream = csid_disable_stream,
+ 	.hw_version = csid_hw_version,
+ 	.isr = csid_isr,
+ 	.reset = csid_reset,
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index b7e6bfc58bcf..da13963ef1a0 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -1199,6 +1199,7 @@ int msm_csid_subdev_init(struct camss *camss, struct csid_device *csid,
+ 		return ret;
+ 
+ 	init_completion(&csid->reset_complete);
++	spin_lock_init(&csid->irq_lock);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index f079956bae8e..2d99b61eb98d 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -12,6 +12,8 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/interrupt.h>
++#include <linux/spinlock.h>
++
+ #include <media/media-entity.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+@@ -191,6 +193,8 @@ struct csid_device {
+ 	struct regulator_bulk_data *supplies;
+ 	int num_supplies;
+ 	struct completion reset_complete;
++	/* Protects interrupt status, mask, and clear registers. */
++	spinlock_t irq_lock;
+ 	struct csid_testgen_config testgen;
+ 	bool tpg_linked;
+ 	struct csid_phy_config phy;
+diff --git a/drivers/media/platform/qcom/camss/camss-ife.c b/drivers/media/platform/qcom/camss/camss-ife.c
+index cc5cebfd0862..e2049e00ea96 100644
+--- a/drivers/media/platform/qcom/camss/camss-ife.c
++++ b/drivers/media/platform/qcom/camss/camss-ife.c
+@@ -1290,6 +1290,29 @@ static const struct v4l2_subdev_ops ife_v4l2_ops = {
+ 	.pad	= &ife_pad_ops,
+ };
+ 
++void camss_ife_buf_done(struct camss *camss, int id, enum camss_ife_output output)
++{
++	struct ife_device *ife;
++	unsigned long flags;
++	int i;
++
++	if (id >= camss->ife_total_num)
++		return;
++
++	ife = &camss->ife[id];
++	spin_lock_irqsave(&ife->bufs_lock, flags);
++
++	for (i = 0; i < ife->npads; i++) {
++		const struct ife_pad_desc *desc = ife->pads[i].desc;
++		struct ife_video_pad *vpad = ife->pads[i].vid_pad;
++
++		if (vpad && vpad->streaming && desc->output == output)
++			ife_hw_isr_wm_done(ife, vpad);
++	}
++
++	spin_unlock_irqrestore(&ife->bufs_lock, flags);
++}
++
+ static int ife_video_start_streaming(struct camss_video *vid,
+ 				     unsigned int count)
+ {
+diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
+index 0ca276203bbb..3d35c17fca7f 100644
+--- a/drivers/media/platform/qcom/camss/camss-ife.h
++++ b/drivers/media/platform/qcom/camss/camss-ife.h
+@@ -394,6 +394,8 @@ camss_ife_pipe_for_stream_id(int nstreams,
+ 			     const struct camss_ife_stream *streams,
+ 			     u32 id);
+ 
++void camss_ife_buf_done(struct camss *camss, int id, enum camss_ife_output output);
++
+ extern const struct ife_pads_descriptors ife_pads_v20x;
+ extern const struct ife_pads_descriptors ife_pads_v41x;
+ extern const struct ife_hw_top_ops ife_top_20x_ops;
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 2dc7864ebe07..7a3e5e6f81e1 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -5185,6 +5185,7 @@ static const struct parent_dev_ops ife_parent_dev_ops = {
+ 	.get = ife_parent_dev_ops_get,
+ 	.put = ife_parent_dev_ops_put,
+ 	.get_base_address = ife_parent_dev_ops_get_base_address,
++	.buf_done = camss_ife_buf_done,
+ };
+ 
+ int camss_attach_host_data(struct camss *camss, struct v4l2_subdev *sd,
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 65582ff7db23..c19e95df0a54 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -201,6 +201,7 @@ struct parent_dev_ops {
+ 	int (*get)(struct camss *camss, int id);
+ 	int (*put)(struct camss *camss, int id);
+ 	void __iomem *(*get_base_address)(struct camss *camss, int id);
++	void (*buf_done)(struct camss *camss, int id, enum camss_ife_output output);
+ };
+ 
+ void camss_add_clock_margin(u64 *rate);
 -- 
 2.34.1
 
