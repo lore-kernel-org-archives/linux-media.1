@@ -1,86 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76383BF665
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 06:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8D43B841F
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 06:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791439423; cv=none; b=YE0UwlG5jWF5A7iGRvdUU9spZLUw02b2YN1c8RVRUCQmlO3nZuGpFMx0i9QFOQVEU8vrT0Xtn6OoztjKkqaUEGZ5JBtmirlErsyUCMmIQMIg9TU1DdOInz+zBHeppjhopXftUPg/hboq5sO8NorWDVhfPrZSbppNgqfISrCCC/s=
+	t=1791439757; cv=none; b=N52YV5XpT+EoPhM9At4VyrEuGGwuc/uDashKv6O3E3GY0LQHx1pJaAnQ95OwXOCKUsqOLJ1VVcjP5WQWNQluv5KX0XB7wZJgsPV+T7egn6rj4nQE9fJ5AuSRqxr9s/7dQ7vBBGuzvfl052KnHi34U3QFwmlAAzSwTffxrfA5ia8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791439423; c=relaxed/simple;
-	bh=BfxXVYVYYPpqCv3HAvsQt5PI5vltB2Nryb6YiOlFIas=;
+	s=arc-20240116; t=1791439757; c=relaxed/simple;
+	bh=0ImHZkvX+097WDBIdkl4C4n6ZnF7gvo0rtHB3FavrVI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KqFDPpwff7vAJlARPrVbTs/y6qAq8zrX3tt//K4srQYd3h4gavDUhpWGZ39rP3qWYoHoRNo9Q+n2ve04dFq17FmiA8UMzRsSfgDiQgXPNmPDQjy4olDWtTE8covGtYdfy/ZmLRTJJ5zm3mkYmToI0iWu3SsyNQmTvZWXWSpowus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iKedmhNF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aTSKeg2e; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=USFgnwhFzECqYWHKzVj2IFPDT+vXOpcsHcGCxjaQ0/RxtRRaC4VlT3VCTE/59KOtdW4VOJXxZNCs1kHFIT3gAUV47fD9Upwnh1MWIK/IW0j7Wf5REUzUB+KbYSd7+BoDHbxmCF55vP9hVOvxrGngj8DEEIrvB05ZsrDSbJrqQok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ELHtav7H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KBPKrpFA; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iKedmhNF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aTSKeg2e"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BVhv1775356
-	for <linux-media@vger.kernel.org>; Thu, 8 Oct 2026 06:03:41 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ELHtav7H";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KBPKrpFA"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984Bj0F1654527
+	for <linux-media@vger.kernel.org>; Thu, 8 Oct 2026 06:09:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mSaIxRplK8lz+P1pRwiYiDK6KGDj44xaxOfHDxftF5A=; b=iKedmhNF6wKBd7Yh
-	RKacicca1vCR01Ht3TDScm1DS40cMDTqIX6GJpUQ6yhLWP0Jnjw/VVCQd2rcDjpQ
-	aoHvLtd6KAeO0RV8aa9jlJ9bU8Q2uuVygZKmfCiA9J+UwLeYTLgY71+eA60zwLzU
-	FHkcUar39nWxZP8z1QnYGWeYM+xOXIhO9axjQDa180J/C/M5ASSA56hnZMCxMSZG
-	vobqZ+JNuzgGlu3pJwXM3GMxKB01kUOEyPG1+mArStfvZQzVKmMqQ6u3vaZCBHbB
-	t3lFd7UdwclQiTOQxnJhM4OPKHS7ufTvYs164tcmKSCQHUhoE8wytmxs941O0uDX
-	jGF8Ug==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe39as7-1
+	51N3v1eIrpPpZPX1rzhVwiekXKC7l14bEGdZyme3Ups=; b=ELHtav7HWc3U7LkP
+	LmxamzzdHPjZz0lCK2gL2MkE7uQN+7FARNH49u4o4AG+HUe8X3/mF0NhfCUcVr9V
+	k08SHqWSKl0zVovCQvYzygOm55Pf4nR4BGXPSceJM7zfLngtcTOJyygXjwkGO0ua
+	NbGuBuTOBiEygbmj5/lcz7J7ZBLdvkSaRYknmmWoUeh510+1Y50cuimdpH3hA7eT
+	8XH9NXTidR4aw5s8ijbd+fJ9VQN2yJdDTcRU9LssVWyF7UPXqNBW65T0r6FQUFOA
+	mQtNPDGA/UH2nWwfkDSg2F0B/bPtdkmBrwQ9jGFVF6ihUT4QAbbjgdV5z10k/fKF
+	5B8Gmw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3hcyj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:03:40 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93bf4c0af4eso144925185a.1
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 23:03:40 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:09:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cbf2fd504so918585885a.2
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 23:09:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791439420; x=1792044220; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791439754; x=1792044554; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mSaIxRplK8lz+P1pRwiYiDK6KGDj44xaxOfHDxftF5A=;
-        b=aTSKeg2ebHPXX8co72Te7wet9M2hOuPggWC+eT7iQxaRouh6b3YzRzkYtm9O6NXeuH
-         ZpymmsnOCGsLK7/X6CfUqLqmzNDNJH9oRGNI7fpEFiMi0qhE7lWtZyPDQ/EGmFR+21+C
-         EkOgG3nBB5kmWfX11ULk5lUFZvjV7EVtIDn9OgZALGNTdAQO8xTPk3sfaegxc/RSIdm8
-         J6/oA1RxnqrYPaAMumHCpvycV1P36GWCnzcLXLOfJ9r+zP3Rp+lC+OjLyvigu4pdF5Ys
-         N4nCXL0f3yLh9VvEGbSAc+4RXQ4o7nP/qTzj4/RswpJb8U8g2mUepocHCG5Qg31SB/Md
-         H+sw==
+        bh=51N3v1eIrpPpZPX1rzhVwiekXKC7l14bEGdZyme3Ups=;
+        b=KBPKrpFA0LnX0OlHZ8Fum16KOT0wqYt1EuBmMfZ0gQvNdULpvjmbHROW+3uhL2DCeo
+         9YPpZZfr9Yv5+rMHcDQe7iI0rUzg5v4vC/bTv+5AODdP+nFxfdAq0pPtPXFD1gqp4QbA
+         hoGJAN8m0BK3NQUwUWm/PiThfsnUCDwRVN3GbzaFh3uBi7sf+C/9hxxPUMAkCKljbbI+
+         ddn8zcPtw113TLLxRoRIsFupTsygPTX1UawWR7OaK6yi3myy0I8jZ2j28SXVE10obo2o
+         0sKY7+kMa+jHoQBw1rZsB/xjg92D3mpRKu5oQBrUGRJssL3Uwd0YqIy3jY+ImWIBk+gV
+         GoFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791439420; x=1792044220;
+        d=1e100.net; s=20260707; t=1791439754; x=1792044554;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mSaIxRplK8lz+P1pRwiYiDK6KGDj44xaxOfHDxftF5A=;
-        b=PzCnj1nxMRrJZZZIBx8inE9Uoii0YOnJqAcXuKWTD9FZnlbNqQz033GCg18fg6FJjn
-         kxYk7LJOusTOn4njUyVbDHK92/5QV0bBjRv8FGPuO2jS3JfGT7EciOM8hE93hne4aGQJ
-         Hy6DS9SgHTznmIWFD7USd+BfLReBZvCg5Tlp2XLeqAfIuTD6OA79KKf6QJJE/Gm2XtQ5
-         yNNTqYFA8LiTpHdyBc2gprq4YtfCK16mxViQDB86frxiOdOx613YEYTGgcvM/E48KHJP
-         nAymEEGPsN7pw+9pFrC6vDiSxw7DUsKwV+/1EXvEfpLPrppX2m+LE7iRCBNubBJaVs/x
-         p5dQ==
-X-Gm-Message-State: AFuF++ljg3iEdTmKsnvRkFyF0fslAyF1w6+6LCl4k9egXjrwOp/ci7UU
-	A68AukF/8rt9JyGgLSviskC0onKUJQPAnGKEhDGYiZlZRK9dPToeDZz9o2Iotihf3Q10751L9jh
-	YJfoqctb8ztNtvyxsBrW3OxAXv39s/m6wWW7SJ90MCUaWnmlm5mjJVZErTwtx6AzNOg==
-X-Gm-Gg: AYBFou0FZ4lW1Uj40HsgALgobRgPcjaEE5lBWlyuCgFjdpk4M7N/ueQQLUePEtCmIsd
-	3LwmphW2BNXJEyD58CrISRC0sZ51Dk7dfoft96G1npQMZ+DFmZAdMo2zjrWYpw1MHhpipNqjwus
-	VwmuuNd4YcSRC3DVXa4wEAgw5w0ST2H0mN4qie1SPbgob59rSltQvAdh/0ZWmf7SYT2Xtq+bKuV
-	6sCx9NgXCwHj2RLGURO20VREWmgTc2UzVzHAMR/nf09jxh+r5ernHUBjLowJEcbmlJxNlQmuc92
-	3S7WpLtgeFK9U9sYDFpUMkexgzefo/N/mxnhX46vOqlOygxDVXDpEHiOk9d/4VTQb8154A/FBx4
-	hm0AIh3H6sumqTXB66IzWT4hiHCzRATJjfUNHcoQ=
-X-Received: by 2002:a05:620a:6f04:b0:93c:3863:ff7f with SMTP id af79cd13be357-93eaaab7cb0mr260592385a.0.1791439419745;
-        Wed, 07 Oct 2026 23:03:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f04:b0:93c:3863:ff7f with SMTP id af79cd13be357-93eaaab7cb0mr260588485a.0.1791439419116;
-        Wed, 07 Oct 2026 23:03:39 -0700 (PDT)
+        bh=51N3v1eIrpPpZPX1rzhVwiekXKC7l14bEGdZyme3Ups=;
+        b=vIIW8yCxNxb70NfYem6AfDA0nUT8z6jk5H8wg+++2jutQ+7j5gWM/W2s+6bi8Iey9U
+         6HoX6/ebhVijjWppLeanCBLpDsExviy4MgpmplD/3QE9kb+NF8eENAXcFi1MPoAEiCBO
+         pjMETXqqaBaL4KyadTLT0suikeY3+17khEfnzkHCGGDTfDFKqvbk4Rc6h01LxtzmpzbB
+         m/hgQp9vLbUpUbkaoGFwOWzUNYuTA+9HBwrf7Y/unwnNfylO9xxCaZjeT5Gz7u0uh2G9
+         qJ9civ1IVfdsUgHQKCECjWPqzMgp/CLDKpuru67cdTJy7GR23PdtJgoJCXg1neIo1bBV
+         dBxg==
+X-Gm-Message-State: AFuF++nhJGaAh48/0c7gfaxlwtMZ+lpwJBMd+jWJ9vOz9sE6XHyuPZDW
+	l38s5uhbE0hNRnVnSZ1ITbER/PV6i8b4Y+JOJ3uiUgfRDXc3/KxOoslpq8GdjqjmvzUISOf5QjQ
+	Y0WV9T75kZQSZEHURPyP31KSGF4/XK5O62zUVmxQ3aFpyFbCUQmW4E7VtJXRUMcQuVA==
+X-Gm-Gg: AYBFou3ATDe41pcvPyJAaAjoDIMLgj0gG7No25z1LbYl8MHtCAsjHLDq1GZfHGKVAmt
+	aQsGDSYzNeSkwUtDbnZnYQZjy/PSPCgAHX7qw9/rgtMsITzcsj8AD31K8UcF4zLrhul9PEZD+us
+	A5gYeeMjVCyinf/Mwj7OJMz7jxI5SplRj880wJtArOHvIgGqeBye+GHygVRSXuGvxP4MIBfI0Mg
+	AwDau6HRrj7kQCOpoBkGav7gBfry1Jj1oMNSle9LtW5fpk9yq2M7lIy0Ft8jZQ1azF1E1HGZ88q
+	74lLRziUjnBQxY34aCerDZONnBcvqQSgslkSMpkq2O8W/jvhZ1VyxI/WFxUSNVWYxl6WVXqMAi6
+	5ZEjwSW2HXFO4/E7t3K2F3Ffll4cdFfy2yCeVPsU=
+X-Received: by 2002:a05:620a:2713:b0:93c:69ac:bbec with SMTP id af79cd13be357-93e9b7d70bcmr915741685a.38.1791439754449;
+        Wed, 07 Oct 2026 23:09:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:2713:b0:93c:69ac:bbec with SMTP id af79cd13be357-93e9b7d70bcmr915738385a.38.1791439753972;
+        Wed, 07 Oct 2026 23:09:13 -0700 (PDT)
 Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d10272sm9294896f8f.21.2026.10.07.23.03.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d30603sm9531448f8f.49.2026.10.07.23.09.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 23:03:38 -0700 (PDT)
-Message-ID: <f548cc48-9ba4-440e-b673-dc3e6043dae8@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 09:03:35 +0300
+        Wed, 07 Oct 2026 23:09:13 -0700 (PDT)
+Message-ID: <1bfb2b1a-eccc-4896-85ec-75b368a4db11@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 09:09:09 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,8 +88,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 29/74] media: qcom: camss: vfe: Specify number of pads via
- line->num_pads
+Subject: Re: [PATCH 30/74] media: qcom: camss: vfe: Add support for starting
+ multiple write-masters in one output's group
 To: Bryan O'Donoghue <bod@kernel.org>,
         Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
@@ -109,111 +109,107 @@ To: Bryan O'Donoghue <bod@kernel.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-29-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-30-ed985aefd611@kernel.org>
 Content-Language: en-US
 From: "Gjorgji Rosikopulos (Consultant)"
  <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-29-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-30-ed985aefd611@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ac7323c cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+X-Authority-Analysis: v=2.4 cv=NchzRGD4 c=1 sm=1 tr=0 ts=6ac7338b cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=05VxW_4AGZEvXVWIsKkA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyMyBTYWx0ZWRfX8Wftb71vfCm1
- cyIBYR5npamozJeiyMYb9/dFn1PXCbbInzf5RA2P+5gbc5CcZjk7XNc5+rXWMe+UFSjeOwxBHdh
- GgAyTvgP6F8E9szJWY7K63fpHlJCMOw=
-X-Proofpoint-GUID: U853Vc3MuXqskINsBsdKjAXqWkZwhtbT
-X-Proofpoint-ORIG-GUID: U853Vc3MuXqskINsBsdKjAXqWkZwhtbT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyMyBTYWx0ZWRfX0NXlaV7OI/Dw
- 5VaiRtU6NORZHgAh/XUpEhz46BVuGdcoraqiKkMgwf938YG0x0glcEwGAXMY9K082GIdyS3Ku0D
- st1g2p7M3c9NH7AFrpMI1sTcwAqqZCtpqxRNP/+dQE3draUAPxV0vFwb3P2ezTA3MmI2WeeqLkb
- 13DRS7zpu6W9K3pvY5J7+q0apT37NO+hFh+rdQpO3wZ1GdZeuNrU2kACInvcZzGOICX1E2jjEm7
- JcKymSRldI3Iyq+w8Nqlzwm4yuGxpuXgi1YESJ8f2hTlvetWWjPNcRVOLgQad8XjsmxIrkcbEk0
- f4ykIyv1JOANxNZIlAVlehDmj4LQjUOF+qP6sKnTBbzZYQR+Wi/ld+och7s5zymAwDxXNBJfGkK
- tNPsfJxeKmhhGHPcLEp1BFQq1DleND3GNT/al3wZY03dLSTjGWceD8RRyIZFz7MBi5obiRYaON/
- 6cElGXCZWHLayoCYuHA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=H5aJt_KGllAkEbt-fREA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNCBTYWx0ZWRfX3VpDCJILIamV
+ Gq+8Twpsmc+L8YMGfWAXrJ12gqVfHtCmbcfgmoBMz/SvH9B4bOCunEbu66223S+YbAKSSX9TLmJ
+ BrlaAMXe4efh+Gq+mKJeewB57LKCULY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNCBTYWx0ZWRfX4dHPTKHS0Vwe
+ Sm2xbZcZTE3UUBYeV9IoLJ7g8Lbrm8mjLyh/59I6FlNN9HUFN18/7Hdf2FcZI/0Qq4Nnue0FfVS
+ DA/JTFLewW1GUb+cesCD2oFuXR5IGk90Mfb8Tp7E7G3Zn1m93x/lPzonA7HFX2kT2vCgkw3K9TB
+ BnCmyoUUH1q6FvUxm5s5S8wC8ew9GRENRgUj60Hn+XtSPhHP+EZIDwZ9vQ8cnxjGLVt3DJKPUtQ
+ xNxjuuWftkBGLlPI8aAzPeKmmMAqRuweyHY/6mNl0XZmmEhJeLzV2RSqKoVyv3btOYuOWjnHm6e
+ Z9e5NLcdFleXpFPqLXrMijzWORbh+ryme/14URlpE4jvyLcv8ggBxZmCz2MqNVAuEh6GOhNi3n8
+ WSIoigC0vN1Ue+sJlQbWFTDBNSvJa/1XjQPGRsbPxMYfuKMd5Pb/X5i5WQcvsQNNITR4xJuPWcb
+ eXSxFiPPZAX1TvKecRw==
+X-Proofpoint-ORIG-GUID: eXORiO0qePjVHRM1JgKAz8elUVbR1m4g
+X-Proofpoint-GUID: eXORiO0qePjVHRM1JgKAz8elUVbR1m4g
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
+ impostorscore=0 suspectscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080023
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080024
 
 Hi Bryan,
 
-On 10/5/2026 8:13 PM, Bryan O'Donoghue wrote:
-> We will need more pads to support the pix path - allow the code to specify
-> the number of pads via variable instead of via fixed define.
-> 
+On 10/5/2026 8:14 PM, Bryan O'Donoghue wrote:
 > Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 > ---
->  drivers/media/platform/qcom/camss/camss-vfe.c | 4 +++-
->  drivers/media/platform/qcom/camss/camss-vfe.h | 8 +++++---
->  2 files changed, 8 insertions(+), 4 deletions(-)
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 63 +++++++++++++++++----------
+>  1 file changed, 40 insertions(+), 23 deletions(-)
 > 
 > diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-> index 35ab3203d75af..3fe0139f82d16 100644
+> index 3fe0139f82d16..c078af53b0758 100644
 > --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 > +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> @@ -2050,6 +2050,8 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
->  		l->output[0].wm_num = 1;
->  		l->output[0].wm[0].bus_client = l->id;
+> @@ -642,36 +642,16 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+>  	spin_unlock_irqrestore(&vfe->output_lock, flags);
+>  }
 >  
-> +		l->num_pads = MSM_VFE_PAD_NUM_RDI;
-> +
->  		init_completion(&l->output[0].sof);
->  		init_completion(&l->output[0].reg_update);
+> -int vfe_enable_output_v2(struct vfe_line *line)
+> +static int vfe_enable_one_output(struct vfe_line *line, struct vfe_output *output)
+>  {
+>  	struct vfe_device *vfe = to_vfe(line);
+> -	struct vfe_output *output = &line->output[0];
+>  	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+> -	struct media_pad *sensor_pad;
+> -	unsigned long flags;
+> -	unsigned int frame_skip = 0;
+>  	unsigned int i;
 >  
-> @@ -2231,7 +2233,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+> -	sensor_pad = camss_find_sensor_pad(&line->subdev.entity);
+> -	if (sensor_pad) {
+> -		struct v4l2_subdev *subdev =
+> -			media_entity_to_v4l2_subdev(sensor_pad->entity);
+> -
+> -		v4l2_subdev_call(subdev, sensor, g_skip_frames, &frame_skip);
+> -		/* Max frame skip is 29 frames */
+> -		if (frame_skip > VFE_FRAME_DROP_VAL - 1)
+> -			frame_skip = VFE_FRAME_DROP_VAL - 1;
+> -	}
+> -
+> -	spin_lock_irqsave(&vfe->output_lock, flags);
+> -
+> -	ops->reg_update_clear(vfe, line->id);
+> -
+>  	if (output->state > VFE_OUTPUT_RESERVED) {
+>  		dev_err(vfe->camss->dev,
+>  			"Output is not in reserved state %d\n",
+>  			output->state);
+> -		spin_unlock_irqrestore(&vfe->output_lock, flags);
+>  		return -EINVAL;
+>  	}
 >  
->  		sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
->  		sd->entity.ops = &vfe_media_ops;
-> -		ret = media_entity_pads_init(&sd->entity, MSM_VFE_PADS_NUM,
-> +		ret = media_entity_pads_init(&sd->entity, vfe->line[i].num_pads,
->  					     pads);
->  		if (ret < 0) {
->  			dev_err(dev, "Failed to init media entity: %d\n", ret);
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-> index 8bc07fe7798e1..8fee26a0dc2e6 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-> @@ -21,7 +21,8 @@
+> @@ -683,7 +663,10 @@ int vfe_enable_output_v2(struct vfe_line *line)
+>  	output->wait_reg_update = 0;
+>  	reinit_completion(&output->reg_update);
 >  
->  #define MSM_VFE_PAD_SINK 0
->  #define MSM_VFE_PAD_SRC 1
-> -#define MSM_VFE_PADS_NUM 2
-> +#define MSM_VFE_PAD_NUM_RDI 2
-> +#define MSM_VFE_MAX_PADS MSM_VFE_PAD_NUM_RDI
->  #define MSM_VFE_NUM_OUTPUTS 1
+> -	ops->vfe_wm_start(vfe, output->wm[0].bus_client, line);
+> +	if (ops->vfe_output_start)
+> +		ops->vfe_output_start(vfe, output);
+> +	else
+> +		ops->vfe_wm_start(vfe, output->wm[0].bus_client, line);
 >  
 
-Having not documented structures is ok when everything is readable and simple,
-but having same structure used for multiple platforms and different valid fields i think
-it deserves documentation and comment. But that can be done in cleanup patch.
+Is really confusing we have new API but just start_xx has guard whether that API is used,
+Not to mention v2 and other vX versions of the functions which is difficult to track. Can we
+abstract them to some kind of ops and use one or other API so will be easy for the new platforms
+to be integrated. Honestly is really difficult for me to read and trace the code in this file,
+but since you like it a lot and keep on updating i don not have match choice than to work with it :-).
 
->  #define MSM_VFE_IMAGE_MASTERS_NUM 
-> @@ -141,8 +142,9 @@ struct vfe_line {
->  	enum vfe_line_id id;
->  	bool is_pix;
->  	struct v4l2_subdev subdev;
-> -	struct media_pad pads[MSM_VFE_PADS_NUM];
-> -	struct v4l2_mbus_framefmt fmt[MSM_VFE_PADS_NUM];
-> +	struct media_pad pads[MSM_VFE_MAX_PADS];
-
-Can we group per pad parameters in separate structure in future crop and maybe some other fields we be required.
-
-> +	struct v4l2_mbus_framefmt fmt[MSM_VFE_MAX_PADS];
-> +	u32 num_pads;
->  	struct v4l2_rect compose;
->  	struct v4l2_rect crop;
->  	struct vfe_output output[MSM_VFE_NUM_OUTPUTS];
-> 
-
-Regards,
 ~Gjorgji
 
