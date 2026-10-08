@@ -1,89 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C69450410
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419334A3F26
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465755; cv=none; b=gbOK8sNbofyuToyzLsOyLbPzVGmTE80wt2t/wrjM4aTRg0q29KNKQQ8XYLRf+4Yy4c2ckW1H7HHq3Njgv1Hi3gwr6TDjINRedKL6gjUIHqwGNnQpEkgSFf6XdKVpW7eNdHfRSNLCGhYynHgmQFhmyU1hP7OPfGtByVPgk7T7NmU=
+	t=1791465981; cv=none; b=gSVQlCi0RkXmWGvxt/9JWKAmUTXjd5CJaKfU0OYcvLYKkknu8wE9MhecHnPYzWKfj++F572c83oiWxGH0pOBfjTubFLuoU+YfPt15Jfl9q/u9Hatc8wIvQh7OiLy30etNnQz8Iy4Q8uRs9DxNp6wFjpdF7WNzf8lEPmPr2aeHp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465755; c=relaxed/simple;
-	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=axKvx3DzxMmshe4MWG1lfhm/USkaN1/ylsGMMctJ6++W1KxARqrOPUumYAPLw/44qGtMMbJ/Ch6JSinag0dj0sylu0LCOQtMdvCIOjdtZODGw3iAPe7+c8w8kI5jtWPpF6SvnUFyswWZ0zjsJ7azk8zZUk1wbwmAs6uIS8awUXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVrQodrv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791465981; c=relaxed/simple;
+	bh=+m9rnwpw7xg1jsbD5aOWtNPCYElh+Du/JGxeqetiXi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rpL3x2ux5b2Ql8ee7obHoQaahcWISSQljgZM5dl8Y0VeQhNmrctm2bw99kml2LWsZn+QAIcHlDYz4cs5Rg4eQp+hx8br+zmDoDVlO4JQB4lmfGbPpYPns9F17u+Gg34XEPS9Km97llZxxSAitxuNIidn2PuTyq1y2FN2fMW6ma4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPSSCmIr; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVrQodrv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42BE71F0089D
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791465754;
-	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RVrQodrvfX8BLyPmA1KAw/5Y8/NZCTIw0S/hv0SelcX3h92+ckfFvi3SAWVX9htgu
-	 7/yfEZ35v95BqA1MUxukZ5fT9oUbyhyh0o4YaElq7FA9/tjWLkxRU4t3zf8Ebdb2GU
-	 3QLPD8+N+jVA156qJUZZaZlrRQ401v5ICeC7wQPC74dRUVukh9SnOQEfFPz/hN1dEw
-	 oqOYyfg+11CnADhC4GoieryKVucWfk6FQZ579l7iwN/Aip/moNIvSySf0M5E8BeNW7
-	 w75KP5Y5VgjEXZZIgBIZSSHkKkGPOkwQ1Rz7ZrUwDE82UpH4cjh8KiBWk8rSKESKqg
-	 0qpIhEv4IsVTA==
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-49e18e5583eso858497fac.2
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:22:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwxl2PMK2YNbxaprWYcs9P/ErxirH/lcmKUo2UwzvwykVOGDCSSxYXH/jewEjUYfgnA6M4/oFl8NfoSfQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++kbB7Lft4TtHAA2ECgHI7tOkg5N77+A/ot6wR5k4sgfyQxobDaI
-	sIsaRyMsQkxlz6qHe1iSW/PqUX3BNQdiouEUt7XBBa4+sPyOwMIPCPivTOc35ytAr+T6EFZjN7y
-	Vdogzb1YSpRUZpOD5hiHPzdtFYmdV9Ik=
-X-Received: by 2002:a05:6871:b2c:b0:47d:a12f:3951 with SMTP id
- 586e51a60fabf-4a259661200mr4847200fac.39.1791465753534; Thu, 08 Oct 2026
- 06:22:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPSSCmIr"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so4511516f8f.1
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:26:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791465977; x=1792070777; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fh/Nj6C+FKLMVijEkg1F+ko3enZi3ph5WXj82YARnOg=;
+        b=GPSSCmIrGgFnkcDAMmBUUvO+AOhBrdHtwXSKy2ebQ52J6YUhaDMZf5ZmD64v/G7mao
+         vFr7BLRD3PifhaQUjG0Ub5+bk5lMZ3BndF8jhYcC9VFUFYL6IFs6vOsNLanSezpX7ixq
+         dfpj89xgQwjWb9td+gbgDZ2VjuD4WOoJ8EBOrZOghiu9ApMPqH0aoI1OV7/OnSbGQWYV
+         2yVUFO6RALalMF8cTyEyzCe9RgCkkkt1L02S4/kW+NN0BWqWceP8/pvsrJ72cGc3mydQ
+         JStZMjRP04bx010oVDLEq0hxUCmpvpBu0gDONWcoHmhih68BynkDeCVO8TEVxBZ6d/gJ
+         X/Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791465977; x=1792070777;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fh/Nj6C+FKLMVijEkg1F+ko3enZi3ph5WXj82YARnOg=;
+        b=pW3+Aplb14ophAnzHz8Y8BAyD5BB/RlK2lzYPE84RbWmYy4rHDU+wY3chQLEAfcK+Y
+         CSwiyVLHyjNxJ0K+RliAvUaOfSkP3wg/E2egTb60/cIiqKm1mbTKpDQf/LcXRXCarfjQ
+         qKxKl3AEwTxpHLfM+uiQdtixQA+GWKR41uAUn2tODfJZFovYprczffvvvC73ImL2bNUH
+         1ONP1W0v0+DOVFu/t9jMNNhptUXnhwKTHROuK9XMsdLO7ZVUO7w7ip/k7zWPLlsPAIRc
+         xUmQ7uaU8CMV42TnXETgxIw9jQHjcc14BjLk5YAfQQ9mHP1L7KVACVNfSukSvd+ZJC5n
+         WVmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaMi27D72N1xwZ5NIjyjrpWO4LAQ/nPg7oq4YXBHvL/XD7nTC7GIWNaCgmyZ9SS1kC7WV5x5x98OwjCA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mCa6dBJkHoFcogJsqmOmAvKqmkrNCRyCVqheEB0+7CJ/zNhnET
+	Zdh3RelhmgRXh9R7+kBFRKlMQNzGJdSCBc4GjtN3cg/OkeaW8x/700cITGBHXWa7XA==
+X-Gm-Gg: AYBFou1K9ApmNd06x4K60SkJAsyOZ9hBBm9EN49YNdXHXNvY9mlL5258zwKsWWytoAp
+	vzkNiTxHqovB0i+XvBWhWhOCkVFXHNOIlcFx9tixLNledUW8crmqfemCM9akbN2r+H2zfYDXoIQ
+	TE0YiVVASaN0hh9gwcbPvKHbuXY+7N5KnDOX80W89puLDtOLFD5DORy11/dimJa6tzPhIV6Sw62
+	gAzXDLo+trRncX+JPRRNPhqhVqrV/F49ouSTfycBiACkccd5E1P+xNNHMviC6uVTjXSQVS5osE7
+	q8Bc3FF5wpNZ9JJVpNdemRjTXuk70tajNpgQFFv6YSSPFeBBk47UcAUGkHhe3x6jIIkyyQBVMIt
+	lP3P9FUyYfA/8mLAw5uBcnIt+wOaz3ITdIi4qKv+dXhbTOakj3AkoT6a7+D5tCs/Zkj7qNKkoXs
+	3aCbOEBFoHZ5nFGcA6tMEFxIYg400GPnGNt0SMibFh0yqvIV+kVF7H16W6af142mzHv+ahAqIw7
+	H0ksatH2Jms/C2ukrH295ta2mZxQhUWYER9O3dNPRhq1ny9Y7tGS74=
+X-Received: by 2002:a05:600c:4f10:b0:4a0:98c:e082 with SMTP id 5b1f17b1804b1-4a18043b5aamr106524465e9.13.1791465976910;
+        Thu, 08 Oct 2026 06:26:16 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842a349bsm71479105e9.2.2026.10.08.06.26.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 06:26:16 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] media: ipu-bridge: survive module unload and reuse the software nodes on rebind
+Date: Thu,  8 Oct 2026 15:26:12 +0200
+Message-ID: <20261008132614.2456716-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
- <20260929-mali-c55-irq-supend-resume-v1-1-e3af34afff12@kernel.org> <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
-In-Reply-To: <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 15:22:18 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
-X-Gm-Features: AclHuK8rWtCgLBExYEFVtV6YJ_L_wVK9_y0rwU4QnsM7FeH0zmh-80QUTN8UTes
-Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: media: mali-c55: Allow wakeup source
-To: Dan Scally <dan.scally@ideasonboard.com>
-Cc: Li Youhong <dayou5941@163.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 7, 2026 at 11:29=E2=80=AFAM Dan Scally <dan.scally@ideasonboard=
-.com> wrote:
+Hello,
 
-> On 29/09/2026 13:02, Linus Walleij wrote:
-> > The Mali-C55 interrupt can be wired as a wake source on platforms that
-> > support it. Use the standard wakeup-source property.
->
-> That's interesting! How's that work, though? In the RZ/V2H particularly t=
-he ISP is in an offline
-> mode, so I'm struggling to see how one could trigger the interrupt whilst=
- the device is suspended,
-> since you'd need to instruct the IVC to queue a frame.
+v3 is a rebase of the v2 series onto media/next; no functional change.
 
-The implementation is IP-neutral and doesn't really ask this question.
+1/2 no longer applied there: the endpoint properties are now written
+through the IPU_BRIDGE_NEXT_PROPERTY() indices and a local names
+pointer, so the link-frequencies hunk had to be rewritten against that
+shape. 2/2 applied unchanged.
 
-The typical silicon solution would be if the IP was synthesized into
-and always-on power domain on the chip. This means the CPU
-which runs Linux is powered off, while the ISP is still powered
-on, and could generate a wakeup IRQ. This is how e.g. GPIO
-units that can wake up the system work: they are always
-powered in some sense.
+While rebasing I noticed that commit a20c843c9bc4 ("media: ipu-bridge:
+Keep the clock-noncontinuous property name out of rodata") already
+fixed the third reference of this kind, the one I had reported
+separately. The two remaining ones this patch moves - the
+link-frequencies *values* and the "lens-focus" property *name* - are
+disjoint from it, and 1/2 now says so.
 
-I don't know if that makes any *sense* from a system engineering
-point of view, but it is something that can be done.
+Testing: the v1/v2 testing stands, on a Surface Pro 7+ (IPU6, OV5693 +
+OV8865 + OV7251) running the equivalent change on 6.19: the PCI remove
+-> module unload -> rescan -> modprobe sequence, fatal today (-EEXIST),
+completes cleanly with the series, twice in a row, with all three
+cameras streaming after each rebind. The rebased files here are
+compile-tested only (gcc-13, no new warnings): that machine is not
+running a media/next kernel, and it is about to leave my hands, so I
+cannot promise a fresh run on it. Other Surface Pro 7+, Pro 8 and Go 4
+owners are testing this hardware in
+https://github.com/linux-surface/linux-surface/pull/2252 if a retest on
+next is wanted before applying.
 
-Yours,
-Linus Walleij
+Changes since v2:
+- rebased onto media/next (1/2 rewritten for the new property
+  indexing); no functional change;
+- 1/2 commit message notes a20c843c9bc4 and what is left after it.
+
+v2: https://lore.kernel.org/linux-media/20260831140304.45940-1-dmanresa@gmail.com/
+
+Changes since v1:
+- shortened the 2/2 commit message;
+- dev_info() -> dev_dbg() on the reuse path;
+- Assisted-by: tag per Documentation/process/coding-assistants.rst.
+
+Thanks,
+D. Manresa
+
+D. Manresa (2):
+  media: ipu-bridge: don't reference the module image from software
+    nodes
+  media: ipu-bridge: reuse the software nodes on rebind
+
+ drivers/media/pci/intel/ipu-bridge.c | 38 +++++++++++++++++++++++++---
+ include/media/ipu-bridge.h           |  9 +++++++
+ 2 files changed, 44 insertions(+), 3 deletions(-)
+
+-- 
+2.43.0
+
