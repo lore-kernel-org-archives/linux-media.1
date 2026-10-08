@@ -1,172 +1,88 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23ACE4908AE
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321D24ACC81
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465986; cv=none; b=Y2dqCzyNYcGhToXxMNKTsmanOanqxbbYebi3J6PTNRK18H9JY3Alu/pCG/loxeV2DjqQ3EFBWeRzbial7MnT4XMnnYeGNUHfgUUqFHbW0oCjyrqbCQmPbrK1P/LT5eOhu9CZEAkYEBe1O0T+5B808qBSxNjHaiPETCpU+PqPp/0=
+	t=1791465994; cv=none; b=KA2GA5Drbd83Hfjysakiy43CWAOsjDNnZZu1AxlVFHg6LpNVkXQ3oRDmqf2Lu2/IWukHKMPvtLJ19G1HFVi6Px1O5erzvg/WN0nLBJ1IwWx2xTE3wjodDGmXr11/ihDDgtLDL9V9opN8idIZyT+hTdDvqV6zxnUiBYFHakl8oig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465986; c=relaxed/simple;
-	bh=8ZTTcvJ6pMLKzEcbB5RE4trvo0lhMVk+f9x9P8nhzcc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZVl7q5US9S2/mdNPi6ErfTKVuFD7XOZ7vOJCkYb+wE0bqR6FkenUBafx0FqjTqwGge00105cVrWRBlS6r5D2KkEzbw4SfWvDz3kmyegSPdC9a8nzQZpdYUmTyLb5ZMXPjoGUXC6bxsBGwppHqH10ojbpFZexpJnriuutCm8cgKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iiL4VIJ9; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791465994; c=relaxed/simple;
+	bh=rHTgJInrraLbaAI9Fq7EqTpz1oTXGx96B7KGAkoD3WU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rxGhxXgWFI7UR8Ar+I/oypm2bvr0+qeFvZ1x4O9KDrCcFFOREIttGaGOnmnDvHTB7a0vC2gB0rfqNmQtwWNgnG4DUhZpCxcqvJFGB5YU3A3ObiXq+sYxAVF2Dc/gwCXdOcaCpBvXE4xhTfoX0iFw2F+AMronjjSodvU36oXl4c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H1q0YnhN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iiL4VIJ9"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2714734f8f.2
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:26:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791465981; x=1792070781; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SrpJoFjsD8GO+k4lY1Fdpbp0OUi5skMrml0Ia9JAUZI=;
-        b=iiL4VIJ994jRrTAiZGGgHpZJspiZw152bX5+z/8ax35ZudBs3/6mHU2MhiCZqj8IXn
-         jtIc52a5B77xTJSjnO+gUHWn+gVexdngXH+27pJmibyBbM60ovxr/sGjSKqTYLWSBw/9
-         qARvKe8y4ITQ+qJ8rEqevXkVXGDN0AZsdcSSQWxPN0/TPBEWQz//a1vR4o5Zl/3rmhdm
-         ldOvEvEa/XT+vmhKP7RqWCAvVE30Yo4wL07lkdz/Gh/Z9tMPoIzsovkoyQ3jKIBTTE7H
-         tfaZYpa7AQmvzOZLFDPnoZY+ocMuhVuKNYmd8L77vZS0pGtZHXqNza5Y4EeNULDWYG8z
-         sXIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465981; x=1792070781;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SrpJoFjsD8GO+k4lY1Fdpbp0OUi5skMrml0Ia9JAUZI=;
-        b=MBAfERYHPERGk5x/Sg6Op/ZFFy62uUvMCjflrmCagJyHgRzhPqamylQUkVuvSvzwbA
-         x9YUvGHaxrjC4N0AarBVOKeXtLgJ3ZpYUMq0WQZfvE3ljZsR7Vt8PDN/uwHgeRvpmT+Q
-         345U8CkkI34V7Yn3zsE4L6i6IrZOGS+vZsmwZar4L4fzg+a51Vg0aB8VyVqucM8MGnCX
-         EUCOIdJxLq/DxUOWBvAR5pEa4CHqtZjCg2oGwYJPB9Cv5XRTB0tPncxeH6XUOAayll0Y
-         9iAaNqwEI5wVR+fe+Ce0Y9FTGVQ4kqwF+fWx4Kz9VaIhkRmmWNm7yBb1RtLFPrpOsOcK
-         lsIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzR9Cdi5+RthKpdD7N4Cn4mX2NX8VzSMtfywRJ3eAuN2mr0Ku+UIyN4nk4tdXaVkdXNcBbTs5qzFSoXQg==@vger.kernel.org
-X-Gm-Message-State: AFuF++myI19ucLXlnRF0Zf8T83OYV1LKqBCVNMW1APtaQNUwlEWp2KBn
-	B8aEqFSBT4vZcs0tAx4HvsUmPF6dh+LJiXcf38Frn6xVZKb0Q9OTKco=
-X-Gm-Gg: AYBFou0eGE22gbImFCVabqneAr+JJozPW1aAcPtkeHjBTaQttGNpAyGwDuVA0v8gfAo
-	1Tjw5qR88kzxv4rcQYDIxC5m4AXfjCeHO5e2YvTAMHeS9yIpSvum9wp10ma6kuREzn85UK9HS1O
-	clTD1Qy15b/jYgDjhXBYhHkwUvuRty2OnFti+YAZXbwojWQ1l0SMeYCnOTIWidZhIlFIdHkcbmo
-	ThffMxRESoaWo5P8p8Q02d7w8plXdBAKivBWsir5CsXCehqpjB7hbLrsZaRAypPmENQi9XdwMTo
-	cktVKs+Qr7OYpogctkT0Af/Z7jC9bPs6OTsBP3BLSySYhn8GQ2Y7Mp/uHfa05r9bwtREla4QEXY
-	apu35b8QV/Vtp3FavozdS6LvRxHywGuqaRy9Nc/I5zliglq588hMK2MEruP3UvZ+UiMmLKPAbDo
-	2ytPsWIzWUORLiGbh+oy3tN85x3UOp7R4A05syQPTZrlH1W6XLMFl9qwweEqi+hnI7Ws9W1MYza
-	PwdNWpCaDVyzysINCo4snRmnqgUaTeZFrVImz4Gc/frj94Hb6UHoSo=
-X-Received: by 2002:a05:600c:154a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a18043b5fcmr98401565e9.16.1791465981008;
-        Thu, 08 Oct 2026 06:26:21 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842a349bsm71479105e9.2.2026.10.08.06.26.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:26:19 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] media: ipu-bridge: reuse the software nodes on rebind
-Date: Thu,  8 Oct 2026 15:26:14 +0200
-Message-ID: <20261008132614.2456716-3-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008132614.2456716-1-dmanresa@gmail.com>
-References: <20261008132614.2456716-1-dmanresa@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H1q0YnhN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D521F0089F
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791465991;
+	bh=TI+5D22ueYdVZr31isBC+dn7ZaNBTi8w4WkTml9p8wc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=H1q0YnhNqujp+LmoTjllt5jjZ1EsPIkt01NfS1VlIu7+DDnh6ECRnhec3CJXsltzf
+	 Bq457BpBwrIX9IZZgIb0csMJqOzemnTvLyyA9M/+U6W/+TJtml6vqaUgGVa5q4Qpia
+	 GgB7sz08qxRJatNXdxNI91XviffAf5trzpnHaUx3QxG/3Pt5eE+DV9k01d+CWS19BD
+	 JzO0GiL6YO3tIhJZ2CtD7vHMNAJkGlQ0cpMvD+vRULFOt05H38MPX38wnzKrT3ny28
+	 +Sby/70MTPS9tQ/kVOQgMKddQdnUCHwJUVPI4/WLnsRPo3LX/QVah3+gj151MaVOqg
+	 YIHpVOMlBsoOg==
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6ddef424972so4146984eaf.3
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:26:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzZBwrG7z15gOkIcfElncd+/Odyq7VuwamZQ2VHKSXQNQpc112R4AWOyZA9Pytp8uDKreFztGpkTOtDXA==@vger.kernel.org
+X-Gm-Message-State: AFuF++lsl2LONDkwkVtcaKNcEI+TljFlA40Gu8jZnhMUSdZkE3LAtBR7
+	QIu+Po7NrCfRdgfNF9kM3d0RpCtpuqXq9m8xR1dlh6uTPk7tEE5TAfGLyAr0A2JRjhNgKlrBhqU
+	UARRik2fah0FN99NZk/uFpQFZQisU8AE=
+X-Received: by 2002:a05:6820:2917:b0:6de:9b73:3799 with SMTP id
+ 006d021491bc7-6e7a65d6ce5mr5784707eaf.30.1791465991184; Thu, 08 Oct 2026
+ 06:26:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
+ <20260928-mali-c55-renesas-dts-v3-2-2cf7eb746ebb@kernel.org> <5bc1553b-465b-42d1-a4b0-66a514b897d3@ideasonboard.com>
+In-Reply-To: <5bc1553b-465b-42d1-a4b0-66a514b897d3@ideasonboard.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 15:26:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmBbMUjO-tbiQ=+G8tf=4RyKQ+=h2y=o2C+g+NY7HsqQQ@mail.gmail.com>
+X-Gm-Features: AclHuK-IZevOrGcp4TO3XcH0yKfWCnAkoUReD-v7uxPQWatf-GdnKg5lWQK69Sg
+Message-ID: <CAD++jLmBbMUjO-tbiQ=+G8tf=4RyKQ+=h2y=o2C+g+NY7HsqQQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: media: arm,mali-c55: Describe DMA
+ line-tick interrupts
+To: Dan Scally <dan.scally@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The software nodes registered by ipu_bridge_init() are deliberately
-never unregistered, and the intended design is for a rebind to reuse
-the already registered nodes. That reuse path however only exists for
-the case where the IPU device kept its secondary fwnode link, which the
-fwnode graph check at the top of ipu_bridge_init() detects: then the
-function returns early. When the link is gone, ipu_bridge_init()
-unconditionally registers the IPU HID software node again, which fails
-with -EEXIST on the sysfs name (the node from the previous bind is
-still registered) and the IPU driver fails to probe.
+On Wed, Oct 7, 2026 at 12:49=E2=80=AFPM Dan Scally <dan.scally@ideasonboard=
+.com> wrote:
 
-That is exactly what happens when the IPU PCI device is removed and
-re-scanned: device_del() unsets the ACPI companion, and
-set_primary_fwnode(dev, NULL) then clears the ACPI fwnode's ->secondary
-pointer, so the fwnode graph check on the next probe finds no endpoints
-and falls through to registration. Observed on a Surface Pro 7+ (IPU6):
+> >     interrupts:
+> > -    maxItems: 1
+> > +    minItems: 1
+> > +    items:
+> > +      - description: Combined ISP core interrupt
+> > +      - description: Full-resolution DMA writer line-tick interrupt
+> > +      - description: Full-resolution UV DMA writer line-tick interrupt
+>
+> As with the IVC, perhaps an interrupt-names entry would also be useful?
 
-  echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
-  modprobe -r intel_ipu6_isys intel_ipu6   # ipu-bridge unloads too
-  echo 1 > /sys/bus/pci/rescan
-  modprobe intel_ipu6
+I think interrupt-names are only used if you have say 100
+possible interrupts and only want to specify 2. So you can
+look up the 2 you need by name.
 
-  sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
-  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
-  intel-ipu6: probe of 0000:00:05.0 failed with error -17
+I don't see any situation where sparse interrupt supply
+would be applicable for this IP? It's just 3 of them.
 
-after which the cameras are unusable until reboot.
+(But let's allow the DT binding maintainers an opportunity
+to slap me on the fingers about this one...)
 
-Add the missing reuse path: if the IPU software node is already
-registered, look it up with software_node_find_by_name(), point the
-device's secondary fwnode at it and return success. That is all a
-rebind needs: the sensor, IVSC and VCM links live on devices that
-survive an IPU unbind, so nothing has cleared those.
-
-software_node_find_by_name() takes a reference on the node it returns;
-drop it right away since the node is kept alive by its never dropped
-registration.
-
-Assisted-by: LLM
-Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-Signed-off-by: D. Manresa <dmanresa@gmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index b9779c3..f0fadc0 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -1099,6 +1099,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
- int ipu_bridge_init(struct device *dev,
- 		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
- {
-+	const struct software_node *ipu_node;
- 	struct fwnode_handle *fwnode;
- 	struct ipu_bridge *bridge;
- 	unsigned int i;
-@@ -1109,6 +1110,29 @@ int ipu_bridge_init(struct device *dev,
- 	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
- 		return 0;
- 
-+	/*
-+	 * The software nodes registered by a previous ipu_bridge_init() call
-+	 * are deliberately kept registered when the module is unloaded, and
-+	 * the sensors' ACPI fwnodes still have them as their secondary
-+	 * fwnodes. If the IPU software node is already registered this is a
-+	 * rebind, e.g. after the PCI device was removed and re-scanned,
-+	 * which drops the IPU's secondary fwnode link. Registering the nodes
-+	 * again would fail with -EEXIST, so instead reuse them and just
-+	 * restore the IPU's secondary fwnode link.
-+	 */
-+	ipu_node = software_node_find_by_name(NULL, IPU_HID);
-+	if (ipu_node) {
-+		fwnode = software_node_fwnode(ipu_node);
-+		set_secondary_fwnode(dev, fwnode);
-+		/*
-+		 * The node stays registered, it does not need the reference
-+		 * software_node_find_by_name() took to stay alive.
-+		 */
-+		fwnode_handle_put(fwnode);
-+		dev_dbg(dev, "Reusing the previously registered software nodes\n");
-+		return 0;
-+	}
-+
- 	if (!ipu_bridge_ivsc_is_ready())
- 		return dev_err_probe(dev, -EPROBE_DEFER,
- 				     "waiting for IVSC to become ready\n");
--- 
-2.43.0
-
+Yours,
+Linus Walleij
