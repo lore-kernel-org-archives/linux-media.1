@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6754A3CE083
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 06:52:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66ACB3CE4A3
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 06:58:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442337; cv=none; b=cFs4+YBPk0aNxg+W0g1oAjE9EhZ+xE1/N9Q+1c+kaxNPqSX6aiy7WKGxBv85TwZTzJJCvH5MjnVX4kgUHPhxvRY8tj4PYj8PHfZuenTmd2GHzPH+RGWuiOeG4lUw2b9bRPEm9e6RCZBuN5fGsceo4XGrl3rjn8CL9F73Nz8+PvU=
+	t=1791442710; cv=none; b=f5aqsxqdEWNBnSUz0YD52PsE6cAsrKmEdd58Dz+VYKVmAXKlrsbSQy//FVU7ndkXtwAY4lH7wPALTsfk+gKQdfLF2beC8Ijx+2YGRutSADXA/Wptl/84iRrh2MWt5vWklMEKUKuJg+QAopAU92+rncnLbSF421Nxal/HyZOYbvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442337; c=relaxed/simple;
-	bh=GhJa/F78UTRptZUQ1OB3yE2E4H5g/nOrlu+LwUBdfCY=;
+	s=arc-20240116; t=1791442710; c=relaxed/simple;
+	bh=ilB+b0fL/v7+p9Fflc29+ErwD9JRE7F1U54E/cbzX+c=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=t/pPKQapVIc+ePRASvGthEOT9EflgYPM5ieHrx59w7s/8IeUPqQ2N5LcMHRqEm96ARAA2yOBoD83qZm6HQjt5NQcoz6zuTz2uDTsK/caK5ptmQFKiMAeP6vyYQlagpuDy2Mft6r2pDkoPsQlfOW1Z7IVRKokTMGf/GFMtG8GNE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huhfs0pZ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LQjAzyANqhUgs4EdScBJKaD5jBxKcA8Sojz/VJRV7UZxhGZmukFsqGZCxe/jkvI+gRWIBI37CjL5YFpjrvolKTdyPgwZy7ifLeJaRbr2ouNop/4GVuNn6X5PJbSFv3Igx0gusaipPO2q559GqumZs8C/vvFZNzPNzKkNAgBtjcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oStjRxWF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huhfs0pZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88D31F000FF;
-	Thu,  8 Oct 2026 06:52:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oStjRxWF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25CB1F000FF;
+	Thu,  8 Oct 2026 06:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791442330;
-	bh=nHuCJkYlMUjG+oCR/j0/wkyMipE/7evMGhVbjJcCmJo=;
+	s=k20260515; t=1791442709;
+	bh=7JpzCMx7siRFGzQ9CZ85UvXyOFCVxh1vdv4NZxmlnC8=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=huhfs0pZNIZnFcEnUyaOhQSsCBQhGkWRnggkWlIBCUJJjsU0VW2ecdd6oV23kxehL
-	 ddqmxyhFo82/OSWlpp2OI/LNZwwKIM6ZvDZO/O3qxXGBjHeO980EDYP+IyyP3HbZBx
-	 iWvQyh0Ny3Xp+tbEzo0rcpTOnN0HcCR9OYiceyKkJdPxl1J6AaV2bLo+B0+ntbIUpu
-	 Kli7Hv0Ei4EVk+50E35ZE486Z6OgdsqR8AXkHn/f23ENgtbSKsUl2tf6arzLgwvKSi
-	 Ur8wc0WLNmI1LbRvdQL5aDAkSLpTzP6s0vVsnWReVUfwpz/ek40az4e93x1JnZztBi
-	 5wBN+kznUEeJQ==
-Message-ID: <6dcd4951-d86b-4295-817b-ac4984284c16@kernel.org>
-Date: Thu, 8 Oct 2026 08:52:01 +0200
+	b=oStjRxWF4aY5KjYwKZff2NRup4XOID9QahdfxZxHLYwMlDnn6NSmWU2uuPkydnMRs
+	 15VRYNz47OmCfRP0KsA6zr467ju3XIgWiMVmBHunM58EUvIlGoNtlcT5SV073s9ROk
+	 0f0Y75MQKL0Crd/I0HbBAUF1AaML14dP1VomAVDZ3jri2IYM5nn6EPCtDIk9jaco7n
+	 yt2I8+5S6yenTiSliYeDIQ/tdJ4PaAGIvAzm1lClIQqKz/lRvLT1kvj6+fYVWgw4nB
+	 CZrgX+H5lIE708MvOfLFT9VJ3zZBP2iXjUUwasA+6/AM7z8dkqzYJE1hUw8AOAlJNW
+	 4VlPBuPsCmrHA==
+Message-ID: <a2d805e4-71bb-4e05-9bd2-53d5f439274e@kernel.org>
+Date: Thu, 8 Oct 2026 08:58:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -36,8 +36,8 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 1/2] media: mc: Keep INTERNAL pad flags just for the
- kernel, for now
+Subject: Re: [PATCH 2/2] media: maxim-serdes: Disable test pattern generator
+ for now
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
 Cc: laurent.pinchart@ideasonboard.com, Prabhakar
  <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
@@ -71,45 +71,71 @@ Cc: laurent.pinchart@ideasonboard.com, Prabhakar
  Vivekananda Dayananda <vivekana@amd.com>,
  Quentin Freimanis <quentin@q-lab.dev>, Cory Keitz <ckeitz@amazon.com>
 References: <20261007204135.782415-1-sakari.ailus@linux.intel.com>
- <20261007204135.782415-2-sakari.ailus@linux.intel.com>
+ <20261007204135.782415-3-sakari.ailus@linux.intel.com>
 Content-Language: en-US, nl
-In-Reply-To: <20261007204135.782415-2-sakari.ailus@linux.intel.com>
+In-Reply-To: <20261007204135.782415-3-sakari.ailus@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07/10/2026 22:41, Sakari Ailus wrote:
-> Do not expose INTERNAL pads on UAPI as the documentation nor
-> v4l2-compliance changes to support MEDIA_PAD_FL_INTERNAL pads has not yet
-> been merged.
+> Disable the test pattern generator that uses the INTERNAL pad flags for
+> now.
 > 
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  drivers/media/i2c/maxim-serdes/max_des.c | 3 +--
+>  drivers/media/i2c/maxim-serdes/max_ser.c | 3 +--
+>  2 files changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c/maxim-serdes/max_des.c
+> index 1cbe4c3a3233..cb43edf7a9ae 100644
+> --- a/drivers/media/i2c/maxim-serdes/max_des.c
+> +++ b/drivers/media/i2c/maxim-serdes/max_des.c
+> @@ -137,8 +137,7 @@ static inline unsigned int max_des_phy_to_pad(struct max_des *des,
+>  
+>  static inline unsigned int max_des_num_pads(struct max_des *des)
+>  {
+> -	return des->info->num_links + des->info->num_phys +
+> -	       (des->ops->set_tpg ? 1 : 0);
+> +	return des->info->num_links + des->info->num_phys;
 
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+I think you need to add a comment here and also in max_ser.c.
+
+E.g. something like this:
+
+static inline unsigned int max_des_num_pads(struct max_des *des)
+{
+	return des->info->num_links + des->info->num_phys;
+	/*
+	 * TODO: once MEDIA_PAD_FL_INTERNAL is enabled in the uAPI we
+	 * can add the TPG pad:
+	 * return des->info->num_links + des->info->num_phys +
+	 *       (des->ops->set_tpg ? 1 : 0);
+	 */
+}
+
+That way it is actually recorded in the source why the tpg pad is currently
+not added and what to do to add it back.
 
 Regards,
 
 	Hans
 
-> ---
->  include/uapi/linux/media.h | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-> index 80cfd12a43fc..63e69a517987 100644
-> --- a/include/uapi/linux/media.h
-> +++ b/include/uapi/linux/media.h
-> @@ -208,7 +208,13 @@ struct media_entity_desc {
->  #define MEDIA_PAD_FL_SINK			(1U << 0)
->  #define MEDIA_PAD_FL_SOURCE			(1U << 1)
->  #define MEDIA_PAD_FL_MUST_CONNECT		(1U << 2)
-> +#if defined(__KERNEL__)
-> +/*
-> + * Forgo INTERNAL pads until proper documentation and v4l2-compliance testing is
-> + * merged.
-> + */
->  #define MEDIA_PAD_FL_INTERNAL			(1U << 3)
-> +#endif /* __KERNEL__ */
+>  }
 >  
->  struct media_pad_desc {
->  	__u32 entity;		/* entity ID */
+>  static struct max_des_phy *max_des_pad_to_phy(struct max_des *des, u32 pad)
+> diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c/maxim-serdes/max_ser.c
+> index e9bb722ea22f..c8dd5c3d352c 100644
+> --- a/drivers/media/i2c/maxim-serdes/max_ser.c
+> +++ b/drivers/media/i2c/maxim-serdes/max_ser.c
+> @@ -90,8 +90,7 @@ static inline unsigned int max_ser_phy_to_pad(struct max_ser *ser,
+>  
+>  static inline unsigned int max_ser_num_pads(struct max_ser *ser)
+>  {
+> -	return ser->ops->num_phys + MAX_SER_NUM_LINKS +
+> -	       (ser->ops->set_tpg ? 1 : 0);
+> +	return ser->ops->num_phys + MAX_SER_NUM_LINKS;
+>  }
+>  
+>  static struct max_ser_phy *max_ser_pad_to_phy(struct max_ser *ser, u32 pad)
 
