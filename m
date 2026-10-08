@@ -1,92 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125314973BE;
-	Thu,  8 Oct 2026 10:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D4B38AC88
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 11:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791456252; cv=none; b=cEMgDALw/aCZs81Ro9l+bNPkL/d7qhBq81FIFdP3wJxoZL+n4xMPeyEfMMm06uSNsEwtun9acMVH5vXHy46dJdv2uz61nD6J0dxDtACf5Pt0nseNXQ4nUHjXxaRy3yfjl5qnV7ZPqrnMLKGegSRypa6Pl4h8Zq6wtELF9RzfxXw=
+	t=1791457908; cv=none; b=FeUPWoi2n0ZzPhPdBPbtURqaYUvihdiPnLjJSrOhKZ/AjsCpIyPEd0RcpFt4WXxzwGerDWQ7o2ghZ/38rr9Ovc0v7FT8UmCezczI80tnwK3crZnpC72mXnVoahbj/WzT9gtXepd4cQf3CHbKuaveCy5g+sTb4Z3797YTj0gtFX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791456252; c=relaxed/simple;
-	bh=YVGbu9yXtMkMZP+ycnx2uyUmtCMMWkscTD0bTsWZDsg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tqWFneRyfNPbEMK4hXjct8ugSMIMmtVCd3QAfI1nneXB9H5JdsQelMAVtsroizuXfTr57NElslAKU4UsTWz2nynxK9jyZz5GCltznEg7Jz0+Ma2OrGtOnVBKOu65PI0Njmsz1qawUk43EA4cQrxJsAAg2LDKchZxM6xdWHuIEGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jEWP5UAu; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791457908; c=relaxed/simple;
+	bh=09yRFoZuygdD45EUDMQtl/Q4C8O2MyJRR3brstd97FU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tFBHXDgs3UXdYTWBGJDxTJV9VPVdg9DEV5AooWOHj/+qhN6yYkM7S5+OMoDU2EXm13RMKjMceg2Wslw2YzI+PWkQfWq9xaP3jmeM9GNLtkUzssoxZB52ef9uYYUjxC4EHz6p48OEBM6HYJeOBXaZwlnovQERsfsGhoxLY317Uhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CzwByk7D; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jEWP5UAu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791456249; x=1822992249;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YVGbu9yXtMkMZP+ycnx2uyUmtCMMWkscTD0bTsWZDsg=;
-  b=jEWP5UAuoXQBqy81VLpDtCKVJ1AnioLOAADi/maveYJVr4mh3Mh6IG/L
-   FqittL+kYMiEfSoQzCTLZ42/V4JeJCPHFy3s1PtSiSRSwal6O/CkxeBJW
-   xplc0L+77+S7GnnFQyM87CAtVL2Et21W4TOGDB/btK4kpvTjxITigSN0p
-   Adl3gX1mPt/DPJ2HD2f81oZLR31Wm/hcXlUn4pZ85RSrioYtPJCXygwSG
-   y5syZxJ9Ae3wOZrSTRCK+vrY/S+dcXpZx2hSkBlL1UM4mG1O4wsy/NEFd
-   WXeuzoRo4J28ahFY+KnkCudND8008yZ++TFlahkMn3Pt+Y/sexbLhPif3
-   A==;
-X-CSE-ConnectionGUID: yov0PFynTzaaP7oPBC0kqA==
-X-CSE-MsgGUID: JQwCRbdaR0iZAHh7SBo7NQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="119248"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="119248"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 03:44:08 -0700
-X-CSE-ConnectionGUID: BZVu6oN4Tdu5kdSVoq7I8A==
-X-CSE-MsgGUID: 1LXRSXMYQly4ASgXGOmzxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="366564"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.95])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 03:44:07 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 322B4121BA6;
-	Thu, 08 Oct 2026 13:44:07 +0300 (EEST)
-Date: Thu, 8 Oct 2026 13:44:07 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] media: v4l2-subdev: Fix NULL pointer dereference
- in the EXT_CTRLS ioctls
-Message-ID: <asdz93f28oRR-WPu@kekkonen.localdomain>
-References: <20261008042600.275884-1-nicfio@gmail.com>
- <20261008042600.275884-3-nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CzwByk7D"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso2332174a12.2
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 04:11:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791457905; x=1792062705; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7xXvsj66wQM38M1X8uFAHXI+21qnaIAFX1qmFu6hhD0=;
+        b=CzwByk7DDSa6l/Fe7qcB309ljXIGtSjAIH79TqFh3EDLGT0qpOmsKsWaB4J3Fsy3JJ
+         kGtZMJ+rvDVe6J4vXP+a/d/QqY5NE2vd4YxLLVv9na6fkzMQ1D7Rn4blk+M1YjH3+RWv
+         4Ln2/Io1kIc6pRzRRusJIBhHRkQ2vgQrbrX/3gPwdXtzTQoLGGgOuZ3faJ6u/HLQucGt
+         aYl0RMHN4QCNjMWxWPAmirq3ZOuCOXXgvzlmayj/fsBAjb5D1cGixDCX2WslmRZ/w7aZ
+         oxD/cPhq4+qmJdiP409IC4DXRJk7N00cNoR9UoglyIRkrqT390lzLm42ZDOlxGER4ktk
+         vhGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791457905; x=1792062705;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7xXvsj66wQM38M1X8uFAHXI+21qnaIAFX1qmFu6hhD0=;
+        b=Q3FpydJPaKSGtOx0VVvo+mf78UpkKyEfBKpSO/OdUTqrtCNDGVLMKOFNprfoo6s27T
+         NTkmaZ6wCVgk4AWcJeweVrO0uAYz4RhE/btN5M419Se03HQIEeVbZEJk+24voy0mjIPp
+         uUUluz6Cu6K9fgdjSUOacXvD47bbbIF2A35c3EOqY60gXnCfxfUhMUlFwsEe5JI4E5m4
+         uxv1CUnn3o6cd4Mw1aOCHtNP0NvwO4sjlA32pfmPnh82cuipS4eQk1pZxaEdT67Eq+hp
+         15TtWIKyeSUMEWgfMcpFzo4eb9jtcq+lZlWK+ru5xlEWVNYyYrZJDy3niQ9hjzWE2Goe
+         kBbw==
+X-Gm-Message-State: AFq9FYJItCTBaX0rgj1/LSf3nMwNoHfJP9WFQo1N3xDHu/ccRjFsAw0F
+	Pvp8xwvopu9/QdGIPdbpoKu8VXfydAeen+QDHnTNIokWyyoao29KcyPZXFfu/aGYWL0=
+X-Gm-Gg: AYBFou2/VbElI4QrQPClrz1nmvhxOYOJeLbJhHeub1CGmmvCWIz9Fhflx3o//ruGpsW
+	6Wtl0UyPnXbi4W9z2VlrRuovHoc5GH8UqwmTlVYfo59POkRFgctdLOyiSpots+CSrpZrSVaGaz4
+	eErDoslGvwLnHDGUm6cjUj3IxzBOWOPRL6NeWfqGQNIOXl4TYsudG0pUQF6WWFAgI2oxqaF34QY
+	kYXwFL3M3/YLfKyHpgbYlREnWGZqeuO9AA57i6nw/drEWnIlixwzP26cgQljKVo9ocO+O1j6E0V
+	Jfddv78pD4isHLIL2MN2UNM/Qmqp8U/YDiiopwhL+Zwcrx5sgsAlsCw/mY4T6KNpRjgaQD+jluQ
+	muMY39gB3HiQmcoV61ZF9ACTPp9f9Wvl5HuNe/dZmRw0rtBc9UQ/0QlK791eFZqhXHqEl9Vf6aC
+	0vvKrvyblOe/R31qCbaor6sn3APrCuRE81YRk2T/REhNKN6PiSQIetLNgekM5Hadb/mNqxa4eKh
+	hOa6/4olWO7
+X-Received: by 2002:a05:6402:46cc:b0:6ac:bdb6:f245 with SMTP id 4fb4d7f45d1cf-6aff47b4913mr4165062a12.24.1791457905432;
+        Thu, 08 Oct 2026 04:11:45 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.203.235])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b00aa492d2sm1245502a12.32.2026.10.08.04.11.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 04:11:44 -0700 (PDT)
+Message-ID: <5d4ac08f-b525-49ca-8715-b4c2fae1c11a@linaro.org>
+Date: Thu, 8 Oct 2026 12:11:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008042600.275884-3-nicfio@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] media: qcom: camss: Add support for X1P42100 CAMSS
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008-purwa_camss-v4-0-bcf11bf2c650@oss.qualcomm.com>
+ <20261008-purwa_camss-v4-3-bcf11bf2c650@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261008-purwa_camss-v4-3-bcf11bf2c650@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Nicola,
+On 08/10/2026 09:27, Wenmeng Liu wrote:
+> +static const struct camss_subdev_resources vfe_res_x1p42100[] = {
+> +	/* IFE0 */
+> +	{
+> +		.regulators = {},
+> +		.clock = { "camnoc_rt_axi", "cpas_ahb", "cpas_fast_ahb",
+> +			   "cpas_vfe0", "vfe0_fast_ahb", "vfe0" },
+> +		.clock_rate = { { 400000000 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 345600000, 432000000, 594000000, 675000000,
+> +				  727000000 }, },
+> +		.reg = { "vfe0" },
+> +		.interrupt = { "vfe0" },
+> +		.vfe = {
+> +			.line_num = 4,
 
-On Thu, Oct 08, 2026 at 06:26:00AM +0200, Nicola Fiorillo wrote:
-> VIDIOC_G_EXT_CTRLS, VIDIOC_S_EXT_CTRLS and VIDIOC_TRY_EXT_CTRLS on a
-> sub-device node pass sd->v4l2_dev->mdev to the control framework.
-> v4l2_device_unregister_subdev() clears sd->v4l2_dev before it
-> unregisters the device node, and nothing serialises the
-> video_is_registered() checks in v4l2_ioctl() and subdev_do_ioctl_lock()
-> against it: sub-device nodes have no vdev->lock, and unregistration
-> would not take it anyway. An EXT_CTRLS ioctl on a file handle opened
-> before a driver is unbound can therefore dereference NULL:
+.line_num = 3 until we merge PIX support please.
+> +			.pd_name = "ife0",
+> +			.hw_ops = &vfe_ops_680,
+> +			.formats_rdi = &vfe_formats_rdi_845,
+> +			.formats_pix = &vfe_formats_pix_845
+> +		},
+> +	},
+> +	/* IFE_LITE_0 */
+> +	{
+> +		.regulators = {},
+> +		.clock = { "camnoc_rt_axi", "cpas_ahb", "vfe_lite_ahb",
+> +			   "cpas_vfe_lite", "vfe_lite", "vfe_lite_csid" },
+> +		.clock_rate = { { 400000000 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 266666667, 400000000, 480000000 },
+> +				{ 266666667, 400000000, 480000000 }, },
+> +		.reg = { "vfe_lite0" },
+> +		.interrupt = { "vfe_lite0" },
+> +		.vfe = {
+> +			.is_lite = true,
+> +			.line_num = 4,
+> +			.hw_ops = &vfe_ops_680,
+> +			.formats_rdi = &vfe_formats_rdi_845,
+> +			.formats_pix = &vfe_formats_pix_845
+> +		},
+> +	},
+> +	/* IFE_LITE_1 */
+> +	{
+> +		.regulators = {},
+> +		.clock = { "camnoc_rt_axi", "cpas_ahb", "vfe_lite_ahb",
+> +			   "cpas_vfe_lite", "vfe_lite", "vfe_lite_csid" },
+> +		.clock_rate = { { 400000000 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 0 },
+> +				{ 266666667, 400000000, 480000000 },
+> +				{ 266666667, 400000000, 480000000 }, },
+> +		.reg = { "vfe_lite1" },
+> +		.interrupt = { "vfe_lite1" },
+> +		.vfe = {
+> +			.is_lite = true,
+> +			.line_num = 4,
 
-Unregistering a sub-device node isn't doable safely currently. Addressing
-this properly requires much more than this patch does, and also I'm afraid
-this patch isn't part of properly addressing this either.
+VFE lite has four RDIs so this stays @ 4.
 
--- 
-Kind regards,
+> +			.hw_ops = &vfe_ops_680,
+> +			.formats_rdi = &vfe_formats_rdi_845,
+> +			.formats_pix = &vfe_formats_pix_845
+> +		},
+> +	},
+> +};
 
-Sakari Ailus
+---
+bod
