@@ -1,403 +1,129 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC08C3BE646
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 06:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441986; cv=pass; b=uO9yEQ47vklsEW6EaUflb1aDRuO81Xnby3t9xqM4ENUvoLOuLooogk3lrlmdSph0muJGQn4yT0ojS/UUduKyVCNlwbv452IHAWzIY8ELZI3b+AwRLrUqeO0P7aNuY2lcG6GP+dVcUAikR7KRvG1k/5Z00uD37HU75MHZd+02ZG0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441986; c=relaxed/simple;
-	bh=5QtGSacmsoONB87IdoPl0Fn+Eom9ihnvfpDZQqc0fEw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37CC3AE6FB
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 06:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791442064; cv=none; b=m/b3+7EvvQ/gZmJujdmS2Gdw4cXyXLdM0soPaWSMDBMWivBNkQ+4QXZEh0Cova4+lWtXncOAPgnLC6kMrASnLjGgsKAdjfbXc99/TnGdjmrt42jMtjuN3jfmPQVt9BfLk8oHewrrP4/OHvaa1nWKhc/357FpgoNMsn0YVH3ObEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791442064; c=relaxed/simple;
+	bh=aSPhb7m37JJIpoDkFdsuy/s8Yx6Y8o2Wuc+YdzLkbDc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XQFGE68FMTWL2fCorFLabf3/6jX7HDRBHguGPbhlmM0cTByX0AMCK9tpUCsmh0H8XKHqG8+S7nHFbC5V+WwnYwULtTfW6NWcoamcj4132yqrYxfytmG4YZncYt+PYClqZPlHKtP1N1fRPPlLlKStDlha3zISe4GaabbVfNnfMBE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nro0vkm5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j3DjBryL; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=FHdmOk1zL97DbZerB5uwNcAAPfsLXdLQT6fzlJb6vzLm0gZwdeSluqe4o48z8C56ovzTL5tFuCRT5LxYNMqCdU1cNqDkwF6K1G2N7zsfcc3qgkCU91akxmVdCas0lGO/9Z6PoXaicbHTC3EA2FOwxQjhox6m7YTKFoExU8rQxYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=CUKGpUl1; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nro0vkm5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j3DjBryL"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984CQ7g2271867
-	for <linux-media@vger.kernel.org>; Thu, 8 Oct 2026 06:46:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ynir5UKDYCHKsIV/SiEktgpoNpmpfZkJi8BxEZtVkn0=; b=Nro0vkm5wMnB3qtP
-	+4w2I/Fyky8W2z1/nU7SV8mP+TXgGrsM2pSj55S4cKFo/ftJqddEZcRYWfkVOSaD
-	VZV9Cuu4v1XAvIls3hC2ZfCVrvR8YKSp/DEJhsPnZOcoY9UWEefVy572jTGOK4a6
-	UkSnVOtkVVpwqnx2+boFXZHyok+t3FSC4VPALXjC6SumxoiH8JZ+ktoIIlONkhXr
-	o0+BNnDECXDJDTFGTT72UNdje9kVss2wlkfu4Iu6xw0FvFFyWhnrEJ1V1xEBhIyu
-	qsGdfU0aVS87GIzlWu+jv0r0WynzNWsKzNYs2y14p2kH/QGIiGlPf5VXcxWoa6dj
-	PkKk2g==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe41hdy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:46:23 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cec4226c70so47908055ad.1
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 23:46:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791441982; cv=none;
-        d=google.com; s=arc-20260327;
-        b=huRifwpJ15uaiD8RkW1Rk/z4DpDOTtBPax0ZHAr6mc+Vy9mncop0iaQrp+DFeo7voI
-         VxcC39FHZVeW1XckTSrUFC61xLszBU/5mIHtSy/dJM8bDMd0X0n0nmvrbadPeeD0lnjs
-         O6/RkZO7kD1EwE2RS41yErLe7Ycd5dkY+lXiGcj+adZfJh5LtBve4B2OukPvsSNfWgZl
-         JcH4EGtPv68ZSYXbKxxncnsHGg6hrIouUCUwYt6/BV8s99hYrfQFGmGH6qN4qw1thaBa
-         e9Y6I39Deal+mDIb/UPSql0hFiauALKwmbSRIFd67pYxAzvtvWoGLEaKjQUmyzYr00qr
-         188w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ynir5UKDYCHKsIV/SiEktgpoNpmpfZkJi8BxEZtVkn0=;
-        fh=+xF9Rz8VGTPEiV1xrZGRQ7uxPt+uRIP+daQXnafY0Lc=;
-        b=be1sA3CGesx6dtZ3AqGOp9s+XdbYH1mO015iWgXZ21wiQUoxKDOZmTnDnisvOqkIyQ
-         IGTbDSwuxqybwcnNlbxxecAjGNfZv2oggKQWC5tKbFHwvkBTdFA6CTBYc3W7dkPuvCcO
-         IyyIV4L67ycA1lsSP/i1njExDhHyJbPYo8ZPEIdrx5g7RVXs/w83Q7Moy2o4YPyO+AVV
-         ZfuajwR2kez59SCX0G10G+EI2yMc+vgbLv6pq1ytEc/fZhTC5OHY5euZZieplfc5psa5
-         Tia4v6usGAEmYLmefh/DnoyVWfRJ+S9o4fla8cimFJzXv60rch+atKn8xhDChRte8Y/Y
-         hVtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="CUKGpUl1"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e2de97b4d2so21096685ad.2
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 23:47:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791441982; x=1792046782; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ynir5UKDYCHKsIV/SiEktgpoNpmpfZkJi8BxEZtVkn0=;
-        b=j3DjBryL3X4Q6cmGbX6lUXpEBF5Ysft5EaqQhrHqKJX0OwN/CJ/TuJ00OWKjQ/a62R
-         evfL51dv3SOvsvi+ydVwA2FmW3sjGACzu/snmtF0VJCKQ9y+HFrPkPoPluo92CyEfNmG
-         xvMCc3oNTCvdTy+1q3sObL/wskHmSMD/CPY4UJUTZrpoLIJG04+SpBwfj7a88873Xfnu
-         3g6zsN7gi9CqJEVD7eobuaEYgZJG2bCv6fOclexL/TtTiyEPpBPpvjZKj5vJ/Zo5WvoS
-         6IC8+7nHtogRY/PS1YhWn5Xx+T3AL+oTVwxmhfukwkj8ujlsZaL//eUnFIQaPa0uQpEN
-         IpEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791441982; x=1792046782;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1791442062; x=1792046862; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ynir5UKDYCHKsIV/SiEktgpoNpmpfZkJi8BxEZtVkn0=;
-        b=Vurbae5MY7iG8J9vIYW8T1enH8DAStV2LrNKwauQjbIXyrpZtly5vJx0PRhVvqzVE6
-         2Bj6ubSLjc4qhjuJK5HqKvQr06b73TuMbrm8YByB6u0v+Ik2jdLXBbJI49norNKVFy85
-         UNWIHz7mDmoa1UBb+GRMMdOSuUOhHvLEqIVyHM3yXhQ1gyYeBim6RY15anUdG4AWQkW5
-         KAu2RfB4AuTixDdmANnPEU4TGOIhm6xtv/y8nSjWDgdDWtRC9amEZvTj6HM8mMghEDZn
-         BTpQstR8GHxvKIde3LGuMrRSnKQFD0n1KsFrRUYgAU6UUwhhRU7IuJL+gp6FcMG/gao3
-         5L+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxByZOykbzHOae9CX2041XfRSi3tod+XaqFNNC9OUOydGG3LskXGKUaImyf3FNhz47EtRa+eiVZa0uGHw==@vger.kernel.org
-X-Gm-Message-State: AFuF++msYMBr9IjFs8rWwBDuVWteNEGCDwiNnSqeqKYhvwNS7HJ68I/b
-	e7RHZpApWV9IQPo/1bsJEVpyr0pM6a5DH9G4HZsBEmdFynUodeUCNkPYNKwHtD041XnL2E9hfmA
-	oWxh2t6k+nTPe6S1nuzBLBBMX4ClqT3Dzl7lQV1H7RGS0lNN3A4cXTs5HW8WlWVtxeHixCFjxwc
-	3gRWRP6xykYX0/NgM4pudUwbk2kAf9cNrHkEzYS8Y8
-X-Gm-Gg: AYBFou2kDE/KnrSGkq3Zz1+P85pRnAiBcM/uGXBBRsyxYo2+a/iIFNiPZUKljP3Jmpx
-	wkcrBFp9GEvka9vOliPGcN1bgMd2UXih8gCZ12POf4a2I8wFLeGFgLbXVFsbx/fuOu0UgvbpSJv
-	J7I6nZzBi4GEMjZYY/34FHS7vVSs/bZ7q59e3rX8IpZS29tAgjRGvPY62Azw==
-X-Received: by 2002:a05:6a21:62c2:b0:3d3:adbf:7781 with SMTP id adf61e73a8af0-3e13403e252mr3919057637.22.1791441982451;
-        Wed, 07 Oct 2026 23:46:22 -0700 (PDT)
-X-Received: by 2002:a05:6a21:62c2:b0:3d3:adbf:7781 with SMTP id
- adf61e73a8af0-3e13403e252mr3919033637.22.1791441981779; Wed, 07 Oct 2026
- 23:46:21 -0700 (PDT)
+        bh=qSjhmKDAna0MFV1NJVV8j+rU8jCUwUZHyKcOgZTfTBo=;
+        b=CUKGpUl1Zqcy6Ia35PQskFQCzOxWjd3JntCL7h+h5eoQrR4Wc6syTUzQxgM7sNeDy+
+         jD6GEyL9CcvG8QpTBgHEx25l01BWccqMW6wx5qthdy4Itjl/V+21nvTdA4dcwDYOShty
+         Xx6xY1SwlH0XGDzKZhQxxX15QTWh/FmogRZu4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791442062; x=1792046862;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qSjhmKDAna0MFV1NJVV8j+rU8jCUwUZHyKcOgZTfTBo=;
+        b=2e87wgqgas4ikF8TLs+v1Xiy/PS6ExW7k+24rlcLAFg9dtpX/HNJvNGruMbHaPOxpt
+         oBLsca/3kkxDNsQmw6HwJ6UkG8B5k4E/phzUn1TYLvYmjq0LJbH4lVkej7QC0Oolqkvs
+         I6lREEDm4UM+hdV6/cujHmbS/UDTS7fbsq3TcgcVObFs1XoRsbXBk7l0qnNE4/Dl8e7s
+         zWVRxySCUm/WoIou3NW9UOpQGXFpva70KoFT1kMYlOGFnKNfUY8PKmXb4P2V66AI9BZz
+         cyejOpc+C380KXZc9Qd/NoDf8wxzpMNzN1I3JFL37EF3vErfyFj3P9MKLa9mEaMNrDDT
+         xHcg==
+X-Forwarded-Encrypted: i=1; AKwUvBx6H1gYX/QRWIf0SeQ81H01jNdPDS+F4UUQqqI8KFYgqbRrAfFOgMlw+XdImalV13r/d7BAJdbYVKYu6Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPU8Wk/JxC1GsC0deBw7yKRCl6jh00jrqvRTMWfrwygl73hgXE
+	G2nTBeu6GavZCjAauaKaFksjDE3cYkgH9l4PiMDzdZ4zp1Qn5+AgA2Tt9KSfjhDAT/4Av2XXj8v
+	Yf/Vppg==
+X-Gm-Gg: AYBFou1tP3/M085XOB5JT08tFI/1jNV4vYpmfbsHrhfG43znEtMSOU7RQlHKwGactKV
+	iGmFXG3vMi4PSdmfugG4OKWQgER72YDio3IPPyZyHfUnXGJjuY3L3IoVmjfPps4ihNZmG5z+dNN
+	j1gN6tGRgw3kpXHUZweKJcciYkazF/zTDS7Ym2nJVhHN9jI4zsBhx/9FOyr6LDigGUSlXpDhDR4
+	yCR5OknNg0iBrspekoUZ7TAvEHHhCMVlbW8lndbTCQypRnbdvmSBTtKL6OYhvzKYRV2IJR0Rvqc
+	3T0lpWCsUBnnj2XHJ3DRJeJnYuVpl8lxH1eqjnjJg7KSDXBwDnIJ8gUIguRNicBpnPXLYsMjz9h
+	4kbg5IMSC++FuVBB2YW7Lfm0H3GRSqn8N1pfiVl1S+zD3TxW4QgurdK6gR6P0JnIfElpRtTuH1U
+	3Bku1Xbajw2dMCs5IwxV4EacCrlxVndzPx+LIW6DzVJL3MIiaj/7813AfR229lJADE7eIcmZxR8
+	EMMPc2SIgYHMHbixux9ZvmwK4PP8gueI5Y=
+X-Received: by 2002:a17:903:1ac8:b0:2e2:c602:2072 with SMTP id d9443c01a7336-2e6004ecef0mr39976775ad.36.1791442062114;
+        Wed, 07 Oct 2026 23:47:42 -0700 (PDT)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com. [74.125.82.43])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60483067bsm20825045ad.53.2026.10.07.23.47.40
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 23:47:41 -0700 (PDT)
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-141395927feso4178057c88.0
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 23:47:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxljrJkMADR+ecAXg7exo/b+nsK0kia4pzOMyH2r3KbCZC8RZk+ZFiAVz5TVNWaVh/4PCObDbN+5nau7Q==@vger.kernel.org
+X-Received: by 2002:a05:701b:241a:b0:141:52e3:8607 with SMTP id
+ a92af1059eb24-162044c0816mr5535095c88.11.1791442058711; Wed, 07 Oct 2026
+ 23:47:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-1-0322ca5dc10c@oss.qualcomm.com>
-In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-1-0322ca5dc10c@oss.qualcomm.com>
-From: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 14:46:10 +0800
-X-Gm-Features: AclHuK9cxR2Z8imM67b3vN_Ew1tvSO6gdzHAd9wpAvyBxUcgGM14SQWbw8GocXc
-Message-ID: <CAFkd8hujKYhXveemgPCbsUk5DFB=fQSxqK_-69fP5aPzoWSzbQ@mail.gmail.com>
-Subject: Re: [PATCH v5 01/13] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        "Bryan O'Donoghue" <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <aq0siVcghDe6x9cs@stanley.mountain> <20260928203105.GJ4406@killaraus.ideasonboard.com>
+ <artM1Kqi41JfNSGg@stanley.mountain>
+In-Reply-To: <artM1Kqi41JfNSGg@stanley.mountain>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 8 Oct 2026 08:47:26 +0200
+X-Gmail-Original-Message-ID: <CANiDSCu_RCHXU+0PuELbGci7EKoxGQgwTGVyw7W_KVjv+Pr0sA@mail.gmail.com>
+X-Gm-Features: AclHuK-6lBsfZibyY1EbZnPcvBxs95w1QCFOQo0ockAUH-Ktg6072cpe96FFZXQ
+Message-ID: <CANiDSCu_RCHXU+0PuELbGci7EKoxGQgwTGVyw7W_KVjv+Pr0sA@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in uvc_mapping_get_menu_value()
+To: Dan Carpenter <error27@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-janitors@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: qnNrCwD57a75W_5nuy-5F6RzLqo6b55v
-X-Authority-Analysis: v=2.4 cv=AbwkjHXG c=1 sm=1 tr=0 ts=6ac73c3f cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=INH18kujmAq1onTB90cA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNiBTYWx0ZWRfXyP9eFKMwVdPJ
- VX/3Gzz5Nmh5p76vNggUbjth0PU/1z4hr5uqGppOfD7Wo2lO/tWNnEBxupX4htNJ9Wn7izh37SU
- mQ1s0kwGNI8RJouUfgL5Lv0R0eUzh7o=
-X-Proofpoint-ORIG-GUID: qnNrCwD57a75W_5nuy-5F6RzLqo6b55v
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNiBTYWx0ZWRfXzbxU9Aroem4z
- kkf+DJWaR0EIz1O53VZxNiTCU5k+lVCZBZTjC5fq0n7nZewzypN9JqLveVQIIPxe8GyX5IJ6qrU
- z4jLekfhyjATQohdbXcC9bqxjIescQy7MVI9IV8Bb20HY+QfpK4iAsSjqI66XKkID5+comUnfUo
- CeW1M4aa4YPCTsYtMF2fOpuSm7zQXzcz6g550GzObkID5ghqQVyWdHvI/kEQBy3PtXoVmDqbflf
- jREAEtpHBLdEOp5+OIurImNsQNdGz1ROPgoZMap17aQufy7x+yfdyhXRYnNSQKkt+YFWu9PEVfd
- AyftuHZEsNwGC8SUpW470VFn6ZNycf0ZGmIeuKzQ0fLZ+7akuYk5vKz9QlRuWveN2u2Er4dV5w9
- mFsoE0cECJ3hPSwegeSC5bELZAiEBM43BN95O1uPlogbhxwReBbTtqMQFTtJduq0bxRjORfZ04d
- qqEOJVCBRfrUVOD21iw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1011 suspectscore=0 priorityscore=1501 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080026
 
-On Sat, Sep 26, 2026 at 2:38=E2=80=AFPM Vikash Garodia
-<vikash.garodia@oss.qualcomm.com> wrote:
->
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream in
-> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
-> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
-> that boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
->
-> Given that the address range restriction is for specific VPU stream, it
-> should be ideally be moved to that stream. To achieve the same, a subset
-> of streams is now represented as subnodes, so that each can be
-> associated with its respective addressable range. The design was
-> discussed and agreed by mainatiners here
-> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.o=
-rg
->
-> In the past, this limitation was addressed with an iommu-map approach,
-> with the iris driver dynamically creating the devices. That approach was
-> later concluded to be a hack to avoid having subnodes, and was NAKed by
-> the iommu maintainers. It was discussed in detail here:
-> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.o=
-rg/
->
-> "iommu-ranges" on the subnode describes the *allowed* IOVA range that
-> stream is allowed to use, so the IOVA is allocated from the specified
-> range only. Define all the possible subnodes so as to describe all the
-> VPU hardware iommu interfaces, both secure as well as non secure.
->
-> address-cells, size-cells and dma-ranges declares the 1:1 DMA
-> translation into the parent.
->
-> The parent "iommus" is kept as an alternative via "oneOf", so platforms
-> that have not been converted to subnodes still validate. New platforms
-> should use the subnode form.
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  .../bindings/media/qcom,sc7180-venus.yaml          | 15 ----
->  .../bindings/media/qcom,venus-common.yaml          | 97 ++++++++++++++++=
-++++++
->  2 files changed, 97 insertions(+), 15 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
-> index b21bed314848480b82153e49602f0b19e08e7335..bfd8b1ad473128c974bce8463=
-9cb0aff59d8c2cc 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
-> @@ -91,21 +91,6 @@ properties:
->      deprecated: true
->      additionalProperties: false
->
-> -  video-firmware:
-> -    type: object
-> -    additionalProperties: false
-> -
-> -    description: |
-> -      Firmware subnode is needed when the platform does not
-> -      have TrustZone.
-> -
-> -    properties:
-> -      iommus:
-> -        maxItems: 1
-> -
-> -    required:
-> -      - iommus
-> -
->  required:
->    - compatible
->    - power-domain-names
-> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> index 59a3fde846d2196ab1e4588eb396012ba6860712..68d5e592a028c5eecde04ce72=
-cd5ae6815ba5c82 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> @@ -47,6 +47,93 @@ properties:
->      minItems: 1
->      maxItems: 4
->
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 1
-> +
-> +  dma-ranges:
-> +    maxItems: 1
-> +
-> +  non-pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU non-pixel buffers, including compressed and i=
-nternal buffers.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +      iommu-ranges:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +      - iommu-ranges
-> +
-> +  pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU pixel buffers containing uncompressed video d=
-ata.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +
-> +  video-firmware:
-> +    type: object
-> +    description:
-> +      Context bank for the VPU firmware processing domain.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +
-> +  secure-non-pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU secure non-pixel buffers.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +      iommu-ranges:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +      - iommu-ranges
-> +
-> +  secure-pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU secure pixel buffers containing uncompressed =
-video data.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +
-> +  secure-bitstream:
-> +    type: object
-> +    description:
-> +      Context bank for VPU secure bitstream buffers containing compresse=
-d video data.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +
->  required:
->    - reg
->    - clocks
-> @@ -55,4 +142,14 @@ required:
->    - memory-region
->    - power-domains
->
-> +oneOf:
-> +  - required:
-> +      - iommus
-> +  - required:
-> +      - '#address-cells'
-> +      - '#size-cells'
-> +      - dma-ranges
-> +      - non-pixel
-> +      - pixel
-> +
->  additionalProperties: true
->
-Got this warning:
-arch/arm64/boot/dts/qcom/nord-rrd.dtb: non-pixel: iommu-ranges:
-b'%\x80\x00\x00\xda`\x00\x00' is not of type 'object', 'integer',
-'array', 'boolean', 'null'
-arch/arm64/boot/dts/qcom/nord-ride-embedded.dtb: non-pixel:
-iommu-ranges: b'%\x80\x00\x00\xda`\x00\x00' is not of type 'object',
-'integer', 'array', 'boolean', 'null'
+Hi all
 
-Need
---- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-@@ -67,7 +67,9 @@ properties:
-         minItems: 1
-         maxItems: 3
-       iommu-ranges:
--        maxItems: 1
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+        minItems: 2
-+        maxItems: 2
-     required:
-       - iommus
-       - iommu-ranges
-@@ -106,7 +108,9 @@ properties:
-       iommus:
-         maxItems: 1
-       iommu-ranges:
--        maxItems: 1
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+        minItems: 2
-+        maxItems: 2
-     required:
-       - iommus
-       - iommu-ranges
 
-Thanks
+
+On Tue, 29 Sept 2026 at 07:30, Dan Carpenter <error27@gmail.com> wrote:
+>
+> On Mon, Sep 28, 2026 at 11:31:05PM +0300, Laurent Pinchart wrote:
+> > On Fri, Sep 18, 2026 at 03:20:25PM +0300, Dan Carpenter wrote:
+> > > The "idx" value is a user controlled u32 so we have to bounds check it
+> > > before calling test_bit() to avoid reading beyond the end of the bitmap.
+> > >
+> > > Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
+> > > Signed-off-by: Dan Carpenter <error27@gmail.com>
+> >
+> > What's the status of this patch ? The issue is a false positive, do you
+> > still think there's value in this redundant test ?
+> >
+>
+> No, it's a false positive.
+>
+> With how Smatch works, I don't have an easy way to silence it in Smatch,
+> but I'm going to publish my AI skills file for reviewing static checker
+> warnings.  Also I've started writing a new tool to help filter false
+> positives.
+
+Even if it is a false positive, I think it is a good addition, it
+makes the code more robust.
+
+Do you mind if I make a respin of it with my comments (keeping you as author)?
+(Or if you want to send a v2 that would be awesome as well :) )
+
+Thanks!
+
+>
+> regards,
+> dan carpenter
+>
+
+
+-- 
+Ricardo Ribalda
