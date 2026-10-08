@@ -1,66 +1,66 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941123BCD2A
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 04:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5543B3887
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 04:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433600; cv=none; b=Oc1SxFN4ZKwrRqQ06B7PDtHf/74gviDMevoVGwNkedwrj/cyq9NtAplDrFlaG87dmj91WjzG8HNPwqlNmIoUhA1/mZQELFOu9Xm7OjaeJ/isa5yggcRlOP3qyOCaTRuI1w0d1MIWubgYGmlfA3bnw9jQ2pnjstNG7VB3i1vh0jo=
+	t=1791433607; cv=none; b=qbzBk7mjP/hj0LN08KV81SjXx5I/HrrXdmnfoehZECgI4OQkKxDTipGK3MOt/6QyNxEc/IWFeHcjTmBivGjqF0fpCHmgiuQYeFyq5C/6VSZXBT0K36kNr4gZ76ApOtJ4KNIvP0PHywDy7C90K1b4SEE9kEUWuUiURAncEJSVrYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791433600; c=relaxed/simple;
-	bh=uc7FwDCFIsWGH8RnnjX923HshtmpDadtAtbDtkVwZyY=;
+	s=arc-20240116; t=1791433607; c=relaxed/simple;
+	bh=cUv6hh3W9DWi6C990WriU1Uo7wUq9iqSOj3YbxBud9I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k3j/Uskeubeyxv2+T+LOB5c6BI9Np2gBlYwFbEThV9XiLAuGe9el+uF090Hda74BE1sUZFszrZ+GGKhaE5hucCZs9yTw5GD0oOT6b+RbjsNKO51T7JO7vydp7h3PXZloswMRyiWmqwnKmVFNlN5LHQaAzFZeAnksuj5KBsGrCLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ur3VZYwZ; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=D/rsM/dJI08c8OcCHk9dXOsbhWL6YLfM0hlCK4+L2fOE6KSCknB+FVNp56RYlsYlSikqwfJrkUbXzDT9SUJAb4AqLL8HSEKZzpu9mQUbS7h4PbwWQVSVjtuhIN4eK+ZdBjBpXdzQu9QOSof1nTXzqBeLTTXqPkV3T1xaVZ/DMek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U2BDqdFj; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ur3VZYwZ"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-487048857f6so2102570f8f.3
-        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 21:26:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U2BDqdFj"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso44049035e9.2
+        for <linux-media@vger.kernel.org>; Wed, 07 Oct 2026 21:26:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791433597; x=1792038397; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791433604; x=1792038404; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LN+4GNxYdvlisTS7smG63GBSQyoVUSWH51sQR/4O9qQ=;
-        b=Ur3VZYwZXatGnRHMtnfsXL4OxQajxJkUHN+1FUX7oQKfcSbFBdkGbhP2nABvHYvpXB
-         47+ebMCNL83guTFPm5+3YTqmpopWtUhDAn2Ee2Bc67hxpvUCTmt4jAD6fuKcFg0BWTW+
-         TgN+vy5GQ2XMLfGLW6kPzKC2PT0J1GS14kmaWV+EYYoj/CNCiCIR6DUMirlFkeKRO8cu
-         i985CIzsLc68BqLGIdcKCx/dJtZ6hSehHBMFnIFb7f5AiFMrhf8l1t0Qd4/7cB8b3Ze6
-         6FEsQ2Y6RXJMWDFP2dNLrsGhJeVpFN8bzhRjmp8b7QEuAd+qXskYefWIMuPxiCv2PIDZ
-         i1Gg==
+        bh=nvEa6S/dJFZJC2lyZ675Rkq41lS8wP1soF2ixtoNMag=;
+        b=U2BDqdFjyq1cd1JLOJj355IoZ2cWKLkgs6pw5vrgtL3jIC9NZncGGplWgb/9o3rop/
+         jO3XRZV43A8FSbXclyZ6xZQLjxGGDhxWu33f8nYIVNUSTB/am4L1j6VcV44CviQL5dP8
+         M3j8fptz0dxHqGd+C2wn05m8hjMW8Pg90n9/D9Heb+FNEsMSW2k4MOU3FFKhX5SXBRJ3
+         /vdNuGCveHT/mmGykEqRJqO4MhZB/17b5yL21B5e5+zt6SYKdj/gyf06YHezXeg3Nl8O
+         ICfC4MyTkDuY3LuA362H6FZ6O6XkyjtIY02LeP8+pWqG6K6CW4ABKByIdOvQfHO029yT
+         UpLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791433597; x=1792038397;
+        d=1e100.net; s=20260707; t=1791433604; x=1792038404;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LN+4GNxYdvlisTS7smG63GBSQyoVUSWH51sQR/4O9qQ=;
-        b=rokhMl59uj0sphhD7Nj9RUeGFe8g3zY7ArWh6SchbDmGiRFnOYoTt4+Xn7vCL29o7h
-         DlnNj3xV893q30urEMng5E4IB4JytmW+LcKVEHkMjNbCQzNJ38d2tc4sBBRPlkXda4Rg
-         FWwNy3yqiv/d1AgpZbedHCJsME29WyOUS44ZpQ71qX3/TSSO+F8FYa8ePXPO6NO+vRQK
-         h2qzJWuQZAXpPVRpet/HpXwQO4VM7B/kRhiqwLoggQEO6tg9vjY6o2VZz1NZ7gMVANMF
-         prgEB5FXsp2O3zQ35Upm4uqZcdiw5PVzQZmoIShx4XMS4l9o2sOm4aMxASTja73PfwzL
-         we8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxNbIaFaeorACx6lD7XBzxBZkRF2GaqoierY7Y5U3uepCyS1SyN1KmVzAwbG0856X0zECAx1kxEFW50XQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++kNAV96ll/0kQDwJDPfa/5sLjLwFQQ4zer0YAN9aezZnBGQmwRA
-	N/8u2RoMJXHDkhHVfAfLmjvogrg+8GTH0IDV9gtAIp8q93jJ+wDgBSgr
-X-Gm-Gg: AYBFou0dGjm35FUJ7t0v0ye3np4FA8UezZqFuVmoHe4ZaqBgAonaMHFOg3SZf5QlZUJ
-	cM+NZZgFQzjUKMBIj0KgoIGgpub0ER0BNByE0tJKS/9CcYDhQunQIN1AKOR1SPUg22wi6svHOns
-	4XChMb1wj1CQRP6zatOzkkI109IEbZh7dhARRBZWiZK5tqOQUhOnhi3F4y1CpaC/XlonhKGf9RD
-	WnTOTkOyVhZcqGCxPz3uoeZRlwdjqEtPnR8pJvZPOivNsBzbbZSeltQ2UA3L0zGbOMaBMOCAxOi
-	IBBSjLdFHlAjSNbcU8ueaaITa58mYVmkam4UVfZ1zXHzYMzq8yk9NiWk6TkrFeDCMtvBiUs8sZu
-	muNC0BsU5DI1yhGLa92I2+wetUZSgMKLfx4PlM9Xjxz/yVtgfTrvGsq1Nab4J5e09J8qWzUH9h5
-	oLRg6z2sTlV1knxztVlqduLhC5MkMhYXWl2OkLWMi0LswKa89D8FsKl3a1FO/fZdmfP6NA5hDw3
-	STrZmTwK96dOrzQPVD5rzulWONKz0aVe2S0V1UsLxzoVIfSqKxixKSn8SrxmOX41uiER1zDd/2S
-	Y2MCvgncjL7xVRolIaYcY/nxD4ms/9HplHWl+IT143P2LbEfM3uZ32gNkNTap608nB3Zqx9diOr
-	dF499hZ7L6drd0Fi5HkUWiFR+8CjqVc/clo7/1FTIIcnl4fUgEgX63w==
-X-Received: by 2002:a05:600c:3b9d:b0:4a1:7b56:1151 with SMTP id 5b1f17b1804b1-4a18044c9e0mr86451085e9.18.1791433596642;
-        Wed, 07 Oct 2026 21:26:36 -0700 (PDT)
+        bh=nvEa6S/dJFZJC2lyZ675Rkq41lS8wP1soF2ixtoNMag=;
+        b=tpmRZemh/+dPxI4u2pJ5CEKWreYcAwOGcvUc8p5dU5IxT5cs2fhfy0S9cD9Em2DhLB
+         Da8Gxc9pZdtfWixZdbV+5a1oWGZjwxZ/P//mwK+VyGOyIEc1Y3Htj3CKqAGfcSScu3gT
+         cDApb9fMjOGZjFXXKdYgH8GcqEEye0/ucbdt7btNH+4p+EIExXVCRlhwp8X4Dr62LuaZ
+         oHuygAoe3tRJnWymvZv8JcuSVXC1jilsE5pr5HJr46zk4nOlg0/63VYouOsYYvsGiRuG
+         w0cjmeTn0hwYpPCkbZAvdrhVFXh13XGfhcDeveAJ3eGVa8weAnqX6nFBVEIutK3vtCoq
+         7cKg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3VxRr6LfdRJ9MFAtsYeM1KLK1Hp4MAJMk6E6BhH7QtgBDg9oSYh07JkhgzDfjs5xU90+a6XOJiVqvjQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++nPn3VXyW9BR0LM9xZU070FXkEkxo+yQyGi1M9DyshHiLBluNwI
+	Paca+B7AYhUJVueHDOLErv6VGjeYAtgUPghanakMadd1itXLgh7vEgo8
+X-Gm-Gg: AYBFou015nAfZUUTqJ/AncJlKr7pTtx7rJ/B6voXcNbOsFDKypYABzLSPtegFXs9QBH
+	jWTT6WKJmmxu1DeQhbA4thB4R28vN6+ERqemU9CP4m9QvOjLNsFwDCxNQA97lz+gdF6PoZiVpLW
+	hOGJBuctehR6Yq1jr+wN8IWJZAFhKzTDnPjYI2b8Hy6p6/KZGe7HDi3FbMwA/p4vgrgI1Ohdw0U
+	78Y5QJdJjvzW5G2W5PH6+muAesiHReDW4YRoKyEuFPB4iLjJYr+6RFkI1ytVxqL++CEmnborjhc
+	hpyPSectPOjdnFYMxI3by1tKkYJCQycMoO38kzR/q1fIBcfdk4jkHDDNzNqSDj+PBsky5QZ5DlB
+	LdY/Qr03q4zfrLjDTVrljgquEB9m0+rM5RA0ZJVs3Y/mVBUHlTM44VDZCzXH5F7kxNqsDAoCdok
+	Zqd8ueAdy8j0lQ7J7fYnleddIGRDDVsPUtpUmLjobgyQ89sZG+I2/uA1TvvSq4cvpUkHOJGb7DB
+	HOoDXeqkg02RqdskU+GysURQBh5AkSBlEmrhmFH6BbQh9AuIBuPodjRDEoTC63MnX4RZEsB+fiS
+	nq5lXV+3TozHhy9iFdUqeOASkWqT6b7KbMKKqC27HbXIhz9hNJZ7hdn2/uT0mDwsZpwB4UeHtsu
+	pOivhXEBr/VReaO/QIBWssy+p8XCj2vDbfqugaRFl+TTx8sB1NCK0Qg==
+X-Received: by 2002:a05:600c:4fcb:b0:4a1:746e:589a with SMTP id 5b1f17b1804b1-4a18045579amr66658625e9.18.1791433603701;
+        Wed, 07 Oct 2026 21:26:43 -0700 (PDT)
 Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f486b6fsm88071375e9.1.2026.10.07.21.26.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f486b6fsm88071375e9.1.2026.10.07.21.26.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:26:35 -0700 (PDT)
+        Wed, 07 Oct 2026 21:26:41 -0700 (PDT)
 From: Nicola Fiorillo <nicfio@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -69,9 +69,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] media: v4l2-subdev: Fix NULL pointer dereference in subdev_open()
-Date: Thu,  8 Oct 2026 06:25:59 +0200
-Message-ID: <20261008042600.275884-2-nicfio@gmail.com>
+Subject: [PATCH v3 2/2] media: v4l2-subdev: Fix NULL pointer dereference in the EXT_CTRLS ioctls
+Date: Thu,  8 Oct 2026 06:26:00 +0200
+Message-ID: <20261008042600.275884-3-nicfio@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261008042600.275884-1-nicfio@gmail.com>
 References: <20261008042600.275884-1-nicfio@gmail.com>
@@ -83,106 +83,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unbinding a driver while something opens a /dev/v4l-subdevN node oopses
-the kernel:
+VIDIOC_G_EXT_CTRLS, VIDIOC_S_EXT_CTRLS and VIDIOC_TRY_EXT_CTRLS on a
+sub-device node pass sd->v4l2_dev->mdev to the control framework.
+v4l2_device_unregister_subdev() clears sd->v4l2_dev before it
+unregisters the device node, and nothing serialises the
+video_is_registered() checks in v4l2_ioctl() and subdev_do_ioctl_lock()
+against it: sub-device nodes have no vdev->lock, and unregistration
+would not take it anyway. An EXT_CTRLS ioctl on a file handle opened
+before a driver is unbound can therefore dereference NULL:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000008
-  RIP: 0010:subdev_open+0x8a/0x190 [videodev]
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:subdev_do_ioctl+0x1926/0x2550
   Call Trace:
-   v4l2_open+0xa9/0x100 [videodev]
-   chrdev_open+0xb2/0x230
-   do_dentry_open+0x14c/0x440
-   vfs_open+0x2e/0xe0
-   path_openat+0x82e/0x12d0
-   do_filp_open+0xc4/0x170
-   do_sys_openat2+0xae/0xe0
-   __x64_sys_openat+0x55/0xa0
+   subdev_do_ioctl_lock+0x246/0x5c0
+   video_usercopy+0x47b/0xcc0
+   v4l2_ioctl+0x187/0x1f0
+   __x64_sys_ioctl+0x134/0x1c0
 
-v4l2_device_unregister_subdev() clears sd->v4l2_dev, then unregisters
-the media entity, which clears sd->entity.graph_obj.mdev, and only then
-unregisters the device node. Drivers that call media_device_unregister()
-before v4l2_device_unregister(), as vimc does, clear
-sd->entity.graph_obj.mdev even earlier, while the sub-device nodes are
-still registered. subdev_open() dereferences both pointers. v4l2_open()
-has checked that the node is registered, but it drops videodev_lock
-before calling fops->open(), so the whole unregistration can run in
-between. Reordering v4l2_device_unregister_subdev() would not help in
-the second case, and checking the two pointers in subdev_open() would
-only narrow the window.
+Use vdev->v4l2_dev->mdev instead, as the previous patch does in
+subdev_open(), and as the video node ioctls already do.
 
-Neither pointer is needed in subdev_open(). Both record that the
-sub-device is registered, and are cleared on purpose when it goes away,
-while open() runs on behalf of the device node. The node has its own
-pointer to the same v4l2_device, vdev->v4l2_dev, which is set when the
-node is registered and never cleared, and the V4L2 core already relies
-on it for as long as the node exists: v4l2_release() dereferences it on
-every close. The sub-device's entity is registered with
-vdev->v4l2_dev->mdev, so that is also the media device to take the
-module reference through.
+Found by reading the code, then reproduced in QEMU with KASAN: with the
+previous patch applied, threads looping on VIDIOC_G_EXT_CTRLS on vimc's
+sub-device nodes while vimc is unbound and rebound hit the oops above;
+with this patch the same test shows no oops, KASAN report or warning.
 
-That reference goes through mdev->dev->driver, which the driver core
-clears once the media device's own driver has been unbound, as when
-syzbot unbinds vimc. Read it once with READ_ONCE(), as
-dev_driver_string() does, and fail the open with -ENODEV if it is gone:
-unbinding does not unload the module, so the pointer read is either
-still valid or NULL.
-
-With this, subdev_open() no longer reads a pointer that the V4L2 core or
-the driver core clears when a driver is unbound. It can still run on a
-sub-device that has just been unregistered, exactly like a file handle
-opened an instant earlier. The lifetime of the sub-device and of the
-media device when a driver goes away with file handles open, and module
-unloading, are a separate, known limitation that this does not address.
-
-Reproduced on a CHUWI Hi10 X1 (Alder Lake-N, IPU6) running 6.12.86, at
-cycle 7 of a loop unbinding and rebinding a sensor while four processes
-opened every /dev/v4l-subdev*. syzbot hit the second dereference on the
-same line by unbinding vimc, and so does a test in QEMU with KASAN that
-opens vimc's sub-device nodes while vimc is unbound and rebound; with
-this patch the same test shows no oops, KASAN report or warning.
-
-Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-Fixes: 61f5db549dde ("[media] v4l: Make v4l2_subdev inherit from media_entity")
+Fixes: c41e9cff704a ("media: v4l2-ctrls: support g/s_ext_ctrls for requests")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index a07d77e58..c56ca328f 100644
+index c56ca328f..1a2ae7c13 100644
 --- a/drivers/media/v4l2-core/v4l2-subdev.c
 +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -96,6 +96,7 @@ static int subdev_open(struct file *file)
- {
- 	struct video_device *vdev = video_devdata(file);
- 	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
-+	struct media_device *mdev = vdev->v4l2_dev->mdev;
- 	struct v4l2_subdev_fh *subdev_fh;
- 	int ret;
+@@ -775,19 +775,19 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		if (!vfh->ctrl_handler)
+ 			return -ENOTTY;
+ 		return v4l2_g_ext_ctrls(vfh->ctrl_handler,
+-					vdev, sd->v4l2_dev->mdev, arg);
++					vdev, vdev->v4l2_dev->mdev, arg);
  
-@@ -112,10 +113,17 @@ static int subdev_open(struct file *file)
- 	v4l2_fh_init(&subdev_fh->vfh, vdev);
- 	v4l2_fh_add(&subdev_fh->vfh, file);
+ 	case VIDIOC_S_EXT_CTRLS:
+ 		if (!vfh->ctrl_handler)
+ 			return -ENOTTY;
+ 		return v4l2_s_ext_ctrls(vfh, vfh->ctrl_handler,
+-					vdev, sd->v4l2_dev->mdev, arg);
++					vdev, vdev->v4l2_dev->mdev, arg);
  
--	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
-+	if (mdev && mdev->dev) {
-+		struct device_driver *drv = READ_ONCE(mdev->dev->driver);
- 		struct module *owner;
+ 	case VIDIOC_TRY_EXT_CTRLS:
+ 		if (!vfh->ctrl_handler)
+ 			return -ENOTTY;
+ 		return v4l2_try_ext_ctrls(vfh->ctrl_handler,
+-					  vdev, sd->v4l2_dev->mdev, arg);
++					  vdev, vdev->v4l2_dev->mdev, arg);
  
--		owner = sd->entity.graph_obj.mdev->dev->driver->owner;
-+		/* The media device's driver has been unbound meanwhile. */
-+		if (!drv) {
-+			ret = -ENODEV;
-+			goto err;
-+		}
-+
-+		owner = drv->owner;
- 		if (!try_module_get(owner)) {
- 			ret = -EBUSY;
- 			goto err;
+ 	case VIDIOC_DQEVENT:
+ 		if (!(sd->flags & V4L2_SUBDEV_FL_HAS_EVENTS))
 -- 
 2.47.3
 
