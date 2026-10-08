@@ -1,114 +1,232 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB2545041A;
-	Thu,  8 Oct 2026 12:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CECA48FF8E
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 12:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791461694; cv=none; b=FD07NpWMkWmBeRIYbuJRAE4p6uEvtGRcCZ0OTCSP8aWbSstox2omRK3y4rx4WRBkYuzd+w3RHVvccp4UggFGdHQkNWF954DMdY0Fmxp/Tl8794B/q3ENfXRCp0PWAjQKAkUexOZAZ5ZnnYOklBkVmvuMvCphjKxYyLmu7YG1mLM=
+	t=1791462413; cv=none; b=urk6ZR90CpPUwHXy7RhXjfVjDMbwpE7w3yYCNVnGjw845gNnWFIJQOi+/5B4UZuKvyI1/OtuLueTKbotGxSkJnG5Xvf6JDODDeUDKDRe9XyjNs02uSKPoFYJ+P3ldV8QxquYazVxOG0AJ9OTvgDH26vYUOmu9XtC5Ve3FiiQdoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791461694; c=relaxed/simple;
-	bh=0J7kj8ZCzMw5Of+yHkAfng/RvMnu7WG468MR8rGe3f8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QPff0XxeXDu6wk+z+glT6dZWhSc64MLP4KUVjlUOVadBGND2Q2uxDevpfAoUQpucw2yor76RgC0uUkZOiHLQ2t9lHHPIyO0nhrBHbzPbsiWYM8ywz+Ezet7cDxSenBUQgMUPHqfFGye3vvfVrqXT2WuK84FeQUkhZNDxCIzAcKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=mpuap6vT; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791462413; c=relaxed/simple;
+	bh=PUMTXhGffUnR4KsUVaiG/iVl7Snj53MQxFjZnFNcqXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YWT5GPrRu6FzLedMXMJBLpGdZp9kIJEqh4OqbUAPlLHVI99KemAIn/QIjTS35atF2eloSqM02OOdf4GTD2ErHxfBNWuN/eVdgh9s5rt4JksnLOYxbIarvTYFsXa5POaGVhrhgHQ+6bdvtQAlCUxGvS8OyjpV1QlHMY2dhCGF6vM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YkCu3/gO; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mpuap6vT"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 504fceb6b;
-	Thu, 8 Oct 2026 20:14:40 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tiffany Lin <tiffany.lin@mediatek.com>
-Cc: Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>
-Subject: [PATCH v2] media: mediatek: vcodec: Initialize context lock before firmware setup
-Date: Thu,  8 Oct 2026 20:14:34 +0800
-Message-Id: <20261008121434.946927-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
-References: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YkCu3/gO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791462408; x=1822998408;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PUMTXhGffUnR4KsUVaiG/iVl7Snj53MQxFjZnFNcqXM=;
+  b=YkCu3/gOaJzcAFX1fZwpm95eHMApMEwwvboRUOV2NsTH2cO84+USGtkD
+   H6xiWmK+Ny4qms0mq1tJnuevuX56sd9WrXI5pWcCLTdvn5noyT5+cYE9N
+   vMKDTfYoZvKSHyA2y4k/w8X3ARBTMw9S3mmXYTLTjJt7Dyj/cz/NJ53t8
+   QnvqDT9WqNao4Re/afizfnBlX881eQpTxoY/tYTTnpZz4n4M3J/u1iyxq
+   fdfvFrUo7tzih6KkwRobPGiddYgQpEOR/2Bb4AKs2tOMmZo9SJqILOyYj
+   Asqs5OYCs8cYcltLUNTT/UStQRCnffRQeUiWsPdfrFekwJ/D9AYNmmiWR
+   w==;
+X-CSE-ConnectionGUID: ao1zY58ERHO9E9vpduv1Ig==
+X-CSE-MsgGUID: 2GZtM9QTS62wTXnYSdtRIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="241277"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="241277"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 05:26:47 -0700
+X-CSE-ConnectionGUID: zmfrXQaCSmi9vs6w7bLWnw==
+X-CSE-MsgGUID: ci7UNc3ZQy6G87YvGyx/eg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="480441"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.95])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 05:26:41 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 575F211FBA6;
+	Thu, 08 Oct 2026 15:26:42 +0300 (EEST)
+Date: Thu, 8 Oct 2026 15:26:42 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>
+Subject: Re: [PATCH 1/1] media: subdev: Make get_fmt on INTERNAL pads without
+ STREAMS an error
+Message-ID: <aseMAtCqoVBz7ggH@kekkonen.localdomain>
+References: <20261006092950.690101-1-sakari.ailus@linux.intel.com>
+ <ae109b76-67f8-456d-a233-796f50cadcb1@kernel.org>
+ <asYVi4p-NRWuVxae@kekkonen.localdomain>
+ <07ce46a4-a8f7-49fc-8ceb-7276abc0d4ad@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11b6fe35d03a1kunmde41a01640d4ff
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ09NVh0eT0NMHRpLHx8ZTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=mpuap6vTn5/8zckoWW8m1AHNs9/lrcC5dOJcyxI7o3wqlyxDpZbUynix5R3jV5E4QP1TlxqiCAxXdXkKBLNY9VZXCngNlD9zOFScb1XilepNqRMu5m94NNs+MR9yEckFVuS8w+HDfSmfLLLg6nrgKxqKO7TSfvVKra+weDvEtzU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=bZAo94LpO2B0yElRNSLGBz0NRZ8kLHR1Iz17jxI1zUg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <07ce46a4-a8f7-49fc-8ceb-7276abc0d4ad@kernel.org>
 
-The normal encoder open path cannot take dev_ctx_lock before
-video_register_device(), but there is another path during probe.
+Hi Hans,
 
-On VPU-backed devices, mtk_vcodec_probe() selects firmware before it
-initializes dev_ctx_lock. VPU firmware setup registers the encoder watchdog
-callback during this selection. A watchdog timeout on the shared VPU
-queues reset work, which invokes the registered callbacks. If it runs
-before spin_lock_init(), the encoder callback takes the uninitialized lock.
+On Wed, Oct 07, 2026 at 12:14:46PM +0200, Hans Verkuil wrote:
+> On 07/10/2026 11:48, Sakari Ailus wrote:
+> > Hi Hans,
+> > 
+> > On Wed, Oct 07, 2026 at 11:43:35AM +0200, Hans Verkuil wrote:
+> >> On 06/10/2026 11:29, Sakari Ailus wrote:
+> >>> Internal pads should only be accessible to file handles with
+> >>> V4L2_SUBDEV_CLIENT_CAP_STREAMS flag set. Return an error otherwise.
+> >>>
+> >>> Fixes: 49cdf56876d3 ("media: mc: Add INTERNAL pad flag")
+> >>> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> >>> ---
+> >>>  drivers/media/v4l2-core/v4l2-subdev.c | 7 ++++++-
+> >>>  1 file changed, 6 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> >>> index a07d77e584c3..7cb5a40f0f8c 100644
+> >>> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> >>> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> >>> @@ -854,8 +854,13 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+> >>>  	case VIDIOC_SUBDEV_G_FMT: {
+> >>>  		struct v4l2_subdev_format *format = arg;
+> >>>  
+> >>> -		if (!client_supports_streams)
+> >>> +		if (!client_supports_streams) {
+> >>> +			if (format->pad < sd->entity.num_pads &&
+> >>> +			    sd->entity.pads[format->pad].flags & MEDIA_PAD_FL_INTERNAL)
+> >>> +				return -EINVAL;
+> >>> +
+> >>>  			format->stream = 0;
+> >>> +		}
+> >>>  
+> >>>  		memset(format->reserved, 0, sizeof(format->reserved));
+> >>>  		memset(format->format.reserved, 0, sizeof(format->format.reserved));
+> >>>
+> >>
+> >> There is no documentation that I can find that says that MEDIA_PAD_FL_INTERNAL is only available
+> >> if V4L2_SUBDEV_CLIENT_CAP_STREAMS is set.
+> >>
+> >> I think this needs some more thought: if internal pads are only available if that cap is set,
+> >> then I expect that a lot more ioctls will need this check. In that case the check should become
+> >> a helper function.
+> >>
+> >> But how does this affect e.g. G_TOPOLOGY or ENUM_LINKS? If the cap is not set, should internal
+> >> pads still be reported?
+> > 
+> > We don't have client capabilities on MC side, at least not right now. The
+> > INTERNAL pads are intended to be used in very special circumstances and for
+> > that we do have sub-device capability flags. They were introduced in this
+> > cycle and if we allow wider access to them now, there could be issues
+> > blocking that as the interface they expose isn't intended to be used
+> > without these capability flags.
+> 
+> So are the internal pads exposed or not through these MC ioctls? That's not clear
+> to me. It's not documented either.
 
-With CONFIG_DEBUG_SPINLOCK=y, an x86_64 QEMU test used a zeroed lock,
-initialized an empty context list, and invoked a callback with matching
-lock and list operations. It reported:
+The pads naturally are exposed via MC, like any other pads. Neither the
+sink nor source pad documentation discusses whether the pads are
+user-visible so I don't thin this explicitly needs to be specified for
+internal pads either.
 
-    [    1.761312] BUG: spinlock bad magic on CPU#0, busybox/58
+> 
+> > 
+> > I'll rework this to apply to the rest of the pad-related IOCTLs.
+> > 
+> >>
+> >> And you need checks in v4l2-compliance, ensuring that trying to access internal pads without
+> >> that cap will indeed fail.
+> > 
+> > I can add that.
+> > 
+> >>
+> >> Ideally you would like to have this emulated in vimc as well.
+> >>
+> >> In other words, I think this needs more work, both in the core and w.r.t. documentation.
+> > 
+> > The INTERNAL pad flag was introduced as the Maxim serdes driver needed it
+> > and we thought it's fine to merge it early; the bulk of the documentation
+> > resides in the depths of my metadata series.
+> > 
+> 
+> Ah, that's not something I was aware of (or may have been aware of, but forgotten). Adding
+> a new uAPI requires a lot more care: proper documentation, v4l2-compliance tests, if at all
+> possible emulation support in one of the test drivers.
 
-The lock dump showed .magic: 00000000.
+Note that the maxim-serdes driver does not expose any functionality that
+would depend on the internal pads solely; it requires streams API
+enablement that is behind another kernel change. It is thus very, very
+unlikely to cause any issues. On the other hand, no functionality is
+disabled by the other two patches I posted to hide the INTERNAL flag from
+the userspace.
 
-The test reproduces the debug lock diagnostic, not a real VPU watchdog
-timeout or its timing during probe. The context list is initialized but
-remains empty until video registration, so this shows invalid lock use, not
-list corruption or a user-visible failure.
+An example of the contrary, though, is fairly recently merged STREAMS
+capability flag, which in its current state cannot be taken into use --
+we'll have to use another bit, as enabling this flag now will break
+libcamera. The problem here is that the flag is changing the behaviour of
+existing interfaces but at the time of the introduction of the flag it
+wasn't exactly specified how the existing interfaces would be affected.
 
-Initialize dev_ctx_lock before firmware setup registers the callback.
+> 
+> Neither was it reviewed by the media maintainers (me or Mauro). I'm really not happy about
+> that. uAPI changes have to be reviewed by the media maintainers.
+> 
+> Before rc1 is released you must have a patch series ready (and reviewed by me) adding proper
+> documentation, fixing issues like the one addressed in this patch, and a patch for
+> v4l2-compliance.
+> 
+> Ideally also a patch to emulate this in the test driver (probably vimc), but that will
+> likely take more time.
+> 
+> If it is not properly documented etc., then I might decide to revert this driver + uAPI
+> change in 7.4-rcX.
+> 
+> As media committer it is your responsibility to ensure that the media maintainers have
+> reviewed uAPI changes and are OK with it. That clearly didn't happen here.
 
-Fixes: afaaf3a0f647 ("media: mediatek: vcodec: adding lock to protect encoder context list")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- .../media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In retrospect, I agree I should have explictly asked you before merging the
+patch. My apologies for that. Still, versions of the patch have been out
+for review for more than three years and while the previous version you've
+commented is v6 (in 2023), there have been six more versions for review
+where you've been cc'd and additional 15 versions of the maxim-serdes
+driver patchset containing the same patch (where you haven't been cc'd
+though).
 
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 4e4541b2f..e6cd3817a 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -255,6 +255,7 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 
- 	INIT_LIST_HEAD(&dev->ctx_list);
- 	dev->plat_dev = pdev;
-+	spin_lock_init(&dev->dev_ctx_lock);
- 
- 	if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vpu",
- 				  &rproc_phandle)) {
-@@ -308,7 +309,6 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 
- 	mutex_init(&dev->enc_mutex);
- 	mutex_init(&dev->dev_mutex);
--	spin_lock_init(&dev->dev_ctx_lock);
- 	spin_lock_init(&dev->irqlock);
- 
- 	snprintf(dev->v4l2_dev.name, sizeof(dev->v4l2_dev.name), "%s",
+My hope is that we'd get the metadata series, which contains multi-stream
+support on which work has been done for more than a decade now, merged in
+7.5 (or at least not much later than that), with userspace support in
+libcamera which Jai has been working on. I'll post a new version of that
+once we have rc1.
+
 -- 
-2.34.1
+Kind regards,
+
+Sakari Ailus
