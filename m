@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352AB4963B6;
-	Thu,  8 Oct 2026 12:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17F049B474
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464161; cv=none; b=k2Viw8NcmNsUlvZKTn+ab4pZ7rIIgn+Z2nf8ZkOzCz8h7sTBW3zTm0bmBM/N3a0bdnwMcNmTF6AdjyK1/fJU/URa+tRXUUfkaXUqxK3h4y3cgEOdifhAlCgD9M+LNpGuXsIsK8slpcF/x+YpbUOTfbE1yrPiLixjXBSalTiPM1k=
+	t=1791464925; cv=none; b=YFNwoOtVGwowKRTgBA1xK9SWJkuMc/3xTamHbibvC/HiNPgxaEuQL69TfDQTSyX/b1JEQmSqIsAdO5VWAeQ4hEBzGPyuEXjZLsiw4IIuHHcNOOpN+x52dyLtv+uQg3WZoRM/mGtQrIBso5Ix8o6aLY38fC/5XB+Lb2wF4IonoQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464161; c=relaxed/simple;
-	bh=48va3AxlapOSVD/eQTsLmD4W6Vl42eZUNrqCeNyskJA=;
+	s=arc-20240116; t=1791464925; c=relaxed/simple;
+	bh=QwH8JTwtGqJvwi5xVGeamby7ttvbkMogom5klSRXEsE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VWwli82Upk9xlyMtDeZGjgd1QGGUxrazSNf1bnBEwq1qoazFBEAvKaHm0MdRxVz+OewBI8oyMZeIp3JcwNGfiXdvIOhyVAIlmFfuxhklMCitMXNQB8K7kLyXrkzGdDM+S/Z28bjYmPW0LLgfHVWypFR6ZbvXLMbEVel4Gkwymdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhmLCGbp; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Yq8sfnbhpA9cnOdvUCR8pdaxdo41ZLL/khztel8z/METnpBNK9qijyG/vhvRJnbJ4FTcVMk2O0eLxMoalAeMafQaxCp1UE7LprTRFZTsFEub/kxVY4p24urNtVDd8/GpHx3vmL5b4k+TfQGbcUzMdL6yiOb1391bHLQnyhDWCNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=X0oLT9Ey; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhmLCGbp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1367A1F000FF;
-	Thu,  8 Oct 2026 12:55:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791464159;
-	bh=YCVpdCyEFTDkP6dCBo/QsDSh8W09hcMyco8GwpHFCkY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bhmLCGbp2BgiEMgGlOj3uH5BrlGhiSmut/gERZxNNlMNYwkOuT+IJeDeK9n62Cy/w
-	 pP63NUDFySKYfK3hxY5OG+XSd+W42907JY54uf2GLozRgmE3s854rrp06YIt6IvM+J
-	 onSPZlkGp097EmCiqmD4QIqQ5sWDMy1xVitTfFUEfTQW8NL5EdRPvH+36LlgWMjPj/
-	 oPYCFHtU/BCRMI506RAPZnsu8OK2E7mIZ22Q9eLExZBNjq7iNRp07HYOCpHlb24hZX
-	 0uFnDtCqLawLH4dCiaMjgTRXptxC7MZ+esERtVfDeN8GxRy3OV9/6ho4cjIGL0bBX0
-	 BDWyRdWITuDCw==
-Message-ID: <da108ee4-e330-4656-af21-286ad3eaf53b@kernel.org>
-Date: Thu, 8 Oct 2026 13:55:53 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="X0oLT9Ey"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso8369599a12.3
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:08:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791464922; x=1792069722; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1zkMv5B4UbM6QWd5wAgGktVY1O+Cdav6y2Be1vNvxcA=;
+        b=X0oLT9EyliWOrrQHunWButGnWLrnv8iI5Grzo7TvdHwvh+N1ucYZDp3dV/1xQmJaDq
+         fx8NeECMI8fU5WFAkPhGsPxDBmep5r9l0sCadEvcRO1/Sa3hB8ygYEJ3ZS0a+C4sm6cb
+         SOzvQFvzTQRDt3C0lNWueurrpKQO1VH4k3Vpeq7T+i8dy23abpD0ebMaWmRyFNvlVqqn
+         51oWQTuYBBI3X2BKJBRmfnwJn2uawpiKro1JKr9XWs+fLi3EnYDmpLFa6HcMM9+Uv6Hx
+         AVp+auFML++HELT3SNbdTgc6Jk7UPkWy+HAwt4A2+6GBepIww+K5lW1/g+bcfDO4Nwc2
+         sciw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791464922; x=1792069722;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1zkMv5B4UbM6QWd5wAgGktVY1O+Cdav6y2Be1vNvxcA=;
+        b=DfrpvN3WSWxqZTms5KBBmf9L3XudSZnTUlmOePYvRYChyhwkT/vRX+tNHQCxAk7rQM
+         5HKby7c1ItTiSU3ysgSmEzMWgk0sJWI+NiFXg9D+ON2dlqrYaS3b72YZkFQSva3jGuhY
+         5J+XqsrSG70t1+Q4waMU6fykUwyf58DOV54SAXjvsEAD+Y6pjh676erD+3zQhJ/mmm/x
+         j1C9fZnkAYpnAWb0QuiUvBrZzldncQu7MhfxIEoR/PyiolJGw0wRwBZ8RFsRRAjy7f6e
+         YZOPLFH/4ktv6OUI4Sc3HYuP4CsDT9t65aD/vfbINh3br0SE5pDCpoSIatnnAnF3bJUP
+         VLXw==
+X-Gm-Message-State: AFuF++mwZEDa5QnhyJpVK7apQ6gBIlu+enOwjKM01DbSFHcduu8NXz9T
+	Nn/Fw5jRkyvxgonyuemFAyjtm+DTlpHUsX52IKFRgymcNHKncBQVCm2ZoGaoKO8AG2g=
+X-Gm-Gg: AYBFou0K4loEFPtvS9a2iN0u73womImTfP7D1eVR6B5mbdZUoqPGM8cE52s4puyGqow
+	9gNl1s9gy8oOg+vvKqpjo3OCkVkOaCYxLo0PQAYuCNBdAwo/fngOjByDSj9jQF6r7RjJGBUQRoh
+	0d0R907KluVR3mdIgFQfyGaCL+VorBGEzcLH+fsDAmkze1BlvUQpWqQeNzA6bOFvEcK0xB9sjvM
+	4FfKpVRwWAKgRUTXK+rUZcH+szVU7D+Eqy8YlbA5iVKqXnprs6/IWYnBCAsaRt2b/rTXjUica4z
+	UdwUZsYVvwR/B3IWcXTZ+2k9d/BgH2PhZWRh1tBwn3raogILGnQWKZOwDGeeCZKvUnAT10nHrEC
+	54mk2lKR4xharakqjXoSWQd5mmAMNKexuNk9htZueu0BvWNUlsaWTozwtvx98+GulMg3LcVzmD7
+	NJMTlPNozx4RI6e62SrpyAHaTvDVzjuJHaZDfoKsXwLVFVs6IW8OdVCNpOtastKuqWEcEDEJZUe
+	eOnqWmj/9SY
+X-Received: by 2002:a17:907:3d12:b0:c2e:3ed7:7db4 with SMTP id a640c23a62f3a-c317c08dd5fmr521063766b.23.1791464921762;
+        Thu, 08 Oct 2026 06:08:41 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.203.235])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c317c2fd4a2sm224034166b.56.2026.10.08.06.08.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 06:08:40 -0700 (PDT)
+Message-ID: <09f1f11d-c269-4cd9-9016-dc8a6d8cab18@linaro.org>
+Date: Thu, 8 Oct 2026 14:08:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,9 +68,10 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/74] RFC: Switch on IFE YUV, Stats and Params support
- for sm8650
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+Subject: Re: [PATCH 28/74] media: qcom: camss: vfe: Add planes identifier to
+ struct wm
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>,
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -48,109 +82,43 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
  <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Antoine Bouyer <antoine.bouyer@nxp.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org
-References: <2bmnjEGElR9T_ArfViwpYiEKTtnqkmH2Ly0MiZJCxhhVR_O0dZOW-Cl983_7fLBFoxMc_PBuNK6FsBbK1JLXQA==@protonmail.internalid>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-From: Bryan O'Donoghue <bod@kernel.org>
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-28-ed985aefd611@kernel.org>
+ <6a2df7c7-274f-4620-8a56-31551536c49a@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <6a2df7c7-274f-4620-8a56-31551536c49a@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/10/2026 18:13, Bryan O'Donoghue wrote:
-> This extensive series restructures CAMSS around the idea of lines and
-> outputs more closely matching the concepts in the camera hardware.
+On 08/10/2026 06:56, Gjorgji Rosikopulos (Consultant) wrote:
+> Hi Bryan,
 > 
-> To begin with some bug fixing and some dependencies on the OPE series are
-> pulled in.
+> On 10/5/2026 8:13 PM, Bryan O'Donoghue wrote:
+>> Define the number of planes a given IFE write master will write as a
+>> data-field in the WM structure.
+>>
+>> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+>> ---
+>>   drivers/media/platform/qcom/camss/camss-vfe.h | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+>> index bf8dccf4c901e..8bc07fe7798e1 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
+>> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+>> @@ -101,6 +101,7 @@ enum vfe_v3_comp_group {
+>>   
+>>   struct vfe_wm {
+>>   	u8 bus_client;
+>> +	u8 plane;
 > 
-> Following that a series of changes to enable the IFE hardware is introduced
-> for VFE780.
+> Can we change this to num_planes, plane is somehow not well descriptive for number of planes.
 > 
-> Supported in this drop:
-> 
-> - YUV output on the pix path
->    YUV downscale 16 and downscale 4 work on a staging branch
->    but with this series at 60 patches I've not included that.
-> 
-> - Stats output
->    Bayer histogram only
-> 
->    How many stats are intended to be brought out this way ?
->    Consider that scene in The Terminator when the guy in the gun
->    store.
-> 
->    Gun store owner: "So which will it be"
->    The Terminator: "All"
-> 
->    More seriously once this series lands then it will be possible to bring
->    out stats for Agatti mitigating the need for calculating stats in
->    software.
-> 
-> - Params application
->    AEC Bayer hist params
-> 
->    Again there are no limits envisaged on which params are to be enabled.
-> 
->    "All"
-> 
-> - Testing on HDK sm8650
-> 
->    There is a repo to test this stuff out:
-> 
->    https://github.com/0xB0D/ife-tests
-> 
-> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-For the record sending 74 patches to the mailing list is anti-social.
+> ~Gjorgji
 
-Next time why not try for the hat-trick and make it 300 ?
-
-Feedback to self is break this up and squash this down NAK.
+.plane denotes which plane not the count of planes here.
 
 ---
 bod
