@@ -1,69 +1,112 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA472D1911
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 09:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452608; cv=pass; b=BxrJc15Adko0kjwnFhehqTWL48r1EkbSj9mFRUz6NpsmKMwJgsFhxX6ckjOF6mhdRm9uBvL16U8zdMt/uuPCdrM4/XvVUwfiEPpfYQA9L8hdaENa8emGpAQDYmNSm/1an4KqnUm2r63T8V9nlUJ0talE/Kk1IPuXaW4IrZEQ420=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452608; c=relaxed/simple;
-	bh=fGwYUE9oTAMFbIguJ/w51aBTa6pdRqRz4NeP/GV3Rnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ruDhat5maU7cgGlIA0KRz285lwgv+0C5DivNoRfKQiW8CkGDIRIsY9BzbQ8r/Du9LWorXZML8iDV0Axc/CT7q7nh8+8PpBSG4eXLJBt0NdY2aFmPejt3bYqhVDB7aWocUO6Z0FuqF7v7kiFmZMGpXMH58bgpVlMDBYutAfuGfZ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=pCLFqLO2; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3466847FB09
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 10:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791454737; cv=none; b=G1wwhTRok/7RHqCBXmmdRRM8BftQRnGb55BLMSTIe9j7oKWe5QoMueNhwIPfJZRe7UAJgVVEs/aysXktsl6a/CeGpUHPxq5cvsswYiMx8+XPVheT56hHmJGC6EwAKhTIXJAa7yKmgeOwYT3zU8aaifOp6wJ4uFuF6aPss+uNJ1w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791454737; c=relaxed/simple;
+	bh=rXosPsvLDE0N35+gKeSxYiKPn1SY6RoHqsdmuKH+qLY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CaVie6XucFrlaM3PzhN6OOUZljDKoDPVc+q3zXThoMceoic1xXEeZSwIrfsJT/yAJykV8uSn6ocmPTy85JBEVDIgYsNL1OnEG9RRgRiTl2C993HruW4IPmzZwR3xuXdhkGpuAOP4+I/0mITBBOOWKUVI1c7ErL1hQcLE2J/m4+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P9q/Bm01; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i9SSDRON; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="pCLFqLO2"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4j0lRQ1Gkhz49Pxl;
-	Thu, 08 Oct 2026 12:43:14 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1791452594;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=IUvTo57P9ZNAmjTy6eK3Gbxt+D+M1faMx2ZpCPrLpyk=;
-	b=pCLFqLO2AuzAu/oanMIX2oz5gT1+u0TaLdPXa68Eh0WM1AKDoNRcs5Q1gEyWv25NkIRGC6
-	BOGKFA8LH9w7sby4udN5CujJND4Irc+Dh/Ea2mObvaCPoEwzY8W8QlL+85wxRiZeXnz0w5
-	X75+pxDkpxfgr/Z2S22YYu7sCeJ+r11vX09rBuzzMdz9orOSjG30AntRpJZ4udHYfwgfvt
-	P2Sv4ikoIXk+DY7nj7PC8rCRM1SgAvd0i//wK9EGRmrdNwm0/ePjRA2YMzesIVofDvo8EO
-	uLQwCNmiO8fbalidSwrFx75wlPsPyhY22gzwsHmjrhX0NlLdvcSQIDaXotRfRw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1791452594;
-	b=W+2WJcl7F1Nsd+DfnLgPYgPEEujB9ahnxvL+0wvFUrN47oWSPXb3NLF6rZA+ji1opwjQNl
-	ULLxxajUPNHi5FK0HQ5+g+DvYiq1pDDfPCV4kKfV9UxrCvxfHV4PI6awGBLclMkPte943e
-	el3qB61aPrifTRzdhR5NuYXNK2NVIvP8pQpldSzHa2uWKSL7gxnwBObSv5OQGOLHeMgNxE
-	xan5oUrTfmWLhcize8USFoqGziVMNiSjC8ZFUd7vIIj0xT6/cbArNjvYxf0/ivRvtF+EpP
-	ISSl9AzBBOCHGaZMswPtovi/n3+tAP5TcG6HuP/Pg/AG2bECwzAQSeWBDuS8SA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1791452594;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=IUvTo57P9ZNAmjTy6eK3Gbxt+D+M1faMx2ZpCPrLpyk=;
-	b=IUq57KA5i6ILLBgB5iGnZEwGbcTKIKY0C+BLsHvWXvq0VuZqcrEWrYsLmZF6sfuvD6zYL9
-	iahmXg4aArqBCaH9r+TqGlfSrYNy71hSzCe256JelJelb2A42J8uw2BOdNoqE7NsPlZiui
-	fjmhqOZ9njgSwbgb0RU5nMOUf7e/ffDQr/AC6h8xrzj7zqEG0+K0aET2x57qezDa8Z4Tsw
-	H3bh/MsbCuuAg+ZkHsAqfGeyY20ISVN8VOWkUs0KSjRy7Hpdaf7DgzbCYWDOxpi1Ah2VtA
-	FsfRZ9jnusmnXsermE0ZpgfLAvlCqAUi9lA6n6WXwKopc6FvHVKxN4n65D2JpQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id D934A634C4E;
-	Thu, 08 Oct 2026 12:43:12 +0300 (EEST)
-Date: Thu, 8 Oct 2026 12:43:12 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: linux-media@vger.kernel.org
-Cc: hans@jjverkuil.nl
-Subject: [GIT FIXES FOR 7.4] V4L2 fixes for 7.4
-Message-ID: <asdlsMac7eALgvgY@valkosipuli.retiisi.eu>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P9q/Bm01";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i9SSDRON"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KXM81170006
+	for <linux-media@vger.kernel.org>; Thu, 8 Oct 2026 10:18:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Ub/oN9RUcaedJsIYdTUvMbto
+	dFd68Ql1j6KDWzLpyvs=; b=P9q/Bm01oa9Tp1APTOssvYVdT0kssicmV1Nl/aaZ
+	Si9VY1s8pcm5Esq3/xr2GzIUsiiEfWcJQ9W/R/kxj7IulyOaDSh8oESNDHGQThiR
+	A6eWX0nn/YnZEaxq6IRAF3IPHuegsJkC4n9gaErZc9NUfpuFFMqTCNa6GRJfgNGq
+	oIeboudX1hHY5kLR6ryq4OvViLX4crF0pC32WAkIPAdHLxBIDAuObijV3gJAMcOG
+	SZVIZLMDMPyWgHgKEMDE4lrsBq8DPp0ja5sn7ggSO64Fgs0be5yNXR8Oqm4Bwjbo
+	mTaXFrUwehZ5812BTmVXD+8sGbrmKfw+PCiUIaNCyS8pYw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3acvd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 10:18:54 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91961374299so143069616d6.0
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 03:18:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791454734; x=1792059534; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ub/oN9RUcaedJsIYdTUvMbtodFd68Ql1j6KDWzLpyvs=;
+        b=i9SSDRONWhBxiTpcCMmrmA0R8rGJE0xE59VFiGjnckwhaNNvREP+/zIfjcq0/5sman
+         0MrjEjLHRiMo99oEdwhsHh+8qqeRPQl0qsnqqVv6/ZlXDdFLGsS80J6HRa2AMqGEah2D
+         rZZDvb74gjis6h0eIo8cDtE+YvggT83bU82tYRl6oFg3C5cujkvP2T66nYI8erlAkZf9
+         wBHWVk3wPKAc+mUMwInZ0fjOeMlgSu0CsJr6HeZHNOuiSS4HvDtpv84GOmCL+sAyzB4I
+         hVv8HMFE2DTNfLkttrAWcCJXUwQsdyGnhX6nKqbnHsMCtUX9t06Or/uFsJ1j4/LPGuhT
+         ihHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791454734; x=1792059534;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ub/oN9RUcaedJsIYdTUvMbtodFd68Ql1j6KDWzLpyvs=;
+        b=dzhVSoskn7c55aNnlXIWyyvvo99VD7uInZyUfld7cx7xSxmg9hdIDKB/5LmKbd5z1o
+         uo/KysPeoY9vlT6kDCftIomIbdAVuU5iNGIfVroX1a7LYl/Abrqhd2CAQj31hyhyRz7p
+         8xl24kCbg0ciHtIgI9SrC2E9RfdGG3hQqLqTU7kasTw814H2yw1iM22f/2ptZVa+79BD
+         BUhzOusKPQBhvYLA3YIPjFE5f1Vu7zA7fDEvJLGkyPUyeRd0Ywlrk7qdq51SWcRanhYb
+         /PkotwBTA9ahNJNE+qrw2yQ5OXFpK/YcJSMj5K7lm7W2kt7JWEBx5T+VXoV3fqjj7QRo
+         i+UQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWC5QqI9KKPn+2E3BJLUO1uRdOVH3Fiy1/y69thBHoBS4/2MMqRul9MWTBgU3sgkYPGHKSTIs8PgFwbw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKD8YzItO3VFqkW7YaAOnwLLII6cF4B0ikXawJLPv2goVwTqEZX
+	A7+qByXjKMJIl40/54WB/k++Wiuep3hBmQiOBuv8DJO8LzO6Gl+B5pb9VHIzQ1xTVw0g5ERUxMA
+	AHd/RiYGkFoFBdVSD6qYTk7hHFy4VUcCQ7NyX4KPRMyv35YTUHKLVKXdlCfydpSuicQ==
+X-Gm-Gg: AYBFou35KSPVVAeelo4i9S6Vm6qxvv7QPmYQU5NSMUL7HFB/i009zeLbllIfbgljLr1
+	mwCbY76CD1EJf9vibnDEM8jN0uJVUq0qZBvRrbvXQ/TyimVjZTzwD3EPBT1dbPmzj1M7ApgFat0
+	o5znWscwxfEUqSee/b+Kh7WFqv4j03GXFp++DiNdoErdSeyBPZ6JDKducYhr8xGSFvU435NXNLu
+	bV3MlJg1tJKYey6y/Y98I8NqFJD2KmD/jYap1LkA5ZigOrZSKILZjnDCa2E0NAn+KRDLnEaQkxD
+	cBR0UgIUF8onllFWWzMdods7HtRhDfj68CGnL1DLLTTHDa/bGaoWy8Z/+QbvGqkpIz+r3RyuqPj
+	/OjtgupL37VMp0qqSbXv7WnM7b3ysV+ZD05FpJDHj8Hqihqv/7x4Hk0SrNj2Ok35WaI9Tj9ISEO
+	eRcnWFn61ekcYh
+X-Received: by 2002:a05:6214:c25:b0:917:848a:43de with SMTP id 6a1803df08f44-919976ff4e9mr93260196d6.8.1791454734375;
+        Thu, 08 Oct 2026 03:18:54 -0700 (PDT)
+X-Received: by 2002:a05:6214:c25:b0:917:848a:43de with SMTP id 6a1803df08f44-919976ff4e9mr93259596d6.8.1791454733894;
+        Thu, 08 Oct 2026 03:18:53 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1d32e99sm14950571fa.10.2026.10.08.03.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 03:18:52 -0700 (PDT)
+Date: Thu, 8 Oct 2026 13:18:50 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v5 08/13] arm64: dts: qcom: hamoa: Add Iris context bank
+ subnodes
+Message-ID: <zxeidjkxjz6ylwn24maajzn43oneiglzuwyn46rk67bgovfj3n@lg6lk4xuzsag>
+References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
+ <20260926-vpu_iommu_iova_handling-v5-8-0322ca5dc10c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,43 +115,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-8-0322ca5dc10c@oss.qualcomm.com>
+X-Proofpoint-GUID: KQ4CMWu20-lNZlM7C-p-VrPOWvkSfv79
+X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac76e0f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=G2U8quZLHxfXJRKprjwA:9 a=CjuIK1q_8ugA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0MCBTYWx0ZWRfX8m08/Rn9DOZq
+ GTt0wuQCwP6yJlWEMZ5dtyHv/a+okaopeEFDJA1XbnhvhAcMwEPlYuREzUBL50ZHEtyjG2J/mdG
+ Do9NBvJYBMUFVvqLLCSMEk0lYNpPjGA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0MCBTYWx0ZWRfXwBSdsajpXxeP
+ yd5v3tyNrmA9ti9M/ZhJhF250Uc6GNOMZ3/BL0xdtSHvpxRTXPQKPfg46fI8ziR8GrV6EpoCsQ4
+ c3q52mqP2Vi3pgUFUHF/8fm5acpiLPKbt/ZU8tLNRfJ3Ze9V50rdzcr2kstmMzORa1P5xYTcMH0
+ mM7TvguPfcwsfTlxwdhcgKBpH3jmdn/0zU6F2QW/TuhBu7OCNOxVG4xafWJf5sntfDfqYFsnsMf
+ qfBdpbuZHjBc++Xe3ouj3NloqygUOjqRNUL+9OAppLViwZJ7gTIdj+GPdNAZMaWJMryEXgkq0vF
+ 9OJ3l67LOxHf2cbNsq1knl/nL0zvtLSn1PpOJIGj2LEO4cXYI31y5OdasYJx2rxz1sPwlnPSkYI
+ z3Vwf5cZgZuW43aB3ciSoedCwGWIyUFOfeM0pP/jit8J5cquykgD0m3pVkxsNGmYUN/GudmOXVC
+ EdLCfgvT95TvkEYYqRg==
+X-Proofpoint-ORIG-GUID: KQ4CMWu20-lNZlM7C-p-VrPOWvkSfv79
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080040
 
-Hi Hans, Mauro,
+On Sat, Sep 26, 2026 at 12:04:07PM +0530, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>     +-----------------------------------------------------------+
+>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>     | 0x25800000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+>     | pixel stream addressable range (0 - 3.5 GB)               |
+>     | 0x00000000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+> that boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> Given that the address range restriction is for specific VPU stream, it
+> should be ideally be moved to that stream. To achieve the same, a subset
+> of streams is now represented as subnodes, so that each can be
+> associated with its respective addressable range. The design was discussed
+> and agreed by mainatiners here
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+> 
+> In the past, this limitation was addressed with an iommu-map approach,
+> with the iris driver dynamically creating the devices. That approach
+> was later concluded to be a hack to avoid having subnodes, and was NAKed
+> by the iommu maintainers. It was discussed in detail here:
+> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> 
+> The video-codec node includes address-cells, size-cells and dma-ranges
+> to declare 1:1 mapping for DMA translation to the parent.
+> 
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/hamoa.dtsi | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
 
-Here are a few fixes for 7.4.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Please pull.
-
-
-The following changes since commit ee2e9bf41d3e78b85486986cb861305576c6fe21:
-
-  media: i2c: add imx576 image sensor driver (2026-10-05 15:02:11 +0300)
-
-are available in the Git repository at:
-
-  git@ssh.gitlab.freedesktop.org:linux-media/users/sailus.git tags/fixes-7.4-1
-
-for you to fetch changes up to b51ccff3fa570c1f15cfeb67822fcc1dfef83671:
-
-  media: i2c: imx576: select VIDEO_CCS_PLL to repair build error (2026-10-07 12:22:42 +0300)
-
-----------------------------------------------------------------
-V4L2 fixes for 7.4:
-- Documentation fix in referencing glossary term
-- imx576 Kconfig dependency fix
-
-----------------------------------------------------------------
-Randy Dunlap (1):
-      media: i2c: imx576: select VIDEO_CCS_PLL to repair build error
-
-Sakari Ailus (1):
-      media: Documentation: mc: Fix Stream reference
-
- Documentation/userspace-api/media/mediactl/media-types.rst | 3 +--
- drivers/media/i2c/Kconfig                                  | 1 +
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
 -- 
-Regards,
-
-Sakari Ailus
+With best wishes
+Dmitry
