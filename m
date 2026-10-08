@@ -1,76 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4583ACF02
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E80471255;
+	Thu,  8 Oct 2026 09:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451611; cv=none; b=VKlxjhLh35aR6qY0fccDcNiLe8cQw4VHu2Y0Ntj2T23lkuc5m7xHciEPBoyFO8WAbU9jt7oZBF2DiEw6vUaHvVfVPL090x7N7MZa2ui7MF1Vw6AGzOoZT0t7Z7lRSTDNDRlg4GT36W0JkGXiTMXO1LMG/iWRo+Gktnwh0TDpRVE=
+	t=1791451681; cv=none; b=TjjNB+IEH+0cuJOsVHH7dwbJJtn7BvWq7wkk7adc7TL4QtHiDx9gIrnyceB3/YApc25/YWrBEKgGQh9M76yVEcUgt1MiIFxFZojEvly2STSlw40zUIyfT/cDNgqNiTslVP8HBTZeSEOKN94dgTHvjHmmJ66M37or81dRlB6kaE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451611; c=relaxed/simple;
-	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MLzH4mlaumbUR03Avyt+vDpPvrGL0mNWdv8sZQ+uiYE4AzhPxfinB4PLf6wvcwo3oHz+t9yV0xIcXEFifta795+AIlEnqGIoutil3mBXShPi10AOVocRGVT8RTmvA/dYEWnBfdEccqKITA40bK9L4yDOnrKrZKWmxrbB1C9GKlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjz5do9c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791451681; c=relaxed/simple;
+	bh=llXJUdyKmxtWSXVEgFD3/p0gjXfUkKwFP7tiNOLfOdA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UBDj5ec02qyBnsOCldXPNtRcpt/QFmWmjQELNSoSoe3dpqaGXwRmgGKvrlfMhD+LNC4zoQF70H9ZeT4VaEJJ1/kIE+S3Xb464XlgPzbyEeGlRdwywvElciKwKLIGqHIHcuKfuK9Kyl3bz0RIjI59/zcqevlbjn5XL8HyeTq7Phs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pfB7wU7K; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjz5do9c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815C51F008A3
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791451610;
-	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mjz5do9cqfDHvrm+G7S07/jhE6GVNePDHu+bXqvTdKUk+YIB8+NfkjYZOfMPvHPe1
-	 SHZmL8QQ4DUuoF2rZY2XEEv6l+rltbK7ZK/9GTUVpIwoqWz7xBZuncJXupRoUEmMjs
-	 nKvVLlYS1E62dlGwRCCpSqmnLZt7fGjsFn2E3eRZuwPyWVVbhD1fummMM8cvy2DEsd
-	 TCF53VHltwQx9u/Y00sj0cukczKm1wSDeFVOet1JjtEDTyH2++rh9dbjPjEPT20Xvk
-	 PhhFn7/5C5VBM8AvxzPhyHxgx7Vtm0G11uT8APuZhrzHyI2NRNdUiu8T2xkW+j8KEF
-	 4N5RAXcFbZsqw==
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-475920b9ca2so845243fac.1
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 02:26:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzwktjJRpAABcUBhknDJAlKlYryMCxuah5mxf6u9DStK9XXpf9UvPY7mTpftn5/F9by0c5NcEr0SGNhcg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kadFS/K/Gyb/Zq/BwjmKdvtEH+Wz9Tb+8BdAbWqk1bcswKU1QQ
-	5VddtYr4THTpm6MNiKo95rs1mhhb4q6hUDe+0TkaHvoZlgLibgoWDavIFBXeFzBh9vNRl7K/Z2Q
-	O95r45jpmwkzDfcR4fRJ/SZ0jPtKpzWA=
-X-Received: by 2002:a05:6871:3869:b0:49c:3eca:25ef with SMTP id
- 586e51a60fabf-4a2591d9e5dmr3983078fac.8.1791451609827; Thu, 08 Oct 2026
- 02:26:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pfB7wU7K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bw
+	/K2GqAqHkqjEAU2Ucc1Vj4qfMCmg2/XVjJ9N+9DSo=; b=pfB7wU7KpcDDb13U99
+	DCboJuYPuZrtSq5mJoOk3oqVU8J1PvCfcC2rpDUzKwMCm4JMQTjXlglNOISQIPc/
+	PPmpsE/ZRzeTHzYiF23ho/UcNrrMFIcwFZJH6OWPYsbTuI8BLuLwNtoFQiFMTEcq
+	cj5S4PfS+2m+4A0bOKSV1jxvk=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wC3logRYsdq_G0DDQ--.50376S2;
+	Thu, 08 Oct 2026 17:27:46 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] media: cx231xx: drop runt bulk packets to fix heap overflow
+Date: Thu,  8 Oct 2026 17:27:45 +0800
+Message-ID: <20261008092745.20-1-shxzhaosr@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261005072652.17-1-shxzhaosr@163.com>
+References: <20261005072652.17-1-shxzhaosr@163.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org> <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
-In-Reply-To: <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 11:26:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
-X-Gm-Features: AclHuK-KUSWV_pbziOSS0NdajQVOl_Xc-5mQYGJWfN3ER9TYzr2GWSy9oAbKNzg
-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
-Subject: Re: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wC3logRYsdq_G0DDQ--.50376S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF1DWFWrur18Cr15Kr13twb_yoW8WFyUpa
+	nIkr4UCrW7Gry7Wr1UJ3WfXFy5ua4kGas5GFWfX3WYvrn8XF1rWayfKF12gay5uFn7tasF
+	yws0qr9rKw1kA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U9BM_UUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbCxRIpZ2rHYhLP4QAA3q
 
-On Tue, Oct 6, 2026 at 1:43=E2=80=AFPM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
+cx231xx_bulk_copy() trusts urb->actual_length and immediately uses it
+in three 3-byte operations. A runt packet (actual_length < 3, which a
+malicious or faulty device can report, for example as a runt or
+zero-length bulk packet) causes a heap out-of-bounds write
+(memcpy of 3 bytes into a smaller buffer) and a u32 underflow
+(buffer_size - 3 wraps to ~4 billion), turning the following memcpys
+into wild reads/writes.
 
-> Can you please share the dependency patches or branch, as these don't
-> apply cleanly. I tried the latest 'next' and 'media/next' branches
-> with no luck.
+The bulk completion callback invokes this function for every
+successful URB without any length check, and ignores the return
+value. The sibling isoc path already skips empty packets
+(cx231xx_isoc_copy checks buffer_size > 0); the bulk path simply
+missed its guard.
 
-They are just based on a clean v7.3-rc1 from Torvalds:
-https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-integrator.git=
-/log/?h=3Db4/mali-c55-irq-supend-resume
+Drop packets shorter than the 3-byte header/tail unit before
+allocating. Lengths >= 3 keep all three memcpy ranges in bounds,
+so 3 is the exact threshold, not a heuristic.
 
-I can rebase on media/next and resend if that's desirable?
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
+---
+v2: Rebased onto media-committers next (ee2e9bf41) per the Media CI
+valid-ancestor check. Verified there: applies cleanly, checkpatch
+strict clean, cx231xx-417.o builds with and without the patch.
+ drivers/media/usb/cx231xx/cx231xx-417.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/media/usb/cx231xx/cx231xx-417.c b/drivers/media/usb/cx231xx/cx231xx-417.c
+--- a/drivers/media/usb/cx231xx/cx231xx-417.c
++++ b/drivers/media/usb/cx231xx/cx231xx-417.c
+@@ -1347,6 +1347,9 @@
+ 	p_buffer = urb->transfer_buffer;
+ 	buffer_size = urb->actual_length;
+ 
++	if (buffer_size < 3)
++		return 0;
++
+ 	buffer = kmalloc(buffer_size, GFP_ATOMIC);
+ 	if (!buffer)
+ 		return -ENOMEM;
+
