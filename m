@@ -1,136 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6604C9DE7;
-	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720384BD7B6
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 15:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472182; cv=none; b=QsL2ah4ITl6uLM1NKERUp7V9RvQ6SPkwe6O2oqo3dm9ZhhQQRgrsfihg9/l11FMaK6/GH9+uhlsjGZYjbpXtCWBJig3u+UjVyzkhw8PaSuk3X1jjxeJy3gy0PmD4vm/cngYe8Gew6/8EYTNJCC7bJ/hn2kFk3fiP5VWr7yeXr5s=
+	t=1791472613; cv=none; b=gxmnkCh309O/z3tb1+5VwmBIycq9A4I4R98I1TVoblGgtFq05fYvUCoiJXAtRql2FibNa5G3hOqnVq6PF7sTmCXnPEOQfKD3SRs61V+U5ypHQrQR588b9rU/55lQBDlbZ8axbIKgfDP85gtLrXBxf7q1mwC+0kv8XeCssnXuIMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472182; c=relaxed/simple;
-	bh=tHtcz3IQH5dzIGfvFBX75bWxYr6B1a7IaiKSGWt7pIA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z4gwJZVXuRt8IvHBpiK1VPeTiTMq1us0zo8mWJvbrfyhT8Nhj7jswB/BLDw3Nadz9jp9WB9TCkBOB670A24ksnX7tpS2S+jli7CQZh2gTfxLXe87cGyhrq41JpyoA/cafBC6HgMrLAJHFKiJ34kgBPRJakCC7qfnO5F24KIhZdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FzuH0tZA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791472613; c=relaxed/simple;
+	bh=ZTBqoYhGDm+J/pFaw0Ch+MdV1zAK5Ys8DujDZL9Y4RY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZP0gst2KeSh+Q2TwIsz6OKvHDBRGhmZmd+0xaHW3Y3exmXr24lydggF2VrvAIvP96+PqadLTFoXAymuqkPHlwoLOkeX9+aHtAetwx4yj2SVJ4nK0r4fC+mfPM1Q9zjjlm1C6UWwiY+J5tYJk1pyLjHpD92NE+jNYMvGBA/ckfSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ipot0wNf; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FzuH0tZA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 25EEFC2BCF5;
-	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791472182;
-	bh=tHtcz3IQH5dzIGfvFBX75bWxYr6B1a7IaiKSGWt7pIA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=FzuH0tZAURDkIp6BuYinYV5glWUitOfpdmW1MjQ9vbOtf9uug5xa7D/cZAJIPH1hG
-	 4bTI1TgtpuI0QpWUJx6c0rdTeSlpdF7xGoz9Uy2081fYOc3LY55hOWMlrQrB7TeYw8
-	 mo8f1WusU27BHoTOfz6kbWxRF8EoCM4NrUnJiedK0muEu70VXnUXD8kyNgqW71mQ3n
-	 PvnirgF/D23vkvpGG8Tds8xDF0CoPux+kDXpseTPHAgDgMqHZasxhvKqzvGCdHcewF
-	 Fc3FjcetP4ykPt5fJDXHGio+CyH0HrPTPt5jr8n8HZUWS7OOF3Xw1FKQlZEU/aU4az
-	 jgLAtNGmVZsbQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FDB1CA600C;
-	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
-From: Praveen Puglia via B4 Relay <devnull+praveenpuglia.gmail.com@kernel.org>
-Date: Thu, 08 Oct 2026 20:39:37 +0530
-Subject: [PATCH] media: i2c: cvs: Leave the privacy LED to firmware on
- Synaptics SVP7xxx
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ipot0wNf"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6acbdbc1725so7721709a12.3
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 08:16:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791472607; x=1792077407; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l6I4Ey1RdgYWJmoD601d9WiKcqtmCdqt9tXemaY6tL0=;
+        b=ipot0wNf3Qv6pjAOTaGMAyNNVONQFoAhpm71v1k/rcIJ0Oqn+6gY0w2plpdjWjBdEW
+         bqe+QNDBPPgKjS2Yid4mdrLpVmx2JufklxPaKisdRl/8BtWxf4VYZP+ojxhlLMLRWkHM
+         CKDlzG0T09TW/tjpPz1gyYcis8Sl1PsH1VuQj5wK7b9Bpp3KI+q+sQsd3vsMVZ/lo2El
+         jRDlTop7xKMXGg+XHpquOYoJjhTRZBImdF5qHeumbAYSP0rIB0QCXOH9Cilh+MHtSrGS
+         bdtOPUUdL8MERSNMoMUcCStrNnAXwGPMj2hc1VTNk1U8nwbG/psoJH0ZVaRdA68duTiD
+         6Kuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791472607; x=1792077407;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l6I4Ey1RdgYWJmoD601d9WiKcqtmCdqt9tXemaY6tL0=;
+        b=Ea6rWtigjbIbdUWVrbU3UcFjCHhs3wAHz3vF9FQBT3+UAAj6JpbhvqBJpGkiZi96oC
+         LhkFAHdLGCfO+KihYxbAwysDXRiBOu+rf+jAWlCsqG9H4qsAJ2mE8GKhEHmj+9DyVaFV
+         6MmHNk4G9UzKNxUZCTfcRCfx2K63gEMMMzAKRQt2Ivl5KFbUa5XhfpMQ54aP3VzB2R3h
+         W7WCgIjSeJNJLCZsE+XgFS97QUgFGxCnNv4+BZdfq0oLfmH+HNvAuJB4OH1ZkEJEI/Hi
+         8eRUWHoxrVXA/xFEjLhhyDO00q73NdOj+o58EMKti2SCIfvoXgCLNfP8PYfJK0qaHpdP
+         YXyA==
+X-Gm-Message-State: AFuF++nJ4fj9/xJ0MumJ/M7Y5xxlzeCPSshIwmfHsYeu/ZI37K3nKkzY
+	lI7zXpChuM5zxwALVq/6o6y5Dfs9Nms2c6Us2ugxjvzRatqsipzum0SYC3+2DaCRl6I=
+X-Gm-Gg: AYBFou3mOnttVcJDXTQu70DoWS+Qu7dXGeu55ZPbfCuvgbCH/Vu3Icy33B6CbNijh3e
+	ZcxgJxcCRadpmvfS2pyY6yZpMZWQxyNHdjRaaRohIMORrAkMk+UcV41R/Us/oXxhWBLaDngs2d8
+	mKekjnZX6GWgveHSwo3AY+NIf554/OwLbhPHiOJn7dhN0hQAUQt0NEtn/JVFMeEyd4swAN3dUSF
+	Zq8vRLV9qoYWWsavsO5Zv4fK0F0LwBJhMXtAHvpGq7O4Ul0GYEuEVbHolxHns+Xwi6X0ZrD9Rve
+	6Ap1q/CRQO9j9RPmJNjYIctKZjoMovgRs78LNel2rJ0cFvAXmspvWt798Vb2hV+5uMDxoRWuInH
+	2kINEvzjMV50tBbjPpnkkbc/mk6u/cjAhmAgWlmh5FoYy25xnCbIywmDiYKo+YhP29+1BR7gbf8
+	FEmlG3pCw3Bi7VDwbkEgi/cVD7ZTjNWNFAJKO/6wPqfnyVRe8kuvsmAVPgSRTmWNwQ8VKp66ui1
+	cMtK+UVJJVj
+X-Received: by 2002:a17:907:3ea6:b0:c26:19e3:e982 with SMTP id a640c23a62f3a-c317c0bb076mr560631666b.34.1791472607404;
+        Thu, 08 Oct 2026 08:16:47 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.203.235])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a1012ab2sm10963766b.85.2026.10.08.08.16.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 08:16:46 -0700 (PDT)
+Message-ID: <a0a9a782-8ab4-4f32-97fd-f030203fbc49@linaro.org>
+Date: Thu, 8 Oct 2026 16:16:45 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQg4yuEi1CxxoIkxGkkO6et
- HyL/ytkEqYMc1dBqHDmKzbovgN3bHEnZN8MRplRKzWhKxmTcNncgyd5tF4FMxjrBh2gVUko8P0
- fl/V9P+1l4LBhAAAA
-X-Change-ID: 20261008-cvs-privacy-led-7d0f2327c31f
-To: Miguel Vadillo <miguel.vadillo@intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mehdi Djait <mehdi.djait@linux.intel.com>
-Cc: Marco Nenciarini <mnencia@kcore.it>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Praveen Puglia <praveenpuglia@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2309;
- i=praveenpuglia@gmail.com; h=from:subject:message-id;
- bh=HkOKW4kz9V77Mdvv3KELVLj5WUPOFOQXjEg6NNQFd4c=;
- b=owEBbQKS/ZANAwAKAY+nnsgxDLtBAcsmYgBqx7I0EjPpdtqo3fOlsDpQ/25VU/sHYrU9C62GA
- d9yuk5KIjyJAjMEAAEKAB0WIQQFOQz1fOStysPMknmPp57IMQy7QQUCaseyNAAKCRCPp57IMQy7
- QeZ7D/9A0UIBEfVNj5qNGFmEqbgQ3jjVB+0DkgqHFJ/mGb2ytLTE2vhZRdOcaKquBL8U3KzV3Sd
- pmst/g/+KIAWtPBJbQz40P7TsZtToOsZ9pwMJQtgI++BSBdhQ9dg6rCcEAevDxiqgHcmuB5JDst
- jsr6LMZCtcx9Vmzn4Wmj5bZIIRbXirGuK6yBx/bl6xoYSlBr8t5BAB9g9NTTqRmbTlAEBUZdmRZ
- tXZkUOIrBzfqQbjVVtXzsz3XGopcIXCeZ3efwsNH/KDboHONlhtgPCcvOuNnKXbfjXxdwo+cmcU
- DPWpP1KcuIOcrM/6bR+nZQQ/VwcF9g8KiC92Ae+YpI83jKSL8xRxWZGWHKC6zKcLJNVTLcNfUmq
- /2SO3Ip7bTDGaG8cYGvw5x+nWOSu2V8F/yIkwln002qwaUdBl8Q0FnCFmvEHmpcboG8nw8DcJw2
- XCBqHvc1AhxhgrHuqLhgPqiaNmoSww3F+HmSlPzsbNeuvs+pwKdS8TyZEVPsUYYhP4gjTK+mx1a
- iEOJM3UxAfFM9CzmsEl8/GxuiwrPZTUkU902VDWulWmQNxurlbA1UbTIFEURLQ6IiEApASVDZAv
- ZQgoDyWdsY8LT+aAez3PB86TZc3hXLRmt45ODdg005q0IfYZVokqzC4+C7RoEr6QlCbP8oRRXVb
- be9diTGXhgKLQKg==
-X-Developer-Key: i=praveenpuglia@gmail.com; a=openpgp;
- fpr=05390CF57CE4ADCAC3CC92798FA79EC8310CBB41
-X-Endpoint-Received: by B4 Relay for praveenpuglia@gmail.com/default with
- auth_id=1134
-X-Original-From: Praveen Puglia <praveenpuglia@gmail.com>
-Reply-To: praveenpuglia@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 25/74] media: qcom: camss: vfe: Define output based VFE
+ controls
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-25-ed985aefd611@kernel.org>
+ <307f12f9-8805-4b3c-92d7-422d994fdeff@oss.qualcomm.com>
+ <0d1c5d19-68f8-4d44-9efd-f7d1aeaa7b32@linaro.org>
+ <5e19888d-d037-41e8-a3ca-f92d9991f3d5@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <5e19888d-d037-41e8-a3ca-f92d9991f3d5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Praveen Puglia <praveenpuglia@gmail.com>
+On 08/10/2026 12:35, Gjorgji Rosikopulos (Consultant) wrote:
+> Hi Bryan,
+> 
+> On 10/8/2026 2:17 PM, Bryan O'Donoghue wrote:
+>> On 08/10/2026 06:55, Gjorgji Rosikopulos (Consultant) wrote:
+>>>> +
+>>>> +	/* Output based API - new and shiny */
+>>>> +	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
+>>>> +	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
+>>>> +	void (*vfe_output_buf_done)(struct vfe_device *vfe, struct vfe_output *output);
+>>>> +	void (*vfe_output_update)(struct vfe_device *vfe, struct vfe_output *output,
+>>>> +				  struct camss_buffer *buf);
+>>>> +
+>>> This also deserves good commit message, this is exact copy of the other RDI API with other arguments 🙂 Shall we migrate
+>>> all existing drivers to this api in respect to use other deprecated API but having both of them leave in vfe file which
+>>> creates even more confusion and readability of the code?
+>> Ah but that's the point.
+>>
+>> You add in a parallel API which is 1:1 but which can be extended to
+>> describe completion groups not WM indexes.
+>>
+>> WM indexes have always been wrong - limited to RDI and we have all sorts
+>> of spaghetti code to work around that indexing mismatch.
+>>
+>> The fix is to stop doing that so yes, implement output / bus-client /
+>> completion group - with wm and planes described in the output layer and
+>> then move everything to that new interface.
+>>
+>> Including new submissions. The only real barrier is finding old
+>> hardware, making the changes and ensuring nothing breaks.
+>>
+>> Since there's no DT dependency its "just software" - easy.
+> You are maintainer and responsible of the code. But i also want to make the point
+> again (which i think others may share) that having one vfe core code which is trying to support
+> different architectures of the ISP's which are quite different is not correct, it is match easier
+> to have different implementations based on ISP generation (different sub-device) and abstract some
+> handlers which are shared. As of today camss vfe have mixed interfaces try to match multiple
+> generations in one implementation. So that said i will not be convinced that the direction
+> which camss is moving is good. However we need to live with it and add support as you are
+> proposing, so all is good lets wait those changes to be cleanup and we will start re-basing.
 
-The Synaptics SVP7xxx (06cb:0701) quirk sets ICVS_HOST_PRIV_CTRL, so
-SET_DEV_HOST_ID tells the CVS firmware that the host owns the privacy
-LED. Nothing in the driver drives it, though: V4L2_CID_PRIVACY is a
-read-only placeholder. The firmware then never turns the LED on and the
-camera streams with the LED off.
+Well for me its about sustainability and paying down technical debt.
 
-The host has no way to drive it on these machines either. On the Dell
-Pro Max 16 Premium (MA16250) the only camera LED that INT3472 exposes
-is the IR flood LED. The out-of-tree Intel vision driver sends
-privacy_led_host = 0 for this bridge, and the LED works there.
+RDI as WM indexes is just wrong and I firmly subscribe to Joel Spolsky's 
+edict "fix bugs before writing new code".
 
-Drop ICVS_HOST_PRIV_CTRL from the quirk (quirks 0x7a -> 0x3a). The LED
-now turns on while streaming and the stream is unaffected.
+https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/
 
-Tested on a Dell Pro Max 16 Premium (MA16250) with v7.2.8.
+The WM/RDI indexing is absolutely a bug - a design bug - that's just 
+been a 'baked in' thing that's been repeated over and over again it 
+hasn't mattered while we've been RDI only but, that won't do now.
 
-Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
-Cc: stable@vger.kernel.org
-Link: https://github.com/intel/ipu6-drivers/issues/417
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Praveen Puglia <praveenpuglia@gmail.com>
+Its also why I've been so dogmatic about insisting on drivers/phy to 
+represent the PHY - its a PHY, so make it a PHY; anything else is a 
+design bug.
+
+So from that principle the logical result is fix the representations - 
+not implement something else in parallel - we should be able to resue 
+existing proven code as much as possible - it also keeps us more honest 
+WRT to maintaining the user-space contract re: interface stability.
+
+€0.02
+
+To your point about different versions of the VFE that may be true but 
+at least for the bit in front of me right now I don't see the need for 
+different version of the VFE core.
+
 ---
-This is my first kernel patch. I found and debugged this with an AI
-assistant (Claude), then verified it myself on the laptop: quirks read
-0x3a, the LED turns on and off with streaming, and the stream is
-unchanged. Tested as a rebuilt module on Fedora's v7.2.8, not on
-v7.3-rc.
-
-Marco Nenciarini reproduced this on the same laptop with Debian and
-v7.2.6, and found no host-controlled privacy LED pin in the DSDT/SSDTs:
-https://github.com/intel/ipu6-drivers/issues/417#issuecomment-5996738346
----
- drivers/media/i2c/cvs/core.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
-index d4a3b9c3ba..3520325717 100644
---- a/drivers/media/i2c/cvs/core.c
-+++ b/drivers/media/i2c/cvs/core.c
-@@ -72,7 +72,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
- 	},	/* Lattice NX33 */
- 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
- 			  ICVS_HOST_SENSOR_PWR_CTRL |
--			  ICVS_HOST_PRIV_CTRL |
- 			  ICVS_FW_BUF_SIZE_256 |
- 			  ICVS_FW_HEADER_SIZE_256
- 	},	/* Synaptics SVP7xxx */
-
----
-base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
-change-id: 20261008-cvs-privacy-led-7d0f2327c31f
-
-Best regards,
--- 
-Praveen Puglia <praveenpuglia@gmail.com>
-
-
+bod
